@@ -129,13 +129,16 @@ theorem groundState_energy_ge {a : ℝ} {g : ℝ → ℝ} (hgs : IsGroundState a
 
 /-! ## The chain for ground states -/
 
-theorem Probe.intervalIntegrable {a : ℝ} {g : ℝ → ℝ} (hadm : Probe a g) :
-    IntervalIntegrable g volume (-a) a := by
-  have h2 : MemLp g 2 (volume.restrict (Set.uIoc (-a) a)) := hadm.memL2.restrict _
-  have : IsFiniteMeasure (volume.restrict (Set.uIoc (-a) a)) :=
+theorem memLp_intervalIntegrable {g : ℝ → ℝ} (hg : MemLp g 2 volume) (α β : ℝ) :
+    IntervalIntegrable g volume α β := by
+  have h2 : MemLp g 2 (volume.restrict (Set.uIoc α β)) := hg.restrict _
+  have : IsFiniteMeasure (volume.restrict (Set.uIoc α β)) :=
     isFiniteMeasure_restrict.2 (by simp [Set.uIoc])
-  have h1 : Integrable g (volume.restrict (Set.uIoc (-a) a)) := h2.integrable (by norm_num)
-  exact (intervalIntegrable_iff).2 h1
+  exact (intervalIntegrable_iff).2 (h2.integrable (by norm_num))
+
+theorem Probe.intervalIntegrable {a : ℝ} {g : ℝ → ℝ} (hadm : Probe a g) :
+    IntervalIntegrable g volume (-a) a :=
+  memLp_intervalIntegrable hadm.memL2 _ _
 
 /-- **Roadmap item 1 ⇒ `RiemannHypothesis`, for the ground states of Weil's form.** Let `g_n` be a
 ground state of `Q` at support `2a_n`, with `∫g_n ≠ 0`. If `ĝ_n` is real-rooted, satisfies dodging D

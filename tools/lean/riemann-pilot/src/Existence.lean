@@ -20,17 +20,21 @@ namespace Pilot1ca
 
 /-! ## The shift distance -/
 
-theorem integrable_mul_shift {g : ℝ → ℝ} (hg : MemLp g 2 volume) (s : ℝ) :
-    Integrable (fun t => g t * g (t + s)) := by
-  have hI : Integrable (fun t => g t ^ 2) := hg.integrable_sq
-  have hJ : Integrable (fun t => g (t + s) ^ 2) := hI.comp_add_right s
-  have hm : AEStronglyMeasurable (fun t => g t * g (t + s)) volume :=
-    hg.aestronglyMeasurable.mul
-      (hg.aestronglyMeasurable.comp_measurePreserving (measurePreserving_add_right volume s))
+theorem integrable_mul_shift₂ {f h : ℝ → ℝ} (hf : MemLp f 2 volume) (hh : MemLp h 2 volume)
+    (u : ℝ) : Integrable (fun t => f t * h (t + u)) := by
+  have hI : Integrable (fun t => f t ^ 2) := hf.integrable_sq
+  have hJ : Integrable (fun t => h (t + u) ^ 2) := hh.integrable_sq.comp_add_right u
+  have hm : AEStronglyMeasurable (fun t => f t * h (t + u)) volume :=
+    hf.aestronglyMeasurable.mul
+      (hh.aestronglyMeasurable.comp_measurePreserving (measurePreserving_add_right volume u))
   refine ((hI.add hJ).div_const 2).mono' hm (Eventually.of_forall fun t => ?_)
-  show ‖g t * g (t + s)‖ ≤ (g t ^ 2 + g (t + s) ^ 2) / 2
+  show ‖f t * h (t + u)‖ ≤ (f t ^ 2 + h (t + u) ^ 2) / 2
   rw [Real.norm_eq_abs, abs_le]
-  constructor <;> nlinarith [sq_nonneg (g t - g (t + s)), sq_nonneg (g t + g (t + s))]
+  constructor <;> nlinarith [sq_nonneg (f t - h (t + u)), sq_nonneg (f t + h (t + u))]
+
+theorem integrable_mul_shift {g : ℝ → ℝ} (hg : MemLp g 2 volume) (s : ℝ) :
+    Integrable (fun t => g t * g (t + s)) :=
+  integrable_mul_shift₂ hg hg s
 
 /-- **`‖g − g(· + s)‖² = 2(f(0) − f(s))`**. -/
 theorem normSq_sub_shift {g : ℝ → ℝ} (hg : MemLp g 2 volume) (s : ℝ) :
@@ -72,13 +76,6 @@ theorem fourierCoeffOn_eq_cf {a : ℝ} (ha : 0 < a) (g : ℝ → ℝ) (n : ℤ) 
   congr 2
   ring
 
-theorem memLp_intervalIntegrable {g : ℝ → ℝ} (hg : MemLp g 2 volume) (α β : ℝ) :
-    IntervalIntegrable g volume α β := by
-  have h2 : MemLp g 2 (volume.restrict (Set.uIoc α β)) := hg.restrict _
-  have : IsFiniteMeasure (volume.restrict (Set.uIoc α β)) :=
-    isFiniteMeasure_restrict.2 (by simp [Set.uIoc])
-  exact (intervalIntegrable_iff).2 (h2.integrable (by norm_num))
-
 /-- Functions vanishing outside `[−r, r]`: the integral over any interval containing it. -/
 theorem integral_eq_of_supp {f : ℝ → ℂ} {r α β : ℝ} (hsupp : ∀ u, r < |u| → f u = 0)
     (hα : α < -r) (hβ : r < β) : (∫ x in α..β, f x) = ∫ x, f x := by
@@ -111,23 +108,23 @@ theorem hasSum_cf_sq {a r : ℝ} (ha : 0 < a) (hr : r < 2 * a) {g : ℝ → ℝ}
       (fun u hu => by rw [hs2 u hu]; simp) (by linarith) (by linarith)
   exact_mod_cast key.symm
 
-/-- **A shift multiplies the coefficients by a phase**, for `g` vanishing outside `[−a, a]` and
-`|s| < a`. -/
-theorem cf_shift {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hsupp : ∀ u, a < |u| → g u = 0) {s : ℝ}
-    (hs : |s| < a) (n : ℤ) :
-    cf a (fun t => g (t + s)) n = Complex.exp (2 * π * I * n * s / (4 * a)) * cf a g n := by
+/-- **A shift multiplies the coefficients by a phase**, for `g` vanishing outside `[−r, r]` and
+`r + |s| < 2A`. -/
+theorem cf_shift' {A r : ℝ} {g : ℝ → ℝ} (hsupp : ∀ u, r < |u| → g u = 0) {s : ℝ}
+    (hr : r < 2 * A) (hs : r + |s| < 2 * A) (n : ℤ) :
+    cf A (fun t => g (t + s)) n = Complex.exp (2 * π * I * n * s / (4 * A)) * cf A g n := by
   unfold cf
-  set E : ℝ → ℂ := fun t => Complex.exp (-(2 * π * I * n * t / (4 * a))) with hE
-  show (1 / (4 * a) : ℂ) * (∫ t in (-(2 * a))..(2 * a), E t * ((g (t + s) : ℝ) : ℂ))
-    = Complex.exp (2 * π * I * n * s / (4 * a))
-      * ((1 / (4 * a) : ℂ) * ∫ t in (-(2 * a))..(2 * a), E t * ((g t : ℝ) : ℂ))
-  have h1 : (∫ t in (-(2 * a))..(2 * a), E t * ((g (t + s) : ℝ) : ℂ))
-      = ∫ x in (-(2 * a) + s)..(2 * a + s), E (x - s) * ((g x : ℝ) : ℂ) := by
+  set E : ℝ → ℂ := fun t => Complex.exp (-(2 * π * I * n * t / (4 * A))) with hE
+  show (1 / (4 * A) : ℂ) * (∫ t in (-(2 * A))..(2 * A), E t * ((g (t + s) : ℝ) : ℂ))
+    = Complex.exp (2 * π * I * n * s / (4 * A))
+      * ((1 / (4 * A) : ℂ) * ∫ t in (-(2 * A))..(2 * A), E t * ((g t : ℝ) : ℂ))
+  have h1 : (∫ t in (-(2 * A))..(2 * A), E t * ((g (t + s) : ℝ) : ℂ))
+      = ∫ x in (-(2 * A) + s)..(2 * A + s), E (x - s) * ((g x : ℝ) : ℂ) := by
     rw [← intervalIntegral.integral_comp_add_right (fun x => E (x - s) * ((g x : ℝ) : ℂ)) s]
     simp only [add_sub_cancel_right]
-  have hEs : ∀ x, E (x - s) = Complex.exp (2 * π * I * n * s / (4 * a)) * E x := by
+  have hEs : ∀ x, E (x - s) = Complex.exp (2 * π * I * n * s / (4 * A)) * E x := by
     intro x; simp only [hE]; rw [← Complex.exp_add]; congr 1; push_cast; ring
-  have hsuppC : ∀ u, a < |u| → E u * ((g u : ℝ) : ℂ) = 0 := fun u hu => by
+  have hsuppC : ∀ u, r < |u| → E u * ((g u : ℝ) : ℂ) = 0 := fun u hu => by
     rw [hsupp u hu]; simp
   have hs1 := le_abs_self s
   have hs2 := neg_abs_le s
@@ -137,6 +134,11 @@ theorem cf_shift {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hsupp : ∀ u, a < |u
     integral_eq_of_supp hsuppC (by linarith) (by linarith),
     integral_eq_of_supp hsuppC (by linarith) (by linarith)]
   ring
+
+theorem cf_shift {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hsupp : ∀ u, a < |u| → g u = 0) {s : ℝ}
+    (hs : |s| < a) (n : ℤ) :
+    cf a (fun t => g (t + s)) n = Complex.exp (2 * π * I * n * s / (4 * a)) * cf a g n :=
+  cf_shift' hsupp (by linarith) (by linarith) n
 
 theorem cf_sub {a : ℝ} {g₁ g₂ : ℝ → ℝ} (h₁ : IntervalIntegrable g₁ volume (-(2 * a)) (2 * a))
     (h₂ : IntervalIntegrable g₂ volume (-(2 * a)) (2 * a)) (n : ℤ) :
@@ -166,35 +168,42 @@ theorem norm_one_sub_exp_sq (θ : ℝ) : ‖1 - Complex.exp (θ * I)‖ ^ 2 = 2 
     Complex.one_im, Complex.exp_ofReal_mul_I_im]
   linear_combination Real.sin_sq_add_cos_sq θ
 
-/-- **Parseval for `g − g(· + s)`**: `Σ|c_n|²(2 − 2cos(2πns/4a)) = (4a)⁻¹·2(f(0) − f(s))`. -/
-theorem hasSum_shift {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) {s : ℝ} (hs : |s| < a) :
-    HasSum (fun n : ℤ => ‖cf a g n‖ ^ 2 * (2 - 2 * Real.cos (2 * π * n * s / (4 * a))))
-      ((4 * a)⁻¹ * (2 * (autocorr g 0 - autocorr g s))) := by
+/-- **Parseval for `g − g(· + s)`**: `Σ|c_n|²(2 − 2cos(2πns/4A)) = (4A)⁻¹·2(f(0) − f(s))`, for `g`
+vanishing outside `[−r, r]` and `r + |s| < 2A`. -/
+theorem hasSum_shift' {A r : ℝ} (hA : 0 < A) {g : ℝ → ℝ} (hg : MemLp g 2 volume)
+    (hsupp : ∀ u, r < |u| → g u = 0) {s : ℝ} (hs : r + |s| < 2 * A) :
+    HasSum (fun n : ℤ => ‖cf A g n‖ ^ 2 * (2 - 2 * Real.cos (2 * π * n * s / (4 * A))))
+      ((4 * A)⁻¹ * (2 * (autocorr g 0 - autocorr g s))) := by
   have hgs : MemLp (fun t => g (t + s)) 2 volume :=
-    hp.memL2.comp_measurePreserving (measurePreserving_add_right volume s)
-  have hmem : MemLp (fun t => g t - g (t + s)) 2 volume := hp.memL2.sub hgs
-  have hsupp : ∀ u, a + |s| < |u| → g u - g (u + s) = 0 := by
+    hg.comp_measurePreserving (measurePreserving_add_right volume s)
+  have hmem : MemLp (fun t => g t - g (t + s)) 2 volume := hg.sub hgs
+  have hsupp2 : ∀ u, r + |s| < |u| → g u - g (u + s) = 0 := by
     intro u hu
-    have h1 : a < |u| := by linarith [abs_nonneg s]
-    have h2 : a < |u + s| := by
+    have h1 : r < |u| := by linarith [abs_nonneg s]
+    have h2 : r < |u + s| := by
       have : |u| ≤ |u + s| + |s| := by
         have := abs_sub (u + s) s
         rwa [add_sub_cancel_right] at this
       linarith
-    rw [hp.supp u h1, hp.supp _ h2, sub_self]
-  have hP := hasSum_cf_sq ha (by linarith) hmem hsupp
-  rw [normSq_sub_shift hp.memL2 s] at hP
+    rw [hsupp u h1, hsupp _ h2, sub_self]
+  have hP := hasSum_cf_sq hA hs hmem hsupp2
+  rw [normSq_sub_shift hg s] at hP
   convert hP using 1
   funext n
-  have hlin : cf a (fun t => g t - g (t + s)) n
-      = cf a g n * (1 - Complex.exp (((2 * π * n * s / (4 * a) : ℝ) : ℂ) * I)) := by
-    rw [cf_sub (memLp_intervalIntegrable hp.memL2 _ _) (memLp_intervalIntegrable hgs _ _),
-      cf_shift ha hp.supp hs n]
-    have : Complex.exp (2 * π * I * n * s / (4 * a))
-        = Complex.exp (((2 * π * n * s / (4 * a) : ℝ) : ℂ) * I) := by
+  have hlin : cf A (fun t => g t - g (t + s)) n
+      = cf A g n * (1 - Complex.exp (((2 * π * n * s / (4 * A) : ℝ) : ℂ) * I)) := by
+    rw [cf_sub (memLp_intervalIntegrable hg _ _) (memLp_intervalIntegrable hgs _ _),
+      cf_shift' hsupp (by linarith [abs_nonneg s]) hs n]
+    have : Complex.exp (2 * π * I * n * s / (4 * A))
+        = Complex.exp (((2 * π * n * s / (4 * A) : ℝ) : ℂ) * I) := by
       congr 1; push_cast; ring
     rw [this]; ring
   rw [hlin, norm_mul, mul_pow, norm_one_sub_exp_sq]
+
+theorem hasSum_shift {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) {s : ℝ} (hs : |s| < a) :
+    HasSum (fun n : ℤ => ‖cf a g n‖ ^ 2 * (2 - 2 * Real.cos (2 * π * n * s / (4 * a))))
+      ((4 * a)⁻¹ * (2 * (autocorr g 0 - autocorr g s))) :=
+  hasSum_shift' ha hp.memL2 hp.supp (by linarith)
 
 /-! ## The archimedean kernel near `0` -/
 

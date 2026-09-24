@@ -11,7 +11,8 @@ values of `ω²` (`card_offcross_le_even`); for `m ≤ 2` there are none (`zeros
 Hurwitz carries the count to the limit: under (a) with eventually `dim V ≤ M`, `Ξ` has at most
 `2⌊(M − 1)/2⌋` off-cross values of `z²` (`xi_offcross_card_le`) and `ζ` at most `2⌊(M − 1)/2⌋`
 nontrivial zeros with `Re s > ½` (`zeta_offline_card_le`). For `M ≤ 2` this is RH
-(`rh_of_dim_le_two`); eventual simplicity is the case `M = 1` (`rh_of_eventually_simple'`).
+(`rh_of_dim_le_two`); eventual simplicity is the case `M = 1` (`gdim_le_one_of_simple`), which
+recovers `rh_of_eventually_simple` (SwapRealize.lean) by a second route.
 -/
 
 open Real Filter Topology Complex MeasureTheory Set
@@ -72,21 +73,6 @@ theorem card_offcross_le {a : ℝ} (ha : 0 < a) {v : ℝ → ℝ} (hv : v ∈ gr
     _ ≤ Pv.roots.card := Multiset.toFinset_card_le _
     _ ≤ Pv.natDegree := Polynomial.card_roots' _
     _ ≤ gdim a - 1 := polyOf_natDegree_le _
-
-/-! ## Conjugate parity -/
-
-/-- `ĝ(z̄) = conj ĝ(z)` for a real even square-integrable `g`. -/
-theorem ghatC_conj {f : ℝ → ℝ} (hf : MemLp f 2 volume) (heven : ∀ u, f (-u) = f u) {a : ℝ}
-    (ha : 0 ≤ a) (z : ℂ) : ghatC f a ((starRingEnd ℂ) z) = (starRingEnd ℂ) (ghatC f a z) := by
-  have : (starRingEnd ℂ) (ghatC f a z) = ghatC f a (-((starRingEnd ℂ) z)) := by
-    unfold ghatC
-    rw [intervalIntegral.integral_of_le (by linarith), intervalIntegral.integral_of_le (by linarith),
-      ← integral_conj]
-    congr 1; funext u
-    rw [map_mul, Complex.conj_ofReal, ← Complex.exp_conj, map_mul, map_mul, Complex.conj_I,
-      Complex.conj_ofReal]
-    congr 2; ring
-  rw [this, ghatC_neg_of_even hf heven]
 
 /-- A finite set of non-real numbers closed under conjugation has even cardinality. -/
 theorem card_even_of_conj (S : Finset ℂ) (hcl : ∀ σ ∈ S, (starRingEnd ℂ) σ ∈ S)
@@ -335,13 +321,6 @@ theorem rh_of_dim_le_two {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} (ha : ∀ n
   · left; linarith
   · right; exact h
 
-/-- The simple case is the special case `m = 1`. -/
-theorem rh_of_eventually_simple' {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} (ha : ∀ n, 0 < a n)
-    (hgs : ∀ n, IsGroundState (a n) (g n)) (hsimple : ∀ᶠ n in atTop, SimpleGround (a n) (g n))
-    (hconv : HypConv a g) : RiemannHypothesis :=
-  rh_of_dim_le_two ha hgs (hsimple.mono fun n hs => (gdim_le_one_of_simple (ha n) hs).trans (by norm_num))
-    hconv
-
 end Pilot1ca
 
 #print axioms Pilot1ca.card_offcross_le
@@ -349,7 +328,6 @@ end Pilot1ca
 #print axioms Pilot1ca.zeros_cross_of_dim_le_two
 #print axioms Pilot1ca.gdim_le_one_of_simple
 #print axioms Pilot1ca.rh_of_dim_le_two
-#print axioms Pilot1ca.rh_of_eventually_simple'
 #print axioms Pilot1ca.hurwitz_attract
 #print axioms Pilot1ca.xi_offcross_card_le
 #print axioms Pilot1ca.zeta_offline_card_le

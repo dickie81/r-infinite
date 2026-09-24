@@ -47,24 +47,8 @@ theorem lam_le_trial {a : ℝ} (ha : 0 < a) {φ ψ : ℝ → ℝ} (hφ : IsGroun
     lam a * (poleR φ a ^ 2 + poleR ψ a ^ 2)
       ≤ weilQ0 a ψ * poleR φ a ^ 2 + lam0 a * poleR ψ a ^ 2 := by
   have hc₁ := poleR_ne_zero_of_groundState0 ha hφ
-  set s := -(poleR ψ a / poleR φ a)
-  have hf := probe_add_smul hψ hφ.1 s
-  have hpole : poleR (fun t => ψ t + s * φ t) a = 0 := by
-    rw [poleR_add hψ.memL2 (hφ.1.memL2.const_mul s) a, poleR_smul]
-    simp only [s]; field_simp; ring
-  have hB : bil0 a ψ φ = 0 := by
-    rw [bil0_comm, euler_lagrange0 ha hφ hψ, xcorr_comm, hx, mul_zero]
-  have hQf : weilQ a (fun t => ψ t + s * φ t) = weilQ0 a ψ + s ^ 2 * lam0 a := by
-    have : weilQ a (fun t => ψ t + s * φ t) = weilQ0 a (fun t => ψ t + s * φ t) := by
-      unfold weilQ0; rw [hpole]; ring
-    rw [this, weilQ0_add_smul hψ hφ.1, hB]
-    have hq0 : weilQ0 a φ = lam0 a := by
-      have := ((isGroundState0_iff ha).1 hφ).1.2; rw [this, hφ.2.1, mul_one]
-    rw [hq0]; ring
-  have hNf : normSq (fun t => ψ t + s * φ t) = 1 + s ^ 2 := by
-    rw [normSq_add_smul hψ.memL2 hφ.1.memL2, hn, hx, hφ.2.1]; ring
-  have h := lam_mul_le hf
-  rw [hQf, hNf] at h
+  have h := lam_le_perp_trial ha hφ hc₁ hψ hn hx
+  set s := poleR ψ a / poleR φ a
   have hc2 : 0 < poleR φ a ^ 2 := by positivity
   have hs2 : s ^ 2 * poleR φ a ^ 2 = poleR ψ a ^ 2 := by
     simp only [s]; field_simp

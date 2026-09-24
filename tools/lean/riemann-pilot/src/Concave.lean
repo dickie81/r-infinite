@@ -62,12 +62,6 @@ theorem concave_pos (hc : ConcaveOn ℝ (Ioo (-a) a) g) (hev : ∀ t, g (-t) = g
   have := hnn a' ha'
   nlinarith
 
-theorem concave_ge_end (hc : ConcaveOn ℝ (Ioo (-a) a) g) (hev : ∀ t, g (-t) = g t) {b : ℝ}
-    (hb0 : 0 ≤ b) (hba : b < a) {t : ℝ} (ht : |t| ≤ b) : g b ≤ g t := by
-  have hm := hc.min_le_of_mem_segment (x := -b) (y := b) (z := t) ⟨by linarith, by linarith⟩
-    ⟨by linarith, hba⟩ (by rw [segment_eq_Icc (by linarith)]; exact abs_le.1 ht)
-  rwa [hev, min_self] at hm
-
 /-! ## The right derivative `h = −g'₊` -/
 
 /-- `h(x) = −g'(x+)`, the right derivative of the convex function `−g`. -/
@@ -95,11 +89,6 @@ theorem negRD_zero_nonneg (hc : ConcaveOn ℝ (Ioo (-a) a) g) (hev : ∀ t, g (-
     apply div_nonneg _ (by linarith)
     have := concave_le_zero_val hc hev hy
     simp only [Pi.neg_apply]; linarith
-
-theorem negRD_nonneg (hc : ConcaveOn ℝ (Ioo (-a) a) g) (hev : ∀ t, g (-t) = g t) (ha : 0 < a)
-    {x : ℝ} (hx0 : 0 ≤ x) (hxa : x < a) : 0 ≤ negRD g x :=
-  (negRD_zero_nonneg hc hev ha).trans
-    (monotoneOn_negRD hc ⟨by linarith, ha⟩ ⟨by linarith, hxa⟩ hx0)
 
 /-! ## The transform at support `b < a` -/
 

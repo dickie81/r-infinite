@@ -2,12 +2,12 @@
 
 The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit in `MATHLIB_REV`. Point `MATHLIB` at a built Mathlib checkout (`lake exe cache get` then `lake build`), or place it at `./mathlib4`.
 
-Re-run with `./build.sh`, which takes about 2 minutes.
+Re-run with `./build.sh`, which takes about 9 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`.
 
-Every file ends with `#print axioms`. All 379 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 362 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -16,45 +16,44 @@ Every file ends with `#print axioms`. All 379 checked theorems depend only on `p
 | `Osc.lean` | 926 | 1ca(iii) |
 | `Split.lean` | 305 | 1ca(i), and (i)–(iii) assembled |
 | `Exterior.lean` | 677 | 1ca(iv) |
-| `Zeta.lean` | 142 | the 1ca zero family, linked to Mathlib's `riemannZeta` |
-| `Roadmap.lean` | 341 | §11 item 1: the target stated prime-side, and its reduction to `RiemannHypothesis` |
+| `Zeta.lean` | 136 | the 1ca zero family, linked to Mathlib's `riemannZeta` |
+| `Roadmap.lean` | 352 | §11 item 1: the target stated prime-side, and its reduction to `RiemannHypothesis`; Hurwitz's theorem for open and closed target sets |
 | `Limit.lean` | 321 | 1bu(ii)'s convergence to `Ξ` from D, and the chain to `RiemannHypothesis` |
 | `Hadamard.lean` | 776 | Hadamard's factorisation in genus zero, proved from Mathlib |
 | `HadamardApply.lean` | 198 | Hadamard for even functions; applied to `ĝ` and `Ξ`; the chain to RH |
-| `XiBounds.lean` | 403 | `XiGrowth` and `Ξ(0) ≠ 0`, proved; the chain to RH with no `Ξ` inputs |
+| `XiBounds.lean` | 378 | `XiGrowth`, proved; the chain to RH with no `Ξ` inputs (`Ξ(0) ≠ 0` now comes from `Φ > 0`) |
 | `Curvature.lean` | 506 | dodging D and the curvature sum rule; the chain to RH in its final form |
-| `GroundState.lean` | 167 | ground states of Weil's form: the lower bound, the finite prime sum, the chain for ground states |
-| `Existence.lean` | 485 | existence of the ground state, stage 1: the archimedean energy controls the Fourier tails |
+| `GroundState.lean` | 170 | ground states of Weil's form: the lower bound, the finite prime sum, the chain for ground states |
+| `Existence.lean` | 494 | existence of the ground state, stage 1: the archimedean energy controls the Fourier tails |
 | `Compactness.lean` | 234 | existence, stage 2: bounded-energy probes are precompact in `L²` |
-| `GroundStateExists.lean` | 456 | existence, stage 3: **a ground state of Weil's form exists at every support** |
+| `GroundStateExists.lean` | 453 | existence, stage 3: **a ground state of Weil's form exists at every support** |
 | `Uniqueness.lean` | 391 | the ground-state space; the uniqueness criterion |
-| `Positivity.lean` | 550 | the pole-free form `Q₀`: a unique, one-signed ground state |
-| `StrictPositivity.lean` | 730 | the ground state of `Q₀` is strictly positive on `[−a, a]` |
-| `UniquenessQ.lean` | 158 | the full form `Q`: strict gap `λ₀ < λ₁`, and the sharp uniqueness dichotomy |
-| `SpectralGap.lean` | 658 | a certified lower bound `λ_⊥ ≥ λ₁ + 1/40` for `0 < a ≤ 1/40`; `Q`'s ground state is unique there |
-| `FourierGap.lean` | 3154 | `λ_⊥ ≥ λ₁ + 1/40` for **every `0 < a ≤ 0.35`** (past the first prime); `Q`'s ground state is unique there |
-| `ParabolaGap.lean` | 658 | the parabola trial; `λ_⊥ ≥ λ₁ + 1/50` and a unique ground state for **every `0 < a ≤ 0.36`** |
+| `Positivity.lean` | 538 | the pole-free form `Q₀`: a unique, one-signed ground state |
+| `StrictPositivity.lean` | 726 | the ground state of `Q₀` is strictly positive on `[−a, a]` |
+| `UniquenessQ.lean` | 144 | the full form `Q`: strict gap `λ₀ < λ₁`, and the sharp uniqueness dichotomy |
+| `FourierGap.lean` | 2103 | `λ_⊥ ≥ λ₁ + 1/40` for **every `0 < a ≤ 0.35`** (past the first prime); `Q`'s ground state is unique there; the `Cin` chain in closed form, checked by kernel evaluation |
+| `ParabolaGap.lean` | 636 | the parabola trial; `λ_⊥ ≥ λ₁ + 1/50` and a unique ground state for **every `0 < a ≤ 0.36`** |
 | `Polya.lean` | 356 | Pólya's theorem: every even probe concave on `(−a, a)` has a real-rooted transform |
-| `Concave.lean` | 525 | Pólya's theorem stated for every even, concave `g ≥ 0` directly, with no representation hypothesis |
+| `Concave.lean` | 514 | Pólya's theorem stated for every even, concave `g ≥ 0` directly, with no representation hypothesis |
 | `Saturation.lean` | 98 | saturation reduced to an envelope bound: a small value plus a steep slope forces a nearby zero |
 | `Unconditional.lean` | 342 | saturation without RH: verified zeros, a counting bound, the decay of `ĝ` for monotone `g` |
 | `ZeroSwap.lean` | 231 | the zero-swap lemma: a simple ground state admits no zero `w` with `w²` non-real, given the swap's realisation by probes |
-| `HurwitzCross.lean` | 186 | Hurwitz for closed sets; the chain with zeros on `ℝ ∪ iℝ`, and with the zero-swap lemma plugged in |
-| `SwapRealize.lean` | 518 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
+| `HurwitzCross.lean` | 116 | the chain with zeros on `ℝ ∪ iℝ`, and with the zero-swap lemma plugged in |
+| `SwapRealize.lean` | 487 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
 | `SimpleCover.lean` | 245 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
 | `SimpleStructure.lean` | 108 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
 | `GapCriterion.lean` | 170 | Euler–Lagrange for `Q`; the pole-overlap identity; interlacing `λ₁(Q) ≤ μ₂(Q₀)`; energy gap ⇒ simple; non-simple ⇒ `λ₁ = μ₂` attained; the Jacobi eigenvector lemma |
-| `Commute.lean` | 206 | round 48's Theorem B: Weil's form commutes with `∂²` (cross-correlation, pole, full bilinear form); the ODE step used by Theorem C |
-| `DegenerateFlat.lean` | 803 | **degenerate ⇒ edge-flat**: a non-simple ground space contains a nonzero pole-free `w` and its compactly supported Green solution `G w` (`(Gw)'' − Gw/4 = w`); **simple ⇔ no such pair** |
-| `StructureD.lean` | 727 | **round 48's Theorem D**: the ground space is finite-dimensional; a Green chain `w, Gw, …, G^{m−1}w` lies in it, is independent and spans it; `offcross_root`, the one swap computation: every off-cross zero of a ground-space transform is a root of its polynomial `P_v`; the top element's transform vanishes only on `ℝ ∪ iℝ`. **The RH chain without simplicity**: (a) for the top-of-chain ground states alone gives `RiemannHypothesis` |
-| `Mollify.lean` | 1032 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
-| `TheoremC.lean` | 823 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element**; the smooth form `simple_not_flat` as a corollary |
-| `ZeroCount.lean` | 355 | off-line zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²` per ground state (none for `m ≤ 2`); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`**; `M ≤ 2` gives RH |
-| `GapBound.lean` | 459 | **the pole-overlap gap bound** `λ₂ − λ₁ ≥ c₂²(μ₂ − μ₁)/(c₁² + c₂²)` at operator level, hence simplicity from a nonzero overlap `⟨c, ψ₂⟩`; **the Galerkin transfer**: dense truncations with a uniform truncated gap give simplicity |
+| `Commute.lean` | 165 | round 48's Theorem B: Weil's form commutes with `∂²` (cross-correlation, pole, full bilinear form) |
+| `DegenerateFlat.lean` | 742 | **degenerate ⇒ edge-flat**: a non-simple ground space contains a nonzero pole-free `w` and its compactly supported Green solution `G w` (`(Gw)'' − Gw/4 = w`); **simple ⇔ no such pair** |
+| `StructureD.lean` | 722 | **round 48's Theorem D**: the ground space is finite-dimensional; a Green chain `w, Gw, …, G^{m−1}w` lies in it, is independent and spans it; `offcross_root`, the one swap computation: every off-cross zero of a ground-space transform is a root of its polynomial `P_v`; the top element's transform vanishes only on `ℝ ∪ iℝ`. **The RH chain without simplicity**: (a) for the top-of-chain ground states alone gives `RiemannHypothesis` |
+| `Mollify.lean` | 1026 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
+| `TheoremC.lean` | 810 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element**; the smooth form `simple_not_flat` as a corollary |
+| `ZeroCount.lean` | 333 | off-line zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²` per ground state (none for `m ≤ 2`); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`**; `M ≤ 2` gives RH |
+| `GapBound.lean` | 443 | **the pole-overlap gap bound** `λ₂ − λ₁ ≥ c₂²(μ₂ − μ₁)/(c₁² + c₂²)` at operator level, hence simplicity from a nonzero overlap `⟨c, ψ₂⟩`; **the Galerkin transfer**: dense truncations with a uniform truncated gap give simplicity |
 | `CosTrunc.lean` | 653 | **`TruncDense` for the paper's cosine basis** `span{1_{[−a,a]}cos(kπt/a) : k < K}`: `C²` approximant, its cosine series by Mathlib's Fourier theorem, Hölder tails, energy of a truncated Hölder function; round 60's transfer for this basis with no density hypothesis |
-| `StripConv.lean` | 614 | **(a) is needed only on the strip `|{Im z}| < ½`**: RH from strip convergence; strip convergence from `L²` closeness of the ground state to a kernel at rate `o(e^{−a/2}/√a)` (`rh_of_close_top`); the min–max angle bound and `rh_of_relgap`; every moment condition (`k = 2`: `κ → 0`) as a corollary |
-| `RiemannKernel.lean` | 849 | **Riemann's kernel formula** `∫ Φ(u)e^{izu}du = Ξ(z)/2` on all of `ℂ`, from Mathlib's theta kernel and completed zeta: termwise Gamma integrals on a half-plane, evenness of `Φ` from the theta functional equation, decay, the identity theorem. Discharges `KernelApprox`; `rh_of_close_RPhi` |
-| `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
+| `StripConv.lean` | 544 | **(a) is needed only on the strip `|{Im z}| < ½`**: RH from strip convergence; strip convergence from `L²` closeness of the ground state to a kernel at rate `o(e^{−a/2}/√a)` (`rh_of_close_top`); the min–max angle bound and `rh_of_relgap`; every moment condition (`k = 2`: `κ → 0`) as a corollary |
+| `RiemannKernel.lean` | 901 | **Riemann's kernel formula** `∫ Φ(u)e^{izu}du = Ξ(z)/2` on all of `ℂ`, from Mathlib's theta kernel and completed zeta: termwise Gamma integrals on a half-plane, evenness of `Φ` from the theta functional equation, decay, the identity theorem. **`Φ > 0`, hence `ξ(σ) ≠ 0` for real `σ`**: `Ξ(0) ≠ 0` and `ζ(σ) ≠ 0` on `(0, 1)` |
+| `KernelChain.lean` | 41 | Riemann's formula discharges `KernelApprox` (`kernelApprox_RPhi`); RH from `L²` closeness to `Φ` (`rh_of_close_RPhi`) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
@@ -445,7 +444,7 @@ Compared with round 9:
 - "No other zero of `ĝ_n` below `T_D`" is no longer assumed; it is a consequence in the limit.
 - The target is `Re Σ_j γ_j⁻²`, the `z²` coefficient of `Ξ(z)/Ξ(0)`. It is known unconditionally, so no RH content is hidden in it. The proof shows `Re Σ ≤ Σ‖·‖` with equality forced by the hypotheses.
 
-What remains open is unchanged in substance: real-rootedness and dodging D at every support are the wall (§11 items 5–6). The curvature condition is a statement about the second moment of the ground states, with no zero locations in it. *(Corrected in round 11: this section first said the ground states are "not yet defined in Lean". They are: `Roadmap.lean` defines `weilQ`, `Probe` and `IsGroundState` from Theorem 1bn(i). Round 11 connects them to this chain.)*
+What remains open is unchanged in substance: real-rootedness and dodging D at every support are the wall (§11 items 5–6). The curvature condition is a statement about the second moment of the ground states, with no zero locations in it. *(Corrected in round 65: alone it is, but `rh_of_dodging_and_curvature` works because dodging D and the curvature limit together force `Re Σ v = Σ‖v‖`, which holds only under RH. The pair of hypotheses encodes RH.)* *(Corrected in round 11: this section first said the ground states are "not yet defined in Lean". They are: `Roadmap.lean` defines `weilQ`, `Probe` and `IsGroundState` from Theorem 1bn(i). Round 11 connects them to this chain.)*
 
 ## Round 11: ground states of Weil's form (GroundState.lean)
 
@@ -609,6 +608,8 @@ So the pole-free form's ground state is simple (round 16) and strictly positive.
 For the chain, uniqueness is still not needed (round 15, last paragraph).
 
 ## Round 19: a certified lower bound orthogonally to `w`, at small support (SpectralGap.lean)
+
+*(Round 65: superseded by round 20's `a ≤ 0.35` and removed; the helpers still used moved to FourierGap.lean.)*
 
 **`weilQ0_perp_ge`.** For `0 < a ≤ 1/40`, every normalised probe `g` with `ĝ(i/2) = ⟨g, w⟩ = 0` has `Q₀(g) = Q(g) ≥ Q(box) + 1/40 ≥ λ₁ + 1/40`. So `λ_⊥ ≥ λ₁ + 1/40`: round 18's second branch cannot occur, and **`groundState_unique_small`** gives a unique ground state of `Q`, up to sign, at every support `0 < a ≤ 1/40`.
 
@@ -1564,6 +1565,8 @@ With both in place, the chain would read: (a) + simplicity at every large suppor
 
 ## Round 45: `ζ(σ) ≠ 0` on `(0, 1)`, proved (ZetaUnitInterval.lean)
 
+*(Round 65: replaced by a short proof from `Φ > 0` in RiemannKernel.lean; ZetaUnitInterval.lean is removed.)*
+
 Round 44's named input `ZetaNoZeroInUnitInterval` is discharged. `ZetaUnitInterval.riemannZeta_ne_zero_of_mem_Ioo` imports only Mathlib, uses the standard axioms only, and builds with no warnings. `HurwitzCross.lean` now proves:
 * `zetaNoZeroInUnitInterval`;
 * `rh_of_simple_ground_states'`: (a), positive supports, and eventually simple ground states with the swap realised give Mathlib's `RiemannHypothesis`. No assumption about `ζ` remains.
@@ -2194,3 +2197,59 @@ Round 62 left one classical input unformalised: `KernelApprox`, Riemann's formul
 
 `kernelApprox_RPhi` and `rh_of_close_RPhi` are unchanged in statement and now use the entire version.
 
+## Round 65: consolidation (no new hypotheses, fewer lines)
+
+A pass over all 45 files for duplicated proofs, dead code, and shorter routes. No hypothesis was added. Statements changed only where a lemma was generalised: `triangle_swap` and `primeS_eq_two` take weaker hypotheses, and `log_three_gt` has a stronger conclusion. The pilot now has 44 files and 362 `#print axioms` checks, all on the standard axioms, with no `sorry` and no warnings.
+
+**One new result: `Φ > 0`, hence `ξ(σ) ≠ 0` on the real axis (RiemannKernel.lean).** For `u ≥ 0` and `n ≥ 1`, `c_n e^{2u} ≥ π > 3/2`, so each term of Riemann's kernel `φ_n(u) = c_n e^{2u}(2c_n e^{2u} − 3)e^{u/2 − c_n e^{2u}}` is `≥ 0` and the `n = 1` term is `> 0`. Evenness covers `u < 0`. Then `Ξ(it) = 2∫Φ(u)e^{−tu}du > 0` for every real `t`.
+
+| theorem | content |
+|---|---|
+| `phiT_pos`, `RPhi_pos` | `Φ(u) > 0` for every real `u` |
+| `integral_RPhi_exp_pos`, `Xi_I_mul_ne_zero` | `Ξ(it) = 2∫Φ(u)e^{−tu}du > 0` |
+| `xi_real_ne_zero` | `ξ(σ) ≠ 0` for every real `σ` |
+| `Xi_zero_ne_zero` | the case `σ = ½`. It replaces XiBounds' proof via `‖Λ₀(½)‖ < 4` |
+| `riemannZeta_ne_zero_of_mem_Ioo` | `ζ(σ) ≠ 0` on `(0, 1)`: such a zero would be nontrivial, hence a zero of `ξ(σ)`. It replaces ZetaUnitInterval.lean (295 lines), which is deleted |
+
+To make this possible, RiemannKernel.lean now imports only `Roadmap.lean` and builds to an olean before `XiBounds.lean`. `kernelApprox_RPhi` and `rh_of_close_RPhi`, which need `StripConv.lean`, moved unchanged to the new `KernelChain.lean`.
+
+**Shorter routes.**
+
+| theorem | new proof |
+|---|---|
+| `theoremC_not_simple` (TheoremC) | `f = h'' − h/4` and `G f = h` form a green pair in the ground space, so `not_simple_of_green_pair` applies. `normSq f > 0` because `f = 0` a.e. would make `h = G f = 0`. The ODE lemma `eq_zero_of_deriv2_eq` (Commute) is no longer needed and is deleted |
+| `hurwitz_real` (Roadmap) | a corollary of `hurwitz_closed_on`, which moved here from StripConv. `hurwitz_closed` moved here from HurwitzCross, also as a corollary |
+| `tail_ok` (FourierGap) | from `modeE_tail_base` and `Cin` monotonicity |
+| `ghatC_im_zero` (SwapRealize) | from `ghatC_conj`, which moved here from ZeroCount |
+
+**Duplicates merged.**
+
+| kept | replaces |
+|---|---|
+| `euler_lagrange_mem` (moved to UniquenessQ) | the bodies of `euler_lagrange_Q` (GapCriterion) and `euler_lagrange_perp` (UniquenessQ), now one-line corollaries |
+| `quad_zero` (moved to StrictPositivity) | the inline copy of the same argument in `euler_lagrange0` |
+| `lam_le_perp_trial` (new, GapCriterion) | the shared pole-free-trial argument of `lam_le_of_perp` and `lam_le_trial` (GapBound) |
+| `cf_shift'`, `hasSum_shift'` (general support `r`, moved to Existence) | FourierGap's copies. `cf_shift` and `hasSum_shift` are corollaries, and SwapRealize's `hasSum_shift_memLp` is deleted |
+| `integrable_mul_shift₂` (moved to Existence) | the body of `integrable_mul_shift`, now its diagonal case |
+| `memLp_intervalIntegrable` (moved to GroundState) | the body of `Probe.intervalIntegrable` |
+| `triangle_swap` over any `RCLike` field, integrable weights (SwapRealize) | the continuous complex version and DegenerateFlat's `triangle_swap_int` |
+| `primeS_eq_two`, `log_three_gt` at `2a ≤ 0.72` (FourierGap) | ParabolaGap's primed copies |
+
+**The `Cin` chain in closed form (FourierGap).** On `[mπ/2, (m+1)π/2]` with `c = (2m+1)π/4`, the tangent-line gain is `F_c(β) − F_c(α) = 2/(2m+1) + 8((m+1)s_m − m s_{m+1})/((2m+1)²π) + 16(c_{m+1} − c_m)/((2m+1)²π²)`, where `(s_m, c_m) = (sin, cos)(mπ/2)` comes from the integer recursion `scQ`. The identity is `piece_eq`. `cin_chain` proves `Cin(Nπ/2) ≥ 2.780109 + Σ_{6 ≤ m < N} gain(m)` by induction. `lowP_le` bounds the sum below by a rational, using `0.3183097 < 1/π < 0.31831`. For each of the seven needed `N`, `decide +kernel` checks that rational inequality. This adds no axiom: `decide +kernel` is kernel evaluation, not `native_decide`. `cinH7`, `cinH11`, `cinH18`, `cinH21`, `cinH25`, `cinH30` and `cinH61` keep their statements. They replace `sc14`–`sc122`, `pieceH6`–`pieceH60` and `cinH7`–`cinH61`, about 1150 lines. The exact sums exceed the old step-by-step bounds (by `2·10⁻⁶` at `N = 7` up to `1.4·10⁻⁴` at `N = 61`).
+
+**Removed.**
+
+* **SpectralGap.lean.** Round 19's `a ≤ 1/40` bound (`weilQ0_perp_ge`, `groundState_unique_small`, and the edge-mass and near-field lemmas behind them) is superseded by FourierGap's `a ≤ 0.35`. Nothing used it. Its five live helpers (`kerK_le`, `primeS_eq_zero`, `box_sq`, `archIntegrand_eq_kerK`, `archE_split`) moved to the top of FourierGap.lean, which now imports `UniquenessQ.lean`.
+* **Dead lemmas**, used nowhere:
+  * `C2Fun.cont0`, `C2Supp.zero_ge` (Commute)
+  * `concave_ge_end`, `negRD_nonneg` (Concave)
+  * `modeE_nonneg` (FourierGap)
+  * `normSq_neg` (GroundStateExists)
+  * `Av_add` (Mollify)
+  * `gapInf_nonneg` (StrictPositivity)
+  * `mem_chainSpace`, `rr_val` (StructureD)
+  * `sq_half` (TheoremC)
+  * `zetaOrd_ge_of_height` (Zeta)
+  * `rh_of_eventually_simple'` (ZeroCount). Its content is `gdim_le_one_of_simple` plus the `M = 1` case of the zero count.
+
+**A correction to round 10.** Round 10 said the curvature condition is "a statement about the second moment of the ground states, with no zero locations in it." Alone, that is true. But `rh_of_dodging_and_curvature` proves RH by showing that dodging D (`hD`) and the curvature limit (`hκ`) **together** force `Re Σ_j v_j ≥ Σ_j ‖v_j‖` (the step `hge` in Curvature.lean). Since `Re Σ v ≤ Σ‖v‖` always, this is equality, and equality holds only if every `v_j` (the `γ_j⁻²` of `Ξ`'s zeros) is a positive real, i.e. every `γ_j` is real. So the pair of hypotheses cannot hold unless RH does. The round-10 text is annotated.

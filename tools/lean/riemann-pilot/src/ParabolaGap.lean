@@ -266,27 +266,6 @@ theorem autocorr_par_nonneg {a : ℝ} (ha : 0 < a) (u : ℝ) : 0 ≤ autocorr (p
 
 /-! ## B. The segment `0.35 ≤ a ≤ 0.36` -/
 
-theorem log_three_gt' : (0.72 : ℝ) < Real.log 3 := by
-  rw [Real.lt_log_iff_exp_lt (by norm_num)]
-  have h1 : Real.exp 0.72 < Real.exp 1 := Real.exp_lt_exp.2 (by norm_num)
-  have h2 := Real.exp_one_lt_d9
-  linarith
-
-theorem primeS_eq_two' {a : ℝ} (ha : 2 * a ≤ 0.72) {g : ℝ → ℝ} (hg : Probe a g) :
-    primeS g = Real.log 2 / Real.sqrt 2 * autocorr g (Real.log 2) := by
-  unfold primeS
-  rw [tsum_eq_single 2]
-  · rw [ArithmeticFunction.vonMangoldt_apply_prime Nat.prime_two]; push_cast; ring
-  · intro n hn
-    rcases lt_or_ge n 2 with h | h
-    · interval_cases n <;> simp
-    · have h3 : 3 ≤ n := by omega
-      have hl : Real.log 3 ≤ Real.log n := Real.log_le_log (by norm_num) (by exact_mod_cast h3)
-      have := log_three_gt'
-      have hz : autocorr g (Real.log n) = 0 :=
-        autocorr_eq_zero hg.supp (by rw [abs_of_pos (by linarith)]; linarith)
-      simp [hz]
-
 theorem primeD_smallC {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36) (n : ℤ) :
     primeD a (Real.log 2) n ≤ 0.06026 * |(n : ℝ)| := by
   have hl1 := Real.log_two_gt_d9
@@ -578,7 +557,7 @@ theorem weilQ_perp_ge_seg {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
   have hQ : ∀ h, Probe a h → normSq h = 1 →
       weilQ a h = 2 * poleR h a ^ 2 + weilConst + archE h - c * autocorr h (Real.log 2) := by
     intro h hh hhn
-    rw [weilQ_eq', primeS_eq_two' (by linarith) hh, hhn, hcdef]; ring
+    rw [weilQ_eq', primeS_eq_two (by linarith) hh, hhn, hcdef]; ring
   rw [hQ g hp hn, hQ _ (par_probe ha) (normSq_par ha), h0, archE_split ha hp hn,
     archE_split ha (par_probe ha) (normSq_par ha)]
   have hu0 : 0 ≤ Real.log 2 := by linarith
@@ -649,7 +628,6 @@ end Pilot1ca
 #print axioms Pilot1ca.nearField_par_le
 #print axioms Pilot1ca.poleR_par_le
 #print axioms Pilot1ca.pole_par_le
-#print axioms Pilot1ca.primeS_eq_two'
 #print axioms Pilot1ca.primeD_smallC
 #print axioms Pilot1ca.tailC_all
 #print axioms Pilot1ca.termC5

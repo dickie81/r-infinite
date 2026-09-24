@@ -109,12 +109,6 @@ theorem wall_law_zeta {G a L Δ C lo hi Ts Tu : ℝ} {H : Finset ℝ}
   wall_law_zeros zetaOrd_finite h_height hG14 hGe hLG hH hΔ hC hSlog hS1log hlo hloΔ hTG hTs hTu
     hcrit hminu
 
-/-- T1bt's height input in the form 1ca uses: `14 ≤ |Im ρ|` for every zero gives `14 ≤ γ_p`. -/
-theorem zetaOrd_ge_of_height (h : ∀ p, 14 ≤ |(zetaZeroFamily p).im|) (p : PosZeroIdx) :
-    14 ≤ zetaOrd p := by
-  have := h p.1
-  rwa [abs_of_pos p.2] at this
-
 /-- `14 ≤ 2πe`, so `G = 14` is admissible. -/
 theorem fourteen_le_two_pi_e : (14 : ℝ) ≤ 2 * π * Real.exp 1 := by
   nlinarith [Real.pi_gt_d2, Real.exp_one_gt_d9]

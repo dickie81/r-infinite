@@ -202,18 +202,6 @@ theorem weilQ0_abs_le {a : ℝ} {g : ℝ → ℝ} (hg : Probe a g) :
 
 /-! ## A one-signed criterion -/
 
-theorem integrable_mul_shift₂ {f h : ℝ → ℝ} (hf : MemLp f 2 volume) (hh : MemLp h 2 volume)
-    (u : ℝ) : Integrable (fun t => f t * h (t + u)) := by
-  have hI : Integrable (fun t => f t ^ 2) := hf.integrable_sq
-  have hJ : Integrable (fun t => h (t + u) ^ 2) := hh.integrable_sq.comp_add_right u
-  have hm : AEStronglyMeasurable (fun t => f t * h (t + u)) volume :=
-    hf.aestronglyMeasurable.mul
-      (hh.aestronglyMeasurable.comp_measurePreserving (measurePreserving_add_right volume u))
-  refine ((hI.add hJ).div_const 2).mono' hm (Eventually.of_forall fun t => ?_)
-  show ‖f t * h (t + u)‖ ≤ (f t ^ 2 + h (t + u) ^ 2) / 2
-  rw [Real.norm_eq_abs, abs_le]
-  constructor <;> nlinarith [sq_nonneg (f t - h (t + u)), sq_nonneg (f t + h (t + u))]
-
 /-- **If `|g|` and `g` have the same autocorrelation at almost every `u > 0`, then `g` has one
 sign.** Write `g = g⁺ − g⁻`. Then `f_{|g|}(u) − f_g(u) = 2(X(u) + X(−u))` with
 `X(u) = ∫ g⁺(t)g⁻(t+u) dt ≥ 0`, so `X = 0` a.e. and `(∫g⁺)(∫g⁻) = ∫ X = 0` (Tonelli). -/

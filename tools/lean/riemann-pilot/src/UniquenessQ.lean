@@ -23,20 +23,6 @@ noncomputable section
 
 namespace Pilot1ca
 
-/-- A real quadratic `2sb + s²c` that is non-negative for every `s` has `b = 0`. -/
-theorem quad_zero {b c : ℝ} (h : ∀ s : ℝ, 0 ≤ 2 * s * b + s ^ 2 * c) : b = 0 := by
-  have hc : 0 ≤ c := by have h1 := h 1; have h2 := h (-1); nlinarith
-  by_contra hb
-  have hb' : b ≠ 0 := hb
-  have h1 := h (-b / (c + 1))
-  have hc1 : 0 < c + 1 := by linarith
-  have hb2 : 0 < b ^ 2 := by positivity
-  have e : 2 * (-b / (c + 1)) * b + (-b / (c + 1)) ^ 2 * c
-      = -(b ^ 2 * (c + 2) / (c + 1) ^ 2) := by field_simp; ring
-  rw [e] at h1
-  have h2 : 0 < b ^ 2 * (c + 2) / (c + 1) ^ 2 := by positivity
-  linarith
-
 theorem xcorr_comm (φ ψ : ℝ → ℝ) (u : ℝ) : xcorr φ ψ u = xcorr ψ φ u := by unfold xcorr; ring
 
 /-- The bilinear form of `Q₀` is symmetric. -/
@@ -92,25 +78,26 @@ theorem lam0_lt_lam {a : ℝ} (ha : 0 < a) : lam0 a < lam a := by
       poleR_smul] at hp0
     linarith
 
+/-- Euler–Lagrange for any ground-space element. -/
+theorem euler_lagrange_mem {a : ℝ} {w ψ : ℝ → ℝ} (hw : w ∈ groundSpace a) (hψ : Probe a ψ) :
+    bil0 a w ψ + 2 * poleR w a * poleR ψ a = lam a * xcorr w ψ 0 := by
+  have hq : weilQ a w = lam a * normSq w := hw.2
+  have hpole : ∀ s : ℝ, poleR (fun t => w t + s * ψ t) a = poleR w a + s * poleR ψ a := by
+    intro s
+    rw [poleR_add hw.1.memL2 (hψ.memL2.const_mul s) a, poleR_smul]
+  apply sub_eq_zero.1
+  refine quad_zero (c := weilQ0 a ψ + 2 * poleR ψ a ^ 2 - lam a * normSq ψ) fun s => ?_
+  have h := lam_mul_le (probe_add_smul hw.1 hψ s)
+  have hQ : ∀ f, weilQ a f = weilQ0 a f + 2 * poleR f a ^ 2 := fun f => by unfold weilQ0; ring
+  rw [hQ, weilQ0_add_smul hw.1 hψ, hpole, normSq_add_smul hw.1.memL2 hψ.memL2] at h
+  rw [hQ] at hq
+  nlinarith [h]
+
 /-- **Euler–Lagrange off the pole**: a ground state `v` of `Q` with `ĝ(i/2) = 0` satisfies `Q₀`'s
 weak eigen-equation at level `λ₁`. -/
 theorem euler_lagrange_perp {a : ℝ} (ha : 0 < a) {v ψ : ℝ → ℝ} (hv : IsGroundState a v)
     (hv0 : poleR v a = 0) (hψ : Probe a ψ) : bil0 a v ψ = lam a * xcorr v ψ 0 := by
-  have hq : weilQ a v = lam a * normSq v := ((isGroundState_iff ha).1 hv).1.2
-  have hq0 : weilQ0 a v = lam a * normSq v := by unfold weilQ0; rw [hv0, hq]; ring
-  have hpole : ∀ s : ℝ, poleR (fun t => v t + s * ψ t) a = s * poleR ψ a := by
-    intro s
-    have h1 : poleR (fun t => v t + s * ψ t) a = poleR v a + poleR (fun t => s * ψ t) a :=
-      poleR_add hv.1.memL2 (hψ.memL2.const_mul s) a
-    rw [h1, poleR_smul, hv0, zero_add]
-  apply sub_eq_zero.1
-  refine quad_zero (c := weilQ0 a ψ + 2 * poleR ψ a ^ 2 - lam a * normSq ψ) fun s => ?_
-  have h := lam_mul_le (probe_add_smul hv.1 hψ s)
-  have hQ : weilQ a (fun t => v t + s * ψ t)
-      = weilQ0 a (fun t => v t + s * ψ t) + 2 * poleR (fun t => v t + s * ψ t) a ^ 2 := by
-    unfold weilQ0; ring
-  rw [hQ, weilQ0_add_smul hv.1 hψ, hpole, normSq_add_smul hv.1.memL2 hψ.memL2, hq0] at h
-  nlinarith [h]
+  simpa [hv0] using euler_lagrange_mem ⟨hv.1, ((isGroundState_iff ha).1 hv).1.2⟩ hψ
 
 /-- **Orthogonality**: such a `v` is orthogonal to the ground state of `Q₀`. -/
 theorem perp_groundState0 {a : ℝ} (ha : 0 < a) {φ v : ℝ → ℝ} (hφ : IsGroundState0 a φ)
@@ -148,7 +135,6 @@ theorem groundState_unique_or_excited {a : ℝ} (ha : 0 < a) :
 
 end Pilot1ca
 
-#print axioms Pilot1ca.quad_zero
 #print axioms Pilot1ca.bil0_comm
 #print axioms Pilot1ca.lam0_le_lam
 #print axioms Pilot1ca.poleR_pos

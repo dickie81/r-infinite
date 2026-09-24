@@ -33,73 +33,7 @@ namespace Pilot1ca
 
 open Pilot1bt
 
-/-! ## Hurwitz on an open set, and RH from convergence on the strip -/
-
-/-- **Hurwitz for a closed set, on an open set `U`.** -/
-theorem hurwitz_closed_on {F : ℕ → ℂ → ℂ} {f : ℂ → ℂ} {U : Set ℂ} (hU : IsOpen U)
-    (hF : ∀ n, Differentiable ℂ (F n)) (hf : Differentiable ℂ f)
-    (hconv : TendstoLocallyUniformlyOn F f atTop U)
-    (hnz : ∃ w, f w ≠ 0) {S : Set ℂ} (hS : IsClosed S) (hzeros : ∀ n z, F n z = 0 → z ∈ S) :
-    ∀ z₀ ∈ U, f z₀ = 0 → z₀ ∈ S := by
-  intro z₀ hU0 hz₀
-  by_contra hS0
-  obtain ⟨ρ, hρ, hball⟩ := Metric.isOpen_iff.1 (hS.isOpen_compl.inter hU) z₀ ⟨hS0, hU0⟩
-  have hiso : ∀ᶠ z in 𝓝[≠] z₀, f z ≠ 0 := by
-    rcases (hf.analyticAt z₀).eventually_eq_zero_or_eventually_ne_zero with h | h
-    · exfalso
-      obtain ⟨w, hw⟩ := hnz
-      have hall := (hf.differentiableOn.analyticOnNhd isOpen_univ).eqOn_zero_of_preconnected_of_eventuallyEq_zero
-        isPreconnected_univ (Set.mem_univ z₀) (h.mono fun z hz => by simp [hz])
-      exact hw (by simpa using hall (Set.mem_univ w))
-    · exact h
-  obtain ⟨ε, hε, hεf⟩ := Metric.eventually_nhds_iff.1 (eventually_nhdsWithin_iff.1 hiso)
-  set r := min (ε / 2) (ρ / 2) with hr_def
-  have hr : 0 < r := lt_min (by linarith) (by linarith)
-  have hrε : r < ε := lt_of_le_of_lt (min_le_left _ _) (by linarith)
-  have hrρ : r < ρ := lt_of_le_of_lt (min_le_right _ _) (by linarith)
-  have hne : (Metric.sphere z₀ r).Nonempty := ⟨z₀ + r, by simp [abs_of_pos hr]⟩
-  obtain ⟨w, hwS, hwmin⟩ := (isCompact_sphere z₀ r).exists_isMinOn hne
-    (hf.continuous.norm.continuousOn)
-  have hfS : ∀ z ∈ Metric.sphere z₀ r, f z ≠ 0 := by
-    intro z hz
-    rw [mem_sphere_iff_norm] at hz
-    apply hεf (by rw [dist_eq_norm, hz]; exact hrε)
-    intro h; rw [h, sub_self, norm_zero] at hz; exact hr.ne hz
-  set m := ‖f w‖ with hm_def
-  have hm : 0 < m := norm_pos_iff.2 (hfS w hwS)
-  have hsub : Metric.closedBall z₀ r ⊆ U := fun z hz =>
-    (hball (lt_of_le_of_lt (Metric.mem_closedBall.1 hz) hrρ)).2
-  have hunif := (tendstoLocallyUniformlyOn_iff_forall_isCompact hU).1 hconv _ hsub
-    (isCompact_closedBall z₀ r)
-  obtain ⟨n, hn⟩ := (Metric.tendstoUniformlyOn_iff.1 hunif (m / 2) (by linarith)).exists
-  have hnoz : ∀ z ∈ Metric.closedBall z₀ r, F n z ≠ 0 := by
-    intro z hz h
-    have hzS := hzeros n z h
-    exact (hball (lt_of_le_of_lt (Metric.mem_closedBall.1 hz) hrρ)).1 hzS
-  have hbound : ∀ z ∈ frontier (Metric.ball z₀ r), ‖(F n z)⁻¹‖ ≤ (m / 2)⁻¹ := by
-    intro z hz
-    rw [frontier_ball z₀ hr.ne'] at hz
-    have h1 := hn z (Metric.sphere_subset_closedBall hz)
-    have h2 : m ≤ ‖f z‖ := hwmin hz
-    rw [dist_eq_norm] at h1
-    have h3 : m / 2 ≤ ‖F n z‖ := by
-      have := norm_sub_norm_le (f z) (F n z)
-      linarith
-    rw [norm_inv]
-    exact inv_anti₀ (by linarith) h3
-  have hdiff : DiffContOnCl ℂ (fun z => (F n z)⁻¹) (Metric.ball z₀ r) := by
-    apply DifferentiableOn.diffContOnCl
-    rw [closure_ball z₀ hr.ne']
-    exact ((hF n).differentiableOn).inv hnoz
-  have hmax := Complex.norm_le_of_forall_mem_frontier_norm_le Metric.isBounded_ball hdiff hbound
-    (subset_closure (Metric.mem_ball_self hr))
-  have hz0 := hn z₀ (Metric.mem_closedBall_self hr.le)
-  rw [hz₀, dist_eq_norm, zero_sub, norm_neg] at hz0
-  have hFz0 : F n z₀ ≠ 0 := hnoz z₀ (Metric.mem_closedBall_self hr.le)
-  rw [norm_inv] at hmax
-  have hpos : 0 < ‖F n z₀‖ := norm_pos_iff.2 hFz0
-  have := (inv_le_inv₀ hpos (by linarith)).1 hmax
-  linarith
+/-! ## RH from convergence on the strip -/
 
 /-- The open strip `|Im z| < ½`, which contains every zero of `Ξ`. -/
 def stripSet : Set ℂ := {z | |z.im| < 1 / 2}
@@ -596,7 +530,6 @@ theorem moments_of_hypConvStrip {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ}
 
 end Pilot1ca
 
-#print axioms Pilot1ca.hurwitz_closed_on
 #print axioms Pilot1ca.rh_of_strip_cross
 #print axioms Pilot1ca.rh_of_hypConvStrip_top
 #print axioms Pilot1ca.hypConvStrip_of_hypConv

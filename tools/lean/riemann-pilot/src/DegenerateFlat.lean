@@ -332,51 +332,6 @@ end ProbeG
 
 /-! ## The symmetry `xcorr(G v, m) = xcorr(v, G m)` for pole-free `m` -/
 
-/-- Triangle swap with both weights merely integrable (real-valued). -/
-theorem triangle_swap_int {α β : ℝ} (hαβ : α ≤ β) {e f : ℝ → ℝ} (he : IntegrableOn e (Ioc α β))
-    (hf : IntegrableOn f (Ioc α β)) :
-    (∫ x in α..β, e x * ∫ y in α..x, f y) = ∫ y in α..β, f y * ∫ x in y..β, e x := by
-  set μ := volume.restrict (Ioc α β)
-  set F : ℝ → ℝ → ℝ := fun x y => e x * (Iic x).indicator f y with hF
-  have hint : Integrable (Function.uncurry F) (μ.prod μ) := by
-    have hbd : Integrable (fun p : ℝ × ℝ => (fun x => ‖e x‖) p.1 * (fun y => ‖f y‖) p.2)
-        (μ.prod μ) := he.norm.mul_prod hf.norm
-    refine hbd.mono' ?_ (Eventually.of_forall fun p => ?_)
-    · have h1 : AEStronglyMeasurable (fun p : ℝ × ℝ => e p.1) (μ.prod μ) :=
-        he.aestronglyMeasurable.comp_fst
-      have h2 : AEStronglyMeasurable
-          ({q : ℝ × ℝ | q.2 ≤ q.1}.indicator (fun q : ℝ × ℝ => f q.2)) (μ.prod μ) :=
-        (hf.aestronglyMeasurable.comp_snd).indicator (measurableSet_le measurable_snd measurable_fst)
-      refine (h1.mul h2).congr (Eventually.of_forall fun p => ?_)
-      simp only [Function.uncurry, hF, Set.indicator, Set.mem_Iic, Pi.mul_apply, Set.mem_ofPred_eq]
-    · simp only [Function.uncurry, hF, norm_mul]
-      refine mul_le_mul_of_nonneg_left ?_ (norm_nonneg _)
-      by_cases h : p.2 ≤ p.1
-      · simp [Set.indicator, h]
-      · simp [Set.indicator, h]
-  have hswap := integral_integral_swap hint
-  rw [intervalIntegral.integral_of_le hαβ, intervalIntegral.integral_of_le hαβ]
-  have hL : ∀ x ∈ Ioc α β, e x * (∫ y in α..x, f y) = ∫ y, F x y ∂μ := by
-    intro x hx
-    rw [integral_const_mul, setIntegral_indicator measurableSet_Iic, Ioc_inter_Iic,
-      min_eq_right hx.2, intervalIntegral.integral_of_le hx.1.le]
-  have hR : ∀ y ∈ Ioc α β, f y * (∫ x in y..β, e x) = ∫ x, F x y ∂μ := by
-    intro y hy
-    have hset : Ioc α β ∩ Ici y = Icc y β := by
-      ext x; simp only [mem_inter_iff, mem_Ioc, mem_Ici, mem_Icc]
-      constructor
-      · rintro ⟨⟨_, h2⟩, h3⟩; exact ⟨h3, h2⟩
-      · rintro ⟨h1, h2⟩; exact ⟨⟨lt_of_lt_of_le hy.1 h1, h2⟩, h1⟩
-    have : ∫ x, F x y ∂μ = ∫ x in Ioc α β, f y * (Ici y).indicator e x := by
-      refine integral_congr_ae (Eventually.of_forall fun x => ?_)
-      by_cases h : y ≤ x
-      · simp [hF, Set.indicator, h, mul_comm]
-      · simp [hF, Set.indicator, h]
-    rw [this, integral_const_mul, setIntegral_indicator measurableSet_Ici, hset,
-      integral_Icc_eq_integral_Ioc, intervalIntegral.integral_of_le hy.2]
-  rw [setIntegral_congr_fun measurableSet_Ioc hL, setIntegral_congr_fun measurableSet_Ioc hR]
-  exact hswap
-
 /-- Moving the lower limit of a primitive from `−a` to `−R` for a function vanishing on `|y| > a`. -/
 theorem integral_from_eq {a R : ℝ} (hR : a ≤ R) {φ : ℝ → ℝ} (hφ : ∀ y, a < |y| → φ y = 0)
     (hi : ∀ α β, IntervalIntegrable φ volume α β) (x : ℝ) :
@@ -507,7 +462,7 @@ theorem shift_swap {a : ℝ} (ha : 0 ≤ a) {v m : ℝ → ℝ} (hv : Probe a v)
   have hRu : a < R + u := by simp only [R]; linarith [neg_abs_le u]
   rw [hsplit, intervalIntegral.integral_sub (he₁.mul_continuousOn hAc.continuousOn)
       (he₂.mul_continuousOn hBc.continuousOn),
-    triangle_swap_int hR0 he₁.1 (hvi _ _ _).1, triangle_swap_int hR0 he₂.1 (hvi _ _ _).1,
+    triangle_swap hR0 he₁.1 (hvi _ _ _).1, triangle_swap hR0 he₂.1 (hvi _ _ _).1,
     ← intervalIntegral.integral_sub ((hvi _ _ _).mul_continuousOn
       (hE e₁ fun α β => ii_mul_rexp hmu _ α β).continuousOn)
       ((hvi _ _ _).mul_continuousOn (hE e₂ fun α β => ii_mul_rexp hmu _ α β).continuousOn)]
@@ -550,21 +505,6 @@ theorem bil0_G_swap {a : ℝ} (ha : 0 ≤ a) {v m : ℝ → ℝ} (hv : Probe a v
     (hmpole : poleR m a = 0) : bil0 a (Gpole v a) m = bil0 a v (Gpole m a) := by
   unfold bil0 archX primeX
   simp only [xcorr_G_swap ha hv hm hmpole]
-
-/-- Euler–Lagrange for any ground-space element. -/
-theorem euler_lagrange_mem {a : ℝ} {w ψ : ℝ → ℝ} (hw : w ∈ groundSpace a) (hψ : Probe a ψ) :
-    bil0 a w ψ + 2 * poleR w a * poleR ψ a = lam a * xcorr w ψ 0 := by
-  have hq : weilQ a w = lam a * normSq w := hw.2
-  have hpole : ∀ s : ℝ, poleR (fun t => w t + s * ψ t) a = poleR w a + s * poleR ψ a := by
-    intro s
-    rw [poleR_add hw.1.memL2 (hψ.memL2.const_mul s) a, poleR_smul]
-  apply sub_eq_zero.1
-  refine quad_zero (c := weilQ0 a ψ + 2 * poleR ψ a ^ 2 - lam a * normSq ψ) fun s => ?_
-  have h := lam_mul_le (probe_add_smul hw.1 hψ s)
-  have hQ : ∀ f, weilQ a f = weilQ0 a f + 2 * poleR f a ^ 2 := fun f => by unfold weilQ0; ring
-  rw [hQ, weilQ0_add_smul hw.1 hψ, hpole, normSq_add_smul hw.1.memL2 hψ.memL2] at h
-  rw [hQ] at hq
-  nlinarith [h]
 
 /-- **`Q − λ₁` pairs `G v` with every pole-free probe to zero**, for pole-free `v` in the ground
 space. -/
@@ -791,7 +731,6 @@ end Pilot1ca
 #print axioms Pilot1ca.Gpole_hat
 #print axioms Pilot1ca.Gpole_lip
 #print axioms Pilot1ca.Gpole_probe
-#print axioms Pilot1ca.triangle_swap_int
 #print axioms Pilot1ca.kernel_zero
 #print axioms Pilot1ca.shift_swap
 #print axioms Pilot1ca.xcorr_G_swap

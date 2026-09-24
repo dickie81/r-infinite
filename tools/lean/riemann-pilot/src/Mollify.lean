@@ -471,12 +471,6 @@ theorem Av_sub {g h : ℝ → ℝ} (hg : MemLp g 2 volume) (hh : MemLp h 2 volum
   rw [← mul_sub, intervalIntegral.integral_sub (memLp_intervalIntegrable (memLp_shift_left hg x) _ _)
     (memLp_intervalIntegrable (memLp_shift_left hh x) _ _)]
 
-theorem Av_add {g h : ℝ → ℝ} (hg : MemLp g 2 volume) (hh : MemLp h 2 volume) (δ x : ℝ) :
-    Av δ (fun t => g t + h t) x = Av δ g x + Av δ h x := by
-  unfold Av
-  rw [← mul_add, intervalIntegral.integral_add (memLp_intervalIntegrable (memLp_shift_left hg x) _ _)
-    (memLp_intervalIntegrable (memLp_shift_left hh x) _ _)]
-
 /-- **Box averages contract the archimedean integrand.** -/
 theorem archIntegrand_Av_le {g : ℝ → ℝ} (hg : MemLp g 2 volume) (hA : MemLp (Av δ g) 2 volume)
     (hδ : 0 < δ) {u : ℝ} (hu : 0 < u) : archIntegrand (Av δ g) u ≤ archIntegrand g u := by

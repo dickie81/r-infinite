@@ -199,7 +199,7 @@ theorem ibp_prim {a : ℝ} {h h₁ h₂ : ℝ → ℝ} (hf : FlatH2 a h h₁ h�
     exact intervalIntegral.integral_eq_sub_of_hasDerivAt (f := fun s => Real.exp (c * s))
       (fun s _ => by simpa [mul_comm] using ((hasDerivAt_id s).const_mul c).exp)
       (hcont.intervalIntegrable _ _)
-  have hsw := triangle_swap_int hx (e := fun s => c * Real.exp (c * s)) (f := h₂)
+  have hsw := triangle_swap hx (e := fun s => c * Real.exp (c * s)) (f := h₂)
     (hcont.integrableOn_Icc.mono_set Ioc_subset_Icc_self) ((hf.ii2 (-a) x).1)
   have i2 := hf.ii2 (-a) x
   have i3 : IntervalIntegrable (fun y => h₂ y * (Real.exp (c * x) - Real.exp (c * y))) volume (-a) x :=
@@ -561,35 +561,24 @@ theorem theoremC {a : ℝ} (ha : 0 < a) {h h₁ h₂ : ℝ → ℝ} (hV : h ∈ 
   have := (groundSpace a).add_mem hfV ((groundSpace a).smul_mem (1 / 4) hV)
   convert this using 1; funext x; simp only [f, Pi.add_apply, Pi.smul_apply, smul_eq_mul]; ring
 
-/-- **A nonzero `H²`-flat ground-space element forces degeneracy**: no ground state is simple. -/
+/-- **A nonzero `H²`-flat ground-space element forces degeneracy**: `f = h'' − h/4` and `G f = h` are
+a green pair in the ground space, so no ground state is simple (`not_simple_of_green_pair`). -/
 theorem theoremC_not_simple {a : ℝ} (ha : 0 < a) {h h₁ h₂ : ℝ → ℝ} (hV : h ∈ groundSpace a)
     (hflat : FlatH2 a h h₁ h₂) (hpos : 0 < normSq h) (g : ℝ → ℝ) : ¬ SimpleGround a g := by
   intro hs
-  obtain ⟨c₁, h1⟩ := hs.2 h hV
-  obtain ⟨c₂, h2⟩ := hs.2 h₂ (theoremC ha hV hflat)
-  have hc₁ : c₁ ≠ 0 := by
-    rintro rfl
-    have := normSq_congr_ae h1
-    rw [this] at hpos
-    simp [normSq] at hpos
-  set c := c₂ / c₁
-  have hae : h₂ =ᵐ[volume] fun t => c * h t := by
-    filter_upwards [h1, h2] with t ht1 ht2
-    rw [ht2, ht1]; simp only [c]; field_simp
-  have hcont : Continuous fun t => c * h t := continuous_const.mul hflat.cont
-  have hprim : ∀ x, h₁ x = ∫ y in (-a)..x, c * h y := by
-    intro x
-    rw [hflat.prim x]
-    exact intervalIntegral.integral_congr_ae (hae.mono fun y hy _ => hy)
-  have hd2 : ∀ x, HasDerivAt h₁ (c * h x) x := by
-    intro x
-    have := (hcont.integral_hasStrictDerivAt (-a) x).hasDerivAt
-    have e : h₁ = fun x => ∫ y in (-a)..x, c * h y := funext hprim
-    rw [e]; exact this
-  have hC : C2Supp a h h₁ (fun t => c * h t) :=
-    ⟨hflat.d1, hd2, hcont, hflat.supp, hflat.supp1, fun x hx => by rw [hflat.supp x hx, mul_zero]⟩
-  have hz := eq_zero_of_deriv2_eq hC (fun t => rfl)
-  have : normSq h = 0 := by unfold normSq; simp [hz]
+  obtain ⟨hpole, hG⟩ := flat_green ha.le hflat
+  have hfV : (fun x => h₂ x - h x / 4) ∈ groundSpace a := by
+    have := (groundSpace a).sub_mem (theoremC ha hV hflat) ((groundSpace a).smul_mem (1 / 4) hV)
+    convert this using 1; funext x; simp only [Pi.sub_apply, Pi.smul_apply, smul_eq_mul]; ring
+  have hGV : Gpole (fun x => h₂ x - h x / 4) a ∈ groundSpace a := by rw [funext hG]; exact hV
+  refine not_simple_of_green_pair ha hs hfV hpole ((normSq_nonneg _).lt_of_ne fun h0 => ?_) hGV
+  have hz := ae_zero_of_normSq hfV.1.memL2 h0.symm
+  have hh : ∀ x, h x = 0 := fun x => by
+    rw [← hG x]; unfold Gpole
+    rw [intervalIntegral.integral_congr_ae (g := fun _ => (0 : ℝ))
+      (hz.mono fun y hy _ => by simp only [Pi.zero_apply] at hy ⊢; rw [hy, mul_zero])]
+    simp
+  have : normSq h = 0 := by unfold normSq; simp [hh]
   linarith
 
 /-! ## The converse: Green solutions are `H²`-flat -/
@@ -606,7 +595,7 @@ theorem tri_exp (hw : MemLp w 2 volume) {c : ℝ} (hc : c ≠ 0) {x : ℝ} (hx :
   have hwi : ∀ α β, IntervalIntegrable w volume α β := memLp_intervalIntegrable hw
   have hwe : IntervalIntegrable (fun y => w y * Real.exp (c * y)) volume (-a) x :=
     (hwi _ _).mul_continuousOn (by fun_prop)
-  rw [triangle_swap_int hx (e := fun s => Real.exp (-c * s)) (f := fun y => w y * Real.exp (c * y))
+  rw [triangle_swap hx (e := fun s => Real.exp (-c * s)) (f := fun y => w y * Real.exp (c * y))
     (hce.integrableOn_Icc.mono_set Ioc_subset_Icc_self) hwe.1]
   have hin : ∀ y, (∫ s in y..x, Real.exp (-c * s)) = c⁻¹ * (Real.exp (-c * y) - Real.exp (-c * x)) := by
     intro y
@@ -649,8 +638,6 @@ theorem prim_left (ha : 0 ≤ a) {φ : ℝ → ℝ} (hφ : ∀ y, a < |y| → φ
   rw [uIoc_of_ge hx.le] at hyI
   have hy1 : y < -a := lt_of_le_of_ne hyI.2 hy
   exact hφ y (by rw [abs_of_neg (by linarith)]; linarith)
-
-theorem sq_half : ((-1 / 2 : ℝ)) ≠ 0 ∧ ((1 / 2 : ℝ)) ≠ 0 := ⟨by norm_num, by norm_num⟩
 
 /-- `∫_{−a}^x G1 = G w` and `∫_{−a}^x G w = 2e^{x/2}I₁ + 2e^{−x/2}I₂ − 4∫w`. -/
 theorem green_prims (hp : Probe a w) (ha : 0 ≤ a) (x : ℝ) :

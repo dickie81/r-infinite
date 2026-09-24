@@ -16,8 +16,9 @@ Mathlib's `completedRiemannZeta₀`. Item 1's (a) is `HypD` (Hypothesis D of The
   `riemannZeta` with `|t_ρ| < T_D` on the critical line (item 5's finite advance). Only the
   inclusion "every zero of `Ξ` below `T_D` is a zero of `ĝ₁`" is used.
 * `rh_of_realRooted_limit`: real-rooted entire functions whose rescalings converge locally uniformly
-  to `Ξ` give Mathlib's `RiemannHypothesis` (item 6's step). The Hurwitz-type lemma it needs,
-  `hurwitz_real`, is proved here from the maximum modulus principle.
+  to `Ξ` give Mathlib's `RiemannHypothesis` (item 6's step). The Hurwitz lemma it needs is
+  proved here from the maximum modulus principle, on any open set and for any closed target set
+  (`hurwitz_closed_on`); `hurwitz_closed` and `hurwitz_real` are its special cases.
 * `rh_of_ground_states`: the same for ground states, with `ĝ` proved entire. -/
 
 open Real Filter Topology MeasureTheory Complex
@@ -170,19 +171,15 @@ theorem finite_advance {a TD : ℝ} {g : ℝ → ℝ} (_hg : IsGroundState a g) 
     ∀ s, IsNontrivialZero s → ‖(s - 1 / 2) / I‖ < TD → s.re = 1 / 2 :=
   zeros_on_line_below (fun z hz h => by rw [hD z hz]; exact h) (fun z _ h => hRR z h)
 
-/-- **A Hurwitz-type lemma, proved**: if entire `F n → f` locally uniformly, `f ≢ 0`, and every
-`F n` has only real zeros, then `f` has only real zeros. (A non-real zero `z₀` of `f` is isolated;
-on a small circle around it, inside the half-plane, `|f| ≥ m > 0`; for large `n`, `|F n| > m/2`
-there and `|F n z₀| < m/2`, while `1/F n` is holomorphic on the disc — contradicting the maximum
-modulus principle.) -/
-theorem hurwitz_real {F : ℕ → ℂ → ℂ} {f : ℂ → ℂ} (hF : ∀ n, Differentiable ℂ (F n))
-    (hf : Differentiable ℂ f) (hconv : TendstoLocallyUniformly F f atTop)
-    (hnz : ∃ w, f w ≠ 0) (hreal : ∀ n z, F n z = 0 → z.im = 0) :
-    ∀ z₀, f z₀ = 0 → z₀.im = 0 := by
-  intro z₀ hz₀
-  by_contra him
-  have hρ : 0 < |z₀.im| := abs_pos.2 him
-  -- `z₀` is an isolated zero
+/-- **Hurwitz for a closed set, on an open set `U`.** -/
+theorem hurwitz_closed_on {F : ℕ → ℂ → ℂ} {f : ℂ → ℂ} {U : Set ℂ} (hU : IsOpen U)
+    (hF : ∀ n, Differentiable ℂ (F n)) (hf : Differentiable ℂ f)
+    (hconv : TendstoLocallyUniformlyOn F f atTop U)
+    (hnz : ∃ w, f w ≠ 0) {S : Set ℂ} (hS : IsClosed S) (hzeros : ∀ n z, F n z = 0 → z ∈ S) :
+    ∀ z₀ ∈ U, f z₀ = 0 → z₀ ∈ S := by
+  intro z₀ hU0 hz₀
+  by_contra hS0
+  obtain ⟨ρ, hρ, hball⟩ := Metric.isOpen_iff.1 (hS.isOpen_compl.inter hU) z₀ ⟨hS0, hU0⟩
   have hiso : ∀ᶠ z in 𝓝[≠] z₀, f z ≠ 0 := by
     rcases (hf.analyticAt z₀).eventually_eq_zero_or_eventually_ne_zero with h | h
     · exfalso
@@ -192,11 +189,10 @@ theorem hurwitz_real {F : ℕ → ℂ → ℂ} {f : ℂ → ℂ} (hF : ∀ n, Di
       exact hw (by simpa using hall (Set.mem_univ w))
     · exact h
   obtain ⟨ε, hε, hεf⟩ := Metric.eventually_nhds_iff.1 (eventually_nhdsWithin_iff.1 hiso)
-  set r := min (ε / 2) (|z₀.im| / 2) with hr_def
+  set r := min (ε / 2) (ρ / 2) with hr_def
   have hr : 0 < r := lt_min (by linarith) (by linarith)
   have hrε : r < ε := lt_of_le_of_lt (min_le_left _ _) (by linarith)
-  have hrρ : r < |z₀.im| := lt_of_le_of_lt (min_le_right _ _) (by linarith)
-  -- `|f| ≥ m > 0` on the circle
+  have hrρ : r < ρ := lt_of_le_of_lt (min_le_right _ _) (by linarith)
   have hne : (Metric.sphere z₀ r).Nonempty := ⟨z₀ + r, by simp [abs_of_pos hr]⟩
   obtain ⟨w, hwS, hwmin⟩ := (isCompact_sphere z₀ r).exists_isMinOn hne
     (hf.continuous.norm.continuousOn)
@@ -207,19 +203,15 @@ theorem hurwitz_real {F : ℕ → ℂ → ℂ} {f : ℂ → ℂ} (hF : ∀ n, Di
     intro h; rw [h, sub_self, norm_zero] at hz; exact hr.ne hz
   set m := ‖f w‖ with hm_def
   have hm : 0 < m := norm_pos_iff.2 (hfS w hwS)
-  -- uniform convergence on the closed disc
-  have hunif := (tendstoLocallyUniformly_iff_forall_isCompact.1 hconv) _
+  have hsub : Metric.closedBall z₀ r ⊆ U := fun z hz =>
+    (hball (lt_of_le_of_lt (Metric.mem_closedBall.1 hz) hrρ)).2
+  have hunif := (tendstoLocallyUniformlyOn_iff_forall_isCompact hU).1 hconv _ hsub
     (isCompact_closedBall z₀ r)
   obtain ⟨n, hn⟩ := (Metric.tendstoUniformlyOn_iff.1 hunif (m / 2) (by linarith)).exists
-  -- `F n` has no zero on the closed disc (it lies off the real axis)
   have hnoz : ∀ z ∈ Metric.closedBall z₀ r, F n z ≠ 0 := by
     intro z hz h
-    have him0 := hreal n z h
-    have hd : ‖z - z₀‖ ≤ r := by rw [← dist_eq_norm]; exact hz
-    have := abs_im_le_norm (z - z₀)
-    rw [sub_im, him0, zero_sub, abs_neg] at this
-    linarith
-  -- `|F n| > m/2` on the circle
+    have hzS := hzeros n z h
+    exact (hball (lt_of_le_of_lt (Metric.mem_closedBall.1 hz) hrρ)).1 hzS
   have hbound : ∀ z ∈ frontier (Metric.ball z₀ r), ‖(F n z)⁻¹‖ ≤ (m / 2)⁻¹ := by
     intro z hz
     rw [frontier_ball z₀ hr.ne'] at hz
@@ -244,6 +236,24 @@ theorem hurwitz_real {F : ℕ → ℂ → ℂ} {f : ℂ → ℂ} (hF : ∀ n, Di
   have hpos : 0 < ‖F n z₀‖ := norm_pos_iff.2 hFz0
   have := (inv_le_inv₀ hpos (by linarith)).1 hmax
   linarith
+
+/-- **Hurwitz for a closed set.** If entire `F n → f` locally uniformly, `f ≢ 0`, and every zero of
+every `F n` lies in the closed set `S`, then every zero of `f` lies in `S`. -/
+theorem hurwitz_closed {F : ℕ → ℂ → ℂ} {f : ℂ → ℂ} (hF : ∀ n, Differentiable ℂ (F n))
+    (hf : Differentiable ℂ f) (hconv : TendstoLocallyUniformly F f atTop)
+    (hnz : ∃ w, f w ≠ 0) {S : Set ℂ} (hS : IsClosed S) (hzeros : ∀ n z, F n z = 0 → z ∈ S) :
+    ∀ z₀, f z₀ = 0 → z₀ ∈ S := fun z₀ hz₀ =>
+  hurwitz_closed_on isOpen_univ hF hf ((tendstoLocallyUniformlyOn_univ).2 hconv) hnz hS hzeros z₀
+    (Set.mem_univ _) hz₀
+
+/-- **A Hurwitz-type lemma**: if entire `F n → f` locally uniformly, `f ≢ 0`, and every `F n` has
+only real zeros, then `f` has only real zeros (`hurwitz_closed` with `S = ℝ`). -/
+theorem hurwitz_real {F : ℕ → ℂ → ℂ} {f : ℂ → ℂ} (hF : ∀ n, Differentiable ℂ (F n))
+    (hf : Differentiable ℂ f) (hconv : TendstoLocallyUniformly F f atTop)
+    (hnz : ∃ w, f w ≠ 0) (hreal : ∀ n z, F n z = 0 → z.im = 0) :
+    ∀ z₀, f z₀ = 0 → z₀.im = 0 :=
+  hurwitz_closed (S := {z | z.im = 0}) hF hf hconv hnz
+    (isClosed_eq continuous_im continuous_const) hreal
 
 /-- **Item 6's step, proved**: real-rooted entire functions `F n` with nonzero scalars `c n` such
 that `c n · F n → Ξ` locally uniformly give **Mathlib's `RiemannHypothesis`**. -/
@@ -335,6 +345,7 @@ end Pilot1ca
 #print axioms Pilot1ca.xi_two_ne_zero
 #print axioms Pilot1ca.zeros_on_line_below
 #print axioms Pilot1ca.finite_advance
+#print axioms Pilot1ca.hurwitz_closed_on
 #print axioms Pilot1ca.hurwitz_real
 #print axioms Pilot1ca.rh_of_realRooted_limit
 #print axioms Pilot1ca.ghatC_differentiable

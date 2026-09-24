@@ -1,7 +1,8 @@
 import Mathlib
 import HadamardApply
+import RiemannKernel
 
-/-! # `Ξ(0) ≠ 0` and the order of `Ξ`, from Riemann's theta kernel
+/-! # The order of `Ξ`, from Riemann's theta kernel
 
 Mathlib's `completedRiemannZeta₀ s` is `mellin f_modif (s/2) / 2` for the FE-pair built on the theta
 kernel `θ(x) = Σ_{n∈ℤ} e^{−πn²x}`. Here:
@@ -9,8 +10,9 @@ kernel `θ(x) = Σ_{n∈ℤ} e^{−πn²x}`. Here:
 * `f_modif` is `θ(x) − 1` on `(1, ∞)` and `x^{−1/2}(θ(1/x) − 1)` on `(0, 1)` (functional equation);
 * `norm_completedZeta₀_le`: `‖Λ₀(s)‖ ≤ (3m₁!/π^{m₁} + 3m₂!/(π − 1))/2` whenever
   `m₁ ≥ 3/2 − Re s/2`, `m₂ ≥ Re s/2 − 1` (`e^{−π/x} ≤ m!(x/π)^m`, `x^m ≤ m!eˣ`);
-* `Xi_zero_ne_zero`: `|Λ₀(½)| < 4`, so `ξ(½) = (1 − Λ₀(½)/4)/2 ≠ 0`;
-* `xiGrowth`: `‖Ξ(t)‖ ≤ C exp(A‖t‖^{3/2})`. -/
+* `xiGrowth`: `‖Ξ(t)‖ ≤ C exp(A‖t‖^{3/2})`.
+
+`Ξ(0) ≠ 0` (`Xi_zero_ne_zero`) comes from `Φ > 0` in RiemannKernel.lean. -/
 
 open Real Filter Topology Complex MeasureTheory Set HurwitzZeta
 
@@ -240,32 +242,6 @@ theorem norm_completedZeta₀_le (s : ℂ) (m₁ m₂ : ℕ) (h₁ : 3 / 2 - (s 
   refine hmel.trans (le_of_eq ?_)
   rw [hgv]
 
-/-! ## `Ξ(0) ≠ 0` -/
-
-/-- **`Ξ(0) ≠ 0`**: `‖Λ₀(½)‖ ≤ (6/π² + 3/(π − 1))/2 < 4`, while `ξ(½) = (1 − Λ₀(½)/4)/2`. -/
-theorem Xi_zero_ne_zero : Xi 0 ≠ 0 := by
-  have hb := norm_completedZeta₀_le (1 / 2) 2 0 (by norm_num) (by norm_num)
-  have hπ3 := Real.pi_gt_three
-  have hb' : ‖completedRiemannZeta₀ (1 / 2)‖ < 4 := by
-    refine lt_of_le_of_lt hb ?_
-    simp only [Nat.factorial, Nat.succ_eq_add_one, zero_add, Nat.mul_one,
-      Nat.cast_one]
-    have h1 : 3 * 2 / π ^ 2 ≤ 1 := by
-      rw [div_le_one (by positivity)]; nlinarith
-    have h2 : 3 * 1 / (π - 1) ≤ 2 := by
-      rw [div_le_iff₀ (by linarith)]; linarith
-    norm_num at h1 h2 ⊢
-    linarith
-  intro h
-  unfold Xi xi at h
-  rw [mul_zero, add_zero] at h
-  have : completedRiemannZeta₀ (1 / 2) = 4 := by
-    have h' : (1 / 2 : ℂ) * (1 / 2 - 1) * completedRiemannZeta₀ (1 / 2) + 1 = 0 := by
-      have := congrArg (· * 2) h; simpa using this
-    linear_combination (-4 : ℂ) * h'
-  rw [this] at hb'
-  norm_num at hb'
-
 /-! ## The order of `Ξ` -/
 
 theorem log_le_two_sqrt {y : ℝ} (hy : 0 < y) : Real.log y ≤ 2 * Real.sqrt y := by
@@ -398,6 +374,5 @@ end Pilot1ca
 
 #print axioms Pilot1ca.evenKernel_sub_one_le
 #print axioms Pilot1ca.norm_completedZeta₀_le
-#print axioms Pilot1ca.Xi_zero_ne_zero
 #print axioms Pilot1ca.xiGrowth
 #print axioms Pilot1ca.rh_of_D_and_realRooted_final

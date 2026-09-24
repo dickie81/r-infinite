@@ -66,9 +66,6 @@ theorem memLp_shift {g : ℝ → ℝ} (hg : MemLp g 2 volume) (u : ℝ) :
 theorem normSq_shift (g : ℝ → ℝ) (u : ℝ) : normSq (fun t => g (t + u)) = normSq g :=
   integral_add_right_eq_self (fun t => g t ^ 2) u
 
-theorem normSq_neg (g : ℝ → ℝ) : normSq (fun t => g (-t)) = normSq g :=
-  integral_neg_eq_self (fun t => g t ^ 2) volume
-
 /-! ## Symmetrise and cut off -/
 
 /-- `S f (u) = 1_{|u| ≤ a}·(f(u) + f(−u))/2`. -/

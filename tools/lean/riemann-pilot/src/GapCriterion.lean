@@ -26,18 +26,8 @@ namespace Pilot1ca
 /-! ## Euler–Lagrange for `Q`, and the overlap identity -/
 
 theorem euler_lagrange_Q {a : ℝ} (ha : 0 < a) {g ψ : ℝ → ℝ} (hg : IsGroundState a g)
-    (hψ : Probe a ψ) : bil0 a g ψ + 2 * poleR g a * poleR ψ a = lam a * xcorr g ψ 0 := by
-  have hq : weilQ a g = lam a * normSq g := ((isGroundState_iff ha).1 hg).1.2
-  have hpole : ∀ s : ℝ, poleR (fun t => g t + s * ψ t) a = poleR g a + s * poleR ψ a := by
-    intro s
-    rw [poleR_add hg.1.memL2 (hψ.memL2.const_mul s) a, poleR_smul]
-  apply sub_eq_zero.1
-  refine quad_zero (c := weilQ0 a ψ + 2 * poleR ψ a ^ 2 - lam a * normSq ψ) fun s => ?_
-  have h := lam_mul_le (probe_add_smul hg.1 hψ s)
-  have hQ : ∀ f, weilQ a f = weilQ0 a f + 2 * poleR f a ^ 2 := fun f => by unfold weilQ0; ring
-  rw [hQ, weilQ0_add_smul hg.1 hψ, hpole, normSq_add_smul hg.1.memL2 hψ.memL2] at h
-  rw [hQ] at hq
-  nlinarith [h]
+    (hψ : Probe a ψ) : bil0 a g ψ + 2 * poleR g a * poleR ψ a = lam a * xcorr g ψ 0 :=
+  euler_lagrange_mem ⟨hg.1, ((isGroundState_iff ha).1 hg).1.2⟩ hψ
 
 /-- **The pole-overlap identity** (round 49). -/
 theorem pole_overlap_identity {a μ : ℝ} (ha : 0 < a) {g ψ : ℝ → ℝ} (hg : IsGroundState a g)
@@ -50,11 +40,12 @@ theorem pole_overlap_identity {a μ : ℝ} (ha : 0 < a) {g ψ : ℝ → ℝ} (hg
 
 /-! ## Interlacing and the gap criterion -/
 
-/-- **Interlacing**: `λ₁(Q) ≤ Q₀(ψ)` for every normalised probe orthogonal to a ground state of `Q₀`
-with nonzero pole value. -/
-theorem lam_le_of_perp {a : ℝ} (ha : 0 < a) {φ ψ : ℝ → ℝ} (hφ : IsGroundState0 a φ)
+/-- **The pole-free trial** `ψ + sφ`, `s = −ψ̂(i/2)/φ̂(i/2)`, for a normalised probe `ψ ⊥ φ₀`:
+`λ₁(1 + s²) ≤ Q₀(ψ) + s²λ₀`. -/
+theorem lam_le_perp_trial {a : ℝ} (ha : 0 < a) {φ ψ : ℝ → ℝ} (hφ : IsGroundState0 a φ)
     (hφp : poleR φ a ≠ 0) (hψ : Probe a ψ) (hn : normSq ψ = 1) (hx : xcorr ψ φ 0 = 0) :
-    lam a ≤ weilQ0 a ψ := by
+    lam a * (1 + (poleR ψ a / poleR φ a) ^ 2)
+      ≤ weilQ0 a ψ + (poleR ψ a / poleR φ a) ^ 2 * lam0 a := by
   set s := -(poleR ψ a / poleR φ a)
   have hf := probe_add_smul hψ hφ.1 s
   have hpole : poleR (fun t => ψ t + s * φ t) a = 0 := by
@@ -73,8 +64,17 @@ theorem lam_le_of_perp {a : ℝ} (ha : 0 < a) {φ ψ : ℝ → ℝ} (hφ : IsGro
     rw [normSq_add_smul hψ.memL2 hφ.1.memL2, hn, hx, hφ.2.1]; ring
   have h := lam_mul_le hf
   rw [hQf, hNf] at h
+  have e : s ^ 2 = (poleR ψ a / poleR φ a) ^ 2 := by simp only [s]; ring
+  rwa [e] at h
+
+/-- **Interlacing**: `λ₁(Q) ≤ Q₀(ψ)` for every normalised probe orthogonal to a ground state of `Q₀`
+with nonzero pole value. -/
+theorem lam_le_of_perp {a : ℝ} (ha : 0 < a) {φ ψ : ℝ → ℝ} (hφ : IsGroundState0 a φ)
+    (hφp : poleR φ a ≠ 0) (hψ : Probe a ψ) (hn : normSq ψ = 1) (hx : xcorr ψ φ 0 = 0) :
+    lam a ≤ weilQ0 a ψ := by
+  have h := lam_le_perp_trial ha hφ hφp hψ hn hx
   have h0 := lam0_le_lam ha
-  nlinarith [sq_nonneg s]
+  nlinarith [sq_nonneg (poleR ψ a / poleR φ a)]
 
 /-- The strict energy gap at support `2a`: `Q₀ > λ₁(Q)` on the unit sphere of `φ₀^⊥`. -/
 def EnergyGap (a : ℝ) : Prop :=

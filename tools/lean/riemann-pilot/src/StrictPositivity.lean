@@ -122,22 +122,12 @@ theorem weilQ0_add_smul {a : ℝ} {φ ψ : ℝ → ℝ} (hφ : Probe a φ) (hψ 
   rw [weilQ0_eq', weilQ0_eq', weilQ0_eq', normSq_add_smul hφ.memL2 hψ.memL2, hA, hS]
   unfold bil0; ring
 
-/-- **The Euler–Lagrange equation**: at a ground state of `Q₀`, `B(φ, ψ) = λ₀⟨φ, ψ⟩`. -/
-theorem euler_lagrange0 {a : ℝ} (ha : 0 < a) {φ ψ : ℝ → ℝ} (hφ : IsGroundState0 a φ)
-    (hψ : Probe a ψ) : bil0 a φ ψ = lam0 a * xcorr φ ψ 0 := by
-  have hq : weilQ0 a φ = lam0 a * normSq φ := ((isGroundState0_iff ha).1 hφ).1.2
-  have hR : ∀ s : ℝ, 0 ≤ 2 * s * (bil0 a φ ψ - lam0 a * xcorr φ ψ 0)
-      + s ^ 2 * (weilQ0 a ψ - lam0 a * normSq ψ) := by
-    intro s
-    have := lam0_mul_le (probe_add_smul hφ.1 hψ s)
-    rw [weilQ0_add_smul hφ.1 hψ, normSq_add_smul hφ.1.memL2 hψ.memL2, hq] at this
-    nlinarith [this]
-  set b := bil0 a φ ψ - lam0 a * xcorr φ ψ 0
-  set c := weilQ0 a ψ - lam0 a * normSq ψ
-  have hc : 0 ≤ c := by have := lam0_mul_le hψ; simp only [c]; linarith
+/-- A real quadratic `2sb + s²c` that is non-negative for every `s` has `b = 0`. -/
+theorem quad_zero {b c : ℝ} (h : ∀ s : ℝ, 0 ≤ 2 * s * b + s ^ 2 * c) : b = 0 := by
+  have hc : 0 ≤ c := by have h1 := h 1; have h2 := h (-1); nlinarith
   by_contra hb
-  have hb' : b ≠ 0 := fun h => hb (by simp only [b] at h; linarith)
-  have h1 := hR (-b / (c + 1))
+  have hb' : b ≠ 0 := hb
+  have h1 := h (-b / (c + 1))
   have hc1 : 0 < c + 1 := by linarith
   have hb2 : 0 < b ^ 2 := by positivity
   have e : 2 * (-b / (c + 1)) * b + (-b / (c + 1)) ^ 2 * c
@@ -145,6 +135,16 @@ theorem euler_lagrange0 {a : ℝ} (ha : 0 < a) {φ ψ : ℝ → ℝ} (hφ : IsGr
   rw [e] at h1
   have h2 : 0 < b ^ 2 * (c + 2) / (c + 1) ^ 2 := by positivity
   linarith
+
+/-- **The Euler–Lagrange equation**: at a ground state of `Q₀`, `B(φ, ψ) = λ₀⟨φ, ψ⟩`. -/
+theorem euler_lagrange0 {a : ℝ} (ha : 0 < a) {φ ψ : ℝ → ℝ} (hφ : IsGroundState0 a φ)
+    (hψ : Probe a ψ) : bil0 a φ ψ = lam0 a * xcorr φ ψ 0 := by
+  have hq : weilQ0 a φ = lam0 a * normSq φ := ((isGroundState0_iff ha).1 hφ).1.2
+  apply sub_eq_zero.1
+  refine quad_zero (c := weilQ0 a ψ - lam0 a * normSq ψ) fun s => ?_
+  have := lam0_mul_le (probe_add_smul hφ.1 hψ s)
+  rw [weilQ0_add_smul hφ.1 hψ, normSq_add_smul hφ.1.memL2 hψ.memL2, hq] at this
+  nlinarith [this]
 
 /-! ## 2. The cross term as a pairwise difference -/
 
@@ -413,11 +413,6 @@ def gapInf (a : ℝ) (φ : ℝ → ℝ) (u t : ℝ) : ℝ :=
 theorem gapH_nonneg {a : ℝ} {φ : ℝ → ℝ} (hp : Probe a φ) (k : ℕ) {u : ℝ} (hu : 0 < u)
     (t : ℝ) : 0 ≤ gapH a φ k u t := by
   unfold gapH; linarith [pair_le hp (epsk_pos k) hu t]
-
-theorem gapInf_nonneg {a : ℝ} {φ : ℝ → ℝ} (h0 : ∀ t, 0 ≤ φ t) (u t : ℝ) :
-    0 ≤ gapInf a φ u t := by
-  unfold gapInf
-  exact add_nonneg (mul_nonneg (zind_nonneg a φ t) (h0 _)) (mul_nonneg (h0 t) (zind_nonneg a φ _))
 
 theorem gapH_tendsto {a : ℝ} {φ : ℝ → ℝ} (h0 : ∀ t, 0 ≤ φ t) (u t : ℝ) :
     Tendsto (fun k => gapH a φ k u t) atTop (𝓝 (gapInf a φ u t)) := by
@@ -717,6 +712,7 @@ theorem exists_positive_groundState0 {a : ℝ} (ha : 0 < a) :
 end Pilot1ca
 
 #print axioms Pilot1ca.weilQ0_add_smul
+#print axioms Pilot1ca.quad_zero
 #print axioms Pilot1ca.euler_lagrange0
 #print axioms Pilot1ca.xcorr_sub_eq
 #print axioms Pilot1ca.etaF_probe

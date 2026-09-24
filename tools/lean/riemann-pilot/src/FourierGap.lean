@@ -1,5 +1,5 @@
 import Mathlib
-import SpectralGap
+import UniquenessQ
 
 /-! # A certified lower bound on `Q₀` orthogonally to `w`, for every `0 < a ≤ 0.35`
 
@@ -15,7 +15,8 @@ The method is an exact Fourier representation, not an approximation.
 * **C.** `K(u) = ½csch(u/2) + ½sech(u/2) ≥ 1/u + ½ − r(u)` (Taylor bounds for `exp`), so
   `ψ_n ≥ Cin(πn/2) + a(1 − 2 sin(πn/2)/(πn)) − err(a)`.
 * **D.** `Cin(x) = ∫₀ˣ(1 − cos s)/s` is bounded below at `x = πk/2`, `k ≤ 61`, by a Taylor piece and
-  tangent-line pieces `1/s ≥ 2/c − s/c²` with exact antiderivatives.
+  tangent-line pieces `1/s ≥ 2/c − s/c²` with exact antiderivatives; from `3π` on the pieces are in
+  closed form (`piece_eq`) and the rational sums are checked by kernel evaluation.
 * **E.** For even `g` the mode masses are `p_n = (∫ g cos(πnt/4a))²/(8a)`; Cauchy–Schwarz against
   `cos − β_n`, with `(∫ g)² ≤ a⁵/30` from `g ⊥ w`, bounds `p_1, …, p_5`.
 * **F–G.** The box has near-field energy `≤ 1 + a/2` and pole term `≤ 4a(1 + a²/24 + a⁴/1600)²`.
@@ -34,64 +35,48 @@ noncomputable section
 
 namespace Pilot1ca
 
-/-! ## A. The exact Fourier representation on a circle of length `8a` -/
+/-! ## The kernel, the prime term below `log 2`, the far field -/
 
-/-- `cf_shift` with support `r` and any shift keeping the support inside the window. -/
-theorem cf_shift' {A r : ℝ} {g : ℝ → ℝ} (hsupp : ∀ u, r < |u| → g u = 0) {s : ℝ}
-    (hr : r < 2 * A) (hs : r + |s| < 2 * A) (n : ℤ) :
-    cf A (fun t => g (t + s)) n = Complex.exp (2 * π * I * n * s / (4 * A)) * cf A g n := by
-  unfold cf
-  set E : ℝ → ℂ := fun t => Complex.exp (-(2 * π * I * n * t / (4 * A))) with hE
-  show (1 / (4 * A) : ℂ) * (∫ t in (-(2 * A))..(2 * A), E t * ((g (t + s) : ℝ) : ℂ))
-    = Complex.exp (2 * π * I * n * s / (4 * A))
-      * ((1 / (4 * A) : ℂ) * ∫ t in (-(2 * A))..(2 * A), E t * ((g t : ℝ) : ℂ))
-  have h1 : (∫ t in (-(2 * A))..(2 * A), E t * ((g (t + s) : ℝ) : ℂ))
-      = ∫ x in (-(2 * A) + s)..(2 * A + s), E (x - s) * ((g x : ℝ) : ℂ) := by
-    rw [← intervalIntegral.integral_comp_add_right (fun x => E (x - s) * ((g x : ℝ) : ℂ)) s]
-    simp only [add_sub_cancel_right]
-  have hEs : ∀ x, E (x - s) = Complex.exp (2 * π * I * n * s / (4 * A)) * E x := by
-    intro x; simp only [hE]; rw [← Complex.exp_add]; congr 1; push_cast; ring
-  have hsuppC : ∀ u, r < |u| → E u * ((g u : ℝ) : ℂ) = 0 := fun u hu => by
-    rw [hsupp u hu]; simp
-  have hs1 := le_abs_self s
-  have hs2 := neg_abs_le s
-  rw [h1]
-  simp_rw [hEs, mul_assoc]
-  rw [intervalIntegral.integral_const_mul,
-    integral_eq_of_supp hsuppC (by linarith) (by linarith),
-    integral_eq_of_supp hsuppC (by linarith) (by linarith)]
+theorem kerK_le {u : ℝ} (hu : 0 < u) : kerK u ≤ Real.exp (u / 2) / u := by
+  unfold kerK
+  exact div_le_div_of_nonneg_left (Real.exp_pos _).le hu (Real.self_le_sinh_iff.2 hu.le)
+
+/-- Below the first prime power (`2a < log 2`) the prime term of every probe vanishes. -/
+theorem primeS_eq_zero {a : ℝ} (ha : 2 * a < Real.log 2) {g : ℝ → ℝ} (hg : Probe a g) :
+    primeS g = 0 := by
+  unfold primeS
+  refine (tsum_congr fun n => ?_).trans tsum_zero
+  rcases lt_or_ge n 2 with hn | hn
+  · interval_cases n <;> simp
+  · have hl : Real.log 2 ≤ Real.log n :=
+      Real.log_le_log (by norm_num) (by exact_mod_cast hn)
+    have h2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
+    have hpos : 0 < Real.log n := by linarith
+    have hz : autocorr g (Real.log n) = 0 :=
+      autocorr_eq_zero hg.supp (by rw [abs_of_pos hpos]; linarith)
+    simp [hz]
+
+theorem box_sq {a : ℝ} (ha : 0 < a) : (1 / Real.sqrt (2 * a)) ^ 2 = 1 / (2 * a) := by
+  rw [div_pow, Real.sq_sqrt (by linarith), one_pow]
+
+theorem archIntegrand_eq_kerK {a : ℝ} (ha : 0 ≤ a) {g : ℝ → ℝ} (hg : Probe a g) (hn : normSq g = 1) {u : ℝ}
+    (hu : 2 * a < u) : archIntegrand g u = kerK u := by
+  unfold archIntegrand kerK
+  rw [autocorr_zero, hn, autocorr_eq_zero hg.supp (by rwa [abs_of_pos (by linarith)])]
   ring
 
-/-- `hasSum_shift` for support `r` and any shift with `r + |s| < 2A`. -/
-theorem hasSum_shift' {A r : ℝ} (hA : 0 < A) {g : ℝ → ℝ} (hg : MemLp g 2 volume)
-    (hsupp : ∀ u, r < |u| → g u = 0) {s : ℝ} (hs : r + |s| < 2 * A) :
-    HasSum (fun n : ℤ => ‖cf A g n‖ ^ 2 * (2 - 2 * Real.cos (2 * π * n * s / (4 * A))))
-      ((4 * A)⁻¹ * (2 * (autocorr g 0 - autocorr g s))) := by
-  have hgs : MemLp (fun t => g (t + s)) 2 volume :=
-    hg.comp_measurePreserving (measurePreserving_add_right volume s)
-  have hmem : MemLp (fun t => g t - g (t + s)) 2 volume := hg.sub hgs
-  have hsupp2 : ∀ u, r + |s| < |u| → g u - g (u + s) = 0 := by
-    intro u hu
-    have h1 : r < |u| := by linarith [abs_nonneg s]
-    have h2 : r < |u + s| := by
-      have : |u| ≤ |u + s| + |s| := by
-        have := abs_sub (u + s) s
-        rwa [add_sub_cancel_right] at this
-      linarith
-    rw [hsupp u h1, hsupp _ h2, sub_self]
-  have hP := hasSum_cf_sq hA hs hmem hsupp2
-  rw [normSq_sub_shift hg s] at hP
-  convert hP using 1
-  funext n
-  have hlin : cf A (fun t => g t - g (t + s)) n
-      = cf A g n * (1 - Complex.exp (((2 * π * n * s / (4 * A) : ℝ) : ℂ) * I)) := by
-    rw [cf_sub (memLp_intervalIntegrable hg _ _) (memLp_intervalIntegrable hgs _ _),
-      cf_shift' hsupp (by linarith [abs_nonneg s]) hs n]
-    have : Complex.exp (2 * π * I * n * s / (4 * A))
-        = Complex.exp (((2 * π * n * s / (4 * A) : ℝ) : ℂ) * I) := by
-      congr 1; push_cast; ring
-    rw [this]; ring
-  rw [hlin, norm_mul, mul_pow, norm_one_sub_exp_sq]
+/-- `archE g = ∫_{(0,2a]} A_g + ∫_{u > 2a} K` for a normalised probe. -/
+theorem archE_split {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) :
+    archE g = (∫ u in Ioc 0 (2 * a), archIntegrand g u) + ∫ u in Ioi (2 * a), kerK u := by
+  unfold archE
+  rw [← Ioc_union_Ioi_eq_Ioi (by linarith : (0 : ℝ) ≤ 2 * a),
+    setIntegral_union (Ioc_disjoint_Ioi (le_refl _)) measurableSet_Ioi
+      (hp.arch.mono_set Ioc_subset_Ioi_self) (hp.arch.mono_set (Ioi_subset_Ioi (by linarith)))]
+  congr 1
+  exact setIntegral_congr_fun measurableSet_Ioi fun u hu =>
+    archIntegrand_eq_kerK ha.le hp hn hu
+
+/-! ## A. The exact Fourier representation on a circle of length `8a` -/
 
 /-- The mode masses `p_n = 8a·|c_n|²` on the circle of length `8a`. -/
 def pm (a : ℝ) (g : ℝ → ℝ) (n : ℤ) : ℝ := 8 * a * ‖cf (2 * a) g n‖ ^ 2
@@ -152,10 +137,6 @@ theorem modeE_integrable {a : ℝ} (ha : 0 < a) (n : ℤ) :
         have : u / 2 ≤ a := by linarith [hu.2]
         have := sq_nonneg ω
         gcongr
-
-theorem modeE_nonneg {a : ℝ} (n : ℤ) : 0 ≤ modeE a n :=
-  setIntegral_nonneg measurableSet_Ioc fun u hu =>
-    mul_nonneg (by linarith [Real.cos_le_one (π * n * u / (4 * a))]) (kerK_pos hu.1).le
 
 theorem modeE_neg (a : ℝ) (n : ℤ) : modeE a (-n) = modeE a n := by
   unfold modeE; congr 1; funext u; push_cast
@@ -761,1160 +742,134 @@ theorem cin_val5 : (2.4848 : ℝ) ≤ Cin (π * 5 / 2) := by
 
 theorem cin_val6 : (2.7801 : ℝ) ≤ Cin (π * 6 / 2) := by
   rw [show π * (6 : ℝ) / 2 = 12 * π / 4 by ring]; linarith [cinc12]
-theorem sc14 : Real.sin (14 * π / 4) = -1 ∧ Real.cos (14 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc12
-  rw [show (14 : ℝ) * π / 4 = 12 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc16 : Real.sin (16 * π / 4) = 0 ∧ Real.cos (16 * π / 4) = 1 := by
-  obtain ⟨h1, h2⟩ := sc14
-  rw [show (16 : ℝ) * π / 4 = 14 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc18 : Real.sin (18 * π / 4) = 1 ∧ Real.cos (18 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc16
-  rw [show (18 : ℝ) * π / 4 = 16 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc20 : Real.sin (20 * π / 4) = 0 ∧ Real.cos (20 * π / 4) = -1 := by
-  obtain ⟨h1, h2⟩ := sc18
-  rw [show (20 : ℝ) * π / 4 = 18 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc22 : Real.sin (22 * π / 4) = -1 ∧ Real.cos (22 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc20
-  rw [show (22 : ℝ) * π / 4 = 20 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc24 : Real.sin (24 * π / 4) = 0 ∧ Real.cos (24 * π / 4) = 1 := by
-  obtain ⟨h1, h2⟩ := sc22
-  rw [show (24 : ℝ) * π / 4 = 22 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc26 : Real.sin (26 * π / 4) = 1 ∧ Real.cos (26 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc24
-  rw [show (26 : ℝ) * π / 4 = 24 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc28 : Real.sin (28 * π / 4) = 0 ∧ Real.cos (28 * π / 4) = -1 := by
-  obtain ⟨h1, h2⟩ := sc26
-  rw [show (28 : ℝ) * π / 4 = 26 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc30 : Real.sin (30 * π / 4) = -1 ∧ Real.cos (30 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc28
-  rw [show (30 : ℝ) * π / 4 = 28 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc32 : Real.sin (32 * π / 4) = 0 ∧ Real.cos (32 * π / 4) = 1 := by
-  obtain ⟨h1, h2⟩ := sc30
-  rw [show (32 : ℝ) * π / 4 = 30 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc34 : Real.sin (34 * π / 4) = 1 ∧ Real.cos (34 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc32
-  rw [show (34 : ℝ) * π / 4 = 32 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc36 : Real.sin (36 * π / 4) = 0 ∧ Real.cos (36 * π / 4) = -1 := by
-  obtain ⟨h1, h2⟩ := sc34
-  rw [show (36 : ℝ) * π / 4 = 34 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc38 : Real.sin (38 * π / 4) = -1 ∧ Real.cos (38 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc36
-  rw [show (38 : ℝ) * π / 4 = 36 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc40 : Real.sin (40 * π / 4) = 0 ∧ Real.cos (40 * π / 4) = 1 := by
-  obtain ⟨h1, h2⟩ := sc38
-  rw [show (40 : ℝ) * π / 4 = 38 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc42 : Real.sin (42 * π / 4) = 1 ∧ Real.cos (42 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc40
-  rw [show (42 : ℝ) * π / 4 = 40 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc44 : Real.sin (44 * π / 4) = 0 ∧ Real.cos (44 * π / 4) = -1 := by
-  obtain ⟨h1, h2⟩ := sc42
-  rw [show (44 : ℝ) * π / 4 = 42 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc46 : Real.sin (46 * π / 4) = -1 ∧ Real.cos (46 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc44
-  rw [show (46 : ℝ) * π / 4 = 44 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc48 : Real.sin (48 * π / 4) = 0 ∧ Real.cos (48 * π / 4) = 1 := by
-  obtain ⟨h1, h2⟩ := sc46
-  rw [show (48 : ℝ) * π / 4 = 46 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc50 : Real.sin (50 * π / 4) = 1 ∧ Real.cos (50 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc48
-  rw [show (50 : ℝ) * π / 4 = 48 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc52 : Real.sin (52 * π / 4) = 0 ∧ Real.cos (52 * π / 4) = -1 := by
-  obtain ⟨h1, h2⟩ := sc50
-  rw [show (52 : ℝ) * π / 4 = 50 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc54 : Real.sin (54 * π / 4) = -1 ∧ Real.cos (54 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc52
-  rw [show (54 : ℝ) * π / 4 = 52 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc56 : Real.sin (56 * π / 4) = 0 ∧ Real.cos (56 * π / 4) = 1 := by
-  obtain ⟨h1, h2⟩ := sc54
-  rw [show (56 : ℝ) * π / 4 = 54 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc58 : Real.sin (58 * π / 4) = 1 ∧ Real.cos (58 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc56
-  rw [show (58 : ℝ) * π / 4 = 56 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc60 : Real.sin (60 * π / 4) = 0 ∧ Real.cos (60 * π / 4) = -1 := by
-  obtain ⟨h1, h2⟩ := sc58
-  rw [show (60 : ℝ) * π / 4 = 58 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc62 : Real.sin (62 * π / 4) = -1 ∧ Real.cos (62 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc60
-  rw [show (62 : ℝ) * π / 4 = 60 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc64 : Real.sin (64 * π / 4) = 0 ∧ Real.cos (64 * π / 4) = 1 := by
-  obtain ⟨h1, h2⟩ := sc62
-  rw [show (64 : ℝ) * π / 4 = 62 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc66 : Real.sin (66 * π / 4) = 1 ∧ Real.cos (66 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc64
-  rw [show (66 : ℝ) * π / 4 = 64 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc68 : Real.sin (68 * π / 4) = 0 ∧ Real.cos (68 * π / 4) = -1 := by
-  obtain ⟨h1, h2⟩ := sc66
-  rw [show (68 : ℝ) * π / 4 = 66 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc70 : Real.sin (70 * π / 4) = -1 ∧ Real.cos (70 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc68
-  rw [show (70 : ℝ) * π / 4 = 68 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc72 : Real.sin (72 * π / 4) = 0 ∧ Real.cos (72 * π / 4) = 1 := by
-  obtain ⟨h1, h2⟩ := sc70
-  rw [show (72 : ℝ) * π / 4 = 70 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc74 : Real.sin (74 * π / 4) = 1 ∧ Real.cos (74 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc72
-  rw [show (74 : ℝ) * π / 4 = 72 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc76 : Real.sin (76 * π / 4) = 0 ∧ Real.cos (76 * π / 4) = -1 := by
-  obtain ⟨h1, h2⟩ := sc74
-  rw [show (76 : ℝ) * π / 4 = 74 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc78 : Real.sin (78 * π / 4) = -1 ∧ Real.cos (78 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc76
-  rw [show (78 : ℝ) * π / 4 = 76 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc80 : Real.sin (80 * π / 4) = 0 ∧ Real.cos (80 * π / 4) = 1 := by
-  obtain ⟨h1, h2⟩ := sc78
-  rw [show (80 : ℝ) * π / 4 = 78 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc82 : Real.sin (82 * π / 4) = 1 ∧ Real.cos (82 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc80
-  rw [show (82 : ℝ) * π / 4 = 80 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc84 : Real.sin (84 * π / 4) = 0 ∧ Real.cos (84 * π / 4) = -1 := by
-  obtain ⟨h1, h2⟩ := sc82
-  rw [show (84 : ℝ) * π / 4 = 82 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc86 : Real.sin (86 * π / 4) = -1 ∧ Real.cos (86 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc84
-  rw [show (86 : ℝ) * π / 4 = 84 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc88 : Real.sin (88 * π / 4) = 0 ∧ Real.cos (88 * π / 4) = 1 := by
-  obtain ⟨h1, h2⟩ := sc86
-  rw [show (88 : ℝ) * π / 4 = 86 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc90 : Real.sin (90 * π / 4) = 1 ∧ Real.cos (90 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc88
-  rw [show (90 : ℝ) * π / 4 = 88 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc92 : Real.sin (92 * π / 4) = 0 ∧ Real.cos (92 * π / 4) = -1 := by
-  obtain ⟨h1, h2⟩ := sc90
-  rw [show (92 : ℝ) * π / 4 = 90 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc94 : Real.sin (94 * π / 4) = -1 ∧ Real.cos (94 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc92
-  rw [show (94 : ℝ) * π / 4 = 92 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc96 : Real.sin (96 * π / 4) = 0 ∧ Real.cos (96 * π / 4) = 1 := by
-  obtain ⟨h1, h2⟩ := sc94
-  rw [show (96 : ℝ) * π / 4 = 94 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc98 : Real.sin (98 * π / 4) = 1 ∧ Real.cos (98 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc96
-  rw [show (98 : ℝ) * π / 4 = 96 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc100 : Real.sin (100 * π / 4) = 0 ∧ Real.cos (100 * π / 4) = -1 := by
-  obtain ⟨h1, h2⟩ := sc98
-  rw [show (100 : ℝ) * π / 4 = 98 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc102 : Real.sin (102 * π / 4) = -1 ∧ Real.cos (102 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc100
-  rw [show (102 : ℝ) * π / 4 = 100 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc104 : Real.sin (104 * π / 4) = 0 ∧ Real.cos (104 * π / 4) = 1 := by
-  obtain ⟨h1, h2⟩ := sc102
-  rw [show (104 : ℝ) * π / 4 = 102 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc106 : Real.sin (106 * π / 4) = 1 ∧ Real.cos (106 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc104
-  rw [show (106 : ℝ) * π / 4 = 104 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc108 : Real.sin (108 * π / 4) = 0 ∧ Real.cos (108 * π / 4) = -1 := by
-  obtain ⟨h1, h2⟩ := sc106
-  rw [show (108 : ℝ) * π / 4 = 106 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc110 : Real.sin (110 * π / 4) = -1 ∧ Real.cos (110 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc108
-  rw [show (110 : ℝ) * π / 4 = 108 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc112 : Real.sin (112 * π / 4) = 0 ∧ Real.cos (112 * π / 4) = 1 := by
-  obtain ⟨h1, h2⟩ := sc110
-  rw [show (112 : ℝ) * π / 4 = 110 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc114 : Real.sin (114 * π / 4) = 1 ∧ Real.cos (114 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc112
-  rw [show (114 : ℝ) * π / 4 = 112 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc116 : Real.sin (116 * π / 4) = 0 ∧ Real.cos (116 * π / 4) = -1 := by
-  obtain ⟨h1, h2⟩ := sc114
-  rw [show (116 : ℝ) * π / 4 = 114 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc118 : Real.sin (118 * π / 4) = -1 ∧ Real.cos (118 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc116
-  rw [show (118 : ℝ) * π / 4 = 116 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc120 : Real.sin (120 * π / 4) = 0 ∧ Real.cos (120 * π / 4) = 1 := by
-  obtain ⟨h1, h2⟩ := sc118
-  rw [show (120 : ℝ) * π / 4 = 118 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc122 : Real.sin (122 * π / 4) = 1 ∧ Real.cos (122 * π / 4) = 0 := by
-  obtain ⟨h1, h2⟩ := sc120
-  rw [show (122 : ℝ) * π / 4 = 120 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem pieceH6 : (0.253844 : ℝ) ≤ Fk (13 * π / 4) (14 * π / 4) - Fk (13 * π / 4) (12 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc12
-  obtain ⟨sb, cb⟩ := sc14
-  have key : Fk (13 * π / 4) (14 * π / 4) - Fk (13 * π / 4) (12 * π / 4)
-      = 2 / 13 + (1 / π) * (48/169) + (1 / π) ^ 2 * (16/169) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH7 : (0.049994 : ℝ) ≤ Fk (15 * π / 4) (16 * π / 4) - Fk (15 * π / 4) (14 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc14
-  obtain ⟨sb, cb⟩ := sc16
-  have key : Fk (15 * π / 4) (16 * π / 4) - Fk (15 * π / 4) (14 * π / 4)
-      = 2 / 15 + (1 / π) * (-64/225) + (1 / π) ^ 2 * (16/225) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH8 : (0.041544 : ℝ) ≤ Fk (17 * π / 4) (18 * π / 4) - Fk (17 * π / 4) (16 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc16
-  obtain ⟨sb, cb⟩ := sc18
-  have key : Fk (17 * π / 4) (18 * π / 4) - Fk (17 * π / 4) (16 * π / 4)
-      = 2 / 17 + (1 / π) * (-64/289) + (1 / π) ^ 2 * (-16/289) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH9 : (0.17131 : ℝ) ≤ Fk (19 * π / 4) (20 * π / 4) - Fk (19 * π / 4) (18 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc18
-  obtain ⟨sb, cb⟩ := sc20
-  have key : Fk (19 * π / 4) (20 * π / 4) - Fk (19 * π / 4) (18 * π / 4)
-      = 2 / 19 + (1 / π) * (80/361) + (1 / π) ^ 2 * (-16/361) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH10 : (0.156655 : ℝ) ≤ Fk (21 * π / 4) (22 * π / 4) - Fk (21 * π / 4) (20 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc20
-  obtain ⟨sb, cb⟩ := sc22
-  have key : Fk (21 * π / 4) (22 * π / 4) - Fk (21 * π / 4) (20 * π / 4)
-      = 2 / 21 + (1 / π) * (80/441) + (1 / π) ^ 2 * (16/441) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH11 : (0.032253 : ℝ) ≤ Fk (23 * π / 4) (24 * π / 4) - Fk (23 * π / 4) (22 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc22
-  obtain ⟨sb, cb⟩ := sc24
-  have key : Fk (23 * π / 4) (24 * π / 4) - Fk (23 * π / 4) (22 * π / 4)
-      = 2 / 23 + (1 / π) * (-96/529) + (1 / π) ^ 2 * (16/529) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH12 : (0.028511 : ℝ) ≤ Fk (25 * π / 4) (26 * π / 4) - Fk (25 * π / 4) (24 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc24
-  obtain ⟨sb, cb⟩ := sc26
-  have key : Fk (25 * π / 4) (26 * π / 4) - Fk (25 * π / 4) (24 * π / 4)
-      = 2 / 25 + (1 / π) * (-96/625) + (1 / π) ^ 2 * (-16/625) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH13 : (0.120751 : ℝ) ≤ Fk (27 * π / 4) (28 * π / 4) - Fk (27 * π / 4) (26 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc26
-  obtain ⟨sb, cb⟩ := sc28
-  have key : Fk (27 * π / 4) (28 * π / 4) - Fk (27 * π / 4) (26 * π / 4)
-      = 2 / 27 + (1 / π) * (112/729) + (1 / π) ^ 2 * (-16/729) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH14 : (0.113282 : ℝ) ≤ Fk (29 * π / 4) (30 * π / 4) - Fk (29 * π / 4) (28 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc28
-  obtain ⟨sb, cb⟩ := sc30
-  have key : Fk (29 * π / 4) (30 * π / 4) - Fk (29 * π / 4) (28 * π / 4)
-      = 2 / 29 + (1 / π) * (112/841) + (1 / π) ^ 2 * (16/841) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH15 : (0.023803 : ℝ) ≤ Fk (31 * π / 4) (32 * π / 4) - Fk (31 * π / 4) (30 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc30
-  obtain ⟨sb, cb⟩ := sc32
-  have key : Fk (31 * π / 4) (32 * π / 4) - Fk (31 * π / 4) (30 * π / 4)
-      = 2 / 31 + (1 / π) * (-128/961) + (1 / π) ^ 2 * (16/961) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH16 : (0.021701 : ℝ) ≤ Fk (33 * π / 4) (34 * π / 4) - Fk (33 * π / 4) (32 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc32
-  obtain ⟨sb, cb⟩ := sc34
-  have key : Fk (33 * π / 4) (34 * π / 4) - Fk (33 * π / 4) (32 * π / 4)
-      = 2 / 33 + (1 / π) * (-128/1089) + (1 / π) ^ 2 * (-16/1089) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH17 : (0.093235 : ℝ) ≤ Fk (35 * π / 4) (36 * π / 4) - Fk (35 * π / 4) (34 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc34
-  obtain ⟨sb, cb⟩ := sc36
-  have key : Fk (35 * π / 4) (36 * π / 4) - Fk (35 * π / 4) (34 * π / 4)
-      = 2 / 35 + (1 / π) * (144/1225) + (1 / π) ^ 2 * (-16/1225) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH18 : (0.088718 : ℝ) ≤ Fk (37 * π / 4) (38 * π / 4) - Fk (37 * π / 4) (36 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc36
-  obtain ⟨sb, cb⟩ := sc38
-  have key : Fk (37 * π / 4) (38 * π / 4) - Fk (37 * π / 4) (36 * π / 4)
-      = 2 / 37 + (1 / π) * (144/1369) + (1 / π) ^ 2 * (16/1369) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH19 : (0.018861 : ℝ) ≤ Fk (39 * π / 4) (40 * π / 4) - Fk (39 * π / 4) (38 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc38
-  obtain ⟨sb, cb⟩ := sc40
-  have key : Fk (39 * π / 4) (40 * π / 4) - Fk (39 * π / 4) (38 * π / 4)
-      = 2 / 39 + (1 / π) * (-160/1521) + (1 / π) ^ 2 * (16/1521) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH20 : (0.017516 : ℝ) ≤ Fk (41 * π / 4) (42 * π / 4) - Fk (41 * π / 4) (40 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc40
-  obtain ⟨sb, cb⟩ := sc42
-  have key : Fk (41 * π / 4) (42 * π / 4) - Fk (41 * π / 4) (40 * π / 4)
-      = 2 / 41 + (1 / π) * (-160/1681) + (1 / π) ^ 2 * (-16/1681) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH21 : (0.075931 : ℝ) ≤ Fk (43 * π / 4) (44 * π / 4) - Fk (43 * π / 4) (42 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc42
-  obtain ⟨sb, cb⟩ := sc44
-  have key : Fk (43 * π / 4) (44 * π / 4) - Fk (43 * π / 4) (42 * π / 4)
-      = 2 / 43 + (1 / π) * (176/1849) + (1 / π) ^ 2 * (-16/1849) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH22 : (0.072908 : ℝ) ≤ Fk (45 * π / 4) (46 * π / 4) - Fk (45 * π / 4) (44 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc44
-  obtain ⟨sb, cb⟩ := sc46
-  have key : Fk (45 * π / 4) (46 * π / 4) - Fk (45 * π / 4) (44 * π / 4)
-      = 2 / 45 + (1 / π) * (176/2025) + (1 / π) ^ 2 * (16/2025) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH23 : (0.015618 : ℝ) ≤ Fk (47 * π / 4) (48 * π / 4) - Fk (47 * π / 4) (46 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc46
-  obtain ⟨sb, cb⟩ := sc48
-  have key : Fk (47 * π / 4) (48 * π / 4) - Fk (47 * π / 4) (46 * π / 4)
-      = 2 / 47 + (1 / π) * (-192/2209) + (1 / π) ^ 2 * (16/2209) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH24 : (0.014684 : ℝ) ≤ Fk (49 * π / 4) (50 * π / 4) - Fk (49 * π / 4) (48 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc48
-  obtain ⟨sb, cb⟩ := sc50
-  have key : Fk (49 * π / 4) (50 * π / 4) - Fk (49 * π / 4) (48 * π / 4)
-      = 2 / 49 + (1 / π) * (-192/2401) + (1 / π) ^ 2 * (-16/2401) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH25 : (0.064045 : ℝ) ≤ Fk (51 * π / 4) (52 * π / 4) - Fk (51 * π / 4) (50 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc50
-  obtain ⟨sb, cb⟩ := sc52
-  have key : Fk (51 * π / 4) (52 * π / 4) - Fk (51 * π / 4) (50 * π / 4)
-      = 2 / 51 + (1 / π) * (208/2601) + (1 / π) ^ 2 * (-16/2601) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH26 : (0.061881 : ℝ) ≤ Fk (53 * π / 4) (54 * π / 4) - Fk (53 * π / 4) (52 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc52
-  obtain ⟨sb, cb⟩ := sc54
-  have key : Fk (53 * π / 4) (54 * π / 4) - Fk (53 * π / 4) (52 * π / 4)
-      = 2 / 53 + (1 / π) * (208/2809) + (1 / π) ^ 2 * (16/2809) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH27 : (0.013326 : ℝ) ≤ Fk (55 * π / 4) (56 * π / 4) - Fk (55 * π / 4) (54 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc54
-  obtain ⟨sb, cb⟩ := sc56
-  have key : Fk (55 * π / 4) (56 * π / 4) - Fk (55 * π / 4) (54 * π / 4)
-      = 2 / 55 + (1 / π) * (-224/3025) + (1 / π) ^ 2 * (16/3025) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH28 : (0.012641 : ℝ) ≤ Fk (57 * π / 4) (58 * π / 4) - Fk (57 * π / 4) (56 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc56
-  obtain ⟨sb, cb⟩ := sc58
-  have key : Fk (57 * π / 4) (58 * π / 4) - Fk (57 * π / 4) (56 * π / 4)
-      = 2 / 57 + (1 / π) * (-224/3249) + (1 / π) ^ 2 * (-16/3249) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH29 : (0.055376 : ℝ) ≤ Fk (59 * π / 4) (60 * π / 4) - Fk (59 * π / 4) (58 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc58
-  obtain ⟨sb, cb⟩ := sc60
-  have key : Fk (59 * π / 4) (60 * π / 4) - Fk (59 * π / 4) (58 * π / 4)
-      = 2 / 59 + (1 / π) * (240/3481) + (1 / π) ^ 2 * (-16/3481) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH30 : (0.053751 : ℝ) ≤ Fk (61 * π / 4) (62 * π / 4) - Fk (61 * π / 4) (60 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc60
-  obtain ⟨sb, cb⟩ := sc62
-  have key : Fk (61 * π / 4) (62 * π / 4) - Fk (61 * π / 4) (60 * π / 4)
-      = 2 / 61 + (1 / π) * (240/3721) + (1 / π) ^ 2 * (16/3721) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH31 : (0.011621 : ℝ) ≤ Fk (63 * π / 4) (64 * π / 4) - Fk (63 * π / 4) (62 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc62
-  obtain ⟨sb, cb⟩ := sc64
-  have key : Fk (63 * π / 4) (64 * π / 4) - Fk (63 * π / 4) (62 * π / 4)
-      = 2 / 63 + (1 / π) * (-256/3969) + (1 / π) ^ 2 * (16/3969) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH32 : (0.011096 : ℝ) ≤ Fk (65 * π / 4) (66 * π / 4) - Fk (65 * π / 4) (64 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc64
-  obtain ⟨sb, cb⟩ := sc66
-  have key : Fk (65 * π / 4) (66 * π / 4) - Fk (65 * π / 4) (64 * π / 4)
-      = 2 / 65 + (1 / π) * (-256/4225) + (1 / π) ^ 2 * (-16/4225) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH33 : (0.048774 : ℝ) ≤ Fk (67 * π / 4) (68 * π / 4) - Fk (67 * π / 4) (66 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc66
-  obtain ⟨sb, cb⟩ := sc68
-  have key : Fk (67 * π / 4) (68 * π / 4) - Fk (67 * π / 4) (66 * π / 4)
-      = 2 / 67 + (1 / π) * (272/4489) + (1 / π) ^ 2 * (-16/4489) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH34 : (0.047509 : ℝ) ≤ Fk (69 * π / 4) (70 * π / 4) - Fk (69 * π / 4) (68 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc68
-  obtain ⟨sb, cb⟩ := sc70
-  have key : Fk (69 * π / 4) (70 * π / 4) - Fk (69 * π / 4) (68 * π / 4)
-      = 2 / 69 + (1 / π) * (272/4761) + (1 / π) ^ 2 * (16/4761) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH35 : (0.010303 : ℝ) ≤ Fk (71 * π / 4) (72 * π / 4) - Fk (71 * π / 4) (70 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc70
-  obtain ⟨sb, cb⟩ := sc72
-  have key : Fk (71 * π / 4) (72 * π / 4) - Fk (71 * π / 4) (70 * π / 4)
-      = 2 / 71 + (1 / π) * (-288/5041) + (1 / π) ^ 2 * (16/5041) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH36 : (0.009888 : ℝ) ≤ Fk (73 * π / 4) (74 * π / 4) - Fk (73 * π / 4) (72 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc72
-  obtain ⟨sb, cb⟩ := sc74
-  have key : Fk (73 * π / 4) (74 * π / 4) - Fk (73 * π / 4) (72 * π / 4)
-      = 2 / 73 + (1 / π) * (-288/5329) + (1 / π) ^ 2 * (-16/5329) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH37 : (0.043579 : ℝ) ≤ Fk (75 * π / 4) (76 * π / 4) - Fk (75 * π / 4) (74 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc74
-  obtain ⟨sb, cb⟩ := sc76
-  have key : Fk (75 * π / 4) (76 * π / 4) - Fk (75 * π / 4) (74 * π / 4)
-      = 2 / 75 + (1 / π) * (304/5625) + (1 / π) ^ 2 * (-16/5625) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH38 : (0.042566 : ℝ) ≤ Fk (77 * π / 4) (78 * π / 4) - Fk (77 * π / 4) (76 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc76
-  obtain ⟨sb, cb⟩ := sc78
-  have key : Fk (77 * π / 4) (78 * π / 4) - Fk (77 * π / 4) (76 * π / 4)
-      = 2 / 77 + (1 / π) * (304/5929) + (1 / π) ^ 2 * (16/5929) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH39 : (0.009253 : ℝ) ≤ Fk (79 * π / 4) (80 * π / 4) - Fk (79 * π / 4) (78 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc78
-  obtain ⟨sb, cb⟩ := sc80
-  have key : Fk (79 * π / 4) (80 * π / 4) - Fk (79 * π / 4) (78 * π / 4)
-      = 2 / 79 + (1 / π) * (-320/6241) + (1 / π) ^ 2 * (16/6241) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH40 : (0.008917 : ℝ) ≤ Fk (81 * π / 4) (82 * π / 4) - Fk (81 * π / 4) (80 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc80
-  obtain ⟨sb, cb⟩ := sc82
-  have key : Fk (81 * π / 4) (82 * π / 4) - Fk (81 * π / 4) (80 * π / 4)
-      = 2 / 81 + (1 / π) * (-320/6561) + (1 / π) ^ 2 * (-16/6561) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH41 : (0.039384 : ℝ) ≤ Fk (83 * π / 4) (84 * π / 4) - Fk (83 * π / 4) (82 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc82
-  obtain ⟨sb, cb⟩ := sc84
-  have key : Fk (83 * π / 4) (84 * π / 4) - Fk (83 * π / 4) (82 * π / 4)
-      = 2 / 83 + (1 / π) * (336/6889) + (1 / π) ^ 2 * (-16/6889) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH42 : (0.038554 : ℝ) ≤ Fk (85 * π / 4) (86 * π / 4) - Fk (85 * π / 4) (84 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc84
-  obtain ⟨sb, cb⟩ := sc86
-  have key : Fk (85 * π / 4) (86 * π / 4) - Fk (85 * π / 4) (84 * π / 4)
-      = 2 / 85 + (1 / π) * (336/7225) + (1 / π) ^ 2 * (16/7225) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH43 : (0.008397 : ℝ) ≤ Fk (87 * π / 4) (88 * π / 4) - Fk (87 * π / 4) (86 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc86
-  obtain ⟨sb, cb⟩ := sc88
-  have key : Fk (87 * π / 4) (88 * π / 4) - Fk (87 * π / 4) (86 * π / 4)
-      = 2 / 87 + (1 / π) * (-352/7569) + (1 / π) ^ 2 * (16/7569) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH44 : (0.008119 : ℝ) ≤ Fk (89 * π / 4) (90 * π / 4) - Fk (89 * π / 4) (88 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc88
-  obtain ⟨sb, cb⟩ := sc90
-  have key : Fk (89 * π / 4) (90 * π / 4) - Fk (89 * π / 4) (88 * π / 4)
-      = 2 / 89 + (1 / π) * (-352/7921) + (1 / π) ^ 2 * (-16/7921) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH45 : (0.035925 : ℝ) ≤ Fk (91 * π / 4) (92 * π / 4) - Fk (91 * π / 4) (90 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc90
-  obtain ⟨sb, cb⟩ := sc92
-  have key : Fk (91 * π / 4) (92 * π / 4) - Fk (91 * π / 4) (90 * π / 4)
-      = 2 / 91 + (1 / π) * (368/8281) + (1 / π) ^ 2 * (-16/8281) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH46 : (0.035234 : ℝ) ≤ Fk (93 * π / 4) (94 * π / 4) - Fk (93 * π / 4) (92 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc92
-  obtain ⟨sb, cb⟩ := sc94
-  have key : Fk (93 * π / 4) (94 * π / 4) - Fk (93 * π / 4) (92 * π / 4)
-      = 2 / 93 + (1 / π) * (368/8649) + (1 / π) ^ 2 * (16/8649) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH47 : (0.007686 : ℝ) ≤ Fk (95 * π / 4) (96 * π / 4) - Fk (95 * π / 4) (94 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc94
-  obtain ⟨sb, cb⟩ := sc96
-  have key : Fk (95 * π / 4) (96 * π / 4) - Fk (95 * π / 4) (94 * π / 4)
-      = 2 / 95 + (1 / π) * (-384/9025) + (1 / π) ^ 2 * (16/9025) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH48 : (0.007453 : ℝ) ≤ Fk (97 * π / 4) (98 * π / 4) - Fk (97 * π / 4) (96 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc96
-  obtain ⟨sb, cb⟩ := sc98
-  have key : Fk (97 * π / 4) (98 * π / 4) - Fk (97 * π / 4) (96 * π / 4)
-      = 2 / 97 + (1 / π) * (-384/9409) + (1 / π) ^ 2 * (-16/9409) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH49 : (0.033025 : ℝ) ≤ Fk (99 * π / 4) (100 * π / 4) - Fk (99 * π / 4) (98 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc98
-  obtain ⟨sb, cb⟩ := sc100
-  have key : Fk (99 * π / 4) (100 * π / 4) - Fk (99 * π / 4) (98 * π / 4)
-      = 2 / 99 + (1 / π) * (400/9801) + (1 / π) ^ 2 * (-16/9801) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH50 : (0.03244 : ℝ) ≤ Fk (101 * π / 4) (102 * π / 4) - Fk (101 * π / 4) (100 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc100
-  obtain ⟨sb, cb⟩ := sc102
-  have key : Fk (101 * π / 4) (102 * π / 4) - Fk (101 * π / 4) (100 * π / 4)
-      = 2 / 101 + (1 / π) * (400/10201) + (1 / π) ^ 2 * (16/10201) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH51 : (0.007086 : ℝ) ≤ Fk (103 * π / 4) (104 * π / 4) - Fk (103 * π / 4) (102 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc102
-  obtain ⟨sb, cb⟩ := sc104
-  have key : Fk (103 * π / 4) (104 * π / 4) - Fk (103 * π / 4) (102 * π / 4)
-      = 2 / 103 + (1 / π) * (-416/10609) + (1 / π) ^ 2 * (16/10609) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH52 : (0.006887 : ℝ) ≤ Fk (105 * π / 4) (106 * π / 4) - Fk (105 * π / 4) (104 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc104
-  obtain ⟨sb, cb⟩ := sc106
-  have key : Fk (105 * π / 4) (106 * π / 4) - Fk (105 * π / 4) (104 * π / 4)
-      = 2 / 105 + (1 / π) * (-416/11025) + (1 / π) ^ 2 * (-16/11025) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH53 : (0.030558 : ℝ) ≤ Fk (107 * π / 4) (108 * π / 4) - Fk (107 * π / 4) (106 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc106
-  obtain ⟨sb, cb⟩ := sc108
-  have key : Fk (107 * π / 4) (108 * π / 4) - Fk (107 * π / 4) (106 * π / 4)
-      = 2 / 107 + (1 / π) * (432/11449) + (1 / π) ^ 2 * (-16/11449) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH54 : (0.030057 : ℝ) ≤ Fk (109 * π / 4) (110 * π / 4) - Fk (109 * π / 4) (108 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc108
-  obtain ⟨sb, cb⟩ := sc110
-  have key : Fk (109 * π / 4) (110 * π / 4) - Fk (109 * π / 4) (108 * π / 4)
-      = 2 / 109 + (1 / π) * (432/11881) + (1 / π) ^ 2 * (16/11881) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH55 : (0.006573 : ℝ) ≤ Fk (111 * π / 4) (112 * π / 4) - Fk (111 * π / 4) (110 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc110
-  obtain ⟨sb, cb⟩ := sc112
-  have key : Fk (111 * π / 4) (112 * π / 4) - Fk (111 * π / 4) (110 * π / 4)
-      = 2 / 111 + (1 / π) * (-448/12321) + (1 / π) ^ 2 * (16/12321) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH56 : (0.006402 : ℝ) ≤ Fk (113 * π / 4) (114 * π / 4) - Fk (113 * π / 4) (112 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc112
-  obtain ⟨sb, cb⟩ := sc114
-  have key : Fk (113 * π / 4) (114 * π / 4) - Fk (113 * π / 4) (112 * π / 4)
-      = 2 / 113 + (1 / π) * (-448/12769) + (1 / π) ^ 2 * (-16/12769) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH57 : (0.028434 : ℝ) ≤ Fk (115 * π / 4) (116 * π / 4) - Fk (115 * π / 4) (114 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc114
-  obtain ⟨sb, cb⟩ := sc116
-  have key : Fk (115 * π / 4) (116 * π / 4) - Fk (115 * π / 4) (114 * π / 4)
-      = 2 / 115 + (1 / π) * (464/13225) + (1 / π) ^ 2 * (-16/13225) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH58 : (0.027999 : ℝ) ≤ Fk (117 * π / 4) (118 * π / 4) - Fk (117 * π / 4) (116 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc116
-  obtain ⟨sb, cb⟩ := sc118
-  have key : Fk (117 * π / 4) (118 * π / 4) - Fk (117 * π / 4) (116 * π / 4)
-      = 2 / 117 + (1 / π) * (464/13689) + (1 / π) ^ 2 * (16/13689) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH59 : (0.006129 : ℝ) ≤ Fk (119 * π / 4) (120 * π / 4) - Fk (119 * π / 4) (118 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc118
-  obtain ⟨sb, cb⟩ := sc120
-  have key : Fk (119 * π / 4) (120 * π / 4) - Fk (119 * π / 4) (118 * π / 4)
-      = 2 / 119 + (1 / π) * (-480/14161) + (1 / π) ^ 2 * (16/14161) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem pieceH60 : (0.00598 : ℝ) ≤ Fk (121 * π / 4) (122 * π / 4) - Fk (121 * π / 4) (120 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc120
-  obtain ⟨sb, cb⟩ := sc122
-  have key : Fk (121 * π / 4) (122 * π / 4) - Fk (121 * π / 4) (120 * π / 4)
-      = 2 / 121 + (1 / π) * (-480/14641) + (1 / π) ^ 2 * (-16/14641) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
+/-! ### From `3π` on: the chain in closed form
+
+On `[mπ/2, (m+1)π/2]` with `c = (2m+1)π/4`, `F_c(β) − F_c(α) = p₀ + p₁/π + p₂/π²` with rational `p`
+(`piece_eq`). The needed instances are checked by kernel evaluation of the rational sums. -/
+
+/-- `(sin(mπ/2), cos(mπ/2))`, as integers. -/
+def scQ : ℕ → ℤ × ℤ
+  | 0 => (0, 1)
+  | m + 1 => ((scQ m).2, -(scQ m).1)
+
+theorem sc_half (m : ℕ) :
+    Real.sin (m * π / 2) = (scQ m).1 ∧ Real.cos (m * π / 2) = (scQ m).2 := by
+  induction m with
+  | zero => simp [scQ]
+  | succ m ih =>
+    rw [show ((m + 1 : ℕ) : ℝ) * π / 2 = m * π / 2 + π / 2 by push_cast; ring,
+      Real.sin_add_pi_div_two, Real.cos_add_pi_div_two, ih.1, ih.2]
+    simp [scQ]
+
+/-- The gain of `cin_step` on `[mπ/2, (m+1)π/2]` at `c = (2m+1)π/4`, as `(p₀, p₁, p₂)` with value
+`p₀ + p₁/π + p₂/π²`. -/
+def pieceQ (m : ℕ) : ℚ × ℚ × ℚ :=
+  (2 / (2 * m + 1), 8 * ((m + 1) * (scQ m).1 - m * (scQ (m + 1)).1) / (2 * m + 1) ^ 2,
+    16 * ((scQ (m + 1)).2 - (scQ m).2) / (2 * m + 1) ^ 2)
+
+/-- `p₀ + p₁/π + p₂/π²`. -/
+def evalP (p : ℚ × ℚ × ℚ) : ℝ := p.1 + (1 / π) * p.2.1 + (1 / π) ^ 2 * p.2.2
+
+theorem evalP_zero : evalP 0 = 0 := by simp [evalP]
+
+theorem evalP_add (p q : ℚ × ℚ × ℚ) : evalP (p + q) = evalP p + evalP q := by
+  simp only [evalP, Prod.fst_add, Prod.snd_add, Rat.cast_add]; ring
+
+theorem piece_eq (m : ℕ) :
+    Fk ((2 * m + 1) * π / 4) ((m + 1 : ℕ) * π / 2) - Fk ((2 * m + 1) * π / 4) (m * π / 2)
+      = evalP (pieceQ m) := by
+  obtain ⟨sa, ca⟩ := sc_half m
+  obtain ⟨sb, cb⟩ := sc_half (m + 1)
+  unfold Fk evalP pieceQ
+  rw [sa, ca, sb, cb]
+  have hπ := Real.pi_pos.ne'
+  have hm : (2 * (m : ℝ) + 1) ≠ 0 := by positivity
+  push_cast
+  field_simp
+  ring
+
+/-- The summed gains over `m ∈ [6, N)`. -/
+def sumQ (N : ℕ) : ℚ × ℚ × ℚ := ∑ m ∈ Finset.Ico 6 N, pieceQ m
+
+/-- **The chain from `3π`**: `Cin(Nπ/2) ≥ Cin(3π) + Σ_{6 ≤ m < N} gain(m)`. -/
+theorem cin_chain (N : ℕ) (hN : 6 ≤ N) : (2.780109 : ℝ) + evalP (sumQ N) ≤ Cin (N * π / 2) := by
+  induction N, hN using Nat.le_induction with
+  | base =>
+    have e : sumQ 6 = 0 := by simp [sumQ]
+    rw [e, evalP_zero, add_zero, show ((6 : ℕ) : ℝ) * π / 2 = 12 * π / 4 by push_cast; ring]
+    exact cinc12
+  | succ N hN ih =>
+    have h6 : (6 : ℝ) ≤ N := by exact_mod_cast hN
+    have h := cin_step (α := N * π / 2) (β := ((N + 1 : ℕ) : ℝ) * π / 2) (c := (2 * N + 1) * π / 4)
+      (by nlinarith [Real.pi_pos]) (by push_cast; linarith [Real.pi_pos]) (by positivity)
+    rw [piece_eq] at h
+    rw [sumQ, Finset.sum_Ico_succ_top hN, ← sumQ, evalP_add]
+    linarith
+
+/-- A rational lower bound for `evalP`, from `0.3183097 < 1/π < 0.31831`. -/
+def lowP (p : ℚ × ℚ × ℚ) : ℚ :=
+  p.1 + (if 0 ≤ p.2.1 then 3183097 / 10 ^ 7 else 31831 / 10 ^ 5) * p.2.1
+    + (if 0 ≤ p.2.2 then (3183097 / 10 ^ 7) ^ 2 else (31831 / 10 ^ 5) ^ 2) * p.2.2
+
+theorem mul_le_of_bracket {q lo hi : ℚ} {x : ℝ} (hlo : (lo : ℝ) ≤ x) (hhi : x ≤ hi) :
+    (((if 0 ≤ q then lo else hi) * q : ℚ) : ℝ) ≤ x * q := by
+  split_ifs with h
+  · have : (0 : ℝ) ≤ q := by exact_mod_cast h
+    push_cast; nlinarith
+  · have : (q : ℝ) < 0 := by exact_mod_cast not_le.1 h
+    push_cast; nlinarith
+
+theorem lowP_le (p : ℚ × ℚ × ℚ) : (lowP p : ℝ) ≤ evalP p := by
+  obtain ⟨b1, b2, -, -, -, -, b7, b8, -, -⟩ := num_atoms
+  have h1 := mul_le_of_bracket (q := p.2.1) (lo := 3183097 / 10 ^ 7) (hi := 31831 / 10 ^ 5)
+    (x := 1 / π) (by push_cast; linarith) (by push_cast; linarith)
+  have h2 := mul_le_of_bracket (q := p.2.2) (lo := (3183097 / 10 ^ 7) ^ 2)
+    (hi := (31831 / 10 ^ 5) ^ 2) (x := (1 / π) ^ 2) (by push_cast; linarith) (by push_cast; linarith)
+  unfold lowP evalP
+  rw [Rat.cast_add, Rat.cast_add]
+  linarith
+
+theorem cin_of_check {N : ℕ} (hN : 6 ≤ N) {b : ℚ} (hb : b ≤ lowP (sumQ N)) :
+    (2.780109 : ℝ) + b ≤ Cin (N * π / 2) := by
+  have h1 := cin_chain N hN
+  have h2 := lowP_le (sumQ N)
+  have h3 : (b : ℝ) ≤ lowP (sumQ N) := by exact_mod_cast hb
+  linarith
 
 theorem cinH7 : (3.033953 : ℝ) ≤ Cin (14 * π / 4) := by
-  have h := cin_step (α := 12 * π / 4) (β := 14 * π / 4) (c := 13 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinc12, pieceH6]
-
-theorem cinH8 : (3.083947 : ℝ) ≤ Cin (16 * π / 4) := by
-  have h := cin_step (α := 14 * π / 4) (β := 16 * π / 4) (c := 15 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH7, pieceH7]
-
-theorem cinH9 : (3.125491 : ℝ) ≤ Cin (18 * π / 4) := by
-  have h := cin_step (α := 16 * π / 4) (β := 18 * π / 4) (c := 17 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH8, pieceH8]
-
-theorem cinH10 : (3.296801 : ℝ) ≤ Cin (20 * π / 4) := by
-  have h := cin_step (α := 18 * π / 4) (β := 20 * π / 4) (c := 19 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH9, pieceH9]
+  have h := cin_of_check (N := 7) (by norm_num) (b := 253844 / 10 ^ 6) (by decide +kernel)
+  rw [show ((7 : ℕ) : ℝ) * π / 2 = 14 * π / 4 by push_cast; ring] at h
+  push_cast at h; linarith
 
 theorem cinH11 : (3.453456 : ℝ) ≤ Cin (22 * π / 4) := by
-  have h := cin_step (α := 20 * π / 4) (β := 22 * π / 4) (c := 21 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH10, pieceH10]
-
-theorem cinH12 : (3.485709 : ℝ) ≤ Cin (24 * π / 4) := by
-  have h := cin_step (α := 22 * π / 4) (β := 24 * π / 4) (c := 23 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH11, pieceH11]
-
-theorem cinH13 : (3.51422 : ℝ) ≤ Cin (26 * π / 4) := by
-  have h := cin_step (α := 24 * π / 4) (β := 26 * π / 4) (c := 25 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH12, pieceH12]
-
-theorem cinH14 : (3.634971 : ℝ) ≤ Cin (28 * π / 4) := by
-  have h := cin_step (α := 26 * π / 4) (β := 28 * π / 4) (c := 27 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH13, pieceH13]
-
-theorem cinH15 : (3.748253 : ℝ) ≤ Cin (30 * π / 4) := by
-  have h := cin_step (α := 28 * π / 4) (β := 30 * π / 4) (c := 29 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH14, pieceH14]
-
-theorem cinH16 : (3.772056 : ℝ) ≤ Cin (32 * π / 4) := by
-  have h := cin_step (α := 30 * π / 4) (β := 32 * π / 4) (c := 31 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH15, pieceH15]
-
-theorem cinH17 : (3.793757 : ℝ) ≤ Cin (34 * π / 4) := by
-  have h := cin_step (α := 32 * π / 4) (β := 34 * π / 4) (c := 33 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH16, pieceH16]
+  have h := cin_of_check (N := 11) (by norm_num) (b := 673347 / 10 ^ 6) (by decide +kernel)
+  rw [show ((11 : ℕ) : ℝ) * π / 2 = 22 * π / 4 by push_cast; ring] at h
+  push_cast at h; linarith
 
 theorem cinH18 : (3.886992 : ℝ) ≤ Cin (36 * π / 4) := by
-  have h := cin_step (α := 34 * π / 4) (β := 36 * π / 4) (c := 35 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH17, pieceH17]
-
-theorem cinH19 : (3.97571 : ℝ) ≤ Cin (38 * π / 4) := by
-  have h := cin_step (α := 36 * π / 4) (β := 38 * π / 4) (c := 37 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH18, pieceH18]
-
-theorem cinH20 : (3.994571 : ℝ) ≤ Cin (40 * π / 4) := by
-  have h := cin_step (α := 38 * π / 4) (β := 40 * π / 4) (c := 39 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH19, pieceH19]
+  have h := cin_of_check (N := 18) (by norm_num) (b := 1106883 / 10 ^ 6) (by decide +kernel)
+  rw [show ((18 : ℕ) : ℝ) * π / 2 = 36 * π / 4 by push_cast; ring] at h
+  push_cast at h; linarith
 
 theorem cinH21 : (4.012087 : ℝ) ≤ Cin (42 * π / 4) := by
-  have h := cin_step (α := 40 * π / 4) (β := 42 * π / 4) (c := 41 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH20, pieceH20]
-
-theorem cinH22 : (4.088018 : ℝ) ≤ Cin (44 * π / 4) := by
-  have h := cin_step (α := 42 * π / 4) (β := 44 * π / 4) (c := 43 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH21, pieceH21]
-
-theorem cinH23 : (4.160926 : ℝ) ≤ Cin (46 * π / 4) := by
-  have h := cin_step (α := 44 * π / 4) (β := 46 * π / 4) (c := 45 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH22, pieceH22]
-
-theorem cinH24 : (4.176544 : ℝ) ≤ Cin (48 * π / 4) := by
-  have h := cin_step (α := 46 * π / 4) (β := 48 * π / 4) (c := 47 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH23, pieceH23]
+  have h := cin_of_check (N := 21) (by norm_num) (b := 1231978 / 10 ^ 6) (by decide +kernel)
+  rw [show ((21 : ℕ) : ℝ) * π / 2 = 42 * π / 4 by push_cast; ring] at h
+  push_cast at h; linarith
 
 theorem cinH25 : (4.191228 : ℝ) ≤ Cin (50 * π / 4) := by
-  have h := cin_step (α := 48 * π / 4) (β := 50 * π / 4) (c := 49 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH24, pieceH24]
-
-theorem cinH26 : (4.255273 : ℝ) ≤ Cin (52 * π / 4) := by
-  have h := cin_step (α := 50 * π / 4) (β := 52 * π / 4) (c := 51 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH25, pieceH25]
-
-theorem cinH27 : (4.317154 : ℝ) ≤ Cin (54 * π / 4) := by
-  have h := cin_step (α := 52 * π / 4) (β := 54 * π / 4) (c := 53 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH26, pieceH26]
-
-theorem cinH28 : (4.33048 : ℝ) ≤ Cin (56 * π / 4) := by
-  have h := cin_step (α := 54 * π / 4) (β := 56 * π / 4) (c := 55 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH27, pieceH27]
-
-theorem cinH29 : (4.343121 : ℝ) ≤ Cin (58 * π / 4) := by
-  have h := cin_step (α := 56 * π / 4) (β := 58 * π / 4) (c := 57 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH28, pieceH28]
+  have h := cin_of_check (N := 25) (by norm_num) (b := 1411119 / 10 ^ 6) (by decide +kernel)
+  rw [show ((25 : ℕ) : ℝ) * π / 2 = 50 * π / 4 by push_cast; ring] at h
+  push_cast at h; linarith
 
 theorem cinH30 : (4.398497 : ℝ) ≤ Cin (60 * π / 4) := by
-  have h := cin_step (α := 58 * π / 4) (β := 60 * π / 4) (c := 59 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH29, pieceH29]
-
-theorem cinH31 : (4.452248 : ℝ) ≤ Cin (62 * π / 4) := by
-  have h := cin_step (α := 60 * π / 4) (β := 62 * π / 4) (c := 61 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH30, pieceH30]
-
-theorem cinH32 : (4.463869 : ℝ) ≤ Cin (64 * π / 4) := by
-  have h := cin_step (α := 62 * π / 4) (β := 64 * π / 4) (c := 63 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH31, pieceH31]
-
-theorem cinH33 : (4.474965 : ℝ) ≤ Cin (66 * π / 4) := by
-  have h := cin_step (α := 64 * π / 4) (β := 66 * π / 4) (c := 65 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH32, pieceH32]
-
-theorem cinH34 : (4.523739 : ℝ) ≤ Cin (68 * π / 4) := by
-  have h := cin_step (α := 66 * π / 4) (β := 68 * π / 4) (c := 67 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH33, pieceH33]
-
-theorem cinH35 : (4.571248 : ℝ) ≤ Cin (70 * π / 4) := by
-  have h := cin_step (α := 68 * π / 4) (β := 70 * π / 4) (c := 69 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH34, pieceH34]
-
-theorem cinH36 : (4.581551 : ℝ) ≤ Cin (72 * π / 4) := by
-  have h := cin_step (α := 70 * π / 4) (β := 72 * π / 4) (c := 71 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH35, pieceH35]
-
-theorem cinH37 : (4.591439 : ℝ) ≤ Cin (74 * π / 4) := by
-  have h := cin_step (α := 72 * π / 4) (β := 74 * π / 4) (c := 73 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH36, pieceH36]
-
-theorem cinH38 : (4.635018 : ℝ) ≤ Cin (76 * π / 4) := by
-  have h := cin_step (α := 74 * π / 4) (β := 76 * π / 4) (c := 75 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH37, pieceH37]
-
-theorem cinH39 : (4.677584 : ℝ) ≤ Cin (78 * π / 4) := by
-  have h := cin_step (α := 76 * π / 4) (β := 78 * π / 4) (c := 77 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH38, pieceH38]
-
-theorem cinH40 : (4.686837 : ℝ) ≤ Cin (80 * π / 4) := by
-  have h := cin_step (α := 78 * π / 4) (β := 80 * π / 4) (c := 79 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH39, pieceH39]
-
-theorem cinH41 : (4.695754 : ℝ) ≤ Cin (82 * π / 4) := by
-  have h := cin_step (α := 80 * π / 4) (β := 82 * π / 4) (c := 81 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH40, pieceH40]
-
-theorem cinH42 : (4.735138 : ℝ) ≤ Cin (84 * π / 4) := by
-  have h := cin_step (α := 82 * π / 4) (β := 84 * π / 4) (c := 83 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH41, pieceH41]
-
-theorem cinH43 : (4.773692 : ℝ) ≤ Cin (86 * π / 4) := by
-  have h := cin_step (α := 84 * π / 4) (β := 86 * π / 4) (c := 85 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH42, pieceH42]
-
-theorem cinH44 : (4.782089 : ℝ) ≤ Cin (88 * π / 4) := by
-  have h := cin_step (α := 86 * π / 4) (β := 88 * π / 4) (c := 87 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH43, pieceH43]
-
-theorem cinH45 : (4.790208 : ℝ) ≤ Cin (90 * π / 4) := by
-  have h := cin_step (α := 88 * π / 4) (β := 90 * π / 4) (c := 89 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH44, pieceH44]
-
-theorem cinH46 : (4.826133 : ℝ) ≤ Cin (92 * π / 4) := by
-  have h := cin_step (α := 90 * π / 4) (β := 92 * π / 4) (c := 91 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH45, pieceH45]
-
-theorem cinH47 : (4.861367 : ℝ) ≤ Cin (94 * π / 4) := by
-  have h := cin_step (α := 92 * π / 4) (β := 94 * π / 4) (c := 93 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH46, pieceH46]
-
-theorem cinH48 : (4.869053 : ℝ) ≤ Cin (96 * π / 4) := by
-  have h := cin_step (α := 94 * π / 4) (β := 96 * π / 4) (c := 95 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH47, pieceH47]
-
-theorem cinH49 : (4.876506 : ℝ) ≤ Cin (98 * π / 4) := by
-  have h := cin_step (α := 96 * π / 4) (β := 98 * π / 4) (c := 97 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH48, pieceH48]
-
-theorem cinH50 : (4.909531 : ℝ) ≤ Cin (100 * π / 4) := by
-  have h := cin_step (α := 98 * π / 4) (β := 100 * π / 4) (c := 99 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH49, pieceH49]
-
-theorem cinH51 : (4.941971 : ℝ) ≤ Cin (102 * π / 4) := by
-  have h := cin_step (α := 100 * π / 4) (β := 102 * π / 4) (c := 101 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH50, pieceH50]
-
-theorem cinH52 : (4.949057 : ℝ) ≤ Cin (104 * π / 4) := by
-  have h := cin_step (α := 102 * π / 4) (β := 104 * π / 4) (c := 103 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH51, pieceH51]
-
-theorem cinH53 : (4.955944 : ℝ) ≤ Cin (106 * π / 4) := by
-  have h := cin_step (α := 104 * π / 4) (β := 106 * π / 4) (c := 105 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH52, pieceH52]
-
-theorem cinH54 : (4.986502 : ℝ) ≤ Cin (108 * π / 4) := by
-  have h := cin_step (α := 106 * π / 4) (β := 108 * π / 4) (c := 107 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH53, pieceH53]
-
-theorem cinH55 : (5.016559 : ℝ) ≤ Cin (110 * π / 4) := by
-  have h := cin_step (α := 108 * π / 4) (β := 110 * π / 4) (c := 109 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH54, pieceH54]
-
-theorem cinH56 : (5.023132 : ℝ) ≤ Cin (112 * π / 4) := by
-  have h := cin_step (α := 110 * π / 4) (β := 112 * π / 4) (c := 111 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH55, pieceH55]
-
-theorem cinH57 : (5.029534 : ℝ) ≤ Cin (114 * π / 4) := by
-  have h := cin_step (α := 112 * π / 4) (β := 114 * π / 4) (c := 113 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH56, pieceH56]
-
-theorem cinH58 : (5.057968 : ℝ) ≤ Cin (116 * π / 4) := by
-  have h := cin_step (α := 114 * π / 4) (β := 116 * π / 4) (c := 115 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH57, pieceH57]
-
-theorem cinH59 : (5.085967 : ℝ) ≤ Cin (118 * π / 4) := by
-  have h := cin_step (α := 116 * π / 4) (β := 118 * π / 4) (c := 117 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH58, pieceH58]
-
-theorem cinH60 : (5.092096 : ℝ) ≤ Cin (120 * π / 4) := by
-  have h := cin_step (α := 118 * π / 4) (β := 120 * π / 4) (c := 119 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH59, pieceH59]
+  have h := cin_of_check (N := 30) (by norm_num) (b := 1618388 / 10 ^ 6) (by decide +kernel)
+  rw [show ((30 : ℕ) : ℝ) * π / 2 = 60 * π / 4 by push_cast; ring] at h
+  push_cast at h; linarith
 
 theorem cinH61 : (5.098076 : ℝ) ≤ Cin (122 * π / 4) := by
-  have h := cin_step (α := 120 * π / 4) (β := 122 * π / 4) (c := 121 * π / 4)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinH60, pieceH60]
+  have h := cin_of_check (N := 61) (by norm_num) (b := 2317967 / 10 ^ 6) (by decide +kernel)
+  rw [show ((61 : ℕ) : ℝ) * π / 2 = 122 * π / 4 by push_cast; ring] at h
+  push_cast at h; linarith
 
 /-! ## E. The mode masses -/
 
@@ -2384,15 +1339,11 @@ theorem pole_box_le {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 2) :
   nlinarith
 
 
-/-- The tail level `τ(a) = 2.7801 + a(1 − 0.31831/3) − err(a)`. -/
-def tauF (a : ℝ) : ℝ := 2.7801 + a * (1 - 0.31831 / 3) - errK a
-
-theorem tail_ok {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1) {n : ℤ} (hn : 6 ≤ n) : tauF a ≤ modeE a n := by
+/-- `ψ_n ≥ Cin(πn/2) + a(1 − 0.31831/3) − err(a)` for `n ≥ 6`. -/
+theorem modeE_tail_base {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1) {n : ℤ} (hn : 6 ≤ n) :
+    Cin (π * n / 2) + a * (1 - 0.31831 / 3) - errK a ≤ modeE a n := by
   have hnr : (6 : ℝ) ≤ n := by exact_mod_cast hn
   have hψ := modeE_ge ha ha1 (n := n) (by omega)
-  have hC : Cin (π * 6 / 2) ≤ Cin (π * n / 2) :=
-    Cin_mono (by positivity) (by nlinarith [Real.pi_pos])
-  have hc := cin_val6
   have hπ := Real.pi_pos
   have h1 : 2 * Real.sin (π * n / 2) / (π * n) ≤ 2 / (π * n) :=
     div_le_div_of_nonneg_right (by linarith [Real.sin_le_one (π * n / 2)]) (by positivity)
@@ -2400,8 +1351,19 @@ theorem tail_ok {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1) {n : ℤ} (hn : 6 ≤ n) 
     div_le_div_of_nonneg_left (by norm_num) (by positivity) (by nlinarith)
   have h3 : 2 / (π * 6) = (1 / π) / 3 := by field_simp; ring
   obtain ⟨b1, b2, -⟩ := num_atoms
-  unfold tauF
   nlinarith
+
+/-- The tail level `τ(a) = 2.7801 + a(1 − 0.31831/3) − err(a)`. -/
+def tauF (a : ℝ) : ℝ := 2.7801 + a * (1 - 0.31831 / 3) - errK a
+
+theorem tail_ok {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1) {n : ℤ} (hn : 6 ≤ n) : tauF a ≤ modeE a n := by
+  have hnr : (6 : ℝ) ≤ n := by exact_mod_cast hn
+  have hC : Cin (π * 6 / 2) ≤ Cin (π * n / 2) :=
+    Cin_mono (by positivity) (by nlinarith [Real.pi_pos])
+  have hb := modeE_tail_base ha ha1 hn
+  have hc := cin_val6
+  unfold tauF
+  linarith
 
 theorem dlo1 : (0.36338 : ℝ) ≤ 1 - 2 * Real.sin (π * ((1 : ℤ) : ℝ) / 2) / (π * ((1 : ℤ) : ℝ)) := by
   push_cast
@@ -2620,14 +1582,14 @@ theorem groundState_unique_below_log2 {a : ℝ} (ha : 0 < a) (hlog : 2 * a < Rea
 
 /-! ## H. Past the first prime: `log 2 ≤ 2a ≤ 0.7` -/
 
-theorem log_three_gt : (0.7 : ℝ) < Real.log 3 := by
+theorem log_three_gt : (0.72 : ℝ) < Real.log 3 := by
   rw [Real.lt_log_iff_exp_lt (by norm_num)]
-  have h1 : Real.exp 0.7 < Real.exp 1 := Real.exp_lt_exp.2 (by norm_num)
+  have h1 : Real.exp 0.72 < Real.exp 1 := Real.exp_lt_exp.2 (by norm_num)
   have h2 := Real.exp_one_lt_d9
   linarith
 
-/-- For `2a ≤ 0.7`, only `n = 2` contributes: `S(g) = (log 2/√2)·f(log 2)`. -/
-theorem primeS_eq_two {a : ℝ} (ha : 2 * a ≤ 0.7) {g : ℝ → ℝ} (hg : Probe a g) :
+/-- For `2a ≤ 0.72`, only `n = 2` contributes: `S(g) = (log 2/√2)·f(log 2)`. -/
+theorem primeS_eq_two {a : ℝ} (ha : 2 * a ≤ 0.72) {g : ℝ → ℝ} (hg : Probe a g) :
     primeS g = Real.log 2 / Real.sqrt 2 * autocorr g (Real.log 2) := by
   unfold primeS
   rw [tsum_eq_single 2]
@@ -2777,20 +1739,6 @@ theorem primeD_small {a : ℝ} (hlo : Real.log 2 ≤ 2 * a) (ha2 : a ≤ 0.35) (
   have h1 : π * |(n : ℝ)| * (2 * a - Real.log 2) ≤ 3.141593 * |(n : ℝ)| * 0.0068528197 := by
     have := mul_le_mul (mul_le_mul_of_nonneg_right hπ.le hn0) hε hε0 (by positivity)
     linarith
-  nlinarith
-
-/-- `ψ_n ≥ Cin(πn/2) + a(1 − 0.31831/3) − err(a)` for `n ≥ 6`. -/
-theorem modeE_tail_base {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1) {n : ℤ} (hn : 6 ≤ n) :
-    Cin (π * n / 2) + a * (1 - 0.31831 / 3) - errK a ≤ modeE a n := by
-  have hnr : (6 : ℝ) ≤ n := by exact_mod_cast hn
-  have hψ := modeE_ge ha ha1 (n := n) (by omega)
-  have hπ := Real.pi_pos
-  have h1 : 2 * Real.sin (π * n / 2) / (π * n) ≤ 2 / (π * n) :=
-    div_le_div_of_nonneg_right (by linarith [Real.sin_le_one (π * n / 2)]) (by positivity)
-  have h2 : 2 / (π * n) ≤ 2 / (π * 6) :=
-    div_le_div_of_nonneg_left (by norm_num) (by positivity) (by nlinarith)
-  have h3 : 2 / (π * 6) = (1 / π) / 3 := by field_simp; ring
-  obtain ⟨b1, b2, -⟩ := num_atoms
   nlinarith
 
 theorem tailB_pos {a : ℝ} (ha : 0 < a) (hlo : Real.log 2 ≤ 2 * a) (ha2 : a ≤ 0.35) {c : ℝ}
@@ -3138,6 +2086,7 @@ end Pilot1ca
 #print axioms Pilot1ca.kerK_ge_taylor
 #print axioms Pilot1ca.modeE_ge
 #print axioms Pilot1ca.cin_val6
+#print axioms Pilot1ca.cin_chain
 #print axioms Pilot1ca.cinH61
 #print axioms Pilot1ca.cs_supp
 #print axioms Pilot1ca.integral_sq_perp

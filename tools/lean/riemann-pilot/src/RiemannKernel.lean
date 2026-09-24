@@ -1,5 +1,5 @@
 import Mathlib
-import StripConv
+import Roadmap
 
 /-! # Riemann's kernel formula
 
@@ -8,8 +8,8 @@ Riemann's kernel `Φ(u) = Σ_{n≥1} (2π²n⁴e^{9u/2} − 3πn²e^{5u/2}) e^{�
   `∫_ℝ Φ(u) e^{izu} du = Ξ(z)/2`   for every `z ∈ ℂ`   (`RPhiHat_eq`),
 
 with `Ξ(z) = ξ(½ + iz)` built from Mathlib's `completedRiemannZeta₀`. This discharges round 62's
-`KernelApprox` for `φ_n = Φ` whenever `a_n → ∞` (`kernelApprox_RPhi`), so `rh_of_close_RPhi` derives
-RH from the `L²` closeness hypothesis alone.
+`KernelApprox` for `φ_n = Φ` (KernelChain.lean). Since `Φ > 0` (`RPhi_pos`), `Ξ(it) = 2∫Φ(u)e^{−tu}du > 0`,
+so `ξ(σ) ≠ 0` for real `σ` (`xi_real_ne_zero`), giving `Ξ(0) ≠ 0` and `ζ(σ) ≠ 0` on `(0, 1)`.
 
 * **Half-plane (`integral_RPhi_halfplane`).** For `Im z < −½` (`Re s > 1`, `s = ½ + iz`), each term
   integrates to `(s(s−1)/4)(πn²)^{−s/2}Γ(s/2)` by the substitution `x = e^{2u}` and Euler's integral
@@ -23,6 +23,8 @@ RH from the `L²` closeness hypothesis alone.
 * **Continuation (`RPhiHat_eq`).** The truncated transforms converge uniformly on every strip
   `|Im z| ≤ M`, so `Φ̂` is entire (`differentiable_RPhiHat`). It agrees with `Ξ/2` on `Im z < −½`,
   hence on all of `ℂ` by the identity theorem.
+* **Positivity (`RPhi_pos`).** For `u ≥ 0` and `n ≥ 1`, `c_n e^{2u} ≥ π > 3/2`, so every term is
+  `≥ 0` and the `n = 1` term is `> 0`; evenness covers `u < 0`.
 -/
 
 open Real MeasureTheory Set Filter Topology
@@ -797,6 +799,76 @@ theorem RPhiHat_eq (z : ℂ) : RPhiHat z = Xi z / 2 := by
     Filter.eventually_of_mem (hV.mem_nhds hz₀V) fun z hz => integral_RPhi_halfplane hz
   exact hA.eqOn_of_preconnected_of_eventuallyEq hB isPreconnected_univ (mem_univ z₀) heq (mem_univ z)
 
+/-! ## `Φ > 0`, hence `ξ(σ) ≠ 0` on the real axis -/
+
+/-- For `u ≥ 0` and `n ≥ 1`, `c_n e^{2u} ≥ π > 3/2`, so `φ_n(u) = c_n e^{2u}(2c_n e^{2u} − 3)e^{…} > 0`. -/
+theorem phiT_pos {u : ℝ} (hu : 0 ≤ u) {n : ℕ} (hn : 1 ≤ n) : 0 < phiT n u := by
+  set X := Real.exp (2 * u)
+  have hX : 1 ≤ X := Real.one_le_exp (by linarith)
+  have e4 : Real.exp (4 * u) = X ^ 2 := by simp only [X]; rw [← Real.exp_nat_mul]; ring_nf
+  have hn1 : (1 : ℝ) ≤ n := by exact_mod_cast hn
+  have hc : π ≤ thC n := by
+    unfold thC; have : (1 : ℝ) ≤ (n : ℝ) ^ 2 := by nlinarith
+    nlinarith [pi_pos]
+  have hcX : 3 < thC n * X := by nlinarith [pi_gt_three]
+  unfold phiT
+  rw [e4]
+  refine mul_pos ?_ (Real.exp_pos _)
+  nlinarith [mul_pos (show 0 < thC n * X by linarith) (show 0 < 2 * (thC n * X) - 3 by linarith)]
+
+theorem phiT_nonneg {u : ℝ} (hu : 0 ≤ u) (n : ℕ) : 0 ≤ phiT n u := by
+  rcases Nat.eq_zero_or_pos n with rfl | hn
+  · rw [phiT_zero]
+  · exact (phiT_pos hu hn).le
+
+/-- **Riemann's kernel is positive.** -/
+theorem RPhi_pos (u : ℝ) : 0 < RPhi u := by
+  wlog hu : 0 ≤ u generalizing u
+  · rw [← RPhi_even]; exact this (-u) (by linarith)
+  exact (summable_phiT u).tsum_pos (fun n => phiT_nonneg hu n) 1 (phiT_pos hu le_rfl)
+
+/-- On the imaginary axis the transform is the real Laplace integral `∫ Φ(u) e^{−tu} du`. -/
+theorem RPhi_exp_I_mul (t u : ℝ) : (RPhi u : ℂ) * Complex.exp (Complex.I * (Complex.I * t) * u)
+    = ((RPhi u * Real.exp (-(t * u)) : ℝ) : ℂ) := by
+  have e : Complex.I * (Complex.I * t) * u = ((-(t * u) : ℝ) : ℂ) := by
+    push_cast; rw [← mul_assoc, Complex.I_mul_I]; ring
+  rw [e, ← Complex.ofReal_exp, ← Complex.ofReal_mul]
+
+theorem integral_RPhi_exp_pos (t : ℝ) : 0 < ∫ u : ℝ, RPhi u * Real.exp (-(t * u)) := by
+  have hi : Integrable fun u : ℝ => RPhi u * Real.exp (-(t * u)) := by
+    simpa only [RPhi_exp_I_mul, RCLike.re_to_complex, Complex.ofReal_re] using (integrable_RPhi_exp (Complex.I * t)).re
+  have hpos : ∀ u : ℝ, 0 < RPhi u * Real.exp (-(t * u)) := fun u => mul_pos (RPhi_pos u) (Real.exp_pos _)
+  rw [integral_pos_iff_support_of_nonneg (fun u => (hpos u).le) hi,
+    eq_univ_of_forall fun u => Function.mem_support.2 (hpos u).ne', Real.volume_univ]
+  exact ENNReal.zero_lt_top
+
+/-- **`Ξ(it) = 2∫ Φ(u) e^{−tu} du > 0`**, so `Ξ` has no zeros on the imaginary axis. -/
+theorem Xi_I_mul_ne_zero (t : ℝ) : Xi (Complex.I * t) ≠ 0 := by
+  intro h
+  have e := RPhiHat_eq (Complex.I * t)
+  rw [h, zero_div, RPhiHat, funext (RPhi_exp_I_mul t), integral_complex_ofReal,
+    Complex.ofReal_eq_zero] at e
+  exact (integral_RPhi_exp_pos t).ne' e
+
+/-- **`ξ(σ) ≠ 0` for every real `σ`.** -/
+theorem xi_real_ne_zero (σ : ℝ) : xi σ ≠ 0 := by
+  have h := Xi_I_mul_ne_zero (1 / 2 - σ)
+  have e : (1 / 2 : ℂ) + Complex.I * (Complex.I * ((1 / 2 - σ : ℝ) : ℂ)) = σ := by
+    push_cast; rw [← mul_assoc, Complex.I_mul_I]; ring
+  rwa [Xi, e] at h
+
+theorem Xi_zero_ne_zero : Xi 0 ≠ 0 := by
+  simpa using Xi_I_mul_ne_zero 0
+
+/-- **`ζ(σ) ≠ 0` on `(0, 1)`**: such a zero would be nontrivial, hence a zero of `ξ(σ)`. -/
+theorem riemannZeta_ne_zero_of_mem_Ioo {σ : ℝ} (h0 : 0 < σ) (h1 : σ < 1) :
+    riemannZeta σ ≠ 0 := fun hz =>
+  xi_real_ne_zero σ <| xi_eq_zero_of_nontrivial ⟨hz, fun ⟨n, hn⟩ => by
+    have := congrArg Complex.re hn
+    simp at this
+    have : (0 : ℝ) ≤ n := n.cast_nonneg
+    linarith⟩
+
 theorem memLp_RPhi : MemLp RPhi 2 volume := by
   obtain ⟨C, hC0, hC⟩ := RPhi_decay
   have hg : MemLp (fun u : ℝ => C * Real.exp (-2 * |u|)) 2 volume := by
@@ -809,28 +881,6 @@ theorem memLp_RPhi : MemLp RPhi 2 volume := by
     abs_of_nonneg (show 0 ≤ C * Real.exp (-2 * |u|) from mul_nonneg hC0 (Real.exp_pos _).le)]
   exact hC u
 
-/-- **`KernelApprox` holds for Riemann's kernel**, for any supports `a_n → ∞`. -/
-theorem kernelApprox_RPhi {a : ℕ → ℝ} (hlim : Tendsto a atTop atTop) :
-    KernelApprox a fun _ => RPhi := by
-  refine ⟨fun _ => memLp_RPhi, 1 / 2, by norm_num, ?_⟩
-  have hsub : stripSet ⊆ closedStrip 1 := fun z hz => by
-    simp only [stripSet, Set.mem_ofPred_eq] at hz
-    simp only [closedStrip, Set.mem_ofPred_eq]; linarith
-  have h := (tendstoUniformlyOn_ghatC_RPhi 1 hlim).mono hsub
-  have h2 : TendstoUniformlyOn (fun n z => ghatC RPhi (a n) z) (fun z => 1 / 2 * Xi z) atTop stripSet :=
-    h.congr_right fun z _ => by rw [RPhiHat_eq]; ring
-  exact h2.tendstoLocallyUniformlyOn
-
-/-- **RH from `L²` closeness to Riemann's kernel**, with no unproved input other than the closeness:
-if `a_n → ∞` and `√(2a_n) e^{b a_n} ‖σ_n·topGS(a_n) − Φ‖ → 0` for every `b < ½` (some signs and
-scalings `σ_n ≠ 0`), the Riemann hypothesis holds. -/
-theorem rh_of_close_RPhi {a : ℕ → ℝ} (ha : ∀ n, 0 < a n) (hlim : Tendsto a atTop atTop)
-    {σ : ℕ → ℝ} (hσ : ∀ n, σ n ≠ 0)
-    (hclose : ∀ b < 1 / 2, Tendsto (fun n => Real.sqrt (2 * a n) * Real.exp (a n * b)
-      * Real.sqrt (normSq fun t => σ n * topGS (a n) t - RPhi t)) atTop (𝓝 0)) :
-    RiemannHypothesis :=
-  rh_of_close_top ha (kernelApprox_RPhi hlim) hσ hclose
-
 end Pilot1ca
 
 #print axioms Pilot1ca.integral_exp_theta_term
@@ -841,8 +891,10 @@ end Pilot1ca
 #print axioms Pilot1ca.RPhi_decay_gen
 #print axioms Pilot1ca.differentiable_RPhiHat
 #print axioms Pilot1ca.RPhiHat_eq
-#print axioms Pilot1ca.kernelApprox_RPhi
-#print axioms Pilot1ca.rh_of_close_RPhi
+#print axioms Pilot1ca.RPhi_pos
+#print axioms Pilot1ca.xi_real_ne_zero
+#print axioms Pilot1ca.Xi_zero_ne_zero
+#print axioms Pilot1ca.riemannZeta_ne_zero_of_mem_Ioo
 
 
 

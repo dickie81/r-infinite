@@ -9,8 +9,7 @@ For `C²` functions `f, k` supported in `[−a, a]` (with `f, f'` vanishing outs
 * `bil0_deriv2`: hence `B₀(f'', k) = B₀(f, k'')` for the pole-free bilinear form (constant, archimedean and
   prime terms are all functionals of the cross-correlation);
 * `poleR_deriv2`: `poleR(f'') = ¼·poleR(f)`, because `(e^{−u/2})'' = ¼e^{−u/2}`, i.e. `(i/2)² = −¼` is real;
-* `bilQ_deriv2`: the full bilinear form of `Q` satisfies `B(f'', k) = B(f, k'')`;
-* `eq_zero_of_deriv2_eq`: the ODE step used by Theorem C.
+* `bilQ_deriv2`: the full bilinear form of `Q` satisfies `B(f'', k) = B(f, k'')`.
 
 Theorem C itself (flat ⇒ degenerate) is proved in `H²` generality in TheoremC.lean, where the smooth
 form `simple_not_flat` is derived as a corollary.
@@ -43,9 +42,6 @@ theorem C2Supp.toC2Fun {r : ℝ} {f f₁ f₂ : ℝ → ℝ} (h : C2Supp r f f�
 theorem C2Fun.cont1 {g g₁ g₂ : ℝ → ℝ} (h : C2Fun g g₁ g₂) : Continuous g₁ :=
   continuous_iff_continuousAt.2 fun x => (h.d2 x).continuousAt
 
-theorem C2Fun.cont0 {g g₁ g₂ : ℝ → ℝ} (h : C2Fun g g₁ g₂) : Continuous g :=
-  continuous_iff_continuousAt.2 fun x => (h.d1 x).continuousAt
-
 /-- **Integration by parts twice on an interval**, boundary values of `u, u₁` zero. -/
 theorem ibp2_interval {α β : ℝ} {u u₁ u₂ v v₁ v₂ : ℝ → ℝ} (hu : C2Fun u u₁ u₂) (hv : C2Fun v v₁ v₂)
     (hα : u α = 0) (hβ : u β = 0) (hα1 : u₁ α = 0) (hβ1 : u₁ β = 0) :
@@ -63,9 +59,6 @@ theorem ibp2_interval {α β : ℝ} {u u₁ u₂ v v₁ v₂ : ℝ → ℝ} (hu 
   have e2 : (∫ x in α..β, u x * v₂ x) = ∫ x in α..β, v₂ x * u x := by
     congr 1; funext x; ring
   rw [e1, e2, I1, I2, neg_neg]
-
-theorem C2Supp.zero_ge {r : ℝ} {f f₁ f₂ : ℝ → ℝ} (h : C2Supp r f f₁ f₂) {x : ℝ} (hx : r < |x|) :
-    f x = 0 ∧ f₁ x = 0 := ⟨h.supp x hx, h.supp1 x hx⟩
 
 /-- Integral over the line equals the integral over any interval containing `[−r, r]` strictly. -/
 theorem integral_line_eq {r R : ℝ} (hR : r < R) {F : ℝ → ℝ} (hF : ∀ x, r < |x| → F x = 0) :
@@ -164,43 +157,9 @@ theorem normSq_eq_xcorr {f : ℝ → ℝ} (hf : MemLp f 2 volume) : normSq f = x
   rw [e2, normSq_smul] at e
   linarith
 
-/-- **ODE step**: a `C²` function vanishing (with its derivative) outside `[−a, a]` and solving
-`h'' = c·h` everywhere is identically zero (uniqueness for the linear system `(h, h')' = (h', c·h)`). -/
-theorem eq_zero_of_deriv2_eq {a c : ℝ} {h h₁ h₂ : ℝ → ℝ} (hc : C2Supp a h h₁ h₂)
-    (heq : ∀ t, h₂ t = c * h t) : ∀ t, h t = 0 := by
-  set L : ℝ × ℝ →L[ℝ] ℝ × ℝ :=
-    (ContinuousLinearMap.snd ℝ ℝ ℝ).prod (c • ContinuousLinearMap.fst ℝ ℝ ℝ) with hL
-  have hLx : ∀ x : ℝ × ℝ, L x = (x.2, c * x.1) := by
-    intro x; simp [hL]
-  have hsol : ∀ t, HasDerivAt (fun t => (h t, h₁ t)) (L (h t, h₁ t)) t ∧
-      (h t, h₁ t) ∈ (Set.univ : Set (ℝ × ℝ)) := by
-    intro t
-    refine ⟨?_, trivial⟩
-    rw [hLx]
-    have := (hc.d1 t).prodMk (hc.d2 t)
-    simpa [heq t] using this
-  have hzero : ∀ t, HasDerivAt (fun _ : ℝ => ((0 : ℝ), (0 : ℝ))) (L ((0 : ℝ), (0 : ℝ))) t ∧
-      ((0 : ℝ), (0 : ℝ)) ∈ (Set.univ : Set (ℝ × ℝ)) := by
-    intro t
-    refine ⟨?_, trivial⟩
-    rw [hLx]
-    convert hasDerivAt_const t ((0 : ℝ), (0 : ℝ)) using 1
-    simp
-  have hfar : a < |(|a| + 1)| := by
-    rw [abs_of_pos (by positivity)]; linarith [le_abs_self a]
-  have h0 : (fun t => (h t, h₁ t)) (|a| + 1) = (fun _ : ℝ => ((0 : ℝ), (0 : ℝ))) (|a| + 1) := by
-    simp only [hc.supp _ hfar, hc.supp1 _ hfar]
-  have := ODE_solution_unique_univ (v := fun _ => L) (s := fun _ => Set.univ)
-    (fun _ => L.lipschitzWith.lipschitzOnWith) hsol hzero h0
-  intro t
-  have := congrFun this t
-  simp only [Prod.mk.injEq] at this
-  exact this.1
-
 end Pilot1ca
 
 #print axioms Pilot1ca.xcorr_deriv2
 #print axioms Pilot1ca.bil0_deriv2
 #print axioms Pilot1ca.poleR_deriv2
 #print axioms Pilot1ca.bilQ_deriv2
-#print axioms Pilot1ca.eq_zero_of_deriv2_eq

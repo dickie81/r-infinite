@@ -151,8 +151,6 @@ def chainSpace (a : ℝ) (j : ℕ) : Submodule ℝ (ℝ → ℝ) where
     · rw [Gi_smul, show c • Gi a i f = fun t => c * Gi a i f t from rfl, poleR_smul, hf.2 i hi,
         mul_zero]
 
-theorem mem_chainSpace {a : ℝ} {j : ℕ} {f : ℝ → ℝ} : f ∈ chainSpace a j ↔ IsChain a j f := Iff.rfl
-
 theorem chainSpace_zero (a : ℝ) {f : ℝ → ℝ} : f ∈ chainSpace a 0 ↔ f ∈ groundSpace a := by
   constructor
   · intro h; exact h.1 0 le_rfl
@@ -430,9 +428,6 @@ theorem exists_interval_ghat {a : ℝ} (ha : 0 < a) {w : ℝ → ℝ} (hp : Prob
   linarith [ht.2]
 
 /-! ## Independence and spanning -/
-
-theorem rr_val {a : ℝ} (x : groundSpace a) :
-    (((iotaGS a).rangeRestrict x : LinearMap.range (iotaGS a)) : Lp ℝ 2 volume) = iotaGS a x := rfl
 
 /-- **The Green chain is independent.** -/
 theorem chain_linearIndependent {a : ℝ} (ha : 0 < a) {j : ℕ} {w : ℝ → ℝ} (hc : IsChain a j w)

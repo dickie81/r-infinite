@@ -19,7 +19,7 @@ written as `(e^{iwx} P_{−w}(x) − e^{−iwx} P_w(x))/(2iw)` with `P_c(x) = �
   `swap_hat`).
 * **R2** (`swap_autocorr`): on `[−6a, 6a]` the Fourier coefficients of `u, v, g` are `ĝ`-values at
   real points, where `ĝ_u, ĝ_v` are real (even real functions) and the multiplier is unimodular. So
-  `|c_n(u)|² + |c_n(v)|² = |c_n(g)|²`, and Parseval for `g − g(· + s)` (`hasSum_shift_memLp`) gives
+  `|c_n(u)|² + |c_n(v)|² = |c_n(g)|²`, and Parseval for `g − g(· + s)` (`hasSum_shift'`) gives
   `A_u(s) + A_v(s) = A_g(s)` for `|s| < 3a`; beyond `2a` all three vanish.
 * The archimedean integrals of `u, v` converge by domination, `0 ≤ E_u(x) ≤ E_g(x)` (`arch_dom`).
 
@@ -33,32 +33,26 @@ noncomputable section
 
 namespace Pilot1ca
 
-/-- **Triangle swap.** `∫_α^β e(x) ∫_α^x f(y) dy dx = ∫_α^β f(y) ∫_y^β e(x) dx dy`. -/
-theorem triangle_swap {α β : ℝ} (hαβ : α ≤ β) {e f : ℝ → ℂ} (he : Continuous e)
+/-- **Triangle swap.** `∫_α^β e(x) ∫_α^x f(y) dy dx = ∫_α^β f(y) ∫_y^β e(x) dx dy`, for integrable
+weights with values in `ℝ` or `ℂ`. -/
+theorem triangle_swap {𝕜 : Type*} [RCLike 𝕜] {α β : ℝ} (hαβ : α ≤ β) {e f : ℝ → 𝕜} (he : IntegrableOn e (Ioc α β))
     (hf : IntegrableOn f (Ioc α β)) :
     (∫ x in α..β, e x * ∫ y in α..x, f y) = ∫ y in α..β, f y * ∫ x in y..β, e x := by
   set μ := volume.restrict (Ioc α β)
-  have : IsFiniteMeasure μ := isFiniteMeasure_restrict.2 (by simp)
-  set F : ℝ → ℝ → ℂ := fun x y => e x * (Iic x).indicator f y with hF
-  obtain ⟨C, hC⟩ := (isCompact_Icc (a := α) (b := β)).exists_bound_of_continuousOn
-    he.continuousOn
+  set F : ℝ → ℝ → 𝕜 := fun x y => e x * (Iic x).indicator f y with hF
   have hint : Integrable (Function.uncurry F) (μ.prod μ) := by
-    have hbd : Integrable (fun p : ℝ × ℝ => (fun _ : ℝ => C) p.1 * (fun y => ‖f y‖) p.2)
-        (μ.prod μ) := (integrable_const C).mul_prod hf.norm
-    refine hbd.mono' ?_ ?_
+    have hbd : Integrable (fun p : ℝ × ℝ => (fun x => ‖e x‖) p.1 * (fun y => ‖f y‖) p.2)
+        (μ.prod μ) := he.norm.mul_prod hf.norm
+    refine hbd.mono' ?_ (Eventually.of_forall fun p => ?_)
     · have h1 : AEStronglyMeasurable (fun p : ℝ × ℝ => e p.1) (μ.prod μ) :=
-        (he.comp continuous_fst).aestronglyMeasurable
+        he.aestronglyMeasurable.comp_fst
       have h2 : AEStronglyMeasurable
           ({q : ℝ × ℝ | q.2 ≤ q.1}.indicator (fun q : ℝ × ℝ => f q.2)) (μ.prod μ) :=
         (hf.aestronglyMeasurable.comp_snd).indicator (measurableSet_le measurable_snd measurable_fst)
       refine (h1.mul h2).congr (Eventually.of_forall fun p => ?_)
       simp only [Function.uncurry, hF, Set.indicator, Set.mem_Iic, Pi.mul_apply, Set.mem_ofPred_eq]
-    · have hmem : ∀ᵐ p ∂(μ.prod μ), p.1 ∈ Ioc α β :=
-        Measure.quasiMeasurePreserving_fst.ae (ae_restrict_mem measurableSet_Ioc)
-      filter_upwards [hmem] with p hp
-      simp only [Function.uncurry, hF, norm_mul]
-      refine mul_le_mul (hC p.1 (Ioc_subset_Icc_self hp)) ?_ (norm_nonneg _)
-        ((norm_nonneg _).trans (hC p.1 (Ioc_subset_Icc_self hp)))
+    · simp only [Function.uncurry, hF, norm_mul]
+      refine mul_le_mul_of_nonneg_left ?_ (norm_nonneg _)
       by_cases h : p.2 ≤ p.1
       · simp [Set.indicator, h]
       · simp [Set.indicator, h]
@@ -174,7 +168,9 @@ theorem hat_exp_Pc {g : ℝ → ℝ} (hg : MemLp g 2 volume) {a : ℝ} (ha : 0 �
           / (Complex.I * (z + c)) := by
   have hne : Complex.I * (z + c) ≠ 0 := mul_ne_zero Complex.I_ne_zero hcz
   unfold Pc
-  rw [triangle_swap (by linarith) (by fun_prop) (ii_mul_exp hg (-c) (-a) a).1]
+  rw [triangle_swap (by linarith)
+    ((by fun_prop : Continuous fun x : ℝ => Complex.exp (Complex.I * (z + c) * x)).integrableOn_Icc.mono_set
+      Ioc_subset_Icc_self) (ii_mul_exp hg (-c) (-a) a).1]
   simp_rw [integral_exp_mul_complex hne]
   have hpt : ∀ y : ℝ, ((g y : ℝ) : ℂ) * Complex.exp (Complex.I * (-c) * y)
       * ((Complex.exp (Complex.I * (z + c) * a) - Complex.exp (Complex.I * (z + c) * y))
@@ -318,18 +314,22 @@ end Pair
 
 /-! ## R2: the autocorrelations add up (Fourier coefficients on `[−6a, 6a]`) -/
 
-theorem ghatC_im_zero {f : ℝ → ℝ} (hf : MemLp f 2 volume) (heven : ∀ u, f (-u) = f u) {a : ℝ}
-    (ha : 0 ≤ a) (t : ℝ) : (ghatC f a t).im = 0 := by
-  rw [← Complex.conj_eq_iff_im]
-  have : (starRingEnd ℂ) (ghatC f a t) = ghatC f a (-(t : ℂ)) := by
+/-- `ĝ(z̄) = conj ĝ(z)` for a real even square-integrable `g`. -/
+theorem ghatC_conj {f : ℝ → ℝ} (hf : MemLp f 2 volume) (heven : ∀ u, f (-u) = f u) {a : ℝ}
+    (ha : 0 ≤ a) (z : ℂ) : ghatC f a ((starRingEnd ℂ) z) = (starRingEnd ℂ) (ghatC f a z) := by
+  have : (starRingEnd ℂ) (ghatC f a z) = ghatC f a (-((starRingEnd ℂ) z)) := by
     unfold ghatC
     rw [intervalIntegral.integral_of_le (by linarith), intervalIntegral.integral_of_le (by linarith),
       ← integral_conj]
     congr 1; funext u
     rw [map_mul, Complex.conj_ofReal, ← Complex.exp_conj, map_mul, map_mul, Complex.conj_I,
-      Complex.conj_ofReal, Complex.conj_ofReal]
+      Complex.conj_ofReal]
     congr 2; ring
   rw [this, ghatC_neg_of_even hf heven]
+
+theorem ghatC_im_zero {f : ℝ → ℝ} (hf : MemLp f 2 volume) (heven : ∀ u, f (-u) = f u) {a : ℝ}
+    (ha : 0 ≤ a) (t : ℝ) : (ghatC f a t).im = 0 := by
+  rw [← Complex.conj_eq_iff_im, ← ghatC_conj hf heven ha, Complex.conj_ofReal]
 
 theorem cf_eq_ghatC {a : ℝ} (ha : 0 < a) {f : ℝ → ℝ} (hsupp : ∀ u, a < |u| → f u = 0) (n : ℤ) :
     cf (3 * a) f n
@@ -353,37 +353,6 @@ theorem norm_sq_add_of_im {x y : ℂ} (hx : x.im = 0) (hy : y.im = 0) :
     ‖x‖ ^ 2 + ‖y‖ ^ 2 = ‖x + Complex.I * y‖ ^ 2 := by
   rw [← Complex.normSq_eq_norm_sq, ← Complex.normSq_eq_norm_sq, ← Complex.normSq_eq_norm_sq]
   simp [Complex.normSq_apply, hx, hy]
-
-/-- `hasSum_shift` needs only `L²` and the support. -/
-theorem hasSum_shift_memLp {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hg : MemLp g 2 volume)
-    (hsp : ∀ u, a < |u| → g u = 0) {s : ℝ} (hs : |s| < a) :
-    HasSum (fun n : ℤ => ‖cf a g n‖ ^ 2 * (2 - 2 * Real.cos (2 * π * n * s / (4 * a))))
-      ((4 * a)⁻¹ * (2 * (autocorr g 0 - autocorr g s))) := by
-  have hgs : MemLp (fun t => g (t + s)) 2 volume :=
-    hg.comp_measurePreserving (measurePreserving_add_right volume s)
-  have hmem : MemLp (fun t => g t - g (t + s)) 2 volume := hg.sub hgs
-  have hsupp : ∀ u, a + |s| < |u| → g u - g (u + s) = 0 := by
-    intro u hu
-    have h1 : a < |u| := by linarith [abs_nonneg s]
-    have h2 : a < |u + s| := by
-      have : |u| ≤ |u + s| + |s| := by
-        have := abs_sub (u + s) s
-        rwa [add_sub_cancel_right] at this
-      linarith
-    rw [hsp u h1, hsp _ h2, sub_self]
-  have hP := hasSum_cf_sq ha (by linarith) hmem hsupp
-  rw [normSq_sub_shift hg s] at hP
-  convert hP using 1
-  funext n
-  have hlin : cf a (fun t => g t - g (t + s)) n
-      = cf a g n * (1 - Complex.exp (((2 * π * n * s / (4 * a) : ℝ) : ℂ) * I)) := by
-    rw [cf_sub (memLp_intervalIntegrable hg _ _) (memLp_intervalIntegrable hgs _ _),
-      cf_shift ha hsp hs n]
-    have : Complex.exp (2 * π * I * n * s / (4 * a))
-        = Complex.exp (((2 * π * n * s / (4 * a) : ℝ) : ℂ) * I) := by
-      congr 1; push_cast; ring
-    rw [this]; ring
-  rw [hlin, norm_mul, mul_pow, norm_one_sub_exp_sq]
 
 theorem autocorr_eq_zero_far {a : ℝ} {f : ℝ → ℝ} (hsupp : ∀ u, a < |u| → f u = 0) {s : ℝ}
     (hs : 2 * a < |s|) : autocorr f s = 0 := by
@@ -438,9 +407,9 @@ theorem swap_autocorr (hp : Probe a g) (ha : 0 < a) (hw : ghatC g a w = 0) (hw0 
   · have ha3 : 0 < 3 * a := by linarith
     have mono : ∀ {f : ℝ → ℝ}, (∀ u, a < |u| → f u = 0) → ∀ u, 3 * a < |u| → f u = 0 :=
       fun hf u hu => hf u (by linarith)
-    have Hu := hasSum_shift_memLp ha3 (memLp_uSw hp hw) (mono hus) hs
-    have Hv := hasSum_shift_memLp ha3 (memLp_vSw hp hw) (mono hvs) hs
-    have Hg := hasSum_shift_memLp ha3 hp.memL2 (mono hp.supp) hs
+    have Hu := hasSum_shift' ha3 (memLp_uSw hp hw) (mono hus) (by linarith)
+    have Hv := hasSum_shift' ha3 (memLp_vSw hp hw) (mono hvs) (by linarith)
+    have Hg := hasSum_shift' ha3 hp.memL2 (mono hp.supp) (by linarith)
     have Nu := hasSum_cf_sq ha3 (by linarith : a < 2 * (3 * a)) (memLp_uSw hp hw) hus
     have Nv := hasSum_cf_sq ha3 (by linarith : a < 2 * (3 * a)) (memLp_vSw hp hw) hvs
     have Ng := hasSum_cf_sq ha3 (by linarith : a < 2 * (3 * a)) hp.memL2 hp.supp
