@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 356 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 369 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -52,6 +52,7 @@ Every file ends with `#print axioms`. All 356 checked theorems depend only on `p
 | `ZeroCount.lean` | 355 | off-line zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²` per ground state (none for `m ≤ 2`); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`**; `M ≤ 2` gives RH |
 | `GapBound.lean` | 459 | **the pole-overlap gap bound** `λ₂ − λ₁ ≥ c₂²(μ₂ − μ₁)/(c₁² + c₂²)` at operator level, hence simplicity from a nonzero overlap `⟨c, ψ₂⟩`; **the Galerkin transfer**: dense truncations with a uniform truncated gap give simplicity |
 | `CosTrunc.lean` | 653 | **`TruncDense` for the paper's cosine basis** `span{1_{[−a,a]}cos(kπt/a) : k < K}`: `C²` approximant, its cosine series by Mathlib's Fourier theorem, Hölder tails, energy of a truncated Hölder function; round 60's transfer for this basis with no density hypothesis |
+| `StripConv.lean` | 614 | **(a) is needed only on the strip `|{Im z}| < ½`**: RH from strip convergence; strip convergence from `L²` closeness of the ground state to a kernel at rate `o(e^{−a/2}/√a)` (`rh_of_close_top`); the min–max angle bound and `rh_of_relgap`; every moment condition (`k = 2`: `κ → 0`) as a corollary |
 | `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
@@ -2104,4 +2105,52 @@ Round 60's Galerkin transfer assumed `TruncDense`. This round proves it for the 
 * The hypothesis that remains is the truncated gap itself, uniformly in `K`. The numerics of rounds 47–50 compute it at finite `K` in high precision. They are not a certificate, and they do not give uniformity in `K`.
 * Only density is proved. No rate is given, and no bound relates a finite-`K` eigenvalue to `λ₁(Q)`. A certified gap would need a quantitative version: an explicit `K` and an explicit error.
 * Simplicity at every support, (a) `HypConv`, and uniform dimension bounds remain open, as in rounds 54–60.
+
+## Round 62: the second-moment condition, and (a) on the strip (StripConv.lean, `frontier/strip/`)
+
+The target was the second-moment condition `κ(a) → 0`, i.e. `m₂(g_a) → M₂(Φ)`, the first necessary condition for (a).
+
+**1. A direct proof is blocked at the same place as round 40's (L3).**
+* By Hadamard (round 18), `m₂/2 = Σ_w 1/w²` over the zeros of `ĝ_a` and `M₂/2 = Σ_γ 1/γ²`. So `κ → 0` is a statement about `ĝ_a`'s zeros tracking ζ's.
+* The only handle on `ĝ_a` at the zeta zeros is `Q = Σ_ρ ĝ(γ_ρ)²`, and splitting that sum term by term needs RH.
+* The Euler–Lagrange equation says `Σ_ρ ĝ(γ_ρ)φ̂(γ_ρ) = λ₁⟨g, φ⟩` for every `φ` on `[−a, a]`. It fixes the values `ĝ(γ_ρ)` only modulo the annihilator of `PW_a` on the zero set, which is large because the zeros are denser than `PW_a`'s Beurling density. So it does not fix the moments.
+* I found no unconditional route to `κ → 0` alone.
+
+**2. What does work: (a) is needed only on the strip `|Im z| < ½`, and there it is an `L²` statement.**
+
+| theorem | statement |
+|---|---|
+| `hurwitz_closed_on`, `rh_of_strip_cross`, `rh_of_hypConvStrip_top` | Hurwitz on an open set. Every zero of `Ξ` lies in `|Im z| < ½`, so **locally uniform convergence on that strip alone** gives RH for the top-of-chain ground states |
+| `norm_ghatC_sub_le` | `|ĝ(z) − φ̂(z)| ≤ √(2a) e^{a|Im z|} ‖g − φ‖` (Cauchy–Schwarz on `[−a, a]`) |
+| `tendstoLocallyUniformlyOn_of_close`, `tendstoLocallyUniformlyOn_ratio`, `hypConvStrip_of_close` | if `φ̂_n → cΞ` on the strip (`KernelApprox`) and `√(2a_n) e^{b a_n}‖g_n − φ_n‖ → 0` for every `b < ½`, then (a) holds on the strip |
+| `rh_of_close_top` | **RH ⇐ `‖σ_n·topGS(a_n) − φ_n‖ = o(e^{−b a_n}/√a_n)` for every `b < ½`**, with signs `σ_n ≠ 0` |
+| `normSq_sub_le_of_gap`, `rh_of_relgap` | min–max: `‖g − φ‖² ≤ 2(Q(φ) − λ₁)/(λ₂ − λ₁)`; hence RH from a relative spectral gap |
+| `tendstoLocallyUniformlyOn_iteratedDeriv`, `moments_of_hypConvStrip` | (a) on the strip makes every Taylor coefficient at `0` converge; `k = 2` is `κ → 0` |
+
+* **The one unformalised input is `KernelApprox`.** For `φ_n = Φ·1_{[−a_n, a_n]}` it is Riemann's formula `Ξ(t) = 2∫₀^∞ Φ(u) cos(ut) du` (Titchmarsh §2.16) together with `Φ`'s decay `exp(−πe^{2|u|})`. It is classical, but not in Mathlib or the pilot.
+* **The threshold `½` is the half-width of the critical strip.** Round 40 had required convergence on all of `ℂ`, which is much more than the chain uses.
+
+**3. Measurements** (`angle_gap.py`, paper's Gram, 400–1400 bits; `angle_gap_results.jsonl`)
+
+| `δ` | `λ₁` | `λ₂` | `Q(Φ_a)/‖Φ_a‖²` | `sin θ(g_a, Φ_a)` | `sin θ/κ` | `sin θ·√a·e^{a/2}` |
+|---|---|---|---|---|---|---|
+| 1.0 | 9.4e-7 | 1.8e-2 | 7.0e-4 | 0.1351 | 16.21 | 0.123 |
+| 1.4 | 4.3e-13 | 8.8e-8 | 1.3e-6 | 0.0824 | 15.48 | 0.098 |
+| 1.8 | 4.5e-23 | 7.7e-17 | 2.4e-11 | 0.0517 | 14.91 | 0.077 |
+| 2.2 | 2.1e-38 | 1.6e-31 | 9.1e-19 | 0.0333 | 14.58 | 0.060 |
+| 2.6 | 8.3e-62 | 4.2e-54 | 3.4e-30 | 0.0217 | 14.37 | 0.047 |
+| 3.0 | 4.9e-97 | 1.3e-88 | 1.4e-47 | 0.0143 | 14.24 | 0.037 |
+| 3.4 (registered) | 4.3e-150 | 6.7e-141 | 7.0e-74 | 0.00949 | – | 0.029 |
+
+* **The angle falls like `e^{−2a}`.** The local rate goes `2.47, 2.33, 2.20, 2.13, 2.09, 2.06`, against the threshold `½` that `rh_of_close_top` needs. The criterion's quantity `sin θ·√a·e^{a/2}` falls steadily.
+* **The angle and the second moment are one parameter.** The moment identity `ĝ/ĝ(0) ≈ (Ξ/Ξ(0))(1 + κz²)` means `g_a ≈ Φ − κΦ''`, so `sin θ ≈ |κ|·‖(Φ'')^⊥‖/‖Φ‖ = 13.98|κ|` (`phi_pp.py`). The measured ratio falls `16.2 → 14.2` towards `13.98`.
+* **Pre-registered test.** The `δ = 3.4` prediction (`prediction_delta3.4_registered.txt`, committed before the run finished) was `sin θ = 9.33×10⁻³`, band `[9.0, 9.7]×10⁻³`. Measured: `9.49×10⁻³`.
+* **The gap route fails for `Φ_a`.** `λ₂` is itself double-exponentially small, and far below `Q(Φ_a)`. So `(Q(Φ_a) − λ₁)/(λ₂ − λ₁)` grows from `0.04` to `10⁶⁷`. `rh_of_relgap` is proved, but its hypothesis is false for this trial. A usable trial would need `Q(φ) ≪ λ₂`.
+
+**What this gives, and what it does not.**
+* (a) is replaced by a sharper, purely Hilbert-space target: the ground state approaches Riemann's kernel in `L²` faster than `e^{−a/2}/√a`. Numerically the rate is `e^{−2a}`, four times the threshold.
+* The second-moment condition follows as the `k = 2` case (`moments_of_hypConvStrip`). Numerically it is the same small parameter as the angle.
+* Nothing here proves the angle bound. It is presumably RH-strength: `rh_of_close_top` derives RH from it with no other open input, apart from the classical `KernelApprox`.
+* The measurements stop at `a = 1.7`. The asymptotic rate is inferred, not certified.
+* Whether the reduction is in the literature was not checked. Connes–Consani–Moscovici's related conjecture (round 40) is about determinants on all of `ℂ`.
 
