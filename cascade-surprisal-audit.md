@@ -19580,3 +19580,15 @@ The ratio η₂/λ₁ falls slowly (5.3 → 2.03); the loosest primes sit at the
 **Battery.** None owed. Round 371 commissioned as the convergence test on the sweep.
 
 ---
+
+## Addendum 543 — round 371 on the round-371 sweep of the working note (0 MAJOR, 1 minor, 7 cosmetic; all verified by the lead and accepted): the tail ε's rate asserted where the paper marks it unproved; seven cosmetics; round 372 commissioned as the convergence test
+
+**The round.** Fresh-context hostile reviewer on the sweep commit 5f53603, the brief carried inside the launch prompt (its script under `scratchpad/r371/`: `check_note_r371.py`, 35/35 rows). Findings: 0 MAJOR, 1 minor, 7 cosmetic; every round-370 disposition realised (the Bombieri sentence clause by clause against §13 in his order, the finite-set truncation against Theorems 8–9, t₀ ≥ 14's two places, the half-support threshold, README 1369's half, `av3_C2`/`probe_Av`); Theorems 2–3, Corollary 4, Proposition 5 and Theorem A recomputed a fifth time; the paper unchanged and claiming nothing. Every finding verified by the lead by direct reading (the paper's 7229 "Not proved: the rate of ε(δ)"; Jensen's count recomputed) before acceptance; all accepted.
+
+**F371-1 (minor).** §3.3 wrote ε(a) ≍ (ln T_D)/T_D and a e^{−2a} for a sum that includes the transform's own exterior zeros, with no argument, and §4 item 3's D dropped the ε → 0 clause; the paper's 1bu(ii) bundles ε → 0 into D and marks its rate unproved. The lead's over-statement. **Sweep:** the two sums separated; the ζ-tail classical; the exterior tail bounded by Jensen (n(r) ≤ aer + ln(‖g‖₁/|ĝ(0)|), so Σ_{|τ|≥T}|τ|^{−2} ≤ 2ae/T + ln(‖g‖₁/|ĝ(0)|)/T²) with the needed origin bound ln(1/|ĝ_a(0)|) ≲ a e^{2a} named as not proved; item 3's D carries ε → 0 and states the rate as ε(a), a e^{−2a} under the origin bound. **Cosmetics (all swept):** C371-2 "3δ/2" clashed with the note's δ = 2a — "for box width h the half-support grows by 3h/2"; C371-3 "ε₁ < 0.08" derived (for large a, ε₁ → ε₁^∞ ≤ 0.074); C371-4 Bombieri's critical value a half-support, one negative eigenvalue per parity sector; C371-5 item 2's "nothing in between" scoped "assuming RH or (H₁)"; C371-6 Backlund's count also licenses Step 4(ii)'s summability, and the inventory scoped to §2's proofs; C371-7 item 3's family named (the top-of-chain ground state, Proposition 1's); C371-8 the zero-side form of B for the L² probe r marked as part of the unwritten step.
+
+**Check-1 record (re-read this round).** The paper's 7211–7229 (D, ε, "Not proved: the rate of ε(δ)"); the note's §3.3, §4 items 2–4, Step 5 and Corollary 4 before and after.
+
+**Battery.** None owed. Round 372 commissioned as the convergence test on the sweep.
+
+---

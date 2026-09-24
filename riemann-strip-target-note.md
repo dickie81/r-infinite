@@ -186,9 +186,8 @@ there), and for the L² window functional a trichotomy: negative, or
 infinitely many off-line zeros, or a linear relation among the x^{−ρ} on the
 window (his Theorem 11 and its corollary). No growth rate in the support
 appears there. His numerical section inserts a fictitious off-line zero
-(at 0.52 + 3.14i, with the first N zeros of ζ, N up to 160) and reports a
-critical support: below it the resulting negative eigenvalue tends to 0
-as N grows, with the eigenfunction's L²-mass concentrating at the boundary
+(at 0.52 + 3.14i, with the first N zeros of ζ, N up to 160) and reports a critical half-support: below it the resulting negative
+eigenvalue (one per parity sector) tends to 0 as N grows, with the eigenfunction's L²-mass concentrating at the boundary
 of the interval; above it the eigenvalue converges to a strictly negative
 value. (This note's Remark (b) concerns the supercritical trial's edge
 concentration; the analogy with his subcritical observation is this
@@ -316,7 +315,8 @@ is dominated by Σ M(ρ′) < ∞; by dominated convergence it tends to 0. So
 By (2.1), −4m₀‖g‖² ≤ −m₀ e^{2β(a−1)}(1 − ε₁)/(2β). By (2.2) and (2.1),
 4m₀R²/‖g‖² ≤ m₀ e^{2βa} · β e^{2β}(‖w′‖_∞ + 1)²/(2t₀²(1 − ε₁)), and the ratio
 of this to the negative main term is β² e^{4β}(‖w′‖_∞ + 1)²/(t₀²(1 − ε₁)²),
-which with β < ½, ‖w′‖_∞ ≤ 2, t₀ ≥ 14 and ε₁ < 0.08 is at most 20/t₀² < 0.11,
+which with β < ½, ‖w′‖_∞ ≤ 2, t₀ ≥ 14 and ε₁ < 0.08 (for large a, since
+ε₁(a) → ε₁^∞ ≤ 0.074) is at most 20/t₀² < 0.11,
 strictly less than 1. Hence, with ε₁(a) → ε₁^∞,
 
   λ₁(a) ≤ Q(g)/‖g‖² ≤ − m₀ e^{−2β} e^{2βa}/(2β) · (1 − ε₁^∞ − 20/t₀² − o(1)) + C₁.
@@ -359,9 +359,8 @@ under (H₁) and λ₁(a) ≤ −(1 − η(t₀)) e^{2β*a}/(2eβ*)(1 − o(1)).
 intermediate regime. (The lower bound 0 ≤ λ₁ under RH is Weil's criterion
 on smooth probes, extended to the pilot's L² probe class by mollification:
 the pilot's Mollify.lean gives convergence of box averages in L² and in
-archimedean energy, three box averages give a C² function (`av3_C2`, TheoremC.lean) that is a
-probe (`probe_Av`, thrice; the support grows by 3δ/2, harmless since
-positivity under RH holds at every support), and the pole and prime terms are L²-continuous
+archimedean energy, three box averages give a C² function (`av3_C2`, TheoremC.lean) that is a probe (`probe_Av`, thrice; for box width h the half-support
+grows by 3h/2, harmless since positivity under RH holds at every support), and the pole and prime terms are L²-continuous
 on probes of bounded support.)
 
 *Consequence for the computed cells.* At the paper's cells (a ≤ 1.75)
@@ -440,7 +439,9 @@ When λ₁ ≤ −(1 − η)e^{2β*a}/(2eβ*)(1 − o(1)), the left side is at l
 |c|[(1 − η)e^{2β*a}/(2eβ*)(1 − o(1)) − |q_a|], and |q_a| ≤ exp(−2πe^{2a} + O(a))
 by Theorem A (its bound is on the modulus, the sign of q_a being unknown
 without RH);
-while B(Φ̃, r) = Σ_ρ Φ̂̃(γ_ρ) r̂(γ_ρ) has every first factor bounded by
+while B(Φ̃, r) = Σ_ρ Φ̂̃(γ_ρ) r̂(γ_ρ) — the zero-side form of B for the L²
+probe r, part of the same unwritten step as the sampling bound below — has
+every first factor bounded by
 e₁(a)/(|γ_ρ|‖Φ_a‖) = exp(−πe^{2a} + O(a)). *Provided* the zero sum
 Σ_ρ |r̂(γ_ρ)|² is finite with at most exponential growth in a (a sampling
 bound for probes at the zeros — the pilot's `weighted_le_archE` and
@@ -477,9 +478,16 @@ Hypothesis D at support a with horizon T_D(a) (the zero multisets of the
 transform and of Ξ agreeing below T_D, with multiplicity), the normalised
 transform satisfies
 |ln[ĝ(r)/ĝ(0)] − ln[Ξ(r)/Ξ(0)]| ≤ 2R²ε(a) for |r| ≤ R ≤ T_D/2, with
-ε(a) = Σ_{|τ|≥T_D}|τ|^{−2} + Σ_{γ≥T_D}γ^{−2} ≍ (ln T_D)/T_D. With T_D of order
+ε(a) = Σ_{|τ|≥T_D}|τ|^{−2} + Σ_{γ≥T_D}γ^{−2}, where τ runs over the zeros of
+the transform. The paper marks the rate of ε unproved ("Not proved: the
+rate of ε(δ)"). Its second sum is classical, ≍ (ln T_D)/T_D. Its first is
+bounded by Jensen's formula: an even entire function of exponential type a
+with |ĝ(z)| ≤ ‖g‖₁e^{a|Im z|} has at most aer + ln(‖g‖₁/|ĝ(0)|) zeros in
+|z| ≤ r, so Σ_{|τ|≥T}|τ|^{−2} ≤ 2ae/T + ln(‖g‖₁/|ĝ(0)|)/T², and the first
+sum is also O(a/T_D) provided ln(1/|ĝ_a(0)|) ≲ a e^{2a}, a mild lower bound
+on the transform at the origin that is not proved here. With T_D of order
 e^{2a}, as the dimension count of §3.1 and the paper's measured horizons
-indicate, ε(a) ≍ a e^{−2a}. The same exponent 2 appears in the pilot's
+indicate, and that bound, ε(a) ≍ a e^{−2a}. The same exponent 2 appears in the pilot's
 measured decay of the L² angle to Φ_a, e^{−2a} with a slowly drifting local
 exponent (README round 62), four times the threshold ½ of the chain;
 1bu(ii) explains the transform's exponent, and whether the angle's has the
@@ -510,7 +518,7 @@ properties (unknown) as the likely technical input.
 2. **What the attempt proves** is Theorem 2 with Theorem 3 and Corollary 4:
    the truncated Weil ground energy has two regimes, super-exponentially
    small nonnegative under RH, exponentially negative with exponent 2β*
-   when RH fails under (H₁), and nothing in between. Under (H₁) the growth
+   when RH fails under (H₁), and, assuming RH or (H₁), nothing in between. Under (H₁) the growth
    exponent of −λ₁ detects the *farthest* zero from the line, and lower
    bounds on λ₁(a) uniform in a with exponent below 1 are then
    zero-free-region statements of the classical kind, so the variational
@@ -522,21 +530,24 @@ properties (unknown) as the likely technical input.
 
 3. **The honest open problem** that this analysis isolates, conditional and
    well-posed: *under RH, prove Hypothesis D from the form* — that the
-   truncated ground state's transform vanishes at every zero below a
-   horizon T_D(a) → ∞ with T_D(a) ≥ c e^{2a}, with the zero's multiplicity,
-   and at no other point below it. With 1bu(ii)'s bound this would prove, under RH, the locally uniform
-   convergence of the normalised transform to Ξ/Ξ(0) — the paper's (a′),
-   the pilot's `HypConv` — at rate a e^{−2a} on compacts, and with
+   top-of-chain ground state's transform (the family of Proposition 1)
+   vanishes at every zero below a horizon T_D(a) → ∞ with T_D(a) ≥ c e^{2a},
+   with the zero's multiplicity, and at no other point below it, with the
+   tail ε(a) of §3.3 tending to 0. With 1bu(ii)'s bound this would prove,
+   under RH, the locally uniform convergence of the normalised transform to
+   Ξ/Ξ(0) — the paper's (a′), the pilot's `HypConv` — at the rate ε(a) on
+   compacts, a e^{−2a} under the origin bound of §3.3, and with
    Proposition 1 at b = ½ make the chain an equivalence, RH ⟺ (a′). The L²
    closeness the pilot measures (its angle to Φ_a) is a stronger statement
    that 1bu(ii) does not give; the paper itself adds mass and
    second-moment conditions to reach even ĝ₁(0)² → 2πΞ(0)²/∫Ξ². It does
    not prove RH, and nothing in this note does.
 
-4. **No numerics were run.** The only quantities used are the constants of
-   Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
+4. **No numerics were run.** The only quantities used in §2's proofs are
+   the constants of Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
    Step 5 for η(t₀) < 0.2, ε₁ < 0.08 and 20/t₀² < 0.11), the verified height 3·10¹² for the
    first off-line zero (used to remark that η(t₀) is then negligible and in
-   the cells arithmetic of §2.3), and Backlund's unit-interval zero
-   count with an unspecified absolute constant, which enters only the
-   a-independent term C₁.
+   the cells arithmetic of §2.3), and Backlund's
+   unit-interval zero count with an unspecified absolute constant, which
+   enters the a-independent term C₁ and the summability of M(ρ′) in Step
+   4(ii). §3 reports the pilot's and the paper's figures as theirs.

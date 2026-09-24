@@ -5820,4 +5820,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (the note only: the six edits of A542). No tower obligation. Brief `brief_round371.md` (its text also inside the launch prompt). Convergence test on round 370's six findings (A542).
 
+**Findings.** 0 MAJOR, 1 minor, 7 cosmetic; all verified by the lead and accepted (A543); every round-370 disposition realised. Minor: F371-1 the tail ε's rate asserted for the transform's exterior zeros without argument, where the paper marks it unproved, and §4's D dropped ε → 0. Cosmetic: "3δ/2" against δ = 2a; ε₁ < 0.08 underived; Bombieri's critical value a half-support, one eigenvalue per sector; "nothing in between" unscoped; Backlund's count also in Step 4(ii) and the inventory's scope; item 3's family unnamed; the zero-side form of B for L² r. **Sweep (round 372):** all applied. Trajectory of the note's arc: 367 (0M+6m+12c) → 368 (0M+4m+6c) → 369 (0M+1m+8c) → 370 (0M+1m+5c) → 371 (0M+1m+7c) → 372 pending.
+
+### Round 372 — the convergence test on the round-372 sweep of the working note
+
+**Scope.** The sweep commit (the note only: the nine edits of A543). No tower obligation. Brief `brief_round372.md` (its text also inside the launch prompt). Convergence test on round 371's eight findings (A543).
+
 **Findings.** PENDING.
