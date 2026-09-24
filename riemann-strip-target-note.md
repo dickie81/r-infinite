@@ -171,8 +171,8 @@ Theorem 3 is the statement that no zero has β_ρ > ½, read through Theorem
 2: the exponent 1 = 2·½. Together they say, under (H₁), that the growth
 exponent of the negative part of the ground energy detects the zero
 farthest from the critical line, and that improving the exponent in
-Theorem 3 uniformly in a is then a zero-free-region statement of the
-classical kind. The sign dichotomy itself — λ₁(a) < 0 for all large a if
+Theorem 3 uniformly in a is then a zero-free-strip statement (β* ≤ b uniformly in height), stronger
+than the classical zero-free regions, which narrow with height. The sign dichotomy itself — λ₁(a) < 0 for all large a if
 and only if RH fails — is Weil's criterion with the monotonicity of λ₁ in the support (the pilot's
 README states the RH-false half, round 40). The closest prior
 to Theorem 2 is Bombieri (E. Bombieri, *Remarks on Weil's quadratic
@@ -186,8 +186,8 @@ there), and for the L² window functional a trichotomy: negative, or
 infinitely many off-line zeros, or a linear relation among the x^{−ρ} on the
 window (his Theorem 11 and its corollary). No growth rate in the support
 appears there. His numerical section inserts a fictitious off-line zero
-(at 0.52 + 3.14i, with the first N zeros of ζ, N up to 160) and reports a critical half-support: below it the resulting negative
-eigenvalue (one per parity sector) tends to 0 as N grows, with the eigenfunction's L²-mass concentrating at the boundary
+(at 0.52 + 3.14i, with the first N zeros of ζ, N up to 160) and reports, in each parity sector, a critical half-support: below it the
+sector's negative eigenvalue tends to 0 as N grows, with the eigenfunction's L²-mass concentrating at the boundary
 of the interval; above it the eigenvalue converges to a strictly negative
 value. (This note's Remark (b) concerns the supercritical trial's edge
 concentration; the analogy with his subcritical observation is this
@@ -240,7 +240,10 @@ sinh(2βA)/(2β) = e^{2βA}(1 − e^{−4βA})/(4β) and cosh(2βA) ≤ e^{2βA}
 
 The first three terms tend to 0 as a → ∞; the last, ε₁^∞ := 2β(β + t₀)/t₀²,
 is the edge correction to the average of sin² over the window and does not
-depend on a. It is the first part of η(t₀) in the theorem's statement.
+depend on a. It is the first part of η(t₀) in the theorem's statement. For
+small β and a near 2, ε₁(a) exceeds 1 (at a = 2 it does for every β ≤ 0.4),
+so every division by (2.1) below is taken for a ≥ a₀(β), the point past
+which ε₁(a) < 1; the theorem's statement is asymptotic and a₀ costs nothing.
 
 **Step 2: the value at the maximising zero.** Take γ₀ = t₀ + iβ, the
 ordinate of the member ½ − β + it₀ of ρ₀'s quadruple (the four members
@@ -285,9 +288,11 @@ T < |γ| ≤ T + 1 is at most A₀ ln T for T ≥ 2, with A₀ an absolute const
 
 with A₁ absolute (Σ_k ln(t₀+k+2)/k⁴ ≤ 1.09 ln(t₀+2) + 0.8). Dividing by (2.1):
 
-  (2.4)  Σ_{γ real} ĝ(γ)² / ‖g‖² ≤ C₁ := 8β e^{2β} A₁ ln(t₀+2)(β^{−2} + C_w²)/(1 − ε₁(a)),
+    (2.4)  Σ_{γ real} ĝ(γ)² / ‖g‖² ≤ C₁(a) := 8β e^{2β} A₁ ln(t₀+2)(β^{−2} + C_w²)/(1 − ε₁(a))
 
-bounded uniformly in a.
+for a ≥ a₀(β), bounded uniformly in a ≥ a₀(β) and tending to the
+a-independent limit with 1 − ε₁^∞ in the denominator; C₁ below means that
+limit.
 
 (ii) *Zeros off the line other than ρ₀'s quadruple.* Group them into
 quadruples with representative γ′ = t′ + iβ′, t′ > 0, 0 < β′ < β (the strict
@@ -301,14 +306,14 @@ M(ρ′) does not depend on a, and Σ_{ρ′} M(ρ′) < ∞ by the same unit-in
 count as in (i) (it is bounded by A₂ ln(t₀+2)(β^{−2} + C_w²)). Dividing by
 (2.1),
 
-  Σ_{ρ′} 4|ĝ(γ′)|²/‖g‖² ≤ 16β e^{2β}/(1 − ε₁) · e^{2βa} · Σ_{ρ′} e^{−2(β−β′)a} M(ρ′).
+    Σ_{ρ′} 4|ĝ(γ′)|²/‖g‖² ≤ 16β e^{2β}/(1 − ε₁) · e^{2βa} · Σ_{ρ′} e^{−2(β−β′)a} M(ρ′)   (a ≥ a₀(β)).
 
 Each term of the last sum tends to 0 as a → ∞ because β′ < β, and the sum
 is dominated by Σ M(ρ′) < ∞; by dominated convergence it tends to 0. So
 
   (2.5)  Σ_{ρ′} 4|ĝ(γ′)|²/‖g‖² = e^{2βa} · o(1)   (a → ∞).
 
-**Step 5: assembly.** From Steps 2–4,
+**Step 5: assembly.** From Steps 2–4, for a ≥ a₀(β),
 
   Q(g)/‖g‖² ≤ −4m₀‖g‖² + 4m₀R²/‖g‖² + C₁ + e^{2βa} o(1).
 
@@ -473,8 +478,7 @@ rigorous in this direction.
 
 Assume RH. Then λ₁(a) ∈ [0, exp(−2πe^{2a} + O(a))] and the pilot's chain would
 be an equivalence if the closeness rate could be proved. The transform's
-convergence has a mechanism in the paper's own Theorem 1bu(ii): under
-Hypothesis D at support a with horizon T_D(a) (the zero multisets of the
+convergence has a mechanism in the paper's own Theorem 1bu(ii): under Hypothesis D at half-support a with horizon T_D(a) (the zero multisets of the
 transform and of Ξ agreeing below T_D, with multiplicity), the normalised
 transform satisfies
 |ln[ĝ(r)/ĝ(0)] − ln[Ξ(r)/Ξ(0)]| ≤ 2R²ε(a) for |r| ≤ R ≤ T_D/2, with
@@ -482,8 +486,9 @@ transform satisfies
 the transform. The paper marks the rate of ε unproved ("Not proved: the
 rate of ε(δ)"). Its second sum is classical, ≍ (ln T_D)/T_D. Its first is
 bounded by Jensen's formula: an even entire function of exponential type a
-with |ĝ(z)| ≤ ‖g‖₁e^{a|Im z|} has at most aer + ln(‖g‖₁/|ĝ(0)|) zeros in
-|z| ≤ r, so Σ_{|τ|≥T}|τ|^{−2} ≤ 2ae/T + ln(‖g‖₁/|ĝ(0)|)/T², and the first
+with |ĝ(z)| ≤ ‖g‖₁e^{a|Im z|} has at most aer + ln(‖g‖₁/|ĝ(0)|) zeros in |z| ≤ r when ĝ(0) ≠ 0 (under D
+at any positive horizon, ĝ_a(0) ≠ 0 follows from Ξ(0) ≠ 0 and the equal
+orders at 0), so Σ_{|τ|≥T}|τ|^{−2} ≤ 2ae/T + ln(‖g‖₁/|ĝ(0)|)/T², and the first
 sum is also O(a/T_D) provided ln(1/|ĝ_a(0)|) ≲ a e^{2a}, a mild lower bound
 on the transform at the origin that is not proved here. With T_D of order
 e^{2a}, as the dimension count of §3.1 and the paper's measured horizons
@@ -499,8 +504,19 @@ transform vanishes at every zero below a horizon T_D(a) ≍ e^{2a} and has no
 other zero there. The pilot located where RH enters the natural proof of convergence ("uses `Q = Σ_γ |ĝ(γ)|²`, a sum of squares, which is RH", README
 round 40); under RH that obstacle is absent, and D becomes a statement in
 approximation theory about the minimiser of a sum of squares over a
-sampling set of near-critical density, with the zeros' separation
-properties (unknown) as the likely technical input.
+sampling set of near-critical density, with the zeros' separation properties (unknown) as the likely technical
+input. The pilot's round 69 (its `frontier/nullvec/`, after this note's
+sixth sweep) locates the structure numerically, on supports up to δ = 4.5:
+the ground state's deviation from Φ lies almost entirely along Φ″ (share 0.99976 of the deviation at δ = 3, and 0.99999999994 of it within
+the span of Φ″, Φ⁗, Φ⁽⁶⁾, with sin² = 1.2·10⁻¹⁴ outside span{Φ, …, Φ⁽⁶⁾}), with coefficient ≈ −0.020·e^{−δ}, so that locally
+ĝ_a ≈ c·Ξ(z)·e^{τz²} with a zero-free Gaussian multiplier, τ ≈ 0.020·e^{−δ};
+its own status line reads "The laws `sin²θ ~ e^{−4a}` and `β ~ e^{−δ}` are
+inferred, not proved", and it remarks that "`Φ`'s even derivatives are,
+like `Φ`, null directions of Weil's form (their transforms vanish at every
+zero), so a structural explanation plausibly starts there" — the pilot's
+numbers, conjecture and words, not this note's. That is the same target as
+item 3 of §4, seen from the minimiser's side: the structure to prove is
+that the minimiser stays in the null directions of the form.
 
 ---
 
@@ -521,8 +537,9 @@ properties (unknown) as the likely technical input.
    when RH fails under (H₁), and, assuming RH or (H₁), nothing in between. Under (H₁) the growth
    exponent of −λ₁ detects the *farthest* zero from the line, and lower
    bounds on λ₁(a) uniform in a with exponent below 1 are then
-   zero-free-region statements of the classical kind, so the variational
-   structure does not give a cheap route to those either. The qualitative
+   zero-free-strip statements uniform in height, beyond the classical
+   zero-free regions, so the variational structure gives no cheap route to
+   those either. The qualitative
    sign dichotomy is Weil's criterion; the count of negative eigenvalues
    is Bombieri's (2000, cited after Theorem 3); the growth rate with the
    sharp single-quadruple constant 1/(2β*) is the quantitative form, which
@@ -543,11 +560,9 @@ properties (unknown) as the likely technical input.
    second-moment conditions to reach even ĝ₁(0)² → 2πΞ(0)²/∫Ξ². It does
    not prove RH, and nothing in this note does.
 
-4. **No numerics were run.** The only quantities used in §2's proofs are
-   the constants of Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
+4. **No numerics were run.** The only arithmetic inputs of §2's proofs are the constants of Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
    Step 5 for η(t₀) < 0.2, ε₁ < 0.08 and 20/t₀² < 0.11), the verified height 3·10¹² for the
    first off-line zero (used to remark that η(t₀) is then negligible and in
    the cells arithmetic of §2.3), and Backlund's
-   unit-interval zero count with an unspecified absolute constant, which
-   enters the a-independent term C₁ and the summability of M(ρ′) in Step
-   4(ii). §3 reports the pilot's and the paper's figures as theirs.
+   unit-interval zero count with an unspecified absolute constant, which enters the term C₁(a), of a-independent limit, and the summability
+   of M(ρ′) in Step 4(ii). §3 reports the pilot's and the paper's figures as theirs.

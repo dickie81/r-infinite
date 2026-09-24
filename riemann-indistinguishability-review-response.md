@@ -5826,4 +5826,10 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (the note only: the nine edits of A543). No tower obligation. Brief `brief_round372.md` (its text also inside the launch prompt). Convergence test on round 371's eight findings (A543).
 
+**Findings.** 0 MAJOR, 1 minor, 5 cosmetic; all verified by the lead and accepted (A544); every round-371 disposition realised. Minor: F372-1 the divisions by the norm bound (2.1) taken without the qualifier a ≥ a₀(β) (ε₁(2) > 1 for β ≤ 0.4). Cosmetic: "support a"; Jensen's ĝ(0) ≠ 0; Bombieri's critical value per sector; "only quantities" for "only arithmetic inputs"; "zero-free-region statement of the classical kind" understating a height-uniform strip. **Sweep (round 373):** all applied. Trajectory of the note's arc: 367 (0M+6m+12c) → 368 (0M+4m+6c) → 369 (0M+1m+8c) → 370 (0M+1m+5c) → 371 (0M+1m+7c) → 372 (0M+1m+5c) → 373 pending.
+
+### Round 373 — the convergence test on the round-373 sweep of the working note
+
+**Scope.** The sweep commit (the note only: the eleven edits of A544). No tower obligation. Brief `brief_round373.md` (its text also inside the launch prompt). Convergence test on round 372's six findings (A544).
+
 **Findings.** PENDING.
