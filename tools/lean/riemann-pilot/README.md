@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 311 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 314 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -46,7 +46,7 @@ Every file ends with `#print axioms`. All 311 checked theorems depend only on `p
 | `GapCriterion.lean` | 170 | Euler–Lagrange for `Q`; the pole-overlap identity; interlacing `λ₁(Q) ≤ μ₂(Q₀)`; energy gap ⇒ simple; non-simple ⇒ `λ₁ = μ₂` attained; the Jacobi eigenvector lemma |
 | `Commute.lean` | 243 | Weil's form commutes with `∂²` (cross-correlation, pole, full bilinear form); an edge-flat ground state puts `h''` in the ground space; ODE uniqueness; **a simple ground state is never edge-flat** |
 | `DegenerateFlat.lean` | 803 | **degenerate ⇒ edge-flat**: a non-simple ground space contains a nonzero pole-free `w` and its compactly supported Green solution `G w` (`(Gw)'' − Gw/4 = w`); **simple ⇔ no such pair** |
-| `StructureD.lean` | 617 | **round 48's Theorem D**: the ground space is finite-dimensional; a Green chain `w, Gw, …, G^{m−1}w` lies in it, is independent and spans it; the top element's transform vanishes only on `ℝ ∪ iℝ` |
+| `StructureD.lean` | 708 | **round 48's Theorem D**: the ground space is finite-dimensional; a Green chain `w, Gw, …, G^{m−1}w` lies in it, is independent and spans it; the top element's transform vanishes only on `ℝ ∪ iℝ`. **The RH chain without simplicity**: (a) for the top-of-chain ground states alone gives `RiemannHypothesis` |
 | `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
@@ -1901,5 +1901,19 @@ The rest of round 48's Theorem D is now machine-checked. The file uses the stand
 * The paper chains Green solutions at `m − 1` distinct off-cross points. The formal proof chains the single pole operator `G = (∂² − ¼)⁻¹` instead, with the filtration dimension count replacing the choice of points. It lands on the same structure: one `ĥ`, and the cofactors are the polynomials of degree `< m` in `z²`.
 * The Sobolev regularity `h ∈ H^{2m−2}` is not stated as such. Its content is `h = G^{m−1}w` with `w` in the ground space.
 
-**What remains open is unchanged.** Theorem D describes a degenerate ground space; it does not rule one out. Simplicity at every support (`EnergyGap a`, equivalently `m = 1`) is still open, and so is hypothesis (a) of round 46's chain.
+**Consequence for the RH chain: simplicity drops out as a separate input.** Round 46's chain needs, at each support, a ground state whose transform vanishes only on `ℝ ∪ iℝ`. Simplicity was used only to supply one, through the zero-swap lemma. Theorem D supplies one at every support unconditionally: the normalised top of the chain.
+
+| theorem | statement |
+|---|---|
+| `topGS`, `topGS_isGroundState` | `G^{m−1}w`, normalised, is a ground state at every support (it is nonzero because the chain is independent) |
+| `topGS_cross` | **every zero of its transform lies on `ℝ ∪ iℝ`**, with no simplicity assumption |
+| `rh_of_hypConv_top` | **`HypConv` for the ground states `topGS (a n)` alone gives Mathlib's `RiemannHypothesis`** |
+| `hypConv_top_of_simple` | the new hypothesis is implied by the old pair: eventual simplicity plus (a) for any ground states gives (a) for `topGS` |
+
+So the open input is now the single statement "(a) for the top-of-chain ground states". It is no stronger than the previous pair "(a) + eventual simplicity", and it is identical to it wherever the ground space is simple.
+
+**What this does not do.**
+* It does not prove simplicity; `EnergyGap a` is still open at large support.
+* It does not prove (a). Where the ground space is degenerate, (a) is now asserted for one particular ground state, `ĥ = q^{m−1}ŵ`. Nothing here shows that this choice, rather than some other element of the ground space, converges to `Ξ`.
+* The remaining gap is therefore exactly `HypConv a (topGS ∘ a)`: a convergence statement about one explicit family, with no zero of `ζ` in it.
 

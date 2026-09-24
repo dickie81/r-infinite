@@ -606,6 +606,94 @@ theorem theoremD {a : ℝ} (ha : 0 < a) :
   exact ⟨w, hc, hpos, ⟨hc, chain_linearIndependent ha hc hpos⟩,
     fun v hv => chain_span_ae ha hc hpos hv, fun ω hω => chain_top_zeros ha hc hpos hω⟩
 
+/-! ## Consequence for the RH chain: simplicity is no longer a separate input -/
+
+/-- A nonzero `w` with a full-length Green chain at support `2a` (`exists_long_chain`). -/
+def chainBase (a : ℝ) : ℝ → ℝ :=
+  if ha : 0 < a then (exists_long_chain ha).choose else 0
+
+/-- **The top-of-chain ground state**: `G^{m−1}w`, normalised. -/
+def topGS (a : ℝ) : ℝ → ℝ :=
+  fun x => (Real.sqrt (normSq (Gi a (gdim a - 1) (chainBase a))))⁻¹ * Gi a (gdim a - 1) (chainBase a) x
+
+theorem chainBase_spec {a : ℝ} (ha : 0 < a) :
+    IsChain a (gdim a - 1) (chainBase a) ∧ 0 < normSq (chainBase a) := by
+  unfold chainBase; simp only [ha, ↓reduceDIte]; exact (exists_long_chain ha).choose_spec
+
+/-- The top of a full chain is not a.e. zero (the chain is independent). -/
+theorem top_normSq_pos {a : ℝ} (ha : 0 < a) : 0 < normSq (Gi a (gdim a - 1) (chainBase a)) := by
+  obtain ⟨hc, hpos⟩ := chainBase_spec ha
+  rcases (normSq_nonneg (Gi a (gdim a - 1) (chainBase a))).lt_or_eq with h | h
+  · exact h
+  · exfalso
+    have hli := chain_linearIndependent ha hc hpos
+    set top : Fin (gdim a - 1 + 1) := Fin.last _
+    have h0 : (iotaGS a).rangeRestrict (chainVec hc top) = 0 := by
+      apply Subtype.ext
+      show iotaGS a (chainVec hc top) = 0
+      have := norm_iotaGS_sq (chainVec hc top)
+      have e : (chainVec hc top).1 = Gi a (gdim a - 1) (chainBase a) := by
+        simp [chainVec, top]
+      rw [e, ← h] at this
+      exact norm_eq_zero.1 (by nlinarith [norm_nonneg (iotaGS a (chainVec hc top))])
+    exact hli.ne_zero top h0
+
+theorem topGS_isGroundState {a : ℝ} (ha : 0 < a) : IsGroundState a (topGS a) := by
+  obtain ⟨hc, _⟩ := chainBase_spec ha
+  set h := Gi a (gdim a - 1) (chainBase a)
+  have hV : h ∈ groundSpace a := hc.1 _ le_rfl
+  have hN := top_normSq_pos ha
+  refine (isGroundState_iff ha).2 ⟨groundSpace_fun hV _, ?_⟩
+  show normSq (fun x => (Real.sqrt (normSq h))⁻¹ * h x) = 1
+  rw [normSq_smul, inv_pow, Real.sq_sqrt hN.le, inv_mul_cancel₀ hN.ne']
+
+/-- **Every zero of the top-of-chain ground state's transform lies on `ℝ ∪ iℝ`**, at every support,
+with no simplicity assumption. -/
+theorem topGS_cross {a : ℝ} (ha : 0 < a) (z : ℂ) (hz : ghatC (topGS a) a z = 0) :
+    z.re = 0 ∨ z.im = 0 := by
+  obtain ⟨hc, hpos⟩ := chainBase_spec ha
+  have hN := top_normSq_pos ha
+  have hs : (Real.sqrt (normSq (Gi a (gdim a - 1) (chainBase a))))⁻¹ ≠ 0 :=
+    inv_ne_zero (Real.sqrt_pos.2 hN).ne'
+  unfold topGS at hz
+  rw [ghatC_smul] at hz
+  have h0 := (mul_eq_zero.1 hz).resolve_left (by exact_mod_cast hs)
+  have him := chain_top_zeros ha hc hpos h0
+  have : 2 * z.re * z.im = 0 := by rw [← him]; simp [pow_two]; ring
+  rcases mul_eq_zero.1 this with h | h
+  · left; linarith
+  · right; exact h
+
+/-- **The RH chain with simplicity removed.** Convergence (a) for the top-of-chain ground states
+alone gives Mathlib's `RiemannHypothesis`. -/
+theorem rh_of_hypConv_top {a : ℕ → ℝ} (ha : ∀ n, 0 < a n)
+    (hconv : HypConv a fun n => topGS (a n)) : RiemannHypothesis :=
+  rh_of_prime_side_cross (fun n => topGS_isGroundState (ha n))
+    (Eventually.of_forall fun n z hz => topGS_cross (ha n) z hz) hconv zetaNoZeroInUnitInterval
+
+/-- The new hypothesis is implied by the old pair: if the ground states `g n` are eventually simple
+and satisfy (a), then so do the top-of-chain ground states. -/
+theorem hypConv_top_of_simple {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} (ha : ∀ n, 0 < a n)
+    (hsimple : ∀ᶠ n in atTop, SimpleGround (a n) (g n)) (hconv : HypConv a g) :
+    HypConv a fun n => topGS (a n) := by
+  have heq : ∀ᶠ n in atTop, ∀ z : ℂ,
+      ghatC (topGS (a n)) (a n) z / ghatC (topGS (a n)) (a n) 0
+        = ghatC (g n) (a n) z / ghatC (g n) (a n) 0 := by
+    filter_upwards [hsimple] with n hs z
+    obtain ⟨c, hcg⟩ := hs.2 _ ((isGroundState_iff (ha n)).1 (topGS_isGroundState (ha n))).1
+    have hc0 : c ≠ 0 := by
+      rintro rfl
+      have := normSq_congr_ae hcg
+      rw [(topGS_isGroundState (ha n)).2.1] at this
+      simp [normSq] at this
+    rw [ghatC_congr_ae hcg, ghatC_congr_ae hcg, ghatC_smul, ghatC_smul,
+      mul_div_mul_left _ _ (by exact_mod_cast hc0)]
+  intro u hu x
+  obtain ⟨t, ht, hev⟩ := hconv u hu x
+  refine ⟨t, ht, ?_⟩
+  filter_upwards [hev, heq] with n hn he y hy
+  rw [he y]; exact hn y hy
+
 end Pilot1ca
 
 #print axioms Pilot1ca.finiteDimensional_groundL2
@@ -615,3 +703,6 @@ end Pilot1ca
 #print axioms Pilot1ca.chain_span_hat
 #print axioms Pilot1ca.chain_top_zeros
 #print axioms Pilot1ca.theoremD
+#print axioms Pilot1ca.topGS_cross
+#print axioms Pilot1ca.rh_of_hypConv_top
+#print axioms Pilot1ca.hypConv_top_of_simple
