@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""The prime-side LEDGER of Weil's truncated form at a cell (research instrument, uncommitted).
+"""The prime-side LEDGER of Weil's truncated form at a cell (research instrument of the working note; committed; not a verifier).
 
 For a coefficient vector c in the even cosine basis on [-a, a] (delta = 2a), Weil's form splits exactly as
   Q(c) = 2 poleR(c)^2 + (psi(1/4) - ln pi) ||g||^2 + ARCH(c) - sum_n PRIME_n(c),
@@ -120,8 +120,8 @@ def autocorr(B, c, u):
 def phi_coeffs(a, K):
     """Cosine coefficients of Phi on [-a, a]: v_0 = (1/a) int_0^a Phi, v_k = (2/a) int_0^a Phi cos(omega_k t)."""
     om = [mp.mpf(k)*mp.pi/a for k in range(K)]
-    # fixed Gauss-Legendre grid: panels of length a/NP, 24 nodes each (the highest frequency (K-1) pi/a needs
-    # ~ K/2 panels per unit a for 24-node exactness of the oscillation; we use 4K/... generous)
+    # fixed Gauss-Legendre grid: NP = 2K panels of length a/(2K), 24 nodes each -- the highest frequency
+    # (K - 1) pi/a advances by under pi/2 per panel, well inside 24-node exactness
     NP = max(8*K//4, 200); deg = 24
     nodes, weights = mp.gauss_legendre(deg) if hasattr(mp, 'gauss_legendre') else (None, None)
     if nodes is None:
@@ -204,7 +204,7 @@ def main():
         print(f"    u={float(u):.4f}  f_g1={rows[-1][1]:>16}  f_Phi={rows[-1][2]:>16}  diff={rows[-1][3]:>14}  ratio={rows[-1][4]}")
     # boundary values
     g1a = sum(c1[k]*mp.cos(B['om'][k]*a) for k in range(K)); gPa = sum(cP[k]*mp.cos(B['om'][k]*a) for k in range(K))
-    print(f"    g_1(a) = {mp.nstr(g1a, 8)}   Phi_a^K(a) = {mp.nstr(gPa, 8)}   Phi(a) = {mp.nstr(Phi(a)/nP, 8)}")
+    print(f"    g_1(a) = {mp.nstr(g1a, 8)}   Phi_a^K(a) = {mp.nstr(gPa, 8)}   Phi(a)/||Phi_a^K|| = {mp.nstr(Phi(a)/nP, 8)}")
     json.dump({'delta': delta, 'K': K, 'prec': prec, 'ln_lam1': ln_lam1, 'sin2': float(sin2),
                'ledger_g1': {k: (mp.nstr(v, 40) if not isinstance(v, dict) else {n: mp.nstr(x, 40) for n, x in v.items()}) for k, v in L1.items()},
                'ledger_Phi': {k: (mp.nstr(v, 40) if not isinstance(v, dict) else {n: mp.nstr(x, 40) for n, x in v.items()}) for k, v in LP.items()},
