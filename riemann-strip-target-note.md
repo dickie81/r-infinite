@@ -513,7 +513,10 @@ the ground state's deviation from Φ lies almost entirely along Φ″ (share 0.9
 the span of Φ″, Φ⁗, Φ⁽⁶⁾, with sin² = 1.2·10⁻¹⁴ outside span{Φ, …, Φ⁽⁶⁾}), with coefficient ≈ −0.020·e^{−δ}, so that locally
 ĝ_a ≈ c·Ξ(z)·e^{τz²} with a zero-free Gaussian multiplier, τ ≈ 0.020·e^{−δ};
 its own status line reads "The laws `sin²θ ~ e^{−4a}` and `β ~ e^{−δ}` are
-inferred, not proved", and it remarks that "`Φ`'s even derivatives are,
+inferred, not proved" (its round 70 sharpens the constant to 1/(16π),
+conjectures g_a ≈ c·e^{−τ_a∂²}Φ with τ_a = 1/(16πe^{2a}), a backward heat
+flow of Φ, and states "the conjecture is RH-strength" with the derivation
+of the constant open), and it remarks that "`Φ`'s even derivatives are,
 like `Φ`, null directions of Weil's form (their transforms vanish at every
 zero), so a structural explanation plausibly starts there" — the pilot's
 numbers, conjecture and words, not this note's. This note's reading, not the pilot's: that is a candidate structure behind
