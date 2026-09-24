@@ -2721,3 +2721,34 @@ At `n = 3` the exponent is `1.41 → 1.53` over `ε = 0.002–0.016`, i.e. `Δ�
 
 Neither is derived.
 
+## Round 82: the Hamiltonian, tabulated and validated (`frontier/nullvec/kham.py`, `zdirect.py`, `ktable.py`, `hamiltonian_*`)
+
+**The object.** The window chain's Hamiltonian is `H(a) = diag(e^{2φ(a)}, e^{−2φ(a)})`, from its diagonal form (round 80) and `det H = 1`. Here `e^{2φ} = h(a) = dK_a(0, 0)/da` and `K_a(0, 0) = sup (∫g)²/Q(g)` over `g` supported in `[−a, a]`. So the Hamiltonian is determined by the one function `L(a) = d ln K_a(0, 0)/da`. With `b = B/K_a(0, 0)` the canonical system becomes
+
+`A′ = −(z/L)·b`,  `b′ = L·(zA − b)`,  `K_a(z, 0)/K_a(0, 0) = b/z`.
+
+**Validation: the Hamiltonian generates the chain.**
+- **Method.** `L` comes from `ln K_a(0, 0)` on a grid (`kchain.py`, `K = 30e^δ + 40`), smoothed by local cubic fits of half-width `0.02` in `δ`. The system is integrated from `δ = 0.5` (exact initial data from the direct kernel at `δ = 0.49, 0.5, 0.51`) to `δ = 2`, and the result compared with `K_a(z, 0)/K_a(0, 0)` computed directly from the Gram (`zdirect.py`).
+- **Results.** Relative errors:
+
+| grid step in `δ` | `z = 1` | `5` | `10` | `18` | `40i` | at `γ₁ = 14.1347` (absolute) |
+|---|---|---|---|---|---|---|
+| 0.01 | 5.1e-6 | 1.4e-4 | 6.2e-4 | 5.1e-3 | 1.6e-3 | 9.6e-7 |
+| 0.0025 | **2.8e-7** | **4.5e-6** | **2.0e-5** | **1.2e-3** | **3.1e-3** | **1.1e-7** |
+
+- **Convergence.** The error falls with the grid step. Doubling `K` does not change it (`K = 60e^δ + 40`: `1.2e-5` at `z = 1` on the 0.01 grid), so it is set by how well the grid resolves `L`'s fine structure, not by the basis.
+- **Coarse errors.** Starting instead at `δ = 0.02` with first-order data gives `2.4e-5·z²`. Using unsmoothed secant slopes gives `2.2e-5` at `z = 1`.
+
+**The tabulated Hamiltonian.**
+- `hamiltonian_table.json`: `a, ln K_a(0, 0), L, φ, q = φ′` at 616 windows, `a ∈ [0.24, 1.01]`.
+- `hamiltonian.png`: the Dirac potential `q` against `4πe^{2a}`.
+- Smooth part: `ln K_a(0, 0) ≈ 4πe^δ − 5.18δ − 15.65` (rms residual `0.10` on `δ ∈ [0.5, 2]`), so `q ≈ 4πe^{2a} − 5`.
+
+**Two findings about the fine structure.**
+- **The smooth model is not enough.** The closed-form `L = 2(4πe^δ − 5.18)` reproduces the chain to `4e-4` at `z = 1` and `6e-2` at `z = 10`. But it misses the zeta zeros: the kernel at `γ₁` comes out `1.4e-3` instead of `≈ 0` (the tabulated `L` gives `1e-7`). The positions of the zeros the chain dodges live in the fine structure of the potential.
+- **The fine structure is not explained.** The potential has about 37 extrema on `a ∈ [0.25, 1]`: features at `a = ½ log n` for the prime powers `n = 2, 3, 4, 5, 7`, and more between them, growing denser with `a`.
+  - A hypothesis that the extra features are zeta zeros crossing a horizon `c·e^{2a}` fits well: `c = 5.65`, mean distance `0.0018`.
+  - But it fails a fair null test. Surrogate zero sequences with `c` optimised the same way fit equally well: median `0.00175`, and 53% of surrogates do at least as well. So it is not supported.
+
+**Status.** We have the Hamiltonian as a computed object. It is exactly defined, tabulated on `a ∈ [0.24, 1.01]`, and shown to generate the chain's kernels to `3e-7` (at `z = 1`) to `3e-3` (at `z = 40i`). We do not have a closed form. Its existence for every `a` is equivalent to RH.
+
