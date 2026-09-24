@@ -2694,3 +2694,30 @@ Measured against predicted (data up to `δ = 3.15`, then a tail with `ℓ′ ≈
 
 **Status.** The Hamiltonian of the window chain is explicit in terms of `K_a(0, 0)`: it is diagonal, has determinant 1, and has potential `½ d/da ln(dK_a(0, 0)/da)`. Its asymptotics are fixed by the reduced problem's `4π`. RH is equivalent to this chain existing for every `a`. Our numbers describe it where it provably or numerically exists. Nothing here shows it exists for all `a`.
 
+## Round 81: the prime structure of the chain's potential (`frontier/nullvec/kprime*.py`, `kedge.py`)
+
+**Method.** Each prime power `n` enters the form through `−2(Λ(n)/√n)·f(log n)`, where `f` is the probe's autocorrelation, when the window passes `δ = log n`. `kprime.py` computes `Δℓ(ε)`: the value of `ℓ = ln K_a(0, 0)` at `δ = log n + ε` with the term of `n` on, minus its value with the term off. Both use the same basis, so the truncation ripple that spoils fixed-`K` scans (`kfine.py`: slope noise `±2–3` at step `0.0025`) cancels exactly.
+
+**1. In every truncation, the potential jumps, with an exact first-order law.** `ℓ′` jumps at `log n` by
+
+`J_n = 2·(Λ(n)/√n)·E(log n)`, where `E = k(a)²/K(0, 0)` is the reproducing kernel's edge weight.
+
+Measured by Richardson extrapolation in `ε`, the ratio `J/(2wE)` is `0.9993, 0.9996, 0.9998, 0.9997, 0.9991, 0.9987, 0.9957` for `n = 2, 3, 4, 5, 7, 8, 9`, at `K = 25e^δ + 60`. At `K = 50e^δ + 60` it is `0.998` (n = 3) and `0.996` (n = 7). For `n ≥ 11` the `ε`-steps are not small against the edge scale: the ratio is `0.97 → 0.50`.
+
+**2. But `E` is a truncation artefact: the continuum kernel vanishes at the edge.** At `δ = log 3`, `E = 6.25, 5.36, 4.83, 4.37, 3.98` for `K = 135, 210, 300, 450, 700`, falling like `K^{−0.27}`. The profile just inside the edge (`k(a − h)²/K(0, 0)` at `h = 0.005–0.05`) is `K`-converged. So in the true chain `J_n = 0`: no prime power makes the potential jump.
+
+**3. The continuum onset is a soft, non-universal kink.** `Δℓ(ε)` at `ε ≥ 0.002`, where the basis resolves it (at `n = 3`, `K = 450` and `690` agree to 0.5%):
+
+| `n` | 3 | 5 | 7 | 8 | 9 |
+|---|---|---|---|---|---|
+| local exponent, `ε` = .002 → .004 | 1.43 | 1.59 | 1.34 | 1.84 | 1.12 |
+| `Δℓ(.002)/(w·.002^{3/2})` | 297 | 740 | 1531 | 2720 | 3423 |
+
+At `n = 3` the exponent is `1.41 → 1.53` over `ε = 0.002–0.016`, i.e. `Δℓ ∝ ε^{≈3/2}`, a kernel edge exponent of about `¼`. It varies from prime to prime (`1.1–1.8`), and the amplitude per unit weight does not follow a smooth function of `δ`. For example, `7 → 8` grows ×1.78 in `Δδ = 0.13`, but `8 → 9` only ×1.26 in `Δδ = 0.12`.
+
+**Reading.** The hypothesis "potential = archimedean part + Σ(Λ(n)/√n) × one universal profile" fails in this simple form. Each prime's imprint depends on the kernel's near-edge profile at that window, and that profile is itself reshaped by the prime powers that entered just before. The chain has memory. Two things survive:
+- the exact first-order identity, whose content is `J_n ∝ (Λ(n)/√n)·(edge weight)` in any regularisation;
+- a measured continuum onset exponent near `3/2` at `n = 3`.
+
+Neither is derived.
+
