@@ -2396,3 +2396,26 @@ Both explain why `τ ∝ e^{−δ}`. Neither produces `1/(16π)`, and **a deriva
 **The angle at `δ = 5`** (`K = 1100`, `4000` bits): `sin²θ = 3.18e-6`, so `sin²θ·e^{2δ} = 0.070`. That breaks the smooth trend (`0.0793, 0.0785` at `δ = 4.0, 4.5`). It is not yet checked in `K`: `K = 1100` may be too small at `δ = 5`. Until it is, the `C → 0.077` limit of round 69 stands on `δ ≤ 4.5`.
 
 **Status.** All numerical. If the conjecture holds for every `a`, `ĝ_a/ĝ_a(0) → Ξ/Ξ(0)` on the strip follows (`τ_a → 0`), and with it RH through `rh_of_hypConvStrip_top`. So the conjecture is RH-strength. Its value is that it names the exact asymptotic form a proof would have to establish.
+
+## Round 71: not a harmonic oscillator, but classical free motion with a caustic (numerical, `frontier/nullvec/`)
+
+Round 70's heuristic: on `Φ`'s tail, `e^{−τ∂²}Φ ≈ Φ·exp(−τ(2πx)²)` with `x = e^{2t}`. With `τ = 1/(16πX)`, `X = e^{δ}`, this is a Gaussian in `x` (a harmonic-oscillator ground state). This round tests that pointwise. `oscillator.py` evaluates the ground state on `[0, a]` from its cosine coefficients. `Φ`, projected on the same basis, shows where values can be trusted: relative error `10⁻¹¹` (`δ = 2`) to `10⁻²⁷` (`δ = 3`) in the bulk, degrading only in the last `~0.1` before the edge. `hj.py` gives the Hamilton–Jacobi prediction. Data: `oscillator_results_d*.json`, `hj_results_d*.txt`.
+
+**1. The ground state is `e^{−τ∂²}Φ` pointwise, not only in `L²`.** Here `τ` is round 70's fitted value and the heat flow is `Σ_k (−τ)^kΦ⁽²ᵏ⁾/k!` with exact derivatives. `log(g/Φ)` and `log(e^{−τ∂²}Φ/Φ)` agree:
+* `δ = 2`: to `0.001–0.005` up to `t = 0.7` (the ratio reaches `−1.57`);
+* `δ = 3`: to 3 decimals up to `t = 0.9`, and to `1%` at `t = 1.1`;
+* `δ = 4`: to 4 decimals up to `t = 1.0`, and to `0.4%` at `t = 1.5` (the ratio reaches `−6.6`).
+
+**2. The Gaussian in `x` is only the leading term.** It is off by `10–30%` in `log(g/Φ)` at intermediate `x`. The first correction to `−τS′²` (`S = log Φ`) has relative size `4πτx = x/(4X)`, which does not vanish at fixed `x/X`. So the harmonic-oscillator picture is not the large-`X` limit.
+
+**3. The correct limit is Hamilton–Jacobi: classical free motion.** Write `g = e^{W}`. Backward heat flow `W_τ = −(W_t² + W_tt)` becomes, dropping `W_tt` (relative size `~1/(πx)`), the Hamilton–Jacobi equation for `H = p²`. Its characteristics start at `t₀` with momentum `p = S′(t₀) ≈ −2πe^{2t₀}`, reach `t = t₀ + 2pτ`, and carry `W = S(t₀) + τp²`. Their error against the ground state shrinks as `δ` grows: about `20%` at `δ = 2`, `6–11%` at `δ = 3`, `2–3%` at `δ = 4`. At `δ = 4` they keep tracking `g` beyond `t ≈ 1.6`, where the heat series has already diverged, down to `log(g/Φ) ≈ −30`.
+
+**4. The characteristics fold into a caustic just inside the edge.** `dt/dt₀ = 1 + 2τS″(t₀) = 0` at `e^{2t₀} ≈ 1/(8πτ) = 2X`. With `τ = 1/(16πX)` this puts the caustic at `a − t_c = ½·log(e/2) = 0.1534`. Measured, with exact `S` and fitted `τ`: `0.1462, 0.1514, 0.1529` at `δ = 2, 3, 4`. In every run, the ground state leaves the heat flow at the caustic. So **the window has a bulk, where the ground state is `Φ` transported by classical free motion, and an edge layer of width `→ 0.153` beyond the caustic**, where it falls much faster.
+
+**What this means for the constant `1/(16π)`.** With `τ = c/X`, the caustic distance is `½·log(8πec)`. So fixing `1/(16π)` is the same as fixing where the caustic sits relative to the edge. Equivalent readings, none derived:
+* the caustic is fed by the characteristic that starts at `x₀ = 2X`, i.e. `t₀ = a + ½·log 2`, just outside the window;
+* the characteristic starting at the edge `t₀ = a` lands at `a − ¼`.
+
+(That the caustic's source sits at `a + ½·log 2` is a tempting link to the prime `2`. It is untested and may be a coincidence.) The natural derivation route is standard boundary-layer asymptotics: resolve the edge layer by the uniform (Airy-type) expansion at the caustic, impose the window's boundary condition at `t = a`, and read off `c`.
+
+**Status.** Numerical, `δ ≤ 4`. The bulk description (backward heat flow of `Φ`, i.e. classical free transport of its phase) is now established pointwise at these supports. The edge layer and the value of `c` are open.
