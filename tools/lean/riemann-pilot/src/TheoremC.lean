@@ -322,11 +322,12 @@ theorem lt_abs_add {R c x s : ℝ} (hx : R + c < |x|) (hs : |s| ≤ c) : R < |x 
   have := abs_add_le (x + s) (-s)
   rw [add_neg_cancel_right, abs_neg] at this; linarith
 
-/-- **Three box averages of a probe are the Green solution of a pole-free probe.** -/
-theorem exists_smooth_green {a ρ δ : ℝ} (hρ0 : 0 ≤ ρ) (hδ : 0 < δ) (hρ : ρ + 3 * δ / 2 ≤ a)
-    {ψ : ℝ → ℝ} (hψ : Probe ρ ψ) :
-    ∃ m, Probe a m ∧ poleR m a = 0 ∧ ∀ x, Gpole m a x = Av δ (Av δ (Av δ ψ)) x := by
-  have ha : 0 ≤ a := by linarith
+/-- **Three box averages of a probe are `C²`**, with explicit first and second derivatives, and
+all three vanish outside `[−(ρ + 3δ/2), ρ + 3δ/2]`. -/
+theorem av3_C2 {ρ δ : ℝ} (hδ : 0 < δ) {ψ : ℝ → ℝ} (hψ : Probe ρ ψ) :
+    C2Supp (ρ + 3 * δ / 2) (Av δ (Av δ (Av δ ψ)))
+      (fun x => δ⁻¹ * (Av δ (Av δ ψ) (x + δ / 2) - Av δ (Av δ ψ) (x - δ / 2)))
+      (fun x => (δ⁻¹) ^ 2 * (Av δ ψ (x + δ) - 2 * Av δ ψ x + Av δ ψ (x - δ))) := by
   set A1 := Av δ ψ
   set A2 := Av δ A1
   set A3 := Av δ A2
@@ -351,33 +352,40 @@ theorem exists_smooth_green {a ρ δ : ℝ} (hρ0 : 0 ≤ ρ) (hδ : 0 < δ) (h�
     ring
   have c3'' : Continuous A3'' := by
     have := c1; fun_prop
-  have c3' : Continuous A3' := by
-    have := c2; fun_prop
-  -- supports
   have s1 : ∀ x, ρ + δ / 2 < |x| → A1 x = 0 := p1.supp
   have s2 : ∀ x, ρ + δ / 2 + δ / 2 < |x| → A2 x = 0 := p2.supp
-  have sR : ∀ x, ρ + 3 * δ / 2 < |x| → A3'' x = 0 := by
-    intro x hx
-    have hxp : ρ + δ / 2 < |x + δ| :=
-      lt_abs_add (c := δ) (by linarith) (by rw [abs_of_pos hδ])
-    have hxm : ρ + δ / 2 < |x - δ| := by
-      rw [sub_eq_add_neg]; exact lt_abs_add (c := δ) (by linarith) (by rw [abs_neg, abs_of_pos hδ])
-    simp only [A3'']
-    rw [s1 _ hxp, s1 x (by linarith), s1 _ hxm]; ring
-  have sR' : ∀ x, ρ + 3 * δ / 2 < |x| → A3' x = 0 := by
-    intro x hx
-    have hδ2 : |δ / 2| = δ / 2 := abs_of_pos (by linarith)
+  refine ⟨hd3, hd3', c3'', fun x hx => p3.supp x (by linarith), fun x hx => ?_, fun x hx => ?_⟩
+  · have hδ2 : |δ / 2| = δ / 2 := abs_of_pos (by linarith)
     have hxp : ρ + δ / 2 + δ / 2 < |x + δ / 2| :=
       lt_abs_add (c := δ / 2) (by linarith) hδ2.le
     have hxm : ρ + δ / 2 + δ / 2 < |x - δ / 2| := by
       rw [sub_eq_add_neg]; exact lt_abs_add (c := δ / 2) (by linarith) (by rw [abs_neg, hδ2])
     simp only [A3']
     rw [s2 _ hxp, s2 _ hxm]; ring
+  · have hxp : ρ + δ / 2 < |x + δ| :=
+      lt_abs_add (c := δ) (by linarith) (by rw [abs_of_pos hδ])
+    have hxm : ρ + δ / 2 < |x - δ| := by
+      rw [sub_eq_add_neg]; exact lt_abs_add (c := δ) (by linarith) (by rw [abs_neg, abs_of_pos hδ])
+    simp only [A3'']
+    rw [s1 _ hxp, s1 x (by linarith), s1 _ hxm]; ring
+
+/-- **Three box averages of a probe are the Green solution of a pole-free probe.** -/
+theorem exists_smooth_green {a ρ δ : ℝ} (hρ0 : 0 ≤ ρ) (hδ : 0 < δ) (hρ : ρ + 3 * δ / 2 ≤ a)
+    {ψ : ℝ → ℝ} (hψ : Probe ρ ψ) :
+    ∃ m, Probe a m ∧ poleR m a = 0 ∧ ∀ x, Gpole m a x = Av δ (Av δ (Av δ ψ)) x := by
+  have ha : 0 ≤ a := by linarith
+  have hc := av3_C2 hδ hψ
+  set A1 := Av δ ψ
+  set A3 := Av δ (Av δ A1)
+  set A3' : ℝ → ℝ := fun x => δ⁻¹ * (Av δ A1 (x + δ / 2) - Av δ A1 (x - δ / 2))
+  set A3'' : ℝ → ℝ := fun x => (δ⁻¹) ^ 2 * (A1 (x + δ) - 2 * A1 x + A1 (x - δ))
+  have p1 : Probe (ρ + δ / 2) A1 := probe_Av hψ hδ
+  have p3 : Probe (ρ + δ / 2 + δ / 2 + δ / 2) A3 := probe_Av (probe_Av p1 hδ) hδ
   -- `A3''` is a probe
   have hA3''m : MemLp A3'' 2 volume :=
-    c3''.memLp_of_hasCompactSupport (hasCompactSupport_of_supp (a := ρ + 3 * δ / 2) sR)
+    hc.cont2.memLp_of_hasCompactSupport (hasCompactSupport_of_supp (a := ρ + 3 * δ / 2) hc.supp2)
   have pA3'' : Probe a A3'' := by
-    refine ⟨fun x => ?_, fun x hx => sR x (by linarith), hA3''m, ?_⟩
+    refine ⟨fun x => ?_, fun x hx => hc.supp2 x (by linarith), hA3''m, ?_⟩
     · simp only [A3'']
       rw [show -x + δ = -(x - δ) by ring, show -x - δ = -(x + δ) by ring, p1.even, p1.even, p1.even]
       ring
@@ -389,12 +397,13 @@ theorem exists_smooth_green {a ρ δ : ℝ} (hρ0 : 0 ≤ ρ) (hδ : 0 < δ) (h�
       exact archIntegrand_d2_le p1.memL2 _ δ hu
   -- the flat structure of `A3`
   have hflat : FlatH2 a A3 A3' A3'' := by
-    refine ⟨hd3, fun x => ?_, fun x hx => p3.supp x (by linarith), fun x hx => sR' x (by linarith),
-      pA3''⟩
-    have hF := intervalIntegral.integral_eq_sub_of_hasDerivAt (fun y _ => hd3' y)
-      (c3''.intervalIntegrable (-a) x)
+    refine ⟨hc.d1, fun x => ?_, fun x hx => p3.supp x (by linarith),
+      fun x hx => hc.supp1 x (by linarith), pA3''⟩
+    have hF := intervalIntegral.integral_eq_sub_of_hasDerivAt (fun y _ => hc.d2 y)
+      (hc.cont2.intervalIntegrable (-a) x)
     have h0 : A3' (-a) = 0 :=
-      zero_of_ge (by linarith) c3' sR' (-a) (by rw [abs_neg, abs_of_nonneg ha]; linarith)
+      zero_of_ge (by linarith) hc.toC2Fun.cont1 hc.supp1 (-a)
+        (by rw [abs_neg, abs_of_nonneg ha]; linarith)
     rw [hF, h0, sub_zero]
   obtain ⟨hpole, hG⟩ := flat_green ha hflat
   refine ⟨fun x => A3'' x - A3 x / 4, ?_, hpole, hG⟩
@@ -411,10 +420,12 @@ theorem archE_Av_le {r δ : ℝ} (hδ : 0 < δ) {g : ℝ → ℝ} (hp : Probe r 
   exact setIntegral_Ioi_le hp.arch (fun u hu => archIntegrand_nonneg hA hu)
     (fun u hu => archIntegrand_Av_le hp.memL2 hA hδ hu)
 
-/-- **`G` of pole-free probes is dense near every probe**, in `L²` and archimedean energy. -/
-theorem green_dense {a : ℝ} (ha : 0 < a) {f : ℝ → ℝ} (hf : Probe a f) :
-    ∀ ε > 0, ∃ m, Probe a m ∧ poleR m a = 0 ∧
-      normSq (fun t => Gpole m a t - f t) ≤ ε ∧ archE (fun t => Gpole m a t - f t) ≤ ε := by
+/-- **Triple box averages are dense near every probe**, in `L²` and archimedean energy: `f` is
+approximated by `Av_δ³ψ` with `ψ` a probe on `[−ρ, ρ]` and `ρ + 3δ/2 ≤ a`. -/
+theorem av3_dense {a : ℝ} (ha : 0 < a) {f : ℝ → ℝ} (hf : Probe a f) :
+    ∀ ε > 0, ∃ ρ δ : ℝ, ∃ ψ : ℝ → ℝ, 0 ≤ ρ ∧ 0 < δ ∧ ρ + 3 * δ / 2 ≤ a ∧ Probe ρ ψ ∧
+      normSq (fun t => Av δ (Av δ (Av δ ψ)) t - f t) ≤ ε ∧
+      archE (fun t => Av δ (Av δ (Av δ ψ)) t - f t) ≤ ε := by
   intro ε hε
   -- dilate into `[−la, la]`
   have hN := (tendsto_normSq_dil hf.memL2).mono_left (nhdsWithin_le_nhds (s := Iio 1))
@@ -441,8 +452,7 @@ theorem green_dense {a : ℝ} (ha : 0 < a) {f : ℝ → ℝ} (hf : Probe a f) :
       nhdsWithin_le_nhds (Iio_mem_nhds (by nlinarith))
     exact h1.and h2
   obtain ⟨δ, hd1, hd2, hδ, hδa⟩ := (ev4.and (ev5.and ev6)).exists
-  obtain ⟨m, hm, hmp, hG⟩ := exists_smooth_green (a := a) (ρ := l * a) (by positivity) hδ (by nlinarith) hψ
-  refine ⟨m, hm, hmp, ?_⟩
+  refine ⟨l * a, δ, ψ, by positivity, hδ, by nlinarith, hψ, ?_⟩
   -- the error `e = Av ψ − ψ` and its two averages
   set e : ℝ → ℝ := fun x => Av δ ψ x - ψ x
   have pA1 : Probe (l * a + δ / 2) (Av δ ψ) := probe_Av hψ hδ
@@ -457,10 +467,9 @@ theorem green_dense {a : ℝ} (ha : 0 < a) {f : ℝ → ℝ} (hf : Probe a f) :
     have h := (Av_sub (probe_Av pA1 hδ).memL2 pA1.memL2 δ x).symm
     have hfun : (fun t => Av δ (Av δ ψ) t - Av δ ψ t) = Av δ e := funext e21
     rw [hfun] at h; exact h
-  have hdec : (fun t => Gpole m a t - f t)
+  have hdec : (fun t => Av δ (Av δ (Av δ ψ)) t - f t)
       = fun t => (Av δ (Av δ e) t + Av δ e t + e t) + (ψ t - f t) := by
     funext t
-    rw [hG t]
     have h1 := e32 t
     have h2 := e21 t
     simp only [e] at h1 h2 ⊢
@@ -516,6 +525,17 @@ theorem green_dense {a : ℝ} (ha : 0 < a) {f : ℝ → ℝ} (hf : Probe a f) :
     have h6 : archE (fun x => ψ x - f x) < ε / 4 := hl2
     unfold archE at hle c1 c2 h5 h6 ⊢
     linarith
+
+/-- **`G` of pole-free probes is dense near every probe**, in `L²` and archimedean energy. -/
+theorem green_dense {a : ℝ} (ha : 0 < a) {f : ℝ → ℝ} (hf : Probe a f) :
+    ∀ ε > 0, ∃ m, Probe a m ∧ poleR m a = 0 ∧
+      normSq (fun t => Gpole m a t - f t) ≤ ε ∧ archE (fun t => Gpole m a t - f t) ≤ ε := by
+  intro ε hε
+  obtain ⟨ρ, δ, ψ, hρ0, hδ, hρ, hψ, h1, h2⟩ := av3_dense ha hf ε hε
+  obtain ⟨m, hm, hmp, hG⟩ := exists_smooth_green hρ0 hδ hρ hψ
+  have e : (fun t => Gpole m a t - f t) = fun t => Av δ (Av δ (Av δ ψ)) t - f t := by
+    funext t; rw [hG t]
+  exact ⟨m, hm, hmp, e ▸ h1, e ▸ h2⟩
 
 /-! ## Theorem C -/
 
@@ -792,6 +812,8 @@ end Pilot1ca
 
 #print axioms Pilot1ca.mem_of_green_dense
 #print axioms Pilot1ca.flat_green
+#print axioms Pilot1ca.av3_C2
+#print axioms Pilot1ca.av3_dense
 #print axioms Pilot1ca.green_dense
 #print axioms Pilot1ca.mem_of_green_mem
 #print axioms Pilot1ca.theoremC

@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 345 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 356 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -48,9 +48,10 @@ Every file ends with `#print axioms`. All 345 checked theorems depend only on `p
 | `DegenerateFlat.lean` | 803 | **degenerate ⇒ edge-flat**: a non-simple ground space contains a nonzero pole-free `w` and its compactly supported Green solution `G w` (`(Gw)'' − Gw/4 = w`); **simple ⇔ no such pair** |
 | `StructureD.lean` | 727 | **round 48's Theorem D**: the ground space is finite-dimensional; a Green chain `w, Gw, …, G^{m−1}w` lies in it, is independent and spans it; `offcross_root`, the one swap computation: every off-cross zero of a ground-space transform is a root of its polynomial `P_v`; the top element's transform vanishes only on `ℝ ∪ iℝ`. **The RH chain without simplicity**: (a) for the top-of-chain ground states alone gives `RiemannHypothesis` |
 | `Mollify.lean` | 1032 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
-| `TheoremC.lean` | 801 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element**; the smooth form `simple_not_flat` as a corollary |
+| `TheoremC.lean` | 823 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element**; the smooth form `simple_not_flat` as a corollary |
 | `ZeroCount.lean` | 355 | off-line zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²` per ground state (none for `m ≤ 2`); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`**; `M ≤ 2` gives RH |
 | `GapBound.lean` | 459 | **the pole-overlap gap bound** `λ₂ − λ₁ ≥ c₂²(μ₂ − μ₁)/(c₁² + c₂²)` at operator level, hence simplicity from a nonzero overlap `⟨c, ψ₂⟩`; **the Galerkin transfer**: dense truncations with a uniform truncated gap give simplicity |
+| `CosTrunc.lean` | 653 | **`TruncDense` for the paper's cosine basis** `span{1_{[−a,a]}cos(kπt/a) : k < K}`: `C²` approximant, its cosine series by Mathlib's Fourier theorem, Hölder tails, energy of a truncated Hölder function; round 60's transfer for this basis with no density hypothesis |
 | `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
@@ -2077,6 +2078,30 @@ The overlap can come from any minimiser `ψ` on `φ₀^⊥`; `μ₂` itself need
   * a uniform gap in dense truncations.
 * Neither is proved at every support.
 * Round 50 measured the overlap `⟨c, ψ₂⟩ ≈ 2×10⁻⁸` at `δ = 1.4`, which falls super-exponentially with `δ`. The gap bound is correspondingly tiny.
-* `TruncDense` for the cosine truncations used in rounds 47–50 is a hypothesis here. Proving it means approximating round 55's smooth approximants by cosine sums in energy, which is not done.
+* `TruncDense` for the cosine truncations used in rounds 47–50 is a hypothesis here. *(Proved in round 61.)*
 * The converse direction (simple ⇒ truncated gaps bounded below) needs attainment of `λ₂` by compactness, and is not formalised.
+
+## Round 61: `TruncDense` for the cosine truncations (CosTrunc.lean)
+
+Round 60's Galerkin transfer assumed `TruncDense`. This round proves it for the basis of the paper's Gram code (`tools/research/weil_prime_gram.py`: `phi_k(t) = cos(omega_k t) 1_{[-a,a]}`, `omega_k = k pi / a`), so the transfer for that basis has no density hypothesis left. The file uses the standard axioms only, with no `sorry` and no warnings.
+
+**The statement.** `cosTrunc a K = span{1_{[−a,a]}·cos(kπt/a) : k < K}`. For every `a > 0` and every probe `f` there are `F_K ∈ cosTrunc a K` with `‖F_K − f‖² + E_arch(F_K − f) → 0` (`cosTrunc_dense`).
+
+**The proof.**
+
+| step | theorems | content |
+|---|---|---|
+| smooth approximant | `av3_C2`, `av3_dense` (TheoremC.lean) | round 55's density, refactored. `f` is approximated by `h = Av_δ³ψ`, which is `C²`, with `h, h', h''` vanishing outside `[−a, a]`. `green_dense` is now a corollary |
+| cosine series | `fco_norm_le`, `fco_deriv`, `cos_series` | two integrations by parts with Mathlib's `fourierCoeffOn_of_hasDerivAt`; the edge terms vanish because `h(±a) = h'(±a) = 0`. So `|ĉ_n| ≤ (a/π)² sup|h''|/n²`. Mathlib's `has_pointwise_sum_fourier_series_of_summable`, on the circle of length `2a` via `AddCircle.liftIco`, gives `h(t) + r = Σ_n d_n cos(nπt/a)` on `[−a, a]`, with `|d_n| ≤ C/n²`. Averaging `t` and `−t` removes the sines |
+| tails | `abs_cos_sub_cos_le_sqrt`, `trunc_error` | the error `S_K − h` of the partial sums is `≤ μ_K = Σ_{n≥K}|d_n|` and `½`-Hölder with constant `ν_K = Σ_{n≥K}|d_n|√(2nπ/a)`, from `|cos x − cos y| ≤ √(2|x − y|)`. Since `|d_n|√n = O(n^{−3/2})`, `μ_K, ν_K → 0` |
+| energy | `ind_autocorr_le`, `ind_energy` | if `φ² ≤ M` and `(φ(t) − φ(s))² ≤ D|t − s|` on `[−a, a]`, then `f(0) − f(u) ≤ (aD + M)u` for `1_{[−a,a]}φ`. The interior costs `D·u·2a` and the two edge jumps cost `M·2u`. With `u·K(u) ≤ 16e^{−u/4}` this gives `E_arch ≤ (aD + M)E₀` and `‖·‖² ≤ 2aM` |
+| basis | `cosB_probe`, `probe_of_mem_cosTrunc`, `cosTrunc_mono`, `cosSum_mem` | each `1_{[−a,a]}cos(kπt/a)` is a probe (by `ind_energy`, despite the jump at `±a`), so is every element of the span; the spaces increase in `K`; the truncated partial sum lies in `cosTrunc a K` |
+| diagonal | `truncDense_of_approx`, `cos_approx` | every accuracy is reached in some `cosTrunc a K`; with increasing spaces, `Nat.findGreatest` picks one sequence |
+| corollaries | `cosTrunc_dense`, `simple_of_cos_gap`, `lam2Ge_of_cos` | round 60's `simple_of_trunc_gap` and `lam2Ge_of_trunc` for this basis |
+
+**What this gives, and what it does not.**
+* The Galerkin transfer is now unconditional for the paper's cosine basis. A uniform gap `λ₂(T_K) ≥ λ₁(T_K) + γ` in these truncations, for all large `K`, implies simplicity at support `2a`. Likewise, truncated `λ₂` lower bounds that converge give `λ₂(Q)` lower bounds.
+* The hypothesis that remains is the truncated gap itself, uniformly in `K`. The numerics of rounds 47–50 compute it at finite `K` in high precision. They are not a certificate, and they do not give uniformity in `K`.
+* Only density is proved. No rate is given, and no bound relates a finite-`K` eigenvalue to `λ₁(Q)`. A certified gap would need a quantitative version: an explicit `K` and an explicit error.
+* Simplicity at every support, (a) `HypConv`, and uniform dimension bounds remain open, as in rounds 54–60.
 
