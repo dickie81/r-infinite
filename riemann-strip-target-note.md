@@ -399,8 +399,16 @@ governed by e₁(a)² ≈ exp(−2πe^{2a}), and to push it below λ₂ the tria
 would have to reproduce the ground state's own dodging up to its own
 horizon, i.e. be the ground state. By this accounting the route is closed
 rather than merely hard; the accounting rests on the pilot's measured λ₂
-at a ≤ 1.7 and on the dimension count, not on a theorem, and it is offered
-as such.
+and on the dimension count, not on a theorem, and it is offered as such.
+The pilot's round 68 (its `frontier/nullvec/`, after this note's first
+version) measures exactly this from the arithmetic side alone: the
+truncation's energy is the truncation defect, of order (0.03–0.11)·Φ(a)²;
+the ratio R = (Q(φ_a) − λ₁)/(λ₂ − λ₁) grows from 0.04 to 10⁴¹ over δ ∈
+[0.7, 3] while sin²θ falls to 2·10⁻⁴; its own verdict is "The energy route
+is dead" and "The L² route survives", and it names the need as "a
+structural reason why the minimiser tracks the null vector Φ away from
+the edges, not a spectral-gap estimate" — the pilot's numbers and words,
+not this note's.
 
 ### 3.2 What S(b) asks of the ground state when RH fails
 
