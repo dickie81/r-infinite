@@ -5,7 +5,7 @@
 after Addendum 537. No long numerics were run for this note; the closed
 forms of §3.4 were checked by high-precision quadrature, in seconds, by an
 uncommitted script named there (the identities are exact; the quadratures
-agree to 14 digits or better, 17–19 for P and Q as written). The Lean pilot was not touched. Every statement below is either proved here in full, or is
+agree to 14 digits or better, 17–19 for P and Q as written). The Lean pilot was not touched for this note (its rounds 74–75, cited in §3.4(vi′), are the pilot's own). Every statement below is either proved here in full, or is
 marked as a proof sketch with the unfinished step named, or is marked as
 heuristic. Nothing here is a claim of `riemann-indistinguishability.md`,
 which asserts the Riemann Hypothesis neither true nor false.
@@ -737,12 +737,14 @@ X = 2 its moment is 0.0611754268825243 and its mass 2(1 − ln 2). The
 pilot's own summary: "`1/(16π)` is now a theorem about the paper's
 reduced problem, and a conjecture about ζ's ground state exactly to the
 extent of (a)–(d)." What remains informal after round 75: the bookkeeping
-of (iii) from (3.2) to (3.3), the enumerated-sequence bridge, and inputs
-(a)–(d) below.
+of (iii) from (3.2) to (3.3), the enumerated-sequence bridge, the
+density's closed form with its positivity at X = 2 (proved on paper, not
+formalised), and inputs (a)–(d) below.
 
 **(vii) What is established, and what is not.** (3.1), (3.2) and (3.4)–(3.6)
 are proved as stated (and, per the pilot's round-74 and round-75 records,
-formally: (3.4)–(3.6) for the paper's explicit density with no hypothesis,
+formally: (3.4)–(3.6) as the moment J(X)/(2πT₀) of the paper's explicit
+density, X ≥ 1, with no hypothesis,
 (3.2) for enumerated zero sequences, (3.1) as the abstract product
 lemma). The identification of the pilot's constant rests on
 four inputs, each the paper's and each conjectural or computed, not proved:
@@ -779,7 +781,10 @@ moment — but only through the wall shift of 1ca, ε = 7/(2T), which by
 a coefficient −49/(2048π³) = −0.00077 of e^{−2δ} in τ_a e^δ, one order
 below the pilot's +0.0058e^{−δ} and of the wrong sign (1.8% of it at
 δ = 2, falling like e^{−δ}). The correction lives outside the continuum
-problem and is open. Its home is not identified here. Two candidates,
+problem and is open. Its home is not identified here (the pilot's round
+75 attributes it to the continuum limit (d) as "an approximation whose
+error is the pilot's measured `−0.0058e^{−δ}` term"; this note does not,
+the attribution being uncomputed). Two candidates,
 neither computed: the discrete-minus-continuum difference of ζ's tail,
 −S(T)/T² + 2∫_T^∞ S(r)r⁻³dr, has a fluctuating part of order (ln T)/T²
 and, with the wall just below the first missed zero, a systematic part —
@@ -876,7 +881,7 @@ P2. Nothing in this subsection proves RH, and the note's header stands.
    that moment is exactly 1/(8T₀) = e^{−δ}/(16π), by two elementary
    integrals and one harmonic function on the doubly slit plane. The law
    for a general wall, (1 + ln(X/2))/(4XT₀), is itself maximal at X = 2.
-   The pilot's round 74 formalises every calculus step (`SixteenPi.lean`)
+   The pilot's round 74 formalises every calculus step from (3.3) on (`SixteenPi.lean`)
    and its round 75 the balayage identity, so the constant is a theorem
    of the reduced problem with no hypothesis; the four inputs remain.
    The inputs — D at the wall, the reduction's five lemmas, the wall at
