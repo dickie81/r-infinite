@@ -5,7 +5,9 @@
 after Addendum 537. No long numerics were run for this note; the closed
 forms of §3.4 were checked by high-precision quadrature, in seconds, by an
 uncommitted script named there (the identities are exact; the quadratures
-agree to 14 digits or better, 17–19 for P and Q as written). The Lean pilot was not touched for this note (its rounds 74–75, cited in §3.4(vi′), are the pilot's own). Every statement below is either proved here in full, or is
+agree to 14 digits or better, 17–19 for P and Q as written), and §5's
+ledgers took minutes on the paper's certified Gram at two cells, by a
+committed instrument named there. The Lean pilot was not touched for this note (its rounds 74–75, cited in §3.4(vi′), are the pilot's own). Every statement below is either proved here in full, or is
 marked as a proof sketch with the unfinished step named, or is marked as
 heuristic. Nothing here is a claim of `riemann-indistinguishability.md`,
 which asserts the Riemann Hypothesis neither true nor false.
@@ -26,7 +28,9 @@ and locates where the difficulty sits. §3.4, added after the note's
 review arc closed, derives the constant 1/(16π) of the pilot's round 70
 within the paper's reduced balayage problem, under the paper's own
 conjectural inputs. §4 states the reformulated open
-problem that the analysis leaves as the honest next target.
+problem that the analysis leaves as the honest next target. §5, added
+after the §3.4 arc, reads that target from the prime side at two cells: the
+ledger of Weil's form on the ground state and on the truncated kernel.
 
 ---
 
@@ -869,7 +873,7 @@ P2. Nothing in this subsection proves RH, and the note's header stands.
    second-moment conditions to reach even ĝ₁(0)² → 2πΞ(0)²/∫Ξ². It does
    not prove RH, and nothing in this note does.
 
-4. **No long numerics were run** (§3.4's seconds-scale checks of its closed forms are named there). The only arithmetic inputs of §2's proofs are the constants of Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
+4. **No long numerics were run** (§3.4's seconds-scale checks of its closed forms are named there; §5's minutes-scale ledgers on the certified Gram are committed and named there). The only arithmetic inputs of §2's proofs are the constants of Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
    Step 5 for η(t₀) < 0.2, ε₁ < 0.08 and 20/t₀² < 0.11), the verified height 3·10¹² for the
    first off-line zero (used to remark that η(t₀) is then negligible and in
    the cells arithmetic of §2.3), and Backlund's
@@ -894,3 +898,184 @@ P2. Nothing in this subsection proves RH, and the note's header stands.
    finds, from the minimiser's side, that the bulk heat family alone does
    not fix the constant, consistent with a wall-fixed constant; nothing
    about RH follows.
+
+---
+
+## 5. The prime-side ledger at the cells
+
+Written at the owner's request ("Do it pls", after "Why are you treating RH
+as unsolvable?"): the branch-selection step of §4 item 3 looked at from the
+primes. The computation took minutes on the paper's own certified Gram
+(`tools/research/weil_prime_gram.py`) at the cells δ = 2 and δ = 3; the
+instrument, its logs and its coefficient vectors are committed under
+`tools/research/strip_note/` (a research instrument of this note: not a
+verifier, not cited by the paper, in no gate). Nothing below bears on RH.
+
+**5.1 The ledger.** For a probe g in the paper's even cosine basis on
+[−a, a] (δ = 2a), Weil's form splits exactly into its arithmetic-side
+pieces (the paper's Theorem 1bn(i); the Gram's docstring):
+
+  Q(g) = 2 poleR(g)² + (ψ(¼) − ln π)‖g‖² + ARCH(g) − Σ_{n ≤ e^{2a}} PRIME_n(g),
+
+  ARCH(g) = ∫₀^∞ [f(0) − f(u)] e^{u/2}/sinh u du,   PRIME_n(g) = 2Λ(n) n^{−1/2} f(ln n),
+
+with f = g ⋆ g̃ the autocorrelation and n running over the prime powers
+below e^{2a}. Every piece is bilinear in the coefficient vector; the
+instrument rebuilds each piece's K × K matrix in mpmath by the closed forms
+the certified Gram uses (digamma and trigamma at ¼ + iω/2 with geometric
+tails, the autocorrelations of cosines in closed form), so that any
+profile's ledger is read off exactly. Two profiles, both normalised: the
+ground state g₁, the certified Gram's minimiser at the cell's basis size
+and precision (K = 160 at 700 bits at δ = 2; K = 400 at 1100 bits at
+δ = 3, the paper's `ladder_caster.py` settings), and Φ_a^K, the K-term
+cosine projection of the truncated kernel Φ·1_{[−a,a]}.
+
+*Validation.* At δ = 2 the ledger's total Q(g₁) equals the Gram's rigorous
+ball value, 6.3240229152055518164·10⁻³⁰, to 20 digits. The zero side over
+the paper's 6700 zeros (Σ_ρ = 2Σ_{γ>0} for even g) reproduces both totals:
+2 × 3.100·10⁻³⁰ plus a tail of order 10⁻³¹ for g₁, and 2 × 5.731·10⁻¹⁵
+plus 2 × 10⁻¹⁶ = 1.165·10⁻¹⁴ for Φ_a^K against the ledger's
+1.16545·10⁻¹⁴. The angle sin²θ(g₁, Φ_a^K) is 1.71·10⁻³ at δ = 2 against
+the pilot's 0.093·e^{−4} = 1.70·10⁻³ (README round 69), and 2.0487·10⁻⁴
+at δ = 3 against its table's 2.049·10⁻⁴ at the same K = 400 (README round
+69). At δ = 3 the total resolves only above 100 working
+digits (λ₁ = 4.267·10⁻⁹⁷): the 80-digit run floors at 10⁻⁸⁰ and is used
+for its lines only; a 120-digit run of the same instrument (its log
+`ledger_d3.0_dps120.txt`, pending at this commit) records the total.
+
+**5.2 The numbers.** All lines for normalised profiles; the last column is
+the ground state's line less the projected kernel's.
+
+δ = 2 (T₀ = 46.43; ln λ₁ = −67.233; prime powers 2, 3, 4, 5, 7):
+
+| line | g₁ | Φ_a^K | difference |
+|---|---|---|---|
+| 2 poleR² | 1.469592 | 1.563713 | −0.09412 |
+| (ψ(¼) − ln π)‖g‖² | −5.372183 | −5.372183 | 0 |
+| ARCH | 3.953494 | 3.883668 | +0.06983 |
+| PRIME₂ | 5.0631·10⁻² | 7.4061·10⁻² | −2.343·10⁻² |
+| PRIME₃ | 2.7119·10⁻⁴ | 1.1321·10⁻³ | −8.61·10⁻⁴ |
+| PRIME₄ | 1.396·10⁻⁷ | 4.028·10⁻⁶ | −3.89·10⁻⁶ |
+| PRIME₅ | 5.37·10⁻¹¹ | 3.94·10⁻⁸ | −3.93·10⁻⁸ |
+| PRIME₇ | 2.18·10⁻²³ | 1.66·10⁻¹³ | −1.66·10⁻¹³ |
+| Q | 6.324·10⁻³⁰ | 1.165·10⁻¹⁴ | −1.165·10⁻¹⁴ |
+
+δ = 3 (T₀ = 126.20; ln λ₁ = −221.900; prime powers 2 … 19):
+
+| line | g₁ | Φ_a^K | difference |
+|---|---|---|---|
+| 2 poleR² | 1.530556 | 1.563713 | −0.03316 |
+| ARCH | 3.907855 | 3.883668 | +0.02419 |
+| PRIME₂ | 6.5491·10⁻² | 7.4061·10⁻² | −8.57·10⁻³ |
+| PRIME₃ | 7.3426·10⁻⁴ | 1.1321·10⁻³ | −3.98·10⁻⁴ |
+| PRIME₄ | 1.580·10⁻⁶ | 4.034·10⁻⁶ | −2.45·10⁻⁶ |
+| PRIME₅ | 7.72·10⁻⁹ | 4.04·10⁻⁸ | −3.27·10⁻⁸ |
+| PRIME₇ | 1.29·10⁻¹⁴ | 5.89·10⁻¹³ | −5.76·10⁻¹³ |
+| PRIME₈ | 3.10·10⁻¹⁸ | 6.37·10⁻¹⁶ | |
+| PRIME₉ | 2.25·10⁻²¹ | 2.89·10⁻¹⁸ | |
+| PRIME₁₁ | 2.77·10⁻²⁸ | 4.54·10⁻²³ | |
+| PRIME₁₃ | 1.91·10⁻³⁶ | 3.08·10⁻²⁸ | |
+| PRIME₁₆ | 4.69·10⁻⁵² | 1.11·10⁻³⁶ | |
+| PRIME₁₇ | 1.06·10⁻⁵⁷ | 9.87·10⁻³⁹ | |
+| PRIME₁₉ | 1.04·10⁻⁷⁴ | 2.65·10⁻⁴⁴ | |
+| Q | 4.267·10⁻⁹⁷ (Gram) | 1.333·10⁻⁴⁷ | |
+
+Boundary values: g₁(a) = 1.31·10⁻¹⁴ and 4.87·10⁻⁴⁸ at δ = 2, 3, against
+Φ_a^K(a) = 5.13·10⁻⁷ and 2.51·10⁻²³ (Φ(a)/‖Φ_a‖ = 4.87·10⁻⁷ and
+2.29·10⁻²³). The autocorrelation ratio f_{g₁}(u)/f_{Φ_a^K}(u) at the prime
+logarithms: at δ = 2, 0.68, 0.24, 0.035, 1.4·10⁻³, 1.3·10⁻¹⁰ at u = ln 2,
+ln 3, ln 4, ln 5, ln 7, and 4.9·10⁻¹³ at u = 1.98; at δ = 3, 0.88, 0.65,
+0.39, 0.19, 2.2·10⁻², 4.9·10⁻³, 7.8·10⁻⁴, 6.1·10⁻⁶, 6.2·10⁻⁹, 4.2·10⁻¹⁶,
+1.1·10⁻¹⁹, 3.9·10⁻³¹ at the twelve prime logarithms, and 4.6·10⁻³² at
+u = 2.95.
+
+**5.3 What the ledger shows.**
+
+(i) *The prime side is the first two prime powers.* For the ground state,
+n = 2 carries 99.47% of the prime side at δ = 2 and 98.89% at δ = 3, n = 3
+the rest to three parts in 10⁶; every further prime power is negligible,
+the n-th falling roughly like e^{−2πn}·poly(n), because Φ(t)Φ(t − u) peaks
+at t = u/2 where Φ(u/2)² ≈ e^{−2πe^{u}}. This is a property of the RH
+branch's profile and holds at every support: the arithmetic content the
+truncated form balances at a cell is, to all intents, Λ(2)2^{−1/2}f(ln 2)
+and Λ(3)3^{−1/2}f(ln 3). (A profile of the other branch — Theorem 2's
+trial — spreads its prime side differently; the ledger was not taken on
+one.)
+
+(ii) *The balance is a cancellation among O(1) terms, invisible line by
+line.* 2 poleR² ≈ 1.5, the constant −5.372, ARCH ≈ 3.9, against a prime
+side of 0.05–0.07, net to λ₁ = 6·10⁻³⁰ and 4·10⁻⁹⁷. The ground state's
+departure from Φ_a^K moves every line by 10⁻²–10⁻¹ (the difference
+columns), and the lines net to Q(g₁) − Q(Φ_a^K) = −1.2·10⁻¹⁴ and
+−1.3·10⁻⁴⁷. So the mechanism that takes the energy from the kernel's
+truncation cost, e^{−T₀}·poly (Theorem A; Q(Φ_a^K) = e^{−32.1} at δ = 2
+against T₀ = 46.4, e^{−107.9} at δ = 3 against 126.2), to the ground
+state's e^{−2T₀}·poly (dodging; ln λ₁ = −67.2 and −221.9 against 2T₀ =
+92.9 and 252.4, the offsets 1bm(v)'s c(δ) and the norm's width) is not
+readable on the prime side. The ledger is an identity; dodging is a
+statement about the zero side, Σ_ρ ĝ(γ_ρ)² with every term below the wall
+≈ 0; the prime side records only that the identity holds.
+
+(iii) *The autocorrelation profile is the transported kernel's.* In the
+bulk f_{g₁} is the backward heat flow of f_Φ with time 2τ_a (§3.4: f̂ = ĝ²,
+so f_{g₁} = e^{−2τ_a∂²}f_Φ to leading order), whose leading tail law
+f_{g₁}/f_Φ ≈ exp(−(π/2)e^{2u−δ}) gives 0.43, 0.15, 0.034, 5·10⁻³ at
+u = ln 2, ln 3, ln 4, ln 5 at δ = 2 against the measured 0.68, 0.24, 0.035,
+1.4·10⁻³ — the pilot's stated bulk accuracy (README round 71) — and near
+the edge the suppression is far stronger (predicted 3·10⁻⁵ at u = ln 7,
+measured 1.3·10⁻¹⁰; at δ = 3 the n = 19 term is suppressed by 4·10⁻³¹):
+the pilot's edge layer, seen on the prime side as the extinction of the
+last prime powers below e^{2a}. Consistent with rounds 70–71; not new.
+
+(iv) *The exact truncation against its projection.* Q(Φ_a) itself, from
+the zero side (2Σ E_a(γ)² over 400 zeros plus a tail estimate), is about
+4·10⁻¹⁵ at a = 1 against Q(Φ_a^K) = 1.17·10⁻¹⁴: the K-term projection
+roughly triples the energy (its coefficients decay like k⁻² from the
+derivative jump of the periodic extension at ±a). The pilot's R-ratio and
+this note's angles use the projection, as the paper's basis does.
+
+**5.4 The prime-side statement of the difficulty.** At support a, Weil
+positivity on the window is the operator inequality
+
+  A_a − Σ_{n ≤ e^{2a}} w_n T_{ln n} ≥ 0  on L²(−a, a),
+
+A_a the archimedean bilinear form (pole, constant, ARCH), w_n = 2Λ(n)n^{−1/2},
+T_u the symmetrised translation form ⟨g, g(· − u)⟩ = f_g(u): an explicit
+Γ-function form against five (δ = 2) or twelve (δ = 3) translations. Its
+least eigenvalue is λ₁ = e^{−2T₀(1+o(1))} within the reduced problem —
+positive, and doubly exponentially small — with near-null vector the
+transported kernel of §3.4, whose transform the pilot's round 77 gives in
+closed form. (A reading, stated up to the form's normalisations and not
+used below: since |ĝ|² for g supported in [−a, a] ranges over the
+nonnegative integrable functions of exponential type 2a — Fejér–Riesz for
+entire functions — positivity at support a says that the signed density
+the explicit formula puts on the real line, the archimedean density less
+the Dirichlet polynomial Σ_{n ≤ e^{2a}} Λ(n)n^{−1/2}cos(r ln n), with the
+pole's contribution, is nonnegative against every such function: the zero
+counting measure seen at resolution 1/(2a).) A proof of positivity at a
+given support therefore needs a certificate accurate to e^{−2T₀}: the
+paper's Temple certificates (Theorems 1bj, 1bl) reach δ = 1.38 by that
+route; the reduced problem's explicit near-null vector is exact only to
+relative e^{−δ} (round 77: 3% at δ = 2, 1.5% at δ = 3), so its residual is
+of order e^{−δ} times the spectral gap, far above λ₁, and it cannot serve
+as a Temple trial vector; and no argument that avoids the precision
+e^{−2T₀} is visible here — a positivity margin that vanishes doubly
+exponentially is what Weil's criterion looks like from finite support (the
+paper's 1bm(vi)), now with the margin's extremal vector explicit. Under RH
+failure the same operator has a negative eigenvalue, of size at least
+e^{2β*a}/(2eβ*)(1 − o(1)) under (H₁) (Theorem 2): the dichotomy of
+Corollary 4, on the prime side, is between a least eigenvalue of size
+e^{−2T₀} and one of size e^{2β*a}, with nothing between. This section
+proves neither.
+
+**5.5 Conclusion of the ledger.** The prime side of the truncated form at
+a cell is a fixed, rapidly convergent arithmetic sum dominated by 2 and 3,
+balanced by the Γ-function side to the precision λ₁ by a reshaping of Φ
+of 4% (δ = 2) and 1.4% (δ = 3) in L²; the reshaping is the transported
+kernel with its edge layer; the mechanism of the balance is not visible in
+the ledger's lines, because the ledger is an identity and the mechanism
+(dodging) lives on the zero side. The branch-selection step is, in
+prime-side terms, a semi-definite inequality with margin e^{−2T₀} whose
+extremal vector is now explicit to relative e^{−δ}. No route below
+RH-strength was found. Nothing about RH follows, and the paper claims
+nothing from this section.
