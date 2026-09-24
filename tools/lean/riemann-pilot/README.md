@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 290 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 304 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -45,6 +45,7 @@ Every file ends with `#print axioms`. All 290 checked theorems depend only on `p
 | `SimpleStructure.lean` | 108 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
 | `GapCriterion.lean` | 170 | Euler–Lagrange for `Q`; the pole-overlap identity; interlacing `λ₁(Q) ≤ μ₂(Q₀)`; energy gap ⇒ simple; non-simple ⇒ `λ₁ = μ₂` attained; the Jacobi eigenvector lemma |
 | `Commute.lean` | 243 | Weil's form commutes with `∂²` (cross-correlation, pole, full bilinear form); an edge-flat ground state puts `h''` in the ground space; ODE uniqueness; **a simple ground state is never edge-flat** |
+| `DegenerateFlat.lean` | 803 | **degenerate ⇒ edge-flat**: a non-simple ground space contains a nonzero pole-free `w` and its compactly supported Green solution `G w` (`(Gw)'' − Gw/4 = w`); **simple ⇔ no such pair** |
 | `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
@@ -1849,3 +1850,32 @@ So "simple ⇔ energy gap" is formal, up to one direction's standard attainment 
 * the converse direction of round 48 (degenerate ⇒ an edge-flat element: the complex swap chain and finite-dimensionality);
 * the density step that extends `Commute.lean` from smooth to `H²` functions;
 * **the open statement itself**: the energy gap, equivalently simplicity, equivalently `⟨c, ψ₂⟩ ≠ 0` with `λ₁ < μ₂`, at every support.
+
+## Round 53: degenerate ⇒ edge-flat, formal (DegenerateFlat.lean)
+
+Round 48's converse direction (Theorem D) is now machine-checked, by a route that needs neither complex swaps nor finite-dimensionality of the ground space. It uses the standard axioms only, with no `sorry` and no warnings.
+
+**The Green operator of the pole.** `G w (x) = ∫_{−a}^{x} 2 sinh((x − y)/2) w(y) dy` solves `h'' − h/4 = w`.
+* `hSw_half_eq`: it is round 46's `hSw` at `w = i/2`.
+* For a pole-free probe `w` (`ŵ(i/2) = poleR w = 0`), `G w` is even, continuous and supported in `[−a, a]`, with `Ĝw(z) = −ŵ(z)/(z² + ¼)` (`Gpole_hat`).
+
+| theorem | statement |
+|---|---|
+| `Gpole_lip` | `G w` is Lipschitz on `[−R, R]` with constant `cosh R·∫_{−R}^{R}|w|` (mean value theorem on the `sinh` kernel) |
+| `Gpole_autocorr_le`, `Gpole_probe` | its autocorrelation defect is `O(u)`, so the archimedean integral converges: **`G w` is a probe** |
+| `triangle_swap_int` | Fubini on a triangle with merely integrable weights |
+| `kernel_zero` | a pole-free even probe annihilates `2 sinh((s − c)/2)` |
+| `shift_swap`, `xcorr_G_swap` | **`xcorr(G v, m) = xcorr(v, G m)`** at every shift, for pole-free `m` |
+| `Gpole_annihilates` | for pole-free `v` in the ground space, `Q − λ₁` pairs `G v` with every pole-free probe to zero (Euler–Lagrange for `v` tested on `G m`) |
+| `G_mem_pole_free`, `G_mem_partner` | hence `G v` is in the ground space: directly if `G v` is pole-free; otherwise by a rank-one argument with any ground-space element of nonzero pole value (`Q_λ(Gv) + Q_λ(f) = 0` with both `≥ 0`) |
+| `degenerate_flat` | **if a ground state is not simple, the ground space contains a nonzero pole-free `w` and `G w`** |
+| `degenerate_flat_fourier` | the same, with `G w` supported in `[−a, a]` and `Ĝw = −ŵ/(z² + ¼)`: `G w` is `H²`-flat at `±a`, and both `G w` and `(G w)'' = w + (G w)/4` are ground states |
+| `not_simple_of_green_pair` | conversely, such a pair rules out simplicity: `G w = c·w` would force `ŵ ≡ 0` |
+| `simple_iff_no_green_pair` | **simple ⇔ the ground space contains no nonzero pole-free `w` together with `G w`** |
+
+**What this closes, and what it does not.**
+* Round 48's reduction is now formal in both directions:
+  * `simple_iff_no_green_pair` (the Green/Fourier form of edge-flatness);
+  * `simple_not_flat` (Commute.lean, the smooth `C⁴` form).
+* `simpleGround_of_gap` and `not_simple_gap` (GapCriterion.lean) make "simple ⇔ strict energy gap" formal.
+* **Simplicity itself is not proved.** The open statement is still `EnergyGap a` at every support, equivalently the absence of a Green pair in the ground space.
