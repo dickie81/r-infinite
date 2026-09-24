@@ -504,8 +504,20 @@ transform vanishes at every zero below a horizon T_D(a) ≍ e^{2a} and has no
 other zero there. The pilot located where RH enters the natural proof of convergence ("uses `Q = Σ_γ |ĝ(γ)|²`, a sum of squares, which is RH", README
 round 40); under RH that obstacle is absent, and D becomes a statement in
 approximation theory about the minimiser of a sum of squares over a
-sampling set of near-critical density, with the zeros' separation
-properties (unknown) as the likely technical input.
+sampling set of near-critical density, with the zeros' separation properties (unknown) as the likely technical
+input. The pilot's round 69 (its `frontier/nullvec/`, after this note's
+sixth sweep) locates the structure numerically, on supports up to δ = 4.5:
+the ground state's deviation from Φ lies almost entirely along Φ″ (share
+0.99976 of the deviation at δ = 3, and 1 − 1.2·10⁻¹⁴ within the span of
+Φ″, Φ⁗, Φ⁽⁶⁾), with coefficient ≈ −0.020·e^{−δ}, so that locally
+ĝ_a ≈ c·Ξ(z)·e^{τz²} with a zero-free Gaussian multiplier, τ ≈ 0.020·e^{−δ};
+its own status line reads "The laws `sin²θ ~ e^{−4a}` and `β ~ e^{−δ}` are
+inferred, not proved", and it remarks that "`Φ`'s even derivatives are,
+like `Φ`, null directions of Weil's form (their transforms vanish at every
+zero), so a structural explanation plausibly starts there" — the pilot's
+numbers, conjecture and words, not this note's. That is the same target as
+item 3 of §4, seen from the minimiser's side: the structure to prove is
+that the minimiser stays in the null directions of the form.
 
 ---
 
