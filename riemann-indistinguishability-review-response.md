@@ -5850,4 +5850,4 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 
 **Scope.** The sweep commit (the note only: the three edits of A547). No tower obligation. Brief `brief_round376.md` (its text also inside the launch prompt). Convergence test on round 375's five findings (A547).
 
-**Findings.** PENDING.
+**Findings.** 0 MAJOR, 0 minor, 3 cosmetic; all verified by the lead and accepted (A548); every round-375 disposition realised — **converged: the round-376 sweep is stable and the note's arc (rounds 367–376) is closed.** Cosmetic, batched to the next substantive round on the note: F376-1 the a₀ remark's existence step needs ε₁^∞ < 1 stated; F376-2 two README quotations verbatim in wording but not formatting; F376-3 Step 4(i)'s unit-interval count applied below its stated range, the first zero's height entering silently. Trajectory of the note's arc: 367 (0M+6m+12c) → 368 (0M+4m+6c) → 369 (0M+1m+8c) → 370 (0M+1m+5c) → 371 (0M+1m+7c) → 372 (0M+1m+5c) → 373 (0M+2m+4c) → 374 (0M+1m+1c) → 375 (0M+2m+3c) → 376 (0M+0m+3c, converged).
