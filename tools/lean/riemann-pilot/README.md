@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 2 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `SpectralGap.lean` imports `UniquenessQ.lean`; `FourierGap.lean` imports `SpectralGap.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`.
 
-Every file ends with `#print axioms`. All 331 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 335 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -49,6 +49,7 @@ Every file ends with `#print axioms`. All 331 checked theorems depend only on `p
 | `StructureD.lean` | 708 | **round 48's Theorem D**: the ground space is finite-dimensional; a Green chain `w, Gw, …, G^{m−1}w` lies in it, is independent and spans it; the top element's transform vanishes only on `ℝ ∪ iℝ`. **The RH chain without simplicity**: (a) for the top-of-chain ground states alone gives `RiemannHypothesis` |
 | `Mollify.lean` | 1032 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
 | `TheoremC.lean` | 785 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element** |
+| `DimTwo.lean` | 177 | **`dim V ≤ 2` ⇒ every ground state's zeros lie on `ℝ ∪ iℝ`**; RH from (a) for any ground states with eventually `dim V ≤ 2`; simple ⇒ `dim V = 1` |
 | `ZetaUnitInterval.lean` | 295 | `ζ(σ) ≠ 0` for `0 < σ < 1`, from Mathlib's theta-kernel definition of `ζ` (imports only Mathlib) |
 | `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
@@ -1960,4 +1961,29 @@ Round 52 formalised Theorem C (flat ⇒ degenerate) only for `C⁴` functions. R
   * the corollary (`simple_iff_no_flat`).
 * The density step in the paper's proof of C ("density of `C_c^∞(−a, a)` in the form domain") is now proved, not cited.
 * Simplicity itself is still open, and so is `HypConv` for the top-of-chain ground states, the single remaining input of `rh_of_hypConv_top`.
+
+## Round 56: dimension two already puts the zeros on the cross (DimTwo.lean)
+
+The zero-swap lemma (rounds 43–46) puts every zero of a **simple** ground state on `ℝ ∪ iℝ`. This round extends that to ground spaces of dimension two, using Theorems A and D. It uses the standard axioms only, with no `sorry` and no warnings.
+
+| theorem | statement |
+|---|---|
+| `zeros_cross_of_dim_le_two` | if `dim V ≤ 2`, every nonzero `v ∈ V` has `v̂(ω) = 0 ⇒ ω² ∈ ℝ` |
+| `gdim_le_one_of_simple` | a simple ground state has `dim V ≤ 1` |
+| `rh_of_dim_le_two` | **(a) for any family of ground states, with eventually `dim V ≤ 2`, gives Mathlib's `RiemannHypothesis`** |
+| `rh_of_eventually_simple'` | round 46's chain as the special case `m = 1` |
+
+**Proof.**
+1. Let `ω` be an off-cross zero of `v̂`. By Theorem A (`green_mem_groundSpace`), both parts of `(∂² + ω²)⁻¹v` lie in `V`.
+2. By Theorem D's spanning statement (`chain_span_hat`), the transforms of `v` and of those two parts are `P(q)·ŵ` on the real line, with `deg P < m` and `q = −1/(t² + ¼)`.
+3. The transform identity of the Green solution then becomes `P(X)(1 + βX) = X·P_v(X)`. Here `β = ¼ + ω²`, and `P_v` is **real** because `v` is real.
+4. For `m ≤ 2`, compare coefficients: `P(0) = 0`, `P'(0) = P_v(0) =: A`, and `β·A = P_v'(0) =: B`.
+   * If `A ≠ 0`, then `β = B/A` is real, so `ω²` is real. Contradiction.
+   * If `A = 0`, then `P_v = 0`, so `v̂ ≡ 0` on the real line. Contradiction.
+
+**What this changes.**
+* The RH chain's second input can be weakened from "eventually simple" to "eventually `dim V ≤ 2`". In this form, (a) may be for **any** ground-state family.
+* This is an alternative to `rh_of_hypConv_top`, not a strengthening of it. That theorem needs no dimension bound, but asks (a) of one specific family.
+* For `m ≥ 3` the argument leaves room for off-cross zeros. They are the roots of the real polynomial `P_v` of degree `≤ m − 1` in `X`, which come in conjugate pairs. Hurwitz with multiplicities would then bound the off-line zeros of `Ξ` by the eventual dimension. That counting version is not formalised.
+* Nothing here bounds `dim V`, and (a) is still open.
 
