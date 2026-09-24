@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 9 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`.
 
-Every file ends with `#print axioms`. All 362 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 366 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -31,8 +31,8 @@ Every file ends with `#print axioms`. All 362 checked theorems depend only on `p
 | `Positivity.lean` | 538 | the pole-free form `Q₀`: a unique, one-signed ground state |
 | `StrictPositivity.lean` | 726 | the ground state of `Q₀` is strictly positive on `[−a, a]` |
 | `UniquenessQ.lean` | 144 | the full form `Q`: strict gap `λ₀ < λ₁`, and the sharp uniqueness dichotomy |
-| `FourierGap.lean` | 2103 | `λ_⊥ ≥ λ₁ + 1/40` for **every `0 < a ≤ 0.35`** (past the first prime); `Q`'s ground state is unique there; the `Cin` chain in closed form, checked by kernel evaluation |
-| `ParabolaGap.lean` | 636 | the parabola trial; `λ_⊥ ≥ λ₁ + 1/50` and a unique ground state for **every `0 < a ≤ 0.36`** |
+| `FourierGap.lean` | 1985 | `λ_⊥ ≥ λ₁ + 1/40` for **every `0 < a ≤ 0.35`** (past the first prime); `Q`'s ground state is unique there; the `Cin` chain in closed form, checked by kernel evaluation |
+| `ParabolaGap.lean` | 531 | the parabola trial; `λ_⊥ ≥ λ₁ + 1/50` and a unique ground state for **every `0 < a ≤ 0.36`** |
 | `Polya.lean` | 356 | Pólya's theorem: every even probe concave on `(−a, a)` has a real-rooted transform |
 | `Concave.lean` | 514 | Pólya's theorem stated for every even, concave `g ≥ 0` directly, with no representation hypothesis |
 | `Saturation.lean` | 98 | saturation reduced to an envelope bound: a small value plus a steep slope forces a nearby zero |
@@ -2201,7 +2201,7 @@ Round 62 left one classical input unformalised: `KernelApprox`, Riemann's formul
 
 ## Round 65: consolidation (no new hypotheses, fewer lines)
 
-A pass over all 45 files for duplicated proofs, dead code, and shorter routes. No hypothesis was added. Statements changed only where a lemma was generalised: `triangle_swap` and `primeS_eq_two` take weaker hypotheses, and `log_three_gt` has a stronger conclusion. The pilot now has 44 files and 362 `#print axioms` checks, all on the standard axioms, with no `sorry` and no warnings.
+A pass over all 45 files for duplicated proofs, dead code, and shorter routes. No hypothesis was added. Statements changed only where a lemma was generalised: `triangle_swap` and `primeS_eq_two` take weaker hypotheses, and `log_three_gt` has a stronger conclusion. The pilot now has 44 files and 362 `#print axioms` checks (round 65's count), all on the standard axioms, with no `sorry` and no warnings.
 
 **One new result: `Φ > 0`, hence `ξ(σ) ≠ 0` on the real axis (RiemannKernel.lean).** For `u ≥ 0` and `n ≥ 1`, `c_n e^{2u} ≥ π > 3/2`, so each term of Riemann's kernel `φ_n(u) = c_n e^{2u}(2c_n e^{2u} − 3)e^{u/2 − c_n e^{2u}}` is `≥ 0` and the `n = 1` term is `> 0`. Evenness covers `u < 0`. Then `Ξ(it) = 2∫Φ(u)e^{−tu}du > 0` for every real `t`.
 
@@ -2276,3 +2276,16 @@ Removed:
 The curvature sum rule (`ghat_sum_rule`, `ghat_curvature`, `xi_expansion`) stays as a result about ground states.
 
 **What this means.** The proof never uses the unmatched zeros of `ĝ_n`, the convergence `ĝ_n → Ξ`, or Hurwitz's theorem. It uses only that each zero of `Ξ` is eventually matched to a real zero of some `ĝ_n`, with error tending to `0`. So, given real-rootedness, dodging D says that every zero of `Ξ` is a limit of real numbers, and that is already RH. Round 10's text reads curvature as the extra ingredient that closes the chain. It is not: the chain was closed by D itself. This sharpens round 65's correction and the paper's own verdict that these chains are "presumably a reformulation, not a proof". The open content of roadmap item 1 is (a) dodging and (b) real-rootedness. The Lean chain now shows that proving (a) and (b) for the ground states *is* proving RH, with nothing left to add.
+
+## Round 67: the gap numerics, parametrised (FourierGap.lean, ParabolaGap.lean)
+
+The certified gaps (round 20's `a ≤ 0.3466` and `log 2 ≤ 2a ≤ 0.7`, round 21's `0.35 ≤ a ≤ 0.36`) each carried the same per-mode argument written out five times, with only the constants changing. Four generic lemmas now carry the argument. Each instance keeps its exact statement and is left with one closed numeric check. No certified constant changed. The two files shrink by 223 lines (FourierGap 2103 → 1985, ParabolaGap 636 → 531).
+
+| lemma | replaces |
+|---|---|
+| `pm_le_of` | the proofs of `pm_le1`–`pm_le5`, `pm_leB1`–`pm_leB5` and `pm_leC1`–`pm_leC5`. From `cval_k ≤ C` and `a ≤ A ≤ ½`, `p_k ≤ (1.05·C + 21β²A⁴/30)/8`. Each stated bound is this value rounded up, checked by `norm_num` |
+| `term_mode` | the proofs of `term1`–`term5`, `termB1`–`termB5` and `termC1`–`termC5`. It is `modeE_ge` plus `term_ge` with a generic subtracted prime term `Y ≤ X`. The side condition `ψ̲ ≤ τ` now needs only `err(a) ≥ 0` (`errK_nonneg`): every `C_v + a_max·D ≤ τ`, so the old lower bounds on `a` and `err(a)` were not needed |
+| `tail_branch` | the six-way and four-way case splits of `tailC_pos` and `tailB_pos`: one `Cin` value at `Mπ/2` and a bound `D_n ≤ B` give one branch. The tightest branch is `tailC_pos` at `n ≤ 6`: `2.7011 ≥ 2.7` |
+| `sum_lowS_even` | the three unrolled 11-term expansions of `Σ_{|n| ≤ 5}` in the gap assemblies |
+
+**On kernel evaluation.** Round 65's `decide +kernel` applied because the `Cin` chain reduces to closed rational sums. These files' numerics do not: they are inequalities in a real parameter `a` with `π`, `log 2` and `√2`. The rational leftovers after parametrising are single `norm_num` or `linarith` steps, so kernel evaluation would add cast plumbing and no reduction. The reduction here comes from parametrising.

@@ -293,58 +293,39 @@ theorem errK_le036 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.36) : errK a ≤ 0.0374
 theorem tailC_pos {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36) {c : ℝ} (hc0 : 0 ≤ c) (hc : c ≤ 0.9803)
     {n : ℤ} (hn : 6 ≤ n) : 2.7 ≤ modeE a n - c * primeD a (Real.log 2) n := by
   have ha : 0 < a := by linarith
-  have hb := modeE_tail_base ha (by linarith) hn
   have herr := errK_le036 ha ha2
   have hnr : (6 : ℝ) ≤ n := by exact_mod_cast hn
   have hD := primeD_smallC ha1 ha2 n
   rw [abs_of_nonneg (by linarith : (0 : ℝ) ≤ n)] at hD
-  have hD2 := primeD_le_two a (Real.log 2) n
-  have hπ := Real.pi_pos
-  have hCm : ∀ m : ℝ, 0 ≤ m → m ≤ n → Cin (m * π / 2) ≤ Cin (π * n / 2) := fun m hm hmn =>
-    Cin_mono (by positivity) (by nlinarith)
-  have hcD := mul_le_mul_of_nonneg_left hD hc0
-  have hcD2 := mul_le_mul_of_nonneg_left hD2 hc0
-
-  rcases le_or_gt n 6 with h6 | h6
-  · have hc := cin_val6
-    have : Cin (π * 6 / 2) ≤ Cin (π * n / 2) := by
-      have := hCm 6 (by norm_num) (by exact_mod_cast (show (6 : ℤ) ≤ n by omega))
-      rwa [show (6 : ℝ) * π / 2 = π * 6 / 2 by ring] at this
-    have hne : (n : ℝ) ≤ 6 := by exact_mod_cast h6
-    nlinarith
-  rcases le_or_gt n 10 with h10 | h10
-  · have hc := cinH7
-    have : Cin (14 * π / 4) ≤ Cin (π * n / 2) := by
-      have := hCm 7 (by norm_num) (by exact_mod_cast (show (7 : ℤ) ≤ n by omega))
-      rwa [show (7 : ℝ) * π / 2 = 14 * π / 4 by ring] at this
-    have hne : (n : ℝ) ≤ 10 := by exact_mod_cast h10
-    nlinarith
-  rcases le_or_gt n 17 with h17 | h17
-  · have hc := cinH11
-    have : Cin (22 * π / 4) ≤ Cin (π * n / 2) := by
-      have := hCm 11 (by norm_num) (by exact_mod_cast (show (11 : ℤ) ≤ n by omega))
-      rwa [show (11 : ℝ) * π / 2 = 22 * π / 4 by ring] at this
-    have hne : (n : ℝ) ≤ 17 := by exact_mod_cast h17
-    nlinarith
-  rcases le_or_gt n 24 with h24 | h24
-  · have hc := cinH18
-    have : Cin (36 * π / 4) ≤ Cin (π * n / 2) := by
-      have := hCm 18 (by norm_num) (by exact_mod_cast (show (18 : ℤ) ≤ n by omega))
-      rwa [show (18 : ℝ) * π / 2 = 36 * π / 4 by ring] at this
-    have hne : (n : ℝ) ≤ 24 := by exact_mod_cast h24
-    nlinarith
-  rcases le_or_gt n 29 with h29 | h29
-  · have hc := cinH25
-    have : Cin (50 * π / 4) ≤ Cin (π * n / 2) := by
-      have := hCm 25 (by norm_num) (by exact_mod_cast (show (25 : ℤ) ≤ n by omega))
-      rwa [show (25 : ℝ) * π / 2 = 50 * π / 4 by ring] at this
-    have hne : (n : ℝ) ≤ 29 := by exact_mod_cast h29
-    nlinarith
-  · have hc := cinH30
-    have : Cin (60 * π / 4) ≤ Cin (π * n / 2) := by
-      have := hCm 30 (by norm_num) (by exact_mod_cast (show (30 : ℤ) ≤ n by omega))
-      rwa [show (30 : ℝ) * π / 2 = 60 * π / 4 by ring] at this
-    nlinarith
+  have br := fun (M N Cv : ℝ) (hM : 0 ≤ M) (hMn : M ≤ n) (hnN : (n : ℝ) ≤ N)
+      (hcv : Cv ≤ Cin (M * π / 2)) =>
+    tail_branch ha (by linarith) hc0 hn hM hMn hcv
+      (hD.trans (mul_le_mul_of_nonneg_left hnN (by norm_num : (0 : ℝ) ≤ 0.06026)))
+  rcases le_or_gt n 6 with h | h
+  · have := br 6 6 2.7801 (by norm_num) hnr (by exact_mod_cast h)
+      (by rw [show (6 : ℝ) * π / 2 = π * 6 / 2 by ring]; exact cin_val6)
+    linarith
+  rcases le_or_gt n 10 with h | h
+  · have := br 7 10 3.033953 (by norm_num) (by exact_mod_cast (show (7 : ℤ) ≤ n by omega))
+      (by exact_mod_cast h) (by rw [show (7 : ℝ) * π / 2 = 14 * π / 4 by ring]; exact cinH7)
+    linarith
+  rcases le_or_gt n 17 with h | h
+  · have := br 11 17 3.453456 (by norm_num) (by exact_mod_cast (show (11 : ℤ) ≤ n by omega))
+      (by exact_mod_cast h) (by rw [show (11 : ℝ) * π / 2 = 22 * π / 4 by ring]; exact cinH11)
+    linarith
+  rcases le_or_gt n 24 with h | h
+  · have := br 18 24 3.886992 (by norm_num) (by exact_mod_cast (show (18 : ℤ) ≤ n by omega))
+      (by exact_mod_cast h) (by rw [show (18 : ℝ) * π / 2 = 36 * π / 4 by ring]; exact cinH18)
+    linarith
+  rcases le_or_gt n 29 with h | h
+  · have := br 25 29 4.191228 (by norm_num) (by exact_mod_cast (show (25 : ℤ) ≤ n by omega))
+      (by exact_mod_cast h) (by rw [show (25 : ℝ) * π / 2 = 50 * π / 4 by ring]; exact cinH25)
+    linarith
+  · have := tail_branch ha (by linarith) hc0 hn (M := 30) (Cv := 4.398497) (by norm_num)
+      (by exact_mod_cast (show (30 : ℤ) ≤ n by omega))
+      (by rw [show (30 : ℝ) * π / 2 = 60 * π / 4 by ring]; exact cinH30)
+      (primeD_le_two a (Real.log 2) n)
+    linarith
 
 
 theorem tailC_all {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36) {c : ℝ} (hc0 : 0 ≤ c) (hc : c ≤ 0.9803)
@@ -358,17 +339,8 @@ theorem tailC_all {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36) {c : ℝ} (hc0
 
 
 theorem pm_leC1 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.36) {g : ℝ → ℝ} (hp : Probe a g)
-    (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 1 ≤ (0.00323 : ℝ) := by
-  have h1 := pm_le ha hp hn 1 (0.9 : ℝ)
-  rw [integral_cos_sub_sq ha (by norm_num) (0.9 : ℝ)] at h1
-  have hc := cval1
-  have hI := integral_sq_perp ha (by linarith) hp hn h0
-  have h8 : 0 < 8 * a := by linarith
-  refine h1.trans ?_
-  rw [div_le_iff₀ h8]
-  have ha4 : a ^ 4 ≤ 0.36 ^ 4 := pow_le_pow_left₀ ha.le ha2 4
-  have ha5 : a ^ 5 = a * a ^ 4 := by ring
-  nlinarith [pow_pos ha 4, sq_nonneg (0.9 : ℝ)]
+    (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 1 ≤ (0.00323 : ℝ) :=
+  (pm_le_of ha ha2 (by norm_num) hp hn h0 (by norm_num) cval1).trans (by norm_num)
 
 theorem termC1 {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
     {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) (h0 : poleR g a = 0) {c : ℝ} (hc1 : 0.98 ≤ c) :
@@ -376,33 +348,18 @@ theorem termC1 {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
       ≤ (modeE a 1 - c * primeD a (Real.log 2) 1 - 2.7) * pm a g 1 := by
   have ha : 0 < a := by linarith
   have hc0 : 0 ≤ c := by linarith
-  have hψ := modeE_ge ha (by linarith) (n := 1) (by norm_num)
-  have hcv := cin_val1
-  have hd := dlo1
-  have hC : Cin (π * ((1 : ℤ) : ℝ) / 2) = Cin (π * 1 / 2) := by push_cast; rfl
-  rw [hC] at hψ
   have hD := primeD_smallC ha1 ha2 1
   rw [show |(((1 : ℤ) : ℝ))| = 1 by norm_num] at hD
-  refine term_ge ?_ ?_ (pm_nonneg ha g 1) (pm_leC1 ha ha2 hp hn h0)
-  · nlinarith [mul_le_mul_of_nonneg_left hD hc0]
-  · have : (0.35 : ℝ) ^ 2 / 6 ≤ errK a := by
-      unfold errK
-      have : (0.35 : ℝ) ^ 2 ≤ a ^ 2 := pow_le_pow_left₀ (by norm_num) ha1 2
-      nlinarith [pow_pos ha 3, pow_pos ha 4, pow_pos ha 5]
-    nlinarith
+  have h := term_mode ha (by linarith) (k := 1) (by norm_num) (Cv := 0.5408) (D := 0.36338)
+    (X := c * (0.06026 * 1)) (Y := c * primeD a (Real.log 2) 1) (τ := 2.7) (P := 0.00323)
+    (by simpa using cin_val1) dlo1 (mul_le_mul_of_nonneg_left hD hc0)
+    (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.06026 * 1 by norm_num)])
+    (pm_leC1 ha ha2 hp hn h0)
+  linarith
 
 theorem pm_leC2 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.36) {g : ℝ → ℝ} (hp : Probe a g)
-    (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 2 ≤ (0.02547 : ℝ) := by
-  have h1 := pm_le ha hp hn 2 (0.6366 : ℝ)
-  rw [integral_cos_sub_sq ha (by norm_num) (0.6366 : ℝ)] at h1
-  have hc := cval2
-  have hI := integral_sq_perp ha (by linarith) hp hn h0
-  have h8 : 0 < 8 * a := by linarith
-  refine h1.trans ?_
-  rw [div_le_iff₀ h8]
-  have ha4 : a ^ 4 ≤ 0.36 ^ 4 := pow_le_pow_left₀ ha.le ha2 4
-  have ha5 : a ^ 5 = a * a ^ 4 := by ring
-  nlinarith [pow_pos ha 4, sq_nonneg (0.6366 : ℝ)]
+    (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 2 ≤ (0.02547 : ℝ) :=
+  (pm_le_of ha ha2 (by norm_num) hp hn h0 (by norm_num) cval2).trans (by norm_num)
 
 theorem termC2 {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
     {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) (h0 : poleR g a = 0) {c : ℝ} (hc1 : 0.98 ≤ c) :
@@ -410,33 +367,18 @@ theorem termC2 {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
       ≤ (modeE a 2 - c * primeD a (Real.log 2) 2 - 2.7) * pm a g 2 := by
   have ha : 0 < a := by linarith
   have hc0 : 0 ≤ c := by linarith
-  have hψ := modeE_ge ha (by linarith) (n := 2) (by norm_num)
-  have hcv := cin_val2
-  have hd := dlo2
-  have hC : Cin (π * ((2 : ℤ) : ℝ) / 2) = Cin (π * 2 / 2) := by push_cast; rfl
-  rw [hC] at hψ
   have hD := primeD_smallC ha1 ha2 2
   rw [show |(((2 : ℤ) : ℝ))| = 2 by norm_num] at hD
-  refine term_ge ?_ ?_ (pm_nonneg ha g 2) (pm_leC2 ha ha2 hp hn h0)
-  · nlinarith [mul_le_mul_of_nonneg_left hD hc0]
-  · have : (0.35 : ℝ) ^ 2 / 6 ≤ errK a := by
-      unfold errK
-      have : (0.35 : ℝ) ^ 2 ≤ a ^ 2 := pow_le_pow_left₀ (by norm_num) ha1 2
-      nlinarith [pow_pos ha 3, pow_pos ha 4, pow_pos ha 5]
-    nlinarith
+  have h := term_mode ha (by linarith) (k := 2) (by norm_num) (Cv := 1.6214) (D := 1)
+    (X := c * (0.06026 * 2)) (Y := c * primeD a (Real.log 2) 2) (τ := 2.7) (P := 0.02547)
+    (by simpa using cin_val2) dlo2 (mul_le_mul_of_nonneg_left hD hc0)
+    (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.06026 * 2 by norm_num)])
+    (pm_leC2 ha ha2 hp hn h0)
+  linarith
 
 theorem pm_leC3 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.36) {g : ℝ → ℝ} (hp : Probe a g)
-    (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 3 ≤ (0.0799 : ℝ) := by
-  have h1 := pm_le ha hp hn 3 (0.3 : ℝ)
-  rw [integral_cos_sub_sq ha (by norm_num) (0.3 : ℝ)] at h1
-  have hc := cval3
-  have hI := integral_sq_perp ha (by linarith) hp hn h0
-  have h8 : 0 < 8 * a := by linarith
-  refine h1.trans ?_
-  rw [div_le_iff₀ h8]
-  have ha4 : a ^ 4 ≤ 0.36 ^ 4 := pow_le_pow_left₀ ha.le ha2 4
-  have ha5 : a ^ 5 = a * a ^ 4 := by ring
-  nlinarith [pow_pos ha 4, sq_nonneg (0.3 : ℝ)]
+    (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 3 ≤ (0.0799 : ℝ) :=
+  (pm_le_of ha ha2 (by norm_num) hp hn h0 (by norm_num) cval3).trans (by norm_num)
 
 theorem termC3 {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
     {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) (h0 : poleR g a = 0) {c : ℝ} (hc1 : 0.98 ≤ c) :
@@ -444,33 +386,18 @@ theorem termC3 {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
       ≤ (modeE a 3 - c * primeD a (Real.log 2) 3 - 2.7) * pm a g 3 := by
   have ha : 0 < a := by linarith
   have hc0 : 0 ≤ c := by linarith
-  have hψ := modeE_ge ha (by linarith) (n := 3) (by norm_num)
-  have hcv := cin_val3
-  have hd := dlo3
-  have hC : Cin (π * ((3 : ℤ) : ℝ) / 2) = Cin (π * 3 / 2) := by push_cast; rfl
-  rw [hC] at hψ
   have hD := primeD_smallC ha1 ha2 3
   rw [show |(((3 : ℤ) : ℝ))| = 3 by norm_num] at hD
-  refine term_ge ?_ ?_ (pm_nonneg ha g 3) (pm_leC3 ha ha2 hp hn h0)
-  · nlinarith [mul_le_mul_of_nonneg_left hD hc0]
-  · have : (0.35 : ℝ) ^ 2 / 6 ≤ errK a := by
-      unfold errK
-      have : (0.35 : ℝ) ^ 2 ≤ a ^ 2 := pow_le_pow_left₀ (by norm_num) ha1 2
-      nlinarith [pow_pos ha 3, pow_pos ha 4, pow_pos ha 5]
-    nlinarith
+  have h := term_mode ha (by linarith) (k := 3) (by norm_num) (Cv := 2.2965) (D := 1.212206)
+    (X := c * (0.06026 * 3)) (Y := c * primeD a (Real.log 2) 3) (τ := 2.7) (P := 0.0799)
+    (by simpa using cin_val3) dlo3 (mul_le_mul_of_nonneg_left hD hc0)
+    (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.06026 * 3 by norm_num)])
+    (pm_leC3 ha ha2 hp hn h0)
+  linarith
 
 theorem pm_leC4 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.36) {g : ℝ → ℝ} (hp : Probe a g)
-    (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 4 ≤ (0.13125 : ℝ) := by
-  have h1 := pm_le ha hp hn 4 (0 : ℝ)
-  rw [integral_cos_sub_sq ha (by norm_num) (0 : ℝ)] at h1
-  have hc := cval4
-  have hI := integral_sq_perp ha (by linarith) hp hn h0
-  have h8 : 0 < 8 * a := by linarith
-  refine h1.trans ?_
-  rw [div_le_iff₀ h8]
-  have ha4 : a ^ 4 ≤ 0.36 ^ 4 := pow_le_pow_left₀ ha.le ha2 4
-  have ha5 : a ^ 5 = a * a ^ 4 := by ring
-  nlinarith [pow_pos ha 4, sq_nonneg (0 : ℝ)]
+    (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 4 ≤ (0.13125 : ℝ) :=
+  (pm_le_of ha ha2 (by norm_num) hp hn h0 (by norm_num) cval4).trans (by norm_num)
 
 theorem termC4 {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
     {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) (h0 : poleR g a = 0) {c : ℝ} (hc1 : 0.98 ≤ c) :
@@ -478,33 +405,18 @@ theorem termC4 {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
       ≤ (modeE a 4 - c * primeD a (Real.log 2) 4 - 2.7) * pm a g 4 := by
   have ha : 0 < a := by linarith
   have hc0 : 0 ≤ c := by linarith
-  have hψ := modeE_ge ha (by linarith) (n := 4) (by norm_num)
-  have hcv := cin_val4
-  have hd := dlo4
-  have hC : Cin (π * ((4 : ℤ) : ℝ) / 2) = Cin (π * 4 / 2) := by push_cast; rfl
-  rw [hC] at hψ
   have hD := primeD_smallC ha1 ha2 4
   rw [show |(((4 : ℤ) : ℝ))| = 4 by norm_num] at hD
-  refine term_ge ?_ ?_ (pm_nonneg ha g 4) (pm_leC4 ha ha2 hp hn h0)
-  · nlinarith [mul_le_mul_of_nonneg_left hD hc0]
-  · have : (0.35 : ℝ) ^ 2 / 6 ≤ errK a := by
-      unfold errK
-      have : (0.35 : ℝ) ^ 2 ≤ a ^ 2 := pow_le_pow_left₀ (by norm_num) ha1 2
-      nlinarith [pow_pos ha 3, pow_pos ha 4, pow_pos ha 5]
-    nlinarith
+  have h := term_mode ha (by linarith) (k := 4) (by norm_num) (Cv := 2.4081) (D := 1)
+    (X := c * (0.06026 * 4)) (Y := c * primeD a (Real.log 2) 4) (τ := 2.7) (P := 0.13125)
+    (by simpa using cin_val4) dlo4 (mul_le_mul_of_nonneg_left hD hc0)
+    (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.06026 * 4 by norm_num)])
+    (pm_leC4 ha ha2 hp hn h0)
+  linarith
 
 theorem pm_leC5 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.36) {g : ℝ → ℝ} (hp : Probe a g)
-    (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 5 ≤ (0.13951 : ℝ) := by
-  have h1 := pm_le ha hp hn 5 (-0.18 : ℝ)
-  rw [integral_cos_sub_sq ha (by norm_num) (-0.18 : ℝ)] at h1
-  have hc := cval5
-  have hI := integral_sq_perp ha (by linarith) hp hn h0
-  have h8 : 0 < 8 * a := by linarith
-  refine h1.trans ?_
-  rw [div_le_iff₀ h8]
-  have ha4 : a ^ 4 ≤ 0.36 ^ 4 := pow_le_pow_left₀ ha.le ha2 4
-  have ha5 : a ^ 5 = a * a ^ 4 := by ring
-  nlinarith [pow_pos ha 4, sq_nonneg (-0.18 : ℝ)]
+    (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 5 ≤ (0.13951 : ℝ) :=
+  (pm_le_of ha ha2 (by norm_num) hp hn h0 (by norm_num) cval5).trans (by norm_num)
 
 theorem termC5 {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
     {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) (h0 : poleR g a = 0) {c : ℝ} (hc1 : 0.98 ≤ c) :
@@ -512,20 +424,14 @@ theorem termC5 {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
       ≤ (modeE a 5 - c * primeD a (Real.log 2) 5 - 2.7) * pm a g 5 := by
   have ha : 0 < a := by linarith
   have hc0 : 0 ≤ c := by linarith
-  have hψ := modeE_ge ha (by linarith) (n := 5) (by norm_num)
-  have hcv := cin_val5
-  have hd := dlo5
-  have hC : Cin (π * ((5 : ℤ) : ℝ) / 2) = Cin (π * 5 / 2) := by push_cast; rfl
-  rw [hC] at hψ
   have hD := primeD_smallC ha1 ha2 5
   rw [show |(((5 : ℤ) : ℝ))| = 5 by norm_num] at hD
-  refine term_ge ?_ ?_ (pm_nonneg ha g 5) (pm_leC5 ha ha2 hp hn h0)
-  · nlinarith [mul_le_mul_of_nonneg_left hD hc0]
-  · have : (0.35 : ℝ) ^ 2 / 6 ≤ errK a := by
-      unfold errK
-      have : (0.35 : ℝ) ^ 2 ≤ a ^ 2 := pow_le_pow_left₀ (by norm_num) ha1 2
-      nlinarith [pow_pos ha 3, pow_pos ha 4, pow_pos ha 5]
-    nlinarith
+  have h := term_mode ha (by linarith) (k := 5) (by norm_num) (Cv := 2.4848) (D := 0.872676)
+    (X := c * (0.06026 * 5)) (Y := c * primeD a (Real.log 2) 5) (τ := 2.7) (P := 0.13951)
+    (by simpa using cin_val5) dlo5 (mul_le_mul_of_nonneg_left hD hc0)
+    (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.06026 * 5 by norm_num)])
+    (pm_leC5 ha ha2 hp hn h0)
+  linarith
 
 theorem pole_par_lin {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.36) :
     15 / (8 * a) * (4 * a / 3 + a ^ 3 / 30 + a ^ 5 / 2688) ^ 2 ≤ 3.356 * a := by
@@ -568,19 +474,8 @@ theorem weilQ_perp_ge_seg {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
           + (modeE a 2 - c * primeD a (Real.log 2) 2 - 2.7) * pm a g 2
           + (modeE a 3 - c * primeD a (Real.log 2) 3 - 2.7) * pm a g 3
           + (modeE a 4 - c * primeD a (Real.log 2) 4 - 2.7) * pm a g 4
-          + (modeE a 5 - c * primeD a (Real.log 2) 5 - 2.7) * pm a g 5) := by
-    have hm : ∀ k : ℤ, modeE a (-k) = modeE a k := modeE_neg a
-    have hd : ∀ k : ℤ, primeD a (Real.log 2) (-k) = primeD a (Real.log 2) k := primeD_neg a _
-    have hq : ∀ k : ℤ, pm a g (-k) = pm a g k := pm_neg ha hp
-    simp only [lowS]
-    rw [Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_insert (by decide),
-      Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_insert (by decide),
-      Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_insert (by decide),
-      Finset.sum_insert (by decide), Finset.sum_singleton]
-    rw [show (-5 : ℤ) = -(5 : ℤ) from rfl, show (-4 : ℤ) = -(4 : ℤ) from rfl,
-      show (-3 : ℤ) = -(3 : ℤ) from rfl, show (-2 : ℤ) = -(2 : ℤ) from rfl,
-      show (-1 : ℤ) = -(1 : ℤ) from rfl, hm, hm, hm, hm, hm, hd, hd, hd, hd, hd, hq, hq, hq, hq, hq]
-    ring
+          + (modeE a 5 - c * primeD a (Real.log 2) 5 - 2.7) * pm a g 5) :=
+    sum_lowS_even fun k => by simp only [modeE_neg, primeD_neg, pm_neg ha hp]
   rw [hsum] at hE
   have h0t : (0 - 0 - 2.7) * (a ^ 4 / 240)
       ≤ (modeE a 0 - c * primeD a (Real.log 2) 0 - 2.7) * pm a g 0 := by
