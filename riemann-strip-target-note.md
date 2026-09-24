@@ -3,8 +3,9 @@
 **Working note, not a paper surface.** Written at the owner's commission
 ("try to prove it theoretically before running any long winded numerics")
 after Addendum 537. No long numerics were run for this note; the closed
-forms of §3.4 were checked at 30 digits, in seconds, by an uncommitted
-script named there. The Lean pilot was not touched. Every statement below is either proved here in full, or is
+forms of §3.4 were checked by high-precision quadrature, in seconds, by an
+uncommitted script named there (the identities are exact; the quadratures
+agree to 17–19 digits). The Lean pilot was not touched. Every statement below is either proved here in full, or is
 marked as a proof sketch with the unfinished step named, or is marked as
 heuristic. Nothing here is a claim of `riemann-indistinguishability.md`,
 which asserts the Riemann Hypothesis neither true nor false.
@@ -564,12 +565,15 @@ round 62) — its κ(a) is this note's τ_a, not the paper's κ(a); its round-70
 coefficient of Φ″ in a least-squares fit g_a ≈ c(Φ + βΦ″ + γΦ⁗) (its round
 69, `beta_fit.py`), and τ = −β is the
 z² coefficient of M when the fit is exact, since the transform of Φ″ is
-−z²Ξ/2. Cross-check, two computations of one quantity on two objects —
-the paper's curvatures belong to the ground state of its zero-side model
-("the first 6700 zeros … plus the smooth density"), the pilot's β to the
-ground state of the prime-side Weil Gram ("unconditional: arithmetic side
-only", README round 68), the two ground states agreeing in λ₁ by the
-pilot's own record: from the paper's
+−z²Ξ/2. Cross-check, two codes computing one quantity on one object —
+the ground state of the prime-side Weil Gram (`weil_prime_gram.py`,
+"unconditional: arithmetic side only", README round 68): the paper's
+curvatures are 1bu(ii)'s, from its `ladder_caster.py` ("From the true
+form's Gram (weil_prime_gram, the even cosine basis on [-a, a], delta =
+2a) at the 1bn/1br cells, the lowest eigenvectors"), and the pilot's β is
+its least-squares fit on the same Gram (its round 23: "The ground state
+is computed with the paper's own Gram (`tools/research/weil_prime_gram.py`:
+even cosine basis, every prime power, 600–1100 bits)"): from the paper's
 published cell curvatures 0.0203, 0.0221, 0.0225 at δ = 2, 3, 3.5 (1bu(ii),
 four decimals, so the products below carry ±0.0004, ±0.0010, ±0.0017),
 (κ_Ξ − κ)e^δ = 0.0207, 0.0202, 0.0200; the pilot's fitted −β·e^δ at the
@@ -648,8 +652,10 @@ defect, as a function of the wall, is stationary exactly where 1bm(iv)'s
 exponent f(X) = 2πX(1 + ln 2 − ln X) is, and a wall displaced from 2T₀ by
 a relative amount η changes τ_a only at order η². And the pilot's
 "quarter-exponent rule" (round 70: the damping at the edge is one quarter
-of Φ's decay exponent πe^{2a}) reads, in (3.6), τ_a T₀² = πe^δ/4; at the
-wall itself the multiplier is e^{τ_a T²} = e^{T/4} = e^{πe^δ}, the full
+of Φ's decay exponent πe^{2a}) reads, in (3.6), τ_a T₀² = πe^δ/4; the
+Gaussian law, extrapolated to the wall (the pilot's multiplier law is
+local — "It can only be local: `ĝ_a` is bounded on `ℝ`, while `Ξ·e^{τz²}`
+is not", round 69), gives e^{τ_a T²} = e^{T/4} = e^{πe^δ}, the full
 exponent, i.e. 1/Φ(a) at leading order — the pilot's P1 (round 72) in the
 transform variable.
 
@@ -657,8 +663,9 @@ transform variable.
 script (`sixteen_pi.py` in the session's scratchpad, not in the
 repository; every figure below is reproducible from the formulas above in
 seconds; mpmath at 30 digits, a few seconds' run)
-checked: P and Q against their closed forms (the quadratures agree to 19
-digits); (3.4) at X = 2, 1.5, 3 and at
+checked: P and Q against their closed forms (the quadratures of the
+integrand as written agree to 19 and 17 significant digits — cancellation
+near s = 0; the equal form 1/(1 + √(1 − s²)) gives all 30); (3.4) at X = 2, 1.5, 3 and at
 the cells' walls; J(2)/(4π²) = 1/(16π), exact by (3.4) and to 19 digits by
 quadrature; the mean-value
 property of h_X at an interior point of Ω; and, independently of the
@@ -670,7 +677,8 @@ the paper's edge value. A second cross-check, on the pilot's angle: its
 round 62 gives "`sin θ ≈ |κ|·‖(Φ'')^⊥‖/‖Φ‖ = 13.98|κ|`" with κ the moment
 coefficient of (i); (3.6) then predicts sin²θ · e^{2δ} → (13.98/(16π))² =
 0.0774, against the pilot's measured sequence of sin²θ·e^{2δ} ending
-0.079, 0.0785 at δ = 4.0, 4.5 (adapted from its backticked table) "with
+0.079, 0.0785 at δ = 4.0, 4.5 (the last two entries of its backticked
+inline list; its table gives 0.0793 at δ = 4.0) "with
 shrinking steps" and its "`C → ≈ 0.077`" (README round 69; its round 73
 declares round 70's δ = 5 row "unreliable", K = 1300 there giving
 "`sin²θ·e^{2δ} = 0.077`") — the pilot's 13.98 and its angles are its
@@ -706,12 +714,19 @@ lie above. The count constant of Theorem 1bs does not enter (3.2)
 directly — a constant in N contributes −c/T² + 2c/(2T²) = 0 to the
 moment — but only through the wall shift of 1ca, ε = 7/(2T), which by
 (3.5)'s stationarity is second order, τ_a e^δ = (1 − ε²/2 + O(ε³))/(16π),
-a coefficient −49/(2048π³) = −0.00077 of e^{−2δ}: the wrong sign and 13%
-of the pilot's +0.0058. The correction lives outside the continuum
-problem — in ζ's own discreteness beyond the wall (the S(T) ripple of
-Σ_{γ≥T}γ⁻², of order (ln T)/T², fluctuating in sign from wall to wall)
-and on the probe side in the edge layer the pilot's round 73 finds
-necessary — and is open.
+a coefficient −49/(2048π³) = −0.00077 of e^{−2δ} in τ_a e^δ, one order
+below the pilot's +0.0058e^{−δ} and of the wrong sign (1.8% of it at
+δ = 2, falling like e^{−δ}). The correction lives outside the continuum
+problem and is open. Its home is not identified here. Two candidates,
+neither computed: the discrete-minus-continuum difference of ζ's tail,
+−S(T)/T² + 2∫_T^∞ S(r)r⁻³dr, has a fluctuating part of order (ln T)/T²
+and, with the wall just below the first missed zero, a systematic part —
+S(T⁻) averages about −½ there, giving +1/(2T²) = +0.0032e^{−2δ} in τ_a,
+the pilot's sign and about half its size — while the probe's first free
+zero, "within 0.2" of the wall, contributes at the same order with the
+opposite sign; and on the probe side the edge layer the pilot's round 73
+finds necessary. The pilot's remainder is steady across its walls, so a
+fluctuating term alone cannot be it.
 
 Taken at every δ with T → ∞, input (a) is the target of §4 item 3 itself,
 RH-strength. So this subsection is a consistency statement, not a
@@ -802,7 +817,7 @@ P2. Nothing in this subsection proves RH, and the note's header stands.
    The inputs — D at the wall, the reduction's five lemmas, the wall at
    the maximiser, the continuum density — are the paper's and conjectural;
    the pilot's e^{−2δ} correction is not derived (the count constant's
-   wall shift gives the wrong sign and 13% of it); the pilot's round 73
+   wall shift is one order smaller and of the wrong sign); the pilot's round 73
    finds, from the minimiser's side, that the bulk heat family alone does
    not fix the constant, consistent with a wall-fixed constant; nothing
    about RH follows.
