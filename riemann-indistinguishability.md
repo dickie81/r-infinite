@@ -6386,9 +6386,14 @@ ln 2; positivity on the whole exterior at X = 2 is checked to 10⁶X, not
 proved *(net state at the round-381 landing: proved, for every X ≤ 2, by
 the closed form that follows)*. **The density in closed form (proved;
 landed at round 381 — the form first recorded, with its proof, in the
-Lean pilot's README round 75 under `tools/lean/riemann-pilot/`, where its
-committed `frontier/nullvec/tau_closed_form.py` checks it at 30 digits;
-the proof here is self-contained).** With s := √(x² − X²), for every
+Lean pilot's README round 75 under `tools/lean/riemann-pilot/`, whose
+committed `frontier/nullvec/tau_closed_form.py` prints, at 30 digits and
+without an assertion, exp(τ + x ln(X/2)/s − ln X) beside x/(x + s) at
+eight points and the X = 2 mass and moment — a record, not a gate; and
+formalised in Lean in its round 76, `src/SixteenPi.lean`, `tauBal_closed`
+and `tauBal_two`, by the logarithm's integral representation and Fubini,
+a route without the Fourier series; the proof here is self-contained and
+rests on none of these).** With s := √(x² − X²), for every
 x > X,
 
 τ(x) = ln(2x/(x + s)) + ln(2/X)·(x/s − 1).
@@ -6398,7 +6403,8 @@ x > X,
 (X² − t²)/(x² − t²) = 1 − s²/(x² − t²), the substitution t = X sin θ gives
 I(x) = 2x ∫₀^{π/2} ln(X sin θ)·[1 − s²/(x² − X² sin²θ)] dθ. Three
 integrals enter: ∫₀^{π/2} ln sin θ dθ = −(π/2) ln 2 (Euler);
-∫₀^{π/2} dθ/(x² − X² sin²θ) = π/(2xs); and L := ∫₀^{π/2} ln sin θ/(x² −
+∫₀^{π/2} dθ/(x² − X² sin²θ) = π/(2xs) (the k = 0 term of the Poisson
+expansion used below); and L := ∫₀^{π/2} ln sin θ/(x² −
 X² sin²θ) dθ = (π/(2xs)) ln(x/(x + s)). For L put φ = 2θ: x² − X² sin²θ =
 a + b cos φ with a = x² − X²/2, b = X²/2, a > |b| and √(a² − b²) = xs;
 Poisson's kernel gives 1/(a + b cos φ) = (1/(xs))(1 + 2Σ_{k≥1} r^k cos kφ)
@@ -6424,7 +6430,12 @@ theorem, not by census. For X > 2 the second term is −ln(X/2)(x/s − 1) →
 √(X/2) ln(2/X) already showed — the threshold is exactly X = 2. The
 closed form reproduces the edge identity I(X) = πX ln(X/2) (s → 0) and,
 near the edge, s ≈ √(2X(x − X)) gives τ ≈ ln X + √(X/2) ln(2/X)/√(x − X),
-the coefficient above. The exterior potential is exactly −2π and the interior
+the coefficient above. At X = 2 the exterior deficit against ζ's
+deviation is ln x − τ(x) = ln((x + s)/2) = arccosh(x/2): the Green
+function of the band [−2, 2] with pole at infinity, restricted to the
+real exterior (an identity the pilot's README round 77 records; its
+x⁻² moment is ∫₂^∞ arccosh(x/2) x⁻² dx = π/4, by parts and then
+∫₂^∞ dx/(x√(x² − 4)) = ½ arcsec(x/2)|₂^∞ = π/4). The exterior potential is exactly −2π and the interior
 potential falls monotonically from 0 to −2π (both gated live on the
 exact kernel: the exterior value within 3×10⁻³ at five points, the
 monotonicity at twelve interior points). So, *within
@@ -6450,7 +6461,10 @@ above Theorem 1bl's certified even bound 5.7134×10⁻¹³ within a factor 2
 proved: the closed-form value of the reduced problem (iv) and its edge
 identities (the admissibility of the balayage on the whole exterior is
 checked, not proved *— net state at the round-381 landing: proved, for
-every X ≤ 2, by the density's closed form in (iv)*). What is computed:
+every X ≤ 2, by the density's closed form in (iv)*), and, since the
+round-381 landing, the balayage density's closed form τ(x) = ln(2x/(x +
+s)) + ln(2/X)(x/s − 1) with its admissibility for every X ≤ 2 and
+inadmissibility for X > 2. What is computed:
 the cells (ii), with certified upper bounds and measured truncations,
 and the ground state's structure (iii). What is conjectured: the
 reduction (iii)'s five lemmas, hence f_∞ = 4π for λ₁ itself; the exact
@@ -6563,8 +6577,9 @@ the Weil form cited in this clause derives a decay law for λ₁ or
 states the finite-δ formula (Fuchs' Theorem 1, quoted through CCM and
 Connes, is the prolate's). Check 7 clean (the explicit
 formula, Hadamard, Cartwright, Slepian, the Green function of the slit
-plane, balayage, the maximum principle, Euler–Maclaurin — classical; no
-semiclassics; no cascade quantity derived). Check 8 clean (no
+plane, balayage, the maximum principle, Euler–Maclaurin, and, since the
+round-381 landing, Euler's series for ln sin and Poisson's kernel —
+classical; no semiclassics; no cascade quantity derived). Check 8 clean (no
 hypothesis input; Riemann-side pure mathematics). Substrate
 `slack_law_flint.py` committed, imported, and content-addressed into
 the verifier's keys (`cascade_slack_law.py`, tower member 22, the top)
