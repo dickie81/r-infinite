@@ -6386,9 +6386,11 @@ ln 2; positivity on the whole exterior at X = 2 is checked to 10⁶X, not
 proved *(net state at the round-381 landing: proved, for every X ≤ 2, by
 the closed form that follows)*. **The density in closed form (proved;
 landed at round 381 — the form first recorded, with its proof, in the
-Lean pilot's README round 75 under `tools/lean/riemann-pilot/`, where its
-committed `frontier/nullvec/tau_closed_form.py` checks it at 30 digits;
-the proof here is self-contained).** With s := √(x² − X²), for every
+Lean pilot's README round 75 under `tools/lean/riemann-pilot/`, whose
+committed `frontier/nullvec/tau_closed_form.py` prints, at 30 digits and
+without an assertion, exp(τ + x ln(X/2)/s − ln X) beside x/(x + s) at
+eight points and the X = 2 mass and moment — a record, not a gate; the
+proof here is self-contained and rests on neither).** With s := √(x² − X²), for every
 x > X,
 
 τ(x) = ln(2x/(x + s)) + ln(2/X)·(x/s − 1).
@@ -6398,7 +6400,8 @@ x > X,
 (X² − t²)/(x² − t²) = 1 − s²/(x² − t²), the substitution t = X sin θ gives
 I(x) = 2x ∫₀^{π/2} ln(X sin θ)·[1 − s²/(x² − X² sin²θ)] dθ. Three
 integrals enter: ∫₀^{π/2} ln sin θ dθ = −(π/2) ln 2 (Euler);
-∫₀^{π/2} dθ/(x² − X² sin²θ) = π/(2xs); and L := ∫₀^{π/2} ln sin θ/(x² −
+∫₀^{π/2} dθ/(x² − X² sin²θ) = π/(2xs) (the k = 0 term of the Poisson
+expansion used below); and L := ∫₀^{π/2} ln sin θ/(x² −
 X² sin²θ) dθ = (π/(2xs)) ln(x/(x + s)). For L put φ = 2θ: x² − X² sin²θ =
 a + b cos φ with a = x² − X²/2, b = X²/2, a > |b| and √(a² − b²) = xs;
 Poisson's kernel gives 1/(a + b cos φ) = (1/(xs))(1 + 2Σ_{k≥1} r^k cos kφ)
@@ -6450,7 +6453,10 @@ above Theorem 1bl's certified even bound 5.7134×10⁻¹³ within a factor 2
 proved: the closed-form value of the reduced problem (iv) and its edge
 identities (the admissibility of the balayage on the whole exterior is
 checked, not proved *— net state at the round-381 landing: proved, for
-every X ≤ 2, by the density's closed form in (iv)*). What is computed:
+every X ≤ 2, by the density's closed form in (iv)*), and, since the
+round-381 landing, the balayage density's closed form τ(x) = ln(2x/(x +
+s)) + ln(2/X)(x/s − 1) with its admissibility for every X ≤ 2 and
+inadmissibility for X > 2. What is computed:
 the cells (ii), with certified upper bounds and measured truncations,
 and the ground state's structure (iii). What is conjectured: the
 reduction (iii)'s five lemmas, hence f_∞ = 4π for λ₁ itself; the exact
