@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 9 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 384 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 391 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -49,7 +49,7 @@ Every file ends with `#print axioms`. All 384 checked theorems depend only on `p
 | `Mollify.lean` | 1026 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
 | `TheoremC.lean` | 810 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element**; the smooth form `simple_not_flat` as a corollary |
 | `ZeroCount.lean` | 333 | off-line zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²` per ground state (none for `m ≤ 2`); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`**; `M ≤ 2` gives RH |
-| `SixteenPi.lean` | 766 | the strip note's §3.4 derivation of `1/(16π)`; **the balayage identity proved (Fubini), so the reduced problem gives `e^{−δ}/(16π)` with no hypothesis**; the wall maximiser `X* = 2`; `P`, `Q`, `J(X) = (π/(2X))(1 + ln(X/2))`, the wall at `X = 2`, `τ = e^{−δ}/(16π)`; the multiplier's `z²` coefficient is the curvature defect; exact and tolerant D cancel the matched zeros |
+| `SixteenPi.lean` | 1251 | the strip note's §3.4 derivation of `1/(16π)`; **the balayage identity proved (Fubini), so the reduced problem gives `e^{−δ}/(16π)` with no hypothesis**; the wall maximiser `X* = 2`; **the balayage density in closed form, positive at the wall**; `P`, `Q`, `J(X) = (π/(2X))(1 + ln(X/2))`, the wall at `X = 2`, `τ = e^{−δ}/(16π)`; the multiplier's `z²` coefficient is the curvature defect; exact and tolerant D cancel the matched zeros |
 | `GapBound.lean` | 443 | **the pole-overlap gap bound** `λ₂ − λ₁ ≥ c₂²(μ₂ − μ₁)/(c₁² + c₂²)` at operator level, hence simplicity from a nonzero overlap `⟨c, ψ₂⟩`; **the Galerkin transfer**: dense truncations with a uniform truncated gap give simplicity |
 | `CosTrunc.lean` | 653 | **`TruncDense` for the paper's cosine basis** `span{1_{[−a,a]}cos(kπt/a) : k < K}`: `C²` approximant, its cosine series by Mathlib's Fourier theorem, Hölder tails, energy of a truncated Hölder function; round 60's transfer for this basis with no density hypothesis |
 | `StripConv.lean` | 544 | **(a) is needed only on the strip `|{Im z}| < ½`**: RH from strip convergence; strip convergence from `L²` closeness of the ground state to a kernel at rate `o(e^{−a/2}/√a)` (`rh_of_close_top`); the min–max angle bound and `rh_of_relgap`; every moment condition (`k = 2`: `κ → 0`) as a corollary |
@@ -2548,4 +2548,37 @@ Round 74 kept one hypothesis inside the reduced problem: the balayage identity `
 - (d) The continuum limit. This is an approximation whose error is the pilot's measured `−0.0058e^{−δ}` term, not a hypothesis that could be discharged.
 
 So `1/(16π)` is now a theorem about the paper's reduced problem, and a conjecture about ζ's ground state exactly to the extent of (a)–(d).
+
+## Round 76: the balayage density in closed form, and its positivity at the wall (SixteenPi.lean)
+
+Round 75 recorded a closed form for the paper's balayage density, proved on paper using the Fourier series of `ln sin`, which Mathlib lacks. Round 76 proves it in Lean by a route that avoids that series.
+
+**The theorem** (`tauBal_closed`). For `x > X > 0`, with `s = √(x² − X²)`:
+
+`τ_X(x) = −I(x)/(πs) = ln(Xx/(x + s)) − x·ln(X/2)/s`.
+
+Equivalently (`Ibal_closed`): `I(x) = πx ln X − πx ln 2 − πs ln x + (πs/2)(ln(x + s) − ln(x − s))`.
+
+**Route.** Every step is elementary.
+1. **The logarithm as an integral** (`integral_logRep`): `ln c = ∫₀^∞ (1/(1 + v) − 1/(c + v)) dv`, with `∫|·| = |ln c|`. So `ln|t| = ½∫₀^∞ (1/(1 + v) − 1/(t² + v)) dv`.
+2. **Fubini** on `(−X, X) × (0, ∞)`. The product integrand is integrable because `√(X² − t²)/(x − t) ≤ X/(x − X)` and `∫|·| dv = 2|ln|t||`.
+3. **For fixed `v`, the `t`-integral** (`integral_Cv`). Partial fractions `1/((x − t)(t² + v)) = [1/(x − t) + (x + t)/(t² + v)]/(x² + v)` reduce it to three pieces:
+   - `C₀ = ∫√(X² − t²)/(x − t) = π(x − s)` (`integral_C0`), by the antiderivative `x·arcsin(t/X) − √(X² − t²) + s·arcsin((X² − xt)/(X(x − t)))`;
+   - `D(v) = ∫√(X² − t²)/(t² + v) = π(√(X² + v) − √v)/√v` (`integral_Dv`), by the antiderivative `(√(X² + v)/√v)·arcsin(t√(X² + v)/(X√(t² + v))) − arcsin(t/X)`;
+   - an odd part, which vanishes (`integral_Ev`).
+   Both arcsin antiderivatives are continuous on the closed interval, so no improper integrals are needed.
+4. **The `v`-integral** (`integral_Qv`). Its antiderivative is `2π[ln(√v + √(X² + v)) − ½ln(x² + v) − (s/(2x))(ln(x√(X² + v) + s√v) − ln(x√(X² + v) − s√v))]`:
+   - its derivative is checked with one polynomial identity (`hasDerivAt_Qprim`);
+   - its limit at `∞` comes from rescaling to `2πΨ(1/v)` with `Ψ` continuous at 0 (`Qprim_eq_Psi`, `tendsto_Qprim`).
+5. **Assembly.** Combine the pieces, then use `(x + s)(x − s) = X²` to reach the stated form.
+
+**Admissibility at the wall, proved** (`tauBal_two`). For every `x > 2`, `τ(x) = ln(2x/(x + √(x² − 4))) > 0`. The paper's Theorem 1bm(iv) states that "positivity on the whole exterior at X = 2 is checked to 10⁶X, not proved". The closed form proves it for every `x > 2`: the balayage at the wall is a positive density on the whole exterior, as the paper's "admissibility threshold is the maximiser" needs.
+
+**Status of the reduced problem.** Every statement of the note's §3.4 inside the paper's reduced problem is now a Lean theorem with no hypothesis:
+- the balayage identity;
+- the exterior moment and `e^{−δ}/(16π)`;
+- the wall `X* = 2` with `f_∞ = 4π`;
+- the density's closed form and its positivity at the wall.
+
+What stays conditional is only the transfer to ζ's ground state, the note's (vii)(a)–(d); (a) is RH-strength (round 75).
 

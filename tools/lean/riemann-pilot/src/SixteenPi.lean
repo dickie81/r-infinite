@@ -27,9 +27,13 @@ proves everything in that derivation except the balayage identity itself.
 
 **Not formalised:** the link from the reduced problem to ζ's ground state — the note's inputs
 (vii)(a)–(d): Hypothesis D at the wall (RH-strength), the reduction's five lemmas, that the ground
-state's wall is the reduced problem's maximiser, the continuum limit. The positivity of `τ` at `X = 2`
-(the balayage's admissibility; closed form `ln(2x/(x + √(x² − 4)))`, README round 75) is not formalised.
-Nothing here bears on RH.
+state's wall is the reduced problem's maximiser, the continuum limit. Nothing here bears on RH.
+
+* **The density in closed form (round 76).** `τ_X(x) = ln(Xx/(x + s)) − x ln(X/2)/s`, `s = √(x² − X²)`
+  (`tauBal_closed`, from `Ibal_closed`): `ln|t| = ½∫₀^∞ (1/(1 + v) − 1/(t² + v)) dv`, Fubini, the
+  elementary `t`-integrals `π(x − s)` and `π(√(X² + v) − √v)/√v` (arcsin antiderivatives), and an
+  explicit logarithmic antiderivative in `v`. At the wall `τ = ln(2x/(x + √(x² − 4))) > 0`
+  (`tauBal_two`): the balayage's admissibility, which the paper records as checked, not proved.
 -/
 
 open Real MeasureTheory Set Filter Topology intervalIntegral
@@ -744,6 +748,480 @@ theorem fBalExp_le {X : ℝ} (hX : 0 < X) : fBalExp X ≤ 4 * π ∧ (fBalExp X 
   rw [mul_sub, mul_inv_cancel₀ hy0.ne', mul_one] at this
   linarith
 
+
+/-! ## I. The balayage density in closed form, and its positivity at the wall -/
+
+theorem hasDerivAt_arcsin_comp {f : ℝ → ℝ} {f' t : ℝ} (hf : HasDerivAt f f' t)
+    (h1 : f t ≠ -1) (h2 : f t ≠ 1) :
+    HasDerivAt (fun y => arcsin (f y)) (1 / √(1 - f t ^ 2) * f') t :=
+  (hasDerivAt_arcsin h1 h2).comp t hf
+
+theorem sqrt_eq_of_sq {a E : ℝ} (hE : 0 ≤ E) (h : a = E ^ 2) : √a = E := by
+  rw [h, Real.sqrt_sq hE]
+
+/-- `∫_{−X}^{X} √(X² − t²)/(x − t) dt = π(x − √(x² − X²))` for `x > X > 0`. -/
+theorem integral_C0 {X x : ℝ} (hX : 0 < X) (hx : X < x) :
+    ∫ t in (-X)..X, √(X ^ 2 - t ^ 2) / (x - t) = π * (x - √(x ^ 2 - X ^ 2)) := by
+  set s := √(x ^ 2 - X ^ 2) with hs
+  have hs2 : s ^ 2 = x ^ 2 - X ^ 2 := Real.sq_sqrt (by nlinarith)
+  have hs0 : 0 < s := Real.sqrt_pos.2 (by nlinarith)
+  set H : ℝ → ℝ := fun t => x * arcsin (t / X) - √(X ^ 2 - t ^ 2)
+    + s * arcsin ((X ^ 2 - x * t) / (X * (x - t))) with hH
+  have hcont : ContinuousOn H (Icc (-X) X) := by
+    refine ContinuousOn.add (by fun_prop) (continuousOn_const.mul
+      (continuous_arcsin.comp_continuousOn (ContinuousOn.div (by fun_prop) (by fun_prop) ?_)))
+    intro t ht; exact mul_ne_zero hX.ne' (by linarith [ht.2])
+  have hder : ∀ t ∈ Ioo (-X) X, HasDerivAt H (√(X ^ 2 - t ^ 2) / (x - t)) t := by
+    intro t ⟨h1, h2⟩
+    have hxt : 0 < x - t := by linarith
+    have hw : 0 < X ^ 2 - t ^ 2 := by nlinarith
+    have hw0 : 0 < √(X ^ 2 - t ^ 2) := Real.sqrt_pos.2 hw
+    have hw2 : √(X ^ 2 - t ^ 2) ^ 2 = X ^ 2 - t ^ 2 := Real.sq_sqrt hw.le
+    have hXxt : X * (x - t) ≠ 0 := mul_ne_zero hX.ne' hxt.ne'
+    have d1 := hasDerivAt_arcsin_comp ((hasDerivAt_id t).div_const X)
+      (by simp only [id]; rw [Ne, div_eq_iff hX.ne']; linarith)
+      (by simp only [id]; rw [Ne, div_eq_iff hX.ne']; linarith)
+    have d2 : HasDerivAt (fun y => √(X ^ 2 - y ^ 2)) (-(2 * t) / (2 * √(X ^ 2 - t ^ 2))) t := by
+      convert ((hasDerivAt_pow 2 t).const_sub (X ^ 2)).sqrt hw.ne' using 1; norm_num
+    have du : HasDerivAt (fun t => (X ^ 2 - x * t) / (X * (x - t)))
+        (((0 - x * 1) * (X * (x - t)) - (X ^ 2 - x * t) * (X * (0 - 1))) / (X * (x - t)) ^ 2) t :=
+      ((hasDerivAt_const t (X ^ 2)).sub ((hasDerivAt_id t).const_mul x)).div
+        ((hasDerivAt_const t x).sub (hasDerivAt_id t) |>.const_mul X) hXxt
+    have hu1 : (X ^ 2 - x * t) / (X * (x - t)) ≠ -1 := by
+      rw [Ne, div_eq_iff hXxt]; intro h; nlinarith
+    have hu2 : (X ^ 2 - x * t) / (X * (x - t)) ≠ 1 := by
+      rw [Ne, div_eq_iff hXxt]; intro h; nlinarith
+    have d3 := hasDerivAt_arcsin_comp du hu1 hu2
+    have e1 : √(1 - (id t / X) ^ 2) = √(X ^ 2 - t ^ 2) / X :=
+      sqrt_eq_of_sq (by positivity) (by simp only [id]; rw [div_pow, div_pow, hw2]; field_simp)
+    have e2 : √(1 - ((X ^ 2 - x * t) / (X * (x - t))) ^ 2) = s * √(X ^ 2 - t ^ 2) / (X * (x - t)) :=
+      sqrt_eq_of_sq (by positivity) (by
+        have q : (s * √(X ^ 2 - t ^ 2) / (X * (x - t))) ^ 2 = (x ^ 2 - X ^ 2) * (X ^ 2 - t ^ 2) /
+            (X * (x - t)) ^ 2 := by rw [div_pow, mul_pow, hw2, hs2]
+        rw [q]; field_simp; ring)
+    rw [e1] at d1
+    rw [e2] at d3
+    have := (d1.const_mul x).sub d2 |>.add (d3.const_mul s)
+    convert this using 1
+    · funext y; simp only [hH, Pi.add_apply, Pi.sub_apply, id]
+    · field_simp
+      linear_combination hw2
+  rw [integral_eq_sub_of_hasDerivAt_of_le (by linarith) hcont hder
+    ((ContinuousOn.div (by fun_prop) (by fun_prop) fun t ht => by
+      rw [uIcc_of_le (by linarith)] at ht
+      exact sub_ne_zero.2 (by linarith [ht.2] : t < x).ne').intervalIntegrable)]
+  have a1 : (X ^ 2 - x * X) / (X * (x - X)) = -1 := by
+    rw [div_eq_iff (mul_ne_zero hX.ne' (by linarith))]; ring
+  have a2 : (X ^ 2 - x * -X) / (X * (x - -X)) = 1 := by
+    rw [div_eq_iff (mul_ne_zero hX.ne' (by linarith))]; ring
+  simp only [hH, a1, a2, div_self hX.ne', neg_div, arcsin_one, arcsin_neg, sub_self,
+    Real.sqrt_zero, neg_sq]
+  ring
+
+/-- `∫_{−X}^{X} √(X² − t²)/(t² + v) dt = π(√(X² + v) − √v)/√v` for `v > 0`. -/
+theorem integral_Dv {X v : ℝ} (hX : 0 < X) (hv : 0 < v) :
+    ∫ t in (-X)..X, √(X ^ 2 - t ^ 2) / (t ^ 2 + v) = π * (√(X ^ 2 + v) - √v) / √v := by
+  set R := √(X ^ 2 + v) with hR
+  set r := √v with hr
+  have hR2 : R ^ 2 = X ^ 2 + v := Real.sq_sqrt (by positivity)
+  have hr2 : r ^ 2 = v := Real.sq_sqrt hv.le
+  have hR0 : 0 < R := Real.sqrt_pos.2 (by positivity)
+  have hr0 : 0 < r := Real.sqrt_pos.2 hv
+  set G : ℝ → ℝ := fun t => R / r * arcsin (t * R / (X * √(t ^ 2 + v))) - arcsin (t / X) with hG
+  have hq : ∀ t : ℝ, 0 < √(t ^ 2 + v) := fun t => Real.sqrt_pos.2 (by positivity)
+  have hcont : ContinuousOn G (Icc (-X) X) := by
+    refine ContinuousOn.sub (continuousOn_const.mul (continuous_arcsin.comp_continuousOn
+      (ContinuousOn.div (by fun_prop) (by fun_prop) fun t _ => ?_))) (by fun_prop)
+    exact mul_ne_zero hX.ne' (hq t).ne'
+  have hder : ∀ t ∈ Ioo (-X) X, HasDerivAt G (√(X ^ 2 - t ^ 2) / (t ^ 2 + v)) t := by
+    intro t ⟨h1, h2⟩
+    have hw : 0 < X ^ 2 - t ^ 2 := by nlinarith
+    have hw0 : 0 < √(X ^ 2 - t ^ 2) := Real.sqrt_pos.2 hw
+    have hw2 : √(X ^ 2 - t ^ 2) ^ 2 = X ^ 2 - t ^ 2 := Real.sq_sqrt hw.le
+    set q := √(t ^ 2 + v) with hqdef
+    have hq0 : 0 < q := hq t
+    have hq2 : q ^ 2 = t ^ 2 + v := Real.sq_sqrt (by positivity)
+    have dq : HasDerivAt (fun y => √(y ^ 2 + v)) (2 * t / (2 * q)) t := by
+      convert ((hasDerivAt_pow 2 t).add_const v).sqrt (by positivity : t ^ 2 + v ≠ 0) using 1; norm_num; rfl
+    have du : HasDerivAt (fun y => y * R / (X * √(y ^ 2 + v)))
+        ((1 * R * (X * q) - t * R * (X * (2 * t / (2 * q)))) / (X * q) ^ 2) t :=
+      (((hasDerivAt_id t).mul_const R).div (dq.const_mul X) (mul_ne_zero hX.ne' hq0.ne'))
+    have hlt : (t * R / (X * q)) ^ 2 < 1 := by
+      rw [div_pow, mul_pow, mul_pow, hR2, hq2, div_lt_one (by positivity)]
+      nlinarith
+    have hu1 : t * R / (X * q) ≠ -1 := fun h => by rw [h] at hlt; norm_num at hlt
+    have hu2 : t * R / (X * q) ≠ 1 := fun h => by rw [h] at hlt; norm_num at hlt
+    have d3 := hasDerivAt_arcsin_comp du hu1 hu2
+    have d1 := hasDerivAt_arcsin_comp ((hasDerivAt_id t).div_const X)
+      (by simp only [id]; rw [Ne, div_eq_iff hX.ne']; linarith)
+      (by simp only [id]; rw [Ne, div_eq_iff hX.ne']; linarith)
+    have e1 : √(1 - (id t / X) ^ 2) = √(X ^ 2 - t ^ 2) / X :=
+      sqrt_eq_of_sq (by positivity) (by simp only [id]; rw [div_pow, div_pow, hw2]; field_simp)
+    have e3 : √(1 - (t * R / (X * q)) ^ 2) = r * √(X ^ 2 - t ^ 2) / (X * q) :=
+      sqrt_eq_of_sq (by positivity) (by
+        have e : (r * √(X ^ 2 - t ^ 2) / (X * q)) ^ 2 = v * (X ^ 2 - t ^ 2) / (X * q) ^ 2 := by
+          rw [div_pow, mul_pow, hw2, hr2]
+        rw [e, div_pow, mul_pow, mul_pow, hR2, hq2]; field_simp; ring)
+    rw [e1] at d1
+    rw [e3] at d3
+    have := (d3.const_mul (R / r)).sub d1
+    convert this using 1
+    · funext y; simp only [hG, Pi.sub_apply, id]
+    · field_simp
+      simp only [hw2, hr2, hq2, hR2]
+      ring
+  rw [integral_eq_sub_of_hasDerivAt_of_le (by linarith) hcont hder
+    ((ContinuousOn.div (by fun_prop) (by fun_prop) fun t _ => by positivity).intervalIntegrable)]
+  have a1 : X * R / (X * √(X ^ 2 + v)) = 1 := by rw [← hR]; field_simp
+  have a2 : -X * R / (X * √((-X) ^ 2 + v)) = -1 := by rw [neg_sq, ← hR]; field_simp
+  simp only [hG, a1, a2, div_self hX.ne', neg_div, arcsin_one, arcsin_neg]
+  field_simp
+  ring
+
+/-- The odd part vanishes: `∫_{−X}^{X} t√(X² − t²)/(t² + v) dt = 0`. -/
+theorem integral_Ev (X v : ℝ) : ∫ t in (-X)..X, t * √(X ^ 2 - t ^ 2) / (t ^ 2 + v) = 0 := by
+  have h := intervalIntegral.integral_comp_neg (a := -X) (b := X)
+    (fun t => t * √(X ^ 2 - t ^ 2) / (t ^ 2 + v))
+  simp only [neg_neg, neg_sq, neg_mul, neg_div, intervalIntegral.integral_neg] at h
+  linarith
+
+/-- For fixed `v > 0`: `∫_{−X}^{X} √(X² − t²)/(x − t)·(1/(1 + v) − 1/(t² + v)) dt`
+`= C₀/(1 + v) − (C₀ + x·D(v))/(x² + v)`, with `C₀ = π(x − s)` and `D(v) = π(√(X² + v) − √v)/√v`. -/
+theorem integral_Cv {X x v : ℝ} (hX : 0 < X) (hx : X < x) (hv : 0 < v) :
+    ∫ t in (-X)..X, √(X ^ 2 - t ^ 2) / (x - t) * (1 / (1 + v) - 1 / (t ^ 2 + v))
+      = (1 / (1 + v) - 1 / (x ^ 2 + v)) * (π * (x - √(x ^ 2 - X ^ 2)))
+        - x / (x ^ 2 + v) * (π * (√(X ^ 2 + v) - √v) / √v) := by
+  have hXX : -X ≤ X := by linarith
+  have hne : ∀ t ∈ uIcc (-X) X, x - t ≠ 0 := fun t ht => by
+    rw [uIcc_of_le hXX] at ht; exact sub_ne_zero.2 (by linarith [ht.2] : t < x).ne'
+  have i1 : IntervalIntegrable (fun t => √(X ^ 2 - t ^ 2) / (x - t)) volume (-X) X :=
+    (ContinuousOn.div (by fun_prop) (by fun_prop) hne).intervalIntegrable
+  have i2 : IntervalIntegrable (fun t => √(X ^ 2 - t ^ 2) / (t ^ 2 + v)) volume (-X) X :=
+    (ContinuousOn.div (by fun_prop) (by fun_prop) fun t _ => by positivity).intervalIntegrable
+  have i3 : IntervalIntegrable (fun t => t * √(X ^ 2 - t ^ 2) / (t ^ 2 + v)) volume (-X) X :=
+    (ContinuousOn.div (by fun_prop) (by fun_prop) fun t _ => by positivity).intervalIntegrable
+  have e : ∀ t ∈ uIcc (-X) X, √(X ^ 2 - t ^ 2) / (x - t) * (1 / (1 + v) - 1 / (t ^ 2 + v))
+      = (1 / (1 + v) - 1 / (x ^ 2 + v)) * (√(X ^ 2 - t ^ 2) / (x - t))
+        - x / (x ^ 2 + v) * (√(X ^ 2 - t ^ 2) / (t ^ 2 + v))
+        - 1 / (x ^ 2 + v) * (t * √(X ^ 2 - t ^ 2) / (t ^ 2 + v)) := fun t ht => by
+    have := hne t ht
+    have : t ^ 2 + v ≠ 0 := by positivity
+    field_simp; ring
+  rw [intervalIntegral.integral_congr e, intervalIntegral.integral_sub
+    ((i1.const_mul _).sub (i2.const_mul _)) (i3.const_mul _),
+    intervalIntegral.integral_sub (i1.const_mul _) (i2.const_mul _),
+    intervalIntegral.integral_const_mul, intervalIntegral.integral_const_mul,
+    intervalIntegral.integral_const_mul, integral_C0 hX hx, integral_Dv hX hv, integral_Ev]
+  ring
+
+/-- **The logarithm as an integral**: for `c > 0`, `∫₀^∞ (1/(1 + v) − 1/(c + v)) dv = ln c`, the
+integrand is integrable, and `∫₀^∞ |1/(1 + v) − 1/(c + v)| dv = |ln c|`. -/
+theorem integral_logRep {c : ℝ} (hc : 0 < c) :
+    IntegrableOn (fun v => 1 / (1 + v) - 1 / (c + v)) (Ioi 0) ∧
+      ∫ v in Ioi 0, (1 / (1 + v) - 1 / (c + v)) = log c ∧
+      ∫ v in Ioi 0, |1 / (1 + v) - 1 / (c + v)| = |log c| := by
+  set g : ℝ → ℝ := fun v => 1 / (1 + v) - 1 / (c + v) with hg
+  have hder : ∀ v ∈ Ici (0 : ℝ), HasDerivAt (fun v => log (1 + v) - log (c + v)) (g v) v := by
+    intro v hv
+    have h1 : 0 < 1 + v := by linarith [hv.out]
+    have h2 : 0 < c + v := by linarith [hv.out]
+    have := (((hasDerivAt_id v).const_add 1).log h1.ne').sub (((hasDerivAt_id v).const_add c).log h2.ne')
+    convert this using 1
+    · funext y; simp only [Pi.sub_apply, id]
+    · simp [hg]
+  have hlim : Tendsto (fun v => log (1 + v) - log (c + v)) atTop (𝓝 0) := by
+    have hr : Tendsto (fun v : ℝ => 1 - (c - 1) / (c + v)) atTop (𝓝 1) := by
+      have := (tendsto_const_nhds (x := c - 1)).div_atTop (tendsto_atTop_add_const_left _ c tendsto_id)
+      simpa using (tendsto_const_nhds (x := (1 : ℝ))).sub this
+    have hl := ((continuousAt_log one_ne_zero).tendsto.comp hr)
+    rw [log_one] at hl
+    refine hl.congr' ?_
+    filter_upwards [eventually_gt_atTop 0] with v hv
+    simp only [Function.comp]
+    rw [← log_div (by positivity) (by positivity)]
+    congr 1; field_simp; ring
+  have hval : ∀ (hint : IntegrableOn g (Ioi 0)), ∫ v in Ioi 0, g v = log c := fun hint => by
+    rw [integral_Ioi_of_hasDerivAt_of_tendsto' hder hint hlim]; simp
+  rcases le_total 1 c with h1 | h1
+  · have hpos : ∀ v ∈ Ioi (0 : ℝ), 0 ≤ g v := fun v hv => by
+      simp only [hg]; rw [sub_nonneg]
+      exact one_div_le_one_div_of_le (by linarith [hv.out]) (by linarith)
+    have hint := integrableOn_Ioi_deriv_of_nonneg' hder hpos hlim
+    refine ⟨hint, hval hint, ?_⟩
+    rw [setIntegral_congr_fun measurableSet_Ioi (fun v hv => abs_of_nonneg (hpos v hv)), hval hint,
+      abs_of_nonneg (log_nonneg h1)]
+  · have hneg : ∀ v ∈ Ioi (0 : ℝ), g v ≤ 0 := fun v hv => by
+      simp only [hg]; rw [sub_nonpos]
+      exact one_div_le_one_div_of_le (by linarith [hv.out]) (by linarith)
+    have hint : IntegrableOn g (Ioi 0) := by
+      have := integrableOn_Ioi_deriv_of_nonneg' (g := fun v => -(log (1 + v) - log (c + v)))
+        (fun v hv => (hder v hv).neg) (fun v hv => neg_nonneg.2 (hneg v hv))
+        (by simpa using hlim.neg)
+      simpa using this.neg
+    refine ⟨hint, hval hint, ?_⟩
+    rw [setIntegral_congr_fun measurableSet_Ioi (fun v hv => abs_of_nonpos (hneg v hv)),
+      MeasureTheory.integral_neg, hval hint, abs_of_nonpos (log_nonpos hc.le h1)]
+/-- The antiderivative of `π(√(X² + v) − √v)/(√v(x² + v))`. -/
+def Qprim (X x v : ℝ) : ℝ :=
+  2 * π * (log (√v + √(X ^ 2 + v)) - log (x ^ 2 + v) / 2
+    - √(x ^ 2 - X ^ 2) / (2 * x) * (log (x * √(X ^ 2 + v) + √(x ^ 2 - X ^ 2) * √v)
+      - log (x * √(X ^ 2 + v) - √(x ^ 2 - X ^ 2) * √v)))
+
+theorem Qarg_pos {X x v : ℝ} (hX : 0 < X) (hx : X < x) (hv : 0 ≤ v) :
+    0 < x * √(X ^ 2 + v) - √(x ^ 2 - X ^ 2) * √v := by
+  have hs2 : √(x ^ 2 - X ^ 2) ^ 2 = x ^ 2 - X ^ 2 := Real.sq_sqrt (by nlinarith)
+  have hR2 : √(X ^ 2 + v) ^ 2 = X ^ 2 + v := Real.sq_sqrt (by positivity)
+  have hr2 : √v ^ 2 = v := Real.sq_sqrt hv
+  have hx0 : 0 < x := by linarith
+  have hlt : (√(x ^ 2 - X ^ 2) * √v) ^ 2 < (x * √(X ^ 2 + v)) ^ 2 := by
+    rw [mul_pow, mul_pow, hs2, hR2, hr2]; nlinarith [mul_pos hX hX]
+  have := lt_of_pow_lt_pow_left₀ 2 (by positivity) hlt
+  linarith
+
+theorem hasDerivAt_Qprim {X x v : ℝ} (hX : 0 < X) (hx : X < x) (hv : 0 < v) :
+    HasDerivAt (Qprim X x) (π * (√(X ^ 2 + v) - √v) / √v / (x ^ 2 + v)) v := by
+  set s := √(x ^ 2 - X ^ 2) with hs
+  set R := √(X ^ 2 + v) with hR
+  set r := √v with hr
+  have hs2 : s ^ 2 = x ^ 2 - X ^ 2 := Real.sq_sqrt (by nlinarith)
+  have hR2 : R ^ 2 = X ^ 2 + v := Real.sq_sqrt (by positivity)
+  have hr2 : r ^ 2 = v := Real.sq_sqrt hv.le
+  have hr0 : 0 < r := Real.sqrt_pos.2 hv
+  have hR0 : 0 < R := Real.sqrt_pos.2 (by positivity)
+  have hx0 : 0 < x := by linarith
+  have hA : 0 < x * R - s * r := Qarg_pos hX hx hv.le
+  have hB : 0 < x * R + s * r := by
+    have : 0 ≤ s * r := mul_nonneg (Real.sqrt_nonneg _) hr0.le
+    nlinarith
+  have dr : HasDerivAt (fun v => √v) (1 / (2 * r)) v := by
+    simpa using Real.hasDerivAt_sqrt hv.ne'
+  have dR : HasDerivAt (fun v => √(X ^ 2 + v)) (1 / (2 * R)) v := by
+    convert ((hasDerivAt_id v).const_add (X ^ 2)).sqrt (by positivity : X ^ 2 + v ≠ 0) using 1
+    simp only [id]; rfl
+  have d1 := (dr.add dR).log (by positivity : r + R ≠ 0)
+  have d2 := ((hasDerivAt_id v).const_add (x ^ 2)).log (by positivity : x ^ 2 + v ≠ 0)
+  have d3 := ((dR.const_mul x).add (dr.const_mul s)).log hB.ne'
+  have d4 := ((dR.const_mul x).sub (dr.const_mul s)).log hA.ne'
+  have := (((d1.sub (d2.div_const 2)).sub ((d3.sub d4).const_mul (s / (2 * x)))).const_mul (2 * π))
+  convert this using 1
+  · funext w; rfl
+  · simp only [id, Pi.add_apply, Pi.sub_apply, ← hr, ← hR]
+    have n1 : r + R ≠ 0 := by positivity
+    have n2 := hA.ne'
+    have n3 := hB.ne'
+    have n2' : R * x - r * s ≠ 0 := by rw [mul_comm R, mul_comm r]; exact n2
+    have n3' : R * x + r * s ≠ 0 := by rw [mul_comm R, mul_comm r]; exact n3
+    field_simp
+    have hsR : s ^ 2 = x ^ 2 - R ^ 2 + r ^ 2 := by rw [hs2, hR2, hr2]; ring
+    rw [← hr2]
+    linear_combination 2 * R ^ 2 * x ^ 3 * (R + r) * hsR
+
+theorem continuousAt_Qprim {X x : ℝ} (hX : 0 < X) (hx : X < x) : ContinuousAt (Qprim X x) 0 := by
+  have hx0 : 0 < x := by linarith
+  unfold Qprim
+  have h1 : ContinuousAt (fun v : ℝ => log (√v + √(X ^ 2 + v))) 0 :=
+    ContinuousAt.log (by fun_prop) (by simp [Real.sqrt_sq hX.le, hX.ne'])
+  have h2 : ContinuousAt (fun v : ℝ => log (x ^ 2 + v)) 0 :=
+    ContinuousAt.log (by fun_prop) (by simp [hx0.ne'])
+  have h3 : ContinuousAt (fun v : ℝ => log (x * √(X ^ 2 + v) + √(x ^ 2 - X ^ 2) * √v)) 0 :=
+    ContinuousAt.log (by fun_prop) (by simp [Real.sqrt_sq hX.le, hX.ne', hx0.ne'])
+  have h4 : ContinuousAt (fun v : ℝ => log (x * √(X ^ 2 + v) - √(x ^ 2 - X ^ 2) * √v)) 0 :=
+    ContinuousAt.log (by fun_prop) (Qarg_pos hX hx le_rfl).ne'
+  exact continuousAt_const.mul ((h1.sub (h2.div_const 2)).sub (continuousAt_const.mul (h3.sub h4)))
+
+/-- The rescaled antiderivative `Ψ(ε)`, `Qprim(v) = 2πΨ(1/v)`. -/
+def Psi (X x ε : ℝ) : ℝ :=
+  log (1 + √(X ^ 2 * ε + 1)) - log (x ^ 2 * ε + 1) / 2
+    - √(x ^ 2 - X ^ 2) / (2 * x) * (log (x * √(X ^ 2 * ε + 1) + √(x ^ 2 - X ^ 2))
+      - log (x * √(X ^ 2 * ε + 1) - √(x ^ 2 - X ^ 2)))
+
+theorem s_lt_x {X x : ℝ} (hX : 0 < X) (hx : X < x) : √(x ^ 2 - X ^ 2) < x := by
+  rw [Real.sqrt_lt' (by linarith)]; nlinarith
+
+theorem Qprim_eq_Psi {X x v : ℝ} (hX : 0 < X) (hx : X < x) (hv : 0 < v) :
+    Qprim X x v = 2 * π * Psi X x v⁻¹ := by
+  set s := √(x ^ 2 - X ^ 2) with hs
+  have hx0 : 0 < x := by linarith
+  have hsx := s_lt_x hX hx
+  have hs0 : 0 ≤ s := Real.sqrt_nonneg _
+  set a := √(X ^ 2 * v⁻¹ + 1) with ha
+  have ha1 : 1 ≤ a := Real.one_le_sqrt.2 (by have := inv_pos.2 hv; nlinarith [sq_nonneg X])
+  have hr0 : 0 < √v := Real.sqrt_pos.2 hv
+  have hR : √(X ^ 2 + v) = √v * a := by
+    rw [ha, ← Real.sqrt_mul hv.le]; congr 1; field_simp
+  have hxv : x ^ 2 + v = v * (x ^ 2 * v⁻¹ + 1) := by field_simp
+  have hlr : log √v = log v / 2 := Real.log_sqrt hv.le
+  have p1 : 0 < x * a - s := by nlinarith
+  unfold Qprim Psi
+  rw [← hs, ← ha, hR, hxv,
+    show √v + √v * a = √v * (1 + a) by ring,
+    show x * (√v * a) + s * √v = √v * (x * a + s) by ring,
+    show x * (√v * a) - s * √v = √v * (x * a - s) by ring,
+    log_mul hr0.ne' (by positivity), log_mul hv.ne' (by positivity),
+    log_mul hr0.ne' (by positivity), log_mul hr0.ne' p1.ne', hlr]
+  ring
+
+theorem tendsto_Qprim {X x : ℝ} (hX : 0 < X) (hx : X < x) :
+    Tendsto (Qprim X x) atTop (𝓝 (2 * π * (log 2 - √(x ^ 2 - X ^ 2) / (2 * x) *
+      (log (x + √(x ^ 2 - X ^ 2)) - log (x - √(x ^ 2 - X ^ 2)))))) := by
+  have hx0 : 0 < x := by linarith
+  have hsx := s_lt_x hX hx
+  have hPsi : ContinuousAt (Psi X x) 0 := by
+    unfold Psi
+    have h1 : ContinuousAt (fun ε : ℝ => log (1 + √(X ^ 2 * ε + 1))) 0 :=
+      ContinuousAt.log (by fun_prop) (by norm_num)
+    have h2 : ContinuousAt (fun ε : ℝ => log (x ^ 2 * ε + 1)) 0 :=
+      ContinuousAt.log (by fun_prop) (by norm_num)
+    have h3 : ContinuousAt (fun ε : ℝ => log (x * √(X ^ 2 * ε + 1) + √(x ^ 2 - X ^ 2))) 0 :=
+      ContinuousAt.log (by fun_prop) (by simp; positivity)
+    have h4 : ContinuousAt (fun ε : ℝ => log (x * √(X ^ 2 * ε + 1) - √(x ^ 2 - X ^ 2))) 0 :=
+      ContinuousAt.log (by fun_prop) (by simp; linarith)
+    exact (h1.sub (h2.div_const 2)).sub (continuousAt_const.mul (h3.sub h4))
+  have hv0 : Psi X x 0 = log 2 - √(x ^ 2 - X ^ 2) / (2 * x) *
+      (log (x + √(x ^ 2 - X ^ 2)) - log (x - √(x ^ 2 - X ^ 2))) := by
+    unfold Psi; norm_num
+  rw [← hv0]
+  have := (hPsi.tendsto.comp (tendsto_inv_atTop_zero (𝕜 := ℝ))).const_mul (2 * π)
+  refine this.congr' ?_
+  filter_upwards [eventually_gt_atTop 0] with v hv
+  simp only [Function.comp]; rw [Qprim_eq_Psi hX hx hv]
+
+/-- **The `v`-integral**: `∫₀^∞ π(√(X² + v) − √v)/(√v(x² + v)) dv`
+`= 2π[ln 2 − ln X + ln x − (s/(2x))(ln(x + s) − ln(x − s))]`, with integrability. -/
+theorem integral_Qv {X x : ℝ} (hX : 0 < X) (hx : X < x) :
+    IntegrableOn (fun v => π * (√(X ^ 2 + v) - √v) / √v / (x ^ 2 + v)) (Ioi 0) ∧
+      ∫ v in Ioi 0, π * (√(X ^ 2 + v) - √v) / √v / (x ^ 2 + v)
+        = 2 * π * (log 2 - log X + log x - √(x ^ 2 - X ^ 2) / (2 * x) *
+          (log (x + √(x ^ 2 - X ^ 2)) - log (x - √(x ^ 2 - X ^ 2)))) := by
+  have hx0 : 0 < x := by linarith
+  have hcont := (continuousAt_Qprim hX hx).continuousWithinAt (s := Ici 0)
+  have hder : ∀ v ∈ Ioi (0 : ℝ), HasDerivAt (Qprim X x)
+      (π * (√(X ^ 2 + v) - √v) / √v / (x ^ 2 + v)) v := fun v hv => hasDerivAt_Qprim hX hx hv
+  have hpos : ∀ v ∈ Ioi (0 : ℝ), 0 ≤ π * (√(X ^ 2 + v) - √v) / √v / (x ^ 2 + v) := fun v hv => by
+    have : √v ≤ √(X ^ 2 + v) := Real.sqrt_le_sqrt (by nlinarith)
+    have := hv.out
+    positivity
+  refine ⟨integrableOn_Ioi_deriv_of_nonneg hcont hder hpos (tendsto_Qprim hX hx), ?_⟩
+  rw [integral_Ioi_of_hasDerivAt_of_nonneg hcont hder hpos (tendsto_Qprim hX hx)]
+  have q0 : Qprim X x 0 = 2 * π * (log X - log x) := by
+    unfold Qprim
+    simp only [Real.sqrt_zero, add_zero, zero_add, mul_zero, sub_zero, Real.sqrt_sq hX.le,
+      sub_self, mul_zero, Real.log_pow]
+    push_cast; ring
+  rw [q0]; ring
+
+
+/-- **The Cauchy integral in closed form.** For `x > X > 0`, with `s = √(x² − X²)`:
+`I(x) = πx ln X − πx ln 2 − πs ln x + (πs/2)(ln(x + s) − ln(x − s))`. -/
+theorem Ibal_closed {X x : ℝ} (hX : 0 < X) (hx : X < x) :
+    Ibal X x = π * x * log X - π * x * log 2 - π * √(x ^ 2 - X ^ 2) * log x
+      + π * √(x ^ 2 - X ^ 2) / 2 * (log (x + √(x ^ 2 - X ^ 2)) - log (x - √(x ^ 2 - X ^ 2))) := by
+  set s := √(x ^ 2 - X ^ 2) with hs
+  have hx0 : 0 < x := by linarith
+  set ν : Measure ℝ := volume.restrict (Ioo (-X) X)
+  set μ : Measure ℝ := volume.restrict (Ioi 0)
+  set F : ℝ → ℝ → ℝ := fun t v => √(X ^ 2 - t ^ 2) / (x - t) * (1 / (1 + v) - 1 / (t ^ 2 + v))
+    with hF
+  have hne0 : ∀ᵐ t ∂ν, t ≠ 0 := ae_restrict_of_ae (by simp [ae_iff, measure_singleton])
+  have hmem : ∀ᵐ t ∂ν, t ∈ Ioo (-X) X := ae_restrict_mem measurableSet_Ioo
+  have meas : Measurable (Function.uncurry F) := by
+    change Measurable fun p : ℝ × ℝ =>
+      √(X ^ 2 - p.1 ^ 2) / (x - p.1) * (1 / (1 + p.2) - 1 / (p.1 ^ 2 + p.2))
+    fun_prop
+  have kpos : ∀ t ∈ Ioo (-X) X, 0 ≤ √(X ^ 2 - t ^ 2) / (x - t) := fun t ht =>
+    div_nonneg (Real.sqrt_nonneg _) (by linarith [ht.2])
+  have kle : ∀ t ∈ Ioo (-X) X, √(X ^ 2 - t ^ 2) / (x - t) ≤ X / (x - X) := fun t ht => by
+    have h1 : √(X ^ 2 - t ^ 2) ≤ X := by
+      rw [Real.sqrt_le_left (by nlinarith [ht.1, ht.2])]; nlinarith
+    exact div_le_div₀ hX.le h1 (by linarith) (by linarith [ht.2])
+  have inner : ∀ t, t ≠ 0 → ∫ v, F t v ∂μ = √(X ^ 2 - t ^ 2) / (x - t) * log (t ^ 2) := fun t ht => by
+    simp only [hF, μ]
+    rw [MeasureTheory.integral_const_mul, (integral_logRep (by positivity : 0 < t ^ 2)).2.1]
+  have hbound : IntegrableOn (fun t => X / (x - X) * (2 * |log t|)) (Ioo (-X) X) := by
+    have h1 : IntegrableOn (fun t => ‖log t‖) (Ioo (-X) X) :=
+      (intervalIntegrable_iff_integrableOn_Ioo_of_le (by linarith)).1
+        (intervalIntegrable_log' (a := -X) (b := X)).norm
+    have h2 : IntegrableOn (fun t => X / (x - X) * (2 * ‖log t‖)) (Ioo (-X) X) :=
+      (h1.const_mul 2).const_mul _
+    simpa only [Real.norm_eq_abs] using h2
+  have hint : Integrable (Function.uncurry F) (ν.prod μ) := by
+    refine (integrable_prod_iff meas.aestronglyMeasurable).2 ⟨?_, ?_⟩
+    · filter_upwards [hne0] with t ht0
+      show Integrable (fun v => √(X ^ 2 - t ^ 2) / (x - t) * (1 / (1 + v) - 1 / (t ^ 2 + v))) μ
+      exact (integral_logRep (by positivity : 0 < t ^ 2)).1.const_mul _
+    · refine Integrable.mono' hbound meas.aestronglyMeasurable.norm.integral_prod_right' ?_
+      filter_upwards [hmem, hne0] with t ht ht0
+      have hn : ∫ v, ‖F t v‖ ∂μ = √(X ^ 2 - t ^ 2) / (x - t) * (2 * |log t|) := by
+        simp only [hF, norm_mul, Real.norm_eq_abs, abs_of_nonneg (kpos t ht)]
+        rw [MeasureTheory.integral_const_mul, (integral_logRep (by positivity : 0 < t ^ 2)).2.2,
+          Real.log_pow, abs_mul]
+        norm_num
+      simp only [Function.uncurry_apply_pair]
+      rw [hn, Real.norm_eq_abs, abs_of_nonneg (mul_nonneg (kpos t ht) (by positivity))]
+      exact mul_le_mul_of_nonneg_right (kle t ht) (by positivity)
+  have swap := integral_integral_swap hint
+  -- left: `2·I(x)`
+  have hXX : -X ≤ X := by linarith
+  have hL : ∫ t, ∫ v, F t v ∂μ ∂ν = 2 * Ibal X x := by
+    rw [MeasureTheory.integral_congr_ae (g := fun t => 2 * (√(X ^ 2 - t ^ 2) * log |t| / (x - t))) (by
+      filter_upwards [hne0] with t ht0
+      rw [inner t ht0, Real.log_pow, ← Real.log_abs t]; push_cast; ring),
+      MeasureTheory.integral_const_mul, Ibal, intervalIntegral.integral_of_le hXX,
+      integral_Ioc_eq_integral_Ioo]
+  -- right: the `v`-integral of `C(v)`
+  obtain ⟨iQ, eQ⟩ := integral_Qv hX hx
+  obtain ⟨iL, eL, -⟩ := integral_logRep (by positivity : 0 < x ^ 2)
+  have hR : ∫ v, ∫ t, F t v ∂ν ∂μ
+      = π * (x - s) * log (x ^ 2) - x * (2 * π * (log 2 - log X + log x - s / (2 * x) *
+          (log (x + s) - log (x - s)))) := by
+    have e : ∀ v ∈ Ioi (0 : ℝ), ∫ t, F t v ∂ν
+        = π * (x - s) * (1 / (1 + v) - 1 / (x ^ 2 + v))
+          - x * (π * (√(X ^ 2 + v) - √v) / √v / (x ^ 2 + v)) := fun v hv => by
+      simp only [hF, ν]
+      rw [← integral_Ioc_eq_integral_Ioo, ← intervalIntegral.integral_of_le hXX,
+        integral_Cv hX hx hv.out]; ring
+    rw [setIntegral_congr_fun measurableSet_Ioi e, integral_sub (iL.const_mul _) (iQ.const_mul _),
+      MeasureTheory.integral_const_mul, MeasureTheory.integral_const_mul, eL, eQ]
+  rw [hL] at swap
+  rw [hR] at swap
+  rw [Real.log_pow] at swap
+  push_cast at swap
+  have h2 : Ibal X x = (π * (x - s) * (2 * log x) - x * (2 * π * (log 2 - log X + log x - s / (2 * x) *
+          (log (x + s) - log (x - s))))) / 2 := by linarith
+  rw [h2]; field_simp; ring
+
+/-- **The balayage density in closed form.** For `x > X > 0`, with `s = √(x² − X²)`:
+`τ(x) = ln(Xx/(x + s)) − x ln(X/2)/s`. -/
+theorem tauBal_closed {X x : ℝ} (hX : 0 < X) (hx : X < x) :
+    tauBal X x = log (X * x / (x + √(x ^ 2 - X ^ 2))) - x * log (X / 2) / √(x ^ 2 - X ^ 2) := by
+  set s := √(x ^ 2 - X ^ 2) with hs
+  have hx0 : 0 < x := by linarith
+  have hs0 : 0 < s := Real.sqrt_pos.2 (by nlinarith)
+  have hs2 : s ^ 2 = x ^ 2 - X ^ 2 := Real.sq_sqrt (by nlinarith)
+  have hsx : s < x := s_lt_x hX hx
+  have hprod : log (x + s) + log (x - s) = 2 * log X := by
+    rw [← log_mul (by positivity) (by linarith), show (x + s) * (x - s) = X ^ 2 by nlinarith,
+      Real.log_pow]; push_cast; ring
+  unfold tauBal
+  rw [Ibal_closed hX hx, ← hs, log_div (by positivity) (by positivity), log_mul hX.ne' hx0.ne',
+    log_div hX.ne' two_ne_zero]
+  have hL : log (x - s) = 2 * log X - log (x + s) := by linarith
+  rw [hL]
+  field_simp
+  ring
+
+/-- **Admissibility at the wall, proved.** At `X = 2`, `τ(x) = ln(2x/(x + √(x² − 4))) > 0` for every
+`x > 2`: the balayage is a positive density on the whole exterior. -/
+theorem tauBal_two {x : ℝ} (hx : 2 < x) :
+    tauBal 2 x = log (2 * x / (x + √(x ^ 2 - 4))) ∧ 0 < tauBal 2 x := by
+  have h := tauBal_closed two_pos hx
+  norm_num at h
+  refine ⟨h, ?_⟩
+  rw [h]
+  have hsx := s_lt_x two_pos hx
+  norm_num at hsx
+  exact log_pos (by rw [one_lt_div (by positivity)]; linarith)
+
 end Pilot1ca
 
 #print axioms Pilot1ca.wall_eq_iff
@@ -764,3 +1242,10 @@ end Pilot1ca
 #print axioms Pilot1ca.exteriorMoment_reduced
 #print axioms Pilot1ca.sixteenPi_reduced
 #print axioms Pilot1ca.fBalExp_le
+#print axioms Pilot1ca.integral_C0
+#print axioms Pilot1ca.integral_Dv
+#print axioms Pilot1ca.integral_logRep
+#print axioms Pilot1ca.integral_Qv
+#print axioms Pilot1ca.Ibal_closed
+#print axioms Pilot1ca.tauBal_closed
+#print axioms Pilot1ca.tauBal_two
