@@ -2643,3 +2643,25 @@ At `y = 5y₀` the Gaussian is off by a factor of 2: −1112 against a measured 
 
 **The heat family at `δ = 3`, converged** (`m = 64`). `c_opt = 0.0197318`, against the ground state's `0.020179` and `1/(16π) = 0.019894`. The ratio `c_opt/c_ground` is `1.064` at `δ = 2` and `0.978` at `δ = 3`. The least-edge-cost heat member crosses the ground state's time rather than converging to it. This confirms round 73: the family alone does not fix the constant.
 
+## Round 79: the functor, and what the pilot has been computing (`frontier/nullvec/repkernel.py`)
+
+**The functor.**
+- The windows `a > 0`, ordered by inclusion, map to the spaces `PW_a = {ĝ : g ∈ L²[−a, a]}` carrying Weil's form `Q`. Inclusion of windows is an isometric embedding, since `Q_b` restricted to `PW_a` is `Q_a`.
+- This is a functor into quadratic spaces, with no hypothesis.
+- It lands in Hilbert spaces up to window `a` iff `Q_a ≥ 0`. For every `a` that is Weil's criterion, i.e. RH.
+- Where it is positive, it is a de Branges chain. Suzuki shows that the Hilbert space built from Weil's distribution is a de Branges space, and that RH is equivalent to the existence of a Krein canonical system (a Hamiltonian `H(t)` on all of `[0, ∞)`) generating it ([arXiv 2301.00421](https://arxiv.org/abs/2301.00421), [arXiv 1204.1827](https://arxiv.org/abs/1204.1827)).
+- Positivity is proved for small windows. In this pilot that is FourierGap/ParabolaGap (`2a < log 2`) and the certified simplicity cells.
+
+**What the pilot has been computing.** The ground state of `Q_a` is, up to normalisation, the chain's reproducing kernel at `z = 0`: `k₀ = Q_a⁻¹ ev₀` with `ev₀(g) = ĝ(0)`.
+
+| `δ` | `K` | `sin²∠(k₀, g₁)` | `λ₁/λ₂` | `ln K_a(0, 0)` | `−ln λ₁` |
+|---|---|---|---|---|---|
+| 2 | 180 | 4.0e-14 | 2.7e-7 | 66.23 | 67.24 |
+| 3 | 400 | 7.4e-18 | 3.7e-9 | 220.52 | 221.90 |
+
+The two agree to relative order `(λ₁/λ₂)²` times an overlap ratio, and the agreement improves with `δ`.
+- **The open hypothesis, restated.** Rounds 62–78 ask whether the chain's normalised kernels `K_a(z, 0)/K_a(0, 0)` converge to `Ξ(z)/Ξ(0)` fast enough.
+- **Round 77's multiplier, restated.** It is a prediction for the asymptotics of these kernels.
+- **Round 27, restated.** Round 27 found `ĝ_δ` and `∂_δĝ_δ` interlacing at every `δ` tested. That is the Hermite–Biehler property of the chain's structure function, which the canonical system `∂_t(A, B) = zJH(t)(A, B)` provides wherever the chain exists. This is a plausible explanation, not checked here.
+- **Status.** Nothing here removes the open input. The chain exists for all `a` iff RH. The reformulation turns global positivity into positivity of a Hamiltonian that is local in `t`.
+
