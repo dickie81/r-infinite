@@ -2860,3 +2860,20 @@ It passes if `|ratio − 1| ≤ 3e^{−δ}` for `d = 0…60`.
 
 **Reading.** Through the dimension horizon and 20% beyond it, the Weil window chain at `z = i(d+½)` carries the cascade tower `Γ_ℝ(d+1)ζ(d+1)`, shaped by the closed-form multiplier `exp{T₀[w·arcsin w + √(1−w²) − 1]}`. The agreement is `1.2e-3`, and the Gaussian is excluded beyond `d ≈ 300`. The ball-tower layers are seen through each window up to `d ≈ 4πe^δ`, with a suppression law now tested and distinguished from the naive one. As in round 86, this is the explicit formula seen through the chain, not a derivation of the cascade hypothesis. The wiggles remain unexplained.
 
+
+## Round 88: the wiggles against the discrete zeros, a third pre-registered test (`PREREG_wiggles_balayage.md`, `kbalayage_model.py`)
+
+**Pre-registered in `eb7bc7a` before any evaluation.** Prediction P3: the fine structure of `ln K_a(0,0)` is the discreteness structure of `−F(δ)`, where `F(δ) = min_T [4Σ_{γ<T} ln((1 + √(1 − γ²/T²))T/γ) − δT]` (Theorem 1bm(v); the first 6700 ζ zeros; no free parameter). The test uses the 1290 measured points, `x = e^δ ∈ [1.65, 54.6]`. **Evaluation.** Between consecutive zeros, `dF/dT` decreases from `+∞`. So `F` is concave on each gap and the minimum is attained exactly at a zero or at an end of `[1.2T₀, 2.8T₀]`; no grid search is needed. The minimiser sits at `T*/T₀ ∈ [1.30, 2.05]`. The null replaces the zeros by the density `(1/2π)ln(γ/2π)`.
+
+**Result: P3 FAILS, as stated in advance.**
+- **(i)** fails. The measured dominant line is `9.38` (power share 0.214), but the model's dominant line is `5.11` (0.152), well outside `9.42 ± 0.2`. The model has no line near 9.4; its nearest line is `8.67` (0.018).
+- **(ii)** fails. The residual correlation is `0.277` at the grid points and `0.180` uniformly resampled in `x`, below `0.5`.
+- **The null holds.** The continuum model's residual has `0.13%` of the discrete model's variance (a single smooth 0.36 line from detrending). So the model's structure is purely discreteness.
+- `kbalayage_results.json` holds the numbers; `kbalayage_model_series.npz` holds the series.
+
+**Reading.** The paper's discrete-balayage mechanism produces wiggles of the right *size* (rms `0.057` vs measured `0.071`). Its smooth part also has the right leading coefficient (`12.5676` vs `4π = 12.5664`). But its *spectrum is not the measured one*: the `3π` line of rounds 82–85 is not the zero-hopping of the balayage minimum. This agrees with rounds 82–84, which found the wiggles not tied to zero crossings. The origin of the `≈ 3π` line remains open.
+
+**Post hoc, not registered, and not evidence.**
+- The model's strongest line `5.11` lies near the measured second line `5.22` (0.071).
+- The uniform-`x` correlation `0.18` sits at about the 97th percentile of a circular-shift null (sd 0.064, 95th percentile of `|c|` 0.115, max 0.204 over 186 shifts).
+- Both are weak hints that part of the measured residual is zero-discreteness. Neither may be claimed without a new pre-registration.
