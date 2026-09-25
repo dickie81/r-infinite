@@ -2898,3 +2898,38 @@ It passes if `|ratio − 1| ≤ 3e^{−δ}` for `d = 0…60`.
 - the horizon is not the depth probe for them. The multiplier's transition is smooth, with an arccosh deficit, not a sharp edge.
 
 The recorded caveat stands: a period-8 comb gives exactly `3π` only if the slope is 12 instead of the derived 4π, and that slope is not available without a fit. The `3π` line's origin remains open after rounds 82–89.
+
+## Round 90: digging the Bott, a fifth pre-registered test (`PREREG_bott.md`, `kbott.py`)
+
+**Registered in `14cc729` before the data existed.** The depth slope `s` is left free, since round 89 excluded `4π`. Bott periodicity (period 8 on the integer layers) then predicts two things whatever `s` and whichever 8-periodic pattern:
+- **B1:** harmonics at `3ω₁` or `4ω₁`, because a pattern on integer layers is not a pure sinusoid;
+- **B2:** the lattice line at `8ω₁ = 2πs`.
+
+**New data.** 426 new windows (`kchain_list.py`, same basis `K = 15x + 40`, reproducing existing points exactly), merged into a uniform step of 0.03 on `x ∈ [20, 37.04]`. This gives 569 points with Nyquist 104.7, where previously no line above 26 had been observed. The file is `hamiltonian_grid_x20_37_fine.jsonl`.
+
+**Result: B1 and B2 both fail. Bott is not visible as a lattice pattern.**
+
+The fundamental is `ω₁ = 9.586` (power 15.0 times its flank 95th percentile, the positive control). So the implied slope would be `s = 8ω₁/2π = 12.2`.
+
+| `k` | `kω₁` | Power / flank q95 | Verdict |
+|---|---|---|---|
+| 2 (not blind) | 19.17 | 0.025 | — |
+| **3** | 28.76 | 0.087 | fail |
+| **4** | 38.34 | 0.80 | fail |
+| 5, 6, 7 | 47.9, 57.5, 67.1 | 0.76, 0.31, 0.52 | — |
+| **8 (lattice)** | 76.69 | 0.15 | fail |
+
+The strongest line in `[50, 100]` is at 50.1, which is `5.23ω₁`, not an integer multiple.
+
+**Quantitative bound.** Relative to the fundamental, the harmonic amplitudes are:
+- `|c₃/c₁| < 0.061`;
+- `|c₄/c₁| < 0.042`;
+- `|c₈/c₁| < 0.0049`.
+
+The 3π line is therefore sinusoidal to about 5% in amplitude. An equal-weight comb on integer layers (the fermion layers `D ≡ 5 mod 8`) would need each layer's feature smeared over a Gaussian width of at least `1.06` layers (from `k = 3`) to hide its harmonics.
+
+**Reading.** Rounds 89–90 give two results:
+- At the derived slope `4π`, there is no line at `π²`.
+- At a free slope, the line that exists has no harmonics and no lattice line.
+
+So the wiggles show no trace of the integer layer structure. Bott could still be present only if every layer's feature is spread over more than about one layer. In that case a period-8 pattern cannot be told apart from any other smooth oscillation of that frequency in this data, and the Bott reading is not testable here. The `≈ 3π` line (9.4–9.6 depending on range and detrending, resolution 0.37 here) is a clean single-frequency oscillation of unknown origin.
