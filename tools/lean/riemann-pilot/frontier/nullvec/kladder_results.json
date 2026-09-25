@@ -1,0 +1,269 @@
+{
+ "rows": [
+  {
+   "band": [
+    0.9,
+    1.0
+   ],
+   "r": 0.95,
+   "omega": 7.81,
+   "second": [
+    4.89,
+    0.94
+   ],
+   "rms_ratio": 1.137,
+   "corr_true": 0.172,
+   "linresp_p2": 8.27
+  },
+  {
+   "band": [
+    1.0,
+    1.1
+   ],
+   "r": 1.05,
+   "omega": 9.03,
+   "second": [
+    5.02,
+    0.67
+   ],
+   "rms_ratio": 0.944,
+   "corr_true": 0.287,
+   "linresp_p2": 9.15
+  },
+  {
+   "band": [
+    1.1,
+    1.2
+   ],
+   "r": 1.15,
+   "omega": 9.29,
+   "second": [
+    5.41,
+    0.35
+   ],
+   "rms_ratio": 0.471,
+   "corr_true": 0.519,
+   "linresp_p2": 10.02
+  },
+  {
+   "band": [
+    1.2,
+    1.3
+   ],
+   "r": 1.25,
+   "omega": 9.38,
+   "second": [
+    15.75,
+    0.41
+   ],
+   "rms_ratio": 0.382,
+   "corr_true": 0.249,
+   "linresp_p2": 10.89
+  },
+  {
+   "band": [
+    1.3,
+    1.4
+   ],
+   "r": 1.35,
+   "omega": 9.29,
+   "second": [
+    16.18,
+    0.73
+   ],
+   "rms_ratio": 0.276,
+   "corr_true": 0.399,
+   "linresp_p2": 11.76
+  },
+  {
+   "band": [
+    1.4,
+    1.5
+   ],
+   "r": 1.45,
+   "omega": 16.49,
+   "second": [
+    9.12,
+    0.83
+   ],
+   "rms_ratio": 0.241,
+   "corr_true": 0.134,
+   "linresp_p2": 12.63
+  },
+  {
+   "band": [
+    1.5,
+    1.6
+   ],
+   "r": 1.55,
+   "omega": 16.75,
+   "second": [
+    8.72,
+    0.42
+   ],
+   "rms_ratio": 0.215,
+   "corr_true": 0.072,
+   "linresp_p2": 13.5
+  },
+  {
+   "band": [
+    1.6,
+    1.7
+   ],
+   "r": 1.65,
+   "omega": 16.75,
+   "second": [
+    22.68,
+    0.66
+   ],
+   "rms_ratio": 0.19,
+   "corr_true": 0.091,
+   "linresp_p2": 14.37
+  },
+  {
+   "band": [
+    1.7,
+    1.8
+   ],
+   "r": 1.75,
+   "omega": 16.84,
+   "second": [
+    23.08,
+    0.74
+   ],
+   "rms_ratio": 0.168,
+   "corr_true": 0.144,
+   "linresp_p2": 15.24
+  },
+  {
+   "band": [
+    1.8,
+    1.9
+   ],
+   "r": 1.85,
+   "omega": 23.25,
+   "second": [
+    16.62,
+    0.76
+   ],
+   "rms_ratio": 0.161,
+   "corr_true": 0.119,
+   "linresp_p2": 16.11
+  },
+  {
+   "band": [
+    1.9,
+    2.0
+   ],
+   "r": 1.95,
+   "omega": 23.43,
+   "second": [
+    16.45,
+    0.84
+   ],
+   "rms_ratio": 0.157,
+   "corr_true": 0.101,
+   "linresp_p2": 16.99
+  },
+  {
+   "band": [
+    2.0,
+    2.1
+   ],
+   "r": 2.05,
+   "omega": 23.51,
+   "second": [
+    29.31,
+    0.63
+   ],
+   "rms_ratio": 0.148,
+   "corr_true": 0.062,
+   "linresp_p2": 17.86
+  },
+  {
+   "band": [
+    2.1,
+    2.2
+   ],
+   "r": 2.15,
+   "omega": 23.56,
+   "second": [
+    29.53,
+    0.72
+   ],
+   "rms_ratio": 0.15,
+   "corr_true": 0.07,
+   "linresp_p2": 18.73
+  },
+  {
+   "band": [
+    2.2,
+    2.3
+   ],
+   "r": 2.25,
+   "omega": 23.51,
+   "second": [
+    29.79,
+    0.82
+   ],
+   "rms_ratio": 0.146,
+   "corr_true": 0.135,
+   "linresp_p2": 19.6
+  },
+  {
+   "band": [
+    2.3,
+    2.4
+   ],
+   "r": 2.35,
+   "omega": 23.43,
+   "second": [
+    29.97,
+    0.88
+   ],
+   "rms_ratio": 0.145,
+   "corr_true": 0.072,
+   "linresp_p2": 20.47
+  },
+  {
+   "band": [
+    2.4,
+    2.5
+   ],
+   "r": 2.45,
+   "omega": 23.21,
+   "second": [
+    30.14,
+    0.85
+   ],
+   "rms_ratio": 0.145,
+   "corr_true": 0.081,
+   "linresp_p2": 21.34
+  }
+ ],
+ "linear_fit": [
+  12.589,
+  -4.181
+ ],
+ "linear_rms_residual": 2.148,
+ "max_adjacent_jump": 7.2,
+ "LIN": false,
+ "stair_assignment": [
+  0,
+  0,
+  0,
+  0,
+  1,
+  1,
+  1,
+  1,
+  2,
+  2,
+  2,
+  2,
+  2,
+  2,
+  2
+ ],
+ "STAIR": true
+}

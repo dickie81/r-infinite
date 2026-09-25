@@ -3184,3 +3184,33 @@ The window's edge `2T₀ = 4πx` runs over 38–151 on this grid.
 | line | 9.1–9.4 | 16.6–16.75 | 23.3–23.6 |
 
 These are exactly the true chain's line family (9.42, 16.75, 23.73; rounds 84–85), and the steps are nearly equal (≈ 7.1–7.3). The family is therefore not several primes' lines. It is **one mechanism read at successive heights beyond the window's edge**: `r > 1`, i.e. zeros up to about `2.2 × 2T₀`, contribute with falling weight. A finer band ladder would measure the frequency-versus-height relation `ω(r)` precisely. That relation is the window's "dispersion law", and it is the object a derivation has to produce.
+
+## Round 100: ω(r) is a staircase (`PREREG_ladder.md`, `kladder_score.py`)
+
+**Registered in `c415988`.** Sixteen keep-bands of width 0.1 cover `r = γ/(4πx) ∈ [0.9, 2.5)`. `ω` is the strongest interpolated peak in `[4, 35]`, and the second peak is also recorded.
+
+| `r` | .95 | 1.05 | 1.15 | 1.25 | 1.35 | 1.45 | 1.55 | 1.65 | 1.75 | 1.85 | 1.95 | 2.05 | 2.15 | 2.25 | 2.35 | 2.45 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `ω` | 7.81 | **9.03** | **9.29** | **9.38** | **9.29** | **16.49** | **16.75** | **16.75** | **16.84** | **23.25** | **23.43** | **23.51** | **23.56** | **23.51** | **23.43** | **23.21** |
+| second peak | 4.89 | 5.02 | 5.41 | 15.75 | 16.18 | 9.12 | 8.72 | 22.68 | 23.08 | 16.62 | 16.45 | 29.31 | 29.53 | 29.79 | 29.97 | 30.14 |
+| linear response, `p = 2` (`8.71r`) | 8.27 | 9.15 | 10.02 | 10.89 | 11.76 | 12.63 | 13.50 | 14.37 | 15.24 | 16.11 | 16.99 | 17.86 | 18.73 | 19.60 | 20.47 | 21.34 |
+
+**Result: STAIR passes and LIN fails.**
+- **STAIR.** Every band with `r ≥ 1` locks onto one of 9.42, 16.75 or 23.6 (±0.6), in contiguous, non-decreasing runs:
+  - 9.03–9.38 for `r ∈ [1.0, 1.4)`;
+  - 16.49–16.84 for `r ∈ [1.4, 1.8)`;
+  - 23.21–23.56 for `r ∈ [1.8, 2.5)`.
+- **LIN.** The best straight line leaves an rms residual of 2.15 and adjacent bands jump by up to 7.2.
+- **Linear response.** The `p = 2` reference agrees only at `r ≈ 1.05` (9.15 against 9.03), then departs steadily.
+
+**What the staircase shows.**
+- The drift within each plateau is at most 0.35. A linear law would move 3.5 (`8.71·0.4`) to 5.0 (`4π·0.4`) across the same span. The window therefore **quantises** the continuum of heights into discrete tones.
+- Near each step both neighbouring rungs are present (the second peaks), as in mode switching.
+- A **fourth rung** is emerging as the second peak for `r ≥ 2.0`, at 29.3–30.1.
+- The rungs are 9.3, 16.7, 23.4 and ≈ 30.0, with spacings 7.4, 6.7 and 6.6.
+
+**Post hoc, not evidence.**
+- The least-squares slope through the staircase is `12.589`, i.e. `4π` (12.566) to 0.2%. The steps track `4πr` on average while locking to discrete values.
+- The rungs fit `≈ 6.9(n + 0.38)` for `n = 1, …, 4`, and `6.9 ≈ 2π ln 3 = 6.903`. This is one of many candidate constants, so it is not evidence.
+
+**Next.** A falsifiable extension, to be registered before computing: bands at `r ∈ [2.5, 3.5)` should show the fourth rung (29–31) as dominant, and a fifth near 36–38.
