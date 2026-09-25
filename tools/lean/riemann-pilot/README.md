@@ -3103,3 +3103,29 @@ Its only arithmetic is `arg ζ(2 + it)`, which is dominated by the smallest prim
 - **The main line (≈ 9.1–9.8) belongs to `p = 2`.** Only-2 carries it at 13×. Removing 2 is the only removal that weakens it, to 2.2×, after which the 4.89 line becomes the strongest.
 - **The 16.75 line belongs to `p = 3`.** It is only-3's second line, at 12% of the power.
 - The other single primes contribute low-frequency structure (2.8–8.4). The full pattern is the non-additive combination: correlation 0.45 for 2 alone, and 0.94–0.96 for the full set.
+
+## Round 97: the chain is not a resonator; the lines need arithmetic coherence (`PREREG_resonator.md`, `knoisezeros.py`, `kresonator_score.py`)
+
+**Registered in `4e85240`.**
+- **Hypothesis RES:** the recurring line frequencies are intrinsic modes of the chain, excited by any fluctuation.
+- **Test:** drive the chain with non-arithmetic fluctuations of the true size, using 4 seeds each:
+  - **N1, white:** the smooth quantiles plus i.i.d. Gaussian jitter (sd 0.383; mean |dev| 0.29–0.31, against the true zeros' 0.306);
+  - **N2:** the prime sum up to 101 with random phases.
+
+**Result: RES fails and ARITH holds.** The 9.42 line is present in **0 of 4** white seeds and 0 of 4 N2 seeds. So are 4.97 and 16.75.
+
+| Run | Strongest lines (relative power) | rms ratio | Correlation with true |
+|---|---|---|---|
+| true zeros | 2.92 (.12) · 4.97 (.48) · 6.67 (.11) · **9.42 (1.0)** · 16.75 (.12) | 1 | 1 |
+| N1 s1 | 2.88 (1.0) · 4.71 (.51) · 9.16 (.03) | 1.44 | 0.17 |
+| N1 s2 | 2.31 (1.0) · 5.45 (.50) · 7.90 (.13) | 1.39 | 0.06 |
+| N1 s3 | 2.70 (1.0) · 4.01 (.62) · 5.28 (.25) | 1.67 | 0.18 |
+| N1 s4 | 2.97 (1.0) · 5.89 (.27) · 8.38 (.07) | 1.40 | −0.18 |
+
+- **White noise.** White jitter of the true size makes wiggles 1.4–1.7× *larger* than the true ones. They are red (dominated by low frequencies), their line positions change from seed to seed, and nothing lands at 9.42.
+- **N2 is artefact-dominated, as anticipated.** With random phases, the partial Euler sum folds the counting function back 73–77 times per seed, giving 790–800 points instead of 649, with pairs as close as 0.013. With the *true* phases, the same sum up to 101 produced a monotone counting function (round 95).
+
+**Reading.**
+- The lines are not modes of the chain waiting to be struck. They need the fluctuations to have arithmetic structure.
+- The recurrence of the same lines across different prime subsets (round 96) therefore points to something all true-prime subsets share and random phases lack: every term `p^{−1/2} sin(t ln p)` starts **in phase at `t = 0`**. So the low zeros are displaced coherently, in the same direction, whatever the subset.
+- This makes the low zeros the candidate carriers of the line family. The height-band swap (true zeros below `H`, quantiles above) is the direct test.
