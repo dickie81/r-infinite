@@ -7,9 +7,13 @@ forms of §3.4 were checked by high-precision quadrature, in seconds, by an
 uncommitted script named there (the identities are exact; the quadratures
 agree to 14 digits or better, 17–19 for P and Q as written), and §5's
 ledgers took minutes on the paper's certified Gram at two cells, by a
-committed instrument named there. The Lean pilot was not touched for this note (its rounds 74–75, cited in §3.4(vi′), are the pilot's own). Every statement below is either proved here in full, or is
-marked as a proof sketch with the unfinished step named, or is marked as
-heuristic. Nothing here is a claim of `riemann-indistinguishability.md`,
+committed instrument named there, and §5's zero-side check about forty
+minutes by a second committed instrument. The Lean pilot was not touched
+for this note (every pilot round cited below is the pilot's own). Every
+statement below is either proved here in full, or is marked as a proof
+sketch with the unfinished step named, or is marked as heuristic, or (§5)
+is a computed observation on a committed instrument or a reading marked
+as such. Nothing here is a claim of `riemann-indistinguishability.md`,
 which asserts the Riemann Hypothesis neither true nor false.
 
 **The target that was set.** The pilot's chain (README rounds 54–65) derives
@@ -901,7 +905,7 @@ P2. Nothing in this subsection proves RH, and the note's header stands.
    second-moment conditions to reach even ĝ₁(0)² → 2πΞ(0)²/∫Ξ². It does
    not prove RH, and nothing in this note does.
 
-4. **No long numerics were run** (§3.4's seconds-scale checks of its closed forms are named there; §5's minutes-scale ledgers on the certified Gram are committed and named there). The only arithmetic inputs of §2's proofs are the constants of Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
+4. **No long numerics were run** (§3.4's seconds-scale checks of its closed forms are named there; §5's minutes-scale ledgers on the certified Gram and its forty-minute zero-side check are committed and named there). The only arithmetic inputs of §2's proofs are the constants of Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
    Step 5 for η(t₀) < 0.2, ε₁ < 0.08 and 20/t₀² < 0.11), the verified height 3·10¹² for the
    first off-line zero (used to remark that η(t₀) is then negligible and in
    the cells arithmetic of §2.3), and Backlund's
@@ -1073,7 +1077,9 @@ the zero side (2Σ E_a(γ)² over the 6700 zeros plus a tail estimate, with
 Q(Φ_a^K) = 1.165·10⁻¹⁴: the projection changes the energy by under one
 percent, as it must — the discarded cosine tail r has ‖r‖² ≈ 10⁻¹⁸ (its
 coefficients decay like k⁻², from the derivative jump of the periodic
-extension at ±a), so on the positive form |Q(Φ_a^K) − Q(Φ_a)| ≤
+extension at ±a), so on the zero-side model's form, a sum of squares
+over the listed zeros plus a positive tail, where both numbers were
+computed, |Q(Φ_a^K) − Q(Φ_a)| ≤
 2√(Q(Φ_a)Q(r)) + Q(r) ≲ 10⁻¹⁵. *(The first version of this item claimed a
 factor three; round 383 found the error — a session script had normalised
 Φ_a by √(2∫Φ) in place of √(2∫Φ²) — and the corrected computation is the
@@ -1108,7 +1114,9 @@ paper's certified positivity reaches δ = 1.0 on the even sector and 1.10
 on the odd by Temple's route (Theorems 1bj, 1bk) and 1.3828125 by Theorem
 1bl's Slepian-concentration mechanism, which "carries no Temple trial, no
 Birman–Schwinger count, no spectral-gap premise, no zero of ζ"; the reduced problem's explicit near-null vector is exact only to
-relative e^{−δ} (round 77: 3% at δ = 2, 1.5% at δ = 3), so its residual is
+relative e^{−δ} (round 77: the ratio of measured to predicted ln M runs
+1.043 to 1.008 at δ = 2 and 1.015 to 1.003 at δ = 3 over the range tested,
+with the time's own offset τ_fit·16πe^δ = 1.037 and 1.014), so its residual is
 of order e^{−δ} times the spectral gap, far above λ₁, and it cannot serve
 as a Temple trial vector; and no argument that avoids the precision
 e^{−2T₀} is visible here — a positivity margin that vanishes doubly
@@ -1155,8 +1163,8 @@ terms of this section, the operator inequality's certificate at window a
 is the existence of the chain up to a, a positivity that is local in the
 window variable; "RH is equivalent to this chain existing for every a.
 Our numbers describe it where it provably or numerically exists. Nothing
-here shows it exists for all a." Its rounds 81–82 (landed after the
-round-383 sweep; quotations adapted): each prime power's imprint on the
+here shows it exists for all a." Its rounds 81–82 (round 81 landed during
+round 383, round 82 after its sweep; quotations adapted): each prime power's imprint on the
 chain's potential obeys "an exact first-order law", J_n = 2(Λ(n)/√n)·E
 with E the kernel's edge weight, but E "is a truncation artefact: the
 continuum kernel vanishes at the edge", the continuum onset is "a soft,
@@ -1172,10 +1180,45 @@ direct kernel to 2·10⁻⁶ at z = 1 while K_a(0, 0) grows by e^{200}), finds
 the fine structure "real, of roughly constant absolute amplitude, and
 multi-scale", its features growing in number like e^δ, "not a
 zero-crossing pattern", and concludes "It has no closed form, and its
-existence for all a is equivalent to RH." In this section's terms: the prime
+existence for all a is equivalent to RH." This note's reading: the prime
 side enters the local form of the inequality through the kernel's edge
-profile at each window, not through a universal per-prime profile; the
-ledger's per-prime lines are the window-integrated shadow of that.
+profile at each window, not through a universal per-prime profile. What
+the ledger's per-prime lines are, at a fixed window, is exact and
+elementary (this note's, by Hellmann–Feynman): with Q = A_a − Σ_n w_n T_{ln n}
+and K_a(0, 0) = ev₀ᵀQ⁻¹ev₀, ∂ ln K_a(0, 0)/∂w_n = f_{k₀}(ln n)/Q(k₀) for
+the kernel k₀ = Q⁻¹ev₀ (from ∂Q⁻¹ = Q⁻¹T_{ln n}Q⁻¹), and at the ground
+state ∂λ₁/∂w_n = −f_{g₁}(ln n) = −PRIME_n(g₁)/w_n, so the ledger's prime
+lines are the ground energy's sensitivities to the prime weights, of
+relative size PRIME_n/(w_nλ₁) — 8·10²⁷ for n = 2 at δ = 2, the razor-thin
+margin's response to its arithmetic inputs.
+
+The pilot's rounds 84–86 (landed after the round-385 sweep; round 86 is
+the commit b53b470, `PREREG_tower_layers.md` and `kchain_noprime.py`,
+with no README entry; quotations adapted). Rounds 84–85: the fine
+structure of ln K_a(0, 0), resampled in x = e^{2a}, has a discrete
+spectrum — "quasi-periodic with a handful of stable frequencies", "not
+log-periodic" in δ ("That argues against frequencies set by zeta zeros")
+and "Not prime powers on the integers" (no correlation with
+Σ_{n≤x}Λ(n)/√n: −0.02, "inside the null band"); pushed to a = 2, x = 55,
+its dominant line sits at "9.434 ± 0.017, against 3π = 9.4248", with
+5π/3 and 16π/3 next, which the pilot grades "suggestive, not established"
+(the lattice "chosen after seeing the data"; "No mechanism is known").
+Round 86 pre-registers, "before any computation of the quantities below",
+a layer law for the chain's kernel at z = i(d + ½): by the functional
+equation Ξ(i(d + ½)) = ξ(d + 1) = ½(d + 1)d·Γ_ℝ(d + 1)ζ(d + 1), the
+kernel's ratio K_a(i(d + ½), 0)/K_a(0, 0) is predicted as ξ(d + 1)/ξ(½)
+times round 77's multiplier, with "a dimension horizon d* ≈ 2T₀ = 4πe^δ";
+it registers no wiggle-frequency prediction ("a list chosen now would be
+numerology"); and it records a primes-off control: with the primes
+removed "the chain collapses" (ln K_a(0, 0) = 0.18 against ≈ 29 at
+δ = 1.5, the 2×2 kernel matrix indefinite), "So the trend 4πe^δ is not
+'the Gamma part' alone: it is the Γ–prime balance." In this section's
+terms the control is the ledger read on the chain: the growth 2T₀ of
+ln K_a(0, 0), whose least-eigenvalue counterpart is λ₁ = e^{−2T₀(1+o(1))},
+is a property of A_a − Σ w_n T_{ln n} and not of A_a alone — consistent
+with §5.2, where the prime lines, dominated by n = 2, carry the
+archimedean side to within λ₁. The fine structure's frequencies are not
+addressed by this note.
 
 **5.5 Conclusion of the ledger.** The prime side of the truncated form at
 a cell is a fixed, rapidly convergent arithmetic sum dominated by 2 and 3,

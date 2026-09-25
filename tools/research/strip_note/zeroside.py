@@ -9,9 +9,12 @@ Phi_a = Phi 1_[-a,a] (not its projection), Q(Phi_a)/||Phi_a||^2 = 2 sum E_a(gamm
 E_a(gamma) = 2 int_a^inf Phi cos(gamma u) du (Phi_a's transform at a zero is -E_a, since Xi vanishes there)
 and ||Phi_a||^2 = 2 int_0^a Phi^2 (the round-383 correction: an earlier session script used 2 int_0^a Phi).
 Tail beyond the last zero: the mean of gamma^2 ghat^2 over the last 100 zeros times int_T^inf (ln(r/2pi)/2pi) r^-2 dr.
-Caveat (round 384): the five-panel tanh-sinh quadrature of E_a(gamma) under-resolves the oscillation above
-gamma ~ 4500 (by 0.6% at 5449 up to 6.5% at 6908); the zeros above 5000 carry 0.5% of the sum, so the quotient
-Q(Phi_a)/||Phi_a||^2 is affected at 2e-5 relative (a 600-panel grid gives 1.1611876e-14 against this file's 1.1612094e-14).
+Caveat (rounds 384-385): the five-panel tanh-sinh quadrature of E_a(gamma) under-resolves the oscillation above
+gamma ~ 4500: the per-zero error is typically a few percent in (5000, 7000] (median 4%), and of order one -- including
+the sign -- at zeros where E_a is near a sign change (42 of 339 sampled zeros above 4500 exceed 6.5%); the zeros above
+5000 carry 0.5% of the sum, so the quotient Q(Phi_a)/||Phi_a||^2 is affected at 2e-5 relative (a 600-panel grid gives
+1.1611876e-14 against this file's 1.1612094e-14). The round-385 sweep also fixed the 'ledger Q' display, which the
+round-384 change to the JSON's precision had broken (a fixed-notation string sliced to twelve characters).
 Usage: zeroside.py   (about 40 minutes: the 6700 tail quadratures dominate)
 """
 import os, sys, json
@@ -45,7 +48,7 @@ for name, label in [('c1', 'g_1'), ('cP', 'Phi_a^K')]:
         e = ghat(c, g)**2; Q += e
         if i >= len(zeros) - 100: last.append((e, g))
     t = tail_after(last, zeros[-1])
-    print(f"{label}: sum over 6700 zeros = {mp.nstr(Q, 8)}  tail est = {mp.nstr(t, 3)}  Q = 2(sum + tail) = {mp.nstr(2*(Q + t), 8)}   ledger Q = {d['ledger_' + ('g1' if name == 'c1' else 'Phi')]['Q'][:12]}")
+    print(f"{label}: sum over 6700 zeros = {mp.nstr(Q, 8)}  tail est = {mp.nstr(t, 3)}  Q = 2(sum + tail) = {mp.nstr(2*(Q + t), 8)}   ledger Q = {mp.nstr(mp.mpf(d['ledger_' + ('g1' if name == 'c1' else 'Phi')]['Q']), 12)}")
 
 # the exact truncation
 pts = [a*mp.mpf(i)/20 for i in range(21)]
