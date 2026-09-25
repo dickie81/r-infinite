@@ -3300,3 +3300,55 @@ For `{2}`, band 3.4: 42.66 lies 0.31 from 42.97, so it narrowly misses the ±0.3
 - Each added prime corrects one more band, and always the highest band still wrong: 2.6 is fixed by 5, and 3.4 by 7.
 
 **Post hoc.** In the missed bands the correct tone is usually present already, as the second peak. Examples: `{2, 3}` at 3.4 has 42.71 second; `{2, 3, 5}` at 3.4 has 43.01 second. Even `{2}` alone produces family values in several bands (16.79, 23.51, 42.49–42.66). So the added primes mostly decide *which* tone dominates a band; they do not create new tones. The tone values look like a property of the Γ lens driven by `p = 2`. The larger primes supply the weighting that selects the tone in each band.
+
+## Round 104: the semi-explicit Hamiltonian (`PREREG_linresp.md`, `klinresp.py`, `klinresp_score.py`)
+
+**Registered in `2baded5`.** The chain is expanded about its pure-Γ base: the zeros are set at their smooth quantiles `γ̃_k`, `θ(γ̃_k) = (k − 3/2)π`. The arithmetic enters only through the displacements `δ_k = γ_k − γ̃_k`.
+
+**The formula** (conditional on RH, like every zero-side computation; exact algebra, no fitted parameter):
+
+`ln K_a(0,0) = ln K_Γ(a) + Σ_k w_k δ_k + ½ Σ_{k,l} h_kl δ_k δ_l + O(δ³)`
+
+with the following ingredients:
+- `y = M⁻¹e₀` and `s = y₀` come from the Γ chain's Gram `M = ΦᵀΦ` at the quantiles;
+- `F_k = φ(γ̃_k)·y` is the base ground state's transform at node `k`, and `F′_k`, `F″_k` are its derivatives;
+- `u_k = φ′_k F_k + φ_k F′_k`;
+- the first-order kernel is `w_k = −2F_kF′_k/s`;
+- the second-order kernel is `h_kl = −2(F_kF″_k + F′_k²)/s·[k = l] + 2u_kᵀM⁻¹u_l/s − w_k w_l`;
+- the Hamiltonian is `H(a) = diag(e^{2φ}, e^{−2φ})`, with `2φ = ln K + ln(d ln K/da)`.
+
+Every kernel is built from the Γ side alone. The arithmetic supplies only `δ`, i.e. `S(t)`.
+
+**Result: LR2 passes.** Grid `x ∈ [3, 12]`, 226 windows. The base reproduces round 95's smooth chain exactly (maximum difference 0).
+
+| Displacements | Order | Correlation with actual residual | rms ratio | rms error / actual rms |
+|---|---|---|---|---|
+| true zeros | 1st | 0.849 | 0.84 | 0.070 / 0.094 |
+| true zeros | **2nd** | **0.937** | **0.90** | **0.026 / 0.094** |
+| `P = 7` zeros | 1st | 0.831 | 0.85 | 0.095 / 0.112 |
+| `P = 7` zeros | **2nd** | **0.930** | **0.92** | **0.037 / 0.112** |
+
+**Tones of the prediction.** The second-order prediction's tones are 3.40, 5.19, 6.72, **9.42**, **16.75**. The actual ones are 2.92, 4.97, 6.67, **9.42**, **16.75**.
+
+**At the level of the Hamiltonian** (`2φ` residuals, excluding the two edge points at each end):
+- second order: correlation **0.947**, rms ratio 0.92, maximum `|2φ_pred − 2φ_true|` **0.087**, against `2φ ≈ 74`;
+- first order: correlation 0.879, maximum error 0.49;
+- Γ only: correlation 0.05.
+
+**The kernel's structure.** The mean `|w|` of the first-order kernel over bands of `r = γ/(4πx)` behaves the same way at `x = 5`, 8 and 11:
+
+| Region | Mean `|w|` | `F′²/s` | Reading |
+|---|---|---|---|
+| inside the window, `r < 1` | 0.06–0.25 | `10²`–`10³⁴` | huge diagonal second-order terms, cancelled almost exactly by the re-optimisation term `u M⁻¹ u` |
+| just beyond the edge, `r = 1.0–1.2` | ≈ 0.03 | ≈ 0.02 | |
+| farther out | falls roughly like `1/r²` | | |
+
+- **Inside.** The ground state *tracks* the displaced zeros, as in the balayage region.
+- **Beyond.** The zeros are free, and the response is ordinary and decaying.
+- `F′²/s` crosses `O(1)` exactly at the edge `r = 1`. That is the structural origin of "the window reads just beyond its edge".
+
+**Honest limits.**
+- The formula is conditional on RH, and is validated only on `x ∈ [3, 12]`.
+- The second-order truncation leaves 6% of the residual correlation, and a maximum error of 0.08 in `ln K`.
+- It describes the true Hamiltonian. It does not prove that the Hamiltonian exists for every `a`.
+- My pre-registered physical guess, that the first-order kernel vanishes below the edge, was wrong. There the quadratic terms are huge and cancel, and the first-order kernel is not small.
