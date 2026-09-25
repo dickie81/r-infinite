@@ -2752,3 +2752,25 @@ Neither is derived.
 
 **Status.** We have the Hamiltonian as a computed object. It is exactly defined, tabulated on `a ∈ [0.24, 1.01]`, and shown to generate the chain's kernels to `3e-7` (at `z = 1`) to `3e-3` (at `z = 40i`). We do not have a closed form. Its existence for every `a` is equivalent to RH.
 
+## Round 83: the Hamiltonian pushed to `a = 1.5`; its fine structure is real, and multi-scale (`kcompare.py`, `kcount.py`)
+
+**1. The fine structure is not a numerical artefact.** The potential `q − 4πe^{2a}` was recomputed on `δ ∈ [1.5, 2.0]` (step 0.0025) with a different basis size (`K = 45e^δ + 40` instead of `30e^δ + 40`):
+- the two residual curves correlate at `0.9997`, with rms difference `0.16` against a signal rms of `7.1`;
+- all 18 extrema coincide (mean shift `0.0001` in `δ`).
+
+**2. Extension and validation to `δ = 3` (`a = 1.5`).** `ln K_a(0, 0)` is now tabulated on `δ ∈ [0.46, 3.0]` at step `0.0025` (`hamiltonian_grid_to3.jsonl`, 1020 windows). Integrating the canonical system from `δ = 0.5` to `δ = 3` (`K_a(0, 0)` grows by `≈ e²⁰⁰`) reproduces the directly computed kernel at `δ = 3` to:
+
+| `z = 1` | `5` | `10` | `18` | `30` | `40i` | `γ₁` (absolute) |
+|---|---|---|---|---|---|---|
+| 2.2e-6 | 5.8e-5 | 2.7e-4 | 2.0e-3 | 2.9e-4 | 7.1e-4 | 7.5e-8 |
+
+`hamiltonian_table.json` and `hamiltonian.png` now cover `a ∈ [0.24, 1.49]`.
+
+**3. No spacing law, but a growth law for the density of features.**
+- **Counting against models.** Counting prominent maxima of `q − 4πe^δ` with a smoothing window `∝ e^{−δ}`, the count fits `A·e^δ` (rms 0.46–0.59) much better than the zero-count shapes `A·e^δ·δ` or `A·N_ζ(c·T₀)` (rms 1.0–1.5). So the features are not zeta-zero crossings, independently of round 82's null test.
+- **At fixed resolution.** Per 0.25 in `δ`, with `hw = 0.008`, the counts are `2, 1, 2, 4, 5, 7, 10, 12, 12, 12`. They grow by about `×1.3 ≈ e^{1/4}` per bin until the grid's resolution caps them, and they keep rising as the resolution improves.
+- **No clean coefficient.** `N ≈ πe^δ` appears at one smoothing choice, but `dN/d ln K_a(0, 0)` runs `0.35 → 0.25 → 0.19` as the smoothing factor goes `0.10 → 0.15 → 0.25`.
+- **Amplitude.** The residual's rms is `≈ 6–11` in `q` units across the range, against `q ≈ 250` at `δ = 3`, so its relative size falls like `e^{−δ}`.
+
+**Reading.** The Hamiltonian's potential is `q ≈ 4πe^{2a} − 5` plus a fine structure that is real, of roughly constant absolute amplitude, and multi-scale. The density of its features grows with the window at every resolution tested, with no regular spacing and no scale-free constant. It is not a zero-crossing pattern. Round 81 showed it is not a sum of independent prime-power pieces either. Together these rule out the natural closed forms. The Hamiltonian is tabulated and validated to `a = 1.5`. It has no closed form, and its existence for all `a` is equivalent to RH.
+
