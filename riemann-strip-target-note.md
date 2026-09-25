@@ -1166,7 +1166,13 @@ to 3e-7 (at z = 1) to 3e-3 (at z = 40i)", its smooth part "ln K_a(0, 0)
 ≈ 4πe^δ − 5.18δ − 15.65", and "The positions of the zeros the chain
 dodges live in the fine structure of the potential", which "is not
 explained" — a hypothesis that its extra features are zeta zeros crossing
-a horizon "fails a fair null test". In this section's terms: the prime
+a horizon "fails a fair null test"; its round 83 extends the tabulation to
+a = 1.5 (the canonical system integrated from δ = 0.5 to 3 reproducing the
+direct kernel to 2·10⁻⁶ at z = 1 while K_a(0, 0) grows by e^{200}), finds
+the fine structure "real, of roughly constant absolute amplitude, and
+multi-scale", its features growing in number like e^δ, "not a
+zero-crossing pattern", and concludes "It has no closed form, and its
+existence for all a is equivalent to RH." In this section's terms: the prime
 side enters the local form of the inequality through the kernel's edge
 profile at each window, not through a universal per-prime profile; the
 ledger's per-prime lines are the window-integrated shadow of that.
