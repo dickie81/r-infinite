@@ -2996,3 +2996,28 @@ The discretised d-ball has a window chain only if every zero of `Ξ_d = s(s − 
 - **Not supported.** "The arithmetic is forced by discretising the *higher-dimensional* ball." From `d = 3` on, the ball's own lattice discretisation gives an arithmetic *without* a consistent window chain.
   - In the distinguished dimensions 4 and 8 (quaternions, octonions), it gives ζ back, but shifted off-centre.
   - The higher balls' lattices do not carry the chain. Only the lowest dimensions do.
+
+## Round 93: the octonion ball and the shift (`ke8ball.py`)
+
+**The question** (owner): could the octonions be responsible for the phase shift?
+
+**The octonion lattice.** The integral octonions (Coxeter's octavians) form the `E₈` lattice. Its theta function is `½(θ₂⁸ + θ₃⁸ + θ₄⁸)`, which equals the weight-4 Eisenstein series. Its Epstein zeta is therefore *exactly*
+
+`Σ'_{v∈E₈} |v|^{−2s} = 240·2^{−s} ζ(s) ζ(s − 3)`.
+
+It contains nothing but Riemann's ζ, with no extra 2-adic factor as ℤ⁸ has. `ke8ball.py` is round 92's code with the `E₈` theta:
+- it matches the closed form to `1e-32`–`1e-46`;
+- up to `T = 30` it finds **6 zeros, none on the centre `Re s = 2`**. These are ζ's first three zeros (14.13, 21.02, 25.01), each appearing twice, at `Re s = ½` and at `Re s = 7/2`, i.e. at `2 ∓ 3/2`.
+
+**What the shift is.** For a lattice whose theta is an Eisenstein series of weight `k = d/2`, the zeta is `ζ(s)ζ(s − k + 1)`. Its two copies of ζ's zeros sit at `k/2 ∓ (k − 1)/2`, a displacement of `(d/2 − 1)/2` from the centre. That is `½` for `d = 4` and `3/2` for `d = 8`. It is fixed by the modular weight, i.e. by the dimension. The octonions supply the lattice (`E₈`) whose zeta is *purely* ζ.
+
+**Is it a shift seen in the chain? No, on three counts.**
+- **Positivity.** A zero displaced by `β` from the centre contributes `ĥ(γ − iβ)`, weighted by `e^{βu}` across the window, i.e. an amplitude `x^{±β}`, not a phase. It also makes the zero-side form indefinite (round 91). The measured chain is positive out to `x = 55`, so it contains no displaced zeros.
+- **The Hamiltonian–wiggle lead** (the figure from round 90) is derived: `2φ = ln K00 + ln(2 d ln K00/dδ)` adds the derivative, a quarter-cycle lead. No further cause is needed.
+- **The `3/2` coincidence**, checked because the 3π line is `cos(3T₀/2)`: a real-part displacement of `3/2` changes the Γ-phase by a *constant*, `arg Γ(σ + 3/2 + it) − arg Γ(σ + it) → 3π/4`. It does not change the frequency. So it cannot make a line at `1.5·T₀`, and the match is numerical only.
+
+**Reading.**
+- The octonion 8-ball, discretised on its own lattice, carries *exactly* Riemann's zeros, twice, displaced by `±3/2` from its centre.
+- Undoing that displacement (the factor `ζ(s)`) returns the ζ chain.
+- So "the octonion ball contains the arithmetic, shifted" is a theorem, not a hypothesis.
+- What the chain sees is the unshifted copy. The displacement itself does not appear in it.
