@@ -3078,3 +3078,28 @@ Its only arithmetic is `arg ζ(2 + it)`, which is dominated by the smallest prim
 - So the wiggle family is set by the smallest primes, overwhelmingly by `p = 2`, with 3, 5 and 7 shaping it. Larger primes refine it.
 
 **Next.** The next step is a single-prime dictionary (only `p = 3`, only `p = 5`, …) to identify which line each prime creates. Deriving the frequencies from `ln p` needs the *reading height* of the window: `4π ln 2 = 8.71` with the edge at `2T₀`, against the measured 9.1–9.4. That derivation is open.
+
+## Round 96: one prime at a time, one prime removed (`PREREG_primeablation.md`, `kprimezeros2.py`, `kablation_score.py`)
+
+**Registered in `a34af8f`.** The zero sets come from `S_Q` over a prime set `Q`: only-`p` (`Q = {p}`), or minus-`p` (the primes up to 101 without `p`), for `p = 2, 3, 5, 7, 11, 13`. They use round 95's fast kernel and grid. The baseline is `P = 101`, with correlation `0.945`.
+
+**Deviation, stated.** The zero scan starts at `t = 1`. For the minus-`p` sets it produced a pair of crossings near `t ≈ 1.1–1.5`, where the smooth count is below ½ and no zero can exist. Crossings with `t < 10` were therefore dropped from every set; round 95's sets had none there. Elsewhere "all crossings" was kept as registered. In only-11 this gives a triple crossing at 47.05/47.19/47.25, and in only-13 an extra pair at 13.95/14.85.
+
+| `p` | 2 | 3 | 5 | 7 | 11 | 13 |
+|---|---|---|---|---|---|---|
+| minus-`p`: correlation (drop) | 0.931 (0.014) | 0.916 (**0.029**) | 0.942 (0.003) | 0.958 (**−0.013**) | 0.949 (−0.004) | 0.962 (−0.017) |
+| minus-`p`: line at 9.075 (× q95) | **2.2** | 5.3 | 4.6 | 3.9 | 5.5 | 3.6 |
+| only-`p`: correlation | 0.45 | 0.31 | 0.40 | 0.29 | −0.09* | −0.03* |
+| only-`p`: strongest lines | **9.77**, 2.79, 4.89 | 3.49, **16.75**, 5.58 | 3.49, 6.28, 8.38 | 2.79, 5.58, 11.87 | 2.09* | 2.09* |
+| only-`p`: line at 9.075 (× q95) | **13.3** | 0.29 | 0.34 | 0.52 | 0.03 | 0.02 |
+
+\* Only-11 and only-13 are dominated by their close crossing pairs (rms 9× and 6× the true value). These are artefacts of the construction and are not interpreted.
+
+**Result: D7 fails, F fails.**
+- **D7.** The drop ranking is 3, 2, 5, 11, 7, 13. Removing 7 slightly *raises* the correlation (−0.013). No single prime is essential once the others are present: the largest drop is 0.029. The owner's reading that 7 is special is not supported. The Weil-weight maximum at `e² ≈ 7.39` does not show up either.
+- **F.** The single-prime lines do not scale with `ln p`: predicted 15.5, 22.7 and 27.4 for 3, 5 and 7, against observed strongest lines of 3.49, 3.49 and 2.79.
+
+**What the dictionary does show** (descriptive):
+- **The main line (≈ 9.1–9.8) belongs to `p = 2`.** Only-2 carries it at 13×. Removing 2 is the only removal that weakens it, to 2.2×, after which the 4.89 line becomes the strongest.
+- **The 16.75 line belongs to `p = 3`.** It is only-3's second line, at 12% of the power.
+- The other single primes contribute low-frequency structure (2.8–8.4). The full pattern is the non-additive combination: correlation 0.45 for 2 alone, and 0.94–0.96 for the full set.
