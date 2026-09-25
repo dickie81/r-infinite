@@ -3129,3 +3129,35 @@ Its only arithmetic is `arg ζ(2 + it)`, which is dominated by the smallest prim
 - The lines are not modes of the chain waiting to be struck. They need the fluctuations to have arithmetic structure.
 - The recurrence of the same lines across different prime subsets (round 96) therefore points to something all true-prime subsets share and random phases lack: every term `p^{−1/2} sin(t ln p)` starts **in phase at `t = 0`**. So the low zeros are displaced coherently, in the same direction, whatever the subset.
 - This makes the low zeros the candidate carriers of the line family. The height-band swap (true zeros below `H`, quantiles above) is the direct test.
+
+## Round 98: the lines are carried by the zeros up to the window's edge (`PREREG_heightbands.md`, `kheightbands_score.py`)
+
+**Registered in `b506709`.** The sets are:
+- **L_H:** true zeros below `H`, smooth quantiles above;
+- **U_H:** quantiles below `H`, true zeros above.
+
+The window's edge `2T₀ = 4πx` runs over 38–151 on this grid.
+
+| `H` | 30 | 50 | 100 | 200 | 500 |
+|---|---|---|---|---|---|
+| true zeros below `H` | 3 | 10 | 29 | 79 | 269 |
+| **L_H**: correlation with true (rms ratio) | 0.08 (0.14) | 0.22 (0.43) | 0.50 (0.81) | **0.983** (0.99) | 1.000 (1.00) |
+| L_H: 9.42 line | no | no | no (8.94) | **yes** (9.38) | yes |
+| **U_H**: correlation with true (rms ratio) | **1.000** (1.00) | 0.91 (1.00) | 0.60 (0.98) | 0.17 (0.21) | 0.07 (0.14) |
+| U_H: 9.42 line | **yes** | yes (9.38) | no (9.12) | no | no |
+
+**Result: EDGE passes and LOW fails.**
+- **EDGE (all three registered clauses hold):** L_100 lacks the line, L_200 has it (correlation 0.983), and U_30 keeps it (correlation 1.000).
+- **LOW fails:** L_50 has no line and correlates at only 0.22, while U_50 keeps the line.
+
+**The low zeros are not the carriers.**
+- Replacing the first 3 zeros changes nothing (U_30 correlation 1.000); replacing the first 10 still leaves 0.91.
+- What carries the line family is the zeros between about 100 and 200. That is the band swept by the window's moving edge `4πx` (up to 151), plus a margin.
+- Zeros above 200 add almost nothing on this range (U_200: 21% of the rms).
+- Round 97's lead (coherent low-zero displacement) is refuted. The recurrence of lines across prime subsets must instead come from how each subset displaces the zeros *near the edge*.
+
+**Reading.**
+- At window `x` the chain reads the zeros near its edge `T ≈ 4πx`.
+- A line fixed at `ω` in `x` therefore corresponds to structure repeating every `Δt = 4π·2π/ω` in the zeros near the edge. For `ω = 3π` that is `8π/3 ≈ 8.38`.
+- For comparison, `p = 2`'s term `sin(t ln 2)` repeats every `2π/ln 2 = 9.06`. That is within 8% of the required period: the same 8% gap as `4π ln 2 = 8.71` against 9.42.
+- Closing it needs the exact reading height (`≈ 1.08 × 4πx`?), which is the next thing to pin down. A window-relative band test would do it: true zeros only in `[c₁, c₂]·4πx` at each window.
