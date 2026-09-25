@@ -2781,7 +2781,7 @@ Neither is derived.
 **Method.** Take the residual of `ln K_a(0, 0)` on `δ ∈ [0.5, 3]` after the smooth fit. The fitted leading coefficient is `12.5666 = 4π` to five digits, which confirms the reduced problem's exponent. Resample the residual uniformly in `x = e^δ = e^{2a}`, detrend it, apply a Hann window, and take its spectrum (`kspectrum_results.txt`).
 
 **Findings.**
-- **Discrete.** The top 12 lines carry `≈ 0.9` of the power over `x ∈ [1.65, 20.1]`, against `≈ 0.03` for a flat spectrum.
+- **Discrete.** Over `x ∈ [1.65, 20.1]`, the eight main lines hold `0.48` of the power in their centre bins alone, and `≈ 0.9` including each line's ±2-bin Hann main lobe, against `≈ 0.03` for a flat spectrum. The ±2-bin sums double-count slightly where lines are within 4 bins: `kspectrum_results.txt` prints values up to `1.04`.
 - **Stable in `x`.** The lines appear independently in both halves of the range, at the same positions within resolution:
 
 | `x ∈ [1.65, 10]` (res 0.75) | 5.27 | 9.78 | 12.79 | 16.56 | 23.33 |
