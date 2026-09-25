@@ -13,6 +13,7 @@ mode, c1, c2, Kf = sys.argv[1], float(sys.argv[2]), float(sys.argv[3]), float(sy
 import os
 ZT = [g for g in json.load(open(os.environ.get("ZTRUE", "../../../../research/checkpoints/zeta_zeros_6700.json"))) if g < HC]  # round 102: ZTRUE overrides the "true" set
 ZQ = json.load(open("pzeros_0.json"))
+if len(ZT) < len(ZQ): ZT = ZT + ZQ[len(ZT):]   # round 103: a set one short near t = 1000 is completed by the quantile
 assert len(ZT) == len(ZQ) == 649; HMAX, NQ = 6997.0, 3
 for xv in map(float, sys.argv[5:]):
     E = 4*math.pi*xv; inb = [c1 <= g/E < c2 for g in ZT]
