@@ -3161,3 +3161,26 @@ The window's edge `2T₀ = 4πx` runs over 38–151 on this grid.
 - A line fixed at `ω` in `x` therefore corresponds to structure repeating every `Δt = 4π·2π/ω` in the zeros near the edge. For `ω = 3π` that is `8π/3 ≈ 8.38`.
 - For comparison, `p = 2`'s term `sin(t ln 2)` repeats every `2π/ln 2 = 9.06`. That is within 8% of the required period: the same 8% gap as `4π ln 2 = 8.71` against 9.42.
 - Closing it needs the exact reading height (`≈ 1.08 × 4πx`?), which is the next thing to pin down. A window-relative band test would do it: true zeros only in `[c₁, c₂]·4πx` at each window.
+
+## Round 99: the reading height, and a height-to-frequency ladder (`PREREG_readingheight.md`, `kzeroside3.py`, `kreading_score.py`)
+
+**Registered in `96adb56`.** At each window, the true zeros are used only in the band `r = γ/(4πx) ∈ B_j` ("keep"), or everywhere except `B_j` ("drop"), with smooth quantiles elsewhere. There are ten bands of width 0.2 on `[0.2, 2.2)`, giving 20 chains.
+
+| band `r` | .2–.4 | .4–.6 | .6–.8 | .8–1.0 | **1.0–1.2** | 1.2–1.4 | 1.4–1.6 | 1.6–1.8 | 1.8–2.0 | 2.0–2.2 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| drop: loss `1 − corr` | 0.12 | 0.18 | 0.16 | 0.30 | **0.56** | 0.12 | 0.03 | 0.02 | 0.007 | 0.005 |
+| keep: corr with true | −0.27 | 0.06 | 0.20 | 0.01 | **0.56** | 0.46 | 0.15 | 0.14 | 0.14 | 0.07 |
+| keep: rms ratio | 0.61 | 0.68 | 0.60 | 0.94 | 1.10 | 0.45 | 0.29 | 0.21 | 0.18 | 0.16 |
+| keep: strongest line | 3.36 | 3.49 | 7.02 | 6.81 | **9.12** | **9.38** | **16.62** | **16.75** | **23.34** | **23.56** |
+
+**Result: RH fails.** (i) fails and (ii) passes.
+- **(i) fails.** The loss-weighted reading height is `r̄ = 0.92`, outside `[1.03, 1.13]`. Read at that height, `p = 2` would put the line at `r̄·4π ln 2 = 8.01`, not 9.42. So the single-height `p = 2` derivation of the 3π line fails.
+- **(ii) passes.** The band `[1.0, 1.2)` carries the most: removing it costs 0.56 of the correlation, and keeping it alone gives 0.56 with a line at 9.12. The interior bands (`r < 1`) also cost 0.12–0.30 when dropped, and that is what pulls `r̄` below 1.
+
+**Post hoc, not registered: a height-to-frequency ladder.** Each band, kept alone, produces its own dominant line, and the line frequency rises with the band's height:
+
+| band `r` | 1.0–1.4 | 1.4–1.8 | 1.8–2.2 |
+|---|---|---|---|
+| line | 9.1–9.4 | 16.6–16.75 | 23.3–23.6 |
+
+These are exactly the true chain's line family (9.42, 16.75, 23.73; rounds 84–85), and the steps are nearly equal (≈ 7.1–7.3). The family is therefore not several primes' lines. It is **one mechanism read at successive heights beyond the window's edge**: `r > 1`, i.e. zeros up to about `2.2 × 2T₀`, contribute with falling weight. A finer band ladder would measure the frequency-versus-height relation `ω(r)` precisely. That relation is the window's "dispersion law", and it is the object a derivation has to produce.
