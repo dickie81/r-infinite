@@ -2967,3 +2967,32 @@ The quantile residual correlates with the true one at `0.08`.
 - not the layer topology (rounds 89–90).
 
 The zero side makes the next step possible, because it can be dissected where the prime side could not. Replacing the zeros by quantiles *in height bands* will localise which zeros carry the 3π line: those near the edge `2T₀ = 4πx`, or the low zeros.
+
+## Round 92: the discretised d-ball has a consistent arithmetic only for d = 1, 2 (`PREREG_latticeball.md`, `klatticeball.py`)
+
+**Registered in `052cdfb`.** The owner's claim was that "the arithmetic is forced by discretising the unit ball". It was made operational as follows:
+- sum the Gaussian `e^{−π|t|²x}` over the integer lattice ℤ^d instead of integrating it over ℝ^d;
+- take the Mellin transform, which gives the completed Epstein zeta `Λ_d(s) = π^{−s}Γ(s)Σ'_{m∈ℤ^d}|m|^{−2s}`.
+
+The discretised d-ball has a window chain only if every zero of `Ξ_d = s(s − d/2)Λ_d` lies on `Re s = d/4`. `Λ_d` is computed from its theta integral, which matches the closed forms at `d = 1, 2, 4, 8` to `1e-31`–`1e-47`. The test compares zeros on the line (sign changes) with all zeros (argument principle) up to `T = 40`.
+
+| `d` | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|
+| all zeros, `0 < Im < 40` | 21 | 20 | 20 | 20 | 20 | 21 | 21 | 21 |
+| on `Re s = d/4` | 21 | 20 | 10 | 8 | 8 | 9 | 9 | 9 |
+| off-line | 0 | 0 | **10** | **12** | **12** | **12** | **12** | **12** |
+| consistent (chain exists) | yes | yes | no | no | no | no | no | no |
+
+**Cross-checks.**
+- `d = 1` is `ζ(2s)`: its line zeros are `γ/2` (7.07, 10.51, …), 21 of them.
+- `d = 2` is `ζ(s)L(s, χ₋₄)`, the Gaussian integers: 6 ζ-zeros plus 14 `L`-zeros.
+- `d = 4` is exact: 8 line zeros from `1 − 4^{1−s}` at `t = 2πk/ln 4 = 4.53k`, and 12 off-line zeros (6 ζ-zeros at `Re s = ½` and their mirrors at `3/2`).
+- `d = 8` is exact: 9 line zeros from `1 − 2^{1−s} + 2^{4−2s}` (whose roots have `|2^{−s}| = ¼`, so they lie on the line) plus 12 off-line zeros.
+
+**Result: H fails, as expected.** The literal lattice discretisation of the d-ball gives a consistent arithmetic, zeros all on the centre line, **only for d = 1 and d = 2**. It fails for every `d = 3, …, 8` computed. The two exact cases, `d = 4` and `d = 8`, fail because their Epstein zetas factor into ζ's *shifted off* the centre. `d = 3, 5, 6, 7`, which have no Euler product, fail with 10–12 off-line zeros below height 40.
+
+**Reading.**
+- **Supported.** In one dimension, discretising the Gaussian on a lattice through the origin forces ζ uniquely: every such lattice is `λℤ`, and `Λ_{λℤ} = λ^{−2s}Λ_1` has the same zeros. `d = 2` (ℤ[i]) gives `ζ·L(χ₋₄)`, which contains ζ. So "the arithmetic is the 1-D lattice sampling of the Gaussian, with Γ as its continuum" holds exactly (Riemann 1859). The measured chain is its window chain.
+- **Not supported.** "The arithmetic is forced by discretising the *higher-dimensional* ball." From `d = 3` on, the ball's own lattice discretisation gives an arithmetic *without* a consistent window chain.
+  - In the distinguished dimensions 4 and 8 (quaternions, octonions), it gives ζ back, but shifted off-centre.
+  - The higher balls' lattices do not carry the chain. Only the lowest dimensions do.
