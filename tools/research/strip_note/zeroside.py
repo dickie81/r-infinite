@@ -9,7 +9,10 @@ Phi_a = Phi 1_[-a,a] (not its projection), Q(Phi_a)/||Phi_a||^2 = 2 sum E_a(gamm
 E_a(gamma) = 2 int_a^inf Phi cos(gamma u) du (Phi_a's transform at a zero is -E_a, since Xi vanishes there)
 and ||Phi_a||^2 = 2 int_0^a Phi^2 (the round-383 correction: an earlier session script used 2 int_0^a Phi).
 Tail beyond the last zero: the mean of gamma^2 ghat^2 over the last 100 zeros times int_T^inf (ln(r/2pi)/2pi) r^-2 dr.
-Usage: zeroside.py   (about two minutes)
+Caveat (round 384): the five-panel tanh-sinh quadrature of E_a(gamma) under-resolves the oscillation above
+gamma ~ 4500 (by 0.6% at 5449 up to 6.5% at 6908); the zeros above 5000 carry 0.5% of the sum, so the quotient
+Q(Phi_a)/||Phi_a||^2 is affected at 2e-5 relative (a 600-panel grid gives 1.1611876e-14 against this file's 1.1612094e-14).
+Usage: zeroside.py   (about 40 minutes: the 6700 tail quadratures dominate)
 """
 import os, sys, json
 import mpmath as mp
