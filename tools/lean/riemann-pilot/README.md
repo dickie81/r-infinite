@@ -2843,3 +2843,20 @@ It passes if `|ratio − 1| ≤ 3e^{−δ}` for `d = 0…60`.
 
 **Reading.** Each window of the Weil chain carries the cascade's ball tower `Γ_ℝ(d+1)ζ(d+1)` at the imaginary half-integers, to `≈ 1e-4` relative at `δ = 4.3`. The only deviation is the known finite-window correction. That is the precise sense in which "the Gamma and the arithmetic are one object" shows up in the chain. It is the explicit formula's identity seen through the window chain, not new physics. No prediction for the wiggle frequencies was registered, and none is claimed.
 
+## Round 87: the tower up to the dimension horizon, a second pre-registered test (`PREREG_tower_horizon.md`, `ztower_score2.py`)
+
+**The test.** It was registered in `1367192` before any computation. Round 86's test could not separate the closed-form multiplier from the Gaussian at `d ≤ 60`, so this one goes to the dimension horizon. The window is `δ = 3.5` (`T₀ = 208`, `2T₀ = 416`), with layers `d = 0, 25, …, 500` (`1.2 × 2T₀`). Two bases are used: `K = 536` (top frequency ≈ 968) and `K = 867` (≈ 1558).
+
+**Result** (`tower_results/score_horizon.txt`). Every registered criterion passes:
+
+| criterion | registered | measured | verdict |
+|---|---|---|---|
+| validity: the bases agree | `≤ 1e-3` | `≤ 2.3e-5` at every `d` | valid |
+| (A) P1 holds | `\|m/P1 − 1\| ≤ 3e-3`, `d ≤ 500` | max `1.23e-3` (at `d = 500`) | **PASS** |
+| (B) the Gaussian null fails | `\|m/N − 1\| > 3e-3`, `300 ≤ d ≤ 500` | `4.3e-3` (d = 300) rising to `1.74e-2` (d = 500) | **PASS** |
+| (C) the residual is the known correction | `c` within ±30% of `5.29e-6` | `3.86e-6` (ratio `0.73`) | **PASS, narrowly** |
+
+**The residual's shape**, recorded honestly. `(m − P1)/z²` is `−5.29e-6` at `d = 50`, equal to `0.0058·e^{−2δ}` to three digits. It then shrinks steadily: `−5.20e-6, −4.87e-6, −4.43e-6, −3.97e-6, −3.54e-6` at `d = 100, 200, 300, 400, 500`. So the finite-window correction is not a pure `Δτ·z²`. It has its own shape in `η = z/(2T₀)`, like a correction `T₀·Δ(η)` to the multiplier. Its small-`z` limit is the known `τ` correction. Criterion (C) passed only because of the ±30% band. Its shape is not derived.
+
+**Reading.** Through the dimension horizon and 20% beyond it, the Weil window chain at `z = i(d+½)` carries the cascade tower `Γ_ℝ(d+1)ζ(d+1)`, shaped by the closed-form multiplier `exp{T₀[w·arcsin w + √(1−w²) − 1]}`. The agreement is `1.2e-3`, and the Gaussian is excluded beyond `d ≈ 300`. The ball-tower layers are seen through each window up to `d ≈ 4πe^δ`, with a suppression law now tested and distinguished from the naive one. As in round 86, this is the explicit formula seen through the chain, not a derivation of the cascade hypothesis. The wiggles remain unexplained.
+

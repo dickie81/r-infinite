@@ -2,12 +2,14 @@
 """Round 86 (pre-registered test, PREREG_tower_layers.md): the chain's kernel at the tower points z = i(d+1/2),
 d = 0..60, computed directly from the Gram: ln[K_a(i(d+1/2),0)/K_a(0,0)] = ln[k0hat(i(d+1/2))/k0hat(0)].
 Basis K = 15 e^delta + 40, precision 300 + 24 e^delta bits (the round-85 settings).
-Usage: ztower.py delta"""
+Usage: ztower.py delta [Kfac] [layers]"""
 import sys, json, math
 import nullvec_fast  # noqa
 from weil_prime_gram import gram
 from flint import arb, arb_mat, ctx
-d = float(sys.argv[1]); K = int(15*math.exp(d)) + 40; prec = int(300 + 24*math.exp(d))
+d = float(sys.argv[1]); KF = float(sys.argv[2]) if len(sys.argv) > 2 else 15.0
+LAYERS = [int(v) for v in sys.argv[3].split(",")] if len(sys.argv) > 3 else list(range(61))
+K = int(KF*math.exp(d)) + 40; prec = int(300 + 24*math.exp(d))
 with ctx.workprec(prec):
     G, N, pp = gram(d, K, prec)
     D = [1/N[i].sqrt() for i in range(K)]
@@ -25,7 +27,7 @@ with ctx.workprec(prec):
         return s
     g0 = 2*a*c[0]
     out = {"delta": d, "K": K, "prec": prec, "layers": {}}
-    for L in range(61):
+    for L in LAYERS:
         v = arb(L) + arb(1)/2
         out["layers"][str(L)] = (gi(v)/g0).log().mid().str(25, radius=False)
 print(json.dumps(out))
