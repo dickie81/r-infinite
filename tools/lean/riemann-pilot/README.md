@@ -2814,3 +2814,32 @@ Neither is derived.
 
 **Reading.** In the variable `x = e^{2a}`, the Hamiltonian's fine structure is quasi-periodic and stable out to `a = 2`, `x = 55`. Its dominant frequency is `3π` to `0.2%`. Its identity and the torus it would be a shadow of are open.
 
+## Round 86: the cascade tower through the window chain, a pre-registered test (`PREREG_tower_layers.md`, `ztower*.py`)
+
+**Primes-off control.** With the prime terms removed (Γ-archimedean part and pole only), the chain collapses: `ln K_a(0, 0) = 0.18` at `δ = 1.5`, against `≈ 29` with primes, and the 2×2 kernel matrix is indefinite. So the trend `4πe^δ` is not "the Gamma part". It is the balance between Γ and the primes.
+
+**The dictionary.** The owner's paper, Theorem 1, defines the tower as `Γ_ℝ(d+1)` with `Ω(d) = |S^d|`. Its Theorem 1b evaluates the explicit formula at `z = d+½`. By the functional equation, `Ξ(i(d+½)) = ξ(d+1) = ½(d+1)d·Γ_ℝ(d+1)ζ(d+1)`, checked to 20 digits. So the chain's kernel at `z = i(d+½)` is, in the limit, the tower times `ζ(d+1)`. Round 77's multiplier gives each layer at a finite window, with a dimension horizon at `d* ≈ 4πe^δ`.
+
+**Pre-registered prediction P1** (committed in `b53b470` before any computation):
+
+`ln[K_a(i(d+½),0)/K_a(0,0)] = ln[ξ(d+1)/ξ(½)] + T₀[√(1+η²) − 1 − η·arsinh η]`,  `η = (d+½)/(2T₀)`.
+
+It passes if `|ratio − 1| ≤ 3e^{−δ}` for `d = 0…60`.
+
+**Result** (`tower_results/score.txt`, `K = 15e^δ + 40`):
+
+| `δ` | tolerance | P1: max `\|ratio − 1\|` | verdict | Gaussian null |
+|---|---|---|---|---|
+| 2.0 | 0.41 | 9.9e-3 | PASS | 6.4e-3 (passes too) |
+| 3.0 | 0.15 | 1.25e-3 | PASS | 9.0e-4 (passes too) |
+| **4.3 (fresh)** | 0.041 | **9.0e-5** | **PASS** | 8.3e-5 (passes too) |
+
+**Honest scoring.**
+- P1 passes at every window, including the fresh one, with large margins. The registered tolerance was loose.
+- The registered null did not fail. At layers `d ≤ 60`, the `ξ(d+1)` term dominates and the closed-form multiplier and the Gaussian differ by less than the residual. The pre-registration's statement that the null "must fail beyond `d ≈ √T₀`" was wrong for this range.
+- So the test confirms the dictionary (the chain at the tower points is the tower times `ζ(d+1)`, up to the multiplier). It does not discriminate the multiplier's shape.
+
+**The residual is fully accounted for.** It is `∝ −z²` with coefficient `−9.9e-5, −1.46e-5, −1.12e-6` at `δ = 2, 3, 4.3`. That matches the known `e^{−2δ}` correction of `τ` (rounds 70 and 80), `0.0058·e^{−2δ} = 1.06e-4, 1.44e-5, 1.07e-6`.
+
+**Reading.** Each window of the Weil chain carries the cascade's ball tower `Γ_ℝ(d+1)ζ(d+1)` at the imaginary half-integers, to `≈ 1e-4` relative at `δ = 4.3`. The only deviation is the known finite-window correction. That is the precise sense in which "the Gamma and the arithmetic are one object" shows up in the chain. It is the explicit formula's identity seen through the window chain, not new physics. No prediction for the wiggle frequencies was registered, and none is claimed.
+
