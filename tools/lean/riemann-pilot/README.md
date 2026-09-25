@@ -3050,3 +3050,31 @@ The registered line test at 9.075 technically finds power within `±res`. But it
 - it shares the 16.75 and 23.73 lines exactly.
 
 Its only arithmetic is `arg ζ(2 + it)`, which is dominated by the smallest primes (weights `Λ(n)/n²`). This suggests that the *line positions* of the wiggle family are set by low primes, while the full wiggle, including its amplitude and the 4.89 line, needs the critical-line fluctuations. That is a hypothesis for a new registration, not a result.
+
+## Round 95: the wiggles are the small primes (`PREREG_lowprimes.md`, `kprimezeros.py`, `kzeroside2.py`, `klowprimes_score.py`)
+
+**Faster protocol.** `kzeroside2.py` keeps the zeros below `H = 1000` individually and replaces the zeros above by their smooth density, with `sin²(ta)` replaced by its mean. Together with a step of 0.04 (226 windows, Nyquist 78), a variant costs about 1/10 of round 91's. **Validation V: correlation `0.9999`** with round 91's full kernel on the true zeros.
+
+**Construction** (registered in `5e9051c`). The zero sets solve `θ(t)/π + 1 + S_P(t) = k − ½`, where `S_P` is the Euler product truncated at the prime `P`. Their mean deviation from the true zeros (below 1000) falls from 0.306 (`P = 0`) through 0.222, 0.158, 0.121, 0.096, 0.077 and 0.060 to 0.041 (`P = 101`).
+
+| `P` | 0 | **2** | 3 | 5 | **7** | 13 | 31 | 101 | 1009 |
+|---|---|---|---|---|---|---|---|---|---|
+| Correlation with true-zero wiggles | 0.08 | **0.45** | 0.69 | 0.71 | **0.90** | 0.92 | 0.96 | 0.95 | −0.09 |
+| rms ratio | 0.14 | 0.83 | 0.93 | 1.13 | 1.10 | 1.29 | 1.14 | 1.20 | 3.88 |
+| Line test at `ω₀ = 9.075` (power / q95) | 0.38 | **13.3** | 3.6 | 4.8 | 4.5 | 4.8 | 2.9 | 4.1 | 0.13 |
+| Where the line peaks | — | 9.77 | 9.77 | 9.77 | 9.77 | **9.075** | 9.075 | 9.075 | — |
+
+**Result: LP passes as registered.**
+- (i): the line test passes for every `P` from 2 to 101.
+- (ii): the correlation at `P = 3` is 0.69 ≥ 0.5.
+
+**Honest qualifications.**
+1. For `P ≤ 7` the line sits one resolution bin (0.70) above `ω₀`, at 9.77. It moves onto `ω₀` from `P = 13`. At this resolution the two are adjacent bins and cannot be separated.
+2. `P = 1009` breaks down: the truncated Euler product does not converge on the critical line, and the zero set becomes misaligned (mean deviation 13.8). This is an expected artefact of the construction, not evidence against LP.
+
+**Reading.**
+- **The prime 2 alone** turns the featureless smooth-quantile chain into one with the dominant line at 13× the threshold and 83% of the true rms.
+- **The primes up to 7** reproduce the true chain's wiggles at correlation 0.90.
+- So the wiggle family is set by the smallest primes, overwhelmingly by `p = 2`, with 3, 5 and 7 shaping it. Larger primes refine it.
+
+**Next.** The next step is a single-prime dictionary (only `p = 3`, only `p = 5`, …) to identify which line each prime creates. Deriving the frequencies from `ln p` needs the *reading height* of the window: `4π ln 2 = 8.71` with the edge at `2T₀`, against the measured 9.1–9.4. That derivation is open.
