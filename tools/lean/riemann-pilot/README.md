@@ -3352,3 +3352,17 @@ Every kernel is built from the Γ side alone. The arithmetic supplies only `δ`,
 - The second-order truncation leaves 6% of the residual correlation, and a maximum error of 0.08 in `ln K`.
 - It describes the true Hamiltonian. It does not prove that the Hamiltonian exists for every `a`.
 - My pre-registered physical guess, that the first-order kernel vanishes below the edge, was wrong. There the quadratic terms are huge and cancel, and the first-order kernel is not small.
+
+**Round 104 addendum: the window's primes predict zeros beyond its horizon** (descriptive, not registered). The window at `x = 12` sees the primes `n < x`, i.e. 2, 3, 5, 7 and 11, and its horizon is `4πx ≈ 151`. The zeros built from Γ's phase plus `S_{≤11}` (`pzeros_set_2-3-5-7-11.json`) match the true zeros at every height tested:
+
+| Heights | Mean `|error|`/spacing, Γ + primes ≤ 11 | Mean `|error|`/spacing, Γ only |
+|---|---|---|
+| 10–151 | 0.032 | 0.170 |
+| 151–300 | 0.046 | 0.188 |
+| 300–600 | 0.061 | 0.211 |
+| 600–1000 | 0.065 | 0.213 |
+
+**Caveats.**
+- This is the classical truncated-Euler-product phenomenon (cf. hybrid Euler–Hadamard products), not new.
+- It places the zeros on the line by construction, so it cannot detect an off-line zero.
+- Adding primes does not make it converge (round 95, `P = 1009`), and its error grows slowly with height.
