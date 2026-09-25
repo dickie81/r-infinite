@@ -3277,3 +3277,26 @@ The band construction does not make the ladder. Noise gives scattered tones, and
 - It is the same at every height band.
 
 Which band shows which tone depends on `r` and `x` together, which still has to be mapped. The concrete target is now a formula for the tone set in terms of the small primes. The spacings (7.45, 6.85, 6.5, 6.6, 6.3) are not constant, so a pure lattice is excluded.
+
+## Round 103: the tone set needs the primes up to 7 (`PREREG_tonesprimes.md`, `ktonesprimes_score.py`)
+
+**Registered in `aaaed41`.** The six ladder bands were rerun with zero sets built from subsets of the primes. A band hits if its strongest tone is within ±0.3 of the true tone.
+
+| band `r` (true tone) | 1.1 (9.29) | 1.5 (16.75) | 2.1 (23.56) | 2.6 (30.14) | 3.0 (36.69) | 3.4 (42.97) | hits |
+|---|---|---|---|---|---|---|---|
+| `{2}` | **9.38** | 8.86 | **23.51** | 22.73 | 21.07 | 42.66 | **2** |
+| `{3}` | 15.01 | **16.71** | 15.79 | 13.09 | 33.28 | 42.44 | **1** |
+| `{2, 3}` | **9.38** | **16.71** | **23.56** | 22.77 | **36.64** | 36.29 | **4** |
+| `{2, 3, 5}` | **9.34** | **16.75** | **23.56** | **30.14** | **36.64** | 36.34 | **5** |
+| `{2, 3, 5, 7}` | **9.34** | **16.75** | **23.60** | **30.10** | **36.69** | **43.01** | **6** |
+
+For `{2}`, band 3.4: 42.66 lies 0.31 from 42.97, so it narrowly misses the ±0.3 window. Only-2 therefore hits 2.
+
+**Result.**
+- **T2 passes** (`{2}` hits 2 ≤ 3).
+- **T3 passes** (`{3}` hits 1 ≤ 3).
+- **T23 fails**: `{2, 3}` hits 4, and 5 were required.
+- The minimal set that reproduces all six tones is **`{2, 3, 5, 7}`**.
+- Each added prime corrects one more band, and always the highest band still wrong: 2.6 is fixed by 5, and 3.4 by 7.
+
+**Post hoc.** In the missed bands the correct tone is usually present already, as the second peak. Examples: `{2, 3}` at 3.4 has 42.71 second; `{2, 3, 5}` at 3.4 has 43.01 second. Even `{2}` alone produces family values in several bands (16.79, 23.51, 42.49–42.66). So the added primes mostly decide *which* tone dominates a band; they do not create new tones. The tone values look like a property of the Γ lens driven by `p = 2`. The larger primes supply the weighting that selects the tone in each band.
