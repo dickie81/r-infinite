@@ -1,0 +1,4 @@
+g_1: sum over 6700 zeros = 3.1001058e-30  tail est = 6.08e-32  Q = 2(sum + tail) = 6.3218261e-30   ledger Q = 6.3240229152
+Phi_a^K: sum over 6700 zeros = 5.7312792e-15  tail est = 9.59e-17  Q = 2(sum + tail) = 1.1654307e-14   ledger Q = 1.1654511462
+exact Phi_a: ||Phi_a||^2 = 0.0799379529904  sum E_a^2 over 6700 zeros = 4.5720369e-16  tail est = 6.92e-18  Q(Phi_a)/||Phi_a||^2 = 1.1612094e-14
+first zeros, exact -E_a/||Phi_a|| vs projection ghat: 6.24839e-9 vs 6.24742e-9; 1.74576e-8 vs 1.74565e-8; -1.81772e-8 vs -1.8177e-8
