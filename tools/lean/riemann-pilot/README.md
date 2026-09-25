@@ -2797,3 +2797,20 @@ Neither is derived.
 - The frequencies are unidentified: not prime-lattice, not zero-driven, and not harmonics of `π` within resolution.
 - Sharper lines need larger windows (`x` up to `e⁴` would give `3×` resolution, at `K ≈ 1650`).
 
+## Round 85: larger windows (to `a = 2`, `x = e^{2a} = 55`); the main line sits at `3π` (`kspectrum2.py`)
+
+**Data.** 289 new windows at uniform step `0.12` in `x = e^δ ∈ [20, 54.6]`, i.e. `δ ∈ [3, 4]` (`hamiltonian_grid_x20_55.jsonl`). The basis is `K = 15x + 40` at `300 + 24x` bits: about 4 minutes per window at `x = 55`, where `ln K_a(0, 0) = 650.5`. `K = 15` was validated against `K = 30` on `δ ∈ [1.5, 2]`: the residual of `ln K_a(0, 0)` correlates at `0.9976`, with rms difference 7% of the signal. The joint smooth fit over `x ∈ [1.65, 54.6]` (with a step term at the `K`-factor junction `x = 20`) again gives the leading coefficient `12.565 ≈ 4π`.
+
+**The spectrum in `x`** (`kspectrum2_results.txt`; resolution `0.119` over the combined range, `≈ 0.18–0.37` per segment):
+- **The dominant line persists** in every segment, including the new ones, and does not drift. Its refined centre (zero-padded peak) is `9.436, 9.390, 9.472, 9.437` on `x ∈ [1.65, 12], [12, 25], [25, 40], [40, 54.6]`, and `9.417` combined. The mean over segments is `9.434 ± 0.017`, against `3π = 9.4248`.
+- **The next strongest lines** are `5.246` (`5π/3 = 5.236`) and `16.741` (`16π/3 = 16.755`).
+- **Weaker lines do not fit a `π/3` lattice**: `2.04, 4.30, 6.69, 13.19` sit at ratios `1.95, 4.10, 6.39, 12.59` to `π/3`.
+
+**Caveats.**
+- The `π/3` lattice was chosen after seeing the data, from a handful of natural candidates.
+- The chance that three given lines fall within their observed deviations (0.008, 0.010, 0.014) of a lattice of spacing `1.047` is about `1e-5`. Choosing the lattice and the three lines afterwards costs perhaps two orders of magnitude, so this is suggestive, not established.
+- No mechanism is known. An oscillation `cos(3πx)` in `ln K_a(0, 0)` is `cos(3T₀/2)` in the horizon `T₀ = 2πx`, or `cos(¾·4πx)` against the smooth part `4πx`.
+- Rounds 82–84 exclude a zero-crossing origin (not log-periodic) and a prime-lattice origin (not `2π`-periodic in `ω`; no correlation with `Σ Λ(n)/√n`).
+
+**Reading.** In the variable `x = e^{2a}`, the Hamiltonian's fine structure is quasi-periodic and stable out to `a = 2`, `x = 55`. Its dominant frequency is `3π` to `0.2%`. Its identity and the torus it would be a shadow of are open.
+

@@ -31,8 +31,13 @@ def run(d, K, prec):
                 "detn": f((k00*k22 - k02*k02)/(k00*k00))}
 d0, d1, st = float(sys.argv[1]), float(sys.argv[2]), float(sys.argv[3])
 Kf = float(sys.argv[4]) if len(sys.argv) > 4 else 20.0
-n = int(round((d1 - d0)/st))
-for i in range(n + 1):
-    d = round(d0 + i*st, 6)
-    K = max(40, int(Kf*math.exp(d)) + 40); prec = int(300 + 40*math.exp(d))
+PF = float(sys.argv[5]) if len(sys.argv) > 5 else 40.0     # prec = 300 + PF e^delta
+XGRID = len(sys.argv) > 6 and sys.argv[6] == 'x'            # step is in x = e^delta
+if XGRID:
+    x0, x1 = math.exp(d0), math.exp(d1); n = int(round((x1 - x0)/st))
+    ds = [round(math.log(x0 + i*st), 7) for i in range(n + 1)]
+else:
+    n = int(round((d1 - d0)/st)); ds = [round(d0 + i*st, 6) for i in range(n + 1)]
+for d in ds:
+    K = max(40, int(Kf*math.exp(d)) + 40); prec = int(300 + PF*math.exp(d))
     print(json.dumps(run(d, K, prec)), flush=True)
