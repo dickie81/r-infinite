@@ -2933,3 +2933,37 @@ The 3π line is therefore sinusoidal to about 5% in amplitude. An equal-weight c
 - At a free slope, the line that exists has no harmonics and no lattice line.
 
 So the wiggles show no trace of the integer layer structure. Bott could still be present only if every layer's feature is spread over more than about one layer. In that case a period-8 pattern cannot be told apart from any other smooth oscillation of that frequency in this data, and the Bott reading is not testable here. The `≈ 3π` line (9.4–9.6 depending on range and detrending, resolution 0.37 here) is a clean single-frequency oscillation of unknown origin.
+
+## Round 91: the one remaining route, geometric resonance, is closed; the 3π line is arithmetic (`PREREG_resonance.md`, `kzeroside.py`, `kresonance.py`)
+
+**Two structural facts, found on the way.**
+- **The prime side cannot be dissected.** At `x = 12` (`kchain_variant.py`), `ln K00` is `122.5` with the full prime side. It becomes:
+  - `1.9` with every `Λ(n)` scaled by 0.9;
+  - indefinite with the weights scaled by 1.1;
+  - `0.09` with `n ≤ 5` dropped;
+  - `100.4` with `n = 11` alone dropped.
+
+  The `e^{4πx}` growth is an exact Γ–prime cancellation that exists only at prime weight 1.
+- **The zero side is exact and robust.** By Weil's explicit formula (zeros on the line), `K_a(0,0) = sup ĝ(0)²/Σ_γ |ĝ(γ)|²`. `kzeroside.py` evaluates this in the cosine basis on the first 6700 zeros. It reproduces the prime-side chain up to a near-constant offset: `0.667` and `0.664` nats at `x = 5` and `8`, close to `ln 2` less the truncation. Its residual correlates with the measured one at **`0.985`**. Any point set gives a positive form, so the zeros can be replaced safely.
+
+**The test (registered in `56f642c`).** Route R said the line is a geometric resonance between the window and the *mean* zero spacing. The test replaces the 6700 zeros by their fluctuation-free quantiles, `θ(γ̃_k) = (k − 3/2)π`, and recomputes on `x ∈ [3, 12]` (451 windows, step 0.02).
+
+| | True zeros | Smooth quantiles | Measured (prime side) |
+|---|---|---|---|
+| Line at 9.075 (power / flank q95) | **5.07** | **0.074** | 5.12 |
+| Residual rms | 0.074 | 0.010 | — |
+| Top lines | 9.07, 4.89, 16.75, 13.26, 23.73 | none (a detrending remnant at 1.4) | 9.07, 4.89, 16.75, 13.26, 23.73 |
+
+The quantile residual correlates with the true one at `0.08`.
+
+**Result: V passes, R fails, A holds.**
+- With the zeros at their mean positions, the chain has *no* wiggles: it keeps 14% of the rms, and that remnant has no structure.
+- The whole fine structure, including the 3π line, its companions at 4.9 and 16.75, and their relative powers, is carried by the **fluctuations of the zeta zeros about their mean positions**.
+- The line position is 9.075 here (resolution 0.70 on this range) against 9.4 on the larger ranges.
+
+**Reading.** The route is closed, and the question now has a precise answer. The trend is Γ, and the wiggles are arithmetic: they are the zeros' deviations `S(t) = (1/π)arg ζ(½ + it)` read through the window's extremal problem. This fits every earlier negative:
+- not the mean density (round 88's continuum null, and now Z1);
+- not the individual zero crossings (rounds 82–83, 88);
+- not the layer topology (rounds 89–90).
+
+The zero side makes the next step possible, because it can be dissected where the prime side could not. Replacing the zeros by quantiles *in height bands* will localise which zeros carry the 3π line: those near the edge `2T₀ = 4πx`, or the low zeros.
