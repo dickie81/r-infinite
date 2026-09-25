@@ -2774,3 +2774,26 @@ Neither is derived.
 
 **Reading.** The Hamiltonian's potential is `q ≈ 4πe^{2a} − 5` plus a fine structure that is real, of roughly constant absolute amplitude, and multi-scale. The density of its features grows with the window at every resolution tested, with no regular spacing and no scale-free constant. It is not a zero-crossing pattern. Round 81 showed it is not a sum of independent prime-power pieces either. Together these rule out the natural closed forms. The Hamiltonian is tabulated and validated to `a = 1.5`. It has no closed form, and its existence for all `a` is equivalent to RH.
 
+## Round 84: the fine structure is quasi-periodic in `x = e^{2a}` (`frontier/nullvec/kspectrum.py`)
+
+**Question** (the owner's "a higher-dimensional shadow?"). A quasi-periodic function, meaning a sum of a few incommensurate frequencies, is the restriction of a periodic function on a torus to a line. Bohr's view of ζ and the Kurasov–Sarnak Fourier quasicrystals are of this kind. Does the Hamiltonian's fine structure have a discrete spectrum?
+
+**Method.** Take the residual of `ln K_a(0, 0)` on `δ ∈ [0.5, 3]` after the smooth fit. The fitted leading coefficient is `12.5666 = 4π` to five digits, which confirms the reduced problem's exponent. Resample the residual uniformly in `x = e^δ = e^{2a}`, detrend it, apply a Hann window, and take its spectrum (`kspectrum_results.txt`).
+
+**Findings.**
+- **Discrete.** The top 12 lines carry `≈ 0.9` of the power over `x ∈ [1.65, 20.1]`, against `≈ 0.03` for a flat spectrum.
+- **Stable in `x`.** The lines appear independently in both halves of the range, at the same positions within resolution:
+
+| `x ∈ [1.65, 10]` (res 0.75) | 5.27 | 9.78 | 12.79 | 16.56 | 23.33 |
+|---|---|---|---|---|---|
+| `x ∈ [10, 20.1]` (res 0.62) | 4.99 | 9.37 | 13.11 | 16.86 | 23.72 |
+
+  The dominant line, `ω ≈ 9.5`, carries 24–30%.
+- **Not stable in `δ`.** The lines drift between halves, so the structure is not log-periodic. That argues against frequencies set by zeta zeros, which would enter as `e^{iγ·a}`.
+- **Not prime powers on the integers.** Prime powers enter at `x = n`, so an arithmetic event train would give lines periodic in `ω` with period `2π`. They are not. The residual does not correlate with `Σ_{n≤x} Λ(n)/√n`: corr `−0.02`, best over lag `0.155`, inside the null band from random integer positions (95% point `0.20`).
+
+**Reading.** In the variable `x = e^{2a} = T₀/(2π)`, the natural horizon scale, the fine structure of the chain's Hamiltonian is quasi-periodic with a handful of stable frequencies. That is the signature of a shadow of a low-dimensional torus flow. What remains open:
+- The number of independent frequencies, i.e. the torus dimension, is undetermined at this resolution (`Δω ≈ 0.34` over `x ≤ 20`).
+- The frequencies are unidentified: not prime-lattice, not zero-driven, and not harmonics of `π` within resolution.
+- Sharper lines need larger windows (`x` up to `e⁴` would give `3×` resolution, at `K ≈ 1650`).
+
