@@ -820,9 +820,14 @@ d(−ln λ₁)/dδ = 4πe^δ equals the wall T = 2T₀ exactly when f(X*) = 2πX
 i.e. ln(X*/2) = 0, the maximiser X* = 2 — so 1/(4ℓ′) and this note's
 1/(4T) are one number; and the O(1) offset in ℓ′ corresponds to the slope
 of the paper's 1bm(vii) residual ln λ₁ + 4πe^δ, "least-squares slope 5.04
-per unit δ" — i.e. d(−ln λ₁)/dδ = 4πe^δ − 5.04 — against the pilot's −4.5
-in ℓ′ = d ln K_a(0, 0)/dδ, the two differing also by the slow growth of
-−ln λ₁ − ln K_a(0, 0) (the pilot's 1.01 → 1.38 from δ = 2 to 3). The correction's home is thereby identified
+per unit δ" — i.e. d(−ln λ₁)/dδ = 4πe^δ − 5.04 — against the pilot's
+offset in ℓ′ = d ln K_a(0, 0)/dδ, "≈ −4.5" in its round 80 and −5.18 in
+its round 82's fit "ln K_a(0, 0) ≈ 4πe^δ − 5.18δ − 15.65"; the two
+quantities differ by d(−ln λ₁ − ln K_a(0, 0))/dδ ≈ +0.37 (the pilot's
+1.01 → 1.38 from δ = 2 to 3), so the paper's slope predicts ℓ′ − 4πe^δ ≈
+−5.4, and the pilot's own round-79 table over [2, 3] gives ℓ′ − 4πe^δ
+averaging −5.26 against d(−ln λ₁)/dδ − 4πe^δ averaging −4.89 — the same
+offset to the coarseness of the fits. The correction's home is thereby identified
 numerically, on the pilot's side; not derived here.)*
 
 Taken at every δ with T → ∞, input (a) is the target of §4 item 3 itself,
@@ -1040,9 +1045,11 @@ by 10⁻² (the difference columns), and the lines net to Q(g₁) − Q(Φ_a^K) 
 truncation cost, e^{−T₀}·poly (Theorem A; Q(Φ_a^K) = e^{−32.1} at δ = 2
 against T₀ = 46.4, e^{−107.9} at δ = 3 against 126.2), to the ground
 state's e^{−2T₀}·poly (dodging; ln λ₁ = −67.2 and −221.9 against 2T₀ =
-92.9 and 252.4, the offsets 25.6 and 30.5 being the paper's 1bm(vii)
-residuals, of which 1bm(v)'s c(δ) is 5.94 and 7.30 nats and the discrete
-formula's own difference from −4πe^δ the rest) is not
+92.9 and 252.4, the offsets 25.6 and 30.5 being the same quantity as the
+paper's 1bm(vii) residuals — 25.5 and 30.5 there, on its zero-side model;
+here on the true-form Gram — of which 1bm(v)'s c(δ) is 5.94 and 7.30
+nats and the discrete formula's own difference from −4πe^δ the rest) is
+not
 readable on the prime side. The ledger is an identity; dodging is a
 statement about the zero side, Σ_ρ ĝ(γ_ρ)² with every term below the wall
 ≈ 0; the prime side records only that the identity holds.
@@ -1053,8 +1060,8 @@ so f_{g₁} = e^{−2τ_a∂²}f_Φ to leading order), whose leading tail law
 f_{g₁}/f_Φ ≈ exp(−(π/2)e^{2u−δ}) gives 0.43, 0.15, 0.034, 5·10⁻³ at
 u = ln 2, ln 3, ln 4, ln 5 at δ = 2 against the measured 0.68, 0.24, 0.035,
 1.4·10⁻³ — the leading tail asymptotic S′ ≈ −2πe^{u} over-damps by a
-factor up to 1.6 at the first two prime logarithms, where it is not yet
-accurate, and is within 1% at ln 4 — and near
+factor 1.6 at the first two prime logarithms, where it is not yet
+accurate, and is 4% low at ln 4 — and near
 the edge the suppression is far stronger (predicted 3·10⁻⁵ at u = ln 7,
 measured 1.3·10⁻¹⁰; at δ = 3 the n = 19 term is suppressed by 4·10⁻³¹):
 the pilot's edge layer, seen on the prime side as the extinction of the
@@ -1148,7 +1155,27 @@ terms of this section, the operator inequality's certificate at window a
 is the existence of the chain up to a, a positivity that is local in the
 window variable; "RH is equivalent to this chain existing for every a.
 Our numbers describe it where it provably or numerically exists. Nothing
-here shows it exists for all a."
+here shows it exists for all a." Its rounds 81–82 (landed after the
+round-383 sweep; quotations adapted): each prime power's imprint on the
+chain's potential obeys "an exact first-order law", J_n = 2(Λ(n)/√n)·E
+with E the kernel's edge weight, but E "is a truncation artefact: the
+continuum kernel vanishes at the edge", the continuum onset is "a soft,
+non-universal kink" and "The chain has memory"; the Hamiltonian is
+tabulated on a ∈ [0.24, 1.01] and "shown to generate the chain's kernels
+to 3e-7 (at z = 1) to 3e-3 (at z = 40i)", its smooth part "ln K_a(0, 0)
+≈ 4πe^δ − 5.18δ − 15.65", and "The positions of the zeros the chain
+dodges live in the fine structure of the potential", which "is not
+explained" — a hypothesis that its extra features are zeta zeros crossing
+a horizon "fails a fair null test"; its round 83 extends the tabulation to
+a = 1.5 (the canonical system integrated from δ = 0.5 to 3 reproducing the
+direct kernel to 2·10⁻⁶ at z = 1 while K_a(0, 0) grows by e^{200}), finds
+the fine structure "real, of roughly constant absolute amplitude, and
+multi-scale", its features growing in number like e^δ, "not a
+zero-crossing pattern", and concludes "It has no closed form, and its
+existence for all a is equivalent to RH." In this section's terms: the prime
+side enters the local form of the inequality through the kernel's edge
+profile at each window, not through a universal per-prime profile; the
+ledger's per-prime lines are the window-integrated shadow of that.
 
 **5.5 Conclusion of the ledger.** The prime side of the truncated form at
 a cell is a fixed, rapidly convergent arithmetic sum dominated by 2 and 3,

@@ -205,10 +205,11 @@ def main():
     # boundary values
     g1a = sum(c1[k]*mp.cos(B['om'][k]*a) for k in range(K)); gPa = sum(cP[k]*mp.cos(B['om'][k]*a) for k in range(K))
     print(f"    g_1(a) = {mp.nstr(g1a, 8)}   Phi_a^K(a) = {mp.nstr(gPa, 8)}   Phi(a)/||Phi_a^K|| = {mp.nstr(Phi(a)/nP, 8)}")
-    json.dump({'delta': delta, 'K': K, 'prec': prec, 'ln_lam1': ln_lam1, 'sin2': float(sin2),
-               'ledger_g1': {k: (mp.nstr(v, 40) if not isinstance(v, dict) else {n: mp.nstr(x, 40) for n, x in v.items()}) for k, v in L1.items()},
-               'ledger_Phi': {k: (mp.nstr(v, 40) if not isinstance(v, dict) else {n: mp.nstr(x, 40) for n, x in v.items()}) for k, v in LP.items()},
-               'c1': [mp.nstr(x, 50) for x in c1], 'cP': [mp.nstr(x, 50) for x in cP], 'rows': rows},
+    D = mp.mp.dps   # lines and vectors stored at the working precision, so the totals recombine from the file (round 384 F384-7)
+    json.dump({'delta': delta, 'K': K, 'prec': prec, 'dps': D, 'ln_lam1': ln_lam1, 'sin2': float(sin2),
+               'ledger_g1': {k: (mp.nstr(v, D) if not isinstance(v, dict) else {n: mp.nstr(x, D) for n, x in v.items()}) for k, v in L1.items()},
+               'ledger_Phi': {k: (mp.nstr(v, D) if not isinstance(v, dict) else {n: mp.nstr(x, D) for n, x in v.items()}) for k, v in LP.items()},
+               'c1': [mp.nstr(x, D) for x in c1], 'cP': [mp.nstr(x, D) for x in cP], 'rows': rows},
               open(os.path.join(OUT, f'ledger_d{delta}.json'), 'w'))
 
 if __name__ == '__main__':
