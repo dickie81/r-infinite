@@ -3246,3 +3246,34 @@ They are irregular, while the rung values are regular: 9.3, 16.7, 23.4, 30.1, 36
 **Robustness check.** Subtracting the smooth-quantile chain before the spectrum (the baseline has no power in `[4, 45]`) gives the same peaks in all 26 bands of rounds 100–101. Each band's contribution falls smoothly with height, from rms 0.083 at `r = 0.95` to 0.0012 at `r = 3.45`.
 
 **Reading.** The window turns zero heights into a ladder of tones with near-constant spacing ≈ 6.4–7.4. Each tone locks over a height range of irregular width. The tones lag `4πr` by a lag that shrinks with height: `4πr − ω = 5.8, 4.3, 1.7, 0.4` at the plateau centres 1.2, 2.2, 3.05 and 3.45. Deriving the rung spacing and the irregular plateau boundaries is the concrete target.
+
+## Round 102: the tones are arithmetic and universal; the band-to-tone map is not (`PREREG_laddercontrols.md`, `kladdercontrols_score.py`)
+
+**Registered in `cc39e23`.** Three controls on the ladder of rounds 100–101.
+
+**Execution note.** The first launch of C and D crashed before computing anything: an edit to `kzeroside3.py` had put the definition of `ZQ` inside a comment. It was fixed, and the fixed script was checked to reproduce round 100's value (`x = 5`, band [1.1, 1.2): `39.3249127…`, identical). The chains were then rerun.
+
+**S (sub-range stability) fails.** In only 8 of 26 bands (31%) do both half-ranges (`x ∈ [3, 7.5]` and `[7.5, 12]`) give the full-range tone to within 1.40. The registered reading was "artefact of the finite range". Looking at the data, that needs qualifying:
+- The half-range tones still belong to the *same set*: ≈ 9.4, 16.6, 23.4, 29.9, 36.5 and 42.
+- What changes is which tone a given band shows. At fixed `r` the lower half-range (smaller `x`) tends to show the *higher* tone. For example, `r = 2.15` gives 29.5 on `[3, 7.5]` and 23.6 on `[7.5, 12]`.
+- So round 100's staircase in `r` is a range average of a structure in both `r` and `x`. The robust object is the discrete tone set, not the band-to-tone map.
+
+**C (construction control, white-jittered quantiles): ARITH.** 1 of 6 bands hit, at the threshold `≤ 1`.
+
+| band | 1.1 | 1.5 | 2.1 | 2.6 | 3.0 | 3.4 |
+|---|---|---|---|---|---|---|
+| true-zero tone | 9.29 | 16.75 | 23.56 | 30.14 | 36.69 | 42.97 |
+| white noise | 5.80 | 14.96 | 27.48 | 30.36 | 30.06 | 39.30 |
+| **P = 7 zeros** | **9.34** | **16.75** | **23.60** | **30.10** | **36.69** | **43.01** |
+
+The band construction does not make the ladder. Noise gives scattered tones, and its single hit (30.36) is at chance level.
+
+**D (another arithmetic, the `P = 7` zeros): UNIVERSAL-RUNGS, 6 of 6.** The zero set built from the primes 2, 3, 5 and 7 alone reproduces all six tones to `≤ 0.05`.
+
+**Reading.**
+- The tone set 9.3, 16.75, 23.6, 30.1, 36.7, 43.0 is an arithmetic object.
+- It is absent under noise.
+- It is fixed already by the primes up to 7, to 0.05.
+- It is the same at every height band.
+
+Which band shows which tone depends on `r` and `x` together, which still has to be mapped. The concrete target is now a formula for the tone set in terms of the small primes. The spacings (7.45, 6.85, 6.5, 6.6, 6.3) are not constant, so a pure lattice is excluded.

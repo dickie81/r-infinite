@@ -10,7 +10,9 @@ from flint import arb, arb_mat, ctx
 import mpmath as mp
 from mpmath.calculus.quadrature import GaussLegendre
 mode, c1, c2, Kf = sys.argv[1], float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]); HC = 1000.0; zf = f"{mode}_{c1}_{c2}"
-ZT = [g for g in json.load(open("../../../../research/checkpoints/zeta_zeros_6700.json")) if g < HC]; ZQ = json.load(open("pzeros_0.json"))
+import os
+ZT = [g for g in json.load(open(os.environ.get("ZTRUE", "../../../../research/checkpoints/zeta_zeros_6700.json"))) if g < HC]  # round 102: ZTRUE overrides the "true" set
+ZQ = json.load(open("pzeros_0.json"))
 assert len(ZT) == len(ZQ) == 649; HMAX, NQ = 6997.0, 3
 for xv in map(float, sys.argv[5:]):
     E = 4*math.pi*xv; inb = [c1 <= g/E < c2 for g in ZT]
