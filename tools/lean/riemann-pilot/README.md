@@ -2774,3 +2774,43 @@ Neither is derived.
 
 **Reading.** The Hamiltonian's potential is `q ≈ 4πe^{2a} − 5` plus a fine structure that is real, of roughly constant absolute amplitude, and multi-scale. The density of its features grows with the window at every resolution tested, with no regular spacing and no scale-free constant. It is not a zero-crossing pattern. Round 81 showed it is not a sum of independent prime-power pieces either. Together these rule out the natural closed forms. The Hamiltonian is tabulated and validated to `a = 1.5`. It has no closed form, and its existence for all `a` is equivalent to RH.
 
+## Round 84: the fine structure is quasi-periodic in `x = e^{2a}` (`frontier/nullvec/kspectrum.py`)
+
+**Question** (the owner's "a higher-dimensional shadow?"). A quasi-periodic function, meaning a sum of a few incommensurate frequencies, is the restriction of a periodic function on a torus to a line. Bohr's view of ζ and the Kurasov–Sarnak Fourier quasicrystals are of this kind. Does the Hamiltonian's fine structure have a discrete spectrum?
+
+**Method.** Take the residual of `ln K_a(0, 0)` on `δ ∈ [0.5, 3]` after the smooth fit. The fitted leading coefficient is `12.5666 = 4π` to five digits, which confirms the reduced problem's exponent. Resample the residual uniformly in `x = e^δ = e^{2a}`, detrend it, apply a Hann window, and take its spectrum (`kspectrum_results.txt`).
+
+**Findings.**
+- **Discrete.** Over `x ∈ [1.65, 20.1]`, the eight main lines hold `0.48` of the power in their centre bins alone, and `≈ 0.9` including each line's ±2-bin Hann main lobe, against `≈ 0.03` for a flat spectrum. The ±2-bin sums double-count slightly where lines are within 4 bins: `kspectrum_results.txt` prints values up to `1.04`.
+- **Stable in `x`.** The lines appear independently in both halves of the range, at the same positions within resolution:
+
+| `x ∈ [1.65, 10]` (res 0.75) | 5.27 | 9.78 | 12.79 | 16.56 | 23.33 |
+|---|---|---|---|---|---|
+| `x ∈ [10, 20.1]` (res 0.62) | 4.99 | 9.37 | 13.11 | 16.86 | 23.72 |
+
+  The dominant line, `ω ≈ 9.5`, carries 24–30%.
+- **Not stable in `δ`.** The lines drift between halves, so the structure is not log-periodic. That argues against frequencies set by zeta zeros, which would enter as `e^{iγ·a}`.
+- **Not prime powers on the integers.** Prime powers enter at `x = n`, so an arithmetic event train would give lines periodic in `ω` with period `2π`. They are not. The residual does not correlate with `Σ_{n≤x} Λ(n)/√n`: corr `−0.02`, best over lag `0.155`, inside the null band from random integer positions (95% point `0.20`).
+
+**Reading.** In the variable `x = e^{2a} = T₀/(2π)`, the natural horizon scale, the fine structure of the chain's Hamiltonian is quasi-periodic with a handful of stable frequencies. That is the signature of a shadow of a low-dimensional torus flow. What remains open:
+- The number of independent frequencies, i.e. the torus dimension, is undetermined at this resolution (`Δω ≈ 0.34` over `x ≤ 20`).
+- The frequencies are unidentified: not prime-lattice, not zero-driven, and not harmonics of `π` within resolution.
+- Sharper lines need larger windows (`x` up to `e⁴` would give `3×` resolution, at `K ≈ 1650`).
+
+## Round 85: larger windows (to `a = 2`, `x = e^{2a} = 55`); the main line sits at `3π` (`kspectrum2.py`)
+
+**Data.** 289 new windows at uniform step `0.12` in `x = e^δ ∈ [20, 54.6]`, i.e. `δ ∈ [3, 4]` (`hamiltonian_grid_x20_55.jsonl`). The basis is `K = 15x + 40` at `300 + 24x` bits: about 4 minutes per window at `x = 55`, where `ln K_a(0, 0) = 650.5`. `K = 15` was validated against `K = 30` on `δ ∈ [1.5, 2]`: the residual of `ln K_a(0, 0)` correlates at `0.9976`, with rms difference 7% of the signal. The joint smooth fit over `x ∈ [1.65, 54.6]` (with a step term at the `K`-factor junction `x = 20`) again gives the leading coefficient `12.565 ≈ 4π`.
+
+**The spectrum in `x`** (`kspectrum2_results.txt`; resolution `0.119` over the combined range, `≈ 0.18–0.37` per segment):
+- **The dominant line persists** in every segment, including the new ones, and does not drift. Its refined centre (zero-padded peak) is `9.436, 9.390, 9.472, 9.437` on `x ∈ [1.65, 12], [12, 25], [25, 40], [40, 54.6]`, and `9.417` combined. The mean over segments is `9.434 ± 0.017`, against `3π = 9.4248`.
+- **The next strongest lines** are `5.246` (`5π/3 = 5.236`) and `16.741` (`16π/3 = 16.755`).
+- **Weaker lines do not fit a `π/3` lattice**: `2.04, 4.30, 6.69, 13.19` sit at ratios `1.95, 4.10, 6.39, 12.59` to `π/3`.
+
+**Caveats.**
+- The `π/3` lattice was chosen after seeing the data, from a handful of natural candidates.
+- The chance that three given lines fall within their observed deviations (0.008, 0.010, 0.014) of a lattice of spacing `1.047` is about `1e-5`. Choosing the lattice and the three lines afterwards costs perhaps two orders of magnitude, so this is suggestive, not established.
+- No mechanism is known. An oscillation `cos(3πx)` in `ln K_a(0, 0)` is `cos(3T₀/2)` in the horizon `T₀ = 2πx`, or `cos(¾·4πx)` against the smooth part `4πx`.
+- Rounds 82–84 exclude a zero-crossing origin (not log-periodic) and a prime-lattice origin (not `2π`-periodic in `ω`; no correlation with `Σ Λ(n)/√n`).
+
+**Reading.** In the variable `x = e^{2a}`, the Hamiltonian's fine structure is quasi-periodic and stable out to `a = 2`, `x = 55`. Its dominant frequency is `3π` to `0.2%`. Its identity and the torus it would be a shadow of are open.
+
