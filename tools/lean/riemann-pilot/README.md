@@ -2877,3 +2877,24 @@ It passes if `|ratio − 1| ≤ 3e^{−δ}` for `d = 0…60`.
 - The model's strongest line `5.11` lies near the measured second line `5.22` (0.071).
 - The uniform-`x` correlation `0.18` sits at about the 97th percentile of a circular-shift null (sd 0.064, 95th percentile of `|c|` 0.115, max 0.204 over 186 shifts).
 - Both are weak hints that part of the measured residual is zero-discreteness. Neither may be claimed without a new pre-registration.
+
+## Round 89: topological depths in the wiggles, a fourth pre-registered test (`PREREG_topology.md`, `ktopology.py`)
+
+**Registered in `8d8870e` before any statistic was computed.** The depth map is derived, not fitted: the multiplier's branch point `z = 2T₀ = 4πx` reaches cascade layer `D` (tower index `d = D − 1`, sphere `S^{D−1}`) at `x_D = (D − ½)/4π`. A feature recurring with period `P` in `D` gives a line at `8π²/P` in `x`. The accessible layers are `D ∈ [21, 687]`, so `d_V, d₀, d₁` and the Adams/Hopf dimensions are below range.
+
+**Result: every test fails. Hypothesis T is not supported.**
+
+| Test | Target | Power / flank 95th percentile | Flank rank | Verdict |
+|---|---|---|---|---|
+| H2: hairy ball / Lefschetz parity (P = 2), blind | 39.48 | 0.23 | 0.79 | fail |
+| H3: Bott fermion layers `D ≡ 5 mod 8` (P = 8), not blind | 9.87 | 0.076 | 0.60 | fail, as expected |
+| H4: Bott half-period (P = 4), not blind | 19.74 | 0.035 | 0.57 | fail |
+| H1: threshold `d₂ = 217` at `x = 17.23`, blind | — | — | jump 0.42, rms 0.15 (needs 0.975) | fail |
+
+**Positive control (post hoc).** The same line test at the known 9.38 gives power 14.6 times the flank 95th percentile, rank 1.0. So the method detects a real line of this data's size, and the topology lines are absent, not merely undetected. The strongest lines in `(26, 62)` on `[1.65, 20]` are 30.2 and 36.7, with none at 39.5.
+
+**Reading.** Under the derived depth map, the wiggles carry no parity comb (hairy ball), no period-8 comb (Bott / fermion layers), no period-4 comb, and no event at `d₂ = 217`. Two readings remain, and this test cannot separate them:
+- the wiggles of `ln K_a(0,0)` at `z = 0` do not see the layer structure;
+- the horizon is not the depth probe for them. The multiplier's transition is smooth, with an arccosh deficit, not a sharp edge.
+
+The recorded caveat stands: a period-8 comb gives exactly `3π` only if the slope is 12 instead of the derived 4π, and that slope is not available without a fit. The `3π` line's origin remains open after rounds 82–89.
