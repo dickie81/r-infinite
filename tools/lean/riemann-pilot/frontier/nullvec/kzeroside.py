@@ -2,13 +2,14 @@
 """Round 91: the window chain from the zero side of the explicit formula. For even g on [-a, a],
 Q(g) = sum over zeros rho = 1/2 + i gamma of |g^(gamma)|^2 (Weil; +-gamma counted by a factor 2, dropped as a constant).
 K00 = sup g^(0)^2 / sum_gamma |g^(gamma)|^2 over the cosine basis, whose transforms are
-g_k^(t) = (-1)^k sin(ta) 2t/(t^2 - (k pi/a)^2). ZSET: 'true' (first 6700 zeros), 'smooth' (theta(g) = (k - 3/2) pi,
+g_k^(t) = (-1)^k sin(ta) 2t/(t^2 - (k pi/a)^2). ZSET: 'true' (first 6700 zeros), 'superposed' (round 94: zeros of 2 Re xi(2+it)), 'smooth' (theta(g) = (k - 3/2) pi,
 the fluctuation-free quantiles of the Riemann-von Mangoldt count). Usage: kzeroside.py ZSET Kfac x1 x2 ..."""
 import sys, json, math
 from flint import arb, arb_mat, ctx
 ZS, Kf = sys.argv[1], float(sys.argv[2])
 Zt = json.load(open("../../../../research/checkpoints/zeta_zeros_6700.json"))
 if ZS == "true": Z = Zt
+elif ZS == "superposed": Z = json.load(open("superposed_zeros.json"))
 else:
     import mpmath as mp
     mp.mp.dps = 30; Z = []

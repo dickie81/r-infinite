@@ -3021,3 +3021,32 @@ It contains nothing but Riemann's ζ, with no extra 2-adic factor as ℤ⁸ has.
 - Undoing that displacement (the factor `ζ(s)`) returns the ζ chain.
 - So "the octonion ball contains the arithmetic, shifted" is a theorem, not a hypothesis.
 - What the chain sees is the unshifted copy. The displacement itself does not appear in it.
+
+## Round 94: the octonion superposition (`PREREG_superposition.md`, `ksuperpose_zeros.py`, `ksuperpose_score.py`)
+
+**The idea** (owner), made exact and registered in `3c41236`. The chain's arithmetic is a *superposition* of the octonion ball's two displaced copies of Riemann's function, `G(t) = Ξ(t + 3i/2) + Ξ(t − 3i/2) = 2 Re ξ(2 + it)`.
+
+**Theorem** (de Bruijn 1950). If `F` is real entire of order `< 2` with its zeros in `|Im z| ≤ Δ`, then `F(z+ib) + F(z−ib)` has only real zeros for `b ≥ Δ`. For `Ξ`, `Δ ≤ ½` unconditionally, so every zero of the octonionic superposition lies on the critical line, **unconditionally**.
+
+**The zeros.** `ksuperpose_zeros.py` finds `G`'s zeros as the points where `arg ξ(2 + it) ≡ π/2 (mod π)`. `ζ(2 + it)` comes from its absolutely convergent series and matches mpmath to `1e-13`–`7e-11`.
+- There are 6700 zeros up to `t = 6996.5`, against ζ's `6996.9`, and the phase is monotone.
+- The first ones are 12.77, 19.39, 23.94, 28.70, … They are not Riemann's zeros.
+- They sit a near-constant ≈ 3/8 of a spacing from ζ's smooth quantiles. This is the constant Γ-phase `3π/4` of round 93, halved by `Γ(s/2)`. On top of that there is a ripple from `arg ζ(2+it)`, i.e. prime weights `Λ(n)/n²`.
+
+**Result: S fails as registered.**
+
+| Measure | Superposed zeros | True zeros | Smooth quantiles (round 91) |
+|---|---|---|---|
+| Correlation with measured wiggles (needs ≥ 0.9) | **0.47** | 0.985 | ~0.08 |
+| Residual rms | 0.022 (29%) | 0.074 | 0.010 |
+| Dominant line | **9.77**, 41× threshold | 9.075 | none |
+| Other lines | 16.75, 23.73, 4.89 (weak) | 4.89, 16.75, 13.26, 23.73 | — |
+
+The registered line test at 9.075 technically finds power within `±res`. But it finds it at the bin edge (9.773, resolution 0.70), and the correlation criterion fails, so S fails.
+
+**Post hoc, not evidence.** The superposition does far more than the smooth quantiles:
+- its residual correlates with the true-zero wiggles at 0.54;
+- it carries a strong single line one resolution bin above the measured one;
+- it shares the 16.75 and 23.73 lines exactly.
+
+Its only arithmetic is `arg ζ(2 + it)`, which is dominated by the smallest primes (weights `Λ(n)/n²`). This suggests that the *line positions* of the wiggle family are set by low primes, while the full wiggle, including its amplitude and the 4.89 line, needs the critical-line fluctuations. That is a hypothesis for a new registration, not a result.
