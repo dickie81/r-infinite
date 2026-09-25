@@ -3214,3 +3214,35 @@ These are exactly the true chain's line family (9.42, 16.75, 23.73; rounds 84–
 - The rungs fit `≈ 6.9(n + 0.38)` for `n = 1, …, 4`, and `6.9 ≈ 2π ln 3 = 6.903`. This is one of many candidate constants, so it is not evidence.
 
 **Next.** A falsifiable extension, to be registered before computing: bands at `r ∈ [2.5, 3.5)` should show the fourth rung (29–31) as dominant, and a fifth near 36–38.
+
+## Round 101: the ladder continues, but the registered test fails on plateau width (`PREREG_ladder2.md`, `kladder2_score.py`)
+
+**Registered in `eacd58e`.** Ten keep-bands of width 0.1 cover `r ∈ [2.5, 3.5)`.
+
+| `r` | 2.55 | 2.65 | 2.75 | 2.85 | 2.95 | 3.05 | 3.15 | 3.25 | 3.35 | 3.45 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `ω` | 22.95 | **30.14** | **36.42** | **36.56** | **36.60** | **36.69** | **36.69** | **36.60** | **36.47** | **42.97** |
+| second peak | 30.14 | 36.21 | 22.47 | 29.97 | 29.88 | 42.53 | 42.75 | 42.79 | 43.01 | 36.42 |
+
+**Result: CONTINUES fails as registered.** Order holds; P4 and P5 fail.
+- **P4 fails.** The fourth rung (29–31) is dominant in only one band (`r = 2.65`); two were required.
+- **P5 fails on its ordering clause.** The fifth rung (36.4–36.7) first appears as the second peak in that same band, not above it.
+- **Order holds.** The assigned rung never decreases with `r`.
+
+**What happened, post hoc.** Substantively, the ladder does continue:
+- rung 4 at 30.1 is dominant only across a narrow step;
+- rung 5 at 36.4–36.7 is dominant over `r ∈ [2.7, 3.4)`;
+- a **sixth** rung, at 42.97, takes over at `r = 3.45`.
+
+The registration fixed the widths too tightly. The plateaus, in `r`, are:
+- 1.0–1.4 (width 0.4);
+- 1.4–1.8 (0.4);
+- 1.8–2.6 (0.8);
+- 2.6–2.7 (0.1);
+- 2.7–3.4 (0.7).
+
+They are irregular, while the rung values are regular: 9.3, 16.7, 23.4, 30.1, 36.6, 43.0, with spacings 7.4, 6.7, 6.7, 6.5 and 6.4, slowly narrowing.
+
+**Robustness check.** Subtracting the smooth-quantile chain before the spectrum (the baseline has no power in `[4, 45]`) gives the same peaks in all 26 bands of rounds 100–101. Each band's contribution falls smoothly with height, from rms 0.083 at `r = 0.95` to 0.0012 at `r = 3.45`.
+
+**Reading.** The window turns zero heights into a ladder of tones with near-constant spacing ≈ 6.4–7.4. Each tone locks over a height range of irregular width. The tones lag `4πr` by a lag that shrinks with height: `4πr − ω = 5.8, 4.3, 1.7, 0.4` at the plateau centres 1.2, 2.2, 3.05 and 3.45. Deriving the rung spacing and the irregular plateau boundaries is the concrete target.
