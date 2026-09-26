@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 458 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 468 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -4176,7 +4176,7 @@ A whole-codebase audit (every `src/*.lean` file read end to end) found duplicate
   - SixteenPi's header and `exteriorMoment_eq` still called the balayage identity unproved. It has been proved since round 75.
   - PoleRelax's header described a-interval certificates. It uses the single point certificate `Cert14`.
 
-**Not done here** (they are links, not efficiencies): a bridge from `WeilExplicit` to `weilQ`, which would unify the four statements of the explicit formula; a single zero-family encoding for T1bt's `zetaZeroFamily` and Hadamard's `ZeroIdx`; the parity split `Q(g) = Q(g_even) + Q(g_odd)` for all real `g`.
+**Not done here** (they are links, not efficiencies): a bridge from `WeilExplicit` to `weilQ` (done in round 126), which would unify the four statements of the explicit formula; a single zero-family encoding for T1bt's `zetaZeroFamily` and Hadamard's `ZeroIdx`; the parity split `Q(g) = Q(g_even) + Q(g_odd)` for all real `g` (done in round 125).
 
 ## Round 125: the parity split, and Weil positivity for every real `g` (`src/ParitySplit.lean`)
 
@@ -4205,3 +4205,42 @@ The even sector comes from `weilQ_ge_twentieth` or `weilQ_ge_pole`, turned into 
 - Positivity at these supports is known: Connes–Consani for `2a ≤ log 2` (as recalled), and certified results much further (round 39; Liu). What is new is a checked proof for every real `g`, in both parities, on the pilot's definitions.
 - The range stops at `a = 1/4` because the odd sector is proved only that far. The even sector reaches `2/5` (round 123, `CertP`).
 - **No bearing on RH.** Weil's criterion needs positivity at every support, and a fixed finite range carries no information about RH.
+
+## Round 126: the explicit-formula bridge (`src/ExplicitBridge.lean`)
+
+This round builds the second link left open in round 124. Four places in the pilot assume Weil's explicit formula, each in a different shape:
+
+- T1bt's `h_explicit`;
+- Exterior's `WeilExplicit`;
+- the `hQ` hypothesis of `Saturation.lean`;
+- the `hQ` hypothesis of `Unconditional.lean`.
+
+Until now, nothing connected the classical statement `WeilExplicit` to the pilot's own form `weilQ`.
+
+**The bridge (`weilQ_eq_zero_sum`).** Take an even probe `g` with `a > 0`. Apply `WeilExplicit` to `h = ĝ²`, with real values `hsq g a = ĝ|ℝ²`, and assume `DigammaDiff`. Then
+
+  `Σ_ρ ĝ(t_ρ)² = weilQ a g`   (as a `HasSum`; `weilQ_eq_tsum` gives the `tsum` form).
+
+The first conjunct of `WeilExplicit` holds by `hsq_ofReal`. `weilQ_eq_tsum` is exactly the `hQ` hypothesis of `Unconditional.lean`, and `weilQ_eq_zero_sum` has the shape of T1bt's `h_explicit`. So `WeilExplicit` becomes the single named input behind those statements. The `Saturation.lean` form additionally needs the zeros to be on the line, paired as `±γ`.
+
+**Proved outright (no new input).**
+- **The convolution identity** (`fourier_autocorr`): `∫ f(x)e^{irx} dx = ĝ(r)²`, where `f` is the autocorrelation. The proof is Fubini on `g ⊗ g`.
+- **`∫ĝ² < ∞`** (`integrable_hsq`). The key fact is `ĝ(2π·)² = 𝓕f ≥ 0`. Regularising with a Gaussian, using Mathlib's Gaussian Fourier transform and the multiplication formula, gives `∫ e^{−x²/c} ĝ(2πx)² dx → f(0)`. Monotone convergence then gives finiteness. This is a Bochner-type argument and needs no Plancherel.
+- **Fourier inversion** (`gh_hsq`): `g_h = f`, that is `(1/2π)∫ĝ(r)² cos(ru) dr = f(u)`. It uses Mathlib's `Continuous.fourierInv_fourier_eq`. So `WeilExplicit`'s constant term gives `‖g‖² ln π`, and its prime term gives the prime sum `primeS g`.
+- **The pole terms**: `h(±i/2) = poleR²`.
+
+**The archimedean term** (`arch_term`):
+
+  `(1/2π)∫ ĝ² Re ψ(¼ + ir/2) dr = Re ψ(¼)‖g‖² + archE g`.
+
+This uses a new named input, **`DigammaDiff`**: Gauss's integral `ψ(z) − ψ(w) = ∫_0^∞ (e^{−wt} − e^{−zt})/(1 − e^{−t}) dt` for `Re z, Re w > 0`, with the integrand integrable. Mathlib's `Digamma.lean` lists this representation as a TODO, so it enters as a hypothesis, as `BinetFormula` does. From it:
+- `Re ψ(¼ + ir/2) − Re ψ(¼) = ∫_0^∞ k(t)(1 − cos(rt/2)) dt`, with `k(t) = e^{−t/4}/(1 − e^{−t}) ≥ 0` (`psiRe_sub`).
+- Fubini on the nonnegative integrand `ĝ(r)² k(t)(1 − cos(rt/2))` gives `∫ ĝ²(Re ψ − Re ψ(¼)) = 2π ∫_0^∞ k(t)(f(0) − f(t/2)) dt` (`hsq_psi_sub`). The product integrability comes from `integrable_prod_iff'`.
+- Substituting `t = 2u`, with `2k(2u) = e^{u/2}/sinh u`, turns this into `2π·archE g`.
+
+All ten new `#print axioms` lines show `[propext, Classical.choice, Quot.sound]`.
+
+**Scope, honestly.**
+- **Named inputs.** Only `WeilExplicit` and `DigammaDiff` are assumed. Both are classical theorems, and neither is in Mathlib.
+- **Standard mathematics.** The identity `Q(g) = Σ_ρ ĝ(t_ρ)²` is Weil's own route to his criterion. What is new is the checked connection between the pilot's four statements of the explicit formula.
+- **No bearing on RH.** The bridge rewrites `weilQ` as a sum over zeros. Positivity of that sum for all `g` is equivalent to RH, which is Weil's criterion and was already in the pilot. The bridge adds no positivity.
