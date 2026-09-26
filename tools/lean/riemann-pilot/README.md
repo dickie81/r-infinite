@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 9 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 391 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 398 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -3672,3 +3672,33 @@ Applied to `χ₋₄`, whose results were already known, it captures only 65% of
 **Limits.**
 - One tone per `L`-function.
 - `K̃` is still measured per lens, not derived from Γ.
+
+## Round 113: the response kernel and the tone calculus, formalised (`src/ResponseKernel.lean`)
+
+Seven new theorems. None of them has a hypothesis about ζ, RH or any `L`-function, and all depend only on the standard axioms. The pilot's `#print axioms` count goes from 391 to 398.
+
+**`RespKernel`: the first-order response kernel of round 104.**
+- `hasDerivAt_quad_inv`: for a differentiable family of invertible matrices, `d/ds (v ⬝ M(s)⁻¹ v) = −v ⬝ (M⁻¹M′M⁻¹) v`. It comes from Mathlib's `hasFDerivAt_ringInverse` under the `L∞` operator norm.
+- `hasDerivAt_gram`: the derivative of a Gram family `C + Σ_k φ_k φ_kᵀ`. `vecMulVec` is packaged as a continuous bilinear map.
+- **`response_kernel`**: for `M(s) = C + Σ_k φ_k(s)φ_k(s)ᵀ` (`C` symmetric, `M(t)` invertible) and `S = e ⬝ M⁻¹ e > 0`,
+
+  `d/ds log S = −(2/S) Σ_k (y ⬝ φ_k)(y ⬝ φ_k′)`, with `y = M(t)⁻¹ e`.
+
+  This is round 104's kernel `w_k = −2F_kF′_k/s`, for any family of sampling points.
+  - With `φ_k(s) = φ(γ_k(s))`, the chain rule gives `φ_k′ = φ′(γ_k)γ̇_k`.
+  - Consequence: the chain's response to moving the zeros is fixed entirely by the Γ chain's ground state, and the arithmetic enters only through the velocities `γ̇_k`.
+
+**`ToneCalc`: the calculus of the tone formula (rounds 109–112).** The phase is idealised as `Ψ(γ, x) = γ log x + 4πx K(γ/4πx) + γ log p − 2θ(γ)`, with `2θ′(γ) = log(qγ/2π)` and any differentiable `K`.
+- `hasDerivAt_gamma`: `∂Ψ/∂γ = K′(r) + log p − log(2qr)`, where `r = γ/4πx`. **`log x` cancels identically.**
+- `stationary_iff`: stationarity holds exactly when `K′(r) = log(2qr/p)`.
+- `hasDerivAt_x`: the `x`-rate at fixed `γ` is `4π(r + K(r) − rK′(r))`.
+- `tone_at_stationary`: at a stationary point this equals `4π[r(1 + log(p/2qr)) + K(r)]`, the Legendre form of `ω_p`.
+
+**What is and is not certified.**
+- **Certified:**
+  - the algebra and calculus of both derivations, exactly;
+  - the fact that the conductor enters only through `log(2qr)`.
+- **Not certified:**
+  - that the real kernel is well described by first order (round 105: the series is asymptotic);
+  - that its phase has the scaling form with the measured `K̃`;
+  - that `θ` equals its idealised Stirling form. These remain numerical findings.
