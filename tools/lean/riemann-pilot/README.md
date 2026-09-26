@@ -3796,3 +3796,51 @@ The law also accounts for the two `L` lines that round 112 left unpredicted (`χ
 - The waveform-level failure of round 114 (16% of the variance) stands.
 - The rule "the smallest prime not dividing `q` dominates" is empirical.
 - As before, the zero-side kernel formulation presumes RH/GRH for the zero sets used.
+
+## Round 116: the tone law passes a second blind test, on two even characters (`χ₅`, `χ₁₂`; `PREREG_Leven.md` + amendment 1, `kLblind.py`)
+
+**Order of commits.**
+1. `d3b3a38`: predictions and scorer, committed before any zero.
+2. `b160c71`, amendment 1 (kernel stage, before any chain or response):
+   - `λ = 1/4.98` (`χ₅`) and `1/12.1` (`χ₁₂`), both within 1% of `1/q`;
+   - the measured-`K̃` competitor predicts `χ₅` `p = 2` → 1.75 and `p = 3` → 3.25, and gives nothing for `χ₁₂`.
+
+**Zeros.**
+- `χ₅`: 904, first 6.6485.
+- `χ₁₂`: 1043, first 3.8046.
+- No missed zeros. The Γ factor is `Γ(¼ + it/2)`, the first even-character tests.
+
+**Primary results (±0.3).**
+
+| | law | competitor | observed | law error | verdict |
+|---|---|---|---|---|---|
+| `χ₅` `p = 3` first order (B1) | 3.351 | 3.25 | **3.36** | 0.01 | hit |
+| `χ₅` chain strongest (B2) | 1.885 | 1.75 | 1.70 | 0.19 | hit (weak: artefact zone, declared) |
+| `χ₁₂` `p = 5` first order (B1) | 2.513 | — | 2.70 | 0.19 | hit |
+| `χ₁₂` chain strongest (B2) | 2.513 | — | **2.49** | 0.02 | hit |
+
+**4/4. The law passes round 116 as registered.** First order tracks the chains at correlation 0.975 (`χ₅`) and 0.996 (`χ₁₂`).
+
+**Secondary results.**
+- **`χ₅` `p = 2` first order:** 1.88 (law 1.885, error 0.005; competitor 1.75).
+  - On the per-prime responses the law beats the competitor for both primes (0.005 and 0.01 vs 0.13 and 0.11).
+  - On the chain the competitor is closer (1.70 vs 1.75, 0.05; law 0.19). The chain's second line, 3.53, is 0.18 from the law and 0.28 from the competitor.
+  - The chain's lines sit about 0.15 below the single-prime lines. That is consistent with interference between `p = 2` and `p = 3`, but not tested.
+- **`χ₁₂`:**
+  - the chain's second line, 5.80, is 0.09 from `p = 11`'s law line 5.712;
+  - `p = 13` (far) hits: 6.81 vs 6.767.
+- **Far primes (`ρ* > 3`)** are, as expected, unreliable as the *strongest* first-order line (`χ₅` 0/3, `χ₁₂` 1/3). But the law line is present among the top two peaks every time. Examples: `χ₅` `p = 11` gives 13.65 at 0.99 relative power, `χ₁₂` `p = 11` gives 5.71 exactly. The strongest peak is instead a low line (1.57–1.66) or a stray one.
+  - Post hoc tally over rounds 115–116: the law line is in the top two for **9/9 far primes**, within 0.2 in every case. This is unscored and should be registered as a criterion before any further test.
+- **No parity effect,** as predicted: the even characters follow the same `ω = 2π(n − 1/n)/q` as the odd ones.
+
+**Standing of the law.**
+- Blind tests: 3 `L`-functions (`χ₋₈`, `χ₅`, `χ₁₂`), 6/6 primary criteria, 2 parities, 3 different dominant primes (3, 2, 5), and conductors 5, 8 and 12.
+- Post hoc: ζ, `χ₋₃` and `χ₋₄`.
+- Where the competitor could predict (`χ₅`), it and the law differ by only 0.1–0.13, within the tolerance. The law's per-prime lines are the more accurate there, and the competitor's chain line the more accurate.
+
+**Limits.**
+- ±0.3 tolerance at a frequency resolution of about 0.7. The dense law set means unscored "nearest law line" matches are weak.
+- The low-frequency artefact line (1.57–1.70) is unexplained.
+- The `χ₋₈` `λ` anomaly (0.874/q, round 115) did not recur (1.00/q and 0.99/q here).
+- The waveform-level failure of round 114 stands.
+- As before, the zero-side formulation presumes GRH for the zero sets used.
