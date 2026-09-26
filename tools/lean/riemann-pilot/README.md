@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 476 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 479 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -4295,3 +4295,18 @@ So `Q₀ + (2P(a) − c₀)‖·‖²` is the energy form of a symmetric Lévy p
 This makes explicit why round 51's Beurling–Deny and Perron–Frobenius arguments work for `Q₀`. It also locates the obstruction: `Q = Q₀ + 2ĝ(i/2)²`. The killing constant `2P(a)` grows like `4e^a`, and at every support RH asks the single rank-one pole term to lift `Q₀`'s one negative direction.
 
 **Scope.** Both are reformulations: no new bound, and no bearing on RH. `DigammaDiff` is the only named input, and only for the symbol form.
+
+## Round 129: negative directions count off-line zeros (ExplicitBridge.lean, §D)
+
+Given the explicit formula (round 126), `Q(g) = Σ_ρ ĝ(t_ρ)²`. A zero on the critical line has real `t_ρ`, and `ĝ` is real on `ℝ` for even `g`, so its term is a real square. Three consequences:
+
+- **`weilQ_nonneg_of_zeros_on_line`**: if every zero of the family is on the line, then `Q(g) ≥ 0` for every even probe at every support. This is the RH ⇒ positivity half of Weil's criterion, now a theorem of the pilot, modulo `WeilExplicit` and `DigammaDiff`.
+- **`exists_offline_of_neg`**: any probe with `Q(g) < 0` exhibits a zero off the line.
+- **`finrank_le_offline`**: suppose `Q` is negative definite on a finite-dimensional space `V` of probes, and every zero outside a finite index set `F` is on the line. Then `dim V ≤ |F|`.
+  - Proof: `v ↦ (Im ĝ_v(t_i))_{i ∈ F}` is linear. If `dim V > |F|` it has a nonzero kernel element, all of whose terms are real squares. So `Q ≥ 0` there, a contradiction (rank–nullity).
+
+This is the negative-squares (Krein–Langer / Pontryagin index) form of Weil's criterion, in the easy direction. The count is by family members, so an off-line quadruple `ρ, ρ̄, 1 − ρ, 1 − ρ̄` counts 4. The sharp count is one negative direction per quadruple (`quadruple_sum`: `4 Re ĝ(t)²`); it needs the quadruple pairing of the family and is not done here.
+
+**Not formalised: the converse.** Off-line zeros do produce negative directions of `Q` once the support is large enough to separate them. Without that, the index statement bounds zeros from `Q`, not `Q` from zeros.
+
+**Scope.** This is a restatement of Weil's criterion, not progress. `Q ≥ 0` at a fixed support says nothing about the zeros, since off-line zeros need not show at small support. So the certificates of rounds 121–125 exclude no zero. What the round adds is that the pilot's prime-side objects are now formally tied to the zeros in both the identity (round 126) and the sign (this round).

@@ -311,6 +311,100 @@ theorem weilQ0_jump (hp : Probe a g) :
     exact Finset.sum_congr rfl fun n _ => by ring
   rw [h]; ring
 
+/-! ## D. Negative directions of `Q` count off-line zeros
+
+Given the explicit formula, `Q(g) = Σ_ρ ĝ(t_ρ)²`. A zero on the critical line has `t_ρ` real, so its
+term is the square of a real number (`ĝ` is real on `ℝ` for even `g`). So:
+
+* `weilQ_nonneg_of_zeros_on_line`: if every zero is on the line, `Q ≥ 0` at every support (the
+  RH ⇒ positivity half of Weil's criterion);
+* `finrank_le_offline`: if `Q` is negative definite on a finite-dimensional space `V` of probes,
+  then at least `dim V` members of the zero family are off the line. Imposing `Im ĝ(t_i) = 0` at each
+  off-line zero is one real linear condition per zero; on the intersection every term is a real
+  square, so `Q ≥ 0` there, and that intersection meets `V` only in `0`.
+
+This is the negative-squares form of Weil's criterion (Krein–Langer / Pontryagin index), in the easy
+direction. The converse, that off-line zeros do produce negative directions at large support, is not
+formalised. -/
+
+section Index
+
+variable {ι : Type*} {ρ : ι → ℂ}
+
+theorem ordinate_im_zero {s : ℂ} (hs : s.re = 1 / 2) : ((s - 1 / 2) / Complex.I).im = 0 := by
+  simp [Complex.div_I, hs]
+
+theorem im_ghat_of_real (hp : Probe a g) (ha : 0 < a) {t : ℂ} (ht : t.im = 0) :
+    (ghatC g a t).im = 0 := by
+  have e : t = ((t.re : ℝ) : ℂ) := Complex.ext (by simp) (by simp [ht])
+  rw [e]; exact ghatC_im_zero hp.even ha.le _
+
+/-- If every term `ĝ(t_i)` of the zero sum is real, then `Q(g) ≥ 0`. -/
+theorem weilQ_nonneg_of_terms_real (hp : Probe a g) (ha : 0 < a)
+    (hEF : WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a)) (hD : DigammaDiff)
+    (hreal : ∀ i, (ghatC g a ((ρ i - 1 / 2) / Complex.I)).im = 0) : 0 ≤ weilQ a g := by
+  have h := Complex.hasSum_re (weilQ_eq_zero_sum hp ha hEF hD)
+  rw [Complex.ofReal_re] at h
+  refine HasSum.nonneg (fun i => ?_) h
+  have hi := hreal i
+  rw [sq, Complex.mul_re, hi]
+  nlinarith [mul_self_nonneg (ghatC g a ((ρ i - 1 / 2) / Complex.I)).re]
+
+/-- **RH ⇒ Weil positivity**: if every zero of the family is on the critical line, `Q(g) ≥ 0` for
+every even probe at every support. -/
+theorem weilQ_nonneg_of_zeros_on_line (hp : Probe a g) (ha : 0 < a)
+    (hEF : WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a)) (hD : DigammaDiff)
+    (hline : ∀ i, (ρ i).re = 1 / 2) : 0 ≤ weilQ a g :=
+  weilQ_nonneg_of_terms_real hp ha hEF hD fun i => im_ghat_of_real hp ha (ordinate_im_zero (hline i))
+
+/-- **A negative value of `Q` exhibits an off-line zero.** -/
+theorem exists_offline_of_neg (hp : Probe a g) (ha : 0 < a)
+    (hEF : WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a)) (hD : DigammaDiff)
+    (hneg : weilQ a g < 0) : ∃ i, (ρ i).re ≠ 1 / 2 := by
+  by_contra h
+  push Not at h
+  exact absurd (weilQ_nonneg_of_zeros_on_line hp ha hEF hD h) (not_le.2 hneg)
+
+/-- **Negative directions count off-line zeros.** If `Q` is negative definite on a
+finite-dimensional space `V` of probes at support `a`, and every zero outside the finite set `F` is on
+the line, then `dim V ≤ |F|`. -/
+theorem finrank_le_offline (V : Submodule ℝ (ℝ → ℝ)) [FiniteDimensional ℝ V] (ha : 0 < a)
+    (hV : ∀ v ∈ V, Probe a v) (hneg : ∀ v ∈ V, v ≠ 0 → weilQ a v < 0)
+    (hEF : ∀ v ∈ V, WeilExplicit ρ (fun z => ghatC v a z ^ 2) (hsq v a)) (hD : DigammaDiff)
+    (F : Finset ι) (hF : ∀ i ∉ F, (ρ i).re = 1 / 2) :
+    Module.finrank ℝ V ≤ F.card := by
+  let L : V →ₗ[ℝ] (F → ℝ) :=
+    { toFun := fun v i => (ghatC (v : ℝ → ℝ) a ((ρ i - 1 / 2) / Complex.I)).im
+      map_add' := fun x y => by
+        funext i
+        simp only [Submodule.coe_add, Pi.add_apply]
+        rw [ghatC_add (hV x x.2).memL2 (hV y y.2).memL2, Complex.add_im]
+      map_smul' := fun c x => by
+        funext i
+        simp only [RingHom.id_apply, Pi.smul_apply, smul_eq_mul]
+        show (ghatC (fun t => c * (x : ℝ → ℝ) t) a _).im = _
+        rw [ghatC_smul]; simp }
+  by_contra hlt
+  push Not at hlt
+  have hker : LinearMap.ker L ≠ ⊥ := by
+    intro hb
+    have h1 := LinearMap.finrank_range_add_finrank_ker L
+    rw [hb, finrank_bot, add_zero] at h1
+    have h2 := Submodule.finrank_le (LinearMap.range L)
+    rw [Module.finrank_fintype_fun_eq_card, Fintype.card_coe] at h2
+    omega
+  obtain ⟨v, hvk, hv0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hker
+  have hv0' : (v : ℝ → ℝ) ≠ 0 := fun h => hv0 (Subtype.ext h)
+  have hq := hneg v v.2 hv0'
+  have hnn : 0 ≤ weilQ a v := weilQ_nonneg_of_terms_real (hV v v.2) ha (hEF v v.2) hD fun i => by
+    by_cases hi : i ∈ F
+    · have := congrFun (LinearMap.mem_ker.1 hvk) ⟨i, hi⟩
+      simpa [L] using this
+    · exact im_ghat_of_real (hV v v.2) ha (ordinate_im_zero (hF i hi))
+  linarith
+
+end Index
+
 end Pilot1ca
 
 #print axioms Pilot1ca.psiRe_sub
@@ -322,3 +416,6 @@ end Pilot1ca
 #print axioms Pilot1ca.psiRe_ge
 #print axioms Pilot1ca.weilQ_symbol
 #print axioms Pilot1ca.weilQ0_jump
+#print axioms Pilot1ca.weilQ_nonneg_of_zeros_on_line
+#print axioms Pilot1ca.exists_offline_of_neg
+#print axioms Pilot1ca.finrank_le_offline
