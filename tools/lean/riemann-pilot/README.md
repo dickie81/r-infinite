@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 479 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 480 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -4305,8 +4305,24 @@ Given the explicit formula (round 126), `Q(g) = Σ_ρ ĝ(t_ρ)²`. A zero on the
 - **`finrank_le_offline`**: suppose `Q` is negative definite on a finite-dimensional space `V` of probes, and every zero outside a finite index set `F` is on the line. Then `dim V ≤ |F|`.
   - Proof: `v ↦ (Im ĝ_v(t_i))_{i ∈ F}` is linear. If `dim V > |F|` it has a nonzero kernel element, all of whose terms are real squares. So `Q ≥ 0` there, a contradiction (rank–nullity).
 
-This is the negative-squares (Krein–Langer / Pontryagin index) form of Weil's criterion, in the easy direction. The count is by family members, so an off-line quadruple `ρ, ρ̄, 1 − ρ, 1 − ρ̄` counts 4. The sharp count is one negative direction per quadruple (`quadruple_sum`: `4 Re ĝ(t)²`); it needs the quadruple pairing of the family and is not done here.
+This is the negative-squares (Krein–Langer / Pontryagin index) form of Weil's criterion, in the easy direction. The count is by family members, so an off-line quadruple `ρ, ρ̄, 1 − ρ, 1 − ρ̄` counts 4. The sharp count, one negative direction per quadruple, is round 130's `finrank_le_quadruples`.
 
 **Not formalised: the converse.** Off-line zeros do produce negative directions of `Q` once the support is large enough to separate them. Without that, the index statement bounds zeros from `Q`, not `Q` from zeros.
 
 **Scope.** This is a restatement of Weil's criterion, not progress. `Q ≥ 0` at a fixed support says nothing about the zeros, since off-line zeros need not show at small support. So the certificates of rounds 121–125 exclude no zero. What the round adds is that the pilot's prime-side objects are now formally tied to the zeros in both the identity (round 126) and the sign (this round).
+
+## Round 130: the sharp count, one negative direction per off-line quadruple
+
+`finrank_le_quadruples` sharpens round 129's count from family members to distinct quadruples.
+
+**Statement.** Let `R` index one representative per off-line quadruple. That is, every member of the zero family is either on the line or has its ordinate in the orbit `{t_r, −t_r, t̄_r, −t̄_r}` of some `r ∈ R`. If `Q` is negative definite on a finite-dimensional space `V` of probes, then `dim V ≤ |R|`.
+
+**Why one condition per quadruple is enough** (`im_ghat_of_orbit`). For even real `g`, `ĝ(−z) = ĝ(z)` (`ghatC_even`) and `ĝ(z̄) = conj ĝ(z)` (`ghatC_conj`). So the single real condition `Im ĝ(t_r) = 0` makes `ĝ` real on the whole orbit, and every term of the quadruple is a real square. For `ζ` the orbit is exactly the quadruple:
+- `ρ` has ordinate `t`;
+- `1 − ρ` has `−t`;
+- `ρ̄` has `−t̄`;
+- `1 − ρ̄` has `t̄`.
+
+**Multiplicity.** A zero of multiplicity `m` lists `m` family members with the same ordinate, all sharing one representative. So a multiple quadruple still counts once. That is correct: it contributes `m·4 Re ĝ(t)²`, which has one negative direction. Round 129's `finrank_le_offline` is now the corollary where each off-line member is its own representative.
+
+**Scope.** Unchanged from round 129. This is the easy direction of the index form of Weil's criterion. The converse (off-line quadruples do produce negative directions once the support separates them) is not formalised, and there is no bearing on RH.
