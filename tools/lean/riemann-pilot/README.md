@@ -3844,3 +3844,38 @@ The law also accounts for the two `L` lines that round 112 left unpredicted (`χ
 - The `χ₋₈` `λ` anomaly (0.874/q, round 115) did not recur (1.00/q and 0.99/q here).
 - The waveform-level failure of round 114 stands.
 - As before, the zero-side formulation presumes GRH for the zero sets used.
+
+## Round 117: the tone law formalised as hyperbolic geometry (`src/ToneHyperbola.lean`)
+
+Fourteen new theorems. They are **unconditional**: none has a hypothesis about ζ, RH or any `L`-function, and all depend only on the standard axioms (`propext`, `Classical.choice`, `Quot.sound`). The file imports round 113's `ResponseKernel`, which `build.sh` now compiles to an `.olean`, and it closes round 114's derivation onto `ToneCalc`.
+
+**The tone law.** With `K̃(r) = r log 2r − r + √(r²−1) − r arcosh r` and the conductor-`q` kernel `K_q(r) = K̃(qr)/q`:
+- `hasDerivAt_Kt`: `K̃′(r) = log 2r − arcosh r` for `r > 1`. `hasDerivAt_Kq`: `K_q′(r) = K̃′(qr)`.
+- `stationary_iff`: `ToneCalc`'s stationarity condition holds **iff `qr = cosh(log p)`**.
+- `tone_eq`, and **`tone_law`** (assembled through `ToneCalc.stationary_iff` and `ToneCalc.tone_at_stationary`): wherever the γ-derivative vanishes, the x-rate `4π(r + K_q − rK_q′)` equals **`2π(p − 1/p)/q`** exactly.
+- `on_hyperbola`: `(qr*)² − (qω/4π)² = 1`. Every tone lies on the unit hyperbola at rapidity `log p`.
+
+**Products and ratios: rapidities add.**
+- `boost_mul`: the stationary point and tone of `mn` are those of `n` under a Lorentz boost of rapidity `log m`.
+- `tone_mul`, `tone_div`: `tone(mn) = 4π sinh(log m + log n)/q` and `tone(m/n) = 4π sinh(log m − log n)/q`.
+- **`tone_mul_gt`**: for `m, n > 1`, `tone(m) + tone(n) < tone(mn)`. The gap is `2π(m−1)(n−1)(1 − 1/mn)/q`. So "rapidity addition" and "frequency addition" are distinguishable predictions. Examples: ζ `n = 4` gives 23.56 vs 18.85, `n = 6` gives 36.65 vs 26.18.
+
+**The conductor, and parity.**
+- `stirling_scaling`: the leading Stirling phase `(γ/2) log(qγ/2πe)` at conductor `q` equals the `q = 1` phase at `qγ`, divided by `q`.
+- `stirling_deriv`: its derivative is exactly `log(qγ/2π)/2`, which is `ToneCalc.hasDerivAt_gamma`'s hypothesis on `θ`. The Γ-shift (¼ even, ¾ odd) does not appear in it.
+
+**The multiplier.** `multiplier_deriv`: inside the wall, `d/dw [w arcsin w + √(1−w²) − 1] = arcsin w`. Beyond the wall, the continued phase's derivative `−arcosh r` is part of `hasDerivAt_Kt`.
+
+**What is and is not certified.**
+- **Certified, unconditionally:**
+  - the whole calculus from `K̃` to `ω = 2π(n − 1/n)/q`;
+  - the hyperbola and boost structure;
+  - that product lines differ from summed tones;
+  - the exact conductor scaling and the parity independence of the leading Stirling phase.
+- **Not certified:**
+  - that the chain's first-order response carries this phase. This is the round-114 aliasing step, and the waveform captures only 16%.
+  - that the `L` kernel is `K̃(qr)/q`, as opposed to that form being assumed. The measured `λ ≈ 1/q` supports it; `χ₋₈`'s 0.874/q does not.
+  - the Stirling error term for `Im log Γ(a + iγ/2)`;
+  - the round-77 integral identity for the multiplier.
+
+  These are numerical findings or classical inputs, not RH-conditional statements. The only RH/GRH-conditional step in the programme remains the zero-side formula for the chain.
