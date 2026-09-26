@@ -4083,3 +4083,59 @@ The pole-free form `Q₀` is negative for `a ≳ 0.105` (round 121's table), so 
 - **What is new.**
   - The pilot now has full-space positivity of its own `Q` on `(0, 1/4]` in both parity sectors: pure Lean for odd `g` and for even `g` up to `1/12`, and Lean plus one arb certificate for even `g` up to `1/4`.
   - The reduction from full-space positivity to a finite Gram certificate is itself formalised, for any number of modes.
+
+## Round 123: Weil positivity past the first prime (`src/PrimeRelax.lean`, `frontier/nullvec/kprime_cert.py`)
+
+Two follow-ups to round 122:
+1. push the even-sector certificate past `2a = log 2`, where the prime `n = 2` enters;
+2. make the certificate well conditioned.
+
+**Result.** `weilQ_ge_prime`: `Q(g) ≥ 1/10000` for every normalised even probe, for all `0 < a ≤ 2/5`. The support is `2a ≤ 0.8`, past `log 2 ≈ 0.693`. It is computer-assisted: Lean proves the reduction, and the hypothesis `CertP` is checked in arb. The three new theorems print `[propext, Classical.choice, Quot.sound]` only.
+
+### Diagnosis: what capped round 122
+Round 122 stopped at `a = 1/4`, although the true `λ₁` stays positive well beyond. The limit was not the number of modes `N`. Scoping (`kscope_prime.py`) separates two losses:
+- **The kernel remainder `errK(a)`** in the Cin-based lower bounds `ψ̲_k` grows with `a`. It costs about the whole margin by `a ≈ 0.26`.
+- **Loose certified Cin constants.** For example, `cinH7` sits `0.0146` below the true `Cin(7π/2) = 3.0486`.
+
+The fix: replace the low-mode bounds by **exact mode energies `ψ_m`, enclosed by arb quadrature**. Keep the crude Lean bound only for the tail. The tail enters only through its mass, so its looseness is cheap.
+
+Scoping, with bound `= κ′ + λ_min(LᵀSL)` (a certified bound is available when positive):
+
+| `a` | exact modes, `N = 40` | true `λ₁` |
+|---|---|---|
+| 0.30 | 0.0073 | |
+| 0.3466 (`2a = log 2`) | 0.0012 | |
+| 0.36 | 0.00078 | |
+| 0.40 | 0.00016 (mixed, `N = 60`: 0.000163) | ≈ 0.00018 |
+
+### Option 1: the prime is diagonal in the circle modes
+- **The prime term.** For `2a < log 3` only `n = 2` contributes: `2·primeS(g) = √2 log 2 · f(log 2)` (`primeS_eq_two'`).
+- **Mode expansion.** Round 20's expansion gives `f(u) = Σ p_m cos(πmu/4a)` on `[0, 2a]`.
+- **Absorbing the prime.** The prime is absorbed mode by mode into an effective energy `modeEP = ψ_m − c·cos(πm·log 2/4a)`, with `c = √2 log 2` (`prime_trunc`).
+- **Unchanged machinery.** The relaxation, Bessel step and monotonicity of round 122 go through unchanged (`weilQ_ge_relaxP`, generic in `c`, `u₀` and `N`).
+
+### The certificate `CertP` (`kprime_cert.py`, `kprime_cert_result.json`)
+Setting: exactly `a = 2/5`, `N = 60` modes (a 62×62 system), `ε = 1/10000`.
+- **Mode bounds.** 60 rational lower bounds `ψ̲_m` (12 decimals), each strictly below an arb enclosure of `ψ_m`. The enclosure uses `acb.integral` of `(1 − cos(zw))e^{z/2}/sinh z` on `[δ, 2a]` plus a rigorous head bound. The same 60 rationals are hard-coded in Lean (`psiCq`), and the script checks that the two lists agree.
+- **Tail.** From `cinH61 : 5.098076 ≤ Cin(122π/4)`, giving `τ = 5.098076 − errK − c`.
+- **Constant.** `κ(2/5) = 1.500996…`, and `ε ≤ κ`.
+- **Cholesky checks**, at 2400 bits:
+
+| matrix | positive definite | smallest pivot |
+|---|---|---|
+| Gram matrix | yes | `3.6·10⁻¹⁰⁴` |
+| `M = (κ − ε)G + G diag(s) G` (direct) | yes | `5.4·10⁻¹⁰⁴` |
+| `M′ = (κ − ε)I + LᵀSL` (congruence) | yes | `0.0082` |
+
+### Option 2: the conditioning
+- **The problem.** The raw window Gram matrix is Slepian-like: its smallest pivot is `10⁻¹⁴` at `N = 6` and `10⁻¹⁰⁴` at `N = 60`.
+- **The fix.** Write `G = LLᵀ`, which amounts to orthonormalising the basis. Then `M = L M′ Lᵀ` with `M′ = (κ − ε)I + LᵀSL`, and `M ⪰ 0 ⟺ M′ ⪰ 0`.
+- **The payoff.** `M′`'s pivots are `O(margin)`, the smallest being `0.0082`, and they read off the margin directly. The direct route needs 2400-bit balls to resolve `10⁻¹⁰⁴`.
+- **What it does not buy.** It is a diagnostic and efficiency gain, not a stronger theorem. The ill-conditioning lives in `G` itself, so an interval-in-`a` certificate is still infeasible. Monotonicity (`weilQ_mono`) remains the way to cover `(0, 2/5]` from one point.
+
+### Scope, honestly
+- **Not new mathematics.** Positivity at these supports is known (see round 122's scope note).
+- **Thin margin.** The certified `10⁻⁴` compares with a true `λ₁ ≈ 1.8·10⁻⁴`.
+- **The next prime.** `n = 3` enters at `2a = log 3 ≈ 1.099`. Past that the same diagonal trick applies with one more cosine per mode, but `λ₁` keeps shrinking.
+- **The odd sector** is still proved only to `a = 1/4` (pure Lean, round 122).
+- **Status.** The pilot now has full-space even-sector positivity of its own `Q` up to support `0.8`: Lean plus one arb certificate.
