@@ -3425,3 +3425,45 @@ Tones on B: the third-order prediction gives 2.18, 5.26, 6.67, **9.42**, **16.75
 - **Third order makes the raw values worse** for `x ≥ 6`, and increasingly so as `x` grows. It sharpens the wiggles' *shape*, which is why the correlation rose, while adding a smooth drift that the smooth fit absorbs.
 - **Optimal truncation is at second order,** with a third term that grows. This is the signature of an asymptotic series whose terms start to grow sooner as the window widens.
 - **Consequence:** more orders will not remove the remainder. Resummation or a non-perturbative treatment would be needed. A uniform-in-`a` bound on the response cannot come from truncating this expansion.
+
+## Round 106: deriving the tones from the kernel — the edge-step law fails; a linear dictionary and a heterodyne clue (`PREREG_tonederive.md`, `klinkernel.py`, `ktonederive_score.py`)
+
+**Registered in `84ffe0a`.**
+- **Linear theory.** In the linear theory `Δ₁ = Σ_p Δ₁^{(p)}`, with `Δ₁^{(p)} = −Σ_k w_x(γ̃_k) S_p(γ̃_k)/ρ(γ̃_k)`.
+- **Proposed law.** A sharp step of the kernel at a height `r_e` gives each prime the tone `ω_p = 4π r_e ln p`.
+- **Defining `r_e` independently.** `r_e` is the height where `F′²/s` crosses 1.
+
+The kernel (`w_x`, `F′²/s`) was dumped at all 649 nodes for 226 windows, enclosed to `10⁻¹⁰`. It reproduces round 104's `Δ₁` to 15 digits.
+
+**Result.**
+- **E1 passes.** `r_e = 0.861 ± 0.045`, range 0.73–0.91.
+- **E2 fails (0 of 4 primes).**
+- **E3 fails.** `4π r_e ln 2 = 7.50`, against the observed 9.42.
+
+The edge-step `ln p` law is dead at first order. The earlier `ln p` test (round 96) failed too, on the full nonlinear chains.
+
+**The linear dictionary is clean anyway** (descriptive). The linearised `S_{≤101}` reproduces the exact first order at correlation 0.786. The first-order total gives the lines 9.42, 16.75, 5.19 and 23.56.
+
+| prime | strongest first-order lines (relative power) |
+|---|---|
+| 2 | **9.47** (1.00), with nothing else above 0.02 |
+| 3 | **16.75** (1.00), then 3.32, 5.28 (0.27) |
+| 5 | 4.89, 6.46, 3.58, **30.14** (0.78) |
+| 7 | 4.89, 2.92, 6.89, 7.98 |
+
+At first order, **`p = 2` alone is the 3π line** and **`p = 3` alone is the 16.75 line**.
+
+**The mechanism clue** (descriptive, post hoc).
+- **Inside the edge,** the kernel is positive and smooth, peaking near `r ≈ 0.96`.
+- **Beyond the edge,** it alternates in sign with a period of 2–4 nodes.
+- **Its dominant wavenumber** over `r ∈ [1.05, 1.8]` (the strength of the best single wave is 0.51–0.72):
+
+  | `x` | 6 | 8 | 10 | 12 |
+  |---|---|---|---|---|
+  | wavenumber | 1.93 | 2.23 | 2.46 | 2.65 |
+  | `ln x = 2a` | 1.79 | 2.08 | 2.30 | 2.49 |
+
+  So the wavenumber is `ln x + 0.15`: the window's own frequency `2a`, as a Paley–Wiener ground state oscillating past its wall would give (`F² ∼ cos 2aγ`).
+- **So the response is a heterodyne.** Each prime's oscillation `sin(γ ln p)` beats against the window frequency `2a`. It is then sampled on the Γ nodes, where `2θ(γ̃_k) ≡ π (mod 2π)`, so aliasing against `2θ` enters.
+- **A first pass shows why fixed tones can arise:** the `m = −1` alias makes the `ln x` terms cancel, leaving a phase linear in `x` at each height `r`. But my first closed form, `4πr(1 + c + ln(p/2r))`, does not give 9.42 at a plausible `r`.
+- **Next step.** Replace `w` by its measured heterodyne form `A(r)cos(κγ + φ)` and check numerically that it reproduces 9.47 and 16.75. Only if it does, derive the closed form.
