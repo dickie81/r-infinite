@@ -4006,3 +4006,37 @@ Twelve new theorems. They are **unconditional**: no hypothesis about ζ, RH or a
 | principal-value and digamma evaluations (archimedean `Φ_ψ`, prime `Φ_u` integrals) | hand-derived, checked to `5·10⁻¹⁶` numerically |
 | the 226 certificates themselves | arb interval arithmetic, outside Lean |
 | the horizon `x_h = γ₀/(4π · 0.8613)` and the detection windows | empirical (round 119, S1 passed and S2 failed once) |
+
+## Round 121: Weil positivity on every probe at small support, in Lean (`src/SmallPositivity.lean`)
+
+**`weilQ_ge_quarter`.** For every `0 < a ≤ 1/16` (support `δ = 2a ≤ 1/8`), every normalised probe `g` has **`Q(g) ≥ 1/4`**, i.e. `λ₁ ≥ 1/4`.
+- This is **full-space** positivity of Weil's form: every real, even, square-integrable `g` supported in `[−a, a]`, with no finite-dimensional truncation and no orthogonality condition.
+- It is the first theorem in the pilot that bounds `λ₁` itself from below by a positive number. Round 11's analytic bound was negative, and rounds 19–21 bounded only the gap orthogonal to `w`.
+- Seven new theorems, standard axioms only. No zero of `ζ` and no RH; the numerical inputs are only Mathlib's bounds on `π`, `log 2`, `√2` and `γ`.
+
+**Method: archimedean dominance.** Below `log 2` there is no prime (`primeS_eq_zero`), and the pole term is `≥ 0`. So `Q(g) ≥ c₀ + Far(a) + Near(g)`, where:
+
+| Piece | Theorem | Value |
+|---|---|---|
+| `ψ(¼) = −γ − π/2 − 3 log 2`, exact | `digamma_quarter`, from Mathlib's `digamma_one_half`, `digamma_two_mul` (duplication) and `digamma_one_sub` (reflection) | |
+| `c₀ = Re ψ(¼) − log π` | `weilConst_eq`, `weilConst_ge` | `≥ −5.489` (`γ < 2/3`, `log π ≤ 2 log 2 + π/4 − 1`) |
+| `Far(a) = ∫_{u>2a} K = log((eᵃ+1)/(eᵃ−1)) + π/2 − arctan(sinh a)`, exact | `farField_eq`, via `K = ½csch(u/2) + ½sech(u/2)` and the improper FTC | `≥ 4.911` for `a ≤ 1/16` (`farField_ge`) |
+| `Near(g) = ∫_{(0,2a]} (1 − f)K` | `nearField_all`: round 20's exact mode expansion with tail level `ψ₃ ≥ Cin(3π/2) − err` (`tail3_ok`) and unconditional Cauchy–Schwarz caps `p₀ ≤ ¼`, `p_{±1} ≤ (1 + 2/π)/8`, `p_{±2} ≤ ⅛` (`pm_cap0/1/2`) | `≥ 0.8344` |
+
+The total is `−5.489 + 4.911 + 0.8344 = 0.2564 ≥ 1/4`.
+
+**How sharp it is (numerics from round 118's closed forms, `frontier/nullvec/ksmall_lams.py`).**
+
+| `a` | 0.01 | 0.05 | 0.1 | 0.15 | 0.2 | 0.3 | 0.3466 (`2a = log 2`) |
+|---|---|---|---|---|---|---|---|
+| `λ₀` (pole-free `Q₀`) | 2.42 | 0.79 | 0.073 | −0.36 | −0.67 | −1.12 | −1.29 |
+| `λ₁` (full `Q`) | 2.46 | 0.98 | 0.457 | 0.218 | 0.095 | 0.0076 | 0.0013 |
+
+- At `a = 1/16` the true `λ₁` is about 0.84, against the proved `1/4`.
+- The method (`Q ≥ Q₀ ≥ c₀ + Far + Near`) cannot pass `a ≈ 0.105`, where `λ₀` changes sign: beyond it, positivity depends on the pole term.
+- With sharper constants (a better `γ`, exact `log π`, a larger low block) the analytic bound tracks `λ₀` to within about 0.1, so the same method could reach about `a ≈ 0.09`.
+
+**Scope and honesty.**
+- **Not new mathematics.** Connes–Consani proved Weil positivity for supports up to `2a = log 2` (as recalled, not re-checked here), and computer-assisted certificates reach much further (round 39 and Liu, `L = 17/16`). What is new is a complete, machine-checked analytic proof on the pilot's own definitions of `Q`.
+- Probes are even by definition, so the odd sector is not covered.
+- The next step past `a ≈ 0.105` needs the pole term: a Sherman–Morrison-type argument with a certified lower bound on `Q₀`'s second eigenvalue together with the overlap `⟨w, φ₀⟩`. That is the regime of rounds 18–21, and at `2a = log 2` the margin shrinks to `λ₁ ≈ 1.3·10⁻³`.
