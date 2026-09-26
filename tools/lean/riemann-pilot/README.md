@@ -3565,3 +3565,30 @@ Each prime enters as `S_p ≈ −(1/π)p^{−1/2} sin(γ ln p)`, sampled on the 
 - **Scope.** This is linear (first-order) theory. The full chain's tones agree with it (9.42, 16.75).
 - **The p ≥ 4 remark is post hoc.** No stationary point for `p ≥ 4` in the fitted range is consistent with the absence of clean first-order tones for 5 and 7, but that is an observation, not a test.
 - **Test it next with a registered prediction.** The formula makes testable claims for a different L-function, whose "primes" and weights change. Examples: Dirichlet `L(s, χ₋₄)`, where `p ≡ 3 (mod 4)` enter with a sign flip, or the prime-2-removed chain. Also, the tone should not depend on the analysis range.
+
+## Round 110: the Dirichlet-twisted test is void as constructed (`PREREG_dirichlet.md`, `kprimezeros2.py` `chi:` specs)
+
+**Registered in `0ed48fb`.** The plan was to keep the ζ lens and replace the arithmetic input by `S_χ` (primes ≤ 101) for `χ₋₄` and `χ₋₃`, then check that the tones move exactly as the round-109 formula says. No chain was run.
+
+**The construction is degenerate.** Before any chain was computed, the twisted counting functions `θ/π + 1 + S_χ` turned out not to be monotone:
+
+| primes ≤ | 3 | 5 | 7 | 11 | 13 | 17 | 23 | 31 | 101 |
+|---|---|---|---|---|---|---|---|---|---|
+| `χ₋₄` fold-backs | 3 | 4 | 11 | 14 | 18 | 17 | 31 | 34 | 76 |
+| `χ₋₃` fold-backs | 3 | 3 | 9 | 7 | 18 | 15 | 30 | 30 | 76 |
+| ζ (all `χ = +1`) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+
+At `P = 101` this gives about 796 points instead of 649. Even **one sign flip on one prime** breaks monotonicity:
+- prime 3 alone with `χ(3) = −1` folds back at `t = 14.21`, 26.01 and 37.05, where `θ′` is small;
+- with `χ(3) = +1` it does not fold back at all.
+
+**So the test is void, and no verdict on the formula is drawn.** A twisted arithmetic cannot be read through the ζ lens as a consistent zero set.
+
+**Finding, not a test result.** On the ζ lens's Γ phase, the true arithmetic (every `χ(p) = +1`) keeps the counting function monotone. Sign-flipped arithmetic, and randomly phased arithmetic (round 97), do not. The Γ phase and the ζ arithmetic are mutually consistent in a way other arithmetics are not.
+
+**The proper test.** Use a real `L(s, χ)` with its **own** lens:
+- its own Γ factor and conductor, with phase `θ_χ` and density `ln(qγ/2π)/2π`;
+- its own zeros, computed from the Hardy-type function `e^{iθ_χ(t)}L(½ + it, χ)`;
+- its own quantile base chain and kernel `K̃_χ`, fitted as in rounds 106–108.
+
+Then the tones are predicted from the analogue of the round-109 formula. The conductor enters the alias phase, so the formula's `ln 2r` term becomes `ln 2qr`-type. This must be written down and registered before the `L` chain is computed.
