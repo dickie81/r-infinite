@@ -3592,3 +3592,41 @@ At `P = 101` this gives about 796 points instead of 649. Even **one sign flip on
 - its own quantile base chain and kernel `K̃_χ`, fitted as in rounds 106–108.
 
 Then the tones are predicted from the analogue of the round-109 formula. The conductor enters the alias phase, so the formula's `ln 2r` term becomes `ln 2qr`-type. This must be written down and registered before the `L` chain is computed.
+
+## Round 111: the tone formula predicts a real L-function's tone in advance (`PREREG_Lchi4.md` + amendments, `kLzeros.py`, `kLlens.py`, `kLchirp.py`, `kLscore.py`)
+
+**The object.** `L(s, χ₋₄)`, conductor `q = 4`. **868 zeros** up to 1000 come from the real Hardy-type function `Z(t) = e^{iθ_χ}L(½ + it, χ₋₄)`. The first are 6.0209, 10.2437, 12.9881 and 16.3426, matching the known values. `|Im Z|/|Z| ≤ 3.4·10⁻¹⁸`. There are no missed zeros: the counting-function deviation is at most 0.63, and the count offset is 0.0002.
+
+**Order of commits.**
+1. `35a7e0f`: the procedure, and the formula `ω_p = 4π stat_r[r(1 + ln(p/2qr)) + K̃_χ(r)]` for this lens.
+2. `115654c`, amendment 1: the `L` kernel's edge sits at `r ≈ 0.20` rather than ζ's 0.86, so the fit region was scaled by the measured `λ = 0.236 ≈ 1/q`. This used kernel information only.
+3. `19170dd`, amendment 2: the numbers, committed **before the `L` chain or any per-prime response was computed**. Only `p = 3` (`χ = −1`) is read inside the lens's oscillating region, and the prediction is **`ω₃ = 4.14`** (range 4.05–4.19).
+
+The pre-registration's own expectation, that primes near 8–17 would be read, was wrong. It assumed ζ's region; amendment 1 corrected this before any prediction was made.
+
+**Results.**
+
+| | Line(s) | vs prediction 4.14 |
+|---|---|---|
+| `p = 3` first-order response, `L` kernel | **4.19**, 1.96 | **hit** (0.05) |
+| full `L` chain (true zeros) | **4.23**, 1.61, 7.55, 10.77 | **hit** (0.09) |
+| `L` chain minus its Γ base | 4.23, 1.57, 7.55, 10.77 | — |
+
+**Verdicts.**
+- **Single-prime check: passes.**
+- **L3 passes:** no line near 9.47. The ζ chain's `p = 2` tone is absent, as `χ(2) = 0` requires.
+- **L2:** the strongest line matches (4.23); the second (1.61) matches nothing. Only one prediction existed.
+- **L1:** not meaningful, since fewer than 2 primes are in range.
+- **First order.** The first-order theory with the `L` kernel tracks the `L` chain's wiggles at correlation **0.961**.
+
+**Reading.**
+- The formula, with its conductor term `ln(p/2qr)`, predicted the dominant tone of a different `L`-function before it was computed, to within 0.09 (about 2%). This was the formula's first out-of-sample test.
+- The frequency moves from ζ's 16.75 (`p = 3`, `q = 1`) to 4.14 (`p = 3`, `q = 4`, `χ = −1`). The conductor, not the sign, sets the move.
+- The ζ `p = 2` line disappears with `χ(2) = 0`.
+
+**Honest limits.**
+- One tone, one `L`-function.
+- The `L` chirp fits scatter much more than ζ's.
+- The formula predicts only primes read inside the fitted region. The `L` chain's 7.55 line (`p = 5`'s first-order tone is 7.59) and its 1.61 line were not predicted.
+- `K̃` is still measured, not derived from Γ.
+- Next: a second character (e.g. `χ₋₃`, `q = 3`), or extend the kernel fit region so that more primes get a prediction.
