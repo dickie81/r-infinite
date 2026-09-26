@@ -38,3 +38,16 @@ Committed before any zero, kernel, chain or response of `L(s, χ₋₈)` is comp
 - **Unscored:** the distance of each of the chain's top-4 lines to the nearest law value (`n = 3, 5, …, 15`).
 
 **Chance level.** A uniformly placed strongest peak in [1.5, 40] lands within ±0.3 of a given value with probability ≈ 1.6%. If it is uniform on [1.5, 12] instead, the probability is ≈ 5.7%. Known risk: earlier `L` per-prime responses carried a secondary low-frequency line near 1.6–2.0. That line lies inside B1's `p = 3` window (1.79–2.39); if it is what `p = 3`'s response returns, the hit is weak evidence. `p = 5` (3.47–4.07) is clear of it.
+
+## Amendment 1: kernel stage (committed after the `χ₋₈` zeros and kernel dumps, before the chain, the base chain or any per-prime response)
+
+**Zeros.** 979 up to 1000, starting 3.5762, 7.4345, 9.5032, 12.3405. Max `|N − smooth|` is 0.72 (no missed zeros), the count offset is 0.0001, and `|Im Z|/|Z| ≤ 3.9·10⁻¹⁸`.
+
+**B4 (a), `λ`: fails.** `r_e = 0.0941 ± 0.0100`, with 37 windows excluded (no crossing found), which gives `λ = 0.1092 = 1/9.16`. That is 12.6% below `1/8`, outside the registered 10%. The law assumes `λ = 1/q` exactly, so this is a strike against the law's `/q` step at the kernel level. It is recorded before any tone is seen. The law's predictions are **not** changed. For reference only, rescaling by the measured `λ` instead of `1/q` would multiply every predicted `ω` by `8λ = 0.874` (2.094 → 1.83, 3.770 → 3.29); this rescaled set is not scored.
+
+**B4 (b), narrow-method competitor: uninformative.**
+- Chirp variance captured 0.97, but the `β′` segments are −6.21, −0.16, −0.34, which is unstable.
+- Only `p = 3` is read in range: `ω = 0.31`, range −3.67 to 2.39.
+- This is the same failure mode as round 112's A1. It makes no usable prediction and is not scored.
+
+The registered law predictions and criteria B1–B3 stand unchanged.
