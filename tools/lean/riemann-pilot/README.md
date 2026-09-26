@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 491 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 499 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -42,6 +42,7 @@ Every file ends with `#print axioms`. All 491 checked theorems depend only on `p
 | `FourierInv.lean` | 533 | Fourier inversion for the autocorrelation of an even `L²` function on `[−a, a]`: `ĝ² = 𝓕f`, `∫ĝ² < ∞` (Gaussian regularisation), `(1/2π)∫ĝ² cos(ru) = f(u)`; used by the zero swap (R2) and the explicit-formula bridge |
 | `WeilConverse.lean` | 601 | **Weil's criterion, converse**: an off-line zero (finitely many, none real) makes `weilQ` negative at some support, via twin-box probes and a weighted exponential-integral argument; `weil_criterion_finite`: `Q ≥ 0` at every support ⟺ every zero on the line |
 | `PhiNull.lean` | 126 | Riemann's kernel is a null vector of the explicit formula: test transforms `Ξ·m` (hence `Φ̂·m`) have zero prime side; for `Φ̂²` the archimedean-plus-prime side is exactly `−1/8`; the polarised bridge `Σ_ρ ĝk̂ = (Q(g+k) − Q(g−k))/4` |
+| `PhiDecay.lean` | 646 | **The quantitative corollary**: `Φ` is `C¹` with rapidly decaying `Φ'`; `Φ_a = 1_{[−a,a]}Φ` is a probe whose transform at every zero of `Ξ` is a tail; hence `λ₁(a) ≤ K_B e^{−Ba}` for every `B` (an upper bound only) |
 | `SwapRealize.lean` | 428 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
 | `SimpleCover.lean` | 225 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
 | `SimpleStructure.lean` | 86 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
@@ -4375,3 +4376,21 @@ The review agent checked the nullity numerically on the prime side, to a relativ
 - **The quantitative corollary.** This is `λ₁(a) ≤ Q(Φ_a)/‖Φ_a‖²`, double-exponentially small. It needs `Φ_a` to be a probe (a derivative bound on `Φ` over the window), plus a tail estimate summed over the zeros.
 
 **Scope.** This is the explicit formula evaluated at a function that vanishes on the zeros. It is exact and unconditional given `WeilExplicit`, but it restates the zero set and has no bearing on RH. `Φ` is null for every zero family on which `Ξ` vanishes, on or off the line.
+
+## Round 133: the ground energy decays faster than every exponential (`src/PhiDecay.lean`)
+
+This is the quantitative corollary of round 132. Riemann's kernel `Φ` is null for the explicit formula, so its truncation `Φ_a = 1_{[−a,a]}Φ` is almost null, and it bounds the ground energy of Weil's form.
+
+**The chain.**
+- **A–B.** `Φ` is `C¹`, with `Φ' = Σ φ_n'` differentiated termwise (`hasDerivAt_RPhi`). `Φ'` is odd and decays at every exponential rate (`RPhi1_decay`).
+- **C.** `Φ_a` is an admissible probe (`probe_PhiA`). This uses `ind_energy` from CosTrunc with the Lipschitz bound `RPhi_lip`.
+- **D.** On the strip `|Im t| ≤ ½`, `∫f e^{itu} = ĝ_a(t) + tail` (`fourier_split`), and `‖tail‖ ≤ C e^{−(D−3/2)a} ∫e^{−|u|}` for `|f| ≤ C e^{−D|u|}` (`norm_tailT_le`).
+- **E.** At a zero `t` of `Ξ`, `ĝ(t) = −tail Φ`. Integrating by parts on `ℝ` gives `∫Φ'e^{itu} = −itΦ̂(t) = 0` (`RPhi1_hat`). Integrating by parts on `[−a, a]` (`ibp_window`) then gives `‖t‖‖ĝ(t)‖ ≤ 2|Φ(a)|e^{a/2} + ‖tail Φ'‖` (`zero_bounds`).
+- **F.** Summing with the weight `‖1/(t² + 4)‖` gives `Q(Φ_a) ≤ (τ₁² + 4τ₀²) Σ_ρ ‖1/(t_ρ² + 4)‖` (`weilQ_PhiA_le`).
+- **G.** `λ₁(a)‖Φ_a‖² ≤ Q(Φ_a)` and `‖Φ_a‖² ≥ ‖Φ_1‖² > 0` (by `RPhi_pos`). So **`λ₁(a) ≤ K_B e^{−Ba}` for every `B`**, for `a ≥ 1` (`lam_decay`). Over the zeros of `ζ` this is `lam_decay_zeta`.
+
+**Named inputs.** `WeilExplicit` for each `Φ_a`, and for `h(z) = 1/(z² + 4)`, which is analytic on `|Im z| < 2` and `O(r⁻²)`, so a legitimate Guinand–Weil test function. Its explicit formula gives `Σ_ρ ‖1/(t_ρ² + 4)‖ < ∞`. `DigammaDiff` is the third input. There are no other hypotheses: the strip comes from `IsNontrivialZero.mem_strip`, and `Ξ(t_ρ) = 0` from `Xi_zeta_zero`.
+
+**What it says.** The general theorem `lam_decay` holds for any zero family on which `Ξ` vanishes inside the strip, whether on or off the critical line. So `λ₁(a)` is at most super-exponentially small, and this is a property of `Ξ`'s zero set rather than of where the zeros lie.
+
+**Scope.** This is an upper bound on `λ₁`. RH is equivalent to the lower bound `λ₁(a) ≥ 0` for every `a` (round 131, `weil_criterion_finite`, for finitely many off-line zeros). So the corollary has no bearing on RH. It quantifies how close to degenerate Weil's form is at large support, which is the known difficulty.
