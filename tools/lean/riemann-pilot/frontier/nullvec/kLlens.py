@@ -6,7 +6,8 @@ import sys, json, glob, numpy as np, mpmath as mp
 from scipy.special import loggamma
 import os
 q = int(os.environ.get('LQ', '4')); TAG = os.environ.get('LTAG', 'L')   # round 112: 'L' = chi_-4 files, 'L3' = chi_-3
-def theta(t): return t/2*np.log(q/np.pi) + np.imag(loggamma(0.75 + 0.5j*np.asarray(t)))
+GA = float(os.environ.get('LGA', '0.75'))   # round 116: 1/4 for even characters
+def theta(t): return t/2*np.log(q/np.pi) + np.imag(loggamma(GA + 0.5j*np.asarray(t)))
 if sys.argv[1] == "zeros":
     Z, mx = [], 0
     for f in sorted(glob.glob(TAG + "z_*.json"), key=lambda s: float(s[len(TAG) + 2:-5])):
