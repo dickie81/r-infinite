@@ -3702,3 +3702,57 @@ Seven new theorems. None of them has a hypothesis about ζ, RH or any `L`-functi
   - that the real kernel is well described by first order (round 105: the series is asymptotic);
   - that its phase has the scaling form with the measured `K̃`;
   - that `θ` equals its idealised Stirling form. These remain numerical findings.
+
+## Round 114: `K̃` derived from Γ, and the parameter-free tone law `ω = 2π(n − 1/n)/q` (`frontier/nullvec/kKderive.py`)
+
+**Derivation (analytic, no fitted constant).**
+- Beyond the wall (`r = γ/4πx > 1`), the closed-form multiplier `ln M = T₀[w arcsin w + √(1−w²) − 1]` (`T₀ = 2πx`, `w = r`) continues to a pure phase `T₀[√(r²−1) − r arccosh r]`.
+- The kernel `F·F′` carries twice this phase.
+- On the Γ nodes (`2θ(γ̃_k) = (2k−3)π`), the wave is represented shifted by `2θ(γ) ≈ γ ln x + 4πx r(ln 2r − 1)`.
+- Together:
+
+  **`K̃(r) = r ln 2r − r + √(r²−1) − r arccosh r`**, `K̃′(r) = ln 2r − arccosh r`.
+
+- Put into round 113's `stationary_iff` / `tone_at_stationary`:
+  - the stationary point is **`r* = cosh(ln p) = (p + 1/p)/2`**;
+  - the tone is `4π sinh(ln p)`, i.e. **`ω_p = 2π(p − 1/p)`**;
+  - for an `L`-lens it becomes `/q`, through round 111's edge scaling `λ ≈ 1/q`.
+
+**Post hoc matches.** Every line below had been observed before this derivation existed.
+
+| line | law | value | observed |
+|---|---|---|---|
+| ζ, `p = 2` | `3π` | 9.425 | 9.47 |
+| ζ, `p = 3` | `16π/3` | 16.755 | 16.75 |
+| fine ladder `n = 2..7` | `2π(n − 1/n)` | 9.42, 16.76, 23.56, 30.16, 36.65, 43.08 | ladder lines; plateau heights at `r* = (n + 1/n)/2` |
+| ratio lines `n = 3/2, 5/3, 7/5, 5/4` | same | 5.24, 6.70, 4.31, 2.83 | present |
+| `χ₋₄`, `p = 3, 5, 7` | `/4` | 4.19, 7.54, 10.77 | 4.19–4.23, 7.55, — |
+| `χ₋₃`, `p = 2, 4, 5` | `/3` | 3.14, 7.85, 10.05 | 3.10–3.14, 7.90, — |
+
+The law also accounts for the two `L` lines that round 112 left unpredicted (`χ₋₄` 7.55, `χ₋₃` 7.90). It improves on the blind round-111/112 predictions (4.14 and 3.22), which used the measured `K̃`.
+
+**Kernel-level checks (`kKderive.py`).**
+
+(a) Chirp, fitted `κ_c` vs derived `K̃′`:
+
+| `r` | 1.0 | 1.2 | 1.4 | 1.6 | 1.8 | 2.0 | 2.2 |
+|---|---|---|---|---|---|---|---|
+| fitted | 0.343 | 0.205 | 0.114 | 0.070 | 0.074 | 0.126 | 0.225 |
+| derived | 0.693 | 0.253 | 0.163 | 0.116 | 0.088 | 0.069 | 0.056 |
+
+  The mid-range agrees roughly. There is a clear mismatch at the wall (`r = 1`) and for `r ≥ 2`, where the fitted chirp turns up and the derived one keeps falling.
+
+(b) `K̃(1.4)` = −0.1926 derived, vs the measured `β′/4π` = −0.1834 (range −0.195..−0.170). **Passes.**
+
+(c) A per-window fit of only amplitude and phase offset, using the derived phase `γ ln x + 4πx K̃(r)`, captures **16.3%** of the oscillation variance. Round 108's 5-parameter fitted chirp captured 94.2%. The residual phase offset has sd 0.33 rad and drifts −0.125 rad per unit `x`. **Fails as a waveform model.**
+
+(d) Per-prime first-order tones using the derived-phase kernel: `p = 2` → 9.38 (true 9.47), `p = 3` → 16.62 (true 16.75). **Passes.**
+
+**Reading.**
+- The derived `K̃` gets the stationary-phase structure right, and that structure alone sets the tone frequencies. It does not get the node-level waveform: the chirp is wrong at the ends and most of the variance is missed.
+- The tone law `ω = 2π(n − 1/n)/q` has no parameters and is exact in form. It follows from Γ (the Stirling phase and the closed-form multiplier's continuation) plus round 113's calculus.
+- **All of its matches are post hoc.** Its first real test is a blind, pre-registered run on an `L`-function not yet examined.
+
+**Open.**
+- Why the waveform (as opposed to the stationary points) departs from the derived phase near `r = 1` and for `r ≥ 2`. Candidates: sub-leading Stirling terms, the `arcsin` branch at the wall, and higher-order response terms (round 105: the series is asymptotic).
+- A blind test of the law on `q = 5, 7` or `8`. At `q ≥ 5` the `p = 2` tone falls below about 1.9, which the `x ∈ [3,12]` window resolves poorly, so the test needs either a longer window or a target prime `p ≥ 3`.
