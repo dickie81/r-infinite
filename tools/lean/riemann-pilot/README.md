@@ -3366,3 +3366,46 @@ Every kernel is built from the Γ side alone. The arithmetic supplies only `δ`,
 - This is the classical truncated-Euler-product phenomenon (cf. hybrid Euler–Hadamard products), not new.
 - It places the zeros on the line by construction, so it cannot detect an off-line zero.
 - Adding primes does not make it converge (round 95, `P = 1009`), and its error grows slowly with height.
+
+## Round 105: third order, larger windows, and a precision lesson (`PREREG_linresp3.md`, `klinresp3.py`, `klinresp3_A_score.py`, `klinresp3_B_score.py`)
+
+**Registered in `eda0ac5`.** The response expansion is carried to third order (`s₃`, and the `u − u²/2 + u³/3` terms), and tested:
+- **A:** on the round-104 grid, `x ∈ [3, 12]`;
+- **B:** on larger windows, `x ∈ [12, 30]`, step 0.12, with 151 windows; the zeros enter individually up to `H = 2500`, and the quantiles are extended to 2500.
+
+**Two execution defects, both fixed. The earlier outputs are archived in `r105_v1/` and `r105_v2/`.**
+1. **The first B run blew up** (`|Δ₂| ≈ 10⁵⁷` at 10 windows). I first suspected the removable singularity of `φ_k` at `γ = ω_k`, and rewrote the rows in the stable sinc form `φ_k = g(γ − ω_k) + g(γ + ω_k)`, `g(u) = sin(au)/u`, with a series near 0. This matches the old form and finite differences to 12 digits at generic points. The blow-ups remained, so that was not the cause.
+2. **The real cause was cancellation beyond the working precision.** The second-order diagonal term `−a₂/s` and the re-optimisation term `v₁ᵀM⁻¹v₁/s` are each `≈ 3.4·10⁷³` at `x = 16.9` and cancel to `O(0.3)`. Because only midpoints were written out, windows that *looked* sane could also be wrong: at `x = 16.92` the old `Δ₂ = −0.074` had a radius of `8·10¹¹`, while the correct value is `+0.355`.
+   - `klinresp3.py` now reports the ball radii. It raises the working precision (factors 1, 2, 3, 4, 6, 8) until every reported order is enclosed to `10⁻⁸`.
+   - In the final run all 377 windows are enclosed to `≤ 7.7·10⁻⁹`. They needed factors 1 or 2 only.
+   - The A results are unchanged by the fix.
+
+(One worker was also killed for lack of memory at double precision, at about 3.7 GB each; its 3 windows were rerun separately.)
+
+**Results** (all enclosed; the scoring is as registered):
+
+| Grid | Set | 1st order | 2nd order | **3rd order** | 3rd: rms error / raw maximum error |
+|---|---|---|---|---|---|
+| A: `x ∈ [3, 12]` | true | 0.849 | 0.937 | **0.981** | 0.018 / 0.101 |
+| A | `P = 7` | 0.831 | 0.930 | **0.984** | 0.020 / 0.079 |
+| B: `x ∈ [12, 30]` | true | 0.684 | **0.846** | **0.957** | 0.018 / 0.122 |
+
+Tones on B: the third-order prediction gives 2.18, 5.26, 6.67, **9.42**, **16.75**; the actual residual gives 2.20, 5.26, 6.67, 9.40, 16.75. **Every line is reproduced.**
+
+**Verdicts.**
+- **A: partial.** The correlation reaches 0.981, but the raw maximum error (0.101) is not below round 104's 0.080.
+- **B: HOLDS fails.** The second-order correlation is 0.846 < 0.9, so the second-order formula degrades as the window grows.
+- **B, third order: partial** (0.957).
+
+**Reading.**
+- The expansion converges at every window tested, but it needs more orders as `x` grows. Measured by correlation, the unexplained part shrinks as follows:
+
+  | Grid | after 1st order | after 2nd order | after 3rd order |
+  |---|---|---|---|
+  | `x ∈ [3, 12]` | 15% | 6% | 2% |
+  | `x ∈ [12, 30]` | 32% | 15% | 4% |
+
+- The third-order semi-explicit Hamiltonian reproduces the wiggles' complete tone set on both grids.
+- The natural next steps are:
+  - a fourth order, to see whether B's remaining 4% follows the same geometric decay (factor ≈ 2.5–3.5 per order);
+  - or a resummation, i.e. expanding about a partially displaced base, which should converge faster.
