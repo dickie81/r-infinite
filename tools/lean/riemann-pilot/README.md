@@ -4040,3 +4040,46 @@ The total is `−5.489 + 4.911 + 0.8344 = 0.2564 ≥ 1/4`.
 - **Not new mathematics.** Connes–Consani proved Weil positivity for supports up to `2a = log 2` (as recalled, not re-checked here), and computer-assisted certificates reach much further (round 39 and Liu, `L = 17/16`). What is new is a complete, machine-checked analytic proof on the pilot's own definitions of `Q`.
 - Probes are even by definition, so the odd sector is not covered.
 - The next step past `a ≈ 0.105` needs the pole term: a Sherman–Morrison-type argument with a certified lower bound on `Q₀`'s second eigenvalue together with the overlap `⟨w, φ₀⟩`. That is the regime of rounds 18–21, and at `2a = log 2` the margin shrinks to `λ₁ ≈ 1.3·10⁻³`.
+
+## Round 122: Weil positivity with the pole term, sharper constants, and the odd sector (`SmallPositivity2.lean`, `OddPositivity.lean`, `PoleRelax.lean`, `frontier/nullvec/kpole_cert.py`)
+
+Three extensions of round 121. All three are full-space results: every probe in the window, with no truncation. The first and third are pure Lean. The second is computer-assisted: Lean proves that a finite certificate implies positivity, and arb checks the certificate.
+
+| | Result | Range | Method | Status |
+|---|---|---|---|---|
+| **1** | `weilQ_ge_twentieth`: `Q(g) ≥ 1/20`, even | `0 < a ≤ 1/12` | round 121 with sharper constants: `γ < H₁₆ − 4 log 2 < 0.60815`, `log 3 > 1.0986` (Taylor), far field `≥ log(2/a) + π/2 − sinh a` via `tanh y ≤ y` (proved by monotonicity) | pure Lean, 7 theorems |
+| **2** | `weilQ_ge_pole`: `Q(g) ≥ 1/1000`, even, **with the pole term** | `0 < a ≤ 1/4` | finite relaxation plus Bessel plus a Gram certificate (below) | Lean reduction, 7 main theorems; `Cert14` checked in arb |
+| **3** | `weilQodd_ge`: `Q(g) ≥ 1/20`, odd | `0 < a ≤ 1/4` | pole term `2ĝ(i/2)ĝ(−i/2) = −2 poleR²` (negative but tiny, `poleR² ≤ sinh a − a`); odd modes `p_n = (∫ g sin)²/8a`, `p₀ = 0`; near field `≥ 2.016 + 0.99a − err`; two-range budget | pure Lean, 5 main theorems |
+
+### Part 2 in detail: past `λ₀ = 0`
+
+The pole-free form `Q₀` is negative for `a ≳ 0.105` (round 121's table), so from there positivity depends on the pole term. The ingredients:
+
+1. **The relaxation** (`weilQ_ge_relax`, any `N`).
+   - Round 20's mode expansion gives `Q(g) ≥ κ + xᵀ diag(s) x` exactly on the full space.
+   - Here `κ = c₀ + Far(a) + τ`, `x₀ = ∫ g cosh(t/2) = ĝ(i/2)` (weight `s₀ = 2`, the pole), and `x_{k+1} = ∫ g cos(πkt/4a)` (weights `−τ/8a` and `2(ψ̲_k − τ)/8a`).
+2. **Bessel** (`bessel_gram`): `2yᵀx − yᵀGy ≤ ‖g‖²` for the Gram matrix `G` of `(cosh(t/2), cos(πkt/4a))` on `[−a, a]`.
+3. **The finite step** (`quad_lower`): `G ≻ 0` and `(κ − ε)G + G diag(s) G ⪰ 0` together imply `κ‖g‖² + xᵀ diag(s) x ≥ ε‖g‖²`. Use `y = G⁻¹x`.
+4. **Closed forms** (`gramM_eq`): every Gram entry, from `int_coshsq`, `int_cosh_cos`, `int_cos_cos`, `int_cos_sq`. `κ` uses `weilConst_eq` and `farField_eq`. The `N = 6` data are rational: `cin_val1..6`, `cinH7`, `dlo1..6`, `errK`.
+5. **Monotonicity** (`probe_mono`, `weilQ_mono`): a probe at `a` is a probe at every `b ≥ a`, with the same `Q`. So `λ₁` is non-increasing in `a`, and **one certificate at `a = 1/4` covers `(0, 1/4]`**.
+
+**The certificate `Cert14`** (`kpole_cert.py`, `kpole_cert_result.json`):
+- At exactly `a = 1/4`, `ε = 1/1000`, 400-bit ball Cholesky of both `8×8` matrices: `gram6` ≻ 0 and `M` ≻ 0.
+- All 16 pivots are strictly positive. The smallest is `1.86·10⁻¹⁴`; the largest ball radius is `4·10⁻¹⁰³`. The run agrees at 800 bits.
+- `κ(1/4) = 1.05409620161`.
+- The script mirrors the Lean definitions one for one (`errK`, `tau6`, `cv6`, `dd6`, `sfun`, `kappa6`, `gC`). The only things arb contributes are the ball evaluations of `sin`, `cos`, `sinh`, `cosh`, `log`, `atan`, `π` and `γ`.
+
+**Why a single point.**
+- The window Gram matrices are extremely ill-conditioned (smallest pivot about `10⁻¹⁴`): `cosh(t/2)` and the low cosines are nearly dependent, like monomials.
+- An interval-in-`a` certificate would need `a`-intervals of width about `10⁻¹⁵`. Monotonicity makes that unnecessary, and at an exact point, arb at 400 bits resolves `10⁻¹⁴` pivots without difficulty.
+
+**Margins and limits.**
+- True `λ₁(1/4) ≈ 0.033`. The relaxation certifies `≥ 1/1000` but fails for `ε = 0.005`, and fails at `a = 0.26`: the rational `Cin` lower bounds and the `N = 6` truncation cost the rest.
+- Going further needs more modes (more certified `Cin` values) and, from `2a = log 2` on, the prime `n = 2`. There `λ₁ ≈ 1.3·10⁻³`.
+- Part 2 is **computer-assisted**. The Lean theorem `weilQ_ge_pole` takes `Cert14` as a hypothesis.
+
+### Scope
+- **Not new mathematics.** Positivity at these supports is known: Connes–Consani analytically up to `2a = log 2` (as recalled), and computer-assisted certificates much further (round 39; Liu, `L = 17/16`).
+- **What is new.**
+  - The pilot now has full-space positivity of its own `Q` on `(0, 1/4]` in both parity sectors: pure Lean for odd `g` and for even `g` up to `1/12`, and Lean plus one arb certificate for even `g` up to `1/4`.
+  - The reduction from full-space positivity to a finite Gram certificate is itself formalised, for any number of modes.
