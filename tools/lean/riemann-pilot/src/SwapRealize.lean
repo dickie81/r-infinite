@@ -1,5 +1,5 @@
 import Mathlib
-import HurwitzCross
+import FourierInv
 
 /-! # The swap realisation, proved
 
@@ -17,10 +17,11 @@ written as `(e^{iwx} P_{−w}(x) − e^{−iwx} P_w(x))/(2iw)` with `P_c(x) = �
 * A triangle Fubini swap and `∫_y^a e^{i(z+c)x} dx` give `ĥ(z) = −ĝ(z)/(z² − σ)` (`hSw_hat`).
 * `f₂ = g + (σ̄ − σ)h`, `u = Re f₂`, `v = Im f₂`: then `û + iv̂ = ĝ(z)(z² − σ̄)/(z² − σ)` (**R1**,
   `swap_hat`).
-* **R2** (`swap_autocorr`): on `[−6a, 6a]` the Fourier coefficients of `u, v, g` are `ĝ`-values at
-  real points, where `ĝ_u, ĝ_v` are real (even real functions) and the multiplier is unimodular. So
-  `|c_n(u)|² + |c_n(v)|² = |c_n(g)|²`, and Parseval for `g − g(· + s)` (`hasSum_shift'`) gives
-  `A_u(s) + A_v(s) = A_g(s)` for `|s| < 3a`; beyond `2a` all three vanish.
+* **R2** (`swap_autocorr`): on the real line `ĝ_u, ĝ_v` are real (even real functions) and the
+  multiplier is unimodular, so `ĝ_u² + ĝ_v² = ĝ²` there (`swap_hsq`). Fourier inversion
+  (`gh_hsq`, FourierInv.lean) recovers each autocorrelation from `ĝ²` on `ℝ`, so
+  `A_u + A_v = A_g`. This is Walther's phase-retrieval ambiguity: `|ĝ|` on `ℝ` fixes a compactly
+  supported function only up to flipping zeros, and the swap is such a flip.
 * The archimedean integrals of `u, v` converge by domination, `0 ≤ E_u(x) ≤ E_g(x)` (`arch_dom`).
 
 `swapRealization_of_zero` assembles this. `rh_of_eventually_simple` is the RH chain of
@@ -312,35 +313,7 @@ theorem swap_hat (hp : Probe a g) (ha : 0 ≤ a) (hw : ghatC g a w = 0) (hw0 : w
 
 end Pair
 
-/-! ## R2: the autocorrelations add up (Fourier coefficients on `[−6a, 6a]`) -/
-
-/-- `ĝ(z̄) = conj ĝ(z)` for a real even square-integrable `g`. -/
-theorem ghatC_conj {f : ℝ → ℝ} (hf : MemLp f 2 volume) (heven : ∀ u, f (-u) = f u) {a : ℝ}
-    (ha : 0 ≤ a) (z : ℂ) : ghatC f a ((starRingEnd ℂ) z) = (starRingEnd ℂ) (ghatC f a z) := by
-  have : (starRingEnd ℂ) (ghatC f a z) = ghatC f a (-((starRingEnd ℂ) z)) := by
-    unfold ghatC
-    rw [intervalIntegral.integral_of_le (by linarith), intervalIntegral.integral_of_le (by linarith),
-      ← integral_conj]
-    congr 1; funext u
-    rw [map_mul, Complex.conj_ofReal, ← Complex.exp_conj, map_mul, map_mul, Complex.conj_I,
-      Complex.conj_ofReal]
-    congr 2; ring
-  rw [this, ghatC_neg_of_even hf heven]
-
-theorem ghatC_im_zero {f : ℝ → ℝ} (hf : MemLp f 2 volume) (heven : ∀ u, f (-u) = f u) {a : ℝ}
-    (ha : 0 ≤ a) (t : ℝ) : (ghatC f a t).im = 0 := by
-  rw [← Complex.conj_eq_iff_im, ← ghatC_conj hf heven ha, Complex.conj_ofReal]
-
-theorem cf_eq_ghatC {a : ℝ} (ha : 0 < a) {f : ℝ → ℝ} (hsupp : ∀ u, a < |u| → f u = 0) (n : ℤ) :
-    cf (3 * a) f n
-      = (1 / (4 * (3 * a)) : ℂ) * ghatC f a ((-(2 * π * n / (4 * (3 * a))) : ℝ) : ℂ) := by
-  have hs : ∀ u, a < |u| →
-      Complex.exp (-(2 * π * I * n * u / (4 * (3 * a)))) * ((f u : ℝ) : ℂ) = 0 :=
-    fun u hu => by rw [hsupp u hu]; simp
-  unfold cf
-  push_cast
-  rw [integral_eq_of_supp hs (by linarith) (by linarith), ghatC_eq_integral ha hsupp]
-  congr 1; congr 1; funext u; rw [mul_comm]; congr 2; ring
+/-! ## R2: the autocorrelations add up (Fourier inversion) -/
 
 theorem norm_swapB {σ : ℂ} (hσ : σ.im ≠ 0) (t : ℝ) :
     ‖((t : ℂ) ^ 2 - (starRingEnd ℂ) σ) / ((t : ℂ) ^ 2 - σ)‖ = 1 := by
@@ -353,21 +326,6 @@ theorem norm_sq_add_of_im {x y : ℂ} (hx : x.im = 0) (hy : y.im = 0) :
     ‖x‖ ^ 2 + ‖y‖ ^ 2 = ‖x + Complex.I * y‖ ^ 2 := by
   rw [← Complex.normSq_eq_norm_sq, ← Complex.normSq_eq_norm_sq, ← Complex.normSq_eq_norm_sq]
   simp [Complex.normSq_apply, hx, hy]
-
-theorem autocorr_eq_zero_far {a : ℝ} {f : ℝ → ℝ} (hsupp : ∀ u, a < |u| → f u = 0) {s : ℝ}
-    (hs : 2 * a < |s|) : autocorr f s = 0 := by
-  unfold autocorr
-  have : (fun t => f t * f (t + s)) = fun _ => (0 : ℝ) := by
-    funext t
-    by_cases ht : a < |t|
-    · rw [hsupp t ht, zero_mul]
-    · push Not at ht
-      have : a < |t + s| := by
-        have := abs_sub (t + s) t
-        rw [add_sub_cancel_left] at this
-        linarith
-      rw [hsupp _ this, mul_zero]
-  rw [this, integral_zero]
 
 section Pair2
 
@@ -385,49 +343,32 @@ theorem uSw_supp (hp : Probe a g) (hw : ghatC g a w = 0) (x : ℝ) (hx : a < |x|
 theorem vSw_supp (hp : Probe a g) (hw : ghatC g a w = 0) (x : ℝ) (hx : a < |x|) :
     vSw g a w x = 0 := by simp only [vSw, f2Sw_supp hp hw x hx, Complex.zero_im]
 
-theorem swap_cf (hp : Probe a g) (ha : 0 < a) (hw : ghatC g a w = 0) (hw0 : w ≠ 0)
-    (hσ : (w ^ 2).im ≠ 0) (n : ℤ) :
-    ‖cf (3 * a) (uSw g a w) n‖ ^ 2 + ‖cf (3 * a) (vSw g a w) n‖ ^ 2 = ‖cf (3 * a) g n‖ ^ 2 := by
-  rw [cf_eq_ghatC ha (uSw_supp hp hw), cf_eq_ghatC ha (vSw_supp hp hw), cf_eq_ghatC ha hp.supp]
-  set t : ℝ := -(2 * π * n / (4 * (3 * a)))
-  set K : ℂ := (1 / (4 * (3 * a)) : ℂ)
-  have hx := ghatC_im_zero (memLp_uSw hp hw) (uSw_even hp hw) ha.le t
-  have hy := ghatC_im_zero (memLp_vSw hp hw) (vSw_even hp hw) ha.le t
+/-- The swapped pair has the same `ĝ²` on the real line: `ĝ_u(t)² + ĝ_v(t)² = ĝ(t)²`. -/
+theorem swap_hsq (hp : Probe a g) (ha : 0 < a) (hw : ghatC g a w = 0) (hw0 : w ≠ 0)
+    (hσ : (w ^ 2).im ≠ 0) (t : ℝ) :
+    hsq (uSw g a w) a t + hsq (vSw g a w) a t = hsq g a t := by
+  have hx := ghatC_im_zero (uSw_even hp hw) ha.le t
+  have hy := ghatC_im_zero (vSw_even hp hw) ha.le t
   have R1 := swap_hat hp ha.le hw hw0 t (sq_ne_of_im hσ t)
-  rw [norm_mul, norm_mul, norm_mul, mul_pow, mul_pow, mul_pow, ← mul_add,
-    norm_sq_add_of_im hx hy, R1, norm_mul, norm_swapB hσ t, mul_one]
+  have e := norm_sq_add_of_im hx hy
+  rw [R1, norm_mul, norm_swapB hσ t, mul_one] at e
+  have hg := ghatC_im_zero hp.even ha.le t
+  unfold hsq gH
+  rw [← sq_abs, ← sq_abs (ghatC (vSw g a w) a t).re, ← sq_abs (ghatC g a t).re,
+    Complex.abs_re_eq_norm.2 hx, Complex.abs_re_eq_norm.2 hy, Complex.abs_re_eq_norm.2 hg]
+  exact e
 
-/-- **R2.** `A_u + A_v = A_g` everywhere. -/
+/-- **R2.** `A_u + A_v = A_g` everywhere: by Fourier inversion (`gh_hsq`), each autocorrelation is
+determined by `ĝ²` on the real line, and `swap_hsq` says these add up. -/
 theorem swap_autocorr (hp : Probe a g) (ha : 0 < a) (hw : ghatC g a w = 0) (hw0 : w ≠ 0)
     (hσ : (w ^ 2).im ≠ 0) (s : ℝ) :
     autocorr (uSw g a w) s + autocorr (vSw g a w) s = autocorr g s := by
-  have hus := uSw_supp hp hw
-  have hvs := vSw_supp hp hw
-  by_cases hs : |s| < 3 * a
-  · have ha3 : 0 < 3 * a := by linarith
-    have mono : ∀ {f : ℝ → ℝ}, (∀ u, a < |u| → f u = 0) → ∀ u, 3 * a < |u| → f u = 0 :=
-      fun hf u hu => hf u (by linarith)
-    have Hu := hasSum_shift' ha3 (memLp_uSw hp hw) (mono hus) (by linarith)
-    have Hv := hasSum_shift' ha3 (memLp_vSw hp hw) (mono hvs) (by linarith)
-    have Hg := hasSum_shift' ha3 hp.memL2 (mono hp.supp) (by linarith)
-    have Nu := hasSum_cf_sq ha3 (by linarith : a < 2 * (3 * a)) (memLp_uSw hp hw) hus
-    have Nv := hasSum_cf_sq ha3 (by linarith : a < 2 * (3 * a)) (memLp_vSw hp hw) hvs
-    have Ng := hasSum_cf_sq ha3 (by linarith : a < 2 * (3 * a)) hp.memL2 hp.supp
-    have e1 := (Hu.add Hv).unique (by
-      convert Hg using 1; funext n; rw [← add_mul, swap_cf hp ha hw hw0 hσ n])
-    have e2 := (Nu.add Nv).unique (by
-      convert Ng using 1; funext n; rw [swap_cf hp ha hw hw0 hσ n])
-    rw [normSq_eq_autocorr, normSq_eq_autocorr, normSq_eq_autocorr] at e2
-    have hK : (0 : ℝ) < (4 * (3 * a))⁻¹ := by positivity
-    have f1 : (4 * (3 * a))⁻¹ * (autocorr (uSw g a w) s + autocorr (vSw g a w) s
-        - autocorr g s) = 0 := by linarith
-    rcases mul_eq_zero.1 f1 with h | h
-    · linarith
-    · linarith
-  · push Not at hs
-    have h2 : 2 * a < |s| := by linarith
-    rw [autocorr_eq_zero_far hus h2, autocorr_eq_zero_far hvs h2, autocorr_eq_zero_far hp.supp h2,
-      add_zero]
+  have hu : ESupp a (uSw g a w) := ⟨uSw_even hp hw, uSw_supp hp hw, memLp_uSw hp hw⟩
+  have hv : ESupp a (vSw g a w) := ⟨vSw_even hp hw, vSw_supp hp hw, memLp_vSw hp hw⟩
+  rw [← gh_hsq hu ha, ← gh_hsq hv ha, ← gh_hsq hp.toE ha, gh, gh, gh, ← mul_add,
+    ← integral_add (integrable_hsq_cos hu ha s) (integrable_hsq_cos hv ha s)]
+  congr 2; funext r
+  rw [← add_mul, swap_hsq hp ha hw hw0 hσ r]
 
 theorem arch_dom {u v : ℝ → ℝ} (hu : MemLp u 2 volume) (hv : MemLp v 2 volume)
     (hac : ∀ s, autocorr u s + autocorr v s = autocorr g s)

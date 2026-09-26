@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 468 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 473 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -39,14 +39,15 @@ Every file ends with `#print axioms`. All 468 checked theorems depend only on `p
 | `Unconditional.lean` | 309 | saturation without RH: verified zeros, a counting bound, the decay of `ĝ` for monotone `g` |
 | `ZeroSwap.lean` | 244 | the zero-swap lemma: a simple ground state admits no zero `w` with `w²` non-real, given the swap's realisation by probes |
 | `HurwitzCross.lean` | 117 | the chain with zeros on `ℝ ∪ iℝ`, and with the zero-swap lemma plugged in |
-| `SwapRealize.lean` | 487 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
+| `FourierInv.lean` | 533 | Fourier inversion for the autocorrelation of an even `L²` function on `[−a, a]`: `ĝ² = 𝓕f`, `∫ĝ² < ∞` (Gaussian regularisation), `(1/2π)∫ĝ² cos(ru) = f(u)`; used by the zero swap (R2) and the explicit-formula bridge |
+| `SwapRealize.lean` | 428 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
 | `SimpleCover.lean` | 225 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
 | `SimpleStructure.lean` | 86 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
 | `GapCriterion.lean` | 170 | Euler–Lagrange for `Q`; the pole-overlap identity; interlacing `λ₁(Q) ≤ μ₂(Q₀)`; energy gap ⇒ simple; non-simple ⇒ `λ₁ = μ₂` attained; the Jacobi eigenvector lemma |
 | `Commute.lean` | 165 | round 48's Theorem B: Weil's form commutes with `∂²` (cross-correlation, pole, full bilinear form) |
 | `DegenerateFlat.lean` | 725 | **degenerate ⇒ edge-flat**: a non-simple ground space contains a nonzero pole-free `w` and its compactly supported Green solution `G w` (`(Gw)'' − Gw/4 = w`); **simple ⇔ no such pair** |
 | `StructureD.lean` | 722 | **round 48's Theorem D**: the ground space is finite-dimensional; a Green chain `w, Gw, …, G^{m−1}w` lies in it, is independent and spans it; `offcross_root`, the one swap computation: every off-cross zero of a ground-space transform is a root of its polynomial `P_v`; the top element's transform vanishes only on `ℝ ∪ iℝ`. **The RH chain without simplicity**: (a) for the top-of-chain ground states alone gives `RiemannHypothesis` |
-| `Mollify.lean` | 1020 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
+| `Mollify.lean` | 825 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
 | `TheoremC.lean` | 810 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element**; the smooth form `simple_not_flat` as a corollary |
 | `ZeroCount.lean` | 327 | off-line zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²` per ground state (none for `m ≤ 2`); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`**; `M ≤ 2` gives RH |
 | `SixteenPi.lean` | 1251 | the strip note's §3.4 derivation of `1/(16π)`; **the balayage identity proved (Fubini), so the reduced problem gives `e^{−δ}/(16π)` with no hypothesis**; the wall maximiser `X* = 2`; **the balayage density in closed form, positive at the wall**; `P`, `Q`, `J(X) = (π/(2X))(1 + ln(X/2))`, the wall at `X = 2`, `τ = e^{−δ}/(16π)`; the multiplier's `z²` coefficient is the curvature defect; exact and tolerant D cancel the matched zeros |
@@ -4244,3 +4245,26 @@ All ten new `#print axioms` lines show `[propext, Classical.choice, Quot.sound]`
 - **Named inputs.** Only `WeilExplicit` and `DigammaDiff` are assumed. Both are classical theorems, and neither is in Mathlib.
 - **Standard mathematics.** The identity `Q(g) = Σ_ρ ĝ(t_ρ)²` is Weil's own route to his criterion. What is new is the checked connection between the pilot's four statements of the explicit formula.
 - **No bearing on RH.** The bridge rewrites `weilQ` as a sum over zeros. Positivity of that sum for all `g` is equivalent to RH, which is Weil's criterion and was already in the pilot. The bridge adds no positivity.
+
+## Round 127: phase retrieval, one Fourier inversion for two jobs (`src/FourierInv.lean`)
+
+Round 126 proved Fourier inversion for the autocorrelation (`gh_hsq`: `(1/2π)∫ĝ(r)² cos(ru) dr = f(u)`) inside ExplicitBridge.lean. That proof never used the archimedean hypothesis. This round moves it ahead of SwapRealize.lean, so that the zero swap uses it too.
+
+**The link.** Walther's phase-retrieval theorem says a compactly supported function is determined by `|ĝ|` on `ℝ` only up to flipping zeros. The zero swap of rounds 43–46 is exactly such a flip: `ĝ ↦ ĝ·(z² − σ̄)/(z² − σ)` is unimodular on `ℝ`. Fourier inversion is the half of that theorem the swap needs. On the real line `ĝ` fixes the autocorrelation, so a flip preserves it.
+
+**What changed.**
+- **New file `FourierInv.lean`**, which imports HurwitzCross. It holds `ESupp` (even, supported in `[−a, a]`, `L²`: a probe without the archimedean field) and round 126's Part A stated for `ESupp`:
+  - `fourier_autocorr`, `integrable_hsq`, `gh_hsq`, `integral_hsq`;
+  - `integral_hsq_cos` and `integrable_hsq_cos`;
+  - the translation-continuity lemmas moved from Mollify.lean (`tendsto_normSq_shift`, now also `continuous_autocorr`);
+  - `ghatC_conj` and `ghatC_im_zero`, moved from SwapRealize.lean. They no longer take an `L²` hypothesis; evenness is enough, via Exterior's `ghatC_even`.
+- **SwapRealize.lean, R2** (`swap_autocorr`). The new proof takes three steps:
+  - `swap_hsq`: `ĝ_u(t)² + ĝ_v(t)² = ĝ(t)²` on `ℝ`, from R1 and the unimodular multiplier;
+  - `gh_hsq`, applied to `u`, `v` and `g`;
+  - linearity of the integral.
+
+  This replaces the Fourier coefficients on `[−6a, 6a]` with Parseval for shifts. `cf_eq_ghatC`, `swap_cf` and `autocorr_eq_zero_far` are deleted. SwapRealize.lean goes from 487 to 428 lines.
+- **Mollify.lean**: `Fsh_continuous` is now three lines, via `continuous_autocorr`.
+- **ExplicitBridge.lean**: Part A is removed. Part B calls FourierInv's lemmas through `Probe.toE`.
+
+**Scope.** No theorem is weakened. `ghatC_conj` and `ghatC_im_zero` lose a hypothesis they never used. `src/` grows by 12 lines, because the `ESupp` scaffolding and the new file header outweigh the deletions, so the gain is structural: one Fourier inversion now serves both the explicit-formula bridge and the zero swap. No new input, and no bearing on RH.

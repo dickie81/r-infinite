@@ -663,7 +663,7 @@ theorem not_simple_of_green_pair {a : ℝ} (ha : 0 < a) {g w : ℝ → ℝ} (hs 
     intro t ht
     set r := (ghatC g a t).re
     have hr : ghatC g a t = (r : ℂ) :=
-      Complex.ext (by simp [r]) (by simp [ghatC_im_zero hgs.1.memL2 hgs.1.even ha.le t])
+      Complex.ext (by simp [r]) (by simp [ghatC_im_zero hgs.1.even ha.le t])
     have hr0 : r ≠ 0 := fun h => ht (by rw [hr, h, Complex.ofReal_zero])
     have hden : ((t : ℂ)) ^ 2 - (Complex.I / 2) ^ 2 = (((t ^ 2 + 1 / 4 : ℝ)) : ℂ) := by
       rw [div_pow, Complex.I_sq]; push_cast; ring

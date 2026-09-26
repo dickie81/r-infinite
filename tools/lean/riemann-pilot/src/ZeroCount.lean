@@ -111,7 +111,7 @@ theorem card_offcross_le_even {a : ℝ} (ha : 0 < a) {v : ℝ → ℝ} (hv : v �
       obtain ⟨him, ω, hω2, hω⟩ := hs τ hτ
       refine ⟨by rw [Complex.conj_im]; exact neg_ne_zero.2 him, (starRingEnd ℂ) ω, ?_, ?_⟩
       · rw [← map_pow, hω2]
-      · rw [ghatC_conj hv.1.memL2 hv.1.even ha.le, hω, map_zero]
+      · rw [ghatC_conj hv.1.even ha.le, hω, map_zero]
   have hcl : ∀ σ ∈ S, (starRingEnd ℂ) σ ∈ S := by
     intro σ hσ
     rcases Finset.mem_union.1 hσ with h | h
