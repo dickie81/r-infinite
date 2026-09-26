@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 499 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 500 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -43,6 +43,7 @@ Every file ends with `#print axioms`. All 499 checked theorems depend only on `p
 | `WeilConverse.lean` | 601 | **Weil's criterion, converse**: an off-line zero (finitely many, none real) makes `weilQ` negative at some support, via twin-box probes and a weighted exponential-integral argument; `weil_criterion_finite`: `Q ≥ 0` at every support ⟺ every zero on the line |
 | `PhiNull.lean` | 126 | Riemann's kernel is a null vector of the explicit formula: test transforms `Ξ·m` (hence `Φ̂·m`) have zero prime side; for `Φ̂²` the archimedean-plus-prime side is exactly `−1/8`; the polarised bridge `Σ_ρ ĝk̂ = (Q(g+k) − Q(g−k))/4` |
 | `PhiDecay.lean` | 646 | **The quantitative corollary**: `Φ` is `C¹` with rapidly decaying `Φ'`; `Φ_a = 1_{[−a,a]}Φ` is a probe whose transform at every zero of `Ξ` is a tail; hence `λ₁(a) ≤ K_B e^{−Ba}` for every `B` (an upper bound only) |
+| `PrimeRelax3.lean` | 77 | **Weil positivity up to the second prime**: granted the arb certificate `CertP3`, `Q(g) ≥ 2·10⁻⁸` for every normalised even probe at every support `2a ≤ 1.0986 < log 3` (round 123's construction re-run at `a* = 0.5493`) |
 | `SwapRealize.lean` | 428 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
 | `SimpleCover.lean` | 225 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
 | `SimpleStructure.lean` | 86 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
@@ -4394,3 +4395,44 @@ This is the quantitative corollary of round 132. Riemann's kernel `Φ` is null f
 **What it says.** The general theorem `lam_decay` holds for any zero family on which `Ξ` vanishes inside the strip, whether on or off the critical line. So `λ₁(a)` is at most super-exponentially small, and this is a property of `Ξ`'s zero set rather than of where the zeros lie.
 
 **Scope.** This is an upper bound on `λ₁`. RH is equivalent to the lower bound `λ₁(a) ≥ 0` for every `a` (round 131, `weil_criterion_finite`, for finitely many off-line zeros). So the corollary has no bearing on RH. It quantifies how close to degenerate Weil's form is at large support, which is the known difficulty.
+
+## Round 134: Weil positivity up to the second prime (`src/PrimeRelax3.lean`, `frontier/nullvec/kprime3_cert.py`)
+
+**Result.** `weilQ_ge_prime3`: `Q(g) ≥ 2·10⁻⁸` for every normalised even probe at every support `0 < a ≤ 0.5493`, that is `2a ≤ 1.0986 < log 3 ≈ 1.098612`. This is the whole range where `n = 2` is the only prime power in the prime sum. The result is computer-assisted in the same way as round 123: Lean proves the reduction, and the hypothesis `CertP3` is checked in arb. `weilQ_ge_prime3` prints `[propext, Classical.choice, Quot.sound]` only.
+
+**Why round 123's construction reaches this far unchanged.**
+- **Prime term.** Below `log 3`, `2·primeS(g) = √2 log 2 · f(log 2)` (`primeS_eq_two`), which is still diagonal in the circle modes.
+- **Reused machinery.** The relaxation (`weilQ_ge_relaxP`), the Bessel step (`bessel_gram`), the quadratic lower bound (`quad_lower`), the far field (`farField_eq`), the tail (`htailP` from `cinH61`) and monotonicity (`weilQ_mono`) are all reused as they are.
+- **New content.** Only the 60 certified mode energies `psiCq3` (arb quadrature at `a* = 0.5493`) and the certificate `CertP3` are new.
+
+**Scoping.** The bound is `κ + λ_min(LᵀSL)`, with exact low modes and the Cin tail.
+
+| `a` | `N = 40` | `N = 60` | `N = 80` | Ritz `λ₁` (K = 50) |
+|---|---|---|---|---|
+| 0.45 | 1.18e-5 | 1.37e-5 | 1.45e-5 | 1.63e-5 |
+| 0.50 | 6.5e-7 | 7.7e-7 | 8.2e-7 | 9.4e-7 |
+| 0.53 | 1.23e-7 | 1.61e-7 | 1.76e-7 | 2.10e-7 |
+| 0.549 | 2.3e-8 | 4.25e-8 | 4.79e-8 | 5.76e-8 |
+
+At `a* = 0.5493` with Lean's tail constant (`5.098076 ≤ Cin(61π/2)`, true value `5.129`), the bound is **`4.199·10⁻⁸`**. The tail's looseness costs only `3·10⁻¹⁰`. The Ritz estimate of the true `λ₁(a*)` is `5.6·10⁻⁸` (K = 70).
+
+### The certificate `CertP3` (`kprime3_cert.py`, `kprime3_cert_result.json`)
+Setting: `a* = 5493/10000`, `N = 60` (a 62×62 system), `ε = 1/50000000`, 2400-bit balls.
+- **Mode bounds.** 60 twelve-decimal rationals `ψ̲_m`, each strictly below an arb enclosure of `ψ_m`. The script checks that the list hard-coded in Lean (`psiCq3`) is identical.
+- **Constant.** `κ(a*) = 1.00277352104…`, and `ε ≤ κ`.
+- **Cholesky checks:**
+
+| matrix | positive definite | smallest pivot |
+|---|---|---|
+| Gram matrix | yes | `4.95·10⁻¹⁰⁴` |
+| `M = (κ − ε)G + G diag(s) G` (direct) | yes | `4.96·10⁻¹⁰⁴` |
+| `M′ = (κ − ε)I + LᵀSL` (congruence) | yes | `0.00358` |
+
+- **Sharpness check.** The same script passes at `ε = 4.1·10⁻⁸` and fails at `4.3·10⁻⁸`. That brackets the float bound `4.199·10⁻⁸`, so the certificate is not passing vacuously.
+
+### Scope, honestly
+- **Not new mathematics.** Weil positivity at these supports is known. This round extends the pilot's own certified range from `2a ≤ 0.8` to `2a ≤ 1.0986`.
+- **Thin margin.** The certified `ε = 2·10⁻⁸` compares with a relaxation bound of `4.2·10⁻⁸` and a true `λ₁ ≈ 5.6·10⁻⁸`. `λ₁` falls by about 10⁴ between `a = 0.4` and `a = 0.549`.
+- **Even sector only.** The odd sector is still proved only to `a = 1/4`.
+- **Past `log 3`.** The prime `n = 3` enters, adding one more cosine per mode, and `n = 4` enters at `log 4`. The diagonal trick still applies, but `λ₁` keeps falling super-exponentially (round 133). So each further step needs a larger `N` and a sharper tail, at an exponentially shrinking `ε`.
+- **Bearing on RH.** None. Weil's criterion needs `Q ≥ 0` at every support; a certificate on a bounded range of supports is territory already known to be positive.
