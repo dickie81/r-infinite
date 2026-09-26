@@ -10,6 +10,8 @@ kappa = weilConst + Far(a) + tau. Certify G > 0, eps <= kappa, M = (kappa-eps)G 
 the congruent M' = (kappa-eps)I + L^T S L.
 Usage: kpar_cert.py scope SECTOR A N [PREC]  |  kpar_cert.py cert SECTOR A N EPS [PREC]"""
 import sys, json, math, os
+from fractions import Fraction
+D = int(os.environ.get("PSI_DIGITS", "25"))
 from flint import arb, acb, ctx
 import mpmath as mp
 import kpole_cert as KP
@@ -31,7 +33,7 @@ def psi_enclosure(a, m, delta="1e-15"):
     d = arb(delta)
     return I, I + w**2*(d**2/4 + d**3/12)
 def psi_certified(astr, N):
-    fn = f"kpar_psiC_{astr}.json"
+    fn = f"kpar_psiC_{astr}_d{D}.json"
     r = json.load(open(fn)) if os.path.exists(fn) else {"a": astr, "psiC": {}}
     ps = r["psiC"]; new = False
     with ctx.workprec(200):
@@ -39,9 +41,13 @@ def psi_certified(astr, N):
         for m in range(1, N + 1):
             if str(m) in ps: continue
             lo, hi = psi_enclosure(a, m)
-            v = (math.floor(float(lo.lower())*1e12) - 1)/1e12   # one extra unit below: float rounding margin
-            ps[str(m)] = f"{v:.12f}"; new = True
-            assert arb(ps[str(m)]) < lo, (m, ps[str(m)], lo)
+            # D-decimal rational strictly below the enclosure (exact: from the arb lower endpoint, no floats)
+            low = lo.lower()
+            q = Fraction(low.mid().str(60, radius=False)) - Fraction(1, 10**D)
+            q = Fraction(math.floor(q*10**D), 10**D)
+            ps[str(m)] = f"{q.numerator // q.denominator}.{str(q.numerator % q.denominator * 10**D // q.denominator).zfill(D)}"
+            new = True
+            assert Fraction(ps[str(m)]) == q and arb(ps[str(m)]) < lo, (m, ps[str(m)], lo)
     if new: json.dump(r, open(fn, "w"), indent=0)
     return ps
 def gram_odd(a, i, j):
@@ -95,6 +101,9 @@ def scope(sector, astr, N, prec=3000):
         lmin = min(mp.eigsy(Sm)[0])
         return {"sector": sector, "a": astr, "N": N, "primes": ns, "tau": float(tau.mid()), "kappa": float(kap.mid()),
                 "bound": float(kap.mid() + lmin), "maxrad": max(float(S[i][j].rad()) for i in range(n) for j in range(n))}
+def min_log10(piv):
+    """log10 of the smallest pivot, computed in arb (floats underflow below 1e-308)."""
+    return min(float((p.mid().log()/arb(10).log()).mid()) for p in piv if p > 0) if all(p > 0 for p in piv) else None
 def run(sector, astr, N, eps_str, prec=3000):
     out = {"sector": sector, "a": astr, "N": N, "eps": eps_str, "prec": prec}
     psiC = psi_certified(astr, N)
@@ -107,13 +116,12 @@ def run(sector, astr, N, eps_str, prec=3000):
         out["tail_T"] = str(os.environ.get("TAIL", TAIL)); out["tau"] = tau.str(12)
         out["s_min"] = min(s, key=lambda x: float(x.mid())).str(6)
         okG, pG = KP.chol_ok(G, n)
-        out["gram_posdef"] = okG; out["min_gram_pivot"] = min(pG, key=lambda p: float(p.mid())).str(3)
+        out["gram_posdef"] = okG; out["min_gram_pivot_log10"] = min_log10(pG)
         out["kappa"] = kap.str(12); out["eps_le_kappa"] = bool(kap - eps > 0)
         GS = [[G[i][l]*s[l] for l in range(n)] for i in range(n)]
         M = [[(kap - eps)*G[i][j] + sum((GS[i][l]*G[l][j] for l in range(n)), arb(0)) for j in range(n)] for i in range(n)]
         okM, pM = KP.chol_ok(M, n)
-        out["M_posdef_direct"] = okM; out["min_M_pivot"] = min(pM, key=lambda p: float(p.mid())).str(3)
-        out["max_M_pivot_radius"] = max(float(p.rad()) for p in pM)
+        out["M_posdef_direct"] = okM; out["min_M_pivot_log10"] = min_log10(pM)
     return out
 if __name__ == "__main__":
     cmd = sys.argv[1]

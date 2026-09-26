@@ -45,7 +45,7 @@ Every file ends with `#print axioms`. All 513 checked theorems depend only on `p
 | `PhiDecay.lean` | 646 | **The quantitative corollary**: `Φ` is `C¹` with rapidly decaying `Φ'`; `Φ_a = 1_{[−a,a]}Φ` is a probe whose transform at every zero of `Ξ` is a tail; hence `λ₁(a) ≤ K_B e^{−Ba}` for every `B` (an upper bound only) |
 | `PrimeRelax3.lean` | 77 | **Weil positivity up to the second prime**: granted the arb certificate `CertP3`, `Q(g) ≥ 2·10⁻⁸` for every normalised even probe at every support `2a ≤ 1.0986 < log 3` (round 123's construction re-run at `a* = 0.5493`) |
 | `ParityRelax.lean` | 597 | **The relaxation for both parities and every prime power below the support**: generic mode weights, the odd sector (`sinh(t/2)`, sine modes, pole weight `−2`), Bessel for any window vectors, the odd Gram matrix in closed form, certificate theorems for one support `b` covering all `a ≤ b` |
-| `ParityCert.lean` | 127 | **Both sectors, instantiated**: granted `CertE`/`CertO` (arb), even `Q ≥ 10⁻¹³` for `a ≤ 0.69`, odd `Q ≥ 10⁻¹⁰` for `a ≤ 0.693`, and `Q(g) ≥ 10⁻¹³‖g‖²` for every real `g` at `a ≤ 0.69` |
+| `ParityCert.lean` | 127 | **Both sectors, instantiated to `2a = 1.6 < log 5`**: granted `CertE`/`CertO` (arb, `N = 350`), even `Q ≥ 3·10⁻¹⁸` and odd `Q ≥ 5·10⁻¹⁵` for `a ≤ 0.8`, and `Q(g) ≥ 3·10⁻¹⁸‖g‖²` for every real `g` |
 | `SwapRealize.lean` | 428 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
 | `SimpleCover.lean` | 225 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
 | `SimpleStructure.lean` | 86 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
@@ -4439,23 +4439,23 @@ Setting: `a* = 5493/10000`, `N = 60` (a 62×62 system), `ε = 1/50000000`, 2400-
 - **Past `log 3`.** The prime `n = 3` enters, adding one more cosine per mode, and `n = 4` enters at `log 4`. The diagonal trick still applies, but `λ₁` keeps falling super-exponentially (round 133). So each further step needs a larger `N` and a sharper tail, at an exponentially shrinking `ε`.
 - **Bearing on RH.** None. Weil's criterion needs `Q ≥ 0` at every support; a certificate on a bounded range of supports is territory already known to be positive.
 
-## Round 135: both parity sectors, every prime power below the support (`src/ParityRelax.lean`, `src/ParityCert.lean`, `frontier/nullvec/kpar_cert.py`)
+## Round 135: both parity sectors to `2a = 1.6`, just below `log 5` (`src/ParityRelax.lean`, `src/ParityCert.lean`, `frontier/nullvec/kpar_cert.py`)
 
-**Results** (computer-assisted in the round-123 style: Lean proves the reduction, and one arb certificate per sector checks the finite matrix hypotheses).
+**Results.** These are computer-assisted in the round-123 style: Lean proves the reduction, and one arb certificate per sector checks the finite matrix hypotheses.
 
 | sector | supports | bound | certificate |
 |---|---|---|---|
-| even | `0 < a ≤ 0.69` (`2a ≤ 1.38`, primes `2, 3`) | `Q(g) ≥ 10⁻¹³` (`weilQ_ge_E`) | `CertE`: `N = 200`, `K = 4` |
-| odd | `0 < a ≤ 0.693` (`2a ≤ 1.386 < log 4`, primes `2, 3`) | `Q(g) ≥ 10⁻¹⁰` (`weilQ_ge_O`) | `CertO`: `N = 200`, `K = 4` |
-| every real `g` | `0 < a ≤ 0.69` | `Q(g) ≥ 10⁻¹³‖g‖²` (`weilQg_ge_both`) | both |
+| even | `0 < a ≤ 0.8` (`2a ≤ 1.6 < log 5`; prime powers `2, 3, 4`) | `Q(g) ≥ 3·10⁻¹⁸` (`weilQ_ge_E`) | `CertE`: `N = 350`, `K = 5` |
+| odd | `0 < a ≤ 0.8` | `Q(g) ≥ 5·10⁻¹⁵` (`weilQ_ge_O`) | `CertO`: `N = 350`, `K = 5` |
+| every real `g` | `0 < a ≤ 0.8` | `Q(g) ≥ 3·10⁻¹⁸‖g‖²` (`weilQg_ge_both`) | both |
 
-Previously the even sector reached `a ≤ 0.5493` (round 134) and the odd sector `a ≤ 1/4` (round 122). All new theorems print `[propext, Classical.choice, Quot.sound]` only.
+Previously the even sector reached `a ≤ 0.5493` (round 134) and the odd sector `a ≤ 1/4` (round 122). Every new theorem prints `[propext, Classical.choice, Quot.sound]` only.
 
 ### The generic relaxation (`ParityRelax.lean`)
 - **Any even mode weight.** `trunc_W`: if `Σ p_m w_m = P` and every mode outside `S₀` has `ψ_m − w_m ≥ τ`, then `τ + Σ_{S₀}(ψ_m − w_m − τ)p_m ≤ Near − P`. It is proved once for parity-free probes.
-- **Every prime power below `e^{2a}`.** `primeS_range` gives `2S(g) = Σ_{n<K} c_n f(log n)` with `c_n = 2Λ(n)/√n`, when `2a < log K`. `hasSum_wP` makes this the weight `w_m = Σ_{n<K} c_n cos(πm log n/4a)`.
+- **Every prime power below `e^{2a}`.** `primeS_range` gives `2S(g) = Σ_{n<K} c_n f(log n)` with `c_n = 2Λ(n)/√n`, when `2a < log K`. `hasSum_wP` makes this the mode weight `w_m = Σ_{n<K} c_n cos(πm log n/4a)`.
 - **Even sector.** `weilQ_ge_relaxW` uses the vectors `cosh(t/2)` and `cos(πkt/4a)`, generalising round 123's single prime.
-- **Odd sector (new).** `weilQodd_ge_relaxW` uses the odd pole term `−2 poleR²`, with `poleR = −∫g sinh(t/2)` (`poleR_odd_eq`), and the odd mode masses `p_k = (∫g sin(πkt/4a))²/8a`. The vectors are `sinh(t/2)` (weight `−2`) and `sin(πkt/4a)`.
+- **Odd sector (new).** `weilQodd_ge_relaxW` uses the odd pole term `−2 poleR²`, with `poleR = −∫g sinh(t/2)` (`poleR_odd_eq`), and the odd mode masses `p_k = (∫g sin(πkt/4a))²/8a` with `p₀ = 0`. The vectors are `sinh(t/2)` (weight `−2`) and `sin(πkt/4a)`.
 - **Supporting lemmas.**
   - `bessel_V`: Bessel's inequality for any continuous window vectors.
   - `gramO_eq`: the odd Gram matrix in closed form, via `int_sinh_sin`, `int_sin_sin` and `int_sin_sq`.
@@ -4463,34 +4463,45 @@ Previously the even sector reached `a ≤ 0.5493` (round 134) and the odd sector
   - `tail_W`: a tail level from any certified `Cin` value.
 - **Certificate theorems.** `weilQ_ge_of_certW` and `weilQodd_ge_of_certW` take one support `b` to every `a ≤ b`. `weilQg_ge_min` combines the sectors through `weilQg_parity`.
 
-### Why the tail index matters
-Functions orthogonal to the first `N` modes get only `κ = c₀ + Far + τ` from the relaxation. So the tail level `τ = Cin((N+1)π/2) − err − Σ_n c_n` must beat `−(c₀ + Far) ≈ 3.0`. With the primes `2` and `3` (`Σc = 2.25`) that needs `N ≳ 80`, and adding `4` (`Σc = 2.94`) needs `N ≳ 300`.
-- **Lean's `Cin` chain is cheap at large indices.** `cin_of_check` at mode 201 or 401 takes about 10 s of kernel time: `Cin(201π/2) ≥ 6.297902` (`cinE`, `cinO`).
-- **The real cost is the arb system.** It has `N + 2` vectors, and the Gram matrix's smallest pivot is `≈ 10⁻³²⁵` at `N = 200`. So the check uses 8000-bit balls, at about 2 minutes per Cholesky.
+### What sets the reach
+- **The tail level.** Functions orthogonal to the first `N` modes get only `κ = c₀ + Far + τ` from the relaxation. So `τ = Cin((N+1)π/2) − err − Σ_n c_n` must beat `−(c₀ + Far) ≈ 3`. Each prime power adds `c_n` to that requirement, and `Cin` grows only like `log N`:
+  - with `2` and `3` (`Σc = 2.25`), `N ≳ 80`;
+  - with `4` added (`Σc = 2.94`), `N ≳ 300`;
+  - with `5` added (`c₅ = 2 log 5/√5 = 1.44`), `N ≳ 1300`. That is out of reach for the arb system, so **`log 5` is this method's ceiling**.
+- **Lean's `Cin` chain is cheap.** `cin_of_check` at mode 351 costs about 10 s of kernel time: `Cin(351π/2) ≥ 6.860363` (`cinE`, `cinO`).
+- **The arb system is the expensive part.** The Gram matrix of `N + 2` oversampled window vectors has smallest pivot `≈ 10⁻⁵⁸⁷` at `N = 350`. The check needs 12000-bit balls, at about 40 minutes per certificate.
+- **The relaxation loss** shrinks with `N`, but slowly. It is what finally stops each sector: at `N = 350`, odd `a = 0.804` scopes negative (`−2.5·10⁻¹⁵`).
 
-### The certificates (`kpar_cert.py`, `kpar_cert_even_0.69.json`, `kpar_cert_odd_0.693.json`)
-- **Mode bounds.** `N = 200` twelve-decimal rationals `ψ̲_m`, each strictly below an arb quadrature enclosure. `gen_paritycert.py` writes them into Lean from the same JSON.
-- **Tail.** `T = 6.297902 ≤ Cin(201π/2)`.
-- **Checks.** Ball Cholesky of the Gram matrix and of `M = (κ − ε)G + G diag(s) G` succeeds at 8000 bits:
+### The certificates (`kpar_cert.py`, `kpar_cert_even_0.80.json`, `kpar_cert_odd_0.80.json`)
+- **Mode bounds.** 350 rationals `ψ̲_m` with 25 decimals, each strictly below an arb quadrature enclosure (radius `≈ 10⁻²⁰`). `gen_paritycert.py` writes the Lean file from the same JSON.
+  - An early run used 12-decimal `ψ̲`. At the `10⁻¹³` scale that rounding alone cost about `7·10⁻¹³`, enough to flip the even bound at `a = 0.691`.
+- **Tail.** `T = 6.860363 ≤ Cin(351π/2)`, with `K = 5` (`log 4 ≤ 1.6 < log 5`; `log_five_gt : 1.609 < log 5`).
+- **Checks.** Ball Cholesky of the Gram matrix and of `M = (κ − ε)G + G diag(s) G` succeeds with every pivot provably positive. `κ(0.8) = 0.0723079…`.
 
-| sector | `κ` | min Gram pivot | min `M` pivot | passes at `ε` | fails at `ε` |
-|---|---|---|---|---|---|
-| even, `a = 0.69` | `0.51628…` | `7.6·10⁻³²⁶` | `1.8·10⁻³²⁴` | `10⁻¹³` | `3·10⁻¹³` |
-| odd, `a = 0.693` | `0.50765…` | `1.9·10⁻³²⁴` | `9.9·10⁻³²⁵` | `10⁻¹⁰` | `5·10⁻¹⁰` |
+| sector | min Gram pivot | min `M` pivot | passes at `ε` | fails at `ε` |
+|---|---|---|---|---|
+| even, `a = 0.8` | `10^{−587.0}` | `10^{−588.2}` | `3·10⁻¹⁸` | `2·10⁻¹⁷` |
+| odd, `a = 0.8` | `10^{−585.6}` | `10^{−586.8}` | `5·10⁻¹⁵` | `2·10⁻¹⁴` |
 
-### Where each sector stops
+### The frontier scan
 
-Scoped bounds (exact tail) at `N = 200` unless noted:
+Scoped bound `κ + λ_min(LᵀSL)`, with the exact `Cin` tail and 25-decimal `ψ̲`:
 
-| `a` | 0.60 | 0.62 | 0.64 | 0.66 | 0.68 | 0.69 | 0.693 |
-|---|---|---|---|---|---|---|---|
-| even | 1.4e-9 | 3.3e-10 | 7.3e-11 | 1.1e-11 | 6.3e-13 | 2.2e-13 | −5.6e-13 (`N = 300`: −4.9e-13) |
-| odd | 4.7e-7 (`N = 150`) | | 1.4e-8 (`a = 0.65`) | | | 4.9e-10 | 3.3e-10 |
+| `a` | `N` | primes | even | odd |
+|---|---|---|---|---|
+| 0.60 | 150–200 | 2, 3 | 1.4e-9 | 4.7e-7 |
+| 0.65 | 200 | 2, 3 | 3.1e-11 | 1.5e-8 |
+| 0.69 | 200 | 2, 3 | 2.2e-13 | 4.9e-10 |
+| 0.693 | 200 | 2, 3 | 6.1e-13 | 3.3e-10 |
+| 0.70 | 350 | 2, 3, 4 | 3.5e-13 | 2.1e-10 |
+| 0.75 | 350 | 2, 3, 4 | 2.7e-15 | 1.1e-12 |
+| 0.78 | 350 | 2, 3, 4 | 1.1e-16 | 9.5e-14 |
+| 0.80 | 350 | 2, 3, 4 | 9.9e-18 | 1.1e-14 |
+| 0.804 | 350 | 2, 3, 4 | | −2.5e-15 |
 
-- **Even stops at `a ≈ 0.69`, below `log 4`.** The true `λ₁(0.69) ≈ 10⁻¹²`, and the relaxation loss decays only like `N^{−1.3}`: going from `N = 200` to `N = 300` at `a = 0.693` barely moves the bound.
-- **Odd** has far more room: `λ_odd` is about 10³ times the even one.
+**Comparison.** A Ritz estimate of the smallest eigenvalue of the full `Q` is `1.9·10⁻¹⁷` at `a = 0.8` (K = 60). Against that, the even certificate's `3·10⁻¹⁸` is the super-exponential decay of round 133 seen directly. The odd sector sits about three orders higher throughout.
 
 ### Scope, honestly
-- **Not new mathematics.** Weil positivity at these supports is known. What is new is a checked proof on the pilot's definitions, for both parities and so for every real `g`, up to `2a = 1.38`.
-- **Thin margins.** The even `ε = 10⁻¹³` against `λ₁ ≈ 10⁻¹²` is the super-exponential decay of round 133, seen directly.
-- **Bearing on RH.** None. Weil's criterion needs every support, and each further prime costs a larger `N` against an exponentially smaller `λ₁`.
+- **Not new mathematics.** Weil positivity at these supports is known. What is new is a checked proof on the pilot's own definitions, for both parities and so for every real `g`, up to `2a = 1.6`.
+- **The certificates are the trusted step.** As in rounds 122–123, `CertE` and `CertO` are hypotheses checked in arb, not in Lean.
+- **Bearing on RH.** None. Weil's criterion needs every support. Here each new prime power needs a tail level that grows like `e^{Σc_n}` against a `λ₁` that falls super-exponentially.

@@ -20,7 +20,7 @@ def klemmas(K, name, b):
         hi = f"""theorem hKhi_{name} : 2 * {frac(b)} < Real.log (4 : ℕ) := by
   have := Real.log_two_gt_d9; push_cast; rw [log_four_eq]; norm_num at this ⊢; linarith"""
     elif K == 5:
-        assert bf >= Fraction(6932, 10000) and bf < Fraction(8, 10)
+        assert bf >= Fraction(6932, 10000) and bf <= Fraction(8045, 10000)
         lo = f"""theorem hKlo_{name} : Real.log ((5 - 1 : ℕ) : ℝ) ≤ 2 * {frac(b)} := by
   have := Real.log_two_lt_d9; norm_num; rw [log_four_eq]; norm_num at this ⊢; linarith"""
         hi = f"""theorem hKhi_{name} : 2 * {frac(b)} < Real.log (5 : ℕ) := by
@@ -101,17 +101,17 @@ theorem log_three_le : Real.log 3 ≤ 1.2 := by
   have : Real.exp 1.2 = Real.exp 1 * Real.exp 0.2 := by rw [← Real.exp_add]; norm_num
   rw [this]; nlinarith
 
-theorem log_five_gt : (1.6 : ℝ) < Real.log 5 := by
+theorem log_five_gt : (1.609 : ℝ) < Real.log 5 := by
   rw [Real.lt_log_iff_exp_lt (by norm_num)]
   have he := Real.exp_one_lt_d9
-  have hb := Real.exp_bound (x := 0.6) (by rw [abs_of_pos (by norm_num)]; norm_num) (n := 5) (by norm_num)
+  have hb := Real.exp_bound (x := 0.609) (by rw [abs_of_pos (by norm_num)]; norm_num) (n := 6) (by norm_num)
   simp [Finset.sum_range_succ, Nat.factorial] at hb
-  have hb' : Real.exp 0.6 ≤ 1.8223 := by
+  have hb' : Real.exp 0.609 ≤ 1.8386 := by
     have := (abs_le.mp hb).2
     norm_num at this ⊢; linarith
-  have : Real.exp 1.6 = Real.exp 1 * Real.exp 0.6 := by rw [← Real.exp_add]; norm_num
+  have : Real.exp 1.609 = Real.exp 1 * Real.exp 0.609 := by rw [← Real.exp_add]; norm_num
   rw [this]
-  have h0 : 0 < Real.exp 0.6 := Real.exp_pos _
+  have h0 : 0 < Real.exp 0.609 := Real.exp_pos _
   norm_num at he
   nlinarith
 
