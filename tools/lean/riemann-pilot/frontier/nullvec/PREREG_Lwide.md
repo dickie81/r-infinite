@@ -25,3 +25,16 @@ Everything else follows round 111 and its amendment 1: the edge `r_e`, `λ = mea
 **B. `χ₋₄` with the widened fit: not blind.** `χ₋₄`'s chain and first-order responses were computed in round 111, with lines 4.23, 1.61, 7.55, 10.77 and per-prime tones `p = 5` → 7.59, `p = 7` → 2.70, `p = 11` → 5.76. So the widened `χ₋₄` predictions are a **consistency check only**, reported but not counted as evidence:
 - whether 4.14 survives the widened fit;
 - whether `p = 5` now gets a prediction near 7.59.
+
+## Amendment 1 (committed after part B's widened fit on `χ₋₄`, before the `χ₋₃` kernel dumps or anything later)
+
+**Part B result: the widened method is unstable.** It uses the envelope-normalised fit, a cubic chirp and the range `[r_e, 4λ]`. Applied to `χ₋₄` (`kLwide.py`, `Lwide_predictions.json`):
+- **Poor fit:** it captures only 65% of the normalised oscillation, and the chirp coefficients scatter widely (sd 0.14, 0.31, 0.52, 0.20).
+- **Inconsistent window-phase rate:** `β′` comes out at −0.56, −8.27 and −1.74 on the three segments. The phase `φ₀` is poorly determined once the fading far region is up-weighted.
+- **Consequence:** `ω₃` becomes 1.33, with a `β′` range of −3.4 to 4.3, and `p = 5` gets 4.6 (range −0.1 to 7.6). The narrow fit's 4.14 is not preserved, and 7.59 is not predicted with any usable precision. **The consistency check fails. The widened method does not reproduce a known result.**
+
+**Amended plan for `χ₋₃`.** Both predictions are committed before the chain:
+- **A1 (as registered):** the widened method. Primary.
+- **A2 (added):** round 111's narrow method, `[r_e, 2.2λ]`, quadratic chirp, unnormalised: the method that predicted `χ₋₄`'s 4.14.
+
+Each is scored with the registered L1/L2 criteria, and they are reported separately. An A2 pass would not rescue the widened method. It would only mean that the narrow method transfers to a second `L`-function.
