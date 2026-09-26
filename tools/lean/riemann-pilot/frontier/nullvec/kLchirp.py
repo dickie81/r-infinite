@@ -48,6 +48,7 @@ bp = float(np.mean(seg)); C = bp/(4*np.pi); print("beta' per segment:", [round(s
 rlo, rhi = float(re.mean()), 2.2*lam
 def chi(p):
     if qc == 4: return 0 if p == 2 else (1 if p % 4 == 1 else -1)
+    if qc == 8: return 0 if p == 2 else (1 if p % 8 in (1, 3) else -1)   # round 115: chi_-8
     return 0 if p == 3 else (1 if p % 3 == 1 else -1)
 preds = []
 for p in primerange(2, 102):

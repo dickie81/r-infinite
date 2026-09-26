@@ -3,7 +3,7 @@
 Usage: kLzeros.py t0 t1 out.json   (grid step 0.05, sign changes refined by Illinois/secant to 1e-12)."""
 import sys, json, mpmath as mp
 import os
-mp.mp.dps = 20; q = int(os.environ.get('LQ', '4')); CHAR = {4: [0, 1, 0, -1], 3: [0, 1, -1]}[q]   # round 112: conductor via LQ
+mp.mp.dps = 20; q = int(os.environ.get('LQ', '4')); CHAR = {4: [0, 1, 0, -1], 3: [0, 1, -1], 8: [0, 1, 0, 1, 0, -1, 0, -1]}[q]   # round 115: chi_-8 (odd)   # round 112: conductor via LQ
 def theta(t): return t/2*mp.log(q/mp.pi) + mp.im(mp.loggamma(mp.mpf(3)/4 + 1j*t/2))
 def Z(t):
     t = mp.mpf(t); v = mp.exp(1j*theta(t))*mp.dirichlet(mp.mpc(0.5, t), CHAR)
