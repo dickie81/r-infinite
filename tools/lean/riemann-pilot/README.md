@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 480 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 486 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -40,6 +40,7 @@ Every file ends with `#print axioms`. All 480 checked theorems depend only on `p
 | `ZeroSwap.lean` | 244 | the zero-swap lemma: a simple ground state admits no zero `w` with `w²` non-real, given the swap's realisation by probes |
 | `HurwitzCross.lean` | 117 | the chain with zeros on `ℝ ∪ iℝ`, and with the zero-swap lemma plugged in |
 | `FourierInv.lean` | 533 | Fourier inversion for the autocorrelation of an even `L²` function on `[−a, a]`: `ĝ² = 𝓕f`, `∫ĝ² < ∞` (Gaussian regularisation), `(1/2π)∫ĝ² cos(ru) = f(u)`; used by the zero swap (R2) and the explicit-formula bridge |
+| `WeilConverse.lean` | 601 | **Weil's criterion, converse**: an off-line zero (finitely many, none real) makes `weilQ` negative at some support, via twin-box probes and a weighted exponential-integral argument; `weil_criterion_finite`: `Q ≥ 0` at every support ⟺ every zero on the line |
 | `SwapRealize.lean` | 428 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
 | `SimpleCover.lean` | 225 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
 | `SimpleStructure.lean` | 86 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
@@ -4326,3 +4327,32 @@ This is the negative-squares (Krein–Langer / Pontryagin index) form of Weil's 
 **Multiplicity.** A zero of multiplicity `m` lists `m` family members with the same ordinate, all sharing one representative. So a multiple quadruple still counts once. That is correct: it contributes `m·4 Re ĝ(t)²`, which has one negative direction. Round 129's `finrank_le_offline` is now the corollary where each off-line member is its own representative.
 
 **Scope.** Unchanged from round 129. This is the easy direction of the index form of Weil's criterion. The converse (off-line quadruples do produce negative directions once the support separates them) is not formalised, and there is no bearing on RH.
+
+## Round 131: the converse, an off-line zero makes Weil's form negative (`src/WeilConverse.lean`)
+
+Round 129 proved RH ⇒ `Q ≥ 0` at every support. This round proves the converse for zero families with finitely many off-line members, so Weil's criterion holds in both directions (`weil_criterion_finite`).
+
+**`exists_weilQ_neg_of_offline`.** Assume the following:
+- `WeilExplicit` holds for every probe, and `DigammaDiff` holds;
+- every member of the zero family outside a finite set `F` is on the critical line;
+- no member of `F` is real (`Im ρ ≠ 0`; for `ζ` this is `zetaNoZeroInUnitInterval`);
+- some member of `F` is off the line.
+
+Then some probe at some support has `Q(g) < 0`.
+
+**Proof.** The argument has five steps, C1–C5, and needs no limits:
+- **C1, twin probes.** The test functions are two boxes at `±λ`, `twin (box 1) λ`. They are probes (`twin_probe`, using the translation invariance of the archimedean integrand), and their transform is `2cos(λz)ĝ₀(z)` (`ghatC_twin`). The box transform `ĝ₀(z) = √2 sin z / z` never vanishes off `ℝ` (`ghat_box_ne`).
+- **C3, the bound.** `Q(twin) ≤ S + Σ_{i∈F} Re(2cos(λt_i)ĝ₀(t_i))²` (`weilQ_twin_le`). Each on-line term is at most `4‖ĝ₀(t_i)²‖`. That family is summable, because the explicit formula for `ĝ₀` gives an absolutely summable zero sum.
+- **C2 and C4, the weighted integral.** Suppose `Q(twin) ≥ 0` for every `λ ≥ 0`. Integrate the bound against `e^{−2Yλ}(1 + cos(2x*λ + θ)) ≥ 0` over `[0, T]`. Here `Y` is the largest `|Im t_i|` over `F`, attained at a zero with `|Re t| = x* > 0`.
+  - Each term is `Re(c e^{sλ})` with `Re s ≤ 0`.
+  - Against the weight, it integrates to `T·(main) + O(1)`, with the `O(1)` bound explicit (`int_wt`, `member_int`).
+- **C5, the main term.** Only exponents that vanish exactly contribute to the main term. By the evenness and conjugate symmetry of `ĝ₀`, they come from zeros in the orbit `{±x* ± iY}`, and each such zero contributes `Re(ĝ₀(t*)² e^{iθ})/2` (`member_main`). Choosing `θ = π − arg ĝ₀(t*)²` makes this `−|ĝ₀(t*)²|/2`. Every other zero's main term is `≤ 0`.
+- **Conclusion.** At `T = 2(C + 1)/|ĝ₀(t*)²|` the integral of a nonnegative function is `≤ −1`, a contradiction.
+
+All of it is pure Lean on top of the round 126 bridge. The seven new `#print axioms` lines show only `propext`, `Classical.choice` and `Quot.sound`.
+
+**Scope, honestly.**
+- **The finiteness restriction is real.** The argument needs the maximum of `|Im t|` over off-line zeros to be attained, and uses finitely many to bound their contribution. A family with infinitely many off-line zeros is not covered.
+- **This is not the index converse.** That would say `K` off-line quadruples give a `K`-dimensional negative space. Here a single negative value is produced.
+- **It is Weil's criterion, now a two-sided theorem of the pilot** (for such families, and modulo `WeilExplicit` and `DigammaDiff`). It does not prove RH. It says RH is equivalent to `Q ≥ 0` at every support, which is what the pilot has always taken as its target.
+- **What is new** is that the prime-side form and the zeros are now formally tied in both directions. So a proof of `Q ≥ 0` at every support by any route in the pilot would now close RH for such families, with no further analytic input.
