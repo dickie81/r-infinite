@@ -3917,3 +3917,57 @@ Fourteen new theorems. They are **unconditional**: none has a hypothesis about �
 - The link from `K̃` to the chain (round 114's aliasing step) is still not a theorem, on either side.
 - The 4.97 and 2.92 lines are not explained by the law.
 - On this side, the per-prime and per-prime-power tones (e.g. the rapidity test `n = 4` → 23.56 vs 18.85) have no clean exact decomposition. A registered test of them still needs the zero-side responses or a new prime-side linearisation.
+
+## Round 119: certified positivity of the window form, and what a counterexample would look like (`kpos_cert.py`; `PREREG_counterexample.md`, `kcounter.py`, `kcounter_score.py`)
+
+### Part 1: certified positivity (unconditional)
+
+**Method.**
+- The prime-side form of round 118, with every entry an arb enclosure:
+  - digamma and Hurwitz ζ by arb;
+  - exact primes, and exact decimal `x`;
+  - a rigorous geometric remainder on the one truncated series, `T(ω)`, now inside the radii (about `10⁻¹⁶²`).
+- A Cholesky factorisation in which every pivot's enclosure is strictly positive (`kpos_cert.py`).
+
+**Result.** **All 226 windows `x = 3.00, …, 12.00` are certified positive-definite** on their `K = 40 + 15x` dimensional cosine subspaces, all at base precision. The smallest pivots run from `10⁻³·³⁵` to `10⁻¹¹·⁹⁵`.
+
+**The statement.** For each window, `Q(g) = Σ_ρ |ĝ(γ_ρ)|² > 0` for every nonzero `g = Σ_{k<K} c_k cos(kπu/a)` on `[−a, a]`. It is proved from primes, Γ and the poles, with no zeros and no RH.
+
+**Scope.**
+- It is a finite-dimensional certificate: not all `g` in the window, not all `x`.
+- It rests on the closed forms, which are derived by hand in `kprimeside.py`'s docstring and checked to `5·10⁻¹⁶` against independent quadrature, but not formally proved.
+- The form's positivity margin is far below any practical full-space (Schur-complement) bound, so extending to all `g` needs an analytic argument, not more numerics.
+
+### Part 2: the counterexample signature (pre-registered, `a844586`)
+
+**Setup.**
+- Hypothesis `H(n, δ)`: the true zeros `γ_n, γ_{n+1}` collide at `γ₀` and leave the line as `½ ± δ + iγ₀`. This is a legal quadruple.
+- The perturbed form is `M + ΔM`, with the zeros taken to 210 digits.
+- Positivity is decided by certified Cholesky. There were no undecided windows (2034 in total).
+
+**First window where positivity is lost, `x_c`,** with horizon `x_h = γ₀/(4π · 0.8613)`:
+
+| `γ₀` (`x_h`) | `δ = 0.001` | `δ = 0.01` | `δ = 0.1` |
+|---|---|---|---|
+| 31.68 (2.93) | 4.24 (1.45 `x_h`) | 3.72 (1.27) | 3.24 (1.11) |
+| 60.09 (5.55) | 6.60 (1.19) | 6.04 (1.09) | 5.40 (0.97) |
+| 102.52 (9.47) | 10.12 (1.07) | 9.48 (1.00) | 8.64 (0.91) |
+
+In every case, once positivity is lost it stays lost for all larger `x`.
+
+**Scores.**
+- **S1 passes:** no loss below `0.9 x_h`. The closest is 0.91.
+- **S2 fails:** `γ₀ = 31.68`, `δ = 0.001` loses positivity only at `1.45 x_h`, beyond the registered `1.3 x_h`. The other 5 applicable cases pass.
+- **S3 passes:** `x_c` decreases with `δ`.
+- **S4 fails:** outside the horizon, first order underestimates the exact `Δ lnK`. The median ratio is 0.58, and only 9% of cases are within 20%. The response series is not quantitative here either (compare round 105).
+
+**The signature.**
+- An off-line pair at height `γ₀` is invisible to windows below `x ≈ 0.9 x_h = γ₀/12`.
+- Positivity breaks within about `1.0–1.45 x_h`, and stays broken, even for `δ = 0.001`.
+- `x_c` moves by about 0.5–0.8 per decade of `δ`. This is post hoc: it fits a detection condition `δ² · e^{κx} ~ const` with `κ ≈ 6–9`, comparable to the chain's own growth of `lnK`, about 12 per unit `x`.
+- **In the window chain, a counterexample to RH would appear as `lnK(x)` diverging, and positivity failing, just past `x ≈ γ₀/10.8`.**
+
+**Reading.**
+- Together with Part 1: certified positivity at window `x` excludes off-line zeros up to height about `10.8x`, i.e. about 130 at `x = 12`.
+- That is a correct but tiny range compared with known zero verification (height about `3·10¹²`). The value is the **shape**: how the chain would register a counterexample, stated concretely enough to check.
+- Nothing here bears on RH beyond the verified range.
