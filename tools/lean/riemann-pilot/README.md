@@ -3879,3 +3879,41 @@ Fourteen new theorems. They are **unconditional**: none has a hypothesis about �
   - the round-77 integral identity for the multiplier.
 
   These are numerical findings or classical inputs, not RH-conditional statements. The only RH/GRH-conditional step in the programme remains the zero-side formula for the chain.
+
+## Round 118: the window chain rebuilt on the prime side, and the tones survive unchanged (`PREREG_primeside.md`, `kprimeside.py`, `kprimeside_score.py`)
+
+**Construction.**
+- `kprimeside.py` builds the window Gram matrix from the prime side of the Guinand–Weil explicit formula: the poles, the archimedean `Re ψ(¼ + ir/2)`, `log π`, and `Σ_{n ≤ x} Λ(n) n^{−½} G(log n)`. It uses no zeros.
+- Every entry is in closed form. The cosine basis turns each functional into a divided difference, in `A = ω²`, of one scalar function. With `z = ¼ + iω/2`:
+  - `G(0)`: `Φ_G(ω) = ω sin(2aω)/4`;
+  - `G(u)`: `Φ_u(ω) = −(ω/4)[sin uω − sin 2aω cos uω]`;
+  - archimedean: `Φ_ψ(ω) = (ω sin 2aω/4) Re ψ(z) + (ω/4) Im ψ(z) − (ω²/2) Σ_m x^{−(2m+½)}/((2m+½)² + ω²)`, using ψ's partial fractions and `Σ_m 1/((2m+½)² + ω²) = Im ψ(z)/2ω`;
+  - the pole term is rank one.
+- The matrix equals `½ Σ_ρ |ĝ(γ_ρ)|²` over **all** zeros as an identity. The resulting chain is therefore defined without RH, and it runs about 100× faster than the zero side.
+
+**Checks, before registration.**
+- Against the 6700-zero sum plus its tail: agreement to `5·10⁻⁵`, the tail model's accuracy.
+- Against an independent u-space quadrature: `5·10⁻¹⁶`.
+- On the smallest eigen-direction at `x = 9`, `K = 7`: `1.655·10⁻¹⁷` on the prime side vs `1.654·10⁻¹⁷` on the zero side.
+- **A bug was found and fixed first:** `ln x` taken as a double shifts the window edge by `10⁻¹⁶` against the exact prime positions `ln n` and makes the form indefinite, because its smallest eigenvalues are far below `10⁻¹⁶`. `x` is now an exact decimal.
+- Single-prime forms (Γ + one prime) have `lnK ≈ 1` and are often indefinite. The chain's deep near-null structure is collective, so no per-prime attribution was registered.
+
+**Results (226 windows, `x ∈ [3, 12]`; all at base precision, max arb radius `3·10⁻⁵³`).**
+
+| | prime side (unconditional) | zero side (`r95`) |
+|---|---|---|
+| lines | **9.42** (1.00), 4.97 (0.48), **16.75** (0.12), 2.92 (0.12) | 9.42 (1.00), 4.97 (0.48), 16.75 (0.12), 2.92 (0.12) |
+
+- **P1:** wiggle correlation **0.9996**. **P2:** strongest line 9.42 vs `3π = 9.425`. **P3:** top-4 lines identical. **All pass.**
+- Max `|ΔlnK|` = 0.044. The rms of the difference's wiggle is 0.0021, i.e. 3% of the chain's 0.074.
+- The difference (the zero side's truncation at 6997 plus its averaged tail) has lines 9.38, 16.71, 23.51 and 5.1. The truncation error is itself prime-shaped, since the averaged tail drops the prime terms' fine structure. Its 23.51 sits at the law's `n = 4` line 23.56. This is post hoc and unscored.
+
+**Reading.**
+- The tones studied since round 100 are properties of an object built only from primes, Γ and the poles. Its `lnK(x)` is a closed-form function of `x` with no RH input, and the tone law (round 117's Lean theorems) describes that object.
+- The zero-side chain was an RH-conditional *representation* of it, accurate to 3% in the wiggle.
+- This does not bear on RH: positivity of this form for all windows is equivalent to RH, and nothing here establishes that.
+
+**Limits.**
+- The link from `K̃` to the chain (round 114's aliasing step) is still not a theorem, on either side.
+- The 4.97 and 2.92 lines are not explained by the law.
+- On this side, the per-prime and per-prime-power tones (e.g. the rapidity test `n = 4` → 23.56 vs 18.85) have no clean exact decomposition. A registered test of them still needs the zero-side responses or a new prime-side linearisation.
