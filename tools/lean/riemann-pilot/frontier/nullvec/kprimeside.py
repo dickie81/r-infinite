@@ -44,17 +44,20 @@ def phi_parts(a, w, K, xv, pp):
     # T(w) and T2(w) = sum q/(beta^2 + w^2)^2
     x = arb(repr(xv)); lx = x.log(); M = int(ctx.prec*0.7/(2*math.log(xv))) + 12   # exact decimal x (a double ln x breaks the form)
     q = [(-(2*m + half)*lx).exp() for m in range(M)]; bet2 = [(2*m + half)**2 for m in range(M)]
+    # rigorous remainders (round 119): for m >= M, x^-beta_m/(beta_m^2 + w^2) <= x^-beta_M x^-2(m-M)/beta_M^2, a geometric series
+    qM = (-(2*M + half)*lx).exp(); geo = 1/(1 - (-2*lx).exp()); bM2 = (2*M + half)**2
+    remT = arb(0, float((qM*geo/bM2).upper()) * 1.01); remT2 = arb(0, float((qM*geo/(bM2*bM2)).upper()) * 1.01)
     S_val, S_dd = [arb(0)]*K, [arb(0)]*K
     P_val = {}; P_dd = {}; N_val.clear(); N_dd.clear()
     for k in range(K):
         wk = w[k]
         if k == 0:
-            T0 = sum(qi/b for qi, b in zip(q, bet2))
+            T0 = sum(qi/b for qi, b in zip(q, bet2)) + remT
             psi14 = acb(quarter).digamma().real; tri14 = acb.zeta(acb(2), acb(quarter)).real
             S_dd[0] = a/2*psi14 + tri14/8 - T0/2 - lnpi*a/2
             continue
         z = acb(quarter, wk/2); ps = z.digamma(); tri = acb.zeta(acb(2), z)
-        w2 = wk*wk; T = sum(qi/(b + w2) for qi, b in zip(q, bet2)); T2 = sum(qi/(b + w2)**2 for qi, b in zip(q, bet2))
+        w2 = wk*wk; T = sum(qi/(b + w2) for qi, b in zip(q, bet2)) + remT; T2 = sum(qi/(b + w2)**2 for qi, b in zip(q, bet2)) + remT2
         S_val[k] = wk/4*ps.imag - w2/2*T
         dpsi = a*wk/2*ps.real + ps.imag/4 + wk/8*tri.real - wk*T + wk*w2*T2
         dG = a*wk/2
