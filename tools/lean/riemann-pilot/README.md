@@ -3409,3 +3409,19 @@ Tones on B: the third-order prediction gives 2.18, 5.26, 6.67, **9.42**, **16.75
 - The natural next steps are:
   - a fourth order, to see whether B's remaining 4% follows the same geometric decay (factor ≈ 2.5–3.5 per order);
   - or a resummation, i.e. expanding about a partially displaced base, which should converge faster.
+
+**Round 105 correction: the expansion looks asymptotic, not convergent** (descriptive, computed from round 105's enclosed data). The round-105 reading said "the expansion converges at every window, needing more orders as `x` grows". That rested on residual correlations measured *after* the 4-term smooth fit. The raw error `rms(ln K_true − ln K_Γ − Δₙ)` per `x`-bin tells a different story:
+
+| `x` bin | rms actual | error after 1st | after 2nd | after 3rd | ratio 2→3 |
+|---|---|---|---|---|---|
+| [3, 6) | 0.169 | 0.216 | 0.023 | 0.017 | 1.33 |
+| [6, 9) | 0.265 | 0.323 | 0.034 | 0.041 | 0.82 |
+| [9, 12) | 0.276 | 0.336 | 0.030 | 0.037 | 0.80 |
+| [12, 18) | 0.339 | 0.399 | 0.034 | 0.056 | 0.60 |
+| [18, 24) | 0.364 | 0.428 | 0.035 | 0.066 | 0.53 |
+| [24, 30) | 0.382 | 0.446 | 0.033 | 0.073 | 0.44 |
+
+- **Second order is best for the raw values.** Its error stays flat at ≈ 0.03 at every size tested.
+- **Third order makes the raw values worse** for `x ≥ 6`, and increasingly so as `x` grows. It sharpens the wiggles' *shape*, which is why the correlation rose, while adding a smooth drift that the smooth fit absorbs.
+- **Optimal truncation is at second order,** with a third term that grows. This is the signature of an asymptotic series whose terms start to grow sooner as the window widens.
+- **Consequence:** more orders will not remove the remainder. Resummation or a non-perturbative treatment would be needed. A uniform-in-`a` bound on the response cannot come from truncating this expansion.
