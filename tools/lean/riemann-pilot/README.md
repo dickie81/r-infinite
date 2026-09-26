@@ -3531,3 +3531,37 @@ So the kernel beyond the edge is the window's own oscillation `cos(2aγ)` (`2a =
 - **Established numerically.** The tones are the primes' waves `sin(γ ln p)` beating against this chirped window oscillation, sampled on the Γ nodes.
 - **An intermediate result (post hoc).** Stationarity of the combined phase (`2aγ + ψ + γ ln p − 2θ`) puts the reading heights at `r*(p) = (p/2)·exp(κ_c(r*))`, with `κ_c = κ − ln x`. That gives `r*(2) ≈ 1.21` and `r*(3) ≈ 1.61`, both inside the oscillating region.
 - **Still open.** A closed-form `ω_p` needs the `x`-derivative of the full phase at `r*`, including the chirp term `∂ψ/∂x`. The naive `4πr*` (15.3 for `p = 2`) is wrong, so that term matters. This is the remaining step.
+
+## Round 109: the tone formula (`ktoneformula.py`; derived after the tones were known, so not a registered prediction)
+
+**The formula.** Beyond the edge, the first-order kernel is `E(r)cos Φ(γ, x)` (round 108). Its phase has a **scaling form**
+
+`Φ(γ, x) = γ ln x + 4πx·K̃(r)`,  with `r = γ/4πx`.
+
+Here `γ ln x = 2aγ` is the window's own oscillation. `K̃′ = κ_c` is the chirp, and `K̃(1.4) = β′/4π` is fixed by the measured rate of the window phase.
+
+Each prime enters as `S_p ≈ −(1/π)p^{−1/2} sin(γ ln p)`, sampled on the Γ nodes. Poisson summation over the nodes brings in the aliases `e^{2imθ(γ)}`, with `2θ′ = ln(γ/2π) = ln x + ln 2r`.
+- **Only one branch has a fixed tone:** `+Φ + γ ln p − 2θ(γ)` (`m = −1`), where `ln x` cancels.
+- **Stationarity in `γ`** gives the reading height: `K̃′(r*) = ln(2r*/p)`.
+- **The tone** is `∂/∂x` of the phase at fixed `γ`, evaluated at `r*`. That is `4π[r* + K̃(r*) − r*K̃′(r*)]`, i.e.
+
+  **`ω_p = 4π · stat_r [ r(1 + ln(p/2r)) + K̃(r) ]`**,
+
+  a Legendre transform of the kernel's scaled phase.
+- **Without a chirp** (`K̃ ≡ 0`), `r* = p/2` and `ω_p = 2πp` (12.57 and 18.85). The chirp moves both tones down.
+
+**Evaluation.** The inputs are only the round-108 kernel fits: `κ_c(r) = 0.114 − 0.336(r − 1.4) + 0.593(r − 1.4)²` and `β′ = −2.31` (segments −2.14, −2.32, −2.45). No tone information enters.
+
+| prime | `r*` | formula `ω_p` | range from `β′` spread | observed (first order) |
+|---|---|---|---|---|
+| 2 | 1.216 | **9.64** | 9.49–9.80 | **9.47** |
+| 3 | 1.608 | **16.73** | 16.58–16.89 | **16.75** |
+| 4, 5, 7 | no stationary point in `r ∈ [0.8, 2.6]` | — | — | no clean first-order tone (round 106) |
+
+**Honest status.**
+- **Not pre-registered.** The formula's structure was worked out knowing the target tones, even though every numerical input is measured from the kernel alone. It is a derivation to be tested, not a confirmed prediction.
+- **Input caveat.** `β′` comes from unwrapping the fitted phase at step 0.04 (about 2 rad per step, near the unwrap limit). The consistency across the three segments supports the value, but it is the least certain input.
+- **Not yet derived from Γ.** `K̃(r)`, the chirp and its offset, is measured, not derived. Deriving it from the Γ chain's ground state beyond its wall would close the loop, because then every quantity would come from Γ.
+- **Scope.** This is linear (first-order) theory. The full chain's tones agree with it (9.42, 16.75).
+- **The p ≥ 4 remark is post hoc.** No stationary point for `p ≥ 4` in the fitted range is consistent with the absence of clean first-order tones for 5 and 7, but that is an observation, not a test.
+- **Test it next with a registered prediction.** The formula makes testable claims for a different L-function, whose "primes" and weights change. Examples: Dirichlet `L(s, χ₋₄)`, where `p ≡ 3 (mod 4)` enter with a sign flip, or the prime-2-removed chain. Also, the tone should not depend on the analysis range.
