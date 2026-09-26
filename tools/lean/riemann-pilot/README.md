@@ -3498,3 +3498,36 @@ At first order, **`p = 2` alone is the 3π line** and **`p = 3` alone is the 16.
 - The tones need the kernel's oscillation beyond the edge.
 - A single wave at `κ ≈ 2a + 1/3` reproduces the `p = 2` line approximately, but not `p = 3`'s.
 - The closed form is not derived.
+
+## Round 108: the chirped heterodyne reproduces both tones (`PREREG_chirp.md`, `kchirp.py`)
+
+**Registered in `c9a55f8`.** Model M3 is the smooth kernel plus a single chirped wave beyond the edge:
+- the wave is `E(r)cos Ψ(γ)`;
+- its local wavenumber is `κ = ln x + c₀ + c₁(r − 1.4) + c₂(r − 1.4)²`;
+- it has five shape numbers per window, fitted to the kernel alone.
+
+| Kernel | `p = 2` strongest tones | `p = 3` strongest tones |
+|---|---|---|
+| true | **9.47**, 3.97, 2.84 | **16.75**, 3.32, 5.28 |
+| **M3** (chirped wave) | **9.42**, 4.01, 2.79 | **16.75**, 5.23, 3.32 |
+| M3, parameters shuffled across windows (control) | 3.80, 9.55, 29.75 | 2.53, 30.14, 19.59 |
+
+**Result: CHIRP passes.**
+- **Both tones.** `p = 2` gives 9.42 (true 9.47) and `p = 3` gives 16.75 (true 16.75), each within ±0.3.
+- **The control fails, as it should.** With the shuffled parameters the tones disappear, so the fits carry window-specific information.
+- **The single chirped wave captures 94% of the oscillatory variance**, against 60–67% for round 107's unchirped wave.
+
+**The chirp law.** The shape parameters are stable across all 226 windows: `c₀ = 0.114 ± 0.023`, `c₁ = −0.34 ± 0.07`, `c₂ = 0.59 ± 0.26`. The mean offset `κ − ln x` is:
+
+| `r` | 1.0 | 1.2 | 1.4 | 1.6 | 1.8 | 2.0 | 2.2 |
+|---|---|---|---|---|---|---|---|
+| `κ − ln x` | 0.343 | 0.205 | 0.114 | 0.070 | 0.074 | 0.126 | 0.225 |
+
+So the kernel beyond the edge is the window's own oscillation `cos(2aγ)` (`2a = ln x`), with a small, universal, parabolic chirp whose minimum is near `r ≈ 1.7`.
+
+**The window phase** (descriptive). The fitted phase at the reference height `γ = 1.4·4πx` advances at local rates of 41.5, 50.6 and 56.4 on `x` ∈ [3, 6), [6, 9) and [9, 12]. That is about 5% below `4π·1.4(ln x + 1)`, the rate an absolute phase `2aγ` would give (44.1, 53.0, 58.9). This supports `F² ∼ cos(2aγ + ψ)`.
+
+**Status of the derivation.**
+- **Established numerically.** The tones are the primes' waves `sin(γ ln p)` beating against this chirped window oscillation, sampled on the Γ nodes.
+- **An intermediate result (post hoc).** Stationarity of the combined phase (`2aγ + ψ + γ ln p − 2θ`) puts the reading heights at `r*(p) = (p/2)·exp(κ_c(r*))`, with `κ_c = κ − ln x`. That gives `r*(2) ≈ 1.21` and `r*(3) ≈ 1.61`, both inside the oscillating region.
+- **Still open.** A closed-form `ω_p` needs the `x`-derivative of the full phase at `r*`, including the chirp term `∂ψ/∂x`. The naive `4πr*` (15.3 for `p = 2`) is wrong, so that term matters. This is the remaining step.
