@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 500 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 513 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -44,6 +44,8 @@ Every file ends with `#print axioms`. All 500 checked theorems depend only on `p
 | `PhiNull.lean` | 126 | Riemann's kernel is a null vector of the explicit formula: test transforms `Ξ·m` (hence `Φ̂·m`) have zero prime side; for `Φ̂²` the archimedean-plus-prime side is exactly `−1/8`; the polarised bridge `Σ_ρ ĝk̂ = (Q(g+k) − Q(g−k))/4` |
 | `PhiDecay.lean` | 646 | **The quantitative corollary**: `Φ` is `C¹` with rapidly decaying `Φ'`; `Φ_a = 1_{[−a,a]}Φ` is a probe whose transform at every zero of `Ξ` is a tail; hence `λ₁(a) ≤ K_B e^{−Ba}` for every `B` (an upper bound only) |
 | `PrimeRelax3.lean` | 77 | **Weil positivity up to the second prime**: granted the arb certificate `CertP3`, `Q(g) ≥ 2·10⁻⁸` for every normalised even probe at every support `2a ≤ 1.0986 < log 3` (round 123's construction re-run at `a* = 0.5493`) |
+| `ParityRelax.lean` | 597 | **The relaxation for both parities and every prime power below the support**: generic mode weights, the odd sector (`sinh(t/2)`, sine modes, pole weight `−2`), Bessel for any window vectors, the odd Gram matrix in closed form, certificate theorems for one support `b` covering all `a ≤ b` |
+| `ParityCert.lean` | 127 | **Both sectors, instantiated**: granted `CertE`/`CertO` (arb), even `Q ≥ 10⁻¹³` for `a ≤ 0.69`, odd `Q ≥ 10⁻¹⁰` for `a ≤ 0.693`, and `Q(g) ≥ 10⁻¹³‖g‖²` for every real `g` at `a ≤ 0.69` |
 | `SwapRealize.lean` | 428 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
 | `SimpleCover.lean` | 225 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
 | `SimpleStructure.lean` | 86 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
@@ -4436,3 +4438,59 @@ Setting: `a* = 5493/10000`, `N = 60` (a 62×62 system), `ε = 1/50000000`, 2400-
 - **Even sector only.** The odd sector is still proved only to `a = 1/4`.
 - **Past `log 3`.** The prime `n = 3` enters, adding one more cosine per mode, and `n = 4` enters at `log 4`. The diagonal trick still applies, but `λ₁` keeps falling super-exponentially (round 133). So each further step needs a larger `N` and a sharper tail, at an exponentially shrinking `ε`.
 - **Bearing on RH.** None. Weil's criterion needs `Q ≥ 0` at every support; a certificate on a bounded range of supports is territory already known to be positive.
+
+## Round 135: both parity sectors, every prime power below the support (`src/ParityRelax.lean`, `src/ParityCert.lean`, `frontier/nullvec/kpar_cert.py`)
+
+**Results** (computer-assisted in the round-123 style: Lean proves the reduction, and one arb certificate per sector checks the finite matrix hypotheses).
+
+| sector | supports | bound | certificate |
+|---|---|---|---|
+| even | `0 < a ≤ 0.69` (`2a ≤ 1.38`, primes `2, 3`) | `Q(g) ≥ 10⁻¹³` (`weilQ_ge_E`) | `CertE`: `N = 200`, `K = 4` |
+| odd | `0 < a ≤ 0.693` (`2a ≤ 1.386 < log 4`, primes `2, 3`) | `Q(g) ≥ 10⁻¹⁰` (`weilQ_ge_O`) | `CertO`: `N = 200`, `K = 4` |
+| every real `g` | `0 < a ≤ 0.69` | `Q(g) ≥ 10⁻¹³‖g‖²` (`weilQg_ge_both`) | both |
+
+Previously the even sector reached `a ≤ 0.5493` (round 134) and the odd sector `a ≤ 1/4` (round 122). All new theorems print `[propext, Classical.choice, Quot.sound]` only.
+
+### The generic relaxation (`ParityRelax.lean`)
+- **Any even mode weight.** `trunc_W`: if `Σ p_m w_m = P` and every mode outside `S₀` has `ψ_m − w_m ≥ τ`, then `τ + Σ_{S₀}(ψ_m − w_m − τ)p_m ≤ Near − P`. It is proved once for parity-free probes.
+- **Every prime power below `e^{2a}`.** `primeS_range` gives `2S(g) = Σ_{n<K} c_n f(log n)` with `c_n = 2Λ(n)/√n`, when `2a < log K`. `hasSum_wP` makes this the weight `w_m = Σ_{n<K} c_n cos(πm log n/4a)`.
+- **Even sector.** `weilQ_ge_relaxW` uses the vectors `cosh(t/2)` and `cos(πkt/4a)`, generalising round 123's single prime.
+- **Odd sector (new).** `weilQodd_ge_relaxW` uses the odd pole term `−2 poleR²`, with `poleR = −∫g sinh(t/2)` (`poleR_odd_eq`), and the odd mode masses `p_k = (∫g sin(πkt/4a))²/8a`. The vectors are `sinh(t/2)` (weight `−2`) and `sin(πkt/4a)`.
+- **Supporting lemmas.**
+  - `bessel_V`: Bessel's inequality for any continuous window vectors.
+  - `gramO_eq`: the odd Gram matrix in closed form, via `int_sinh_sin`, `int_sin_sin` and `int_sin_sq`.
+  - `weilQg_mono`: monotonicity of the general form in the support.
+  - `tail_W`: a tail level from any certified `Cin` value.
+- **Certificate theorems.** `weilQ_ge_of_certW` and `weilQodd_ge_of_certW` take one support `b` to every `a ≤ b`. `weilQg_ge_min` combines the sectors through `weilQg_parity`.
+
+### Why the tail index matters
+Functions orthogonal to the first `N` modes get only `κ = c₀ + Far + τ` from the relaxation. So the tail level `τ = Cin((N+1)π/2) − err − Σ_n c_n` must beat `−(c₀ + Far) ≈ 3.0`. With the primes `2` and `3` (`Σc = 2.25`) that needs `N ≳ 80`, and adding `4` (`Σc = 2.94`) needs `N ≳ 300`.
+- **Lean's `Cin` chain is cheap at large indices.** `cin_of_check` at mode 201 or 401 takes about 10 s of kernel time: `Cin(201π/2) ≥ 6.297902` (`cinE`, `cinO`).
+- **The real cost is the arb system.** It has `N + 2` vectors, and the Gram matrix's smallest pivot is `≈ 10⁻³²⁵` at `N = 200`. So the check uses 8000-bit balls, at about 2 minutes per Cholesky.
+
+### The certificates (`kpar_cert.py`, `kpar_cert_even_0.69.json`, `kpar_cert_odd_0.693.json`)
+- **Mode bounds.** `N = 200` twelve-decimal rationals `ψ̲_m`, each strictly below an arb quadrature enclosure. `gen_paritycert.py` writes them into Lean from the same JSON.
+- **Tail.** `T = 6.297902 ≤ Cin(201π/2)`.
+- **Checks.** Ball Cholesky of the Gram matrix and of `M = (κ − ε)G + G diag(s) G` succeeds at 8000 bits:
+
+| sector | `κ` | min Gram pivot | min `M` pivot | passes at `ε` | fails at `ε` |
+|---|---|---|---|---|---|
+| even, `a = 0.69` | `0.51628…` | `7.6·10⁻³²⁶` | `1.8·10⁻³²⁴` | `10⁻¹³` | `3·10⁻¹³` |
+| odd, `a = 0.693` | `0.50765…` | `1.9·10⁻³²⁴` | `9.9·10⁻³²⁵` | `10⁻¹⁰` | `5·10⁻¹⁰` |
+
+### Where each sector stops
+
+Scoped bounds (exact tail) at `N = 200` unless noted:
+
+| `a` | 0.60 | 0.62 | 0.64 | 0.66 | 0.68 | 0.69 | 0.693 |
+|---|---|---|---|---|---|---|---|
+| even | 1.4e-9 | 3.3e-10 | 7.3e-11 | 1.1e-11 | 6.3e-13 | 2.2e-13 | −5.6e-13 (`N = 300`: −4.9e-13) |
+| odd | 4.7e-7 (`N = 150`) | | 1.4e-8 (`a = 0.65`) | | | 4.9e-10 | 3.3e-10 |
+
+- **Even stops at `a ≈ 0.69`, below `log 4`.** The true `λ₁(0.69) ≈ 10⁻¹²`, and the relaxation loss decays only like `N^{−1.3}`: going from `N = 200` to `N = 300` at `a = 0.693` barely moves the bound.
+- **Odd** has far more room: `λ_odd` is about 10³ times the even one.
+
+### Scope, honestly
+- **Not new mathematics.** Weil positivity at these supports is known. What is new is a checked proof on the pilot's definitions, for both parities and so for every real `g`, up to `2a = 1.38`.
+- **Thin margins.** The even `ε = 10⁻¹³` against `λ₁ ≈ 10⁻¹²` is the super-exponential decay of round 133, seen directly.
+- **Bearing on RH.** None. Weil's criterion needs every support, and each further prime costs a larger `N` against an exponentially smaller `λ₁`.
