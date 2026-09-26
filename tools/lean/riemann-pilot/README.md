@@ -3467,3 +3467,34 @@ At first order, **`p = 2` alone is the 3π line** and **`p = 3` alone is the 16.
 - **So the response is a heterodyne.** Each prime's oscillation `sin(γ ln p)` beats against the window frequency `2a`. It is then sampled on the Γ nodes, where `2θ(γ̃_k) ≡ π (mod 2π)`, so aliasing against `2θ` enters.
 - **A first pass shows why fixed tones can arise:** the `m = −1` alias makes the `ln x` terms cancel, leaving a phase linear in `x` at each height `r`. But my first closed form, `4πr(1 + c + ln(p/2r))`, does not give 9.42 at a plausible `r`.
 - **Next step.** Replace `w` by its measured heterodyne form `A(r)cos(κγ + φ)` and check numerically that it reproduces 9.47 and 16.75. Only if it does, derive the closed form.
+
+## Round 107: the heterodyne test (`PREREG_heterodyne.md`, `kheterodyne.py`, `kheterodyne_branch.py`)
+
+**Registered in `92ea383`.**
+- **M1:** the kernel smoothed in `γ`, which removes the node-scale oscillation.
+- **M2:** M1 plus a single wave `E(r)(c₁ cos κγ + c₂ sin κγ)` beyond the edge, with `κ`, `c₁`, `c₂` fitted per window to the kernel alone.
+- **Prediction HET:** M2 reproduces the first-order tones (`p = 2` → 9.47, `p = 3` → 16.75, ±0.3) and M1 does not.
+
+| Kernel | `p = 2` strongest tones | `p = 3` strongest tones |
+|---|---|---|
+| true | **9.47**, 3.97, 2.84 | **16.75**, 3.32, 5.28 |
+| M1 (smooth) | 1.74, 8.90, 7.90 | 2.44, 3.49, 13.83 |
+| M2 (registered) | 9.99, 8.51, 3.75 | 5.28, 3.32, 16.66 |
+| M2, `κ` held to the `ln x` branch (**post hoc**) | **9.64**, 3.97, 5.10 | 5.32, 3.32, 18.23 |
+
+**Result: HET fails.** (a) fails and (b) holds.
+- **(b) holds:** the smooth kernel destroys both tones, so the oscillation beyond the edge is necessary.
+- **(a) fails:** the registered M2's `κ` search jumped between aliasing branches over the first ≈ 100 windows (`κ − ln x ≈ 2.4–3.8`, against ≈ 0.33 later). That split the `p = 2` line into 9.99 and 8.51, and left `p = 3`'s 16.66 as the second line only.
+
+**Post hoc** (not evidence). Holding `κ` to the branch near `ln x` gives a stable wavenumber, `κ = ln x + 0.33 ± 0.02` over the whole grid. With that wave, **`p = 2` gives a single clean line at 9.64** (true 9.47). `p = 3` is still not reproduced (18.23 against 16.75). The single wave captures 60–67% of the oscillatory variance.
+
+**A closed-form attempt (recorded; it does not match).** Put the kernel `E(r)cos(κγ)`, `κ = ln x + c`, against the prime wave `sin(γ ln p)`, and sample on the nodes. Poisson summation over the nodes adds the aliases `e^{2imθ(γ)}`.
+- For `m = ∓1` the `ln x` cancels.
+- Stationary phase in the height `r` then puts the reading point at `r* = p e^c/2`, and gives the fixed tone `ω_p = 4πr* = 2π e^c p`.
+- With `c = 0.33` this predicts **17.5** for `p = 2` and **26.2** for `p = 3`.
+- The observed values are 9.47 and 16.75. The prediction is wrong by factors of 1.85 and 1.57, so this stationary-phase model is **not** the mechanism, or it is missing the phase of the envelope `E(r)` and the kernel's chirp (its wavenumber drifts with `r`).
+
+**Status.**
+- The tones need the kernel's oscillation beyond the edge.
+- A single wave at `κ ≈ 2a + 1/3` reproduces the `p = 2` line approximately, but not `p = 3`'s.
+- The closed form is not derived.
