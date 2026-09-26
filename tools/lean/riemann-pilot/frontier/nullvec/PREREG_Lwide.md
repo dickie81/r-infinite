@@ -38,3 +38,25 @@ Everything else follows round 111 and its amendment 1: the edge `r_e`, `λ = mea
 - **A2 (added):** round 111's narrow method, `[r_e, 2.2λ]`, quadratic chirp, unnormalised: the method that predicted `χ₋₄`'s 4.14.
 
 Each is scored with the registered L1/L2 criteria, and they are reported separately. An A2 pass would not rescue the widened method. It would only mean that the narrow method transfers to a second `L`-function.
+
+## Amendment 2: the `χ₋₃` predictions (committed after the `χ₋₃` kernel fits, before the `χ₋₃` chain, base chain or any per-prime response)
+
+**`χ₋₃` lens.** 823 zeros to 1000, starting 8.0397, 11.2492, 15.7046, 18.2620 (the known values), with no missed zeros. `r_e = 0.278 ± 0.018`, and `λ = 0.323 ≈ 1/3.1`.
+
+**A1, widened method (primary as registered).**
+- Normalised variance captured: 0.59.
+- `β′` segments: −0.58, −4.95, −13.76.
+- Predictions: `p = 2` gives `ω = −2.45`, i.e. a line at 2.45, with a `β′` range of −9.8 to 3.4, i.e. anywhere in 0–9.8. `p = 5` is *far*: 4.62, range −2.7 to 10.5.
+
+**A1 is uninformative.** Its ranges cover almost the entire low-frequency band, so it cannot fail. It is recorded as *no usable prediction*, and its L1/L2 are not scored. This is the same instability found in part B.
+
+**A2, narrow method (round 111's).**
+- Variance captured 0.95; `β′` segments −0.71, −0.79, −0.85, which is stable.
+- **Only `p = 2` (`χ = −1`) is read in range: `r* = 0.409`, `ω₂ = 3.22` (range 3.15–3.29).**
+- L1 is not meaningful with one prime.
+
+It is scored as round 111 was:
+- **single-prime check:** `Δ₁^{(2)}` with the `χ₋₃` kernel has its strongest peak within ±0.5 of 3.22;
+- **chain check:** the `χ₋₃` chain's strongest line lies within ±0.5 of 3.22.
+
+Also reported: whether the ζ `p = 3` line (16.75) is absent from the chain's top 3, since `χ(3) = 0`.
