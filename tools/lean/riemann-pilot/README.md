@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 486 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 491 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -41,6 +41,7 @@ Every file ends with `#print axioms`. All 486 checked theorems depend only on `p
 | `HurwitzCross.lean` | 117 | the chain with zeros on `ℝ ∪ iℝ`, and with the zero-swap lemma plugged in |
 | `FourierInv.lean` | 533 | Fourier inversion for the autocorrelation of an even `L²` function on `[−a, a]`: `ĝ² = 𝓕f`, `∫ĝ² < ∞` (Gaussian regularisation), `(1/2π)∫ĝ² cos(ru) = f(u)`; used by the zero swap (R2) and the explicit-formula bridge |
 | `WeilConverse.lean` | 601 | **Weil's criterion, converse**: an off-line zero (finitely many, none real) makes `weilQ` negative at some support, via twin-box probes and a weighted exponential-integral argument; `weil_criterion_finite`: `Q ≥ 0` at every support ⟺ every zero on the line |
+| `PhiNull.lean` | 126 | Riemann's kernel is a null vector of the explicit formula: test transforms `Ξ·m` (hence `Φ̂·m`) have zero prime side; for `Φ̂²` the archimedean-plus-prime side is exactly `−1/8`; the polarised bridge `Σ_ρ ĝk̂ = (Q(g+k) − Q(g−k))/4` |
 | `SwapRealize.lean` | 428 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
 | `SimpleCover.lean` | 225 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
 | `SimpleStructure.lean` | 86 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
@@ -4356,3 +4357,21 @@ All of it is pure Lean on top of the round 126 bridge. The seven new `#print axi
 - **This is not the index converse.** That would say `K` off-line quadruples give a `K`-dimensional negative space. Here a single negative value is produced.
 - **It is Weil's criterion, now a two-sided theorem of the pilot** (for such families, and modulo `WeilExplicit` and `DigammaDiff`). It does not prove RH. It says RH is equivalent to `Q ≥ 0` at every support, which is what the pilot has always taken as its target.
 - **What is new** is that the prime-side form and the zeros are now formally tied in both directions. So a proof of `Q ≥ 0` at every support by any route in the pilot would now close RH for such families, with no further analytic input.
+
+## Round 132: Riemann's kernel is a null vector of the explicit formula (`src/PhiNull.lean`)
+
+This formalises the first finding of the whole-corpus review.
+
+**The mechanism.** At every nontrivial zero of `ζ`, `Ξ(t_ρ) = ξ(ρ) = 0` (`Xi_zeta_zero`). So the zero side of the explicit formula vanishes for every test transform divisible by `Ξ`, and so does its prime side `weilSide h hR`:
+- **`explicit_null_of_Xi`**: `h = Ξ·m` ⟹ `weilSide h hR = 0`, given `WeilExplicit` for that `h`.
+- **`explicit_null_RPhi`**: by Riemann's formula `Φ̂ = Ξ/2` (`RPhiHat_eq`, round 63), `Φ̂·m` is null for every `m`. So Riemann's kernel `Φ` is a null vector of the bilinear Weil functional over the zeros of `ζ`.
+- **`weil_energy_RPhi`**: for `h = Φ̂²`, the pole terms are `Ξ(±i/2)²/4 = ξ(0)²/4 = ξ(1)²/4 = 1/16`. So the archimedean-plus-prime side of `Φ̂²` equals exactly `−1/8`, and Weil's energy of `Φ` is `0`.
+- **`bil_zero_sum`**: the polarised bridge for probes, `Σ_ρ ĝ(t_ρ)k̂(t_ρ) = (Q(g + k) − Q(g − k))/4`.
+
+The review agent checked the nullity numerically on the prime side, to a relative `10⁻³¹` (`scratchpad/hunt/e1_null.py`).
+
+**Not formalised.**
+- **Identifying the prime side with the pilot's form.** This means matching `g_h` for `h = Φ̂k̂` with the pilot's cross-correlation `∫Φ(t)k(t + u) dt`, which would state the result as `B(Φ, k) = 0` in the pilot's prime-side form. It needs Fourier inversion for a function that is not compactly supported, and a signed Fubini for the archimedean term, both using the decay of `Ξ` on `ℝ`.
+- **The quantitative corollary.** This is `λ₁(a) ≤ Q(Φ_a)/‖Φ_a‖²`, double-exponentially small. It needs `Φ_a` to be a probe (a derivative bound on `Φ` over the window), plus a tail estimate summed over the zeros.
+
+**Scope.** This is the explicit formula evaluated at a function that vanishes on the zeros. It is exact and unconditional given `WeilExplicit`, but it restates the zero set and has no bearing on RH. `Φ` is null for every zero family on which `Ξ` vanishes, on or off the line.
