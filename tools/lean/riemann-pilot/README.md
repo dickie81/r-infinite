@@ -3630,3 +3630,45 @@ The pre-registration's own expectation, that primes near 8–17 would be read, w
 - The formula predicts only primes read inside the fitted region. The `L` chain's 7.55 line (`p = 5`'s first-order tone is 7.59) and its 1.61 line were not predicted.
 - `K̃` is still measured, not derived from Γ.
 - Next: a second character (e.g. `χ₋₃`, `q = 3`), or extend the kernel fit region so that more primes get a prediction.
+
+## Round 112: a second L-function, blind (χ₋₃), and the widened fit (`PREREG_Lwide.md` + 2 amendments, `kLwide.py`, `kLchirp.py`, `kL3score.py`)
+
+**Registered in `9d8b48d`, before anything about `L(s, χ₋₃)` was computed.**
+
+**B. The widened fit fails its own consistency check** (amendment 1, `c50e687`). The method was:
+- the range `[r_e, 4λ]`;
+- the oscillation normalised by its envelope;
+- a cubic chirp.
+
+Applied to `χ₋₄`, whose results were already known, it captures only 65% of the normalised oscillation. Its window-phase rate scatters across segments (−0.56, −8.27, −1.74). It no longer reproduces round 111's 4.14: it gives 1.33, with a range of −3.4 to 4.3. The widened method is unstable and is not used as evidence. The fading far region cannot pin the phase.
+
+**A. `L(s, χ₋₃)`, conductor 3, blind.**
+- **Zeros:** 823 up to 1000, starting 8.0397, 11.2492, 15.7046, 18.2620 (the known values). There are no missed zeros, and `|Im Z|/|Z| ≤ 3.6·10⁻¹⁸`.
+- **Kernel:** edge `r_e = 0.278`, `λ = 0.323 ≈ 1/q`.
+- **Predictions**, committed in amendment 2 (`ce240ab`) **before the chain or any per-prime response was computed**:
+  - **A1, widened:** uninformative. The `β′` segments are −0.58, −4.95, −13.76, and the ranges span 0–10, so it cannot fail. It is not scored.
+  - **A2, narrow (round 111's method):** only `p = 2` (`χ(2) = −1`) is read in range, and the prediction is **`ω₂ = 3.22`** (range 3.15–3.29). The fit is stable: variance captured 0.95, `β′` segments −0.71, −0.79, −0.85.
+
+| | Line(s) | vs prediction 3.22 |
+|---|---|---|
+| `p = 2` first-order response, `χ₋₃` kernel | **3.14**, 1.66 | **hit** (0.08) |
+| full `χ₋₃` chain | **3.10** (1.00), 4.62 (0.05), 7.90 (0.04) | **hit** (0.12) |
+
+**Other results.**
+- **The ζ `p = 3` line (16.75) is absent**, as `χ(3) = 0` requires.
+- **First order** tracks the `χ₋₃` chain at correlation **0.965**.
+- **The `χ₋₃` chain is essentially a single tone**: the next line has 5% of its power.
+
+**The prime 2 across three L-functions.** Same prime, different lens:
+
+| L-function | tone of the prime read in range |
+|---|---|
+| ζ (`q = 1`), `p = 2` | 9.47 |
+| `χ₋₃` (`q = 3`), `p = 2`, `χ = −1` | **3.10–3.14** (predicted 3.22) |
+| `χ₋₄` (`q = 4`), `p = 3`, `χ = −1` | 4.19–4.23 (predicted 4.14) |
+
+**Reading.** The narrow-method tone formula has now predicted the dominant tone of **two** different `L`-functions in advance, to within 2–4%. In each case the lens's conductor sets which prime is read and at what frequency. Two things did not work: the attempt to widen the method to more primes failed, and the extra primes (e.g. `χ₋₃`'s 4.62 and 7.90, `χ₋₄`'s 7.55) remain unpredicted.
+
+**Limits.**
+- One tone per `L`-function.
+- `K̃` is still measured per lens, not derived from Γ.
