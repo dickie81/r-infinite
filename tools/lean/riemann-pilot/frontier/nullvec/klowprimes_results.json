@@ -1,0 +1,88 @@
+{
+ "V_corr": 0.9999,
+ "V": true,
+ "omega0": 9.075,
+ "res": 0.698,
+ "true_line": [
+  5.02,
+  9.075
+ ],
+ "variants": {
+  "0": {
+   "corr_true": 0.075,
+   "rms_ratio": 0.137,
+   "line_at_w0": 0.377,
+   "line_found_at": 9.773,
+   "passes": false,
+   "own_peak": 10.471
+  },
+  "2": {
+   "corr_true": 0.452,
+   "rms_ratio": 0.834,
+   "line_at_w0": 13.266,
+   "line_found_at": 9.773,
+   "passes": true,
+   "own_peak": 9.773
+  },
+  "3": {
+   "corr_true": 0.691,
+   "rms_ratio": 0.934,
+   "line_at_w0": 3.646,
+   "line_found_at": 9.773,
+   "passes": true,
+   "own_peak": 9.773
+  },
+  "5": {
+   "corr_true": 0.708,
+   "rms_ratio": 1.133,
+   "line_at_w0": 4.822,
+   "line_found_at": 9.773,
+   "passes": true,
+   "own_peak": 9.773
+  },
+  "7": {
+   "corr_true": 0.901,
+   "rms_ratio": 1.095,
+   "line_at_w0": 4.517,
+   "line_found_at": 9.773,
+   "passes": true,
+   "own_peak": 9.773
+  },
+  "13": {
+   "corr_true": 0.92,
+   "rms_ratio": 1.29,
+   "line_at_w0": 4.804,
+   "line_found_at": 9.075,
+   "passes": true,
+   "own_peak": 9.075
+  },
+  "31": {
+   "corr_true": 0.958,
+   "rms_ratio": 1.135,
+   "line_at_w0": 2.896,
+   "line_found_at": 9.075,
+   "passes": true,
+   "own_peak": 9.075
+  },
+  "101": {
+   "corr_true": 0.945,
+   "rms_ratio": 1.195,
+   "line_at_w0": 4.09,
+   "line_found_at": 9.075,
+   "passes": true,
+   "own_peak": 9.075
+  },
+  "1009": {
+   "corr_true": -0.088,
+   "rms_ratio": 3.876,
+   "line_at_w0": 0.128,
+   "line_found_at": 9.773,
+   "passes": false,
+   "own_peak": 9.773
+  }
+ },
+ "LP_i": true,
+ "LP_ii": true,
+ "LP": true,
+ "first_P_line_passes": 2
+}

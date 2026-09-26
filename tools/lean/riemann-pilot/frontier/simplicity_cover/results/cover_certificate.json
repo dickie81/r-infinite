@@ -1,0 +1,110 @@
+{
+ "note": "Round 47 simplicity cover. lam1 upper: ball Rayleigh quotient (weil_prime_gram, K=120, 400 bits) at delta-1e-9. lam2 lower: la.py lam2 (Zhu one-stroke reduction, ball inertia count); lambda_2(Q) >= shift - eps_B. Lean: Round47Certs / simpleGround_le_1035.",
+ "cells": [
+  {
+   "cell": [
+    0.72,
+    1.02
+   ],
+   "lam1_upper_at_left": 0.0008500311927930873,
+   "s": 0.01,
+   "lam2_lower_shift_at_right": 0.010478,
+   "eps_B": "[1.210e-24 +/- 4.40e-28]",
+   "beta_star": "1.96102319957082",
+   "L": "51/100",
+   "Tsharp": 120,
+   "N": 67,
+   "ratio": 12.3266064690764
+  },
+  {
+   "cell": [
+    1.02,
+    1.28
+   ],
+   "lam1_upper_at_left": 5.638475337109444e-07,
+   "s": 6e-06,
+   "lam2_lower_shift_at_right": 6.4067e-06,
+   "eps_B": "[1.042e-28 +/- 5.28e-33]",
+   "beta_star": "1.38976884560230",
+   "L": "64/100",
+   "Tsharp": 240,
+   "N": 137,
+   "ratio": 11.36246878271243
+  },
+  {
+   "cell": [
+    1.28,
+    1.5
+   ],
+   "lam1_upper_at_left": 9.092594441550539e-11,
+   "s": 1e-09,
+   "lam2_lower_shift_at_right": 1.0555e-09,
+   "eps_B": "[3.803e-38 +/- 1.24e-42]",
+   "beta_star": "1.20911395547502",
+   "L": "75/100",
+   "Tsharp": 400,
+   "N": 248,
+   "ratio": 11.608347944967928
+  },
+  {
+   "cell": [
+    1.5,
+    1.7
+   ],
+   "lam1_upper_at_left": 3.7408073695329744e-15,
+   "s": 2.7e-14,
+   "lam2_lower_shift_at_right": 2.7991e-14,
+   "eps_B": "[1.296e-77 +/- 3.09e-81]",
+   "beta_star": "0.687379656241970",
+   "L": "85/100",
+   "Tsharp": 1000,
+   "N": 666,
+   "ratio": 7.482609296584702
+  },
+  {
+   "cell": [
+    1.7,
+    1.87
+   ],
+   "lam1_upper_at_left": 4.482216449217471e-20,
+   "s": 4.9e-19,
+   "lam2_lower_shift_at_right": 4.9193e-19,
+   "eps_B": "[3.355e-84 +/- 1.35e-88]",
+   "beta_star": "0.687379656241970",
+   "L": "935/1000",
+   "Tsharp": 1000,
+   "N": 731,
+   "ratio": 10.975150476855793
+  },
+  {
+   "cell": [
+    1.87,
+    2.02
+   ],
+   "lam1_upper_at_left": 2.6807629716191565e-25,
+   "s": 3e-24,
+   "lam2_lower_shift_at_right": 3.3489e-24,
+   "eps_B": "[3.604e-200 +/- 2.91e-204]",
+   "beta_star": "0.131698657701514",
+   "L": "101/100",
+   "Tsharp": 2496,
+   "N": 1936,
+   "ratio": 12.492339067102582
+  },
+  {
+   "cell": [
+    2.02,
+    2.07
+   ],
+   "lam1_upper_at_left": 1.0965542976717078e-30,
+   "s": 4e-26,
+   "lam2_lower_shift_at_right": 4.4407e-26,
+   "eps_B": "[2.401e-204 +/- 2.64e-209]",
+   "beta_star": "0.131698657701514",
+   "L": "1035/1000",
+   "Tsharp": 2496,
+   "N": 1983,
+   "ratio": 40496.85464211714
+  }
+ ]
+}

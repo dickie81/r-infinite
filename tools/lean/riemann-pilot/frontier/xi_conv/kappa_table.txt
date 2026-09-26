@@ -1,0 +1,10 @@
+kappa(a) measured as Re[r(z)/z^2] at z = 0.5, r(z) = (ghat_a(z)/ghat_a(0)) / (Xi(z)/Xi(0)) - 1  (kappa_fit.py)
+prediction: (1 + log 2)/(8 pi^2) e^{-2a}  (Hadamard tails with the round-33 edge T = 4 pi e^{2a}); registered 18:28 UTC before the 2.6, 3.0 runs
+delta   kappa_meas   kappa_pred   meas/pred   kappa*e^{2a}
+1.0     8.3367e-3    7.8888e-3    1.057       0.02266
+1.4     5.3230e-3    5.2880e-3    1.007       0.02159
+1.8     3.4657e-3    3.5447e-3    0.978       0.02097
+2.2     2.2816e-3    2.3761e-3    0.960       0.02059
+2.6     1.5125e-3    1.5927e-3    0.950       0.02036   (registered)
+3.0     1.0058e-3    1.0676e-3    0.942       0.02020   (registered)
+moment check (moments.py): kappa = (M2(Phi) - m2(g_a))/2 gives 5.3194e-3 (1.4) and 2.2809e-3 (2.2); M2/2 = 0.02310499 = sum_{gamma>0} 1/gamma^2.

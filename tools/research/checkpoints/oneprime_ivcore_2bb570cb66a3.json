@@ -1,0 +1,71 @@
+{
+"script_sha256": "5f1cc2b71405ae314bed3a6ca7dacb0f3ed0442522f84c0b1307eb9c57a0ecdb",
+"key": "2bb570cb66a3cd05697a500c4efba29415909b71bc13f4e24533f3a4bc2df4a5",
+"params": {
+"deps": {
+"fold_D.py": "5aec955168f268da0515472fa5e85eeea410e9355c7cda0ed881257847e4844d",
+"fold_surrogate.py": "2e90e1cb8b0e6a33629e38373fed01ed4d5cb922dea42d269aebc38a331f9f9f",
+"height_uniformity.py": "55d6a1b34e7f9803db9cdfa83f8b9064d4b0ba13622f3189fbc9ed7e7bc7e3f2",
+"oneprime_bridge.py": "6fce9f82ead3e02bd02432d1e980ba4666b314d678398582a53f780ad6523b4b",
+"oneprime_certificate.py": "c2111d0d6a2fb8a9b1b55cf04e54c9492e7716086b35fd9e5472969e44220428",
+"oneprime_interval_core.py": "5f1cc2b71405ae314bed3a6ca7dacb0f3ed0442522f84c0b1307eb9c57a0ecdb"
+},
+"tcut": 6.0,
+"hj": 0.0015,
+"xmin": 25.0,
+"nsamp": 160,
+"round": 6
+},
+"state": {
+"gI2": "pass",
+"gI1_n": 160,
+"wmax": 7.491769755674227e-07,
+"wcap": 1.2e-06,
+"m1": 9.501930201790264,
+"m2": 33.07199643102713,
+"sample": {
+"0.500000": [
+-4.253979026844512,
+-4.253978277887803
+],
+"3.305000": [
+-9.405106032756018e-06,
+-8.665486009529209e-06
+],
+"8.823000": [
+-0.6275831995934927,
+-0.627582515666527
+],
+"10.533000": [
+0.0013344103727511711,
+0.001335068466677192
+],
+"18.011000": [
+0.07602025575514225,
+0.07602077041378576
+],
+"100.000000": [
+1.8065083651398601,
+1.8065083869331764
+],
+"250.000000": [
+4.5442167081378555,
+4.5442167121006944
+]
+}
+},
+"migrated": {
+"from_file": "oneprime_ivcore_35e78cf37387.json",
+"from_key": "35e78cf3738785ebda7e83740072b6251c9899265b2841b8d93f3e2f0b426016",
+"from_script_sha256": "7a4c60547bdd4fd91574721ac8c79d95458913ce3be9b0d3d74331e5cba50525",
+"resolved_blobs": {
+"fold_D.py": "9c478e7e43e2571f24b414baf65b3fd4babb17dd",
+"fold_surrogate.py": "7401db734022befe61fedf62830d4bf2c4118cdf",
+"height_uniformity.py": "9df0860fd52deef5b3e69515b8875f5f20f167a8",
+"oneprime_bridge.py": "af55e38a96eec7dc21992cc774b27f441396b84f",
+"oneprime_certificate.py": "986f06a9fb16dd2a8a7ebed0e0210790f5cc8a99",
+"oneprime_interval_core.py": "5946e6c9ddaefcb19c971d064eb62a243c125dfa"
+},
+"rule": "round 282: every dep's historical version (resolved from the stored old hash) has the same print-insensitive executable-content hash as the working-tree file; the old key recomputes from the stored provenance"
+}
+}

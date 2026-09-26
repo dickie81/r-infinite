@@ -1,0 +1,120 @@
+{
+ "W": {
+  "1.1": {
+   "expected": 9.29,
+   "peaks": [
+    5.8,
+    4.45,
+    9.16
+   ],
+   "hit": false
+  },
+  "1.5": {
+   "expected": 16.75,
+   "peaks": [
+    14.96,
+    13.09,
+    19.76
+   ],
+   "hit": false
+  },
+  "2.1": {
+   "expected": 23.56,
+   "peaks": [
+    27.48,
+    18.54,
+    20.63
+   ],
+   "hit": false
+  },
+  "2.6": {
+   "expected": 30.14,
+   "peaks": [
+    30.36,
+    26.74,
+    22.42
+   ],
+   "hit": true
+  },
+  "3.0": {
+   "expected": 36.69,
+   "peaks": [
+    30.06,
+    34.46,
+    39.13
+   ],
+   "hit": false
+  },
+  "3.4": {
+   "expected": 42.97,
+   "peaks": [
+    39.3,
+    29.05,
+    34.72
+   ],
+   "hit": false
+  }
+ },
+ "W_hits": 1,
+ "A": {
+  "1.1": {
+   "expected": 9.29,
+   "peaks": [
+    9.34,
+    5.23,
+    15.18
+   ],
+   "hit": true
+  },
+  "1.5": {
+   "expected": 16.75,
+   "peaks": [
+    16.75,
+    22.38,
+    8.81
+   ],
+   "hit": true
+  },
+  "2.1": {
+   "expected": 23.56,
+   "peaks": [
+    23.6,
+    29.53,
+    26.65
+   ],
+   "hit": true
+  },
+  "2.6": {
+   "expected": 30.14,
+   "peaks": [
+    30.1,
+    36.25,
+    41.35
+   ],
+   "hit": true
+  },
+  "3.0": {
+   "expected": 36.69,
+   "peaks": [
+    36.69,
+    42.58,
+    29.58
+   ],
+   "hit": true
+  },
+  "3.4": {
+   "expected": 42.97,
+   "peaks": [
+    43.01,
+    36.42,
+    40.09
+   ],
+   "hit": true
+  }
+ },
+ "A_hits": 6,
+ "C_ARTEFACT": false,
+ "C_ARITH": true,
+ "D_UNIVERSAL": true,
+ "S": false
+}

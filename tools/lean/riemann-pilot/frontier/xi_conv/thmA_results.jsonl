@@ -1,0 +1,12 @@
+{"L": 0.5, "minus_log_bound": 4.699183520946029, "two_pi_e2L": 17.079468445347135, "zhu_cert_minus_log": 13.76, "zhu_thm13_exponent": 0.8243606353500641}
+{"L": 0.6, "minus_log_bound": 7.479666493939523, "two_pi_e2L": 20.860909867056577, "zhu_cert_minus_log": 20.13, "zhu_thm13_exponent": 1.0932712802343054}
+{"L": 0.7, "minus_log_bound": 11.107843014349102, "two_pi_e2L": 25.479572849353602, "zhu_cert_minus_log": 28.33, "zhu_thm13_exponent": 1.4096268952293334}
+{"L": 0.8, "minus_log_bound": 15.766291452726668, "two_pi_e2L": 31.120820554943474, "zhu_cert_minus_log": 38.32, "zhu_thm13_exponent": 1.7804327427939743}
+{"L": 0.9, "minus_log_bound": 21.678909598089717, "two_pi_e2L": 38.01105606201566, "zhu_cert_minus_log": 51.18, "zhu_thm13_exponent": 2.2136428000412547}
+{"L": 1.0, "minus_log_bound": 29.120364839180944, "two_pi_e2L": 46.426808714726775, "zhu_cert_minus_log": 66.99, "zhu_thm13_exponent": 2.718281828459045}
+{"L": 1.1, "minus_log_bound": 38.42703656491157, "two_pi_e2L": 56.7058322167419, "zhu_cert_minus_log": 86.48, "zhu_thm13_exponent": 3.304582626341077}
+{"L": 1.2, "minus_log_bound": 50.01044212925063, "two_pi_e2L": 69.26065987329636, "zhu_cert_minus_log": 110.53, "zhu_thm13_exponent": 3.9841403072838566}
+{"L": 1.4, "minus_log_bound": 82.13169725078079, "two_pi_e2L": 103.3247629739152, "zhu_cert_minus_log": 176.65, "zhu_thm13_exponent": 5.677279953582543}
+{"L": 1.6, "minus_log_bound": 131.0036008838491, "two_pi_e2L": 154.14243328241702, "zhu_cert_minus_log": 276.46, "zhu_thm13_exponent": 7.924851879032185}
+{"L": 1.8, "minus_log_bound": 204.8640782147747, "two_pi_e2L": 229.95348892523143, "zhu_cert_minus_log": 426.22, "zhu_thm13_exponent": 10.889365435943304}
+{"L": 2.0, "minus_log_bound": 316.00553695067947, "two_pi_e2L": 343.05029408743854, "zhu_cert_minus_log": 650.47, "zhu_thm13_exponent": 14.7781121978613}

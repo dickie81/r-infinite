@@ -1,0 +1,4 @@
+delta 0.2: cosine basis, gauge from row 0: 406 positive off-diagonal pairs of 435; max pos 0.166; lam1 0.457 lam2 1.84
+delta 0.5: cosine basis, gauge from row 0: 406 positive off-diagonal pairs of 435; max pos 0.166; lam1 0.0334 lam2 0.948
+delta 1.0: cosine basis, gauge from row 0: 330 positive off-diagonal pairs of 435; max pos 0.4; lam1 9.66e-07 lam2 0.0182
+delta 1.5: cosine basis, gauge from row 0: 277 positive off-diagonal pairs of 435; max pos 0.527; lam1 5.39e-15 lam2 1.44e-09
