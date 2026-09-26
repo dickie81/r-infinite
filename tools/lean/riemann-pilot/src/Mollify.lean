@@ -38,11 +38,6 @@ theorem normSq_add3_le {g h k : ℝ → ℝ} (hg : MemLp g 2 volume) (hh : MemLp
   have e2 : normSq (g + h) = normSq (fun t => g t + h t) := rfl
   rw [e]; rw [e2] at h1; linarith
 
-/-- The archimedean integrand is half the squared difference norm against `kerK`. -/
-theorem archIntegrand_eq {g : ℝ → ℝ} (hg : MemLp g 2 volume) (u : ℝ) :
-    archIntegrand g u = normSq (fun t => g t - g (t + u)) / 2 * kerK u := by
-  rw [normSq_sub_shift hg u]; unfold archIntegrand kerK; ring
-
 theorem archIntegrand_add_le {g h : ℝ → ℝ} (hg : MemLp g 2 volume) (hh : MemLp h 2 volume)
     {u : ℝ} (hu : 0 < u) :
     archIntegrand (fun t => g t + h t) u ≤ 2 * archIntegrand g u + 2 * archIntegrand h u := by
@@ -592,7 +587,6 @@ theorem kerK_far {v : ℝ} (hv : 1 ≤ v) : kerK (v / 2) ≤ 32 * Real.exp (-(1 
   rw [e] at h
   nlinarith [Real.exp_pos (-(1 / 8) * v)]
 
-theorem measurable_kerK : Measurable kerK := by unfold kerK; fun_prop
 
 theorem continuousAt_kerK {x : ℝ} (hx : 0 < x) : ContinuousAt kerK x := by
   unfold kerK
@@ -683,7 +677,7 @@ theorem integrableOn_Fsh_half {r : ℝ} {g : ℝ → ℝ} (hp : Probe r g) :
     IntegrableOn (fun v => Fsh g v * kerK (v / 2)) (Ioi 0) := by
   have hg := hp.memL2
   have m1 : Measurable (Fsh g) := (Fsh_continuous hg).measurable
-  have m2 : Measurable (fun v : ℝ => kerK (v / 2)) := measurable_kerK.comp (measurable_id.div_const 2)
+  have m2 : Measurable (fun v : ℝ => kerK (v / 2)) := kerK_measurable.comp (measurable_id.div_const 2)
   have hmeas : AEStronglyMeasurable (fun v => Fsh g v * kerK (v / 2)) (volume.restrict (Ioi 0)) :=
     (m1.mul m2).aestronglyMeasurable
   have hA : ∀ v, 0 < v → Fsh g v * kerK v = 2 * archIntegrand g v := by
@@ -734,7 +728,7 @@ theorem probe_dil {r : ℝ} (hr : 0 ≤ r) {g : ℝ → ℝ} (hp : Probe r g) {l
     · have m1 : Measurable (fun v => Fsh g (l * v / l)) :=
         (Fsh_continuous hg).measurable.comp ((measurable_const_mul l).div_const l)
       exact (((m1.const_mul l).div_const 2).mul
-        (measurable_kerK.comp (measurable_const_mul l))).aestronglyMeasurable
+        (kerK_measurable.comp (measurable_const_mul l))).aestronglyMeasurable
     · have hv0 : 0 < v := hv
       rw [mul_div_cancel_left₀ v hl0.ne']
       have hk := kerK_anti (x := v / 2) (y := l * v) (by linarith) (by nlinarith)
@@ -922,7 +916,7 @@ theorem tendsto_archE_dil {r : ℝ} (hr : 0 ≤ r) {g : ℝ → ℝ} (hp : Probe
         (fun v => Fsh g v / 2 * kerK (v / 2)) ?_ ?_ ((integrableOn_Fsh_half hp).div_const 2 |>.congr
           (Eventually.of_forall fun v => by simp only; ring)) ?_
       · exact Eventually.of_forall fun l => ((((Fsh_continuous hg).measurable.div_const 2).mul
-          (measurable_kerK.comp (measurable_const_mul l)))).aestronglyMeasurable
+          (kerK_measurable.comp (measurable_const_mul l)))).aestronglyMeasurable
       · filter_upwards [hl] with l h
         refine (ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun v hv => ?_)
         have hv0 : 0 < v := hv

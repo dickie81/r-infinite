@@ -131,17 +131,37 @@ theorem poleR_swap {a : ℝ} {g u v : ℝ → ℝ} {σ : ℂ} (hσ : σ.im ≠ 0
     Complex.normSq_ofReal, mul_one] at hn
   rw [hn]; ring
 
-/-- **The zero-swap lemma, core.** A simple ground state admits no realised swap of a zero with
-non-real square. -/
-theorem zero_swap_false {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hs : SimpleGround a g) {σ : ℂ}
-    (hσ : σ.im ≠ 0) (hR : SwapRealization a g σ) : False := by
-  obtain ⟨hgs, hsimp⟩ := hs
-  obtain ⟨u, v, hu, hv, hB, hac⟩ := hR
-  have hgq : weilQ a g = lam a * normSq g := ((isGroundState_iff ha).1 hgs).1.2
-  -- the three pieces of `Q` add up
+/-- Two real points where `ĝ ≠ 0`, with different squares. -/
+theorem exists_two_real_ghatC_ne {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g)
+    (hn : normSq g = 1) :
+    ∃ t₁ t₂ : ℝ, ghatC g a t₁ ≠ 0 ∧ ghatC g a t₂ ≠ 0 ∧ t₁ ^ 2 < t₂ ^ 2 := by
+  obtain ⟨t₁, h₁⟩ := exists_real_ghatC_ne ha hp hn
+  have hcont : Continuous fun t : ℝ => ghatC g a t :=
+    (ghatC_differentiable (probe_integrable hp).intervalIntegrable).continuous.comp
+      continuous_ofReal
+  have hopen : IsOpen {t : ℝ | ghatC g a t ≠ 0} := hcont.isOpen_preimage _ isOpen_compl_singleton
+  obtain ⟨ε, hε, hball⟩ := Metric.isOpen_iff.1 hopen t₁ h₁
+  by_cases h0 : 0 ≤ t₁
+  · refine ⟨t₁, t₁ + ε / 2, h₁, hball ?_, by nlinarith⟩
+    rw [Metric.mem_ball, Real.dist_eq, show t₁ + ε / 2 - t₁ = ε / 2 by ring,
+      abs_of_pos (by linarith)]
+    linarith
+  · have h0' : t₁ < 0 := not_le.mp h0
+    refine ⟨t₁, t₁ - ε / 2, h₁, hball ?_, by nlinarith⟩
+    rw [Metric.mem_ball, Real.dist_eq, show t₁ - ε / 2 - t₁ = -(ε / 2) by ring, abs_neg,
+      abs_of_pos (by linarith)]
+    linarith
+
+/-- **Splitting a ground-space element.** If probes `u, v` have autocorrelations adding up to those
+of `g ∈ V` and pole values with `ĝ_u(i/2)² + ĝ_v(i/2)² = ĝ(i/2)²`, then `Q` and `‖·‖²` add up, so
+`u, v ∈ V`. -/
+theorem split_mem_groundSpace {a : ℝ} {g u v : ℝ → ℝ} (hg : g ∈ groundSpace a) (hu : Probe a u)
+    (hv : Probe a v) (hac : ∀ x, autocorr u x + autocorr v x = autocorr g x)
+    (hP : poleR u a ^ 2 + poleR v a ^ 2 = poleR g a ^ 2) :
+    u ∈ groundSpace a ∧ v ∈ groundSpace a := by
+  have hp : Probe a g := hg.1
   have hN : normSq u + normSq v = normSq g := by
     rw [normSq_eq_autocorr, normSq_eq_autocorr, normSq_eq_autocorr]; exact hac 0
-  have hP := poleR_swap hσ hB
   have hA : archE u + archE v = archE g := by
     unfold archE
     rw [← integral_add hu.arch hv.arch]
@@ -150,19 +170,27 @@ theorem zero_swap_false {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hs : SimpleGro
     linear_combination (Real.exp (x / 2) / Real.sinh x) * (hac 0 - hac x)
   have hS : primeS u + primeS v = primeS g := by
     unfold primeS
-    rw [prime_sum_eq hu.supp, prime_sum_eq hv.supp, prime_sum_eq hgs.1.supp,
-      ← Finset.sum_add_distrib]
+    rw [prime_sum_eq hu.supp, prime_sum_eq hv.supp, prime_sum_eq hp.supp, ← Finset.sum_add_distrib]
     refine Finset.sum_congr rfl fun n _ => ?_
     linear_combination (ArithmeticFunction.vonMangoldt n / Real.sqrt n) * hac (Real.log n)
   have hQ : weilQ a u + weilQ a v = weilQ a g := by
     simp only [weilQ_eq']
     linear_combination 2 * hP + weilConst * hN + hA - 2 * hS
-  -- so `u` and `v` are ground-state directions
   have ru := lam_mul_le hu
   have rv := lam_mul_le hv
+  have hgq : weilQ a g = lam a * normSq g := hg.2
   have hsplit : lam a * normSq g = lam a * normSq u + lam a * normSq v := by rw [← hN]; ring
-  have eu : weilQ a u = lam a * normSq u := by linarith
-  have ev : weilQ a v = lam a * normSq v := by linarith
+  refine ⟨⟨hu, ?_⟩, ⟨hv, ?_⟩⟩ <;> linarith
+
+/-- **The zero-swap lemma, core.** A simple ground state admits no realised swap of a zero with
+non-real square. -/
+theorem zero_swap_false {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hs : SimpleGround a g) {σ : ℂ}
+    (hσ : σ.im ≠ 0) (hR : SwapRealization a g σ) : False := by
+  obtain ⟨hgs, hsimp⟩ := hs
+  obtain ⟨u, v, hu, hv, hB, hac⟩ := hR
+  -- `u` and `v` are ground-state directions
+  obtain ⟨⟨-, eu⟩, ⟨-, ev⟩⟩ := split_mem_groundSpace ((isGroundState_iff ha).1 hgs).1 hu hv hac
+    (poleR_swap hσ hB)
   obtain ⟨α, hα⟩ := hsimp u ⟨hu, eu⟩
   obtain ⟨β, hβ⟩ := hsimp v ⟨hv, ev⟩
   -- the multiplier is the constant `α + iβ` wherever `ĝ ≠ 0` on `ℝ`
@@ -174,24 +202,7 @@ theorem zero_swap_false {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hs : SimpleGro
     rw [ghatC_congr_ae hα, ghatC_smul, ghatC_congr_ae hβ, ghatC_smul] at h
     apply mul_left_cancel₀ ht
     rw [← h]; simp only [c]; ring
-  -- two real points with `ĝ ≠ 0` and different squares
-  obtain ⟨t₁, h₁⟩ := exists_real_ghatC_ne ha hgs.1 hgs.2.1
-  have hcont : Continuous fun t : ℝ => ghatC g a t :=
-    (ghatC_differentiable (probe_integrable hgs.1).intervalIntegrable).continuous.comp
-      continuous_ofReal
-  have hopen : IsOpen {t : ℝ | ghatC g a t ≠ 0} := hcont.isOpen_preimage _ isOpen_compl_singleton
-  obtain ⟨ε, hε, hball⟩ := Metric.isOpen_iff.1 hopen t₁ h₁
-  obtain ⟨t₂, ht₂, hsq⟩ : ∃ t₂ : ℝ, ghatC g a t₂ ≠ 0 ∧ t₁ ^ 2 < t₂ ^ 2 := by
-    by_cases h0 : 0 ≤ t₁
-    · refine ⟨t₁ + ε / 2, hball ?_, by nlinarith⟩
-      rw [Metric.mem_ball, Real.dist_eq, show t₁ + ε / 2 - t₁ = ε / 2 by ring,
-        abs_of_pos (by linarith)]
-      linarith
-    · have h0' : t₁ < 0 := not_le.mp h0
-      refine ⟨t₁ - ε / 2, hball ?_, by nlinarith⟩
-      rw [Metric.mem_ball, Real.dist_eq, show t₁ - ε / 2 - t₁ = -(ε / 2) by ring, abs_neg,
-        abs_of_pos (by linarith)]
-      linarith
+  obtain ⟨t₁, t₂, h₁, ht₂, hsq⟩ := exists_two_real_ghatC_ne ha hgs.1 hgs.2.1
   have c1 := key t₁ h₁
   have c2 := key t₂ ht₂
   have hd1 : ((t₁ : ℂ)) ^ 2 - σ ≠ 0 := sub_ne_zero.2 (sq_ne_of_im hσ t₁)
@@ -227,5 +238,7 @@ end Pilot1ca
 
 #print axioms Pilot1ca.exists_real_ghatC_ne
 #print axioms Pilot1ca.poleR_swap
+#print axioms Pilot1ca.exists_two_real_ghatC_ne
+#print axioms Pilot1ca.split_mem_groundSpace
 #print axioms Pilot1ca.zero_swap_false
 #print axioms Pilot1ca.zeros_real_or_imag

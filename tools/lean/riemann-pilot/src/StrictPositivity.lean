@@ -183,7 +183,8 @@ def trunc (φ : ℝ → ℝ) (ε : ℝ) : ℝ → ℝ := fun x => min (φ x) ε
 def etaF (a : ℝ) (φ : ℝ → ℝ) (ε : ℝ) : ℝ → ℝ :=
   fun x => if |x| ≤ a then max (1 - φ x / ε) 0 else 0
 
-theorem archIntegrand_eq_half_normSq {g : ℝ → ℝ} (hg : MemLp g 2 volume) (u : ℝ) :
+/-- The archimedean integrand is half the squared difference norm against `kerK`. -/
+theorem archIntegrand_eq {g : ℝ → ℝ} (hg : MemLp g 2 volume) (u : ℝ) :
     archIntegrand g u = normSq (fun t => g t - g (t + u)) / 2 * kerK u := by
   rw [normSq_sub_shift hg u]; unfold archIntegrand kerK; ring
 
@@ -200,7 +201,7 @@ theorem trunc_probe {a : ℝ} {φ : ℝ → ℝ} (hp : Probe a φ) (hm : Measura
   refine hp.arch.mono' (measurable_archIntegrand hL).aestronglyMeasurable
     ((ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun u hu => ?_))
   rw [Real.norm_eq_abs, abs_of_nonneg (archIntegrand_nonneg hL hu),
-    archIntegrand_eq_half_normSq hL, archIntegrand_eq_half_normSq hp.memL2]
+    archIntegrand_eq hL, archIntegrand_eq hp.memL2]
   refine mul_le_mul_of_nonneg_right ?_ (kerK_pos hu).le
   refine div_le_div_of_nonneg_right ?_ (by norm_num)
   refine integral_mono (hL.sub (memLp_shift hL u)).integrable_sq
@@ -581,50 +582,6 @@ theorem gapInf_zero {a : ℝ} (ha : 0 < a) {φ : ℝ → ℝ} (hgs : IsGroundSta
   · exact absurd (ENNReal.ofReal_eq_zero.1 h) (not_le.2 hK)
   · exact h
 
-/-- **Tonelli, lintegral form**: for `p, m ≥ 0`, if `∫⁻ p(t)m(t+u) dt = ∫⁻ m(t)p(t+u) dt = 0` for
-a.e. `u > 0`, then `(∫⁻ p)(∫⁻ m) = 0`. -/
-theorem tonelli_zero {p m : ℝ → ℝ} (hp : Measurable p) (hm : Measurable m)
-    (hp0 : ∀ t, 0 ≤ p t)
-    (h : ∀ᵐ u ∂(volume.restrict (Ioi 0)),
-      (∫⁻ t, ENNReal.ofReal (p t * m (t + u))) = 0 ∧ (∫⁻ t, ENNReal.ofReal (m t * p (t + u))) = 0) :
-    (∫⁻ t, ENNReal.ofReal (p t)) * (∫⁻ t, ENNReal.ofReal (m t)) = 0 := by
-  set L : ℝ → ENNReal := fun u => ∫⁻ t, ENNReal.ofReal (p t * m (t + u)) with hL
-  have hF : Measurable (Function.uncurry fun (u t : ℝ) => ENNReal.ofReal (p t * m (t + u))) :=
-    ENNReal.measurable_ofReal.comp
-      ((hp.comp measurable_snd).mul (hm.comp (measurable_snd.add measurable_fst)))
-  have hLm : Measurable L := hF.lintegral_prod_right' (ν := volume)
-  have hswap : ∫⁻ u, L u = (∫⁻ t, ENNReal.ofReal (p t)) * ∫⁻ t, ENNReal.ofReal (m t) := by
-    simp only [hL]
-    rw [lintegral_lintegral_swap hF.aemeasurable,
-      ← lintegral_mul_const (∫⁻ t, ENNReal.ofReal (m t)) hp.ennreal_ofReal]
-    congr 1; funext t
-    simp_rw [ENNReal.ofReal_mul (hp0 t)]
-    rw [lintegral_const_mul' _ _ ENNReal.ofReal_ne_top]
-    congr 1
-    exact lintegral_add_left_eq_self (fun s => ENNReal.ofReal (m s)) t
-  have hpos : ∫⁻ u in Ioi 0, L u = 0 := by
-    rw [lintegral_eq_zero_iff hLm]
-    exact h.mono fun u hu => hu.1
-  have hrefl : ∀ v, L (-v) = ∫⁻ t, ENNReal.ofReal (m t * p (t + v)) := by
-    intro v
-    simp only [hL]
-    rw [← lintegral_add_right_eq_self (fun t => ENNReal.ofReal (p t * m (t + -v))) v]
-    congr 1; funext t
-    rw [add_neg_cancel_right, mul_comm]
-  have hneg : ∫⁻ u in Iic 0, L u = 0 := by
-    have e : ∫⁻ u in Iic 0, L u = ∫⁻ v in Ici 0, L (-v) := by
-      rw [← lintegral_indicator measurableSet_Iic, ← lintegral_indicator measurableSet_Ici,
-        ← lintegral_neg_eq_self]
-      congr 1; funext v
-      by_cases hv : 0 ≤ v
-      · simp [hv]
-      · have : ¬ (-v ≤ 0) := by linarith
-        simp [hv, this]
-    rw [e, setLIntegral_congr Ioi_ae_eq_Ici.symm]
-    rw [lintegral_eq_zero_iff (show Measurable fun v => L (-v) from hLm.comp measurable_neg)]
-    exact h.mono fun u hu => by show L (-u) = 0; rw [hrefl]; exact hu.2
-  rw [← hswap, ← lintegral_add_compl _ measurableSet_Ioi, compl_Ioi, hpos, hneg, add_zero]
-
 /-! ## 8. Strict positivity -/
 
 /-- **A non-negative measurable ground state of `Q₀` is positive a.e. on `[−a, a]`.** -/
@@ -721,6 +678,5 @@ end Pilot1ca
 #print axioms Pilot1ca.gapH_tendsto
 #print axioms Pilot1ca.integral_gapH
 #print axioms Pilot1ca.gapInf_zero
-#print axioms Pilot1ca.tonelli_zero
 #print axioms Pilot1ca.groundState0_pos_of_nonneg
 #print axioms Pilot1ca.exists_positive_groundState0

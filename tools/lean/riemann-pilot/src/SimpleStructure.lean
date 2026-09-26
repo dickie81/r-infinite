@@ -36,29 +36,7 @@ theorem swap_pair_mem (ha : 0 < a) (hg : g ∈ groundSpace a) (hw : ghatC g a w 
   have hB : ∀ z : ℂ, z ^ 2 ≠ w ^ 2 → ghatC (uSw g a w) a z + Complex.I * ghatC (vSw g a w) a z
       = ghatC g a z * ((z ^ 2 - (starRingEnd ℂ) (w ^ 2)) / (z ^ 2 - w ^ 2)) :=
     fun z hz => swap_hat hp ha.le hw hw0 z hz
-  have hN : normSq (uSw g a w) + normSq (vSw g a w) = normSq g := by
-    rw [normSq_eq_autocorr, normSq_eq_autocorr, normSq_eq_autocorr]; exact hac 0
-  have hP := poleR_swap hσ hB
-  have hA : archE (uSw g a w) + archE (vSw g a w) = archE g := by
-    unfold archE
-    rw [← integral_add hu.arch hv.arch]
-    congr 1; funext x
-    unfold archIntegrand
-    linear_combination (Real.exp (x / 2) / Real.sinh x) * (hac 0 - hac x)
-  have hS : primeS (uSw g a w) + primeS (vSw g a w) = primeS g := by
-    unfold primeS
-    rw [prime_sum_eq hu.supp, prime_sum_eq hv.supp, prime_sum_eq hp.supp, ← Finset.sum_add_distrib]
-    refine Finset.sum_congr rfl fun n _ => ?_
-    linear_combination (ArithmeticFunction.vonMangoldt n / Real.sqrt n) * hac (Real.log n)
-  have hQ : weilQ a (uSw g a w) + weilQ a (vSw g a w) = weilQ a g := by
-    simp only [weilQ_eq']
-    linear_combination 2 * hP + weilConst * hN + hA - 2 * hS
-  have ru := lam_mul_le hu
-  have rv := lam_mul_le hv
-  have hgq := hg.2
-  have hsplit : lam a * normSq g = lam a * normSq (uSw g a w) + lam a * normSq (vSw g a w) := by
-    rw [← hN]; ring
-  refine ⟨⟨hu, ?_⟩, ⟨hv, ?_⟩⟩ <;> linarith
+  exact split_mem_groundSpace hg hu hv hac (poleR_swap hσ hB)
 
 /-- **Swap closure.** If `g` is in the ground space and `ĝ(w) = 0` with `w²` non-real, the real and
 imaginary parts of the Green solution `h = (∂² + w²)⁻¹ g` are in the ground space. -/

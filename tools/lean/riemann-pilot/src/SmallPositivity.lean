@@ -13,7 +13,7 @@ The argument is "archimedean dominance". Below `log 2` there is no prime, and th
 so `Q(g) ≥ c₀ + Far(a) + Near(g)`, where:
 * **A.** `c₀ = Re ψ(¼) − log π`. The exact value `ψ(¼) = −γ − π/2 − 3 log 2` follows from Mathlib's
   `digamma_one_half`, the duplication formula `digamma_two_mul` and the reflection `digamma_one_sub`.
-  Hence `c₀ ≥ −5.489`.
+  Hence `c₀ ≥ −5.4301` (with `γ < 0.60815`).
 * **B.** `Far(a) = ∫_{u > 2a} K(u) du = log((eᵃ + 1)/(eᵃ − 1)) + π/2 − arctan(sinh a)` exactly
   (`farField_eq`, via `K = ½csch(u/2) + ½sech(u/2)`). It is `≥ 4.911` for `a ≤ 1/16`.
 * **C.** `Near(g) = ∫_{(0,2a]} (1 − f)K ≥ 0.8344` for every normalised probe (`nearField_all`). This uses
@@ -71,9 +71,21 @@ theorem weilConst_eq :
   rw [digamma_quarter]
   simp [Complex.log_re]
 
-theorem weilConst_ge : (-5.489 : ℝ) ≤ weilConst := by
+/-- `γ < 0.60815`, from Mathlib's `γ < H_n − log n` at `n = 16`. -/
+theorem gamma_lt : Real.eulerMascheroniConstant < 0.60815 := by
+  have h := Real.eulerMascheroniConstant_lt_eulerMascheroniSeq' 16
+  have e : Real.eulerMascheroniSeq' 16 = 2436559 / 720720 - Real.log 16 := by
+    rw [Real.eulerMascheroniSeq']; norm_num [harmonic, Finset.sum_range_succ]
+  have hl : Real.log 16 = 4 * Real.log 2 := by
+    rw [show (16 : ℝ) = 2 ^ 4 by norm_num, Real.log_pow]; norm_num
+  have hl2 := Real.log_two_gt_d9
+  rw [e, hl] at h
+  norm_num at hl2 ⊢
+  linarith
+
+theorem weilConst_ge : (-5.4301 : ℝ) ≤ weilConst := by
   rw [weilConst_eq]
-  have hγ := Real.eulerMascheroniConstant_lt_two_thirds
+  have hγ := gamma_lt
   have hπ := Real.pi_lt_d4
   have hπ0 := Real.pi_gt_three
   have hl2 := Real.log_two_lt_d9

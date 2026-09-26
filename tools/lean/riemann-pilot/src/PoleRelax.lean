@@ -1,5 +1,6 @@
 import Mathlib
 import SmallPositivity2
+import WindowForm
 
 /-! # Past `λ₀ = 0`: the pole term through a finite relaxation (round 122, part 2)
 
@@ -24,7 +25,8 @@ expansion gives
   - closed forms for every Gram entry;
   - the explicit rational tail and low-mode data (`N = 6`).
 * Certified by arb interval arithmetic (`frontier/nullvec/kpole_cert.py`): the hypotheses `G ≻ 0` and `M ⪰ 0`
-  on `a`-intervals covering `[1/16, 1/4]`. Every quantity arb evaluates is defined in this file by a closed form
+  at the single point `a = 1/4` (`Cert14`). Monotonicity in the support (`weilQ_mono`) carries the bound to
+  every `0 < a ≤ 1/4`. Every quantity arb evaluates is defined in this file by a closed form
   proved here, or proved in `SmallPositivity*.lean` (`weilConst_eq`, `farField_eq`).
 -/
 
@@ -33,6 +35,8 @@ open Real Filter Topology Complex MeasureTheory Set Matrix
 noncomputable section
 
 namespace Pilot1ca
+
+open WindowForm
 
 /-! ## A. The finite-dimensional step -/
 
@@ -163,28 +167,129 @@ def sfun (a τ : ℝ) (ψl : ℕ → ℝ) (k : ℕ) : ℝ :=
 
 theorem poleR_eq_xv0 {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) :
     poleR g a = ∫ t, g t * Real.cosh (t / 2) := by
-  have hI := probe_integrable hp
-  have hgi : IntervalIntegrable g volume (-a) a := hI.intervalIntegrable
-  have ic : IntervalIntegrable (fun t => g t * Real.cosh (t / 2)) volume (-a) a :=
-    hgi.mul_continuousOn (by fun_prop)
-  have is : IntervalIntegrable (fun t => g t * Real.sinh (t / 2)) volume (-a) a :=
-    hgi.mul_continuousOn (by fun_prop)
-  have hsinh0 : (∫ t in (-a)..a, g t * Real.sinh (t / 2)) = 0 := by
-    have h := intervalIntegral.integral_comp_neg (a := -a) (b := a) (fun t => g t * Real.sinh (t / 2))
-    simp only [neg_neg] at h
-    have e : (fun t => g (-t) * Real.sinh (-t / 2)) = fun t => -(g t * Real.sinh (t / 2)) := by
-      funext t; rw [hp.even, show -t / 2 = -(t / 2) by ring, Real.sinh_neg]; ring
-    rw [e, intervalIntegral.integral_neg] at h
+  rw [poleR_eq_cosh_sub_sinh (probe_integrable hp).intervalIntegrable,
+    intervalIntegral_odd (f := fun t => g t * Real.sinh (t / 2))
+      (fun t => by rw [hp.even, show -t / 2 = -(t / 2) by ring, Real.sinh_neg]; ring),
+    sub_zero, integral_supp ha hp]
+
+/-- The effective mode energy `E_m = ψ_m − c·cos(πm u₀/4a)`. -/
+def modeEP (a c u₀ : ℝ) (m : ℤ) : ℝ := modeE a m - c * Real.cos (π * m * u₀ / (4 * a))
+
+theorem modeEP_neg (a c u₀ : ℝ) (m : ℤ) : modeEP a c u₀ (-m) = modeEP a c u₀ m := by
+  unfold modeEP; rw [modeE_neg]; push_cast
+  rw [show π * -(m : ℝ) * u₀ / (4 * a) = -(π * m * u₀ / (4 * a)) by ring, Real.cos_neg]
+
+/-- **Truncation with the prime, exactly**: `τ + Σ_{S₀} (E_m − τ) p_m ≤ Near − c·f(u₀)`. -/
+theorem prime_trunc {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1)
+    {u₀ c : ℝ} (hu0 : 0 ≤ u₀) (hu : u₀ ≤ 2 * a) (S₀ : Finset ℤ) {τ : ℝ}
+    (hτ : ∀ m, m ∉ S₀ → τ ≤ modeEP a c u₀ m) :
+    τ + ∑ m ∈ S₀, (modeEP a c u₀ m - τ) * pm a g m
+      ≤ (∫ u in Ioc 0 (2 * a), archIntegrand g u) - c * autocorr g u₀ := by
+  have hP := hasSum_pm ha hp
+  rw [hn] at hP
+  have hF := hasSum_autocorr ha hp hn hu0 hu
+  have hT : Tendsto (fun S : Finset ℤ => ∑ m ∈ S₀, (modeEP a c u₀ m - τ) * pm a g m
+      + τ * ∑ m ∈ S, pm a g m + c * ∑ m ∈ S, pm a g m * Real.cos (π * m * u₀ / (4 * a))) atTop
+      (𝓝 (∑ m ∈ S₀, (modeEP a c u₀ m - τ) * pm a g m + τ * 1 + c * autocorr g u₀)) :=
+    (tendsto_const_nhds.add (hP.const_mul τ)).add (hF.const_mul c)
+  have hle : ∑ m ∈ S₀, (modeEP a c u₀ m - τ) * pm a g m + τ * 1 + c * autocorr g u₀
+      ≤ ∫ u in Ioc 0 (2 * a), archIntegrand g u := by
+    refine le_of_tendsto hT ?_
+    filter_upwards [eventually_ge_atTop S₀] with S hS
+    have hsplit := Finset.sum_sdiff hS (f := pm a g)
+    have hsplit2 := Finset.sum_sdiff hS (f := fun m => pm a g m * modeEP a c u₀ m)
+    have htail : τ * ∑ m ∈ S \ S₀, pm a g m ≤ ∑ m ∈ S \ S₀, pm a g m * modeEP a c u₀ m := by
+      rw [Finset.mul_sum]
+      refine Finset.sum_le_sum fun m hm' => ?_
+      rw [Finset.mem_sdiff] at hm'
+      rw [mul_comm]
+      exact mul_le_mul_of_nonneg_left (hτ m hm'.2) (pm_nonneg ha g m)
+    have hlow : ∑ m ∈ S₀, (modeEP a c u₀ m - τ) * pm a g m
+        = ∑ m ∈ S₀, pm a g m * modeEP a c u₀ m - τ * ∑ m ∈ S₀, pm a g m := by
+      rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
+      refine Finset.sum_congr rfl fun m _ => by ring
+    have hE : ∑ m ∈ S, pm a g m * modeEP a c u₀ m
+        = ∑ m ∈ S, pm a g m * modeE a m - c * ∑ m ∈ S, pm a g m * Real.cos (π * m * u₀ / (4 * a)) := by
+      rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
+      refine Finset.sum_congr rfl fun m _ => by unfold modeEP; ring
+    have hmode := sum_modeE_le ha hp hn S
+    rw [← hsplit, mul_add] at *
+    rw [← hsplit2] at hE
     linarith
-  unfold poleR
-  have e : (fun u => g u * Real.exp (-(u / 2)))
-      = fun u => g u * Real.cosh (u / 2) - g u * Real.sinh (u / 2) := by
-    funext u; rw [← Real.cosh_sub_sinh]; ring
-  rw [e, intervalIntegral.integral_sub ic is, hsinh0, sub_zero, integral_supp ha hp]
+  linarith
+
+/-- The weights with the prime: `s₀ = 2`, `s₁ = (−c − τ)/(8a)`, `s_{k+2} = 2(ψ̲_{k+1} − c cos_{k+1} − τ)/(8a)`. -/
+def sfunP (a τ c u₀ : ℝ) (ψl : ℕ → ℝ) (k : ℕ) : ℝ :=
+  if k = 0 then 2 else if k = 1 then (-c - τ) / (8 * a)
+  else 2 * (ψl (k - 1) - c * Real.cos (π * ((k - 1 : ℕ) : ℝ) * u₀ / (4 * a)) - τ) / (8 * a)
+
+/-- **The relaxation with the prime.** -/
+theorem weilQ_ge_relaxP {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1)
+    {c u₀ : ℝ} (hu0 : 0 ≤ u₀) (hu : u₀ ≤ 2 * a) (hprime : 2 * primeS g = c * autocorr g u₀)
+    (N : ℕ) (τ : ℝ) (ψl : ℕ → ℝ)
+    (htail : ∀ n : ℤ, (N : ℤ) < n → τ ≤ modeEP a c u₀ n)
+    (hlow : ∀ k : ℕ, k < N → ψl (k + 1) ≤ modeE a ((k : ℤ) + 1)) :
+    weilConst + (∫ u in Ioi (2 * a), kerK u) + τ
+      + xv a g (N + 2) ⬝ᵥ (diagonal (fun i : Fin (N + 2) => sfunP a τ c u₀ ψl i) *ᵥ xv a g (N + 2))
+      ≤ weilQ a g := by
+  have hτ : ∀ n, n ∉ Finset.Icc (-(N : ℤ)) N → τ ≤ modeEP a c u₀ n := by
+    intro n hn'
+    simp only [Finset.mem_Icc, not_and_or, not_le] at hn'
+    rcases hn' with h | h
+    · have e := modeEP_neg a c u₀ (-n); rw [neg_neg] at e; rw [e]; exact htail _ (by omega)
+    · exact htail n h
+  have hE := prime_trunc ha hp hn hu0 hu (Finset.Icc (-(N : ℤ)) N) hτ
+  rw [sum_Icc_even N (fun k => by simp only [modeEP_neg, pm_neg ha hp])] at hE
+  set X : ℕ → ℝ := fun k => ∫ t, g t * Real.cos (π * k * t / (4 * a)) with hX
+  have hpm1 : ∀ k : ℕ, pm a g ((k : ℤ) + 1) = X (k + 1) ^ 2 / (8 * a) := by
+    intro k; rw [pm_even ha hp]; simp only [hX]; push_cast; rfl
+  have hpm0 : pm a g 0 = X 0 ^ 2 / (8 * a) := by
+    rw [pm_even ha hp]; simp only [hX]; push_cast; rfl
+  have hE0 : modeEP a c u₀ 0 = -c := by unfold modeEP; simp [modeE_zero]
+  rw [hE0, hpm0] at hE
+  simp only [hpm1] at hE
+  have hcos : ∀ k : ℕ, modeEP a c u₀ ((k : ℤ) + 1)
+      = modeE a ((k : ℤ) + 1) - c * Real.cos (π * ((k + 1 : ℕ) : ℝ) * u₀ / (4 * a)) := by
+    intro k; unfold modeEP; push_cast; ring
+  simp only [hcos] at hE
+  have hlowsum : ∑ k ∈ Finset.range N, (ψl (k + 1) - c * Real.cos (π * ((k + 1 : ℕ) : ℝ) * u₀ / (4 * a)) - τ)
+        * (X (k + 1) ^ 2 / (8 * a))
+      ≤ ∑ k ∈ Finset.range N, (modeE a ((k : ℤ) + 1) - c * Real.cos (π * ((k + 1 : ℕ) : ℝ) * u₀ / (4 * a)) - τ)
+        * (X (k + 1) ^ 2 / (8 * a)) := by
+    refine Finset.sum_le_sum fun k hk => ?_
+    have := hlow k (Finset.mem_range.mp hk)
+    have : 0 ≤ X (k + 1) ^ 2 / (8 * a) := by positivity
+    nlinarith
+  have hquad : xv a g (N + 2) ⬝ᵥ (diagonal (fun i : Fin (N + 2) => sfunP a τ c u₀ ψl i) *ᵥ xv a g (N + 2))
+      = 2 * (∫ t, g t * Real.cosh (t / 2)) ^ 2 + ((-c - τ) / (8 * a)) * X 0 ^ 2
+        + ∑ k ∈ Finset.range N, 2 * (ψl (k + 1) - c * Real.cos (π * ((k + 1 : ℕ) : ℝ) * u₀ / (4 * a)) - τ)
+          / (8 * a) * X (k + 1) ^ 2 := by
+    simp only [dotProduct, mulVec_diagonal]
+    rw [Fin.sum_univ_succ, Fin.sum_univ_succ]
+    rw [← Fin.sum_univ_eq_sum_range (fun k => 2 * (ψl (k + 1)
+      - c * Real.cos (π * ((k + 1 : ℕ) : ℝ) * u₀ / (4 * a)) - τ) / (8 * a) * X (k + 1) ^ 2) N]
+    simp only [xv, vv, sfunP, hX, Fin.val_zero, Fin.val_succ, Fin.succ_zero_eq_one, Fin.val_one]
+    simp only [Nat.add_eq_zero_iff, one_ne_zero, and_false, ite_false, ite_true, Nat.cast_zero, zero_mul,
+      mul_zero, zero_div, Nat.add_one_sub_one]
+    have hne : ∀ x : ℕ, x + 1 + 1 ≠ 1 := fun x => by omega
+    have key : ∀ u v : ℝ, u * (v * u) = v * u ^ 2 := fun u v => by ring
+    simp only [hne, ite_false, key]
+    push_cast; ring
+  have hQ : weilQ a g = 2 * poleR g a ^ 2 + weilConst
+      + ((∫ u in Ioc 0 (2 * a), archIntegrand g u) + ∫ u in Ioi (2 * a), kerK u) - c * autocorr g u₀ := by
+    rw [weilQ_eq', hn, archE_split ha hp hn]; linarith
+  have hs2 : ∑ k ∈ Finset.range N, 2 * (ψl (k + 1) - c * Real.cos (π * ((k + 1 : ℕ) : ℝ) * u₀ / (4 * a)) - τ)
+        / (8 * a) * X (k + 1) ^ 2
+      = 2 * ∑ k ∈ Finset.range N, (ψl (k + 1) - c * Real.cos (π * ((k + 1 : ℕ) : ℝ) * u₀ / (4 * a)) - τ)
+        * (X (k + 1) ^ 2 / (8 * a)) := by
+    rw [Finset.mul_sum]; exact Finset.sum_congr rfl fun k _ => by ring
+  have h0 : (-c - τ) * (X 0 ^ 2 / (8 * a)) = (-c - τ) / (8 * a) * X 0 ^ 2 := by ring
+  rw [hquad, hQ, poleR_eq_xv0 ha hp, hs2]
+  linarith
 
 /-- **The relaxation.** For a normalised even probe below `log 2`, a tail level `τ` for the modes `|n| > N`
 and lower bounds `ψ̲_k ≤ ψ_k` for `1 ≤ k ≤ N`:
-`c₀ + Far(a) + τ + xᵀ diag(s) x ≤ Q(g)`. -/
+`c₀ + Far(a) + τ + xᵀ diag(s) x ≤ Q(g)`. The case `c = 0` of `weilQ_ge_relaxP`. -/
 theorem weilQ_ge_relax {a : ℝ} (ha : 0 < a) (hlog : 2 * a < Real.log 2) {g : ℝ → ℝ} (hp : Probe a g)
     (hn : normSq g = 1) (N : ℕ) (τ : ℝ) (ψl : ℕ → ℝ)
     (htail : ∀ n : ℤ, (N : ℤ) < n → τ ≤ modeE a n)
@@ -192,123 +297,13 @@ theorem weilQ_ge_relax {a : ℝ} (ha : 0 < a) (hlog : 2 * a < Real.log 2) {g : �
     weilConst + (∫ u in Ioi (2 * a), kerK u) + τ
       + xv a g (N + 2) ⬝ᵥ (diagonal (fun i : Fin (N + 2) => sfun a τ ψl i) *ᵥ xv a g (N + 2))
       ≤ weilQ a g := by
-  have hτ : ∀ n, n ∉ Finset.Icc (-(N : ℤ)) N → τ ≤ modeE a n := by
-    intro n hn'
-    simp only [Finset.mem_Icc, not_and_or, not_le] at hn'
-    rcases hn' with h | h
-    · have e := modeE_neg a (-n); rw [neg_neg] at e; rw [e]; exact htail _ (by omega)
-    · exact htail n h
-  have hE := energy_ge_trunc ha hp hn (Finset.Icc (-(N : ℤ)) N) hτ
-  rw [sum_Icc_even N (fun k => by simp only [modeE_neg, pm_neg ha hp])] at hE
-  set X : ℕ → ℝ := fun k => ∫ t, g t * Real.cos (π * k * t / (4 * a)) with hX
-  have hpm1 : ∀ k : ℕ, pm a g ((k : ℤ) + 1) = X (k + 1) ^ 2 / (8 * a) := by
-    intro k; rw [pm_even ha hp]; simp only [hX]; push_cast; rfl
-  have hpm0 : pm a g 0 = X 0 ^ 2 / (8 * a) := by
-    rw [pm_even ha hp]; simp only [hX]; push_cast; rfl
-  rw [modeE_zero, hpm0] at hE
-  simp only [hpm1] at hE
-  -- lower the low modes to ψ̲
-  have hlowsum : ∑ k ∈ Finset.range N, (ψl (k + 1) - τ) * (X (k + 1) ^ 2 / (8 * a))
-      ≤ ∑ k ∈ Finset.range N, (modeE a ((k : ℤ) + 1) - τ) * (X (k + 1) ^ 2 / (8 * a)) := by
-    refine Finset.sum_le_sum fun k hk => ?_
-    have := hlow k (Finset.mem_range.mp hk)
-    have : 0 ≤ X (k + 1) ^ 2 / (8 * a) := by positivity
-    nlinarith
-  -- the quadratic form
-  have hquad : xv a g (N + 2) ⬝ᵥ (diagonal (fun i : Fin (N + 2) => sfun a τ ψl i) *ᵥ xv a g (N + 2))
-      = 2 * (∫ t, g t * Real.cosh (t / 2)) ^ 2 + (-τ / (8 * a)) * X 0 ^ 2
-        + ∑ k ∈ Finset.range N, 2 * (ψl (k + 1) - τ) / (8 * a) * X (k + 1) ^ 2 := by
-    simp only [dotProduct, mulVec_diagonal]
-    rw [Fin.sum_univ_succ, Fin.sum_univ_succ]
-    rw [← Fin.sum_univ_eq_sum_range (fun k => 2 * (ψl (k + 1) - τ) / (8 * a) * X (k + 1) ^ 2) N]
-    simp only [xv, vv, sfun, hX, Fin.val_zero, Fin.val_succ, Fin.succ_zero_eq_one, Fin.val_one]
-    simp only [Nat.add_eq_zero_iff, one_ne_zero, and_false, ite_false, ite_true, Nat.cast_zero, zero_mul,
-      mul_zero, zero_div, Nat.add_one_sub_one]
-    have hne : ∀ x : ℕ, x + 1 + 1 ≠ 1 := fun x => by omega
-    have key : ∀ u v : ℝ, u * (v * u) = v * u ^ 2 := fun u v => by ring
-    simp only [hne, ite_false, key]
-    rw [Fin.sum_univ_eq_sum_range (fun k => 2 * (ψl (k + 1) - τ) / (8 * a)
-      * (∫ t, g t * Real.cos (π * ((k + 1 : ℕ) : ℝ) * t / (4 * a))) ^ 2) N]
-    push_cast; ring
-  have hQ : weilQ a g = 2 * poleR g a ^ 2 + weilConst
-      + ((∫ u in Ioc 0 (2 * a), archIntegrand g u) + ∫ u in Ioi (2 * a), kerK u) := by
-    rw [weilQ_eq', primeS_eq_zero hlog hp, hn, archE_split ha hp hn]; ring
-  have hs2 : ∑ k ∈ Finset.range N, 2 * (ψl (k + 1) - τ) / (8 * a) * X (k + 1) ^ 2
-      = 2 * ∑ k ∈ Finset.range N, (ψl (k + 1) - τ) * (X (k + 1) ^ 2 / (8 * a)) := by
-    rw [Finset.mul_sum]; exact Finset.sum_congr rfl fun k _ => by ring
-  have h0 : (0 - τ) * (X 0 ^ 2 / (8 * a)) = -τ / (8 * a) * X 0 ^ 2 := by ring
-  rw [hquad, hQ, poleR_eq_xv0 ha hp, hs2]
-  linarith
+  have h := weilQ_ge_relaxP ha hp hn (c := 0) le_rfl (by linarith) (by rw [primeS_eq_zero hlog hp]; ring)
+    N τ ψl (fun n hn => by simpa [modeEP] using htail n hn) hlow
+  have e : (fun i : Fin (N + 2) => sfunP a τ 0 0 ψl i) = fun i : Fin (N + 2) => sfun a τ ψl i := by
+    funext i; simp only [sfunP, sfun]; split_ifs <;> ring
+  rwa [e] at h
 
 /-! ## D. The Gram entries in closed form -/
-
-theorem int_coshsq {a : ℝ} : (∫ t in (-a)..a, Real.cosh (t / 2) * Real.cosh (t / 2)) = a + Real.sinh a := by
-  have hd : ∀ t ∈ Set.uIcc (-a) a, HasDerivAt (fun t => (t + Real.sinh t) / 2)
-      (Real.cosh (t / 2) * Real.cosh (t / 2)) t := by
-    intro t _
-    have := ((hasDerivAt_id t).add (Real.hasDerivAt_sinh t)).div_const 2
-    convert this using 1
-    · rfl
-    have h1 : Real.cosh t = Real.cosh (2 * (t / 2)) := by ring_nf
-    rw [h1, Real.cosh_two_mul]; have := Real.cosh_sq (t / 2); nlinarith [this]
-  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hd
-    ((by fun_prop : Continuous fun t => Real.cosh (t / 2) * Real.cosh (t / 2)).intervalIntegrable _ _),
-    Real.sinh_neg]
-  ring
-
-theorem int_cosh_cos {a : ℝ} (ω : ℝ) :
-    (∫ t in (-a)..a, Real.cosh (t / 2) * Real.cos (ω * t))
-      = (Real.cos (ω * a) * Real.sinh (a / 2) + 2 * ω * Real.sin (ω * a) * Real.cosh (a / 2)) / (ω ^ 2 + 1 / 4) := by
-  have hden : ω ^ 2 + 1 / 4 ≠ 0 := by positivity
-  have hderiv : ∀ u ∈ Set.uIcc (-a) a, HasDerivAt
-      (fun u => (1 / 2 * Real.cos (ω * u) * Real.sinh (u / 2) + ω * Real.sin (ω * u) * Real.cosh (u / 2)) / (ω ^ 2 + 1 / 4))
-      (Real.cosh (u / 2) * Real.cos (ω * u)) u := by
-    intro u _
-    have hc := ((hasDerivAt_id u).const_mul ω).cos
-    have hs := ((hasDerivAt_id u).const_mul ω).sin
-    have hsh := ((hasDerivAt_id u).div_const 2).sinh
-    have hch := ((hasDerivAt_id u).div_const 2).cosh
-    have := (((hc.const_mul (1 / 2)).mul hsh).add ((hs.const_mul ω).mul hch)).div_const (ω ^ 2 + 1 / 4)
-    convert this using 1
-    · funext v; simp [id]
-    · simp only [id, mul_one]; field_simp; ring
-  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv
-    ((by fun_prop : Continuous fun u => Real.cosh (u / 2) * Real.cos (ω * u)).intervalIntegrable _ _)]
-  simp only [mul_neg, Real.cos_neg, Real.sin_neg, neg_div, Real.sinh_neg, Real.cosh_neg]
-  field_simp; ring
-
-theorem int_cos_cos {a α β : ℝ} (hm : α - β ≠ 0) (hp : α + β ≠ 0) :
-    (∫ t in (-a)..a, Real.cos (α * t) * Real.cos (β * t))
-      = Real.sin ((α - β) * a) / (α - β) + Real.sin ((α + β) * a) / (α + β) := by
-  have hderiv : ∀ u ∈ Set.uIcc (-a) a, HasDerivAt
-      (fun u => (Real.sin ((α - β) * u) / (α - β) + Real.sin ((α + β) * u) / (α + β)) / 2)
-      (Real.cos (α * u) * Real.cos (β * u)) u := by
-    intro u _
-    have e1 := (((hasDerivAt_id u).const_mul (α - β)).sin).div_const (α - β)
-    have e2 := (((hasDerivAt_id u).const_mul (α + β)).sin).div_const (α + β)
-    have := (e1.add e2).div_const 2
-    convert this using 1
-    · funext v; simp [id]
-    · simp only [id, mul_one]
-      rw [sub_mul, add_mul, Real.cos_sub, Real.cos_add]; field_simp; ring
-  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv
-    ((by fun_prop : Continuous fun u => Real.cos (α * u) * Real.cos (β * u)).intervalIntegrable _ _)]
-  simp only [mul_neg, Real.sin_neg, neg_div]; ring
-
-theorem int_cos_sq {a α : ℝ} (hα : α ≠ 0) :
-    (∫ t in (-a)..a, Real.cos (α * t) * Real.cos (α * t)) = a + Real.sin (2 * α * a) / (2 * α) := by
-  have hderiv : ∀ u ∈ Set.uIcc (-a) a, HasDerivAt (fun u => u / 2 + Real.sin (2 * α * u) / (4 * α))
-      (Real.cos (α * u) * Real.cos (α * u)) u := by
-    intro u _
-    have e1 := (hasDerivAt_id u).div_const 2
-    have e2 := (((hasDerivAt_id u).const_mul (2 * α)).sin).div_const (4 * α)
-    convert e1.add e2 using 1
-    · funext v; simp [id]
-    · simp only [id, mul_one]
-      rw [show 2 * α * u = 2 * (α * u) by ring, Real.cos_two_mul]; field_simp; ring
-  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv
-    ((by fun_prop : Continuous fun u => Real.cos (α * u) * Real.cos (α * u)).intervalIntegrable _ _)]
-  simp only [mul_neg, Real.sin_neg, neg_div]; ring
 
 /-- `ω_k = πk/(4a)`. -/
 def omk (a : ℝ) (k : ℕ) : ℝ := π * k / (4 * a)
@@ -466,19 +461,6 @@ theorem weilQ_ge_of_cert {a ε : ℝ} (ha : 0 < a) (ha1 : a ≤ 1 / 4) (hG : (gr
 
 /-! ## F. Monotonicity in the support, and the certified range -/
 
-/-- A probe at support `a` is a probe at every larger support. -/
-theorem probe_mono {a b : ℝ} (hab : a ≤ b) {g : ℝ → ℝ} (hp : Probe a g) : Probe b g :=
-  ⟨hp.even, fun u hu => hp.supp u (lt_of_le_of_lt hab hu), hp.memL2, hp.arch⟩
-
-/-- `Q` does not see the window, only the probe: `weilQ b g = weilQ a g` for a probe at `a ≤ b`. -/
-theorem weilQ_mono {a b : ℝ} (ha : 0 < a) (hab : a ≤ b) {g : ℝ → ℝ} (hp : Probe a g) :
-    weilQ b g = weilQ a g := by
-  have hpb := probe_mono hab hp
-  have hpole : poleR g b = poleR g a := by
-    unfold poleR
-    rw [← integral_supp (by linarith) hpb, integral_supp ha hp]
-  rw [weilQ_eq', weilQ_eq', hpole]
-
 /-- The certificate at `a = 1/4`, `ε = 1/1000` (checked by `frontier/nullvec/kpole_cert.py` in arb). -/
 def Cert14 : Prop :=
   (gram6 (1 / 4)).PosDef ∧ (1 / 1000 : ℝ) ≤ kappa6 (1 / 4) ∧
@@ -490,15 +472,16 @@ def Cert14 : Prop :=
 theorem weilQ_ge_pole {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1 / 4) (hc : Cert14) {g : ℝ → ℝ} (hp : Probe a g)
     (hn : normSq g = 1) : (1 / 1000 : ℝ) ≤ weilQ a g := by
   obtain ⟨hG, hκ, hM⟩ := hc
-  rw [← weilQ_mono ha ha1 hp]
-  exact weilQ_ge_of_cert (by norm_num) le_rfl hG hκ hM (probe_mono ha1 hp) hn
+  rw [← weilQ_mono ha.le ha1 hp]
+  exact weilQ_ge_of_cert (by norm_num) le_rfl hG hκ hM (hp.mono ha1) hn
 
 end Pilot1ca
 
 #print axioms Pilot1ca.quad_lower
 #print axioms Pilot1ca.bessel_gram
+#print axioms Pilot1ca.prime_trunc
+#print axioms Pilot1ca.weilQ_ge_relaxP
 #print axioms Pilot1ca.weilQ_ge_relax
 #print axioms Pilot1ca.gramM_eq
 #print axioms Pilot1ca.weilQ_ge_of_cert
-#print axioms Pilot1ca.weilQ_mono
 #print axioms Pilot1ca.weilQ_ge_pole

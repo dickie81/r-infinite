@@ -58,26 +58,6 @@ theorem simpleGround_036 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.36) {g : ℝ → 
 
 /-! ## Monotonicity in the support -/
 
-theorem Probe.mono {a a₁ : ℝ} {g : ℝ → ℝ} (hp : Probe a g) (h : a ≤ a₁) : Probe a₁ g :=
-  ⟨hp.even, fun u hu => hp.supp u (lt_of_le_of_lt h hu), hp.memL2, hp.arch⟩
-
-theorem poleR_eq_integral {a : ℝ} (ha : 0 ≤ a) {g : ℝ → ℝ} (hsupp : ∀ u, a < |u| → g u = 0) :
-    poleR g a = ∫ u, g u * Real.exp (-(u / 2)) := by
-  unfold poleR
-  rw [intervalIntegral.integral_of_le (by linarith), ← integral_Icc_eq_integral_Ioc,
-    setIntegral_eq_integral_of_forall_compl_eq_zero]
-  intro u hu
-  have h : a < |u| := by
-    by_contra h'
-    push Not at h'
-    exact hu ⟨by linarith [neg_abs_le u], by linarith [le_abs_self u]⟩
-  rw [hsupp u h, zero_mul]
-
-theorem weilQ_mono {a a₁ : ℝ} (ha : 0 ≤ a) (h : a ≤ a₁) {g : ℝ → ℝ} (hp : Probe a g) :
-    weilQ a₁ g = weilQ a g := by
-  unfold weilQ
-  rw [poleR_eq_integral ha hp.supp, poleR_eq_integral (ha.trans h) (hp.mono h).supp]
-
 /-- **`λ₁` is nonincreasing in the support.** -/
 theorem lam_antitone {a a₁ : ℝ} (ha : 0 < a) (h : a ≤ a₁) : lam a₁ ≤ lam a := by
   refine le_csInf ⟨_, box a, box_probe a, normSq_box ha, rfl⟩ ?_

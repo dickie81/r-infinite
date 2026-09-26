@@ -6,7 +6,7 @@ import PoleRelax
 Round 122's relaxation stopped at `a = 1/4`, because every mode bound paid the kernel remainder `err(a)`. Here:
 * **The primes are diagonal in the circle modes.** For `0 ≤ u₀ = log n ≤ 2a`, `f(u₀) = Σ_m p_m cos(πm u₀/4a)`
   (`hasSum_autocorr`). For `2a < log 3` only `n = 2` enters, with `−2S(g) = −√2 log 2 · f(log 2)`. So every mode
-  carries the exact weight `ψ_m − √2 log 2 · cos(πm log 2/4a)` (`prime_trunc`, `weilQ_ge_relaxP`).
+  carries the exact weight `ψ_m − √2 log 2 · cos(πm log 2/4a)` (`prime_trunc`, `weilQ_ge_relaxP`, now in PoleRelax.lean).
 * **The low modes are exact.** The certificate supplies rigorous lower bounds `psiC m ≤ ψ_m` for `m ≤ 60`, from
   arb quadrature. The tail `|m| > 60` uses the Lean-proved `Cin(61π/2) ≥ 5.098076` (`cinH61`), with the crude
   `err(a)` and `√2 log 2` losses. Those cost little, because the tail level enters only through the tail mass.
@@ -22,138 +22,6 @@ open Real Filter Topology Complex MeasureTheory Set Matrix
 noncomputable section
 
 namespace Pilot1ca
-
-/-- For `2a < log 3`, only `n = 2` contributes: `S(g) = (log 2/√2)·f(log 2)`. -/
-theorem primeS_eq_two' {a : ℝ} (ha : 2 * a < Real.log 3) {g : ℝ → ℝ} (hg : Probe a g) :
-    primeS g = Real.log 2 / Real.sqrt 2 * autocorr g (Real.log 2) := by
-  unfold primeS
-  rw [tsum_eq_single 2]
-  · rw [ArithmeticFunction.vonMangoldt_apply_prime Nat.prime_two]; push_cast; ring
-  · intro n hn
-    rcases lt_or_ge n 2 with h | h
-    · interval_cases n <;> simp
-    · have h3 : 3 ≤ n := by omega
-      have hl : Real.log 3 ≤ Real.log n := Real.log_le_log (by norm_num) (by exact_mod_cast h3)
-      have hz : autocorr g (Real.log n) = 0 :=
-        autocorr_eq_zero hg.supp (by
-          have : 0 < Real.log n := by linarith [Real.log_pos (by norm_num : (1:ℝ) < 3)]
-          rw [abs_of_pos this]; linarith)
-      simp [hz]
-
-/-- The effective mode energy `E_m = ψ_m − c·cos(πm u₀/4a)`. -/
-def modeEP (a c u₀ : ℝ) (m : ℤ) : ℝ := modeE a m - c * Real.cos (π * m * u₀ / (4 * a))
-
-theorem modeEP_neg (a c u₀ : ℝ) (m : ℤ) : modeEP a c u₀ (-m) = modeEP a c u₀ m := by
-  unfold modeEP; rw [modeE_neg]; push_cast
-  rw [show π * -(m : ℝ) * u₀ / (4 * a) = -(π * m * u₀ / (4 * a)) by ring, Real.cos_neg]
-
-/-- **Truncation with the prime, exactly**: `τ + Σ_{S₀} (E_m − τ) p_m ≤ Near − c·f(u₀)`. -/
-theorem prime_trunc {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1)
-    {u₀ c : ℝ} (hu0 : 0 ≤ u₀) (hu : u₀ ≤ 2 * a) (S₀ : Finset ℤ) {τ : ℝ}
-    (hτ : ∀ m, m ∉ S₀ → τ ≤ modeEP a c u₀ m) :
-    τ + ∑ m ∈ S₀, (modeEP a c u₀ m - τ) * pm a g m
-      ≤ (∫ u in Ioc 0 (2 * a), archIntegrand g u) - c * autocorr g u₀ := by
-  have hP := hasSum_pm ha hp
-  rw [hn] at hP
-  have hF := hasSum_autocorr ha hp hn hu0 hu
-  have hT : Tendsto (fun S : Finset ℤ => ∑ m ∈ S₀, (modeEP a c u₀ m - τ) * pm a g m
-      + τ * ∑ m ∈ S, pm a g m + c * ∑ m ∈ S, pm a g m * Real.cos (π * m * u₀ / (4 * a))) atTop
-      (𝓝 (∑ m ∈ S₀, (modeEP a c u₀ m - τ) * pm a g m + τ * 1 + c * autocorr g u₀)) :=
-    (tendsto_const_nhds.add (hP.const_mul τ)).add (hF.const_mul c)
-  have hle : ∑ m ∈ S₀, (modeEP a c u₀ m - τ) * pm a g m + τ * 1 + c * autocorr g u₀
-      ≤ ∫ u in Ioc 0 (2 * a), archIntegrand g u := by
-    refine le_of_tendsto hT ?_
-    filter_upwards [eventually_ge_atTop S₀] with S hS
-    have hsplit := Finset.sum_sdiff hS (f := pm a g)
-    have hsplit2 := Finset.sum_sdiff hS (f := fun m => pm a g m * modeEP a c u₀ m)
-    have htail : τ * ∑ m ∈ S \ S₀, pm a g m ≤ ∑ m ∈ S \ S₀, pm a g m * modeEP a c u₀ m := by
-      rw [Finset.mul_sum]
-      refine Finset.sum_le_sum fun m hm' => ?_
-      rw [Finset.mem_sdiff] at hm'
-      rw [mul_comm]
-      exact mul_le_mul_of_nonneg_left (hτ m hm'.2) (pm_nonneg ha g m)
-    have hlow : ∑ m ∈ S₀, (modeEP a c u₀ m - τ) * pm a g m
-        = ∑ m ∈ S₀, pm a g m * modeEP a c u₀ m - τ * ∑ m ∈ S₀, pm a g m := by
-      rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
-      refine Finset.sum_congr rfl fun m _ => by ring
-    have hE : ∑ m ∈ S, pm a g m * modeEP a c u₀ m
-        = ∑ m ∈ S, pm a g m * modeE a m - c * ∑ m ∈ S, pm a g m * Real.cos (π * m * u₀ / (4 * a)) := by
-      rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
-      refine Finset.sum_congr rfl fun m _ => by unfold modeEP; ring
-    have hmode := sum_modeE_le ha hp hn S
-    rw [← hsplit, mul_add] at *
-    rw [← hsplit2] at hE
-    linarith
-  linarith
-
-/-- The weights with the prime: `s₀ = 2`, `s₁ = (−c − τ)/(8a)`, `s_{k+2} = 2(ψ̲_{k+1} − c cos_{k+1} − τ)/(8a)`. -/
-def sfunP (a τ c u₀ : ℝ) (ψl : ℕ → ℝ) (k : ℕ) : ℝ :=
-  if k = 0 then 2 else if k = 1 then (-c - τ) / (8 * a)
-  else 2 * (ψl (k - 1) - c * Real.cos (π * ((k - 1 : ℕ) : ℝ) * u₀ / (4 * a)) - τ) / (8 * a)
-
-/-- **The relaxation with the prime.** -/
-theorem weilQ_ge_relaxP {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1)
-    {c u₀ : ℝ} (hu0 : 0 ≤ u₀) (hu : u₀ ≤ 2 * a) (hprime : 2 * primeS g = c * autocorr g u₀)
-    (N : ℕ) (τ : ℝ) (ψl : ℕ → ℝ)
-    (htail : ∀ n : ℤ, (N : ℤ) < n → τ ≤ modeEP a c u₀ n)
-    (hlow : ∀ k : ℕ, k < N → ψl (k + 1) ≤ modeE a ((k : ℤ) + 1)) :
-    weilConst + (∫ u in Ioi (2 * a), kerK u) + τ
-      + xv a g (N + 2) ⬝ᵥ (diagonal (fun i : Fin (N + 2) => sfunP a τ c u₀ ψl i) *ᵥ xv a g (N + 2))
-      ≤ weilQ a g := by
-  have hτ : ∀ n, n ∉ Finset.Icc (-(N : ℤ)) N → τ ≤ modeEP a c u₀ n := by
-    intro n hn'
-    simp only [Finset.mem_Icc, not_and_or, not_le] at hn'
-    rcases hn' with h | h
-    · have e := modeEP_neg a c u₀ (-n); rw [neg_neg] at e; rw [e]; exact htail _ (by omega)
-    · exact htail n h
-  have hE := prime_trunc ha hp hn hu0 hu (Finset.Icc (-(N : ℤ)) N) hτ
-  rw [sum_Icc_even N (fun k => by simp only [modeEP_neg, pm_neg ha hp])] at hE
-  set X : ℕ → ℝ := fun k => ∫ t, g t * Real.cos (π * k * t / (4 * a)) with hX
-  have hpm1 : ∀ k : ℕ, pm a g ((k : ℤ) + 1) = X (k + 1) ^ 2 / (8 * a) := by
-    intro k; rw [pm_even ha hp]; simp only [hX]; push_cast; rfl
-  have hpm0 : pm a g 0 = X 0 ^ 2 / (8 * a) := by
-    rw [pm_even ha hp]; simp only [hX]; push_cast; rfl
-  have hE0 : modeEP a c u₀ 0 = -c := by unfold modeEP; simp [modeE_zero]
-  rw [hE0, hpm0] at hE
-  simp only [hpm1] at hE
-  have hcos : ∀ k : ℕ, modeEP a c u₀ ((k : ℤ) + 1)
-      = modeE a ((k : ℤ) + 1) - c * Real.cos (π * ((k + 1 : ℕ) : ℝ) * u₀ / (4 * a)) := by
-    intro k; unfold modeEP; push_cast; ring
-  simp only [hcos] at hE
-  have hlowsum : ∑ k ∈ Finset.range N, (ψl (k + 1) - c * Real.cos (π * ((k + 1 : ℕ) : ℝ) * u₀ / (4 * a)) - τ)
-        * (X (k + 1) ^ 2 / (8 * a))
-      ≤ ∑ k ∈ Finset.range N, (modeE a ((k : ℤ) + 1) - c * Real.cos (π * ((k + 1 : ℕ) : ℝ) * u₀ / (4 * a)) - τ)
-        * (X (k + 1) ^ 2 / (8 * a)) := by
-    refine Finset.sum_le_sum fun k hk => ?_
-    have := hlow k (Finset.mem_range.mp hk)
-    have : 0 ≤ X (k + 1) ^ 2 / (8 * a) := by positivity
-    nlinarith
-  have hquad : xv a g (N + 2) ⬝ᵥ (diagonal (fun i : Fin (N + 2) => sfunP a τ c u₀ ψl i) *ᵥ xv a g (N + 2))
-      = 2 * (∫ t, g t * Real.cosh (t / 2)) ^ 2 + ((-c - τ) / (8 * a)) * X 0 ^ 2
-        + ∑ k ∈ Finset.range N, 2 * (ψl (k + 1) - c * Real.cos (π * ((k + 1 : ℕ) : ℝ) * u₀ / (4 * a)) - τ)
-          / (8 * a) * X (k + 1) ^ 2 := by
-    simp only [dotProduct, mulVec_diagonal]
-    rw [Fin.sum_univ_succ, Fin.sum_univ_succ]
-    rw [← Fin.sum_univ_eq_sum_range (fun k => 2 * (ψl (k + 1)
-      - c * Real.cos (π * ((k + 1 : ℕ) : ℝ) * u₀ / (4 * a)) - τ) / (8 * a) * X (k + 1) ^ 2) N]
-    simp only [xv, vv, sfunP, hX, Fin.val_zero, Fin.val_succ, Fin.succ_zero_eq_one, Fin.val_one]
-    simp only [Nat.add_eq_zero_iff, one_ne_zero, and_false, ite_false, ite_true, Nat.cast_zero, zero_mul,
-      mul_zero, zero_div, Nat.add_one_sub_one]
-    have hne : ∀ x : ℕ, x + 1 + 1 ≠ 1 := fun x => by omega
-    have key : ∀ u v : ℝ, u * (v * u) = v * u ^ 2 := fun u v => by ring
-    simp only [hne, ite_false, key]
-    push_cast; ring
-  have hQ : weilQ a g = 2 * poleR g a ^ 2 + weilConst
-      + ((∫ u in Ioc 0 (2 * a), archIntegrand g u) + ∫ u in Ioi (2 * a), kerK u) - c * autocorr g u₀ := by
-    rw [weilQ_eq', hn, archE_split ha hp hn]; linarith
-  have hs2 : ∑ k ∈ Finset.range N, 2 * (ψl (k + 1) - c * Real.cos (π * ((k + 1 : ℕ) : ℝ) * u₀ / (4 * a)) - τ)
-        / (8 * a) * X (k + 1) ^ 2
-      = 2 * ∑ k ∈ Finset.range N, (ψl (k + 1) - c * Real.cos (π * ((k + 1 : ℕ) : ℝ) * u₀ / (4 * a)) - τ)
-        * (X (k + 1) ^ 2 / (8 * a)) := by
-    rw [Finset.mul_sum]; exact Finset.sum_congr rfl fun k _ => by ring
-  have h0 : (-c - τ) * (X 0 ^ 2 / (8 * a)) = (-c - τ) / (8 * a) * X 0 ^ 2 := by ring
-  rw [hquad, hQ, poleR_eq_xv0 ha hp, hs2]
-  linarith
 
 /-! ## The instance `a* = 2/5`, `N = 60` -/
 
@@ -199,14 +67,14 @@ def CertP : Prop :=
 theorem weilQ_ge_prime {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 2 / 5) (hc : CertP) {g : ℝ → ℝ} (hp : Probe a g)
     (hn : normSq g = 1) : (1 / 10000 : ℝ) ≤ weilQ a g := by
   obtain ⟨hlow, hG, hκ, hM⟩ := hc
-  rw [← weilQ_mono ha ha1 hp]
-  have hp' := probe_mono ha1 hp
+  rw [← weilQ_mono ha.le ha1 hp]
+  have hp' := hp.mono ha1
   set b : ℝ := 2 / 5 with hb
   have hb0 : (0 : ℝ) < b := by norm_num
   have hl2 := Real.log_two_lt_d9
-  have hl3 := log_three_gt'
+  have hl3 := log_three_gt
   have hprime : 2 * primeS g = cP * autocorr g (Real.log 2) := by
-    rw [primeS_eq_two' (by rw [hb]; norm_num; linarith) hp']
+    rw [primeS_eq_two (by rw [hb]; norm_num; linarith) hp']
     unfold cP
     have hs : Real.sqrt 2 ^ 2 = 2 := Real.sq_sqrt (by norm_num)
     have hs0 : 0 < Real.sqrt 2 := by positivity
@@ -229,6 +97,4 @@ theorem weilQ_ge_prime {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 2 / 5) (hc : CertP) {
 
 end Pilot1ca
 
-#print axioms Pilot1ca.prime_trunc
-#print axioms Pilot1ca.weilQ_ge_relaxP
 #print axioms Pilot1ca.weilQ_ge_prime

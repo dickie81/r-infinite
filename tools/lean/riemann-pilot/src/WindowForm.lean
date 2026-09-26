@@ -45,52 +45,28 @@ theorem sin_sub_nat_mul_pi (y : ℝ) (k : ℕ) : Real.sin (y - k * π) = (-1) ^ 
 theorem sin_add_nat_mul_pi (y : ℝ) (k : ℕ) : Real.sin (y + k * π) = (-1) ^ k * Real.sin y := by
   rw [Real.sin_add, Real.sin_nat_mul_pi, Real.cos_nat_mul_pi]; ring
 
-/-- The window basis transform: `∫_{−a}^{a} cos(ω_k u) cos(tu) du = (−1)^k 2t sin(ta)/(t² − ω_k²)`. -/
-theorem ghat_cos {a t : ℝ} (k : ℕ) (ha : 0 < a) (h1 : t ≠ k * π / a) (h2 : t ≠ -(k * π / a)) :
-    ∫ u in (-a)..a, Real.cos (k * π / a * u) * Real.cos (t * u) =
-      (-1) ^ k * (2 * t * Real.sin (t * a) / (t ^ 2 - (k * π / a) ^ 2)) := by
-  set ω := k * π / a with hω
-  have hm : t - ω ≠ 0 := sub_ne_zero.mpr h1
-  have hp : t + ω ≠ 0 := by intro h; apply h2; linarith
-  have hωa : ω * a = k * π := by rw [hω]; field_simp
-  have hderiv : ∀ u ∈ Set.uIcc (-a) a, HasDerivAt
-      (fun u => Real.sin ((t - ω) * u) / (2 * (t - ω)) + Real.sin ((t + ω) * u) / (2 * (t + ω)))
-      (Real.cos (ω * u) * Real.cos (t * u)) u := by
-    intro u _
-    have e1 := (((hasDerivAt_id u).const_mul (t - ω)).sin).div_const (2 * (t - ω))
-    have e2 := (((hasDerivAt_id u).const_mul (t + ω)).sin).div_const (2 * (t + ω))
-    have c1 : Real.cos ((t - ω) * u) = Real.cos (t * u) * Real.cos (ω * u) + Real.sin (t * u) * Real.sin (ω * u) := by
-      rw [sub_mul, Real.cos_sub]
-    have c2 : Real.cos ((t + ω) * u) = Real.cos (t * u) * Real.cos (ω * u) - Real.sin (t * u) * Real.sin (ω * u) := by
-      rw [add_mul, Real.cos_add]
-    convert e1.add e2 using 1
+/-- **General closed forms** on `[−a, a]` (used for the Gram entries in PoleRelax.lean). -/
+theorem int_coshsq {a : ℝ} : (∫ t in (-a)..a, Real.cosh (t / 2) * Real.cosh (t / 2)) = a + Real.sinh a := by
+  have hd : ∀ t ∈ Set.uIcc (-a) a, HasDerivAt (fun t => (t + Real.sinh t) / 2)
+      (Real.cosh (t / 2) * Real.cosh (t / 2)) t := by
+    intro t _
+    have := ((hasDerivAt_id t).add (Real.hasDerivAt_sinh t)).div_const 2
+    convert this using 1
     · rfl
-    · simp only [id, mul_one]
-      rw [c1, c2]; field_simp; ring
-  have hint : IntervalIntegrable (fun u => Real.cos (ω * u) * Real.cos (t * u)) MeasureTheory.volume (-a) a :=
-    (by fun_prop : Continuous fun u => Real.cos (ω * u) * Real.cos (t * u)).intervalIntegrable _ _
-  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv hint]
-  have s1 : Real.sin ((t - ω) * a) = (-1) ^ k * Real.sin (t * a) := by
-    rw [sub_mul, hωa, sin_sub_nat_mul_pi]
-  have s2 : Real.sin ((t + ω) * a) = (-1) ^ k * Real.sin (t * a) := by
-    rw [add_mul, hωa, sin_add_nat_mul_pi]
-  have hsq : t ^ 2 - ω ^ 2 ≠ 0 := by
-    rw [show t ^ 2 - ω ^ 2 = (t - ω) * (t + ω) by ring]; exact mul_ne_zero hm hp
-  simp only [mul_neg, Real.sin_neg]
-  rw [s1, s2]
-  field_simp
+    have h1 : Real.cosh t = Real.cosh (2 * (t / 2)) := by ring_nf
+    rw [h1, Real.cosh_two_mul]; have := Real.cosh_sq (t / 2); nlinarith [this]
+  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hd
+    ((by fun_prop : Continuous fun t => Real.cosh (t / 2) * Real.cosh (t / 2)).intervalIntegrable _ _),
+    Real.sinh_neg]
   ring
 
-/-- The pole value: `∫_{−a}^{a} cos(ω_k u) cosh(u/2) du = (−1)^k sinh(a/2)/(ω_k² + ¼)`. -/
-theorem ghat_pole {a : ℝ} (k : ℕ) (ha : 0 < a) :
-    ∫ u in (-a)..a, Real.cos (k * π / a * u) * Real.cosh (u / 2) =
-      (-1) ^ k * Real.sinh (a / 2) / ((k * π / a) ^ 2 + 1 / 4) := by
-  set ω := k * π / a with hω
-  have hωa : ω * a = k * π := by rw [hω]; field_simp
+theorem int_cosh_cos {a : ℝ} (ω : ℝ) :
+    (∫ t in (-a)..a, Real.cosh (t / 2) * Real.cos (ω * t))
+      = (Real.cos (ω * a) * Real.sinh (a / 2) + 2 * ω * Real.sin (ω * a) * Real.cosh (a / 2)) / (ω ^ 2 + 1 / 4) := by
   have hden : ω ^ 2 + 1 / 4 ≠ 0 := by positivity
   have hderiv : ∀ u ∈ Set.uIcc (-a) a, HasDerivAt
       (fun u => (1 / 2 * Real.cos (ω * u) * Real.sinh (u / 2) + ω * Real.sin (ω * u) * Real.cosh (u / 2)) / (ω ^ 2 + 1 / 4))
-      (Real.cos (ω * u) * Real.cosh (u / 2)) u := by
+      (Real.cosh (u / 2) * Real.cos (ω * u)) u := by
     intro u _
     have hc := ((hasDerivAt_id u).const_mul ω).cos
     have hs := ((hasDerivAt_id u).const_mul ω).sin
@@ -100,14 +76,66 @@ theorem ghat_pole {a : ℝ} (k : ℕ) (ha : 0 < a) :
     convert this using 1
     · funext v; simp [id]
     · simp only [id, mul_one]; field_simp; ring
-  have hint : IntervalIntegrable (fun u => Real.cos (ω * u) * Real.cosh (u / 2)) MeasureTheory.volume (-a) a :=
-    (by fun_prop : Continuous fun u => Real.cos (ω * u) * Real.cosh (u / 2)).intervalIntegrable _ _
-  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv hint]
-  have hs0 : Real.sin (ω * a) = 0 := by rw [hωa, Real.sin_nat_mul_pi]
-  have hc0 : Real.cos (ω * a) = (-1) ^ k := by rw [hωa, Real.cos_nat_mul_pi]
+  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv
+    ((by fun_prop : Continuous fun u => Real.cosh (u / 2) * Real.cos (ω * u)).intervalIntegrable _ _)]
   simp only [mul_neg, Real.cos_neg, Real.sin_neg, neg_div, Real.sinh_neg, Real.cosh_neg]
-  rw [hs0, hc0]
+  field_simp; ring
+
+theorem int_cos_cos {a α β : ℝ} (hm : α - β ≠ 0) (hp : α + β ≠ 0) :
+    (∫ t in (-a)..a, Real.cos (α * t) * Real.cos (β * t))
+      = Real.sin ((α - β) * a) / (α - β) + Real.sin ((α + β) * a) / (α + β) := by
+  have hderiv : ∀ u ∈ Set.uIcc (-a) a, HasDerivAt
+      (fun u => (Real.sin ((α - β) * u) / (α - β) + Real.sin ((α + β) * u) / (α + β)) / 2)
+      (Real.cos (α * u) * Real.cos (β * u)) u := by
+    intro u _
+    have e1 := (((hasDerivAt_id u).const_mul (α - β)).sin).div_const (α - β)
+    have e2 := (((hasDerivAt_id u).const_mul (α + β)).sin).div_const (α + β)
+    have := (e1.add e2).div_const 2
+    convert this using 1
+    · funext v; simp [id]
+    · simp only [id, mul_one]
+      rw [sub_mul, add_mul, Real.cos_sub, Real.cos_add]; field_simp; ring
+  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv
+    ((by fun_prop : Continuous fun u => Real.cos (α * u) * Real.cos (β * u)).intervalIntegrable _ _)]
+  simp only [mul_neg, Real.sin_neg, neg_div]; ring
+
+theorem int_cos_sq {a α : ℝ} (hα : α ≠ 0) :
+    (∫ t in (-a)..a, Real.cos (α * t) * Real.cos (α * t)) = a + Real.sin (2 * α * a) / (2 * α) := by
+  have hderiv : ∀ u ∈ Set.uIcc (-a) a, HasDerivAt (fun u => u / 2 + Real.sin (2 * α * u) / (4 * α))
+      (Real.cos (α * u) * Real.cos (α * u)) u := by
+    intro u _
+    have e1 := (hasDerivAt_id u).div_const 2
+    have e2 := (((hasDerivAt_id u).const_mul (2 * α)).sin).div_const (4 * α)
+    convert e1.add e2 using 1
+    · funext v; simp [id]
+    · simp only [id, mul_one]
+      rw [show 2 * α * u = 2 * (α * u) by ring, Real.cos_two_mul]; field_simp; ring
+  rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hderiv
+    ((by fun_prop : Continuous fun u => Real.cos (α * u) * Real.cos (α * u)).intervalIntegrable _ _)]
+  simp only [mul_neg, Real.sin_neg, neg_div]; ring
+
+/-- The window basis transform: `∫_{−a}^{a} cos(ω_k u) cos(tu) du = (−1)^k 2t sin(ta)/(t² − ω_k²)`. -/
+theorem ghat_cos {a t : ℝ} (k : ℕ) (ha : 0 < a) (h1 : t ≠ k * π / a) (h2 : t ≠ -(k * π / a)) :
+    ∫ u in (-a)..a, Real.cos (k * π / a * u) * Real.cos (t * u) =
+      (-1) ^ k * (2 * t * Real.sin (t * a) / (t ^ 2 - (k * π / a) ^ 2)) := by
+  set ω := k * π / a with hω
+  have hm : ω - t ≠ 0 := sub_ne_zero.mpr (Ne.symm h1)
+  have hp : ω + t ≠ 0 := by intro h; apply h2; linarith
+  have hωa : ω * a = k * π := by rw [hω]; field_simp
+  rw [int_cos_cos hm hp, sub_mul, add_mul, hωa, show (k : ℝ) * π - t * a = -(t * a - k * π) by ring,
+    Real.sin_neg, sin_sub_nat_mul_pi, add_comm (k * π), sin_add_nat_mul_pi]
+  have hsq : t ^ 2 - ω ^ 2 ≠ 0 := by
+    rw [show t ^ 2 - ω ^ 2 = -((ω - t) * (ω + t)) by ring]; exact neg_ne_zero.2 (mul_ne_zero hm hp)
   field_simp
+  ring
+
+/-- The pole value: `∫_{−a}^{a} cos(ω_k u) cosh(u/2) du = (−1)^k sinh(a/2)/(ω_k² + ¼)`. -/
+theorem ghat_pole {a : ℝ} (k : ℕ) (ha : 0 < a) :
+    ∫ u in (-a)..a, Real.cos (k * π / a * u) * Real.cosh (u / 2) =
+      (-1) ^ k * Real.sinh (a / 2) / ((k * π / a) ^ 2 + 1 / 4) := by
+  have hωa : k * π / a * a = k * π := by field_simp
+  simp_rw [mul_comm (Real.cos _)]
+  rw [int_cosh_cos, hωa, Real.sin_nat_mul_pi, Real.cos_nat_mul_pi]
   ring
 
 /-- Products of transforms are divided differences: `s/((s − A)(s − B)) = (A/(s − A) − B/(s − B))/(A − B)`. -/

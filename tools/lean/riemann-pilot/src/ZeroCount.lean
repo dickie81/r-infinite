@@ -213,13 +213,7 @@ theorem xi_offcross_card_le {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} {M : ℕ
       ghatC (g n) (a n) ζ / ghatC (g n) (a n) 0 = 0 :=
     (Filter.eventually_all_finset s).2 fun σ hσ =>
       hurwitz_attract hFd hfd hconv hnz (by simp [hzX σ hσ]) (hρ σ)
-  have h0 : ∀ᶠ n in atTop, ghatC (g n) (a n) 0 ≠ 0 := by
-    have hu := Metric.tendstoUniformlyOn_iff.1
-      ((tendstoLocallyUniformly_iff_forall_isCompact.1 hconv) {0} isCompact_singleton) 1 one_pos
-    filter_upwards [hu] with n hn h
-    have := hn 0 rfl
-    simp only [div_self hX0, h, div_zero, dist_zero_right, norm_one] at this
-    exact lt_irrefl _ this
+  have h0 := hconv.eventually_ne
   obtain ⟨n, hn, hn1, hn0⟩ := (hdim.and (hatt.and h0)).exists
   choose! ζ hζd hζ0 using hn1
   have hζz : ∀ σ ∈ s, ghatC (g n) (a n) (ζ σ) = 0 := fun σ hσ =>

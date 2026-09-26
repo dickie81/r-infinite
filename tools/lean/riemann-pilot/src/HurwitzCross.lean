@@ -47,15 +47,7 @@ theorem rh_of_prime_side_cross {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ}
     (hcross : ∀ᶠ n in atTop, ∀ z, ghatC (g n) (a n) z = 0 → z.re = 0 ∨ z.im = 0)
     (hconv : HypConv a g) (hζ : ZetaNoZeroInUnitInterval) : RiemannHypothesis := by
   have hX0 := Xi_zero_ne_zero
-  have h0 : ∀ᶠ n in atTop, ghatC (g n) (a n) 0 ≠ 0 := by
-    have hc : TendstoLocallyUniformly (fun n z => ghatC (g n) (a n) z / ghatC (g n) (a n) 0)
-      (fun z => Xi z / Xi 0) atTop := hconv
-    have hu := Metric.tendstoUniformlyOn_iff.1
-      ((tendstoLocallyUniformly_iff_forall_isCompact.1 hc) {0} isCompact_singleton) 1 one_pos
-    filter_upwards [hu] with n hn h
-    have := hn 0 rfl
-    simp only [div_self hX0, h, div_zero, dist_zero_right, norm_one] at this
-    exact lt_irrefl _ this
+  have h0 := hconv.eventually_ne
   obtain ⟨N, hN⟩ := (hcross.and h0).exists_forall_of_atTop
   have hint : ∀ n, IntervalIntegrable (g n) volume (-(a n)) (a n) :=
     fun n => (probe_integrable (hgs n).1).intervalIntegrable
@@ -79,6 +71,14 @@ theorem rh_of_prime_side_cross {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ}
     apply hζ s.re h0' h1'
     rw [← hsr]; exact hz
   · exact re_eq_half_of_Xi_real him
+
+/-- **§11 item 1 ⇒ RH, with prime-side hypotheses only.** Ground states of Weil's form `Q` at
+supports `2a n` whose transforms are eventually real-rooted (b) and satisfy `HypConv` (a) give
+Mathlib's `RiemannHypothesis`. The case of `rh_of_prime_side_cross` with every zero real. -/
+theorem rh_of_prime_side {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} (hgs : ∀ n, IsGroundState (a n) (g n))
+    (hRR : ∀ᶠ n in atTop, RealRooted (a n) (g n)) (hconv : HypConv a g) : RiemannHypothesis :=
+  rh_of_prime_side_cross hgs (hRR.mono fun _ h z hz => Or.inr (h z hz)) hconv
+    (fun _ h0 h1 => riemannZeta_ne_zero_of_mem_Ioo h0 h1)
 
 /-- **The chain with the zero-swap lemma plugged in.** (a), positive supports, eventually simple
 ground states with the swap realised (proved in SwapRealize.lean) and no zero of `ζ` in `(0, 1)`
@@ -111,6 +111,7 @@ end Pilot1ca
 
 #print axioms Pilot1ca.isClosed_crossSet
 #print axioms Pilot1ca.rh_of_prime_side_cross
+#print axioms Pilot1ca.rh_of_prime_side
 #print axioms Pilot1ca.rh_of_simple_ground_states
 #print axioms Pilot1ca.zetaNoZeroInUnitInterval
 #print axioms Pilot1ca.rh_of_simple_ground_states'

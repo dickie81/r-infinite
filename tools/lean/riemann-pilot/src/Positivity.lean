@@ -26,14 +26,6 @@ def weilQ0 (a : ℝ) (g : ℝ → ℝ) : ℝ := weilQ a g - 2 * poleR g a ^ 2
 def IsGroundState0 (a : ℝ) (g : ℝ → ℝ) : Prop :=
   Probe a g ∧ normSq g = 1 ∧ ∀ h, Probe a h → normSq h = 1 → weilQ0 a g ≤ weilQ0 a h
 
-/-- The non-archimedean part of `Q₀`: the constant and prime terms. -/
-def nonArch0 (_a : ℝ) (g : ℝ → ℝ) : ℝ :=
-  ((Complex.digamma (1 / 4)).re - Real.log π) * normSq g
-    - 2 * ∑' n : ℕ, ArithmeticFunction.vonMangoldt n / Real.sqrt n * autocorr g (Real.log n)
-
-theorem weilQ0_eq_nonArch0_add (a : ℝ) (g : ℝ → ℝ) : weilQ0 a g = nonArch0 a g + archE g := by
-  unfold weilQ0 weilQ nonArch0 archE; ring
-
 theorem weilQ0_eq' (a : ℝ) (g : ℝ → ℝ) :
     weilQ0 a g = weilConst * normSq g + archE g - 2 * primeS g := by
   unfold weilQ0; rw [weilQ_eq']; ring
@@ -65,88 +57,13 @@ theorem weilQ0_add_sub {a : ℝ} {g h : ℝ → ℝ} (hg : Probe a g) (hh : Prob
   rw [poleR_add hg.memL2 hh.memL2, poleR_sub hg.memL2 hh.memL2]
   linear_combination this
 
-theorem exists_groundState0 {a : ℝ} (ha : 0 < a) : ∃ g, IsGroundState0 a g := by
-  set Sv : Set ℝ := {q | ∃ h, Probe a h ∧ normSq h = 1 ∧ weilQ0 a h = q} with hSv
-  have hne : Sv.Nonempty := ⟨_, box a, box_probe a, normSq_box ha, rfl⟩
-  have hbdd : BddBelow Sv := by
-    refine ⟨weilConst - 2 * primeWeight a, ?_⟩
-    rintro q ⟨h, hp, hn, rfl⟩
-    have := weilQ0_ge hp; rwa [hn, mul_one] at this
-  obtain ⟨q, hqa, hq, hqS⟩ := exists_seq_tendsto_sInf hne hbdd
-  choose h hp hn hQ using hqS
-  set lam := sInf Sv with hlam
-  -- the non-archimedean part is bounded below, so the archimedean energy is bounded above
-  have hNA : ∀ g, Probe a g → normSq g = 1 → weilConst - 2 * primeWeight a ≤ nonArch0 a g := by
-    intro g hpg hng
-    have hprime := (le_abs_self _).trans (abs_prime_sum_le hpg)
-    unfold nonArch0 weilConst
-    rw [hng] at hprime ⊢
-    linarith
-  have hC : ∀ j, archE (h j) ≤ q 0 - (weilConst - 2 * primeWeight a) := by
-    intro j
-    have e := weilQ0_eq_nonArch0_add a (h j)
-    have := hNA (h j) (hp j) (hn j)
-    have hqj : q j ≤ q 0 := hqa (Nat.zero_le j)
-    rw [hQ j] at e
-    linarith
-  obtain ⟨φ, hφ, G, hG, hlim⟩ := exists_convergent_subseq ha hp (B := 1) (fun j => (hn j).le) hC
-  set G' := symCut a G with hG'def
-  have hG' : MemLp G' 2 volume := memLp_symCut a hG
-  have hlim' : Tendsto (fun j => normSq (fun t => h (φ j) t - G' t)) atTop (𝓝 0) :=
-    squeeze_zero (fun j => integral_nonneg fun t => sq_nonneg _)
-      (fun j => normSq_sub_symCut_le (hp (φ j)) hG) hlim
-  have hmem : ∀ j, MemLp (h (φ j)) 2 volume := fun j => (hp (φ j)).memL2
-  -- continuity of the non-archimedean terms
-  have hnorm : Tendsto (fun j => normSq (h (φ j))) atTop (𝓝 (normSq G')) := by
-    simp_rw [normSq_eq_mul]
-    exact tendsto_integral_mul hmem hmem hG' hG' hlim' hlim'
-  have hnormG : normSq G' = 1 := by
-    have h1 : Tendsto (fun j => normSq (h (φ j))) atTop (𝓝 1) := by
-      simp only [hn]; exact tendsto_const_nhds
-    exact tendsto_nhds_unique hnorm h1
-  have hauto : ∀ u, Tendsto (fun j => autocorr (h (φ j)) u) atTop (𝓝 (autocorr G' u)) := by
-    intro u
-    have hsh : ∀ j, normSq (fun t => h (φ j) (t + u) - G' (t + u))
-        = normSq (fun t => h (φ j) t - G' t) :=
-      fun j => normSq_shift (fun t => h (φ j) t - G' t) u
-    unfold autocorr
-    exact tendsto_integral_mul hmem (fun j => memLp_shift (hmem j) u) hG' (memLp_shift hG' u)
-      hlim' (hlim'.congr fun j => (hsh j).symm)
-  have hsuppG' : ∀ u, a < |u| → G' u = 0 := symCut_supp a G
-  have hprimeT : Tendsto
-      (fun j => ∑' n : ℕ, ArithmeticFunction.vonMangoldt n / Real.sqrt n
-        * autocorr (h (φ j)) (Real.log n)) atTop
-      (𝓝 (∑' n : ℕ, ArithmeticFunction.vonMangoldt n / Real.sqrt n * autocorr G' (Real.log n))) := by
-    have e1 : ∀ j, (∑' n : ℕ, ArithmeticFunction.vonMangoldt n / Real.sqrt n
-        * autocorr (h (φ j)) (Real.log n))
-        = ∑ n ∈ Finset.range (primeCut a), ArithmeticFunction.vonMangoldt n / Real.sqrt n
-          * autocorr (h (φ j)) (Real.log n) := fun j => prime_sum_eq (hp (φ j)).supp
-    simp_rw [e1]
-    rw [prime_sum_eq hsuppG']
-    exact tendsto_finsetSum _ fun n _ => (hauto _).const_mul _
-  have hnonArch : Tendsto (fun j => nonArch0 a (h (φ j))) atTop (𝓝 (nonArch0 a G')) := by
-    unfold nonArch0
-    exact (hnorm.const_mul _).sub (hprimeT.const_mul 2)
-  -- the archimedean energies converge to `λ − nonArch(G')`
-  have hqφ : Tendsto (fun j => q (φ j)) atTop (𝓝 lam) := hq.comp hφ.tendsto_atTop
-  have hA : Tendsto (fun j => archE (h (φ j))) atTop (𝓝 (lam - nonArch0 a G')) := by
-    have e : ∀ j, archE (h (φ j)) = q (φ j) - nonArch0 a (h (φ j)) := by
-      intro j; rw [← hQ (φ j), weilQ0_eq_nonArch0_add]; ring
-    simp_rw [e]
-    exact hqφ.sub hnonArch
-  -- Fatou: the limit's archimedean integral converges and is at most the limit
-  obtain ⟨hint, hle⟩ := fatou_real measurableSet_Ioi
-    (f := fun j => archIntegrand (h (φ j))) (F := archIntegrand G')
-    (fun j => (hp (φ j)).arch) (fun j u hu => archIntegrand_nonneg (hmem j) hu)
-    (fun u _ => by
-      unfold archIntegrand
-      exact ((hauto 0).sub (hauto u)).mul_const _) hA
-  have hPG : Probe a G' := ⟨symCut_even a G, hsuppG', hG', hint⟩
-  refine ⟨G', hPG, hnormG, fun h' hp' hn' => ?_⟩
-  have hQG : weilQ0 a G' ≤ lam := by
-    rw [weilQ0_eq_nonArch0_add]; unfold archE; linarith
-  exact hQG.trans (csInf_le hbdd ⟨h', hp', hn', rfl⟩)
+theorem weilQ0_eq_weilQc (a : ℝ) (g : ℝ → ℝ) : weilQ0 a g = weilQc 0 a g := by
+  unfold weilQ0 weilQc weilQ nonArch archE; ring
 
+theorem exists_groundState0 {a : ℝ} (ha : 0 < a) : ∃ g, IsGroundState0 a g := by
+  obtain ⟨g, hp, hn, hmin⟩ := exists_min_weilQc ha (c := 0) le_rfl
+  exact ⟨g, hp, hn, fun h hph hnh => by
+    rw [weilQ0_eq_weilQc, weilQ0_eq_weilQc]; exact hmin h hph hnh⟩
 
 /-! ## Beurling–Deny: `Q₀(|g|) ≤ Q₀(g)` -/
 
@@ -202,6 +119,50 @@ theorem weilQ0_abs_le {a : ℝ} {g : ℝ → ℝ} (hg : Probe a g) :
 
 /-! ## A one-signed criterion -/
 
+/-- **Tonelli, lintegral form**: for `p, m ≥ 0`, if `∫⁻ p(t)m(t+u) dt = ∫⁻ m(t)p(t+u) dt = 0` for
+a.e. `u > 0`, then `(∫⁻ p)(∫⁻ m) = 0`. -/
+theorem tonelli_zero {p m : ℝ → ℝ} (hp : Measurable p) (hm : Measurable m)
+    (hp0 : ∀ t, 0 ≤ p t)
+    (h : ∀ᵐ u ∂(volume.restrict (Ioi 0)),
+      (∫⁻ t, ENNReal.ofReal (p t * m (t + u))) = 0 ∧ (∫⁻ t, ENNReal.ofReal (m t * p (t + u))) = 0) :
+    (∫⁻ t, ENNReal.ofReal (p t)) * (∫⁻ t, ENNReal.ofReal (m t)) = 0 := by
+  set L : ℝ → ENNReal := fun u => ∫⁻ t, ENNReal.ofReal (p t * m (t + u)) with hL
+  have hF : Measurable (Function.uncurry fun (u t : ℝ) => ENNReal.ofReal (p t * m (t + u))) :=
+    ENNReal.measurable_ofReal.comp
+      ((hp.comp measurable_snd).mul (hm.comp (measurable_snd.add measurable_fst)))
+  have hLm : Measurable L := hF.lintegral_prod_right' (ν := volume)
+  have hswap : ∫⁻ u, L u = (∫⁻ t, ENNReal.ofReal (p t)) * ∫⁻ t, ENNReal.ofReal (m t) := by
+    simp only [hL]
+    rw [lintegral_lintegral_swap hF.aemeasurable,
+      ← lintegral_mul_const (∫⁻ t, ENNReal.ofReal (m t)) hp.ennreal_ofReal]
+    congr 1; funext t
+    simp_rw [ENNReal.ofReal_mul (hp0 t)]
+    rw [lintegral_const_mul' _ _ ENNReal.ofReal_ne_top]
+    congr 1
+    exact lintegral_add_left_eq_self (fun s => ENNReal.ofReal (m s)) t
+  have hpos : ∫⁻ u in Ioi 0, L u = 0 := by
+    rw [lintegral_eq_zero_iff hLm]
+    exact h.mono fun u hu => hu.1
+  have hrefl : ∀ v, L (-v) = ∫⁻ t, ENNReal.ofReal (m t * p (t + v)) := by
+    intro v
+    simp only [hL]
+    rw [← lintegral_add_right_eq_self (fun t => ENNReal.ofReal (p t * m (t + -v))) v]
+    congr 1; funext t
+    rw [add_neg_cancel_right, mul_comm]
+  have hneg : ∫⁻ u in Iic 0, L u = 0 := by
+    have e : ∫⁻ u in Iic 0, L u = ∫⁻ v in Ici 0, L (-v) := by
+      rw [← lintegral_indicator measurableSet_Iic, ← lintegral_indicator measurableSet_Ici,
+        ← lintegral_neg_eq_self]
+      congr 1; funext v
+      by_cases hv : 0 ≤ v
+      · simp [hv]
+      · have : ¬ (-v ≤ 0) := by linarith
+        simp [hv, this]
+    rw [e, setLIntegral_congr Ioi_ae_eq_Ici.symm]
+    rw [lintegral_eq_zero_iff (show Measurable fun v => L (-v) from hLm.comp measurable_neg)]
+    exact h.mono fun u hu => by show L (-u) = 0; rw [hrefl]; exact hu.2
+  rw [← hswap, ← lintegral_add_compl _ measurableSet_Ioi, compl_Ioi, hpos, hneg, add_zero]
+
 /-- **If `|g|` and `g` have the same autocorrelation at almost every `u > 0`, then `g` has one
 sign.** Write `g = g⁺ − g⁻`. Then `f_{|g|}(u) − f_g(u) = 2(X(u) + X(−u))` with
 `X(u) = ∫ g⁺(t)g⁻(t+u) dt ≥ 0`, so `X = 0` a.e. and `(∫g⁺)(∫g⁻) = ∫ X = 0` (Tonelli). -/
@@ -225,14 +186,16 @@ theorem one_sign_of_autocorr {g : ℝ → ℝ} (hgm : Measurable g) (hg : MemLp 
   set X : ℝ → ℝ := fun u => ∫ t, gp t * gm (t + u) with hX
   have hX0 : ∀ u, 0 ≤ X u := fun u =>
     integral_nonneg fun t => mul_nonneg (hgp0 t) (hgm0 _)
+  have hY : ∀ u, (∫ t, gm t * gp (t + u)) = X (-u) := by
+    intro u
+    have := integral_add_right_eq_self (μ := volume) (fun s => gp s * gm (s + -u)) u
+    simp only [add_neg_cancel_right] at this
+    rw [hX]; simp only
+    rw [← this]; congr 1; funext t; ring
   -- `f_{|g|}(u) − f_g(u) = 2(X(u) + X(−u))`
   have hdiff : ∀ u, autocorr (fun t => |g t|) u - autocorr g u = 2 * (X u + X (-u)) := by
     intro u
-    have hY : (∫ t, gm t * gp (t + u)) = X (-u) := by
-      have := integral_add_right_eq_self (μ := volume) (fun s => gp s * gm (s + -u)) u
-      simp only [add_neg_cancel_right] at this
-      rw [hX]; simp only
-      rw [← this]; congr 1; funext t; ring
+    have hY := hY u
     have i1 := integrable_mul_shift (memLp_abs hg) u
     have i2 := integrable_mul_shift hg u
     have i3 : Integrable (fun t => 2 * (gp t * gm (t + u))) :=
@@ -256,47 +219,16 @@ theorem one_sign_of_autocorr {g : ℝ → ℝ} (hgm : Measurable g) (hg : MemLp 
     have h1 := hX0 u
     have h2 := hX0 (-u)
     constructor <;> linarith
-  -- Tonelli: `∫⁻ ofReal X = (∫⁻ g⁺)(∫⁻ g⁻)`
-  have hF : Measurable (Function.uncurry fun (u t : ℝ) => ENNReal.ofReal (gp t * gm (t + u))) :=
-    ENNReal.measurable_ofReal.comp
-      ((hgpm.comp measurable_snd).mul (hgmm.comp (measurable_snd.add measurable_fst)))
-  have hXl : ∀ u, ENNReal.ofReal (X u) = ∫⁻ t, ENNReal.ofReal (gp t * gm (t + u)) := fun u =>
-    ofReal_integral_eq_lintegral_ofReal (integrable_mul_shift₂ hpL hmL u)
-      (Eventually.of_forall fun t => mul_nonneg (hgp0 t) (hgm0 _))
-  have htonelli : ∫⁻ u, ENNReal.ofReal (X u)
-      = (∫⁻ t, ENNReal.ofReal (gp t)) * ∫⁻ s, ENNReal.ofReal (gm s) := by
-    simp_rw [hXl]
-    rw [lintegral_lintegral_swap hF.aemeasurable,
-      ← lintegral_mul_const (∫⁻ s, ENNReal.ofReal (gm s)) hgpm.ennreal_ofReal]
-    congr 1; funext t
-    simp_rw [ENNReal.ofReal_mul (hgp0 t)]
-    rw [lintegral_const_mul' _ _ ENNReal.ofReal_ne_top]
-    congr 1
-    exact lintegral_add_left_eq_self (fun s => ENNReal.ofReal (gm s)) t
-  -- `∫⁻ ofReal X = 0`: split at `0` and reflect the negative half
-  have hXm : Measurable fun u => ENNReal.ofReal (X u) := by
-    have := hF.lintegral_prod_right' (ν := (volume : Measure ℝ))
-    simp only [Function.uncurry_apply_pair] at this
-    simpa only [hXl] using this
-  have hpos : ∫⁻ u in Ioi 0, ENNReal.ofReal (X u) = 0 := by
-    rw [lintegral_eq_zero_iff hXm]
-    exact hae.mono fun u hu => by simp [hu.1]
-  have hneg : ∫⁻ u in Iic 0, ENNReal.ofReal (X u) = 0 := by
-    have e : ∫⁻ u in Iic 0, ENNReal.ofReal (X u) = ∫⁻ v in Ici 0, ENNReal.ofReal (X (-v)) := by
-      rw [← lintegral_indicator measurableSet_Iic, ← lintegral_indicator measurableSet_Ici,
-        ← lintegral_neg_eq_self]
-      congr 1; funext v
-      by_cases hv : 0 ≤ v
-      · simp [hv]
-      · have : ¬ (-v ≤ 0) := by linarith
-        simp [hv, this]
-    rw [e, setLIntegral_congr Ioi_ae_eq_Ici.symm]
-    rw [lintegral_eq_zero_iff (show Measurable fun v => ENNReal.ofReal (X (-v)) from
-      hXm.comp measurable_neg)]
-    exact hae.mono fun u hu => by simp [hu.2]
-  have htot : ∫⁻ u, ENNReal.ofReal (X u) = 0 := by
-    rw [← lintegral_add_compl _ measurableSet_Ioi, compl_Ioi, hpos, hneg, add_zero]
-  rw [htonelli] at htot
+  -- Tonelli: `(∫⁻ g⁺)(∫⁻ g⁻) = 0`
+  have hlin : ∀ {p m : ℝ → ℝ}, MemLp p 2 volume → MemLp m 2 volume → (∀ t, 0 ≤ p t) →
+      (∀ t, 0 ≤ m t) → ∀ u, (∫⁻ t, ENNReal.ofReal (p t * m (t + u)))
+        = ENNReal.ofReal (∫ t, p t * m (t + u)) := fun hp hm hp0 hm0 u =>
+    (ofReal_integral_eq_lintegral_ofReal (integrable_mul_shift₂ hp hm u)
+      (Eventually.of_forall fun t => mul_nonneg (hp0 t) (hm0 _))).symm
+  have htot := tonelli_zero hgpm hgmm hgp0 (hae.mono fun u hu => by
+    rw [hlin hpL hmL hgp0 hgm0, hlin hmL hpL hgm0 hgp0, hY u]
+    simp only [hX] at hu ⊢
+    rw [hu.1, hu.2]; simp)
   rcases mul_eq_zero.1 htot with h0 | h0
   · -- `g⁺ = 0`: `g ≤ 0`
     right
@@ -318,74 +250,30 @@ theorem one_sign_of_autocorr {g : ℝ → ℝ} (hgm : Measurable g) (hg : MemLp 
 
 /-! ## The ground-state space of `Q₀` -/
 
-def lam0 (a : ℝ) : ℝ := sInf {q | ∃ h, Probe a h ∧ normSq h = 1 ∧ weilQ0 a h = q}
+/-- `Q₀` is a `ProbeForm`. -/
+theorem weilQ0_form (a : ℝ) : ProbeForm a (weilQ0 a) where
+  zero := weilQ0_zero a
+  smul := weilQ0_smul a
+  add_sub := weilQ0_add_sub
+  congr_ae := fun h => weilQ0_congr_ae h a
+  bdd := ⟨weilConst - 2 * primeWeight a, by
+    rintro q ⟨h, hp, hn, rfl⟩
+    have := weilQ0_ge hp; rwa [hn, mul_one] at this⟩
 
-theorem lam0_bdd (a : ℝ) : BddBelow {q | ∃ h, Probe a h ∧ normSq h = 1 ∧ weilQ0 a h = q} := by
-  refine ⟨weilConst - 2 * primeWeight a, ?_⟩
-  rintro q ⟨h, hp, hn, rfl⟩
-  have := weilQ0_ge hp; rwa [hn, mul_one] at this
+abbrev lam0 (a : ℝ) : ℝ := (weilQ0_form a).inf
 
 theorem lam0_le {a : ℝ} {h : ℝ → ℝ} (hp : Probe a h) (hn : normSq h = 1) : lam0 a ≤ weilQ0 a h :=
-  csInf_le (lam0_bdd a) ⟨h, hp, hn, rfl⟩
+  (weilQ0_form a).inf_le hp hn
 
-theorem lam0_mul_le {a : ℝ} {g : ℝ → ℝ} (hg : Probe a g) : lam0 a * normSq g ≤ weilQ0 a g := by
-  rcases (normSq_nonneg g).lt_or_eq with hpos | h0
-  · set c := 1 / Real.sqrt (normSq g) with hc
-    have hc2 : c ^ 2 * normSq g = 1 := by
-      rw [hc, div_pow, Real.sq_sqrt hpos.le]; field_simp
-    have h1 := lam0_le (probe_smul hg c) (by rw [normSq_smul]; exact hc2)
-    rw [weilQ0_smul a g c] at h1
-    have hc0 : 0 < c ^ 2 := by positivity
-    have : lam0 a * normSq g * c ^ 2 ≤ weilQ0 a g * c ^ 2 :=
-      calc lam0 a * normSq g * c ^ 2 = lam0 a * (c ^ 2 * normSq g) := by ring
-        _ = lam0 a := by rw [hc2, mul_one]
-        _ ≤ c ^ 2 * weilQ0 a g := h1
-        _ = weilQ0 a g * c ^ 2 := by ring
-    exact le_of_mul_le_mul_right this hc0
-  · have hz := ae_zero_of_normSq hg.memL2 h0.symm
-    rw [← h0, mul_zero, weilQ0_congr_ae hz]
-    exact le_of_eq (weilQ0_zero a).symm
+theorem lam0_mul_le {a : ℝ} {g : ℝ → ℝ} (hg : Probe a g) : lam0 a * normSq g ≤ weilQ0 a g :=
+  (weilQ0_form a).inf_mul_le hg
 
 /-- The ground-state space of `Q₀`. -/
-def groundSpace0 (a : ℝ) : Submodule ℝ (ℝ → ℝ) where
-  carrier := {g | Probe a g ∧ weilQ0 a g = lam0 a * normSq g}
-  zero_mem' := by
-    refine ⟨probe_zero a, ?_⟩
-    show weilQ0 a (fun _ => 0) = lam0 a * normSq (fun _ => 0)
-    rw [weilQ0_zero]; simp [normSq]
-  add_mem' := by
-    rintro g h ⟨hg, hgq⟩ ⟨hh, hhq⟩
-    obtain ⟨hp, hm⟩ := probe_add_sub hg hh
-    refine ⟨hp, ?_⟩
-    show weilQ0 a (fun t => g t + h t) = lam0 a * normSq (fun t => g t + h t)
-    have hQ := weilQ0_add_sub hg hh
-    have hN := normSq_add_sub hg.memL2 hh.memL2
-    have r1 := lam0_mul_le hp
-    have r2 := lam0_mul_le hm
-    have : weilQ0 a (fun t => g t + h t) - lam0 a * normSq (fun t => g t + h t)
-        + (weilQ0 a (fun t => g t - h t) - lam0 a * normSq (fun t => g t - h t)) = 0 := by
-      linear_combination hQ - lam0 a * hN + 2 * hgq + 2 * hhq
-    linarith
-  smul_mem' := by
-    rintro c g ⟨hg, hgq⟩
-    refine ⟨probe_smul hg c, ?_⟩
-    show weilQ0 a (fun t => c * g t) = lam0 a * normSq (fun t => c * g t)
-    rw [weilQ0_smul a g c, normSq_smul, hgq]; ring
+abbrev groundSpace0 (a : ℝ) : Submodule ℝ (ℝ → ℝ) := (weilQ0_form a).space
 
 theorem isGroundState0_iff {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} :
-    IsGroundState0 a g ↔ g ∈ groundSpace0 a ∧ normSq g = 1 := by
-  constructor
-  · rintro ⟨hp, hn, hmin⟩
-    refine ⟨⟨hp, ?_⟩, hn⟩
-    rw [hn, mul_one]
-    refine le_antisymm ?_ (lam0_le hp hn)
-    refine le_csInf ⟨_, box a, box_probe a, normSq_box ha, rfl⟩ ?_
-    rintro q ⟨h, hph, hnh, rfl⟩
-    exact hmin h hph hnh
-  · rintro ⟨⟨hp, hq⟩, hn⟩
-    refine ⟨hp, hn, fun h hph hnh => ?_⟩
-    rw [hq, hn, mul_one]
-    exact lam0_le hph hnh
+    IsGroundState0 a g ↔ g ∈ groundSpace0 a ∧ normSq g = 1 :=
+  (weilQ0_form a).isMin_iff ha
 
 /-! ## Ground states of `Q₀` have one sign, and are unique -/
 

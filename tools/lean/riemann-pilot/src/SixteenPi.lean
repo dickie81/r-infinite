@@ -5,7 +5,7 @@ import Curvature
 
 The owner's working note (`riemann-strip-target-note.md` §3.4) derives the pilot's Gaussian-multiplier
 time `τ_a = e^{−δ}/(16π)` (README rounds 70–73) within the paper's reduced balayage problem. This file
-proves everything in that derivation except the balayage identity itself.
+proves that derivation in full, including the balayage identity (round 75, §G below).
 
 * **The closed-form integrals (iv).** `∫_X^∞ x⁻² ln x dx = (1 + ln X)/X` (`integral_log_div_sq_Ioi`),
   `P = ∫₀¹ (1 − √(1 − s²))/s² ds = π/2 − 1` (`P_eq`), `Q = ∫₀¹ ln s · (1 − √(1 − s²))/s² ds
@@ -147,7 +147,7 @@ def P : ℝ := ∫ s in (0 : ℝ)..1, kerN s
 /-- The note's `Q := ∫₀¹ ln s · (1 − √(1 − s²))/s² ds`. -/
 def Q : ℝ := ∫ s in (0 : ℝ)..1, log s * kerN s
 
-theorem sin_image_Ioo : sin '' Ioo 0 (π / 2) = Ioo 0 1 := by
+theorem sin_image_Ioo_half_pi : sin '' Ioo 0 (π / 2) = Ioo 0 1 := by
   ext y; constructor
   · rintro ⟨θ, ⟨h0, h1⟩, rfl⟩
     refine ⟨sin_pos_of_pos_of_lt_pi h0 (by linarith [pi_pos]), ?_⟩
@@ -162,7 +162,7 @@ theorem integral_subst_sin (g : ℝ → ℝ) :
     ∫ s in (0 : ℝ)..1, g s = ∫ θ in Ioo 0 (π / 2), g (sin θ) * cos θ := by
   have hinj : InjOn sin (Ioo 0 (π / 2)) := injOn_sin.mono fun θ (hθ : θ ∈ Ioo 0 (π / 2)) =>
     (⟨by linarith [hθ.1, pi_pos], hθ.2.le⟩ : θ ∈ Icc (-(π / 2)) (π / 2))
-  rw [intervalIntegral.integral_of_le zero_le_one, integral_Ioc_eq_integral_Ioo, ← sin_image_Ioo,
+  rw [intervalIntegral.integral_of_le zero_le_one, integral_Ioc_eq_integral_Ioo, ← sin_image_Ioo_half_pi,
     integral_image_eq_integral_abs_deriv_smul measurableSet_Ioo
       (fun θ _ => (hasDerivAt_sin θ).hasDerivWithinAt) hinj]
   refine setIntegral_congr_fun measurableSet_Ioo (fun θ hθ => ?_)
@@ -318,8 +318,8 @@ theorem J_two : J 2 = π / 4 := by
   rw [J_eq two_pos]; norm_num
 
 /-- **The exterior moment, given the balayage identity.** If the probe's exterior zero density `τ`
-satisfies the balayage identity `∫_X^∞ x⁻² τ = ∫₀^X (−ln t) h_X(t) dt` (harmonic measure; not
-formalised here), then `∫_X^∞ x⁻²[ln x − τ(x)] dx = (π/(2X))(1 + ln(X/2))`. -/
+satisfies the balayage identity `∫_X^∞ x⁻² τ = ∫₀^X (−ln t) h_X(t) dt` (proved for the paper's density
+in `balayage_identity` below), then `∫_X^∞ x⁻²[ln x − τ(x)] dx = (π/(2X))(1 + ln(X/2))`. -/
 theorem exteriorMoment_eq {X : ℝ} (hX : 1 ≤ X) {τ : ℝ → ℝ}
     (hτ : IntegrableOn (fun x => τ x / x ^ 2) (Ioi X))
     (hbal : ∫ x in Ioi X, τ x / x ^ 2 = balayageSide X) :

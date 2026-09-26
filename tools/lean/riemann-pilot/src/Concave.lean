@@ -182,6 +182,45 @@ theorem intervalIntegral_congr_off_point {f f' : ℝ → ℝ} {p q c : ℝ}
   rw [uIoc_of_le hpq] at hmem
   exact h x hmem hx
 
+/-- **Layer-cake Fubini.** For a measurable profile `0 ≤ c ≤ H` and a bounded measurable `w`,
+`∫_p^q c(s)·w(s) ds = ∫_{(0, H]} ∫_p^q 1[l < c(s)] w(s) ds dl`. -/
+theorem layer_fubini {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E] [CompleteSpace E]
+    [MeasurableSpace E] [BorelSpace E] [SecondCountableTopology E]
+    {p q H C : ℝ} (hpq : p ≤ q) {c : ℝ → ℝ} (hcm : Measurable c) (hc0 : ∀ s, 0 ≤ c s)
+    (hcH : ∀ s, c s ≤ H) {w : ℝ → E} (hw : Measurable w) (hwC : ∀ s ∈ Ioc p q, ‖w s‖ ≤ C) :
+    ∫ s in p..q, c s • w s = ∫ l in Ioc 0 H, ∫ s in p..q, (Iio (c s)).indicator (fun _ => w s) l := by
+  set F : ℝ → ℝ → E := fun s l => (Iio (c s)).indicator (fun _ => w s) l with hF
+  have hlayer : ∀ s, c s • w s = ∫ l in Ioc 0 H, F s l := by
+    intro s
+    simp only [hF]
+    rw [setIntegral_indicator measurableSet_Iio, setIntegral_const]
+    have hset : Ioc 0 H ∩ Iio (c s) = Ioo 0 (c s) := by
+      ext l; simp only [mem_inter_iff, mem_Ioc, mem_Iio, mem_Ioo]
+      constructor
+      · rintro ⟨⟨h1, _⟩, h3⟩; exact ⟨h1, h3⟩
+      · rintro ⟨h1, h3⟩; exact ⟨⟨h1, (h3.trans_le (hcH s)).le⟩, h3⟩
+    rw [hset, Measure.real, Real.volume_Ioo, ENNReal.toReal_ofReal (by linarith [hc0 s]), sub_zero]
+  have hfin : IsFiniteMeasure (volume.restrict (uIoc p q)) := by
+    rw [uIoc_of_le hpq]; exact isFiniteMeasure_restrict.2 measure_Ioc_lt_top.ne
+  have hfin2 : IsFiniteMeasure (volume.restrict (Ioc (0 : ℝ) H)) :=
+    isFiniteMeasure_restrict.2 measure_Ioc_lt_top.ne
+  have hmeasF : Measurable (Function.uncurry F) := by
+    have e : Function.uncurry F = {x : ℝ × ℝ | x.2 < c x.1}.indicator (fun x => w x.1) := by
+      funext ⟨s, l⟩; simp [hF, Set.indicator]
+    rw [e]
+    exact (hw.comp measurable_fst).indicator (measurableSet_lt measurable_snd (hcm.comp measurable_fst))
+  have hint : Integrable (Function.uncurry F)
+      ((volume.restrict (uIoc p q)).prod (volume.restrict (Ioc 0 H))) := by
+    refine Integrable.of_bound hmeasF.aestronglyMeasurable C ?_
+    rw [Measure.prod_restrict]
+    refine ae_restrict_of_forall_mem (measurableSet_uIoc.prod measurableSet_Ioc) ?_
+    rintro ⟨s, l⟩ ⟨hs, _⟩
+    rw [uIoc_of_le hpq] at hs
+    exact (norm_indicator_le_norm_self (fun _ => w s) l).trans (hwC s hs)
+  have e1 : ∫ s in p..q, c s • w s = ∫ s in p..q, ∫ l in Ioc 0 H, F s l := by
+    congr 1; funext s; exact hlayer s
+  rw [e1, intervalIntegral_integral_swap hint]
+
 /-- **The layer-cake inequality.** If `h ≥ 0` is nondecreasing on `[0, b]` and every tail integral
 `∫_c^b w` (`c ∈ [0, b]`) is `≥ 0`, then `∫₀^b h w ≥ 0`. -/
 theorem layer_nonneg {b : ℝ} (hb : 0 < b) {h : ℝ → ℝ} (hmono : MonotoneOn h (Icc 0 b))
@@ -202,46 +241,12 @@ theorem layer_nonneg {b : ℝ} (hb : 0 < b) {h : ℝ → ℝ} (hmono : MonotoneO
     rw [uIcc_of_le hb.le] at hs
     simp only [hhc, hcl, min_eq_left hs.2, max_eq_right hs.1]
   rw [e0]
-  -- the layer function
-  set F : ℝ → ℝ → ℝ := fun s l => (Iio (hc s)).indicator (fun _ => w s) l with hF
-  have hlayer : ∀ s, hc s * w s = ∫ l in Ioc 0 H, F s l := by
-    intro s
-    simp only [hF]
-    rw [setIntegral_indicator measurableSet_Iio, setIntegral_const]
-    have hset : Ioc 0 H ∩ Iio (hc s) = Ioo 0 (hc s) := by
-      ext l; simp only [mem_inter_iff, mem_Ioc, mem_Iio, mem_Ioo]
-      constructor
-      · rintro ⟨⟨h1, _⟩, h3⟩; exact ⟨h1, h3⟩
-      · rintro ⟨h1, h3⟩; exact ⟨⟨h1, (h3.trans_le (hcH s)).le⟩, h3⟩
-    rw [hset, Measure.real, Real.volume_Ioo, ENNReal.toReal_ofReal (by linarith [hcnn s]),
-      smul_eq_mul, sub_zero]
-  -- Fubini
   obtain ⟨C, hC⟩ := isCompact_Icc.exists_bound_of_continuousOn (hw.continuousOn (s := Icc 0 b))
-  have hfin : IsFiniteMeasure (volume.restrict (uIoc 0 b)) := by
-    rw [uIoc_of_le hb.le]; exact isFiniteMeasure_restrict.2 measure_Ioc_lt_top.ne
-  have hfin2 : IsFiniteMeasure (volume.restrict (Ioc (0 : ℝ) H)) :=
-    isFiniteMeasure_restrict.2 measure_Ioc_lt_top.ne
-  have hmeasF : Measurable (Function.uncurry F) := by
-    have e : Function.uncurry F = {p : ℝ × ℝ | p.2 < hc p.1}.indicator (fun p => w p.1) := by
-      funext ⟨s, l⟩; simp [hF, Set.indicator]
-    rw [e]
-    exact (hw.measurable.comp measurable_fst).indicator
-      (measurableSet_lt measurable_snd (hcm.measurable.comp measurable_fst))
-  have hint : Integrable (Function.uncurry F)
-      ((volume.restrict (uIoc 0 b)).prod (volume.restrict (Ioc 0 H))) := by
-    refine Integrable.of_bound hmeasF.aestronglyMeasurable C ?_
-    rw [Measure.prod_restrict]
-    refine ae_restrict_of_forall_mem (measurableSet_uIoc.prod measurableSet_Ioc) ?_
-    rintro ⟨s, l⟩ ⟨hs, _⟩
-    rw [uIoc_of_le hb.le] at hs
-    have := hC s ⟨hs.1.le, hs.2⟩
-    simp only [Function.uncurry_apply_pair, hF]
-    calc ‖(Iio (hc s)).indicator (fun _ => w s) l‖ ≤ ‖w s‖ :=
-          norm_indicator_le_norm_self (fun _ => w s) l
-      _ ≤ C := this
-  have e1 : ∫ s in (0 : ℝ)..b, hc s * w s = ∫ s in (0 : ℝ)..b, ∫ l in Ioc 0 H, F s l := by
-    congr 1; funext s; exact hlayer s
-  rw [e1, intervalIntegral_integral_swap hint]
+  have hL := layer_fubini (E := ℝ) hb.le hcm.measurable hcnn hcH hw.measurable
+    (fun s hs => hC s ⟨hs.1.le, hs.2⟩)
+  simp only [smul_eq_mul] at hL
+  rw [hL]
+  set F : ℝ → ℝ → ℝ := fun s l => (Iio (hc s)).indicator (fun _ => w s) l with hF
   -- each layer contributes a tail integral
   refine setIntegral_nonneg measurableSet_Ioc fun l hl => ?_
   set T := {s ∈ Icc 0 b | l < hc s} with hT
@@ -508,6 +513,7 @@ theorem realRooted_of_ae_concaveOn (ha : 0 < a) (hc : ConcaveOn ℝ (Ioo (-a) a)
 end Pilot1ca
 
 #print axioms Pilot1ca.ghatC_byParts
+#print axioms Pilot1ca.layer_fubini
 #print axioms Pilot1ca.layer_nonneg
 #print axioms Pilot1ca.realRooted_concave_lt
 #print axioms Pilot1ca.realRooted_of_concaveOn

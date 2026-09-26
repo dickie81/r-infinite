@@ -322,13 +322,17 @@ theorem box_probe (a : ℝ) : Probe a (box a) := by
 
 /-! ## The minimiser -/
 
-/-- The non-archimedean part of `Q`: the pole, constant and prime terms. -/
-def nonArch (a : ℝ) (g : ℝ → ℝ) : ℝ :=
-  2 * poleR g a ^ 2 + ((Complex.digamma (1 / 4)).re - Real.log π) * normSq g
+/-- The non-archimedean part of `Q` with pole weight `c`: the pole, constant and prime terms. -/
+def nonArch (c a : ℝ) (g : ℝ → ℝ) : ℝ :=
+  c * poleR g a ^ 2 + ((Complex.digamma (1 / 4)).re - Real.log π) * normSq g
     - 2 * ∑' n : ℕ, ArithmeticFunction.vonMangoldt n / Real.sqrt n * autocorr g (Real.log n)
 
-theorem weilQ_eq_nonArch_add (a : ℝ) (g : ℝ → ℝ) : weilQ a g = nonArch a g + archE g := by
-  unfold weilQ nonArch archE; ring
+/-- Weil's form with pole weight `c ≥ 0`: `Q_c = Q − (2 − c)ĝ(i/2)²`. So `Q_2 = Q` and `Q_0 = Q₀`,
+the pole-free form. -/
+def weilQc (c a : ℝ) (g : ℝ → ℝ) : ℝ := nonArch c a g + archE g
+
+theorem weilQ_eq_weilQc (a : ℝ) (g : ℝ → ℝ) : weilQ a g = weilQc 2 a g := by
+  unfold weilQc weilQ nonArch archE; ring
 
 /-- The pole weight `1_{(−a, a]}·e^{−u/2}`: `ĝ(i/2) = ∫ g·w`. -/
 def poleW (a : ℝ) : ℝ → ℝ := Set.indicator (Ioc (-a) a) fun u => Real.exp (-(u / 2))
@@ -347,28 +351,32 @@ theorem poleR_eq {a : ℝ} (ha : 0 ≤ a) (g : ℝ → ℝ) : poleR g a = ∫ t,
 theorem normSq_eq_mul (g : ℝ → ℝ) : normSq g = ∫ t, g t * g t := by
   unfold normSq; congr 1; funext t; ring
 
-/-- **A ground state of Weil's form exists at every support `δ = 2a > 0`.** -/
-theorem exists_groundState {a : ℝ} (ha : 0 < a) : ∃ g, IsGroundState a g := by
-  set Sv : Set ℝ := {q | ∃ h, Probe a h ∧ normSq h = 1 ∧ weilQ a h = q} with hSv
+/-- **A minimiser of `Q_c` exists at every support `δ = 2a > 0`**, for every pole weight `c ≥ 0`. -/
+theorem exists_min_weilQc {a c : ℝ} (ha : 0 < a) (hc : 0 ≤ c) : ∃ g, Probe a g ∧ normSq g = 1 ∧
+    ∀ h, Probe a h → normSq h = 1 → weilQc c a g ≤ weilQc c a h := by
+  set Sv : Set ℝ := {q | ∃ h, Probe a h ∧ normSq h = 1 ∧ weilQc c a h = q} with hSv
   have hne : Sv.Nonempty := ⟨_, box a, box_probe a, normSq_box ha, rfl⟩
   have hbdd : BddBelow Sv := by
     refine ⟨weilConst - 2 * primeWeight a, ?_⟩
     rintro q ⟨h, hp, hn, rfl⟩
-    have := weilQ_ge hp; rwa [hn, mul_one] at this
+    have hA := archE_nonneg hp
+    have hS := (le_abs_self _).trans (abs_prime_sum_le hp)
+    have hpole : 0 ≤ c * poleR h a ^ 2 := by positivity
+    unfold weilQc nonArch weilConst; rw [hn, mul_one] at hS; rw [hn]; linarith
   obtain ⟨q, hqa, hq, hqS⟩ := exists_seq_tendsto_sInf hne hbdd
   choose h hp hn hQ using hqS
   set lam := sInf Sv with hlam
   -- the non-archimedean part is bounded below, so the archimedean energy is bounded above
-  have hNA : ∀ g, Probe a g → normSq g = 1 → weilConst - 2 * primeWeight a ≤ nonArch a g := by
+  have hNA : ∀ g, Probe a g → normSq g = 1 → weilConst - 2 * primeWeight a ≤ nonArch c a g := by
     intro g hpg hng
-    have hpole : 0 ≤ 2 * poleR g a ^ 2 := by positivity
+    have hpole : 0 ≤ c * poleR g a ^ 2 := by positivity
     have hprime := (le_abs_self _).trans (abs_prime_sum_le hpg)
     unfold nonArch weilConst
     rw [hng] at hprime ⊢
     linarith
   have hC : ∀ j, archE (h j) ≤ q 0 - (weilConst - 2 * primeWeight a) := by
     intro j
-    have e := weilQ_eq_nonArch_add a (h j)
+    have e : weilQc c a (h j) = nonArch c a (h j) + archE (h j) := rfl
     have := hNA (h j) (hp j) (hn j)
     have hqj : q j ≤ q 0 := hqa (Nat.zero_le j)
     rw [hQ j] at e
@@ -413,14 +421,14 @@ theorem exists_groundState {a : ℝ} (ha : 0 < a) : ∃ g, IsGroundState a g := 
     simp_rw [e1]
     rw [prime_sum_eq hsuppG']
     exact tendsto_finsetSum _ fun n _ => (hauto _).const_mul _
-  have hnonArch : Tendsto (fun j => nonArch a (h (φ j))) atTop (𝓝 (nonArch a G')) := by
+  have hnonArch : Tendsto (fun j => nonArch c a (h (φ j))) atTop (𝓝 (nonArch c a G')) := by
     unfold nonArch
-    exact (((hpoleT.pow 2).const_mul 2).add (hnorm.const_mul _)).sub (hprimeT.const_mul 2)
+    exact (((hpoleT.pow 2).const_mul c).add (hnorm.const_mul _)).sub (hprimeT.const_mul 2)
   -- the archimedean energies converge to `λ − nonArch(G')`
   have hqφ : Tendsto (fun j => q (φ j)) atTop (𝓝 lam) := hq.comp hφ.tendsto_atTop
-  have hA : Tendsto (fun j => archE (h (φ j))) atTop (𝓝 (lam - nonArch a G')) := by
-    have e : ∀ j, archE (h (φ j)) = q (φ j) - nonArch a (h (φ j)) := by
-      intro j; rw [← hQ (φ j), weilQ_eq_nonArch_add]; ring
+  have hA : Tendsto (fun j => archE (h (φ j))) atTop (𝓝 (lam - nonArch c a G')) := by
+    have e : ∀ j, archE (h (φ j)) = q (φ j) - nonArch c a (h (φ j)) := by
+      intro j; rw [← hQ (φ j)]; unfold weilQc; ring
     simp_rw [e]
     exact hqφ.sub hnonArch
   -- Fatou: the limit's archimedean integral converges and is at most the limit
@@ -432,9 +440,15 @@ theorem exists_groundState {a : ℝ} (ha : 0 < a) : ∃ g, IsGroundState a g := 
       exact ((hauto 0).sub (hauto u)).mul_const _) hA
   have hPG : Probe a G' := ⟨symCut_even a G, hsuppG', hG', hint⟩
   refine ⟨G', hPG, hnormG, fun h' hp' hn' => ?_⟩
-  have hQG : weilQ a G' ≤ lam := by
-    rw [weilQ_eq_nonArch_add]; unfold archE; linarith
+  have hQG : weilQc c a G' ≤ lam := by
+    unfold weilQc; unfold archE; linarith
   exact hQG.trans (csInf_le hbdd ⟨h', hp', hn', rfl⟩)
+
+/-- **A ground state of Weil's form exists at every support `δ = 2a > 0`.** -/
+theorem exists_groundState {a : ℝ} (ha : 0 < a) : ∃ g, IsGroundState a g := by
+  obtain ⟨g, hp, hn, hmin⟩ := exists_min_weilQc ha (c := 2) (by norm_num)
+  exact ⟨g, hp, hn, fun h hph hnh => by
+    rw [weilQ_eq_weilQc, weilQ_eq_weilQc]; exact hmin h hph hnh⟩
 
 /-- Ground states at every support of a sequence `a_n > 0`: the family the chain of
 `rh_of_groundStates_dodging` quantifies over is non-empty. -/

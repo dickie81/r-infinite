@@ -5,8 +5,8 @@ import SmallPositivity
 
 This extends round 121's `weilQ_ge_quarter` (`a ≤ 1/16`) to `a ≤ 1/12`, still analytic and still on every
 normalised even probe. Three constants are sharpened.
-* **`γ < 0.60815`** from Mathlib's `γ < H_n − log n` at `n = 16`. Round 121 used `γ < 2/3`.
-* **`log 3 > 1.0986`** from Mathlib's Taylor bound `exp_bound` at `0.0986` and `e < 2.7182818286`.
+* **`γ < 0.60815`** from Mathlib's `γ < H_n − log n` at `n = 16` (`gamma_lt`, now in SmallPositivity.lean).
+* **`log 3 > 1.0986`** (`log_three_gt`, FourierGap.lean) from Mathlib's Taylor bound `exp_bound` at `0.0986` and `e < 2.7182818286`.
 * **The far field without the `−a` loss**: `(eᵃ + 1)/(eᵃ − 1) ≥ 2/a`, i.e. `tanh y ≤ y`, proved by
   monotonicity. So `Far(a) ≥ log(2/a) + π/2 − sinh a ≥ log 24 + π/2 − sinh(1/12)`.
 
@@ -20,47 +20,6 @@ open Real Filter Topology Complex MeasureTheory Set
 noncomputable section
 
 namespace Pilot1ca
-
-theorem gamma_lt : Real.eulerMascheroniConstant < 0.60815 := by
-  have h := Real.eulerMascheroniConstant_lt_eulerMascheroniSeq' 16
-  have e : Real.eulerMascheroniSeq' 16 = 2436559 / 720720 - Real.log 16 := by
-    rw [Real.eulerMascheroniSeq']; norm_num [harmonic, Finset.sum_range_succ]
-  have hl : Real.log 16 = 4 * Real.log 2 := by
-    rw [show (16 : ℝ) = 2 ^ 4 by norm_num, Real.log_pow]; norm_num
-  have hl2 := Real.log_two_gt_d9
-  rw [e, hl] at h
-  norm_num at hl2 ⊢
-  linarith
-
-theorem log_three_gt' : (1.0986 : ℝ) < Real.log 3 := by
-  rw [Real.lt_log_iff_exp_lt (by norm_num)]
-  have he := Real.exp_one_lt_d9
-  have hb := Real.exp_bound (x := 0.0986) (by rw [abs_of_pos (by norm_num)]; norm_num) (n := 4) (by norm_num)
-  simp [Finset.sum_range_succ, Nat.factorial] at hb
-  have hb' : Real.exp 0.0986 ≤ 1.10363 := by
-    have := (abs_le.mp hb).2
-    norm_num at this ⊢; linarith
-  have : Real.exp 1.0986 = Real.exp 1 * Real.exp 0.0986 := by rw [← Real.exp_add]; norm_num
-  rw [this]
-  have h0 : 0 < Real.exp 0.0986 := Real.exp_pos _
-  norm_num at he
-  nlinarith
-
-theorem weilConst_ge' : (-5.4301 : ℝ) ≤ weilConst := by
-  rw [weilConst_eq]
-  have hγ := gamma_lt
-  have hπ := Real.pi_lt_d4
-  have hπ0 := Real.pi_gt_three
-  have hl2 := Real.log_two_lt_d9
-  have hlogπ : Real.log π ≤ 2 * Real.log 2 + (π / 4 - 1) := by
-    have h4 : Real.log π = Real.log 4 + Real.log (π / 4) := by
-      rw [← Real.log_mul (by norm_num) (by positivity)]; congr 1; ring
-    have h44 : Real.log 4 = 2 * Real.log 2 := by
-      rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
-    have := Real.log_le_sub_one_of_pos (show 0 < π / 4 by positivity)
-    linarith
-  norm_num at hl2 hπ
-  linarith
 
 /-- `tanh y ≤ y` in the form `2(eᵃ − 1) ≤ a(eᵃ + 1)` for `a ≥ 0`. -/
 theorem two_exp_sub_le {a : ℝ} (ha : 0 ≤ a) : 2 * (Real.exp a - 1) ≤ a * (Real.exp a + 1) := by
@@ -103,7 +62,7 @@ theorem farField_ge' {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1 / 12) : (4.6654 : ℝ
   have hat : Real.arctan (Real.sinh a) ≤ Real.sinh a := Real.arctan_le_self (Real.sinh_nonneg_iff.mpr ha.le)
   have hsh : Real.sinh a ≤ a + a ^ 3 / 6 + a ^ 5 / 100 := sinh_le_taylor ha.le (by linarith)
   have hl2 := Real.log_two_gt_d9
-  have hl3 := log_three_gt'
+  have hl3 := log_three_gt
   have hπ := Real.pi_gt_d6
   have h3 : a ^ 3 ≤ (1 / 12) ^ 3 := pow_le_pow_left₀ ha.le ha1 3
   have h5 : a ^ 5 ≤ (1 / 12) ^ 5 := pow_le_pow_left₀ ha.le ha1 5
@@ -147,7 +106,7 @@ theorem weilQ_ge_twentieth {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1 / 12) {g : ℝ 
   have hlog : 2 * a < Real.log 2 := by
     have := Real.log_two_gt_d9; norm_num at this; linarith
   rw [weilQ_eq', primeS_eq_zero hlog hp, hn, archE_split ha hp hn]
-  have hC := weilConst_ge'
+  have hC := weilConst_ge
   have hF := farField_ge' ha ha1
   have hN := nearField_all' ha ha1 hp hn
   have hP : 0 ≤ 2 * poleR g a ^ 2 := by positivity
@@ -156,8 +115,7 @@ theorem weilQ_ge_twentieth {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1 / 12) {g : ℝ 
 end Pilot1ca
 
 #print axioms Pilot1ca.gamma_lt
-#print axioms Pilot1ca.log_three_gt'
-#print axioms Pilot1ca.weilConst_ge'
+#print axioms Pilot1ca.log_three_gt
 #print axioms Pilot1ca.two_exp_sub_le
 #print axioms Pilot1ca.farField_ge'
 #print axioms Pilot1ca.nearField_all'

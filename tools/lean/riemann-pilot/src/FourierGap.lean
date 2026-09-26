@@ -35,6 +35,37 @@ noncomputable section
 
 namespace Pilot1ca
 
+/-- A probe of either parity: supported in `[−a, a]`, in `L²`, with convergent archimedean integral.
+The mode machinery below uses only these three facts, so it serves odd probes too. -/
+structure SProbe (a : ℝ) (g : ℝ → ℝ) : Prop where
+  supp : ∀ u, a < |u| → g u = 0
+  memL2 : MemLp g 2 volume
+  arch : IntegrableOn (archIntegrand g) (Set.Ioi 0)
+
+theorem Probe.toS {a : ℝ} {g : ℝ → ℝ} (hp : Probe a g) : SProbe a g := ⟨hp.supp, hp.memL2, hp.arch⟩
+
+/-! ## Monotonicity in the support: `Q` sees the probe, not the window -/
+
+theorem Probe.mono {a a₁ : ℝ} {g : ℝ → ℝ} (hp : Probe a g) (h : a ≤ a₁) : Probe a₁ g :=
+  ⟨hp.even, fun u hu => hp.supp u (lt_of_le_of_lt h hu), hp.memL2, hp.arch⟩
+
+theorem poleR_eq_integral {a : ℝ} (ha : 0 ≤ a) {g : ℝ → ℝ} (hsupp : ∀ u, a < |u| → g u = 0) :
+    poleR g a = ∫ u, g u * Real.exp (-(u / 2)) := by
+  unfold poleR
+  rw [intervalIntegral.integral_of_le (by linarith), ← integral_Icc_eq_integral_Ioc,
+    setIntegral_eq_integral_of_forall_compl_eq_zero]
+  intro u hu
+  have h : a < |u| := by
+    by_contra h'
+    push Not at h'
+    exact hu ⟨by linarith [neg_abs_le u], by linarith [le_abs_self u]⟩
+  rw [hsupp u h, zero_mul]
+
+theorem weilQ_mono {a a₁ : ℝ} (ha : 0 ≤ a) (h : a ≤ a₁) {g : ℝ → ℝ} (hp : Probe a g) :
+    weilQ a₁ g = weilQ a g := by
+  unfold weilQ
+  rw [poleR_eq_integral ha hp.supp, poleR_eq_integral (ha.trans h) (hp.mono h).supp]
+
 /-! ## The kernel, the prime term below `log 2`, the far field -/
 
 theorem kerK_le {u : ℝ} (hu : 0 < u) : kerK u ≤ Real.exp (u / 2) / u := by
@@ -42,7 +73,7 @@ theorem kerK_le {u : ℝ} (hu : 0 < u) : kerK u ≤ Real.exp (u / 2) / u := by
   exact div_le_div_of_nonneg_left (Real.exp_pos _).le hu (Real.self_le_sinh_iff.2 hu.le)
 
 /-- Below the first prime power (`2a < log 2`) the prime term of every probe vanishes. -/
-theorem primeS_eq_zero {a : ℝ} (ha : 2 * a < Real.log 2) {g : ℝ → ℝ} (hg : Probe a g) :
+theorem primeS_eq_zeroS {a : ℝ} (ha : 2 * a < Real.log 2) {g : ℝ → ℝ} (hg : SProbe a g) :
     primeS g = 0 := by
   unfold primeS
   refine (tsum_congr fun n => ?_).trans tsum_zero
@@ -56,17 +87,25 @@ theorem primeS_eq_zero {a : ℝ} (ha : 2 * a < Real.log 2) {g : ℝ → ℝ} (hg
       autocorr_eq_zero hg.supp (by rw [abs_of_pos hpos]; linarith)
     simp [hz]
 
+theorem primeS_eq_zero {a : ℝ} (ha : 2 * a < Real.log 2) {g : ℝ → ℝ} (hg : Probe a g) :
+    primeS g = 0 :=
+  primeS_eq_zeroS ha hg.toS
+
 theorem box_sq {a : ℝ} (ha : 0 < a) : (1 / Real.sqrt (2 * a)) ^ 2 = 1 / (2 * a) := by
   rw [div_pow, Real.sq_sqrt (by linarith), one_pow]
 
-theorem archIntegrand_eq_kerK {a : ℝ} (ha : 0 ≤ a) {g : ℝ → ℝ} (hg : Probe a g) (hn : normSq g = 1) {u : ℝ}
+theorem archIntegrand_eq_kerKS {a : ℝ} (ha : 0 ≤ a) {g : ℝ → ℝ} (hg : SProbe a g) (hn : normSq g = 1) {u : ℝ}
     (hu : 2 * a < u) : archIntegrand g u = kerK u := by
   unfold archIntegrand kerK
   rw [autocorr_zero, hn, autocorr_eq_zero hg.supp (by rwa [abs_of_pos (by linarith)])]
   ring
 
+theorem archIntegrand_eq_kerK {a : ℝ} (ha : 0 ≤ a) {g : ℝ → ℝ} (hg : Probe a g) (hn : normSq g = 1) {u : ℝ}
+    (hu : 2 * a < u) : archIntegrand g u = kerK u :=
+  archIntegrand_eq_kerKS ha hg.toS hn hu
+
 /-- `archE g = ∫_{(0,2a]} A_g + ∫_{u > 2a} K` for a normalised probe. -/
-theorem archE_split {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) :
+theorem archE_splitS {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g) (hn : normSq g = 1) :
     archE g = (∫ u in Ioc 0 (2 * a), archIntegrand g u) + ∫ u in Ioi (2 * a), kerK u := by
   unfold archE
   rw [← Ioc_union_Ioi_eq_Ioi (by linarith : (0 : ℝ) ≤ 2 * a),
@@ -74,7 +113,11 @@ theorem archE_split {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (h
       (hp.arch.mono_set Ioc_subset_Ioi_self) (hp.arch.mono_set (Ioi_subset_Ioi (by linarith)))]
   congr 1
   exact setIntegral_congr_fun measurableSet_Ioi fun u hu =>
-    archIntegrand_eq_kerK ha.le hp hn hu
+    archIntegrand_eq_kerKS ha.le hp hn hu
+
+theorem archE_split {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) :
+    archE g = (∫ u in Ioc 0 (2 * a), archIntegrand g u) + ∫ u in Ioi (2 * a), kerK u :=
+  archE_splitS ha hp.toS hn
 
 /-! ## A. The exact Fourier representation on a circle of length `8a` -/
 
@@ -85,15 +128,19 @@ theorem pm_nonneg {a : ℝ} (ha : 0 < a) (g : ℝ → ℝ) (n : ℤ) : 0 ≤ pm 
   unfold pm; positivity
 
 /-- `Σ p_n = ‖g‖²`. -/
-theorem hasSum_pm {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) :
+theorem hasSum_pmS {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g) :
     HasSum (pm a g) (normSq g) := by
   have h := (hasSum_cf_sq (a := 2 * a) (r := a) (by linarith) (by linarith) hp.memL2 hp.supp).mul_left
     (8 * a)
   have e : 8 * a * ((4 * (2 * a))⁻¹ * normSq g) = normSq g := by field_simp; ring
   rw [e] at h; exact h
 
+theorem hasSum_pm {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) :
+    HasSum (pm a g) (normSq g) :=
+  hasSum_pmS ha hp.toS
+
 /-- **`1 − f(u) = Σ p_n (1 − cos(πnu/4a))`** for `0 ≤ u ≤ 2a`, `‖g‖ = 1`. -/
-theorem hasSum_one_sub_autocorr {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g)
+theorem hasSum_one_sub_autocorrS {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g)
     (hn : normSq g = 1) {u : ℝ} (hu0 : 0 ≤ u) (hu : u ≤ 2 * a) :
     HasSum (fun n : ℤ => pm a g n * (1 - Real.cos (π * n * u / (4 * a)))) (1 - autocorr g u) := by
   have h := (hasSum_shift' (A := 2 * a) (r := a) (by linarith) hp.memL2 hp.supp
@@ -105,6 +152,11 @@ theorem hasSum_one_sub_autocorr {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : P
     rw [show 2 * π * (n : ℝ) * u / (4 * (2 * a)) = π * n * u / (4 * a) by field_simp]
     ring
   · field_simp
+
+theorem hasSum_one_sub_autocorr {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g)
+    (hn : normSq g = 1) {u : ℝ} (hu0 : 0 ≤ u) (hu : u ≤ 2 * a) :
+    HasSum (fun n : ℤ => pm a g n * (1 - Real.cos (π * n * u / (4 * a)))) (1 - autocorr g u) :=
+  hasSum_one_sub_autocorrS ha hp.toS hn hu0 hu
 
 
 /-! ## B. The energy as a sum over modes -/
@@ -143,7 +195,7 @@ theorem modeE_neg (a : ℝ) (n : ℤ) : modeE a (-n) = modeE a n := by
   rw [show π * -(n : ℝ) * u / (4 * a) = -(π * n * u / (4 * a)) by ring, Real.cos_neg]
 
 /-- **Finite partial sums of the mode expansion are below the near-field energy.** -/
-theorem sum_modeE_le {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1)
+theorem sum_modeE_leS {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g) (hn : normSq g = 1)
     (S : Finset ℤ) :
     ∑ n ∈ S, pm a g n * modeE a n ≤ ∫ u in Ioc 0 (2 * a), archIntegrand g u := by
   have e : ∑ n ∈ S, pm a g n * modeE a n
@@ -157,7 +209,7 @@ theorem sum_modeE_le {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (
   have hK0 : 0 ≤ kerK u := (kerK_pos hu.1).le
   have hs := sum_le_hasSum S (fun n _ => mul_nonneg (pm_nonneg ha g n)
     (by linarith [Real.cos_le_one (π * n * u / (4 * a))]))
-    (hasSum_one_sub_autocorr ha hp hn hu.1.le hu.2)
+    (hasSum_one_sub_autocorrS ha hp hn hu.1.le hu.2)
   have e2 : archIntegrand g u = (1 - autocorr g u) * kerK u := by
     unfold archIntegrand kerK; rw [autocorr_zero, hn]
   rw [e2]
@@ -166,12 +218,17 @@ theorem sum_modeE_le {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (
         rw [Finset.sum_mul]; refine Finset.sum_congr rfl fun n _ => by ring
     _ ≤ _ := mul_le_mul_of_nonneg_right hs hK0
 
+theorem sum_modeE_le {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1)
+    (S : Finset ℤ) :
+    ∑ n ∈ S, pm a g n * modeE a n ≤ ∫ u in Ioc 0 (2 * a), archIntegrand g u :=
+  sum_modeE_leS ha hp.toS hn S
+
 /-- **The truncated lower bound**: if every mode outside `S₀` has energy at least `τ ≥ 0`, then
 `τ + Σ_{S₀} (ψ_n − τ) p_n ≤ ∫_{(0,2a]} A_g`. -/
-theorem energy_ge_trunc {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1)
+theorem energy_ge_truncS {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g) (hn : normSq g = 1)
     (S₀ : Finset ℤ) {τ : ℝ} (hτ : ∀ n, n ∉ S₀ → τ ≤ modeE a n) :
     τ + ∑ n ∈ S₀, (modeE a n - τ) * pm a g n ≤ ∫ u in Ioc 0 (2 * a), archIntegrand g u := by
-  have hP := hasSum_pm ha hp
+  have hP := hasSum_pmS ha hp
   rw [hn] at hP
   have hT : Tendsto (fun S : Finset ℤ => ∑ n ∈ S₀, (modeE a n - τ) * pm a g n
       + τ * ∑ n ∈ S, pm a g n) atTop (𝓝 (∑ n ∈ S₀, (modeE a n - τ) * pm a g n + τ * 1)) :=
@@ -191,10 +248,15 @@ theorem energy_ge_trunc {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g
       = ∑ n ∈ S₀, pm a g n * modeE a n - τ * ∑ n ∈ S₀, pm a g n := by
     rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
     refine Finset.sum_congr rfl fun n _ => by ring
-  have hle := sum_modeE_le ha hp hn S
+  have hle := sum_modeE_leS ha hp hn S
   rw [← hsplit, mul_add] at *
   rw [← hsplit2] at hle
   linarith
+
+theorem energy_ge_trunc {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1)
+    (S₀ : Finset ℤ) {τ : ℝ} (hτ : ∀ n, n ∉ S₀ → τ ≤ modeE a n) :
+    τ + ∑ n ∈ S₀, (modeE a n - τ) * pm a g n ≤ ∫ u in Ioc 0 (2 * a), archIntegrand g u :=
+  energy_ge_truncS ha hp.toS hn S₀ hτ
 
 /-! ## C. The kernel sandwich and the mode energies -/
 
@@ -393,10 +455,10 @@ theorem modeE_ge {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1) {n : ℤ} (hn : 0 < n) :
 /-! ## D. Certified values of `Cin(πk/2)` -/
 
 /-- An antiderivative of `(1 − cos s)(2/c − s/c²)`. -/
-def Fk (c s : ℝ) : ℝ := 2 / c * (s - Real.sin s) - 1 / c ^ 2 * (s ^ 2 / 2 - Real.cos s - s * Real.sin s)
+def Ftan (c s : ℝ) : ℝ := 2 / c * (s - Real.sin s) - 1 / c ^ 2 * (s ^ 2 / 2 - Real.cos s - s * Real.sin s)
 
 theorem Fk_deriv (c s : ℝ) :
-    HasDerivAt (Fk c) ((1 - Real.cos s) * (2 / c - s / c ^ 2)) s := by
+    HasDerivAt (Ftan c) ((1 - Real.cos s) * (2 / c - s / c ^ 2)) s := by
   have h1 : HasDerivAt (fun s => s - Real.sin s) (1 - Real.cos s) s :=
     (hasDerivAt_id s).sub (Real.hasDerivAt_sin s)
   have h2 : HasDerivAt (fun s => s ^ 2 / 2 - Real.cos s - s * Real.sin s)
@@ -409,14 +471,14 @@ theorem Fk_deriv (c s : ℝ) :
 
 /-- **One tangent-line step**: `Cin(β) ≥ Cin(α) + F_c(β) − F_c(α)`, from `1/s ≥ 2/c − s/c²`. -/
 theorem cin_step {α β c : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (hc : 0 < c) :
-    Cin α + (Fk c β - Fk c α) ≤ Cin β := by
+    Cin α + (Ftan c β - Ftan c α) ≤ Cin β := by
   unfold Cin
   have hii : IntervalIntegrable (fun s => (1 - Real.cos s) / s) volume α β :=
     (Cin_ii (hα.le.trans hαβ)).mono_set (by
       rw [uIcc_of_le hαβ, uIcc_of_le (hα.le.trans hαβ)]; exact Icc_subset_Icc hα.le le_rfl)
   rw [← intervalIntegral.integral_add_adjacent_intervals (Cin_ii hα.le) hii]
   have hcont : Continuous (fun s => (1 - Real.cos s) * (2 / c - s / c ^ 2)) := by fun_prop
-  have hF : (∫ s in α..β, (1 - Real.cos s) * (2 / c - s / c ^ 2)) = Fk c β - Fk c α :=
+  have hF : (∫ s in α..β, (1 - Real.cos s) * (2 / c - s / c ^ 2)) = Ftan c β - Ftan c α :=
     intervalIntegral.integral_eq_sub_of_hasDerivAt (fun s _ => Fk_deriv c s)
       (hcont.intervalIntegrable _ _)
   have hmono := intervalIntegral.integral_mono_on hαβ (hcont.intervalIntegrable _ _) hii
@@ -517,21 +579,9 @@ theorem sc6 : Real.sin (6 * π / 4) = -1 ∧ Real.cos (6 * π / 4) = 0 := by
     Real.cos_add_pi_div_two, h1, h2]
   constructor <;> ring
 
-theorem sc7 : Real.sin (7 * π / 4) = -Real.sqrt 2/2 ∧ Real.cos (7 * π / 4) = Real.sqrt 2/2 := by
-  obtain ⟨h1, h2⟩ := sc5
-  rw [show (7 : ℝ) * π / 4 = 5 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
 theorem sc8 : Real.sin (8 * π / 4) = 0 ∧ Real.cos (8 * π / 4) = 1 := by
   obtain ⟨h1, h2⟩ := sc6
   rw [show (8 : ℝ) * π / 4 = 6 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
-
-theorem sc9 : Real.sin (9 * π / 4) = Real.sqrt 2/2 ∧ Real.cos (9 * π / 4) = Real.sqrt 2/2 := by
-  obtain ⟨h1, h2⟩ := sc7
-  rw [show (9 : ℝ) * π / 4 = 7 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
     Real.cos_add_pi_div_two, h1, h2]
   constructor <;> ring
 
@@ -541,207 +591,158 @@ theorem sc10 : Real.sin (10 * π / 4) = 1 ∧ Real.cos (10 * π / 4) = 0 := by
     Real.cos_add_pi_div_two, h1, h2]
   constructor <;> ring
 
-theorem sc11 : Real.sin (11 * π / 4) = Real.sqrt 2/2 ∧ Real.cos (11 * π / 4) = -Real.sqrt 2/2 := by
-  obtain ⟨h1, h2⟩ := sc9
-  rw [show (11 : ℝ) * π / 4 = 9 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
+/-! ### Quarter steps up to `3π`: the chain in closed form over `ℚ(√2)`
 
-theorem sc12 : Real.sin (12 * π / 4) = 0 ∧ Real.cos (12 * π / 4) = -1 := by
-  obtain ⟨h1, h2⟩ := sc10
-  rw [show (12 : ℝ) * π / 4 = 10 * π / 4 + π / 2 by ring, Real.sin_add_pi_div_two,
-    Real.cos_add_pi_div_two, h1, h2]
-  constructor <;> ring
+On `[mπ/4, (m+1)π/4]` with `c = (2m+1)π/8`, `F_c(β) − F_c(α) = p₀ + p₁/π + p₂/π²` with each `pᵢ` in
+`ℚ(√2)` (`piece_eq4`), since `sin, cos` at multiples of `π/4` lie in `ℚ(√2)` (`sc_quarter`). The
+certified values are checked by kernel evaluation of the rational sums. -/
 
-theorem piece1 : (0.391586 : ℝ) ≤ Fk (3 * π / 8) (2 * π / 4) - Fk (3 * π / 8) (1 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc1
-  obtain ⟨sb, cb⟩ := sc2
-  have key : Fk (3 * π / 8) (2 * π / 4) - Fk (3 * π / 8) (1 * π / 4)
-      = 2 / 3 + (1 / π) * (16*Real.sqrt 2/9 - 16/9) + (1 / π) ^ 2 * (-32*Real.sqrt 2/9) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
+/-- `x + y√2`. -/
+def ev2 (p : ℚ × ℚ) : ℝ := p.1 + p.2 * Real.sqrt 2
+
+/-- `(sin(mπ/4), cos(mπ/4))` in `ℚ(√2)`, as pairs `(x, y) ↦ x + y√2`. -/
+def scQ4 : ℕ → (ℚ × ℚ) × (ℚ × ℚ)
+  | 0 => ((0, 0), (1, 0))
+  | m + 1 => (((scQ4 m).1.2 + (scQ4 m).2.2, ((scQ4 m).1.1 + (scQ4 m).2.1) / 2),
+      ((scQ4 m).2.2 - (scQ4 m).1.2, ((scQ4 m).2.1 - (scQ4 m).1.1) / 2))
+
+theorem sc_quarter (m : ℕ) :
+    Real.sin (m * π / 4) = ev2 (scQ4 m).1 ∧ Real.cos (m * π / 4) = ev2 (scQ4 m).2 := by
+  induction m with
+  | zero => simp [scQ4, ev2]
+  | succ m ih =>
+    have hs : Real.sqrt 2 ^ 2 = 2 := Real.sq_sqrt (by norm_num)
+    rw [show ((m + 1 : ℕ) : ℝ) * π / 4 = m * π / 4 + π / 4 by push_cast; ring, Real.sin_add,
+      Real.cos_add, ih.1, ih.2, Real.sin_pi_div_four, Real.cos_pi_div_four]
+    simp only [scQ4, ev2]
+    push_cast
+    constructor
+    · linear_combination (((scQ4 m).1.2 : ℝ) + (scQ4 m).2.2) / 2 * hs
+    · linear_combination (((scQ4 m).2.2 : ℝ) - (scQ4 m).1.2) / 2 * hs
+
+/-- The gain of `cin_step` on `[mπ/4, (m+1)π/4]` at `c = (2m+1)π/8`. -/
+def pieceQ4 (m : ℕ) : (ℚ × ℚ) × (ℚ × ℚ) × (ℚ × ℚ) :=
+  ((2 / (2 * m + 1), 0),
+    (16 * ((m + 1) * (scQ4 m).1.1 - m * (scQ4 (m + 1)).1.1) / (2 * m + 1) ^ 2,
+      16 * ((m + 1) * (scQ4 m).1.2 - m * (scQ4 (m + 1)).1.2) / (2 * m + 1) ^ 2),
+    (64 * ((scQ4 (m + 1)).2.1 - (scQ4 m).2.1) / (2 * m + 1) ^ 2,
+      64 * ((scQ4 (m + 1)).2.2 - (scQ4 m).2.2) / (2 * m + 1) ^ 2))
+
+/-- `p₀ + p₁/π + p₂/π²` with `pᵢ ∈ ℚ(√2)`. -/
+def evalP4 (p : (ℚ × ℚ) × (ℚ × ℚ) × (ℚ × ℚ)) : ℝ :=
+  ev2 p.1 + (1 / π) * ev2 p.2.1 + (1 / π) ^ 2 * ev2 p.2.2
+
+theorem evalP4_add (p q : (ℚ × ℚ) × (ℚ × ℚ) × (ℚ × ℚ)) : evalP4 (p + q) = evalP4 p + evalP4 q := by
+  simp only [evalP4, ev2, Prod.fst_add, Prod.snd_add, Rat.cast_add]; ring
+
+theorem piece_eq4 (m : ℕ) :
+    Ftan ((2 * m + 1) * π / 8) ((m + 1 : ℕ) * π / 4) - Ftan ((2 * m + 1) * π / 8) (m * π / 4)
+      = evalP4 (pieceQ4 m) := by
+  obtain ⟨sa, ca⟩ := sc_quarter m
+  obtain ⟨sb, cb⟩ := sc_quarter (m + 1)
+  unfold Ftan evalP4 pieceQ4
+  rw [sa, ca, sb, cb]
+  simp only [ev2]
+  have hπ := Real.pi_pos.ne'
+  have hm : (2 * (m : ℝ) + 1) ≠ 0 := by positivity
+  push_cast
+  field_simp
+  ring
+
+/-- The summed gains over `m ∈ [1, N)`. -/
+def sumQ4 (N : ℕ) : (ℚ × ℚ) × (ℚ × ℚ) × (ℚ × ℚ) := ∑ m ∈ Finset.Ico 1 N, pieceQ4 m
+
+/-- **The chain from `π/4`**: `Cin(Nπ/4) ≥ Cin(π/4) + Σ_{1 ≤ m < N} gain(m)`. -/
+theorem cin_chain4 (N : ℕ) (hN : 1 ≤ N) : (0.14925 : ℝ) + evalP4 (sumQ4 N) ≤ Cin (N * π / 4) := by
+  induction N, hN using Nat.le_induction with
+  | base =>
+    have e : sumQ4 1 = 0 := by simp [sumQ4]
+    have e0 : evalP4 0 = 0 := by simp [evalP4, ev2]
+    rw [e, e0, add_zero, Nat.cast_one]
+    exact cin_quarter
+  | succ N hN ih =>
+    have h1 : (1 : ℝ) ≤ N := by exact_mod_cast hN
+    have h := cin_step (α := N * π / 4) (β := ((N + 1 : ℕ) : ℝ) * π / 4) (c := (2 * N + 1) * π / 8)
+      (by nlinarith [Real.pi_pos]) (by push_cast; linarith [Real.pi_pos]) (by positivity)
+    rw [piece_eq4] at h
+    rw [sumQ4, Finset.sum_Ico_succ_top hN, ← sumQ4, evalP4_add]
+    linarith
+
+theorem mul_le_of_bracket {q lo hi : ℚ} {x : ℝ} (hlo : (lo : ℝ) ≤ x) (hhi : x ≤ hi) :
+    (((if 0 ≤ q then lo else hi) * q : ℚ) : ℝ) ≤ x * q := by
+  split_ifs with h
+  · have : (0 : ℝ) ≤ q := by exact_mod_cast h
+    push_cast; nlinarith
+  · have : (q : ℝ) < 0 := by exact_mod_cast not_le.1 h
+    push_cast; nlinarith
+
+/-- A rational lower bound for `evalP4`, from the brackets of `num_atoms`. -/
+def lowP4 (p : (ℚ × ℚ) × (ℚ × ℚ) × (ℚ × ℚ)) : ℚ :=
+  let br : ℚ → ℚ → ℚ → ℚ := fun q lo hi => (if 0 ≤ q then lo else hi) * q
+  p.1.1 + br p.1.2 (1414213 / 10 ^ 6) (1414214 / 10 ^ 6)
+    + br p.2.1.1 (3183097 / 10 ^ 7) (31831 / 10 ^ 5)
+    + br p.2.1.2 (3183097 / 10 ^ 7 * (1414213 / 10 ^ 6)) (31831 / 10 ^ 5 * (1414214 / 10 ^ 6))
+    + br p.2.2.1 ((3183097 / 10 ^ 7) ^ 2) ((31831 / 10 ^ 5) ^ 2)
+    + br p.2.2.2 ((3183097 / 10 ^ 7) ^ 2 * (1414213 / 10 ^ 6)) ((31831 / 10 ^ 5) ^ 2 * (1414214 / 10 ^ 6))
+
+theorem lowP4_le (p : (ℚ × ℚ) × (ℚ × ℚ) × (ℚ × ℚ)) : (lowP4 p : ℝ) ≤ evalP4 p := by
   obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
+  have h1 := mul_le_of_bracket (q := p.1.2) (lo := 1414213 / 10 ^ 6) (hi := 1414214 / 10 ^ 6)
+    (x := Real.sqrt 2) (by push_cast; linarith) (by push_cast; linarith)
+  have h2 := mul_le_of_bracket (q := p.2.1.1) (lo := 3183097 / 10 ^ 7) (hi := 31831 / 10 ^ 5)
+    (x := 1 / π) (by push_cast; linarith) (by push_cast; linarith)
+  have h3 := mul_le_of_bracket (q := p.2.1.2) (lo := 3183097 / 10 ^ 7 * (1414213 / 10 ^ 6))
+    (hi := 31831 / 10 ^ 5 * (1414214 / 10 ^ 6)) (x := 1 / π * Real.sqrt 2)
+    (by push_cast; linarith) (by push_cast; linarith)
+  have h4 := mul_le_of_bracket (q := p.2.2.1) (lo := (3183097 / 10 ^ 7) ^ 2)
+    (hi := (31831 / 10 ^ 5) ^ 2) (x := (1 / π) ^ 2) (by push_cast; linarith) (by push_cast; linarith)
+  have h5 := mul_le_of_bracket (q := p.2.2.2) (lo := (3183097 / 10 ^ 7) ^ 2 * (1414213 / 10 ^ 6))
+    (hi := (31831 / 10 ^ 5) ^ 2 * (1414214 / 10 ^ 6)) (x := (1 / π) ^ 2 * Real.sqrt 2)
+    (by push_cast; linarith) (by push_cast; linarith)
+  simp only [lowP4, evalP4, ev2, Rat.cast_add]
+  linarith [h1, h2, h3, h4, h5]
 
-theorem piece2 : (0.53964 : ℝ) ≤ Fk (5 * π / 8) (3 * π / 4) - Fk (5 * π / 8) (2 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc2
-  obtain ⟨sb, cb⟩ := sc3
-  have key : Fk (5 * π / 8) (3 * π / 4) - Fk (5 * π / 8) (2 * π / 4)
-      = 2 / 5 + (1 / π) * (48/25 - 16*Real.sqrt 2/25) + (1 / π) ^ 2 * (-32*Real.sqrt 2/25) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem piece3 : (0.540932 : ℝ) ≤ Fk (7 * π / 8) (4 * π / 4) - Fk (7 * π / 8) (3 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc3
-  obtain ⟨sb, cb⟩ := sc4
-  have key : Fk (7 * π / 8) (4 * π / 4) - Fk (7 * π / 8) (3 * π / 4)
-      = 2 / 7 + (1 / π) * (32*Real.sqrt 2/49) + (1 / π) ^ 2 * (32*Real.sqrt 2/49 - 64/49) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem piece4 : (0.423508 : ℝ) ≤ Fk (9 * π / 8) (5 * π / 4) - Fk (9 * π / 8) (4 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc4
-  obtain ⟨sb, cb⟩ := sc5
-  have key : Fk (9 * π / 8) (5 * π / 4) - Fk (9 * π / 8) (4 * π / 4)
-      = 2 / 9 + (1 / π) * (32*Real.sqrt 2/81) + (1 / π) ^ 2 * (64/81 - 32*Real.sqrt 2/81) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem piece5 : (0.251588 : ℝ) ≤ Fk (11 * π / 8) (6 * π / 4) - Fk (11 * π / 8) (5 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc5
-  obtain ⟨sb, cb⟩ := sc6
-  have key : Fk (11 * π / 8) (6 * π / 4) - Fk (11 * π / 8) (5 * π / 4)
-      = 2 / 11 + (1 / π) * (80/121 - 48*Real.sqrt 2/121) + (1 / π) ^ 2 * (32*Real.sqrt 2/121) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem piece6 : (0.09788 : ℝ) ≤ Fk (13 * π / 8) (7 * π / 4) - Fk (13 * π / 8) (6 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc6
-  obtain ⟨sb, cb⟩ := sc7
-  have key : Fk (13 * π / 8) (7 * π / 4) - Fk (13 * π / 8) (6 * π / 4)
-      = 2 / 13 + (1 / π) * (48*Real.sqrt 2/169 - 112/169) + (1 / π) ^ 2 * (32*Real.sqrt 2/169) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem piece7 : (0.013727 : ℝ) ≤ Fk (15 * π / 8) (8 * π / 4) - Fk (15 * π / 8) (7 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc7
-  obtain ⟨sb, cb⟩ := sc8
-  have key : Fk (15 * π / 8) (8 * π / 4) - Fk (15 * π / 8) (7 * π / 4)
-      = 2 / 15 + (1 / π) * (-64*Real.sqrt 2/225) + (1 / π) ^ 2 * (64/225 - 32*Real.sqrt 2/225) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem piece8 : (0.011384 : ℝ) ≤ Fk (17 * π / 8) (9 * π / 4) - Fk (17 * π / 8) (8 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc8
-  obtain ⟨sb, cb⟩ := sc9
-  have key : Fk (17 * π / 8) (9 * π / 4) - Fk (17 * π / 8) (8 * π / 4)
-      = 2 / 17 + (1 / π) * (-64*Real.sqrt 2/289) + (1 / π) ^ 2 * (32*Real.sqrt 2/289 - 64/289) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem piece9 : (0.065346 : ℝ) ≤ Fk (19 * π / 8) (10 * π / 4) - Fk (19 * π / 8) (9 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc9
-  obtain ⟨sb, cb⟩ := sc10
-  have key : Fk (19 * π / 8) (10 * π / 4) - Fk (19 * π / 8) (9 * π / 4)
-      = 2 / 19 + (1 / π) * (80*Real.sqrt 2/361 - 144/361) + (1 / π) ^ 2 * (-32*Real.sqrt 2/361) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem piece10 : (0.130212 : ℝ) ≤ Fk (21 * π / 8) (11 * π / 4) - Fk (21 * π / 8) (10 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc10
-  obtain ⟨sb, cb⟩ := sc11
-  have key : Fk (21 * π / 8) (11 * π / 4) - Fk (21 * π / 8) (10 * π / 4)
-      = 2 / 21 + (1 / π) * (176/441 - 80*Real.sqrt 2/441) + (1 / π) ^ 2 * (-32*Real.sqrt 2/441) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
-
-theorem piece11 : (0.165056 : ℝ) ≤ Fk (23 * π / 8) (12 * π / 4) - Fk (23 * π / 8) (11 * π / 4) := by
-  obtain ⟨sa, ca⟩ := sc11
-  obtain ⟨sb, cb⟩ := sc12
-  have key : Fk (23 * π / 8) (12 * π / 4) - Fk (23 * π / 8) (11 * π / 4)
-      = 2 / 23 + (1 / π) * (96*Real.sqrt 2/529) + (1 / π) ^ 2 * (32*Real.sqrt 2/529 - 64/529) := by
-    unfold Fk; rw [sa, ca, sb, cb]; field_simp; ring
-  rw [key]
-  obtain ⟨b1, b2, b3, b4, b5, b6, b7, b8, b9, b10⟩ := num_atoms
-  nlinarith
--- Cin( 1 π/2) >= 0.540836
--- Cin( 2 π/2) >= 1.621408
--- Cin( 3 π/2) >= 2.296504
--- Cin( 4 π/2) >= 2.408111
--- Cin( 5 π/2) >= 2.484841
--- Cin( 6 π/2) >= 2.780109
-theorem cinc1 : (0.14925 : ℝ) ≤ Cin (1 * π / 4) := cin_quarter
-
-theorem cinc2 : (0.540836 : ℝ) ≤ Cin (2 * π / 4) := by
-  have h := cin_step (α := 1 * π / 4) (β := 2 * π / 4) (c := 3 * π / 8)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinc1, piece1]
-
-theorem cinc3 : (1.080476 : ℝ) ≤ Cin (3 * π / 4) := by
-  have h := cin_step (α := 2 * π / 4) (β := 3 * π / 4) (c := 5 * π / 8)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinc2, piece2]
-
-theorem cinc4 : (1.621408 : ℝ) ≤ Cin (4 * π / 4) := by
-  have h := cin_step (α := 3 * π / 4) (β := 4 * π / 4) (c := 7 * π / 8)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinc3, piece3]
-
-theorem cinc5 : (2.044916 : ℝ) ≤ Cin (5 * π / 4) := by
-  have h := cin_step (α := 4 * π / 4) (β := 5 * π / 4) (c := 9 * π / 8)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinc4, piece4]
-
-theorem cinc6 : (2.296504 : ℝ) ≤ Cin (6 * π / 4) := by
-  have h := cin_step (α := 5 * π / 4) (β := 6 * π / 4) (c := 11 * π / 8)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinc5, piece5]
-
-theorem cinc7 : (2.394384 : ℝ) ≤ Cin (7 * π / 4) := by
-  have h := cin_step (α := 6 * π / 4) (β := 7 * π / 4) (c := 13 * π / 8)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinc6, piece6]
-
-theorem cinc8 : (2.408111 : ℝ) ≤ Cin (8 * π / 4) := by
-  have h := cin_step (α := 7 * π / 4) (β := 8 * π / 4) (c := 15 * π / 8)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinc7, piece7]
-
-theorem cinc9 : (2.419495 : ℝ) ≤ Cin (9 * π / 4) := by
-  have h := cin_step (α := 8 * π / 4) (β := 9 * π / 4) (c := 17 * π / 8)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinc8, piece8]
-
-theorem cinc10 : (2.484841 : ℝ) ≤ Cin (10 * π / 4) := by
-  have h := cin_step (α := 9 * π / 4) (β := 10 * π / 4) (c := 19 * π / 8)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinc9, piece9]
-
-theorem cinc11 : (2.615053 : ℝ) ≤ Cin (11 * π / 4) := by
-  have h := cin_step (α := 10 * π / 4) (β := 11 * π / 4) (c := 21 * π / 8)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinc10, piece10]
-
-theorem cinc12 : (2.780109 : ℝ) ≤ Cin (12 * π / 4) := by
-  have h := cin_step (α := 11 * π / 4) (β := 12 * π / 4) (c := 23 * π / 8)
-    (by positivity) (by linarith [Real.pi_pos]) (by positivity)
-  linarith [cinc11, piece11]
+theorem cin_of_check4 {N : ℕ} (hN : 1 ≤ N) {b : ℚ} (hb : b ≤ lowP4 (sumQ4 N)) :
+    (0.14925 : ℝ) + b ≤ Cin (N * π / 4) := by
+  have h1 := cin_chain4 N hN
+  have h2 := lowP4_le (sumQ4 N)
+  have h3 : (b : ℝ) ≤ lowP4 (sumQ4 N) := by exact_mod_cast hb
+  linarith
 
 theorem cin_val1 : (0.5408 : ℝ) ≤ Cin (π * 1 / 2) := by
-  rw [show π * (1 : ℝ) / 2 = 2 * π / 4 by ring]; linarith [cinc2]
+  have h := cin_of_check4 (N := 2) (by norm_num) (b := 39155 / 10 ^ 5) (by decide +kernel)
+  rw [show ((2 : ℕ) : ℝ) * π / 4 = π * 1 / 2 by push_cast; ring] at h
+  push_cast at h; linarith
 
 theorem cin_val2 : (1.6214 : ℝ) ≤ Cin (π * 2 / 2) := by
-  rw [show π * (2 : ℝ) / 2 = 4 * π / 4 by ring]; linarith [cinc4]
+  have h := cin_of_check4 (N := 4) (by norm_num) (b := 147215 / 10 ^ 5) (by decide +kernel)
+  rw [show ((4 : ℕ) : ℝ) * π / 4 = π * 2 / 2 by push_cast; ring] at h
+  push_cast at h; linarith
 
 theorem cin_val3 : (2.2965 : ℝ) ≤ Cin (π * 3 / 2) := by
-  rw [show π * (3 : ℝ) / 2 = 6 * π / 4 by ring]; linarith [cinc6]
+  have h := cin_of_check4 (N := 6) (by norm_num) (b := 214725 / 10 ^ 5) (by decide +kernel)
+  rw [show ((6 : ℕ) : ℝ) * π / 4 = π * 3 / 2 by push_cast; ring] at h
+  push_cast at h; linarith
 
 theorem cin_val4 : (2.4081 : ℝ) ≤ Cin (π * 4 / 2) := by
-  rw [show π * (4 : ℝ) / 2 = 8 * π / 4 by ring]; linarith [cinc8]
+  have h := cin_of_check4 (N := 8) (by norm_num) (b := 225885 / 10 ^ 5) (by decide +kernel)
+  rw [show ((8 : ℕ) : ℝ) * π / 4 = π * 4 / 2 by push_cast; ring] at h
+  push_cast at h; linarith
 
 theorem cin_val5 : (2.4848 : ℝ) ≤ Cin (π * 5 / 2) := by
-  rw [show π * (5 : ℝ) / 2 = 10 * π / 4 by ring]; linarith [cinc10]
+  have h := cin_of_check4 (N := 10) (by norm_num) (b := 233555 / 10 ^ 5) (by decide +kernel)
+  rw [show ((10 : ℕ) : ℝ) * π / 4 = π * 5 / 2 by push_cast; ring] at h
+  push_cast at h; linarith
+
+/-- `Cin(3π) ≥ 2.780109`, the base of the half-step chain below. -/
+theorem cin_three_pi : (2.780109 : ℝ) ≤ Cin (12 * π / 4) := by
+  have h := cin_of_check4 (N := 12) (by norm_num) (b := 2630859 / 10 ^ 6) (by decide +kernel)
+  rw [show ((12 : ℕ) : ℝ) * π / 4 = 12 * π / 4 by push_cast; ring] at h
+  push_cast at h; linarith
 
 theorem cin_val6 : (2.7801 : ℝ) ≤ Cin (π * 6 / 2) := by
-  rw [show π * (6 : ℝ) / 2 = 12 * π / 4 by ring]; linarith [cinc12]
+  rw [show π * (6 : ℝ) / 2 = 12 * π / 4 by ring]; linarith [cin_three_pi]
+
 /-! ### From `3π` on: the chain in closed form
 
 On `[mπ/2, (m+1)π/2]` with `c = (2m+1)π/4`, `F_c(β) − F_c(α) = p₀ + p₁/π + p₂/π²` with rational `p`
@@ -776,11 +777,11 @@ theorem evalP_add (p q : ℚ × ℚ × ℚ) : evalP (p + q) = evalP p + evalP q 
   simp only [evalP, Prod.fst_add, Prod.snd_add, Rat.cast_add]; ring
 
 theorem piece_eq (m : ℕ) :
-    Fk ((2 * m + 1) * π / 4) ((m + 1 : ℕ) * π / 2) - Fk ((2 * m + 1) * π / 4) (m * π / 2)
+    Ftan ((2 * m + 1) * π / 4) ((m + 1 : ℕ) * π / 2) - Ftan ((2 * m + 1) * π / 4) (m * π / 2)
       = evalP (pieceQ m) := by
   obtain ⟨sa, ca⟩ := sc_half m
   obtain ⟨sb, cb⟩ := sc_half (m + 1)
-  unfold Fk evalP pieceQ
+  unfold Ftan evalP pieceQ
   rw [sa, ca, sb, cb]
   have hπ := Real.pi_pos.ne'
   have hm : (2 * (m : ℝ) + 1) ≠ 0 := by positivity
@@ -797,7 +798,7 @@ theorem cin_chain (N : ℕ) (hN : 6 ≤ N) : (2.780109 : ℝ) + evalP (sumQ N) �
   | base =>
     have e : sumQ 6 = 0 := by simp [sumQ]
     rw [e, evalP_zero, add_zero, show ((6 : ℕ) : ℝ) * π / 2 = 12 * π / 4 by push_cast; ring]
-    exact cinc12
+    exact cin_three_pi
   | succ N hN ih =>
     have h6 : (6 : ℝ) ≤ N := by exact_mod_cast hN
     have h := cin_step (α := N * π / 2) (β := ((N + 1 : ℕ) : ℝ) * π / 2) (c := (2 * N + 1) * π / 4)
@@ -810,14 +811,6 @@ theorem cin_chain (N : ℕ) (hN : 6 ≤ N) : (2.780109 : ℝ) + evalP (sumQ N) �
 def lowP (p : ℚ × ℚ × ℚ) : ℚ :=
   p.1 + (if 0 ≤ p.2.1 then 3183097 / 10 ^ 7 else 31831 / 10 ^ 5) * p.2.1
     + (if 0 ≤ p.2.2 then (3183097 / 10 ^ 7) ^ 2 else (31831 / 10 ^ 5) ^ 2) * p.2.2
-
-theorem mul_le_of_bracket {q lo hi : ℚ} {x : ℝ} (hlo : (lo : ℝ) ≤ x) (hhi : x ≤ hi) :
-    (((if 0 ≤ q then lo else hi) * q : ℚ) : ℝ) ≤ x * q := by
-  split_ifs with h
-  · have : (0 : ℝ) ≤ q := by exact_mod_cast h
-    push_cast; nlinarith
-  · have : (q : ℝ) < 0 := by exact_mod_cast not_le.1 h
-    push_cast; nlinarith
 
 theorem lowP_le (p : ℚ × ℚ × ℚ) : (lowP p : ℝ) ≤ evalP p := by
   obtain ⟨b1, b2, -, -, -, -, b7, b8, -, -⟩ := num_atoms
@@ -895,7 +888,7 @@ theorem disc_le {A B C : ℝ} (hA : 0 ≤ A) (h : ∀ s : ℝ, 0 ≤ A * s ^ 2 -
     linarith
 
 /-- **Cauchy–Schwarz against a continuous function on `[−a, a]`.** -/
-theorem cs_supp {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) {h : ℝ → ℝ} (hh : Continuous h) :
+theorem cs_suppS {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g) {h : ℝ → ℝ} (hh : Continuous h) :
     (∫ t, g t * h t) ^ 2 ≤ normSq g * ∫ t in (-a)..a, h t ^ 2 := by
   set hI := (Icc (-a) a).indicator h with hhI
   have hmem : MemLp hI 2 volume := by
@@ -934,6 +927,10 @@ theorem cs_supp {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) {h : �
     rw [ef, integral_add i3 iH, integral_sub i1 i2, integral_const_mul, integral_const_mul]
     unfold normSq; ring
   rw [e3] at hq; exact hq
+
+theorem cs_supp {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) {h : ℝ → ℝ} (hh : Continuous h) :
+    (∫ t, g t * h t) ^ 2 ≤ normSq g * ∫ t in (-a)..a, h t ^ 2 :=
+  cs_suppS ha hp.toS hh
 
 /-- For even `g`, the Fourier coefficient is real: `c_n = X_n/(8a)`, `X_n = ∫ g cos(πnt/4a)`. -/
 theorem cf_even {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (n : ℤ) :
@@ -982,7 +979,7 @@ theorem pm_even {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (n : �
   unfold pm; rw [cf_even ha hp, Complex.norm_real, Real.norm_eq_abs, sq_abs]; field_simp
 
 
-theorem integral_supp {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (h : ℝ → ℝ) :
+theorem integral_suppS {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g) (h : ℝ → ℝ) :
     (∫ t, g t * h t) = ∫ t in (-a)..a, g t * h t := by
   rw [intervalIntegral.integral_of_le (by linarith), ← integral_Icc_eq_integral_Ioc,
     setIntegral_eq_integral_of_forall_compl_eq_zero]
@@ -994,30 +991,39 @@ theorem integral_supp {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) 
     · rw [abs_of_pos (by linarith)]; exact h'
   rw [hp.supp t this, zero_mul]
 
+theorem integral_supp {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (h : ℝ → ℝ) :
+    (∫ t, g t * h t) = ∫ t in (-a)..a, g t * h t :=
+  integral_suppS ha hp.toS h
+
+/-! ## The pole term split by parity -/
+
+/-- An odd integrand integrates to `0` over `[−a, a]`. -/
+theorem intervalIntegral_odd {f : ℝ → ℝ} (hf : ∀ t, f (-t) = -f t) (a : ℝ) :
+    (∫ t in (-a)..a, f t) = 0 := by
+  have h := intervalIntegral.integral_comp_neg (a := -a) (b := a) f
+  simp only [neg_neg, hf, intervalIntegral.integral_neg] at h
+  linarith
+
+/-- `ĝ(i/2) = ∫g cosh(t/2) − ∫g sinh(t/2)` over `[−a, a]`. -/
+theorem poleR_eq_cosh_sub_sinh {a : ℝ} {g : ℝ → ℝ} (hg : IntervalIntegrable g volume (-a) a) :
+    poleR g a = (∫ t in (-a)..a, g t * Real.cosh (t / 2)) - ∫ t in (-a)..a, g t * Real.sinh (t / 2) := by
+  unfold poleR
+  have e : (fun u => g u * Real.exp (-(u / 2)))
+      = fun u => g u * Real.cosh (u / 2) - g u * Real.sinh (u / 2) := by
+    funext u; rw [← Real.cosh_sub_sinh]; ring
+  rw [e, intervalIntegral.integral_sub (hg.mul_continuousOn (by fun_prop))
+    (hg.mul_continuousOn (by fun_prop))]
+
 /-- **Orthogonality to `w` makes `∫ g` tiny**: `(∫ g)² ≤ a⁵/30` for `a ≤ 1/2`. -/
 theorem integral_sq_perp {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 1 / 2) {g : ℝ → ℝ} (hp : Probe a g)
     (hn : normSq g = 1) (h0 : poleR g a = 0) : (∫ t, g t) ^ 2 ≤ a ^ 5 / 30 := by
   have hI := probe_integrable hp
   have iiG := memLp_intervalIntegrable hp.memL2 (-a) a
-  have iS : IntervalIntegrable (fun t => g t * Real.sinh (t / 2)) volume (-a) a :=
-    iiG.mul_continuousOn (by fun_prop)
-  have iC : IntervalIntegrable (fun t => g t * Real.cosh (t / 2)) volume (-a) a :=
-    iiG.mul_continuousOn (by fun_prop)
-  have hsinh : (∫ t in (-a)..a, g t * Real.sinh (t / 2)) = 0 := by
-    have h := intervalIntegral.integral_comp_neg (a := -a) (b := a)
-      (fun t => g t * Real.sinh (t / 2))
-    have e : (fun t => g (-t) * Real.sinh (-t / 2)) = fun t => -(g t * Real.sinh (t / 2)) := by
-      funext t; rw [hp.even, neg_div, Real.sinh_neg]; ring
-    rw [e, intervalIntegral.integral_neg, neg_neg] at h; linarith
+  have hsinh : (∫ t in (-a)..a, g t * Real.sinh (t / 2)) = 0 :=
+    intervalIntegral_odd (f := fun t => g t * Real.sinh (t / 2))
+      (fun t => by rw [hp.even, show -t / 2 = -(t / 2) by ring, Real.sinh_neg]; ring) a
   have hcosh : (∫ t in (-a)..a, g t * Real.cosh (t / 2)) = 0 := by
-    have e : poleR g a = (∫ t in (-a)..a, g t * Real.cosh (t / 2))
-        - ∫ t in (-a)..a, g t * Real.sinh (t / 2) := by
-      unfold poleR
-      rw [← intervalIntegral.integral_sub iC iS]
-      refine intervalIntegral.integral_congr fun t _ => ?_
-      rw [show Real.exp (-(t / 2)) = Real.cosh (t / 2) - Real.sinh (t / 2) by
-        rw [Real.cosh_eq, Real.sinh_eq]; ring]
-      ring
+    have e := poleR_eq_cosh_sub_sinh (a := a) iiG
     rw [h0, hsinh, sub_zero] at e; exact e.symm
   have iOne : IntervalIntegrable (fun t => g t * (1 - Real.cosh (t / 2))) volume (-a) a :=
     iiG.mul_continuousOn (by fun_prop)
@@ -1027,7 +1033,7 @@ theorem integral_sq_perp {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 1 / 2) {g : ℝ →
     rw [e0, integral_supp ha hp (fun _ => 1)]
     have e2 : (∫ t in (-a)..a, g t * 1)
         = (∫ t in (-a)..a, g t * (1 - Real.cosh (t / 2))) + ∫ t in (-a)..a, g t * Real.cosh (t / 2) := by
-      rw [← intervalIntegral.integral_add iOne iC]
+      rw [← intervalIntegral.integral_add iOne (iiG.mul_continuousOn (by fun_prop))]
       refine intervalIntegral.integral_congr fun t _ => ?_
       ring
     rw [e2, hcosh, add_zero]
@@ -1362,14 +1368,6 @@ theorem dlo1 : (0.36338 : ℝ) ≤ 1 - 2 * Real.sin (π * ((1 : ℤ) : ℝ) / 2)
   rw [e]
   nlinarith
 
-theorem term1 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.3466) {g : ℝ → ℝ} (hp : Probe a g)
-    (hn : normSq g = 1) (h0 : poleR g a = 0) :
-    ((0.5408 : ℝ) + a * 0.36338 - errK a - tauF a) * 0.00306 ≤ (modeE a 1 - tauF a) * pm a g 1 := by
-  have h := term_mode ha (by linarith) (k := 1) (by norm_num) (Cv := 0.5408) (D := 0.36338) (X := 0)
-    (Y := 0) (τ := tauF a) (P := 0.00306) (by simpa using cin_val1) dlo1 le_rfl
-    (by unfold tauF; linarith) (pm_le1 ha ha2 hp hn h0)
-  linarith
-
 theorem dlo2 : (1 : ℝ) ≤ 1 - 2 * Real.sin (π * ((2 : ℤ) : ℝ) / 2) / (π * ((2 : ℤ) : ℝ)) := by
   push_cast
   rw [show π * (2 : ℝ) / 2 = 4 * π / 4 by ring, (sc4).1]
@@ -1377,14 +1375,6 @@ theorem dlo2 : (1 : ℝ) ≤ 1 - 2 * Real.sin (π * ((2 : ℤ) : ℝ) / 2) / (π
   have e : ∀ s : ℝ, 2 * s / (π * 2) = (2 * s / 2) * (1 / π) := fun s => by field_simp
   rw [e]
   nlinarith
-
-theorem term2 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.3466) {g : ℝ → ℝ} (hp : Probe a g)
-    (hn : normSq g = 1) (h0 : poleR g a = 0) :
-    ((1.6214 : ℝ) + a * 1 - errK a - tauF a) * 0.02538 ≤ (modeE a 2 - tauF a) * pm a g 2 := by
-  have h := term_mode ha (by linarith) (k := 2) (by norm_num) (Cv := 1.6214) (D := 1) (X := 0)
-    (Y := 0) (τ := tauF a) (P := 0.02538) (by simpa using cin_val2) dlo2 le_rfl
-    (by unfold tauF; linarith) (pm_le2 ha ha2 hp hn h0)
-  linarith
 
 theorem dlo3 : (1.212206 : ℝ) ≤ 1 - 2 * Real.sin (π * ((3 : ℤ) : ℝ) / 2) / (π * ((3 : ℤ) : ℝ)) := by
   push_cast
@@ -1394,14 +1384,6 @@ theorem dlo3 : (1.212206 : ℝ) ≤ 1 - 2 * Real.sin (π * ((3 : ℤ) : ℝ) / 2
   rw [e]
   nlinarith
 
-theorem term3 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.3466) {g : ℝ → ℝ} (hp : Probe a g)
-    (hn : normSq g = 1) (h0 : poleR g a = 0) :
-    ((2.2965 : ℝ) + a * 1.212206 - errK a - tauF a) * 0.07988 ≤ (modeE a 3 - tauF a) * pm a g 3 := by
-  have h := term_mode ha (by linarith) (k := 3) (by norm_num) (Cv := 2.2965) (D := 1.212206) (X := 0)
-    (Y := 0) (τ := tauF a) (P := 0.07988) (by simpa using cin_val3) dlo3 le_rfl
-    (by unfold tauF; linarith) (pm_le3 ha ha2 hp hn h0)
-  linarith
-
 theorem dlo4 : (1 : ℝ) ≤ 1 - 2 * Real.sin (π * ((4 : ℤ) : ℝ) / 2) / (π * ((4 : ℤ) : ℝ)) := by
   push_cast
   rw [show π * (4 : ℝ) / 2 = 8 * π / 4 by ring, (sc8).1]
@@ -1410,14 +1392,6 @@ theorem dlo4 : (1 : ℝ) ≤ 1 - 2 * Real.sin (π * ((4 : ℤ) : ℝ) / 2) / (π
   rw [e]
   nlinarith
 
-theorem term4 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.3466) {g : ℝ → ℝ} (hp : Probe a g)
-    (hn : normSq g = 1) (h0 : poleR g a = 0) :
-    ((2.4081 : ℝ) + a * 1 - errK a - tauF a) * 0.13125 ≤ (modeE a 4 - tauF a) * pm a g 4 := by
-  have h := term_mode ha (by linarith) (k := 4) (by norm_num) (Cv := 2.4081) (D := 1) (X := 0)
-    (Y := 0) (τ := tauF a) (P := 0.13125) (by simpa using cin_val4) dlo4 le_rfl
-    (by unfold tauF; linarith) (pm_le4 ha ha2 hp hn h0)
-  linarith
-
 theorem dlo5 : (0.872676 : ℝ) ≤ 1 - 2 * Real.sin (π * ((5 : ℤ) : ℝ) / 2) / (π * ((5 : ℤ) : ℝ)) := by
   push_cast
   rw [show π * (5 : ℝ) / 2 = 10 * π / 4 by ring, (sc10).1]
@@ -1425,14 +1399,6 @@ theorem dlo5 : (0.872676 : ℝ) ≤ 1 - 2 * Real.sin (π * ((5 : ℤ) : ℝ) / 2
   have e : ∀ s : ℝ, 2 * s / (π * 5) = (2 * s / 5) * (1 / π) := fun s => by field_simp
   rw [e]
   nlinarith
-
-theorem term5 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.3466) {g : ℝ → ℝ} (hp : Probe a g)
-    (hn : normSq g = 1) (h0 : poleR g a = 0) :
-    ((2.4848 : ℝ) + a * 0.872676 - errK a - tauF a) * 0.1395 ≤ (modeE a 5 - tauF a) * pm a g 5 := by
-  have h := term_mode ha (by linarith) (k := 5) (by norm_num) (Cv := 2.4848) (D := 0.872676) (X := 0)
-    (Y := 0) (τ := tauF a) (P := 0.1395) (by simpa using cin_val5) dlo5 le_rfl
-    (by unfold tauF; linarith) (pm_le5 ha ha2 hp hn h0)
-  linarith
 
 /-- The low modes `−5, …, 5`. -/
 def lowS : Finset ℤ := {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5}
@@ -1490,11 +1456,21 @@ theorem nearField_fourier {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.3466) {g : ℝ �
     rw [modeE_zero]
     have := pm_zero_le ha (by linarith) hp hn h0
     nlinarith [pm_nonneg ha g 0]
-  have t1 := term1 ha ha2 hp hn h0
-  have t2 := term2 ha ha2 hp hn h0
-  have t3 := term3 ha ha2 hp hn h0
-  have t4 := term4 ha ha2 hp hn h0
-  have t5 := term5 ha ha2 hp hn h0
+  have t1 := term_mode ha (by linarith) (k := 1) (by norm_num) (Cv := 0.5408) (D := 0.36338) (X := 0)
+    (Y := 0) (τ := tauF a) (P := 0.00306) (by simpa using cin_val1) dlo1 le_rfl
+    (by unfold tauF; linarith) (pm_le1 ha ha2 hp hn h0)
+  have t2 := term_mode ha (by linarith) (k := 2) (by norm_num) (Cv := 1.6214) (D := 1) (X := 0)
+    (Y := 0) (τ := tauF a) (P := 0.02538) (by simpa using cin_val2) dlo2 le_rfl
+    (by unfold tauF; linarith) (pm_le2 ha ha2 hp hn h0)
+  have t3 := term_mode ha (by linarith) (k := 3) (by norm_num) (Cv := 2.2965) (D := 1.212206) (X := 0)
+    (Y := 0) (τ := tauF a) (P := 0.07988) (by simpa using cin_val3) dlo3 le_rfl
+    (by unfold tauF; linarith) (pm_le3 ha ha2 hp hn h0)
+  have t4 := term_mode ha (by linarith) (k := 4) (by norm_num) (Cv := 2.4081) (D := 1) (X := 0)
+    (Y := 0) (τ := tauF a) (P := 0.13125) (by simpa using cin_val4) dlo4 le_rfl
+    (by unfold tauF; linarith) (pm_le4 ha ha2 hp hn h0)
+  have t5 := term_mode ha (by linarith) (k := 5) (by norm_num) (Cv := 2.4848) (D := 0.872676) (X := 0)
+    (Y := 0) (τ := tauF a) (P := 0.1395) (by simpa using cin_val5) dlo5 le_rfl
+    (by unfold tauF; linarith) (pm_le5 ha ha2 hp hn h0)
   linarith
 
 /-- **The gap below the first prime**: for `0 < a` with `2a < log 2`, every normalised probe `g`
@@ -1554,14 +1530,22 @@ theorem groundState_unique_below_log2 {a : ℝ} (ha : 0 < a) (hlog : 2 * a < Rea
 
 /-! ## H. Past the first prime: `log 2 ≤ 2a ≤ 0.7` -/
 
-theorem log_three_gt : (0.72 : ℝ) < Real.log 3 := by
+theorem log_three_gt : (1.0986 : ℝ) < Real.log 3 := by
   rw [Real.lt_log_iff_exp_lt (by norm_num)]
-  have h1 : Real.exp 0.72 < Real.exp 1 := Real.exp_lt_exp.2 (by norm_num)
-  have h2 := Real.exp_one_lt_d9
-  linarith
+  have he := Real.exp_one_lt_d9
+  have hb := Real.exp_bound (x := 0.0986) (by rw [abs_of_pos (by norm_num)]; norm_num) (n := 4) (by norm_num)
+  simp [Finset.sum_range_succ, Nat.factorial] at hb
+  have hb' : Real.exp 0.0986 ≤ 1.10363 := by
+    have := (abs_le.mp hb).2
+    norm_num at this ⊢; linarith
+  have : Real.exp 1.0986 = Real.exp 1 * Real.exp 0.0986 := by rw [← Real.exp_add]; norm_num
+  rw [this]
+  have h0 : 0 < Real.exp 0.0986 := Real.exp_pos _
+  norm_num at he
+  nlinarith
 
-/-- For `2a ≤ 0.72`, only `n = 2` contributes: `S(g) = (log 2/√2)·f(log 2)`. -/
-theorem primeS_eq_two {a : ℝ} (ha : 2 * a ≤ 0.72) {g : ℝ → ℝ} (hg : Probe a g) :
+/-- For `2a < log 3`, only `n = 2` contributes: `S(g) = (log 2/√2)·f(log 2)`. -/
+theorem primeS_eq_two {a : ℝ} (ha : 2 * a < Real.log 3) {g : ℝ → ℝ} (hg : Probe a g) :
     primeS g = Real.log 2 / Real.sqrt 2 * autocorr g (Real.log 2) := by
   unfold primeS
   rw [tsum_eq_single 2]
@@ -1591,15 +1575,20 @@ theorem autocorr_two_a {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g)
   rw [integral_congr_ae this]; simp
 
 /-- `f(u) = Σ p_n cos(πnu/4a)` for `0 ≤ u ≤ 2a`. -/
-theorem hasSum_autocorr {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1)
+theorem hasSum_autocorrS {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g) (hn : normSq g = 1)
     {u : ℝ} (hu0 : 0 ≤ u) (hu : u ≤ 2 * a) :
     HasSum (fun n : ℤ => pm a g n * Real.cos (π * n * u / (4 * a))) (autocorr g u) := by
-  have h1 := hasSum_pm ha hp
+  have h1 := hasSum_pmS ha hp
   rw [hn] at h1
-  have h2 := hasSum_one_sub_autocorr ha hp hn hu0 hu
+  have h2 := hasSum_one_sub_autocorrS ha hp hn hu0 hu
   convert h1.sub h2 using 1
   · funext n; ring
   · ring
+
+theorem hasSum_autocorr {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1)
+    {u : ℝ} (hu0 : 0 ≤ u) (hu : u ≤ 2 * a) :
+    HasSum (fun n : ℤ => pm a g n * Real.cos (π * n * u / (4 * a))) (autocorr g u) :=
+  hasSum_autocorrS ha hp.toS hn hu0 hu
 
 /-- The prime defect of mode `n`: `δ_n = |cos(πn u₀/4a) − cos(πn·2a/4a)|`. -/
 def primeD (a u₀ : ℝ) (n : ℤ) : ℝ :=
@@ -1713,6 +1702,14 @@ theorem primeD_small {a : ℝ} (hlo : Real.log 2 ≤ 2 * a) (ha2 : a ≤ 0.35) (
     linarith
   nlinarith
 
+/-- **One low mode with the prime `2`**: `term_mode` with the prime defect `c·primeD ≤ c·e`. -/
+theorem term_prime {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1) {g : ℝ → ℝ} {k : ℤ} (hk : 0 < k)
+    {Cv D e τ P c : ℝ} (hc0 : 0 ≤ c) (hcv : Cv ≤ Cin (π * k / 2))
+    (hd : D ≤ 1 - 2 * Real.sin (π * k / 2) / (π * k)) (hD : primeD a (Real.log 2) k ≤ e)
+    (hneg : Cv + a * D - errK a - c * e - τ ≤ 0) (hP : pm a g k ≤ P) :
+    (Cv + a * D - errK a - c * e - τ) * P ≤ (modeE a k - c * primeD a (Real.log 2) k - τ) * pm a g k :=
+  term_mode ha ha1 hk hcv hd (mul_le_mul_of_nonneg_left hD hc0) hneg hP
+
 /-- **One tail branch**: for `6 ≤ n` with `M ≤ n` and `D_n ≤ B`, the `Cin` value at `Mπ/2` gives
 `ψ_n − c·D_n ≥ C_v + a(1 − 0.31831/3) − err(a) − c·B`. -/
 theorem tail_branch {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1) {c : ℝ} (hc0 : 0 ≤ c) {n : ℤ} (hn : 6 ≤ n)
@@ -1775,86 +1772,21 @@ theorem pm_leB1 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.35) {g : ℝ → ℝ} (hp 
     (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 1 ≤ (0.0031 : ℝ) :=
   (pm_le_of ha ha2 (by norm_num) hp hn h0 (by norm_num) cval1).trans (by norm_num)
 
-theorem termB1 {a : ℝ} (ha : 0 < a) (hlo : Real.log 2 ≤ 2 * a) (ha2 : a ≤ 0.35)
-    {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) (h0 : poleR g a = 0) {c : ℝ} (hc0 : 0 ≤ c) :
-    ((0.5408 : ℝ) + a * 0.36338 - errK a - c * (0.01553 * 1) - 2.8) * 0.0031
-      ≤ (modeE a 1 - c * primeD a (Real.log 2) 1 - 2.8) * pm a g 1 := by
-  have hD := primeD_small hlo ha2 1
-  rw [show |(((1 : ℤ) : ℝ))| = 1 by norm_num] at hD
-  have h := term_mode ha (by linarith) (k := 1) (by norm_num) (Cv := 0.5408) (D := 0.36338)
-    (X := c * (0.01553 * 1)) (Y := c * primeD a (Real.log 2) 1) (τ := 2.8) (P := 0.0031)
-    (by simpa using cin_val1) dlo1 (mul_le_mul_of_nonneg_left hD hc0)
-    (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.01553 * 1 by norm_num)])
-    (pm_leB1 ha ha2 hp hn h0)
-  linarith
-
 theorem pm_leB2 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.35) {g : ℝ → ℝ} (hp : Probe a g)
     (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 2 ≤ (0.0254 : ℝ) :=
   (pm_le_of ha ha2 (by norm_num) hp hn h0 (by norm_num) cval2).trans (by norm_num)
-
-theorem termB2 {a : ℝ} (ha : 0 < a) (hlo : Real.log 2 ≤ 2 * a) (ha2 : a ≤ 0.35)
-    {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) (h0 : poleR g a = 0) {c : ℝ} (hc0 : 0 ≤ c) :
-    ((1.6214 : ℝ) + a * 1 - errK a - c * (0.01553 * 2) - 2.8) * 0.0254
-      ≤ (modeE a 2 - c * primeD a (Real.log 2) 2 - 2.8) * pm a g 2 := by
-  have hD := primeD_small hlo ha2 2
-  rw [show |(((2 : ℤ) : ℝ))| = 2 by norm_num] at hD
-  have h := term_mode ha (by linarith) (k := 2) (by norm_num) (Cv := 1.6214) (D := 1)
-    (X := c * (0.01553 * 2)) (Y := c * primeD a (Real.log 2) 2) (τ := 2.8) (P := 0.0254)
-    (by simpa using cin_val2) dlo2 (mul_le_mul_of_nonneg_left hD hc0)
-    (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.01553 * 2 by norm_num)])
-    (pm_leB2 ha ha2 hp hn h0)
-  linarith
 
 theorem pm_leB3 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.35) {g : ℝ → ℝ} (hp : Probe a g)
     (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 3 ≤ (0.07988 : ℝ) :=
   (pm_le_of ha ha2 (by norm_num) hp hn h0 (by norm_num) cval3).trans (by norm_num)
 
-theorem termB3 {a : ℝ} (ha : 0 < a) (hlo : Real.log 2 ≤ 2 * a) (ha2 : a ≤ 0.35)
-    {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) (h0 : poleR g a = 0) {c : ℝ} (hc0 : 0 ≤ c) :
-    ((2.2965 : ℝ) + a * 1.212206 - errK a - c * (0.01553 * 3) - 2.8) * 0.07988
-      ≤ (modeE a 3 - c * primeD a (Real.log 2) 3 - 2.8) * pm a g 3 := by
-  have hD := primeD_small hlo ha2 3
-  rw [show |(((3 : ℤ) : ℝ))| = 3 by norm_num] at hD
-  have h := term_mode ha (by linarith) (k := 3) (by norm_num) (Cv := 2.2965) (D := 1.212206)
-    (X := c * (0.01553 * 3)) (Y := c * primeD a (Real.log 2) 3) (τ := 2.8) (P := 0.07988)
-    (by simpa using cin_val3) dlo3 (mul_le_mul_of_nonneg_left hD hc0)
-    (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.01553 * 3 by norm_num)])
-    (pm_leB3 ha ha2 hp hn h0)
-  linarith
-
 theorem pm_leB4 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.35) {g : ℝ → ℝ} (hp : Probe a g)
     (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 4 ≤ (0.13125 : ℝ) :=
   (pm_le_of ha ha2 (by norm_num) hp hn h0 (by norm_num) cval4).trans (by norm_num)
 
-theorem termB4 {a : ℝ} (ha : 0 < a) (hlo : Real.log 2 ≤ 2 * a) (ha2 : a ≤ 0.35)
-    {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) (h0 : poleR g a = 0) {c : ℝ} (hc0 : 0 ≤ c) :
-    ((2.4081 : ℝ) + a * 1 - errK a - c * (0.01553 * 4) - 2.8) * 0.13125
-      ≤ (modeE a 4 - c * primeD a (Real.log 2) 4 - 2.8) * pm a g 4 := by
-  have hD := primeD_small hlo ha2 4
-  rw [show |(((4 : ℤ) : ℝ))| = 4 by norm_num] at hD
-  have h := term_mode ha (by linarith) (k := 4) (by norm_num) (Cv := 2.4081) (D := 1)
-    (X := c * (0.01553 * 4)) (Y := c * primeD a (Real.log 2) 4) (τ := 2.8) (P := 0.13125)
-    (by simpa using cin_val4) dlo4 (mul_le_mul_of_nonneg_left hD hc0)
-    (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.01553 * 4 by norm_num)])
-    (pm_leB4 ha ha2 hp hn h0)
-  linarith
-
 theorem pm_leB5 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.35) {g : ℝ → ℝ} (hp : Probe a g)
     (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 5 ≤ (0.1395 : ℝ) :=
   (pm_le_of ha ha2 (by norm_num) hp hn h0 (by norm_num) cval5).trans (by norm_num)
-
-theorem termB5 {a : ℝ} (ha : 0 < a) (hlo : Real.log 2 ≤ 2 * a) (ha2 : a ≤ 0.35)
-    {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) (h0 : poleR g a = 0) {c : ℝ} (hc0 : 0 ≤ c) :
-    ((2.4848 : ℝ) + a * 0.872676 - errK a - c * (0.01553 * 5) - 2.8) * 0.1395
-      ≤ (modeE a 5 - c * primeD a (Real.log 2) 5 - 2.8) * pm a g 5 := by
-  have hD := primeD_small hlo ha2 5
-  rw [show |(((5 : ℤ) : ℝ))| = 5 by norm_num] at hD
-  have h := term_mode ha (by linarith) (k := 5) (by norm_num) (Cv := 2.4848) (D := 0.872676)
-    (X := c * (0.01553 * 5)) (Y := c * primeD a (Real.log 2) 5) (τ := 2.8) (P := 0.1395)
-    (by simpa using cin_val5) dlo5 (mul_le_mul_of_nonneg_left hD hc0)
-    (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.01553 * 5 by norm_num)])
-    (pm_leB5 ha ha2 hp hn h0)
-  linarith
 
 theorem pole_poly_le {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.35) :
     4 * a * (1 + a ^ 2 / 24 + a ^ 4 / 1600) ^ 2 ≤ 4 * a + 0.34 * a ^ 3 := by
@@ -1895,7 +1827,7 @@ theorem weilQ_perp_ge_sliver {a : ℝ} (ha : 0 < a) (hlo : Real.log 2 ≤ 2 * a)
   have hQ : ∀ h, Probe a h → normSq h = 1 →
       weilQ a h = 2 * poleR h a ^ 2 + weilConst + archE h - c * autocorr h (Real.log 2) := by
     intro h hh hhn
-    rw [weilQ_eq', primeS_eq_two (by linarith) hh, hhn, hcdef]; ring
+    rw [weilQ_eq', primeS_eq_two (by linarith [log_three_gt]) hh, hhn, hcdef]; ring
   rw [hQ g hp hn, hQ _ (box_probe a) (normSq_box ha), h0, archE_split ha hp hn,
     archE_split ha (box_probe a) (normSq_box ha)]
   have hu0 : 0 ≤ Real.log 2 := by linarith
@@ -1914,11 +1846,26 @@ theorem weilQ_perp_ge_sliver {a : ℝ} (ha : 0 < a) (hlo : Real.log 2 ≤ 2 * a)
     rw [modeE_zero, show primeD a (Real.log 2) 0 = 0 by simp [primeD]]
     have := pm_zero_le ha (by linarith) hp hn h0
     nlinarith [pm_nonneg ha g 0]
-  have t1 := termB1 ha hlo ha2 hp hn h0 hc0
-  have t2 := termB2 ha hlo ha2 hp hn h0 hc0
-  have t3 := termB3 ha hlo ha2 hp hn h0 hc0
-  have t4 := termB4 ha hlo ha2 hp hn h0 hc0
-  have t5 := termB5 ha hlo ha2 hp hn h0 hc0
+  have t1 := term_prime ha (by linarith) (k := 1) (by norm_num) (Cv := 0.5408) (D := 0.36338)
+    (e := 0.01553 * 1) (τ := 2.8) (P := 0.0031) hc0 (by simpa using cin_val1) dlo1
+    (by simpa using primeD_small hlo ha2 1) (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.01553 * 1 by norm_num)])
+    (pm_leB1 ha ha2 hp hn h0)
+  have t2 := term_prime ha (by linarith) (k := 2) (by norm_num) (Cv := 1.6214) (D := 1)
+    (e := 0.01553 * 2) (τ := 2.8) (P := 0.0254) hc0 (by simpa using cin_val2) dlo2
+    (by simpa using primeD_small hlo ha2 2) (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.01553 * 2 by norm_num)])
+    (pm_leB2 ha ha2 hp hn h0)
+  have t3 := term_prime ha (by linarith) (k := 3) (by norm_num) (Cv := 2.2965) (D := 1.212206)
+    (e := 0.01553 * 3) (τ := 2.8) (P := 0.07988) hc0 (by simpa using cin_val3) dlo3
+    (by simpa using primeD_small hlo ha2 3) (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.01553 * 3 by norm_num)])
+    (pm_leB3 ha ha2 hp hn h0)
+  have t4 := term_prime ha (by linarith) (k := 4) (by norm_num) (Cv := 2.4081) (D := 1)
+    (e := 0.01553 * 4) (τ := 2.8) (P := 0.13125) hc0 (by simpa using cin_val4) dlo4
+    (by simpa using primeD_small hlo ha2 4) (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.01553 * 4 by norm_num)])
+    (pm_leB4 ha ha2 hp hn h0)
+  have t5 := term_prime ha (by linarith) (k := 5) (by norm_num) (Cv := 2.4848) (D := 0.872676)
+    (e := 0.01553 * 5) (τ := 2.8) (P := 0.1395) hc0 (by simpa using cin_val5) dlo5
+    (by simpa using primeD_small hlo ha2 5) (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.01553 * 5 by norm_num)])
+    (pm_leB5 ha ha2 hp hn h0)
   have hB := nearField_box_le' ha
   have hP := pole_box_le ha (by linarith)
   have hfb := autocorr_box_nonneg a (Real.log 2)

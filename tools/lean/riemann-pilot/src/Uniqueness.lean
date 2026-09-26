@@ -221,77 +221,120 @@ theorem weilQ_smul (a : ℝ) (g : ℝ → ℝ) (c : ℝ) :
 
 /-! ## The ground energy and the ground-state space -/
 
-/-- The ground energy `λ₁(2a) = inf {Q(g) : g a probe, ‖g‖ = 1}`. -/
-def lam (a : ℝ) : ℝ := sInf {q | ∃ h, Probe a h ∧ normSq h = 1 ∧ weilQ a h = q}
+/-- A quadratic form on probes, as `λ₁` and the ground-state space need it: `Q(0) = 0`,
+`Q(cg) = c²Q(g)`, the parallelogram law, invariance under a.e. equality, and a lower bound
+`Q(g) ≥ m‖g‖²`. Weil's form `Q` and the pole-free `Q₀` are instances. -/
+structure ProbeForm (a : ℝ) (Q : (ℝ → ℝ) → ℝ) : Prop where
+  zero : Q (fun _ => 0) = 0
+  smul : ∀ g c, Q (fun t => c * g t) = c ^ 2 * Q g
+  add_sub : ∀ {g h}, Probe a g → Probe a h →
+    Q (fun t => g t + h t) + Q (fun t => g t - h t) = 2 * Q g + 2 * Q h
+  congr_ae : ∀ {g g'}, g =ᵐ[volume] g' → Q g = Q g'
+  bdd : BddBelow {q | ∃ h, Probe a h ∧ normSq h = 1 ∧ Q h = q}
 
-theorem lam_bdd (a : ℝ) : BddBelow {q | ∃ h, Probe a h ∧ normSq h = 1 ∧ weilQ a h = q} := by
-  refine ⟨weilConst - 2 * primeWeight a, ?_⟩
-  rintro q ⟨h, hp, hn, rfl⟩
-  have := weilQ_ge hp; rwa [hn, mul_one] at this
+namespace ProbeForm
 
-theorem lam_le {a : ℝ} {h : ℝ → ℝ} (hp : Probe a h) (hn : normSq h = 1) : lam a ≤ weilQ a h :=
-  csInf_le (lam_bdd a) ⟨h, hp, hn, rfl⟩
+variable {a : ℝ} {Q : (ℝ → ℝ) → ℝ}
 
-/-- **`R(g) = Q(g) − λ₁‖g‖² ≥ 0` on probes.** -/
-theorem lam_mul_le {a : ℝ} {g : ℝ → ℝ} (hg : Probe a g) : lam a * normSq g ≤ weilQ a g := by
+/-- The ground energy `inf {Q(g) : g a probe, ‖g‖ = 1}`. -/
+def inf (_ : ProbeForm a Q) : ℝ := sInf {q | ∃ h, Probe a h ∧ normSq h = 1 ∧ Q h = q}
+
+theorem inf_le (F : ProbeForm a Q) {h : ℝ → ℝ} (hp : Probe a h) (hn : normSq h = 1) : F.inf ≤ Q h :=
+  csInf_le F.bdd ⟨h, hp, hn, rfl⟩
+
+theorem inf_mul_le (F : ProbeForm a Q) {g : ℝ → ℝ} (hg : Probe a g) : F.inf * normSq g ≤ Q g := by
   rcases (normSq_nonneg g).lt_or_eq with hpos | h0
   · set c := 1 / Real.sqrt (normSq g) with hc
     have hc2 : c ^ 2 * normSq g = 1 := by
       rw [hc, div_pow, Real.sq_sqrt hpos.le]; field_simp
-    have h1 := lam_le (probe_smul hg c) (by rw [normSq_smul]; exact hc2)
-    rw [weilQ_smul a g c] at h1
+    have h1 := F.inf_le (probe_smul hg c) (by rw [normSq_smul]; exact hc2)
+    rw [F.smul g c] at h1
     have hc0 : 0 < c ^ 2 := by positivity
-    have : lam a * normSq g * c ^ 2 ≤ weilQ a g * c ^ 2 :=
-      calc lam a * normSq g * c ^ 2 = lam a * (c ^ 2 * normSq g) := by ring
-        _ = lam a := by rw [hc2, mul_one]
-        _ ≤ c ^ 2 * weilQ a g := h1
-        _ = weilQ a g * c ^ 2 := by ring
+    have : F.inf * normSq g * c ^ 2 ≤ Q g * c ^ 2 :=
+      calc F.inf * normSq g * c ^ 2 = F.inf * (c ^ 2 * normSq g) := by ring
+        _ = F.inf := by rw [hc2, mul_one]
+        _ ≤ c ^ 2 * Q g := h1
+        _ = Q g * c ^ 2 := by ring
     exact le_of_mul_le_mul_right this hc0
   · have hz := ae_zero_of_normSq hg.memL2 h0.symm
-    rw [← h0, mul_zero, weilQ_congr_ae hz]
-    exact le_of_eq (weilQ_zero a).symm
+    rw [← h0, mul_zero, F.congr_ae hz]
+    exact le_of_eq F.zero.symm
 
-/-- **The ground-state space**: probes with `Q(g) = λ₁‖g‖²`. A submodule of `ℝ → ℝ`. -/
-def groundSpace (a : ℝ) : Submodule ℝ (ℝ → ℝ) where
-  carrier := {g | Probe a g ∧ weilQ a g = lam a * normSq g}
+/-- The ground-state space: probes with `Q(g) = inf·‖g‖²`. A submodule of `ℝ → ℝ`. -/
+def space (F : ProbeForm a Q) : Submodule ℝ (ℝ → ℝ) where
+  carrier := {g | Probe a g ∧ Q g = F.inf * normSq g}
   zero_mem' := by
     refine ⟨probe_zero a, ?_⟩
-    show weilQ a (fun _ => 0) = lam a * normSq (fun _ => 0)
-    rw [weilQ_zero]; simp [normSq]
+    show Q (fun _ => 0) = F.inf * normSq (fun _ => 0)
+    rw [F.zero]; simp [normSq]
   add_mem' := by
     rintro g h ⟨hg, hgq⟩ ⟨hh, hhq⟩
     obtain ⟨hp, hm⟩ := probe_add_sub hg hh
     refine ⟨hp, ?_⟩
-    show weilQ a (fun t => g t + h t) = lam a * normSq (fun t => g t + h t)
-    have hQ := weilQ_add_sub hg hh
+    show Q (fun t => g t + h t) = F.inf * normSq (fun t => g t + h t)
+    have hQ := F.add_sub hg hh
     have hN := normSq_add_sub hg.memL2 hh.memL2
-    have r1 := lam_mul_le hp
-    have r2 := lam_mul_le hm
-    have : weilQ a (fun t => g t + h t) - lam a * normSq (fun t => g t + h t)
-        + (weilQ a (fun t => g t - h t) - lam a * normSq (fun t => g t - h t)) = 0 := by
-      linear_combination hQ - lam a * hN + 2 * hgq + 2 * hhq
+    have r1 := F.inf_mul_le hp
+    have r2 := F.inf_mul_le hm
+    have : Q (fun t => g t + h t) - F.inf * normSq (fun t => g t + h t)
+        + (Q (fun t => g t - h t) - F.inf * normSq (fun t => g t - h t)) = 0 := by
+      linear_combination hQ - F.inf * hN + 2 * hgq + 2 * hhq
     linarith
   smul_mem' := by
     rintro c g ⟨hg, hgq⟩
     refine ⟨probe_smul hg c, ?_⟩
-    show weilQ a (fun t => c * g t) = lam a * normSq (fun t => c * g t)
-    rw [weilQ_smul a g c, normSq_smul, hgq]; ring
+    show Q (fun t => c * g t) = F.inf * normSq (fun t => c * g t)
+    rw [F.smul g c, normSq_smul, hgq]; ring
 
-/-- **The ground states are exactly the unit vectors of `groundSpace`.** -/
-theorem isGroundState_iff {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} :
-    IsGroundState a g ↔ g ∈ groundSpace a ∧ normSq g = 1 := by
+/-- The normalised minimisers are exactly the unit vectors of the ground-state space. -/
+theorem isMin_iff (F : ProbeForm a Q) (ha : 0 < a) {g : ℝ → ℝ} :
+    (Probe a g ∧ normSq g = 1 ∧ ∀ h, Probe a h → normSq h = 1 → Q g ≤ Q h) ↔
+      g ∈ F.space ∧ normSq g = 1 := by
   constructor
   · rintro ⟨hp, hn, hmin⟩
     refine ⟨⟨hp, ?_⟩, hn⟩
     rw [hn, mul_one]
-    refine le_antisymm ?_ (lam_le hp hn)
+    refine le_antisymm ?_ (F.inf_le hp hn)
     refine le_csInf ⟨_, box a, box_probe a, normSq_box ha, rfl⟩ ?_
     rintro q ⟨h, hph, hnh, rfl⟩
     exact hmin h hph hnh
   · rintro ⟨⟨hp, hq⟩, hn⟩
     refine ⟨hp, hn, fun h hph hnh => ?_⟩
     rw [hq, hn, mul_one]
-    exact lam_le hph hnh
+    exact F.inf_le hph hnh
+
+end ProbeForm
+
+/-- Weil's form is a `ProbeForm`. -/
+theorem weilQ_form (a : ℝ) : ProbeForm a (weilQ a) where
+  zero := weilQ_zero a
+  smul := weilQ_smul a
+  add_sub := weilQ_add_sub
+  congr_ae := fun h => weilQ_congr_ae h a
+  bdd := ⟨weilConst - 2 * primeWeight a, by
+    rintro q ⟨h, hp, hn, rfl⟩
+    have := weilQ_ge hp; rwa [hn, mul_one] at this⟩
+
+/-- The ground energy `λ₁(2a) = inf {Q(g) : g a probe, ‖g‖ = 1}`. -/
+abbrev lam (a : ℝ) : ℝ := (weilQ_form a).inf
+
+theorem lam_bdd (a : ℝ) : BddBelow {q | ∃ h, Probe a h ∧ normSq h = 1 ∧ weilQ a h = q} :=
+  (weilQ_form a).bdd
+
+theorem lam_le {a : ℝ} {h : ℝ → ℝ} (hp : Probe a h) (hn : normSq h = 1) : lam a ≤ weilQ a h :=
+  (weilQ_form a).inf_le hp hn
+
+/-- **`R(g) = Q(g) − λ₁‖g‖² ≥ 0` on probes.** -/
+theorem lam_mul_le {a : ℝ} {g : ℝ → ℝ} (hg : Probe a g) : lam a * normSq g ≤ weilQ a g :=
+  (weilQ_form a).inf_mul_le hg
+
+/-- **The ground-state space**: probes with `Q(g) = λ₁‖g‖²`. A submodule of `ℝ → ℝ`. -/
+abbrev groundSpace (a : ℝ) : Submodule ℝ (ℝ → ℝ) := (weilQ_form a).space
+
+/-- **The ground states are exactly the unit vectors of `groundSpace`.** -/
+theorem isGroundState_iff {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} :
+    IsGroundState a g ↔ g ∈ groundSpace a ∧ normSq g = 1 :=
+  (weilQ_form a).isMin_iff ha
 
 /-! ## The uniqueness criterion -/
 

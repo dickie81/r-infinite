@@ -66,14 +66,7 @@ theorem rh_of_strip_cross {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ}
     (hcross : ∀ᶠ n in atTop, ∀ z, ghatC (g n) (a n) z = 0 → z.re = 0 ∨ z.im = 0)
     (hconv : HypConvStrip a g) (hζ : ZetaNoZeroInUnitInterval) : RiemannHypothesis := by
   have hX0 := Xi_zero_ne_zero
-  have h0 : ∀ᶠ n in atTop, ghatC (g n) (a n) 0 ≠ 0 := by
-    have hu := Metric.tendstoUniformlyOn_iff.1
-      ((tendstoLocallyUniformlyOn_iff_forall_isCompact isOpen_stripSet).1 hconv {0}
-        (singleton_subset_iff.2 zero_mem_stripSet) isCompact_singleton) 1 one_pos
-    filter_upwards [hu] with n hn h
-    have := hn 0 rfl
-    simp only [div_self hX0, h, div_zero, dist_zero_right, norm_one] at this
-    exact lt_irrefl _ this
+  have h0 := eventually_ghatC_zero_ne zero_mem_stripSet hconv
   obtain ⟨N, hN⟩ := (hcross.and h0).exists_forall_of_atTop
   have hint : ∀ n, IntervalIntegrable (g n) volume (-(a n)) (a n) :=
     fun n => (probe_integrable (hgs n).1).intervalIntegrable

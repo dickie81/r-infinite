@@ -149,53 +149,20 @@ theorem norm_ghatC_le_of_antitone {g : ℝ → ℝ} {a : ℝ} (ha : 0 < a) (hev 
     · rw [abs_of_nonneg h]
     · rw [abs_of_neg h, hev]
   rw [hcongr]
-  -- the layer function
+  have hL := layer_fubini (E := ℂ) (by linarith : -a ≤ a) hgc_meas (fun u => hgt0 |u|)
+    (fun u => hgtM |u|) (w := fun u : ℝ => Complex.exp (I * z * u)) (by fun_prop)
+    (C := Real.exp (‖z‖ * a)) (fun u hu => by
+      rw [Complex.norm_exp]
+      apply Real.exp_le_exp.2
+      have e : (I * z * (u : ℂ)).re = -(z.im * u) := by simp [mul_re]
+      rw [e]
+      calc -(z.im * u) ≤ |z.im * u| := neg_le_abs _
+        _ = |z.im| * |u| := abs_mul _ _
+        _ ≤ ‖z‖ * a := mul_le_mul (abs_im_le_norm z) (abs_le.2 ⟨hu.1.le, hu.2⟩) (abs_nonneg _)
+            (norm_nonneg _))
+  simp only [Complex.real_smul] at hL
+  rw [hL]
   set F : ℝ → ℝ → ℂ := fun u l => (Iio (gc u)).indicator (fun _ => Complex.exp (I * z * u)) l with hF
-  have hlayer : ∀ u, (gc u : ℂ) * Complex.exp (I * z * u) = ∫ l in Ioc 0 M, F u l := by
-    intro u
-    simp only [hF]
-    rw [setIntegral_indicator measurableSet_Iio, setIntegral_const]
-    have hset : Ioc 0 M ∩ Iio (gc u) = Ioo 0 (gc u) := by
-      ext l; simp only [mem_inter_iff, mem_Ioc, mem_Iio, mem_Ioo]
-      constructor
-      · rintro ⟨⟨h1, _⟩, h3⟩; exact ⟨h1, h3⟩
-      · rintro ⟨h1, h3⟩; exact ⟨⟨h1, (h3.trans_le (hgtM _)).le⟩, h3⟩
-    rw [hset, Measure.real, Real.volume_Ioo, ENNReal.toReal_ofReal (by linarith [hgt0 |u|]),
-      sub_zero, Complex.real_smul]
-  have e1 : ∫ u in (-a)..a, (gc u : ℂ) * Complex.exp (I * z * u)
-      = ∫ u in (-a)..a, ∫ l in Ioc 0 M, F u l := by
-    congr 1; funext u; exact hlayer u
-  rw [e1]
-  -- Fubini
-  have hfin : IsFiniteMeasure (volume.restrict (uIoc (-a) a)) := by
-    rw [uIoc_of_le (by linarith)]; exact isFiniteMeasure_restrict.2 measure_Ioc_lt_top.ne
-  have hfin2 : IsFiniteMeasure (volume.restrict (Ioc (0 : ℝ) M)) :=
-    isFiniteMeasure_restrict.2 measure_Ioc_lt_top.ne
-  have hmeasF : Measurable (Function.uncurry F) := by
-    have e : Function.uncurry F = {p : ℝ × ℝ | p.2 < gc p.1}.indicator
-        (fun p => Complex.exp (I * z * p.1)) := by
-      funext ⟨u, l⟩; simp [hF, Set.indicator]
-    rw [e]
-    exact (by fun_prop : Continuous fun p : ℝ × ℝ => Complex.exp (I * z * p.1)).measurable.indicator
-      (measurableSet_lt measurable_snd (hgc_meas.comp measurable_fst))
-  have hint : Integrable (Function.uncurry F)
-      ((volume.restrict (uIoc (-a) a)).prod (volume.restrict (Ioc 0 M))) := by
-    refine Integrable.of_bound hmeasF.aestronglyMeasurable (Real.exp (‖z‖ * a)) ?_
-    rw [Measure.prod_restrict]
-    refine ae_restrict_of_forall_mem (measurableSet_uIoc.prod measurableSet_Ioc) ?_
-    rintro ⟨u, l⟩ ⟨hu, _⟩
-    rw [uIoc_of_le (by linarith)] at hu
-    simp only [Function.uncurry_apply_pair, hF]
-    refine (norm_indicator_le_norm_self _ _).trans ?_
-    rw [Complex.norm_exp]
-    apply Real.exp_le_exp.2
-    have e : (I * z * (u : ℂ)).re = -(z.im * u) := by simp [mul_re]
-    rw [e]
-    calc -(z.im * u) ≤ |z.im * u| := neg_le_abs _
-      _ = |z.im| * |u| := abs_mul _ _
-      _ ≤ ‖z‖ * a := mul_le_mul (abs_im_le_norm z) (abs_le.2 ⟨hu.1.le, hu.2⟩) (abs_nonneg _)
-          (norm_nonneg _)
-  rw [intervalIntegral_integral_swap hint]
   -- each layer is `2 sin(zr)/z`, of norm at most `2 cosh(a |Im z|)/‖z‖`
   have hbound : ∀ l ∈ Ioc (0 : ℝ) M,
       ‖∫ u in (-a)..a, F u l‖ ≤ 2 * Real.cosh (a * |z.im|) / ‖z‖ := by

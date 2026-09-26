@@ -47,6 +47,8 @@ structure OProbe (a : ℝ) (g : ℝ → ℝ) : Prop where
   memL2 : MemLp g 2 volume
   arch : IntegrableOn (archIntegrand g) (Set.Ioi 0)
 
+theorem OProbe.toS {a : ℝ} {g : ℝ → ℝ} (hp : OProbe a g) : SProbe a g := ⟨hp.supp, hp.memL2, hp.arch⟩
+
 /-- For even probes the general form is the pilot's `weilQ`. -/
 theorem weilQg_even {a : ℝ} {g : ℝ → ℝ} (hp : Probe a g) : weilQg a g = weilQ a g := by
   have h : poleL g a = poleR g a := by
@@ -56,7 +58,7 @@ theorem weilQg_even {a : ℝ} {g : ℝ → ℝ} (hp : Probe a g) : weilQg a g = 
     rw [← hc]; congr 1; funext u; rw [hp.even]; ring_nf
   rw [weilQg, weilQ_eq', h]; ring
 
-/-! ## The mode machinery for an `OProbe` (round 20's proofs; only `supp`, `memL2`, `arch` are used) -/
+/-! ## The mode machinery for an `OProbe`: round 20's lemmas hold for every `SProbe` -/
 
 theorem oprobe_integrable {a : ℝ} {g : ℝ → ℝ} (hg : OProbe a g) : Integrable g := by
   have hfin : IsFiniteMeasure (volume.restrict (Icc (-a) a)) :=
@@ -67,155 +69,6 @@ theorem oprobe_integrable {a : ℝ} {g : ℝ → ℝ} (hg : OProbe a g) : Integr
   have : |u| ≤ a := by
     by_contra h'; exact hu (hg.supp u (lt_of_not_ge h'))
   exact abs_le.1 this
-
-theorem primeS_eq_zeroO {a : ℝ} (ha : 2 * a < Real.log 2) {g : ℝ → ℝ} (hg : OProbe a g) :
-    primeS g = 0 := by
-  unfold primeS
-  refine (tsum_congr fun n => ?_).trans tsum_zero
-  rcases lt_or_ge n 2 with hn | hn
-  · interval_cases n <;> simp
-  · have hl : Real.log 2 ≤ Real.log n :=
-      Real.log_le_log (by norm_num) (by exact_mod_cast hn)
-    have h2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
-    have hpos : 0 < Real.log n := by linarith
-    have hz : autocorr g (Real.log n) = 0 :=
-      autocorr_eq_zero hg.supp (by rw [abs_of_pos hpos]; linarith)
-    simp [hz]
-
-theorem archE_splitO {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : OProbe a g) (hn : normSq g = 1) :
-    archE g = (∫ u in Ioc 0 (2 * a), archIntegrand g u) + ∫ u in Ioi (2 * a), kerK u := by
-  unfold archE
-  rw [← Ioc_union_Ioi_eq_Ioi (by linarith : (0 : ℝ) ≤ 2 * a),
-    setIntegral_union (Ioc_disjoint_Ioi (le_refl _)) measurableSet_Ioi
-      (hp.arch.mono_set Ioc_subset_Ioi_self) (hp.arch.mono_set (Ioi_subset_Ioi (by linarith)))]
-  congr 1
-  refine setIntegral_congr_fun measurableSet_Ioi fun u hu => ?_
-  unfold archIntegrand kerK
-  rw [autocorr_zero, hn, autocorr_eq_zero hp.supp (by rw [abs_of_pos (by linarith [mem_Ioi.mp hu])]; exact hu)]
-  ring
-
-theorem hasSum_pmO {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : OProbe a g) :
-    HasSum (pm a g) (normSq g) := by
-  have h := (hasSum_cf_sq (a := 2 * a) (r := a) (by linarith) (by linarith) hp.memL2 hp.supp).mul_left
-    (8 * a)
-  have e : 8 * a * ((4 * (2 * a))⁻¹ * normSq g) = normSq g := by field_simp; ring
-  rw [e] at h; exact h
-
-theorem hasSum_one_sub_autocorrO {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : OProbe a g)
-    (hn : normSq g = 1) {u : ℝ} (hu0 : 0 ≤ u) (hu : u ≤ 2 * a) :
-    HasSum (fun n : ℤ => pm a g n * (1 - Real.cos (π * n * u / (4 * a)))) (1 - autocorr g u) := by
-  have h := (hasSum_shift' (A := 2 * a) (r := a) (by linarith) hp.memL2 hp.supp
-    (s := u) (by rw [abs_of_nonneg hu0]; linarith)).mul_left (4 * a)
-  rw [autocorr_zero, hn] at h
-  convert h using 1
-  · funext n
-    unfold pm
-    rw [show 2 * π * (n : ℝ) * u / (4 * (2 * a)) = π * n * u / (4 * a) by field_simp]
-    ring
-  · field_simp
-
-theorem sum_modeE_leO {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : OProbe a g) (hn : normSq g = 1)
-    (S : Finset ℤ) :
-    ∑ n ∈ S, pm a g n * modeE a n ≤ ∫ u in Ioc 0 (2 * a), archIntegrand g u := by
-  have e : ∑ n ∈ S, pm a g n * modeE a n
-      = ∫ u in Ioc 0 (2 * a), ∑ n ∈ S, pm a g n * ((1 - Real.cos (π * n * u / (4 * a))) * kerK u) := by
-    rw [integral_finsetSum S fun n _ => (modeE_integrable ha n).const_mul _]
-    refine Finset.sum_congr rfl fun n _ => ?_
-    unfold modeE; rw [integral_const_mul]
-  rw [e]
-  refine setIntegral_mono_on (integrable_finsetSum S fun n _ => (modeE_integrable ha n).const_mul _)
-    (hp.arch.mono_set Ioc_subset_Ioi_self) measurableSet_Ioc fun u hu => ?_
-  have hK0 : 0 ≤ kerK u := (kerK_pos hu.1).le
-  have hs := sum_le_hasSum S (fun n _ => mul_nonneg (pm_nonneg ha g n)
-    (by linarith [Real.cos_le_one (π * n * u / (4 * a))]))
-    (hasSum_one_sub_autocorrO ha hp hn hu.1.le hu.2)
-  have e2 : archIntegrand g u = (1 - autocorr g u) * kerK u := by
-    unfold archIntegrand kerK; rw [autocorr_zero, hn]
-  rw [e2]
-  calc ∑ n ∈ S, pm a g n * ((1 - Real.cos (π * n * u / (4 * a))) * kerK u)
-      = (∑ n ∈ S, pm a g n * (1 - Real.cos (π * n * u / (4 * a)))) * kerK u := by
-        rw [Finset.sum_mul]; refine Finset.sum_congr rfl fun n _ => by ring
-    _ ≤ _ := mul_le_mul_of_nonneg_right hs hK0
-
-theorem energy_ge_truncO {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : OProbe a g) (hn : normSq g = 1)
-    (S₀ : Finset ℤ) {τ : ℝ} (hτ : ∀ n, n ∉ S₀ → τ ≤ modeE a n) :
-    τ + ∑ n ∈ S₀, (modeE a n - τ) * pm a g n ≤ ∫ u in Ioc 0 (2 * a), archIntegrand g u := by
-  have hP := hasSum_pmO ha hp
-  rw [hn] at hP
-  have hT : Tendsto (fun S : Finset ℤ => ∑ n ∈ S₀, (modeE a n - τ) * pm a g n
-      + τ * ∑ n ∈ S, pm a g n) atTop (𝓝 (∑ n ∈ S₀, (modeE a n - τ) * pm a g n + τ * 1)) :=
-    tendsto_const_nhds.add (hP.const_mul τ)
-  rw [mul_one, add_comm] at hT
-  refine le_of_tendsto hT ?_
-  filter_upwards [eventually_ge_atTop S₀] with S hS
-  have hsplit := Finset.sum_sdiff hS (f := pm a g)
-  have hsplit2 := Finset.sum_sdiff hS (f := fun n => pm a g n * modeE a n)
-  have htail : τ * ∑ n ∈ S \ S₀, pm a g n ≤ ∑ n ∈ S \ S₀, pm a g n * modeE a n := by
-    rw [Finset.mul_sum]
-    refine Finset.sum_le_sum fun n hn' => ?_
-    rw [Finset.mem_sdiff] at hn'
-    rw [mul_comm]
-    exact mul_le_mul_of_nonneg_left (hτ n hn'.2) (pm_nonneg ha g n)
-  have hlow : ∑ n ∈ S₀, (modeE a n - τ) * pm a g n
-      = ∑ n ∈ S₀, pm a g n * modeE a n - τ * ∑ n ∈ S₀, pm a g n := by
-    rw [Finset.mul_sum, ← Finset.sum_sub_distrib]
-    refine Finset.sum_congr rfl fun n _ => by ring
-  have hle := sum_modeE_leO ha hp hn S
-  rw [← hsplit, mul_add] at *
-  rw [← hsplit2] at hle
-  linarith
-
-theorem cs_suppO {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : OProbe a g) {h : ℝ → ℝ} (hh : Continuous h) :
-    (∫ t, g t * h t) ^ 2 ≤ normSq g * ∫ t in (-a)..a, h t ^ 2 := by
-  set hI := (Icc (-a) a).indicator h with hhI
-  have hmem : MemLp hI 2 volume := by
-    obtain ⟨C, hC⟩ := (isCompact_Icc (a := -a) (b := a)).exists_bound_of_continuousOn
-      hh.continuousOn
-    exact memLp_indicator_of_continuous hh measurableSet_Icc measure_Icc_lt_top.ne
-      (C := C) fun x hx => by simpa [Real.norm_eq_abs] using hC x hx
-  have e1 : (∫ t, g t * h t) = ∫ t, g t * hI t := by
-    congr 1; funext t
-    by_cases ht : t ∈ Icc (-a) a
-    · simp [hhI, ht]
-    · have : a < |t| := by
-        simp only [mem_Icc, not_and_or, not_le] at ht
-        rcases ht with h' | h'
-        · rw [abs_of_neg (by linarith)]; linarith
-        · rw [abs_of_pos (by linarith)]; exact h'
-      simp [hp.supp t this]
-  have e2 : (∫ t in (-a)..a, h t ^ 2) = ∫ t, hI t ^ 2 := by
-    rw [intervalIntegral.integral_of_le (by linarith), ← integral_Icc_eq_integral_Ioc,
-      ← integral_indicator measurableSet_Icc]
-    congr 1; funext t
-    by_cases ht : t ∈ Icc (-a) a <;> simp [hhI, ht]
-  rw [e1, e2]
-  have iG := hp.memL2.integrable_sq
-  have iH := hmem.integrable_sq
-  have iGH := integrable_mul₂ hp.memL2 hmem
-  refine disc_le (normSq_nonneg g) fun s => ?_
-  have hq : 0 ≤ ∫ t, (s * g t - hI t) ^ 2 := integral_nonneg fun _ => sq_nonneg _
-  have e3 : (∫ t, (s * g t - hI t) ^ 2)
-      = normSq g * s ^ 2 - 2 * (∫ t, g t * hI t) * s + ∫ t, hI t ^ 2 := by
-    have i1 : Integrable (fun t => s ^ 2 * g t ^ 2) := iG.const_mul _
-    have i2 : Integrable (fun t => 2 * s * (g t * hI t)) := iGH.const_mul _
-    have i3 : Integrable (fun t => s ^ 2 * g t ^ 2 - 2 * s * (g t * hI t)) := i1.sub i2
-    have ef : (fun t => (s * g t - hI t) ^ 2)
-        = fun t => s ^ 2 * g t ^ 2 - 2 * s * (g t * hI t) + hI t ^ 2 := by funext t; ring
-    rw [ef, integral_add i3 iH, integral_sub i1 i2, integral_const_mul, integral_const_mul]
-    unfold normSq; ring
-  rw [e3] at hq; exact hq
-
-theorem integral_suppO {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : OProbe a g) (h : ℝ → ℝ) :
-    (∫ t, g t * h t) = ∫ t in (-a)..a, g t * h t := by
-  rw [intervalIntegral.integral_of_le (by linarith), ← integral_Icc_eq_integral_Ioc,
-    setIntegral_eq_integral_of_forall_compl_eq_zero]
-  intro t ht
-  simp only [mem_Icc, not_and_or, not_le] at ht
-  have : a < |t| := by
-    rcases ht with h' | h'
-    · rw [abs_of_neg (by linarith)]; linarith
-    · rw [abs_of_pos (by linarith)]; exact h'
-  rw [hp.supp t this, zero_mul]
 
 /-- An odd function against an even continuous bounded weight integrates to zero. -/
 theorem integral_odd_even {g : ℝ → ℝ} (hodd : ∀ u, g (-u) = -g u) {h : ℝ → ℝ} (heven : ∀ u, h (-u) = h u) :
@@ -284,7 +137,7 @@ theorem pm_zeroO {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : OProbe a g) : pm
 theorem pm_capO {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : OProbe a g) (hn : normSq g = 1) {k : ℤ} (hk : 0 < k) :
     pm a g k ≤ (1 - 2 * Real.sin (π * k / 2) / (π * k)) / 8 := by
   rw [pm_odd ha hp]
-  have hcs := cs_suppO ha hp (h := fun t => Real.sin (π * k * t / (4 * a))) (by fun_prop)
+  have hcs := cs_suppS ha hp.toS (h := fun t => Real.sin (π * k * t / (4 * a))) (by fun_prop)
   rw [hn, one_mul] at hcs
   have e := integral_cos_sub_sq ha hk 0
   simp only [sub_zero, mul_zero, zero_mul, zero_div, ne_eq, OfNat.ofNat_ne_zero, not_false_eq_true,
@@ -375,7 +228,7 @@ theorem capO4 {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : OProbe a g) (hn : n
 theorem nearField_odd {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1 / 4) {g : ℝ → ℝ} (hp : OProbe a g)
     (hn : normSq g = 1) : 2.016 + 0.99 * a - errK a ≤ ∫ u in Ioc 0 (2 * a), archIntegrand g u := by
   set τ := 2.4848 + 0.87267 * a - errK a with hτ
-  have hE := energy_ge_truncO ha hp hn lowS4 (τ := τ) (tail5_all ha (by linarith))
+  have hE := energy_ge_truncS ha hp.toS hn lowS4 (τ := τ) (tail5_all ha (by linarith))
   have hsum : ∑ n ∈ lowS4, (modeE a n - τ) * pm a g n
       = (modeE a 0 - τ) * pm a g 0
         + 2 * ((modeE a 1 - τ) * pm a g 1 + (modeE a 2 - τ) * pm a g 2
@@ -423,27 +276,13 @@ theorem integral_sinh_sq_half {a : ℝ} :
 /-- The odd pole term is small: `poleR² ≤ sinh a − a` for a normalised odd probe. -/
 theorem poleR_sq_odd {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : OProbe a g) (hn : normSq g = 1) :
     poleR g a ^ 2 ≤ Real.sinh a - a := by
-  have hI := oprobe_integrable hp
-  have hgi : IntervalIntegrable g volume (-a) a := hI.intervalIntegrable
-  have ic : IntervalIntegrable (fun t => g t * Real.cosh (t / 2)) volume (-a) a :=
-    hgi.mul_continuousOn (by fun_prop)
-  have is : IntervalIntegrable (fun t => g t * Real.sinh (t / 2)) volume (-a) a :=
-    hgi.mul_continuousOn (by fun_prop)
-  have hcosh0 : (∫ t in (-a)..a, g t * Real.cosh (t / 2)) = 0 := by
-    have h := intervalIntegral.integral_comp_neg (a := -a) (b := a) (fun t => g t * Real.cosh (t / 2))
-    simp only [neg_neg] at h
-    have e : (fun t => g (-t) * Real.cosh (-t / 2)) = fun t => -(g t * Real.cosh (t / 2)) := by
-      funext t; rw [hp.odd, show -t / 2 = -(t / 2) by ring, Real.cosh_neg]; ring
-    rw [e, intervalIntegral.integral_neg] at h
-    linarith
   have hsplit : poleR g a = -∫ t in (-a)..a, g t * Real.sinh (t / 2) := by
-    unfold poleR
-    have e : (fun u => g u * Real.exp (-(u / 2)))
-        = fun u => g u * Real.cosh (u / 2) - g u * Real.sinh (u / 2) := by
-      funext u; rw [← Real.cosh_sub_sinh]; ring
-    rw [e, intervalIntegral.integral_sub ic is, hcosh0]; ring
-  have hcs := cs_suppO ha hp (h := fun t => Real.sinh (t / 2)) (by fun_prop)
-  rw [hn, one_mul, integral_sinh_sq_half, integral_suppO ha hp] at hcs
+    rw [poleR_eq_cosh_sub_sinh (oprobe_integrable hp).intervalIntegrable,
+      intervalIntegral_odd (f := fun t => g t * Real.cosh (t / 2))
+        (fun t => by rw [hp.odd, show -t / 2 = -(t / 2) by ring, Real.cosh_neg]; ring)]
+    ring
+  have hcs := cs_suppS ha hp.toS (h := fun t => Real.sinh (t / 2)) (by fun_prop)
+  rw [hn, one_mul, integral_sinh_sq_half, integral_suppS ha hp.toS] at hcs
   rw [hsplit, neg_sq]; exact hcs
 
 /-! ## Positivity -/
@@ -454,8 +293,8 @@ theorem weilQodd_ge {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1 / 4) {g : ℝ → ℝ}
     (hn : normSq g = 1) : (1 / 20 : ℝ) ≤ weilQg a g := by
   have hlog : 2 * a < Real.log 2 := by
     have := Real.log_two_gt_d9; norm_num at this; linarith
-  rw [weilQg, poleL_odd hp, primeS_eq_zeroO hlog hp, hn, archE_splitO ha hp hn, farField_eq ha]
-  have hC := weilConst_ge'
+  rw [weilQg, poleL_odd hp, primeS_eq_zeroS hlog hp.toS, hn, archE_splitS ha hp.toS hn, farField_eq ha]
+  have hC := weilConst_ge
   have hN := nearField_odd ha ha1 hp hn
   have hP := poleR_sq_odd ha hp hn
   -- far field pieces

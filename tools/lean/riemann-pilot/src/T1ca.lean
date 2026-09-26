@@ -10,6 +10,28 @@ namespace Pilot1ca
 /-- Theorem 1bs's smooth count `N₀(r) = (r/2π)(ln(r/2π) − 1)`. -/
 def N0 (r : ℝ) : ℝ := r / (2 * π) * (Real.log (r / (2 * π)) - 1)
 
+theorem continuous_N0 : Continuous N0 := by
+  unfold N0
+  have : (fun r => r / (2 * π) * (Real.log (r / (2 * π)) - 1))
+      = (fun r => (r / (2 * π)) * Real.log (r / (2 * π)) - r / (2 * π)) := by
+    funext r; ring
+  rw [this]
+  exact (Real.continuous_mul_log.comp (continuous_id.div_const _)).sub (continuous_id.div_const _)
+
+/-- `d/dT (T² − r²) = 2T`. -/
+theorem hasDerivAt_sqsubT (r T : ℝ) : HasDerivAt (fun T => T ^ 2 - r ^ 2) (2 * T) T := by
+  have := (hasDerivAt_pow 2 T).sub_const (r ^ 2)
+  convert this using 1; push_cast; ring
+
+/-- `d/dr (T² − r²) = −2r`. -/
+theorem hasDerivAt_sqsubR (T r : ℝ) : HasDerivAt (fun r => T ^ 2 - r ^ 2) (-(2 * r)) r := by
+  have := (hasDerivAt_pow 2 r).const_sub (T ^ 2)
+  convert this using 1; push_cast; ring
+
+/-- `x^p = x · x^{p−1}` for `x > 0`. -/
+theorem rpow_eq_mul_rpow_sub_one {x : ℝ} (hx : 0 < x) (p : ℝ) : x ^ p = x * x ^ (p - 1) := by
+  conv_lhs => rw [show p = 1 + (p - 1) by ring, Real.rpow_add hx, Real.rpow_one]
+
 /-- 1ca(ii): `|N₀| ≤ 1` on `[0, 2πe]` (its minimum `−1` at `r = 2π`). -/
 theorem abs_N0_le_one {r : ℝ} (h0 : 0 ≤ r) (h1 : r ≤ 2 * π * Real.exp 1) : |N0 r| ≤ 1 := by
   have h2pi : 0 < 2 * π := by positivity
@@ -41,9 +63,7 @@ theorem hasDerivAt_antider (T r : ℝ) (h : r ^ 2 < T ^ 2) :
     HasDerivAt (fun r => 4 * (T ^ 2 + 2 * r ^ 2) * (T ^ 2 - r ^ 2) ^ (-(5 / 2 : ℝ)))
       (kern T r) r := by
   have hpos : 0 < T ^ 2 - r ^ 2 := by linarith
-  have h1 : HasDerivAt (fun r => T ^ 2 - r ^ 2) (-(2 * r)) r := by
-    have := (hasDerivAt_pow 2 r).const_sub (T ^ 2)
-    convert this using 1; push_cast; ring
+  have h1 := hasDerivAt_sqsubR T r
   have h2 := h1.rpow_const (p := -(5 / 2 : ℝ)) (Or.inl hpos.ne')
   have h3 : HasDerivAt (fun r => 4 * (T ^ 2 + 2 * r ^ 2)) (16 * r) r := by
     have := (((hasDerivAt_pow 2 r).const_mul 2).const_add (T ^ 2)).const_mul 4
@@ -52,7 +72,7 @@ theorem hasDerivAt_antider (T r : ℝ) (h : r ^ 2 < T ^ 2) :
   convert h4 using 1
   have hsplit : (T ^ 2 - r ^ 2) ^ (-(5 / 2 : ℝ))
       = (T ^ 2 - r ^ 2) * (T ^ 2 - r ^ 2) ^ (-(7 / 2 : ℝ)) := by
-    rw [show (-(5 / 2 : ℝ)) = 1 + (-(7 / 2)) by norm_num, Real.rpow_add hpos, Real.rpow_one]
+    rw [rpow_eq_mul_rpow_sub_one hpos]; norm_num
   have hexp : (-(5 / 2 : ℝ)) - 1 = -(7 / 2) := by norm_num
   rw [hexp, hsplit, kern]
   ring
@@ -139,9 +159,7 @@ theorem hasDerivAt_fall (r T : ℝ) (h : r ^ 2 < T ^ 2) :
     HasDerivAt (fun T => T ^ 2 * (T ^ 2 - r ^ 2) ^ (-(3 / 2 : ℝ)))
       (-(T * (T ^ 2 + 2 * r ^ 2) * (T ^ 2 - r ^ 2) ^ (-(5 / 2 : ℝ)))) T := by
   have hpos : 0 < T ^ 2 - r ^ 2 := by linarith
-  have h1 : HasDerivAt (fun T => T ^ 2 - r ^ 2) (2 * T) T := by
-    have := (hasDerivAt_pow 2 T).sub_const (r ^ 2)
-    convert this using 1; push_cast; ring
+  have h1 := hasDerivAt_sqsubT r T
   have h2 := h1.rpow_const (p := -(3 / 2 : ℝ)) (Or.inl hpos.ne')
   have h3 : HasDerivAt (fun T => T ^ 2) (2 * T) T := by
     have := hasDerivAt_pow 2 T
@@ -150,7 +168,7 @@ theorem hasDerivAt_fall (r T : ℝ) (h : r ^ 2 < T ^ 2) :
   convert h4 using 1
   have hsplit : (T ^ 2 - r ^ 2) ^ (-(3 / 2 : ℝ))
       = (T ^ 2 - r ^ 2) * (T ^ 2 - r ^ 2) ^ (-(5 / 2 : ℝ)) := by
-    rw [show (-(3 / 2 : ℝ)) = 1 + (-(5 / 2)) by norm_num, Real.rpow_add hpos, Real.rpow_one]
+    rw [rpow_eq_mul_rpow_sub_one hpos]; norm_num
   have hexp : (-(3 / 2 : ℝ)) - 1 = -(5 / 2) := by norm_num
   rw [hexp, hsplit]
   ring
@@ -162,9 +180,7 @@ theorem hasDerivAt_rise (r T : ℝ) (h : r ^ 2 < T ^ 2) :
     HasDerivAt (fun T => T ^ 2 * (T ^ 2 - r ^ 2) ^ (-(5 / 2 : ℝ)))
       (-(T * (3 * T ^ 2 + 2 * r ^ 2) * (T ^ 2 - r ^ 2) ^ (-(7 / 2 : ℝ)))) T := by
   have hpos : 0 < T ^ 2 - r ^ 2 := by linarith
-  have h1 : HasDerivAt (fun T => T ^ 2 - r ^ 2) (2 * T) T := by
-    have := (hasDerivAt_pow 2 T).sub_const (r ^ 2)
-    convert this using 1; push_cast; ring
+  have h1 := hasDerivAt_sqsubT r T
   have h2 := h1.rpow_const (p := -(5 / 2 : ℝ)) (Or.inl hpos.ne')
   have h3 : HasDerivAt (fun T => T ^ 2) (2 * T) T := by
     have := hasDerivAt_pow 2 T
@@ -173,7 +189,7 @@ theorem hasDerivAt_rise (r T : ℝ) (h : r ^ 2 < T ^ 2) :
   convert h4 using 1
   have hsplit : (T ^ 2 - r ^ 2) ^ (-(5 / 2 : ℝ))
       = (T ^ 2 - r ^ 2) * (T ^ 2 - r ^ 2) ^ (-(7 / 2 : ℝ)) := by
-    rw [show (-(5 / 2 : ℝ)) = 1 + (-(7 / 2)) by norm_num, Real.rpow_add hpos, Real.rpow_one]
+    rw [rpow_eq_mul_rpow_sub_one hpos]; norm_num
   have hexp : (-(5 / 2 : ℝ)) - 1 = -(7 / 2) := by norm_num
   rw [hexp, hsplit]
   ring
@@ -228,15 +244,7 @@ theorem R_lt_one (G T : ℝ) (hG0 : 0 < G) (hGe : G ≤ 2 * π * Real.exp 1) (hT
   have hN : ∀ r ∈ Set.Icc 0 G, |N0 r| ≤ 1 := fun r hr =>
     abs_N0_le_one hr.1 (le_trans hr.2 hGe)
   -- integrability of |N₀| · kern
-  have hN0c : Continuous N0 := by
-    unfold N0
-    have h2pi : (2 * π) ≠ 0 := by positivity
-    have : (fun r => r / (2 * π) * (Real.log (r / (2 * π)) - 1))
-        = (fun r => (r / (2 * π)) * Real.log (r / (2 * π)) - r / (2 * π)) := by
-      funext r; ring
-    rw [this]
-    exact (Real.continuous_mul_log.comp (continuous_id.div_const _)).sub
-      (continuous_id.div_const _)
+  have hN0c : Continuous N0 := continuous_N0
   have hNi : IntervalIntegrable (fun r => |N0 r| * kern T r) volume 0 G :=
     ((hN0c.abs.continuousOn).mul (kern_continuousOn T G hGT2 hG0.le)).intervalIntegrable
   have hrise := rise_le N0 T G hG0.le hGT hN hNi
@@ -279,14 +287,6 @@ theorem R_lt_one (G T : ℝ) (hG0 : 0 < G) (hGe : G ≤ 2 * π * Real.exp 1) (hT
   linarith
 
 /-! ## The glue, part 1: differentiation under the integral sign -/
-
-theorem continuous_N0 : Continuous N0 := by
-  unfold N0
-  have : (fun r => r / (2 * π) * (Real.log (r / (2 * π)) - 1))
-      = (fun r => (r / (2 * π)) * Real.log (r / (2 * π)) - r / (2 * π)) := by
-    funext r; ring
-  rw [this]
-  exact (Real.continuous_mul_log.comp (continuous_id.div_const _)).sub (continuous_id.div_const _)
 
 /-- Differentiation under the integral sign on `[0, G]`: an integrable weight `φ` against a kernel
 `ψ T r` that is differentiable in `T` on a neighbourhood `s` of `T₀`, with `|∂_T ψ| ≤ B` there. -/
@@ -354,9 +354,7 @@ def ψB' (T r : ℝ) : ℝ := r * -(T * (3 * T ^ 2 + 2 * r ^ 2) * (T ^ 2 - r ^ 2
 theorem hasDerivAt_ψA (r T : ℝ) (h : r ^ 2 < T ^ 2) :
     HasDerivAt (fun T => ψA T r) (ψA' T r) T := by
   have hpos : 0 < T ^ 2 - r ^ 2 := by linarith
-  have h1 : HasDerivAt (fun T => T ^ 2 - r ^ 2) (2 * T) T := by
-    have := (hasDerivAt_pow 2 T).sub_const (r ^ 2)
-    convert this using 1; push_cast; ring
+  have h1 := hasDerivAt_sqsubT r T
   have h2 := (h1.rpow_const (p := -(3 / 2 : ℝ)) (Or.inl hpos.ne')).const_mul r
   unfold ψA ψA'
   convert h2 using 1
@@ -486,9 +484,7 @@ theorem hasDerivAt_invsqrt (h T : ℝ) (hlt : h ^ 2 < T ^ 2) :
     HasDerivAt (fun T => (T ^ 2 - h ^ 2) ^ (-(1 / 2 : ℝ)))
       (-(T * (T ^ 2 - h ^ 2) ^ (-(3 / 2 : ℝ)))) T := by
   have hpos : 0 < T ^ 2 - h ^ 2 := by linarith
-  have h1 : HasDerivAt (fun T => T ^ 2 - h ^ 2) (2 * T) T := by
-    have := (hasDerivAt_pow 2 T).sub_const (h ^ 2)
-    convert this using 1; push_cast; ring
+  have h1 := hasDerivAt_sqsubT h T
   have h2 := h1.rpow_const (p := -(1 / 2 : ℝ)) (Or.inl hpos.ne')
   convert h2 using 1
   rw [show (-(1 / 2 : ℝ)) - 1 = -(3 / 2) by norm_num]
@@ -981,9 +977,7 @@ theorem intervalIntegrable_φC {G : ℝ} (hG : 0 ≤ G) : IntervalIntegrable φC
 theorem hasDerivAt_ψC (r T : ℝ) (h : r ^ 2 < T ^ 2) :
     HasDerivAt (fun T => ψC T r) (ψC' T r) T := by
   have hpos : 0 < T ^ 2 - r ^ 2 := by linarith
-  have h1 : HasDerivAt (fun T => T ^ 2 - r ^ 2) (2 * T) T := by
-    have := (hasDerivAt_pow 2 T).sub_const (r ^ 2)
-    convert this using 1; push_cast; ring
+  have h1 := hasDerivAt_sqsubT r T
   have h2 := h1.rpow_const (p := -(1 / 2 : ℝ)) (Or.inl hpos.ne')
   have h3 : HasDerivAt (fun T => 4 * T) 4 T := by
     simpa using (hasDerivAt_id T).const_mul 4
@@ -992,7 +986,7 @@ theorem hasDerivAt_ψC (r T : ℝ) (h : r ^ 2 < T ^ 2) :
   convert h4 using 1
   have hsplit : (T ^ 2 - r ^ 2) ^ (-(1 / 2 : ℝ))
       = (T ^ 2 - r ^ 2) * (T ^ 2 - r ^ 2) ^ (-(3 / 2 : ℝ)) := by
-    rw [show (-(1 / 2 : ℝ)) = 1 + (-(3 / 2)) by norm_num, Real.rpow_add hpos, Real.rpow_one]
+    rw [rpow_eq_mul_rpow_sub_one hpos]; norm_num
   rw [show (-(1 / 2 : ℝ)) - 1 = -(3 / 2) by norm_num, hsplit]
   ring
 
@@ -1114,9 +1108,7 @@ theorem hasDerivAt_Fs {G a L : ℝ} {H : Finset ℝ} (hG : 0 < G) (hLG : G ≤ L
 theorem hasDerivAt_Phi (T r : ℝ) (h : r ^ 2 < T ^ 2) :
     HasDerivAt (fun r => (T ^ 2 - r ^ 2) ^ (-(1 / 2 : ℝ))) (ψA T r) r := by
   have hpos : 0 < T ^ 2 - r ^ 2 := by linarith
-  have h1 : HasDerivAt (fun r => T ^ 2 - r ^ 2) (-(2 * r)) r := by
-    have := (hasDerivAt_pow 2 r).const_sub (T ^ 2)
-    convert this using 1; push_cast; ring
+  have h1 := hasDerivAt_sqsubR T r
   have h2 := h1.rpow_const (p := -(1 / 2 : ℝ)) (Or.inl hpos.ne')
   unfold ψA
   convert h2 using 1

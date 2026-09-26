@@ -683,24 +683,7 @@ theorem not_simple_of_green_pair {a : ℝ} (ha : 0 < a) {g w : ℝ → ℝ} (hs 
     rw [neg_mul, div_mul_cancel₀ _ hq.ne'] at hm
     have : r * (c₂ * (t ^ 2 + 1 / 4) + c₁) = 0 := by linear_combination hm
     exact (mul_eq_zero.1 this).resolve_left hr0
-  -- two real points with `ĝ ≠ 0` and different squares (as in `zero_swap_false`)
-  obtain ⟨t₁, ht₁⟩ := exists_real_ghatC_ne ha hgs.1 hgs.2.1
-  have hcont : Continuous fun t : ℝ => ghatC g a t :=
-    (ghatC_differentiable (probe_integrable hgs.1).intervalIntegrable).continuous.comp
-      continuous_ofReal
-  have hopen : IsOpen {t : ℝ | ghatC g a t ≠ 0} := hcont.isOpen_preimage _ isOpen_compl_singleton
-  obtain ⟨ε, hε, hball⟩ := Metric.isOpen_iff.1 hopen t₁ ht₁
-  obtain ⟨t₂, ht₂, hsq⟩ : ∃ t₂ : ℝ, ghatC g a t₂ ≠ 0 ∧ t₁ ^ 2 < t₂ ^ 2 := by
-    by_cases h0 : 0 ≤ t₁
-    · refine ⟨t₁ + ε / 2, hball ?_, by nlinarith⟩
-      rw [Metric.mem_ball, Real.dist_eq, show t₁ + ε / 2 - t₁ = ε / 2 by ring,
-        abs_of_pos (by linarith)]
-      linarith
-    · have h0' : t₁ < 0 := not_le.mp h0
-      refine ⟨t₁ - ε / 2, hball ?_, by nlinarith⟩
-      rw [Metric.mem_ball, Real.dist_eq, show t₁ - ε / 2 - t₁ = -(ε / 2) by ring, abs_neg,
-        abs_of_pos (by linarith)]
-      linarith
+  obtain ⟨t₁, t₂, ht₁, ht₂, hsq⟩ := exists_two_real_ghatC_ne ha hgs.1 hgs.2.1
   have k1 := key t₁ ht₁
   have k2 := key t₂ ht₂
   have hc₂ : c₂ = 0 := by

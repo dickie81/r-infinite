@@ -342,96 +342,21 @@ theorem pm_leC1 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.36) {g : ℝ → ℝ} (hp 
     (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 1 ≤ (0.00323 : ℝ) :=
   (pm_le_of ha ha2 (by norm_num) hp hn h0 (by norm_num) cval1).trans (by norm_num)
 
-theorem termC1 {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
-    {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) (h0 : poleR g a = 0) {c : ℝ} (hc1 : 0.98 ≤ c) :
-    ((0.5408 : ℝ) + a * 0.36338 - errK a - c * (0.06026 * 1) - 2.7) * 0.00323
-      ≤ (modeE a 1 - c * primeD a (Real.log 2) 1 - 2.7) * pm a g 1 := by
-  have ha : 0 < a := by linarith
-  have hc0 : 0 ≤ c := by linarith
-  have hD := primeD_smallC ha1 ha2 1
-  rw [show |(((1 : ℤ) : ℝ))| = 1 by norm_num] at hD
-  have h := term_mode ha (by linarith) (k := 1) (by norm_num) (Cv := 0.5408) (D := 0.36338)
-    (X := c * (0.06026 * 1)) (Y := c * primeD a (Real.log 2) 1) (τ := 2.7) (P := 0.00323)
-    (by simpa using cin_val1) dlo1 (mul_le_mul_of_nonneg_left hD hc0)
-    (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.06026 * 1 by norm_num)])
-    (pm_leC1 ha ha2 hp hn h0)
-  linarith
-
 theorem pm_leC2 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.36) {g : ℝ → ℝ} (hp : Probe a g)
     (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 2 ≤ (0.02547 : ℝ) :=
   (pm_le_of ha ha2 (by norm_num) hp hn h0 (by norm_num) cval2).trans (by norm_num)
-
-theorem termC2 {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
-    {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) (h0 : poleR g a = 0) {c : ℝ} (hc1 : 0.98 ≤ c) :
-    ((1.6214 : ℝ) + a * 1 - errK a - c * (0.06026 * 2) - 2.7) * 0.02547
-      ≤ (modeE a 2 - c * primeD a (Real.log 2) 2 - 2.7) * pm a g 2 := by
-  have ha : 0 < a := by linarith
-  have hc0 : 0 ≤ c := by linarith
-  have hD := primeD_smallC ha1 ha2 2
-  rw [show |(((2 : ℤ) : ℝ))| = 2 by norm_num] at hD
-  have h := term_mode ha (by linarith) (k := 2) (by norm_num) (Cv := 1.6214) (D := 1)
-    (X := c * (0.06026 * 2)) (Y := c * primeD a (Real.log 2) 2) (τ := 2.7) (P := 0.02547)
-    (by simpa using cin_val2) dlo2 (mul_le_mul_of_nonneg_left hD hc0)
-    (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.06026 * 2 by norm_num)])
-    (pm_leC2 ha ha2 hp hn h0)
-  linarith
 
 theorem pm_leC3 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.36) {g : ℝ → ℝ} (hp : Probe a g)
     (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 3 ≤ (0.0799 : ℝ) :=
   (pm_le_of ha ha2 (by norm_num) hp hn h0 (by norm_num) cval3).trans (by norm_num)
 
-theorem termC3 {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
-    {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) (h0 : poleR g a = 0) {c : ℝ} (hc1 : 0.98 ≤ c) :
-    ((2.2965 : ℝ) + a * 1.212206 - errK a - c * (0.06026 * 3) - 2.7) * 0.0799
-      ≤ (modeE a 3 - c * primeD a (Real.log 2) 3 - 2.7) * pm a g 3 := by
-  have ha : 0 < a := by linarith
-  have hc0 : 0 ≤ c := by linarith
-  have hD := primeD_smallC ha1 ha2 3
-  rw [show |(((3 : ℤ) : ℝ))| = 3 by norm_num] at hD
-  have h := term_mode ha (by linarith) (k := 3) (by norm_num) (Cv := 2.2965) (D := 1.212206)
-    (X := c * (0.06026 * 3)) (Y := c * primeD a (Real.log 2) 3) (τ := 2.7) (P := 0.0799)
-    (by simpa using cin_val3) dlo3 (mul_le_mul_of_nonneg_left hD hc0)
-    (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.06026 * 3 by norm_num)])
-    (pm_leC3 ha ha2 hp hn h0)
-  linarith
-
 theorem pm_leC4 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.36) {g : ℝ → ℝ} (hp : Probe a g)
     (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 4 ≤ (0.13125 : ℝ) :=
   (pm_le_of ha ha2 (by norm_num) hp hn h0 (by norm_num) cval4).trans (by norm_num)
 
-theorem termC4 {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
-    {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) (h0 : poleR g a = 0) {c : ℝ} (hc1 : 0.98 ≤ c) :
-    ((2.4081 : ℝ) + a * 1 - errK a - c * (0.06026 * 4) - 2.7) * 0.13125
-      ≤ (modeE a 4 - c * primeD a (Real.log 2) 4 - 2.7) * pm a g 4 := by
-  have ha : 0 < a := by linarith
-  have hc0 : 0 ≤ c := by linarith
-  have hD := primeD_smallC ha1 ha2 4
-  rw [show |(((4 : ℤ) : ℝ))| = 4 by norm_num] at hD
-  have h := term_mode ha (by linarith) (k := 4) (by norm_num) (Cv := 2.4081) (D := 1)
-    (X := c * (0.06026 * 4)) (Y := c * primeD a (Real.log 2) 4) (τ := 2.7) (P := 0.13125)
-    (by simpa using cin_val4) dlo4 (mul_le_mul_of_nonneg_left hD hc0)
-    (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.06026 * 4 by norm_num)])
-    (pm_leC4 ha ha2 hp hn h0)
-  linarith
-
 theorem pm_leC5 {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.36) {g : ℝ → ℝ} (hp : Probe a g)
     (hn : normSq g = 1) (h0 : poleR g a = 0) : pm a g 5 ≤ (0.13951 : ℝ) :=
   (pm_le_of ha ha2 (by norm_num) hp hn h0 (by norm_num) cval5).trans (by norm_num)
-
-theorem termC5 {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
-    {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) (h0 : poleR g a = 0) {c : ℝ} (hc1 : 0.98 ≤ c) :
-    ((2.4848 : ℝ) + a * 0.872676 - errK a - c * (0.06026 * 5) - 2.7) * 0.13951
-      ≤ (modeE a 5 - c * primeD a (Real.log 2) 5 - 2.7) * pm a g 5 := by
-  have ha : 0 < a := by linarith
-  have hc0 : 0 ≤ c := by linarith
-  have hD := primeD_smallC ha1 ha2 5
-  rw [show |(((5 : ℤ) : ℝ))| = 5 by norm_num] at hD
-  have h := term_mode ha (by linarith) (k := 5) (by norm_num) (Cv := 2.4848) (D := 0.872676)
-    (X := c * (0.06026 * 5)) (Y := c * primeD a (Real.log 2) 5) (τ := 2.7) (P := 0.13951)
-    (by simpa using cin_val5) dlo5 (mul_le_mul_of_nonneg_left hD hc0)
-    (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.06026 * 5 by norm_num)])
-    (pm_leC5 ha ha2 hp hn h0)
-  linarith
 
 theorem pole_par_lin {a : ℝ} (ha : 0 < a) (ha2 : a ≤ 0.36) :
     15 / (8 * a) * (4 * a / 3 + a ^ 3 / 30 + a ^ 5 / 2688) ^ 2 ≤ 3.356 * a := by
@@ -463,7 +388,7 @@ theorem weilQ_perp_ge_seg {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
   have hQ : ∀ h, Probe a h → normSq h = 1 →
       weilQ a h = 2 * poleR h a ^ 2 + weilConst + archE h - c * autocorr h (Real.log 2) := by
     intro h hh hhn
-    rw [weilQ_eq', primeS_eq_two (by linarith) hh, hhn, hcdef]; ring
+    rw [weilQ_eq', primeS_eq_two (by linarith [log_three_gt]) hh, hhn, hcdef]; ring
   rw [hQ g hp hn, hQ _ (par_probe ha) (normSq_par ha), h0, archE_split ha hp hn,
     archE_split ha (par_probe ha) (normSq_par ha)]
   have hu0 : 0 ≤ Real.log 2 := by linarith
@@ -482,11 +407,26 @@ theorem weilQ_perp_ge_seg {a : ℝ} (ha1 : 0.35 ≤ a) (ha2 : a ≤ 0.36)
     rw [modeE_zero, show primeD a (Real.log 2) 0 = 0 by simp [primeD]]
     have := pm_zero_le ha (by linarith) hp hn h0
     nlinarith [pm_nonneg ha g 0]
-  have t1 := termC1 ha1 ha2 hp hn h0 hc1
-  have t2 := termC2 ha1 ha2 hp hn h0 hc1
-  have t3 := termC3 ha1 ha2 hp hn h0 hc1
-  have t4 := termC4 ha1 ha2 hp hn h0 hc1
-  have t5 := termC5 ha1 ha2 hp hn h0 hc1
+  have t1 := term_prime ha (by linarith) (k := 1) (by norm_num) (Cv := 0.5408) (D := 0.36338)
+    (e := 0.06026 * 1) (τ := 2.7) (P := 0.00323) hc0 (by simpa using cin_val1) dlo1
+    (by simpa using primeD_smallC ha1 ha2 1) (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.06026 * 1 by norm_num)])
+    (pm_leC1 ha ha2 hp hn h0)
+  have t2 := term_prime ha (by linarith) (k := 2) (by norm_num) (Cv := 1.6214) (D := 1)
+    (e := 0.06026 * 2) (τ := 2.7) (P := 0.02547) hc0 (by simpa using cin_val2) dlo2
+    (by simpa using primeD_smallC ha1 ha2 2) (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.06026 * 2 by norm_num)])
+    (pm_leC2 ha ha2 hp hn h0)
+  have t3 := term_prime ha (by linarith) (k := 3) (by norm_num) (Cv := 2.2965) (D := 1.212206)
+    (e := 0.06026 * 3) (τ := 2.7) (P := 0.0799) hc0 (by simpa using cin_val3) dlo3
+    (by simpa using primeD_smallC ha1 ha2 3) (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.06026 * 3 by norm_num)])
+    (pm_leC3 ha ha2 hp hn h0)
+  have t4 := term_prime ha (by linarith) (k := 4) (by norm_num) (Cv := 2.4081) (D := 1)
+    (e := 0.06026 * 4) (τ := 2.7) (P := 0.13125) hc0 (by simpa using cin_val4) dlo4
+    (by simpa using primeD_smallC ha1 ha2 4) (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.06026 * 4 by norm_num)])
+    (pm_leC4 ha ha2 hp hn h0)
+  have t5 := term_prime ha (by linarith) (k := 5) (by norm_num) (Cv := 2.4848) (D := 0.872676)
+    (e := 0.06026 * 5) (τ := 2.7) (P := 0.13951) hc0 (by simpa using cin_val5) dlo5
+    (by simpa using primeD_smallC ha1 ha2 5) (by linarith [errK_nonneg ha.le, mul_nonneg hc0 (show (0 : ℝ) ≤ 0.06026 * 5 by norm_num)])
+    (pm_leC5 ha ha2 hp hn h0)
   have hB := nearField_par_le ha
   have hP := (pole_par_le ha (by linarith)).trans (pole_par_lin ha ha2)
   have hcf : 0 ≤ c * autocorr (par a) (Real.log 2) := mul_nonneg hc0 (autocorr_par_nonneg ha _)
@@ -525,7 +465,6 @@ end Pilot1ca
 #print axioms Pilot1ca.pole_par_le
 #print axioms Pilot1ca.primeD_smallC
 #print axioms Pilot1ca.tailC_all
-#print axioms Pilot1ca.termC5
 #print axioms Pilot1ca.weilQ_perp_ge_seg
 #print axioms Pilot1ca.weilQ0_perp_ge_036
 #print axioms Pilot1ca.groundState_unique_036

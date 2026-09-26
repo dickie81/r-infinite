@@ -2,18 +2,18 @@
 
 The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit in `MATHLIB_REV`. Point `MATHLIB` at a built Mathlib checkout (`lake exe cache get` then `lake build`), or place it at `./mathlib4`.
 
-Re-run with `./build.sh`, which takes about 9 minutes.
+Re-run with `./build.sh`, which takes about 13 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 398 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 450 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
 | `T1bt.lean` | 543 | Theorem 1bt |
-| `T1ca.lean` | 1500 | 1ca(ii) |
-| `Osc.lean` | 926 | 1ca(iii) |
+| `T1ca.lean` | 1492 | 1ca(ii) |
+| `Osc.lean` | 917 | 1ca(iii) |
 | `Split.lean` | 305 | 1ca(i), and (i)–(iii) assembled |
 | `Exterior.lean` | 677 | 1ca(iv) |
 | `Zeta.lean` | 136 | the 1ca zero family, linked to Mathlib's `riemannZeta` |
@@ -26,36 +26,36 @@ Every file ends with `#print axioms`. All 398 checked theorems depend only on `p
 | `GroundState.lean` | 167 | ground states of Weil's form: the lower bound, the finite prime sum, the chain for ground states |
 | `Existence.lean` | 494 | existence of the ground state, stage 1: the archimedean energy controls the Fourier tails |
 | `Compactness.lean` | 234 | existence, stage 2: bounded-energy probes are precompact in `L²` |
-| `GroundStateExists.lean` | 453 | existence, stage 3: **a ground state of Weil's form exists at every support** |
-| `Uniqueness.lean` | 391 | the ground-state space; the uniqueness criterion |
-| `Positivity.lean` | 538 | the pole-free form `Q₀`: a unique, one-signed ground state |
-| `StrictPositivity.lean` | 726 | the ground state of `Q₀` is strictly positive on `[−a, a]` |
+| `GroundStateExists.lean` | 467 | existence, stage 3: **a ground state of Weil's form exists at every support** |
+| `Uniqueness.lean` | 434 | the ground-state space; the uniqueness criterion |
+| `Positivity.lean` | 426 | the pole-free form `Q₀`: a unique, one-signed ground state |
+| `StrictPositivity.lean` | 682 | the ground state of `Q₀` is strictly positive on `[−a, a]` |
 | `UniquenessQ.lean` | 144 | the full form `Q`: strict gap `λ₀ < λ₁`, and the sharp uniqueness dichotomy |
-| `FourierGap.lean` | 1985 | `λ_⊥ ≥ λ₁ + 1/40` for **every `0 < a ≤ 0.35`** (past the first prime); `Q`'s ground state is unique there; the `Cin` chain in closed form, checked by kernel evaluation |
-| `ParabolaGap.lean` | 531 | the parabola trial; `λ_⊥ ≥ λ₁ + 1/50` and a unique ground state for **every `0 < a ≤ 0.36`** |
-| `Polya.lean` | 356 | Pólya's theorem: every even probe concave on `(−a, a)` has a real-rooted transform |
-| `Concave.lean` | 514 | Pólya's theorem stated for every even, concave `g ≥ 0` directly, with no representation hypothesis |
+| `FourierGap.lean` | 1932 | `λ_⊥ ≥ λ₁ + 1/40` for **every `0 < a ≤ 0.35`** (past the first prime); `Q`'s ground state is unique there; the `Cin` chain in closed form, checked by kernel evaluation |
+| `ParabolaGap.lean` | 470 | the parabola trial; `λ_⊥ ≥ λ₁ + 1/50` and a unique ground state for **every `0 < a ≤ 0.36`** |
+| `Polya.lean` | 111 | the trapezoid ratio (Pólya's lemma) used by `Concave.lean`; the Pólya-class route was removed in round 124 |
+| `Concave.lean` | 520 | Pólya's theorem stated for every even, concave `g ≥ 0` directly, with no representation hypothesis |
 | `Saturation.lean` | 98 | saturation reduced to an envelope bound: a small value plus a steep slope forces a nearby zero |
-| `Unconditional.lean` | 342 | saturation without RH: verified zeros, a counting bound, the decay of `ĝ` for monotone `g` |
-| `ZeroSwap.lean` | 231 | the zero-swap lemma: a simple ground state admits no zero `w` with `w²` non-real, given the swap's realisation by probes |
-| `HurwitzCross.lean` | 116 | the chain with zeros on `ℝ ∪ iℝ`, and with the zero-swap lemma plugged in |
+| `Unconditional.lean` | 309 | saturation without RH: verified zeros, a counting bound, the decay of `ĝ` for monotone `g` |
+| `ZeroSwap.lean` | 244 | the zero-swap lemma: a simple ground state admits no zero `w` with `w²` non-real, given the swap's realisation by probes |
+| `HurwitzCross.lean` | 117 | the chain with zeros on `ℝ ∪ iℝ`, and with the zero-swap lemma plugged in |
 | `SwapRealize.lean` | 487 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
-| `SimpleCover.lean` | 245 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
-| `SimpleStructure.lean` | 108 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
+| `SimpleCover.lean` | 225 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
+| `SimpleStructure.lean` | 86 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
 | `GapCriterion.lean` | 170 | Euler–Lagrange for `Q`; the pole-overlap identity; interlacing `λ₁(Q) ≤ μ₂(Q₀)`; energy gap ⇒ simple; non-simple ⇒ `λ₁ = μ₂` attained; the Jacobi eigenvector lemma |
 | `Commute.lean` | 165 | round 48's Theorem B: Weil's form commutes with `∂²` (cross-correlation, pole, full bilinear form) |
-| `DegenerateFlat.lean` | 742 | **degenerate ⇒ edge-flat**: a non-simple ground space contains a nonzero pole-free `w` and its compactly supported Green solution `G w` (`(Gw)'' − Gw/4 = w`); **simple ⇔ no such pair** |
+| `DegenerateFlat.lean` | 725 | **degenerate ⇒ edge-flat**: a non-simple ground space contains a nonzero pole-free `w` and its compactly supported Green solution `G w` (`(Gw)'' − Gw/4 = w`); **simple ⇔ no such pair** |
 | `StructureD.lean` | 722 | **round 48's Theorem D**: the ground space is finite-dimensional; a Green chain `w, Gw, …, G^{m−1}w` lies in it, is independent and spans it; `offcross_root`, the one swap computation: every off-cross zero of a ground-space transform is a root of its polynomial `P_v`; the top element's transform vanishes only on `ℝ ∪ iℝ`. **The RH chain without simplicity**: (a) for the top-of-chain ground states alone gives `RiemannHypothesis` |
-| `Mollify.lean` | 1026 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
+| `Mollify.lean` | 1020 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
 | `TheoremC.lean` | 810 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element**; the smooth form `simple_not_flat` as a corollary |
-| `ZeroCount.lean` | 333 | off-line zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²` per ground state (none for `m ≤ 2`); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`**; `M ≤ 2` gives RH |
+| `ZeroCount.lean` | 327 | off-line zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²` per ground state (none for `m ≤ 2`); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`**; `M ≤ 2` gives RH |
 | `SixteenPi.lean` | 1251 | the strip note's §3.4 derivation of `1/(16π)`; **the balayage identity proved (Fubini), so the reduced problem gives `e^{−δ}/(16π)` with no hypothesis**; the wall maximiser `X* = 2`; **the balayage density in closed form, positive at the wall**; `P`, `Q`, `J(X) = (π/(2X))(1 + ln(X/2))`, the wall at `X = 2`, `τ = e^{−δ}/(16π)`; the multiplier's `z²` coefficient is the curvature defect; exact and tolerant D cancel the matched zeros |
 | `GapBound.lean` | 443 | **the pole-overlap gap bound** `λ₂ − λ₁ ≥ c₂²(μ₂ − μ₁)/(c₁² + c₂²)` at operator level, hence simplicity from a nonzero overlap `⟨c, ψ₂⟩`; **the Galerkin transfer**: dense truncations with a uniform truncated gap give simplicity |
 | `CosTrunc.lean` | 653 | **`TruncDense` for the paper's cosine basis** `span{1_{[−a,a]}cos(kπt/a) : k < K}`: `C²` approximant, its cosine series by Mathlib's Fourier theorem, Hölder tails, energy of a truncated Hölder function; round 60's transfer for this basis with no density hypothesis |
-| `StripConv.lean` | 544 | **(a) is needed only on the strip `|{Im z}| < ½`**: RH from strip convergence; strip convergence from `L²` closeness of the ground state to a kernel at rate `o(e^{−a/2}/√a)` (`rh_of_close_top`); the min–max angle bound and `rh_of_relgap`; every moment condition (`k = 2`: `κ → 0`) as a corollary |
+| `StripConv.lean` | 537 | **(a) is needed only on the strip `|{Im z}| < ½`**: RH from strip convergence; strip convergence from `L²` closeness of the ground state to a kernel at rate `o(e^{−a/2}/√a)` (`rh_of_close_top`); the min–max angle bound and `rh_of_relgap`; every moment condition (`k = 2`: `κ → 0`) as a corollary |
 | `RiemannKernel.lean` | 901 | **Riemann's kernel formula** `∫ Φ(u)e^{izu}du = Ξ(z)/2` on all of `ℂ`, from Mathlib's theta kernel and completed zeta: termwise Gamma integrals on a half-plane, evenness of `Φ` from the theta functional equation, decay, the identity theorem. **`Φ > 0`, hence `ξ(σ) ≠ 0` for real `σ`**: `Ξ(0) ≠ 0` and `ζ(σ) ≠ 0` on `(0, 1)` |
 | `KernelChain.lean` | 41 | Riemann's formula discharges `KernelApprox` (`kernelApprox_RPhi`); RH from `L²` closeness to `Φ` (`rh_of_close_RPhi`) |
-| `PrimeSide.lean` | 108 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
+| `PrimeSide.lean` | 74 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -4139,3 +4139,41 @@ Setting: exactly `a = 2/5`, `N = 60` modes (a 62×62 system), `ε = 1/10000`.
 - **The next prime.** `n = 3` enters at `2a = log 3 ≈ 1.099`. Past that the same diagonal trick applies with one more cosine per mode, but `λ₁` keeps shrinking.
 - **The odd sector** is still proved only to `a = 1/4` (pure Lean, round 122).
 - **Status.** The pilot now has full-space even-sector positivity of its own `Q` up to support `0.8`: Lean plus one arb certificate.
+
+## Round 124: consolidation (efficiencies from the round-124 audit)
+
+A whole-codebase audit (every `src/*.lean` file read end to end) found duplicated proofs, superseded routes and stale text. This round removes them. **No theorem is weakened.** Every public theorem keeps its name and statement, except for the renames listed below. `src/` goes from 25,007 to 24,093 lines, and every file still ends in `#print axioms` with only `propext`, `Classical.choice` and `Quot.sound`.
+
+**Shared machinery (one proof instead of two or more)**
+
+| New | Replaces |
+|---|---|
+| `ProbeForm` (Uniqueness.lean): `inf`, `inf_le`, `inf_mul_le`, `space`, `isMin_iff` for any quadratic form on probes | the parallel `lam`/`lam0`, `groundSpace`/`groundSpace0`, `isGroundState_iff`/`isGroundState0_iff` developments; `lam`, `lam0`, `groundSpace`, `groundSpace0` are now abbreviations for its instances |
+| `exists_min_weilQc` (GroundStateExists.lean): a minimiser of `Q_c = Q − (2 − c)ĝ(i/2)²` for every `c ≥ 0` | the line-for-line copies `exists_groundState` (`c = 2`) and `exists_groundState0` (`c = 0`), both now two-line corollaries |
+| `tonelli_zero` moved to Positivity.lean | the inline Tonelli argument in `one_sign_of_autocorr` |
+| `SProbe` (FourierGap.lean): a parity-free probe; the mode machinery (`hasSum_pmS`, `energy_ge_truncS`, `cs_suppS`, …) proved once for it | OddPositivity's `…O` replays of eight lemmas |
+| `weilQ_ge_relaxP` with `c = 0` | the separate proof of `weilQ_ge_relax`; `prime_trunc`, `modeEP`, `sfunP`, `weilQ_ge_relaxP` move from PrimeRelax.lean to PoleRelax.lean |
+| `Probe.mono`, `poleR_eq_integral`, `weilQ_mono` in FourierGap.lean | the copies in SimpleCover.lean and PoleRelax.lean (`probe_mono`, a second `weilQ_mono`) |
+| `poleR_eq_cosh_sub_sinh`, `intervalIntegral_odd` | the cosh/sinh parity splits in `integral_sq_perp`, `poleR_eq_xv0` and `poleR_sq_odd` |
+| `eventually_ghatC_zero_ne`, `HypConv.eventually_ne` (PrimeSide.lean) | four copies of "(a) forces `ĝ_n(0) ≠ 0` eventually" (PrimeSide, HurwitzCross, StripConv, ZeroCount) |
+| `split_mem_groundSpace`, `exists_two_real_ghatC_ne` (ZeroSwap.lean) | the "`Q` splits along a swap" block (ZeroSwap, SimpleStructure) and the "two real points" block (ZeroSwap, DegenerateFlat) |
+| `layer_fubini` (Concave.lean), generic in the target space | the two layer-cake Fubini arguments in `layer_nonneg` and `norm_ghatC_le_of_antitone` |
+| `term_prime` (FourierGap.lean) | the 15 per-mode wrappers `term1`–`term5`, `termB1`–`termB5` (FourierGap) and `termC1`–`termC5` (ParabolaGap), now inline calls |
+| `sc_quarter`, `pieceQ4`, `cin_chain4`, `lowP4` (FourierGap.lean): the `Cin` chain on quarter steps over `ℚ(√2)`, checked by kernel evaluation | the hand-unrolled `piece1`–`piece11`, `cinc1`–`cinc12` and `sc7`, `sc9`, `sc11`, `sc12`. The certified values are unchanged or slightly sharper (e.g. `Cin(3π) ≥ 2.780135` against `2.780109`) |
+| `int_cos_cos`, `int_cosh_cos`, `int_cos_sq`, `int_coshsq` in WindowForm.lean (Mathlib-only; PoleRelax now imports it) | WindowForm's separate proofs of `ghat_cos` and `ghat_pole`, now corollaries |
+| `hasDerivAt_sqsubT`, `hasDerivAt_sqsubR`, `rpow_eq_mul_rpow_sub_one` (T1ca.lean) | seven hand-written chain-rule steps; `continuous_N0` is proved once instead of twice |
+| `osc_abs_le` | the duplicated tail of `osc_bound`, now a corollary |
+| `archIntegrand_eq`, `kerK_measurable` (StrictPositivity) | Mollify.lean's copies (`archIntegrand_eq`, `measurable_kerK`) |
+| one `primeS_eq_two` (`2a < log 3`), one `log_three_gt` (`> 1.0986`), one `weilConst_ge` (`≥ −5.4301`, with `gamma_lt` in SmallPositivity.lean) | the pairs `primeS_eq_two`/`primeS_eq_two'`, `log_three_gt`/`log_three_gt'` and `weilConst_ge`/`weilConst_ge'` |
+
+**Superseded code removed**
+- `rh_of_prime_side` is now the case "every zero real" of `rh_of_prime_side_cross`, three lines in HurwitzCross.lean.
+- The Pólya-class route (`polyaFn`, `integral_trap`, `ghatC_polya`, `realRooted_polya`, `realRooted_of_polya_shape`) is removed. `Concave.lean` proves real-rootedness for every even concave `g ≥ 0` directly, with no representation hypothesis. Polya.lean keeps the trapezoid-ratio lemmas that Concave.lean uses.
+
+**Renames and fixes**
+- Renames: FourierGap's `Fk` is now `Ftan`, and SixteenPi's `sin_image_Ioo` is now `sin_image_Ioo_half_pi`. Both clashed with declarations of the same name in `Split.lean`, which would have broken a joint import.
+- Stale docstrings are fixed:
+  - SixteenPi's header and `exteriorMoment_eq` still called the balayage identity unproved. It has been proved since round 75.
+  - PoleRelax's header described a-interval certificates. It uses the single point certificate `Cert14`.
+
+**Not done here** (they are links, not efficiencies): a bridge from `WeilExplicit` to `weilQ`, which would unify the four statements of the explicit formula; a single zero-family encoding for T1bt's `zetaZeroFamily` and Hadamard's `ZeroIdx`; the parity split `Q(g) = Q(g_even) + Q(g_odd)` for all real `g`.

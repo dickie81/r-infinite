@@ -481,6 +481,26 @@ theorem tail_abs_le {S : ℝ → ℝ} (_hS : OscS S) {G T : ℝ} (_hT : 0 < T)
     exact mul_le_mul_of_nonneg_right (hle r hr) (by positivity))
   simpa [Real.norm_eq_abs] using h
 
+/-- The decomposition's bound with a general tail bound `TB ≥ |∫_T^∞ S/r|`. -/
+theorem osc_abs_le {S : ℝ → ℝ} (hS : OscS S) {G T Δ MS M1 OscInf TB : ℝ} (hG : 0 < G)
+    (hΔ : 0 < Δ) (hΔT : Δ < T - G) (hMS : ∀ r ∈ Set.Icc (T - Δ) T, |S r| ≤ MS)
+    (hM1 : ∀ r ∈ Set.Icc G T, |S1 S G r| ≤ M1)
+    (h1 : Tendsto (fun X => S1 S G X / X) atTop (𝓝 0))
+    (h2 : IntegrableOn (fun r => S1 S G r * (1 / r ^ 2)) (Set.Ioi T))
+    (hInf : Tendsto (fun X => ∫ r in G..X, S r * (4 / r)) atTop (𝓝 OscInf))
+    (htail : |-(S1 S G T / T) + ∫ r in Set.Ioi T, S1 S G r * (1 / r ^ 2)| ≤ TB) :
+    |Osc S G T - OscInf| ≤ 4 * (MS * (Real.arcosh (T / (T - Δ)) - Real.log (T / (T - Δ)))
+      + 2 * M1 * DT T (T - Δ)) + 4 * TB := by
+  have hdec := osc_decomp hS hG hΔ hΔT hMS h1 h2 hInf
+  have hin := inner_bound hS hG hΔ hΔT hMS hM1
+  rw [hdec]
+  have hsub := abs_sub (4 * ∫ r in G..T, S r * DT T r)
+    (4 * (-(S1 S G T / T) + ∫ r in Set.Ioi T, S1 S G r * (1 / r ^ 2)))
+  rw [abs_mul, abs_mul, abs_of_pos (by norm_num : (0 : ℝ) < 4)] at hsub
+  have h4 := mul_le_mul_of_nonneg_left hin (by norm_num : (0 : ℝ) ≤ 4)
+  have h5 := mul_le_mul_of_nonneg_left htail (by norm_num : (0 : ℝ) ≤ 4)
+  exact le_trans hsub (add_le_add h4 h5)
+
 /-- **1ca(iii), the displayed bound**: for every `Δ ∈ (0, T − γ₁)`, with `MS ≥ sup_{[T−Δ,T]}|S|`,
 `M1 ≥ sup_{[γ₁,T]}|S₁|` and `M2 ≥ sup_{[T,∞)}|S₁|`,
 `|Osc(T) − Osc_∞| ≤ 4MS[arccosh(T/(T−Δ)) − ln(T/(T−Δ))] + 8M1·D_T(T−Δ) + 8M2/T`. -/
@@ -511,16 +531,7 @@ theorem osc_bound {S : ℝ → ℝ} (hS : OscS S) {G T Δ MS M1 M2 OscInf : ℝ}
     calc _ ≤ |-(S1 S G T / T)| + |∫ r in Set.Ioi T, S1 S G r * (1 / r ^ 2)| := abs_add_le _ _
       _ ≤ M2 / T + M2 * (1 / T) := by rw [abs_neg]; exact add_le_add hS1T hI
       _ = 2 * M2 / T := by ring
-  have hdec := osc_decomp hS hG hΔ hΔT hMS h1 h2 hInf
-  have hin := inner_bound hS hG hΔ hΔT hMS hM1
-  rw [hdec]
-  have hsub := abs_sub (4 * ∫ r in G..T, S r * DT T r)
-    (4 * (-(S1 S G T / T) + ∫ r in Set.Ioi T, S1 S G r * (1 / r ^ 2)))
-  rw [abs_mul, abs_mul, abs_of_pos (by norm_num : (0 : ℝ) < 4)] at hsub
-  have h4 := mul_le_mul_of_nonneg_left hin (by norm_num : (0 : ℝ) ≤ 4)
-  have h5 := mul_le_mul_of_nonneg_left htail (by norm_num : (0 : ℝ) ≤ 4)
-  calc _ ≤ _ := hsub
-    _ ≤ _ := add_le_add h4 h5
+  calc _ ≤ _ := osc_abs_le hS hG hΔ hΔT hMS hM1 h1 h2 hInf htail
     _ = _ := by ring
 
 theorem arcosh_sub_log_le {x : ℝ} (hx : 1 ≤ x) :
@@ -583,26 +594,6 @@ theorem DT_le {T Δ : ℝ} (hΔ : 0 < Δ) (hT : 2 * Δ ≤ T) :
         apply div_le_div_of_nonneg_right _ hs.le
         rw [div_le_iff₀ hr]; linarith
     _ ≤ 2 / (Real.sqrt Δ * Real.sqrt T) := div_le_div_of_nonneg_left (by norm_num) hsd hge
-
-/-- The decomposition's bound with a general tail bound `TB ≥ |∫_T^∞ S/r|`. -/
-theorem osc_abs_le {S : ℝ → ℝ} (hS : OscS S) {G T Δ MS M1 OscInf TB : ℝ} (hG : 0 < G)
-    (hΔ : 0 < Δ) (hΔT : Δ < T - G) (hMS : ∀ r ∈ Set.Icc (T - Δ) T, |S r| ≤ MS)
-    (hM1 : ∀ r ∈ Set.Icc G T, |S1 S G r| ≤ M1)
-    (h1 : Tendsto (fun X => S1 S G X / X) atTop (𝓝 0))
-    (h2 : IntegrableOn (fun r => S1 S G r * (1 / r ^ 2)) (Set.Ioi T))
-    (hInf : Tendsto (fun X => ∫ r in G..X, S r * (4 / r)) atTop (𝓝 OscInf))
-    (htail : |-(S1 S G T / T) + ∫ r in Set.Ioi T, S1 S G r * (1 / r ^ 2)| ≤ TB) :
-    |Osc S G T - OscInf| ≤ 4 * (MS * (Real.arcosh (T / (T - Δ)) - Real.log (T / (T - Δ)))
-      + 2 * M1 * DT T (T - Δ)) + 4 * TB := by
-  have hdec := osc_decomp hS hG hΔ hΔT hMS h1 h2 hInf
-  have hin := inner_bound hS hG hΔ hΔT hMS hM1
-  rw [hdec]
-  have hsub := abs_sub (4 * ∫ r in G..T, S r * DT T r)
-    (4 * (-(S1 S G T / T) + ∫ r in Set.Ioi T, S1 S G r * (1 / r ^ 2)))
-  rw [abs_mul, abs_mul, abs_of_pos (by norm_num : (0 : ℝ) < 4)] at hsub
-  have h4 := mul_le_mul_of_nonneg_left hin (by norm_num : (0 : ℝ) ≤ 4)
-  have h5 := mul_le_mul_of_nonneg_left htail (by norm_num : (0 : ℝ) ≤ 4)
-  exact le_trans hsub (add_le_add h4 h5)
 
 /-- **1ca(iii): `Osc(T) = Osc_∞ + O(ln T/√T)`.** From von Mangoldt's `|S(t)| ≤ C ln t` and
 Littlewood's `|S₁(t)| ≤ C ln t` on `[γ₁, ∞)` (the named classical inputs): the improper integral
