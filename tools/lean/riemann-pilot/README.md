@@ -3971,3 +3971,38 @@ In every case, once positivity is lost it stays lost for all larger `x`.
 - Together with Part 1: certified positivity at window `x` excludes off-line zeros up to height about `10.8x`, i.e. about 130 at `x = 12`.
 - That is a correct but tiny range compared with known zero verification (height about `3·10¹²`). The value is the **shape**: how the chain would register a counterexample, stated concretely enough to check.
 - Nothing here bears on RH beyond the verified range.
+
+## Round 120: rounds 118–119 formalised (`src/WindowForm.lean`)
+
+Twelve new theorems. They are **unconditional**: no hypothesis about ζ, RH or any zero, and all depend only on the standard axioms. The file imports only Mathlib.
+
+**The closed forms of round 118.**
+- `ghat_cos`: `∫_{−a}^{a} cos(ω_k u) cos(tu) du = (−1)^k · 2t sin(ta)/(t² − ω_k²)`, with `ω_k = kπ/a` and `t ≠ ±ω_k`. These are the rows of every window chain since round 95, now a theorem (proved via an explicit antiderivative and the fundamental theorem of calculus).
+- `ghat_pole`: `∫ cos(ω_k u) cosh(u/2) du = (−1)^k sinh(a/2)/(ω_k² + ¼)`. This is the rank-one pole term.
+- `product_dd`: `s/((s−A)(s−B)) = (A/(s−A) − B/(s−B))/(A−B)`.
+- `hasDerivAt_uA`: the diagonal `A`-derivative `c s/(s−A)²`.
+- Together these are why every functional of `ĝ_j ĝ_k` is a divided difference of one scalar function.
+- `phi_u_trig`, `basis_trig`: the prime term's trigonometric reduction, and `sin 2aω_k = 0`, `cos 2aω_k = 1`.
+
+**The certification logic of round 119, part 1.**
+- `posDef_of_cholesky`: if `L` is lower triangular with a strictly positive diagonal, then `L Lᵀ` is positive definite.
+- `gram_quadratic`, `gram_pos`: a positive-definite Gram matrix gives `B(g, g) > 0` for every nonzero `g = Σ c_k φ_k`.
+- So the arb Cholesky of round 119 proves `Q(g) > 0` on each certified subspace, **provided** its enclosures contain the true entries.
+
+**The counterexample mechanism of round 119, part 2.**
+- `quadruple_sum`: for `f` even and real on the real axis, the zeros `½ ± δ ± iγ₀` contribute `4 Re f(γ₀ + iδ)²`.
+- `offline_second_order`: if `F(γ₀) = 0` and `F′(γ₀) = c ∈ ℝ`, then `Re F(γ₀ + iδ)² = −c²δ² + o(δ²)`.
+- **`offline_negative`**: if moreover `c ≠ 0`, that contribution is **strictly negative for all small `δ ≠ 0`**.
+- This is why a test function that vanishes next to an off-line pair drives the form negative, and why positivity was lost in round 119 even at `δ = 0.001`.
+
+**Proved in Lean vs. not.**
+
+| Piece | Status |
+|---|---|
+| basis transforms, pole term, divided-difference structure, trig reductions | **Lean** |
+| Cholesky ⇒ PD ⇒ `Q > 0` on the subspace | **Lean** |
+| off-line quadruple ⇒ negative contribution near a zero of `ĝ` | **Lean** |
+| Guinand–Weil explicit formula | classical input, not formalised |
+| principal-value and digamma evaluations (archimedean `Φ_ψ`, prime `Φ_u` integrals) | hand-derived, checked to `5·10⁻¹⁶` numerically |
+| the 226 certificates themselves | arb interval arithmetic, outside Lean |
+| the horizon `x_h = γ₀/(4π · 0.8613)` and the detection windows | empirical (round 119, S1 passed and S2 failed once) |
