@@ -43,3 +43,24 @@ Committed before any zero, kernel, chain or response of `L(s, χ₅)` or `L(s, �
   - kernel `λ` vs `1/q` (round 115 found `λ = 0.874/q` while the tones followed `1/q`);
   - the chain's top-4 distances to the nearest law line, unscored.
 - **Declared risk for `χ₁₂`.** Its kernel edge `r_e ≈ 0.86/12` sits at `γ ≈ 0.9x`, i.e. at 3–11. That may fall below or at the first zero for many windows, a regime not tested before (round 115 already excluded 37 windows at `q = 8`). If the kernel stage cannot find an edge in most windows, this is reported in an amendment before the chain, and the `χ₁₂` test still runs as registered.
+
+## Amendment 1: kernel stage (committed after the zeros and kernel dumps, before either chain, base chain or any per-prime response)
+
+**Zeros.**
+- `χ₅`: 904 up to 1000, starting 6.6485, 9.8314, 11.9588, 16.0338.
+- `χ₁₂`: 1043, starting 3.8046, 6.6922, 8.8906, 11.1884.
+- In both cases max `|N − smooth|` is ≤ 0.73 (no missed zeros) and `|Im Z|/|Z| ≤ 3.8·10⁻¹⁸`.
+
+**`λ` vs `1/q`: both pass.** This is unlike `χ₋₈`.
+- `χ₅`: `r_e = 0.1730 ± 0.0072`, 8 windows excluded, so `λ = 0.2009 = 1/4.98` (0.5% off).
+- `χ₁₂`: `r_e = 0.0711 ± 0.0031`, 43 windows excluded, so `λ = 0.0826 = 1/12.1` (1% off).
+
+The declared `χ₁₂` edge risk: 183 of 226 windows found an edge, so the test runs as registered.
+
+**Narrow-method competitor (measured `K̃`), recorded before any tone.**
+- **`χ₅`:** stable, with `β′` segments −0.86, −0.48, −0.46 and variance captured 0.95.
+  - Predictions: **`p = 2` → 1.75** (range 1.49–1.89) and **`p = 3` → 3.25** (range 2.98–3.39).
+  - The law and the competitor differ by only 0.10–0.13, so, both at ±0.3, the `χ₅` result cannot discriminate between them. The per-prime and chain errors are reported against both.
+- **`χ₁₂`:** unstable (`β′` segments 2.93, −0.68, 0.23), and it finds **no stationary point in range**, so it makes no prediction.
+
+The law's registered predictions and criteria are unchanged.
