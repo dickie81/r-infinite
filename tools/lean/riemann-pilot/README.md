@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 450 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 458 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -4177,3 +4177,31 @@ A whole-codebase audit (every `src/*.lean` file read end to end) found duplicate
   - PoleRelax's header described a-interval certificates. It uses the single point certificate `Cert14`.
 
 **Not done here** (they are links, not efficiencies): a bridge from `WeilExplicit` to `weilQ`, which would unify the four statements of the explicit formula; a single zero-family encoding for T1bt's `zetaZeroFamily` and Hadamard's `ZeroIdx`; the parity split `Q(g) = Q(g_even) + Q(g_odd)` for all real `g`.
+
+## Round 125: the parity split, and Weil positivity for every real `g` (`src/ParitySplit.lean`)
+
+The first "link" left open in round 124.
+
+**The identity (`weilQg_parity`).** For every real `g` supported in `[−a, a]` (`SProbe`), with even part `e = (g + g(−·))/2` and odd part `o = (g − g(−·))/2`:
+
+  `weilQg a g = weilQ a e + weilQg a o`.
+
+- **No cross term in the autocorrelation** (`autocorr_parity`). The parallelogram law gives `f_{e+o} + f_{e−o} = 2f_e + 2f_o`. Since `e − o = g(−·)` has the same autocorrelation as `g` (`autocorr_reflect`), `f_g = f_e + f_o`. The constant, archimedean and prime terms are linear in `f_g`, so they split.
+- **The pole term splits.** `ĝ(±i/2) = E ± O`, so `2ĝ(i/2)ĝ(−i/2) = 2E² − 2O²`, the sum of the two sectors' pole terms (`poleL_even`, `poleL_odd`).
+- **The parts are probes** (`probe_evenPart`, `oprobe_oddPart`). The archimedean integrands of `e` and `o` are nonnegative and sum to `g`'s, so both are integrable.
+
+This is Zhu's parity splitting (his Lemma 6.1, used numerically in round 39), now formalised on the pilot's own definitions.
+
+**Positivity for every real `g`.**
+
+| theorem | support | bound | status |
+|---|---|---|---|
+| `weilQg_ge_twentieth_all` | `0 < a ≤ 1/12` | `Q(g) ≥ ‖g‖²/20` | pure Lean |
+| `weilQg_ge_all` | `0 < a ≤ 1/4` | `Q(g) ≥ ‖g‖²/1000` | Lean plus the arb certificate `Cert14` (a hypothesis, not an axiom) |
+
+The even sector comes from `weilQ_ge_twentieth` or `weilQ_ge_pole`, turned into `c‖e‖² ≤ Q(e)` through `λ₁` (`weilQ_ge_mul`). The odd sector comes from `weilQodd_ge`, unnormalised by scaling (`weilQodd_ge_mul`, `weilQg_smul`); the case `o = 0` a.e. is handled separately. All eight new theorems print `[propext, Classical.choice, Quot.sound]`.
+
+**Scope, honestly.**
+- Positivity at these supports is known: Connes–Consani for `2a ≤ log 2` (as recalled), and certified results much further (round 39; Liu). What is new is a checked proof for every real `g`, in both parities, on the pilot's definitions.
+- The range stops at `a = 1/4` because the odd sector is proved only that far. The even sector reaches `2/5` (round 123, `CertP`).
+- **No bearing on RH.** Weil's criterion needs positivity at every support, and a fixed finite range carries no information about RH.

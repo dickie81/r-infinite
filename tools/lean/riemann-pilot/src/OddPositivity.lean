@@ -49,14 +49,16 @@ structure OProbe (a : ℝ) (g : ℝ → ℝ) : Prop where
 
 theorem OProbe.toS {a : ℝ} {g : ℝ → ℝ} (hp : OProbe a g) : SProbe a g := ⟨hp.supp, hp.memL2, hp.arch⟩
 
+/-- For even `g`, `ĝ(−i/2) = ĝ(i/2)`. -/
+theorem poleL_even {a : ℝ} {g : ℝ → ℝ} (hp : Probe a g) : poleL g a = poleR g a := by
+  unfold poleL poleR
+  have hc := intervalIntegral.integral_comp_neg (a := -a) (b := a) (fun u => g u * Real.exp (-(u / 2)))
+  simp only [neg_neg] at hc
+  rw [← hc]; congr 1; funext u; rw [hp.even]; ring_nf
+
 /-- For even probes the general form is the pilot's `weilQ`. -/
 theorem weilQg_even {a : ℝ} {g : ℝ → ℝ} (hp : Probe a g) : weilQg a g = weilQ a g := by
-  have h : poleL g a = poleR g a := by
-    unfold poleL poleR
-    have hc := intervalIntegral.integral_comp_neg (a := -a) (b := a) (fun u => g u * Real.exp (-(u / 2)))
-    simp only [neg_neg] at hc
-    rw [← hc]; congr 1; funext u; rw [hp.even]; ring_nf
-  rw [weilQg, weilQ_eq', h]; ring
+  rw [weilQg, weilQ_eq', poleL_even hp]; ring
 
 /-! ## The mode machinery for an `OProbe`: round 20's lemmas hold for every `SProbe` -/
 
