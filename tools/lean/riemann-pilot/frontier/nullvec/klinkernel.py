@@ -5,6 +5,8 @@ Usage: klinkernel.py HC QFILE unused Kfac x1 ...  (helpers from klinresp3.py)"""
 import sys, json, math
 from flint import arb, arb_mat, ctx
 import mpmath as mp
+import os
+LQ = float(os.environ.get('LCOND', '1'))   # round 111: conductor of the L-function whose smooth tail is used (1 = zeta)
 from mpmath.calculus.quadrature import GaussLegendre
 HC, qf, sets, Kf = float(sys.argv[1]), sys.argv[2], sys.argv[3], float(sys.argv[4]); HMAX, NQ = 6997.0, 3
 ZQ = [g for g in json.load(open(qf)) if g < HC]; N = len(ZQ)
@@ -44,7 +46,7 @@ def compute(xv, pf):
         mp.mp.prec = prec; tq = []; L0, L1 = math.log(HC), math.log(HMAX)
         for p in range(24):
             for u, w in GaussLegendre(mp.mp).get_nodes(mp.mpf(L0 + (L1 - L0)*p/24), mp.mpf(L0 + (L1 - L0)*(p + 1)/24), NQ, mp.mp.prec):
-                t = mp.exp(u); tq.append((arb(str(t)), arb(str(w*t*mp.log(t/(2*mp.pi))/(2*mp.pi)/2))))
+                t = mp.exp(u); tq.append((arb(str(t)), arb(str(w*t*mp.log(LQ*t/(2*mp.pi))/(2*mp.pi)/2))))
         a = arb(d)/2; pi = arb.pi(); om = [arb(k)*pi/a for k in range(K)]; om2 = [w*w for w in om]; sg = [1 if k % 2 == 0 else -1 for k in range(K)]
         T = [arb(g) for g in ZQ]; F = arb_mat(N + len(tq), K)
         for i, t in enumerate(T):

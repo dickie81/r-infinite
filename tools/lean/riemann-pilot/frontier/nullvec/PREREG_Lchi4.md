@@ -43,3 +43,19 @@ The formula passes on this `L`-function only if L1 and L3 hold. L2 is reported.
 
 **Consequence for the registered expectation.** The pre-registration assumed the oscillating region stays at `r ≈ 1–2.2` and so expected `p ≈ 8–17`. Scaling the region by `λ` (about `1/q`) moves the readable primes back to small `p` (`r* ≈ p·e^{κ_c}/2q`). That expectation was wrong in advance. The criteria are unchanged.
 - **L1** is scored only if at least 2 primes have in-range stationary points. Otherwise it is reported as *not meaningful*, and only L3, plus the single-prime check, stand.
+
+## Amendment 2: the numerical predictions (committed after the kernel fit, before the `L` chain and before any per-prime response)
+
+From `kLchirp.py` (`Lpredictions.json`):
+- **Edge:** `r_e^L = 0.203 ± 0.016`, with 6 of 226 windows excluded; `λ = 0.236`.
+- **Chirp:** `c₀ = 0.19 ± 0.18`, `c₁ = −0.53 ± 0.41`, `c₂ = 0.26 ± 0.82`. The single wave captures 95% of the oscillation, but the fits scatter far more than ζ's did.
+- **Window-phase rate:** `β′ = −0.67`, from segments −0.76, −0.63, −0.61.
+
+**Predictions:**
+- **Only one prime has a stationary point in `[r_e, 2.2λ] = [0.20, 0.52]`: `p = 3`**, with `χ(3) = −1`. For it, `r* = 0.398` and **`ω₃ = 4.14`** (range 4.05–4.19 over the `β′` spread).
+- `p = 2` is absent (`χ(2) = 0`). Every other prime has no in-range stationary point.
+
+**Scoring, as registered and amended:**
+- **L1:** not meaningful (fewer than 2 in-range primes). It is replaced by the single-prime check: `Δ₁^{(3)}` with the `L` kernel must have its strongest peak within ±0.5 of 4.14.
+- **L3:** no line within ±0.5 of 9.47 in the `L` chain's top 3.
+- **L2:** the `L` chain's two strongest lines are reported against 4.14. Only one prediction exists, so at most one of the two can match.

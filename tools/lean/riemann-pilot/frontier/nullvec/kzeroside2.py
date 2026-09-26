@@ -6,6 +6,8 @@ Usage: kzeroside2.py ZFILE HCUT Kfac x1 x2 ...   (ZFILE: JSON list of zeros; 'tr
 import sys, json, math
 from flint import arb, arb_mat, ctx
 import mpmath as mp
+import os
+LQ = float(os.environ.get('LCOND', '1'))   # round 111: conductor of the L-function whose smooth tail is used (1 = zeta)
 from mpmath.calculus.quadrature import GaussLegendre
 zf, HC, Kf = sys.argv[1], float(sys.argv[2]), float(sys.argv[3])
 Z = json.load(open("../../../../research/checkpoints/zeta_zeros_6700.json" if zf == "true" else zf))
@@ -19,7 +21,7 @@ for xv in map(float, sys.argv[4:]):
         L0, L1 = math.log(HC), math.log(HMAX); P = 24
         for p in range(P):
             for u, w in GaussLegendre(mp.mp).get_nodes(mp.mpf(L0 + (L1 - L0)*p/P), mp.mpf(L0 + (L1 - L0)*(p + 1)/P), NQ, mp.mp.prec):
-                t = mp.exp(u); tq.append((arb(str(t)), arb(str(w*t*mp.log(t/(2*mp.pi))/(2*mp.pi)/2))))
+                t = mp.exp(u); tq.append((arb(str(t)), arb(str(w*t*mp.log(LQ*t/(2*mp.pi))/(2*mp.pi)/2))))
         a = arb(d)/2; pi = arb.pi(); om2 = [(arb(k)*pi/a)**2 for k in range(K)]
         R = len(Z) + len(tq); F = arb_mat(R, K)
         for i, g in enumerate(Z):
