@@ -3756,3 +3756,43 @@ The law also accounts for the two `L` lines that round 112 left unpredicted (`χ
 **Open.**
 - Why the waveform (as opposed to the stationary points) departs from the derived phase near `r = 1` and for `r ≥ 2`. Candidates: sub-leading Stirling terms, the `arcsin` branch at the wall, and higher-order response terms (round 105: the series is asymptotic).
 - A blind test of the law on `q = 5, 7` or `8`. At `q ≥ 5` the `p = 2` tone falls below about 1.9, which the `x ∈ [3,12]` window resolves poorly, so the test needs either a longer window or a target prime `p ≥ 3`.
+
+## Round 115: the tone law passes its first blind test (`L(s, χ₋₈)`; `PREREG_L8law.md` + amendment 1, `kL8score.py`)
+
+**Order of commits.**
+1. `a524d80`: the law's predictions `ω_p = 2π(p − 1/p)/8` and the scoring script, committed **before any `χ₋₈` zero was computed**.
+2. `22201b8`, amendment 1 (kernel stage, before the chain or any response):
+   - `λ = 0.109`, 12.6% below `1/8`, so the registered `λ` check (B4a) **fails**;
+   - the measured-`K̃` narrow method is unstable (`β′` segments −6.2, −0.16, −0.34) and uninformative (ω = 0.31, range −3.7 to 2.4).
+
+**Zeros.** 979 up to 1000, the first being 3.5762 (the known value). There are no missed zeros, and `|Im Z|/|Z| ≤ 3.9·10⁻¹⁸`.
+
+**Results.**
+
+| | law | observed (strongest line) | error | verdict |
+|---|---|---|---|---|
+| `p = 3` (`χ = +1`) first order | 2.094 | 1.96 | 0.13 | hit, but inside the flagged 1.6–2.0 artefact zone |
+| `p = 5` (`χ = −1`) first order | 3.770 | **3.75** | 0.02 | hit |
+| `χ₋₈` chain, strongest | 2.094 | **2.14** | 0.05 | hit |
+| `p = 7` first order (far) | 5.386 | 1.70 (second: 5.23) | — | miss |
+| `p = 11` first order (far) | 8.568 | **8.68** | 0.11 | hit |
+| `p = 13` first order (far) | 10.150 | 3.53 (second: **10.16**, 0.76 relative power) | — | miss |
+
+- **B1 passes, B2 passes. The law passes as registered.**
+- **B3:** 1/3 of the far primes hit. As anticipated from `χ₋₄`, the far primes' first-order strongest line is not reliable. Even so, `p = 7` and `p = 13` each carry the law's line as their second peak (5.23, 10.16).
+- **Unscored:** the chain's top four lines are 2.14, 3.75, 5.45 and 6.94. The law gives 2.094 (`n = 3`), 3.770 (`n = 5`), 5.386 (`n = 7`) and 6.981 (`n = 9 = 3²`), so all four lie within 0.06 of a law line. First order tracks the chain at correlation 0.955.
+- **The `λ` failure does not carry to the tones.** Rescaling by the measured `λ` instead of `1/q` would have predicted 1.83 and 3.29. The chain's 3.75 rules that out (off by 0.46). The conductor enters the tone as exactly `1/q`, even though the kernel's edge sits at `0.874/q`.
+
+**Reading.**
+- A parameter-free formula derived from Γ (round 114) predicted, before any data existed, the dominant line (2.14 vs 2.094) and the second prime's line (3.75 vs 3.770) of an `L`-function never examined, to within 2.5% and 0.5%. It did so for a `χ = +1` dominant prime, which is new relative to rounds 111/112.
+- The competing measured-`K̃` method made no usable prediction here.
+- Across ζ, `χ₋₃`, `χ₋₄` and `χ₋₈`, the lines sit at `2π(n − 1/n)/q`.
+
+**Limits.**
+- One blind `L`-function.
+- The `p = 3` per-prime hit is weak (artefact zone). The strong evidence is `p = 5` and the chain.
+- Far primes are unreliable at first order.
+- Why the tones take `1/q` exactly while the kernel edge does not is unexplained.
+- The waveform-level failure of round 114 (16% of the variance) stands.
+- The rule "the smallest prime not dividing `q` dominates" is empirical.
+- As before, the zero-side kernel formulation presumes RH/GRH for the zero sets used.
