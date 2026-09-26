@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 473 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 476 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -4268,3 +4268,30 @@ Round 126 proved Fourier inversion for the autocorrelation (`gh_hsq`: `(1/2π)�
 - **ExplicitBridge.lean**: Part A is removed. Part B calls FourierInv's lemmas through `Probe.toE`.
 
 **Scope.** No theorem is weakened. `ghatC_conj` and `ghatC_im_zero` lose a hypothesis they never used. `src/` grows by 12 lines, because the `ESupp` scaffolding and the new file header outweigh the deletions, so the gain is structural: one Fourier inversion now serves both the explicit-formula bridge and the zero swap. No new input, and no bearing on RH.
+
+## Round 128: Weil's form as a Toeplitz form, and Q₀ as a jump process (ExplicitBridge.lean, §C)
+
+Two links from the round-124 analysis, each a short corollary of rounds 126–127.
+
+**The symbol form (`weilQ_symbol`).** Given `DigammaDiff` alone, with no `WeilExplicit`, for every even probe and every `a > 0`:
+
+  `Q(g) = 2ĝ(i/2)² + (1/2π)∫ ĝ(r)² σ_a(r) dr`,  `σ_a(r) = Re ψ(¼ + ir/2) − log π − 2 Σ_{n ≤ e^{2a}} Λ(n) n^{−1/2} cos(r log n)` (`sigmaW`).
+
+- So `Q` is a rank-one pole term plus a truncated Wiener–Hopf (Toeplitz) form on `PW_a`, with an explicit real symbol.
+- The proof is `arch_term` for the digamma part, `integral_hsq` for the constant, and `integral_hsq_cos` summed over `n ≤ e^{2a}` for the primes (`prime_sum_eq`).
+- `Q` sees `g` only through `ĝ²` on `ℝ` and `ĝ(i/2)`. That is the fact behind the phase-retrieval form of the zero swap (round 127).
+- The minimum of `σ_a` is at `r = 0`, where it equals `c₀ − 2P(a)`. `weilQ_ge` is exactly that bound, so the symbol form reproduces it rather than improving it.
+
+**The jump form (`weilQ0_jump`)**, with no named input:
+
+  `Q₀(g) = (c₀ − 2P(a))‖g‖² + E(g) + Σ_{n ≤ e^{2a}} Λ(n) n^{−1/2} ‖g − g(· + log n)‖²`.
+
+Every term after the constant is a nonnegative jump energy:
+- The archimedean kernel `e^{u/2}/sinh u = 2Σ_k e^{−(2k+½)u}` is completely monotone.
+- Each prime power `n` is a jump of size `log n` at rate `Λ(n)/√n`.
+
+So `Q₀ + (2P(a) − c₀)‖·‖²` is the energy form of a symmetric Lévy process killed outside `[−a, a]`. `psiRe_sub` (round 126) is its Lévy–Khintchine formula, and `psiRe_ge` records that the exponent is nonnegative.
+
+This makes explicit why round 51's Beurling–Deny and Perron–Frobenius arguments work for `Q₀`. It also locates the obstruction: `Q = Q₀ + 2ĝ(i/2)²`. The killing constant `2P(a)` grows like `4e^a`, and at every support RH asks the single rank-one pole term to lift `Q₀`'s one negative direction.
+
+**Scope.** Both are reformulations: no new bound, and no bearing on RH. `DigammaDiff` is the only named input, and only for the symbol form.

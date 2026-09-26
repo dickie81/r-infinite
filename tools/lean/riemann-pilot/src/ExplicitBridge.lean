@@ -222,6 +222,95 @@ theorem weilQ_eq_tsum {ι : Type*} {ρ : ι → ℂ} (hp : Probe a g) (ha : 0 < 
     (weilQ a g : ℂ) = ∑' i, ghatC g a ((ρ i - 1 / 2) / Complex.I) ^ 2 :=
   (weilQ_eq_zero_sum hp ha hEF hD).tsum_eq.symm
 
+/-! ## C. The symbol form and the jump form
+
+With `DigammaDiff` alone (no `WeilExplicit`), Weil's form is a rank-one pole term plus a Toeplitz
+(truncated Wiener–Hopf) form with an explicit symbol:
+
+  `Q(g) = 2ĝ(i/2)² + (1/2π)∫ ĝ(r)² σ_a(r) dr`,
+  `σ_a(r) = Re ψ(¼ + ir/2) − log π − 2 Σ_{n ≤ e^{2a}} Λ(n) n^{−1/2} cos(r log n)`   (`weilQ_symbol`).
+
+With no named input at all, the pole-free form is a jump-type Dirichlet form minus a constant:
+`Q₀(g) = (c₀ − 2P(a))‖g‖² + E(g) + Σ_{n ≤ e^{2a}} Λ(n) n^{−1/2} ‖g − g(· + log n)‖²` (`weilQ0_jump`). The
+archimedean kernel `e^{u/2}/sinh u = 2Σ_k e^{−(2k+½)u}` is completely monotone, and each prime power
+is a jump of size `log n` at rate `Λ(n)/√n`: `Q₀ + (2P(a) − c₀)` is the energy of a symmetric Lévy
+process killed outside `[−a, a]`, and `psiRe_sub` is its Lévy–Khintchine formula (`psiRe_ge`: the
+exponent is `≥ 0`).
+-/
+
+/-- Weil's symbol at support `a`. -/
+def sigmaW (a r : ℝ) : ℝ :=
+  psiRe r - Real.log π - 2 * ∑ n ∈ Finset.range (primeCut a),
+    ArithmeticFunction.vonMangoldt n / Real.sqrt n * Real.cos (r * Real.log n)
+
+/-- The Lévy–Khintchine exponent is nonnegative: `Re ψ(¼) ≤ Re ψ(¼ + ir/2)`. -/
+theorem psiRe_ge (hD : DigammaDiff) (r : ℝ) : psiRe 0 ≤ psiRe r := by
+  obtain ⟨-, he⟩ := psiRe_sub hD r
+  have : 0 ≤ ∫ t in Ioi (0 : ℝ), kk t * (1 - Real.cos (r * (t / 2))) :=
+    setIntegral_nonneg measurableSet_Ioi fun t ht =>
+      mul_nonneg (kk_nonneg ht) (by linarith [Real.cos_le_one (r * (t / 2))])
+  linarith
+
+theorem integrable_hsq_psi (hp : Probe a g) (ha : 0 < a) (hD : DigammaDiff) :
+    Integrable (fun r => hsq g a r * psiRe r) := by
+  obtain ⟨hi, -⟩ := hsq_psi_sub hp ha hD
+  refine (hi.add ((integrable_hsq hp.toE ha).const_mul (psiRe 0))).congr
+    (Eventually.of_forall fun r => ?_)
+  simp only [Pi.add_apply]; ring
+
+/-- **The symbol form**: `Q(g) = 2ĝ(i/2)² + (1/2π)∫ĝ(r)²σ_a(r) dr`, given `DigammaDiff`. -/
+theorem weilQ_symbol (hp : Probe a g) (ha : 0 < a) (hD : DigammaDiff) :
+    weilQ a g = 2 * poleR g a ^ 2 + 1 / (2 * π) * ∫ r, hsq g a r * sigmaW a r := by
+  set S := Finset.range (primeCut a)
+  set c : ℕ → ℝ := fun n => ArithmeticFunction.vonMangoldt n / Real.sqrt n with hc
+  have hI : ∀ n ∈ S, Integrable (fun r => c n * (hsq g a r * Real.cos (r * Real.log n))) :=
+    fun n _ => (integrable_hsq_cos hp.toE ha (Real.log n)).const_mul (c n)
+  have e : (fun r => hsq g a r * sigmaW a r) = fun r => hsq g a r * psiRe r
+      - Real.log π * hsq g a r - 2 * ∑ n ∈ S, c n * (hsq g a r * Real.cos (r * Real.log n)) := by
+    funext r
+    have h1 : hsq g a r * (2 * ∑ n ∈ S, c n * Real.cos (r * Real.log n))
+        = 2 * ∑ n ∈ S, c n * (hsq g a r * Real.cos (r * Real.log n)) := by
+      rw [mul_left_comm, Finset.mul_sum]
+      congr 1; exact Finset.sum_congr rfl fun n _ => by ring
+    unfold sigmaW; rw [mul_sub, mul_sub, h1]; ring
+  have hsum := integrable_finsetSum S hI
+  have i1 : Integrable (fun r => hsq g a r * psiRe r - Real.log π * hsq g a r) :=
+    (integrable_hsq_psi hp ha hD).sub ((integrable_hsq hp.toE ha).const_mul _)
+  have i2 : Integrable (fun r => 2 * ∑ n ∈ S, c n * (hsq g a r * Real.cos (r * Real.log n))) :=
+    hsum.const_mul 2
+  rw [e, integral_sub i1 i2,
+    integral_sub (integrable_hsq_psi hp ha hD) ((integrable_hsq hp.toE ha).const_mul _),
+    integral_const_mul, integral_const_mul, integral_finsetSum S hI]
+  have hprime : ∑ n ∈ S, ∫ r, c n * (hsq g a r * Real.cos (r * Real.log n))
+      = 2 * π * primeS g := by
+    unfold primeS; rw [prime_sum_eq hp.supp, Finset.mul_sum]
+    refine Finset.sum_congr rfl fun n _ => ?_
+    rw [integral_const_mul, integral_hsq_cos hp.toE ha]; ring
+  have harch := arch_term hp ha hD
+  have hz0 : psiRe 0 = (Complex.digamma (1 / 4)).re := by unfold psiRe zB; simp
+  rw [hprime, integral_hsq hp.toE ha, weilQ_eq', weilConst, ← hz0]
+  have hπ : (0 : ℝ) < 2 * π := by positivity
+  field_simp at harch ⊢
+  linarith
+
+/-- **The jump form** (no named input): `Q₀(g) = (c₀ − 2P(a))‖g‖² + E(g)
++ Σ_{n ≤ e^{2a}} Λ(n) n^{−1/2} ‖g − g(· + log n)‖²`. -/
+theorem weilQ0_jump (hp : Probe a g) :
+    weilQ0 a g = (weilConst - 2 * primeWeight a) * normSq g + archE g
+      + ∑ n ∈ Finset.range (primeCut a), ArithmeticFunction.vonMangoldt n / Real.sqrt n
+          * normSq (fun t => g t - g (t + Real.log n)) := by
+  rw [weilQ0_eq', primeS, prime_sum_eq hp.supp, primeWeight]
+  simp only [normSq_sub_shift hp.memL2, autocorr_zero]
+  have h : ∑ n ∈ Finset.range (primeCut a), ArithmeticFunction.vonMangoldt n / Real.sqrt n
+        * (2 * (normSq g - autocorr g (Real.log n)))
+      = 2 * (∑ n ∈ Finset.range (primeCut a), ArithmeticFunction.vonMangoldt n / Real.sqrt n)
+          * normSq g
+        - 2 * ∑ n ∈ Finset.range (primeCut a), ArithmeticFunction.vonMangoldt n / Real.sqrt n
+          * autocorr g (Real.log n) := by
+    rw [Finset.mul_sum, Finset.sum_mul, Finset.mul_sum, ← Finset.sum_sub_distrib]
+    exact Finset.sum_congr rfl fun n _ => by ring
+  rw [h]; ring
+
 end Pilot1ca
 
 #print axioms Pilot1ca.psiRe_sub
@@ -230,3 +319,6 @@ end Pilot1ca
 #print axioms Pilot1ca.hsq_ofReal
 #print axioms Pilot1ca.weilQ_eq_zero_sum
 #print axioms Pilot1ca.weilQ_eq_tsum
+#print axioms Pilot1ca.psiRe_ge
+#print axioms Pilot1ca.weilQ_symbol
+#print axioms Pilot1ca.weilQ0_jump
