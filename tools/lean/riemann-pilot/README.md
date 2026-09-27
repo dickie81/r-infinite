@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 13 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 670 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 683 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -97,6 +97,10 @@ Every file ends with `#print axioms`. All 670 checked theorems depend only on `p
 | `KaiserWindow.lean` | 357 | the probe `g = 1_{[−a,a]}·Re KF(e^u)`: probe, strip test, explicit formula; **zero side `Q(g) ≤ 720P²(1+D₀)²S`** (round 163) |
 | `KaiserMoment.lean` | 553 | Gaussian moments by parts; **`α = m₄/m₂ ∈ [−1, 3/4]` gives `∫H = 0`** for `L ≥ 50` (round 163) |
 | `KaiserBulk.lean` | 318 | the bulk `g ≥ e^{βL−8}/51200` on `|u| ≤ 1/10`; **`λ₁(a) ≤ K e^{20a − 4πe^{2a}}` for `a ≥ 4`, no RH input** (round 163) |
+| `KaiserPoissonK.lean` | 240 | the Poisson kernel: `∫ P_y(x)e^{ixw}dx = e^{−y|w|}` by Fourier inversion; **`F(σ+is) = ∫ P_{1+s}(x)F(σ+x−i)dx`** for `F = ∫_0^∞ψ e^{itw}`, and the majorant `‖F(σ+is)‖² ≤ ∫ P_{1+s}(x−σ)‖F(x−i)‖²` (round 164) |
+| `KaiserZeroWeight.lean` | 142 | **the RH-free zero weight**: `Σ_τ [P_{1+s}(x−σ) + P_{1−s}(x+σ)] = Im(Ξ′/Ξ)(x−i)/π ≤ (5 + Σ Λ(n)n^{−3/2} + ½log(\|x\|+2))/π`, from Hadamard and `ξ′/ξ` on `Re s = 3/2`; `Re ψ(z) ≤ log\|z\| + 4` (round 164) |
+| `KaiserPlanch.lean` | 163 | **regularised Plancherel**: `∫‖F̂(x)‖²e^{−bx²} ≤ 2π∫‖Ψ‖²` for `Ψ ∈ L¹∩L²`, by the Gaussian kernel and Schur's test (round 164) |
+| `KaiserPrefactor.lean` | 775 | the tail at `Im t = −1`; the log-weighted `L²` bound; `Q(g) ≤ 16κ Kz(a+1)e^{9a}`; **`λ₁(a) ≤ K(a+1)e^{10a−4πe^{2a}}`, no RH input**; the bound for any `κ ≥ e^{2a|Im τ|}` over the zeros (round 164) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -5530,3 +5534,52 @@ theorem lam_kaiser :
 
 **Bearing on RH:** none. An upper bound on `λ₁` says the form has small eigenvalues, which is compatible with RH and with its failure. The sign of `λ₁` is what RH concerns, and nothing here touches it.
 
+## Round 164: the prefactor (`src/KaiserPoissonK.lean`, `KaiserZeroWeight.lean`, `KaiserPlanch.lean`, `KaiserPrefactor.lean`, `frontier/prefactor/`)
+
+**The theorem.**
+
+```lean
+theorem lam_prefactor :
+    ∃ K, 0 ≤ K ∧ ∀ a, 4 ≤ a → lam a ≤ K * (a + 1) * Real.exp (10 * a - 4 * π * Real.exp (2 * a))
+```
+
+- **Improvement.** Round 163 had `e^{20a}`. The trial and the lower bound on `‖g‖²` are round 163's; only the zero side is new, bounded at the density level instead of pointwise.
+- **Distance from Connes' prefactor** `e^{9a}` (round 162): the factor `a + 1` and one factor `e^a`. Both are explained below.
+- **The general form.** `lam_le_kappa` proves `λ₁(a) ≤ K(a+1)·κ·e^{9a−4πe^{2a}}` for any `κ` with `e^{2a|Im τ|} ≤ κ` at every zero. The only RH-free choice available is `κ = e^a`.
+
+**The argument.**
+1. **Shift.** The tail is `T(t) = e^{ita}F(t)` with `F(t) = ∫_0^∞ φ(a+w)e^{itw}dw`, so `‖T(t_ρ)‖² = e^{−2a·Im t_ρ}‖F(t_ρ)‖² ≤ e^a‖F(t_ρ)‖²`.
+2. **Poisson.** `F` is a Fourier transform supported on `w ≥ 0`, so `F(σ + is) = ∫ P_{1+s}(x) F(σ + x − i) dx` for `s > −1`. Cauchy–Schwarz gives `‖F(t_ρ)‖² ≤ ∫ P_{1+s_ρ}(x − σ_ρ) ‖F(x − i)‖² dx`.
+3. **The zero weight.** Summing over zeros gives `Σ_ρ P_{1+s_ρ}(x − σ_ρ) = Im(Ξ′/Ξ)(x − i)/π`. Every term is positive, whether the zero is on the line or not. On `Re s = 3/2` this equals `Re ξ′/ξ(3/2 + ix)/π ≤ (5 + Σ Λ(n)n^{−3/2} + ½log(|x| + 2))/π`. This uses Hadamard (`hasSum_logDeriv_Xi`), `ξ′/ξ` (`logDeriv_Xi_eq`) and Binet (`Re ψ(z) ≤ log|z| + 4`). No zero-counting input is needed.
+4. **Plancherel.** `∫‖F(x − i)‖²e^{−x²/M²} ≤ 2π∫|φ(a+w)|²e^{2w} ≤ (32π/5)P²e^{−7a}`, by a Gaussian-regularised Plancherel inequality (Schur's test). For `|x| > M`, integrating by parts on the line `Im t = −1` gives `‖F(x − i)‖ ≤ 8P(1+D₀)e^{−a}/|x|`. With `M = e^{36a}` the log weight costs `O(a)`.
+5. **Assembly.** `Q(g) ≤ 16κ·Kz·(a+1)·e^{9a}` (`weilQ_prefactor`) with `κ = e^a`, then `‖g‖² ≥ c·e^{2βL}`.
+
+**Numerics** (`frontier/prefactor/spec.py`, `diag.py`; same trial, zeros to height 6997).
+
+| `a` | 1.1 | 1.3 | 1.5 | 1.8 | 2.1 | 2.4 |
+|---|---|---|---|---|---|---|
+| `−ln R − (4X − 9a)` | −37.12 | −37.07 | −37.15 | −37.07 | −37.22 | −37.19 |
+
+- **The trial.** It sits at `R ≈ e^{37.1}·e^{9a−4X}`. That is Connes' `e^{9a}` exactly, with no visible factor `a`: the drift is at most 0.15, where a factor `a` would give 0.78.
+- **Where the leakage sits.** `ĝ` lives at `t ≈ 1.6c–2c`, just above a caustic at `t = 2βL ≈ 2c`. That is where the phase derivative `βx²/√(x² − L²)` has its minimum, at `x = √2 L`. Plancherel checks to `1 − 4·10⁻⁵`.
+- **Density vs actual sum.** The density prediction `Σ_ρ ≈ ∫|ĝ|²·(1/2π)log(t/2π)` grows like `a` (ratio 1.60 from `a = 1.5` to 2.4). The actual zero sum grows by only 1.14, and at `a = 2.4` it is 19% below the density value. So the explicit formula's prime terms partly cancel the log growth of the zero density.
+
+**What is open (the two losses).**
+- **The factor `e^a`: off-line zeros.** A zero with `|Im t| = δ` near height `c ≈ 2πe^{2a}` enters `Q(g)` with weight `e^{2aδ}`. This is a genuine feature of any probe supported in `[−a, a]`, not slack in the estimate. The known zero-free regions only save a constant here.
+  - **The clean way to remove it** is a case split on RH, which gives an unconditional (but ineffective-`K`) `e^{9a}` bound:
+    - If RH holds, `κ = 1`.
+    - If RH fails, Weil's criterion should make `λ₁(a) < 0` for large `a` (`λ₁` is antitone, `lam_antitone`). The finite range of `a` is then absorbed into `K`.
+  - **What is missing.** That needs the converse of Weil's criterion for infinitely many off-line zeros. The pilot proves it only for finitely many (`rh_of_weil_finite`, round 157). Its twin-probe proof needs a zero of maximal `|Im t|`, which need not exist when there are infinitely many.
+  - **The other route** is zero-density estimates: Ingham's exponent is already enough, but it is far from the pilot.
+- **The factor `a + 1`: zero density.** Removing it needs the zero–prime correlation seen in the numerics, not a density bound. The numerics suggest the trial's true prefactor has no factor `a`.
+- **The lower bound.** Any lower bound on `λ₁` is RH-strength.
+
+**Check 4.**
+- **Acknowledged (classical).** The Poisson/`Re ξ′/ξ` positivity bound on zero sums is classical (it is how `N(T+1) − N(T) ≪ log T` is proved; see Titchmarsh, ch. 9). So are regularised Plancherel and Schur's test. The rate and the `e^{9a}` prefactor are Connes 2026 (heuristic, §6.4).
+- **New here.**
+  - A machine-checked upper bound on `λ₁` at Connes' rate with prefactor `(a+1)e^{10a}`, with no RH input.
+  - The isolation of the whole off-line-zero loss in the single factor `κ`.
+  - The numerical evidence that the trial has no factor `a`, and that this comes from prime-side cancellation.
+  - I checked novelty against Connes 2026 only.
+
+**Bearing on RH:** none. `lam_prefactor` is an upper bound on `λ₁`, compatible with RH and with its failure.
