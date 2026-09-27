@@ -774,6 +774,146 @@ theorem parityGap_of_no_crossing {a₀ : ℝ} (h0 : 0 < a₀) (hgap : lam a₀ <
     (hnc : ∀ a, a₀ ≤ a → lam a ≠ lamO a) : ∀ a, a₀ ≤ a → ParityGap a :=
   gap_of_no_crossing_Ici h0 hgap (continuousOn_lamO.mono fun _ h => h0.trans_le h) hnc
 
+/-! ## C4: the certified start at `a₀ = 1/4` -/
+
+/-- **The odd floor at `a = 1/4`**: every normalised odd probe has `Q ≥ 1/5`. (Round 20's odd
+bound, evaluated at the endpoint instead of minimised over `(0, 1/4]`.) -/
+theorem weilQodd_quarter {g : ℝ → ℝ} (hp : OProbe (1 / 4) g) (hn : normSq g = 1) :
+    (1 / 5 : ℝ) ≤ weilQg (1 / 4) g := by
+  have ha : (0 : ℝ) < 1 / 4 := by norm_num
+  have hlog : 2 * (1 / 4 : ℝ) < Real.log 2 := by
+    have := Real.log_two_gt_d9; norm_num at this ⊢; linarith
+  rw [weilQg, poleL_odd hp, primeS_eq_zeroS hlog hp.toS, hn, archE_splitS ha hp.toS hn, farField_eq ha]
+  have hC := weilConst_ge
+  have hN := nearField_odd ha le_rfl hp hn
+  have hP := poleR_sq_odd ha hp hn
+  have hE : 1 < Real.exp (1 / 4) := Real.one_lt_exp_iff.mpr ha
+  have hratio : 2 / (1 / 4) ≤ (Real.exp (1 / 4) + 1) / (Real.exp (1 / 4) - 1) := by
+    rw [div_le_div_iff₀ ha (by linarith)]
+    nlinarith [two_exp_sub_le ha.le]
+  have hneg : -Real.log ((Real.exp (1 / 4) - 1) / (Real.exp (1 / 4) + 1))
+      = Real.log ((Real.exp (1 / 4) + 1) / (Real.exp (1 / 4) - 1)) := by
+    rw [← Real.log_inv, inv_div]
+  have hlogr := Real.log_le_log (by norm_num) hratio
+  have hl8 : Real.log (2 / (1 / 4)) = 3 * Real.log 2 := by
+    rw [show (2 : ℝ) / (1 / 4) = 2 ^ 3 by norm_num, Real.log_pow]; norm_num
+  have hat : Real.arctan (Real.sinh (1 / 4)) ≤ Real.sinh (1 / 4) :=
+    Real.arctan_le_self (Real.sinh_nonneg_iff.mpr ha.le)
+  have hsh : Real.sinh (1 / 4) ≤ 1 / 4 + (1 / 4) ^ 3 / 6 + (1 / 4) ^ 5 / 100 :=
+    sinh_le_taylor ha.le (by norm_num)
+  have herr : errK (1 / 4) ≤ 0.0157 := by unfold errK; norm_num
+  have hl2 := Real.log_two_gt_d9
+  have hπ := Real.pi_gt_d6
+  rw [hneg]
+  norm_num at hl2 hπ hsh herr hN hl8 ⊢
+  nlinarith
+
+/-- `γ > 0.5456`, from Mathlib's `H_n − log(n + 1) < γ` at `n = 16`. -/
+theorem gamma_gt : (0.5456 : ℝ) < Real.eulerMascheroniConstant := by
+  have h := Real.eulerMascheroniSeq_lt_eulerMascheroniConstant 16
+  have e : Real.eulerMascheroniSeq 16 = 2436559 / 720720 - Real.log 17 := by
+    rw [Real.eulerMascheroniSeq]; norm_num [harmonic, Finset.sum_range_succ]
+  have h17 : Real.log 17 ≤ 4 * Real.log 2 + 1 / 16 := by
+    have h1 : Real.log 17 = Real.log 16 + Real.log (17 / 16) := by
+      rw [← Real.log_mul (by norm_num) (by norm_num)]; norm_num
+    have h16 : Real.log 16 = 4 * Real.log 2 := by
+      rw [show (16 : ℝ) = 2 ^ 4 by norm_num, Real.log_pow]; norm_num
+    have := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 17 / 16 by norm_num)
+    linarith
+  have hl2 := Real.log_two_lt_d9
+  rw [e] at h
+  norm_num at hl2 h ⊢
+  linarith
+
+/-- `ψ(¼) − log π ≤ −5.3`. -/
+theorem weilConst_le : weilConst ≤ (-5.3 : ℝ) := by
+  rw [weilConst_eq]
+  have hγ := gamma_gt
+  have hπ := Real.pi_gt_d6
+  have hl2 := Real.log_two_gt_d9
+  have hlogπ : 2 * Real.log 2 + (1 - (π / 4)⁻¹) ≤ Real.log π := by
+    have h4 : Real.log π = Real.log 4 + Real.log (π / 4) := by
+      rw [← Real.log_mul (by norm_num) (by positivity)]; congr 1; ring
+    have h44 : Real.log 4 = 2 * Real.log 2 := by
+      rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
+    have := Real.one_sub_inv_le_log_of_pos (show 0 < π / 4 by positivity)
+    linarith
+  have hinv : (π / 4)⁻¹ ≤ 1.2733 := by
+    rw [inv_div, div_le_iff₀ Real.pi_pos]; norm_num at hπ ⊢; linarith
+  norm_num at hl2 hπ
+  linarith
+
+/-- **The even ceiling at `a = 1/4`**: the parabola has `Q < 1/5`. -/
+theorem lam_quarter_lt : lam (1 / 4) < 1 / 5 := by
+  have ha : (0 : ℝ) < 1 / 4 := by norm_num
+  have hlog : 2 * (1 / 4 : ℝ) < Real.log 2 := by
+    have := Real.log_two_gt_d9; norm_num at this ⊢; linarith
+  have hpp := par_probe ha
+  have hnp := normSq_par ha
+  refine (lam_le hpp hnp).trans_lt ?_
+  rw [weilQ_eq', primeS_eq_zero hlog hpp, archE_split ha hpp hnp, farField_eq ha, hnp]
+  have hP := pole_par_le ha (by norm_num)
+  have hN := nearField_par_le ha
+  have hC := weilConst_le
+  -- the log term: `(e^{1/4} + 1)/(e^{1/4} − 1) ≤ 8.07`, from `e^{1/4} ≥ 1 + x + x²/2 + x³/6`
+  have hE3 : (1 : ℝ) + 1 / 4 + (1 / 4) ^ 2 / 2 + (1 / 4) ^ 3 / 6 ≤ Real.exp (1 / 4) := by
+    have := Real.sum_le_exp_of_nonneg ha.le 4
+    simp only [Finset.sum_range_succ, Finset.sum_range_zero, Nat.factorial] at this
+    norm_num at this ⊢; linarith
+  have hratio : (Real.exp (1 / 4) + 1) / (Real.exp (1 / 4) - 1) ≤ 8.07 := by
+    rw [div_le_iff₀ (by norm_num at hE3; linarith)]; norm_num at hE3 ⊢; linarith
+  have hneg : -Real.log ((Real.exp (1 / 4) - 1) / (Real.exp (1 / 4) + 1))
+      = Real.log ((Real.exp (1 / 4) + 1) / (Real.exp (1 / 4) - 1)) := by
+    rw [← Real.log_inv, inv_div]
+  have hpos : 0 < (Real.exp (1 / 4) + 1) / (Real.exp (1 / 4) - 1) := by
+    have := Real.one_lt_exp_iff.mpr ha; apply div_pos <;> linarith
+  have hlog807 : Real.log 8.07 ≤ 3 * Real.log 2 + (8.07 / 8 - 1) := by
+    have h1 : Real.log 8.07 = Real.log 8 + Real.log (8.07 / 8) := by
+      rw [← Real.log_mul (by norm_num) (by norm_num)]; norm_num
+    have h8 : Real.log 8 = 3 * Real.log 2 := by
+      rw [show (8 : ℝ) = 2 ^ 3 by norm_num, Real.log_pow]; norm_num
+    have := Real.log_le_sub_one_of_pos (show (0 : ℝ) < 8.07 / 8 by norm_num)
+    linarith
+  have hlogr := Real.log_le_log hpos hratio
+  -- the arctan term: `arctan(sinh a) ≥ sin(arctan(sinh a)) = tanh a ≥ a/(1 + a²/2 + 5a⁴/96)`
+  have hsh0 : 0 ≤ Real.sinh (1 / 4) := Real.sinh_nonneg_iff.mpr ha.le
+  have hθ0 : 0 ≤ Real.arctan (Real.sinh (1 / 4)) := Real.arctan_nonneg.2 hsh0
+  have hsin := Real.sin_le hθ0
+  rw [Real.sin_arctan] at hsin
+  have hsq : √(1 + Real.sinh (1 / 4) ^ 2) = Real.cosh (1 / 4) := by
+    rw [add_comm, ← Real.cosh_sq, Real.sqrt_sq (Real.cosh_pos _).le]
+  rw [hsq] at hsin
+  have hch := cosh_le_taylor (y := 1 / 4) (by norm_num)
+  have hsh1 : (1 / 4 : ℝ) ≤ Real.sinh (1 / 4) := Real.self_le_sinh_iff.2 ha.le
+  have htanh : (1 / 4 : ℝ) / (1 + (1 / 4) ^ 2 / 2 + 5 * (1 / 4) ^ 4 / 96) ≤
+      Real.sinh (1 / 4) / Real.cosh (1 / 4) := by
+    rw [div_le_div_iff₀ (by norm_num) (Real.cosh_pos _)]
+    nlinarith [Real.cosh_pos (1 / 4 : ℝ)]
+  have hl2 := Real.log_two_lt_d9
+  have hπ := Real.pi_lt_d6
+  rw [hneg]
+  norm_num at hP hN hl2 hπ hlog807 htanh ⊢
+  linarith
+
+/-- **The certified start**: `λ_even(1/4) < 1/5 ≤ λ_odd(1/4)`. -/
+theorem gap_quarter : lam (1 / 4) < lamO (1 / 4) :=
+  lam_quarter_lt.trans_le (le_csInf (lamO_nonempty (by norm_num))
+    fun _ ⟨_, hp, hn, hq⟩ => hq ▸ weilQodd_quarter hp hn)
+
+/-- **Round 146's reduction, with its start discharged.** If the even and odd ground energies never
+coincide for `a ≥ 1/4`, the parity gap holds at every `a ≥ 1/4`. -/
+theorem parityGap_of_no_crossing_quarter (hnc : ∀ a, 1 / 4 ≤ a → lam a ≠ lamO a) :
+    ∀ a, 1 / 4 ≤ a → ParityGap a :=
+  parityGap_of_no_crossing (by norm_num) gap_quarter hnc
+
+/-- **RH from no crossing.** If the even and odd ground energies never coincide for `a ≥ 1/4`, then
+ground states along any supports `aₙ → ∞` satisfying `HypConv` give Mathlib's `RiemannHypothesis`. -/
+theorem rh_of_no_crossing {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} (ha : ∀ n, 0 < a n)
+    (hgs : ∀ n, IsGroundState (a n) (g n)) (hinf : Tendsto a atTop atTop)
+    (hnc : ∀ b, 1 / 4 ≤ b → lam b ≠ lamO b) (hconv : HypConv a g) : RiemannHypothesis :=
+  rh_of_parity_gap ha hgs ((hinf.eventually_ge_atTop (1 / 4)).mono fun n hn =>
+    parityGap_of_no_crossing_quarter hnc (a n) hn) hconv
+
 end Pilot1ca
 
 #print axioms Pilot1ca.lamO_antitone
@@ -783,3 +923,8 @@ end Pilot1ca
 #print axioms Pilot1ca.lamO_left
 #print axioms Pilot1ca.continuousOn_lamO
 #print axioms Pilot1ca.parityGap_of_no_crossing
+#print axioms Pilot1ca.weilQodd_quarter
+#print axioms Pilot1ca.lam_quarter_lt
+#print axioms Pilot1ca.gap_quarter
+#print axioms Pilot1ca.parityGap_of_no_crossing_quarter
+#print axioms Pilot1ca.rh_of_no_crossing

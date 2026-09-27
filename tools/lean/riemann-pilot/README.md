@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 528 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 533 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -4862,3 +4862,29 @@ Here `lamO a` is the odd ground energy, the infimum of `weilQg` over normalised 
   - (B) the eventual parity gap, `λ_even < λ_odd` (Theorem A, round 137).
   Neither implies the other. Both are no-crossing statements.
 - **The asymmetry.** (A) concerns same-sector levels. Those avoid each other generically (codimension 2, von Neumann–Wigner), and Theorem D (`degenerate_flat`, `theoremD`) forces a degeneracy to carry a Green chain. (B) concerns cross-sector levels, which cross generically, and no structure theorem constrains them. On structure alone, (A) is the better-equipped route. Genericity is not a proof, and (A) is open.
+
+
+## Round 147: the certified start, and the chain as one theorem (`src/ParityCont.lean`, section C4)
+
+**Theorem** (`gap_quarter`). `λ_even(1/4) < 1/5 ≤ λ_odd(1/4)`, proved in Lean with no computer-assisted input.
+- **Odd floor** (`weilQodd_quarter`). This is round 20's odd-sector bound evaluated at the endpoint `a = 1/4` rather than minimised over `(0, 1/4]`. It gives `≥ 0.2099` from:
+  - the pole: `−2(sinh a − a)`;
+  - `weilConst ≥ −5.4301`;
+  - the near field: `≥ 2.016 + 0.99a − err(a)`;
+  - the far field: `≥ log 8 + π/2 − sinh(1/4)`.
+- **Even ceiling** (`lam_quarter_lt`). The parabola trial function has `Q(par) ≤ 0.1228`, from:
+  - `pole_par_le`;
+  - `nearField_par_le`;
+  - the far field `log coth(1/8) + π/2 − arctan(sinh ¼)`, with `coth(1/8) ≤ 8.07` from the cubic Taylor lower bound of `e^{1/4}`, and `arctan(sinh a) ≥ sin(arctan(sinh a)) = tanh a`;
+  - the new `weilConst_le : ψ(¼) − log π ≤ −5.3` (`gamma_gt : γ > 0.5456`, from Mathlib's `H₁₆ − log 17 < γ`).
+- **Numerics.** Measured values are `λ_even(1/4) = 0.0334` and `λ_odd(1/4) = 0.413`, and `Q(par) = 0.0446`.
+
+**Corollaries.**
+- `parityGap_of_no_crossing_quarter`: if `λ_even(a) ≠ λ_odd(a)` for all `a ≥ 1/4`, then `ParityGap a` for all `a ≥ 1/4`.
+- **`rh_of_no_crossing`**: no crossing for `a ≥ 1/4`, together with `HypConv` along supports `aₙ → ∞`, gives Mathlib's `RiemannHypothesis`.
+
+  The one analytic hypothesis besides `HypConv` is now the absence of a single kind of event: an even–odd ground-energy crossing beyond `a = 1/4`.
+
+**Simplicity, for comparison.** Route (A), eventual even-sector simplicity, also has a Lean start: `simpleGround_036` covers `a ≤ 0.36`. The round-47 cells to `a = 1.035` rest on `Round47Certs`, which are not checked in Lean. The continuation argument of round 146 would transfer if `λ₂^even` were shown continuous in `a`. Min–max and the same compactness/dilation tools make that plausible, but it is not done.
+
+**Bearing on RH:** none. The no-crossing hypothesis is open.
