@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 542 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 545 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -5022,5 +5022,37 @@ Round 50's README already stated the "only failure mode" and observed that the `
 - **Obstruction 3: the ladder's lower half is RH-strength.** A rigorous lower bound `λ₁(a) ≥ S(a)A₀ > 0`, together with the odd rung, gives Weil positivity on every window, and so RH directly. Even the rung-2 lower bound alone says `Q` has at most one negative direction on every window. Upper bounds (trial jets `Σ cᵢΦ^{(i)}`, as in `PhiDecay`) are accessible.
 
 **Status.** The prolate picture is the right *description*: parity alternation and a `κ²` ladder hold at every scale tested. It is not a *proof route* that avoids RH-strength inputs.
+
+**Bearing on RH:** none.
+
+## Round 153: jet upper bounds on rungs 1 and 2, no RH input (`src/PhiLadder.lean`)
+
+Round 133 (`lam_decay`) bounds rung 0 of the round-152 ladder: `λ₁(a) ≤ K e^{−Ba}` for every `B`. This file bounds the next two rungs in the same way. The named inputs are the same: `WeilExplicit` for the trial functions used, and `DigammaDiff`. The zero family may lie anywhere in the strip `|Im t| ≤ ½`, with `Σ‖1/(t² + 4)‖ < ∞`. **No RH input.**
+
+**Trial functions.** Copies of `Φ_b`, `b = a/8`, shifted to disjoint positions:
+- twins `T_l = Φ_b(· − l) + Φ_b(· + l)` (round 62), with `T̂_l = 2cos(lz)Φ̂_b` (`ghatC_twin`);
+- the antitwin `A_l = Φ_b(· − l) − Φ_b(· + l)`, which is odd.
+
+**Rung 1** (`lamO_decay`): `λ_odd(a) ≤ K e^{−Ba}` for `a ≥ 1`, every `B`.
+- `weilQg_shift`: Weil's general form is translation invariant. The pole weights scale as `e^{±c/2}`, and their product is unchanged.
+- `weilQg_atwin`: the parity split of `Φ_b(· − l)` gives `Q(A_l) = 4Q(Φ_b) − Q(T_l)`.
+- Over the zeros this is `Σ (4 − 4cos²(l t_ρ)) Φ̂_b(t_ρ)²`. Each factor is at most `4e^{l}` in the strip (`norm_four_sub_cos_sq_le`). The per-zero bound `‖Φ̂_b(t_ρ)‖² ≤ K′e^{−2(D−3/2)b} w_ρ` is round 133's, restated at a general window (`ghat_PhiA_sq_le`).
+- With `l = a/4`, `D = 4|B| + 5` and `‖A_l‖² = 2‖Φ_b‖² ≥ 2‖Φ_{1/8}‖²`, the bound follows. Only the even explicit formula is used (for `Φ_b` and `T_l`).
+
+**Rung 2** (`lam2_decay`): every `s` with `Lam2Ge a s` (`λ₂ ≥ s` in min–max form) satisfies `s ≤ K e^{−Ba}` for `a ≥ 1`, every `B`.
+- `T_{a/4}` and `T_{3a/4}` have disjoint supports (`twin_mul_twin_zero`), so after normalising they are orthonormal.
+- On their span, `‖v̂(t_ρ)‖ ≤ 2(|p| + |q|)e^{3a/8}‖Φ̂_b(t_ρ)‖` (`weilQ_pair_le`), and `(|p| + |q|)² ≤ 1/‖Φ_b‖²`.
+- Input: `WeilExplicit` for each `pT_{a/4} + qT_{3a/4}` at window `a`.
+
+**What this does not give.**
+- These are upper halves only. The lower halves are RH-strength (round 152, obstruction 3).
+- The bounds are absolute (`O(e^{−Ba})` for each `B`), not relative. They do not capture the ladder ratios `λ_{j+1}/λ_j ≈ c_jκ²`, and they do not order the rungs.
+- There are no zeta-family corollaries yet. They would follow as `lam_decay_zeta` does, from `WeilExplicit` for the trial families and for `1/(z² + 4)`.
+
+**Housekeeping.**
+- `PhiDecay` now writes an olean. The auxiliary lemmas are `normSq_PhiA_mono'`, `normSq_PhiA_pos` (general-window versions of round 133's) and `ghatC_window`.
+- **Consolidation note.** `Mollify.lean` and `ParityCont.lean` each carry dilation machinery (`memLp_dil`/`memLp_dilS` and relatives, renamed in round 146 to avoid the clash). Merging them is a future cleanup.
+
+**Check 4.** Round 139/152 observed the ladder numerically. Round 62 built twins for the converse, and round 133 proved rung 0. The rung-1 and rung-2 upper bounds are new here.
 
 **Bearing on RH:** none.

@@ -73,4 +73,5 @@ run SimpleCont; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build
 run ExplicitBridge; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ExplicitBridge.olean -i $HERE/build/ExplicitBridge.ilean $HERE/src/ExplicitBridge.lean'
 run WeilConverse; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/WeilConverse.olean -i $HERE/build/WeilConverse.ilean $HERE/src/WeilConverse.lean'
 run PhiNull; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/PhiNull.olean -i $HERE/build/PhiNull.ilean $HERE/src/PhiNull.lean'
-run PhiDecay; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/PhiDecay.lean'
+run PhiDecay; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/PhiDecay.olean -i $HERE/build/PhiDecay.ilean $HERE/src/PhiDecay.lean'
+run PhiLadder; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/PhiLadder.lean'
