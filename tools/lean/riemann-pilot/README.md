@@ -4566,3 +4566,42 @@ Both theorems print `[propext, Classical.choice, Quot.sound]` only.
 - **Why it's plausible.** Writing odd probes as `o = e′` turns the odd problem into the even symbol with weight `r²` and pole coefficient `−½` instead of `+2`. That is heuristic support: round 135's certified odd lower bound at `a = 0.8`, `5·10⁻¹⁵`, exceeds even Ritz values of about `2·10⁻¹⁷`.
 - **Why it isn't proved.** The symbol is indefinite, so the two minima are not ordered by any inequality I can see.
 - **Bearing on RH.** Theorem A turns RH into this spectral comparison plus `HypConv`, which is a genuine reduction. It is not a proof.
+
+## Round 138: the reflection identity for the parity gap (analysis + numerics, no Lean)
+
+**Question.** Can `λ_odd(a) > λ_even(a)` be derived from the jump form or the symbol form alone, with no zeros? **Answer: no inequality found. This round gives the exact reason.**
+
+**The identity** (exact, zero-free). Pair each half-profile `h` on `[0, a]` with `g_e = h(|t|)` and `g_o = sgn(t)·h(|t|)`, which have the same norm. Then
+
+`Q(g_e) − Q(g_o) = 4·W₁(h)`, where `W₁(h) = Lh(½)² + Lh(−½)² + (1/2π)∫Re[Lh(ir)²]·σ_a(r)dr` and `Lh(s) = ∫₀^a h(x)e^{sx}dx`.
+
+- **Derivation.** It uses `ĝ_e = 2∫h cos`, `ĝ_o = 2i∫h sin`, and `|ĝ_e|² − |ĝ_o|² = 4Re(Lh(ir))²`. The pole terms are `+2ĝ_e(i/2)²` and `−2ô(i/2)²`, which sum to `4(Lh(½)² + Lh(−½)²)`.
+- **Jump-form reading.** The local and diagonal parts cancel. What remains is the Hankel form `∫∫k(x + y)h(x)h(y)` of the off-diagonal kernel `k(u) = 2cosh(u/2) − K_arch(u) − 2Σ_{n ≤ e^{2a}} Λ(n)n^{−½}δ(u − log n)`. Taken piece by piece:
+  - The completely monotone archimedean piece is negative semidefinite, which is the right sign.
+  - The pole piece is `+2[(∫h cosh)² + (∫h sinh)²]`, positive of rank 2, which is the wrong sign.
+  - The prime piece is indefinite.
+  - The pole and primes cancel at leading order by the PNT, and what survives is governed by `ψ(x) − x`.
+
+**Consequences.**
+- **(N)** `λ_o ≤ λ_e − 4W₁(h_e)`, so the gap forces `W₁(h_e) < 0`. This is a necessary condition.
+- **(S)** `λ_e ≤ λ_o + 4W₁(h_o)`, so `W₁(h_o) < 0` would imply the gap. This is a sufficient condition.
+- By (N) applied the other way round, `W₁(h_o) ≥ −(λ_o − λ_e)/4`, which is super-exponentially close to 0. So (S) can only hold in a vanishing window.
+
+**Measurements** (`frontier/nullvec/khankel_parity.py`, `khankel_parity_results.jsonl`; Gram instruments with K = 40, re-expansion to 300 modes). Round 138 did not rerun these at other K. A bigger K would move the fourth digit of `W₁(h_e)`, whose `sgn·g_e` has a jump at 0 (truncated norm ≈ 0.995), but not its sign.
+
+| δ = 2a | λ_e | λ_o | W₁(h_e) | W₁(h_o) |
+|---|---|---|---|---|
+| 1.0 | 9.5e-7 | 2.2e-4 | −0.152 | +0.034 |
+| 1.6 | 1.9e-17 | 1.8e-14 | −0.134 | +0.020 |
+| 2.2 | 3.9e-38 | 1.5e-34 | −0.127 | +0.016 |
+| 3.0 | 3.3e-67 | 1.0e-63 | −0.119 | +0.013 |
+
+- (N) holds with an O(1) margin.
+- (S) fails, because `W₁(h_o) > 0` at every measured δ. The reflection comparison therefore cannot prove the gap, even with perfect knowledge of `h_o`.
+
+**Why no zero-free inequality from these forms.**
+- `W₁` is the Weil functional on `h * h`, the half-line self-convolution, and not on an autocorrelation. Its zero-side value is `Σ_ρ Lh(ρ − ½)²`, a sum of complex squares. That sum is indefinite even under RH.
+- Any linear parity-transfer map `T` has defect `W(Tg * T̃g − g * g̃)`. Controlling that defect from the symbol side needs `σ_a ≥ 0` wherever `|T̂g| > |ĝ|`, but `σ_a` is indefinite, and the only sign-definite object is the total form (Weil positivity).
+- The jump form's Markov structure gives Perron–Frobenius, and hence the gap, for `Q₀` only. The pole enters with `+` on even and `−` on odd, so every comparison inherited from `Q₀` points the wrong way.
+
+**Bearing on RH:** none. The parity gap stays open. This round shows that the reflection pairing, and the positivity structures of both forms, cannot force it.
