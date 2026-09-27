@@ -4714,3 +4714,26 @@ The second is a quantitative positivity statement for Q on the complement of the
 - **Two meanings of "odd".** That `7` is odd is unrelated to the parity `t ↦ −t` of test functions. The link is `ψ(s/2) − log π` itself, not the integer parity.
 
 **Bearing on RH:** none.
+
+## Round 143: can the cascade chirality theorem handle the pole? (analysis, no Lean)
+
+**Source read directly** (Check 1): `src/cascade-series-part4b.tex` lines 1203–1314, covering `thm:chirality-factorisation` and `thm:chirality-selection-rule`.
+- Its conclusion is a factor `G_Q(d, d*) = G(d, d*)/χ^k` for the cascade *layer* Green's function.
+- Its proof combines three steps:
+  - (A) Poincaré–Hopf on `S^{2n}`, which gives two equal-area basins under `h ↦ −h`;
+  - (B) cascade propagator unitarity and the phase lockstep (Part II);
+  - (C) basin orthogonality.
+- The text reports its numerical confirmation against `α_s` data (line 1228: "The data requires 1/2").
+
+**Verdict: not usable as an input here.**
+1. **No bridge.** The theorem is about `G(d, d*)` on the layer index `d`. No theorem in the series identifies the ζ-pole term `2ĝ(i/2)ĝ(−i/2)` of Weil's form with a cascade layer observable. Asserting such an identification would add an input, and step (B) plus the data check tie the theorem to the physical reading, which Check 8 excludes.
+2. **The theorem's mathematical core is the reflection `ℤ₂`, which is already fully used.** The `ℤ₂` of step (A) acts on `[−a, a]` as `t ↦ −t`, and the parity split `Q(g) = Q(e) + Q(o)` (`ParitySplit`) is exactly that decomposition.
+3. **The pole does not split equally.** Step (A)'s "equal splitting" `δφ₊ = δφ₋ = δφ/χ` holds for a `ℤ₂`-invariant scalar. The pole is the indefinite rank-2 form `2(C² − S²)`, signature `(1, 1)`: it contributes `+2C²` on the even sector and `−2S²` on the odd one. That opposite-sign split is precisely the obstruction.
+
+**What can be said about removing the pole (pure Fourier analysis).**
+- **Setting.** Any transfer map `ô = −izq̂ ↦ ĝ = m(z)q̂` whose even target has no pole contribution needs `m(±i/2) = 0`.
+- **Entire and bounded on ℝ.** Then `m` has positive exponential type b, for example `m = cosh(b/2) − cos(bz)`. This widens the support to `[−a − b, a + b]`, and since `λ_e` decreases in `a`, the fixed-`a` comparison is lost.
+- **Polynomial.** For example `m = z² + ¼`, which is `g = −o′ + q/4`. It keeps the support, but it needs `o(±a) = 0`, and the weight ratio `(r² + ¼)²/r²` is unbounded both at 0 and at ∞. So no pointwise comparison `r²σ ≷ c·m²σ` of the round-142 kind can hold.
+- **Consequence.** There is no pole-free transfer at fixed support with a bounded weight ratio. The pole is intrinsic to the fixed-`a` parity comparison, which is consistent with its role as the pseudo-ordinate `z² = −¼`.
+
+**Bearing on RH:** none.
