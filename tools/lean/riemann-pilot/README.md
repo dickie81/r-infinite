@@ -5625,19 +5625,40 @@ Checks:
 - **Which zero.** `ρ₀` alone drives it; the next three off-line zeros (`0.6508 + 114.16i`, `0.5744 + 166.48i`, `0.7243 + 176.70i`) contribute 10²–10³ times less.
 - **Afterwards.** The ground branch turns positive again by `δ = 3.5` as the phase of `ĝ(τ₀)²` rotates. Higher prolate branches have gone negative by then, so `λ₁` stays negative (`lam_antitone`).
 
+**The Selberg-identity experiment** (`selberg.py`). This is the test round 161 left open: can an exact multiplicative identity, Selberg's `Λ·log + Λ⋆Λ = μ⋆log²`, contradict the kernel equation at a first failure?
+
+*Setup.*
+- The prime part of the form is `⟨g, P(A + A*)P g⟩`, where `A g(u) = Σ c(n)n^{−1/2} g(u + log n)` is the one-sided shift operator and `P` the window projection.
+- Selberg's identity is the operator identity `D + A² = B`. Here `D` has weights `c(n)log n` and `B` has weights `μ⋆log²`.
+- Measured at `δ = 3.427` on DH's first-failure vector `g*` and on ζ's ground state (Gram at 600 bits, quadrature on 6001 points):
+
+| | DH `g*` (`λ₁ = −1.3e−30`) | ζ ground state (`λ₁ = 2.8e−115`) |
+|---|---|---|
+| E1 = `⟨g,(PAPAP − PA²P)g⟩` (one-sided compression) | 4e−10 (quadrature noise) | 3e−11 (quadrature noise) |
+| E2 = `⟨g,(PAPA*P − P AA* P)g⟩` (mixed compression) | −0.10 | −16.3 |
+| S = `⟨g, P(D + A² − B_μ)P g⟩` (Selberg with `μ⋆log²`) | −0.52 | 7e−18 |
+| coefficient defect `c·log + c⋆c − μ⋆log²` | nonzero from `n = 2` | 0 |
+
+*Reading.*
+1. **One-sided products compress exactly.** For shifts `x, y ≥ 0` on an interval, `u ∈ W` and `u + x + y ∈ W` imply `u + x ∈ W`. So `P T_x P T_y P = P T_{x+y} P`, and E1 = 0 (the measured 1e−10 is quadrature error). **Correction to round 161:** the statement there that "compression breaks that algebra by edge terms" is wrong for Selberg's one-sided algebra.
+2. **So the windowed identity is vector-blind.** It is exactly the coefficient identity for `n ≤ e^{2a}`. With `c(1) = 0` that recursion determines `c(n)` uniquely, so on the window Selberg's identity *is* the statement `c = Λ`. For ζ it holds for every vector, kernel or not (S = 7e−18 on ζ's ground state). For DH it fails (S = −0.52) because DH's weights are not `Λ`, already at `n = 2`, and not because of anything about `g*`. The identity separates the functions but carries no information about the kernel vector beyond the weights, which the kernel equation already contains.
+3. **The kernel equation involves `A + A*`, not `A`.** Anything quadratic built from it involves the mixed products `AA*` and `A*A`, i.e. shifts by `log(m/n)`. Selberg's algebra does not govern these, and their compression defect is `O(0.1)` for DH and `O(16)` for ζ. That is 29 and 115 orders of magnitude above the kernel scale `|λ₁|`.
+
+*Verdict: the route is closed, for a structural reason.* The Selberg identity (and, by the same argument, `Λ(p^k) = Λ(p)` or any identity among the one-sided weights) reduces on the window to the values of `Λ(n)`, `n ≤ e^{2a}`. It cannot add a constraint that the kernel equation does not already contain. The two-sided terms, where the kernel equation actually lives, are outside any Dirichlet-series identity and are 10²⁹–10¹¹⁵ times larger than the precision a contradiction would need. Of the two outcomes anticipated when this test was proposed ("defect shows up at DH and stays small for ζ" versus "swamped by edge terms"), neither is quite what happens. The one-sided defect is exactly zero for both functions, and the part that is not zero is not governed by the identity.
+
 **What this settles and what it does not.**
 - It confirms round 161's picture: an off-line zero is detected by the prolate ground state once `e^{2a}` reaches about `qγ₀/(2πe)`. The failure is an exact balance between an exponentially small on-line sum and an exponentially small off-line term.
 - DH has infinitely many zeros off the line. At the first failure, though, only `ρ₀` matters, which is the finite-exception situation the pilot's Lean covers. So this is numerical evidence that the infinite-exception converse of Weil's criterion (round 164's open item) holds in the expected form. It is not a proof.
-- For ζ, the same code gives `λ₁ > 0` up to `a = 1.6` (`1e−48` at `a = 1.2`). That is consistent with RH, and says nothing more.
+- It closes the multiplicative-identity route that round 161 isolated as the one remaining candidate for contradicting the kernel equation.
 
 **Check 4.**
 - **Acknowledged.** Weil's criterion; Li's criterion computations for DH-type functions (literature); the first-failure structure (round 161); the detection horizon (rounds 119, 161).
 - **New here.**
   - The DH Weil-form eigenvalues, and a ball-certified negative `λ₁^{DH}(1.725)`.
   - The first-failure support `a₁ ≈ 1.713` and its agreement with the conductor-corrected horizon.
-  - The identification of the failing mode as the prolate ground state, driven by the single zero `ρ₀`.
+  - The failing mode is the prolate ground state, driven by `ρ₀`.
   - The DH prolate rate `4πe^{2a}/5`.
-  - I have not checked whether any of these specific numbers appear in the literature.
+  - The exact compression of one-sided products, which corrects round 161, and the resulting closure of the Selberg route.
+  - I have not checked whether any of these specific numbers or the closure argument appear in the literature.
 
-**Bearing on RH:** none. This concerns the Davenport–Heilbronn function, which has no Euler product.
-
+**Bearing on RH:** negative. This round was the test of the one candidate route round 161 left open, and the route is closed for the structural reason above. Nothing here excludes an off-line zero of ζ.
