@@ -464,10 +464,14 @@ Proof: the twin boxes at `±λ` have `ĝ_λ = 2cos(λz)ĝ₀`. If `Q(ĝ_λ) ≥ 
 explicit upper bound `S + Σ_{i∈F} Re(2cos(λt_i)ĝ₀(t_i))²` against `e^{−2Yλ}(1 + cos(2x*λ + θ))` over
 `[0, T]`. Here `Y` is the largest `|Im t_i|`, attained at `t* = x* + iY`. Every exponential except the
 orbit of `t*` integrates to `O(1)`; the orbit contributes `T·Re(ĝ₀(t*)²e^{iθ})/2 = −T|ĝ₀(t*)²|/2`. For
-large `T` the integral of a nonnegative function is negative. -/
-theorem exists_weilQ_neg_of_offline
-    (hEF : ∀ (a : ℝ) (g : ℝ → ℝ), 0 < a → Probe a g →
-      WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a))
+large `T` the integral of a nonnegative function is negative.
+
+Only two instances of the explicit formula are used: the box `box 1` and its twins `twin (box 1) λ`
+(round 157: both are strip test functions, so for `ζ` they are theorems, `WeilCriterion.lean`). -/
+theorem exists_weilQ_neg_of_offline_of
+    (hEF0 : WeilExplicit ρ (fun z => ghatC (box 1) 1 z ^ 2) (hsq (box 1) 1))
+    (hEFt : ∀ l : ℝ, 0 ≤ l →
+      WeilExplicit ρ (fun z => ghatC (twin (box 1) l) (l + 1) z ^ 2) (hsq (twin (box 1) l) (l + 1)))
     (F : Finset ι) (hF : ∀ i ∉ F, (ρ i).re = 1 / 2)
     (hre : ∀ i ∈ F, (ρ i).im ≠ 0) (hoff : ∃ i ∈ F, (ρ i).re ≠ 1 / 2) :
     ∃ a g, 0 < a ∧ Probe a g ∧ weilQ a g < 0 := by
@@ -528,8 +532,7 @@ theorem exists_weilQ_neg_of_offline
   have hf0 : 0 ≤ ∫ x in (0 : ℝ)..T,
       (S * Real.exp (-2 * Y * x) * wt μ θ x + ∑ i ∈ F, q i x * Real.exp (-2 * Y * x) * wt μ θ x) := by
     refine intervalIntegral.integral_nonneg hT fun x hx => ?_
-    have h1 := weilQ_twin_le one_pos (box_probe 1) hx.1 (hEF 1 (box 1) one_pos (box_probe 1))
-      (hEF _ _ (by linarith [hx.1]) (twin_probe (box_probe 1) hx.1)) F hF
+    have h1 := weilQ_twin_le one_pos (box_probe 1) hx.1 hEF0 (hEFt x hx.1) F hF
     have h2 := hpos x hx.1
     have e : S * Real.exp (-2 * Y * x) * wt μ θ x + ∑ i ∈ F, q i x * Real.exp (-2 * Y * x) * wt μ θ x
         = (S + ∑ i ∈ F, q i x) * (Real.exp (-2 * Y * x) * wt μ θ x) := by
@@ -568,6 +571,16 @@ theorem exists_weilQ_neg_of_offline
     simp only [T]; field_simp
   nlinarith
 
+/-- The same, with the explicit formula assumed for every probe. -/
+theorem exists_weilQ_neg_of_offline
+    (hEF : ∀ (a : ℝ) (g : ℝ → ℝ), 0 < a → Probe a g →
+      WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a))
+    (F : Finset ι) (hF : ∀ i ∉ F, (ρ i).re = 1 / 2)
+    (hre : ∀ i ∈ F, (ρ i).im ≠ 0) (hoff : ∃ i ∈ F, (ρ i).re ≠ 1 / 2) :
+    ∃ a g, 0 < a ∧ Probe a g ∧ weilQ a g < 0 :=
+  exists_weilQ_neg_of_offline_of (hEF 1 (box 1) one_pos (box_probe 1))
+    (fun l hl => hEF _ _ (by linarith) (twin_probe (box_probe 1) hl)) F hF hre hoff
+
 
 /-- **Weil's criterion, both directions, for a family with finitely many off-line zeros.** If every
 zero outside a finite set `F` is on the line and no member of `F` is real, then: `Q ≥ 0` for every probe
@@ -597,5 +610,6 @@ end Pilot1ca
 #print axioms Pilot1ca.int_wt
 #print axioms Pilot1ca.weilQ_twin_le
 #print axioms Pilot1ca.member_main
+#print axioms Pilot1ca.exists_weilQ_neg_of_offline_of
 #print axioms Pilot1ca.exists_weilQ_neg_of_offline
 #print axioms Pilot1ca.weil_criterion_finite
