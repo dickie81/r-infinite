@@ -84,7 +84,7 @@ Every file ends with `#print axioms`. All 615 checked theorems depend only on `p
 | `ZetaInputs.lean` | 238 | **Hadamard's identity `Σ_ρ 1/(ρ(1−ρ)) = 2 + γ − log 4π` proved**; 1bt(i) and the pinning theorem with their classical inputs discharged (round 157) |
 | `ExteriorZeta.lean` | 310 | `Φ` entire, `Φ(w) + Φ(−w) = 1`, `χ` in the strip class; **the exterior identity over the zeros of `ζ` for every probe** (round 157) |
 | `WeilRH.lean` | 160 | **RH ⟹ `Q ≥ 0` on every probe**; `weil_criterion_zeta`: with finitely many off-line zeros, `Q ≥ 0` everywhere ⟺ RH (round 157) |
-| `PhiDExp.lean` | 468 | **double-exponential rung bounds, no RH input**: `λ₁ ≤ Ke^{16a−2πe^{2a}}`, `λ₁^odd ≤ Ke^{16a−2πe^{a−1/4}}`, `λ₂ ≤ Ke^{16a−2πe^{a/2−1/4}}` (round 159) |
+| `PhiDExp.lean` | 484 | **double-exponential rung bounds, no RH input**: `λ₁ ≤ Ke^{16a−2πe^{2a}}`, `λ₁^odd ≤ Ke^{16a−2πe^{a−1/4}}`, `λ₂ ≤ Ke^{16a−2πe^{a/2−1/4}}` (round 159) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
