@@ -626,7 +626,17 @@ theorem tendsto_archE_dil {a : ℝ} {o : ℝ → ℝ} (hp : SProbe a o) :
   rw [archE_dil (by linarith [hs.1])]
 
 /-- `ĝ_s(i/2)` in terms of `o`: `poleR(o_s) = √s·s⁻¹·∫ o(v)e^{−v/(2s)} dv`. -/
-theorem poleR_dil {a : ℝ} {o : ℝ → ℝ} (hp : OProbe a o) {s : ℝ} (hs1 : 1 ≤ s) (ha : 0 ≤ a) :
+theorem sprobe_integrable {a : ℝ} {g : ℝ → ℝ} (hg : SProbe a g) : Integrable g := by
+  have hfin : IsFiniteMeasure (volume.restrict (Icc (-a) a)) :=
+    isFiniteMeasure_restrict.2 measure_Icc_lt_top.ne
+  have h1 : IntegrableOn g (Icc (-a) a) := (hg.memL2.restrict _).integrable (by norm_num)
+  refine (integrableOn_iff_integrable_of_support_subset fun u hu => ?_).1 h1
+  rw [Function.mem_support] at hu
+  have : |u| ≤ a := by
+    by_contra h'; exact hu (hg.supp u (lt_of_not_ge h'))
+  exact abs_le.1 this
+
+theorem poleR_dil {a : ℝ} {o : ℝ → ℝ} (hp : SProbe a o) {s : ℝ} (hs1 : 1 ≤ s) (ha : 0 ≤ a) :
     poleR (dil s o) a = Real.sqrt s * s⁻¹ * ∫ v, o v * Real.exp (-(v / s / 2)) := by
   have hs : 0 < s := by linarith
   have hsupp : ∀ u, a < |u| → dil s o u = 0 := fun u hu =>
@@ -639,10 +649,10 @@ theorem poleR_dil {a : ℝ} {o : ℝ → ℝ} (hp : OProbe a o) {s : ℝ} (hs1 :
   simp_rw [e]
   rw [integral_const_mul, hc, abs_of_pos (inv_pos.2 hs), smul_eq_mul]; ring
 
-theorem tendsto_pole_dil {a : ℝ} (ha : 0 < a) {o : ℝ → ℝ} (hp : OProbe a o) :
+theorem tendsto_pole_dil {a : ℝ} (ha : 0 < a) {o : ℝ → ℝ} (hp : SProbe a o) :
     Tendsto (fun s => poleR (dil s o) a) (𝓝[Icc 1 2] 1) (𝓝 (poleR o a)) := by
   have hev : ∀ᶠ s in 𝓝[Icc 1 2] (1 : ℝ), s ∈ Icc (1 : ℝ) 2 := self_mem_nhdsWithin
-  have hI := oprobe_integrable hp
+  have hI := sprobe_integrable hp
   have hT : Tendsto (fun s => ∫ v, o v * Real.exp (-(v / s / 2))) (𝓝[Icc 1 2] 1)
       (𝓝 (∫ v, o v * Real.exp (-(v / 1 / 2)))) := by
     refine tendsto_integral_filter_of_dominated_convergence (fun v => |o v| * Real.exp a)
@@ -677,7 +687,7 @@ theorem tendsto_pole_dil {a : ℝ} (ha : 0 < a) {o : ℝ → ℝ} (hp : OProbe a
   dsimp only
   rw [poleR_dil hp hs.1 ha.le]
 
-theorem tendsto_primeS_dil {a : ℝ} (ha : 0 < a) {o : ℝ → ℝ} (hp : OProbe a o) :
+theorem tendsto_primeS_dil {a : ℝ} (ha : 0 < a) {o : ℝ → ℝ} (hp : SProbe a o) :
     Tendsto (fun s => primeS (dil s o)) (𝓝[Icc 1 2] 1) (𝓝 (primeS o)) := by
   have hev : ∀ᶠ s in 𝓝[Icc 1 2] (1 : ℝ), s ∈ Icc (1 : ℝ) 2 := self_mem_nhdsWithin
   have hc : Continuous fun s : ℝ => ∑ n ∈ Finset.range (primeCut a),
@@ -702,9 +712,9 @@ theorem tendsto_primeS_dil {a : ℝ} (ha : 0 < a) {o : ℝ → ℝ} (hp : OProbe
 theorem tendsto_weilQg_dil {a : ℝ} (ha : 0 < a) {o : ℝ → ℝ} (hp : OProbe a o) :
     Tendsto (fun s => weilQg a (dil s o)) (𝓝[Icc 1 2] 1) (𝓝 (weilQg a o)) := by
   have hev : ∀ᶠ s in 𝓝[Icc 1 2] (1 : ℝ), s ∈ Icc (1 : ℝ) 2 := self_mem_nhdsWithin
-  have hlim := ((((tendsto_pole_dil ha hp).pow 2).const_mul (-2)).add
+  have hlim := ((((tendsto_pole_dil ha hp.toS).pow 2).const_mul (-2)).add
     (tendsto_const_nhds (x := weilConst * normSq o))).add (tendsto_archE_dil hp.toS) |>.sub
-    ((tendsto_primeS_dil ha hp).const_mul 2)
+    ((tendsto_primeS_dil ha hp.toS).const_mul 2)
   rw [weilQg_odd_eq hp]
   refine hlim.congr' (hev.mono fun s hs => ?_)
   have hs0 : 0 < s := by linarith [hs.1]

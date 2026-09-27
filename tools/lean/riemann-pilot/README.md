@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 533 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 539 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -4888,3 +4888,34 @@ Here `lamO a` is the odd ground energy, the infimum of `weilQg` over normalised 
 **Simplicity, for comparison.** Route (A), eventual even-sector simplicity, also has a Lean start: `simpleGround_036` covers `a ≤ 0.36`. The round-47 cells to `a = 1.035` rest on `Round47Certs`, which are not checked in Lean. The continuation argument of round 146 would transfer if `λ₂^even` were shown continuous in `a`. Min–max and the same compactness/dilation tools make that plausible, but it is not done.
 
 **Bearing on RH:** none. The no-crossing hypothesis is open.
+
+
+## Round 148: continuation for simplicity (`src/SimpleCont.lean`)
+
+**The literal transfer is a tautology.** `λ₁ ≤ λ₂` always holds. So "`λ₁(a) ≠ λ₂(a)` for all `a ≥ a₀`" already *is* simplicity on `[a₀, ∞)`, and a continuation argument adds nothing: unlike `λ_odd`, `λ₂` can never pass below `λ₁`.
+
+What continuity buys for this route is **closedness of the degeneracy set**. That is formalised here, with no separate `λ₂`: continuity of `λ₁` plus compactness suffices.
+
+**S1. Continuity of `λ₁` in the even sector.**
+- `lsc_even`: normalised even probes at `bₙ ↓ a` whose energies tend to `L` have a subsequence converging in `L²` to a normalised probe at `a` with `Q ≤ L`. It uses the even shell estimate `normSq_sub_symCut_shell`.
+- `lam_right` follows from `lsc_even`.
+- `lam_left` follows from dilation. Round 146's dilation lemmas were generalised to `SProbe`, adding `sprobe_integrable`.
+- `continuousOn_lam`: `λ₁` is continuous on `(0, ∞)`.
+
+**S2. Degeneracy.**
+- `Degenerate a` means there are two orthonormal ground states. `degenerate_iff` shows this is equivalent to `¬ SimpleGround a g` for any ground state `g`, via Gram–Schmidt in one direction and orthonormality in the other.
+- `degenerate_of_tendsto`: if `bₙ → a > 0` and every `bₙ` is degenerate, so is `a`.
+  - The ground pairs at `bₙ` are probes at `max(bₙ, a)`, and their energies `λ₁(bₙ)` tend to `λ₁(a)` by S1.
+  - `lsc_even`, applied twice, gives limits `G` and `H` that are ground states at `a`.
+  - Orthogonality passes to the `L²` limit.
+
+**S3. The first degeneracy** (`first_degeneracy`, `first_degeneracy_036`).
+- **Statement.** If some support `a₁ ≥ 0.36` is degenerate, there is a *least* degenerate `m ∈ (0.36, a₁]`.
+  - Every support in `[0.36, m)` has a simple ground state.
+  - At `m`, Theorem D (`degenerate_flat`) puts a nonzero pole-free `w` and its Green solution `G w` (`(Gw)″ − Gw/4 = w`, compactly supported) in the ground space.
+- **Start.** The start `0.36` is Lean's `simpleGround_036`, so the statement is unconditional.
+- **Consequence.** Eventual simplicity, route (A), reduces to excluding such a first Green-chain degeneracy that is approached from the left by simple ground states.
+
+**Contrast with route (B).** For the parity gap the continuation lemma is substantive (rounds 146–147), because `λ_odd` could in principle pass below `λ_even`. For simplicity the substantive formal gain is S3's *structure* at the first failure, which the parity route lacks.
+
+**Bearing on RH:** none. Both no-crossing statements remain open.
