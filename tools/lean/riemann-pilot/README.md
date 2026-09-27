@@ -5583,3 +5583,61 @@ theorem lam_prefactor :
   - I checked novelty against Connes 2026 only.
 
 **Bearing on RH:** none. `lam_prefactor` is an upper bound on `λ₁`, compatible with RH and with its failure.
+
+## Round 165: the Davenport–Heilbronn first-failure test (numerics, no Lean; `frontier/dh/`)
+
+**The test.** Round 161 derived the first-failure structure of Weil positivity and predicted where an off-line zero at height `γ₀` first shows up: `e^{2a₁} ≈ γ₀/(2πe)` from the cumulative zero count, or `γ₀/6.3` from the local density. It also found that the Davenport–Heilbronn function `f = ((1−iκ)/2)L(s,χ) + ((1+iκ)/2)L(s,χ̄)` (`χ` mod 5, `χ(2) = i`) breaks Markov positivity (`c(3) < 0`). Here the Weil form of `f` is computed directly, and its first failure located.
+
+**The form** (`dh_gram.py`). `weil_prime_gram.py` is generalised to any degree-1 `Λ(s) = (q/π)^{s/2}Γ((s+1)/2)F(s) = Λ(1−s)`:
+- the kernel `e^{−u/2}/sinh u` (digamma at `¾ + iω/2`);
+- the constant `ψ(¾) + log(q/π)`;
+- no pole;
+- prime weights `c(n)`, the coefficients of `−F′/F`, computed exactly in balls. For DH they are neither prime-power-supported nor `≥ 0`.
+
+Checks:
+- **χ₄.** On `L(s, χ₄)` (zeros on the line; 122 found by sign changes to height 200) the Gram reproduces `Σ_γ ĝ(γ)²` to `2·10⁻⁹` at `δ = 1` (`validate.py`).
+- **ζ baseline.** Rerun through the same code: `λ₁(a=1) = 8.6·10⁻³⁰`, as the prolate law predicts.
+- **DH.** `Λ(s) = Λ(1−s)` to `10⁻²⁵`. Spira's zero refines to `ρ₀ = 0.8085171825 + 85.6993484854i`.
+
+**λ₁ of the DH form** (`scan.py`; even cosine basis, `K = 80` and `120`, Gram at 600–800 bits, eigenvalues at ~175 digits).
+
+| `a` | 0.5 | 1.0 | 1.2 | 1.4 | 1.6 | 1.70 | 1.71 | **1.715** | 1.725 | 1.8 | 2.0 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| `λ₁^{DH}` | 0.30 | 3.4e−5 | 7.3e−9 | 1.5e−14 | 5.4e−23 | 1.1e−28 | 4.6e−30 | **−6.0e−30** | −8.3e−30 | −2.5e−7 | −0.70 |
+
+- **Where it fails.** It first crosses zero at `a₁ = 1.712–1.714` (between `δ = 3.42` and `3.43` at both `K`).
+- **Certified.** A ball Rayleigh quotient certifies `λ₁^{DH}(1.725) ≤ −7.8·10⁻³⁰ < 0` (`cert.py`), and likewise at `a = 1.8` and `2.0`. So Weil positivity provably fails for DH at support `a = 1.725`.
+- **Before the failure.** `λ₁^{DH}` decays like `e^{−(4π/5)e^{2a}}`: ζ's prolate rate divided by the conductor.
+
+**The location.** Put the conductor into round 161's count: `N(T) ≈ (T/π)log(qT/2πe)`, so the horizon is `e^{2a₁} ≈ qγ₀/(2πe) = 25.1`. The measured value is `e^{2a₁} = 30.8`, a factor 1.23. That sits inside round 119's empirical band (0.9–1.45 on the synthetic window chain). The local-density version (`a₁ ≈ 2.1`) is off. The Markov reading is refuted: `c(3) < 0` enters at `a = 0.55`, over a unit of `a` before the failure, and `c(4), c(9), …` follow without effect.
+
+**The mechanism** (`anal.py`).
+
+| `δ` | `λ₁` | peak of `\|ĝ\|` | `4Re ĝ(τ₀)²` at `ρ₀` | next three off-line zeros |
+|---|---|---|---|---|
+| 3.40 | +1.3e−28 | `t = 0` | −3.6e−30 | ≤ 2e−30 |
+| 3.45 | −7.8e−30 | `t = 0` | −9.0e−29 | ≤ 3e−31 |
+| 3.50 | −1.9e−23 (second branch) | `t = 3` | −3.4e−22 | ≤ 1e−24 |
+| 3.60 | −2.2e−7 | `t = 20.5` | −6.1e−6 | ≤ 4e−9 |
+
+- **The failing mode** is the prolate ground state itself (`|ĝ|` peaks at `t = 0`). It is not a mode localised at `γ₀ = 85.7`.
+- **What tips it.** Its tiny off-line term `4Re ĝ(τ₀)²` overtakes the on-line sum, which decays by the prolate law. This is round 161's kernel identity `Σ_on ĝ*² = −4ΣRe ĝ*(τ)²` realised numerically.
+- **Which zero.** `ρ₀` alone drives it; the next three off-line zeros (`0.6508 + 114.16i`, `0.5744 + 166.48i`, `0.7243 + 176.70i`) contribute 10²–10³ times less.
+- **Afterwards.** The ground branch turns positive again by `δ = 3.5` as the phase of `ĝ(τ₀)²` rotates. Higher prolate branches have gone negative by then, so `λ₁` stays negative (`lam_antitone`).
+
+**What this settles and what it does not.**
+- It confirms round 161's picture: an off-line zero is detected by the prolate ground state once `e^{2a}` reaches about `qγ₀/(2πe)`. The failure is an exact balance between an exponentially small on-line sum and an exponentially small off-line term.
+- DH has infinitely many zeros off the line. At the first failure, though, only `ρ₀` matters, which is the finite-exception situation the pilot's Lean covers. So this is numerical evidence that the infinite-exception converse of Weil's criterion (round 164's open item) holds in the expected form. It is not a proof.
+- For ζ, the same code gives `λ₁ > 0` up to `a = 1.6` (`1e−48` at `a = 1.2`). That is consistent with RH, and says nothing more.
+
+**Check 4.**
+- **Acknowledged.** Weil's criterion; Li's criterion computations for DH-type functions (literature); the first-failure structure (round 161); the detection horizon (rounds 119, 161).
+- **New here.**
+  - The DH Weil-form eigenvalues, and a ball-certified negative `λ₁^{DH}(1.725)`.
+  - The first-failure support `a₁ ≈ 1.713` and its agreement with the conductor-corrected horizon.
+  - The identification of the failing mode as the prolate ground state, driven by the single zero `ρ₀`.
+  - The DH prolate rate `4πe^{2a}/5`.
+  - I have not checked whether any of these specific numbers appear in the literature.
+
+**Bearing on RH:** none. This concerns the Davenport–Heilbronn function, which has no Euler product.
+
