@@ -4995,3 +4995,32 @@ Round 50's README already stated the "only failure mode" and observed that the `
 **Status.** No lower bound on `μ₂(Q₀)` at the needed scale exists or is in reach with these tools. The certified range stays `δ ≤ 0.72` in Lean (`simpleGround_036`) and `δ ≤ 2.07` via `Round47Certs`, which Lean does not check.
 
 **Bearing on RH:** none.
+
+## Round 152: the prolate-asymptotics approach (literature + numerics, no Lean)
+
+**Literature** (read via abstracts and the arXiv HTML summary; statements quoted from the fetch):
+- [Zhu, arXiv:2608.24827](https://arxiv.org/html/2608.24827) (Aug 2026) certifies `8.9e-18 ≤ λ_min(0.8) ≤ 2.27e-17` and `8.206e-15 ≤ λ₁^odd(0.8) ≤ 2.347e-14`, matching our Gram values. It certifies "the ground state is simple, and even" **at L = 0.8 only**. Its "Landau–Widom decay law" `−ln λ_min(L) ≈ C·N(T*)/ln N(T*)`, with `T* = 2πe^{2L}` and `C ≈ 2π²`, is Conjecture 12.1, empirical. It gives no law for the second eigenvalue.
+- [Connes–Consani–Moscovici, arXiv:2511.22755](https://arxiv.org/abs/2511.22755) builds rank-one perturbations of prolate/scaling spectral triples. Convergence to the zeros is numerical, and the authors say that proving it would establish RH. See also [arXiv:2310.18423](https://arxiv.org/abs/2310.18423) and [arXiv:2112.05500](https://arxiv.org/pdf/2112.05500).
+
+**Numerics: the low spectrum is a parity-alternating ladder** (`frontier/nullvec/kladder.py`, `kladder_results.jsonl`, K = 70). These are the six lowest levels (three even, three odd), merged in increasing order, with `κ = −Φ′(a)/Φ(a) ≈ T*`:
+
+| δ | κ | order of levels | consecutive ratio / κ² |
+|---|---|---|---|
+| 1.0 | 12.2 | e o e o e o | 1.49, 0.59, 0.14, 0.015, 0.007 |
+| 1.6 | 26.4 | e o e o e o | 1.31, 0.78, 0.46, 0.34, 0.17 |
+| 2.2 | 52.1 | e o e o e o | 1.40, 0.70, 0.56, 0.52, 0.28 |
+| 2.6 | 80.0 | e o e o e o | 1.43, 0.86, 0.57, 0.40, 0.28 |
+
+- **Parity strictly alternates**, as in Sturm–Liouville / prolate spectra.
+- **Levels form a geometric ladder** `λ_{j+1} ≈ c_j κ² λ_j`. The `c_j` decrease slowly (about 1.6/j at δ ≥ 2.2) and stabilise in δ. The ladder index is the jet order of round 139: `Φ, Φ′, Φ″ + …`, one derivative per rung, each costing about `κ²` at the edge.
+- **Both routes are rungs of this ladder.** Route (B) is rung 0 → 1 (`c₀ ≈ 1.4`, round 139). Route (A) is rung 0 → 2 (`c₀c₁κ⁴`, round 149's `2×10⁷`).
+
+**What the prolate approach would give, and why it does not close.**
+- **The prolate mechanism.** Slepian's time–band-limiting operator commutes with a second-order Sturm–Liouville operator. That forces a simple spectrum with alternating parity and gives sharp eigenvalue asymptotics. An operator commuting with the truncated Weil form would prove both routes at once.
+- **Obstruction 1: no exact commuting operator.** For translation-invariant kernels on an interval, commuting differential operators are rare (the bispectral kernels: sinc and its relatives). The Weil symbol `Re ψ(¼ + ir/2) − log π − 2ΣΛ(n)n^{−½}cos(r log n)` is not of that kind; this assessment was not checked against a specific classification theorem.
+- **Obstruction 2: approximate commutation is not enough.** It must control errors at the ladder's super-exponential scale.
+- **Obstruction 3: the ladder's lower half is RH-strength.** A rigorous lower bound `λ₁(a) ≥ S(a)A₀ > 0`, together with the odd rung, gives Weil positivity on every window, and so RH directly. Even the rung-2 lower bound alone says `Q` has at most one negative direction on every window. Upper bounds (trial jets `Σ cᵢΦ^{(i)}`, as in `PhiDecay`) are accessible.
+
+**Status.** The prolate picture is the right *description*: parity alternation and a `κ²` ladder hold at every scale tested. It is not a *proof route* that avoids RH-strength inputs.
+
+**Bearing on RH:** none.
