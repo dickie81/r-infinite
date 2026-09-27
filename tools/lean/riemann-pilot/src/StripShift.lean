@@ -420,8 +420,312 @@ theorem pole_pair {h : ℂ → ℂ} {C : ℝ} (H : StripTest h C) (heven : ∀ t
   rw [hinv]
   field_simp
 
+
+/-! ## The per-zero bound: `∫|h(r − i)(1/(L − τ) + 1/(L + τ))| dr ≤ K(1 + |τ|)^{−7/4}` -/
+
+/-- The weight `ω(x) = (1 + |x|)^{−5/4}`. -/
+def om (x : ℝ) : ℝ := (1 + |x|) ^ (-(5 / 4 : ℝ))
+
+theorem integrable_om : Integrable om := by
+  have := integrable_one_add_norm (E := ℝ) (μ := volume) (r := 5 / 4) (by norm_num)
+  show Integrable (fun x : ℝ => (1 + |x|) ^ (-(5 / 4 : ℝ)))
+  simpa [Real.norm_eq_abs] using this
+
+theorem om_nonneg (x : ℝ) : 0 ≤ om x := by unfold om; positivity
+
+/-- `X^{−1/4}/a ≤ X^{−5/4} + a^{−5/4}` for `X, a > 0`. -/
+theorem split_quarter {X a : ℝ} (hX : 0 < X) (ha : 0 < a) :
+    X ^ (-(1 / 4 : ℝ)) / a ≤ X ^ (-(5 / 4 : ℝ)) + a ^ (-(5 / 4 : ℝ)) := by
+  have e1 : X ^ (-(5 / 4 : ℝ)) = X ^ (-(1 / 4 : ℝ)) / X := by
+    rw [show -(5 / 4 : ℝ) = -(1 / 4) + -1 by norm_num, Real.rpow_add hX, Real.rpow_neg_one]
+    ring
+  have e2 : a ^ (-(5 / 4 : ℝ)) = a ^ (-(1 / 4 : ℝ)) / a := by
+    rw [show -(5 / 4 : ℝ) = -(1 / 4) + -1 by norm_num, Real.rpow_add ha, Real.rpow_neg_one]
+    ring
+  rcases le_total X a with h | h
+  · have : X ^ (-(1 / 4 : ℝ)) / a ≤ X ^ (-(1 / 4 : ℝ)) / X :=
+      div_le_div_of_nonneg_left (by positivity) hX h
+    rw [e1]; linarith [(by positivity : (0 : ℝ) ≤ a ^ (-(5 / 4 : ℝ)))]
+  · have : X ^ (-(1 / 4 : ℝ)) ≤ a ^ (-(1 / 4 : ℝ)) := Real.rpow_le_rpow_of_nonpos ha h (by norm_num)
+    have : X ^ (-(1 / 4 : ℝ)) / a ≤ a ^ (-(1 / 4 : ℝ)) / a := div_le_div_of_nonneg_right this ha.le
+    rw [e2]; linarith [(by positivity : (0 : ℝ) ≤ X ^ (-(5 / 4 : ℝ)))]
+
+/-- `a ≥ (1 + |x|)/4 ⇒ a^{−5/4} ≤ 8ω(x)`. -/
+theorem rpow_le_om {a x : ℝ} (ha : (1 + |x|) / 4 ≤ a) : a ^ (-(5 / 4 : ℝ)) ≤ 8 * om x := by
+  have h0 : 0 < (1 + |x|) / 4 := by positivity
+  calc a ^ (-(5 / 4 : ℝ)) ≤ ((1 + |x|) / 4) ^ (-(5 / 4 : ℝ)) :=
+        Real.rpow_le_rpow_of_nonpos h0 ha (by norm_num)
+    _ = 4 ^ (5 / 4 : ℝ) * om x := by
+        unfold om
+        rw [Real.div_rpow (by positivity) (by norm_num), Real.rpow_neg (by norm_num : (0 : ℝ) ≤ 4)]
+        field_simp
+    _ ≤ 8 * om x := by
+        apply mul_le_mul_of_nonneg_right _ (om_nonneg x)
+        have : (4 : ℝ) ^ (5 / 4 : ℝ) ≤ 4 ^ (3 / 2 : ℝ) :=
+          Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
+        have h8 : (4 : ℝ) ^ (3 / 2 : ℝ) = 8 := by
+          rw [show (4 : ℝ) = 2 ^ (2 : ℝ) by norm_num, ← Real.rpow_mul (by norm_num)]; norm_num
+        linarith
+
+theorem dist_line_ge {r : ℝ} {c : ℂ} (hc : |c.im| ≤ 1 / 2) :
+    (1 + |r - c.re|) / 4 ≤ ‖(r : ℂ) - I - c‖ ∧ 1 / 2 ≤ ‖(r : ℂ) - I - c‖ := by
+  have hre := Complex.abs_re_le_norm ((r : ℂ) - I - c)
+  have him := Complex.abs_im_le_norm ((r : ℂ) - I - c)
+  have e1 : ((r : ℂ) - I - c).re = r - c.re := by simp
+  have e2 : ((r : ℂ) - I - c).im = -1 - c.im := by simp
+  rw [e1] at hre; rw [e2] at him
+  have hi : 1 / 2 ≤ |-1 - c.im| := by
+    rw [abs_le] at hc
+    rw [abs_of_neg (by linarith)]; linarith
+  constructor
+  · rcases le_total |r - c.re| (1 / 2) with h | h <;> nlinarith
+  · linarith
+
+
+theorem inv_sq_split {X : ℝ} (hX : 0 < X) :
+    (X ^ 2)⁻¹ = X ^ (-(7 / 4 : ℝ)) * X ^ (-(1 / 4 : ℝ)) := by
+  rw [← Real.rpow_add hX, show -(7 / 4 : ℝ) + -(1 / 4) = -2 by norm_num, Real.rpow_neg hX.le]
+  norm_cast
+
+theorem three_rpow_le : (3 : ℝ) ^ (7 / 4 : ℝ) ≤ 9 := by
+  have : (3 : ℝ) ^ (7 / 4 : ℝ) ≤ 3 ^ (2 : ℝ) := Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
+  have h9 : (3 : ℝ) ^ (2 : ℝ) = 9 := by norm_num
+  linarith
+
+theorem two_rpow_le : (2 : ℝ) ^ (7 / 4 : ℝ) ≤ 4 := by
+  have : (2 : ℝ) ^ (7 / 4 : ℝ) ≤ 2 ^ (2 : ℝ) := Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
+  have h4 : (2 : ℝ) ^ (2 : ℝ) = 4 := by norm_num
+  linarith
+
+/-- **The pointwise bound** on the line `Im t = −1`, for `|Im τ| ≤ ½`. -/
+theorem kernel_pointwise {h : ℂ → ℂ} {C : ℝ} (H : StripTest h C) {τ : ℂ} (hτ : |τ.im| ≤ 1 / 2)
+    (r : ℝ) :
+    ‖h (r - I) * (1 / ((r : ℂ) - I - τ) + 1 / ((r : ℂ) - I + τ))‖
+      ≤ 200 * C * (1 + ‖τ‖) ^ (-(7 / 4 : ℝ)) * (om r + om (r - τ.re) + om (r + τ.re)) := by
+  have hC := H.C_nonneg
+  set X := 1 + |r|
+  set T := ‖τ‖
+  set L : ℂ := (r : ℂ) - I
+  have hX : 0 < X := by positivity
+  have hX1 : 1 ≤ X := by simp only [X]; linarith [abs_nonneg r]
+  have hT : 0 ≤ T := norm_nonneg _
+  -- the test function
+  have hh : ‖h L‖ ≤ 2 * C * (X ^ 2)⁻¹ := by
+    have := H.bound L (by show -1 ≤ L.im ∧ L.im ≤ 1; simp [L])
+    have e : L.re = r := by simp [L]
+    rw [e] at this
+    refine this.trans ?_
+    rw [div_le_iff₀ (by positivity)]
+    have hsq : X ^ 2 ≤ 2 * (1 + r ^ 2) := by
+      simp only [X]; nlinarith [sq_abs r, abs_nonneg r, sq_nonneg (|r| - 1)]
+    calc C = 2 * C * (X ^ 2)⁻¹ * (X ^ 2 / 2) := by field_simp
+      _ ≤ 2 * C * (X ^ 2)⁻¹ * (1 + r ^ 2) := by
+          apply mul_le_mul_of_nonneg_left (by linarith) (by positivity)
+  -- distances
+  obtain ⟨da, da'⟩ := dist_line_ge (r := r) hτ
+  obtain ⟨db, db'⟩ := dist_line_ge (r := r) (c := -τ) (by simpa using hτ)
+  simp only [Complex.neg_re, sub_neg_eq_add] at db db'
+  set a := ‖L - τ‖
+  set b := ‖L + τ‖
+  have ha : 0 < a := by linarith
+  have hb : 0 < b := by linarith
+  have hLX : ‖L‖ ≤ X := by
+    calc ‖L‖ ≤ ‖(r : ℂ)‖ + ‖I‖ := norm_sub_le _ _
+      _ = X := by simp [X, Complex.norm_real]; ring
+  have hne1 : L - τ ≠ 0 := norm_pos_iff.1 ha
+  have hne2 : L + τ ≠ 0 := norm_pos_iff.1 hb
+  have hk1 : ‖1 / (L - τ) + 1 / (L + τ)‖ ≤ 1 / a + 1 / b := by
+    refine (norm_add_le _ _).trans ?_
+    rw [norm_div, norm_div, norm_one]
+  have hom : 0 ≤ om r + om (r - τ.re) + om (r + τ.re) := by
+    linarith [om_nonneg r, om_nonneg (r - τ.re), om_nonneg (r + τ.re)]
+  have hTpow : 0 ≤ (1 + T) ^ (-(7 / 4 : ℝ)) := by positivity
+  rw [norm_mul]
+  show ‖h L‖ * ‖1 / (L - τ) + 1 / (L + τ)‖ ≤ _
+  rcases le_or_gt X (T / 2) with hcase | hcase
+  · -- far from the zeros' heights: both distances `≥ T/2`
+    have hT2 : 2 ≤ T := by linarith
+    have ha2 : T / 2 ≤ a := by
+      have h1 := norm_sub_norm_le τ L
+      have e : ‖τ - L‖ = a := norm_sub_rev τ L
+      rw [e] at h1; linarith
+    have hb2 : T / 2 ≤ b := by
+      have h1 := norm_sub_norm_le τ (-L)
+      have e : ‖τ - -L‖ = b := by rw [sub_neg_eq_add, add_comm τ L]
+      rw [e, norm_neg] at h1; linarith
+    have hk : ‖1 / (L - τ) + 1 / (L + τ)‖ ≤ 8 * X / T ^ 2 := by
+      have e : 1 / (L - τ) + 1 / (L + τ) = 2 * L / ((L - τ) * (L + τ)) := by
+        field_simp; ring
+      rw [e, norm_div, norm_mul, norm_mul, Complex.norm_two, div_le_div_iff₀ (by positivity)
+        (by positivity)]
+      have hab : T / 2 * (T / 2) ≤ a * b := mul_le_mul ha2 hb2 (by positivity) ha.le
+      nlinarith [norm_nonneg L]
+    have hX14 : X ^ (1 / 4 : ℝ) ≤ T ^ (1 / 4 : ℝ) :=
+      Real.rpow_le_rpow hX.le (by linarith) (by norm_num)
+    have hP : (1 + T) ^ (7 / 4 : ℝ) ≤ 4 * T ^ (7 / 4 : ℝ) := by
+      calc (1 + T) ^ (7 / 4 : ℝ) ≤ (2 * T) ^ (7 / 4 : ℝ) :=
+            Real.rpow_le_rpow (by positivity) (by linarith) (by norm_num)
+        _ = 2 ^ (7 / 4 : ℝ) * T ^ (7 / 4 : ℝ) := Real.mul_rpow (by norm_num) hT
+        _ ≤ 4 * T ^ (7 / 4 : ℝ) := mul_le_mul_of_nonneg_right two_rpow_le (by positivity)
+    have hTT : T ^ (7 / 4 : ℝ) * T ^ (1 / 4 : ℝ) = T ^ 2 := by
+      rw [← Real.rpow_add (by linarith)]; norm_num
+    have hom_r : om r = (X * X ^ (1 / 4 : ℝ))⁻¹ := by
+      unfold om
+      rw [show -(5 / 4 : ℝ) = -(1 + 1 / 4) by norm_num, Real.rpow_neg hX.le,
+        Real.rpow_add hX, Real.rpow_one]
+    have hTm : (1 + T) ^ (-(7 / 4 : ℝ)) = ((1 + T) ^ (7 / 4 : ℝ))⁻¹ := Real.rpow_neg (by positivity) _
+    have hpos1 : 0 < (1 + T) ^ (7 / 4 : ℝ) := by positivity
+    have hpos2 : 0 < X ^ (1 / 4 : ℝ) := by positivity
+    calc ‖h L‖ * ‖1 / (L - τ) + 1 / (L + τ)‖ ≤ 2 * C * (X ^ 2)⁻¹ * (8 * X / T ^ 2) :=
+          mul_le_mul hh hk (norm_nonneg _) (by positivity)
+      _ = 16 * C / (X * T ^ 2) := by field_simp; ring
+      _ ≤ 200 * C * (1 + T) ^ (-(7 / 4 : ℝ)) * om r := by
+          rw [hom_r, hTm]
+          rw [div_le_iff₀ (by positivity)]
+          have key : (1 + T) ^ (7 / 4 : ℝ) * X ^ (1 / 4 : ℝ) ≤ 4 * T ^ 2 := by
+            calc (1 + T) ^ (7 / 4 : ℝ) * X ^ (1 / 4 : ℝ) ≤ (4 * T ^ (7 / 4 : ℝ)) * T ^ (1 / 4 : ℝ) :=
+                  mul_le_mul hP hX14 hpos2.le (by positivity)
+              _ = 4 * T ^ 2 := by rw [mul_assoc, hTT]
+          have e2 : 200 * C * ((1 + T) ^ (7 / 4 : ℝ))⁻¹ * (X * X ^ (1 / 4 : ℝ))⁻¹ * (X * T ^ 2)
+              = 200 * C * T ^ 2 / ((1 + T) ^ (7 / 4 : ℝ) * X ^ (1 / 4 : ℝ)) := by
+            field_simp
+          rw [e2, le_div_iff₀ (by positivity)]
+          nlinarith [mul_le_mul_of_nonneg_left key (by positivity : (0 : ℝ) ≤ 16 * C)]
+      _ ≤ _ := by
+          apply mul_le_mul_of_nonneg_left _ (by positivity)
+          linarith [om_nonneg (r - τ.re), om_nonneg (r + τ.re)]
+  · -- near the zeros' heights: `X ≥ (1 + T)/3`
+    have hX3 : (1 + T) / 3 ≤ X := by
+      rcases le_total T 2 with hT2 | hT2
+      · linarith
+      · linarith
+    have hX74 : X ^ (-(7 / 4 : ℝ)) ≤ 9 * (1 + T) ^ (-(7 / 4 : ℝ)) := by
+      calc X ^ (-(7 / 4 : ℝ)) ≤ ((1 + T) / 3) ^ (-(7 / 4 : ℝ)) :=
+            Real.rpow_le_rpow_of_nonpos (by positivity) hX3 (by norm_num)
+        _ = 3 ^ (7 / 4 : ℝ) * (1 + T) ^ (-(7 / 4 : ℝ)) := by
+            rw [Real.div_rpow (by positivity) (by norm_num), Real.rpow_neg (by norm_num : (0 : ℝ) ≤ 3)]
+            field_simp
+        _ ≤ 9 * (1 + T) ^ (-(7 / 4 : ℝ)) := mul_le_mul_of_nonneg_right three_rpow_le hTpow
+    have hsa := split_quarter hX ha
+    have hsb := split_quarter hX hb
+    have hoa := rpow_le_om da
+    have hob := rpow_le_om db
+    have hom_r : X ^ (-(5 / 4 : ℝ)) = om r := rfl
+    calc ‖h L‖ * ‖1 / (L - τ) + 1 / (L + τ)‖ ≤ 2 * C * (X ^ 2)⁻¹ * (1 / a + 1 / b) :=
+          mul_le_mul hh hk1 (norm_nonneg _) (by positivity)
+      _ = 2 * C * X ^ (-(7 / 4 : ℝ)) * (X ^ (-(1 / 4 : ℝ)) / a + X ^ (-(1 / 4 : ℝ)) / b) := by
+          rw [inv_sq_split hX]; ring
+      _ ≤ 2 * C * (9 * (1 + T) ^ (-(7 / 4 : ℝ))) * (2 * om r + 8 * om (r - τ.re) + 8 * om (r + τ.re)) := by
+          apply mul_le_mul (mul_le_mul_of_nonneg_left hX74 (by positivity)) _ (by positivity)
+            (by positivity)
+          rw [← hom_r]; linarith
+      _ ≤ _ := by
+          have := om_nonneg r
+          have h3 : 2 * om r + 8 * om (r - τ.re) + 8 * om (r + τ.re)
+              ≤ 8 * (om r + om (r - τ.re) + om (r + τ.re)) := by linarith
+          calc 2 * C * (9 * (1 + T) ^ (-(7 / 4 : ℝ))) * (2 * om r + 8 * om (r - τ.re) + 8 * om (r + τ.re))
+              ≤ 2 * C * (9 * (1 + T) ^ (-(7 / 4 : ℝ))) * (8 * (om r + om (r - τ.re) + om (r + τ.re))) :=
+                mul_le_mul_of_nonneg_left h3 (by positivity)
+            _ = 144 * C * (1 + T) ^ (-(7 / 4 : ℝ)) * (om r + om (r - τ.re) + om (r + τ.re)) := by ring
+            _ ≤ _ := by
+                apply mul_le_mul_of_nonneg_right _ hom
+                apply mul_le_mul_of_nonneg_right _ hTpow
+                linarith
+
+
+theorem integrable_kernel {h : ℂ → ℂ} {C : ℝ} (H : StripTest h C) {τ : ℂ} (hτ : |τ.im| < 1) :
+    Integrable fun r : ℝ => h (r - I) * (1 / ((r : ℂ) - I - τ) + 1 / ((r : ℂ) - I + τ)) := by
+  have h1 : -1 < τ.im := by linarith [neg_abs_le τ.im]
+  have h2 : -1 < (-τ).im := by simp; linarith [le_abs_self τ.im]
+  refine ((integrable_half_pole H h1).add (integrable_half_pole H h2)).congr
+    (Eventually.of_forall fun r => ?_)
+  show h (r - I) * (1 / ((r : ℂ) - I - τ)) + h (r - I) * (1 / ((r : ℂ) - I - -τ)) = _
+  rw [sub_neg_eq_add]; ring
+
+/-- **The per-zero bound**: `∫|h(r − i)(1/(L − τ) + 1/(L + τ))| dr ≤ 600C(∫ω)(1 + |τ|)^{−7/4}`. -/
+theorem kernel_integral_le {h : ℂ → ℂ} {C : ℝ} (H : StripTest h C) {τ : ℂ} (hτ : |τ.im| ≤ 1 / 2) :
+    ∫ r : ℝ, ‖h (r - I) * (1 / ((r : ℂ) - I - τ) + 1 / ((r : ℂ) - I + τ))‖
+      ≤ 600 * C * (∫ x, om x) * (1 + ‖τ‖) ^ (-(7 / 4 : ℝ)) := by
+  have hi := (integrable_kernel H (by linarith : |τ.im| < 1)).norm
+  have hw : Integrable fun r : ℝ => om r + om (r - τ.re) + om (r + τ.re) :=
+    (integrable_om.add (integrable_om.comp_sub_right τ.re)).add (integrable_om.comp_add_right τ.re)
+  refine (integral_mono hi (hw.const_mul (200 * C * (1 + ‖τ‖) ^ (-(7 / 4 : ℝ))))
+    fun r => kernel_pointwise H hτ r).trans_eq ?_
+  have hA : Integrable fun r : ℝ => om r + om (r - τ.re) :=
+    integrable_om.add (integrable_om.comp_sub_right τ.re)
+  have e1 : ∫ r : ℝ, (om r + om (r - τ.re) + om (r + τ.re))
+      = (∫ r : ℝ, (om r + om (r - τ.re))) + ∫ r : ℝ, om (r + τ.re) :=
+    integral_add hA (integrable_om.comp_add_right τ.re)
+  have e2 : ∫ r : ℝ, (om r + om (r - τ.re)) = (∫ r : ℝ, om r) + ∫ r : ℝ, om (r - τ.re) :=
+    integral_add integrable_om (integrable_om.comp_sub_right τ.re)
+  have e3 : ∫ r : ℝ, om (r - τ.re) = ∫ r : ℝ, om r := integral_sub_right_eq_self om τ.re
+  have e4 : ∫ r : ℝ, om (r + τ.re) = ∫ r : ℝ, om r := integral_add_right_eq_self om τ.re
+  rw [integral_const_mul, e1, e2, e3, e4]
+  ring
+
+
+/-! ## The strip shift under `(1 + |Re t|)^{−3/2}` decay -/
+
+theorem integrable_om32 : Integrable fun x : ℝ => (1 + |x|) ^ (-(3 / 2 : ℝ)) := by
+  have := integrable_one_add_norm (E := ℝ) (μ := volume) (r := 3 / 2) (by norm_num)
+  simpa [Real.norm_eq_abs] using this
+
+/-- **Contour shift across a strip**, for `‖f t‖ ≤ K(1 + |Re t|)^{−3/2}`. -/
+theorem strip_shift' {f : ℂ → ℂ} {a b K : ℝ} (hab : a ≤ b) (hd : DifferentiableOn ℂ f (strip a b))
+    (hb : ∀ t ∈ strip a b, ‖f t‖ ≤ K * (1 + |t.re|) ^ (-(3 / 2 : ℝ))) :
+    ∫ r : ℝ, f (r + a * I) = ∫ r : ℝ, f (r + b * I) := by
+  have hline : ∀ y ∈ Icc a b, Integrable (fun r : ℝ => f (r + y * I)) := by
+    intro y hy
+    have hmem : ∀ r : ℝ, ((r : ℂ) + y * I) ∈ strip a b := fun r => by
+      show a ≤ ((r : ℂ) + y * I).im ∧ ((r : ℂ) + y * I).im ≤ b
+      simpa using hy
+    have hc : Continuous fun r : ℝ => f (r + y * I) :=
+      hd.continuousOn.comp_continuous (by fun_prop) hmem
+    refine (integrable_om32.const_mul K).mono' hc.aestronglyMeasurable
+      (Eventually.of_forall fun r => ?_)
+    have := hb _ (hmem r)
+    simpa using this
+  have Ia := hline a ⟨le_rfl, hab⟩
+  have Ib := hline b ⟨hab, le_rfl⟩
+  have hrect : ∀ R : ℝ, (∫ x in (-R)..R, f (x + a * I)) - (∫ x in (-R)..R, f (x + b * I))
+      + I • (∫ y in a..b, f (R + y * I)) - I • (∫ y in a..b, f ((-R : ℝ) + y * I)) = 0 := by
+    intro R
+    have := integral_boundary_rect_eq_zero_of_differentiableOn f ⟨-R, a⟩ ⟨R, b⟩ (hd.mono ?_)
+    · simpa using this
+    intro t ht
+    rw [mem_reProdIm] at ht
+    simp only at ht
+    rw [uIcc_of_le hab] at ht
+    exact ht.2
+  have hvert : ∀ R : ℝ, ‖∫ y in a..b, f (R + y * I)‖ ≤ K * (1 + |R|) ^ (-(3 / 2 : ℝ)) * |b - a| :=
+    fun R => intervalIntegral.norm_integral_le_of_norm_le_const fun y hy => by
+      rw [uIoc_of_le hab] at hy
+      have := hb (R + y * I) (by simp [strip, hy.1.le, hy.2])
+      simpa using this
+  have hdecay : Tendsto (fun R : ℝ => K * (1 + |R|) ^ (-(3 / 2 : ℝ)) * |b - a|) atTop (𝓝 0) := by
+    have h1 : Tendsto (fun R : ℝ => (1 + |R|) ^ (-(3 / 2 : ℝ))) atTop (𝓝 0) := by
+      have h2 : Tendsto (fun R : ℝ => 1 + |R|) atTop atTop :=
+        tendsto_atTop_add_const_left _ _ (tendsto_abs_atTop_atTop.comp tendsto_id)
+      exact (tendsto_rpow_neg_atTop (by norm_num)).comp h2
+    simpa using (h1.const_mul K).mul_const |b - a|
+  have hv1 : Tendsto (fun R : ℝ => ∫ y in a..b, f (R + y * I)) atTop (𝓝 0) :=
+    squeeze_zero_norm hvert hdecay
+  have hv2 : Tendsto (fun R : ℝ => ∫ y in a..b, f ((-R : ℝ) + y * I)) atTop (𝓝 0) :=
+    squeeze_zero_norm (fun R => by
+      have := hvert (-R); rwa [abs_neg] at this) hdecay
+  have hA := intervalIntegral_tendsto_integral Ia tendsto_neg_atTop_atBot tendsto_id
+  have hB := intervalIntegral_tendsto_integral Ib tendsto_neg_atTop_atBot tendsto_id
+  have hlim := ((hA.sub hB).add (hv1.const_smul I)).sub (hv2.const_smul I)
+  rw [smul_zero, add_zero, sub_zero] at hlim
+  have h0 : Tendsto (fun _ : ℝ => (0 : ℂ)) atTop
+      (𝓝 ((∫ r : ℝ, f (r + a * I)) - ∫ r : ℝ, f (r + b * I))) :=
+    hlim.congr fun R => hrect R
+  exact sub_eq_zero.1 (tendsto_nhds_unique tendsto_const_nhds h0).symm
+
 end PilotWeil
 
 #print axioms PilotWeil.strip_shift
 #print axioms PilotWeil.inversion
 #print axioms PilotWeil.pole_pair
+#print axioms PilotWeil.strip_shift'
+#print axioms PilotWeil.kernel_integral_le
