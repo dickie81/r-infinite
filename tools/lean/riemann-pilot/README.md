@@ -4505,3 +4505,36 @@ Scoped bound `κ + λ_min(LᵀSL)`, with the exact `Cin` tail and 25-decimal `ψ
 - **Not new mathematics.** Weil positivity at these supports is known. What is new is a checked proof on the pilot's own definitions, for both parities and so for every real `g`, up to `2a = 1.6`.
 - **The certificates are the trusted step.** As in rounds 122–123, `CertE` and `CertO` are hypotheses checked in arb, not in Lean.
 - **Bearing on RH.** None. Weil's criterion needs every support. Here each new prime power needs a tail level that grows like `e^{Σc_n}` against a `λ₁` that falls super-exponentially.
+
+## Round 136: the two RH routes, measured: `c₂(a)` and the Hurwitz distance (`frontier/nullvec/kc2_hurwitz.py`)
+
+**The question.** Write `Q = Q₀ + 2ĝ(i/2)²`, a rank-one positive semidefinite pole term. Interlacing gives `λ_k(Q₀) ≤ λ_k(Q) ≤ λ_{k+1}(Q₀)`. `Q₀` has one strongly negative direction, and the pole can repair only one. Two routes follow:
+
+- **(A) the pole route.** Show that `Q₀` never acquires a second negative direction: `c₂(a) := λ₂(Q₀) ≥ 0` for every `a`.
+- **(B) the Hurwitz route.** Show that the ground state `g_a` of `Q` stays close to `ΦP(z²)`, meaning the span of `{Φ^{(2j)}|_{[−a,a]}}`, on the scale that controls transforms on the strip: `δ_J(a) = ‖g_a − Π_J g_a‖₂ · e^{a/2}√a ≥ sup_{|Im z| ≤ ½} |ĝ_a − Φ̂P|`, using `‖·‖₁ ≤ √(2a)‖·‖₂`.
+
+**Method.**
+- **The form.** The even form in `cos(kπt/a)`, `k < K`, uses `weil_prime_gram.gram`: arb entries, every prime power below `e^{2a}`. `Q₀` is that Gram minus `2ppᵀ`, and all eigenvalues come from 150–220-digit mpmath solves.
+- **The derivatives.** They are exact: `Φ^{(m)} = Σ_n p_m(q_n)e^{u/2−q_n}` with `p_{m+1} = 2qp_m′ + (½ − 2q)p_m`.
+- **The distance.** It uses the true `L²[−a, a]` Gram of `Φ^{(2j)}`, not the truncated one, with 1536-node Gauss–Legendre quadrature (`‖g‖` checks to `1.0`).
+- **Convergence.** `K = 48/80/112/144`. `a ≤ 1.5` is converged: `K = 112` and `K = 144` agree to about 1%. At `a = 2` every quantity is still falling with `K`, so those values are upper-side estimates. `a = 2.5` hit the precision floor and is omitted.
+
+**Results** (largest `K` per row; the `a = 2.0` row is not converged):
+
+| `a` | `λ₁(Q)` | `c₂ = λ₂(Q₀)` | `λ₂(Q)` | `c₂/λ₂(Q)` | `δ₀` (`P = 1`) | `δ₃` | `δ₆` |
+|---|---|---|---|---|---|---|---|
+| 0.25 | 3.3e-2 | 0.91 | 0.95 | 0.96 | 0.091 | 2.6e-3 | 9.1e-4 |
+| 0.5 | 9.4e-7 | 1.2e-2 | 1.8e-2 | 0.66 | 0.12 | 3.5e-4 | 1.3e-4 |
+| 0.75 | 4.4e-15 | 8.2e-10 | 1.3e-9 | 0.640 | 0.092 | 5.8e-5 | 2.7e-7 |
+| 1.0 | 6.7e-30 | 1.6e-23 | 2.5e-23 | 0.640 | 0.068 | 1.4e-5 | 7.6e-9 |
+| 1.5 | 6.7e-97 | 1.2e-88 | 1.9e-88 | 0.640 | 0.037 | 2.8e-7 | 8.1e-12 |
+| 2.0 | ≤ 2.5e-197 | ≤ 5.2e-189 | ≤ 8.1e-189 | 0.641 | ≤ 4.1e-3 | ≤ 1.9e-13 | ≤ 7.6e-18 |
+
+- **(A): `c₂(a) → 0` super-exponentially.** It sits at a fixed fraction `≈ 0.64` of `λ₂(Q)`, which collapses too. The Galerkin values are Ritz upper bounds, so the collapse is not a truncation artefact. Route (A) needs `c₂ ≥ 0` with a margin that vanishes faster than any exponential, and `c₂ ≥ λ₁(Q) ≥ 0` is itself implied by RH. So the route has no margin to work with.
+- **(B): `δ_J(a) → 0` at every fixed `J`, including `J = 0`.** Up to `a = 1.5`, `‖g_a − Π₀g_a‖ ≈ 15τ` with `τ = e^{−2a}/(16π)`, consistent with the heat-flow picture `ĝ_a ≈ ½Ξ(z)e^{τz²}` (round 132's pencil). That gives `δ₀ ~ e^{−3a/2}√a`. Higher `J` add a factor of roughly `30–10³` per step.
+
+**Reading.** Both quantities tend to zero, with opposite meanings. A vanishing `c₂` is a vanishing *margin*, so route (A) is dropped. A vanishing `δ_J` is route (B)'s *success condition*: `ĝ_a → ½Ξ` uniformly on the strip.
+- **What route (B) still needs.**
+  - **Real-rootedness.** Hurwitz transfers zeros from the approximants to the limit. A non-real zero of `Ξ` would attract non-real zeros of `ĝ_a` for large `a`, so the step that remains is that `ĝ_a` has only real zeros in the strip, for all large `a`. These measurements do not touch that.
+  - **Uniformity in height.** `|Ξ|` is `~ e^{−πt/4}` at height `t`, so zeros up to height `T` need `δ(a) ≪ e^{−πT/4}`, that is `a ≳ πT/6`. Hurwitz on compacts is fine; the support needed grows with the height.
+- **Scope.** This is numerical evidence (arb Gram entries, midpoint eigensolves), not a certificate. No bearing on RH is claimed.
