@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 520 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 528 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -4778,7 +4778,7 @@ Five topological handles were tried: continuation in `a`, crossing type, zero to
   - from the left, by dilating a minimiser into a smaller support;
   - from the right, by the lower semicontinuity and compactness already used in `Existence`.
 - By the intermediate value theorem, the gap holds on `[a₀, ∞)` iff it holds at `a₀` and `λ_e(a) ≠ λ_o(a)` for all `a ≥ a₀`. The small-`a` gap is certified, so everything reduces to *no cross-parity eigenvalue crossing*.
-- Continuity is not formalised.
+- Continuity is formalised in round 146 (`ParityCont.lean`).
 
 **2. Crossings of this kind are not topologically obstructed.**
 - The two levels belong to different symmetry sectors. By the von Neumann–Wigner count, such crossings have codimension 1 in a one-parameter family; only same-sector crossings are avoided generically.
@@ -4792,7 +4792,7 @@ Five topological handles were tried: continuation in `a`, crossing type, zero to
 - The zeros of `ê_a` move continuously in `a`. Since `ê` is even and real, a zero can leave `ℝ` only through a real double zero, or through the strip edge or infinity.
 - Theorem A (round 137) says gap ⇒ real-rooted. So the first `a` at which `ê_a` has a non-real zero in the strip lies after a crossing.
 - At a crossing, the mixed ground states `v_θ = cos θ·e + sin θ·o` have no real zeros other than common zeros of `ê` and `ô`, because on `ℝ` `ê` is real and `ô` purely imaginary.
-- This is consistent, but it yields no invariant that forbids the crossing: the real-zero count is not conserved through collisions.
+- **Corrected in round 146:** collisions are *excluded*, not merely unconserved. Round 31's zero-swap lemma (`zeros_real_or_imag`) confines every zero to the cross `ℝ ∪ iℝ` while the even ground state is simple within the even sector, and a collision of two nonzero real zeros would produce a zero with `w² ∉ ℝ`. The remaining exits are the origin (needs `∫g = 0`) and imaginary infinity (needs a sign change of `g(a)`). A cross-parity crossing does not break even-sector simplicity, so `ê` stays on the cross: that, not collisions, is why the zero picture cannot see a crossing.
 
 **4. Pole-strength homotopy `Q_t = Q₀ + t·pole`** (`frontier/nullvec/khomotopy.py`, `khomotopy_results.jsonl`, K = 50).
 - At `t = 0` the gap is Perron–Frobenius (`groundState0_one_sign`).
@@ -4817,3 +4817,40 @@ Five topological handles were tried: continuation in `a`, crossing type, zero to
 **Conclusion.** The one rigorous topological gain is item 1: the gap for all large `a` is equivalent to "no cross-parity crossing past a certified `a₀`". Every tool here treats such crossings as generic, and the homotopy shows the relevant margin is super-exponentially small in every parameter tried.
 
 **Bearing on RH:** none.
+
+
+## Round 146: the continuation theorem, formal (`src/ParityCont.lean`)
+
+**Theorem** (`parityGap_of_no_crossing`). Suppose `0 < a₀` and `lam a₀ < lamO a₀`, and suppose the even and odd ground energies never coincide for `a ≥ a₀`. Then `ParityGap a` holds for every `a ≥ a₀`.
+
+Here `lamO a` is the odd ground energy, the infimum of `weilQg` over normalised odd probes at half-support `a`. Every new theorem prints `[propext, Classical.choice, Quot.sound]`; the file is 785 lines.
+
+**The pieces.**
+- **The odd ground energy.**
+  - `weilQg_odd_ge` gives an `a`-dependent floor `ψ(¼) − log π − 2P(a) − 2(sinh a − a)`, so `lamO` is a genuine infimum (`lamO_bdd`).
+  - `exists_oprobe` builds an odd probe at every support (`√2·oddPart` of a quarter box moved to `[a/4, 3a/4]`).
+  - `lamO_antitone`: `λ_odd` is nonincreasing in `a`.
+- **C1, the continuation lemma** (`gap_of_no_crossing`, `gap_of_no_crossing_Ici`).
+  - Only `λ_odd` has to be continuous; `λ_even` enters through `lam_antitone`.
+  - Let `m = inf{a : λ_odd < λ_even}`. If the gap holds at `m`, continuity of `λ_odd` pushes it to the right of `m`. If it fails at `m`, continuity pushes the failure to the left of `m`. Either way `m` is contradicted.
+- **C2, right-continuity** (`lamO_right`).
+  - Take near-minimisers at `bₙ ↓ a`. They are bounded in archimedean energy, so `exists_convergent_subseq_S` makes them precompact in `L²`.
+  - The odd cut `antiCut a G` of the limit is still their limit: by `normSq_sub_antiCut_le`, `‖o − A_a G‖² ≤ 6‖o − G‖² + 4∫_{a<|u|≤b} G²`, and `tendsto_shellSq` sends the shell mass to 0 by dominated convergence.
+  - The pole, norm and prime terms converge, and Fatou bounds the archimedean term.
+- **C3, left-continuity** (`lamO_left`), by dilation `o_s(t) = √s·o(st)`.
+  - The dilation maps odd probes at `a` to odd probes at `a/s` with the same norm (`oprobe_dil`, `normSq_dil`), and `f_{o_s}(u) = f_o(su)` (`autocorr_dil`).
+  - After substitution, `archE(o_s) = s⁻¹∫(f(0) − f(v))K(v/s)dv`.
+  - The new bound `K(u) ≤ (1/u + 2)e^{−u/2}` (`kerK_le_exp`, equivalent to `1 + 2u ≤ e^{2u}`) dominates the integrand by `8A(o)(v) + 8f(0)e^{−v/4}` for `1 ≤ s ≤ 2`. The pole integral and the finite prime sum are continuous in `s`.
+- **Continuity** (`continuousOn_lamO`): `λ_odd` is continuous on `(0, ∞)`.
+
+**Refactor.**
+- `SProbe` moves from `FourierGap` to `Existence`.
+- The compactness chain now takes `SProbe`, i.e. either parity: `weighted_le_archE`, `tail_le`, `coef_sq_le`, `hasSum_sub`, `summable_coef`, plus the new `archE_nonneg_S` and `exists_convergent_subseq_S`. The even-sector names remain as wrappers.
+- `poleL_eq_integral`, `weilQg_mono` and `OProbe.mono` move from `ParityRelax` to `ParitySplit`. `ParityRelax` and `ParityGap`'s import chain both define `tail_W`, so they cannot be imported together.
+- `ParityGap` now writes an olean. The full chain was rebuilt with no warnings.
+
+**Correction to round 145, item 3.** Zero collisions *are* ruled out, by round 31's zero-swap lemma while the even ground state is simple within its sector. The text there is amended.
+
+**Status.** The eventual parity gap, and with Theorem A and `HypConv` the whole chain, now reduces formally to one statement: *the even and odd ground energies never cross beyond a certified `a₀`*. The small-`a` start is certified, but only as sector positivity, not yet as `lam a₀ < lamO a₀` in Lean. The no-crossing statement is not proved.
+
+**Bearing on RH:** none by itself.

@@ -35,15 +35,6 @@ noncomputable section
 
 namespace Pilot1ca
 
-/-- A probe of either parity: supported in `[−a, a]`, in `L²`, with convergent archimedean integral.
-The mode machinery below uses only these three facts, so it serves odd probes too. -/
-structure SProbe (a : ℝ) (g : ℝ → ℝ) : Prop where
-  supp : ∀ u, a < |u| → g u = 0
-  memL2 : MemLp g 2 volume
-  arch : IntegrableOn (archIntegrand g) (Set.Ioi 0)
-
-theorem Probe.toS {a : ℝ} {g : ℝ → ℝ} (hp : Probe a g) : SProbe a g := ⟨hp.supp, hp.memL2, hp.arch⟩
-
 /-! ## Monotonicity in the support: `Q` sees the probe, not the window -/
 
 theorem Probe.mono {a a₁ : ℝ} {g : ℝ → ℝ} (hp : Probe a g) (h : a ≤ a₁) : Probe a₁ g :=

@@ -59,12 +59,12 @@ theorem exists_limit_of_cauchy {u : ℕ → ℝ → ℝ} (hu : ∀ j, MemLp (u j
 
 /-! ## Coefficients -/
 
-theorem coef_sq_le {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) (n : ℤ) :
+theorem coef_sq_le {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g) (n : ℤ) :
     ‖cf a g n‖ ^ 2 ≤ (4 * a)⁻¹ * normSq g :=
   le_hasSum (hasSum_cf_sq ha (by linarith) hp.memL2 hp.supp) n fun _ _ => sq_nonneg _
 
 /-- Parseval for the difference of two probes. -/
-theorem hasSum_sub {a : ℝ} (ha : 0 < a) {g₁ g₂ : ℝ → ℝ} (hp₁ : Probe a g₁) (hp₂ : Probe a g₂) :
+theorem hasSum_sub {a : ℝ} (ha : 0 < a) {g₁ g₂ : ℝ → ℝ} (hp₁ : SProbe a g₁) (hp₂ : SProbe a g₂) :
     HasSum (fun n => ‖cf a g₁ n - cf a g₂ n‖ ^ 2)
       ((4 * a)⁻¹ * normSq (fun t => g₁ t - g₂ t)) := by
   have h := hasSum_cf_sq ha (by linarith : a < 2 * a) (hp₁.memL2.sub hp₂.memL2)
@@ -73,12 +73,14 @@ theorem hasSum_sub {a : ℝ} (ha : 0 < a) {g₁ g₂ : ℝ → ℝ} (hp₁ : Pro
     (memLp_intervalIntegrable hp₂.memL2 _ _)] at h
   exact h
 
-theorem summable_coef {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) :
+theorem summable_coef {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g) :
     Summable fun n => ‖cf a g n‖ ^ 2 :=
   (hasSum_cf_sq ha (by linarith) hp.memL2 hp.supp).summable
 
-theorem archE_nonneg {a : ℝ} {g : ℝ → ℝ} (hp : Probe a g) : 0 ≤ archE g :=
+theorem archE_nonneg_S {a : ℝ} {g : ℝ → ℝ} (hp : SProbe a g) : 0 ≤ archE g :=
   setIntegral_nonneg measurableSet_Ioi fun _ hu => archIntegrand_nonneg hp.memL2 hu
+
+theorem archE_nonneg {a : ℝ} {g : ℝ → ℝ} (hp : Probe a g) : 0 ≤ archE g := archE_nonneg_S hp.toS
 
 /-! ## The frequency cut -/
 
@@ -107,13 +109,13 @@ theorem exists_cut {a b : ℝ} (ha : 0 < a) (hb : 0 < b) {τ : ℝ} (hτ : 0 < �
 
 /-! ## Compactness -/
 
-/-- **Bounded-energy probes are precompact in `L²`.** -/
-theorem exists_convergent_subseq {a : ℝ} (ha : 0 < a) {h : ℕ → ℝ → ℝ}
-    (hp : ∀ j, Probe a (h j)) {B C : ℝ} (hB : ∀ j, normSq (h j) ≤ B)
+/-- **Bounded-energy probes are precompact in `L²`** (either parity). -/
+theorem exists_convergent_subseq_S {a : ℝ} (ha : 0 < a) {h : ℕ → ℝ → ℝ}
+    (hp : ∀ j, SProbe a (h j)) {B C : ℝ} (hB : ∀ j, normSq (h j) ≤ B)
     (hC : ∀ j, archE (h j) ≤ C) :
     ∃ φ : ℕ → ℕ, StrictMono φ ∧ ∃ G : ℝ → ℝ, MemLp G 2 volume ∧
       Tendsto (fun j => normSq (fun t => h (φ j) t - G t)) atTop (𝓝 0) := by
-  have hC0 : 0 ≤ C := (archE_nonneg (hp 0)).trans (hC 0)
+  have hC0 : 0 ≤ C := (archE_nonneg_S (hp 0)).trans (hC 0)
   -- bounded coefficients
   set R := Real.sqrt ((4 * a)⁻¹ * B) with hR
   have hv : ∀ j, (fun n => cf a (h j) n) ∈ Set.pi univ fun _ : ℤ => Metric.closedBall (0 : ℂ) R := by
@@ -227,8 +229,17 @@ theorem exists_convergent_subseq {a : ℝ} (ha : 0 < a) {h : ℕ → ℝ → ℝ
   rw [inv_mul_eq_div, div_lt_div_iff_of_pos_right h4a] at key
   exact key
 
+/-- **Bounded-energy probes are precompact in `L²`.** -/
+theorem exists_convergent_subseq {a : ℝ} (ha : 0 < a) {h : ℕ → ℝ → ℝ}
+    (hp : ∀ j, Probe a (h j)) {B C : ℝ} (hB : ∀ j, normSq (h j) ≤ B)
+    (hC : ∀ j, archE (h j) ≤ C) :
+    ∃ φ : ℕ → ℕ, StrictMono φ ∧ ∃ G : ℝ → ℝ, MemLp G 2 volume ∧
+      Tendsto (fun j => normSq (fun t => h (φ j) t - G t)) atTop (𝓝 0) :=
+  exists_convergent_subseq_S ha (fun j => (hp j).toS) hB hC
+
 end Pilot1ca
 
 #print axioms Pilot1ca.exists_limit_of_cauchy
 #print axioms Pilot1ca.exists_cut
+#print axioms Pilot1ca.exists_convergent_subseq_S
 #print axioms Pilot1ca.exists_convergent_subseq

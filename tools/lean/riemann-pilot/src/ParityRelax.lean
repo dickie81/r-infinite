@@ -429,30 +429,7 @@ theorem gramO_eq {a : ℝ} (ha : 0 < a) (m : ℕ) (i j : Fin m) : gramV (vo a) a
           have := hω (p + 1) (by omega); have := hω (q + 1) (by omega); linarith
         exact int_sin_sin hm hpl
 
-/-! ## F. Monotonicity of the general form in the support -/
-
-theorem poleL_eq_integral {a : ℝ} (ha : 0 ≤ a) {g : ℝ → ℝ} (hsupp : ∀ u, a < |u| → g u = 0) :
-    poleL g a = ∫ u, g u * Real.exp (u / 2) := by
-  unfold poleL
-  rw [intervalIntegral.integral_of_le (by linarith), ← integral_Icc_eq_integral_Ioc,
-    setIntegral_eq_integral_of_forall_compl_eq_zero]
-  intro u hu
-  have h : a < |u| := by
-    by_contra h'
-    push Not at h'
-    exact hu ⟨by linarith [neg_abs_le u], by linarith [le_abs_self u]⟩
-  rw [hsupp u h, zero_mul]
-
-/-- `weilQg` sees the probe, not the window. -/
-theorem weilQg_mono {a a₁ : ℝ} (ha : 0 ≤ a) (h : a ≤ a₁) {g : ℝ → ℝ} (hsupp : ∀ u, a < |u| → g u = 0) :
-    weilQg a₁ g = weilQg a g := by
-  have hsupp1 : ∀ u, a₁ < |u| → g u = 0 := fun u hu => hsupp u (lt_of_le_of_lt h hu)
-  unfold weilQg
-  rw [poleR_eq_integral ha hsupp, poleR_eq_integral (ha.trans h) hsupp1, poleL_eq_integral ha hsupp,
-    poleL_eq_integral (ha.trans h) hsupp1]
-
-theorem OProbe.mono {a a₁ : ℝ} {g : ℝ → ℝ} (hp : OProbe a g) (h : a ≤ a₁) : OProbe a₁ g :=
-  ⟨hp.odd, fun u hu => hp.supp u (lt_of_le_of_lt h hu), hp.memL2, hp.arch⟩
+/-! ## F. Monotonicity of the general form in the support: `weilQg_mono`, `OProbe.mono` (ParitySplit) -/
 
 /-! ## G. The tail level from a certified `Cin` value -/
 

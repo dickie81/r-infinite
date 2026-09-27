@@ -18,6 +18,16 @@ noncomputable section
 
 namespace Pilot1ca
 
+/-- A probe of either parity: supported in `[−a, a]`, in `L²`, with convergent archimedean integral.
+The mode machinery (this file, `Compactness`, `FourierGap`) uses only these three facts, so it serves
+odd probes too. -/
+structure SProbe (a : ℝ) (g : ℝ → ℝ) : Prop where
+  supp : ∀ u, a < |u| → g u = 0
+  memL2 : MemLp g 2 volume
+  arch : IntegrableOn (archIntegrand g) (Set.Ioi 0)
+
+theorem Probe.toS {a : ℝ} {g : ℝ → ℝ} (hp : Probe a g) : SProbe a g := ⟨hp.supp, hp.memL2, hp.arch⟩
+
 /-! ## The shift distance -/
 
 theorem integrable_mul_shift₂ {f h : ℝ → ℝ} (hf : MemLp f 2 volume) (hh : MemLp h 2 volume)
@@ -379,7 +389,7 @@ theorem archIntegrand_nonneg {g : ℝ → ℝ} (hg : MemLp g 2 volume) {u : ℝ}
   exact (le_abs_self _).trans (abs_autocorr_le hg u)
 
 /-- **`a Σ_{n∈S} |c_n|² J_n ≤ E(g)`** for every finite set of frequencies, `0 < b ≤ 1`, `b < a`. -/
-theorem weighted_le_archE {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) {b : ℝ}
+theorem weighted_le_archE {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g) {b : ℝ}
     (hb1 : b ≤ 1) (hba : b < a) (S : Finset ℤ) :
     a * ∑ n ∈ S, ‖cf a g n‖ ^ 2 * wJ a b n ≤ archE g := by
   set G : ℝ → ℝ := fun s =>
@@ -405,7 +415,7 @@ theorem weighted_le_archE {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a
           measurableSet_Ioc fun s hs => ?_
         have hs0 : 0 < s := hs.1
         have hsa : |s| < a := by rw [abs_of_pos hs0]; linarith [hs.2]
-        have hH := hasSum_shift ha hp hsa
+        have hH := hasSum_shift' ha hp.memL2 hp.supp (by linarith : a + |s| < 2 * a)
         have hsum := sum_le_hasSum S (fun n _ => mul_nonneg (sq_nonneg _)
           (one_sub_cos_nonneg' _)) hH
         have hK := archK_ge hs0 (hs.2.trans hb1)
@@ -451,7 +461,7 @@ theorem wJ_ge {a b : ℝ} (ha : 0 < a) {n : ℤ} (hn : 1 ≤ 2 * π * |(n : ℝ)
 
 /-- **The tail bound**: if `κ = 2πNb/4a ≥ 1` and `L = 2 log κ − 6 > 0`, then
 `Σ_{|n| ≥ N} |c_n|² ≤ E(g)/(aL)`, uniformly in the probe. -/
-theorem tail_le {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) {b : ℝ}
+theorem tail_le {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g) {b : ℝ}
     (hb0 : 0 < b) (hb1 : b ≤ 1) (hba : b < a) {N : ℕ}
     (hN : 1 ≤ 2 * π * N / (4 * a) * b) (hL : 0 < 2 * Real.log (2 * π * N / (4 * a) * b) - 6) :
     (∑' n : ℤ, if (N : ℝ) ≤ |(n : ℝ)| then ‖cf a g n‖ ^ 2 else 0)
