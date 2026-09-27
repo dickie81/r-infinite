@@ -86,3 +86,4 @@ run WeilDischarge; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/bu
 run WeilZeta; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/WeilZeta.olean -i $HERE/build/WeilZeta.ilean $HERE/src/WeilZeta.lean'
 run WeilCriterion; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/WeilCriterion.olean -i $HERE/build/WeilCriterion.ilean $HERE/src/WeilCriterion.lean'
 run ZetaInputs; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ZetaInputs.olean -i $HERE/build/ZetaInputs.ilean $HERE/src/ZetaInputs.lean'
+run ExteriorZeta; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ExteriorZeta.olean -i $HERE/build/ExteriorZeta.ilean $HERE/src/ExteriorZeta.lean'
