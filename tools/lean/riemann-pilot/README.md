@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 554 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 562 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -5085,5 +5085,38 @@ It was a named input because Mathlib's `Digamma.lean` lists the integral represe
 **The remaining classical named inputs** are `WeilExplicit` (the Guinand–Weil explicit formula, per test function) and `BinetFormula` (Binet's second formula, used only in `Exterior.lean`, round 4).
 
 **Check 4.** This discharges a named input that rounds 126–153 carried. It is classical analysis: no bearing on RH, and no change to any conclusion.
+
+**Bearing on RH:** none.
+
+## Round 155: `BinetFormula` proved (`src/BinetProof.lean`)
+
+Round 4 introduced `BinetFormula` (`Exterior.lean`), Binet's second formula for the digamma function:
+
+`ψ(z) = log z − 1/(2z) − 2∫_0^∞ t dt/((t² + z²)(e^{2πt} − 1))`, for `Re z > 0`.
+
+It was a named input because Mathlib has `Complex.digamma` but not this representation. It is now a theorem, `binetFormula : BinetFormula` (`Exterior.lean`). `binet_remainder_le` and `Earch_bound` no longer take it as a hypothesis. The proof builds on round 154's `digamma_sub_eq_integral` and uses only Mathlib otherwise.
+
+**C. `ψ` as a Laplace transform** (`digamma_eq_lap`): `ψ(z) = log z − 1/(2z) − ∫_0^∞ e^{−zs}φ(s) ds`, where `φ(s) = 1/(1 − e^{−s}) − 1/s − 1/2` and `|φ| ≤ ½`.
+- *The complex Frullani integral* (`integral_frullani`): `∫_0^∞ (e^{−ws} − e^{−zs})/s ds = log z − log w` for `Re z, Re w > 0`.
+  - Write `(e^{−ws} − e^{−zs})/s = ∫_0^1 (z − w)e^{−(w + θ(z − w))s} dθ`.
+  - Swap the integrals (Fubini). The integrand is dominated by `|z − w|e^{−σs}`, since the segment `[w, z]` stays in `Re ≥ σ`.
+  - The inner integral is `(z − w)/(w + θ(z − w))`. Integrate it in `θ` using `(log)′`, which is valid because the segment lies in the slit plane.
+- Gauss's formula (round 154), Frullani and `1/z = ∫e^{−zs}` combine to show that `K(z) = ψ(z) − log z + 1/(2z) + ∫e^{−zs}φ` does not depend on `z` (`K_const`).
+- At `z = n + 1`: `ψ(n + 1) − log(n + 1) = H_n − log(n + 1) − γ → 0` (Mathlib's `tendsto_harmonic_sub_log_add_one`), and `|∫e^{−(n+1)s}φ| ≤ 1/(2(n + 1))`. So `K ≡ 0`.
+
+**D. `φ` as a sine transform** (`phiB_eq_sine`): `φ(s) = 2∫_0^∞ sin(st)/(e^{2πt} − 1) dt`.
+- Expand `1/(e^{2πt} − 1) = Σ_{n≥1} e^{−2πnt}` and integrate termwise: `∫_0^∞ sin(st)e^{−ct} dt = s/(s² + c²)`. Termwise integration is justified by `|sin(st)| ≤ st`, which gives `Σ s/(2πn)² < ∞`.
+- The resulting series `Σ_{n≥1} 2s/(s² + 4π²n²)` equals `φ(s)` (`hasSum_phiB`). This is Mathlib's Mittag-Leffler expansion of `π cot(πx) − 1/x` (`cotTerm`, `tendsto_logDeriv_euler_cot_sub`) at `x = is/(2π)`, where `cot(is/2) = −i coth(s/2)`.
+
+**E. Fubini** (`lap_eq`).
+- `∫_0^∞ e^{−zs} sin(st) ds = t/(z² + t²)` (`integral_exp_mul_sin`).
+- The double integral `∫∫ e^{−zs} sin(st)/(e^{2πt} − 1)` is absolutely convergent, dominated by `s e^{−σs} · e^{−πt}/(2π)` (`integrable_binet_prod`, via `t/(e^{2πt} − 1) ≤ e^{−πt}/(2π)`).
+- So `∫_0^∞ e^{−zs}φ(s) ds = 2∫_0^∞ t/((t² + z²)(e^{2πt} − 1)) dt`, which completes Binet's formula (`binet`).
+
+**Build.** `DigammaGauss` and `BinetProof` are now built before `Exterior`, which imports `BinetProof`.
+
+**Remaining classical named input:** `WeilExplicit` (the Guinand–Weil explicit formula, per test function). Also still named: the numerical certificates, and the open RH-strength hypotheses (`HypConv`, no crossing, the gap hypotheses).
+
+**Check 4.** This discharges a named input carried since round 4. It is classical analysis: no bearing on RH, and no change to any conclusion.
 
 **Bearing on RH:** none.

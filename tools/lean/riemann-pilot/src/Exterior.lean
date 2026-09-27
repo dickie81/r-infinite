@@ -1,4 +1,5 @@
 import Mathlib
+import BinetProof
 
 open Real MeasureTheory
 open Filter Topology
@@ -183,13 +184,16 @@ theorem norm_Epole_le {g : ℝ → ℝ} {a T T' Δ : ℝ} (ha : 0 < a) (hT : 0 <
 
 /-! ## 1ca(iv): the Stirling remainder, `|Re ψ(1/4 + ir/2) − ln(r/2)| ≤ 3/(2r²)` for `r ≥ 8` -/
 
-/-- **Binet's second formula** (the named classical input of 1ca(iv); Mathlib has `Complex.digamma`
-but not this representation): `ψ(z) = log z − 1/(2z) − 2∫_0^∞ t dt/((t² + z²)(e^{2πt} − 1))`,
+/-- **Binet's second formula** (a named input of 1ca(iv) until round 155; Mathlib has
+`Complex.digamma` but not this representation; proved below as `binetFormula`): `ψ(z) = log z − 1/(2z) − 2∫_0^∞ t dt/((t² + z²)(e^{2πt} − 1))`,
 `Re z > 0`. -/
 def BinetFormula : Prop :=
   ∀ z : ℂ, 0 < z.re → Complex.digamma z = Complex.log z - 1 / (2 * z)
     - 2 * ∫ t in Set.Ioi (0 : ℝ),
         (t : ℂ) / (((t : ℂ) ^ 2 + z ^ 2) * ((Real.exp (2 * π * t) - 1 : ℝ) : ℂ))
+
+/-- **`BinetFormula` is a theorem** (round 155, `BinetProof.lean`). -/
+theorem binetFormula : BinetFormula := fun _ hz => PilotDigamma.binet hz
 
 theorem bose_le {t : ℝ} (ht : 0 < t) :
     t / (Real.exp (2 * π * t) - 1) ≤ Real.exp (-π * t) / (2 * π) := by
@@ -334,10 +338,10 @@ theorem tail_exp_le {r : ℝ} (hr : 8 ≤ r) : r * Real.exp (-π * (r / 4)) ≤ 
 /-- **1ca(iv): `|Re ψ(1/4 + ir/2) − ln(r/2)| ≤ 3/(2r²)` for `r ≥ 8`**, from Binet's formula. The
 three pieces are `(1/2)ln(1 + 1/(4r²)) ≤ 1/(8r²)`, `Re 1/(2z) = 2/(1 + 4r²) ≤ 1/(2r²)`, and the Binet
 integral `≤ 8/(π²r²) + 4e^{−πr/4}/(π²r)`. -/
-theorem binet_remainder_le (hB : BinetFormula) {r : ℝ} (hr : 8 ≤ r) :
+theorem binet_remainder_le {r : ℝ} (hr : 8 ≤ r) :
     |(Complex.digamma (zB r)).re - Real.log (r / 2)| ≤ 3 / (2 * r ^ 2) := by
   have hr0 : 0 < r := by linarith
-  have hψ := hB (zB r) (by rw [zB_re]; norm_num)
+  have hψ := binetFormula (zB r) (by rw [zB_re]; norm_num)
   rw [hψ]
   set I := ∫ t in Set.Ioi (0 : ℝ),
       (t : ℂ) / (((t : ℂ) ^ 2 + zB r ^ 2) * ((Real.exp (2 * π * t) - 1 : ℝ) : ℂ)) with hI
@@ -418,7 +422,7 @@ def Earch (hR : ℝ → ℝ) : ℝ := 1 / π * ∫ r in Set.Ioi (0 : ℝ), hR r 
 
 /-- **1ca(iv): `|E_arch| ≤ (3/2)/(T² ln(T/2π))` × the smooth count's integral beyond `T`, up to the
 cut's tail below `T`** (the two explicit tail terms), for a weight `h ≥ 0` and `T ≥ 8`. -/
-theorem Earch_bound (hB : BinetFormula) {hR : ℝ → ℝ} {T : ℝ} (hT : 8 ≤ T)
+theorem Earch_bound {hR : ℝ → ℝ} {T : ℝ} (hT : 8 ≤ T)
     (hpos : ∀ r, 0 < r → 0 ≤ hR r)
     (hf : IntegrableOn (fun r => hR r * (psiRe r - Real.log (r / 2))) (Set.Ioi 0))
     (hsm : IntegrableOn (fun r => hR r * Real.log (r / (2 * π))) (Set.Ioi T))
@@ -454,7 +458,7 @@ theorem Earch_bound (hB : BinetFormula) {hR : ℝ → ℝ} {T : ℝ} (hT : 8 ≤
       (hfa.mono_set (Set.Ioc_subset_Ioi_self.trans hs8)) (hmid.const_mul _) measurableSet_Ioc
     intro r hr
     have hr8 : 8 ≤ r := hr.1.le
-    have hb := binet_remainder_le hB hr8
+    have hb := binet_remainder_le hr8
     have hh := hpos r (by linarith [hr.1])
     simp only [hf_def, abs_mul, abs_of_nonneg hh]
     unfold psiRe
@@ -472,7 +476,7 @@ theorem Earch_bound (hB : BinetFormula) {hR : ℝ → ℝ} {T : ℝ} (hT : 8 ≤
     have hrT : T < r := hr
     have hr8 : 8 ≤ r := by linarith
     have hr0 : 0 < r := by linarith
-    have hb := binet_remainder_le hB hr8
+    have hb := binet_remainder_le hr8
     have hh := hpos r hr0
     have hlogr : Real.log (T / (2 * π)) ≤ Real.log (r / (2 * π)) :=
       Real.log_le_log (by positivity) (div_le_div_of_nonneg_right hrT.le (by positivity))
@@ -666,6 +670,7 @@ theorem exterior_identity_probe {ι : Type*} {ρ : ι → ℂ} {g : ℝ → ℝ}
 
 end Pilot1ca
 
+#print axioms Pilot1ca.binetFormula
 #print axioms Pilot1ca.norm_Phi_le
 #print axioms Pilot1ca.norm_chi_le
 #print axioms Pilot1ca.norm_ghat_half_le
