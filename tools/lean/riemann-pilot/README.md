@@ -4689,3 +4689,28 @@ The second is a quantitative positivity statement for Q on the complement of the
 - **Jet elements.** `Φ^{(2k+1)}` has `Q_∞ = 0` and spectral mass at frequency growing with k, so `Q_∞`-nullity alone does not pin the frequency. Excluding high-k minimisers needs the edge asymptotics of round 139.
 
 **Status.** RH + (weak limits of the odd minimisers keep more than 5.1% of their mass on `Φ′`) ⟹ eventual parity gap. The mass condition is an odd-sector analogue of HypConv. It is measured with a large margin but not proved.
+
+## Round 142: the sphere-area maximum and the parity gap (analysis, no Lean)
+
+**The connection (pure Gamma function; the cascade hypothesis is not used, per Check 8).**
+- **Sphere area as a Gamma ratio.** The unit-sphere area is `S_{d−1} = 2π^{d/2}/Γ(d/2)`, so `π^{−s/2}Γ(s/2) = 2/S_{s−1}`. The archimedean factor of `ξ` is therefore the reciprocal sphere area continued in the dimension.
+- **Where the maximum sits.** The maximum of `S_{d−1}` over real `d` is at the root of `ψ(d/2) = log π`, namely `d* = 7.256946…`. Over the integers it is at `d = 7` (`S₆ = 33.07`, against `31.01` at `d = 6` and `32.47` at `d = 8`).
+- **Link to the symbol.** The archimedean symbol of the Weil form is `A(r) = Re ψ(¼ + ir/2) − log π`. It is the same function `ψ(s/2) − log π` on the critical line.
+- **Its zero there.** `A` has exactly one sign change on `r > 0`, at `r₀ = 6.289836…`, with `A < 0` below `r₀` (`A(0) = −5.37`) and `A > 0` above it. So `d*` and `r₀` are two zeros of one function: one on the real axis, one on the critical line.
+
+**What it gives (exact, zero-free).**
+- **Pointwise bound.** Because `A` changes sign only at `r₀`, `r²A(r) ≥ r₀²A(r)` for every real `r`: where `A < 0` the node weight `r²` is smaller than `r₀²`, and where `A > 0` it is larger.
+- **Archimedean comparison.** Hence `∫r²|q̂|²A ≥ r₀²∫|q̂|²A`. For the archimedean part, the odd form at `q′` dominates `r₀²` times the even form at `q`. This is the zero-side argument of round 140 with `γ₁ = 14.13` replaced by `r₀ = 6.29`, the critical-line image of the sphere-area maximum.
+
+**Why it does not reach the gap.**
+- **(i) The pole.** It enters the explicit formula as the ordinates `±i/2`, where `z² = −¼ < 0`. Tracking it: `Q_odd(q′) ≥ r₀²Q_even(q) − (2r₀² + ½)q̂(i/2)²`, and `q̂(i/2)` is O(1) for the odd minimiser (its limit is proportional to `Ξ(i/2) = ½`).
+- **(ii) The primes add sign changes.** For the full symbol `σ_a`, counting sign changes on `(0, 200]`:
+
+  | a | 0.3 | 0.35 | 0.55 | 0.7 | 1.0 | 1.3 |
+  |---|---|---|---|---|---|---|
+  | sign changes | 1 (at `r₀`) | 3 | 11 | 15 | 52 | 90 |
+
+  The single-crossing property, and with it the pointwise bound, holds only before the first prime enters at `2a = log 2`.
+- **Two meanings of "odd".** That `7` is odd is unrelated to the parity `t ↦ −t` of test functions. The link is `ψ(s/2) − log π` itself, not the integer parity.
+
+**Bearing on RH:** none.
