@@ -4854,3 +4854,11 @@ Here `lamO a` is the odd ground energy, the infimum of `weilQg` over normalised 
 **Status.** The eventual parity gap, and with Theorem A and `HypConv` the whole chain, now reduces formally to one statement: *the even and odd ground energies never cross beyond a certified `a₀`*. The small-`a` start is certified, but only as sector positivity, not yet as `lam a₀ < lamO a₀` in Lean. The no-crossing statement is not proved.
 
 **Bearing on RH:** none by itself.
+
+**Addendum (round 146).** With collisions excluded, "tracking the zeros" is not a new route. It is the route already formal as `rh_of_simple_ground_states'` (`HurwitzCross.lean`): eventual even-sector simplicity + `HypConv` ⟹ RH.
+- **No tracking needed.** Confinement to the cross `ℝ ∪ iℝ` (`zeros_real_or_imag`) already suffices, because Hurwitz limits of zeros on the cross stay on the cross, and `Ξ` has no imaginary zeros in the strip (`ζ ≠ 0` on `(0, 1)`, discharged). The sign conditions `∫g ≠ 0` and `g(a) ≠ 0` only matter for real-rootedness at finite `a`, not for RH.
+- **The two open routes are therefore:**
+  - (A) eventual even-sector simplicity, `λ₁^even < λ₂^even` (the older route);
+  - (B) the eventual parity gap, `λ_even < λ_odd` (Theorem A, round 137).
+  Neither implies the other. Both are no-crossing statements.
+- **The asymmetry.** (A) concerns same-sector levels. Those avoid each other generically (codimension 2, von Neumann–Wigner), and Theorem D (`degenerate_flat`, `theoremD`) forces a degeneracy to carry a Green chain. (B) concerns cross-sector levels, which cross generically, and no structure theorem constrains them. On structure alone, (A) is the better-equipped route. Genericity is not a proof, and (A) is open.
