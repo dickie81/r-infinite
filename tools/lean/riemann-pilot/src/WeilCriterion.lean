@@ -8,7 +8,7 @@ Round 131 (`WeilConverse.lean`) proved, for any zero family satisfying the expli
 finitely many off-line zeros make Weil's form negative somewhere. The proof uses the formula only
 for the box `box 1` and its twins. Both are strip test functions: an even, nonnegative profile that
 is non-increasing on `[0, a]` has `‖ĝ(z)‖ ≤ 2g(0)cosh(a Im z)/‖z‖` (`norm_ghatC_le_of_antitone`,
-round 11), so `ĝ²` decays like `1/(Re z)²` on the strip. Round 156's `weilExplicit_zeta` then
+round 37), so `ĝ²` decays like `1/(Re z)²` on the strip. Round 156's `weilExplicit_zeta` then
 supplies both instances over the zeros of `ζ`.
 
 * `ghat_antitone_strip`, `striptest_antitone`: `ĝ²` is in the strip class for every such profile.

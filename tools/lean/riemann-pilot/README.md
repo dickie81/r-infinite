@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 13 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`.
 
-Every file ends with `#print axioms`. All 587 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 608 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -64,6 +64,26 @@ Every file ends with `#print axioms`. All 587 checked theorems depend only on `p
 | `RiemannKernel.lean` | 901 | **Riemann's kernel formula** `∫ Φ(u)e^{izu}du = Ξ(z)/2` on all of `ℂ`, from Mathlib's theta kernel and completed zeta: termwise Gamma integrals on a half-plane, evenness of `Φ` from the theta functional equation, decay, the identity theorem. **`Φ > 0`, hence `ξ(σ) ≠ 0` for real `σ`**: `Ξ(0) ≠ 0` and `ζ(σ) ≠ 0` on `(0, 1)` |
 | `KernelChain.lean` | 41 | Riemann's formula discharges `KernelApprox` (`kernelApprox_RPhi`); RH from `L²` closeness to `Φ` (`rh_of_close_RPhi`) |
 | `PrimeSide.lean` | 74 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
+| `SmallPositivity.lean` | 333 | Weil positivity on every probe at small support: `λ₁ ≥ 1/4` for `2a ≤ 1/8` (round 121), exact `ψ(¼)`, near- and far-field bounds |
+| `SmallPositivity2.lean` | 122 | `λ₁ ≥ 1/20` for `a ≤ 1/12`, pure Lean |
+| `OddPositivity.lean` | 353 | the odd sector: `Q > 0` on odd probes for `a ≤ 1/4`, pure Lean |
+| `PoleRelax.lean` | 487 | the pole-term relaxation; Weil positivity to `a = 1/4` granted the arb certificate `Cert14` |
+| `PrimeRelax.lean` | 100 | the first prime in the relaxation, granted `CertP` |
+| `ParitySplit.lean` | 257 | `Q(g) = Q(e) + Q(o)` for the even/odd parts of a real `g` |
+| `WindowForm.lean` | 285 | closed forms of the window basis, the Cholesky certificate logic, the off-line quadruple mechanism |
+| `ResponseKernel.lean`, `ToneHyperbola.lean` | 177, 214 | calculus identities for the response kernel and the tone hyperbola; no `ζ` |
+| `ExplicitBridge.lean` | 463 | `WeilExplicit` for `ĝ²` gives `Σ_ρ ĝ(t_ρ)² = weilQ` (`weilQ_eq_zero_sum`); the symbol and jump forms; RH ⇒ `Q ≥ 0` given the formula |
+| `DigammaGauss.lean` | 429 | Gauss's digamma integral in difference form, proved (round 154) |
+| `BinetProof.lean` | 525 | Binet's second formula, proved (round 155) |
+| `ParityCont.lean` | 940 | `λ_odd` continuous; `gap_quarter`; `rh_of_no_crossing`: no parity crossing past `a = 1/4` + `HypConv` ⟹ RH (rounds 146–147) |
+| `SimpleCont.lean` | 506 | `λ₁` continuous; degeneracy is closed; the first degeneracy carries a Green chain; the secular characterisation `not_simple_iff_secular` (rounds 148, 150) |
+| `PhiLadder.lean` | 481 | jet upper bounds on rungs 1 and 2 of the ladder (round 153) |
+| `StripShift.lean`, `XiLogDeriv.lean`, `WeilCount.lean`, `WeilAssemble.lean` | 731, 230, 132, 629 | the strip class `StripTest`, contour shifts, `Ξ′/Ξ` as a sum over zeros and on `Re s > 1`, the zero count, and **Weil's explicit formula over the zeros of `Ξ`** (round 156) |
+| `WeilDischarge.lean`, `WeilZeta.lean` | 245, 270 | the pilot's test functions are strip test functions; **`weilExplicit_zeta`**: the explicit formula over the zeros of `ζ` (round 156) |
+| `WeilCriterion.lean` | 176 | monotone profiles are strip test functions; **`rh_of_weil_finite`: `Q ≥ 0` on every probe + finitely many off-line zeros ⟹ RH**, no named input (round 157) |
+| `ZetaInputs.lean` | 238 | **Hadamard's identity `Σ_ρ 1/(ρ(1−ρ)) = 2 + γ − log 4π` proved**; 1bt(i) and the pinning theorem with their classical inputs discharged (round 157) |
+| `ExteriorZeta.lean` | 310 | `Φ` entire, `Φ(w) + Φ(−w) = 1`, `χ` in the strip class; **the exterior identity over the zeros of `ζ` for every probe** (round 157) |
+| `WeilRH.lean` | 160 | **RH ⟹ `Q ≥ 0` on every probe**; `weil_criterion_zeta`: with finitely many off-line zeros, `Q ≥ 0` everywhere ⟺ RH (round 157) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -4010,7 +4030,7 @@ Twelve new theorems. They are **unconditional**: no hypothesis about ζ, RH or a
 | basis transforms, pole term, divided-difference structure, trig reductions | **Lean** |
 | Cholesky ⇒ PD ⇒ `Q > 0` on the subspace | **Lean** |
 | off-line quadruple ⇒ negative contribution near a zero of `ĝ` | **Lean** |
-| Guinand–Weil explicit formula | classical input, not formalised |
+| Guinand–Weil explicit formula | classical input when round 120 was written; proved over the zeros of `ζ` for strip test functions in round 156 (`weilExplicit_zeta`), not wired into this file's basis |
 | principal-value and digamma evaluations (archimedean `Φ_ψ`, prime `Φ_u` integrals) | hand-derived, checked to `5·10⁻¹⁶` numerically |
 | the 226 certificates themselves | arb interval arithmetic, outside Lean |
 | the horizon `x_h = γ₀/(4π · 0.8613)` and the detection windows | empirical (round 119, S1 passed and S2 failed once) |
@@ -5168,3 +5188,50 @@ It was a named input because Mathlib has `Complex.digamma` but not this represen
 **Check 4.** This discharges a classical named input carried since round 4, for the test class above. It is classical analysis: no conclusion changes.
 
 **Bearing on RH:** none.
+
+## Round 157: Tier A — the remaining classical inputs over `ζ`, discharged (`src/WeilCriterion.lean`, `src/ZetaInputs.lean`, `src/ExteriorZeta.lean`, `src/WeilRH.lean`)
+
+Round 156 proved Weil's explicit formula over the zeros of `ζ` for strip test functions. An audit of the whole stack for this round found four places where a named classical input could now be discharged with that theorem plus short arguments. All four are done. Every new theorem prints `[propext, Classical.choice, Quot.sound]` only.
+
+### 1. Weil's criterion for `ζ`, both directions (`WeilCriterion.lean`, `WeilRH.lean`)
+- **The converse needed only two instances.** `exists_weilQ_neg_of_offline` (round 131) assumed the explicit formula for every probe, but its proof uses it only for `box 1` and its twins. `WeilConverse.lean` now states that (`exists_weilQ_neg_of_offline_of`); the old statement is a corollary.
+- **Monotone profiles are strip test functions** (`striptest_antitone`). An even profile, `≥ 0` and non-increasing on `[0, a]`, has `‖ĝ(z)‖ ≤ 2g(0)cosh(a Im z)/‖z‖` (round 37's layer-cake bound), so `ĝ²` decays like `(Re z)⁻²` on the strip. The box qualifies; its twins follow from `striptest_mul_sq`.
+- **`exists_weilQ_neg_of_offline_zeta`**: if all but finitely many nontrivial zeros of `ζ` are on the line and one is not, some probe has `Q < 0`. `Im ρ ≠ 0` comes from `ζ ≠ 0` on `(0, 1)`.
+- **`rh_of_weil_finite`**: `Q ≥ 0` on every probe, plus `{s nontrivial : Re s ≠ ½}` finite, gives Mathlib's `RiemannHypothesis`.
+- **The other direction needs density** (`WeilRH.lean`).
+  - `ibp_C2`: for a `C²` probe vanishing near the edges, `itĝ(t) = −ĝ₁(t)`, so `ĝ²` is a strip test function (`weilExplicit_C2_zeta`).
+  - `lam_nonneg_of_RH`: under RH, `λ₁(a) ≥ 0` at every support. If `λ₁ < 0`, round 55's `av3_dense` gives a `C²` probe `h` near a ground state `g`. Then `Q(h) − λ₁‖h‖² ≤ 2C(‖h − g‖² + E(h − g))` (`Qlam_add_le`, `Qlam_le_d`) and `‖h‖² ≥ ½ − ε`, so `Q(h) < 0`, while RH and the explicit formula for `h` give `Q(h) ≥ 0`.
+  - `weilQ_nonneg_of_RH`: `Q(g) ≥ λ₁‖g‖² ≥ 0` for every probe.
+- **`weil_criterion_zeta`**: with finitely many off-line zeros, `Q ≥ 0` on every probe at every support **iff** `RiemannHypothesis`. No named input.
+
+### 2. Hadamard's identity and Theorem 1bt(i) (`ZetaInputs.lean`)
+- **`hadamard_zeta`**: `Σ_ρ 1/(ρ(1 − ρ)) = 2 + γ − log 4π` over the nontrivial zeros with multiplicity.
+  - `hasSum_logDeriv_Xi` at `t = −i/2`, where `Ξ(−i/2) = ξ(1) = ½ ≠ 0`, gives `Σ_u 1/(u + ¼) = ξ′(1)/ξ(1) = Λ₀(1)` (`ξ = (s(s − 1)Λ₀ + 1)/2`, so `ξ′(1) = Λ₀(1)/2`).
+  - Mathlib's `completedRiemannZeta₀_one` gives `Λ₀(1) = 1 + (γ − log 4π)/2`.
+  - `ρ(1 − ρ) = ¼ + u` for `ρ = ½ ± i√u`; each `u` is counted twice; `zetaEquiv` transports the sum.
+- **`pole_free_form_negative_zeta_explicit`**: 1bt(i) over `ζ` with `h_hadamard` and `h_explicit` discharged. The witness `ĝ_a²` is a strip test function by 1bt's own bound `‖ĝ_a‖ ≤ V(a)e^{a|Im t|}/‖t‖`. The value of the form is the explicit formula's prime side (`weilRHS`). **One named input is left: `γ₁ ≥ 14`.**
+
+### 3. The pinning theorem (`ZetaInputs.lean`)
+- **`pinned_zeta`**: `Unconditional.lean`'s `pinned_unconditional` over the zeros of `ζ` for a monotone probe, with `Q = weilQ`.
+  - `hQ`: from `weilExplicit_antitone_zeta` and `weilQ_eq_zero_sum`.
+  - `hstrip`: from the strip.
+  - `hS`: `summable_tail_zeta`, comparing `(Re t)⁻²` with `‖1/(t² + 4)‖` for `H ≥ 1`.
+- **Left:** RH verified to height `H` (numeric), and the probe's monotonicity (a hypothesis on `g`; for ground states it is observed, not proved).
+
+### 4. The exterior identity for every probe (`ExteriorZeta.lean`)
+- **The cut is holomorphic.** `differentiable_Phi`: the complex normal distribution function `Φ` is entire, by differentiation under the integral with a Gaussian dominating function.
+- **The cut decays.** `Phi_add_neg`: `Φ(w) + Φ(−w) = 1`, from Mathlib's shifted complex Gaussian integral. Right of the band, `χ` is then a sum of four left tails of `Φ`, so `‖χ(t)‖ ≤ 2e^{1/(2Δ²)}e^{−(Re t − T′)²/(2Δ²)}` (`norm_chi_right`). By evenness and compactness near the band, `‖χ(t)‖(1 + (Re t)²)` is bounded on the strip (`chi_strip`).
+- **`exterior_identity_probe_zeta`**: round 4's 1ca(iv) identity over the zeros of `ζ` for every even integrable probe, with no named input. The three integrability conditions on the real values are the identity's own regularity hypotheses and are kept.
+
+### What remains named, after this round
+- **Numeric facts:** `γ₁ ≥ 14` (`T1bt`, the 1ca wall law); RH verified to a height (`pinned_zeta`); the arb certificates `Cert14`, `CertP`, `CertP3`, `CertE`, `CertO` and `Round47Certs`. None of the certificates sits in an RH chain; they extend certified ranges.
+- **Classical but heavy:** `|S(T)| ≤ C log T` and `|S₁(T)| ≤ C log T` (`hSlog`, `hS1log`, used only by the 1ca wall law). They need the argument principle for `Ξ` and Stirling for `arg Γ`, which Mathlib lacks.
+- **Open, not classical:** monotonicity or concavity of ground states.
+- **RH-strength:** `HypConv` for a cross-rooted family, or anything stronger (no crossing, the parity gap, simplicity, D).
+
+### A documentation correction (Check 2)
+Rounds 146–147 say "The two open routes are therefore:" (simplicity and the parity gap) and "The one analytic hypothesis besides `HypConv` is now the absence of a single kind of event". Round 54 had already reduced the chain further: "The remaining gap is therefore exactly `HypConv a (topGS ∘ a)`" (`rh_of_hypConv_top`, `StructureD.lean`), with no simplicity, gap or crossing hypothesis. The later routes only let `HypConv` be asked of the computed ground state rather than of `topGS` (`hypConv_top_of_simple`). The weakest chain to `RiemannHypothesis` in the stack is `HypConv(topGS)` alone.
+
+**Check 4.** Round 156 listed `exterior_identity_zeta` and general-probe `weilQ_eq_zero_sum` as not covered. The first is closed here. The second is closed in the form that matters for Weil's criterion: every probe is reached by density, not by the explicit formula for the probe itself. `T1bt`'s Hadamard identity, the pinning theorem's inputs and the ζ instance of round 131's converse were not flagged before.
+
+**Bearing on RH:** none. Weil's criterion is an equivalence, and its finite-exception form is a real restriction. Every chain to `RiemannHypothesis` is exactly as conditional as before.

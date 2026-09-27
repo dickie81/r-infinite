@@ -27,7 +27,8 @@ Unconditional: no hypothesis about ζ, RH or any zero appears.
   pair next to a zero of the test transform pushes the form negative. This is how positivity is lost past the horizon.
 
 **Not formalised** (hand derivations or classical inputs, checked numerically):
-* the Guinand–Weil explicit formula;
+* the Guinand–Weil explicit formula for this file's basis (the formula itself is proved over the zeros of `ζ`
+  for strip test functions in round 156, `WeilZeta.lean`; it is not wired in here);
 * the principal-value and digamma evaluations of the archimedean term;
 * the arb enclosures themselves;
 * the empirical horizon `x_h = γ₀/(4π · 0.8613)`.
