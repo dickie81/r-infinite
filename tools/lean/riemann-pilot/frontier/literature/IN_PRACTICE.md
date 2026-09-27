@@ -135,8 +135,8 @@ Certified coverage in the pilot:
     provably insufficient (Broucke Thm 6.3; Davenport–Heilbronn, round 165).
 
 **Check 4.**
-- **Acknowledged.** Every literature item above; the pilot's reductions (rounds 20, 31–35 and
-  146–151 in the README); the gap-precision barrier (the README section ending
+- **Acknowledged.** Every literature item above; the pilot's reductions (README module table; rounds
+  146–151); the gap-precision barrier (the README section ending
   "No lower bound on `μ₂(Q₀)` at the needed scale exists").
 - **New here.**
   - The explicit comparison of the Kaiser residual with `λ₂`, showing the trial is useless for
