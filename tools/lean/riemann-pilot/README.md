@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 513 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 520 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -46,6 +46,7 @@ Every file ends with `#print axioms`. All 513 checked theorems depend only on `p
 | `PrimeRelax3.lean` | 77 | **Weil positivity up to the second prime**: granted the arb certificate `CertP3`, `Q(g) ≥ 2·10⁻⁸` for every normalised even probe at every support `2a ≤ 1.0986 < log 3` (round 123's construction re-run at `a* = 0.5493`) |
 | `ParityRelax.lean` | 597 | **The relaxation for both parities and every prime power below the support**: generic mode weights, the odd sector (`sinh(t/2)`, sine modes, pole weight `−2`), Bessel for any window vectors, the odd Gram matrix in closed form, certificate theorems for one support `b` covering all `a ≤ b` |
 | `ParityCert.lean` | 127 | **Both sectors, instantiated to `2a = 1.6 < log 5`**: granted `CertE`/`CertO` (arb, `N = 350`), even `Q ≥ 3·10⁻¹⁸` and odd `Q ≥ 5·10⁻¹⁵` for `a ≤ 0.8`, and `Q(g) ≥ 3·10⁻¹⁸‖g‖²` for every real `g` |
+| `ParityGap.lean` | 735 | **Real zeros from the parity gap**: if every normalised odd probe has `Q > λ₁(a)`, every even ground state's transform has only real zeros (real flips `(z−w̄)(z+w)/((z−w)(z+w̄))` and `(z−w̄)/(z−w)`, Fourier inversion without parity); `rh_of_parity_gap`: eventual parity gap + `HypConv` ⟹ RH, with no simplicity |
 | `SwapRealize.lean` | 428 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
 | `SimpleCover.lean` | 225 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
 | `SimpleStructure.lean` | 86 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
@@ -4538,3 +4539,30 @@ Scoped bound `κ + λ_min(LᵀSL)`, with the exact `Cin` tail and 25-decimal `ψ
   - **Real-rootedness.** Hurwitz transfers zeros from the approximants to the limit. A non-real zero of `Ξ` would attract non-real zeros of `ĝ_a` for large `a`, so the step that remains is that `ĝ_a` has only real zeros in the strip, for all large `a`. These measurements do not touch that.
   - **Uniformity in height.** `|Ξ|` is `~ e^{−πt/4}` at height `t`, so zeros up to height `T` need `δ(a) ≪ e^{−πT/4}`, that is `a ≳ πT/6`. Hurwitz on compacts is fine; the support needed grows with the height.
 - **Scope.** This is numerical evidence (arb Gram entries, midpoint eigensolves), not a certificate. No bearing on RH is claimed.
+
+## Round 137: real zeros from the parity gap (`src/ParityGap.lean`)
+
+**Theorem A** (`realRooted_of_parityGap`). Suppose the parity gap holds at support `a` (`ParityGap a`): every normalised odd probe has `Q_g(o) > λ₁(a)`, the even ground energy. Then the transform of every even ground state has **only real zeros, in the whole complex plane**. Simplicity is not assumed.
+
+**Corollary** (`rh_of_parity_gap`). Eventually-parity-gapped ground states together with `HypConv` give Mathlib's `RiemannHypothesis`. This replaces round 55's "eventual simplicity" in the chain (`rh_of_eventually_simple`) with the parity gap, and it also handles zeros on the imaginary axis directly at each support.
+
+Both theorems print `[propext, Classical.choice, Quot.sound]` only.
+
+**The proof** (735 lines):
+- **G1: Fourier inversion without parity.** For any real `L²` function on `[−a, a]`, `∫f(x)e^{irx}dx = ĝ(r)ĝ(−r) = |ĝ(r)|²` (`fourier_autocorr_gen`), and `f(u) = ∫|ĝ(2πv)|²cos(2πvu)dv` (`autocorr_eq_inv_gen`). So `|ĝ|` on `ℝ` determines the autocorrelation (`autocorr_eq_of_norm`). Round 127 had this only for even functions.
+- **G2: the first-order Green function.** `k_c(x) = ∫_{−a}^{x} g(y)e^{ic(x−y)}dy` vanishes outside `[−a, a]` when `ĝ(−c) = 0` (`kG_supp`), has `k̂_c = iĝ/(z + c)` (`kG_hat`, from `hat_exp_Pc`), and satisfies `conj k_c = k_{−c̄}`.
+- **G3: the generic contradiction.** Let `h` be a real function with `|ĥ| = |ĝ|` on `ℝ` and the same pole product `ĥ(i/2)ĥ(−i/2)`. Then `Q_g(h) = λ₁` and `‖h‖ = 1`. The parity split `λ₁ = Q(e) + Q_g(o)`, together with the gap, forces `o = 0`, so `ĥ` is even (`swap_even_of_gap`).
+- **G4: the two real swaps.** Both use a multiplier `m` with `|m| = 1` on `ℝ` and `m(z)m(−z) ≡ 1`:
+  - `hR = g + (4 Im w/Re w)·Re(w·k_{−w})`, with `ĥ = ĝ·(z − w̄)(z + w)/((z − w)(z + w̄))` (`hR_hat`), for zeros off the imaginary axis;
+  - `hI = g + 2 Im w·Re k_{−w}`, with `ĥ = ĝ·(z − w̄)/(z − w)` (`hI_hat`), for zeros `w = iy`, including `w = ±i/2`, where the pole product is `0` on both sides.
+- **G5: the finish.** `ĥ` even and `ĥ = ĝm` on `ℝ` give `ĝ(r)(m(r) − m(−r)) = 0`. Since `m(r) ≠ m(−r)` off `{0, ±|w|}`, `ĝ = 0` a.e. on `ℝ`, and inversion at `0` gives `‖g‖ = 0`.
+
+**Relation to earlier rounds.**
+- **Round 43's zero swap** (`zeros_real_or_imag`) needed simplicity, and it left the imaginary axis open at every support.
+- **The Connes–van Suijlekom version** needs global simplicity with an even eigenfunction.
+- **This round** needs only the strict parity gap. The mechanism is the same Carathéodory–Fejér flip, done with real (non-even) swaps, so the odd sector absorbs the flipped zero.
+
+**What remains, honestly.** Everything now rests on `λ_even(a) < λ_odd(a)` for all large `a`, and that is not proved here or anywhere I know of.
+- **Why it's plausible.** Writing odd probes as `o = e′` turns the odd problem into the even symbol with weight `r²` and pole coefficient `−½` instead of `+2`. That is heuristic support: round 135's certified odd lower bound at `a = 0.8`, `5·10⁻¹⁵`, exceeds even Ritz values of about `2·10⁻¹⁷`.
+- **Why it isn't proved.** The symbol is indefinite, so the two minima are not ordered by any inequality I can see.
+- **Bearing on RH.** Theorem A turns RH into this spectral comparison plus `HypConv`, which is a genuine reduction. It is not a proof.
