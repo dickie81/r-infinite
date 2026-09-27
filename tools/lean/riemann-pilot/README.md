@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 539 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 542 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -4945,5 +4945,32 @@ What continuity buys for this route is **closedness of the degeneracy set**. Tha
 3. **So a first degeneracy (round 148) would need a qualitative reversal.** `λ_⊥/λ₁` would have to fall from its super-exponentially separated regime to 1. This is the simplicity-route analogue of round 139's `λ_o/λ_e ≈ 1.4κ²` for the parity route.
 
 **Status.** No proof. The margin `λ_⊥/λ₁` is multiplicatively large but not established analytically, and the Theorem D structure is "half-present" everywhere, so it does not by itself rule out a degeneracy.
+
+**Bearing on RH:** none.
+
+
+## Round 150: the secular reduction, completed (`src/SimpleCont.lean`, section S4)
+
+**Prior work.** Most of the reduction was already formal from rounds 49–50 (`GapCriterion.lean`):
+- `lam_le_of_perp` (interlacing: `λ₁(Q) ≤ Q₀` on `φ₀^⊥`);
+- `simpleGround_of_gap` (energy gap ⇒ simplicity);
+- `not_simple_gap` (without simplicity, `λ₁(Q) = min_{φ₀^⊥} Q₀`, attained);
+- `pole_overlap_identity`.
+
+Round 50's README already stated the "only failure mode" and observed that the `ψ₂` pole overlap has the size of `μ₂`. That anticipates round 149's finding 1, which should have been cross-referenced there (Check 4).
+
+**New theorems.**
+- **`poleR_zero_of_perp_min`**: a normalised `v ⊥ φ₀` with `Q₀(v) = λ₁(Q)` is automatically pole-free. The pole-free trial gives `λ₁(1 + r²) ≤ λ₁ + r²λ₀`, and `λ₀ < λ₁`, so `r = 0`.
+- **`secular_of_not_simple`**: if the ground state is not simple, there is a normalised `w ⊥ φ₀` that
+  - is pole-free (`ŵ(i/2) = 0`),
+  - is a ground state of `Q`,
+  - is an eigenfunction of `Q₀` at level `λ₁(Q)`: `B₀(w, ψ) = λ₁⟨w, ψ⟩` for every probe `ψ`,
+
+  with `λ₁(Q) = Q₀(w) = min_{φ₀^⊥} Q₀`. So `λ₁(Q) = μ₂(Q₀)`, attained by a pole-free eigenfunction.
+- **`not_simple_iff_secular`**: for a ground state `g` with `ĝ(i/2) ≠ 0`, `g` is not simple **iff** some normalised `w ⊥ φ₀` has `Q₀(w) = λ₁(Q)`.
+  - For the converse direction, such a `w` is pole-free, so it cannot be a multiple of `g`.
+  - The excluded case, a simple pole-free ground state, is the lone edge case.
+
+**What this pins down.** On the simplicity route, failure means exactly one event: the second `Q₀` level, restricted to `φ₀^⊥`, descending to `λ₁(Q)`. Round 149 measures the ratio of these two at `2×10⁷` at δ = 2.5, and growing. Proving it stays above 1 is the open problem, and it needs a lower bound on `μ₂(Q₀)` at a super-exponentially small scale.
 
 **Bearing on RH:** none.

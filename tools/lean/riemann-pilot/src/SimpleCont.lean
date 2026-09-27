@@ -422,6 +422,77 @@ theorem first_degeneracy_036 {a₁ : ℝ} (h01 : 0.36 ≤ a₁) (hd : Degenerate
     exact not_simple_of_degenerate h0 hd0 hg (simpleGround_036 h0 le_rfl hg)
   exact first_degeneracy h0 hs0 h01 hd
 
+/-! ## S4: the secular reduction, completed
+
+Rounds 49–50 (`GapCriterion.lean`) proved interlacing (`lam_le_of_perp`), the gap criterion
+(`simpleGround_of_gap`) and `not_simple_gap`: without simplicity, `λ₁(Q) = min_{φ₀^⊥} Q₀`, attained.
+The two missing links: the attaining function is automatically pole-free, hence a ground state of `Q`
+and an eigenfunction of `Q₀` at level `λ₁`; and, when the ground state has a nonzero pole value, this
+is an exact characterisation of non-simplicity. -/
+
+/-- **A `φ₀^⊥` minimiser at level `λ₁(Q)` is pole-free.** From the pole-free trial
+`λ₁(1 + r²) ≤ Q₀(v) + r²λ₀` with `Q₀(v) = λ₁` and `λ₀ < λ₁`, the ratio `r = v̂(i/2)/φ̂₀(i/2)` vanishes. -/
+theorem poleR_zero_of_perp_min {a : ℝ} (ha : 0 < a) {φ v : ℝ → ℝ} (hφ : IsGroundState0 a φ)
+    (hφp : poleR φ a ≠ 0) (hv : Probe a v) (hn : normSq v = 1) (hx : xcorr v φ 0 = 0)
+    (hq : weilQ0 a v = lam a) : poleR v a = 0 := by
+  have h := lam_le_perp_trial ha hφ hφp hv hn hx
+  have hlt := lam0_lt_lam ha
+  rw [hq] at h
+  set r := poleR v a / poleR φ a with hr
+  have hr2 : r ^ 2 * (lam a - lam0 a) ≤ 0 := by nlinarith
+  have hr0 : r ^ 2 = 0 :=
+    le_antisymm (by
+      by_contra hc; push Not at hc
+      have := mul_pos hc (sub_pos.2 hlt); linarith) (sq_nonneg r)
+  have : r = 0 := pow_eq_zero_iff two_ne_zero |>.1 hr0
+  exact (div_eq_zero_iff.1 this).resolve_right hφp
+
+/-- **The secular reduction.** If the ground state is not simple, then with `φ₀ ≥ 0` the (positive-pole)
+ground state of `Q₀` there is a normalised `w ⊥ φ₀` that is
+* pole-free (`ŵ(i/2) = 0`),
+* a ground state of `Q`,
+* an eigenfunction of `Q₀` at level `λ₁(Q)`: `B₀(w, ψ) = λ₁⟨w, ψ⟩` for every probe `ψ`,
+and `λ₁(Q) = Q₀(w) = min_{φ₀^⊥} Q₀`, i.e. `λ₁(Q) = μ₂(Q₀)`, attained by a pole-free eigenfunction. -/
+theorem secular_of_not_simple {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hg : IsGroundState a g)
+    (hns : ¬ SimpleGround a g) :
+    ∃ φ, IsGroundState0 a φ ∧ (∀ t, 0 ≤ φ t) ∧ 0 < poleR φ a ∧
+      (∃ w, IsGroundState a w ∧ poleR w a = 0 ∧ xcorr w φ 0 = 0 ∧ weilQ0 a w = lam a ∧
+        ∀ ψ, Probe a ψ → bil0 a w ψ = lam a * xcorr w ψ 0) ∧
+      ∀ ψ, Probe a ψ → normSq ψ = 1 → xcorr ψ φ 0 = 0 → lam a ≤ weilQ0 a ψ := by
+  obtain ⟨φ, hφ, h0, hpos, ⟨v, hv, hn, hx, hq⟩, hmin⟩ := not_simple_gap ha hg hns
+  have hvp := poleR_zero_of_perp_min ha hφ hpos.ne' hv hn hx hq
+  have hQ : weilQ a v = lam a := by unfold weilQ0 at hq; rw [hvp] at hq; linarith
+  have hvg : IsGroundState a v := isGroundState_of_le hv hn hQ.le
+  refine ⟨φ, hφ, h0, hpos, ⟨v, hvg, hvp, hx, hq, fun ψ hψ => ?_⟩, hmin⟩
+  have el := euler_lagrange_mem ((isGroundState_iff ha).1 hvg).1 hψ
+  rwa [hvp, mul_zero, zero_mul, add_zero] at el
+
+/-- **The exact secular characterisation.** For a ground state `g` with nonzero pole value, `g` fails to
+be simple iff some normalised `w ⊥ φ₀` has `Q₀(w) = λ₁(Q)` — i.e. iff `μ₂(Q₀)` comes down to `λ₁(Q)`
+and is attained on `φ₀^⊥`. -/
+theorem not_simple_iff_secular {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hg : IsGroundState a g)
+    (hgp : poleR g a ≠ 0) :
+    ¬ SimpleGround a g ↔ ∃ φ, IsGroundState0 a φ ∧ 0 < poleR φ a ∧
+      ∃ w, Probe a w ∧ normSq w = 1 ∧ xcorr w φ 0 = 0 ∧ weilQ0 a w = lam a := by
+  constructor
+  · intro hns
+    obtain ⟨φ, hφ, -, hpos, ⟨w, hwg, -, hx, hq, -⟩, -⟩ := secular_of_not_simple ha hg hns
+    exact ⟨φ, hφ, hpos, w, hwg.1, hwg.2.1, hx, hq⟩
+  · rintro ⟨φ, hφ, hpos, w, hw, hn, hx, hq⟩ ⟨-, hs⟩
+    have hwp := poleR_zero_of_perp_min ha hφ hpos.ne' hw hn hx hq
+    have hQ : weilQ a w = lam a := by unfold weilQ0 at hq; rw [hwp] at hq; linarith
+    have hwg : IsGroundState a w := isGroundState_of_le hw hn hQ.le
+    obtain ⟨c, hc⟩ := hs w ((isGroundState_iff ha).1 hwg).1
+    have hpc : poleR w a = c * poleR g a := by rw [poleR_congr_ae hc, poleR_smul]
+    rw [hwp] at hpc
+    have hc0 : c = 0 := by
+      rcases mul_eq_zero.1 hpc.symm with h | h
+      · exact h
+      · exact absurd h hgp
+    have : normSq w = 0 := by
+      rw [normSq_congr_ae hc, hc0]; simp [normSq]
+    linarith
+
 end Pilot1ca
 
 #print axioms Pilot1ca.lsc_even
@@ -430,3 +501,6 @@ end Pilot1ca
 #print axioms Pilot1ca.degenerate_of_tendsto
 #print axioms Pilot1ca.first_degeneracy
 #print axioms Pilot1ca.first_degeneracy_036
+#print axioms Pilot1ca.poleR_zero_of_perp_min
+#print axioms Pilot1ca.secular_of_not_simple
+#print axioms Pilot1ca.not_simple_iff_secular
