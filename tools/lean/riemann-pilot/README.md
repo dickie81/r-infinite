@@ -4737,3 +4737,33 @@ The second is a quantitative positivity statement for Q on the complement of the
 - **Consequence.** There is no pole-free transfer at fixed support with a bounded weight ratio. The pole is intrinsic to the fixed-`a` parity comparison, which is consistent with its role as the pseudo-ordinate `z² = −¼`.
 
 **Bearing on RH:** none.
+
+## Round 144: the widened-support transfer with `λ_even` monotonicity (analysis + numerics, no Lean)
+
+**The construction.**
+- Take `o`, the odd minimiser at `a′ = a − b`, and its primitive `q = ∫o`. Set `g_b = cosh(b/2)q − ½[q(· + b) + q(· − b)]`.
+- Then `g_b` is even and supported in `[−a, a]`, with `ĝ_b = (cosh(b/2) − cos bz)q̂`, so `ĝ_b(±i/2) = 0` and its pole term vanishes.
+- Script: `frontier/nullvec/kwiden.py`; data: `kwiden_results.jsonl`; a = 0.8, K = 50.
+
+| b | λ_e(a) | λ_o(a) | λ_o(a − b) | Rayleigh(g_b) | ½q̂(i/2)² |
+|---|---|---|---|---|---|
+| 0.02 | 1.9e-17 | 1.7e-14 | 1.4e-13 | 1.1e-11 | 0.029 |
+| 0.1 | 1.9e-17 | 1.7e-14 | 2.8e-10 | 8.9e-11 | 0.027 |
+| 0.3 | 1.9e-17 | 1.7e-14 | 2.1e-4 | 9.1e-6 | 0.021 |
+
+**Three failures, each structural.**
+
+1. **Monotonicity points the wrong way.**
+   - The transfer bounds `λ_e(a)` by the odd energy at the smaller support, and `λ_o(a − b) ≥ λ_o(a)`.
+   - The loss is super-exponential: `λ_o(a − b)/λ_o(a) = 8, 1.7e4, 1.2e10` at `b = 0.02, 0.1, 0.3`.
+   - The best case it can give is a *shifted* gap `λ_e(a) < λ_o(a − b)`. That holds numerically for `b ≥ 0.1` (ratio 0.31 at `b = 0.1`, 0.043 at `b = 0.3`) and fails at `b = 0.02` (ratio 82, because `m_b ≈ b²(z² + ¼)/2`).
+   - In every case `Rayleigh(g_b) ≫ λ_o(a)`, so the same-`a` gap is never reached.
+
+2. **Theorem A needs the same-`a` gap.** In G3 the swapped function `h` has support `[−a, a]`, and its odd part must beat `λ₁(a)` *at that support*. A shifted gap does not feed it.
+
+3. **The pole is removed only on the even side.**
+   - The odd source still carries `Q(o) = −½q̂(i/2)² + (1/2π)∫r²q̂²σ`, with `½q̂(i/2)² ≈ 0.02–0.03`.
+   - That term cancels the symbol integral to within `λ_o`, i.e. relative 1e-12 or better.
+   - Any prime-side bound `Q(g_b) ≤ c·∫r²q̂²σ` therefore delivers an O(0.03) bound on `Q(g_b)`, twelve or more orders above `λ_e`. Whatever makes `λ_o` tiny lives in that cancellation, and no symbol-level comparison keeps it.
+
+**Bearing on RH:** none.
