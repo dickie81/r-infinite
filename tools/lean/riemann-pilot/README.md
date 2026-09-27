@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 13 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`.
 
-Every file ends with `#print axioms`. All 615 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 618 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -85,6 +85,7 @@ Every file ends with `#print axioms`. All 615 checked theorems depend only on `p
 | `ExteriorZeta.lean` | 310 | `Φ` entire, `Φ(w) + Φ(−w) = 1`, `χ` in the strip class; **the exterior identity over the zeros of `ζ` for every probe** (round 157) |
 | `WeilRH.lean` | 160 | **RH ⟹ `Q ≥ 0` on every probe**; `weil_criterion_zeta`: with finitely many off-line zeros, `Q ≥ 0` everywhere ⟺ RH (round 157) |
 | `PhiDExp.lean` | 484 | **double-exponential rung bounds, no RH input**: `λ₁ ≤ Ke^{16a−2πe^{2a}}`, `λ₁^odd ≤ Ke^{16a−2πe^{a−1/4}}`, `λ₂ ≤ Ke^{16a−2πe^{a/2−1/4}}` (round 159) |
+| `FirstFailure.lean` | 120 | **the first positivity failure**: if RH fails with finitely many off-line zeros, there is a least `a₁ > 1/16` with `λ₁(a₁) = 0`, `λ₁ > 0` before it, the form PSD at `a₁`, and a normalised ground state in its kernel (round 161) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -5324,3 +5325,119 @@ The identity is excluded, `ρ = 0` means the `v_j` are exact simultaneous eigenf
 **Check 4.** Round 133 (`lam_decay`) and round 153 (`lamO_decay`, `lam2_decay`) are superseded in strength. The double-exponential decay, the parameter choices and the jet measurements are new.
 
 **Bearing on RH:** none.
+
+## Round 160: the optimised J-jet combination (numerics + analysis, no Lean; `frontier/rungs/`)
+
+**Question.** Round 159 left the rung bounds' constant off by a bounded factor. It also measured jets to `J = 14` while they were still gaining. How far does an optimised combination of `J` jets go, and what law does it follow?
+
+**Method.**
+- **Trial space.** `span{Φ^{(2k)}·1_{[−a,a]} : k < J}` (`jet_big.py`, `jet_save.py`).
+- **Zero side.** `Q(g) = Σ_ρ |tail_g(t_ρ)|²` exactly (round 159). Zeros are assumed on the line for the numerics, and the sum is truncated at 500–1500 zeros. Tails are incomplete-gamma sums.
+- **Precision.** 420–560 digits. The window Gram uses mp Newton-refined Gauss–Legendre nodes, because float64 nodes are too inaccurate for these ill-conditioned Grams.
+- **What the numbers are.** Every value is a Rayleigh–Ritz upper bound on `λ₁`, under the numerics' assumptions.
+
+**Results** (`X = πe^{2a}`; Zhu's scale is `2π²N(T*)/ln N(T*)` with `T* = 2πe^{2a}`, round 152):
+
+| `δ` | `X` | `J` | best `λ₁` bound | `−ln` | saturates at | `4X + ln λ₁` | Zhu's scale | earlier reference |
+|---|---|---|---|---|---|---|---|---|
+| 2.2 | 28.4 | 26 | 2.37e-38 | 86.6 | `J ≈ 24` | 26.8 | 93.9 | round 159: 2.4e-38 |
+| 2.6 | 42.3 | 44 | 5.84e-62 | 141.0 | `J ≈ 40` | 28.2 | 142.3 | round 159: 1.2e-61 (K = 80 Galerkin) |
+| 3.0 | 63.1 | 70 | 1.07e-97 | 223.3 | `J ≈ 60` | 29.1 | 218.1 | round 136: 6.7e-97 (K = 144 Galerkin) |
+| 3.4 | 94.1 | 104 | 2.02e-152 | 349.3 | `J ≈ 90` | 27.2 | 335.1 | none |
+
+**Findings.**
+1. **Saturation at `J ≈ X`.** The optimum needs about `X` jets. This matches the endpoint-flattening model below.
+2. **Corrections to rounds 136 and 159.**
+   - Both "truth" values at `δ = 2.6` and `3.0` were Galerkin Ritz values, and the jets beat them by factors of 2 and 6.
+   - Round 136 called `a = 1.5` converged because `K = 112` and `K = 144` agreed. That was agreement of two unconverged truncations.
+   - Zero truncation cannot explain the gap: 1000 against 2000 zeros changes values by 3% (round 159).
+3. **Zhu's scale underestimates `−ln λ₁` from `δ = 3.0` on.** The margin is 5.2 at `δ = 3.0` and 14.2 at `δ = 3.4`. The jets are upper bounds on `λ₁`, so the true `−ln λ₁` is at least the jet value.
+4. **Empirical law.** Over `δ ∈ [2.2, 3.4]`, `−ln λ₁ = 4X − 28 ± 1.5`.
+   - A three-point fit `4X − 9a − c` (`c ≈ 15.6–16.9`) does not hold at `δ = 3.4`, where `c ≈ 12`.
+   - Zhu's scale tends to `2πX` asymptotically (round 159), not `4X`. So the two laws must separate at larger `a`. These four points do not decide which holds asymptotically.
+
+**Analysis.**
+- **Endpoint flattening.** With `x = πe^{2u}` and `D = 2x∂ₓ`, a jet `P(D)Φ` corresponds to `x^{1/4}e^{−x}R(x)`. Its tail at a zero is `≈ e^{−X}Σₖ(x^{s−1}R)^{(k)}(X)`. An `m`-fold zero of `R` at `x = X` gains a factor of about `m!/X^m`, which is best near `m ≈ X`. Hence saturation at `J ≈ X`, and a gain of about `(X/m)²` per added order.
+- **Pochhammer correspondence.**
+  - `xᵏ ↔ (s)ₖ`, and `L = 2x∂ + ½ − 2x = e^{x}(2x∂ + ½)e^{−x}` acts as multiplication by `(½ − 2s)`.
+  - Admissible even Φ-jets correspond exactly to polynomials `U(s)` symmetric under `s ↦ ½ − s` with `U(0) = 0`, via `e^{−x}R(x) = Σⱼ U(−j)(−x)ʲ/j!`.
+  - The explicit family `U = s(s − ½)(s + c)ₙ(½ − s + c)ₙ` gives the jet operator `∏ₖ((2(k + c) + ½)² − D²)`. At `c = 0` it gives `xⁿLₙ^{(n−½)}`.
+- **Explicit families against the optimum** (`family.py`, `family2.py`; `−ln` gain over the single jet at `δ = 2.2`, `2.6`).
+  - The Laguerre family peaks at about 57 against the optimum's 86.9 (`δ = 2.2`).
+  - The heat family `e^{−cD²}`, with `c ≈ 0.05–0.06/X`, captures 44% and 57% of the optimal gain.
+  - Neither closed form is optimal.
+- **The optimum's shape** (`optroots.py`). The roots of the optimal `P*(w)`, with `w = D²`, lie on an arc, a Szegő-type picture. By Mellin–Barnes the problem becomes a weighted polynomial extremal problem against `Γ(σ)X^{−σ}`, with its saddle at `σ ≈ X`.
+
+**Status.** Numerics and a heuristic model. The rigorous rung-0 bound stays `lam_dexp`'s `2πe^{2a} − 16a = 2X − 16a`, against the measured `≈ 4X`. A proved `4X` would need the tails of the optimal combination bounded at every zero, uniformly in `J ≈ X`. That is not done.
+
+**Check 4.**
+- Jets and zero-side evaluation: round 159.
+- Ladder ratios `≈ κ²`: round 139.
+- New here: the saturation `J ≈ X`, the Pochhammer characterisation, the family comparisons, the `4X` law over this range, and the corrections to rounds 136 and 159.
+
+**Bearing on RH:** none. These are upper bounds on `λ₁`; RH needs the lower half.
+
+## Round 161: the first positivity failure (`src/FirstFailure.lean`, `frontier/firstfail/`)
+
+**The in-house technique.** Rounds 146–150 built two continuation arguments: the parity gap (route B) and even-sector simplicity (route A). Each ends in a *first-failure* structure. The same argument applies one level down, to positivity itself.
+
+**Theorems** (Lean; 120 lines; every one prints `[propext, Classical.choice, Quot.sound]` only):
+- **`lam_ge_quarter`**: `λ₁(a) ≥ 1/4` for `0 < a ≤ 1/16`, from round 121's probe-wise bound.
+- **`exists_lam_neg_of_not_RH`**: with finitely many off-line zeros, `¬RH` gives a support with `λ₁ < 0`, via `weil_criterion_zeta` (round 157).
+- **`first_failure`**: with finitely many off-line zeros, `¬RH` gives `a₁ > 1/16` such that:
+  - `λ₁ > 0` on `(0, a₁)`, `λ₁(a₁) = 0`, `λ₁ ≤ 0` on `[a₁, ∞)`, and `λ₁ < 0` at some `a₀ ≥ a₁`;
+  - `Q ≥ 0` on every probe at support `a₁`;
+  - a normalised ground state `g*` has `Q(g*) = 0` and satisfies the kernel equation `bil0(g*, ψ) + 2ĝ*(i/2)ψ̂(i/2) = 0` for every probe `ψ`.
+
+  Ingredients: `continuousOn_lam` (round 148), `lam_antitone`, `exists_groundState`, `euler_lagrange_mem`, with `a₁ = inf{a > 0 : λ₁(a) ≤ 0}`.
+
+**Build fix.** `build.sh` had no `WeilRH` line since round 157. It is added, and `SimpleCont` now writes an olean.
+
+**The three first-failure events.**
+
+| route | event at the first failure | Lean | start | measured margin |
+|---|---|---|---|---|
+| positivity (this round) | `λ₁ = 0`, and a PSD form with a kernel vector | `first_failure` | `a > 1/16` pure Lean; 0.8 with certificates | `λ₁ ≈ e^{−4X}`, absolute, tends to 0 |
+| simplicity (A) | the first degeneracy, which carries a Green chain | `first_degeneracy_036`, `secular_of_not_simple` | `a ≥ 0.36` | ratio `λ_⊥/λ₁`, `2×10⁷` at `δ = 2.5` and growing |
+| parity (B) | an even–odd crossing | `parityGap_of_no_crossing_quarter` | `a ≥ 1/4` | ratio `λ_o/λ_e ≈ 1.4κ²` |
+
+- Positivity is the only route whose margin tends to 0 in absolute terms. Any argument there must contradict the kernel equation *exactly*.
+- The other two margins are ratios that grow. They are still not robust: an additive perturbation of size `≫ λ₁` destroys them.
+
+**Zero-side reading of the kernel** (paper, not Lean).
+- **The identity.** Assuming the explicit formula extends to `g*` and to the test probes (proved for C² probes, round 157), the kernel equation reads
+  `Σ_on ĝ*(γ)ψ̂(γ) = −Σ_off ĝ*(τ)ψ̂(τ)` for every probe `ψ`, with the off-line side a finite sum.
+  - On `V = {ψ : ψ̂(τ) = 0` at the off-line zeros`}` (codimension `≤ 2m` for `m` quadruples), `Q` is the on-line sum and is `≥ 0`.
+  - At `ψ = g*`: `Σ_on ĝ*(γ)² = −4Σ Re ĝ*(τ)² > 0`.
+- **`g*` cannot vanish at every zero.** `ĝ*` has exponential type `a₁`, so it has `O(r)` zeros in `|z| < r`, while `Ξ` has `~ (r/π)ln r`. So some off-line `ĝ*(τ)` is nonzero and the off-line sum is strictly negative. That is Weil's mechanism (round 120, `offline_negative`), now located at the first failure.
+- **Where `a₁` sits.**
+  - A zero count bounds the detection support: an entire function of type `a` can vanish at every zero of `Ξ` below height `T` only while `ln(T/2πe) ≲ 2a`.
+  - So an off-line zero at height `γ₀` becomes detectable at `e^{2a₁} ≈ γ₀/17.1` (cumulative count), or at `γ₀/6.3` (local density `a/π`).
+  - Round 119 measured `e^{2a₁} ≈ (0.9–1.45)·γ₀/10.8` on the window chain, which lies between the two. This gives round 119's empirical horizon a derivation up to an `O(1)` factor. It is new to the pilot and presumably folklore.
+
+**What could contradict the kernel equation, and the Davenport–Heilbronn barrier** (`frontier/firstfail/markov.py`).
+- **Setup.** At fixed `a₁` the form sees only `Λ(n)` for `n ≤ e^{2a₁}`. The one arithmetic input the pilot uses beyond the explicit formula is Markov positivity: the prime weights `c(n)` of `−F′/F` are `≥ 0` (`Positivity.lean`, round 151's ground-state transform).
+- **Test.** Does that property already separate `ζ` from the classical functions that have functional equations and off-line zeros? Up to `n ≤ 20000`:
+
+  | function | Euler product | `c(n) < 0` | support off prime powers | first negatives |
+  |---|---|---|---|---|
+  | `ζ` | yes | 0 | none | — |
+  | Dedekind `ζ_{ℚ(√−5)}` | yes | 0 | none | — |
+  | Epstein `x² + 5y²` (off-line zeros) | no | 305 | 1104 (from `n = 6`) | `36, 54, 84, 126` |
+  | Davenport–Heilbronn (off-line zeros) | no | 3909 | 5502 (from `n = 6`) | `3, 4, 9, 12` |
+
+- **Reading.**
+  - Both classical counterexamples violate `c ≥ 0`: Davenport–Heilbronn at `n = 3`, Epstein at `n = 36`. So an argument that genuinely uses `c(n) ≥ 0` for *every* `n` is not refuted by either.
+  - Epstein's form is Markov for `2a < ln 36`. So `c ≥ 0` up to `e^{2a}` alone, at fixed support, cannot separate the two.
+  - `c ≥ 0` is still far from sufficient. For the weights `tΛ`, `t > 1`, positivity fails at once: `λ₁ ≈ e^{−4X}`, while `∂λ₁/∂Λ(n)` is of order the autocorrelation of `g*` at lag `ln n`. That is the precision barrier again.
+  - What remains available is an **exact multiplicative identity**: `Λ(p^k) = Λ(p)`, or Selberg's `Λ·log + Λ⋆Λ = μ⋆log²`, which is `(ζ′/ζ)′` in operator form (`T_{ln d}T_{ln n/d} = T_{ln n}` on the whole line).
+  - On the window `[−a, a]`, compression breaks that algebra by edge terms. At the first failure those edge terms meet `g*`, whose edge values are super-exponentially small (round 139).
+  - Whether the compressed identity forces a contradiction with the kernel equation is the open question this round isolates. No calculation of it is attempted here.
+
+**Check 4.**
+- Continuation, first-failure structures and margins: rounds 146–151 (acknowledged).
+- Detection horizon: round 119 (acknowledged); the density derivation is new.
+- Precision barrier: round 159, and the earlier audit (acknowledged).
+- New here: `first_failure` and its companions, the zero-side reading at `a₁`, the Markov-sign table, and the `WeilRH` build fix.
+
+**Bearing on RH:** none. `first_failure` restates the negation of RH (finite exceptions) as the existence of a PSD kernel vector. Nothing here excludes it.
