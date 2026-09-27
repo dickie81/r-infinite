@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 545 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 554 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -5054,5 +5054,36 @@ Round 133 (`lam_decay`) bounds rung 0 of the round-152 ladder: `λ₁(a) ≤ K e
 - **Consolidation note.** `Mollify.lean` and `ParityCont.lean` each carry dilation machinery (`memLp_dil`/`memLp_dilS` and relatives, renamed in round 146 to avoid the clash). Merging them is a future cleanup.
 
 **Check 4.** Round 139/152 observed the ladder numerically. Round 62 built twins for the converse, and round 133 proved rung 0. The rung-1 and rung-2 upper bounds are new here.
+
+**Bearing on RH:** none.
+
+## Round 154: `DigammaDiff` proved (`src/DigammaGauss.lean`)
+
+Round 126 introduced `DigammaDiff`, Gauss's integral for the digamma function in difference form:
+
+`ψ(z) − ψ(w) = ∫_0^∞ (e^{−wt} − e^{−zt})/(1 − e^{−t}) dt`, for `Re z, Re w > 0`, with the integrand integrable.
+
+It was a named input because Mathlib's `Digamma.lean` lists the integral representation as a TODO. It is now a theorem, `digammaDiff : DigammaDiff` (`ExplicitBridge.lean`). The proof uses only Mathlib's `ψ = Γ′/Γ`, the recurrence `ψ(s + n) = ψ(s) + Σ_{k<n} 1/(s + k)` (`digamma_apply_add_nat`), and the convexity of `log Γ` on `(0, ∞)` (Bohr–Mollerup, `convexOn_log_Gamma`).
+
+**A. The series.** `ψ(z) − ψ(1) = Σ_k (1/(k + 1) − 1/(k + z))` for `Re z > 0` (`digamma_sub_one_eq`).
+- *On `(0, ∞)`.* The real digamma `(log Γ)′` is increasing, since `log Γ` is convex (`rpsi_mono`). The complex `ψ` agrees with it on the reals (`digamma_ofReal`, by uniqueness of the derivative along `ℝ`).
+- For `x, y ≤ K`, monotonicity and the recurrence squeeze `ψ(n) ≤ ψ(x + n), ψ(y + n) ≤ ψ(n) + K/n`, so `ψ(x + n) − ψ(y + n) → 0` (`tendsto_rpsi_sub`). The recurrence then telescopes to the series.
+- *To `Re z > 0`.* `ψ` is holomorphic there (`Γ` is holomorphic and nonzero). The series is holomorphic, being locally uniformly dominated by `C/(k + 1)²`. The two agree at `1 + 1/(n + 1) → 1`, so they agree on the half-plane by the identity theorem.
+
+**B. The integral** (`digamma_sub_eq_integral`).
+- Each term is `1/(k + w) − 1/(k + z) = ∫_0^∞ e^{−kt}(e^{−wt} − e^{−zt}) dt`.
+- The mean-value theorem on the half-plane `Re ≥ σ = min(Re z, Re w)` gives `|e^{−wt} − e^{−zt}| ≤ |z − w| t e^{−σt}`. So `∫|term_k| ≤ |z − w|/(k + σ)²`, which is summable, and sum and integral commute (`hasSum_integral_of_summable_integral_norm`).
+- The geometric series `Σ_k e^{−kt} = 1/(1 − e^{−t})` identifies the sum. Integrability of the kernel follows from `t/(1 − e^{−t}) ≤ 1 + t`.
+
+**Downstream.** The `(hD : DigammaDiff)` hypothesis is removed from every theorem that carried it:
+- `ExplicitBridge`: `psiRe_sub`, `hsq_psi_sub`, `arch_term`, `weilQ_eq_zero_sum`, `weilQ_eq_tsum`, `psiRe_ge`, `integrable_hsq_psi`, `weilQ_symbol`, the zeros-on-the-line results and the finrank bounds;
+- `WeilConverse`;
+- `PhiNull`;
+- `PhiDecay`: `weilQ_PhiA_le`, `lam_decay`, `lam_decay_zeta`;
+- `PhiLadder`: `weilQg_atwin_le`, `lamO_decay`, `weilQ_pair_le`, `lam2_decay`.
+
+**The remaining classical named inputs** are `WeilExplicit` (the Guinand–Weil explicit formula, per test function) and `BinetFormula` (Binet's second formula, used only in `Exterior.lean`, round 4).
+
+**Check 4.** This discharges a named input that rounds 126–153 carried. It is classical analysis: no bearing on RH, and no change to any conclusion.
 
 **Bearing on RH:** none.

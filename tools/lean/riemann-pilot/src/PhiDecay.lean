@@ -17,8 +17,8 @@ Riemann's kernel `Φ` is a null vector of the explicit formula (round 132, `Φ̂
 * **G**: `λ₁(a)‖Φ_a‖² ≤ Q(Φ_a)`, `‖Φ_a‖² ≥ ‖Φ_1‖² > 0`, so **`λ₁(a) ≤ K_B e^{−Ba}` for every `B`**
   (`lam_decay`; over the zeros of `ζ`, `lam_decay_zeta`).
 
-Named inputs: `WeilExplicit` for each `Φ_a` and for `1/(z² + 4)`, and `DigammaDiff`. The bound holds
-for every zero family on which `Ξ` vanishes inside the strip, on or off the critical line: it is an
+Named input: `WeilExplicit` for each `Φ_a` and for `1/(z² + 4)` (`DigammaDiff` is proved, round
+154). The bound holds for every zero family on which `Ξ` vanishes inside the strip, on or off the critical line: it is an
 upper bound on `λ₁`, and RH is the lower bound `λ₁ ≥ 0`. No bearing on RH.
 -/
 
@@ -524,11 +524,11 @@ theorem weilQ_PhiA_le {ι : Type*} {ρ : ι → ℂ} (hz : ∀ i, Xi ((ρ i - 1 
     (hs : ∀ i, |((ρ i - 1 / 2) / Complex.I).im| ≤ 1 / 2)
     (hS : Summable fun i => ‖1 / (((ρ i - 1 / 2) / Complex.I) ^ 2 + 4)‖)
     {a : ℝ} (ha : 0 < a)
-    (hEF : WeilExplicit ρ (fun z => ghatC (PhiA a) a z ^ 2) (hsq (PhiA a) a)) (hD : DigammaDiff)
+    (hEF : WeilExplicit ρ (fun z => ghatC (PhiA a) a z ^ 2) (hsq (PhiA a) a))
     {τ₀ τ₁ : ℝ} (h0 : ∀ i, ‖tailT RPhi a ((ρ i - 1 / 2) / Complex.I)‖ ≤ τ₀)
     (h1 : ∀ i, 2 * |RPhi a| * Real.exp (a / 2) + ‖tailT RPhi1 a ((ρ i - 1 / 2) / Complex.I)‖ ≤ τ₁) :
     weilQ a (PhiA a) ≤ (τ₁ ^ 2 + 4 * τ₀ ^ 2) * ∑' i, ‖1 / (((ρ i - 1 / 2) / Complex.I) ^ 2 + 4)‖ := by
-  have H := weilQ_eq_zero_sum (probe_PhiA ha.le) ha hEF hD
+  have H := weilQ_eq_zero_sum (probe_PhiA ha.le) ha hEF
   have Hre := Complex.reCLM.hasSum H
   simp only [Complex.reCLM_apply, Complex.ofReal_re] at Hre
   refine hasSum_le (fun i => ?_) Hre (hS.hasSum.mul_left _)
@@ -570,7 +570,7 @@ theorem lam_decay {ι : Type*} {ρ : ι → ℂ} (hz : ∀ i, Xi ((ρ i - 1 / 2)
     (hs : ∀ i, |((ρ i - 1 / 2) / Complex.I).im| ≤ 1 / 2)
     (hS : Summable fun i => ‖1 / (((ρ i - 1 / 2) / Complex.I) ^ 2 + 4)‖)
     (hEF : ∀ a, 1 ≤ a → WeilExplicit ρ (fun z => ghatC (PhiA a) a z ^ 2) (hsq (PhiA a) a))
-    (hD : DigammaDiff) (B : ℝ) :
+    (B : ℝ) :
     ∃ K, 0 ≤ K ∧ ∀ a, 1 ≤ a → lam a ≤ K * Real.exp (-B * a) := by
   set Dd := |B| / 2 + 2
   obtain ⟨C0, hC00, hC0⟩ := RPhi_decay_gen Dd
@@ -603,7 +603,7 @@ theorem lam_decay {ι : Type*} {ρ : ι → ℂ} (hz : ∀ i, Xi ((ρ i - 1 / 2)
             apply mul_le_mul_of_nonneg_left _ hC00
             exact Real.exp_le_exp.2 (by nlinarith)
     nlinarith
-  have hQ := weilQ_PhiA_le hz hs hS ha0 (hEF a ha) hD h0 h1
+  have hQ := weilQ_PhiA_le hz hs hS ha0 (hEF a ha) h0 h1
   have hlam := lam_mul_le (probe_PhiA ha0.le)
   have hE2 : E ^ 2 ≤ Real.exp (-B * a) := by
     rw [← Real.exp_nat_mul]; apply Real.exp_le_exp.2
@@ -619,16 +619,16 @@ theorem lam_decay {ι : Type*} {ρ : ι → ℂ} (hz : ∀ i, Xi ((ρ i - 1 / 2)
   · rw [div_mul_eq_mul_div, le_div_iff₀ hN1]
     nlinarith [mul_le_mul_of_nonneg_left hmono hl.le]
 
-/-- **The quantitative corollary over the zeros of `ζ`.** Named inputs: Weil's explicit formula for
-each `Φ_a` and for `h(z) = 1/(z² + 4)` (which gives `Σ_ρ ‖1/(t_ρ² + 4)‖ < ∞`), and Gauss's digamma
-integral. Then `λ₁(a) ≤ K e^{−Ba}` for every `B`. -/
+/-- **The quantitative corollary over the zeros of `ζ`.** Named input: Weil's explicit formula for
+each `Φ_a` and for `h(z) = 1/(z² + 4)` (which gives `Σ_ρ ‖1/(t_ρ² + 4)‖ < ∞`). Gauss's digamma
+integral is proved (`digammaDiff`). Then `λ₁(a) ≤ K e^{−Ba}` for every `B`. -/
 theorem lam_decay_zeta
     (hEF : ∀ a, 1 ≤ a →
       WeilExplicit zetaZeroFamily (fun z => ghatC (PhiA a) a z ^ 2) (hsq (PhiA a) a))
     (h4 : WeilExplicit zetaZeroFamily (fun z => 1 / (z ^ 2 + 4)) (fun r => 1 / (r ^ 2 + 4)))
-    (hD : DigammaDiff) (B : ℝ) :
+    (B : ℝ) :
     ∃ K, 0 ≤ K ∧ ∀ a, 1 ≤ a → lam a ≤ K * Real.exp (-B * a) := by
-  refine lam_decay Xi_zeta_zero (fun p => ?_) ?_ hEF hD B
+  refine lam_decay Xi_zeta_zero (fun p => ?_) ?_ hEF B
   · rw [im_ordinate, abs_neg, abs_le]
     obtain ⟨h1, h2⟩ := p.1.2.mem_strip
     exact ⟨by simp only [zetaZeroFamily]; linarith, by simp only [zetaZeroFamily]; linarith⟩

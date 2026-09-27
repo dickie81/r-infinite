@@ -225,17 +225,17 @@ zero outside `F` on the line: `Q(twin) ≤ 4Σ‖ĝ₀(t_i)²‖ + Σ_{i∈F} Re
 theorem weilQ_twin_le {b : ℝ} (hb : 0 < b) {g₀ : ℝ → ℝ} (hp : Probe b g₀) {l : ℝ} (hl : 0 ≤ l)
     (hEF0 : WeilExplicit ρ (fun z => ghatC g₀ b z ^ 2) (hsq g₀ b))
     (hEF : WeilExplicit ρ (fun z => ghatC (twin g₀ l) (l + b) z ^ 2) (hsq (twin g₀ l) (l + b)))
-    (hD : DigammaDiff) (F : Finset ι) (hF : ∀ i ∉ F, (ρ i).re = 1 / 2) :
+    (F : Finset ι) (hF : ∀ i ∉ F, (ρ i).re = 1 / 2) :
     weilQ (l + b) (twin g₀ l)
       ≤ (∑' i, 4 * ‖ghatC g₀ b (ordi ρ i) ^ 2‖)
         + ∑ i ∈ F, ((2 * Complex.cos (l * ordi ρ i) * ghatC g₀ b (ordi ρ i)) ^ 2).re := by
   classical
   have hlb : 0 < l + b := by linarith
-  have h := Complex.hasSum_re (weilQ_eq_zero_sum (twin_probe hp hl) hlb hEF hD)
+  have h := Complex.hasSum_re (weilQ_eq_zero_sum (twin_probe hp hl) hlb hEF)
   rw [Complex.ofReal_re] at h
   simp_rw [ghatC_twin hb hp hl] at h
   have hN : Summable fun i => ‖ghatC g₀ b (ordi ρ i) ^ 2‖ :=
-    summable_norm_iff.2 (weilQ_eq_zero_sum hp hb hEF0 hD).summable
+    summable_norm_iff.2 (weilQ_eq_zero_sum hp hb hEF0).summable
   set q : ι → ℝ := fun i => ((2 * Complex.cos (l * ordi ρ i) * ghatC g₀ b (ordi ρ i)) ^ 2).re
   have hfin0 : HasSum (fun i => if i ∈ F then q i else 0)
       (∑ i ∈ F, (if i ∈ F then q i else 0)) :=
@@ -468,7 +468,7 @@ large `T` the integral of a nonnegative function is negative. -/
 theorem exists_weilQ_neg_of_offline
     (hEF : ∀ (a : ℝ) (g : ℝ → ℝ), 0 < a → Probe a g →
       WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a))
-    (hD : DigammaDiff) (F : Finset ι) (hF : ∀ i ∉ F, (ρ i).re = 1 / 2)
+    (F : Finset ι) (hF : ∀ i ∉ F, (ρ i).re = 1 / 2)
     (hre : ∀ i ∈ F, (ρ i).im ≠ 0) (hoff : ∃ i ∈ F, (ρ i).re ≠ 1 / 2) :
     ∃ a g, 0 < a ∧ Probe a g ∧ weilQ a g < 0 := by
   classical
@@ -529,7 +529,7 @@ theorem exists_weilQ_neg_of_offline
       (S * Real.exp (-2 * Y * x) * wt μ θ x + ∑ i ∈ F, q i x * Real.exp (-2 * Y * x) * wt μ θ x) := by
     refine intervalIntegral.integral_nonneg hT fun x hx => ?_
     have h1 := weilQ_twin_le one_pos (box_probe 1) hx.1 (hEF 1 (box 1) one_pos (box_probe 1))
-      (hEF _ _ (by linarith [hx.1]) (twin_probe (box_probe 1) hx.1)) hD F hF
+      (hEF _ _ (by linarith [hx.1]) (twin_probe (box_probe 1) hx.1)) F hF
     have h2 := hpos x hx.1
     have e : S * Real.exp (-2 * Y * x) * wt μ θ x + ∑ i ∈ F, q i x * Real.exp (-2 * Y * x) * wt μ θ x
         = (S + ∑ i ∈ F, q i x) * (Real.exp (-2 * Y * x) * wt μ θ x) := by
@@ -575,7 +575,7 @@ at every support if and only if every zero is on the critical line. -/
 theorem weil_criterion_finite
     (hEF : ∀ (a : ℝ) (g : ℝ → ℝ), 0 < a → Probe a g →
       WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a))
-    (hD : DigammaDiff) (F : Finset ι) (hF : ∀ i ∉ F, (ρ i).re = 1 / 2)
+    (F : Finset ι) (hF : ∀ i ∉ F, (ρ i).re = 1 / 2)
     (hre : ∀ i ∈ F, (ρ i).im ≠ 0) :
     (∀ (a : ℝ) (g : ℝ → ℝ), 0 < a → Probe a g → 0 ≤ weilQ a g) ↔ ∀ i, (ρ i).re = 1 / 2 := by
   constructor
@@ -584,10 +584,10 @@ theorem weil_criterion_finite
     push Not at h
     obtain ⟨i, hi⟩ := h
     have hiF : i ∈ F := by by_contra h'; exact hi (hF i h')
-    obtain ⟨a, g, ha, hp, hneg⟩ := exists_weilQ_neg_of_offline hEF hD F hF hre ⟨i, hiF, hi⟩
+    obtain ⟨a, g, ha, hp, hneg⟩ := exists_weilQ_neg_of_offline hEF F hF hre ⟨i, hiF, hi⟩
     exact absurd (hQ a g ha hp) (not_le.2 hneg)
   · intro hline a g ha hp
-    exact weilQ_nonneg_of_zeros_on_line hp ha (hEF a g ha hp) hD hline
+    exact weilQ_nonneg_of_zeros_on_line hp ha (hEF a g ha hp) hline
 
 end Final
 

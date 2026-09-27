@@ -5,9 +5,9 @@ import ParityCont
 /-! # Round 153: jet upper bounds on the low spectrum (rungs 1 and 2 of the ladder)
 
 Round 133 (`lam_decay`) bounds rung 0: `λ₁(a) ≤ K e^{−Ba}` for every `B`, from the truncated null
-vector `Φ_a`. This file bounds the next two rungs in the same way, with the same named inputs
-(`WeilExplicit` for the trial functions used, `DigammaDiff`) and **no RH input**: the zero family may
-lie anywhere in the strip `|Im t| ≤ ½`.
+vector `Φ_a`. This file bounds the next two rungs in the same way, with the same named input
+(`WeilExplicit` for the trial functions used; `DigammaDiff` is proved, round 154) and **no RH
+input**: the zero family may lie anywhere in the strip `|Im t| ≤ ½`.
 
 The trial functions are copies of `Φ_b`, `b = a/8`, shifted to disjoint positions:
 * **twins** `T_l = Φ_b(· − l) + Φ_b(· + l)` (`twin`, round 62), with `T̂_l = 2cos(lz)Φ̂_b`;
@@ -238,7 +238,7 @@ theorem ghat_PhiA_sq_le {D C0 C1 : ℝ} (hD : 3 / 2 ≤ D) (hC00 : 0 ≤ C0)
 
 /-- **`Q(A_l) = Σ_ρ (4 − 4cos²(l t_ρ)) Φ̂_b(t_ρ)² ≤ 4e^{l} M S`** whenever `‖Φ̂_b(t_ρ)‖² ≤ M w_ρ`. -/
 theorem weilQg_atwin_le {ι : Type*} {ρ : ι → ℂ} (hs : ∀ i, |((ρ i - 1 / 2) / Complex.I).im| ≤ 1 / 2)
-    (hS : Summable fun i => ‖1 / (((ρ i - 1 / 2) / Complex.I) ^ 2 + 4)‖) (hD : DigammaDiff)
+    (hS : Summable fun i => ‖1 / (((ρ i - 1 / 2) / Complex.I) ^ 2 + 4)‖)
     {b l a : ℝ} (hb : 0 < b) (hl : 0 ≤ l) (h : b + l ≤ a)
     (hE0 : WeilExplicit ρ (fun z => ghatC (PhiA b) b z ^ 2) (hsq (PhiA b) b))
     (hEt : WeilExplicit ρ (fun z => ghatC (twin (PhiA b) l) (l + b) z ^ 2)
@@ -249,8 +249,8 @@ theorem weilQg_atwin_le {ι : Type*} {ρ : ι → ℂ} (hs : ∀ i, |((ρ i - 1 
       ≤ 4 * Real.exp l * M * ∑' i, ‖1 / (((ρ i - 1 / 2) / Complex.I) ^ 2 + 4)‖ := by
   have hp := probe_PhiA hb.le
   have hpt := twin_probe hp hl
-  have H0 := weilQ_eq_zero_sum hp hb hE0 hD
-  have Ht := weilQ_eq_zero_sum hpt (by linarith) hEt hD
+  have H0 := weilQ_eq_zero_sum hp hb hE0
+  have Ht := weilQ_eq_zero_sum hpt (by linarith) hEt
   have hlb : b + |l| ≤ a := by rwa [abs_of_nonneg hl]
   rw [weilQg_atwin hb hp hlb, weilQ_mono (by linarith) (by linarith) hpt]
   have H := (H0.mul_left 4).sub Ht
@@ -282,7 +282,7 @@ vanishes, in the strip, with `Σ‖1/(t² + 4)‖ < ∞`, and given the explicit
 its twins, `λ_odd(a) ≤ K e^{−Ba}` for `a ≥ 1`. -/
 theorem lamO_decay {ι : Type*} {ρ : ι → ℂ} (hz : ∀ i, Xi ((ρ i - 1 / 2) / Complex.I) = 0)
     (hs : ∀ i, |((ρ i - 1 / 2) / Complex.I).im| ≤ 1 / 2)
-    (hS : Summable fun i => ‖1 / (((ρ i - 1 / 2) / Complex.I) ^ 2 + 4)‖) (hD : DigammaDiff)
+    (hS : Summable fun i => ‖1 / (((ρ i - 1 / 2) / Complex.I) ^ 2 + 4)‖)
     (hE0 : ∀ b, 0 < b → WeilExplicit ρ (fun z => ghatC (PhiA b) b z ^ 2) (hsq (PhiA b) b))
     (hEt : ∀ b l, 0 < b → 0 ≤ l → WeilExplicit ρ (fun z => ghatC (twin (PhiA b) l) (l + b) z ^ 2)
       (hsq (twin (PhiA b) l) (l + b)))
@@ -305,7 +305,7 @@ theorem lamO_decay {ι : Type*} {ρ : ι → ℂ} (hz : ∀ i, Xi ((ρ i - 1 / 2
   have hb : 0 < b := by positivity
   set E := Real.exp (-(D - 3 / 2) * b)
   have hM := fun i => ghat_PhiA_sq_le hD32 hC00 hC0 hC1 (hs i) (hz i) hb
-  have hQ := weilQg_atwin_le hs hS hD hb (l := a / 4) (a := a) (by positivity)
+  have hQ := weilQg_atwin_le hs hS hb (l := a / 4) (a := a) (by positivity)
     (by simp only [b]; linarith) (hE0 b hb) (hEt b (a / 4) hb (by positivity)) hM
   set N := normSq (PhiA b)
   have hN : N1 ≤ N := normSq_PhiA_mono' (by norm_num) (by simp only [b]; linarith)
@@ -338,7 +338,7 @@ theorem lamO_decay {ι : Type*} {ρ : ι → ℂ} (hz : ∀ i, Xi ((ρ i - 1 / 2
 
 /-- **`Q(pT_l + qT_m) ≤ 4(|p| + |q|)² e^{m} M S`** whenever `‖Φ̂_b(t_ρ)‖² ≤ M w_ρ`. -/
 theorem weilQ_pair_le {ι : Type*} {ρ : ι → ℂ} (hs : ∀ i, |((ρ i - 1 / 2) / Complex.I).im| ≤ 1 / 2)
-    (hS : Summable fun i => ‖1 / (((ρ i - 1 / 2) / Complex.I) ^ 2 + 4)‖) (hD : DigammaDiff)
+    (hS : Summable fun i => ‖1 / (((ρ i - 1 / 2) / Complex.I) ^ 2 + 4)‖)
     {b l m a : ℝ} (hb : 0 < b) (hl : 0 ≤ l) (hlm : l ≤ m) (hma : m + b ≤ a) (p q : ℝ)
     (hEv : WeilExplicit ρ
       (fun z => ghatC (fun t => p * twin (PhiA b) l t + q * twin (PhiA b) m t) a z ^ 2)
@@ -353,7 +353,7 @@ theorem weilQ_pair_le {ι : Type*} {ρ : ι → ℂ} (hs : ∀ i, |((ρ i - 1 / 
   have hpm := twin_probe hp hm
   have hpv : Probe a (fun t => p * twin (PhiA b) l t + q * twin (PhiA b) m t) :=
     (probe_add_sub (probe_smul (hpl.mono (by linarith)) p) (probe_smul (hpm.mono hma) q)).1
-  have H := weilQ_eq_zero_sum hpv (by linarith) hEv hD
+  have H := weilQ_eq_zero_sum hpv (by linarith) hEv
   have Hre := Complex.reCLM.hasSum H
   simp only [Complex.reCLM_apply, Complex.ofReal_re] at Hre
   refine hasSum_le (fun i => ?_) Hre (hS.hasSum.mul_left _)
@@ -397,7 +397,7 @@ twins `T_{a/4}`, `T_{3a/4}` (built from `Φ_{a/8}`), `Q ≤ K e^{−Ba}`; so eve
 in min–max form (`Lam2Ge a s`) satisfies `s ≤ K e^{−Ba}` for `a ≥ 1`. -/
 theorem lam2_decay {ι : Type*} {ρ : ι → ℂ} (hz : ∀ i, Xi ((ρ i - 1 / 2) / Complex.I) = 0)
     (hs : ∀ i, |((ρ i - 1 / 2) / Complex.I).im| ≤ 1 / 2)
-    (hS : Summable fun i => ‖1 / (((ρ i - 1 / 2) / Complex.I) ^ 2 + 4)‖) (hD : DigammaDiff)
+    (hS : Summable fun i => ‖1 / (((ρ i - 1 / 2) / Complex.I) ^ 2 + 4)‖)
     (hEv : ∀ a, 1 ≤ a → ∀ p q : ℝ, WeilExplicit ρ
       (fun z => ghatC (fun t => p * twin (PhiA (a / 8)) (a / 4) t
         + q * twin (PhiA (a / 8)) (3 * a / 4) t) a z ^ 2)
@@ -449,7 +449,7 @@ theorem lam2_decay {ι : Type*} {ρ : ι → ℂ} (hz : ∀ i, Xi ((ρ i - 1 / 2
       = fun t => (α * c) * twin (PhiA (a / 8)) (a / 4) t
         + (β * c) * twin (PhiA (a / 8)) (3 * a / 4) t := by funext t; ring
   rw [ev] at hsv
-  have hQ := weilQ_pair_le hs hS hD hb (by positivity) (by linarith) (by linarith)
+  have hQ := weilQ_pair_le hs hS hb (by positivity) (by linarith) (by linarith)
     (α * c) (β * c) (hEv a ha _ _) hM
   have hP : (|α * c| + |β * c|) ^ 2 ≤ 1 / N := by
     have h2 : (α * c) ^ 2 + (β * c) ^ 2 = 1 / (2 * N) := by

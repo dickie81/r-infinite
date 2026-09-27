@@ -1,5 +1,6 @@
 import Mathlib
 import Mollify
+import DigammaGauss
 
 /-! # The explicit-formula bridge: `weilQ` is the zero side of Weil's explicit formula (round 126)
 
@@ -8,7 +9,7 @@ Exterior.lean's `WeilExplicit`, and the `hQ` hypotheses of Saturation.lean and U
 Nothing connected `WeilExplicit` (the classical Guinand–Weil statement, for a test function `h`) to
 the pilot's own `weilQ` (the prime-side form of Theorem 1bn(i)). This file proves the connection:
 
-  `WeilExplicit ρ ĝ² ĝ²|ℝ` and `DigammaDiff`  ⟹  `Σ_ρ ĝ(t_ρ)² = weilQ a g`   (`weilQ_eq_zero_sum`)
+  `WeilExplicit ρ ĝ² ĝ²|ℝ`  ⟹  `Σ_ρ ĝ(t_ρ)² = weilQ a g`   (`weilQ_eq_zero_sum`)
 
 for every even probe `g`. So `WeilExplicit` is the one named input, and the other three shapes follow.
 
@@ -19,13 +20,13 @@ SwapRealize.lean also uses it).
 * **`∫ĝ² < ∞`** (`integrable_hsq`), by Gaussian regularisation and monotone convergence.
 * **Fourier inversion** (`gh_hsq`): `g_h = f`, i.e. `(1/2π)∫ĝ(r)² cos(ru) dr = f(u)`. So the
   constant and prime terms of `WeilExplicit` are `weilQ`'s.
-* **The archimedean term**, given `DigammaDiff` (next item), by Tonelli and `t = 2u`:
+* **The archimedean term**, from `DigammaDiff` (next item), by Tonelli and `t = 2u`:
   `(1/2π)∫ĝ² Re ψ(¼ + ir/2) = Re ψ(¼)‖g‖² + archE g`.
 
-**The new named input `DigammaDiff`**: `ψ(z) − ψ(w) = ∫_0^∞ (e^{−wt} − e^{−zt})/(1 − e^{−t}) dt` for
-`Re z, Re w > 0`. This is Gauss's integral representation of the digamma function, in difference form.
-Mathlib's `Digamma.lean` lists it as a TODO, so it enters as a hypothesis, like `BinetFormula`
-(Exterior.lean) does.
+**`DigammaDiff`**: `ψ(z) − ψ(w) = ∫_0^∞ (e^{−wt} − e^{−zt})/(1 − e^{−t}) dt` for `Re z, Re w > 0`,
+Gauss's integral representation of the digamma function, in difference form. Mathlib's `Digamma.lean`
+lists it as a TODO. It entered in round 126 as a named input; round 154 proves it (`digammaDiff`,
+from `DigammaGauss.lean`), so no theorem here assumes it.
 -/
 
 open Real Filter Topology Complex MeasureTheory Set
@@ -39,7 +40,7 @@ variable {a : ℝ} {g : ℝ → ℝ}
 
 /-! ## B1. The digamma difference as a positive-kernel integral -/
 
-/-- **Named input: Gauss's digamma integral, in difference form.** For `Re z, Re w > 0`,
+/-- **Gauss's digamma integral, in difference form** (proved below as `digammaDiff`). For `Re z, Re w > 0`,
 `ψ(z) − ψ(w) = ∫_0^∞ (e^{−wt} − e^{−zt})/(1 − e^{−t}) dt`, with the integrand integrable.
 (Mathlib's `Digamma.lean` lists the integral representation as a TODO.) -/
 def DigammaDiff : Prop :=
@@ -48,6 +49,10 @@ def DigammaDiff : Prop :=
         (Ioi 0) ∧
       Complex.digamma z - Complex.digamma w
         = ∫ t in Ioi (0 : ℝ), (cexp (-(w * t)) - cexp (-(z * t))) / ((1 - Real.exp (-t) : ℝ) : ℂ)
+
+/-- **`DigammaDiff` is a theorem** (round 154, `DigammaGauss.lean`): proved from Mathlib's recurrence
+`ψ(s + n) = ψ(s) + Σ 1/(s + k)` and the convexity of `log Γ`. -/
+theorem digammaDiff : DigammaDiff := fun _ _ hz hw => PilotDigamma.digamma_sub_eq_integral hz hw
 
 /-- The kernel `e^{−t/4}/(1 − e^{−t})`. -/
 def kk (t : ℝ) : ℝ := Real.exp (-(t / 4)) / (1 - Real.exp (-t))
@@ -72,11 +77,11 @@ theorem kk_re (r t : ℝ) :
   ring
 
 /-- **B1**: `Re ψ(¼ + ir/2) − Re ψ(¼) = ∫_0^∞ k(t)(1 − cos(rt/2)) dt`, integrably. -/
-theorem psiRe_sub (hD : DigammaDiff) (r : ℝ) :
+theorem psiRe_sub (r : ℝ) :
     IntegrableOn (fun t => kk t * (1 - Real.cos (r * (t / 2)))) (Ioi 0) ∧
       psiRe r - psiRe 0 = ∫ t in Ioi (0 : ℝ), kk t * (1 - Real.cos (r * (t / 2))) := by
   have hz : ∀ s : ℝ, 0 < (zB s).re := fun s => by unfold zB; simp
-  obtain ⟨hI, hE⟩ := hD (zB r) (zB 0) (hz r) (hz 0)
+  obtain ⟨hI, hE⟩ := digammaDiff (zB r) (zB 0) (hz r) (hz 0)
   have hI' := hI.re
   simp only [RCLike.re_to_complex, kk_re] at hI'
   refine ⟨hI', ?_⟩
@@ -130,7 +135,7 @@ theorem phiA_integral (g : ℝ → ℝ) : ∫ t in Ioi (0 : ℝ), phiA g t = arc
   linarith
 
 /-- **B2**: `∫ ĝ(r)² (Re ψ(¼ + ir/2) − Re ψ(¼)) dr = 2π·E(g)`, integrably. -/
-theorem hsq_psi_sub (hp : Probe a g) (ha : 0 < a) (hD : DigammaDiff) :
+theorem hsq_psi_sub (hp : Probe a g) (ha : 0 < a) :
     Integrable (fun r => hsq g a r * (psiRe r - psiRe 0)) ∧
       ∫ r, hsq g a r * (psiRe r - psiRe 0) = 2 * π * archE g := by
   set ν := volume.restrict (Ioi (0 : ℝ))
@@ -168,7 +173,7 @@ theorem hsq_psi_sub (hp : Probe a g) (ha : 0 < a) (hD : DigammaDiff) :
   have hG : ∀ r, ∫ t, F (r, t) ∂ν = hsq g a r * (psiRe r - psiRe 0) := by
     intro r
     simp only [hFd, ν]
-    rw [integral_const_mul, (psiRe_sub hD r).2]
+    rw [integral_const_mul, (psiRe_sub r).2]
   have hGi := hF.integral_prod_left
   simp only [hG] at hGi
   refine ⟨hGi, ?_⟩
@@ -178,9 +183,9 @@ theorem hsq_psi_sub (hp : Probe a g) (ha : 0 < a) (hD : DigammaDiff) :
     _ = 2 * π * archE g := by rw [integral_const_mul, phiA_integral g]
 
 /-- `(1/2π)∫ ĝ² Re ψ(¼ + ir/2) = Re ψ(¼)‖g‖² + E(g)`. -/
-theorem arch_term (hp : Probe a g) (ha : 0 < a) (hD : DigammaDiff) :
+theorem arch_term (hp : Probe a g) (ha : 0 < a) :
     1 / (2 * π) * ∫ r, hsq g a r * psiRe r = psiRe 0 * normSq g + archE g := by
-  obtain ⟨hi, he⟩ := hsq_psi_sub hp ha hD
+  obtain ⟨hi, he⟩ := hsq_psi_sub hp ha
   have e : (fun r => hsq g a r * psiRe r)
       = fun r => hsq g a r * (psiRe r - psiRe 0) + psiRe 0 * hsq g a r := by
     funext r; ring
@@ -197,9 +202,9 @@ theorem hsq_ofReal (hp : Probe a g) (ha : 0 ≤ a) (r : ℝ) :
   rw [ghatC_real hp.toE ha, hsq]; push_cast; rfl
 
 /-- **The explicit-formula bridge**: for an even probe `g`, Weil's explicit formula for `h = ĝ²`
-(and Gauss's digamma integral) gives `Σ_ρ ĝ(t_ρ)² = weilQ a g`. -/
+gives `Σ_ρ ĝ(t_ρ)² = weilQ a g`. -/
 theorem weilQ_eq_zero_sum {ι : Type*} {ρ : ι → ℂ} (hp : Probe a g) (ha : 0 < a)
-    (hEF : WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a)) (hD : DigammaDiff) :
+    (hEF : WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a)) :
     HasSum (fun i => ghatC g a ((ρ i - 1 / 2) / Complex.I) ^ 2) (weilQ a g : ℂ) := by
   obtain ⟨-, hS⟩ := hEF
   convert hS using 1
@@ -213,18 +218,18 @@ theorem weilQ_eq_zero_sum {ι : Type*} {ρ : ι → ℂ} (hp : Probe a g) (ha : 
     unfold primeS; congr 1; funext n; rw [gh_hsq hp.toE ha]
   have hz0 : psiRe 0 = (Complex.digamma (1 / 4)).re := by unfold psiRe zB; simp
   simp only
-  rw [hpole1, hpole2, hg0, hpr, arch_term hp ha hD, hz0, weilQ_eq', weilConst]
+  rw [hpole1, hpole2, hg0, hpr, arch_term hp ha, hz0, weilQ_eq', weilConst]
   push_cast; ring
 
 /-- The same, as the zero-sum identity `weilQ a g = Σ_ρ ĝ(t_ρ)²`. -/
 theorem weilQ_eq_tsum {ι : Type*} {ρ : ι → ℂ} (hp : Probe a g) (ha : 0 < a)
-    (hEF : WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a)) (hD : DigammaDiff) :
+    (hEF : WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a)) :
     (weilQ a g : ℂ) = ∑' i, ghatC g a ((ρ i - 1 / 2) / Complex.I) ^ 2 :=
-  (weilQ_eq_zero_sum hp ha hEF hD).tsum_eq.symm
+  (weilQ_eq_zero_sum hp ha hEF).tsum_eq.symm
 
 /-! ## C. The symbol form and the jump form
 
-With `DigammaDiff` alone (no `WeilExplicit`), Weil's form is a rank-one pole term plus a Toeplitz
+With no `WeilExplicit` input, Weil's form is a rank-one pole term plus a Toeplitz
 (truncated Wiener–Hopf) form with an explicit symbol:
 
   `Q(g) = 2ĝ(i/2)² + (1/2π)∫ ĝ(r)² σ_a(r) dr`,
@@ -244,22 +249,22 @@ def sigmaW (a r : ℝ) : ℝ :=
     ArithmeticFunction.vonMangoldt n / Real.sqrt n * Real.cos (r * Real.log n)
 
 /-- The Lévy–Khintchine exponent is nonnegative: `Re ψ(¼) ≤ Re ψ(¼ + ir/2)`. -/
-theorem psiRe_ge (hD : DigammaDiff) (r : ℝ) : psiRe 0 ≤ psiRe r := by
-  obtain ⟨-, he⟩ := psiRe_sub hD r
+theorem psiRe_ge (r : ℝ) : psiRe 0 ≤ psiRe r := by
+  obtain ⟨-, he⟩ := psiRe_sub r
   have : 0 ≤ ∫ t in Ioi (0 : ℝ), kk t * (1 - Real.cos (r * (t / 2))) :=
     setIntegral_nonneg measurableSet_Ioi fun t ht =>
       mul_nonneg (kk_nonneg ht) (by linarith [Real.cos_le_one (r * (t / 2))])
   linarith
 
-theorem integrable_hsq_psi (hp : Probe a g) (ha : 0 < a) (hD : DigammaDiff) :
+theorem integrable_hsq_psi (hp : Probe a g) (ha : 0 < a) :
     Integrable (fun r => hsq g a r * psiRe r) := by
-  obtain ⟨hi, -⟩ := hsq_psi_sub hp ha hD
+  obtain ⟨hi, -⟩ := hsq_psi_sub hp ha
   refine (hi.add ((integrable_hsq hp.toE ha).const_mul (psiRe 0))).congr
     (Eventually.of_forall fun r => ?_)
   simp only [Pi.add_apply]; ring
 
-/-- **The symbol form**: `Q(g) = 2ĝ(i/2)² + (1/2π)∫ĝ(r)²σ_a(r) dr`, given `DigammaDiff`. -/
-theorem weilQ_symbol (hp : Probe a g) (ha : 0 < a) (hD : DigammaDiff) :
+/-- **The symbol form**: `Q(g) = 2ĝ(i/2)² + (1/2π)∫ĝ(r)²σ_a(r) dr`. -/
+theorem weilQ_symbol (hp : Probe a g) (ha : 0 < a) :
     weilQ a g = 2 * poleR g a ^ 2 + 1 / (2 * π) * ∫ r, hsq g a r * sigmaW a r := by
   set S := Finset.range (primeCut a)
   set c : ℕ → ℝ := fun n => ArithmeticFunction.vonMangoldt n / Real.sqrt n with hc
@@ -275,18 +280,18 @@ theorem weilQ_symbol (hp : Probe a g) (ha : 0 < a) (hD : DigammaDiff) :
     unfold sigmaW; rw [mul_sub, mul_sub, h1]; ring
   have hsum := integrable_finsetSum S hI
   have i1 : Integrable (fun r => hsq g a r * psiRe r - Real.log π * hsq g a r) :=
-    (integrable_hsq_psi hp ha hD).sub ((integrable_hsq hp.toE ha).const_mul _)
+    (integrable_hsq_psi hp ha).sub ((integrable_hsq hp.toE ha).const_mul _)
   have i2 : Integrable (fun r => 2 * ∑ n ∈ S, c n * (hsq g a r * Real.cos (r * Real.log n))) :=
     hsum.const_mul 2
   rw [e, integral_sub i1 i2,
-    integral_sub (integrable_hsq_psi hp ha hD) ((integrable_hsq hp.toE ha).const_mul _),
+    integral_sub (integrable_hsq_psi hp ha) ((integrable_hsq hp.toE ha).const_mul _),
     integral_const_mul, integral_const_mul, integral_finsetSum S hI]
   have hprime : ∑ n ∈ S, ∫ r, c n * (hsq g a r * Real.cos (r * Real.log n))
       = 2 * π * primeS g := by
     unfold primeS; rw [prime_sum_eq hp.supp, Finset.mul_sum]
     refine Finset.sum_congr rfl fun n _ => ?_
     rw [integral_const_mul, integral_hsq_cos hp.toE ha]; ring
-  have harch := arch_term hp ha hD
+  have harch := arch_term hp ha
   have hz0 : psiRe 0 = (Complex.digamma (1 / 4)).re := by unfold psiRe zB; simp
   rw [hprime, integral_hsq hp.toE ha, weilQ_eq', weilConst, ← hz0]
   have hπ : (0 : ℝ) < 2 * π := by positivity
@@ -342,9 +347,9 @@ theorem im_ghat_of_real (hp : Probe a g) (ha : 0 < a) {t : ℂ} (ht : t.im = 0) 
 
 /-- If every term `ĝ(t_i)` of the zero sum is real, then `Q(g) ≥ 0`. -/
 theorem weilQ_nonneg_of_terms_real (hp : Probe a g) (ha : 0 < a)
-    (hEF : WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a)) (hD : DigammaDiff)
+    (hEF : WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a))
     (hreal : ∀ i, (ghatC g a ((ρ i - 1 / 2) / Complex.I)).im = 0) : 0 ≤ weilQ a g := by
-  have h := Complex.hasSum_re (weilQ_eq_zero_sum hp ha hEF hD)
+  have h := Complex.hasSum_re (weilQ_eq_zero_sum hp ha hEF)
   rw [Complex.ofReal_re] at h
   refine HasSum.nonneg (fun i => ?_) h
   have hi := hreal i
@@ -354,17 +359,17 @@ theorem weilQ_nonneg_of_terms_real (hp : Probe a g) (ha : 0 < a)
 /-- **RH ⇒ Weil positivity**: if every zero of the family is on the critical line, `Q(g) ≥ 0` for
 every even probe at every support. -/
 theorem weilQ_nonneg_of_zeros_on_line (hp : Probe a g) (ha : 0 < a)
-    (hEF : WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a)) (hD : DigammaDiff)
+    (hEF : WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a))
     (hline : ∀ i, (ρ i).re = 1 / 2) : 0 ≤ weilQ a g :=
-  weilQ_nonneg_of_terms_real hp ha hEF hD fun i => im_ghat_of_real hp ha (ordinate_im_zero (hline i))
+  weilQ_nonneg_of_terms_real hp ha hEF fun i => im_ghat_of_real hp ha (ordinate_im_zero (hline i))
 
 /-- **A negative value of `Q` exhibits an off-line zero.** -/
 theorem exists_offline_of_neg (hp : Probe a g) (ha : 0 < a)
-    (hEF : WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a)) (hD : DigammaDiff)
+    (hEF : WeilExplicit ρ (fun z => ghatC g a z ^ 2) (hsq g a))
     (hneg : weilQ a g < 0) : ∃ i, (ρ i).re ≠ 1 / 2 := by
   by_contra h
   push Not at h
-  exact absurd (weilQ_nonneg_of_zeros_on_line hp ha hEF hD h) (not_le.2 hneg)
+  exact absurd (weilQ_nonneg_of_zeros_on_line hp ha hEF h) (not_le.2 hneg)
 
 /-- On the orbit `{w, −w, w̄, −w̄}` the transform of an even real function is real as soon as it is
 real at `w`. -/
@@ -387,7 +392,7 @@ representative, so a multiple quadruple still counts once: it contributes `m·4 
 direction. -/
 theorem finrank_le_quadruples (V : Submodule ℝ (ℝ → ℝ)) [FiniteDimensional ℝ V] (ha : 0 < a)
     (hV : ∀ v ∈ V, Probe a v) (hneg : ∀ v ∈ V, v ≠ 0 → weilQ a v < 0)
-    (hEF : ∀ v ∈ V, WeilExplicit ρ (fun z => ghatC v a z ^ 2) (hsq v a)) (hD : DigammaDiff)
+    (hEF : ∀ v ∈ V, WeilExplicit ρ (fun z => ghatC v a z ^ 2) (hsq v a))
     (R : Finset ι)
     (hR : ∀ i, (ρ i).re = 1 / 2 ∨ ∃ r ∈ R,
       let t := (ρ i - 1 / 2) / Complex.I
@@ -417,7 +422,7 @@ theorem finrank_le_quadruples (V : Submodule ℝ (ℝ → ℝ)) [FiniteDimension
   obtain ⟨v, hvk, hv0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hker
   have hv0' : (v : ℝ → ℝ) ≠ 0 := fun h => hv0 (Subtype.ext h)
   have hq := hneg v v.2 hv0'
-  have hnn : 0 ≤ weilQ a v := weilQ_nonneg_of_terms_real (hV v v.2) ha (hEF v v.2) hD fun i => by
+  have hnn : 0 ≤ weilQ a v := weilQ_nonneg_of_terms_real (hV v v.2) ha (hEF v v.2) fun i => by
     rcases hR i with hi | ⟨r, hr, horb⟩
     · exact im_ghat_of_real (hV v v.2) ha (ordinate_im_zero hi)
     · have hw := congrFun (LinearMap.mem_ker.1 hvk) ⟨r, hr⟩
@@ -430,10 +435,10 @@ its own representative). If `Q` is negative definite on a finite-dimensional spa
 support `a`, and every zero outside the finite set `F` is on the line, then `dim V ≤ |F|`. -/
 theorem finrank_le_offline (V : Submodule ℝ (ℝ → ℝ)) [FiniteDimensional ℝ V] (ha : 0 < a)
     (hV : ∀ v ∈ V, Probe a v) (hneg : ∀ v ∈ V, v ≠ 0 → weilQ a v < 0)
-    (hEF : ∀ v ∈ V, WeilExplicit ρ (fun z => ghatC v a z ^ 2) (hsq v a)) (hD : DigammaDiff)
+    (hEF : ∀ v ∈ V, WeilExplicit ρ (fun z => ghatC v a z ^ 2) (hsq v a))
     (F : Finset ι) (hF : ∀ i ∉ F, (ρ i).re = 1 / 2) :
     Module.finrank ℝ V ≤ F.card :=
-  finrank_le_quadruples V ha hV hneg hEF hD F fun i => by
+  finrank_le_quadruples V ha hV hneg hEF F fun i => by
     by_cases hi : i ∈ F
     · exact Or.inr ⟨i, hi, Or.inl rfl⟩
     · exact Or.inl (hF i hi)
@@ -442,6 +447,7 @@ end Index
 
 end Pilot1ca
 
+#print axioms Pilot1ca.digammaDiff
 #print axioms Pilot1ca.psiRe_sub
 #print axioms Pilot1ca.hsq_psi_sub
 #print axioms Pilot1ca.arch_term

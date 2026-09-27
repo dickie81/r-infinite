@@ -102,13 +102,12 @@ theorem ghatC_sub' (hg : MeasureTheory.MemLp g 2 MeasureTheory.volume) (hk : Mea
 /-- **The bilinear Weil form is the bilinear zero sum**: `Σ_ρ ĝ(t_ρ)k̂(t_ρ) = (Q(g + k) − Q(g − k))/4`. -/
 theorem bil_zero_sum {ι : Type*} {ρ : ι → ℂ} (hg : Probe a g) (hk : Probe a k) (ha : 0 < a)
     (hEp : WeilExplicit ρ (fun z => ghatC (fun t => g t + k t) a z ^ 2) (hsq (fun t => g t + k t) a))
-    (hEm : WeilExplicit ρ (fun z => ghatC (fun t => g t - k t) a z ^ 2) (hsq (fun t => g t - k t) a))
-    (hD : DigammaDiff) :
+    (hEm : WeilExplicit ρ (fun z => ghatC (fun t => g t - k t) a z ^ 2) (hsq (fun t => g t - k t) a)) :
     HasSum (fun i => ghatC g a ((ρ i - 1 / 2) / I) * ghatC k a ((ρ i - 1 / 2) / I))
       (((weilQ a (fun t => g t + k t) - weilQ a (fun t => g t - k t)) / 4 : ℝ) : ℂ) := by
   obtain ⟨hpp, hpm⟩ := probe_add_sub hg hk
-  have hp := weilQ_eq_zero_sum hpp ha hEp hD
-  have hm := weilQ_eq_zero_sum hpm ha hEm hD
+  have hp := weilQ_eq_zero_sum hpp ha hEp
+  have hm := weilQ_eq_zero_sum hpm ha hEm
   have h := (hp.sub hm).div_const 4
   convert h using 1
   · funext i
