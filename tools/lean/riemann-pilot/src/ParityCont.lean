@@ -471,7 +471,7 @@ theorem dil_supp {a s : ℝ} (hs : 0 < s) {o : ℝ → ℝ} (hsupp : ∀ u, a < 
   unfold dil
   rw [hsupp (s * u) (by rw [abs_mul, abs_of_pos hs]; rwa [div_lt_iff₀' hs] at hu), mul_zero]
 
-theorem memLp_dil {s : ℝ} (hs : 0 < s) {o : ℝ → ℝ} (ho : MemLp o 2 volume) : MemLp (dil s o) 2 volume := by
+theorem memLp_dilS {s : ℝ} (hs : 0 < s) {o : ℝ → ℝ} (ho : MemLp o 2 volume) : MemLp (dil s o) 2 volume := by
   have hm : AEStronglyMeasurable (fun t => o (s * t)) volume := by
     have := ho.aestronglyMeasurable.comp_quasiMeasurePreserving
       (Measure.quasiMeasurePreserving_smul volume hs.ne')
@@ -495,10 +495,10 @@ theorem autocorr_dil {s : ℝ} (hs : 0 < s) (o : ℝ → ℝ) (u : ℝ) :
   rw [integral_const_mul, hc, abs_of_pos (inv_pos.2 hs), smul_eq_mul,
     ← mul_assoc, mul_inv_cancel₀ hs.ne', one_mul]
 
-theorem normSq_dil {s : ℝ} (hs : 0 < s) (o : ℝ → ℝ) : normSq (dil s o) = normSq o := by
+theorem normSq_dilS {s : ℝ} (hs : 0 < s) (o : ℝ → ℝ) : normSq (dil s o) = normSq o := by
   rw [← autocorr_zero, ← autocorr_zero, autocorr_dil hs, mul_zero]
 
-theorem archIntegrand_dil {s : ℝ} (hs : 0 < s) (o : ℝ → ℝ) (u : ℝ) :
+theorem archIntegrand_dilS {s : ℝ} (hs : 0 < s) (o : ℝ → ℝ) (u : ℝ) :
     archIntegrand (dil s o) u = Gs o s (s * u) := by
   unfold archIntegrand Gs kerK
   rw [autocorr_dil hs, autocorr_dil hs, mul_zero, mul_div_cancel_left₀ _ hs.ne']
@@ -578,24 +578,24 @@ theorem integrableOn_Gs {a : ℝ} {o : ℝ → ℝ} (hp : SProbe a o) {s : ℝ} 
 theorem arch_dil {a : ℝ} {o : ℝ → ℝ} (hp : SProbe a o) {s : ℝ} (hs1 : 1 ≤ s) (hs2 : s ≤ 2) :
     IntegrableOn (archIntegrand (dil s o)) (Ioi 0) := by
   have hs : 0 < s := by linarith
-  have e : archIntegrand (dil s o) = fun u => Gs o s (s * u) := funext (archIntegrand_dil hs o)
+  have e : archIntegrand (dil s o) = fun u => Gs o s (s * u) := funext (archIntegrand_dilS hs o)
   rw [e, integrableOn_Ioi_comp_mul_left_iff (Gs o s) 0 hs, mul_zero]
   exact integrableOn_Gs hp hs1 hs2
 
 theorem archE_dil {o : ℝ → ℝ} {s : ℝ} (hs : 0 < s) :
     archE (dil s o) = s⁻¹ * ∫ v in Ioi 0, Gs o s v := by
   unfold archE
-  simp_rw [archIntegrand_dil hs o]
+  simp_rw [archIntegrand_dilS hs o]
   rw [integral_comp_mul_left_Ioi (Gs o s) 0 hs, mul_zero, smul_eq_mul]
 
 /-- **Odd probes dilate to odd probes** (for `1 ≤ s ≤ 2`). -/
 theorem oprobe_dil {a : ℝ} {o : ℝ → ℝ} (hp : OProbe a o) {s : ℝ} (hs1 : 1 ≤ s) (hs2 : s ≤ 2) :
     OProbe (a / s) (dil s o) :=
-  ⟨dil_odd hp.odd, dil_supp (by linarith) hp.supp, memLp_dil (by linarith) hp.memL2,
+  ⟨dil_odd hp.odd, dil_supp (by linarith) hp.supp, memLp_dilS (by linarith) hp.memL2,
     arch_dil hp.toS hs1 hs2⟩
 
 /-- The archimedean energy is continuous under dilation at `s = 1`. -/
-theorem tendsto_archE_dil {a : ℝ} {o : ℝ → ℝ} (hp : SProbe a o) :
+theorem tendsto_archE_dilS {a : ℝ} {o : ℝ → ℝ} (hp : SProbe a o) :
     Tendsto (fun s => archE (dil s o)) (𝓝[Icc 1 2] 1) (𝓝 (archE o)) := by
   have hev : ∀ᶠ s in 𝓝[Icc 1 2] (1 : ℝ), s ∈ Icc (1 : ℝ) 2 := self_mem_nhdsWithin
   have hI : Tendsto (fun s => ∫ v in Ioi 0, Gs o s v) (𝓝[Icc 1 2] 1) (𝓝 (∫ v in Ioi 0, Gs o 1 v)) := by
@@ -713,13 +713,13 @@ theorem tendsto_weilQg_dil {a : ℝ} (ha : 0 < a) {o : ℝ → ℝ} (hp : OProbe
     Tendsto (fun s => weilQg a (dil s o)) (𝓝[Icc 1 2] 1) (𝓝 (weilQg a o)) := by
   have hev : ∀ᶠ s in 𝓝[Icc 1 2] (1 : ℝ), s ∈ Icc (1 : ℝ) 2 := self_mem_nhdsWithin
   have hlim := ((((tendsto_pole_dil ha hp.toS).pow 2).const_mul (-2)).add
-    (tendsto_const_nhds (x := weilConst * normSq o))).add (tendsto_archE_dil hp.toS) |>.sub
+    (tendsto_const_nhds (x := weilConst * normSq o))).add (tendsto_archE_dilS hp.toS) |>.sub
     ((tendsto_primeS_dil ha hp.toS).const_mul 2)
   rw [weilQg_odd_eq hp]
   refine hlim.congr' (hev.mono fun s hs => ?_)
   have hs0 : 0 < s := by linarith [hs.1]
   dsimp only
-  rw [weilQg_odd_eq ((oprobe_dil hp hs.1 hs.2).mono (div_le_self ha.le hs.1)), normSq_dil hs0]
+  rw [weilQg_odd_eq ((oprobe_dil hp hs.1 hs.2).mono (div_le_self ha.le hs.1)), normSq_dilS hs0]
 
 /-- **Left-continuity of `λ_odd`.** -/
 theorem lamO_left {a : ℝ} (ha : 0 < a) {ε : ℝ} (hε : 0 < ε) :
@@ -750,7 +750,7 @@ theorem lamO_left {a : ℝ} (ha : 0 < a) {ε : ℝ} (hε : 0 < ε) :
   have hQ : weilQg a (dil s o) < lamO a + ε := hUs ⟨hsU, hs1, hs2⟩
   have hbs : a / s = b := by rw [hsdef]; field_simp
   have hpb : OProbe b (dil s o) := hbs ▸ oprobe_dil hp hs1 hs2
-  have hnb : normSq (dil s o) = 1 := by rw [normSq_dil (by linarith), hn]
+  have hnb : normSq (dil s o) = 1 := by rw [normSq_dilS (by linarith), hn]
   have := lamO_le hb0 hpb hnb
   rw [← weilQg_mono hb0.le hba hpb.supp] at this
   linarith

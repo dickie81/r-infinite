@@ -208,13 +208,13 @@ theorem lam_left {a : ℝ} (ha : 0 < a) {ε : ℝ} (hε : 0 < ε) :
   have hev0 : ∀ᶠ s in 𝓝[Icc 1 2] (1 : ℝ), s ∈ Icc (1 : ℝ) 2 := self_mem_nhdsWithin
   have hT : Tendsto (fun s => weilQ a (dil s o)) (𝓝[Icc 1 2] 1) (𝓝 (weilQ a o)) := by
     have hlim := ((((tendsto_pole_dil ha hp.toS).pow 2).const_mul 2).add
-      (tendsto_const_nhds (x := weilConst * normSq o))).add (tendsto_archE_dil hp.toS) |>.sub
+      (tendsto_const_nhds (x := weilConst * normSq o))).add (tendsto_archE_dilS hp.toS) |>.sub
       ((tendsto_primeS_dil ha hp.toS).const_mul 2)
     rw [weilQ_eq']
     refine hlim.congr' (hev0.mono fun s hs => ?_)
     have hs0 : 0 < s := by linarith [hs.1]
     dsimp only
-    rw [weilQ_eq', normSq_dil hs0]
+    rw [weilQ_eq', normSq_dilS hs0]
   have hev : ∀ᶠ s in 𝓝[Icc 1 2] (1 : ℝ), weilQ a (dil s o) < lam a + ε :=
     hT.eventually (gt_mem_nhds (by linarith))
   obtain ⟨U, hUo, h1U, hUs⟩ := mem_nhdsWithin.1 hev
@@ -239,8 +239,8 @@ theorem lam_left {a : ℝ} (ha : 0 < a) {ε : ℝ} (hε : 0 < ε) :
   have hbs : a / s = b := by rw [hsdef]; field_simp
   have hpb : Probe b (dil s o) :=
     hbs ▸ ⟨fun u => by unfold dil; rw [show s * -u = -(s * u) by ring, hp.even],
-      dil_supp (by linarith) hp.supp, memLp_dil (by linarith) hp.memL2, arch_dil hp.toS hs1 hs2⟩
-  have hnb : normSq (dil s o) = 1 := by rw [normSq_dil (by linarith), hn]
+      dil_supp (by linarith) hp.supp, memLp_dilS (by linarith) hp.memL2, arch_dil hp.toS hs1 hs2⟩
+  have hnb : normSq (dil s o) = 1 := by rw [normSq_dilS (by linarith), hn]
   have := lam_le hpb hnb
   rw [← weilQ_mono hb0.le hba hpb] at this
   linarith
