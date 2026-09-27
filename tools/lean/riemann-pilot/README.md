@@ -4531,7 +4531,7 @@ Scoped bound `κ + λ_min(LᵀSL)`, with the exact `Cin` tail and 25-decimal `ψ
 | 2.0 | ≤ 2.5e-197 | ≤ 5.2e-189 | ≤ 8.1e-189 | 0.641 | ≤ 4.1e-3 | ≤ 1.9e-13 | ≤ 7.6e-18 |
 
 - **(A): `c₂(a) → 0` super-exponentially.** It sits at a fixed fraction `≈ 0.64` of `λ₂(Q)`, which collapses too. The Galerkin values are Ritz upper bounds, so the collapse is not a truncation artefact. Route (A) needs `c₂ ≥ 0` with a margin that vanishes faster than any exponential, and `c₂ ≥ λ₁(Q) ≥ 0` is itself implied by RH. So the route has no margin to work with.
-- **(B): `δ_J(a) → 0` at every fixed `J`, including `J = 0`.** Up to `a = 1.5`, `‖g_a − Π₀g_a‖ ≈ 15τ` with `τ = e^{−2a}/(16π)`, consistent with the heat-flow picture `ĝ_a ≈ ½Ξ(z)e^{τz²}` (round 132's pencil). That gives `δ₀ ~ e^{−3a/2}√a`. Higher `J` add a factor of roughly `30–10³` per step.
+- **(B): `δ_J(a) → 0` at every fixed `J`, including `J = 0`.** Up to `a = 1.5`, `‖g_a − Π₀g_a‖ ≈ 15τ` with `τ = e^{−2a}/(16π)`, consistent with the heat-flow picture `ĝ_a ≈ ½Ξ(z)e^{τz²}` (the pencil of the whole-corpus review agent's E3 run, `scratchpad/hunt/e3_pencil.py`). That gives `δ₀ ~ e^{−3a/2}√a`. Higher `J` add a factor of roughly `30–10³` per step.
 
 **Reading.** Both quantities tend to zero, with opposite meanings. A vanishing `c₂` is a vanishing *margin*, so route (A) is dropped. A vanishing `δ_J` is route (B)'s *success condition*: `ĝ_a → ½Ξ` uniformly on the strip.
 - **What route (B) still needs.**
