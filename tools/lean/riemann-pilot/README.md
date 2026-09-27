@@ -4974,3 +4974,24 @@ Round 50's README already stated the "only failure mode" and observed that the `
 **What this pins down.** On the simplicity route, failure means exactly one event: the second `Q₀` level, restricted to `φ₀^⊥`, descending to `λ₁(Q)`. Round 149 measures the ratio of these two at `2×10⁷` at δ = 2.5, and growing. Proving it stays above 1 is the open problem, and it needs a lower bound on `μ₂(Q₀)` at a super-exponentially small scale.
 
 **Bearing on RH:** none.
+
+## Round 151: lower bounds on `μ₂(Q₀)` (analysis, no Lean)
+
+**Prior work (Check 4).** Round 49 already reduced simplicity to `λ₁(Q) < μ₂(Q₀)`, including the pole-overlap identity `2·poleR(g)·⟨c, ψ₂⟩ = (λ₁ − μ₂)⟨g, ψ₂⟩` and the finding `⟨c, ψ₂⟩/μ₂ ≈ 0.35`. Rounds 148–150 formalised pieces of this; round 149's finding 1 re-measured round 49 §3.
+
+**The one general rigorous bound: Markov / Poincaré.**
+- **Setup.** `Q₀` is a Markov (jump) form, and its ground state `φ₀` is positive.
+- **Ground-state transform.** For `h = φ₀f ⊥ φ₀`:
+  `Q₀(h) − μ₁‖h‖² = ½∬k₀(x − y)φ₀(x)φ₀(y)(f(x) − f(y))²`, with `k₀ ≥ K(|x − y|) ≥ K(2a)`, where `K = e^{u/2}/sinh u` is decreasing and the prime jumps are `≥ 0`.
+- **Variance step.** Let `ν ∝ φ₀` and `μ ∝ φ₀²`. Then `E_μ f = 0`, `dμ/dν ≤ R`, and `Var_ν f ≥ E_μ f²/R`.
+- **Result.** `μ₂(Q₀) − μ₁(Q₀) ≥ K(2a)·∫φ₀/max φ₀ ≤ 2a·K(2a)`.
+- **Why it is useless.** `μ₁(Q₀)` is `O(1)` and negative (`−1.99, −4.31, −7.23` at δ = 1, 2, 3), while `2aK(2a) = 1.40, 1.50, 1.34`. So the bound gives `μ₂ ≥ −0.6, −2.8, −5.9`, against true values `1.2e-2, 1.6e-23, 1.2e-88`. `μ₂ − μ₁` equals `|μ₁|` to 88 digits, so a gap bound must be exact to super-exponential relative precision. Poincaré, Cheeger and log-Sobolev bounds all lose `O(1)`.
+
+**Other routes.**
+- **Temple / Lehmann–Goerisch.** These need a residual of about `√μ₂ ~ 10⁻⁴⁴`. The form's symbol grows only like `log r`, so Galerkin truncation errors decay like `1/log K`. This is feasible at fixed `a` only while `μ₂` is not too small (round 47's Zhu certificates reached `4×10⁻²⁶`, for `λ₂(Q)`). It certifies finite ranges only, never all large `a`.
+- **Relative bounds** `μ₂ ≥ c·λ₂(Q)` or `≥ C·λ₁(Q)`. These are equivalent to the open large-support asymptotics of the two lowest levels (round 49 §4: the prolate regime of Connes–Consani–Moscovici).
+- **Sign form** (round 49 identity). `μ₂ > λ₁` iff `poleR(g)·⟨c, ψ₂⟩·⟨g, ψ₂⟩ < 0`. This is a sign condition on edge-sized quantities, and no structural sign argument is known (round 49 §2: local and boundary arguments fail).
+
+**Status.** No lower bound on `μ₂(Q₀)` at the needed scale exists or is in reach with these tools. The certified range stays `δ ≤ 0.72` in Lean (`simpleGround_036`) and `δ ≤ 2.07` via `Round47Certs`, which Lean does not check.
+
+**Bearing on RH:** none.
