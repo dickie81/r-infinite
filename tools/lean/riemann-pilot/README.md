@@ -4641,3 +4641,31 @@ Both theorems print `[propext, Classical.choice, Quot.sound]` only.
 The second is a quantitative positivity statement for Q on the complement of the Φ-jet, and nothing zero-free in this program reaches it beyond the certified small-a cells.
 
 **Bearing on RH:** none. This is an asymptotic description, not a proof.
+
+## Round 140: why "odd > even" is intuitive, and why that intuition is RH (analysis + numerics, no Lean)
+
+**1. The node costs `γ²` at every zero.**
+- **The map.** Each odd probe is `o = q′`, where `q = ∫_{−a}^t o` is even and `q(±a) = 0`, so `q` is admissible. Then `ô(z) = −iz·q̂(z)`, so `Q(o) = Σ_γ γ²|q̂(γ)|²` while `Q(q) = Σ_γ |q̂(γ)|²`.
+- **The chain.** If every ordinate is real, `λ_e ≤ Q(q)/‖q‖² ≤ Q(o)/(γ₁²‖q‖²)`. Hence `λ_o/λ_e ≥ γ₁²‖q‖²`, and the gap follows whenever `‖q′‖/‖q‖ < γ₁ = 14.13`.
+- **Measured** on the odd minimiser (`frontier/nullvec/kstruct_check.py`, `kstruct_results.jsonl`, K = 70): `‖q′‖/‖q‖ = 3.90, 3.50, 3.35, 3.29` at δ = 1.0, 1.6, 2.2, 2.6.
+  - The chain's bound `γ₁²‖q‖²` is 13–18; the true ratio is 220–9158.
+  - This regularity condition is measured, not proved.
+- **Off the line the factor stops being a cost.** An off-line zero gives a complex ordinate, and `γ²` is then complex.
+- **Consequence.** Together with Theorem A (round 137), the eventual gap sits between two implications: gap + HypConv ⟹ RH, and RH + `‖q′‖ < γ₁‖q‖` ⟹ gap. A zero-free structural proof of the gap would therefore be a proof of RH, modulo those two conditions.
+
+**2. On the prime side the node costs nothing in the bulk.** `Q_∞` vanishes on every `g` with `ĝ = Ξ·m`, and both parities occur, e.g. `Φ` and `Φ′`. Parity shows only at the edge (round 139: ratio `≈ 1.4κ²`).
+
+**3. Ground-state transform.**
+- **Identity.** Suppose the even ground state `e` is positive; measured `min e = e(a) = 2.8e-30 > 0` at δ = 2.6. The Euler–Lagrange equation is `Q₀e = λ_e e − 2C_e cosh(t/2)`. For odd `o = eφ` this gives exactly
+
+  `Q(o) − λ_e‖o‖² = ½∬k₀(x − y)e(x)e(y)(φ(x) − φ(y))² − 2C_e∫cosh(t/2)o²/e − 2S(o)²`.
+
+  - The first term is the Markov "node cost" from the archimedean and prime pieces, `k₀ ≥ 0`.
+  - Both negative terms come from the pole.
+- **Balance.** At the odd minimiser the three terms cancel to about `λ_o ~ 1e-57`, so there is no slack for an inequality between the pieces.
+- **Folded asymmetry.**
+  - In the odd sector the pole is attractive (`−2S²`, with positive vector `sinh(x/2)` on `(0, a)`), and the archimedean kernel satisfies `K(x − y) − K(x + y) ≥ 0`. Only the prime reflections `δ(x + y − log n)` break Perron–Frobenius.
+  - In the even sector the pole is repulsive.
+  - So the odd sector is the "more Markov" one, and the attractive pole lowers its energy. The prime-side structure pulls against the gap rather than for it.
+
+**Bearing on RH:** none. This round explains the intuition and relocates it rather than proving it.
