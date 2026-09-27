@@ -78,3 +78,5 @@ run WeilConverse; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/bui
 run PhiNull; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/PhiNull.olean -i $HERE/build/PhiNull.ilean $HERE/src/PhiNull.lean'
 run PhiDecay; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/PhiDecay.olean -i $HERE/build/PhiDecay.ilean $HERE/src/PhiDecay.lean'
 run PhiLadder; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/PhiLadder.lean'
+run StripShift; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/StripShift.olean -i $HERE/build/StripShift.ilean $HERE/src/StripShift.lean'
+run XiLogDeriv; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/XiLogDeriv.olean -i $HERE/build/XiLogDeriv.ilean $HERE/src/XiLogDeriv.lean'
