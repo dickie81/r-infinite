@@ -5441,3 +5441,41 @@ The identity is excluded, `ρ = 0` means the `v_j` are exact simultaneous eigenf
 - New here: `first_failure` and its companions, the zero-side reading at `a₁`, the Markov-sign table, and the `WeilRH` build fix.
 
 **Bearing on RH:** none. `first_failure` restates the negation of RH (finite exceptions) as the existence of a PSD kernel vector. Nothing here excludes it.
+
+## Round 162: the jet law is Connes' prolate law (literature + numerics, no Lean; `frontier/prolate/`)
+
+**Check-4 correction to rounds 159–160.** Those rounds compared the rungs only with Zhu's scale. The law they found is already in Connes, *The Riemann Hypothesis: Past, Present and a Letter Through Time* ([arXiv:2602.04022](https://arxiv.org/abs/2602.04022), February 2026), §6.3–6.4:
+
+> "1−χ₂ ∼ (2¹⁴/3)√2 π⁵ e^{−4πe^L+9/2L}"
+
+- **Variables.** Here `L = 2 log λ` is the support length, so `L = 2a` and `4πe^L = 4X`. The formula reads `−ln(1 − χ₂) ≈ 4X − 9a − 14.68`. Round 160's `4X − 9a − c` with `c ≈ 15.6–16.9` is this formula.
+- **Connes' status.** He identifies `ϵ(λ)`, the smallest eigenvalue, with `1 − χ₂` from numerics: "a careful analysis reveals a striking similarity (Figure 1) between the behavior of ϵ(λ) and of the angular function 1−χ₂(λ)". The constant comes from Fuchs's theorem.
+- **Connes' eigenvector.** His approximate eigenvector is `k_λ = E(h_λ)`, where "h_λ is, up to a multiplicative scalar, the only linear combination of h_{0,λ}, h_{4,λ} with vanishing integral".
+- **Consequence for rounds 159–160.** Round 160's finding 3 ("Zhu's scale underestimates") stands, but the relevant comparison is Connes' formula, not Zhu's.
+
+**The jet ↔ prolate dictionary** (derived here independently; it is Connes' `E` map in jet language).
+- **Change of variable.** Put `x = √(2π)·n·e^u`. The `n`-th theta term of Φ is `(2π)^{−1/4}n^{−1/2}x^{1/2}ψ(x)` with `ψ = ½(x⁴ − 3x²)e^{−x²/2}`, a combination of the Hermite functions `h₀` and `h₄`. So `ψ` is Fourier self-dual.
+- **Derivatives become dilations.** `∂_u` acts as `A = x∂_x + ½ = ½(a² − a†²)`, the dilation generator, which anticommutes with the Fourier transform.
+- **Jets.** An even jet `P(∂_u)Φ` is the periodisation `Σ_n` of `f = P(A)ψ ∈ span{h_{4k}}`, a self-dual function. Evenness of `G` in `u` is Poisson summation.
+- **The Rayleigh quotient.** It becomes a time–frequency concentration problem on `[−ξ, ξ]` with `ξ² = 2πe^{2a} = 2X`, which is Slepian's `c = 2X`.
+- **Why index 4.** Jets are `O(x²)` at 0 (the pole constraint), which kills the `h₀` direction and leaves index 4.
+
+**Exact prolate deficits against the jet bounds** (`prolate_mp.py`: Bouwkamp–Legendre in mpmath, `ν_n = 1 − (c/2π)μ_n²`, at `c = 2X`).
+
+| `a` | `−ln(1 − ν₄)` | jets `−ln λ₁` | `−ln(1 − ν₆)` | jets `−ln λ₁^odd` | `−ln(1 − ν₈)` | jets `−ln λ₂` |
+|---|---|---|---|---|---|---|
+| 0.8 | 39.95 | 38.5 (true value) | 32.62 | 31.7 | 26.04 | 25.4 |
+| 1.1 | 88.29 | 86.6 | 79.61 | 78.4 | 71.62 | 70.8 |
+| 1.3 | 142.22 | 141.0 | 132.69 | — | 123.82 | 123.2 |
+| 1.5 | 223.60 | 223.3 | 213.23 | — | 203.51 | 203.8 |
+
+- **The first three levels track the self-dual prolates of index 4, 6, 8 (even, odd, even),** to within 0.3–1.7 in the logarithm, and the gap shrinks as `a` grows. Round 152's ladder ratios follow Slepian's `64c²/((2j+5)(2j+6))` at about 0.75× over five rungs. Connes' paper uses the first level; ref. [25] of his paper constructs higher ones. The ladder match is probably not new.
+- **The `a = 1.7` jet value is under test.** It is 349.3 against the prolate prediction of about 346. That run used only 500 zeros (height 811), and a 1500-zero rerun is in progress.
+
+**What is open.**
+- **Upper bound.** A proof that `λ₁(a) ≤ C·poly(X)·(1 − ν₄(2X))`, i.e. `λ₁ ≤ poly·e^{−4X+9a}`, would make the jet law rigorous. It is the upper half of Connes' heuristic identification. Connes lists as remaining "to show that k_λ is a sufficiently good approximation". A proof would need Fuchs-type pointwise prolate estimates (classical, but not in Mathlib) plus the zero-side machinery of `PhiDExp`. `lam_dexp` (round 159) proves the exponent `2X − 16a`, half of the truth.
+- **Lower bound.** RH-strength (round 152, obstruction 3).
+
+**Check 4.** The law, the prolate identification and the `h₀/h₄` eigenvector are Connes 2026 (acknowledged, literature). New here: the jet–Hermite dictionary written as `P(A)ψ` (equivalent to Connes' `E` map), the exact-deficit table, and the correction of rounds 159–160.
+
+**Bearing on RH:** none.
