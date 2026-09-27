@@ -4605,3 +4605,39 @@ Both theorems print `[propext, Classical.choice, Quot.sound]` only.
 - The jump form's Markov structure gives Perron–Frobenius, and hence the gap, for `Q₀` only. The pole enters with `+` on even and `−` on odd, so every comparison inherited from `Q₀` points the wrong way.
 
 **Bearing on RH:** none. The parity gap stays open. This round shows that the reflection pairing, and the positivity structures of both forms, cannot force it.
+
+## Round 139: the parity gap in the limit a → ∞ (numerics, no Lean)
+
+**Setup.** Put `κ(a) = −Φ′(a)/Φ(a) ≈ 2πe^{2a}`, the decay rate of the theta kernel at the edge of the support. Scripts: `frontier/nullvec/klimit_gap.py` and `klimit_overlap.py`; data in `klimit_results.jsonl`. Each value below was checked stable between K = 40/70/100. `δ = 3.0` is excluded because it has not converged in K.
+
+**Findings.**
+
+1. **Bulk limits.** The normalised ground states converge to `Φ/‖Φ‖` (even) and `Φ′/‖Φ′‖` (odd). The L² distance is `≈ 1.73/κ` (even) and `≈ 2.82/κ` (odd), and the constants are stable to about 1% across δ = 1.6, 2.2 and 2.6.
+
+2. **Derivative series.** Projecting onto `span{Φ, Φ″, Φ⁗, Φ⁽⁶⁾}` (even) and `span{Φ′, Φ‴, Φ⁽⁵⁾, Φ⁽⁷⁾}` (odd) removes roughly a factor `κ/2` of the residual with each added derivative. At δ = 2.6 the residual reaches `5.9e-7` (even) and `1.8e-6` (odd).
+   - So `ĝ ≈ Ξ(r)·P_a(r)` and `ô ≈ rΞ(r)·Q_a(r)`, where the multipliers are power series in `r/κ`.
+   - Their zeros sit at scale κ. This is the round-136 Hurwitz picture, now with its multiplier structure visible.
+
+3. **Energy ratio.** `λ_o/λ_e ≈ c·κ²` with `c ≈ 1.3–1.5`:
+
+   | δ | κ | λ_o/λ_e | ratio/κ² |
+   |---|---|---|---|
+   | 1.0 | 12.2 | 220 | 1.49 |
+   | 1.6 | 26.4 | 916 | 1.31 |
+   | 2.2 | 52.1 | 3799 | 1.40 |
+   | 2.6 | 80.0 | 9317 | 1.46 |
+
+   - The gap grows like `e^{4a}` in ratio.
+   - Each energy on its own is far below the edge-amplitude scale: `λ_e‖Φ‖²/Φ(a)²` falls from `8e-5` to `1e-33`. The derivative series cancels the edge jet to many orders, and the cancellation depth is the same in both sectors.
+
+4. **The naive edge model gets the scaling right and the constant wrong.** Truncating Φ and Φ′ predicts `κ²·‖Φ‖²/‖Φ′‖² = κ²/10.21`, which is about 14× too small.
+   - Likely reason: odd `o = q′` corresponds to an even `q` that must vanish at `±a`, a Dirichlet edge condition that the even minimiser does not face.
+   - The constant `c` has not been derived.
+
+**What this does and does not give.** In the limit the gap is not marginal: the ratio is `≈ cκ²` and tends to infinity. The mechanism also looks parity-local, since both sectors share the bulk `Ξ` and the cancellation depth, and differ by one derivative, which is a factor κ at the edge. But a proof would need two things:
+- a rigorous edge-layer asymptotic `λ_par(a) = S(a)·κ^{2·[par odd]}·(e_par + o(1))` with a common factor `S(a)`;
+- a lower bound on `λ_o` at the super-exponentially small scale of `λ_e`.
+
+The second is a quantitative positivity statement for Q on the complement of the Φ-jet, and nothing zero-free in this program reaches it beyond the certified small-a cells.
+
+**Bearing on RH:** none. This is an asymptotic description, not a proof.
