@@ -5235,3 +5235,43 @@ Rounds 146–147 say "The two open routes are therefore:" (simplicity and the pa
 **Check 4.** Round 156 listed `exterior_identity_zeta` and general-probe `weilQ_eq_zero_sum` as not covered. The first is closed here. The second is closed in the form that matters for Weil's criterion: every probe is reached by density, not by the explicit formula for the probe itself. `T1bt`'s Hadamard identity, the pinning theorem's inputs and the ζ instance of round 131's converse were not flagged before.
 
 **Bearing on RH:** none. Weil's criterion is an equivalence, and its finite-exception form is a real restriction. Every chain to `RiemannHypothesis` is exactly as conditional as before.
+
+## Round 158: an approximate commuting operator for Weil's form? (numerics + a paper obstruction, no Lean)
+
+**The question.** Slepian's time–band-limiting has super-exponentially small eigenvalues, like Weil's form on a window. Its spectrum was controlled because it commutes with a second-order differential operator `−((a² − t²)v′)′ + c²t²v`. Round 152 measured the same fingerprints for Weil's form: parity alternation and a geometric ladder with ratio about `κ²`. Does Weil's form admit such an operator, even approximately?
+
+**Method** (`frontier/commop/`). For a family `{v_j}` of both parities, fit one Sturm–Liouville operator `Lv = −(pv′)′ + qv`, with `p` and `q` even and in a finite basis. The residual is the weak (Galerkin) form in the window's cosine/sine basis (`slweak.py`, `slgen.py`):
+
+`ρ = min over (p, q) of √(Σ_j ‖(I − v_jv_jᵀ)Lv_j‖² / Σ_j ‖Lv_j‖²)`.
+
+The identity is excluded, `ρ = 0` means the `v_j` are exact simultaneous eigenfunctions, and `xval.py` fits on the lowest levels and tests the same operator on held-out higher levels.
+
+**Controls.**
+- **Exact prolate functions**, from a Legendre expansion (`prolate_ctrl.py`): the fit recovers `p = a² − t²`, `q = c²t²` with `ρ ≈ 1e-13` on training and held-out levels.
+- **A pitfall.** Sampling eigenfunctions from the Weil instrument's own sine basis forces `v(±a) = 0`. That wrecks the derivatives of prolate controls, which is why the controls use Legendre expansions. Weil eigenfunctions are edge-flat for `δ ≥ 2.2` (relative `v′(±a)` below `1e-8`).
+
+**Results.**
+
+| family (params) | Weil ladder, 6 levels, `δ = 1.6–2.6` | Φ-jet ladder, 14 train / 10 test | `exp(−t⁴)` jets (control) | Gaussian-kernel eigenfunctions (control) |
+|---|---|---|---|---|
+| `p = (1 − s²)·poly`, `q` poly (3–7) | `0.13` (flat in degree and `δ`) | — | — | `0.11` to `0.015` |
+| `{1, s², s⁴, cosh 2t, cosh 4t}` (9) | overfits (6 functions) | train `2e-4`, test `8e-4 → 2e-2` | train `3e-2`, test `0.1 → 1.0` | test up to `0.96` (16 functions) |
+| `+ {s⁶, cosh 6t}` (13) | — | train `2e-7`, test `2e-6 → 2e-4` | train `4e-4`, test `2e-3 → 0.14` | — |
+| `{1, s², s⁴, cosh 2mt, t sinh 2mt}`, `m ≤ 3` (17) | — | train `1e-8`, test `4e-8 → 9e-6` | train `2e-6`, test `1e-5 → 5e-3` | — |
+
+- The "Φ-jet ladder" is the Gram–Schmidt system of `Φ, Φ′, Φ″, …` in extended precision (`phijets.py`, `a = 2`). It is the large-support limit of the Weil ladder (rounds 139 and 152), and it gives as many exact levels as needed.
+- **Prolate-type operators fail on the Weil ladder**: `ρ ≈ 0.13`, worse than a generic Gaussian kernel.
+- **Exponential coefficients fit the Φ-jet ladder well**, about 100–1000× better than the `exp(−t⁴)` control at each family size, and the fits generalise to held-out levels. The natural coordinate is `e^{2t}`.
+- **But the residual never closes.** It falls by roughly `10⁻³` per four added parameters for both the ladder and the control. That is the signature of approximation by a growing basis, not of an exact operator.
+
+**Why no exact operator can exist (paper argument, not formalised).**
+- `Φ(t) = e^{t/2}(2x²θ″(x) + 3xθ′(x))` with `x = e^{2t}` and `θ(x) = Σ_{n≥1} e^{−πn²x}`.
+- `θ` has a natural boundary on `Re x = 0`: `θ₃` has the real `τ`-axis as its natural boundary. If `g = 2x²θ″ + 3xθ′` continued across `Re x = 0` away from `0`, the linear ODE `2x²θ″ + 3xθ′ = g`, singular only at `x = 0`, would continue `θ`. So `Φ` has natural boundaries on `Im t = ±π/4`.
+- A solution of a linear ODE of any finite order, with entire coefficients and leading coefficient not identically zero, continues along every path that avoids the zeros of the leading coefficient. So it cannot have a natural boundary.
+- **Hence `Φ` is not an eigenfunction of any finite-order differential operator with entire coefficients.** No window-independent commuting differential operator can have the limit ladder among its eigenfunctions. A commuting operator for each window `a` would have to degenerate as `a → ∞`.
+
+**What an approximate operator would need.** Transferring simplicity or the parity gap from `L` to `Q` needs `Q`'s off-diagonal entries in `L`'s eigenbasis to be small against the rung gaps. At `δ = 2.6` the rungs are `10⁻⁶¹–10⁻³⁷`, and a `10⁻⁸` operator misses by about 50 orders. At about 3 orders per 4 parameters, the family size needed grows like `log(1/λ₁)`, which is `~ e^{2a}/a` (round 152's Landau–Widom law). That is the Galerkin dimension. The approximate operator is a re-encoding of the Galerkin problem, not a shortcut. Even an exact commuting operator would give eigenvectors, not the ordering of eigenvalues. Slepian's ordering needs total positivity of the sinc kernel on top, and Weil's kernel is not totally positive (round 145).
+
+**Check 4.** Round 152, obstructions 1–2, anticipated this ("no exact commuting operator"; "approximate commutation is not enough") without a proof or measurements. The natural-boundary obstruction and the measurements are new here.
+
+**Bearing on RH:** none.
