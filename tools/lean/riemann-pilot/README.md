@@ -4919,3 +4919,31 @@ What continuity buys for this route is **closedness of the degeneracy set**. Tha
 **Contrast with route (B).** For the parity gap the continuation lemma is substantive (rounds 146–147), because `λ_odd` could in principle pass below `λ_even`. For simplicity the substantive formal gain is S3's *structure* at the first failure, which the parity route lacks.
 
 **Bearing on RH:** none. Both no-crossing statements remain open.
+
+## Round 149: is a Green pair approached by simple ground states? (numerics, no Lean)
+
+**Reduction.**
+- In the even sector, `Q = Q₀ + 2cc*` with `c = cosh(t/2)·1_{[−a,a]}`, so `λ₁(Q₀) < λ₁(Q) ≤ λ_⊥ ≤ λ₂(Q₀)`, where `λ_⊥ = min{Q(h) : ĥ(i/2) = 0}` (`lamPerp`).
+- A degeneracy forces `λ₁(Q) = λ_⊥`, attained by a pole-free `w`. That `w` is Theorem D's, and then `Gw` must also be a ground state.
+
+**Measurements** (`frontier/nullvec/kgreen_margin.py`, `kgreen_margin_results.jsonl`, K = 60):
+
+| δ | λ_⊥/λ₁ | pole overlap of φ₂(Q₀) | Q(Gw)/λ₁ | cos(Gw, g) |
+|---|---|---|---|---|
+| 0.5 | 26.2 | 0.14 | 4.23 | 0.9392 |
+| 1.0 | 1.26e4 | 4.3e-3 | 19.2 | 0.99972 |
+| 1.5 | 1.90e5 | 2.3e-10 | 8.76 | 0.99998964 |
+| 2.0 | 2.40e6 | 4.2e-24 | 6.21 | 0.99999948 |
+| 2.5 | 2.03e7 | 4.4e-48 | 6.58 | 0.99999993 |
+
+**Findings.**
+1. **Half of the pair is always nearly present.**
+   - The pole-free minimiser `w` exists: `φ₂(Q₀)` is pole-free to super-exponential accuracy, and `λ_⊥ = λ₂(Q₀)` to six digits.
+   - Its Green partner is essentially the ground state: `cos(Gw, g) → 1`.
+   - Equivalently, `w ≈ g″ − g/4`. The pole value of `g″ − g/4` is, after integration by parts, a combination of the edge values `g(±a)` and `g′(±a)`. Those are super-exponentially small (round 139), which explains the near pole-freeness.
+2. **The other half is missing, by a growing factor.** A Green-pair degeneracy needs `w` itself to be a ground state, i.e. `λ_⊥ = λ₁`. The ratio `λ_⊥/λ₁` grows from 26 to `2×10⁷` over δ = 0.5–2.5; the earlier `c₂/λ₁` data reach about `2×10⁸` at δ = 3. No approach towards 1 is visible.
+3. **So a first degeneracy (round 148) would need a qualitative reversal.** `λ_⊥/λ₁` would have to fall from its super-exponentially separated regime to 1. This is the simplicity-route analogue of round 139's `λ_o/λ_e ≈ 1.4κ²` for the parity route.
+
+**Status.** No proof. The margin `λ_⊥/λ₁` is multiplicatively large but not established analytically, and the Theorem D structure is "half-present" everywhere, so it does not by itself rule out a degeneracy.
+
+**Bearing on RH:** none.
