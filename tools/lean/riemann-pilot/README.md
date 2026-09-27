@@ -5662,3 +5662,25 @@ Checks:
   - I have not checked whether any of these specific numbers or the closure argument appear in the literature.
 
 **Bearing on RH:** negative. This round was the test of the one candidate route round 161 left open, and the route is closed for the structural reason above. Nothing here excludes an off-line zero of ζ.
+
+## Round 166: what "in practice" would take (literature survey, no Lean; `frontier/literature/IN_PRACTICE.md`)
+
+This round surveys the literature on controlling the mixed shift terms that round 165 left as the only place the kernel equation lives. Full text, with verified quotes, is in `frontier/literature/IN_PRACTICE.md`.
+
+- **Prime-pair correlations: closed.**
+  - Every asymptotic for `Σ Λ(n)Λ(n+h)` assumes RH (Montgomery; Goldston–Montgomery; Goldston–Gonek–Montgomery).
+  - Unconditionally there are only sieve upper bounds, and log-power savings on average over `h` (Matomäki–Radziwiłł–Tao).
+  - Even the conjectured error `X^{1/2+o(1)}` is far above the `e^{−4πe^{2a}}` precision needed.
+- **Guardrails.** Neither one-sided input suffices.
+  - Broucke (arXiv:2409.10051) Thm 6.3: Beurling systems with `N(x) = Ax + O(√x log x)` can still have a positive proportion of zeros on `σ = 3/4`.
+  - Davenport–Heilbronn has a functional equation but no Euler product, and fails (round 165).
+- **The live programme.** Connes–Consani–Moscovici (arXiv:2511.22755 §8, "The missing steps") reduce RH to two steps:
+  - (i) a simple, even ground state of `QW_λ` for all `λ`;
+  - (ii) prolate approximation of that eigenvector.
+
+  The pilot already formalises the same reduction: `rh_of_eventually_simple`, `rh_of_parity_gap`, with `HypConv` in the role of (ii).
+- **Precision barrier.** Both steps need a lower bound on `λ₂(a)` for all large `a`.
+  - The Kaiser trial's residual `e^{−201.7}` exceeds `λ₂ ≈ e^{−203}` at `a = 1.5`, so it is useless for a Davis–Kahan approximation.
+  - No method in the literature bounds `λ₂` at this scale.
+
+**Bearing on RH:** none new. The survey shows the prime-correlation route is closed even under standard conjectures. It locates the remaining obstacle (a structural `λ₂` lower bound) where CCM and the pilot both already place it.
