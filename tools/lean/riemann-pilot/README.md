@@ -5,9 +5,9 @@ The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit i
 Re-run with `./build.sh`, which takes about 13 minutes.
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
-- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`.
 
-Every file ends with `#print axioms`. All 618 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 670 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -86,6 +86,17 @@ Every file ends with `#print axioms`. All 618 checked theorems depend only on `p
 | `WeilRH.lean` | 160 | **RH ⟹ `Q ≥ 0` on every probe**; `weil_criterion_zeta`: with finitely many off-line zeros, `Q ≥ 0` everywhere ⟺ RH (round 157) |
 | `PhiDExp.lean` | 484 | **double-exponential rung bounds, no RH input**: `λ₁ ≤ Ke^{16a−2πe^{2a}}`, `λ₁^odd ≤ Ke^{16a−2πe^{a−1/4}}`, `λ₂ ≤ Ke^{16a−2πe^{a/2−1/4}}` (round 159) |
 | `FirstFailure.lean` | 120 | **the first positivity failure**: if RH fails with finitely many off-line zeros, there is a least `a₁ > 1/16` with `λ₁(a₁) = 0`, `λ₁ > 0` before it, the form PSD at `a₁`, and a normalised ground state in its kernel (round 161) |
+| `KaiserKernel.lean` | 245 | the Kaiser kernel `K(z) = cos(β√(z²−L²))` and `sinc` as entire power series; growth bounds; `cosh`/`cos` forms on the real line (round 163) |
+| `KaiserPW.lean` | 209 | the trial `H(z) = z²(z²−α)K(z)sinc(πηz)⁸`: exponential type `2πL`, decay; **Paley–Wiener: `𝓕⁻H` vanishes beyond `L`** (round 163) |
+| `KaiserPoisson.lean` | 234 | `h = 𝓕⁻H`, the self-dual `h + H`, Connes' map `E`, and Poisson: `E h (x) = E H (1/x)` when `∫H = 0` (round 163) |
+| `KaiserMellin.lean` | 120 | `mellin(E f)(s) = ζ(s+½)·mellin f(s+½)` (round 163) |
+| `KaiserZero.lean` | 305 | `KF = E(h + H)`; **`∫ KF(e^u) e^{itu} du = 0` at every zero `t` of `Ξ`** (identity theorem on half-strips) (round 163) |
+| `KaiserDeriv.lean` | 338 | the derivative of `H`; Cauchy bounds; polynomial tail bounds beyond `L` (round 163) |
+| `KaiserTail.lean` | 213 | `Σ H(nx)` and its termwise derivative: `≤ 4P x⁻⁴`, `≤ 2PD₀ x⁻³` beyond `L` (round 163) |
+| `KaiserIBP.lean` | 245 | the tail integral `∫_a^∞ φ e^{itv}`: `≤ 2P` and `≤ 6P(1+D₀)/‖t‖` by parts (round 163) |
+| `KaiserWindow.lean` | 357 | the probe `g = 1_{[−a,a]}·Re KF(e^u)`: probe, strip test, explicit formula; **zero side `Q(g) ≤ 720P²(1+D₀)²S`** (round 163) |
+| `KaiserMoment.lean` | 553 | Gaussian moments by parts; **`α = m₄/m₂ ∈ [−1, 3/4]` gives `∫H = 0`** for `L ≥ 50` (round 163) |
+| `KaiserBulk.lean` | 318 | the bulk `g ≥ e^{βL−8}/51200` on `|u| ≤ 1/10`; **`λ₁(a) ≤ K e^{20a − 4πe^{2a}}` for `a ≥ 4`, no RH input** (round 163) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -5479,3 +5490,43 @@ The identity is excluded, `ρ = 0` means the `v_j` are exact simultaneous eigenf
 **Check 4.** The law, the prolate identification and the `h₀/h₄` eigenvector are Connes 2026 (acknowledged, literature). New here: the jet–Hermite dictionary written as `P(A)ψ` (equivalent to Connes' `E` map), the exact-deficit table, and the correction of rounds 159–160.
 
 **Bearing on RH:** none.
+
+## Round 163: the doubled rate, proved (`src/Kaiser*.lean`, `frontier/kaiser/`)
+
+**The theorem.** `lam_kaiser` in `KaiserBulk.lean` states:
+
+```lean
+theorem lam_kaiser :
+    ∃ K, 0 ≤ K ∧ ∀ a, 4 ≤ a → lam a ≤ K * Real.exp (20 * a - 4 * π * Real.exp (2 * a))
+```
+
+- **What it bounds.** `λ₁(a)` is the least eigenvalue of Weil's form on probes supported in `[−a, a]`, over the zeros of `Ξ`. As in `lam_dexp` there is no RH input and no named input. The build checks it against the standard axioms only.
+- **The gain.** `lam_dexp` (round 159) proved the exponent `2πe^{2a} = 2X`. `lam_kaiser` proves `4πe^{2a} = 4X`, the rate of Connes' prolate law `1 − χ₂ ∼ C e^{−4X + 9a}` (round 162). The polynomial prefactor here is `e^{20a}` against Connes' `e^{9a}`.
+
+**The construction** (paper sketch in `frontier/kaiser/PROOF.md`; the Lean constants differ). Take `L = e^a`, `η = 1/L` and `β = 2π(L − 4η)`.
+- **The trial.** It is the Kaiser window, not a prolate: `H(z) = z²(z² − α)·cos(β√(z² − L²))·sinc(πηz)⁸`. It is entire of type `2πL`, so `h = 𝓕⁻H` vanishes outside `[−L, L]` (Paley–Wiener, `KaiserPW`). On `(−L, L)` it equals `cosh(β√(L² − x²))`, which peaks at `e^{βL}`.
+- **The probe.** `f = h + H` is self-dual, and `KF = E f`, where `E F(x) = √x Σ_{n≥1} F(nx)` is Connes' map. The probe is `g(u) = 1_{|u|≤a}·Re KF(e^u)`.
+- **The zero side.**
+  - `mellin(E f)(s) = ζ(s + ½)·mellin f(s + ½)`, so `∫ KF(e^u)e^{itu} du = 0` at every zero of `Ξ` (`KaiserZero`).
+  - What survives in `ĝ(t)` is the tail beyond `a`. Two integrations by parts bound it by the polynomial `P = (L/π)⁸` and `D₀ = 6 + 2β² + 32πη` (`KaiserTail`, `KaiserIBP`).
+  - Hence `Q(g) ≤ 720P²(1+D₀)²·Σ_ρ |1/(t_ρ² + 4)|` (`weilQ_gK_le`).
+- **The moment condition.** `∫H = 0` is needed for the Poisson step `E h(x) = E H(1/x)`, and it forces `α = m₄/m₂`.
+  - Compare `K` with the Gaussian `(e^{βL}/2)e^{−bx²}`, `b = β/(2L)`, from above and below, using `√(L² − x²) ≤ L − x²/2L` and `≥ L − x²/2L − x⁴/2L³`.
+  - The Gaussian moments are exact by parts: `G₄ = (3/2b)G₂` and `G₂ = √(π/b)/2b`.
+  - Result: `m₂ > 0` and `−m₂ ≤ m₄ ≤ (3/4)m₂` for `L ≥ 50` (`alpha_ok`). The true ratio tends to `3/(2π) ≈ 0.477`.
+- **The bulk.** With `α ≤ 3/4`, every term `H(nx)` with `x² ≥ 4/5` is `≥ −5P/n²` (it is `≥ 0` below `L`). The first term is `≥ e^{βL−8}/12800` when `x² ≤ 5/4`. So `g ≥ e^{βL−8}/51200` on `|u| ≤ 1/10`, and `‖g‖² ≥ e^{2βL−16}/(5·51200²)`.
+- **The rate.** Since `2βL = 4πL² − 16π`, `λ₁ ≤ Q/‖g‖² ≤ K·L²⁰·e^{−4πL²}`.
+
+**Numerics context.**
+- `kaiser2.py` (round 163, part 0) measured `−ln R(g) = 4X − 47` at `a = 1.1` and `4X − 50.6` at `a = 1.5` for this trial. The rate is right; the constant is loose.
+- The `a = 1.7` jet value that round 162 left under test has been rerun with 1500 zeros: `−ln λ₁ ≈ 344.86`, against 349.3 with 500 zeros and the prolate `−ln(1 − ν₄) ≈ 346`. The jets now sit about 1.1 below the prolate value, as at smaller `a`. The runs at `a = 1.85` and `2.0` are still going.
+
+**Check 4.**
+- **Acknowledged (literature).** Connes 2026 (arXiv:2602.04022, §6.4) has the rate and the prolate/`h₀,h₄` eigenvector as a heuristic. He lists "to show that k_λ is a sufficiently good approximation" as the remaining step. The Kaiser–Bessel window as a near-prolate is classical signal processing.
+- **New here.** A rigorous upper bound `λ₁(a) ≤ K e^{20a − 4πe^{2a}}` at Connes' leading rate, machine-checked. It uses an elementary trial (cosh of a square root) in place of prolate functions, so it needs no Fuchs-type prolate estimates. I checked it against Connes 2026 only, not against later literature.
+- **Still open.**
+  - The prefactor `e^{9a}`, i.e. the full upper half of Connes' asymptotic.
+  - Any lower bound, which is RH-strength (round 152, obstruction 3).
+
+**Bearing on RH:** none. An upper bound on `λ₁` says the form has small eigenvalues, which is compatible with RH and with its failure. The sign of `λ₁` is what RH concerns, and nothing here touches it.
+
