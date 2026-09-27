@@ -4669,3 +4669,23 @@ The second is a quantitative positivity statement for Q on the complement of the
   - So the odd sector is the "more Markov" one, and the attractive pole lowers its energy. The prime-side structure pulls against the gap rather than for it.
 
 **Bearing on RH:** none. This round explains the intuition and relocates it rather than proving it.
+
+## Round 141: the regularity condition `‖q′‖ < γ₁‖q‖` (analysis, no Lean)
+
+**Not proved.** What *is* proved (on paper) is a reduction of the condition to "not all mass escapes". Both the reduction and the obstruction are stated below.
+
+**Restatement.** With `‖o‖ = 1` and `q = ∫_{−a}^t o`, the condition is `‖q‖ > 1/γ₁`. By Plancherel it is equivalent to `∫|ô(r)|²(1/r² − 1/γ₁²)dr > 0`: the odd minimiser's spectral mass must sit mostly below `γ₁`. For arbitrary odd `o` it is false (take high-frequency `o`), so any proof must use minimality.
+
+**Lemma (weak lower semicontinuity).**
+- **Hypotheses.** Let `o_a` be odd, supported in `[−a, a]` and zero-extended to `ℝ`, with `‖o_a‖ = 1`. Let `q_a = ∫_{−∞}^t o_a`, which is supported in `[−a, a]` because `∫o_a = 0`.
+- **Conclusion.** If `o_a ⇀ w` weakly in `L²(ℝ)` along a subsequence, then `liminf ‖q_a‖ ≥ ‖W‖`, where `W = ∫_{−∞}^t w`. If `liminf ‖q_a‖` is infinite there is nothing to prove.
+- **Proof.** Pass to a further subsequence with `q_a ⇀ Q`. Then `⟨q_a, φ′⟩ = −⟨o_a, φ⟩` gives `Q′ = w` in the sense of distributions. Since `Q ∈ L²`, `Q = W`. Weak lower semicontinuity of the norm finishes it.
+- **Corollary.** The regularity condition holds eventually if every weak limit point `w` of the normalised odd minimisers has `‖∫w‖ > 1/γ₁ = 0.0707`.
+- **What the corollary asks for.** For `w = c·Φ′/‖Φ′‖` we have `‖∫w‖ = 0.3130c`, so it is enough that `c > 0.2260`, i.e. 5.1% of the L² mass converges to the `Φ′` profile. Round 139 measures `c² ≈ 1 − (2.82/κ)² → 1`.
+
+**Obstruction.** The one failure mode is escape of mass to frequencies `≳ γ₁`, or a weak limit equal to 0.
+- **Prime side.** The zero-free tools bound high-frequency mass only where `σ_a(r) > 0` is guaranteed. From the jump form this needs `log r > 2Σ_{n ≤ e^{2a}} Λ(n)n^{−½} + O(1) ≈ 4e^a`, i.e. `r > e^{4e^a}`, far above `γ₁ = 14.13`.
+- **Zero side.** Under RH the minimality `Σ|ô(γ)|² ≤ λ_o` only makes `ô` small at the ordinates. Below about `2πe^{2a}` the ordinates are too sparse to sample a type-`a` function, so mass can hide between them.
+- **Jet elements.** `Φ^{(2k+1)}` has `Q_∞ = 0` and spectral mass at frequency growing with k, so `Q_∞`-nullity alone does not pin the frequency. Excluding high-k minimisers needs the edge asymptotics of round 139.
+
+**Status.** RH + (weak limits of the odd minimisers keep more than 5.1% of their mass on `Φ′`) ⟹ eventual parity gap. The mass condition is an odd-sector analogue of HypConv. It is measured with a large margin but not proved.
