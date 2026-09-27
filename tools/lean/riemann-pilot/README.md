@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`.
 
-Every file ends with `#print axioms`. All 562 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 587 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -5118,5 +5118,53 @@ It was a named input because Mathlib has `Complex.digamma` but not this represen
 **Remaining classical named input:** `WeilExplicit` (the Guinand–Weil explicit formula, per test function). Also still named: the numerical certificates, and the open RH-strength hypotheses (`HypConv`, no crossing, the gap hypotheses).
 
 **Check 4.** This discharges a named input carried since round 4. It is classical analysis: no bearing on RH, and no change to any conclusion.
+
+**Bearing on RH:** none.
+
+## Round 156: `WeilExplicit` proved for strip test functions (`src/StripShift.lean` … `src/WeilZeta.lean`)
+
+`WeilExplicit ρ h hR` (`Exterior.lean`, round 4) is the Guinand–Weil explicit formula over a zero family `ρ`, for one test function `h`. It was the last classical named input. It is now a theorem over the nontrivial zeros of `ζ` for every test function in the class below. **No RH input**: the zeros may lie anywhere in the critical strip.
+
+**The test class** (`StripTest h C`, `StripShift.lean`): `h` is holomorphic on the closed strip `|Im t| ≤ 1`, and `‖h(t)‖ ≤ C/(1 + (Re t)²)` there. `h` must also be even and real on `ℝ` (`h r = hR r`).
+
+**Main theorem** (`weilExplicit_zeta`, `WeilZeta.lean`): `StripTest h C → (∀ t, h(−t) = h t) → (∀ r : ℝ, h r = hR r) → WeilExplicit zetaZeroFamily h hR`.
+
+**The proof.** Compute `Z = ∫_ℝ h(r − i)·Ξ′/Ξ(r − i) dr` in two ways.
+
+- **A. Strip shift and poles** (`StripShift.lean`, Mathlib only).
+  - `strip_shift`: for `f` holomorphic on a closed horizontal strip with integrable decay, the line integrals along its two edges agree (Cauchy on rectangles, with the vertical sides vanishing).
+  - `inversion`: Fourier inversion for the kernel `F(x) = ∫h(r)e^{−irx} dr`. On the strip, `|F(x)| ≤ πC e^{−|x|}`.
+  - `pole_pair`: `∫_ℝ h(r − i)·2(r − i)/((r − i)² − τ²) dr = 2πi·h(τ)` for every `|Im τ| ≤ ½`. The proof writes each simple pole as a half-line Laplace integral and applies Fourier inversion.
+  - `kernel_integral_le`: these integrals are `≤ K(1 + |τ|)^{−7/4}`, uniformly in the strip.
+- **B. The zero side** (`XiLogDeriv.lean`, `WeilCount.lean`).
+  - `hasSum_logDeriv_Xi`: on `Im t = −1`, `Ξ′/Ξ(t) = Σ_u 2t/(t² − u)` over `ZeroIdx (sqF Ξ)`. This is the logarithmic derivative of round 18's genus-0 Hadamard product, via Mathlib's `logDeriv_tprod_eq_tsum`.
+  - `summable_Xi_zeros_rpow`: `Σ_u |u|^{−7/8} < ∞`. It uses the Jensen count with exponent `3/4 < 7/8`.
+  - `zero_side` (`WeilAssemble.lean`): exchange the sum and the integral, using the bound in A. This gives `Z = 2πi Σ_u h(√u)`.
+- **C. The prime side** (`WeilAssemble.lean`). At `t = r − i`, `s = ½ + it` has `Re s = 3/2`. There, `Ξ′/Ξ = i[1/s + 1/(s − 1) − (log π)/2 + ψ(s/2)/2 − L(Λ, s)]` (`logDeriv_Xi_eq`).
+  - The two poles give `2πi(h(i/2) + h(−i/2))`, again by `pole_pair`.
+  - The constant term, shifted back to `ℝ`, gives `2π g_h(0)`.
+  - The digamma term, shifted back to `ℝ`, gives `(1/2π)∫ hR·Re ψ`. The shift uses `|ψ(z)| ≤ 12√(1 + |z|)` on `Re z ≥ ¼` (`norm_digamma_le`, from round 155's Laplace form). The imaginary part vanishes by `ψ(z̄) = ψ(z)‾` (`psi_real`).
+  - The primes are integrated termwise, each giving `2π Λ(n)n^{−1/2} g_h(log n)` (`prime_line`, via `F = 2πg_h`).
+  - Together these give `weil_Xi` and then `weilExplicit_Xi`, both over the family `rhoXi`, `ρ = ½ ± i√u`.
+- **D. From `Ξ`'s zeros to `ζ`'s** (`WeilZeta.lean`).
+  - `order_xi_zeta`, `order_Xi_xi`, `order_sqF_Xi`: at a nontrivial zero, the multiplicities agree: `ord_ζ = ord_ξ = ord_Ξ = ord_{Ξ(√·)}(t²)`.
+  - `zetaEquiv`: an explicit bijection from Mathlib's index type `Σ ρ, Fin (zeroMult ρ)` to `Bool × ZeroIdx (sqF Ξ)`, carrying `rhoXi` to `zetaZeroFamily`. It is built fiberwise (`Equiv.ofFiberEquiv`).
+  - `weilExplicit_zeta_of` transports the `HasSum` along it.
+
+**Discharged downstream.**
+- `WeilDischarge.lean` proves `lam_decay_uncond`, `lamO_decay_uncond` and `lam2_decay_uncond` over `Ξ`'s zero family, for rungs 0–2 of the round-152 ladder.
+  - For every `B` there is `K` with `λ₁(a), λ₁^odd(a), λ₂(a) ≤ K e^{−Ba}` for `a ≥ 1`.
+  - The trial functions `ĝ(Φ_a)²`, their twins, the rung-2 combinations and `1/(z² + 4)` are all shown to be `StripTest`s (`striptest_PhiA`, `striptest_four`, `striptest_mul_sq`).
+- `WeilZeta.lean` proves `lam_decay_zeta_uncond`. This is round 133's `lam_decay_zeta`, which is stated over `zetaZeroFamily`, with both `WeilExplicit` hypotheses discharged.
+- These are upper bounds only, as before.
+
+**What stays conditional, and why.**
+- Theorems stated for an *arbitrary* zero family `ρ` keep `WeilExplicit ρ …` as a hypothesis. That is their form, not a gap: they apply to any family satisfying the formula. `WeilConverse`, `PhiNull`, and `ExplicitBridge`'s `weilQ_nonneg_of_zeros_on_line` are of this kind.
+- `weilQ_eq_zero_sum` for a *general* `L²` probe is not covered. `ĝ²` need not satisfy the `StripTest` bound, because `ĝ` has no pointwise `r^{−2}` decay for a discontinuous probe. The same holds for `exterior_identity_zeta` and `wall_law_zeta`: these would need a `StripTest` instance for `ĝ²χ`, which is not proved here.
+- Still named elsewhere: the numerical certificates, and the open RH-strength hypotheses (`HypConv`, no crossing, the gap hypotheses).
+
+**Build.** Six new files, built in order after `PhiLadder`: `StripShift`, `XiLogDeriv`, `WeilCount`, `WeilAssemble`, `WeilDischarge`, `WeilZeta`.
+
+**Check 4.** This discharges a classical named input carried since round 4, for the test class above. It is classical analysis: no conclusion changes.
 
 **Bearing on RH:** none.

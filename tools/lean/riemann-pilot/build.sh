@@ -82,4 +82,5 @@ run StripShift; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build
 run XiLogDeriv; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/XiLogDeriv.olean -i $HERE/build/XiLogDeriv.ilean $HERE/src/XiLogDeriv.lean'
 run WeilCount; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/WeilCount.olean -i $HERE/build/WeilCount.ilean $HERE/src/WeilCount.lean'
 run WeilAssemble; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/WeilAssemble.olean -i $HERE/build/WeilAssemble.ilean $HERE/src/WeilAssemble.lean'
-run WeilDischarge; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean $HERE/src/WeilDischarge.lean'
+run WeilDischarge; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/WeilDischarge.olean -i $HERE/build/WeilDischarge.ilean $HERE/src/WeilDischarge.lean'
+run WeilZeta; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/WeilZeta.olean -i $HERE/build/WeilZeta.ilean $HERE/src/WeilZeta.lean'
