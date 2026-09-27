@@ -4767,3 +4767,53 @@ The second is a quantitative positivity statement for Q on the complement of the
    - Any prime-side bound `Q(g_b) ≤ c·∫r²q̂²σ` therefore delivers an O(0.03) bound on `Q(g_b)`, twelve or more orders above `λ_e`. Whatever makes `λ_o` tiny lives in that cancellation, and no symbol-level comparison keeps it.
 
 **Bearing on RH:** none.
+
+## Round 145: topological arguments for the parity gap (analysis + numerics, no Lean)
+
+Five topological handles were tried: continuation in `a`, crossing type, zero topology, the pole-strength homotopy, and nodal / equivariant index theory.
+
+**1. Continuation in `a` (a rigorous reduction, on paper).**
+- `λ_e` is antitone (`lam_antitone`), and so is `λ_o` by `OProbe.mono`.
+- Both are continuous in `a`:
+  - from the left, by dilating a minimiser into a smaller support;
+  - from the right, by the lower semicontinuity and compactness already used in `Existence`.
+- By the intermediate value theorem, the gap holds on `[a₀, ∞)` iff it holds at `a₀` and `λ_e(a) ≠ λ_o(a)` for all `a ≥ a₀`. The small-`a` gap is certified, so everything reduces to *no cross-parity eigenvalue crossing*.
+- Continuity is not formalised.
+
+**2. Crossings of this kind are not topologically obstructed.**
+- The two levels belong to different symmetry sectors. By the von Neumann–Wigner count, such crossings have codimension 1 in a one-parameter family; only same-sector crossings are avoided generically.
+- Theorem D (`degenerate_flat`, `simple_iff_no_green_pair`) cannot see them.
+  - The Green map `ĥ = −ŵ/(z² + ¼)` commutes with parity, because `z² + ¼` is even. So a Green pair in `V = V_e ⊕ V_o` splits into Green pairs in the sectors.
+  - A crossing with `dim V_e = dim V_o = 1` therefore carries no Green pair.
+  - In the full space, a pole-free `w` needs `R(w) = L(w) = 0`, which is two conditions on a 2-dimensional `V`, so there is none.
+- Result: Theorem D's degeneracy machinery rules out *same-sector* degeneracy structure only.
+
+**3. Zero topology.**
+- The zeros of `ê_a` move continuously in `a`. Since `ê` is even and real, a zero can leave `ℝ` only through a real double zero, or through the strip edge or infinity.
+- Theorem A (round 137) says gap ⇒ real-rooted. So the first `a` at which `ê_a` has a non-real zero in the strip lies after a crossing.
+- At a crossing, the mixed ground states `v_θ = cos θ·e + sin θ·o` have no real zeros other than common zeros of `ê` and `ô`, because on `ℝ` `ê` is real and `ô` purely imaginary.
+- This is consistent, but it yields no invariant that forbids the crossing: the real-zero count is not conserved through collisions.
+
+**4. Pole-strength homotopy `Q_t = Q₀ + t·pole`** (`frontier/nullvec/khomotopy.py`, `khomotopy_results.jsonl`, K = 50).
+- At `t = 0` the gap is Perron–Frobenius (`groundState0_one_sign`).
+- `λ_e(t)` rises with slope `2C_e²` (Hellmann–Feynman); `λ_o(t)` falls with slope `−2S_o²` on its steep branch.
+- The full form is nonnegative only on `t ∈ [1 − ε_e, 1 + ε_o]`, with `ε_e = λ_e/(2C_e²)` and `ε_o = λ_o/(2S_o²)`.
+- The parity crossing sits at `t* = 1 + (λ_o − λ_e)/(2C_e² + 2S_o²)`:
+
+  | δ | ε_e | ε_o | t* − 1 |
+  |---|---|---|---|
+  | 1.0 | 7.4e-7 | 1.0e-2 | 1.6e-4 |
+  | 1.6 | 1.3e-17 | 5.9e-13 | 1.2e-14 |
+  | 2.2 | 2.1e-38 | 3.4e-33 | 7.3e-35 |
+
+- So `t = 1` is doubly critical: positivity fails immediately on both sides, and the crossing is super-exponentially close.
+- The homotopy parameter carries no O(1) margin. The gap is equivalent to `t* > 1`, the same statement as before.
+- Side finding: for `t < 1` the odd minimum lies on a flat, nearly pole-free branch at `λ₁(Q₀, odd)` (`1.07e-9` at δ = 1.6). The odd ground state of `Q` comes from a steep branch that crosses it only within about `4e-8` of `t = 1`.
+
+**5. Nodal and equivariant index theory.**
+- Courant / Sturm ordering (even below odd) needs Perron–Frobenius or locality. Q is nonlocal, and its off-diagonal weight has the wrong sign beyond `u ≈ 0.28` (earlier rounds).
+- The Krasnoselskii genus and Fadell–Rabinowitz index for the `t ↦ −t` action give multiplicity counts, not an ordering between sectors.
+
+**Conclusion.** The one rigorous topological gain is item 1: the gap for all large `a` is equivalent to "no cross-parity crossing past a certified `a₀`". Every tool here treats such crossings as generic, and the homotopy shows the relevant margin is super-exponentially small in every parameter tried.
+
+**Bearing on RH:** none.
