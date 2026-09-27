@@ -7,7 +7,7 @@ Re-run with `./build.sh`, which takes about 13 minutes.
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`.
 
-Every file ends with `#print axioms`. All 608 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 615 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -84,6 +84,7 @@ Every file ends with `#print axioms`. All 608 checked theorems depend only on `p
 | `ZetaInputs.lean` | 238 | **Hadamard's identity `Σ_ρ 1/(ρ(1−ρ)) = 2 + γ − log 4π` proved**; 1bt(i) and the pinning theorem with their classical inputs discharged (round 157) |
 | `ExteriorZeta.lean` | 310 | `Φ` entire, `Φ(w) + Φ(−w) = 1`, `χ` in the strip class; **the exterior identity over the zeros of `ζ` for every probe** (round 157) |
 | `WeilRH.lean` | 160 | **RH ⟹ `Q ≥ 0` on every probe**; `weil_criterion_zeta`: with finitely many off-line zeros, `Q ≥ 0` everywhere ⟺ RH (round 157) |
+| `PhiDExp.lean` | 468 | **double-exponential rung bounds, no RH input**: `λ₁ ≤ Ke^{16a−2πe^{2a}}`, `λ₁^odd ≤ Ke^{16a−2πe^{a−1/4}}`, `λ₂ ≤ Ke^{16a−2πe^{a/2−1/4}}` (round 159) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -5273,5 +5274,53 @@ The identity is excluded, `ρ = 0` means the `v_j` are exact simultaneous eigenf
 **What an approximate operator would need.** Transferring simplicity or the parity gap from `L` to `Q` needs `Q`'s off-diagonal entries in `L`'s eigenbasis to be small against the rung gaps. At `δ = 2.6` the rungs are `10⁻⁶¹–10⁻³⁷`, and a `10⁻⁸` operator misses by about 50 orders. At about 3 orders per 4 parameters, the family size needed grows like `log(1/λ₁)`, which is `~ e^{2a}/a` (round 152's Landau–Widom law). That is the Galerkin dimension. The approximate operator is a re-encoding of the Galerkin problem, not a shortcut. Even an exact commuting operator would give eigenvectors, not the ordering of eigenvalues. Slepian's ordering needs total positivity of the sinc kernel on top, and Weil's kernel is not totally positive (round 145).
 
 **Check 4.** Round 152, obstructions 1–2, anticipated this ("no exact commuting operator"; "approximate commutation is not enough") without a proof or measurements. The natural-boundary obstruction and the measurements are new here.
+
+**Bearing on RH:** none.
+
+## Round 159: rigorous rung asymptotics (`src/PhiDExp.lean`, `frontier/rungs/`)
+
+**Question.** Rounds 133 and 153 proved `λ₁, λ₁^odd, λ₂ ≤ K e^{−Ba}` for every `B`: single-exponential. The measured rungs are double-exponential, following Zhu's Landau–Widom scale `−ln λ₁ ≈ 2π²N(T*)/ln N(T*)` with `T* = 2πe^{2a}` (140.3 against 142.3 at `δ = 2.6`). How much of that can be proved?
+
+**The weak link was the decay input, not the method.** The zero-side argument bounds `Φ̂_b(t_ρ) = −tail(t_ρ)` at every zero. It only used `|Φ(u)| ≤ Ce^{−B|u|}`. Splitting `πn²X = πX + π(n² − 1)X` (with `X = e^{2u} ≥ 1`) instead of halving the exponent gives the true decay.
+
+**Theorems** (Lean; over the zeros of `Ξ`, all in the strip; no RH input, no named input). Every one prints `[propext, Classical.choice, Quot.sound]` only.
+- **Pointwise decay** (`RPhi_dexp`, `RPhi1_dexp`): `|Φ(u)| ≤ C e^{9|u|/2 − πe^{2|u|}}` and `|Φ′(u)| ≤ C e^{13|u|/2 − πe^{2|u|}}`.
+- **Tails** (`norm_tailT_dexp`): if `|f(u)| ≤ Ce^{k|u| − πe^{2|u|}}` and `k + 3/2 ≤ 2πe^{2a}`, the tail beyond `±a` is `≤ Ce^{(k+3/2)a − πe^{2a}}∫e^{−|u|}` on the strip. The proof uses convexity, `e^{2v} ≥ e^{2a}(1 + 2(v − a))`.
+- **Per zero** (`ghat_PhiA_sq_dexp`): `‖Φ̂_b(t_ρ)‖² ≤ K e^{16b − 2πe^{2b}}‖1/(t_ρ² + 4)‖` for `b ≥ 1/4`.
+- **Rung 0** (`lam_dexp`): `λ₁(a) ≤ K e^{16a − 2πe^{2a}}` for `a ≥ 1`.
+- **Rung 1** (`lamO_dexp`): `λ₁^odd(a) ≤ K e^{16a − 2πe^{a − 1/4}}` for `a ≥ 1`. The trial is the antitwin of `Φ_b` with `b = a/2 − 1/8` and `l = a/2`, replacing round 153's `b = a/8`.
+- **Rung 2** (`lam2_dexp`): `λ₂(a) ≤ K e^{16a − 2πe^{a/2 − 1/4}}` for `a ≥ 3/2`. The trial is two disjoint twins of `Φ_b` with `b = a/4 − 1/8`, `l = a/4` and `m = 3a/4 − 1/8`; `weilExplicit_combo_gen` gives the explicit formula for these parameters.
+
+**How sharp** (`rungs_vs_bounds.py`).
+
+| `δ` | true `−ln λ₁` | theorem's `2πe^{2a} − 16a` |
+|---|---|---|
+| 1.6 | 38.6 | 18.3 |
+| 2.2 | 86.6 | 39.1 |
+| 2.6 | 140.3 | 63.8 |
+
+- Asymptotically the ratio between Zhu's scale and `2πe^{2a}` is `2.07, 2.21, 2.32` at `a = 3, 4, 5`, tending slowly to `π`. **So `lam_dexp` has the right double-exponential form and the right `e^{2a}` rate, with a constant off by a bounded factor.**
+- The rung-1 and rung-2 exponents (`e^{a}`, `e^{a/2}`) are weaker than rung 0's, because their trials live on narrower windows. They are nontrivial only for `a ≳ 2.5` and `a ≳ 4.3`.
+- A full-window odd trial (`Φ′·1_{[−a,a]}`) would give rung 1 the rung-0 rate. That needs the explicit-formula bridge for odd probes (`weilQg = Σ ĝ(t)ĝ(−t)`), which is not formalised.
+
+**Where the rest of the exponent is: jets** (`jet_rayleigh.py`, `jet_zeroside.py`).
+- **Method.** Trial spaces `span{Φ^{(k)}·1_{[−a,a]}}` are the only zero-free trials: `Φ̂^{(k)} = (−iz)^kΞ/2` vanishes at every zero, wherever it is.
+- **Evaluation.** They are evaluated on the zero side, where `Q(g) = Σ_ρ |tail_g(t_ρ)|²` is exact: tails are incomplete-gamma sums, with 2000 zeros (1000 zeros changes values by 3%).
+- **Why not the prime side.** A prime-side Galerkin evaluation in the cosine basis plateaus at `10⁻²⁵` and `10⁻²⁹` for `δ = 2.2` and `2.6`, which is truncation error. The zero side avoids it. At `δ = 1.6` the two agree.
+
+| `δ` | jets | even rung-0 bound | odd rung-1 bound | even rung-2 bound | truth (e0, o1, e2) |
+|---|---|---|---|---|---|
+| 1.6 | 1 | 8.6e-9 | 7.2e-7 | — | 1.9e-17, 1.7e-14, 9e-12 |
+| 1.6 | 13 | **1.9e-17** | **1.9e-14** | **1.1e-11** | (converged) |
+| 2.2 | 14 | 1.7e-35 | 2.2e-32 | 6.6e-29 | 2.4e-38, 9.1e-35, 1.8e-31 |
+| 2.6 | 14 | 6.2e-52 | 1.6e-48 | 1.2e-44 | 1.2e-61, 1.2e-57, 7.2e-54 |
+
+- Jets converge to the true rungs, and the ladder ratios `≈ κ²` are already visible in the jet bounds.
+- But the number of jets needed grows with the support. At `δ = 2.6` it is beyond 14, still gaining about ×10 per jet. It tracks the zero count `N(T*)`, as the prolate picture predicts.
+- A rigorous asymptotic statement from `J` jets needs the tails of an optimised combination at every zero. That is the next step and is not done.
+
+**What this does not give.** Upper bounds only. The lower halves (`λ₁ ≥ 0`, gaps between rungs) are RH-strength (round 152). The bounds do not order the rungs. Their ratios are not the rungs' ratios.
+
+**Check 4.** Round 133 (`lam_decay`) and round 153 (`lamO_decay`, `lam2_decay`) are superseded in strength. The double-exponential decay, the parameter choices and the jet measurements are new.
 
 **Bearing on RH:** none.
