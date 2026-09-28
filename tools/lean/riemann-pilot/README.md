@@ -5836,3 +5836,41 @@ So unconditional absolute improvements can only be finite-range.
 - **Conditional on RH:** the distance of each pair from the centre. A zero `β + iγ` of ζ gives a pair at distance `(d − 2)/4 + ½ − β` either side. That equals `(d − 2)/4` exactly when `β = ½`.
 - **What P3 of round 168 checked:** only ζ's first three zeros, which are known numerically to be on the line.
 - **So:** "±(d − 2)/4" should be read as "±(d − 2)/4 under RH". In 4D, RH is equivalent to "every mirror pair sits exactly ½ from the centre". The geometry restates RH; it does not derive it.
+
+## Round 171: all ball dimensions, weighted by sphere area (`PREREG_sphereweighted.md`, `frontier/nullvec/ksphereweighted.py`)
+
+**Registered in `d54bdc3`, before any value was computed.**
+
+**The object.** `G(z) = Σ_{d≥1} S_{d−1}[Ξ(z + ib_d) + Ξ(z − ib_d)]`, with `b_d = (d − 2)/4` and `S_{d−1} = 2π^{d/2}/Γ(d/2)`.
+
+The sum over dimensions collapses to a single multiplier on Riemann's kernel:
+- `G(z) = 8∫₀^∞ Φ(u)W(u)cos(zu)du` (with `Ξ = 4∫₀^∞ Φ cos`);
+- `W(u) = e^{−u/2}f(√π e^{u/4}) + e^{u/2}f(√π e^{−u/4})`;
+- `f(x) = Σ_{d≥1} x^d/Γ(d/2) = x/√π + x²e^{x²}(1 + erf x)`;
+- so `W(u) ≈ 2π e^{π e^{|u|/2}}`.
+
+**Validation.**
+- `W` matches `Σ_{d≤200}` to `1e-50`.
+- The integral form of `G` matches the direct sum over `d ≤ 200` (ξ at shifted points) to `1e-51`.
+
+**Results** (`ksw_real.json`, `ksw_disc.json`).
+- **Real zeros on (0, 40):** 7, at `12.236, 18.733, 23.313, 27.955, 31.554, 35.417, 38.914`. `G(0) = 312.8 > 0`.
+- **All zeros in `|z| < 40`** (argument principle): 14.0 = 2 × 7.
+
+| | Result |
+|---|---|
+| **Q1** (real-rooted in the disc) | **holds** |
+| **Q2** (not ζ's zeros) | **holds**: the nearest ζ-zero is 1.3–2.5 away in every case. Each zero of `G` sits below the nearest ζ-zero, like round 94's octonion superposition. |
+| **Q3** (density differs) | **holds**: 7 against ζ's 6 below 40 |
+
+**Reading.**
+- The sphere-weighted superposition of every ball's mirror pair is a real-rooted entire function in the tested disc, as expected from the dominance of the large-`d` terms.
+- It is a new function, not ζ: its zeros are a different, denser sequence.
+- As registered, no outcome here bears on RH. Real-rootedness of a positive sum of mirror averages neither implies nor is implied by RH, and `W` has infinite order, so the Pólya–de Bruijn multiplier theorems do not apply.
+- The closed form is the one structural finding: summing sphere areas over all dimensions gives back a Gaussian, `e^{πx²}` with `x² = e^{u/2}`. It sits next to Riemann's `e^{−πn²e^{2u}}` at a different scale (`e^{u/2}` against `e^{2u}`), so the two do not cancel.
+
+**Check 4.**
+- **Acknowledged.** de Bruijn 1950; round 94 (the 8D superposition); the Mittag-Leffler-type sum `Σ z^k/Γ(k + ½)`.
+- **New here.** The sphere-weighted dimension sum `G`, its closed-form multiplier `W`, and the measured zeros.
+
+**Bearing on RH:** none.
