@@ -6350,3 +6350,29 @@ The PrimeNumberTheoremAnd project already proves both rungs in Lean. We built it
 | (III) Landau's lemma | growth bound (II) + the 3-4-1 inequality + Borel–Carathéodory ⇒ `KVInput n₁ n₂` for every `n₁ > 2/3` | not formalised in this generality; PNT+ does the `n₁ = 1` case |
 
 **Check 4:** classical; the reduction file is new to the pilot. **Bearing on RH:** none.
+
+## Round 193: layer III of rung 3, Landau's lemma in general form (`external/pnt/Landau.lean`)
+
+The chain is now machine-checked from a growth bound on ζ to the drift. Axioms are clean (`propext`, `Classical.choice`, `Quot.sound`), built against PNT+ `650d312`.
+
+- **Hypothesis `PolylogGrowth a K`.** `|ζ(σ+it)| ≤ K(log|t|)^K` for `|t| ≥ 3`, `1 − (log|t|)^{−a} ≤ σ ≤ 2`.
+- **`zeroFree_of_growth`** (`a < n₁`). No zeros in `σ ≥ 1 − A/(log|t|)^{n₁}`. The route:
+  - the 3-4-1 inequality;
+  - Borel–Carathéodory at radius `¼(log|t|)^{−a}`, through PNT+'s `FinalBound`;
+  - `1/|ζ(s)| ≤ ζ(Re s)`;
+  - an explicit shift `δ(t) = ρ(2t)/(N(1 + log log 2t))`.
+- **`logDerivBnd_of_growth`** (`0 < a ≤ 1`, `a < n₁`). `|ζ'/ζ| ≤ C(log|t|)³` on that region, in four cases:
+  - `σ ≥ 3/2`: bounded;
+  - `3 < |t| < 5`: PNT+'s strip bound;
+  - right of the disc: `|ζ'/ζ(s)| ≤ −ζ'/ζ(Re s)` plus the pole bound;
+  - inside the disc: the local bound at a point, with every zero at distance at least the gap `3·δ(|t|+1)/26`.
+- **`rung3_of_growth`.** `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))` for every `n₁ > a`.
+
+| layer | content | status |
+|---|---|---|
+| (I) Vinogradov's mean value theorem | exponential-sum moments | not formalised |
+| (II) KV growth bound | `PolylogGrowth (2/3) K` | not formalised: **the only open input** |
+| (III) Landau's lemma | growth ⇒ zero-free region + `ζ'/ζ` bound ⇒ drift | **done (this round)** |
+
+Once layer II is proved at `a = 2/3`, `rung3_of_growth` gives every exponent below 3/5. The hypothesis is a growth bound on ζ, not RH, and nothing here is conditional on RH. **Check 4:** classical (Landau 1924; Titchmarsh §3.10–3.11). The general-`a` Lean form is new to the pilot. **Bearing on RH:** none. The rung-3 region still shrinks to the line `σ = 1`, and RH needs a fixed strip.
+
