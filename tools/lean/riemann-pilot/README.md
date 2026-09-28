@@ -5795,3 +5795,35 @@ So unconditional absolute improvements can only be finite-range.
 **Check 4.** All acknowledged, classical: Gauss, Jacobi, Hardy–Landau–Voronoi (circle problem), and the Epstein-zeta Mellin identity. Nothing here is new mathematics. The round tests the owner's reading against it.
 
 **Bearing on RH:** none.
+
+## Round 170: the spacetime-signature grid `ℤ^{3,1}` (`PREREG_lorentz.md`, `frontier/nullvec/klorentz.py`)
+
+**Registered in `dd2f552`, before any count was computed.**
+
+**Measurement.** The grid-point density on each hyperboloid `x² + y² + z² − t² = n`:
+- counted as `N_n(T) = Σ_{|t|≤T} r₃(n + t²)`, with `r₃` exact to `2·10⁶`;
+- divided by the real volume;
+- at `T = 1000` and `T = 1400` (spread `≤ 0.012`), for odd `|n| < 400`, both signs.
+
+**Result: L1 and L2 fail as registered.**
+- The uniform prediction `δ(n)/δ(1) = Σ_{d|n}χ₋₄(d)/d` is off by up to 2.4 (median 0.18).
+- Multiplicativity fails on odd coprime pairs by up to 0.83 (101 pairs).
+- By the verdict rule this is "no Euler product".
+
+**Post hoc** (`klorentz_posthoc.txt`; identified after seeing the data, not a registered prediction).
+- **The failure is purely 2-adic.** Write `δ(n) = C(n mod 4)·Σ_{d|n}χ₋₄(d)/d`, with one constant for `n ≡ 1` and one for `n ≡ 3 (mod 4)`, and the same constants for both signs of `n`. This fits every odd `|n| < 400` to `0.5%`, and `C₁/C₃ = 2.9997`.
+- **So the odd-shell Dirichlet series is a sum of two Euler products with opposite shifts:**
+  `Σ_{n odd} n·δ(n)n^{−s} = a·ζ_odd(s−1)L(s,χ₋₄) + (a/2)·ζ_odd(s)L(s−1,χ₋₄)`.
+  The weights are measured as `b/a = 0.5000`, and the partial sums match at `s = 3.5 + 2i` to `3.5·10⁻⁴`.
+
+**Reading.**
+- **The owner's hunch, partly borne out.** The spacetime-signature grid does contain an **unshifted ζ(s)**, which the registration did not predict.
+- **But only inside a sum.** It comes paired with its mirror (`ζ(s−1)`, and `L(χ₋₄)` swapped between shifted and unshifted), added together with weights 2 : 1.
+- **A sum of Euler products has no Euler product.** That is the Davenport–Heilbronn situation, where off-line zeros are generic. The zeros of this sum were not computed here; that is the natural next registration.
+- **The ½ displacement is unchanged.** Both summands sit at `±½` about the centre `Re s = 1`.
+
+**Check 4.**
+- **Acknowledged.** Siegel's theory of indefinite forms and local densities: the `n mod 4` dependence is the 2-adic density of an odd unimodular lattice. The `χ₋₄` character comes from discriminant `−1`.
+- **New here.** The measurement, and the explicit two-term decomposition for `ℤ^{3,1}` as the pilot's test of the owner's idea.
+
+**Bearing on RH:** none.
