@@ -6246,3 +6246,29 @@ It is assembled prime by prime. Write `n = pᵏ·m` with `p ∤ m`; the count on
 - Siegel's general formula.
 
 **Check 4:** classical (Fermat, Gauss, Jacobi); the Lean proof is new to the pilot. **Bearing on RH:** none.
+
+## Round 188: angular grinding of the 2D ball's wheels (`frontier/grind/kangle.py`, demonstration, classical)
+
+**Question (owner).** The distribution of teeth over a ball is surely not as simple as a flat grid. Where the wheels sit *in angle* is a second layer of grinding.
+
+**Computed** to norm `10⁸`: 5.76M Gaussian primes (`kangle_results.json`). The angular drift is
+`A_k(X) = Σ_{N(π)≤X} log N(π)·cos(4k·arg π)`.
+- `k = 0` is the ordinary prime drift `ψ − x`.
+- `k ≥ 1` measures lopsidedness in angle. Its tones are the zeros of Hecke's L-functions `L(s, ξ^k)`, one per angular harmonic.
+
+| k | 0 | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|---|
+| drift exponent | 0.482 | 0.502 | 0.485 | 0.488 | 0.526 |
+| max \|A\|/√X, last block | 1.87 | 1.09 | 0.91 | 1.72 | 1.81 |
+
+Sector fractions over 8 equal angles: 0.12490–0.12507 (uniform is 0.125).
+
+**Reading.**
+- In angle the wheels spread evenly (Hecke 1918–20, a theorem).
+- Each angular harmonic grinds at random-walk size `√X`, exactly as the radial drift does. So each harmonic is a separate "RH" (GRH for Hecke characters), all open.
+- The ball has infinitely many independent grinding channels: one radial (ζ, plus `L(s, χ₄)`), and one per angular harmonic `k`.
+- In 3D and 4D the analogous angular layers are governed by modular forms of half-integral weight (Duke) and by quaternion Hecke operators. There, angular equidistribution of the teeth on a single shell is proved, with rate control coming from Deligne's bound.
+
+**Check 4.** Classical (Hecke Grössencharacters; Duke 1988; Linnik). A demonstration; nothing new.
+
+**Bearing on RH:** none. It shows RH is one member of an infinite family of grinding bounds on the same ball, each open.
