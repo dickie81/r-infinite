@@ -267,4 +267,163 @@ theorem local_bound {s₀ : ℂ} {ρr B : ℝ} (hs₀ : 1 < s₀.re) (hρ : 0 < 
     exact le_trans hterm_zs (Finset.single_le_sum hterm hzsZ)
   linarith
 
+
+/-! ## L3a: size of `1/ζ` to the right of the line -/
+
+open LSeries in
+lemma norm_term_one_summable {σ : ℝ} (hσ : 1 < σ) :
+    Summable (fun n : ℕ => ‖term (fun _ => (1 : ℂ)) (σ : ℂ) n‖) := by
+  have h := Real.summable_one_div_nat_rpow.mpr hσ
+  refine h.congr (fun n => ?_)
+  rw [norm_term_eq]
+  split_ifs with hn
+  · simp [hn, Real.zero_rpow (by linarith : σ ≠ 0)]
+  · simp
+
+open LSeries in
+lemma term_one_eq_ofReal {σ : ℝ} (n : ℕ) :
+    term (fun _ => (1 : ℂ)) (σ : ℂ) n = ((‖term (fun _ => (1 : ℂ)) (σ : ℂ) n‖ : ℝ) : ℂ) := by
+  rw [norm_term_eq]
+  rcases eq_or_ne n 0 with rfl | hn
+  · simp
+  · rw [term_of_ne_zero hn, if_neg hn]
+    simp only [norm_one, ofReal_re]
+    rw [ofReal_div, ofReal_one, ofReal_cpow (Nat.cast_nonneg n), ofReal_natCast]
+
+/-- For `Re s > 1`: `1/|ζ(s)| ≤ ζ(Re s)`, via `1/ζ = Σ μ(n) n^{-s}`. -/
+theorem inv_norm_zeta_le {s : ℂ} (hs : 1 < s.re) : 1 / ‖ζ s‖ ≤ ‖ζ (s.re : ℂ)‖ := by
+  open LSeries in
+  have hmul := ArithmeticFunction.LSeries_zeta_mul_Lseries_moebius hs
+  rw [ArithmeticFunction.LSeries_zeta_eq_riemannZeta hs] at hmul
+  have hζ0 : ζ s ≠ 0 := riemannZeta_ne_zero_of_one_lt_re hs
+  have hμ : LSeries (fun n => (ArithmeticFunction.moebius n : ℂ)) s = 1 / ζ s := by
+    rw [eq_div_iff hζ0, mul_comm]; exact hmul
+  have hsum1 := norm_term_one_summable hs
+  have hle : ∀ n, ‖LSeries.term (fun n => (ArithmeticFunction.moebius n : ℂ)) s n‖ ≤
+      ‖LSeries.term (fun _ => (1 : ℂ)) (s.re : ℂ) n‖ := by
+    intro n
+    rw [LSeries.norm_term_eq, LSeries.norm_term_eq]
+    split_ifs
+    · rfl
+    · simp only [ofReal_re, norm_one]
+      gcongr
+      simpa [Complex.norm_intCast] using
+        (show (|(ArithmeticFunction.moebius n : ℝ)|) ≤ 1 by exact_mod_cast ArithmeticFunction.abs_moebius_le_one)
+  have hsumμ : Summable (fun n => ‖LSeries.term (fun n => (ArithmeticFunction.moebius n : ℂ)) s n‖) :=
+    Summable.of_nonneg_of_le (fun _ => norm_nonneg _) hle hsum1
+  have h1 : 1 / ‖ζ s‖ = ‖LSeries (fun n => (ArithmeticFunction.moebius n : ℂ)) s‖ := by
+    rw [hμ, norm_div, norm_one]
+  have hζσ : ζ (s.re : ℂ) = ∑' n, LSeries.term (fun _ => (1 : ℂ)) (s.re : ℂ) n := by
+    rw [← LSeries_one_eq_riemannZeta (by simpa using hs)]; rfl
+  have h2 : ‖ζ (s.re : ℂ)‖ = ∑' n, ‖LSeries.term (fun _ => (1 : ℂ)) (s.re : ℂ) n‖ := by
+    rw [hζσ, show (fun n => LSeries.term (fun _ => (1 : ℂ)) (s.re : ℂ) n) =
+      fun n => ((‖LSeries.term (fun _ => (1 : ℂ)) (s.re : ℂ) n‖ : ℝ) : ℂ) from
+      funext term_one_eq_ofReal, ← ofReal_tsum, Complex.norm_real, Real.norm_eq_abs,
+      abs_of_nonneg (tsum_nonneg fun _ => norm_nonneg _)]
+  rw [h1, h2]
+  exact (norm_tsum_le_tsum_norm hsumμ).trans (hsumμ.tsum_le_tsum hle hsum1)
+
+
+/-! ## L3b: the growth hypothesis and the local bound at the KV radius -/
+
+/-- **Polylog growth** of ζ in the region `σ ≥ 1 − (log|t|)^{−a}` (the Korobov–Vinogradov input
+has `a = 2/3`). -/
+def PolylogGrowth (a K : ℝ) : Prop :=
+  ∀ t : ℝ, 3 ≤ |t| → ∀ σ : ℝ, 1 - Real.log |t| ^ (-a) ≤ σ → σ ≤ 2 →
+    ‖ζ (σ + t * I)‖ ≤ K * Real.log |t| ^ K
+
+noncomputable def Lg (T : ℝ) : ℝ := Real.log (|T| + 1)
+noncomputable def rad (a T : ℝ) : ℝ := 1 / 4 * Lg T ^ (-a)
+noncomputable def Bnd (K δ T : ℝ) : ℝ := 2 + K * Lg T ^ K * ‖ζ ((1 + δ : ℝ) : ℂ)‖
+
+lemma Lg_gt_one {T : ℝ} (hT : 4 ≤ |T|) : 1 < Lg T := by
+  unfold Lg
+  rw [Real.lt_log_iff_exp_lt (by positivity)]
+  have := Real.exp_one_lt_d9; linarith
+
+lemma rad_pos (a T : ℝ) (hT : 4 ≤ |T|) : 0 < rad a T := by
+  unfold rad; have := Lg_gt_one hT; positivity
+
+lemma rad_le (a : ℝ) (ha : 0 < a) {T : ℝ} (hT : 4 ≤ |T|) : rad a T ≤ 1 / 4 := by
+  unfold rad
+  have h1 : Lg T ^ (-a) ≤ 1 := Real.rpow_le_one_of_one_le_of_nonpos (Lg_gt_one hT).le (by linarith)
+  linarith
+
+/-- **L3b.** Under polylog growth, the local bound holds at `s₀ = 1 + δ + iT` with radius
+`rad a T = ¼(log(|T|+1))^{−a}` and `B = Bnd K δ T`. -/
+theorem apply_local {a K : ℝ} (ha : 0 < a) (hK : 0 < K) (hG : PolylogGrowth a K) {T δ : ℝ}
+    (hT : 4 ≤ |T|) (hδ : 0 < δ) (hδ2 : δ ≤ 1 / 2) :
+    rad a T * -(ζ' ((1 + δ : ℝ) + T * I) / ζ ((1 + δ : ℝ) + T * I)).re ≤
+        Kc * Real.log (Bnd K δ T) ∧
+    ∀ β : ℝ, ζ (β + T * I) = 0 → 1 + δ - β ≤ rad a T / 2 →
+      rad a T * -(ζ' ((1 + δ : ℝ) + T * I) / ζ ((1 + δ : ℝ) + T * I)).re ≤
+        Kc * Real.log (Bnd K δ T) - rad a T / (1 + δ - β) := by
+  set s₀ : ℂ := ((1 + δ : ℝ) : ℂ) + T * I with hs₀def
+  have hre : s₀.re = 1 + δ := by simp [hs₀def]
+  have him : s₀.im = T := by simp [hs₀def]
+  set ρ := rad a T with hρdef
+  have hρ := rad_pos a T hT
+  have hρ4 := rad_le a ha hT
+  have hL := Lg_gt_one hT
+  have hζδ : 1 ≤ ‖ζ ((1 + δ : ℝ) : ℂ)‖ * ‖ζ s₀‖ := by
+    have h := inv_norm_zeta_le (s := s₀) (by rw [hre]; linarith)
+    rw [hre] at h
+    have hz : 0 < ‖ζ s₀‖ := norm_pos_iff.mpr (riemannZeta_ne_zero_of_one_lt_re (by rw [hre]; linarith))
+    rw [div_le_iff₀ hz] at h; linarith
+  have hB : 1 < Bnd K δ T := by
+    unfold Bnd; have : 0 ≤ K * Lg T ^ K * ‖ζ ((1 + δ : ℝ) : ℂ)‖ := by positivity
+    linarith
+  have hpole : ∀ z : ℂ, ‖z‖ < 2 → s₀ + ρ * z ≠ 1 := by
+    intro z hz h
+    have := congrArg Complex.im h
+    simp only [add_im, him, mul_im, ofReal_re, ofReal_im, zero_mul, add_zero, one_im] at this
+    have hzi : |z.im| ≤ ‖z‖ := Complex.abs_im_le_norm z
+    have : |T| ≤ ρ * |z.im| := by
+      rw [show T = -(ρ * z.im) by linarith, abs_neg, abs_mul, abs_of_pos hρ]
+    nlinarith [abs_nonneg z.im]
+  have hbound : ∀ z : ℂ, ‖z‖ ≤ 3 / 4 → ‖ζ (s₀ + ρ * z)‖ ≤ Bnd K δ T * ‖ζ s₀‖ := by
+    intro z hz
+    set s := s₀ + ρ * z with hsdef
+    have hsre : s.re = 1 + δ + ρ * z.re := by simp [hsdef, hre]
+    have hsim : s.im = T + ρ * z.im := by simp [hsdef, him]
+    have hzr : |z.re| ≤ 3 / 4 := (Complex.abs_re_le_norm z).trans hz
+    have hzi : |z.im| ≤ 3 / 4 := (Complex.abs_im_le_norm z).trans hz
+    have hρzi : |ρ * z.im| ≤ 3 / 16 := by
+      rw [abs_mul, abs_of_pos hρ]; nlinarith [abs_nonneg z.im]
+    have hρzr : |ρ * z.re| ≤ 3 / 4 * ρ := by
+      rw [abs_mul, abs_of_pos hρ]; nlinarith [abs_nonneg z.re]
+    have hims : 3 ≤ |s.im| := by
+      rw [hsim]; have := abs_sub_abs_le_abs_sub T (-(ρ * z.im))
+      rw [abs_neg, sub_neg_eq_add] at this; linarith
+    have hims2 : |s.im| ≤ |T| + 1 := by
+      rw [hsim]; have := abs_add_le T (ρ * z.im); linarith
+    have hlog_pos : 0 < Real.log |s.im| := Real.log_pos (by linarith)
+    have hlog_le : Real.log |s.im| ≤ Lg T := Real.log_le_log (by linarith) hims2
+    have hpow : Lg T ^ (-a) ≤ Real.log |s.im| ^ (-a) :=
+      Real.rpow_le_rpow_of_nonpos hlog_pos hlog_le (by linarith)
+    have hlower : 1 - Real.log |s.im| ^ (-a) ≤ s.re := by
+      rw [hsre]
+      have : Lg T ^ (-a) = 4 * ρ := by rw [hρdef, rad]; ring
+      have := abs_le.mp hρzr
+      linarith
+    have hupper : s.re ≤ 2 := by
+      rw [hsre]; have := abs_le.mp hρzr; linarith
+    have hgs := hG s.im hims s.re hlower hupper
+    rw [Complex.re_add_im] at hgs
+    have hKpow : K * Real.log |s.im| ^ K ≤ K * Lg T ^ K :=
+      mul_le_mul_of_nonneg_left (Real.rpow_le_rpow hlog_pos.le hlog_le hK.le) hK.le
+    have hζs0 : 0 ≤ ‖ζ s₀‖ := norm_nonneg _
+    calc ‖ζ s‖ ≤ K * Lg T ^ K := hgs.trans hKpow
+      _ ≤ K * Lg T ^ K * (‖ζ ((1 + δ : ℝ) : ℂ)‖ * ‖ζ s₀‖) := by
+          have : 0 ≤ K * Lg T ^ K := by positivity
+          nlinarith
+      _ ≤ Bnd K δ T * ‖ζ s₀‖ := by
+          unfold Bnd; nlinarith [mul_nonneg (mul_nonneg hK.le (Real.rpow_nonneg (by linarith : (0:ℝ) ≤ Lg T) K))
+            (norm_nonneg (ζ ((1 + δ : ℝ) : ℂ))), hζs0]
+  have hloc := local_bound (s₀ := s₀) (ρr := ρ) (B := Bnd K δ T) (by rw [hre]; linarith) hρ hB
+    hpole hbound
+  refine ⟨hloc.1, fun β hβ hd => ?_⟩
+  have := hloc.2 β (by rw [him]; exact hβ) (by rw [hre]; exact hd)
+  rwa [hre] at this
+
 end Landau
