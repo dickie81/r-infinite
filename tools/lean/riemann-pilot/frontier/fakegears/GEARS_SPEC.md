@@ -54,3 +54,37 @@ What rounds 175–179 have actually computed, stated as a model.
 - **(C)** The wheels are wheels, not literal balls rolling on balls. The "ball" is the norm shell `|z|² = n`, and the wheels are the primes of that grid.
 - **Nothing in 1–6 is new mathematics.** It is Euclid, Gauss, Hurwitz, Bohr, Selberg and the explicit formula, arranged as a mechanism.
 - **Where RH sits.** RH is a statement about the size of the random-looking wobble in §5 along the straight path at `σ = ½`: whether it stays within `x^{½+ε}`.
+
+## 8. Lattice balls from first principles (round 181)
+
+Start from the unit ball in `ℝ^d` and ask for a discrete version with three properties.
+
+1. **Discrete and additive.** The points can be added and subtracted and stay in the set. This forces a **lattice** `Λ`.
+2. **Rolling = multiplying.** One ball rolls onto another when you multiply points and the lengths multiply: `|xy| = |x||y|`.
+   - By Hurwitz's theorem (1898) this is possible only for **`d = 1, 2, 4, 8`** (reals, complex numbers, quaternions, octonions).
+   - The lattice must also be closed under the multiplication.
+3. **Most symmetric, with unique wheels.** Take the closed lattice with the most units (the "rotations that are themselves lattice points"), and require that factorisation into wheels is unique wherever possible.
+
+What this forces:
+
+| d | lattice ball | units | wheels at an odd prime `p` | shell count (checked, `klatticeballs.py`) |
+|---|---|---|---|---|
+| 1 | ℤ | 2 | 1 | `2` |
+| 2 | ℤ[ω] (hexagonal) **or** ℤ[i] (square) | 6 / 4 | 2 or 0 (by `p` mod 3 / mod 4) | `6Σχ₋₃(d)` / `4Σχ₋₄(d)` ✓ |
+| 4 | Hurwitz quaternions (the D₄ / 24-cell lattice) | 24 | **`p + 1`** (checked `p = 3, 5, 7, 11`) | `24 Σ_{d∣n, d odd} d` ✓ |
+| 8 | integral octonions = **E₈** | 240 | not well defined (non-associative) | `240 σ₃(n)` ✓ |
+
+- **What remains a choice.**
+  - In 2D there are two candidates. Hexagonal has more symmetry; square is the one the pilot used. Both have unique factorisation.
+  - In 4D, left and right multiplication are different rollings: a 4D rotation splits into a left half and a right half. So the "rolling" has two independent directions. This is genuine structure, not a choice.
+- **Why 8D breaks.** E₈ is the most symmetric of all, but octonion multiplication is not associative. "Roll by A then by B" is not a single roll, so there are no well-defined wheels. This is where the model stops, not where it culminates.
+- **The Dirichlet series come out forced.**
+  - 1D: `ζ(s)`.
+  - 2D: `ζ(s)·L(s, χ)`.
+  - 4D: `ζ(s)ζ(s−1)` times a 2-factor.
+  - 8D: `ζ(s)ζ(s−3)`.
+  - In every case ζ appears alongside shifted or twisted copies. This is the mirror-gap structure of rounds 168–170.
+
+**Check 4.** All classical: Hurwitz 1898; Jacobi, Hurwitz and Lipschitz shell counts; Coxeter's integral octonions; Heegner–Stark for the list of unique-factorisation quadratic lattices. The numeric check only confirms the formulas.
+
+**Bearing on RH:** none. The construction forces which balls exist. The ζ that appears is the same ζ.
