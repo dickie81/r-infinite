@@ -15,3 +15,9 @@ cp <pilot>/external/pnt/WanderLadderPNT.lean . && lake env lean WanderLadderPNT.
 ```
 
 Checked in round 191: all three theorems print only `propext`, `Classical.choice`, `Quot.sound`. The two `sorry` lemmas in the project's `Wiener.lean` are not in the dependency cone.
+
+## Rung3.lean (round 192)
+
+Build as above, then `lake env lean Rung3.lean`.
+
+`rung3_of_region` reduces rung 3 to one analytic input, `KVInput n₁ n₂`: a zero-free region of width `(log t)^{−n₁}` plus a log-derivative bound. Its axioms are clean.

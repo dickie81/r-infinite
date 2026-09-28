@@ -6335,3 +6335,18 @@ The PrimeNumberTheoremAnd project already proves both rungs in Lean. We built it
 - The gap `x^{1−δ}` and RH are open.
 
 **Check 4:** the mathematics is classical and the formalisation is the PNT+ project's. The pilot contributes only the restatement and the audit. **Bearing on RH:** none.
+
+## Round 192: rung 3 (Korobov–Vinogradov), reduced to its analytic input (`external/pnt/Rung3.lean`)
+
+- **`rung3_of_region`** (axioms clean, built against PNT+ `650d312`). Suppose `KVInput n₁ n₂`: ζ has no zeros for `σ ≥ 1 − A/(log|t|)^{n₁}`, and there `|ζ'/ζ| ≤ C(log|t|)^{n₂}`. Then `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))`. The proof is PNT+'s general `GenStrengthPNT`, fed through its holomorphy and bound lemmas.
+- **`rung3_exponent`.** For `n₁ ∈ (2/3, 1)` the exponent lies strictly between 1/2 (rung 2) and 3/5 (rung 3). The KV region gives every `n₁ > 2/3`, so every exponent below 3/5 (the `(log log x)^{−1/5}` refinement is not captured).
+
+**What remains is the analytic input, in three layers.**
+
+| layer | content | status |
+|---|---|---|
+| (I) Vinogradov's mean value theorem | `∫|Σ_{n≤N} e(α₁n + … + α_k n^k)|^{2s} ≪ N^{2s − k(k+1)/2 + ε}` (Wooley; Bourgain–Demeter–Guth) | not formalised anywhere that I know of |
+| (II) KV exponential-sum and ζ bounds | `Σ_{N<n≤2N} n^{−it} ≪ N·exp(−c(log N)³/(log t)²)`; then `|ζ(σ+it)| ≪ t^{B(1−σ)^{3/2}}(log t)^{2/3}` near `σ = 1` | not formalised (PNT+ has a Vinogradov-type explicit bound only as a stated `sorry`, `theorem_1_4`) |
+| (III) Landau's lemma | growth bound (II) + the 3-4-1 inequality + Borel–Carathéodory ⇒ `KVInput n₁ n₂` for every `n₁ > 2/3` | not formalised in this generality; PNT+ does the `n₁ = 1` case |
+
+**Check 4:** classical; the reduction file is new to the pilot. **Bearing on RH:** none.
