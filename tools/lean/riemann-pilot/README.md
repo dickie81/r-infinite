@@ -5684,3 +5684,40 @@ This round surveys the literature on controlling the mixed shift terms that roun
   - No method in the literature bounds `λ₂` at this scale.
 
 **Bearing on RH:** none new. The survey shows the prime-correlation route is closed even under standard conjectures. It locates the remaining obstacle (a structural `λ₂` lower bound) where CCM and the pilot both already place it.
+
+## Round 167: the λ₂ lower bound, attacked directly (`frontier/lambda2/LAMBDA2.md`, numerics + paper proof, no Lean)
+
+**The three kinds of bound.**
+- **(P) `λ₂ > 0` for all `a`.** RH-strength (round 152).
+- **(N) `λ₂ ≥ −Ce^{2θa}` for all `a`.** For `θ < ½` this forces a zero-free strip `Re ρ ≤ ½ + θ`. The sketch uses round 131's twin probes: an off-line zero with real part `½ + η₀` drives `λ₁ ≤ −c e^{2η₀a}` along a sequence. `θ = ½` is the trivial floor, already in Lean.
+- **(G) `λ₂ > λ₁`.** Simplicity: not RH-strength but open (rounds 48–52, 148–151).
+
+So unconditional absolute improvements can only be finite-range.
+
+**Theorem NP (paper proof; constants in `near_pos_constants.py`).**
+- **Statement.** Given Platt–Trudgian (RH verified to `3·10¹²`), for every `0 < a ≤ ½log 67 − 10⁻⁶` (`δ ≤ 4.2047`) and every real probe, `Q(g) ≥ −10^{−18985}‖g‖²`. Hence `λ₂ ≥ λ₁ ≥ −10^{−18985}` in both sectors.
+- **Proof idea.**
+  - Split `Q = 2G(i/2) + (1/2π)∫|ĝ|²σ_a` with an entire cutoff `w = 1_{[−T₂,T₂]} * c(sin αy/αy)^{2m}`, of type below the gap to the next prime power.
+  - The explicit formula for `|ĝ|²w` sees only primes `≤ e^{2a}`. Its zero sum is `≥ 0` below `3·10¹²` (Platt–Trudgian).
+  - The remainder is `≥ 0` wherever `σ_a ≥ 0`, i.e. above Zhu's threshold `T₁ = 2πe^{A_a}` (`2.41·10¹²` at `a*`).
+  - The only negative terms are the cutoff's transition errors, of order `(αX)^{1−2m}` with `X ≈ 3·10¹¹`.
+  - Monotonicity (`lam_antitone`) covers all smaller `a`.
+- **How it compares.**
+  - Against the truth: `λ₁(a*) ≈ 10^{−366}`, so the bound is uselessly low.
+  - Against the trivial floor (`≈ −28`): it is about 19 000 orders of magnitude better.
+  - Reach: `δ = 4.2`, against the pilot's certified `2.07` and Zhu's `1.6`.
+
+**The one missing step to unconditional Weil positivity at `δ ≤ 4.2`.** A sampling inequality on `PW_a` at the zeros up to `T₂`, with constant `≫ 10^{−18985}`. The truth is about `10^{−366}`. It needs local zero-spacing data up to `2.4·10¹²` (max gap `< π/a`); Trudgian's `S(T)` bound alone gives gaps below about 3, which is not enough.
+
+**Barrier.** The reach grows like `δ_max ≈ 2 log(log H₀/4)` in the verification height: doubly logarithmic.
+
+**Illustration (Davenport–Heilbronn).** After the first failure, `λ₁^{DH}` goes `−8·10⁻³⁰ → −0.71` over `a = 1.725 → 2.0`, and a second negative eigenvalue appears at `a = 2.0`.
+
+**Comparative bound (G).** Nothing new.
+
+**Check 4.**
+- **Acknowledged.** (P), (G), the threshold `T₁` (Zhu; round 47), the explicit formula, and the Platt–Trudgian and Trudgian bounds.
+- **New as far as checked.** The band-limited split, Theorem NP, the (N) barrier sketch, and the missing sampling step.
+- **Literature.** The closest analogue found is Oesterlé's unpublished Li-coefficient statement "RH to height T₀ ⟹ λₙ > 0 for n < T₀²" (quoted by Voros, arXiv:2204.01036). No windowed Weil-form analogue was found. Novelty is not established.
+
+**Bearing on RH:** none. (N) for all `a` is zero-free-strip-hard, and the finite-range bound's reach grows only doubly logarithmically in the verification height.
