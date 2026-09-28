@@ -6084,3 +6084,42 @@ Pre-registration: `PREREG_fakegears.md` (commit 173d5fc, before any run).
 - New here, as finite-range numerics only: the tilted real systems' drift/floor exponents; the failed E4 prediction; the `0.75/log x` floor leakage of a planted tone, identical for zero and pole phase.
 
 **Bearing on RH:** none. These are finite-range exponent fits on toy systems. Whether a perfectly regular floor forces the drift down to `√x` is not tested here, since the real primes are the only system with such a floor.
+
+## Round 179: gear sets built floor-first (`frontier/fakegears/ksmoothfloor.py`, pre-registered)
+
+Pre-registration: `PREREG_smoothfloor.md` (commit 753a031, before any run).
+
+**Construction.** Choose the target integer count `T(x)` first. Walking up the integers, place just enough new gears at each `n` to keep the integer count on target. Run to `10⁷`; results in `ksmoothfloor_results.json`.
+
+| system | floor exponent θ_F | drift exponent θ_D | notes |
+|---|---|---|---|
+| S1: `T = x` | 0 | 0.48 | **gears = the primes exactly** (checked) |
+| `T = 1 + A(x−1)`, A = π/4 | 0.27 | 0.79 | greedy overshoots at 81% of steps |
+| A = 0.9 | 0.32 | 0.66 | max floor error 72 near 8·10⁶ |
+| A = 1.1 | 0.34 | 0.73 | max floor error 209 near 8·10⁶ |
+| A = √2, 2, e | 0.92–1.04 | 0.96–1.04 | floor cannot be held |
+| W25: `x + ½x^{1/4}cos(5 log x)` | 0.29 | 0.46 | |
+| W40: `x + ½x^{0.4}cos(5 log x)` | 0.24 | 0.54 | |
+
+**Scoring.**
+- **S1 held.** Asking for "one integer per integer" and building gears greedily gives exactly the primes. The primes are the unique gear set with the perfectly flat floor `⌊x⌋` under this rule.
+- **Sa prediction failed.** I predicted the floor would stay smooth for `A ≤ 1.1`; it does not. Products of the gears keep overshooting the target (at 81–87% of steps), and the floor ends at `x^{0.27–0.34}`. Only `A = 1` can be held exactly.
+- **H: not falsified, and never tested.** The rule was: any system with `θ_F ≤ 0.25` must have `θ_D ≤ 0.65`. The only systems that qualify, S1 and W40, have drift exponents 0.48 and 0.54. Every alternative gear set failed to reach a floor that smooth, so a perfectly smooth floor was never tested beyond the real primes.
+- **W prediction held.** The planted floor tone `½x^θ cos(5 log x)` reappears in the drift with amplitude 9.09 (W25) and 8.74 (W40), i.e. amplified 18.2× and 17.5× against the predicted `log x/0.75 ≈ 18.4` at `x ≈ 10⁶`. This is the inverse of round 178's leakage.
+  - The JSON field `drift_over_floor_tone` divides by the residual floor tone, which is near 0 because the floor follows its target. It is not this ratio.
+
+**Post-hoc (not pre-registered; `ksmoothfloor_posthoc.py`, `ksmoothfloor_posthoc.json`).** In the `A = π/4, 0.9, 1.1` systems:
+- the drift oscillates, with 63–121 sign changes and 39–56% of each block positive, so it is not a one-signed bias;
+- its size is far above `√x`: `|D(10⁷)| ≈ 37 000` for `A = π/4`, against `√x ≈ 3 200`.
+
+So these gear sets have floors well below `√x` (max error 64–209 near `8·10⁶`) yet drift at `x^{0.66–0.79}`. They break round 178's "locked gears" rule `θ_D ≤ max(½, θ_F) + 0.10` by 0.16–0.29.
+- They are not counterexamples to H: their floors (0.27–0.34) sit above H's 0.25 threshold.
+- They show that "floor below `√x`" does not lock the drift. Only the perfectly flat floor (S1, the primes) has been seen with drift ≈ ½.
+- (Inference, not computed: their gear zetas presumably have zeros near `σ ≈ 0.7–0.8`.)
+
+**Check 4.**
+- Classical: Beurling systems; the greedy/sieve view of the primes as the minimal generators of ℕ.
+- Recalled, not re-read: Hilberdink's `max(θ_N, θ_ψ) ≥ ½`.
+- New here, finite-range numerics only: floor-first gear sets with floors `x^{0.27–0.34}` and drift `x^{0.66–0.79}`; the `≈ log x/0.75` amplification of a planted floor tone into the drift.
+
+**Bearing on RH:** none. The one smooth-floor system with a proper drift is the primes, which is where we started. Near-smooth fakes drift far more, so any mechanism has to use *exact* flatness of the floor, not approximate flatness.
