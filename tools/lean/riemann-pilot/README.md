@@ -6039,3 +6039,48 @@ That score is `μ(n)`, and the net slippage `M(x) = Σ_{n≤x} μ(n)` is the Mer
 **Check 4.** Classical: the Hadamard product, and the known link between small `|ζ′(ρ)|` and close zero pairs (Lehmer pairs; Conrey, Hughes–Keating–O'Connell moments). The numbers are a demonstration; nothing new.
 
 **Bearing on RH:** none.
+
+## Round 178: fake gear sets, including tilted higher-dimensional ones (`frontier/fakegears/`, pre-registered)
+
+Pre-registration: `PREREG_fakegears.md` (commit 173d5fc, before any run).
+
+**The owner's hypothesis G ("locked gears").** How far the prime count drifts is limited by how regular the integers are (the floor): `θ_D ≤ max(½, θ_F) + 0.10`.
+
+**Setup.** 17 systems run to `10⁷` (`kfakegears_results.json`):
+- real primes in dimensions 1, 2 and 4, where dims 2 and 4 have tilted teeth (Gaussian split pairs; `p + 1` teeth per norm for `ζ(s)ζ(s−1)`);
+- Cramér fake primes, random tilts, and both together (3 seeds each);
+- two planted systems, real primes greedily modified to drift `∓2Re(x^ρ/ρ)` with `ρ = ¾ + 5i`: Z1 is the zero phase, P1 the pole phase.
+
+**Exponents** (dyadic block maxima, `2^14`–`2^23`, ζ scale):
+
+| system | θ_F (floor) | θ_D (drift) |
+|---|---|---|
+| R1 real, dim 1 | 0.00 | 0.48 |
+| R2 real Gaussian, dim 2 (tilted pairs) | 0.30 | 0.48 |
+| R4 real `ζζ(s−1)`, dim 4 (p+1 tilts) | 0.02 | 0.475 |
+| C1 Cramér (3 seeds) | 0.34–0.42 | 0.39–0.61 |
+| T2 random tilts | 0.30–0.44 | 0.44–0.62 |
+| CT2 fake primes + random tilts | 0.35–0.42 | 0.33–0.63 |
+| C4 fake primes, p+1 tilts | 0.38–0.48 | 0.44–0.60 |
+| Z1 zero-phase plant | 0.67 | 0.70 |
+| P1 pole-phase plant | 0.68 | 0.74 |
+
+**Scoring.**
+- **E1 held.** Real systems have drift ≈ ½ in every dimension. Tilting does not change the drift. It roughens the floor in dim 2 (0.30, the circle problem) but not in dim 4.
+- **E2 failed as stated.** Five of twelve fake drift exponents fall outside [0.40, 0.60], and three floor exponents fall below 0.35. The fake drift slopes scatter ±0.15 across seeds around ½, so my band was too tight. Qualitatively, the fakes' floors (0.30–0.48) are far rougher than the real dim-1 and dim-4 floors (≈ 0).
+- **E3 held** (P1).
+- **E4 failed.** This was the discriminating prediction. I predicted a floor exponent ≤ 0.60 for the zero-phase plant; it came out at 0.67. The floor moves with a planted zero just as it does with a planted pole.
+- **G, by the pre-registered rule: falsified.** Five random fakes have margins 0.101–0.135 above the 0.10 tolerance (C1 s3, T2 s1, CT2 s1 and s3, C4 s3). All five lie inside the ±0.15 seed-to-seed slope noise. On the noise-free plants, G held (margins 0.03 and 0.06). **Verdict: G failed on the pre-registered rule, but only because its tolerance was set tighter than the seed-to-seed noise. On the planted systems, the only non-random test, the evidence favours G at this range.**
+
+**Post-hoc (not pre-registered; `kfakegears_posthoc.py`, `kfakegears_posthoc.json`).** Fit the planted tone `x^{3/4}cos(5 log x)` in floor and drift over three decades.
+- The drift tone amplitude is 0.398 (Z1) and 0.393 (P1), against the planted 0.396.
+- The floor carries the same tone. The floor/drift ratio is 0.073, 0.059, 0.049 on `[10⁴,10⁵]`, `[10⁵,10⁶]`, `[10⁶,10⁷]`. Ratio × `log x` stays at 0.73–0.76 for both plants.
+- So the floor inherits the drift, divided by `log x`, whatever the phase. A `1/log x` factor does not change the exponent, so at the level of exponents the floor and drift stay locked in these systems.
+- Why a planted *zero* shows up in the floor at all is open here. Exact Beurling theory puts a zero of the gear zeta into the drift but not the floor. One possibility (unverified) is that an exact zero factor is not realisable with positive integer gears, so the discrete realisation leaks it into the floor.
+
+**Check 4.**
+- Classical: Cramér's model; Beurling systems; the Gauss circle problem.
+- Acknowledged: the discreteness cost in Beurling constructions (Broucke, round 166).
+- New here, as finite-range numerics only: the tilted real systems' drift/floor exponents; the failed E4 prediction; the `0.75/log x` floor leakage of a planted tone, identical for zero and pole phase.
+
+**Bearing on RH:** none. These are finite-range exponent fits on toy systems. Whether a perfectly regular floor forces the drift down to `√x` is not tested here, since the real primes are the only system with such a floor.
