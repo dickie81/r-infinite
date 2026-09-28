@@ -783,4 +783,119 @@ theorem zeroFree_of_growth {a K n₁ : ℝ} (ha : 0 < a) (hK : 0 < K) (hG : Poly
           _ ≤ A₁ * Real.log |t| ^ n₁ := by nlinarith
     linarith
 
+
+/-! ## L4a: to the right of the line, `|ζ'/ζ(s)| ≤ −ζ'/ζ(Re s)` -/
+
+theorem norm_logDeriv_le {s : ℂ} (hs : 1 < s.re) :
+    ‖ζ' s / ζ s‖ ≤ -(ζ' (s.re : ℂ) / ζ (s.re : ℂ)).re := by
+  have hsr : 1 < ((s.re : ℂ)).re := by simpa using hs
+  have hsum := vonMangoldtLSeriesSummable hs
+  have hnorm : ∀ n : ℕ, ‖(Λ n : ℂ) / (n : ℂ) ^ s‖ = Λ n / (n : ℝ) ^ s.re := by
+    intro n
+    rcases eq_or_ne n 0 with rfl | hn
+    · simp
+    · rw [norm_div, Complex.norm_natCast_cpow_of_pos (Nat.pos_of_ne_zero hn), Complex.norm_real,
+        Real.norm_eq_abs, abs_of_nonneg ArithmeticFunction.vonMangoldt_nonneg]
+  have hreal : ∀ n : ℕ, (Λ n : ℂ) / (n : ℂ) ^ (s.re : ℂ) = ((Λ n / (n : ℝ) ^ s.re : ℝ) : ℂ) := by
+    intro n
+    rw [ofReal_div, ofReal_cpow (Nat.cast_nonneg n), ofReal_natCast]
+  have hsummR : Summable (fun n : ℕ => Λ n / (n : ℝ) ^ s.re) := by
+    refine (Complex.summable_ofReal.mp ?_)
+    exact (vonMangoldtLSeriesSummable hsr).congr hreal
+  have h1 : ζ' s / ζ s = -∑' n : ℕ, (Λ n : ℂ) / (n : ℂ) ^ s := by
+    have h := LogDerivativeDirichlet s hs; linear_combination -h
+  have h2 : -(ζ' (s.re : ℂ) / ζ (s.re : ℂ)) = ((∑' n : ℕ, Λ n / (n : ℝ) ^ s.re : ℝ) : ℂ) := by
+    rw [show -(ζ' (s.re : ℂ) / ζ (s.re : ℂ)) = -ζ' (s.re : ℂ) / ζ (s.re : ℂ) by ring,
+      LogDerivativeDirichlet _ hsr, ofReal_tsum]
+    exact tsum_congr hreal
+  rw [h1, norm_neg, show -(ζ' (s.re : ℂ) / ζ (s.re : ℂ)).re = (-(ζ' (s.re : ℂ) / ζ (s.re : ℂ))).re
+    by simp, h2, ofReal_re]
+  calc ‖∑' n : ℕ, (Λ n : ℂ) / (n : ℂ) ^ s‖ ≤ ∑' n : ℕ, ‖(Λ n : ℂ) / (n : ℂ) ^ s‖ :=
+        norm_tsum_le_tsum_norm (hsummR.congr (fun n => (hnorm n).symm))
+    _ = ∑' n : ℕ, Λ n / (n : ℝ) ^ s.re := tsum_congr hnorm
+
+/-! ## L4b: the local bound at a general point of the disc -/
+
+/-- **L4b.** Around `s₀` with radius `ρr` and growth ratio `B` as in `local_bound`: at any point
+`s = s₀ + ρr·z` with `‖z‖ ≤ 1/4`, `ζ(s) ≠ 0`, if every zero of ζ within `ρr/2` of `s₀` is at
+distance `≥ g` from `s`, then `ρr·|ζ'/ζ(s)| ≤ Kc·log B + (ρr/g)·log B / log(3/2)`. -/
+theorem local_bound_point {s₀ z : ℂ} {ρr B g : ℝ} (hs₀ : 1 < s₀.re) (hρ : 0 < ρr) (hB : 1 < B)
+    (hg : 0 < g) (hz : ‖z‖ ≤ 1 / 4) (hζz : ζ (s₀ + ρr * z) ≠ 0)
+    (hpole : ∀ w : ℂ, ‖w‖ < 2 → s₀ + ρr * w ≠ 1)
+    (hbound : ∀ w : ℂ, ‖w‖ ≤ 3 / 4 → ‖ζ (s₀ + ρr * w)‖ ≤ B * ‖ζ s₀‖)
+    (hgap : ∀ w : ℂ, ‖w‖ ≤ 1 / 2 → ζ (s₀ + ρr * w) = 0 → g ≤ ‖(s₀ + ρr * z) - (s₀ + ρr * w)‖) :
+    ρr * ‖ζ' (s₀ + ρr * z) / ζ (s₀ + ρr * z)‖ ≤
+      Kc * Real.log B + ρr / g * (1 / Real.log ((3 / 4) / (1 / 2)) * Real.log B) := by
+  set f := locF s₀ ρr with hfdef
+  have hζ0 : ζ s₀ ≠ 0 := riemannZeta_ne_zero_of_one_lt_re hs₀
+  have hf0 : f 0 = 1 := by simp [hfdef, locF, hζ0]
+  have hfA2 := locF_analytic hpole
+  have hfA : AnalyticOnNhd ℂ f (Metric.closedBall (0 : ℂ) 1) := by
+    intro w hw
+    apply hfA2 w
+    rw [Metric.mem_closedBall, dist_zero_right] at hw
+    rw [Metric.mem_ball, dist_zero_right]; linarith
+  have hfin : (SetOfZeros 1 f).Finite := finiteZeros_of_analytic hfA2 (by rw [hf0]; exact one_ne_zero)
+  have hfb : ∀ w : ℂ, ‖w‖ ≤ 3 / 4 → ‖f w‖ ≤ B := fun w hw => by
+    simp only [hfdef, locF, norm_div]
+    rw [div_le_iff₀ (norm_pos_iff.mpr hζ0)]
+    exact hbound w hw
+  have hfz : f z ≠ 0 := by simp only [hfdef, locF, div_ne_zero_iff]; exact ⟨hζz, hζ0⟩
+  have hzmem : z ∈ Metric.closedBall (0 : ℂ) (1 / 4) \ SetOfZeros (5 / 8) f := by
+    refine ⟨by rw [Metric.mem_closedBall, dist_zero_right]; exact hz, fun h => hfz h.2⟩
+  have FB := FinalBound (B := B) (r' := 1 / 4) (r := 1 / 2) (R' := 5 / 8) (R := 3 / 4) hB
+    (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num) (by norm_num)
+    hfA hf0 hfin hfb hzmem
+  have ZB := ZerosBound (B := B) (r := 1 / 2) (R := 3 / 4) (by norm_num) (by norm_num) (by norm_num)
+    (by norm_num) hfA hf0 hfin (fun w hw => hfb w hw)
+  -- the logarithmic derivative of f at z
+  have hs1 : s₀ + ρr * z ≠ 1 := hpole z (by linarith)
+  have hderiv : deriv f z = ρr * ζ' (s₀ + ρr * z) / ζ s₀ := by
+    have h1 : HasDerivAt ζ (ζ' (s₀ + ρr * z)) (s₀ + ρr * z) :=
+      (differentiableAt_riemannZeta hs1).hasDerivAt
+    have hlin : HasDerivAt (fun w : ℂ => s₀ + ρr * w) (ρr : ℂ) z := by
+      simpa using ((hasDerivAt_id z).const_mul (ρr : ℂ)).const_add s₀
+    have h2 := (h1.comp z hlin).div_const (ζ s₀)
+    rw [show f = fun w => (ζ ∘ fun w : ℂ => s₀ + ρr * w) w / ζ s₀ by
+      funext w; simp [hfdef, locF], h2.deriv]
+    ring
+  have hratio : deriv f z / f z = ρr * (ζ' (s₀ + ρr * z) / ζ (s₀ + ρr * z)) := by
+    rw [hderiv]; simp only [hfdef, locF]; field_simp
+  set Z := (finiteSetOfZeros_mono (r := 1 / 2) (by norm_num) hfin).toFinset with hZ
+  set S : ℂ := ∑ ρ ∈ Z, (analyticOrderNatAt f ρ : ℂ) / (z - ρ) with hS
+  have hSbound : ‖S‖ ≤ ρr / g * (1 / Real.log ((3 / 4) / (1 / 2)) * Real.log B) := by
+    have hterm : ∀ q ∈ Z, ‖(analyticOrderNatAt f q : ℂ) / (z - q)‖ ≤
+        (analyticOrderNatAt f q : ℝ) * (ρr / g) := by
+      intro q hq
+      rw [hZ, Set.Finite.mem_toFinset] at hq
+      have hzero : ζ (s₀ + ρr * q) = 0 := by
+        have := hq.2; simp only [hfdef, locF, div_eq_zero_iff, hζ0, or_false] at this; exact this
+      have hgq := hgap q hq.1 hzero
+      have hdist : ‖(s₀ + ρr * z) - (s₀ + ρr * q)‖ = ρr * ‖z - q‖ := by
+        rw [show (s₀ + ρr * z) - (s₀ + ρr * q) = (ρr : ℂ) * (z - q) by ring, norm_mul,
+          Complex.norm_real, Real.norm_eq_abs, abs_of_pos hρ]
+      rw [hdist] at hgq
+      have hzq : 0 < ‖z - q‖ := by
+        by_contra h; rw [not_lt] at h
+        have : ρr * ‖z - q‖ ≤ 0 := by nlinarith [norm_nonneg (z - q)]
+        linarith
+      rw [norm_div, Complex.norm_natCast, div_le_iff₀ hzq]
+      have hm : (0 : ℝ) ≤ analyticOrderNatAt f q := Nat.cast_nonneg _
+      have h1 : 1 ≤ ‖z - q‖ * (ρr / g) := by
+        rw [show ‖z - q‖ * (ρr / g) = ρr * ‖z - q‖ / g by ring, le_div_iff₀ hg]; linarith
+      nlinarith
+    calc ‖S‖ ≤ ∑ ρ ∈ Z, ‖(analyticOrderNatAt f ρ : ℂ) / (z - ρ)‖ := norm_sum_le _ _
+      _ ≤ ∑ ρ ∈ Z, (analyticOrderNatAt f ρ : ℝ) * (ρr / g) := Finset.sum_le_sum hterm
+      _ = (∑ ρ ∈ Z, (analyticOrderNatAt f ρ : ℝ)) * (ρr / g) := by rw [Finset.sum_mul]
+      _ ≤ (1 / Real.log ((3 / 4) / (1 / 2)) * Real.log B) * (ρr / g) := by
+          apply mul_le_mul_of_nonneg_right _ (by positivity)
+          exact_mod_cast ZB
+      _ = ρr / g * (1 / Real.log ((3 / 4) / (1 / 2)) * Real.log B) := by ring
+  have FB' : ‖deriv f z / f z - S‖ ≤ Kc * Real.log B := FB
+  have htri : ‖deriv f z / f z‖ ≤ ‖deriv f z / f z - S‖ + ‖S‖ := by
+    have := norm_add_le (deriv f z / f z - S) S; simpa using this
+  rw [hratio] at htri FB'
+  rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_pos hρ] at htri
+  linarith
+
 end Landau
