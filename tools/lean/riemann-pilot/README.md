@@ -6123,3 +6123,11 @@ So these gear sets have floors well below `√x` (max error 64–209 near `8·10
 - New here, finite-range numerics only: floor-first gear sets with floors `x^{0.27–0.34}` and drift `x^{0.66–0.79}`; the `≈ log x/0.75` amplification of a planted floor tone into the drift.
 
 **Bearing on RH:** none. The one smooth-floor system with a proper drift is the primes, which is where we started. Near-smooth fakes drift far more, so any mechanism has to use *exact* flatness of the floor, not approximate flatness.
+
+## Rounds 180–182: the gear / lattice-ball model locked down (`frontier/fakegears/GEARS_SPEC.md`)
+
+- **Round 180.** The gear model, with each part marked forced or chosen: floor, wheels, rolling = multiplication, and the straight line on the Bohr torus that looks Brownian.
+- **Round 181.** Lattice balls from first principles. Hurwitz forces `d = 1, 2, 4, 8` if balls roll by multiplication. Shell counts for ℤ[i], ℤ[ω], Hurwitz and E₈ checked (`klatticeballs.py`), as is the count of `p + 1` wheels in 4D.
+- **Round 182.** The lumpy ball ℤ^d in every dimension. The lumpiness of each shell is exactly a product over primes for `d ≤ 8`, and fails by 10% at `d = 9` and 32% at `d = 10` (`klumpy.py`).
+
+**Check 4:** all classical (Hurwitz; Siegel; class number of ℤ^d; Deligne). **Bearing on RH:** none.

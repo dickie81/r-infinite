@@ -88,3 +88,24 @@ What this forces:
 **Check 4.** All classical: Hurwitz 1898; Jacobi, Hurwitz and Lipschitz shell counts; Coxeter's integral octonions; Heegner–Stark for the list of unique-factorisation quadratic lattices. The numeric check only confirms the formulas.
 
 **Bearing on RH:** none. The construction forces which balls exist. The ζ that appears is the same ζ.
+
+## 9. The lumpy ball, in every dimension (round 182)
+
+This is the owner's picture: a lumpy ball with teeth all over it, in every dimension.
+
+- **(F) The model.** The lattice ball is the set of points of ℤ^d with `|x|² ≤ n`. Its **teeth** are the grid points on each shell `|x|² = n`; there are `r_d(n)` of them. This exists in every dimension. No multiplication is needed, so the 1, 2, 4, 8 restriction of §8 applies only if balls must roll *onto* each other.
+- **(F) Lumpiness** of shell `n` is `r_d(n)` divided by what a perfectly round sphere would carry, `π^{d/2}/Γ(d/2) · n^{d/2−1}`. The lumpiness is not smooth: some shells have no teeth at all.
+- **Tested (`klumpy.py`, `klumpy_results.json`).** Is the lumpiness exactly a product of one local factor per prime (Siegel's singular series, computed from counts mod `p^k`)? Checked for `n ≤ 40`, primes `< 400`, `d = 4…10`.
+
+| d | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---|---|---|---|---|---|---|
+| max relative error | 3.6e-4 | 3.6e-4 | 1.3e-8 | 1.1e-7 | 8.2e-10 | **0.105** | **0.320** |
+
+- For `d ≤ 8` the lumpiness is **exactly** a product over primes. The small `d = 4, 5` errors come from stopping the prime product at 400.
+- At `d = 9` it breaks by 10%, and at `d = 10` by 32%.
+- **Why (classical).** For `d ≤ 8`, ℤ^d is the only lattice of its kind (its genus has one class). At `d = 9`, E₈⊕ℤ joins it, and the shell counts gain a part that no single prime controls: a cusp form.
+- **Reading.** Up to dimension 8, every bump on the ball is arithmetic, one prime at a time. Beyond 8, part of the lumpiness is global rather than prime-local. That part carries its own L-function, whose "RH at `s = ½`" bound on the coefficient sizes (Ramanujan–Petersson) is proved, by Deligne.
+
+**Check 4.** Classical: Siegel's mass formula; class number 1 of ℤ^d for `d ≤ 8`; Deligne. The numbers confirm it. The only new item is that 8, the octonion dimension, is where the ball stops being purely prime-by-prime lumpy. That is a reading of known facts, not a new result.
+
+**Bearing on RH:** none.
