@@ -6272,3 +6272,26 @@ Sector fractions over 8 equal angles: 0.12490–0.12507 (uniform is 0.125).
 **Check 4.** Classical (Hecke Grössencharacters; Duke 1988; Linnik). A demonstration; nothing new.
 
 **Bearing on RH:** none. It shows RH is one member of an infinite family of grinding bounds on the same ball, each open.
+
+## Round 189: RH is the radial member of the ball's angular family, in Lean (`src/AngularFamily.lean`, imports GlobalTeeth)
+
+Compiles with no `sorry`; standard axioms only.
+
+| definition / theorem | statement |
+|---|---|
+| `angularCoeff k n` | `¼ Σ_{z on shell n} (z/|z|)^{4k}`: the `k`-th angular harmonic of the teeth |
+| `angularL k` | its Dirichlet series: the `k`-th grinding channel of round 188 |
+| `member_zero_coeff` | `angularCoeff 0 n = Σ_{d∣n} χ₄(d)` (from round 187's two-square theorem) |
+| `member_zero_eq` | `angularL 0 s = ζ(s)·L(s, χ₄)` for `Re s > 1` |
+| `angularL0` | `ζ·L(χ₄)`, the radial member continued to all of ℂ |
+| `zeta_neg_odd_ne_zero` | `ζ(−(2n+1)) ≠ 0`, via the functional equation at `2n+2` |
+| `GRHMemberZero` | every zero of `angularL0`, apart from the negative integers and `s = 1`, has `Re s = ½` |
+| `rh_of_member_zero` | `GRHMemberZero → RiemannHypothesis` (Mathlib's definition) |
+
+**Reading.**
+- The teeth of the 2D lattice ball, averaged radially (harmonic `k = 0`), have exactly the Dirichlet series `ζ·L(χ₄)`.
+- So RH is one factor of the grinding statement for the radial channel of the ball.
+- The other factor is GRH for `L(χ₄)`. The angular channels `k ≥ 1` are Hecke L-functions: here only defined as Dirichlet series, not continued.
+- The implication runs one way only. The family's radial statement implies RH; RH does not imply it.
+
+**Check 4:** classical (Dedekind zeta of ℚ(i) = ζ·L(χ₄); the functional equation). The Lean chain from counting lattice points to Mathlib's `RiemannHypothesis` is new to the pilot. **Bearing on RH:** none. This is a reformulation, not progress on the hypothesis.
