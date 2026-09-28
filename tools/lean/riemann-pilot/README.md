@@ -5762,3 +5762,36 @@ So unconditional absolute improvements can only be finite-range.
 - **New here.** The pre-registered test over the root-lattice isodual family, and the lattice-independence of the `d ≥ 3` failure.
 
 **Bearing on RH:** none.
+
+## Round 169: the grid on the sphere and in the ball, d = 2, 3, 4 (`frontier/nullvec/kresidual.py`, numerics, no Lean)
+
+**The owner's idea.** Placing the grid on a circle, sphere or ball leaves an imperfection, and that imperfection *is* the arithmetic.
+
+**Exact form (classical, restated).**
+- `r_d(n)` counts the grid points of `ℤ^d` *on* the sphere of radius `√n`.
+- The residual of the count *in* the ball, `Δ_d(x) = N_d(x) − V_d x^{d/2}`, has Mellin transform `Z_d(s)/s`, where `Z_d = Σ r_d(n)n^{−s}` is the Epstein zeta (up to the volume pole).
+- So the residual carries exactly the arithmetic that rounds 92 and 168 studied through its zeros.
+
+**Computed to `x = 2·10⁶`.**
+
+| d | size of the residual | `r_d(n)/r_d(1)` multiplicative on coprime `m, n < 300` | arithmetic |
+|---|---|---|---|
+| 2 | `≈ x^{0.31}` (circle problem; conjectured `x^{1/4+ε}`) | 27019 / 27019 | `4ζ(s)L(s,χ₋₄)`: only primes `≡ 1 (mod 4)` split (Fermat) |
+| 3 | `≈ x^{0.60}` | **4054 / 27019** | class numbers; no Euler product |
+| 4 | `≈ x^{1.03}` | 27019 / 27019 | `8(1 − 4^{1−s})ζ(s)ζ(s−1)`: all primes, via `σ(n)` (Jacobi) |
+
+**Checks.**
+- Summation by parts holds to `1e-16`.
+- The Dirichlet sums match the closed forms at `s = d/2 + 1 + 2i` to `2–3·10⁻⁷`, the truncation error at `2·10⁶`.
+- Jacobi's formulas for `r₂` and `r₄` are reproduced exactly for `n ≤ 2000`.
+
+**Reading.**
+- **Every slice leaves a residual, and the residual is always an arithmetic.** It gets larger with dimension.
+- **Whether the arithmetic has an Euler product** depends on the dimension: yes in 2D and 4D, no in 3D, where the sphere's grid points are counted by class numbers and multiplicativity fails for 85% of coprime pairs.
+- **The 4D residual is the most complete arithmetic:** every prime enters, and it contains ζ itself. But it enters shifted, with `ζ(s−1)` alongside `ζ(s)`, so its zeros are off the slice's centre (round 168, P3).
+- **The 2D residual is centred but partial.** It is `ζ·L(χ₋₄)`, which contains ζ with its zeros on the line only if RH holds.
+- **The imperfection reproduces ζ; it does not constrain it.** The residual's zeros are ζ's zeros. Nothing in the geometry of placing the grid forces them onto the line.
+
+**Check 4.** All acknowledged, classical: Gauss, Jacobi, Hardy–Landau–Voronoi (circle problem), and the Epstein-zeta Mellin identity. Nothing here is new mathematics. The round tests the owner's reading against it.
+
+**Bearing on RH:** none.
