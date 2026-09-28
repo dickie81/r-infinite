@@ -5874,3 +5874,37 @@ The sum over dimensions collapses to a single multiplier on Riemann's kernel:
 - **New here.** The sphere-weighted dimension sum `G`, its closed-form multiplier `W`, and the measured zeros.
 
 **Bearing on RH:** none.
+
+## Round 172: the grids physically rescaled to the layer area ratio (`PREREG_densityscaled.md`, `frontier/nullvec/kdensityscaled.py`)
+
+**Registered in `21929cc`, before any value was computed.**
+
+**The object.** Each dimension's grid is rescaled to point density `ρ_d = S_{d−1}/S_{d−2}` (`d ≥ 2`). That multiplies its mirror pair by `ρ_d^{1/2}e^{ic_d z}`, with `c_d = 2 log(ρ_d)/d`:
+
+  `G_B(z) = Σ_d S_{d−1}ρ_d^{1/2}e^{ic_d z}[Ξ(z + ib_d) + Ξ(z − ib_d)] = ∫K(v)e^{izv}dv`
+
+with `K` real and not even.
+
+**Validation.** The integral form matches the direct ξ-sum to `1e-46`–`1e-49`. `G_B(3) = 214.6 + 27.3i` is complex, as predicted.
+
+**Results** (`kds_disc.json`, `kds_locate.json`). The argument principle gives 28 zeros in `|z| < 40`. All 28 were located.
+
+| | Result |
+|---|---|
+| **B1** (no real zeros) | **holds**: all 28 have `|Im z| ≥ 0.38` |
+| **B2** (pairs `z, −z̄`) | **holds**: 28 of 28 |
+| **B3** (between 10 and 20 zeros) | **fails**: 28, twice round 171's 14 |
+| **B4** (real-rootedness lost) | **holds**: 28 of 28 have `|Im z| > 0.1` |
+
+**Structure (post hoc).** The zeros form two rows of 7 per side.
+- **Upper row, `Im z ≈ +0.38` to `+0.91`:** real parts `11.84, 17.82, 22.94, 27.34, 31.23, 34.76, 38.52`. These are round 171's real zeros (`12.24, …, 38.91`), each lifted off the axis and moved slightly left.
+- **Lower row, `Im z ≈ −2.3` to `−3.4`:** real parts `3.08, 8.68, 14.46, 20.26, 25.16, 30.97, 36.18`. This row is new. The phases `e^{ic_d z}` grow in the lower half-plane (`c₂ = log π` for `d = 2`), which creates a second family of zeros there. That explains B3's failure.
+
+**Reading.**
+- As expected, physically rescaling the grids breaks each slice's self-duality. The sum loses its reality on ℝ.
+- The real zeros of the self-dual superposition (round 171) are lifted off the axis, and a new row of zeros appears.
+- Density scaling alone never moves an individual lattice's zeros. The effect is entirely in how the dimensions combine once their symmetry centres no longer agree.
+
+**Check 4.** New here: the construction and the measurement. It is an owner-specified variant; no literature is involved.
+
+**Bearing on RH:** none.
