@@ -5940,3 +5940,9 @@ with `K` real and not even.
 **Check 4.** Acknowledged: the round 142 identity, and Stirling's formula. New here: the convergence threshold `κ = 1` of the sphere-weighted dimension sum, and its identification with that identity.
 
 **Bearing on RH:** none.
+
+**Correction to round 173.** The ladder is `s_d = d − 3/2`, i.e. `½ (d = 2), 3/2 (d = 3), 5/2, …`.
+- **It starts on the critical line.** The 2D rung is the bare `ζ(½ + it)`, with the Gamma factor cancelled. Only the high rungs lie in the trivial region where `ζ ≈ 1`; the text above quoted only those (d = 20, 80).
+- **Corrected reading.** At the critical gap, the sphere-weighted tower gives ζ on the ladder `½ + k`, stripped of its Gamma factor: `F(t) = w₀ζ(½ + it) + Σ_{k≥1} w_k[ζ(½ + k + it) − 1]`, regularised.
+- **What stripping the Gamma factor costs.** It removes the functional-equation symmetry that the geometry supplied. The isolated arithmetic keeps the Euler product but loses the pairing that could hold zeros on the line (the round 166 guardrails).
+- **Bearing on RH:** unchanged, none.
