@@ -6316,3 +6316,22 @@ Compiles with no `sorry`; standard axioms only.
 **Finite range** [recalled, not re-read]. Using RH verified to height `3·10¹²` (Platt–Trudgian), Büthe-type arguments give `|ψ(x) − x| < √x` for all `x` up to about `10¹⁹`.
 
 **Check 4:** everything classical; only the rung-0 Lean file is new to the pilot. **Bearing on RH:** none.
+
+## Round 191: rungs 1 and 2 of the wander ladder, machine-checked (`external/pnt/`)
+
+The PrimeNumberTheoremAnd project already proves both rungs in Lean. We built it at commit `650d312` (3765 jobs, no errors) and restated its results in the pilot's terms in `WanderLadderPNT.lean`.
+
+| theorem | statement | source |
+|---|---|---|
+| `rung1` | `ψ(x) − x = o(x)` (prime number theorem) | their `WeakPNT''` (Wiener–Ikehara route) |
+| `rung2` | `ψ(x) − x = O(x·e^{−c√log x})` for some `c > 0` (de la Vallée Poussin) | their `StrongPNT` (zero-free region + Perron formula) |
+| `wander_below_any_eps` | for every `ε > 0`, eventually `\|ψ(x) − x\| ≤ εx` | from `rung1`; sharpens round 190's `ε = 2/5` |
+
+**Axiom audit.** All three depend only on `propext`, `Classical.choice`, `Quot.sound`. Their `Wiener.lean` has two `sorry` lemmas, and neither is used.
+
+**Ladder status.**
+- Rungs 0, 1, 2 are machine-checked.
+- Rung 3 (Korobov–Vinogradov) is not formalised anywhere, as far as I know [unverified].
+- The gap `x^{1−δ}` and RH are open.
+
+**Check 4:** the mathematics is classical and the formalisation is the PNT+ project's. The pilot contributes only the restatement and the audit. **Bearing on RH:** none.
