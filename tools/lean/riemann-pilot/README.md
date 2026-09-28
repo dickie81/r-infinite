@@ -5827,3 +5827,12 @@ So unconditional absolute improvements can only be finite-range.
 - **New here.** The measurement, and the explicit two-term decomposition for `ℤ^{3,1}` as the pilot's test of the owner's idea.
 
 **Bearing on RH:** none.
+
+**Correction to rounds 168–170 (the "±½ displacement").**
+- **Unconditional:**
+  - the factorisations (for example `Z₄ = 8(1 − 4^{1−s})ζ(s)ζ(s−1)`, Jacobi);
+  - the pairing of each ζ-zero `ρ` with its mirror `(d/2 − 1) + (1 − ρ)`… in 4D, `ρ ↦ 2 − ρ` about the centre `Re s = d/4`;
+  - the band each copy lies in.
+- **Conditional on RH:** the distance of each pair from the centre. A zero `β + iγ` of ζ gives a pair at distance `(d − 2)/4 + ½ − β` either side. That equals `(d − 2)/4` exactly when `β = ½`.
+- **What P3 of round 168 checked:** only ζ's first three zeros, which are known numerically to be on the line.
+- **So:** "±(d − 2)/4" should be read as "±(d − 2)/4 under RH". In 4D, RH is equivalent to "every mirror pair sits exactly ½ from the centre". The geometry restates RH; it does not derive it.
