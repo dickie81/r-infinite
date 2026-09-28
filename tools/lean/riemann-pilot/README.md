@@ -5721,3 +5721,44 @@ So unconditional absolute improvements can only be finite-range.
 - **Literature.** The closest analogue found is Oesterlé's unpublished Li-coefficient statement "RH to height T₀ ⟹ λₙ > 0 for n < T₀²" (quoted by Voros, arXiv:2204.01036). No windowed Weil-form analogue was found. Novelty is not established.
 
 **Bearing on RH:** none. (N) for all `a` is zero-free-strip-hard, and the finite-range bound's reach grows only doubly logarithmically in the verification height.
+
+## Round 168: the ball's d-slices, discretised self-dually, d = 2–8 (`PREREG_isodual.md`, `klatticeslice.py`, `kisodual_p3.py`)
+
+**Registered in `1c52bb6`, before any zero was computed.**
+
+**What was tested.** The owner's intuition is that the arithmetic is the imperfection of discretising the infinite-dimensional ball. Round 92 tested only `ℤ^d`. Here each d-slice (the Gaussian on ℝ^d, by Poincaré–Borel) is discretised on every lattice in a fixed list of **isodual** lattices (`L* ≅ L`, covolume 1). Isoduality is exactly what keeps the Gaussian's Fourier self-duality under Poisson summation, and so gives a centre line `Re s = d/4`.
+
+**Validation.**
+- Isoduality holds to `1e-56`.
+- `A₂` matches `6(2/√3)^{−s}ζ(s)L(s,χ₋₃)` and `E₈` matches `240·2^{−s}ζ(s)ζ(s−3)`, to `1e-40`–`1e-56`.
+
+**Results** (`isodual_results.jsonl`; `T = 40`, all zeros by the argument principle, line zeros by sign changes):
+
+| d | lattice | all | on `Re s = d/4` | off | |
+|---|---|---|---|---|---|
+| 2 | ℤ² | 20 | 20 | 0 | **pass** |
+| 2 | A₂ | 19 | 19 | 0 | **pass** |
+| 3 | ℤ³ / ℤ⊕A₂ | 20 / 19 | 10 / 13 | 10 / 6 | fail |
+| 4 | ℤ⁴ / D₄ / A₂² | 20 / 16 / 18 | 8 / 4 / 6 | 12 / 12 / 12 | fail |
+| 5 | ℤ⁵ / ℤ⊕D₄ / ℤ⊕A₂² | 20 / 16 / 19 | 8 / 6 / 7 | 12 / 10 / 12 | fail |
+| 6 | ℤ⁶ / A₂³ / A₂⊕D₄ | 21 / 19 / 15 | 9 / 7 / 11 | 12 / 12 / 4 | fail |
+| 7 | ℤ⁷ / ℤ⊕A₂³ / ℤ⊕A₂⊕D₄ | 21 / 19 / 17 | 9 / 7 / 5 | 12 / 12 / 12 | fail |
+| 8 | ℤ⁸ / E₈ / D₄² / A₂⁴ | 21 / 12 / 16 / 19 | 9 / 0 / 4 / 7 | 12 / 12 / 12 / 12 | fail |
+
+**P3 (displacement)** (`isodual_p3.txt`). For `D₄`, `A₂²`, `ℤ⁴` and `E₈`, `|Ξ_L|` at `ζ`'s first three zero ordinates is `1e-38`–`1e-48` of its value 0.3 away, exactly at `Re s = ½` and at `d/2 − ½`. So the off-line zeros are ζ's own zeros, displaced by `±(d − 2)/4` from the centre.
+
+**Verdict: P1, P2 and P3 all hold as registered.**
+- Among self-dual discretisations, only the 2-dimensional slice (together with the 1-dimensional one, round 92) gives a consistent arithmetic.
+- In every `d ≥ 3`, every lattice tested fails, 17 of 17.
+- The failure does not depend on the lattice. It is set by the modular weight `k = d/2`: the Eisenstein part carries ζ displaced by `(k − 1)/2 = (d − 2)/4`, which vanishes only at `d = 2`.
+
+**Reading.**
+- **The intuition, sharpened and confirmed.** Discretising the ball's slice self-dually does produce ζ's zeros in every dimension tested. They lie on the slice's centre line only in `d ≤ 2`. In `d ≥ 3` they appear as symmetric pairs displaced by `±(d − 2)/4`.
+- **What is exceptional about `d = 2`.** It is the slice where discretisation (weight 1) does not shift the arithmetic. The consistent lattices there are the rings of integers `ℤ[i]` and `ℤ[ω]` of the complex composition algebra.
+- **What this does not give.** An Euler product, or anything past what ζ already has. The consistent cases just return ζ (times `L(χ)`), whose positivity is the open problem.
+
+**Check 4.**
+- **Acknowledged.** Rounds 92–93 (`ℤ^d`, `E₈`). The theta series of isodual lattices are modular forms of weight `d/2`, and Eisenstein Dirichlet series are products of shifted ζ/L (standard).
+- **New here.** The pre-registered test over the root-lattice isodual family, and the lattice-independence of the `d ≥ 3` failure.
+
+**Bearing on RH:** none.
