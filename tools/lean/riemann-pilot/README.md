@@ -6295,3 +6295,24 @@ Compiles with no `sorry`; standard axioms only.
 - The implication runs one way only. The family's radial statement implies RH; RH does not imply it.
 
 **Check 4:** classical (Dedekind zeta of ℚ(i) = ζ·L(χ₄); the functional equation). The Lean chain from counting lattice points to Mathlib's `RiemannHypothesis` is new to the pilot. **Bearing on RH:** none. This is a reformulation, not progress on the hypothesis.
+
+## Round 190: bounding the wander, the ladder and rung 0 in Lean (`src/WanderBound.lean`)
+
+`wander_rung0` (no `sorry`; standard axioms): eventually `|ψ(x) − x| ≤ (2/5)·x`.
+- This is Chebyshev's level, built from Mathlib's `psi_le` and `psi_ge'`.
+- Mathlib has no prime number theorem.
+
+**The ladder** (bounds on the drift `ψ(x) − x`; best-known statements are recalled, not re-read):
+
+| rung | bound | key input | status |
+|---|---|---|---|
+| 0 | `≤ 0.4·x` | Chebyshev: binomial coefficients and the lcm | **Lean (this round)** |
+| 1 | `o(x)` (PNT) | `ζ ≠ 0` on `Re s = 1`, from the 3-4-1 "gear" inequality, plus a Tauberian step | nonvanishing is in Mathlib; PNT itself is formalised outside Mathlib (PrimeNumberTheoremAnd project) [recalled] |
+| 2 | `x·e^{−c√log x}` | quantitative zero-free region `σ > 1 − c/log t` + truncated explicit formula | not formalised here; Borel–Carathéodory is now in Mathlib, and the pilot has the explicit formula |
+| 3 | `x·e^{−c(log x)^{3/5}(log log x)^{−1/5}}` | Vinogradov's exponential sums over primes | best known since 1958 [recalled] |
+| — | `x^{1−δ}` for some `δ > 0` | a zero-free strip | open; equivalent to a zero-free strip |
+| RH | `√x·log²x` | all zeros on `Re s = ½` | open |
+
+**Finite range** [recalled, not re-read]. Using RH verified to height `3·10¹²` (Platt–Trudgian), Büthe-type arguments give `|ψ(x) − x| < √x` for all `x` up to about `10¹⁹`.
+
+**Check 4:** everything classical; only the rung-0 Lean file is new to the pilot. **Bearing on RH:** none.
