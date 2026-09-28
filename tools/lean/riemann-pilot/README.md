@@ -5999,3 +5999,25 @@ with `K` real and not even.
 **Check 4.** Acknowledged, all classical (Riemann 1859; von Mangoldt; the explicit formula). It is a demonstration for the owner, and nothing here is new.
 
 **Bearing on RH:** none.
+
+## Round 176: gear slippage, the Mertens function (`frontier/grind/kslip.py`, demonstration, classical)
+
+**The owner's picture.** Each prime is a gear whose teeth are 1D ridges spaced `p` apart. Rolling along the integers, gear `p` touches every multiple of `p`. Score `n`:
+- `−1` / `+1` for an odd / even number of distinct gears touching it once each;
+- `0` if one gear touches it twice (`p² | n`, a jammed tooth).
+
+That score is `μ(n)`, and the net slippage `M(x) = Σ_{n≤x} μ(n)` is the Mertens function. RH ⟺ `M(x) = O(x^{½+ε})`.
+
+**Computed exactly to `10⁸`** (`kslip_results.json`, `slippage.png`).
+- **Size:** `max |M|/√x` per decade is 0.57, 0.47, 0.46, 0.43, 0.42, 0.46 for `10²` through `10⁸`, i.e. random-walk size. `M(10⁸) = 1928`.
+- **Tones:** spectral peaks at 14.13, 21.02, 25.01, 30.42, 32.94, 37.59, 40.92, 43.33, 48.01, 49.77, the same pitches as round 175's grinding (ζ's zero heights).
+- **Volumes:** relative tone strengths, read at each `γ`, against the explicit-formula prediction `2/|ρζ′(ρ)|` computed from ζ alone. They agree to 3 decimals for all 12 zeros, from `1.000, 0.469, 0.327, 0.283, 0.246, …` down to `0.084`.
+  - Caveat: the amplitudes were read off at the known `γ`; the peak positions were located blind.
+
+**Reading.**
+- The slippage is the same chord as the grinding: the same pitches, with each note's volume set by how steeply ζ crosses zero there.
+- **The Mertens conjecture `|M| < √x` is false** (Odlyzko–te Riele 1985, at astronomically large `x`; recalled). So "never exceeds random-walk size by a constant" is too strong. RH asserts only `x^{½+ε}`: the loudness may creep up, but slower than any power.
+
+**Check 4.** All classical (Möbius, Mertens; the explicit formula for `M`; Odlyzko–te Riele). A demonstration for the owner; nothing new.
+
+**Bearing on RH:** none.
