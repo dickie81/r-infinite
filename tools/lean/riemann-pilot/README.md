@@ -5946,3 +5946,34 @@ with `K` real and not even.
 - **Corrected reading.** At the critical gap, the sphere-weighted tower gives ζ on the ladder `½ + k`, stripped of its Gamma factor: `F(t) = w₀ζ(½ + it) + Σ_{k≥1} w_k[ζ(½ + k + it) − 1]`, regularised.
 - **What stripping the Gamma factor costs.** It removes the functional-equation symmetry that the geometry supplied. The isolated arithmetic keeps the Euler product but loses the pairing that could hold zeros on the line (the round 166 guardrails).
 - **Bearing on RH:** unchanged, none.
+
+## Round 174: are the octonionic and quaternionic mirror averages blind to an off-line zero? (`PREREG_fakezero.md`, `frontier/nullvec/kfakezero.py`)
+
+**Registered in `225fd70`, before any value was computed.**
+
+**Test.** A fake `Ξ̃` equal to Riemann's `Ξ`, except that its first two zeros (14.13 and 21.02) are replaced by a planted off-line quadruple at `17.58 ± iη`. That is a deliberate RH violation.
+- **Construction check:** `Ξ̃` vanishes at the planted point, and not at the old zero (`0.0024`, against `6e-44` for the true `Ξ`).
+- **Measured:** the mirror averages `G_b = Ξ̃(t + ib) + Ξ̃(t − ib)`. Zeros in `|z| < 30` by the argument principle, against real zeros by sign changes.
+
+**Results** (`kfakezero_results.jsonl`).
+
+| gap `b` | `η = 0` (true Ξ) | `η = 0.3` (planted violation) | `η = 0.45` |
+|---|---|---|---|
+| `3/2`, 8D octonionic | 8/8 real | **8/8 real** | **8/8 real** |
+| `½`, 4D quaternionic | 6/6 real | **6/6 real** | **6/6 real** |
+| `¼` ("3D") | 6/6 real | 2/6 real: **detects** | 2/6 real: **detects** |
+
+**F1 holds, F2 holds, F3 is observed:**
+- **F1:** the octonionic average is real-rooted with and without the planted violation.
+- **F2:** so is the quaternionic average.
+- **F3:** the `b = ¼` average loses real-rootedness when `η > b`, and 4 of its 6 zeros leave the axis.
+
+**Reading.**
+- The octonionic (8D) and quaternionic (4D) structures give the same verdict whether or not RH holds. Their clean real-rootedness comes from de Bruijn's theorem and the width of the critical strip (all zeros lie within ½ of the line), not from where the zeros are.
+- They cannot detect, and so cannot constrain, the position of ζ's zeros.
+- Only a mirror gap smaller than the violation (`b < η`) can see it, and as `b → 0` that is exactly RH (the de Bruijn dial).
+- The octonions keep appearing because the experiments asked for multiplicative ball arithmetic (Hurwitz 1, 2, 4, 8). They inherit ζ's zeros (`E₈ = 240·2^{−s}ζ(s)ζ(s−3)`) without constraining them.
+
+**Check 4.** Acknowledged: de Bruijn 1950, which predicts F1 and F2. New here: the planted-violation demonstration, against the owner's octonion question.
+
+**Bearing on RH:** none.
