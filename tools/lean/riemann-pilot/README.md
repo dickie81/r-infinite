@@ -5908,3 +5908,35 @@ with `K` real and not even.
 **Check 4.** New here: the construction and the measurement. It is an owner-specified variant; no literature is involved.
 
 **Bearing on RH:** none.
+
+## Round 173: the "critical gap" curiosity, explained (`frontier/nullvec/kcritical.py`, exploratory, not pre-registered)
+
+**The curiosity** (round 172 follow-up). Round 171's sum over dimensions produced the multiplier `e^{π e^{u/2}}`. With mirror gaps `b_d = κ(d − 2)` in place of `(d − 2)/4`, it becomes `≈ 2π e^{π e^{2κ|u|}}`. At `κ = 1` this exactly cancels the leading `e^{−π e^{2u}}` of Riemann's kernel `Φ`.
+
+**Measured** (`kcritical.txt`): `|T_d(0)|`, where `T_d = S_{d−1}[Ξ(z + ib_d) + Ξ(z − ib_d)]`, for `d = 10, 20, 40, 80`:
+
+| κ | `d = 10` | 20 | 40 | 80 | the sum over `d` |
+|---|---|---|---|---|---|
+| 0.25 | 27.8 | 0.81 | `1.0e-6` | `1.1e-23` | converges (round 171) |
+| 0.50 | 36.5 | 3.0 | `1.5e-4` | `1.0e-16` | converges |
+| 0.75 | 57.0 | 22.4 | 0.17 | `9.1e-8` | converges |
+| **1.00** | 104 | 291 | 745 | 1835 | **diverges polynomially** (`∝ d^{5/4}`) |
+| 1.25 | 220 | 5960 | `9.8e6` | `3.9e14` | diverges super-exponentially |
+
+**The explanation is round 142's identity, `π^{−s/2}Γ(s/2) = 2/S_{s−1}`.**
+- At gap `κ(d − 2)`, the d-th term evaluates ξ at `s ≈ κd`. Its archimedean factor is then `≈ 1/S_{κd−1}`, while the weight is `S_{d−1}`.
+- For `κ = 1` the sphere-area weight and ξ's Gamma factor are reciprocal, and cancel up to a polynomial. So `κ = 1` is exactly the edge of convergence of the dimension sum.
+- The measured `T_d` at `κ = 1` equals its Gamma-factor part to 6 digits.
+
+**What survives at the critical gap.**
+- The arithmetic part is `ζ(s) − 1` along `s = d − 3/2`, which is `2.7e-6` at `d = 20` and `2e-24` at `d = 80`.
+- That is ζ deep in its half-plane of absolute convergence, where it has no zeros and carries no RH content.
+- So the cancellation happens exactly where the arithmetic is trivial.
+
+**Reading.**
+- The "touching" of the ball tower and Riemann's theta function is the reciprocity between sphere area and Gamma factor, already recorded in round 142. It is not a new mechanism.
+- At the critical spacing, the geometry cancels its own image (the Gamma factor) and leaves only ζ's trivially convergent Dirichlet series.
+
+**Check 4.** Acknowledged: the round 142 identity, and Stirling's formula. New here: the convergence threshold `κ = 1` of the sphere-weighted dimension sum, and its identification with that identity.
+
+**Bearing on RH:** none.
