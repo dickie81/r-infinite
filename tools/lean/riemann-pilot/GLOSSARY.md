@@ -53,3 +53,10 @@ geometric intuition; "precisely" gives what the notation actually says.
 - **Beurling systems.** Fake prime systems with an Euler product but the wrong symmetry. They can have zeros off the line, so the Euler product alone is not enough.
 - **de Bruijn's theorem.** Averaging a function with its copy shifted by at least its zero-strip width makes all zeros real. That is why the 4D and higher mirror averages are automatically clean.
 - **Conditional vs unconditional.** "Unconditional" means proved without assuming RH. The owner rejects RH-conditional results.
+
+## Primes as rotating circles
+
+- **Bohr torus.** Each prime `p` is a circle turning at speed `log p` as the height `t` increases. ζ at height `t` is read off from where all the circles are at once: a point on an infinite-dimensional torus. The speeds share no common rhythm, so the circles never all line up exactly, but they come arbitrarily close to any alignment (Kronecker–Weyl).
+- **Why it fails on the critical line.** Each circle wobbles by about `p^{−σ}`. The total `Σ p^{−2σ}` is finite for `σ > ½` but becomes `Σ 1/p`, which diverges, at `σ = ½`. There are slightly too many wobbles, each slightly too big.
+- **Selberg's central limit theorem.** On the critical line, `log|ζ|` behaves like a bell curve whose width grows like `√(½ log log t)`.
+- **Function-field (meshing) case.** Zeta functions of curves over a finite field `F_q`. Every "prime" turns at a whole-number multiple of `log q`, so the gears mesh, ζ repeats periodically in `t`, and there are finitely many zeros per period. RH is proved there (Weil 1948, Deligne 1974).
