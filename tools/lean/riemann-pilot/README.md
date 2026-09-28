@@ -6167,3 +6167,28 @@ Compiles with no `sorry`. Every main theorem depends only on the standard axioms
 - The growth hypothesis (order `< 2`) is an assumption on the competing factor `h`, not derived.
 
 **Check 4:** the mathematics is classical (Hurwitz/Hamburger-type uniqueness of the Gamma factor). The Lean formalisation is new to the pilot. **Bearing on RH:** none.
+
+## Round 185: the integer-counting route in Lean (`src/LatticeCount.lean`, imports BallTower)
+
+Compiles with no `sorry`. The main theorems depend only on `propext`, `Classical.choice`, `Quot.sound`.
+
+| theorem | statement |
+|---|---|
+| `mem_intLattice` | `intLattice n` is exactly the vectors in `ℝⁿ` with whole-number coordinates |
+| `covolume_intLattice` | one unit cell has volume 1 |
+| `count_div_pow_tendsto_ballVol` | `latticeCount n R / Rⁿ → √π^n / Γ(n/2+1)` as `R → ∞`, where `latticeCount n R = #{v ∈ ℤⁿ : √(Σ vᵢ²) ≤ R}` |
+| `counted_volume_max_five` | the counted-volume limit in any dimension `m ≠ 5` is strictly below the one in dimension 5 |
+
+**Route.**
+- The counting asymptotic is Mathlib's `ZLattice.covolume.tendsto_card_le_div`: lattice points in a dilated region, via box-integral Riemann sums.
+- The ball's volume is Mathlib's `volume_sum_rpow_le`, computed through Gaussian integrals. That is where `Γ` enters.
+- This file supplies the specialisation to `ℤⁿ` and the round ball, and discharges every hypothesis: bounded; measurable; boundary of volume zero (shown by squeezing between the open and closed balls, which have equal volume); covolume 1.
+
+**Reading.** Counting whole-number points in round balls produces the ball tower `√π^n/Γ(n/2+1)` and its maximum at dimension 5, as a theorem. Round 183 had this numerically only.
+
+**Still not formalised.**
+- Continuous (non-integer) `d` via the theta symmetry (round 183, Step 2).
+- The prime-by-prime lumpiness (round 182).
+- Part 0's 19 and 217.
+
+**Check 4:** classical (Gauss lattice counting). The Lean specialisation is new to the pilot. **Bearing on RH:** none.
