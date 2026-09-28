@@ -6141,3 +6141,29 @@ So these gear sets have floors well below `√x` (max error 64–209 near `8·10
 - **Not reproduced.** Part 0's `d₁ = 19` and `d₂ = 217`, and its "no fifth" claim.
 
 **Check 4:** classical; new only as numerics. **Bearing on RH:** none.
+
+## Round 184: the ball tower in Lean (`src/BallTower.lean`, imports only Mathlib)
+
+Compiles with no `sorry`. Every main theorem depends only on the standard axioms `propext`, `Classical.choice`, `Quot.sound`.
+
+| theorem | statement |
+|---|---|
+| `ballVol_eq_volume` | `ballVol n = √π^n/Γ(n/2+1)` is Mathlib's volume of the unit ball in `ℝⁿ` |
+| `ballVol_add_two`, `sphereArea_add_two` | two-step recurrences `V(n+2) = 2π/(n+2)·V(n)` and `S(n+2) = 2π/n·S(n)` |
+| `ballVol_lt_five` | for every whole number `n ≠ 5`, `V(n) < V(5)` |
+| `sphereArea_lt_seven` | for every `n ≠ 7`, `S(n) < S(7)`: the sphere `S⁶` has the largest area |
+| `Gammaℝ_mul_sphereArea` | `Gammaℝ(n)·|S^{n−1}| = 2` |
+| `zeta_from_primes` | `ζ = ∏_p (1 − p^{−s})⁻¹` for `Re s > 1` (Mathlib's Euler product) |
+| `exists_exp_of_ne_zero` | a zero-free entire function is `exp` of an entire function |
+| `affine_of_re_growth` | an entire `g` with `Re g ≤ K(1+|z|)^ρ`, `ρ < 2`, is affine (Borel–Carathéodory plus Cauchy) |
+| `const_of_symmetric` | a zero-free entire `h` of order `< 2` with `h(1−s) = h(s)` is constant |
+| `completing_factor_unique` | if `h·Gammaℝ` also completes `ζ` symmetrically (`h Λ` invariant under `s ↦ 1−s` on `Re s > 1`), with `h` zero-free and entire of order `< 2`, then `h` is constant |
+
+**Reading.** Take the primes (the Euler product) and the integers' mirror symmetry (the functional equation `Λ(1−s) = Λ(s)`, which Mathlib proves from theta and Poisson). Then the ball-tower factor `Gammaℝ = 2/sphereArea` is the unique completing factor of order `< 2`, up to a constant. The tower's two whole-number maxima, volume at 5 and sphere area at `S⁶`, are theorems.
+
+**Not formalised.**
+- The integer-counting route to `V_d` (round 183, Step 1) and the Tauberian step. These are numerical only.
+- Part 0's `d₁ = 19` and `d₂ = 217`, and its "no fifth" claim.
+- The growth hypothesis (order `< 2`) is an assumption on the competing factor `h`, not derived.
+
+**Check 4:** the mathematics is classical (Hurwitz/Hamburger-type uniqueness of the Gamma factor). The Lean formalisation is new to the pilot. **Bearing on RH:** none.
