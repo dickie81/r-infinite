@@ -6131,3 +6131,13 @@ So these gear sets have floors well below `√x` (max error 64–209 near `8·10
 - **Round 182.** The lumpy ball ℤ^d in every dimension. The lumpiness of each shell is exactly a product over primes for `d ≤ 8`, and fails by 10% at `d = 9` and 32% at `d = 10` (`klumpy.py`).
 
 **Check 4:** all classical (Hurwitz; Siegel; class number of ℤ^d; Deligne). **Bearing on RH:** none.
+
+## Round 183: the lattice ball tower from integers and primes (`frontier/fakegears/TOWER_FROM_INTEGERS.md`, `ktower.py`)
+
+- **Counting.** Counting points of ℤ^d, using only the list of squares, reproduces the ball volumes `π^{d/2}/Γ(d/2+1)` for `d = 1…10` to about `10⁻⁵`. The counted volume peaks at `d = 5`, and the counted sphere area at `S⁶`.
+- **Symmetry.** Poisson's `θ(1/t) = √t θ(t)` extends this to every real `d` (checked to 12 digits at `d = 0.5, 2.5, 7.26, 19, 217`). The Gamma function enters through the Laplace/Tauberian step.
+- **Primes.** The primes supply the lumps (round 182).
+- **Primes plus symmetry.** Together they force `π^{−s/2}Γ(s/2) = 2/S_{s−1}` as the unique completing factor (zero-free, order ≤ 1, up to a constant).
+- **Not reproduced.** Part 0's `d₁ = 19` and `d₂ = 217`, and its "no fifth" claim.
+
+**Check 4:** classical; new only as numerics. **Bearing on RH:** none.
