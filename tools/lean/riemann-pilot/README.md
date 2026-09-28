@@ -5977,3 +5977,25 @@ with `K` real and not even.
 **Check 4.** Acknowledged: de Bruijn 1950, which predicts F1 and F2. New here: the planted-violation demonstration, against the owner's octonion question.
 
 **Bearing on RH:** none.
+
+## Round 175: the primes' "grinding", seen directly (`frontier/grind/`, demonstration, classical)
+
+**What.**
+- The grinding error is `E(u) = (ψ(x) − x)/√x`, with `x = e^u`, computed exactly up to `x = 10⁸` (sieve; 65 536 log-spaced samples).
+- Its spectrum on the log scale uses a Hann window.
+- Its loudness is the max `|E|` per decade.
+- Plot: `frontier/grind/grinding.png`.
+
+**Results** (`kgrind_results.json`).
+- **Tones:** every spectral peak above 25% of the maximum, 12 of them, sits on a zero of ζ: 14.13, 21.02, 25.01, 30.42, 32.93, 37.59, 40.92, 43.32, 48.01, 49.77, 52.97, 56.45. The largest offset from the nearest zero is 0.007.
+- **Explicit formula:** the first 200 zeros alone reproduce `E(u)` at correlation 0.955.
+- **Loudness:** the max `|E|` per decade is 0.77, 0.80, 0.71, 0.70, 0.66, 0.72 for `10²` through `10⁸`. It is flat. This is the `√x` "volume" that RH asserts holds forever. An off-line zero `β + iγ` would add a tone growing like `x^{β−½}` in these units.
+
+**Reading.**
+- The owner's "grinding gears" picture, made literal: the prime-count error looks like noise, but it is a superposition of tones whose frequencies are exactly ζ's zero heights.
+- RH is equivalent to: every tone has the same volume law, so `|E|` never grows.
+- This is the classical Riemann–von Mangoldt explicit formula, verified numerically to `10⁸`. It checks the volume only up to `10⁸`, so it says nothing beyond that.
+
+**Check 4.** Acknowledged, all classical (Riemann 1859; von Mangoldt; the explicit formula). It is a demonstration for the owner, and nothing here is new.
+
+**Bearing on RH:** none.
