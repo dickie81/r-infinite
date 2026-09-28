@@ -6192,3 +6192,26 @@ Compiles with no `sorry`. The main theorems depend only on `propext`, `Classical
 - Part 0's 19 and 217.
 
 **Check 4:** classical (Gauss lattice counting). The Lean specialisation is new to the pilot. **Bearing on RH:** none.
+
+## Round 186: the teeth, one prime at a time (`src/LocalTeeth.lean`, imports only Mathlib)
+
+Compiles with no `sorry`; standard axioms only. Everything holds in any finite field `F` of odd size `q`, and in particular modulo an odd prime `p`.
+
+| theorem | statement |
+|---|---|
+| `card_add_eq` | solutions of `f(x) + g(y) = a`, counted fibre by fibre |
+| `card_two_sq` | `#{x² + y² = a} = q − χ(−1)` for `a ≠ 0` |
+| `card_two_sq_zero` | `#{x² + y² = 0} = q + (q − 1)·χ(−1)` |
+| `card_four_sq` | `#{x² + y² + z² + w² = a} = q³ − q` for `a ≠ 0` |
+| `teeth_mod_prime` | mod an odd prime `p` and `a ≠ 0`: 2D count `p − χ₄(p)`, 4D count `p³ − p` |
+
+- **Proof route.** Count square roots with the quadratic character. Then evaluate `Σ χ(b)χ(a−b)` as the Jacobi sum `J(χ,χ) = −χ(−1)` (Mathlib's `jacobiSum_nontrivial_inv`).
+- **Brute-force check** for `p = 3, 5, 7, 11, 13`: the 2D counts `4, 4, 8, 12, 12` and 4D counts `24, 120, 336, 1320, 2184` match the formulas.
+
+**Reading.**
+- Divide by the smooth expectation (`q` points per shell in 2D, `q³` in 4D). The prime-`p` tooth density on any nonzero shell is `1 − χ₄(p)/p` in 2D and `1 − 1/p²` in 4D.
+- These are exactly the prime-`p` Euler factors of `L(1, χ₄)⁻¹` and `ζ(2)⁻¹`. In 4D the teeth at each prime are exactly one Euler factor of `1/ζ(2)`, the same on every shell not divisible by `p`.
+
+**Not formalised.** The global assembly: teeth on shell `n` = smooth sphere × `∏_p δ_p(n)` (Siegel's formula). It needs the densities at primes dividing `n` and at `p = 2`, and the one-class genus for `d ≤ 8`. It stays the numerical check of round 182.
+
+**Check 4:** classical (Gauss, Jacobi sums); the Lean proofs are new to the pilot. **Bearing on RH:** none.
