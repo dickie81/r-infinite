@@ -6021,3 +6021,21 @@ That score is `μ(n)`, and the net slippage `M(x) = Σ_{n≤x} μ(n)` is the Mer
 **Check 4.** All classical (Möbius, Mertens; the explicit formula for `M`; Odlyzko–te Riele). A demonstration for the owner; nothing new.
 
 **Bearing on RH:** none.
+
+## Round 177: what sets a tone's volume (`frontier/grind/kslope.py`, demonstration, classical)
+
+**The owner's question.** Is the tone volume `2/|ρζ′(ρ)|` just an angle or hypotenuse between nearest points?
+
+**Two factors.**
+- **`|ρ| = √(¼ + γ²)` is literally a hypotenuse.** Its legs are ½ (distance from the imaginary axis to the critical line) and `γ` (height). This factor alone makes the volumes fall off roughly like `1/γ`.
+- **`|ζ′(ρ)|` is the slope at which ζ crosses zero.** By the Hadamard product it is approximately a product over the *other zeros*. So it is set by the nearest points in the zero set, not in the integer grid.
+
+**Measured over 299 zeros** (`kslope_results.json`). First the smooth growth with height is removed by regressing `log|ζ′(ρ)|` on `[1, log log γ]`. Then, with neighbour gaps normalised by the mean density `log(γ/2π)/2π`, the residual correlates with:
+- the log of the product of the left and right gaps: **0.947**;
+- the log of the nearest gap: **0.849**.
+
+**Reading.** Zeros with close neighbours have a shallow crossing and so a loud tone; isolated zeros are quiet. The volumes carry the local spacing of the zeros, which is random-matrix-like.
+
+**Check 4.** Classical: the Hadamard product, and the known link between small `|ζ′(ρ)|` and close zero pairs (Lehmer pairs; Conrey, Hughes–Keating–O'Connell moments). The numbers are a demonstration; nothing new.
+
+**Bearing on RH:** none.
