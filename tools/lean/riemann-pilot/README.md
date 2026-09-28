@@ -6215,3 +6215,34 @@ Compiles with no `sorry`; standard axioms only. Everything holds in any finite f
 **Not formalised.** The global assembly: teeth on shell `n` = smooth sphere × `∏_p δ_p(n)` (Siegel's formula). It needs the densities at primes dividing `n` and at `p = 2`, and the one-class genus for `d ≤ 8`. It stays the numerical check of round 182.
 
 **Check 4:** classical (Gauss, Jacobi sums); the Lean proofs are new to the pilot. **Bearing on RH:** none.
+
+## Round 187: the global step in 2D, Jacobi's two-square theorem (`src/GlobalTeeth.lean`, imports only Mathlib)
+
+Compiles with no `sorry`; standard axioms only.
+
+**Main theorem `two_sq_count`.** For every `n ≥ 1`,
+`#{(x, y) ∈ ℤ² : x² + y² = n} = 4 · Σ_{d ∣ n} χ₄(d)`.
+
+It is assembled prime by prime. Write `n = pᵏ·m` with `p ∤ m`; the count on shell `n` is the count on shell `m` times:
+
+| prime | factor | theorem | mechanism |
+|---|---|---|---|
+| `p = 2` | `1` | `R_two_pow_mul` | every point of an even shell is divisible by `1 + i` |
+| `p ≡ 3 (mod 4)` | `1` if `k` even, `0` if `k` odd | `R_three_pow_mul` | `p ∣ x² + y²` forces `p ∣ x` and `p ∣ y`, since `−1` is not a square mod `p` |
+| `p ≡ 1 (mod 4)` | `k + 1` | `R_one_mod_four_pow_mul` | `p = ππ̄` splits into two non-associate Gaussian primes |
+
+**The `p ≡ 1` proof.** The shell splits into its `π`-divisible and `π̄`-divisible parts, which overlap in the `p`-divisible part. Multiplying by `π` maps shell `m` onto the `π`-divisible part of shell `N(π)·m` (`image_mul_shell`). This gives the recursion `t_{k+1} = 2t_k − t_{k−1}`, so `t_k = (k+1)·t_0`.
+
+**Reading.**
+- This is the global step of round 182 for the 2D ball. The teeth on every shell are exactly a product of one factor per prime, with no remainder.
+- The factors are the local counts of round 186 made global. `1 − χ₄(p)/p` is the density on shells not divisible by `p`, and `Σ_{j≤k} χ₄(p)^j` is the multiplicity on shells divisible by `pᵏ`.
+- Where the pilot now stands on "integers and primes → lattice ball tower":
+  - the smooth part is a theorem in every dimension (round 185, counting);
+  - the local tooth factors are theorems in 2D and 4D (round 186);
+  - the global lumpiness identity is a theorem in 2D (this round).
+
+**Not formalised.**
+- The 4D global identity (Jacobi's four-square theorem, `r₄(n) = 8 Σ_{d∣n, 4∤d} d`), which would need Hurwitz-quaternion arithmetic.
+- Siegel's general formula.
+
+**Check 4:** classical (Fermat, Gauss, Jacobi); the Lean proof is new to the pilot. **Bearing on RH:** none.
