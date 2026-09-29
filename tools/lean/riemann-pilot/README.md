@@ -6530,3 +6530,29 @@ Axioms are clean.
 
 **Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
 
+## Round 200: VMVT step I.3b, the good/bad split (`src/VinoSplit.lean`)
+
+Axioms are clean.
+
+- **`stepA`.** `J_{k+s,k}(P) ≤ 2·T_BB + 16·(k+s)^{2k}·G`. Here `T_BB` counts agreeing pairs of *bad* tuples (fewer than `k` residue classes mod `p`), and `G` is the conditioned count (`Gfull`). The pieces:
+  - `pairCount_split` and `pairCount_swap_le` give `T ≤ 2·T(x good) + T_BB`.
+  - `exists_inj`: a good tuple has an injective `k`-subtuple with distinct residues. So `T(good) ≤ Σ_ι T_ι` (`pairCount_biUnion_le`), with at most `(k+s)^k` injections `ι`.
+  - `pairCount_sq_le`, Cauchy–Schwarz in counting form: `T_ι² ≤ G_ι·T`.
+  - `exists_perm` (via Mathlib's `Equiv.extendSubtype`): a permutation carries the first `k` slots onto `ι`, so `G_ι ≤ G` (`G_ι_le`).
+  - Case split: either `T ≤ 2T_BB`, or `T < 4·T(good)`, which gives `T < 16(k+s)^{2k}·G`.
+
+  The spec's `C(s+k,k)²` became `(k+s)^{2k}`, a crude but harmless constant.
+
+**Chained with rounds 197–199:**
+`J_{k+s}(P) ≤ 2·T_BB + 16(k+s)^{2k}·p^{2s−1}·Σ_{a<p} P^k·k!·p^{k(k−1)/2}·J_s(⌊P/p⌋+1)`.
+
+| I.3b piece | status |
+|---|---|
+| A good/bad split | **done** |
+| B Hölder over classes | done |
+| C, C′ conditioned and class counts | done |
+| D bad count `#bad ≤ C(p,k−1)·((k−1)(⌊P/p⌋+1))^{k+s}` | open |
+| recursion with the Bertrand prime, exponent bookkeeping | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
