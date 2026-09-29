@@ -18,7 +18,7 @@ removes `hfin` with Landau's theorem for Laplace transforms (`LandauLaplace.lean
 1. `F` is holomorphic off its poles `0, ±P_ρ`, which are locally finite (`Fw_differentiableAt`). No
    pole is real, because `ζ ≠ 0` on `(0, 1)`. Near every real `c > 0`, `F` is holomorphic and equals
    the transform, by the identity theorem on a thin strip. Landau's theorem then makes the integral
-   converge on all of `Re z > 0` (`conv_pos`).
+   converge on all of `Re z > 0` (`conv_gt`).
 2. An off-line zero gives a pole `P` with `Re P > 0`. Take the pole on that horizontal line with the
    largest real part, `p`. On a thin horizontal strip to the right of `p` there is no pole, so `F`
    equals the transform, which is continuous at `p`. But `F(z) = G(z) + R/(z − p)` with `G`
@@ -393,27 +393,32 @@ theorem hasSum_wq {l : ℝ} (hl : 0 ≤ l) :
   rw [ghatC_twin one_pos (box_probe 1) hl, twin_sq, two_I_ordi]
   rfl
 
-theorem norm_wq_le (q : ZIdx) (l : ℝ) : ‖wq q l‖ ≤ ‖cw q‖ * (4 * Real.exp |l|) := by
+theorem norm_wq_le_of {q : ZIdx} {r : ℝ} (hr : |(poleP q).re| ≤ r) (l : ℝ) :
+    ‖wq q l‖ ≤ ‖cw q‖ * (4 * Real.exp (r * |l|)) := by
   unfold wq
   rw [norm_mul]
   refine mul_le_mul_of_nonneg_left ?_ (norm_nonneg _)
-  have hr := abs_re_poleP q
-  have b : ∀ s : ℝ, s = 1 ∨ s = -1 → ‖cexp (s * (l * poleP q))‖ ≤ Real.exp |l| := fun s hs => by
+  have hlr : |l * (poleP q).re| ≤ r * |l| := by
+    rw [abs_mul, mul_comm]; exact mul_le_mul_of_nonneg_right hr (abs_nonneg l)
+  have b1 : ‖cexp (↑l * poleP q)‖ ≤ Real.exp (r * |l|) := by
     rw [Complex.norm_exp]
     apply Real.exp_le_exp.2
-    have e : (↑s * (↑l * poleP q)).re = s * l * (poleP q).re := by simp; ring
-    rw [e]
-    have := abs_le.1 hr.le
-    rcases hs with rfl | rfl <;> [skip; skip] <;>
-      nlinarith [abs_nonneg l, le_abs_self l, neg_abs_le l, abs_mul_abs_self l]
-  have b1 := b 1 (Or.inl rfl)
-  have b2 := b (-1) (Or.inr rfl)
-  simp only [ofReal_one, one_mul, ofReal_neg, neg_mul] at b1 b2
-  have h1 : 1 ≤ Real.exp |l| := Real.one_le_exp (abs_nonneg l)
+    have e : (↑l * poleP q).re = l * (poleP q).re := by simp
+    rw [e]; exact (le_abs_self _).trans hlr
+  have b2 : ‖cexp (-(↑l * poleP q))‖ ≤ Real.exp (r * |l|) := by
+    rw [Complex.norm_exp]
+    apply Real.exp_le_exp.2
+    have e : (-(↑l * poleP q)).re = -(l * (poleP q).re) := by simp
+    rw [e]; exact (neg_le_abs _).trans hlr
+  have h1 : 1 ≤ Real.exp (r * |l|) :=
+    Real.one_le_exp (mul_nonneg ((abs_nonneg _).trans hr) (abs_nonneg l))
   calc ‖2 + cexp (↑l * poleP q) + cexp (-(↑l * poleP q))‖
       ≤ ‖(2 : ℂ)‖ + ‖cexp (↑l * poleP q)‖ + ‖cexp (-(↑l * poleP q))‖ := norm_add₃_le
-    _ ≤ 2 + Real.exp |l| + Real.exp |l| := by rw [Complex.norm_ofNat]; linarith
-    _ ≤ 4 * Real.exp |l| := by linarith
+    _ ≤ 2 + Real.exp (r * |l|) + Real.exp (r * |l|) := by rw [Complex.norm_ofNat]; linarith
+    _ ≤ 4 * Real.exp (r * |l|) := by linarith
+
+theorem norm_wq_le (q : ZIdx) (l : ℝ) : ‖wq q l‖ ≤ ‖cw q‖ * (4 * Real.exp |l|) := by
+  simpa using norm_wq_le_of (abs_re_poleP q).le l
 
 /-- The function `λ ↦ Σ_ρ ĝ₀(t_ρ)²(2 + e^{λP_ρ} + e^{−λP_ρ})`, defined for every real `λ`. -/
 def Wsum (l : ℝ) : ℂ := ∑' q, wq q l
@@ -436,15 +441,19 @@ theorem continuous_Wsum : Continuous Wsum := by
 theorem Wsum_eq {l : ℝ} (hl : 0 ≤ l) : Wsum l = (weilQ (l + 1) (twin (box 1) l) : ℂ) :=
   (hasSum_wq hl).tsum_eq
 
-theorem norm_Wsum_le (l : ℝ) : ‖Wsum l‖ ≤ (∑' q, ‖cw q‖) * (4 * Real.exp |l|) := by
+theorem norm_Wsum_le_of {r : ℝ} (hr : ∀ q, |(poleP q).re| ≤ r) (l : ℝ) :
+    ‖Wsum l‖ ≤ (∑' q, ‖cw q‖) * (4 * Real.exp (r * |l|)) := by
   unfold Wsum
   have hs : Summable fun q => ‖wq q l‖ :=
-    (summable_cw.mul_right (4 * Real.exp |l|)).of_nonneg_of_le (fun _ => norm_nonneg _)
-      (fun q => norm_wq_le q l)
+    (summable_cw.mul_right (4 * Real.exp (r * |l|))).of_nonneg_of_le (fun _ => norm_nonneg _)
+      (fun q => norm_wq_le_of (hr q) l)
   calc ‖∑' q, wq q l‖ ≤ ∑' q, ‖wq q l‖ := norm_tsum_le_tsum_norm hs
-    _ ≤ ∑' q, ‖cw q‖ * (4 * Real.exp |l|) :=
-        hs.tsum_le_tsum (fun q => norm_wq_le q l) (summable_cw.mul_right _)
+    _ ≤ ∑' q, ‖cw q‖ * (4 * Real.exp (r * |l|)) :=
+        hs.tsum_le_tsum (fun q => norm_wq_le_of (hr q) l) (summable_cw.mul_right _)
     _ = _ := tsum_mul_right
+
+theorem norm_Wsum_le (l : ℝ) : ‖Wsum l‖ ≤ (∑' q, ‖cw q‖) * (4 * Real.exp |l|) := by
+  simpa using norm_Wsum_le_of (fun q => (abs_re_poleP q).le) l
 
 /-! ## The Laplace transform in `λ` -/
 
@@ -457,29 +466,52 @@ theorem Aw_eq {l : ℝ} (hl : 0 ≤ l) : Aw l = weilQ (l + 1) (twin (box 1) l) :
 theorem Aw_ofReal {l : ℝ} (hl : 0 ≤ l) : (Aw l : ℂ) = Wsum l := by
   rw [Aw_eq hl, Wsum_eq hl]
 
-theorem hyp_Aw (hQ : ∀ l : ℝ, 0 ≤ l → 0 ≤ weilQ (l + 1) (twin (box 1) l)) :
-    Hyp (volume.restrict (Ioi (0 : ℝ))) Aw (fun l => l) where
+theorem continuous_Aw : Continuous Aw := Complex.continuous_re.comp continuous_Wsum
+
+theorem abs_Aw_le {l : ℝ} (hl : 0 ≤ l) : |Aw l| ≤ (∑' q, ‖cw q‖) * (4 * Real.exp l) := by
+  have := norm_Wsum_le l
+  rw [abs_of_nonneg hl] at this
+  exact (Complex.abs_re_le_norm _).trans this
+
+/-- The input shifted by the allowed defect: `A(λ) = Q(λ) + C·e^{σλ}`. -/
+def Awc (C σ l : ℝ) : ℝ := Aw l + C * Real.exp (σ * l)
+
+theorem hyp_Awc {C σ : ℝ}
+    (hQ : ∀ l : ℝ, 0 ≤ l → -(C * Real.exp (σ * l)) ≤ weilQ (l + 1) (twin (box 1) l)) :
+    Hyp (volume.restrict (Ioi (0 : ℝ))) (Awc C σ) (fun l => l) where
   A_nonneg := (ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun l (hl : 0 < l) => by
-    rw [Aw_eq hl.le]; exact hQ l hl.le)
+    unfold Awc; rw [Aw_eq hl.le]; linarith [hQ l hl.le])
   ph_nonneg := (ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun l (hl : 0 < l) => hl.le)
-  A_meas := (Complex.continuous_re.comp continuous_Wsum).aestronglyMeasurable
+  A_meas := (continuous_Aw.add (by fun_prop)).aestronglyMeasurable
   ph_meas := continuous_id.aestronglyMeasurable
 
-theorem conv_Aw_two : Conv (volume.restrict (Ioi (0 : ℝ))) Aw (fun l => l) 2 := by
+theorem conv_Awc {C σ : ℝ} (hσ : 0 ≤ σ) :
+    Conv (volume.restrict (Ioi (0 : ℝ))) (Awc C σ) (fun l => l) (σ + 2) := by
   set S := ∑' q, ‖cw q‖
-  have hi : IntegrableOn (fun l : ℝ => 4 * S * Real.exp (-1 * l)) (Ioi 0) :=
+  have hS : 0 ≤ S := tsum_nonneg fun _ => norm_nonneg _
+  have hi : IntegrableOn (fun l : ℝ => (4 * S + |C|) * Real.exp (-1 * l)) (Ioi 0) :=
     (exp_neg_integrableOn_Ioi 0 one_pos).const_mul _
-  refine hi.mono' ((Complex.continuous_re.comp continuous_Wsum).mul (by fun_prop)).aestronglyMeasurable
+  refine hi.mono' ((continuous_Aw.add (by fun_prop)).mul (by fun_prop)).aestronglyMeasurable
     ((ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun l (hl : 0 < l) => ?_))
-  rw [norm_mul, Real.norm_of_nonneg (Real.exp_pos _).le]
-  have h1 : ‖Aw l‖ ≤ S * (4 * Real.exp l) := by
-    have := norm_Wsum_le l
-    rw [abs_of_pos hl] at this
-    exact (Complex.abs_re_le_norm _).trans this
-  calc ‖Aw l‖ * Real.exp (-2 * l) ≤ S * (4 * Real.exp l) * Real.exp (-2 * l) :=
-        mul_le_mul_of_nonneg_right h1 (Real.exp_pos _).le
-    _ = 4 * S * Real.exp (-1 * l) := by
-        rw [mul_assoc, mul_assoc, ← Real.exp_add]; ring_nf
+  rw [norm_mul, Real.norm_of_nonneg (Real.exp_pos _).le, Real.norm_eq_abs]
+  unfold Awc
+  have h1 := abs_Aw_le hl.le
+  have h2 : |C * Real.exp (σ * l)| = |C| * Real.exp (σ * l) := by
+    rw [abs_mul, abs_of_pos (Real.exp_pos _)]
+  have e1 : Real.exp l * Real.exp (-(σ + 2) * l) ≤ Real.exp (-1 * l) := by
+    rw [← Real.exp_add]; apply Real.exp_le_exp.2; nlinarith
+  have e2 : Real.exp (σ * l) * Real.exp (-(σ + 2) * l) ≤ Real.exp (-1 * l) := by
+    rw [← Real.exp_add]; apply Real.exp_le_exp.2; nlinarith
+  have hE := Real.exp_pos (-(σ + 2) * l)
+  calc |Aw l + C * Real.exp (σ * l)| * Real.exp (-(σ + 2) * l)
+      ≤ (S * (4 * Real.exp l) + |C| * Real.exp (σ * l)) * Real.exp (-(σ + 2) * l) := by
+        refine mul_le_mul_of_nonneg_right ((abs_add_le _ _).trans ?_) hE.le
+        rw [h2]; linarith
+    _ = 4 * S * (Real.exp l * Real.exp (-(σ + 2) * l))
+        + |C| * (Real.exp (σ * l) * Real.exp (-(σ + 2) * l)) := by ring
+    _ ≤ 4 * S * Real.exp (-1 * l) + |C| * Real.exp (-1 * l) := by
+        gcongr
+    _ = _ := by ring
 
 /-- One zero's transform: `∫_0^∞ ĝ₀²(2 + e^{λP} + e^{−λP})e^{−zλ}dλ = ĝ₀²(2/z + 1/(z − P) + 1/(z + P))`
 for `Re z > 1`. -/
@@ -560,12 +592,62 @@ theorem lap_eq_Fw {z : ℂ} (hz : 1 < z.re) :
       _ = ‖cw q‖ * (4 * Real.exp (-(z.re - 1) * l)) := by
           rw [mul_assoc, mul_assoc, ← Real.exp_add]; ring_nf
 
-theorem Fw_eventuallyEq_lap {z0 : ℂ} (hz : 1 < z0.re) :
-    Fw =ᶠ[𝓝 z0] lap (volume.restrict (Ioi (0 : ℝ))) Aw (fun l => l) :=
-  Filter.eventually_of_mem ((isOpen_lt continuous_const Complex.continuous_re).mem_nhds hz)
-    fun _ hz => (lap_eq_Fw hz).symm
+/-- `F` plus the transform of the defect: `F(z) + C/(z − σ)`. -/
+def Fwc (C σ : ℝ) (z : ℂ) : ℂ := Fw z + C / (z - σ)
 
-/-! ## Weil's criterion -/
+theorem integrableOn_Aw_exp {z : ℂ} (hz : 1 < z.re) :
+    IntegrableOn (fun l : ℝ => (Aw l : ℂ) * cexp (-z * l)) (Ioi 0) := by
+  set S := ∑' q, ‖cw q‖
+  have hi : IntegrableOn (fun l : ℝ => 4 * S * Real.exp (-(z.re - 1) * l)) (Ioi 0) :=
+    (exp_neg_integrableOn_Ioi 0 (by linarith)).const_mul _
+  refine hi.mono' ((Complex.continuous_ofReal.comp continuous_Aw).mul (by fun_prop)).aestronglyMeasurable
+    ((ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun l (hl : 0 < l) => ?_))
+  rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, Complex.norm_exp]
+  have e2 : (-z * l).re = -z.re * l := by simp
+  rw [e2]
+  calc |Aw l| * Real.exp (-z.re * l) ≤ S * (4 * Real.exp l) * Real.exp (-z.re * l) :=
+        mul_le_mul_of_nonneg_right (abs_Aw_le hl.le) (Real.exp_pos _).le
+    _ = 4 * S * Real.exp (-(z.re - 1) * l) := by
+        rw [mul_assoc, mul_assoc, ← Real.exp_add]; ring_nf
+
+/-- **The transform of `Q + C·e^{σλ}` is `F(z) + C/(z − σ)`** for `Re z > max(1, σ)`. -/
+theorem lap_Awc {C σ : ℝ} {z : ℂ} (hz : 1 < z.re) (hzσ : σ < z.re) :
+    lap (volume.restrict (Ioi (0 : ℝ))) (Awc C σ) (fun l => l) z = Fwc C σ z := by
+  have ha : ((σ : ℂ) - z).re < 0 := by simp; linarith
+  have i2 : IntegrableOn (fun l : ℝ => (C : ℂ) * cexp (((σ : ℂ) - z) * l)) (Ioi 0) :=
+    (integrableOn_exp_mul_complex_Ioi ha 0).const_mul _
+  have e : ∀ l : ℝ, ((Awc C σ l : ℝ) : ℂ) * cexp (-z * l)
+      = (Aw l : ℂ) * cexp (-z * l) + (C : ℂ) * cexp (((σ : ℂ) - z) * l) := fun l => by
+    unfold Awc
+    push_cast
+    rw [show ((σ : ℂ) - z) * l = σ * l + -z * l by ring, Complex.exp_add]
+    ring
+  unfold lap
+  simp_rw [e]
+  rw [integral_add (integrableOn_Aw_exp hz) i2, integral_const_mul, integral_exp_mul_complex_Ioi ha]
+  have := lap_eq_Fw hz
+  unfold lap at this
+  rw [this]
+  unfold Fwc
+  have hz' : z - σ ≠ 0 := fun h => by
+    have := congrArg Complex.re h; simp at this; linarith
+  have hz'' : (σ : ℂ) - z ≠ 0 := fun h => hz' (by rw [← neg_sub, h, neg_zero])
+  simp only [ofReal_zero, mul_zero, Complex.exp_zero]
+  field_simp
+  ring
+
+theorem Fwc_eventuallyEq_lap {C σ : ℝ} {z0 : ℂ} (hz : 1 < z0.re) (hzσ : σ < z0.re) :
+    Fwc C σ =ᶠ[𝓝 z0] lap (volume.restrict (Ioi (0 : ℝ))) (Awc C σ) (fun l => l) :=
+  Filter.eventually_of_mem (((isOpen_lt continuous_const Complex.continuous_re).inter
+    (isOpen_lt continuous_const Complex.continuous_re)).mem_nhds ⟨hz, hzσ⟩)
+    fun _ hz => (lap_Awc hz.1 hz.2).symm
+
+theorem Fwc_differentiableAt {C σ : ℝ} {z0 : ℂ} (h0 : z0 ≠ 0) (hσ : z0 ≠ σ)
+    (hP : ∀ q, z0 ≠ poleP q ∧ z0 ≠ -poleP q) : DifferentiableAt ℂ (Fwc C σ) z0 := by
+  have h1 := Fw_differentiableAt h0 hP
+  have h2 : z0 - σ ≠ 0 := sub_ne_zero.2 hσ
+  unfold Fwc
+  exact h1.add ((differentiableAt_const _).div (differentiableAt_id.sub_const _) h2)
 
 /-- The poles keep a fixed distance from the real axis. -/
 theorem exists_im_lb : ∃ d > 0, ∀ q : ZIdx, d ≤ |(poleP q).im| := by
@@ -586,33 +668,36 @@ theorem not_pole_of_im {z : ℂ} {d : ℝ} (hd : ∀ q : ZIdx, d ≤ |(poleP q).
   · intro e; have := hd q; rw [← e] at this; linarith
   · intro e; have := hd q; rw [← neg_neg (poleP q), ← e, neg_im, abs_neg] at this; linarith
 
-/-- **Step 1: the transform converges on `Re z > 0`.** -/
-theorem conv_pos (hQ : ∀ l : ℝ, 0 ≤ l → 0 ≤ weilQ (l + 1) (twin (box 1) l)) :
-    ∀ σ, 0 < σ → Conv (volume.restrict (Ioi (0 : ℝ))) Aw (fun l => l) σ := by
-  have h := hyp_Aw hQ
+/-- **Step 1: the transform converges on `Re z > σ`.** -/
+theorem conv_gt {C σ : ℝ} (hσ : 0 ≤ σ)
+    (hQ : ∀ l : ℝ, 0 ≤ l → -(C * Real.exp (σ * l)) ≤ weilQ (l + 1) (twin (box 1) l)) :
+    ∀ τ, σ < τ → Conv (volume.restrict (Ioi (0 : ℝ))) (Awc C σ) (fun l => l) τ := by
+  have h := hyp_Awc hQ
   obtain ⟨d, hd, hdq⟩ := exists_im_lb
-  refine landau_abscissa h conv_Aw_two fun c hc habove => ?_
-  set e := min (d / 2) (c / 2)
-  have he : 0 < e := lt_min (by positivity) (by positivity)
+  refine landau_abscissa h (conv_Awc hσ) fun c hc habove => ?_
+  set e := min (d / 2) ((c - σ) / 2)
+  have he : 0 < e := lt_min (by positivity) (by linarith)
   set W : Set ℂ := {s | c < s.re} ∩ ({s | s.im < d / 2} ∩ {s | -(d / 2) < s.im})
   have hWo : IsOpen W := (isOpen_lt continuous_const Complex.continuous_re).inter
     ((isOpen_lt Complex.continuous_im continuous_const).inter (isOpen_lt continuous_const Complex.continuous_im))
   have hWc : Convex ℝ W := (convex_halfSpace_re_gt c).inter
     ((convex_halfSpace_im_lt (d / 2)).inter (convex_halfSpace_im_gt (-(d / 2))))
-  have hFd : ∀ z : ℂ, 0 < z.re → |z.im| < d → DifferentiableAt ℂ Fw z := fun z hz hzi =>
-    Fw_differentiableAt (fun e0 => by rw [e0, zero_re] at hz; exact lt_irrefl _ hz)
-      (not_pole_of_im hdq hzi)
+  have hFd : ∀ z : ℂ, σ < z.re → |z.im| < d → DifferentiableAt ℂ (Fwc C σ) z := fun z hz hzi =>
+    Fwc_differentiableAt (fun e0 => by rw [e0, zero_re] at hz; linarith)
+      (fun e0 => by rw [e0, ofReal_re] at hz; exact lt_irrefl _ hz) (not_pole_of_im hdq hzi)
   have hLd := lap_differentiableOn h habove
-  have hEq : EqOn Fw (lap (volume.restrict (Ioi (0 : ℝ))) Aw (fun l => l)) W := by
+  set z1 : ℝ := max c (σ + 2) + 1
+  have hEq : EqOn (Fwc C σ) (lap (volume.restrict (Ioi (0 : ℝ))) (Awc C σ) (fun l => l)) W := by
     refine eqOn_convex hWo hWc (fun z hz => (hFd z (lt_trans hc (show c < z.re from hz.1)) (abs_lt.2
       ⟨by linarith [show -(d / 2) < z.im from hz.2.2], by linarith [show z.im < d / 2 from hz.2.1]⟩)).differentiableWithinAt)
-      (hLd.mono fun z hz => hz.1) (z0 := ((max c 2 + 1 : ℝ) : ℂ)) ?_ (Fw_eventuallyEq_lap ?_)
+      (hLd.mono fun z hz => hz.1) (z0 := (z1 : ℂ)) ?_ (Fwc_eventuallyEq_lap ?_ ?_)
     · refine ⟨?_, ?_, ?_⟩
-      · show c < ((max c 2 + 1 : ℝ) : ℂ).re; rw [ofReal_re]; linarith [le_max_left c 2]
-      · show ((max c 2 + 1 : ℝ) : ℂ).im < d / 2; rw [ofReal_im]; positivity
-      · show -(d / 2) < ((max c 2 + 1 : ℝ) : ℂ).im; rw [ofReal_im]; linarith
-    · show 1 < ((max c 2 + 1 : ℝ) : ℂ).re; rw [ofReal_re]; linarith [le_max_right c 2]
-  refine ⟨e, he, Fw, fun z hz => ?_, fun s hs hsc => hEq ⟨hsc, ?_, ?_⟩⟩
+      · show c < (z1 : ℂ).re; rw [ofReal_re]; linarith [le_max_left c (σ + 2)]
+      · show (z1 : ℂ).im < d / 2; rw [ofReal_im]; positivity
+      · show -(d / 2) < (z1 : ℂ).im; rw [ofReal_im]; linarith
+    · show 1 < (z1 : ℂ).re; rw [ofReal_re]; linarith [le_max_right c (σ + 2)]
+    · show σ < (z1 : ℂ).re; rw [ofReal_re]; linarith [le_max_right c (σ + 2)]
+  refine ⟨e, he, Fwc C σ, fun z hz => ?_, fun s hs hsc => hEq ⟨hsc, ?_, ?_⟩⟩
   · rw [mem_ball, Complex.dist_eq] at hz
     have h1 := Complex.abs_re_le_norm (z - c)
     have h2 := Complex.abs_im_le_norm (z - c)
@@ -629,26 +714,27 @@ theorem conv_pos (hQ : ∀ l : ℝ, 0 ≤ l → 0 ≤ weilQ (l + 1) (twin (box 1
     simp only [sub_im, ofReal_im, sub_zero] at h2
     have := h2.trans_lt (hs.trans_le (min_le_left _ _)); rw [abs_lt] at this; exact this.1
 
-/-- **Weil's criterion, twin boxes only.** If `Q(twin (box 1) λ) ≥ 0` for every `λ ≥ 0`, every
-nontrivial zero of `ζ` lies on the critical line. -/
-theorem line_of_weil_twins (hQ : ∀ l : ℝ, 0 ≤ l → 0 ≤ weilQ (l + 1) (twin (box 1) l)) (q0 : ZIdx) :
-    (zetaZeroFamily q0).re = 1 / 2 := by
+theorem re_poleP (q : ZIdx) : (poleP q).re = 2 * (zetaZeroFamily q).re - 1 := by
+  unfold poleP; simp; ring
+
+/-- **The graded criterion.** If `Q(twin (box 1) λ) ≥ −C·e^{σλ}` for every `λ ≥ 0` (`σ ≥ 0`), every
+nontrivial zero has `|2 Re ρ − 1| ≤ σ`, i.e. `|Re P_ρ| ≤ σ`. -/
+theorem abs_re_poleP_le {C σ : ℝ} (hσ : 0 ≤ σ)
+    (hQ : ∀ l : ℝ, 0 ≤ l → -(C * Real.exp (σ * l)) ≤ weilQ (l + 1) (twin (box 1) l)) (q0 : ZIdx) :
+    |(poleP q0).re| ≤ σ := by
   classical
   by_contra hoff
-  have h := hyp_Aw hQ
-  have hconv := conv_pos hQ
-  set L := lap (volume.restrict (Ioi (0 : ℝ))) Aw (fun l => l)
-  have hLd : DifferentiableOn ℂ L {s | 0 < s.re} := lap_differentiableOn h hconv
-  -- a pole with positive real part
-  have hre0 : (poleP q0).re ≠ 0 := by
-    have e : (poleP q0).re = 2 * (zetaZeroFamily q0).re - 1 := by unfold poleP; simp; ring
-    rw [e]; intro h0; apply hoff; linarith
+  push Not at hoff
+  have h := hyp_Awc hQ
+  have hconv := conv_gt hσ hQ
+  set L := lap (volume.restrict (Ioi (0 : ℝ))) (Awc C σ) (fun l => l)
+  have hLd : DifferentiableOn ℂ L {s | σ < s.re} := lap_differentiableOn h hconv
+  -- a pole to the right of `σ`
   set p : ℂ := if 0 < (poleP q0).re then poleP q0 else -poleP q0
-  have hp : 0 < p.re := by
+  have hp : σ < p.re := by
     simp only [p]; split_ifs with h1
-    · exact h1
-    · simp only [neg_re]; push Not at h1; exact lt_of_le_of_ne (by linarith) (by
-        intro h2; exact hre0 (by linarith))
+    · rwa [abs_of_pos h1] at hoff
+    · push Not at h1; rw [neg_re]; rwa [abs_of_nonpos h1] at hoff
   -- the poles near `p`, and the rightmost one on the horizontal line through `p`
   set T := (finite_poleP (‖p‖ + 2)).toFinset
   set D : Finset ℂ := T.image poleP ∪ T.image (fun q => -poleP q)
@@ -670,7 +756,8 @@ theorem line_of_weil_twins (hQ : ∀ l : ℝ, 0 ≤ l → 0 ≤ weilQ (l + 1) (t
     rcases Finset.mem_union.1 hpsD with h1 | h1
     · obtain ⟨q, -, hq⟩ := Finset.mem_image.1 h1; exact ⟨q, Or.inl hq⟩
     · obtain ⟨q, -, hq⟩ := Finset.mem_image.1 h1; exact ⟨q, Or.inr hq⟩
-  have hps0 : 0 < ps.re := lt_of_lt_of_le hp hpsre
+  have hpsσ : σ < ps.re := lt_of_lt_of_le hp hpsre
+  have hps0 : 0 < ps.re := lt_of_le_of_lt hσ hpsσ
   -- the pole-free strip to the right of `ps`
   obtain ⟨m, hm, hmD⟩ := exists_pos_lb D (fun z => if z.im = p.im then 1 else |z.im - p.im|)
     fun z => by split_ifs with h1
@@ -712,34 +799,49 @@ theorem line_of_weil_twins (hQ : ∀ l : ℝ, 0 ≤ l → 0 ≤ weilQ (l + 1) (t
         simp only [hi, ↓reduceIte] at this
         linarith [min_le_left m 1]
     exact ⟨fun e => key z (Or.inl e) hz, fun e => key z (Or.inr e) hz⟩
-  have hFU : DifferentiableOn ℂ Fw U := fun z hz =>
-    (Fw_differentiableAt (fun e0 => by
-      have : ps.re < z.re := hz.1; rw [e0, zero_re] at this; linarith)
-      (hnopole z hz)).differentiableWithinAt
-  have hLU : DifferentiableOn ℂ L U := hLd.mono fun z hz => lt_trans hps0 (show ps.re < z.re from hz.1)
-  set z0 : ℂ := (3 : ℝ) + p.im * I
-  have hz0re : z0.re = 3 := by simp [z0]
+  have hFU : DifferentiableOn ℂ (Fwc C σ) U := fun z hz => by
+    have hz1 : ps.re < z.re := hz.1
+    exact (Fwc_differentiableAt (fun e0 => by rw [e0, zero_re] at hz1; linarith)
+      (fun e0 => by rw [e0, ofReal_re] at hz1; linarith) (hnopole z hz)).differentiableWithinAt
+  have hLU : DifferentiableOn ℂ L U := hLd.mono fun z hz => lt_trans hpsσ (show ps.re < z.re from hz.1)
+  set z0 : ℂ := ((σ + 3 : ℝ) : ℂ) + p.im * I
+  have hz0re : z0.re = σ + 3 := by simp [z0]
   have hz0im : z0.im = p.im := by simp [z0]
   have hps1 : ps.re < 1 := by
     obtain ⟨q, hq⟩ := hpspole
     rcases hq with hq | hq
     · rw [← hq]; exact (abs_lt.1 (abs_re_poleP q)).2
     · rw [← hq, neg_re]; linarith [(abs_lt.1 (abs_re_poleP q)).1]
-  have hEq : EqOn Fw L U := eqOn_convex hUo hUc hFU hLU (z0 := z0)
+  have hEq : EqOn (Fwc C σ) L U := eqOn_convex hUo hUc hFU hLU (z0 := z0)
     ⟨show ps.re < z0.re by rw [hz0re]; linarith, show z0.im < p.im + δ by rw [hz0im]; linarith,
       show p.im - δ < z0.im by rw [hz0im]; linarith⟩
-    (Fw_eventuallyEq_lap (by rw [hz0re]; norm_num))
+    (Fwc_eventuallyEq_lap (by rw [hz0re]; linarith) (by rw [hz0re]; linarith))
   -- the pole test
+  have hpsσ' : ps - σ ≠ 0 := fun e => by
+    have := congrArg Complex.re e; simp at this; linarith
   have hR : Rp ps = 0 := by
-    refine residue_eq_zero (L := L) (G := Gp ps) one_pos
-      ((hLd.differentiableAt ((isOpen_lt continuous_const Complex.continuous_re).mem_nhds hps0)).continuousAt)
-      (Gp_continuousAt (fun e0 => by rw [e0, zero_re] at hps0; exact lt_irrefl _ hps0)) fun x hx _ => ?_
+    refine residue_eq_zero (L := L) (G := fun z => Gp ps z + C / (z - σ)) one_pos
+      ((hLd.differentiableAt ((isOpen_lt continuous_const Complex.continuous_re).mem_nhds hpsσ)).continuousAt)
+      ((Gp_continuousAt (fun e0 => by rw [e0, zero_re] at hps0; exact lt_irrefl _ hps0)).add
+        (continuousAt_const.div (continuousAt_id.sub continuousAt_const) hpsσ')) fun x hx _ => ?_
     have hU : ps + x ∈ U := ⟨show ps.re < (ps + x).re by simp; linarith,
       show (ps + x).im < p.im + δ by simp [hpsim]; linarith,
       show p.im - δ < (ps + x).im by simp [hpsim]; linarith⟩
-    rw [← hEq hU, Fw_split ps]
+    rw [← hEq hU]
+    unfold Fwc
+    rw [Fw_split ps]
+    ring
   obtain ⟨q, hq⟩ := hpspole
   exact Rp_ne_zero hps0 hq hR
+
+/-- **Weil's criterion, twin boxes only.** If `Q(twin (box 1) λ) ≥ 0` for every `λ ≥ 0`, every
+nontrivial zero of `ζ` lies on the critical line. -/
+theorem line_of_weil_twins (hQ : ∀ l : ℝ, 0 ≤ l → 0 ≤ weilQ (l + 1) (twin (box 1) l)) (q0 : ZIdx) :
+    (zetaZeroFamily q0).re = 1 / 2 := by
+  have h := abs_re_poleP_le (C := 0) le_rfl (fun l hl => by simpa using hQ l hl) q0
+  rw [re_poleP] at h
+  have := abs_nonpos_iff.1 h
+  linarith
 
 /-- **Weil's criterion for `ζ`, twin boxes only, no finiteness hypothesis.** -/
 theorem rh_of_weil_twins (hQ : ∀ l : ℝ, 0 ≤ l → 0 ≤ weilQ (l + 1) (twin (box 1) l)) :
@@ -753,9 +855,55 @@ theorem rh_of_weil (hQ : ∀ (a : ℝ) (g : ℝ → ℝ), 0 < a → Probe a g �
     RiemannHypothesis :=
   rh_of_weil_twins fun l hl => hQ _ _ (by linarith) (twin_probe (box_probe 1) hl)
 
+/-! ## The graded equivalence -/
+
+/-- **The converse bound**: if every nontrivial zero has `|2 Re ρ − 1| ≤ σ`, then
+`Q(twin (box 1) λ) ≥ −4S·e^{σλ}` with `S = Σ_ρ ‖ĝ₀(t_ρ)‖²`. -/
+theorem weilQ_twin_ge {σ : ℝ} (hz : ∀ q : ZIdx, |(poleP q).re| ≤ σ) {l : ℝ} (hl : 0 ≤ l) :
+    -((4 * ∑' q, ‖cw q‖) * Real.exp (σ * l)) ≤ weilQ (l + 1) (twin (box 1) l) := by
+  rw [← Aw_eq hl]
+  have h := norm_Wsum_le_of hz l
+  rw [abs_of_nonneg hl] at h
+  have := neg_abs_le (Wsum l).re
+  have := Complex.abs_re_le_norm (Wsum l)
+  unfold Aw
+  nlinarith
+
+/-- **Weil positivity, graded.** For `σ ≥ 0`: `Q(twin (box 1) λ) ≥ −C·e^{σλ}` for some `C` and all
+`λ ≥ 0` if and only if every nontrivial zero of `ζ` has `|2 Re ρ − 1| ≤ σ`. The exponential rate at
+which the twin form can go negative is exactly `2Θ − 1`, `Θ = sup Re ρ`. -/
+theorem weil_twins_rate {σ : ℝ} (hσ : 0 ≤ σ) :
+    (∃ C, ∀ l : ℝ, 0 ≤ l → -(C * Real.exp (σ * l)) ≤ weilQ (l + 1) (twin (box 1) l)) ↔
+      ∀ s, IsNontrivialZero s → |2 * s.re - 1| ≤ σ := by
+  constructor
+  · rintro ⟨C, h⟩ s hs
+    have := abs_re_poleP_le hσ h ⟨⟨s, hs⟩, ⟨0, zeroMult_pos _⟩⟩
+    rwa [re_poleP] at this
+  · intro h
+    exact ⟨_, fun l hl => weilQ_twin_ge (fun q => by rw [re_poleP]; exact h _ (nontrivial_zZF q)) hl⟩
+
+/-- **RH ⟺ the twin form's defect is subexponential.** -/
+theorem rh_iff_twins_subexp :
+    RiemannHypothesis ↔
+      ∀ σ > 0, ∃ C, ∀ l : ℝ, 0 ≤ l → -(C * Real.exp (σ * l)) ≤ weilQ (l + 1) (twin (box 1) l) := by
+  constructor
+  · intro hRH σ hσ
+    refine (weil_twins_rate hσ.le).2 fun s hs => ?_
+    have h1 : s ≠ 1 := fun e => by have := hs.re_lt_one; rw [e, one_re] at this; exact lt_irrefl _ this
+    rw [hRH s hs.1 hs.2 h1]; norm_num; exact hσ.le
+  · intro h s hs htriv h1
+    have hs' : IsNontrivialZero s := ⟨hs, htriv⟩
+    have key : ∀ σ > 0, |2 * s.re - 1| ≤ σ := fun σ hσ => (weil_twins_rate hσ.le).1 (h σ hσ) s hs'
+    have : |2 * s.re - 1| = 0 := le_antisymm (le_of_forall_pos_le_add fun ε hε => by
+      simpa using key ε hε) (abs_nonneg _)
+    rw [abs_eq_zero] at this; linarith
+
 end Pilot1ca
 
 #print axioms Pilot1ca.lap_eq_Fw
-#print axioms Pilot1ca.conv_pos
+#print axioms Pilot1ca.conv_gt
+#print axioms Pilot1ca.abs_re_poleP_le
 #print axioms Pilot1ca.rh_of_weil_twins
 #print axioms Pilot1ca.rh_of_weil
+#print axioms Pilot1ca.weil_twins_rate
+#print axioms Pilot1ca.rh_iff_twins_subexp

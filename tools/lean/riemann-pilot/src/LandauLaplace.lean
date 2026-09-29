@@ -24,9 +24,9 @@ the integral at `σ₀ − η/8`.
   `σ > σ₀`.
 * `eqOn_convex` (the identity theorem on a convex open set) and `exists_pos_lb` (a positive lower
   bound for finitely many positive numbers): helpers for the applications.
-* `residue_eq_zero`: the pole test used by all three applications. A function that equals `L`
-  on a segment `p + (0, ε)` and has the form `G(z) + R/(z − p)` there, with `G` continuous at `p`
-  and `L` continuous at `p`, has `R = 0`.
+* `pole_test`: the pole test used by the applications. A function that equals `L` on a segment
+  `p + (0, ε)` and has the form `G(z) + h(z)/(z − p)ⁿ` there (`n ≥ 1`), with `G`, `h` and `L`
+  continuous at `p`, has `h(p) = 0`. `residue_eq_zero` is the simple-pole case.
 -/
 
 open Real Complex MeasureTheory Filter Topology Set Metric
@@ -360,27 +360,35 @@ theorem landau_abscissa (h : Hyp μ A ph) {σ₀ σ₁ : ℝ} (h₁ : Conv μ A 
 /-! ## The pole test -/
 
 /-- **No pole where `L` is continuous.** If on `p + (0, ε)` a function `F` equals `L` and has the form
-`G(z) + R/(z − p)`, with `G` and `L` continuous at `p`, then `R = 0`. -/
-theorem residue_eq_zero {L G : ℂ → ℂ} {p R : ℂ} {ε : ℝ} (hε : 0 < ε) (hL : ContinuousAt L p)
-    (hG : ContinuousAt G p)
-    (hF : ∀ x : ℝ, 0 < x → x < ε → L (p + x) = G (p + x) + R / ((p + x) - p)) : R = 0 := by
-  -- `R = x(L − G)(p + x) → 0` as `x → 0⁺`
-  have hlim : Tendsto (fun x : ℝ => (x : ℂ) * (L (p + x) - G (p + x))) (𝓝[>] 0) (𝓝 0) := by
-    have h1 : Tendsto (fun x : ℝ => p + (x : ℂ)) (𝓝[>] 0) (𝓝 p) := by
-      have : Tendsto (fun x : ℝ => p + (x : ℂ)) (𝓝 0) (𝓝 (p + ((0 : ℝ) : ℂ))) :=
-        (continuous_const.add Complex.continuous_ofReal).tendsto 0
-      simpa using this.mono_left nhdsWithin_le_nhds
-    have h2 : Tendsto (fun x : ℝ => (x : ℂ)) (𝓝[>] 0) (𝓝 0) := by
-      have := (Complex.continuous_ofReal.tendsto 0).mono_left (nhdsWithin_le_nhds (s := Ioi (0 : ℝ)))
-      simpa using this
-    have := h2.mul ((hL.tendsto.comp h1).sub (hG.tendsto.comp h1))
-    simpa using this
-  have hev : ∀ᶠ x : ℝ in 𝓝[>] 0, (x : ℂ) * (L (p + x) - G (p + x)) = R := by
+`G(z) + h(z)/(z − p)ⁿ`, `n ≥ 1`, with `G`, `h` and `L` continuous at `p`, then `h(p) = 0`. -/
+theorem pole_test {L G h : ℂ → ℂ} {p : ℂ} {n : ℕ} (hn : n ≠ 0) {ε : ℝ} (hε : 0 < ε)
+    (hL : ContinuousAt L p) (hG : ContinuousAt G p) (hh : ContinuousAt h p)
+    (hF : ∀ x : ℝ, 0 < x → x < ε → L (p + x) = G (p + x) + h (p + x) / ((p + x) - p) ^ n) :
+    h p = 0 := by
+  have h1 : Tendsto (fun x : ℝ => p + (x : ℂ)) (𝓝[>] 0) (𝓝 p) := by
+    have : Tendsto (fun x : ℝ => p + (x : ℂ)) (𝓝 0) (𝓝 (p + ((0 : ℝ) : ℂ))) :=
+      (continuous_const.add Complex.continuous_ofReal).tendsto 0
+    simpa using this.mono_left nhdsWithin_le_nhds
+  -- `h(p + x) = xⁿ(L − G)(p + x) → 0` as `x → 0⁺`
+  have h2 : Tendsto (fun x : ℝ => (x : ℂ) ^ n) (𝓝[>] 0) (𝓝 0) := by
+    have hc : Continuous fun x : ℝ => (x : ℂ) ^ n := by fun_prop
+    have := (hc.tendsto 0).mono_left (nhdsWithin_le_nhds (s := Ioi (0 : ℝ)))
+    simpa [zero_pow hn] using this
+  have hlim := h2.mul ((hL.tendsto.comp h1).sub (hG.tendsto.comp h1))
+  rw [zero_mul] at hlim
+  have hev : ∀ᶠ x : ℝ in 𝓝[>] 0, (x : ℂ) ^ n * (L (p + x) - G (p + x)) = h (p + x) := by
     filter_upwards [Ioo_mem_nhdsGT hε] with x hx
     rw [hF x hx.1 hx.2, add_sub_cancel_left, add_sub_cancel_left]
-    have : (x : ℂ) ≠ 0 := by exact_mod_cast hx.1.ne'
+    have : (x : ℂ) ^ n ≠ 0 := pow_ne_zero _ (by exact_mod_cast hx.1.ne')
     field_simp
-  exact tendsto_nhds_unique (tendsto_const_nhds.congr' (hev.mono fun x hx => hx.symm)) hlim
+  exact tendsto_nhds_unique ((hh.tendsto.comp h1).congr' (hev.mono fun x hx => hx.symm)) hlim
+
+/-- The simple-pole case: `F = G + R/(z − p)` with `R` constant forces `R = 0`. -/
+theorem residue_eq_zero {L G : ℂ → ℂ} {p R : ℂ} {ε : ℝ} (hε : 0 < ε) (hL : ContinuousAt L p)
+    (hG : ContinuousAt G p)
+    (hF : ∀ x : ℝ, 0 < x → x < ε → L (p + x) = G (p + x) + R / ((p + x) - p)) : R = 0 :=
+  pole_test (h := fun _ => R) one_ne_zero hε hL hG continuousAt_const fun x hx hxe => by
+    rw [pow_one]; exact hF x hx hxe
 
 /-! ## Two helpers for the applications -/
 
@@ -408,4 +416,4 @@ end LandauLaplace
 #print axioms LandauLaplace.lap_differentiableOn
 #print axioms LandauLaplace.landau
 #print axioms LandauLaplace.landau_abscissa
-#print axioms LandauLaplace.residue_eq_zero
+#print axioms LandauLaplace.pole_test

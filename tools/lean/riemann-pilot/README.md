@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 696 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 713 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -102,9 +102,12 @@ Every file ends with `#print axioms`. All 696 checked theorems depend only on `p
 | `KaiserPlanch.lean` | 163 | **regularised Plancherel**: `∫‖F̂(x)‖²e^{−bx²} ≤ 2π∫‖Ψ‖²` for `Ψ ∈ L¹∩L²`, by the Gaussian kernel and Schur's test (round 164) |
 | `KaiserPrefactor.lean` | 775 | the tail at `Im t = −1`; the log-weighted `L²` bound; `Q(g) ≤ 16κ Kz(a+1)e^{9a}`; **`λ₁(a) ≤ K(a+1)e^{10a−4πe^{2a}}`, no RH input**; the bound for any `κ ≥ e^{2a|Im τ|}` over the zeros (round 164) |
 | `KaiserNine.lean` | 75 | **Connes' prefactor `e^{9a}` with an ineffective constant**: `λ₁(a) ≤ K(a+1)e^{9a−4πe^{2a}}` for `a ≥ 4`, by a case split on RH (round 220) |
-| `LandauLaplace.lean` | 411 | **Landau's theorem for Laplace transforms**: `A ≥ 0`, `φ ≥ 0`; if `∫Ae^{−sφ}` agrees near the real point of its abscissa with a holomorphic function, it converges beyond it; the pole test (round 220) |
-| `WeilLandau.lean` | 761 | **Weil's criterion for `ζ` with no finiteness hypothesis**: `Q(twin (box 1) λ) ≥ 0` for every `λ ≥ 0` ⟹ RH (round 220) |
-| `PsiOmega.lean` | 610 | **`ψ(x) − x = Ω±(x^θ)`** for every `θ` below the real part of a zero of `ζ`, and unconditionally for every `θ < ½` (round 220) |
+| `LandauLaplace.lean` | 419 | **Landau's theorem for Laplace transforms**: `A ≥ 0`, `φ ≥ 0`; if `∫Ae^{−sφ}` agrees near the real point of its abscissa with a holomorphic function, it converges beyond it; the pole test for poles of any order (rounds 220–221) |
+| `WeilLandau.lean` | 909 | **Weil's criterion for `ζ`, graded**: `Q(twin (box 1) λ) ≥ −Ce^{σλ}` for all `λ ≥ 0` ⟺ every zero has `|2 Re ρ − 1| ≤ σ`; RH ⟺ the defect is subexponential; `σ = 0` is Weil's criterion with no finiteness hypothesis (rounds 220–221) |
+| `WeilRate.lean` | 119 | **the ground energy's rate of failure measures the zeros**: `λ₁(a) ≥ −Ce^{σa}` ⟹ `|2 Re ρ − 1| ≤ σ`; RH ⟺ `λ₁` has no negative part of exponential rate; if RH fails, `λ₁(a) < −Ce^{σa}` at arbitrarily large `a` (round 221) |
+| `PsiOmega.lean` | 670 | **one-sided bounds on summatory functions are zero-free half-planes** (generic Mellin theorem); **`ψ(x) − x = Ω±(x^θ)`** below the real part of any zero, and for every `θ < ½` unconditionally (rounds 220–221) |
+| `MertensOmega.lean` | 293 | **Mertens and Liouville**: `M(x) = Ω±(x^θ)` for every `θ < ½`; `L(λ, s)ζ(s) = ζ(2s)`; a one-sided bound `εL(x) ≤ c√x` gives RH, in particular **Pólya's conjecture ⟹ RH** (round 221) |
+| `LSeriesLandau.lean` | 95 | **Landau's theorem for L-series with nonnegative coefficients**: singular at the real point of the abscissa (Mathlib-ready; round 221) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -7081,4 +7084,49 @@ Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`
   - The unconditional `e^{9a}` prefactor, with an ineffective constant.
 
 **Bearing on RH:** none. Use 1 widens an equivalence. Use 2 improves an upper bound on `λ₁` that is compatible with RH and with its failure. Use 3 runs from zeros to oscillation.
+
+## Round 221: the doors round 220 opened
+
+Four follow-ups to Landau's theorem. All build, with no warnings; every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (713 checked theorems in `src/`).
+
+**1. Weil positivity, graded** (`WeilLandau.lean`, `WeilRate.lean`). Round 220's argument works for a lower bound, not only for positivity. Adding `C·e^{σλ}` to `Q` adds one real pole at `σ` to the transform, and Landau's theorem only looks to the right of `σ` (`abs_re_poleP_le`). The converse is the sum over zeros (`weilQ_twin_ge`).
+- `weil_twins_rate`: for `σ ≥ 0`, `Q(twin (box 1) λ) ≥ −C·e^{σλ}` for some `C` and all `λ ≥ 0` **iff** every nontrivial zero has `|2 Re ρ − 1| ≤ σ`. The exponential rate at which the twin form goes negative is exactly `2Θ − 1`.
+- `rh_iff_twins_subexp`: RH iff the twin form's defect is subexponential. Round 220's `rh_of_weil_twins` is the case `C = σ = 0`.
+- `zeros_of_lam_ge`: a lower bound `λ₁(a) ≥ −C·e^{σa}` for `a ≥ 1` gives the zero-free half-plane `Re s > (1 + σ)/2`. It uses `Q ≥ λ₁‖g‖²` and `‖twin (box 1) λ‖² ≤ 4` (`normSq_twin_le`).
+- `rh_iff_lam_subexp`: RH iff, for every `σ > 0`, `λ₁(a) ≥ −C_σ·e^{σa}`. This grades round 164's "any lower bound on `λ₁` is RH-strength".
+
+**2. If RH fails, it fails exponentially** (`WeilRate.lean`).
+- `lam_rate`: a zero with `|2 Re ρ − 1| > σ` makes `λ₁(a) < −C·e^{σa}` at arbitrarily large `a`, for every `C` (with `lam_antitone`).
+- `lam_fails_exponentially`: if RH fails, there is `δ > 0` with `λ₁(a) < −C·e^{σa}` infinitely often for every `σ < δ`. Round 40's heuristic "if RH fails, `λ₁(a) < 0` for all large `a`" is now a theorem (`exists_lam_neg_of_not_RH` plus `lam_antitone`), with a rate.
+- Under RH, `KaiserNine.lam_nine` gives `0 ≤ λ₁ ≤ K(a+1)e^{9a−4πe^{2a}}`. The two regimes are separated by exponential scales, so the first failure (`first_failure`) is not a marginal crossing.
+- This is also a quantitative target for round 165's Davenport–Heilbronn numerics: the growth rate of the negative part should be `2β₀ − 1` for DH's off-line zero `ρ₀`. That has not been tested.
+
+**3. The oscillation machinery, made generic** (`PsiOmega.lean`, `MertensOmega.lean`).
+- `zeta_ne_zero_of_mellin`: `A ≥ 0` on `(1, ∞)`, with Mellin transform `F` holomorphic on `Re s > θ` off the zeros of `Z(s) = (s − 1)ζ(s)` and with a pole of some order at each zero (`PoleAt`), gives `ζ ≠ 0` on `Re s > θ`. The pole test now handles any order (`LandauLaplace.pole_test`).
+- For summatory functions `S(x) = Σ_{k ≤ x} f(k)` with `|S(x)| ≤ Kx`, the transform is computed once (`lap_Aof`), and `omega_of_zeroFree` turns a zero-free theorem into Ω±.
+- **`ψ`**: round 220's results, now instances.
+- **Mertens**: `zeta_ne_zero_of_mertens` (`εM(x) ≤ c·x^θ` ⟹ `ζ ≠ 0` on `Re s > θ`), `mertens_omega` and, unconditionally, `mertens_omega_half`: `M(x) = Ω±(x^θ)` for every `θ < ½`. The pole at a zero of order `n` has order `n`.
+- **Liouville**:
+  - `LSeries_liouville` proves `L(λ, s)ζ(s) = ζ(2s)` from the Euler products: `λ` is completely multiplicative with `λ(p) = −1`, and `(1 + p^{−s})⁻¹(1 − p^{−s})⁻¹ = (1 − p^{−2s})⁻¹`.
+  - `zeta_ne_zero_of_liouville`: for `θ ≥ ½`, a one-sided bound on `L(x)` gives a zero-free half-plane. `ζ(2s)` is holomorphic and nonzero there.
+  - `rh_of_liouville_bound`: `εL(x) ≤ c√x` gives RH (with `ρ ↦ 1 − ρ`).
+  - `rh_of_polya`: **Pólya's conjecture `L(x) ≤ 0` implies RH.** Pólya's conjecture is false (Haselgrove 1958), so this closes nothing. It is the classical implication, now machine-checked.
+
+**4. Landau for L-series** (`LSeriesLandau.lean`). With the counting measure on `ℕ` and `φ = log`, `LandauLaplace.landau` becomes the classical Dirichlet-series theorem.
+- `LSeries_landau`: if `L(a, s)` has nonnegative coefficients and converges for `σ > σ₀`, and a function holomorphic on a disc around `σ₀` agrees with it on `Re s > σ₀`, then it converges at some `σ < σ₀`.
+- `LSeries_not_holomorphic_at_abscissa`: an L-series with nonnegative coefficients is singular at the real point of its abscissa of absolute convergence.
+- Mathlib has only `LSeries_positive_of_differentiable_of_eqOn`. These statements use only Mathlib's `LSeries` API and `LandauLaplace.lean`, so they can be upstreamed. They have not been submitted.
+
+**Check 4.**
+- **Acknowledged (classical).**
+  - Item 4 is Landau's theorem (Widder ch. II).
+  - Item 3 is Landau 1905 and Ingham ch. V: the Ω± results for `ψ` and `M`, and Pólya ⟹ RH.
+  - The growth-rate/abscissa correspondence behind items 1–2 is the same classical mechanism.
+- **New here.**
+  - Machine-checked proofs.
+  - The graded form of the pilot's Weil criterion, with its converse.
+  - The `λ₁` versions (`zeros_of_lam_ge`, `rh_iff_lam_subexp`, `lam_rate`), which turn round 40's heuristic into theorems.
+  - The Mathlib-ready L-series lemma.
+
+**Bearing on RH:** none. Items 1–2 grade an equivalence and quantify a hypothetical failure. They do not supply the lower bound on `λ₁` that would be needed. Item 3's bounds on `M` and `L` are not proved, and Pólya's is false.
 
