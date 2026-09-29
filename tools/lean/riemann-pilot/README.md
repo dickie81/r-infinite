@@ -6458,3 +6458,29 @@ Axioms are clean.
 
 **Check 4:** classical (Linnik 1943; Karatsuba). The Lean forms are new to the pilot. **Bearing on RH:** none.
 
+## Round 197: VMVT step I.3b begins: the Karatsuba spec and the conditioned count (`src/VinoStep.lean`, `frontier/vmvt/KARATSUBA_SPEC.md`)
+
+- **Spec.** `KARATSUBA_SPEC.md` writes out one recursion step from `J_s` to `J_{s+k}`:
+  - A, good/bad split and Cauchy–Schwarz;
+  - B, Hölder over residue classes;
+  - C, the conditioned count;
+  - D, the bad count.
+
+  The resulting recursion is `η_{s+k} = max((1−1/k)η_s, k(k+1)/2 − 2(s+1)/k)`, from `η_k = k(k−1)/2`. So `η_s → 0`, which is VMVT in weak classical form.
+- **Numerics** (pre-registered in `PREREG_karatsuba.md`): inequalities K1–K3 of Steps A–C hold in all 14 cases (`k = 2`, `p = 3`, `P = 3..9`, `s = 1,2`). The K3 slack is 2.4–4.5×.
+- **Lean, Step C (`cond_count`, axioms clean).** Take `p > k` prime, `P ≤ p^k`, a shift `a` and a tuple `u'`. The `u ∈ [1,P]^k` with `u − a` distinct mod `p` and `Σ(uᵢ−a)^j ≡ Σ(u'ᵢ−a)^j (mod p^j)` for `j ≤ k` number at most `k!·p^{k(k−1)/2}`. The ingredients:
+  - Newton over `ZMod p` (`map_eq_of_psum_field`);
+  - at most `k!` rearrangements (`card_multiset_fibre_le`);
+  - Linnik in integer form (`linnikZ`).
+
+| I.3b piece | status |
+|---|---|
+| C conditioned count | **done** |
+| C′ `G_a ≤ k!·P^k·p^{k(k−1)/2}·J_s(Q)` (fibre over `(u,u')`, shifted count, class ↦ interval by scaling) | open |
+| B Hölder over classes | open |
+| A good/bad split | open |
+| D bad count | open |
+| recursion with the Bertrand prime | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
