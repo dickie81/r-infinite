@@ -55,9 +55,6 @@ lemma T_sub_left (α : Fin K → ℝ) (x x' y : Fin K → ℤ) :
   rw [← Finset.sum_neg_distrib, ← Finset.sum_add_distrib]
   apply sum_congr rfl; intro j _; ring
 
-lemma T_neg_left (α : Fin K → ℝ) (x y : Fin K → ℤ) :
-    ‖T α (-x) y‖ = ‖T α x y‖ := by rw [norm_T, norm_T]
-
 /-- The moment curve point `(a, a², …, a^K)`. -/
 def A (K : ℕ) (a : ℕ) : Fin K → ℤ := fun j => (a : ℤ) ^ (j.val + 1)
 

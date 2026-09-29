@@ -168,29 +168,16 @@ theorem norm_kH_le2 {L η α : ℝ} (hη : 0 < η) (hη1 : π * η ≤ 1) (hL : 
   have hL0 : 0 ≤ L := by linarith
   set r := ‖z‖
   have hr : 0 ≤ r := norm_nonneg z
-  have hK := norm_kK_le hβ hL0 z
-  have hS := norm_sincE_le (π * η * z)
-  have hcast : (π * η * z : ℂ) = ((π * η : ℝ) : ℂ) * z := by push_cast; ring
-  have hSim : |(π * η * z : ℂ).im| = q * |z.im| := by
-    rw [hcast, Complex.im_ofReal_mul, abs_mul, abs_of_pos hq]
-  have hSn : ‖(π * η * z : ℂ)‖ = q * r := by
-    rw [hcast, norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_pos hq]
-  rw [hSim, hSn] at hS
-  have hpoly : ‖z ^ 2 - (α : ℂ)‖ ≤ r ^ 2 + |α| := by
-    refine (norm_sub_le _ _).trans ?_
-    rw [norm_pow, Complex.norm_real, Real.norm_eq_abs]
   have hre : z.re ^ 2 ≤ r ^ 2 := by
     have := Complex.abs_re_le_norm z
     nlinarith [abs_nonneg z.re, sq_abs z.re]
   have hden : 0 < 1 + q * r := by positivity
   have hmain : ‖kH L η α z‖ ≤ r ^ 2 * (r ^ 2 + |α|) * Real.exp (β * (|z.im| + L)) *
-      (6 * Real.exp (q * |z.im|) / (1 + q * r)) ^ 8 := by
-    unfold kH
-    rw [norm_mul, norm_mul, norm_mul, norm_pow, norm_pow]
-    gcongr
+      (6 * Real.exp (q * |z.im|) / (1 + q * r)) ^ 8 :=
+    norm_kH_core hη hL z
   have hexp : Real.exp (β * (|z.im| + L)) * Real.exp (q * |z.im|) ^ 8
-      = Real.exp (β * L) * Real.exp (2 * π * L * |z.im|) := by
-    rw [← Real.exp_nat_mul, ← Real.exp_add, ← Real.exp_add]; congr 1; simp only [β, q]; push_cast; ring
+      = Real.exp (β * L) * Real.exp (2 * π * L * |z.im|) :=
+    kH_exp_eq L η |z.im|
   have henv := envelope2 hr hq hη1 (abs_nonneg α)
   have hre2 : (1 + z.re ^ 2) ^ 2 ≤ (1 + r ^ 2) ^ 2 := by gcongr
   rw [le_div_iff₀ (by positivity)]

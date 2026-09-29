@@ -1,12 +1,10 @@
 /-
-# Layer II, steps (G2a) and (G2b): partial blocks and Abel summation (round 208)
+# Layer II, step (G2b): Abel summation (round 208)
 
-Plain statements.
-* `block_bound_partial`: `block_bound` for any partial block `(N, N']` with `N ≤ N' ≤ 2N`,
-  with the same right-hand side.
-* `abel_bound`: if every initial segment `Σ_{N<n≤m} aₙ` (`N ≤ m ≤ N'`) has size at most `B`,
-  and the weights `wₙ ≥ 0` decrease on `(N, N']`, then `|Σ_{N<n≤N'} wₙ aₙ| ≤ w_{N+1}·B`.
-  This turns bounds for `Σ n^{−it}` into bounds for `Σ n^{−σ−it}`.
+`abel_bound`: if every initial segment `Σ_{N<n≤m} aₙ` (`N ≤ m ≤ N'`) has size at most `B`,
+and the weights `wₙ ≥ 0` decrease on `(N, N']`, then `|Σ_{N<n≤N'} wₙ aₙ| ≤ w_{N+1}·B`.
+This turns bounds for `Σ n^{−it}` into bounds for `Σ n^{−σ−it}`. (Round 208's `block_bound_partial`
+fed only the superseded round-210 chain and was removed in round 218.)
 -/
 import ExpSum4
 
@@ -15,66 +13,6 @@ open Finset Complex
 namespace ExpSum
 
 open Vinogradov VinoHolder
-
-/-- **Partial blocks.** -/
-theorem block_bound_partial {t : ℝ} (ht : t ≠ 0) {N N' M K ℓ r : ℕ} {C η : ℝ} (hC : 0 < C)
-    (hM : 1 ≤ M) (hℓ : 1 ≤ ℓ) (hr1 : 1 ≤ r) (hrK : r ≤ K) (hMN : 2 * M ^ 2 ≤ N)
-    (hN1 : N ≤ N') (hN2 : N' ≤ 2 * N)
-    (hJ : (J ℓ K M : ℝ) ≤ C * (M : ℝ) ^ (2 * (ℓ : ℝ) - (K : ℝ) * ((K : ℝ) + 1) / 2 + η))
-    (hgood : |t| * ℓ * (M : ℝ) ^ r ≤ Real.pi * r * (N : ℝ) ^ r) :
-    ‖∑ n ∈ Ioc N N', phaseF t n‖ ≤
-      N * Phi t C η N M K ℓ r + 2 * |t| * N * ((M : ℝ) ^ 2 / N) ^ (K + 1) +
-        2 * (M : ℝ) ^ 2 := by
-  have hE := stepE t N N' M K hN1 hM hMN
-  have hMpos : (0 : ℝ) < (M : ℝ) ^ 2 := by
-    have : (1 : ℝ) ≤ M := by exact_mod_cast hM
-    positivity
-  have hNpos : (0 : ℝ) < N := by
-    have : 0 < N := by have := Nat.one_le_pow 2 M hM; omega
-    exact_mod_cast this
-  set Y := (M : ℝ) ^ 2 * Phi t C η N M K ℓ r + 2 * |t| * (M : ℝ) ^ 2 * ((M : ℝ) ^ 2 / N) ^ (K + 1)
-  have hterm : ∀ n ∈ Ioc N N',
-      ‖∑ a ∈ Icc 1 M, ∑ b ∈ Icc 1 M, T (alphaVec t n K) (A K a) (A K b)‖ +
-        2 * |t| * (M : ℝ) ^ 2 * ((M : ℝ) ^ 2 / n) ^ (K + 1) ≤ Y := by
-    intro n hn
-    have hn' := mem_Ioc.mp hn
-    refine add_le_add (Bn_bound ht hC hM hℓ hr1 hrK hJ hn'.1 (hn'.2.trans hN2) hgood) ?_
-    have hnN : (N : ℝ) ≤ n := by exact_mod_cast hn'.1.le
-    apply mul_le_mul_of_nonneg_left _ (by positivity)
-    exact pow_le_pow_left₀ (by positivity) (div_le_div_of_nonneg_left hMpos.le hNpos hnN) _
-  have hY0 : 0 ≤ Y := by
-    have := hterm
-    by_cases hne : (Ioc N N').Nonempty
-    · obtain ⟨n, hn⟩ := hne
-      exact le_trans (by positivity) (hterm n hn)
-    · have hPhi : 0 ≤ Phi t C η N M K ℓ r := by unfold Phi; exact Real.rpow_nonneg (by
-          have hW : 0 ≤ Wsave t N M ℓ r ∨ Wsave t N M ℓ r < 0 := le_or_gt 0 _
-          rcases hW with hW | hW
-          · positivity
-          · exact absurd hW (by
-              unfold Wsave
-              push_neg
-              have hlogL : 0 ≤ 1 + Real.log ((ℓ : ℝ) * (M : ℝ) ^ r) := by
-                have h1 : (1 : ℝ) ≤ (ℓ : ℝ) * (M : ℝ) ^ r := by
-                  have : (1 : ℝ) ≤ ℓ := by exact_mod_cast hℓ
-                  have : (1 : ℝ) ≤ (M : ℝ) ^ r := one_le_pow₀ (by exact_mod_cast hM)
-                  nlinarith
-                have := Real.log_nonneg h1; linarith
-              exact add_nonneg (by positivity)
-                (div_nonneg (mul_nonneg (by positivity) hlogL) (by positivity)))) _
-      positivity
-  have hsum := sum_le_sum hterm
-  rw [sum_const, Nat.card_Ioc, nsmul_eq_mul] at hsum
-  have hcard : ((N' - N : ℕ) : ℝ) ≤ N := by exact_mod_cast (show N' - N ≤ N by omega)
-  refine hE.trans ?_
-  have h1 : 1 / (M : ℝ) ^ 2 * ∑ n ∈ Ioc N N',
-      (‖∑ a ∈ Icc 1 M, ∑ b ∈ Icc 1 M, T (alphaVec t n K) (A K a) (A K b)‖ +
-        2 * |t| * (M : ℝ) ^ 2 * ((M : ℝ) ^ 2 / n) ^ (K + 1)) ≤ 1 / (M : ℝ) ^ 2 * (N * Y) :=
-    mul_le_mul_of_nonneg_left (hsum.trans (mul_le_mul_of_nonneg_right hcard hY0)) (by positivity)
-  have e : 1 / (M : ℝ) ^ 2 * (N * Y) =
-      N * Phi t C η N M K ℓ r + 2 * |t| * N * ((M : ℝ) ^ 2 / N) ^ (K + 1) := by
-    simp only [Y]; field_simp
-  linarith
 
 /-- **Abel summation with decreasing weights.** -/
 theorem abel_bound (a : ℕ → ℂ) (w : ℕ → ℝ) (N N' : ℕ) (B : ℝ) (hB0 : 0 ≤ B)

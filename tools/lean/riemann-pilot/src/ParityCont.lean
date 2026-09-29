@@ -265,18 +265,24 @@ theorem tendsto_shellSq {G : ℝ → ℝ} (hG : MemLp G 2 volume) {a : ℝ} {b :
       dsimp only
       rw [Set.indicator_of_notMem (fun h : u ∈ {u | a < |u| ∧ |u| ≤ b j} => hu h.1)]
 
-/-- **The shell estimate.** For an odd probe `o` at `b ≥ a` and any `G ∈ L²`,
-`‖o − A_a G‖² ≤ 6‖o − G‖² + 4∫_{a<|u|≤b} G²`. -/
-theorem normSq_sub_antiCut_le {a b : ℝ} {o G : ℝ → ℝ} (hp : OProbe b o) (hG : MemLp G 2 volume) :
-    normSq (fun t => o t - antiCut a G t) ≤ 6 * normSq (fun t => o t - G t) + 4 * shellSq G a b := by
-  have hoG := hp.memL2.sub hG
-  set x : ℝ → ℝ := fun t => o t - antiCut a o t with hx
-  set y : ℝ → ℝ := antiCut a (fun t => o t - G t) with hy
-  have hxm : MemLp x 2 volume := hp.memL2.sub (memLp_antiCut a hp.memL2)
-  have hym : MemLp y 2 volume := memLp_antiCut a hoG
-  have hsplit : (fun t => o t - antiCut a G t) = fun t => x t + y t := by
-    funext t; simp only [hx, hy, antiCut_sub]; ring
-  have hy2 : normSq y ≤ normSq (fun t => o t - G t) := normSq_antiCut_le a hoG
+/-- **The shell estimate**, for any cut `c` that is an `L²` contraction, linear, and changes `o` only
+outside `[−a, a]`: for `o` supported in `[−b, b]` and any `G ∈ L²`,
+`‖o − c G‖² ≤ 6‖o − G‖² + 4∫_{a<|u|≤b} G²`. -/
+theorem normSq_sub_cut_le {a b : ℝ} {o G : ℝ → ℝ} (c : (ℝ → ℝ) → ℝ → ℝ)
+    (hmem : ∀ f, MemLp f 2 volume → MemLp (c f) 2 volume)
+    (hle : ∀ f, MemLp f 2 volume → normSq (c f) ≤ normSq f)
+    (hsub : ∀ f g, c (fun t => f t - g t) = fun t => c f t - c g t)
+    (hcut : ∀ u, o u - c o u = if |u| ≤ a then 0 else o u)
+    (hsupp : ∀ u, b < |u| → o u = 0) (ho : MemLp o 2 volume) (hG : MemLp G 2 volume) :
+    normSq (fun t => o t - c G t) ≤ 6 * normSq (fun t => o t - G t) + 4 * shellSq G a b := by
+  have hoG := ho.sub hG
+  set x : ℝ → ℝ := fun t => o t - c o t with hx
+  set y : ℝ → ℝ := c (fun t => o t - G t) with hy
+  have hxm : MemLp x 2 volume := ho.sub (hmem o ho)
+  have hym : MemLp y 2 volume := hmem _ hoG
+  have hsplit : (fun t => o t - c G t) = fun t => x t + y t := by
+    funext t; simp only [hx, hy, hsub]; ring
+  have hy2 : normSq y ≤ normSq (fun t => o t - G t) := hle _ hoG
   have hx2 : normSq x ≤ 2 * normSq (fun t => o t - G t) + 2 * shellSq G a b := by
     set ind := Set.indicator {u | a < |u| ∧ |u| ≤ b} (fun u => G u ^ 2) with hind
     have hI1 : Integrable (fun t => (o t - G t) ^ 2) := hoG.integrable_sq
@@ -285,17 +291,23 @@ theorem normSq_sub_antiCut_le {a b : ℝ} {o G : ℝ → ℝ} (hp : OProbe b o) 
       rw [integral_add (hI1.const_mul 2) (hI2.const_mul 2), integral_const_mul, integral_const_mul]; rfl
     rw [← hsum]
     refine integral_mono hxm.integrable_sq ((hI1.const_mul 2).add (hI2.const_mul 2)) fun t => ?_
-    simp only [hx, antiCut_oprobe hp a t]
+    simp only [hx, hcut t]
     have hind0 : 0 ≤ ind t := Set.indicator_nonneg (fun _ _ => sq_nonneg _) _
     split_ifs with h1
     · nlinarith [sq_nonneg (o t - G t)]
     · by_cases h2 : |t| ≤ b
       · rw [hind, Set.indicator_of_mem (show t ∈ {u | a < |u| ∧ |u| ≤ b} from ⟨lt_of_not_ge h1, h2⟩)]
         nlinarith [sq_nonneg (o t - 2 * G t)]
-      · rw [hp.supp t (lt_of_not_ge h2)]
+      · rw [hsupp t (lt_of_not_ge h2)]
         nlinarith [sq_nonneg (G t)]
   rw [hsplit]
   linarith [normSq_add_le hxm hym]
+
+/-- **The shell estimate, odd sector.** -/
+theorem normSq_sub_antiCut_le {a b : ℝ} {o G : ℝ → ℝ} (hp : OProbe b o) (hG : MemLp G 2 volume) :
+    normSq (fun t => o t - antiCut a G t) ≤ 6 * normSq (fun t => o t - G t) + 4 * shellSq G a b :=
+  normSq_sub_cut_le (antiCut a) (fun _ hf => memLp_antiCut a hf) (fun _ hf => normSq_antiCut_le a hf)
+    (antiCut_sub a) (antiCut_oprobe hp a) hp.supp hp.memL2 hG
 
 /-- For odd probes, Weil's form with the pole folded in. -/
 theorem weilQg_odd_eq {a : ℝ} {o : ℝ → ℝ} (hp : OProbe a o) :
@@ -714,13 +726,16 @@ theorem tendsto_weilQg_dil {a : ℝ} (ha : 0 < a) {o : ℝ → ℝ} (hp : OProbe
   dsimp only
   rw [weilQg_odd_eq ((oprobe_dil hp hs.1 hs.2).mono (div_le_self ha.le hs.1)), normSq_dilS hs0]
 
-/-- **Left-continuity of `λ_odd`.** -/
-theorem lamO_left {a : ℝ} (ha : 0 < a) {ε : ℝ} (hε : 0 < ε) :
-    ∃ δ > 0, ∀ b, a - δ < b → b ≤ a → lamO b < lamO a + ε := by
-  obtain ⟨q, ⟨o, hp, hn, rfl⟩, hq⟩ :=
-    exists_lt_of_csInf_lt (lamO_nonempty ha) (by linarith : lamO a < lamO a + ε / 2)
-  have hT := tendsto_weilQg_dil ha hp
-  have hev : ∀ᶠ s in 𝓝[Icc 1 2] (1 : ℝ), weilQg a (dil s o) < lamO a + ε :=
+/-- **Left-continuity by dilation**, for any class of probes `Pr` that dilation maps into itself:
+if `o` nearly attains `l a`, its dilations nearly attain `l b` for `b` just below `a`. -/
+theorem left_cont_of_dil {a ε : ℝ} (ha : 0 < a) (hε : 0 < ε) {Pr : ℝ → (ℝ → ℝ) → Prop}
+    {Q : ℝ → (ℝ → ℝ) → ℝ} {l : ℝ → ℝ} {o : ℝ → ℝ} (hn : normSq o = 1) (hq : Q a o < l a + ε / 2)
+    (hT : Tendsto (fun s => Q a (dil s o)) (𝓝[Icc 1 2] 1) (𝓝 (Q a o)))
+    (hdil : ∀ s, 1 ≤ s → s ≤ 2 → Pr (a / s) (dil s o))
+    (hmono : ∀ b g, 0 < b → b ≤ a → Pr b g → Q a g = Q b g)
+    (hle : ∀ b g, 0 < b → Pr b g → normSq g = 1 → l b ≤ Q b g) :
+    ∃ δ > 0, ∀ b, a - δ < b → b ≤ a → l b < l a + ε := by
+  have hev : ∀ᶠ s in 𝓝[Icc 1 2] (1 : ℝ), Q a (dil s o) < l a + ε :=
     hT.eventually (gt_mem_nhds (by linarith))
   obtain ⟨U, hUo, h1U, hUs⟩ := mem_nhdsWithin.1 hev
   obtain ⟨η, hη, hball⟩ := Metric.isOpen_iff.1 hUo 1 h1U
@@ -740,21 +755,34 @@ theorem lamO_left {a : ℝ} (ha : 0 < a) {ε : ℝ} (hε : 0 < ε) :
   have hsU : s ∈ U := hball (by
     rw [Metric.mem_ball, Real.dist_eq, abs_of_nonneg (by linarith)]
     linarith [min_le_left (η / 2) 1])
-  have hQ : weilQg a (dil s o) < lamO a + ε := hUs ⟨hsU, hs1, hs2⟩
+  have hQ : Q a (dil s o) < l a + ε := hUs ⟨hsU, hs1, hs2⟩
   have hbs : a / s = b := by rw [hsdef]; field_simp
-  have hpb : OProbe b (dil s o) := hbs ▸ oprobe_dil hp hs1 hs2
+  have hpb : Pr b (dil s o) := hbs ▸ hdil s hs1 hs2
   have hnb : normSq (dil s o) = 1 := by rw [normSq_dilS (by linarith), hn]
-  have := lamO_le hb0 hpb hnb
-  rw [← weilQg_mono hb0.le hba hpb.supp] at this
+  have := hle b _ hb0 hpb hnb
+  rw [← hmono b _ hb0 hba hpb] at this
   linarith
 
-/-- **`λ_odd` is continuous on `(0, ∞)`.** -/
-theorem continuousOn_lamO : ContinuousOn lamO (Ioi 0) := by
+/-- **Left-continuity of `λ_odd`.** -/
+theorem lamO_left {a : ℝ} (ha : 0 < a) {ε : ℝ} (hε : 0 < ε) :
+    ∃ δ > 0, ∀ b, a - δ < b → b ≤ a → lamO b < lamO a + ε := by
+  obtain ⟨q, ⟨o, hp, hn, rfl⟩, hq⟩ :=
+    exists_lt_of_csInf_lt (lamO_nonempty ha) (by linarith : lamO a < lamO a + ε / 2)
+  exact left_cont_of_dil (Pr := OProbe) ha hε hn hq (tendsto_weilQg_dil ha hp)
+    (fun s h1 h2 => oprobe_dil hp h1 h2) (fun b g hb hba hg => weilQg_mono hb.le hba hg.supp)
+    (fun b g hb hg hgn => lamO_le hb hg hgn)
+
+/-- A function that is right- and left-continuous in the sense below and antitone is continuous
+on `(0, ∞)`. -/
+theorem continuousOn_of_right_left {l : ℝ → ℝ}
+    (hr : ∀ a, 0 < a → ∀ ε, 0 < ε → ∃ δ > 0, ∀ b, a ≤ b → b < a + δ → l a - ε < l b)
+    (hl : ∀ a, 0 < a → ∀ ε, 0 < ε → ∃ δ > 0, ∀ b, a - δ < b → b ≤ a → l b < l a + ε)
+    (hanti : ∀ a b, 0 < a → a ≤ b → l b ≤ l a) : ContinuousOn l (Ioi 0) := by
   intro a ha
   have ha : 0 < a := ha
   refine Metric.continuousWithinAt_iff.2 fun ε hε => ?_
-  obtain ⟨δ₁, hδ₁, h₁⟩ := lamO_right ha hε
-  obtain ⟨δ₂, hδ₂, h₂⟩ := lamO_left ha hε
+  obtain ⟨δ₁, hδ₁, h₁⟩ := hr a ha ε hε
+  obtain ⟨δ₂, hδ₂, h₂⟩ := hl a ha ε hε
   refine ⟨min δ₁ (min δ₂ a), by positivity, fun {b} hb hd => ?_⟩
   have hb0 : 0 < b := hb
   rw [Real.dist_eq, abs_lt] at hd ⊢
@@ -762,11 +790,16 @@ theorem continuousOn_lamO : ContinuousOn lamO (Ioi 0) := by
   have hm2 := (min_le_right δ₁ (min δ₂ a)).trans (min_le_left δ₂ a)
   rcases le_total a b with hab | hba
   · have := h₁ b hab (by linarith [hd.2])
-    have := lamO_antitone ha hab
+    have := hanti a b ha hab
     constructor <;> linarith
   · have := h₂ b (by linarith [hd.1]) hba
-    have := lamO_antitone hb0 hba
+    have := hanti b a hb0 hba
     constructor <;> linarith
+
+/-- **`λ_odd` is continuous on `(0, ∞)`.** -/
+theorem continuousOn_lamO : ContinuousOn lamO (Ioi 0) :=
+  continuousOn_of_right_left (fun _ ha _ hε => lamO_right ha hε) (fun _ ha _ hε => lamO_left ha hε)
+    (fun _ _ ha hab => lamO_antitone ha hab)
 
 /-! ## The continuation theorem -/
 

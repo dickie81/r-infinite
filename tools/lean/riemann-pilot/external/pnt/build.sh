@@ -42,7 +42,7 @@ c() {
 c "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau KVBridge LandauW LandauKV LogDerivKV MediumPNTW PNTKV; do c "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV; do c "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 cat > "$AX" <<'EOT'
 import WanderLadderPNT

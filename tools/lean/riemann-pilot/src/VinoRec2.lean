@@ -85,14 +85,7 @@ theorem step_real2 {k s : ℕ} (hk : 2 ≤ k) (hs : 1 ≤ s) {C E T0 : ℝ} (hC 
       omega
     have : P / p ≤ P / 3 := Nat.div_le_div_left hp3 (by norm_num)
     rw [hQdef]; omega
-  have hQ : (Q : ℝ) ≤ 2 * t ^ (k - 1) := by
-    have h1 : ((P / p : ℕ) : ℝ) ≤ (P : ℝ) / p := Nat.cast_div_le
-    have h2 : (P : ℝ) / p ≤ (P : ℝ) / t :=
-      div_le_div_of_nonneg_left (by positivity) ht0 htp
-    have h3 : (P : ℝ) / t = t ^ (k - 1) := by
-      rw [hx, div_eq_iff ht0.ne', ← pow_succ, Nat.sub_add_cancel (by omega)]
-    have h4 : 1 ≤ t ^ (k - 1) := one_le_pow₀ ht1
-    rw [hQdef]; push_cast; linarith
+  have hQ : (Q : ℝ) ≤ 2 * t ^ (k - 1) := q_bound hk ht1 hx htp
   have hos : (J (k + s) k P : ℝ) ≤
       4 * ((p.choose (k - 1) : ℕ) : ℝ) ^ 2 * ((((k - 1 : ℕ) : ℝ)) ^ (2 * (k + s)) *
         (J (k + s) k Q : ℝ)) +
@@ -101,44 +94,12 @@ theorem step_real2 {k s : ℕ} (hk : 2 ≤ k) (hs : 1 ≤ s) {C E T0 : ℝ} (hC 
     have := one_step2 hp (by omega) hkp hPp hs
     rw [← hQdef] at this
     exact_mod_cast this
-  -- the main part (as in `step_real`)
-  have hJQ : (J s k Q : ℝ) ≤ C * ((2 : ℝ) ^ E * t ^ (((k : ℝ) - 1) * E)) := by
-    have h1 := hJ Q hQ1
-    have h2 : (Q : ℝ) ^ E ≤ (2 * t ^ (k - 1)) ^ E :=
-      Real.rpow_le_rpow (by positivity) hQ hE
-    have h3 : (2 * t ^ (k - 1) : ℝ) ^ E = (2 : ℝ) ^ E * t ^ (((k : ℝ) - 1) * E) := by
-      rw [Real.mul_rpow (by norm_num) (by positivity), ← Real.rpow_natCast, ← Real.rpow_mul ht0.le]
-      congr 2
-      rw [Nat.cast_sub (by omega)]; simp
-    rw [h3] at h2
-    exact h1.trans (mul_le_mul_of_nonneg_left h2 hC.le)
-  have hmain : 16 * ((k + s : ℕ) : ℝ) ^ (2 * k) * ((p : ℝ) ^ (2 * s - 1) * ((p : ℝ) *
-        ((P : ℝ) ^ k * ((k.factorial : ℝ) * (p : ℝ) ^ (k * (k - 1) / 2)) * (J s k Q : ℝ)))) ≤
-      Kmain k s C E * (t ^ (Nn k s + k * k) * t ^ (((k : ℝ) - 1) * E)) := by
-    have hpp : (p : ℝ) ^ (2 * s - 1) * (p : ℝ) = (p : ℝ) ^ (2 * s) := by
-      rw [← pow_succ, Nat.sub_add_cancel (by omega)]
-    have hJ0 : (0 : ℝ) ≤ (J s k Q : ℝ) := by positivity
-    calc 16 * ((k + s : ℕ) : ℝ) ^ (2 * k) * ((p : ℝ) ^ (2 * s - 1) * ((p : ℝ) *
-          ((P : ℝ) ^ k * ((k.factorial : ℝ) * (p : ℝ) ^ (k * (k - 1) / 2)) * (J s k Q : ℝ))))
-        = 16 * ((k + s : ℕ) : ℝ) ^ (2 * k) * ((p : ℝ) ^ (2 * s) *
-          ((P : ℝ) ^ k * ((k.factorial : ℝ) * (p : ℝ) ^ (k * (k - 1) / 2)) * (J s k Q : ℝ))) := by
-          rw [← hpp]; ring
-      _ ≤ 16 * ((k + s : ℕ) : ℝ) ^ (2 * k) * (((2 * ((k : ℝ) + 2)) * t) ^ (2 * s) *
-          ((t ^ k) ^ k * ((k.factorial : ℝ) * ((2 * ((k : ℝ) + 2)) * t) ^ (k * (k - 1) / 2)) *
-            (C * ((2 : ℝ) ^ E * t ^ (((k : ℝ) - 1) * E))))) := by
-          rw [hx]
-          gcongr
-      _ = Kmain k s C E * (t ^ (Nn k s + k * k) * t ^ (((k : ℝ) - 1) * E)) := by
-          unfold Kmain Nn
-          simp only [mul_pow]
-          ring
-  have hμ : t ^ (Nn k s + k * k) * t ^ (((k : ℝ) - 1) * E) = t ^ (μ k s E) := by
-    rw [μ, Real.rpow_add ht0, Real.rpow_natCast]
+  have hmain := main_part hk hs hC hE hJ hQ1 ht0 hx hQ hpc
   have htE : t ^ (μ k s E) = (P : ℝ) ^ E' := by
     rw [ht, ← Real.rpow_mul (by positivity), hE']
     congr 1
     field_simp
-  rw [hμ, htE] at hmain
+  rw [htE] at hmain
   -- the bad part
   have hIH := ih Q hQP hQ1
   have hch : ((p.choose (k - 1) : ℕ) : ℝ) ≤ (2 * ((k : ℝ) + 2)) ^ (k - 1) * t ^ (k - 1) := by
@@ -215,11 +176,6 @@ noncomputable def Cv2 (k : ℕ) : ℕ → ℝ
   | 0 => k.factorial
   | m + 1 => max ((((⌈T0 k⌉₊ ^ k : ℕ) : ℝ)) ^ (2 * (k + (k + m * k))))
       (2 * Kmain k (k + m * k) (Cv2 k m) (expo2 k m))
-
-lemma eta2_nonneg {k : ℕ} (hk : 2 ≤ k) (m : ℕ) : 0 ≤ eta2 k m := by
-  have hk' : (2 : ℝ) ≤ k := by exact_mod_cast hk
-  have h1 : 0 ≤ 1 - 1 / (k : ℝ) := by rw [sub_nonneg, div_le_one (by linarith)]; linarith
-  unfold eta2; apply mul_nonneg (pow_nonneg h1 _); nlinarith
 
 lemma eta2_le {k : ℕ} (hk : 2 ≤ k) (m : ℕ) : eta2 k m ≤ (k : ℝ) * ((k : ℝ) - 1) / 2 := by
   have hk' : (2 : ℝ) ≤ k := by exact_mod_cast hk

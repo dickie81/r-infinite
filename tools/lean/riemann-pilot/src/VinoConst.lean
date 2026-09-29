@@ -49,28 +49,7 @@ theorem vmvt_explicit {k : ℕ} (hk : 2 ≤ k) (m : ℕ) :
       linarith
     have hlen : k + (m + 1) * k = k + s := by rw [hsdef]; ring
     rw [hlen, hCv]
-    have hexp : max (μ k s (expo k m)) (βn k s : ℝ) / k = expo k (m + 1) := by
-      have hk0 : (k : ℝ) ≠ 0 := by positivity
-      have hsr : (s : ℝ) = (k : ℝ) + (m : ℝ) * k := by rw [hsdef]; push_cast; ring
-      rw [← max_div_div_right (by positivity : (0 : ℝ) ≤ k)]
-      have e1 : μ k s (expo k m) / k = 2 * ((k : ℝ) + s) - (k : ℝ) * ((k : ℝ) + 1) / 2 +
-          (1 - 1 / (k : ℝ)) * eta k m := by
-        unfold μ expo
-        rw [Nat.cast_add, Nn_cast]
-        push_cast
-        rw [hsr]
-        field_simp
-        ring
-      have e2 : ((βn k s : ℕ) : ℝ) / k = 2 * ((k : ℝ) + s) - (k : ℝ) * ((k : ℝ) + 1) / 2 +
-          ((k : ℝ) * ((k : ℝ) + 1) / 2 - 2 * ((s : ℝ) + 1) / k) := by
-        unfold βn
-        push_cast [Nat.cast_sub (by omega : 1 ≤ k)]
-        field_simp
-        ring
-      rw [e1, e2, max_add_add_left, expo, eta]
-      push_cast
-      rw [hsr]
-      ring_nf
+    have hexp := expo_step hk m
     rw [← hexp]
     exact hstep P hP
 

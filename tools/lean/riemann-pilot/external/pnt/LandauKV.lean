@@ -8,10 +8,11 @@ Route.
 * `growthW_kv`: `|ζ(σ+it)| ≤ K(log|t|)^K` on `σ ≥ 1 − w(log|t|)`, where
   `w(L) = c₂(log(L+2)/(L+2))^{2/3}`. For `log|t| ≥ 25` this is `growth_kv` (round 215) through
   the truncated sum (`zeta_le_sum`), since `w(L) ≤ c₂(log L/L)^{2/3}`; below, compactness.
-* `wkv_ok`: `w` is an admissible width (`LandauW.WidthOK`).
-* `LandauW.zero_gap_explicitW` then keeps zeros `≍ w(log t)/log log t` away from `σ = 1`.
+* `wkv_ok`: `w` is an admissible width (`Landau.WidthOK`).
+* `Landau.zero_gap_explicitW` then keeps zeros `≍ w(log t)/log log t` away from `σ = 1`.
 -/
-import LandauW
+import KVBridge
+import VinoKV
 
 open Nat Filter Topology Set Function Complex Real ComplexConjugate MeasureTheory
 
@@ -19,7 +20,7 @@ local notation "ζ" => riemannZeta
 
 namespace LandauKV
 
-open Landau LandauW
+open Landau
 
 /-- `f(x) = log x / x`. -/
 noncomputable def fl (x : ℝ) : ℝ := Real.log x / x

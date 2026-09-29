@@ -101,13 +101,12 @@ lemma ℓf_le {ε : ℝ} (hε : 0 < ε) {K : ℕ} (hK : 2 ≤ K) :
         rw [Real.rpow_add hK0, Real.rpow_two]; ring
 
 set_option maxHeartbeats 1600000 in
-lemma const_bound3 {K : ℕ} (hK : 10 ≤ K) :
-    (Cv2 K (mf K)) ^ 2 * 3 ^ K * ((ℓf K : ℕ) : ℝ) ^ (2 * K) * 2 ^ (K * (5 * K + 8)) ≤
-      (2 : ℝ) ^ (2 * 300 * ℓf K ^ 2) := by
+/-- The weak-VMVT constant absorbs the block-bound constants, for any `m ≥ K`. -/
+lemma const_bound_m {K m : ℕ} (hK : 10 ≤ K) (hmK : K ≤ m) :
+    (Cv2 K m) ^ 2 * 3 ^ K * ((K + m * K : ℕ) : ℝ) ^ (2 * K) * 2 ^ (K * (5 * K + 8)) ≤
+      (2 : ℝ) ^ (2 * 300 * (K + m * K) ^ 2) := by
   have hK2 : 2 ≤ K := by omega
-  set m := mf K with hm
-  set ℓ := ℓf K with hℓ
-  have hmK : K ≤ m := by rw [hm, mf]; exact Nat.le_mul_of_pos_right _ (by omega)
+  set ℓ := K + m * K with hℓ
   have hC := Cv2_le hK2 m
   have hC0 : 0 ≤ Cv2 K m := (zero_lt_one.trans_le (Cv2_ge_one hK2 m)).le
   set g := 40 * K ^ 2 * (m + 1) + gexp K m with hg
@@ -123,7 +122,7 @@ lemma const_bound3 {K : ℕ} (hK : 10 ≤ K) :
     calc ((ℓ : ℕ) : ℝ) ^ (2 * K) ≤ ((2 : ℝ) ^ ℓ) ^ (2 * K) := pow_le_pow_left₀ (by positivity) hl _
       _ = _ := by rw [← pow_mul]
   have hE : (K + 4) * g * 2 + 2 * K + ℓ * (2 * K) + K * (5 * K + 8) ≤ 2 * 300 * ℓ ^ 2 := by
-    rw [hg, gexp_closed, hℓ, ℓf, ← hm]
+    rw [hg, gexp_closed, hℓ]
     have a1 : K ^ 3 * m ≤ K ^ 2 * m ^ 2 := by
       have := Nat.mul_le_mul_left (K ^ 2 * m) hmK; nlinarith
     have a2 : K ^ 3 ≤ K ^ 2 * m := by
@@ -145,6 +144,11 @@ lemma const_bound3 {K : ℕ} (hK : 10 ≤ K) :
     _ = (2 : ℝ) ^ ((K + 4) * g * 2 + 2 * K + ℓ * (2 * K) + K * (5 * K + 8)) := by
         rw [← pow_add, ← pow_add, ← pow_add]
     _ ≤ _ := pow_le_pow_right₀ (by norm_num) hE
+
+lemma const_bound3 {K : ℕ} (hK : 10 ≤ K) :
+    (Cv2 K (mf K)) ^ 2 * 3 ^ K * ((ℓf K : ℕ) : ℝ) ^ (2 * K) * 2 ^ (K * (5 * K + 8)) ≤
+      (2 : ℝ) ^ (2 * 300 * ℓf K ^ 2) :=
+  const_bound_m hK (Nat.le_mul_of_pos_right _ (by omega))
 
 /-- **The sharp VMVT family.** -/
 theorem sharpFamily {ε : ℝ} (hε : 0 < ε) : VMVTFamily 10 300 (2 + ε) (6 + 3 / ε) ℓf := by

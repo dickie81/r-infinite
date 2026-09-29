@@ -33,50 +33,6 @@ lemma eta_kv {K : ℕ} (hK : 2 ≤ K) : eta2 K (12 * K) ≤ (K : ℝ) ^ 2 / 8192
       ≤ 1 / 4096 * ((K : ℝ) * ((K : ℝ) - 1) / 2) := mul_le_mul_of_nonneg_right hpow hc
     _ ≤ (K : ℝ) ^ 2 / 8192 := by nlinarith
 
-set_option maxHeartbeats 1600000 in
-lemma const_bound_m {K m : ℕ} (hK : 10 ≤ K) (hmK : K ≤ m) :
-    (Cv2 K m) ^ 2 * 3 ^ K * ((K + m * K : ℕ) : ℝ) ^ (2 * K) * 2 ^ (K * (5 * K + 8)) ≤
-      (2 : ℝ) ^ (2 * 300 * (K + m * K) ^ 2) := by
-  have hK2 : 2 ≤ K := by omega
-  set ℓ := K + m * K with hℓ
-  have hC := Cv2_le hK2 m
-  have hC0 : 0 ≤ Cv2 K m := (zero_lt_one.trans_le (Cv2_ge_one hK2 m)).le
-  set g := 40 * K ^ 2 * (m + 1) + gexp K m with hg
-  have h1 : (Cv2 K m) ^ 2 ≤ (2 : ℝ) ^ ((K + 4) * g * 2) := by
-    calc _ ≤ ((8 * ((K : ℝ) + 2)) ^ g) ^ 2 := pow_le_pow_left₀ hC0 hC 2
-      _ ≤ (((2 : ℝ) ^ (K + 4)) ^ g) ^ 2 :=
-          pow_le_pow_left₀ (by positivity) (pow_le_pow_left₀ (by positivity) (eight_K_le K) _) 2
-      _ = _ := by rw [← pow_mul, ← pow_mul]; ring_nf
-  have h2 : (3 : ℝ) ^ K ≤ 2 ^ (2 * K) := by
-    rw [pow_mul]; exact pow_le_pow_left₀ (by norm_num) (by norm_num) _
-  have h3 : ((ℓ : ℕ) : ℝ) ^ (2 * K) ≤ 2 ^ (ℓ * (2 * K)) := by
-    have hl : ((ℓ : ℕ) : ℝ) ≤ 2 ^ ℓ := by exact_mod_cast (Nat.lt_two_pow_self).le
-    calc ((ℓ : ℕ) : ℝ) ^ (2 * K) ≤ ((2 : ℝ) ^ ℓ) ^ (2 * K) := pow_le_pow_left₀ (by positivity) hl _
-      _ = _ := by rw [← pow_mul]
-  have hE : (K + 4) * g * 2 + 2 * K + ℓ * (2 * K) + K * (5 * K + 8) ≤ 2 * 300 * ℓ ^ 2 := by
-    rw [hg, gexp_closed, hℓ]
-    have a1 : K ^ 3 * m ≤ K ^ 2 * m ^ 2 := by
-      have := Nat.mul_le_mul_left (K ^ 2 * m) hmK; nlinarith
-    have a2 : K ^ 3 ≤ K ^ 2 * m := by
-      have := Nat.mul_le_mul_left (K ^ 2) hmK; nlinarith
-    have a3 : K * m ^ 2 ≤ K ^ 2 * m ^ 2 := by
-      have : 1 ≤ K := by omega
-      nlinarith [Nat.mul_le_mul_right (m ^ 2) this]
-    have a4 : K * m ≤ K ^ 2 * m := by
-      have : 1 ≤ K := by omega
-      nlinarith [Nat.mul_le_mul_right (K * m) this]
-    have a5 : K ≤ K ^ 2 := by nlinarith
-    have a6 : m ≤ K * m := by nlinarith
-    have a7 : K ^ 2 ≤ K ^ 2 * m := by nlinarith
-    ring_nf
-    nlinarith
-  calc (Cv2 K m) ^ 2 * 3 ^ K * ((ℓ : ℕ) : ℝ) ^ (2 * K) * 2 ^ (K * (5 * K + 8))
-      ≤ (2 : ℝ) ^ ((K + 4) * g * 2) * 2 ^ (2 * K) * 2 ^ (ℓ * (2 * K)) *
-          2 ^ (K * (5 * K + 8)) := by gcongr
-    _ = (2 : ℝ) ^ ((K + 4) * g * 2 + 2 * K + ℓ * (2 * K) + K * (5 * K + 8)) := by
-        rw [← pow_add, ← pow_add, ← pow_add]
-    _ ≤ _ := pow_le_pow_right₀ (by norm_num) hE
-
 /-- The saving constant. -/
 noncomputable def c2 : ℝ := 1 / 5000000
 

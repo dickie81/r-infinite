@@ -37,35 +37,9 @@ theorem symCut_probe' {b : ℝ} {o : ℝ → ℝ} (hp : Probe b o) (a : ℝ) (u 
 
 /-- **The shell estimate, even sector.** `‖o − S_a G‖² ≤ 6‖o − G‖² + 4∫_{a<|u|≤b} G²`. -/
 theorem normSq_sub_symCut_shell {a b : ℝ} {o G : ℝ → ℝ} (hp : Probe b o) (hG : MemLp G 2 volume) :
-    normSq (fun t => o t - symCut a G t) ≤ 6 * normSq (fun t => o t - G t) + 4 * shellSq G a b := by
-  have hoG := hp.memL2.sub hG
-  set x : ℝ → ℝ := fun t => o t - symCut a o t with hx
-  set y : ℝ → ℝ := symCut a (fun t => o t - G t) with hy
-  have hxm : MemLp x 2 volume := hp.memL2.sub (memLp_symCut a hp.memL2)
-  have hym : MemLp y 2 volume := memLp_symCut a hoG
-  have hsplit : (fun t => o t - symCut a G t) = fun t => x t + y t := by
-    funext t; simp only [hx, hy, symCut_sub]; ring
-  have hy2 : normSq y ≤ normSq (fun t => o t - G t) := normSq_symCut_le a hoG
-  have hx2 : normSq x ≤ 2 * normSq (fun t => o t - G t) + 2 * shellSq G a b := by
-    set ind := Set.indicator {u | a < |u| ∧ |u| ≤ b} (fun u => G u ^ 2) with hind
-    have hI1 : Integrable (fun t => (o t - G t) ^ 2) := hoG.integrable_sq
-    have hI2 : Integrable ind := hG.integrable_sq.indicator (measurableSet_shell a b)
-    have hsum : (∫ t, (2 * (o t - G t) ^ 2 + 2 * ind t))
-        = 2 * normSq (fun t => o t - G t) + 2 * shellSq G a b := by
-      rw [integral_add (hI1.const_mul 2) (hI2.const_mul 2), integral_const_mul, integral_const_mul]; rfl
-    rw [← hsum]
-    refine integral_mono hxm.integrable_sq ((hI1.const_mul 2).add (hI2.const_mul 2)) fun t => ?_
-    simp only [hx, symCut_probe' hp a t]
-    have hind0 : 0 ≤ ind t := Set.indicator_nonneg (fun _ _ => sq_nonneg _) _
-    split_ifs with h1
-    · nlinarith [sq_nonneg (o t - G t)]
-    · by_cases h2 : |t| ≤ b
-      · rw [hind, Set.indicator_of_mem (show t ∈ {u | a < |u| ∧ |u| ≤ b} from ⟨lt_of_not_ge h1, h2⟩)]
-        nlinarith [sq_nonneg (o t - 2 * G t)]
-      · rw [hp.supp t (lt_of_not_ge h2)]
-        nlinarith [sq_nonneg (G t)]
-  rw [hsplit]
-  linarith [normSq_add_le hxm hym]
+    normSq (fun t => o t - symCut a G t) ≤ 6 * normSq (fun t => o t - G t) + 4 * shellSq G a b :=
+  normSq_sub_cut_le (symCut a) (fun _ hf => memLp_symCut a hf) (fun _ hf => normSq_symCut_le a hf)
+    (symCut_sub a) (symCut_probe' hp a) hp.supp hp.memL2 hG
 
 /-- **Lower semicontinuity along shrinking supports.** Normalised even probes at `bₙ ↓ a` whose
 energies converge to `L` have an `L²`-convergent subsequence whose limit is a normalised probe at `a`
@@ -215,55 +189,15 @@ theorem lam_left {a : ℝ} (ha : 0 < a) {ε : ℝ} (hε : 0 < ε) :
     have hs0 : 0 < s := by linarith [hs.1]
     dsimp only
     rw [weilQ_eq', normSq_dilS hs0]
-  have hev : ∀ᶠ s in 𝓝[Icc 1 2] (1 : ℝ), weilQ a (dil s o) < lam a + ε :=
-    hT.eventually (gt_mem_nhds (by linarith))
-  obtain ⟨U, hUo, h1U, hUs⟩ := mem_nhdsWithin.1 hev
-  obtain ⟨η, hη, hball⟩ := Metric.isOpen_iff.1 hUo 1 h1U
-  set s₀ := 1 + min (η / 2) 1 with hs₀
-  have hs₀1 : 1 < s₀ := by have := lt_min (half_pos hη) one_pos; linarith
-  refine ⟨a - a / s₀, sub_pos.2 (div_lt_self ha hs₀1), fun b hb hba => ?_⟩
-  have hb0 : 0 < b := by
-    have : 0 < a / s₀ := by positivity
-    linarith
-  set s := a / b with hsdef
-  have hs1 : 1 ≤ s := by rw [hsdef, le_div_iff₀ hb0]; linarith
-  have hss₀ : s ≤ s₀ := by
-    rw [hsdef, div_le_iff₀ hb0]
-    have : a / s₀ < b := by linarith
-    rw [div_lt_iff₀ (by linarith)] at this; linarith
-  have hs2 : s ≤ 2 := hss₀.trans (by linarith [min_le_right (η / 2) 1])
-  have hsU : s ∈ U := hball (by
-    rw [Metric.mem_ball, Real.dist_eq, abs_of_nonneg (by linarith)]
-    linarith [min_le_left (η / 2) 1])
-  have hQ : weilQ a (dil s o) < lam a + ε := hUs ⟨hsU, hs1, hs2⟩
-  have hbs : a / s = b := by rw [hsdef]; field_simp
-  have hpb : Probe b (dil s o) :=
-    hbs ▸ ⟨fun u => by unfold dil; rw [show s * -u = -(s * u) by ring, hp.even],
-      dil_supp (by linarith) hp.supp, memLp_dilS (by linarith) hp.memL2, arch_dil hp.toS hs1 hs2⟩
-  have hnb : normSq (dil s o) = 1 := by rw [normSq_dilS (by linarith), hn]
-  have := lam_le hpb hnb
-  rw [← weilQ_mono hb0.le hba hpb] at this
-  linarith
+  exact left_cont_of_dil (Pr := Probe) ha hε hn hq hT
+    (fun s h1 h2 => ⟨fun u => by unfold dil; rw [show s * -u = -(s * u) by ring, hp.even],
+      dil_supp (by linarith) hp.supp, memLp_dilS (by linarith) hp.memL2, arch_dil hp.toS h1 h2⟩)
+    (fun b g hb hba hg => weilQ_mono hb.le hba hg) (fun b g _ hg hgn => lam_le hg hgn)
 
 /-- **`λ₁` is continuous on `(0, ∞)`.** -/
-theorem continuousOn_lam : ContinuousOn lam (Ioi 0) := by
-  intro a ha
-  have ha : 0 < a := ha
-  refine Metric.continuousWithinAt_iff.2 fun ε hε => ?_
-  obtain ⟨δ₁, hδ₁, h₁⟩ := lam_right ha hε
-  obtain ⟨δ₂, hδ₂, h₂⟩ := lam_left ha hε
-  refine ⟨min δ₁ (min δ₂ a), by positivity, fun {b} hb hd => ?_⟩
-  have hb0 : 0 < b := hb
-  rw [Real.dist_eq, abs_lt] at hd ⊢
-  have hm1 := min_le_left δ₁ (min δ₂ a)
-  have hm2 := (min_le_right δ₁ (min δ₂ a)).trans (min_le_left δ₂ a)
-  rcases le_total a b with hab | hba
-  · have := h₁ b hab (by linarith [hd.2])
-    have := lam_antitone ha hab
-    constructor <;> linarith
-  · have := h₂ b (by linarith [hd.1]) hba
-    have := lam_antitone hb0 hba
-    constructor <;> linarith
+theorem continuousOn_lam : ContinuousOn lam (Ioi 0) :=
+  continuousOn_of_right_left (fun _ ha _ hε => lam_right ha hε) (fun _ ha _ hε => lam_left ha hε)
+    (fun _ _ ha hab => lam_antitone ha hab)
 
 /-! ## S2: degeneracy -/
 

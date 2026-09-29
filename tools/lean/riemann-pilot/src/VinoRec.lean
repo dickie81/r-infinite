@@ -174,50 +174,26 @@ noncomputable def Kbad (k s : ℕ) : ℝ :=
 noncomputable def Kmain (k s : ℕ) (C E : ℝ) : ℝ :=
   16 * ((k + s : ℕ) : ℝ) ^ (2 * k) * ((k.factorial : ℝ) * (2 * ((k : ℝ) + 2)) ^ Nn k s) * C * (2 : ℝ) ^ E
 
-/-- **One step, real form.** If `J_s(Q) ≤ C·Q^E` for all `Q ≥ 1`, then
-`J_{k+s}(P) ≤ (K_bad + K_main)·P^{max(μ, β)/k}` for all `P ≥ 1`. -/
-theorem step_real {k s : ℕ} (hk : 2 ≤ k) (hs : 1 ≤ s) {C E : ℝ} (hC : 0 < C) (hE : 0 ≤ E)
-    (hJ : ∀ Q : ℕ, 1 ≤ Q → (J s k Q : ℝ) ≤ C * (Q : ℝ) ^ E) (P : ℕ) (hP : 1 ≤ P) :
-    (J (k + s) k P : ℝ) ≤
-      (Kbad k s + Kmain k s C E) * (P : ℝ) ^ (max (μ k s E) (βn k s : ℝ) / k) := by
-  obtain ⟨p, hp, hkp, hPp, htp, hpt⟩ := exists_good_prime (by omega : 1 ≤ k) hP
-  set t : ℝ := (P : ℝ) ^ ((k : ℝ)⁻¹) with ht
-  have hk0 : k ≠ 0 := by omega
-  have hPr : (1 : ℝ) ≤ P := by exact_mod_cast hP
-  have hx : (P : ℝ) = t ^ k := (Real.rpow_inv_natCast_pow (by positivity) hk0).symm
-  have ht1 : 1 ≤ t := Real.one_le_rpow hPr (by positivity)
+/-- `Q = ⌊P/p⌋ + 1 ≤ 2t^{k−1}` when `P = t^k` and `t ≤ p`. -/
+lemma q_bound {k p P : ℕ} {t : ℝ} (hk : 2 ≤ k) (ht1 : 1 ≤ t) (hx : (P : ℝ) = t ^ k)
+    (htp : t ≤ p) : ((P / p + 1 : ℕ) : ℝ) ≤ 2 * t ^ (k - 1) := by
   have ht0 : 0 < t := by linarith
-  have hpc : (p : ℝ) ≤ (2 * ((k : ℝ) + 2)) * t := hpt
-  have hp0 : (0 : ℝ) ≤ p := by positivity
   set Q := P / p + 1 with hQdef
-  have hQ1 : 1 ≤ Q := by rw [hQdef]; exact Nat.le_add_left 1 _
-  have hQ : (Q : ℝ) ≤ 2 * t ^ (k - 1) := by
-    have h1 : ((P / p : ℕ) : ℝ) ≤ (P : ℝ) / p := Nat.cast_div_le
-    have h2 : (P : ℝ) / p ≤ (P : ℝ) / t :=
-      div_le_div_of_nonneg_left (by positivity) ht0 htp
-    have h3 : (P : ℝ) / t = t ^ (k - 1) := by
-      rw [hx, div_eq_iff ht0.ne', ← pow_succ, Nat.sub_add_cancel (by omega)]
-    have h4 : 1 ≤ t ^ (k - 1) := one_le_pow₀ ht1
-    rw [hQdef]; push_cast; linarith
-  have hos : (J (k + s) k P : ℝ) ≤
-      2 * ((p : ℝ) ^ (k - 1) * (((k - 1 : ℕ) : ℝ) * (Q : ℝ)) ^ (k + s)) ^ 2 +
-      16 * ((k + s : ℕ) : ℝ) ^ (2 * k) * ((p : ℝ) ^ (2 * s - 1) * ((p : ℝ) *
-        ((P : ℝ) ^ k * ((k.factorial : ℝ) * (p : ℝ) ^ (k * (k - 1) / 2)) * (J s k Q : ℝ)))) := by
-    have := one_step hp (by omega) hkp hPp hs
-    rw [← hQdef] at this
-    exact_mod_cast this
-  -- the bad part
-  have hbad : 2 * ((p : ℝ) ^ (k - 1) * (((k - 1 : ℕ) : ℝ) * (Q : ℝ)) ^ (k + s)) ^ 2 ≤
-      Kbad k s * t ^ (βn k s) := by
-    have hk1 : (0 : ℝ) ≤ ((k - 1 : ℕ) : ℝ) := by positivity
-    calc 2 * ((p : ℝ) ^ (k - 1) * (((k - 1 : ℕ) : ℝ) * (Q : ℝ)) ^ (k + s)) ^ 2
-        ≤ 2 * (((2 * ((k : ℝ) + 2)) * t) ^ (k - 1) * (((k - 1 : ℕ) : ℝ) * (2 * t ^ (k - 1))) ^ (k + s)) ^ 2 := by
-          gcongr
-      _ = Kbad k s * t ^ (βn k s) := by
-          unfold Kbad βn
-          simp only [mul_pow]
-          ring
-  -- the main part
+  have h1 : ((P / p : ℕ) : ℝ) ≤ (P : ℝ) / p := Nat.cast_div_le
+  have h2 : (P : ℝ) / p ≤ (P : ℝ) / t :=
+    div_le_div_of_nonneg_left (by positivity) ht0 htp
+  have h3 : (P : ℝ) / t = t ^ (k - 1) := by
+    rw [hx, div_eq_iff ht0.ne', ← pow_succ, Nat.sub_add_cancel (by omega)]
+  have h4 : 1 ≤ t ^ (k - 1) := one_le_pow₀ ht1
+  rw [hQdef]; push_cast; linarith
+
+/-- **The main part of one step**, bounded by `K_main·t^μ`. -/
+lemma main_part {k s p P Q : ℕ} {C E t : ℝ} (hk : 2 ≤ k) (hs : 1 ≤ s) (hC : 0 < C) (hE : 0 ≤ E)
+    (hJ : ∀ Q : ℕ, 1 ≤ Q → (J s k Q : ℝ) ≤ C * (Q : ℝ) ^ E) (hQ1 : 1 ≤ Q) (ht0 : 0 < t)
+    (hx : (P : ℝ) = t ^ k) (hQ : (Q : ℝ) ≤ 2 * t ^ (k - 1)) (hpc : (p : ℝ) ≤ (2 * ((k : ℝ) + 2)) * t) :
+    16 * ((k + s : ℕ) : ℝ) ^ (2 * k) * ((p : ℝ) ^ (2 * s - 1) * ((p : ℝ) *
+        ((P : ℝ) ^ k * ((k.factorial : ℝ) * (p : ℝ) ^ (k * (k - 1) / 2)) * (J s k Q : ℝ)))) ≤
+      Kmain k s C E * t ^ (μ k s E) := by
   have hJQ : (J s k Q : ℝ) ≤ C * ((2 : ℝ) ^ E * t ^ (((k : ℝ) - 1) * E)) := by
     have h1 := hJ Q hQ1
     have h2 : (Q : ℝ) ^ E ≤ (2 * t ^ (k - 1)) ^ E :=
@@ -248,9 +224,49 @@ theorem step_real {k s : ℕ} (hk : 2 ≤ k) (hs : 1 ≤ s) {C E : ℝ} (hC : 0 
           unfold Kmain Nn
           simp only [mul_pow]
           ring
-  -- combine
   have hμ : t ^ (Nn k s + k * k) * t ^ (((k : ℝ) - 1) * E) = t ^ (μ k s E) := by
     rw [μ, Real.rpow_add ht0, Real.rpow_natCast]
+  rwa [hμ] at hmain
+
+/-- **One step, real form.** If `J_s(Q) ≤ C·Q^E` for all `Q ≥ 1`, then
+`J_{k+s}(P) ≤ (K_bad + K_main)·P^{max(μ, β)/k}` for all `P ≥ 1`. -/
+theorem step_real {k s : ℕ} (hk : 2 ≤ k) (hs : 1 ≤ s) {C E : ℝ} (hC : 0 < C) (hE : 0 ≤ E)
+    (hJ : ∀ Q : ℕ, 1 ≤ Q → (J s k Q : ℝ) ≤ C * (Q : ℝ) ^ E) (P : ℕ) (hP : 1 ≤ P) :
+    (J (k + s) k P : ℝ) ≤
+      (Kbad k s + Kmain k s C E) * (P : ℝ) ^ (max (μ k s E) (βn k s : ℝ) / k) := by
+  obtain ⟨p, hp, hkp, hPp, htp, hpt⟩ := exists_good_prime (by omega : 1 ≤ k) hP
+  set t : ℝ := (P : ℝ) ^ ((k : ℝ)⁻¹) with ht
+  have hk0 : k ≠ 0 := by omega
+  have hPr : (1 : ℝ) ≤ P := by exact_mod_cast hP
+  have hx : (P : ℝ) = t ^ k := (Real.rpow_inv_natCast_pow (by positivity) hk0).symm
+  have ht1 : 1 ≤ t := Real.one_le_rpow hPr (by positivity)
+  have ht0 : 0 < t := by linarith
+  have hpc : (p : ℝ) ≤ (2 * ((k : ℝ) + 2)) * t := hpt
+  have hp0 : (0 : ℝ) ≤ p := by positivity
+  set Q := P / p + 1 with hQdef
+  have hQ1 : 1 ≤ Q := by rw [hQdef]; exact Nat.le_add_left 1 _
+  have hQ : (Q : ℝ) ≤ 2 * t ^ (k - 1) := q_bound hk ht1 hx htp
+  have hos : (J (k + s) k P : ℝ) ≤
+      2 * ((p : ℝ) ^ (k - 1) * (((k - 1 : ℕ) : ℝ) * (Q : ℝ)) ^ (k + s)) ^ 2 +
+      16 * ((k + s : ℕ) : ℝ) ^ (2 * k) * ((p : ℝ) ^ (2 * s - 1) * ((p : ℝ) *
+        ((P : ℝ) ^ k * ((k.factorial : ℝ) * (p : ℝ) ^ (k * (k - 1) / 2)) * (J s k Q : ℝ)))) := by
+    have := one_step hp (by omega) hkp hPp hs
+    rw [← hQdef] at this
+    exact_mod_cast this
+  -- the bad part
+  have hbad : 2 * ((p : ℝ) ^ (k - 1) * (((k - 1 : ℕ) : ℝ) * (Q : ℝ)) ^ (k + s)) ^ 2 ≤
+      Kbad k s * t ^ (βn k s) := by
+    have hk1 : (0 : ℝ) ≤ ((k - 1 : ℕ) : ℝ) := by positivity
+    calc 2 * ((p : ℝ) ^ (k - 1) * (((k - 1 : ℕ) : ℝ) * (Q : ℝ)) ^ (k + s)) ^ 2
+        ≤ 2 * (((2 * ((k : ℝ) + 2)) * t) ^ (k - 1) * (((k - 1 : ℕ) : ℝ) * (2 * t ^ (k - 1))) ^ (k + s)) ^ 2 := by
+          gcongr
+      _ = Kbad k s * t ^ (βn k s) := by
+          unfold Kbad βn
+          simp only [mul_pow]
+          ring
+  -- the main part
+  have hmain := main_part hk hs hC hE hJ hQ1 ht0 hx hQ hpc
+  -- combine
   have hβ : t ^ (βn k s) = t ^ ((βn k s : ℕ) : ℝ) := (Real.rpow_natCast _ _).symm
   set M := max (μ k s E) (βn k s : ℝ)
   have hmono1 : t ^ (μ k s E) ≤ t ^ M := Real.rpow_le_rpow_of_exponent_le ht1 (le_max_left _ _)
@@ -264,7 +280,6 @@ theorem step_real {k s : ℕ} (hk : 2 ≤ k) (hs : 1 ≤ s) {C E : ℝ} (hC : 0 
   have hKm : 0 ≤ Kmain k s C E := by
     unfold Kmain; positivity
   rw [← htM]
-  rw [hμ] at hmain
   rw [hβ] at hbad
   nlinarith [mul_le_mul_of_nonneg_left hmono1 hKm, mul_le_mul_of_nonneg_left hmono2 hKb]
 
@@ -305,6 +320,33 @@ lemma Nn_cast (k s : ℕ) : ((Nn k s : ℕ) : ℝ) = 2 * s + (k : ℝ) * ((k : �
   · simp
   · push_cast [Nat.cast_sub hk]; ring
 
+/-- One iteration step moves the exponent from `expo k m` to `expo k (m + 1)`. -/
+lemma expo_step {k : ℕ} (hk : 2 ≤ k) (m : ℕ) :
+    max (μ k (k + m * k) (expo k m)) (βn k (k + m * k) : ℝ) / k = expo k (m + 1) := by
+  have hk' : (2 : ℝ) ≤ k := by exact_mod_cast hk
+  set s := k + m * k with hsdef
+  have hk0 : (k : ℝ) ≠ 0 := by positivity
+  have hsr : (s : ℝ) = (k : ℝ) + (m : ℝ) * k := by rw [hsdef]; push_cast; ring
+  rw [← max_div_div_right (by positivity : (0 : ℝ) ≤ k)]
+  have e1 : μ k s (expo k m) / k = 2 * ((k : ℝ) + s) - (k : ℝ) * ((k : ℝ) + 1) / 2 +
+      (1 - 1 / (k : ℝ)) * eta k m := by
+    unfold μ expo
+    rw [Nat.cast_add, Nn_cast]
+    push_cast
+    rw [hsr]
+    field_simp
+    ring
+  have e2 : ((βn k s : ℕ) : ℝ) / k = 2 * ((k : ℝ) + s) - (k : ℝ) * ((k : ℝ) + 1) / 2 +
+      ((k : ℝ) * ((k : ℝ) + 1) / 2 - 2 * ((s : ℝ) + 1) / k) := by
+    unfold βn
+    push_cast [Nat.cast_sub (by omega : 1 ≤ k)]
+    field_simp
+    ring
+  rw [e1, e2, max_add_add_left, expo, eta]
+  push_cast
+  rw [hsr]
+  ring_nf
+
 /-- **Vinogradov's mean value theorem, iterated form.** For `k ≥ 2` and every `m`,
 `J_{k+mk,k}(P) ≤ C·P^{2(k+mk) − k(k+1)/2 + η_m}` for all `P ≥ 1`. -/
 theorem vmvt_iter {k : ℕ} (hk : 2 ≤ k) (m : ℕ) :
@@ -329,28 +371,7 @@ theorem vmvt_iter {k : ℕ} (hk : 2 ≤ k) (m : ℕ) :
       linarith
     have hlen : k + (m + 1) * k = k + s := by rw [hsdef]; ring
     rw [hlen]
-    have hexp : max (μ k s (expo k m)) (βn k s : ℝ) / k = expo k (m + 1) := by
-      have hk0 : (k : ℝ) ≠ 0 := by positivity
-      have hsr : (s : ℝ) = (k : ℝ) + (m : ℝ) * k := by rw [hsdef]; push_cast; ring
-      rw [← max_div_div_right (by positivity : (0 : ℝ) ≤ k)]
-      have e1 : μ k s (expo k m) / k = 2 * ((k : ℝ) + s) - (k : ℝ) * ((k : ℝ) + 1) / 2 +
-          (1 - 1 / (k : ℝ)) * eta k m := by
-        unfold μ expo
-        rw [Nat.cast_add, Nn_cast]
-        push_cast
-        rw [hsr]
-        field_simp
-        ring
-      have e2 : ((βn k s : ℕ) : ℝ) / k = 2 * ((k : ℝ) + s) - (k : ℝ) * ((k : ℝ) + 1) / 2 +
-          ((k : ℝ) * ((k : ℝ) + 1) / 2 - 2 * ((s : ℝ) + 1) / k) := by
-        unfold βn
-        push_cast [Nat.cast_sub (by omega : 1 ≤ k)]
-        field_simp
-        ring
-      rw [e1, e2, max_add_add_left, expo, eta]
-      push_cast
-      rw [hsr]
-      ring_nf
+    have hexp := expo_step hk m
     rw [← hexp]
     exact hstep P hP
 

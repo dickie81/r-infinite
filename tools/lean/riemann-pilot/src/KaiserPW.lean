@@ -59,17 +59,17 @@ theorem envelope {r q A : ℝ} (hr : 0 ≤ r) (hq : 0 < q) (hq1 : q ≤ 1) (hA :
 /-- The growth constant. -/
 def kA (L η α : ℝ) : ℝ := 6 ^ 8 * (1 + |α|) * (1 / (π * η)) ^ 6 * Real.exp (2 * π * (L - 4 * η) * L)
 
-/-- **Exponential type `2πL`**: `‖H(z)‖ ≤ A · e^{2πL|Im z|} / (1 + (Re z)²)`. -/
-theorem norm_kH_le {L η α : ℝ} (hη : 0 < η) (hη1 : π * η ≤ 1) (hL : 4 * η ≤ L) (z : ℂ) :
-    ‖kH L η α z‖ ≤ kA L η α * Real.exp (2 * π * L * |z.im|) / (1 + z.re ^ 2) := by
+/-- The common core of the growth bounds: with `β = 2π(L − 4η)`, `q = πη` and `r = ‖z‖`,
+`‖H(z)‖ ≤ r²(r² + |α|)·e^{β(|Im z| + L)}·(6e^{q|Im z|}/(1 + qr))⁸`. -/
+theorem norm_kH_core {L η α : ℝ} (hη : 0 < η) (hL : 4 * η ≤ L) (z : ℂ) :
+    ‖kH L η α z‖ ≤ ‖z‖ ^ 2 * (‖z‖ ^ 2 + |α|) * Real.exp (2 * π * (L - 4 * η) * (|z.im| + L)) *
+      (6 * Real.exp (π * η * |z.im|) / (1 + π * η * ‖z‖)) ^ 8 := by
   set β := 2 * π * (L - 4 * η)
   set q := π * η
   have hq : 0 < q := by positivity
   have hβ : 0 ≤ β := by have := pi_pos; positivity
   have hL0 : 0 ≤ L := by linarith
   set r := ‖z‖
-  have hr : 0 ≤ r := norm_nonneg z
-  -- factors
   have hK := norm_kK_le hβ hL0 z
   have hS := norm_sincE_le (π * η * z)
   have hcast : (π * η * z : ℂ) = ((π * η : ℝ) : ℂ) * z := by push_cast; ring
@@ -81,20 +81,37 @@ theorem norm_kH_le {L η α : ℝ} (hη : 0 < η) (hη1 : π * η ≤ 1) (hL : 4
   have hpoly : ‖z ^ 2 - (α : ℂ)‖ ≤ r ^ 2 + |α| := by
     refine (norm_sub_le _ _).trans ?_
     rw [norm_pow, Complex.norm_real, Real.norm_eq_abs]
+  unfold kH
+  rw [norm_mul, norm_mul, norm_mul, norm_pow, norm_pow]
+  gcongr
+
+/-- `e^{β(|Im z| + L)}·e^{8q|Im z|} = e^{βL}·e^{2πL|Im z|}`. -/
+theorem kH_exp_eq (L η y : ℝ) :
+    Real.exp (2 * π * (L - 4 * η) * (y + L)) * Real.exp (π * η * y) ^ 8
+      = Real.exp (2 * π * (L - 4 * η) * L) * Real.exp (2 * π * L * y) := by
+  rw [← Real.exp_nat_mul, ← Real.exp_add, ← Real.exp_add]; congr 1; push_cast; ring
+
+/-- **Exponential type `2πL`**: `‖H(z)‖ ≤ A · e^{2πL|Im z|} / (1 + (Re z)²)`. -/
+theorem norm_kH_le {L η α : ℝ} (hη : 0 < η) (hη1 : π * η ≤ 1) (hL : 4 * η ≤ L) (z : ℂ) :
+    ‖kH L η α z‖ ≤ kA L η α * Real.exp (2 * π * L * |z.im|) / (1 + z.re ^ 2) := by
+  set β := 2 * π * (L - 4 * η)
+  set q := π * η
+  have hq : 0 < q := by positivity
+  have hβ : 0 ≤ β := by have := pi_pos; positivity
+  have hL0 : 0 ≤ L := by linarith
+  set r := ‖z‖
+  have hr : 0 ≤ r := norm_nonneg z
   have hre : z.re ^ 2 ≤ r ^ 2 := by
     have := Complex.abs_re_le_norm z
     nlinarith [abs_nonneg z.re, sq_abs z.re]
-  have hsn : 0 ≤ ‖sincE (π * η * z)‖ := norm_nonneg _
   have hden : 0 < 1 + q * r := by positivity
   -- assemble
   have hmain : ‖kH L η α z‖ ≤ r ^ 2 * (r ^ 2 + |α|) * Real.exp (β * (|z.im| + L)) *
-      (6 * Real.exp (q * |z.im|) / (1 + q * r)) ^ 8 := by
-    unfold kH
-    rw [norm_mul, norm_mul, norm_mul, norm_pow, norm_pow]
-    gcongr
+      (6 * Real.exp (q * |z.im|) / (1 + q * r)) ^ 8 :=
+    norm_kH_core hη hL z
   have hexp : Real.exp (β * (|z.im| + L)) * Real.exp (q * |z.im|) ^ 8
-      = Real.exp (β * L) * Real.exp (2 * π * L * |z.im|) := by
-    rw [← Real.exp_nat_mul, ← Real.exp_add, ← Real.exp_add]; congr 1; simp only [β, q]; push_cast; ring
+      = Real.exp (β * L) * Real.exp (2 * π * L * |z.im|) :=
+    kH_exp_eq L η |z.im|
   have henv := envelope hr hq hη1 (abs_nonneg α)
   rw [le_div_iff₀ (by positivity)]
   calc ‖kH L η α z‖ * (1 + z.re ^ 2)

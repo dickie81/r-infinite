@@ -138,10 +138,20 @@ theorem tail_le0 (ht : Tail L η α) {a : ℝ} (hLa : Real.exp a = L) {t : ℂ} 
         have : Real.exp (-3 * a) ≤ 1 := Real.exp_le_one_iff.2 (by linarith)
         nlinarith
 
-/-- **Integration by parts on the tail**: `‖∫_a^∞ φ e^{itv}‖ ≤ 6P(1 + D₀)/‖t‖`. -/
-theorem tail_ibp (ht : Tail L η α) {a : ℝ} (hLa : Real.exp a = L) {t : ℂ} (hti : |t.im| ≤ 1 / 2)
-    (ht0 : t ≠ 0) :
-    ‖∫ v in Ioi a, phi L η α v * Complex.exp (I * t * v)‖ ≤ 6 * kP η * (1 + kD0 L η) / ‖t‖ := by
+/-- `‖e^{itv}‖ ≤ e^{cv}` for `Im t ≥ −c` and `v ≥ 0`. -/
+theorem norm_cexp_It_c {t : ℂ} {c : ℝ} (hti : -c ≤ t.im) {v : ℝ} (hv : 0 ≤ v) :
+    ‖Complex.exp (I * t * v)‖ ≤ Real.exp (c * v) := by
+  rw [Complex.norm_exp]
+  apply Real.exp_le_exp.2
+  have : (I * t * (v : ℂ)).re = -(t.im * v) := by simp [mul_re, mul_im]
+  rw [this]; nlinarith
+
+/-- **Integration by parts on the tail**, for `Im t ≥ −c` with `0 ≤ c ≤ 1`:
+`‖∫_a^∞ φ e^{itv}‖ ≤ (4 + 2/(3/2 − c))·P(1 + D₀)/‖t‖`. -/
+theorem tail_ibp_gen (ht : Tail L η α) {a c : ℝ} (hLa : Real.exp a = L) (hc0 : 0 ≤ c) (hc1 : c ≤ 1)
+    {t : ℂ} (hti : -c ≤ t.im) (ht0 : t ≠ 0) :
+    ‖∫ v in Ioi a, phi L η α v * Complex.exp (I * t * v)‖ ≤
+      (4 + 2 / (3 / 2 - c)) * kP η * (1 + kD0 L η) / ‖t‖ := by
   have hp := ht.par
   have ha0 : 0 ≤ a := by rw [← Real.exp_le_exp, Real.exp_zero, hLa]; exact ht.one
   have hP := (kP_pos hp.pos).le
@@ -149,6 +159,7 @@ theorem tail_ibp (ht : Tail L η α) {a : ℝ} (hLa : Real.exp a = L) {t : ℂ} 
   have hIt : I * t ≠ 0 := mul_ne_zero I_ne_zero ht0
   have htn : 0 < ‖t‖ := norm_pos_iff.2 ht0
   have hItn : ‖I * t‖ = ‖t‖ := by rw [norm_mul, Complex.norm_I, one_mul]
+  have hc3 : 0 < 3 / 2 - c := by linarith
   set w : ℝ → ℂ := fun v => Complex.exp (I * t * v) / (I * t)
   have hw : ∀ v : ℝ, HasDerivAt w (Complex.exp (I * t * v)) v := by
     intro v
@@ -156,84 +167,105 @@ theorem tail_ibp (ht : Tail L η α) {a : ℝ} (hLa : Real.exp a = L) {t : ℂ} 
       simpa using ((hasDerivAt_id v).ofReal_comp).const_mul (I * t)
     have := (h1.cexp).div_const (I * t)
     convert this using 1; field_simp
-  have hwn : ∀ v : ℝ, 0 ≤ v → ‖w v‖ ≤ Real.exp (v / 2) / ‖t‖ := by
+  have hwn : ∀ v : ℝ, 0 ≤ v → ‖w v‖ ≤ Real.exp (c * v) / ‖t‖ := by
     intro v hv
     simp only [w, norm_div, hItn]
-    gcongr; exact norm_cexp_It hti hv
-  -- bounds on `Ioi a`
+    gcongr; exact norm_cexp_It_c hti hv
   have hL : ∀ v ∈ Ioi a, L < Real.exp v := fun v hv => hLa ▸ Real.exp_lt_exp.2 hv
-  have hb1 : ∀ v ∈ Ioi a, ‖phi L η α v * Complex.exp (I * t * v)‖ ≤ 4 * kP η * Real.exp (-3 * v) := by
+  have hb1 : ∀ v ∈ Ioi a, ‖phi L η α v * Complex.exp (I * t * v)‖ ≤
+      4 * kP η * Real.exp (-(7 / 2 - c) * v) := by
     intro v hv
     have hv' : a < v := hv
     rw [norm_mul]
-    calc ‖phi L η α v‖ * ‖Complex.exp (I * t * v)‖ ≤ 4 * kP η * Real.exp (-(7 / 2) * v) * Real.exp (v / 2) := by
+    calc ‖phi L η α v‖ * ‖Complex.exp (I * t * v)‖ ≤
+          4 * kP η * Real.exp (-(7 / 2) * v) * Real.exp (c * v) := by
           gcongr
           · exact norm_phi_tail ht (hL v hv).le
-          · exact norm_cexp_It hti (by linarith)
-      _ = 4 * kP η * Real.exp (-3 * v) := by rw [mul_assoc, ← Real.exp_add]; congr 2; ring
-  have hb2 : ∀ v ∈ Ioi a, ‖phid L η α v * w v‖ ≤ 2 * kP η * (1 + kD0 L η) / ‖t‖ * Real.exp (-v) := by
+          · exact norm_cexp_It_c hti (by linarith)
+      _ = 4 * kP η * Real.exp (-(7 / 2 - c) * v) := by rw [mul_assoc, ← Real.exp_add]; congr 2; ring
+  have hb2 : ∀ v ∈ Ioi a, ‖phid L η α v * w v‖ ≤
+      2 * kP η * (1 + kD0 L η) / ‖t‖ * Real.exp (-(3 / 2 - c) * v) := by
     intro v hv
     have hv' : a < v := hv
     rw [norm_mul]
-    calc ‖phid L η α v‖ * ‖w v‖ ≤ 2 * kP η * (1 + kD0 L η) * Real.exp (-(3 / 2) * v) * (Real.exp (v / 2) / ‖t‖) := by
+    calc ‖phid L η α v‖ * ‖w v‖ ≤
+          2 * kP η * (1 + kD0 L η) * Real.exp (-(3 / 2) * v) * (Real.exp (c * v) / ‖t‖) := by
           gcongr
           · exact norm_phid_tail ht (hL v hv)
           · exact hwn v (by linarith)
-      _ = 2 * kP η * (1 + kD0 L η) / ‖t‖ * (Real.exp (-(3 / 2) * v) * Real.exp (v / 2)) := by ring
-      _ = 2 * kP η * (1 + kD0 L η) / ‖t‖ * Real.exp (-v) := by rw [← Real.exp_add]; congr 2; ring
-  -- measurability
+      _ = 2 * kP η * (1 + kD0 L η) / ‖t‖ * (Real.exp (-(3 / 2) * v) * Real.exp (c * v)) := by ring
+      _ = 2 * kP η * (1 + kD0 L η) / ‖t‖ * Real.exp (-(3 / 2 - c) * v) := by
+          rw [← Real.exp_add]; congr 2; ring
   have hcw : Continuous w := by simp only [w]; fun_prop
   have hphi := continuous_phi hp (α := α)
   have hphid : ContinuousOn (phid L η α) (Ioi a) := (continuousOn_phid hp).mono (subset_univ _)
   have hI1 : IntegrableOn (fun v : ℝ => phi L η α v * Complex.exp (I * t * v)) (Ioi a) := by
-    refine Integrable.mono' ((integrableOn_exp_mul_Ioi (by norm_num : (-3 : ℝ) < 0) a).const_mul (4 * kP η))
+    refine Integrable.mono'
+      ((integrableOn_exp_mul_Ioi (by linarith : -(7 / 2 - c) < 0) a).const_mul (4 * kP η))
       ((hphi.mul (by fun_prop)).aestronglyMeasurable.restrict)
       ((ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall hb1))
   have hI2 : IntegrableOn (fun v : ℝ => phid L η α v * w v) (Ioi a) := by
-    refine Integrable.mono' ((integrableOn_exp_neg_Ioi a).const_mul _)
+    refine Integrable.mono' ((integrableOn_exp_mul_Ioi (by linarith : -(3 / 2 - c) < 0) a).const_mul _)
       ((hphid.mul hcw.continuousOn).aestronglyMeasurable measurableSet_Ioi)
       ((ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall hb2))
   have h_zero : Tendsto (phi L η α * w) (𝓝[>] a) (𝓝 (phi L η α a * w a)) :=
     ((hphi.mul hcw).tendsto a).mono_left nhdsWithin_le_nhds
-  have hexp3 : Tendsto (fun v : ℝ => 4 * kP η / ‖t‖ * Real.exp (-3 * v)) atTop (𝓝 0) := by
-    have := Real.tendsto_exp_atBot.comp (tendsto_id.const_mul_atTop_of_neg (by norm_num : (-3 : ℝ) < 0))
+  have hexp : Tendsto (fun v : ℝ => 4 * kP η / ‖t‖ * Real.exp (-(7 / 2 - c) * v)) atTop (𝓝 0) := by
+    have := Real.tendsto_exp_atBot.comp
+      (tendsto_id.const_mul_atTop_of_neg (by linarith : -(7 / 2 - c) < 0))
     simpa using this.const_mul (4 * kP η / ‖t‖)
   have h_infty : Tendsto (phi L η α * w) atTop (𝓝 0) := by
-    refine squeeze_zero_norm' ?_ hexp3
+    refine squeeze_zero_norm' ?_ hexp
     filter_upwards [eventually_gt_atTop a] with v hv
     simp only [Pi.mul_apply, norm_mul]
-    calc ‖phi L η α v‖ * ‖w v‖ ≤ 4 * kP η * Real.exp (-(7 / 2) * v) * (Real.exp (v / 2) / ‖t‖) := by
+    calc ‖phi L η α v‖ * ‖w v‖ ≤ 4 * kP η * Real.exp (-(7 / 2) * v) * (Real.exp (c * v) / ‖t‖) := by
           gcongr
           · exact norm_phi_tail ht (hL v hv).le
           · exact hwn v (by linarith)
-      _ = 4 * kP η / ‖t‖ * (Real.exp (-(7 / 2) * v) * Real.exp (v / 2)) := by ring
-      _ = 4 * kP η / ‖t‖ * Real.exp (-3 * v) := by rw [← Real.exp_add]; congr 2; ring
+      _ = 4 * kP η / ‖t‖ * (Real.exp (-(7 / 2) * v) * Real.exp (c * v)) := by ring
+      _ = 4 * kP η / ‖t‖ * Real.exp (-(7 / 2 - c) * v) := by rw [← Real.exp_add]; congr 2; ring
   have hIBP := integral_Ioi_mul_deriv_eq_deriv_mul (u := phi L η α) (u' := phid L η α) (v := w)
     (v' := fun v : ℝ => Complex.exp (I * t * v)) (a := a) (fun x _ => hasDerivAt_phi hp x)
     (fun x _ => hw x) hI1 hI2 h_zero h_infty
   rw [hIBP, zero_sub]
   have hphia : ‖phi L η α a‖ ≤ 4 * kP η * Real.exp (-(7 / 2) * a) := norm_phi_tail ht (le_of_eq hLa.symm)
   have hwa := hwn a ha0
-  have hint2 : ‖∫ v in Ioi a, phid L η α v * w v‖ ≤ 2 * kP η * (1 + kD0 L η) / ‖t‖ * Real.exp (-a) := by
+  have hint2 : ‖∫ v in Ioi a, phid L η α v * w v‖ ≤
+      2 * kP η * (1 + kD0 L η) / ‖t‖ * (Real.exp (-(3 / 2 - c) * a) / (3 / 2 - c)) := by
     calc ‖∫ v in Ioi a, phid L η α v * w v‖
-        ≤ ∫ v in Ioi a, 2 * kP η * (1 + kD0 L η) / ‖t‖ * Real.exp (-v) :=
-          norm_integral_le_of_norm_le ((integrableOn_exp_neg_Ioi a).const_mul _)
+        ≤ ∫ v in Ioi a, 2 * kP η * (1 + kD0 L η) / ‖t‖ * Real.exp (-(3 / 2 - c) * v) :=
+          norm_integral_le_of_norm_le
+            ((integrableOn_exp_mul_Ioi (by linarith : -(3 / 2 - c) < 0) a).const_mul _)
             ((ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall hb2))
-      _ = _ := by rw [integral_const_mul, integral_exp_neg_Ioi]
-  have hea : Real.exp (-(7 / 2) * a) * Real.exp (a / 2) ≤ 1 := by
-    rw [← Real.exp_add, Real.exp_le_one_iff]; linarith
-  have hea2 : Real.exp (-a) ≤ 1 := Real.exp_le_one_iff.2 (by linarith)
+      _ = _ := by
+          rw [integral_const_mul, integral_exp_mul_Ioi (by linarith), neg_div_neg_eq]
+  have hea : Real.exp (-(7 / 2) * a) * Real.exp (c * a) ≤ 1 := by
+    rw [← Real.exp_add, Real.exp_le_one_iff]; nlinarith
+  have hea2 : Real.exp (-(3 / 2 - c) * a) ≤ 1 := Real.exp_le_one_iff.2 (by nlinarith)
+  have hq : 2 * kP η * (1 + kD0 L η) * (1 / (3 / 2 - c)) = 2 / (3 / 2 - c) * kP η * (1 + kD0 L η) := by
+    field_simp
   calc ‖-(phi L η α a * w a) - ∫ v in Ioi a, phid L η α v * w v‖
       ≤ ‖phi L η α a‖ * ‖w a‖ + ‖∫ v in Ioi a, phid L η α v * w v‖ := by
         rw [sub_eq_add_neg, ← neg_add]; rw [norm_neg]
         refine (norm_add_le _ _).trans ?_; rw [norm_mul]
-    _ ≤ 4 * kP η * Real.exp (-(7 / 2) * a) * (Real.exp (a / 2) / ‖t‖)
-          + 2 * kP η * (1 + kD0 L η) / ‖t‖ * Real.exp (-a) := by gcongr
-    _ = (4 * kP η * (Real.exp (-(7 / 2) * a) * Real.exp (a / 2)) + 2 * kP η * (1 + kD0 L η) * Real.exp (-a)) / ‖t‖ := by
+    _ ≤ 4 * kP η * Real.exp (-(7 / 2) * a) * (Real.exp (c * a) / ‖t‖)
+          + 2 * kP η * (1 + kD0 L η) / ‖t‖ * (Real.exp (-(3 / 2 - c) * a) / (3 / 2 - c)) := by
+        gcongr
+    _ = (4 * kP η * (Real.exp (-(7 / 2) * a) * Real.exp (c * a))
+          + 2 * kP η * (1 + kD0 L η) * (Real.exp (-(3 / 2 - c) * a) / (3 / 2 - c))) / ‖t‖ := by
         ring
-    _ ≤ (4 * kP η * 1 + 2 * kP η * (1 + kD0 L η) * 1) / ‖t‖ := by gcongr
-    _ ≤ 6 * kP η * (1 + kD0 L η) / ‖t‖ := by
-        gcongr; nlinarith
+    _ ≤ (4 * kP η * 1 + 2 * kP η * (1 + kD0 L η) * (1 / (3 / 2 - c))) / ‖t‖ := by gcongr
+    _ ≤ (4 + 2 / (3 / 2 - c)) * kP η * (1 + kD0 L η) / ‖t‖ := by
+        gcongr
+        rw [hq]
+        nlinarith [mul_nonneg hP hD]
+
+/-- **Integration by parts on the tail**: `‖∫_a^∞ φ e^{itv}‖ ≤ 6P(1 + D₀)/‖t‖`. -/
+theorem tail_ibp (ht : Tail L η α) {a : ℝ} (hLa : Real.exp a = L) {t : ℂ} (hti : |t.im| ≤ 1 / 2)
+    (ht0 : t ≠ 0) :
+    ‖∫ v in Ioi a, phi L η α v * Complex.exp (I * t * v)‖ ≤ 6 * kP η * (1 + kD0 L η) / ‖t‖ := by
+  have h := tail_ibp_gen ht hLa (c := 1 / 2) (by norm_num) (by norm_num) (abs_le.1 hti).1 ht0
+  norm_num at h; exact h
 
 end Kaiser
 

@@ -5,10 +5,10 @@ Plain statement (`logDerivBnd_KV`). With `u(T) = 1/((log T)^{2/3}(log(log T + 3)
 there are `A ∈ (0, 1/2]` and `C > 0` such that
   `|ζ'/ζ(σ+it)| ≤ C (log|t|)³` for `|t| > 3` and `σ ≥ 1 − A·u(|t|)`.
 
-This is round 193's L4 (`Landau.logDerivBnd_of_growth`) for the width `wkv` of round 215: the
-disc facts and the local bound at a point are the same; the zero gap is `zero_gap_explicitW`, and
-the power-form inverse bounds are replaced by `1/ρ ≤ (24/c₂)·log|t|` and
-`1/dlt ≤ O(log²|t|)`, with `dlt ≥ c₂ u/(48N)`.
+This is round 193's L4 (`Landau.logDerivBnd_of_growth`) for the width `wkv` of round 215. The
+disc facts, the zero gap and the local bound are the generic width versions in `Landau.lean`
+(`disc_factsW`, `zero_gap_explicitW`, `near_boundW`). Here the power-form inverse bounds are
+replaced by `1/ρ ≤ (24/c₂)·log|t|` and `1/dlt ≤ O(log²|t|)`, with `dlt ≥ c₂ u/(48N)`.
 -/
 import LandauKV
 
@@ -19,188 +19,7 @@ local notation "ζ'" => deriv ζ
 
 namespace LogDerivKV
 
-open Landau LandauW LandauKV
-
-theorem disc_factsW {w : ℝ → ℝ} {Cw K : ℝ} (hw : WidthOK w Cw) (hK : 0 < K) (hG : GrowthW w K) {T δ : ℝ}
-    (hT : 4 ≤ |T|) (hδ : 0 < δ) (hδ2 : δ ≤ 1 / 2) :
-    (∀ z : ℂ, ‖z‖ < 2 → (((1 + δ : ℝ) : ℂ) + T * I) + radW w T * z ≠ 1) ∧
-    (∀ z : ℂ, ‖z‖ ≤ 3 / 4 → ‖ζ ((((1 + δ : ℝ) : ℂ) + T * I) + radW w T * z)‖ ≤
-      Bnd K δ T * ‖ζ (((1 + δ : ℝ) : ℂ) + T * I)‖) ∧ 1 < Bnd K δ T := by
-  set s₀ : ℂ := ((1 + δ : ℝ) : ℂ) + T * I with hs₀def
-  have hre : s₀.re = 1 + δ := by simp [hs₀def]
-  have him : s₀.im = T := by simp [hs₀def]
-  set ρ := radW w T with hρdef
-  have hρ := radW_pos hw T hT
-  have hρ4 := radW_le hw hT
-  have hL := Lg_gt_one hT
-  have hζδ : 1 ≤ ‖ζ ((1 + δ : ℝ) : ℂ)‖ * ‖ζ s₀‖ := by
-    have h := inv_norm_zeta_le (s := s₀) (by rw [hre]; linarith)
-    rw [hre] at h
-    have hz : 0 < ‖ζ s₀‖ := norm_pos_iff.mpr (riemannZeta_ne_zero_of_one_lt_re (by rw [hre]; linarith))
-    rw [div_le_iff₀ hz] at h; linarith
-  have hB : 1 < Bnd K δ T := by
-    unfold Bnd; have : 0 ≤ K * Lg T ^ K * ‖ζ ((1 + δ : ℝ) : ℂ)‖ := by positivity
-    linarith
-  refine ⟨fun z hz h => ?_, fun z hz => ?_, hB⟩
-  · have := congrArg Complex.im h
-    simp only [add_im, him, mul_im, ofReal_re, ofReal_im, zero_mul, add_zero, one_im] at this
-    have hzi : |z.im| ≤ ‖z‖ := Complex.abs_im_le_norm z
-    have : |T| ≤ ρ * |z.im| := by
-      rw [show T = -(ρ * z.im) by linarith, abs_neg, abs_mul, abs_of_pos hρ]
-    nlinarith [abs_nonneg z.im]
-  · set s := s₀ + ρ * z with hsdef
-    have hsre : s.re = 1 + δ + ρ * z.re := by simp [hsdef, hre]
-    have hsim : s.im = T + ρ * z.im := by simp [hsdef, him]
-    have hzr : |z.re| ≤ 3 / 4 := (Complex.abs_re_le_norm z).trans hz
-    have hzi : |z.im| ≤ 3 / 4 := (Complex.abs_im_le_norm z).trans hz
-    have hρzi : |ρ * z.im| ≤ 3 / 16 := by
-      rw [abs_mul, abs_of_pos hρ]; nlinarith [abs_nonneg z.im]
-    have hρzr : |ρ * z.re| ≤ 3 / 4 * ρ := by
-      rw [abs_mul, abs_of_pos hρ]; nlinarith [abs_nonneg z.re]
-    have hims : 3 ≤ |s.im| := by
-      rw [hsim]; have := abs_sub_abs_le_abs_sub T (-(ρ * z.im))
-      rw [abs_neg, sub_neg_eq_add] at this; linarith
-    have hims2 : |s.im| ≤ |T| + 1 := by
-      rw [hsim]; have := abs_add_le T (ρ * z.im); linarith
-    have hlog_pos : 0 < Real.log |s.im| := Real.log_pos (by linarith)
-    have hlog_le : Real.log |s.im| ≤ Lg T := Real.log_le_log (by linarith) hims2
-    have hlog1 : 1 ≤ Real.log |s.im| := by
-      rw [Real.le_log_iff_exp_le (by linarith)]; have := Real.exp_one_lt_d9; linarith
-    have hpow : w (Lg T) ≤ w (Real.log |s.im|) := hw.anti _ _ hlog1 hlog_le
-    have hlower : 1 - w (Real.log |s.im|) ≤ s.re := by
-      rw [hsre]
-      have : w (Lg T) = 4 * ρ := by rw [hρdef, radW]; ring
-      have := abs_le.mp hρzr
-      linarith
-    have hupper : s.re ≤ 2 := by
-      rw [hsre]; have := abs_le.mp hρzr; linarith
-    have hgs := hG s.im hims s.re hlower hupper
-    rw [Complex.re_add_im] at hgs
-    have hKpow : K * Real.log |s.im| ^ K ≤ K * Lg T ^ K :=
-      mul_le_mul_of_nonneg_left (Real.rpow_le_rpow hlog_pos.le hlog_le hK.le) hK.le
-    have hζs0 : 0 ≤ ‖ζ s₀‖ := norm_nonneg _
-    calc ‖ζ s‖ ≤ K * Lg T ^ K := hgs.trans hKpow
-      _ ≤ K * Lg T ^ K * (‖ζ ((1 + δ : ℝ) : ℂ)‖ * ‖ζ s₀‖) := by
-          have : 0 ≤ K * Lg T ^ K := by positivity
-          nlinarith
-      _ ≤ Bnd K δ T * ‖ζ s₀‖ := by
-          unfold Bnd; nlinarith [mul_nonneg (mul_nonneg hK.le (Real.rpow_nonneg (by linarith : (0:ℝ) ≤ Lg T) K))
-            (norm_nonneg (ζ ((1 + δ : ℝ) : ℂ))), hζs0]
-
-lemma dltW_anti {w : ℝ → ℝ} {Cw : ℝ} (hw : WidthOK w Cw) {N : ℝ} (hN : 0 < N) {T U : ℝ}
-    (hT : 4 ≤ |T|) (h : |T| ≤ |U|) : dltW w N U ≤ dltW w N T := by
-  have hT2 : 4 ≤ |2 * T| := by rw [abs_mul]; norm_num; linarith
-  have hTU : |2 * T| ≤ |2 * U| := by rw [abs_mul, abs_mul]; norm_num; linarith
-  unfold dltW
-  have hr := radW_anti hw hT2 hTU
-  have hrpos := radW_pos hw (2 * U) (by linarith)
-  have hL1 := Lg_gt_one hT2
-  have hlog : Real.log (Lg (2 * T)) ≤ Real.log (Lg (2 * U)) :=
-    Real.log_le_log (by linarith) (Lg_mono hT2 hTU)
-  have hlnn : 0 ≤ Real.log (Lg (2 * T)) := Real.log_nonneg hL1.le
-  apply div_le_div₀ (radW_pos hw (2 * T) hT2).le hr (by positivity)
-  nlinarith
-
-lemma dltW_pos {w : ℝ → ℝ} {Cw : ℝ} (hw : WidthOK w Cw) {N : ℝ} (hN : 0 < N) {T : ℝ}
-    (hT : 2 ≤ |T|) : 0 < dltW w N T := by
-  have hT2 : 4 ≤ |2 * T| := by rw [abs_mul]; norm_num; linarith
-  unfold dltW
-  have := radW_pos hw (2 * T) hT2
-  have := Real.log_nonneg (Lg_gt_one hT2).le
-  positivity
-
-set_option maxHeartbeats 1600000 in
-/-- **The local bound inside the disc**, for any admissible width. -/
-theorem near_boundW {w : ℝ → ℝ} {Cw K N c1 t σ Q1 Q2 E : ℝ} (hw : WidthOK w Cw) (hK : 0 < K)
-    (hG : GrowthW w K) (hN : 4 ≤ N)
-    (hgap : ∀ β t : ℝ, ζ (β + t * I) = 0 → 4 ≤ |t| → 3 * dltW w N t / 13 ≤ 1 - β)
-    (ht : 5 ≤ |t|) (hζ : ζ (σ + t * I) ≠ 0) (hlo1 : 1 - σ ≤ radW w t / 8)
-    (hlo2 : 1 - σ ≤ 3 * dltW w N (|t| + 1) / 26) (hhi : σ < 1 + radW w t / 8)
-    (hQ1 : 0 ≤ Q1) (hQ2 : 0 ≤ Q2) (hE : 0 ≤ E)
-    (hinvρ : 1 / radW w t ≤ Q1 * Real.log |t|)
-    (hinvg : 1 / (3 * dltW w N (|t| + 1) / 26) ≤ Q2 * Real.log |t| ^ 2)
-    (hlB : Real.log (Bnd K (radW w t / 8) t) ≤ E * Real.log |t|) :
-    ‖ζ' (σ + t * I) / ζ (σ + t * I)‖ ≤
-      E * (Q1 * Kc + 1 / Real.log ((3 / 4) / (1 / 2)) * Q2) * Real.log |t| ^ 3 := by
-  have ht4 : 4 ≤ |t| := by linarith
-  have ht3 : 3 ≤ |t| := by linarith
-  set ℓ := Real.log |t| with hℓdef
-  have hℓ : 1 ≤ ℓ := ell_ge_one ht3
-  set ρ := radW w t with hρdef
-  have hρ : 0 < ρ := radW_pos hw t ht4
-  have hρ4 : ρ ≤ 1 / 4 := radW_le hw ht4
-  set δ := ρ / 8 with hδdef
-  set s₀ : ℂ := ((1 + δ : ℝ) : ℂ) + t * I with hs₀def
-  obtain ⟨hpole, hbound, hB1⟩ := disc_factsW hw hK hG (T := t) (δ := δ) ht4 (by positivity)
-    (by linarith)
-  set z : ℂ := (((σ - 1 - δ) / ρ : ℝ) : ℂ) with hzdef
-  have hsz : s₀ + (ρ : ℂ) * z = σ + t * I := by
-    apply Complex.ext
-    · simp only [hs₀def, hzdef, add_re, ofReal_re, mul_re, I_re, mul_zero, ofReal_im, I_im,
-        mul_one, sub_self, add_zero, sub_zero]
-      field_simp; ring
-    · simp [hs₀def, hzdef]
-  have hz : ‖z‖ ≤ 1 / 4 := by
-    rw [hzdef, Complex.norm_real, Real.norm_eq_abs, abs_div, abs_of_pos hρ, div_le_iff₀ hρ,
-      abs_le]
-    constructor <;> linarith
-  have hNpos : 0 < N := by linarith
-  set g := 3 * dltW w N (|t| + 1) / 26 with hgdef
-  have hdpos : 0 < dltW w N (|t| + 1) := dltW_pos hw hNpos (by
-    rw [abs_of_pos (by positivity : (0 : ℝ) < |t| + 1)]; linarith)
-  have hg : 0 < g := by rw [hgdef]; linarith
-  have hgap' : ∀ v : ℂ, ‖v‖ ≤ 1 / 2 → ζ (s₀ + ρ * v) = 0 →
-      g ≤ ‖(s₀ + ρ * z) - (s₀ + ρ * v)‖ := by
-    intro v hv hv0
-    set u := s₀ + (ρ : ℂ) * v with hudef
-    have hure : u.re = 1 + δ + ρ * v.re := by simp [hudef, hs₀def]
-    have huim : u.im = t + ρ * v.im := by simp [hudef, hs₀def]
-    have hvi : |v.im| ≤ 1 / 2 := (Complex.abs_im_le_norm v).trans hv
-    have hρvi : |ρ * v.im| ≤ 1 / 8 := by
-      rw [abs_mul, abs_of_pos hρ]; nlinarith [abs_nonneg v.im]
-    have hu4 : 4 ≤ |u.im| := by
-      rw [huim]; have := abs_sub_abs_le_abs_sub t (-(ρ * v.im))
-      rw [abs_neg, sub_neg_eq_add] at this; linarith
-    have hu5 : |u.im| ≤ |t| + 1 := by
-      rw [huim]; have := abs_add_le t (ρ * v.im); linarith
-    have hz0 : ζ (u.re + u.im * I) = 0 := by rw [Complex.re_add_im]; exact hv0
-    have h1 := hgap u.re u.im hz0 hu4
-    have h2 := dltW_anti hw hNpos (T := u.im) (U := |t| + 1) hu4
-      (by rw [abs_of_pos (by positivity : (0 : ℝ) < |t| + 1)]; exact hu5)
-    rw [hsz]
-    have hre : ((σ : ℂ) + t * I - u).re = σ - u.re := by simp
-    have := Complex.abs_re_le_norm ((σ : ℂ) + t * I - u)
-    rw [hre] at this
-    have hσu : g ≤ σ - u.re := by rw [hgdef] at hlo2 ⊢; linarith
-    exact hσu.trans ((le_abs_self _).trans this)
-  have hs₀ : 1 < s₀.re := by simp [hs₀def]; positivity
-  have main := local_bound_point hs₀ hρ hB1 hg hz (by rw [hsz]; exact hζ) hpole hbound hgap'
-  rw [hsz] at main
-  set L := ‖ζ' (σ + t * I) / ζ (σ + t * I)‖ with hLdef
-  set lB := Real.log (Bnd K δ t) with hlBdef
-  set cL := 1 / Real.log ((3 / 4) / (1 / 2)) with hcLdef
-  have hcL : 0 < cL := by
-    rw [hcLdef]; have : 0 < Real.log ((3 / 4 : ℝ) / (1 / 2)) := Real.log_pos (by norm_num)
-    positivity
-  have hKc : 0 ≤ Kc := by unfold Kc; positivity
-  have hlBpos : 0 < lB := Real.log_pos hB1
-  have hL1 : L ≤ Kc * lB * (1 / ρ) + cL * lB * (1 / g) := by
-    have h2 : L ≤ (Kc * lB + ρ / g * (cL * lB)) / ρ := by
-      rw [le_div_iff₀ hρ]; linarith [main]
-    have e : (Kc * lB + ρ / g * (cL * lB)) / ρ = Kc * lB * (1 / ρ) + cL * lB * (1 / g) := by
-      field_simp
-    linarith
-  have hE0 : 0 ≤ E * ℓ := by positivity
-  have t1 : Kc * lB * (1 / ρ) ≤ Kc * (E * ℓ) * (Q1 * ℓ) :=
-    mul_le_mul (mul_le_mul_of_nonneg_left hlB hKc) hinvρ (by positivity) (by positivity)
-  have t2 : cL * lB * (1 / g) ≤ cL * (E * ℓ) * (Q2 * ℓ ^ 2) :=
-    mul_le_mul (mul_le_mul_of_nonneg_left hlB hcL.le) hinvg (by positivity) (by positivity)
-  have hℓ23 : ℓ ^ 2 ≤ ℓ ^ 3 := pow_le_pow_right₀ hℓ (by norm_num)
-  have hKE : 0 ≤ Kc * E * Q1 := by positivity
-  calc L ≤ Kc * (E * ℓ) * (Q1 * ℓ) + cL * (E * ℓ) * (Q2 * ℓ ^ 2) := by linarith
-    _ = (Kc * E * Q1) * ℓ ^ 2 + E * (cL * Q2) * ℓ ^ 3 := by ring
-    _ ≤ (Kc * E * Q1) * ℓ ^ 3 + E * (cL * Q2) * ℓ ^ 3 := by nlinarith
-    _ = E * (Q1 * Kc + cL * Q2) * ℓ ^ 3 := by ring
+open Landau LandauKV
 
 /-! ## The Korobov–Vinogradov width: explicit inequalities -/
 
@@ -548,7 +367,7 @@ theorem logDerivBnd_KV : ∃ A : ℝ, 0 < A ∧ A ≤ 1 / 2 ∧ ∃ C : ℝ, 0 <
         _ ≤ 26 / 3 * (48 * N / VinoKV.c2 * (3 * ℓ ^ 2)) := by gcongr
         _ = _ := by ring
     have hlB := logBnd_le_kv hK hc1 hnear ht4 (t := t)
-    exact near_boundW (c1 := c1) wkv_ok hK hG hN hgap ht5 hζ hlo1 hlo2 hin hQ1n (by positivity) hE hinvρ
+    exact near_boundW wkv_ok hK hG hN hgap ht5 hζ hlo1 hlo2 hin hQ1n (by positivity) hE hinvρ
       hinvg hlB
   · rw [not_lt] at hin
     refine fin (8 * Q1 + C0) (by linarith) ?_

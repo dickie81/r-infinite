@@ -6,9 +6,9 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 |---|---|---|
 | `WanderLadderPNT.lean` | 191 | rungs 1 and 2 in the pilot's terms |
 | `Rung3.lean` | 192 | rung 3 from a zero-free region and a `ζ'/ζ` bound |
-| `Landau.lean` | 193 | Landau's lemma: a growth bound on ζ gives rung 3 |
+| `Landau.lean` | 193, 219 | Landau's lemma: a growth bound on ζ gives rung 3; since round 219, for any admissible width function |
 | `KVBridge.lean` | 212 | the pilot's layers I–II give the growth bound: rung 3, unconditional |
-| `LandauW.lean`, `LandauKV.lean` | 215 | Landau's lemma for a width function; the Korobov–Vinogradov zero-free region |
+| `LandauKV.lean` | 215 | the Korobov–Vinogradov zero-free region |
 | `LogDerivKV.lean`, `MediumPNTW.lean`, `PNTKV.lean` | 216 | the prime number theorem with the Korobov–Vinogradov error term |
 
 ## Building (round 217)
@@ -28,7 +28,7 @@ Everything builds on the pilot's toolchain (`../../lean-toolchain`, Mathlib at `
   - The PNT+ files are compiled with PNT+'s own lakefile options, `autoImplicit = false` and `relaxedAutoImplicit = false`.
 - It prints the axioms of the final theorems.
 
-The pilot's layer I–II files (`Vinogradov` … `VinoKV`) are no longer copied and renamed: `KVBridge.lean` and `LandauW.lean` import the pilot's own oleans. `kv_port.sh` is gone.
+The pilot's layer I–II files (`Vinogradov` … `VinoKV`) are no longer copied and renamed: `KVBridge.lean` and `LandauKV.lean` import the pilot's own oleans. `kv_port.sh` is gone.
 
 The two `sorry` lemmas in PNT+'s `Wiener.lean` are not in the dependency cone of any theorem here.
 
@@ -49,6 +49,8 @@ All three theorems print only `propext`, `Classical.choice`, `Quot.sound`.
 This is layer III of rung 3, Landau's lemma in general form. Three of its proofs raise `maxHeartbeats`.
 
 `rung3_of_growth` runs from `PolylogGrowth a K` (`|ζ| ≤ K(log|t|)^K` on `σ ≥ 1 − (log|t|)^{−a}`, `0 < a ≤ 1`) to `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))`, for every `n₁ > a`. The intermediate outputs are `zeroFree_of_growth` (the zero-free region) and `logDerivBnd_of_growth` (`|ζ'/ζ| ≤ C(log|t|)³`). All axioms are clean.
+
+The local steps are proved once, for any admissible width `w` (`WidthOK`: positive, at most 1, non-increasing, `log(1/w(L)) = O(1 + log L)`): `apply_localW`, `zero_gapW`, `disc_factsW`, `near_boundW`. The power width `wpow a L = L^(−a)` gives the statements above, and `LandauKV`/`LogDerivKV` use the Korobov–Vinogradov width. Round 215's `LandauW.lean` is merged in (round 219).
 
 ## KVBridge.lean (round 212): rung 3, unconditional
 

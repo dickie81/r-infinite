@@ -7020,3 +7020,20 @@ Axioms are clean, checked on a clean build (`./build.sh`, then `external/pnt/bui
   - `KVBridge.zeta_bound_large` now follows from `zeta_le_sum`, moved there from `LandauKV`.
 
 **Check 4:** not applicable; there is no new mathematics. **Bearing on RH:** none.
+
+## Round 219: the remaining duplicates factored
+
+963 lines of Lean fewer (592 added, 1555 deleted, `LandauW.lean` included), with no change to any headline statement. Every file compiles. The 11 external headline theorems depend only on `propext`, `Classical.choice` and `Quot.sound`.
+
+- **Landau's lemma, once.** `LandauW.lean` is merged into `Landau.lean`. The local steps (`apply_localW`, `zero_gapW`, `disc_factsW`, `near_boundW`, the radius `radW` and its lemmas) are proved once for any `WidthOK` width. The power-width versions are instances at `wpow a L = L^(−a)`, and `LogDerivKV` drops its own copy of the disc steps. `near_boundW` loses an unused parameter.
+- **Block-bound family.** After round 218 nothing used `ExpSum4.Phi`, `Bn_bound`, `block_bound` or `ExpSum5.block_bound_partial`, so they are gone. Also unused: `ExpSum.T_neg_left`, `VinoConst2.eta_two_sq`, `VinoRec2.eta2_nonneg`.
+- **Vinogradov chain.**
+  - `VinoRec.expo_step` is the exponent step shared by `vmvt_iter` and `VinoConst.vmvt_explicit`.
+  - `q_bound` and `main_part` are the two halves shared by `step_real` and `step_real2`.
+  - `const_bound_m` moves from `VinoKV` to `VinoFam`, and `const_bound3` is its instance at `m = mf K`.
+- **Parity continuity.** `ParityCont` has three generic lemmas, which take the cut and the probe class as arguments: `normSq_sub_cut_le`, `left_cont_of_dil` and `continuousOn_of_right_left`. The odd (`ParityCont`) and even (`SimpleCont`) sectors are instances of them. The right-continuity/lower-semicontinuity pair stays as two proofs, because a shared version would need more parameters than it saves.
+- **Kaiser.**
+  - `KaiserPW.norm_kH_core`/`kH_exp_eq` serve both `norm_kH_le` and `KaiserDeriv.norm_kH_le2`.
+  - `KaiserIBP.tail_ibp_gen` is the tail integration by parts on `t.im ≥ −c`, for any `0 ≤ c ≤ 1`. `tail_ibp` is its instance at `c = ½`, and `KaiserPrefactor.tail_ibp_line` its instance at `c = 1`.
+
+**Check 4:** not applicable; there is no new mathematics. **Bearing on RH:** none.
