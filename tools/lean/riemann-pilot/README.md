@@ -7181,7 +7181,7 @@ The runs used `scan.py dh K 300 δ` with `δ = 2a`. A validity condition was fou
 - The other off-line zeros contribute at most 1e−3.
 - `|ĝ|` peaks at `t = 85–86.5`.
 - The second mode is the same picture for `ρ₁ = 0.651 + 114.16i`. At `a = 3.5` it disappears at K = 120 (`π·120/3.5 = 107.7 < 114`) and returns at K = 160. This is the truncation diagnostic.
-- There is no DH zero with `Re s > 1` at the heights the basis sees, so the excess slope is not another zero.
+- The `ρ₀` term matches `λ₁` to within 5%, which leaves no room for another zero to cause the excess slope. Only the four known off-line zeros below `t = 177` were checked individually.
 
 **Reading (post hoc, not pre-registered).**
 - The heuristic "`−λ₁ ∝ e^{(2β₀−1)a}`" ignored the prefactor. The ceiling for one zero is `max ‖g‖=1 of 4|ĝ(τ₀)|² = 4 sinh(2ηa)/η` with `η = β₀ − ½`.
