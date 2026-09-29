@@ -6484,3 +6484,27 @@ Axioms are clean.
 
 **Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
 
+## Round 198: VMVT step I.3b, the class count `G_a` (`src/VinoIter.lean`)
+
+Axioms are clean.
+
+- **`Jc_cls_le`.** A residue class `a` mod `p` inside `[1,P]` carries no more solutions than an interval of length `⌊P/p⌋+1`. The map is `w ↦ w/p + 1`, and agreement is preserved by three steps:
+  - shift by `−a` (`psZ_shift`);
+  - divide by `p` (`psZ_smul_cancel`);
+  - shift by `+1`.
+- **`cong_of_agree`.** If `pv u + pv w = pv u' + pv w'` with `w, w'` in class `a`, then `Σ(uᵢ−a)^j ≡ Σ(u'ᵢ−a)^j (mod p^j)`. The proof shifts the concatenated tuples by `−a`; the `w`-part is then divisible by `p^j`.
+- **`Gcls_le` (Step C′).** `G_a ≤ P^k·k!·p^{k(k−1)/2}·J_c(class a)`. So with `Jc_cls_le`, `G_a ≤ P^k·k!·p^{k(k−1)/2}·J_s(⌊P/p⌋+1)`. The proof fibres over `(u,u')`:
+  - each fibre is a shifted count, so at most `J_c` (`shiftCount_le`);
+  - admissible pairs number at most `P^k·k!·p^{k(k−1)/2}` (`cond_count`).
+
+| I.3b piece | status |
+|---|---|
+| C conditioned count | done |
+| C′ `G_a` bound | **done** |
+| B Hölder over classes: `G ≤ p^{2s−1} Σ_a G_a` (orthogonality for general finite sets, plus power mean) | open |
+| A good/bad split | open |
+| D bad count | open |
+| recursion with the Bertrand prime | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
