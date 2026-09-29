@@ -6407,3 +6407,27 @@ Only the classical I.3 is needed for Korobov–Vinogradov. The sharp theorem (Bo
 
 **Check 4:** the mathematics is classical (Newton, Vieta, Vinogradov 1935). The Lean file is new to the pilot. **Bearing on RH:** none.
 
+## Round 195: VMVT steps I.1 and I.2 (`src/Vinogradov.lean`)
+
+Axioms are clean.
+
+- **I.1, orthogonality (`J_eq_integral_norm`).** `J_{s,k}(N) = ∫_{(0,1]^k} |Σ_{n≤N} e(α₁n + … + α_k nᵏ)|^{2s} dα`, with `e(t) = exp(2πit)`. The proof has three steps:
+  1. `∫₀¹ e(mt) dt = [m = 0]`;
+  2. the product-measure formula on the torus;
+  3. expanding `f^s·conj(f)^s` over pairs of tuples.
+  This is the link between the counting problem and exponential sums: layer II will run through it.
+- **I.2 (`J_succ_le`).** `J_{s+1,k}(N) ≤ N²·J_{s,k}(N)`. The proof:
+  - Split off the first coordinate.
+  - Each fibre is a shifted count `#{(x,y) : pv x = pv y + w}`.
+  - The shifted count never exceeds the unshifted one (`shiftCount_le`, from `2ab ≤ a² + b²` and injectivity of translation).
+  The round-194 data satisfy it, for example `J_{4,2}(20) = 8 610 124 ≤ 400·J_{3,2}(20) = 22 601 600`.
+
+| step | status |
+|---|---|
+| I.1 orthogonality | **done** |
+| I.2 `J_{s+1} ≤ N² J_s` | **done** |
+| I.3 Linnik–Karatsuba p-adic iteration | open (the core) |
+| I.4 Weyl-sum bound from I.3 | open |
+
+**Check 4:** classical (Vinogradov 1935). The Lean forms are new to the pilot. **Bearing on RH:** none.
+
