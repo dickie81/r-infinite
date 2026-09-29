@@ -7267,7 +7267,7 @@ The same Gram code and parameters as round 165's DH scan are used, on `L(s, χ�
 | `λ₁^{χ₄}`, best K | 6.1e−7 | 1.8e−23 | 8.3e−38 | 1.4e−69 | 1.9e−117 | 1.2e−171 |
 | K | 120 | 120 | 120 | 120 | 200 | 200 |
 | `−log λ₁/e^{2a}` | – | 2.60 | 2.76 | 2.90 | 2.99 | 2.65 |
-| `λ₁^{DH}` (round 165/222) | 3.4e−5 | 5.4e−23 | **−6.0e−30** | −0.71 | −1.33 | −1.86 |
+| `λ₁^{DH}` (round 165/222) | 3.4e−5 | – (1.5e−14 at 1.4, 5.4e−23 at 1.6) | **−6.0e−30** | −0.71 | −1.33 | −1.86 |
 
 - **Prediction 1 held.** `λ₁^{χ₄}` is positive at every point, including past DH's first failure (`a = 1.715`), at the same `K` where DH is negative.
 - **Prediction 2 holds at the best `K`.** The rate lies in `[0.8π, 1.2π] = [2.51, 3.77]`, but the runs at `a ≥ 2` are not converged in `K`:
