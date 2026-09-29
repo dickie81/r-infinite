@@ -6600,3 +6600,36 @@ Axioms are clean.
 
 **Check 4:** classical (Vinogradov 1935, Linnik 1943, Karatsuba). The Lean proof is new to the pilot. I know of no other formalisation of any form of VMVT; I have not checked this exhaustively. **Bearing on RH:** none.
 
+## Round 203: layer II begins, the exponential-sum bound (`src/ExpSum.lean`, `frontier/expsum/`)
+
+- **Route** (`EXPSUM_SPEC.md`), after T. Tao, *254A Notes 5* (2015), Theorem 2(ii). For each fixed `n`, the Taylor coefficients of `−(t/2π) log(n + ab)` give a bilinear double sum over `a, b ≤ M`. The double sum is bounded directly, with no spacing lemma over `n`. The steps are:
+  - (A) geometric sum;
+  - (B) one-dimensional bilinear bound;
+  - (D) double Hölder, the link to `J`;
+  - (E) shift and Taylor;
+  - (F) assembly;
+  - (G) ζ growth.
+- **Numerics** (pre-registered in `PREREG_expsum.md`):
+  - E1, step (D): holds in 800/800 random trials over 4 parameter sets. The median slack is 6 at `ℓ = 1` and 10³–10⁴ at `ℓ = 2`, as expected at small `M`.
+  - E2, step (B): holds in 500/500, with median slack about 9.
+- **Lean** (axioms clean):
+  - **`double_holder`, step (D).** For all `α ∈ ℝ^K` and `M, ℓ ≥ 1`: `|Σ_{a,b≤M} e(Σ_j α_j a^{j+1}b^{j+1})|^{2ℓ²} ≤ M^{4ℓ(ℓ−1)}·J_{ℓ,K}(M)²·Z`, for any `Z` bounding `Σ_{x'∈X} |Σ_{y∈X} e(α·(x−x')·y)|` for every `x ∈ X`. The pieces:
+    - power mean in `a` (`power_mean_fs`);
+    - `ℓ`-th powers become `ℓ`-tuples (`pow_expand`);
+    - duality with unit weights `c_a`;
+    - power mean over tuples;
+    - Cauchy–Schwarz against the representation counts, whose sum of squares is `J` (`shiftCount_eq_sum`);
+    - the square expansion with `ν(x)ν(x') ≤ (ν(x)² + ν(x')²)/2` (`sum_normSq_le`).
+  - **`geom_bound`, step (A).** `|Σ_{i<Y} e(θ(u+i))| ≤ 1/(2‖θ‖)` for non-integer `θ`. The proof uses the chord `|e(θ) − 1| = 2|sin πθ|` and Jordan's inequality `|sin πθ| ≥ 2‖θ‖` (`abs_sin_ge`).
+
+| layer II step | status |
+|---|---|
+| (A) geometric sum | **done** |
+| (D) double Hölder | **done** |
+| (B) one-dimensional bilinear bound; factorising `Z` over coordinates | open |
+| (E) shift `n → n+ab` and Taylor for `log` | open |
+| (F) assembly with explicit VMVT constants (restate `vmvt_iter` with explicit `C`) | open |
+| (G) ζ growth: `PolylogGrowth a K` | open |
+
+**Check 4:** classical (Vinogradov; the presentation follows Tao 2015). The Lean forms are new to the pilot. **Bearing on RH:** none.
+
