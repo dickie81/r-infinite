@@ -1,6 +1,7 @@
 import Mathlib
 import Mollify
 import DigammaGauss
+import ArchShift
 
 /-! # The explicit-formula bridge: `weilQ` is the zero side of Weil's explicit formula (round 126)
 
@@ -57,142 +58,35 @@ theorem digammaDiff : DigammaDiff := fun _ _ hz hw => PilotDigamma.digamma_sub_e
 /-- The kernel `e^{−t/4}/(1 − e^{−t})`. -/
 def kk (t : ℝ) : ℝ := Real.exp (-(t / 4)) / (1 - Real.exp (-t))
 
-theorem kk_nonneg {t : ℝ} (ht : 0 < t) : 0 ≤ kk t := by
-  unfold kk
-  have : Real.exp (-t) < 1 := by rw [← Real.exp_zero]; exact Real.exp_lt_exp.2 (by linarith)
-  exact div_nonneg (Real.exp_pos _).le (by linarith)
+/-! B1 and B2 are the instance `q = ¼` of ArchShift.lean (round 226). -/
 
-theorem measurable_kk : Measurable kk := by unfold kk; fun_prop
+theorem kkQ_quarter : kkQ (1 / 4) = kk := by
+  funext t; unfold kkQ kk; congr 2; ring
 
-theorem kk_re (r t : ℝ) :
-    ((cexp (-(zB 0 * t)) - cexp (-(zB r * t))) / ((1 - Real.exp (-t) : ℝ) : ℂ)).re
-      = kk t * (1 - Real.cos (r * (t / 2))) := by
-  rw [Complex.div_ofReal_re, Complex.sub_re, Complex.exp_re, Complex.exp_re]
-  unfold kk zB
-  simp only [Complex.neg_re, Complex.neg_im, Complex.mul_re, Complex.mul_im, Complex.add_re,
-    Complex.add_im, Complex.div_re, Complex.div_im, Complex.ofReal_re, Complex.ofReal_im,
-    Complex.I_re, Complex.I_im, Complex.one_re, Complex.one_im]
-  norm_num
-  rw [show r * 2 / 4 * t = r * (t / 2) by ring, show (1 : ℝ) / 4 * t = t / 4 by ring]
-  ring
+theorem psiReQ_quarter : psiReQ (1 / 4) = psiRe := by
+  funext r; unfold psiReQ psiRe zQ zB; push_cast; rfl
+
+theorem kk_nonneg {t : ℝ} (ht : 0 < t) : 0 ≤ kk t := kkQ_quarter ▸ kkQ_nonneg _ ht
 
 /-- **B1**: `Re ψ(¼ + ir/2) − Re ψ(¼) = ∫_0^∞ k(t)(1 − cos(rt/2)) dt`, integrably. -/
 theorem psiRe_sub (r : ℝ) :
     IntegrableOn (fun t => kk t * (1 - Real.cos (r * (t / 2)))) (Ioi 0) ∧
       psiRe r - psiRe 0 = ∫ t in Ioi (0 : ℝ), kk t * (1 - Real.cos (r * (t / 2))) := by
-  have hz : ∀ s : ℝ, 0 < (zB s).re := fun s => by unfold zB; simp
-  obtain ⟨hI, hE⟩ := digammaDiff (zB r) (zB 0) (hz r) (hz 0)
-  have hI' := hI.re
-  simp only [RCLike.re_to_complex, kk_re] at hI'
-  refine ⟨hI', ?_⟩
-  unfold psiRe
-  have h2 := integral_re hI
-  simp only [RCLike.re_to_complex, kk_re] at h2
-  rw [← Complex.sub_re, hE, ← h2]
-
-/-! ## B2. The archimedean term, by Tonelli and `t = 2u` -/
-
-/-- The `t`-integrand after the `r`-integral: `k(t)(f(0) − f(t/2))`. -/
-def phiA (g : ℝ → ℝ) (t : ℝ) : ℝ := kk t * (autocorr g 0 - autocorr g (t / 2))
-
-theorem phiA_two_mul (g : ℝ → ℝ) {u : ℝ} (hu : 0 < u) : 2 * phiA g (2 * u) = archIntegrand g u := by
-  unfold phiA kk archIntegrand
-  rw [show 2 * u / 2 = u by ring, Real.sinh_eq]
-  have e1 : Real.exp (-(2 * u / 4)) = Real.exp (-(u / 2)) := by congr 1; ring
-  have e2 : Real.exp (-(2 * u)) = Real.exp (-u) * Real.exp (-u) := by
-    rw [← Real.exp_add]; congr 1; ring
-  have e3 : Real.exp (u / 2) = Real.exp u * Real.exp (-(u / 2)) := by
-    rw [← Real.exp_add]; congr 1; ring
-  have h1 : Real.exp (-u) < 1 := by rw [← Real.exp_zero]; exact Real.exp_lt_exp.2 (by linarith)
-  have h2 : Real.exp u * Real.exp (-u) = 1 := by rw [← Real.exp_add]; simp
-  have h3 : 0 < Real.exp (-u) := Real.exp_pos _
-  have h4 : 1 - Real.exp (-u) * Real.exp (-u) ≠ 0 := by nlinarith
-  have h5 : Real.exp u - Real.exp (-u) ≠ 0 := by
-    have : Real.exp (-u) < Real.exp u := Real.exp_lt_exp.2 (by linarith)
-    linarith
-  rw [e1, e2, e3]
-  field_simp
-  have : Real.exp u = (Real.exp (-u))⁻¹ := by rw [← Real.exp_neg, neg_neg]
-  rw [this]
-  have hx4 : 1 - Real.exp (-u) ^ 2 ≠ 0 := by nlinarith
-  have hx5 : (Real.exp (-u))⁻¹ - Real.exp (-u) ≠ 0 := by rw [← this]; exact h5
-  field_simp
-
-theorem phiA_integrable (hp : Probe a g) : IntegrableOn (phiA g) (Ioi 0) := by
-  have h : IntegrableOn (fun u => phiA g (2 * u)) (Ioi 0) := by
-    refine IntegrableOn.congr_fun (hp.arch.div_const 2) (fun u hu => ?_) measurableSet_Ioi
-    rw [← phiA_two_mul g hu]; ring
-  simpa using (integrableOn_Ioi_comp_mul_left_iff (phiA g) 0 (by norm_num : (0 : ℝ) < 2)).1 h
-
-theorem phiA_integral (g : ℝ → ℝ) : ∫ t in Ioi (0 : ℝ), phiA g t = archE g := by
-  have e := integral_comp_mul_left_Ioi (phiA g) 0 (by norm_num : (0 : ℝ) < 2)
-  simp only [mul_zero, smul_eq_mul] at e
-  have e2 : ∫ x in Ioi (0 : ℝ), phiA g (2 * x) = (∫ u in Ioi (0 : ℝ), archIntegrand g u) / 2 := by
-    rw [← integral_div]
-    refine setIntegral_congr_fun measurableSet_Ioi fun u hu => ?_
-    rw [← phiA_two_mul g hu]; ring
-  rw [archE]
-  linarith
+  have h := psiReQ_sub (q := 1 / 4) (by norm_num) r
+  rwa [kkQ_quarter, psiReQ_quarter] at h
 
 /-- **B2**: `∫ ĝ(r)² (Re ψ(¼ + ir/2) − Re ψ(¼)) dr = 2π·E(g)`, integrably. -/
 theorem hsq_psi_sub (hp : Probe a g) (ha : 0 < a) :
     Integrable (fun r => hsq g a r * (psiRe r - psiRe 0)) ∧
       ∫ r, hsq g a r * (psiRe r - psiRe 0) = 2 * π * archE g := by
-  set ν := volume.restrict (Ioi (0 : ℝ))
-  set F : ℝ × ℝ → ℝ := fun p => hsq g a p.1 * (kk p.2 * (1 - Real.cos (p.1 * (p.2 / 2)))) with hFd
-  have hFm : AEStronglyMeasurable F (volume.prod ν) := by
-    refine Measurable.aestronglyMeasurable ?_
-    refine ((continuous_hsq hp.toE).measurable.comp measurable_fst).mul
-      ((measurable_kk.comp measurable_snd).mul ?_)
-    exact (Continuous.measurable (by fun_prop))
-  have hinner : ∀ t, ∫ r, F (r, t) = 2 * π * phiA g t := by
-    intro t
-    have e : (fun r => F (r, t))
-        = fun r => kk t * (hsq g a r - hsq g a r * Real.cos (r * (t / 2))) := by
-      funext r; simp only [hFd]; ring
-    rw [e, integral_const_mul, integral_sub (integrable_hsq hp.toE ha) (integrable_hsq_cos hp.toE ha _),
-      integral_hsq hp.toE ha, integral_hsq_cos hp.toE ha, ← autocorr_zero, phiA]
-    ring
-  have hFint : ∀ t, Integrable (fun r => F (r, t)) := by
-    intro t
-    have e : (fun r => F (r, t))
-        = fun r => kk t * (hsq g a r - hsq g a r * Real.cos (r * (t / 2))) := by
-      funext r; simp only [hFd]; ring
-    rw [e]; exact ((integrable_hsq hp.toE ha).sub (integrable_hsq_cos hp.toE ha _)).const_mul _
-  have hFnn : ∀ r, ∀ t, 0 < t → 0 ≤ F (r, t) := fun r t ht =>
-    mul_nonneg (hsq_nonneg r) (mul_nonneg (kk_nonneg ht) (by linarith [Real.cos_le_one (r * (t / 2))]))
-  have hF : Integrable F (volume.prod ν) := by
-    rw [integrable_prod_iff' hFm]
-    refine ⟨Eventually.of_forall hFint, ?_⟩
-    refine ((phiA_integrable hp).const_mul (2 * π)).congr ?_
-    refine (ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun t ht => ?_)
-    show 2 * π * phiA g t = ∫ r, ‖F (r, t)‖
-    rw [← hinner t]
-    congr 1; funext r
-    rw [Real.norm_eq_abs, abs_of_nonneg (hFnn r t ht)]
-  have hG : ∀ r, ∫ t, F (r, t) ∂ν = hsq g a r * (psiRe r - psiRe 0) := by
-    intro r
-    simp only [hFd, ν]
-    rw [integral_const_mul, (psiRe_sub r).2]
-  have hGi := hF.integral_prod_left
-  simp only [hG] at hGi
-  refine ⟨hGi, ?_⟩
-  calc ∫ r, hsq g a r * (psiRe r - psiRe 0) = ∫ r, ∫ t, F (r, t) ∂ν := by simp only [hG]
-    _ = ∫ t, (∫ r, F (r, t)) ∂ν := integral_integral_swap (f := fun r t => F (r, t)) hF
-    _ = ∫ t in Ioi (0 : ℝ), 2 * π * phiA g t := by simp only [hinner, ν]
-    _ = 2 * π * archE g := by rw [integral_const_mul, phiA_integral g]
+  have h := hsq_psiQ_sub hp ha (le_refl (1 / 4 : ℝ))
+  rwa [psiReQ_quarter, archEQ_quarter] at h
 
 /-- `(1/2π)∫ ĝ² Re ψ(¼ + ir/2) = Re ψ(¼)‖g‖² + E(g)`. -/
 theorem arch_term (hp : Probe a g) (ha : 0 < a) :
     1 / (2 * π) * ∫ r, hsq g a r * psiRe r = psiRe 0 * normSq g + archE g := by
-  obtain ⟨hi, he⟩ := hsq_psi_sub hp ha
-  have e : (fun r => hsq g a r * psiRe r)
-      = fun r => hsq g a r * (psiRe r - psiRe 0) + psiRe 0 * hsq g a r := by
-    funext r; ring
-  rw [e, integral_add hi ((integrable_hsq hp.toE ha).const_mul _), he, integral_const_mul,
-    integral_hsq hp.toE ha]
-  field_simp
-  ring
+  have h := arch_termQ hp ha (le_refl (1 / 4 : ℝ))
+  rwa [psiReQ_quarter, archEQ_quarter] at h
 
 /-! ## B3. The bridge -/
 
@@ -250,18 +144,13 @@ def sigmaW (a r : ℝ) : ℝ :=
 
 /-- The Lévy–Khintchine exponent is nonnegative: `Re ψ(¼) ≤ Re ψ(¼ + ir/2)`. -/
 theorem psiRe_ge (r : ℝ) : psiRe 0 ≤ psiRe r := by
-  obtain ⟨-, he⟩ := psiRe_sub r
-  have : 0 ≤ ∫ t in Ioi (0 : ℝ), kk t * (1 - Real.cos (r * (t / 2))) :=
-    setIntegral_nonneg measurableSet_Ioi fun t ht =>
-      mul_nonneg (kk_nonneg ht) (by linarith [Real.cos_le_one (r * (t / 2))])
-  linarith
+  have h := psiReQ_ge (q := 1 / 4) (by norm_num) r
+  rwa [psiReQ_quarter] at h
 
 theorem integrable_hsq_psi (hp : Probe a g) (ha : 0 < a) :
     Integrable (fun r => hsq g a r * psiRe r) := by
-  obtain ⟨hi, -⟩ := hsq_psi_sub hp ha
-  refine (hi.add ((integrable_hsq hp.toE ha).const_mul (psiRe 0))).congr
-    (Eventually.of_forall fun r => ?_)
-  simp only [Pi.add_apply]; ring
+  have h := integrable_hsq_psiQ hp ha (le_refl (1 / 4 : ℝ))
+  rwa [psiReQ_quarter] at h
 
 /-- **The symbol form**: `Q(g) = 2ĝ(i/2)² + (1/2π)∫ĝ(r)²σ_a(r) dr`. -/
 theorem weilQ_symbol (hp : Probe a g) (ha : 0 < a) :

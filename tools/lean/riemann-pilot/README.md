@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 742 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 753 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -72,7 +72,8 @@ Every file ends with `#print axioms`. All 742 checked theorems depend only on `p
 | `ParitySplit.lean` | 257 | `Q(g) = Q(e) + Q(o)` for the even/odd parts of a real `g` |
 | `WindowForm.lean` | 285 | closed forms of the window basis, the Cholesky certificate logic, the off-line quadruple mechanism |
 | `ResponseKernel.lean`, `ToneHyperbola.lean` | 177, 214 | calculus identities for the response kernel and the tone hyperbola; no `ζ` |
-| `ExplicitBridge.lean` | 463 | `WeilExplicit` for `ĝ²` gives `Σ_ρ ĝ(t_ρ)² = weilQ` (`weilQ_eq_zero_sum`); the symbol and jump forms; RH ⇒ `Q ≥ 0` given the formula |
+| `ArchShift.lean` | 237 | the archimedean term at digamma shift `q ≥ ¼`: `(1/2π)∫ĝ² Re ψ(q + ir/2) = Re ψ(q)‖g‖² + ∫[f(0) − f(u)]e^{(1−2q)u}/sinh u` (`arch_termQ`, round 226) |
+| `ExplicitBridge.lean` | 352 | `WeilExplicit` for `ĝ²` gives `Σ_ρ ĝ(t_ρ)² = weilQ` (`weilQ_eq_zero_sum`); the symbol and jump forms; RH ⇒ `Q ≥ 0` given the formula; B1–B2 are `ArchShift` at `q = ¼` |
 | `DigammaGauss.lean` | 429 | Gauss's digamma integral in difference form, proved (round 154) |
 | `BinetProof.lean` | 525 | Binet's second formula, proved (round 155) |
 | `ParityCont.lean` | 940 | `λ_odd` continuous; `gap_quarter`; `rh_of_no_crossing`: no parity crossing past `a = 1/4` + `HypConv` ⟹ RH (rounds 146–147) |
@@ -113,6 +114,7 @@ Every file ends with `#print axioms`. All 742 checked theorems depend only on `p
 | `PrimeRaces.lean` | 233 | **the `log p`-weighted prime races mod 3, 4 and 8 change lead infinitely often**, by more than `c·x^θ` for every `θ < ½`, unconditionally; the Hadamard product for `L(s, χ₄)` (rounds 223–224) |
 | `WeilChi.lean` | 733 | **Weil's explicit formula for every primitive real `χ` with `L(½, χ) ≠ 0`**: `Ξ_χ(t) = Λ*(½ + it)` is even (`ε = 1`), of order `≤ 3/2`, with a Hadamard product and zeros in `|Im t| < ½`; `Σ_u 2h(τ_u) = g_h(0)log(N/π) + (1/2π)∫h Re ψ((½ + δ)/2 + ir/2) − 2Σ Λ(n)χ(n)n^{−1/2}g_h(log n)` (round 225) |
 | `WeilChiCriterion.lean` | 390 | **Weil's criterion for `L(s, χ)`**: GRH(χ) ⟺ `Q_χ(twin (box 1) λ) ≥ 0`; the graded rate; GRH(χ) ⟺ `Q_χ/‖g‖²` has no negative part of exponential rate; an off-line zero forces failure at rate `|2β − 1|`; instances `χ₋₃`, `χ₋₄`, `χ₋₈` (round 225) |
+| `WeilChiBridge.lean` | 95 | **`Q_χ` in u-space**: `QC χ a g = (Re ψ(q_χ) + log(N/π))‖g‖² + ∫[f(0) − f(u)]e^{(1−2q_χ)u}/sinh u − 2Σ Λ(n)χ(n)n^{−1/2}f(log n)`, `q_χ = (1 + 2δ)/4`, the form `dh_gram.py` computes (`QC_eq_QCu`); `χ₋₃`, `χ₋₄`, `χ₋₈` are odd (round 226) |
 | `LSeriesLandau.lean` | 95 | **Landau's theorem for L-series with nonnegative coefficients**: singular at the real point of the abscissa (Mathlib-ready; round 221) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
@@ -7343,7 +7345,7 @@ The ζ chain's middle, from Hadamard's product to Weil's criterion with rates, n
 Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (742 checked theorems in `src/`). The build has no warnings.
 
 **What is not ported.**
-- *The `u`-space form.* The ζ side proves that the spectral form equals the `u`-space form (autocorrelation, kernel `e^{u/2}/sinh u`, Bridge B, round 61), which is what `dh_gram.py` computes. For odd `χ` (all three instances) the kernel is `e^{−u/2}/sinh u`; for even `χ` it is ζ's. That identity is not proved for `χ`. So round 224's `χ₄` numerics and `QC` agree only through a standard identity that is not yet checked here.
+- *The `u`-space form.* The ζ side proves that the spectral form equals the `u`-space form (autocorrelation, kernel `e^{u/2}/sinh u`, `ExplicitBridge.lean`, round 126), which is what `dh_gram.py` computes. For odd `χ` (all three instances) the kernel is `e^{−u/2}/sinh u`; for even `χ` it is ζ's. That identity is not proved for `χ`. So round 224's `χ₄` numerics and `QC` agree only through a standard identity that is not yet checked here. *(Ported in round 226, `QC_eq_QCu`. The bridge is round 126, not round 61 as this paragraph first said.)*
 - *All probes.* GRH ⟹ `Q_χ ≥ 0` is proved for strip-test probes only. The ζ side extends it to every probe by density (round 157, `WeilRH`); that step is not ported.
 - *The ground state.* `λ₁^χ` as a number, the existence of ground states, monotonicity and continuity in `a`, first failure, and the Kaiser upper bound are not ported. The rate theorems are stated with quantifiers instead, which is all the equivalences need.
 
@@ -7352,3 +7354,36 @@ Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`
 - **New here.** Machine-checked proofs, including `ε = 1` from `L(½, χ) ≠ 0`, the generic twin-form Landau core, and the graded criterion and its exponential-rate form for `χ₋₃`, `χ₋₄` and `χ₋₈`.
 
 **Bearing on RH:** none. These are equivalences, as for ζ. GRH for `χ₋₃`, `χ₋₄` and `χ₋₈` is as open as RH.
+
+## Round 226: `Q_χ` in u-space
+
+Round 225's first "not ported" item. For every probe `g` and every real character `χ`, the spectral form `QC χ a g` equals the u-space form that `frontier/dh/dh_gram.py` computes:
+
+  `Q_χ(g) = (Re ψ(q_χ) + log(N/π))‖g‖² + ∫_0^∞ [f(0) − f(u)] e^{(1−2q_χ)u}/sinh u du − 2Σ Λ(n)χ(n)n^{−1/2} f(log n)`
+
+Here `f = autocorr g` and `q_χ = (1 + 2δ)/4`. This is `dh_gram.py`'s `z0`, and `e^{(1−2q)u}/sinh u = 2Σ_m e^{−(2m+2q)u}` is its `K_{z0}`. So round 224's `χ₄` numerics now compute `QC` itself, with no unchecked identity in between. That covers the formula; the numerics are still floating-point and ball arithmetic outside Lean.
+
+**1. The archimedean term at a general shift** (`ArchShift.lean`). Round 126's bridge, with `¼` replaced by a parameter `q`:
+- `psiReQ_sub` (B1): `Re ψ(q + ir/2) − Re ψ(q) = ∫_0^∞ e^{−qt}/(1 − e^{−t})·(1 − cos(rt/2)) dt` for `q > 0`, from Gauss's digamma integral (round 154). `psiReQ_ge` is the positivity of this Lévy–Khintchine exponent.
+- `two_kkQ`: `2k_q(2u) = e^{(1−2q)u}/sinh u`.
+- `archIntegrandQ_integrable`: for `q ≥ ¼` the integrand is integrable for every probe. The proof is `K_q = K_{1/4}·e^{(½−2q)u}`, whose second factor is `≤ 1` on `u > 0`, together with the probe's own condition at `q = ¼`.
+- `hsq_psiQ_sub` (B2, Tonelli and `t = 2u`) and **`arch_termQ`**: `(1/2π)∫ĝ² Re ψ(q + ir/2) = Re ψ(q)‖g‖² + ∫_0^∞ [f(0) − f(u)]K_q(u) du`.
+
+**2. ζ is the instance `q = ¼`** (`ExplicitBridge.lean`, 463 → 352 lines). `psiRe_sub`, `hsq_psi_sub`, `arch_term`, `psiRe_ge` and `integrable_hsq_psi` are now one-line instances (`kkQ_quarter`, `psiReQ_quarter`, `archEQ_quarter`). The ζ-specific proofs of B1 and B2 are deleted. Their statements are unchanged.
+
+**3. The χ bridge** (`WeilChiBridge.lean`).
+- `psiReC_eq`: `z_χ(r) = q_χ + ir/2`.
+- **`QC_eq_QCu`**: the identity above, from `gh_hsq` (Fourier inversion, round 127) and `arch_termQ`. It needs no `GoodChar` hypothesis and no zero of `L`.
+- `archKer_odd`: the kernel for odd `χ` is `e^{−u/2}/sinh u`.
+- `archEQ_even`: for even `χ` the archimedean term is ζ's.
+- `chi3_odd`, `chi4_odd`, `chi8_odd`: the three instances are odd (`χ(−1) = −1`), so they use `q = ¾`.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (753 checked theorems in `src/`). The build has no warnings.
+
+**Still not ported.** GRH ⟹ `Q_χ ≥ 0` on all probes (density), and the ground-state layer. See round 225.
+
+**Check 4.**
+- **Acknowledged (classical).** The explicit formula's archimedean term in u-space (Weil; Guinand), and Gauss's digamma integral.
+- **New here.** Machine-checked, parametric in the gamma shift, with ζ recovered as the `q = ¼` instance.
+
+**Bearing on RH:** none. This is an identity between two presentations of the same form. It makes the `χ₄` numerics a computation of `QC` itself; it does not change what those numerics show.
