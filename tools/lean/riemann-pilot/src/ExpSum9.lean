@@ -236,18 +236,18 @@ theorem window {R K : ℕ} (hR : 16 ≤ R) (hKR : R + 21 ≤ 4 * K) :
 
 set_option maxHeartbeats 1600000 in
 /-- **Step S1b, the per-block saving with a window of good coordinates.** -/
-theorem block_saving_multi {t u C η : ℝ} {N N' K ℓ R Q0 : ℕ} (G : Finset (Fin K))
+theorem block_saving_multiH {t u C η H : ℝ} {N N' K ℓ R Q0 : ℕ} (G : Finset (Fin K))
     (hu : 2 ≤ u) (hN : (N : ℝ) = u ^ 20) (hN1 : N ≤ N') (hN2 : N' ≤ 2 * N)
     (hK1 : 1 ≤ K) (hKℓ : K ≤ ℓ) (hℓu : (ℓ : ℝ) ≤ u ^ 4)
     (ht1 : u ^ R ≤ |t|) (ht2 : |t| ≤ u ^ (R + 1)) (hKR : R + 21 ≤ 4 * K)
     (hG : ∀ j ∈ G, R + 5 ≤ 12 * (j.val + 1) ∧ 24 * (j.val + 1) + 6 ≤ 5 * R)
-    (hC : 0 < C) (hη : η ≤ 1 / 32)
+    (hC : 0 < C) (hH : 0 ≤ H) (hη : η ≤ H)
     (hJ : ∀ P : ℕ, 1 ≤ P →
       (J ℓ K P : ℝ) ≤ C * (P : ℝ) ^ (2 * (ℓ : ℝ) - (K : ℝ) * ((K : ℝ) + 1) / 2 + η))
     (hQ : C ^ 2 * 3 ^ K * (ℓ : ℝ) ^ (2 * K) * 2 ^ (K * (5 * K + 8)) ≤
       (2 : ℝ) ^ (2 * Q0 * ℓ ^ 2)) :
     ‖∑ n ∈ Ioc N N', phaseF t n‖ ≤
-      2 ^ (Q0 + 2) * N / u ^ (((G.card : ℝ) * R / 6 - 1 / 2) / (2 * (ℓ : ℝ) ^ 2)) := by
+      2 ^ (Q0 + 2) * N / u ^ (((G.card : ℝ) * R / 6 - 16 * H) / (2 * (ℓ : ℝ) ^ 2)) := by
   have hu0 : 0 < u := by linarith
   have hu1 : 1 ≤ u := by linarith
   have htpos : 0 < |t| := lt_of_lt_of_le (by positivity) ht1
@@ -319,27 +319,27 @@ theorem block_saving_multi {t u C η : ℝ} {N N' K ℓ R Q0 : ℕ} (G : Finset 
           apply div_le_div_of_nonneg_right _ (Real.rpow_nonneg hu0.le _)
           rw [← pow_mul]
           exact pow_le_pow_right₀ (by norm_num) (by nlinarith)
-  -- `M^{2η} ≤ u^{1/2}`
-  have hMη : (M : ℝ) ^ (2 * η) ≤ u ^ ((1 : ℝ) / 2) := by
-    calc (M : ℝ) ^ (2 * η) ≤ (M : ℝ) ^ ((1 : ℝ) / 16) :=
+  -- `M^{2η} ≤ u^{16H}`
+  have hMη : (M : ℝ) ^ (2 * η) ≤ u ^ (16 * H) := by
+    calc (M : ℝ) ^ (2 * η) ≤ (M : ℝ) ^ (2 * H) :=
           Real.rpow_le_rpow_of_exponent_le hMr (by linarith)
-      _ ≤ (u ^ 8) ^ ((1 : ℝ) / 16) := Real.rpow_le_rpow hM0 hMle (by norm_num)
-      _ = u ^ ((1 : ℝ) / 2) := by
-          rw [← Real.rpow_natCast u 8, ← Real.rpow_mul hu0.le]; norm_num
+      _ ≤ (u ^ 8) ^ (2 * H) := Real.rpow_le_rpow hM0 hMle (by linarith)
+      _ = u ^ (16 * H) := by
+          rw [← Real.rpow_natCast u 8, ← Real.rpow_mul hu0.le]; norm_num; ring_nf
   -- `Φ_G ≤ 2^{Q₀}·u^{−s}`
-  set sv : ℝ := ((G.card : ℝ) * R / 6 - 1 / 2) / (2 * (ℓ : ℝ) ^ 2) with hsv
+  set sv : ℝ := ((G.card : ℝ) * R / 6 - 16 * H) / (2 * (ℓ : ℝ) ^ 2) with hsv
   have hPhi : PhiG t C η N M K ℓ G ≤ 2 ^ Q0 / u ^ sv := by
     set P : ℝ := C ^ 2 * 3 ^ K * (ℓ : ℝ) ^ (2 * K) with hP
     have hP0 : 0 ≤ P := by positivity
     have hWG0 := WG_nonneg t N hM1 hℓ1 G
     have hbase : P * (M : ℝ) ^ (2 * η) * WG t N M K ℓ G ≤
-        (2 : ℝ) ^ (2 * Q0 * ℓ ^ 2) * u ^ ((1 : ℝ) / 2 - (G.card : ℝ) * s0) := by
+        (2 : ℝ) ^ (2 * Q0 * ℓ ^ 2) * u ^ (16 * H - (G.card : ℝ) * s0) := by
       calc P * (M : ℝ) ^ (2 * η) * WG t N M K ℓ G
-          ≤ P * u ^ ((1 : ℝ) / 2) * (2 ^ (K * (5 * K + 8)) / u ^ ((G.card : ℝ) * s0)) := by
+          ≤ P * u ^ (16 * H) * (2 ^ (K * (5 * K + 8)) / u ^ ((G.card : ℝ) * s0)) := by
             gcongr
         _ = (P * 2 ^ (K * (5 * K + 8))) *
-              (u ^ ((1 : ℝ) / 2) / u ^ ((G.card : ℝ) * s0)) := by ring
-        _ = (P * 2 ^ (K * (5 * K + 8))) * u ^ ((1 : ℝ) / 2 - (G.card : ℝ) * s0) := by
+              (u ^ (16 * H) / u ^ ((G.card : ℝ) * s0)) := by ring
+        _ = (P * 2 ^ (K * (5 * K + 8))) * u ^ (16 * H - (G.card : ℝ) * s0) := by
             rw [Real.rpow_sub hu0]
         _ ≤ _ := mul_le_mul_of_nonneg_right hQ (Real.rpow_nonneg hu0.le _)
     have hb0 : 0 ≤ P * (M : ℝ) ^ (2 * η) * WG t N M K ℓ G := by positivity
@@ -347,7 +347,7 @@ theorem block_saving_multi {t u C η : ℝ} {N N' K ℓ R Q0 : ℕ} (G : Finset 
     rw [← hP]
     have hℓpos : (0 : ℝ) < ℓ := by linarith
     calc (P * (M : ℝ) ^ (2 * η) * WG t N M K ℓ G) ^ (((2 * ℓ ^ 2 : ℕ) : ℝ))⁻¹
-        ≤ ((2 : ℝ) ^ (2 * Q0 * ℓ ^ 2) * u ^ ((1 : ℝ) / 2 - (G.card : ℝ) * s0)) ^
+        ≤ ((2 : ℝ) ^ (2 * Q0 * ℓ ^ 2) * u ^ (16 * H - (G.card : ℝ) * s0)) ^
             (((2 * ℓ ^ 2 : ℕ) : ℝ))⁻¹ := Real.rpow_le_rpow hb0 hbase (by positivity)
       _ = 2 ^ Q0 / u ^ sv := by
           rw [Real.mul_rpow (by positivity) (Real.rpow_nonneg hu0.le _),
@@ -355,7 +355,7 @@ theorem block_saving_multi {t u C η : ℝ} {N N' K ℓ R Q0 : ℕ} (G : Finset 
             ← Real.rpow_mul hu0.le]
           have e1 : ((2 * Q0 * ℓ ^ 2 : ℕ) : ℝ) * (((2 * ℓ ^ 2 : ℕ) : ℝ))⁻¹ = Q0 := by
             push_cast; field_simp
-          have e2 : ((1 : ℝ) / 2 - (G.card : ℝ) * s0) * (((2 * ℓ ^ 2 : ℕ) : ℝ))⁻¹ = -sv := by
+          have e2 : (16 * H - (G.card : ℝ) * s0) * (((2 * ℓ ^ 2 : ℕ) : ℝ))⁻¹ = -sv := by
             rw [hsv, hs0]; push_cast; field_simp; ring
           rw [e1, e2, Real.rpow_neg hu0.le, Real.rpow_natCast]
           ring
@@ -418,5 +418,24 @@ theorem block_saving_multi {t u C η : ℝ} {N N' K ℓ R Q0 : ℕ} (G : Finset 
         add_le_add (add_le_add (mul_le_mul_of_nonneg_left hPhi hNpos.le) hTay) (by linarith)
     _ ≤ N * (2 ^ Q0 / u ^ sv) + (2 ^ (Q0 + 2) - 2 ^ Q0) * N / u ^ sv := by linarith
     _ = 2 ^ (Q0 + 2) * N / u ^ sv := by ring
+
+
+/-- **Step S1b** with `η ≤ 1/32` (round 213's form). -/
+theorem block_saving_multi {t u C η : ℝ} {N N' K ℓ R Q0 : ℕ} (G : Finset (Fin K))
+    (hu : 2 ≤ u) (hN : (N : ℝ) = u ^ 20) (hN1 : N ≤ N') (hN2 : N' ≤ 2 * N)
+    (hK1 : 1 ≤ K) (hKℓ : K ≤ ℓ) (hℓu : (ℓ : ℝ) ≤ u ^ 4)
+    (ht1 : u ^ R ≤ |t|) (ht2 : |t| ≤ u ^ (R + 1)) (hKR : R + 21 ≤ 4 * K)
+    (hG : ∀ j ∈ G, R + 5 ≤ 12 * (j.val + 1) ∧ 24 * (j.val + 1) + 6 ≤ 5 * R)
+    (hC : 0 < C) (hη : η ≤ 1 / 32)
+    (hJ : ∀ P : ℕ, 1 ≤ P →
+      (J ℓ K P : ℝ) ≤ C * (P : ℝ) ^ (2 * (ℓ : ℝ) - (K : ℝ) * ((K : ℝ) + 1) / 2 + η))
+    (hQ : C ^ 2 * 3 ^ K * (ℓ : ℝ) ^ (2 * K) * 2 ^ (K * (5 * K + 8)) ≤
+      (2 : ℝ) ^ (2 * Q0 * ℓ ^ 2)) :
+    ‖∑ n ∈ Ioc N N', phaseF t n‖ ≤
+      2 ^ (Q0 + 2) * N / u ^ (((G.card : ℝ) * R / 6 - 1 / 2) / (2 * (ℓ : ℝ) ^ 2)) := by
+  have h := block_saving_multiH G hu hN hN1 hN2 hK1 hKℓ hℓu ht1 ht2 hKR hG hC
+    (by norm_num : (0 : ℝ) ≤ 1 / 32) hη hJ hQ
+  have e : (16 : ℝ) * (1 / 32) = 1 / 2 := by norm_num
+  rwa [e] at h
 
 end ExpSum

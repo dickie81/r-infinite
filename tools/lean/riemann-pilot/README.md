@@ -6916,3 +6916,30 @@ Axioms are clean, including the fresh PNT+ build via `kv_port.sh`.
 | VMVT at `s ≍ k² log k`, many coordinates | **`< 3/5`** | 214 |
 
 **Check 4:** classical (Korobov 1958; Vinogradov 1958). The Lean chain is new to the pilot; I have not checked whether it is new to Lean. **Bearing on RH:** none. The zero-free region still shrinks to `σ = 1`.
+
+## Round 215: the Korobov–Vinogradov zero-free region with its `(log log t)^{1/3}` (`src/VinoKV.lean`, `external/pnt/LandauW.lean`, `external/pnt/LandauKV.lean`)
+
+Axioms are clean, checked on a fresh `kv_port.sh` build.
+
+**`zeroFree_KV`.** There is `A > 0` such that `ζ(σ+it) ≠ 0` for `|t| ≥ e³` and
+`σ ≥ 1 − A/((log|t|)^{2/3}(log log|t|)^{1/3})`.
+
+This is the Korobov–Vinogradov zero-free region in its classical form.
+
+- **R1, `growth_kv`** (`VinoKV`). `|Σ_{n≤X} n^{−σ−it}| ≤ B(log|t|)²` on `σ ≥ 1 − c₂(log L/L)^{2/3}`, with `L = log|t| ≥ 5` and `X ≤ |t|^{5/4}`.
+  - The window of good coordinates saves about `u^{K²/3}`. So the VMVT excess only has to satisfy `η ≤ K²/8192` (`block_saving_multiH`, a generalisation of round 213's block bound to any `η ≤ H`), not `η ≤ 1/32`.
+  - By `vmvt2`, that holds after `m = 12K` steps. So `ℓ ≤ 13K²` with no `log K`, and the per-block saving is `N^{−c/λ²}` with no logarithmic loss (`big_block_kv`).
+  - The initial segment up to `Λ = 20L(log L/L)^{1/3}` costs `e^{Λδ}(2+Λ) ≤ L(2+Λ)`.
+- **R3a, `LandauW`.** Round 193's Landau lemma, rewritten for any admissible width `w`: positive, at most 1, non-increasing, with `log(1/w(L)) = O(1 + log L)`. The proofs are round 193's, with the radius `¼(log|t|)^{−a}` replaced by `¼w(log(|t|+1))`.
+- **R3b, `LandauKV`.** For the width `w(L) = c₂(log(L+2)/(L+2))^{2/3}`:
+  - `wkv_ok`: `w` is admissible.
+  - `growthW_kv`: `|ζ| ≤ K(log|t|)^K` on `σ ≥ 1 − w(log|t|)`. For `log|t| ≥ 25` this goes through `zeta_le_sum` (`|ζ| ≤ |Σ_{n≤X}| + 13/2`), since `w ≤ c₂(log L/L)^{2/3}`; below that, compactness.
+  - `zeroFree_KV`: Landau's shift `≍ w(log t)/log log t` gives the region.
+
+**Still open: R4, the prime number theorem error term `exp(−c(log x)^{3/5}(log log x)^{−1/5})`.** This needs:
+- PNT+'s contour bounds `I2GenBound`–`I8GenBound` and `GenStrengthPNT` rewritten for a width function (all are stated for widths `A/(log T)^{n₁}`);
+- a `ζ'/ζ` bound on the KV region (the width-function version of round 193's `logDerivBnd_of_growth`).
+
+Until then, rung 3 in the PNT form stays at "every exponent below 3/5" (round 214).
+
+**Check 4:** classical (Korobov 1958; Vinogradov 1958). **Bearing on RH:** none.
