@@ -6770,3 +6770,26 @@ Axioms are clean.
 These are the parameter facts needed by (G2c).
 
 **Check 4:** classical. **Bearing on RH:** none.
+
+## Round 210: layer II, step (G2c), the per-block saving (`src/ExpSum6.lean`)
+
+Axioms are clean.
+
+**`block_saving`.** Write `N = u^20` with `u ≥ 2`. Take:
+- `M = ⌊u⁸⌋`;
+- `r ≥ 2`, `K = 5r+5`, `m = 2K²` and `ℓ = K(2K²+1)`;
+- `ℓ ≤ u⁴` and `u^{5r+3} ≤ |t| ≤ u^{10r}`.
+
+Then every partial block `N ≤ N' ≤ 2N` satisfies
+
+`|Σ_{N<n≤N'} n^{−it}| ≤ 2^{27}·N·u^{−1/ℓ²} = 2^{27}·N^{1−1/(20ℓ²)}`.
+
+The pieces:
+- **`wsave_le`.** The saving factor satisfies `W ≤ 2^{5r+8}/u⁴`. The log factor is bounded by `(8r+5)u`, using `log u ≤ u − 1`, so no fractional power is lost.
+- **`phi_le`.** `M^{2η} ≤ u²`, since `η ≤ 1/8` (round 209). Hence `Φ ≤ 2^{25}·u^{−1/ℓ²}`.
+- **`const_bound`.** `C²·3^K·ℓ^{2K}·2^{5r+8} ≤ 2^{50ℓ²}`, using `C ≤ (8(K+2))^{20K⁵}`. So the VMVT constant costs only the factor `2^{25}` after the `(2ℓ²)`-th root.
+- **Remaining terms.** The Taylor term is at most `2`, and `2M² ≤ 2u^{16}`.
+
+Choosing `r = ⌈2 log|t|/log N⌉` meets the `t`-window whenever `N ≤ |t|^{5/4}`. So (G2c) holds on the whole range needed for `X = |t|^{5/4}`. The saving is `N^{−c/λ⁶}` with `λ = log|t|/log N`.
+
+**Check 4:** classical (Vinogradov–Korobov block estimate, explicit form). **Bearing on RH:** none.
