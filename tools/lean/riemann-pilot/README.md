@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 766 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 772 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -85,6 +85,7 @@ Every file ends with `#print axioms`. All 766 checked theorems depend only on `p
 | `ZetaInputs.lean` | 238 | **Hadamard's identity `Σ_ρ 1/(ρ(1−ρ)) = 2 + γ − log 4π` proved**; 1bt(i) and the pinning theorem with their classical inputs discharged (round 157) |
 | `ExteriorZeta.lean` | 310 | `Φ` entire, `Φ(w) + Φ(−w) = 1`, `χ` in the strip class; **the exterior identity over the zeros of `ζ` for every probe** (round 157) |
 | `WeilRH.lean` | 168 | **RH ⟹ `Q ≥ 0` on every probe**; `weil_criterion_zeta`: `Q ≥ 0` everywhere ⟺ RH, with no finiteness hypothesis since round 220 (round 157) |
+| `WeilIndexZeta.lean` | 107 | **negative directions of `Q` count off-line zeros of ζ with no named input**: `finrank_le_quadruples_zeta`, `finrank_le_offline_zeta` (strip-test probes), `finrank_le_quadruples_C2`, `exists_offline_of_neg_C2` (round 229) |
 | `PhiDExp.lean` | 484 | **double-exponential rung bounds, no RH input**: `λ₁ ≤ Ke^{16a−2πe^{2a}}`, `λ₁^odd ≤ Ke^{16a−2πe^{a−1/4}}`, `λ₂ ≤ Ke^{16a−2πe^{a/2−1/4}}` (round 159) |
 | `FirstFailure.lean` | 116 | **the first positivity failure**: if RH fails, there is a least `a₁ > 1/16` with `λ₁(a₁) = 0`, `λ₁ > 0` before it, the form PSD at `a₁`, and a normalised ground state in its kernel (round 161; no finiteness hypothesis since round 220) |
 | `KaiserKernel.lean` | 245 | the Kaiser kernel `K(z) = cos(β√(z²−L²))` and `sinc` as entire power series; growth bounds; `cosh`/`cos` forms on the real line (round 163) |
@@ -7450,3 +7451,23 @@ The stack review's second item: "Build on zeta23". zeta23 is the Lean formalisat
 - **New here.** It is discharged, with the classical proof formalised by zeta23 and bridged to the pilot's counting function. The port to the pilot's toolchain is also new.
 
 **Bearing on RH:** none. `S(T) = O(log T)` is a classical unconditional bound, and the wall law is a statement about the zero-sum functional, not about the location of zeros.
+
+## Round 229: negative directions count off-line zeros, with no named input (`src/WeilIndexZeta.lean`)
+
+Round 130's `finrank_le_quadruples` takes Weil's explicit formula for every probe in `V` as a hypothesis (`hEF`). For ζ that hypothesis is now a theorem on two classes of probes: those whose `ĝ²` is a strip test function (round 156, `weilExplicit_zeta`), and `C²` probes vanishing near `±a` (round 157, `striptest_C2`).
+
+- `weilExplicit_of_strip`: the explicit formula for a strip-test probe, in the form `hEF` asks for.
+- **`finrank_le_quadruples_zeta`**: if `Q` is negative definite on a finite-dimensional space `V` of strip-test probes, then ζ has at least `dim V` distinct off-line zero quadruples (`R` holds one representative per quadruple).
+- `finrank_le_offline_zeta`: the crude count, `dim V ≤ |F|` for any finite set `F` of indices outside which every zero is on the line.
+- `finrank_le_quadruples_C2`: the same for a space of `C²` probes, the class a Gram-matrix computation would use.
+- `exists_offline_of_neg_zeta`, `exists_offline_of_neg_C2`: one such probe with `Q < 0` exhibits an off-line zero.
+
+**What this buys.** A negative-definite block of Weil's form on `C²` probes, certified in ball arithmetic and checked in Lean, becomes a Lean theorem giving a lower bound on the number of off-line zeros. Every scan so far (ζ, and χ₋₄ in round 224) finds `Q ≥ 0`, so today it certifies nothing.
+
+**Not done.** The converse count: that `m` off-line quadruples force `m` negative directions at large support. Round 131 gives one direction (round 220 removed its finiteness hypothesis); the full Krein–Langer count is not formalised.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (772 checked theorems in `src/`). The build has no warnings.
+
+**Check 4.** Acknowledged: round 130 stated the count conditional on `hEF`. New: `hEF` is discharged for ζ on strip-test and `C²` probes.
+
+**Bearing on RH:** none. This is the counting half of Weil's criterion; it turns a hypothetical negative direction into a count of off-line zeros, and says nothing when `Q ≥ 0`.
