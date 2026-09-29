@@ -154,12 +154,16 @@ theorem wsave_le {t u : ℝ} {N M ℓ r : ℕ} (hu : 2 ≤ u) (hr : 2 ≤ r) (h�
       rw [pow_add, pow_mul]; norm_num; ring
     have h2r : (2 : ℝ) ^ r ≤ 32 ^ r := pow_le_pow_left₀ (by norm_num) (by norm_num) r
     have h8 : (0 : ℝ) ≤ 8 ^ r := by positivity
-    have : 2 * Real.pi * r * (8 * r + 5) * 8 ^ r ≤ 2 * 3.15 * (13 * 4 ^ r) * 8 ^ r := by
-      have : 2 * Real.pi * (r * (8 * r + 5)) ≤ 2 * 3.15 * (13 * 4 ^ r) := by
-        have : (0 : ℝ) ≤ r * (8 * r + 5) := by positivity
-        nlinarith [Real.pi_pos]
-      nlinarith
-    rw [e]; nlinarith
+    have hin : 2 * Real.pi * (r * (8 * r + 5)) ≤ 2 * 3.15 * (13 * 4 ^ r) := by
+      have : (0 : ℝ) ≤ r * (8 * r + 5) := by positivity
+      nlinarith [Real.pi_pos]
+    have hmain : 2 * Real.pi * r * (8 * r + 5) * 8 ^ r ≤ 2 * 3.15 * (13 * 4 ^ r) * 8 ^ r := by
+      calc 2 * Real.pi * r * (8 * r + 5) * 8 ^ r = (2 * Real.pi * (r * (8 * r + 5))) * 8 ^ r := by
+            ring
+        _ ≤ 2 * 3.15 * (13 * 4 ^ r) * 8 ^ r := mul_le_mul_of_nonneg_right hin h8
+    have hA : 2 * 3.15 * (13 * 4 ^ r) * 8 ^ r = (81.9 : ℝ) * 32 ^ r := by rw [← h32]; ring
+    have h32p : (0 : ℝ) ≤ 32 ^ r := by positivity
+    rw [e]; linarith
   refine ⟨?_, ?_⟩
   · unfold Wsave
     exact add_nonneg (by positivity) (div_nonneg (mul_nonneg (by positivity) hlog0) (by positivity))

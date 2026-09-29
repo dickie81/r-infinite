@@ -6816,3 +6816,32 @@ The explicit constant is `B = 260e^{128} + 3·2^{27}`.
 | (G4) bridge in PNT+: ζ approximation with `X = |t|^{5/4}` ⇒ `PolylogGrowth (6/7) K` ⇒ `rung3_of_growth`; port layers I–II to PNT+'s toolchain | open |
 
 **Check 4:** classical (Vinogradov's method with a weak mean value theorem). **Bearing on RH:** none.
+
+## Round 212: layer II, step (G4), the bridge to ζ; rung 3 closed (`external/pnt/KVBridge.lean`, `external/pnt/kv_port.sh`)
+
+Axioms are clean for all three final theorems (checked on a fresh build from `kv_port.sh`). There are no hypotheses and no RH-conditional steps.
+
+- **Port.** All 16 layer I–II files compile on PNT+'s toolchain (Lean v4.33.1, PNT+ commit 650d312) with three lemma renames. The monoid `Finset.prod_le_prod` was called `prod_le_prod'`, and `prod_le_prod₀`/`prod_le_one₀` were `prod_le_prod`/`prod_le_one`. `kv_port.sh` applies the renames to copies, so the pilot sources stay the single source of truth.
+  - One tactic step in `wsave_le` (`ExpSum6`) timed out under the older `linarith`. It is now written out explicitly in the pilot too.
+- **`zeta_bound_large`.** Suppose `log|t| ≥ 25` and `1 − (log|t|)^{−a} ≤ σ ≤ 2`. Then `σ ≥ 4/5`.
+  - PNT+'s `Zeta0EqZeta` gives `ζ(s) = Σ_{n≤X} n^{−s} − X^{1−s}/(1−s) − X^{−s}/2 + R`.
+  - Take `X = ⌊|t|^{5/4}⌋`. The sum is at most `B·log|t|` (`growth_sum`, round 211).
+  - The other terms are at most `1`, `1/2` and `5`; the last uses `ZetaBnd_aux1`.
+- **`zeta_bound_compact`.** On `0 ≤ σ ≤ 2`, `3 ≤ |t| ≤ e^{25}`, ζ is continuous (since `s ≠ 1`) on a compact set, hence bounded.
+- **`polylogGrowth_kv`**, `6/7 ≤ a ≤ 1`: `|ζ(σ+it)| ≤ K(log|t|)^K` on `σ ≥ 1 − (log|t|)^{−a}`, `|t| ≥ 3`.
+- **`zeroFree_kv`**, `n₁ > 6/7`: `ζ(σ+it) ≠ 0` for `σ ≥ 1 − A/(log|t|)^{n₁}` and `|t| > 3`.
+- **`rung3_kv`**, `n₁ > 6/7`: `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))`, i.e. every exponent below `7/13 ≈ 0.538`.
+
+**What this is.**
+- The chain is machine-checked end to end. It covers Vinogradov's mean value theorem (weak form), the exponential-sum estimate, the ζ growth bound, Landau's lemma, the zero-free region and the prime number theorem error term.
+- The result improves on de la Vallée Poussin's exponent `1/2` (rung 2).
+- It is weaker than the Korobov–Vinogradov exponent `3/5`. That needs `a = 2/3`, and hence the sharp VMVT (Bourgain–Demeter–Guth / Wooley), which is not formalised here.
+
+**Check 4:** classical. Zero-free regions of the form `1 − c/(log t)^{θ}` with `θ < 1` go back to Vinogradov's method in the 1930s; the Korobov–Vinogradov form is `θ = 2/3` (up to `log log` factors). The formalisation is new to the pilot. I have not checked whether it is new to Lean more broadly. **Bearing on RH:** none. Every zero-free region of this type is asymptotically thinner than any fixed strip, so it says nothing about zeros off the critical line at bounded distance from `σ = 1`.
+
+| rung 3 layer | status |
+|---|---|
+| I, VMVT (weak) | done (rounds 194–202, 207, 209) |
+| II, exponential sums ⇒ `PolylogGrowth (6/7) K` | **done** (rounds 203–212) |
+| III, Landau ⇒ zero-free region ⇒ PNT error | done (round 193) |
+| sharpening to `a = 2/3` (exponent `3/5`) | open; needs the sharp VMVT |
