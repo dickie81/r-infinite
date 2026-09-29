@@ -6633,3 +6633,30 @@ Axioms are clean.
 
 **Check 4:** classical (Vinogradov; the presentation follows Tao 2015). The Lean forms are new to the pilot. **Bearing on RH:** none.
 
+## Round 204: layer II, the per-`n` bilinear bound (`src/ExpSum2.lean`)
+
+Axioms are clean.
+
+- **Correction to round 203's statement of (D).** Its box sum ran over `y ∈ X`, the set of power-sum vectors, and that does not factorise. `double_holder` now takes any `Y ⊇ X`. That is valid because `|F|^{2ℓ} ≥ 0`, and the proof changed only there.
+- **`Z_factor`.** Over boxes `D = ∏[−L_j, L_j]` and `B = ∏[1, L_j]`, the box sum `Σ_{z∈D} |Σ_{y∈B} e(Σ_j α_j z_j y_j)|` equals the product over coordinates of `Σ_{|z|≤L_j} |Σ_{y=1}^{L_j} e(α_j z y)|`.
+- **`oneD_bound`, step (B′).** If `0 < |α|·X ≤ 1/2`, then `Σ_{|z|≤X} |Σ_{y=1}^{Y} e(αzy)| ≤ Y + (1/|α|)(1 + log X)`, against the trivial `(2X+1)Y` (`oneD_trivial`). The proof:
+  - no wrap-around, since `|αz| ≤ 1/2` means `‖αz‖ ≥ |αz|` (`abs_le_dist_round`);
+  - the geometric bound (A) term by term;
+  - Mathlib's `harmonic_le_one_add_log`.
+
+  This replaces the spec's wrap-around version (B). A single good coordinate is enough, because the weak VMVT's excess `η` can be made arbitrarily small.
+- **`bilinear_bound`.** For every `α ∈ ℝ^K` and `ℓ ≥ 1`:
+  `|Σ_{a,b≤M} e(Σ_j α_j (ab)^{j+1})|^{2ℓ²} ≤ M^{4ℓ(ℓ−1)}·J_{ℓ,K}(M)²·∏_j Σ_{|z|≤L_j} |Σ_{y≤L_j} e(α_j z y)|`, with `L_j = ℓM^{j+1}`.
+  This is (D) with the box enlarged, differences placed in `D` (`pv_mem_box`), and `Z_factor`.
+
+| layer II step | status |
+|---|---|
+| (A) geometric sum | done |
+| (B′) one-dimensional bound, no wrap-around | **done** |
+| (D) double Hölder + factorisation = per-`n` bilinear bound | **done** |
+| (E) shift `n → n+ab` and Taylor for `−(t/2π) log` | open |
+| (F) assembly: explicit VMVT constants, choice of `M, K, ℓ`, one good coordinate `j ≈ 1.5 log t / log N` | open |
+| (G) ζ growth `PolylogGrowth a K` (approximate formula for ζ, dyadic partial summation) | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+

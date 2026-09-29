@@ -4,7 +4,7 @@
 Plain statement (`double_holder`). For coefficients `α ∈ ℝ^K` and `M, ℓ ≥ 1`, put
 `Σ(α) = Σ_{a,b=1}^{M} e(Σ_j α_j a^{j+1} b^{j+1})`. Then
   `|Σ(α)|^{2ℓ²} ≤ M^{4ℓ(ℓ−1)} · J_{ℓ,K}(M)² · Z`
-for any `Z` bounding `Σ_{x'∈X} |Σ_{y∈X} e(α·(x − x')·y)|` for every `x ∈ X`, where `X` is the
+for any `Z` bounding `Σ_{x'∈X} |Σ_{y∈Y} e(α·(x − x')·y)|` for every `x ∈ X` (any `Y ⊇ X`), where `X` is the
 set of power-sum vectors of `ℓ`-tuples from `[1, M]`.
 
 This is how Vinogradov's mean value `J` controls an exponential sum. The proof:
@@ -91,11 +91,11 @@ lemma power_mean_fs {ι : Type*} (s : Finset ι) (r : ι → ℝ) (hr : ∀ i, 0
   linarith [mul_comm ((s.card : ℝ) ^ (ℓ - 1)) (∑ i ∈ s, r i ^ ℓ)]
 
 /-- The squared-norm expansion used in step (4). -/
-lemma sum_normSq_le {X : Finset (Fin K → ℤ)} (α : Fin K → ℝ) (μ : (Fin K → ℤ) → ℂ)
+lemma sum_normSq_le {X Ys : Finset (Fin K → ℤ)} (α : Fin K → ℝ) (μ : (Fin K → ℤ) → ℂ)
     (ν : (Fin K → ℤ) → ℝ) (hμ : ∀ x, ‖μ x‖ ≤ ν x) (Zb : ℝ)
-    (hZ : ∀ x ∈ X, ∑ x' ∈ X, ‖∑ y ∈ X, T α (x - x') y‖ ≤ Zb) :
-    ∑ y ∈ X, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2 ≤ (∑ x ∈ X, ν x ^ 2) * Zb := by
-  set W : (Fin K → ℤ) → (Fin K → ℤ) → ℝ := fun x x' => ‖∑ y ∈ X, T α (x - x') y‖ with hW
+    (hZ : ∀ x ∈ X, ∑ x' ∈ X, ‖∑ y ∈ Ys, T α (x - x') y‖ ≤ Zb) :
+    ∑ y ∈ Ys, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2 ≤ (∑ x ∈ X, ν x ^ 2) * Zb := by
+  set W : (Fin K → ℤ) → (Fin K → ℤ) → ℝ := fun x x' => ‖∑ y ∈ Ys, T α (x - x') y‖ with hW
   have hWsym : ∀ x x', W x' x = W x x' := by
     intro x x'
     simp only [hW]
@@ -104,8 +104,8 @@ lemma sum_normSq_le {X : Finset (Fin K → ℤ)} (α : Fin K → ℝ) (μ : (Fin
       rw [T_sub_left, T_sub_left, map_mul, Complex.conj_conj, mul_comm]
     simp_rw [this, ← map_sum, Complex.norm_conj]
   have hν0 : ∀ x, 0 ≤ ν x := fun x => (norm_nonneg _).trans (hμ x)
-  have hexp : ((∑ y ∈ X, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2 : ℝ) : ℂ) =
-      ∑ x ∈ X, ∑ x' ∈ X, μ x * (starRingEnd ℂ) (μ x') * ∑ y ∈ X, T α (x - x') y := by
+  have hexp : ((∑ y ∈ Ys, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2 : ℝ) : ℂ) =
+      ∑ x ∈ X, ∑ x' ∈ X, μ x * (starRingEnd ℂ) (μ x') * ∑ y ∈ Ys, T α (x - x') y := by
     push_cast
     have e1 : ∀ y, ((‖∑ x ∈ X, μ x * T α x y‖ ^ 2 : ℝ) : ℂ) =
         ∑ x ∈ X, ∑ x' ∈ X, μ x * (starRingEnd ℂ) (μ x') * T α (x - x') y := by
@@ -120,14 +120,14 @@ lemma sum_normSq_le {X : Finset (Fin K → ℤ)} (α : Fin K → ℝ) (μ : (Fin
     rw [Finset.sum_comm]
     apply sum_congr rfl; intro x' _
     rw [Finset.mul_sum]
-  have hle : ∑ y ∈ X, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2 ≤ ∑ x ∈ X, ∑ x' ∈ X, ν x * ν x' * W x x' := by
-    have hnn : 0 ≤ ∑ y ∈ X, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2 := by positivity
-    calc ∑ y ∈ X, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2
-        = ‖((∑ y ∈ X, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2 : ℝ) : ℂ)‖ := by
+  have hle : ∑ y ∈ Ys, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2 ≤ ∑ x ∈ X, ∑ x' ∈ X, ν x * ν x' * W x x' := by
+    have hnn : 0 ≤ ∑ y ∈ Ys, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2 := by positivity
+    calc ∑ y ∈ Ys, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2
+        = ‖((∑ y ∈ Ys, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2 : ℝ) : ℂ)‖ := by
           rw [Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg hnn]
-      _ = ‖∑ x ∈ X, ∑ x' ∈ X, μ x * (starRingEnd ℂ) (μ x') * ∑ y ∈ X, T α (x - x') y‖ := by
+      _ = ‖∑ x ∈ X, ∑ x' ∈ X, μ x * (starRingEnd ℂ) (μ x') * ∑ y ∈ Ys, T α (x - x') y‖ := by
           rw [hexp]
-      _ ≤ ∑ x ∈ X, ∑ x' ∈ X, ‖μ x * (starRingEnd ℂ) (μ x') * ∑ y ∈ X, T α (x - x') y‖ :=
+      _ ≤ ∑ x ∈ X, ∑ x' ∈ X, ‖μ x * (starRingEnd ℂ) (μ x') * ∑ y ∈ Ys, T α (x - x') y‖ :=
           (norm_sum_le _ _).trans (sum_le_sum fun x _ => norm_sum_le _ _)
       _ ≤ ∑ x ∈ X, ∑ x' ∈ X, ν x * ν x' * W x x' := by
           apply sum_le_sum; intro x _; apply sum_le_sum; intro x' _
@@ -154,7 +154,7 @@ lemma sum_normSq_le {X : Finset (Fin K → ℤ)} (α : Fin K → ℝ) (μ : (Fin
       ring
     rw [h3, h2] at h1
     linarith
-  calc ∑ y ∈ X, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2 ≤ ∑ x ∈ X, ∑ x' ∈ X, ν x ^ 2 * W x x' :=
+  calc ∑ y ∈ Ys, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2 ≤ ∑ x ∈ X, ∑ x' ∈ X, ν x ^ 2 * W x x' :=
         hle.trans hamgm
     _ = ∑ x ∈ X, ν x ^ 2 * ∑ x' ∈ X, W x x' := by
         apply sum_congr rfl; intro x _; rw [Finset.mul_sum]
@@ -166,8 +166,9 @@ lemma sum_normSq_le {X : Finset (Fin K → ℤ)} (α : Fin K → ℝ) (μ : (Fin
 set_option maxHeartbeats 1600000 in
 /-- **Step (D), double Hölder.** `|Σ(α)|^{2ℓ²} ≤ M^{4ℓ(ℓ−1)} J_{ℓ,K}(M)² Z`. -/
 theorem double_holder (α : Fin K → ℝ) {M ℓ : ℕ} (hℓ : 1 ≤ ℓ) (Zb : ℝ)
+    (Ys : Finset (Fin K → ℤ)) (hYs : (Vinogradov.box ℓ M).image (pv K) ⊆ Ys)
     (hZ : ∀ x ∈ (Vinogradov.box ℓ M).image (pv K), ∑ x' ∈ (Vinogradov.box ℓ M).image (pv K),
-      ‖∑ y ∈ (Vinogradov.box ℓ M).image (pv K), T α (x - x') y‖ ≤ Zb) :
+      ‖∑ y ∈ Ys, T α (x - x') y‖ ≤ Zb) :
     ‖∑ a ∈ Icc 1 M, ∑ b ∈ Icc 1 M, T α (A K a) (A K b)‖ ^ (2 * ℓ ^ 2) ≤
       (M : ℝ) ^ (4 * ℓ * (ℓ - 1)) * (J ℓ K M : ℝ) ^ 2 * Zb := by
   classical
@@ -272,8 +273,10 @@ theorem double_holder (α : Fin K → ℝ) {M ℓ : ℕ} (hℓ : 1 ≤ ℓ) (Zb 
     apply sum_congr rfl; intro a ha
     rw [(mem_filter.mp ha).2]
   have hE : ∑ y ∈ X, (‖F y‖ ^ ℓ) ^ 2 ≤ (∑ y ∈ X, ν y ^ 2) * Zb := by
-    have h := sum_normSq_le (X := X) α μ ν hμν Zb hZ
-    calc ∑ y ∈ X, (‖F y‖ ^ ℓ) ^ 2 = ∑ y ∈ X, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2 := by
+    have h := sum_normSq_le (X := X) (Ys := Ys) α μ ν hμν Zb hZ
+    calc ∑ y ∈ X, (‖F y‖ ^ ℓ) ^ 2 ≤ ∑ y ∈ Ys, (‖F y‖ ^ ℓ) ^ 2 :=
+          sum_le_sum_of_subset_of_nonneg hYs (fun _ _ _ => sq_nonneg _)
+      _ = ∑ y ∈ Ys, ‖∑ x ∈ X, μ x * T α x y‖ ^ 2 := by
           apply sum_congr rfl; intro y _; rw [← norm_pow, hFpow]
       _ ≤ _ := h
   -- combine
