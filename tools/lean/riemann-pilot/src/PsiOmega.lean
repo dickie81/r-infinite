@@ -87,55 +87,76 @@ abbrev μ1 : Measure ℝ := volume.restrict (Ioi 1)
 theorem cexp_log {x : ℝ} (hx : 0 < x) (s : ℂ) : cexp (-s * (Real.log x : ℂ)) = (x : ℂ) ^ (-s) := by
   rw [Complex.cpow_def_of_ne_zero (ofReal_ne_zero.2 hx.ne'), ← Complex.ofReal_log hx.le]; ring_nf
 
-/-! ## Local finiteness of the zeros -/
+/-! ## The generic zero-free theorem
 
-/-- **A zero-free strip around the real half-line `[a, ∞)`**, `a > 0`. -/
-theorem strip_free {a : ℝ} (ha : 0 < a) : ∃ η > 0, ∀ s : ℂ, a ≤ s.re → |s.im| < η → Zr s ≠ 0 := by
+`Z` is entire with no zero on `Re s ≥ 1` and no real zero on `(θ, ∞)`. For `ζ`, `Z(s) = (s − 1)ζ(s)`;
+for a nontrivial Dirichlet character, `Z = L(·, χ)` (DirichletOmega.lean). -/
+
+section Generic
+
+variable {Z : ℂ → ℂ}
+
+/-- The hypotheses on `Z`: entire, no zero on `Re s ≥ 1`, no real zero in `(θ, ∞)`. -/
+structure ZData (Z : ℂ → ℂ) (θ : ℝ) : Prop where
+  diff : Differentiable ℂ Z
+  ne_zero_re_ge_one : ∀ s : ℂ, 1 ≤ s.re → Z s ≠ 0
+  real_ne_zero : ∀ σ : ℝ, θ < σ → Z σ ≠ 0
+
+theorem ZData.mono {θ θ' : ℝ} (hZ : ZData Z θ) (h : θ ≤ θ') : ZData Z θ' :=
+  ⟨hZ.diff, hZ.ne_zero_re_ge_one, fun σ hσ => hZ.real_ne_zero σ (by linarith)⟩
+
+/-- **The zeros of `Z` are finite in every compact set.** -/
+theorem ZData.zeros_finite {θ : ℝ} (hZ : ZData Z θ) {S : Set ℂ} (hS : IsCompact S) :
+    (S ∩ Z ⁻¹' {0}).Finite := by
+  have hc := AnalyticOnNhd.preimage_zero_mem_codiscrete (f := Z) (x := 2)
+    (fun z _ => hZ.diff.analyticAt z) (hZ.ne_zero_re_ge_one 2 (by norm_num))
+  rw [Set.preimage_compl, compl_mem_codiscrete_iff] at hc
+  exact (hS.inter_right hc.1).finite (hc.2.mono Set.inter_subset_right)
+
+/-- **A zero-free strip around the real half-line `[a, ∞)`**, `a > θ`. -/
+theorem ZData.strip_free {θ a : ℝ} (hZ : ZData Z θ) (ha : θ < a) :
+    ∃ η > 0, ∀ s : ℂ, a ≤ s.re → |s.im| < η → Z s ≠ 0 := by
   classical
-  set K : Set ℂ := closedBall 0 3 ∩ {s | a ≤ s.re} ∩ {s | |s.im| ≤ 1}
-  have hK : IsCompact K := ((isCompact_closedBall 0 3).inter_right
+  set K : Set ℂ := closedBall 0 (|a| + 2) ∩ {s | a ≤ s.re} ∩ {s | |s.im| ≤ 1}
+  have hK : IsCompact K := ((isCompact_closedBall 0 _).inter_right
     (isClosed_le continuous_const Complex.continuous_re)).inter_right
     (isClosed_le (continuous_abs.comp Complex.continuous_im) continuous_const)
-  have hfin := hK.inter_riemannZetaZeros_finite
+  have hfin := hZ.zeros_finite hK
   obtain ⟨m, hm, hmS⟩ := exists_pos_lb hfin.toFinset (fun z => if z.im = 0 then 1 else |z.im|)
     fun z => by split_ifs with h
                 · exact one_pos
                 · exact abs_pos.2 h
-  refine ⟨min m 1, lt_min hm one_pos, fun s hs hsi hZ => ?_⟩
-  obtain ⟨h1, h0⟩ := Zr_eq_zero hZ
+  refine ⟨min m 1, lt_min hm one_pos, fun s hs hsi h0 => ?_⟩
   have hre1 : s.re < 1 := by
-    by_contra h; exact zeta_ne_zero_re_ge_one (not_lt.1 h) h0
-  have hsK : s ∈ K ∩ riemannZetaZeros := by
+    by_contra h; exact hZ.ne_zero_re_ge_one s (not_lt.1 h) h0
+  have hsK : s ∈ K ∩ Z ⁻¹' {0} := by
     refine ⟨⟨⟨?_, hs⟩, ?_⟩, h0⟩
     · rw [mem_closedBall, dist_zero_right]
       have := Complex.norm_le_abs_re_add_abs_im s
-      have : |s.re| ≤ 1 := abs_le.2 ⟨by linarith, hre1.le⟩
+      have : |s.re| ≤ |a| + 1 := abs_le.2 ⟨by linarith [neg_abs_le a], by linarith [abs_nonneg a]⟩
       linarith [min_le_right m 1]
     · show |s.im| ≤ 1; linarith [min_le_right m 1]
   have := hmS s (hfin.mem_toFinset.2 hsK)
   by_cases hi : s.im = 0
-  · -- a real zero in `[a, 1)`
-    have e : s = ((s.re : ℝ) : ℂ) := Complex.ext (by simp) (by simp [hi])
-    rw [e] at hZ
-    exact Zr_real_ne (by linarith) hZ
+  · have e : s = ((s.re : ℝ) : ℂ) := Complex.ext (by simp) (by simp [hi])
+    rw [e] at h0
+    exact hZ.real_ne_zero _ (by linarith) h0
   · simp only [hi, ↓reduceIte] at this
     linarith [min_le_left m 1]
 
-/-! ## The generic zero-free theorem -/
-
 /-- **Step 1: the transform converges on `Re s > θ`.** -/
-theorem conv_of_mellin {A : ℝ → ℝ} {θ R0 σ₁ : ℝ} {F : ℂ → ℂ} (hθ : 0 < θ)
+theorem conv_of_mellin_gen {A : ℝ → ℝ} {θ R0 σ₁ : ℝ} {F : ℂ → ℂ} (hZ : ZData Z θ)
     (hH : Hyp μ1 A Real.log) (h₁ : Conv μ1 A Real.log σ₁)
     (hFL : ∀ s : ℂ, R0 < s.re → F s = lap μ1 A Real.log s)
-    (hFd : ∀ s : ℂ, θ < s.re → Zr s ≠ 0 → DifferentiableAt ℂ F s) :
+    (hFd : ∀ s : ℂ, θ < s.re → Z s ≠ 0 → DifferentiableAt ℂ F s) :
     ∀ σ, θ < σ → Conv μ1 A Real.log σ := by
   refine landau_abscissa hH h₁ fun c' hc' habove => ?_
   set a := (θ + c') / 2
-  obtain ⟨η, hη, hZ⟩ := strip_free (a := a) (by simp only [a]; linarith)
+  obtain ⟨η, hη, hZ'⟩ := hZ.strip_free (a := a) (by simp only [a]; linarith)
   set e := min η (c' - a)
   have he : 0 < e := lt_min hη (by simp only [a]; linarith)
   have hFd' : ∀ z : ℂ, a ≤ z.re → |z.im| < η → DifferentiableAt ℂ F z := fun z hz hzi =>
-    hFd z (by simp only [a] at hz; linarith) (hZ z hz hzi)
+    hFd z (by simp only [a] at hz; linarith) (hZ' z hz hzi)
   set W : Set ℂ := {s | c' < s.re} ∩ ({s | s.im < η} ∩ {s | -η < s.im})
   have hWo : IsOpen W := (isOpen_lt continuous_const Complex.continuous_re).inter
     ((isOpen_lt Complex.continuous_im continuous_const).inter (isOpen_lt continuous_const Complex.continuous_im))
@@ -170,7 +191,7 @@ theorem conv_of_mellin {A : ℝ → ℝ} {θ R0 σ₁ : ℝ} {F : ℂ → ℂ} (
     simp only [sub_im, ofReal_im, sub_zero] at h2
     exact (abs_lt.1 (h2.trans_lt (hs.trans_le (min_le_left _ _)))).1
 
-/-- The pole hypothesis of the generic theorem: at a zero `ρ` of `ζ` with `Z = (s − ρ)ⁿg` near `ρ`,
+/-- The pole hypothesis of the generic theorem: at a zero `ρ` of `Z` with `Z = (s − ρ)ⁿg` near `ρ`,
 `F = G + h/(s − ρ)ᵐ` on `ρ + (0, ε)`, with `G`, `h` continuous at `ρ` and `h(ρ) ≠ 0`. -/
 def PoleAt (F : ℂ → ℂ) (ρ : ℂ) : Prop :=
   ∃ ε > 0, ∃ (G h : ℂ → ℂ) (m : ℕ), m ≠ 0 ∧ ContinuousAt G ρ ∧ ContinuousAt h ρ ∧ h ρ ≠ 0 ∧
@@ -178,35 +199,37 @@ def PoleAt (F : ℂ → ℂ) (ρ : ℂ) : Prop :=
 
 /-- **The generic zero-free theorem.** If `A ≥ 0` has Mellin transform `F` on a right half-plane, `F`
 is holomorphic on `Re s > θ` off the zeros of `Z`, and `F` has a pole at every zero with `Re ρ > θ`,
-then `ζ` has no zero with `Re s > θ`. -/
-theorem zeta_ne_zero_of_mellin {A : ℝ → ℝ} {θ R0 σ₁ : ℝ} {F : ℂ → ℂ} (hθ : 0 < θ)
+then `Z` has no zero with `Re s > θ`. -/
+theorem ne_zero_of_mellin {A : ℝ → ℝ} {θ R0 σ₁ : ℝ} {F : ℂ → ℂ} (hZ : ZData Z θ)
     (hH : Hyp μ1 A Real.log) (h₁ : Conv μ1 A Real.log σ₁)
     (hFL : ∀ s : ℂ, R0 < s.re → F s = lap μ1 A Real.log s)
-    (hFd : ∀ s : ℂ, θ < s.re → Zr s ≠ 0 → DifferentiableAt ℂ F s)
-    (hpole : ∀ ρ : ℂ, θ < ρ.re → ρ.re < 1 → riemannZeta ρ = 0 → ∀ (n : ℕ) (g : ℂ → ℂ), n ≠ 0 →
-      AnalyticAt ℂ g ρ → g ρ ≠ 0 → (∀ᶠ z in 𝓝 ρ, Zr z = (z - ρ) ^ n * g z) → PoleAt F ρ)
-    {ρ : ℂ} (hρθ : θ < ρ.re) : riemannZeta ρ ≠ 0 := by
+    (hFd : ∀ s : ℂ, θ < s.re → Z s ≠ 0 → DifferentiableAt ℂ F s)
+    (hpole : ∀ ρ : ℂ, θ < ρ.re → Z ρ = 0 → ∀ (n : ℕ) (g : ℂ → ℂ), n ≠ 0 →
+      AnalyticAt ℂ g ρ → g ρ ≠ 0 → (∀ᶠ z in 𝓝 ρ, Z z = (z - ρ) ^ n * g z) → PoleAt F ρ)
+    {ρ : ℂ} (hρθ : θ < ρ.re) : Z ρ ≠ 0 := by
   classical
   intro hρ
   set L := lap μ1 A Real.log
   have hLd : DifferentiableOn ℂ L {s | θ < s.re} :=
-    lap_differentiableOn hH (conv_of_mellin hθ hH h₁ hFL hFd)
-  have hρ1 : ρ.re < 1 := by by_contra h'; exact zeta_ne_zero_re_ge_one (not_lt.1 h') hρ
+    lap_differentiableOn hH (conv_of_mellin_gen hZ hH h₁ hFL hFd)
+  have hlt1 : ∀ z, Z z = 0 → z.re < 1 := fun z hz => by
+    by_contra h'; exact hZ.ne_zero_re_ge_one z (not_lt.1 h') hz
   -- the zeros near `ρ`, and the rightmost one on the horizontal line through `ρ`
-  set K : Set ℂ := closedBall 0 (‖ρ‖ + 3) ∩ {s | ρ.re ≤ s.re} ∩ {s | |s.im - ρ.im| ≤ 1}
+  set K : Set ℂ := closedBall 0 (2 * ‖ρ‖ + 3) ∩ {s | ρ.re ≤ s.re} ∩ {s | |s.im - ρ.im| ≤ 1}
   have hK : IsCompact K := ((isCompact_closedBall 0 _).inter_right
     (isClosed_le continuous_const Complex.continuous_re)).inter_right
     (isClosed_le (continuous_abs.comp (Complex.continuous_im.sub continuous_const)) continuous_const)
-  have hfin := hK.inter_riemannZetaZeros_finite
+  have hfin := hZ.zeros_finite hK
   set S := hfin.toFinset
-  have hmem : ∀ z : ℂ, riemannZeta z = 0 → ρ.re ≤ z.re → |z.im - ρ.im| ≤ 1 → z ∈ S := by
+  have hmem : ∀ z : ℂ, Z z = 0 → ρ.re ≤ z.re → |z.im - ρ.im| ≤ 1 → z ∈ S := by
     intro z hz hzre hzim
-    have hz1 : z.re < 1 := by by_contra h'; exact zeta_ne_zero_re_ge_one (not_lt.1 h') hz
+    have hz1 := hlt1 z hz
     refine hfin.mem_toFinset.2 ⟨⟨⟨?_, hzre⟩, hzim⟩, hz⟩
     rw [mem_closedBall, dist_zero_right]
     have := Complex.norm_le_abs_re_add_abs_im z
     have := Complex.abs_im_le_norm ρ
-    have : |z.re| ≤ 1 := abs_le.2 ⟨by linarith, hz1.le⟩
+    have := Complex.abs_re_le_norm ρ
+    have : |z.re| ≤ ‖ρ‖ + 1 := abs_le.2 ⟨by linarith [neg_abs_le ρ.re], by linarith [norm_nonneg ρ]⟩
     have : |z.im| ≤ |ρ.im| + 1 := by have := abs_sub_abs_le_abs_sub z.im ρ.im; linarith
     linarith
   set cand := S.filter fun z => z.im = ρ.im
@@ -214,11 +237,9 @@ theorem zeta_ne_zero_of_mellin {A : ℝ → ℝ} {θ R0 σ₁ : ℝ} {F : ℂ �
   obtain ⟨ps, hps, hmax⟩ := cand.exists_max_image Complex.re ⟨ρ, hρc⟩
   obtain ⟨hpsS, hpsim⟩ := Finset.mem_filter.1 hps
   have hpsK := hfin.mem_toFinset.1 hpsS
-  have hps0 : riemannZeta ps = 0 := hpsK.2
+  have hps0 : Z ps = 0 := hpsK.2
   have hpsre : ρ.re ≤ ps.re := hpsK.1.1.2
-  have hps1 : ps.re < 1 := by by_contra h'; exact zeta_ne_zero_re_ge_one (not_lt.1 h') hps0
   have hpsθ : θ < ps.re := lt_of_lt_of_le hρθ hpsre
-  have hpsne1 : ps ≠ 1 := fun e => by rw [e, one_re] at hps1; exact lt_irrefl _ hps1
   -- the zero-free strip to the right of `ps`
   obtain ⟨m, hm, hmS⟩ := exists_pos_lb S (fun z => if z.im = ρ.im then 1 else |z.im - ρ.im|)
     fun z => by split_ifs with h1
@@ -231,12 +252,11 @@ theorem zeta_ne_zero_of_mellin {A : ℝ → ℝ} {θ R0 σ₁ : ℝ} {F : ℂ �
     ((isOpen_lt Complex.continuous_im continuous_const).inter (isOpen_lt continuous_const Complex.continuous_im))
   have hUc : Convex ℝ U := (convex_halfSpace_re_gt _).inter
     ((convex_halfSpace_im_lt _).inter (convex_halfSpace_im_gt _))
-  have hZU : ∀ z ∈ U, Zr z ≠ 0 := by
-    intro z hz hZ
+  have hZU : ∀ z ∈ U, Z z ≠ 0 := by
+    intro z hz hz0
     have hU1 : ps.re < z.re := hz.1
     have hU2 : z.im < ρ.im + δ := hz.2.1
     have hU3 : ρ.im - δ < z.im := hz.2.2
-    obtain ⟨-, hz0⟩ := Zr_eq_zero hZ
     have hzS := hmem z hz0 (by linarith) (by
       rw [abs_le]; constructor <;> linarith [min_le_right m 1])
     by_cases hi : z.im = ρ.im
@@ -252,7 +272,7 @@ theorem zeta_ne_zero_of_mellin {A : ℝ → ℝ} {θ R0 σ₁ : ℝ} {F : ℂ �
   have hz0re : z0.re = max R0 1 + 2 := by simp [z0]
   have hz0im : z0.im = ρ.im := by simp [z0]
   have hEq : EqOn F L U := eqOn_convex hUo hUc hFU hLU (z0 := z0)
-    ⟨show ps.re < z0.re by rw [hz0re]; linarith [le_max_right R0 1],
+    ⟨show ps.re < z0.re by rw [hz0re]; linarith [le_max_right R0 1, hlt1 ps hps0],
       show z0.im < ρ.im + δ by rw [hz0im]; linarith,
       show ρ.im - δ < z0.im by rw [hz0im]; linarith⟩
     (Filter.eventually_of_mem ((isOpen_lt continuous_const Complex.continuous_re).mem_nhds
@@ -261,34 +281,61 @@ theorem zeta_ne_zero_of_mellin {A : ℝ → ℝ} {θ R0 σ₁ : ℝ} {F : ℂ �
     ⟨show ps.re < (ps + x).re by simp; linarith, show (ps + x).im < ρ.im + δ by simp [hpsim]; linarith,
       show ρ.im - δ < (ps + x).im by simp [hpsim]; linarith⟩
   -- the order of the zero at `ps`
-  have hZa : AnalyticAt ℂ Zr ps := differentiable_Zr.analyticAt ps
-  have hnot : ¬ ∀ᶠ z in 𝓝 ps, Zr z = 0 := by
+  have hnot : ¬ ∀ᶠ z in 𝓝 ps, Z z = 0 := by
     intro hev
     obtain ⟨r, hr, hball⟩ := Metric.eventually_nhds_iff.1 hev
     have : dist (ps + ((r / 2 : ℝ) : ℂ)) ps < r := by
       rw [Complex.dist_eq, add_sub_cancel_left, Complex.norm_real, Real.norm_of_nonneg (by positivity)]
       linarith
     exact hZU _ (hright _ (by positivity)) (hball this)
-  obtain ⟨n, g, hg, hg0, hZg⟩ := hZa.exists_eventuallyEq_pow_smul_nonzero_iff.2 hnot
+  obtain ⟨n, g, hg, hg0, hZg⟩ :=
+    (hZ.diff.analyticAt ps).exists_eventuallyEq_pow_smul_nonzero_iff.2 hnot
   have hn : n ≠ 0 := by
     rintro rfl
     have := hZg.self_of_nhds
-    simp only [pow_zero, one_smul] at this
-    rw [Zr_of_ne hpsne1, hps0, mul_zero] at this
+    simp only [pow_zero, one_smul, hps0] at this
     exact hg0 this.symm
-  obtain ⟨ε, hε, G, h, k, hk, hG, hh, hh0, hsplit⟩ := hpole ps hpsθ hps1 hps0 n g hn hg hg0
+  obtain ⟨ε, hε, G, h, k, hk, hG, hh, hh0, hsplit⟩ := hpole ps hpsθ hps0 n g hn hg hg0
     (hZg.mono fun z hz => by rw [hz, smul_eq_mul])
   exact hh0 (pole_test hk hε
     ((hLd.differentiableAt ((isOpen_lt continuous_const Complex.continuous_re).mem_nhds hpsθ)).continuousAt)
     hG hh fun x hx hxe => by rw [← hEq (hright x hx)]; exact hsplit x hx hxe)
 
+end Generic
+
+/-! ## The `ζ` instance -/
+
+theorem zData_Zr {θ : ℝ} (hθ : 0 ≤ θ) : ZData Zr θ :=
+  ⟨differentiable_Zr, fun s hs h => zeta_ne_zero_re_ge_one hs (Zr_eq_zero h).2,
+    fun σ hσ => Zr_real_ne (by linarith)⟩
+
+/-- **A zero-free strip around the real half-line `[a, ∞)`**, `a > 0`. -/
+theorem strip_free {a : ℝ} (ha : 0 < a) : ∃ η > 0, ∀ s : ℂ, a ≤ s.re → |s.im| < η → Zr s ≠ 0 :=
+  (zData_Zr le_rfl).strip_free ha
+
+/-- **The generic zero-free theorem for `ζ`.** -/
+theorem zeta_ne_zero_of_mellin {A : ℝ → ℝ} {θ R0 σ₁ : ℝ} {F : ℂ → ℂ} (hθ : 0 < θ)
+    (hH : Hyp μ1 A Real.log) (h₁ : Conv μ1 A Real.log σ₁)
+    (hFL : ∀ s : ℂ, R0 < s.re → F s = lap μ1 A Real.log s)
+    (hFd : ∀ s : ℂ, θ < s.re → Zr s ≠ 0 → DifferentiableAt ℂ F s)
+    (hpole : ∀ ρ : ℂ, θ < ρ.re → ρ.re < 1 → riemannZeta ρ = 0 → ∀ (n : ℕ) (g : ℂ → ℂ), n ≠ 0 →
+      AnalyticAt ℂ g ρ → g ρ ≠ 0 → (∀ᶠ z in 𝓝 ρ, Zr z = (z - ρ) ^ n * g z) → PoleAt F ρ)
+    {ρ : ℂ} (hρθ : θ < ρ.re) : riemannZeta ρ ≠ 0 := by
+  intro hρ
+  have hρ1 : ρ.re < 1 := by by_contra h'; exact zeta_ne_zero_re_ge_one (not_lt.1 h') hρ
+  have hne : ρ ≠ 1 := fun e => by rw [e, one_re] at hρ1; exact lt_irrefl _ hρ1
+  refine ne_zero_of_mellin (zData_Zr hθ.le) hH h₁ hFL hFd (fun q hq hZq => ?_) hρθ
+    (by rw [Zr_of_ne hne, hρ, mul_zero])
+  obtain ⟨-, hq0⟩ := Zr_eq_zero hZq
+  exact hpole q hq (by by_contra h'; exact zeta_ne_zero_re_ge_one (not_lt.1 h') hq0) hq0
+
 /-- The local factorisation near a zero, in the form the pole computations use: on a ball around
 `ρ`, `Z = (w − ρ)ⁿg` near each point, `g` is analytic and `g ≠ 0`. -/
-theorem local_factor {ρ : ℂ} {n : ℕ} {g : ℂ → ℂ} (hg : AnalyticAt ℂ g ρ) (hg0 : g ρ ≠ 0)
-    (hZg : ∀ᶠ z in 𝓝 ρ, Zr z = (z - ρ) ^ n * g z) :
+theorem local_factor {Z : ℂ → ℂ} {ρ : ℂ} {n : ℕ} {g : ℂ → ℂ} (hg : AnalyticAt ℂ g ρ) (hg0 : g ρ ≠ 0)
+    (hZg : ∀ᶠ z in 𝓝 ρ, Z z = (z - ρ) ^ n * g z) :
     ∃ r > 0, ∀ x : ℝ, 0 < x → x < r →
-      (Zr =ᶠ[𝓝 (ρ + x)] fun w => (w - ρ) ^ n * g w) ∧ AnalyticAt ℂ g (ρ + x) ∧ g (ρ + x) ≠ 0 := by
-  have hev : ∀ᶠ z in 𝓝 ρ, (∀ᶠ w in 𝓝 z, Zr w = (w - ρ) ^ n * g w) ∧ AnalyticAt ℂ g z ∧ g z ≠ 0 :=
+      (Z =ᶠ[𝓝 (ρ + x)] fun w => (w - ρ) ^ n * g w) ∧ AnalyticAt ℂ g (ρ + x) ∧ g (ρ + x) ≠ 0 := by
+  have hev : ∀ᶠ z in 𝓝 ρ, (∀ᶠ w in 𝓝 z, Z w = (w - ρ) ^ n * g w) ∧ AnalyticAt ℂ g z ∧ g z ≠ 0 :=
     hZg.eventually_nhds.and (hg.eventually_analyticAt.and (hg.continuousAt.eventually_ne hg0))
   obtain ⟨r0, hr0, hball⟩ := Metric.eventually_nhds_iff.1 hev
   refine ⟨r0, hr0, fun x hx hxr => ?_⟩
@@ -508,8 +555,12 @@ theorem linBound_vonMangoldt : LinBound (fun n => ArithmeticFunction.vonMangoldt
     rw [summ_vonMangoldt, abs_of_nonneg (Chebyshev.psi_nonneg x)]
     exact Chebyshev.psi_le_const_mul_self hx
 
-/-- `F(s) = c/(s − θ) + ε(Z′/(sZ) + 1/s)`. -/
-def Fψ (θ c ε : ℝ) (s : ℂ) : ℂ := c / (s - θ) + ε * (deriv Zr s / (s * Zr s) + 1 / s)
+/-- `F(s) = c/(s − θ) + ε(Z′/(sZ) + b/s)`: the transform of `c·x^θ − ε·Σ_{n ≤ x} f(n)` when
+`L(f, s) = −Z′/Z − b/(s − 1)`. -/
+def FZ (Z : ℂ → ℂ) (θ c ε b : ℝ) (s : ℂ) : ℂ := c / (s - θ) + ε * (deriv Z s / (s * Z s) + b / s)
+
+/-- For `ψ`: `Z(s) = (s − 1)ζ(s)` and `b = 1`. -/
+abbrev Fψ (θ c ε : ℝ) : ℂ → ℂ := FZ Zr θ c ε 1
 
 theorem deriv_Zr {s : ℂ} (hs : s ≠ 1) :
     deriv Zr s = riemannZeta s + (s - 1) * deriv riemannZeta s := by
@@ -527,7 +578,7 @@ theorem lap_eq_Fψ (hθ1 : θ ≤ 1) {s : ℂ} (hs : 1 < s.re) :
   have hζ : riemannZeta s ≠ 0 := zeta_ne_zero_re_ge_one hs.le
   rw [lap_Aof linBound_vonMangoldt hθ1 hs (ArithmeticFunction.LSeriesSummable_vonMangoldt hs),
     ArithmeticFunction.LSeries_vonMangoldt_eq_deriv_riemannZeta_div hs]
-  unfold Fψ
+  unfold Fψ FZ
   rw [deriv_Zr hs1, Zr_of_ne hs1]
   have hs1' : s - 1 ≠ 0 := sub_ne_zero.2 hs1
   push_cast
@@ -535,24 +586,24 @@ theorem lap_eq_Fψ (hθ1 : θ ≤ 1) {s : ℂ} (hs : 1 < s.re) :
   ring
 
 /-- `F` is holomorphic wherever `s ≠ θ`, `s ≠ 0` and `Z(s) ≠ 0`. -/
-theorem Fψ_differentiableAt {s : ℂ} (h1 : s ≠ θ) (h0 : s ≠ 0) (hZ : Zr s ≠ 0) :
-    DifferentiableAt ℂ (Fψ θ c ε) s := by
-  have hd : DifferentiableAt ℂ (deriv Zr) s := (differentiable_Zr.analyticAt s).deriv.differentiableAt
-  have hz : DifferentiableAt ℂ Zr s := differentiable_Zr s
+theorem FZ_differentiableAt {Z : ℂ → ℂ} {b : ℝ} (hZd : Differentiable ℂ Z) {s : ℂ} (h1 : s ≠ θ)
+    (h0 : s ≠ 0) (hZ : Z s ≠ 0) : DifferentiableAt ℂ (FZ Z θ c ε b) s := by
+  have hd : DifferentiableAt ℂ (deriv Z) s := (hZd.analyticAt s).deriv.differentiableAt
+  have hz : DifferentiableAt ℂ Z s := hZd s
   have hθ : s - θ ≠ 0 := sub_ne_zero.2 h1
-  have hsz : s * Zr s ≠ 0 := mul_ne_zero h0 hZ
-  unfold Fψ
+  have hsz : s * Z s ≠ 0 := mul_ne_zero h0 hZ
+  unfold FZ
   fun_prop (disch := assumption)
 
 /-- **The pole of `F` at a zero**: `F = G + (εn/ρ)/(s − ρ)`. -/
-theorem Fψ_pole (hε : ε ≠ 0) {ρ : ℂ} (hρθ : θ < ρ.re) (hθ : 0 < θ) {n : ℕ} {g : ℂ → ℂ} (hn : n ≠ 0)
-    (hg : AnalyticAt ℂ g ρ) (hg0 : g ρ ≠ 0) (hZg : ∀ᶠ z in 𝓝 ρ, Zr z = (z - ρ) ^ n * g z) :
-    PoleAt (Fψ θ c ε) ρ := by
+theorem FZ_pole {Z : ℂ → ℂ} {b : ℝ} (hε : ε ≠ 0) {ρ : ℂ} (hρθ : θ < ρ.re) (hθ : 0 < θ) {n : ℕ}
+    {g : ℂ → ℂ} (hn : n ≠ 0) (hg : AnalyticAt ℂ g ρ) (hg0 : g ρ ≠ 0)
+    (hZg : ∀ᶠ z in 𝓝 ρ, Z z = (z - ρ) ^ n * g z) : PoleAt (FZ Z θ c ε b) ρ := by
   obtain ⟨k, rfl⟩ := Nat.exists_eq_succ_of_ne_zero hn
   have hρ0 : ρ ≠ 0 := fun e => by rw [e, zero_re] at hρθ; linarith
   obtain ⟨r0, hr0, hloc⟩ := local_factor hg hg0 hZg
   refine ⟨r0, hr0, fun z => c / (z - θ) + ε * (-((k + 1 : ℕ) : ℂ) / (ρ * z) + deriv g z / (z * g z)
-    + 1 / z), fun _ => ε * ((k + 1 : ℕ) : ℂ) / ρ, 1, one_ne_zero, ?_, continuousAt_const, ?_,
+    + b / z), fun _ => ε * ((k + 1 : ℕ) : ℂ) / ρ, 1, one_ne_zero, ?_, continuousAt_const, ?_,
     fun x hx hxr => ?_⟩
   · have hθρ : ρ - θ ≠ 0 := fun e => by
       have := congrArg Complex.re e; simp at this; linarith
@@ -569,14 +620,14 @@ theorem Fψ_pole (hε : ε ≠ 0) {ρ : ℂ} (hρθ : θ < ρ.re) (hθ : 0 < θ)
     have hz0 : z ≠ 0 := fun e => by
       have : (ρ + (x : ℂ)).re = ρ.re + x := by simp
       rw [show ρ + (x : ℂ) = z from rfl, e, zero_re] at this; linarith
-    have hderiv : deriv Zr z = ((k + 1 : ℕ) : ℂ) * (z - ρ) ^ k * g z + (z - ρ) ^ (k + 1) * deriv g z := by
+    have hderiv : deriv Z z = ((k + 1 : ℕ) : ℂ) * (z - ρ) ^ k * g z + (z - ρ) ^ (k + 1) * deriv g z := by
       rw [hZz.deriv_eq]
       have h1 : HasDerivAt (fun w => (w - ρ) ^ (k + 1) * g w)
           (((k + 1 : ℕ) : ℂ) * (z - ρ) ^ k * 1 * g z + (z - ρ) ^ (k + 1) * deriv g z) z :=
         (((hasDerivAt_id z).sub_const ρ).pow (k + 1)).mul hgz.differentiableAt.hasDerivAt
       rw [h1.deriv]; ring
-    have hZz' : Zr z = (z - ρ) ^ (k + 1) * g z := hZz.self_of_nhds
-    unfold Fψ
+    have hZz' : Z z = (z - ρ) ^ (k + 1) * g z := hZz.self_of_nhds
+    unfold FZ
     rw [hderiv, hZz', pow_one]
     have hpk : (z - ρ) ^ k ≠ 0 := pow_ne_zero _ hu0
     field_simp
@@ -592,9 +643,9 @@ theorem zeta_ne_zero_of_psi (hθ : 0 < θ) (hθ1 : θ ≤ 1) (hε : ε ≠ 0)
     rw [summ_vonMangoldt, one_mul]; exact h x hx
   refine zeta_ne_zero_of_mellin (F := Fψ θ c ε) (R0 := 1) hθ (hyp_Aof h')
     (conv_Aof_three linBound_vonMangoldt hθ1) (fun s hs => (lap_eq_Fψ hθ1 hs).symm)
-    (fun s hs hZ => Fψ_differentiableAt (fun e => by rw [e, ofReal_re] at hs; exact lt_irrefl _ hs)
+    (fun s hs hZ => FZ_differentiableAt differentiable_Zr (fun e => by rw [e, ofReal_re] at hs; exact lt_irrefl _ hs)
       (fun e => by rw [e, zero_re] at hs; linarith) hZ)
-    (fun ρ hρθ _ _ n g hn hg hg0 hZg => Fψ_pole hε hρθ hθ hn hg hg0 hZg) hρθ
+    (fun ρ hρθ _ _ n g hn hg hg0 hZg => FZ_pole hε hρθ hθ hn hg hg0 hZg) hρθ
 
 /-! ## The Ω± statements for `ψ` -/
 

@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 713 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 716 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -105,8 +105,9 @@ Every file ends with `#print axioms`. All 713 checked theorems depend only on `p
 | `LandauLaplace.lean` | 419 | **Landau's theorem for Laplace transforms**: `A ≥ 0`, `φ ≥ 0`; if `∫Ae^{−sφ}` agrees near the real point of its abscissa with a holomorphic function, it converges beyond it; the pole test for poles of any order (rounds 220–221) |
 | `WeilLandau.lean` | 909 | **Weil's criterion for `ζ`, graded**: `Q(twin (box 1) λ) ≥ −Ce^{σλ}` for all `λ ≥ 0` ⟺ every zero has `|2 Re ρ − 1| ≤ σ`; RH ⟺ the defect is subexponential; `σ = 0` is Weil's criterion with no finiteness hypothesis (rounds 220–221) |
 | `WeilRate.lean` | 119 | **the ground energy's rate of failure measures the zeros**: `λ₁(a) ≥ −Ce^{σa}` ⟹ `|2 Re ρ − 1| ≤ σ`; RH ⟺ `λ₁` has no negative part of exponential rate; if RH fails, `λ₁(a) < −Ce^{σa}` at arbitrarily large `a` (round 221) |
-| `PsiOmega.lean` | 670 | **one-sided bounds on summatory functions are zero-free half-planes** (generic Mellin theorem); **`ψ(x) − x = Ω±(x^θ)`** below the real part of any zero, and for every `θ < ½` unconditionally (rounds 220–221) |
+| `PsiOmega.lean` | 721 | **one-sided bounds on summatory functions are zero-free half-planes** (generic Mellin theorem, for any entire `Z` with no zero on `Re s ≥ 1`, round 222); **`ψ(x) − x = Ω±(x^θ)`** below the real part of any zero, and for every `θ < ½` unconditionally (rounds 220–221) |
 | `MertensOmega.lean` | 293 | **Mertens and Liouville**: `M(x) = Ω±(x^θ)` for every `θ < ½`; `L(λ, s)ζ(s) = ζ(2s)`; a one-sided bound `εL(x) ≤ c√x` gives RH, in particular **Pólya's conjecture ⟹ RH** (round 221) |
+| `DirichletOmega.lean` | 166 | **prime races**: for real `χ ≠ 1`, `ψ(x, χ) = Ω±(x^θ)` below any zero of `L(s, χ)` if there is no real zero in `(θ, 1)`; the race between primes `≡ 1` and `≡ 3` (mod 4) changes lead infinitely often, under those two hypotheses (round 222) |
 | `LSeriesLandau.lean` | 95 | **Landau's theorem for L-series with nonnegative coefficients**: singular at the real point of the abscissa (Mathlib-ready; round 221) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
@@ -7130,3 +7131,71 @@ Four follow-ups to Landau's theorem. All build, with no warnings; every new theo
 
 **Bearing on RH:** none. Items 1–2 grade an equivalence and quantify a hypothetical failure. They do not supply the lower bound on `λ₁` that would be needed. Item 3's bounds on `M` and `L` are not proved, and Pólya's is false.
 
+
+## Round 222: prime races, and the Davenport–Heilbronn rate test
+
+### Prime races (`PsiOmega.lean`, `DirichletOmega.lean`)
+
+**The generic theorem, for any `Z`.**
+- `PsiOmega.ne_zero_of_mellin` replaces `(s − 1)ζ(s)` by any `Z` with `ZData Z θ`: `Z` entire, no zero on `Re s ≥ 1`, and no real zero in `(θ, ∞)`.
+- Local finiteness of the zeros is now proved for any such `Z` (`ZData.zeros_finite`, from `AnalyticOnNhd.preimage_zero_mem_codiscrete`).
+- `zeta_ne_zero_of_mellin`, `strip_free`, `FZ` (formerly `Fψ`, now `Fψ = FZ Zr · · · 1`), `FZ_pole` and `local_factor` are instances or generalisations. Their statements for `ζ` are unchanged, and `MertensOmega.lean` builds as before.
+
+**Dirichlet characters.** Take `χ ≠ 1` real, `Z = L(·, χ)` and `ψ(x, χ) = Σ_{n ≤ x} Λ(n)χ(n)`. The L-series of `ψ(x, χ)` is `−L′/L` (Mathlib's `LSeries_twist_vonMangoldt_eq`).
+- `LFunction_ne_zero_of_psiChi`: suppose `L(σ, χ) ≠ 0` for real `σ ∈ (θ, 1)`. Then `εψ(x, χ) ≤ c·x^θ` implies `L(s, χ) ≠ 0` on `Re s > θ`.
+- `psiChi_omega`: under the same real-zero hypothesis, a zero `ρ` of `L(s, χ)` with `Re ρ > θ` gives `ψ(x, χ) = Ω±(x^θ)`.
+- `race_four`: `ψ(x, χ₄) = ψ(x; 4, 1) − ψ(x; 4, 3)` (`summ_fχ_chi4`). A zero of `L(s, χ₄)` with `Re ρ > θ`, together with no real zero in `(θ, 1)`, makes the `log p`-weighted race between primes `≡ 1` and `≡ 3` (mod 4) change lead infinitely often, by more than `c·x^θ` each way. This is the `ψ`-form of Littlewood's 1914 theorem.
+
+**The two hypotheses are real.**
+- *Real zeros.* A real zero of `L(s, χ)` in `(θ, 1)` (a Siegel zero, if it lies near 1) is a real singularity. Landau's theorem allows real singularities, so it must be excluded. `L(σ, χ₄) > 0` on `(0, 1)` is classical (an alternating series) but is not proved here: Mathlib's `LFunction` is not identified with the conditionally convergent series.
+- *A zero exists.* Proving that `L(s, χ)` has a zero needs a Hadamard product for `L`. The pilot has one only for `Ξ`, where `exists_zero_re_ge_half` makes the `ζ` results unconditional.
+
+So the ζ, `M` and `L` results of rounds 220–221 are unconditional, and the race is conditional on these two inputs.
+
+### DH rate test (`frontier/dh/RATE_PREREG.md`, `rate_*.jsonl`)
+
+**Pre-registered** (before any run past `a = 2`):
+- The least-squares slope of `log(−λ₁^{DH}(a))` over `a ∈ [2.5, 3.5]` lies in `[0.55, 0.70]`, with target `2β₀ − 1 = 0.617` for `ρ₀ = 0.8085 + 85.70i`.
+- The ground state is dominated by `ρ₀`.
+
+The runs used `scan.py dh K 300 δ` with `δ = 2a`. A validity condition was found during the runs: the basis frequencies `kπ/a` must reach 85.7, so `K ≳ 27a`.
+
+| a | 2.0 | 2.25 | 2.5 | 2.75 | 3.0 | 3.25 | 3.5 | 4.0 | 4.5 |
+|---|---|---|---|---|---|---|---|---|---|
+| `−λ₁`, K = 120 | 0.710 | 1.326 | 1.855 | 2.724 | 3.680 | 4.779 | 6.274 | 10.36 | (0.020, truncated) |
+| `−λ₁`, K = 160 | 0.712 | 1.327 | 1.858 | 2.732 | 3.691 | 4.789 | 6.284 | 10.64 | |
+| `−λ₁`, K = 200 | | | | | | | | 10.65 | 16.52 |
+
+**Result 1: the slope prediction is falsified.**
+- The least-squares slope over `[2.5, 3.5]` is **1.20**, outside `[0.55, 0.70]`. It is stable in `K`: K = 120 and K = 160 agree to 0.2% up to `a = 3.5`.
+- Local slopes: 1.54, 1.20, 1.05 and 1.09 on the quarter-intervals from 2.5 to 3.5, then 1.06 on `[3.5, 4]` and 0.88 on `[4, 4.5]`.
+
+**Result 2: the mechanism is confirmed.** The ground state's `ρ₀` term `4 Re ĝ(τ₀)²` (`anal.py`) accounts for `λ₁`:
+
+| a | `λ₁` | `ρ₀` term |
+|---|---|---|
+| 2.5 | −1.855 | −1.956 |
+| 3.0 | −3.680 | −3.840 |
+| 3.5 | −6.274 | −6.587 |
+
+- The other off-line zeros contribute at most 1e−3.
+- `|ĝ|` peaks at `t = 85–86.5`.
+- The second mode is the same picture for `ρ₁ = 0.651 + 114.16i`. At `a = 3.5` it disappears at K = 120 (`π·120/3.5 = 107.7 < 114`) and returns at K = 160. This is the truncation diagnostic.
+- There is no DH zero with `Re s > 1` at the heights the basis sees, so the excess slope is not another zero.
+
+**Reading (post hoc, not pre-registered).**
+- The heuristic "`−λ₁ ∝ e^{(2β₀−1)a}`" ignored the prefactor. The ceiling for one zero is `max ‖g‖=1 of 4|ĝ(τ₀)|² = 4 sinh(2ηa)/η` with `η = β₀ − ½`.
+- The ground state reaches a growing fraction of that ceiling: 6.4%, 9.1%, 11.3%, 13.6% and 15.9% at `a = 2.5, 3, 3.5, 4, 4.5`. It has to resolve `ρ₀` in frequency against the on-line zeros nearby (spacing ≈ 1.5), and that resolution improves with `a`.
+- A fit `−λ₁ ≈ C a^{1.5} e^{0.617a}` on `[3, 4]` predicts a local slope near 0.97 at `a = 4.25`. The observed value is 0.88. The slope is falling towards 0.617 but has not reached it.
+- `lam_rate` concerns `a → ∞` and gives a lower bound on the rate. Every observed slope exceeds 0.617, as it must. The data neither confirm nor refute the asymptotic rate; reaching `a ≈ 8` would need `N ≈ e^{16}` prime-power weights, which is out of reach for this code.
+
+**Check 4.**
+- **Acknowledged (classical).**
+  - Landau's Ω± theorem for `ψ(x, χ)` and Littlewood's race theorem mod 4 (Littlewood 1914; Ingham ch. V).
+  - DH's off-line zeros (round 165).
+- **New here.**
+  - Machine-checked `race_four` and `psiChi_omega`, with their hypotheses explicit.
+  - The generic theorem for any `ZData`.
+  - A falsified pre-registered slope, with the mechanism check that explains it.
+
+**Bearing on RH:** none. The race theorems run from zeros of `L(s, χ)` to oscillation. The DH numerics test a transfer heuristic for a function that is known to violate RH.
