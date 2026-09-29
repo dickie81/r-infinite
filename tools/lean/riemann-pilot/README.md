@@ -6735,3 +6735,26 @@ Axioms are clean.
 
 **Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
 
+## Round 208: layer II, partial blocks and Abel summation (`src/ExpSum5.lean`)
+
+Axioms are clean.
+
+- **`block_bound_partial`.** The block bound of round 206 holds for every partial block `(N, N']` with `N ≤ N' ≤ 2N`, with the same right-hand side.
+- **`abel_bound`.** Suppose every initial segment `Σ_{N<n≤m} aₙ` is at most `B`, and the weights `wₙ ≥ 0` decrease. Then `|Σ_{N<n≤N'} wₙaₙ| ≤ w_{N+1}·B`. With `wₙ = n^{−σ}`, this turns the `n^{−it}` bounds into `|Σ_{N<n≤2N} n^{−σ−it}| ≤ N^{−σ}·(block bound)`.
+- **Plan for the rest of (G)**, recorded for the next rounds:
+  - PNT+'s `Zeta0EqZeta` + `ZetaBnd_aux1` give `ζ(s) = Σ_{n≤X} n^{−s} − X^{1−s}/(1−s) − X^{−s}/2 + R` with `|R| ≤ 2|t|X^{−σ}/σ`.
+  - `X ≈ |t|^{3/2}` makes the extra terms `O(1)` for `σ ≥ 2/3`, so blocks `N ≤ t^{3/2}` (`λ = log t/log N ≥ 2/3`) must be covered.
+  - On paper, `M = N^{1/3}` (windows `[r/3 + σ'/3, 2r/3]`, overlapping from `r = 2` on) and `M = N^{1/4}` (for the gap near `λ ≈ 0.7`) cover `λ ≥ 2/3`, with `K = 2r+1` satisfying the Taylor constraint.
+  - Small blocks, `N < exp(c(log t)^{5/6})`, are bounded trivially.
+- **Toolchain split (not yet resolved).** Layers I–II live in the pilot (Mathlib at `MATHLIB_REV`, Lean v4.35.0-rc2). Layer III and the ζ approximation live in PNT+ (Lean v4.33.1). A single machine-checked chain needs the layer I–II files ported into the PNT+ environment, or the reverse.
+
+| layer II step | status |
+|---|---|
+| (A)–(F), (G1) explicit constants | done |
+| (G2a) partial blocks, (G2b) Abel summation | **done** |
+| (G2c) parameter choice per block ⇒ per-block saving `N^{−c(log N/log t)^6}` for `N ≥ exp(c(log t)^{5/6})` | open |
+| (G2d) Dirichlet-polynomial growth `|Σ_{n≤t^{3/2}} n^{−σ−it}| ≤ K(log t)^K` for `σ ≥ 1 − (log t)^{−a}` | open |
+| (G4) bridge in PNT+: ζ approximation ⇒ `PolylogGrowth a K` ⇒ `rung3_of_growth`; port layers I–II to PNT+'s toolchain | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
