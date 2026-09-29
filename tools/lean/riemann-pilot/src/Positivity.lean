@@ -277,15 +277,20 @@ theorem isGroundState0_iff {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} :
 
 /-! ## Ground states of `Q₀` have one sign, and are unique -/
 
-theorem probe_integrable {a : ℝ} {g : ℝ → ℝ} (hg : Probe a g) : Integrable g := by
+/-- An `L²` function vanishing outside `[−a, a]` is integrable. -/
+theorem integrable_of_supp {a : ℝ} {g : ℝ → ℝ} (hs : ∀ u, a < |u| → g u = 0)
+    (hm : MemLp g 2 volume) : Integrable g := by
   have hfin : IsFiniteMeasure (volume.restrict (Icc (-a) a)) :=
     isFiniteMeasure_restrict.2 measure_Icc_lt_top.ne
-  have h1 : IntegrableOn g (Icc (-a) a) := (hg.memL2.restrict _).integrable (by norm_num)
+  have h1 : IntegrableOn g (Icc (-a) a) := (hm.restrict _).integrable (by norm_num)
   refine (integrableOn_iff_integrable_of_support_subset fun u hu => ?_).1 h1
   rw [Function.mem_support] at hu
   have : |u| ≤ a := by
-    by_contra h'; exact hu (hg.supp u (lt_of_not_ge h'))
+    by_contra h'; exact hu (hs u (lt_of_not_ge h'))
   exact abs_le.1 this
+
+theorem probe_integrable {a : ℝ} {g : ℝ → ℝ} (hg : Probe a g) : Integrable g :=
+  integrable_of_supp hg.supp hg.memL2
 
 /-- **Every ground state of `Q₀` has one sign.** At a ground state `Q₀(|g|) = Q₀(g)`. The
 archimedean integrands of `g` and `|g|` then agree a.e. on `(0, ∞)`, and

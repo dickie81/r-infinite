@@ -62,15 +62,8 @@ theorem weilQg_even {a : ℝ} {g : ℝ → ℝ} (hp : Probe a g) : weilQg a g = 
 
 /-! ## The mode machinery for an `OProbe`: round 20's lemmas hold for every `SProbe` -/
 
-theorem oprobe_integrable {a : ℝ} {g : ℝ → ℝ} (hg : OProbe a g) : Integrable g := by
-  have hfin : IsFiniteMeasure (volume.restrict (Icc (-a) a)) :=
-    isFiniteMeasure_restrict.2 measure_Icc_lt_top.ne
-  have h1 : IntegrableOn g (Icc (-a) a) := (hg.memL2.restrict _).integrable (by norm_num)
-  refine (integrableOn_iff_integrable_of_support_subset fun u hu => ?_).1 h1
-  rw [Function.mem_support] at hu
-  have : |u| ≤ a := by
-    by_contra h'; exact hu (hg.supp u (lt_of_not_ge h'))
-  exact abs_le.1 this
+theorem oprobe_integrable {a : ℝ} {g : ℝ → ℝ} (hg : OProbe a g) : Integrable g :=
+  integrable_of_supp hg.supp hg.memL2
 
 /-- An odd function against an even continuous bounded weight integrates to zero. -/
 theorem integral_odd_even {g : ℝ → ℝ} (hodd : ∀ u, g (-u) = -g u) {h : ℝ → ℝ} (heven : ∀ u, h (-u) = h u) :

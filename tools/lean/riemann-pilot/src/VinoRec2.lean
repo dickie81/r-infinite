@@ -20,12 +20,6 @@ namespace VinoRec2
 
 open Vinogradov VinoIter VinoHolder VinoSplit VinoRec VinoBad
 
-lemma J_le_pow (n k P : ℕ) : J n k P ≤ P ^ (2 * n) := by
-  classical
-  unfold J
-  calc _ ≤ (box n P ×ˢ box n P).card := card_filter_le _ _
-    _ = P ^ (2 * n) := by rw [card_product, card_box, ← pow_add]; ring_nf
-
 set_option maxHeartbeats 3200000 in
 /-- **One step with the bad part fed back.** -/
 theorem step_real2 {k s : ℕ} (hk : 2 ≤ k) (hs : 1 ≤ s) {C E T0 : ℝ} (hC : 0 < C) (hE : 0 ≤ E)
@@ -55,7 +49,7 @@ theorem step_real2 {k s : ℕ} (hk : 2 ≤ k) (hs : 1 ≤ s) {C E T0 : ℝ} (hC 
   have hPr : (1 : ℝ) ≤ P := by exact_mod_cast hP
   rcases le_or_gt P P0 with hsmall | hbig
   · -- trivial range
-    have h1 : (J (k + s) k P : ℝ) ≤ (P : ℝ) ^ (2 * (k + s)) := by exact_mod_cast J_le_pow _ _ _
+    have h1 : (J (k + s) k P : ℝ) ≤ (P : ℝ) ^ (2 * (k + s)) := by exact_mod_cast J_le _ _ _
     have h2 : (P : ℝ) ^ (2 * (k + s)) ≤ ((P0 : ℕ) : ℝ) ^ (2 * (k + s)) :=
       pow_le_pow_left₀ (by positivity) (by exact_mod_cast hsmall) _
     have h3 : (1 : ℝ) ≤ (P : ℝ) ^ E' := Real.one_le_rpow hPr hE'0

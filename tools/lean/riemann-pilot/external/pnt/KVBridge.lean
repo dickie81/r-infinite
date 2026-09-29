@@ -55,12 +55,11 @@ def GrowthSum (a : ℝ) : Prop :=
     ∀ X : ℕ, (X : ℝ) ≤ |t| ^ ((5 : ℝ) / 4) →
       ‖∑ n ∈ Finset.Ioc 0 X, 1 / (n : ℂ) ^ ((σ : ℂ) + t * I)‖ ≤ B * Real.log |t|
 
-/-- **ζ on the thin strip, for large `|t|`.** -/
-theorem zeta_bound_large {a : ℝ} (ha1 : 1 / 2 ≤ a) (ha2 : a ≤ 1) (hS : GrowthSum a) :
-    ∃ B : ℝ, 0 < B ∧ ∀ t σ : ℝ, 25 ≤ Real.log |t| → 1 - Real.log |t| ^ (-a) ≤ σ → σ ≤ 2 →
-      ‖riemannZeta (σ + t * I)‖ ≤ B * Real.log |t| := by
-  obtain ⟨B, hB0, hB⟩ := hS
-  refine ⟨B + 7, by linarith, fun t σ hL hσ hσ2 => ?_⟩
+/-- **ζ from its truncated sum.** For `log|t| ≥ 25` and `4/5 ≤ σ ≤ 2`, with `X = ⌊|t|^{5/4}⌋`,
+`|ζ(σ+it)| ≤ |Σ_{n≤X} n^{−σ−it}| + 13/2`. -/
+theorem zeta_le_sum {t σ : ℝ} (hL : 25 ≤ Real.log |t|) (hσ45 : 4 / 5 ≤ σ) (hσ2 : σ ≤ 2) :
+    ‖riemannZeta (σ + t * I)‖ ≤
+      ‖∑ n ∈ Finset.Ioc 0 ⌊|t| ^ ((5 : ℝ) / 4)⌋₊, 1 / (n : ℂ) ^ ((σ : ℂ) + t * I)‖ + 13 / 2 := by
   set L := Real.log |t| with hLdef
   have htpos : 0 < |t| := pos_of_log_ge (by norm_num) hL
   have htexp : |t| = Real.exp L := (Real.exp_log htpos).symm
@@ -68,21 +67,6 @@ theorem zeta_bound_large {a : ℝ} (ha1 : 1 / 2 ≤ a) (ha2 : a ≤ 1) (hS : Gro
     rw [htexp]; have := Real.add_one_le_exp L; linarith
   have ht1 : 1 ≤ |t| := by linarith
   have ht0 : t ≠ 0 := abs_pos.mp htpos
-  have hL0 : 0 < L := by linarith
-  -- `(log|t|)^{−a} ≤ 1/5`
-  have hLa : 5 ≤ L ^ a := by
-    have h1 : L ^ ((1 : ℝ) / 2) ≤ L ^ a :=
-      Real.rpow_le_rpow_of_exponent_le (by linarith) (by linarith)
-    have h2 : (25 : ℝ) ^ ((1 : ℝ) / 2) ≤ L ^ ((1 : ℝ) / 2) :=
-      Real.rpow_le_rpow (by norm_num) hL (by norm_num)
-    have h3 : (25 : ℝ) ^ ((1 : ℝ) / 2) = 5 := by
-      rw [show (25 : ℝ) = 5 ^ (2 : ℕ) by norm_num, ← Real.rpow_natCast, ← Real.rpow_mul (by norm_num)]
-      norm_num
-    linarith
-  have hδ : L ^ (-a) ≤ 1 / 5 := by
-    rw [Real.rpow_neg hL0.le, one_div]
-    exact inv_anti₀ (by norm_num) hLa
-  have hσ45 : 4 / 5 ≤ σ := by linarith
   have hσ0 : 0 < σ := by linarith
   -- the truncation point
   set Y := |t| ^ ((5 : ℝ) / 4) with hYdef
@@ -95,7 +79,6 @@ theorem zeta_bound_large {a : ℝ} (ha1 : 1 / 2 ≤ a) (ha2 : a ≤ 1) (hS : Gro
   have hX0 : (0 : ℝ) < X := by linarith
   rw [zeta_split hX1 hσ0 ht0]
   -- the four terms
-  have hT1 := hB t σ (by linarith) hσ X hXY
   have hT2 : ‖(-(X : ℂ) ^ (1 - ((σ : ℂ) + t * I))) / (1 - ((σ : ℂ) + t * I))‖ ≤ 1 := by
     rw [norm_div, norm_neg, Complex.norm_natCast_cpow_of_pos (by omega)]
     have hre : (1 - ((σ : ℂ) + t * I)).re = 1 - σ := by simp
@@ -149,8 +132,34 @@ theorem zeta_bound_large {a : ℝ} (ha1 : 1 / 2 ≤ a) (ha2 : a ≤ 1) (hS : Gro
           (x : ℂ) ^ (((σ : ℂ) + t * I) + 1)‖ := by
         refine (norm_add_le _ _).trans (add_le_add ((norm_add_le _ _).trans ?_) le_rfl)
         exact add_le_add (norm_add_le _ _) le_rfl
-    _ ≤ B * L + 1 + 1 / 2 + 5 := by
-        refine add_le_add (add_le_add (add_le_add hT1 hT2) hT3) (hT4.trans hT4')
+    _ ≤ ‖∑ n ∈ Finset.Ioc 0 X, 1 / (n : ℂ) ^ ((σ : ℂ) + t * I)‖ + 1 + 1 / 2 + 5 := by
+        refine add_le_add (add_le_add (add_le_add le_rfl hT2) hT3) (hT4.trans hT4')
+    _ = _ := by ring
+
+/-- **ζ on the thin strip, for large `|t|`.** -/
+theorem zeta_bound_large {a : ℝ} (ha1 : 1 / 2 ≤ a) (ha2 : a ≤ 1) (hS : GrowthSum a) :
+    ∃ B : ℝ, 0 < B ∧ ∀ t σ : ℝ, 25 ≤ Real.log |t| → 1 - Real.log |t| ^ (-a) ≤ σ → σ ≤ 2 →
+      ‖riemannZeta (σ + t * I)‖ ≤ B * Real.log |t| := by
+  obtain ⟨B, hB0, hB⟩ := hS
+  refine ⟨B + 7, by linarith, fun t σ hL hσ hσ2 => ?_⟩
+  set L := Real.log |t| with hLdef
+  have hL0 : 0 < L := by linarith
+  -- `(log|t|)^{−a} ≤ 1/5`
+  have hLa : 5 ≤ L ^ a := by
+    have h1 : L ^ ((1 : ℝ) / 2) ≤ L ^ a :=
+      Real.rpow_le_rpow_of_exponent_le (by linarith) (by linarith)
+    have h2 : (25 : ℝ) ^ ((1 : ℝ) / 2) ≤ L ^ ((1 : ℝ) / 2) :=
+      Real.rpow_le_rpow (by norm_num) hL (by norm_num)
+    have h3 : (25 : ℝ) ^ ((1 : ℝ) / 2) = 5 := by
+      rw [show (25 : ℝ) = 5 ^ (2 : ℕ) by norm_num, ← Real.rpow_natCast, ← Real.rpow_mul (by norm_num)]
+      norm_num
+    linarith
+  have hδ : L ^ (-a) ≤ 1 / 5 := by
+    rw [Real.rpow_neg hL0.le, one_div]
+    exact inv_anti₀ (by norm_num) hLa
+  have hT1 := hB t σ (by linarith) hσ _ (Nat.floor_le (Real.rpow_nonneg (abs_nonneg t) _))
+  calc _ ≤ _ := zeta_le_sum hL (by linarith) hσ2
+    _ ≤ B * L + 13 / 2 := by linarith
     _ ≤ (B + 7) * L := by nlinarith
 
 /-- **ζ on a compact piece.** -/

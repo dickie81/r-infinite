@@ -21,87 +21,6 @@ namespace LandauKV
 
 open Landau LandauW
 
-/-- **ζ from its truncated sum.** For `log|t| ≥ 25` and `4/5 ≤ σ ≤ 2`, with `X = ⌊|t|^{5/4}⌋`,
-`|ζ(σ+it)| ≤ |Σ_{n≤X} n^{−σ−it}| + 13/2`. -/
-theorem zeta_le_sum {t σ : ℝ} (hL : 25 ≤ Real.log |t|) (hσ45 : 4 / 5 ≤ σ) (hσ2 : σ ≤ 2) :
-    ‖riemannZeta (σ + t * I)‖ ≤
-      ‖∑ n ∈ Finset.Ioc 0 ⌊|t| ^ ((5 : ℝ) / 4)⌋₊, 1 / (n : ℂ) ^ ((σ : ℂ) + t * I)‖ + 13 / 2 := by
-  set L := Real.log |t| with hLdef
-  have htpos : 0 < |t| := KVBridge.pos_of_log_ge (by norm_num) hL
-  have htexp : |t| = Real.exp L := (Real.exp_log htpos).symm
-  have ht2 : 2 ≤ |t| := by
-    rw [htexp]; have := Real.add_one_le_exp L; linarith
-  have ht1 : 1 ≤ |t| := by linarith
-  have ht0 : t ≠ 0 := abs_pos.mp htpos
-  have hσ0 : 0 < σ := by linarith
-  -- the truncation point
-  set Y := |t| ^ ((5 : ℝ) / 4) with hYdef
-  have hY1 : 1 ≤ Y := Real.one_le_rpow ht1 (by norm_num)
-  set X := ⌊Y⌋₊ with hXdef
-  have hX1 : 1 ≤ X := Nat.le_floor (by exact_mod_cast hY1)
-  have hXr : (1 : ℝ) ≤ X := by exact_mod_cast hX1
-  have hXY : (X : ℝ) ≤ Y := Nat.floor_le (by linarith)
-  have hYX : Y ≤ 2 * X := by have := Nat.lt_floor_add_one Y; linarith
-  have hX0 : (0 : ℝ) < X := by linarith
-  rw [KVBridge.zeta_split hX1 hσ0 ht0]
-  -- the four terms
-  have hT2 : ‖(-(X : ℂ) ^ (1 - ((σ : ℂ) + t * I))) / (1 - ((σ : ℂ) + t * I))‖ ≤ 1 := by
-    rw [norm_div, norm_neg, Complex.norm_natCast_cpow_of_pos (by omega)]
-    have hre : (1 - ((σ : ℂ) + t * I)).re = 1 - σ := by simp
-    rw [hre]
-    have hden : |t| ≤ ‖1 - ((σ : ℂ) + t * I)‖ := by
-      have := Complex.abs_im_le_norm (1 - ((σ : ℂ) + t * I))
-      simpa using this
-    have hnum : (X : ℝ) ^ (1 - σ) ≤ |t| := by
-      calc (X : ℝ) ^ (1 - σ) ≤ (X : ℝ) ^ ((1 : ℝ) / 5) :=
-            Real.rpow_le_rpow_of_exponent_le hXr (by linarith)
-        _ ≤ Y ^ ((1 : ℝ) / 5) := Real.rpow_le_rpow hX0.le hXY (by norm_num)
-        _ = |t| ^ ((1 : ℝ) / 4) := by
-            rw [hYdef, ← Real.rpow_mul htpos.le]; norm_num
-        _ ≤ |t| ^ (1 : ℝ) := Real.rpow_le_rpow_of_exponent_le ht1 (by norm_num)
-        _ = |t| := Real.rpow_one _
-    rw [div_le_one (by linarith)]
-    linarith
-  have hT3 : ‖(-(X : ℂ) ^ (-((σ : ℂ) + t * I))) / 2‖ ≤ 1 / 2 := by
-    rw [norm_div, norm_neg, Complex.norm_natCast_cpow_of_pos (by omega)]
-    have hre : (-((σ : ℂ) + t * I)).re = -σ := by simp
-    rw [hre]
-    have : (X : ℝ) ^ (-σ) ≤ 1 := Real.rpow_le_one_of_one_le_of_nonpos hXr (by linarith)
-    simp only [Complex.norm_ofNat]
-    linarith
-  have hT4 := ZetaBnd_aux1 X hX1 (σ := σ) (t := t) ⟨hσ0, hσ2⟩ ht2
-  have hXσ : (X : ℝ) ^ (-σ) ≤ 2 / |t| := by
-    have hY2 : (0 : ℝ) < Y / 2 := by linarith
-    calc (X : ℝ) ^ (-σ) ≤ (X : ℝ) ^ (-(4 / 5 : ℝ)) :=
-          Real.rpow_le_rpow_of_exponent_le hXr (by linarith)
-      _ ≤ (Y / 2) ^ (-(4 / 5 : ℝ)) := Real.rpow_le_rpow_of_nonpos hY2 (by linarith) (by norm_num)
-      _ = |t| ^ (-(1 : ℝ)) * (2 : ℝ) ^ ((4 : ℝ) / 5) := by
-          rw [Real.div_rpow (by linarith) (by norm_num), hYdef, ← Real.rpow_mul htpos.le,
-            Real.rpow_neg (by norm_num : (0 : ℝ) ≤ 2)]
-          norm_num
-      _ ≤ |t| ^ (-(1 : ℝ)) * 2 := by
-          gcongr
-          calc (2 : ℝ) ^ ((4 : ℝ) / 5) ≤ 2 ^ (1 : ℝ) :=
-                Real.rpow_le_rpow_of_exponent_le (by norm_num) (by norm_num)
-            _ = 2 := Real.rpow_one 2
-      _ = 2 / |t| := by rw [Real.rpow_neg_one]; ring
-  have hT4' : 2 * |t| * (X : ℝ) ^ (-σ) / σ ≤ 5 := by
-    rw [div_le_iff₀ hσ0]
-    have : |t| * (X : ℝ) ^ (-σ) ≤ 2 := by
-      have := mul_le_mul_of_nonneg_left hXσ htpos.le
-      rwa [mul_div_cancel₀ _ htpos.ne'] at this
-    nlinarith
-  calc _ ≤ ‖∑ n ∈ Finset.Ioc 0 X, 1 / (n : ℂ) ^ ((σ : ℂ) + t * I)‖ +
-        ‖(-(X : ℂ) ^ (1 - ((σ : ℂ) + t * I))) / (1 - ((σ : ℂ) + t * I))‖ +
-        ‖(-(X : ℂ) ^ (-((σ : ℂ) + t * I))) / 2‖ +
-        ‖((σ : ℂ) + t * I) * ∫ x in Ioi (X : ℝ), (⌊x⌋ + 1 / 2 - x) /
-          (x : ℂ) ^ (((σ : ℂ) + t * I) + 1)‖ := by
-        refine (norm_add_le _ _).trans (add_le_add ((norm_add_le _ _).trans ?_) le_rfl)
-        exact add_le_add (norm_add_le _ _) le_rfl
-    _ ≤ ‖∑ n ∈ Finset.Ioc 0 X, 1 / (n : ℂ) ^ ((σ : ℂ) + t * I)‖ + 1 + 1 / 2 + 5 := by
-        refine add_le_add (add_le_add (add_le_add le_rfl hT2) hT3) (hT4.trans hT4')
-    _ = _ := by ring
-
 /-- `f(x) = log x / x`. -/
 noncomputable def fl (x : ℝ) : ℝ := Real.log x / x
 
@@ -192,7 +111,7 @@ theorem growthW_kv : ∃ K : ℝ, 0 < K ∧ GrowthW wkv K := by
       have := c2_le
       nlinarith [c2_pos]
     have hσ' : 1 - VinoKV.δkv L ≤ σ := by linarith
-    have hs := zeta_le_sum hbig (by linarith) hσ2
+    have hs := KVBridge.zeta_le_sum hbig (by linarith) hσ2
     have hsum := hB t σ (by linarith) hσ' ⌊|t| ^ ((5 : ℝ) / 4)⌋₊
       (Nat.floor_le (by positivity))
     calc ‖ζ (σ + t * I)‖ ≤ B * L ^ 2 + 13 / 2 := by linarith

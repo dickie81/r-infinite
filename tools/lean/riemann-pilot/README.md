@@ -7003,3 +7003,20 @@ Axioms are clean, checked on a clean build (`./build.sh`, then `external/pnt/bui
 - **Parallel, incremental `build.sh`.** `build.sh` now reads the import graph from the sources instead of a hand-kept list. It compiles each file as soon as its imports are built, `JOBS` at a time, and skips files whose olean is newer than their source and imports. On 4 cores a clean build takes 11.7 minutes, down from 29.3 minutes serially. With nothing changed it takes about a second. After an edit only that file and its dependents are rebuilt. `external/pnt/build.sh` takes 8 minutes.
 
 **Check 4:** not applicable; there is no new mathematics. **Bearing on RH:** none.
+
+## Round 218: dead and duplicated code removed
+
+765 lines fewer (863 deleted, 98 added), with no change to any headline statement. Every file compiles, and the axioms are unchanged.
+
+- **Superseded chain.** `ExpSum6` (`const_bound`, `wsave_le`, `phi_le`, `block_saving`) and `ExpSum7` (`weighted_block`, `big_block`, `growth_sum`, the `6/7 ≤ a` growth bound) are gone. `ExpSum10.growth_weak` (`4/5 ≤ a`) and `VinoFam.growth_sharp` (`2/3 < a`) supersede them. The helpers that later files use stay.
+- **Dead code.** `VinoPadic.linnik` and `card_residue_le` were unused; `VinoStep.linnikZ` replaced them.
+- **Exact duplicates.**
+  - `VinoRec2.J_le_pow` is now `Vinogradov.J_le`.
+  - `LandauW.gap_algebra` is now `Landau.gap_algebra`.
+  - `ParityCert`'s odd sector reuses the even sector's certified `ψ̲` list (identical data), `cinE` and the prime-window bounds. That saves a second 351-step `decide +kernel`. `frontier/nullvec/gen_paritycert.py` still emits both copies.
+- **Shared proofs.**
+  - The five "`L²` and supported in `[−a, a]` ⇒ integrable" proofs are one lemma, `Positivity.integrable_of_supp`.
+  - `weilQ_ge_prime` and `weilQ_ge_prime3` are one-line instances of `weilQ_ge_of_certP`.
+  - `KVBridge.zeta_bound_large` now follows from `zeta_le_sum`, moved there from `LandauKV`.
+
+**Check 4:** not applicable; there is no new mathematics. **Bearing on RH:** none.

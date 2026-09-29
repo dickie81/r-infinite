@@ -62,19 +62,21 @@ def CertP : Prop :=
     (1 / 10000 : ℝ) ≤ kappaP (2 / 5) ∧
     ((kappaP (2 / 5) - 1 / 10000) • gramP (2 / 5) + gramP (2 / 5) * diagonal (sP (2 / 5)) * gramP (2 / 5)).PosSemidef
 
-/-- **Weil positivity through the first prime**: granted `CertP`, every normalised even probe at every support
-`0 < a ≤ 2/5` (`2a ≤ 0.8`, past `log 2`) has `Q(g) ≥ 1/10000`. -/
-theorem weilQ_ge_prime {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 2 / 5) (hc : CertP) {g : ℝ → ℝ} (hp : Probe a g)
-    (hn : normSq g = 1) : (1 / 10000 : ℝ) ≤ weilQ a g := by
-  obtain ⟨hlow, hG, hκ, hM⟩ := hc
-  rw [← weilQ_mono ha.le ha1 hp]
-  have hp' := hp.mono ha1
-  set b : ℝ := 2 / 5 with hb
-  have hb0 : (0 : ℝ) < b := by norm_num
-  have hl2 := Real.log_two_lt_d9
-  have hl3 := log_three_gt
+/-- **The certificate theorem below `log 3`**, where the prime side is the single term `n = 2`: a
+positive-definite Gram matrix and `(κ − ε)G + G diag(s) G ⪰ 0` at the support `b` give `Q(g) ≥ ε` for every
+normalised even probe at every support `a ≤ b`. -/
+theorem weilQ_ge_of_certP {b ε : ℝ} (hb0 : 0 < b) (hb1 : b ≤ 1) (h2 : Real.log 2 ≤ 2 * b)
+    (h3 : 2 * b < Real.log 3) (ψl : ℕ → ℝ)
+    (hlow : ∀ k : ℕ, k < 60 → ψl (k + 1) ≤ modeE b ((k : ℤ) + 1)) (hG : (gramP b).PosDef)
+    (hκ : ε ≤ kappaP b)
+    (hM : ((kappaP b - ε) • gramP b
+      + gramP b * diagonal (fun i : Fin 62 => sfunP b (tauP b) cP (Real.log 2) ψl i) * gramP b).PosSemidef)
+    {a : ℝ} (ha : 0 < a) (hab : a ≤ b) {g : ℝ → ℝ} (hp : Probe a g) (hn : normSq g = 1) :
+    ε ≤ weilQ a g := by
+  rw [← weilQ_mono ha.le hab hp]
+  have hp' := hp.mono hab
   have hprime : 2 * primeS g = cP * autocorr g (Real.log 2) := by
-    rw [primeS_eq_two (by rw [hb]; norm_num; linarith) hp']
+    rw [primeS_eq_two h3 hp']
     unfold cP
     have hs : Real.sqrt 2 ^ 2 = 2 := Real.sq_sqrt (by norm_num)
     have hs0 : 0 < Real.sqrt 2 := by positivity
@@ -84,16 +86,23 @@ theorem weilQ_ge_prime {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 2 / 5) (hc : CertP) {
   have hgram : gramP b = gramM b 62 := by
     ext i j; simp only [gramP, Matrix.of_apply]; exact (gramM_eq hb0 62 i j).symm
   rw [hgram] at hG hM
-  have hq := quad_lower (gramM b 62) hG (sP b) (xv b g 62) (nrm := normSq g)
+  have hq := quad_lower (gramM b 62) hG _ (xv b g 62) (nrm := normSq g)
     (bessel_gram hb0.le hp'.memL2 hp'.supp 62) hκ hM
-  have hr := weilQ_ge_relaxP hb0 hp' hn (Real.log_nonneg (by norm_num)) (by rw [hb]; norm_num at hl2 ⊢; linarith)
-    hprime 60 (tauP b) psiC (htailP hb0 (by rw [hb]; norm_num)) hlow
+  have hr := weilQ_ge_relaxP hb0 hp' hn (Real.log_nonneg (by norm_num)) h2 hprime 60 (tauP b) ψl
+    (htailP hb0 hb1) hlow
   rw [farField_eq hb0] at hr
   rw [hn] at hq
   unfold kappaP at hq
-  have hs : sP b = fun i : Fin 62 => sfunP b (tauP b) cP (Real.log 2) psiC i := rfl
-  rw [hs, mul_one, mul_one] at hq
+  rw [mul_one, mul_one] at hq
   exact le_trans hq hr
+
+/-- **Weil positivity through the first prime**: granted `CertP`, every normalised even probe at every support
+`0 < a ≤ 2/5` (`2a ≤ 0.8`, past `log 2`) has `Q(g) ≥ 1/10000`. -/
+theorem weilQ_ge_prime {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 2 / 5) (hc : CertP) {g : ℝ → ℝ} (hp : Probe a g)
+    (hn : normSq g = 1) : (1 / 10000 : ℝ) ≤ weilQ a g :=
+  weilQ_ge_of_certP (by norm_num) (by norm_num)
+    (by have := Real.log_two_lt_d9; norm_num at this ⊢; linarith) (by have := log_three_gt; linarith)
+    psiC hc.1 hc.2.1 hc.2.2.1 hc.2.2.2 ha ha1 hp hn
 
 end Pilot1ca
 

@@ -41,36 +41,10 @@ def CertP3 : Prop :=
 /-- **Weil positivity up to the second prime**: granted `CertP3`, every normalised even probe at every support
 `0 < a ≤ 0.5493` (`2a ≤ 1.0986 < log 3`) has `Q(g) ≥ 2·10⁻⁸`. -/
 theorem weilQ_ge_prime3 {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 5493 / 10000) (hc : CertP3) {g : ℝ → ℝ}
-    (hp : Probe a g) (hn : normSq g = 1) : (1 / 50000000 : ℝ) ≤ weilQ a g := by
-  obtain ⟨hlow, hG, hκ, hM⟩ := hc
-  rw [← weilQ_mono ha.le ha1 hp]
-  have hp' := hp.mono ha1
-  set b : ℝ := 5493 / 10000 with hb
-  have hb0 : (0 : ℝ) < b := by norm_num
-  have hl2 := Real.log_two_lt_d9
-  have hl3 := log_three_gt
-  have hprime : 2 * primeS g = cP * autocorr g (Real.log 2) := by
-    rw [primeS_eq_two (by rw [hb]; norm_num; linarith) hp']
-    unfold cP
-    have hs : Real.sqrt 2 ^ 2 = 2 := Real.sq_sqrt (by norm_num)
-    have hs0 : 0 < Real.sqrt 2 := by positivity
-    have e : Real.log 2 / Real.sqrt 2 = Real.sqrt 2 * Real.log 2 / 2 := by
-      rw [div_eq_div_iff hs0.ne' (by norm_num)]; rw [mul_comm (Real.sqrt 2), mul_assoc, ← sq, hs]
-    rw [e]; ring
-  have hgram : gramP b = gramM b 62 := by
-    ext i j; simp only [gramP, Matrix.of_apply]; exact (gramM_eq hb0 62 i j).symm
-  rw [hgram] at hG hM
-  have hq := quad_lower (gramM b 62) hG (sP3 b) (xv b g 62) (nrm := normSq g)
-    (bessel_gram hb0.le hp'.memL2 hp'.supp 62) hκ hM
-  have hr := weilQ_ge_relaxP hb0 hp' hn (Real.log_nonneg (by norm_num))
-    (by rw [hb]; norm_num at hl2 ⊢; linarith)
-    hprime 60 (tauP b) psiC3 (htailP hb0 (by rw [hb]; norm_num)) hlow
-  rw [farField_eq hb0] at hr
-  rw [hn] at hq
-  unfold kappaP at hq
-  have hs : sP3 b = fun i : Fin 62 => sfunP b (tauP b) cP (Real.log 2) psiC3 i := rfl
-  rw [hs, mul_one, mul_one] at hq
-  exact le_trans hq hr
+    (hp : Probe a g) (hn : normSq g = 1) : (1 / 50000000 : ℝ) ≤ weilQ a g :=
+  weilQ_ge_of_certP (by norm_num) (by norm_num)
+    (by have := Real.log_two_lt_d9; norm_num at this ⊢; linarith) (by have := log_three_gt; linarith)
+    psiC3 hc.1 hc.2.1 hc.2.2.1 hc.2.2.2 ha ha1 hp hn
 
 end Pilot1ca
 

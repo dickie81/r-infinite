@@ -626,15 +626,8 @@ theorem tendsto_archE_dilS {a : ℝ} {o : ℝ → ℝ} (hp : SProbe a o) :
   rw [archE_dil (by linarith [hs.1])]
 
 /-- `ĝ_s(i/2)` in terms of `o`: `poleR(o_s) = √s·s⁻¹·∫ o(v)e^{−v/(2s)} dv`. -/
-theorem sprobe_integrable {a : ℝ} {g : ℝ → ℝ} (hg : SProbe a g) : Integrable g := by
-  have hfin : IsFiniteMeasure (volume.restrict (Icc (-a) a)) :=
-    isFiniteMeasure_restrict.2 measure_Icc_lt_top.ne
-  have h1 : IntegrableOn g (Icc (-a) a) := (hg.memL2.restrict _).integrable (by norm_num)
-  refine (integrableOn_iff_integrable_of_support_subset fun u hu => ?_).1 h1
-  rw [Function.mem_support] at hu
-  have : |u| ≤ a := by
-    by_contra h'; exact hu (hg.supp u (lt_of_not_ge h'))
-  exact abs_le.1 this
+theorem sprobe_integrable {a : ℝ} {g : ℝ → ℝ} (hg : SProbe a g) : Integrable g :=
+  integrable_of_supp hg.supp hg.memL2
 
 theorem poleR_dil {a : ℝ} {o : ℝ → ℝ} (hp : SProbe a o) {s : ℝ} (hs1 : 1 ≤ s) (ha : 0 ≤ a) :
     poleR (dil s o) a = Real.sqrt s * s⁻¹ * ∫ v, o v * Real.exp (-(v / s / 2)) := by

@@ -128,17 +128,7 @@ theorem apply_localW {w : ℝ → ℝ} {Cw K : ℝ} (hw : WidthOK w Cw) (hK : 0 
   rwa [hre] at this
 
 
-/-! ## L3c: the zero gap -/
-
-/-- Algebra of the 3-4-1 argument: `4/(1+δ−β) ≤ 3/δ + M` with `δM ≤ 1/4` forces `1 − β ≥ 3δ/13`. -/
-lemma gap_algebra {δ M β : ℝ} (hδ : 0 < δ) (hM : 0 ≤ M) (hδM : δ * M ≤ 1 / 4) (hβ : β < 1 + δ)
-    (h : 4 / (1 + δ - β) ≤ 3 / δ + M) : 3 * δ / 13 ≤ 1 - β := by
-  have hd : 0 < 1 + δ - β := by linarith
-  rw [div_le_iff₀ hd] at h
-  have h2 : 4 * δ ≤ (3 + δ * M) * (1 + δ - β) := by
-    have e : (3 / δ + M) * (1 + δ - β) * δ = (3 + δ * M) * (1 + δ - β) := by field_simp
-    nlinarith [mul_le_mul_of_nonneg_right h hδ.le]
-  nlinarith
+/-! ## L3c: the zero gap (the algebra is `Landau.gap_algebra`) -/
 
 /-- **L3c (zero gap).** Under polylog growth: if `ζ(β + it) = 0`, `|t| ≥ 4`, and `δ ∈ (0, 1/2]`
 is small enough (`δ ≤ rad(t)/4` and `δ·M ≤ 1/4`, where `M` collects the three local bounds),
@@ -195,7 +185,7 @@ theorem zero_gapW {w : ℝ → ℝ} {Cw K : ℝ} (hw : WidthOK w Cw) (hK : 0 < K
           4 * (Kc * Real.log (Bnd K δ t) / radW w t) := by ring
       rw [e3, e4, hMdef, e5]
       linarith
-    exact gap_algebra hδ hM hδM (by linarith) hineq
+    exact Landau.gap_algebra hδ hM hδM (by linarith) hineq
   · have := radW_pos hw t ht
     rw [not_le] at hnear
     linarith

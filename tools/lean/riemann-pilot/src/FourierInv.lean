@@ -251,15 +251,8 @@ structure ESupp (a : ℝ) (g : ℝ → ℝ) : Prop where
 
 theorem Probe.toE {a : ℝ} {g : ℝ → ℝ} (hp : Probe a g) : ESupp a g := ⟨hp.even, hp.supp, hp.memL2⟩
 
-theorem ESupp.integrable {a : ℝ} {g : ℝ → ℝ} (hp : ESupp a g) : Integrable g := by
-  have hfin : IsFiniteMeasure (volume.restrict (Icc (-a) a)) :=
-    isFiniteMeasure_restrict.2 measure_Icc_lt_top.ne
-  have h1 : IntegrableOn g (Icc (-a) a) := (hp.memL2.restrict _).integrable (by norm_num)
-  refine (integrableOn_iff_integrable_of_support_subset fun u hu => ?_).1 h1
-  rw [Function.mem_support] at hu
-  have : |u| ≤ a := by
-    by_contra h; push Not at h; exact hu (hp.supp u h)
-  exact abs_le.1 this
+theorem ESupp.integrable {a : ℝ} {g : ℝ → ℝ} (hp : ESupp a g) : Integrable g :=
+  integrable_of_supp hp.supp hp.memL2
 
 /-! ## A1. The transform on the real line, and the convolution identity -/
 

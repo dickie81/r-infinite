@@ -46,15 +46,8 @@ structure RSupp (a : ℝ) (g : ℝ → ℝ) : Prop where
   supp : ∀ u, a < |u| → g u = 0
   memL2 : MemLp g 2 volume
 
-theorem RSupp.integrable {a : ℝ} {g : ℝ → ℝ} (hp : RSupp a g) : Integrable g := by
-  have hfin : IsFiniteMeasure (volume.restrict (Icc (-a) a)) :=
-    isFiniteMeasure_restrict.2 measure_Icc_lt_top.ne
-  have h1 : IntegrableOn g (Icc (-a) a) := (hp.memL2.restrict _).integrable (by norm_num)
-  refine (integrableOn_iff_integrable_of_support_subset fun u hu => ?_).1 h1
-  rw [Function.mem_support] at hu
-  have : |u| ≤ a := by
-    by_contra h; push Not at h; exact hu (hp.supp u h)
-  exact abs_le.1 this
+theorem RSupp.integrable {a : ℝ} {g : ℝ → ℝ} (hp : RSupp a g) : Integrable g :=
+  integrable_of_supp hp.supp hp.memL2
 
 /-- `conj ĝ(z) = ĝ(−z̄)` for every real `f`. -/
 theorem ghatC_conj_neg {f : ℝ → ℝ} {a : ℝ} (ha : 0 ≤ a) (z : ℂ) :
