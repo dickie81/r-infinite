@@ -6713,3 +6713,25 @@ Axioms are clean.
 
 **Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
 
+## Round 207: VMVT with explicit constants (`src/VinoConst.lean`, `frontier/expsum/kfeas_constants.py`)
+
+Axioms are clean.
+
+- **`vmvt_explicit`.** `J_{k+mk,k}(P) ≤ C_m·P^{2(k+mk) − k(k+1)/2 + η_m}` with an explicit `C_m`: `C_0 = k!` and `C_{m+1} = K_bad + K_main(C_m)`.
+- **`Cvm_le`.** `C_m ≤ (8(k+2))^{g(m)}`, with `g(0) = k` and `g(m+1) = g(m) + 6k(m+1) + k² + 3k + 2`, so `g(m) ≈ 3k m²`. Supporting lemmas: `eta_le` (`η_m ≤ k(k+1)/2`), `expo_le` (the exponent is at most `2s`), `Cvm_ge_one`.
+- **Why it matters.** Layer II takes a `(2ℓ²)`-th root with `ℓ = k(m+1)`. Then `log C_m / ℓ² ≲ 3·log(8(k+2))/k → 0`, so the constant costs `N^{o(1)}` in the block bound.
+- **Feasibility numerics** (`kfeas_constants.py`, the exact recursion, target `η ≤ 1/4`):
+  - `log C/ℓ²` falls from 1.56 (`k = 2`) to 0.11 (`k = 48`).
+  - A block needs `log M ≳ 2.8k⁵` before `Φ < 1`.
+  - Hence `N ≥ exp(c (log t)^{5/6})`. With the per-block saving `N^{−c(log N/log t)^6}`, this points to growth exponent **`a = 6/7`** (my estimate; (G) must prove it).
+
+| layer II step | status |
+|---|---|
+| (A)–(F) | done |
+| (G1) explicit VMVT constants | **done** |
+| (G2) parameter choice per block (`M = N^θ`, `r`, `K ≈ 2r`, `ℓ`) ⇒ `|Σ_{N<n≤N'} n^{−it}| ≤ N^{1−c(log N/log t)^6}` | open |
+| (G3) partial summation to `n^{−σ−it}`; ζ approximation; small-`N` blocks trivially | open |
+| (G4) assemble `PolylogGrowth (6/7) K` ⇒ `rung3_of_growth` | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
