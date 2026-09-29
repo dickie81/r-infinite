@@ -6678,3 +6678,38 @@ Axioms are clean.
 
 **Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
 
+## Round 206: layer II, step (F), the block bound (`src/ExpSum4.lean`)
+
+- **`block_bound`** (axioms clean). Suppose:
+  - `J_{ℓ,K}(M) ≤ C·M^{2ℓ − K(K+1)/2 + η}`;
+  - `2M² ≤ N`;
+  - a good coordinate `1 ≤ r ≤ K` satisfies `|t|·ℓ·M^r ≤ π·r·N^r`.
+
+  Then
+  `|Σ_{N<n≤2N} n^{−it}| ≤ N·Φ + 2|t|N(M²/N)^{K+1} + 2M²`,
+  where `Φ = (C²·3^K·ℓ^{2K}·M^{2η}·W)^{1/(2ℓ²)}` and
+  `W = 1/(ℓM^r) + 2πr(2N)^r(1 + log(ℓM^r))/(|t|ℓ²M^{2r})`.
+- **How.** `Bn_bound` gives the bound `M²·Φ` at each `n`:
+  - `bilinear_bound`;
+  - `oneD_bound` at the good coordinate, where `|α_r(n)|·ℓM^r ≤ 1/2`;
+  - `oneD_three` elsewhere;
+  - `∏_j 3L_j² = 3^K ℓ^{2K} M^{K(K+1)}` (`prod_three_L`);
+  - the hypothesis on `J`;
+  - a `(2ℓ²)`-th root.
+
+  `stepE` then sums over `n`.
+- **What the bound gives.** It is nontrivial when `Φ < 1`. That needs:
+  - `η` small (VMVT with many variables);
+  - `W ≈ M^{−σ}`. This holds when `N^r M^{σ−2r} ≲ |t| ≲ N^r M^{−r}`: the upper end is the good-coordinate hypothesis, the lower end makes the second term of `W` small.
+  - The Taylor term needs `|t| ≪ N^{(K+1)/2}`, so `K ≈ 2r`.
+
+  Choosing `M = N^θ` per block covers `N ≤ t` with `r ≥ 2`. **(G) must make these choices and do the ζ bookkeeping.** My current estimate, not yet derived, is growth `t^{C(1−σ)^{7/6}}`, i.e. `a = 6/7`, with the weak VMVT's `ℓ ≈ K³`.
+
+| layer II step | status |
+|---|---|
+| (A), (B′), (D), (E), per-`n` bound | done |
+| (F) block bound with explicit constants | **done** |
+| (G) parameter choice + explicit VMVT constants + ζ approximation + partial summation ⇒ `PolylogGrowth a K` | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
