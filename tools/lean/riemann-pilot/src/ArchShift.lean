@@ -228,6 +228,72 @@ theorem arch_termQ (hp : Probe a g) (ha : 0 < a) (hq : 1 / 4 ≤ q) :
 
 theorem psiReQ_zero (q : ℝ) : psiReQ q 0 = (Complex.digamma q).re := by unfold psiReQ zQ; simp
 
+/-! ## `E_q` is a nonnegative quadratic form, dominated by `E` -/
+
+theorem archKer_pos (q : ℝ) {u : ℝ} (hu : 0 < u) : 0 < archKer q u :=
+  div_pos (Real.exp_pos _) (Real.sinh_pos_iff.2 hu)
+
+theorem autocorr_sub_nonneg (hg : MemLp g 2 volume) (u : ℝ) : 0 ≤ autocorr g 0 - autocorr g u := by
+  rw [autocorr_zero, sub_nonneg]; exact (le_abs_self _).trans (abs_autocorr_le hg u)
+
+theorem archIntegrandQ_nonneg (q : ℝ) (hg : MemLp g 2 volume) {u : ℝ} (hu : 0 < u) :
+    0 ≤ archIntegrandQ q g u :=
+  mul_nonneg (autocorr_sub_nonneg hg u) (archKer_pos q hu).le
+
+theorem archEQ_nonneg (q : ℝ) (hg : MemLp g 2 volume) : 0 ≤ archEQ q g :=
+  setIntegral_nonneg measurableSet_Ioi fun _ hu => archIntegrandQ_nonneg q hg hu
+
+theorem archIntegrandQ_le (hq : 1 / 4 ≤ q) (hg : MemLp g 2 volume) {u : ℝ} (hu : 0 < u) :
+    archIntegrandQ q g u ≤ archIntegrand g u := by
+  rw [← archIntegrandQ_quarter]
+  refine mul_le_mul_of_nonneg_left ?_ (autocorr_sub_nonneg hg u)
+  exact div_le_div_of_nonneg_right (Real.exp_le_exp.2 (by nlinarith)) (Real.sinh_pos_iff.2 hu).le
+
+/-- `E_q(g) ≤ E(g)` for `q ≥ ¼`. -/
+theorem archEQ_le_archE (hp : Probe a g) (hq : 1 / 4 ≤ q) : archEQ q g ≤ archE g :=
+  setIntegral_mono_on (archIntegrandQ_integrable hp hq) hp.arch measurableSet_Ioi
+    fun _ hu => archIntegrandQ_le hq hp.memL2 hu
+
+/-- The cross integrand `(x(0) − x(u))K_q(u)`. -/
+def archXQ (q : ℝ) (φ ψ : ℝ → ℝ) (u : ℝ) : ℝ := (xcorr φ ψ 0 - xcorr φ ψ u) * archKer q u
+
+theorem archIntegrandQ_add_smul (q : ℝ) {φ ψ : ℝ → ℝ} (hφ : MemLp φ 2 volume)
+    (hψ : MemLp ψ 2 volume) (s u : ℝ) : archIntegrandQ q (fun t => φ t + s * ψ t) u
+      = archIntegrandQ q φ u + 2 * s * archXQ q φ ψ u + s ^ 2 * archIntegrandQ q ψ u := by
+  have e0 := autocorr_add_smul hφ hψ s 0
+  have eu := autocorr_add_smul hφ hψ s u
+  unfold archIntegrandQ archXQ
+  rw [e0, eu]; ring
+
+theorem archXQ_integrable {φ ψ : ℝ → ℝ} (hφ : Probe a φ) (hψ : Probe a ψ) (hq : 1 / 4 ≤ q) :
+    IntegrableOn (archXQ q φ ψ) (Ioi 0) := by
+  have hp := archIntegrandQ_integrable (probe_add_smul hφ hψ 1) hq
+  have hm := archIntegrandQ_integrable (probe_add_smul hφ hψ (-1)) hq
+  have e : archXQ q φ ψ = fun u => (archIntegrandQ q (fun t => φ t + 1 * ψ t) u
+      - archIntegrandQ q (fun t => φ t + -1 * ψ t) u) / 4 := by
+    funext u
+    rw [archIntegrandQ_add_smul q hφ.memL2 hψ.memL2, archIntegrandQ_add_smul q hφ.memL2 hψ.memL2]
+    ring
+  rw [e]; exact (hp.sub hm).div_const 4
+
+theorem archEQ_add_smul {φ ψ : ℝ → ℝ} (hφ : Probe a φ) (hψ : Probe a ψ) (hq : 1 / 4 ≤ q) (s : ℝ) :
+    archEQ q (fun t => φ t + s * ψ t)
+      = archEQ q φ + 2 * s * (∫ u in Ioi 0, archXQ q φ ψ u) + s ^ 2 * archEQ q ψ := by
+  have jX : IntegrableOn (fun u => 2 * s * archXQ q φ ψ u) (Ioi 0) :=
+    (archXQ_integrable hφ hψ hq).const_mul _
+  have jA : IntegrableOn (fun u => archIntegrandQ q φ u + 2 * s * archXQ q φ ψ u) (Ioi 0) :=
+    (archIntegrandQ_integrable hφ hq).add jX
+  have jB : IntegrableOn (fun u => s ^ 2 * archIntegrandQ q ψ u) (Ioi 0) :=
+    (archIntegrandQ_integrable hψ hq).const_mul _
+  unfold archEQ
+  calc (∫ u in Ioi 0, archIntegrandQ q (fun t => φ t + s * ψ t) u)
+      = ∫ u in Ioi 0, ((archIntegrandQ q φ u + 2 * s * archXQ q φ ψ u)
+          + s ^ 2 * archIntegrandQ q ψ u) := by
+        congr 1; funext u; rw [archIntegrandQ_add_smul q hφ.memL2 hψ.memL2]
+    _ = _ := by
+        rw [integral_add jA jB, integral_add (archIntegrandQ_integrable hφ hq) jX,
+          integral_const_mul, integral_const_mul]
+
 end Pilot1ca
 
 #print axioms Pilot1ca.psiReQ_sub
@@ -235,3 +301,5 @@ end Pilot1ca
 #print axioms Pilot1ca.archIntegrandQ_integrable
 #print axioms Pilot1ca.hsq_psiQ_sub
 #print axioms Pilot1ca.arch_termQ
+#print axioms Pilot1ca.archEQ_le_archE
+#print axioms Pilot1ca.archEQ_add_smul

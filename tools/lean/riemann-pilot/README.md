@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 753 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 766 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -23,7 +23,7 @@ Every file ends with `#print axioms`. All 753 checked theorems depend only on `p
 | `HadamardApply.lean` | 198 | Hadamard for even functions; applied to `ĝ` and `Ξ`; the chain to RH |
 | `XiBounds.lean` | 378 | `XiGrowth`, proved; the chain to RH with no `Ξ` inputs (`Ξ(0) ≠ 0` now comes from `Φ > 0`) |
 | `Curvature.lean` | 443 | **dodging D and real-rootedness alone give RH** (`rh_of_dodging`); the curvature sum rule |
-| `GroundState.lean` | 167 | ground states of Weil's form: the lower bound, the finite prime sum, the chain for ground states |
+| `GroundState.lean` | 174 | ground states of Weil's form: the lower bound, the finite prime sum, the chain for ground states |
 | `Existence.lean` | 494 | existence of the ground state, stage 1: the archimedean energy controls the Fourier tails |
 | `Compactness.lean` | 234 | existence, stage 2: bounded-energy probes are precompact in `L²` |
 | `GroundStateExists.lean` | 467 | existence, stage 3: **a ground state of Weil's form exists at every support** |
@@ -72,7 +72,7 @@ Every file ends with `#print axioms`. All 753 checked theorems depend only on `p
 | `ParitySplit.lean` | 257 | `Q(g) = Q(e) + Q(o)` for the even/odd parts of a real `g` |
 | `WindowForm.lean` | 285 | closed forms of the window basis, the Cholesky certificate logic, the off-line quadruple mechanism |
 | `ResponseKernel.lean`, `ToneHyperbola.lean` | 177, 214 | calculus identities for the response kernel and the tone hyperbola; no `ζ` |
-| `ArchShift.lean` | 237 | the archimedean term at digamma shift `q ≥ ¼`: `(1/2π)∫ĝ² Re ψ(q + ir/2) = Re ψ(q)‖g‖² + ∫[f(0) − f(u)]e^{(1−2q)u}/sinh u` (`arch_termQ`, round 226) |
+| `ArchShift.lean` | 305 | the archimedean term at digamma shift `q ≥ ¼`: `(1/2π)∫ĝ² Re ψ(q + ir/2) = Re ψ(q)‖g‖² + ∫[f(0) − f(u)]e^{(1−2q)u}/sinh u` (`arch_termQ`, round 226); `E_q` is a quadratic form with `0 ≤ E_q ≤ E` (round 227) |
 | `ExplicitBridge.lean` | 352 | `WeilExplicit` for `ĝ²` gives `Σ_ρ ĝ(t_ρ)² = weilQ` (`weilQ_eq_zero_sum`); the symbol and jump forms; RH ⇒ `Q ≥ 0` given the formula; B1–B2 are `ArchShift` at `q = ¼` |
 | `DigammaGauss.lean` | 429 | Gauss's digamma integral in difference form, proved (round 154) |
 | `BinetProof.lean` | 525 | Binet's second formula, proved (round 155) |
@@ -84,7 +84,7 @@ Every file ends with `#print axioms`. All 753 checked theorems depend only on `p
 | `WeilCriterion.lean` | 140 | monotone profiles are strip test functions; the explicit formula for the box and its twins over the zeros of `ζ`; no nontrivial zero is real (round 157; its finite-exception criterion `rh_of_weil_finite` was superseded in round 220) |
 | `ZetaInputs.lean` | 238 | **Hadamard's identity `Σ_ρ 1/(ρ(1−ρ)) = 2 + γ − log 4π` proved**; 1bt(i) and the pinning theorem with their classical inputs discharged (round 157) |
 | `ExteriorZeta.lean` | 310 | `Φ` entire, `Φ(w) + Φ(−w) = 1`, `χ` in the strip class; **the exterior identity over the zeros of `ζ` for every probe** (round 157) |
-| `WeilRH.lean` | 161 | **RH ⟹ `Q ≥ 0` on every probe**; `weil_criterion_zeta`: `Q ≥ 0` everywhere ⟺ RH, with no finiteness hypothesis since round 220 (round 157) |
+| `WeilRH.lean` | 168 | **RH ⟹ `Q ≥ 0` on every probe**; `weil_criterion_zeta`: `Q ≥ 0` everywhere ⟺ RH, with no finiteness hypothesis since round 220 (round 157) |
 | `PhiDExp.lean` | 484 | **double-exponential rung bounds, no RH input**: `λ₁ ≤ Ke^{16a−2πe^{2a}}`, `λ₁^odd ≤ Ke^{16a−2πe^{a−1/4}}`, `λ₂ ≤ Ke^{16a−2πe^{a/2−1/4}}` (round 159) |
 | `FirstFailure.lean` | 116 | **the first positivity failure**: if RH fails, there is a least `a₁ > 1/16` with `λ₁(a₁) = 0`, `λ₁ > 0` before it, the form PSD at `a₁`, and a normalised ground state in its kernel (round 161; no finiteness hypothesis since round 220) |
 | `KaiserKernel.lean` | 245 | the Kaiser kernel `K(z) = cos(β√(z²−L²))` and `sinc` as entire power series; growth bounds; `cosh`/`cos` forms on the real line (round 163) |
@@ -115,6 +115,7 @@ Every file ends with `#print axioms`. All 753 checked theorems depend only on `p
 | `WeilChi.lean` | 733 | **Weil's explicit formula for every primitive real `χ` with `L(½, χ) ≠ 0`**: `Ξ_χ(t) = Λ*(½ + it)` is even (`ε = 1`), of order `≤ 3/2`, with a Hadamard product and zeros in `|Im t| < ½`; `Σ_u 2h(τ_u) = g_h(0)log(N/π) + (1/2π)∫h Re ψ((½ + δ)/2 + ir/2) − 2Σ Λ(n)χ(n)n^{−1/2}g_h(log n)` (round 225) |
 | `WeilChiCriterion.lean` | 390 | **Weil's criterion for `L(s, χ)`**: GRH(χ) ⟺ `Q_χ(twin (box 1) λ) ≥ 0`; the graded rate; GRH(χ) ⟺ `Q_χ/‖g‖²` has no negative part of exponential rate; an off-line zero forces failure at rate `|2β − 1|`; instances `χ₋₃`, `χ₋₄`, `χ₋₈` (round 225) |
 | `WeilChiBridge.lean` | 95 | **`Q_χ` in u-space**: `QC χ a g = (Re ψ(q_χ) + log(N/π))‖g‖² + ∫[f(0) − f(u)]e^{(1−2q_χ)u}/sinh u − 2Σ Λ(n)χ(n)n^{−1/2}f(log n)`, `q_χ = (1 + 2δ)/4`, the form `dh_gram.py` computes (`QC_eq_QCu`); `χ₋₃`, `χ₋₄`, `χ₋₈` are odd (round 226) |
+| `WeilChiDensity.lean` | 278 | **GRH(χ) ⟹ `Q_χ ≥ 0` on every probe**, by density without ground states; `weil_criterion_chi`: `Q_χ ≥ 0` on every probe ⟺ GRH(χ); the rate form over all probes; instances `χ₋₃`, `χ₋₄`, `χ₋₈` (round 227) |
 | `LSeriesLandau.lean` | 95 | **Landau's theorem for L-series with nonnegative coefficients**: singular at the real point of the abscissa (Mathlib-ready; round 221) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
@@ -7346,7 +7347,7 @@ Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`
 
 **What is not ported.**
 - *The `u`-space form.* The ζ side proves that the spectral form equals the `u`-space form (autocorrelation, kernel `e^{u/2}/sinh u`, `ExplicitBridge.lean`, round 126), which is what `dh_gram.py` computes. For odd `χ` (all three instances) the kernel is `e^{−u/2}/sinh u`; for even `χ` it is ζ's. That identity is not proved for `χ`. So round 224's `χ₄` numerics and `QC` agree only through a standard identity that is not yet checked here. *(Ported in round 226, `QC_eq_QCu`. The bridge is round 126, not round 61 as this paragraph first said.)*
-- *All probes.* GRH ⟹ `Q_χ ≥ 0` is proved for strip-test probes only. The ζ side extends it to every probe by density (round 157, `WeilRH`); that step is not ported.
+- *All probes.* GRH ⟹ `Q_χ ≥ 0` is proved for strip-test probes only. The ζ side extends it to every probe by density (round 157, `WeilRH`); that step is not ported. *(Ported in round 227, `QC_nonneg_of_GRH_all`.)*
 - *The ground state.* `λ₁^χ` as a number, the existence of ground states, monotonicity and continuity in `a`, first failure, and the Kaiser upper bound are not ported. The rate theorems are stated with quantifiers instead, which is all the equivalences need.
 
 **Check 4.**
@@ -7380,10 +7381,42 @@ Here `f = autocorr g` and `q_χ = (1 + 2δ)/4`. This is `dh_gram.py`'s `z0`, and
 
 Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (753 checked theorems in `src/`). The build has no warnings.
 
-**Still not ported.** GRH ⟹ `Q_χ ≥ 0` on all probes (density), and the ground-state layer. See round 225.
+**Still not ported.** GRH ⟹ `Q_χ ≥ 0` on all probes (density; done in round 227), and the ground-state layer. See round 225.
 
 **Check 4.**
 - **Acknowledged (classical).** The explicit formula's archimedean term in u-space (Weil; Guinand), and Gauss's digamma integral.
 - **New here.** Machine-checked, parametric in the gamma shift, with ζ recovered as the `q = ¼` instance.
 
 **Bearing on RH:** none. This is an identity between two presentations of the same form. It makes the `χ₄` numerics a computation of `QC` itself; it does not change what those numerics show.
+
+## Round 227: GRH(χ) gives `Q_χ ≥ 0` on every probe
+
+Round 225's second "not ported" item. Round 225 proved GRH(χ) ⟹ `Q_χ ≥ 0` only for probes whose `ĝ²` is a strip test function (monotone profiles and their twins), because the explicit formula is proved only for those. Round 157 closed the same gap for ζ by density, through a ground state. Here it is closed without ground states: the probe itself is approximated, and `Q_χ` is shown to be continuous.
+
+**1. `Q_χ` is a quadratic form, bounded by the energy** (`WeilChiDensity.lean`, with `ArchShift.lean`).
+- `archEQ_add_smul`: `E_q(φ + sψ) = E_q(φ) + 2s∫(x(0) − x(u))K_q + s²E_q(ψ)`. Also `archEQ_nonneg` and `archEQ_le_archE` (`0 ≤ E_q ≤ E` for `q ≥ ¼`, since `K_q = K_{1/4}e^{(½−2q)u}`).
+- `QCu_add_smul`: `Q_χ(φ + sψ) = Q_χ(φ) + 2s·B_χ(φ, ψ) + s²Q_χ(ψ)`. The prime sum is finite for every support; `tsum_autocorr_eq` generalises `prime_sum_eq` (GroundState.lean) to any coefficients, and `prime_sum_eq` is now its instance.
+- `QCu_ge` and `QCu_le`: `−M‖g‖² ≤ Q_χ(g) ≤ M‖g‖² + E(g)`. Here `M = |Re ψ(q_χ) + log(N/π)| + 2Σ_{n ≤ e^{2a}} |Λ(n)χ(n)|/√n`.
+- `RC_add_le`: Cauchy–Schwarz for the nonnegative form `R = Q_χ + M‖·‖²`, i.e. `R(x + y) ≤ (1 + t)R(x) + (1 + 1/t)R(y)`.
+
+**2. Density** (`QC_nonneg_of_GRH_all`). Suppose `Q_χ(g) = −η < 0`.
+- Round 55's `av3_dense` gives a `C²` probe `h` (a triple box average) with `‖h − g‖² + E(h − g) ≤ 2ε`.
+- `striptest_C2` shows `ĝ_h²` is a strip test function. It is split out of round 157's `weilExplicit_C2_zeta`, which is now a two-line corollary. So GRH gives `Q_χ(h) ≥ 0`.
+- `RC_add_le` and `normSq_add_le_t` with `t = η/(6(M‖g‖² + η))` and `ε = ηt/(8(1 + t)(5M + 4))` give `(1 + t)Q_χ(h) ≤ −η/4` (`density_arith`). That is a contradiction.
+
+**3. The criterion.**
+- **`weil_criterion_chi`**: with `L(σ, χ) ≠ 0` on `(0, 1)`, `Q_χ ≥ 0` on every probe at every support ⟺ GRH(χ). This is the same statement as `weil_criterion_zeta`.
+- `grh_iff_QC_subexp_all`: round 225's rate form, over all probes instead of strip-test probes.
+- Instances: `weil_criterion_chi3`, `weil_criterion_chi4`, `weil_criterion_chi8`, each unconditional.
+
+**What this changes for the numerics.** `dh_gram.py` minimises `Q_χ` over combinations of a cosine basis. Those are probes but not known to be strip test. With rounds 226 and 227 together, a rigorously certified negative value of `Q_{χ₋₄}` on any probe would now formally refute GRH(χ₋₄). Round 224's scan found no negative value, so no result changes.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (766 checked theorems in `src/`). The build has no warnings.
+
+**Still not ported.** The ground-state layer for `χ` (`λ₁^χ`, existence of ground states, continuity in `a`, first failure) and the Kaiser upper bound.
+
+**Check 4.**
+- **Acknowledged.** Weil's criterion for Dirichlet L-functions is classical (Weil 1952). The gap closed here was listed in round 225's "What is not ported".
+- **New here.** A machine-checked proof, by a density argument that needs no ground state, unlike round 157's.
+
+**Bearing on RH:** none. This completes an equivalence and says nothing about where the zeros are.

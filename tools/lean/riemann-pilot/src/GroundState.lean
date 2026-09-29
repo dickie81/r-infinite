@@ -76,10 +76,11 @@ def primeCut (a : ℝ) : ℕ := ⌊Real.exp (2 * a)⌋₊ + 1
 def primeWeight (a : ℝ) : ℝ :=
   ∑ n ∈ Finset.range (primeCut a), Λ n / Real.sqrt n
 
-theorem prime_sum_eq {a : ℝ} {g : ℝ → ℝ} (hsupp : ∀ u, a < |u| → g u = 0) :
-    (∑' n : ℕ, Λ n / Real.sqrt n * autocorr g (Real.log n))
-      = ∑ n ∈ Finset.range (primeCut a),
-          Λ n / Real.sqrt n * autocorr g (Real.log n) := by
+/-- A probe's autocorrelation vanishes at `log n` for `n > e^{2a}`, so any weighted sum over `n` is
+finite. -/
+theorem tsum_autocorr_eq (c : ℕ → ℝ) {a : ℝ} {g : ℝ → ℝ} (hsupp : ∀ u, a < |u| → g u = 0) :
+    (∑' n : ℕ, c n * autocorr g (Real.log n))
+      = ∑ n ∈ Finset.range (primeCut a), c n * autocorr g (Real.log n) := by
   refine tsum_eq_sum fun n hn => ?_
   rw [Finset.mem_range, not_lt] at hn
   have hlt : Real.exp (2 * a) < n := by
@@ -92,6 +93,12 @@ theorem prime_sum_eq {a : ℝ} {g : ℝ → ℝ} (hsupp : ∀ u, a < |u| → g u
     rw [← Real.log_exp (2 * a)]
     exact Real.log_lt_log (Real.exp_pos _) hlt
   rw [autocorr_eq_zero hsupp (hlog.trans_le (le_abs_self _)), mul_zero]
+
+theorem prime_sum_eq {a : ℝ} {g : ℝ → ℝ} (hsupp : ∀ u, a < |u| → g u = 0) :
+    (∑' n : ℕ, Λ n / Real.sqrt n * autocorr g (Real.log n))
+      = ∑ n ∈ Finset.range (primeCut a),
+          Λ n / Real.sqrt n * autocorr g (Real.log n) :=
+  tsum_autocorr_eq (fun n => Λ n / Real.sqrt n) hsupp
 
 theorem abs_prime_sum_le {a : ℝ} {g : ℝ → ℝ} (hadm : Probe a g) :
     |∑' n : ℕ, Λ n / Real.sqrt n * autocorr g (Real.log n)|

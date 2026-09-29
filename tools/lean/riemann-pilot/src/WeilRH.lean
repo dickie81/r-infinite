@@ -54,10 +54,10 @@ theorem ibp_C2 {a r : ℝ} {h h₁ h₂ : ℝ → ℝ} (hc : C2Supp r h h₁ h�
   rw [e, H, z1, z2]
   simp
 
-/-- **The explicit formula over the zeros of `ζ` for every `C²` probe vanishing near the edges.** -/
-theorem weilExplicit_C2_zeta {a r : ℝ} {h h₁ h₂ : ℝ → ℝ} (ha : 0 < a) (hp : Probe a h)
+/-- **`ĝ²` is a strip test function for every `C²` probe vanishing near the edges.** -/
+theorem striptest_C2 {a r : ℝ} {h h₁ h₂ : ℝ → ℝ} (ha : 0 < a) (hp : Probe a h)
     (hc : C2Supp r h h₁ h₂) (hr : 0 ≤ r) (hra : r ≤ a) :
-    WeilExplicit zetaZeroFamily (fun z => ghatC h a z ^ 2) (hsq h a) := by
+    ∃ K, StripTest (fun z => ghatC h a z ^ 2) K := by
   have hc1 : Continuous h₁ := continuous_iff_continuousAt.2 fun x => (hc.d2 x).continuousAt
   have hi1 : IntervalIntegrable h₁ volume (-a) a := hc1.intervalIntegrable _ _
   obtain ⟨K, hK⟩ := ghat_strip_of_inv ha.le (B := Real.exp a * ∫ u in (-a)..a, |h₁ u|)
@@ -70,8 +70,14 @@ theorem weilExplicit_C2_zeta {a r : ℝ} {h h₁ h₂ : ℝ → ℝ} (ha : 0 < a
           one_mul, mul_comm]
       rw [e]
       exact norm_ghatC_strip_le ha.le hi1 (abs_le.2 ⟨ht.1, ht.2⟩)
-  exact weilExplicit_zeta (striptest_sq (ghatC_differentiable hp.intervalIntegrable) hK)
-    (fun t => even_ghat_sq hp.even a t) (hsq_ofReal hp ha.le)
+  exact ⟨K, striptest_sq (ghatC_differentiable hp.intervalIntegrable) hK⟩
+
+/-- **The explicit formula over the zeros of `ζ` for every `C²` probe vanishing near the edges.** -/
+theorem weilExplicit_C2_zeta {a r : ℝ} {h h₁ h₂ : ℝ → ℝ} (ha : 0 < a) (hp : Probe a h)
+    (hc : C2Supp r h h₁ h₂) (hr : 0 ≤ r) (hra : r ≤ a) :
+    WeilExplicit zetaZeroFamily (fun z => ghatC h a z ^ 2) (hsq h a) := by
+  obtain ⟨K, hK⟩ := striptest_C2 ha hp hc hr hra
+  exact weilExplicit_zeta hK (fun t => even_ghat_sq hp.even a t) (hsq_ofReal hp ha.le)
 
 /-! ## RH ⇒ `Q ≥ 0` on every probe -/
 
@@ -155,6 +161,7 @@ theorem weil_criterion_zeta :
 end Pilot1ca
 
 #print axioms Pilot1ca.ibp_C2
+#print axioms Pilot1ca.striptest_C2
 #print axioms Pilot1ca.weilExplicit_C2_zeta
 #print axioms Pilot1ca.lam_nonneg_of_RH
 #print axioms Pilot1ca.weilQ_nonneg_of_RH
