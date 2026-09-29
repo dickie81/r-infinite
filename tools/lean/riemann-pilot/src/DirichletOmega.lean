@@ -23,6 +23,8 @@ conclusion needs `L(σ, χ) ≠ 0` there; numerically `L(σ, χ₄) > 0` on `(0,
 here. The existence of a zero of `L(s, χ)` needs a Hadamard product for `L`; the pilot has one only
 for `Ξ` (`PsiOmega.exists_zero_re_ge_half`), so the zero is a hypothesis. With both, this is the
 `ψ`-form of Littlewood's 1914 theorem that the race mod 4 changes lead infinitely often.
+Both hypotheses are proved for `χ₄` in `Chi4.lean` (round 223), giving `race_four_half` with no
+hypotheses.
 
 No bearing on RH.
 -/

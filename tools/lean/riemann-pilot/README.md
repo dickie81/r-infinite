@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 716 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 720 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -107,7 +107,8 @@ Every file ends with `#print axioms`. All 716 checked theorems depend only on `p
 | `WeilRate.lean` | 119 | **the ground energy's rate of failure measures the zeros**: `λ₁(a) ≥ −Ce^{σa}` ⟹ `|2 Re ρ − 1| ≤ σ`; RH ⟺ `λ₁` has no negative part of exponential rate; if RH fails, `λ₁(a) < −Ce^{σa}` at arbitrarily large `a` (round 221) |
 | `PsiOmega.lean` | 721 | **one-sided bounds on summatory functions are zero-free half-planes** (generic Mellin theorem, for any entire `Z` with no zero on `Re s ≥ 1`, round 222); **`ψ(x) − x = Ω±(x^θ)`** below the real part of any zero, and for every `θ < ½` unconditionally (rounds 220–221) |
 | `MertensOmega.lean` | 293 | **Mertens and Liouville**: `M(x) = Ω±(x^θ)` for every `θ < ½`; `L(λ, s)ζ(s) = ζ(2s)`; a one-sided bound `εL(x) ≤ c√x` gives RH, in particular **Pólya's conjecture ⟹ RH** (round 221) |
-| `DirichletOmega.lean` | 166 | **prime races**: for real `χ ≠ 1`, `ψ(x, χ) = Ω±(x^θ)` below any zero of `L(s, χ)` if there is no real zero in `(θ, 1)`; the race between primes `≡ 1` and `≡ 3` (mod 4) changes lead infinitely often, under those two hypotheses (round 222) |
+| `DirichletOmega.lean` | 168 | **prime races**: for real `χ ≠ 1`, `ψ(x, χ) = Ω±(x^θ)` below any zero of `L(s, χ)` if there is no real zero in `(θ, 1)`; the race between primes `≡ 1` and `≡ 3` (mod 4) changes lead infinitely often, under those two hypotheses (round 222) |
+| `Chi4.lean` | 556 | **the race mod 4, unconditional**: `L(σ, χ₄) ≥ 1 − 3^{−σ} > 0` on `(0, ∞)`; `L(s, χ₄)` has a zero with `½ ≤ Re ρ < 1` (Hadamard, via the functional equation); the `log p`-weighted race between primes `≡ 1` and `≡ 3` (mod 4) changes lead infinitely often, by more than `c·x^θ` for every `θ < ½` (round 223) |
 | `LSeriesLandau.lean` | 95 | **Landau's theorem for L-series with nonnegative coefficients**: singular at the real point of the abscissa (Mathlib-ready; round 221) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
@@ -7199,3 +7200,36 @@ The runs used `scan.py dh K 300 δ` with `δ = 2a`. A validity condition was fou
   - A falsified pre-registered slope, with the mechanism check that explains it.
 
 **Bearing on RH:** none. The race theorems run from zeros of `L(s, χ)` to oscillation. The DH numerics test a transfer heuristic for a function that is known to violate RH.
+
+## Round 223: the race mod 4, unconditional (`Chi4.lean`)
+
+Round 222's `race_four` needed two inputs: no real zero of `L(σ, χ₄)` in `(θ, 1)`, and some zero of `L(s, χ₄)`. Both are now proved, from Mathlib and the pilot's own Hadamard theorem.
+
+**No real zero: `L(σ, χ₄) ≥ 1 − 3^{−σ}` for every real `σ > 0`.**
+- The partial sums `S(n) = Σ_{k ≤ n} χ₄(k)` are `1` for `n ≡ 1, 2` and `0` for `n ≡ 0, 3 (mod 4)` (`sum_c4`).
+- Partial summation (`PsiOmega.integral_summ`) gives `L(s, χ₄) = s∫_1^∞ S(x)x^{−s−1}dx` for `Re s > 1`. The right side is a Mellin transform holomorphic on `Re s > 0` (`I4_differentiableAt`), so the identity extends there (`LFunction_chi4_eq`).
+- `S ≥ 0`, and `S = 1` on `[1, 3)`. This gives the lower bound `LFunction_chi4_real_ge` and the growth bound `‖L(s, χ₄)‖ ≤ ‖s‖/Re s` (`norm_LFunction_chi4_le`).
+
+**A zero exists with `½ ≤ Re ρ < 1`** (`exists_zero_chi4`).
+- `χ₄` is primitive (`chi4_isPrimitive`: level 2 would force `χ₄(3) = 1`) and real (`chi4_inv`). Mathlib's functional equation then gives `Λ*(1 − s) = εΛ*(s)` for `Λ*(s) = 4^{s/2}Λ(s, χ₄)` (`Lam_one_sub`). The root number `ε` is not computed and is not needed.
+- `‖Γ(w)‖ ≤ Γ(Re w)` (`norm_cGamma_le`), plus the bound on `L`, gives `‖Λ*(s)‖ ≤ n^{3n}` on `Re s ≥ ½` for `n ≥ ‖s‖ + 3`.
+- `f(z) = Λ*(½ + iz)Λ*(½ − iz)` is even and entire, with `f(0) = Λ*(½)² ≠ 0` and `‖f(z)‖ ≤ C·exp(48‖z‖^{3/2})` (`norm_fL_le`). The product form makes `f` even without knowing `ε`.
+- If there were no zero, `f` would have none either. Hadamard's genus-0 factorisation (`hadamardW_even`, rounds 17–20) would then make `f` constant. But `f(−i(σ − ½)) = εΛ*(σ)²`, and `‖Λ*(2k + 1)‖ ≥ (4/π)^k/3` (`norm_Lam_odd_ge`).
+
+**`race_four_half`.** For every `0 < θ < ½` and every `c`, `ψ(x; 4, 1) − ψ(x; 4, 3)` exceeds `c·x^θ` and falls below `−c·x^θ` at arbitrarily large `x`. This is the `ψ`-form of Littlewood's 1914 theorem, with no hypotheses; round 222's statement is the special case.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (720 checked theorems in `src/`). The build has no warnings.
+
+**What this does not give.**
+- Littlewood's theorem for the prime *counts* `π(x; 4, 3) − π(x; 4, 1)` needs oscillation of size `√x·log log log x`. The prime powers contribute `≍ √x/log x` to the difference, which swamps `x^θ` for `θ < ½`.
+- The argument is specific to `χ₄` in two places:
+  - the nonnegative partial sums (true also for `χ₋₃` and `χ₋₈`, false for `χ₈`);
+  - `L(½, χ) ≠ 0`, which is where `f(0) ≠ 0` comes from.
+
+**Check 4.**
+- **Acknowledged (classical).** `L(σ, χ₄) > 0` (alternating series), zero existence (Hadamard), and Littlewood 1914.
+- **New here.**
+  - Machine-checked proofs.
+  - The root-number-free route to a zero (the product `f`).
+
+**Bearing on RH:** none. The theorems run from zeros to oscillation, and the zero found is not located beyond `½ ≤ Re ρ < 1`.
