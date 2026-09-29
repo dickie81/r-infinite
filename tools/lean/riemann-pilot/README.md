@@ -6556,3 +6556,23 @@ Axioms are clean.
 
 **Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
 
+## Round 201: VMVT step I.3b, the bad count and one full Karatsuba step (`src/VinoRec.lean`)
+
+Axioms are clean.
+
+- **`bad_card` (Step D).** The tuples in `[1,P]^n` meeting fewer than `k` residue classes mod `p` number at most `p^{k−1}·((k−1)(⌊P/p⌋+1))^n`. The proof:
+  - each such tuple lies inside some set of `k−1` classes (`exists_subsuperset_card_eq`);
+  - there are `C(p,k−1) ≤ p^{k−1}` such sets;
+  - each class holds at most `⌊P/p⌋+1` numbers (`card_cls_le`).
+- **`one_step` (A–D chained).** For a prime `p > k ≥ 1` with `P ≤ p^k` and `s ≥ 1`:
+  `J_{k+s,k}(P) ≤ 2(p^{k−1}((k−1)(⌊P/p⌋+1))^{k+s})² + 16(k+s)^{2k}·p^{2s}·P^k·k!·p^{k(k−1)/2}·J_{s,k}(⌊P/p⌋+1)`.
+
+  This is the whole combinatorial and arithmetic content of the classical p-adic iteration, in natural numbers, with no asymptotics.
+
+| I.3b piece | status |
+|---|---|
+| A, B, C, C′, D | **done** |
+| recursion: Bertrand prime `p ∈ (max(m,k), 2max(m,k)]` with `m^k ≥ P` minimal; real-exponent bookkeeping `η_{s+k} = max((1−1/k)η_s, k(k+1)/2 − 2(s+1)/k)` | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
