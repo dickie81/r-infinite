@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 720 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 727 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -108,7 +108,8 @@ Every file ends with `#print axioms`. All 720 checked theorems depend only on `p
 | `PsiOmega.lean` | 721 | **one-sided bounds on summatory functions are zero-free half-planes** (generic Mellin theorem, for any entire `Z` with no zero on `Re s ≥ 1`, round 222); **`ψ(x) − x = Ω±(x^θ)`** below the real part of any zero, and for every `θ < ½` unconditionally (rounds 220–221) |
 | `MertensOmega.lean` | 293 | **Mertens and Liouville**: `M(x) = Ω±(x^θ)` for every `θ < ½`; `L(λ, s)ζ(s) = ζ(2s)`; a one-sided bound `εL(x) ≤ c√x` gives RH, in particular **Pólya's conjecture ⟹ RH** (round 221) |
 | `DirichletOmega.lean` | 168 | **prime races**: for real `χ ≠ 1`, `ψ(x, χ) = Ω±(x^θ)` below any zero of `L(s, χ)` if there is no real zero in `(θ, 1)`; the race between primes `≡ 1` and `≡ 3` (mod 4) changes lead infinitely often, under those two hypotheses (round 222) |
-| `Chi4.lean` | 556 | **the race mod 4, unconditional**: `L(σ, χ₄) ≥ 1 − 3^{−σ} > 0` on `(0, ∞)`; `L(s, χ₄)` has a zero with `½ ≤ Re ρ < 1` (Hadamard, via the functional equation); the `log p`-weighted race between primes `≡ 1` and `≡ 3` (mod 4) changes lead infinitely often, by more than `c·x^θ` for every `θ < ½` (round 223) |
+| `RealDirichlet.lean` | 680 | **every primitive real Dirichlet character `χ ≠ 1`**: partial sums `≤ N`; `L(s, χ) = s∫S(x)x^{−s−1}` on `Re s > 0`; `L(s, χ)` has a zero with `½ ≤ Re ρ < 1` (Hadamard, via the functional equation); `ψ(x, χ) = Ω±(x^θ)` for `θ < ½` given no real zero in `(θ, 1)`; nonnegative partial sums ⟹ `L(σ, χ) > 0` on `(0, ∞)` and the Ω± unconditionally (rounds 223–224) |
+| `PrimeRaces.lean` | 233 | **the `log p`-weighted prime races mod 3, 4 and 8 change lead infinitely often**, by more than `c·x^θ` for every `θ < ½`, unconditionally; the Hadamard product for `L(s, χ₄)` (rounds 223–224) |
 | `LSeriesLandau.lean` | 95 | **Landau's theorem for L-series with nonnegative coefficients**: singular at the real point of the abscissa (Mathlib-ready; round 221) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
@@ -7201,7 +7202,7 @@ The runs used `scan.py dh K 300 δ` with `δ = 2a`. A validity condition was fou
 
 **Bearing on RH:** none. The race theorems run from zeros of `L(s, χ)` to oscillation. The DH numerics test a transfer heuristic for a function that is known to violate RH.
 
-## Round 223: the race mod 4, unconditional (`Chi4.lean`)
+## Round 223: the race mod 4, unconditional (`Chi4.lean`; merged into `RealDirichlet.lean` and `PrimeRaces.lean` in round 224)
 
 Round 222's `race_four` needed two inputs: no real zero of `L(σ, χ₄)` in `(θ, 1)`, and some zero of `L(s, χ₄)`. Both are now proved, from Mathlib and the pilot's own Hadamard theorem.
 
@@ -7233,3 +7234,65 @@ Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`
   - The root-number-free route to a zero (the product `f`).
 
 **Bearing on RH:** none. The theorems run from zeros to oscillation, and the zero found is not located beyond `½ ≤ Re ρ < 1`.
+
+## Round 224: every primitive real character, the races mod 3/4/8, and the χ₄ control
+
+**1. A zero for every primitive real Dirichlet character** (`RealDirichlet.lean`). Round 223's `χ₄` argument works for every primitive quadratic `χ ≠ 1`, of any modulus `N` and either parity.
+- `abs_sum_cR_le`: the partial sums are bounded by `N`, since `χ` sums to zero over a period.
+- `LFunction_eq_Iχ`: partial summation gives `L(s, χ) = s∫_1^∞ S(x)x^{−s−1}dx` on `Re s > 0`. Hence `‖L(s, χ)‖ ≤ (N + 1)‖s‖/Re s` and `|L(σ, χ) − 1| ≤ (N + 2)/(σ − 1)`.
+- `exists_zero_of_primitive`: **`L(s, χ)` has a zero with `½ ≤ Re ρ < 1`.**
+  - `Λ*(s) = N^{s/2}Λ(s, χ)` satisfies `Λ*(1 − s) = εΛ*(s)`.
+  - `f(z) = Λ*(½ + iz)Λ*(½ − iz)` has order `≤ 3/2`.
+  - If `L` had no such zero, Hadamard would make `f` constant. But `‖Λ*(2k + 2 − δ)‖ ≥ k!/(2π^{k+1})`.
+  - If `L(½, χ) = 0`, then `½` is the zero.
+- `psiChi_omega_of_primitive`: `ψ(x, χ) = Ω±(x^θ)` for every `θ < ½`. The only remaining hypothesis is no real zero of `L(σ, χ)` in `(θ, 1)`. It cannot be dropped in general: that is the Siegel-zero problem.
+- `LFunction_real_ge`: nonnegative partial sums give `L(σ, χ) ≥ 1 − 2^{−σ}`, so no real zero at all. `psiChi_omega_of_sums_nonneg` is the unconditional Ω±.
+- `hadamard_fG`: the genus-0 Hadamard product of `f` when `L(½, χ) ≠ 0`.
+
+**2. The races mod 3, 4 and 8** (`PrimeRaces.lean`).
+- `χ₋₃` (defined here), `χ₋₄` and `χ₋₈ = χ₈'` are primitive and quadratic, and their partial sums are nonnegative (periodic, with values in `{0, 1}`, `{0, 1}` and `{0, 1, 2}`).
+- For every `0 < θ < ½`, each `log p`-weighted race changes lead infinitely often, by more than `c·x^θ` each way:
+  - `race_three_half`: `ψ(x; 3, 1) − ψ(x; 3, 2)`;
+  - `race_four_half`: `ψ(x; 4, 1) − ψ(x; 4, 3)`;
+  - `race_eight_half`: `ψ(x; 8, 1) + ψ(x; 8, 3) − ψ(x; 8, 5) − ψ(x; 8, 7)`.
+- `χ₈` (the `{1, 7}` vs `{3, 5}` race) is not covered: its partial sums reach `−1`, so the positivity criterion fails.
+- `Chi4.lean` is retired into these two files.
+
+**3. The `χ₄` control for the DH test** (numerics `frontier/dh/`, pre-registered in `CHI4_PREREG.md`; Lean `hadamard_chi4`).
+
+The same Gram code and parameters as round 165's DH scan are used, on `L(s, χ₄)`: `z0 = ¾`, `log(4/π)`, no pole, weights `Λ(n)χ₄(n)`.
+
+| `a` | 1.0 | 1.5 | 1.715 | 2.0 | 2.25 | 2.5 |
+|---|---|---|---|---|---|---|
+| `λ₁^{χ₄}`, best K | 6.1e−7 | 1.8e−23 | 8.3e−38 | 1.4e−69 | 1.9e−117 | 1.2e−171 |
+| K | 120 | 120 | 120 | 120 | 200 | 200 |
+| `−log λ₁/e^{2a}` | – | 2.60 | 2.76 | 2.90 | 2.99 | 2.65 |
+| `λ₁^{DH}` (round 165/222) | 3.4e−5 | 5.4e−23 | **−6.0e−30** | −0.71 | −1.33 | −1.86 |
+
+- **Prediction 1 held.** `λ₁^{χ₄}` is positive at every point, including past DH's first failure (`a = 1.715`), at the same `K` where DH is negative.
+- **Prediction 2 holds at the best `K`.** The rate lies in `[0.8π, 1.2π] = [2.51, 3.77]`, but the runs at `a ≥ 2` are not converged in `K`:
+  - `a = 2.25`: `6.4e−106 → 1.4e−114 → 1.9e−117` for `K = 120, 160, 200`;
+  - `a = 2.5`: `1.4e−135 → 2.5e−156 → 1.2e−171`.
+  - Truncation only raises the lowest eigenvalue (Rayleigh–Ritz), so the listed values are upper bounds on `λ₁` and the rates are lower bounds. At `a = 2.5` the rate entered the band only at `K = 200`.
+- **What the control shows.** The method that finds DH's failure (a negative Rayleigh quotient, certified in round 165) finds none for `χ₄` at the same supports and resolution.
+  - A positive truncated eigenvalue is not a certificate of positivity. A certificate would be a GRH-strength statement.
+  - The control rules out a failure of the kind DH shows (one driven by a zero at height ≈ 86) within the band the basis sees.
+- **Lean.**
+  - `hadamard_chi4` gives the genus-0 Hadamard product of `Λ*(½ + iz)Λ*(½ − iz)`, the first input the ζ-side Weil chain needed.
+  - The rest of that chain for `χ₄` is not done: the explicit formula for `L(s, χ₄)` (the analogue of WeilExplicit W1–W6) and the ground-state layer. Building it would be a multi-round port.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (727 checked theorems in `src/`). The build has no warnings.
+
+**Check 4.**
+- **Acknowledged (classical).**
+  - Zero existence for L-functions (Hadamard).
+  - Positivity of `L(σ, χ)` from nonnegative partial sums.
+  - Littlewood-type races (Littlewood 1914; Knapowski–Turán).
+  - DH as the classical counterexample (round 165).
+- **New here.**
+  - Machine-checked proofs for every primitive real `χ`.
+  - The root-number-free product `f`.
+  - Unconditional races mod 3, 4 and 8.
+  - The `χ₄` numerical control, pre-registered, with its non-convergence at `a ≥ 2` stated.
+
+**Bearing on RH:** none. The Lean results run from zeros to oscillation. The control compares a function believed to satisfy GRH with one known to violate it; it proves nothing about either.

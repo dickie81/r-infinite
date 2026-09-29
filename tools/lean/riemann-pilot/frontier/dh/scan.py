@@ -16,6 +16,9 @@ def lf(name, N):
     if name == 'zeta':
         a = np.ones(N + 1); a[0] = 0
         z0, logq, pole = 0.25, -arb.pi().log(), True
+    elif name == 'chi4':
+        a = np.array([0.0] + [[0.0, 1.0, 0.0, -1.0][n % 4] for n in range(1, N + 1)])
+        z0, logq, pole = 0.75, (arb(4)/arb.pi()).log(), False
     else:
         a = np.array([0.0] + [0.0 if n % 5 == 0 else ((1 - 1j*kap)*chi5[n % 5]).real for n in range(1, N + 1)])
         z0, logq, pole = 0.75, (arb(5)/arb.pi()).log(), False
@@ -25,6 +28,8 @@ def cvec_arb(name, N, prec):
     with ctx.workprec(prec + 40):
         if name == 'zeta':
             a = [arb(0)] + [arb(1)]*N
+        elif name == 'chi4':
+            a = [arb(0)] + [arb([0, 1, 0, -1][n % 4]) for n in range(1, N + 1)]
         else:
             k = ((10 - 2*arb(5).sqrt()).sqrt() - 2)/(arb(5).sqrt() - 1)
             tab = {0: arb(0), 1: arb(1), 2: k, 3: -k, 4: arb(-1)}
