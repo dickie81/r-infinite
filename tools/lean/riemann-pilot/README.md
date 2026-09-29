@@ -7095,7 +7095,7 @@ Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`
 
 Four follow-ups to Landau's theorem. All build, with no warnings; every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (713 checked theorems in `src/`).
 
-**1. Weil positivity, graded** (`WeilLandau.lean`, `WeilRate.lean`). Round 220's argument works for a lower bound, not only for positivity. Adding `C·e^{σλ}` to `Q` adds one real pole at `σ` to the transform, and Landau's theorem only looks to the right of `σ` (`abs_re_poleP_le`). The converse is the sum over zeros (`weilQ_twin_ge`).
+**1. Weil positivity, graded** (`WeilLandau.lean`, `WeilRate.lean`). Round 220's argument works for a lower bound, not only for positivity. Adding `C·e^{σλ}` to `Q` adds one real pole at `σ` to the transform, and Landau's theorem only looks to the right of `σ` (`abs_re_poleP_le`, since round 225 `TwinLandau.abs_re_le`). The converse is the sum over zeros (`weilQ_twin_ge`).
 - `weil_twins_rate`: for `σ ≥ 0`, `Q(twin (box 1) λ) ≥ −C·e^{σλ}` for some `C` and all `λ ≥ 0` **iff** every nontrivial zero has `|2 Re ρ − 1| ≤ σ`. The exponential rate at which the twin form goes negative is exactly `2Θ − 1`.
 - `rh_iff_twins_subexp`: RH iff the twin form's defect is subexponential. Round 220's `rh_of_weil_twins` is the case `C = σ = 0`.
 - `zeros_of_lam_ge`: a lower bound `λ₁(a) ≥ −C·e^{σa}` for `a ≥ 1` gives the zero-free half-plane `Re s > (1 + σ)/2`. It uses `Q ≥ λ₁‖g‖²` and `‖twin (box 1) λ‖² ≤ 4` (`normSq_twin_le`).
@@ -7343,7 +7343,7 @@ The ζ chain's middle, from Hadamard's product to Weil's criterion with rates, n
 Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (742 checked theorems in `src/`). The build has no warnings.
 
 **What is not ported.**
-- *The `u`-space form.* The ζ side proves that the spectral form equals the `u`-space form (autocorrelation, kernel `e^{u/2}/sinh u`, Bridge B, round 61), which is what `dh_gram.py` computes. For `χ` the kernel is `e^{−u/2}/sinh u`, and that identity is not proved. So round 224's `χ₄` numerics and `QC` agree only through a standard identity that is not yet checked here.
+- *The `u`-space form.* The ζ side proves that the spectral form equals the `u`-space form (autocorrelation, kernel `e^{u/2}/sinh u`, Bridge B, round 61), which is what `dh_gram.py` computes. For odd `χ` (all three instances) the kernel is `e^{−u/2}/sinh u`; for even `χ` it is ζ's. That identity is not proved for `χ`. So round 224's `χ₄` numerics and `QC` agree only through a standard identity that is not yet checked here.
 - *All probes.* GRH ⟹ `Q_χ ≥ 0` is proved for strip-test probes only. The ζ side extends it to every probe by density (round 157, `WeilRH`); that step is not ported.
 - *The ground state.* `λ₁^χ` as a number, the existence of ground states, monotonicity and continuity in `a`, first failure, and the Kaiser upper bound are not ported. The rate theorems are stated with quantifiers instead, which is all the equivalences need.
 
