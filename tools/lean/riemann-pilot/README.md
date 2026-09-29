@@ -6508,3 +6508,25 @@ Axioms are clean.
 
 **Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
 
+## Round 199: VMVT step I.3b, Hölder over residue classes (`src/VinoHolder.lean`)
+
+Axioms are clean.
+
+- **`count_eq_integral`.** Orthogonality for any finite set: `∫ |Σ_{x∈X} e(α·φ(x))|² dα = #{(x,y) ∈ X² : φ x = φ y}`.
+- **`Gfull_le` (Step B).** `G ≤ p^{2s−1} Σ_{a<p} G_a`. The proof:
+  - the generating function of `G` factorises as `F·f^s` (`E_prod`, `E_pi`), with `f = Σ_{a<p} f_a` over residue classes (`g_split`);
+  - the power mean inequality, pointwise: `|Σ_a f_a|^{2s} ≤ p^{2s−1} Σ_a |f_a|^{2s}` (`power_mean`, from Mathlib's `pow_sum_div_card_le_sum_pow`);
+  - integrate.
+
+  With round 198 this gives `G ≤ p^{2s}·P^k·k!·p^{k(k−1)/2}·J_s(⌊P/p⌋+1)`: the conditioned half of the Karatsuba step is complete.
+
+| I.3b piece | status |
+|---|---|
+| C, C′ conditioned and class counts | done |
+| B Hölder over classes | **done** |
+| A good/bad split (`T ≤ 2T_BB + 16·C(s+k,k)²·G`) | open |
+| D bad count | open |
+| recursion with the Bertrand prime | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
