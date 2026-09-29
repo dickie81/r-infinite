@@ -1,5 +1,6 @@
 import Mathlib
 import ExteriorZeta
+import WeilLandau
 
 /-! # RH gives `Q ≥ 0` on every probe, and Weil's criterion for `ζ` (round 157)
 
@@ -12,8 +13,8 @@ round 156 proves it only for strip test functions. Here the gap is closed by den
   `λ₁ < 0`, a ground state `g` is approximated (round 55's `av3_dense`) by a `C²` probe `h` with
   `Q(h) ≤ λ₁‖h‖² + 2C(‖h − g‖² + E(h − g)) < 0`, while RH and the explicit formula give `Q(h) ≥ 0`.
 * `weilQ_nonneg_of_RH`: hence `Q(g) ≥ λ₁‖g‖² ≥ 0` for every probe.
-* `weil_criterion_zeta`: with finitely many off-line zeros, `Q ≥ 0` on every probe **iff**
-  Mathlib's `RiemannHypothesis`. No named input.
+* `weil_criterion_zeta`: `Q ≥ 0` on every probe **iff** Mathlib's `RiemannHypothesis`. No named
+  input, and (since round 220, `WeilLandau.rh_of_weil`) no finiteness hypothesis.
 
 Weil's criterion is an equivalence: no bearing on RH.
 -/
@@ -144,12 +145,12 @@ theorem weilQ_nonneg_of_RH (hRH : RiemannHypothesis) {a : ℝ} (ha : 0 < a) {g :
     (hg : Probe a g) : 0 ≤ weilQ a g :=
   le_trans (mul_nonneg (lam_nonneg_of_RH hRH ha) (normSq_nonneg g)) (lam_mul_le hg)
 
-/-- **Weil's criterion for `ζ`, finite-exception form, both directions, no named input.** If only
-finitely many nontrivial zeros of `ζ` lie off the critical line, then Weil's form is nonnegative on
-every probe at every support if and only if Mathlib's `RiemannHypothesis` holds. -/
-theorem weil_criterion_zeta (hfin : {s : ℂ | IsNontrivialZero s ∧ s.re ≠ 1 / 2}.Finite) :
+/-- **Weil's criterion for `ζ`, both directions, no named input, no finiteness hypothesis.** Weil's
+form is nonnegative on every probe at every support if and only if Mathlib's `RiemannHypothesis`
+holds. -/
+theorem weil_criterion_zeta :
     (∀ (a : ℝ) (g : ℝ → ℝ), 0 < a → Probe a g → 0 ≤ weilQ a g) ↔ RiemannHypothesis :=
-  ⟨fun hQ => rh_of_weil_finite hQ hfin, fun hRH _ _ ha hp => weilQ_nonneg_of_RH hRH ha hp⟩
+  ⟨rh_of_weil, fun hRH _ _ ha hp => weilQ_nonneg_of_RH hRH ha hp⟩
 
 end Pilot1ca
 

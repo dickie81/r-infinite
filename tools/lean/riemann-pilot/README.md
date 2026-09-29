@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 683 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 696 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -80,12 +80,12 @@ Every file ends with `#print axioms`. All 683 checked theorems depend only on `p
 | `PhiLadder.lean` | 481 | jet upper bounds on rungs 1 and 2 of the ladder (round 153) |
 | `StripShift.lean`, `XiLogDeriv.lean`, `WeilCount.lean`, `WeilAssemble.lean` | 731, 230, 132, 629 | the strip class `StripTest`, contour shifts, `Ξ′/Ξ` as a sum over zeros and on `Re s > 1`, the zero count, and **Weil's explicit formula over the zeros of `Ξ`** (round 156) |
 | `WeilDischarge.lean`, `WeilZeta.lean` | 245, 270 | the pilot's test functions are strip test functions; **`weilExplicit_zeta`**: the explicit formula over the zeros of `ζ` (round 156) |
-| `WeilCriterion.lean` | 176 | monotone profiles are strip test functions; **`rh_of_weil_finite`: `Q ≥ 0` on every probe + finitely many off-line zeros ⟹ RH**, no named input (round 157) |
+| `WeilCriterion.lean` | 140 | monotone profiles are strip test functions; the explicit formula for the box and its twins over the zeros of `ζ`; no nontrivial zero is real (round 157; its finite-exception criterion `rh_of_weil_finite` was superseded in round 220) |
 | `ZetaInputs.lean` | 238 | **Hadamard's identity `Σ_ρ 1/(ρ(1−ρ)) = 2 + γ − log 4π` proved**; 1bt(i) and the pinning theorem with their classical inputs discharged (round 157) |
 | `ExteriorZeta.lean` | 310 | `Φ` entire, `Φ(w) + Φ(−w) = 1`, `χ` in the strip class; **the exterior identity over the zeros of `ζ` for every probe** (round 157) |
-| `WeilRH.lean` | 160 | **RH ⟹ `Q ≥ 0` on every probe**; `weil_criterion_zeta`: with finitely many off-line zeros, `Q ≥ 0` everywhere ⟺ RH (round 157) |
+| `WeilRH.lean` | 161 | **RH ⟹ `Q ≥ 0` on every probe**; `weil_criterion_zeta`: `Q ≥ 0` everywhere ⟺ RH, with no finiteness hypothesis since round 220 (round 157) |
 | `PhiDExp.lean` | 484 | **double-exponential rung bounds, no RH input**: `λ₁ ≤ Ke^{16a−2πe^{2a}}`, `λ₁^odd ≤ Ke^{16a−2πe^{a−1/4}}`, `λ₂ ≤ Ke^{16a−2πe^{a/2−1/4}}` (round 159) |
-| `FirstFailure.lean` | 120 | **the first positivity failure**: if RH fails with finitely many off-line zeros, there is a least `a₁ > 1/16` with `λ₁(a₁) = 0`, `λ₁ > 0` before it, the form PSD at `a₁`, and a normalised ground state in its kernel (round 161) |
+| `FirstFailure.lean` | 116 | **the first positivity failure**: if RH fails, there is a least `a₁ > 1/16` with `λ₁(a₁) = 0`, `λ₁ > 0` before it, the form PSD at `a₁`, and a normalised ground state in its kernel (round 161; no finiteness hypothesis since round 220) |
 | `KaiserKernel.lean` | 245 | the Kaiser kernel `K(z) = cos(β√(z²−L²))` and `sinc` as entire power series; growth bounds; `cosh`/`cos` forms on the real line (round 163) |
 | `KaiserPW.lean` | 209 | the trial `H(z) = z²(z²−α)K(z)sinc(πηz)⁸`: exponential type `2πL`, decay; **Paley–Wiener: `𝓕⁻H` vanishes beyond `L`** (round 163) |
 | `KaiserPoisson.lean` | 234 | `h = 𝓕⁻H`, the self-dual `h + H`, Connes' map `E`, and Poisson: `E h (x) = E H (1/x)` when `∫H = 0` (round 163) |
@@ -101,6 +101,10 @@ Every file ends with `#print axioms`. All 683 checked theorems depend only on `p
 | `KaiserZeroWeight.lean` | 142 | **the RH-free zero weight**: `Σ_τ [P_{1+s}(x−σ) + P_{1−s}(x+σ)] = Im(Ξ′/Ξ)(x−i)/π ≤ (5 + Σ Λ(n)n^{−3/2} + ½log(\|x\|+2))/π`, from Hadamard and `ξ′/ξ` on `Re s = 3/2`; `Re ψ(z) ≤ log\|z\| + 4` (round 164) |
 | `KaiserPlanch.lean` | 163 | **regularised Plancherel**: `∫‖F̂(x)‖²e^{−bx²} ≤ 2π∫‖Ψ‖²` for `Ψ ∈ L¹∩L²`, by the Gaussian kernel and Schur's test (round 164) |
 | `KaiserPrefactor.lean` | 775 | the tail at `Im t = −1`; the log-weighted `L²` bound; `Q(g) ≤ 16κ Kz(a+1)e^{9a}`; **`λ₁(a) ≤ K(a+1)e^{10a−4πe^{2a}}`, no RH input**; the bound for any `κ ≥ e^{2a|Im τ|}` over the zeros (round 164) |
+| `KaiserNine.lean` | 75 | **Connes' prefactor `e^{9a}` with an ineffective constant**: `λ₁(a) ≤ K(a+1)e^{9a−4πe^{2a}}` for `a ≥ 4`, by a case split on RH (round 220) |
+| `LandauLaplace.lean` | 411 | **Landau's theorem for Laplace transforms**: `A ≥ 0`, `φ ≥ 0`; if `∫Ae^{−sφ}` agrees near the real point of its abscissa with a holomorphic function, it converges beyond it; the pole test (round 220) |
+| `WeilLandau.lean` | 761 | **Weil's criterion for `ζ` with no finiteness hypothesis**: `Q(twin (box 1) λ) ≥ 0` for every `λ ≥ 0` ⟹ RH (round 220) |
+| `PsiOmega.lean` | 610 | **`ψ(x) − x = Ω±(x^θ)`** for every `θ` below the real part of a zero of `ζ`, and unconditionally for every `θ < ½` (round 220) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -4395,7 +4399,7 @@ Then some probe at some support has `Q(g) < 0`.
 All of it is pure Lean on top of the round 126 bridge. The seven new `#print axioms` lines show only `propext`, `Classical.choice` and `Quot.sound`.
 
 **Scope, honestly.**
-- **The finiteness restriction is real.** The argument needs the maximum of `|Im t|` over off-line zeros to be attained, and uses finitely many to bound their contribution. A family with infinitely many off-line zeros is not covered.
+- **The finiteness restriction is real.** The argument needs the maximum of `|Im t|` over off-line zeros to be attained, and uses finitely many to bound their contribution. A family with infinitely many off-line zeros is not covered. (For `ζ`, round 220 removes the restriction by a different argument, `WeilLandau.rh_of_weil`.)
 - **This is not the index converse.** That would say `K` off-line quadruples give a `K`-dimensional negative space. Here a single negative value is produced.
 - **It is Weil's criterion, now a two-sided theorem of the pilot** (for such families, and modulo `WeilExplicit` and `DigammaDiff`). It does not prove RH. It says RH is equivalent to `Q ≥ 0` at every support, which is what the pilot has always taken as its target.
 - **What is new** is that the prime-side form and the zeros are now formally tied in both directions. So a proof of `Q ≥ 0` at every support by any route in the pilot would now close RH for such families, with no further analytic input.
@@ -5251,7 +5255,7 @@ Rounds 146–147 say "The two open routes are therefore:" (simplicity and the pa
 
 **Check 4.** Round 156 listed `exterior_identity_zeta` and general-probe `weilQ_eq_zero_sum` as not covered. The first is closed here. The second is closed in the form that matters for Weil's criterion: every probe is reached by density, not by the explicit formula for the probe itself. `T1bt`'s Hadamard identity, the pinning theorem's inputs and the ζ instance of round 131's converse were not flagged before.
 
-**Bearing on RH:** none. Weil's criterion is an equivalence, and its finite-exception form is a real restriction. Every chain to `RiemannHypothesis` is exactly as conditional as before.
+**Bearing on RH:** none. Weil's criterion is an equivalence, and its finite-exception form is a real restriction. Every chain to `RiemannHypothesis` is exactly as conditional as before. (Round 220 removes the finite-exception restriction: `WeilLandau.rh_of_weil`.)
 
 ## Round 158: an approximate commuting operator for Weil's form? (numerics + a paper obstruction, no Lean)
 
@@ -5569,7 +5573,7 @@ theorem lam_prefactor :
   - **The clean way to remove it** is a case split on RH, which gives an unconditional (but ineffective-`K`) `e^{9a}` bound:
     - If RH holds, `κ = 1`.
     - If RH fails, Weil's criterion should make `λ₁(a) < 0` for large `a` (`λ₁` is antitone, `lam_antitone`). The finite range of `a` is then absorbed into `K`.
-  - **What is missing.** That needs the converse of Weil's criterion for infinitely many off-line zeros. The pilot proves it only for finitely many (`rh_of_weil_finite`, round 157). Its twin-probe proof needs a zero of maximal `|Im t|`, which need not exist when there are infinitely many.
+  - **What is missing.** That needs the converse of Weil's criterion for infinitely many off-line zeros. The pilot proves it only for finitely many (`rh_of_weil_finite`, round 157). Its twin-probe proof needs a zero of maximal `|Im t|`, which need not exist when there are infinitely many. (Closed in round 220: `WeilLandau.rh_of_weil`, then `KaiserNine.lam_nine`.)
   - **The other route** is zero-density estimates: Ingham's exponent is already enough, but it is far from the pilot.
 - **The factor `a + 1`: zero density.** Removing it needs the zero–prime correlation seen in the numerics, not a density bound. The numerics suggest the trial's true prefactor has no factor `a`.
 - **The lower bound.** Any lower bound on `λ₁` is RH-strength.
@@ -7037,3 +7041,44 @@ Axioms are clean, checked on a clean build (`./build.sh`, then `external/pnt/bui
   - `KaiserIBP.tail_ibp_gen` is the tail integration by parts on `t.im ≥ −c`, for any `0 ≤ c ≤ 1`. `tail_ibp` is its instance at `c = ½`, and `KaiserPrefactor.tail_ibp_line` its instance at `c = 1`.
 
 **Check 4:** not applicable; there is no new mathematics. **Bearing on RH:** none.
+
+## Round 220: Landau's theorem for Laplace transforms, used three times
+
+**The theorem** (`src/LandauLaplace.lean`). Let `A ≥ 0` and `φ ≥ 0` on a measure space, and `L(s) = ∫ A e^{−sφ} dμ`. `landau`: if the integral converges for every real `σ > σ₀`, and near `σ₀` it agrees, on `Re s > σ₀`, with a function holomorphic on a disc around `σ₀`, then it converges at some `σ < σ₀`. With `φ(λ) = λ` this is the Laplace transform; with `φ = log` on `(1, ∞)` it is the Mellin integral `∫A(x)x^{−s}dx`.
+- **The proof.** At `c = σ₀ + η/4`, `L` has the power series `Σ(−y)ⁿ/n!·∫Aφⁿe^{−cφ}` (`lap_hasFPowerSeriesOnBall`, which also gives `lap_differentiableOn`). By uniqueness of power series this is the Taylor series of the holomorphic extension, so it converges on a disc of radius `η/2`. At the real point `c − 3η/8` every term is nonnegative, and Tonelli turns the series back into the integral.
+- **The global form** `landau_abscissa`: if the integral converges somewhere, and near every real `c > σ₀` where it converges on `(c, ∞)` it agrees on `Re s > c` with a holomorphic function, then it converges for every `σ > σ₀`.
+- **The pole test** `residue_eq_zero`: if a function equals `L` on `p + (0, ε)` and has the form `G(z) + R/(z − p)` there, with `G` and `L` continuous at `p`, then `R = 0`.
+- Mathlib has only the weaker `LSeries_positive_of_differentiable_of_eqOn` (an entire continuation is positive on the reals), which does not give convergence.
+
+**Use 1: Weil's criterion for `ζ` with no finiteness hypothesis** (`src/WeilLandau.lean`).
+- `rh_of_weil_twins`: if `Q(twin (box 1) λ) ≥ 0` for every `λ ≥ 0`, then Mathlib's `RiemannHypothesis` holds.
+- `rh_of_weil`: the same, assuming `Q ≥ 0` for every probe.
+- Downstream, `hfin` is gone from `weil_criterion_zeta` (`WeilRH.lean`) and from `exists_lam_neg_of_not_RH` and `first_failure` (`FirstFailure.lean`). `rh_of_weil_finite` and `exists_weilQ_neg_of_offline_zeta` were removed as superseded. Round 131's `WeilConverse.lean` stays: it covers general zero families.
+- **The transform.** With `P_ρ = 2(ρ − ½)`, the explicit formula for the twins gives `Q(λ) = Σ_ρ ĝ₀(t_ρ)²(2 + e^{λP_ρ} + e^{−λP_ρ})`. For `Re z > 1`, `∫_0^∞ Q(λ)e^{−zλ}dλ = F(z) = Σ_ρ ĝ₀(t_ρ)²(2/z + 1/(z − P_ρ) + 1/(z + P_ρ))` (`lap_eq_Fw`).
+- **The poles** `0, ±P_ρ` are locally finite (`finite_poleP`, from Hadamard's `Σ1/|u| < ∞`). None is real, because `ζ ≠ 0` on `(0, 1)`. So by the identity theorem on thin strips, `F` equals the transform near every real `c > 0`, and Landau gives convergence on all of `Re z > 0` (`conv_pos`).
+- **The contradiction.** An off-line zero gives a pole with `Re P > 0`. Take the pole with the largest real part on its horizontal line. To its right there is a pole-free strip, on which `F` equals the transform, which is continuous there. But `F = G + R/(z − p)`, with `R = N·ĝ₀(t_p)²`, `N ≥ 1` and `ĝ₀ ≠ 0` off the real axis (`Rp_ne_zero`). So `R ≠ 0`, contradicting the pole test.
+- **What round 157 lacked.** Its proof needed a zero of maximal `|Im t|`. This argument needs only the rightmost pole on one horizontal line, which always exists.
+
+**Use 2: Connes' prefactor `e^{9a}`, ineffective constant** (`src/KaiserNine.lean`). `lam_nine`: `λ₁(a) ≤ K(a+1)e^{9a − 4πe^{2a}}` for every `a ≥ 4`. This is round 164's "clean way", which was blocked only by use 1.
+- If RH holds, every `τ` is real (`tau_im_eq_zero_of_RH`), so `κ = 1` in `lam_le_kappa`.
+- If RH fails, `λ₁(a₀) < 0` for some `a₀` (`exists_lam_neg_of_not_RH`, now without `hfin`), and `λ₁` is antitone, so `λ₁ < 0` from `a₀` on. On `[4, a₀]`, `e^{10a} ≤ e^{a₀}e^{9a}`.
+- `K` is ineffective: it depends on the unknown `a₀`. The factor `a + 1` remains.
+
+**Use 3: a floor under the drift, `ψ(x) − x = Ω±(x^θ)`** (`src/PsiOmega.lean`).
+- `zeta_ne_zero_of_psi`: if `ε(ψ(x) − x) ≤ c·x^θ` for every `x > 1` (`ε ≠ 0`, `0 < θ < 1`), then `ζ ≠ 0` on `Re s > θ`. `A(x) = (c·x^θ − ε(ψ(x) − x))/x ≥ 0`. For `Re s > 1`, `∫_1^∞ A x^{−s} = c/(s − θ) + ε(ζ′/(sζ) + 1/(s − 1))` (`lap_eq_Fψ`, from Mathlib's `LSeries_eq_mul_integral` and `L(Λ, s) = −ζ′/ζ`). With the entire `Z(s) = (s − 1)ζ(s)` this is `c/(s − θ) + ε(Z′/(sZ) + 1/s)`. The argument is use 1's: zero-free strips, Landau, then the rightmost zero on a horizontal line, where `Z = (s − ρ*)ⁿg` gives the residue `εn/ρ* ≠ 0`.
+- `psi_omega`: for every zero `ρ` and every `0 < θ < Re ρ`, whatever `c` and `X`, some `x > X` has `ψ(x) − x > c·x^θ`, and some has `ψ(x) − x < −c·x^θ`.
+- `exists_zero_re_ge_half`: `ζ` has a zero with `Re ρ ≥ ½`. Hadamard's identity (`hadamard_zeta`) sums over the nontrivial zeros to `2 + γ − log 4π`, which is positive (`hadamard_const_pos`, from `γ > 0.5456` and `log π < 1.15`), so a zero exists; `ρ ↦ 1 − ρ` preserves the zeros.
+- `psi_omega_half`: hence, unconditionally, `ψ(x) − x = Ω±(x^θ)` for every `0 < θ < ½`.
+- The wander ladder (rungs 1–3) bounds the drift from above; this is the matching floor.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`; 696 checked theorems in `src/`. The external layer is unaffected (it imports none of the changed files).
+
+**Check 4.**
+- **Acknowledged (classical).** Landau's theorem (Landau 1905; Widder, *The Laplace Transform*, ch. II) and Landau's Ω± theorem for `ψ` (Ingham, ch. V) are textbook.
+- **New here.**
+  - Machine-checked proofs of both, from Mathlib.
+  - The removal of the finite-exception hypothesis from the pilot's Weil criterion and first-failure theorem. The Laplace transform of the twin-box form, with its pole test, is the route. Round 164 had flagged this as the blocker.
+  - The unconditional `e^{9a}` prefactor, with an ineffective constant.
+
+**Bearing on RH:** none. Use 1 widens an equivalence. Use 2 improves an upper bound on `λ₁` that is compatible with RH and with its failure. Use 3 runs from zeros to oscillation.
+

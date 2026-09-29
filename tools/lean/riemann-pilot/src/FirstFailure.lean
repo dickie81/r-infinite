@@ -7,19 +7,18 @@ import SimpleCont
 The in-house route to RH is a continuity argument in the support: `λ₁(a) > 0` at small `a`
 (round 106), `λ₁` is continuous (round 147) and nonincreasing (round 46), so if Weil positivity ever
 fails it fails *first* at a definite support `a₁`, where the form is still positive semidefinite
-and has a normalised kernel vector. This file proves that structure theorem for `ζ`, with the
-finite-exception hypothesis of Weil's criterion (round 157) as the only input.
+and has a normalised kernel vector. This file proves that structure theorem for `ζ`. Round 161
+assumed Weil's criterion's finite-exception hypothesis; round 220 (`WeilLandau.rh_of_weil`) removed it.
 
 * `lam_ge_quarter`: `λ₁(a) ≥ 1/4` for `0 < a ≤ 1/16` (pure Lean, no zero of `ζ`).
-* `exists_lam_neg_of_not_RH`: with finitely many off-line zeros, `¬RH` gives a support with
-  `λ₁ < 0`.
-* `first_failure`: `¬RH` (finite exceptions) gives `a₁ > 1/16` with
+* `exists_lam_neg_of_not_RH`: `¬RH` gives a support with `λ₁ < 0`.
+* `first_failure`: `¬RH` gives `a₁ > 1/16` with
   - `λ₁ > 0` on `(0, a₁)`, `λ₁(a₁) = 0`, `λ₁ ≤ 0` on `[a₁, ∞)`, `λ₁ < 0` somewhere;
   - `Q ≥ 0` on every probe at support `a₁` (the form is PSD there);
   - a normalised ground state `g*` with `Q(g*) = 0` and the **kernel equation**
     `B(g*, ψ) = bil0(g*, ψ) + 2·ĝ*(i/2)·ψ̂(i/2) = 0` for every probe `ψ`.
 
-Contrapositive: RH (finite exceptions) follows from ruling out a normalised probe `g*` that is
+Contrapositive: RH follows from ruling out a normalised probe `g*` that is
 simultaneously a zero of a PSD Weil form and in its kernel. That is a reformulation. It has no
 bearing on RH.
 -/
@@ -38,10 +37,9 @@ theorem lam_ge_quarter {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1 / 16) : (1 / 4 : �
   rintro q ⟨g, hp, hn, rfl⟩
   exact weilQ_ge_quarter ha ha1 hp hn
 
-/-- With finitely many off-line zeros, the failure of RH gives a support with `λ₁ < 0`. -/
-theorem exists_lam_neg_of_not_RH (hfin : {s : ℂ | IsNontrivialZero s ∧ s.re ≠ 1 / 2}.Finite)
-    (hRH : ¬RiemannHypothesis) : ∃ a, 0 < a ∧ lam a < 0 := by
-  have h := mt (weil_criterion_zeta hfin).1 hRH
+/-- The failure of RH gives a support with `λ₁ < 0`. -/
+theorem exists_lam_neg_of_not_RH (hRH : ¬RiemannHypothesis) : ∃ a, 0 < a ∧ lam a < 0 := by
+  have h := mt weil_criterion_zeta.1 hRH
   push Not at h
   obtain ⟨a, g, ha, hp, hq⟩ := h
   refine ⟨a, ha, ?_⟩
@@ -51,19 +49,17 @@ theorem exists_lam_neg_of_not_RH (hfin : {s : ℂ | IsNontrivialZero s ∧ s.re 
   have := mul_nonneg hl (normSq_nonneg g)
   linarith
 
-/-- **The first positivity failure.** If only finitely many nontrivial zeros of `ζ` lie off the
-critical line and RH fails, there is a first support `a₁ > 1/16` at which Weil positivity is lost:
+/-- **The first positivity failure.** If RH fails, there is a first support `a₁ > 1/16` at which Weil positivity is lost:
 `λ₁` is positive before it, zero at it, nonpositive after it, and negative somewhere; the form is
 positive semidefinite at `a₁`; and some normalised ground state `g*` is an exact null vector,
 `Q(g*) = 0`, lying in the kernel of the bilinear form. -/
-theorem first_failure (hfin : {s : ℂ | IsNontrivialZero s ∧ s.re ≠ 1 / 2}.Finite)
-    (hRH : ¬RiemannHypothesis) :
+theorem first_failure (hRH : ¬RiemannHypothesis) :
     ∃ a₁, 1 / 16 < a₁ ∧ (∀ a, 0 < a → a < a₁ → 0 < lam a) ∧ lam a₁ = 0 ∧
       (∀ a, a₁ ≤ a → lam a ≤ 0) ∧ (∃ a₀, a₁ ≤ a₀ ∧ lam a₀ < 0) ∧
       (∀ ψ, Probe a₁ ψ → 0 ≤ weilQ a₁ ψ) ∧
       ∃ g, IsGroundState a₁ g ∧ weilQ a₁ g = 0 ∧
         ∀ ψ, Probe a₁ ψ → bil0 a₁ g ψ + 2 * poleR g a₁ * poleR ψ a₁ = 0 := by
-  obtain ⟨a₀, ha₀, hl₀⟩ := exists_lam_neg_of_not_RH hfin hRH
+  obtain ⟨a₀, ha₀, hl₀⟩ := exists_lam_neg_of_not_RH hRH
   set T : Set ℝ := {a | 0 < a ∧ lam a ≤ 0}
   have hT : T.Nonempty := ⟨a₀, ha₀, hl₀.le⟩
   have hTb : BddBelow T := ⟨0, fun _ h => h.1.le⟩

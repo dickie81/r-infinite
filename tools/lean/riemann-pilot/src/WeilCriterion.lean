@@ -13,13 +13,12 @@ supplies both instances over the zeros of `ζ`.
 
 * `ghat_antitone_strip`, `striptest_antitone`: `ĝ²` is in the strip class for every such profile.
 * `weilExplicit_antitone_zeta`: the explicit formula over the zeros of `ζ` for every such probe.
-* `exists_weilQ_neg_of_offline_zeta`: if all but finitely many nontrivial zeros of `ζ` lie on the
-  critical line and one does not, some probe has `Q < 0`.
-* `rh_of_weil_finite`: `Q ≥ 0` for every probe, and finitely many off-line zeros, give Mathlib's
-  `RiemannHypothesis`.
+* `weilExplicit_box_zeta`, `weilExplicit_twinbox_zeta`: the two instances Weil's criterion needs.
+* `im_zetaZeroFamily_ne`: no nontrivial zero is real.
 
-This is Weil's criterion in finite-exception form, unconditionally. It is an equivalence-type
-statement: it has no bearing on RH.
+Round 157 also proved Weil's criterion here in finite-exception form (`rh_of_weil_finite`, which
+needed `hfin`: finitely many off-line zeros). Round 220's `WeilLandau.rh_of_weil` supersedes it with
+no finiteness hypothesis.
 -/
 
 open Real Filter Topology Complex Set MeasureTheory
@@ -121,7 +120,7 @@ theorem weilExplicit_twinbox_zeta {l : ℝ} (hl : 0 ≤ l) :
     rw [ghatC_twin one_pos hp hl] at this
     exact this
 
-/-! ## Weil's criterion, finite-exception form, for `ζ` -/
+/-! ## No nontrivial zero is real -/
 
 /-- No nontrivial zero of `ζ` is real (`ζ ≠ 0` on `(0, 1)`). -/
 theorem im_zetaZeroFamily_ne (i : Σ w : NontrivialZero, Fin (zeroMult w)) :
@@ -134,43 +133,8 @@ theorem im_zetaZeroFamily_ne (i : Σ w : NontrivialZero, Fin (zeroMult w)) :
   rw [e] at h0
   exact zetaNoZeroInUnitInterval _ hz.re_pos hz.re_lt_one h0
 
-/-- **An off-line zero of `ζ` makes Weil's form negative, unconditionally.** If all but finitely
-many nontrivial zeros lie on the critical line and one does not, some probe has `Q < 0`. -/
-theorem exists_weilQ_neg_of_offline_zeta (F : Finset (Σ w : NontrivialZero, Fin (zeroMult w)))
-    (hF : ∀ i ∉ F, (zetaZeroFamily i).re = 1 / 2) (hoff : ∃ i ∈ F, (zetaZeroFamily i).re ≠ 1 / 2) :
-    ∃ a g, 0 < a ∧ Probe a g ∧ weilQ a g < 0 :=
-  exists_weilQ_neg_of_offline_of weilExplicit_box_zeta (fun _ hl => weilExplicit_twinbox_zeta hl)
-    F hF (fun i _ => im_zetaZeroFamily_ne i) hoff
-
-/-- **Weil's criterion for `ζ`, finite-exception form, no named input.** If `Q ≥ 0` for every probe
-at every support and only finitely many nontrivial zeros of `ζ` lie off the critical line, then
-Mathlib's `RiemannHypothesis` holds. -/
-theorem rh_of_weil_finite (hQ : ∀ (a : ℝ) (g : ℝ → ℝ), 0 < a → Probe a g → 0 ≤ weilQ a g)
-    (hfin : {s : ℂ | IsNontrivialZero s ∧ s.re ≠ 1 / 2}.Finite) : RiemannHypothesis := by
-  classical
-  set S := {s : ℂ | IsNontrivialZero s ∧ s.re ≠ 1 / 2}
-  have hZ : {w : NontrivialZero | w.1 ∈ S}.Finite := hfin.preimage Subtype.val_injective.injOn
-  have hI : (zetaZeroFamily ⁻¹' S).Finite := by
-    refine (hZ.biUnion fun w _ => Set.finite_range (fun k : Fin (zeroMult w) => (⟨w, k⟩ :
-      Σ w : NontrivialZero, Fin (zeroMult w)))).subset fun i hi => ?_
-    exact Set.mem_biUnion (x := i.1) hi ⟨i.2, rfl⟩
-  have hline : ∀ i, (zetaZeroFamily i).re = 1 / 2 := by
-    by_contra h
-    push Not at h
-    obtain ⟨i, hi⟩ := h
-    have hF : ∀ j ∉ hI.toFinset, (zetaZeroFamily j).re = 1 / 2 := fun j hj => by
-      by_contra h'
-      exact hj (hI.mem_toFinset.2 ⟨j.1.2, h'⟩)
-    obtain ⟨a, g, ha, hp, hneg⟩ := exists_weilQ_neg_of_offline_zeta hI.toFinset hF
-      ⟨i, hI.mem_toFinset.2 ⟨i.1.2, hi⟩, hi⟩
-    exact absurd (hQ a g ha hp) (not_le.2 hneg)
-  intro s hs htriv _
-  exact hline ⟨⟨s, hs, htriv⟩, ⟨0, zeroMult_pos _⟩⟩
-
 end Pilot1ca
 
 #print axioms Pilot1ca.striptest_antitone
 #print axioms Pilot1ca.weilExplicit_antitone_zeta
 #print axioms Pilot1ca.weilExplicit_twinbox_zeta
-#print axioms Pilot1ca.exists_weilQ_neg_of_offline_zeta
-#print axioms Pilot1ca.rh_of_weil_finite
