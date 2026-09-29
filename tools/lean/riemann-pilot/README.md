@@ -6943,3 +6943,37 @@ This is the Korobov–Vinogradov zero-free region in its classical form.
 Until then, rung 3 in the PNT form stays at "every exponent below 3/5" (round 214).
 
 **Check 4:** classical (Korobov 1958; Vinogradov 1958). **Bearing on RH:** none.
+
+## Round 216: the prime number theorem with the Korobov–Vinogradov error term (`external/pnt/LogDerivKV.lean`, `external/pnt/MediumPNTW.lean`, `external/pnt/PNTKV.lean`)
+
+**`PNTKV.PNT_KV`.** There is `c > 0` with
+
+`ψ(x) − x = O(x · exp(−c (log x)^{3/5} / (log log x)^{1/5}))`.
+
+This is the strongest known unconditional form of the prime number theorem (Korobov 1958; Vinogradov 1958). This round closes R4, left open in round 215. Rung 3 in the PNT form now has exponent exactly `3/5` with the `(log log x)^{−1/5}` factor, not just every exponent below `3/5` (round 214).
+
+Axioms are clean (`propext`, `Classical.choice`, `Quot.sound`), checked on a fresh `kv_port.sh` build. There is no `sorry`.
+
+- **R4a, `LogDerivKV.logDerivBnd_KV`.** `‖ζ'/ζ(σ+it)‖ ≤ C (log|t|)³` for `|t| > 3` and `σ ≥ 1 − A·u(|t|)`, where `u(T) = 1/((log T)^{2/3} (log(log T + 3))^{1/3})`.
+  - This is round 193's `logDerivBnd_of_growth`, rewritten for round 215's width `w`.
+  - `σ ≥ 3/2`: PNT+'s bounded-region estimate.
+  - `|t| < 5`: PNT+'s strip bound.
+  - Near `σ = 1`: the local disc bound (`near_boundW`), fed by round 215's zero gap.
+  - Right of the disc: the shift bound.
+  - The `(log log)` shapes are compared in `shape_lower`, `radW_lower_u` and `dltW_lower_u`.
+- **R4b, `MediumPNTW`.** PNT+'s contour bounds `I2GenBound`–`I8GenBound`, restated for any depth `D` with `σ₁ = 1 − D T`.
+  - PNT+ states them for the depth `A/(log T)^{n₁}`, but the proofs use only three of its properties: `0 < D T ≤ 1/2`, and `D` non-increasing (`DepthOK`). The proofs are PNT+'s, with those three facts swapped in.
+  - `I4`/`I6` take `σ₂ ≤ 1 − D T` as a hypothesis in place of PNT+'s explicit `T` threshold.
+  - `GenPNTW` assembles the pieces. Given cutoffs `T(x) → ∞` and `ε(x) → 0` with `x ε(x) > 2` and `D(T(x)) → 0`, it gives `ψ(x) − x = O(x F(x))` for any `F` that eventually dominates `ε log x`, `log x/(εT)`, `x^{−D(T)}/ε` and `x^{σ₂−1}/ε` for every `σ₂ < 1`.
+- **R4c, `PNTKV`.**
+  - Depth: `D(T) = A·u(T)`, with `A` shrunk so that `ζ ≠ 0` on every box `[1 − D T, 2] × [−T, T]` (`zeroFree_boxes`). Below height 21 this uses PNT+'s `ZetaNoZerosInBox`. Above it, since `log(log T + 3) ≥ log log T`, it uses round 215's `zeroFree_KV`.
+  - Cutoffs: `log T(x) = G(log x)` with `G(L) = L^{3/5}/(log L)^{1/5}`, `ε = e^{−(A/2)G}` and `F = e^{−(A/4)G}`.
+  - The error terms reduce to four facts about `G`:
+    - `log L = o(G)`;
+    - `G = o(L)`;
+    - `G → ∞`;
+    - `G ≤ L·u(e^G)` (`G_le_depth`), which comes from `G^{5/3} = L/(log L)^{1/3}` and `log(G + 3) ≤ log L`.
+
+`kv_port.sh` now also builds `LogDerivKV`, `MediumPNTW` and `PNTKV`, and prints the axioms of `logDerivBnd_KV`, `GenPNTW` and `PNT_KV`.
+
+**Check 4:** classical (Korobov 1958; Vinogradov 1958). The Lean proof is new work; the result is not. **Bearing on RH:** none. The result is unconditional, and zero-free regions near `σ = 1` say nothing about the critical line.
