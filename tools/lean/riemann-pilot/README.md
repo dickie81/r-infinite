@@ -6793,3 +6793,26 @@ The pieces:
 Choosing `r = ⌈2 log|t|/log N⌉` meets the `t`-window whenever `N ≤ |t|^{5/4}`. So (G2c) holds on the whole range needed for `X = |t|^{5/4}`. The saving is `N^{−c/λ⁶}` with `λ = log|t|/log N`.
 
 **Check 4:** classical (Vinogradov–Korobov block estimate, explicit form). **Bearing on RH:** none.
+
+## Round 211: layer II, step (G2d), growth of the Dirichlet polynomial (`src/ExpSum7.lean`)
+
+Axioms are clean.
+
+**`growth_sum`.** For every `6/7 ≤ a ≤ 1` there is an absolute `B` such that, whenever `log|t| ≥ 1`, `σ ≥ 1 − (log|t|)^{−a}` and `X ≤ |t|^{5/4}`,
+
+`|Σ_{1≤n≤X} n^{−σ−it}| ≤ B·log|t|`.
+
+The explicit constant is `B = 260e^{128} + 3·2^{27}`.
+
+- **`big_block`.** Let `L = log|t|` and `ν = log N`, with `128·L^{1−a/6} ≤ ν ≤ 5L/4`. Take `r = ⌈2L/ν⌉`. Then every hypothesis of `block_saving` (round 210) holds, and `20ℓ²(1−σ) ≤ 1`, because `ℓ ≤ 2^{16}(L/ν)³`. Abel summation with weights `n^{−σ}` (`weighted_block`) then bounds the block by `2^{27}`.
+- **`dyadic`.** The range `(N₀, X]` splits into at most `log₂X + 1 ≤ 3L` blocks `(N, N']` with `N' ≤ 2N`.
+- **`small_part`.** For `n ≤ e^Λ`, where `Λ = 128·L^{1−a/6}`, the bound is `n^{−σ} ≤ e^{ΛL^{−a}}/n ≤ e^{128}/n`. This step needs `a ≥ 6/7`, because `1 − a/6 − a ≤ 0` exactly when `a ≥ 6/7`. The harmonic sum is at most `2 + Λ`.
+
+**Correction to the plan of rounds 208–209.** Those rounds planned the exponent `a = 9/10`. The explicit bookkeeping gives every `a ≥ 6/7`. With `ℓ ≍ K³`, the per-block saving is `N^{−c/λ⁶}`, and `6/7` is the resulting threshold. It is weaker than the Korobov–Vinogradov `2/3`, which needs the sharp VMVT (`ℓ ≍ K²`), and stronger than the classical `a = 1`.
+
+| layer II step | status |
+|---|---|
+| (A)–(G2d) | **done** |
+| (G4) bridge in PNT+: ζ approximation with `X = |t|^{5/4}` ⇒ `PolylogGrowth (6/7) K` ⇒ `rung3_of_growth`; port layers I–II to PNT+'s toolchain | open |
+
+**Check 4:** classical (Vinogradov's method with a weak mean value theorem). **Bearing on RH:** none.
