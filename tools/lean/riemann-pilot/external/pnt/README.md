@@ -1,43 +1,66 @@
-# External: rungs 1 and 2 of the wander ladder
+# External: rungs 1–3 of the wander ladder
 
-`WanderLadderPNT.lean` imports the PrimeNumberTheoremAnd project (Kontorovich, Tao et al.) and restates two of its results in the pilot's terms (`Chebyshev.psi` from Mathlib):
+These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao et al.).
+
+| file | round | content |
+|---|---|---|
+| `WanderLadderPNT.lean` | 191 | rungs 1 and 2 in the pilot's terms |
+| `Rung3.lean` | 192 | rung 3 from a zero-free region and a `ζ'/ζ` bound |
+| `Landau.lean` | 193 | Landau's lemma: a growth bound on ζ gives rung 3 |
+| `KVBridge.lean` | 212 | the pilot's layers I–II give the growth bound: rung 3, unconditional |
+| `LandauW.lean`, `LandauKV.lean` | 215 | Landau's lemma for a width function; the Korobov–Vinogradov zero-free region |
+| `LogDerivKV.lean`, `MediumPNTW.lean`, `PNTKV.lean` | 216 | the prime number theorem with the Korobov–Vinogradov error term |
+
+## Building (round 217)
+
+Everything builds on the pilot's toolchain (`../../lean-toolchain`, Mathlib at `../../MATHLIB_REV`):
+
+```
+../../build.sh    # the pilot's own files
+./build.sh        # PNT+ and this directory
+```
+
+`build.sh` does four things:
+- It takes the 19 PNT+ files that this directory imports, at commit `650d312` (Lean v4.33.1), into `upstream/`. Set `PNT` to a PNT+ clone to use it; otherwise that one commit is fetched.
+- It applies `pnt_port.patch`, which ports those files to the pilot's toolchain. There are five small changes, all forced by Mathlib API drift; the top of the patch lists them.
+- It compiles `Architect.lean`, the PNT+ files and this directory's files into `../../build`, next to the pilot's oleans.
+  - `Architect.lean` is a no-op stand-in for LeanArchitect, the package behind PNT+'s `@[blueprint]` tags. The tags only feed PNT+'s blueprint document.
+  - The PNT+ files are compiled with PNT+'s own lakefile options, `autoImplicit = false` and `relaxedAutoImplicit = false`.
+- It prints the axioms of the final theorems.
+
+The pilot's layer I–II files (`Vinogradov` … `VinoKV`) are no longer copied and renamed: `KVBridge.lean` and `LandauW.lean` import the pilot's own oleans. `kv_port.sh` is gone.
+
+The two `sorry` lemmas in PNT+'s `Wiener.lean` are not in the dependency cone of any theorem here.
+
+## WanderLadderPNT.lean (round 191)
+
+`WanderLadderPNT.lean` restates two PNT+ results in the pilot's terms (`Chebyshev.psi` from Mathlib):
 - rung 1, the prime number theorem;
 - rung 2, de la Vallée Poussin's error term.
 
-It uses a different toolchain from the rest of the pilot, so it is built separately.
-
-```
-git clone https://github.com/AlexKontorovich/PrimeNumberTheoremAnd pntplus
-cd pntplus && git checkout 650d31264be65f4cd6e70c45d8b25d86d482a761   # toolchain v4.33.1
-lake exe cache get
-lake build PrimeNumberTheoremAnd.StrongPNT PrimeNumberTheoremAnd.Consequences
-cp <pilot>/external/pnt/WanderLadderPNT.lean . && lake env lean WanderLadderPNT.lean
-```
-
-Checked in round 191: all three theorems print only `propext`, `Classical.choice`, `Quot.sound`. The two `sorry` lemmas in the project's `Wiener.lean` are not in the dependency cone.
+All three theorems print only `propext`, `Classical.choice`, `Quot.sound`.
 
 ## Rung3.lean (round 192)
-
-Build as above, then `lake env lean Rung3.lean`.
 
 `rung3_of_region` reduces rung 3 to one analytic input, `KVInput n₁ n₂`: a zero-free region of width `(log t)^{−n₁}` plus a log-derivative bound. Its axioms are clean.
 
 ## Landau.lean (round 193)
 
-Build as above, then `lake env lean Landau.lean` (about 10 minutes; three proofs raise `maxHeartbeats`).
+This is layer III of rung 3, Landau's lemma in general form. Three of its proofs raise `maxHeartbeats`.
 
-This is layer III of rung 3, Landau's lemma in general form. `rung3_of_growth` runs from `PolylogGrowth a K` (`|ζ| ≤ K(log|t|)^K` on `σ ≥ 1 − (log|t|)^{−a}`, `0 < a ≤ 1`) to `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))`, for every `n₁ > a`. The intermediate outputs are `zeroFree_of_growth` (the zero-free region) and `logDerivBnd_of_growth` (`|ζ'/ζ| ≤ C(log|t|)³`). All axioms are clean.
+`rung3_of_growth` runs from `PolylogGrowth a K` (`|ζ| ≤ K(log|t|)^K` on `σ ≥ 1 − (log|t|)^{−a}`, `0 < a ≤ 1`) to `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))`, for every `n₁ > a`. The intermediate outputs are `zeroFree_of_growth` (the zero-free region) and `logDerivBnd_of_growth` (`|ζ'/ζ| ≤ C(log|t|)³`). All axioms are clean.
 
+## KVBridge.lean (round 212): rung 3, unconditional
 
-## KVBridge.lean and kv_port.sh (round 212): rung 3, unconditional
+- `polylogGrowth_kv`: `PolylogGrowth a K` holds for every `4/5 ≤ a ≤ 1`; `polylogGrowth_sharp` extends this to every `2/3 < a ≤ 1`.
+- `zeroFree_kv`: `ZetaZeroFreeGenProp n₁` holds for every `n₁ > 2/3`, i.e. ζ has no zeros in `σ ≥ 1 − A/(log|t|)^{n₁}`.
+- `rung3_kv`: `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))` for every `n₁ > 2/3`.
 
-`PNT=<pntplus checkout> ./kv_port.sh` builds the whole chain on PNT+'s toolchain (v4.33.1), in about 6 minutes after PNT+ itself is built:
-- the pilot's layer I–II files (`Vinogradov` … `ExpSum7`), copied with three lemma renames that the older Mathlib needs;
-- `Landau.lean`;
-- `KVBridge.lean`.
+## Rounds 215–216: the Korobov–Vinogradov prime number theorem
 
-The script then prints the axioms of the final theorems. All three print only `propext`, `Classical.choice`, `Quot.sound`.
+- `LandauKV.zeroFree_KV`: ζ has no zeros in `σ ≥ 1 − A/((log|t|)^{2/3}(log log|t|)^{1/3})`, for `|t| ≥ e³`.
+- `LogDerivKV.logDerivBnd_KV`: `|ζ'/ζ| ≤ C(log|t|)³` for `|t| > 3` and `σ ≥ 1 − A·u(|t|)`, where `u(T) = 1/((log T)^{2/3}(log(log T + 3))^{1/3})`.
+- `MediumPNTW.GenPNTW`: PNT+'s contour argument, restated for any depth function `D` with `DepthOK D`.
+- `PNTKV.PNT_KV`: `ψ(x) − x = O(x·exp(−c(log x)^{3/5}/(log log x)^{1/5}))`.
 
-- `polylogGrowth_kv`: `PolylogGrowth a K` holds for every `6/7 ≤ a ≤ 1`.
-- `zeroFree_kv`: `ZetaZeroFreeGenProp n₁` holds for every `n₁ > 6/7`, i.e. ζ has no zeros in `σ ≥ 1 − A/(log|t|)^{n₁}`.
-- `rung3_kv`: `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))` for every `n₁ > 6/7`.
+All axioms are clean. See the main README, rounds 191–217, for the details.

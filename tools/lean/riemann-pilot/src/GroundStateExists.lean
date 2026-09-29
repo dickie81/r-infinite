@@ -96,7 +96,7 @@ theorem memLp_symCut (a : ℝ) {f : ℝ → ℝ} (hf : MemLp f 2 volume) :
   have : symCut a f = Set.indicator {u | |u| ≤ a} (fun u => (f u + f (-u)) / 2) := by
     funext u; unfold symCut; simp [Set.indicator_apply]
   rw [this]
-  exact h1.indicator (measurableSet_le continuous_abs.measurable measurable_const)
+  exact h1.indicator (measurableSet_le continuous_abs.measurable measurable_const).nullMeasurableSet
 
 /-- `S` does not increase `‖·‖²`. -/
 theorem normSq_symCut_le (a : ℝ) {f : ℝ → ℝ} (hf : MemLp f 2 volume) :
@@ -175,7 +175,7 @@ theorem autocorr_stronglyMeasurable {g : ℝ → ℝ} (hg : Measurable g) :
 theorem memLp_indicator_of_continuous {f : ℝ → ℝ} (hf : Continuous f) {s : Set ℝ}
     (hs : MeasurableSet s) (hfin : volume s ≠ ⊤) {C : ℝ} (hC : ∀ x ∈ s, |f x| ≤ C) :
     MemLp (s.indicator f) 2 volume := by
-  rw [memLp_indicator_iff_restrict hs]
+  rw [memLp_indicator_iff_restrict hs.nullMeasurableSet]
   have : IsFiniteMeasure (volume.restrict s) := isFiniteMeasure_restrict.2 hfin
   exact MemLp.of_bound hf.aestronglyMeasurable C
     ((ae_restrict_iff' hs).2 (Eventually.of_forall fun x hx => by

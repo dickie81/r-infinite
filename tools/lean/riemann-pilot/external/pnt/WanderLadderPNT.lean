@@ -2,7 +2,8 @@
 # Rungs 1 and 2 of the wander ladder (round 191)
 
 Built against PrimeNumberTheoremAnd (Kontorovich, Tao et al.) at commit
-650d31264be65f4cd6e70c45d8b25d86d482a761, toolchain v4.33.1. See `external/pnt/README.md`.
+650d31264be65f4cd6e70c45d8b25d86d482a761, ported to the pilot's toolchain in round 217.
+See `external/pnt/README.md`.
 
 * `rung1`: `ψ(x) − x = o(x)` — the prime number theorem (their `WeakPNT''`, Wiener–Ikehara route).
 * `rung2`: `ψ(x) − x = O(x·e^{−c√log x})` for some `c > 0` — de la Vallée Poussin (their `StrongPNT`).

@@ -210,7 +210,7 @@ theorem memLp_antiCut (a : ℝ) {f : ℝ → ℝ} (hf : MemLp f 2 volume) :
   have : antiCut a f = Set.indicator {u | |u| ≤ a} (fun u => (f u - f (-u)) / 2) := by
     funext u; unfold antiCut; simp [Set.indicator_apply]
   rw [this]
-  exact h1.indicator (measurableSet_le continuous_abs.measurable measurable_const)
+  exact h1.indicator (measurableSet_le continuous_abs.measurable measurable_const).nullMeasurableSet
 
 theorem normSq_antiCut_le (a : ℝ) {f : ℝ → ℝ} (hf : MemLp f 2 volume) :
     normSq (antiCut a f) ≤ normSq f := by

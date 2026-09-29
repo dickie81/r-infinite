@@ -1,8 +1,8 @@
 # Lean pilot: Theorems 1bt and 1ca of `riemann-indistinguishability.md` (b2014d8)
 
-The toolchain is Lean 4.35.0-rc2 (`lean-toolchain`) with Mathlib at the commit in `MATHLIB_REV`. Point `MATHLIB` at a built Mathlib checkout (`lake exe cache get` then `lake build`), or place it at `./mathlib4`.
+The toolchain is Lean 4.35.0-rc3 (`lean-toolchain`) with Mathlib at the commit in `MATHLIB_REV`. Point `MATHLIB` at a built Mathlib checkout (`lake exe cache get` then `lake build`), or place it at `./mathlib4`. The external layer (`external/pnt/`, rungs 1–3 of the wander ladder) uses the same toolchain: build it with `external/pnt/build.sh` after `./build.sh` (round 217).
 
-Re-run with `./build.sh`, which takes about 13 minutes.
+Re-run with `./build.sh`, which takes about 29 minutes on 4 cores (round 217).
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
@@ -6977,3 +6977,29 @@ Axioms are clean (`propext`, `Classical.choice`, `Quot.sound`), checked on a fre
 `kv_port.sh` now also builds `LogDerivKV`, `MediumPNTW` and `PNTKV`, and prints the axioms of `logDerivBnd_KV`, `GenPNTW` and `PNT_KV`.
 
 **Check 4:** classical (Korobov 1958; Vinogradov 1958). The Lean proof is new work; the result is not. **Bearing on RH:** none. The result is unconditional, and zero-free regions near `σ = 1` say nothing about the critical line.
+
+## Round 217: one toolchain for the whole pilot, Lean v4.35.0-rc3 (`build.sh`, `external/pnt/build.sh`, `external/pnt/pnt_port.patch`, `external/pnt/Architect.lean`)
+
+The pilot, the PNT+ files it uses and the external layer now build on one toolchain: Lean v4.35.0-rc3 with Mathlib master `0f64d30a` (29 September 2026). This closes the toolchain split recorded in round 211. Rung 3 and the Korobov–Vinogradov prime number theorem (rounds 212–216) now compile against the pilot's own oleans, in one environment.
+
+- **Pilot (`src/`).** All 124 files compile. Three proofs in two files changed, all for one Mathlib change (#42924): `MemLp.indicator` and `memLp_indicator_iff_restrict` now take a `NullMeasurableSet`. `GroundStateExists` and `ParityCont` now pass `.nullMeasurableSet`.
+- **`build.sh` fix.** `CosTrunc` wrote no olean, although `PhiDecay` has imported it since round 133, so a clean `./build.sh` stopped at `PhiDecay`. It now writes one. So do the seven other lines that did not (`KernelChain`, `ZeroCount`, `SixteenPi`, `ToneHyperbola`, `PrimeRelax3`, `ParityCert`, `FirstFailure`).
+- **PNT+.** Upstream PNT+ is still on Lean v4.33.1. The external layer imports 19 of its files (22,183 lines). `external/pnt/pnt_port.patch` ports them with five small changes, all forced by Mathlib API drift:
+  - `EulerMaclaurin`: import `Mathlib.MeasureTheory.Function.Floor` directly, since `AbelSummation` no longer re-exports it;
+  - `MellinCalculus`: `Integrable.piecewise` now takes a `NullMeasurableSet`, and one goal is restated with `change`;
+  - `Wiener`: two binders get their type `ℝ`, which elaboration no longer infers from the filter;
+  - `Consequences`: `Nat.factorization` was redefined and `Nat.primeFactorsList_count_eq` is no longer a simp lemma, so it is passed to `norm_num`;
+  - `StrongPNT`: `Finset.prod_le_prod` becomes `prod_le_prod₀` (renamed), and `logDeriv_prod` becomes `logDeriv_fun_prod` (the pointwise form took the new name).
+- **LeanArchitect.** PNT+ tags its results with `@[blueprint ...]` and `blueprint_comment` from the LeanArchitect package. The tags only feed PNT+'s blueprint document. `external/pnt/Architect.lean` accepts the same syntax and does nothing, so the PNT+ files need no edits for it.
+- **External layer.** The nine files in `external/pnt/` compile with no code changes. `external/pnt/build.sh` replaces `kv_port.sh`:
+  - it fetches the 19 PNT+ files at `650d312` and applies the patch;
+  - it compiles `Architect.lean`, the PNT+ files (with PNT+'s `autoImplicit = false`) and the layer into `build/`;
+  - it prints the axioms.
+
+  The layer I–II files are no longer copied or renamed: `KVBridge` and `LandauW` import the pilot's own oleans.
+
+Axioms are clean, checked on a clean build (`./build.sh`, then `external/pnt/build.sh`). All 701 `#print axioms` outputs, from the pilot, the PNT+ files and the layer, list only `propext`, `Classical.choice` and `Quot.sound`. The only `sorry`s compiled are the two in PNT+'s `Wiener.lean`, and no printed theorem depends on them.
+
+On 4 cores, a clean `./build.sh` takes 29 minutes and `external/pnt/build.sh` 8 minutes.
+
+**Check 4:** not applicable; there is no new mathematics. **Bearing on RH:** none.
