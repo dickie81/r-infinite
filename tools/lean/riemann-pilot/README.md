@@ -6431,3 +6431,30 @@ Axioms are clean.
 
 **Check 4:** classical (Vinogradov 1935). The Lean forms are new to the pilot. **Bearing on RH:** none.
 
+## Round 196: VMVT step I.3a, p-adic rigidity and Linnik's lemma (`src/VinoPadic.lean`)
+
+Axioms are clean.
+
+- **`lift_step`, `rigid`.** Take a prime `p > k`, and `x ≡ y (mod p)` where `x` has distinct residues mod `p`. If the power sums agree mod `p^M` in degrees `1..k`, then `x ≡ y (mod p^M)`. The proof lifts one digit at a time:
+  - write `y = x + pᵐz`;
+  - the first-order expansion `(a + d·b)^j = a^j + j·a^{j−1}·d·b + d²·r` reduces degree `j` to `j·Σ xᵢ^{j−1}zᵢ ≡ 0 (mod p)`;
+  - `p ∤ j`, and the Vandermonde matrix of distinct residues is invertible mod `p` (Mathlib's `det_vandermonde_ne_zero_iff`), so `z ≡ 0`.
+- **`linnik`, `linnik_exponent`: Linnik's lemma.** Take distinct residues `a` mod `p > k` and targets `c`. The tuples `x ∈ [0,p^k)^k` with `x ≡ a (mod p)` and `Σ xᵢʲ ≡ c_j (mod p^j)` (`j = 1..k`) number at most `∏_{j=1}^{k} p^{k−j} = p^{k(k−1)/2}`. The proof:
+  - rigidity makes the map to power-sum residues mod `p^k` injective;
+  - the admissible targets number `∏ p^{k−j}`.
+
+**Numerics** (`frontier/vmvt/`, pre-registered in `PREREG_linnik.md`), for `(p,k) = (3,2), (5,2), (7,2), (5,3)`:
+- **L1 (bound holds):** confirmed in all 4 cases.
+- **L2 (bound attained):** confirmed in all 4.
+- **L3 (repeated residues exceed the bound):** true for `k = 3` (625 against 125). **False for `k = 2`**, where the repeated class still meets the bound exactly. The prediction was wrong there.
+
+| step | status |
+|---|---|
+| I.1 orthogonality | done |
+| I.2 `J_{s+1} ≤ N² J_s` | done |
+| I.3a p-adic rigidity + Linnik's lemma | **done** |
+| I.3b the iteration (Karatsuba): split variables by residue class mod `p ≈ N^{1/k}`, bound the well-conditioned part by Linnik, recurse on the rest | open |
+| I.4 Weyl-sum bound from I.3 | open |
+
+**Check 4:** classical (Linnik 1943; Karatsuba). The Lean forms are new to the pilot. **Bearing on RH:** none.
+
