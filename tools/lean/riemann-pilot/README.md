@@ -6576,3 +6576,27 @@ Axioms are clean.
 
 **Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
 
+## Round 202: Vinogradov's mean value theorem, weak classical form, proved in Lean (`src/VinoRec.lean`)
+
+- **`vmvt_weak`** (axioms: `propext`, `Classical.choice`, `Quot.sound`; no `sorry`). For every `k ≥ 2` and `ε > 0` there exist `s` and `C > 0` with
+  `J_{s,k}(P) ≤ C·P^{2s − k(k+1)/2 + ε}` for all `P ≥ 1`.
+  Here `J_{s,k}(P)` is the number of pairs `x, y ∈ [1,P]^s` with `Σxᵢʲ = Σyᵢʲ` for `j = 1..k` (round 194). By orthogonality (round 195) it equals `∫|Σ_{n≤P} e(α₁n + … + α_k nᵏ)|^{2s}`.
+- **How.**
+  - `exists_good_prime`: Bertrand's postulate (Mathlib) gives a prime `p > k` with `P ≤ p^k` and `P^{1/k} ≤ p ≤ 2(k+2)P^{1/k}`.
+  - `step_real`: writing everything as powers of `t = P^{1/k}` turns `one_step` (round 201) into `J_{k+s}(P) ≤ C'·P^{max(μ,β)/k}`.
+  - `vmvt_iter`: `J_{k+mk,k}(P) ≤ C_m·P^{2(k+mk) − k(k+1)/2 + η_m}`, where `η_0 = k(k−1)/2` (from `J_le_diag`) and `η_{m+1} = max((1−1/k)η_m, k(k+1)/2 − 2(k+mk+1)/k)`.
+  - `eta_small`: once `m ≥ k²` the second term is nonpositive, so `η` contracts by `1 − 1/k` and tends to 0.
+- **What this is and is not.**
+  - It is the classical "Δ → 0" form, with the crude bad-set bound: it needs `s ≈ k³`, versus Vinogradov's `k² log k`. It is not the sharp theorem (Bourgain–Demeter–Guth, Wooley).
+  - The constants are explicit in the proof (`Kbad`, `Kmain`) but hidden behind `∃` in the statement.
+  - Layer II (the Weyl-sum bound, then ζ growth) needs them explicit and uniform in `k`, because `k` grows with `log t` there. The next step is to restate `vmvt_iter` with explicit `C(k,m)`.
+  - Through layer II, `s ≈ k³` should give a growth exponent `a` strictly between 2/3 and 1. That is my estimate, not yet derived. It would still be a region beyond de la Vallée Poussin, via `rung3_of_growth` (round 193).
+
+| layer | content | status |
+|---|---|---|
+| I | Vinogradov's mean value theorem | **done, weak classical form** (rounds 194–202) |
+| II | Weyl-sum bound ⇒ `PolylogGrowth a K` | open (needs explicit constants from I) |
+| III | Landau: growth ⇒ zero-free region ⇒ drift | done (round 193) |
+
+**Check 4:** classical (Vinogradov 1935, Linnik 1943, Karatsuba). The Lean proof is new to the pilot. I know of no other formalisation of any form of VMVT; I have not checked this exhaustively. **Bearing on RH:** none.
+
