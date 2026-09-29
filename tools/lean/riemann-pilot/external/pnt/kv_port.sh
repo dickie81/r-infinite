@@ -11,7 +11,7 @@ PILOT="$HERE/../../src"
 W="${1:-$HERE/kvbuild}"
 : "${PNT:?set PNT to the PNT+ checkout}"
 mkdir -p "$W/src" "$W/build"
-FILES="Vinogradov VinoPadic VinoStep VinoIter VinoHolder VinoSplit VinoRec VinoConst VinoConst2 ExpSum ExpSum2 ExpSum3 ExpSum4 ExpSum5 ExpSum6 ExpSum7"
+FILES="Vinogradov VinoPadic VinoStep VinoIter VinoHolder VinoSplit VinoRec VinoConst VinoConst2 ExpSum ExpSum2 ExpSum3 ExpSum4 ExpSum5 ExpSum6 ExpSum7 ExpSum8 ExpSum9 ExpSum10"
 for f in $FILES; do cp "$PILOT/$f.lean" "$W/src/"; done
 cp "$HERE/Landau.lean" "$HERE/KVBridge.lean" "$W/src/"
 sed -i "s/Finset.prod_le_prod fun e _ => card_residue_le/Finset.prod_le_prod' fun e _ => card_residue_le/" \

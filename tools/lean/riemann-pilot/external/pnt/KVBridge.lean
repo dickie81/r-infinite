@@ -1,23 +1,26 @@
 /-
-# Rung 3, closed: the growth bound for ζ and the zero-free region it gives (round 212)
+# Rung 3, closed: the growth bound for ζ and the zero-free region it gives (rounds 212–213)
 
 Plain statements.
-* `zeta_bound_large`: for `6/7 ≤ a ≤ 1` there is `B` with `|ζ(σ+it)| ≤ B·log|t|` whenever
+* `zeta_bound_large`: given `GrowthSum a` with `1/2 ≤ a ≤ 1`, there is `B` with `|ζ(σ+it)| ≤ B·log|t|` whenever
   `log|t| ≥ 25` and `1 − (log|t|)^{−a} ≤ σ ≤ 2`.
   Proof: PNT+'s `Zeta0EqZeta` writes `ζ(s) = Σ_{n≤X} n^{−s} − X^{1−s}/(1−s) − X^{−s}/2 + R`,
   with `|R| ≤ 2|t|X^{−σ}/σ` (`ZetaBnd_aux1`). Take `X = ⌊|t|^{5/4}⌋`. Then the sum is at most
-  `B·log|t|` by `growth_sum` (layer II, round 211), and the other three terms are at most
+  `B·log|t|` by the layer-II growth bound (`GrowthSum`), and the other three terms are at most
   `1`, `1/2` and `5`, since `σ ≥ 4/5`.
 * `zeta_bound_compact`: ζ is bounded on `0 ≤ σ ≤ 2`, `3 ≤ |t| ≤ T` (compactness; `s ≠ 1`).
-* `polylogGrowth_kv`: hence `PolylogGrowth a K` holds for every `6/7 ≤ a ≤ 1` and some `K`.
-* `zeroFree_kv`: ζ has no zeros in `σ ≥ 1 − A/(log|t|)^{n₁}` for every `n₁ > 6/7`.
-* `rung3_kv`: `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))` for every `n₁ > 6/7`, i.e. every
-  exponent below `7/13`.
+* `polylogGrowth_of`: any layer-II growth bound `GrowthSum a` (`1/2 ≤ a ≤ 1`) gives
+  `PolylogGrowth a K`.
+* `polylogGrowth_kv`: `PolylogGrowth a K` holds for every `4/5 ≤ a ≤ 1` (round 213; `6/7` in
+  round 212).
+* `zeroFree_kv`: ζ has no zeros in `σ ≥ 1 − A/(log|t|)^{n₁}` for every `n₁ > 4/5`.
+* `rung3_kv`: `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))` for every `n₁ > 4/5`, i.e. every
+  exponent below `5/9`.
 
 Every input is proved. There are no hypotheses and no RH-conditional steps.
 -/
 import Landau
-import ExpSum7
+import ExpSum10
 
 open Complex Set Filter MeasureTheory
 
@@ -45,11 +48,17 @@ lemma pos_of_log_ge {t : ℝ} {c : ℝ} (hc : 0 < c) (hL : c ≤ Real.log |t|) :
   · exact h
   · rw [← h, Real.log_zero] at hL; linarith
 
+/-- The Dirichlet-polynomial growth bound of layer II, at exponent `a`. -/
+def GrowthSum (a : ℝ) : Prop :=
+  ∃ B : ℝ, 0 < B ∧ ∀ t σ : ℝ, 1 ≤ Real.log |t| → 1 - Real.log |t| ^ (-a) ≤ σ →
+    ∀ X : ℕ, (X : ℝ) ≤ |t| ^ ((5 : ℝ) / 4) →
+      ‖∑ n ∈ Finset.Ioc 0 X, 1 / (n : ℂ) ^ ((σ : ℂ) + t * I)‖ ≤ B * Real.log |t|
+
 /-- **ζ on the thin strip, for large `|t|`.** -/
-theorem zeta_bound_large {a : ℝ} (ha1 : 6 / 7 ≤ a) (ha2 : a ≤ 1) :
+theorem zeta_bound_large {a : ℝ} (ha1 : 1 / 2 ≤ a) (ha2 : a ≤ 1) (hS : GrowthSum a) :
     ∃ B : ℝ, 0 < B ∧ ∀ t σ : ℝ, 25 ≤ Real.log |t| → 1 - Real.log |t| ^ (-a) ≤ σ → σ ≤ 2 →
       ‖riemannZeta (σ + t * I)‖ ≤ B * Real.log |t| := by
-  obtain ⟨B, hB0, hB⟩ := ExpSum.growth_sum ha1 ha2
+  obtain ⟨B, hB0, hB⟩ := hS
   refine ⟨B + 7, by linarith, fun t σ hL hσ hσ2 => ?_⟩
   set L := Real.log |t| with hLdef
   have htpos : 0 < |t| := pos_of_log_ge (by norm_num) hL
@@ -170,10 +179,10 @@ theorem zeta_bound_compact (T : ℝ) :
   · rw [abs_of_neg h] at ht3 htT
     exact Or.inl ⟨by linarith, by linarith⟩
 
-/-- **The growth hypothesis of Landau's lemma holds**, for every `6/7 ≤ a ≤ 1`. -/
-theorem polylogGrowth_kv {a : ℝ} (ha1 : 6 / 7 ≤ a) (ha2 : a ≤ 1) :
+/-- **Any layer-II growth bound gives the growth hypothesis of Landau's lemma.** -/
+theorem polylogGrowth_of {a : ℝ} (ha1 : 1 / 2 ≤ a) (ha2 : a ≤ 1) (hS : GrowthSum a) :
     ∃ K : ℝ, 0 < K ∧ Landau.PolylogGrowth a K := by
-  obtain ⟨B, hB0, hB⟩ := zeta_bound_large ha1 ha2
+  obtain ⟨B, hB0, hB⟩ := zeta_bound_large ha1 ha2 hS
   obtain ⟨M, hM⟩ := zeta_bound_compact (Real.exp 25)
   refine ⟨max B (max M 1), by positivity, ?_⟩
   intro t ht3 σ hσ hσ2
@@ -202,16 +211,21 @@ theorem polylogGrowth_kv {a : ℝ} (ha1 : 6 / 7 ≤ a) (ha2 : a ≤ 1) :
       _ = K * 1 := (mul_one K).symm
       _ ≤ K * L ^ K := by gcongr
 
-/-- **Zero-free region** of width `(log|t|)^{−n₁}` for every `n₁ > 6/7`. -/
-theorem zeroFree_kv {n₁ : ℝ} (hn : 6 / 7 < n₁) : ZetaZeroFreeGenProp n₁ := by
-  obtain ⟨K, hK, hG⟩ := polylogGrowth_kv (a := 6 / 7) le_rfl (by norm_num)
+/-- **The growth hypothesis holds for every `4/5 ≤ a ≤ 1`** (weak VMVT, many coordinates). -/
+theorem polylogGrowth_kv {a : ℝ} (ha1 : 4 / 5 ≤ a) (ha2 : a ≤ 1) :
+    ∃ K : ℝ, 0 < K ∧ Landau.PolylogGrowth a K :=
+  polylogGrowth_of (by linarith) ha2 (ExpSum.growth_weak ha1 ha2)
+
+/-- **Zero-free region** of width `(log|t|)^{−n₁}` for every `n₁ > 4/5`. -/
+theorem zeroFree_kv {n₁ : ℝ} (hn : 4 / 5 < n₁) : ZetaZeroFreeGenProp n₁ := by
+  obtain ⟨K, hK, hG⟩ := polylogGrowth_kv (a := 4 / 5) le_rfl (by norm_num)
   exact Landau.zeroFree_of_growth (by norm_num) hK hG hn
 
-/-- **Rung 3**: `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))` for every `n₁ > 6/7`. -/
-theorem rung3_kv {n₁ : ℝ} (hn : 6 / 7 < n₁) :
+/-- **Rung 3**: `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))` for every `n₁ > 4/5`. -/
+theorem rung3_kv {n₁ : ℝ} (hn : 4 / 5 < n₁) :
     ∃ c > 0, (fun x : ℝ => Chebyshev.psi x - x) =O[Filter.atTop]
       (fun x : ℝ => x * Real.exp (-c * Real.log x ^ ((1 : ℝ) / (1 + n₁)))) := by
-  obtain ⟨K, hK, hG⟩ := polylogGrowth_kv (a := 6 / 7) le_rfl (by norm_num)
+  obtain ⟨K, hK, hG⟩ := polylogGrowth_kv (a := 4 / 5) le_rfl (by norm_num)
   exact Landau.rung3_of_growth (by norm_num) (by norm_num) hK hG hn
 
 end KVBridge

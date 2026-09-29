@@ -6845,3 +6845,36 @@ Axioms are clean for all three final theorems (checked on a fresh build from `kv
 | II, exponential sums ⇒ `PolylogGrowth (6/7) K` | **done** (rounds 203–212) |
 | III, Landau ⇒ zero-free region ⇒ PNT error | done (round 193) |
 | sharpening to `a = 2/3` (exponent `3/5`) | open; needs the sharp VMVT |
+
+## Round 213: sharpening, step S1: many good coordinates (`src/ExpSum8–10.lean`, `frontier/sharpen/`); rung 3 at every exponent below 5/9
+
+Axioms are clean. This includes the fresh PNT+ build via `kv_port.sh`, which now also compiles `ExpSum8–10` with no further renames.
+
+**Correction to round 212.** Round 212 said that reaching `a = 2/3` (exponent `3/5`) "needs the sharp VMVT". That is wrong. Korobov and Vinogradov (1958) used the classical mean value theorem, at `s ≍ k² log k`. The pilot has two removable losses:
+1. The block bound used a single good coordinate.
+2. The weak VMVT's crude bad-tuple bound (Step D) forces `s ~ k³`.
+
+This round removes loss 1. Loss 2 is step S2.
+
+**Pre-registration** (`frontier/sharpen/PREREG_sharpen.md`, `ksharpen.py`, `ksharpen_results.json`):
+- **P1 failed as stated.** At `R = 20` the window has one coordinate and `R·#G/6 − 2 < R²/100`. The true minimum ratio is `1/300`.
+  - Amendment: prove `η ≤ 1/32`, which lowers the loss `u²` to `u^{1/2}`, and use `R² ≤ 50·#G·R − 150`. The Lean `window` lemma proves this for every `R ≥ 16`.
+- **P2 was inconclusive by design.** Up to `L = 10¹²` it cannot separate `a = 0.79` from `a = 0.80`, since the difference is a factor `L^{0.0125}`. The Lean proof replaces it.
+- **P3 held**, with `log C/ℓ² ≤ 1.31` under S2's recursion.
+- **P4 held**, with `c = 1.4·10⁻⁶`.
+
+**What is proved:**
+- **`block_bound_multi`** (`ExpSum8`). The block bound with a set `G` of good coordinates. Each `j ∈ G` satisfying the no-wrap condition contributes its own saving factor `W_j`.
+- **`block_saving_multi`, `window`** (`ExpSum9`). Take `N = u^20`, `M = ⌊u⁸⌋`, `u^R ≤ |t| ≤ u^{R+1}`, `K = ⌊R/4⌋ + 6`, and the window `R+5 ≤ 12j`, `24j+6 ≤ 5R`. Each window coordinate saves `u^{−R/6}`, and
+  `|Σ_{N<n≤N'} n^{−it}| ≤ 2^{Q₀+2} N u^{−s}` with `s ≥ R²/(600ℓ²)`.
+  The saving grows like `K²/ℓ²`; previously it was `1/ℓ²`. Also here: `eta_two_sq32` (`η_{2K²} ≤ 1/32` for `K ≥ 10`).
+- **`growth_gen`** (`ExpSum10`). For any VMVT family (`VMVTFamily`: `K ≤ ℓ(K) ≤ B₀K^q`, `η ≤ 1/32`, constants absorbed), the Dirichlet-polynomial growth bound holds for every `(2q−2)/(2q−1) ≤ a ≤ 1`.
+- **`weakFamily`, `growth_weak`.** The existing weak VMVT is a family with `q = 3`. This gives every `a ≥ 4/5`.
+- **KVBridge.** Now generic: `GrowthSum a` gives `PolylogGrowth a`. The results are `zeroFree_kv` and `rung3_kv` for every `n₁ > 4/5`, i.e. every exponent below `5/9 ≈ 0.556`; round 212 had `7/13`.
+
+| step | target | status |
+|---|---|---|
+| S1 many good coordinates | `a = 4/5` | **done** |
+| S2 VMVT at `s ≍ k² log k` (bad tuples by class Hölder plus induction on `P`) | every `a > 2/3`, exponent → `3/5` | next |
+
+**Check 4:** classical. **Bearing on RH:** none.
