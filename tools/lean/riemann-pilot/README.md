@@ -6660,3 +6660,21 @@ Axioms are clean.
 
 **Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
 
+## Round 205: layer II, step (E), shift and Taylor (`src/ExpSum3.lean`)
+
+Axioms are clean.
+
+- **`shift_avg`.** For `|f| ≤ 1`: `|Σ_{A<n≤B} f(n)| ≤ M^{−2} Σ_{A<n≤B} |Σ_{a,b≤M} f(n+ab)| + 2M²`. Shifting an interval sum by `h` changes it by at most `2h` (`shift_diff`).
+- **`phase_taylor`.** For `0 ≤ h ≤ x/2`: `−(t/2π) log(x+h) = −(t/2π) log x + Σ_{j<K} α_j h^{j+1} + ρ`, with `α_j = (t/2π)(−1)^{j+1}/((j+1)x^{j+1})` and `|ρ| ≤ (|t|/π)(h/x)^{K+1}`. This comes from Mathlib's `Real.abs_log_sub_add_sum_range_le`.
+- **`per_n`.** For `2M² ≤ n`: `|Σ_{a,b≤M} e(−(t/2π) log(n+ab))| ≤ |Σ_{a,b≤M} e(Σ_j α_j(n)(ab)^{j+1})| + 2|t|M²(M²/n)^{K+1}`. The proof uses `|e(ρ) − 1| ≤ 2π|ρ|`. The right-hand double sum is exactly the one bounded by `bilinear_bound` (round 204).
+- **`stepE`.** For `2M² ≤ N₁`: `|Σ_{N₁<n≤N₂} n^{−it}| ≤ M^{−2} Σ_n (|bilinear sum at α(n)| + 2|t|M²(M²/n)^{K+1}) + 2M²`.
+
+| layer II step | status |
+|---|---|
+| (A), (B′), (D), factorisation, per-`n` bilinear bound | done |
+| (E) shift and Taylor | **done** |
+| (F) assembly: explicit VMVT constants; choose `M ≈ N^{1/4}`, `K`, `ℓ`; good coordinate `j` with `|α_j| L_j ≤ 1/2` and `1/(|α_j| L_j²)` small | open |
+| (G) ζ growth `PolylogGrowth a K` | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
