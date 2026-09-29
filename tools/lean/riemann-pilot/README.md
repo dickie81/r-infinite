@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 727 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 742 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -103,13 +103,16 @@ Every file ends with `#print axioms`. All 727 checked theorems depend only on `p
 | `KaiserPrefactor.lean` | 775 | the tail at `Im t = −1`; the log-weighted `L²` bound; `Q(g) ≤ 16κ Kz(a+1)e^{9a}`; **`λ₁(a) ≤ K(a+1)e^{10a−4πe^{2a}}`, no RH input**; the bound for any `κ ≥ e^{2a|Im τ|}` over the zeros (round 164) |
 | `KaiserNine.lean` | 75 | **Connes' prefactor `e^{9a}` with an ineffective constant**: `λ₁(a) ≤ K(a+1)e^{9a−4πe^{2a}}` for `a ≥ 4`, by a case split on RH (round 220) |
 | `LandauLaplace.lean` | 419 | **Landau's theorem for Laplace transforms**: `A ≥ 0`, `φ ≥ 0`; if `∫Ae^{−sφ}` agrees near the real point of its abscissa with a holomorphic function, it converges beyond it; the pole test for poles of any order (rounds 220–221) |
-| `WeilLandau.lean` | 909 | **Weil's criterion for `ζ`, graded**: `Q(twin (box 1) λ) ≥ −Ce^{σλ}` for all `λ ≥ 0` ⟺ every zero has `|2 Re ρ − 1| ≤ σ`; RH ⟺ the defect is subexponential; `σ = 0` is Weil's criterion with no finiteness hypothesis (rounds 220–221) |
+| `TwinLandau.lean` | 790 | **the Landau argument for twin forms, for any zero family** (`TwinData`): `Q(λ) ≥ −Ce^{σλ}` ⟺ every pole has `|Re P| ≤ σ` (round 225; round 220's argument, abstracted) |
+| `WeilLandau.lean` | 193 | **Weil's criterion for `ζ`, graded**, as the `ζ` instance of `TwinLandau`: `Q(twin (box 1) λ) ≥ −Ce^{σλ}` for all `λ ≥ 0` ⟺ every zero has `|2 Re ρ − 1| ≤ σ`; RH ⟺ the defect is subexponential; `σ = 0` is Weil's criterion with no finiteness hypothesis (rounds 220–221) |
 | `WeilRate.lean` | 119 | **the ground energy's rate of failure measures the zeros**: `λ₁(a) ≥ −Ce^{σa}` ⟹ `|2 Re ρ − 1| ≤ σ`; RH ⟺ `λ₁` has no negative part of exponential rate; if RH fails, `λ₁(a) < −Ce^{σa}` at arbitrarily large `a` (round 221) |
 | `PsiOmega.lean` | 721 | **one-sided bounds on summatory functions are zero-free half-planes** (generic Mellin theorem, for any entire `Z` with no zero on `Re s ≥ 1`, round 222); **`ψ(x) − x = Ω±(x^θ)`** below the real part of any zero, and for every `θ < ½` unconditionally (rounds 220–221) |
 | `MertensOmega.lean` | 293 | **Mertens and Liouville**: `M(x) = Ω±(x^θ)` for every `θ < ½`; `L(λ, s)ζ(s) = ζ(2s)`; a one-sided bound `εL(x) ≤ c√x` gives RH, in particular **Pólya's conjecture ⟹ RH** (round 221) |
 | `DirichletOmega.lean` | 168 | **prime races**: for real `χ ≠ 1`, `ψ(x, χ) = Ω±(x^θ)` below any zero of `L(s, χ)` if there is no real zero in `(θ, 1)`; the race between primes `≡ 1` and `≡ 3` (mod 4) changes lead infinitely often, under those two hypotheses (round 222) |
 | `RealDirichlet.lean` | 680 | **every primitive real Dirichlet character `χ ≠ 1`**: partial sums `≤ N`; `L(s, χ) = s∫S(x)x^{−s−1}` on `Re s > 0`; `L(s, χ)` has a zero with `½ ≤ Re ρ < 1` (Hadamard, via the functional equation); `ψ(x, χ) = Ω±(x^θ)` for `θ < ½` given no real zero in `(θ, 1)`; nonnegative partial sums ⟹ `L(σ, χ) > 0` on `(0, ∞)` and the Ω± unconditionally (rounds 223–224) |
 | `PrimeRaces.lean` | 233 | **the `log p`-weighted prime races mod 3, 4 and 8 change lead infinitely often**, by more than `c·x^θ` for every `θ < ½`, unconditionally; the Hadamard product for `L(s, χ₄)` (rounds 223–224) |
+| `WeilChi.lean` | 733 | **Weil's explicit formula for every primitive real `χ` with `L(½, χ) ≠ 0`**: `Ξ_χ(t) = Λ*(½ + it)` is even (`ε = 1`), of order `≤ 3/2`, with a Hadamard product and zeros in `|Im t| < ½`; `Σ_u 2h(τ_u) = g_h(0)log(N/π) + (1/2π)∫h Re ψ((½ + δ)/2 + ir/2) − 2Σ Λ(n)χ(n)n^{−1/2}g_h(log n)` (round 225) |
+| `WeilChiCriterion.lean` | 390 | **Weil's criterion for `L(s, χ)`**: GRH(χ) ⟺ `Q_χ(twin (box 1) λ) ≥ 0`; the graded rate; GRH(χ) ⟺ `Q_χ/‖g‖²` has no negative part of exponential rate; an off-line zero forces failure at rate `|2β − 1|`; instances `χ₋₃`, `χ₋₄`, `χ₋₈` (round 225) |
 | `LSeriesLandau.lean` | 95 | **Landau's theorem for L-series with nonnegative coefficients**: singular at the real point of the abscissa (Mathlib-ready; round 221) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
@@ -7296,3 +7299,56 @@ Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`
   - The `χ₄` numerical control, pre-registered, with its non-convergence at `a ≥ 2` stated.
 
 **Bearing on RH:** none. The Lean results run from zeros to oscillation. The control compares a function believed to satisfy GRH with one known to violate it; it proves nothing about either.
+
+## Round 225: the Weil chain for Dirichlet L-functions
+
+The ζ chain's middle, from Hadamard's product to Weil's criterion with rates, now runs for every primitive real Dirichlet character `χ` with `L(½, χ) ≠ 0`. Positivity supplies that hypothesis for `χ₋₃`, `χ₋₄` and `χ₋₈`, so the chain is unconditional for those three.
+
+**1. The Landau argument, generic** (`TwinLandau.lean`).
+- Round 220's twin-form argument never used ζ beyond a list of properties, now bundled as `TwinData P c G Q`:
+  - a countable family of poles `P_q` that is locally finite, with `|Re P_q| < 1` and `Im P_q ≠ 0`;
+  - summable weights `c_q = G(P_q)`, with `G` even and nonzero on `Re p > 0`;
+  - `Q(λ) = Σ_q c_q(2 + e^{λP_q} + e^{−λP_q})`.
+- `abs_re_le` and `rate_iff`: `Q ≥ −Ce^{σλ}` ⟺ every `|Re P_q| ≤ σ`.
+- `WeilLandau.lean` shrinks from 909 to 193 lines and is now the ζ instance (`twinData_zeta`). Its downstream results (`rh_of_weil`, `weil_twins_rate`, `rh_iff_twins_subexp`) are unchanged.
+
+**2. The explicit formula for `χ`** (`WeilChi.lean`, following round 156's `WeilAssemble`).
+- Setup:
+  - `GoodChar χ`: primitive, quadratic, `≠ 1`, and `L(½, χ) ≠ 0`.
+  - `rootNumber_eq_one`: `ε = 1`, because `Λ*(½) = εΛ*(½) ≠ 0`. So `Ξ_χ(t) = Λ*(½ + it)` is even (`XiC_even`).
+  - `norm_XiC_le`: order `≤ 3/2`, from round 224's bound.
+  - `hadamard_XiC`: the genus-0 product.
+  - `XiC_zero_im`: the zeros lie in `|Im t| < ½`.
+- `hasSum_logDeriv_XiC` and `logDeriv_XiC_eq`: `Ξ_χ′/Ξ_χ` as a sum over zeros, and on `Re s > 1` as `i(½log N − ½log π + ½ψ((s + δ)/2) − Σ Λ(n)χ(n)n^{−s})`. Here `δ` is the parity; `logDeriv_LamG` handles `N^{s/2}` and the gamma factor `Γ_ℝ(s + δ)`.
+- `weil_XiC`: the explicit formula, for every even strip test function `h` real on `ℝ`:
+  `Σ_u 2h(τ_u) = g_h(0)log(N/π) + (1/2π)∫_ℝ h(r) Re ψ((½ + δ)/2 + ir/2)dr − 2Σ Λ(n)χ(n)n^{−1/2}g_h(log n)`.
+  - The zero side uses the same line integral at `Im t = −1` as for ζ.
+  - There is no pole term.
+  - The ψ term is shifted to `(1 + 2δ)/4`, and the prime weights are `Λ(n)χ(n)`.
+
+**3. Weil's criterion for `L(s, χ)`** (`WeilChiCriterion.lean`).
+- `QC χ a g`: Weil's form in its Guinand–Weil presentation (the right side of the explicit formula for `h = ĝ²`). No zero enters it.
+- `QC_hasSum`: `Q_χ(g) = Σ_u 2ĝ(τ_u)²`.
+- `zero_of_tau` and `tau_of_zero`: the zeros of `Ξ_χ` are exactly the zeros of `L(s, χ)` in the critical strip, written `½ + iτ`.
+- `twinData_chi`: the `TwinLandau` data, given `L(σ, χ) ≠ 0` on `(0, 1)`.
+- `QC_nonneg_of_GRH`: GRH(χ) ⟹ `Q_χ(g) ≥ 0` for every probe whose `ĝ²` is a strip test function (monotone profiles and twins).
+- **`grh_iff_twins`**: GRH(χ) ⟺ `Q_χ(twin (box 1) λ) ≥ 0` for every `λ ≥ 0`.
+- **`twins_rate`**: `Q_χ(twin) ≥ −Ce^{σλ}` ⟺ every zero in the strip has `|2 Re ρ − 1| ≤ σ`.
+- The ground-energy layer, in quantifier form (`ProbeS` is a probe with strip-test `ĝ²`):
+  - `zeros_of_QC_ge`: `Q_χ(g) ≥ −Ce^{σa}‖g‖²` on all `ProbeS` at supports `a ≥ 1` gives the zero-free half-plane `Re s > (1 + σ)/2`.
+  - `grh_iff_QC_subexp`: GRH(χ) ⟺ for every `σ > 0` such a bound holds.
+  - `QC_fails_rate`: a zero with `|2β − 1| > σ` gives probes with `Q_χ(g) < −Ce^{σa}‖g‖²` at arbitrarily large `a`, for every `C`.
+- Instances: `grh_iff_twins_chi3`, `grh_iff_twins_chi4`, `grh_iff_twins_chi8`, `twins_rate_chi4`, `grh_iff_QC_subexp_chi4`.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (742 checked theorems in `src/`). The build has no warnings.
+
+**What is not ported.**
+- *The `u`-space form.* The ζ side proves that the spectral form equals the `u`-space form (autocorrelation, kernel `e^{u/2}/sinh u`, Bridge B, round 61), which is what `dh_gram.py` computes. For `χ` the kernel is `e^{−u/2}/sinh u`, and that identity is not proved. So round 224's `χ₄` numerics and `QC` agree only through a standard identity that is not yet checked here.
+- *All probes.* GRH ⟹ `Q_χ ≥ 0` is proved for strip-test probes only. The ζ side extends it to every probe by density (round 157, `WeilRH`); that step is not ported.
+- *The ground state.* `λ₁^χ` as a number, the existence of ground states, monotonicity and continuity in `a`, first failure, and the Kaiser upper bound are not ported. The rate theorems are stated with quantifiers instead, which is all the equivalences need.
+
+**Check 4.**
+- **Acknowledged (classical).** The explicit formula for Dirichlet L-functions, and Weil's criterion for them (Weil 1952).
+- **New here.** Machine-checked proofs, including `ε = 1` from `L(½, χ) ≠ 0`, the generic twin-form Landau core, and the graded criterion and its exponential-rate form for `χ₋₃`, `χ₋₄` and `χ₋₈`.
+
+**Bearing on RH:** none. These are equivalences, as for ζ. GRH for `χ₋₃`, `χ₋₄` and `χ₋₈` is as open as RH.
