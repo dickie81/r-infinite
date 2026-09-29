@@ -6376,3 +6376,34 @@ The chain is now machine-checked from a growth bound on ζ to the drift. Axioms 
 
 Once layer II is proved at `a = 2/3`, `rung3_of_growth` gives every exponent below 3/5. The hypothesis is a growth bound on ζ, not RH, and nothing here is conditional on RH. **Check 4:** classical (Landau 1924; Titchmarsh §3.10–3.11). The general-`a` Lean form is new to the pilot. **Bearing on RH:** none. The rung-3 region still shrinks to the line `σ = 1`, and RH needs a fixed strip.
 
+## Round 194: Vinogradov's mean value theorem, foundations (`src/Vinogradov.lean`, `frontier/vmvt/`)
+
+This is layer I of rung 3. `J s k N` counts the pairs of `s`-tuples from `{1..N}` whose power sums agree in degrees `1..k`: Vinogradov's mean value, in counting form. Axioms are clean.
+
+- **`J_ge`, `J_le`, `J_anti`.** `N^s ≤ J ≤ N^{2s}`, and `J` falls as `k` grows.
+- **`agree_iff` (the rigid range `s ≤ k`).** The power sums in degrees `1..k` agree exactly when `y` rearranges `x`. The proof runs Newton's identities (Mathlib's `mul_esymm_eq_sum`) to get equal elementary symmetric functions, then Vieta to get equal root multisets.
+- **`J_le_diag`.** For `s ≤ k`, `J ≤ s!·N^s`. This is the main conjecture's diagonal case, proved exactly.
+- **`agree_shift`.** Shifting every coordinate by `h` preserves the system. This is the affine invariance that every proof uses.
+
+**Numerics** (`frontier/vmvt/`, pre-registered in `PREREG_vmvt.md`):
+- **P1 (exact, `s ≤ k`):** `J` equals the rearrangement count in all 6 cases. Confirmed.
+- **P2:** the trivial bounds hold in every case.
+- **P3 (ratio `J/(N^s + N^{2s−k(k+1)/2})` stays `O(1)` up to slow growth):**
+  - `(k,s) = (2,4)`: settles near 2.56.
+  - `(2,3)`: grows slowly, 2.0→3.5 for `N = 4..20`. This is consistent with the known `N³ log N` at this critical point.
+  - `(3,4)`, `(3,5)`, `(3,6)`: still rising in range; `(3,6)` goes 24→139 over `N = 3..8`.
+  - Post-hoc explanation, not pre-registered: the diagonal alone contributes about `s!·N^s`, which is 720·N⁶ for `s = 6`. The ratio's ceiling is therefore of order `s!/2`, not 1. So P3 is not confirmed as written in this window. It is consistent once the constant `s!` is allowed.
+
+**What remains for layer I:**
+
+| step | content | status |
+|---|---|---|
+| I.1 | orthogonality: `J = ∫_{[0,1]^k} |Σ e(α·(n,…,nᵏ))|^{2s}` | open |
+| I.2 | Hölder/Cauchy–Schwarz monotonicity `J_{s+1} ≤ N²·J_s` | open |
+| I.3 | Linnik–Karatsuba p-adic iteration, giving `J_{s,k}(N) ≤ C·N^{2s − k(k+1)/2 + Δ}` with `Δ → 0` as `s/k² → ∞` | open (the core) |
+| I.4 | from I.3 to the Weyl-sum bound `Σ n^{−it} ≪ N^{1−c/k²}` for `N ~ t^{1/k}` | open (layer II) |
+
+Only the classical I.3 is needed for Korobov–Vinogradov. The sharp theorem (Bourgain–Demeter–Guth, Wooley) is not.
+
+**Check 4:** the mathematics is classical (Newton, Vieta, Vinogradov 1935). The Lean file is new to the pilot. **Bearing on RH:** none.
+
