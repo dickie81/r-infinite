@@ -1,136 +1,66 @@
 #!/usr/bin/env bash
-# Compile the pilot. T1ca → Osc → Split import each other; Zeta imports T1bt, Split and Exterior, and
-# DigammaGauss imports only Mathlib, BinetProof imports DigammaGauss, Exterior imports BinetProof,
-# Roadmap imports T1bt and Exterior, Limit imports Roadmap, RiemannKernel imports Roadmap, HadamardApply imports Hadamard and Limit, XiBounds imports HadamardApply and RiemannKernel, Curvature imports XiBounds, GroundState imports Curvature, Existence imports GroundState, Compactness imports Existence, GroundStateExists imports Compactness, Uniqueness imports GroundStateExists, Positivity imports Uniqueness, StrictPositivity imports Positivity, UniquenessQ imports StrictPositivity, FourierGap imports UniquenessQ, ParabolaGap imports FourierGap, Polya imports Roadmap, Concave imports Polya, PrimeSide imports Positivity and Concave, Saturation imports only Mathlib, Unconditional imports Concave and Saturation, ZeroSwap imports UniquenessQ, HurwitzCross imports PrimeSide and ZeroSwap, FourierInv imports HurwitzCross, SwapRealize imports FourierInv, SimpleCover imports SwapRealize and ParabolaGap, SimpleStructure imports SimpleCover, GapCriterion imports SimpleStructure, Commute imports GapCriterion, DegenerateFlat imports Commute, StructureD imports DegenerateFlat, Mollify imports StructureD, TheoremC imports Mollify, GapBound imports TheoremC, CosTrunc imports GapBound, StripConv imports GapBound, KernelChain imports StripConv, ZeroCount imports StructureD, SixteenPi imports Curvature, ResponseKernel imports only Mathlib, ToneHyperbola imports ResponseKernel, WindowForm imports only Mathlib, SmallPositivity imports FourierGap, SmallPositivity2 imports SmallPositivity, OddPositivity imports SmallPositivity2, PoleRelax imports SmallPositivity2 and WindowForm, PrimeRelax imports PoleRelax, PrimeRelax3 imports PrimeRelax, ParitySplit imports OddPositivity and PoleRelax, ExplicitBridge imports Mollify and DigammaGauss, WeilConverse imports ExplicitBridge, PhiNull imports WeilConverse, PhiDecay imports PhiNull and CosTrunc, ParityRelax imports ParitySplit, ParityCert imports ParityRelax, ParityGap imports SwapRealize and ParitySplit, ParityCont imports ParityGap and SimpleCover, SimpleCont imports ParityCont and DegenerateFlat, PhiLadder imports PhiDecay and ParityCont, StripShift imports only Mathlib, XiLogDeriv imports XiBounds, WeilCount imports XiLogDeriv, WeilAssemble imports StripShift and WeilCount, WeilDischarge imports WeilAssemble and PhiLadder, WeilZeta imports WeilDischarge, WeilCriterion imports WeilZeta and Unconditional, ZetaInputs imports WeilCriterion and Zeta, ExteriorZeta imports ZetaInputs, WeilRH imports ExteriorZeta, PhiDExp imports WeilZeta, FirstFailure imports WeilRH and SimpleCont, KaiserKernel imports only Mathlib, KaiserPW imports KaiserKernel and StripShift, KaiserPoisson imports KaiserPW, KaiserMellin imports KaiserPoisson, KaiserZero imports KaiserMellin and WeilZeta, KaiserDeriv imports KaiserZero, KaiserTail imports KaiserDeriv, KaiserIBP imports KaiserTail, KaiserWindow imports KaiserIBP and WeilCriterion, KaiserMoment imports KaiserWindow, KaiserBulk imports KaiserMoment, KaiserPoissonK imports StripShift, KaiserZeroWeight imports KaiserPoissonK and WeilAssemble, KaiserPlanch imports KaiserZeroWeight, KaiserPrefactor imports KaiserBulk and KaiserPlanch, BallTower imports only Mathlib, LatticeCount imports BallTower, LocalTeeth imports only Mathlib, GlobalTeeth imports only Mathlib, AngularFamily imports GlobalTeeth, WanderBound imports only Mathlib, Vinogradov imports only Mathlib, VinoPadic imports only Mathlib, VinoStep imports Vinogradov and VinoPadic, VinoIter imports VinoStep, VinoHolder imports VinoIter, VinoSplit imports VinoHolder, VinoRec imports VinoSplit, ExpSum imports VinoHolder, ExpSum2 imports ExpSum, ExpSum3 imports ExpSum2, ExpSum4 imports ExpSum3, VinoConst imports VinoRec, ExpSum5 imports ExpSum4, VinoConst2 imports VinoConst, ExpSum6 imports ExpSum5 and VinoConst2, ExpSum7 imports ExpSum6, ExpSum8 imports ExpSum6, ExpSum9 imports ExpSum8, ExpSum10 imports ExpSum9 and ExpSum7, VinoBad imports VinoRec, VinoRec2 imports VinoBad and VinoConst2, VinoFam imports VinoRec2 and ExpSum10, VinoKV imports VinoFam,
-# through the oleans written to build/.
-set -euo pipefail
+# Compile the pilot: every src/*.lean into build/ (olean + ilean). The import graph is read from the
+# sources. Files are compiled in parallel (JOBS at a time, default: number of cores), each as soon as
+# the pilot files it imports are done. A file is recompiled only if its olean is missing or older than
+# its source or than the olean of anything it imports, so after an edit only that file and its
+# dependents are rebuilt. FORCE=1 rebuilds everything.
 # MATHLIB: a built Mathlib checkout at the commit in MATHLIB_REV (default ./mathlib4).
+set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 cd "${MATHLIB:-$HERE/mathlib4}"
 export PATH="$HOME/.elan/bin:$PATH"
-mkdir -p $HERE/build
-run() { echo "== $1"; }
-run T1bt;     lake env lean -R $HERE/src -o $HERE/build/T1bt.olean -i $HERE/build/T1bt.ilean $HERE/src/T1bt.lean
-run T1ca;     lake env lean -R $HERE/src -o $HERE/build/T1ca.olean -i $HERE/build/T1ca.ilean $HERE/src/T1ca.lean
-run Osc;      HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Osc.olean -i $HERE/build/Osc.ilean $HERE/src/Osc.lean'
-run Split;    HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Split.olean -i $HERE/build/Split.ilean $HERE/src/Split.lean'
-run DigammaGauss; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/DigammaGauss.olean -i $HERE/build/DigammaGauss.ilean $HERE/src/DigammaGauss.lean'
-run BinetProof; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/BinetProof.olean -i $HERE/build/BinetProof.ilean $HERE/src/BinetProof.lean'
-run Exterior; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Exterior.olean -i $HERE/build/Exterior.ilean $HERE/src/Exterior.lean'
-run Zeta;     HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Zeta.olean -i $HERE/build/Zeta.ilean $HERE/src/Zeta.lean'
-run Roadmap;  HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Roadmap.olean -i $HERE/build/Roadmap.ilean $HERE/src/Roadmap.lean'
-run Limit;    HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Limit.olean -i $HERE/build/Limit.ilean $HERE/src/Limit.lean'
-run RiemannKernel; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/RiemannKernel.olean -i $HERE/build/RiemannKernel.ilean $HERE/src/RiemannKernel.lean'
-run Hadamard; lake env lean -R $HERE/src -o $HERE/build/Hadamard.olean -i $HERE/build/Hadamard.ilean $HERE/src/Hadamard.lean
-run HadamardApply; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/HadamardApply.olean -i $HERE/build/HadamardApply.ilean $HERE/src/HadamardApply.lean'
-run XiBounds; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/XiBounds.olean -i $HERE/build/XiBounds.ilean $HERE/src/XiBounds.lean'
-run Curvature; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Curvature.olean -i $HERE/build/Curvature.ilean $HERE/src/Curvature.lean'
-run GroundState; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/GroundState.olean -i $HERE/build/GroundState.ilean $HERE/src/GroundState.lean'
-run Existence; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Existence.olean -i $HERE/build/Existence.ilean $HERE/src/Existence.lean'
-run Compactness; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Compactness.olean -i $HERE/build/Compactness.ilean $HERE/src/Compactness.lean'
-run GroundStateExists; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/GroundStateExists.olean -i $HERE/build/GroundStateExists.ilean $HERE/src/GroundStateExists.lean'
-run Uniqueness; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Uniqueness.olean -i $HERE/build/Uniqueness.ilean $HERE/src/Uniqueness.lean'
-run Positivity; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Positivity.olean -i $HERE/build/Positivity.ilean $HERE/src/Positivity.lean'
-run StrictPositivity; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/StrictPositivity.olean -i $HERE/build/StrictPositivity.ilean $HERE/src/StrictPositivity.lean'
-run UniquenessQ; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/UniquenessQ.olean -i $HERE/build/UniquenessQ.ilean $HERE/src/UniquenessQ.lean'
-run FourierGap; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/FourierGap.olean -i $HERE/build/FourierGap.ilean $HERE/src/FourierGap.lean'
-run ParabolaGap; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ParabolaGap.olean -i $HERE/build/ParabolaGap.ilean $HERE/src/ParabolaGap.lean'
-run Polya; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Polya.olean -i $HERE/build/Polya.ilean $HERE/src/Polya.lean'
-run Concave; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Concave.olean -i $HERE/build/Concave.ilean $HERE/src/Concave.lean'
-run PrimeSide; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/PrimeSide.olean -i $HERE/build/PrimeSide.ilean $HERE/src/PrimeSide.lean'
-run Saturation; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Saturation.olean -i $HERE/build/Saturation.ilean $HERE/src/Saturation.lean'
-run Unconditional; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Unconditional.olean -i $HERE/build/Unconditional.ilean $HERE/src/Unconditional.lean'
-run ZeroSwap; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ZeroSwap.olean -i $HERE/build/ZeroSwap.ilean $HERE/src/ZeroSwap.lean'
-run HurwitzCross; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/HurwitzCross.olean -i $HERE/build/HurwitzCross.ilean $HERE/src/HurwitzCross.lean'
-run FourierInv; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/FourierInv.olean -i $HERE/build/FourierInv.ilean $HERE/src/FourierInv.lean'
-run SwapRealize; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/SwapRealize.olean -i $HERE/build/SwapRealize.ilean $HERE/src/SwapRealize.lean'
-run SimpleCover; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/SimpleCover.olean -i $HERE/build/SimpleCover.ilean $HERE/src/SimpleCover.lean'
-run SimpleStructure; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/SimpleStructure.olean -i $HERE/build/SimpleStructure.ilean $HERE/src/SimpleStructure.lean'
-run GapCriterion; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/GapCriterion.olean -i $HERE/build/GapCriterion.ilean $HERE/src/GapCriterion.lean'
-run Commute; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Commute.olean -i $HERE/build/Commute.ilean $HERE/src/Commute.lean'
-run DegenerateFlat; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/DegenerateFlat.olean -i $HERE/build/DegenerateFlat.ilean $HERE/src/DegenerateFlat.lean'
-run StructureD; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/StructureD.olean -i $HERE/build/StructureD.ilean $HERE/src/StructureD.lean'
-run Mollify; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/Mollify.olean -i $HERE/build/Mollify.ilean $HERE/src/Mollify.lean'
-run TheoremC; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/TheoremC.olean -i $HERE/build/TheoremC.ilean $HERE/src/TheoremC.lean'
-run GapBound; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/GapBound.olean -i $HERE/build/GapBound.ilean $HERE/src/GapBound.lean'
-run CosTrunc; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/CosTrunc.olean -i $HERE/build/CosTrunc.ilean $HERE/src/CosTrunc.lean'
-run StripConv; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/StripConv.olean -i $HERE/build/StripConv.ilean $HERE/src/StripConv.lean'
-run KernelChain; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KernelChain.olean -i $HERE/build/KernelChain.ilean $HERE/src/KernelChain.lean'
-run ZeroCount; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ZeroCount.olean -i $HERE/build/ZeroCount.ilean $HERE/src/ZeroCount.lean'
-run SixteenPi; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/SixteenPi.olean -i $HERE/build/SixteenPi.ilean $HERE/src/SixteenPi.lean'
-run ResponseKernel; lake env lean -R $HERE/src -o $HERE/build/ResponseKernel.olean -i $HERE/build/ResponseKernel.ilean $HERE/src/ResponseKernel.lean
-run ToneHyperbola; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ToneHyperbola.olean -i $HERE/build/ToneHyperbola.ilean $HERE/src/ToneHyperbola.lean'
-run WindowForm; lake env lean -R $HERE/src -o $HERE/build/WindowForm.olean -i $HERE/build/WindowForm.ilean $HERE/src/WindowForm.lean
-run SmallPositivity; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/SmallPositivity.olean -i $HERE/build/SmallPositivity.ilean $HERE/src/SmallPositivity.lean'
-run SmallPositivity2; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/SmallPositivity2.olean -i $HERE/build/SmallPositivity2.ilean $HERE/src/SmallPositivity2.lean'
-run OddPositivity; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/OddPositivity.olean -i $HERE/build/OddPositivity.ilean $HERE/src/OddPositivity.lean'
-run PoleRelax; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/PoleRelax.olean -i $HERE/build/PoleRelax.ilean $HERE/src/PoleRelax.lean'
-run PrimeRelax; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/PrimeRelax.olean -i $HERE/build/PrimeRelax.ilean $HERE/src/PrimeRelax.lean'
-run PrimeRelax3; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/PrimeRelax3.olean -i $HERE/build/PrimeRelax3.ilean $HERE/src/PrimeRelax3.lean'
-run ParitySplit; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ParitySplit.olean -i $HERE/build/ParitySplit.ilean $HERE/src/ParitySplit.lean'
-run ParityRelax; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ParityRelax.olean -i $HERE/build/ParityRelax.ilean $HERE/src/ParityRelax.lean'
-run ParityCert; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ParityCert.olean -i $HERE/build/ParityCert.ilean $HERE/src/ParityCert.lean'
-run ParityGap; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ParityGap.olean -i $HERE/build/ParityGap.ilean $HERE/src/ParityGap.lean'
-run ParityCont; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ParityCont.olean -i $HERE/build/ParityCont.ilean $HERE/src/ParityCont.lean'
-run SimpleCont; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/SimpleCont.olean -i $HERE/build/SimpleCont.ilean $HERE/src/SimpleCont.lean'
-run ExplicitBridge; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ExplicitBridge.olean -i $HERE/build/ExplicitBridge.ilean $HERE/src/ExplicitBridge.lean'
-run WeilConverse; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/WeilConverse.olean -i $HERE/build/WeilConverse.ilean $HERE/src/WeilConverse.lean'
-run PhiNull; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/PhiNull.olean -i $HERE/build/PhiNull.ilean $HERE/src/PhiNull.lean'
-run PhiDecay; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/PhiDecay.olean -i $HERE/build/PhiDecay.ilean $HERE/src/PhiDecay.lean'
-run PhiLadder; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/PhiLadder.olean -i $HERE/build/PhiLadder.ilean $HERE/src/PhiLadder.lean'
-run StripShift; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/StripShift.olean -i $HERE/build/StripShift.ilean $HERE/src/StripShift.lean'
-run XiLogDeriv; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/XiLogDeriv.olean -i $HERE/build/XiLogDeriv.ilean $HERE/src/XiLogDeriv.lean'
-run WeilCount; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/WeilCount.olean -i $HERE/build/WeilCount.ilean $HERE/src/WeilCount.lean'
-run WeilAssemble; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/WeilAssemble.olean -i $HERE/build/WeilAssemble.ilean $HERE/src/WeilAssemble.lean'
-run WeilDischarge; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/WeilDischarge.olean -i $HERE/build/WeilDischarge.ilean $HERE/src/WeilDischarge.lean'
-run WeilZeta; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/WeilZeta.olean -i $HERE/build/WeilZeta.ilean $HERE/src/WeilZeta.lean'
-run WeilCriterion; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/WeilCriterion.olean -i $HERE/build/WeilCriterion.ilean $HERE/src/WeilCriterion.lean'
-run ZetaInputs; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ZetaInputs.olean -i $HERE/build/ZetaInputs.ilean $HERE/src/ZetaInputs.lean'
-run ExteriorZeta; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ExteriorZeta.olean -i $HERE/build/ExteriorZeta.ilean $HERE/src/ExteriorZeta.lean'
-run WeilRH; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/WeilRH.olean -i $HERE/build/WeilRH.ilean $HERE/src/WeilRH.lean'
-run PhiDExp; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/PhiDExp.olean -i $HERE/build/PhiDExp.ilean $HERE/src/PhiDExp.lean'
-run FirstFailure; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/FirstFailure.olean -i $HERE/build/FirstFailure.ilean $HERE/src/FirstFailure.lean'
-run KaiserKernel; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KaiserKernel.olean -i $HERE/build/KaiserKernel.ilean $HERE/src/KaiserKernel.lean'
-run KaiserPW; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KaiserPW.olean -i $HERE/build/KaiserPW.ilean $HERE/src/KaiserPW.lean'
-run KaiserPoisson; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KaiserPoisson.olean -i $HERE/build/KaiserPoisson.ilean $HERE/src/KaiserPoisson.lean'
-run KaiserMellin; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KaiserMellin.olean -i $HERE/build/KaiserMellin.ilean $HERE/src/KaiserMellin.lean'
-run KaiserZero; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KaiserZero.olean -i $HERE/build/KaiserZero.ilean $HERE/src/KaiserZero.lean'
-run KaiserDeriv; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KaiserDeriv.olean -i $HERE/build/KaiserDeriv.ilean $HERE/src/KaiserDeriv.lean'
-run KaiserTail; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KaiserTail.olean -i $HERE/build/KaiserTail.ilean $HERE/src/KaiserTail.lean'
-run KaiserIBP; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KaiserIBP.olean -i $HERE/build/KaiserIBP.ilean $HERE/src/KaiserIBP.lean'
-run KaiserWindow; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KaiserWindow.olean -i $HERE/build/KaiserWindow.ilean $HERE/src/KaiserWindow.lean'
-run KaiserMoment; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KaiserMoment.olean -i $HERE/build/KaiserMoment.ilean $HERE/src/KaiserMoment.lean'
-run KaiserBulk; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KaiserBulk.olean -i $HERE/build/KaiserBulk.ilean $HERE/src/KaiserBulk.lean'
-run KaiserPoissonK; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KaiserPoissonK.olean -i $HERE/build/KaiserPoissonK.ilean $HERE/src/KaiserPoissonK.lean'
-run KaiserZeroWeight; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KaiserZeroWeight.olean -i $HERE/build/KaiserZeroWeight.ilean $HERE/src/KaiserZeroWeight.lean'
-run KaiserPlanch; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KaiserPlanch.olean -i $HERE/build/KaiserPlanch.ilean $HERE/src/KaiserPlanch.lean'
-run KaiserPrefactor; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/KaiserPrefactor.olean -i $HERE/build/KaiserPrefactor.ilean $HERE/src/KaiserPrefactor.lean'
-run BallTower; lake env lean -R $HERE/src -o $HERE/build/BallTower.olean -i $HERE/build/BallTower.ilean $HERE/src/BallTower.lean
-run LatticeCount; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/LatticeCount.olean -i $HERE/build/LatticeCount.ilean $HERE/src/LatticeCount.lean'
-run LocalTeeth; lake env lean -R $HERE/src -o $HERE/build/LocalTeeth.olean -i $HERE/build/LocalTeeth.ilean $HERE/src/LocalTeeth.lean
-run GlobalTeeth; lake env lean -R $HERE/src -o $HERE/build/GlobalTeeth.olean -i $HERE/build/GlobalTeeth.ilean $HERE/src/GlobalTeeth.lean
-run AngularFamily; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/AngularFamily.olean -i $HERE/build/AngularFamily.ilean $HERE/src/AngularFamily.lean'
-run WanderBound; lake env lean -R $HERE/src -o $HERE/build/WanderBound.olean -i $HERE/build/WanderBound.ilean $HERE/src/WanderBound.lean
-run Vinogradov; lake env lean -R $HERE/src -o $HERE/build/Vinogradov.olean -i $HERE/build/Vinogradov.ilean $HERE/src/Vinogradov.lean
-run VinoPadic; lake env lean -R $HERE/src -o $HERE/build/VinoPadic.olean -i $HERE/build/VinoPadic.ilean $HERE/src/VinoPadic.lean
-run VinoStep; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/VinoStep.olean -i $HERE/build/VinoStep.ilean $HERE/src/VinoStep.lean'
-run VinoIter; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/VinoIter.olean -i $HERE/build/VinoIter.ilean $HERE/src/VinoIter.lean'
-run VinoHolder; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/VinoHolder.olean -i $HERE/build/VinoHolder.ilean $HERE/src/VinoHolder.lean'
-run VinoSplit; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/VinoSplit.olean -i $HERE/build/VinoSplit.ilean $HERE/src/VinoSplit.lean'
-run VinoRec; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/VinoRec.olean -i $HERE/build/VinoRec.ilean $HERE/src/VinoRec.lean'
-run ExpSum; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ExpSum.olean -i $HERE/build/ExpSum.ilean $HERE/src/ExpSum.lean'
-run ExpSum2; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ExpSum2.olean -i $HERE/build/ExpSum2.ilean $HERE/src/ExpSum2.lean'
-run ExpSum3; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ExpSum3.olean -i $HERE/build/ExpSum3.ilean $HERE/src/ExpSum3.lean'
-run ExpSum4; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ExpSum4.olean -i $HERE/build/ExpSum4.ilean $HERE/src/ExpSum4.lean'
-run VinoConst; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/VinoConst.olean -i $HERE/build/VinoConst.ilean $HERE/src/VinoConst.lean'
-run ExpSum5; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ExpSum5.olean -i $HERE/build/ExpSum5.ilean $HERE/src/ExpSum5.lean'
-run VinoConst2; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/VinoConst2.olean -i $HERE/build/VinoConst2.ilean $HERE/src/VinoConst2.lean'
-run ExpSum6; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ExpSum6.olean -i $HERE/build/ExpSum6.ilean $HERE/src/ExpSum6.lean'
-run ExpSum7; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ExpSum7.olean -i $HERE/build/ExpSum7.ilean $HERE/src/ExpSum7.lean'
-run ExpSum8; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ExpSum8.olean -i $HERE/build/ExpSum8.ilean $HERE/src/ExpSum8.lean'
-run ExpSum9; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ExpSum9.olean -i $HERE/build/ExpSum9.ilean $HERE/src/ExpSum9.lean'
-run ExpSum10; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/ExpSum10.olean -i $HERE/build/ExpSum10.ilean $HERE/src/ExpSum10.lean'
-run VinoBad; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/VinoBad.olean -i $HERE/build/VinoBad.ilean $HERE/src/VinoBad.lean'
-run VinoRec2; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/VinoRec2.olean -i $HERE/build/VinoRec2.ilean $HERE/src/VinoRec2.lean'
-run VinoFam; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/VinoFam.olean -i $HERE/build/VinoFam.ilean $HERE/src/VinoFam.lean'
-run VinoKV; HERE="$HERE" lake env bash -c 'LEAN_PATH="$LEAN_PATH:$HERE/build" lean -R $HERE/src -o $HERE/build/VinoKV.olean -i $HERE/build/VinoKV.ilean $HERE/src/VinoKV.lean'
+mkdir -p "$HERE/build"
+export LEAN_PATH="$(lake env printenv LEAN_PATH):$HERE/build"
+exec python3 - "$HERE" "${JOBS:-$(nproc)}" "${FORCE:-0}" <<'EOF'
+import os, re, sys, time, subprocess, threading
+here, jobs, force = sys.argv[1], int(sys.argv[2]), sys.argv[3] == '1'
+src, out = os.path.join(here, 'src'), os.path.join(here, 'build')
+mods = sorted(f[:-5] for f in os.listdir(src) if f.endswith('.lean'))
+deps = {}
+for m in mods:
+    d = set()
+    for l in open(os.path.join(src, m + '.lean'), encoding='utf-8'):
+        mm = re.match(r'^\s*(?:public\s+)?import\s+(.+)$', l)
+        if mm: d |= {t for t in mm.group(1).split() if t in mods}
+    deps[m] = d
+def mtime(p):
+    try: return os.path.getmtime(p)
+    except OSError: return None
+def olean(m): return os.path.join(out, m + '.olean')
+def stale(m):
+    o = mtime(olean(m))
+    return force or o is None or o < mtime(os.path.join(src, m + '.lean')) or \
+        any(mtime(olean(d)) > o for d in deps[m])
+done, failed, blocked, running = set(), set(), set(), set()
+nbuilt, lock, t00 = 0, threading.Condition(), time.time()
+def run(m):
+    global nbuilt
+    t0 = time.time()
+    r = subprocess.run(['lean', '-R', src, '-o', olean(m), '-i', os.path.join(out, m + '.ilean'),
+                        os.path.join(src, m + '.lean')], capture_output=True, text=True)
+    with lock:
+        print(f'== {m} ({time.time() - t0:.0f}s)' + ('' if r.returncode == 0 else ' FAILED'))
+        sys.stdout.write(r.stdout + r.stderr); sys.stdout.flush()
+        running.discard(m)
+        if r.returncode == 0: done.add(m); nbuilt += 1
+        else:
+            failed.add(m)
+            if os.path.exists(olean(m)): os.remove(olean(m))
+        lock.notify()
+with lock:
+    while True:
+        todo = [m for m in mods if m not in done | failed | blocked | running]
+        if not todo and not running: break
+        progress = False
+        for m in todo:
+            if deps[m] & (failed | blocked): blocked.add(m); progress = True
+            elif deps[m] <= done and len(running) < jobs:
+                progress = True
+                if not stale(m): done.add(m); continue
+                running.add(m); threading.Thread(target=run, args=(m,)).start()
+        if not progress: lock.wait()
+print(f'{nbuilt} compiled, {len(done) - nbuilt} up to date, in {time.time() - t00:.0f}s')
+if failed:
+    print(f'FAILED: {" ".join(sorted(failed))}; not built: {" ".join(sorted(blocked))}')
+    sys.exit(1)
+EOF
