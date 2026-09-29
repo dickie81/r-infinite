@@ -6878,3 +6878,41 @@ This round removes loss 1. Loss 2 is step S2.
 | S2 VMVT at `s ≍ k² log k` (bad tuples by class Hölder plus induction on `P`) | every `a > 2/3`, exponent → `3/5` | next |
 
 **Check 4:** classical. **Bearing on RH:** none.
+
+## Round 214: sharpening, step S2: VMVT at `s ≍ k² log k`; rung 3 at every exponent below 3/5 (`src/VinoBad.lean`, `src/VinoRec2.lean`, `src/VinoFam.lean`)
+
+Axioms are clean, including the fresh PNT+ build via `kv_port.sh`.
+
+**What is proved:**
+- **`TBB_le2`, `one_step2`** (`VinoBad`). Pairs of bad tuples (coordinates in fewer than `k` classes mod `p`) with equal power sums satisfy
+  `T_BB ≤ 2·C(p,k−1)²·(k−1)^{2(k+s)}·J_{k+s}(⌊P/p⌋+1)`.
+  This replaces round 201's `#bad²`, which ignored agreement. The proof:
+  - cover the bad tuples by pieces `S^{k+s}` with `|S| = k−1`;
+  - split cross-piece pairs by Cauchy–Schwarz in counting form;
+  - inside a piece, apply Hölder over its `k−1` classes in integral form (as in Step B), leaving one class, which is an interval of length `⌊P/p⌋+1`.
+- **`step_real2`, `vmvt2`** (`VinoRec2`). The bad term has the same exponent at the smaller length `P/p`, so it is fed back by strong induction on `P`. Its size is `C'P^{E'}/2` once `P^{1/k} ≥ T₀ = (4k)^{20}`; below `(4k)^{20k}` the trivial bound `J ≤ P^{2(k+s)}` applies.
+  - Result: `J_{k+mk,k}(P) ≤ C_m P^{2(k+mk) − k(k+1)/2 + η_m}` with `η_m = (1−1/k)^m k(k−1)/2` from `m = 0`. There is no second branch, whereas rounds 202/207 had `max(…, k(k+1)/2 − 2(s+1)/k)`.
+  - The feedback needs the margin `D = E' − 2(k−1)` to satisfy `2k + 2(k+s) + E' ≤ 20D`. This follows from Bernoulli's `(1−1/k)^m ≥ 1 − m/k`.
+- **`Cv2_le`.** `C_m ≤ (8(k+2))^{40k²(m+1) + g(m)}`. The trivial range enters through a `max`, not a product, so `log C_m = O(ℓ²)` once `m + 1 ≥ k`.
+- **`sharpFamily ε`, `growth_sharp`** (`VinoFam`).
+  - At `m = K(⌊log₂(16K²)⌋ + 1)`, `η ≤ 1/32` and `ℓ = K(m+1) ≤ (6 + 3/ε)K^{2+ε}`, with `Q₀ = 300`.
+  - `growth_gen` (round 213) with `q = 2 + (3a−2)/2` then gives the Dirichlet-polynomial growth bound for every `2/3 < a ≤ 1`.
+- **KVBridge.**
+  - `polylogGrowth_sharp`: `PolylogGrowth a K` for every `2/3 < a ≤ 1`.
+  - `zeroFree_kv`: ζ has no zeros in `σ ≥ 1 − A/(log|t|)^{n₁}` for every `n₁ > 2/3`.
+  - `rung3_kv`: `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))` for every `n₁ > 2/3`, i.e. every exponent below `3/5`.
+
+**Pre-registration.** P3 (constants, `log C/ℓ² ≤ 1.31`) and P4 (`ρλ² log²(λ+2) ≥ 1.4·10⁻⁶`) held numerically, and the Lean proofs now replace them. P1 failed as stated (round 213) and was amended.
+
+**What this is and is not.**
+- This is the Korobov–Vinogradov zero-free region in the form `σ ≥ 1 − A/(log t)^{2/3+ε}` for every `ε > 0`, and the matching prime number theorem error `exp(−c(log x)^{3/5−ε})`.
+- It does not include the `(log log t)^{1/3}` refinement (`σ ≥ 1 − c/((log t)^{2/3}(log log t)^{1/3})`, exponent exactly `3/5`) or the sharp VMVT. Neither is needed for any exponent below `3/5`.
+
+| rung 3 | exponent reached | round |
+|---|---|---|
+| de la Vallée Poussin (rung 2) | `1/2` | 191 |
+| weak VMVT, one coordinate | `< 7/13` | 212 |
+| weak VMVT, many coordinates | `< 5/9` | 213 |
+| VMVT at `s ≍ k² log k`, many coordinates | **`< 3/5`** | 214 |
+
+**Check 4:** classical (Korobov 1958; Vinogradov 1958). The Lean chain is new to the pilot; I have not checked whether it is new to Lean. **Bearing on RH:** none. The zero-free region still shrinks to `σ = 1`.

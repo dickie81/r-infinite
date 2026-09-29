@@ -1,5 +1,5 @@
 /-
-# Rung 3, closed: the growth bound for ζ and the zero-free region it gives (rounds 212–213)
+# Rung 3, closed: the growth bound for ζ and the zero-free region it gives (rounds 212–214)
 
 Plain statements.
 * `zeta_bound_large`: given `GrowthSum a` with `1/2 ≤ a ≤ 1`, there is `B` with `|ζ(σ+it)| ≤ B·log|t|` whenever
@@ -13,14 +13,15 @@ Plain statements.
   `PolylogGrowth a K`.
 * `polylogGrowth_kv`: `PolylogGrowth a K` holds for every `4/5 ≤ a ≤ 1` (round 213; `6/7` in
   round 212).
-* `zeroFree_kv`: ζ has no zeros in `σ ≥ 1 − A/(log|t|)^{n₁}` for every `n₁ > 4/5`.
-* `rung3_kv`: `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))` for every `n₁ > 4/5`, i.e. every
-  exponent below `5/9`.
+* `polylogGrowth_sharp`: `PolylogGrowth a K` for every `2/3 < a ≤ 1` (round 214).
+* `zeroFree_kv`: ζ has no zeros in `σ ≥ 1 − A/(log|t|)^{n₁}` for every `n₁ > 2/3`.
+* `rung3_kv`: `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))` for every `n₁ > 2/3`, i.e. every
+  exponent below `3/5` (the Korobov–Vinogradov exponent, without its `log log` refinement).
 
 Every input is proved. There are no hypotheses and no RH-conditional steps.
 -/
 import Landau
-import ExpSum10
+import VinoFam
 
 open Complex Set Filter MeasureTheory
 
@@ -216,16 +217,32 @@ theorem polylogGrowth_kv {a : ℝ} (ha1 : 4 / 5 ≤ a) (ha2 : a ≤ 1) :
     ∃ K : ℝ, 0 < K ∧ Landau.PolylogGrowth a K :=
   polylogGrowth_of (by linarith) ha2 (ExpSum.growth_weak ha1 ha2)
 
-/-- **Zero-free region** of width `(log|t|)^{−n₁}` for every `n₁ > 4/5`. -/
-theorem zeroFree_kv {n₁ : ℝ} (hn : 4 / 5 < n₁) : ZetaZeroFreeGenProp n₁ := by
-  obtain ⟨K, hK, hG⟩ := polylogGrowth_kv (a := 4 / 5) le_rfl (by norm_num)
-  exact Landau.zeroFree_of_growth (by norm_num) hK hG hn
+/-- **The growth hypothesis holds for every `2/3 < a ≤ 1`** (round 214: many coordinates plus
+VMVT at `s ≍ k² log k`). -/
+theorem polylogGrowth_sharp {a : ℝ} (ha1 : 2 / 3 < a) (ha2 : a ≤ 1) :
+    ∃ K : ℝ, 0 < K ∧ Landau.PolylogGrowth a K :=
+  polylogGrowth_of (by linarith) ha2 (VinoFam.growth_sharp ha1 ha2)
 
-/-- **Rung 3**: `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))` for every `n₁ > 4/5`. -/
-theorem rung3_kv {n₁ : ℝ} (hn : 4 / 5 < n₁) :
+lemma mid_exponent {n₁ : ℝ} (hn : 2 / 3 < n₁) :
+    2 / 3 < (2 / 3 + min n₁ 1) / 2 ∧ (2 / 3 + min n₁ 1) / 2 ≤ 1 ∧ (2 / 3 + min n₁ 1) / 2 < n₁ := by
+  have h1 : min n₁ 1 ≤ 1 := min_le_right _ _
+  have h2 : min n₁ 1 ≤ n₁ := min_le_left _ _
+  have h3 : 2 / 3 < min n₁ 1 := lt_min hn (by norm_num)
+  refine ⟨by linarith, by linarith, by linarith⟩
+
+/-- **Zero-free region** of width `(log|t|)^{−n₁}` for every `n₁ > 2/3`. -/
+theorem zeroFree_kv {n₁ : ℝ} (hn : 2 / 3 < n₁) : ZetaZeroFreeGenProp n₁ := by
+  obtain ⟨h1, h2, h3⟩ := mid_exponent hn
+  obtain ⟨K, hK, hG⟩ := polylogGrowth_sharp h1 h2
+  exact Landau.zeroFree_of_growth (by linarith) hK hG h3
+
+/-- **Rung 3**: `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))` for every `n₁ > 2/3`, i.e. every
+exponent below `3/5`. -/
+theorem rung3_kv {n₁ : ℝ} (hn : 2 / 3 < n₁) :
     ∃ c > 0, (fun x : ℝ => Chebyshev.psi x - x) =O[Filter.atTop]
       (fun x : ℝ => x * Real.exp (-c * Real.log x ^ ((1 : ℝ) / (1 + n₁)))) := by
-  obtain ⟨K, hK, hG⟩ := polylogGrowth_kv (a := 4 / 5) le_rfl (by norm_num)
-  exact Landau.rung3_of_growth (by norm_num) (by norm_num) hK hG hn
+  obtain ⟨h1, h2, h3⟩ := mid_exponent hn
+  obtain ⟨K, hK, hG⟩ := polylogGrowth_sharp h1 h2
+  exact Landau.rung3_of_growth (by linarith) h2 hK hG h3
 
 end KVBridge
