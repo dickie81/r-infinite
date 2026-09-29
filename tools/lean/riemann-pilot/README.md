@@ -6758,3 +6758,15 @@ Axioms are clean.
 
 **Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
 
+
+## Round 209: VMVT parameters at `m = 2K²` (`src/VinoConst2.lean`)
+
+Axioms are clean.
+
+- **`eta_contract`, `eta_geo`.** Once `m ≥ K²`, the recursion's second branch drops below the first, so `η_{m+1} ≤ (1−1/K)η_m`. Therefore `η_{K²+j} ≤ (1−1/K)^j η_{K²}`.
+- **`eta_two_sq`.** For `K ≥ 7`, `η_{2K²} ≤ 1/8`. The proof uses `(1−1/K)^{K²} ≤ e^{−K}`, `η_{K²} ≤ K(K+1)/2` and `4K(K+1) ≤ e^K`; the last comes from the degree-5 Taylor lower bound of `exp`.
+- **`gexp_closed`, `gexp_two_sq`.** The constant exponent has the closed form `g(m) = K + 3Km(m+1) + (K²+3K+2)m`. Hence `g(2K²) ≤ 20K⁵`, and VMVT at `s = K(2K²+1)` has constant at most `(8(K+2))^{20K⁵}`.
+
+These are the parameter facts needed by (G2c).
+
+**Check 4:** classical. **Bearing on RH:** none.
