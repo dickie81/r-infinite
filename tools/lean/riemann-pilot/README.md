@@ -1,6 +1,6 @@
 # Lean pilot: Theorems 1bt and 1ca of `riemann-indistinguishability.md` (b2014d8)
 
-The toolchain is Lean 4.35.0-rc3 (`lean-toolchain`) with Mathlib at the commit in `MATHLIB_REV`. Point `MATHLIB` at a built Mathlib checkout (`lake exe cache get` then `lake build`), or place it at `./mathlib4`. The external layer (`external/pnt/`, rungs 1–3 of the wander ladder) uses the same toolchain: build it with `external/pnt/build.sh` after `./build.sh` (round 217).
+The toolchain is Lean 4.35.0-rc3 (`lean-toolchain`) with Mathlib at the commit in `MATHLIB_REV`. Point `MATHLIB` at a built Mathlib checkout (`lake exe cache get` then `lake build`), or place it at `./mathlib4`. The external layer (`external/pnt/`, rungs 1–3 of the wander ladder) uses the same toolchain: build it with `external/pnt/build.sh` after `./build.sh` (round 217). So does the zeta23 layer (`external/zeta23/`, round 228): `external/zeta23/build.sh`, after `./build.sh`.
 
 Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all cores) and recompiles only files whose source or imports changed (`FORCE=1` rebuilds everything). A clean build takes about 12 minutes on 4 cores (round 217).
 
@@ -5258,7 +5258,7 @@ Round 156 proved Weil's explicit formula over the zeros of `ζ` for strip test f
 
 ### What remains named, after this round
 - **Numeric facts:** `γ₁ ≥ 14` (`T1bt`, the 1ca wall law); RH verified to a height (`pinned_zeta`); the arb certificates `Cert14`, `CertP`, `CertP3`, `CertE`, `CertO` and `Round47Certs`. None of the certificates sits in an RH chain; they extend certified ranges.
-- **Classical but heavy:** `|S(T)| ≤ C log T` and `|S₁(T)| ≤ C log T` (`hSlog`, `hS1log`, used only by the 1ca wall law). They need the argument principle for `Ξ` and Stirling for `arg Γ`, which Mathlib lacks.
+- **Classical but heavy:** `|S(T)| ≤ C log T` and `|S₁(T)| ≤ C log T` (`hSlog`, `hS1log`, used only by the 1ca wall law). They need the argument principle for `Ξ` and Stirling for `arg Γ`, which Mathlib lacks. *(Round 228: `hSlog` is proved, from zeta23's Riemann–von Mangoldt machinery; `hS1log` remains.)*
 - **Open, not classical:** monotonicity or concavity of ground states.
 - **RH-strength:** `HypConv` for a cross-rooted family, or anything stronger (no crossing, the parity gap, simplicity, D).
 
@@ -7420,3 +7420,33 @@ Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`
 - **New here.** A machine-checked proof, by a density argument that needs no ground state, unlike round 157's.
 
 **Bearing on RH:** none. This completes an equivalence and says nothing about where the zeros are.
+
+## Round 228: building on zeta23; von Mangoldt's bound `S(T) = O(log T)` (`external/zeta23/`)
+
+The stack review's second item: "Build on zeta23". zeta23 is the Lean formalisation that accompanies Alpöge–Furman (arXiv 2608.13637), in `anthropics/formal-math`, Apache 2.0. The "one Mathlib" half of that item was done in round 217. This round does the other half: it takes zeta23's analytic inputs onto the pilot's toolchain, and it uses them to discharge one of the wall law's named inputs.
+
+**1. The port** (`external/zeta23/build.sh`, `zeta23_port.patch`).
+- `build.sh` fetches 50 zeta23 files at commit `fbdc36b` (Lean v4.33.0-rc2). These are the import closures of three results:
+  - the Montgomery–Vaughan weighted Hilbert inequality (`Zeta23.MV.mv_hilbert`);
+  - Riemann–von Mangoldt with the local count (`Zeta23.RvM.riemannVonMangoldt`, `zeta_local_zero_count`);
+  - the Γ facts, i.e. Stirling for `μ` (`Zeta23.gammaFacts`).
+- The patch changes four files, all by Mathlib API drift: `prod_le_prod₀`, `logDeriv_fun_mul`, and one import. The layer mirrors `external/pnt/`: the upstream copy is generated, and the patch and the pin are committed.
+- Every printed theorem is axiom-clean. The zeta23 files keep their upstream warnings (deprecations, unused variables); the pilot's own file prints none.
+
+**2. `S(T) = O(log T)`** (`external/zeta23/SlogZeta.lean`).
+- `Ncnt_good`: at heights that are not ordinates of zeros, the pilot's count `Ncnt zetaOrd T` equals zeta23's `Ncount 0 T`. Both count with multiplicity `(analyticOrderAt ζ ρ).toNat`; only the endpoint convention differs.
+- `Ncount_contour`: zeta23's folded argument principle, Backlund's bound on the horizontals and the side `σ = 2` give `|N(T₁, T₂) − ∫_{T₁}^{T₂} μ| ≤ (|C_B| log T₁ + π + |C_B| log T₂)/π` at good heights. Here `μ(τ) = (1/2π)(Re ψ(¼ + iτ/2) − log π)`, the pilot's `psiRe` up to scaling.
+- `int_mu_near`: Stirling gives `∫_a^b μ = N₀(b) − N₀(a) + O(1)`, since `N₀′(r) = (1/2π)log(r/2π)`.
+- **`Slog_zeta`**: `∃ C ≥ 0, ∀ t ≥ 14, |S(t)| ≤ C log t` for `S = N − N₀ − 7/8`.
+  - One end is fixed at a good height `T₁` above Backlund's threshold.
+  - For large `t`, `N(t)` is sandwiched between counts at good heights in `[t − 1, t]` and `[t, t + 1]`.
+  - On `[14, T₀]`, `S` is bounded by monotonicity of `N` and `N₀`.
+- **`wall_law_zeta_S`**: round 5's `wall_law_zeta` without `hSlog`. The named inputs left are Littlewood's `S₁(T) = O(log T)` (`hS1log`) and the first-zero height.
+
+**Not used yet.** Montgomery–Vaughan is compiled but has no consumer here; it is the input for zero-density estimates (the review's item 5). zeta23's Dirichlet explicit formula is not ported: rounds 225–227 prove our own for real characters.
+
+**Check 4.**
+- **Acknowledged.** `hSlog` was a named input since round 5 ("von Mangoldt's and Littlewood's bounds"), and round 157's ledger lists it.
+- **New here.** It is discharged, with the classical proof formalised by zeta23 and bridged to the pilot's counting function. The port to the pilot's toolchain is also new.
+
+**Bearing on RH:** none. `S(T) = O(log T)` is a classical unconditional bound, and the wall law is a statement about the zero-sum functional, not about the location of zeros.
