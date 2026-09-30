@@ -7600,6 +7600,10 @@ Round 164 proved `λ₁(a) ≤ K(a + 1)e^{10a − 4πe^{2a}}` with no RH input (
 
 The saving over round 164 is the factor `exp(−c·a^{1/3}/(log a)^{1/3})`, which grows with `a`. The main term `e^{−4πe^{2a}}` is unchanged.
 
+**Relation to round 220 (correction, added after the commit that introduced this round).** This bound is weaker than round 220's `KaiserNine.lam_nine`: `λ₁(a) ≤ K(a + 1)e^{9a − 4πe^{2a}}`, which removes the whole factor `eᵃ` by a case split on RH. The Lean-review report that proposed this round was written before round 220, and I did not recheck it. What round 234 adds is effectivity in principle, and nothing else.
+- `lam_nine`'s constant depends on the unknown `a₀` at which `λ₁` would turn negative if RH failed. It cannot be computed from anything known.
+- Here `K` and `c` depend only on the Korobov–Vinogradov constant `A` and the height-`e³` zero-free box. Explicit values of both exist in the literature (e.g. Ford's explicit Korobov–Vinogradov region, and numerical zero verification). In Lean both are still existential: `zeroFree_KV` is stated with `∃ A`, and `σ₀` comes from `ZetaNoZerosInBox`'s compactness argument. So neither bound is numerically explicit in the pilot.
+
 **Why the zeros must be split by height.** The Korobov–Vinogradov region shrinks with the height: a zero at height `γ` has `|β − ½| ≤ ½ − A/f(γ)`, with `f(γ) = (log γ)^{2/3}(log log γ)^{1/3}`. So no single weight `κ < eᵃ` bounds every zero, and round 164's `lam_le_kappa` needs such a uniform `κ`. The Kaiser probe's transform lives at heights up to about `e^{36a}`. Zeros far above that should cost almost nothing, whatever their weight.
 
 **1. The split** (`src/KaiserSplit.lean`, no zero-free input).
@@ -7618,6 +7622,6 @@ The constants `K` and `c` are not numerically explicit: `A` comes from `zeroFree
 
 Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 799 checked theorems in `src/`, and `lam_prefactor_KV` in `external/pnt`. Neither build prints warnings from these files.
 
-**Check 4.** Acknowledged: round 164 noted the factor `eᵃ`, and the Lean-review report proposed feeding the Korobov–Vinogradov region into it, citing the toolchain split as a blocker (since resolved, rounds 106–111). New: the height split, whose far-zero bound needs no zero count, and the formal `lam_prefactor_KV`. The remark quoted from round 164 is corrected in place.
+**Check 4.** Acknowledged: round 164 noted the factor `eᵃ`, and the Lean-review report proposed feeding the Korobov–Vinogradov region into it, citing the toolchain split as a blocker (since resolved, rounds 106–111). New: the height split, whose far-zero bound needs no zero count, and the formal `lam_prefactor_KV`. The remark quoted from round 164 is corrected in place. The bound is dominated by round 220's `lam_nine` except in effectivity (see above).
 
 **Bearing on RH:** none. This is a sharper upper bound on `λ₁`.
