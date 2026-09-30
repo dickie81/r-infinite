@@ -64,9 +64,9 @@ theorem local_count_le {t : ℝ} (ht : 0 ≤ t) :
       rw [im_rhoXi] at e
       have hpos : 0 < (zetaZeroFamily r.1).im := by linarith [r.2.1]
       constructor
-      · intro hb; rw [if_pos hb] at e; rw [e]; exact hpos
+      · intro hb; rw [ite_eq_left hb] at e; rw [e]; exact hpos
       · intro h; by_contra hb
-        rw [if_neg hb] at e; rw [← e] at hpos; linarith
+        rw [ite_eq_right hb] at e; rw [← e] at hpos; linarith
     have h1 : (zetaEquiv p.1).1 = (zetaEquiv q.1).1 := by
       have hp := hsign p
       have hq := hsign q

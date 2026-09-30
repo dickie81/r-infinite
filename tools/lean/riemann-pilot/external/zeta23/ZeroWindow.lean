@@ -41,12 +41,12 @@ theorem zero_in_window : ∃ H T₀ : ℝ, 0 < H ∧ ∀ t : ℝ, T₀ ≤ t →
   have ht64 : 64 ≤ t := by nlinarith [mul_nonneg (mul_nonneg (by norm_num : (0:ℝ) ≤ 16) hπ.le) hC]
   have htH : t + H ≤ 2 * t := by rw [hH] at *; linarith
   by_contra hno
-  push_neg at hno
+  push Not at hno
   -- no zero in the window: the count does not grow
   have hN : Ncnt zetaOrd (t + H) ≤ Ncnt zetaOrd t := by
     unfold Ncnt
     exact_mod_cast Set.ncard_le_ncard (fun p (hp : zetaOrd p < t + H) => show zetaOrd p < t by
-      by_contra h; push_neg at h; linarith [hno p h]) (zetaOrd_finite t)
+      by_contra h; push Not at h; linarith [hno p h]) (zetaOrd_finite t)
   have h1 := hS t (by linarith)
   have h2 := hS (t + H) (by linarith)
   unfold Sz at h1 h2

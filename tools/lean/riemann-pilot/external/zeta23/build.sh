@@ -48,17 +48,24 @@ import Zeta23.MV.Final
 import ZeroWindow
 import Dictionary
 import CountCompare
-import CoImportMV
-import CoImportGamma
 #print axioms ZeroWindow.zero_in_window
 #print axioms Dictionary.mu_eq_psiRe
 #print axioms CountCompare.local_count_le
-#print axioms CoImportMV.large_values_amgm
 #print axioms Zeta23.MV.mv_hilbert
 #print axioms Zeta23.gammaFacts
 #print axioms Zeta23.RvM.riemannVonMangoldt
 #print axioms Zeta23.RvM.zeta_local_zero_count
 EOT
 echo "== axioms"
+LEAN_PATH="$LP" lean "$AX"
+# the co-import files load the pnt layer (PNT+ at 650d312), which clashes with the vendored FromPNTPlus copies that SlogZeta uses
+cat > "$AX" <<'EOT'
+import CoImportMV
+import CoImportGamma
+#print axioms CoImportMV.large_values_amgm
+#print axioms CoImportMV.dedekindZeta_eq_zeta_mul_L
+#print axioms CoImportGamma.amgm_factor_le
+EOT
+echo "== axioms (co-import files)"
 LEAN_PATH="$LP" lean "$AX"
 rm -f "$AX"

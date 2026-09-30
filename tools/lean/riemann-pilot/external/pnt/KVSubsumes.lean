@@ -59,7 +59,7 @@ theorem wpow_le_wkv {a : ℝ} (ha : 2 / 3 < a) :
     _ ≤ LandauKV.wkv L := hw
 
 /-- **The power-width growth hypothesis from the KV width** (replaces round 214's route). -/
-theorem polylogGrowth_of_KV {a : ℝ} (ha : 2 / 3 < a) (ha1 : a ≤ 1) :
+theorem polylogGrowth_of_KV {a : ℝ} (ha : 2 / 3 < a) (_ha1 : a ≤ 1) :
     ∃ K : ℝ, 0 < K ∧ Landau.PolylogGrowth a K := by
   obtain ⟨K₁, hK₁, hG⟩ := LandauKV.growthW_kv
   obtain ⟨L₀, hL₀, hcmp⟩ := wpow_le_wkv ha
