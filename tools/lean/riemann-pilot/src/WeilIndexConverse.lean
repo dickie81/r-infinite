@@ -23,6 +23,12 @@ The construction (`negDirections_of_quadruples`):
   `|2 cos Λt| ≤ 2 < |x_r|`, so the factor `X^N` makes the on-line contribution at most
   `(2/|x_r|)^N`-small (`Mz_sq_re_le`). For `N` large, `Q(q_s) ≤ −Σ s_r² + o(1)·Σ s_r² < 0`.
 
+**Above a level** (round 231, `negDirections_above`). Only the zeros with `|β − ½| > v₀` need be
+finitely many: the zeros below the level are handled like the on-line ones, with `X₀ = 2e^{Λv₀}` in
+place of `2` (`|2 cos Λt| ≤ 2e^{Λ|Im t|}`), `|x_r| > X₀` once `Λ(|Im t_r| − v₀) ≥ 3`
+(`two_exp_lt_norm_two_cos`), and the absolutely convergent `Σ‖ĝ₀(t_i)²‖` as dominating series.
+`negDirections_of_quadruples` is the case `v₀ = 0`.
+
 No bearing on RH: this is the counting form of Weil's criterion under a finiteness hypothesis. -/
 
 open Real Complex MeasureTheory Polynomial
@@ -174,6 +180,17 @@ theorem two_lt_norm_two_cos {w : ℂ} (hw : 1 ≤ |w.im|) : 2 < ‖2 * Complex.c
   have h4 : (5 / 2 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; norm_num at this ⊢; linarith
   linarith
 
+/-- `|2 cos w| > 2e^c` once `|Im w| ≥ c + 3` with `c ≥ 0`. -/
+theorem two_exp_lt_norm_two_cos {w : ℂ} {c : ℝ} (hc : 0 ≤ c) (hw : c + 3 ≤ |w.im|) :
+    2 * Real.exp c < ‖2 * Complex.cos w‖ := by
+  refine lt_of_lt_of_le ?_ (norm_two_cos_ge w)
+  have h1 : Real.exp (c + 3) ≤ Real.exp |w.im| := Real.exp_le_exp.2 hw
+  have h2 : Real.exp (-|w.im|) ≤ 1 := Real.exp_le_one_iff.2 (by linarith [abs_nonneg w.im])
+  have h3 : (4 : ℝ) ≤ Real.exp 3 := by linarith [Real.add_one_le_exp (3 : ℝ)]
+  have h4 : 1 ≤ Real.exp c := Real.one_le_exp_iff.2 hc
+  rw [Real.exp_add] at h1
+  nlinarith [Real.exp_pos c]
+
 /-! ## C. Real polynomials with prescribed values at conjugate pairs -/
 
 section Interp
@@ -266,24 +283,23 @@ theorem natDegree_basisP_le (r : κ) (v : ℂ) :
   refine (natDegree_add_le _ _).trans (max_le ((natDegree_C_mul_le _ _).trans natDegree_X_le) ?_)
   simp
 
-/-- **Size on `[−2, 2]`**: `|B_r(v)(ξ)| ≤ Kr·|v|` with `Kr` independent of `v`. -/
-theorem abs_basisP_le (hx : Nodes x) (r : κ) :
-    ∃ Kr : ℝ, 0 ≤ Kr ∧ ∀ (v : ℂ) (ξ : ℝ), |ξ| ≤ 2 → ‖aeval (ξ : ℂ) (basisP x r v)‖ ≤ Kr * ‖v‖ := by
+/-- **Size on a disc**: `|B_r(v)(y)| ≤ Kr·|v|` for `‖y‖ ≤ ρ₀`, with `Kr` independent of `v`. -/
+theorem abs_basisP_le (hx : Nodes x) (r : κ) (ρ₀ : ℝ) (hρ : 0 ≤ ρ₀) :
+    ∃ Kr : ℝ, 0 ≤ Kr ∧ ∀ v y : ℂ, ‖y‖ ≤ ρ₀ → ‖aeval y (basisP x r v)‖ ≤ Kr * ‖v‖ := by
   set P0 := aeval (x r) (prodP x r)
   have hP0 : P0 ≠ 0 := aeval_prodP_self hx r
-  set Dm : ℝ := ∏ s ∈ Finset.univ.erase r, (2 + ‖x s‖) ^ 2
+  set Dm : ℝ := ∏ s ∈ Finset.univ.erase r, (ρ₀ + ‖x s‖) ^ 2
   have hDm : 0 ≤ Dm := Finset.prod_nonneg fun _ _ => by positivity
   have him : 0 < |(x r).im| := abs_pos.2 (hx.im_ne r)
-  set c0 : ℝ := (2 + |(x r).re|) / |(x r).im| + 1
-  refine ⟨Dm * (c0 / ‖P0‖), by positivity, fun v ξ hξ => ?_⟩
+  set c0 : ℝ := (ρ₀ + |(x r).re|) / |(x r).im| + 1
+  refine ⟨Dm * (c0 / ‖P0‖), by positivity, fun v y hy => ?_⟩
   set w := v / P0
-  have hD : ‖aeval (ξ : ℂ) (prodP x r)‖ ≤ Dm := by
+  have hD : ‖aeval y (prodP x r)‖ ≤ Dm := by
     rw [aeval_prodP, norm_prod]
     refine Finset.prod_le_prod₀ (fun _ _ => norm_nonneg _) fun s _ => ?_
     rw [norm_mul, sq]
-    have hξ' : ‖(ξ : ℂ)‖ ≤ 2 := by rw [Complex.norm_real, Real.norm_eq_abs]; exact hξ
-    have a1 : ‖(ξ : ℂ) - x s‖ ≤ 2 + ‖x s‖ := (norm_sub_le _ _).trans (by linarith)
-    have a2 : ‖(ξ : ℂ) - (starRingEnd ℂ) (x s)‖ ≤ 2 + ‖x s‖ :=
+    have a1 : ‖y - x s‖ ≤ ρ₀ + ‖x s‖ := (norm_sub_le _ _).trans (by linarith)
+    have a2 : ‖y - (starRingEnd ℂ) (x s)‖ ≤ ρ₀ + ‖x s‖ :=
       (norm_sub_le _ _).trans (by rw [Complex.norm_conj]; linarith)
     exact mul_le_mul a1 a2 (norm_nonneg _) (by positivity)
   have hA : |coefA (x r) w| ≤ ‖w‖ / |(x r).im| := by
@@ -293,19 +309,18 @@ theorem abs_basisP_le (hx : Nodes x) (r : κ) :
     unfold coefB
     refine (abs_sub _ _).trans (add_le_add (Complex.abs_re_le_norm w) ?_)
     rw [abs_mul]; exact mul_le_mul_of_nonneg_right hA (abs_nonneg _)
-  have hL : ‖(coefA (x r) w : ℂ) * ξ + coefB (x r) w‖ ≤ ‖w‖ * c0 := by
+  have hL : ‖(coefA (x r) w : ℂ) * y + coefB (x r) w‖ ≤ ‖w‖ * c0 := by
     refine (norm_add_le _ _).trans ?_
-    rw [norm_mul, Complex.norm_real, Complex.norm_real, Complex.norm_real, Real.norm_eq_abs,
-      Real.norm_eq_abs, Real.norm_eq_abs]
-    have h2 : |coefA (x r) w| * |ξ| ≤ ‖w‖ / |(x r).im| * 2 :=
-      mul_le_mul hA hξ (abs_nonneg _) (by positivity)
-    have : ‖w‖ * c0 = ‖w‖ / |(x r).im| * 2 + (‖w‖ + ‖w‖ / |(x r).im| * |(x r).re|) := by
+    rw [norm_mul, Complex.norm_real, Complex.norm_real, Real.norm_eq_abs, Real.norm_eq_abs]
+    have h2 : |coefA (x r) w| * ‖y‖ ≤ ‖w‖ / |(x r).im| * ρ₀ :=
+      mul_le_mul hA hy (norm_nonneg _) (by positivity)
+    have : ‖w‖ * c0 = ‖w‖ / |(x r).im| * ρ₀ + (‖w‖ + ‖w‖ / |(x r).im| * |(x r).re|) := by
       simp only [c0]; field_simp; ring
     rw [this]; linarith
   have hw : ‖w‖ = ‖v‖ / ‖P0‖ := by simp [w]
   simp only [basisP, map_mul, map_add, aeval_X, aeval_C, Complex.coe_algebraMap]
   rw [norm_mul]
-  calc ‖aeval (ξ : ℂ) (prodP x r)‖ * ‖(coefA (x r) w : ℂ) * ξ + coefB (x r) w‖
+  calc ‖aeval y (prodP x r)‖ * ‖(coefA (x r) w : ℂ) * y + coefB (x r) w‖
       ≤ Dm * (‖w‖ * c0) := mul_le_mul hD hL (norm_nonneg _) hDm
     _ = Dm * (c0 / ‖P0‖) * ‖v‖ := by rw [hw]; field_simp
 
@@ -335,10 +350,11 @@ def Orb (t w : ℂ) : Prop :=
   t = w ∨ t = -w ∨ t = (starRingEnd ℂ) w ∨ t = -(starRingEnd ℂ) w
 
 /-- **A good frequency.** For finitely many points `t_r` with `Re t_r ≠ 0 ≠ Im t_r`, pairwise in
-different orbits, there is `Λ > Λ₀` making `x_r = 2 cos(Λ t_r)` a node set with `|x_r| > 2`. -/
+different orbits, there is `Λ` above any given bound `L` making `x_r = 2 cos(Λ t_r)` a node set with
+`|x_r| > 2`. -/
 theorem exists_good_Λ {κ : Type*} [Fintype κ] (t : κ → ℂ) (hre : ∀ r, (t r).re ≠ 0)
-    (him : ∀ r, (t r).im ≠ 0) (hdist : ∀ r s, r ≠ s → ¬Orb (t s) (t r)) :
-    ∃ Λ : ℝ, 0 < Λ ∧ Nodes (fun r => 2 * Complex.cos (Λ * t r)) ∧
+    (him : ∀ r, (t r).im ≠ 0) (hdist : ∀ r s, r ≠ s → ¬Orb (t s) (t r)) (L : ℝ) :
+    ∃ Λ : ℝ, L < Λ ∧ 0 < Λ ∧ Nodes (fun r => 2 * Complex.cos (Λ * t r)) ∧
       ∀ r, 2 < ‖2 * Complex.cos (Λ * t r)‖ := by
   classical
   set conj := starRingEnd ℂ
@@ -368,13 +384,17 @@ theorem exists_good_Λ {κ : Type*} [Fintype κ] (t : κ → ℂ) (hre : ∀ r, 
   set Bad : Set ℝ := (⋃ r, B1 r) ∪ ⋃ r, ⋃ s, B2 r s
   have hBad : Bad.Countable :=
     (Set.countable_iUnion hB1).union (Set.countable_iUnion fun r => Set.countable_iUnion (hB2 r))
-  set Λ₀ : ℝ := 1 + ∑ r, 1 / |(t r).im|
+  set Λ₀ : ℝ := max L 0 + 1 + ∑ r, 1 / |(t r).im|
   obtain ⟨Λ, hΛB, hΛ₀⟩ := (hBad.dense_compl ℝ).exists_mem_open isOpen_Ioi (Set.nonempty_Ioi (a := Λ₀))
   have hΛ₀1 : 1 ≤ Λ₀ := by
     have : 0 ≤ ∑ r, 1 / |(t r).im| := Finset.sum_nonneg fun _ _ => by positivity
-    linarith
+    linarith [le_max_right L 0]
   have hΛpos : 0 < Λ := by have : Λ₀ < Λ := hΛ₀; linarith
-  refine ⟨Λ, hΛpos, ⟨fun r => ?_, fun r s hrs => ⟨fun h => ?_, fun h => ?_⟩⟩, fun r => ?_⟩
+  have hLΛ : L < Λ := by
+    have : Λ₀ < Λ := hΛ₀
+    have : 0 ≤ ∑ r, 1 / |(t r).im| := Finset.sum_nonneg fun _ _ => by positivity
+    linarith [le_max_left L 0]
+  refine ⟨Λ, hLΛ, hΛpos, ⟨fun r => ?_, fun r s hrs => ⟨fun h => ?_, fun h => ?_⟩⟩, fun r => ?_⟩
   · -- non-real
     intro h
     have hc : Complex.cos (Λ * t r) = Complex.cos (Λ * conj (t r)) := by
@@ -404,7 +424,7 @@ theorem exists_good_Λ {κ : Type*} [Fintype κ] (t : κ → ℂ) (hre : ∀ r, 
     have h1 : 1 / |(t r).im| ≤ ∑ r, 1 / |(t r).im| :=
       Finset.single_le_sum (f := fun r => 1 / |(t r).im|) (fun _ _ => by positivity)
         (Finset.mem_univ r)
-    have h2 : 1 / |(t r).im| ≤ Λ := by have : Λ₀ < Λ := hΛ₀; linarith
+    have h2 : 1 / |(t r).im| ≤ Λ := by have : Λ₀ < Λ := hΛ₀; linarith [le_max_right L 0]
     rw [div_le_iff₀ hti] at h2; linarith
 
 /-! ## E. The transform `M(z) = q(2 cos Λz)·ĝ₀(z)` on orbits and on the line -/
@@ -437,30 +457,19 @@ theorem Mz_sq_orb (Λ : ℝ) (q : ℝ[X]) {t w : ℂ} (h : Orb t w) :
   · exact Or.inr (by rw [Mz_conj, map_pow])
   · exact Or.inr (by rw [Mz_neg, Mz_conj, map_pow])
 
-/-- At a real ordinate: `Re M² ≤ B²·Re ĝ₀²` when `|q| ≤ B` on `[−2, 2]`. -/
-theorem Mz_sq_re_le (Λ : ℝ) (q : ℝ[X]) {B : ℝ} (hB : ∀ ξ : ℝ, |ξ| ≤ 2 → |q.eval ξ| ≤ B) {t : ℂ}
-    (ht : t.im = 0) : (Mz Λ q t ^ 2).re ≤ B ^ 2 * (ghatC (box 1) 1 t ^ 2).re := by
-  have et : t = ((t.re : ℝ) : ℂ) := Complex.ext (by simp) (by simp [ht])
-  set τ := t.re
-  set ξ : ℝ := 2 * Real.cos (Λ * τ)
-  have hξ : |ξ| ≤ 2 := by
-    simp only [ξ, abs_mul, abs_two]; nlinarith [Real.abs_cos_le_one (Λ * τ)]
-  have hc : 2 * Complex.cos (Λ * t) = ((ξ : ℝ) : ℂ) := by
-    rw [et]; simp only [ξ]; push_cast; rfl
-  have hq : aeval (2 * Complex.cos (Λ * t)) q = ((q.eval ξ : ℝ) : ℂ) := by
-    rw [hc, ← Complex.coe_algebraMap, aeval_algebraMap_apply_eq_algebraMap_eval]
-  have hG : ghatC (box 1) 1 t = (((ghatC (box 1) 1 t).re : ℝ) : ℂ) :=
-    Complex.ext (by simp) (by rw [et]; simp [ghatC_im_zero (box_probe 1).even zero_le_one])
-  set G := (ghatC (box 1) 1 t).re
+/-- **Away from the nodes**: `Re M(t)² ≤ B²‖ĝ₀(t)²‖` when `|2 cos Λt| ≤ ρ₀` and `|q| ≤ B` on the disc
+`‖y‖ ≤ ρ₀`. On the line `ρ₀ = 2` suffices. -/
+theorem Mz_sq_re_le (Λ : ℝ) (q : ℝ[X]) {ρ₀ B : ℝ} (hB : ∀ y : ℂ, ‖y‖ ≤ ρ₀ → ‖aeval y q‖ ≤ B)
+    {t : ℂ} (ht : ‖2 * Complex.cos (Λ * t)‖ ≤ ρ₀) :
+    (Mz Λ q t ^ 2).re ≤ B ^ 2 * ‖ghatC (box 1) 1 t ^ 2‖ := by
   unfold Mz
-  rw [hq, hG]
-  have e1 : (((q.eval ξ : ℝ) : ℂ) * (G : ℂ)) ^ 2 = (((q.eval ξ * G) ^ 2 : ℝ) : ℂ) := by push_cast; ring
-  have e2 : ((G : ℂ) ^ 2) = ((G ^ 2 : ℝ) : ℂ) := by push_cast; ring
-  rw [e1, e2, Complex.ofReal_re, Complex.ofReal_re, mul_pow]
-  have hB0 : 0 ≤ B := (abs_nonneg _).trans (hB ξ hξ)
-  have : (q.eval ξ) ^ 2 ≤ B ^ 2 := by
-    rw [← sq_abs]; exact pow_le_pow_left₀ (abs_nonneg _) (hB ξ hξ) 2
-  exact mul_le_mul_of_nonneg_right this (sq_nonneg _)
+  have h1 := hB _ ht
+  calc ((aeval (2 * Complex.cos (Λ * t)) q * ghatC (box 1) 1 t) ^ 2).re
+      ≤ ‖(aeval (2 * Complex.cos (Λ * t)) q * ghatC (box 1) 1 t) ^ 2‖ := Complex.re_le_norm _
+    _ = ‖aeval (2 * Complex.cos (Λ * t)) q‖ ^ 2 * ‖ghatC (box 1) 1 t ^ 2‖ := by
+        rw [mul_pow, norm_mul, norm_pow]
+    _ ≤ B ^ 2 * ‖ghatC (box 1) 1 t ^ 2‖ :=
+        mul_le_mul_of_nonneg_right (pow_le_pow_left₀ (norm_nonneg _) h1 2) (norm_nonneg _)
 
 /-! ## F. The converse count -/
 
@@ -480,14 +489,21 @@ abbrev tz (i : Σ w : NontrivialZero, Fin (zeroMult w)) : ℂ := (zetaZeroFamily
 
 theorem ghatC_zero_fun (a : ℝ) (z : ℂ) : ghatC (fun _ => 0) a z = 0 := by simp [ghatC]
 
-/-- **Off-line zero quadruples force negative directions of Weil's form.** Suppose the off-line zeros of
-ζ are finitely many (all in `F`) and fall into the orbits of representatives `R`, pairwise in different
-quadruples. Then at some support `a` there is a space `V` of strip-test probes with `dim V = |R|` on
-which `Q` is negative definite. -/
-theorem negDirections_of_quadruples (R F : Finset (Σ w : NontrivialZero, Fin (zeroMult w)))
-    (hF : ∀ i, (zetaZeroFamily i).re ≠ 1 / 2 → i ∈ F)
-    (hRoff : ∀ r ∈ R, (zetaZeroFamily r).re ≠ 1 / 2)
-    (hR : ∀ i, (zetaZeroFamily i).re ≠ 1 / 2 → ∃ r ∈ R, Orb (tz i) (tz r))
+/-- `|Im(ρ − ½)/i| = |Re ρ − ½|`. -/
+theorem abs_im_tz (i : Σ w : NontrivialZero, Fin (zeroMult w)) :
+    |(tz i).im| = |(zetaZeroFamily i).re - 1 / 2| := by
+  rw [tz, im_ordinate, abs_neg]
+
+/-- **Off-line zero quadruples above a level force negative directions of Weil's form.** Let `v₀ ≥ 0`
+and suppose only finitely many zeros of ζ (all in `F`) have `|Re ρ − ½| > v₀`, falling into the orbits
+of representatives `R`, pairwise in different quadruples. Then at some support `a` there is a space `V`
+of strip-test probes with `dim V = |R|` on which `Q` is negative definite. The zeros with
+`|Re ρ − ½| ≤ v₀`, on or off the line and however many, do not matter. -/
+theorem negDirections_above (v₀ : ℝ) (hv₀ : 0 ≤ v₀)
+    (R F : Finset (Σ w : NontrivialZero, Fin (zeroMult w)))
+    (hF : ∀ i, v₀ < |(zetaZeroFamily i).re - 1 / 2| → i ∈ F)
+    (hRtop : ∀ r ∈ R, v₀ < |(zetaZeroFamily r).re - 1 / 2|)
+    (hR : ∀ i, v₀ < |(zetaZeroFamily i).re - 1 / 2| → ∃ r ∈ R, Orb (tz i) (tz r))
     (hdist : ∀ r ∈ R, ∀ s ∈ R, r ≠ s → ¬Orb (tz s) (tz r)) :
     ∃ a : ℝ, 0 < a ∧ ∃ V : Submodule ℝ (ℝ → ℝ), Module.finrank ℝ V = R.card ∧
       (∀ v ∈ V, Probe a v ∧ ∃ K, StripTest (fun z => ghatC v a z ^ 2) K) ∧
@@ -495,27 +511,44 @@ theorem negDirections_of_quadruples (R F : Finset (Σ w : NontrivialZero, Fin (z
   classical
   -- the nodes
   set tt : R → ℂ := fun r => tz r.1 with htt
+  have htop : ∀ r, v₀ < |(tt r).im| := fun r => by
+    simp only [tt]; rw [abs_im_tz]; exact hRtop r.1 r.2
   have hre : ∀ r, (tt r).re ≠ 0 := fun r => by
     simp only [tt, tz, re_ordinate]; exact im_zetaZeroFamily_ne r.1
-  have him : ∀ r, (tt r).im ≠ 0 := fun r => by
-    simp only [tt, tz, im_ordinate]; intro h; exact hRoff r.1 r.2 (by linarith)
+  have him : ∀ r, (tt r).im ≠ 0 := fun r h => by
+    have := htop r; rw [h, abs_zero] at this; linarith
   have hd : ∀ r s : R, r ≠ s → ¬Orb (tt s) (tt r) := fun r s hrs =>
     hdist r.1 r.2 s.1 s.2 (fun h => hrs (Subtype.ext h))
-  obtain ⟨Λ, hΛ, hN, hbig⟩ := exists_good_Λ tt hre him hd
+  have hgap : ∀ r, 0 < |(tt r).im| - v₀ := fun r => sub_pos.2 (htop r)
+  obtain ⟨Λ, hLΛ, hΛ, hN, -⟩ := exists_good_Λ tt hre him hd (∑ r, 3 / (|(tt r).im| - v₀))
   set x : R → ℂ := fun r => 2 * Complex.cos (Λ * tt r) with hx
+  set X0 : ℝ := 2 * Real.exp (Λ * v₀)
+  have hX0 : 0 ≤ X0 := by positivity
+  have hbig : ∀ r, X0 < ‖x r‖ := by
+    intro r
+    refine two_exp_lt_norm_two_cos (by positivity) ?_
+    have e : ((Λ : ℂ) * tt r).im = Λ * (tt r).im := by simp
+    rw [e, abs_mul, abs_of_pos hΛ]
+    have h1 : 3 / (|(tt r).im| - v₀) ≤ ∑ r, 3 / (|(tt r).im| - v₀) :=
+      Finset.single_le_sum (f := fun r => 3 / (|(tt r).im| - v₀))
+        (fun r _ => (div_pos three_pos (hgap r)).le) (Finset.mem_univ r)
+    have h2 : 3 / (|(tt r).im| - v₀) ≤ Λ := by linarith
+    rw [div_le_iff₀ (hgap r)] at h2; linarith
   set G₀ := ghatC (box 1) 1
   have hG0 : ∀ r, G₀ (tt r) ≠ 0 := fun r => ghat_box_ne (him r)
   set ζ : R → ℂ := fun r => Complex.I / G₀ (tt r)
-  choose Kr hKr0 hKr using abs_basisP_le hN
+  choose Kr hKr0 hKr using fun r => abs_basisP_le hN r X0 hX0
   set c : R → ℝ := fun r => Kr r * ‖ζ r‖
   set Cc : ℝ := ∑ r, c r ^ 2
   have hCc : 0 ≤ Cc := Finset.sum_nonneg fun _ _ => sq_nonneg _
-  -- the box zero sum
-  have hbox := Complex.hasSum_re (weilQ_eq_zero_sum (box_probe 1) one_pos weilExplicit_box_zeta)
-  rw [Complex.ofReal_re] at hbox
-  set g0 : (Σ w : NontrivialZero, Fin (zeroMult w)) → ℝ := fun i => (G₀ (tz i) ^ 2).re
-  set Foff := F.filter (fun i => (zetaZeroFamily i).re ≠ 1 / 2)
-  set S₀ : ℝ := weilQ 1 (box 1) - ∑ i ∈ Foff, g0 i
+  -- the box zero sum, absolutely
+  have hboxC := weilQ_eq_zero_sum (box_probe 1) one_pos weilExplicit_box_zeta
+  set gn : (Σ w : NontrivialZero, Fin (zeroMult w)) → ℝ := fun i => ‖G₀ (tz i) ^ 2‖
+  have hgn : Summable gn := summable_norm_iff.2 hboxC.summable
+  set Snorm : ℝ := ∑' i, gn i
+  have hnorm : HasSum gn Snorm := hgn.hasSum
+  set Foff := F.filter (fun i => v₀ < |(zetaZeroFamily i).re - 1 / 2|)
+  set S₀ : ℝ := Snorm - ∑ i ∈ Foff, gn i
   set S₀p := max S₀ 0
   have hS₀p : 0 ≤ S₀p := le_max_right _ _
   set δ : ℝ := 1 / (Cc * S₀p + 1)
@@ -525,12 +558,12 @@ theorem negDirections_of_quadruples (R F : Finset (Σ w : NontrivialZero, Fin (z
     have h0 : 0 < Cc * S₀p + 1 := by positivity
     simp only [δ]; rw [div_mul_eq_mul_div, one_mul, div_lt_one h0]; linarith
   -- the power `N`
-  have hxpos : ∀ r, 0 < ‖x r‖ := fun r => by linarith [hbig r]
-  have hθ : ∀ r, 0 ≤ 2 / ‖x r‖ ∧ 2 / ‖x r‖ < 1 := fun r =>
+  have hxpos : ∀ r, 0 < ‖x r‖ := fun r => lt_of_le_of_lt hX0 (hbig r)
+  have hθ : ∀ r, 0 ≤ X0 / ‖x r‖ ∧ X0 / ‖x r‖ < 1 := fun r =>
     ⟨by positivity, by rw [div_lt_one (hxpos r)]; exact hbig r⟩
   choose n hn using fun r => exists_pow_lt_of_lt_one hδ (hθ r).2
   set N := Finset.univ.sup n
-  have hNr : ∀ r, (2 / ‖x r‖) ^ N ≤ δ := fun r =>
+  have hNr : ∀ r, (X0 / ‖x r‖) ^ N ≤ δ := fun r =>
     (pow_le_pow_of_le_one (hθ r).1 (hθ r).2.le (Finset.le_sup (Finset.mem_univ r))).trans (hn r).le
   set K : ℕ := N + 2 * Fintype.card R + 2
   set a : ℝ := K * Λ + 1
@@ -593,39 +626,36 @@ theorem negDirections_of_quadruples (R F : Finset (Σ w : NontrivialZero, Fin (z
       (weilExplicit_of_strip ha (hLp s) hKt))
     rw [Complex.ofReal_re] at hsum
     set fv : (Σ w : NontrivialZero, Fin (zeroMult w)) → ℝ := fun i => (ghatC (L s) a (tz i) ^ 2).re
-    -- the bound on the line
+    -- the bound on the disc `‖y‖ ≤ X0`
     set B : ℝ := δ * ∑ r, |s r| * c r
-    have hB : ∀ ξ : ℝ, |ξ| ≤ 2 → |(Qp s).eval ξ| ≤ B := by
-      intro ξ hξ
-      have e1 : ∀ p : ℝ[X], |p.eval ξ| = ‖aeval (ξ : ℂ) p‖ := fun p => by
-        rw [← Complex.coe_algebraMap, aeval_algebraMap_apply_eq_algebraMap_eval,
-          Complex.coe_algebraMap, Complex.norm_real, Real.norm_eq_abs]
-      simp only [Qp, eval_mul, eval_pow, eval_X, eval_finsetSum, eval_smul, smul_eq_mul]
-      rw [abs_mul, abs_pow]
-      have hterm : ∀ r, |s r * (basisP x r (w r)).eval ξ| * |ξ| ^ N ≤ δ * (|s r| * c r) := by
+    have hB : ∀ y : ℂ, ‖y‖ ≤ X0 → ‖aeval y (Qp s)‖ ≤ B := by
+      intro y hy
+      simp only [Qp, map_mul, map_pow, aeval_X, map_sum, map_smul]
+      rw [norm_mul, norm_pow]
+      have hterm : ∀ r, ‖s r • aeval y (basisP x r (w r))‖ * ‖y‖ ^ N ≤ δ * (|s r| * c r) := by
         intro r
-        rw [abs_mul, e1]
-        have hb := hKr r (w r) ξ hξ
+        rw [norm_smul, Real.norm_eq_abs]
+        have hb := hKr r (w r) y hy
         have hw : ‖w r‖ = ‖ζ r‖ / ‖x r‖ ^ N := by simp [w, norm_pow]
-        have hxi : |ξ| ^ N ≤ 2 ^ N := pow_le_pow_left₀ (abs_nonneg _) hξ N
-        have hpow : 2 ^ N / ‖x r‖ ^ N ≤ δ := by rw [← div_pow]; exact hNr r
-        calc |s r| * ‖aeval (ξ : ℂ) (basisP x r (w r))‖ * |ξ| ^ N
-            ≤ |s r| * (Kr r * (‖ζ r‖ / ‖x r‖ ^ N)) * 2 ^ N := by
+        have hyN : ‖y‖ ^ N ≤ X0 ^ N := pow_le_pow_left₀ (norm_nonneg _) hy N
+        have hpow : X0 ^ N / ‖x r‖ ^ N ≤ δ := by rw [← div_pow]; exact hNr r
+        calc |s r| * ‖aeval y (basisP x r (w r))‖ * ‖y‖ ^ N
+            ≤ |s r| * (Kr r * (‖ζ r‖ / ‖x r‖ ^ N)) * X0 ^ N := by
               rw [← hw]
-              exact mul_le_mul (mul_le_mul_of_nonneg_left hb (abs_nonneg _)) hxi
+              exact mul_le_mul (mul_le_mul_of_nonneg_left hb (abs_nonneg _)) hyN
                 (by positivity) (mul_nonneg (abs_nonneg _) (mul_nonneg (hKr0 r) (norm_nonneg _)))
-          _ = |s r| * c r * (2 ^ N / ‖x r‖ ^ N) := by simp only [c]; ring
+          _ = |s r| * c r * (X0 ^ N / ‖x r‖ ^ N) := by simp only [c]; ring
           _ ≤ |s r| * c r * δ :=
             mul_le_mul_of_nonneg_left hpow (mul_nonneg (abs_nonneg _) (mul_nonneg (hKr0 r) (norm_nonneg _)))
           _ = δ * (|s r| * c r) := by ring
-      calc |ξ| ^ N * |∑ r, s r * (basisP x r (w r)).eval ξ|
-          ≤ |ξ| ^ N * ∑ r, |s r * (basisP x r (w r)).eval ξ| :=
-            mul_le_mul_of_nonneg_left (Finset.abs_sum_le_sum_abs _ _) (by positivity)
-        _ = ∑ r, |s r * (basisP x r (w r)).eval ξ| * |ξ| ^ N := by rw [Finset.mul_sum]; ring_nf
+      calc ‖y‖ ^ N * ‖∑ r, s r • aeval y (basisP x r (w r))‖
+          ≤ ‖y‖ ^ N * ∑ r, ‖s r • aeval y (basisP x r (w r))‖ :=
+            mul_le_mul_of_nonneg_left (norm_sum_le _ _) (by positivity)
+        _ = ∑ r, ‖s r • aeval y (basisP x r (w r))‖ * ‖y‖ ^ N := by rw [Finset.mul_sum]; ring_nf
         _ ≤ ∑ r, δ * (|s r| * c r) := Finset.sum_le_sum fun r _ => hterm r
         _ = B := by rw [← Finset.mul_sum]
     -- termwise bounds
-    have hoff : ∀ i, (zetaZeroFamily i).re ≠ 1 / 2 → ∃ r : R, fv i = -(s r) ^ 2 := by
+    have hoff : ∀ i, v₀ < |(zetaZeroFamily i).re - 1 / 2| → ∃ r : R, fv i = -(s r) ^ 2 := by
       intro i hi
       obtain ⟨r, hr, hor⟩ := hR i hi
       refine ⟨⟨r, hr⟩, ?_⟩
@@ -636,39 +666,45 @@ theorem negDirections_of_quadruples (R F : Finset (Σ w : NontrivialZero, Fin (z
       rcases Mz_sq_orb Λ (Qp s) hor with h | h
       · rw [h]; exact (congrArg Complex.re hsq).trans (Complex.ofReal_re _)
       · rw [h, hsq, Complex.conj_ofReal, Complex.ofReal_re]
-    have hon : ∀ i, (zetaZeroFamily i).re = 1 / 2 → fv i ≤ B ^ 2 * g0 i := by
+    have hlow : ∀ i, |(zetaZeroFamily i).re - 1 / 2| ≤ v₀ → fv i ≤ B ^ 2 * gn i := by
       intro i hi
-      have him0 : (tz i).im = 0 := by rw [im_ordinate, hi]; ring
-      simp only [fv, g0, hLg]
-      exact Mz_sq_re_le Λ (Qp s) hB him0
+      have hc : ‖2 * Complex.cos (Λ * tz i)‖ ≤ X0 := by
+        refine (norm_two_cos_le _).trans ?_
+        have e : ((Λ : ℂ) * tz i).im = Λ * (tz i).im := by
+          rw [Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, zero_mul, add_zero]
+        rw [e, abs_mul, abs_of_pos hΛ, abs_im_tz]
+        exact mul_le_mul_of_nonneg_left (Real.exp_le_exp.2 (mul_le_mul_of_nonneg_left hi hΛ.le))
+          two_pos.le
+      simp only [fv, gn, hLg]
+      exact Mz_sq_re_le Λ (Qp s) hB hc
     -- compare with the dominating family
     set hv' : (Σ w : NontrivialZero, Fin (zeroMult w)) → ℝ :=
-      fun i => if i ∈ Foff then fv i else B ^ 2 * g0 i
+      fun i => if i ∈ Foff then fv i else B ^ 2 * gn i
     have hle : ∀ i, fv i ≤ hv' i := by
       intro i
       by_cases hi : i ∈ Foff
       · simp [hv', hi]
       · simp only [hv', hi, ite_false]
-        refine hon i ?_
+        refine hlow i ?_
         by_contra hne
-        exact hi (Finset.mem_filter.2 ⟨hF i hne, hne⟩)
+        exact hi (Finset.mem_filter.2 ⟨hF i (lt_of_not_ge hne), lt_of_not_ge hne⟩)
     have hsum2 : HasSum hv' (∑ i ∈ Foff, fv i + B ^ 2 * S₀) := by
-      have h1 : HasSum (fun i => if i ∈ Foff then fv i - B ^ 2 * g0 i else 0)
-          (∑ i ∈ Foff, (fv i - B ^ 2 * g0 i)) := by
-        have h0 : HasSum (fun i => if i ∈ Foff then fv i - B ^ 2 * g0 i else 0)
-            (∑ i ∈ Foff, (if i ∈ Foff then fv i - B ^ 2 * g0 i else 0)) :=
+      have h1 : HasSum (fun i => if i ∈ Foff then fv i - B ^ 2 * gn i else 0)
+          (∑ i ∈ Foff, (fv i - B ^ 2 * gn i)) := by
+        have h0 : HasSum (fun i => if i ∈ Foff then fv i - B ^ 2 * gn i else 0)
+            (∑ i ∈ Foff, (if i ∈ Foff then fv i - B ^ 2 * gn i else 0)) :=
           hasSum_sum_of_ne_finset_zero fun i hi => ite_eq_right hi
-        have e : ∑ i ∈ Foff, (if i ∈ Foff then fv i - B ^ 2 * g0 i else 0)
-            = ∑ i ∈ Foff, (fv i - B ^ 2 * g0 i) := Finset.sum_congr rfl fun i hi => ite_eq_left hi
+        have e : ∑ i ∈ Foff, (if i ∈ Foff then fv i - B ^ 2 * gn i else 0)
+            = ∑ i ∈ Foff, (fv i - B ^ 2 * gn i) := Finset.sum_congr rfl fun i hi => ite_eq_left hi
         rwa [e] at h0
-      have h2 := h1.add (hbox.mul_left (B ^ 2))
+      have h2 := h1.add (hnorm.mul_left (B ^ 2))
       convert h2 using 1
-      · funext i; by_cases hi : i ∈ Foff <;> simp [hv', hi, g0]
+      · funext i; by_cases hi : i ∈ Foff <;> simp [hv', hi]
       · simp only [S₀, Finset.sum_sub_distrib, ← Finset.mul_sum]; ring
     have hQ := hasSum_le hle hsum hsum2
-    -- the off-line sum is at most `−Σ s²`
+    -- the sum above the level is at most `−Σ s²`
     have hRsub : R ⊆ Foff := fun r hr =>
-      Finset.mem_filter.2 ⟨hF r (hRoff r hr), hRoff r hr⟩
+      Finset.mem_filter.2 ⟨hF r (hRtop r hr), hRtop r hr⟩
     have hfR : ∀ r : R, fv r.1 = -(s r) ^ 2 := by
       intro r
       have hM := hMr s r
@@ -679,7 +715,7 @@ theorem negDirections_of_quadruples (R F : Finset (Σ w : NontrivialZero, Fin (z
     have hoffle : ∑ i ∈ Foff, fv i ≤ -∑ r, (s r) ^ 2 := by
       rw [← Finset.sum_sdiff hRsub]
       have h1 : ∑ i ∈ Foff \ R, fv i ≤ 0 := Finset.sum_nonpos fun i hi => by
-        have hi' : (zetaZeroFamily i).re ≠ 1 / 2 := (Finset.mem_filter.1 (Finset.mem_sdiff.1 hi).1).2
+        have hi' := (Finset.mem_filter.1 (Finset.mem_sdiff.1 hi).1).2
         obtain ⟨r, hr⟩ := hoff i hi'
         rw [hr]; exact neg_nonpos.2 (sq_nonneg _)
       have h2 : ∑ i ∈ R, fv i = -∑ r, (s r) ^ 2 := by
@@ -709,6 +745,23 @@ theorem negDirections_of_quadruples (R F : Finset (Σ w : NontrivialZero, Fin (z
           _ < 1 := by rw [one_mul]; exact hδC
       nlinarith
     linarith
+
+/-- **Off-line zero quadruples force negative directions of Weil's form**: the level `v₀ = 0` of
+`negDirections_above`. Suppose the off-line zeros of ζ are finitely many (all in `F`) and fall into
+the orbits of representatives `R`, pairwise in different quadruples. Then at some support `a` there is
+a space `V` of strip-test probes with `dim V = |R|` on which `Q` is negative definite. -/
+theorem negDirections_of_quadruples (R F : Finset (Σ w : NontrivialZero, Fin (zeroMult w)))
+    (hF : ∀ i, (zetaZeroFamily i).re ≠ 1 / 2 → i ∈ F)
+    (hRoff : ∀ r ∈ R, (zetaZeroFamily r).re ≠ 1 / 2)
+    (hR : ∀ i, (zetaZeroFamily i).re ≠ 1 / 2 → ∃ r ∈ R, Orb (tz i) (tz r))
+    (hdist : ∀ r ∈ R, ∀ s ∈ R, r ≠ s → ¬Orb (tz s) (tz r)) :
+    ∃ a : ℝ, 0 < a ∧ ∃ V : Submodule ℝ (ℝ → ℝ), Module.finrank ℝ V = R.card ∧
+      (∀ v ∈ V, Probe a v ∧ ∃ K, StripTest (fun z => ghatC v a z ^ 2) K) ∧
+      ∀ v ∈ V, v ≠ 0 → weilQ a v < 0 := by
+  have e : ∀ i, (0 < |(zetaZeroFamily i).re - 1 / 2|) ↔ (zetaZeroFamily i).re ≠ 1 / 2 :=
+    fun i => abs_pos.trans sub_ne_zero
+  exact negDirections_above 0 le_rfl R F (fun i h => hF i ((e i).1 h))
+    (fun r hr => (e r).2 (hRoff r hr)) (fun i h => hR i ((e i).1 h)) hdist
 
 /-- **The negative index of Weil's form counts the off-line quadruples.** Suppose the off-line zeros
 of ζ are finitely many and form the quadruples of the representatives `R`. Then every space of
@@ -743,5 +796,7 @@ end Pilot1ca
 #print axioms Pilot1ca.exists_good_Λ
 #print axioms Pilot1ca.Mz_sq_orb
 #print axioms Pilot1ca.Mz_sq_re_le
+#print axioms Pilot1ca.two_exp_lt_norm_two_cos
+#print axioms Pilot1ca.negDirections_above
 #print axioms Pilot1ca.negDirections_of_quadruples
 #print axioms Pilot1ca.negIndex_eq_quadruples
