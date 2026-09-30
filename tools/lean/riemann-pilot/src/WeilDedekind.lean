@@ -187,6 +187,18 @@ theorem QK_nonneg_of_member_zero (h : AngularFamily.GRHMemberZero) {l : ℝ} (hl
     0 ≤ QK (l + 1) (twin (box 1) l) :=
   QK_nonneg_of_rh_grh (rh_grh_of_member_zero h).1 (rh_grh_of_member_zero h).2 hl
 
+/-! ## The `o(e^λ)` bounds (round 242) -/
+
+/-- **`Q_{χ₋₄}(twin (box 1) λ) ≥ −ε e^λ` eventually**, with no hypothesis. -/
+theorem QC_chi4_littleO {ε : ℝ} (hε : 0 < ε) :
+    ∀ᶠ l in Filter.atTop, -(ε * Real.exp l) ≤ QC chi4 (l + 1) (twin (box 1) l) :=
+  TwinLandau.twin_Q_littleO twinData_chi4 hε
+
+/-- **The Dedekind twin form is `≥ −o(e^λ)`**, with no hypothesis. -/
+theorem QK_littleO {ε : ℝ} (hε : 0 < ε) :
+    ∀ᶠ l in Filter.atTop, -(ε * Real.exp l) ≤ QK (l + 1) (twin (box 1) l) :=
+  TwinLandau.twin_Q_littleO twinData_K hε
+
 end Dedekind4
 
 #print axioms Dedekind4.twinData_K
@@ -195,3 +207,5 @@ end Dedekind4
 #print axioms Dedekind4.rh_grh_iff_QK_subexp
 #print axioms Dedekind4.rh_grh_of_member_zero
 #print axioms Dedekind4.QK_nonneg_of_member_zero
+#print axioms Dedekind4.QC_chi4_littleO
+#print axioms Dedekind4.QK_littleO

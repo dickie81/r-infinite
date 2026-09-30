@@ -40,11 +40,20 @@ c() {
 }
 # zeta23's lakefile sets relaxedAutoImplicit = false for its own files.
 for m in $MODS; do c "$UP" "$m" -DrelaxedAutoImplicit=false; done
-for f in SlogZeta; do c "$HERE" $f; done
+for f in SlogZeta ZeroWindow Dictionary CountCompare CoImportMV CoImportGamma; do c "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 cat > "$AX" <<'EOT'
 import SlogZeta
 import Zeta23.MV.Final
+import ZeroWindow
+import Dictionary
+import CountCompare
+import CoImportMV
+import CoImportGamma
+#print axioms ZeroWindow.zero_in_window
+#print axioms Dictionary.mu_eq_psiRe
+#print axioms CountCompare.local_count_le
+#print axioms CoImportMV.large_values_amgm
 #print axioms Zeta23.MV.mv_hilbert
 #print axioms Zeta23.gammaFacts
 #print axioms Zeta23.RvM.riemannVonMangoldt

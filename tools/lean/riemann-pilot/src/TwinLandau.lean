@@ -888,8 +888,73 @@ theorem rate_iff [Countable ι] {σ : ℝ} (hσ : 0 ≤ σ) :
 
 end Data
 
+
+/-! ## Rates per pole, and the `o(e^λ)` bound (rounds 237 and 242) -/
+
+/-- **The converse bound with a rate per pole**: if `|Re P_q| ≤ r_q` for every `q` and
+`Σ ‖c_q‖ e^{r_q λ} < ∞`, then `Q(λ) ≥ −4 Σ_q ‖c_q‖ e^{r_q λ}`. -/
+theorem Q_ge_of_rates (D : TwinData P c G Q) {r : ι → ℝ} (hr : ∀ q, |(P q).re| ≤ r q) {l : ℝ}
+    (hl : 0 ≤ l) (hs : Summable fun q => ‖c q‖ * Real.exp (r q * l)) :
+    -(4 * ∑' q, ‖c q‖ * Real.exp (r q * l)) ≤ Q l := by
+  rw [← Aw_eq D hl]
+  have hb : ∀ q, ‖wq P c q l‖ ≤ 4 * (‖c q‖ * Real.exp (r q * l)) := fun q => by
+    have h := norm_wq_le_of (P := P) (c := c) (hr q) l
+    rw [abs_of_nonneg hl] at h
+    linarith
+  have hs' : Summable fun q => ‖wq P c q l‖ :=
+    (hs.mul_left 4).of_nonneg_of_le (fun _ => norm_nonneg _) hb
+  have h1 : ‖Wsum P c l‖ ≤ 4 * ∑' q, ‖c q‖ * Real.exp (r q * l) := by
+    unfold Wsum
+    calc ‖∑' q, wq P c q l‖ ≤ ∑' q, ‖wq P c q l‖ := norm_tsum_le_tsum_norm hs'
+      _ ≤ ∑' q, 4 * (‖c q‖ * Real.exp (r q * l)) := hs'.tsum_le_tsum hb (hs.mul_left 4)
+      _ = _ := tsum_mul_left
+  have h2 := neg_abs_le (Wsum P c l).re
+  have h3 := Complex.abs_re_le_norm (Wsum P c l)
+  unfold Aw; linarith
+
+/-- **Every twin form is `≥ −o(e^λ)`**: for `ε > 0`, eventually `−ε e^λ ≤ Q λ`. Per-pole rates
+`|Re P_q| < 1` and dominated convergence; no zero-free region is used. -/
+theorem twin_Q_littleO {ι : Type*} {P c : ι → ℂ} {G : ℂ → ℂ} {Q : ℝ → ℝ}
+    (D : TwinLandau.TwinData P c G Q) {ε : ℝ} (hε : 0 < ε) :
+    ∀ᶠ l in atTop, -(ε * Real.exp l) ≤ Q l := by
+  have hlim : Tendsto (fun l : ℝ => ∑' q, ‖c q‖ * Real.exp (-((1 - |(P q).re|) * l))) atTop
+      (𝓝 0) := by
+    have h := tendsto_tsum_of_dominated_convergence (𝓕 := atTop)
+      (f := fun (l : ℝ) q => ‖c q‖ * Real.exp (-((1 - |(P q).re|) * l)))
+      (g := fun _ => (0 : ℝ)) (bound := fun q => ‖c q‖) D.summ ?_ ?_
+    · simpa using h
+    · intro q
+      have hq : 0 < 1 - |(P q).re| := by linarith [D.re_lt q]
+      have h1 : Tendsto (fun l : ℝ => Real.exp (-((1 - |(P q).re|) * l))) atTop (𝓝 0) :=
+        Real.tendsto_exp_neg_atTop_nhds_zero.comp (tendsto_id.const_mul_atTop hq)
+      simpa using h1.const_mul ‖c q‖
+    · filter_upwards [eventually_ge_atTop 0] with l hl q
+      have hq : 0 ≤ 1 - |(P q).re| := by linarith [D.re_lt q]
+      have he : Real.exp (-((1 - |(P q).re|) * l)) ≤ 1 :=
+        Real.exp_le_one_iff.2 (by nlinarith)
+      rw [Real.norm_eq_abs, abs_of_nonneg (by positivity)]
+      exact mul_le_of_le_one_right (norm_nonneg _) he
+  have hev := (tendsto_order.1 hlim).2 (ε / 4) (by positivity)
+  filter_upwards [hev, eventually_ge_atTop 0] with l hl hl0
+  have e : ∀ q, ‖c q‖ * Real.exp (|(P q).re| * l) =
+      Real.exp l * (‖c q‖ * Real.exp (-((1 - |(P q).re|) * l))) := fun q => by
+    rw [show |(P q).re| * l = l + -((1 - |(P q).re|) * l) by ring, Real.exp_add]; ring
+  have hs : Summable fun q => ‖c q‖ * Real.exp (|(P q).re| * l) := by
+    refine (D.summ.mul_right (Real.exp l)).of_nonneg_of_le (fun q => by positivity) fun q => ?_
+    exact mul_le_mul_of_nonneg_left (Real.exp_le_exp.2 (by nlinarith [D.re_lt q, abs_nonneg (P q).re]))
+      (norm_nonneg _)
+  have hQ := TwinLandau.Q_ge_of_rates D (r := fun q => |(P q).re|) (fun q => le_rfl) hl0 hs
+  have hsum : ∑' q, ‖c q‖ * Real.exp (|(P q).re| * l) =
+      Real.exp l * ∑' q, ‖c q‖ * Real.exp (-((1 - |(P q).re|) * l)) := by
+    rw [tsum_congr e, tsum_mul_left]
+  rw [hsum] at hQ
+  have hE := Real.exp_pos l
+  nlinarith [mul_lt_mul_of_pos_left hl hE]
+
 end TwinLandau
 
 #print axioms TwinLandau.abs_re_le
 #print axioms TwinLandau.rate_iff
 #print axioms TwinLandau.Rp_eq_zero_of_Wsum_const
+#print axioms TwinLandau.Q_ge_of_rates
+#print axioms TwinLandau.twin_Q_littleO

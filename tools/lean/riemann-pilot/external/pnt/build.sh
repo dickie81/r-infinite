@@ -42,7 +42,7 @@ c() {
 c "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM; do c "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination; do c "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 cat > "$AX" <<'EOT'
 import WanderLadderPNT
@@ -51,6 +51,8 @@ import PNTKV
 import KaiserKV
 import TwinKV
 import DetectEM
+import KVSubsumes
+import Domination
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -66,6 +68,10 @@ import DetectEM
 #print axioms TwinLandau.Q_ge_of_rates
 #print axioms TwinKV.twins_lower_KV
 #print axioms TwinKV.twins_lower_KV'
+#print axioms TwinKV.twins_lower_cut
+#print axioms TwinKV.twins_lower_KV_sharp
+#print axioms KVSubsumes.kvInput_of_KV
+#print axioms Domination.lam_prefactor_KV'
 #print axioms ShortKV.zeroFreeXi_KV
 #print axioms DetectEM.density_unconditional
 #print axioms DetectEM.short_primes

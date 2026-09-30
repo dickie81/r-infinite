@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 839 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 930 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -131,6 +131,19 @@ Every file ends with `#print axioms`. All 839 checked theorems depend only on `p
 | `DensityAsym.lean` | 333 | **the density theorem from detection**: `DetectHyp δ` gives `N(σ, T) ≤ C T^{4(1+δ)(1−σ)}(log T)^{11}` (`density_of_detect`) (round 235) |
 | `MollId.lean` | 163 | the mollifier identity `M_X(s)·Σ_{n≤N} n^{−s} = 1 + Σ_{X<j≤XN} a_j j^{−s}`; `\|M_X(β+iγ)\| ≤ X^{1−σ}(1 + log X)` (round 235) |
 | `WeilDedekind.lean` | 200 | **the twin form of `ζ_{ℚ(i)} = ζ·L(s, χ₋₄)`**: one `TwinLandau.TwinData` on the sum of the two zero index types; `RH ∧ GRH(χ₋₄)` ⟺ `2Q_ζ(twin λ) + Q_{χ₋₄}(twin λ) ≥ 0`; graded and subexponential forms; `GRHMemberZero` (the angular island) gives both (round 236) |
+| `WeilTwinGeneral.lean` | 391 | **the twin criterion for every real-rooted antitone base** (`rh_iff_twins_realRooted`, `twins_rate_realRooted`, concave bases via Pólya) **and the Dedekind criterion for every good `χ`** (`twinAdd`, `rh_grh_iff_QKχ_twins`; instances `χ₋₃`, `χ₋₄`, `χ₋₇`, `χ₋₈`) (round 245) |
+| `AngularResidue.lean` | 159 | **`L(1, χ₋₄) = π/4`** from lattice points in a disc: the residue `π/4` of `ζ·L(s, χ₋₄)` at `s = 1` (`residue_angular`), joining the `BallTower`/`LatticeCount` and `GlobalTeeth`/`AngularFamily` islands (round 243) |
+| `ZetaJoins.lean` | 199 | **RH gives a prime in `(y, y + y^θ]` for every `θ > ½`** (`short_primes_of_RH`); one-sided `ψ`/Mertens bounds give the twin form's rate; `rh_of_psi_upper`; `pinned_zeta_zero`; the first instance of `multiplier_expansion` (round 244) |
+| `ChiHalfSharp.lean` | 244 | `GoodChar.half` is `hS(½)` (`goodChar_of_hS`, `grh_iff_twins'`, `weil_criterion_chi'`); `GRH'` and `grh_half_iff`; `Q_χ ≥ 0` under `GRH'`; kernel identities `kerK = archKer ¼`, `archKer ¼ + archKer ¾ = 1/sinh(u/2)`; the local zero count with `5/2` in place of `13/2` (`card_local_le_sharp`); `lam_nine` in `fBalExp` form (round 246) |
+| `WeilChiRoots.lean` | 207 | the root locus of `Ξ_χ`: `GRH' χ` ⟺ every root `τ_i²` real; `hS` ⟺ no root `≤ 0`; GRH ⟺ every root real and positive (`grh_iff_roots_pos`); the duplication `archKer q + archKer (q + ½) = archKer (2q)(u/2)` (round 246) |
+| `OddProbe.lean` | 118 | odd probes: `ĝ` odd and purely imaginary on `ℝ`, the sign of each zero term on the axes; `IsReal χ ↔ χ.IsQuadratic` (round 246) |
+| `CrossCriteria.lean` | 162 | **`Q_χ ≥ 0` from GRH off the real axis** (`QC_nonneg_of_cross`); `grh_of_cross`; one-sided Liouville bounds at every `θ > ½` give RH; the open inputs stated as named `Prop`s (`ZetaCritBound`, `ConvexityBound`, `WeylBound`, `Lindelof`, `DensityHypothesis`, `NoRealZero`, `GRHCross`, `PsiOmegaSqrt`, `LittlewoodS1`, `FirstZeroAbove14`, `LamGradedConverse`) (round 246) |
+| `ParityGapLower.lean` | 127 | a parity gap from a one-sector odd lower bound at the prefactor scale (`parityGap_of_lamO_lower`), and RH along a ground-state sequence from it (`rh_of_lamO_lower`) (round 246) |
+| `WallKernel.lean` | 94 | `fBalExp X = 8π·w(4/X)`: `SixteenPi`'s reduced exponent is the wall law under `X ↦ 4/X`, maximal exactly at `X = 2`; `archKer ¼ − archKer ¾ = 1/cosh(u/2)`; `kerK` as the `Γ_ℂ` kernel plus a `cosh` term (round 247) |
+| `GhatSamples.lean` | 42 | the Fourier coefficients of a probe are samples of `ĝ`; Parseval as the sampled Plancherel identity (round 247) |
+| `PsiReQDup.lean` | 36 | Legendre's duplication for the digamma shift: `psiReQ q + psiReQ (q + ½) = 2 psiReQ (2q)(2r) − 2 log 2` (round 247) |
+| `CertInstances.lean` | 97 | the `PrimeRelax3`/`ParityRelax` certificate theorems as the `P = 2, 3` instances of the weighted certificate (round 250) |
+| `DecayCorollaries.lean` | 96 | `lam_decay` without its three unused hypotheses; `lamO_decay_uncond` from `lam_dexp`; the `ε`-form of the VMVT (round 250) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -7710,7 +7723,7 @@ Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`
 
 **Check 4.** New. Round 234 fed the region into the Kaiser prefactor bound on `λ₁`; this is the same region in the twin-box form of round 221, where it is sharp in shape by `weil_twins_rate`.
 
-**Bearing on RH:** none. It is the positivity-side statement of the widest known zero-free region: the twin form's negative part is subexponential by exactly the Korobov–Vinogradov margin, and any better exponent than `λ^{1/3}` would be a wider region.
+**Bearing on RH:** none. It is the positivity-side statement of the widest known zero-free region. *(Correction, round 242: the exponent `1/3` is an artefact of the cutoff `T = e^{8λ}`, not of the region; with the cutoff optimised the defect is `exp(λ − c λ^{3/5}(log λ)^{−1/5})`, the shape of `PNT_KV`. The sentence "any better exponent than `λ^{1/3}` would be a wider region" was wrong.)*
 
 ## Round 238: `rh_of_polya` was vacuous (`src/MertensOmega.lean`)
 
@@ -7761,3 +7774,72 @@ Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`
 **Check 4.** New (both are docstring-versus-statement gaps found by the structural review).
 
 **Bearing on RH:** none.
+
+## Round 242: the twin form's defect has the PNT exponent, and every twin form is `≥ −o(e^λ)` (`external/pnt/TwinKV.lean`, `src/TwinLandau.lean`, `src/WeilDedekind.lean`)
+
+Round 237 chose the cutoff `T = e^{8λ}` and got the exponent `λ^{1/3}`; I then wrote that "any better exponent than `λ^{1/3}` would be a wider region". That was wrong: `weil_twins_rate` pins the *exponential* rate `2Θ − 1` to the zero-free strip, not the subexponential correction, which depends on the cutoff. The structural review's lens pass found the optimisation.
+
+- `twins_lower_cut`: the round-237 proof with the cutoff `u` free: `Q(twin (box 1) λ) ≥ −C(exp((1 − 2A/f(e^u))λ) + exp(λ − u/4))` for `λ ≥ 0`, `u ≥ 3`.
+- `twins_lower_KV35` (`u = 3λ^{3/5}`): `Q ≥ −C·exp(λ − c λ^{3/5}(log 3λ^{3/5})^{−1/3})`.
+- **`twins_lower_KV_sharp`**: with the cutoff balanced, `Q(twin (box 1) λ) ≥ −C·exp(λ − c·λ^{3/5}/(log λ)^{1/5})` for `λ ≥ e`. This is `PNT_KV`'s error term `exp(−c(log x)^{3/5}/(log log x)^{1/5})` in the positivity language, from the same region and the same split.
+- `TwinLandau.Q_ge_of_rates` moves from the pnt layer to `TwinLandau.lean`, and **`TwinLandau.twin_Q_littleO`**: for every `TwinData` and every `ε > 0`, eventually `−ε e^λ ≤ Q λ` (per-pole rates `|Re P_q| < 1` and dominated convergence, no region). Instances: `Dedekind4.QC_chi4_littleO` (the first unconditional rate statement for `Q_{χ₋₄}`) and `QK_littleO`.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`.
+
+**Check 4.** New; corrects round 237's closing sentence in place.
+
+**Bearing on RH:** none. `o(e^λ)` is `Θ ≤ 1` (the trivial strip); the `3/5` bound is the KV region.
+
+## Round 243: `L(1, χ₋₄) = π/4` from lattice points, two islands joined (`src/AngularResidue.lean`)
+
+`LatticeCount.count_div_pow_tendsto_ballVol` at dimension 2 counts Gaussian integers of norm `≤ N` (`latticeCount_two_sqrt`), which are `GlobalTeeth`'s shells, so `Σ_{k≤N} r₂(k)/4 / N → π/4`. Mathlib's Abelian theorem for Dirichlet series with nonnegative coefficients gives the residue of `angularL 0 = ζ·L(χ₋₄)` at `s = 1` (`residue_angular`), and dividing by the residue of `ζ` gives **`LFunction χ4C 1 = π/4`**. Neither island had a consumer before; `ballVol_two` is now the pole weight of the Dedekind zeta function behind round 236.
+
+**Check 4.** New. **Bearing on RH:** none (the class number formula for `ℚ(i)`).
+
+## Round 244: joins on the `ζ` side (`src/ZetaJoins.lean`)
+
+- **`short_primes_of_RH`**: RH gives a prime in `(y, y + y^θ]` for every `θ > ½` and all large `y`. Under RH every `τ` is real (`tau_im_eq_zero_of_RH`), so `DensityXi 2 1` and `ZeroFreeXi (½)` hold by the local count `card_re_le`, and round 235's `short_primes_of_density` applies with `A = 2`. Round 235's sentence "Under RH one gets `θ > 1/2`" is now a theorem.
+- `weil_rate_of_psi_bound`, `weil_rate_of_mertens_bound`: a one-sided bound `ε(ψ(x) − x) ≤ c x^θ` (or for Mertens' `M`) gives `Q(twin (box 1) λ) ≥ −Ce^{(2θ−1)λ}`; `rh_of_psi_upper`: one-sided upper bounds at every `θ > ½` give RH.
+- `pinned_zeta_zero` (round 241's fix at the `ζ` instance) and `multiplier_time_probe`, the first instance of `SixteenPi.multiplier_expansion`.
+
+**Check 4.** `short_primes_of_RH` is acknowledged in round 235's prose, new as Lean. **Bearing on RH:** none.
+
+## Round 245: the twin criterion for every real-rooted base and every good character (`src/WeilTwinGeneral.lean`)
+
+Round 220 used `box 1`; the only property of the base the Landau argument needs is that `ĝ₀` has no zeros off the real axis (`G_ne`), which is `RealRooted`. So `rh_iff_twins_realRooted` holds for every even, antitone, nonnegative, real-rooted `g₀`, with Pólya's theorem (`Concave`) supplying real-rootedness for concave bases (`rh_iff_twins_concave`); `box_realRooted` recovers round 220. `twinAdd` combines any two `TwinData` with the same weight function, so round 236's Dedekind criterion holds for every `GoodChar χ` with no real zero (`rh_grh_iff_QKχ_twins`), and `χ₋₇` joins `χ₋₃`, `χ₋₄`, `χ₋₈` (`good_chi7`, `race_seven_half`).
+
+**Check 4.** New. **Bearing on RH:** none.
+
+## Round 246: the `hS` blind spot and the root locus of `Ξ_χ` (`src/ChiHalfSharp.lean`, `src/WeilChiRoots.lean`, `src/OddProbe.lean`, `src/CrossCriteria.lean`, `src/ParityGapLower.lean`)
+
+The `χ` chain carried two hypotheses, `GoodChar.half : L(½, χ) ≠ 0` and `hS : L(σ, χ) ≠ 0 on (0, 1)`. The second contains the first (`goodChar_of_hS`), so `grh_iff_twins'` and `weil_criterion_chi'` take `hS` alone. Even probes cannot see real zeros: `Q_χ ≥ 0` follows from GRH off the real axis (`QC_nonneg_of_cross`, `QC_nonneg_of_GRH'`), and in root coordinates `u = τ²`, `GRH'` is "every root real", `hS` is "no root `≤ 0`", GRH is "every root real and positive" (`grh_iff_roots_pos`). Odd probes see the sign (`OddProbe`). The local zero count improves from `13/2` to `5/2` (`card_local_le_sharp`), and the open inputs of the density route and the `χ` chain are stated as named `Prop`s in `CrossCriteria.lean`. `ParityGapLower`: a one-sector lower bound at the prefactor scale gives the parity gap eventually and RH along a ground-state sequence.
+
+**Check 4.** `GoodChar.half` is acknowledged (rounds 224–225); its redundancy given `hS`, the cross criterion and the root-locus dictionary are new. **Bearing on RH:** indirect (GRH for `χ` modulo real zeros).
+
+## Round 247: kernel identities (`src/WallKernel.lean`, `src/GhatSamples.lean`, `src/PsiReQDup.lean`)
+
+`SixteenPi`'s reduced exponent is the wall law under the involution `X ↦ 4/X` (`fBalExp_eq_wall`), maximal exactly at the wall; the archimedean kernels obey `archKer ¼ ± archKer ¾ = 1/sinh(u/2), 1/cosh(u/2)`; the Fourier coefficients of a probe are samples of `ĝ` (Parseval is the sampled Plancherel identity); Legendre's duplication for `psiReQ`.
+
+**Check 4.** New. **Bearing on RH:** none.
+
+## Round 248: the zeta23 layer joined (`external/zeta23/ZeroWindow.lean`, `Dictionary.lean`, `CountCompare.lean`, `CoImportMV.lean`, `CoImportGamma.lean`)
+
+- **`zero_in_window`**: there is `H` such that every window `[t, t + H)`, `t ≥ T₀`, contains a zero ordinate of `ζ` (from `S(T) = O(log T)` and the growth of `N₀`).
+- `Dictionary`: `Zeta23.mu τ = (psiRe τ − log π)/(2π)`, `weilConst = 2π·mu 0`, `sigmaW a r = 2π(mu r + PX (e^{2a}) r)`, `ToneHyperbola.stirl q γ = π N₀(qγ)/q`; `CountCompare`: zeta23's `Ncount t (t+1) ≤ Kloc (t + ½)`.
+- **The layer clash is narrower than round 228 and the review's first draft said**: `DetectEM` loads together with `Zeta23.MV.Final` and with `Zeta23.GammaFacts.Complete`; only the vendored `FromPNTPlus` copies (used by `SlogZeta`) clash with PNT+. So `mv_hilbert` can reach the density theorem. `CoImportMV` records the co-import, `large_values_amgm`, the parametric `DetectHypP`, and Mathlib's `dedekindZeta` of `ℚ(i)` as `ζ·L(χ₋₄)` given the ideal count.
+
+**Check 4.** New. **Bearing on RH:** none.
+
+## Round 249: the KV width subsumes the growth chain (`external/pnt/KVSubsumes.lean`, `external/pnt/Domination.lean`)
+
+`LandauKV.growthW_kv` alone gives `PolylogGrowth a K` for every `a > 2/3`, hence `KVBridge.zeroFree_kv`, `rung3_kv` and `Rung3.KVInput n₁ 3` for every `n₁ > 2/3`, without rounds 212–214's `GrowthSum` route (`KVSubsumes`). `Domination` proves rounds 230–231's counts from round 232's, the `FourierInv` lemmas from the weaker `ESupp`, and **rounds 163, 164 and 234's λ₁ bounds (`lam_prefactor`, `lam_kaiser`, `lam_prefactor_KV`) as corollaries of round 220's `lam_nine`**: `e^{9a}` is below `e^{10a − c a^{1/3}/(log a)^{1/3}}`, so round 234's statement carries no kernel content beyond `lam_nine` (its effectivity remark stands). The retired chains are not deleted in this round; the census of what they free (about 700–850 lines) is in `STRUCTURAL-REVIEW.md`.
+
+**Check 4.** Round 234 acknowledged `lam_nine`'s dominance in prose; the Lean corollaries and the `KVInput` discharge are new. **Bearing on RH:** none.
+
+## Round 250: small simplifications compiled (`src/CertInstances.lean`, `src/DecayCorollaries.lean`)
+
+The `PrimeRelax3`/`ParityRelax` certificates as instances of the weighted certificate; `lam_decay` without its three unused hypotheses; `lamO_decay_uncond` from `lam_dexp`; the `ε`-form of the VMVT.
+
+Every theorem of rounds 242–250 depends only on `propext`, `Classical.choice` and `Quot.sound`: 930 checked theorems in `src/`; the `external/pnt` and `external/zeta23` builds print the new ones too. All three builds print no warnings from these files.
+
+**Check 4.** New. **Bearing on RH:** none.
