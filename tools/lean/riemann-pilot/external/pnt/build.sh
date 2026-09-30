@@ -65,6 +65,7 @@ import DetectEM
 #print axioms KaiserKV.lam_prefactor_KV
 #print axioms TwinLandau.Q_ge_of_rates
 #print axioms TwinKV.twins_lower_KV
+#print axioms TwinKV.twins_lower_KV'
 #print axioms ShortKV.zeroFreeXi_KV
 #print axioms DetectEM.density_unconditional
 #print axioms DetectEM.short_primes

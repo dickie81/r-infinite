@@ -301,9 +301,32 @@ theorem pinned_unconditional {g : ℝ → ℝ} {a : ℝ} (ha : 0 < a) (hev : ∀
   · exact zero_near_of_deriv_ge hm (Real.sqrt_nonneg _) hr hc hd h hsmall
   · exact zero_near_of_deriv_le hm (Real.sqrt_nonneg _) hr hc hd h hsmall
 
+/-- **Pinning without RH, as a zero of `ĝ`.** The same hypotheses as `pinned_unconditional`; since
+`ĝ` is real on the real line (`ghatC_im_eq_zero`), the zero of `Re ĝ` is a zero of `ĝ`. -/
+theorem pinned_unconditional_zero {g : ℝ → ℝ} {a : ℝ} (ha : 0 < a) (hev : ∀ u, g (-u) = g u)
+    (hmono : AntitoneOn g (Icc 0 a)) (hnn : ∀ u ∈ Icc 0 a, 0 ≤ g u)
+    (hint : IntervalIntegrable g volume (-a) a)
+    {ι : Type*} {t : ι → ℂ} {Q H S : ℝ} (hH : 0 ≤ H)
+    (hsum : Summable fun i => ghatC g a (t i) ^ 2) (hQ : (Q : ℂ) = ∑' i, ghatC g a (t i) ^ 2)
+    (hRH : ∀ i, |(t i).re| ≤ H → (t i).im = 0) (hstrip : ∀ i, |(t i).im| ≤ 1 / 2)
+    (hS : Summable fun i => if H < |(t i).re| then 1 / (t i).re ^ 2 else 0)
+    (hSle : (∑' i, if H < |(t i).re| then 1 / (t i).re ^ 2 else 0) ≤ S)
+    (j : ι) (hj : |(t j).re| ≤ H) {m r : ℝ} (hm : 0 < m)
+    (hr : Real.sqrt (Q + (2 * g 0 * Real.cosh (a / 2)) ^ 2 * S) / m ≤ r)
+    (hc : ContinuousOn (fun x : ℝ => (ghatC g a x).re) (Icc ((t j).re - r) ((t j).re + r)))
+    (hd : DifferentiableOn ℝ (fun x : ℝ => (ghatC g a x).re) (Ioo ((t j).re - r) ((t j).re + r)))
+    (hslope : (∀ x ∈ Ioo ((t j).re - r) ((t j).re + r), m ≤ deriv (fun x : ℝ => (ghatC g a x).re) x) ∨
+      (∀ x ∈ Ioo ((t j).re - r) ((t j).re + r), deriv (fun x : ℝ => (ghatC g a x).re) x ≤ -m)) :
+    ∃ x ∈ Icc ((t j).re - Real.sqrt (Q + (2 * g 0 * Real.cosh (a / 2)) ^ 2 * S) / m)
+      ((t j).re + Real.sqrt (Q + (2 * g 0 * Real.cosh (a / 2)) ^ 2 * S) / m), ghatC g a x = 0 := by
+  obtain ⟨x, hx, hre⟩ := pinned_unconditional ha hev hmono hnn hint hH hsum hQ hRH hstrip hS hSle
+    j hj hm hr hc hd hslope
+  exact ⟨x, hx, Complex.ext (by simpa using hre) (by simpa using ghatC_im_eq_zero hev hint x)⟩
+
 end Pilot1ca
 
 #print axioms Pilot1ca.sq_le_of_explicit_tail
 #print axioms Pilot1ca.norm_ghatC_le_of_antitone
 #print axioms Pilot1ca.ghatC_im_eq_zero
 #print axioms Pilot1ca.pinned_unconditional
+#print axioms Pilot1ca.pinned_unconditional_zero

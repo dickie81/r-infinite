@@ -255,7 +255,43 @@ theorem twins_lower_KV : ∃ C A : ℝ, 0 < A ∧ ∀ l : ℝ, 1 ≤ l →
     linarith
   exact this.trans hQ
 
+/-- `f_KV(e^{8λ}) = 4 λ^{2/3} (log 8λ)^{1/3}`. -/
+theorem fKV_exp_eight {l : ℝ} (hl : 1 ≤ l) :
+    fKV (Real.exp (8 * l)) = 4 * l ^ ((2 : ℝ) / 3) * Real.log (8 * l) ^ ((1 : ℝ) / 3) := by
+  have hl0 : 0 < l := by linarith
+  unfold fKV
+  rw [Real.log_exp, Real.mul_rpow (by norm_num) hl0.le]
+  have : (8 : ℝ) ^ ((2 : ℝ) / 3) = 4 := by
+    rw [show (8 : ℝ) = 2 ^ (3 : ℕ) by norm_num, ← Real.rpow_natCast, ← Real.rpow_mul (by norm_num)]
+    norm_num
+  rw [this]
+
+/-- **The KV-graded lower bound in explicit shape**: `Q(twin (box 1) λ) ≥ −C·exp(λ − c λ^{1/3}(log 8λ)^{−1/3})`
+for `λ ≥ 1`. -/
+theorem twins_lower_KV' : ∃ C c : ℝ, 0 < c ∧ ∀ l : ℝ, 1 ≤ l →
+    -(C * Real.exp (l - c * l ^ ((1 : ℝ) / 3) / Real.log (8 * l) ^ ((1 : ℝ) / 3))) ≤
+      weilQ (l + 1) (twin (box 1) l) := by
+  obtain ⟨C, A, hA, h⟩ := twins_lower_KV
+  refine ⟨C, A / 4, by positivity, fun l hl => ?_⟩
+  have hl0 : 0 < l := by linarith
+  have hL : 0 < Real.log (8 * l) := Real.log_pos (by linarith)
+  have e3 : l = l ^ ((1 : ℝ) / 3) * l ^ ((2 : ℝ) / 3) := by
+    rw [← Real.rpow_add hl0]; norm_num
+  have E : (1 - A / fKV (Real.exp (8 * l))) * l =
+      l - A / 4 * l ^ ((1 : ℝ) / 3) / Real.log (8 * l) ^ ((1 : ℝ) / 3) := by
+    rw [fKV_exp_eight hl]
+    set u := l ^ ((1 : ℝ) / 3) with hu
+    set v := l ^ ((2 : ℝ) / 3) with hv
+    set w := Real.log (8 * l) ^ ((1 : ℝ) / 3) with hw
+    have hv0 : 0 < v := by positivity
+    have hw0 : 0 < w := by positivity
+    rw [e3]
+    field_simp
+  have := h l hl
+  rwa [E] at this
+
 end TwinKV
 
 #print axioms TwinLandau.Q_ge_of_rates
 #print axioms TwinKV.twins_lower_KV
+#print axioms TwinKV.twins_lower_KV'
