@@ -203,21 +203,22 @@ theorem re_inv_zero_term_ge (ρ : ℂ) (h0 : 0 < ρ.re) (h1 : ρ.re < 1) :
     apply mul_nonneg (sq_nonneg γ); linarith
   nlinarith
 
-/-- The Hadamard constant `K = 2 + γ_E - log(4π)` (true value 0.046191...) is below 0.0572.
-Uses only Mathlib's `γ_E < H_64 - log 64`, `log 2 > 0.6931471803`, `e < 2.7182818286`,
-`π > 3.141592` and a four-term Taylor bound for `exp 0.143`. -/
-theorem hadamard_const_lt : 2 + eulerMascheroniConstant - Real.log (4 * π) < 0.0572 := by
-  have hγ := Real.eulerMascheroniConstant_lt_eulerMascheroniSeq' 64
-  have hseq : eulerMascheroniSeq' 64 = (harmonic 64 : ℝ) - Real.log 64 := by
+/-- The Hadamard constant `K = 2 + γ_E - log(4π)` (true value 0.046191...) is below 0.0539.
+Uses only Mathlib's `γ_E < H_128 - log 128`, `log 2 > 0.6931471803`, `e < 2.7182818286`,
+`π > 3.141592` and a four-term Taylor bound for `exp 0.143`. (Round 233 moved `n` from 64 to 128:
+the bound `0.0539` is what lets 1bt(i) drop the first-zero height.) -/
+theorem hadamard_const_lt : 2 + eulerMascheroniConstant - Real.log (4 * π) < 0.0539 := by
+  have hγ := Real.eulerMascheroniConstant_lt_eulerMascheroniSeq' 128
+  have hseq : eulerMascheroniSeq' 128 = (harmonic 128 : ℝ) - Real.log 128 := by
     simp [eulerMascheroniSeq']
-  have hH : (harmonic 64 : ℝ) < 47439 / 10000 := by
-    have : harmonic 64 < (47439 / 10000 : ℚ) := by
+  have hH : (harmonic 128 : ℝ) < 54335 / 10000 := by
+    have : harmonic 128 < (54335 / 10000 : ℚ) := by
       simp only [harmonic, Finset.sum_range_succ, Finset.sum_range_zero]
       norm_num
-    have h' : ((harmonic 64 : ℚ) : ℝ) < ((47439 / 10000 : ℚ) : ℝ) := Rat.cast_lt.mpr this
+    have h' : ((harmonic 128 : ℚ) : ℝ) < ((54335 / 10000 : ℚ) : ℝ) := Rat.cast_lt.mpr this
     simpa using h'
-  have hlog64 : Real.log 64 = 6 * Real.log 2 := by
-    rw [show (64 : ℝ) = 2 ^ 6 by norm_num, Real.log_pow]; norm_num
+  have hlog64 : Real.log 128 = 7 * Real.log 2 := by
+    rw [show (128 : ℝ) = 2 ^ 7 by norm_num, Real.log_pow]; norm_num
   have hlog4pi : Real.log (4 * π) = 2 * Real.log 2 + Real.log π := by
     rw [Real.log_mul (by norm_num) Real.pi_ne_zero, show (4 : ℝ) = 2 ^ 2 by norm_num,
       Real.log_pow]
@@ -421,44 +422,66 @@ theorem zeroMult_pos (z : NontrivialZero) : 0 < zeroMult z := by
 /-- The nontrivial zeros of `ζ` counted with multiplicity, as an indexed family. -/
 def zetaZeroFamily : (Σ z : NontrivialZero, Fin (zeroMult z)) → ℂ := fun p => p.1.1
 
+/-- **The zeros' height from Hadamard's identity.** Every term of `Σ_ρ 1/(ρ(1 − ρ)) = K` has real part
+at least `1/(γ² + 5/4) > 0` (`re_inv_zero_term_ge`), so no term exceeds `K`: `1 ≤ K(γ² + 5/4)` for every
+zero. With `K < 0.0539` this gives `γ² > 17.3`. -/
+theorem one_le_hadamard_height {ι : Type*} (ρ : ι → ℂ)
+    (h_strip : ∀ i, 0 < (ρ i).re ∧ (ρ i).re < 1)
+    (h_hadamard : HasSum (fun i => 1 / (ρ i * (1 - ρ i)))
+      ((2 + eulerMascheroniConstant - Real.log (4 * π) : ℝ) : ℂ)) (i : ι) :
+    1 ≤ (2 + eulerMascheroniConstant - Real.log (4 * π)) * ((ρ i).im ^ 2 + 5 / 4) := by
+  have hre : HasSum (fun j => (1 / (ρ j * (1 - ρ j))).re)
+      (2 + eulerMascheroniConstant - Real.log (4 * π)) := by
+    simpa using Complex.hasSum_re h_hadamard
+  have hlow : ∀ j, 1 / ((ρ j).im ^ 2 + 5 / 4) ≤ (1 / (ρ j * (1 - ρ j))).re := fun j =>
+    re_inv_zero_term_ge (ρ j) (h_strip j).1 (h_strip j).2
+  have hnn : ∀ j, 0 ≤ (1 / (ρ j * (1 - ρ j))).re := fun j =>
+    le_trans (by positivity) (hlow j)
+  have hle := le_hasSum hre i fun j _ => hnn j
+  have h := (hlow i).trans hle
+  rwa [div_le_iff₀ (by positivity)] at h
+
 /-! ## Theorem 1bt(i): the pole-free form is negative on the witness, for every `a ≥ 0.2`
 
 Named classical inputs (hypotheses, not proved here):
 * `h_strip`    — every nontrivial zero `ρ` lies in the open critical strip `0 < Re ρ < 1`;
-* `h_height`   — every zero has `|Im ρ| ≥ 14` (the first zero is at 14.1347...);
 * `h_hadamard` — Hadamard's identity `Σ_ρ 1/(ρ(1-ρ)) = 2 + γ_E - log 4π`, summed over the
                  zeros with multiplicity (absolutely convergent, hence an unconditional `HasSum`);
 * `h_explicit` — Weil's explicit formula for the autocorrelation of the even witness `g_a`:
                  the value `Q` of Weil's form is the zero sum `Σ_ρ ĝ_a(t_ρ)²`, `t_ρ = (ρ - 1/2)/i`.
-The zeros are an arbitrary family `ρ : ι → ℂ` (multiplicity = repetition). -/
+The zeros are an arbitrary family `ρ : ι → ℂ` (multiplicity = repetition). The first zero's height
+is not an input (round 233): Hadamard's identity itself gives `γ² ≥ 1/K − 5/4`
+(`one_le_hadamard_height`), and the proof needs the height only through the factor
+`1 + (5/4)/γ² ≤ 4/(4 − 5K)`. -/
 theorem pole_free_form_negative {ι : Type*} (ρ : ι → ℂ)
     (h_strip : ∀ i, 0 < (ρ i).re ∧ (ρ i).re < 1)
-    (h_height : ∀ i, 14 ≤ |(ρ i).im|)
     (h_hadamard : HasSum (fun i => 1 / (ρ i * (1 - ρ i)))
       ((2 + eulerMascheroniConstant - Real.log (4 * π) : ℝ) : ℂ))
     (a : ℝ) (ha : 1 / 5 ≤ a) (Q : ℂ)
     (h_explicit : HasSum (fun i => ghat a ((ρ i - 1 / 2) / Complex.I) ^ 2) Q) :
     ‖Q‖ < 2 * (a + Real.sinh a) ^ 2 ∧ (Q - 2 * ghat a (Complex.I / 2) ^ 2).re < 0 := by
   set K := 2 + eulerMascheroniConstant - Real.log (4 * π) with hK
-  have hKlt : K < 0.0572 := hadamard_const_lt
+  have hKlt : K < 0.0539 := hadamard_const_lt
   have ha0 : 0 ≤ a := by linarith
-  set C := V a ^ 2 * Real.exp a * (1 + 5 / 784) with hC
+  have h45 : 0 < 4 - 5 * K := by linarith
+  set M : ℝ := 4 / (4 - 5 * K) with hM
+  have hM0 : 0 ≤ M := by positivity
+  set C := V a ^ 2 * Real.exp a * M with hC
   have hCnn : 0 ≤ C := by positivity
   -- termwise: ‖ĝ(t_ρ)²‖ ≤ C · Re 1/(ρ(1-ρ))
   have hterm : ∀ i, ‖ghat a ((ρ i - 1 / 2) / Complex.I) ^ 2‖ ≤ C * (1 / (ρ i * (1 - ρ i))).re := by
     intro i
     obtain ⟨h0, h1⟩ := h_strip i
-    have hγ := h_height i
+    have hone := one_le_hadamard_height ρ h_strip h_hadamard i
     set g := (ρ i).im with hg
     set t := (ρ i - 1 / 2) / Complex.I with ht_def
     have htre : t.re = g := by
       simp [ht_def, Complex.div_I, hg]
     have htim : t.im = 1 / 2 - (ρ i).re := by
       simp [ht_def, Complex.div_I]
-    have hg2 : 196 ≤ g ^ 2 := by
-      have h := mul_le_mul hγ hγ (by norm_num) (abs_nonneg g)
-      rw [abs_mul_abs_self] at h
-      nlinarith
+    have hg2pos : 0 < g ^ 2 := by
+      refine lt_of_le_of_ne (sq_nonneg g) fun h0' => ?_
+      rw [← h0'] at hone; linarith
     have hnt : g ^ 2 ≤ ‖t‖ ^ 2 := by
       rw [Complex.sq_norm, Complex.normSq_apply, htre]
       nlinarith [mul_self_nonneg t.im]
@@ -477,24 +500,21 @@ theorem pole_free_form_negative {ι : Type*} (ρ : ι → ℂ)
       push_cast
       nlinarith [mul_le_mul_of_nonneg_left him ha0]
     have hVnn : 0 ≤ V a ^ 2 := sq_nonneg _
-    have hg2pos : 0 < g ^ 2 := by linarith
     have hlem := re_inv_zero_term_ge (ρ i) h0 h1
-    have hinv : 1 / g ^ 2 ≤ (1 + 5 / 784) * (1 / (ρ i * (1 - ρ i))).re := by
-      have h2 : 1 / g ^ 2 ≤ (1 + 5 / 784) * (1 / (g ^ 2 + 5 / 4)) := by
-        rw [show (1 + 5 / 784 : ℝ) * (1 / (g ^ 2 + 5 / 4)) = (1 + 5 / 784) / (g ^ 2 + 5 / 4) by
-          ring]
-        rw [div_le_div_iff₀ hg2pos (by linarith)]
+    have hinv : 1 / g ^ 2 ≤ M * (1 / (ρ i * (1 - ρ i))).re := by
+      have h2 : 1 / g ^ 2 ≤ M * (1 / (g ^ 2 + 5 / 4)) := by
+        rw [show M * (1 / (g ^ 2 + 5 / 4)) = M / (g ^ 2 + 5 / 4) by ring,
+          div_le_div_iff₀ hg2pos (by linarith), hM, div_mul_eq_mul_div, le_div_iff₀ h45]
         nlinarith
-      calc 1 / g ^ 2 ≤ (1 + 5 / 784) * (1 / (g ^ 2 + 5 / 4)) := h2
-        _ ≤ (1 + 5 / 784) * (1 / (ρ i * (1 - ρ i))).re :=
-          mul_le_mul_of_nonneg_left hlem (by norm_num)
+      calc 1 / g ^ 2 ≤ M * (1 / (g ^ 2 + 5 / 4)) := h2
+        _ ≤ M * (1 / (ρ i * (1 - ρ i))).re := mul_le_mul_of_nonneg_left hlem hM0
     calc ‖ghat a t ^ 2‖ = ‖ghat a t‖ ^ 2 := norm_pow _ _
       _ ≤ (V a * Real.exp (a * |t.im|) / ‖t‖) ^ 2 := pow_le_pow_left₀ (norm_nonneg _) hb 2
       _ = V a ^ 2 * Real.exp (a * |t.im|) ^ 2 / ‖t‖ ^ 2 := by ring
       _ ≤ V a ^ 2 * Real.exp a / g ^ 2 :=
           div_le_div₀ (by positivity) (mul_le_mul_of_nonneg_left hexp hVnn) hg2pos hnt
       _ = V a ^ 2 * Real.exp a * (1 / g ^ 2) := by ring
-      _ ≤ V a ^ 2 * Real.exp a * ((1 + 5 / 784) * (1 / (ρ i * (1 - ρ i))).re) :=
+      _ ≤ V a ^ 2 * Real.exp a * (M * (1 / (ρ i * (1 - ρ i))).re) :=
           mul_le_mul_of_nonneg_left hinv (by positivity)
       _ = C * (1 / (ρ i * (1 - ρ i))).re := by rw [hC]; ring
   have hsumC : HasSum (fun i => C * (1 / (ρ i * (1 - ρ i))).re) (C * K) := by
@@ -502,8 +522,10 @@ theorem pole_free_form_negative {ι : Type*} (ρ : ι → ℂ)
     simpa using this
   have hQle : ‖Q‖ ≤ C * K := h_explicit.norm_le_of_bounded hsumC hterm
   have hfin : C * K < 2 * (a + Real.sinh a) ^ 2 := by
-    have h := final_ineq a ha ((1 + 5 / 784) * K) (by linarith)
-    calc C * K = V a ^ 2 * Real.exp a * ((1 + 5 / 784) * K) := by rw [hC]; ring
+    have hMK : M * K ≤ 289 / 5000 := by
+      rw [hM, div_mul_eq_mul_div, div_le_iff₀ h45]; linarith
+    have h := final_ineq a ha (M * K) hMK
+    calc C * K = V a ^ 2 * Real.exp a * (M * K) := by rw [hC]; ring
       _ < _ := h
   have hQ : ‖Q‖ < 2 * (a + Real.sinh a) ^ 2 := lt_of_le_of_lt hQle hfin
   refine ⟨hQ, ?_⟩
@@ -517,16 +539,15 @@ theorem pole_free_form_negative {ι : Type*} (ρ : ι → ℂ)
 
 /-- **Theorem 1bt(i) over the zeros of Mathlib's `ζ`.** The strip hypothesis is now a theorem
 (`IsNontrivialZero.mem_strip`); the family is the nontrivial zeros of `riemannZeta` counted with
-multiplicity. Remaining named classical inputs: the first zero's height, Hadamard's identity and
-Weil's explicit formula — each now a statement about `ζ` itself. -/
+multiplicity. Remaining named classical inputs: Hadamard's identity and Weil's explicit formula,
+each a statement about `ζ` itself (both discharged in `ZetaInputs.lean`). -/
 theorem pole_free_form_negative_zeta
-    (h_height : ∀ p, 14 ≤ |(zetaZeroFamily p).im|)
     (h_hadamard : HasSum (fun p => 1 / (zetaZeroFamily p * (1 - zetaZeroFamily p)))
       ((2 + eulerMascheroniConstant - Real.log (4 * π) : ℝ) : ℂ))
     (a : ℝ) (ha : 1 / 5 ≤ a) (Q : ℂ)
     (h_explicit : HasSum (fun p => ghat a ((zetaZeroFamily p - 1 / 2) / Complex.I) ^ 2) Q) :
     ‖Q‖ < 2 * (a + Real.sinh a) ^ 2 ∧ (Q - 2 * ghat a (Complex.I / 2) ^ 2).re < 0 :=
-  pole_free_form_negative zetaZeroFamily (fun p => p.1.2.mem_strip) h_height h_hadamard a ha Q
+  pole_free_form_negative zetaZeroFamily (fun p => p.1.2.mem_strip) h_hadamard a ha Q
     h_explicit
 
 end Pilot1bt
@@ -537,6 +558,7 @@ end Pilot1bt
 #print axioms Pilot1bt.re_inv_zero_term_ge
 #print axioms Pilot1bt.hadamard_const_lt
 #print axioms Pilot1bt.final_ineq
+#print axioms Pilot1bt.one_le_hadamard_height
 #print axioms Pilot1bt.pole_free_form_negative
 #print axioms Pilot1bt.IsNontrivialZero.mem_strip
 #print axioms Pilot1bt.zeroMult_pos

@@ -7,11 +7,11 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 791 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 793 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
-| `T1bt.lean` | 543 | Theorem 1bt |
+| `T1bt.lean` | 565 | Theorem 1bt; since round 233 with no first-zero height (`one_le_hadamard_height`) |
 | `T1ca.lean` | 1492 | 1ca(ii) |
 | `Osc.lean` | 917 | 1ca(iii) |
 | `Split.lean` | 305 | 1ca(i), and (i)–(iii) assembled |
@@ -82,7 +82,7 @@ Every file ends with `#print axioms`. All 791 checked theorems depend only on `p
 | `StripShift.lean`, `XiLogDeriv.lean`, `WeilCount.lean`, `WeilAssemble.lean` | 731, 230, 132, 629 | the strip class `StripTest`, contour shifts, `Ξ′/Ξ` as a sum over zeros and on `Re s > 1`, the zero count, and **Weil's explicit formula over the zeros of `Ξ`** (round 156) |
 | `WeilDischarge.lean`, `WeilZeta.lean` | 245, 270 | the pilot's test functions are strip test functions; **`weilExplicit_zeta`**: the explicit formula over the zeros of `ζ` (round 156) |
 | `WeilCriterion.lean` | 140 | monotone profiles are strip test functions; the explicit formula for the box and its twins over the zeros of `ζ`; no nontrivial zero is real (round 157; its finite-exception criterion `rh_of_weil_finite` was superseded in round 220) |
-| `ZetaInputs.lean` | 238 | **Hadamard's identity `Σ_ρ 1/(ρ(1−ρ)) = 2 + γ − log 4π` proved**; 1bt(i) and the pinning theorem with their classical inputs discharged (round 157) |
+| `ZetaInputs.lean` | 253 | **Hadamard's identity `Σ_ρ 1/(ρ(1−ρ)) = 2 + γ − log 4π` proved**; 1bt(i) and the pinning theorem with their classical inputs discharged (round 157); 1bt(i) with **no named input** and `|Im ρ| > 4` for every zero (`four_lt_abs_im_zero`) (round 233) |
 | `ExteriorZeta.lean` | 310 | `Φ` entire, `Φ(w) + Φ(−w) = 1`, `χ` in the strip class; **the exterior identity over the zeros of `ζ` for every probe** (round 157) |
 | `WeilRH.lean` | 168 | **RH ⟹ `Q ≥ 0` on every probe**; `weil_criterion_zeta`: `Q ≥ 0` everywhere ⟺ RH, with no finiteness hypothesis since round 220 (round 157) |
 | `WeilIndexZeta.lean` | 107 | **negative directions of `Q` count off-line zeros of ζ with no named input**: `finrank_le_quadruples_zeta`, `finrank_le_offline_zeta` (strip-test probes), `finrank_le_quadruples_C2`, `exists_offline_of_neg_C2` (round 229) |
@@ -136,22 +136,24 @@ Round 2 discharged the strip hypothesis:
   - `Re s > 0`: in the functional equation `ζ(s) = 2(2π)^{−(1−s)} Γ(1−s) cos(π(1−s)/2) ζ(1−s)`, every factor except the cosine is nonzero when `Re s ≤ 0`. The cosine vanishes only at `s = −2k`. For `k = 0` that is `ζ(0) = −1/2 ≠ 0`; for `k ≥ 1` it is a trivial zero.
 - `zeroMult_pos`: every nontrivial zero has analytic order in `[1, ∞)`, so the family lists each zero at least once. Finiteness uses analyticity of ζ on the connected set `ℂ∖{1}`.
 
-Three classical inputs remain. Each is now a statement about ζ itself.
+Two classical inputs remain here. Each is a statement about ζ itself, and round 157 proves both (`ZetaInputs.lean`).
 
 | Hypothesis | Classical fact |
 |---|---|
-| `h_height` | every nontrivial zero has `|Im ρ| ≥ 14` |
 | `h_hadamard` | `Σ_ρ 1/(ρ(1−ρ)) = 2 + γ_E − log 4π` |
 | `h_explicit` | Weil's explicit formula for the witness: `Q(g_a) = Σ_ρ ĝ_a(t_ρ)²` |
 
-The general form `pole_free_form_negative` is kept: it works for any family of zeros with the strip, height, Hadamard and explicit-formula properties. The round-1 lemmas are unchanged:
+*(Until round 233 a third input, `h_height`: every zero has `|Im ρ| ≥ 14`. Round 233 derives what the proof needs from `h_hadamard`.)*
+
+The general form `pole_free_form_negative` is kept: it works for any family of zeros with the strip, Hadamard and explicit-formula properties. The round-1 lemmas are unchanged:
 
 | Lemma | Content |
 |---|---|
 | `ghat_bound` | integration by parts, with the exact `V(a) = 4cosh(a/2) − 2` |
 | `ghat_pole` | `ĝ_a(i/2) = a + sinh a` |
 | `re_inv_zero_term_ge` | `Re 1/(ρ(1−ρ)) ≥ 1/(γ² + 5/4)` |
-| `hadamard_const_lt` | `K < 0.0572` |
+| `hadamard_const_lt` | `K < 0.0539` (`γ_E < H₁₂₈ − log 128`; `K < 0.0572` from `n = 64` until round 233) |
+| `one_le_hadamard_height` | `1 ≤ K(γ² + 5/4)` for every zero, from `h_hadamard` (round 233) |
 | `final_ineq` | `V(a)²eᵃK′ < 2(a + sinh a)²` for all `a ≥ 0.2`; this replaces the paper's interval evaluation on `[0.2, 1]` |
 
 ## T1ca.lean: Theorem 1ca(ii), uniqueness of the smooth wall, with no computed input
@@ -5245,7 +5247,7 @@ Round 156 proved Weil's explicit formula over the zeros of `ζ` for strip test f
   - `hasSum_logDeriv_Xi` at `t = −i/2`, where `Ξ(−i/2) = ξ(1) = ½ ≠ 0`, gives `Σ_u 1/(u + ¼) = ξ′(1)/ξ(1) = Λ₀(1)` (`ξ = (s(s − 1)Λ₀ + 1)/2`, so `ξ′(1) = Λ₀(1)/2`).
   - Mathlib's `completedRiemannZeta₀_one` gives `Λ₀(1) = 1 + (γ − log 4π)/2`.
   - `ρ(1 − ρ) = ¼ + u` for `ρ = ½ ± i√u`; each `u` is counted twice; `zetaEquiv` transports the sum.
-- **`pole_free_form_negative_zeta_explicit`**: 1bt(i) over `ζ` with `h_hadamard` and `h_explicit` discharged. The witness `ĝ_a²` is a strip test function by 1bt's own bound `‖ĝ_a‖ ≤ V(a)e^{a|Im t|}/‖t‖`. The value of the form is the explicit formula's prime side (`weilRHS`). **One named input is left: `γ₁ ≥ 14`.**
+- **`pole_free_form_negative_zeta_explicit`**: 1bt(i) over `ζ` with `h_hadamard` and `h_explicit` discharged. The witness `ĝ_a²` is a strip test function by 1bt's own bound `‖ĝ_a‖ ≤ V(a)e^{a|Im t|}/‖t‖`. The value of the form is the explicit formula's prime side (`weilRHS`). **One named input is left: `γ₁ ≥ 14`.** *(Removed in round 233.)*
 
 ### 3. The pinning theorem (`ZetaInputs.lean`)
 - **`pinned_zeta`**: `Unconditional.lean`'s `pinned_unconditional` over the zeros of `ζ` for a monotone probe, with `Q = weilQ`.
@@ -5260,7 +5262,7 @@ Round 156 proved Weil's explicit formula over the zeros of `ζ` for strip test f
 - **`exterior_identity_probe_zeta`**: round 4's 1ca(iv) identity over the zeros of `ζ` for every even integrable probe, with no named input. The three integrability conditions on the real values are the identity's own regularity hypotheses and are kept.
 
 ### What remains named, after this round
-- **Numeric facts:** `γ₁ ≥ 14` (`T1bt`, the 1ca wall law); RH verified to a height (`pinned_zeta`); the arb certificates `Cert14`, `CertP`, `CertP3`, `CertE`, `CertO` and `Round47Certs`. None of the certificates sits in an RH chain; they extend certified ranges.
+- **Numeric facts:** `γ₁ ≥ 14` (`T1bt`, the 1ca wall law; *round 233 removes it from `T1bt`*); RH verified to a height (`pinned_zeta`); the arb certificates `Cert14`, `CertP`, `CertP3`, `CertE`, `CertO` and `Round47Certs`. None of the certificates sits in an RH chain; they extend certified ranges.
 - **Classical but heavy:** `|S(T)| ≤ C log T` and `|S₁(T)| ≤ C log T` (`hSlog`, `hS1log`, used only by the 1ca wall law). They need the argument principle for `Ξ` and Stirling for `arg Γ`, which Mathlib lacks. *(Round 228: `hSlog` is proved, from zeta23's Riemann–von Mangoldt machinery; `hS1log` remains.)*
 - **Open, not classical:** monotonicity or concavity of ground states.
 - **RH-strength:** `HypConv` for a cross-rooted family, or anything stronger (no crossing, the parity gap, simplicity, D).
@@ -7566,3 +7568,25 @@ Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`
 - Not checked: whether the infinite case is in print. Suzuki's screw-function papers (arXiv 2206.03682, 2606.09096) work in the Krein–Langer framework, and the full text of Bombieri's paper was not read.
 
 **Bearing on RH:** none. This counts off-line zeros whenever they exist, however many. It says nothing about whether any exist.
+
+## Round 233: Theorem 1bt(i) with no named input (`src/T1bt.lean`, `src/ZetaInputs.lean`)
+
+Round 157 left one named input in `pole_free_form_negative_zeta_explicit`: the first zero's height, `γ₁ ≥ 14`. This round removes it. **Theorem 1bt(i) over the zeros of Mathlib's `riemannZeta` now has no hypothesis beyond `a ≥ 1/5`.**
+
+**Why the height was not needed.** The proof bounds each zero's term by `‖ĝ_a(t_ρ)²‖ ≤ V(a)²eᵃ/γ²`. It then compares `1/γ²` with Hadamard's term, using `Re 1/(ρ(1 − ρ)) ≥ 1/(γ² + 5/4)` (`re_inv_zero_term_ge`). The height enters only through the factor `(γ² + 5/4)/γ² = 1 + (5/4)/γ²`, and round 1 bounded it by `1 + 5/784` using `γ ≥ 14`. But Hadamard's identity already bounds the height:
+
+- **`one_le_hadamard_height`**: every term of `Σ_ρ 1/(ρ(1 − ρ)) = K` has real part at least `1/(γ² + 5/4) > 0`. A sum of nonnegative terms bounds each term, so `1/(γ² + 5/4) ≤ K`, i.e. `1 ≤ K(γ² + 5/4)`, for every zero.
+- Then `1 + (5/4)/γ² ≤ 4/(4 − 5K)`. `final_ineq` accepts any `K′ ≤ 289/5000`, and `K′ = 4K/(4 − 5K)` qualifies exactly when `21445K ≤ 1156`, i.e. `K ≤ 0.053905…`.
+- **`hadamard_const_lt`** is sharpened from `K < 0.0572` to `K < 0.0539`. The true value is `0.046191…`. It now uses Mathlib's `γ_E < H_n − log n` at `n = 128` instead of `64`, with `log 128 = 7 log 2` and `H₁₂₈ < 5.4335` checked by `norm_num`. At `n = 64` the bound is about `γ_E + 1/128 ≈ 0.58503`, just above the `0.58492` needed.
+
+`pole_free_form_negative`, `pole_free_form_negative_zeta` and `pole_free_form_negative_zeta_explicit` lose the `h_height` argument.
+
+**A corollary.** `four_lt_abs_im_zero`: every nontrivial zero of `ζ` has `|Im ρ| > 4`, from Hadamard's identity and `K < 0.0539` alone (`γ² ≥ 1/K − 5/4 > 17`). Each zero ρ has a partner ρ̄ with an equal term. Pairing them doubles the bound to `γ² ≥ 2/K − 5/4`, i.e. `|γ| > 5.9` with this `K` bound, or `6.48` with the true `K`. That version needs the conjugation symmetry of multiplicities on the index type and is not formalised.
+
+**Scope.** Only 1bt(i) is freed. The 1ca wall law (`wall_law_zeta`) uses `γ₁ ∈ [14, 2πe]` quantitatively and still takes the numeric fact.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (793 checked theorems in `src/`). The build has no warnings.
+
+**Check 4.** Acknowledged: round 157 recorded `γ₁ ≥ 14` as the last named input of 1bt(i), and the Lean-review report proposed this removal. New: the formal removal and the `|Im ρ| > 4` corollary.
+
+**Bearing on RH:** none. 1bt(i) is a statement about the pole-free form on one witness, and the change removes a numeric input from it.

@@ -9,7 +9,9 @@ import Zeta
   (`hasSum_logDeriv_Xi`) at `t = −i/2`, where `Ξ(−i/2) = ξ(1) = ½`, gives
   `Σ_u 1/(u + ¼) = ξ′(1)/ξ(1) = Λ₀(1)`, and Mathlib's `completedRiemannZeta₀_one` evaluates `Λ₀(1)`.
 * `pole_free_form_negative_zeta_explicit`: **Theorem 1bt(i)** with Hadamard's identity and the
-  explicit formula discharged. The one input left is the first zero's height, `γ₁ ≥ 14`.
+  explicit formula discharged. Since round 233 it has no named input: the first zero's height,
+  `γ₁ ≥ 14` until then, follows from Hadamard's identity (`one_le_hadamard_height`).
+* `four_lt_abs_im_zero`: every nontrivial zero has `|Im ρ| > 4`, from Hadamard's identity alone.
 * `pinned_zeta`: `Unconditional.lean`'s pinning theorem with the explicit formula (`hQ`), the
   strip (`hstrip`), and the tail summability (`hS`) discharged. Left: verified RH to height `H`
   (numeric), and monotonicity of the probe (a hypothesis on `g`, observed for ground states).
@@ -148,14 +150,26 @@ theorem weilExplicit_ghat_bt {a : ℝ} (ha : 0 ≤ a) :
 
 /-- **Theorem 1bt(i) over the zeros of `ζ`, with Hadamard's identity and Weil's explicit formula
 discharged.** The value of Weil's form on the witness is the explicit formula's prime side
-`W = weilRHS`; it satisfies `‖W‖ < 2(a + sinh a)²`, so the pole-free form is negative. One named
-input remains: the first zero's height `γ₁ ≥ 14`. -/
-theorem pole_free_form_negative_zeta_explicit
-    (h_height : ∀ p, 14 ≤ |(zetaZeroFamily p).im|) (a : ℝ) (ha : 1 / 5 ≤ a) :
+`W = weilRHS`; it satisfies `‖W‖ < 2(a + sinh a)²`, so the pole-free form is negative. No named
+input remains (round 233): the first zero's height, formerly `γ₁ ≥ 14`, is not needed. -/
+theorem pole_free_form_negative_zeta_explicit (a : ℝ) (ha : 1 / 5 ≤ a) :
     ‖weilRHS (fun z => ghat a z ^ 2) (hRbt a)‖ < 2 * (a + Real.sinh a) ^ 2 ∧
       (weilRHS (fun z => ghat a z ^ 2) (hRbt a) - 2 * ghat a (I / 2) ^ 2).re < 0 :=
-  pole_free_form_negative_zeta h_height hadamard_zeta a ha _
+  pole_free_form_negative_zeta hadamard_zeta a ha _
     (weilExplicit_ghat_bt (by linarith)).hasSum_rhs
+
+/-- **Every nontrivial zero of `ζ` has `|Im ρ| > 4`**, from Hadamard's identity alone:
+`1 ≤ K(γ² + 5/4)` with `K < 0.0539` gives `γ² > 17`. -/
+theorem four_lt_abs_im_zero (p : Σ w : NontrivialZero, Fin (zeroMult w)) :
+    4 < |(zetaZeroFamily p).im| := by
+  have h := one_le_hadamard_height zetaZeroFamily (fun q => q.1.2.mem_strip) hadamard_zeta p
+  have hK := hadamard_const_lt
+  have hK0 : 0 < 2 + eulerMascheroniConstant - Real.log (4 * π) := by
+    by_contra hc; push Not at hc
+    nlinarith [sq_nonneg (zetaZeroFamily p).im]
+  have h16 : 16 < (zetaZeroFamily p).im ^ 2 := by nlinarith
+  rw [← sq_abs] at h16
+  nlinarith [abs_nonneg (zetaZeroFamily p).im]
 
 /-! ## The pinning theorem with the explicit formula, strip and tail discharged -/
 
@@ -234,5 +248,6 @@ end Pilot1ca
 #print axioms Pilot1ca.hadamard_zeta
 #print axioms Pilot1ca.weilExplicit_ghat_bt
 #print axioms Pilot1ca.pole_free_form_negative_zeta_explicit
+#print axioms Pilot1ca.four_lt_abs_im_zero
 #print axioms Pilot1ca.summable_tail_zeta
 #print axioms Pilot1ca.pinned_zeta
