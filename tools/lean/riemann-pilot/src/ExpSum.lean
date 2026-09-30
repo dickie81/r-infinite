@@ -199,7 +199,7 @@ theorem double_holder (α : Fin K → ℝ) {M ℓ : ℕ} (hℓ : 1 ≤ ℓ) (Zb 
     · simp [h]
     · have hn : (‖G a‖ : ℂ) ≠ 0 := by exact_mod_cast (norm_ne_zero_iff.mpr h)
       rw [div_mul_eq_mul_div, Complex.conj_mul', div_eq_iff hn]
-      push_cast; ring
+      ring
   have hcn : ∀ a, ‖c a‖ ≤ 1 := by
     intro a
     simp only [hc]

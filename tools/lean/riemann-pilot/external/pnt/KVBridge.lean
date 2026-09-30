@@ -137,7 +137,7 @@ theorem zeta_le_sum {t σ : ℝ} (hL : 25 ≤ Real.log |t|) (hσ45 : 4 / 5 ≤ �
     _ = _ := by ring
 
 /-- **ζ on the thin strip, for large `|t|`.** -/
-theorem zeta_bound_large {a : ℝ} (ha1 : 1 / 2 ≤ a) (ha2 : a ≤ 1) (hS : GrowthSum a) :
+theorem zeta_bound_large {a : ℝ} (ha1 : 1 / 2 ≤ a) (_ha2 : a ≤ 1) (hS : GrowthSum a) :
     ∃ B : ℝ, 0 < B ∧ ∀ t σ : ℝ, 25 ≤ Real.log |t| → 1 - Real.log |t| ^ (-a) ≤ σ → σ ≤ 2 →
       ‖riemannZeta (σ + t * I)‖ ≤ B * Real.log |t| := by
   obtain ⟨B, hB0, hB⟩ := hS

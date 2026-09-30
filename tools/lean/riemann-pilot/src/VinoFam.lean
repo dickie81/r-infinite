@@ -159,7 +159,7 @@ theorem sharpFamily {ε : ℝ} (hε : 0 < ε) : VMVTFamily 10 300 (2 + ε) (6 + 
   intro P hP
   have h := (vmvt2 hK2 (mf K)).2 P hP
   convert h using 3
-  all_goals first | rfl | (unfold VinoRec2.expo2 ℓf; push_cast; ring)
+  all_goals rfl
 
 /-- **Growth for every `a > 2/3`.** -/
 theorem growth_sharp {a : ℝ} (ha1 : 2 / 3 < a) (ha2 : a ≤ 1) :

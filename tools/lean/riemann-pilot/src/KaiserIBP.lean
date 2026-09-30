@@ -148,7 +148,7 @@ theorem norm_cexp_It_c {t : ℂ} {c : ℝ} (hti : -c ≤ t.im) {v : ℝ} (hv : 0
 
 /-- **Integration by parts on the tail**, for `Im t ≥ −c` with `0 ≤ c ≤ 1`:
 `‖∫_a^∞ φ e^{itv}‖ ≤ (4 + 2/(3/2 − c))·P(1 + D₀)/‖t‖`. -/
-theorem tail_ibp_gen (ht : Tail L η α) {a c : ℝ} (hLa : Real.exp a = L) (hc0 : 0 ≤ c) (hc1 : c ≤ 1)
+theorem tail_ibp_gen (ht : Tail L η α) {a c : ℝ} (hLa : Real.exp a = L) (_hc0 : 0 ≤ c) (hc1 : c ≤ 1)
     {t : ℂ} (hti : -c ≤ t.im) (ht0 : t ≠ 0) :
     ‖∫ v in Ioi a, phi L η α v * Complex.exp (I * t * v)‖ ≤
       (4 + 2 / (3 / 2 - c)) * kP η * (1 + kD0 L η) / ‖t‖ := by

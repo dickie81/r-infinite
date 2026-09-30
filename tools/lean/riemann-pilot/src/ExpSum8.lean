@@ -97,7 +97,7 @@ noncomputable def PhiG (t C η : ℝ) (N M K ℓ : ℕ) (G : Finset (Fin K)) : �
 
 lemma WG_nonneg (t : ℝ) (N : ℕ) {M K ℓ : ℕ} (hM : 1 ≤ M) (hℓ : 1 ≤ ℓ) (G : Finset (Fin K)) :
     0 ≤ WG t N M K ℓ G :=
-  Finset.prod_nonneg fun j _ => wsave_nonneg t N hM hℓ _
+  Finset.prod_nonneg fun _ _ => wsave_nonneg t N hM hℓ _
 
 set_option maxHeartbeats 1600000 in
 /-- **Per-`n` bound, many good coordinates.** -/

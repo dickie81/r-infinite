@@ -211,6 +211,12 @@ def Lam2GeT (a : ℝ) (S : Submodule ℝ (ℝ → ℝ)) (s : ℝ) : Prop :=
   ∀ g ∈ S, ∀ h ∈ S, ∃ α β : ℝ, α ^ 2 + β ^ 2 = 1 ∧
     s * normSq (fun t => α * g t + β * h t) ≤ weilQ a (fun t => α * g t + β * h t)
 
+theorem Lam2GeT.anti {a s s' : ℝ} {S : Submodule ℝ (ℝ → ℝ)} (h : Lam2GeT a S s) (hs : s' ≤ s) :
+    Lam2GeT a S s' := by
+  intro g hg k hk
+  obtain ⟨α, β, hab, hQ⟩ := h g hg k hk
+  exact ⟨α, β, hab, (mul_le_mul_of_nonneg_right hs (normSq_nonneg _)).trans hQ⟩
+
 /-- **Transfer of `λ₂` lower bounds from truncations to the operator.** -/
 theorem lam2Ge_of_trunc {a : ℝ} (ha : 0 < a) {T : ℕ → Submodule ℝ (ℝ → ℝ)}
     (hsub : ∀ K f, f ∈ T K → Probe a f) (hdense : TruncDense a T) {s : ℕ → ℝ} {s₀ : ℝ}
@@ -363,11 +369,14 @@ theorem lam2Ge_of_trunc {a : ℝ} (ha : 0 < a) {T : ℕ → Submodule ℝ (ℝ �
 
 /-- **Galerkin: a uniform truncated gap gives simplicity.** If truncation spaces are dense (in `L²` and
 energy) and eventually `λ₂(T K) ≥ Q(f)/‖f‖² + γ` for every nonzero `f ∈ T K` (i.e.
-`λ₂(T K) ≥ λ₁(T K) + γ`), then `λ₂(Q) ≥ λ₁(Q) + γ/2` and every ground state is simple. -/
+`λ₂(T K) ≥ λ₁(T K) + γ`), then `λ₂(Q) ≥ λ₁(Q) + γ/2` and every ground state is simple. The hypothesis is "eventually `λ₂(Q|T K) ≥ λ₁ + γ`"; since `λ₁(T K) ≥ λ₁`
+(`lam_mul_le`), it follows from `λ₂(T K) ≥ λ₁(T K) + γ`. Until round 239 the hypothesis was
+`Lam2GeT a (T K) (Q(f)/‖f‖² + γ)` for *every* nonzero `f ∈ T K`, which is refutable as soon as
+`dim T K ≥ 2` (take `f` maximising the Rayleigh quotient on a two-dimensional subspace); that form
+is kept as `simple_of_trunc_gap_of_forall`. -/
 theorem simple_of_trunc_gap {a : ℝ} (ha : 0 < a) {T : ℕ → Submodule ℝ (ℝ → ℝ)}
     (hsub : ∀ K f, f ∈ T K → Probe a f) (hdense : TruncDense a T) {γ : ℝ} (hγ : 0 < γ)
-    (hgap : ∀ᶠ K in atTop, ∀ f ∈ T K, 0 < normSq f →
-      Lam2GeT a (T K) (weilQ a f / normSq f + γ))
+    (hgap : ∀ᶠ K in atTop, Lam2GeT a (T K) (lam a + γ))
     {g : ℝ → ℝ} (hg : IsGroundState a g) : SimpleGround a g := by
   obtain ⟨F, hFT, hFd⟩ := hdense g hg.1
   obtain ⟨C, hC, hCle⟩ := Qlam_le_d ha
@@ -419,19 +428,44 @@ theorem simple_of_trunc_gap {a : ℝ} (ha : 0 < a) {T : ℕ → Submodule ℝ (�
     refine this.congr' ?_
     filter_upwards [hbound] with K ⟨h1, _⟩
     unfold Qlam; field_simp; ring
-  have hT : ∀ᶠ K in atTop, Lam2GeT a (T K) (weilQ a (F K) / normSq (F K) + γ) := by
-    filter_upwards [hgap, hFT, hsmall] with K hK hFK hs
-    have hpos : 0 < normSq (F K) := by
-      have pF := hsub K _ hFK
-      have pd := (probe_add_sub pF hg.1).2
-      have := normSq_add_le_t (x := F K) (y := fun t => g t - F K t) pF.memL2
-        (by exact hg.1.memL2.sub pF.memL2) one_pos
-      have e : (fun u => F K u + (g u - F K u)) = g := by funext u; ring
-      rw [e, hg.2.1, normSq_neg_sub] at this
-      norm_num at this; linarith
-    exact hK (F K) hFK hpos
-  have h2 := lam2Ge_of_trunc ha hsub hdense (hR.add_const γ) hT (half_pos hγ)
-  exact simpleGround_of_lam2 ha (s := lam a + γ / 2) (by linarith) (h2.anti (by linarith)) hg
+  have hT : ∀ᶠ K in atTop, Lam2GeT a (T K) (weilQ a (F K) / normSq (F K) + γ / 2) := by
+    have hev : ∀ᶠ K in atTop, weilQ a (F K) / normSq (F K) < lam a + γ / 2 :=
+      hR.eventually (Iio_mem_nhds (by linarith))
+    filter_upwards [hgap, hev] with K hK hle
+    exact hK.anti (by linarith)
+  have h2 := lam2Ge_of_trunc ha hsub hdense (hR.add_const (γ / 2)) hT (half_pos (half_pos hγ))
+  exact simpleGround_of_lam2 ha (s := lam a + γ / 4) (by linarith) (h2.anti (by linarith)) hg
+
+/-- The round-60 form of the gap hypothesis, `λ₂(Q|T K) ≥ Q(f)/‖f‖² + γ` for every nonzero
+`f ∈ T K`, implies the hypothesis of `simple_of_trunc_gap` (apply it to the approximants of the
+ground state, whose Rayleigh quotient is at least `λ₁`). It is refutable once `dim T K ≥ 2`
+(round 239), so this corollary only records that the new statement is the stronger one. -/
+theorem simple_of_trunc_gap_of_forall {a : ℝ} (ha : 0 < a) {T : ℕ → Submodule ℝ (ℝ → ℝ)}
+    (hsub : ∀ K f, f ∈ T K → Probe a f) (hdense : TruncDense a T) {γ : ℝ} (hγ : 0 < γ)
+    (hgap : ∀ᶠ K in atTop, ∀ f ∈ T K, 0 < normSq f →
+      Lam2GeT a (T K) (weilQ a f / normSq f + γ))
+    {g : ℝ → ℝ} (hg : IsGroundState a g) : SimpleGround a g := by
+  obtain ⟨F, hFT, hFd⟩ := hdense g hg.1
+  refine simple_of_trunc_gap ha hsub hdense hγ ?_ hg
+  have hNd : Tendsto (fun K => normSq (fun t => F K t - g t)) atTop (𝓝 0) := by
+    refine tendsto_of_tendsto_of_tendsto_of_le_of_le' tendsto_const_nhds hFd
+      (Eventually.of_forall fun K => normSq_nonneg _) ?_
+    filter_upwards [hFT] with K hK
+    have := archE_nonneg (probe_add_sub (hsub K _ hK) hg.1).2
+    linarith
+  have hsmall : ∀ᶠ K in atTop, normSq (fun t => F K t - g t) < 1 / 4 :=
+    hNd.eventually (Iio_mem_nhds (by norm_num))
+  filter_upwards [hgap, hFT, hsmall] with K hK hFK hs
+  have pF := hsub K _ hFK
+  have hpos : 0 < normSq (F K) := by
+    have := normSq_add_le_t (x := F K) (y := fun t => g t - F K t) pF.memL2
+      (by exact hg.1.memL2.sub pF.memL2) one_pos
+    have e : (fun u => F K u + (g u - F K u)) = g := by funext u; ring
+    rw [e, hg.2.1, normSq_neg_sub] at this
+    norm_num at this; linarith
+  have hR : lam a ≤ weilQ a (F K) / normSq (F K) := by
+    rw [le_div_iff₀ hpos]; exact lam_mul_le pF
+  exact (hK (F K) hFK hpos).anti (by linarith)
 
 end Pilot1ca
 
@@ -441,3 +475,4 @@ end Pilot1ca
 #print axioms Pilot1ca.simple_of_pole_overlap
 #print axioms Pilot1ca.lam2Ge_of_trunc
 #print axioms Pilot1ca.simple_of_trunc_gap
+#print axioms Pilot1ca.simple_of_trunc_gap_of_forall

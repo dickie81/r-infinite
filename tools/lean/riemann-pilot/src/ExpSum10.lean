@@ -38,7 +38,7 @@ theorem big_block_gen {a q B0 t σ : ℝ} {K0 Q0 : ℕ} {ℓf : ℕ → ℕ}
     (ha0 : 0 < a) (ha1 : a ≤ 1) {N N' : ℕ}
     (hL : 1 ≤ Real.log |t|) (hσ : 1 - Real.log |t| ^ (-a) ≤ σ)
     (hΛ : Aconst q B0 * Real.log |t| ^ (1 - a / (2 * q - 2)) ≤ Real.log N)
-    (hN5 : Real.log N ≤ 5 / 4 * Real.log |t|) (hN1 : N ≤ N') (hN2 : N' ≤ 2 * N) :
+    (hN5 : Real.log N ≤ 5 / 4 * Real.log |t|) (_hN1 : N ≤ N') (hN2 : N' ≤ 2 * N) :
     ‖∑ n ∈ Ioc N N', 1 / (n : ℂ) ^ ((σ : ℂ) + t * I)‖ ≤ 2 ^ (Q0 + 2) := by
   set L := Real.log |t| with hLdef
   set ν := Real.log N with hνdef

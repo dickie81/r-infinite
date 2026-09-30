@@ -164,7 +164,7 @@ theorem TBB_le2 {k s P p : ℕ} (hp : p.Prime) (hk : 1 ≤ k) (hkp : k ≤ p) :
     TBB k s P p ≤ 2 * (p.choose (k - 1)) ^ 2 * ((k - 1) ^ (2 * (k + s)) *
       J (k + s) k (P / p + 1)) := by
   have : Fact p.Prime := ⟨hp⟩
-  haveI : NeZero p := ⟨hp.ne_zero⟩
+  have : NeZero p := ⟨hp.ne_zero⟩
   set F := powersetCard (k - 1) (univ : Finset (ZMod p)) with hF
   set Bd := (k - 1) ^ (2 * (k + s)) * J (k + s) k (P / p + 1) with hBd
   have hself : ∀ S ∈ F, pairCount (piece (k + s) P p S) (piece (k + s) P p S) (pv k) ≤ Bd := by

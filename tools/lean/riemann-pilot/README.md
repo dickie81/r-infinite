@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 829 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 838 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -130,6 +130,7 @@ Every file ends with `#print axioms`. All 829 checked theorems depend only on `p
 | `DensityCore.lean` | 372 | the detection count: the zeros where the mollified polynomial is large, split into dyadic blocks, unit windows and parity classes, are few (`card_detect_le`) (round 235) |
 | `DensityAsym.lean` | 333 | **the density theorem from detection**: `DetectHyp δ` gives `N(σ, T) ≤ C T^{4(1+δ)(1−σ)}(log T)^{11}` (`density_of_detect`) (round 235) |
 | `MollId.lean` | 163 | the mollifier identity `M_X(s)·Σ_{n≤N} n^{−s} = 1 + Σ_{X<j≤XN} a_j j^{−s}`; `\|M_X(β+iγ)\| ≤ X^{1−σ}(1 + log X)` (round 235) |
+| `WeilDedekind.lean` | 200 | **the twin form of `ζ_{ℚ(i)} = ζ·L(s, χ₋₄)`**: one `TwinLandau.TwinData` on the sum of the two zero index types; `RH ∧ GRH(χ₋₄)` ⟺ `2Q_ζ(twin λ) + Q_{χ₋₄}(twin λ) ≥ 0`; graded and subexponential forms; `GRHMemberZero` (the angular island) gives both (round 236) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -2154,7 +2155,7 @@ The overlap can come from any minimiser `ψ` on `φ₀^⊥`; `μ₂` itself need
 | `Qlam_add_le`, `normSq_add_le_t` | `Q_λ(x + y) ≤ (1 + t)Q_λ(x) + (1 + 1/t)Q_λ(y)`, from Cauchy–Schwarz for the nonnegative `Q_λ`; the same for `‖·‖²` |
 | `Qlam_le_d` | `Q_λ ≤ C·(‖·‖² + E_arch)` on probes |
 | `lam2Ge_of_trunc` | if `T` is dense and eventually `λ₂(T K) ≥ s_K → s₀`, then `λ₂(Q) ≥ s₀ − ε` for every `ε > 0` |
-| `simple_of_trunc_gap` | **if `T` is dense and eventually `λ₂(T K) ≥ λ₁(T K) + γ`, with `γ > 0` uniform, then every ground state is simple** |
+| `simple_of_trunc_gap` | **if `T` is dense and eventually `λ₂(T K) ≥ λ₁(T K) + γ`, with `γ > 0` uniform, then every ground state is simple** *(Correction, round 239: the Lean hypothesis of this round quantified the gap over every nonzero `f ∈ T K`, which is refutable once `dim T K ≥ 2`; the hypothesis is now `λ₂(T K) ≥ λ₁ + γ`.)* |
 
 **What this gives, and what it does not.**
 * Simplicity at a support now follows from either of two checkable statements:
@@ -7134,7 +7135,7 @@ Four follow-ups to Landau's theorem. All build, with no warnings; every new theo
   - `LSeries_liouville` proves `L(λ, s)ζ(s) = ζ(2s)` from the Euler products: `λ` is completely multiplicative with `λ(p) = −1`, and `(1 + p^{−s})⁻¹(1 − p^{−s})⁻¹ = (1 − p^{−2s})⁻¹`.
   - `zeta_ne_zero_of_liouville`: for `θ ≥ ½`, a one-sided bound on `L(x)` gives a zero-free half-plane. `ζ(2s)` is holomorphic and nonzero there.
   - `rh_of_liouville_bound`: `εL(x) ≤ c√x` gives RH (with `ρ ↦ 1 − ρ`).
-  - `rh_of_polya`: **Pólya's conjecture `L(x) ≤ 0` implies RH.** Pólya's conjecture is false (Haselgrove 1958), so this closes nothing. It is the classical implication, now machine-checked.
+  - `rh_of_polya`: **Pólya's conjecture `L(x) ≤ 0` implies RH.** Pólya's conjecture is false (Haselgrove 1958), so this closes nothing. It is the classical implication, now machine-checked. *(Correction, round 238: as stated in this round the hypothesis was `L(x) ≤ 0` for every `x > 1`, which is refutable at `x = 3/2` (`L(3/2) = λ(1) = 1`), so the theorem was vacuous. It now assumes `L(x) ≤ 0` for `x ≥ 2`.)*
 
 **4. Landau for L-series** (`LSeriesLandau.lean`). With the counting measure on `ℕ` and `φ = log`, `LandauLaplace.landau` becomes the classical Dirichlet-series theorem.
 - `LSeries_landau`: if `L(a, s)` has nonnegative coefficients and converges for `σ > σ₀`, and a function holomorphic on a disc around `σ₀` agrees with it on `Re s > σ₀`, then it converges at some `σ < σ₀`.
@@ -7678,3 +7679,74 @@ Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`
 **Check 4.** Acknowledged: the Lean-review report listed "zero density, then primes in short intervals" as job 2. New: the formal theorems above, and the correction of the report's `5/8` claim to `2/3`.
 
 **Bearing on RH:** none. Short-interval primes at `θ > 3/4` follow from zero-free regions and density bounds that are far from RH. Under RH one gets `θ > 1/2`.
+
+## Round 236: the twin form of `ζ_{ℚ(i)} = ζ·L(s, χ₋₄)` (`src/WeilDedekind.lean`)
+
+This round is the first of a structural review of the pilot (`STRUCTURAL-REVIEW.md`). Rounds 220–225 built one Landau argument (`TwinLandau`) and instantiated it twice: for `ζ` (`twinData_zeta`, round 221) and for `L(s, χ)` (`twinData_chi`, round 225). The two instances have the same weight function up to a factor 2 (`GboxC p = 2·Gbox p`), so they combine into one instance on the sum of the index types, which is the explicit formula of the product `ζ(s)L(s, χ₋₄)`, the Dedekind zeta function of `ℚ(i)`.
+
+- `twinData_K`: `TwinLandau.TwinData PK cK GboxC (fun λ => Q_K(twin (box 1) λ))` on `ZIdx ⊕ ZeroIdx (sqF (XiC chi4))`, with `Q_K(a, g) = 2·weilQ a g + QC chi4 a g`. The `hasSum` field is `HasSum.sum` of the two explicit formulas; the finiteness field is the union of the two.
+- **`rh_grh_iff_QK_twins`: `RiemannHypothesis ∧ GRH chi4` ⟺ `2Q_ζ(twin (box 1) λ) + Q_{χ₋₄}(twin (box 1) λ) ≥ 0` for every `λ ≥ 0`.** One positivity statement for both hypotheses, from one application of `TwinLandau.abs_re_le`.
+- `QK_twins_rate`: the graded form. `Q_K(twin λ) ≥ −Ce^{σλ}` for some `C` iff every zero of `ζ` and every zero of `L(s, χ₋₄)` in the strip has `|2 Re ρ − 1| ≤ σ`.
+- `rh_grh_iff_QK_subexp`: `RH ∧ GRH(χ₋₄)` ⟺ the defect of `Q_K` is subexponential.
+- **The angular island joined.** `AngularFamily.lean` (round 187) defines `GRHMemberZero`, RH for `ζ(s)·L(s, χ4C)`, and proves only `rh_of_member_zero : GRHMemberZero → RH`; nothing imported it. `χ4C` is definitionally `chi4` (`χ4C_eq`), so `rh_grh_of_member_zero : GRHMemberZero → RH ∧ GRH chi4` and `QK_nonneg_of_member_zero`. The converse `RH ∧ GRH chi4 → GRHMemberZero` needs that `L(s, χ₋₄)` has no zeros with `Re s ≤ 0` other than `−(2n+1)` and none with `Re s ≥ 1`; not done.
+
+The factor 2 is the normalisation difference between the two zero families: `ZIdx` lists each zero of `ζ` once, `ZeroIdx (sqF (XiC χ))` lists each `±τ` pair once, and `QC` carries the 2 (`QC_hasSum`). The form with the ζ-zeros counted once, `Q_ζ + Q_{χ₋₄}`, needs the index `ZIdx ⊕ Bool × ZeroIdx …`; the same proof, not done.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 835 checked theorems in `src/`.
+
+**Check 4.** Acknowledged: round 225 noted that `TwinLandau` is generic in the pole family. New: the sum-type instance, the joint criterion, and the link to `AngularFamily`.
+
+**Bearing on RH:** none. It is Weil's criterion for `ζ_{ℚ(i)}` in the twin-box form, equivalent to RH together with GRH for `χ₋₄`.
+
+## Round 237: the Korobov–Vinogradov region as a lower bound on the twin form (`external/pnt/TwinKV.lean`)
+
+Round 221's `weil_twins_rate` says: `Q(twin (box 1) λ) ≥ −Ce^{σλ}` for all `λ ≥ 0` iff every zero has `|2 Re ρ − 1| ≤ σ`. So without a zero-free strip no rate `σ < 1` is provable, and the best unconditional statement about the defect must have the shape of the best zero-free region. This round proves that statement.
+
+- `TwinLandau.Q_ge_of_rates`: the converse bound of round 221 (`Q_ge`) with a rate per pole: if `|Re P_q| ≤ r_q` for every `q` and `Σ‖c_q‖e^{r_q λ} < ∞`, then `Q(λ) ≥ −4Σ_q ‖c_q‖e^{r_q λ}`.
+- The zeros with `|Re τ| ≤ T` get the rate `1 − 2A/f(T)` from round 234's `abs_im_tau_le` (`f(T) = (log T)^{2/3}(log log T)^{1/3}`); the zeros above `T` get the trivial rate 1 and the tail bound `Σ_{|Re τ| > T} |ĝ₀(τ)|² ≤ K₀²S₁T^{−1/4}`, from `norm_ghatC_le_of_antitone` (`|ĝ₀(τ)| ≤ 2g(0)cosh(½)/|τ|`) and round 235's `summable_Xi_zeros_rpow`. With `T = e^{8λ}` the tail is `O(e^{−λ})`.
+- **`TwinKV.twins_lower_KV`: there are `C` and `A > 0` with `Q(twin (box 1) λ) ≥ −C·exp((1 − A/f(e^{8λ}))·λ)` for every `λ ≥ 1`**, i.e. `≥ −C·exp(λ − c·λ^{1/3}(log 8λ)^{−1/3})`. No RH input; `A` is round 215's Korobov–Vinogradov constant, so the bound is effective in principle only (as in round 234).
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: `Q_ge_of_rates` and `twins_lower_KV` in `external/pnt`.
+
+**Check 4.** New. Round 234 fed the region into the Kaiser prefactor bound on `λ₁`; this is the same region in the twin-box form of round 221, where it is sharp in shape by `weil_twins_rate`.
+
+**Bearing on RH:** none. It is the positivity-side statement of the widest known zero-free region: the twin form's negative part is subexponential by exactly the Korobov–Vinogradov margin, and any better exponent than `λ^{1/3}` would be a wider region.
+
+## Round 238: `rh_of_polya` was vacuous (`src/MertensOmega.lean`)
+
+Round 222 stated `rh_of_polya (h : ∀ x : ℝ, 1 < x → summ fLi x ≤ 0) : RiemannHypothesis`, with `summ f x = Σ_{k ≤ x} f k` over `Finset.Icc 1 ⌊x⌋₊`. At `x = 3/2` the hypothesis says `L(3/2) = λ(1) = 1 ≤ 0`. So the hypothesis is refutable and the theorem was `False → RH`; round 222's "the classical implication, now machine-checked" was wrong.
+
+- `polya_hyp_false : ¬ (∀ x : ℝ, 1 < x → summ fLi x ≤ 0)`.
+- `rh_of_polya` now assumes `L(x) ≤ 0` for every `x ≥ 2` (Pólya's conjecture as stated by Pólya). The proof goes through `rh_of_liouville_bound` with `c = 1`: on `1 < x < 2`, `L(x) = 1 ≤ √x`.
+
+The other five theorems of round 222's file are unaffected (`rh_of_liouville_bound` is non-vacuous, e.g. at `ε = 1`, `c ≥ 1`).
+
+Every theorem of the file depends only on `propext`, `Classical.choice` and `Quot.sound`: 836 checked theorems in `src/`.
+
+**Check 4.** New (found by the structural review's reading pass; the vacuity was not recorded anywhere).
+
+**Bearing on RH:** none; Pólya's conjecture is false. It was a correctness defect in a stated theorem.
+
+## Round 239: the Galerkin gap hypothesis was refutable (`src/GapBound.lean`, `src/CosTrunc.lean`)
+
+Round 60's `simple_of_trunc_gap` was described as "if `T` is dense and eventually `λ₂(T K) ≥ λ₁(T K) + γ`, then every ground state is simple". Its Lean hypothesis was `∀ᶠ K, ∀ f ∈ T K, 0 < normSq f → Lam2GeT a (T K) (weilQ a f / normSq f + γ)`: the gap over **every** nonzero `f ∈ T K`, including the maximiser of the Rayleigh quotient. Once `dim T K ≥ 2` that is impossible: take `g, h ∈ T K` independent and `f` maximising `Q/‖·‖²` on the unit circle of `span{g, h}`; `Lam2GeT` at `(g, h)` gives `(R(f) + γ)‖αg + βh‖² ≤ Q(αg + βh) ≤ R(f)‖αg + βh‖²`, so `αg + βh = 0` a.e., contradicting independence. A dense truncation has `dim T K → ∞`, so the hypothesis was false for every dense `T`, and `simple_of_cos_gap` (round 62) inherited this at `K ≥ 2`. The proof used the hypothesis only at the approximants `F K` of the ground state, whose Rayleigh quotients tend to `λ₁`.
+
+- `simple_of_trunc_gap` now assumes `∀ᶠ K, Lam2GeT a (T K) (lam a + γ)`: eventually `λ₂(Q|T K) ≥ λ₁ + γ`. This follows from `λ₂(T K) ≥ λ₁(T K) + γ` because `λ₁(T K) ≥ λ₁` (`lam_mul_le`), so it is what the round-60 table promised. The proof is the old one with `γ/2` in place of `γ`, through the new `Lam2GeT.anti`.
+- `simple_of_trunc_gap_of_forall`, `simple_of_cos_gap_of_forall`: the round-60 forms, derived from the new theorems (the old hypothesis at `F K` gives the new one, since `R(F K) ≥ λ₁`). They are kept only to record that the new statements are stronger.
+- `simple_of_cos_gap` likewise.
+
+The refutation of the old hypothesis is argued above, not compiled (it needs the maximiser on a compact circle; about 100 lines).
+
+Every theorem of both files depends only on `propext`, `Classical.choice` and `Quot.sound`: 838 checked theorems in `src/`.
+
+**Check 4.** New. Round 60's prose and the Lean disagreed; no round recorded it.
+
+**Bearing on RH:** none directly. The Galerkin transfer is the theorem that the numerical gap certificates of rounds 60–62 were meant to feed, and as stated it could not be fed.
+
+## Round 240: the build prints no warnings again (`src/GlobalTeeth.lean`, `src/ExpSum.lean`, `src/ExpSum8.lean`, `src/ExpSum10.lean`, `src/VinoBad.lean`, `src/VinoFam.lean`, `src/VinoKV.lean`, `src/KaiserIBP.lean`, `external/pnt/Landau.lean`, `external/pnt/KVBridge.lean`)
+
+The header's sentence "The build prints no warnings" had been false since the round-187 and round-213–216 files: the pilot build printed 21 linter-warning lines from eight files, and the `external/pnt` build six more from its own files (deprecated names `if_true`/`if_false`/`if_neg`, unused `simp` arguments and variables, `<;>` where `;` suffices, `haveI` for a `Prop`, unreachable tactic alternatives, and two evaluations of `2^302` above the exponentiation threshold in `VinoKV.lean`, silenced with `set_option exponentiation.threshold 400 in`). No statement changes; the sentence is true again.
+
+**Check 4.** New (found by the structural review's baseline reproduction).
+
+**Bearing on RH:** none.

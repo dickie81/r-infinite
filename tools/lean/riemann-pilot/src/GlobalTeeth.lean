@@ -97,7 +97,7 @@ lemma one_add_i_dvd {w : GaussianInt} (h : Even w.norm) : (⟨1, 1⟩ : Gaussian
     exact (Int.even_pow.mp this).1
   obtain ⟨s, hs⟩ := hpar
   refine ⟨⟨s, s - w.re⟩, ?_⟩
-  apply Zsqrtd.ext <;> simp [Zsqrtd.re_mul, Zsqrtd.im_mul] <;> linarith
+  apply Zsqrtd.ext <;> simp [Zsqrtd.re_mul, Zsqrtd.im_mul]; linarith
 
 lemma R_two_mul (m : ℕ) : R (2 * m) = R m := by
   have hπ : (⟨1, 1⟩ : GaussianInt) ≠ 0 := fun h => by
@@ -135,7 +135,7 @@ lemma p_dvd_of_three {p : ℕ} [Fact p.Prime] (h3 : p % 4 = 3) {w : GaussianInt}
   rw [norm_eq] at h
   obtain ⟨⟨a, ha⟩, ⟨b, hb⟩⟩ := dvd_both_of_three h3 h
   refine ⟨⟨a, b⟩, ?_⟩
-  apply Zsqrtd.ext <;> simp [Zsqrtd.re_mul, Zsqrtd.im_mul, ha, hb]
+  apply Zsqrtd.ext <;> simp [ha, hb]
 
 lemma R_three_zero {p : ℕ} [hp : Fact p.Prime] (h3 : p % 4 = 3) {m : ℕ} (hm : ¬ p ∣ m) :
     R (p * m) = 0 := by
@@ -199,7 +199,7 @@ lemma exists_split : ∃ π : GaussianInt, π.norm = p ∧ π * star π = p ∧ 
     -- `π̄ ∣ π` forces `π̄ ∣ π + π̄ = 2a`, so `p ∣ 4a²`, so `p ∣ a`, impossible
     have h2 : star (⟨a, b⟩ : GaussianInt) ∣ ((2 * a : ℕ) : GaussianInt) := by
       have : ((2 * a : ℕ) : GaussianInt) = ⟨a, b⟩ + star ⟨a, b⟩ := by
-        apply Zsqrtd.ext <;> simp <;> ring
+        apply Zsqrtd.ext <;> simp; ring
       rw [this]; exact dvd_add hd dvd_rfl
     have hn : (star (⟨a, b⟩ : GaussianInt)).norm ∣ ((2 * a : ℕ) : GaussianInt).norm := by
       obtain ⟨c, hc⟩ := h2; exact ⟨c.norm, by rw [hc, Zsqrtd.norm_mul]⟩
@@ -291,7 +291,7 @@ lemma R_one_mod_four_pow_mul {p : ℕ} [hp : Fact p.Prime] (h1 : p % 4 = 1) {m :
       rwa [show p * (p ^ j * m) = p ^ (j + 1) * m by ring] at this
     have hC : (S.filter ((p : GaussianInt) ∣ ·)).card = if j = 0 then 0 else R (p ^ (j - 1) * m) := by
       rcases j with _ | j
-      · simp only [if_true]
+      · simp only [ite_true]
         rw [card_eq_zero, eq_empty_iff_forall_notMem]
         intro w hw
         rw [mem_filter, mem_shell] at hw
@@ -302,7 +302,7 @@ lemma R_one_mod_four_pow_mul {p : ℕ} [hp : Fact p.Prime] (h1 : p % 4 = 1) {m :
         have : (p : ℤ) * z.norm = m := by
           push_cast at h; exact mul_left_cancel₀ hp0' (by linear_combination h)
         exact hm (by exact_mod_cast (Dvd.intro _ this))
-      · simp only [Nat.add_sub_cancel, add_eq_zero, one_ne_zero, and_false, if_false]
+      · simp only [Nat.add_sub_cancel, add_eq_zero, one_ne_zero, and_false, ite_false]
         have := card_filter_dvd hp0 hNp (p ^ j * m)
         rwa [show p * p * (p ^ j * m) = p ^ (j + 1 + 1) * m by ring] at this
     have hS : S.card = R (p ^ (j + 1) * m) := rfl
@@ -318,7 +318,7 @@ lemma R_one_mod_four_pow_mul {p : ℕ} [hp : Fact p.Prime] (h1 : p % 4 = 1) {m :
       · simp
       · have := step 0; simp at this; (try simp only [zero_add, pow_one]); push_cast; linarith
       · have := step (j + 1)
-        simp only [add_eq_zero, one_ne_zero, and_false, if_false, Nat.add_sub_cancel] at this
+        simp only [add_eq_zero, one_ne_zero, and_false, ite_false, Nat.add_sub_cancel] at this
         rw [ih (j + 1) (by omega), ih j (by omega)] at this
         push_cast at this ⊢
         linarith
@@ -362,7 +362,7 @@ theorem two_sq_count (n : ℕ) (hn : 0 < n) : (R n : ℤ) = 4 * f n := by
       rw [R_one]; simp [f]
     obtain ⟨p, hp, hpn⟩ : ∃ p, p.Prime ∧ p ∣ n :=
       ⟨n.minFac, Nat.minFac_prime (by omega), Nat.minFac_dvd n⟩
-    haveI : Fact p.Prime := ⟨hp⟩
+    have : Fact p.Prime := ⟨hp⟩
     obtain ⟨k, m, hm, hkm⟩ := Nat.exists_eq_pow_mul_and_not_dvd (by omega : n ≠ 0) p hp.ne_one
     have hk : k ≠ 0 := by
       rintro rfl
@@ -384,7 +384,7 @@ theorem two_sq_count (n : ℕ) (hn : 0 < n) : (R n : ℤ) = 4 * f n := by
       rw [R_two_pow_mul, ihm]
       have : ZMod.χ₄ ((2 : ℕ) : ZMod 4) = 0 := by decide
       rw [this, sum_range_succ']
-      simp [hk]
+      simp
     · rcases hodd h2 with h1 | h3
       · rw [R_one_mod_four_pow_mul h1 hm, ZMod.χ₄_nat_one_mod_four h1]
         push_cast; rw [ihm]; simp; ring

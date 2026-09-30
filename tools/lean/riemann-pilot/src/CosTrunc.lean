@@ -627,12 +627,21 @@ theorem cosTrunc_dense {a : ℝ} (ha : 0 < a) : TruncDense a (cosTrunc a) :=
     (fun _ hf _ hε => cos_approx ha hf hε)
 
 /-- **The Galerkin transfer, unconditional on density**, for the paper's cosine basis: if the
-truncated forms have `λ₂(T_K) ≥ λ₁(T_K) + γ` eventually, the ground state of `Q` is simple. -/
+truncated forms have `λ₂(T_K) ≥ λ₁ + γ` eventually, the ground state of `Q` is simple. (The
+round-60 hypothesis, for every nonzero `f ∈ T_K`, is refutable at `K ≥ 2`; see round 239 and
+`simple_of_cos_gap_of_forall`.) -/
 theorem simple_of_cos_gap {a : ℝ} (ha : 0 < a) {γ : ℝ} (hγ : 0 < γ)
+    (hgap : ∀ᶠ K in atTop, Lam2GeT a (cosTrunc a K) (lam a + γ))
+    {g : ℝ → ℝ} (hg : IsGroundState a g) : SimpleGround a g :=
+  simple_of_trunc_gap ha (fun _ _ hf => probe_of_mem_cosTrunc ha hf) (cosTrunc_dense ha) hγ hgap hg
+
+/-- The round-60 form, kept to record that `simple_of_cos_gap` is stronger. -/
+theorem simple_of_cos_gap_of_forall {a : ℝ} (ha : 0 < a) {γ : ℝ} (hγ : 0 < γ)
     (hgap : ∀ᶠ K in atTop, ∀ f ∈ cosTrunc a K, 0 < normSq f →
       Lam2GeT a (cosTrunc a K) (weilQ a f / normSq f + γ))
     {g : ℝ → ℝ} (hg : IsGroundState a g) : SimpleGround a g :=
-  simple_of_trunc_gap ha (fun _ _ hf => probe_of_mem_cosTrunc ha hf) (cosTrunc_dense ha) hγ hgap hg
+  simple_of_trunc_gap_of_forall ha (fun _ _ hf => probe_of_mem_cosTrunc ha hf) (cosTrunc_dense ha)
+    hγ hgap hg
 
 /-- The `λ₂` transfer for the cosine basis. -/
 theorem lam2Ge_of_cos {a : ℝ} (ha : 0 < a) {s : ℕ → ℝ} {s₀ : ℝ} (hs : Tendsto s atTop (𝓝 s₀))
@@ -650,4 +659,5 @@ end Pilot1ca
 #print axioms Pilot1ca.cos_approx
 #print axioms Pilot1ca.cosTrunc_dense
 #print axioms Pilot1ca.simple_of_cos_gap
+#print axioms Pilot1ca.simple_of_cos_gap_of_forall
 #print axioms Pilot1ca.lam2Ge_of_cos

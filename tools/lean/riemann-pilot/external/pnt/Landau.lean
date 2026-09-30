@@ -240,7 +240,7 @@ theorem local_bound {s₀ : ℂ} {ρr B : ℝ} (hs₀ : 1 < s₀.re) (hρ : 0 < 
   have hfzs : f zs = 0 := by
     simp only [hfdef, locF, div_eq_zero_iff, hζ0, or_false]
     convert hβ using 2
-    apply Complex.ext <;> simp [hzs] <;> (try field_simp) <;> (try ring)
+    apply Complex.ext <;> simp [hzs]; (try field_simp); (try ring)
   have hzsnorm : ‖zs‖ ≤ 1 / 2 := by
     rw [hzs, Complex.norm_real, Real.norm_eq_abs, abs_div, abs_of_pos hρ,
       abs_of_neg (by linarith), div_le_iff₀ hρ]
@@ -301,7 +301,7 @@ lemma term_one_eq_ofReal {σ : ℝ} (n : ℕ) :
   rw [norm_term_eq]
   rcases eq_or_ne n 0 with rfl | hn
   · simp
-  · rw [term_of_ne_zero hn, if_neg hn]
+  · rw [term_of_ne_zero hn, ite_eq_right hn]
     simp only [norm_one, ofReal_re]
     rw [ofReal_div, ofReal_one, ofReal_cpow (Nat.cast_nonneg n), ofReal_natCast]
 
@@ -1015,7 +1015,7 @@ lemma rad_lower {a t : ℝ} (ha : 0 < a) (ht : 4 ≤ |t|) :
   have := rpow_lower ha (Lg_gt_one ht).le (Lg_le_two_ell ht)
   linarith
 
-lemma inv_rad_le {a t : ℝ} (ha : 0 < a) (ha1 : a ≤ 1) (ht : 4 ≤ |t|) :
+lemma inv_rad_le {a t : ℝ} (_ha : 0 < a) (ha1 : a ≤ 1) (ht : 4 ≤ |t|) :
     1 / rad a t ≤ 8 * Real.log |t| := by
   have hL := Lg_gt_one ht
   have e : 1 / rad a t = 4 * Lg t ^ a := by
@@ -1219,7 +1219,7 @@ theorem near_boundW {w : ℝ → ℝ} {Cw K N t σ Q1 Q2 E : ℝ} (hw : WidthOK 
     (hgap : ∀ β t : ℝ, ζ (β + t * I) = 0 → 4 ≤ |t| → 3 * dltW w N t / 13 ≤ 1 - β)
     (ht : 5 ≤ |t|) (hζ : ζ (σ + t * I) ≠ 0) (hlo1 : 1 - σ ≤ radW w t / 8)
     (hlo2 : 1 - σ ≤ 3 * dltW w N (|t| + 1) / 26) (hhi : σ < 1 + radW w t / 8)
-    (hQ1 : 0 ≤ Q1) (hQ2 : 0 ≤ Q2) (hE : 0 ≤ E)
+    (hQ1 : 0 ≤ Q1) (_hQ2 : 0 ≤ Q2) (hE : 0 ≤ E)
     (hinvρ : 1 / radW w t ≤ Q1 * Real.log |t|)
     (hinvg : 1 / (3 * dltW w N (|t| + 1) / 26) ≤ Q2 * Real.log |t| ^ 2)
     (hlB : Real.log (Bnd K (radW w t / 8) t) ≤ E * Real.log |t|) :

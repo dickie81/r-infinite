@@ -38,12 +38,13 @@ noncomputable def c2 : ℝ := 1 / 5000000
 
 set_option maxHeartbeats 3200000 in
 /-- **A block with no logarithmic loss.** -/
+set_option exponentiation.threshold 400 in
 theorem big_block_kv {t σ δ : ℝ} {N N' : ℕ}
     (hL : 5 ≤ Real.log |t|) (hδ0 : 0 ≤ δ) (hδ1 : δ ≤ 1) (hσ : 1 - δ ≤ σ)
     (hν20 : 20 ≤ Real.log N)
     (hℓc : 13 * Real.log |t| ^ 2 ≤ Real.exp (Real.log N / 5))
     (hsav : δ * (20 * Real.log |t| / Real.log N) ^ 2 ≤ c2)
-    (hN5 : Real.log N ≤ 5 / 4 * Real.log |t|) (hN1 : N ≤ N') (hN2 : N' ≤ 2 * N) :
+    (hN5 : Real.log N ≤ 5 / 4 * Real.log |t|) (_hN1 : N ≤ N') (hN2 : N' ≤ 2 * N) :
     ‖∑ n ∈ Ioc N N', 1 / (n : ℂ) ^ ((σ : ℂ) + t * I)‖ ≤ 2 ^ (300 + 2) := by
   set L := Real.log |t| with hLdef
   set ν := Real.log N with hνdef
@@ -117,7 +118,7 @@ theorem big_block_kv {t σ δ : ℝ} {N N' : ℕ}
     intro P hP
     have h := hJ P hP
     convert h using 3
-    all_goals first | rfl | (unfold VinoRec2.expo2; push_cast; ring)
+    all_goals rfl
   have hQ := const_bound_m hK10 (show K ≤ m by omega)
   have hbs := fun m' (hm1 : N ≤ m') (hm2 : m' ≤ N') =>
     block_saving_multiH (t := t) (N' := m') G hu hN hm1 (by omega) (by omega) hKℓ hℓu ht1 ht2
@@ -188,6 +189,7 @@ theorem big_block_kv {t σ δ : ℝ} {N N' : ℕ}
 /-- The Korobov–Vinogradov width `c₂(log L/L)^{2/3}`. -/
 noncomputable def δkv (L : ℝ) : ℝ := c2 * (Real.log L / L) ^ ((2 : ℝ) / 3)
 
+set_option exponentiation.threshold 400 in
 set_option maxHeartbeats 1600000 in
 /-- **Step R1: growth on the Korobov–Vinogradov region.** -/
 theorem growth_kv :
