@@ -25,6 +25,8 @@ and has no real member (`ζ ≠ 0` on `(0, 1)`). At `M ≤ 2` the bound reads `d
 `rh_of_dim_le_two` and Weil's criterion also give.
 
 No bearing on RH by itself: every scan so far finds `Q ≥ 0`, and no dimension bound is known.
+Round 252 (GroundBlock.lean) composes the join with the ground space itself as a negative block: along
+`a n → ∞`, any eventual dimension bound gives RH.
 -/
 
 open Real Complex MeasureTheory Filter

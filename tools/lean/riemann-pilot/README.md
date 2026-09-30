@@ -56,7 +56,7 @@ Every file ends with `#print axioms`. All 942 checked theorems depend only on `p
 | `StructureD.lean` | 722 | **round 48's Theorem D**: the ground space is finite-dimensional; a Green chain `w, Gw, …, G^{m−1}w` lies in it, is independent and spans it; `offcross_root`, the one swap computation: every off-cross zero of a ground-space transform is a root of its polynomial `P_v`; the top element's transform vanishes only on `ℝ ∪ iℝ`. **The RH chain without simplicity**: (a) for the top-of-chain ground states alone gives `RiemannHypothesis` |
 | `Mollify.lean` | 825 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
 | `TheoremC.lean` | 810 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element**; the smooth form `simple_not_flat` as a corollary |
-| `ZeroCount.lean` | 327 | off-line zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²` per ground state (none for `m ≤ 2`); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`**; `M ≤ 2` gives RH |
+| `ZeroCount.lean` | 327 | off-line zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²` per ground state (none for `m ≤ 2`); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`**; `M ≤ 2` gives RH (every `M` since round 252, along `a n → ∞`) |
 | `SixteenPi.lean` | 1251 | the strip note's §3.4 derivation of `1/(16π)`; **the balayage identity proved (Fubini), so the reduced problem gives `e^{−δ}/(16π)` with no hypothesis**; the wall maximiser `X* = 2`; **the balayage density in closed form, positive at the wall**; `P`, `Q`, `J(X) = (π/(2X))(1 + ln(X/2))`, the wall at `X = 2`, `τ = e^{−δ}/(16π)`; the multiplier's `z²` coefficient is the curvature defect; exact and tolerant D cancel the matched zeros |
 | `GapBound.lean` | 443 | **the pole-overlap gap bound** `λ₂ − λ₁ ≥ c₂²(μ₂ − μ₁)/(c₁² + c₂²)` at operator level, hence simplicity from a nonzero overlap `⟨c, ψ₂⟩`; **the Galerkin transfer**: dense truncations with a uniform truncated gap give simplicity |
 | `CosTrunc.lean` | 653 | **`TruncDense` for the paper's cosine basis** `span{1_{[−a,a]}cos(kπt/a) : k < K}`: `C²` approximant, its cosine series by Mathlib's Fourier theorem, Hölder tails, energy of a truncated Hölder function; round 60's transfer for this basis with no density hypothesis |
@@ -2086,7 +2086,7 @@ The zero-swap lemma (rounds 43–46) puts every zero of a **simple** ground stat
 **What this changes.**
 * The RH chain's second input can be weakened from "eventually simple" to "eventually `dim V ≤ 2`". In this form, (a) may be for **any** ground-state family.
 * This is an alternative to `rh_of_hypConv_top`, not a strengthening of it. That theorem needs no dimension bound, but asks (a) of one specific family.
-* For `m ≥ 3` the argument leaves room for off-cross zeros. They are the roots of the real polynomial `P_v` of degree `≤ m − 1` in `X`, which come in conjugate pairs. Hurwitz with multiplicities would then bound the off-line zeros of `Ξ` by the eventual dimension. That counting version is not formalised.
+* For `m ≥ 3` the argument leaves room for off-cross zeros. They are the roots of the real polynomial `P_v` of degree `≤ m − 1` in `X`, which come in conjugate pairs. Hurwitz with multiplicities would then bound the off-line zeros of `Ξ` by the eventual dimension. That counting version is not formalised. *(Rounds 57–58 formalise the count; round 252 closes the room: along `a n → ∞`, any eventual bound `dim V ≤ M` gives RH, `rh_of_dim_bounded`.)*
 * Nothing here bounds `dim V`, and (a) is still open.
 
 ## Round 57: counting off-line zeros by the dimension of the ground space (HurwitzCount.lean)
@@ -2109,7 +2109,7 @@ Round 56 handled `dim V ≤ 2`. For larger `m`, off-cross zeros can exist, but o
 
 **What this gives.**
 * Eventually `dim V ≤ M` bounds the zeros of `ζ` right of the critical line by `M − 1`. `M ≤ 2` gives at most one such zero. Conjugate symmetry `ζ(s̄) = conj ζ(s)` pairs every zero right of the line with a distinct one, since `Im s ≠ 0`, so one zero is impossible. That recovers RH, as in round 56. The conjugate pairing is not formalised here.
-* The bound is about finitely many exceptions. It needs (a) and a uniform dimension bound, and neither is proved.
+* The bound is about finitely many exceptions. It needs (a) and a uniform dimension bound, and neither is proved. *(Round 252: under (a) along `a n → ∞`, finitely many exceptions are impossible — RH or `dim V → ∞`, `rh_or_gdim_tendsto`.)*
 
 ## Round 58: conjugate parity (HurwitzCount.lean)
 
@@ -2127,6 +2127,8 @@ Reading the bound by `M`:
 * `M ≤ 2`: no zeros right of the line (round 56).
 * `M ∈ {3, 4}`: at most one conjugate pair `s, s̄`.
 * In general, at most `⌊(M − 1)/2⌋` conjugate pairs.
+
+*(Round 252: along `a n → ∞` every row reads "no zeros": the ground space itself is a negative block of `Q` when `λ₁ < 0`, so the bound descends to `M ≤ 2`, `rh_of_dim_bounded`.)*
 
 (a) and a uniform dimension bound remain the open inputs. The file uses the standard axioms only, with no `sorry` and no warnings.
 
@@ -4944,7 +4946,7 @@ Here `lamO a` is the odd ground energy, the infimum of `weilQg` over normalised 
 - **The two open routes are therefore:**
   - (A) eventual even-sector simplicity, `λ₁^even < λ₂^even` (the older route);
   - (B) the eventual parity gap, `λ_even < λ_odd` (Theorem A, round 137).
-  Neither implies the other. Both are no-crossing statements.
+  Neither implies the other. Both are no-crossing statements. *(Round 252 adds a third along `a n → ∞`: any eventual bound on the ground-space dimension, `rh_of_dim_bounded`, of which (A) is the case `dim V ≤ 1`; and with no bound, (a) forces `dim V → ∞` unless RH holds.)*
 - **The asymmetry.** (A) concerns same-sector levels. Those avoid each other generically (codimension 2, von Neumann–Wigner), and Theorem D (`degenerate_flat`, `theoremD`) forces a degeneracy to carry a Green chain. (B) concerns cross-sector levels, which cross generically, and no structure theorem constrains them. On structure alone, (A) is the better-equipped route. Genericity is not a proof, and (A) is open.
 
 
@@ -7852,7 +7854,7 @@ Rounds 57–58 count the off-line zeros from the ground-state side: under (a) (`
 
 Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 936 checked theorems in `src/`. The build prints no warnings.
 
-**Check 4.** New (`STRUCTURAL-REVIEW.md` §7 candidate M21, the lens pass's top-ranked unbuilt join). **Bearing on RH:** none by itself; it converts any future certified negative block (round 229's ball-arithmetic Gram matrices, every scan of which has found `Q ≥ 0`) into a lower bound on the ground-space dimension, and any future eventual dimension bound into a cap on Weil's negative index.
+**Check 4.** New (`STRUCTURAL-REVIEW.md` §7 candidate M21, the lens pass's top-ranked unbuilt join). **Bearing on RH:** none by itself; it converts any future certified negative block (round 229's ball-arithmetic Gram matrices, every scan of which has found `Q ≥ 0`) into a lower bound on the ground-space dimension, and any future eventual dimension bound into a cap on Weil's negative index. *(Round 252: composed with the ground space itself as a negative block, any eventual dimension bound gives RH along `a n → ∞`.)*
 
 ## Round 252: the ground space is a negative block of `Q`; (a) with any dimension bound gives RH (`src/GroundBlock.lean`)
 

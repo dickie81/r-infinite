@@ -12,7 +12,9 @@ Hurwitz carries the count to the limit: under (a) with eventually `dim V ≤ M`,
 `2⌊(M − 1)/2⌋` off-cross values of `z²` (`xi_offcross_card_le`) and `ζ` at most `2⌊(M − 1)/2⌋`
 nontrivial zeros with `Re s > ½` (`zeta_offline_card_le`). For `M ≤ 2` this is RH
 (`rh_of_dim_le_two`); eventual simplicity is the case `M = 1` (`gdim_le_one_of_simple`), which
-recovers `rh_of_eventually_simple` (SwapRealize.lean) by a second route.
+recovers `rh_of_eventually_simple` (SwapRealize.lean) by a second route. Round 252 (GroundBlock.lean)
+removes the threshold: along `a n → ∞`, every `M` gives RH (`rh_of_dim_bounded`), and with no bound
+(a) gives RH or `dim V → ∞` (`rh_or_gdim_tendsto`).
 -/
 
 open Real Filter Topology Complex MeasureTheory Set
