@@ -10,6 +10,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `KVBridge.lean` | 212 | the pilot's layers I–II give the growth bound: rung 3, unconditional |
 | `LandauKV.lean` | 215 | the Korobov–Vinogradov zero-free region |
 | `LogDerivKV.lean`, `MediumPNTW.lean`, `PNTKV.lean` | 216 | the prime number theorem with the Korobov–Vinogradov error term |
+| `KaiserKV.lean` | 234 | the Korobov–Vinogradov region in the Kaiser prefactor: `λ₁(a) ≤ K(a+1)exp(10a − c·a^{1/3}/(log a)^{1/3} − 4πe^{2a})` |
 
 ## Building (round 217)
 
@@ -66,3 +67,11 @@ The local steps are proved once, for any admissible width `w` (`WidthOK`: positi
 - `PNTKV.PNT_KV`: `ψ(x) − x = O(x·exp(−c(log x)^{3/5}/(log log x)^{1/5}))`.
 
 All axioms are clean. See the main README, rounds 191–217, for the details.
+
+## KaiserKV.lean (round 234)
+
+- `region`: with PNT+'s `ZetaNoZerosInBox` below `e³` and `zeroFree_KV` above, every zero `β + iγ` with `|γ| ≤ T` has `β < 1 − A/((log T)^{2/3}(log log T)^{1/3})`, for every `T ≥ e³`.
+- `abs_im_tau_le`: the zeros of the pilot's `Ξ` with `|Re τ| ≤ T` have `|Im τ| ≤ ½ − A/f(T)`.
+- `lam_prefactor_KV`: `λ₁(a) ≤ K(a + 1)·exp(10a − c·a^{1/3}/(log a)^{1/3} − 4πe^{2a})` for `a ≥ 4`, through the pilot's `Kaiser.lam_le_split` (`src/KaiserSplit.lean`).
+
+All axioms are clean. See the main README, round 234.

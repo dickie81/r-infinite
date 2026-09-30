@@ -496,10 +496,16 @@ def Kz : ℝ := (24 + kLam) * (2 * Real.exp 1 * (16 / 5)) + 2 * ((8 + kLam) / π
 theorem Kz_nonneg : 0 ≤ Kz := by
   unfold Kz; have := kLam_nonneg; have := I58_nonneg; positivity
 
-/-- **The zero side at `η = 1/L`**: `Q(g) ≤ 16 κ Kz (a + 1) e^{9a}`. -/
-theorem weilQ_prefactor {a : ℝ} (ha : 4 ≤ a) {κ : ℝ} (hκ0 : 0 ≤ κ)
-    (hκ : ∀ i : ZeroIdx (sqF Xi), Real.exp (2 * a * |(tau i).im|) ≤ κ) :
-    weilQ a (gK (Real.exp a) (1 / Real.exp a) (kα (Real.exp a)) a) ≤ 16 * κ * Kz * (a + 1) * Real.exp (9 * a) := by
+/-- **The data at `η = 1/L`**, `L = eᵃ`, `a ≥ 4`: the witness is admissible, `∫ W‖F‖² ≤ 4Kz(a + 1)e^{9a}`,
+and `‖F(x − i)‖ ≤ B/|x|` with `B² ≤ 1638400 e^{18a}`. -/
+theorem prefactor_data {a : ℝ} (ha : 4 ≤ a) :
+    Tail (Real.exp a) (1 / Real.exp a) (kα (Real.exp a)) ∧
+    (∫ x, Hr (Real.exp a) (1 / Real.exp a) (kα (Real.exp a)) x = 0) ∧
+    Integrable (fun x => Wf x * ‖FT (PsiK (Real.exp a) (1 / Real.exp a) (kα (Real.exp a)) a) x‖ ^ 2) ∧
+    (∫ x, Wf x * ‖FT (PsiK (Real.exp a) (1 / Real.exp a) (kα (Real.exp a)) a) x‖ ^ 2)
+      ≤ 4 * Kz * (a + 1) * Real.exp (9 * a) ∧
+    ∃ B : ℝ, B ^ 2 ≤ 1638400 * Real.exp (18 * a) ∧
+      ∀ x : ℝ, x ≠ 0 → ‖FT (PsiK (Real.exp a) (1 / Real.exp a) (kα (Real.exp a)) a) x‖ ≤ B / |x| := by
   set L := Real.exp a with hLdef
   have hL : 50 ≤ L := exp_four_ge.trans (Real.exp_le_exp.2 ha)
   have ha0 : 0 < a := by linarith
@@ -516,7 +522,6 @@ theorem weilQ_prefactor {a : ℝ} (ha : 4 ≤ a) {κ : ℝ} (hκ0 : 0 ≤ κ)
   have hM1 : 1 ≤ M := Real.one_le_exp (by linarith)
   obtain ⟨hW, hWb⟩ := weighted_FT_le (integrable_PsiK ht hLa) (integrable_PsiK_sq ht hLa) hM1
     (fun x hx => norm_FT_PsiK_le ht hLa hx)
-  have hQ := weilQ_le_W ht hLa hint ha0 hκ0 hκ hW
   -- the pieces
   have hN2 := integral_PsiK_sq ht hLa
   have hk := kLam_nonneg
@@ -589,50 +594,74 @@ theorem weilQ_prefactor {a : ℝ} (ha : 4 ≤ a) {κ : ℝ} (hκ0 : 0 ≤ κ)
       rw [mul_pow, ← pow_mul, hLdef, ← Real.exp_nat_mul]; norm_num
     linarith
   have hKz := Kz_nonneg
-  calc weilQ a (gK L (1 / L) (kα L) a) ≤ 4 * κ * ∫ x, Wf x * ‖FT Ψ x‖ ^ 2 := hQ
-    _ ≤ 4 * κ * (Kz * (a + 1) * (P ^ 2 * Real.exp (-(7 * a)))) := by gcongr
-    _ ≤ 4 * κ * (Kz * (a + 1) * (4 * Real.exp (16 * a) * Real.exp (-(7 * a)))) := by gcongr
-    _ = 16 * κ * Kz * (a + 1) * Real.exp (9 * a) := by
-        rw [mul_assoc 4 (Real.exp (16 * a)), ← Real.exp_add]; ring_nf
+  refine ⟨ht, hint, hW, ?_, 8 * P * (1 + D) * Real.exp (-a), ?_, fun x hx => norm_FT_PsiK_le ht hLa hx⟩
+  · calc ∫ x, Wf x * ‖FT Ψ x‖ ^ 2 ≤ Kz * (a + 1) * (P ^ 2 * Real.exp (-(7 * a))) := hint2
+      _ ≤ Kz * (a + 1) * (4 * Real.exp (16 * a) * Real.exp (-(7 * a))) := by gcongr
+      _ = 4 * Kz * (a + 1) * Real.exp (9 * a) := by
+          rw [mul_assoc 4 (Real.exp (16 * a)), ← Real.exp_add]; ring_nf
+  · have he : Real.exp (16 * a) * Real.exp (4 * a) * Real.exp (-(2 * a)) = Real.exp (18 * a) := by
+      rw [← Real.exp_add, ← Real.exp_add]; ring_nf
+    calc (8 * P * (1 + D) * Real.exp (-a)) ^ 2 = 64 * P ^ 2 * (1 + D) ^ 2 * Real.exp (-(2 * a)) := by
+          rw [show -(2 * a) = -a + -a by ring, Real.exp_add]; ring
+      _ ≤ 64 * (4 * Real.exp (16 * a)) * (6400 * Real.exp (4 * a)) * Real.exp (-(2 * a)) := by gcongr
+      _ = 1638400 * (Real.exp (16 * a) * Real.exp (4 * a) * Real.exp (-(2 * a))) := by ring
+      _ = 1638400 * Real.exp (18 * a) := by rw [he]
+
+/-- **The zero side at `η = 1/L`**: `Q(g) ≤ 16 κ Kz (a + 1) e^{9a}`. -/
+theorem weilQ_prefactor {a : ℝ} (ha : 4 ≤ a) {κ : ℝ} (hκ0 : 0 ≤ κ)
+    (hκ : ∀ i : ZeroIdx (sqF Xi), Real.exp (2 * a * |(tau i).im|) ≤ κ) :
+    weilQ a (gK (Real.exp a) (1 / Real.exp a) (kα (Real.exp a)) a) ≤ 16 * κ * Kz * (a + 1) * Real.exp (9 * a) := by
+  obtain ⟨ht, hint, hW, hJ, -⟩ := prefactor_data ha
+  calc _ ≤ 4 * κ * ∫ x, Wf x * ‖FT (PsiK (Real.exp a) (1 / Real.exp a) (kα (Real.exp a)) a) x‖ ^ 2 :=
+        weilQ_le_W ht rfl hint (by linarith) hκ0 hκ hW
+    _ ≤ 4 * κ * (4 * Kz * (a + 1) * Real.exp (9 * a)) := by gcongr
+    _ = 16 * κ * Kz * (a + 1) * Real.exp (9 * a) := by ring
 
 /-! ## The ground energy -/
 
-/-- `λ₁(a) ≤ K (a + 1) κ e^{9a − 4πe^{2a}}` whenever `e^{2a|Im τ|} ≤ κ` at every zero. -/
-theorem lam_le_kappa : ∃ K, 0 ≤ K ∧ ∀ a, 4 ≤ a → ∀ κ, 0 ≤ κ →
-    (∀ i : ZeroIdx (sqF Xi), Real.exp (2 * a * |(tau i).im|) ≤ κ) →
-    lam a ≤ K * (a + 1) * κ * Real.exp (9 * a - 4 * π * Real.exp (2 * a)) := by
-  have hKz := Kz_nonneg
-  set C := 16 * Kz * 5 * 51200 ^ 2 * Real.exp (16 * π + 16)
-  refine ⟨C, by positivity, fun a ha κ hκ0 hκ => ?_⟩
+/-- **From `Q` to `λ₁`**: `Q(g_a) ≤ q` gives `λ₁(a) ≤ C q e^{−4πe^{2a}}` for `a ≥ 4`, since `‖g_a‖²` is at
+least `(k_M/51200)²/5`. -/
+theorem lam_le_of_weilQ : ∃ C, 0 ≤ C ∧ ∀ a, 4 ≤ a → ∀ q, 0 ≤ q →
+    weilQ a (gK (Real.exp a) (1 / Real.exp a) (kα (Real.exp a)) a) ≤ q →
+    lam a ≤ C * q * Real.exp (-(4 * π * Real.exp (2 * a))) := by
+  set C := 5 * 51200 ^ 2 * Real.exp (16 * π + 16)
+  refine ⟨C, by positivity, fun a ha q hq0 hQ => ?_⟩
   set L := Real.exp a with hLdef
   have hL : 50 ≤ L := exp_four_ge.trans (Real.exp_le_exp.2 ha)
   have ha0 : 0 < a := by linarith
   have hp := par_inv hL
   obtain ⟨hint, -, -⟩ := alpha_ok hL
-  have hQ := weilQ_prefactor ha hκ0 hκ
   have hN := normSq_gK_ge hL (a := a) (by linarith)
   have hlam := lam_mul_le (probe_gK hp hint ha0.le (α := kα L))
   have hM : 0 < kM L := Real.exp_pos _
   have hNb : 0 < (kM L / 51200) ^ 2 / 5 := by positivity
-  have hE : 0 ≤ Real.exp (9 * a - 4 * π * Real.exp (2 * a)) := (Real.exp_pos _).le
   rcases le_or_gt (lam a) 0 with hl | hl
   · exact hl.trans (by positivity)
   have hNpos : 0 < Pilot1ca.normSq (gK L (1 / L) (kα L) a) := hNb.trans_le hN
   have h1 : lam a ≤ weilQ a (gK L (1 / L) (kα L) a) / Pilot1ca.normSq (gK L (1 / L) (kα L) a) := by
     rw [le_div_iff₀ hNpos]; exact hlam
-  have hQ0 : 0 ≤ weilQ a (gK L (1 / L) (kα L) a) := (mul_pos hl hNpos).le.trans hlam
-  have h2 := div_le_div₀ (by positivity) hQ hNb hN
+  have h2 := div_le_div₀ hq0 hQ hNb hN
   have e1 : kM L ^ 2 = Real.exp (4 * π * L ^ 2) / Real.exp (16 * π + 16) := by
     rw [kM, ← Real.exp_nat_mul, bt_inv_mul hL, ← Real.exp_sub]; congr 1; push_cast; ring
-  have e2 : Real.exp (9 * a - 4 * π * Real.exp (2 * a)) = Real.exp (9 * a) / Real.exp (4 * π * L ^ 2) := by
+  have e2 : Real.exp (-(4 * π * Real.exp (2 * a))) = 1 / Real.exp (4 * π * L ^ 2) := by
     have f2 : Real.exp (2 * a) = L ^ 2 := by rw [hLdef, ← Real.exp_nat_mul]; norm_num
-    rw [Real.exp_sub, f2]
-  have e3 : 16 * κ * Kz * (a + 1) * Real.exp (9 * a) / ((kM L / 51200) ^ 2 / 5) =
-      C * (a + 1) * κ * Real.exp (9 * a - 4 * π * Real.exp (2 * a)) := by
+    rw [Real.exp_neg, f2, one_div]
+  have e3 : q / ((kM L / 51200) ^ 2 / 5) = C * q * Real.exp (-(4 * π * Real.exp (2 * a))) := by
     rw [div_pow, e1, e2]
     have := Real.exp_pos (4 * π * L ^ 2); have := Real.exp_pos (16 * π + 16)
     simp only [C]; field_simp
   linarith
+
+/-- `λ₁(a) ≤ K (a + 1) κ e^{9a − 4πe^{2a}}` whenever `e^{2a|Im τ|} ≤ κ` at every zero. -/
+theorem lam_le_kappa : ∃ K, 0 ≤ K ∧ ∀ a, 4 ≤ a → ∀ κ, 0 ≤ κ →
+    (∀ i : ZeroIdx (sqF Xi), Real.exp (2 * a * |(tau i).im|) ≤ κ) →
+    lam a ≤ K * (a + 1) * κ * Real.exp (9 * a - 4 * π * Real.exp (2 * a)) := by
+  obtain ⟨C, hC, h⟩ := lam_le_of_weilQ
+  have hKz := Kz_nonneg
+  refine ⟨16 * Kz * C, by positivity, fun a ha κ hκ0 hκ => ?_⟩
+  have ha1 : 0 ≤ a + 1 := by linarith
+  refine (h a ha _ (by positivity) (weilQ_prefactor ha hκ0 hκ)).trans (le_of_eq ?_)
+  rw [sub_eq_add_neg, Real.exp_add]; ring
 
 /-- **Rung 0 at the density level**: `λ₁(a) ≤ K (a + 1) e^{10a − 4πe^{2a}}` for `a ≥ 4`, no RH input.
 The factor `e^a` over Connes' `e^{9a}` is `κ = e^a`: a zero with `|Im t| = δ` enters with `e^{2aδ}`. -/
@@ -654,5 +683,7 @@ end Kaiser
 #print axioms Kaiser.weighted_FT_le
 #print axioms Kaiser.ghat_sq_le_pair
 #print axioms Kaiser.weilQ_le_W
+#print axioms Kaiser.prefactor_data
 #print axioms Kaiser.weilQ_prefactor
+#print axioms Kaiser.lam_le_of_weilQ
 #print axioms Kaiser.lam_prefactor

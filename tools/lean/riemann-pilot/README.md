@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 793 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 799 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -104,7 +104,8 @@ Every file ends with `#print axioms`. All 793 checked theorems depend only on `p
 | `KaiserPoissonK.lean` | 240 | the Poisson kernel: `∫ P_y(x)e^{ixw}dx = e^{−y|w|}` by Fourier inversion; **`F(σ+is) = ∫ P_{1+s}(x)F(σ+x−i)dx`** for `F = ∫_0^∞ψ e^{itw}`, and the majorant `‖F(σ+is)‖² ≤ ∫ P_{1+s}(x−σ)‖F(x−i)‖²` (round 164) |
 | `KaiserZeroWeight.lean` | 142 | **the RH-free zero weight**: `Σ_τ [P_{1+s}(x−σ) + P_{1−s}(x+σ)] = Im(Ξ′/Ξ)(x−i)/π ≤ (5 + Σ Λ(n)n^{−3/2} + ½log(\|x\|+2))/π`, from Hadamard and `ξ′/ξ` on `Re s = 3/2`; `Re ψ(z) ≤ log\|z\| + 4` (round 164) |
 | `KaiserPlanch.lean` | 163 | **regularised Plancherel**: `∫‖F̂(x)‖²e^{−bx²} ≤ 2π∫‖Ψ‖²` for `Ψ ∈ L¹∩L²`, by the Gaussian kernel and Schur's test (round 164) |
-| `KaiserPrefactor.lean` | 775 | the tail at `Im t = −1`; the log-weighted `L²` bound; `Q(g) ≤ 16κ Kz(a+1)e^{9a}`; **`λ₁(a) ≤ K(a+1)e^{10a−4πe^{2a}}`, no RH input**; the bound for any `κ ≥ e^{2a|Im τ|}` over the zeros (round 164) |
+| `KaiserPrefactor.lean` | 689 | the tail at `Im t = −1`; the log-weighted `L²` bound; `Q(g) ≤ 16κ Kz(a+1)e^{9a}`; **`λ₁(a) ≤ K(a+1)e^{10a−4πe^{2a}}`, no RH input**; the bound for any `κ ≥ e^{2a|Im τ|}` over the zeros (round 164); `prefactor_data`, `lam_le_of_weilQ` factored out (round 234) |
+| `KaiserSplit.lean` | 463 | **the zeros split by height**: far zeros barely see the window (`Vz_le_int`, `sum_high_le`); `weilQ_le_split`; `λ₁(a) ≤ K(a+1)κ₁e^{9a−4πe^{2a}}` with `κ₁` bounding only the zeros below `2e^{40a}` (`lam_le_split`) (round 234) |
 | `KaiserNine.lean` | 75 | **Connes' prefactor `e^{9a}` with an ineffective constant**: `λ₁(a) ≤ K(a+1)e^{9a−4πe^{2a}}` for `a ≥ 4`, by a case split on RH (round 220) |
 | `LandauLaplace.lean` | 419 | **Landau's theorem for Laplace transforms**: `A ≥ 0`, `φ ≥ 0`; if `∫Ae^{−sφ}` agrees near the real point of its abscissa with a holomorphic function, it converges beyond it; the pole test for poles of any order (rounds 220–221) |
 | `TwinLandau.lean` | 895 | **the Landau argument for twin forms, for any zero family** (`TwinData`): `Q(λ) ≥ −Ce^{σλ}` ⟺ every pole has `|Re P| ≤ σ` (round 225; round 220's argument, abstracted). For any weights on the poles (`TwinPoles`), a sum of exponentials constant in `λ` has no residues (`Rp_eq_zero_of_Wsum_const`, round 232) |
@@ -5586,7 +5587,7 @@ theorem lam_prefactor :
 - **Density vs actual sum.** The density prediction `Σ_ρ ≈ ∫|ĝ|²·(1/2π)log(t/2π)` grows like `a` (ratio 1.60 from `a = 1.5` to 2.4). The actual zero sum grows by only 1.14, and at `a = 2.4` it is 19% below the density value. So the explicit formula's prime terms partly cancel the log growth of the zero density.
 
 **What is open (the two losses).**
-- **The factor `e^a`: off-line zeros.** A zero with `|Im t| = δ` near height `c ≈ 2πe^{2a}` enters `Q(g)` with weight `e^{2aδ}`. This is a genuine feature of any probe supported in `[−a, a]`, not slack in the estimate. The known zero-free regions only save a constant here.
+- **The factor `e^a`: off-line zeros.** A zero with `|Im t| = δ` near height `c ≈ 2πe^{2a}` enters `Q(g)` with weight `e^{2aδ}`. This is a genuine feature of any probe supported in `[−a, a]`, not slack in the estimate. The known zero-free regions only save a constant here. *(Round 234: true for de la Vallée Poussin's region, not for Korobov–Vinogradov's, which saves `exp(c·a^{1/3}/(log a)^{1/3})`; see round 234.)*
   - **The clean way to remove it** is a case split on RH, which gives an unconditional (but ineffective-`K`) `e^{9a}` bound:
     - If RH holds, `κ = 1`.
     - If RH fails, Weil's criterion should make `λ₁(a) < 0` for large `a` (`λ₁` is antitone, `lam_antitone`). The finite range of `a` is then absorbed into `K`.
@@ -7590,3 +7591,33 @@ Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`
 **Check 4.** Acknowledged: round 157 recorded `γ₁ ≥ 14` as the last named input of 1bt(i), and the Lean-review report proposed this removal. New: the formal removal and the `|Im ρ| > 4` corollary.
 
 **Bearing on RH:** none. 1bt(i) is a statement about the pole-free form on one witness, and the change removes a numeric input from it.
+
+## Round 234: the Korobov–Vinogradov region in the Kaiser prefactor (`src/KaiserSplit.lean`, `external/pnt/KaiserKV.lean`)
+
+Round 164 proved `λ₁(a) ≤ K(a + 1)e^{10a − 4πe^{2a}}` with no RH input (`lam_prefactor`). The factor `eᵃ` over Connes' `e^{9a}` is the weight `e^{2a|Im τ|} ≤ eᵃ` of a zero. Round 164 said of it: "The known zero-free regions only save a constant here." That is true for de la Vallée Poussin's region, but not for the Korobov–Vinogradov region, which the pilot proved in round 215 (`LandauKV.zeroFree_KV`). This round uses it:
+
+- **`KaiserKV.lam_prefactor_KV`**: there are `K ≥ 0` and `c > 0` such that for every `a ≥ 4`, `λ₁(a) ≤ K(a + 1)·exp(10a − c·a^{1/3}/(log a)^{1/3} − 4πe^{2a})`, with no RH input.
+
+The saving over round 164 is the factor `exp(−c·a^{1/3}/(log a)^{1/3})`, which grows with `a`. The main term `e^{−4πe^{2a}}` is unchanged.
+
+**Why the zeros must be split by height.** The Korobov–Vinogradov region shrinks with the height: a zero at height `γ` has `|β − ½| ≤ ½ − A/f(γ)`, with `f(γ) = (log γ)^{2/3}(log log γ)^{1/3}`. So no single weight `κ < eᵃ` bounds every zero, and round 164's `lam_le_kappa` needs such a uniform `κ`. The Kaiser probe's transform lives at heights up to about `e^{36a}`. Zeros far above that should cost almost nothing, whatever their weight.
+
+**1. The split** (`src/KaiserSplit.lean`, no zero-free input).
+- **One far zero** (`pk_far_le`, `pk_int_lower`, `Vz_le_int`). Take a zero with `|Re τ| > T ≥ 2` and a point `|x| ≤ T/2`. Its Poisson pair `V_τ` satisfies `V_τ(x) ≤ 6/(πγ²)` per kernel. It also puts mass at least `4/(15πγ²)` near its centre against the weight `g_T(u) = 1/u²` on `|u| ≥ T/2`. So `V_τ(x) ≤ (45/2)∫ g_T V_τ`.
+- **All far zeros** (`sum_high_le`). Sum over any finite set of far zeros, and use round 164's zero weight `Σ_τ V_τ ≤ W` (`tsum_Vz_le`). This gives `Σ_{far} V_τ(x) ≤ (45/2)∫ g_T W ≤ E_T`, where `E_T = O((1 + (T/2)²)^{−1/8})` by round 164's `Wf_tail_le`. No zero count is needed.
+- **`weilQ_le_split`**: `Q(g) ≤ 4κ₁J + 4κ₂(E_T·J + B²R(T)I₅₈)`, where `κ₁` bounds the weight below `T`, `κ₂` bounds the weight of every zero, `J = ∫ W‖F‖²`, `‖F(x − i)‖ ≤ B/|x|`, and `R(T) = 2((8 + Λ)/π)(1 + (T/2)²)^{−1/8}`. On `|x| > T/2` the far zeros are bounded by `W`, and the tail `B²W/x²` by `Wf_tail_le`.
+- **`lam_le_split`**: at `T = 2e^{40a}`, `R(T) ≤ 2((8 + Λ)/π)e^{−10a}`, so the far part is `O((a + 1)e^{9a})` even with `κ₂ = eᵃ`. Hence `λ₁(a) ≤ K(a + 1)κ₁e^{9a − 4πe^{2a}}` for any `κ₁ ≥ 1` that bounds only the zeros with `|Re τ| ≤ 2e^{40a}`.
+- `KaiserPrefactor.lean` is refactored so both routes share their numbers: `prefactor_data` (the bounds on `J` and `B` at `η = 1/L`) and `lam_le_of_weilQ` (from `Q` to `λ₁`). `weilQ_prefactor` and `lam_le_kappa` keep their statements.
+
+**2. The region** (`external/pnt/KaiserKV.lean`, on PNT+).
+- `region`: take PNT+'s `ZetaNoZerosInBox` (no zeros with `σ ≥ σ₀ < 1`, `|t| ≤ e³`) together with `zeroFree_KV` above `e³`. Then for every `T ≥ e³`, every zero `β + iγ` with `|γ| ≤ T` has `β < 1 − A/f(T)`, because `f` is increasing.
+- `abs_im_tau_le`: applying `region` to both `½ ± iτ` gives `|Im τ| ≤ ½ − A/f(T)` for the zeros of `Ξ` with `|Re τ| ≤ T`.
+- `lam_prefactor_KV`: take `κ₁ = e^{a − 2aA/f(2e^{40a})} ≥ 1`. Then `f(2e^{40a}) ≤ (41a)^{2/3}(4 log a)^{1/3}` for `a ≥ 4` (`fKV_le`, using `log 41 < 4`), so the saving is at least `c·a^{1/3}/(log a)^{1/3}` with `c = 2A/(41^{2/3}·4^{1/3})`.
+
+The constants `K` and `c` are not numerically explicit: `A` comes from `zeroFree_KV` and `σ₀` from a compactness argument.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 799 checked theorems in `src/`, and `lam_prefactor_KV` in `external/pnt`. Neither build prints warnings from these files.
+
+**Check 4.** Acknowledged: round 164 noted the factor `eᵃ`, and the Lean-review report proposed feeding the Korobov–Vinogradov region into it, citing the toolchain split as a blocker (since resolved, rounds 106–111). New: the height split, whose far-zero bound needs no zero count, and the formal `lam_prefactor_KV`. The remark quoted from round 164 is corrected in place.
+
+**Bearing on RH:** none. This is a sharper upper bound on `λ₁`.
