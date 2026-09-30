@@ -29,6 +29,8 @@ convergent (`logDeriv_dh_eq`, `LSeriesSummable_cDH_chi5`), and `dh` has no zeros
 (`dh_ne_zero_of_two_lt`). The abscissa `2` is what the crude bounds give; the true zero-free abscissa
 of `dh` is smaller. What remains for the explicit formula is the contour argument with the prime
 side on `Re s > 2`, which needs the strip machinery of round 225 at width `> 3/2`; see the README.
+(Round 257, `DHExplicit.lean`: done by scaling `Ξ₃(t) = Ξ_dh(3t)` instead, with the width-1
+machinery unchanged.)
 -/
 
 open Real Complex DirichletCharacter Filter Topology
