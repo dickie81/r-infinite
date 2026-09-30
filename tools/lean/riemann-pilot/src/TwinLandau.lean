@@ -12,6 +12,9 @@ explicit formula for the twin boxes).
 * `abs_re_le D`: `Q(λ) ≥ −C·e^{σλ}` on `λ ≥ 0` forces `|Re P_q| ≤ σ` for every `q`.
 * `Q_ge D`: conversely `|Re P_q| ≤ σ` for all `q` gives `Q(λ) ≥ −4(Σ‖c_q‖)e^{σλ}`.
 * `rate_iff`: the two together.
+* `Rp_eq_zero_of_Wsum_const` (round 232): for any weights (`TwinPoles P c`, no `G`), if
+  `Σ_q c_q(2 + e^{λP_q} + e^{−λP_q})` is constant in `λ ≥ 0`, every residue `Σ_{±P_q = p} c_q`
+  (`p ≠ 0`) vanishes.
 
 The proof is round 220's: the Laplace transform of `Q + C·e^{σλ}` is `F(z) + C/(z − σ)`,
 `F = Σ_q c_q(2/z + 1/(z − P_q) + 1/(z + P_q))`; Landau's theorem continues the integral to
@@ -27,18 +30,23 @@ open LandauLaplace
 
 variable {ι : Type*} {P c : ι → ℂ} {G : ℂ → ℂ} {Q : ℝ → ℝ}
 
-/-- The data of the twin-form Landau argument. -/
-structure TwinData (P c : ι → ℂ) (G : ℂ → ℂ) (Q : ℝ → ℝ) : Prop where
+/-- The poles and weights of a twin form: `Σ‖c_q‖ < ∞`, `|Re P_q| < 1`, `Im P_q ≠ 0`, locally finite. -/
+structure TwinPoles (P c : ι → ℂ) : Prop where
   summ : Summable fun q => ‖c q‖
   re_lt : ∀ q, |(P q).re| < 1
   im_ne : ∀ q, (P q).im ≠ 0
   finite : ∀ R : ℝ, {q | ‖P q‖ ≤ R}.Finite
+
+/-- The data of the twin-form Landau argument. -/
+structure TwinData (P c : ι → ℂ) (G : ℂ → ℂ) (Q : ℝ → ℝ) : Prop extends TwinPoles P c where
   c_eq : ∀ q, c q = G (P q)
   G_even : ∀ p, G (-p) = G p
   G_ne : ∀ p, 0 < p.re → G p ≠ 0
   hasSum : ∀ l : ℝ, 0 ≤ l → HasSum (fun q => c q * (2 + cexp (l * P q) + cexp (-(l * P q)))) (Q l)
 
-variable (D : TwinData P c G Q)
+section Poles
+
+variable (D : TwinPoles P c)
 include D
 
 /-! ## The poles are locally finite -/
@@ -279,38 +287,6 @@ theorem Gp_continuousAt {p : ℂ} (hp : p ≠ 0) : ContinuousAt (Gp P c p) p := 
         _ = 4 / e := by ring
   exact hC.continuousAt (isOpen_ball.mem_nhds (mem_ball_self he))
 
-/-- **The residue at a pole off the imaginary axis is nonzero**: `R_p = N·G(p)`, `N ≥ 1`. -/
-theorem Rp_ne_zero {p : ℂ} (hp : 0 < p.re) {q0 : ι} (hq0 : P q0 = p ∨ -P q0 = p) :
-    Rp P c p ≠ 0 := by
-  classical
-  have hG : ∀ q, c q * (indR p (P q) : ℂ) = G p * (indR p (P q) : ℂ) := by
-    intro q
-    unfold indR
-    by_cases h1 : P q = p
-    · rw [D.c_eq, h1]
-    · by_cases h2 : -P q = p
-      · rw [D.c_eq, ← D.G_even, h2]
-      · simp [h1, h2]
-  unfold Rp
-  simp_rw [hG]
-  have hsum : Summable fun q => indR p (P q) := by
-    refine summable_of_ne_finset_zero (s := (D.finite ‖p‖).toFinset) fun q hq => ?_
-    rw [Set.Finite.mem_toFinset, mem_ofPred_eq, not_le] at hq
-    unfold indR
-    have h1 : P q ≠ p := fun e => by rw [e] at hq; exact lt_irrefl _ hq
-    have h2 : -P q ≠ p := fun e => by rw [← e, norm_neg] at hq; exact lt_irrefl _ hq
-    simp [h1, h2]
-  rw [tsum_mul_left, ← Complex.ofReal_tsum]
-  have hpos : 0 < ∑' q, indR p (P q) := by
-    have h1 : 1 ≤ indR p (P q0) := by
-      unfold indR
-      rcases hq0 with h | h
-      · simp only [h, ↓reduceIte]; split_ifs <;> norm_num
-      · simp only [h, ↓reduceIte]; split_ifs <;> norm_num
-    have := hsum.le_tsum q0 (fun q _ => indR_nonneg _ _)
-    linarith
-  exact mul_ne_zero (D.G_ne p hp) (by exact_mod_cast hpos.ne')
-
 /-! ## The twin boxes' form as a sum of exponentials -/
 
 /-- One zero's term `ĝ₀(t)²(2 + e^{λP} + e^{−λP})`. -/
@@ -392,14 +368,6 @@ theorem norm_Wsum_le (l : ℝ) : ‖Wsum P c l‖ ≤ (∑' q, ‖c q‖) * (4 *
 /-- The transform's input `A(λ) = Re Σ_ρ(…)`; it equals `Q(twin λ)` for `λ ≥ 0`. -/
 def Aw (P c : ι → ℂ) (l : ℝ) : ℝ := (Wsum P c l).re
 
-theorem Wsum_eq {l : ℝ} (hl : 0 ≤ l) : Wsum P c l = (Q l : ℂ) := (D.hasSum l hl).tsum_eq
-
-theorem Aw_eq {l : ℝ} (hl : 0 ≤ l) : Aw P c l = Q l := by
-  unfold Aw; rw [Wsum_eq D hl, ofReal_re]
-
-theorem Aw_ofReal {l : ℝ} (hl : 0 ≤ l) : (Aw P c l : ℂ) = Wsum P c l := by
-  rw [Aw_eq D hl, Wsum_eq D hl]
-
 theorem continuous_Aw : Continuous (Aw P c) := Complex.continuous_re.comp (continuous_Wsum D)
 
 theorem abs_Aw_le {l : ℝ} (hl : 0 ≤ l) : |Aw P c l| ≤ (∑' q, ‖c q‖) * (4 * Real.exp l) := by
@@ -409,15 +377,6 @@ theorem abs_Aw_le {l : ℝ} (hl : 0 ≤ l) : |Aw P c l| ≤ (∑' q, ‖c q‖) 
 
 /-- The input shifted by the allowed defect: `A(λ) = Q(λ) + C·e^{σλ}`. -/
 def Awc (P c : ι → ℂ) (C σ l : ℝ) : ℝ := Aw P c l + C * Real.exp (σ * l)
-
-theorem hyp_Awc {C σ : ℝ}
-    (hQ : ∀ l : ℝ, 0 ≤ l → -(C * Real.exp (σ * l)) ≤ Q l) :
-    Hyp (volume.restrict (Ioi (0 : ℝ))) (Awc P c C σ) (fun l => l) where
-  A_nonneg := (ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun l (hl : 0 < l) => by
-    unfold Awc; rw [Aw_eq D hl.le]; linarith [hQ l hl.le])
-  ph_nonneg := (ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun l (hl : 0 < l) => hl.le)
-  A_meas := ((continuous_Aw D).add (by fun_prop)).aestronglyMeasurable
-  ph_meas := continuous_id.aestronglyMeasurable
 
 theorem conv_Awc {C σ : ℝ} (hσ : 0 ≤ σ) :
     Conv (volume.restrict (Ioi (0 : ℝ))) (Awc P c C σ) (fun l => l) (σ + 2) := by
@@ -498,35 +457,6 @@ theorem integral_wq (q : ι) {z : ℂ} (hz : 1 < z.re) :
   field_simp
   ring
 
-/-- **The transform equals `F` for `Re z > 1`.** -/
-theorem lap_eq_Fw [Countable ι] {z : ℂ} (hz : 1 < z.re) :
-    lap (volume.restrict (Ioi (0 : ℝ))) (Aw P c) (fun l => l) z = Fw P c z := by
-  unfold lap
-  have e : ∫ l in Ioi (0 : ℝ), (Aw P c l : ℂ) * cexp (-z * l)
-      = ∫ l in Ioi (0 : ℝ), ∑' q, wq P c q l * cexp (-z * l) := by
-    refine setIntegral_congr_fun measurableSet_Ioi fun l (hl : 0 < l) => ?_
-    rw [Aw_ofReal D hl.le, Wsum, tsum_mul_right]
-  rw [e, ← integral_tsum_of_summable_integral_norm (fun q => integrable_wq D q hz)]
-  · unfold Fw; congr 1; funext q; exact integral_wq D q hz
-  · set K := ∫ l in Ioi (0 : ℝ), 4 * Real.exp (-(z.re - 1) * l)
-    have hK : IntegrableOn (fun l : ℝ => 4 * Real.exp (-(z.re - 1) * l)) (Ioi 0) :=
-      (exp_neg_integrableOn_Ioi 0 (by linarith)).const_mul _
-    refine (D.summ.mul_right K).of_nonneg_of_le (fun q => integral_nonneg fun _ => norm_nonneg _)
-      fun q => ?_
-    rw [← integral_const_mul]
-    refine integral_mono_of_nonneg (Eventually.of_forall fun _ => norm_nonneg _) (hK.const_mul _)
-      ((ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun l (hl : 0 < l) => ?_))
-    show ‖wq P c q l * cexp (-z * l)‖ ≤ ‖c q‖ * (4 * Real.exp (-(z.re - 1) * l))
-    rw [norm_mul, Complex.norm_exp]
-    have h1 := norm_wq_le D q l
-    rw [abs_of_pos hl] at h1
-    have e2 : (-z * l).re = -z.re * l := by simp
-    rw [e2]
-    calc ‖wq P c q l‖ * Real.exp (-z.re * l) ≤ ‖c q‖ * (4 * Real.exp l) * Real.exp (-z.re * l) :=
-          mul_le_mul_of_nonneg_right h1 (Real.exp_pos _).le
-      _ = ‖c q‖ * (4 * Real.exp (-(z.re - 1) * l)) := by
-          rw [mul_assoc, mul_assoc, ← Real.exp_add]; ring_nf
-
 /-- `F` plus the transform of the defect: `F(z) + C/(z − σ)`. -/
 def Fwc (P c : ι → ℂ) (C σ : ℝ) (z : ℂ) : ℂ := Fw P c z + C / (z - σ)
 
@@ -544,38 +474,6 @@ theorem integrableOn_Aw_exp {z : ℂ} (hz : 1 < z.re) :
         mul_le_mul_of_nonneg_right (abs_Aw_le D hl.le) (Real.exp_pos _).le
     _ = 4 * S * Real.exp (-(z.re - 1) * l) := by
         rw [mul_assoc, mul_assoc, ← Real.exp_add]; ring_nf
-
-/-- **The transform of `Q + C·e^{σλ}` is `F(z) + C/(z − σ)`** for `Re z > max(1, σ)`. -/
-theorem lap_Awc [Countable ι] {C σ : ℝ} {z : ℂ} (hz : 1 < z.re) (hzσ : σ < z.re) :
-    lap (volume.restrict (Ioi (0 : ℝ))) (Awc P c C σ) (fun l => l) z = Fwc P c C σ z := by
-  have ha : ((σ : ℂ) - z).re < 0 := by simp; linarith
-  have i2 : IntegrableOn (fun l : ℝ => (C : ℂ) * cexp (((σ : ℂ) - z) * l)) (Ioi 0) :=
-    (integrableOn_exp_mul_complex_Ioi ha 0).const_mul _
-  have e : ∀ l : ℝ, ((Awc P c C σ l : ℝ) : ℂ) * cexp (-z * l)
-      = (Aw P c l : ℂ) * cexp (-z * l) + (C : ℂ) * cexp (((σ : ℂ) - z) * l) := fun l => by
-    unfold Awc
-    push_cast
-    rw [show ((σ : ℂ) - z) * l = σ * l + -z * l by ring, Complex.exp_add]
-    ring
-  unfold lap
-  simp_rw [e]
-  rw [integral_add (integrableOn_Aw_exp D hz) i2, integral_const_mul, integral_exp_mul_complex_Ioi ha]
-  have := lap_eq_Fw D hz
-  unfold lap at this
-  rw [this]
-  unfold Fwc
-  have hz' : z - σ ≠ 0 := fun h => by
-    have := congrArg Complex.re h; simp at this; linarith
-  have hz'' : (σ : ℂ) - z ≠ 0 := fun h => hz' (by rw [← neg_sub, h, neg_zero])
-  simp only [ofReal_zero, mul_zero, Complex.exp_zero]
-  field_simp
-  ring
-
-theorem Fwc_eventuallyEq_lap [Countable ι] {C σ : ℝ} {z0 : ℂ} (hz : 1 < z0.re) (hzσ : σ < z0.re) :
-    Fwc P c C σ =ᶠ[𝓝 z0] lap (volume.restrict (Ioi (0 : ℝ))) (Awc P c C σ) (fun l => l) :=
-  Filter.eventually_of_mem (((isOpen_lt continuous_const Complex.continuous_re).inter
-    (isOpen_lt continuous_const Complex.continuous_re)).mem_nhds ⟨hz, hzσ⟩)
-    fun _ hz => (lap_Awc D hz.1 hz.2).symm
 
 theorem Fwc_differentiableAt {C σ : ℝ} {z0 : ℂ} (h0 : z0 ≠ 0) (hσ : z0 ≠ σ)
     (hP : ∀ q, z0 ≠ P q ∧ z0 ≠ -P q) : DifferentiableAt ℂ (Fwc P c C σ) z0 := by
@@ -604,13 +502,217 @@ theorem not_pole_of_im {z : ℂ} {d : ℝ} (hd : ∀ q : ι, d ≤ |(P q).im|) (
   · intro e; have := hd q; rw [← e] at this; linarith
   · intro e; have := hd q; rw [← neg_neg (P q), ← e, neg_im, abs_neg] at this; linarith
 
+/-! ## Uniqueness: a constant sum of exponentials has no residues (round 232) -/
+
+/-- **The transform of `W`**: `∫_0^∞ W(λ)e^{−zλ}dλ = F(z)` for `Re z > 1`. -/
+theorem integral_Wsum [Countable ι] {z : ℂ} (hz : 1 < z.re) :
+    ∫ l in Ioi (0 : ℝ), Wsum P c l * cexp (-z * l) = Fw P c z := by
+  have e : ∫ l in Ioi (0 : ℝ), Wsum P c l * cexp (-z * l)
+      = ∫ l in Ioi (0 : ℝ), ∑' q, wq P c q l * cexp (-z * l) := by
+    refine setIntegral_congr_fun measurableSet_Ioi fun l _ => ?_
+    rw [Wsum, tsum_mul_right]
+  rw [e, ← integral_tsum_of_summable_integral_norm (fun q => integrable_wq D q hz)]
+  · unfold Fw; congr 1; funext q; exact integral_wq D q hz
+  · set K := ∫ l in Ioi (0 : ℝ), 4 * Real.exp (-(z.re - 1) * l)
+    have hK : IntegrableOn (fun l : ℝ => 4 * Real.exp (-(z.re - 1) * l)) (Ioi 0) :=
+      (exp_neg_integrableOn_Ioi 0 (by linarith)).const_mul _
+    refine (D.summ.mul_right K).of_nonneg_of_le (fun q => integral_nonneg fun _ => norm_nonneg _)
+      fun q => ?_
+    rw [← integral_const_mul]
+    refine integral_mono_of_nonneg (Eventually.of_forall fun _ => norm_nonneg _) (hK.const_mul _)
+      ((ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun l (hl : 0 < l) => ?_))
+    show ‖wq P c q l * cexp (-z * l)‖ ≤ ‖c q‖ * (4 * Real.exp (-(z.re - 1) * l))
+    rw [norm_mul, Complex.norm_exp]
+    have h1 := norm_wq_le D q l
+    rw [abs_of_pos hl] at h1
+    have e2 : (-z * l).re = -z.re * l := by simp
+    rw [e2]
+    calc ‖wq P c q l‖ * Real.exp (-z.re * l) ≤ ‖c q‖ * (4 * Real.exp l) * Real.exp (-z.re * l) :=
+          mul_le_mul_of_nonneg_right h1 (Real.exp_pos _).le
+      _ = ‖c q‖ * (4 * Real.exp (-(z.re - 1) * l)) := by
+          rw [mul_assoc, mul_assoc, ← Real.exp_add]; ring_nf
+
+/-- **A constant `W` has no residues.** If `W(λ) = K` for every `λ ≥ 0`, then `R_p = 0` at every
+`p ≠ 0`: `F = K/z` on `Re z > 1`, hence off the poles by the identity theorem (the poles are
+countable, so their complement is connected), and `F = G_p + R_p/(z − p)` with `G_p` continuous at
+`p`. -/
+theorem Rp_eq_zero_of_Wsum_const [Countable ι] {K : ℂ} (hW : ∀ l : ℝ, 0 ≤ l → Wsum P c l = K)
+    {p : ℂ} (hp : p ≠ 0) : Rp P c p = 0 := by
+  classical
+  -- `F = K/z` on `Re z > 1`
+  have hF1 : ∀ z : ℂ, 1 < z.re → Fw P c z = K / z := by
+    intro z hz
+    rw [← integral_Wsum D hz]
+    have hz0 : (-z).re < 0 := by simp; linarith
+    have hzne : z ≠ 0 := fun e => by rw [e] at hz; simp at hz; linarith
+    rw [setIntegral_congr_fun measurableSet_Ioi (g := fun l : ℝ => K * cexp (-z * l))
+      fun l (hl : 0 < l) => by rw [hW l hl.le], integral_const_mul, integral_exp_mul_complex_Ioi hz0]
+    simp only [ofReal_zero, mul_zero, Complex.exp_zero]
+    field_simp
+  -- the complement of the poles
+  set S : Set ℂ := {0} ∪ (Set.range P ∪ Set.range fun q => -P q)
+  have hSc : S.Countable :=
+    (Set.countable_singleton 0).union ((Set.countable_range P).union (Set.countable_range _))
+  have hmem : ∀ z : ℂ, z ∈ Sᶜ ↔ z ≠ 0 ∧ ∀ q, z ≠ P q ∧ z ≠ -P q := by
+    intro z
+    simp only [S, Set.mem_compl_iff, Set.mem_union, Set.mem_singleton_iff, Set.mem_range, not_or,
+      not_exists]
+    constructor
+    · rintro ⟨h0, h1, h2⟩; exact ⟨h0, fun q => ⟨fun e => h1 q e.symm, fun e => h2 q e.symm⟩⟩
+    · rintro ⟨h0, h⟩; exact ⟨h0, fun q e => (h q).1 e.symm, fun q e => (h q).2 e.symm⟩
+  have hopen : IsOpen Sᶜ := by
+    rw [Metric.isOpen_iff]
+    intro z0 hz0
+    obtain ⟨h0, hP⟩ := (hmem z0).1 hz0
+    obtain ⟨d, hd, h⟩ := sep D z0
+    refine ⟨min d (‖z0‖ / 2), lt_min hd (by have := norm_pos_iff.2 h0; linarith), fun z hz => ?_⟩
+    have hzd : z ∈ ball z0 d := ball_subset_ball (min_le_left _ _) hz
+    rw [mem_ball, Complex.dist_eq] at hz
+    refine (hmem z).2 ⟨fun e => ?_, fun q => ⟨fun e => ?_, fun e => ?_⟩⟩
+    · rw [e, zero_sub, norm_neg] at hz; linarith [min_le_right d (‖z0‖ / 2), norm_pos_iff.2 h0]
+    · have := (h z hzd q).1 (hP q).1; rw [e, sub_self, norm_zero] at this; linarith
+    · have := (h z hzd q).2 (hP q).2; rw [e, neg_add_cancel, norm_zero] at this; linarith
+  have hconn : IsPreconnected Sᶜ :=
+    (hSc.isPathConnected_compl_of_one_lt_rank (by rw [Complex.rank_real_complex]; norm_num)).isConnected.isPreconnected
+  have hFd : DifferentiableOn ℂ (Fw P c) Sᶜ := fun z hz =>
+    (Fw_differentiableAt D ((hmem z).1 hz).1 ((hmem z).1 hz).2).differentiableWithinAt
+  have hKd : DifferentiableOn ℂ (fun z : ℂ => K / z) Sᶜ := fun z hz =>
+    ((differentiableAt_const _).div differentiableAt_id ((hmem z).1 hz).1).differentiableWithinAt
+  have h2 : (2 : ℂ) ∈ Sᶜ := by
+    refine (hmem 2).2 ⟨two_ne_zero, fun q => ⟨fun e => ?_, fun e => ?_⟩⟩
+    · have := (abs_lt.1 (D.re_lt q)).2
+      have e' := congrArg Complex.re e; simp at e'; linarith
+    · have := (abs_lt.1 (D.re_lt q)).1
+      have e' := congrArg Complex.re e; simp at e'; linarith
+  have hEq : EqOn (Fw P c) (fun z => K / z) Sᶜ :=
+    (hFd.analyticOnNhd hopen).eqOn_of_preconnected_of_eventuallyEq (hKd.analyticOnNhd hopen) hconn h2
+      (Filter.eventually_of_mem ((isOpen_lt continuous_const Complex.continuous_re).mem_nhds
+        (show (1 : ℝ) < (2 : ℂ).re by norm_num)) fun z hz => hF1 z hz)
+  -- the pole test at `p`
+  obtain ⟨d, hd, h⟩ := sep D p
+  have hp0 : 0 < ‖p‖ := norm_pos_iff.2 hp
+  refine residue_eq_zero (L := fun z => K / z) (G := Gp P c p) (lt_min hd hp0)
+    ((continuousAt_const.div continuousAt_id hp)) (Gp_continuousAt D hp) fun x hx hxe => ?_
+  have hxd : ((x : ℂ)) ≠ 0 := by exact_mod_cast hx.ne'
+  have hnx : ‖(x : ℂ)‖ = x := by rw [Complex.norm_real, Real.norm_of_nonneg hx.le]
+  have hzb : p + x ∈ ball p d := by
+    rw [mem_ball, Complex.dist_eq, add_sub_cancel_left, hnx]; exact lt_of_lt_of_le hxe (min_le_left _ _)
+  have hin : p + x ∈ Sᶜ := by
+    refine (hmem _).2 ⟨fun e => ?_, fun q => ⟨fun e => ?_, fun e => ?_⟩⟩
+    · have : ‖p‖ = x := by rw [show p = -(x : ℂ) by linear_combination e, norm_neg, hnx]
+      linarith [min_le_right d ‖p‖]
+    · by_cases hq : p = P q
+      · exact hxd (by linear_combination e - hq)
+      · have := (h _ hzb q).1 hq; rw [e, sub_self, norm_zero] at this; linarith
+    · by_cases hq : p = -P q
+      · exact hxd (by linear_combination e - hq)
+      · have := (h _ hzb q).2 hq; rw [e, neg_add_cancel, norm_zero] at this; linarith
+  have := hEq hin
+  simp only at this
+  rw [← this, Fw_split D p]
+
+end Poles
+
+section Data
+
+variable (D : TwinData P c G Q)
+include D
+
+/-- **The residue at a pole off the imaginary axis is nonzero**: `R_p = N·G(p)`, `N ≥ 1`. -/
+theorem Rp_ne_zero {p : ℂ} (hp : 0 < p.re) {q0 : ι} (hq0 : P q0 = p ∨ -P q0 = p) :
+    Rp P c p ≠ 0 := by
+  classical
+  have hG : ∀ q, c q * (indR p (P q) : ℂ) = G p * (indR p (P q) : ℂ) := by
+    intro q
+    unfold indR
+    by_cases h1 : P q = p
+    · rw [D.c_eq, h1]
+    · by_cases h2 : -P q = p
+      · rw [D.c_eq, ← D.G_even, h2]
+      · simp [h1, h2]
+  unfold Rp
+  simp_rw [hG]
+  have hsum : Summable fun q => indR p (P q) := by
+    refine summable_of_ne_finset_zero (s := (D.finite ‖p‖).toFinset) fun q hq => ?_
+    rw [Set.Finite.mem_toFinset, mem_ofPred_eq, not_le] at hq
+    unfold indR
+    have h1 : P q ≠ p := fun e => by rw [e] at hq; exact lt_irrefl _ hq
+    have h2 : -P q ≠ p := fun e => by rw [← e, norm_neg] at hq; exact lt_irrefl _ hq
+    simp [h1, h2]
+  rw [tsum_mul_left, ← Complex.ofReal_tsum]
+  have hpos : 0 < ∑' q, indR p (P q) := by
+    have h1 : 1 ≤ indR p (P q0) := by
+      unfold indR
+      rcases hq0 with h | h
+      · simp only [h, ↓reduceIte]; split_ifs <;> norm_num
+      · simp only [h, ↓reduceIte]; split_ifs <;> norm_num
+    have := hsum.le_tsum q0 (fun q _ => indR_nonneg _ _)
+    linarith
+  exact mul_ne_zero (D.G_ne p hp) (by exact_mod_cast hpos.ne')
+
+theorem Wsum_eq {l : ℝ} (hl : 0 ≤ l) : Wsum P c l = (Q l : ℂ) := (D.hasSum l hl).tsum_eq
+
+theorem Aw_eq {l : ℝ} (hl : 0 ≤ l) : Aw P c l = Q l := by
+  unfold Aw; rw [Wsum_eq D hl, ofReal_re]
+
+theorem Aw_ofReal {l : ℝ} (hl : 0 ≤ l) : (Aw P c l : ℂ) = Wsum P c l := by
+  rw [Aw_eq D hl, Wsum_eq D hl]
+
+theorem hyp_Awc {C σ : ℝ}
+    (hQ : ∀ l : ℝ, 0 ≤ l → -(C * Real.exp (σ * l)) ≤ Q l) :
+    Hyp (volume.restrict (Ioi (0 : ℝ))) (Awc P c C σ) (fun l => l) where
+  A_nonneg := (ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun l (hl : 0 < l) => by
+    unfold Awc; rw [Aw_eq D hl.le]; linarith [hQ l hl.le])
+  ph_nonneg := (ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun l (hl : 0 < l) => hl.le)
+  A_meas := ((continuous_Aw D.toTwinPoles).add (by fun_prop)).aestronglyMeasurable
+  ph_meas := continuous_id.aestronglyMeasurable
+
+/-- **The transform equals `F` for `Re z > 1`.** -/
+theorem lap_eq_Fw [Countable ι] {z : ℂ} (hz : 1 < z.re) :
+    lap (volume.restrict (Ioi (0 : ℝ))) (Aw P c) (fun l => l) z = Fw P c z := by
+  unfold lap
+  rw [← integral_Wsum D.toTwinPoles hz]
+  exact setIntegral_congr_fun measurableSet_Ioi fun l (hl : 0 < l) => by rw [Aw_ofReal D hl.le]
+
+/-- **The transform of `Q + C·e^{σλ}` is `F(z) + C/(z − σ)`** for `Re z > max(1, σ)`. -/
+theorem lap_Awc [Countable ι] {C σ : ℝ} {z : ℂ} (hz : 1 < z.re) (hzσ : σ < z.re) :
+    lap (volume.restrict (Ioi (0 : ℝ))) (Awc P c C σ) (fun l => l) z = Fwc P c C σ z := by
+  have ha : ((σ : ℂ) - z).re < 0 := by simp; linarith
+  have i2 : IntegrableOn (fun l : ℝ => (C : ℂ) * cexp (((σ : ℂ) - z) * l)) (Ioi 0) :=
+    (integrableOn_exp_mul_complex_Ioi ha 0).const_mul _
+  have e : ∀ l : ℝ, ((Awc P c C σ l : ℝ) : ℂ) * cexp (-z * l)
+      = (Aw P c l : ℂ) * cexp (-z * l) + (C : ℂ) * cexp (((σ : ℂ) - z) * l) := fun l => by
+    unfold Awc
+    push_cast
+    rw [show ((σ : ℂ) - z) * l = σ * l + -z * l by ring, Complex.exp_add]
+    ring
+  unfold lap
+  simp_rw [e]
+  rw [integral_add (integrableOn_Aw_exp D.toTwinPoles hz) i2, integral_const_mul, integral_exp_mul_complex_Ioi ha]
+  have := lap_eq_Fw D hz
+  unfold lap at this
+  rw [this]
+  unfold Fwc
+  have hz' : z - σ ≠ 0 := fun h => by
+    have := congrArg Complex.re h; simp at this; linarith
+  have hz'' : (σ : ℂ) - z ≠ 0 := fun h => hz' (by rw [← neg_sub, h, neg_zero])
+  simp only [ofReal_zero, mul_zero, Complex.exp_zero]
+  field_simp
+  ring
+
+theorem Fwc_eventuallyEq_lap [Countable ι] {C σ : ℝ} {z0 : ℂ} (hz : 1 < z0.re) (hzσ : σ < z0.re) :
+    Fwc P c C σ =ᶠ[𝓝 z0] lap (volume.restrict (Ioi (0 : ℝ))) (Awc P c C σ) (fun l => l) :=
+  Filter.eventually_of_mem (((isOpen_lt continuous_const Complex.continuous_re).inter
+    (isOpen_lt continuous_const Complex.continuous_re)).mem_nhds ⟨hz, hzσ⟩)
+    fun _ hz => (lap_Awc D hz.1 hz.2).symm
+
 /-- **Step 1: the transform converges on `Re z > σ`.** -/
 theorem conv_gt [Countable ι] {C σ : ℝ} (hσ : 0 ≤ σ)
     (hQ : ∀ l : ℝ, 0 ≤ l → -(C * Real.exp (σ * l)) ≤ Q l) :
     ∀ τ, σ < τ → Conv (volume.restrict (Ioi (0 : ℝ))) (Awc P c C σ) (fun l => l) τ := by
   have h := hyp_Awc D hQ
-  obtain ⟨d, hd, hdq⟩ := exists_im_lb D
-  refine landau_abscissa h (conv_Awc D hσ) fun cc hc habove => ?_
+  obtain ⟨d, hd, hdq⟩ := exists_im_lb D.toTwinPoles
+  refine landau_abscissa h (conv_Awc D.toTwinPoles hσ) fun cc hc habove => ?_
   set e := min (d / 2) ((cc - σ) / 2)
   have he : 0 < e := lt_min (by positivity) (by linarith)
   set W : Set ℂ := {s | cc < s.re} ∩ ({s | s.im < d / 2} ∩ {s | -(d / 2) < s.im})
@@ -619,7 +721,7 @@ theorem conv_gt [Countable ι] {C σ : ℝ} (hσ : 0 ≤ σ)
   have hWc : Convex ℝ W := (convex_halfSpace_re_gt cc).inter
     ((convex_halfSpace_im_lt (d / 2)).inter (convex_halfSpace_im_gt (-(d / 2))))
   have hFd : ∀ z : ℂ, σ < z.re → |z.im| < d → DifferentiableAt ℂ (Fwc P c C σ) z := fun z hz hzi =>
-    Fwc_differentiableAt D (fun e0 => by rw [e0, zero_re] at hz; linarith)
+    Fwc_differentiableAt D.toTwinPoles (fun e0 => by rw [e0, zero_re] at hz; linarith)
       (fun e0 => by rw [e0, ofReal_re] at hz; exact lt_irrefl _ hz) (not_pole_of_im hdq hzi)
   have hLd := lap_differentiableOn h habove
   set z1 : ℝ := max cc (σ + 2) + 1
@@ -734,7 +836,7 @@ theorem abs_re_le [Countable ι] {C σ : ℝ} (hσ : 0 ≤ σ)
     exact ⟨fun e => key z (Or.inl e) hz, fun e => key z (Or.inr e) hz⟩
   have hFU : DifferentiableOn ℂ (Fwc P c C σ) U := fun z hz => by
     have hz1 : ps.re < z.re := hz.1
-    exact (Fwc_differentiableAt D (fun e0 => by rw [e0, zero_re] at hz1; linarith)
+    exact (Fwc_differentiableAt D.toTwinPoles (fun e0 => by rw [e0, zero_re] at hz1; linarith)
       (fun e0 => by rw [e0, ofReal_re] at hz1; linarith) (hnopole z hz)).differentiableWithinAt
   have hLU : DifferentiableOn ℂ L U := hLd.mono fun z hz => lt_trans hpsσ (show ps.re < z.re from hz.1)
   set z0 : ℂ := ((σ + 3 : ℝ) : ℂ) + p.im * I
@@ -755,14 +857,14 @@ theorem abs_re_le [Countable ι] {C σ : ℝ} (hσ : 0 ≤ σ)
   have hR : Rp P c ps = 0 := by
     refine residue_eq_zero (L := L) (G := fun z => Gp P c ps z + C / (z - σ)) one_pos
       ((hLd.differentiableAt ((isOpen_lt continuous_const Complex.continuous_re).mem_nhds hpsσ)).continuousAt)
-      ((Gp_continuousAt D (fun e0 => by rw [e0, zero_re] at hps0; exact lt_irrefl _ hps0)).add
+      ((Gp_continuousAt D.toTwinPoles (fun e0 => by rw [e0, zero_re] at hps0; exact lt_irrefl _ hps0)).add
         (continuousAt_const.div (continuousAt_id.sub continuousAt_const) hpsσ')) fun x hx _ => ?_
     have hU : ps + x ∈ U := ⟨show ps.re < (ps + x).re by simp; linarith,
       show (ps + x).im < p.im + δ by simp [hpsim]; linarith,
       show p.im - δ < (ps + x).im by simp [hpsim]; linarith⟩
     rw [← hEq hU]
     unfold Fwc
-    rw [Fw_split D ps]
+    rw [Fw_split D.toTwinPoles ps]
     ring
   obtain ⟨q, hq⟩ := hpspole
   exact Rp_ne_zero D hps0 hq hR
@@ -771,7 +873,7 @@ theorem abs_re_le [Countable ι] {C σ : ℝ} (hσ : 0 ≤ σ)
 theorem Q_ge {σ : ℝ} (hz : ∀ q, |(P q).re| ≤ σ) {l : ℝ} (hl : 0 ≤ l) :
     -((4 * ∑' q, ‖c q‖) * Real.exp (σ * l)) ≤ Q l := by
   rw [← Aw_eq D hl]
-  have h := norm_Wsum_le_of D hz l
+  have h := norm_Wsum_le_of D.toTwinPoles hz l
   rw [abs_of_nonneg hl] at h
   have := neg_abs_le (Wsum P c l).re
   have := Complex.abs_re_le_norm (Wsum P c l)
@@ -784,7 +886,10 @@ theorem rate_iff [Countable ι] {σ : ℝ} (hσ : 0 ≤ σ) :
     (∃ C, ∀ l : ℝ, 0 ≤ l → -(C * Real.exp (σ * l)) ≤ Q l) ↔ ∀ q, |(P q).re| ≤ σ :=
   ⟨fun ⟨_, h⟩ q => abs_re_le D hσ h q, fun h => ⟨_, fun _ hl => Q_ge D h hl⟩⟩
 
+end Data
+
 end TwinLandau
 
 #print axioms TwinLandau.abs_re_le
 #print axioms TwinLandau.rate_iff
+#print axioms TwinLandau.Rp_eq_zero_of_Wsum_const

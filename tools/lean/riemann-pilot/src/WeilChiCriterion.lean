@@ -282,7 +282,7 @@ theorem QC_fails_rate (hS : ∀ σ : ℝ, 0 < σ → σ < 1 → LFunction χ σ 
         -(4 * (|C| * Real.exp σ) * Real.exp (σ * l)) ≤ QC χ (l + 1) (twin (box 1) l) := by
       rcases le_or_gt l X' with hlX | hlX
       · left
-        have hA := TwinLandau.abs_Aw_le D hl
+        have hA := TwinLandau.abs_Aw_le D.toTwinPoles hl
         rw [TwinLandau.Aw_eq D hl] at hA
         have : Real.exp l ≤ Real.exp X' := Real.exp_le_exp.2 hlX
         have := neg_abs_le (QC χ (l + 1) (twin (box 1) l))

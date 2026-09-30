@@ -69,7 +69,7 @@ theorem ghatC_mono {a a' : ℝ} (ha : 0 < a) (haa : a ≤ a') {f : ℝ → ℝ}
     (hsupp : ∀ u, a < |u| → f u = 0) (z : ℂ) : ghatC f a' z = ghatC f a z := by
   rw [ghatC_eq_integral (by linarith) (fun u hu => hsupp u (by linarith)), ghatC_eq_integral ha hsupp]
 
-theorem probe_finset_sum {A : ℝ} (s : Finset ℕ) {f : ℕ → ℝ → ℝ} (h : ∀ k ∈ s, Probe A (f k)) :
+theorem probe_finset_sum {α : Type*} {A : ℝ} (s : Finset α) {f : α → ℝ → ℝ} (h : ∀ k ∈ s, Probe A (f k)) :
     Probe A (fun u => ∑ k ∈ s, f k u) := by
   classical
   induction s using Finset.induction_on with
@@ -79,7 +79,7 @@ theorem probe_finset_sum {A : ℝ} (s : Finset ℕ) {f : ℕ → ℝ → ℝ} (h
       (ih fun k hk => h k (Finset.mem_insert_of_mem hk))).1
     simpa [Finset.sum_insert ha] using this
 
-theorem ghatC_finset_sum {A : ℝ} (s : Finset ℕ) {f : ℕ → ℝ → ℝ} (h : ∀ k ∈ s, Probe A (f k))
+theorem ghatC_finset_sum {α : Type*} {A : ℝ} (s : Finset α) {f : α → ℝ → ℝ} (h : ∀ k ∈ s, Probe A (f k))
     (z : ℂ) : ghatC (fun u => ∑ k ∈ s, f k u) A z = ∑ k ∈ s, ghatC (f k) A z := by
   classical
   induction s using Finset.induction_on with
