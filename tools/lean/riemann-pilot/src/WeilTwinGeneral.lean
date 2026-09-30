@@ -122,12 +122,12 @@ theorem box_concave : ConcaveOn ℝ (Ioo (-1) 1) (box 1) := by
   refine (concaveOn_const (1 / Real.sqrt (2 * 1)) (convex_Ioo (-1) 1)).congr ?_
   intro u hu
   show 1 / Real.sqrt (2 * 1) = box 1 u
-  rw [box_apply, if_pos (abs_le.2 ⟨hu.1.le, hu.2.le⟩)]
+  rw [box_apply, ite_eq_left (abs_le.2 ⟨hu.1.le, hu.2.le⟩)]
 
 theorem box_realRooted : RealRooted 1 (box 1) :=
   realRooted_of_concaveOn one_pos box_concave (box_probe 1).even
     (fun t ht => by rw [box_apply]; split_ifs <;> positivity)
-    (by rw [box_apply, if_pos (by norm_num)]; positivity)
+    (by rw [box_apply, ite_eq_left (by norm_num)]; positivity)
 
 /-- Round 131's `ghat_box_ne`, as an instance of `realRooted_of_concaveOn`. -/
 theorem ghat_box_ne' {z : ℂ} (hz : z.im ≠ 0) : ghatC (box 1) 1 z ≠ 0 := fun h => hz (box_realRooted z h)

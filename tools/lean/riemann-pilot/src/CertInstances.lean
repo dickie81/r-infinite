@@ -23,10 +23,7 @@ theorem cw_two : cw 2 = cP := by
   have hs : Real.sqrt 2 ≠ 0 := by positivity
   push_cast
   field_simp
-  first
-  | linear_combination (-1 : ℝ) * h
-  | linear_combination (-Real.log 2) * h
-  | linear_combination h
+  linear_combination (-1 : ℝ) * h
 
 theorem wP_two (b : ℝ) (m : ℤ) : wP b 2 m = 0 := by
   simp [wP, Finset.sum_range_succ, cw_zero, cw_one]

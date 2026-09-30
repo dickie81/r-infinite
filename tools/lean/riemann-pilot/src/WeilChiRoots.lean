@@ -42,8 +42,8 @@ theorem im_half_add (t : ℂ) : (1 / 2 + I * t).im = t.re := by simp
 theorem half_add_I_tau {s : ℂ} {t : ℂ} (hi : t = (s - 1 / 2) / I ∨ t = -((s - 1 / 2) / I)) :
     1 / 2 + I * t = s ∨ 1 / 2 + I * t = 1 - s := by
   rcases hi with hi | hi
-  · left; rw [hi]; field_simp <;> ring
-  · right; rw [hi]; field_simp <;> ring
+  · left; rw [hi]; field_simp; ring
+  · right; rw [hi]; field_simp; ring
 
 /-- **`GRH'` ⟺ every `τ` lies on the cross.** -/
 theorem grh'_iff_cross (hG : GoodChar χ) : GRH' χ ↔ ∀ i : ZeroIdx (sqF (XiC χ)), tauC i ∈ crossSet := by

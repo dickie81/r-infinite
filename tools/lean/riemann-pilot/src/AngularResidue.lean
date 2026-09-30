@@ -51,7 +51,7 @@ theorem emb_injective : Function.Injective emb := by
 theorem eLen_emb (z : GaussianInt) : eLen 2 (emb z) = Real.sqrt (z.norm : ℝ) := by
   unfold eLen emb
   rw [Fin.sum_univ_two, Real.sqrt_eq_rpow, GlobalTeeth.norm_eq]
-  simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons, Real.rpow_two, sq_abs]
+  simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Real.rpow_two, sq_abs]
   push_cast
   ring_nf
 
@@ -60,7 +60,7 @@ theorem latticeCount_two_sqrt (N : ℕ) : (latticeCount 2 (Real.sqrt N) : ℝ) =
   have hset : ({x : Fin 2 → ℝ | eLen 2 x ≤ Real.sqrt N} ∩ (intLattice 2 : Set (Fin 2 → ℝ))) =
       emb '' (disc N : Set GaussianInt) := by
     ext x
-    simp only [Set.mem_inter_iff, Set.mem_setOf_eq, SetLike.mem_coe, Set.mem_image, Finset.mem_coe]
+    simp only [Set.mem_inter_iff, Set.mem_ofPred_eq, SetLike.mem_coe, Set.mem_image]
     constructor
     · rintro ⟨hx, hl⟩
       rw [mem_intLattice] at hl

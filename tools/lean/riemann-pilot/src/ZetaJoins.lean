@@ -181,7 +181,7 @@ theorem short_primes_of_RH (hRH : RiemannHypothesis) {θ : ℝ} (hθ : 1 / 2 < �
     · have hempty : {i : ZeroIdx (sqF Xi) |
           |(tau i).re| ≤ T ∧ w ≤ |(tau i).im|} = ∅ := by
         ext i
-        simp only [Set.mem_setOf_eq, Set.mem_empty_iff_false, iff_false, not_and, not_le]
+        simp only [Set.mem_ofPred_eq, Set.mem_empty_iff_false, iff_false, not_and, not_le]
         intro _; rw [him i, abs_zero]; exact hwpos
       unfold ShortWeil.NX
       rw [hempty, Set.ncard_empty, Nat.cast_zero]
