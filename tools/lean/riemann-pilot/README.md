@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 799 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
+Every file ends with `#print axioms`. All 829 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings.
 
 | File | Lines | Content |
 |---|---|---|
@@ -121,6 +121,15 @@ Every file ends with `#print axioms`. All 799 checked theorems depend only on `p
 | `WeilChiBridge.lean` | 95 | **`Q_χ` in u-space**: `QC χ a g = (Re ψ(q_χ) + log(N/π))‖g‖² + ∫[f(0) − f(u)]e^{(1−2q_χ)u}/sinh u − 2Σ Λ(n)χ(n)n^{−1/2}f(log n)`, `q_χ = (1 + 2δ)/4`, the form `dh_gram.py` computes (`QC_eq_QCu`); `χ₋₃`, `χ₋₄`, `χ₋₈` are odd (round 226) |
 | `WeilChiDensity.lean` | 278 | **GRH(χ) ⟹ `Q_χ ≥ 0` on every probe**, by density without ground states; `weil_criterion_chi`: `Q_χ ≥ 0` on every probe ⟺ GRH(χ); the rate form over all probes; instances `χ₋₃`, `χ₋₄`, `χ₋₈` (round 227) |
 | `LSeriesLandau.lean` | 95 | **Landau's theorem for L-series with nonnegative coefficients**: singular at the real point of the abscissa (Mathlib-ready; round 221) |
+| `ShortWeil.lean` | 464 | the short-interval test function `h(z) = 2cos(Lz)·ĝ_J(z)²` (`g_J` the `J`-fold autocorrelation of a box) in the Weil explicit formula (`weil_hmod`); the prime-side **`lower_bound`** (round 235) |
+| `ShortZeros.lean` | 365 | the zero side of that formula: head (by height) and tail (`summable_Xi_zeros_rpow`); a positive weighted prime mass in the window gives a prime (`exists_prime_of_window`) (round 235) |
+| `ShortPrimes.lean` | 550 | **primes in short intervals from density plus a zero-free region**: `DensityXi A B` and `ZeroFreeXi α` (`α < 1`) give a prime in `(y, y + y^θ]` for every `θ > max(½, 1 − 1/A)` and all large `y` (`short_primes_of_density`) (round 235) |
+| `DirMean.lean` | 666 | Dirichlet polynomials: the mean value theorem with a crude Hilbert constant, Gallagher's lemma, **large values** at well-spaced points, including off the line of the coefficients via Taylor weights (`large_values_off'`) (round 235) |
+| `DivSq.lean` | 152 | `Σ_{j≤M} d(j)² ≤ M(1 + log M)³`; the harmonic bound (round 235) |
+| `ZeroLocal.lean` | 106 | local zero counts from round 164's zero weight: at most `Kloc(x) = O(log x)` zeros of `Ξ` have `\|\|Re τ\| − x\| ≤ 1` (`card_local_le`, `card_re_le`) (round 235) |
+| `DensityCore.lean` | 372 | the detection count: the zeros where the mollified polynomial is large, split into dyadic blocks, unit windows and parity classes, are few (`card_detect_le`) (round 235) |
+| `DensityAsym.lean` | 333 | **the density theorem from detection**: `DetectHyp δ` gives `N(σ, T) ≤ C T^{4(1+δ)(1−σ)}(log T)^{11}` (`density_of_detect`) (round 235) |
+| `MollId.lean` | 163 | the mollifier identity `M_X(s)·Σ_{n≤N} n^{−s} = 1 + Σ_{X<j≤XN} a_j j^{−s}`; `\|M_X(β+iγ)\| ≤ X^{1−σ}(1 + log X)` (round 235) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -7627,3 +7636,45 @@ Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`
 **Check 4.** Acknowledged: round 164 noted the factor `eᵃ`, and the Lean-review report proposed feeding the Korobov–Vinogradov region into it, citing the toolchain split as a blocker (since resolved, rounds 106–111). New: the height split, whose far-zero bound needs no zero count, and the formal `lam_prefactor_KV`. The remark quoted from round 164 is corrected in place. The bound is dominated by round 220's `lam_nine` except in effectivity (see above).
 
 **Bearing on RH:** none. This is a sharper upper bound on `λ₁`.
+
+## Round 235: primes in short intervals, `θ > 3/4`, unconditional (`src/Short*.lean`, `src/DirMean.lean`, `src/DivSq.lean`, `src/ZeroLocal.lean`, `src/Density*.lean`, `src/MollId.lean`, `external/pnt/ShortKV.lean`, `external/pnt/DetectEM.lean`)
+
+This is job 2 of the Lean-review report: a zero-density theorem, and from it primes in short intervals.
+
+- **`DetectEM.short_primes`**: for every `θ > 3/4`, every large enough `y` has a prime `p` with `y < p ≤ y + y^θ`. There is no RH input and no named hypothesis.
+- **`DetectEM.density_unconditional`**: for every `0 < δ ≤ 1/4`, `N(σ, T) ≤ C·T^{4(1+δ)(1−σ)}(log T)^{11}` for `½ ≤ σ ≤ 1`, `T ≥ 2`. Here `N(σ, T)` counts the zeros of the pilot's `Ξ` with `|Re τ| ≤ T` and `|Im τ| ≥ σ − ½` (`NX`, `DensityXi`).
+
+**Historical level.** `θ > 3/4` is Chudakov's 1936 result. Ingham (1937) reached `θ > 5/8`, and Huxley (1972) `θ > 7/12`. The density exponent `4(1 + δ)(1 − σ)` has Carlson's shape, with log-power (not power) losses at `σ = 1`. That is what lets it combine with the Korobov–Vinogradov region.
+
+**Correction to the report.** The report said Ingham's density `N(σ, T) ≪ T^{3(1−σ)/(2−σ)}`, with the Korobov–Vinogradov region, gives `θ > 5/8`. It does not. The exponent `A(σ) = 3/(2 − σ)` has supremum 3 at `σ = 1`, so it gives `θ > 1 − 1/3 = 2/3`. Ingham's `5/8` needs his 1937 density theorem together with Weyl's subconvexity bound `ζ(½ + it) ≪ t^{1/6}`, which gives the uniform exponent `A = 8/3`.
+
+**1. From density to primes** (`ShortWeil`, `ShortZeros`, `ShortPrimes`, `external/pnt/ShortKV`).
+- The test function is `h(z) = 2cos(Lz)·ĝ_J(z)²`, where `g_J` is the `J`-fold iterated autocorrelation of a box. It goes into round 158's explicit formula `weilExplicit_zeta` (`weil_hmod`).
+- The prime side gives a lower bound for a smoothed `ψ` over the window (`lower_bound`). The difference `ψ − θ` is at most `2√x log x` (Mathlib), so the window contains primes, not just prime powers (`exists_prime_of_window`).
+- The zero sum is split at a height. The head is bounded by layers in `|Im τ|`, using `DensityXi A B` and a zero-free region `ZeroFreeXi α` of width `A_z/(log T)^α`, `α < 1`. The tail is bounded by `summable_Xi_zeros_rpow`.
+- `short_primes_of_density`: `DensityXi A B` and `ZeroFreeXi α` give a prime in `(y, y + y^θ]` for every `θ > max(½, 1 − 1/A)` and all large `y`.
+- `ShortKV.zeroFreeXi_KV`: round 215's Korobov–Vinogradov region gives `ZeroFreeXi (3/4)`.
+
+**2. The density theorem** (`DirMean`, `DivSq`, `ZeroLocal`, `DensityCore`, `DensityAsym`, `MollId`, `external/pnt/DetectEM`). The route is elementary: a mollifier and large values of Dirichlet polynomials, not Ingham's contour integral.
+- **Detection** (`DetectEM.detectHyp`). Take `X = ⌊U^{2σ−1}⌋` and `N = ⌊U^{3−2σ+2δ}⌋`. At a zero `ρ = β + iγ` with `U ≤ |γ| ≤ 2U` and `β ≥ σ ≥ 3/4`, PNT+'s Euler–Maclaurin formula gives a bound on `|Σ_{n≤N} n^{−ρ}|` (`norm_partial_zeta_le`). The mollifier identity `M_X(s)Σ_{n≤N} n^{−s} = 1 + D(s)` (`moll_identity`) and `|M_X(ρ)| ≤ X^{1−σ}(1 + log X)` (`norm_moll_le`) then give `|D(ρ)| ≥ ½`.
+- **Counting the detected zeros** (`DensityCore.card_detect_le`).
+  - `D` splits into dyadic blocks, and one of them carries `|D_k(ρ)| ≥ 1/(2K)`.
+  - Take one zero per unit window of `|γ|`, split by parity, so the chosen zeros are 1-separated. Each window holds `O(log U)` zeros, by round 164's zero weight (`ZeroLocal.card_local_le`).
+  - The large-values theorem is applied off the line of the coefficients, at `β ≥ σ` rather than `β = σ`. It uses Taylor weights for `j^{−(β−σ)}` in place of partial summation, so the loss is a log power, not a power (`large_values_off'`). Its inputs are the mean value theorem with a crude Hilbert constant and Gallagher's lemma.
+  - The coefficient bound is `Σ d(j)² ≤ M(1 + log M)³` (`DivSq`).
+- **Assembly** (`DensityAsym.density_of_detect`). Dyadic in the height, with the trivial count `O(T log T)` for `σ < 3/4`, this gives `DetectHyp δ → DensityXi (4(1 + δ)) 11`.
+- `short_primes` takes `δ = min(1/4, (4θ − 3)/8)`, so `1 − 1/(4(1 + δ)) < θ`.
+
+`ShortPrimes.short_primes_aux` raises `maxHeartbeats` to 2,000,000.
+
+**Novelty.** I know of no Lean formalisation of primes in short intervals `(y, y + y^θ]` with `θ < 1`, or of a zero-density theorem, in Mathlib or PNT+. The unreviewed repository smccolm/Lean claims stronger results; I have not checked them. As mathematics, this round is 1936-level.
+
+**Not done.**
+- `θ > 2/3`: this needs a bound `ζ(½ + it) ≪ t^{c}` with a power saving (van der Corput, `c = 1/4`) in the detection step, in place of Euler–Maclaurin's `c = 1/2`.
+- `θ > 5/8`: this needs Weyl's `c = 1/6`, or an Ingham-type mean value.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 829 checked theorems in `src/`, and `zeroFreeXi_KV`, `density_unconditional` and `short_primes` in `external/pnt`. Neither build prints warnings from these files.
+
+**Check 4.** Acknowledged: the Lean-review report listed "zero density, then primes in short intervals" as job 2. New: the formal theorems above, and the correction of the report's `5/8` claim to `2/3`.
+
+**Bearing on RH:** none. Short-interval primes at `θ > 3/4` follow from zero-free regions and density bounds that are far from RH. Under RH one gets `θ > 1/2`.

@@ -42,13 +42,14 @@ c() {
 c "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV; do c "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV ShortKV DetectEM; do c "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 cat > "$AX" <<'EOT'
 import WanderLadderPNT
 import Rung3
 import PNTKV
 import KaiserKV
+import DetectEM
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -61,6 +62,9 @@ import KaiserKV
 #print axioms MediumPNTW.GenPNTW
 #print axioms PNTKV.PNT_KV
 #print axioms KaiserKV.lam_prefactor_KV
+#print axioms ShortKV.zeroFreeXi_KV
+#print axioms DetectEM.density_unconditional
+#print axioms DetectEM.short_primes
 EOT
 echo "== axioms"
 LEAN_PATH="$LP" lean "$AX"

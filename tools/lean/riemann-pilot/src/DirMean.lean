@@ -619,8 +619,48 @@ theorem large_values_off {P : ℕ} (hP : 1 ≤ P) {S : Finset ℕ} (hS : S ⊆ F
         have : Real.exp 1 = Real.exp (1 / 2) * Real.exp (1 / 2) := by rw [← Real.exp_add]; norm_num
         rw [this]; ring
 
+/-- `large_values_off` for an indexed family of points. -/
+theorem large_values_off' {ι : Type*} {P : ℕ} (hP : 1 ≤ P) {S : Finset ℕ} (hS : S ⊆ Finset.Ioc P (2 * P))
+    (a : ℕ → ℂ) {σ : ℝ} {lo hi : ℝ} (hab : lo ≤ hi) (Rs : Finset ι) (x β : ι → ℝ)
+    (hsep : ∀ r ∈ Rs, ∀ s ∈ Rs, r ≠ s → 1 ≤ |x r - x s|)
+    (hR : ∀ r ∈ Rs, lo + 1 / 2 ≤ x r ∧ x r ≤ hi - 1 / 2)
+    (hβ : ∀ r ∈ Rs, σ ≤ β r ∧ β r ≤ σ + 1 / 2) :
+    ∑ r ∈ Rs, ‖dp S (fun j => a j * (((j : ℝ) ^ (-β r) : ℝ) : ℂ)) (x r)‖ ^ 2
+      ≤ Real.exp 1 * ((hi - lo + 8 * P * (1 + Real.log P)) * (2 + Real.log (2 * P) ^ 2))
+        * ∑ j ∈ S, ‖a j‖ ^ 2 * ((j : ℝ) ^ (-σ)) ^ 2 := by
+  classical
+  have hinj : Set.InjOn x Rs := by
+    intro r hr s hs hrs
+    by_contra hne
+    have := hsep r hr s hs hne
+    rw [hrs, sub_self, abs_zero] at this
+    linarith
+  set β' : ℝ → ℝ := fun y => if h : ∃ r ∈ Rs, x r = y then β h.choose else σ with hβ'
+  have hβ'x : ∀ r ∈ Rs, β' (x r) = β r := fun r hr => by
+    have h : ∃ r' ∈ Rs, x r' = x r := ⟨r, hr, rfl⟩
+    simp only [hβ', h, ↓reduceDIte]
+    rw [hinj h.choose_spec.1 hr h.choose_spec.2]
+  have hR' : ∀ y ∈ Rs.image x, lo + 1 / 2 ≤ y ∧ y ≤ hi - 1 / 2 := by
+    intro y hy
+    obtain ⟨r, hr, rfl⟩ := Finset.mem_image.1 hy
+    exact hR r hr
+  have hsep' : ∀ y ∈ Rs.image x, ∀ z ∈ Rs.image x, y ≠ z → 1 ≤ |y - z| := by
+    intro y hy z hz hyz
+    obtain ⟨r, hr, rfl⟩ := Finset.mem_image.1 hy
+    obtain ⟨s, hs, rfl⟩ := Finset.mem_image.1 hz
+    exact hsep r hr s hs fun h => hyz (h ▸ rfl)
+  have hβ'' : ∀ y ∈ Rs.image x, σ ≤ β' y ∧ β' y ≤ σ + 1 / 2 := by
+    intro y hy
+    obtain ⟨r, hr, rfl⟩ := Finset.mem_image.1 hy
+    rw [hβ'x r hr]; exact hβ r hr
+  have h := large_values_off hP hS a hab (Rs.image x) hsep' hR' β' hβ''
+  rw [Finset.sum_image hinj] at h
+  refine le_of_eq_of_le (Finset.sum_congr rfl fun r hr => ?_) h
+  rw [hβ'x r hr]
+
 end DirMean
 
 #print axioms DirMean.mean_value
 #print axioms DirMean.large_values
 #print axioms DirMean.large_values_off
+#print axioms DirMean.large_values_off'

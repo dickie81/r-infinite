@@ -75,3 +75,12 @@ All axioms are clean. See the main README, rounds 191–217, for the details.
 - `lam_prefactor_KV`: `λ₁(a) ≤ K(a + 1)·exp(10a − c·a^{1/3}/(log a)^{1/3} − 4πe^{2a})` for `a ≥ 4`, through the pilot's `Kaiser.lam_le_split` (`src/KaiserSplit.lean`).
 
 All axioms are clean. See the main README, round 234.
+
+## ShortKV.lean, DetectEM.lean (round 235)
+
+- `ShortKV.zeroFreeXi_KV`: the Korobov–Vinogradov region in the pilot's form, `ZeroFreeXi (3/4)`.
+- `DetectEM.detectHyp`: PNT+'s Euler–Maclaurin formula at a zero, together with the mollifier identity (`src/MollId.lean`), gives `|D(ρ)| ≥ ½`.
+- `DetectEM.density_unconditional`: `N(σ, T) ≪ T^{4(1+δ)(1−σ)}(log T)^{11}` for every `0 < δ ≤ 1/4`.
+- `DetectEM.short_primes`: for every `θ > 3/4`, every large `y` has a prime in `(y, y + y^θ]`.
+
+All axioms are clean. See the main README, round 235.
