@@ -367,7 +367,7 @@ theorem hadamard_XiDH (hχ1 : χ ≠ 1) (hprim : χ.IsPrimitive) (h1 : 1 + rootN
 
 /-! ## The Davenport–Heilbronn function -/
 
-/-- **The one named input of stage 2**: `L(½, χ₅) ≠ 0` (numerically `L(½, χ₅) ≈ 0.763748 + 0.216965i`, `|L(½, χ₅)| ≈ 0.793968`, by Hurwitz zeta in mpmath, not proved here). -/
+/-- **The one named input of stage 2**, discharged in round 255 (`dhHalf`, DHZeros.lean): `L(½, χ₅) ≠ 0` (numerically `L(½, χ₅) ≈ 0.763748 + 0.216965i`, `|L(½, χ₅)| ≈ 0.793968`, by Hurwitz zeta in mpmath, not proved here). -/
 def DHHalf : Prop := LFunction chi5 (1 / 2) ≠ 0
 
 theorem norm_XiDH_chi5_le (t : ℂ) : ‖XiDH chi5 t‖ ≤ KDH chi5 * Real.exp (36 * ‖t‖ ^ (3 / 2 : ℝ)) :=
