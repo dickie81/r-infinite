@@ -1,4 +1,4 @@
-33 chunks covering (200, 10000]; largest distance of a winding from an integer 1.1e-14; unresolved refinements 0
+33 chunks covering (200, 10000]; unresolved refinements 0; largest distance of a winding from an integer 1.1e-14 (automatic for a closed polygon, not a check; see grid_check.py)
 
 Re rho > 0.6:
   window          census |          X=30         X=100         X=300        X=1000        X=3000       X=10000      X=100000

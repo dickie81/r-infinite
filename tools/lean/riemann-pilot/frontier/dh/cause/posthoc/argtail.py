@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Post-hoc: the tail of Im log R at sigma = 0.8 at the census heights vs the random model.
-Im log R(s) is the continuous logarithm from Re s = +inf; for Re s > 1/2 it is the limit of
-sum over inert p <= X of [log(1 + chi(p) p^-s) - log(1 - chi(p) p^-s)] (principal logs), and the X = 1e5 partial
-sum is within about 0.02 of it at sigma = 0.8 (tail standard deviation).  Sample t uniformly (seed 2731) in each window,
+Im log R(s) is the continuous logarithm from Re s = +inf; for Re s > 1/2 it is, under GRH for L(s, chi5), the limit of
+sum over inert p <= X of [log(1 + chi(p) p^-s) - log(1 - chi(p) p^-s)] (principal logs), and in the random-phase
+approximation the X = 1e5 partial sum differs from it by 0.016 rms at sigma = 0.8 (tail_rms.py).  Sample t uniformly (seed 2731) in each window,
 compute the partial sums by prime ranges (p <= 30, 30 < p <= 1000, 1000 < p <= 1e5), and compare with the random model
 (exact factors, independent uniform phases, same prime ranges): the tail probabilities of Im log R near the
 targets -2.588 and 2 pi - 2.588 = 3.695, the fraction of samples with log R in the square of half-side 0.3 about log(-eps) (both branches), and the
