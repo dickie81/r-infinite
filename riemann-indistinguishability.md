@@ -3838,7 +3838,28 @@ geometry — Λ(s) = (5/π)^((s+1)/2)Γ((s+1)/2)f(s) satisfies
 — yet carries zeros OFF the line at 0.808517… + 85.699348…i and
 0.650830… + 114.163342…i (both gated to 10^(−25), FE partners
 included; the ordinate's sixth decimal was rounded rather than
-truncated at the landing — corrected round 189 F9). The differentiator is the Euler product alone. The
+truncated at the landing — corrected round 189 F9).
+(The repository's Lean pilot, `tools/lean/riemann-pilot/`, has
+this function's off-line zeros checked by Lean's kernel against
+Mathlib. Its object is dh = (1 + ε′)L(s, χ₅) + (1 + ε)L(s, χ₅⁻¹),
+ε and ε′ the root numbers of χ₅ and χ₅⁻¹, whose Dirichlet
+coefficients are a(1)·u(n mod 5) with u = (0, 1, κ, −κ, −1) and
+a(1) ≠ 0 (`aDH_chi5_eq_mul`; `aDH_one_ne_zero` with
+`one_add_rootNumber_chi5_ne_zero`), so dh is a(1)·f — the
+coefficient identity is the checked statement, f itself is not a
+pilot object, and κ enters there as 2 sin(π/5)/(√5 + 2 sin(2π/5)),
+the radical form above not part of the check. Its rounds 261–270
+prove `dh_offline_zero` — a zero with Re s > 0 and Re s ≠ ½, from
+Weil's explicit formula for dh and a kernel-checked negative value
+of its Weil form on one wave packet — and
+`dh_zeros_located_four_box`: zeros with 0.7985 < Re ρ < 0.8185,
+85.6893 < Im ρ < 85.7093 and 0.64583 < Re ρ < 0.65583,
+114.15834 < Im ρ < 114.16834 (the two listed here), and with
+0.57236 < Re ρ < 0.57636, 166.47731 < Im ρ < 166.48131 and
+0.71759 < Re ρ < 0.73093, 176.69579 < Im ρ < 176.70913. Every
+theorem depends only on `propext`, `Classical.choice` and
+`Quot.sound` — a record beside the gates here, not a gate.)
+The differentiator is the Euler product alone. The
 informational anatomy, gated: ζ's log-spectrum Λ(n) is supported
 exactly on prime powers with positive weights (support and sign
 censuses to n = 20) — multiplicativity as an information
