@@ -51,18 +51,17 @@ theorem ZeroIdx_ne_zero (i : ZeroIdx (sqF Xi)) : i.1 ≠ 0 := by
   rw [h, sqF_zero] at hz
   exact Xi_zero_ne_zero hz
 
-/-- **The logarithmic derivative of Hadamard's product**: off the zeros,
-`Ξ′(t)/Ξ(t) = Σ_u 2t/(t² − u)` over the zeros `u` of `Ξ(√w)`, with multiplicity. -/
-theorem hasSum_logDeriv_Xi {t : ℂ} (ht : Xi t ≠ 0) :
-    HasSum (fun i : ZeroIdx (sqF Xi) => 2 * t / (t ^ 2 - i.1)) (logDeriv Xi t) := by
-  have H := hadamardW_Xi xiGrowth Xi_zero_ne_zero
-  set w : ZeroIdx (sqF Xi) → ℂ := fun i => i.1⁻¹
+/-- **The logarithmic derivative of a Hadamard product**: off the zeros,
+`F′(t)/F(t) = Σ_u 2t/(t² − u)`. -/
+theorem hasSum_logDeriv_of_hadamardW {F : ℂ → ℂ}
+    (H : HadamardW F (fun i : ZeroIdx (sqF F) => i.1⁻¹)) (hF0 : F 0 ≠ 0)
+    (hne : ∀ i : ZeroIdx (sqF F), i.1 ≠ 0) {t : ℂ} (ht : F t ≠ 0) :
+    HasSum (fun i : ZeroIdx (sqF F) => 2 * t / (t ^ 2 - i.1)) (logDeriv F t) := by
+  set w : ZeroIdx (sqF F) → ℂ := fun i => i.1⁻¹
   have hw : Summable fun i => ‖w i‖ := H.summ
-  set f : ZeroIdx (sqF Xi) → ℂ → ℂ := fun i z => 1 + -(z ^ 2 * w i)
-  have hprod : ∀ z, HasProd (fun i => f i z) (Xi z / Xi 0) := fun z => by
+  set f : ZeroIdx (sqF F) → ℂ → ℂ := fun i z => 1 + -(z ^ 2 * w i)
+  have hprod : ∀ z, HasProd (fun i => f i z) (F z / F 0) := fun z => by
     have := H.prod z; simpa [f, sub_eq_add_neg] using this
-  have hX0 := Xi_zero_ne_zero
-  -- no factor vanishes at `t`
   have hf : ∀ i, f i t ≠ 0 := by
     intro i h0
     have := (hprod t).unique (hasProd_zero_of_exists_eq_zero ⟨i, h0⟩)
@@ -80,10 +79,9 @@ theorem hasSum_logDeriv_Xi {t : ℂ} (ht : Xi t ≠ 0) :
     rw [norm_neg, norm_mul, norm_pow]
     have : ‖z‖ ≤ R := le_of_lt (by simpa [s] using hz)
     exact mul_le_mul_of_nonneg_right (pow_le_pow_left₀ (norm_nonneg _) this 2) (norm_nonneg _)
-  -- the termwise logarithmic derivatives
   have hlog : ∀ i, logDeriv (f i) t = 2 * t / (t ^ 2 - i.1) := by
     intro i
-    have hu := ZeroIdx_ne_zero i
+    have hu := hne i
     have hfi := hf i
     simp only [f, w] at hfi
     have hd' : HasDerivAt (f i) (-(2 * t * w i)) t := by
@@ -108,7 +106,7 @@ theorem hasSum_logDeriv_Xi {t : ℂ} (ht : Xi t ≠ 0) :
         simpa using hi.le
     refine Summable.of_norm_bounded_eventually (hw.mul_left (4 * ‖t‖)) ?_
     filter_upwards [hev] with i hi
-    have hu := ZeroIdx_ne_zero i
+    have hu := hne i
     have hwi : ‖w i‖ = ‖i.1‖⁻¹ := by simp [w]
     have hpos : 0 < ‖i.1‖ := norm_pos_iff.2 hu
     have hi' : ‖i.1‖⁻¹ ≤ (2 * (‖t‖ ^ 2 + 1))⁻¹ := by rw [← hwi]; simpa [one_div] using hi
@@ -121,15 +119,21 @@ theorem hasSum_logDeriv_Xi {t : ℂ} (ht : Xi t ≠ 0) :
     calc 2 * ‖t‖ / ‖t ^ 2 - i.1‖ ≤ 2 * ‖t‖ / (‖i.1‖ / 2) :=
           div_le_div_of_nonneg_left (by positivity) (by positivity) hden
       _ = 4 * ‖t‖ * ‖i.1‖⁻¹ := by field_simp; ring
-  have hnez : ∏' i, f i t ≠ 0 := by rw [(hprod t).tprod_eq]; exact div_ne_zero ht hX0
+  have hnez : ∏' i, f i t ≠ 0 := by rw [(hprod t).tprod_eq]; exact div_ne_zero ht hF0
   have key := logDeriv_tprod_eq_tsum hs hts hf hd hm htend hnez
-  have hfun : (fun z => ∏' i, f i z) = fun z => Xi z * (Xi 0)⁻¹ := by
+  have hfun : (fun z => ∏' i, f i z) = fun z => F z * (F 0)⁻¹ := by
     funext z; rw [(hprod z).tprod_eq, div_eq_mul_inv]
-  rw [hfun, logDeriv_mul_const t _ (inv_ne_zero hX0)] at key
+  rw [hfun, logDeriv_mul_const t _ (inv_ne_zero hF0)] at key
   rw [key]
   simp_rw [← hlog]
   exact hm.hasSum
 
+/-- **The logarithmic derivative of Hadamard's product**: off the zeros,
+`Ξ′(t)/Ξ(t) = Σ_u 2t/(t² − u)` over the zeros `u` of `Ξ(√w)`, with multiplicity. -/
+theorem hasSum_logDeriv_Xi {t : ℂ} (ht : Xi t ≠ 0) :
+    HasSum (fun i : ZeroIdx (sqF Xi) => 2 * t / (t ^ 2 - i.1)) (logDeriv Xi t) :=
+  hasSum_logDeriv_of_hadamardW (hadamardW_Xi xiGrowth Xi_zero_ne_zero) Xi_zero_ne_zero
+    ZeroIdx_ne_zero ht
 
 /-! ## `Ξ′/Ξ` on `Re s > 1` -/
 
@@ -226,5 +230,6 @@ theorem logDeriv_Xi_eq {t : ℂ} (ht : 1 < (1 / 2 + I * t).re) :
 end Pilot1ca
 
 #print axioms Pilot1ca.Xi_zero_im
+#print axioms Pilot1ca.hasSum_logDeriv_of_hadamardW
 #print axioms Pilot1ca.hasSum_logDeriv_Xi
 #print axioms Pilot1ca.logDeriv_Xi_eq

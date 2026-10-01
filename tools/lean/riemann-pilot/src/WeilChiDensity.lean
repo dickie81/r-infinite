@@ -35,17 +35,17 @@ variable {N : ℕ} [NeZero N] {χ : DirichletCharacter ℂ N} {a : ℝ}
 /-! ## `Q_χ` as a quadratic form -/
 
 /-- The constant `Re ψ(q_χ) + log(N/π)`. -/
-def cC (χ : DirichletCharacter ℂ N) : ℝ := (Complex.digamma (qC χ)).re + Real.log N - Real.log π
+def cChi (χ : DirichletCharacter ℂ N) : ℝ := (Complex.digamma (qC χ)).re + Real.log N - Real.log π
 
 /-- `Q_χ^u` with its prime sum made finite. -/
 theorem QCu_eq {g : ℝ → ℝ} (hsupp : ∀ u, a < |u| → g u = 0) :
-    QCu χ g = cC χ * normSq g + archEQ (qC χ) g
+    QCu χ g = cChi χ * normSq g + archEQ (qC χ) g
       - 2 * ∑ n ∈ Finset.range (primeCut a), fχ χ n / Real.sqrt n * autocorr g (Real.log n) := by
-  unfold QCu cC; rw [tsum_autocorr_eq (fun n => fχ χ n / Real.sqrt n) hsupp]
+  unfold QCu cChi; rw [tsum_autocorr_eq (fun n => fχ χ n / Real.sqrt n) hsupp]
 
 /-- The bilinear form of `Q_χ`. -/
 def BC (χ : DirichletCharacter ℂ N) (a : ℝ) (φ ψ : ℝ → ℝ) : ℝ :=
-  cC χ * xcorr φ ψ 0 + (∫ u in Ioi 0, archXQ (qC χ) φ ψ u)
+  cChi χ * xcorr φ ψ 0 + (∫ u in Ioi 0, archXQ (qC χ) φ ψ u)
     - 2 * ∑ n ∈ Finset.range (primeCut a), fχ χ n / Real.sqrt n * xcorr φ ψ (Real.log n)
 
 theorem QCu_add_smul {φ ψ : ℝ → ℝ} (hφ : Probe a φ) (hψ : Probe a ψ) (s : ℝ) :
@@ -66,7 +66,7 @@ theorem QCu_add_smul {φ ψ : ℝ → ℝ} (hφ : Probe a φ) (hψ : Probe a ψ)
 
 /-- `M = |c_χ| + 2Σ_{n ≤ e^{2a}} |Λ(n)χ(n)|/√n`. -/
 def MC (χ : DirichletCharacter ℂ N) (a : ℝ) : ℝ :=
-  |cC χ| + 2 * ∑ n ∈ Finset.range (primeCut a), |fχ χ n / Real.sqrt n|
+  |cChi χ| + 2 * ∑ n ∈ Finset.range (primeCut a), |fχ χ n / Real.sqrt n|
 
 omit [NeZero N] in
 theorem MC_nonneg : 0 ≤ MC χ a := by
@@ -89,7 +89,7 @@ theorem QCu_ge {g : ℝ → ℝ} (hp : Probe a g) : -(MC χ a * normSq g) ≤ QC
   have hN := normSq_nonneg g
   have hE := archEQ_nonneg (qC χ) hp.memL2
   have hP := abs_primeC_le (χ := χ) hp
-  have hc : -(|cC χ| * normSq g) ≤ cC χ * normSq g := by
+  have hc : -(|cChi χ| * normSq g) ≤ cChi χ * normSq g := by
     rw [← neg_mul]; exact mul_le_mul_of_nonneg_right (neg_abs_le _) hN
   unfold MC
   nlinarith [le_abs_self (∑ n ∈ Finset.range (primeCut a), fχ χ n / Real.sqrt n
@@ -101,7 +101,7 @@ theorem QCu_le {g : ℝ → ℝ} (hp : Probe a g) : QCu χ g ≤ MC χ a * normS
   have hN := normSq_nonneg g
   have hE := archEQ_le_archE hp (quarter_le_qC (χ := χ))
   have hP := abs_primeC_le (χ := χ) hp
-  have hc : cC χ * normSq g ≤ |cC χ| * normSq g := mul_le_mul_of_nonneg_right (le_abs_self _) hN
+  have hc : cChi χ * normSq g ≤ |cChi χ| * normSq g := mul_le_mul_of_nonneg_right (le_abs_self _) hN
   unfold MC
   nlinarith [le_abs_self (∑ n ∈ Finset.range (primeCut a), fχ χ n / Real.sqrt n
     * autocorr g (Real.log n)), neg_abs_le (∑ n ∈ Finset.range (primeCut a), fχ χ n / Real.sqrt n

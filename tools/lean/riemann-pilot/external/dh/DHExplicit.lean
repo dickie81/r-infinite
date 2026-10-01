@@ -15,7 +15,7 @@ width-1 lemma of `StripShift` and `WeilAssemble` is left unchanged: none is wide
 **The chain.** `Ξ₃` is entire, even, `Ξ₃(0) ≠ 0`, of order `≤ 3/2` with constant `216 = 36·6 ≥ 36·3^{3/2}`
 (`norm_XiDH3_le`), so it has a Hadamard product (`hadamard_XiDH3`) and the zero side
 `Ξ₃′/Ξ₃(t) = Σ_u 2t/(t² − u)` (`hasSum_logDeriv_XiDH3`, through the generic
-`hasSum_logDeriv_of_hadamardW`, which is round 255's argument with the function abstracted). The
+`hasSum_logDeriv_of_hadamardW`, XiLogDeriv.lean since round 274). The
 zero side of the formula (`zero_side3`), the archimedean term with `z₃(t) = 3/4 + 3it/2`
 (`psi_line3`, `psi_real3`, `integrable_psi_line3`) and the prime line at `Re s = 7/2` with complex
 coefficients, generic in the coefficient sequence (`term_lineC`, `prime_line3`,
@@ -59,83 +59,6 @@ theorem ZeroIdx_ne_zero_of {F : ℂ → ℂ} (hd : Differentiable ℂ F) (he : �
     (by rw [sqF_zero]; exact hF0) i.1).1 (by intro h0; exact Fin.elim0 (h0 ▸ i.2))
   rw [h, sqF_zero] at hz
   exact hF0 hz
-
-/-- **The logarithmic derivative of a Hadamard product**: off the zeros,
-`F′(t)/F(t) = Σ_u 2t/(t² − u)`. -/
-theorem hasSum_logDeriv_of_hadamardW {F : ℂ → ℂ}
-    (H : HadamardW F (fun i : ZeroIdx (sqF F) => i.1⁻¹)) (hF0 : F 0 ≠ 0)
-    (hne : ∀ i : ZeroIdx (sqF F), i.1 ≠ 0) {t : ℂ} (ht : F t ≠ 0) :
-    HasSum (fun i : ZeroIdx (sqF F) => 2 * t / (t ^ 2 - i.1)) (logDeriv F t) := by
-  set w : ZeroIdx (sqF F) → ℂ := fun i => i.1⁻¹
-  have hw : Summable fun i => ‖w i‖ := H.summ
-  set f : ZeroIdx (sqF F) → ℂ → ℂ := fun i z => 1 + -(z ^ 2 * w i)
-  have hprod : ∀ z, HasProd (fun i => f i z) (F z / F 0) := fun z => by
-    have := H.prod z; simpa [f, sub_eq_add_neg] using this
-  have hf : ∀ i, f i t ≠ 0 := by
-    intro i h0
-    have := (hprod t).unique (hasProd_zero_of_exists_eq_zero ⟨i, h0⟩)
-    exact ht (by rw [div_eq_zero_iff] at this; tauto)
-  set R := ‖t‖ + 1
-  set s : Set ℂ := Metric.ball 0 R
-  have hs : IsOpen s := Metric.isOpen_ball
-  have hts : t ∈ s := by simp [s, R]
-  have hd : ∀ i, DifferentiableOn ℂ (f i) s := fun i =>
-    Differentiable.differentiableOn (by simp only [f]; fun_prop)
-  have htend : MultipliableLocallyUniformlyOn f s := by
-    refine Summable.multipliableLocallyUniformlyOn_one_add (f := fun i z => -(z ^ 2 * w i))
-      (u := fun i => R ^ 2 * ‖w i‖) hs (hw.mul_left _) (Eventually.of_forall fun i z hz => ?_)
-      (fun i => Continuous.continuousOn (by fun_prop))
-    rw [norm_neg, norm_mul, norm_pow]
-    have : ‖z‖ ≤ R := le_of_lt (by simpa [s] using hz)
-    exact mul_le_mul_of_nonneg_right (pow_le_pow_left₀ (norm_nonneg _) this 2) (norm_nonneg _)
-  have hlog : ∀ i, logDeriv (f i) t = 2 * t / (t ^ 2 - i.1) := by
-    intro i
-    have hu := hne i
-    have hfi := hf i
-    simp only [f, w] at hfi
-    have hd' : HasDerivAt (f i) (-(2 * t * w i)) t := by
-      have := ((hasDerivAt_pow 2 t).mul_const (w i)).neg.const_add 1
-      simpa [f] using this
-    rw [logDeriv_apply, hd'.deriv]
-    have ht2 : t ^ 2 - i.1 ≠ 0 := by
-      intro h0
-      apply hfi
-      rw [show t ^ 2 = i.1 by linear_combination h0]
-      field_simp; ring
-    rw [div_eq_div_iff hfi ht2]
-    simp only [w]
-    field_simp
-    ring
-  have hm : Summable fun i => logDeriv (f i) t := by
-    simp_rw [hlog]
-    have hw0 := hw.tendsto_cofinite_zero
-    have hev : ∀ᶠ i in cofinite, ‖w i‖ ≤ 1 / (2 * (‖t‖ ^ 2 + 1)) :=
-      (Metric.tendsto_nhds.1 (by simpa using hw0) (1 / (2 * (‖t‖ ^ 2 + 1)))
-        (by positivity)).mono fun i hi => by
-        simpa using hi.le
-    refine Summable.of_norm_bounded_eventually (hw.mul_left (4 * ‖t‖)) ?_
-    filter_upwards [hev] with i hi
-    have hu := hne i
-    have hwi : ‖w i‖ = ‖i.1‖⁻¹ := by simp [w]
-    have hpos : 0 < ‖i.1‖ := norm_pos_iff.2 hu
-    have hi' : ‖i.1‖⁻¹ ≤ (2 * (‖t‖ ^ 2 + 1))⁻¹ := by rw [← hwi]; simpa [one_div] using hi
-    have hbig : 2 * (‖t‖ ^ 2 + 1) ≤ ‖i.1‖ := (inv_le_inv₀ hpos (by positivity)).1 hi'
-    have hden : ‖i.1‖ / 2 ≤ ‖t ^ 2 - i.1‖ := by
-      have := norm_sub_norm_le i.1 (t ^ 2)
-      rw [norm_sub_rev, norm_pow] at this
-      nlinarith [sq_nonneg ‖t‖]
-    rw [norm_div, norm_mul, Complex.norm_two, hwi]
-    calc 2 * ‖t‖ / ‖t ^ 2 - i.1‖ ≤ 2 * ‖t‖ / (‖i.1‖ / 2) :=
-          div_le_div_of_nonneg_left (by positivity) (by positivity) hden
-      _ = 4 * ‖t‖ * ‖i.1‖⁻¹ := by field_simp; ring
-  have hnez : ∏' i, f i t ≠ 0 := by rw [(hprod t).tprod_eq]; exact div_ne_zero ht hF0
-  have key := logDeriv_tprod_eq_tsum hs hts hf hd hm htend hnez
-  have hfun : (fun z => ∏' i, f i z) = fun z => F z * (F 0)⁻¹ := by
-    funext z; rw [(hprod z).tprod_eq, div_eq_mul_inv]
-  rw [hfun, logDeriv_mul_const t _ (inv_ne_zero hF0)] at key
-  rw [key]
-  simp_rw [← hlog]
-  exact hm.hasSum
 
 /-! ## The scaled function `Ξ₃(t) = Ξ_dh(3t)` -/
 
@@ -854,7 +777,6 @@ theorem exists_offline_dh_of_neg {a : ℝ} {g : ℝ → ℝ} (hp : Probe a g) (h
 
 end PsiOmega
 
-#print axioms PsiOmega.hasSum_logDeriv_of_hadamardW
 #print axioms PsiOmega.norm_XiDH3_le
 #print axioms PsiOmega.hadamard_XiDH3
 #print axioms PsiOmega.hasSum_logDeriv_XiDH3

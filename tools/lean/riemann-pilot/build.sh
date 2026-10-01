@@ -5,24 +5,29 @@
 # its source or than the olean of anything it imports, so after an edit only that file and its
 # dependents are rebuilt. FORCE=1 rebuilds everything.
 # MATHLIB: a built Mathlib checkout at the commit in MATHLIB_REV (default ./mathlib4).
+# SRC: the source directory (default ./src). external/dh/build.sh sets it to compile the
+# Davenport–Heilbronn layer into the same build/; a file is then also stale if the olean of a module it
+# imports from another layer is newer than its own.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 cd "${MATHLIB:-$HERE/mathlib4}"
 export PATH="$HOME/.elan/bin:$PATH"
 mkdir -p "$HERE/build"
 export LEAN_PATH="$(lake env printenv LEAN_PATH):$HERE/build"
-exec python3 - "$HERE" "${JOBS:-$(nproc)}" "${FORCE:-0}" <<'EOF'
+exec python3 - "$HERE" "${JOBS:-$(nproc)}" "${FORCE:-0}" "${SRC:-$HERE/src}" <<'EOF'
 import os, re, sys, time, subprocess, threading
-here, jobs, force = sys.argv[1], int(sys.argv[2]), sys.argv[3] == '1'
-src, out = os.path.join(here, 'src'), os.path.join(here, 'build')
+here, jobs, force, src = sys.argv[1], int(sys.argv[2]), sys.argv[3] == '1', sys.argv[4]
+out = os.path.join(here, 'build')
 mods = sorted(f[:-5] for f in os.listdir(src) if f.endswith('.lean'))
-deps = {}
+deps, ext = {}, {}
 for m in mods:
-    d = set()
+    d, e = set(), set()
     for l in open(os.path.join(src, m + '.lean'), encoding='utf-8'):
         mm = re.match(r'^\s*(?:public\s+)?import\s+(.+)$', l)
-        if mm: d |= {t for t in mm.group(1).split() if t in mods}
-    deps[m] = d
+        if mm:
+            d |= {t for t in mm.group(1).split() if t in mods}
+            e |= {t for t in mm.group(1).split() if t not in mods and os.path.exists(os.path.join(out, t + '.olean'))}
+    deps[m], ext[m] = d, e
 def mtime(p):
     try: return os.path.getmtime(p)
     except OSError: return None
@@ -30,7 +35,7 @@ def olean(m): return os.path.join(out, m + '.olean')
 def stale(m):
     o = mtime(olean(m))
     return force or o is None or o < mtime(os.path.join(src, m + '.lean')) or \
-        any(mtime(olean(d)) > o for d in deps[m])
+        any(mtime(olean(d)) > o for d in deps[m] | ext[m])
 done, failed, blocked, running = set(), set(), set(), set()
 nbuilt, lock, t00 = 0, threading.Condition(), time.time()
 def run(m):

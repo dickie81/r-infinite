@@ -129,79 +129,8 @@ theorem ZeroIdxC_ne_zero (i : ZeroIdx (sqF (XiC χ))) : i.1 ≠ 0 := by
 /-- **The logarithmic derivative of Hadamard's product**: off the zeros,
 `Ξ_χ′(t)/Ξ_χ(t) = Σ_u 2t/(t² − u)`. -/
 theorem hasSum_logDeriv_XiC {t : ℂ} (ht : XiC χ t ≠ 0) :
-    HasSum (fun i : ZeroIdx (sqF (XiC χ)) => 2 * t / (t ^ 2 - i.1)) (logDeriv (XiC χ) t) := by
-  have H := hadamard_XiC hG
-  set w : ZeroIdx (sqF (XiC χ)) → ℂ := fun i => i.1⁻¹
-  have hw : Summable fun i => ‖w i‖ := H.summ
-  set f : ZeroIdx (sqF (XiC χ)) → ℂ → ℂ := fun i z => 1 + -(z ^ 2 * w i)
-  have hprod : ∀ z, HasProd (fun i => f i z) (XiC χ z / XiC χ 0) := fun z => by
-    have := H.prod z; simpa [f, sub_eq_add_neg] using this
-  have hX0 := XiC_zero_ne hG
-  have hf : ∀ i, f i t ≠ 0 := by
-    intro i h0
-    have := (hprod t).unique (hasProd_zero_of_exists_eq_zero ⟨i, h0⟩)
-    exact ht (by rw [div_eq_zero_iff] at this; tauto)
-  set R := ‖t‖ + 1
-  set s : Set ℂ := Metric.ball 0 R
-  have hs : IsOpen s := Metric.isOpen_ball
-  have hts : t ∈ s := by simp [s, R]
-  have hd : ∀ i, DifferentiableOn ℂ (f i) s := fun i =>
-    Differentiable.differentiableOn (by simp only [f]; fun_prop)
-  have htend : MultipliableLocallyUniformlyOn f s := by
-    refine Summable.multipliableLocallyUniformlyOn_one_add (f := fun i z => -(z ^ 2 * w i))
-      (u := fun i => R ^ 2 * ‖w i‖) hs (hw.mul_left _) (Eventually.of_forall fun i z hz => ?_)
-      (fun i => Continuous.continuousOn (by fun_prop))
-    rw [norm_neg, norm_mul, norm_pow]
-    have : ‖z‖ ≤ R := le_of_lt (by simpa [s] using hz)
-    exact mul_le_mul_of_nonneg_right (pow_le_pow_left₀ (norm_nonneg _) this 2) (norm_nonneg _)
-  have hlog : ∀ i, logDeriv (f i) t = 2 * t / (t ^ 2 - i.1) := by
-    intro i
-    have hu := ZeroIdxC_ne_zero hG i
-    have hfi := hf i
-    simp only [f, w] at hfi
-    have hd' : HasDerivAt (f i) (-(2 * t * w i)) t := by
-      have := ((hasDerivAt_pow 2 t).mul_const (w i)).neg.const_add 1
-      simpa [f] using this
-    rw [logDeriv_apply, hd'.deriv]
-    have ht2 : t ^ 2 - i.1 ≠ 0 := by
-      intro h0
-      apply hfi
-      rw [show t ^ 2 = i.1 by linear_combination h0]
-      field_simp; ring
-    rw [div_eq_div_iff hfi ht2]
-    simp only [w]
-    field_simp
-    ring
-  have hm : Summable fun i => logDeriv (f i) t := by
-    simp_rw [hlog]
-    have hw0 := hw.tendsto_cofinite_zero
-    have hev : ∀ᶠ i in cofinite, ‖w i‖ ≤ 1 / (2 * (‖t‖ ^ 2 + 1)) :=
-      (Metric.tendsto_nhds.1 (by simpa using hw0) (1 / (2 * (‖t‖ ^ 2 + 1)))
-        (by positivity)).mono fun i hi => by
-        simpa using hi.le
-    refine Summable.of_norm_bounded_eventually (hw.mul_left (4 * ‖t‖)) ?_
-    filter_upwards [hev] with i hi
-    have hu := ZeroIdxC_ne_zero hG i
-    have hwi : ‖w i‖ = ‖i.1‖⁻¹ := by simp [w]
-    have hpos : 0 < ‖i.1‖ := norm_pos_iff.2 hu
-    have hi' : ‖i.1‖⁻¹ ≤ (2 * (‖t‖ ^ 2 + 1))⁻¹ := by rw [← hwi]; simpa [one_div] using hi
-    have hbig : 2 * (‖t‖ ^ 2 + 1) ≤ ‖i.1‖ := (inv_le_inv₀ hpos (by positivity)).1 hi'
-    have hden : ‖i.1‖ / 2 ≤ ‖t ^ 2 - i.1‖ := by
-      have := norm_sub_norm_le i.1 (t ^ 2)
-      rw [norm_sub_rev, norm_pow] at this
-      nlinarith [sq_nonneg ‖t‖]
-    rw [norm_div, norm_mul, Complex.norm_two, hwi]
-    calc 2 * ‖t‖ / ‖t ^ 2 - i.1‖ ≤ 2 * ‖t‖ / (‖i.1‖ / 2) :=
-          div_le_div_of_nonneg_left (by positivity) (by positivity) hden
-      _ = 4 * ‖t‖ * ‖i.1‖⁻¹ := by field_simp; ring
-  have hnez : ∏' i, f i t ≠ 0 := by rw [(hprod t).tprod_eq]; exact div_ne_zero ht hX0
-  have key := logDeriv_tprod_eq_tsum hs hts hf hd hm htend hnez
-  have hfun : (fun z => ∏' i, f i z) = fun z => XiC χ z * (XiC χ 0)⁻¹ := by
-    funext z; rw [(hprod z).tprod_eq, div_eq_mul_inv]
-  rw [hfun, logDeriv_mul_const t _ (inv_ne_zero hX0)] at key
-  rw [key]
-  simp_rw [← hlog]
-  exact hm.hasSum
+    HasSum (fun i : ZeroIdx (sqF (XiC χ)) => 2 * t / (t ^ 2 - i.1)) (logDeriv (XiC χ) t) :=
+  hasSum_logDeriv_of_hadamardW (hadamard_XiC hG) (XiC_zero_ne hG) (ZeroIdxC_ne_zero hG) ht
 
 /-- `Σ_i |u_i|^{−7/8} < ∞` over the zeros of `Ξ_χ(√w)`. -/
 theorem summable_XiC_zeros_rpow :

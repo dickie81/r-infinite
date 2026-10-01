@@ -543,6 +543,13 @@ def WeilExplicit {ι : Type*} (ρ : ι → ℂ) (h : ℂ → ℂ) (hR : ℝ → 
       + ((-(gh hR 0 * Real.log π) + 1 / (2 * π) * (∫ r, hR r * psiRe r)
         - 2 * ∑' n : ℕ, ArithmeticFunction.vonMangoldt n / Real.sqrt n * gh hR (Real.log n) : ℝ) : ℂ))
 
+/-- The right-hand side of Weil's explicit formula (`WeilExplicit`), the prime side of the pilot's
+Weil form (`ZetaInputs`, `PhiNull`; one definition since round 274). -/
+def weilRHS (h : ℂ → ℂ) (hR : ℝ → ℝ) : ℂ :=
+  h (Complex.I / 2) + h (-(Complex.I / 2))
+    + ((-(gh hR 0 * Real.log π) + 1 / (2 * π) * (∫ r, hR r * psiRe r)
+      - 2 * ∑' n : ℕ, ArithmeticFunction.vonMangoldt n / Real.sqrt n * gh hR (Real.log n) : ℝ) : ℂ)
+
 theorem gh_eq_fchi {hR : ℝ → ℝ} (heven : ∀ r, hR (-r) = hR r) (u : ℝ) : gh hR u = fchi hR u := by
   unfold gh fchi
   have h1 : ∫ r, hR r * Real.cos (r * u) = ∫ r, hR |r| * Real.cos (|r| * u) := by

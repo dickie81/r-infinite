@@ -14,7 +14,7 @@ Round 122–123's relaxation handled the even sector with at most one prime. Her
   `Q(g) ≥ κ + Σ sᵢ yᵢ²` with `y₀ = ∫ g sinh(t/2)` (`s₀ = −2`) and `y_k = ∫ g sin(πkt/4a)`.
 * **Bessel for any continuous window vectors** (`bessel_V`), the odd Gram entries in closed form
   (`gramO_eq`), monotonicity of the general form in the support (`weilQg_mono`), and the tail level
-  from any certified `Cin` value (`tail_W`).
+  from any certified `Cin` value (`tail_Wp`).
 -/
 
 open Real Filter Topology Complex MeasureTheory Set Matrix
@@ -67,32 +67,32 @@ theorem trunc_W {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g) (hn :
 /-! ## B. The prime side below `e^{2a}` as a mode weight -/
 
 /-- `c_n = 2Λ(n)/√n`. -/
-def cw (n : ℕ) : ℝ := 2 * (ArithmeticFunction.vonMangoldt n / Real.sqrt n)
+def cwΛ (n : ℕ) : ℝ := 2 * (ArithmeticFunction.vonMangoldt n / Real.sqrt n)
 
-theorem cw_nonneg (n : ℕ) : 0 ≤ cw n := by
-  unfold cw; have := ArithmeticFunction.vonMangoldt_nonneg (n := n); positivity
+theorem cw_nonneg (n : ℕ) : 0 ≤ cwΛ n := by
+  unfold cwΛ; have := ArithmeticFunction.vonMangoldt_nonneg (n := n); positivity
 
 /-- The prime weight `w_m = Σ_{n<K} c_n cos(πm log n/4a)`. -/
 def wP (a : ℝ) (K : ℕ) (m : ℤ) : ℝ :=
-  ∑ n ∈ Finset.range K, cw n * Real.cos (π * m * Real.log n / (4 * a))
+  ∑ n ∈ Finset.range K, cwΛ n * Real.cos (π * m * Real.log n / (4 * a))
 
 theorem wP_neg (a : ℝ) (K : ℕ) (m : ℤ) : wP a K (-m) = wP a K m := by
   unfold wP; refine Finset.sum_congr rfl fun n _ => ?_
   push_cast; rw [show π * -(m : ℝ) * Real.log n / (4 * a) = -(π * m * Real.log n / (4 * a)) by ring,
     Real.cos_neg]
 
-theorem wP_le (a : ℝ) (K : ℕ) (m : ℤ) : wP a K m ≤ ∑ n ∈ Finset.range K, cw n := by
+theorem wP_le (a : ℝ) (K : ℕ) (m : ℤ) : wP a K m ≤ ∑ n ∈ Finset.range K, cwΛ n := by
   unfold wP; refine Finset.sum_le_sum fun n _ => ?_
   nlinarith [cw_nonneg n, Real.cos_le_one (π * m * Real.log n / (4 * a))]
 
-theorem wP_zero (a : ℝ) (K : ℕ) : wP a K 0 = ∑ n ∈ Finset.range K, cw n := by
+theorem wP_zero (a : ℝ) (K : ℕ) : wP a K 0 = ∑ n ∈ Finset.range K, cwΛ n := by
   unfold wP; simp
 
 theorem hasSum_wP {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g) (hn : normSq g = 1) {K : ℕ}
     (hK : ∀ n, n < K → Real.log n ≤ 2 * a) :
-    HasSum (fun m => pm a g m * wP a K m) (∑ n ∈ Finset.range K, cw n * autocorr g (Real.log n)) := by
+    HasSum (fun m => pm a g m * wP a K m) (∑ n ∈ Finset.range K, cwΛ n * autocorr g (Real.log n)) := by
   have h := hasSum_sum (s := Finset.range K) fun n hk =>
-    (hasSum_autocorrS ha hp hn (Real.log_natCast_nonneg n) (hK n (Finset.mem_range.1 hk))).mul_left (cw n)
+    (hasSum_autocorrS ha hp hn (Real.log_natCast_nonneg n) (hK n (Finset.mem_range.1 hk))).mul_left (cwΛ n)
   convert h using 1
   funext m; unfold wP; rw [Finset.mul_sum]
   refine Finset.sum_congr rfl fun n _ => by ring
@@ -100,10 +100,10 @@ theorem hasSum_wP {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g) (hn
 /-- **The prime side below `e^{2a}`**: `2S(g) = Σ_{n<K} c_n f(log n)` when `2a < log K`. -/
 theorem primeS_range {a : ℝ} {g : ℝ → ℝ} (hp : SProbe a g) {K : ℕ} (hK1 : 1 ≤ K)
     (hK : 2 * a < Real.log K) :
-    2 * primeS g = ∑ n ∈ Finset.range K, cw n * autocorr g (Real.log n) := by
+    2 * primeS g = ∑ n ∈ Finset.range K, cwΛ n * autocorr g (Real.log n) := by
   unfold primeS
   rw [tsum_eq_sum (s := Finset.range K), Finset.mul_sum]
-  · refine Finset.sum_congr rfl fun n _ => by unfold cw; ring
+  · refine Finset.sum_congr rfl fun n _ => by unfold cwΛ; ring
   · intro n hn
     have hKn : K ≤ n := by simpa using hn
     have hl : Real.log K ≤ Real.log n :=
@@ -434,9 +434,9 @@ theorem gramO_eq {a : ℝ} (ha : 0 < a) (m : ℕ) (i j : Fin m) : gramV (vo a) a
 /-! ## G. The tail level from a certified `Cin` value -/
 
 /-- If `T ≤ Cin(Mπ/2)`, every mode `n ≥ M` has `ψ_n − w_n ≥ T − err(a) − Σ c_n`. -/
-theorem tail_W {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1) {M : ℕ} (hM : 1 ≤ M) {T : ℝ}
+theorem tail_Wp {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1) {M : ℕ} (hM : 1 ≤ M) {T : ℝ}
     (hC : T ≤ Cin (M * π / 2)) (K : ℕ) (n : ℤ) (hn : (M : ℤ) ≤ n) :
-    T - errK a - ∑ k ∈ Finset.range K, cw k ≤ modeE a n - wP a K n := by
+    T - errK a - ∑ k ∈ Finset.range K, cwΛ k ≤ modeE a n - wP a K n := by
   have hM1 : (1 : ℝ) ≤ M := by exact_mod_cast hM
   have hnr : (M : ℝ) ≤ n := by exact_mod_cast hn
   have hψ := modeE_ge ha ha1 (n := n) (by omega)
@@ -453,7 +453,7 @@ theorem tail_W {a : ℝ} (ha : 0 < a) (ha1 : a ≤ 1) {M : ℕ} (hM : 1 ≤ M) {
 /-! ## H. From a certificate at one support to every smaller support -/
 
 /-- The tail level `τ = T − err(b) − Σ_{n<K} c_n`. -/
-def tauW (b T : ℝ) (K : ℕ) : ℝ := T - errK b - ∑ k ∈ Finset.range K, cw k
+def tauW (b T : ℝ) (K : ℕ) : ℝ := T - errK b - ∑ k ∈ Finset.range K, cwΛ k
 
 /-- `κ = c₀ + Far(b) + τ`, with `Far` in closed form (`farField_eq`). -/
 def kappaW (b T : ℝ) (K : ℕ) : ℝ :=
@@ -489,7 +489,7 @@ theorem weilQ_ge_of_certW {b T ε : ℝ} {K N : ℕ} (hb : 0 < b) (hb1 : b ≤ 1
     (bessel_gram hb.le hp'.memL2 hp'.supp (N + 2)) hκ hM
   have hW := hasSum_wP hb hp'.toS hn (log_le_of_lt_K hb hKlo)
   have hr := weilQ_ge_relaxW hb hp' hn (wP b K) (wP_neg b K) hW (primeS_range hp'.toS hK1 hKhi) N
-    (tauW b T K) ψl (fun n hn' => tail_W hb hb1 (M := N + 1) (by omega) hC K n (by push_cast; omega)) hlow
+    (tauW b T K) ψl (fun n hn' => tail_Wp hb hb1 (M := N + 1) (by omega) hC K n (by push_cast; omega)) hlow
   rw [farField_eq hb] at hr
   rw [hn] at hq
   unfold kappaW at hq
@@ -517,7 +517,7 @@ theorem weilQodd_ge_of_certW {b T ε : ℝ} {K N : ℕ} (hb : 0 < b) (hb1 : b �
     (bessel_V (vo_cont b) hb.le hp'.memL2 hp'.supp (N + 1)) hκ hM
   have hW := hasSum_wP hb hp'.toS hn (log_le_of_lt_K hb hKlo)
   have hr := weilQodd_ge_relaxW hb hp' hn (wP b K) (wP_neg b K) hW (primeS_range hp'.toS hK1 hKhi) N
-    (tauW b T K) ψl (fun n hn' => tail_W hb hb1 (M := N + 1) (by omega) hC K n (by push_cast; omega)) hlow
+    (tauW b T K) ψl (fun n hn' => tail_Wp hb hb1 (M := N + 1) (by omega) hC K n (by push_cast; omega)) hlow
   have hx : xo b g (N + 1) = xV (vo b) g (N + 1) := rfl
   rw [farField_eq hb, hx] at hr
   rw [hn] at hq

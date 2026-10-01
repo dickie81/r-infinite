@@ -12,12 +12,12 @@ namespace CertInstances
 
 open Pilot1ca
 
-theorem cw_zero : cw 0 = 0 := by simp [cw]
+theorem cw_zero : cwΛ 0 = 0 := by simp [cwΛ]
 
-theorem cw_one : cw 1 = 0 := by simp [cw]
+theorem cw_one : cwΛ 1 = 0 := by simp [cwΛ]
 
-theorem cw_two : cw 2 = cP := by
-  unfold cw cP
+theorem cw_two : cwΛ 2 = cP := by
+  unfold cwΛ cP
   rw [ArithmeticFunction.vonMangoldt_apply_prime Nat.prime_two]
   have h := Real.sq_sqrt (show (0 : ℝ) ≤ 2 by norm_num)
   have hs : Real.sqrt 2 ≠ 0 := by positivity

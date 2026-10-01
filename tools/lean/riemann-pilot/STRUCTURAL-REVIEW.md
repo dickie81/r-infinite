@@ -2,6 +2,8 @@
 
 **Status: complete for this review session (rounds 236–250 landed; final builds green).** The file was written incrementally so that a handoff to another session loses nothing; §0 holds the end state and the residual list. Every claim below is labelled KERNEL-CHECKED (a Lean file compiled against the built stack with axioms exactly `[propext, Classical.choice, Quot.sound]`), PAPER PROOF (argued from exact Lean statements, not yet compiled), NUMERICAL, OBSERVATION-CONJECTURE, or REFUTED, and ACKNOWLEDGED (already in the README/docstrings) or NOVEL.
 
+**Since rounds 274–275 (after this review):** the duplications of §7 named for `DHGround`/`StructureD`, `DHNegIndex`/`WeilIndexInfinite`, the Hadamard log-derivative and `weilSide`/`weilRHS` are factored (`src/GroundChain.lean`, `NegData`), the name clashes of §2.3 inside `src/` are renamed (`cwΛ`, `tail_Wp`, `cChi`), and the dh chain lives in `external/dh/` (paths below that say `src/DH*.lean` refer to it). See README rounds 274–275.
+
 ## 0. Handoff state (update this section first)
 
 Done so far (in order):

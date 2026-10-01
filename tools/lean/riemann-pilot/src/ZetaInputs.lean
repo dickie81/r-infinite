@@ -105,12 +105,6 @@ theorem hadamard_zeta :
 
 /-! ## Theorem 1bt(i) with the explicit formula and Hadamard's identity discharged -/
 
-/-- The right-hand side of Weil's explicit formula (`WeilExplicit`). -/
-def weilRHS (h : ℂ → ℂ) (hR : ℝ → ℝ) : ℂ :=
-  h (I / 2) + h (-(I / 2))
-    + ((-(gh hR 0 * Real.log π) + 1 / (2 * π) * (∫ r, hR r * psiRe r)
-      - 2 * ∑' n : ℕ, ArithmeticFunction.vonMangoldt n / Real.sqrt n * gh hR (Real.log n) : ℝ) : ℂ)
-
 theorem WeilExplicit.hasSum_rhs {ι : Type*} {ρ : ι → ℂ} {h : ℂ → ℂ} {hR : ℝ → ℝ}
     (H : WeilExplicit ρ h hR) : HasSum (fun i => h ((ρ i - 1 / 2) / I)) (weilRHS h hR) := H.2
 

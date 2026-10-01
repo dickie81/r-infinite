@@ -24,7 +24,7 @@ mp.mp.dps = 60
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PILOT = '/home/user/r-infinite/tools/lean/riemann-pilot'
-LOGSRCS = [os.path.join(PILOT, 'src', 'DHLogBounds.lean'), os.path.join(PILOT, 'src', 'DHLogBoundsExt.lean')]
+LOGSRCS = [os.path.join(PILOT, 'external', 'dh', 'DHLogBounds.lean'), os.path.join(PILOT, 'external', 'dh', 'DHLogBoundsExt.lean')]
 
 # ------------------------------------------------------------------ configuration
 # centres: the refined zeros (mpmath findroot on f = dh/a(1), 40 digits) rounded to the grid 1e-5

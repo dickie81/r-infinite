@@ -2,6 +2,7 @@ import Mathlib
 import DHForm
 import DHColumn
 import StructureD
+import GroundChain
 import SimpleStructure
 import GroundStateExists
 
@@ -592,10 +593,7 @@ theorem G_mem_partnerDH {a : ℝ} (ha : 0 ≤ a) {w k : ℝ → ℝ} (hw : w ∈
 /-! ### The ground space in `L²` -/
 
 /-- The ground space of `QDHu` mapped into `L²` (the dh column of `iotaGS`, StructureD.lean:27). -/
-def iotaGSDH (a : ℝ) : groundSpaceDH a →ₗ[ℝ] Lp ℝ 2 (volume : Measure ℝ) where
-  toFun x := x.2.1.memL2.toLp x.1
-  map_add' x y := MemLp.toLp_add x.2.1.memL2 y.2.1.memL2
-  map_smul' c x := MemLp.toLp_const_smul c x.2.1.memL2
+abbrev iotaGSDH (a : ℝ) : groundSpaceDH a →ₗ[ℝ] Lp ℝ 2 (volume : Measure ℝ) := iotaOf QDHu_form a
 
 theorem norm_iotaGSDH_sq {a : ℝ} (x : groundSpaceDH a) : ‖iotaGSDH a x‖ ^ 2 = normSq x.1 := by
   show ‖x.2.1.memL2.toLp x.1‖ ^ 2 = _
@@ -681,450 +679,65 @@ theorem finiteDimensional_groundL2DH {a : ℝ} (ha : 0 < a) :
   rw [dist_eq_norm, e1, e2, ← Submodule.coe_sub, Submodule.norm_coe] at hd
   linarith
 
-/-! ### Green chains in the ground space of `QDHu` -/
+/-! ### `QDHu` as a ground-state family
 
-/-- `f` starts a Green chain of length `j` in `V_dh`: `f, Gf, …, G^j f ∈ V_dh`, all but the last
-pole-free (the dh column of `IsChain`, StructureD.lean:123). -/
-def IsChainDH (a : ℝ) (j : ℕ) (f : ℝ → ℝ) : Prop :=
-  (∀ i ≤ j, Gi a i f ∈ groundSpaceDH a) ∧ ∀ i < j, poleR (Gi a i f) a = 0
+Everything from the Green chains to Theorem D and the top-of-chain ground state is
+`GroundChain.lean`'s, at the instance `dhGD` (round 274; rounds 268's stage 4 was a renamed copy of
+`StructureD`). -/
 
-theorem Gi_addDH {a : ℝ} {j : ℕ} {f g : ℝ → ℝ} (hf : IsChainDH a j f) (hg : IsChainDH a j g) :
-    ∀ i ≤ j + 1, Gi a i (f + g) = Gi a i f + Gi a i g
-  | 0, _ => rfl
-  | i + 1, hi => by
-    rw [Gi_succ, Gi_succ, Gi_succ, Gi_addDH hf hg i (by omega),
-      Gpole_add' (hf.1 i (by omega)).1.memL2 (hg.1 i (by omega)).1.memL2]
+/-- **The Davenport–Heilbronn form as a ground-state family.** -/
+def dhGD : GroundData where
+  Q := fun _ => QDHu
+  form := QDHu_form
+  partner := fun ha hw hwp hk hkp => G_mem_partnerDH ha hw hwp hk hkp
+  poleFree := fun ha hw hwp hGp => G_mem_pole_freeDH ha hw hwp hGp
+  green := fun ha hg hw hσ => green_mem_groundSpaceDH ha hg hw hσ
+  fd := fun ha => finiteDimensional_groundL2DH ha
+  nonzero := fun ha => by
+    obtain ⟨g, hg⟩ := exists_groundStateDH ha
+    exact ⟨g, (isGroundStateDH_iff.1 hg).1, (isGroundStateDH_iff.1 hg).2⟩
 
-/-- The chains of length `j` form a subspace (the dh column of `chainSpace`, StructureD.lean:134). -/
-def chainSpaceDH (a : ℝ) (j : ℕ) : Submodule ℝ (ℝ → ℝ) where
-  carrier := {f | IsChainDH a j f}
-  zero_mem' := by
-    refine ⟨fun i _ => ?_, fun i _ => ?_⟩
-    · rw [Gi_zero_fun]; exact (groundSpaceDH a).zero_mem
-    · rw [Gi_zero_fun]; exact poleR_zero_fun a
-  add_mem' := by
-    intro f g hf hg
-    refine ⟨fun i hi => ?_, fun i hi => ?_⟩
-    · rw [Gi_addDH hf hg i (by omega)]; exact (groundSpaceDH a).add_mem (hf.1 i hi) (hg.1 i hi)
-    · rw [Gi_addDH hf hg i (by omega)]
-      rw [show Gi a i f + Gi a i g = fun t => Gi a i f t + Gi a i g t from rfl,
-        poleR_add (hf.1 i hi.le).1.memL2 (hg.1 i hi.le).1.memL2, hf.2 i hi, hg.2 i hi, add_zero]
-  smul_mem' := by
-    intro c f hf
-    refine ⟨fun i hi => ?_, fun i hi => ?_⟩
-    · rw [Gi_smul]; exact (groundSpaceDH a).smul_mem c (hf.1 i hi)
-    · rw [Gi_smul, show c • Gi a i f = fun t => c * Gi a i f t from rfl, poleR_smul, hf.2 i hi,
-        mul_zero]
+/-- `f` starts a Green chain of length `j` in `V_dh` (the dh column of `IsChain`). -/
+abbrev IsChainDH (a : ℝ) (j : ℕ) (f : ℝ → ℝ) : Prop := dhGD.IsChain a j f
 
-theorem chainSpaceDH_zero (a : ℝ) {f : ℝ → ℝ} : f ∈ chainSpaceDH a 0 ↔ f ∈ groundSpaceDH a := by
-  constructor
-  · intro h; exact h.1 0 le_rfl
-  · intro h
-    refine ⟨fun i hi => ?_, fun i hi => absurd hi (Nat.not_lt_zero _)⟩
-    rw [Nat.le_zero.1 hi]; exact h
-
-/-- **One step of the filtration** (the dh column of `chain_step`, StructureD.lean:164). -/
-theorem chain_stepDH {a : ℝ} (ha : 0 ≤ a) (j : ℕ) :
-    ∃ φ : (ℝ → ℝ) → ℝ,
-      (∀ f ∈ chainSpaceDH a j, ∀ g ∈ chainSpaceDH a j, ∀ c : ℝ, φ (f + c • g) = φ f + c * φ g) ∧
-      ∀ f ∈ chainSpaceDH a j, φ f = 0 → f ∈ chainSpaceDH a (j + 1) := by
-  have lin : ∀ n ≤ j + 1, ∀ f ∈ chainSpaceDH a j, ∀ g ∈ chainSpaceDH a j, ∀ c : ℝ,
-      Gi a n (f + c • g) = fun t => Gi a n f t + c * Gi a n g t := by
-    intro n hn f hf g hg c
-    have hcg : c • g ∈ chainSpaceDH a j := (chainSpaceDH a j).smul_mem c hg
-    rw [Gi_addDH hf hcg n hn, Gi_smul]; rfl
-  by_cases hk : ∃ k ∈ groundSpaceDH a, poleR k a ≠ 0
-  · obtain ⟨k, hkV, hkp⟩ := hk
-    refine ⟨fun f => poleR (Gi a j f) a, fun f hf g hg c => ?_, fun f hf h0 => ?_⟩
-    · simp only
-      rw [lin j (by omega) f hf g hg c, poleR_add (hf.1 j le_rfl).1.memL2
-        ((hg.1 j le_rfl).1.memL2.const_mul c), poleR_smul]
-    · refine ⟨fun i hi => ?_, fun i hi => ?_⟩
-      · rcases Nat.lt_or_ge i (j + 1) with h | h
-        · exact hf.1 i (by omega)
-        · rw [show i = j + 1 by omega, Gi_succ]
-          exact G_mem_partnerDH ha (hf.1 j le_rfl) h0 hkV hkp
-      · rcases Nat.lt_or_ge i j with h | h
-        · exact hf.2 i h
-        · rw [show i = j by omega]; exact h0
-  · push Not at hk
-    refine ⟨fun f => poleR (Gi a (j + 1) f) a, fun f hf g hg c => ?_, fun f hf h0 => ?_⟩
-    · simp only
-      have m1 : MemLp (Gi a (j + 1) f) 2 volume := by
-        rw [Gi_succ]; exact Gpole_memLp (hf.1 j le_rfl).1 (hk _ (hf.1 j le_rfl))
-      have m2 : MemLp (Gi a (j + 1) g) 2 volume := by
-        rw [Gi_succ]; exact Gpole_memLp (hg.1 j le_rfl).1 (hk _ (hg.1 j le_rfl))
-      rw [lin (j + 1) le_rfl f hf g hg c, poleR_add m1 (m2.const_mul c), poleR_smul]
-    · refine ⟨fun i hi => ?_, fun i _ => hk _ (hf.1 i (by omega))⟩
-      rcases Nat.lt_or_ge i (j + 1) with h | h
-      · exact hf.1 i (by omega)
-      · rw [show i = j + 1 by omega, Gi_succ]
-        have h0' : poleR (Gpole (Gi a j f) a) a = 0 := by rw [← Gi_succ]; exact h0
-        exact G_mem_pole_freeDH ha (hf.1 j le_rfl) (hk _ (hf.1 j le_rfl)) h0'
-
-/-- The dimension of the ground space of `QDHu` (the dh column of `gdim`, StructureD.lean:235). -/
-def gdimDH (a : ℝ) : ℕ := Module.finrank ℝ (LinearMap.range (iotaGSDH a))
-
-/-- The chain subspaces, inside the ground space. -/
-def chainSubDH (a : ℝ) (j : ℕ) : Submodule ℝ (groundSpaceDH a) :=
-  (chainSpaceDH a j).comap (groundSpaceDH a).subtype
-
-theorem finrank_chainDH {a : ℝ} (ha : 0 < a) (j : ℕ) :
-    gdimDH a ≤ Module.finrank ℝ ((chainSubDH a j).map (iotaGSDH a).rangeRestrict) + j := by
-  have := finiteDimensional_groundL2DH ha
-  induction j with
-  | zero =>
-    have htop : chainSubDH a 0 = ⊤ := by
-      ext x; simp only [Submodule.mem_top, iff_true]
-      exact (chainSpaceDH_zero a).2 x.2
-    rw [htop, Submodule.map_top, LinearMap.range_rangeRestrict, finrank_top, add_zero]; rfl
-  | succ j ih =>
-    obtain ⟨φ, hlin, hker⟩ := chain_stepDH ha.le j
-    have := finrank_map_le_succ (iotaGSDH a).rangeRestrict (A := chainSubDH a j)
-      (B := chainSubDH a (j + 1)) (fun x => φ x.1)
-      (fun x hx y hy c => hlin x.1 hx y.1 hy c) (fun x hx h0 => hker x.1 hx h0)
-    omega
-
-theorem gdimDH_pos {a : ℝ} (ha : 0 < a) : 0 < gdimDH a := by
-  have := finiteDimensional_groundL2DH ha
-  obtain ⟨g, hg⟩ := exists_groundStateDH ha
-  have hgV := isGroundStateDH_iff.1 hg
-  apply Module.finrank_pos_iff_exists_ne_zero.2
-  refine ⟨⟨iotaGSDH a ⟨g, hgV.1⟩, ⟨_, rfl⟩⟩, fun h0 => ?_⟩
-  have h1 : iotaGSDH a ⟨g, hgV.1⟩ = 0 := congrArg Subtype.val h0
-  have := norm_iotaGSDH_sq (a := a) ⟨g, hgV.1⟩
-  rw [h1, norm_zero] at this
-  simp only at this
-  rw [hgV.2] at this; norm_num at this
-
-/-- **A Green chain of full length in `V_dh`** (the dh column of `exists_long_chain`,
-StructureD.lean:271). -/
-theorem exists_long_chainDH {a : ℝ} (ha : 0 < a) :
-    ∃ w, IsChainDH a (gdimDH a - 1) w ∧ 0 < normSq w := by
-  have := finiteDimensional_groundL2DH ha
-  have h1 := finrank_chainDH ha (gdimDH a - 1)
-  have h2 := gdimDH_pos ha
-  have hpos : 0 < Module.finrank ℝ
-      ((chainSubDH a (gdimDH a - 1)).map (iotaGSDH a).rangeRestrict) := by
-    omega
-  obtain ⟨y, hy, hy0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot
-    (p := (chainSubDH a (gdimDH a - 1)).map (iotaGSDH a).rangeRestrict)
-    (fun h => by rw [h, finrank_bot] at hpos; exact lt_irrefl _ hpos)
-  obtain ⟨x, hx, rfl⟩ := hy
-  refine ⟨x.1, hx, ?_⟩
-  rcases (normSq_nonneg x.1).lt_or_eq with h | h
-  · exact h
-  · exfalso; apply hy0
-    have := norm_iotaGSDH_sq x
-    rw [← h] at this
-    have h0 : iotaGSDH a x = 0 := by
-      have : ‖iotaGSDH a x‖ = 0 := by nlinarith [norm_nonneg (iotaGSDH a x)]
-      exact norm_eq_zero.1 this
-    exact Subtype.ext h0
-
-/-! ### Fourier transforms along a chain -/
-
-theorem Gi_hatDH {a : ℝ} (ha : 0 ≤ a) {j : ℕ} {w : ℝ → ℝ} (hc : IsChainDH a j w) :
-    ∀ i ≤ j, ∀ t : ℝ, ghatC (Gi a i w) a t = ((qr t : ℝ) : ℂ) ^ i * ghatC w a t
-  | 0, _, t => by simp [Gi]
-  | i + 1, hi, t => by
-    have hq : (0 : ℝ) < t ^ 2 + 1 / 4 := by positivity
-    have hz : ((t : ℂ)) ^ 2 ≠ (Complex.I / 2) ^ 2 := by
-      intro e
-      have h0 : (((t ^ 2 + 1 / 4 : ℝ)) : ℂ) = 0 := by rw [← den_ne, e, sub_self]
-      rw [Complex.ofReal_eq_zero] at h0; linarith
-    have h := Gpole_hat (hc.1 i (by omega)).1 ha (hc.2 i (by omega)) hz
-    rw [Gi_succ, show ghatC (Gpole (Gi a i w) a) a t
-      = ∫ x in (-a)..a, ((Gpole (Gi a i w) a x : ℝ) : ℂ) * Complex.exp (Complex.I * t * x) from rfl,
-      h, den_ne, Gi_hatDH ha hc i (by omega) t, pow_succ]
-    have hq' : (((t ^ 2 + 1 / 4 : ℝ)) : ℂ) ≠ 0 := by exact_mod_cast hq.ne'
-    unfold qr; push_cast
-    field_simp
-    ring
-
-/-- The transform at a real point, as a linear functional on `V_dh`. -/
-def ghatLDH (a t : ℝ) : groundSpaceDH a →ₗ[ℝ] ℂ where
-  toFun x := ghatC x.1 a t
-  map_add' x y := ghatC_add x.2.1.memL2 y.2.1.memL2 a t
-  map_smul' c x := by
-    show ghatC (fun u => c * x.1 u) a t = _
-    rw [ghatC_smul]; simp [Complex.real_smul]
-
-theorem iota_zero_aeDH {a : ℝ} {x : groundSpaceDH a} (h : iotaGSDH a x = 0) :
-    x.1 =ᵐ[volume] 0 :=
-  ae_zero_of_normSq x.2.1.memL2 (by rw [← norm_iotaGSDH_sq, h, norm_zero]; ring)
-
-theorem ghatL_of_iotaDH {a : ℝ} (t : ℝ) {x : groundSpaceDH a} (h : iotaGSDH a x = 0) :
-    ghatLDH a t x = 0 := by
-  show ghatC x.1 a t = 0
-  rw [ghatC_congr_ae (iota_zero_aeDH h)]
-  simp [ghatC]
+/-- The dimension of the ground space of `QDHu` (the dh column of `gdim`). -/
+abbrev gdimDH (a : ℝ) : ℕ := dhGD.gdim a
 
 /-- The chain as vectors of `V_dh`. -/
-def chainVecDH {a : ℝ} {j : ℕ} {w : ℝ → ℝ} (hc : IsChainDH a j w) (i : Fin (j + 1)) :
+abbrev chainVecDH {a : ℝ} {j : ℕ} {w : ℝ → ℝ} (hc : IsChainDH a j w) (i : Fin (j + 1)) :
     groundSpaceDH a :=
-  ⟨Gi a i w, hc.1 i (Nat.lt_succ_iff.1 i.2)⟩
+  dhGD.chainVec hc i
 
-theorem ghatL_combDH {a : ℝ} (ha : 0 ≤ a) {j : ℕ} {w : ℝ → ℝ} (hc : IsChainDH a j w)
-    (c : Fin (j + 1) → ℝ) (t : ℝ) :
-    ghatLDH a t (∑ i, c i • chainVecDH hc i)
-      = (∑ i : Fin (j + 1), (c i : ℂ) * ((qr t : ℝ) : ℂ) ^ (i : ℕ)) * ghatC w a t := by
-  rw [map_sum, Finset.sum_mul]
-  refine Finset.sum_congr rfl fun i _ => ?_
-  rw [map_smul, Complex.real_smul]
-  show (c i : ℂ) * ghatC (Gi a i w) a t = _
-  rw [Gi_hatDH ha hc i (Nat.lt_succ_iff.1 i.2) t]; ring
-
-/-! ### Independence and spanning -/
-
-/-- **The Green chain is independent** (the dh column of `chain_linearIndependent`,
-StructureD.lean:433). -/
-theorem chain_linearIndependentDH {a : ℝ} (ha : 0 < a) {j : ℕ} {w : ℝ → ℝ}
-    (hc : IsChainDH a j w) (hpos : 0 < normSq w) :
-    LinearIndependent ℝ (fun i => (iotaGSDH a).rangeRestrict (chainVecDH hc i)) := by
-  rw [Fintype.linearIndependent_iff]
-  intro c hsum i
-  have hS : iotaGSDH a (∑ i, c i • chainVecDH hc i) = 0 := by
-    have h2 : (iotaGSDH a).rangeRestrict (∑ i, c i • chainVecDH hc i) = 0 := by
-      simpa [map_sum, map_smul] using hsum
-    exact congrArg Subtype.val h2
-  have hw : Probe a w := (hc.1 0 (Nat.zero_le _)).1
-  obtain ⟨α, ε, hα, hε, hne⟩ := exists_interval_ghat ha hw hpos
-  have hP : polyOf (fun i => (c i : ℂ)) = 0 := poly_eq_zero_of_interval _ hα hε fun t ht => by
-    have h1 := ghatL_combDH ha.le hc c t
-    rw [ghatL_of_iotaDH t hS] at h1
-    rw [polyOf_eval]
-    exact (mul_eq_zero.1 h1.symm).resolve_right (hne t ht)
-  have := polyOf_coeff (fun i => (c i : ℂ)) i
-  rw [hP, Polynomial.coeff_zero] at this
-  exact_mod_cast this.symm
-
-/-- **The Green chain spans `V_dh`** (in `L²`), once it has full length (the dh column of
-`chain_span`, StructureD.lean:454). -/
-theorem chain_spanDH {a : ℝ} (ha : 0 < a) {w : ℝ → ℝ} (hc : IsChainDH a (gdimDH a - 1) w)
-    (hpos : 0 < normSq w) (v : groundSpaceDH a) :
-    ∃ c : Fin (gdimDH a - 1 + 1) → ℝ, iotaGSDH a (∑ i, c i • chainVecDH hc i - v) = 0 := by
-  have := finiteDimensional_groundL2DH ha
-  have hcard : Fintype.card (Fin (gdimDH a - 1 + 1))
-      = Module.finrank ℝ (LinearMap.range (iotaGSDH a)) := by
-    rw [Fintype.card_fin]; have := gdimDH_pos ha; unfold gdimDH at this ⊢; omega
-  have htop := (chain_linearIndependentDH ha hc hpos).span_eq_top_of_card_eq_finrank' hcard
-  have hv : (iotaGSDH a).rangeRestrict v ∈ Submodule.span ℝ
-      (Set.range fun i => (iotaGSDH a).rangeRestrict (chainVecDH hc i)) := by
-    rw [htop]; exact Submodule.mem_top
-  obtain ⟨c, hcv⟩ := (Submodule.mem_span_range_iff_exists_fun ℝ).1 hv
-  refine ⟨c, ?_⟩
-  have h2 : (iotaGSDH a).rangeRestrict (∑ i, c i • chainVecDH hc i - v) = 0 := by
-    rw [map_sub, map_sum]; simp only [map_smul]; rw [hcv, sub_self]
-  exact congrArg Subtype.val h2
-
-/-- **Theorem D for `QDHu`, spanning (pointwise a.e. form)** (the dh column of `chain_span_ae`,
-StructureD.lean:472). -/
-theorem chain_span_aeDH {a : ℝ} (ha : 0 < a) {w : ℝ → ℝ} (hc : IsChainDH a (gdimDH a - 1) w)
-    (hpos : 0 < normSq w) {v : ℝ → ℝ} (hv : v ∈ groundSpaceDH a) :
-    ∃ c : Fin (gdimDH a - 1 + 1) → ℝ, v =ᵐ[volume] fun x => ∑ i, c i * Gi a i w x := by
-  obtain ⟨c, hc0⟩ := chain_spanDH ha hc hpos ⟨v, hv⟩
-  refine ⟨c, ?_⟩
-  filter_upwards [iota_zero_aeDH hc0] with x hx
-  have : (∑ i, c i • chainVecDH hc i : groundSpaceDH a).1 x - v x = 0 := hx
-  rw [Submodule.coe_sum, Finset.sum_apply] at this
-  simp only [Submodule.coe_smul, Pi.smul_apply, smul_eq_mul, chainVecDH] at this
-  linarith
-
-/-- **Theorem D for `QDHu`, spanning (Fourier form)** (the dh column of `chain_span_hat`,
-StructureD.lean:485). -/
-theorem chain_span_hatDH {a : ℝ} (ha : 0 < a) {w : ℝ → ℝ} (hc : IsChainDH a (gdimDH a - 1) w)
-    (hpos : 0 < normSq w) {v : ℝ → ℝ} (hv : v ∈ groundSpaceDH a) :
-    ∃ c : Fin (gdimDH a - 1 + 1) → ℝ, ∀ t : ℝ,
-      ghatC v a t = (∑ i : Fin (gdimDH a - 1 + 1), (c i : ℂ) * ((qr t : ℝ) : ℂ) ^ (i : ℕ))
-        * ghatC w a t := by
-  obtain ⟨c, hc0⟩ := chain_spanDH ha hc hpos ⟨v, hv⟩
-  refine ⟨c, fun t => ?_⟩
-  have h1 := ghatL_of_iotaDH t hc0
-  rw [map_sub, ghatL_combDH ha.le hc c t, sub_eq_zero] at h1
-  exact h1.symm
-
-/-! ### Zeros on the cross -/
-
-/-- **Each off-cross zero of `v̂` is a root of `P_v`** (the dh column of `offcross_root`,
-StructureD.lean:498, through the swap closure `green_mem_groundSpaceDH`). -/
-theorem offcross_rootDH {a : ℝ} (ha : 0 < a) {w : ℝ → ℝ} (hc : IsChainDH a (gdimDH a - 1) w)
-    (hwpos : 0 < normSq w) {v : ℝ → ℝ} (hv : v ∈ groundSpaceDH a)
-    {ev : Fin (gdimDH a - 1 + 1) → ℝ}
-    (hev : ∀ t : ℝ, ghatC v a t
-      = (∑ i : Fin (gdimDH a - 1 + 1), (ev i : ℂ) * ((qr t : ℝ) : ℂ) ^ (i : ℕ)) * ghatC w a t)
-    {ω : ℂ} (hω : ghatC v a ω = 0) (hσ : (ω ^ 2).im ≠ 0) :
-    (polyOf fun i : Fin (gdimDH a - 1 + 1) => (ev i : ℂ)).IsRoot (-1 / (1 / 4 + ω ^ 2)) := by
-  have hω0 : ω ≠ 0 := by rintro rfl; apply hσ; simp
-  obtain ⟨hu, hv'⟩ := green_mem_groundSpaceDH ha hv hω hσ
-  obtain ⟨c, hcu⟩ := chain_span_hatDH ha hc hwpos hu
-  obtain ⟨d, hdv⟩ := chain_span_hatDH ha hc hwpos hv'
-  have hw : Probe a w := (hc.1 0 (Nat.zero_le _)).1
-  obtain ⟨α, ε, hα, hε, hne⟩ := exists_interval_ghat ha hw hwpos
-  have hcont := hSw_continuous hv.1.memL2 a ω
-  set P := polyOf (fun i : Fin (gdimDH a - 1 + 1) => (c i : ℂ) + Complex.I * d i)
-  set Pv := polyOf (fun i : Fin (gdimDH a - 1 + 1) => (ev i : ℂ))
-  set β : ℂ := 1 / 4 + ω ^ 2
-  have hR : P * (1 + Polynomial.C β * Polynomial.X) - Polynomial.X * Pv = 0 := by
-    refine poly_eq_zero_of_interval _ hα hε fun t ht => ?_
-    obtain ⟨Q, hQe⟩ : ∃ Q : ℂ, Q = ((qr t : ℝ) : ℂ) := ⟨_, rfl⟩
-    rw [← hQe]
-    set D : ℂ := (t : ℂ) ^ 2 + 1 / 4
-    have hD : D ≠ 0 := by
-      have : (0 : ℝ) < t ^ 2 + 1 / 4 := by positivity
-      have : ((t ^ 2 + 1 / 4 : ℝ) : ℂ) ≠ 0 := by exact_mod_cast this.ne'
-      simpa [D] using this
-    have hQ : Q = -1 / D := by rw [hQe]; simp only [D, qr]; push_cast; ring
-    have hz : ((t : ℂ)) ^ 2 ≠ ω ^ 2 := by
-      intro e; apply hσ; rw [← e]; norm_cast
-    have hden : (t : ℂ) ^ 2 - ω ^ 2 ≠ 0 := sub_ne_zero.2 hz
-    have hsplit : (∫ x in (-a)..a, hSw v a ω x * Complex.exp (Complex.I * t * x))
-        = ghatC (fun x => (hSw v a ω x).re) a t
-          + Complex.I * ghatC (fun x => (hSw v a ω x).im) a t := by
-      have ci : ∀ F : ℝ → ℝ, Continuous F →
-          IntervalIntegrable (fun x => ((F x : ℝ) : ℂ) * Complex.exp (Complex.I * t * x))
-            volume (-a) a :=
-        fun F hF => ((Complex.continuous_ofReal.comp hF).mul (by fun_prop)).intervalIntegrable _ _
-      unfold ghatC
-      rw [← intervalIntegral.integral_const_mul, ← intervalIntegral.integral_add
-        (ci (fun x => (hSw v a ω x).re) (Complex.continuous_re.comp hcont))
-        ((ci (fun x => (hSw v a ω x).im) (Complex.continuous_im.comp hcont)).const_mul _)]
-      congr 1; funext x
-      conv_lhs => rw [← Complex.re_add_im (hSw v a ω x)]
-      ring
-    have hhat := hSw_hat' hv.1 ha.le hω hω0 hz
-    rw [hsplit, hcu t, hdv t, hev t, ← hQe] at hhat
-    have hwt := hne t ht
-    have hP : P.eval Q = (∑ i : Fin (gdimDH a - 1 + 1), (c i : ℂ) * Q ^ (i : ℕ))
-        + Complex.I * ∑ i : Fin (gdimDH a - 1 + 1), (d i : ℂ) * Q ^ (i : ℕ) := by
-      rw [polyOf_eval, Finset.mul_sum, ← Finset.sum_add_distrib]
-      refine Finset.sum_congr rfl fun i _ => ?_; ring
-    have hPv : Pv.eval Q = ∑ i : Fin (gdimDH a - 1 + 1), (ev i : ℂ) * Q ^ (i : ℕ) :=
-      polyOf_eval _ _
-    have e : P.eval Q * ((t : ℂ) ^ 2 - ω ^ 2) = -Pv.eval Q := by
-      have h2 := congrArg (· * ((t : ℂ) ^ 2 - ω ^ 2)) hhat
-      rw [neg_mul, div_mul_cancel₀ _ hden] at h2
-      have h3 : (P.eval Q * ((t : ℂ) ^ 2 - ω ^ 2) + Pv.eval Q) * ghatC w a t = 0 := by
-        rw [hP, hPv]; linear_combination h2
-      exact eq_neg_of_add_eq_zero_left ((mul_eq_zero.1 h3).resolve_right hwt)
-    have h1 : 1 + β * Q = ((t : ℂ) ^ 2 - ω ^ 2) * (-Q) := by
-      have hDi : ((t : ℂ) ^ 2 + 1 / 4) * ((t : ℂ) ^ 2 + 1 / 4)⁻¹ = 1 := mul_inv_cancel₀ hD
-      rw [hQ, div_eq_mul_inv]; simp only [β, D]
-      linear_combination -hDi
-    simp only [Polynomial.eval_sub, Polynomial.eval_mul, Polynomial.eval_add, Polynomial.eval_one,
-      Polynomial.eval_C, Polynomial.eval_X]
-    rw [h1]
-    linear_combination (-Q) * e
-  -- evaluate the identity at `X = −1/β`
-  have hβ : β ≠ 0 := by
-    intro h; apply hσ
-    have : (ω ^ 2).im = β.im := by simp [β]
-    rw [this, h, Complex.zero_im]
-  have hx0 : (-1 / β) ≠ 0 := by
-    rw [neg_div]; exact neg_ne_zero.2 (one_div_ne_zero hβ)
-  have hev0 := congrArg (Polynomial.eval (-1 / β)) hR
-  simp only [Polynomial.eval_sub, Polynomial.eval_mul, Polynomial.eval_add, Polynomial.eval_one,
-    Polynomial.eval_C, Polynomial.eval_X, Polynomial.eval_zero] at hev0
-  have h1 : 1 + β * (-1 / β) = 0 := by field_simp; ring
-  rw [h1, mul_zero, zero_sub, neg_eq_zero] at hev0
-  exact (mul_eq_zero.1 hev0).resolve_left hx0
-
-/-- **Theorem D for `QDHu`, zeros on the cross** (the dh column of `chain_top_zeros`,
-StructureD.lean:588). -/
-theorem chain_top_zerosDH {a : ℝ} (ha : 0 < a) {w : ℝ → ℝ} (hc : IsChainDH a (gdimDH a - 1) w)
-    (hpos : 0 < normSq w) {ω : ℂ} (hω : ghatC (Gi a (gdimDH a - 1) w) a ω = 0) :
-    (ω ^ 2).im = 0 := by
-  by_contra hσ
-  set n := gdimDH a - 1
-  set ev : Fin (n + 1) → ℝ := fun i => if (i : ℕ) = n then 1 else 0
-  have hev : ∀ t : ℝ, ghatC (Gi a n w) a t
-      = (∑ i : Fin (n + 1), (ev i : ℂ) * ((qr t : ℝ) : ℂ) ^ (i : ℕ)) * ghatC w a t := by
-    intro t
-    rw [Gi_hatDH ha.le hc n le_rfl t, sum_indicator_pow]
-  have hroot := offcross_rootDH ha hc hpos (hc.1 n le_rfl) hev hω hσ
-  rw [Polynomial.IsRoot, polyOf_eval, sum_indicator_pow] at hroot
-  have hβ : (1 / 4 + ω ^ 2 : ℂ) ≠ 0 := by
-    intro h; apply hσ
-    have : (ω ^ 2).im = (1 / 4 + ω ^ 2 : ℂ).im := by simp
-    rw [this, h, Complex.zero_im]
-  exact pow_ne_zero n (div_ne_zero (neg_ne_zero.2 one_ne_zero) hβ) hroot
-
-/-- **Round 48's Theorem D for `QDHu`** (the dh column of `theoremD`, StructureD.lean:611). With
-`m = dim V_dh` (finite), there is a nonzero `w` whose Green chain `w, Gw, …, G^{m−1}w` lies in
-`V_dh` (all but the last pole-free), is linearly independent, and spans it a.e.; every zero `ω` of
-`ĥ`, `h = G^{m−1}w`, has `ω² ∈ ℝ`. -/
+/-- **Round 48's Theorem D for `QDHu`** (the dh column of `theoremD`). With `m = dim V_dh`
+(finite), there is a nonzero `w` whose Green chain `w, Gw, …, G^{m−1}w` lies in `V_dh` (all but the
+last pole-free), is linearly independent, and spans it a.e.; every zero `ω` of `ĥ`, `h = G^{m−1}w`,
+has `ω² ∈ ℝ`. -/
 theorem theoremDDH {a : ℝ} (ha : 0 < a) :
     ∃ w, IsChainDH a (gdimDH a - 1) w ∧ 0 < normSq w ∧
       (∃ hc : IsChainDH a (gdimDH a - 1) w,
         LinearIndependent ℝ (fun i => (iotaGSDH a).rangeRestrict (chainVecDH hc i))) ∧
       (∀ v ∈ groundSpaceDH a, ∃ c : Fin (gdimDH a - 1 + 1) → ℝ,
         v =ᵐ[volume] fun x => ∑ i, c i * Gi a i w x) ∧
-      ∀ ω : ℂ, ghatC (Gi a (gdimDH a - 1) w) a ω = 0 → (ω ^ 2).im = 0 := by
-  obtain ⟨w, hc, hpos⟩ := exists_long_chainDH ha
-  exact ⟨w, hc, hpos, ⟨hc, chain_linearIndependentDH ha hc hpos⟩,
-    fun v hv => chain_span_aeDH ha hc hpos hv, fun ω hω => chain_top_zerosDH ha hc hpos hω⟩
+      ∀ ω : ℂ, ghatC (Gi a (gdimDH a - 1) w) a ω = 0 → (ω ^ 2).im = 0 :=
+  dhGD.theoremD ha
 
 /-! ### The top-of-chain ground state -/
 
-/-- A nonzero `w` with a full-length Green chain in `V_dh` (`exists_long_chainDH`). -/
-def chainBaseDH (a : ℝ) : ℝ → ℝ :=
-  if ha : 0 < a then (exists_long_chainDH ha).choose else 0
+/-- A nonzero `w` with a full-length Green chain in `V_dh`. -/
+abbrev chainBaseDH (a : ℝ) : ℝ → ℝ := dhGD.chainBase a
 
-/-- **The top-of-chain ground state of `QDHu`**: `G^{m−1}w`, normalised (the dh column of `topGS`,
-StructureD.lean:629). -/
-def topGSDH (a : ℝ) : ℝ → ℝ :=
-  fun x => (Real.sqrt (normSq (Gi a (gdimDH a - 1) (chainBaseDH a))))⁻¹
-    * Gi a (gdimDH a - 1) (chainBaseDH a) x
+/-- **The top-of-chain ground state of `QDHu`**: `G^{m−1}w`, normalised (the dh column of `topGS`). -/
+abbrev topGSDH (a : ℝ) : ℝ → ℝ := dhGD.topGS a
 
-theorem chainBaseDH_spec {a : ℝ} (ha : 0 < a) :
-    IsChainDH a (gdimDH a - 1) (chainBaseDH a) ∧ 0 < normSq (chainBaseDH a) := by
-  unfold chainBaseDH; simp only [ha, ↓reduceDIte]; exact (exists_long_chainDH ha).choose_spec
+/-- The top of the chain is a ground state of `QDHu` (the dh column of `topGS_isGroundState`). -/
+theorem topGSDH_isGroundState {a : ℝ} (ha : 0 < a) : IsGroundStateDH a (topGSDH a) :=
+  isGroundStateDH_iff.2 (dhGD.topGS_mem ha)
 
-theorem top_normSq_posDH {a : ℝ} (ha : 0 < a) :
-    0 < normSq (Gi a (gdimDH a - 1) (chainBaseDH a)) := by
-  obtain ⟨hc, hpos⟩ := chainBaseDH_spec ha
-  rcases (normSq_nonneg (Gi a (gdimDH a - 1) (chainBaseDH a))).lt_or_eq with h | h
-  · exact h
-  · exfalso
-    have hli := chain_linearIndependentDH ha hc hpos
-    set top : Fin (gdimDH a - 1 + 1) := Fin.last _
-    have h0 : (iotaGSDH a).rangeRestrict (chainVecDH hc top) = 0 := by
-      apply Subtype.ext
-      show iotaGSDH a (chainVecDH hc top) = 0
-      have := norm_iotaGSDH_sq (chainVecDH hc top)
-      have e : (chainVecDH hc top).1 = Gi a (gdimDH a - 1) (chainBaseDH a) := by
-        simp [chainVecDH, top]
-      rw [e, ← h] at this
-      exact norm_eq_zero.1 (by nlinarith [norm_nonneg (iotaGSDH a (chainVecDH hc top))])
-    exact hli.ne_zero top h0
-
-/-- The top of the chain is a ground state of `QDHu` (the dh column of `topGS_isGroundState`,
-StructureD.lean:654). -/
-theorem topGSDH_isGroundState {a : ℝ} (ha : 0 < a) : IsGroundStateDH a (topGSDH a) := by
-  obtain ⟨hc, _⟩ := chainBaseDH_spec ha
-  set h := Gi a (gdimDH a - 1) (chainBaseDH a)
-  have hV : h ∈ groundSpaceDH a := hc.1 _ le_rfl
-  have hN := top_normSq_posDH ha
-  refine isGroundStateDH_iff.2 ⟨(groundSpaceDH a).smul_mem _ hV, ?_⟩
-  show normSq (fun x => (Real.sqrt (normSq h))⁻¹ * h x) = 1
-  rw [normSq_smul, inv_pow, Real.sq_sqrt hN.le, inv_mul_cancel₀ hN.ne']
-
-/-- **Every zero of the top-of-chain ground state's transform lies on `ℝ ∪ iℝ`**, at every support `a > 0`,
-with no simplicity assumption (the dh column of `topGS_cross`, StructureD.lean:665). -/
+/-- **Every zero of the top-of-chain ground state's transform lies on `ℝ ∪ iℝ`**, at every support
+`a > 0`, with no simplicity assumption (the dh column of `topGS_cross`). -/
 theorem topGSDH_cross {a : ℝ} (ha : 0 < a) (z : ℂ) (hz : ghatC (topGSDH a) a z = 0) :
-    z.re = 0 ∨ z.im = 0 := by
-  obtain ⟨hc, hpos⟩ := chainBaseDH_spec ha
-  have hN := top_normSq_posDH ha
-  have hs : (Real.sqrt (normSq (Gi a (gdimDH a - 1) (chainBaseDH a))))⁻¹ ≠ 0 :=
-    inv_ne_zero (Real.sqrt_pos.2 hN).ne'
-  unfold topGSDH at hz
-  rw [ghatC_smul] at hz
-  have h0 := (mul_eq_zero.1 hz).resolve_left (by exact_mod_cast hs)
-  have him := chain_top_zerosDH ha hc hpos h0
-  have : 2 * z.re * z.im = 0 := by rw [← him]; simp [pow_two]; ring
-  rcases mul_eq_zero.1 this with h | h
-  · left; linarith
-  · right; exact h
+    z.re = 0 ∨ z.im = 0 :=
+  dhGD.topGS_cross ha z hz
 
 /-- **The chain for `dh` with simplicity removed** (the dh column of `rh_of_hypConv_top`,
 StructureD.lean:682): `HypConvDH` for the top-of-chain ground states gives `DHRHcross`. -/
@@ -1189,13 +802,6 @@ end PsiOmega
 #print axioms PsiOmega.Gpole_annihilatesDH
 #print axioms PsiOmega.G_mem_partnerDH
 #print axioms PsiOmega.finiteDimensional_groundL2DH
-#print axioms PsiOmega.chain_stepDH
-#print axioms PsiOmega.exists_long_chainDH
-#print axioms PsiOmega.chain_linearIndependentDH
-#print axioms PsiOmega.chain_span_aeDH
-#print axioms PsiOmega.chain_span_hatDH
-#print axioms PsiOmega.offcross_rootDH
-#print axioms PsiOmega.chain_top_zerosDH
 #print axioms PsiOmega.theoremDDH
 #print axioms PsiOmega.topGSDH_isGroundState
 #print axioms PsiOmega.topGSDH_cross

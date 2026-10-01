@@ -24,8 +24,8 @@ mp.mp.dps = 60
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PILOT = '/home/user/r-infinite/tools/lean/riemann-pilot'
-SKEL = os.path.join(PILOT, 'src', 'DHLocateSkeleton.lean')
-LOGSRC = os.path.join(PILOT, 'src', 'DHLogBounds.lean')
+SKEL = os.path.join(PILOT, 'external', 'dh', 'DHLocateSkeleton.lean')
+LOGSRC = os.path.join(PILOT, 'external', 'dh', 'DHLogBounds.lean')
 
 SIG = F(1617, 2000)
 TT = F(856993, 10000)

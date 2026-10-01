@@ -8,7 +8,7 @@ import mpmath as mp
 mp.mp.dps = 50
 NMAX = int(sys.argv[1]) if len(sys.argv) > 1 else 209
 HERE = os.path.dirname(os.path.abspath(__file__))
-LOGSRC = '/home/user/r-infinite/tools/lean/riemann-pilot/src/DHLogBounds.lean'
+LOGSRC = '/home/user/r-infinite/tools/lean/riemann-pilot/external/dh/DHLogBounds.lean'
 src = open(LOGSRC).read()
 m = re.search(r"theorem log_bound_121 : \((\d+) / (\d+) : ℝ\) ≤ Real\.log 121 ∧ Real\.log 121 ≤ \((\d+) / (\d+) : ℝ\)", src)
 L = {121: F(int(m.group(1)), int(m.group(2)))}; U = {121: F(int(m.group(3)), int(m.group(4)))}

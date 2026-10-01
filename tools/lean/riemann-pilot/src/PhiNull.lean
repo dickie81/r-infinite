@@ -4,10 +4,10 @@ import WeilConverse
 /-! # Riemann's kernel is a null vector of the explicit formula (round 132)
 
 Weil's explicit formula (`WeilExplicit`) equates the zero sum `Σ_ρ h(t_ρ)` with its prime side
-`weilSide h hR` (pole terms, archimedean integral, prime sum). At every nontrivial zero of `ζ`,
+`weilRHS h hR` (pole terms, archimedean integral, prime sum). At every nontrivial zero of `ζ`,
 `Ξ(t_ρ) = ξ(ρ) = 0` (`Xi_zeta_zero`). So every test transform divisible by `Ξ` is annihilated:
 
-* `explicit_null_of_Xi`: `h = Ξ·m` ⟹ `weilSide h hR = 0`;
+* `explicit_null_of_Xi`: `h = Ξ·m` ⟹ `weilRHS h hR = 0`;
 * `explicit_null_RPhi`: Riemann's formula `Φ̂ = Ξ/2` (`RPhiHat_eq`, RiemannKernel.lean) makes
   `Φ̂·m` null for every `m`: **`Φ` is a null vector of the bilinear Weil functional**;
 * `weil_energy_RPhi`: for `h = Φ̂²` the pole terms are `Ξ(±i/2)²/4 = ξ(0)²/4 = ξ(1)²/4 = 1/16`, so the
@@ -29,12 +29,6 @@ namespace Pilot1ca
 
 open Pilot1bt
 
-/-- The prime side of Weil's explicit formula for the test function `h` with real values `hR`. -/
-def weilSide (h : ℂ → ℂ) (hR : ℝ → ℝ) : ℂ :=
-  h (I / 2) + h (-(I / 2))
-    + ((-(gh hR 0 * Real.log π) + 1 / (2 * π) * (∫ r, hR r * psiRe r)
-      - 2 * ∑' n : ℕ, ArithmeticFunction.vonMangoldt n / Real.sqrt n * gh hR (Real.log n) : ℝ) : ℂ)
-
 /-- `Ξ` vanishes at the ordinate of every nontrivial zero of `ζ`. -/
 theorem Xi_zeta_zero (p : Σ z : NontrivialZero, Fin (zeroMult z)) :
     Xi ((zetaZeroFamily p - 1 / 2) / I) = 0 := by
@@ -44,9 +38,9 @@ theorem Xi_zeta_zero (p : Σ z : NontrivialZero, Fin (zeroMult z)) :
 (in the ordinate variable) and the explicit formula holds for `h = Ξ·m`, its prime side vanishes. -/
 theorem explicit_null_of_Xi {ι : Type*} {ρ : ι → ℂ} (hz : ∀ i, Xi ((ρ i - 1 / 2) / I) = 0)
     {m : ℂ → ℂ} {hR : ℝ → ℝ} (hE : WeilExplicit ρ (fun z => Xi z * m z) hR) :
-    weilSide (fun z => Xi z * m z) hR = 0 := by
+    weilRHS (fun z => Xi z * m z) hR = 0 := by
   have h : HasSum (fun i => Xi ((ρ i - 1 / 2) / I) * m ((ρ i - 1 / 2) / I))
-      (weilSide (fun z => Xi z * m z) hR) := hE.2
+      (weilRHS (fun z => Xi z * m z) hR) := hE.2
   simp only [hz, zero_mul] at h
   exact h.unique hasSum_zero
 
@@ -54,7 +48,7 @@ theorem explicit_null_of_Xi {ι : Type*} {ρ : ι → ℂ} (hz : ∀ i, Xi ((ρ 
 (over the zeros of `ζ`, given the explicit formula for this `h`). -/
 theorem explicit_null_RPhi {m : ℂ → ℂ} {hR : ℝ → ℝ}
     (hE : WeilExplicit zetaZeroFamily (fun z => RPhiHat z * m z) hR) :
-    weilSide (fun z => RPhiHat z * m z) hR = 0 := by
+    weilRHS (fun z => RPhiHat z * m z) hR = 0 := by
   have e : (fun z => RPhiHat z * m z) = fun z => Xi z * (m z / 2) := by
     funext z; rw [RPhiHat_eq]; ring
   rw [e] at hE ⊢
@@ -80,7 +74,7 @@ theorem weil_energy_RPhi {hR : ℝ → ℝ}
   have e : (fun z => RPhiHat z ^ 2) = fun z => RPhiHat z * RPhiHat z := by funext z; ring
   rw [e] at hE
   have h0 := explicit_null_RPhi hE
-  unfold weilSide at h0
+  unfold weilRHS at h0
   beta_reduce at h0
   rw [RPhiHat_I_half, RPhiHat_neg_I_half] at h0
   generalize (-(gh hR 0 * Real.log π) + 1 / (2 * π) * (∫ r, hR r * psiRe r)
