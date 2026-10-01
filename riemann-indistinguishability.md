@@ -3832,7 +3832,7 @@ Euler floor |ζ(σ+it)| ≥ ζ(2σ)/ζ(σ) for σ > 1 (gated at
 *(vi) The insufficiency certificate (Davenport–Heilbronn 1936).*
 The congruence frame provably CANNOT decide RH: the function
 f = 1 + κ/2^s − κ/3^s − 1/4^s + ⋯ (period 5,
-κ = (√(10−2√5)−2)/(√5−1) = 0.28408…) has the identical two-ball
+κ = (√(10−2√5)−2)/(√5−1) = 0.28407…) has the identical two-ball
 geometry — Λ(s) = (5/π)^((s+1)/2)Γ((s+1)/2)f(s) satisfies
 Λ(s) = Λ(1−s) (gated to 10^(−28)) with the same congruence locus
 — yet carries zeros OFF the line at 0.808517… + 85.699348…i and
@@ -3848,11 +3848,13 @@ a(1) ≠ 0 (`aDH_chi5_eq_mul`; `aDH_one_ne_zero` with
 `one_add_rootNumber_chi5_ne_zero`), so dh is a(1)·f — the
 coefficient identity is the checked statement, f itself is not a
 pilot object, and κ enters there as 2 sin(π/5)/(√5 + 2 sin(2π/5)),
-the radical form above not part of the check. Its rounds 261–270
-prove `dh_offline_zero` — a zero with Re s > 0 and Re s ≠ ½, from
-Weil's explicit formula for dh and a kernel-checked negative value
-of its Weil form on one wave packet — and
-`dh_zeros_located_four_box`: zeros with 0.7985 < Re ρ < 0.8185,
+the radical form above not part of the check. Landed in its rounds
+261 and 270, on the chain of its rounds 253–260 (the function, its
+explicit formula, the wave packet and its archimedean bound) and
+263–267 (the located zero), are `dh_offline_zero` — a zero with
+Re s > 0 and Re s ≠ ½, from Weil's explicit formula for dh and a
+kernel-checked negative value of its Weil form on one wave packet —
+and `dh_zeros_located_four_box`: zeros with 0.7985 < Re ρ < 0.8185,
 85.6893 < Im ρ < 85.7093 and 0.64583 < Re ρ < 0.65583,
 114.15834 < Im ρ < 114.16834 (the two listed here), and with
 0.57236 < Re ρ < 0.57636, 166.47731 < Im ρ < 166.48131 and

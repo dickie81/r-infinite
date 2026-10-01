@@ -1192,9 +1192,14 @@ lines are the ground energy's sensitivities to the prime weights, of
 relative size PRIME_n/(w_nλ₁) — 8·10²⁷ for n = 2 at δ = 2, the razor-thin
 margin's response to its arithmetic inputs.
 
-The pilot's rounds 84–86 (landed after the round-385 sweep; round 86 is
-the commit b53b470, `PREREG_tower_layers.md` and `kchain_noprime.py`,
-with no README entry; quotations adapted). Rounds 84–85: the fine
+The pilot's rounds 84–86 (all landed before the round-385 sweep,
+8c9222f at 08:22 UTC on 25 September: rounds 84 and 85 at 04:38 and
+06:46, and round 86 — the commit b53b470, `PREREG_tower_layers.md`
+and `kchain_noprime.py` — at 08:12, with no README entry at that time
+*(net state, round 386: its README entry, "Round 86: the cascade tower
+through the window chain, a pre-registered test", landed at 08:29 in
+d522b55; this note cites only the pre-registration)*; quotations
+adapted). Rounds 84–85: the fine
 structure of ln K_a(0, 0), resampled in x = e^{2a}, has a discrete
 spectrum — "quasi-periodic with a handful of stable frequencies", "not
 log-periodic" in δ ("That argues against frequencies set by zeta zeros")
