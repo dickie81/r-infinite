@@ -2,13 +2,18 @@
 
 **Working note, not a paper surface.** Written at the owner's commission
 ("try to prove it theoretically before running any long winded numerics")
-after Addendum 537. No long numerics were run for this note; the closed
+after Addendum 537. ~~No long numerics were run for this note;~~ **No long
+numerics were run for its proofs (§§1–3);** the closed
 forms of §3.4 were checked by high-precision quadrature, in seconds, by an
 uncommitted script named there (the identities are exact; the quadratures
 agree to 14 digits or better, 17–19 for P and Q as written), and §5's
 ledgers took minutes on the paper's certified Gram at two cells, by a
-committed instrument named there, and §5's zero-side check about forty
-minutes by a second committed instrument. The Lean pilot was not touched
+committed instrument named there, and §5's zero-side check ~~about forty
+minutes~~ **about five hours on one core** by a second committed instrument
+**(with a census of that check's per-zero quadrature error,
+`zeroside_census.py`, about twenty-five minutes, a third)** *(round-387
+F387-1: the committed check ran five hours in the round-386 container, not
+forty minutes; the census was added in round 386)*. The Lean pilot was not touched
 for this note (every pilot round cited below is the pilot's own). Every
 statement below is either proved here in full, or is marked as a proof
 sketch with the unfinished step named, or is marked as heuristic, or (§5)
@@ -905,7 +910,7 @@ P2. Nothing in this subsection proves RH, and the note's header stands.
    second-moment conditions to reach even ĝ₁(0)² → 2πΞ(0)²/∫Ξ². It does
    not prove RH, and nothing in this note does.
 
-4. **No long numerics were run** (§3.4's seconds-scale checks of its closed forms are named there; §5's minutes-scale ledgers on the certified Gram and its forty-minute zero-side check are committed and named there). The only arithmetic inputs of §2's proofs are the constants of Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
+4. ~~**No long numerics were run**~~ **The proofs ran no long numerics** (§3.4's seconds-scale checks of its closed forms are named there; §5's minutes-scale ledgers on the certified Gram and its ~~forty-minute~~ **five-hour** zero-side check are committed and named there) *(round-387 F387-1: the zero-side check runs about five hours on one core)*. The only arithmetic inputs of §2's proofs are the constants of Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
    Step 5 for η(t₀) < 0.2, ε₁ < 0.08 and 20/t₀² < 0.11), the verified height 3·10¹² for the
    first off-line zero (used to remark that η(t₀) is then negligible and in
    the cells arithmetic of §2.3), and Backlund's
@@ -1192,13 +1197,18 @@ lines are the ground energy's sensitivities to the prime weights, of
 relative size PRIME_n/(w_nλ₁) — 8·10²⁷ for n = 2 at δ = 2, the razor-thin
 margin's response to its arithmetic inputs.
 
-The pilot's rounds 84–86 (all landed before the round-385 sweep,
+The pilot's rounds 84–86 (~~all landed before the round-385 sweep~~
+**rounds 84–85 and round 86's pre-registration landed before the
+round-385 sweep**,
 8c9222f at 08:22 UTC on 25 September: rounds 84 and 85 at 04:38 and
-06:46, and round 86 — the commit b53b470, `PREREG_tower_layers.md`
+06:46, and ~~round 86 — the commit b53b470~~ **round 86's
+pre-registration — b53b470**, `PREREG_tower_layers.md`
 and `kchain_noprime.py` — at 08:12, with no README entry at that time
 *(net state, round 386: its README entry, "Round 86: the cascade tower
 through the window chain, a pre-registered test", landed at 08:29 in
-d522b55; this note cites only the pre-registration)*; quotations
+d522b55 **with the round's test and its results**; this note cites only
+the pre-registration)* *(round-387 F387-3: round 86 has two commits, and
+only the first preceded the sweep)*; quotations
 adapted). Rounds 84–85: the fine
 structure of ln K_a(0, 0), resampled in x = e^{2a}, has a discrete
 spectrum — "quasi-periodic with a handful of stable frequencies", "not

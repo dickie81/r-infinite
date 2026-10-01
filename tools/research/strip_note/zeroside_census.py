@@ -2,15 +2,16 @@
 """The per-zero accuracy of zeroside.py's exact-truncation quadrature at delta = 2 (research instrument of the
 working note; committed; not a verifier).
 
-zeroside.py evaluates E_a(gamma) = 2 int_a^inf Phi cos(gamma u) du with a five-panel tanh-sinh quadrature on
-[a, a + 3] (a = delta/2). This census compares it, on every eighth zero above gamma = 4500 (2707 zeros -> 339 samples;
+zeroside.py evaluates E_a(gamma) = 2 int_a^inf Phi cos(gamma u) du with a four-panel tanh-sinh quadrature on
+[a, a + 3] (a = delta/2; five breakpoints; round 387 corrected "five-panel"). This census compares it, on every
+eighth zero above gamma = 4500 (2707 zeros -> 339 samples;
 the paper's 6700 zeros, checkpoints/zeta_zeros_6700.json), with a reference: composite 12-point Gauss-Legendre on
 30 000 panels of [a, a + 3] in double precision, Phi tabulated once at 30 digits; the reference is first checked
 against a 600-panel mp.quad at three zeros (gamma_1, gamma_3001, gamma_6700). It prints the number of sampled zeros
 whose relative error exceeds 6.5%, the median relative error over the sampled zeros in (5000, 7000], the number of
 sign flips and the largest relative error. Adapted from round 386's review script (the reviewer's census_r386.py,
 re-run by the lead with the same result line); the elapsed-time fields are dropped so the log is reproducible.
-Usage: zeroside_census.py   (about 20 minutes: the 339 five-panel quadratures dominate)
+Usage: zeroside_census.py   (about 25 minutes: the 339 four-panel quadratures dominate)
 """
 import json, os
 import numpy as np, mpmath as mp

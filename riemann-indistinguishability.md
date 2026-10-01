@@ -3849,9 +3849,12 @@ a(1) ≠ 0 (`aDH_chi5_eq_mul`; `aDH_one_ne_zero` with
 coefficient identity is the checked statement, f itself is not a
 pilot object, and κ enters there as 2 sin(π/5)/(√5 + 2 sin(2π/5)),
 the radical form above not part of the check. Landed in its rounds
-261 and 270, on the chain of its rounds 253–260 (the function, its
-explicit formula, the wave packet and its archimedean bound) and
-263–267 (the located zero), are `dh_offline_zero` — a zero with
+261 and 270, on the ~~chain~~ **dh chain** of its rounds 253–260 (the
+function, its explicit formula, the wave packet and its archimedean
+bound) and ~~263–267~~ **263, 264 and 267** (the located zero)
+*(round-387 F387-2: rounds 265–266 are on neither theorem's chain, and
+earlier pilot rounds' Weil-form and digamma lemmas lie beneath the dh
+chain)*, are `dh_offline_zero` — a zero with
 Re s > 0 and Re s ≠ ½, from Weil's explicit formula for dh and a
 kernel-checked negative value of its Weil form on one wave packet —
 and `dh_zeros_located_four_box`: zeros with 0.7985 < Re ρ < 0.8185,
