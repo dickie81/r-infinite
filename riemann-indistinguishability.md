@@ -3853,8 +3853,10 @@ the radical form above not part of the check. Landed in its rounds
 function, its explicit formula, the wave packet and its archimedean
 bound) and ~~263–267~~ **263, 264 and 267** (the located zero)
 *(round-387 F387-2: rounds 265–266 are on neither theorem's chain, and
-earlier pilot rounds' Weil-form and digamma lemmas lie beneath the dh
-chain)*, are `dh_offline_zero` — a zero with
+earlier pilot rounds' ~~Weil-form and digamma lemmas~~ **lemmas — Weil's
+form and explicit formula, Hadamard's factorisation, Fourier inversion,
+the Γ and digamma factors among them —** lie beneath the dh
+chain; round-388 F388-1 widened the list)*, are `dh_offline_zero` — a zero with
 Re s > 0 and Re s ≠ ½, from Weil's explicit formula for dh and a
 kernel-checked negative value of its Weil form on one wave packet —
 and `dh_zeros_located_four_box`: zeros with 0.7985 < Re ρ < 0.8185,

@@ -10,8 +10,11 @@ agree to 14 digits or better, 17–19 for P and Q as written), and §5's
 ledgers took minutes on the paper's certified Gram at two cells, by a
 committed instrument named there, and §5's zero-side check ~~about forty
 minutes~~ **about five hours on one core** by a second committed instrument
-**(with a census of that check's per-zero quadrature error,
-`zeroside_census.py`, about twenty-five minutes, a third)** *(round-387
+**(with a ~~census of that check's per-zero quadrature error~~ sampled
+check of that quadrature's per-zero error — every eighth zero above
+γ = 4500 against a fine reference —
+`zeroside_census.py`, about twenty-five minutes, a third)** *(round-388
+F388-2: the check samples the zeros)* *(round-387
 F387-1: the committed check ran five hours in the round-386 container, not
 forty minutes; the census was added in round 386)*. The Lean pilot was not touched
 for this note (every pilot round cited below is the pilot's own). Every
@@ -910,7 +913,7 @@ P2. Nothing in this subsection proves RH, and the note's header stands.
    second-moment conditions to reach even ĝ₁(0)² → 2πΞ(0)²/∫Ξ². It does
    not prove RH, and nothing in this note does.
 
-4. ~~**No long numerics were run**~~ **The proofs ran no long numerics** (§3.4's seconds-scale checks of its closed forms are named there; §5's minutes-scale ledgers on the certified Gram and its ~~forty-minute~~ **five-hour** zero-side check are committed and named there) *(round-387 F387-1: the zero-side check runs about five hours on one core)*. The only arithmetic inputs of §2's proofs are the constants of Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
+4. ~~**No long numerics were run**~~ **The proofs ran no long numerics** (§3.4's seconds-scale checks of its closed forms are named there; §5's minutes-scale ledgers on the certified Gram and its ~~forty-minute~~ **five-hour** zero-side check are committed and named there**, and the sampled check of that quadrature, `zeroside_census.py`, about twenty-five minutes, is committed beside it**) *(round-387 F387-1: the zero-side check runs about five hours on one core; round-388 F388-3: the census named here too)*. The only arithmetic inputs of §2's proofs are the constants of Theorem 3, the first zero's height (t₀ ≥ 14, used in Theorem 2's statement and in
    Step 5 for η(t₀) < 0.2, ε₁ < 0.08 and 20/t₀² < 0.11), the verified height 3·10¹² for the
    first off-line zero (used to remark that η(t₀) is then negligible and in
    the cells arithmetic of §2.3), and Backlund's
@@ -944,7 +947,7 @@ Written at the owner's request ("Do it pls", after "Why are you treating RH
 as unsolvable?"): the branch-selection step of §4 item 3 looked at from the
 primes. The computation took minutes on the paper's own certified Gram
 (`tools/research/weil_prime_gram.py`) at the cells δ = 2 and δ = 3; the
-instrument, its logs and its coefficient vectors are committed under
+instrument **`ledger.py`** *(named in round 388, F388-4)*, its logs and its coefficient vectors are committed under
 `tools/research/strip_note/` (a research instrument of this note: not a
 verifier, not cited by the paper, in no gate). Nothing below bears on RH.
 
