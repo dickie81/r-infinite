@@ -8350,6 +8350,7 @@ The outputs are in `census/` and the scoring in `results/score.log` (`score_caus
      | census | 21 | 61 | 236 | 455 |
 
      At `0.6` the truncated product has not converged: the standard deviation of its tail in `log R` is about `0.3` at `σ = 0.6`.
+   - Positions as well as counts (`posthoc/euler_positions.py`): Newton's method on `g_{10⁵}`, started at each of the 563 census zeros, converges to 563 distinct zeros. The median distance moved is `0.013` (`0.0017` for `Re ρ ≥ 0.8`), and the largest is `0.13`.
    - At `X = 30` and `100` the counts follow the random model at the same cutoff: with `Re > 0.7`, 126 and 177 against 126.9 and 181.0.
 3. **The depth profile** (`posthoc/euler_zeros_heights.py`, `posthoc/euler_heights_summary.py` and its log, `posthoc/argtail.py`). P3's `σ₀ = 0.8` cells and the histogram show more deep zeros than the model at `X = ∞`: 61 against 48.4 with `Re > 0.8`, and 21 against 10.4 with `Re > 0.85`. The deep share also falls with height: among the zeros with `Re ≥ 0.6`, those with `Re ≥ 0.8` are 19.7%, 13.0% and 12.0% in the three windows.
    1. The model's tail is unreliable where it is thin. Over 588 000 units of height (60 windows from `10⁶`), `g_30` has 71 zeros with `Re > 0.85`, a rate of `1.2·10⁻⁴` against the model's `4·10⁻⁴`. The comparisons below therefore use deterministic controls, not the model.
@@ -8379,7 +8380,7 @@ The outputs are in `census/` and the scoring in `results/score.log` (`score_caus
   - `R`'s Euler product has inert factors only: the split primes and the archimedean factor cancel exactly, kernel-checked as above.
   - The inert prime phases at the zeros carry the predicted signature (P1).
   - The Weil form separates `dh` from its own channel through inert-smooth integers only (P4).
-  - At the census heights, the inert Euler product truncated at `10⁵` already has the census's off-line zeros (post-hoc 2).
+  - At the census heights, the inert Euler product truncated at `10⁵` already has the census's off-line zeros, one to one, within `0.13` (post-hoc 2).
 - The archimedean factor's role is exact and two-sided.
   - It cancels from `R`. Off the line, the reflection acts on `R` only by reciprocation, `R(1 − s) = ε²/R(s)`, so it has no say in where the off-line zeros fall.
   - On the line it becomes conjugation, which phase-locks `R/ε` to the reals. The same archimedean phase `ϑ(t)` also drives both channels' Hardy functions, so their zero trains share one clock and interleave.
