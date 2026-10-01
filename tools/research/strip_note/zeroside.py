@@ -9,13 +9,17 @@ Phi_a = Phi 1_[-a,a] (not its projection), Q(Phi_a)/||Phi_a||^2 = 2 sum E_a(gamm
 E_a(gamma) = 2 int_a^inf Phi cos(gamma u) du (Phi_a's transform at a zero is -E_a, since Xi vanishes there)
 and ||Phi_a||^2 = 2 int_0^a Phi^2 (the round-383 correction: an earlier session script used 2 int_0^a Phi).
 Tail beyond the last zero: the mean of gamma^2 ghat^2 over the last 100 zeros times int_T^inf (ln(r/2pi)/2pi) r^-2 dr.
-Caveat (rounds 384-385): the five-panel tanh-sinh quadrature of E_a(gamma) under-resolves the oscillation above
-gamma ~ 4500: the per-zero error is typically a few percent in (5000, 7000] (median 4%), and of order one -- including
-the sign -- at zeros where E_a is near a sign change (42 of 339 sampled zeros above 4500 exceed 6.5%); the zeros above
+Caveat (rounds 384-386): the five-panel tanh-sinh quadrature of E_a(gamma) under-resolves the oscillation above
+gamma ~ 4500: the per-zero error is typically a few percent in (5000, 7000] (median 2.2% over the sampled zeros there;
+round 385 had recorded 4%, against a reference not preserved), and of order one -- including the sign -- at zeros where
+E_a is near a sign change (42 of 339 sampled zeros above 4500 exceed 6.5%, 4 change sign, the largest relative error is
+3.2: zeroside_census.py, every eighth zero against a fine Gauss-Legendre reference, log zeroside_census_d2.0.txt); the zeros above
 5000 carry 0.5% of the sum, so the quotient Q(Phi_a)/||Phi_a||^2 is affected at 2e-5 relative (a 600-panel grid gives
 1.1611876e-14 against this file's 1.1612094e-14). The round-385 sweep also fixed the 'ledger Q' display, which the
 round-384 change to the JSON's precision had broken (a fixed-notation string sliced to twelve characters).
-Usage: zeroside.py   (about 40 minutes: the 6700 tail quadratures dominate)
+Usage: zeroside.py   (the 6700 tail quadratures dominate: about five hours on one core in round 386, at about 2.3 s per
+E_a quadrature on mpmath's pure-Python backend; gmpy2 gives the same values about 1.2 times faster; this line had said
+about 40 minutes)
 """
 import os, sys, json
 import mpmath as mp
