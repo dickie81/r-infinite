@@ -1,0 +1,5 @@
+zero-free same-type beats: 1296;  without an off-line zero within 2 lambda: 166;  of those with an overshoot beat within 2 lambda: 166
+overshoot beats: 159 (same-type with 2 zeros: 148, mixed with 3: 11)
+off-line zeros: 563; nearest chi/chibar zero separation in units of lambda: median 0.182, 90% below 0.406
+baseline (every chi zero): median 0.269
+EXIT=0

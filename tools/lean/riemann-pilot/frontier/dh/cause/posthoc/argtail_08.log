@@ -1,0 +1,4 @@
+census heights (200,2000]: sd Im 1.1018  P(Im < -2.288) 0.00955  P(Im > 3.395) 0.00000  P(near -eps, w=0.3) 0.00265  sd by range 1.079 0.203 0.053  corr(Im) 01 +0.008 02 +0.009 12 +0.009
+census heights (2000,5000]: sd Im 1.0981  P(Im < -2.288) 0.00905  P(Im > 3.395) 0.00000  P(near -eps, w=0.3) 0.00290  sd by range 1.078 0.203 0.055  corr(Im) 01 -0.001 02 +0.010 12 -0.001
+census heights (5000,10000]: sd Im 1.1014  P(Im < -2.288) 0.00930  P(Im > 3.395) 0.00000  P(near -eps, w=0.3) 0.00290  sd by range 1.079 0.204 0.054  corr(Im) 01 +0.012 02 -0.005 12 +0.004
+          random model: sd Im 1.1056  P(Im < -2.288) 0.01020  P(Im > 3.395) 0.00000  P(near -eps, w=0.3) 0.00282  sd by range 1.085 0.202 0.055  corr(Im) 01 +0.004 02 +0.005 12 -0.005

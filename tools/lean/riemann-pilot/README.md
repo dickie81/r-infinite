@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1317 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1356 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -194,6 +194,8 @@ Every file ends with `#print axioms`. All 1317 checked theorems depend only on `
 | `DHLocate4Num.lean` | 4264 | **generated**: the enclosures at zero 4 (`AReG_ge`/`_le` under `maxHeartbeats 1000000`), `Z4.H1`–`H3`, **`dh_zero_located_4`**, **`dh_zero_located_box_4`** (`0.71759 < Re ρ < 0.73093`, `176.69579 < Im ρ < 176.70913`) (round 270) |
 | `DHLocateFour.lean` | 115 | **four located off-line zeros and the Weil index `≥ 4`**: `cFour`, `sep_of_im`, `negIndex_ge_four_of`, `dh_zeros_located_four`, `dh_zeros_located_four_box`, **`DHNegIndex.negIndex_ge_four`** (round 270) |
 | `DHColumnRest.lean` | 157 | **the dh column, part 4**: the remaining G rows refuted (`not_ground_states_dh`, `not_groundStates_dodging_dh`, `not_D_and_realRooted_hadamard`, `not_XiDH_params`, `not_dodging_hadamard`, `not_pairing_and_realRooted`) and the strip row of the P block (`not_hypConvStripDH_top`); `rh_grh_of_member_zero` has no dh analogue (round 272) |
+| `DHChannels.lean` | 285 | **the two channels of `dh`**: `conj_LFunction`; the archimedean-free functional equation `LFunction_mul_one_sub` (`L(s, χ)L(1 − s, χ) = ε²L(s, χ⁻¹)L(1 − s, χ⁻¹)`; for the channel ratio, `R(s)R(1 − s) = ε²`); `phase_lock`, `channel_ratio_real` (`R(½ + it) ∈ εℝ`); `dhL_eq_zero_iff_channel`; for `χ₅`, **`dh_eq_zero_iff_channel`** (`dh(s) = 0 ↔ L(s, χ₅) = −εL(s, χ₅⁻¹)`) and **`dh_line_zero_iff`** (on the line, one real equation) (round 273) |
+| `DHInert.lean` | 623 | **coefficient localisation**: the coefficients of `−dh′/dh` equal `Λ(n)χ₅(n)` at every `n` with a prime factor `≢ ±2 (mod 5)` (**`cDH_chi5_eq_of_dvd`**); `c = Λ·s + c_inert` with `c_inert` supported on inert-smooth integers (**`cDH_chi5_decomp`**); `δ + u = s ⍟ b` (`dhA_eq_splitA_mul_inertA`); `logDer_mul`, `log` a derivation of Dirichlet convolution (round 273) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -8236,3 +8238,158 @@ One builder agent to a stated interface (extended once at the lead's request wit
 Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1317 checked theorems in `src/`. The build prints no warnings.
 
 **Check 4.** New. **Bearing on RH:** none; every G row with an honest dh analogue is now refuted at `dh`.
+
+## Round 273: the cause of the Davenport–Heilbronn off-line zeros — two channels, one archimedean clock, the inert primes (`src/DHChannels.lean`, `src/DHInert.lean`, `frontier/dh/cause/`)
+
+The question: which part of `dh`'s structure makes its off-line zeros, and what holds the others on the line. `dh = (1 + ε′)L(s, χ₅) + (1 + ε)L(s, χ₅⁻¹)` is a sum of two Dirichlet channels with one Gamma factor. This round proves, in the kernel, the identities that relate the channels (two files, 39 checked theorems), and tests a mechanism stated in advance against a census of the zeros of `dh` up to height `10⁴`. The pre-registration (`frontier/dh/cause/PREREG_cause.md`) was committed at `0f8de53`, before any zero above height 200 was computed. It fixed every prediction, threshold and scoring rule, and nothing in it was changed afterwards.
+
+**`src/DHChannels.lean`** — the channel identities, for every Dirichlet character and then for `χ₅`.
+
+- `conj_LFunction`: `conj L(s, χ) = L(s̄, χ⁻¹)` for `χ ≠ 1`. It is proved by the identity theorem from `Re s > 1`, as for Mathlib's `riemannZeta_conj`.
+- **`LFunction_mul_one_sub`**: for primitive `χ` and every `s`, `L(s, χ)L(1 − s, χ) = ε²L(s, χ⁻¹)L(1 − s, χ⁻¹)`.
+  - The proof applies Mathlib's functional equation at `s` and at `1 − s`; the conductor powers cancel (`completedLFunction_mul_one_sub`).
+  - `χ` and `χ⁻¹` have the same Gamma factor (`gammaFactor_inv`), so the archimedean factor cancels with no exceptional points.
+  - For the channel ratio `R = L(·, χ)/L(·, χ⁻¹)` this reads `R(s)R(1 − s) = ε²` (`LFunction_ratio_mul`): the reflection acts on `R` only by reciprocation.
+- **`phase_lock`**: if `‖ε‖ = 1`, then `ε̄L(½ + it, χ)·conj L(½ + it, χ⁻¹)` is real. On the line `s̄ = 1 − s`, so the reflection becomes conjugation. Hence `R(½ + it) ∈ εℝ` (`channel_ratio_real`).
+- `dhL_eq_mul`, `dhL_eq_zero_iff_channel`: `DH_χ = (1 + ε′)(L(·, χ) + εL(·, χ⁻¹))`, so `DH_χ` vanishes iff `L(s, χ) = −εL(s, χ⁻¹)`.
+- For `χ₅`: `chi5_channel_fe`, `chi5_phase_lock`, `chi5_channel_ratio_real` and `chi5_channel_ratio`, plus:
+  - **`dh_eq_zero_iff_channel`**: `dh(s) = 0 ↔ L(s, χ₅) = −εL(s, χ₅⁻¹)`.
+  - **`dh_line_zero_iff`**: where `L(½ + it, χ₅⁻¹) ≠ 0`, `dh(½ + it) = 0` iff the real number `L(½ + it, χ₅)/(εL(½ + it, χ₅⁻¹))` equals `−1`. On the line, a zero of `dh` is one real equation in `t`.
+
+16 checked theorems.
+
+**`src/DHInert.lean`** — coefficient localisation. The coefficients `c(n)` of `−dh′/dh` (`cDH`, round 256) differ from those of `−L′/L(s, χ₅)`, namely `Λ(n)χ₅(n)`, only at inert-smooth `n`: integers whose prime factors are all `≡ ±2 (mod 5)`, the primes inert in `ℚ(√5)`, where `χ₅(p) = ±i`.
+
+- **`cDH_chi5_eq_of_dvd`**: `c(n) = Λ(n)χ₅(n)` at every `n` with a prime factor `p = 5` or `p ≡ ±1`.
+- **`cDH_chi5_decomp`**: `c = Λ·s + c_inert`, with `c_inert` supported on inert-smooth integers (`logDer_inertA_mul_inertInvA_eq_zero`).
+
+The proof:
+
+1. Unique factorisation into a split part (`≡ ±1`) and an inert part (`smoothInd_conv_eq_one`).
+2. `χ₅` is real on split-smooth integers (`chi5_inv_eq_of_split`). So `χ₅ = s ⍟ t` and `χ₅⁻¹ = s ⍟ t̄` share one split factor `s` (`splitSeq_conv_chi5Seq`, `splitSeq_conv_chi5InvSeq`).
+3. The normalised coefficients of `dh` therefore factor as `δ + u = s ⍟ b`, with `b` inert-smooth (`dhA_eq_splitA_mul_inertA`).
+4. `X ↦ log·X` is a derivation of Dirichlet convolution (`logDer_mul`), so the logarithmic derivative splits (`logDer_dhA_mul_dhInvA`).
+5. `log s ⍟ s⁻¹ = Λs` (`logDer_splitA_mul_splitInvA`, from Mathlib's `log * μ = Λ`), and `b⁻¹` stays inert-smooth (`dinv_inertW_eq_zero`).
+
+23 checked theorems. The pre-registration's fact (E4) is checked in this coefficient form. Its Euler-product form, `R(s) = Π_{p ≡ ±2 (5)}(1 + χ₅(p)p^{−s})/(1 − χ₅(p)p^{−s})` on `Re s > 1`, is the same factorisation, but it is not itself a Lean statement. So the pre-registration's "all four kernel-checked" covers (E4) only through its "Equivalently" clause.
+
+**The mechanism under test** (PREREG, "The claim under test"):
+
+- Off the line, the zeros are the solutions of `R = −ε`.
+- `R` is an Euler product over the inert primes alone, so they make the off-line zeros, at the statistics of their random Euler product (Bohr–Jessen). The archimedean factor, common to both channels, has no part there.
+- On the line, the phase lock reduces `R = −ε` to one real equation.
+- `dh` has one zero per antiphase beat of its two channels' Hardy functions (`Z_f = (Z_χ + Z_χ̄)/(2cos θ)`). The zero is on the line when the beat is bounded by one zero of each channel ("mixed"). It leaves the line, with its mirror, when the beat is bounded by two zeros of one channel ("same-type", a reversal of the two zero trains).
+
+**The census** (`instrument/dh_census.py`, validated on `[1, 200]` before the pre-registration) covered `(199.5, 9999.54]` in 392 windows. All were complete, with 0 flagged.
+
+- `N_f = N_χ = N_χ̄ = 12703` at `9999.54` (`129` at `199.5`).
+- `11448` on-line zeros of `dh` and `12574` of each channel.
+- `563` zeros with `Re ρ > ½`, each located. With their mirrors, 1126 of the 12574 zeros (9.0%) are off the line.
+- No zero has `Re ρ ≥ 0.9`.
+
+The outputs are in `census/` and the scoring in `results/score.log` (`score_cause.py`).
+
+- **P1, the phase signature: PASS.**
+  - For the `K = 455` zeros with `Re ρ ≥ 0.6`, `m₁(q) = K⁻¹Σ e^{−iγ log q}`. The inert primes:
+
+    | `q` | 2 | 3 | 7 | 13 | 17 | 23 | 37 | 43 |
+    |---|---|---|---|---|---|---|---|---|
+    | `m₁(q)` | `−0.679 − 0.017i` | `+0.648 − 0.026i` | `−0.474` | `+0.313` | `−0.262` | `+0.267` | `−0.140` | `+0.179` |
+
+    `|Im| ≤ 0.026` throughout, and every sign is the predicted one: `−` for `q ≡ 2`, `+` for `q ≡ 3 (mod 5)`. The mechanism: at a zero, `χ₅(p)p^{−iγ}` is pulled towards `−i`, so each inert Euler factor of `R` becomes nearly a pure rotation.
+  - The split primes 11, 19, 29, 31, 41, 59, 61, 71 have `|m₁| ≤ 0.111`. Each is within `0.04` of the same mean taken over the on-line zeros of `L(½ + it, χ₅)`, for example `−0.111` against `−0.090` at 11. They carry only the modulation shared with the channels' own zero trains.
+  - Thresholds (a)–(e) are all met.
+  - The magnitudes at 2 and 3 exceed the model's `σ = 0.6` rows (`−0.29` to `−0.40`, `+0.20` to `+0.33`) and sit near its `σ = 0.7` row (`−0.76`, `+0.70`). The mean real part over the 455 zeros is `0.713`.
+- **P2, the beat law: FAIL, on one clause of four.**
+  - There are 12573 beats in range: 11129 mixed and 1444 same-type, with 0 parity violations.
+  - (a) Met: 11118 of 11129 mixed beats (99.90%) hold exactly one on-line zero.
+  - (b) Met: `N_f` equals the number of antiphase beats below it, within ±1, at 392 of 392 window ends.
+  - (c) Met exactly: `2K = 1126 = S₀ − S₂ − 2E = 1296 − 148 − 2·11`.
+  - (d) First half met: every one of the 563 zeros has a zero-free same-type beat within `2λ` below and above it.
+  - (d) Converse **failed**: only 1130 of the 1296 zero-free same-type beats (87.2%, against 95%) have an off-line zero within `2λ` of their midpoint.
+  - The split `S₀ : S₂ = 1296 : 148` was not predicted.
+- **P3, the rates: PASS, 12 of 12 cells.** Counts with `Re ρ ≥ σ₀` against the random-model bracket from `X = √(5t/2π)` to `X = t`:
+
+  | `σ₀` | `(200, 2000]` | `(2000, 5000]` | `(5000, 10⁴]` |
+  |---|---|---|---|
+  | 0.60 | 66 (57.9–115.3) | 138 (116.6–214.5) | 251 (215.0–374.1) |
+  | 0.65 | 48 (39.4–69.9) | 107 (78.7–124.5) | 194 (143.2–215.4) |
+  | 0.70 | 37 (21.8–40.8) | 71 (46.7–72.3) | 128 (87.2–122.4) |
+  | 0.80 | 13 (2.9–7.7) | 18 (7.6–13.4) | 30 (15.0–22.3) |
+
+  The rule passes a cell up to the 97.5% Poisson quantile of its high value. All three `σ₀ = 0.8` cells lie above the high value, and pass only through that tolerance. See the depth profile below.
+- **P4, the Weil-form control: PASS.**
+  - On the certificate packet `(a, ω) = (12/5, 169/2)`, `Q = A − 2S` with the same archimedean part `A = 10.08305` exactly.
+  - `Q_dh = −1.20938` (round 259's value; `S_dh = 5.64621`), against `Q_χ₅ = +6.49164` for the single channel (`S_χ = 1.79570`).
+  - No `n ≤ 121` with a prime factor `≢ ±2 (mod 5)` contributes to the difference (`results/weil_channels.log`).
+  - The largest contributions are inert-smooth: `n = 6` (`−1.955`), 14 (`−1.641`), 21 (`−1.179`), 9 (`−0.980`), 4 (`−0.794`) and 34 (`−0.735`).
+- **P5, exploratory.**
+  - `Re ρ` falls in `[0.50, 0.55)`: 36, `[0.55, 0.60)`: 72, `[0.60, 0.65)`: 106, `[0.65, 0.70)`: 113, `[0.70, 0.75)`: 91, `[0.75, 0.80)`: 84, `[0.80, 0.85)`: 40 and `[0.85, 0.90)`: 21. None has `Re ρ > 1`.
+  - Anatomy of the four kernel-located zeros (`anatomy.py`, `results/anatomy.log`):
+    - `R(ρ) = −ε` to `|R + ε| ≤ 3.4·10⁻¹⁴` at all four.
+    - The partial inert products converge to `R`: `|R_P − R| = 0.002, 0.024, 0.108, 0.025` at `P = 2·10⁶`.
+    - The factors at 2 and 3 alone rotate by `−1.02 − 0.78`, `−1.06 − 0.90`, `−1.02 − 0.86` and `−1.09 − 0.73` rad, against the target `arg(−ε) = −2.588`.
+  - The value distribution of `log|R(σ + it)|` (`p5_valuedist.py`, `results/p5_valuedist.log`) is stationary across the three windows and matches the random model, at `σ = 0.7` (pre-registered) and at `σ = 0.8` (added).
+    - At `σ = 0.7` the standard deviations are `1.249, 1.252, 1.245`, against `1.252` at `X = ∞`. The two-sample Kolmogorov–Smirnov distances are `≤ 0.012` between windows and `≤ 0.013` to the model.
+    - At `σ = 0.8`, KS distances are `≤ 0.011` between windows and `≤ 0.009` to the model.
+
+**Post-hoc (not pre-registered; labelled).**
+
+1. P2(d)'s converse. Each of the 166 zero-free same-type beats without an off-line zero within `2λ` has an *overshoot* beat within `2λ` (`posthoc/posthoc_beats.py`). An overshoot is a same-type beat with two on-line zeros or a mixed beat with three; there are 159 (148 and 11).
+   - Each `S₂` overshoot absorbs one reversal and each `E` overshoot two; the accounting (c) is exact.
+   - So the beat law's exact form is (c), and (d)'s converse was the wrong local statement. The local rule is that a reversal is resolved either by an off-line pair or by a nearby overshoot.
+   - The median separation of the nearest `χ` and `χ̄` zeros at an off-line zero is `0.182λ`, against a `0.269λ` baseline: a weak enrichment of near-collisions.
+2. **The census's off-line zeros are the inert Euler product's** (`posthoc/euler_zeros.py`; the table is `posthoc/euler_zeros_table.log`, from the chunk counts in `posthoc/chunks/`). `g_X = c₁P_X + c₂`, with `P_X` the Euler product over the inert primes `≤ X`, is holomorphic on `Re s > 0`.
+   - Its zeros with `Re s > σ₀` are counted by the argument principle on `[σ₀, 3] × (T₁, T₂]`, over `(200, 10⁴]` in 33 chunks. Every winding is within `1.1·10⁻¹⁴` of an integer, and no refinement is unresolved.
+   - On `(0, 200]`, the `X = 10⁵` counts are `3, 2, 1, 0` at `σ₀ = 0.6, 0.7, 0.8, 0.85`: the four located zeros (`posthoc/validation_0_200.json`).
+   - At `X = 10⁵` the counts match the census:
+
+     | `Re >` | 0.85 | 0.8 | 0.7 | 0.6 |
+     |---|---|---|---|---|
+     | `g_{10⁵}` | 21 | 61 | 232 | 466 |
+     | census | 21 | 61 | 236 | 455 |
+
+     At `0.6` the truncated product has not converged: the standard deviation of its tail in `log R` is about `0.3` at `σ = 0.6`.
+   - At `X = 30` and `100` the counts follow the random model at the same cutoff: with `Re > 0.7`, 126 and 177 against 126.9 and 181.0.
+3. **The depth profile** (`posthoc/euler_zeros_heights.py`, `posthoc/euler_heights_summary.py` and its log, `posthoc/argtail.py`). P3's `σ₀ = 0.8` cells and the histogram show more deep zeros than the model at `X = ∞`: 61 against 48.4 with `Re > 0.8`, and 21 against 10.4 with `Re > 0.85`. The deep share also falls with height: among the zeros with `Re ≥ 0.6`, those with `Re ≥ 0.8` are 19.7%, 13.0% and 12.0% in the three windows.
+   1. The model's tail is unreliable where it is thin. Over 588 000 units of height (60 windows from `10⁶`), `g_30` has 71 zeros with `Re > 0.85`, a rate of `1.2·10⁻⁴` against the model's `4·10⁻⁴`. The comparisons below therefore use deterministic controls, not the model.
+   2. At `σ = 0.8`, the inert product to `10⁵` at the census heights matches the random model (`posthoc/argtail_08.log`):
+      - the fraction of `log R` in the square of half-side `0.3` about `log(−ε)` (0.00265–0.00290 against 0.00282);
+      - the standard deviation of `Im log R` by prime range (`p ≤ 30`, `≤ 1000`, `≤ 10⁵`);
+      - correlations between the ranges below `0.013`.
+   3. At the census heights the excess enters with the primes between 300 and 3000. Zeros with `Re > 0.85` number 13 at `X = 300`, 18 at `X = 1000` and 19 at `X = 3000`. In `(5000, 10⁴]`, where every added prime is below the height, they rise from 7 to 10, so there at least the excess is not carried by primes beyond the height.
+   4. Windows of length 9800 at other heights, counted the same way. At `X = 3000` the inert primes above 3000 move `log R` by about `0.04` (standard deviation) at `σ = 0.85`.
+
+      | `X = 3000`, `Re > 0.85` | windows | mean ± sd | range |
+      |---|---|---|---|
+      | random heights in `(10⁵, 10⁸)` | 30 | 11.3 ± 2.0 | 7–16 |
+      | heights `10⁴k`, `k = 1..9` | 9 | 11.4 ± 3.1 | 8–16 |
+      | census heights | 1 | 19 (`dh` itself: 21) | |
+
+      - With `Re > 0.8` the census heights (56) lie within the range (40–58).
+      - At `X = 300` they lie within the range of 20 windows at `10⁴k` (13 against 7–15).
+      - The counts vary far less than Poisson counts would, as for an almost periodic function.
+
+   So `(200, 10⁴]` carries about 1.7 times the typical number of zeros of `g_3000` with `Re > 0.85` (`z = +3.9` against the random-height windows). The excess is carried by the inert primes below 3000, and windows starting at `10⁴` to `9·10⁴` do not share it. Its cause is open. It touches P3 only in the deep cells, which the pre-registered rule passed.
+
+**What this says.**
+
+- The off-line zeros of `dh` are made by the inert primes.
+  - Off the line they are the solutions of `R = −ε`. Every channel zero in range is on the line, so no zero of `L(s, χ₅⁻¹)` interferes.
+  - `R`'s Euler product has inert factors only: the split primes and the archimedean factor cancel exactly, kernel-checked as above.
+  - The inert prime phases at the zeros carry the predicted signature (P1).
+  - The Weil form separates `dh` from its own channel through inert-smooth integers only (P4).
+  - At the census heights, the inert Euler product truncated at `10⁵` already has the census's off-line zeros (post-hoc 2).
+- The archimedean factor's role is exact and two-sided.
+  - It cancels from `R`. Off the line, the reflection acts on `R` only by reciprocation, `R(1 − s) = ε²/R(s)`, so it has no say in where the off-line zeros fall.
+  - On the line it becomes conjugation, which phase-locks `R/ε` to the reals. The same archimedean phase `ϑ(t)` also drives both channels' Hardy functions, so their zero trains share one clock and interleave.
+  - Each interleaving (a mixed beat) forces a zero of `dh` onto the line, by the intermediate value theorem; 88.5% of the beats are mixed.
+  - The "reciprocal process" that keeps those zeros on the line is the conjugation symmetry plus the shared clock. What breaks it is arithmetic: the inert primes swing `R` far enough to reorder the two trains, and a beat with no zero of the other channel releases its zero to `R = −ε` off the line.
+- `ζ` has one channel. There is no second train to reorder against, and nothing in this mechanism applies to it. This is consistent with §(vi)'s reading of `dh` and proves nothing about RH.
+- Open: why the stretch `(200, 10⁴]` has 19 (`g_3000`) and 21 (`dh`) zeros with `Re > 0.85`, where typical stretches of its length have about 11 (post-hoc 3).
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1356 checked theorems in `src/`. The build prints no warnings.
+
+A builder agent wrote both files to statements the lead specified. The lead read both end to end and compiled them in the pilot build (`DHChannels`, `DHInert`: 2 compiled, 217 up to date, in 38 s; 39 clean axiom lines). The census, scoring, model and post-hoc scripts are in `frontier/dh/cause/`. The pre-registered files are unchanged since `0f8de53`, except for one dated note in `instrument/README_instrument.md`.
+
+**Check 4.** New. The kernel identities, the census and the mechanism are not in earlier rounds; the off-line zeros' existence and location are rounds 261–270. **Bearing on RH:** none.

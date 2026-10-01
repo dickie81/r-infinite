@@ -5,6 +5,8 @@ Davenport–Heilbronn function `f` and of its two Dirichlet channels `L(s, χ)`,
 the on-line zeros of all three, the total counts from the argument principle, and every zero
 of `f` with `Re s > 1/2`. It was built for a pre-registered census. **It has been run only on
 `t ≤ 200`.** Its own ceiling guard stops a census from evaluating anything above the run's `t1`.
+*(True at the pre-registration commit `0f8de53`. The census of `(200, 10⁴]` was run after it, in round 273:
+`../census/`, scored in `../results/score.log`.)*
 
 Files:
 
