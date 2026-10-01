@@ -3,7 +3,8 @@
 At a zero rho, R(rho) = L(rho, chi)/L(rho, chibar) = -eps exactly (eps = e^{2 i theta}, tan theta = kappa).
 R is the continuation of prod over inert primes p = +-2 mod 5 of (1 + chi(p) p^-s)/(1 - chi(p) p^-s).
 Prints: R(rho) from the Hurwitz values (exact target check); the partial inert products R_P(rho) for growing P
-(conditionally convergent for Re rho > 1/2); and, for the first inert primes, the phase of chi(p) p^{-i gamma}
+(for Re rho > 1/2 their convergence holds under GRH for L(s, chi5) and is not known unconditionally; the printed
+distances show how close they come); and, for the first inert primes, the phase of chi(p) p^{-i gamma}
 (the mechanism predicts it near -i, i.e. -pi/2) and the rotation angle of each Euler factor."""
 import math, cmath
 import numpy as np

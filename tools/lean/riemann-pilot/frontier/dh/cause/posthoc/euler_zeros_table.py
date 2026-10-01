@@ -11,8 +11,8 @@ assert cover[0][0] == 200 and cover[-1][1] == 10000 and all(a[1] == b[0] for a, 
 XS = chunks[0]['XS']; SIG0 = [r['sigma0'] for r in chunks[0]['rows']]
 worst = max(x['frac_err'] for c in chunks for r in c['rows'] for x in r['res'])
 unres = sum(r['stats']['unresolved'] for c in chunks for r in c['rows'])
-print(f'{len(chunks)} chunks covering (200, 10000]; largest distance of a winding from an integer {worst:.1e}; '
-      f'unresolved refinements {unres}')
+print(f'{len(chunks)} chunks covering (200, 10000]; unresolved refinements {unres}; largest distance of a winding '
+      f'from an integer {worst:.1e} (automatic for a closed polygon, not a check; see grid_check.py)')
 off = []
 for k in (1, 2, 3):
     for l in open(f'{D}/census/census_{k}.jsonl'):

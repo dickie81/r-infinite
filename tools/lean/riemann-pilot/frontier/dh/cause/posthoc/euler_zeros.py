@@ -3,18 +3,21 @@
 
 g_X(s) = c1 P_X(s) + c2, P_X(s) = prod over inert primes p <= X (p = +-2 mod 5) of (1 + chi(p) p^-s)/(1 - chi(p) p^-s),
 chi = chi5 with chi(2) = i, c1 = (1 - i kappa)/2, c2 = (1 + i kappa)/2.  P_X -> R = L(s,chi)/L(s,chibar) as X -> oo
-for Re s > 1/2 (the anatomy of the four kernel-located zeros: |R_P - R| = 0.002-0.11 at P = 2e6), and the zeros of
-g_oo with Re s > 1/2 are the census zeros (dh(s) = 0 iff R(s) = -eps, DHChannels.dh_eq_zero_iff_channel, with
-c2/c1 = eps).  For finite X, g_X is holomorphic on Re s > 0 and almost periodic in t; by Jessen-Tornehave its zeros
+for Re s > 1, and for Re s > 1/2 under GRH for L(s, chi5) (not known unconditionally; the anatomy of the four
+kernel-located zeros: |R_P - R| = 0.002-0.11 at P = 2e6).  The census zeros are the zeros of c1 R + c2 with
+Re s > 1/2 (dh(s) = 0 iff R(s) = -eps, DHChannels.dh_eq_zero_iff_channel, with c2/c1 = eps).  For finite X, g_X is holomorphic on Re s > 0 and almost periodic in t; by Jessen-Tornehave its zeros
 with Re > sigma0 have density -M_X'(sigma0)/(2 pi) per unit height, M_X(sigma) = E log|c1 R_X + c2| over independent
 uniform prime phases: the random model of model/model_rate.py at cutoff X.  This script counts those zeros at the
 census heights, by the argument principle on the rectangle [sigma0, 3] x [T1, T2], for X = 30 ... 1e5 and
-sigma0 = 0.6, 0.7, 0.8, 0.85, on the three P3 windows, so that the census counts (the true function) can be
-compared with (i) the deterministic product at the same heights and (ii) the random model, at each X.
+sigma0 = 0.6, 0.7, 0.8, 0.85, on one window (T1, T2] per run (euler_zeros_table.py aggregates the chunks into the
+three P3 windows), so that the census counts (the true function) can be compared with (i) the deterministic product
+at the same heights and (ii) the random model, at each X.
 On Re s = 3, |g_X - 1| <= |c1|(exp(2 sum_p p^-3 / (1 - p^-3)) - 1) < 1, so g_X has no zero with Re >= 3 and the right
 side contributes its principal-argument difference.  The left and horizontal sides are tracked on a grid
-(dt = 0.01, dsigma = 0.002) refined recursively wherever one step turns the argument by more than 0.5 rad;
-the winding is reported with its distance from an integer.
+(dt = 0.01, dsigma = 0.002) refined recursively wherever one step turns the argument by more than 0.5 rad.
+The winding is reported with its distance from an integer, but that distance is not a check: a sum of principal
+increments around a closed sampled polygon is an integer whatever the sampling.  A turn missed inside one step is
+what can go wrong; grid_check.py recounts chunks at half the step.
 Usage: euler_zeros.py T1 T2 out.json   (window (T1, T2])
 """
 import sys, json, math, time

@@ -1,0 +1,4 @@
+X = 100000, sigma = 0.6: S0 = 1.619e-02   rms |change in log R| = 0.2545   sd of Re, Im = 0.1800
+X = 100000, sigma = 0.8: S0 = 6.405e-05   rms |change in log R| = 0.0160   sd of Re, Im = 0.0113
+X =   3000, sigma = 0.8: S0 = 7.142e-04   rms |change in log R| = 0.0534   sd of Re, Im = 0.0378
+X =   3000, sigma = 0.85: S0 = 2.799e-04   rms |change in log R| = 0.0335   sd of Re, Im = 0.0237
