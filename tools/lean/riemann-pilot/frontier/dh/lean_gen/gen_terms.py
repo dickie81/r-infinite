@@ -106,8 +106,6 @@ for n in range(2, NMAX+1):
            "  norm_num at p4",
            "  constructor <;> linarith [p4.1, p4.2]", ""]
     lines += out
-# NOTE: hlin uses (2a − log n)/2 bounds = half; fix: use `half` not `lin`
-lines = [l.replace(f"{rat(lin[0])} ≤ (2 * (12 / 5) - Real.log", "XX") if False else l for l in lines]
 # partial sums
 P = {}
 P[2] = TL[2]
