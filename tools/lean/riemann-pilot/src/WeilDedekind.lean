@@ -3,11 +3,11 @@ import WeilChiCriterion
 import AngularFamily
 
 /-!
-# The twin form of `ζ_{ℚ(i)} = ζ · L(s, χ₋₄)` (round 236)
+# A twin form for `ζ_{ℚ(i)} = ζ · L(s, χ₋₄)`, with the `ζ` zeros doubled (round 236)
 
 Joining `twinData_zeta` (WeilLandau) and `twinData_chi good_chi4` (WeilChiCriterion) on the
 sum of the two zero index types gives one `TwinLandau.TwinData` for the Dedekind zeta function of
-`ℚ(i)`, whose Weil form on twin boxes is `2·Q_ζ + Q_{χ₋₄}`. The twin-form Landau argument then
+`ℚ(i)` with the `ζ` zeros weighted twice (both families share `G = GboxC`); its form on twin boxes is `2·Q_ζ + Q_{χ₋₄}`, the Weil form of `ζ·ζ_{ℚ(i)} = ζ²·L(s, χ₋₄)` (the Weil form of `ζ_{ℚ(i)}` itself is `Q_ζ + Q_{χ₋₄}`). The twin-form Landau argument then
 gives: `RH ∧ GRH(χ₋₄)` ⟺ `2·Q_ζ(twin λ) + Q_{χ₋₄}(twin λ) ≥ 0` for every `λ ≥ 0`.
 -/
 
@@ -29,7 +29,7 @@ noncomputable def PK : IdxK → ℂ := Sum.elim poleP (fun i => 2 * I * tauC i)
 /-- The weights (both normalised to `G = GboxC = 2ĝ₀(p/2i)²`). -/
 noncomputable def cK : IdxK → ℂ := Sum.elim (fun q => 2 * cw q) (fun i => 2 * ghatC (box 1) 1 (tauC i) ^ 2)
 
-/-- The Weil form of `ζ_{ℚ(i)}` on twin boxes, in the normalisation of `cK`. -/
+/-- The twin-box form with the `ζ` zeros doubled (weights `cK`): the Weil form of `ζ·ζ_{ℚ(i)} = ζ²·L(s, χ₋₄)`; the Weil form of `ζ_{ℚ(i)}` itself is `weilQ + QC chi4`. -/
 noncomputable def QK (a : ℝ) (g : ℝ → ℝ) : ℝ := 2 * weilQ a g + QC chi4 a g
 
 /-- The `χ₋₄` data. -/

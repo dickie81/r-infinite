@@ -1,4 +1,4 @@
-# Generate TrigBounds.lean: rational two-sided bounds for cos(θ_n), sin(θ_n), θ_n = (169/2) log n, n = 2..NMAX,
+# Generate DHTrigBounds.lean (TrigBounds{NMAX}.lean when NMAX ≠ 121): rational two-sided bounds for cos(θ_n), sin(θ_n), θ_n = (169/2) log n, n = 2..NMAX,
 # and for the special angle 2ωa = 2028/5. Method: θ = r + s·π/2 + q·2π with s ∈ {0,1,2,3}, |r| ≤ 0.8;
 # r is within δ of a rational centre x₀ (from log_bound_n and pi_gt_d6/pi_lt_d6); cos/sin at x₀ by the
 # degree-12 alternating-series bounds (PsiOmega.Num.cos_bounds/sin_bounds), transferred by abs_cos_sub_cos_le.

@@ -272,7 +272,7 @@ num = ['import DHLocateTrig' + SUFFIX, '',
   'Stage 3 of the zero-location certificate: the three open inequalities of `DHLocateSkeleton`',
   '(`H1`, `H2`, `H3`) from the atom bounds of `DHLocateExp` / `DHLocateTrig`, `κ` (`PsiOmega.kappa_bounds`)',
   'and `log n` (`PsiOmega.Num.log_bound_n`), by interval products (`mul_bounds_of`) and block sums; then',
-  '`dh_zero_located` = `dh_zero_near_of_center'' H1 H2 H3`. -/', '',
+  "`dh_zero_located` = `dh_zero_near_of_center' H1 H2 H3`. -/", '',
   'open Real Finset', '', 'namespace PsiOmega.Locate', '',
   'theorem kappaB : (284079043840412 / 1000000000000000 : ℝ) ≤ kappa ∧ kappa ≤ (284079043840413 / 1000000000000000 : ℝ) := by',
   '  have h := PsiOmega.kappa_bounds', '  constructor <;> linarith [h.1, h.2]', '']

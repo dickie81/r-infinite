@@ -548,7 +548,8 @@ theorem QlamDH_add_smul {a : ℝ} {φ ψ : ℝ → ℝ} (hφ : Probe a φ) (hψ 
 theorem QlamDH_nonneg {a : ℝ} {f : ℝ → ℝ} (hf : Probe a f) : 0 ≤ QDHu f - lamDH a * normSq f := by
   have := lamDH_mul_le hf; linarith
 
-/-- If `w` and `G w` are both pole-free, `G w` is in the ground space (the dh column of
+/-- If `w` is pole-free in the ground space and `G w` is pole-free, `G w` is in the ground space
+(the dh column of
 `G_mem_pole_free`, DegenerateFlat.lean:545). -/
 theorem G_mem_pole_freeDH {a : ℝ} (ha : 0 ≤ a) {w : ℝ → ℝ} (hw : w ∈ groundSpaceDH a)
     (hwp : poleR w a = 0) (hGp : poleR (Gpole w a) a = 0) : Gpole w a ∈ groundSpaceDH a := by
@@ -1108,7 +1109,7 @@ theorem topGSDH_isGroundState {a : ℝ} (ha : 0 < a) : IsGroundStateDH a (topGSD
   show normSq (fun x => (Real.sqrt (normSq h))⁻¹ * h x) = 1
   rw [normSq_smul, inv_pow, Real.sq_sqrt hN.le, inv_mul_cancel₀ hN.ne']
 
-/-- **Every zero of the top-of-chain ground state's transform lies on `ℝ ∪ iℝ`**, at every support,
+/-- **Every zero of the top-of-chain ground state's transform lies on `ℝ ∪ iℝ`**, at every support `a > 0`,
 with no simplicity assumption (the dh column of `topGS_cross`, StructureD.lean:665). -/
 theorem topGSDH_cross {a : ℝ} (ha : 0 < a) (z : ℂ) (hz : ghatC (topGSDH a) a z = 0) :
     z.re = 0 ∨ z.im = 0 := by
@@ -1133,8 +1134,8 @@ theorem dhRHcross_of_hypConv_top {a : ℕ → ℝ} (ha : ∀ n, 0 < a n)
     (Eventually.of_forall fun n z hz => topGSDH_cross (ha n) z hz) hconv
 
 /-- **`HypConvDH` fails for the top-of-chain ground states of `QDHu`**, at every sequence of positive
-supports (`dh_offline_nonreal_zero`, DHOffCross.lean, through `not_hypConvDH_of_cross`). The
-hypothesis `a_n → ∞` of the target statement is not needed. -/
+supports (`dh_offline_nonreal_zero`, DHOffCross.lean, through `not_hypConvDH_of_cross`); like the
+target statement, it assumes no `a_n → ∞`. -/
 theorem not_hypConvDH_top {a : ℕ → ℝ} (ha : ∀ n, 0 < a n) :
     ¬ HypConvDH a (fun n => topGSDH (a n)) :=
   not_hypConvDH_of_cross

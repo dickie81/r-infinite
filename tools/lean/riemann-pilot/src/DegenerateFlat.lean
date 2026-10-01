@@ -541,7 +541,7 @@ theorem Gpole_lin {a : ℝ} {f₁ f₂ : ℝ → ℝ} (h₁ : MemLp f₁ 2 volum
       ((ii_kernel h₂ x _ _).const_mul _)]
   congr 1; funext y; ring
 
-/-- If `w` and `G w` are both pole-free, `G w` is in the ground space. -/
+/-- If `w` is pole-free in the ground space and `G w` is pole-free, `G w` is in the ground space. -/
 theorem G_mem_pole_free {a : ℝ} (ha : 0 ≤ a) {w : ℝ → ℝ} (hw : w ∈ groundSpace a)
     (hwp : poleR w a = 0) (hGp : poleR (Gpole w a) a = 0) : Gpole w a ∈ groundSpace a := by
   have hP := Gpole_probe hw.1 ha hwp

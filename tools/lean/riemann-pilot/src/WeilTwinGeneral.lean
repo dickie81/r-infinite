@@ -104,7 +104,7 @@ theorem twins_rate_realRooted {b : ℝ} (hb : 0 < b) {g₀ : ℝ → ℝ} (hp : 
     exact (TwinLandau.rate_iff (twinData_g hb hp hmono hnn hRR) hσ).2 fun q => by
       rw [re_poleP]; exact h _ (nontrivial_zZF q)
 
-/-- **Every even concave monotone profile is an admissible base probe** (Pólya, `Concave.lean`). -/
+/-- **Weil's twin criterion with any concave base probe**: for a `Probe b g₀` concave on `(−b, b)`, antitone and nonnegative on `[0, b]`, with `0 < g₀ 0`, Pólya's theorem (`Concave.lean`) supplies real-rootedness. -/
 theorem rh_iff_twins_concave {b : ℝ} (hb : 0 < b) {g₀ : ℝ → ℝ} (hp : Probe b g₀)
     (hc : ConcaveOn ℝ (Ioo (-b) b) g₀) (h0 : 0 < g₀ 0)
     (hmono : AntitoneOn g₀ (Icc 0 b)) (hnn : ∀ u ∈ Icc 0 b, 0 ≤ g₀ u) :

@@ -102,7 +102,7 @@ theorem rh_of_liouville_theta {ε : ℝ} (hε : ε ≠ 0)
   · exact heq
   · exact absurd hs (key s hgt)
 
-/-! ### (C) The exact missing Props (well-typed; none is proved in the three layers) -/
+/-! ### (C) The exact missing Props (well-typed; none is proved in the three layers, except `NoRealZero` at `chi3`, `chi4`, `chi7`, `chi8`, whose bodies are `WeilTwinGeneral.hS3`, `Dedekind4.hS4`, `WeilTwinGeneral.hS7`, `WeilTwinGeneral.hS8`) -/
 
 /-- Pointwise growth exponent `c` for `ζ` on the critical line. -/
 def ZetaCritBound (c : ℝ) : Prop :=

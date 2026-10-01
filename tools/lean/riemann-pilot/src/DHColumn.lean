@@ -15,7 +15,7 @@ import DHOffCross
 Pilot theorems about `ζ`/`Ξ`, restated for the Davenport–Heilbronn function `dh` and
 `Ξ_dh = XiDH chi5`. Where the ζ statement takes `Ξ`'s Hadamard factorisation, `Ξ(0) ≠ 0` or the
 entireness of `Ξ` as a named input or proves it from facts about `ζ`, the dh statement uses the landed
-dh facts `hadamard_dh'`, `XiDH_chi5_zero_ne'`, `differentiable_XiDH_chi5`. The `not_…` theorems then
+dh facts `hadamard_dh'`, `XiDH_chi5_zero_ne'`, `differentiable_XiDH_chi5` (except `hypConvDH_of_D`, which keeps the factorisation as its input `hX`, as `hypConv_of_D` does; `dhRH_of_D_and_realRooted_proved` discharges it with `hadamard_dh'`). The `not_…` theorems then
 refute the dh hypotheses with the certificate (`dh_offline_zero`, `QDHu_packet_neg`, and
 `dh_offline_nonreal_zero` of DHOffCross.lean): for `dh`, each of those sets of hypotheses is
 unsatisfiable.
@@ -448,7 +448,7 @@ theorem real_of_params {κ : Type*} {F : ℂ → ℂ} {v : κ → ℂ} (hX : Had
   exact this rfl
 
 /-- `rh_of_dodging` with `Ξ` replaced by any `F` with a Hadamard factorisation: the proof text of
-Curvature.lean:94–116, ending in `real_of_params` instead of `rh_of_Xi_params`. -/
+Curvature.lean:94–116, with `real_of_params` in place of `rh_of_Xi_params` in its opening `refine`. -/
 theorem real_of_dodging {F : ℂ → ℂ} {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} (hRR : ∀ n, RealRooted (a n) (g n))
     {ι : ℕ → Type} {κ : Type} {w : ∀ n, ι n → ℂ} {v : κ → ℂ}
     (hF : ∀ n, HadamardW (ghatC (g n) (a n)) (w n)) (hX : HadamardW F v)

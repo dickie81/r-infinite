@@ -1,6 +1,6 @@
-# Generate Coeffs.lean: rational interval bounds for uR d, dinvR n, fDH n (n ≤ NMAX), following the real
+# Generate DHCoeffs.lean (Coeffs{NMAX}.lean when NMAX ≠ 121): rational interval bounds for uR d, dinvR n, fDH n (n ≤ NMAX), following the real
 # recursions dinvR_of_two_le / fDH_eq of src/DHPacket.lean with the interval lemma PsiOmega.Num.mul_bounds,
-# kappa_bounds (KappaTight.lean) and log_bound_d (LogBounds.lean). Bounds are rounded outward to 10^-14.
+# kappa_bounds (DHNumerics.lean) and log_bound_d (DHLogBounds.lean). Bounds are rounded outward to 10^-14.
 from fractions import Fraction as F
 import sys, math
 NMAX = int(sys.argv[1]) if len(sys.argv) > 1 else 121

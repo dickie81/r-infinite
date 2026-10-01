@@ -7,7 +7,7 @@ import KaiserNine
 
 /-! # `GoodChar.half` from `hS`; kernel identities; sharper local constants (round 246)
 
-`hS` at `σ = ½` is `GoodChar.half`, so the `χ` criteria need no separate central-value hypothesis (`goodChar_of_hS`, `grh_iff_twins'`, `weil_criterion_chi'`); `GRH'` (GRH off the real axis) and `grh_half_iff`; `Q_χ ≥ 0` under `GRH'` alone; the archimedean kernels `kerK = archKer ¼`, `archKer ¼ + archKer ¾ = 1/sinh(u/2)`; the local zero count `card_local_le_sharp` with `5/2` in place of `13/2`; `lam_nine` in `SixteenPi`'s `fBalExp` form.
+`hS` at `σ = ½` is `GoodChar.half`, so the `χ` criteria need no separate central-value hypothesis (`goodChar_of_hS`, `grh_iff_twins'`, `weil_criterion_chi'`); `GRH'` (GRH off the real axis) and `grh_half_iff`; `Q_χ ≥ 0` under `GoodChar` and `GRH'`, with no real-zero hypothesis beyond `GoodChar.half`; the archimedean kernels `kerK = archKer ¼`, `archKer ¼ + archKer ¾ = 1/sinh(u/2)`; the local zero count `card_local_le_sharp` with `5/2` in place of `13/2`; `lam_nine` in `SixteenPi`'s `fBalExp` form.
 -/
 
 open Real Complex MeasureTheory Filter Topology Set
@@ -77,7 +77,7 @@ theorem ghatC_mul_I_im (g : ℝ → ℝ) (a y : ℝ) : (ghatC g a ((y : ℂ) * I
   exact Complex.ofReal_im _
 
 /-- **Real zeros are invisible to the `ĝ²` form**: under GRH for the non-real zeros only,
-`Q_χ(g) ≥ 0` for every probe with a strip test — whatever the real zeros in `(0, 1)` are. -/
+`Q_χ(g) ≥ 0` for every probe with a strip test — whatever the real zeros in `(0, 1)` other than `½` are (`hG : GoodChar χ` excludes `½`). -/
 theorem QC_nonneg_of_GRH' (hG : GoodChar χ) (h' : GRH' χ) {a : ℝ} {g : ℝ → ℝ} (hp : Probe a g)
     (ha : 0 < a) {K : ℝ} (hK : StripTest (fun z => ghatC g a z ^ 2) K) : 0 ≤ QC χ a g := by
   have h := (QC_hasSum hG hp ha hK).mapL Complex.reCLM
@@ -114,7 +114,7 @@ theorem grh_of_twin_criterion (hG : GoodChar χ)
   obtain ⟨K, hK⟩ := striptest_twin_box hl
   exact QC_nonneg_of_GRH' hG h' (twin_probe (box_probe 1) hl) (by linarith) hK
 
-/-- The same for the all-probes criterion. -/
+/-- The same for the criterion over every strip-test probe (`ProbeS`), not over every `Probe`. -/
 theorem grh_of_probe_criterion (hG : GoodChar χ)
     (hcrit : (∀ (a : ℝ) (g : ℝ → ℝ), 0 < a → ProbeS a g → 0 ≤ QC χ a g) → GRH χ) (h' : GRH' χ) :
     GRH χ :=

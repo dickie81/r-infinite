@@ -3,7 +3,7 @@ import ParityRelax
 
 /-! # The certificate theorems as instances of the weighted certificate (round 250)
 
-`PrimeRelax3`'s and `ParityRelax`'s certificate theorems are the `P = 2` and `P = 3` instances of `ParityRelax`'s weighted form (`wP`, `tauW`, `kappaW`, `sfunW`).
+`PoleRelax.weilQ_ge_of_cert` and `PrimeRelax.weilQ_ge_of_certP` (restated verbatim as `weilQ_ge_of_cert'`, `weilQ_ge_of_certP'`) are the prime-cutoff `K = 2` and `K = 3` instances of `ParityRelax`'s weighted form `weilQ_ge_of_certW` (`wP`, `tauW`, `kappaW`, `sfunW`).
 -/
 
 open Real Filter Topology Complex MeasureTheory Set Matrix

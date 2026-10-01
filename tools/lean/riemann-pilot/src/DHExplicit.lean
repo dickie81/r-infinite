@@ -10,7 +10,7 @@ a scaling, not by widening the strip: `Ξ₃(t) := Ξ_dh(3t)` (`XiDH3`). Its lin
 `Re s = 7/2`, where `dh′/dh = −Σ c(n) n^{−s}` holds (`logDeriv_XiDH3_eq`), and its zeros satisfy
 `|Im τ| ≤ ½` (`tau3_im`, from `dh_ne_zero_of_two_lt` and evenness), exactly the height the width-1
 kernel bounds of round 225 need (`kernel_integral_le`, `pole_pair`, `integrable_kernel`). Every
-width-1 lemma of `StripShift` and `WeilAssemble` is reused unchanged.
+width-1 lemma of `StripShift` and `WeilAssemble` is left unchanged: none is widened.
 
 **The chain.** `Ξ₃` is entire, even, `Ξ₃(0) ≠ 0`, of order `≤ 3/2` with constant `216 = 36·6 ≥ 36·3^{3/2}`
 (`norm_XiDH3_le`), so it has a Hadamard product (`hadamard_XiDH3`) and the zero side
@@ -28,10 +28,11 @@ real number (`weilRHSDH`, with `fDH n = Re c(n) = c(n)`).
 **The theorem** (`weil_XiDH3`): for `h` even, holomorphic on `|Im t| ≤ 1` with `|h| ≤ C/(1 + (Re t)²)`
 there, and real on `ℝ`,
 `Σ_u 2h(τ_u) = 3·[g_h(0) log(5/π) + (1/2π)∫ h(r) Re ψ(3/4 + 3ir/2) dr − 2 Σ c(n) n^{−1/2} g_h(3 log n)]`,
-the sum over the zeros `±τ_u` of `Ξ₃`, i.e. over the zeros `½ ± 3iτ_u` of `dh` with `Re s > 0`
+the sum over the zeros `±τ_u` of `Ξ₃`, i.e. over the zeros `½ ± 3iτ_u` of `Λ_{dh}`, which contain every zero of `dh`
+with `Re s > 0` and, in each pair, a zero of `dh` with `Re s ≥ ½`
 (`dh_zero_of_XiDH3`, `tau3_of_dh_zero`).
 
-**Weil's form for `dh`** (`QDH a g := weilRHSDH (hsq g a)`, no zero of `dh` enters): for every probe
+**Weil's form for `dh`** (`QDH a g := weilRHSDH (hsq g a)`, no zero of `dh` enters): for every probe at support `a > 0` whose `ĝ²` is a strip test function,
 `Q_dh(g) = Σ_u 2ĝ(τ_u)²` (`QDH_hasSum`); under the Riemann hypothesis for `dh` (`DHRH`: every zero
 with `Re s > 0` has `Re s = ½`, false by Davenport–Heilbronn) every `τ_u` is real
 (`tau3_real_of_DHRH`) and `Q_dh ≥ 0` (`QDH_nonneg_of_DHRH`); hence **a probe with `Q_dh(g) < 0`
@@ -451,7 +452,7 @@ reality — Davenport and Heilbronn's theorem — but this is the statement the 
 def DHRH : Prop := ∀ s : ℂ, dh s = 0 → 0 < s.re → s.re = 1 / 2
 
 /-- Each `τ_u` gives a zero `½ + 3iτ_u` of `Λ_{dh}`; when `Im τ_u ≤ 0` it is a zero of `dh` with
-`Re s ≥ ½`. -/
+`Re s > 0`. -/
 theorem dh_zero_of_XiDH3 {τ : ℂ} (hτ : XiDH3 τ = 0) (hle : τ.im ≤ 0) :
     dh (1 / 2 + I * (3 * τ)) = 0 ∧ 0 < (1 / 2 + I * (3 * τ)).re := by
   have hs : dhLam chi5 (1 / 2 + I * (3 * τ)) = 0 := hτ

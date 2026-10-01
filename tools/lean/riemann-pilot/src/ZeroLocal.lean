@@ -7,7 +7,7 @@ import ShortPrimes
 Round 164's zero weight `Σ_τ V_τ(x) ≤ (5 + kLam + ½ log(|x| + 2))/π` (`Kaiser.tsum_Vz_le`) counts
 zeros locally: each `τ` with `||Re τ| − x| ≤ 1` has `V_τ(x) ≥ 2/(13π)`. So
 * `card_local_le`: at most `(13/2)(5 + kLam + ½ log(x + 2))` zeros of `Ξ` have `||Re τ| − x| ≤ 1`;
-* `NX_zero_le`: `#{τ : |Re τ| ≤ T} ≤ (T + 1)·(13/2)(5 + kLam + ½ log(T + 2))`.
+* `card_re_le`: `#{τ : |Re τ| ≤ T} ≤ (T + 1)·(13/2)(5 + kLam + ½ log(T + 2))`.
 -/
 
 open Real Finset

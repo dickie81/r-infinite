@@ -212,7 +212,7 @@ tol = rounddown(slack / 5, 1)      # |PReG|, |PImG| ≤ tol each: 2(2 tol + e0) 
 assert 2*(tol + tol + e0) < arlo*r - m2*r**2
 assert abs(mp.re(FEM_C)) < fm(tol) / 4 and abs(mp.im(FEM_C)) < fm(tol) / 4
 
-if os.environ.get('BUDGET', '') == '1' or True:
+if os.environ.get('BUDGET', '') == '1':
     print(f"=== zero {TAG}: rho = {cfg['rho']}")
     print(f"  c = {SIG_T} + ({TT_T}) i = {float(SIG):.5f} + {float(TT):.5f} i;  M = {M}, K = {K}, r = {ratp(r)}, R = {ratp(R)}")
     print(f"  f(c) = {mp.nstr(F_C, 6)}  (fEM(c) = {mp.nstr(FEM_C, 6)});  f'(c) = {mp.nstr(FD_C, 8)}  (fEM'(c) = {mp.nstr(FEMD_C, 8)})")
@@ -341,7 +341,7 @@ base += ['set_option maxRecDepth 20000 in', f'/-- **`D2sum({ratp(sd)}, {M}) ≤ 
   '  simp only [Finset.sum_range_succ, Finset.sum_range_zero, Nat.reduceMul, Nat.reduceAdd, Nat.cast_ofNat,',
   '    Nat.cast_one, Real.log_one]', '  norm_num only',
   '  linarith [' + ',\n    '.join(hyps) + ']', '',
-  f'/-- **The second-derivative bound on the ball**: `‖DEM″ + GEM″‖ ≤ {ratp(m2)}` on `closedBall cZ {ratp(r)}`. -/',
+  f'/-- **The second-derivative bound on the ball**: `‖DEM″ + GEM″‖ ≤ {ratp(m2)}` on `closedBall cZ ({ratp(r)})`. -/',
   f'theorem m2_ball {{z : ℂ}} (hz : z ∈ closedBall cZ {rat(r)}) :',
   f'    ‖DEMk 2 {M} z + deriv (deriv (GEM {M} 12)) z‖ ≤ {rat(m2)} := by',
   f'  have h := norm_deriv2_fEM_ballG {M} 12 (c := cZ) (r := {rat(r)}) (R := {rat(R)}) (σd := {rat(sd)})',

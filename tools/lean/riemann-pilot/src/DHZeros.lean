@@ -14,7 +14,9 @@ function of `χ₅` has real part `0, 0, 1, 1, 1` by the residue of `⌊x⌋ + 1
 The zero side of Weil's explicit formula for `Ξ_{DH}` then follows as for `Ξ_χ` (round 225): off the
 zeros, `Ξ_{DH}′(t)/Ξ_{DH}(t) = Σ_u 2t/(t² − u)` (`hasSum_logDeriv_XiDH`, `hasSum_logDeriv_dh`), and
 `Σ |u|^{−7/8} < ∞` (`summable_XiDH_zeros_rpow`). What remains for the explicit formula is the prime
-side, the Dirichlet series of `−dh′/dh`; see the README, round 255.
+side, the Dirichlet series of `−dh′/dh`; see the README, round 255. (Rounds 256–257, `DHPrime.lean`
+and `DHExplicit.lean`: done, for the scaled `Ξ₃(t) = Ξ_dh(3t)` with its own zero side
+(`hasSum_logDeriv_XiDH3`, `summable_XiDH3_zeros_rpow`); this file's zero side has no downstream use.)
 -/
 
 open Real Complex DirichletCharacter Filter Topology MeasureTheory Set

@@ -9,7 +9,7 @@ import HadamardApply
 
 /-! # Joins on the `ζ` side (round 244)
 
-One-sided Chebyshev or Mertens bounds `ε(ψ(x) − x) ≤ c x^θ` give the twin form's exponential rate
+One-sided Chebyshev or Mertens bounds `ε(ψ(x) − x) ≤ c x^θ` or `εM(x) ≤ c x^θ` give the twin form's exponential rate at most
 `2θ − 1` (`weil_rate_of_psi_bound`, `weil_rate_of_mertens_bound`); one-sided upper bounds at every
 `θ > ½` give RH (`rh_of_psi_upper`); `pinned_zeta` concludes a genuine zero of `ĝ`
 (`pinned_zeta_zero`); the first instance of `SixteenPi.multiplier_expansion`, at `(ĝ_a, Ξ)`, with

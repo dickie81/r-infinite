@@ -3,7 +3,7 @@ import KaiserNine
 
 /-! # A parity gap from a one-sector lower bound at the prefactor scale (round 246)
 
-If the odd ground energy `λ₁ᴼ(b)` is eventually at least `c·exp((9 + δ)b − 4πe^{2b})`, the parity gap holds eventually, and along a sequence of ground states this gives RH (`rh_of_lamO_lower`); odd test functions have purely imaginary `ĝ` on `ℝ`.
+If the odd ground energy `λ₁ᴼ(b)` is eventually at least `c·exp((9 + δ)b − 4πe^{2b})`, the parity gap holds eventually, and along a sequence of ground states satisfying `HypConv` this gives RH (`rh_of_lamO_lower`); odd test functions have purely imaginary `ĝ` on `ℝ`.
 -/
 
 open Real Complex MeasureTheory Filter Topology Set

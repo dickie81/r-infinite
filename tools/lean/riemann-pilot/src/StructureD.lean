@@ -660,7 +660,7 @@ theorem topGS_isGroundState {a : ℝ} (ha : 0 < a) : IsGroundState a (topGS a) :
   show normSq (fun x => (Real.sqrt (normSq h))⁻¹ * h x) = 1
   rw [normSq_smul, inv_pow, Real.sq_sqrt hN.le, inv_mul_cancel₀ hN.ne']
 
-/-- **Every zero of the top-of-chain ground state's transform lies on `ℝ ∪ iℝ`**, at every support,
+/-- **Every zero of the top-of-chain ground state's transform lies on `ℝ ∪ iℝ`**, at every support `a > 0`,
 with no simplicity assumption. -/
 theorem topGS_cross {a : ℝ} (ha : 0 < a) (z : ℂ) (hz : ghatC (topGS a) a z = 0) :
     z.re = 0 ∨ z.im = 0 := by

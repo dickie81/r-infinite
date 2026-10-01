@@ -14,7 +14,7 @@ refutations. `twinData_dh` is the exact analogue of `twinData_zeta` (WeilLandau.
 `twinData_chi` (WeilChiCriterion.lean) in the normalisation of `QDH`: poles `P_u = 2iτ_u` over the
 zeros `±τ_u` of `Ξ₃(t) = Ξ_dh(3t)`, weights `2ĝ₀(τ_u)² = GboxC(P_u)`, `g₀ = box 1`, and
 `Q(λ) = Q_dh(twin (box 1) λ)` at support `λ + 1`. Its fields: `|Re P_u| < 1` from `tau3_im_lt`
-(DHColumn.lean), `Im P_u ≠ 0` from `XiDH_I_mul_ne_zero` (DHRealAxis.lean: `dh` has no real zero),
+(DHColumn.lean), `Im P_u ≠ 0` from `XiDH_I_mul_ne_zero` (DHRealAxis.lean: `Λ_dh` has no real zero),
 local finiteness from `hadamard_XiDH3`, and the sums from `QDH_hasSum` with `striptest_twin_box`.
 
 **The scaling.** A zero `s = ½ + 3iτ_u` of `dh` (`dh_zero_of_XiDH3`, `tau3_of_dh_zero`) has

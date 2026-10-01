@@ -67,7 +67,7 @@ theorem odd_real_term_nonneg {g : ℝ → ℝ} (hg : ∀ u, g (-u) = -g u) {a : 
   rw [Complex.neg_re, pow_two, Complex.mul_re, h0]
   nlinarith [sq_nonneg (ghatC g a r).im]
 
-/-- The odd twin `o_λ = g₀(· − λ) − g₀(· + λ)` has `ô_λ(z) = −2i·sin(λz)·ĝ₀(z)`; at `z = iy` the odd
+/-- The odd twin `o_λ = g₀(· − λ) − g₀(· + λ)` has `ô_λ(z) = 2i·sin(λz)·ĝ₀(z)`; at `z = iy` the odd
 form's term is `−4 sinh²(λy)ĝ₀(iy)²`, exponentially negative: stated here only as the sign. -/
 theorem odd_imag_term_neg_of_ne {g : ℝ → ℝ} {a y : ℝ} (h : ghatC g a ((y : ℂ) * I) ≠ 0) :
     (-(ghatC g a ((y : ℂ) * I) ^ 2)).re < 0 := by

@@ -1399,7 +1399,7 @@ theorem D2sum_le : D2sum (64583 / 100000) 28 ≤ (8109 / 100 : ℝ) := by
     mul_le_mul hk D2t_138 (mul_nonneg (sq_nonneg _) (Real.exp_pos _).le) (by norm_num),
     D2t_139]
 
-/-- **The second-derivative bound on the ball**: `‖DEM″ + GEM″‖ ≤ 74287 / 800` on `closedBall cZ 1 / 200`. -/
+/-- **The second-derivative bound on the ball**: `‖DEM″ + GEM″‖ ≤ 74287 / 800` on `closedBall cZ (1 / 200)`. -/
 theorem m2_ball {z : ℂ} (hz : z ∈ closedBall cZ (1 / 200 : ℝ)) :
     ‖DEMk 2 28 z + deriv (deriv (GEM 28 12)) z‖ ≤ (74287 / 800 : ℝ) := by
   have h := norm_deriv2_fEM_ballG 28 12 (c := cZ) (r := (1 / 200 : ℝ)) (R := (2 / 5 : ℝ)) (σd := (64583 / 100000 : ℝ))

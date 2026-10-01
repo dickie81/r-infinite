@@ -1,7 +1,7 @@
 import Mathlib
 import DHCertificate
 
-/-! # `dh` has no zero on the real axis
+/-! # `dh` has no zero on the positive real axis
 
 `dh = (1 + ε′)L(s, χ₅) + (1 + ε)L(s, χ₅⁻¹)` has Dirichlet coefficients
 `a(n) = a(1)·u(n mod 5)` with `u = 0, 1, κ, −κ, −1` (`aDH_chi5_eq_mul`), whose partial sums
@@ -13,7 +13,9 @@ import DHCertificate
 (`dh_eq_integral_real`, `dh_div_a1_real_ge`). Hence `dh(σ) ≠ 0` for `σ > 0`
 (`dh_ne_zero_of_real`), `Λ_{dh}(σ) ≠ 0` for every real `σ` by the functional equation
 (`dhLam_real_ne_zero`), `Ξ_{dh}` has no zero on the imaginary axis (`XiDH_I_mul_ne_zero`), and the
-certificate's off-line zero is off the real axis as well (`dh_offcross_zero`).
+certificate's off-line zero is off the real axis as well (`dh_offcross_zero`). On the negative real axis `dh`
+does vanish: `dh(−1) = 0` (`dh_neg_one_eq_zero`), the trivial zero shared by `L(s, χ₅)` and `L(s, χ₅⁻¹)`,
+both characters being odd (round 271: the title read "no zero on the real axis" before).
 -/
 
 open Real Complex DirichletCharacter MeasureTheory Set Filter Topology
@@ -205,7 +207,7 @@ theorem dh_div_a1_real_ge {σ : ℝ} (hσ : 0 < σ) : 1 - 2 ^ (-σ) ≤ (dh σ /
   rw [dh_div_a1_real hσ, Complex.ofReal_re]
   exact integral_BDH_ge hσ
 
-/-! ## No zero on the real axis -/
+/-! ## No zero of `dh` on the positive real axis, nor of `Λ_{dh}` on the real axis -/
 
 /-- **`dh(σ) ≠ 0` for `σ > 0`.** -/
 theorem dh_ne_zero_of_real {σ : ℝ} (hσ : 0 < σ) : dh (σ : ℂ) ≠ 0 := by
@@ -242,9 +244,26 @@ theorem dh_offcross_zero : ∃ s : ℂ, dh s = 0 ∧ 0 < s.re ∧ s.re ≠ 1 / 2
   have hz : dh ((s.re : ℝ) : ℂ) = 0 := by rw [← e]; exact hs
   exact dh_ne_zero_of_real h0 hz
 
+/-- `dh` vanishes at `s = −1`: the trivial zero shared by `L(s, χ₅)` and `L(s, χ₅⁻¹)` (both characters
+are odd, `chi5_odd`, `chi5_inv_odd`; Mathlib's `Odd.LFunction_neg_two_mul_nat_sub_one`). -/
+theorem dh_neg_one_eq_zero : dh (-1 : ℂ) = 0 := by
+  have h1 := chi5_odd.LFunction_neg_two_mul_nat_sub_one 0
+  have h2 := chi5_inv_odd.LFunction_neg_two_mul_nat_sub_one 0
+  simp only [Nat.cast_zero, mul_zero, neg_zero, zero_sub] at h1 h2
+  show dhL chi5 (-1) = 0
+  unfold dhL
+  rw [h1, h2]
+  ring
+
+/-- So `dh` does have a zero on the real axis; `dh_ne_zero_of_real` covers only `σ > 0`. -/
+theorem exists_real_zero_dh : ∃ σ : ℝ, dh (σ : ℂ) = 0 :=
+  ⟨-1, by push_cast; exact dh_neg_one_eq_zero⟩
+
 end PsiOmega
 
 #print axioms PsiOmega.dh_ne_zero_of_real
 #print axioms PsiOmega.dhLam_real_ne_zero
 #print axioms PsiOmega.XiDH_I_mul_ne_zero
 #print axioms PsiOmega.dh_offcross_zero
+#print axioms PsiOmega.dh_neg_one_eq_zero
+#print axioms PsiOmega.exists_real_zero_dh

@@ -5,7 +5,7 @@ import DHLocateTrig
 Stage 3 of the zero-location certificate: the three open inequalities of `DHLocateSkeleton`
 (`H1`, `H2`, `H3`) from the atom bounds of `DHLocateExp` / `DHLocateTrig`, `κ` (`PsiOmega.kappa_bounds`)
 and `log n` (`PsiOmega.Num.log_bound_n`), by interval products (`mul_bounds_of`) and block sums; then
-`dh_zero_located` = `dh_zero_near_of_center H1 H2 H3`. -/
+`dh_zero_located` = `dh_zero_near_of_center' H1 H2 H3`. -/
 
 open Real Finset
 

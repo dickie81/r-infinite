@@ -17,7 +17,7 @@ width-3 strip test `ĝ(3z)²` needs (`packet_striptest`, from `‖sin w‖ ≤ e
 `exists_offline_dh_of_neg_u` apply (`packet_QDHu_hasSum`, `exists_offline_dh_of_neg_packet`).
 **The prime sum is finite** (`tsum_fDH_eq_sum`, `QDHu_eq_sum`): `c(0) = c(1) = 0` and `f(log n) = 0` for
 `n > ⌊e^{2a}⌋`.
-**The κ-structure of `c(n)`**: `u(n) = a(n)/a(1)` takes the values `0, 1, κ, −κ, −1` by `n mod 5`
+**The κ-structure of `c(n)`**: `u(n) = a(n)/a(1)` takes the values `0, 1, κ, −κ, −1` by `n mod 5` for `n ≥ 2`
 (`uDH_chi5_eq`, `uR_eq`) with `κ = 2 sin(π/5)/(√5 + 2 sin(2π/5)) = Im ε/(1 + Re ε)`, `0.28407 < κ < 0.28408`
 (`kappa_gt`, `kappa_lt`, from `sin²(π/5) = (5 − √5)/8`, `sin²(2π/5) = (5 + √5)/8`); the Dirichlet inverse and
 `c(n)` are real recursions (`dinvR_of_two_le`, `fDH_eq`), so `c(n)` is an integer polynomial in `κ` with
@@ -658,7 +658,7 @@ theorem QDHu_eq_sum {g : ℝ → ℝ} {N : ℕ} (hsupp : ∀ n : ℕ, N < n → 
   unfold QDHu
   rw [tsum_fDH_eq_sum hsupp]
 
-/-- Beyond `⌊e^{2a}⌋` the logarithm exceeds `2a`. -/
+/-- Beyond `⌊e^{2a}⌋` the logarithm is at least `2a`. -/
 theorem two_mul_le_log_of_floor_exp_lt {a : ℝ} {n : ℕ} (h : ⌊Real.exp (2 * a)⌋₊ < n) :
     2 * a ≤ Real.log n := by
   have he : Real.exp (2 * a) < n := (Nat.floor_lt (Real.exp_pos _).le).1 h

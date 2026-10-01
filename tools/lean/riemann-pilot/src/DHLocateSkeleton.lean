@@ -23,7 +23,7 @@ rational coefficients in `QEM_twelve`; `5^{-s} EM(j/5) = Σ_m (5m+j)^{-s} + (100
 **The second-derivative bound: termwise for `DEM`, Cauchy for `GEM`.** `(n^{-s})″ = log²n·n^{-s}`
 gives `‖DEM″‖ ≤ D2sum(1597/2000, 20) ≤ 36` (true value 34.003; `D2sum_le`), and Cauchy's estimate
 on circles of radius `2/5` with the termwise sup `‖GEM‖ ≤ 53/100` on `closedBall c (41/100)`
-(`Gsup_ball_le`; true sup ≈ 0.52) gives `‖GEM″‖ ≤ 53/8` (`norm_deriv2_GEM_ball`). Why this split:
+(`Gsup_ball_le`; the majorant is 0.5165, the true sup about 0.20) gives `‖GEM″‖ ≤ 53/8` (`norm_deriv2_GEM_ball`). Why this split:
 a Cauchy estimate for all of `fEM` needs a sup of `|DEM|` on a disc, and the only elementary sup is
 termwise, `Σ |u(n)| n^{−Re}`, which makes `2·sup/R² ≥ 142` for every radius (`R = 0.6` is best),
 above the admissible `m₂ < 124`; a termwise bound for `GEM″` needs `(s)_n″` bounds and would save
@@ -42,7 +42,7 @@ Exact Gaussian rationals `Q_{20+j/5}(c)`, `Q′_{20+j/5}(c)` (`QEM_cLoc_j`, `QEM
 `poch_cLoc_n`, `pochD_cLoc_n`).
 
 **Theorem ladder.** `dh_zero_near_of_numerics` (five hypotheses, `dh` units) →
-`dh_zero_near_of_dhEM` (`hM2`, `hE` discharged) → `dh_zero_near_of_fEM` (normalised) →
+`dh_zero_near_of_fEM` (normalised; `dh_zero_near_of_dhEM`, with `hM2`, `hE` discharged in `dh` units, is a side branch off `dh_zero_near_of_numerics`) →
 `dh_zero_near_of_elementary` (Re/Im split, `fEM_cLoc_re`, `fEM_cLoc_im`, `fEMd_cLoc_re`) →
 `dh_zero_near_of_center` (`D2sum` discharged) → `dh_zero_near_of_center'` (fixed tolerances).
 
@@ -540,7 +540,7 @@ theorem norm_GEM_le (M K : ℕ) {σ₀ σ₁ τ τ₀ : ℝ} (hσ₀ : 0 ≤ σ�
   have hk0 := kappa_pos
   nlinarith [mul_le_mul_of_nonneg_left q2 hk0.le, mul_le_mul_of_nonneg_left q3 hk0.le]
 
-/-- **Cauchy's estimate for `GEM″`**: a sup bound `C` on a circle of radius `R` about `z` (avoiding
+/-- **Cauchy's estimate for `GEM″`**: a sup bound `C` on a circle of radius `R` about `z` (with `closedBall z R` avoiding
 the pole at `1`) gives `‖GEM″(z)‖ ≤ 2C/R²`. -/
 theorem norm_deriv2_GEM_le (M K : ℕ) {z : ℂ} {R C : ℝ} (hR : 0 < R)
     (h1 : ∀ w ∈ closedBall z R, w ≠ 1) (hC : ∀ w ∈ sphere z R, ‖GEM M K w‖ ≤ C) :
@@ -594,7 +594,7 @@ theorem re_im_of_mem_closedBall {c z : ℂ} {ρ : ℝ} (hz : z ∈ closedBall c 
   refine ⟨le_trans (le_of_eq ?_) ((Complex.abs_re_le_norm _).trans h),
     le_trans (le_of_eq ?_) ((Complex.abs_im_le_norm _).trans h)⟩ <;> simp
 
-/-- Points of `closedBall cLoc ρ`, `ρ ≤ 1`, in coordinates. -/
+/-- Points of `closedBall cLoc ρ` in coordinates (any `ρ`; `ne_one_of_mem` adds `ρ ≤ 1`). -/
 theorem box_of_mem {z : ℂ} {ρ : ℝ} (hz : z ∈ closedBall cLoc ρ) :
     1617 / 2000 - ρ ≤ z.re ∧ z.re ≤ 1617 / 2000 + ρ ∧
       856993 / 10000 - ρ ≤ z.im ∧ z.im ≤ 856993 / 10000 + ρ := by

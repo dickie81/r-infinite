@@ -13,7 +13,7 @@ The Weil form of `dh` on the packet (`QDHu_packet_eq`, round 259) has the archim
 number is elementary. Its ingredients:
 
 **Two Frullani integrals** (`integral_one_sub_cos_mul_exp_div`: `∫_0^∞ (1 − cos bt) e^{−ct}/t dt = ½ log(1 + b²/c²)`;
-`integral_exp_sub_exp_div`: `∫_0^∞ (e^{−ct} − e^{−dt})/t dt = log(d/c)`), the real parts of round 154's complex
+`integral_exp_sub_exp_div`: `∫_0^∞ (e^{−ct} − e^{−dt})/t dt = log(d/c)`), the real parts of round 155's complex
 Frullani integral `PilotDigamma.integral_frullani`.
 **The Gauss kernel split.** `e^{−3t/4}/(1 − e^{−t}) = e^{−3t/4}/t + h(t)` with `h(t) = e^{−3t/4}φ₂(t)`,
 `φ₂(t) = 1/(1 − e^{−t}) − 1/t ∈ [½, 1]` increasing (`one_half_le_phi2`, `phi2_le_one`, `deriv_phi2_nonneg`);
@@ -388,7 +388,7 @@ theorem abs_integral_hK_cos_le {c : ℝ} (hc : 0 < c) :
 
 /-! ## The Euler–Mascheroni integral and Binet at `¾` -/
 
-/-- `φ₂(t) = 1/(1 − e^{−t}) − 1/t`. -/
+/-- `φ₂(t) = 1/(1 − e^{−t}) − 1/t` is measurable. -/
 theorem measurable_phi2 : Measurable phi2 :=
   (measurable_const.div (measurable_const.sub (Real.measurable_exp.comp measurable_neg))).sub
     (measurable_const.div measurable_id)

@@ -25,7 +25,7 @@ part `−2 sin(π/5) < 0` (`gaussSum_chi5_re`), so its root number is not `−1`
 with `ε_χ = e^{iθ}`, `1 + ε̄_χ = 2 cos(θ/2) e^{−iθ/2}`, so `dh = 4 cos²(θ/2)·[((1 − iκ)/2) L(s, χ) +
 ((1 + iκ)/2) L(s, χ̄)]` with `κ = tan(θ/2)`; the identity with round 165's closed form of `κ` is
 numerical and not needed. `dh ≢ 0`, `Λ_{dh}(1 − s) = Λ_{dh}(s)`, `Ξ_{dh}` even and entire, zeros
-symmetric under `s ↦ 1 − s` (`dh_ne_zero`, `dh_functional_equation`, `XiDH_chi5_even`,
+symmetric under `s ↦ 1 − s` in the strip `0 < Re s < 1` (`dh_ne_zero`, `dh_functional_equation`, `XiDH_chi5_even`,
 `dh_zero_symm`).
 
 **Not here.** Conjugation symmetry (`ε_{χ⁻¹} = conj ε_χ`, a Gauss-sum identity); the growth bound and

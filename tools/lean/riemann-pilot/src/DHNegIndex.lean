@@ -84,7 +84,7 @@ theorem finite_PD (R : ℝ) : {i : ZD | ‖PD i‖ ≤ R}.Finite := by
   have : ‖tau3 i‖ ^ 2 ≤ R ^ 2 / 4 := by nlinarith
   exact this.trans (le_max_left _ _)
 
-/-! ### (3) `Σ‖ĝ₀(τ)‖² < ∞` from the dh explicit formula at the box -/
+/-! ### (3) `Σ‖ĝ₀(3τ)‖² < ∞` from the dh explicit formula at the box -/
 
 def G0D (i : ZD) : ℂ := ghatC (box 1) 1 (3 * tau3 i)
 
@@ -217,7 +217,8 @@ theorem orb_neg_right {t w : ℂ} (h : Orb t w) : Orb t (-w) := by
   · exact Or.inr (Or.inr (Or.inr (by rw [map_neg, neg_neg])))
   · exact Or.inr (Or.inr (Or.inl (by rw [map_neg])))
 
-/-- The orbit of `±(ρ − ½)/3i` under `±`, conjugation is the quadruple `{ρ, 1 − ρ, ρ̄, 1 − ρ̄}`. -/
+/-- The orbit of `±(ρ − ½)/3i` under `±`, conjugation comes from the quadruple `{ρ, 1 − ρ, ρ̄, 1 − ρ̄}`
+(one inclusion: `Orb t' t` forces `ρ'` into it). -/
 theorem quad_of_orb {ρ ρ' : ℂ} {t t' : ℂ}
     (ht : t = (ρ - 1 / 2) / (3 * I) ∨ t = -((ρ - 1 / 2) / (3 * I)))
     (ht' : t' = (ρ' - 1 / 2) / (3 * I) ∨ t' = -((ρ' - 1 / 2) / (3 * I)))
@@ -333,7 +334,7 @@ theorem abs_BreD_sub_le (y t : L2D) : |BreD y y - BreD t t| ≤ ‖y - t‖ * (�
   have h2 := abs_BreD_le t (y - t)
   nlinarith [norm_nonneg (y - t), norm_nonneg t]
 
-/-- **`Q_dh` is twice `Bre` of the probe's vector** (the weight `2` of `QDH_hasSum`). -/
+/-- **`Q_dh` is twice `Bre` of the probe's vector** (the weight `2` of `QDHu_hasSum`). -/
 theorem QDH_eq_BreD {c : NNReal →₀ ℝ} {A : ℝ} (h : Fits c A) (hA : 0 < A) :
     QDHu (twinComb c) = 2 * BreD (vecLD c) (vecLD c) := by
   have h1 := Complex.hasSum_re (hasSum_twinComb_dh h hA)

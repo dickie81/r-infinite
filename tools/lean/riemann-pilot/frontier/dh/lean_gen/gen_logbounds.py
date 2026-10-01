@@ -1,4 +1,4 @@
-# Generate LogBounds.lean: rational two-sided bounds for Real.log n, n = 2..NMAX, chained through
+# Generate DHLogBounds.lean (LogBounds{NMAX}.lean when NMAX ≠ 121): rational two-sided bounds for Real.log n, n = 2..NMAX, chained through
 # log(1 + 1/m) = log((m+1)/m) with PsiOmega.Num.log_one_add_inv_bounds (K terms) from Real.log_two_near_10.
 from fractions import Fraction as F
 import math, sys

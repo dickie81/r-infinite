@@ -23,7 +23,8 @@ For even, nonnegative profiles non-increasing on `[0, a]` the strip test at widt
 (`striptest_antitone3`, from `norm_ghatC_le_of_antitone` with `cosh(3a)` and the bound
 `‖ĝ(z)‖ ≤ e^{a|Im z|}∫|g|`, `norm_ghatC_le_exp_im`), so **`exists_offline_dh_of_neg_antitone`** and
 **`exists_offline_dh_of_neg_box`** (`Q_dh(box a) < 0` for one `a > 0`) need no strip hypothesis.
-A kernel-checked off-line zero of `dh` is now one verified real inequality away: `QDHu g < 0` for an
+A kernel-checked off-line zero of `dh` was then (round 258) one verified real inequality away, since
+closed by `QDHu_packet_neg` and `dh_offline_zero` (`DHCertificate`, round 261): `QDHu g < 0` for an
 explicit `g`, whose ingredients are the finitely many `c(n)` with `log n ≤ 2a` (`f(log n) = 0`
 beyond the support of the autocorrelation), `Re ψ(¾)`, and the elementary integral `E_{3/4}(g)`.
 -/
@@ -90,7 +91,8 @@ theorem weilRHSDH_scaled (hp : Probe a g) (ha : 0 < a) :
   linear_combination harch
 
 /-- **The explicit formula for a probe, unscaled**: `Q_dh(g) = Σ_u 2ĝ(3τ_u)²`, where `½ ± 3iτ_u`
-are the zeros of `dh` with `Re s > 0`. -/
+are the zeros of `Λ_{dh}`, with multiplicity; every zero of `dh` with `Re s > 0` is one of them
+(`tau3_of_dh_zero`), and each pair contains a zero of `dh` with `Re s ≥ ½` (`dh_zero_of_XiDH3`). -/
 theorem QDHu_hasSum (hp : Probe a g) (ha : 0 < a) {K : ℝ}
     (hK : StripTest (fun z => ghatC g a (3 * z) ^ 2) K) :
     HasSum (fun i : ZeroIdx (sqF XiDH3) => 2 * ghatC g a (3 * tau3 i) ^ 2) (QDHu g : ℂ) := by

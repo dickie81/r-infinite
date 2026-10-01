@@ -1,7 +1,7 @@
-# Generate Terms.lean: for each n = 2..121 a lower bound t_n on the prime term
+# Generate DHTerms.lean (Terms{NMAX}.lean when NMAX ≠ 121): for each n = 2..121 a lower bound t_n on the prime term
 #   T n = fDH n / √n * ((2a − log n)/2 * cos(ω log n) + sin(ω(2a − log n))/(2ω)),  a = 12/5, ω = 169/2,
-# and the partial sums Σ_{n ∈ Icc 2 k} T n ≥ P_k, k = 2..121. Inputs: fDH_bounds_n (Coeffs.lean),
-# log_bound_n (LogBounds.lean), theta_n_cos/sin and twoOmegaA_cos/sin (TrigBounds.lean), sqrt bounds (here).
+# and the partial sums Σ_{n ∈ Icc 2 k} T n ≥ P_k, k = 2..121. Inputs: fDH_bounds_n (DHCoeffs.lean),
+# log_bound_n (DHLogBounds.lean), theta_n_cos/sin and twoOmegaA_cos/sin (DHTrigBounds.lean), sqrt bounds (here).
 from fractions import Fraction as F
 import sys, math
 NMAX = int(sys.argv[1]) if len(sys.argv) > 1 else 121

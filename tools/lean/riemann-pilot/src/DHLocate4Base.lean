@@ -1971,7 +1971,7 @@ theorem D2sum_le : D2sum (107639 / 150000) 41 ≤ (8377 / 100 : ℝ) := by
     mul_le_mul hk D2t_203 (mul_nonneg (sq_nonneg _) (Real.exp_pos _).le) (by norm_num),
     D2t_204]
 
-/-- **The second-derivative bound on the ball**: `‖DEM″ + GEM″‖ ≤ 448153 / 4900` on `closedBall cZ 1 / 150`. -/
+/-- **The second-derivative bound on the ball**: `‖DEM″ + GEM″‖ ≤ 448153 / 4900` on `closedBall cZ (1 / 150)`. -/
 theorem m2_ball {z : ℂ} (hz : z ∈ closedBall cZ (1 / 150 : ℝ)) :
     ‖DEMk 2 41 z + deriv (deriv (GEM 41 12)) z‖ ≤ (448153 / 4900 : ℝ) := by
   have h := norm_deriv2_fEM_ballG 41 12 (c := cZ) (r := (1 / 150 : ℝ)) (R := (7 / 20 : ℝ)) (σd := (107639 / 150000 : ℝ))

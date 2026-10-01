@@ -4,7 +4,7 @@ import VinoConst
 
 /-! # Decay corollaries and the weak VMVT (round 250)
 
-`lam_decay` without its three unused hypotheses, `lamO_decay_uncond` from `lam_dexp`, the absorption `c·a − 2πe^{a − ¼} ≤ c + c²`, and the `ε`-form of Vinogradov's mean value theorem from `VinoRec2`.
+`lam_decay` with its four hypotheses shown superfluous, `lamO_decay_uncond` from `lamO_dexp`, the absorption `c·a − 2πe^{a − ¼} ≤ c + c²`, and round 202's iterated Vinogradov mean value theorem (`VinoRec.vmvt_iter`) from round 207's `vmvt_explicit`.
 -/
 
 open Real Complex MeasureTheory Set Filter Topology
@@ -13,7 +13,7 @@ namespace DecayCorollaries
 
 open Pilot1ca Pilot1bt PilotWeil
 
-/-- For every `c`, `c·a − 2π e^{a − d} ≤ M` for `a ≥ 1` (any `d ≤ 1/4`): the double exponential beats
+/-- For every `c ≥ 0`, `c·a − 2π e^{a − ¼} ≤ c + c²` for `a ≥ 1`: the double exponential beats
 every exponential rate. -/
 theorem dexp_absorb (c : ℝ) (hc : 0 ≤ c) : ∀ a : ℝ, 1 ≤ a →
     c * a - 2 * π * Real.exp (a - 1 / 4) ≤ c + c ^ 2 := by

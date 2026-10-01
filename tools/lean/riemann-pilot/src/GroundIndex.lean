@@ -40,7 +40,7 @@ open Pilot1bt PilotWeil
 /-- The nontrivial zeros of `ζ` to the right of the critical line. -/
 def OffRight : Set ℂ := {s | IsNontrivialZero s ∧ 1 / 2 < s.re}
 
-/-- A nontrivial zero off the line is not real (`ζ ≠ 0` on `(0, 1)`). -/
+/-- A nontrivial zero to the right of the line is not real (`ζ ≠ 0` on `(0, 1)`). -/
 theorem im_ne_zero_of_offRight {s : ℂ} (hs : s ∈ OffRight) : s.im ≠ 0 := by
   intro h0
   have hnt := hs.1

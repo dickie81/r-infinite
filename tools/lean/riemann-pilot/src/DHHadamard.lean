@@ -21,9 +21,12 @@ and WeilChi.lean) takes `χ` real: its integral representation `LFunction_eq_Iχ
 
 For `χ₅` the first input is round 253's `rootNumber_chi5_ne_neg_one`; the second is the named input
 `DHHalf : L(½, χ₅) ≠ 0`, and `hadamard_dh : DHHalf → HadamardW (XiDH chi5) …` gives the zeros of the
-Davenport–Heilbronn `Ξ` as the indexed family `ZeroIdx (sqF (XiDH chi5))` with multiplicities,
+Davenport–Heilbronn `Ξ`, squared, as the indexed family `ZeroIdx (sqF (XiDH chi5))` with multiplicities,
 summable inverses, and the product formula. What remains for the certificate chain is the explicit
 formula (the prime side of `−dh′/dh`) and the certificate arithmetic; see the README, round 254.
+(Superseded: `DHHalf` is proved in round 255, `dhHalf` in DHZeros.lean, so `hadamard_dh'` is
+unconditional; the explicit formula landed in rounds 256–257 and the certificate in round 261,
+`dh_offline_zero` in DHCertificate.lean.)
 -/
 
 open Real Complex DirichletCharacter Filter Topology MeasureTheory Set Asymptotics
@@ -357,7 +360,7 @@ theorem XiDH_zero_ne (hχ1 : χ ≠ 1) (hprim : χ.IsPrimitive) (h1 : 1 + rootNu
   exact mul_ne_zero (mul_ne_zero two_ne_zero (one_add_rootNumber_inv_ne_zero hχ1 hprim h1))
     (LamG_ne_zero (by norm_num) hhalf)
 
-/-- **The Hadamard product of `Ξ_{DH}`**: its zeros, with multiplicity, have summable inverses and
+/-- **The Hadamard product of `Ξ_{DH}`**: the squares `u` of its zeros, with multiplicity, have summable inverses and
 `Ξ_{DH}(t)/Ξ_{DH}(0) = Π (1 − t²/u)` over the zeros `u` of `t ↦ Ξ_{DH}(√t)`. -/
 theorem hadamard_XiDH (hχ1 : χ ≠ 1) (hprim : χ.IsPrimitive) (h1 : 1 + rootNumber χ ≠ 0)
     (hhalf : LFunction χ (1 / 2) ≠ 0) :
