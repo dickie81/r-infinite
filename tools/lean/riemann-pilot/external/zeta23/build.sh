@@ -53,7 +53,8 @@ c() {
     || { printf '%s\n' "$out"; exit 1; }
   [ -z "$out" ] || printf '%s\n' "$out"
   # Lean's sorry warning is m!"declaration uses `{s}`" (Lean/AddDecl.lean); how s renders depends on display
-  # options, so match the fixed prefix, which no other Lean message has
+  # options, so match its fixed text, anywhere in the output. No other Lean message begins with that text; output
+  # that quotes it (#help term sorry, #print Lean.warnIfUsesSorry) also fails here, which errs closed
   if [[ "$out" == *'declaration uses `'* ]]; then
     rm -f "$B/$rel.olean" "$B/$rel.ilean"
     echo "axioms check FAILED: ${rel//\//.} uses sorry" >&2

@@ -8552,10 +8552,14 @@ The normalisation is imposed on `w` alone. If it were imposed on `v`, it would n
   - `debug.skipKernelTC` can give a false theorem a clean axiom line by switching the kernel off.
 
 **Hostile review, fifth pass** (convergence, on the fourth sweep `9d59e08`). It found no MAJOR findings, 1 minor and 1 cosmetic, and no new out-of-scope observations. Both were accepted.
-- R276C4-1: under `pp.proofs false`, `pp.exprSizes true` or `pp.maxSteps 0`, Lean renders the term in the warning as `⋯` or `[size …] sorry`, and the build still passed. Lean's warning is ``m!"declaration uses `{s}`"``, and no other Lean message begins ``declaration uses ` ``. So the check now matches that fixed prefix and no longer depends on how the term is rendered.
-  - Tested on the reviewer's 31 option-scan inputs and the earlier `sorry` cases: all fail on the `sorry` check.
+- R276C4-1: under `pp.proofs false`, `pp.exprSizes true` or `pp.maxSteps 0`, Lean renders the term in the warning as `⋯` or `[size …] sorry`, and the build still passed. Lean's warning is ``m!"declaration uses `{s}`"``, and no other Lean message begins ``declaration uses ` ``. So the check now looks for that fixed text anywhere in the output, and no longer depends on how the term is rendered. Output that merely quotes the text also fails: `#help term sorry` and `#print Lean.warnIfUsesSorry` both quote it, and neither appears in any committed file.
+  - Tested on the reviewer's 31 option-scan inputs and on the earlier inputs on which Lean prints a `sorry` warning: all fail on the `sorry` check.
   - The committed layer files pass.
-- R276C4-2: the record had misquoted one rendered form. The forms are no longer quoted.
+- R276C4-2: the record and a comment in `build.sh` had misquoted one rendered form. The forms are no longer quoted.
+
+**Hostile review, sixth pass** (convergence, on the fifth sweep `44fb031`). It found no MAJOR findings, no minor findings and 2 cosmetic, and made no new out-of-scope observations. **The round converged.** Both cosmetics were fixed in an editorial commit.
+- R276C5-1: the check's rationale was worded about how messages begin, while the check looks for the text anywhere in the output. The wording now says so. Output that merely quotes the text also fails the check, which errs closed.
+- R276C5-2: two qualifiers were restored in the fifth-pass record.
 
 Verified:
 - **Layer build** (fifth sweep). `external/zeta23/build.sh` compiled the 59 zeta23 files and the eight layer files in 470 s, exit 0. Lean reports no use of `sorry` in any compiled file, and `HybridCertificate` and `HybridExamples` print no warnings.
