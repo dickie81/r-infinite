@@ -8546,10 +8546,16 @@ The normalisation is imposed on `w` alone. If it were imposed on `v`, it would n
 - Second observation, accepted: a file that fails the gate no longer leaves its `.olean` in `build/`.
 
 **Hostile review, fourth pass** (convergence, on the third sweep `cab3e28`). It found no MAJOR findings, 1 minor and no cosmetic, and made 2 out-of-scope observations. The minor was accepted.
-- R276C3-1: the `sorry` check matched only Lean's default wording, ``declaration uses `sorry` ``. Under `pp.sorrySource`, `pp.all`, `pp.explicit`, `pp.notation false` or `pp.raw`, Lean words the warning differently (`` `sorry «pos»` ``, `` `sorryAx …` ``), and the build passed. The check now matches every form. The gate sentences now say what it checks: a use of `sorry` that Lean reports.
+- R276C3-1: the `sorry` check matched only Lean's default wording, ``declaration uses `sorry` ``. Under `pp.sorrySource`, `pp.all`, `pp.explicit`, `pp.notation false` or `pp.raw`, Lean renders the term in that warning differently, and the build passed. The check was widened to forms beginning `` `sorry ``, which covered those five options; the fifth pass found more. The gate sentences now say what it checks: a use of `sorry` that Lean reports.
 - Not addressed: both observations are deliberate subversions with no committed reach. Neither is matched by any compiled file.
   - A file can turn the warning off (`set_option warn.sorry false`, `#guard_msgs (drop warning)`).
   - `debug.skipKernelTC` can give a false theorem a clean axiom line by switching the kernel off.
+
+**Hostile review, fifth pass** (convergence, on the fourth sweep `9d59e08`). It found no MAJOR findings, 1 minor and 1 cosmetic, and no new out-of-scope observations. Both were accepted.
+- R276C4-1: under `pp.proofs false`, `pp.exprSizes true` or `pp.maxSteps 0`, Lean renders the term in the warning as `⋯` or `[size …] sorry`, and the build still passed. Lean's warning is ``m!"declaration uses `{s}`"``, and no other Lean message begins ``declaration uses ` ``. So the check now matches that fixed prefix and no longer depends on how the term is rendered.
+  - Tested on the reviewer's 31 option-scan inputs and the earlier `sorry` cases: all fail on the `sorry` check.
+  - The committed layer files pass.
+- R276C4-2: the record had misquoted one rendered form. The forms are no longer quoted.
 
 Verified:
 - **Layer build** (fourth sweep). `external/zeta23/build.sh` compiled the 59 zeta23 files and the eight layer files in 469 s, exit 0. Lean reports no use of `sorry` in any compiled file, and `HybridCertificate` and `HybridExamples` print no warnings.

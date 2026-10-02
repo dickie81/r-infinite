@@ -52,8 +52,9 @@ c() {
   out="$(LEAN_PATH="$LP" lean "$@" -R "$root" -o "$B/$rel.olean" -i "$B/$rel.ilean" "$root/$rel.lean" 2>&1)" \
     || { printf '%s\n' "$out"; exit 1; }
   [ -z "$out" ] || printf '%s\n' "$out"
-  # Lean's warning reads "declaration uses `sorry`", or `sorry «pos»` / `sorryAx …` under some pp options
-  if [[ "$out" == *'declaration uses `sorry'* ]]; then
+  # Lean's sorry warning is m!"declaration uses `{s}`" (Lean/AddDecl.lean); how s renders depends on display
+  # options, so match the fixed prefix, which no other Lean message has
+  if [[ "$out" == *'declaration uses `'* ]]; then
     rm -f "$B/$rel.olean" "$B/$rel.ilean"
     echo "axioms check FAILED: ${rel//\//.} uses sorry" >&2
     exit 1
