@@ -8545,6 +8545,11 @@ The normalisation is imposed on `w` alone. If it were imposed on `v`, it would n
 - First observation, not addressed: under `open Classical`, `#print axioms` shortens the names, so a clean theorem would fail the check. It fails closed, and no committed check runs under `open Classical`.
 - Second observation, accepted: a file that fails the gate no longer leaves its `.olean` in `build/`.
 
-Verified: the layer build for the third sweep is recorded in the next commit.
+Verified:
+- **Layer build** (third sweep). `external/zeta23/build.sh` compiled the 59 zeta23 files and the eight layer files in 439 s, exit 0. No compiled file uses `sorry`, and `HybridCertificate` and `HybridExamples` print no warnings.
+- **Axiom lines.** The build printed 48, all `[propext, Classical.choice, Quot.sound]` and all gated:
+  - 20 from the layer files' own `#print axioms` during compilation;
+  - 25 from the main final check: the seven earlier theorems, the eight `HybridCert` theorems and ten from `HybridExamples`;
+  - 3 from the co-import check.
 
 **Check 4.** New: no earlier round couples a second family into zeta23's certificate. **Bearing on RH:** none. The certificate counts on-line zeros without assuming RH.
