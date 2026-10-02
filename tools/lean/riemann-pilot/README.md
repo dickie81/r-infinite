@@ -8522,6 +8522,9 @@ The normalisation is imposed on `w` alone. If it were imposed on `v`, it would n
 - **The axiom check.** `build.sh`'s axiom check could not fail. It now fails closed: tested on a file with a `sorry` and on a file with an unknown constant, both exit 1.
 - **Not addressed.** The reviewer's second out-of-scope observation is unchanged. The fetch logic predates this round and does not notice a change of `REV` or an edited upstream file.
 
-Verified (sweep, before the layer build): a compile of the swept file exits 0 with no output, and all eight `HybridCert` theorems print `[propext, Classical.choice, Quot.sound]`. A non-vacuity instance with one on-line zero and one off-line pair discharges every hypothesis of `hybrid_cert`, `hybrid_cert_pairs` and `hybrid_cert_of_moments`. The layer build for the sweep is recorded in the next commit.
+Verified:
+- **Layer build.** `external/zeta23/build.sh` fetched the 59 files again, because the patch header changed, and compiled them and the seven layer files in 426 s, exit 0. `HybridCertificate` prints no warnings.
+- **Axiom gate.** It passed: the 15 lines of the main axioms check, including all eight `HybridCert` theorems, and the 3 co-import lines are all `[propext, Classical.choice, Quot.sound]`.
+- **Non-vacuity.** An instance with one on-line zero and one off-line pair discharges every hypothesis of `hybrid_cert`, `hybrid_cert_pairs` and `hybrid_cert_of_moments`. This was a scratch check, not part of the build.
 
 **Check 4.** New: no earlier round couples a second family into zeta23's certificate. **Bearing on RH:** none. The certificate counts on-line zeros without assuming RH.
