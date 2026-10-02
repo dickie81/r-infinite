@@ -1,4 +1,4 @@
-# Port of 50 zeta23 files (anthropics/formal-math, folder zeta23, commit
+# Port of the 59 zeta23 files build.sh fetches (anthropics/formal-math, folder zeta23, commit
 # fbdc36bbf17d20af3fd0447c6d1a8a02773c9844, Lean v4.33.0-rc2, Mathlib 51e6992e) to the pilot's toolchain
 # (Lean v4.35.0-rc3, Mathlib 0f64d30a9a4593b3ae50375b960a5cf7f0845606). zeta23 is Copyright 2026 Anthropic, PBC,
 # released under the Apache License 2.0; its files under Zeta23/FromPNTPlus/ derive from PrimeNumberTheoremAnd

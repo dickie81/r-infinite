@@ -5,7 +5,7 @@
 # The script takes the 59 zeta23 files that this layer uses (Montgomery–Vaughan, Riemann–von Mangoldt, the Γ
 # facts, the zero side's block structure, and their dependencies), at commit fbdc36b (Lean v4.33.0-rc2), applies zeta23_port.patch (the port to
 # the pilot's Lean and Mathlib), and compiles those files and this directory's files into ../../build.
-# It then prints the axioms of the final theorems.
+# It then prints the axioms of the final theorems, and fails unless each is [propext, Classical.choice, Quot.sound].
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 PILOT="$(cd "$HERE/../.." && pwd)"
@@ -45,7 +45,20 @@ c() {
 # zeta23's lakefile sets relaxedAutoImplicit = false for its own files.
 for m in $MODS; do c "$UP" "$m" -DrelaxedAutoImplicit=false; done
 for f in SlogZeta ZeroWindow Dictionary CountCompare HybridCertificate CoImportMV CoImportGamma; do c "$HERE" $f; done
+# ax FILE: run FILE's #print axioms lines; fail unless each prints exactly [propext, Classical.choice, Quot.sound]
+ax() {
+  local out want good
+  out="$(LEAN_PATH="$LP" lean "$1" 2>&1)" || { printf '%s\n' "$out"; echo "axioms check FAILED: lean exited nonzero" >&2; exit 1; }
+  printf '%s\n' "$out"
+  want=$(grep -c '^#print axioms' "$1")
+  good=$(printf '%s\n' "$out" | grep -c "' depends on axioms: \[propext, Classical.choice, Quot.sound\]\$" || true)
+  if [ "$good" != "$want" ]; then
+    echo "axioms check FAILED: $good of $want printed axiom lines are [propext, Classical.choice, Quot.sound]" >&2
+    exit 1
+  fi
+}
 AX="$(mktemp --suffix=.lean)"
+trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
 import SlogZeta
 import Zeta23.MV.Final
@@ -63,13 +76,14 @@ import HybridCertificate
 #print axioms HybridCert.cert_general
 #print axioms HybridCert.cert_offline
 #print axioms HybridCert.hybrid_cert
+#print axioms HybridCert.hybrid_cert_pairs
 #print axioms HybridCert.hybrid_cert_of_offline
 #print axioms HybridCert.hybrid_cert_of_moments
 #print axioms HybridCert.hybrid_cert_of_no_offline
 #print axioms HybridCert.hybrid_cert_eta_zero
 EOT
 echo "== axioms"
-LEAN_PATH="$LP" lean "$AX"
+ax "$AX"
 # the co-import files load the pnt layer (PNT+ at 650d312), which clashes with the vendored FromPNTPlus copies that SlogZeta uses
 cat > "$AX" <<'EOT'
 import CoImportMV
@@ -79,5 +93,5 @@ import CoImportGamma
 #print axioms CoImportGamma.amgm_factor_le
 EOT
 echo "== axioms (co-import files)"
-LEAN_PATH="$LP" lean "$AX"
+ax "$AX"
 rm -f "$AX"

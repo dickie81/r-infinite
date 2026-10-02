@@ -8474,32 +8474,54 @@ Verified after the move: `./build.sh` reports 0 compiled, 170 up to date. After 
 
 ## Round 276: the same-space hybrid certificate on zeta23's zero side, with no RH (`external/zeta23/HybridCertificate.lean`)
 
-Alpöge–Furman (zeta23) count distinct on-line zeros with a rank–trace inequality for `A = Σ_z m_z v_z v_zᵀ`. Here `v_z` is the vector of Fourier evaluations at the zero `z`. This round asks whether a second family of information, such as a mollified `ζ′` weight `g`, can enter the same certificate without RH. The coupling is in the same space: `v_z = w_z + (η g_z) u_z`. The round states the resulting certificate in Lean, so that the one input that depends on where the zeros are is displayed as a hypothesis.
+Alpöge–Furman (zeta23) count distinct on-line zeros with a rank–trace inequality for `A = Σ_z m_z v_z v_zᵀ`. Here `v_z` is the vector of Fourier evaluations at the zero `z`. This round asks whether a second family of information, such as a mollified `ζ′` weight `g`, can enter the same certificate without RH. The coupling is in the same space: `v_z = w_z + (η g_z) u_z`. The round states the resulting certificate in Lean. The one term that is a sum over the off-line zeros alone is displayed as a hypothesis.
 
-**1. The zero side** (`build.sh`). The layer now also compiles the import closure of `Zeta23.ZeroSide`: nine zeta23 files (`LinAlg` and five of its parts, `Hypotheses.GzGp`, `Assembly.Inputs`, `ZeroSide`), unpatched. It compiles 59 files in all, up from 50. `build.sh` also fetches again when `MODS` names a file missing from `upstream/`.
+**1. The zero side** (`build.sh`). The import closure of `Zeta23.ZeroSide` has 13 zeta23 files. Nine of them are new to the layer, and they compile unpatched: `LinAlg` and five of its parts, `Hypotheses.GzGp`, `Assembly.Inputs` and `ZeroSide`. The layer now compiles 59 zeta23 files, up from 50, plus its seven own files. Two other changes to `build.sh`:
+- It fetches again when `MODS` names a file missing from `upstream/`.
+- It fails unless every printed axiom line is `[propext, Classical.choice, Quot.sound]`. Before, it only printed them, and `lean` exits 0 on a `sorryAx` line.
 
 **2. The certificates.** These hold for any `ZeroBlockData` and any unit `c > 0`; zeta23 takes `c = aL²`.
 - `cert_offline`: `2c⁻¹ Re tr A − ‖c⁻¹A‖²_F + Σ_{z∈R} (4c⁻¹ m_z Re β_z − 4) ≤ s₁ + s₂`. Here `β_z = v_z·v_z` and `R` holds one zero from each off-line pair. There is no hypothesis on the vectors.
-- **`hybrid_cert`**: assume `w`, `u`, `g` are reflection-symmetric, and `Σ_k |w_z k|² ≤ c` at the on-line zeros (zeta23's `hPois`, for `w` alone). Then
-  `c⁻¹(4A_w + 2A_g) − 2N − ‖c⁻¹A‖²_F + 4c⁻¹ Σ_{z∈R} m_z Re G_z ≤ s₁ + s₂`,
+- **`hybrid_cert`**: the only hypotheses are `v = w + (ηg)u` and `Σ_k |w_z k|² ≤ c` at the on-line zeros. The latter has the shape of zeta23's `hPois`, imposed on `w` alone. Then
+  `c⁻¹(4A_w + 2A_g) − 2N − ‖c⁻¹A‖²_F + 2c⁻¹ Σ_{z off the line} m_z Re G_z ≤ s₁ + s₂`,
   where `G_z = 2η g_z (w_z·u_z) + η² g_z² (u_z·u_z)`.
-  Every term but the last is a sum over all zeros in the window. The last is a sum over the off-line pairs.
-- `hybrid_cert_of_offline` replaces the last term by `−4c⁻¹E`, given `OFF(E): −E ≤ Σ_{z∈R} m_z Re G_z`.
-- `hybrid_cert_of_moments` splits `OFF` by order in `η`, into `|Σ_R m Re(g (w·u))| ≤ E₁` and `−E₂ ≤ Σ_R m Re(g² (u·u))`.
-- `hybrid_cert_of_no_offline` takes `E = 0` when `R = ∅`.
-- `hybrid_cert_eta_zero` recovers zeta23's `Assembly.zeroside_rank_core` inequality at `η = 0`.
+  `A_w`, `A_g` and `N` are sums over all zeros in the window, and `‖A‖_F` is a function of the entries of `A`, which are such sums. The last term is the only one that is a sum over the off-line zeros alone.
+- `hybrid_cert_pairs`: for reflection-symmetric `w`, the last term is `4c⁻¹ Σ_{z∈R} m_z Re G_z`.
+- `hybrid_cert_of_offline` replaces the last term by `−2c⁻¹E`, given `OFF(E): −E ≤ Σ_{z off the line} m_z Re G_z`.
+- `hybrid_cert_of_moments` splits `OFF` by order in `η` into two one-sided inputs: `−E₁ ≤ 2η Σ_{off} m Re(g (w·u))` and `−E₂ ≤ Σ_{off} m Re(g² (u·u))`.
+- `hybrid_cert_of_no_offline` takes `E = 0` when every zero of the window is on the line.
+- `hybrid_cert_eta_zero` gives the inequality of zeta23's `Assembly.zeroside_rank_core` at `η = 0`.
 
-**What it fixes for the analytic side.** An RH-free proportion from this certificate needs two kinds of input.
-- An asymptotic for each all-zeros term, from a prime side: `A_w` is zeta23's, `A_g` needs twisted first moments, and `‖A‖_F` needs upper bounds through the quartic terms in `η`.
-- `OFF(E)`, with `4c⁻¹E` smaller than the net gain over `η = 0`: the increase in `2c⁻¹A_g` less the increase in `‖c⁻¹A‖²_F`. It is one-sided: only a lower bound on the off-line sum is needed.
+**What it fixes for the analytic side.** At `η = 0` the certificate is zeta23's, so the coupling is worth having only if it beats `η = 0`. That needs three inputs.
+- **The window sums, from a prime side.** A prime side computes sums over all zeros, so asymptotics for the all-zeros terms come from there. `A_w` is zeta23's. The `η` part of `A_g` needs twisted first moments of the weight. Its `η²` part is a mean square of the weight. `‖A‖_F` needs upper bounds through the quartic terms in `η`.
+- **The tail.** The window sums are the prime-side sums less a tail over the zeros outside the window, as in zeta23's `Ez = Gz − Az` (prop:tail). For the coupled family that tail contains `g` at every zero outside the window. zeta23's `Tail.lean` does not bound it.
+- **`OFF(E)`.** `2c⁻¹E` must be smaller than the net gain over `η = 0`: the increase in `2c⁻¹A_g`, less the increase in `‖c⁻¹A‖²_F`. The input is one-sided: only a lower bound on the off-line sum is needed.
 
-The normalisation is imposed on `w` alone. If it were imposed on `v`, it would need a pointwise bound on `g` at each on-line zero. For a mollified `ζ′` weight only mean values over the zeros are known. That is why the off-line term remains.
+The normalisation is imposed on `w` alone. If it were imposed on `v`, it would need a pointwise bound of fixed size on `g` at each on-line zero. The known pointwise bounds for a mollified `ζ′` weight grow with the height. That is why the off-line term remains. On the line the proof uses only `Re(w·w) ≤ Σ_k |w_k|²`, which holds for every complex vector, so no symmetry of `w`, `u` or `g` is assumed.
 
 **Not done.**
 - No prime side is formalised: neither zeta23's `Assembly` nor its prime and tail files are ported.
 - The certificate is stated for the abstract `ZeroBlockData`, not for zeta23's concrete `blockData`.
 - No proportion is claimed.
 
-Verified: `external/zeta23/build.sh` fetched the 59 files again, because the nine new ones were missing from `upstream/`. It compiled them and the seven layer files in about 9 minutes, exit 0. `HybridCertificate` prints no warnings; the new upstream files print eight of their own, deprecations in `LinAlg.RankTrace` and `ZeroSide`. Every printed axiom line is `[propext, Classical.choice, Quot.sound]`. That run printed four of the seven `HybridCert` theorems; a scratch compile of the same bytes printed the same line for the other three. `build.sh` now prints all seven.
+**Hostile review** (fresh-context reviewer, then each finding checked by the lead). The first commit of this round was `04159c4`. The review found no MAJOR findings, 6 minor, 8 cosmetic, and 2 out-of-scope observations. All were accepted except the second observation; how each was handled:
+- **The theorems.**
+  - The symmetry hypotheses on `u` and `g` were redundant. Writing the off-line term over all off-line zeros removes the one on `w` too. So `hybrid_cert` now has no symmetry hypothesis, and the old `R`-form is `hybrid_cert_pairs`, which needs only symmetric `w`.
+  - The first-order input of `hybrid_cert_of_moments` was two-sided (`|…| ≤ E₁`). It is now one-sided.
+  - `hybrid_cert_eta_zero` no longer assumes `w` symmetric, which followed from `v = w` anyway.
+- **The prose.** These were corrected above and in the docstrings:
+  - "the only place the zeros' positions enter": the off-line zeros also enter `A_w`, `A_g` and `N`.
+  - a condition for beating `η = 0` had been stated as a condition for any proportion;
+  - the tail input had been left out;
+  - `A_g` had been said to need only first moments;
+  - "only mean values over the zeros are known": pointwise bounds exist, but grow with the height;
+  - `‖A‖_F` had been called a sum over zeros;
+  - a Poisson example in `cert_offline`'s docstring cannot hold on zeta23's finite grid;
+  - the file and build counts (13-file closure, 59 + 7 files; the patch header said 50);
+  - notation clashes (`P`, `/m`).
+- **The axiom check.** `build.sh`'s axiom check could not fail. It now fails closed: tested on a file with a `sorry` and on a file with an unknown constant, both exit 1.
+- **Not addressed.** The reviewer's second out-of-scope observation is unchanged. The fetch logic predates this round and does not notice a change of `REV` or an edited upstream file.
+
+Verified (sweep, before the layer build): a compile of the swept file exits 0 with no output, and all eight `HybridCert` theorems print `[propext, Classical.choice, Quot.sound]`. A non-vacuity instance with one on-line zero and one off-line pair discharges every hypothesis of `hybrid_cert`, `hybrid_cert_pairs` and `hybrid_cert_of_moments`. The layer build for the sweep is recorded in the next commit.
 
 **Check 4.** New: no earlier round couples a second family into zeta23's certificate. **Bearing on RH:** none. The certificate counts on-line zeros without assuming RH.

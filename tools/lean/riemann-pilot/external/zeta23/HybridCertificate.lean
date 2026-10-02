@@ -4,29 +4,31 @@ import Zeta23.ZeroSide
 
 zeta23 (Alpöge–Furman) bounds the number of distinct on-line zeros through the rank–trace inequality applied to
 A = Σ_z m_z v_z v_zᵀ (`Zeta23.ZeroSide.ZeroBlockData`), in units c > 0 (zeta23 takes c = aL², Â = c⁻¹A, and splits
-Â = P_c + Q_c with P_c = c⁻¹·(on-line part), `ZeroBlockData.blockP`/`blockQ`).  This file proves, for ANY
-zero-block data and any c > 0:
+Â = P_c + Q_c with P_c = c⁻¹·A_on, A_on the on-line part of A, `ZeroBlockData.blockP`/`blockQ`).  This file
+proves, for any zero-block data and any c > 0:
 
-* `cert_offline` — the RH-free certificate with the off-line pairs written out exactly:
+* `cert_offline` — the certificate with the off-line pairs written out:
       s₁ + s₂ ≥ 2c⁻¹·Re tr A − ‖c⁻¹A‖²_F + Σ_{z ∈ R} (4c⁻¹ m_z Re β_z − 4),      β_z = v_z · v_z (bilinear),
   where R holds one representative of each off-line pair {ρ, 1 − ρ̄}.  No hypothesis on the vectors beyond the
   `ZeroBlockData` axioms.
 
-and, for the same-space coupling v_z = w_z + (η g_z) u_z (w, u: Fourier-class families; g: an analytic weight such as
-the reflection-symmetric continuation of Re(B ζ′)/m; η real):
+and, for the same-space coupling v_z = w_z + (η g_z) u_z (w, u: families of vectors; g: a weight at the zeros, for
+instance a continuation of Re(B ζ′); η real):
 
-* `hybrid_cert` — using only the on-line normalisation Σ_k |w_z k|² ≤ c (zeta23's `hPois` for the base family) and
-  N_on + 2p ≤ N:
-      s₁ + s₂ ≥ c⁻¹(4 A_w + 2 A_g) − 2 N − ‖c⁻¹A‖²_F + 4c⁻¹ Σ_{z ∈ R} m_z Re G_z,
+* `hybrid_cert` — with hypotheses only v = w + (ηg)u and the on-line normalisation Σ_k |w_z k|² ≤ c (the shape of
+  zeta23's `hPois`, imposed on the base family w alone):
+      s₁ + s₂ ≥ c⁻¹(4 A_w + 2 A_g) − 2 N − ‖c⁻¹A‖²_F + 2c⁻¹ Σ_{z off the line} m_z Re G_z,
       A_w = Re Σ_z m_z (w_z·w_z),  G_z = 2η g_z (w_z·u_z) + η² g_z² (u_z·u_z),  A_g = Re Σ_z m_z G_z.
-  Every term except the last is a sum over ALL zeros of a function of the data (what a prime side computes);
-  the last is a sum over off-line pairs only.
-* `hybrid_cert_of_offline` — the same with the off-line term replaced by a displayed hypothesis
-      OFF(E): −E ≤ Σ_{z ∈ R} m_z Re G_z,
-  i.e. exactly the input an RH-free proof must supply; and `hybrid_cert_of_moments`, which splits OFF into a
-  first-order input |Σ_R m Re(g (w·u))| ≤ E₁ and a second-order input −E₂ ≤ Σ_R m Re(g² (u·u)).
-* `hybrid_cert_of_no_offline` — with no off-line zeros in the window the off-line term is absent (E = 0).
-* `hybrid_cert_eta_zero` — η = 0 returns AF's assembly 4c⁻¹ A_w − 2N − ‖c⁻¹A‖² ≤ s₁ + s₂ (consistency check).
+  A_w, A_g and N are sums over all zeros of the window, and ‖A‖²_F is a function of the entries of A, which are
+  such sums.  The last term is the only one that is a sum over the off-line zeros alone.  `hybrid_cert_pairs`
+  folds it onto R, as 4c⁻¹ Σ_{z ∈ R} m_z Re G_z, when w is reflection-symmetric.
+* `hybrid_cert_of_offline` — the last term replaced by −2c⁻¹E, given the displayed input
+      OFF(E): −E ≤ Σ_{z off the line} m_z Re G_z;
+  and `hybrid_cert_of_moments`, which splits OFF by order in η into two one-sided inputs,
+  −E₁ ≤ 2η Σ_{z off the line} m_z Re(g_z (w_z·u_z)) and −E₂ ≤ Σ_{z off the line} m_z Re(g_z² (u_z·u_z)).
+* `hybrid_cert_of_no_offline` — if every zero of the window is on the line, the off-line term is absent.
+* `hybrid_cert_eta_zero` — η = 0 gives 4c⁻¹ A_w − 2N − ‖c⁻¹A‖²_F ≤ s₁ + s₂, the inequality of zeta23's
+  `Assembly.zeroside_rank_core` (4 tr Â − 2N(I′) − ‖Â‖²_F ≤ r).
 -/
 
 noncomputable section
@@ -81,9 +83,9 @@ lemma rtrace_blockA_split :
 lemma rtrace_real_smul (r : ℝ) (M : Matrix d d ℂ) : rtrace (((r : ℝ) : ℂ) • M) = r * rtrace M := by
   simp only [rtrace, trace_smul, smul_eq_mul, RCLike.re_to_complex, Complex.re_ofReal_mul]
 
-/-- **The rank–trace certificate in units c** (zeta23's `rank_trace_ineq_two` for P_c = c⁻¹·(on-line part),
-Q_c = c⁻¹·(A − on-line part), as in `ZeroBlockData.blockP`/`blockQ`; zeta23 uses c = aL², Â = c⁻¹A):
-4 c⁻¹ Re tr A − 2 c⁻¹ Re tr P − 4p − ‖c⁻¹A‖² ≤ s₁ + s₂. -/
+/-- **The rank–trace certificate in units c** (zeta23's `rank_trace_ineq_two` for P_c = c⁻¹·A_on and
+Q_c = c⁻¹·(A − A_on), where A_on = `D.onPart` is the on-line part of A, as in `ZeroBlockData.blockP`/`blockQ`;
+zeta23 uses c = aL², Â = c⁻¹A): 4 c⁻¹ Re tr A − 2 c⁻¹ Re tr A_on − 4p − ‖c⁻¹A‖² ≤ s₁ + s₂, with p = #R. -/
 theorem cert_general {c : ℝ} (hc : 0 < c) :
     4 * c⁻¹ * rtrace D.blockA - 2 * c⁻¹ * rtrace D.onPart - 4 * (P.p : ℝ)
       - frobSq (((c⁻¹ : ℝ) : ℂ) • D.blockA) ≤ ((D.s₁ + D.s₂ : ℕ) : ℝ) := by
@@ -94,8 +96,7 @@ theorem cert_general {c : ℝ} (hc : 0 < c) :
   linarith
 
 /-- **The certificate with the off-line pairs written out** (no hypothesis on the vectors):
-2 c⁻¹ Re tr A − ‖c⁻¹A‖² + Σ_R (4 c⁻¹ m_z Re β_z − 4) ≤ s₁ + s₂.  If c⁻¹ β_z = 1 at every off-line point (as for
-a Poisson identity Σ_k φ̂(γ − τ_k)² = c that continues analytically to complex γ), each summand is 4(m_z − 1) ≥ 0. -/
+2 c⁻¹ Re tr A − ‖c⁻¹A‖² + Σ_R (4 c⁻¹ m_z Re β_z − 4) ≤ s₁ + s₂. -/
 theorem cert_offline {c : ℝ} (hc : 0 < c) :
     2 * c⁻¹ * rtrace D.blockA - frobSq (((c⁻¹ : ℝ) : ℂ) • D.blockA)
       + ∑ z ∈ P.R, (4 * c⁻¹ * ((D.m z : ℝ) * (β D z).re) - 4) ≤ ((D.s₁ + D.s₂ : ℕ) : ℝ) := by
@@ -130,100 +131,115 @@ lemma β_eq (hv : ∀ z, D.v z = w z + ((η : ℂ) * g z) • u z) (z : ι) :
     dotProduct_comm (u z) (w z)]
   ring
 
-lemma G_σ (hw : ∀ z, w (D.σ z) = star (w z)) (hu : ∀ z, u (D.σ z) = star (u z))
-    (hg : ∀ z, g (D.σ z) = star (g z)) (z : ι) : G w u g η (D.σ z) = star (G w u g η z) := by
-  simp only [G, hw, hu, hg, star_dotProduct_star', star_add, star_mul', star_pow, Complex.star_def,
-    Complex.conj_ofReal, map_ofNat]
+/-- Re(x·x) ≤ Σ_k |x_k|² for every complex vector x (the bilinear square against the Hermitian one). -/
+lemma re_dotProduct_self_le (x : d → ℂ) : (x ⬝ᵥ x).re ≤ ∑ k, ‖x k‖ ^ 2 := by
+  rw [dotProduct, Complex.re_sum]
+  refine sum_le_sum fun k _ => ?_
+  rw [Complex.mul_re, Complex.sq_norm, Complex.normSq_apply]
+  nlinarith [sq_nonneg (x k).im]
 
-lemma ww_σ (hw : ∀ z, w (D.σ z) = star (w z)) (z : ι) :
-    w (D.σ z) ⬝ᵥ w (D.σ z) = star (w z ⬝ᵥ w z) := by
-  rw [hw, star_dotProduct_star']
+lemma re_natCast_mul (n : ℕ) (x : ℂ) : ((n : ℂ) * x).re = (n : ℝ) * x.re := by
+  rw [← Complex.ofReal_natCast, Complex.re_ofReal_mul]
 
-/-- On the line w_z is real, so w_z·w_z = Σ_k |w_z k|². -/
-lemma ww_onLine (hw : ∀ z, w (D.σ z) = star (w z)) {z : ι} (hz : D.σ z = z) :
-    w z ⬝ᵥ w z = ((∑ k, ‖w z k‖ ^ 2 : ℝ) : ℂ) := by
-  have hr : ∀ k, star (w z k) = w z k := fun k => by
-    have := congrFun (hw z) k; rw [hz] at this; simpa using this.symm
-  push_cast
-  refine sum_congr rfl fun k _ => ?_
-  have := hr k
-  rw [RCLike.star_def] at this
-  have h1 : w z k * w z k = (starRingEnd ℂ) (w z k) * w z k := by rw [this]
-  rw [h1, RCLike.conj_mul]; rfl
+/-- A_g = Re Σ_{on-line} m_z G_z + Σ_{z off the line} m_z Re G_z. -/
+lemma Ag_split : Ag D w u g η = (∑ z ∈ D.onLine, (D.m z : ℂ) * G w u g η z).re
+    + ∑ z ∈ D.onLineᶜ, (D.m z : ℝ) * (G w u g η z).re := by
+  show (∑ z, (D.m z : ℂ) * G w u g η z).re = _
+  rw [← Finset.sum_add_sum_compl D.onLine, Complex.add_re, Complex.re_sum (s := D.onLineᶜ)]
+  congr 1
+  exact sum_congr rfl fun z _ => re_natCast_mul _ _
 
-/-- **The same-space hybrid certificate** (RH-free; the off-line pairs enter only through the last term):
-c⁻¹(4 A_w + 2 A_g) − 2 N − ‖c⁻¹A‖² + 4 c⁻¹ Σ_R m_z Re G_z ≤ s₁ + s₂, assuming only the on-line
-normalisation Σ_k |w_z k|² ≤ c (zeta23's `hPois` for the base family; zeta23 has c = aL²) and the
-reflection symmetry of w, u, g. -/
+/-- **The same-space hybrid certificate** (no RH, no symmetry assumption on w, u, g):
+c⁻¹(4 A_w + 2 A_g) − 2N − ‖c⁻¹A‖² + 2c⁻¹ Σ_{z off the line} m_z Re G_z ≤ s₁ + s₂, assuming v = w + (ηg)u and the
+on-line normalisation Σ_k |w_z k|² ≤ c (the shape of zeta23's `hPois`, imposed on w alone; zeta23 has c = aL²). -/
 theorem hybrid_cert {c : ℝ} (hc : 0 < c) (hv : ∀ z, D.v z = w z + ((η : ℂ) * g z) • u z)
-    (hw : ∀ z, w (D.σ z) = star (w z)) (hu : ∀ z, u (D.σ z) = star (u z))
-    (hg : ∀ z, g (D.σ z) = star (g z))
     (hPois : ∀ z ∈ D.onLine, ∑ k, ‖w z k‖ ^ 2 ≤ c) :
     4 * c⁻¹ * Aw D w + 2 * c⁻¹ * Ag D w u g η - 2 * (D.Ncount : ℝ) - frobSq (((c⁻¹ : ℝ) : ℂ) • D.blockA)
-      + 4 * c⁻¹ * ∑ z ∈ P.R, (D.m z : ℝ) * (G w u g η z).re ≤ ((D.s₁ + D.s₂ : ℕ) : ℝ) := by
+      + 2 * c⁻¹ * ∑ z ∈ D.onLineᶜ, (D.m z : ℝ) * (G w u g η z).re ≤ ((D.s₁ + D.s₂ : ℕ) : ℝ) := by
+  classical
+  let _ : LinearOrder ι := LinearOrder.lift' (Fintype.equivFin ι) (Fintype.equivFin ι).injective
+  let P := D.pairRepsOfLinearOrder
   have h := cert_general D P hc
   -- Re tr A = A_w + A_g
   have hA : rtrace D.blockA = Aw D w + Ag D w u g η := by
     simp only [rtrace, RCLike.re_to_complex, trace_blockA, Aw, Ag, β_eq D hv, mul_add, sum_add_distrib,
       Complex.add_re]
-  -- Re tr P ≤ N_on + A_g − Σ_R 2 m Re G
+  -- Re tr A_on = Re Σ_{on-line} m_z (w_z·w_z) + Re Σ_{on-line} m_z G_z
+  have hP : rtrace D.onPart = (∑ z ∈ D.onLine, (D.m z : ℂ) * (w z ⬝ᵥ w z)).re
+      + (∑ z ∈ D.onLine, (D.m z : ℂ) * G w u g η z).re := by
+    simp only [rtrace, RCLike.re_to_complex, trace_onPart, β_eq D hv, mul_add, sum_add_distrib, Complex.add_re]
+  -- Re Σ_{on-line} m_z (w_z·w_z) ≤ c·N_on
   have hPw : (∑ z ∈ D.onLine, (D.m z : ℂ) * (w z ⬝ᵥ w z)).re ≤ c * (D.Non : ℝ) := by
     rw [Complex.re_sum, ZeroBlockData.Non, Nat.cast_sum, mul_sum]
     refine sum_le_sum fun z hz => ?_
-    rw [ww_onLine D hw ((D.mem_onLine).mp hz), ← Complex.ofReal_natCast, ← Complex.ofReal_mul,
-      Complex.ofReal_re]
+    rw [re_natCast_mul]
     have hm : (0 : ℝ) ≤ D.m z := Nat.cast_nonneg _
-    calc (D.m z : ℝ) * ∑ k, ‖w z k‖ ^ 2 ≤ D.m z * c := by gcongr; exact hPois z hz
+    calc (D.m z : ℝ) * (w z ⬝ᵥ w z).re ≤ D.m z * c := by
+          gcongr; exact (re_dotProduct_self_le _).trans (hPois z hz)
       _ = c * D.m z := mul_comm _ _
   have hPw' : c⁻¹ * (∑ z ∈ D.onLine, (D.m z : ℂ) * (w z ⬝ᵥ w z)).re ≤ (D.Non : ℝ) := by
     calc c⁻¹ * (∑ z ∈ D.onLine, (D.m z : ℂ) * (w z ⬝ᵥ w z)).re ≤ c⁻¹ * (c * (D.Non : ℝ)) :=
           mul_le_mul_of_nonneg_left hPw (inv_nonneg.mpr hc.le)
       _ = D.Non := by field_simp
-  have hG := re_sum_split D P (fun z => (D.m z : ℂ) * G w u g η z) (fun z => by
-    rw [D.m_σ, G_σ D hw hu hg, star_mul', star_natCast])
-  have hP : rtrace D.onPart = (∑ z ∈ D.onLine, (D.m z : ℂ) * (w z ⬝ᵥ w z)).re
-      + (∑ z ∈ D.onLine, (D.m z : ℂ) * G w u g η z).re := by
-    simp only [rtrace, RCLike.re_to_complex, trace_onPart, β_eq D hv, mul_add, sum_add_distrib, Complex.add_re]
-  have hGre : ∀ z, ((D.m z : ℂ) * G w u g η z).re = (D.m z : ℝ) * (G w u g η z).re := fun z => by
-    rw [← Complex.ofReal_natCast, Complex.re_ofReal_mul]
-  simp only [hGre] at hG
-  have hN := D.Non_add_two_p_le_Ncount P
-  have hN' : (D.Non : ℝ) + 2 * (P.p : ℝ) ≤ D.Ncount := by exact_mod_cast hN
-  have h2 : ∑ z ∈ P.R, 2 * ((D.m z : ℝ) * (G w u g η z).re) = 2 * ∑ z ∈ P.R, (D.m z : ℝ) * (G w u g η z).re := by
-    rw [mul_sum]
-  rw [show (∑ z, (D.m z : ℂ) * G w u g η z).re = Ag D w u g η from rfl] at hG
-  rw [h2] at hG
+  have hN' : (D.Non : ℝ) + 2 * (P.p : ℝ) ≤ D.Ncount := by exact_mod_cast D.Non_add_two_p_le_Ncount P
+  have e1 : c⁻¹ * (∑ z ∈ D.onLine, (D.m z : ℂ) * G w u g η z).re
+      = c⁻¹ * Ag D w u g η - c⁻¹ * ∑ z ∈ D.onLineᶜ, (D.m z : ℝ) * (G w u g η z).re := by
+    rw [Ag_split]; ring
   rw [hA, hP] at h
-  have hκ : 0 ≤ c⁻¹ := inv_nonneg.mpr hc.le
-  nlinarith [hPw', hN', hG, h]
+  nlinarith [hPw', hN', h, e1]
 
-/-- **The certificate with the off-line input displayed**: given OFF(E): −E ≤ Σ_R m_z Re G_z,
-c⁻¹(4 A_w + 2 A_g − 4E) − 2N − ‖c⁻¹A‖² ≤ s₁ + s₂. -/
+lemma ww_σ (hw : ∀ z, w (D.σ z) = star (w z)) (z : ι) :
+    w (D.σ z) ⬝ᵥ w (D.σ z) = star (w z ⬝ᵥ w z) := by
+  rw [hw, star_dotProduct_star']
+
+/-- G is σ-equivariant as soon as w is (G = β − w·w, and β is by `ZeroBlockData.v_σ`). -/
+lemma G_σ (hv : ∀ z, D.v z = w z + ((η : ℂ) * g z) • u z) (hw : ∀ z, w (D.σ z) = star (w z)) (z : ι) :
+    G w u g η (D.σ z) = star (G w u g η z) := by
+  have e : G w u g η (D.σ z) = β D (D.σ z) - w (D.σ z) ⬝ᵥ w (D.σ z) := by rw [β_eq D hv]; ring
+  rw [e, β_σ, ww_σ D hw, β_eq D hv, star_add]; ring
+
+/-- For a σ-equivariant f, the off-line zeros contribute Σ_{z off the line} Re f_z = Σ_{z ∈ R} 2 Re f_z. -/
+lemma re_sum_offLine (f : ι → ℂ) (hf : ∀ z, f (D.σ z) = star (f z)) :
+    ∑ z ∈ D.onLineᶜ, (f z).re = ∑ z ∈ P.R, 2 * (f z).re := by
+  have h := re_sum_split D P f hf
+  rw [← Finset.sum_add_sum_compl D.onLine, Complex.add_re, Complex.re_sum (s := D.onLineᶜ)] at h
+  linarith
+
+/-- **The certificate on pair representatives**: if w is reflection-symmetric,
+c⁻¹(4 A_w + 2 A_g) − 2N − ‖c⁻¹A‖² + 4c⁻¹ Σ_{z ∈ R} m_z Re G_z ≤ s₁ + s₂. -/
+theorem hybrid_cert_pairs {c : ℝ} (hc : 0 < c) (hv : ∀ z, D.v z = w z + ((η : ℂ) * g z) • u z)
+    (hw : ∀ z, w (D.σ z) = star (w z)) (hPois : ∀ z ∈ D.onLine, ∑ k, ‖w z k‖ ^ 2 ≤ c) :
+    4 * c⁻¹ * Aw D w + 2 * c⁻¹ * Ag D w u g η - 2 * (D.Ncount : ℝ) - frobSq (((c⁻¹ : ℝ) : ℂ) • D.blockA)
+      + 4 * c⁻¹ * ∑ z ∈ P.R, (D.m z : ℝ) * (G w u g η z).re ≤ ((D.s₁ + D.s₂ : ℕ) : ℝ) := by
+  have h := hybrid_cert D hc hv hPois
+  have hs := re_sum_offLine D P (fun z => (D.m z : ℂ) * G w u g η z) (fun z => by
+    rw [D.m_σ, G_σ D hv hw, star_mul', star_natCast])
+  simp only [re_natCast_mul] at hs
+  rw [hs, ← mul_sum] at h
+  linarith
+
+/-- **The certificate with the off-line input displayed**: given OFF(E): −E ≤ Σ_{z off the line} m_z Re G_z,
+c⁻¹(4 A_w + 2 A_g − 2E) − 2N − ‖c⁻¹A‖² ≤ s₁ + s₂. -/
 theorem hybrid_cert_of_offline {c : ℝ} (hc : 0 < c) (hv : ∀ z, D.v z = w z + ((η : ℂ) * g z) • u z)
-    (hw : ∀ z, w (D.σ z) = star (w z)) (hu : ∀ z, u (D.σ z) = star (u z))
-    (hg : ∀ z, g (D.σ z) = star (g z))
     (hPois : ∀ z ∈ D.onLine, ∑ k, ‖w z k‖ ^ 2 ≤ c)
-    {E : ℝ} (hOFF : -E ≤ ∑ z ∈ P.R, (D.m z : ℝ) * (G w u g η z).re) :
-    4 * c⁻¹ * Aw D w + 2 * c⁻¹ * Ag D w u g η - 4 * c⁻¹ * E - 2 * (D.Ncount : ℝ)
+    {E : ℝ} (hOFF : -E ≤ ∑ z ∈ D.onLineᶜ, (D.m z : ℝ) * (G w u g η z).re) :
+    4 * c⁻¹ * Aw D w + 2 * c⁻¹ * Ag D w u g η - 2 * c⁻¹ * E - 2 * (D.Ncount : ℝ)
       - frobSq (((c⁻¹ : ℝ) : ℂ) • D.blockA) ≤ ((D.s₁ + D.s₂ : ℕ) : ℝ) := by
-  have := hybrid_cert D P hc hv hw hu hg hPois
+  have := hybrid_cert D hc hv hPois
   have hκ : 0 ≤ c⁻¹ := inv_nonneg.mpr hc.le
   nlinarith [mul_le_mul_of_nonneg_left hOFF hκ]
 
-/-- **The off-line input split by order in η**: a first-order input |Σ_R m Re(g (w·u))| ≤ E₁ and a
-second-order input −E₂ ≤ Σ_R m Re(g² (u·u)) give
-c⁻¹(4 A_w + 2 A_g − 8|η|E₁ − 4η²E₂) − 2N − ‖c⁻¹A‖² ≤ s₁ + s₂. -/
+/-- **The off-line input split by order in η**: one-sided inputs −E₁ ≤ 2η Σ_{off} m Re(g (w·u)) (first order)
+and −E₂ ≤ Σ_{off} m Re(g² (u·u)) (second order) give c⁻¹(4 A_w + 2 A_g − 2E₁ − 2η²E₂) − 2N − ‖c⁻¹A‖² ≤ s₁ + s₂. -/
 theorem hybrid_cert_of_moments {c : ℝ} (hc : 0 < c) (hv : ∀ z, D.v z = w z + ((η : ℂ) * g z) • u z)
-    (hw : ∀ z, w (D.σ z) = star (w z)) (hu : ∀ z, u (D.σ z) = star (u z))
-    (hg : ∀ z, g (D.σ z) = star (g z))
     (hPois : ∀ z ∈ D.onLine, ∑ k, ‖w z k‖ ^ 2 ≤ c)
-    {E₁ E₂ : ℝ} (h1 : |∑ z ∈ P.R, (D.m z : ℝ) * (g z * (w z ⬝ᵥ u z)).re| ≤ E₁)
-    (h2 : -E₂ ≤ ∑ z ∈ P.R, (D.m z : ℝ) * (g z ^ 2 * (u z ⬝ᵥ u z)).re) :
-    4 * c⁻¹ * Aw D w + 2 * c⁻¹ * Ag D w u g η - c⁻¹ * (8 * |η| * E₁ + 4 * η ^ 2 * E₂)
+    {E₁ E₂ : ℝ} (h1 : -E₁ ≤ 2 * η * ∑ z ∈ D.onLineᶜ, (D.m z : ℝ) * (g z * (w z ⬝ᵥ u z)).re)
+    (h2 : -E₂ ≤ ∑ z ∈ D.onLineᶜ, (D.m z : ℝ) * (g z ^ 2 * (u z ⬝ᵥ u z)).re) :
+    4 * c⁻¹ * Aw D w + 2 * c⁻¹ * Ag D w u g η - 2 * c⁻¹ * (E₁ + η ^ 2 * E₂)
       - 2 * (D.Ncount : ℝ) - frobSq (((c⁻¹ : ℝ) : ℂ) • D.blockA) ≤ ((D.s₁ + D.s₂ : ℕ) : ℝ) := by
-  have hsplit : ∑ z ∈ P.R, (D.m z : ℝ) * (G w u g η z).re
-      = 2 * η * ∑ z ∈ P.R, (D.m z : ℝ) * (g z * (w z ⬝ᵥ u z)).re
-        + η ^ 2 * ∑ z ∈ P.R, (D.m z : ℝ) * (g z ^ 2 * (u z ⬝ᵥ u z)).re := by
+  have hsplit : ∑ z ∈ D.onLineᶜ, (D.m z : ℝ) * (G w u g η z).re
+      = 2 * η * ∑ z ∈ D.onLineᶜ, (D.m z : ℝ) * (g z * (w z ⬝ᵥ u z)).re
+        + η ^ 2 * ∑ z ∈ D.onLineᶜ, (D.m z : ℝ) * (g z ^ 2 * (u z ⬝ᵥ u z)).re := by
     rw [mul_sum, mul_sum, ← sum_add_distrib]
     refine sum_congr rfl fun z _ => ?_
     simp only [G, Complex.add_re]
@@ -234,38 +250,29 @@ theorem hybrid_cert_of_moments {c : ℝ} (hc : 0 < c) (hv : ∀ z, D.v z = w z +
       rw [show (η : ℂ) ^ 2 * g z ^ 2 * (u z ⬝ᵥ u z) = ((η ^ 2 : ℝ) : ℂ) * (g z ^ 2 * (u z ⬝ᵥ u z)) by push_cast; ring,
         Complex.re_ofReal_mul]
     rw [e1, e2]; ring
-  have hfirst : -(2 * |η| * E₁) ≤ 2 * η * ∑ z ∈ P.R, (D.m z : ℝ) * (g z * (w z ⬝ᵥ u z)).re := by
-    have := abs_le.mp h1
-    have hab := abs_mul (2 * η) (∑ z ∈ P.R, (D.m z : ℝ) * (g z * (w z ⬝ᵥ u z)).re)
-    have h0 : |2 * η| = 2 * |η| := by rw [abs_mul]; norm_num
-    have : |2 * η * ∑ z ∈ P.R, (D.m z : ℝ) * (g z * (w z ⬝ᵥ u z)).re| ≤ 2 * |η| * E₁ := by
-      rw [hab, h0]; exact mul_le_mul_of_nonneg_left h1 (by positivity)
-    linarith [neg_abs_le (2 * η * ∑ z ∈ P.R, (D.m z : ℝ) * (g z * (w z ⬝ᵥ u z)).re)]
-  have hsecond : -(η ^ 2 * E₂) ≤ η ^ 2 * ∑ z ∈ P.R, (D.m z : ℝ) * (g z ^ 2 * (u z ⬝ᵥ u z)).re := by
+  have hsecond : -(η ^ 2 * E₂) ≤ η ^ 2 * ∑ z ∈ D.onLineᶜ, (D.m z : ℝ) * (g z ^ 2 * (u z ⬝ᵥ u z)).re := by
     have := mul_le_mul_of_nonneg_left h2 (sq_nonneg η); linarith
-  exact le_trans (le_of_eq (by ring)) (hybrid_cert_of_offline D P hc hv hw hu hg hPois
-    (E := 2 * |η| * E₁ + η ^ 2 * E₂) (by rw [hsplit]; linarith))
+  exact le_trans (le_of_eq (by ring)) (hybrid_cert_of_offline D hc hv hPois
+    (E := E₁ + η ^ 2 * E₂) (by rw [hsplit]; linarith))
 
-/-- **No off-line zeros**: if the window has no off-line pair (R = ∅), the certificate holds with E = 0:
-c⁻¹(4 A_w + 2 A_g) − 2N − ‖c⁻¹A‖² ≤ s₁ + s₂.  The off-line input is the only place the zeros' positions enter. -/
+/-- **No off-line zeros**: if every zero of the window is on the line, the certificate holds with E = 0:
+c⁻¹(4 A_w + 2 A_g) − 2N − ‖c⁻¹A‖² ≤ s₁ + s₂. -/
 theorem hybrid_cert_of_no_offline {c : ℝ} (hc : 0 < c) (hv : ∀ z, D.v z = w z + ((η : ℂ) * g z) • u z)
-    (hw : ∀ z, w (D.σ z) = star (w z)) (hu : ∀ z, u (D.σ z) = star (u z))
-    (hg : ∀ z, g (D.σ z) = star (g z))
-    (hPois : ∀ z ∈ D.onLine, ∑ k, ‖w z k‖ ^ 2 ≤ c) (hR : P.R = ∅) :
+    (hPois : ∀ z ∈ D.onLine, ∑ k, ‖w z k‖ ^ 2 ≤ c) (hon : ∀ z, D.σ z = z) :
     4 * c⁻¹ * Aw D w + 2 * c⁻¹ * Ag D w u g η - 2 * (D.Ncount : ℝ)
       - frobSq (((c⁻¹ : ℝ) : ℂ) • D.blockA) ≤ ((D.s₁ + D.s₂ : ℕ) : ℝ) := by
-  have := hybrid_cert_of_offline D P hc hv hw hu hg hPois (E := 0) (by simp [hR])
+  have hempty : D.onLineᶜ = ∅ := by
+    ext z; simp [ZeroBlockData.mem_onLine, hon z]
+  have := hybrid_cert_of_offline D hc hv hPois (E := 0) (by simp [hempty])
   linarith
 
-/-- **Consistency (η = 0)**: the hybrid certificate reduces to AF's assembly
-4 c⁻¹ A_w − 2N − ‖c⁻¹A‖² ≤ s₁ + s₂. -/
-theorem hybrid_cert_eta_zero {c : ℝ} (hc : 0 < c) (hv : ∀ z, D.v z = w z) (hw : ∀ z, w (D.σ z) = star (w z))
+/-- **Consistency (η = 0)**: the hybrid certificate reduces to the inequality of zeta23's
+`Assembly.zeroside_rank_core`, 4 c⁻¹ A_w − 2N − ‖c⁻¹A‖² ≤ s₁ + s₂. -/
+theorem hybrid_cert_eta_zero {c : ℝ} (hc : 0 < c) (hv : ∀ z, D.v z = w z)
     (hPois : ∀ z ∈ D.onLine, ∑ k, ‖w z k‖ ^ 2 ≤ c) :
     4 * c⁻¹ * Aw D w - 2 * (D.Ncount : ℝ) - frobSq (((c⁻¹ : ℝ) : ℂ) • D.blockA) ≤ ((D.s₁ + D.s₂ : ℕ) : ℝ) := by
   have hv' : ∀ z, D.v z = w z + (((0 : ℝ) : ℂ) * (0 : ι → ℂ) z) • w z := fun z => by simp [hv z]
-  classical
-  let _ : LinearOrder ι := LinearOrder.lift' (Fintype.equivFin ι) (Fintype.equivFin ι).injective
-  have := hybrid_cert (g := 0) (u := w) (η := 0) D D.pairRepsOfLinearOrder hc hv' hw hw (fun z => by simp) hPois
+  have := hybrid_cert (g := 0) (u := w) (η := 0) D hc hv' hPois
   simpa [G, Ag] using this
 
 end Hybrid
