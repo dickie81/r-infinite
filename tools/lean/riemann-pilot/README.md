@@ -8478,7 +8478,7 @@ Alpöge–Furman (zeta23) count distinct on-line zeros with a rank–trace inequ
 
 **1. The zero side** (`build.sh`). The import closure of `Zeta23.ZeroSide` has 13 zeta23 files. Nine of them are new to the layer, and they compile unpatched: `LinAlg` and five of its parts, `Hypotheses.GzGp`, `Assembly.Inputs` and `ZeroSide`. The layer now compiles 59 zeta23 files, up from 50, plus its eight own files. Two other changes to `build.sh`:
 - It fetches again when `MODS` names a file missing from `upstream/`.
-- It fails unless every axiom line printed during the build is exactly `[propext, Classical.choice, Quot.sound]`. That covers the lines a compiled file prints with its own `#print axioms` and the lines of the final check. Before, it only printed them, and `lean` exits 0 on a `sorryAx` line.
+- It fails if a compiled file uses `sorry`, or if any axiom line printed during the build is not exactly `[propext, Classical.choice, Quot.sound]`. The axiom lines are those a compiled file prints with its own `#print axioms`, and those of the final check. Before, it only printed them, and `lean` exits 0 on a `sorry` and on a `sorryAx` line.
 
 **2. The certificates.** These hold for any `ZeroBlockData` and any unit `c > 0`; zeta23 takes `c = aL²`.
 - `cert_offline`: `2c⁻¹ Re tr A − ‖c⁻¹A‖²_F + Σ_{z∈R} (4c⁻¹ m_z Re β_z − 4) ≤ s₁ + s₂`. Here `β_z = v_z·v_z` and `R` holds one zero from each off-line pair. There is no hypothesis on the vectors.
@@ -8510,7 +8510,7 @@ The normalisation is imposed on `w` alone. If it were imposed on `v`, it would n
 - The certificate is stated for the abstract `ZeroBlockData`, not for zeta23's concrete `blockData`.
 - No proportion is claimed.
 
-**Hostile review, first pass** (fresh-context reviewer; the lead then checked each finding). It reviewed the round's first commit, `04159c4`, and found no MAJOR findings, 6 minor, 8 cosmetic and 2 out-of-scope observations (F1–F16). All 14 findings and the first observation were accepted. Of the second observation, one item of three was acted on.
+**Hostile review, first pass** (fresh-context reviewer; the lead then checked each finding). It reviewed the round's first two commits, `04159c4` and `de596d8`, and found no MAJOR findings, 6 minor, 8 cosmetic and 2 out-of-scope observations (F1–F16). All 14 findings and the first observation were accepted. Of the second observation, one item of three was acted on.
 - **The theorems.**
   - F1: the symmetry hypotheses on `u` and `g` were redundant. Writing the off-line term over all off-line zeros removes the one on `w` too. So `hybrid_cert` now has no symmetry hypothesis, and the old `R`-form is `hybrid_cert_pairs`, which needs only symmetric `w`. Also, `hybrid_cert_eta_zero` no longer assumes `w` symmetric, which followed from `v = w` anyway.
   - F14: the first-order input of `hybrid_cert_of_moments` was two-sided (`|…| ≤ E₁`). It is now one-sided.
@@ -8530,18 +8530,21 @@ The normalisation is imposed on `w` alone. If it were imposed on `v`, it would n
 - **The axiom check (F15).** `build.sh`'s axiom check could not fail. It was made to fail closed; see the second pass.
 - **The fetch logic (F16).** Of its three items, the third is now documented: a `ZETA23` clone inside `upstream/` is deleted by a re-fetch. The first two are not addressed. The fetch logic predates this round, and it still does not notice a change of `REV` or an edited upstream file.
 
-**Hostile review, second pass** (convergence, on the sweep `0bce5c8`). It found no MAJOR findings, 2 minor and 3 cosmetic; all were accepted.
+**Hostile review, second pass** (convergence, on the sweep `0bce5c8`). It found no MAJOR findings, 2 minor and 3 cosmetic, and made 2 out-of-scope observations (O1, O2). All seven were accepted.
 - R276C-1: the new gate checked only the 18 lines of the final check, not the 20 axiom lines the layer files print while compiling. Six of those theorems were reached by no gated theorem. `build.sh` now applies the same rule to every compiled file's output.
 - R276C-2: this record had left out F9 and F10, misdescribed F16, and paraphrased loosely. It is rewritten above.
-- R276C-3: the final check could be passed by a dirty line next to a line the count missed, such as an indented `#print axioms`, `open … in`, or a printed forgery. It now also fails on any axiom line in its output that is not the standard one. On the reviewer's 11 test inputs it passes the clean one and fails the other 10, each with a message.
+- R276C-3: the final check could be passed by a dirty line next to a line the count missed: an indented `#print axioms`, `open … in`, or a double space. It now also fails on any axiom line in its output that is not the standard one. On the reviewer's 11 test inputs it passes the clean one and fails the other 10, each with a message.
 - R276C-4: "displayed as a hypothesis" was reworded.
 - R276C-5: the non-vacuity check had been a scratch run listed under "Verified". It is now `HybridExamples.lean`, compiled and gated by `build.sh`. It also includes the reviewer's tightness instance (`last_term_needed`, `with_last_term_value`).
+- O1: the round-228 sentence "All axioms are clean" rested on ungated compile output. That output is now gated.
+- O2: a printed forgery of a clean axiom line next to a `sorry` passed the final check. It now fails (test input d7).
 
-Verified:
-- **Layer build** (second sweep). `external/zeta23/build.sh` compiled the 59 zeta23 files and the eight layer files in 428 s, exit 0. `HybridCertificate` and `HybridExamples` print no warnings.
-- **Axiom lines.** The build printed 47, all `[propext, Classical.choice, Quot.sound]` and all gated:
-  - 20 from the layer files' own `#print axioms` during compilation;
-  - 24 from the main final check: the seven earlier theorems, the eight `HybridCert` theorems and the nine `HybridExamples` theorems;
-  - 3 from the co-import check.
+**Hostile review, third pass** (convergence, on the second sweep `0cdaed3`). It found no MAJOR findings, 1 minor and 1 cosmetic, and made 2 out-of-scope observations. The minor and the cosmetic were accepted, and so was the second observation.
+- R276C2-1: the lemma that shows the example's base family is not reflection-symmetric (`w1_not_symm`) was compiled but not gated. A `sorry` in its proof passed the build. Now `build.sh` fails if any compiled file uses `sorry`, and `w1_not_symm` is in the final check. The reviewer's mutant now fails at compile time.
+- R276C2-2: this record had omitted O1 and O2, credited the forgery to R276C-3, and dated the first pass to one commit. All three are corrected above.
+- First observation, not addressed: under `open Classical`, `#print axioms` shortens the names, so a clean theorem would fail the check. It fails closed, and no committed check runs under `open Classical`.
+- Second observation, accepted: a file that fails the gate no longer leaves its `.olean` in `build/`.
+
+Verified: the layer build for the third sweep is recorded in the next commit.
 
 **Check 4.** New: no earlier round couples a second family into zeta23's certificate. **Bearing on RH:** none. The certificate counts on-line zeros without assuming RH.
