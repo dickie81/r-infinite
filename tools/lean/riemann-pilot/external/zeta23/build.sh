@@ -7,7 +7,8 @@
 # zeta23_port.patch (the port to the pilot's Lean and Mathlib), and compiles those files and this directory's
 # files into ../../build. It then prints the axioms of the final theorems. Every axiom line printed during the
 # build, by a compiled file's own #print axioms or by the final checks, must be
-# [propext, Classical.choice, Quot.sound], and no compiled file may use sorry, or the script fails.
+# [propext, Classical.choice, Quot.sound], and Lean must report no use of sorry in a compiled file, or the
+# script fails.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 PILOT="$(cd "$HERE/../.." && pwd)"
@@ -43,15 +44,16 @@ CLEAN="' depends on axioms: \[propext, Classical.choice, Quot.sound\]\$"
 dirty() {
   printf '%s\n' "$1" | grep -e "' depends on axioms: " -e "' does not depend on any axioms" | grep -vc "$CLEAN" || true
 }
-# c ROOT MODULE [lean options]: compile ROOT/MODULE.lean to B/MODULE.olean; fail, removing that olean, if the
-# file uses sorry or prints an axiom line other than [propext, Classical.choice, Quot.sound]
+# c ROOT MODULE [lean options]: compile ROOT/MODULE.lean to B/MODULE.olean; fail, removing that olean, if Lean
+# reports a use of sorry in the file or it prints an axiom line other than [propext, Classical.choice, Quot.sound]
 c() {
   local root=$1 rel=${2//.//} out; shift 2
   echo "== ${rel//\//.}"; mkdir -p "$B/$(dirname "$rel")"
   out="$(LEAN_PATH="$LP" lean "$@" -R "$root" -o "$B/$rel.olean" -i "$B/$rel.ilean" "$root/$rel.lean" 2>&1)" \
     || { printf '%s\n' "$out"; exit 1; }
   [ -z "$out" ] || printf '%s\n' "$out"
-  if [[ "$out" == *'declaration uses `sorry`'* ]]; then
+  # Lean's warning reads "declaration uses `sorry`", or `sorry «pos»` / `sorryAx …` under some pp options
+  if [[ "$out" == *'declaration uses `sorry'* ]]; then
     rm -f "$B/$rel.olean" "$B/$rel.ilean"
     echo "axioms check FAILED: ${rel//\//.} uses sorry" >&2
     exit 1

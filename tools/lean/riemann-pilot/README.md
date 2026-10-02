@@ -8478,7 +8478,7 @@ Alpöge–Furman (zeta23) count distinct on-line zeros with a rank–trace inequ
 
 **1. The zero side** (`build.sh`). The import closure of `Zeta23.ZeroSide` has 13 zeta23 files. Nine of them are new to the layer, and they compile unpatched: `LinAlg` and five of its parts, `Hypotheses.GzGp`, `Assembly.Inputs` and `ZeroSide`. The layer now compiles 59 zeta23 files, up from 50, plus its eight own files. Two other changes to `build.sh`:
 - It fetches again when `MODS` names a file missing from `upstream/`.
-- It fails if a compiled file uses `sorry`, or if any axiom line printed during the build is not exactly `[propext, Classical.choice, Quot.sound]`. The axiom lines are those a compiled file prints with its own `#print axioms`, and those of the final check. Before, it only printed them, and `lean` exits 0 on a `sorry` and on a `sorryAx` line.
+- It fails if Lean reports a use of `sorry` in a compiled file, or if any axiom line printed during the build is not exactly `[propext, Classical.choice, Quot.sound]`. The axiom lines are those a compiled file prints with its own `#print axioms`, and those of the final check. Before, it only printed them, and `lean` exits 0 on a `sorry` and on a `sorryAx` line.
 
 **2. The certificates.** These hold for any `ZeroBlockData` and any unit `c > 0`; zeta23 takes `c = aL²`.
 - `cert_offline`: `2c⁻¹ Re tr A − ‖c⁻¹A‖²_F + Σ_{z∈R} (4c⁻¹ m_z Re β_z − 4) ≤ s₁ + s₂`. Here `β_z = v_z·v_z` and `R` holds one zero from each off-line pair. There is no hypothesis on the vectors.
@@ -8540,13 +8540,19 @@ The normalisation is imposed on `w` alone. If it were imposed on `v`, it would n
 - O2: a printed forgery of a clean axiom line next to a `sorry` passed the final check. It now fails (test input d7).
 
 **Hostile review, third pass** (convergence, on the second sweep `0cdaed3`). It found no MAJOR findings, 1 minor and 1 cosmetic, and made 2 out-of-scope observations. The minor and the cosmetic were accepted, and so was the second observation.
-- R276C2-1: the lemma that shows the example's base family is not reflection-symmetric (`w1_not_symm`) was compiled but not gated. A `sorry` in its proof passed the build. Now `build.sh` fails if any compiled file uses `sorry`, and `w1_not_symm` is in the final check. The reviewer's mutant now fails at compile time.
+- R276C2-1: the lemma that shows the example's base family is not reflection-symmetric (`w1_not_symm`) was compiled but not gated. A `sorry` in its proof passed the build. Now `build.sh` fails if Lean reports a use of `sorry` in any compiled file, and `w1_not_symm` is in the final check. The reviewer's mutant now fails at compile time.
 - R276C2-2: this record had omitted O1 and O2, credited the forgery to R276C-3, and dated the first pass to one commit. All three are corrected above.
 - First observation, not addressed: under `open Classical`, `#print axioms` shortens the names, so a clean theorem would fail the check. It fails closed, and no committed check runs under `open Classical`.
 - Second observation, accepted: a file that fails the gate no longer leaves its `.olean` in `build/`.
 
+**Hostile review, fourth pass** (convergence, on the third sweep `cab3e28`). It found no MAJOR findings, 1 minor and no cosmetic, and made 2 out-of-scope observations. The minor was accepted.
+- R276C3-1: the `sorry` check matched only Lean's default wording, ``declaration uses `sorry` ``. Under `pp.sorrySource`, `pp.all`, `pp.explicit`, `pp.notation false` or `pp.raw`, Lean words the warning differently (`` `sorry «pos»` ``, `` `sorryAx …` ``), and the build passed. The check now matches every form. The gate sentences now say what it checks: a use of `sorry` that Lean reports.
+- Not addressed: both observations are deliberate subversions with no committed reach. Neither is matched by any compiled file.
+  - A file can turn the warning off (`set_option warn.sorry false`, `#guard_msgs (drop warning)`).
+  - `debug.skipKernelTC` can give a false theorem a clean axiom line by switching the kernel off.
+
 Verified:
-- **Layer build** (third sweep). `external/zeta23/build.sh` compiled the 59 zeta23 files and the eight layer files in 439 s, exit 0. No compiled file uses `sorry`, and `HybridCertificate` and `HybridExamples` print no warnings.
+- **Layer build** (third sweep). `external/zeta23/build.sh` compiled the 59 zeta23 files and the eight layer files in 439 s, exit 0. Lean reports no use of `sorry` in any compiled file, and `HybridCertificate` and `HybridExamples` print no warnings.
 - **Axiom lines.** The build printed 48, all `[propext, Classical.choice, Quot.sound]` and all gated:
   - 20 from the layer files' own `#print axioms` during compilation;
   - 25 from the main final check: the seven earlier theorems, the eight `HybridCert` theorems and ten from `HybridExamples`;
