@@ -8471,3 +8471,33 @@ Verified after the move: `./build.sh` reports 0 compiled, 170 up to date. After 
 **Check 4.** Acknowledged: the round-273 assessment proposed this split. New: the cross-layer staleness rule in `build.sh`.
 
 **Bearing on RH:** none.
+
+## Round 276: the same-space hybrid certificate on zeta23's zero side, with no RH (`external/zeta23/HybridCertificate.lean`)
+
+Alpöge–Furman (zeta23) count distinct on-line zeros with a rank–trace inequality for `A = Σ_z m_z v_z v_zᵀ`. Here `v_z` is the vector of Fourier evaluations at the zero `z`. This round asks whether a second family of information, such as a mollified `ζ′` weight `g`, can enter the same certificate without RH. The coupling is in the same space: `v_z = w_z + (η g_z) u_z`. The round states the resulting certificate in Lean, so that the one input that depends on where the zeros are is displayed as a hypothesis.
+
+**1. The zero side** (`build.sh`). The layer now also compiles the import closure of `Zeta23.ZeroSide`: nine zeta23 files (`LinAlg` and five of its parts, `Hypotheses.GzGp`, `Assembly.Inputs`, `ZeroSide`), unpatched. It compiles 59 files in all, up from 50. `build.sh` also fetches again when `MODS` names a file missing from `upstream/`.
+
+**2. The certificates.** These hold for any `ZeroBlockData` and any unit `c > 0`; zeta23 takes `c = aL²`.
+- `cert_offline`: `2c⁻¹ Re tr A − ‖c⁻¹A‖²_F + Σ_{z∈R} (4c⁻¹ m_z Re β_z − 4) ≤ s₁ + s₂`. Here `β_z = v_z·v_z` and `R` holds one zero from each off-line pair. There is no hypothesis on the vectors.
+- **`hybrid_cert`**: assume `w`, `u`, `g` are reflection-symmetric, and `Σ_k |w_z k|² ≤ c` at the on-line zeros (zeta23's `hPois`, for `w` alone). Then
+  `c⁻¹(4A_w + 2A_g) − 2N − ‖c⁻¹A‖²_F + 4c⁻¹ Σ_{z∈R} m_z Re G_z ≤ s₁ + s₂`,
+  where `G_z = 2η g_z (w_z·u_z) + η² g_z² (u_z·u_z)`.
+  Every term but the last is a sum over all zeros in the window. The last is a sum over the off-line pairs.
+- `hybrid_cert_of_offline` replaces the last term by `−4c⁻¹E`, given `OFF(E): −E ≤ Σ_{z∈R} m_z Re G_z`.
+- `hybrid_cert_of_moments` splits `OFF` by order in `η`, into `|Σ_R m Re(g (w·u))| ≤ E₁` and `−E₂ ≤ Σ_R m Re(g² (u·u))`.
+- `hybrid_cert_of_no_offline` takes `E = 0` when `R = ∅`.
+- `hybrid_cert_eta_zero` recovers zeta23's `Assembly.zeroside_rank_core` inequality at `η = 0`.
+
+**What it fixes for the analytic side.** An RH-free proportion from this certificate needs two kinds of input.
+- An asymptotic for each all-zeros term, from a prime side: `A_w` is zeta23's, `A_g` needs twisted first moments, and `‖A‖_F` needs upper bounds through the quartic terms in `η`.
+- `OFF(E)`, with `4c⁻¹E` smaller than the net gain over `η = 0`: the increase in `2c⁻¹A_g` less the increase in `‖c⁻¹A‖²_F`. It is one-sided: only a lower bound on the off-line sum is needed.
+
+The normalisation is imposed on `w` alone. If it were imposed on `v`, it would need a pointwise bound on `g` at each on-line zero. For a mollified `ζ′` weight only mean values over the zeros are known. That is why the off-line term remains.
+
+**Not done.**
+- No prime side is formalised: neither zeta23's `Assembly` nor its prime and tail files are ported.
+- The certificate is stated for the abstract `ZeroBlockData`, not for zeta23's concrete `blockData`.
+- No proportion is claimed.
+
+**Check 4.** New: no earlier round couples a second family into zeta23's certificate. **Bearing on RH:** none. The certificate counts on-line zeros without assuming RH.

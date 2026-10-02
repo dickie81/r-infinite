@@ -2,8 +2,8 @@
 # Build the zeta23 layer on the pilot's toolchain. Usage: ./build.sh, after ../../build.sh. Set MATHLIB as for
 # ../../build.sh. Optionally set ZETA23 to a clone of anthropics/formal-math that contains commit fbdc36b;
 # otherwise that one commit is fetched.
-# The script takes the 50 zeta23 files that this layer uses (Montgomery–Vaughan, Riemann–von Mangoldt, the Γ
-# facts, and their dependencies), at commit fbdc36b (Lean v4.33.0-rc2), applies zeta23_port.patch (the port to
+# The script takes the 59 zeta23 files that this layer uses (Montgomery–Vaughan, Riemann–von Mangoldt, the Γ
+# facts, the zero side's block structure, and their dependencies), at commit fbdc36b (Lean v4.33.0-rc2), applies zeta23_port.patch (the port to
 # the pilot's Lean and Mathlib), and compiles those files and this directory's files into ../../build.
 # It then prints the axioms of the final theorems.
 set -euo pipefail
@@ -12,8 +12,12 @@ PILOT="$(cd "$HERE/../.." && pwd)"
 REV=fbdc36bbf17d20af3fd0447c6d1a8a02773c9844
 UP="$HERE/upstream"
 # In dependency order.
-MODS="Zeta23.MV.Spacing Zeta23.MV.Quadratic Zeta23.MV.EigenIdentity Zeta23.MV.Eigen Zeta23.Defs Zeta23.Hypotheses Zeta23.MV Zeta23.LinAlg.PosIndex Zeta23.LinAlg.HermitianPosPart Zeta23.MV.Duality Zeta23.MV.Final Zeta23.Defs.Counting Zeta23.Statement Zeta23.Statement.Seam Zeta23.ZetaReflect Zeta23.Statement.SeamClosed Zeta23.RvM.Defs Zeta23.Prelude.InstancePriorities Zeta23.FromPNTPlus.StrongPNTPrefix Zeta23.FromPNTPlus.Auxiliary Zeta23.FromPNTPlus.Sobolev Zeta23.FromPNTPlus.Fourier Zeta23.FromPNTPlus.Mathlib.Analysis.SpecialFunctions.Log.Basic Zeta23.FromPNTPlus.Rectangle Zeta23.FromPNTPlus.Tactic.AdditiveCombination Zeta23.FromPNTPlus.ResidueCalcOnRectangles Zeta23.FromPNTPlus.EulerMaclaurin Zeta23.FromPNTPlus.ZetaBounds Zeta23.RvM.ZetaGrowth Zeta23.RvM.Halving Zeta23.RvM.LocalCount Zeta23.WeilEF.XiLogDeriv Zeta23.Analytic.RectangleLogDeriv Zeta23.RvM.GammaSide Zeta23.RvM.BacklundDefs Zeta23.RvM.ReZeroCount Zeta23.RvM.Backlund Zeta23.RvM.CountByIntegral Zeta23.FromPNTPlus.ZetaConj Zeta23.RvM.Fold Zeta23.RvM.NcountWindow Zeta23.RvM.MainTerm Zeta23.RvM.Statement Zeta23.GammaFacts Zeta23.GammaFacts.Series Zeta23.Analytic.Stirling Zeta23.GammaFacts.Mu Zeta23.GammaFacts.IntMu Zeta23.GammaFacts.StirlingVert Zeta23.GammaFacts.Complete "
-if [ ! -f "$UP/.ported" ] || [ "$HERE/zeta23_port.patch" -nt "$UP/.ported" ]; then
+MODS="Zeta23.MV.Spacing Zeta23.MV.Quadratic Zeta23.MV.EigenIdentity Zeta23.MV.Eigen Zeta23.Defs Zeta23.Hypotheses Zeta23.MV Zeta23.LinAlg.PosIndex Zeta23.LinAlg.HermitianPosPart Zeta23.MV.Duality Zeta23.MV.Final Zeta23.Defs.Counting Zeta23.Statement Zeta23.Statement.Seam Zeta23.ZetaReflect Zeta23.Statement.SeamClosed Zeta23.RvM.Defs Zeta23.Prelude.InstancePriorities Zeta23.FromPNTPlus.StrongPNTPrefix Zeta23.FromPNTPlus.Auxiliary Zeta23.FromPNTPlus.Sobolev Zeta23.FromPNTPlus.Fourier Zeta23.FromPNTPlus.Mathlib.Analysis.SpecialFunctions.Log.Basic Zeta23.FromPNTPlus.Rectangle Zeta23.FromPNTPlus.Tactic.AdditiveCombination Zeta23.FromPNTPlus.ResidueCalcOnRectangles Zeta23.FromPNTPlus.EulerMaclaurin Zeta23.FromPNTPlus.ZetaBounds Zeta23.RvM.ZetaGrowth Zeta23.RvM.Halving Zeta23.RvM.LocalCount Zeta23.WeilEF.XiLogDeriv Zeta23.Analytic.RectangleLogDeriv Zeta23.RvM.GammaSide Zeta23.RvM.BacklundDefs Zeta23.RvM.ReZeroCount Zeta23.RvM.Backlund Zeta23.RvM.CountByIntegral Zeta23.FromPNTPlus.ZetaConj Zeta23.RvM.Fold Zeta23.RvM.NcountWindow Zeta23.RvM.MainTerm Zeta23.RvM.Statement Zeta23.GammaFacts Zeta23.GammaFacts.Series Zeta23.Analytic.Stirling Zeta23.GammaFacts.Mu Zeta23.GammaFacts.IntMu Zeta23.GammaFacts.StirlingVert Zeta23.GammaFacts.Complete Zeta23.LinAlg.VonNeumann Zeta23.LinAlg.RankTrace Zeta23.LinAlg.Sylvester Zeta23.LinAlg.Inertia Zeta23.LinAlg.Weyl Zeta23.LinAlg Zeta23.Hypotheses.GzGp Zeta23.Assembly.Inputs Zeta23.ZeroSide "
+# Re-fetch when the patch is newer than the last port, or when MODS names a file the last port did not fetch.
+stale=0
+{ [ -f "$UP/.ported" ] && [ ! "$HERE/zeta23_port.patch" -nt "$UP/.ported" ]; } || stale=1
+for m in $MODS; do [ -f "$UP/${m//.//}.lean" ] || stale=1; done
+if [ "$stale" = 1 ]; then
   rm -rf "$UP"; mkdir -p "$UP"
   if [ -n "${ZETA23:-}" ]; then G="$ZETA23"; else
     G="$UP/.src"; git init -q "$G"
@@ -40,7 +44,7 @@ c() {
 }
 # zeta23's lakefile sets relaxedAutoImplicit = false for its own files.
 for m in $MODS; do c "$UP" "$m" -DrelaxedAutoImplicit=false; done
-for f in SlogZeta ZeroWindow Dictionary CountCompare CoImportMV CoImportGamma; do c "$HERE" $f; done
+for f in SlogZeta ZeroWindow Dictionary CountCompare HybridCertificate CoImportMV CoImportGamma; do c "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 cat > "$AX" <<'EOT'
 import SlogZeta
@@ -48,6 +52,7 @@ import Zeta23.MV.Final
 import ZeroWindow
 import Dictionary
 import CountCompare
+import HybridCertificate
 #print axioms ZeroWindow.zero_in_window
 #print axioms Dictionary.mu_eq_psiRe
 #print axioms CountCompare.local_count_le
@@ -55,6 +60,10 @@ import CountCompare
 #print axioms Zeta23.gammaFacts
 #print axioms Zeta23.RvM.riemannVonMangoldt
 #print axioms Zeta23.RvM.zeta_local_zero_count
+#print axioms HybridCert.cert_offline
+#print axioms HybridCert.hybrid_cert_of_moments
+#print axioms HybridCert.hybrid_cert_of_no_offline
+#print axioms HybridCert.hybrid_cert_eta_zero
 EOT
 echo "== axioms"
 LEAN_PATH="$LP" lean "$AX"
