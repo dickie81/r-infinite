@@ -8537,6 +8537,11 @@ The normalisation is imposed on `w` alone. If it were imposed on `v`, it would n
 - R276C-4: "displayed as a hypothesis" was reworded.
 - R276C-5: the non-vacuity check had been a scratch run listed under "Verified". It is now `HybridExamples.lean`, compiled and gated by `build.sh`. It also includes the reviewer's tightness instance (`last_term_needed`, `with_last_term_value`).
 
-Verified: the layer build for the second sweep is recorded in the next commit.
+Verified:
+- **Layer build** (second sweep). `external/zeta23/build.sh` compiled the 59 zeta23 files and the eight layer files in 428 s, exit 0. `HybridCertificate` and `HybridExamples` print no warnings.
+- **Axiom lines.** The build printed 47, all `[propext, Classical.choice, Quot.sound]` and all gated:
+  - 20 from the layer files' own `#print axioms` during compilation;
+  - 24 from the main final check: the seven earlier theorems, the eight `HybridCert` theorems and the nine `HybridExamples` theorems;
+  - 3 from the co-import check.
 
 **Check 4.** New: no earlier round couples a second family into zeta23's certificate. **Bearing on RH:** none. The certificate counts on-line zeros without assuming RH.
