@@ -6,6 +6,7 @@ These files build on zeta23, the Lean formalisation that accompanies Alpöge–F
 |---|---|---|
 | `SlogZeta.lean` | 228 | von Mangoldt's bound `|S(t)| ≤ C log t` for Mathlib's `riemannZeta`, in the pilot's terms; the 1ca wall law without `hSlog` |
 | `HybridCertificate.lean` | 276 | the rank–trace certificate on zeta23's zero side for coupled vectors `v = w + (ηg)u`, with no RH: one term is a sum over the off-line zeros alone, and it can be replaced by a displayed hypothesis |
+| `HybridExamples.lean` | 276 | concrete instances of five of the hybrid certificates, with every hypothesis discharged; an instance on which the off-line term cannot be dropped |
 
 ## What is used from zeta23
 
@@ -30,9 +31,9 @@ These files build on zeta23, the Lean formalisation that accompanies Alpöge–F
 `build.sh` does three things:
 - It fetches the 59 files at commit `fbdc36b` (Lean v4.33.0-rc2) into `upstream/`. Set `ZETA23` to a clone of `anthropics/formal-math` outside `upstream/` to use it; otherwise that one commit is fetched into `upstream/.src`, which a re-fetch deletes. It fetches again when the patch is newer than the last fetch, or when `MODS` names a file that is not in `upstream/`.
 - It applies `zeta23_port.patch`, which ports those files to the pilot's toolchain. Four files change, all by Mathlib API drift; the top of the patch lists them. Each changed file carries a note saying so. The nine zero-side files added in round 276 compile unpatched.
-- It compiles the zeta23 files (with zeta23's own `relaxedAutoImplicit = false`) and this directory's files into `../../build`. It then prints the axioms of the final theorems, and fails unless each line is `[propext, Classical.choice, Quot.sound]` (round 276).
+- It compiles the zeta23 files (with zeta23's own `relaxedAutoImplicit = false`) and this directory's files into `../../build`. It then prints the axioms of the final theorems. It fails unless every axiom line printed during the build is exactly `[propext, Classical.choice, Quot.sound]` (round 276). That covers the lines a compiled file prints with its own `#print axioms` and the lines of the final check.
 
-The zeta23 files print their own upstream warnings (deprecations, unused variables); they are compiled unedited apart from the patch. `SlogZeta.lean` and `HybridCertificate.lean` print none.
+The zeta23 files print their own upstream warnings (deprecations, unused variables); they are compiled unedited apart from the patch. `SlogZeta.lean`, `HybridCertificate.lean` and `HybridExamples.lean` print none.
 
 ## SlogZeta.lean (round 228)
 
@@ -62,4 +63,4 @@ The setting is zeta23's `ZeroBlockData`: distinct zeros `z` in a window, with mu
 
 On the line the proof uses only `Re(w·w) ≤ Σ_k |w_k|²`, which holds for every complex vector. So no symmetry of `w`, `u` or `g` is needed. The normalisation is imposed on `w` alone. If it were imposed on `v`, it would need a pointwise bound on `g` at each on-line zero.
 
-`build.sh` fails unless every printed axiom line is `[propext, Classical.choice, Quot.sound]`.
+`HybridExamples.lean` instantiates `hybrid_cert`, `hybrid_cert_pairs`, `hybrid_cert_of_moments`, `hybrid_cert_of_no_offline` and `hybrid_cert_eta_zero` on small concrete data, with every hypothesis discharged. One of its instances uses a base family `w` that is not reflection-symmetric. On one off-line pair with no on-line zero, the bound of `hybrid_cert` without its off-line term is false (`last_term_needed`). With that term, the bound is attained (`with_last_term_value`). So for abstract data the off-line term cannot be dropped.

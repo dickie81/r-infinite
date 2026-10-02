@@ -3,9 +3,11 @@
 # ../../build.sh. Optionally set ZETA23 to a clone of anthropics/formal-math that contains commit fbdc36b;
 # otherwise that one commit is fetched.
 # The script takes the 59 zeta23 files that this layer uses (Montgomery–Vaughan, Riemann–von Mangoldt, the Γ
-# facts, the zero side's block structure, and their dependencies), at commit fbdc36b (Lean v4.33.0-rc2), applies zeta23_port.patch (the port to
-# the pilot's Lean and Mathlib), and compiles those files and this directory's files into ../../build.
-# It then prints the axioms of the final theorems, and fails unless each is [propext, Classical.choice, Quot.sound].
+# facts, the zero side's block structure, and their dependencies), at commit fbdc36b (Lean v4.33.0-rc2), applies
+# zeta23_port.patch (the port to the pilot's Lean and Mathlib), and compiles those files and this directory's
+# files into ../../build. It then prints the axioms of the final theorems. Every axiom line printed during the
+# build, by a compiled file's own #print axioms or by the final checks, must be
+# [propext, Classical.choice, Quot.sound], or the script fails.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 PILOT="$(cd "$HERE/../.." && pwd)"
@@ -36,24 +38,39 @@ cd "${MATHLIB:-$PILOT/mathlib4}"
 export PATH="$HOME/.elan/bin:$PATH"
 B="$PILOT/build"
 LP="$(lake env printenv LEAN_PATH):$B"
-# c ROOT MODULE [lean options]: compile ROOT/MODULE.lean to B/MODULE.olean
+CLEAN="' depends on axioms: \[propext, Classical.choice, Quot.sound\]\$"
+# dirty TEXT: the number of axiom report lines in TEXT other than [propext, Classical.choice, Quot.sound]
+dirty() {
+  printf '%s\n' "$1" | grep -e "' depends on axioms: " -e "' does not depend on any axioms" | grep -vc "$CLEAN" || true
+}
+# c ROOT MODULE [lean options]: compile ROOT/MODULE.lean to B/MODULE.olean; fail on a dirty axiom line
 c() {
-  local root=$1 rel=${2//.//}; shift 2
+  local root=$1 rel=${2//.//} out; shift 2
   echo "== ${rel//\//.}"; mkdir -p "$B/$(dirname "$rel")"
-  LEAN_PATH="$LP" lean "$@" -R "$root" -o "$B/$rel.olean" -i "$B/$rel.ilean" "$root/$rel.lean"
+  out="$(LEAN_PATH="$LP" lean "$@" -R "$root" -o "$B/$rel.olean" -i "$B/$rel.ilean" "$root/$rel.lean" 2>&1)" \
+    || { printf '%s\n' "$out"; exit 1; }
+  [ -z "$out" ] || printf '%s\n' "$out"
+  if [ "$(dirty "$out")" != 0 ]; then
+    echo "axioms check FAILED: ${rel//\//.} prints an axiom line other than [propext, Classical.choice, Quot.sound]" >&2
+    exit 1
+  fi
 }
 # zeta23's lakefile sets relaxedAutoImplicit = false for its own files.
 for m in $MODS; do c "$UP" "$m" -DrelaxedAutoImplicit=false; done
-for f in SlogZeta ZeroWindow Dictionary CountCompare HybridCertificate CoImportMV CoImportGamma; do c "$HERE" $f; done
+for f in SlogZeta ZeroWindow Dictionary CountCompare HybridCertificate HybridExamples CoImportMV CoImportGamma; do
+  c "$HERE" $f
+done
 # ax FILE: run FILE's #print axioms lines; fail unless each prints exactly [propext, Classical.choice, Quot.sound]
+# and no axiom line in the output is anything else
 ax() {
-  local out want good
+  local out want good bad
   out="$(LEAN_PATH="$LP" lean "$1" 2>&1)" || { printf '%s\n' "$out"; echo "axioms check FAILED: lean exited nonzero" >&2; exit 1; }
   printf '%s\n' "$out"
-  want=$(grep -c '^#print axioms' "$1")
-  good=$(printf '%s\n' "$out" | grep -c "' depends on axioms: \[propext, Classical.choice, Quot.sound\]\$" || true)
-  if [ "$good" != "$want" ]; then
-    echo "axioms check FAILED: $good of $want printed axiom lines are [propext, Classical.choice, Quot.sound]" >&2
+  want=$(grep -c '^#print axioms' "$1" || true)
+  good=$(printf '%s\n' "$out" | grep -c "$CLEAN" || true)
+  bad=$(dirty "$out")
+  if [ "$bad" != 0 ] || [ "$good" != "$want" ]; then
+    echo "axioms check FAILED: $good of $want #print axioms lines are [propext, Classical.choice, Quot.sound]; $bad axiom lines are not" >&2
     exit 1
   fi
 }
@@ -65,7 +82,7 @@ import Zeta23.MV.Final
 import ZeroWindow
 import Dictionary
 import CountCompare
-import HybridCertificate
+import HybridExamples
 #print axioms ZeroWindow.zero_in_window
 #print axioms Dictionary.mu_eq_psiRe
 #print axioms CountCompare.local_count_le
@@ -81,6 +98,15 @@ import HybridCertificate
 #print axioms HybridCert.hybrid_cert_of_moments
 #print axioms HybridCert.hybrid_cert_of_no_offline
 #print axioms HybridCert.hybrid_cert_eta_zero
+#print axioms HybridExamples.instance_hybrid
+#print axioms HybridExamples.instance_pairs
+#print axioms HybridExamples.instance_moments
+#print axioms HybridExamples.instance_nonsymm
+#print axioms HybridExamples.instance_eta_zero
+#print axioms HybridExamples.instance_no_offline
+#print axioms HybridExamples.instance_tight
+#print axioms HybridExamples.last_term_needed
+#print axioms HybridExamples.with_last_term_value
 EOT
 echo "== axioms"
 ax "$AX"
