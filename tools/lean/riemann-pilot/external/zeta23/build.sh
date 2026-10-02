@@ -60,7 +60,10 @@ import HybridCertificate
 #print axioms Zeta23.gammaFacts
 #print axioms Zeta23.RvM.riemannVonMangoldt
 #print axioms Zeta23.RvM.zeta_local_zero_count
+#print axioms HybridCert.cert_general
 #print axioms HybridCert.cert_offline
+#print axioms HybridCert.hybrid_cert
+#print axioms HybridCert.hybrid_cert_of_offline
 #print axioms HybridCert.hybrid_cert_of_moments
 #print axioms HybridCert.hybrid_cert_of_no_offline
 #print axioms HybridCert.hybrid_cert_eta_zero

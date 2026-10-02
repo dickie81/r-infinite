@@ -8500,4 +8500,6 @@ The normalisation is imposed on `w` alone. If it were imposed on `v`, it would n
 - The certificate is stated for the abstract `ZeroBlockData`, not for zeta23's concrete `blockData`.
 - No proportion is claimed.
 
+Verified: `external/zeta23/build.sh` fetched the 59 files again, because the nine new ones were missing from `upstream/`. It compiled them and the seven layer files in about 9 minutes, exit 0. `HybridCertificate` prints no warnings; the new upstream files print eight of their own, deprecations in `LinAlg.RankTrace` and `ZeroSide`. Every printed axiom line is `[propext, Classical.choice, Quot.sound]`. That run printed four of the seven `HybridCert` theorems; a scratch compile of the same bytes printed the same line for the other three. `build.sh` now prints all seven.
+
 **Check 4.** New: no earlier round couples a second family into zeta23's certificate. **Bearing on RH:** none. The certificate counts on-line zeros without assuming RH.
