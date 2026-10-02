@@ -8552,7 +8552,7 @@ The normalisation is imposed on `w` alone. If it were imposed on `v`, it would n
   - `debug.skipKernelTC` can give a false theorem a clean axiom line by switching the kernel off.
 
 Verified:
-- **Layer build** (third sweep). `external/zeta23/build.sh` compiled the 59 zeta23 files and the eight layer files in 439 s, exit 0. Lean reports no use of `sorry` in any compiled file, and `HybridCertificate` and `HybridExamples` print no warnings.
+- **Layer build** (fourth sweep). `external/zeta23/build.sh` compiled the 59 zeta23 files and the eight layer files in 469 s, exit 0. Lean reports no use of `sorry` in any compiled file, and `HybridCertificate` and `HybridExamples` print no warnings.
 - **Axiom lines.** The build printed 48, all `[propext, Classical.choice, Quot.sound]` and all gated:
   - 20 from the layer files' own `#print axioms` during compilation;
   - 25 from the main final check: the seven earlier theorems, the eight `HybridCert` theorems and ten from `HybridExamples`;
