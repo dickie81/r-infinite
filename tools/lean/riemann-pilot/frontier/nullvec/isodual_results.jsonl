@@ -1,0 +1,20 @@
+{"lattice": "Z+Z", "d": 2, "T": 40.0, "N_total": 20.0, "N_line": 20, "N_real": 0, "line_zeros": [6.03, 10.25, 12.99, 14.13, 16.35, 18.29, 21.03, 21.45, 23.27, 25.01, 25.73, 28.35, 29.65, 30.43, 32.59, 32.93, 34.19, 36.15, 37.59, 38.51], "passes": true}
+{"lattice": "A2", "d": 2, "T": 40.0, "N_total": 19.0, "N_line": 19, "N_real": 0, "line_zeros": [8.03, 11.25, 14.13, 15.71, 18.27, 20.45, 21.03, 24.05, 25.01, 26.57, 28.21, 30.43, 30.75, 32.93, 33.89, 35.61, 37.55, 37.59, 39.49], "passes": true}
+{"lattice": "Z+A2", "d": 3, "T": 40.0, "N_total": 19.0, "N_line": 13, "N_real": 0, "line_zeros": [6.25, 10.99, 17.07, 19.77, 21.83, 23.89, 27.87, 29.83, 31.25, 32.95, 34.89, 38.35, 38.79], "passes": false}
+{"lattice": "Z+Z+Z", "d": 3, "T": 40.0, "N_total": 20.0, "N_line": 10, "N_real": 0, "line_zeros": [5.23, 9.65, 15.65, 18.31, 20.59, 27.71, 34.01, 36.25, 37.39, 38.19], "passes": false}
+{"lattice": "Z+Z+Z+Z", "d": 4, "T": 40.0, "N_total": 20.0, "N_line": 8, "N_real": 0, "line_zeros": [4.53, 9.07, 13.59, 18.13, 22.67, 27.19, 31.73, 36.25], "passes": false}
+{"lattice": "Z+Z+Z+Z+Z", "d": 5, "T": 40.0, "N_total": 20.0, "N_line": 8, "N_real": 0, "line_zeros": [3.89, 8.53, 12.57, 17.73, 22.51, 26.89, 29.71, 35.71], "passes": false}
+{"lattice": "D4", "d": 4, "T": 40.0, "N_total": 16.0, "N_line": 4, "N_real": 0, "line_zeros": [9.07, 18.13, 27.19, 36.25], "passes": false}
+{"lattice": "A2+A2", "d": 4, "T": 40.0, "N_total": 18.0, "N_line": 6, "N_real": 0, "line_zeros": [5.71, 11.43, 17.15, 22.87, 28.59, 34.31], "passes": false}
+{"lattice": "Z+D4", "d": 5, "T": 40.0, "N_total": 16.0, "N_line": 6, "N_real": 0, "line_zeros": [7.29, 12.93, 23.53, 31.07, 34.23, 35.01], "passes": false}
+{"lattice": "Z+A2+A2", "d": 5, "T": 40.0, "N_total": 19.0, "N_line": 7, "N_real": 0, "line_zeros": [4.75, 10.07, 16.33, 20.19, 27.17, 33.73, 36.93], "passes": false}
+{"lattice": "A2+A2+A2", "d": 6, "T": 40.0, "N_total": 19.0, "N_line": 7, "N_real": 0, "line_zeros": [4.23, 9.75, 16.65, 20.09, 27.33, 34.31, 37.93], "passes": false}
+{"lattice": "Z+Z+Z+Z+Z+Z", "d": 6, "T": 40.0, "N_total": 21.0, "N_line": 9, "N_real": 0, "line_zeros": [3.27, 8.05, 11.95, 17.25, 21.87, 26.57, 29.51, 35.19, 39.51], "passes": false}
+{"lattice": "A2+D4", "d": 6, "T": 40.0, "N_total": 15.0, "N_line": 11, "N_real": 0, "line_zeros": [5.63, 13.17, 20.09, 21.49, 24.03, 28.33, 30.71, 31.85, 34.99, 35.33, 36.13], "passes": false}
+{"lattice": "Z+Z+Z+Z+Z+Z+Z", "d": 7, "T": 40.0, "N_total": 21.0, "N_line": 9, "N_real": 0, "line_zeros": [2.63, 7.59, 11.43, 16.73, 20.89, 26.05, 29.37, 34.75, 38.75], "passes": false}
+{"lattice": "Z+A2+A2+A2", "d": 7, "T": 40.0, "N_total": 19.0, "N_line": 7, "N_real": 0, "line_zeros": [3.41, 8.91, 14.79, 19.67, 25.77, 31.21, 36.77], "passes": false}
+{"lattice": "Z+A2+D4", "d": 7, "T": 40.0, "N_total": 17.0, "N_line": 5, "N_real": 0, "line_zeros": [4.47, 11.25, 18.05, 27.25, 33.69], "passes": false}
+{"lattice": "Z+Z+Z+Z+Z+Z+Z+Z", "d": 8, "T": 40.0, "N_total": 21.0, "N_line": 9, "N_real": 0, "line_zeros": [1.91, 7.17, 10.97, 16.23, 20.03, 25.29, 29.09, 34.35, 38.17], "passes": false}
+{"lattice": "E8", "d": 8, "T": 40.0, "N_total": 12.0, "N_line": 0, "N_real": 0, "line_zeros": [], "passes": false}
+{"lattice": "D4+D4", "d": 8, "T": 40.0, "N_total": 16.0, "N_line": 4, "N_real": 0, "line_zeros": [4.53, 13.59, 22.67, 31.73], "passes": false}
+{"lattice": "A2+A2+A2+A2", "d": 8, "T": 40.0, "N_total": 19.0, "N_line": 7, "N_real": 0, "line_zeros": [2.85, 8.57, 14.29, 20.01, 25.73, 31.45, 37.17], "passes": false}

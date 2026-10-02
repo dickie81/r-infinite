@@ -1,0 +1,2 @@
+{"mode": "full", "roots_P_in_disk": 13, "wind_F": -16, "poles_inside": 29, "real_pos_roots": 13, "real_neg_roots(=imaginary r zeros)": 0, "nonreal_s_roots": 0}
+{"mode": "float", "roots_P_in_disk": 22, "wind_F": -7, "poles_inside": 29, "real_pos_roots": 13, "real_neg_roots(=imaginary r zeros)": 1, "nonreal_s_roots": 8}

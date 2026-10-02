@@ -1,0 +1,8571 @@
+# Lean pilot: Theorems 1bt and 1ca of `riemann-indistinguishability.md` (b2014d8)
+
+The toolchain is Lean 4.35.0-rc3 (`lean-toolchain`) with Mathlib at the commit in `MATHLIB_REV`. Point `MATHLIB` at a built Mathlib checkout (`lake exe cache get` then `lake build`), or place it at `./mathlib4`. The external layer (`external/pnt/`, rungs 1–3 of the wander ladder) uses the same toolchain: build it with `external/pnt/build.sh` after `./build.sh` (round 217). So does the zeta23 layer (`external/zeta23/`, round 228): `external/zeta23/build.sh`, after `./build.sh`. The Davenport–Heilbronn layer (`external/dh/`, rounds 253–273, split from `src/` in round 275) is built with `external/dh/build.sh`, after `./build.sh`: it is `./build.sh` run on that directory into the same `build/`, so it recompiles only what changed, including pilot modules it imports.
+
+Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all cores) and recompiles only files whose source or imports changed (`FORCE=1` rebuilds everything). A clean build takes about 12 minutes on 4 cores (round 217).
+
+- `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
+- `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
+
+Every file ends with `#print axioms`. All 953 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+
+| File | Lines | Content |
+|---|---|---|
+| `T1bt.lean` | 565 | Theorem 1bt; since round 233 with no first-zero height (`one_le_hadamard_height`) |
+| `T1ca.lean` | 1492 | 1ca(ii) |
+| `Osc.lean` | 917 | 1ca(iii) |
+| `Split.lean` | 305 | 1ca(i), and (i)–(iii) assembled |
+| `Exterior.lean` | 689 | 1ca(iv) |
+| `Zeta.lean` | 136 | the 1ca zero family, linked to Mathlib's `riemannZeta` |
+| `Roadmap.lean` | 352 | §11 item 1: the target stated prime-side, and its reduction to `RiemannHypothesis`; Hurwitz's theorem for open and closed target sets |
+| `Limit.lean` | 321 | 1bu(ii)'s convergence to `Ξ` from D, and the chain to `RiemannHypothesis` |
+| `Hadamard.lean` | 776 | Hadamard's factorisation in genus zero, proved from Mathlib |
+| `HadamardApply.lean` | 198 | Hadamard for even functions; applied to `ĝ` and `Ξ`; the chain to RH |
+| `XiBounds.lean` | 378 | `XiGrowth`, proved; the chain to RH with no `Ξ` inputs (`Ξ(0) ≠ 0` now comes from `Φ > 0`) |
+| `Curvature.lean` | 443 | **dodging D and real-rootedness alone give RH** (`rh_of_dodging`); the curvature sum rule |
+| `GroundState.lean` | 174 | ground states of Weil's form: the lower bound, the finite prime sum, the chain for ground states |
+| `Existence.lean` | 504 | existence of the ground state, stage 1: the archimedean energy controls the Fourier tails |
+| `Compactness.lean` | 245 | existence, stage 2: bounded-energy probes are precompact in `L²` |
+| `GroundStateExists.lean` | 467 | existence, stage 3: **a ground state of Weil's form exists at every support** |
+| `Uniqueness.lean` | 434 | the ground-state space; the uniqueness criterion |
+| `Positivity.lean` | 431 | the pole-free form `Q₀`: a unique, one-signed ground state |
+| `StrictPositivity.lean` | 682 | the ground state of `Q₀` is strictly positive on `[−a, a]` |
+| `UniquenessQ.lean` | 144 | the full form `Q`: strict gap `λ₀ < λ₁`, and the sharp uniqueness dichotomy |
+| `FourierGap.lean` | 1923 | `λ_⊥ ≥ λ₁ + 1/40` for **every `0 < a ≤ 0.35`** (past the first prime); `Q`'s ground state is unique there; the `Cin` chain in closed form, checked by kernel evaluation |
+| `ParabolaGap.lean` | 470 | the parabola trial; `λ_⊥ ≥ λ₁ + 1/50` and a unique ground state for **every `0 < a ≤ 0.36`** |
+| `Polya.lean` | 111 | the trapezoid ratio (Pólya's lemma) used by `Concave.lean`; the Pólya-class route was removed in round 124 |
+| `Concave.lean` | 520 | Pólya's theorem stated for every even, concave `g ≥ 0` directly, with no representation hypothesis |
+| `Saturation.lean` | 98 | saturation reduced to an envelope bound: a small value plus a steep slope forces a nearby zero |
+| `Unconditional.lean` | 332 | saturation without RH: verified zeros, a counting bound, the decay of `ĝ` for monotone `g` |
+| `ZeroSwap.lean` | 244 | the zero-swap lemma: a simple ground state admits no zero `w` with `w²` non-real, given the swap's realisation by probes |
+| `HurwitzCross.lean` | 117 | the chain with zeros on `ℝ ∪ iℝ`, and with the zero-swap lemma plugged in |
+| `FourierInv.lean` | 526 | Fourier inversion for the autocorrelation of an even `L²` function on `[−a, a]`: `ĝ² = 𝓕f`, `∫ĝ² < ∞` (Gaussian regularisation), `(1/2π)∫ĝ² cos(ru) = f(u)`; used by the zero swap (R2) and the explicit-formula bridge |
+| `WeilConverse.lean` | 615 | **Weil's criterion, converse**: an off-line zero (finitely many, none real) makes `weilQ` negative at some support, via twin-box probes and a weighted exponential-integral argument; `weil_criterion_finite`: `Q ≥ 0` at every support ⟺ every zero on the line |
+| `PhiNull.lean` | 119 | Riemann's kernel is a null vector of the explicit formula: test transforms `Ξ·m` (hence `Φ̂·m`) have zero prime side; for `Φ̂²` the archimedean-plus-prime side is exactly `−1/8`; the polarised bridge `Σ_ρ ĝk̂ = (Q(g+k) − Q(g−k))/4` |
+| `PhiDecay.lean` | 646 | **The quantitative corollary**: `Φ` is `C¹` with rapidly decaying `Φ'`; `Φ_a = 1_{[−a,a]}Φ` is a probe whose transform at every zero of `Ξ` is a tail; hence `λ₁(a) ≤ K_B e^{−Ba}` for every `B` (an upper bound only) |
+| `PrimeRelax3.lean` | 51 | **Weil positivity up to the second prime**: granted the arb certificate `CertP3`, `Q(g) ≥ 2·10⁻⁸` for every normalised even probe at every support `2a ≤ 1.0986 < log 3` (round 123's construction re-run at `a* = 0.5493`) |
+| `ParityRelax.lean` | 574 | **The relaxation for both parities and every prime power below the support**: generic mode weights, the odd sector (`sinh(t/2)`, sine modes, pole weight `−2`), Bessel for any window vectors, the odd Gram matrix in closed form, certificate theorems for one support `b` covering all `a ≤ b` |
+| `ParityCert.lean` | 114 | **Both sectors, instantiated to `2a = 1.6 < log 5`**: granted `CertE`/`CertO` (arb, `N = 350`), even `Q ≥ 3·10⁻¹⁸` and odd `Q ≥ 5·10⁻¹⁵` for `a ≤ 0.8`, and `Q(g) ≥ 3·10⁻¹⁸‖g‖²` for every real `g` |
+| `ParityGap.lean` | 728 | **Real zeros from the parity gap**: if every normalised odd probe has `Q > λ₁(a)`, every even ground state's transform has only real zeros (real flips `(z−w̄)(z+w)/((z−w)(z+w̄))` and `(z−w̄)/(z−w)`, Fourier inversion without parity); `rh_of_parity_gap`: eventual parity gap + `HypConv` ⟹ RH, with no simplicity |
+| `SwapRealize.lean` | 428 | the swap realisation, proved for every probe (no Paley–Wiener); the chain `(a) + eventual simplicity ⇒ RiemannHypothesis` |
+| `SimpleCover.lean` | 225 | simplicity: every support `a ≤ 0.36` (proved); monotone covering `λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simple on `[a₀, a₁]`; every `δ ≤ 2.07` given round 47's certificates |
+| `SimpleStructure.lean` | 86 | swap closure of the ground space: an off-cross zero of a ground state yields the Green solution `(∂² + w²)⁻¹g` in the ground space |
+| `GapCriterion.lean` | 170 | Euler–Lagrange for `Q`; the pole-overlap identity; interlacing `λ₁(Q) ≤ μ₂(Q₀)`; energy gap ⇒ simple; non-simple ⇒ `λ₁ = μ₂` attained; the Jacobi eigenvector lemma |
+| `Commute.lean` | 165 | round 48's Theorem B: Weil's form commutes with `∂²` (cross-correlation, pole, full bilinear form) |
+| `DegenerateFlat.lean` | 725 | **degenerate ⇒ edge-flat**: a non-simple ground space contains a nonzero pole-free `w` and its compactly supported Green solution `G w` (`(Gw)'' − Gw/4 = w`); **simple ⇔ no such pair** |
+| `StructureD.lean` | 232 | **round 48's Theorem D**: the ground space is finite-dimensional; a Green chain `w, Gw, …, G^{m−1}w` lies in it, is independent and spans it; `offcross_root`, the one swap computation: every off-cross zero of a ground-space transform is a root of its polynomial `P_v`; the top element's transform vanishes only on `ℝ ∪ iℝ`. **The RH chain without simplicity**: (a) for the top-of-chain ground states alone gives `RiemannHypothesis` Since round 274 the chain argument is `GroundChain`'s, at the instance `zetaGD`. |
+| `GroundChain.lean` | 657 | **Theorem D for any ground-state family** (`GroundData`: the ground spaces of a family of probe forms, closed under the Green steps and the off-cross swap, finite-dimensional in `L²`, nonzero): Green chains, `theoremD`, the top-of-chain ground state and `topGS_cross`, once; `StructureD` (ζ) and `DHGround` (dh) are instances (round 274) |
+| `Mollify.lean` | 825 | smoothing inside `[−a, a]`: translation and dilation are continuous in `L²`; box averages contract `L²` and archimedean energy and converge to the identity in both; dilation towards `1` converges in archimedean energy (a Pratt/Scheffé limit lemma) |
+| `TheoremC.lean` | 810 | **round 48's Theorem C in `H²` form**: an `H²`-flat ground-space element has `h''` in the ground space; Green solutions are `H²`-flat; **simple ⇔ no nonzero `H²`-flat ground-space element**; the smooth form `simple_not_flat` as a corollary |
+| `ZeroCount.lean` | 329 | off-line zeros counted by `dim V`: at most `2⌊(m − 1)/2⌋` off-cross values of `ω²` per ground state (none for `m ≤ 2`); Hurwitz attraction; **under (a) with eventually `dim V ≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½`**; `M ≤ 2` gives RH (every `M` since round 252, along `a n → ∞`) |
+| `SixteenPi.lean` | 1251 | the strip note's §3.4 derivation of `1/(16π)`; **the balayage identity proved (Fubini), so the reduced problem gives `e^{−δ}/(16π)` with no hypothesis**; the wall maximiser `X* = 2`; **the balayage density in closed form, positive at the wall**; `P`, `Q`, `J(X) = (π/(2X))(1 + ln(X/2))`, the wall at `X = 2`, `τ = e^{−δ}/(16π)`; the multiplier's `z²` coefficient is the curvature defect; exact and tolerant D cancel the matched zeros |
+| `GapBound.lean` | 478 | **the pole-overlap gap bound** `λ₂ − λ₁ ≥ c₂²(μ₂ − μ₁)/(c₁² + c₂²)` at operator level, hence simplicity from a nonzero overlap `⟨c, ψ₂⟩`; **the Galerkin transfer**: dense truncations with a uniform truncated gap give simplicity |
+| `CosTrunc.lean` | 663 | **`TruncDense` for the paper's cosine basis** `span{1_{[−a,a]}cos(kπt/a) : k < K}`: `C²` approximant, its cosine series by Mathlib's Fourier theorem, Hölder tails, energy of a truncated Hölder function; round 60's transfer for this basis with no density hypothesis |
+| `StripConv.lean` | 537 | **(a) is needed only on the strip `|{Im z}| < ½`**: RH from strip convergence; strip convergence from `L²` closeness of the ground state to a kernel at rate `o(e^{−a/2}/√a)` (`rh_of_close_top`); the min–max angle bound and `rh_of_relgap`; every moment condition (`k = 2`: `κ → 0`) as a corollary |
+| `RiemannKernel.lean` | 901 | **Riemann's kernel formula** `∫ Φ(u)e^{izu}du = Ξ(z)/2` on all of `ℂ`, from Mathlib's theta kernel and completed zeta: termwise Gamma integrals on a half-plane, evenness of `Φ` from the theta functional equation, decay, the identity theorem. **`Φ > 0`, hence `ξ(σ) ≠ 0` for real `σ`**: `Ξ(0) ≠ 0` and `ζ(σ) ≠ 0` on `(0, 1)` |
+| `KernelChain.lean` | 41 | Riemann's formula discharges `KernelApprox` (`kernelApprox_RPhi`); RH from `L²` closeness to `Φ` (`rh_of_close_RPhi`) |
+| `PrimeSide.lean` | 74 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
+| `SmallPositivity.lean` | 333 | Weil positivity on every probe at small support: `λ₁ ≥ 1/4` for `2a ≤ 1/8` (round 121), exact `ψ(¼)`, near- and far-field bounds |
+| `SmallPositivity2.lean` | 122 | `λ₁ ≥ 1/20` for `a ≤ 1/12`, pure Lean |
+| `OddPositivity.lean` | 346 | the odd sector: `Q > 0` on odd probes for `a ≤ 1/4`, pure Lean |
+| `PoleRelax.lean` | 487 | the pole-term relaxation; Weil positivity to `a = 1/4` granted the arb certificate `Cert14` |
+| `PrimeRelax.lean` | 109 | the first prime in the relaxation, granted `CertP` |
+| `ParitySplit.lean` | 257 | `Q(g) = Q(e) + Q(o)` for the even/odd parts of a real `g` |
+| `WindowForm.lean` | 286 | closed forms of the window basis, the Cholesky certificate logic, the off-line quadruple mechanism |
+| `ResponseKernel.lean`, `ToneHyperbola.lean` | 177, 214 | calculus identities for the response kernel and the tone hyperbola; no `ζ` |
+| `ArchShift.lean` | 305 | the archimedean term at digamma shift `q ≥ ¼`: `(1/2π)∫ĝ² Re ψ(q + ir/2) = Re ψ(q)‖g‖² + ∫[f(0) − f(u)]e^{(1−2q)u}/sinh u` (`arch_termQ`, round 226); `E_q` is a quadratic form with `0 ≤ E_q ≤ E` (round 227) |
+| `ExplicitBridge.lean` | 352 | `WeilExplicit` for `ĝ²` gives `Σ_ρ ĝ(t_ρ)² = weilQ` (`weilQ_eq_zero_sum`); the symbol and jump forms; RH ⇒ `Q ≥ 0` given the formula; B1–B2 are `ArchShift` at `q = ¼` |
+| `DigammaGauss.lean` | 429 | Gauss's digamma integral in difference form, proved (round 154) |
+| `BinetProof.lean` | 525 | Binet's second formula, proved (round 155) |
+| `ParityCont.lean` | 966 | `λ_odd` continuous; `gap_quarter`; `rh_of_no_crossing`: no parity crossing past `a = 1/4` + `HypConv` ⟹ RH (rounds 146–147) |
+| `SimpleCont.lean` | 440 | `λ₁` continuous; degeneracy is closed; the first degeneracy carries a Green chain; the secular characterisation `not_simple_iff_secular` (rounds 148, 150) |
+| `PhiLadder.lean` | 481 | jet upper bounds on rungs 1 and 2 of the ladder (round 153) |
+| `StripShift.lean`, `XiLogDeriv.lean`, `WeilCount.lean`, `WeilAssemble.lean` | 731, 230, 132, 629 | the strip class `StripTest`, contour shifts, `Ξ′/Ξ` as a sum over zeros and on `Re s > 1`, the zero count, and **Weil's explicit formula over the zeros of `Ξ`** (round 156) |
+| `WeilDischarge.lean`, `WeilZeta.lean` | 245, 270 | the pilot's test functions are strip test functions; **`weilExplicit_zeta`**: the explicit formula over the zeros of `ζ` (round 156) |
+| `WeilCriterion.lean` | 140 | monotone profiles are strip test functions; the explicit formula for the box and its twins over the zeros of `ζ`; no nontrivial zero is real (round 157; its finite-exception criterion `rh_of_weil_finite` was superseded in round 220) |
+| `ZetaInputs.lean` | 247 | **Hadamard's identity `Σ_ρ 1/(ρ(1−ρ)) = 2 + γ − log 4π` proved**; 1bt(i) and the pinning theorem with their classical inputs discharged (round 157); 1bt(i) with **no named input** and `|Im ρ| > 4` for every zero (`four_lt_abs_im_zero`) (round 233) |
+| `ExteriorZeta.lean` | 310 | `Φ` entire, `Φ(w) + Φ(−w) = 1`, `χ` in the strip class; **the exterior identity over the zeros of `ζ` for every probe** (round 157) |
+| `WeilRH.lean` | 168 | **RH ⟹ `Q ≥ 0` on every probe**; `weil_criterion_zeta`: `Q ≥ 0` everywhere ⟺ RH, with no finiteness hypothesis since round 220 (round 157) |
+| `WeilIndexZeta.lean` | 107 | **negative directions of `Q` count off-line zeros of ζ with no named input**: `finrank_le_quadruples_zeta`, `finrank_le_offline_zeta` (strip-test probes), `finrank_le_quadruples_C2`, `exists_offline_of_neg_C2` (round 229) |
+| `WeilIndexConverse.lean` | 802 | **the converse count**: finitely many off-line zeros forming `m` quadruples force an `m`-dimensional space of strip-test probes with `Q < 0` (`negDirections_of_quadruples`); with round 229, the negative index of `Q` equals the number of off-line quadruples (`negIndex_eq_quadruples`) (round 230). The same above any level `v₀` beyond which only finitely many zeros have `|β − ½| > v₀`, whatever lies below (`negDirections_above`, round 231) |
+| `WeilIndexInfinite.lean` | 771 | **every off-line quadruple gives a negative direction, with no finiteness**: any `m` off-line zeros in different quadruples give an `m`-dimensional space of strip-test probes with `Q < 0` (`negDirections_offline`); infinitely many off-line quadruples make the negative index unbounded (`negDirections_unbounded`). Proof by density of twin-box vectors in `ℓ²` over the zeros (round 232) Since round 274 §B–E are stated for any `NegData`, ζ being the instance `zetaND`. |
+| `PhiDExp.lean` | 484 | **double-exponential rung bounds, no RH input**: `λ₁ ≤ Ke^{16a−2πe^{2a}}`, `λ₁^odd ≤ Ke^{16a−2πe^{a−1/4}}`, `λ₂ ≤ Ke^{16a−2πe^{a/2−1/4}}` (round 159) |
+| `FirstFailure.lean` | 116 | **the first positivity failure**: if RH fails, there is a least `a₁ > 1/16` with `λ₁(a₁) = 0`, `λ₁ > 0` before it, the form PSD at `a₁`, and a normalised ground state in its kernel (round 161; no finiteness hypothesis since round 220) |
+| `KaiserKernel.lean` | 245 | the Kaiser kernel `K(z) = cos(β√(z²−L²))` and `sinc` as entire power series; growth bounds; `cosh`/`cos` forms on the real line (round 163) |
+| `KaiserPW.lean` | 226 | the trial `H(z) = z²(z²−α)K(z)sinc(πηz)⁸`: exponential type `2πL`, decay; **Paley–Wiener: `𝓕⁻H` vanishes beyond `L`** (round 163) |
+| `KaiserPoisson.lean` | 234 | `h = 𝓕⁻H`, the self-dual `h + H`, Connes' map `E`, and Poisson: `E h (x) = E H (1/x)` when `∫H = 0` (round 163) |
+| `KaiserMellin.lean` | 120 | `mellin(E f)(s) = ζ(s+½)·mellin f(s+½)` (round 163) |
+| `KaiserZero.lean` | 305 | `KF = E(h + H)`; **`∫ KF(e^u) e^{itu} du = 0` at every zero `t` of `Ξ`** (identity theorem on half-strips) (round 163) |
+| `KaiserDeriv.lean` | 325 | the derivative of `H`; Cauchy bounds; polynomial tail bounds beyond `L` (round 163) |
+| `KaiserTail.lean` | 213 | `Σ H(nx)` and its termwise derivative: `≤ 4P x⁻⁴`, `≤ 2PD₀ x⁻³` beyond `L` (round 163) |
+| `KaiserIBP.lean` | 277 | the tail integral `∫_a^∞ φ e^{itv}`: `≤ 2P` and `≤ 6P(1+D₀)/‖t‖` by parts (round 163) |
+| `KaiserWindow.lean` | 357 | the probe `g = 1_{[−a,a]}·Re KF(e^u)`: probe, strip test, explicit formula; **zero side `Q(g) ≤ 720P²(1+D₀)²S`** (round 163) |
+| `KaiserMoment.lean` | 553 | Gaussian moments by parts; **`α = m₄/m₂ ∈ [−1, 3/4]` gives `∫H = 0`** for `L ≥ 50` (round 163) |
+| `KaiserBulk.lean` | 318 | the bulk `g ≥ e^{βL−8}/51200` on `|u| ≤ 1/10`; **`λ₁(a) ≤ K e^{20a − 4πe^{2a}}` for `a ≥ 4`, no RH input** (round 163) |
+| `KaiserPoissonK.lean` | 240 | the Poisson kernel: `∫ P_y(x)e^{ixw}dx = e^{−y|w|}` by Fourier inversion; **`F(σ+is) = ∫ P_{1+s}(x)F(σ+x−i)dx`** for `F = ∫_0^∞ψ e^{itw}`, and the majorant `‖F(σ+is)‖² ≤ ∫ P_{1+s}(x−σ)‖F(x−i)‖²` (round 164) |
+| `KaiserZeroWeight.lean` | 142 | **the RH-free zero weight**: `Σ_τ [P_{1+s}(x−σ) + P_{1−s}(x+σ)] = Im(Ξ′/Ξ)(x−i)/π ≤ (5 + Σ Λ(n)n^{−3/2} + ½log(\|x\|+2))/π`, from Hadamard and `ξ′/ξ` on `Re s = 3/2`; `Re ψ(z) ≤ log\|z\| + 4` (round 164) |
+| `KaiserPlanch.lean` | 163 | **regularised Plancherel**: `∫‖F̂(x)‖²e^{−bx²} ≤ 2π∫‖Ψ‖²` for `Ψ ∈ L¹∩L²`, by the Gaussian kernel and Schur's test (round 164) |
+| `KaiserPrefactor.lean` | 689 | the tail at `Im t = −1`; the log-weighted `L²` bound; `Q(g) ≤ 16κ Kz(a+1)e^{9a}`; **`λ₁(a) ≤ K(a+1)e^{10a−4πe^{2a}}`, no RH input**; the bound for any `κ ≥ e^{2a|Im τ|}` over the zeros (round 164); `prefactor_data`, `lam_le_of_weilQ` factored out (round 234) |
+| `KaiserSplit.lean` | 463 | **the zeros split by height**: far zeros barely see the window (`Vz_le_int`, `sum_high_le`); `weilQ_le_split`; `λ₁(a) ≤ K(a+1)κ₁e^{9a−4πe^{2a}}` with `κ₁` bounding only the zeros below `2e^{40a}` (`lam_le_split`) (round 234) |
+| `KaiserNine.lean` | 75 | **Connes' prefactor `e^{9a}` with an ineffective constant**: `λ₁(a) ≤ K(a+1)e^{9a−4πe^{2a}}` for `a ≥ 4`, by a case split on RH (round 220) |
+| `LandauLaplace.lean` | 419 | **Landau's theorem for Laplace transforms**: `A ≥ 0`, `φ ≥ 0`; if `∫Ae^{−sφ}` agrees near the real point of its abscissa with a holomorphic function, it converges beyond it; the pole test for poles of any order (rounds 220–221) |
+| `TwinLandau.lean` | 960 | **the Landau argument for twin forms, for any zero family** (`TwinData`): `Q(λ) ≥ −Ce^{σλ}` ⟺ every pole has `|Re P| ≤ σ` (round 225; round 220's argument, abstracted). For any weights on the poles (`TwinPoles`), a sum of exponentials constant in `λ` has no residues (`Rp_eq_zero_of_Wsum_const`, round 232) |
+| `WeilLandau.lean` | 193 | **Weil's criterion for `ζ`, graded**, as the `ζ` instance of `TwinLandau`: `Q(twin (box 1) λ) ≥ −Ce^{σλ}` for all `λ ≥ 0` ⟺ every zero has `|2 Re ρ − 1| ≤ σ`; RH ⟺ the defect is subexponential; `σ = 0` is Weil's criterion with no finiteness hypothesis (rounds 220–221) |
+| `WeilRate.lean` | 119 | **the ground energy's rate of failure measures the zeros**: `λ₁(a) ≥ −Ce^{σa}` ⟹ `|2 Re ρ − 1| ≤ σ`; RH ⟺ `λ₁` has no negative part of exponential rate; if RH fails, `λ₁(a) < −Ce^{σa}` at arbitrarily large `a` (round 221) |
+| `PsiOmega.lean` | 721 | **one-sided bounds on summatory functions are zero-free half-planes** (generic Mellin theorem, for any entire `Z` with no zero on `Re s ≥ 1`, round 222); **`ψ(x) − x = Ω±(x^θ)`** below the real part of any zero, and for every `θ < ½` unconditionally (rounds 220–221) |
+| `MertensOmega.lean` | 316 | **Mertens and Liouville**: `M(x) = Ω±(x^θ)` for every `θ < ½`; `L(λ, s)ζ(s) = ζ(2s)`; a one-sided bound `εL(x) ≤ c√x` gives RH, in particular **Pólya's conjecture ⟹ RH** (round 221) |
+| `DirichletOmega.lean` | 168 | **prime races**: for real `χ ≠ 1`, `ψ(x, χ) = Ω±(x^θ)` below any zero of `L(s, χ)` if there is no real zero in `(θ, 1)`; the race between primes `≡ 1` and `≡ 3` (mod 4) changes lead infinitely often, under those two hypotheses (round 222) |
+| `RealDirichlet.lean` | 680 | **every primitive real Dirichlet character `χ ≠ 1`**: partial sums `≤ N`; `L(s, χ) = s∫S(x)x^{−s−1}` on `Re s > 0`; `L(s, χ)` has a zero with `½ ≤ Re ρ < 1` (Hadamard, via the functional equation); `ψ(x, χ) = Ω±(x^θ)` for `θ < ½` given no real zero in `(θ, 1)`; nonnegative partial sums ⟹ `L(σ, χ) > 0` on `(0, ∞)` and the Ω± unconditionally (rounds 223–224) |
+| `PrimeRaces.lean` | 233 | **the `log p`-weighted prime races mod 3, 4 and 8 change lead infinitely often**, by more than `c·x^θ` for every `θ < ½`, unconditionally; the Hadamard product for `L(s, χ₄)` (rounds 223–224) |
+| `WeilChi.lean` | 662 | **Weil's explicit formula for every primitive real `χ` with `L(½, χ) ≠ 0`**: `Ξ_χ(t) = Λ*(½ + it)` is even (`ε = 1`), of order `≤ 3/2`, with a Hadamard product and zeros in `|Im t| < ½`; `Σ_u 2h(τ_u) = g_h(0)log(N/π) + (1/2π)∫h Re ψ((½ + δ)/2 + ir/2) − 2Σ Λ(n)χ(n)n^{−1/2}g_h(log n)` (round 225) |
+| `WeilChiCriterion.lean` | 390 | **Weil's criterion for `L(s, χ)`**: GRH(χ) ⟺ `Q_χ(twin (box 1) λ) ≥ 0`; the graded rate; GRH(χ) ⟺ `Q_χ/‖g‖²` has no negative part of exponential rate; an off-line zero forces failure at rate `|2β − 1|`; instances `χ₋₃`, `χ₋₄`, `χ₋₈` (round 225) |
+| `WeilChiBridge.lean` | 95 | **`Q_χ` in u-space**: `QC χ a g = (Re ψ(q_χ) + log(N/π))‖g‖² + ∫[f(0) − f(u)]e^{(1−2q_χ)u}/sinh u − 2Σ Λ(n)χ(n)n^{−1/2}f(log n)`, `q_χ = (1 + 2δ)/4`, the form `dh_gram.py` computes (`QC_eq_QCu`); `χ₋₃`, `χ₋₄`, `χ₋₈` are odd (round 226) |
+| `WeilChiDensity.lean` | 278 | **GRH(χ) ⟹ `Q_χ ≥ 0` on every probe**, by density without ground states; `weil_criterion_chi`: `Q_χ ≥ 0` on every probe ⟺ GRH(χ); the rate form over all probes; instances `χ₋₃`, `χ₋₄`, `χ₋₈` (round 227) |
+| `LSeriesLandau.lean` | 95 | **Landau's theorem for L-series with nonnegative coefficients**: singular at the real point of the abscissa (Mathlib-ready; round 221) |
+| `ShortWeil.lean` | 464 | the short-interval test function `h(z) = 2cos(Lz)·ĝ_J(z)²` (`g_J` the `J`-fold autocorrelation of a box) in the Weil explicit formula (`weil_hmod`); the prime-side **`lower_bound`** (round 235) |
+| `ShortZeros.lean` | 365 | the zero side of that formula: head (by height) and tail (`summable_Xi_zeros_rpow`); a positive weighted prime mass in the window gives a prime (`exists_prime_of_window`) (round 235) |
+| `ShortPrimes.lean` | 550 | **primes in short intervals from density plus a zero-free region**: `DensityXi A B` and `ZeroFreeXi α` (`α < 1`) give a prime in `(y, y + y^θ]` for every `θ > max(½, 1 − 1/A)` and all large `y` (`short_primes_of_density`) (round 235) |
+| `DirMean.lean` | 666 | Dirichlet polynomials: the mean value theorem with a crude Hilbert constant, Gallagher's lemma, **large values** at well-spaced points, including off the line of the coefficients via Taylor weights (`large_values_off'`) (round 235) |
+| `DivSq.lean` | 152 | `Σ_{j≤M} d(j)² ≤ M(1 + log M)³`; the harmonic bound (round 235) |
+| `ZeroLocal.lean` | 106 | local zero counts from round 164's zero weight: at most `Kloc(x) = O(log x)` zeros of `Ξ` have `\|\|Re τ\| − x\| ≤ 1` (`card_local_le`, `card_re_le`) (round 235) |
+| `DensityCore.lean` | 372 | the detection count: the zeros where the mollified polynomial is large, split into dyadic blocks, unit windows and parity classes, are few (`card_detect_le`) (round 235) |
+| `DensityAsym.lean` | 333 | **the density theorem from detection**: `DetectHyp δ` gives `N(σ, T) ≤ C T^{4(1+δ)(1−σ)}(log T)^{11}` (`density_of_detect`) (round 235) |
+| `MollId.lean` | 163 | the mollifier identity `M_X(s)·Σ_{n≤N} n^{−s} = 1 + Σ_{X<j≤XN} a_j j^{−s}`; `\|M_X(β+iγ)\| ≤ X^{1−σ}(1 + log X)` (round 235) |
+| `WeilDedekind.lean` | 211 | **a twin form for `ζ_{ℚ(i)} = ζ·L(s, χ₋₄)`, ζ-zeros doubled** (the Weil form of `ζ·ζ_{ℚ(i)}`): one `TwinLandau.TwinData` on the sum of the two zero index types; `RH ∧ GRH(χ₋₄)` ⟺ `2Q_ζ(twin λ) + Q_{χ₋₄}(twin λ) ≥ 0`; graded and subexponential forms; `GRHMemberZero` (the angular island) gives both (round 236) |
+| `WeilTwinGeneral.lean` | 391 | **the twin criterion for every real-rooted antitone base** (`rh_iff_twins_realRooted`, `twins_rate_realRooted`, concave bases via Pólya) **and the Dedekind criterion for every good `χ`** (`twinAdd`, `rh_grh_iff_QKχ_twins`; instances `χ₋₃`, `χ₋₄`, `χ₋₇`, `χ₋₈`) (round 245) |
+| `AngularResidue.lean` | 159 | **`L(1, χ₋₄) = π/4`** from lattice points in a disc: the residue `π/4` of `ζ·L(s, χ₋₄)` at `s = 1` (`residue_angular`), joining the `BallTower`/`LatticeCount` and `GlobalTeeth`/`AngularFamily` islands (round 243) |
+| `ZetaJoins.lean` | 199 | **RH gives a prime in `(y, y + y^θ]` for every `θ > ½`** (`short_primes_of_RH`); one-sided `ψ`/Mertens bounds give the twin form's rate; `rh_of_psi_upper`; `pinned_zeta_zero`; the first instance of `multiplier_expansion` (round 244) |
+| `ChiHalfSharp.lean` | 244 | `GoodChar.half` is `hS(½)` (`goodChar_of_hS`, `grh_iff_twins'`, `weil_criterion_chi'`); `GRH'` and `grh_half_iff`; `Q_χ ≥ 0` under `GRH'`; kernel identities `kerK = archKer ¼`, `archKer ¼ + archKer ¾ = 1/sinh(u/2)`; the local zero count with `5/2` in place of `13/2` (`card_local_le_sharp`); `lam_nine` in `fBalExp` form (round 246) |
+| `WeilChiRoots.lean` | 207 | the root locus of `Ξ_χ`: `GRH' χ` ⟺ every root `τ_i²` real; `hS` ⟺ no root `≤ 0`; GRH ⟺ every root real and positive (`grh_iff_roots_pos`); the duplication `archKer q + archKer (q + ½) = archKer (2q)(u/2)` (round 246) |
+| `OddProbe.lean` | 118 | odd probes: `ĝ` odd and purely imaginary on `ℝ`, the sign of each zero term on the axes; `IsReal χ ↔ χ.IsQuadratic` (round 246) |
+| `CrossCriteria.lean` | 162 | **`Q_χ ≥ 0` from GRH off the real axis** (`QC_nonneg_of_cross`); `grh_of_cross`; one-sided Liouville bounds at every `θ > ½` give RH; the open inputs stated as named `Prop`s (`ZetaCritBound`, `ConvexityBound`, `WeylBound`, `Lindelof`, `DensityHypothesis`, `NoRealZero`, `GRHCross`, `PsiOmegaSqrt`, `LittlewoodS1`, `FirstZeroAbove14`, `LamGradedConverse`) (round 246) |
+| `ParityGapLower.lean` | 127 | a parity gap from a one-sector odd lower bound at the prefactor scale (`parityGap_of_lamO_lower`), and RH along a ground-state sequence from it under `HypConv` (`rh_of_lamO_lower`) (round 246) |
+| `WallKernel.lean` | 94 | `fBalExp X = 8π·w(4/X)`: `SixteenPi`'s reduced exponent is the wall law under `X ↦ 4/X`, maximal exactly at `X = 2`; `archKer ¼ − archKer ¾ = 1/cosh(u/2)`; `kerK` as the `Γ_ℂ` kernel plus a `cosh` term (round 247) |
+| `GhatSamples.lean` | 42 | the Fourier coefficients of a probe are samples of `ĝ`; Parseval as the sampled Plancherel identity (round 247) |
+| `PsiReQDup.lean` | 36 | Legendre's duplication for the digamma shift: `psiReQ q + psiReQ (q + ½) = 2 psiReQ (2q)(2r) − 2 log 2` (round 247) |
+| `CertInstances.lean` | 94 | the `PoleRelax`/`PrimeRelax` certificate theorems (`weilQ_ge_of_cert`, `weilQ_ge_of_certP`) as the `K = 2, 3` instances of the weighted certificate (round 250) |
+| `DecayCorollaries.lean` | 96 | `lam_decay` with its four hypotheses shown superfluous; `lamO_decay_uncond` from `lamO_dexp`; `VinoRec.vmvt_iter` from `vmvt_explicit` (round 250) |
+| `GroundIndex.lean` | 212 | **the ground-state ↔ Weil-index join**: under (a) with eventually `dim V ≤ M`, every negative-definite space of strip-test probes has `dim ≤ ⌊(M − 1)/2⌋` (`finrank_le_ground_index`); at most `⌊(M − 1)/2⌋` off-line quadruples (`zeta_upper_offline_card_le`); a negative block of dimension `k ≥ 1` forces ground-space dimension `≥ 2k + 1` infinitely often (`gdim_lower_of_neg_block`) (round 251) |
+| `GroundBlock.lean` | 282 | **the ground space as a negative block of `Q`**: Green images are strip-test probes (`striptest_Gpole`); with `λ₁ < 0` the chain above its base is a `(gdim − 1)`-dimensional negative-definite block (`exists_ground_block`), so `gdim − 1 ≤ #quadruples` (`gdim_sub_one_le_quadruples`); **(a) and any eventual dimension bound give RH** along `a n → ∞` (`rh_of_dim_bounded`); **(a) alone gives RH or `gdim → ∞`** (`rh_or_gdim_tendsto`) (round 252) |
+| `external/dh/DavenportHeilbronn.lean` | 407 | **Davenport–Heilbronn in Lean, stage 1**: for any primitive `χ ≠ 1`, `ε_χ ε_{χ⁻¹} = 1` from the functional equation applied twice (`rootNumber_mul_rootNumber_inv`); the self-dual combination `DH_χ = (1 + ε_{χ⁻¹})L(χ) + (1 + ε_χ)L(χ⁻¹)` with `Λ_{DH}(1 − s) = Λ_{DH}(s)` (`dhLam_one_sub`), `Ξ_{DH}` even and entire, `DH_χ(x) → (1 + ε_χ)²/ε_χ` (`dhL_tendsto`, `dhL_ne_zero`); `chi5` mod 5 with `χ(2) = i`, its Gauss sum's real part `−2 sin(π/5)`, root number `≠ −1`; `dh := dhL chi5` with `dh ≠ 0`, the functional equation and zero symmetry (`dh_ne_zero`, `dh_functional_equation`, `dh_zero_symm`) (round 253) |
+| `external/dh/DHHadamard.lean` | 400 | **Davenport–Heilbronn, stage 2**: round 225's growth chain rebuilt for every primitive `χ ≠ 1` (complex partial sums, `LFunction_eq_IχC`, `norm_LFunction_leC`, `norm_LamG_leC`, the reflection `LamG_one_sub'`, `norm_XiC_le'` with no `L(½, χ) ≠ 0`); `‖Ξ_{DH}(t)‖ ≤ K e^{36‖t‖^{3/2}}`, `Ξ_{DH}(0) = 2(1 + ε_{χ⁻¹})Λ*(½, χ)`; **the Hadamard product `HadamardW (XiDH χ)`** under `ε_χ ≠ −1` and `L(½, χ) ≠ 0` (`hadamard_XiDH`), and `hadamard_dh` for `χ₅` under the named input `DHHalf` (round 254; discharged in round 255) |
+| `external/dh/DHZeros.lean` | 216 | **`Re L(½, χ₅) ≥ ½`, so `L(½, χ₅) ≠ 0`** (`re_LFunction_chi5_half_ge`): the summatory function of `χ₅` has real part `0, 0, 1, 1, 1` by residue, so the integral representation at `s = ½` is bounded below by `½∫_1^4 x^{−3/2}dx = ½`; the Hadamard product of `Ξ_dh` unconditional (`hadamard_dh'`); the zero side `Ξ_{DH}′/Ξ_{DH} = Σ 2t/(t² − u)` (`hasSum_logDeriv_XiDH`, `hasSum_logDeriv_dh`) and `Σ |u|^{−7/8} < ∞` (round 255) |
+| `external/dh/DHPrime.lean` | 605 | **the prime side of `dh`**: a Dirichlet inverse with a norm bound (`DInv.dinv`, `sum_norm_dinv_le`, `LSeries_mul_dinv`); `dh = Σ a(n)n^{−s}` with `a(1) = (1 + ε)(1 + ε′)`; `‖ε‖ = 1`, `Re ε ≥ 4/5`, `ε′ = ε̄` for `χ₅`; **`dh′/dh = −Σ c(n) n^{−s}` on `Re s > 2`**, absolutely convergent, `c = logMul(δ + u) ⍟ (δ + u)^{−1}` (`logDeriv_dh_eq`), and `dh ≠ 0` there (round 256) |
+| `external/dh/DHExplicit.lean` | 798 | **Weil's explicit formula for the Davenport–Heilbronn function**: the scaling `Ξ₃(t) = Ξ_dh(3t)` puts the contour at `Re s = 7/2` and the zeros in `|Im τ| ≤ ½`, so round 225's width-1 machinery applies unchanged (`hadamard_XiDH3`, `zero_side3`, `psi_line3`, `prime_line3` generic in the coefficients, `logDeriv_XiDH3_eq`); `c(n)` real (`conjFixed_cDH_chi5`); **`weil_XiDH3`**; Weil's form `QDH` with `QDH_hasSum`, `QDH_nonneg_of_DHRH`, and **`exists_offline_dh_of_neg`: a negative `Q_dh` certifies an off-line zero of `dh`** (round 257) |
+| `external/dh/DHBridge.lean` | 215 | **Weil's form for `dh` in u-space, unscaled**: `QDHu g = (Re ψ(¾) + log(5/π))‖g‖² + E_{3/4}(g) − 2Σ c(n)n^{−1/2} f(log n)`, the form `frontier/dh/cert.py` evaluates; `weilRHSDH_scaled` (round 257's scaled RHS at `ĝ(3·)²` is `QDHu g`, via `gh_comp_three`, `psiRe3_eq`, round 226's `arch_termQ` at `q = ¾`); **`QDHu_hasSum`**, `QDHu_nonneg_of_DHRH`, **`exists_offline_dh_of_neg_u`**; width-3 strip test for monotone profiles (`striptest_antitone3`), so **`exists_offline_dh_of_neg_box`: `QDHu (box a) < 0` for one `a > 0` gives an off-line zero of `dh`** with no strip hypothesis (round 258) |
+| `external/dh/DHPacket.lean` | 727 | **the box wave packet `cos(ωu)·1_{[−a,a]}` in closed form** (certificate stage 1): `Probe` (`packet_probe`), `‖g‖² = a + sin(2ωa)/(2ω)`, `f(u) = ½(2a − u)cos(ωu) + sin(ω(2a − u))/(2ω)` (`packet_autocorr`), `ĝ(z) = sin((z+ω)a)/(z+ω) + sin((z−ω)a)/(z−ω)`, the width-3 strip test (`packet_striptest`), the finite prime sum (`QDHu_eq_sum`), the κ-structure `u(n) ∈ {0, 1, κ, −κ, −1}` with `0.28407 < κ < 0.28408` and the real recursions for `dinv` and `c(n)` (`dinvR_of_two_le`, `fDH_eq`); **`QDHu_packet_eq`** and `exists_offline_dh_of_neg_packet` (round 259) |
+| `external/dh/DHArch.lean` | 1179 | **the archimedean term of the packet, bounded** (certificate stage 2): two Frullani integrals as real parts of round 155's complex one, the Gauss-kernel split `e^{−3t/4}/(1−e^{−t}) = e^{−3t/4}/t + h(t)` with `|∫ h cos(ct)| ≤ (3/2)/c` by parts, the Euler–Mascheroni integral `∫ e^{−t}φ₂ = γ` and Binet at `¾` (`integral_hK_eq`), `Re ψ(¾ + iω/2) ≤ log √(9/16 + ω²/4) + 3/ω` (`psiReQ_three_quarters_le`), the kernel bounds `K ≤ 1/u`, the tail, the two oscillatory remainders; **`packet_arch_total_le`**: `Re ψ(¾)‖g‖² + E_{3/4}(g) ≤ ‖g‖²(log √(9/16 + ω²/4) + 3/ω) + ‖g‖²(4/3)e^{−3a}/(1 − e^{−4a}) + 1/(2ω) + (1 + log 2aω)/(2ω)` (round 260) |
+| `external/dh/DHNumerics.lean` | 204 | **the verified-numerics toolkit** (certificate stage 3): interval arithmetic by lemmas (`mul_bounds`, `add_bounds`, `neg_bounds`, `inv_bounds`), `cos` on `\|x\| ≤ 1` and `sin` on `0 ≤ x ≤ 1` between consecutive partial sums of the alternating series (`cos_bounds`, `sin_bounds`, degree 12), `log(1 + 1/m)` to any precision from `Real.hasSum_log_one_add_inv` with the geometric tail (`log_one_add_inv_bounds`), `κ` to fifteen decimals (`kappa_bounds`) (round 261) |
+| `external/dh/DHLogBounds.lean` | 1325 | **generated**: `log n` for `2 ≤ n ≤ 121` to `2.1·10⁻⁹` (`log_bound_n`), chained from `Real.log_two_near_10` through `log(1 + 1/(n − 1))`; produced by `frontier/dh/lean_gen/gen_logbounds.py` (round 261) |
+| `external/dh/DHTrigBounds.lean` | 5943 | **generated**: `cos(ω log n)`, `sin(ω log n)` for `2 ≤ n ≤ 121` and `cos(2028/5)`, `sin(2028/5)` to `1.3·10⁻⁴` (`theta_n_cos`, `theta_n_sin`, `twoOmegaA_cos`, `twoOmegaA_sin`): reduction `redAngle θ M = θ − Mπ/2` by `pi_gt_d6`/`pi_lt_d6`, a rational centre, `abs_cos_sub_cos_le`; `gen_trig.py` (round 261) |
+| `external/dh/DHConstants.lean` | 153 | **the constants of the bound**: `log π`, `log √(9/16 + ω²/4) = ½(log 5 + log 2857 − 3 log 2)`, `log(2028/5)`, `e^{−36/5}`, `1 − e^{−48/5}`, `‖g‖² = 12/5 + sin(2028/5)/169` as rational intervals (`log_pi_bounds`, `log_sqrt_z_bounds`, `log_two_a_omega_bounds`, `exp_neg_three_a_le`, `one_sub_exp_neg_four_a_ge`, `normSq_packet_bounds`) (round 261) |
+| `external/dh/DHCoeffs.lean` | 3952 | **generated**: `u(d) ∈ {0, ±1, ±κ}` (`uR_val_d`), `dinv(n)` and `c(n)` for `n ≤ 121` as intervals of width `≤ 2.1·10⁻¹³`, `≤ 4.2·10⁻⁹` (`dinvR_bounds_n`, `fDH_bounds_n`) by round 259's recursions over `Nat.divisorsAntidiagonal n` in interval arithmetic; `gen_coeffs.py` (round 261) |
+| `external/dh/DHTerms.lean` | 5058 | **generated**: `√n` (`sqrt_bounds_n`), the prime terms `T(n) = c(n)n^{−1/2}f(log n)` as intervals (`primeTerm`, `primeTerm_bounds_n`) and the partial sums `partial_k`, ending in **`partial_121 : 5.64560494881841 ≤ Σ_{2 ≤ n ≤ 121} T(n)`** (true value `5.6462121`); `gen_terms.py` (round 261) |
+| `external/dh/DHCertificate.lean` | 85 | **`dh` has a zero off the critical line, kernel-checked**: `⌊e^{24/5}⌋ = 121` (`floor_exp_twoA`), **`QDHu_packet_neg : Q_dh(packet 12/5 169/2) < 0`** (the bound evaluates to `−1.0634`) and **`dh_offline_zero : ∃ s, dh s = 0 ∧ 0 < Re s ∧ Re s ≠ ½`** (round 261) |
+| `external/dh/DHOffCross.lean` | 96 | **the certificate's zero is non-real**: `ĝ(iy)` is real (`ghatC_I_mul_im`), so real zeros contribute `≥ 0` like on-line zeros (`QDHu_packet_nonneg_of_line_or_real`); **`dh_offline_nonreal_zero`** (`Im s ≠ 0`), **`dh_offline_zero_right`** (`½ < Re s ≤ 2`, `Im s ≠ 0`) (round 262) |
+| `external/dh/DHRealAxis.lean` | 269 | **`dh` has no zero on the positive real axis** *(corrected in round 271)*: the coefficients `a(n) = a(1)·u(n mod 5)` have partial sums `a(1)·{0, 1, 1 + κ}` (`sum_range_aDH_chi5`), so round 254's integral representation gives `dh(σ)/a(1) = σ∫_1^∞ B(x)x^{−σ−1}dx ≥ 1 − 2^{−σ} > 0` (`dh_eq_integral`, `dh_div_a1_real_ge`); `dh_ne_zero_of_real`, `dhLam_real_ne_zero`, `XiDH_I_mul_ne_zero`, `dh_offcross_zero` (round 263); `dh_neg_one_eq_zero`, `exists_real_zero_dh`: the trivial zero at `−1` (round 271) |
+| `external/dh/DHForm.lean` | 182 | **`QDHu` is a `ProbeForm`** (`QDHu_form`: `Q(0) = 0`, `Q(cg) = c²Q(g)`, the parallelogram law, a.e. invariance, `Q_dh(g) ≥ −M_dh(a)‖g‖²`); the DH ground energy `lamDH`, `lamDH_antitone`, **`lamDH_neg : λ_dh(b) < 0` for `b ≥ 12/5`**, `exists_lamDH_neg` (round 263) |
+| `external/dh/DHColumn.lean` | 706 | **the dh column of the substitution matrix, part 1**: `HypConvDH` and the Hurwitz chains at `Ξ_dh` (`dhRH_of_realRooted`, `dhRHcross_of_cross`, `dhRHcross_of_strip` at width 2), the pairing/D route (`hypConvDH_of_D`, `dhRH_of_D_and_realRooted_proved`), the dodging route (`real_of_params`, `real_of_dodging`), and their refutations by the certificate: **`not_hypConvDH_of_realRooted`, `not_hypConvDH_of_cross`, `not_hypConvStripDH_of_cross`, `not_realRooted_limit_XiDH`, `not_dodging_dh`, `not_D_dh`, `not_weil_positivity_dh`, `weil_criterion_dh`, `not_GRH_dh`**; `tau3_im_lt` (open strip), `dh_ne_zero_of_two_le`; the Weil index bound abstracted (`finrank_le_quadruples_gen`) and instantiated at `dh` (`finrank_le_quadruples_dh`) (round 263) |
+| `external/dh/HurwitzEM.lean` | 755 | **Euler–Maclaurin for the Hurwitz zeta function with an explicit remainder**, on `Re s > 0`, `s ≠ 1`, for every `x ∈ (0, 1]`, `M ≥ 1`, `K ≥ 1`: `ζ(s, x) = Σ_{m<M}(m+x)^{−s} + (M+x)^{1−s}/(s−1) + ½(M+x)^{−s} + Σ_{k<K} B_{2k+2}/(2k+2)!·(s)_{2k+1}(M+x)^{−s−2k−1} − R` with `‖R‖ ≤ |B_{2K}|/(2K)!·‖(s)_{2K}‖·(M+x)^{1−Re s−2K}/(Re s+2K−1)` (`norm_hurwitzZeta_sub_EM_le`, `hurwitzZeta_eq_EM_explicit`); `|B_{2K}|/(2K)! = 2ζ(2K)/(2π)^{2K} ≤ (π²/3)/(2π)^{2K}` (`hasSum_zeta_CB`, `CB_le`); a version uniform on boxes (`norm_hurwitzZeta_sub_EM_le_box`) (round 264) |
+| `external/dh/DHHurwitzEM.lean` | 164 | **`dh(s) = 5^{−s}Σ_{j=1}^{4} a(j)ζ(s, j/5)`** for every `s` (`dh_eq_hurwitz`); the approximant `dhEM M K s` and the explicit error bounds `norm_dh_sub_EM_le`, `norm_dh_sub_EM_le_box` (round 264) |
+| `external/dh/DHTwin.lean` | 374 | **the dh column, part 2: the twin form**: `twinData_dh` (poles `2iτ_u`, weights `2ĝ₀(τ_u)²`, `Q_dh` on the box twins; `|Re P| < 1` from `tau3_im_lt`, `Im P ≠ 0` from `XiDH_I_mul_ne_zero`), `dhRH_of_twins`, **`not_twins_nonneg_dh`**, **`dh_twins_rate`** (`Q_dh(twin) ≥ −Ce^{σλ}` iff every zero has `|2Re s − 1| ≤ 3σ`, every `σ`), `not_twins_subexp_dh`; the u-space datum `twinData_dhu` and **`lamDH_fails_exponentially`** (unconditional), `zeros_of_lamDH_ge`, `not_lamDH_subexp` (round 265) |
+| `external/dh/DHNegIndex.lean` | 367 | **every off-line quadruple of `dh` gives a negative direction of `Q_dh`**: round 232 ported (`negDirections_offline_dh`: `|R|` off-line zeros in distinct quadruples give an `|R|`-dimensional space of width-3 probes on which `QDHu < 0`), the inputs `striptest_twinComb3`, `QDH_eq_BreD`, and **`negIndex_ge_of_located`**: `n` located zeros (`‖ρ_k − c_k‖ < 1/100`, separated centres) give `n` negative directions at every large support (`negIndex_ge_mono`) (round 266) Since round 274 §B–E are `WeilIndexInfinite`'s generic `NegData` argument at the instance `dhND`. |
+| `external/dh/DHLocateSkeleton.lean` | 2717 | **the zero-location certificate, reduced to three point values**: the minimum-modulus instrument (`exists_zero_of_center_lt_sphere`, `exists_zero_of_approx`, `norm_sub_linear_le_ball`, `exists_zero_of_bounds`), the approximant decomposed (`dhEM = a(1)·(DEM + GEM)`, `QEM` with `B₂, …, B₂₄` as rationals, `bernoulli_vals`), the Euler–Maclaurin error on the disc (`norm_dh_sub_dhEM_le_ball ≤ 6·10⁻⁵`), the second derivative on the disc (`D2sum_le`, `Gsup_ball_le`, `norm_deriv2_dhEM_ball ≤ 158`), the ladder to `dh_zero_near_of_center'` (round 267) |
+| `external/dh/DHLocateExp.lean` | 893 | **generated**: `n^{−1617/2000}` two-sided to `9.2·10⁻¹¹` for the 84 values `n ∈ NS` (`Real.exp_bound` at `y/8`, `exp_nat_mul`); `gen_locate.py` (round 267) |
+| `external/dh/DHLocateTrig.lean` | 4930 | **generated**: `cos`, `sin` of `(856993/10000)·log n`, `n ∈ NS`, to `1.7·10⁻⁷` (`redAngle` with `pi_gt_d20`/`pi_lt_d20`, centres on a `10⁻⁹` grid); `gen_locate.py` (round 267) |
+| `external/dh/DHLocateNum.lean` | 2217 | **generated**: the enclosures `PRe ∈ [−3.23745·10⁻⁵, −3.21578·10⁻⁵]`, `PIm ∈ [−5.44682·10⁻⁵, −5.42516·10⁻⁵]`, `ARe ∈ [1.2323329, 1.2323338]`, `H1`–`H3`, **`dh_zero_located : ∃ ρ, dh ρ = 0 ∧ ‖ρ − (1617/2000 + 856993i/10000)‖ < 1/100`**, **`dh_zero_located_box`** (`0.7985 < Re ρ < 0.8185`, `85.6893 < Im ρ < 85.7093`); `gen_locate.py` (round 267) |
+| `external/dh/DHGround.lean` | 810 | **the dh column, part 3 — the ground-state stack of `Q_dh`**: `groundSpaceDH`, `IsGroundStateDH`, `exists_groundStateDH` (compactness through `archE_le_DH : E(g) ≤ e^{2a}E_{3/4}(g) + ‖g‖²·tailDH a`), `bilDH`, `euler_lagrangeDH_mem`, the swap closure (`split_mem_groundSpaceDH`, `zeros_real_or_imagDH'`), Theorem D (`theoremDDH`, `gdimDH`, `topGSDH`, `topGSDH_cross`), **`not_hypConvDH_top`** and **`not_simple_hypConvDH`** (round 268) Since round 274 its stage 4 is `GroundChain` at the instance `dhGD`. |
+| `external/dh/DHOddPacket.lean` | 721 | **the sine-packet certificate**: `sinPacket = 1_{[−a,a]}·sin(ω·)`, its closed forms (`sinPacket_normSq`, `sinPacket_autocorr`, `sinPacket_ghatC`), `sinPacket_oprobe`, `QDHu_sinPacket_eq`, `sinPacket_arch_total_le`, **`QDHu_sinPacket_le : Q_dh(sinPacket 12/5 169/2) ≤ −111/100`**, `exists_oprobe_QDHu_neg`, `lamODH`, **`lamODH_neg (12/5 ≤ b)`**, `not_odd_lower_dh`, `not_lamODH_lower` (the column of `rh_of_lamO_lower`) (round 269) |
+| `external/dh/DHOddTerms.lean` | 4223 | **generated**: the sine packet's prime terms `oddTerm n` as intervals and their partial sums for `2 ≤ n ≤ 121`, `oddPartial_121 : 5.67959599624443 ≤ Σ oddTerm n`; `gen_oddterms.py` (round 269) |
+| `external/dh/DHLogBoundsExt.lean` | 984 | **generated**: `log_bound_n` for `122 ≤ n ≤ 209`, chained from `log_bound_121` by `log_one_add_inv_bounds`, grid `10⁻³⁰`; `gen_logext.py` (round 270) |
+| `external/dh/DHLocateGen.lean` | 400 | **the zero-location certificate for a general centre**: the skeleton's centre-dependent parts for arbitrary `c`, `r < Im c` — `dh_zero_near_of_fEMG`, `norm_dh_sub_dhEM_le_ballG`, `norm_deriv2_fEM_ballG`, `dh_zero_near_of_elementaryG` (round 270) |
+| `external/dh/DHLocate2Base.lean` | 1912 | **generated** (`gen_locate_zero.py 2`; `c = 0.65083 + 114.16334i`, `r = 1/200`, `M = 28`): `Z2.norm_dh_sub_dhEM_le_ball`, `Z2.Gsup_ball_le`, `Z2.D2sum_le`, `Z2.m2_ball`, the exact `Q`-tails at `c`, `Z2.dh_zero_near_of_center'` (round 270) |
+| `external/dh/DHLocate2Exp.lean` | 1164 | **generated**: `n^{−65083/100000}` two-sided for the 115 atoms of zero 2 *(corrected in round 271)* (round 270) |
+| `external/dh/DHLocate2Trig.lean` | 7044 | **generated**: `cos`, `sin` of `(11416334/100000)·log n` for the atoms of zero 2 (round 270) |
+| `external/dh/DHLocate2Num.lean` | 3001 | **generated**: the enclosures of `PReG`, `PImG`, `AReG` at zero 2, `Z2.H1`–`H3`, **`dh_zero_located_2`**, **`dh_zero_located_box_2`** (`0.64583 < Re ρ < 0.65583`, `114.15834 < Im ρ < 114.16834`) (round 270) |
+| `external/dh/DHLocate3Base.lean` | 2484 | **generated** (`gen_locate_zero.py 3`; `c = 0.57436 + 166.47931i`, `r = 1/500`, `M = 41`): as for zero 2, in `Z3` (round 270) |
+| `external/dh/DHLocate3Exp.lean` | 1684 | **generated**: `n^{−57436/100000}` two-sided for the 167 atoms of zero 3 *(corrected in round 271)* (round 270) |
+| `external/dh/DHLocate3Trig.lean` | 5072 | **generated**: `cos`, `sin` of `(16647931/100000)·log n`, first half of the atoms of zero 3 (round 270) |
+| `external/dh/DHLocate3Trig2.lean` | 5139 | **generated**: the second half (round 270) |
+| `external/dh/DHLocate3Num.lean` | 4264 | **generated**: the enclosures at zero 3 (`AReG_ge`/`_le` under `maxHeartbeats 1000000`), `Z3.H1`–`H3`, **`dh_zero_located_3`**, **`dh_zero_located_box_3`** (`0.57236 < Re ρ < 0.57636`, `166.47731 < Im ρ < 166.48131`) (round 270) |
+| `external/dh/DHLocate4Base.lean` | 2484 | **generated** (`gen_locate_zero.py 4`; `c = 0.72426 + 176.70246i`, `r = 1/150`, `M = 41`): as for zero 2, in `Z4` (round 270) |
+| `external/dh/DHLocate4Exp.lean` | 1684 | **generated**: `n^{−72426/100000}` two-sided for the 167 atoms of zero 4 *(corrected in round 271)* (round 270) |
+| `external/dh/DHLocate4Trig.lean` | 5096 | **generated**: `cos`, `sin` of `(17670246/100000)·log n`, first half of the atoms of zero 4 (round 270) |
+| `external/dh/DHLocate4Trig2.lean` | 5143 | **generated**: the second half (round 270) |
+| `external/dh/DHLocate4Num.lean` | 4264 | **generated**: the enclosures at zero 4 (`AReG_ge`/`_le` under `maxHeartbeats 1000000`), `Z4.H1`–`H3`, **`dh_zero_located_4`**, **`dh_zero_located_box_4`** (`0.71759 < Re ρ < 0.73093`, `176.69579 < Im ρ < 176.70913`) (round 270) |
+| `external/dh/DHLocateFour.lean` | 115 | **four located off-line zeros and the Weil index `≥ 4`**: `cFour`, `sep_of_im`, `negIndex_ge_four_of`, `dh_zeros_located_four`, `dh_zeros_located_four_box`, **`DHNegIndex.negIndex_ge_four`** (round 270) |
+| `external/dh/DHColumnRest.lean` | 157 | **the dh column, part 4**: the remaining G rows refuted (`not_ground_states_dh`, `not_groundStates_dodging_dh`, `not_D_and_realRooted_hadamard`, `not_XiDH_params`, `not_dodging_hadamard`, `not_pairing_and_realRooted`) and the strip row of the P block (`not_hypConvStripDH_top`); `rh_grh_of_member_zero` has no dh analogue (round 272) |
+| `external/dh/DHChannels.lean` | 285 | **the two channels of `dh`**: `conj_LFunction`; the archimedean-free functional equation `LFunction_mul_one_sub` (`L(s, χ)L(1 − s, χ) = ε²L(s, χ⁻¹)L(1 − s, χ⁻¹)`; for the channel ratio, `R(s)R(1 − s) = ε²`, `LFunction_ratio_mul`); `phase_lock`, `channel_ratio_real` (`R(½ + it) ∈ εℝ`); `dhL_eq_zero_iff_channel`; for `χ₅`, **`dh_eq_zero_iff_channel`** (`dh(s) = 0 ↔ L(s, χ₅) = −εL(s, χ₅⁻¹)`) and **`dh_line_zero_iff`** (on the line, one real equation) (round 273) |
+| `external/dh/DHInert.lean` | 623 | **coefficient localisation**: the coefficients of `−dh′/dh` equal `Λ(n)χ₅(n)` at every `n` with a prime factor `≢ ±2 (mod 5)` (**`cDH_chi5_eq_of_dvd`**); `c = Λ·s + c_inert` with `c_inert` supported on inert-smooth integers (**`cDH_chi5_decomp`**); `δ + u = s ⍟ b` (`dhA_eq_splitA_mul_inertA`); `logDer_mul`, `log` a derivation of Dirichlet convolution (round 273) |
+
+## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
+
+`pole_free_form_negative_zeta` is stated over the **nontrivial zeros of Mathlib's `riemannZeta`, counted with multiplicity** (`zetaZeroFamily`). For `a ≥ 1/5` it proves:
+
+- `‖Q‖ < 2(a + sinh a)²`;
+- `Re(Q − 2ĝ_a(i/2)²) < 0`, i.e. `Q₀(g_a) < 0`.
+
+Round 2 discharged the strip hypothesis:
+
+- `IsNontrivialZero s` means `ζ s = 0` and `s ≠ −2(n+1)`, the same predicate as Mathlib's `RiemannHypothesis`.
+- `IsNontrivialZero.mem_strip` proves `0 < Re s < 1` from Mathlib:
+  - `Re s < 1`: `ζ ≠ 0` on `Re s ≥ 1`.
+  - `Re s > 0`: in the functional equation `ζ(s) = 2(2π)^{−(1−s)} Γ(1−s) cos(π(1−s)/2) ζ(1−s)`, every factor except the cosine is nonzero when `Re s ≤ 0`. The cosine vanishes only at `s = −2k`. For `k = 0` that is `ζ(0) = −1/2 ≠ 0`; for `k ≥ 1` it is a trivial zero.
+- `zeroMult_pos`: every nontrivial zero has analytic order in `[1, ∞)`, so the family lists each zero at least once. Finiteness uses analyticity of ζ on the connected set `ℂ∖{1}`.
+
+Two classical inputs remain here. Each is a statement about ζ itself, and round 157 proves both (`ZetaInputs.lean`).
+
+| Hypothesis | Classical fact |
+|---|---|
+| `h_hadamard` | `Σ_ρ 1/(ρ(1−ρ)) = 2 + γ_E − log 4π` |
+| `h_explicit` | Weil's explicit formula for the witness: `Q(g_a) = Σ_ρ ĝ_a(t_ρ)²` |
+
+*(Until round 233 a third input, `h_height`: every zero has `|Im ρ| ≥ 14`. Round 233 derives what the proof needs from `h_hadamard`.)*
+
+The general form `pole_free_form_negative` is kept: it works for any family of zeros with the strip, Hadamard and explicit-formula properties. The round-1 lemmas are unchanged:
+
+| Lemma | Content |
+|---|---|
+| `ghat_bound` | integration by parts, with the exact `V(a) = 4cosh(a/2) − 2` |
+| `ghat_pole` | `ĝ_a(i/2) = a + sinh a` |
+| `re_inv_zero_term_ge` | `Re 1/(ρ(1−ρ)) ≥ 1/(γ² + 5/4)` |
+| `hadamard_const_lt` | `K < 0.0539` (`γ_E < H₁₂₈ − log 128`; `K < 0.0572` from `n = 64` until round 233) |
+| `one_le_hadamard_height` | `1 ≤ K(γ² + 5/4)` for every zero, from `h_hadamard` (round 233) |
+| `final_ineq` | `V(a)²eᵃK′ < 2(a + sinh a)²` for all `a ≥ 0.2`; this replaces the paper's interval evaluation on `[0.2, 1]` |
+
+## T1ca.lean: Theorem 1ca(ii), uniqueness of the smooth wall, with no computed input
+
+**`smooth_wall_unique`.** Assume:
+
+- `γ₁ ∈ [14, 2πe]`;
+- any horizon `T₀ > 0`;
+- any finite hole set in `[0, L]`, with `L ≥ γ₁` (the domain is `T > L`).
+
+Then all of the following hold:
+
+1. `R(T) < 1` on all of `(γ₁, ∞)`.
+2. `T·G` is strictly decreasing on `(L, ∞)`.
+3. `F_k^s′` has derivative `F″`, and `T·F″ = 1 − T·G`.
+4. `F_k^s′` is strictly quasiconvex on `(L, ∞)`: `F′(T₂) < max(F′(T₁), F′(T₃))` for `T₁ < T₂ < T₃`.
+5. Any local minimum of `F_k^s′` is its strict global minimum, so the minimum is unique.
+6. `F_k^s′` has at most two zeros.
+
+**`hasDerivAt_Fs`.** The paper's own smooth functional, transcribed from 1ca(i),
+
+`F_k^s(T) = T[ln(T/2π) − 1 − ln 2] − 2aT + 4Σ_h arccosh(T/h) + (7/2)arccosh(T/γ₁) − ∫₀^{γ₁} N₀(r)·4/(r√(1 − r²/T²)) dr`,
+
+has derivative `Fp`, with `T₀ = 2πe^{2a}` (`I′ − 2a = ln(T/2T₀)`). `Fp` is exactly the paper's stationarity expression
+
+`ln(T/2T₀) + 4Σ_h(T²−h²)^{−1/2} + (7/2)(T²−γ₁²)^{−1/2} + 4∫₀^{γ₁} N₀ r (T²−r²)^{−3/2}`.
+
+So the chain starts from the paper's definition, not from a restatement.
+
+Machinery added in round 2:
+
+| Lemma | Content |
+|---|---|
+| `hasDerivAt_integral_param` | differentiation under the integral sign on `[0, G]` for an integrable weight and a kernel with a bounded T-derivative, via Mathlib's dominated-derivative lemma |
+| `hasDerivAt_JA`, `hasDerivAt_JB`, `hasDerivAt_int_N0_wT` | the three parametric integrals, including the log-singular `N₀/r` weight of the `w_T` term |
+| `T_mul_Fpp` | `T·F″ = 1 − T·G` |
+| `TGp_eq` | `(T·G)′ = −4Σ_h T(T²+2h²)(T²−h²)^{−5/2} − T·fall + T·rise` |
+| `TG_strictAntiOn` | `T·G` strictly decreasing wherever `R < 1` |
+| `Fp_quasiconvex`, `Fp_localMin_unique`, `Fp_at_most_two_zeros` | the uniqueness consequences listed above |
+| **`R_lt_one_low`** | `R < 1` on `(γ₁, 1.51γ₁]`, the part the paper says is *"computed and gated"* (see below) |
+
+How `R_lt_one_low` works:
+
+- Split the rise at `r₁ = 0.85γ₁`.
+- Below `r₁`, use `|N₀| ≤ 1`.
+- Above `r₁`, use `|N₀| ≤ |N₀(11.9)| ≤ 0.701`. This holds because `N₀` is nondecreasing and nonpositive on `[2π, 2πe]` (`N0_mono`, `N0_119_ge`).
+- That gives `rise < K(r₁) + 0.701(K(γ₁) − K(r₁))`.
+- For `T² ≤ 2.2801γ₁²`, `0.299K(r₁) ≤ 0.174K(γ₁)` by a squared rational comparison.
+- The result is `R ≤ 0.983` in the worst case, at `T = 1.51γ₁`. There the true `R` is 0.678, and its maximum is 0.6866 at `1.39γ₁`, matching the paper's 0.69.
+
+The round-1 lemmas (`integral_kern`, `R_lt_one` for `T ≥ 1.51γ₁`, `p_pos`, `p_crossing`, `log_deriv_identity`, `hasDerivAt_fall`, `hasDerivAt_rise`) are unchanged.
+
+### Round 3: the limits, one minimum, and exactly two zeros
+
+The hypotheses are bundled as `Endpoint`:
+
+- `γ₁ ∈ [14, 2πe]` and `T₀ > 0`;
+- every hole lies in `[0, L]`;
+- `L = γ₁` or `L ∈ H`, so that `L = max(γ₁, h_max)` is the domain's actual left endpoint.
+
+| Lemma | Content |
+|---|---|
+| `JA_lower` | cusp estimate `JA(T) ≥ −0.701(T²−γ₁²)^{−1/2} − 0.299(T²−r₁²)^{−1/2}`, from the same split at `r₁ = 0.85γ₁` |
+| `Fp_lower` | `F′(T) ≥ ln(T/2T₀) + 4Σ_h(T²−h²)^{−1/2} + 0.696(T²−γ₁²)^{−1/2} − 1.196(γ₁²−r₁²)^{−1/2}` on the whole domain; the count constant's 7/2 beats the cusp's `4·0.701 = 2.804` (the true cusp coefficient `7/2 + 4N₀(γ₁)` is 1.797) |
+| `Fp_tendsto_atTop` | `F′ → +∞` as `T → ∞`, through `ln(T/2T₀)` |
+| `Fp_tendsto_left` | `F′ → +∞` as `T → L⁺`, through the hole's own term if a hole sits at `L`, or the constant's cusp if `L = γ₁` |
+| `Fp_exists_min`, `Fp_unique_min` | **"F_k^s′ has one minimum"**: exactly one global minimizer on `(L, ∞)`, by compactness plus the round-2 uniqueness |
+| `Fp_exactly_two_zeros` | **"where that minimum is negative F_k^s′ has exactly two zeros"**: if `F′(T_m) < 0` for some `T_m > L`, there are zeros `T₁ < T_m < T₂`, every zero in the domain is one of them, and `F′` is `+` on `(L, T₁)`, `−` on `(T₁, T₂)`, `+` on `(T₂, ∞)` |
+| `Fs_max_then_min` | the same for the paper's `F_k^s` (with `T₀ = 2πe^{2a}` and positive holes): strictly increasing on `(L, T₁]`, strictly decreasing on `[T₁, T₂]`, strictly increasing on `[T₂, ∞)`, so a local maximum at `T₁` ("a maximum just above that cusp") and a local minimum at `T₂` (the smooth wall `T^s`) |
+
+Still not formalized in 1ca(ii):
+
+- **Quantitative parts of the sentence**: "just above that cusp", "far above the minimum in value", the wall's location in `(2T₀/e, 2T₀)`, and the closed form of the minimum's value.
+- **Whether the minimum is negative at the paper's states.** The theorem takes it as its hypothesis, exactly as the paper's "where"; the paper computes it (−0.35 or less at the 45 states).
+- **The numerical claims**: the 45-state minima and the 40-rung statistics.
+
+## Round 4: 1ca(i), (iii) and (iv)
+
+### Split.lean: 1ca(i), the split, with no inputs
+
+The zeros are modelled as a family `γ : ι → ℝ` of ordinates, counted with multiplicity:
+
+- locally finite: `{i | γ i < T}` is finite;
+- every ordinate is `≥ γ₁`.
+
+In this model:
+
+- `Fk` is Theorem 1by's `F_k(T) = 4Σ_{γ<T} arccosh(T/γ) − 2aT + 4Σ_h arccosh(T/h)`;
+- `Ncnt` is the count `N`;
+- `Sz` is 1bs's `S = N − N₀ − 7/8`.
+
+| Lemma | Content |
+|---|---|
+| `I_closed` | `∫₀^T N₀ w_T = T[ln(T/2π) − 1 − ln 2]`, and `N₀w_T` is integrable on `[0, T]`. Proved by `r = T sin θ` and Mathlib's `∫₀^{π/2} ln sin = −(π/2)ln 2`. The one-dimensional Jacobian formula is used because the integrand is singular at both ends. |
+| `integral_wT` | `∫_b^T w_T = 4 arccosh(T/b)`, an improper integral at `T` |
+| `integral_Ncnt_wT` | the Stieltjes step `∫_{γ₁}^T N w_T = 4Σ_{γ<T} arccosh(T/γ)` |
+| **`split`** | **`F_k(T) = F_k^s(T) + Osc(T)` for every `T > γ₁`**, the paper's "(an identity)", with `F_k^s` exactly T1ca's `Fs` |
+| `oscS_Sz` | `S` is measurable, locally integrable, and continuous off the countable set of `N`'s jumps (the standing hypotheses of (iii)) |
+| **`wall_law_zeros`** | (i) + (ii) + (iii) assembled for the zero-sum functional itself; see below |
+
+`wall_law_zeros` takes:
+
+- `γ₁ ∈ [14, 2πe]` and any holes in `(0, L]`;
+- von Mangoldt's `|S(t)| ≤ C ln t` and Littlewood's `|S₁(t)| ≤ C ln t` on `[γ₁, ∞)`;
+- a window `J = [lo, hi]` with `lo > L`, `lo ≥ γ₁ + 2Δ` and `T·G(lo) < 1`;
+- the smooth wall `T^s ∈ J` (`F_k^s′(T^s) = 0`);
+- `T_u ∈ J` minimizing `F_k` on `J`.
+
+It proves:
+
+- `Osc_∞` exists;
+- `|F_k(T_u) − (F_k^s(T^s) + Osc_∞)| ≤ K ln(hi)/√lo`;
+- `(T_u − T^s)² ≤ 4K ln(hi)/√lo · hi/(1 − T·G(lo))`, with `K = 8C√Δ + 16C/√Δ + 12C`.
+
+With `lo, hi ~ T` this is the paper's `|T_u − T^s| = O(T^{1/4}(ln T)^{1/2})`.
+
+### Osc.lean: 1ca(iii)
+
+| Lemma | Content |
+|---|---|
+| `osc_bound` | the paper's displayed bound `|Osc(T) − Osc_∞| ≤ 4 sup|S|·[arccosh(T/(T−Δ)) − ln(T/(T−Δ))] + 8 sup_{[γ₁,T]}|S₁|·D_T(T−Δ) + 8 sup_{[T,∞)}|S₁|/T`, for every `Δ ∈ (0, T − γ₁)`. The proof integrates by parts against `S₁` off the countable jump set of `S`. |
+| `integral_DT`, `near_term_le`, `DT_le` | `∫_{T−Δ}^T D_T = arccosh(T/(T−Δ)) − ln(T/(T−Δ)) ≤ 2√(Δ/T)`, and `D_T(T−Δ) ≤ 2/√(ΔT)` for `T ≥ 2Δ` |
+| **`osc_log`** | **`Osc(T) = Osc_∞ + O(ln T/√T)`** from the two named inputs: `Osc_∞` converges, and `|Osc(T) − Osc_∞| ≤ (8C√Δ + 16C/√Δ + 12C) ln T/√T` for `T ≥ max(γ₁ + 2Δ, 3)` |
+| `wall_value` | the minimum's value: `|min F − (F^s(T^s) + Osc_∞)| ≤ ε`, and `F^s(T_u) − F^s(T^s) ≤ Osc(T^s) − Osc(T_u) ≤ 2ε` |
+| `convex_quadratic_lower`, `wall_stability` | `F^s″ ≥ κ` gives `(T_u − T^s)² ≤ 4ε/κ` |
+| `wall_stability_Fs` | the same for the paper's `F_k^s`, with `κ = (1 − T·G(lo))/hi`, from `T·F″ = 1 − T·G` and `T·G` decreasing (round 2) |
+| `wall_law_Fs` | `osc_log` + `wall_stability_Fs` |
+
+### Exterior.lean: 1ca(iv)
+
+| Lemma | Content |
+|---|---|
+| **`exterior_identity`** | from Weil's explicit formula for an even `h` real on `ℝ`: **`Σ_ρ h(t_ρ) = (1/π)∫₀^∞ h ln(r/2π) + E_arch + 2h(i/2) − 2Σ_n Λ(n)n^{−1/2} f_χ(ln n)`**, with `t_ρ = (ρ − ½)/i` |
+| `exterior_identity_probe` | the same for `h = ĝ²χ` with an even probe, where `E_pole = 2ĝ(i/2)²χ(i/2)` literally |
+| `binet_remainder_le` | from Binet's formula, `|Re ψ(¼ + ir/2) − ln(r/2)| ≤ 3/(2r²)` for `r ≥ 8`. The pieces are `(1/2)ln(1 + 1/4r²)`, `Re 1/(2z)`, and the Binet integral `≤ 8/(π²r²) + 4e^{−πr/4}/(π²r)`. |
+| `Earch_bound` | `|E_arch| ≤ (3/2)/(T² ln(T/2π)) · (1/π)∫_T^∞ h ln(r/2π) + (3/2π)∫_{(8,T]} h/r² + (1/π)∫_{(0,8]} |h(Re ψ − ln(r/2))|` for `h ≥ 0` and `T ≥ 8` |
+| `norm_Phi_le`, `norm_chi_le` | `|Φ(z)| ≤ e^{(Im² − Re²)/2}/2` for `Re z ≤ 0`, with `Φ` extended to `ℂ`; `|χ(±i/2)| ≤ 2e^{−(T² − 1/4)/(2Δ²)}` for the mirrored four-term cut |
+| `norm_ghat_half_le`, `norm_Epole_le` | `|ĝ(i/2)| ≤ √(2a)e^{a/2}` for `‖g‖₂ = 1`, via a pointwise AM–GM; `|E_pole| ≤ 8a eᵃ e^{−(T² − 1/4)/(2Δ²)}` |
+| `psiRe_even`, `gh_eq_fchi` | `Re ψ(¼ − ir/2) = Re ψ(¼ + ir/2)`, from `Γ(z̄) = Γ(z)‾`; `g_h = f_χ` for even `h` |
+
+The two named inputs are stated as `Prop`s:
+
+- `WeilExplicit ρ h hR`: `h|ℝ = hR`, and the Guinand–Weil formula over a family of zeros counted with multiplicity.
+- `BinetFormula`: `ψ(z) = ln z − 1/(2z) − 2∫₀^∞ t dt/((t² + z²)(e^{2πt} − 1))` for `Re z > 0`.
+
+Mathlib has `Complex.digamma` but neither formula.
+
+### What formalizing (iii)–(iv) found
+
+All four are novel under Check 4 and minor. None changes a conclusion.
+
+1. **(iii), the third term of the displayed bound.**
+   - `8 sup_{[T,∞)}|S₁|/T` is a correct bound, but the named input `S₁ = O(ln t)` does not make that supremum finite, since `ln t` is unbounded.
+   - The `O(ln T/√T)` conclusion needs the integrated tail instead: `|S₁(T)|/T + ∫_T^∞ |S₁|/r² ≤ C(2 ln T + 1)/T`. `osc_log` uses this and the conclusion holds.
+   - The paper's "bound reads 1.66, 1.42, 1.21, 1.00, 0.77 nats" uses the list's supremum below height 6990 in place of `sup_{[T,∞)}|S₁|`.
+2. **(iii), the consequences are argued globally but proved locally.**
+   - *"F_k(T_u) ≥ F_k^s(T^s) + Osc(T_u)"* needs `T^s` to be `F_k^s`'s *global* minimizer. Round 3 proves only that it is the unique interior local minimum.
+   - The comparison with the left end is easy: with no holes `F_k^s(γ₁⁺) = −2aγ₁`, against `F_k^s(T^s) ≈ −2T₀`. But it is not written.
+   - Placing the global `T_u` inside the convex window also needs a global `O(1)` bound on `Osc` together with that gap.
+   - The *"(1 + o(1))"* in `F_k^s″ ≥ (1 + o(1))/T` is `1 − T·G(T^s) ≈ 1 − ln(2T₀/T^s)`. The paper computes it as `≥ 0.2` at the rungs (*"T·F_k^s″ ≥ 0.2 at the 40 rungs (gated)"*).
+   - The Lean statements are local: `T_u` minimizes `F_k` on `J`, and `1 − T·G(lo)` is carried explicitly.
+3. **(iv), the zero side.** The identity is written *"2Σ_{γ>0} ĝ(γ)²χ(γ) = …"*, a sum over real ordinates. Unconditionally, Weil's formula sums `h(t_ρ)` with `t_ρ = (ρ − ½)/i`. The two agree only if every zero is on the line. The cell computations use listed zeros on the line and are unaffected. The Lean statement uses `t_ρ`.
+4. **(iv), the `E_arch` bound.**
+   - *"≤ (3/2)/(T² ln(T/2π)) times the smooth count's integral up to the cut's Gaussian tail"* holds pointwise only for `r ≥ T`.
+   - Since `χ(T) = ½`, the shoulder just below `T` is not Gaussian-small. The factor there is `1 + O(Δ/T)`.
+   - The Binet bound covers only `r ≥ 8`.
+   - `Earch_bound` keeps `(0, 8]`, `(8, T]` and `(T, ∞)` as explicit terms.
+
+These checked out as stated:
+
+- the Binet constant `3/(2r²)`;
+- `|ĝ(i/2)| ≤ √(2a)e^{a/2}`;
+- `|χ(±i/2)| ≤ 2e^{−(T² − 1/4)/(2Δ²)}`;
+- the `E_pole` bound;
+- the identity's algebra from Weil's formula.
+
+The remainder's leading term `−1/(24r²)`, which the paper quotes, agrees with Stirling's series. This was checked by hand, not in Lean.
+
+### Still not formalized
+
+- **The four named classical inputs**: von Mangoldt's and Littlewood's bounds, Weil's explicit formula, and Binet's formula.
+- **Localizing the global unlocking height into the window**, and `T·G(lo) < 1` at the paper's states. Both are computed in the paper.
+- **All computed, gated numerics.**
+
+## Round 5: the zero family is `riemannZeta`'s (Zeta.lean)
+
+1ca's zero family is no longer an abstract hypothesis. It is the positive-ordinate part of T1bt's `zetaZeroFamily`: the nontrivial zeros of Mathlib's `riemannZeta`, each repeated by its analytic order.
+
+| Lemma | Content |
+|---|---|
+| `finite_zeros_below` | **finitely many nontrivial zeros have `0 < Im ρ < T`**, proved from Mathlib. Such zeros lie in a compact ball, by the strip. An accumulation point other than `1` would force `ζ ≡ 0` on the connected set `ℂ ∖ {1}` by the identity theorem, contradicting `ζ(2) ≠ 0`. An accumulation point at `1` is ruled out by `(s − 1)ζ(s) → 1`. |
+| `zetaOrd_finite` | the same with multiplicity: `{p : γ_p < T}` is finite for the family `zetaOrd` of positive ordinates. This discharges the `hfin` hypothesis of `split` and `wall_law_zeros`. |
+| `split_zeta` | **1ca(i) for ζ's own zeros**: `F_k = F_k^s + Osc` with `S = N − N₀ − 7/8`, where `N` is ζ's zero count |
+| **`wall_law_zeta`** | **1ca(i)–(iii) for ζ's own zeros** |
+| `exterior_identity_zeta` | **1ca(iv)** with the zero side summed over Mathlib's nontrivial zeros, with multiplicity |
+| `zetaOrd_ge_of_height`, `fourteen_le_two_pi_e` | T1bt's `h_height` (`14 ≤ |Im ρ|`) gives `G = 14`, and `14 ≤ 2πe` |
+
+`wall_law_zeta` still takes these named inputs:
+
+- the first-zero height, `G ≤ γ` for every zero with `G ∈ [14, 2πe]` (`G = 14` from T1bt's `h_height`);
+- von Mangoldt's and Littlewood's bounds, now on ζ's own `S`.
+
+`exterior_identity_zeta` takes Weil's explicit formula (for the ζ family) as its named input.
+
+## Round 6: §11 roadmap item 1, stated and reduced (Roadmap.lean)
+
+### (i) The target, stated with no zero of ζ
+
+| Definition | Content |
+|---|---|
+| `weilQ a g` | Theorem 1bn(i)'s true form `Q(g) = 2ĝ(i/2)² + (ψ(¼) − log π)‖g‖² + ∫₀^∞ [f(0) − f(u)] e^{u/2}/sinh u du − 2Σ Λ(n)n^{−1/2} f(log n)`, with `f` the autocorrelation and support `δ = 2a`. Only primes, `ψ(¼)` and `π` enter. |
+| `Probe a g` | real, even, supported in `[−a, a]`, in `L²`, with the archimedean integral convergent |
+| `IsGroundState a g` | a normalized probe minimizing `Q` among probes |
+| `xi`, `Xi` | Riemann's `ξ(s) = (s(s−1)Λ₀(s) + 1)/2` from Mathlib's `completedRiemannZeta₀`, and `Ξ(t) = ξ(½ + it)` |
+| `HypD a g T_D` | item 1(a), Hypothesis D of 1bu(ii): `ĝ` and `Ξ` have equal analytic orders at every point of `|z| < T_D` |
+| `RealRooted a g` | item 1(b): every zero of `ĝ` is real |
+
+`ghatC_I_div_two` checks that `ĝ(i/2)` in `Q` is the transform at `i/2`.
+
+### (ii) The reductions, proved (no named inputs)
+
+| Theorem | Content |
+|---|---|
+| `xi_eq_zero_of_nontrivial` | every nontrivial zero of `riemannZeta` is a zero of `ξ`; `ξ(2) ≠ 0` |
+| **`zeros_on_line_below`** / `finite_advance` | **item 5's finite advance**: D at one support plus real-rootedness there puts every nontrivial zero with `|t_ρ| < T_D` on `Re s = ½`. Only one direction of D is used: every zero of `Ξ` below `T_D` is a zero of `ĝ`. The ground-state property plays no role; the reduction is about `ĝ` alone. |
+| **`hurwitz_real`** | Hurwitz's theorem in the form needed, proved from the maximum modulus principle: locally uniform limits of entire functions with only real zeros have only real zeros (unless identically zero) |
+| `ghatC_differentiable` | `ĝ` is entire, by differentiation under the integral |
+| **`rh_of_realRooted_limit`** / **`rh_of_ground_states`** | **item 6's step**: real-rooted ground states `g_n` with nonzero `c_n` such that `c_n ĝ_n → Ξ` locally uniformly give Mathlib's `RiemannHypothesis` |
+
+So the roadmap's claim that "(a) and (b) everywhere put Ξ's zeros on the line" is machine-checked in both forms.
+
+- **Finite form:** exact D at a support. By the paper's own 1bu(ii) cell data ("not exactly", displacements up to 0.043), exact D is expected to fail.
+- **Limit form:** real-rootedness with convergence to `Ξ`. 1bu(ii) derives the convergence from D and `ε(δ) → 0`; Round 7 formalizes that derivation.
+
+What remains open is exactly the mathematics: proving `HypD` / convergence and `RealRooted` for `IsGroundState` from `weilQ`.
+
+## Round 7: 1bu(ii)'s convergence to Ξ, and the chain to RH (Limit.lean)
+
+Hadamard's factorisations are written in the variable `w = τ⁻²`. `HadamardW f w` states `f(0) ≠ 0`, `Σ‖w_i‖ < ∞` and `f(z) = f(0)Π(1 − z²w_i)`; a padding entry `w_i = 0` is the factor `1`. This is the only named input, taken once for each `ĝ_n` and once for `Ξ`.
+
+| Theorem | Content |
+|---|---|
+| `norm_tprod_sub_tprod_le` | `‖Π(1 + x_i) − Π(1 + y_i)‖ ≤ exp(Σ‖x‖ + Σ‖y‖)·Σ‖x_i − y_i‖` for infinite products, via a finite-product induction and a limit |
+| `hadamard_compare` | for two factorisations over one pairing, `‖f(z)/f(0) − g(z)/g(0)‖ ≤ ‖z‖²·exp(‖z‖²(Σ‖w‖ + Σ‖v‖))·Σ‖w_i − v_i‖` |
+| **`tendstoLocallyUniformly_of_pairing`** | **1bu(ii)'s limit shape**: if `Σ‖w_n‖` is bounded and the pairing error `θ_n = Σ‖w_{n,i} − v_{n,i}‖ → 0`, then `ĝ_n/ĝ_n(0) → Ξ/Ξ(0)` locally uniformly |
+| `rh_of_pairing_and_realRooted` | adding real-rootedness at every support gives Mathlib's `RiemannHypothesis` (via `hurwitz_real`) |
+| `pairing_of_D` | **exact Hypothesis D is a special case**: the zeros below `T_D` matched by D, plus padding for the tails, give a pairing with `θ ≤ ε(δ) = Σ_{|τ|≥T_D}|τ|⁻² + Σ_{|γ|≥T_D}|γ|⁻²` |
+| **`rh_of_D_and_realRooted`** | **the paper's statement end to end**. Suppose ground states at supports `δ_n` have real-rooted transforms, D holds exactly below `T_D(δ_n)`, `Σ_τ τ⁻²` is bounded, and `ε(δ_n) → 0`. Then Mathlib's `RiemannHypothesis` follows. |
+
+What this adds:
+
+- **The paper's route is checked.** Once Hadamard's factorisations are granted, the route from "(a) and (b) everywhere" to RH is machine-checked as the paper states it: D exact, `ε → 0`, real-rootedness, Hurwitz.
+- **Exact D is more than the argument needs.** The pairing form requires only `θ_n → 0`: zeros matched within a summable displacement that vanishes in the limit. This is the "dodging tolerance" situation that 1bu(ii)'s cell data reports. The limit route therefore does not depend on exact D, which that data indicates fails.
+
+Still open is the mathematics:
+
+- real-rootedness of the minimizer of `weilQ`;
+- `θ_n → 0` for it;
+- the bound on `Σ_τ τ⁻²` for it.
+
+The named inputs still to formalize are Hadamard's factorisation for `ĝ_n` (Cartwright class) and for `Ξ`.
+
+## Round 8: Hadamard's factorisation, proved (Hadamard.lean, HadamardApply.lean)
+
+Mathlib has no Hadamard factorisation. It is now proved here from Mathlib's complex analysis, using only circle averages.
+
+**`hadamard_genus0`.** Let `F` be entire with `F(0) ≠ 0` and `‖F(w)‖ ≤ C·exp(A‖w‖^α)` for some `α < 1`. Then:
+
+- `Σ 1/|u| < ∞` over the zeros, with multiplicity;
+- `F(w) = F(0)·Π(1 − w/u)` for every `w`, as an unconditional `HasProd`.
+
+| Step | Lemma | Mathlib inputs |
+|---|---|---|
+| A | `disc_estimate`: if `G` is zero-free on `|w| ≤ R` with `G(0) = 1`, then on `|w| ≤ r < R/2`, `‖G − 1‖ ≤ 12Mr/(R/2 − r)`, where `M` bounds the circle average of `log⁺|G|` | Poisson formula for harmonic functions and its kernel bounds; harmonic conjugate on a disc; maximum modulus; Borel–Carathéodory |
+| B | `zero_count`, `summable_ord_div`: `n(R) ≤ log C + A(eR)^α − log‖F(0)‖`, then `Σ ord(u)/|u| < ∞` via dyadic shells | Jensen's inequality (`sum_divisor_le`) |
+| C | `disc_factor`: `F = F(0)·Π_{|u|≤R}(1 − w/u)^{ord u}·G_R` on `|w| ≤ R`. `avg_posLog_G_le`: the circle average of `log⁺|G_R|` is `O(R^α)`, since each zero contributes at most `log 2` (`circleAverage_negLog_le`). | `extract_zeros_poles`; circle averages of `log‖· − u‖` |
+| limit | `G_R(w) → 1` as `R → ∞`, and the partial products converge to the unconditional product | `multipliable_one_add_of_summable` |
+
+**`hadamardW_even`.** An even entire `f` of order `< 2` satisfies `HadamardW f (u⁻¹)`, the product taken over `f`'s own zero pairs.
+
+- Write `f(z) = F(z²)` with `F(w) = f(√w)`.
+- `F` is entire: principal square root on the slit plane, the branch `i√(−w)` across the negative axis, and a removable singularity at `0`.
+- `F` has order `< 1`, so `hadamard_genus0` applies to it.
+
+The two applications:
+
+- **`hadamardW_ghat`:** the transform of an even integrable probe with `ĝ(0) ≠ 0`. It is of exponential type, `‖ĝ(z)‖ ≤ (1 + ‖g‖₁)e^{a|z|}`. **No named input.**
+- **`hadamardW_Xi`:** `Ξ`. Its evenness is proved from `Λ₀(1 − s) = Λ₀(s)` in Mathlib. Two named inputs remain:
+  - `XiGrowth`: `‖Ξ(t)‖ ≤ C·exp(A‖t‖^{3/2})`, i.e. the order of `ξ` (true with order 1);
+  - `Ξ(0) ≠ 0`: `Ξ(0) = 0.497…`, equivalently `ζ(½) ≠ 0`.
+
+**`rh_of_D_and_realRooted_proved`.** This is roadmap item 1 ⇒ `RiemannHypothesis`, with Hadamard proved and the zero lists being the functions' own. Its hypotheses are:
+
+- the ground states are even and integrable, with `ĝ_n(0) ≠ 0`;
+- `ĝ_n` is real-rooted;
+- Hypothesis D holds against `Ξ`'s zero list, with `Σ τ⁻²` bounded and `ε(δ_n) → 0`;
+- the named inputs `XiGrowth` and `Ξ(0) ≠ 0`.
+
+Both remaining named inputs are classical facts about `ζ`, not about the cascade. Round 9 proves both.
+
+## Round 9: the two `Ξ` inputs, proved (XiBounds.lean)
+
+Both are derived from Mathlib's Mellin representation `Λ₀(s) = ½·M[f_modif](s/2)`, where `f_modif` is the theta kernel `θ(x) − 1` for `x > 1` and its functional-equation image for `x < 1` (definitional in Mathlib).
+
+| Step | Lemma | Content |
+|---|---|---|
+| kernel | `evenKernel_sub_one_le` | for `t ≥ 1`: `0 ≤ θ(t) − 1 ≤ 3e^{−πt}`, from `θ(t) − 1 = 2Σ_{n≥1} e^{−πn²t}` (`hasSum_int_evenKernel₀`) and `e^{−π} ≤ 1/10` |
+| small `x` | `fmodif_lt_one` | for `0 < x < 1`: `‖f_modif(x)‖ ≤ 3x^{−1/2}e^{−π/x}`, via `evenKernel_functional_equation` |
+| Mellin | `norm_completedZeta₀_le` | `‖Λ₀(s)‖ ≤ (3m₁!/π^{m₁} + 3m₂!/(π − 1))/2` whenever `m₁ ≥ 3/2 − Re(s/2)` and `m₂ ≥ Re(s/2) − 1`: both halves of the Mellin integral are bounded by Gamma integrals |
+| `Ξ(0) ≠ 0` | `Xi_zero_ne_zero` | `Ξ(0) = (1 − ¼Λ₀(½))/2`; the Mellin bound at `m₁ = 2`, `m₂ = 0` gives `(6/π² + 3/(π − 1))/2 < 4`, so `‖Λ₀(½)‖ < 4`, ruling out the value `Λ₀(½) = 4` that `Ξ(0) = 0` requires |
+| order | `xiGrowth` | `‖Ξ(t)‖ ≤ 3e^{144}·exp(18‖t‖^{3/2})`: at `s = ½ + it` take `m₁ = m₂ = N = ⌈‖t‖⌉ + 2`, so `‖Ξ(t)‖ ≤ 3N²·N! ≤ 3N^{N+2} ≤ 3exp(6N√N)`, using `log N ≤ 2√N` |
+
+The constants are crude, since only the order `< 2` matters for `hadamardW_even`.
+
+**`rh_of_D_and_realRooted_final`.** Roadmap item 1 ⇒ `RiemannHypothesis`, with no hypothesis about `Ξ` or `ζ`. What remains is exactly the cascade-side content:
+
+- the ground states `g_n` are even and integrable, with `ĝ_n(0) ≠ 0`;
+- `ĝ_n` is real-rooted;
+- Hypothesis D holds against `Ξ`'s own zero list, with `Σ τ⁻²` bounded uniformly and `ε(δ_n) → 0`.
+
+These are the open content of roadmap item 1. The classical analysis around them (the Hadamard products, the growth of `Ξ`, `Ξ(0) ≠ 0`, the limit argument, the link to Mathlib's `riemannZeta`) is now all machine-checked.
+
+## Round 10: dodging D and the curvature sum rule (Curvature.lean)
+
+Two changes to the hypotheses of the round-9 chain.
+
+**Approximate D.** `DFamW` asked for an *exact* match between the zeros of `ĝ_n` and of `Ξ` below `T_D`. Theorem 1bu(ii)'s own census says: "D holds to the dodging tolerance, not exactly: the dodging zeros are displaced from the zeta zeros by at most 0.033, 0.024, 0.025, 0.004, 0.028, 0.036, 0.043". So the round-9 theorem assumed something the computed ground states do not satisfy. The replacement is *dodging D*:
+
+- every zero of `Ξ` below `T_D(n)` is matched with its own zero of `ĝ_n`, with total displacement `Σ|τ⁻² − γ⁻²| ≤ η_n` and `η_n → 0`;
+- `T_D(n) → ∞`;
+- nothing is assumed about the other zeros of `ĝ_n`.
+
+`pairing_of_matching` *(removed in round 66, no longer needed)* turns any such matching into a pairing whose error is the matched displacement plus the two unmatched sums. `pairing_of_D` is the special case of an exact match.
+
+**The curvature sum rule.** `ghat_sum_rule`: for even integrable `g` with `∫g ≠ 0`, `Σ_τ τ⁻² = ∫u²g / (2∫g)`, summed over the zero pairs of `ĝ`. It is proved by comparing two second-order expansions at small real `x`:
+
+| Lemma | Content |
+|---|---|
+| `HadamardW.expansion` | `‖f(z)/f(0) − (1 − z²Σw)‖ ≤ (‖z‖²Σ‖w‖)²`, from `‖Π(1 + x) − 1 − Σx‖ ≤ e^S − 1 − S` |
+| `ghat_expansion` | `‖ĝ(x) − ∫g + (x²/2)∫u²g‖ ≤ |x|³a³∫|g|`; the odd moment vanishes by evenness, and the rest is Mathlib's `Complex.exp_bound` |
+| `ghat_curvature` | real-rooted case: each term `τ⁻²` is a positive real, so `Σ‖τ⁻²‖ = ∫u²g / (2∫g)` |
+| `xi_expansion` | `Ξ(z)/Ξ(0) = 1 − z²Σ_jγ_j⁻² + O(‖z‖⁴)`, so the target `Σ_jγ_j⁻²` is `Ξ`'s curvature, `−Ξ″(0)/(2Ξ(0)) = 0.023105` in the paper |
+
+**`rh_of_dodging_and_curvature_final`.** *(Round 66: removed. `rh_of_dodging_final` proves the same conclusion without the curvature hypothesis.)* Roadmap item 1 ⇒ `RiemannHypothesis`, with hypotheses:
+
+- `g_n` even and integrable on `[−a_n, a_n]`, with `∫g_n ≠ 0`;
+- `ĝ_n` real-rooted;
+- dodging D with `η_n → 0` and `T_D(n) → ∞`;
+- the curvature `κ_n = ∫u²g_n / (2∫g_n)` converges to `Re Σ_jγ_j⁻²`.
+
+Compared with round 9:
+
+- The uniform bound `Σ τ⁻² ≤ B` is gone, since a convergent `κ_n` is bounded.
+- The tail condition `ε → 0` is gone. It follows from the curvature condition and dodging D, because `ĝ_n`'s unmatched zeros carry curvature `κ_n − Σ_matched ≥ 0`, and that tends to `0`.
+- "No other zero of `ĝ_n` below `T_D`" is no longer assumed; it is a consequence in the limit.
+- The target is `Re Σ_j γ_j⁻²`, the `z²` coefficient of `Ξ(z)/Ξ(0)`. It is known unconditionally, so no RH content is hidden in it. The proof shows `Re Σ ≤ Σ‖·‖` with equality forced by the hypotheses.
+
+What remains open is unchanged in substance: real-rootedness and dodging D at every support are the wall (§11 items 5–6). The curvature condition is a statement about the second moment of the ground states, with no zero locations in it. *(Corrected in round 65: alone it is, but `rh_of_dodging_and_curvature` works because dodging D and the curvature limit together force `Re Σ v = Σ‖v‖`, which holds only under RH. The pair of hypotheses encodes RH.)* *(Corrected in round 11: this section first said the ground states are "not yet defined in Lean". They are: `Roadmap.lean` defines `weilQ`, `Probe` and `IsGroundState` from Theorem 1bn(i). Round 11 connects them to this chain.)*
+
+## Round 11: ground states of Weil's form (GroundState.lean)
+
+`Roadmap.lean` (round 6) already states Theorem 1bn(i)'s form verbatim:
+
+`Q(g) = 2ĝ(i/2)² + (ψ(¼) − log π)‖g‖² + ∫₀^∞ [f(0) − f(u)] e^{u/2}/sinh u du − 2Σ Λ(n)n^{−1/2} f(log n)`
+
+It also defines the admissible class `Probe` (real, even, supported in `[−a, a]`, in `L²`, archimedean integral convergent) and `IsGroundState` (a normalised probe minimising `Q`). Round 11 proves what those definitions give:
+
+| Theorem | Content |
+|---|---|
+| `abs_autocorr_le` | `|f(u)| ≤ f(0) = ‖g‖²`, from `|g(t)g(t+u)| ≤ (g(t)² + g(t+u)²)/2`, so the archimedean integrand is non-negative |
+| `autocorr_eq_zero` | `f(u) = 0` for `|u| > 2a` |
+| `prime_sum_eq` | the prime sum is the finite sum over `n ≤ e^{2a} = e^δ`, as Theorem 1bn(i) says |
+| `weilQ_ge` | `Q(g) ≥ (ψ(¼) − log π − 2Σ_{n ≤ e^δ} Λ(n)/√n)‖g‖²` on probes |
+| `groundState_energy_ge` | the ground energy `λ₁(δ)` is finite: `λ₁(δ) ≥ ψ(¼) − log π − 2Σ_{n ≤ e^δ} Λ(n)/√n` |
+| `Probe.intervalIntegrable` | a probe is integrable on `[−a, a]` (from `L²` on a finite interval) |
+| `rh_of_groundStates_dodging` | round 10's chain for ground states: evenness and integrability are now consequences of the definition |
+
+The lower bound is weak: about `−6.35` at `δ = 1`, against the certified `λ₁ ≤ e^{−13.88}` (Theorem 1bn(ii)). Its role is only to show the minimisation problem is bounded below.
+
+**Not proved in this round: existence.** *(Proved in rounds 12–14: `exists_groundState`.)* `IsGroundState` defines the minimiser; nothing in this round proves one exists. If none existed, `rh_of_groundStates_dodging` would be vacuous. Existence needs compactness. On the Fourier side the archimedean term weights `|ĝ(r)|²` by `Re ψ(¼ + ir/2) − ψ(¼)`, which grows like `log|r|`. Together with the support in `[−a, a]`, that makes bounded-energy sets precompact in `L²`, and the prime term is a bounded perturbation. Mathlib has the `L²` Fourier transform (`Analysis/Fourier/LpSpace.lean`) but no Kolmogorov–Riesz compactness criterion, so this is a foundations project of its own.
+
+## Round 12: existence of the ground state, stage 1 (Existence.lean)
+
+This round starts the proof that a ground state exists, i.e. that the minimum in `IsGroundState` is attained. There are three stages:
+
+1. the energy controls the Fourier tails (this round);
+2. compactness of bounded-energy probes;
+3. lower semicontinuity and assembly.
+
+Stage 1 expands a probe `g` (half-support `a > 0`) in the Fourier series of `[−2a, 2a]`, with period `4a` and `c_n = (4a)⁻¹∫e^{−2πint/4a}g(t)dt`.
+
+| Theorem | Content |
+|---|---|
+| `normSq_sub_shift` | `‖g − g(· + s)‖² = 2(f(0) − f(s))` |
+| `hasSum_cf_sq` | Parseval on `[−2a, 2a]`, from Mathlib's `hasSum_sq_fourierCoeffOn` |
+| `cf_shift` | for `|s| < a`, a shift multiplies `c_n` by `e^{2πins/4a}` (the shifted probe stays inside the period) |
+| `hasSum_shift` | `Σ_n |c_n|²(2 − 2cos(2πns/4a)) = (4a)⁻¹·2(f(0) − f(s))` |
+| `archK_ge` | `e^{s/2}/sinh s ≥ 1/(2s)` on `(0, 1]` |
+| `weight_ge` | `J(k) = ∫₀^b (2 − 2cos ks)/s ds ≥ 2 log(kb) − 6` for `kb ≥ 1`, by parts on `[1/k, b]` |
+| `weighted_le_archE` | `a Σ_{n∈S} |c_n|² J_n ≤ E(g)` for every finite set `S`, where `E` is the archimedean integral, `0 < b ≤ 1` and `b < a` |
+| `tail_le` | **`Σ_{|n|≥N} |c_n|² ≤ E(g) / (a(2 log(2πNb/4a) − 6))`**, uniformly over probes |
+
+So probes of bounded archimedean energy have uniformly small high-frequency tails. The rate is logarithmic, as the `log|r|` growth of the archimedean weight predicts.
+
+## Round 13: existence of the ground state, stage 2 (Compactness.lean)
+
+**`exists_convergent_subseq`.** Probes at half-support `a > 0` with `‖g_j‖² ≤ B` and archimedean energy `E(g_j) ≤ C` have a subsequence converging in `L²` to some `G ∈ L²`. The proof:
+
+- The coefficients satisfy `|c_n|² ≤ (4a)⁻¹‖g‖²` (Parseval), so the coefficient vectors lie in a product of closed discs. That product is compact (Tychonoff) and `ℤ → ℂ` is first countable, so a subsequence converges coordinatewise.
+- Parseval for the difference of two probes (`hasSum_sub`) splits `‖g_i − g_j‖²/4a` into:
+  - frequencies `|n| < N`: a finite sum, small once the coordinates converge;
+  - frequencies `|n| ≥ N`: at most `2·tail_i + 2·tail_j`, uniformly small by `tail_le` once `N` is large (`exists_cut`).
+- A `normSq`-Cauchy sequence converges in `L²` (`exists_limit_of_cauchy`, through Mathlib's complete `Lp ℝ 2`).
+
+What remains is stage 3: the limit of a minimising sequence is a ground state.
+
+## Round 14: existence of the ground state, stage 3 (GroundStateExists.lean)
+
+**`exists_groundState`: for every `a > 0` there is a `g` with `IsGroundState a g`.** The minimum of `Q(g)/‖g‖²` over the even sector of `L²(−a, a)` is attained. `exists_groundStates` gives ground states for every term of a sequence of supports, so `rh_of_groundStates_dodging` is no longer vacuous.
+
+The proof is the direct method:
+
+| Step | Theorem | Content |
+|---|---|---|
+| non-empty | `box_probe`, `normSq_box` | `c·1_{[−a,a]}`, `c = (2a)^{−1/2}`, is a probe with `‖·‖² = 1`. Its archimedean integral converges because `f(0) − f(u) ≤ c²u` (the shifted box differs on two intervals of length `u`) and `u·e^{u/2}/sinh u ≤ 16e^{−u/4}`. |
+| bounded below | `weilQ_ge` (round 11) | the infimum `λ` is finite |
+| minimising sequence | Mathlib `exists_seq_tendsto_sInf` | `Q(h_j) → λ`, and the archimedean energies are uniformly bounded |
+| compactness | `exists_convergent_subseq` (round 13) | a subsequence converges in `L²` to some `G` |
+| a probe again | `symCut`, `normSq_sub_symCut_le` | `S f = 1_{|u|≤a}(f(u) + f(−u))/2` fixes probes and does not increase `‖·‖²`, so `S G` is even, supported in `[−a, a]` and still the `L²` limit |
+| continuity | `tendsto_integral_mul` | `‖g‖²`, `ĝ(i/2)` and every `f(u)` are `L²` inner products, so they converge; hence the pole, constant and prime terms converge (the prime sum is finite) |
+| semicontinuity | `fatou_real` | the archimedean integrands converge pointwise, so by Fatou the limit's integral converges and is at most the limit of the energies |
+| conclusion | `exists_groundState` | `Q(S G) ≤ λ` and `‖S G‖² = 1`, so `S G` is a ground state |
+
+**Scope.** This proves that *a* minimiser exists, not that it is unique up to sign *(round 15 reduces uniqueness to a criterion; it is not proved)*. The hypotheses of `rh_of_groundStates_dodging` (`∫g_n ≠ 0`, real-rootedness, dodging D, curvature convergence) concern whichever ground states are chosen. The paper's numerics suggest a simple lowest eigenvalue, but that is not proved here.
+
+## Round 15: the ground-state space and the uniqueness criterion (Uniqueness.lean)
+
+**Uniqueness is not proved, because it is not known to hold at every support.** Nothing in the paper claims `λ₁` is simple. Theorem 1br's ladder separates the rungs numerically, but 1br(i) certifies only upper bounds: "the upper end of flint's certified enclosure of that eigenvalue is a rigorous upper bound on λ_k". The standard Perron–Frobenius argument also fails here. Replacing `g` by `|g|` never increases the archimedean term, since `(|g(t)| − |g(t+u)|)² ≤ (g(t) − g(t+u))²`, nor the prime term, since `f_{|g|} ≥ f_g` and the term enters with a minus sign. But it can increase the pole term `2(∫g e^{−u/2})²`. This round proves the two things that are true.
+
+**1. The ground states are the unit sphere of a linear space.**
+
+| Theorem | Content |
+|---|---|
+| `weilQ_add_sub` | the parallelogram law `Q(g + h) + Q(g − h) = 2Q(g) + 2Q(h)` on probes, term by term (pole, constant, archimedean, primes) |
+| `weilQ_smul` | `Q(cg) = c²Q(g)` |
+| `probe_add_sub`, `probe_smul`, `probe_zero` | probes are closed under sums and multiples. Convergence of the archimedean integral for `g ± h` follows from `A_{g+h} + A_{g−h} = 2A_g + 2A_h` with all four non-negative. |
+| `lam_mul_le` | `Q(g) ≥ λ₁‖g‖²` on probes, where `λ₁ = lam a` is the infimum |
+| `groundSpace` | the submodule `{g : probe, Q(g) = λ₁‖g‖²}`. It is closed under addition because `R = Q − λ₁‖·‖² ≥ 0` satisfies the parallelogram law. |
+| `isGroundState_iff` | `IsGroundState a g ↔ g ∈ groundSpace a ∧ ‖g‖² = 1` |
+
+**2. The uniqueness criterion.** Let `w = 1_{[−a,a]}e^{−u/2}`, so `ĝ(i/2) = ⟨g, w⟩`.
+
+| Theorem | Content |
+|---|---|
+| `exists_perp_of_not_unique` | if two ground states `g, h` are not equal up to sign a.e., then `ĥ(i/2)·g − ĝ(i/2)·h`, normalised, is a ground state orthogonal to `w`. When it vanishes a.e., the norms force `h = ±g`. |
+| `groundState_unique` | **if no ground state is orthogonal to `w`, every two ground states agree up to sign a.e.** |
+| `groundState_unique_of_gap` | the same under a gap `λ₁ < λ_⊥`, where `λ_⊥` is the infimum of `Q` over probes with `ĝ(i/2) = 0`. On those probes `Q` equals the pole-free `Q₀`. |
+
+So uniqueness can fail only if the constrained minimum `λ_⊥` of the pole-free form, orthogonally to `w`, equals `λ₁` exactly. Equivalently, a ground state `v ⊥ w` would satisfy the weak eigen-equation of `Q₀` at `λ₁`, because the pole term's first variation `4ĝ(i/2)⟨h, w⟩` vanishes at `v` (an informal remark here; proved in round 18 as `euler_lagrange_perp`). Deciding `λ₁ < λ_⊥` at a given support needs a certified lower bound on `λ_⊥`, which neither this pilot nor the paper has.
+
+For the chain, `rh_of_groundStates_dodging` holds for any choice of ground states. Its hypotheses are unchanged by `g ↦ cg`, so uniqueness is not needed there.
+
+## Round 16: the pole-free form has a unique, one-signed ground state (Positivity.lean)
+
+`Q₀ = Q − 2ĝ(i/2)² = (ψ(¼) − log π)‖g‖² + E(g) − 2S(g)` is Theorem 1bn(i)'s form without the pole term; its minimum is negative (Theorem 1bt). Round 15 showed that the full form `Q` is `Q₀` plus a positive rank-one term, and that `Q`'s ground state is unique unless `Q₀` has a `λ₁`-level direction orthogonal to `w`. This round proves what the Perron–Frobenius picture gives for `Q₀` itself.
+
+| Theorem | Content |
+|---|---|
+| `exists_groundState0`, `isGroundState0_iff` | existence and the ground-state space, as in rounds 14–15 with the pole term removed |
+| `weilQ0_abs_le` | **Beurling–Deny**: `|g|` is a probe and `Q₀(|g|) ≤ Q₀(g)`. Here `‖|g|‖ = ‖g‖`; `f_{|g|}(u) ≥ f_g(u)`, so the archimedean integrand does not increase; and the prime weights `Λ(n)/√n ≥ 0`, so the subtracted prime term does not decrease. |
+| `one_sign_of_autocorr` | if `f_{|g|}(u) = f_g(u)` for a.e. `u > 0`, then `g ≥ 0` a.e. or `g ≤ 0` a.e. With `g = g⁺ − g⁻`, `f_{|g|}(u) − f_g(u) = 2(X(u) + X(−u))` where `X(u) = ∫g⁺(t)g⁻(t+u)dt ≥ 0`; so `X = 0` a.e., and by Tonelli `(∫g⁺)(∫g⁻) = ∫X = 0`. |
+| `groundState0_one_sign` | **every ground state of `Q₀` has one sign.** At a ground state `Q₀(|g|) = Q₀(g)`, so the archimedean integrals agree, and since the integrands are ordered they agree a.e. on `(0, ∞)`. |
+| `groundState0_unique` | **the ground state of `Q₀` is unique up to sign.** For two ground states, `(∫h)g − (∫g)h` lies in the ground-state space with integral `0`. If non-zero, its normalisation is a one-signed ground state with integral `0`, which is impossible. |
+| `exists_unique_groundState0` | **`Q₀` has a ground state `φ ≥ 0` a.e., and every ground state is `±φ` a.e.** |
+
+**Not proved in this round: strict positivity** (`φ > 0` a.e. on `[−a, a]`). *(Proved in round 17, `exists_positive_groundState0`, by truncated test functions; see below.)* The standard argument uses the Euler–Lagrange equation tested against a function supported on `{φ = 0}`. The natural test function, the indicator of that set, need not have finite archimedean energy, and the usual fix, the semigroup being positivity improving, is operator machinery the pilot does not have.
+
+**What this says about `Q`.** Nothing new for the full form `Q`: its pole term is exactly what breaks the Beurling–Deny step, so round 15's criterion stands as the reduction of `Q`'s uniqueness.
+
+## Round 17: the ground state of `Q₀` is strictly positive (StrictPositivity.lean)
+
+**`exists_positive_groundState0`.** For every `a > 0` there is a ground state `φ` of `Q₀` with `φ ≥ 0` everywhere and `φ > 0` a.e. on `[−a, a]`, and every ground state is `±φ` a.e.
+
+Round 16's note said the Euler–Lagrange route fails because the indicator of `{φ = 0}` need not have finite archimedean energy. The fix is to test against truncations of `φ`, which always do.
+
+| Step | Theorem | Content |
+|---|---|---|
+| quadratic expansion | `weilQ0_add_smul` | `Q₀(φ + sψ) = Q₀(φ) + 2sB(φ, ψ) + s²Q₀(ψ)`. The cross archimedean integrand is integrable as `(A_{φ+ψ} − A_{φ−ψ})/4`. |
+| Euler–Lagrange | `euler_lagrange0` | at a ground state, `B(φ, ψ) = λ₀⟨φ, ψ⟩` for every probe `ψ`, since `R(φ + sψ) = 2s·b + s²c ≥ 0` for all `s` forces `b = 0` |
+| cross term | `xcorr_sub_eq` | `x(0) − x(u) = ½∫(φ(t) − φ(t+u))(ψ(t) − ψ(t+u))dt` |
+| test functions | `trunc_probe`, `etaF_probe` | `min(φ, ε)` is a probe (a contraction: `A_{min(φ,ε)} ≤ A_φ`), so `η_ε = (1 − φ/ε)⁺·1_{[−a,a]} = c⁻¹·box − ε⁻¹·min(φ, ε)` is a probe |
+| lower bound | `archX_eta_ge` | the Euler–Lagrange equation with `ψ = η_ε`, the prime cross term `≥ 0` and `⟨φ, η_ε⟩ ≤ aε/2` give `∫_{u>0} archX(φ, η_ε) ≥ −|λ₀ − C|(a/2)ε` |
+| pairwise bound | `pair_le` | `(φ(t) − φ(t+u))(η(t) − η(t+u)) ≤ (ε/4)·1_{strips}(t)`. Inside `[−a, a]` the product is `≤ 0` because `η` decreases in `φ`; across the boundary it is `φ·η ≤ ε/4`, on two strips of width `u`. |
+| exact gap | `integral_gapH` | the non-negative gap `H_ε = (ε/4)·1_{strips} − (pair)` has `K(u)∫H_ε = εuK(u)/2 − 2archX(u)`, so `∫_{u>0}K∫H_ε ≤ ε(M/2 + 2κ) → 0`, with `M = ∫uK < ∞` |
+| limit | `eta_tendsto`, `gapH_tendsto` | `η_ε → 1_Z` pointwise, `Z = {φ = 0} ∩ [−a, a]`; `H_ε → 1_Z(t)φ(t+u) + φ(t)1_Z(t+u)` |
+| Fatou | `gapInf_zero` | Fatou in `t` and then in `u` (lintegral form): `∫1_Z(t)φ(t+u)dt = ∫φ(t)1_Z(t+u)dt = 0` for a.e. `u > 0` |
+| Tonelli | `tonelli_zero` | `(∫⁻ 1_Z)(∫⁻ φ) = 0`, splitting `u` at `0` and reflecting the negative half |
+| conclusion | `groundState0_pos_of_nonneg`, `exists_positive_groundState0` | `∫φ > 0`, so `|Z| = 0`; the positive representative is `symCut` of the absolute value of a measurable version of the round-16 ground state |
+
+So the pole-free form's ground state is simple (round 16) and strictly positive. This is the Perron–Frobenius picture, proved here without operator theory. The full form `Q` is not covered, as round 15 explains: its pole term breaks the `|g|` step. Round 18 narrows what can go wrong for `Q`.
+
+## Round 18: uniqueness for the full form `Q` (UniquenessQ.lean)
+
+**Uniqueness for `Q` is still not proved, and the structure of `Q` cannot prove it.** This round uses the `Q₀` results of rounds 16–17 to narrow round 15's criterion as far as it goes. What remains is a precise spectral coincidence that nothing in `Q` excludes.
+
+| Theorem | Content |
+|---|---|
+| `quad_zero` | if `2sb + s²c ≥ 0` for all real `s`, then `b = 0` |
+| `bil0_comm` | the bilinear form `B` of `Q₀` is symmetric |
+| `lam0_le_lam` | `λ₀ ≤ λ₁`, since `Q₀ = Q − 2ĝ(i/2)² ≤ Q` |
+| `poleR_pos` | `ĝ(i/2) = ⟨φ, w⟩ > 0` when `φ ≥ 0` and `φ > 0` a.e. on `[−a, a]` |
+| `lam0_lt_lam` | **strict gap `λ₀ < λ₁`.** If `λ₀ = λ₁`, then a ground state `g` of `Q` has `λ₀ ≤ Q₀(g) = λ₁ − 2ĝ(i/2)²`, so `ĝ(i/2) = 0`, and `g` is a ground state of `Q₀`. By round 17, `g = ±φ₀`, and then `ĝ(i/2) = ±⟨φ₀, w⟩ ≠ 0`. |
+| `euler_lagrange_perp` | **a ground state `v` of `Q` with `ĝ(i/2) = 0` solves `Q₀`'s weak eigen-equation at level `λ₁`**: `B(v, ψ) = λ₁⟨v, ψ⟩` for every probe `ψ`. Here `Q(v + sψ) − λ₁‖v + sψ‖² = 2s(B(v,ψ) − λ₁⟨v,ψ⟩) + s²(…) ≥ 0`, because the pole term of `v + sψ` is `2s²ĥ(i/2)²`. |
+| `perp_groundState0` | **such a `v` is orthogonal to `φ₀`.** Testing the two Euler–Lagrange equations against each other gives `(λ₁ − λ₀)⟨v, φ₀⟩ = 0`. |
+| `groundState_unique_or_excited` | **the dichotomy.** `λ₀ < λ₁`, and `Q₀` has a ground state `φ₀ > 0` a.e. on `[−a, a]` with `⟨φ₀, w⟩ > 0`. Either every two ground states of `Q` agree up to sign a.e., or there is a normalised probe `v` with `v ⊥ w`, `v ⊥ φ₀`, `Q₀(v) = λ₁` that solves `Q₀`'s eigen-equation at `λ₁`. |
+
+**Why this is as far as structure goes.** The second branch says `Q₀` has an excited eigenvalue exactly equal to `λ₁`, with an eigenfunction orthogonal to both `w` and `φ₀`. By min–max, `Q = Q₀ + 2⟨·, w⟩²` is a rank-one positive perturbation of `Q₀`, and its lowest eigenvalue lies between `Q₀`'s first two eigenvalues: `λ₀ < λ₁ ≤ μ₁(Q₀)`. The second branch is the boundary case `λ₁ = μ₁(Q₀)`. For a general rank-one perturbation this happens exactly when `w` is orthogonal to the whole `μ₁`-eigenspace of `Q₀`, and nothing about `Q₀` or `w` forbids that. Evenness does not help, since every probe is even. The paper does not claim `λ₁` is simple (round 15). Deciding the second branch at a given support needs a certified lower bound on `Q₀`'s second eigenvalue on `w^⊥`, which neither the pilot nor the paper has. The min–max remark is an explanation and is not formalised.
+
+For the chain, uniqueness is still not needed (round 15, last paragraph).
+
+## Round 19: a certified lower bound orthogonally to `w`, at small support (SpectralGap.lean)
+
+*(Round 65: superseded by round 20's `a ≤ 0.35` and removed; the helpers still used moved to FourierGap.lean.)*
+
+**`weilQ0_perp_ge`.** For `0 < a ≤ 1/40`, every normalised probe `g` with `ĝ(i/2) = ⟨g, w⟩ = 0` has `Q₀(g) = Q(g) ≥ Q(box) + 1/40 ≥ λ₁ + 1/40`. So `λ_⊥ ≥ λ₁ + 1/40`: round 18's second branch cannot occur, and **`groundState_unique_small`** gives a unique ground state of `Q`, up to sign, at every support `0 < a ≤ 1/40`.
+
+The bound is analytic. Nothing is computed, and the only numbers used are `log 2 > 0.6931471803` (Mathlib) and elementary exponential bounds.
+
+| Step | Theorem | Content |
+|---|---|---|
+| no primes | `primeS_eq_zero` | for `2a < log 2`, every `f(log n)` with `Λ(n) ≠ 0` vanishes |
+| kernel | `kerK_ge`, `kerK_ge'`, `kerK_le` | `1/(u cosh(u/2)) ≤ K(u) ≤ e^{u/2}/u`, from `1 − u ≤ e^{−u}` and `u ≤ sinh u` |
+| far field | `archIntegrand_eq_kerK`, `archE_split` | `A_g(u) = K(u)` for `u > 2a` at every normalised probe, so the far field cancels in `Q(g) − Q(box)` |
+| edge mass | `edge`, `edge_reflect`, `autocorr_le_edge` | `m(u) = ∫_{t>a−u} g²` satisfies `m(u) + m(2a−u) = 1` (evenness) and `f(u) ≤ 1 − m(u)` (AM–GM on the overlap, which lies in `t ∈ [−a, a−u]`) |
+| Fubini | `integral_autocorr`, `integral_autocorr_Ioc` | `∫f = (∫g)²`, via the shear `(t, u) ↦ (t, t+u)`; so `∫_{(0,2a]} f = (∫g)²/2` |
+| near field | `integral_edge_ellK`, `integral_edge`, `nearField_ge` | with `A_g = mK + (1 − m − f)K`: reflection gives `∫₀^{2a} m/(u cosh a) ≥ log 2/cosh a` and `∫₀^{2a} m = a`, so `∫_{(0,2a]} A_g ≥ log 2/cosh a + (a − (∫g)²/2)/(2a cosh a)` |
+| the box | `nearField_box_le`, `poleR_box_sq_le` | `∫_{(0,2a]} A_box ≤ e^a` and `2ĝ_box(i/2)² ≤ 4ae^a` |
+| orthogonality | `integral_sq_le_of_perp` | `g ⊥ w` gives `∫g = ∫g(1 − e^{−t/2})`, so `(∫g)² ≤ a²(1+2a)²/4` |
+| the gap | `weilQ_perp_ge_meas`, `weilQ0_perp_ge` | `Q(g) − Q(box) ≥ (log 2 + ½)/cosh a − a(1+2a)²/16 − e^a(1 + 4a) ≥ 1/40`. Non-measurable probes are reduced to a measurable `symCut` version, as in round 17. |
+| uniqueness | `groundState_unique_small` | a ground state `v ⊥ w` would have `Q(v) ≥ Q(box) + 1/40 > Q(box) ≥ Q(v)` |
+
+**Scope.** The margin at `a = 1/40` is `0.0357` with the bounds as formalised, or `0.063` with exact `cosh` and `exp`. The method stops near `a ≈ 0.037`, for two reasons: the near-field estimate replaces `K(|t − s|)` by its minimum `K(2a)`, which keeps only `½ + log 2 ≈ 1.19` of the kinetic energy against the box's `1`; and the pole penalty `2ĝ_box(i/2)² ≈ 4a` grows linearly. **The paper's certified cells are far beyond this.** Theorems 1bj, 1bl and 1br work at `δ = 2a ∈ [log 2, 1.3828125]`, i.e. `a ≈ 0.35–0.69`, where prime terms enter and the relevant gaps are about `10⁻²` (the paper records `λ₂` of the pole-free even section `≈ 0.012` at `δ = 1.0`). There the lower bounds come from Kato–Temple ratios and Birman–Schwinger counts on flint interval enclosures. Formalising those needs certified numerical linear algebra in Lean (interval arithmetic for `ψ(¼)`, the kernel integrals and the Gram entries, plus eigenvalue enclosures), which the pilot does not have. Uniqueness of `Q`'s ground state at those supports stays open in the pilot, and the paper does not claim it. *(Round 20 replaces this method and reaches `a = 0.35`; see below.)*
+
+## Round 20: the certified gap for every `0 < a ≤ 0.35` (FourierGap.lean)
+
+**`weilQ0_perp_ge_035`.** For every `0 < a ≤ 0.35`, every normalised probe `g` with `ĝ(i/2) = ⟨g, w⟩ = 0` has `Q₀(g) = Q(g) ≥ λ₁ + 1/40`. When `2a < log 2`, `weilQ0_perp_ge_fourier` gives `λ₁ + 1/10`. So `λ_⊥ ≥ λ₁ + 1/40` on the whole range, and **`groundState_unique_035`** gives a ground state of the full form `Q` that is unique up to sign at every support `0 < a ≤ 0.35`, i.e. `δ = 2a ≤ 0.7`. The range goes past the first prime, `δ = log 2`.
+
+**Why round 19 stopped at `a ≈ 0.037`.** Numerically (a discretisation that reproduces the paper's `λ₁ ≈ 1.3×10⁻³` at `δ = log 2`), the true gap `λ_⊥ − λ₁` is large throughout: `1.59` at `a = 0.025`, falling to `0.54` at `a = 0.35`. Round 19's position-space bound captured only `1.51` of the true `2.93` for the near-field energy at `a = 0.35`. It replaced `K(|t − s|)` by its minimum on interior pairs. So the barrier was the method, not the truth.
+
+**The method: an exact Fourier representation.** View `g` on a circle of length `8a`. For `0 ≤ u ≤ 2a` the circular and true autocorrelations agree, so `1 − f(u) = Σ_n p_n(1 − cos(πnu/4a))` exactly, with `Σ p_n = 1` (Parseval). The near-field energy is then a positive combination of mode energies `ψ_n`, which grow like `log n`. Truncating at `|n| ≤ 5` loses almost nothing.
+
+| Step | Theorems | Content |
+|---|---|---|
+| A. representation | `cf_shift'`, `hasSum_shift'`, `hasSum_pm`, `hasSum_one_sub_autocorr` | round 12's shift identity, generalised to support `r` and any shift with `r + |s| < 2A`; the mode masses `p_n = 8a|c_n|²` |
+| B. truncation | `sum_modeE_le`, `energy_ge_trunc` | `∫_{(0,2a]} A_g ≥ τ + Σ_{|n|≤5}(ψ_n − τ)p_n` whenever `ψ_n ≥ τ` for every `|n| ≥ 6`; the limit uses `Σ p_n = 1` |
+| C. kernel | `kerK_eq`, `kerK_le'`, `sinh_le_taylor`, `cosh_le_taylor`, `kerK_ge_taylor`, `modeE_ge` | `K(u) = ½csch(u/2) + ½sech(u/2) ∈ [1/u + ½ − r(u), 1/u + ½]` from Mathlib's Taylor bound for `exp`; so `ψ_n ≥ Cin(πn/2) + a(1 − 2sin(πn/2)/(πn)) − err(a)` |
+| D. `Cin` values | `Fk_deriv`, `cin_step`, `cin_quarter`, `piece1`–`piece11`, `pieceH6`–`pieceH60`, `cin_val1`–`cin_val6`, `cinH11`, `cinH21`, `cinH61` | `Cin(x) = ∫₀ˣ (1 − cos s)/s` via a Taylor piece on `[0, π/4]` and tangent-line pieces `1/s ≥ 2/c − s/c²` with exact antiderivatives; trig values at multiples of `π/4` by recursion; `π`, `√2` from Mathlib's bounds. Certified: `Cin(π/2) ≥ 0.5408`, …, `Cin(3π) ≥ 2.7801`, `Cin(61π/2) ≥ 5.098` |
+| E. mode masses | `cs_supp`, `cf_even`, `pm_even`, `integral_sq_perp`, `integral_cos_sub_sq`, `pm_le`, `cval1`–`cval5` | for even `g`, `p_n = (∫ g cos(πnt/4a))²/(8a)`. Orthogonality to `w` gives `∫ g cosh(t/2) = 0`, so `(∫ g)² ≤ ∫(1 − cosh(t/2))² ≤ a⁵/30`. Cauchy–Schwarz against `cos − β_n` then gives `p_1 ≤ 0.0031`, `p_2 ≤ 0.0254`, `p_3 ≤ 0.0799`, `p_4 ≤ 0.1313`, `p_5 ≤ 0.1395` |
+| F–G. no primes | `nearField_box_le'`, `pole_box_le`, `tail_ok`, `nearField_fourier`, `weilQ_perp_ge_fourier` | box: near field `≤ 1 + a/2`, pole `≤ 4a(1 + a²/24 + a⁴/1600)²`. For `2a < log 2`: `Q(g) ≥ Q(box) + 1/10` |
+| H–J. the prime `n = 2` | `primeS_eq_two`, `autocorr_two_a`, `hasSum_autocorr`, `primeD_le`, `energy_prime_trunc`, `tailB_all`, `termB1`–`termB5`, `weilQ_perp_ge_sliver` | for `log 2 ≤ 2a ≤ 0.7` only `n = 2` enters: `−√2 log 2·f(log 2)`. Since `f(2a) = 0`, `f(log 2) = Σ p_n(cos(ω_n log 2) − cos(ω_n 2a))`, and each defect is `≤ min(ω_n(2a − log 2), 2) ≤ min(0.0155|n|, 2)`. It is absorbed mode by mode, with tail levels `n ∈ [6,10], [11,20], [21,60], [61,∞)` |
+
+**Scope and honesty.**
+* The constants are proved, not computed. Every numerical input is a Lean theorem from Mathlib's bounds on `π`, `√2` (via `Real.sqrt`), `log 2` and `e`; there are no floating-point certificates.
+* The margins are thin but positive: `1/10` below `log 2`, `1/40` on the prime sliver. The modelled worst cases were `0.19` and `0.056`.
+* **The paper's certified cells lie beyond this.** They start at `δ = log 2` and run to `δ = 1.3828125`, i.e. `a` up to `0.69`. `a = 0.35` is only the first sliver past `log 2`. Extending further needs more modes (the diagonal Cauchy–Schwarz bound degrades past about `N = 6`, so an eigenvalue bound for the low block would be needed) and more primes (`n = 3` at `δ = log 3`).
+* Check 7: no semiclassical procedure is used. The kernel is the explicit formula's archimedean kernel, handled by Parseval on a circle and elementary calculus. There is no sphere Laplacian, loop integral or effective potential.
+
+## Round 21: to the limit of the method, `a = 0.36`, and the frontier map (ParabolaGap.lean)
+
+*(Corrected in round 23. The frontier map below was first computed in double precision, which cannot resolve eigenvalues below about `10⁻⁵`. Its `λ₁` row was wrong from `δ = 0.9` on, and its gap row and "near-degenerate" reading were wrong from `δ ≈ 1.2` on. The table and the text below now carry the values recomputed at 500–700 bits in the paper's Gram (`frontier/gap_hp.py`). The Lean results of this round are unaffected.)*
+
+**`groundState_unique_036`.** For every `0 < a ≤ 0.36` (i.e. `δ = 2a ≤ 0.72`), `λ_⊥ ≥ λ₁ + 1/50` (`weilQ0_perp_ge_036`), so the ground state of the full form `Q` is unique up to sign.
+
+**What changed.** The trial side. The box overshoots `λ₁` by about `0.19` near `a = 0.35`. The parabola `g = C(1 − t²/a²)` is within about `0.01` of `λ₁` numerically. Its autocorrelation is the explicit polynomial `f(u) = (2a − u)³(4a² + 6au + u²)/(32a⁵)` on `[0, 2a]` (`autocorr_par`, proved by exact polynomial integration). So `K ≤ 1/u + ½` gives the rational bound `∫_{(0,2a]} A_par ≤ 31/30 + 7a/12` (`nearField_par_le`), and cosh's Taylor bound gives `2ĝ_par(i/2)² ≤ (10/3)a(1 + a²/40 + a⁴/3584)²` (`pole_par_le`). On `0.35 ≤ a ≤ 0.36` the round-20 lower bound applies with a larger prime defect `≤ 0.06026|n|`, tail level `τ = 2.7`, and six certified `Cin` levels at `k = 6, 7, 11, 18, 25, 30`; the tightest has slack `0.0011`. It beats the parabola by `1/50`, against a modelled `0.039`.
+
+### The frontier map
+
+Recomputed at high precision in the paper's own Gram (`tools/research/weil_prime_gram.py`, even cosine basis, `K = 100–160`, 500–700 bits; `frontier/gap_hp.py`), with `⟨g, w⟩ = 0` imposed exactly for `λ_⊥`:
+
+| `δ = 2a` | 0.70 | 0.80 | 0.90 | 1.00 | 1.10 | 1.20 | 1.38 | 2.00 |
+|---|---|---|---|---|---|---|---|---|
+| `λ₁` | `1.19×10⁻³` | `1.81×10⁻⁴` | `1.62×10⁻⁵` | `9.35×10⁻⁷` | `5.31×10⁻⁸` | `1.61×10⁻⁹` | `8.8×10⁻¹³` | `6.3×10⁻³⁰` |
+| `λ_⊥` | `0.533` | `0.225` | `0.0661` | `0.0119` | `9.2×10⁻⁴` | `6.6×10⁻⁵` | `1.1×10⁻⁷` | `1.5×10⁻²³` |
+| `λ_⊥/λ₁` | `450` | `1.2×10³` | `4.1×10³` | `1.3×10⁴` | `1.7×10⁴` | `4.1×10⁴` | `1.3×10⁵` | `2.3×10⁶` |
+
+The `δ = 1.0` value `0.0119` reproduces the paper's "λ₂ of the pole-free even section ≈ 0.012". The absolute gap collapses fast, together with the eigenvalues themselves: every low eigenvalue tends to `0` as `δ` grows, because the ground state's transform dodges more and more zeta zeros (round 23). But `λ_⊥/λ₁` grows. **The ground state stays well separated, with no near-degeneracy at any tested support.** (The first version of this table, from a double-precision discretisation, showed a false floor of about `10⁻⁵–10⁻⁴` from `δ ≈ 1` on, and read it as near-degeneracy.) What the collapse does mean for certification is that a gap bound past `δ ≈ 1` must resolve `10⁻⁴` at `δ = 1.2`, `10⁻⁷` at `δ = 1.38` and `10⁻²³` at `δ = 2`, i.e. high-precision arithmetic throughout.
+
+**Three barriers beyond `0.36`.**
+1. **The prime tail.** Past `log 2`, the `n = 2` prime adds `−√2 log 2·(cos(ω_k log 2) − cos(ω_k 2a))` to every mode `k`. Bounded without evaluating the cosines, it reaches `≈ 1.96` in modes `k ≈ 10–40` and pulls the tail level `τ` down. The cos-free method stops at `a ≈ 0.363` (`frontier/reach.py`). Going on needs certified `cos(πk log 2/(4a))` over `a`-subintervals, i.e. interval trigonometry in Lean.
+2. **The low block.** With exact cosines, the ceiling of the Fourier method needs `N ≈ 15–25` low modes (`frontier/ceil_lib.py`, `frontier/lp.py`): `2.75` at `N = 20` against `λ₁`'s `2.57` at `a = 0.4`; `2.78` against `2.73` at `a = 0.45`; `2.882` against `2.875` at `a = 0.5`. Per-mode Cauchy–Schwarz, even with the Parseval budget, plateaus near `2.4–2.5`. A certified top eigenvalue of a `16×16`–`25×25` block is required. The Gram part is `a`-independent in scaled variables, but the prime coefficients are not, so one certificate is needed per `a`-subinterval.
+3. **The precision.** Near `a = 0.5` the whole budget is `0.007`, so every constant (`Cin` values, kernel remainders, the trial energy) must be certified to about `10⁻³`, and beyond `a ≈ 0.6` to the size of the absolute gap above (`10⁻⁴` down to `10⁻²³`). This is the regime of the paper's own Kato–Temple and Birman–Schwinger certificates, rebuilt in Lean.
+
+So with elementary means the pilot's certified frontier is `a = 0.36`. The Fourier method's ceiling is about `a ≈ 0.45–0.5`, and it needs interval trigonometry plus matrix certificates. Beyond that the gap remains, in the ratio `λ_⊥/λ₁ ≥ 10⁴`, but its absolute size falls below `10⁻³` by `a ≈ 0.55` and far below after. Certifying it there is the paper's own high-precision regime, not a limit of the mathematics.
+
+## Round 22: testing the chain's hypotheses on ground states (numerical, `frontier/hrr_test.py`, `frontier/hrr2.py`)
+
+*(Round 66: `hκ` is no longer a hypothesis of `rh_of_groundStates_dodging`. The curvature numbers below and in round 23 remain evidence about the ground states, not about the chain.)*
+
+*(**Retracted in round 23.** The states tested here were not the ground states. The double-precision step-function discretisation misses the true ground state by up to 23 orders of magnitude in energy. The "`hκ` fails" conclusion is withdrawn. See round 23.)*
+
+`rh_of_groundStates_dodging` derives RH from ground states `g_n` of `Q` at supports `a_n → ∞`, assuming `hRR` (every `ĝ_n` is real-rooted), `hD` (the zeros of `ĝ_n` below `T_D(n)` pair off with `Ξ`'s, total mismatch `η_n → 0`) and `hκ` (the curvature `κ_n = ∫u²g_n/(2∫g_n)` tends to `Re Σ_j γ_j⁻² = 0.023105`). This round tests all three numerically, before any further investment. Method:
+* the even-sector ground state of the full `Q`, with every prime power, discretised piecewise-constant on `n` cells;
+* `hRR`: all zeros of `ĝ` in `|z| < 60` by the argument principle, compared with the sign changes on the real axis;
+* `hD`: the nearest zero of `ĝ` to each `γ_j < 55`, from the repo's 6700-zero list;
+* `hκ`: the curvature from the ground state directly.
+
+| `a` | `n` | all zeros in `|z|<60` real | zeros of `ĝ` in `(0,60)` | max `|τ − γ_j|`, `γ_j < 55` | `η` (11 zeros) | `κ` | `κ / 0.023105` |
+|---|---|---|---|---|---|---|---|
+| 0.5 | 400 | yes | 9 | 1.9 (too few zeros) | 3.5e-4 | 0.0150 | 0.65 |
+| 0.7 | 560 | yes | 12 | 1.7 | 2.5e-4 | 0.0358 | 1.55 |
+| 1.0 | 800 / 1600 | yes / yes | 18 | 0.029 / 0.059 | 1.4e-6 / 2.8e-6 | 0.0889 / 0.0883 | 3.8 |
+| 1.5 | 1200 | yes | 27 | 0.012 | 9.7e-7 | 0.198 | 8.6 |
+| 2.0 | 1600 / 3200 | yes / yes | 37 | 0.0059 / 0.0033 | 8.2e-7 / 2.5e-7 | 0.389 / 0.369 | 16 |
+| 2.5 | 2000 | yes | 47 | 0.0015 | 2.0e-7 | 0.591 | 26 |
+| 3.0 | 2400 | yes | 56 | 0.0014 | 3.9e-7 | 0.848 | 37 |
+
+**Findings (as first written; the states were not the ground states, see round 23).**
+1. `hRR` held on these states.
+2. `hD` held on these states in the weak sense (every `γ_j` near some zero), but with extra zeros. The true ground states have none below `T_D` (round 23).
+3. ~~`hκ` fails, decisively: `κ ≈ 0.088·a²`.~~ **Retracted.** The `a²` growth was a property of the wrong states: a high-energy, box-like state spread over `[−a, a]`. The true ground states have `κ = 0.0148 → 0.0221`, rising toward `0.023105` (round 23).
+
+~~**What this means for the chain.** `rh_of_groundStates_dodging` cannot fire … refuted numerically at `hκ`.~~ **Retracted.** On the paper's ground states all three hypotheses are numerically consistent at every tested cell (round 23).
+
+## Round 23: the test rerun on the paper's ground states, and two corrections (numerical, `frontier/rerun_paper.py`, `frontier/arbiter.py`, `frontier/verify_d3.py`, `frontier/gap_hp.py`)
+
+**What went wrong in round 22.** Theorem 1bu(ii) states Hypothesis D as exact coincidence below `T_D`: "every zero of ĝ₁ with |τ| < T_D is a zero of ζ, every zero of ζ with |γ| < T_D is a zero of ĝ₁ … (the probe dodges every zero below T_D and has no other zero there)". The extra zeros belong to the excited states ("the ground state none"). The paper's curvature at the cells is "0.0148, 0.0177, 0.0203, 0.0210, 0.0216, 0.0221, 0.0225 rising toward Σ_γ γ⁻² = 0.0231". Round 22 agreed with this at `δ = 1` (`κ = 0.0150`) and disagreed from `δ = 1.38` on. The reason is precision. The true ground-state energies are `λ₁ = 9.4×10⁻⁷, 8.8×10⁻¹³, 6.3×10⁻³⁰, 2.1×10⁻⁴³, 4.3×10⁻⁹⁷` at `δ = 1, 1.38, 2, 2.3, 3`, far below what a double-precision dense eigensolver can resolve. Projected into the paper's cosine basis, round 22's state at `δ = 2` has true Rayleigh quotient `1.66×10⁻⁷`, against the ground state's `6.3×10⁻³⁰` (`frontier/arbiter.py`). It was a different state.
+
+**The rerun.** The ground state is computed with the paper's own Gram (`tools/research/weil_prime_gram.py`: even cosine basis, every prime power, 600–1100 bits). `ĝ` is evaluated in the same precision. `hRR` is checked by the argument principle against the real-axis census; `hD` by the nearest zero to each `γ_j < 55`; `hκ` exactly from the coefficients.
+
+| `δ` | `K` | `λ₁` | zeros in `|r| < 60`: all real? | zeros of `ĝ` in `(0, 55)` not at a zeta zero | max distance, dodged `γ_j` | `κ` (paper) |
+|---|---|---|---|---|---|---|
+| 1.0 | 120 | 9.4e-7 | yes (18/18) | above `T_D` only | (only 2 zeros dodged) | 0.01478 (0.0148) |
+| 1.38 | 140 | 8.8e-13 | yes (22/22) | above `T_D` only (≈ 40) | 1e-5 for `γ ≤ 37.6` | 0.01770 (0.0177) |
+| 2.0 | 160 | 6.3e-30 | yes (26/26) | **none** | 2.6e-8 | 0.02030 (0.0203) |
+| 2.3 | 260 | 2.1e-43 | yes (26/26) | **none** | 6.0e-7 | 0.02105 (0.0210) |
+| 3.0 | 400 | 4.3e-97 | yes: 13 of 13 roots of `M` in `|s| < 3600` are real positive (full precision) | **none** | 2.4e-6 | 0.02210 (0.0221) |
+
+At `δ = 3` a first pass with coefficients rounded to double reported spurious non-real zeros. With the exact coefficients the count is 13 real of 13, and rounding alone produces 9 spurious roots (`frontier/verify_d3.py`). That is the same precision trap as round 22.
+
+**Findings.** On the paper's ground states, all three hypotheses of `rh_of_groundStates_dodging` are numerically consistent at every cell tested.
+* `hRR`: every zero in `|r| < 60` is real.
+* `hD`: for `δ ≥ 2` every zero of `ĝ` below 55 is a zeta zero to `10⁻⁶–10⁻⁸`, with no other zeros.
+* `hκ`: `κ` rises monotonically toward `0.023105` (0.0148 → 0.0221), matching the paper's values to 3 digits.
+
+**What it does and does not mean.** This reproduces Theorem 1bu(ii)'s computed facts independently. It is not progress on RH. The ground state's transform vanishing at the zeta zeros is what the explicit formula's zero side `Σ_γ |ĝ(γ)|²` rewards: under RH that side is a sum of squares, which the minimiser drives to `≈ 0` by dodging every zero below `T_D`. §11's own words: "it is the direction RH ⇒ shadow, the shadow's description and not its cause". The open step is still roadmap item 1: derive (a) dodging and (b) real-rootedness from the prime side, with no zero entering. What the test does settle is that the chain's instance is not refuted: it has a numerically viable family. The chain also needs `δ → ∞`; the rate at which `κ → Σγ⁻²` (the paper's `ε(δ) ~ ln T_D/T_D`) is not proved.
+
+**Correction to round 21.** Recomputed at high precision in the paper's Gram with `⟨g, w⟩ = 0` imposed (`frontier/gap_hp.py`), `λ_⊥ = 0.0119, 1.1×10⁻⁷, 1.5×10⁻²³` against `λ₁ = 9.4×10⁻⁷, 8.8×10⁻¹³, 6.3×10⁻³⁰` at `δ = 1, 1.38, 2`. The absolute gap collapses together with the eigenvalues. That is why a Lean certificate past `δ ≈ 1` needs high-precision arithmetic, as round 21 said. But `λ_⊥/λ₁` grows from `10⁴` to `10⁶`, so the ground state is numerically unique at every cell, and there is no near-degeneracy.
+
+
+## Round 24: the chain with prime-side hypotheses only, and real-rootedness from concavity (PrimeSide.lean, Polya.lean, `frontier/polya_shape.py`)
+
+**Step 1: the reduction, restated without zeros (`PrimeSide.lean`).** Before this round the pilot's chain to RH went through Hypothesis D (`DFamW`, `HypD`). D says the zeros of `ĝ_n` below `T_D` *are* the zeros of `ζ`. It presupposes the zeros it is meant to locate, which is §11's "RH ⇒ shadow" direction. `rh_of_prime_side` removes it:
+
+* **(a) `HypConv a g`**: `ĝ_n(z)/ĝ_n(0) → Ξ(z)/Ξ(0)` locally uniformly. `Ξ` is one explicit entire function, built from Mathlib's `completedRiemannZeta₀`. No zero, and no zero count, enters.
+* **(b) `RealRooted (a n) (g n)`**, required only eventually in `n`.
+
+For ground states `g n` of Weil's form at supports `2a n`, (a) + (b) give Mathlib's `RiemannHypothesis`. No other input is needed:
+* `ĝ_n(0) ≠ 0` eventually is derived from (a) at `z = 0`.
+* `Ξ(0) ≠ 0` is `Xi_zero_ne_zero`.
+* Integrability comes from `Probe`.
+
+`hypConv_of_D` shows the old route is a special case: Hadamard factorisations, D and tails `ε → 0` imply (a). The open problem is exactly (a) and (b), and D is one sufficient condition for (a), a zero-dependent one.
+
+**Step 2: (b) at small support (`Polya.lean`).** Pólya's class at half-support `a`:
+* The functions are `g(t) = β + ∫ (a − max(|t|, c)) dμ(c)` on `[−a, a]`, with `β ≥ 0` and `μ` a measure on `[0, a)` with `∫ (a − c) dμ < ∞`.
+* Each `a − max(|t|, c)` is a trapezoid. The class is exactly the even functions concave on `(−a, a)`: `μ` is `−g''` plus an atom `−g'(0+)` at `0`, and `β = g(a−)`.
+* That converse representation is not formalised. Round 25 makes it unnecessary: `Concave.lean` proves the theorem for concave functions directly.
+
+`realRooted_polya`: every nonzero member has a real-rooted transform. This is Pólya's 1918 theorem, specialised to even concave `f`. The proof is short and, as far as I know, not the textbook one:
+* `integral_trap`, `ghatC_polya` (Fubini): `z²ĝ(z)/2 = βz sin(za) + ∫ (cos zc − cos za) dμ(c)`.
+* `trap_ratio_im_pos`: for `Im z > 0` and `|c| < a`, `(cos zc − cos za)/sin za = 2/(cot A + cot B)` with `A = z(a+c)/2` and `B = z(a−c)/2`.
+* `im_cot_neg`: `Im cot w = −sinh(2 Im w)/(2|sin w|²) < 0` in the upper half-plane. So every trapezoid's ratio has imaginary part of the sign of `Im z`, and so does `βz`.
+* Divide the transform by `sin za` (nonzero off the real axis). The imaginary part is then a strictly signed integral, so it cannot vanish.
+
+`realRooted_of_polya_shape`: any probe equal a.e. on `[−a, a]` to a nonzero member of the class is `RealRooted`. So (b) at a support reduces to one shape statement about the ground state: **concavity**. It involves no zero, no prime (for `δ < log 2`), and no limit.
+
+**Does the ground state have that shape? (numerical, `frontier/polya_shape.py`, `polya_shape_results.jsonl`)** The ground state of `Q` is computed in the paper's Gram (cosine basis, 256 bits, `K = 160`–`240`). It is tested by second differences at step `a/40`, which is coarse against the Gibbs ripple of the truncated series.
+
+| `δ` | 0.2 | 0.4 | 0.6 | 0.62 | 0.64 | 0.69 | 0.8 | 0.9 | 1.0 | 1.2 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| concave? | yes | yes | yes | no | no | no | no | no | no | no |
+| max second difference / `g(0)` | −7e-4 | −8e-4 | −1.3e-4 | +3e-5 | +2e-4 | +9e-4 | +5e-3 | +2e-3 | +2.5e-3 | +3e-3 |
+| first zero of `ĝ` | 37.1 | 19.7 | 14.92 | 14.72 | 14.57 | 14.35 | 14.18 | 14.141 | 14.135 | 14.1347 |
+| `2π/a` | 62.8 | 31.4 | 20.9 | 20.3 | 19.6 | 18.2 | 15.7 | **13.96** | **12.6** | **10.5** |
+
+What the table shows:
+* **The ground state is numerically concave for `δ ≲ 0.61` and not beyond.** The threshold is stable in `K` (160 → 240 at `δ = 0.6` and `0.69`).
+* So for `δ ≲ 0.61`, (b) follows from `realRooted_of_polya_shape` once concavity is proved. That is a statement about the minimiser of an explicit, prime-free variational problem.
+* Proving that concavity is **open**. It is the analogue of the known concavity of the first eigenfunction of the Cauchy process on an interval (Bañuelos–Kulczycki), for the kernel `e^{u/2}/sinh u`. That identification is from memory and not checked here.
+
+**Where the mechanism stops (a structural fact, not just numerics).** For every member of Pólya's class, `Φ(x) = βx sin(xa) + ∫ (cos xc − cos xa) dμ` is positive for small `x > 0` and `≤ 0` at `x = 2π/a`. So `ĝ` has a real zero in `(0, 2π/a]`.
+* The ground state's first zero is pinned near `γ₁ = 14.1347` from `δ ≈ 0.8` on (the dodging of round 23).
+* Once `2π/a < 14.13`, i.e. `δ > 0.889`, the ground state **cannot** be concave.
+* So concavity is at best a small-support mechanism. It covers exactly the regime where real-rootedness carries no information about `ζ`. The ground state's first zero is already at 14.35 at `δ = 0.69`, still with no prime in the form: the dodging of `γ₁` begins before any prime term is present.
+
+**Status of §11 item 1 after this round.**
+
+| | proved in Lean | open |
+|---|---|---|
+| (a) + (b) ⇒ RH | yes, with no zero in any hypothesis (`rh_of_prime_side`) | — |
+| (b) at `δ ≲ 0.61` | modulo the ground state's concavity (`realRooted_of_polya_shape`; from round 25 `realRooted_of_ae_concaveOn`) | the concavity (numerically true) |
+| (b) at `δ ≳ 0.61` | — | needs a mechanism other than concavity; provably so for `δ > 0.889` |
+| (a) | only from D (`hypConv_of_D`), which is zero-dependent | a prime-side proof |
+
+This is not RH progress. The small-support real-rootedness says nothing about `ζ`. What it provides is the first mechanism for (b) that is proved rather than observed, and a proof that this mechanism cannot reach the regime that matters. Candidates for the large-`δ` mechanism, none tried: Laguerre–Pólya closure (products of real-rooted transforms, i.e. convolutions of concave pieces); total positivity of the Gram pencil; interlacing of the ground-state transforms across `δ`.
+
+## Round 25: Pólya's theorem for concave probes, with the named input removed (Concave.lean)
+
+Round 24's `realRooted_polya` was stated for Pólya's class through its representation, a mixture of trapezoids with a measure `μ`. The converse, that every even concave function has such a representation, was a named classical input. Round 25 removes it. The theorem is now proved for concave functions directly, and no measure `−g''` is built.
+
+**`realRooted_of_concaveOn`.** Let `g` be even, concave and `≥ 0` on `(−a, a)`, with `g(0) > 0`. Then `ĝ(z) = ∫_{−a}^{a} g(u) e^{izu} du` has only real zeros. Nothing is assumed at `±a`, where a concave function may jump or have infinite slope. `realRooted_of_ae_concaveOn` states the same for any probe equal to such a `g` a.e. on `[−a, a]`, which is the form the ground state enters in.
+
+**The proof.**
+* **The derivative.** `h = −g'₊` is the right derivative of the convex function `−g`. Mathlib gives it as a one-sided derivative at every interior point, together with its monotonicity (`hasDerivWithinAt_rightDeriv_of_mem_interior`, `monotoneOn_rightDeriv`). `h(0) ≥ 0` because `0` is the maximum (`negRD_zero_nonneg`).
+* **Support `b < a` (`realRooted_concave_lt`).**
+  * `ghatC_byParts`: evenness and integration by parts with right derivatives (`integral_mul_deriv_eq_deriv_mul_of_hasDeriv_right`) give `zĝ_b(z)/2 = g(b) sin(zb) + ∫₀^b h(t) sin(zt) dt`.
+  * Dividing by `sin(zb)/z` and taking `Im z · Im(·)` gives `g(b)(Im z)² + ∫₀^b h w`, where `∫_c^b w = Im z · Im[(cos zc − cos zb)/sin zb]` (`tail_W`). By round 24's `trap_ratio_mul_pos`, every tail `∫_c^b w` is `≥ 0`.
+  * `layer_nonneg`: for `h ≥ 0` nondecreasing, nonnegative tails give `∫₀^b h w ≥ 0`. The proof writes `h(s) = ∫₀^H 1[λ < h(s)] dλ` and applies Fubini. For each `λ`, the set `{h > λ}` is a final segment `(c, b]` of `[0, b]` up to one point, and its layer contributes the tail `∫_c^b w`.
+  * `g(b) > 0` for `b < a` (`concave_pos`), so the sum is strictly positive and `ĝ_b` has no non-real zero.
+* **The limit (`realRooted_of_concaveOn`).**
+  * `‖ĝ_a(z) − ĝ_b(z)‖ ≤ 2g(0)e^{‖z‖a}(a − b)`, so `ĝ_{b_n} → ĝ_a` locally uniformly for `b_n = a(n+1)/(n+2)`.
+  * `ĝ_a(0) = ∫g > 0`.
+  * The pilot's `hurwitz_real` then carries real-rootedness to the limit.
+
+**What changes.** Item 1(b) at a support now reduces, with nothing classical in between, to one hypothesis about the ground state: that it agrees a.e. with an even concave nonnegative function (it is already known to be one-signed and even). The numerical picture of round 24 is unchanged:
+* concave for `δ ≲ 0.61`;
+* not concave beyond that;
+* provably not concave for `δ > 0.889`.
+
+The open step at small support is proving that concavity. That is a statement about the minimiser of Weil's form, with no zero and, for `δ < log 2`, no prime.
+
+## Round 26: the de Branges test (numerical, `frontier/debranges.py`, `frontier/locate.py`)
+
+**The question.** Pólya's theorem (rounds 24–25) proves real-rootedness through a Hermite–Biehler structure, and that structure needs concavity. Does it survive past the concavity threshold `δ ≈ 0.61`? If it held at every `δ`, it would be the mechanism behind item 1(b).
+
+**Which function.** For `g` decreasing on `[0, a]`, the obvious `E = 2∫₀^a g e^{−izt}` has its zeros in the upper half-plane (Kakeya), so it is never Hermite–Biehler. Pólya's structure sits one derivative down:
+* `Ẽ(z) = g(0) − (iz/2)E(z) = βe^{−iza} + ∫₀^a h(t)e^{−izt} dt`, with `h = −g'` and `β = g(a)`.
+* Its real and imaginary parts are `Ã = g(0) − zB/2` and `B̃ = zA/2 = zĝ/2`.
+* When `h` is nondecreasing (`g` concave), Kakeya puts every zero of `Ẽ` in the lower half-plane. Then `Ẽ` is Hermite–Biehler and `ĝ` is real-rooted, with zeros interlacing those of `Ã`.
+
+A caveat on what this tests. *Some* Hermite–Biehler `E` with `ĝ` as a component exists whenever `ĝ` is real-rooted (for example one built from `ĝ` and `ĝ'`). So the only informative test is on a function built from `g` without its zeros, and `Ẽ` is Pólya's.
+
+**The tests** (the paper's Gram, 200–900 bits, coefficients at full precision):
+* **(T1)** Zeros of `Ẽ` in the upper half-disc `|z| < 60`, by the argument principle.
+* **(T2)** The phase derivative `W/|Ẽ|² = (ÃB̃' − Ã'B̃)/|Ẽ|²` on the real grid `(0, 60]`, step `0.01`. Hermite–Biehler requires it to be positive.
+* `frontier/locate.py` finds the offending zeros.
+
+| `δ` | 0.2 | 0.4 | 0.6 | 0.7 | 0.8 | **0.82** | 0.85 | 0.87 | 0.9 | 1.0 | 1.2 | 1.38 | 2.0 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| zeros of `Ẽ`, upper half-disc | 0 | 0 | 0 | 0 | 0 | **2** | 2 | 4 | 6 | 8 | 10 | 10 | 12 |
+| grid points with `W < 0` (of 6000) | 0 | 0 | 0 | 0 | 0 | 205 | 331 | 580 | 1081 | 1931 | 2339 | 2342 | 2330 |
+
+The results are stable in `K`: 100 → 160 at `δ = 0.8` and `0.9` changes nothing.
+
+Offending zeros with `Re z > 0` (each has a mirror image `−z̄`):
+* `δ = 0.82`: `21.62 + 0.26i`.
+* `δ = 0.9`: `20.86 + 1.38i`, `32.25 + 0.80i`, `45.26 + 0.80i`.
+* `δ = 1.0`: four zeros, at heights `2.1`–`2.7`.
+* `δ = 1.38`: five zeros, at heights `3.6`–`9.5`.
+* `δ = 2`: zeros at heights `4.4`–`13`.
+
+**Findings.**
+* **Pólya's Hermite–Biehler structure outlives concavity, but not by much.** It holds numerically for `δ ≤ 0.80`, past the concavity threshold `0.61`. It breaks between `0.80` and `0.82`.
+* **The break is where dodging begins.** The first zero to cross into the upper half-plane appears near `Re z ≈ 21.6`, at `γ₂ = 21.02`. That is where the ground state's second zero is being pulled onto the zeta zero. From then on the zeros move deep into the upper half-plane.
+* **So above `δ ≈ 0.81`, `ĝ`'s real-rootedness (round 23: every zero real at `δ = 1–3`) is not explained by this mechanism.**
+* For the same reason as round 24's concavity bound, both mechanisms depend only on the *shape* of `g`. From about `δ ≈ 0.8` on, the ground state is shaped by the zeta zeros it dodges, and neither shape condition survives that.
+
+**Status of item 1(b).**
+
+| `δ` | mechanism | status |
+|---|---|---|
+| `≲ 0.61` | concavity ⇒ Pólya (proved in Lean, `realRooted_of_ae_concaveOn`) | concavity of the ground state open, numerically true |
+| `0.61–0.80` | Pólya's Hermite–Biehler function `Ẽ` (numerical) | no proof route beyond the numerics |
+| `≳ 0.81` | none known | `ĝ` numerically real-rooted, but neither natural structure holds |
+
+The regime that matters for RH is the last row. What remains there is a mechanism tied to the Weil form itself rather than to the shape of `g`: for example, a positivity or interlacing property of the Gram pencil in `δ`, or a variational argument that a non-real zero would lower `Q`. None of these has been tested.
+
+## Round 27: the zero flow in `δ`, and realification (numerical, `frontier/flow.py`, `frontier/flow4.py`, `frontier/realify.py`)
+
+### Test A: the zeros of `ĝ_δ` flow monotonically, at every `δ` tested
+
+**The test.** Ground states at `δ − h`, `δ`, `δ + h` (the paper's Gram, 200–900 bits, full-precision coefficients).
+* Every real zero `x_j < 60` of `ĝ_δ` is refined by Newton at the working precision.
+* Its velocity `v_j = dx_j/dδ` is taken by central difference, with `h = 10⁻³` and `10⁻⁴`; the two agree to 3–4 digits.
+* The Wronskian `W = ĝ ∂_x∂_δĝ − ∂_δĝ ∂_xĝ` is evaluated on 6000 real points. It does not depend on how the ground state is normalised.
+* The chain function `E_δ = ĝ + i ∂_δĝ` is tested for Hermite–Biehler.
+
+`E_δ` is even in `z`, so the right variable is `s = z²`, and Hermite–Biehler means no zeros in the first quadrant of `z`. Near a real zero `x_j`, `E_δ` has a zero at `x_j + i v_j`. So the first quadrant is split in two:
+* the strip `0 < Im z < η`, which is decided by the signs of the `v_j`;
+* the rest, counted by the argument principle on a contour lifted to `Im z = η` (`η = 10⁻³` and `0.05`).
+
+A first pass counted along the real axis itself and reported 1 and 12 spurious zeros at `δ = 1.38` and `2`. The pinned zeros' partners lie within `|v_j| ≈ 10⁻¹¹–10⁻²⁴` of that contour, where the phase unwrapping is unreliable.
+
+| `δ` | zeros `< 60` | all `v_j < 0`? | `v_j` range | `W < 0` on the grid | zeros of `E_δ` off the axis |
+|---|---|---|---|---|---|
+| 0.4 | 3 | yes | `−41` … `−120` | 6000/6000 | 0 |
+| 0.9 | 8 | yes | `−0.16` … `−52` | 6000/6000 | 0 |
+| 1.0 | 9 | yes | `−0.013` … `−51` | 6000/6000 | 0 |
+| 1.2 | 10 | yes | `−6×10⁻⁵` … `−50` | 6000/6000 | 0 (both `η`) |
+| 1.38 | 11 | yes | `−6.7×10⁻⁸` … `−17` | 6000/6000 | 0 |
+| 2.0 | 13 | yes | `−2.4×10⁻²⁴` (at `γ₁`) … `−2.4×10⁻⁵` | 6000/6000 | 0 (both `η`) |
+
+**Findings.**
+* **As `δ` grows, every zero of the ground state's transform moves toward the origin, at every `δ` tested from 0.4 to 2.** The zeros below `T_D` come down onto the zeta zeros from above and freeze there: at `δ = 2` the velocity is `10⁻²⁴` at `γ₁` and `10⁻¹¹` at `γ₈`. The zeros above `T_D` keep moving down, and they are the next ones to be captured.
+* **`ĝ_δ` and `∂_δĝ_δ` interlace strictly.** Equivalently, `E_δ` is Hermite–Biehler in `s = z²` at every `δ` tested.
+* This is the first structure that holds across the whole range, both inside and beyond the dodging regime. The two shape mechanisms fail: Pólya from `δ ≈ 0.61`, and its Hermite–Biehler function `Ẽ` from `0.81`.
+
+**What it would give, and what it does not.**
+* **Why it would matter.** Suppose one could prove that the zeros always move one way. Two real zeros could then never collide. A collision is the only way a pair of real zeros can leave the axis, apart from zeros arriving from infinity. So real-rootedness at small `δ` (Pólya, rounds 24–25) would carry over to every `δ`. That would be a candidate prime-side route to item 1(b).
+* **Why it is not a mechanism yet.** It is an observation about the ground states, and Hermite–Biehler of `E_δ` contains the real-rootedness of `ĝ_δ`. A proof would need a formula for `∂_δ` of the minimiser, for example a Hadamard-type variational formula for moving the endpoint of the support, with a sign that forces interlacing.
+* **Not examined:** zeros above 60, and `δ > 2`.
+
+### Test B: realification does not lower the energy
+
+**The test.** Probes `g = Σ_{k<K} c_k cos(kπt/a)` with `g(±a) = 0`. Their non-real zeros are the non-real roots of a polynomial `P(s)`, with `s = (ra/π)²`. Three maps replace each complex pair `σ, σ̄` of roots by real roots:
+* `R1`: `(s − Re σ)²`;
+* `R2`: `(s − Re σ ∓ |Im σ|)`, which is pointwise smaller in modulus on the real line;
+* `R3`: `(s − |σ|)²`.
+
+Every map also flips negative roots, which are imaginary zeros. Each keeps the degree, so the result is again a probe on `[−a, a]` (Paley–Wiener).
+
+`Q/‖g‖²` is computed on the Fourier side, as `Q = 2ĝ(i/2)² + (1/π)∫₀^∞|ĝ|²Φ` with `Φ = Re ψ(¼ + ir/2) − log π − 2ΣΛ(n)n^{−½}cos(r log n)`. This matches the Gram to `10⁻⁵`–`10⁻⁸`.
+
+| probes | `δ` | `K` | `R1` lowers | `R2` lowers | `R3` lowers |
+|---|---|---|---|---|---|
+| random (800) | 0.5 | 14 | 208/648 | 186/648 | 441/648 |
+| random | 1.0 | 14 | 208/648 | 186/648 | 418/648 |
+| random | 2.0 | 14 | 164/648 | 148/648 | 335/648 |
+| ground state + 0.05·noise | 1.0 | 14 | 408/800 | 380/800 | **799/800** |
+| ground state + 0.05·noise | 2.0 | 14 | 45/800 | 172/800 | 279/800 |
+| ground state + 0.3·noise | 1.0 | 14 | 264/798 | 256/798 | 648/798 |
+| ground state + 0.3·noise | 2.0 | 14 | 173/799 | 177/799 | 339/799 |
+
+`K = 10` gives the same picture.
+
+**Findings.**
+* No realification map lowers the Rayleigh quotient consistently. `R1` and `R2` raise it more often than they lower it.
+* `R3`, which moves each complex zero to its modulus on the real axis, lowers it almost always near the ground state at `δ = 1` (799/800). But it does so only in a minority of cases at `δ = 2`.
+* So no simple "a non-real zero costs energy" argument is visible. Real-rootedness of the minimiser is not enforced by any of these local moves.
+* **Caveat:** this is a `K = 14` space. At `K = 10` its constrained ground state is not even real-rooted, a truncation effect.
+
+**Status of item 1(b) after round 27.** Of the four mechanisms tested, only the monotone zero flow (Test A) holds at every `δ` tested:
+* concavity fails from `δ ≈ 0.61`;
+* Pólya's `Ẽ` fails from `0.81`;
+* realification fails at `δ = 2`.
+
+Proving the flow is the concrete open step it points to: a sign for `∂_δ` of the ground state's transform at its zeros.
+
+## Round 28: the pinned zeros sit above the zeta zeros (numerical, `frontier/pinned.py`)
+
+**Why this test.** Rescale `g_a(t) = φ(t/a)`. The flow of round 27 is then `d log ρ_j/d log a < 1` for the rescaled zeros `ρ_j = a x_j`. With a pure `log|r|` symbol the ground state is scale-invariant, and the flow holds with room to spare (`d log ρ_j/d log a = 0`).
+
+At the zeros pinned onto zeta zeros, though, the inequality holds only by exponentially small margins. There the flow is the statement that `x_j` decreases onto `γ_j`, i.e. `ε_j = x_j − γ_j > 0`. This round measures the sign of `ε_j` directly:
+* zeros refined by Newton at the working precision;
+* `γ_j` from `mpmath.zetazero` at 60 digits;
+* each cell repeated at two values of `K`.
+
+| `δ` | pinned zeros | `ε_j = x_j − γ_j` (`K` = first / second value) | all `> 0` |
+|---|---|---|---|
+| 1.0 | `γ₁` | `5.63e-4` / `5.62e-4` | yes |
+| 1.2 | `γ₁–γ₃` | `1.79e-6, 2.70e-4, 3.41e-3` / `1.79e-6, 2.69e-4, 3.40e-3` | yes |
+| 1.38 | `γ₁–γ₅` | `1.52e-9 … 3.26e-3` / `1.51e-9 … 3.24e-3` | yes |
+| 1.6 | `γ₁–γ₈` | `4.32e-14 … 1.18e-3` / `4.28e-14 … 1.17e-3` | yes |
+| 2.0 | `γ₁–γ₁₃` | `2.80e-26, 2.83e-23, 1.66e-21, … , 3.82e-7` / `2.71e-26, 2.74e-23, 1.60e-21, … , 3.72e-7` | yes |
+
+**Finding.** Every pinned zero of the ground state's transform lies strictly above its zeta zero. That holds for all 52 zero–cell pairs, and the signs are stable in `K`. The `ε_j` shrink roughly exponentially in `δ` and grow with `j`. So the flow is not contradicted where it is most delicate. The picture is that the ground state's zeros descend monotonically and come to rest on the zeta zeros from above.
+
+**What it means for a proof.** At a pinned zero the flow is equivalent to the sign of an exponentially small displacement `x_j − γ_j` of the minimiser's zeros relative to the zeta zeros. A prime-side proof of the flow must therefore produce that sign. That needs quantitative control of how the ground state locks onto `γ_j`, which is what item 1(a) asks for. So as far as this analysis goes, the flow is not an easier route to 1(b) than 1(a) itself. What it does supply is a sharp and falsifiable target: `x_j(δ) ↓ γ_j`, observed without exception at `δ ≤ 2`.
+
+**Not tested:** `δ = 3` (it needs `K = 400`), and zeros above 60.
+
+## Round 29: a law for the offsets `ε_j = x_j − γ_j` (numerical, `frontier/law.py`)
+
+**The sign, restated.** Put `c_j = ĝ(γ_j)`. To first order, `ε_j = −c_j/ĝ'(γ_j)`, and this reproduces round 28's measured `ε_j` to 3–4 digits at every pinned zero. The pinned zeros are consecutive simple zeros, so `ĝ'(γ_j)` alternates in sign. Therefore **`ε_j > 0` for all `j` is equivalent to the values `ĝ(γ_j)` alternating in sign along the zeta zeros.** They do:
+
+| `δ` | alternation of `sgn ĝ(γ_k)` holds for `k ≤` | pinned zeros |
+|---|---|---|
+| 1.0 | 6 | 1 |
+| 1.38 | 12 | 5 |
+| 2.0 | 29 | 19 (`|ε| < 10⁻²`) |
+
+The alternation extends past the pinned zeros and then breaks: overall only 17–33% of consecutive pairs up to `γ₆₇₀₀` alternate.
+
+**Where the energy sits (a check using the explicit formula, so conditional on RH).**
+* Under RH, `Q(g) = 2Σ_{γ>0} ĝ(γ)²`. The first 6700 zeros give `0.9955 λ₁`, `0.990 λ₁` and `0.980 λ₁` at `δ = 1, 1.38, 2`, consistent with a tail above `γ₆₇₀₀`.
+* The pinned zeros carry almost none of it. Each carries at most `5×10⁻⁴` of `λ₁`, and at `δ = 2` the zeros below 50 carry `< 10⁻²⁶`.
+* The energy sits at the unpinned zeros: 35% in `50–100`, 55% in `100–500` (`δ = 2`).
+* Only this interpretation uses the explicit formula. `ĝ(γ_k)`, `ĝ'(γ_k)` and `ε_j` are computed unconditionally.
+
+**The magnitudes.** A least-squares fit of `log ε_j` against `γ_j` gives slopes `0.70, 0.78, 0.83, 0.97` at `δ = 1.2, 1.38, 1.6, 2`, i.e. `1.16a, 1.13a, 1.04a, 0.97a`. With `λ₁` factored out:
+
+  **`ε_j ≈ C(δ) · λ₁ · e^{aγ_j}`**, with `log₁₀ C = −0.29, −0.36, −0.54, −1.04, −2.49` at `δ = 1, 1.2, 1.38, 1.6, 2`.
+
+The per-zero scatter is `0.2–0.33` in `log₁₀`, about a factor of 2. Separately, `|ĝ'(γ_j)|` decays like `e^{−0.45γ_j}` to `e^{−0.59aγ_j}`, and `|c_j|` grows correspondingly.
+
+**What the law does and does not say.**
+* It locates the offsets. They are proportional to the ground-state energy and grow like `e^{aγ_j}` up the pinned range, until they reach `10⁻²–10⁻³`, where zeros stop being pinned.
+* It does not explain the sign. `ε_j > 0` is the same statement as the alternation of `ĝ(γ_j)`, and that alternation is observed, not derived. The Euler–Lagrange equation says each pinned `c_j ≈ −(1/2a) Σ_{k≠j} c_k (S(γ_k − γ_j) + S(γ_k + γ_j))`, with `S(u) = 2 sin(au)/u`. So the alternation would have to come from how the sinc kernel carries the energy-bearing values at the unpinned zeros back onto the pinned range. That is a statement about the zeta zeros themselves.
+* The fit is empirical: two parameters per `δ`, 1–13 points, factor-2 scatter. `C(δ)` has no model yet.
+
+## Round 30: the universality test (numerical, `frontier/universality.py`)
+
+**The question.** Is the zero flow of round 27 a general property of minimisers of truncated forms `Q(g) = (1/π)∫₀^∞|ĝ|²Φ [+ 2ĝ(i/2)²]` over growing supports? If so, it is a candidate for a general theorem. Or is it specific to `ζ`'s symbol `Φ = Re ψ(¼ + ir/2) − log π − 2ΣΛ(n)n^{−½}cos(r log n)` with the pole term?
+
+**The method.**
+* Gram matrices by Fourier quadrature on `(0, 3000]` with an analytic tail, cosine basis `K = 60`, in double precision.
+* The control (`ζ` at `δ = 0.6, 0.9, 1.0`) reproduces the high-precision results: zeros to 4–5 digits, velocities to 3.
+* For each symbol and `δ`: velocities of all zeros below 60, and the sign of `W = ĝ ∂_x∂_δĝ − ∂_δĝ ∂_xĝ` on 6000 points.
+* Double precision is adequate here because every non-`ζ` ground energy is `|λ| ≥ 10⁻⁵`, apart from the `ζ`-identical `all_n` cells.
+
+| symbol | pole | `δ` = 0.6, 0.9, 1.2, 1.6, 2.0: flow holds? (all `v < 0` and `W < 0` everywhere) |
+|---|---|---|
+| `ζ` (control, and high precision to `δ = 2`, round 27) | yes | yes at every `δ` |
+| `log(1 + r)` | no | yes, yes, yes, yes, yes |
+| `|r|` | no | yes, yes, yes, yes, yes |
+| prolate: `1_{|r| > 12}` | no | yes, yes, yes, yes, yes |
+| archimedean `Re ψ − log π`, no primes | no | yes, yes, yes, yes, yes |
+| archimedean, no primes | **yes** | yes (`= ζ` there), **no** (`W > 0` at 898 points), **no**, **no**, **no** (one zero moving up) |
+| `Λ(n)` replaced by `log n` (differs from `ζ` only for `δ ≥ log 4`) | yes | yes, yes, yes, yes, yes |
+| primes' frequencies `log n` jittered by ±4% (1 draw) | yes | yes, yes, yes, **no** (2 zeros up), **no** |
+| prime weights multiplied by `U(0.5, 1.5)` (1 draw) | yes | yes, **no**, **no**, **no**, **no** |
+
+Robustness over 6 random draws each at `δ = 1.2, 1.6, 2.0`:
+
+| perturbation | flow broken in |
+|---|---|
+| `log n` jittered by only **±1%** | 16 of 18 cells (4/6 at `δ = 1.2`, 6/6 at `1.6`, 6/6 at `2.0`) |
+| prime weights jittered by **±10%** | 12 of 18 cells (1/6, 6/6, 5/6) |
+
+**Findings.**
+1. **For monotone symbols without the pole term, the flow looks general.** It holds for `log`, `|r|`, the prolate step and the bare archimedean term at every `δ`. For these, a general theorem (monotone symbol ⇒ zeros of the truncated minimiser flow inward) is a plausible target. The scale-invariant symbols are the easy case of round 28's analysis.
+2. **The pole term alone breaks it.** Adding `2ĝ(i/2)²` to the archimedean symbol destroys the flow from `δ = 0.9` on.
+3. **The true primes restore it, and it is fragile.** With the actual `Λ(n)` at the actual frequencies `log n`, the flow holds through `δ = 2` (at high precision in round 27). A ±1% jitter of the frequencies breaks it in most draws, and so does a ±10% jitter of the weights. The one exception tested is `all_n` (`Λ(4) = log 2` replaced by `log 4`), which keeps it at `δ = 1.6` and `2`. So the flow is not strictly arithmetic, but it is not generic either.
+4. **Consequence for a proof.** For `ζ`'s form the flow depends on the fine structure of the prime sum balancing the pole term. That is the same balance that makes Weil's form nonnegative (`λ₁ > 0` for `ζ`, versus `λ < 0` in every perturbed cell). It fits rounds 28–29: the flow at pinned zeros is the statement `x_j ↓ γ_j`, a property of the zeta zeros. A general "monotone symbol" theorem cannot reach `ζ`'s case, because `ζ`'s symbol is not monotone and carries the pole term. So as far as these tests go, a proof of the flow for `ζ` is not easier than item 1(a).
+
+**Not established.** Negativity of `λ` does not predict failure: the pole-free archimedean term and `all_n` have `λ < 0` and keep the flow. Each "no" in the first table is a single random draw; the robustness table covers 6 draws per perturbation.
+
+## Round 31: is there a commuting Sturm–Liouville operator? (numerical, `frontier/prolate_test.py`, `frontier/prolate_wide.py`)
+
+**The idea imported.** Slepian's "lucky accident": band-limiting to `|r| < W` on `[−a, a]` commutes with `L = −d/dt((a² − t²)d/dt) + W²t²`. So its eigenfunctions are Sturm–Liouville eigenfunctions, whose zeros are controlled by ODE theory: real, simple, counted, and moving monotonically. If the truncated Weil form commuted with such an `L`, even approximately, real-rootedness could come from ODE theory rather than from positivity. That is the one import found that is not automatically circular.
+
+**The test.** Gram `G` for each symbol (round 30's quadrature, `K = 60`), in `N`-orthonormal coordinates.
+* **Family 1:** `L = −(p g')' + q g` with `p = a² − t²` and `q = Σ_{m=1..4} q_m t^{2m}`.
+* **Family 2:** `p = (a² − t²)(1 + Σ_{m=1..3} p_m t^{2m})` and `q = Σ_{m=1..8} q_m t^{2m}`.
+
+In both families the commutator is linear in the coefficients, so the best `L` is a least-squares fit on the first 30 modes. Three measures:
+* `‖[G, L]‖/‖[G, L₀]‖`;
+* the off-diagonal fraction of `G` in `L`'s eigenbasis (0 means they commute);
+* the ground state's best overlap with a single eigenfunction of `L`.
+
+**The control.** For `Φ = 1_{|r|>12}` the fit recovers `q₁ = 143.9` (exact: `W² = 144`), with off-diagonal fraction `5×10⁻⁴`–`1.2×10⁻³` and overlap `1 − 10⁻⁸`. That is the truncation floor.
+
+| symbol | residual (family 1 / 2) | off-diagonal fraction | ground-state overlap |
+|---|---|---|---|
+| control (band-limit) | 0.002–0.004 | 0.0005–0.0012 | 1.000000 |
+| `log(1 + r)` | 0.95 / 0.87 | 0.42–0.44 | 0.79–0.89 |
+| `|r|` | 0.61 / – | 0.85 | 0.70 |
+| archimedean, no pole | 0.97 / 0.89 | 0.42 | 0.86–0.94 |
+| archimedean + pole | 0.93–0.98 / – | 0.42–0.58 | 0.90–0.98 |
+| **`ζ`** | 0.62–0.93 / **0.15–0.31** | **0.42–0.76** | **0.65–0.93** |
+
+Ranges are over `δ = 0.6, 1.0, 1.6, 2.0` (family 1) and `δ = 1.0, 2.0` (family 2).
+
+**Findings.**
+* **No second-order operator in either family comes close to commuting with `ζ`'s truncated form.** The wider family lowers the fitted residual to 0.15–0.31, but the form stays 46–64% off-diagonal in the operator's eigenbasis, and the ground state is not an eigenfunction of it (overlap 0.78–0.83). The lower residual is fitting, not commutation.
+* **The same holds for the simple monotone symbols** (`log`, `|r|`, bare archimedean), for which the zero flow does hold (round 30). So the flow is not produced by a hidden Slepian structure either.
+* **This is consistent with the bispectral picture (from memory, unchecked here).** Time–frequency limiting admits a commuting differential operator essentially only for bispectral kernels (Duistermaat–Grünbaum), and a log-type symbol with a prime sum is not expected to be one.
+* **Not excluded:** operators of order higher than 2; non-polynomial coefficients; differential operators acting in the frequency variable `r` instead of `t`; the semilocal prolate operators of Connes–Consani–Moscovici, which act on a different space. The test covers only the natural Slepian-type families.
+
+## Round 32: a counting law for the pinning front (numerical, `frontier/front.py`)
+
+**The import.** A function in the Paley–Wiener space of type `a` has about `aT/π` zeros below `T`, while `ζ` has `N(T) ≈ (T/2π)log(T/2πe) + 7/8`. The ground state can pin its zeros onto every `γ` only while its zero budget covers theirs. The budget runs out at the root `T_B(a)` of `(T/2π)log(T/2πe) + 7/8 = aT/π`. At leading order that is `T_B ≈ 2πe^{2a+1} = 2πe^{δ+1}`.
+
+**The measurement.** Ground states from the paper's Gram (`K = 160`–`260`, 600–1100 bits). Zeros of `ĝ` below `R = 250`, each matched to its nearest zeta zero. The front `T_pin(τ)` is the largest `γ_k` such that every `γ_j ≤ γ_k` has a zero of `ĝ` within `τ`.
+
+| `δ` | `λ₁` | `T_pin(10⁻⁶)` | `T_pin(10⁻³)` | `T_pin(10⁻¹)` | `T_B` (refined) | `T_pin(10⁻¹)/T_B` |
+|---|---|---|---|---|---|---|
+| 1.0 | 9.3e-7 | – | 14.1 | 21.0 | 40.5 | 0.52 |
+| 1.2 | 1.6e-9 | – | 21.0 | 30.4 | 50.9 | 0.60 |
+| 1.38 | 8.8e-13 | 21.0 | 30.4 | 37.6 | 62.3 | 0.60 |
+| 1.6 | 1.7e-17 | 32.9 | 40.9 | 53.0 | 78.9 | 0.67 |
+| 1.8 | 4.2e-23 | 43.3 | 56.4 | 65.1 | 97.7 | 0.67 |
+| 2.0 | 6.1e-30 | 60.8 | 72.1 | 82.9 | 120.6 | 0.69 |
+| 2.3 | 2.1e-43 | 92.5 | 101.3 | 111.0 | 164.8 | 0.67 |
+
+**Findings.**
+* **The front grows at the rate the counting law predicts.** From `δ = 1.6` to `2.3`, `ln T_pin(10⁻¹)` rises by `0.74` over `Δδ = 0.7`, a slope of `1.06`; the law predicts `≈ 1`.
+* **The prefactor settles.** `T_pin(10⁻¹) ≈ 0.68 · T_B(a)` from `δ = 1.6` on. The tighter fronts `10⁻³` and `10⁻⁶` sit lower, and their ratios rise with `δ`: 0.35 → 0.61 and 0.34 → 0.56.
+* **The ground state does not use its full budget at low heights.** At `δ = 2` it has 13 zeros below 60, all pinned, whereas `aT/π = 19`. The zero-count deficit `N_ζ(T) − N_ĝ(T)` becomes positive near 79 at `δ = 2` and near 104 at `δ = 2.3`, and then grows linearly. So pinning stops at about two-thirds of the height where the count alone would force it to stop.
+* **The alternation front of round 29** (`37.6, 56.4, 98.8` at `δ = 1, 1.38, 2`) lies between `T_pin(10⁻¹)` and `T_B`. This round's own alternation values at `δ = 1.8`, `2` are not reliable: `|ĝ(γ)|` is below the rounding error of double-precision `γ` there. Round 29 used 60-digit `γ` and is the one to trust.
+
+**What it gives item 1(a).** An empirical rate. The dodging reach grows like `T_D(δ) ≈ 0.68 · T_B ~ e^{δ}`. With the paper's tail estimate `ε(δ) ~ ln T_D/T_D`, the pairing error would decay like `δ e^{−δ}`. That would be the quantitative form of hypothesis D's `ε(δ) → 0` that `rh_of_D_and_realRooted` needs, if it could be proved. This is an observation over `δ ≤ 2.3` with a fitted constant, not a theorem. The counting side is standard (Riemann–von Mangoldt, Paley–Wiener zero density). The missing piece is why the ground state spends its zero budget on the zeta zeros at all, which is the dodging itself.
+
+## Round 33: deriving the front, via constrained equilibrium (model, `frontier/edge_model.py`)
+
+**The import: Rakhmanov's constrained equilibrium problem (also Dragnev–Saff, Kuijlaars–Rakhmanov; from memory).** Polynomials orthogonal on a discrete node set cannot have zeros denser than the nodes. Where the unconstrained zero density would exceed the node density, the zeros saturate: they sit within exponentially small distance of the nodes. Elsewhere they are free. That is the picture of rounds 27–32:
+* the zeta zeros play the nodes, with density `σ(t) = (1/2π)log(t/2π)`;
+* `ĝ` has type `a`, so its zeros want density `a/π`, which is larger than `σ` at low heights;
+* the pinned zeros sit above `γ_j` within `e^{−cγ}`.
+
+**The model.** The zero density `μ` of `ĝ` satisfies:
+* `μ = σ` on the saturated region `(−T, T)`;
+* on the free region `|x| > T`, the smoothed envelope `log|ĝ|` is flat, i.e. the Hilbert transform of `μ` vanishes there (round 29: the energy sits at the unpinned zeros);
+* `μ → a/π` at infinity (exponential type `a`).
+
+**The derivation.** Put `f = μ − a/π` and let `G` be its Cauchy transform, so `Re G = 0` outside and `Im G = πf` inside on the upper boundary. Then `Λ = G/√(z² − T²)` has `Re Λ = 0` outside and `Re Λ = πf/√(T² − t²)` inside. So `Λ` is a Schwarz integral, and `G = O(1/z)` (density exactly `a/π` at infinity) holds if and only if
+
+  `∫₀^T σ(t)/√(T² − t²) dt = a/2`.
+
+Compare the budget condition of round 32, `∫₀^T σ dt = aT/π`: the same density with a different weight. Using `∫₀^{π/2} log sin θ dθ = −(π/2)log 2`, the left side is `(1/4)log(T/4π)` for large `T`, so
+
+  **`T_edge = 4πe^{2a}`, and `T_edge/T_B → 4πe^{2a}/(2πe^{2a+1}) = 2/e ≈ 0.7358`.**
+
+The exact integral (smoothed Riemann–von Mangoldt density, no fitted parameter) gives ratios `0.7514, 0.7478, 0.7454, 0.7432, 0.7417, 0.7405, 0.7392` at the measured `δ`, and `0.7374, 0.7360, 0.7358` at `δ = 3, 5, 10`.
+
+**Against the measurements.**
+
+| `δ` | `T_edge` | `T_edge/T_B` | measured `T_pin(10⁻¹)` | `T_pin(10⁻¹)/T_edge` | alternation front (round 29) |
+|---|---|---|---|---|---|
+| 1.0 | 30.5 | 0.751 | 21.0 | 0.69 | 37.6 |
+| 1.2 | 38.1 | 0.748 | 30.4 | 0.80 | – |
+| 1.38 | 46.5 | 0.745 | 37.6 | 0.81 | 56.4 |
+| 1.6 | 58.6 | 0.743 | 53.0 | 0.90 | – |
+| 1.8 | 72.4 | 0.742 | 65.1 | 0.90 | – |
+| 2.0 | 89.3 | 0.740 | 82.9 | 0.93 | 98.8 |
+| 2.3 | 121.8 | 0.739 | 111.0 | 0.91 | – |
+
+**Findings.**
+* **The ground state stops saturating where the `1/√(T² − t²)`-weighted density of zeta zeros reaches `a/2`, not where the plain counts cross.** That puts the edge at a fixed fraction of the budget root, tending to `2/e`, and explains why the pinning stops well short of where the count alone would stop it.
+* **The measured fronts bracket the edge.** The strict fronts lie inside it: `T_pin(10⁻¹) ≈ 0.90–0.93 T_edge` from `δ = 1.6` on. The alternation front lies just outside it (`98.8` against `89.3` at `δ = 2`). This is the expected transition zone between the saturated and free regions.
+* **So round 32's `0.68 ≈ (2/e) × 0.92`.** The `2/e` is derived. The `0.92` is where a `10⁻¹`-tolerance criterion sits inside the transition zone, and it is not derived. In discrete orthogonal polynomials that zone has its own local scaling (from memory), which was not modelled here.
+
+**Status.** This is a heuristic model:
+* the flat envelope on the free region and the saturation below `T` are assumed, not proved from Weil's form;
+* the solvability step is the standard Schwarz-integral argument, sketched here rather than formalised.
+
+It gives a parameter-free prediction for the dodging reach, `T_D(δ) ≈ 4πe^{δ}` (`2a = δ`), which is what hypothesis D's `ε(δ) → 0` needs. Proving it would need the constrained-equilibrium asymptotics for this `PW_a`-type extremal problem, a strong-asymptotics result in the style of discrete orthogonal polynomials. Whether that can be done without assuming RH is open. The model uses the zeta-zero density `σ` as input, but not RH.
+
+## Round 34: the transition zone, derived from the same model (`frontier/transition.py`)
+
+**The mechanism.** In the round-33 model the smoothed envelope inside the saturated region is fixed by the same boundary problem:
+
+  `U'(x) = √(T² − x²) · p.v.∫_{−T}^{T} f(t) dt / (√(T² − t²)(x − t))`, with `f = σ − a/π`.
+
+Round 29 showed `ĝ(γ_j) ∝ λ₁e^{−U}` and `|ĝ'(γ_j)| ∝ e^{U}`. So the offsets follow
+
+  `ε(x) ≈ A e^{−2Δ(x)}`, with `Δ(x) = U(x) − U(T_edge)`.
+
+`A` is fixed without fitting: at the edge a zero is free, so its offset is about half a zero spacing, `A = 1/(2σ(T_edge))`. The front `T_pin(τ)` is the root of `2Δ(x) = log(A/τ)`.
+
+**Checks on the envelope.**
+* **Slope.** `log ε_j` against `−2Δ(γ_j)`, over all pinned zeros, has slope `0.79, 0.86, 0.89, 0.93` at `δ = 1.2, 1.38, 1.6, 2`, tending to 1.
+* **Depth.** The model's `2Δ(0)` is `17.8, 24.7, 32.4, 43.8, 72.9` against `−log λ₁ = 13.9, 20.2, 27.8, 38.6, 67.3` at `δ = 1, 1.2, 1.38, 1.6, 2`. This is a near-constant offset of 4–5.6 on depths up to 73, so the model also predicts the ground-state energy to within a factor of about `e^5`.
+
+**The fronts, predicted with no fitted parameter** (`T_pin/T_edge`; brackets: `A = 1/(πσ)`):
+
+| `δ` | `τ = 10⁻¹` predicted | measured | `τ = 10⁻³` predicted | measured | `τ = 10⁻⁶` predicted | measured |
+|---|---|---|---|---|---|---|
+| 1.0 | 0.76 [0.78] | 0.69 | 0.55 [0.57] | 0.46 | 0.31 [0.32] | –* |
+| 1.2 | 0.80 [0.82] | 0.80 | 0.63 [0.64] | 0.55 | 0.42 [0.43] | –* |
+| 1.38 | 0.83 [0.85] | 0.81 | 0.68 [0.69] | 0.65 | 0.50 [0.51] | 0.45 |
+| 1.6 | 0.86 [0.88] | 0.90 | 0.73 [0.74] | 0.70 | 0.58 [0.59] | 0.56 |
+| 1.8 | 0.88 [0.90] | 0.90 | 0.77 [0.78] | 0.78 | 0.64 [0.65] | 0.60 |
+| 2.0 | 0.90 [0.91] | 0.93 | 0.80 [0.81] | 0.81 | 0.69 [0.70] | 0.68 |
+| 2.3 | 0.92 [0.93] | 0.91 | 0.84 [0.85] | 0.83 | 0.75 [0.76] | 0.76 |
+
+\* At `δ = 1` the predicted `10⁻⁶`-front (9.5) lies below `γ₁ = 14.13`, so no zero is pinned at that level; measured `ε₁ = 5.6×10⁻⁴`, consistent. At `δ = 1.2` the prediction (16.0) is just above `γ₁`, while the measured `ε₁ = 1.8×10⁻⁶` is just above `10⁻⁶`: a marginal miss.
+
+**Findings.**
+* **The transition factor is derived.** All three fronts, at every `δ`, are reproduced to within `0.01–0.09` (mostly `≤ 0.04`) by one model with no fitted parameter. The fronts barely depend on the choice of `A`: `1/(2σ)` against `1/(πσ)` moves them by `0.01–0.02`.
+* **The "0.92" is not a constant.** It is the `10⁻¹`-front of a transition zone that narrows relative to `T_edge` as `δ` grows (0.76 → 0.92). Round 32's plateau `T_pin/T_B ≈ 0.68` was the product of this rising factor and the slowly falling edge ratio (0.743 → 0.739). Predicted products are `0.64, 0.65, 0.67, 0.68` at `δ = 1.6, 1.8, 2, 2.3`, against measured `0.67, 0.67, 0.69, 0.67`.
+* **Asymptotically every fixed-tolerance front tends to `T_edge`.** The pinning reach is `T_D(δ) ~ 4πe^{δ}`, and every `T_pin(τ)/T_B → 2/e`.
+
+**Status.** Rounds 32–34 together give a parameter-free heuristic account of the dodging reach, the transition zone, the offset law of round 29 (`ε ∝ λ₁e^{−2U}`), and the order of magnitude of `λ₁`. It rests on the constrained-equilibrium model (saturation below `T`, flat envelope above), which is assumed, not derived from Weil's form. Turning it into a theorem needs strong asymptotics for this extremal problem. That would be the rigorous content of hypothesis D's `ε(δ) → 0`, and whether it can be proved without RH is open. The model uses the zeta-zero density `σ` as input, but not RH.
+
+## Round 35: saturation, reduced to an envelope bound (Saturation.lean)
+
+**What can and cannot be proved.** The saturation assumption of rounds 33–34 says that below the edge, every zeta zero has a zero of the ground state's transform `ĝ` exponentially close to it. That is a statement about the zeta zeros, so a proof must pass through the explicit formula `Q(g) = Σ_ρ ĝ(t_ρ)²`. Off the critical line those terms are complex and cannot be bounded one at a time. So full saturation from the prime side alone is as hard as Hypothesis D (item 1(a)), and it is not claimed.
+
+**The reduction, proved** (named input: the explicit formula with the zeros on the line, `Q = 2Σ_{γ>0} ĝ(γ)²`):
+* `sq_le_of_explicit`: `|ĝ(γ_j)| ≤ √(λ/2)` for every `j`, since each term is at most the sum.
+* `zero_near_of_deriv_ge`, `zero_near_of_deriv_le`: a function at most `η` in size at `γ`, with `|F'| ≥ m` of fixed sign on `[γ − r, γ + r]` and `η/m ≤ r`, vanishes within `η/m` of `γ`. The proof uses the mean value theorem and the intermediate value theorem.
+* `pinned_of_explicit`: a zero of `ĝ` lies within `√(λ/2)/m` of every `γ_j` near which `|ĝ'| ≥ m`.
+
+So **saturation holds wherever the envelope `|ĝ'|` exceeds `√λ₁`**. That is the model's saturated region, since the band level of round 33 is `C_b ≈ ½ log λ₁`. The proved rate is `e^{−Δ}`; the model's is `e^{−2Δ}`. The model's assumption is thereby reduced to a lower bound on the envelope. That bound, and the explicit-formula input, are what remain open.
+
+**Against the data** (`frontier/saturation_check.txt`). The bound `√(λ₁/2)/|ĝ'(γ_j)|` holds at all 25 pinned zeros (`δ = 1, 1.38, 2`). It is loose by `e^{Δ}`: from `1.5×10¹³` at `γ₁` down to `47` near the edge, with `bound² ≈ ε_j` up to a factor of 6–20, as the two rates predict. At `δ = 2` it certifies saturation at the `10⁻¹` level through `γ₁₈ ≈ 72.1`, against the measured front `83` and the model edge `89`. These values use the computed `ĝ'`, not a certified envelope bound, and the window condition `√(λ/2)/m ≤ r` is not checked near the edge.
+
+**Unconditional variant (a remark, not formalised).** RH is verified numerically up to height `H ≈ 3×10¹²`. The terms of the explicit formula above `H` can be bounded by `|ĝ(t)| ≤ e^{a/2}‖g‖₁` times a decay factor. That replaces `λ` by `λ + O(log H/H)` in `sq_le_of_explicit`, which is usable where `λ₁` is not smaller than about `10⁻¹¹` (`δ ≲ 1.3`). Making it rigorous needs a decay bound for `ĝ` off the axis, which in turn needs bounded variation of the ground state; that is not proved.
+
+## Round 36: out-of-sample test of the model (pre-registered; `frontier/predict.py`, `frontier/envelope.py`)
+
+**Protocol.** The model's predictions for `δ = 2.6` and `3.0` (`frontier/predictions_round36.jsonl`) were committed in `4b79a57` before any ground state at those supports was computed. The fronts use no fitted parameter. The `λ₁` prediction carries one additive offset, extrapolated linearly from its values at `δ ≤ 2`.
+
+| | `δ = 2.6` predicted | measured | error | `δ = 3.0` predicted | measured | error |
+|---|---|---|---|---|---|---|
+| `T_pin(10⁻¹)` | 155.7 | 156.1 | 0.3% | 237.9 | 241.0 | 1.3% |
+| `T_pin(10⁻³)` | 144.8 | 146.0 | 0.8% | 225.3 | 227.4 | 0.9% |
+| `T_pin(10⁻⁶)` | 132.5 | 131.1 | 1.1% | 211.3 | 211.7 | 0.2% |
+| `−log λ₁` | 140.42 | 140.70 | 0.28 | 221.58 | 222.17 | 0.59 |
+
+The measurements used `K = 300` / `400` at 1000 / 1100 bits, with zeros of `ĝ` tracked to 250 / 300. This round's `T_alt` values are not reliable, because double-precision `γ` was used (see round 32).
+
+**The envelope, a second independent check (round 36b).** A sine-like function has `|ĝ'| ≈ e^{U}·πσ` at its zeros, so `log|ĝ'(γ_j)| − log(πσ(γ_j)) − log ĝ(0)` measures the envelope `U(γ_j)`. It follows the model's `U` (rounds 33–34, nothing fitted) over 36 e-folds:
+* slope `0.979` at `δ = 2` and `0.943` at `δ = 1.38`;
+* a near-constant offset of `0.5–0.9` deep inside;
+* the offset rises to about `1.5` in the transition zone near the edge.
+
+**Finding.** The constrained-equilibrium model predicts the pinning fronts at two unseen supports to `0.2–1.3%`, and `λ₁` to within `0.3–0.6` in `log` over depths of 140–222. Together with the envelope check, it is a quantitatively accurate description of the ground states: of how far they dodge the zeta zeros (`T_D ≈ 4πe^{δ}`), of the transition zone, and of the energy.
+
+**Its assumptions are unchanged** (see the summary under round 35):
+* saturation, which `Saturation.lean` reduces to RH (the explicit formula with the zeros on the line) plus a lower bound on `|ĝ'|`;
+* a flat envelope above the edge;
+* smoothed densities;
+* the half-spacing normalisation `A`;
+* one extrapolated offset, for `λ₁` only.
+
+Because saturation currently enters through RH, the model describes item 1(a) quantitatively but does not prove it.
+
+## Round 37: saturation without RH (Unconditional.lean, `frontier/unconditional.py`)
+
+**What replaces RH.** `Saturation.lean` (round 35) took the explicit formula with every zero on the line, i.e. RH, as input. Here the inputs are theorems, plus one property of the ground state that is observed numerically:
+* **`hQ`: the unconditional explicit formula** `Q = Σ_ρ ĝ(t_ρ)²`, over all nontrivial zeros with multiplicity. For even `g`, the transform of the autocorrelation is `ĝ²`.
+* **`hRH`: verified RH up to `H`.** Zeros with `|Re t| ≤ H` are real. Platt–Trudgian give `H = 3·10¹²`; this is cited from memory and should be checked against the source.
+* **`hstrip`: the critical strip,** `|Im t| ≤ ½`.
+* **`hS`: a zero-counting bound,** `Σ_{|Re t| > H} (Re t)⁻² ≤ S`. With Trudgian's explicit `N(T)` bound (from memory: `N(T) ≤ (T/2π)log(T/2πe) + 7/8 + 0.112 log T + 0.278 log log T + 2.51`), `S_H = 4∫_H^∞ N⁺(t)/t³ dt = 5.7×10⁻¹²`.
+* **The ground state is even, `≥ 0` and non-increasing on `[0, a]`.** Observed at every support tested (below). Not proved.
+
+**Proved (four theorems, standard axioms only):**
+* `norm_ghatC_le_of_antitone`: for `g` even, `≥ 0` and non-increasing on `[0, a]`, `‖ĝ(z)‖ ≤ 2g(0)cosh(a|Im z|)/‖z‖`. The proof is a layer cake: each level set is a symmetric interval, whose transform is `2 sin(zr)/z`, and `|sin w| ≤ cosh(Im w)`.
+* `sq_le_of_explicit_tail`: every verified zero `t_j` has `‖ĝ(t_j)‖² ≤ Q + B²S`. The low terms are nonnegative squares of real numbers, and each high term is `≥ −B²/(Re t)²`.
+* `ghatC_im_eq_zero`: `ĝ` is real on the real line for even `g`.
+* `pinned_unconditional`: with `B = 2g(0)cosh(a/2)`, `ĝ` has a zero within `√(Q + B²S)/m` of every verified zeta zero near which `|ĝ'| ≥ m`, with fixed sign.
+
+**Numbers** (normalised ground states; `B ≈ 3.5–4.1`, `B²S_H ≈ 7–10×10⁻¹¹`; the bounds use the computed `|ĝ'(γ_j)|`):
+
+| `δ` | `λ₁` | non-increasing on `[0, a]`? | `B²S_H` | Lean bound at `γ₁` | at `γ₂` | at `γ₃` |
+|---|---|---|---|---|---|---|
+| 0.60 | 7.6e-03 | yes (largest step -1e-04) | 7.5e-11 | 2.5e+00 | 9.4e+00 | 9.7e+00 |
+| 1.00 | 9.4e-07 | yes (largest step -1e-04) | 7.0e-11 | 7.9e-02 | 6.5e-01 | 1.5e+00 |
+| 1.20 | 1.6e-09 | yes (largest step -1e-04) | 7.0e-11 | 4.7e-03 | 6.8e-02 | 2.5e-01 |
+| 1.38 | 8.8e-13 | yes (largest step -5e-06) | 7.1e-11 | 1.2e-03 | 2.5e-02 | 1.2e-01 |
+| 2.00 | 6.3e-30 | yes (largest step -5e-13) | 7.6e-11 | 2.1e-03 | 8.2e-02 | 6.9e-01 |
+| 3.00 | 4.3e-97 | yes, up to rounding (largest step 4e-16) | 9.7e-11 | 3.3e-03 | 2.0e-01 | 2.4e+00 |
+
+**Findings.**
+* Where `λ₁ ≫ B²S_H` (`δ ≲ 1.2`), the bound without RH equals the RH-conditional one.
+* Beyond that the tail dominates, but the lowest zeta zeros are still certified. At `δ = 2` the ground state has a zero within `2×10⁻³` of `γ₁` and `0.08` of `γ₂`. At `δ = 3`: `3×10⁻³` and `0.2`.
+* The RH-conditional bound of round 35 reaches much further (`10⁻¹³` at `γ₁`, `δ = 2`), because there the tail `B²S_H ≈ 7×10⁻¹¹` is replaced by `λ₁ = 6×10⁻³⁰`.
+
+**What is still assumed.**
+* **Monotonicity of the ground state**, which gives the decay constant `B`. It is numerically true; for `δ < log 2` a rearrangement argument should prove it (the kernel `e^{u/2}/sinh u` is decreasing and the pole weight `cosh(u/2)` is increasing). With primes present, it is open.
+* **The slope bound** `|ĝ'| ≥ m` on each window. The table uses computed values, not a certified enclosure of the true ground state.
+* **The three external inputs** (the explicit formula, the verified height `H`, the `N(T)` bound). These are published theorems, but they are named inputs, not formalised.
+
+Of these, only monotonicity and the slope bound concern the ground state itself. Neither involves RH.
+
+## Round 38: comparison with Zhu (arXiv 2608.24827) (`frontier/certify_gamma1.py`, `frontier/predict_zhu_results.jsonl`)
+
+Zhu (Sept 2026) studies the same Weil quadratic form on `[−L, L]`; his `L` is our `a = δ/2`. His paper has:
+* certified Weil positivity on `[−0.8, 0.8]` (`λ₁ ≥ 8.9×10⁻¹⁸`);
+* at `L = 0.8` (Theorem 6.2), a certified simple, even ground state, with `λ₁ ∈ [8.9×10⁻¹⁸, 2.523×10⁻¹⁶]`, `λ₂^even ≥ 2.085×10⁻¹²` and `λ₁^odd ≥ 8.206×10⁻¹⁵`;
+* certified upper bounds on `λ*` to `L = 2` (Table 3);
+* a fitted law, `−ln λ* ≈ 2π²·N(T*)/ln N(T*)` with `T* = 2πe^{2L}`;
+* a conditional theorem, `λ* ≤ exp(−Le^L)`.
+
+Numbers quoted from his paper are named inputs, not re-derived here.
+
+**1. Cross-validation.** Our `λ₁` (ball Gram, `tools/research/weil_prime_gram.py`) matches his Table 1 to 3 digits at `δ = 1, 1.2, 2`. At `δ = 1.6` our Rayleigh value `1.673×10⁻¹⁷` lies inside his certified interval.
+
+**2. Our depth model against his certified `−ln λ*`.** The model is the round-36 model (`predict.py`), unchanged. The comparison was run after reading his table, so it is out of sample but not pre-registered. `δ = 2.0` is in-sample for the offset fit.
+
+| `δ` (`L`) | ours | Zhu, certified | difference | his `2π²N/lnN` law |
+|---|---|---|---|---|
+| 2.0 (1.0) | 67.22 | 66.99 | +0.23 | 77.24 |
+| 2.4 (1.2) | 110.79 | 110.53 | +0.26 | 115.31 |
+| 2.8 (1.4) | 176.86 | 176.65 | +0.21 | 176.05 |
+| 3.2 (1.6) | 276.37 | 276.46 | −0.09 | 270.35 |
+| 3.6 (1.8) | 426.06 | 426.22 | −0.16 | 415.27 |
+| 4.0 (2.0) | 649.99 | 650.47 | −0.48 | 636.85 |
+
+The law column uses the smooth `N(T)`. The constrained-equilibrium model tracks the certified values to `≤ 0.5` across the whole range. The one-constant law is off by up to 10 near `δ = 2` and drifts by 13 at `δ = 4`.
+
+**3. Where the dodging happens.** Zhu's `T* = 2πe^{2L}` is a density-crossing heuristic. Our edge is `T_edge ≈ 4πe^{2a}` (round 33), about `2T*` (89.3 vs 46.4 at `L = 1`). The measured pinning fronts (round 36; 82.9 at tolerance 0.1, `δ = 2`) lie well beyond `T*`. So `T*` sets the scale but underestimates how far the zeros of `ĝ` are pinned.
+
+**4. What we took from him: a certified slope at `γ₁`.** His certified gap at `L = 0.8` closes one of the two ground-state gaps left open in round 37, at `δ = 1.6` and `γ₁` only. `certify_gamma1.py` proceeds in five steps:
+* `φ` is the computed ground state (`K = 160`, 800 bits). Its Rayleigh quotient `ρ` is a ball value.
+* Davis–Kahan gives `‖φ − g‖² ≤ 2(ρ − λ₁^lo)/(λ₂^lo − ρ)`, so `‖φ − g‖ ≤ 2.74×10⁻³`.
+* This gives `|ĝ' − φ̂'| ≤ √(2a³/3)·‖φ − g‖ = 1.60×10⁻³`.
+* Ball arithmetic encloses `φ̂'` on `γ₁ ± 5×10⁻³` in `[−5.70, −5.31]×10⁻³`. So the true ground state has `|ĝ'| ≥ 3.71×10⁻³`, with fixed sign, on that window.
+* With the round-37 bound, `ĝ` has a zero within `2.75×10⁻³` of `γ₁`, which is inside the window.
+
+The pinning claim assumes the ground state is non-increasing on `[0, a]` with `g(0) ≤ 2` (computed: 1.65). `L²` closeness does not control `g(0)`, so this remains an assumption. It also relies on the round-37 named inputs.
+
+At `γ₂` the slope is `~2×10⁻⁴`, below the enclosure error, so it is **not** certified. Going further needs a certified gap at larger `δ`, or a pointwise (not `L²`) closeness bound.
+
+**What stays ours.** None of the following appears in Zhu:
+* the edge law and the `2/e` ratio;
+* the transition-zone derivation;
+* the depth model in item 2;
+* the monotone zero flow;
+* the Lean pieces (prime-side reduction, the concave Pólya theorem, the saturation reductions).
+
+**What he has that we don't:**
+* certified positivity;
+* parity and gap theorems;
+* the barrier `T₁ = 2πe^{A_L}`;
+* the conditional theorem.
+
+## Round 39: a certified gap at `L = 1` (support 2) (`frontier/gap_L1/`, `frontier/certify_gamma1_delta2.py`)
+
+Zhu certified the gap at `L = 0.8`. Here the same method is carried out at `L = 1` (`δ = 2`), in both parity sectors.
+
+**Theorem (computer-assisted).** Let `λ₁, λ₂` be the first two min–max values of `Q(f)/‖f‖²` over real `f` with `supp f ⊆ [−1, 1]`, taken separately in each parity sector. Then:
+
+| sector | `λ₁` | `λ₂` |
+|---|---|---|
+| even | `5.192×10⁻³⁰ ≤ λ₁ ≤ 6.040×10⁻³⁰` | `≥ 1.885×10⁻²³` |
+| odd | `≥ 1.309×10⁻²⁶` | `≥ 1.962×10⁻²⁰` |
+
+Consequences:
+* The ground state is simple and even. The odd sector clears it by a factor of at least 2100; the second even value clears it by at least 3×10⁶.
+* By Zhu's parity splitting (his Lemma 6.1), `Q(f) ≥ 5.19×10⁻³⁰‖f‖²` for every complex `f` supported in `[−1, 1]`. So Weil's functional is positive on all `g = f ⋆ f̃*` with `supp g ⊆ [−2, 2]`. **Correction (round 40):** positivity at this support is not new. Liu ("Certified Weil positivity beyond the unit window", 14 Sept 2026) certified coercivity `2⁻¹⁵¹` at `L = 1` and `2⁻⁴⁹¹⁶²` at `L = 17/16`. What is new here is the sharp constant (`5.19×10⁻³⁰` against a true value of about `5.9×10⁻³⁰`), the gap `λ₂`, and the parity and simplicity statement.
+* The lower bounds are about 12% below Zhu's converged (uncertified) values `5.88×10⁻³⁰` and `2.18×10⁻²³`, as they must be. The upper bound is a ball Rayleigh quotient of `Q` itself (cosine basis, `K = 240`).
+
+**Method.** Zhu's one-stroke reduction (his Theorem 1.1). Before relying on it I rechecked its envelope lemma line by line: Binet's second formula at `5/4 + it/2`, `t ≥ 15/4`.
+* `T♯ = 2496 > T₁ = 2187`, so `β* = log(T♯/2π) − 1/T♯ − A₁ = 0.13170`.
+* The reduced form `R ≤ Q` is assembled in 1850 Legendre modes per sector.
+* Entry errors: per entry `≤ 4.0×10⁻⁶⁰`. The Legendre tail beyond order 3700 gives `ε_D ≤ 6×10⁻²⁷⁹` and coupling `ε_B ≤ 5×10⁻¹³⁴`.
+
+The steps, all in arb ball arithmetic except where noted:
+* **Quadrature** (`nodes.py`). 46 Gauss–Legendre panels, 6147 nodes. Each panel's error is bounded by Trefethen's Bernstein-ellipse bound, with `M` from:
+  * `|j_n(z)| ≤ e^{|Im z|}`;
+  * `|cos(z log n)| ≤ cosh(b log n)`;
+  * a ball covering of the ellipse boundary for the digamma part. The poles at `±i(2k+½)` are kept outside.
+* **Legendre transforms** (`assemble.py`). `F_n(t) = i^n √(2(2n+1)) j_n(t)`. The two top orders come from the power series with an alternating-tail bound; the rest follow from the downward three-term recurrence. Working precision is up to 4300 bits, because ball radii grow like `2^{1.44t}` on the recurrence. Nodes are carried to 4400 bits for the same reason. `C = Vᵀ diag(h) V` is formed by `arb_mat` products (4 workers, about 4 minutes).
+* **Certificate** (`la.py`). This is a Schur-complement inertia count, not a large Cholesky:
+  * The block of Legendre orders `≥ 32` has `λ_min ≥ μ = 0.0658`. This is certified by a float64 Cholesky with a Higham `γ_n` residual bound.
+  * `X ≈ D⁻¹B` is refined in arb to residual `‖R‖² ≈ 10⁻¹¹³`.
+  * Congruence plus Haynsworth: the number of eigenvalues of `M` below `s` equals the number of negative pivots in a 16×16 ball `LDLᵀ` of the Schur complement, whose entries are widened by `‖R‖²/μ`.
+  * Bisection on `s` gives the table. The certified bracket for `R` is tight: `λ₁(R) ∈ [5.192, 5.202]×10⁻³⁰` and `λ₂(R) ∈ [1.8854, 1.8875]×10⁻²³`.
+  * The lift to the full space is Zhu's two-block bound: `λ_k(Q) ≥ λ_k(R) ≥ min(λ_k(M), β* − ε_D) − ε_B`.
+* The `L = 1` runs took `τ = β*/2` for the high-block Cholesky shift. The committed `la.py` takes half the float64 estimate of `λ_min` instead, because the `L = 0.8` block has an eigenvalue below `β*/2`. Both are certified by the same residual bound.
+* **Validation** (`validation_L08.txt`). The same code at Zhu's parameters (`L = 0.8`, `T♯ = 200`, `N = 200`) gives:
+  * `β* = 0.5134667749`, his value;
+  * `λ₁(R₂₀₀) ∈ [1.00, 1.05]×10⁻¹⁷`, consistent with his certified `8.9×10⁻¹⁸`.
+
+**What the result rests on:**
+* Zhu's reduction. Its two lemmas are elementary and were rechecked here.
+* Trefethen's Gauss error bound (a published theorem, cited from memory).
+* The correctness of arb and FLINT, including `legendre_p_root` weights and `acb_digamma` enclosures.
+* IEEE float64 for the well-conditioned high block, covered by the `γ_n` bound.
+
+No zeta zeros and no RH are used.
+
+**Use: `γ₁` pinned at `δ = 2` from our own gap** (`certify_gamma1_delta2.py`, with the sharper Davis–Kahan bound `sin²θ ≤ (ρ − λ₁^lo)/(λ₂^lo − λ₁^lo)`):
+* `‖φ − g‖ ≤ 3.0×10⁻⁴`, where `φ` is the cosine ground state with `K = 240`, `ρ = 6.039×10⁻³⁰`.
+* So `|ĝ' − φ̂'| ≤ 2.45×10⁻⁴`, and `|ĝ'| ≥ 3.81×10⁻³` with fixed sign on `γ₁ ± 5×10⁻³`.
+* Hence a zero of `ĝ` lies within `2.83×10⁻³` of `γ₁`.
+
+This still assumes monotonicity with `g(0) ≤ 2` (computed 1.62), plus the round-37 inputs.
+
+`γ₂` is not reached: its slope `~1×10⁻⁴` is below the error. Closing that would need `ρ − λ₁^lo ≲ 10⁻³¹`. But `R` itself already sits 12% below `Q`, so a larger `T♯` or a pointwise closeness bound would be needed.
+
+**Reproduce:**
+```
+cd frontier/gap_L1
+python3 nodes.py
+for k in 0 1 2 3; do python3 assemble.py $k 4 [1] & done; wait
+python3 la.py bisect x 16 [1]
+```
+The optional `1` selects the odd sector. `GAPCFG=L08` selects the validation run.
+
+## Round 40: work on (a), convergence of the ground state to `Ξ` (`frontier/xi_conv/`)
+
+`(a)` (`HypConv`, `PrimeSide.lean`) says `ĝ_a(z)/ĝ_a(0) → Ξ(z)/Ξ(0)` locally uniformly as the support grows. Throughout, `a` is the half-width, Zhu's `L`.
+
+**Status first.**
+* **Close to a known conjecture.** Connes–Consani–Moscovici (*Zeta Spectral Triples*, arXiv 2511.22755) conjecture the analogous convergence of regularised determinants to `Ξ`. They note that a proof would establish RH.
+* **Our own (a) also looks RH-strength.** If RH fails, `λ₁(a) < 0` for all large `a`. The ground state is then driven by the off-line zero, and nothing suggests its transform tends to `Ξ`. This is a heuristic, not a theorem.
+* **Where RH enters the natural proof.** Showing that a limit of `ĝ_a/ĝ_a(0)` vanishes at every zeta zero uses `Q = Σ_γ |ĝ(γ)|²`, a sum of squares, which is RH. So (a) is not "pure analysis", which corrects what I said before round 40.
+
+What follows is what could be established.
+
+**1. Theorem A (unconditional).** Let `Φ` be Riemann's kernel (`Ξ = ∫ Φ e^{izu}`, up to a constant) and `Φ_a = Φ·1_{[−a,a]}`. Then
+`λ*(a) ≤ Q(Φ_a)/‖Φ_a‖² ≤ S·e₁(a)²/‖Φ_a‖² = exp(−2πe^{2a} + O(a))`.
+
+The terms are:
+* `e₁(a) = 2[Φ(a)cosh(a/2) + ∫_a^∞ |Φ'| cosh(u/2)]`;
+* `S = 2·(197/196)·B = 0.0464`, where `B = Σ_ρ Re(1/ρ) = 1 + γ_E/2 − ½log 4π`.
+
+The proof takes four lines:
+* By the explicit formula, `Q(Φ_a) = Σ_ρ E_a(z_ρ)²`, with `E_a = Ξ − Φ̂_a` (`Ξ` vanishes at every zero, on the line or not).
+* `|E_a(z)| ≤ e₁/|z|` on `|Im z| ≤ ½` (integration by parts, `|sin(zu)| ≤ cosh(u/2)`).
+* `Σ_ρ 1/γ² ≤ S`, by pairing `ρ` with `1 − ρ̄`.
+* No RH is needed.
+
+Values (`thmA_results.jsonl`):
+
+| `a` | `−ln` of bound | Zhu's certified `−ln λ*` | Zhu Theorem 1.3 (assumes RH): `a·e^a` |
+|---|---|---|---|
+| 1.0 | 29.1 | 66.99 | 2.7 |
+| 2.0 | 316.0 | 650.47 | 14.8 |
+
+It has the true double-exponential rate `e^{2a}`, with coefficient `2π` against the conjectured `2π²`. Zhu's RH-conditional Theorem 1.3 reaches only `e^{a}`, and he describes `e^{2a}` as out of reach of his construction. We have not found Theorem A in the literature, but a search is not proof that it is new.
+
+**2. What (a) means, concretely.**
+* **Moment identity (exact).** `ĝ_a(z)/ĝ_a(0) = (Ξ(z)/Ξ(0))(1 + κ(a)z² + O(z⁴))` with `κ(a) = (M₂(Φ) − m₂(g_a))/2`. Here `m₂` is the normalised second moment, and `M₂/2 = Σ_{γ>0} 1/γ² = 0.0231050`. Checked numerically: the moment formula gives `5.3194×10⁻³` against a direct fit of `5.3230×10⁻³` at `δ = 1.4`.
+* **Probabilistic form.** The ground state is positive in every run (`moments.py`; the minimum is at the edge). So `μ_a = g_a/∫g_a` is a probability density, and (a) becomes a limit theorem: `μ_a → Φ/∫Φ` in distribution, with uniformly bounded exponential moments. This follows from Lévy continuity plus Vitali. It is standard, but not formalised here.
+* **Proof skeleton**, with its weak points marked:
+  * (L1) `g_a ≥ 0`: observed, not proved.
+  * (L2) tightness and exponential moments: plausible.
+  * (L3) every limit's transform vanishes at all zeta zeros: **needs RH**, via the sum of squares.
+  * (L4) `κ(a) ≥ 0`: observed at every `δ`.
+  * (L5) no extra zeros of `ĝ_a` inside fixed discs: the D-route again.
+  * Given (L3), the limit is `Ξ·H` with `H` even and of order ≤ 1. (L4) excludes real extra zeros of `H` but not imaginary ones. Excluding those is where (b)-type information enters.
+
+**3. Measurements.**
+* **L² convergence.** The angle between `g_a` and `Φ_a` shrinks steadily, like `e^{−2.2a}`: `sin θ` = 0.135, 0.082, 0.052, 0.033, 0.022, 0.014 at `δ` = 1.0, 1.4, 1.8, 2.2, 2.6, 3.0. So the ground state converges to Riemann's kernel in `L²`, but only exponentially, not double-exponentially. It still beats `Φ_a` by a factor of about 2 in `−ln λ`: `Φ_a` is not the ground state, only its limit.
+* **The error in (a) is `κ(a)z²` to leading order, and `κ` has a derived law.** The Hadamard tails give `κ = Σ_{γ>T} 1/γ² − Σ_{unpinned w} 1/w² ≈ (log(T/2π) + 1 − 2a)/(2πT)`. At the round-33 edge `T = 4πe^{2a}` this is `κ = (1 + log 2)/(8π²)·e^{−2a}`.
+* The prediction was registered at 18:28 UTC, before the `δ = 2.6, 3.0` runs (`predictions_kappa_registered_1828UTC.txt`):
+
+  | `δ` | `κ` measured | `κ` predicted | ratio |
+  |---|---|---|---|
+  | 1.0 | 8.337e-3 | 7.889e-3 | 1.057 |
+  | 1.4 | 5.323e-3 | 5.288e-3 | 1.007 |
+  | 1.8 | 3.466e-3 | 3.545e-3 | 0.978 |
+  | 2.2 | 2.282e-3 | 2.376e-3 | 0.960 |
+  | 2.6 (registered) | 1.513e-3 | 1.593e-3 | 0.950 |
+  | 3.0 (registered) | 1.006e-3 | 1.068e-3 | 0.942 |
+
+  The law holds to 6% out of sample, but there is a systematic drift. `κe^{2a}` falls from 0.0227 to 0.0202 and appears to settle near 0.0200, about 7% below `(1+log 2)/(8π²) = 0.0214`. That corresponds to an effective edge near `14.7e^{2a}` rather than `4πe^{2a} = 12.6e^{2a}`, consistent with the transition zone of round 34. So the constant is leading order, not exact.
+
+**What this gives (a).**
+* A precise target: `κ(a) → 0`, at rate `e^{−2a}`, with a derived constant.
+* An unconditional witness `Φ_a` whose transform satisfies (a) exactly.
+* A located obstruction: step (L3) is RH.
+
+It does not give a proof. Since (a) looks RH-strength, it is not the easier half of the chain it was meant to be. The honest summary: (a) and (b) together are a reformulation, and both halves carry RH content.
+
+## Round 41: two tests of (b) suggested by Paper 0 (`frontier/lp_tests/`)
+
+Paper 0's ball slices `(1 − x²)^{d/2}` have Bessel transforms `J_ν(t)/t^ν` with `ν = (d+1)/2`, which have only real zeros. Products of real-rooted transforms are real-rooted. Two tests follow: whether the ground states pass the classical criterion for real-rootedness, and whether they are convolutions of ball slices.
+
+**A. Pólya–Schur / Jensen test** (`jensen_test.py`).
+* **The criterion.** Write `ĝ_a(z)/ĝ_a(0) = φ(−z²)` with `φ(w) = Σ γ_j w^j/j!` and `γ_j = j!·μ_{2j}/(2j)!`, where `μ_{2j}` are the normalised moments of `g_a`. If `ĝ_a` is real-rooted, then every Jensen polynomial `Σ_i C(d,i) γ_{n+i} w^i` has only real roots. A non-real root proves a non-real zero of `ĝ_a`.
+* **Controls:**
+  * `Ξ` itself (moments of Riemann's `Φ`) passes all 364 polynomials (`d ≤ 14`).
+  * The positive, decreasing probe `1_{[−1,1]} + 2·1_{[−1/3,1/3]}`, whose transform has non-real zeros, fails 11, from degree 4 on.
+* **Ground states** at `δ` = 0.6, 1.0, 1.4, 1.8, 2.2, 2.6, 3.0 pass all 364.
+* **The pass carries little information.** A sensitivity test inserted one non-real pair at `±(T + iη)` into the `δ = 1.4` transform (`sens.py`):
+  * with `d ≤ 14`, only a pair below the first zero (`T = 8`, `η = 2`) is detected;
+  * with 90 moments and `d ≤ 44`, `T = 16` is detected from degree 27 on, and `T = 30` is still missed.
+
+  The criterion's reach grows very slowly with the degree. Counting zeros directly (round 23: all real at `δ = 1–3`) is far stronger evidence. Jensen polynomials are not a useful instrument for (b) here.
+
+**B. Is the ground state a convolution of ball slices?** (`conv_test.py`)
+* **The test.** If `g_a = s ⋆ h` with `s = (1 − u²/r²)^{ν−1/2}` on `[−r, r]`, then every zero `j_{ν,k}/r` of `ŝ` is a zero of `ĝ_a`. Compute the real zeros of `ĝ_a` to high precision, then try every radius that puts the first slice zero on one of them, for `ν = 0, ½, …, 10`.
+* **δ = 2** (`T_max = 180`): `ĝ` has 55 real zeros, the first six equal to the zeta zeros to 7 digits. No candidate survives the check of its second zero. Any slice factor must have `r < j_{ν,2}/180`, i.e. 3–10% of the half-width `a = 1`.
+* **δ = 3** (`T_max = 250`): `ĝ` has 107 real zeros, which equals zeta's count there. No survivors; `r` is at most 1.5–5% of `a = 1.5`.
+* **Why this must happen.** Below the dodging edge the zeros of `ĝ` are the zeta zeros. A slice factor would force an almost-arithmetic progression `j_{ν,k}/r` into that set, and zeta zeros contain none. So geometric factors can only live beyond the edge, with support of order `e^{−2a}`. A Gaussian factor is impossible outright, since `g_a` has compact support.
+* **Consequence.** The closure of Paper 0's slices under convolution (the "Laguerre–Pólya closure" candidate of round 24) cannot explain (b). The factor that carries the zeta-pinned zeros is not geometric.
+
+## Round 42: (b) from spectral simplicity, and what the zero flow is really tracking (`frontier/simplicity/`)
+
+**Known result that settles the mechanism.** Connes and van Suijlekom (*Quadratic Forms, Real Zeros and Echoes of the Spectral Action*, arXiv 2511.23257) prove the following for quadratic forms given by a real even distribution on `[−L, L]`, which includes Weil's form. If the lowest spectral value is a simple, isolated eigenvalue with an even eigenfunction `ξ`, then every zero of `ξ̂` is real. Their proof is a continuous Carathéodory–Fejér argument.
+* So (b) is a spectral non-degeneracy statement, not a statement about the shape of `g`. That explains why every shape mechanism failed (rounds 24–29, 41).
+* It is rigorous at two supports:
+  * at `δ = 1.6` from Zhu's Theorem 6.2;
+  * at `δ = 2` from round 39 (even `λ₁ ≤ 6.04×10⁻³⁰` against odd `λ₁ ≥ 1.31×10⁻²⁶` and even `λ₂ ≥ 1.885×10⁻²³`).
+
+  At both, the true ground state's transform has only real zeros.
+
+**1. Zero-swap lemma (proved here; a short even-sector variant of Carathéodory–Fejér).** Let `g` be an even ground state on `[−a, a]` that is simple within the even sector. Then every zero `w` of `ĝ` has `w²` real, i.e. `w` is real or purely imaginary.
+
+*Proof.*
+1. Suppose `ĝ(w) = 0` with `σ = w² ∉ ℝ`. Set `F₂(z) = ĝ(z)·(z² − σ̄)/(z² − σ)`.
+2. `F₂` is entire, even, of exponential type `a`, and `|F₂| = |ĝ|` on `ℝ`, since `t²` is real. So by Paley–Wiener `F₂ = f̂₂` for a complex even `f₂ ∈ L²[−a, a]`.
+3. At the pole point `z = i/2`, `z² = −¼` is also real, so `|F₂(i/2)| = |ĝ(i/2)|`.
+4. On complex even functions `Q(f) = 2|f̂(i/2)|² + (1/π)∫₀^∞ |f̂|²Φ = Q(Re f) + Q(Im f)`. Hence `Q(f₂) = Q(g)` and `‖f₂‖ = ‖g‖`.
+5. Since `Q(u) ≥ λ₁‖u‖²` for every even `u`, `Re f₂` and `Im f₂` are ground states (or zero). By simplicity `f₂ = c·g`, so `(z² − σ̄)/(z² − σ)` is constant, which forces `σ ∈ ℝ`. Contradiction. ∎
+
+The odd sector would not work this way: there the pole enters with the other sign.
+
+**2. The flow picture this gives.** While the even ground state stays simple, its zeros are confined to the cross `ℝ ∪ iℝ`. A zero can leave the real axis only through the origin (`ĝ(0) = ∫g = 0`) or through imaginary infinity. For `g(a) ≠ 0`, `ĝ(iy) ~ g(a)e^{ay}/y`, so a pair enters from infinity only when `g(a)` changes sign. So (b) holds along the whole `δ`-flow if:
+* the even ground state is simple for all `δ`;
+* `∫g_δ ≠ 0` and `g_δ(a) ≠ 0` for all `δ`;
+* the start is real-rooted (concave regime, round 24).
+
+Zero collisions in the flow correspond to eigenvalue crossings at the bottom of the spectrum.
+
+**3. Tested against round 30's "universality" failures** (`jitter_real.py`, `where.py`, `track.py`). With primes jittered by ±1% in frequency or ±10% in weight, the ground states are still simple (gap ratio O(1)–10²). Wherever non-real zeros occur, they are **purely imaginary**, stable from `K = 60` to `K = 90`, and occur only where `g` changes sign. Every one of the 18 cells fits the lemma.
+
+In the tracked cell (seed 1, ±1% frequencies):
+* `g(a)` changes sign between `δ = 0.95` and `1.0`;
+* one imaginary pair appears at `δ = 1.05`.
+
+That is the predicted entry from imaginary infinity. So round 30's jitter broke the flow's *monotonicity*, not the realness mechanism. The realness failures are exactly the sign changes of `g` at the edge. For `ζ`, `g_δ(a) > 0` at every `δ` tested (`g(a)/g(0)` = 1.6e-3, 2e-11, 1.2e-30 at `δ` = 1, 1.8, 2.6), and `ĝ(0)/‖g‖ ≈ 0.8–0.87`.
+
+**4. A Perron–Frobenius route to simplicity** (`simple_test.py`). Split `Q = Q₀ + 2⟨c, g⟩²`, with `c = cosh(t/2)` (the pole) and `Q₀` = archimedean Dirichlet form − prime shifts.
+* **`Q₀` is Perron–Frobenius.** Its off-diagonal kernel is `≤ 0`: the archimedean kernel `e^{u/2}/sinh u > 0` enters with a minus sign, and so do the prime shifts. So `Q₀(|g|) ≤ Q₀(g)` (the Beurling–Deny criterion). The kernel is positive on the whole window, so the semigroup should be positivity-improving, giving a simple, strictly positive ground state. This is a standard argument, but not formalised here.
+* **Rank-one step.** If `λ₁(Q) < λ₂(Q₀)`, then `λ₁(Q)` is a root of the secular equation and is simple. This uses `⟨c, φ₁(Q₀)⟩ ≠ 0`, which holds automatically because both are positive.
+* **Measured:**
+
+  | `δ` | `λ₁(Q)` | `λ₂(Q)` | `λ₁(Q₀)` | `λ₂(Q₀)` | margin `λ₂(Q₀)/λ₁(Q)` | `φ₁(Q₀)` min/centre |
+  |---|---|---|---|---|---|---|
+  | 1.0 | 9.4081e-7 | 0.018075 | -1.9874 | 0.011939 | 1.3e+04 | 0.58 |
+  | 1.4 | 4.2886e-13 | 8.765e-8 | -2.8671 | 5.6064e-8 | 1.3e+05 | 0.65 |
+  | 1.8 | 4.4732e-23 | 7.7004e-17 | -3.8232 | 4.9228e-17 | 1.1e+06 | 0.78 |
+  | 2.2 | 2.0513e-38 | 1.5772e-31 | -4.8362 | 1.0091e-31 | 4.9e+06 | 0.85 |
+  | 2.6 | 8.2926e-62 | 4.1933e-54 | -5.9636 | 2.6845e-54 | 3.2e+07 | 0.95 |
+  | 3.0 | 4.8634e-97 | 1.3171e-88 | -7.2314 | 8.4362e-89 | 1.7e+08 | 0.95 |
+
+* **Findings:**
+  * `Q₀`'s ground state is positive and simple at every `δ`, as Perron–Frobenius predicts.
+  * `λ₂(Q₀)` tracks `λ₂(Q)`: `λ₂(Q₀) ≈ 0.64·λ₂(Q)`, so `Q`'s second eigenvector is almost orthogonal to the pole.
+  * The simplicity margin grows from about `10⁴` to about `3×10⁷` and beyond.
+* **What remains.** Simplicity for all `δ` needs `λ₁(Q) < λ₂(Q₀)` for all `δ`. Theorem A's `Φ_a` bound (round 40) is too weak for this: at `a = 1` it gives `e^{−29}`, against `λ₂(Q₀) ≈ e^{−52}`. So it is a per-`δ` certificate question (as in round 39), not yet an asymptotic proof.
+
+**What this changes.**
+* (b) is no longer a mystery about shapes. It reduces to:
+  * simplicity of the even ground state (an eigenvalue non-crossing statement);
+  * two sign conditions, `∫g ≠ 0` and `g(a) ≠ 0`.
+
+  All three look RH-independent in kind, which the jittered cells support: those violate Weil positivity, yet the lemma's conclusion still holds.
+* **The zero flow's role.** It is the continuous path along which simplicity and the sign conditions must be maintained. Monotonicity of the zeros is not needed.
+* **RH is untouched.** The RH content sits in (a), as round 40 found. A proof of (b) for all `δ` along these lines would reduce the pilot's chain to "(a) ⇒ RH", with (a) carrying everything.
+
+## Round 43: the zero-swap lemma in Lean (ZeroSwap.lean)
+
+Round 42's lemma, formalised. It depends on the standard axioms only, with no `sorry` and no warnings. It is built on the existing ground-state machinery (`groundSpace`, `lam_mul_le`, `isGroundState_iff`, from rounds 14–15).
+
+**Definitions.**
+* `SimpleGround a g`: `g` is a ground state, and every element of `groundSpace a` is an a.e. multiple of `g`.
+* `SwapRealization a g σ` is the **named analytic input**. It asks for probes `u, v` such that:
+  * `û(z) + i·v̂(z) = ĝ(z)·(z² − σ̄)/(z² − σ)` whenever `z² ≠ σ`;
+  * `autocorr u + autocorr v = autocorr g` pointwise.
+
+  When `ĝ(w) = 0` and `σ = w²`, this is supplied by Paley–Wiener (the swapped function is entire of type `a` and `L²` on `ℝ`), by evenness, and by Fourier uniqueness for autocorrelations. None of these is in Mathlib; all are standard. Admissibility of `u, v` (the archimedean integral) is part of the input.
+
+**Proved.**
+
+| theorem | statement |
+|---|---|
+| `exists_real_ghatC_ne` | a normalised probe has `ĝ(t) ≠ 0` at some real `t` (Fourier coefficients on `[−2a, 2a]` are values of `ĝ`, and Parseval) |
+| `poleR_swap` | the swap preserves the pole value: `poleR(u)² + poleR(v)² = poleR(g)²`, because `(i/2)² = −¼` is real, so the multiplier has modulus 1 there |
+| `zero_swap_false` | **the core.** Under `SimpleGround` and a realised swap with `Im σ ≠ 0`: `Q(u) + Q(v) = Q(g)` and `‖u‖² + ‖v‖² = ‖g‖²`. So `u`, `v` are in `groundSpace` and hence `αg`, `βg`. So the multiplier is the constant `α + iβ` at every real `t` with `ĝ(t) ≠ 0`. Two such `t` with different squares exist (continuity), which forces `σ = σ̄`: a contradiction. |
+| `zeros_real_or_imag` | under `SimpleGround`, and the realisation for every zero off the cross, every zero `w` of `ĝ` has `w.re = 0 ∨ w.im = 0` |
+
+**How this fits the chain.** `rh_of_prime_side` needs (a) and `RealRooted`. This round gives the weaker conclusion "real or purely imaginary" from simplicity. Connecting it takes two steps not done here:
+* **a Hurwitz variant.** The cross `ℝ ∪ iℝ` is closed, so zeros of the limit `Ξ` lie on it too.
+* **`Ξ(iy) ≠ 0` for real `y ≠ 0`.** This is `ξ(σ) ≠ 0` on the real line, i.e. `ζ(σ) ≠ 0` for `0 < σ < 1`. It is classical, but not in Mathlib as far as I know.
+
+With both in place, the chain would read: (a) + simplicity at every large support + `SwapRealization` ⇒ RH. `groundState_unique_or_excited` (UniquenessQ.lean) already reduces simplicity to excluding an excited state of the pole-free form `Q₀` at energy exactly `λ₁`. Round 42's margins `λ₂(Q₀)/λ₁(Q)` = 10⁴–10⁸ measure how far that is from happening. Proving the exclusion for every support is still open.
+
+## Round 44: Hurwitz for closed sets, and the chain through the zero-swap lemma (HurwitzCross.lean)
+
+**Proved** (standard axioms only, no warnings):
+
+| theorem | statement |
+|---|---|
+| `hurwitz_closed` | if entire `F n → f` locally uniformly, `f ≢ 0`, and every zero of every `F n` lies in a closed set `S`, then every zero of `f` lies in `S`. `hurwitz_real` is the case `S = ℝ`. The proof is the same maximum-modulus argument, with the disc chosen inside `Sᶜ`. |
+| `isClosed_crossSet` | `ℝ ∪ iℝ` is closed |
+| `rh_of_prime_side_cross` | `rh_of_prime_side` with (b) weakened to "every zero of `ĝ_n` is real or purely imaginary". A zero of `Ξ` on the imaginary axis is a real zero of `ζ` in `(0, 1)`, which the named input excludes. |
+| `rh_of_simple_ground_states` | the chain with round 43's zero-swap lemma plugged in |
+
+**`rh_of_simple_ground_states`, stated.** It concludes Mathlib's `RiemannHypothesis` from these hypotheses:
+* supports `a n > 0`, with ground states `g n`;
+* **(a)** `HypConv`;
+* eventually, every ground state is **simple**;
+* eventually, `SwapRealization` holds for every zero off the cross (named: Paley–Wiener and Fourier uniqueness);
+* `ZetaNoZeroInUnitInterval` (named: `ζ(σ) ≠ 0` for `0 < σ < 1`). This is classical, via `(1 − 2^{1−σ})ζ(σ) = Σ(−1)^{n+1}n^{−σ} > 0`. Mathlib has only `Re s > 1`.
+
+**What is left, and where.**
+* **(a)** is the RH-strength core (round 40).
+* **Simplicity at every large support** is reduced in `UniquenessQ.lean` (round 15) to excluding one coincidence: an excited state of the pole-free form at energy exactly `λ₁`. It is certified at `δ = 1.6` (Zhu) and `δ = 2` (round 39). The margins measured at `δ = 1–3` are 10⁴–10⁸ (round 42). No proof covers every support.
+* **The two named inputs** are classical analysis and carry no RH content.
+
+## Round 45: `ζ(σ) ≠ 0` on `(0, 1)`, proved (ZetaUnitInterval.lean)
+
+*(Round 65: replaced by a short proof from `Φ > 0` in RiemannKernel.lean; ZetaUnitInterval.lean is removed.)*
+
+Round 44's named input `ZetaNoZeroInUnitInterval` is discharged. `ZetaUnitInterval.riemannZeta_ne_zero_of_mem_Ioo` imports only Mathlib, uses the standard axioms only, and builds with no warnings. `HurwitzCross.lean` now proves:
+* `zetaNoZeroInUnitInterval`;
+* `rh_of_simple_ground_states'`: (a), positive supports, and eventually simple ground states with the swap realised give Mathlib's `RiemannHypothesis`. No assumption about `ζ` remains.
+
+**The proof.** Mathlib defines `ζ` through the FE-pair of the theta kernel `θ(x) = Σ_{n∈ℤ} e^{−πn²x}`: `Λ(s) = P.Λ(s/2)/2` with `P.Λ(t) = ∫₀^∞ x^{t−1} h(x) dx − 1/t − 1/(½ − t)`. Here `h` is Mathlib's `f_modif`: `θ − 1` on `(1, ∞)` and `θ − x^{−½}` on `(0, 1)`.
+* **Mellin identification** (`f_modif_eq`, `Lambda0_eq`, `integrable_F`). The Mellin integral is the real integral `∫ x^{t−1}h`. Integrability comes from Mathlib's strong FE-pair `hasMellin`.
+* **Comparison integrals** (`integral_G`). For `0 < t < ½`, `1/t + 1/(½ − t) = ∫₀^∞ x^{t−1}m`, with `m = 1` on `(0, 1)` and `m = x^{−½}` on `(1, ∞)`: `integral_rpow` and `integral_Ioi_rpow_of_lt`.
+* **Pointwise sign** (`upper_piece`, `lower_piece`). `h ≤ m`, strictly on `(1, ∞)`.
+  * On `(1, ∞)` this is `θ − 1 < x^{−½}`.
+  * On `(0, 1)`, Mathlib's functional equation gives `θ(x) − x^{−½} = x^{−½}(θ(1/x) − 1)`.
+
+  Both reduce to one bound, `theta_bound`: `√y (θ(y) − 1) < 1` for `y ≥ 1`. It follows from `θ(y) − 1 ≤ 2q/(1 − q)`, `q = e^{−πy}` (termwise, since `n² ≥ |n|`), and from `√y q ≤ e^{(1−π)y} ≤ e^{−2} < 1/7`, with `q < 1/2`.
+* **Strictness** (`integral_F_lt`). `integral_pos_iff_support_of_nonneg_ae`; the support contains `(1, ∞)`.
+
+So `Λ(σ)` is a negative real (`completedRiemannZeta_re_neg`), and `ζ(σ) = Λ(σ)/Γ_ℝ(σ) ≠ 0`.
+
+**What the chain now rests on.**
+* (a) (`HypConv`), the RH-strength core.
+* Eventual simplicity of the ground states. It is reduced in UniquenessQ.lean, and certified at `δ = 1.6` and `2`.
+* `SwapRealization`: Paley–Wiener and Fourier uniqueness. This is the one remaining named analytic input, and it carries no RH content.
+
+## Round 46: the swap realisation, proved (SwapRealize.lean)
+
+The last named analytic input, `SwapRealization`, is now a theorem. `swapRealization_of_zero` proves it for **every** probe `g` and every zero `w` of `ĝ` with `w²` non-real. It uses the standard axioms only, and the build prints no warnings. No Paley–Wiener theorem is needed, because the swapped function can be written down explicitly.
+
+**The construction.** Let `σ = w²`. `g` is even, so `ĝ(−w) = ĝ(w) = 0` (`ghatC_neg_of_even`). Let `h` be the Green solution of `h'' + σh = g` started at `−a`:
+
+  `h(x) = ∫_{−a}^{x} sin(w(x − y))/w · g(y) dy = (e^{iwx}P_{−w}(x) − e^{−iwx}P_w(x))/(2iw)`,
+
+where `P_c(x) = ∫_{−a}^{x} g(y)e^{icy} dy`. Put `f₂ = g + (σ̄ − σ)h`, `u = Re f₂` and `v = Im f₂`.
+
+| theorem | statement |
+|---|---|
+| `hSw_supp` | `h` vanishes for `|x| > a`. For `x ≥ a`, `P_{±w}(x) = ĝ(±w) = 0`. `P_{−c}(−x) = ĝ(c) − P_c(x)` (`Pc_neg`) makes `h` even (`hSw_even`), which covers `x ≤ −a`. |
+| `triangle_swap` | `∫_α^β e(x)∫_α^x f(y) dy dx = ∫_α^β f(y)∫_y^β e(x) dx dy`, for continuous `e` and integrable `f` (Fubini on the product with an indicator) |
+| `hSw_hat` | `ĥ(z) = −ĝ(z)/(z² − w²)` for `z² ≠ w²`: `triangle_swap`, then `∫_y^a e^{i(z±w)x}dx` in closed form; the boundary terms carry `ĝ(±w) = 0` |
+| `swap_hat` | **R1:** `û(z) + iv̂(z) = ĝ(z)(z² − σ̄)/(z² − σ)` |
+| `swap_autocorr` | **R2:** `A_u(s) + A_v(s) = A_g(s)` for every `s`. On `[−6a, 6a]` the Fourier coefficients are `ĝ`-values at real points (`cf_eq_ghatC`). There `ĝ_u` and `ĝ_v` are real (`ghatC_im_zero`: even real functions), and the multiplier has modulus 1 (`norm_swapB`). So `|c_n(u)|² + |c_n(v)|² = |c_n(g)|²` (`swap_cf`). Parseval for `g − g(·+s)` (`hasSum_shift'`, which needs only `L²` and the support) gives R2 for `|s| < 3a`. For `|s| > 2a` all three sides vanish (`autocorr_eq_zero_far`). |
+| `arch_dom` | `u` and `v` are admissible: `0 ≤ E_u(x) ≤ E_g(x)` pointwise, from R2 and `archIntegrand_nonneg` |
+| `swapRealization_of_zero` | `SwapRealization a g (w²)`: `u` and `v` are probes (even, supported in `[−a, a]`, in `L²` since `h` is continuous with compact support, archimedean-integrable), with R1 and R2 |
+| `zeros_real_or_imag'` | **every zero of a simple ground state is real or purely imaginary**, with no further input |
+| `rh_of_eventually_simple` | `(a) + eventual simplicity ⇒ RiemannHypothesis` |
+
+**`rh_of_eventually_simple`, stated.** It concludes Mathlib's `RiemannHypothesis` from exactly these hypotheses:
+* supports `a n > 0`, with `g n` a ground state of Weil's form at support `a n`;
+* eventually, `g n` is simple (`SimpleGround`);
+* **(a)** `HypConv a g`: the rescaled transforms converge to `Ξ` locally uniformly.
+
+No named analytic input remains, and no hypothesis mentions a zero of `ζ`.
+
+**What this does and does not change.**
+* The formal chain is now **RH ⇐ (a) + eventual simplicity**. Both remaining inputs are genuine open problems. (a) is RH-strength (round 40). Simplicity is certified at `δ = 1.6` (Zhu) and `δ = 2` (round 39), and its margins at `δ = 1–3` are 10⁴–10⁸ (round 42); no proof covers every support.
+* `zeros_real_or_imag'` is unconditional in the analytic sense: any simple ground state, at any support, has all its transform zeros on `ℝ ∪ iℝ`. This agrees with round 42's numerics, where every non-real zero found was purely imaginary.
+* This is weaker than Connes–van Suijlekom (arXiv 2511.23257), who get all zeros real under their simplicity hypothesis. Here, purely imaginary zeros of `ĝ_n` are allowed. They are excluded only in the limit, through Hurwitz and `ζ(σ) ≠ 0` on `(0, 1)`.
+
+## Round 47: simplicity, support by support (SimpleCover.lean, `frontier/simplicity_cover/`)
+
+Round 46 reduced the chain to **RH ⇐ (a) + eventual simplicity**. This round works on simplicity.
+
+**State of the art (checked).** Suzuki (*Weil's quadratic form via the screw function*, arXiv 2606.09096, Thm 1.4) proves the lowest eigenvalue simple, with an even eigenfunction, **for sufficiently small support** (Dirichlet-form positivity improvement plus perturbation in `a`). Simplicity at every support is open. Connes–van Suijlekom assume it.
+
+**1. Monotone covering (proved, SimpleCover.lean).** Enlarging the support enlarges the probe class. So `λ₁(a)` (`lam_antitone`) and every lower bound `λ₂(a) ≥ s` (`Lam2Ge.mono`) are nonincreasing in `a`. Hence:
+
+* `simpleGround_of_lam2`: `λ₁(a) < s ≤ λ₂(a)` ⇒ every ground state at `a` is simple. It Gram–Schmidts a second ground-space direction against `g`, and every unit combination then has `Q = λ₁ < s`.
+* `simpleGround_of_cover`: **`λ₁(a₀) < s ≤ λ₂(a₁)` ⇒ simplicity at every `a ∈ [a₀, a₁]`**.
+* `simpleGround_of_chain`: finitely many such cells cover an interval.
+* `simpleGround_036`: **every support `0 < a ≤ 0.36` has simple ground states**, fully in Lean (ParabolaGap's gap, plus `simpleGround_of_unique`).
+
+So point certificates, which were all that was available before (Zhu at `δ = 1.6`, round 39 at `δ = 2`), now cover intervals.
+
+**2. The certified cells (computer-assisted).** Nodes in `δ = 2a`: `0.72, 1.02, 1.28, 1.50, 1.70, 1.87, 2.02, 2.07`.
+
+| cell `δ` | `λ₁` upper at left | `s` (Lean) | `λ₂(M)` ≥ at right | `L`, `T♯`, `N` | `ε_B` | ratio |
+|---|---|---|---|---|---|---|
+| `[0.72, 1.02]` | `8.500e-04` | `0.01` | `1.0478e-02` | `51/100`, `120`, `67` | `1e-24` | 12.3 |
+| `[1.02, 1.28]` | `5.638e-07` | `6e-06` | `6.4067e-06` | `64/100`, `240`, `137` | `1e-28` | 11.4 |
+| `[1.28, 1.50]` | `9.093e-11` | `1e-09` | `1.0555e-09` | `75/100`, `400`, `248` | `4e-38` | 11.6 |
+| `[1.50, 1.70]` | `3.741e-15` | `2.7e-14` | `2.7991e-14` | `85/100`, `1000`, `666` | `1e-77` | 7.5 |
+| `[1.70, 1.87]` | `4.482e-20` | `4.9e-19` | `4.9193e-19` | `935/1000`, `1000`, `731` | `3e-84` | 11.0 |
+| `[1.87, 2.02]` | `2.681e-25` | `3e-24` | `3.3489e-24` | `101/100`, `2496`, `1936` | `4e-200` | 12.5 |
+| `[2.02, 2.07]` | `1.097e-30` | `4e-26` | `4.4407e-26` | `1035/1000`, `2496`, `1983` | `2e-204` | 40496.9 |
+
+Full record: `results/cover_certificate.json`; per-node logs in `results/n*/`; reproduce with `run_all.sh`.
+
+* Upper bounds: `weil_prime_gram.certify` (cosine basis, `K = 120`, 400 bits), a ball Rayleigh quotient of `Q` at `δ − 10⁻⁹` (valid at the node by monotonicity).
+* Lower bounds: Zhu's one-stroke reduction (arXiv 2608.24827, Thm 1.1, valid for every `L > 0` with `β* > 0`). Round 39's pipeline, generalised to any rational `L`, with `T♯` and `N` per node (`params.py`) and a new `la.py lam2` mode. `λ₂(Q) ≥ s − ε_B`; every `ε_B < 10⁻³⁷` is far below the thresholds.
+* Validation: at Zhu's `L = 0.8`, `T♯ = 200`, the generalised code reproduces `β* = 0.5134667749`, `ε_D ≤ 4.6×10⁻²¹²` and `ε_B ≤ 3.9×10⁻¹⁰²`.
+* **Bug found and fixed** in the inherited `assemble.py`. `x = L·t` was formed at 400 bits before the working precision was raised. That is exact for `L = 1`, where round 39 ran, so round 39 is unaffected. For other `L`, the Bessel recurrence amplifies the rounding by about `2^{1.44x}`. Ball arithmetic turned this into a failed certificate at `δ = 1.5` (entry radii `~10¹⁹`), not a false one.
+
+`simpleGround_le_1035`: given `Round47Certs` (the fourteen inequalities, as a named hypothesis), **every ground state at every support `0 < δ ≤ 2.07` is simple**. Lean checks the logic; the numerics are the computer-assisted part.
+
+**3. Why this does not reach every support.** Zhu's reduction needs `T♯ > T₁ = 2π·exp(A_δ)`, with `A_δ = Σ_{log n<δ} 2Λ(n)/√n ~ 4e^{δ/2}`. That is doubly exponential in `δ`. The cost grows like `(L·T♯)³`:
+
+| `δ` | 2.0 | 2.2 | 2.5 | 3.0 | 4.0 | 5.0 |
+|---|---|---|---|---|---|---|
+| `T₁` | 2.2e3 | 7.4e3 | 3.2e4 | 2.8e6 | 2.4e11 | 1.9e19 |
+
+`δ ≈ 2.5` is a heavy computation, and `δ = 3` is out of reach. Cell widths also shrink: `λ₁` and `λ₂` fall super-exponentially, while `log₁₀(λ₂/λ₁)` grows only about linearly, from 2.7 at `δ = 0.7` to 6.6 at `δ = 2.1` (round 42: 8.4 at `δ = 3`). Certification cannot give "every support".
+
+**4. Structural routes, tested.**
+* **Exact criterion.** Rank-one interlacing with `Q = Q₀ + 2cc^T` (`c = cosh(t/2)`) and UniquenessQ's dichotomy show that simplicity fails only if `λ₁(Q) = μ₂(Q₀)` and `⟨c, ψ⟩ = 0` for an eigenfunction `ψ` of `Q₀` at `μ₂`. If the second even eigenfunction of `Q₀` has nonzero pole overlap, the secular function has a pole at `μ₂`, and simplicity follows with no quantitative margin. Failure requires two independent real conditions at once (codimension 2), so a one-parameter family generically never meets it. That is a heuristic, not a proof.
+* **Nodal/rearrangement route: fails as stated** (`nodal_test.py`). The hoped-for argument: `φ₀` radially decreasing (so `c/φ₀` increasing), and `ψ₂` with one sign change, force `⟨c, ψ₂⟩ ≠ 0`. `ψ₂(Q₀)` does have exactly one sign change at `δ = 1` (`K = 60, 90`). But `φ₀` is **not** monotone. It jumps up at `|u| = log 2 − a`, where the prime shift `log 2` couples the two edge regions. Riesz rearrangement does not apply to the translation kernels `δ_{log n}`. The weaker crossing condition also fails at `δ = 1` (`K = 90`). It needs `c/φ₀` below its value at `ψ₂`'s sign change `r` for `|u| < r`, and above it for `|u| > r`. But `r ≈ 0.218` sits just past the jump at `0.193`, where `c/φ₀ ≈ 0.93`, below the central values of about `1.01`. The overlap `⟨c, ψ₂⟩ = 0.0043` is nonzero, but not for this reason.
+
+**What this round changes.**
+* Simplicity is now proved (Lean) for `δ ≤ 0.72`, and certified (computer-assisted, Lean-checked logic) on the **whole interval** `δ ≤ 2.07`. Before, it was known at small `δ` and at two isolated points.
+* Simplicity for **every** support remains open. So does "eventual simplicity", which the RH chain needs as `δ → ∞`. No finite certificate reaches it, and the natural structural argument (Perron–Frobenius / rearrangement) is blocked by the pole term and the prime translations.
+
+## Round 48: simplicity at every support, reduced to one edge lemma (SimpleStructure.lean)
+
+The target is simplicity of the even ground state at **every** support, with no further numerical cells. **It is not proved.** This round finds an exact reformulation that holds at every support at once, proves part of it in Lean, and isolates the one missing lemma.
+
+Notation:
+* `V` is the ground space (`groundSpace a`), and `V_ℂ` its complexification.
+* `B_λ(f, k)` is the bilinear form of `Q − λ₁‖·‖²`, whose kernel on probes is `V`.
+* **`D`** ("edge-flat") is the set of even `h` supported in `[−a, a]` with `h ∈ H²(ℝ)` (so `h` and `h'` vanish at `±a`) and `h''` a probe.
+
+**Theorem A (swap closure; Lean, `green_mem_groundSpace`).** Let `g ∈ V` with `ĝ(w) = 0` and `w²` non-real. Then both real parts of the compactly supported Green solution `h = (∂² + w²)⁻¹g` lie in `V` (`ĥ = −ĝ/(z² − w²)`, SwapRealize.lean). The proof: the swapped pair `u, v` satisfies `Q(u) + Q(v) = Q(g)` and `‖u‖² + ‖v‖² = ‖g‖²`, with `Q ≥ λ₁‖·‖²` on each (`swap_pair_mem`); then `Im h = (u − g)/(2 Im σ)` and `Re h = −v/(2 Im σ)`.
+
+**Theorem B (commutation; paper-level).** For `f ∈ H²(ℝ)` supported in `[−a, a]` and `k ∈ C_c^∞(−a, a)`: `B(f'', k) = B(f, k'')`.
+* Each translation-invariant piece (norm, archimedean, primes) is a functional of the cross-correlation, and `xcorr(f'', k) = xcorr(f, k'')` by two integrations by parts.
+* The pole term: `poleR(f'') = ∫f''e^{−u/2} = ¼·poleR(f)`, and likewise for `k`. This holds because `(i/2)² = −¼` is real, the same fact behind the swap.
+
+**Theorem C (flat ⇒ degenerate; paper-level).** Let `h ∈ V ∩ D` with `h ≠ 0`. Then `h'' ∈ V`, so `dim V ≥ 2`.
+* By Theorem B, `B_λ(h'', k) = B_λ(h, k'') = 0` for `k ∈ C_c^∞(−a, a)`.
+* By density of `C_c^∞(−a, a)` in the form domain, and continuity of `B_λ(h'', ·)` (Cauchy–Schwarz for the nonnegative `Q_λ`), `Q_λ(h'') = 0`.
+* `h''` is not a multiple of `h`, since `h'' = μh` has no compactly supported solution.
+
+**Theorem D (degenerate ⇒ flat: the structure theorem; paper-level).** Let `dim V = m ≥ 2`. Then there is a real even `h`, supported in `[−a, a]`, with `h ∈ H^{2m−2}(ℝ)` and
+
+  `V = span{h, h'', …, h^{(2m−2)}}`,  equivalently `V_ℂ = ĥ·{polynomials of degree ≤ m−1 in z²}`.
+
+Moreover every zero of `ĥ` lies on `ℝ ∪ iℝ`. In particular `h ∈ V ∩ D`.
+
+*Proof.*
+1. `V` is finite-dimensional: its unit sphere has bounded energy, hence is precompact (Compactness.lean).
+2. Choose off-cross points `z₁, …, z_{m−1}` with distinct non-real squares `σ_j`. Pick `G ∈ V_ℂ`, `G ≠ 0`, with `Ĝ(z_j) = 0`; these are `m − 1` linear conditions.
+3. Theorem A, extended complex-linearly, gives the chain `H_k = (∂² + σ_k)⁻¹H_{k−1} ∈ V_ℂ`. The extension works because the complex form `Q(Re f) + Q(Im f) = 2|F(i/2)|² + ∫Φ|F|²` sees only `|F|` on `ℝ` and at `i/2`.
+4. The `m` transforms `±Ĝ/∏_{j≤k}(z² − σ_j)` are independent (their polynomial cofactors have distinct degrees). So they span `V_ℂ`, which gives the form stated, with `ĥ` the last one.
+5. `ĥ` can be taken real, because `V_ℂ` is closed under `F ↦ F̄(z̄)`.
+6. An off-cross zero of `ĥ` would add an `(m+1)`-th independent element. ∎
+
+**Corollary (exact reformulation, every support at once).** *The even ground state at support `2a` is simple if and only if no nonzero ground state is edge-flat (`V ∩ D = {0}`).*
+
+**Why the swap symmetry cannot finish the job.**
+* The degenerate structure `V_ℂ = ĥ·P_{m−1}(z²)` is closed under every zero-swap. Swapping at a root `σ` of the polynomial factor returns `ĥ·p/(z² − σ)`, which again lies in `V_ℂ`.
+* It is also closed under the commutation with `∂²`.
+
+So a hypothetical degenerate ground space is fully self-consistent under all the Fourier-side symmetries used so far (rounds 43–48). Any proof must use information about the **edge** `±a`.
+
+**The missing lemma (edge non-flatness).** *No nonzero ground state of Weil's form at support `2a` lies in `D`.* This is a Hopf-lemma / boundary-unique-continuation statement for the Euler–Lagrange operator `A₀ + 2|c⟩⟨c| − λ₁`. Here `A₀` is a logarithmic-Laplacian-type operator (kernel `e^{u/2}/sinh u ~ 1/u`) plus attractive prime shifts, and `c = cosh(t/2)`.
+
+Hopf-type lemmas are known for the logarithmic Laplacian, but only for **nonnegative** solutions (e.g. *Hopf's lemma and radial symmetry for the Logarithmic Laplacian problem*, FCAA 2024; *Optimal boundary regularity and a Hopf-type lemma … logarithmic Laplacian*, DCDS 2024). They do not apply here, for two reasons:
+1. In a degenerate `V`, the pole-free element `v = h/4 − h''` is orthogonal to `Q₀`'s positive ground state, so it changes sign.
+2. For `h`, the equation reads `(A₀ − λ₁)h = −2·poleR(h)·c` with `λ₁ = μ₂(Q₀) > μ₁(Q₀)`. That is above the principal eigenvalue, where the maximum principle fails.
+
+The rank-one pole term is, once again, what breaks Perron–Frobenius.
+
+**Evidence and caution.** The computed ground states are not flat: `g(a) ≠ 0` at every `δ` tested (round 42). But `g(a)/g(0)` falls to about `10⁻³⁰` by `δ = 2.6`, while the simplicity margins grow over the same range. So smallness of the edge value is not the right measure of nearness to degeneracy. A cosine basis also cannot tell a small jump from the logarithmic edge decay expected for such operators.
+
+**What this round changes.**
+* Simplicity at every support is **equivalent** to the edge lemma (Theorems C and D).
+* The swap-closure step is formal (Lean). The commutation, density, compactness and complex-extension steps are standard analysis, written out above but not formalised.
+* The RH chain `rh_of_eventually_simple` now needs, besides (a), only the edge lemma at all large supports.
+* **Nothing here proves simplicity.** The edge lemma for sign-changing solutions is open, and I did not find it in the literature.
+
+## Round 49: attempts on the edge lemma (not proved)
+
+The edge lemma of round 48 (*no nonzero ground state is `H²`-flat at `±a`*) is **not proved**. This section records what the attempt established, so that the same routes are not retried blindly.
+
+**1. The edge lemma is not a strengthening. It is simplicity itself.** Theorems C and D make it exactly equivalent to simplicity. Degeneracy is also equivalent to a coincidence of two conditions, using round 42's rank-one interlacing. Here `ψ₂` is the second even eigenfunction of the pole-free form `Q₀` and `c = cosh(t/2)` is the pole:
+* (i) `⟨c, ψ₂⟩ = 0`;
+* (ii) `λ₁(Q) = μ₂(Q₀)`.
+
+Given (i), `h = (¼ − ∂²)⁻¹ψ₂` is automatically compactly supported and in `H²`: its transform is `ψ̂₂/(z² + ¼)`, entire because `ψ̂₂(±i/2) = ⟨c, ψ₂⟩ = 0`. It is a ground state exactly when (ii) holds. So "edge-flat ground state" is (i) ∧ (ii) in other words.
+
+**2. Local, boundary-only arguments cannot work.**
+* Hopf-type lemmas for logarithmic-Laplacian operators need **nonnegative** solutions. A degenerate ground space contains the sign-changing `ψ₂` (orthogonal to `Q₀`'s positive ground state).
+* For `h`, the operator sits at `μ₂ > μ₁`, above the principal eigenvalue, where maximum principles fail.
+* The degenerate configuration (`V = span{h, h''}`) satisfies every edge matching condition that the `∂²`-commutation produces. Theorem C derives `h'' ∈ V` from exactly those identities, without contradiction.
+
+A proof must be global.
+
+**3. The orthogonality route (exclude (i)) has no robust margin. Exact identity:**
+
+  `2·poleR(g)·⟨c, ψ₂⟩ = (λ₁(Q) − μ₂(Q₀))·⟨g, ψ₂⟩`   for the `Q`-ground state `g`.
+
+Proof: subtract `Q₀`'s eigen-equation for `ψ₂` (tested against `g`) from `Q`'s Euler–Lagrange equation for `g` (tested against `ψ₂`).
+
+So `⟨c, ψ₂⟩` is of the size of the tiny eigenvalue `μ₂`, not of order one. Round 42's data confirm this: `⟨c, ψ₂⟩/μ₂ = 0.361, 0.353, 0.348, 0.345, 0.343` at `δ = 1.4, 1.8, 2.2, 2.6, 3.0`, with `μ₂` falling from `5.6×10⁻⁸` to `8.4×10⁻⁸⁹`. The overlap vanishes super-exponentially in absolute terms. A structural sign argument for `⟨c, ψ₂⟩ ≠ 0` would have to track that `μ₂ > λ₁`, which is condition (ii) again.
+
+**4. The robust margin is the energy gap (ii).** `λ₂(Q)/λ₁(Q)` runs from `10⁴` to `10⁸` over `δ = 1–3` and grows. Proving `λ₁(Q) < μ₂(Q₀)` at every support needs the large-support asymptotics of the two smallest eigenvalues of Weil's form. That is the prolate / semiclassical regime of Connes–Consani–Moscovici, and it is open.
+
+Exact positivity does not help without RH:
+* Under RH, `λ₁(Q) > 0` at every support, since `Q(f) = Σ|f̂(γ)|²` and `f̂` cannot vanish at all zeta zeros.
+* Using it would make the chain circular.
+
+**Status.** Simplicity is:
+* proved for `δ ≤ 0.72` (Lean);
+* certified for `δ ≤ 2.07` (round 47);
+* equivalent to the edge lemma, or to `λ₁(Q) < μ₂(Q₀)`, at every support.
+
+It is open beyond `δ = 2.07`.
+
+## Round 50: rotating the problem so the ground state is positive (`frontier/simplicity/jacobi_rotation.py`, `gauge_test.py`)
+
+Perron–Frobenius proves simplicity whenever some orthonormal basis makes the form irreducible with nonpositive off-diagonal entries. Such a basis exists **iff** `λ₁` is simple. So the task is to find a *structural* rotation, one that works at every support.
+
+**1. Position space fails at `δ ≈ 0.28`.** For even `g`, `Q(g) = ∫∫g(x)g(y)M(x − y)` with off-diagonal kernel
+
+  `M(u) = 2cosh(u/2) − ½·e^{u/2}/sinh(u) − Σ_n Λ(n)n^{−½}δ(|u| − log n)`.
+
+The pole's `2cosh(u/2)` overtakes the archimedean attraction for `|u| > 0.28`, where `M > 0`. This is why Suzuki's Perron–Frobenius proof (arXiv 2606.09096) holds only at small support.
+
+**2. Frequency bases with sign gauges fail.** In the cosine basis, even after the best `±1` gauge taken from row 0, 256–406 of the 435 off-diagonal pairs have the wrong sign at `δ = 0.2–2` (`gauge_test_results.txt`).
+
+**3. The canonical rotation: the Jacobi basis generated by the pole.** Take the Lanczos basis of the pole-free operator `A₀` seeded at the pole vector `c`. In it:
+* `A₀` is tridiagonal with off-diagonals `b_k ≥ 0`;
+* `Q = A₀ + 2|c⟩⟨c|` differs only in the `(0, 0)` entry;
+* after the gauge `(−1)^k`, `Q` is a Jacobi matrix with nonpositive off-diagonals.
+
+**Theorem (rotation; standard linear algebra).** Let `H_c` be the closed `A₀`-cyclic subspace of `c`.
+* `H_c` reduces `Q`, and `Q = A₀` on `H_c^⊥`.
+* On `H_c`, `Q` is an irreducible Jacobi matrix. Every eigenvalue there is simple, and the ground state is one-signed in the Jacobi basis.
+* `H_c^⊥` is spanned by the `A₀`-eigenvectors orthogonal to `c`, and lies in `[μ₂, ∞)`.
+
+Hence:
+* **If `c` is cyclic for `A₀`**, every eigenvalue of `Q` is simple, not just `λ₁`.
+* **In general**, `λ₁(Q)` fails to be simple only if an `A₀`-eigenvector orthogonal to `c` sits at exactly `λ₁(Q|H_c)`. This is round 49's pair (i) ∧ (ii).
+
+**Measured** (`K = 60`, 320 bits):
+
+| `δ` | smallest `b_k` | Jacobi ground state | `λ₁(Q)` Jacobi = direct | smallest overlap `\|⟨c, ψ_k⟩\|` | `⟨c, ψ₂⟩` |
+|---|---|---|---|---|---|
+| 0.5 | 0.056 | all components > 0 | 0.033379 | 1.9e-3 | 9.6e-2 |
+| 1.0 | 0.013 | all components > 0 | 9.4081e-7 | 7.2e-5 | 4.4e-3 |
+| 1.4 | 0.109 | all components > 0 | 4.4787e-13 | 2.1e-8 | 2.1e-8 |
+
+So the rotation does make the solution positive, and Lanczos never breaks down in the truncation. But the pole's weakest overlap, `2.1×10⁻⁸` at `δ = 1.4`, is exactly the `ψ₂` overlap. Round 49's identity says it has the size of `μ₂`, so it falls super-exponentially with `δ`.
+
+**Status.** The rotation reduces simplicity to **cyclicity of the pole vector for the pole-free Weil operator**, needed only at the one energy `λ₁`. That is the same open condition in a sharper form. The rotation theorem is standard and rigorous; cyclicity at every support is not proved.
+
+## Round 51: the pole overlap `⟨c, ψ₂⟩`, tracked (`frontier/simplicity/overlap_track.py`), not proved nonzero
+
+The request was to prove `⟨c, ψ₂(Q₀)⟩ ≠ 0` at every support. **It is not proved.** What was found:
+
+**1. It is strictly stronger than the energy gap.** Round 49's identity is
+
+  `2·poleR(g)·⟨c, ψ₂⟩ = (λ₁(Q) − μ₂(Q₀))·⟨g, ψ₂⟩`,
+
+and `poleR(g) ≠ 0` (UniquenessQ's dichotomy). So `⟨c, ψ₂⟩ ≠ 0` ⇔ `λ₁ < μ₂` **and** `⟨g, ψ₂⟩ ≠ 0`. Proving it includes proving the gap of round 49, plus a second non-vanishing. Each is one real condition in a one-parameter family, so neither is excluded by counting.
+
+**2. Numerically it never vanishes, and it follows a clean law.** With `ψ₂` sign-fixed by `ψ₂(0) > 0`, tracked at 43 supports `δ = 0.10, 0.15, …, 2.05`:
+* `⟨c, ψ₂⟩ < 0` at every support; no sign change.
+* The ratio `⟨c, ψ₂⟩/μ₂` runs `−0.018` (`δ = 0.1`), `−0.20` (`0.7`), `−0.365` (`1.0`), `−0.369` (`1.05`, its extreme), `−0.361` (`1.4`), `−0.353` (`1.8`), `−0.350` (`2.05`). It is smooth and slowly drifting.
+* Meanwhile `μ₂` falls from `2.5` to `2×10⁻²⁵`.
+* The kink near `δ ≈ 0.7` is where `log 2` enters the prime sum.
+
+So the overlap is `≈ −κ(δ)·μ₂` with `κ ≈ 0.35` stable. By the identity, `κ ≈ ⟨g, ψ₂⟩/(2·poleR(g))`: the `Q`-ground state keeps a fixed-size projection on `Q₀`'s second eigenfunction.
+
+**3. What a proof would need.** An asymptotic theorem `κ(δ) → κ_∞ > 0`, meaning the limiting shapes of `g` and `ψ₂` at large support, together with a finite certified range. That is the same large-support spectral asymptotics as in round 49, and it is open. The stability of `κ` is a genuine, unexplained regularity. It is the most concrete target this line of work has produced.
+
+## Round 52: formalising rounds 48–50 (GapCriterion.lean, Commute.lean)
+
+Everything below uses the standard axioms only and builds with no warnings. **Simplicity at every support remains unproved.** This round makes the reductions of rounds 48–50 machine-checked, so the open part is exactly the named statement.
+
+**GapCriterion.lean**
+
+| theorem | statement |
+|---|---|
+| `euler_lagrange_Q` | a ground state `g` of `Q` satisfies `B₀(g, ψ) + 2ĝ(i/2)ψ̂(i/2) = λ₁⟨g, ψ⟩` for every probe `ψ` |
+| `pole_overlap_identity` | round 49's identity: `2ĝ(i/2)ψ̂(i/2) = (λ₁ − μ)⟨g, ψ⟩` for any weak `Q₀`-eigenfunction `ψ` at level `μ` |
+| `lam_le_of_perp` | **interlacing**: `λ₁(Q) ≤ Q₀(ψ)` for every normalised probe `ψ ⊥ φ₀`, i.e. `λ₁(Q) ≤ μ₂(Q₀)` |
+| `simpleGround_of_gap` | the strict **energy gap** (`EnergyGap a`) ⇒ every ground state is simple |
+| `not_simple_gap` | without simplicity, `λ₁(Q)` is attained by `Q₀` on `φ₀^⊥`, so `λ₁(Q) = μ₂(Q₀)` exactly |
+| `jacobi_eigvec_unique` | the eigen-solutions of a Jacobi recurrence with nonzero off-diagonals form a line: round 50's rotation fact |
+
+So "simple ⇔ energy gap" is formal, up to one direction's standard attainment argument: the gap implies simplicity, and non-simplicity forces the gap closed.
+
+**Commute.lean** (round 48's Theorems B and C, for `C²`/`C⁴` functions supported in `[−a, a]`)
+
+| theorem | statement |
+|---|---|
+| `xcorr_deriv2` | `xcorr(f'', k)(u) = xcorr(f, k'')(u)` at every shift (integration by parts twice, `ibp2_line`) |
+| `bil0_deriv2` | the pole-free bilinear form commutes with `∂²` |
+| `poleR_deriv2` | `poleR(f'') = ¼·poleR(f)`: `(i/2)² = −¼` is real |
+| `bilQ_deriv2` | the full bilinear form: `B(f'', k) = B(f, k'')` |
+| `deriv2_mem_groundSpace` | an edge-flat ground state `h` has `h''` in the ground space |
+| `eq_zero_of_deriv2_eq` | ODE uniqueness (Mathlib's `ODE_solution_unique_univ`): a compactly supported `C²` solution of `h'' = c·h` vanishes |
+| `simple_not_flat` | **a simple ground state is never edge-flat** |
+
+**Still not formal:**
+* the converse direction of round 48 (degenerate ⇒ an edge-flat element: the complex swap chain and finite-dimensionality);
+* the density step that extends `Commute.lean` from smooth to `H²` functions;
+* **the open statement itself**: the energy gap, equivalently simplicity, equivalently `⟨c, ψ₂⟩ ≠ 0` with `λ₁ < μ₂`, at every support.
+
+## Round 53: degenerate ⇒ edge-flat, formal (DegenerateFlat.lean)
+
+Round 48's converse direction (Theorem D) is now machine-checked, by a route that needs neither complex swaps nor finite-dimensionality of the ground space. It uses the standard axioms only, with no `sorry` and no warnings.
+
+**The Green operator of the pole.** `G w (x) = ∫_{−a}^{x} 2 sinh((x − y)/2) w(y) dy` solves `h'' − h/4 = w`.
+* `hSw_half_eq`: it is round 46's `hSw` at `w = i/2`.
+* For a pole-free probe `w` (`ŵ(i/2) = poleR w = 0`), `G w` is even, continuous and supported in `[−a, a]`, with `Ĝw(z) = −ŵ(z)/(z² + ¼)` (`Gpole_hat`).
+
+| theorem | statement |
+|---|---|
+| `Gpole_lip` | `G w` is Lipschitz on `[−R, R]` with constant `cosh R·∫_{−R}^{R}|w|` (mean value theorem on the `sinh` kernel) |
+| `Gpole_autocorr_le`, `Gpole_probe` | its autocorrelation defect is `O(u)`, so the archimedean integral converges: **`G w` is a probe** |
+| `triangle_swap_int` | Fubini on a triangle with merely integrable weights |
+| `kernel_zero` | a pole-free even probe annihilates `2 sinh((s − c)/2)` |
+| `shift_swap`, `xcorr_G_swap` | **`xcorr(G v, m) = xcorr(v, G m)`** at every shift, for pole-free `m` |
+| `Gpole_annihilates` | for pole-free `v` in the ground space, `Q − λ₁` pairs `G v` with every pole-free probe to zero (Euler–Lagrange for `v` tested on `G m`) |
+| `G_mem_pole_free`, `G_mem_partner` | hence `G v` is in the ground space: directly if `G v` is pole-free; otherwise by a rank-one argument with any ground-space element of nonzero pole value (`Q_λ(Gv) + Q_λ(f) = 0` with both `≥ 0`) |
+| `degenerate_flat` | **if a ground state is not simple, the ground space contains a nonzero pole-free `w` and `G w`** |
+| `degenerate_flat_fourier` | the same, with `G w` supported in `[−a, a]` and `Ĝw = −ŵ/(z² + ¼)`: `G w` is `H²`-flat at `±a`, and both `G w` and `(G w)'' = w + (G w)/4` are ground states |
+| `not_simple_of_green_pair` | conversely, such a pair rules out simplicity: `G w = c·w` would force `ŵ ≡ 0` |
+| `simple_iff_no_green_pair` | **simple ⇔ the ground space contains no nonzero pole-free `w` together with `G w`** |
+
+**What this closes, and what it does not.**
+* Round 48's reduction is now formal in both directions:
+  * `simple_iff_no_green_pair` (the Green/Fourier form of edge-flatness);
+  * `simple_not_flat` (Commute.lean, the smooth `C⁴` form).
+* `simpleGround_of_gap` and `not_simple_gap` (GapCriterion.lean) make "simple ⇔ strict energy gap" formal.
+* **Simplicity itself is not proved.** The open statement is still `EnergyGap a` at every support, equivalently the absence of a Green pair in the ground space.
+
+## Round 54: Theorem D, formal (StructureD.lean)
+
+The rest of round 48's Theorem D is now machine-checked. The file uses the standard axioms only, with no `sorry` and no warnings. It holds at every support `a > 0` and every dimension `m ≥ 1`. For `m = 1` it is the zero-swap statement for a simple ground state.
+
+| theorem | statement |
+|---|---|
+| `finiteDimensional_groundL2` | **the ground space is finite-dimensional** (its image in `L²`). A Riesz-separated sequence in an infinite-dimensional image would be a bounded-energy family (`archE_le_of_mem`) with no convergent subsequence, against `exists_convergent_subseq` (Compactness.lean) |
+| `chain_step` | **one step of a filtration.** The chains of length `j` (`chainSpace`: `f, …, G^j f` in the ground space, all but the last pole-free) form a subspace. One linear condition carries a chain of length `j` to one of length `j + 1`: `(G^j f)^(i/2) = 0` if some ground-space element has a pole (`G_mem_partner`), and `(G^{j+1} f)^(i/2) = 0` if none does (`G_mem_pole_free`) |
+| `finrank_map_le_succ`, `finrank_chain` | each step costs at most one dimension, so `dim(chains of length j) ≥ m − j` |
+| `exists_long_chain` | **a nonzero `w` with a chain of full length `m − 1`** (`gdim_pos`: `m ≥ 1`, from `exists_groundState`) |
+| `Gi_hat` | `(G^i w)^(t) = q(t)^i ŵ(t)`, with `q = −1/(t² + ¼)` |
+| `chain_linearIndependent` | **the chain is independent**. A relation `Σ cᵢ G^i w = 0` gives a polynomial in `q` that vanishes on the image of an interval where `ŵ ≠ 0` (`exists_interval_ghat`), so it is zero |
+| `chain_span_ae`, `chain_span_hat` | **the chain spans the ground space**, since `m` independent vectors fill an `m`-dimensional space. Every `v` in it is a.e. `Σ cᵢ G^i w`, i.e. `v̂ = P(q)·ŵ` with `deg P < m`. With `ĥ = q^{m−1}ŵ` this is `V_ℂ = ĥ·{polynomials of degree < m in z²}` |
+| `chain_top_zeros` | **zeros on the cross.** Suppose `ĥ(ω) = 0` with `ω² ∉ ℝ`, where `h = G^{m−1}w`. Then both parts of the Green solution `(∂² + ω²)⁻¹h` lie in the ground space (`green_mem_groundSpace`). Spanning then forces `P(q)(1 + (¼ + ω²)q) = q^m` for a polynomial `P` of degree `< m` (`no_poly`), which is impossible |
+| `theoremD` | the package: chain, independence, spanning, zeros on `ℝ ∪ iℝ` |
+
+**How it differs from the paper proof.**
+* The paper chains Green solutions at `m − 1` distinct off-cross points. The formal proof chains the single pole operator `G = (∂² − ¼)⁻¹` instead, with the filtration dimension count replacing the choice of points. It lands on the same structure: one `ĥ`, and the cofactors are the polynomials of degree `< m` in `z²`.
+* The Sobolev regularity `h ∈ H^{2m−2}` is not stated as such. Its content is `h = G^{m−1}w` with `w` in the ground space.
+
+**Consequence for the RH chain: simplicity drops out as a separate input.** Round 46's chain needs, at each support, a ground state whose transform vanishes only on `ℝ ∪ iℝ`. Simplicity was used only to supply one, through the zero-swap lemma. Theorem D supplies one at every support unconditionally: the normalised top of the chain.
+
+| theorem | statement |
+|---|---|
+| `topGS`, `topGS_isGroundState` | `G^{m−1}w`, normalised, is a ground state at every support (it is nonzero because the chain is independent) |
+| `topGS_cross` | **every zero of its transform lies on `ℝ ∪ iℝ`**, with no simplicity assumption |
+| `rh_of_hypConv_top` | **`HypConv` for the ground states `topGS (a n)` alone gives Mathlib's `RiemannHypothesis`** |
+| `hypConv_top_of_simple` | the new hypothesis is implied by the old pair: eventual simplicity plus (a) for any ground states gives (a) for `topGS` |
+
+So the open input is now the single statement "(a) for the top-of-chain ground states". It is no stronger than the previous pair "(a) + eventual simplicity", and it is identical to it wherever the ground space is simple.
+
+**What this does not do.**
+* It does not prove simplicity; `EnergyGap a` is still open at large support.
+* It does not prove (a). Where the ground space is degenerate, (a) is now asserted for one particular ground state, `ĥ = q^{m−1}ŵ`. Nothing here shows that this choice, rather than some other element of the ground space, converges to `Ξ`.
+* The remaining gap is therefore exactly `HypConv a (topGS ∘ a)`: a convergence statement about one explicit family, with no zero of `ζ` in it.
+
+## Round 55: Theorem C, formal in `H²` form (Mollify.lean, TheoremC.lean)
+
+Round 52 formalised Theorem C (flat ⇒ degenerate) only for `C⁴` functions. Round 55 formalises it at the paper's regularity. `D` is now formal as `FlatH2 a h h₁ h₂`: `h' = h₁` everywhere, `h₁` is the primitive from `−a` of an `L²` function `h₂`, `h` and `h₁` vanish outside `[−a, a]`, and `h₂` is a probe. Both files use the standard axioms only, with no `sorry` and no warnings.
+
+**The argument (Green form).**
+1. **Flat functions are Green solutions** (`flat_green`). Let `f = h₂ − h/4`. Then `∫_{−a}^x f e^{∓y/2} = e^{∓x/2}(h₁ ± h/2)`, by integrating by parts twice. The first integration uses only that `h₁` is a primitive, through Fubini on a triangle. Hence `poleR f = 0` and `G f = h`.
+2. **The cross term vanishes** (`Qlam_green_add`). For every pole-free probe `m`, `Q_λ(G m + r f) = Q_λ(G m) + r² Q_λ(f)`. This is round 53's swap `B(G m, f) = B(m, G f)` plus Euler–Lagrange for `G f = h ∈ V`. With `r = −1`: `Q_λ(f) ≤ Q_λ(G m − f)`.
+3. **`Q_λ` is controlled by norm and energy** (`Qlam_le`, `poleR_sq_le`).
+4. **Density** (`green_dense`). For every probe `f` and `ε > 0` there is a pole-free probe `m` with `‖G m − f‖² ≤ ε` and `E_arch(G m − f) ≤ ε`. Construction:
+   * dilate: `ψ(x) = f(x/l)`, supported in `[−la, la]`;
+   * smooth with three box averages `A₃ = Av_δ³ψ`, which fit inside `[−a, a]`;
+   * `A₃` is `C²` with `A₃'' = δ⁻²(A₁(x + δ) − 2A₁(x) + A₁(x − δ))`, a probe;
+   * so `A₃ = G(A₃'' − A₃/4)` by step 1 (`exists_smooth_green`).
+   The analytic input is in Mollify.lean:
+
+| theorem | statement |
+|---|---|
+| `tendsto_normSq_shift`, `tendsto_normSq_dil` | translation and dilation are continuous in `L²` (by approximation with continuous compactly supported functions) |
+| `normSq_avg_le`, `normSq_Av_le`, `normSq_Av_sub_le`, `tendsto_Av` | box averages: `L²` contraction and convergence to the identity (Jensen plus Fubini over the shift) |
+| `archIntegrand_Av_le`, `probe_Av`, `tendsto_archE_Av` | box averages contract the archimedean energy density `½‖g − g(· + u)‖²K(u)`, preserve probes, and converge in energy (dominated convergence) |
+| `kerK_anti`, `kerK_half_le`, `kerK_far`, `integrableOn_Fsh_half` | the kernel `K(u) = e^{u/2}/sinh u` is decreasing; `F_g(v)K(v/2)` is integrable for a probe |
+| `probe_dil`, `tendsto_integral_pratt`, `tendsto_archE_dil` | dilations of probes are probes; dilation converges in energy, via a dominated-convergence lemma with moving dominators (Pratt/Scheffé) |
+
+5. **Conclusion** (`mem_of_green_dense`, `mem_of_green_mem`). `Q_λ(f) = 0`, so `f ∈ V` and `h₂ = f + h/4 ∈ V`.
+
+| theorem | statement |
+|---|---|
+| `theoremC` | **if `h ∈ V` is `H²`-flat, then `h'' = h₂ ∈ V`** |
+| `theoremC_not_simple` | a nonzero such `h` rules out simplicity: `h'' = c·h` a.e. would make `h` solve `h'' = ch` with zero edge data, hence `h = 0` |
+| `green_flat` | conversely, for a pole-free probe `w`, `G w` is `H²`-flat, with `(G w)' = ½(e^{x/2}I₁ + e^{−x/2}I₂)` and `(G w)'' = w + G w/4` |
+| `simple_iff_no_flat` | **round 48's corollary, formal: the ground state is simple iff no nonzero ground-space element is `H²`-flat at the edges** |
+
+**What this closes, and what it does not.**
+* Round 48's structure theory is now machine-checked at the paper's regularity:
+  * Theorem A (`green_mem_groundSpace`);
+  * Theorem B (Commute.lean);
+  * Theorem C (`theoremC`);
+  * Theorem D (StructureD.lean);
+  * the corollary (`simple_iff_no_flat`).
+* The density step in the paper's proof of C ("density of `C_c^∞(−a, a)` in the form domain") is now proved, not cited.
+* Simplicity itself is still open, and so is `HypConv` for the top-of-chain ground states, the single remaining input of `rh_of_hypConv_top`.
+
+## Round 56: dimension two already puts the zeros on the cross (DimTwo.lean)
+
+The zero-swap lemma (rounds 43–46) puts every zero of a **simple** ground state on `ℝ ∪ iℝ`. This round extends that to ground spaces of dimension two, using Theorems A and D. It uses the standard axioms only, with no `sorry` and no warnings.
+
+| theorem | statement |
+|---|---|
+| `zeros_cross_of_dim_le_two` | if `dim V ≤ 2`, every nonzero `v ∈ V` has `v̂(ω) = 0 ⇒ ω² ∈ ℝ` |
+| `gdim_le_one_of_simple` | a simple ground state has `dim V ≤ 1` |
+| `rh_of_dim_le_two` | **(a) for any family of ground states, with eventually `dim V ≤ 2`, gives Mathlib's `RiemannHypothesis`** |
+| `rh_of_eventually_simple'` | round 46's chain as the special case `m = 1` |
+
+**Proof.**
+1. Let `ω` be an off-cross zero of `v̂`. By Theorem A (`green_mem_groundSpace`), both parts of `(∂² + ω²)⁻¹v` lie in `V`.
+2. By Theorem D's spanning statement (`chain_span_hat`), the transforms of `v` and of those two parts are `P(q)·ŵ` on the real line, with `deg P < m` and `q = −1/(t² + ¼)`.
+3. The transform identity of the Green solution then becomes `P(X)(1 + βX) = X·P_v(X)`. Here `β = ¼ + ω²`, and `P_v` is **real** because `v` is real.
+4. For `m ≤ 2`, compare coefficients: `P(0) = 0`, `P'(0) = P_v(0) =: A`, and `β·A = P_v'(0) =: B`.
+   * If `A ≠ 0`, then `β = B/A` is real, so `ω²` is real. Contradiction.
+   * If `A = 0`, then `P_v = 0`, so `v̂ ≡ 0` on the real line. Contradiction.
+
+**What this changes.**
+* The RH chain's second input can be weakened from "eventually simple" to "eventually `dim V ≤ 2`". In this form, (a) may be for **any** ground-state family.
+* This is an alternative to `rh_of_hypConv_top`, not a strengthening of it. That theorem needs no dimension bound, but asks (a) of one specific family.
+* For `m ≥ 3` the argument leaves room for off-cross zeros. They are the roots of the real polynomial `P_v` of degree `≤ m − 1` in `X`, which come in conjugate pairs. Hurwitz with multiplicities would then bound the off-line zeros of `Ξ` by the eventual dimension. That counting version is not formalised. *(Rounds 57–58 formalise the count; round 252 closes the room: along `a n → ∞`, any eventual bound `dim V ≤ M` gives RH, `rh_of_dim_bounded`.)*
+* Nothing here bounds `dim V`, and (a) is still open.
+
+## Round 57: counting off-line zeros by the dimension of the ground space (HurwitzCount.lean)
+
+Round 56 handled `dim V ≤ 2`. For larger `m`, off-cross zeros can exist, but only finitely many, and Hurwitz carries the count to `ζ`. The file uses the standard axioms only, with no `sorry` and no warnings.
+
+| theorem | statement |
+|---|---|
+| `offcross_root` | for `v` in the ground space, every off-cross zero `ω` of `v̂` makes `−1/(¼ + ω²)` a root of `P_v`. `P_v` is the fixed real polynomial of degree `< m` with `v̂ = P_v(q)·ŵ` (Theorem D) |
+| `card_offcross_le` | a nonzero ground-space element has **at most `m − 1` distinct off-cross values of `ω²`**, because `P_v ≠ 0` and `σ ↦ −1/(¼ + σ)` is injective |
+| `hurwitz_attract` | Hurwitz: if entire `F_n → f` locally uniformly and `f(z₀) = 0` with `f ≢ 0`, then eventually `F_n` has a zero within any `ρ > 0` of `z₀`. It follows from `hurwitz_closed` applied to a subsequence |
+| `xi_offcross_card_le` | if (a) holds for ground states with eventually `dim V ≤ M`, then **`Ξ` has at most `M − 1` distinct off-cross values of `z²`** |
+| `zeta_offline_card_le` | the same hypotheses give: **`ζ` has at most `M − 1` nontrivial zeros with `Re s > ½`** |
+
+**Proof of the limit step.**
+* Take distinct off-cross values `σ₁, …, σ_k` of `z²` at zeros of `Ξ`, and let `η` be their mutual separation and their distance from `ℝ`.
+* Hurwitz places a zero `ζ_j` of `ĝ_n` near each root, close enough that `|ζ_j² − σ_j| < η/2`.
+* The values `ζ_j²` are then off the real axis and pairwise distinct. So `k ≤ dim V_n − 1 ≤ M − 1` by `card_offcross_le`.
+* For `ζ`: a nontrivial zero with `Re s > ½` has `Im s ≠ 0`, because `ζ ≠ 0` on `(0, 1)`. So `((s − ½)/i)²` is an off-cross value of `Ξ`. The map `s ↦ ((s − ½)/i)²` is injective on `Re s > ½`.
+
+**What this gives.**
+* Eventually `dim V ≤ M` bounds the zeros of `ζ` right of the critical line by `M − 1`. `M ≤ 2` gives at most one such zero. Conjugate symmetry `ζ(s̄) = conj ζ(s)` pairs every zero right of the line with a distinct one, since `Im s ≠ 0`, so one zero is impossible. That recovers RH, as in round 56. The conjugate pairing is not formalised here.
+* The bound is about finitely many exceptions. It needs (a) and a uniform dimension bound, and neither is proved. *(Round 252: under (a) along `a n → ∞`, finitely many exceptions are impossible — RH or `dim V → ∞`, `rh_or_gdim_tendsto`.)*
+
+## Round 58: conjugate parity (HurwitzCount.lean)
+
+Off-cross zeros of a real even transform come in conjugate pairs, and none of their squares is real. So every count in round 57 is even.
+
+| theorem | statement |
+|---|---|
+| `ghatC_conj` | `ĝ(z̄) = conj ĝ(z)` for real even square-integrable `g` |
+| `card_even_of_conj` | a finite set of non-real numbers closed under conjugation has even cardinality |
+| `card_offcross_le_even` | a nonzero ground-space element has at most **`2⌊(m − 1)/2⌋`** off-cross values of `ω²` |
+| `zeros_cross_of_dim_le_two'` | round 56's `dim V ≤ 2` theorem, re-derived as the case `2⌊(m − 1)/2⌋ = 0` |
+| `xi_offcross_card_le`, `zeta_offline_card_le` | now sharpened: under (a) with eventually `dim V ≤ M`, `Ξ` has at most `2⌊(M − 1)/2⌋` off-cross values of `z²`, and `ζ` has at most `2⌊(M − 1)/2⌋` nontrivial zeros with `Re s > ½` |
+
+Reading the bound by `M`:
+* `M ≤ 2`: no zeros right of the line (round 56).
+* `M ∈ {3, 4}`: at most one conjugate pair `s, s̄`.
+* In general, at most `⌊(M − 1)/2⌋` conjugate pairs.
+
+*(Round 252: along `a n → ∞` every row reads "no zeros": the ground space itself is a negative block of `Q` when `λ₁ < 0`, so the bound descends to `M ≤ 2`, `rh_of_dim_bounded`.)*
+
+(a) and a uniform dimension bound remain the open inputs. The file uses the standard axioms only, with no `sorry` and no warnings.
+
+## Round 59: consolidation
+
+No mathematical content changes; the pilot is shorter and each fact has one proof. The full build passes with the standard axioms only, no `sorry`, no warnings.
+
+* **One swap computation.** Before, the identity `P(X)(1 + (¼ + ω²)X) = X·P_v(X)` was derived three times: in `chain_top_zeros`, in round 56's `zeros_cross_of_dim_le_two`, and in `offcross_root`. It now lives only in `offcross_root` (StructureD.lean). Both earlier results are short corollaries:
+  * `chain_top_zeros`: the top element has `P_h = X^{m−1}`, which has no root at `−1/(¼ + ω²) ≠ 0`;
+  * `zeros_cross_of_dim_le_two`: the parity count `2⌊(m − 1)/2⌋` is `0` for `m ≤ 2`.
+  `no_poly` is no longer needed.
+* **DimTwo.lean + HurwitzCount.lean → ZeroCount.lean** (507 → 355 lines). Theorem names are kept, except that `zeros_cross_of_dim_le_two'` is now `zeros_cross_of_dim_le_two`, with the parity proof.
+* **Theorem C in one place.** Round 52's smooth `C⁴` form (`deriv2_mem_groundSpace`, `deriv2_multiple_of_simple`, `simple_not_flat`) is removed from Commute.lean. `simple_not_flat` is now a corollary of the `H²` theorem in TheoremC.lean (`flatH2_of_C2`, `theoremC_not_simple`). It needs only `h ∈ C²` with `h''` a probe; the old hypotheses on the third and fourth derivatives are gone. Commute.lean keeps Theorem B and the ODE step.
+
+Earlier rounds' sections still name the old locations. The theorems they describe are all still proved, at the places listed in this round.
+
+## Round 60: the pole-overlap gap bound and the Galerkin transfer (GapBound.lean)
+
+Round 50's rotation reduced simplicity to the pole overlap `⟨c, ψ₂⟩`. This round proves the resulting gap bound at operator level, and the transfer from truncations. The file uses the standard axioms only, with no `sorry` and no warnings.
+
+**1. The gap bound, with no spectral decomposition.** Let:
+* `φ₀` be the ground state of `Q₀`, with `μ₁ = λ₀`;
+* `ψ` be a normalised probe `⊥ φ₀` attaining `μ₂ = inf {Q₀(χ)/‖χ‖² : χ ⊥ φ₀}`;
+* `c₁ = φ̂₀(i/2)` and `c₂ = ψ̂(i/2)` be the pole overlaps.
+
+| theorem | statement |
+|---|---|
+| `lam_le_trial` | the trial function `ψ − (c₂/c₁)φ₀` has zero pole term, so `λ₁(c₁² + c₂²) ≤ μ₂c₁² + μ₁c₂²` |
+| `lam2Ge_of_Q0` | interlacing in min–max form: every two-dimensional span has a unit vector `⊥ φ₀`, where `Q ≥ Q₀ ≥ μ₂`. So `λ₂(Q) ≥ μ₂` (`Lam2Ge`) |
+| `lam2Ge_gap` | **`λ₂(Q) ≥ λ₁(Q) + c₂²(μ₂ − μ₁)/(c₁² + c₂²)`** |
+| `simple_of_pole_overlap` | `c₂ ≠ 0` and `μ₂ > μ₁` imply every ground state is simple, with the explicit gap above |
+
+The overlap can come from any minimiser `ψ` on `φ₀^⊥`; `μ₂` itself need not be simple. The bound is sharper than the secular-equation bound `c₂²(λ₁ − μ₁)/c₁²` sketched earlier, because `μ₂ − μ₁ ≥ λ₁ − μ₁`.
+
+**2. The Galerkin transfer.**
+* `TruncDense a T`: every probe is a limit, in `L²` plus archimedean energy, of vectors from the truncation spaces `T K`.
+* `Lam2GeT a S s`: `λ₂(Q|S) ≥ s` in min–max form. Every span of two vectors of `S` contains a vector with `Q ≥ s‖·‖²`, so no orthonormalisation is needed.
+
+| theorem | statement |
+|---|---|
+| `Qlam_add_le`, `normSq_add_le_t` | `Q_λ(x + y) ≤ (1 + t)Q_λ(x) + (1 + 1/t)Q_λ(y)`, from Cauchy–Schwarz for the nonnegative `Q_λ`; the same for `‖·‖²` |
+| `Qlam_le_d` | `Q_λ ≤ C·(‖·‖² + E_arch)` on probes |
+| `lam2Ge_of_trunc` | if `T` is dense and eventually `λ₂(T K) ≥ s_K → s₀`, then `λ₂(Q) ≥ s₀ − ε` for every `ε > 0` |
+| `simple_of_trunc_gap` | **if `T` is dense and eventually `λ₂(T K) ≥ λ₁(T K) + γ`, with `γ > 0` uniform, then every ground state is simple** *(Correction, round 239: the Lean hypothesis of this round quantified the gap over every nonzero `f ∈ T K`, which is refutable once `dim T K ≥ 2`; the hypothesis is now `λ₂(T K) ≥ λ₁ + γ`.)* |
+
+**What this gives, and what it does not.**
+* Simplicity at a support now follows from either of two checkable statements:
+  * a nonzero pole overlap of a second `Q₀`-minimiser, together with `μ₂ > μ₁`;
+  * a uniform gap in dense truncations.
+* Neither is proved at every support.
+* Round 50 measured the overlap `⟨c, ψ₂⟩ ≈ 2×10⁻⁸` at `δ = 1.4`, which falls super-exponentially with `δ`. The gap bound is correspondingly tiny.
+* `TruncDense` for the cosine truncations used in rounds 47–50 is a hypothesis here. *(Proved in round 61.)*
+* The converse direction (simple ⇒ truncated gaps bounded below) needs attainment of `λ₂` by compactness, and is not formalised.
+
+## Round 61: `TruncDense` for the cosine truncations (CosTrunc.lean)
+
+Round 60's Galerkin transfer assumed `TruncDense`. This round proves it for the basis of the paper's Gram code (`tools/research/weil_prime_gram.py`: `phi_k(t) = cos(omega_k t) 1_{[-a,a]}`, `omega_k = k pi / a`), so the transfer for that basis has no density hypothesis left. The file uses the standard axioms only, with no `sorry` and no warnings.
+
+**The statement.** `cosTrunc a K = span{1_{[−a,a]}·cos(kπt/a) : k < K}`. For every `a > 0` and every probe `f` there are `F_K ∈ cosTrunc a K` with `‖F_K − f‖² + E_arch(F_K − f) → 0` (`cosTrunc_dense`).
+
+**The proof.**
+
+| step | theorems | content |
+|---|---|---|
+| smooth approximant | `av3_C2`, `av3_dense` (TheoremC.lean) | round 55's density, refactored. `f` is approximated by `h = Av_δ³ψ`, which is `C²`, with `h, h', h''` vanishing outside `[−a, a]`. `green_dense` is now a corollary |
+| cosine series | `fco_norm_le`, `fco_deriv`, `cos_series` | two integrations by parts with Mathlib's `fourierCoeffOn_of_hasDerivAt`; the edge terms vanish because `h(±a) = h'(±a) = 0`. So `|ĉ_n| ≤ (a/π)² sup|h''|/n²`. Mathlib's `has_pointwise_sum_fourier_series_of_summable`, on the circle of length `2a` via `AddCircle.liftIco`, gives `h(t) + r = Σ_n d_n cos(nπt/a)` on `[−a, a]`, with `|d_n| ≤ C/n²`. Averaging `t` and `−t` removes the sines |
+| tails | `abs_cos_sub_cos_le_sqrt`, `trunc_error` | the error `S_K − h` of the partial sums is `≤ μ_K = Σ_{n≥K}|d_n|` and `½`-Hölder with constant `ν_K = Σ_{n≥K}|d_n|√(2nπ/a)`, from `|cos x − cos y| ≤ √(2|x − y|)`. Since `|d_n|√n = O(n^{−3/2})`, `μ_K, ν_K → 0` |
+| energy | `ind_autocorr_le`, `ind_energy` | if `φ² ≤ M` and `(φ(t) − φ(s))² ≤ D|t − s|` on `[−a, a]`, then `f(0) − f(u) ≤ (aD + M)u` for `1_{[−a,a]}φ`. The interior costs `D·u·2a` and the two edge jumps cost `M·2u`. With `u·K(u) ≤ 16e^{−u/4}` this gives `E_arch ≤ (aD + M)E₀` and `‖·‖² ≤ 2aM` |
+| basis | `cosB_probe`, `probe_of_mem_cosTrunc`, `cosTrunc_mono`, `cosSum_mem` | each `1_{[−a,a]}cos(kπt/a)` is a probe (by `ind_energy`, despite the jump at `±a`), so is every element of the span; the spaces increase in `K`; the truncated partial sum lies in `cosTrunc a K` |
+| diagonal | `truncDense_of_approx`, `cos_approx` | every accuracy is reached in some `cosTrunc a K`; with increasing spaces, `Nat.findGreatest` picks one sequence |
+| corollaries | `cosTrunc_dense`, `simple_of_cos_gap`, `lam2Ge_of_cos` | round 60's `simple_of_trunc_gap` and `lam2Ge_of_trunc` for this basis |
+
+**What this gives, and what it does not.**
+* The Galerkin transfer is now unconditional for the paper's cosine basis. A uniform gap `λ₂(T_K) ≥ λ₁(T_K) + γ` in these truncations, for all large `K`, implies simplicity at support `2a`. Likewise, truncated `λ₂` lower bounds that converge give `λ₂(Q)` lower bounds.
+* The hypothesis that remains is the truncated gap itself, uniformly in `K`. The numerics of rounds 47–50 compute it at finite `K` in high precision. They are not a certificate, and they do not give uniformity in `K`.
+* Only density is proved. No rate is given, and no bound relates a finite-`K` eigenvalue to `λ₁(Q)`. A certified gap would need a quantitative version: an explicit `K` and an explicit error.
+* Simplicity at every support, (a) `HypConv`, and uniform dimension bounds remain open, as in rounds 54–60.
+
+## Round 62: the second-moment condition, and (a) on the strip (StripConv.lean, `frontier/strip/`)
+
+The target was the second-moment condition `κ(a) → 0`, i.e. `m₂(g_a) → M₂(Φ)`, the first necessary condition for (a).
+
+**1. A direct proof is blocked at the same place as round 40's (L3).**
+* By Hadamard (round 18), `m₂/2 = Σ_w 1/w²` over the zeros of `ĝ_a` and `M₂/2 = Σ_γ 1/γ²`. So `κ → 0` is a statement about `ĝ_a`'s zeros tracking ζ's.
+* The only handle on `ĝ_a` at the zeta zeros is `Q = Σ_ρ ĝ(γ_ρ)²`, and splitting that sum term by term needs RH.
+* The Euler–Lagrange equation says `Σ_ρ ĝ(γ_ρ)φ̂(γ_ρ) = λ₁⟨g, φ⟩` for every `φ` on `[−a, a]`. It fixes the values `ĝ(γ_ρ)` only modulo the annihilator of `PW_a` on the zero set, which is large because the zeros are denser than `PW_a`'s Beurling density. So it does not fix the moments.
+* I found no unconditional route to `κ → 0` alone.
+
+**2. What does work: (a) is needed only on the strip `|Im z| < ½`, and there it is an `L²` statement.**
+
+| theorem | statement |
+|---|---|
+| `hurwitz_closed_on`, `rh_of_strip_cross`, `rh_of_hypConvStrip_top` | Hurwitz on an open set. Every zero of `Ξ` lies in `|Im z| < ½`, so **locally uniform convergence on that strip alone** gives RH for the top-of-chain ground states |
+| `norm_ghatC_sub_le` | `|ĝ(z) − φ̂(z)| ≤ √(2a) e^{a|Im z|} ‖g − φ‖` (Cauchy–Schwarz on `[−a, a]`) |
+| `tendstoLocallyUniformlyOn_of_close`, `tendstoLocallyUniformlyOn_ratio`, `hypConvStrip_of_close` | if `φ̂_n → cΞ` on the strip (`KernelApprox`) and `√(2a_n) e^{b a_n}‖g_n − φ_n‖ → 0` for every `b < ½`, then (a) holds on the strip |
+| `rh_of_close_top` | **RH ⇐ `‖σ_n·topGS(a_n) − φ_n‖ = o(e^{−b a_n}/√a_n)` for every `b < ½`**, with signs `σ_n ≠ 0` |
+| `normSq_sub_le_of_gap`, `rh_of_relgap` | min–max: `‖g − φ‖² ≤ 2(Q(φ) − λ₁)/(λ₂ − λ₁)`; hence RH from a relative spectral gap |
+| `tendstoLocallyUniformlyOn_iteratedDeriv`, `moments_of_hypConvStrip` | (a) on the strip makes every Taylor coefficient at `0` converge; `k = 2` is `κ → 0` |
+
+* **The one unformalised input is `KernelApprox`.** For `φ_n = Φ·1_{[−a_n, a_n]}` it is Riemann's formula `Ξ(t) = 2∫₀^∞ Φ(u) cos(ut) du` (Titchmarsh §2.16) together with `Φ`'s decay `exp(−πe^{2|u|})`. *(Formalised in round 63.)*
+* **The threshold `½` is the half-width of the critical strip.** Round 40 had required convergence on all of `ℂ`, which is much more than the chain uses.
+
+**3. Measurements** (`angle_gap.py`, paper's Gram, 400–1400 bits; `angle_gap_results.jsonl`)
+
+| `δ` | `λ₁` | `λ₂` | `Q(Φ_a)/‖Φ_a‖²` | `sin θ(g_a, Φ_a)` | `sin θ/κ` | `sin θ·√a·e^{a/2}` |
+|---|---|---|---|---|---|---|
+| 1.0 | 9.4e-7 | 1.8e-2 | 7.0e-4 | 0.1351 | 16.21 | 0.123 |
+| 1.4 | 4.3e-13 | 8.8e-8 | 1.3e-6 | 0.0824 | 15.48 | 0.098 |
+| 1.8 | 4.5e-23 | 7.7e-17 | 2.4e-11 | 0.0517 | 14.91 | 0.077 |
+| 2.2 | 2.1e-38 | 1.6e-31 | 9.1e-19 | 0.0333 | 14.58 | 0.060 |
+| 2.6 | 8.3e-62 | 4.2e-54 | 3.4e-30 | 0.0217 | 14.37 | 0.047 |
+| 3.0 | 4.9e-97 | 1.3e-88 | 1.4e-47 | 0.0143 | 14.24 | 0.037 |
+| 3.4 (registered) | 4.3e-150 | 6.7e-141 | 7.0e-74 | 0.00949 | – | 0.029 |
+
+* **The angle falls like `e^{−2a}`.** The local rate goes `2.47, 2.33, 2.20, 2.13, 2.09, 2.06`, against the threshold `½` that `rh_of_close_top` needs. The criterion's quantity `sin θ·√a·e^{a/2}` falls steadily.
+* **The angle and the second moment are one parameter.** The moment identity `ĝ/ĝ(0) ≈ (Ξ/Ξ(0))(1 + κz²)` means `g_a ≈ Φ − κΦ''`, so `sin θ ≈ |κ|·‖(Φ'')^⊥‖/‖Φ‖ = 13.98|κ|` (`phi_pp.py`). The measured ratio falls `16.2 → 14.2` towards `13.98`.
+* **Pre-registered test.** The `δ = 3.4` prediction (`prediction_delta3.4_registered.txt`, committed before the run finished) was `sin θ = 9.33×10⁻³`, band `[9.0, 9.7]×10⁻³`. Measured: `9.49×10⁻³`.
+* **The gap route fails for `Φ_a`.** `λ₂` is itself double-exponentially small, and far below `Q(Φ_a)`. So `(Q(Φ_a) − λ₁)/(λ₂ − λ₁)` grows from `0.04` to `10⁶⁷`. `rh_of_relgap` is proved, but its hypothesis is false for this trial. A usable trial would need `Q(φ) ≪ λ₂`.
+
+**What this gives, and what it does not.**
+* (a) is replaced by a sharper, purely Hilbert-space target: the ground state approaches Riemann's kernel in `L²` faster than `e^{−a/2}/√a`. Numerically the rate is `e^{−2a}`, four times the threshold.
+* The second-moment condition follows as the `k = 2` case (`moments_of_hypConvStrip`). Numerically it is the same small parameter as the angle.
+* Nothing here proves the angle bound. It is presumably RH-strength: `rh_of_close_top` derives RH from it with no other open input, apart from the classical `KernelApprox` (proved in round 63).
+* The measurements stop at `a = 1.7`. The asymptotic rate is inferred, not certified.
+* Whether the reduction is in the literature was not checked. Connes–Consani–Moscovici's related conjecture (round 40) is about determinants on all of `ℂ`.
+
+## Round 63: Riemann's kernel formula, formal (RiemannKernel.lean)
+
+Round 62 left one classical input unformalised: `KernelApprox`, Riemann's formula for `Ξ` as the Fourier transform of his kernel. It is now proved from Mathlib's definitions, so **`rh_of_close_RPhi` derives Mathlib's `RiemannHypothesis` from one hypothesis only**: the `L²` closeness of the top-of-chain ground states to `Φ`. The file uses the standard axioms only, with no `sorry` and no warnings.
+
+**The statement** (`RPhiHat_eq`). With `Φ(u) = Σ_{n≥1} (2π²n⁴e^{9u/2} − 3πn²e^{5u/2}) e^{−πn²e^{2u}}` (`RPhi`) and `Ξ(z) = ξ(½ + iz)` built from Mathlib's `completedRiemannZeta₀`:
+
+  `∫_ℝ Φ(u) e^{izu} du = Ξ(z)/2`   for `|Im z| < 1`.
+
+**The proof.**
+
+| step | theorems | content |
+|---|---|---|
+| Euler's integral on the line | `integral_exp_theta_term`, `integrable_exp_theta_term` | `∫_ℝ e^{αu} e^{−ce^{2u}} du = ½(1/c)^{α/2}Γ(α/2)` for `Re α > 0`, via `x = e^{2u}` (`integral_comp_exp`) and `integral_cpow_mul_exp_neg_mul_Ioi` |
+| one term | `phiT_split`, `integral_phiT` | `∫ φ_n(u)e^{izu} du = (s(s−1)/4)(πn²)^{−s/2}Γ(s/2)`, with `s = ½ + iz` and `Im z < −½`; the functional equation of `Γ` combines the two pieces |
+| the sum | `summable_integral_norm_phiT`, `integral_RPhi_halfplane` | the norm integrals are `O(n^{−Re s})`, so the sum integrates termwise (`hasSum_integral_of_summable_integral_norm`). Mathlib's `completedZeta_eq_tsum_of_one_lt_re` gives `ξ(s)/2` for `Im z < −½` |
+| derivatives | `hasDerivAt_thF`, `hasDerivAt_thF1`, `th_all_le`, `hasDerivAt_thG`, `hasDerivAt_thG1` | termwise differentiation of `Σ e^{u/2 − πn²e^{2u}}` twice, with one majorant `K(n⁴ + 1)e^{−rn}` on `|u| ≤ R` |
+| theta kernel | `theta_eq_sum`, `theta_even` | `e^{u/2}θ(e^{2u}) = 2Σ_{n≥0} e^{u/2−πn²e^{2u}} − e^{u/2}` (`hasSum_int_evenKernel`); it is even by `evenKernel_functional_equation` |
+| evenness | `thFF1_odd`, `thFF2_even`, `RPhi_eq`, `RPhi_even` | `4Φ = F'' − F/4` with `F` even, so `Φ` is even |
+| decay, continuity | `RPhi_decay`, `continuous_RPhi`, `memLp_RPhi` | `|Φ(u)| ≤ Ce^{−2|u|}` |
+| continuation | `norm_RPhiHat_sub_le`, `tendstoUniformlyOn_ghatC_RPhi`, `differentiableOn_RPhiHat`, `RPhiHat_eq` | truncations converge uniformly on `|Im z| ≤ 1` (tail `≤ De^{−a/2}`), so `Φ̂` is holomorphic on `|Im z| < 1`. It equals `Ξ/2` on `−1 < Im z < −½`, hence on the whole strip (identity theorem) |
+| conclusion | `kernelApprox_RPhi`, `rh_of_close_RPhi` | `KernelApprox a (fun _ => Φ)` for every `a_n → ∞`; RH from closeness to `Φ` |
+
+**What this gives, and what it does not.**
+* The reduction of rounds 54–62 now rests on Mathlib's definitions and one hypothesis: `√(2a_n) e^{b a_n}‖σ_n·topGS(a_n) − Φ‖ → 0` for every `b < ½`. That hypothesis is round 62's `L²` angle condition, measured to decay like `e^{−2a}`, with threshold `e^{−a/2}`. It is not proved.
+* The formula is proved on `|Im z| < 1`, which is all the chain needs. *(Extended to all of `ℂ` in round 64.)*
+
+## Round 64: Riemann's formula on all of `ℂ` (RiemannKernel.lean)
+
+`RPhiHat_eq` now reads `∫_ℝ Φ(u) e^{izu} du = Ξ(z)/2` for **every** `z ∈ ℂ`. The file uses the standard axioms only, with no `sorry` and no warnings.
+
+| theorem | change |
+|---|---|
+| `RPhi_decay_gen` | `|Φ(u)| ≤ C_B e^{−B|u|}` for every real `B`, from `X^m e^{−πX/2} ≤ m!(2/π)^m` with `m = ⌈B/2⌉ + 3` and `X = e^{2u}`; evenness for `u < 0`. `RPhi_decay` is the case `B = 2` |
+| `norm_RPhi_exp_le`, `integrable_RPhi_exp`, `norm_RPhiHat_sub_le`, `tendstoUniformlyOn_ghatC_RPhi` | now on every strip `|Im z| ≤ M`, using the decay rate `M + 1` |
+| `differentiable_RPhiHat` | `Φ̂` is entire: each `z` lies in an open strip where the truncations converge uniformly |
+| `RPhiHat_eq` | the identity theorem on `ℂ` (preconnected), from agreement on `Im z < −½` |
+
+`kernelApprox_RPhi` and `rh_of_close_RPhi` are unchanged in statement and now use the entire version.
+
+## Round 65: consolidation (no new hypotheses, fewer lines)
+
+A pass over all 45 files for duplicated proofs, dead code, and shorter routes. No hypothesis was added. Statements changed only where a lemma was generalised: `triangle_swap` and `primeS_eq_two` take weaker hypotheses, and `log_three_gt` has a stronger conclusion. The pilot now has 44 files and 362 `#print axioms` checks (round 65's count), all on the standard axioms, with no `sorry` and no warnings.
+
+**One new result: `Φ > 0`, hence `ξ(σ) ≠ 0` on the real axis (RiemannKernel.lean).** For `u ≥ 0` and `n ≥ 1`, `c_n e^{2u} ≥ π > 3/2`, so each term of Riemann's kernel `φ_n(u) = c_n e^{2u}(2c_n e^{2u} − 3)e^{u/2 − c_n e^{2u}}` is `≥ 0` and the `n = 1` term is `> 0`. Evenness covers `u < 0`. Then `Ξ(it) = 2∫Φ(u)e^{−tu}du > 0` for every real `t`.
+
+| theorem | content |
+|---|---|
+| `phiT_pos`, `RPhi_pos` | `Φ(u) > 0` for every real `u` |
+| `integral_RPhi_exp_pos`, `Xi_I_mul_ne_zero` | `Ξ(it) = 2∫Φ(u)e^{−tu}du > 0` |
+| `xi_real_ne_zero` | `ξ(σ) ≠ 0` for every real `σ` |
+| `Xi_zero_ne_zero` | the case `σ = ½`. It replaces XiBounds' proof via `‖Λ₀(½)‖ < 4` |
+| `riemannZeta_ne_zero_of_mem_Ioo` | `ζ(σ) ≠ 0` on `(0, 1)`: such a zero would be nontrivial, hence a zero of `ξ(σ)`. It replaces ZetaUnitInterval.lean (295 lines), which is deleted |
+
+To make this possible, RiemannKernel.lean now imports only `Roadmap.lean` and builds to an olean before `XiBounds.lean`. `kernelApprox_RPhi` and `rh_of_close_RPhi`, which need `StripConv.lean`, moved unchanged to the new `KernelChain.lean`.
+
+**Shorter routes.**
+
+| theorem | new proof |
+|---|---|
+| `theoremC_not_simple` (TheoremC) | `f = h'' − h/4` and `G f = h` form a green pair in the ground space, so `not_simple_of_green_pair` applies. `normSq f > 0` because `f = 0` a.e. would make `h = G f = 0`. The ODE lemma `eq_zero_of_deriv2_eq` (Commute) is no longer needed and is deleted |
+| `hurwitz_real` (Roadmap) | a corollary of `hurwitz_closed_on`, which moved here from StripConv. `hurwitz_closed` moved here from HurwitzCross, also as a corollary |
+| `tail_ok` (FourierGap) | from `modeE_tail_base` and `Cin` monotonicity |
+| `ghatC_im_zero` (SwapRealize) | from `ghatC_conj`, which moved here from ZeroCount |
+
+**Duplicates merged.**
+
+| kept | replaces |
+|---|---|
+| `euler_lagrange_mem` (moved to UniquenessQ) | the bodies of `euler_lagrange_Q` (GapCriterion) and `euler_lagrange_perp` (UniquenessQ), now one-line corollaries |
+| `quad_zero` (moved to StrictPositivity) | the inline copy of the same argument in `euler_lagrange0` |
+| `lam_le_perp_trial` (new, GapCriterion) | the shared pole-free-trial argument of `lam_le_of_perp` and `lam_le_trial` (GapBound) |
+| `cf_shift'`, `hasSum_shift'` (general support `r`, moved to Existence) | FourierGap's copies. `cf_shift` and `hasSum_shift` are corollaries, and SwapRealize's `hasSum_shift_memLp` is deleted |
+| `integrable_mul_shift₂` (moved to Existence) | the body of `integrable_mul_shift`, now its diagonal case |
+| `memLp_intervalIntegrable` (moved to GroundState) | the body of `Probe.intervalIntegrable` |
+| `triangle_swap` over any `RCLike` field, integrable weights (SwapRealize) | the continuous complex version and DegenerateFlat's `triangle_swap_int` |
+| `primeS_eq_two`, `log_three_gt` at `2a ≤ 0.72` (FourierGap) | ParabolaGap's primed copies |
+
+**The `Cin` chain in closed form (FourierGap).** On `[mπ/2, (m+1)π/2]` with `c = (2m+1)π/4`, the tangent-line gain is `F_c(β) − F_c(α) = 2/(2m+1) + 8((m+1)s_m − m s_{m+1})/((2m+1)²π) + 16(c_{m+1} − c_m)/((2m+1)²π²)`, where `(s_m, c_m) = (sin, cos)(mπ/2)` comes from the integer recursion `scQ`. The identity is `piece_eq`. `cin_chain` proves `Cin(Nπ/2) ≥ 2.780109 + Σ_{6 ≤ m < N} gain(m)` by induction. `lowP_le` bounds the sum below by a rational, using `0.3183097 < 1/π < 0.31831`. For each of the seven needed `N`, `decide +kernel` checks that rational inequality. This adds no axiom: `decide +kernel` is kernel evaluation, not `native_decide`. `cinH7`, `cinH11`, `cinH18`, `cinH21`, `cinH25`, `cinH30` and `cinH61` keep their statements. They replace `sc14`–`sc122`, `pieceH6`–`pieceH60` and `cinH7`–`cinH61`, about 1150 lines. The exact sums exceed the old step-by-step bounds (by `2·10⁻⁶` at `N = 7` up to `1.4·10⁻⁴` at `N = 61`).
+
+**Removed.**
+
+* **SpectralGap.lean.** Round 19's `a ≤ 1/40` bound (`weilQ0_perp_ge`, `groundState_unique_small`, and the edge-mass and near-field lemmas behind them) is superseded by FourierGap's `a ≤ 0.35`. Nothing used it. Its five live helpers (`kerK_le`, `primeS_eq_zero`, `box_sq`, `archIntegrand_eq_kerK`, `archE_split`) moved to the top of FourierGap.lean, which now imports `UniquenessQ.lean`.
+* **Dead lemmas**, used nowhere:
+  * `C2Fun.cont0`, `C2Supp.zero_ge` (Commute)
+  * `concave_ge_end`, `negRD_nonneg` (Concave)
+  * `modeE_nonneg` (FourierGap)
+  * `normSq_neg` (GroundStateExists)
+  * `Av_add` (Mollify)
+  * `gapInf_nonneg` (StrictPositivity)
+  * `mem_chainSpace`, `rr_val` (StructureD)
+  * `sq_half` (TheoremC)
+  * `zetaOrd_ge_of_height` (Zeta)
+  * `rh_of_eventually_simple'` (ZeroCount). Its content is `gdim_le_one_of_simple` plus the `M = 1` case of the zero count.
+
+**A correction to round 10.** Round 10 said the curvature condition is "a statement about the second moment of the ground states, with no zero locations in it." Alone, that is true. But `rh_of_dodging_and_curvature` proves RH by showing that dodging D (`hD`) and the curvature limit (`hκ`) **together** force `Re Σ_j v_j ≥ Σ_j ‖v_j‖` (the step `hge` in Curvature.lean). Since `Re Σ v ≤ Σ‖v‖` always, this is equality, and equality holds only if every `v_j` (the `γ_j⁻²` of `Ξ`'s zeros) is a positive real, i.e. every `γ_j` is real. So the pair of hypotheses cannot hold unless RH does. The round-10 text is annotated.
+
+## Round 66: dodging D alone gives RH (Curvature.lean)
+
+Round 65's analysis found that the curvature hypothesis `hκ` of round 10's chain does no work toward RH. It is now removed from the chain. `rh_of_groundStates_dodging` concludes `RiemannHypothesis` from real-rootedness (`hRR`) and dodging D (`hD`, `η_n → 0`, `T_D(n) → ∞`) alone. The new proofs use the standard axioms only, with no `sorry` and no warnings.
+
+| theorem | content |
+|---|---|
+| `hasProd_eq_zero_of_eq_zero` | a product with a zero factor is zero |
+| `HadamardW.nonneg_real` | **real roots give real parameters.** If every zero of `f` is real, every parameter `w_i` of `f(z)/f(0) = ∏(1 − z²w_i)` is a non-negative real: `w_i ≠ 0` puts a zero at `z = w_i^{−1/2}` |
+| `rh_of_Xi_params` | **RH from real parameters.** If every parameter `v_j` of a factorisation of `Ξ` is a non-negative real, every zero of `Ξ` is real. The product converges absolutely, so by Mathlib's `tprod_one_add_ne_zero_of_summable` it vanishes only at a vanishing factor, and `z²v_j = 1` with `v_j > 0` forces `z` real |
+| `rh_of_dodging` | **dodging D and real-rootedness give RH.** Fix `j` with `v_j ≠ 0`. Since `T_D(n) → ∞`, `v_j` is matched for all large `n`, within `η_n`, to a parameter of the real-rooted `ĝ_n`, which is a non-negative real. The non-negative reals are closed, so `v_j` is one too |
+| `rh_of_dodging_final` | the same for the explicit factorisations of `ĝ_n` and `Ξ` (`hadamardW_ghat`, `hadamardW_Xi`) |
+| `rh_of_groundStates_dodging` (GroundState) | statement **strengthened**: the hypothesis `hκ` is dropped |
+
+Removed:
+* `rh_of_dodging_and_curvature` and `rh_of_dodging_and_curvature_final`, which became special cases with an unused hypothesis;
+* `pairing_of_matching` and `tendsto_tsum_above`, which only served them.
+
+The curvature sum rule (`ghat_sum_rule`, `ghat_curvature`, `xi_expansion`) stays as a result about ground states.
+
+**What this means.** The proof never uses the unmatched zeros of `ĝ_n`, the convergence `ĝ_n → Ξ`, or Hurwitz's theorem. It uses only that each zero of `Ξ` is eventually matched to a real zero of some `ĝ_n`, with error tending to `0`. So, given real-rootedness, dodging D says that every zero of `Ξ` is a limit of real numbers, and that is already RH. Round 10's text reads curvature as the extra ingredient that closes the chain. It is not: the chain was closed by D itself. This sharpens round 65's correction and the paper's own verdict that these chains are "presumably a reformulation, not a proof". The open content of roadmap item 1 is (a) dodging and (b) real-rootedness. The Lean chain now shows that proving (a) and (b) for the ground states *is* proving RH, with nothing left to add.
+
+## Round 67: the gap numerics, parametrised (FourierGap.lean, ParabolaGap.lean)
+
+The certified gaps (round 20's `a ≤ 0.3466` and `log 2 ≤ 2a ≤ 0.7`, round 21's `0.35 ≤ a ≤ 0.36`) each carried the same per-mode argument written out five times, with only the constants changing. Four generic lemmas now carry the argument. Each instance keeps its exact statement and is left with one closed numeric check. No certified constant changed. The two files shrink by 223 lines (FourierGap 2103 → 1985, ParabolaGap 636 → 531).
+
+| lemma | replaces |
+|---|---|
+| `pm_le_of` | the proofs of `pm_le1`–`pm_le5`, `pm_leB1`–`pm_leB5` and `pm_leC1`–`pm_leC5`. From `cval_k ≤ C` and `a ≤ A ≤ ½`, `p_k ≤ (1.05·C + 21β²A⁴/30)/8`. Each stated bound is this value rounded up, checked by `norm_num` |
+| `term_mode` | the proofs of `term1`–`term5`, `termB1`–`termB5` and `termC1`–`termC5`. It is `modeE_ge` plus `term_ge` with a generic subtracted prime term `Y ≤ X`. The side condition `ψ̲ ≤ τ` now needs only `err(a) ≥ 0` (`errK_nonneg`): every `C_v + a_max·D ≤ τ`, so the old lower bounds on `a` and `err(a)` were not needed |
+| `tail_branch` | the six-way and four-way case splits of `tailC_pos` and `tailB_pos`: one `Cin` value at `Mπ/2` and a bound `D_n ≤ B` give one branch. The tightest branch is `tailC_pos` at `n ≤ 6`: `2.7011 ≥ 2.7` |
+| `sum_lowS_even` | the three unrolled 11-term expansions of `Σ_{|n| ≤ 5}` in the gap assemblies |
+
+**On kernel evaluation.** Round 65's `decide +kernel` applied because the `Cin` chain reduces to closed rational sums. These files' numerics do not: they are inequalities in a real parameter `a` with `π`, `log 2` and `√2`. The rational leftovers after parametrising are single `norm_num` or `linarith` steps, so kernel evaluation would add cast plumbing and no reduction. The reduction here comes from parametrising.
+
+## Round 68: is Riemann's kernel a near-ground-state? (numerical, `frontier/nullvec/`)
+
+After round 66, the chain's one open input is `HypConvStrip` for the top ground states: their transforms converge to `Ξ` on the strip. The proved lemma `rh_of_relgap` offers an energy route to it: RH follows if `R_n = (Q(φ_n) − λ₁)/(λ₂ − λ₁)` tends to `0` faster than `a_n⁻¹e^{−2ba_n}` for every `b < ½`, where `φ_n` is the normalised truncation of Riemann's `Φ` to `[−a_n, a_n]`. The idea behind it: `Φ̂ = Ξ/2` vanishes at every zeta zero, so by the explicit formula `Φ` should be a zero-energy vector of Weil's form. This round tests that numerically.
+
+**Method** (`nullvec.py`). Weil's Gram in the cosine basis comes from `tools/research/weil_prime_gram.py`, unconditional: arithmetic side only, arb balls. `Φ`'s cosine coefficients use 9216-point Gauss–Legendre on 96 panels. The outputs are the enclosure of `Q(φ_a)/‖φ_a‖²`, the two lowest generalised eigenvalues, `R`, and `sin²θ`, where `θ` is the angle between `φ_a` and the ground state (the quantity in `rh_of_close_top`). The results are stable in `K`: at `δ = 1.4`, `K = 120` and `160` give `R = 14.76` and `14.81`; at `δ = 2.0`, `K = 120` and `180` give `4.8e8` and `5.1e8`. `λ₁` reproduces round 23 (`6.3e-30` at `δ = 2`, `4.3e-97` at `δ = 3`). Data: `frontier/nullvec/results.jsonl`.
+
+| `δ` | `K` | `λ₁` | `λ₂` | `Q(φ_a)` | `Q(Φ1_a)/Φ(a)²` | `R` | `sin²θ` | local rate of `sin²θ` in `a` |
+|---|---|---|---|---|---|---|---|---|
+| 0.7 | 120 | 1.19e-3 | 0.649 | 2.42e-2 | 0.11 | 0.0355 | 2.78e-2 | |
+| 1.0 | 120 | 9.35e-7 | 1.80e-2 | 7.04e-4 | 0.06 | 0.039 | 1.83e-2 | 2.80 |
+| 1.2 | 120 | 1.61e-9 | 1.03e-4 | 5.52e-5 | 0.08 | 0.535 | 1.10e-2 | 5.02 |
+| 1.4 | 120 | 4.22e-13 | 8.68e-8 | 1.28e-6 | 0.07 | 14.8 | 6.79e-3 | 4.87 |
+| 1.6 | 120 | 1.71e-17 | 8.55e-12 | 8.86e-9 | 0.05 | 1.04e3 | 4.21e-3 | 4.77 |
+| 1.8 | 120 | 4.47e-23 | 7.70e-17 | 2.38e-11 | 0.06 | 3.09e5 | 2.67e-3 | 4.56 |
+| 2.0 | 120 | 6.44e-30 | 2.42e-23 | 1.17e-14 | 0.05 | 4.83e8 | 1.71e-3 | 4.44 |
+| 2.2 | 120 | 2.17e-38 | 1.61e-31 | 9.08e-19 | 0.04 | 5.64e12 | 1.11e-3 | 4.37 |
+| 2.4 | 220 | 7.21e-49 | 1.36e-41 | 6.98e-24 | 0.04 | 5.13e17 | 7.19e-4 | 4.32 |
+| 2.6 | 280 | 7.94e-62 | 4.00e-54 | 3.34e-30 | 0.03 | 8.36e23 | 4.72e-4 | 4.20 |
+| 2.8 | 340 | 1.26e-77 | 1.42e-69 | 5.03e-38 | 0.03 | 3.54e31 | 3.10e-4 | 4.21 |
+| 3.0 | 400 | 4.27e-97 | 1.15e-88 | 1.33e-47 | 0.03 | 1.16e41 | 2.05e-4 | 4.14 |
+
+**Findings.**
+
+1. **`Φ` behaves as a null vector of Weil's form.** The energy of its truncation is the truncation defect and nothing more: `Q(Φ1_{[−a,a]}) ≈ (0.03–0.11)·Φ(a)²`, down to `10⁻⁴⁷` at `δ = 3`, even though the individual terms of `Q` are of order `1`. This is computed from the arithmetic side alone, so it is unconditional numerical evidence for `Q(Φ) = 0`. That is what the explicit formula predicts, because `Φ̂ = Ξ/2` vanishes at every zero, RH or not. Not proved: the explicit formula for `Φ` is not formalised.
+2. **The energy route is dead.** `R` grows from `0.04` to `10⁴¹`, and faster than exponentially in `e^δ`: `ln R / e^δ` is `2.7` at `δ = 2` and `4.7` at `δ = 3`. The reason is that `λ₂` falls faster than the truncation defect: `ln λ₂ / e^δ` goes from `−7.0` at `δ = 2` to `−10.1` at `δ = 3`, against about `−2π ≈ −6.3` for `Φ(a)²`. The spectral gap collapses faster than any truncation of `Φ` can approach the ground energy. `rh_of_relgap` stays a correct theorem, but it cannot be applied along `a_n → ∞`, as far as these data reach and on this trend.
+3. **The L² route survives.** `sin²θ` falls steadily, from `2.8e-2` to `2.1e-4`. Its local decay rate in `a` is `4.1–5.0`, and `rh_of_close_top` needs a rate above `1`. The rate is drifting down slowly (about `0.5` per unit `a` over `δ ∈ [2, 3]`). If that drift stays linear it would cross `1` only near `δ ≈ 14`. If it levels off, as the last three steps suggest (`4.20, 4.21, 4.14`), closeness holds with room to spare. The data cannot tell these apart.
+4. **The two measures disagree, and that explains finding 2.** `R ≥ sin²θ` always holds. At `δ = 3`, `R = 10⁴¹` while `sin²θ = 2·10⁻⁴`. So `φ_a` differs from the ground state by a piece that is tiny in `L²` but carries enormous energy: the edge defect of the truncation, which lives on the high modes. Variational (energy and gap) arguments cannot see this kind of closeness.
+
+**What this means for the chain.** The one open input can only be reached through `L²` closeness (`rh_of_close_RPhi`). Its proof would need a structural reason why the minimiser tracks the null vector `Φ` away from the edges, not a spectral-gap estimate. The observed rate, `sin θ ~ e^{−2.1a}`, has a large margin over the needed `e^{−a/2}`. It is inferred from supports up to `δ = 3` and is not certified.
+
+## Round 69: the ground state is Φ plus a vanishing Φ″ correction (numerical, `frontier/nullvec/`)
+
+**Faster pipeline** (`nullvec_fast.py`). Cosine coefficients in arb via the Chebyshev recurrence, and inverse iteration for `λ₁`, `λ₂` and the ground vector instead of a full eigensolve. It reproduces `nullvec.py` digit for digit at `δ = 2.0` and `3.0`, 20–30× faster. Data: `results_fast.jsonl`.
+
+**The angle to `Φ`, pushed to `δ = 4.5`.** sin²θ is stable in `K` to about 2·10⁻⁴ relative at the two sizes tested.
+
+| `δ` | `K` | `λ₁` | `R` | `sin²θ` | local rate in `a` | `sin²θ·e^{2δ}` |
+|---|---|---|---|---|---|---|
+| 3.0 | 400 | 4.27e-97 | 1.2e41 | 2.049e-4 | 4.14 | 0.0827 |
+| 3.5 | 550 / 700 | 3.3e-167 | 3.3e75 | 7.340e-5 | 4.11 | 0.0805 |
+| 4.0 | 700 / 900 | 2.2e-283 | 1.1e133 | 2.659e-5 | 4.06 | 0.0793 |
+| 4.5 | 900 | 1.9e-475 | 2.5e228 | 9.688e-6 | 4.04 | 0.0785 |
+
+Over `δ ∈ [2, 4.5]`, `sin²θ·e^{2δ}` runs `0.093, 0.090, 0.087, 0.086, 0.084, 0.083, 0.081, 0.079, 0.0785`, with shrinking steps. So **`sin²θ ≈ C·e^{−4a}` with `C → ≈ 0.077`**. The local rate levels off near 4, four times the rate of 1 that `rh_of_close_top` needs.
+
+**The deviation is `Φ″`** (`defect_fit.py`). The unit component of the ground state orthogonal to `Φ` has a fixed profile, the same at `δ = 2` and `3`. It is positive at `t = 0`, crosses zero near `0.17`, is negative around `0.3–0.5`, and vanishes by `0.9`. So it lives where `Φ` lives, not at the edges. Gram–Schmidt against `Φ, Φ″, Φ⁗, Φ⁽⁶⁾`:
+
+| `δ` | `sin²θ` | share of the deviation along `Φ″` | share within `Φ″, Φ⁗, Φ⁽⁶⁾` | `sin²` outside `span{Φ, …, Φ⁽⁶⁾}` |
+|---|---|---|---|---|
+| 1.0 | 1.8e-2 | 0.99480 | 0.9999919 | 1.5e-7 |
+| 2.0 | 1.7e-3 | 0.99802 | 0.99999996 | 6.7e-11 |
+| 3.0 | 2.0e-4 | 0.99976 | 0.99999999994 | 1.2e-14 |
+
+**The coefficients** (`beta_fit.py`, least squares `g ≈ c₀(Φ + βΦ″ + γΦ⁗)`). So `ĝ ≈ c₀(Ξ/2)(1 − βz² + γz⁴)`.
+
+| `δ` | `β` | `β·e^{δ}` | `γ` | `γ/(β²/2)` |
+|---|---|---|---|---|
+| 1.0 | −7.66e-3 | −0.02082 | 5.64e-5 | 1.92 |
+| 1.5 | −4.65e-3 | −0.02085 | 1.44e-5 | 1.33 |
+| 2.0 | −2.79e-3 | −0.02064 | 4.52e-6 | 1.16 |
+| 2.5 | −1.67e-3 | −0.02037 | 1.52e-6 | 1.09 |
+| 3.0 | −1.00e-3 | −0.02018 | 5.30e-7 | 1.05 |
+
+**Findings.**
+
+1. **The ground state is `Φ + βΦ″ + O(β²)`, with `β ≈ −0.020·e^{−δ}`.** The part outside the span of `Φ`'s even derivatives is extremely small: `sin² ≈ 10⁻¹⁴` at `δ = 3`, falling much faster than the deviation itself.
+2. **To second order the multiplier is Gaussian.** `γ/(β²/2) → 1`, so `1 − βz² + γz⁴ ≈ e^{τz²}` with `τ = −β ≈ 0.020·e^{−δ}`. Conjecture: for `|z| ≪ τ^{−1/2}`, `ĝ_a(z) ≈ c·Ξ(z)·e^{τ_a z²}`. That multiplier has no zeros, which fits the observed dodging (round 23: no zeros other than zeta zeros below `T_D`). It can only be local: `ĝ_a` is bounded on `ℝ`, while `Ξ·e^{τz²}` is not.
+3. **Consequence for the chain.** The family `φ_n = Φ + β_nΦ″ + γ_nΦ⁗` has transforms `(Ξ/2)(1 − β_nz² + γ_nz⁴) → Ξ/2` on the strip, because `β_n, γ_n → 0`. The ground states are closer to this family than to `Φ` by about ten orders at `δ = 3`. Taken as the kernel family in `rh_of_close_top`, the numerical margin of the one remaining hypothesis becomes very large. That substitution is not formalised: it needs `Φ″`, `Φ⁗` and their transforms in Lean.
+
+**Status.** All of this is numerical, on supports up to `δ = 4.5`. The laws `sin²θ ~ e^{−4a}` and `β ~ e^{−δ}` are inferred, not proved. Proving that the minimiser has this structure for every `a` would prove RH (through `rh_of_close_top`), so these are targets, not results. `Φ`'s even derivatives are, like `Φ`, null directions of Weil's form (their transforms vanish at every zero), so a structural explanation plausibly starts there.
+
+## Round 70: the correction is a backward heat flow of `Φ` with time `e^{−δ}/(16π)` (numerical, `frontier/nullvec/`)
+
+Round 69 found the ground state `g_a ≈ c(Φ + βΦ″ + γΦ⁗)` with `γ ≈ β²/2`. So to second order `g_a ≈ c·e^{−τ∂²}Φ` and `ĝ_a ≈ c(Ξ/2)e^{τz²}`, with `τ = −β > 0`. This round pins down `τ` and tests the multiplier away from `z = 0`.
+
+**The law** (`beta_fit.py`, now to `δ = 4.0`).
+
+| `δ` | `β·e^δ` | `(β·e^δ + 1/16π)·e^δ` | `γ·e^{2δ}` | `γ/(β²/2)` |
+|---|---|---|---|---|
+| 1.0 | −0.020821 | −0.0025 | 4.17e-4 | 1.923 |
+| 1.5 | −0.020853 | −0.0043 | 2.89e-4 | 1.330 |
+| 2.0 | −0.020636 | −0.0055 | 2.47e-4 | 1.159 |
+| 2.5 | −0.020368 | −0.0058 | 2.26e-4 | 1.087 |
+| 3.0 | −0.020179 | −0.0057 | 2.14e-4 | 1.050 |
+| 3.5 | −0.020070 | −0.0058 | 2.07e-4 | 1.029 |
+| 4.0 | −0.020004 | −0.0060 | 2.04e-4 | 1.017 |
+
+With the constant set to `1/(16π) = 0.019894`, the remainder `(β·e^δ + 1/16π)·e^δ` is steady at about `−0.0058` for `δ ≥ 2.5`: a clean leading term plus an `e^{−2δ}` correction. Aitken extrapolation of `β·e^δ` without assuming the constant gives `0.01991`, within `0.08%`. `γ·e^{2δ} → (1/16π)²/2 = 1.98e-4` and `γ/(β²/2) → 1`. **Conjecture:**
+
+  `g_a ≈ c·e^{−τ_a∂²}Φ` with `τ_a = e^{−δ}/(16π) = 1/(16π e^{2a})`.
+
+**What the time `τ_a` means.** On `Φ`'s tail, `Φ ≈ C x^{9/4}e^{−πx}` in the variable `x = e^{2t}`, so `Φ⁽²ᵏ⁾ ≈ (2πx)^{2k}Φ` to leading order. The backward heat flow then multiplies the tail by `exp(−τ(2πx)²) = exp(−(π/4)·x²/e^{2a})`. At the edge `x = e^{2a}` this damping is exactly **one quarter of `Φ`'s own decay exponent `πe^{2a}`**. The minimiser sharpens `Φ`, making it fall faster towards the edge of the window, by a precise fraction.
+
+**The multiplier away from `0`** (`explain.py`, `δ = 2`, `explain_results_d2.json`), with `M = (ĝ/ĝ(0))/(Ξ/Ξ(0))`:
+* On the real axis, `M(x) = e^{τx²}` to `0.1–4%` for `x ≤ 29`, where `e^{τx²} = 10.5`.
+* On the imaginary axis, `log M(iy) = −τy²` to `1%` for `y ≲ 38`. Beyond that `ĝ(iy)` grows like `e^{ay}`, the Paley–Wiener maximum, because the edge of the support takes over.
+
+**Heuristic explanations tried.**
+* A Paley–Wiener argument balances `log Ξ(iy) ≈ (y/2)log(y/2πe)` against the type bound `ay` with a Gaussian `M(iy) = e^{−τy²}`. It gives `τ ≥ e^{−δ}/(4πe²) = 0.0108·e^{−δ}`: the right scaling, but the constant is off by a factor of 2.
+* Balancing the truncation cost (`≈ Φ(a)²e^{−2κX²}`) against the failure of `Ξe^{τz²}` beyond `|z| ≈ π/(8τ)` gives `τ ≈ 0.034·e^{−δ}`: also the right scaling, constant again off.
+
+Both explain why `τ ∝ e^{−δ}`. Neither produces `1/(16π)`, and **a derivation of the quarter-exponent rule is open.**
+
+**The angle at `δ = 5`** (`K = 1100`, `4000` bits): `sin²θ = 3.18e-6`, so `sin²θ·e^{2δ} = 0.070`. That breaks the smooth trend (`0.0793, 0.0785` at `δ = 4.0, 4.5`). It is not yet checked in `K`: `K = 1100` may be too small at `δ = 5`. Until it is, the `C → 0.077` limit of round 69 stands on `δ ≤ 4.5`.
+
+**Status.** All numerical. If the conjecture holds for every `a`, `ĝ_a/ĝ_a(0) → Ξ/Ξ(0)` on the strip follows (`τ_a → 0`), and with it RH through `rh_of_hypConvStrip_top`. So the conjecture is RH-strength. Its value is that it names the exact asymptotic form a proof would have to establish.
+
+## Round 71: not a harmonic oscillator, but classical free motion with a caustic (numerical, `frontier/nullvec/`)
+
+Round 70's heuristic: on `Φ`'s tail, `e^{−τ∂²}Φ ≈ Φ·exp(−τ(2πx)²)` with `x = e^{2t}`. With `τ = 1/(16πX)`, `X = e^{δ}`, this is a Gaussian in `x` (a harmonic-oscillator ground state). This round tests that pointwise. `oscillator.py` evaluates the ground state on `[0, a]` from its cosine coefficients. `Φ`, projected on the same basis, shows where values can be trusted: relative error `10⁻¹¹` (`δ = 2`) to `10⁻²⁷` (`δ = 3`) in the bulk, degrading only in the last `~0.1` before the edge. `hj.py` gives the Hamilton–Jacobi prediction. Data: `oscillator_results_d*.json`, `hj_results_d*.txt`.
+
+**1. The ground state is `e^{−τ∂²}Φ` pointwise, not only in `L²`.** Here `τ` is round 70's fitted value and the heat flow is `Σ_k (−τ)^kΦ⁽²ᵏ⁾/k!` with exact derivatives. `log(g/Φ)` and `log(e^{−τ∂²}Φ/Φ)` agree:
+* `δ = 2`: to `0.001–0.005` up to `t = 0.7` (the ratio reaches `−1.57`);
+* `δ = 3`: to 3 decimals up to `t = 0.9`, and to `1%` at `t = 1.1`;
+* `δ = 4`: to 4 decimals up to `t = 1.0`, and to `0.4%` at `t = 1.5` (the ratio reaches `−6.6`).
+
+**2. The Gaussian in `x` is only the leading term.** It is off by `10–30%` in `log(g/Φ)` at intermediate `x`. The first correction to `−τS′²` (`S = log Φ`) has relative size `4πτx = x/(4X)`, which does not vanish at fixed `x/X`. So the harmonic-oscillator picture is not the large-`X` limit.
+
+**3. The correct limit is Hamilton–Jacobi: classical free motion.** Write `g = e^{W}`. Backward heat flow `W_τ = −(W_t² + W_tt)` becomes, dropping `W_tt` (relative size `~1/(πx)`), the Hamilton–Jacobi equation for `H = p²`. Its characteristics start at `t₀` with momentum `p = S′(t₀) ≈ −2πe^{2t₀}`, reach `t = t₀ + 2pτ`, and carry `W = S(t₀) + τp²`. Their error against the ground state shrinks as `δ` grows: about `20%` at `δ = 2`, `6–11%` at `δ = 3`, `2–3%` at `δ = 4`. At `δ = 4` they keep tracking `g` beyond `t ≈ 1.6`, where the heat series has already diverged, down to `log(g/Φ) ≈ −30`.
+
+**4. The characteristics fold into a caustic just inside the edge.** `dt/dt₀ = 1 + 2τS″(t₀) = 0` at `e^{2t₀} ≈ 1/(8πτ) = 2X`. With `τ = 1/(16πX)` this puts the caustic at `a − t_c = ½·log(e/2) = 0.1534`. Measured, with exact `S` and fitted `τ`: `0.1462, 0.1514, 0.1529` at `δ = 2, 3, 4`. In every run, the ground state leaves the heat flow at the caustic. So **the window has a bulk, where the ground state is `Φ` transported by classical free motion, and an edge layer of width `→ 0.153` beyond the caustic**, where it falls much faster.
+
+**What this means for the constant `1/(16π)`.** With `τ = c/X`, the caustic distance is `½·log(8πec)`. So fixing `1/(16π)` is the same as fixing where the caustic sits relative to the edge. Equivalent readings, none derived:
+* the caustic is fed by the characteristic that starts at `x₀ = 2X`, i.e. `t₀ = a + ½·log 2`, just outside the window;
+* the characteristic starting at the edge `t₀ = a` lands at `a − ¼`.
+
+(That the caustic's source sits at `a + ½·log 2` is a tempting link to the prime `2`. It is untested and may be a coincidence.) The natural derivation route is standard boundary-layer asymptotics: resolve the edge layer by the uniform (Airy-type) expansion at the caustic, impose the window's boundary condition at `t = a`, and read off `c`.
+
+**Status.** Numerical, `δ ≤ 4`. The bulk description (backward heat flow of `Φ`, i.e. classical free transport of its phase) is now established pointwise at these supports. The edge layer and the value of `c` are open.
+
+## Round 72: the edge condition behind `1/(16π)`: partly derived, partly open (`frontier/nullvec/edge_principles.py`)
+
+**Derived (leading order).** Backward heat flow `e^{−τ∂²}Φ` is, in the Hamilton–Jacobi limit (round 71), free classical transport of `S = log Φ ≈ −πe^{2t}`. Along the characteristics, `W = S(t₀) + τp²` with `p = S′(t₀) ≈ −2πx₀`. The caustic sits at `x₀ = 1/(8πτ)`, where `W_c = −1/(16τ)`. So for `τ = c·e^{−δ}` the following conditions are **all equivalent at leading order**, and each selects `c = 1/(16π)`:
+* P1: the amplitude at the caustic equals `Φ` at the window's edge, `W_c = log Φ(a) ≈ −πe^{δ}`;
+* P2: the caustic is fed from `x₀ = 2e^{δ}`, i.e. `t₀ = a + ½·log 2`;
+* P3: the characteristic from the edge `t₀ = a` lands at `a − ¼`;
+* P4: the caustic sits at `a − ½·log(e/2)`.
+
+So the constant is one matching condition between the bulk (transported `Φ`) and the window's edge.
+
+**Discriminating at finite `δ`.** Each condition, evaluated with the exact `S`, predicts its own finite-`δ` correction to `τe^{δ}`:
+
+| `δ` | measured | P1 | P2 | P3 | P4 |
+|---|---|---|---|---|---|
+| 2.0 | 0.020636 | 0.020516 | 0.019880 | 0.022102 | 0.020953 |
+| 3.0 | 0.020179 | 0.020116 | 0.019892 | 0.020638 | 0.020261 |
+| 4.0 | 0.020004 | 0.019975 | 0.019894 | 0.020160 | 0.020026 |
+
+P2 (almost no correction) and P3 (correction 2.5× too large) are excluded. P1 and P4 bracket the measurement, each off by about `25%` in the correction. That is the size of the dropped `W_tt` term in Hamilton–Jacobi, so this test cannot separate them. P4 is also only a restatement of the constant. P1 is the candidate with physical content.
+
+**P1 tested directly on the ground state** (pointwise, `g` normalised to `Φ` in the bulk, at the measured caustic): `log g(t_c)` against `log Φ(a)`:
+
+| `δ` | `log g(t_c)` | `log Φ(a)` | relative gap |
+|---|---|---|---|
+| 2 | −14.79 | −15.80 | 6.4% |
+| 3 | −51.15 | −53.39 | 4.2% |
+| 4 | −154.42 | −159.55 | 3.2% |
+
+It holds at leading order, with a shrinking relative gap, as a leading-order law with subleading corrections should.
+
+**Not derived.** Why the minimiser of Weil's form selects P1 (or whichever exact condition is right) remains open. That needs a model of the form's cost in the edge layer, where the heat-flow representation ends. A controlled next step: a reduced variational problem, with a transported-`Φ` bulk (parameter `τ`) plus an edge-layer ansatz, energy evaluated on the certified Gram, minimised over `τ`. If it reproduces `1/(16π)`, the edge-layer energetics is the explanation.
+
+**Also this round.** The `δ = 4.5` angle is now checked in `K`: `K = 900` and `1100` give `sin²θ = 9.6877e-6` and `9.6893e-6`.
+
+## Round 73: a reduced variational model: the heat family alone does not fix the constant (`frontier/nullvec/`)
+
+**Rayleigh–Ritz on `span{Φ, Φ″, …, Φ⁽²ᵐ⁾}`** (`ritz.py`, `δ = 2`). Each `Φ⁽²ᵏ⁾` is a null direction on `ℝ`, so the restricted energy is pure edge cost. The Ritz minimiser moves toward the ground state as `m` grows: `c₁/c₀·e^δ = −0.0043, −0.0077, −0.0103, −0.0124` for `m = 1–4`, against the ground state's `−0.0206`, with `λ_Ritz = 2.6e-17 → 3.5e-22` against `λ₁ = 6.3e-30`.
+
+**One-parameter heat family** (`heat_family.py`, fast version `heat_family_fast.py`, which computes all derivative orders per node in one pass and reproduces the slow one exactly, 7–10× faster). Take `h_τ = Σ_{k≤m}(−τ)^kΦ⁽²ᵏ⁾/k!` on `[−a, a]`, with no edge freedom. Minimise `Q(h_τ)/‖h_τ‖²` over `c = τe^δ`.
+
+| `m` | 2 | 4 | 8 | 12 | 16 | 20 | 24 | 28 | 32 |
+|---|---|---|---|---|---|---|---|---|---|
+| `δ = 2`: `c_opt` | 0.00555 | 0.01169 | 0.01628 | 0.01961 | 0.021957 | 0.0219594 | 0.0219596 | 0.0219596 | 0.0219596 |
+| `δ = 3`: `c_opt` | | | | 0.00856 | 0.01159 | 0.01357 | 0.01516 | (running) | |
+
+At `δ = 2` the optimum converges, from `m = 16` on, to **`c = 0.021960`**. The ground state has `0.02064`, and `1/(16π) = 0.01989`. The optimal energy is `2.8e-24`, about `10⁶` times the true `λ₁ = 6.3e-30`. At `δ = 3` the series needs more terms: the number of significant terms scales like `τ(2πX)² ≈ 16`, against `≈ 6` at `δ = 2`. A run to `m = 64` is under way.
+
+**Reading.** The least-edge-cost member of `Φ`'s backward-heat family is not the ground state: at `δ = 2` its time is `6%` too large, and its energy is `10⁶` too high. The edge layer, which this family cannot represent, carries most of the energetics and shifts the optimal `τ`. So "minimise the truncation cost of transported `Φ`" is not by itself the principle behind `1/(16π)`. Any derivation must include the edge layer. Whether `c_opt/c_ground → 1` as `δ` grows (the edge layer becoming relatively cheaper) is what the `δ = 3` run will show.
+
+**Also this round.** The `δ = 5` angle is not converged in `K`: `K = 1100` and `1300` give `sin²θ = 3.18e-6` and `3.48e-6`, and `λ₁` moves by 22 orders. The `δ = 5` row of round 70 is therefore unreliable. The `K = 1300` value gives `sin²θ·e^{2δ} = 0.077`, back in line with the trend. Confirming it needs `K ≳ 1500`.
+
+## Round 74: the strip note's `1/(16π)` derivation, formal except for the balayage (SixteenPi.lean)
+
+The owner's working note (`riemann-strip-target-note.md` §3.4) derives this pilot's multiplier time `τ_a = e^{−δ}/(16π)` (rounds 70–73) from the zero side, within the paper's Theorem 1bm(iv) reduced problem. Round 74 formalises every step of that derivation that is ordinary analysis. It uses only the standard axioms and adds no hypothesis beyond the ones listed here.
+
+- **(3.1) The time is the curvature defect** (`multiplier_expansion`). Take Hadamard products `f(z)/f(0) = Π(1 − z²w_i)` and `F(z)/F(0) = Π(1 − z²v_k)`. Then `f(z)/f(0) = (F(z)/F(0))(1 + τz²) + E`, with `τ = Σv − Σw` and `‖E‖ ≤ 3‖z‖⁴(Σ‖w‖ + Σ‖v‖)²` once `‖z‖²(Σ‖w‖ + Σ‖v‖) ≤ 1`. Applied to `ĝ_a` and `Ξ` this gives `τ = Σγ⁻² − Στ⁻² = κ_Ξ − κ(a)`, for any ground state.
+- **(3.2) Under D, only the tails remain** (`defect_sub_tail`, `defect_eq_tail_of_D`, `defect_sub_tail_le`). If the first `N` zeros agree, the defect equals the tails' defect exactly. The paper verifies D only within a tolerance. If the first `N` zeros agree within `Δ_n ≤ γ_n/2`, the defect is within `Σ_{n<N} 10Δ_n/γ_n³` of the tails' defect, via `inv_sq_sub_le`: `|γ⁻² − t⁻²| ≤ Δ(2γ + Δ)/(γ²(γ − Δ)²)`. This is the note's "at most `2Δ/γ³(1 + O(Δ/γ))`".
+- **(iv) The closed forms.**
+  - `∫_X^∞ x⁻² ln x dx = (1 + ln X)/X` for `X ≥ 1` (`integral_log_div_sq_Ioi`).
+  - `P = ∫₀¹ (1 − √(1 − s²))/s² ds = π/2 − 1` (`P_eq`).
+  - `Q = ∫₀¹ ln s·(1 − √(1 − s²))/s² ds = π/2 − 1 − (π/2) ln 2` (`Q_eq`).
+  - `P` and `Q` both use the substitution `s = sin θ` (`integral_subst_sin`, valid for any integrand). `Q` also needs the antiderivative `sin θ ln sin θ/(1 + cos θ) − θ + tan(θ/2)` of `ln sin θ/(1 + cos θ)`, and Mathlib's `∫₀^{π/2} ln sin = −(π/2) ln 2`.
+  - The rescaling `t = Xs`: `∫₀^X (−ln t)h_X(t) dt = (−P ln X − Q)/X` (`balayageSide_eq`).
+  - Hence `J(X) = (π/(2X))(1 + ln(X/2))` (`J_eq`), and `J(2) = π/4`.
+- **(v) The wall and the constant.**
+  - `(1 + ln(X/2))/X ≤ 1/2`, with equality only at `X = 2` (`wall_le`, `wall_eq_iff`), and the deficit is quadratic: at most `(y − 1)²/(2y²)` with `y = X/2` (`wall_quadratic`).
+  - `J(X)/(2πT₀) = (1 + ln(X/2))/(4XT₀)` (`J_div_eq_tauWall`), which equals `e^{−δ}/(16π)` at `X = 2`, `T₀ = 2πe^δ` (`tau_at_wall`).
+  - Assembled: given the balayage identity at the wall, `(∫_2^∞ x⁻²[ln x − τ(x)] dx)/(2πT₀) = e^{−δ}/(16π)` (`sixteenPi_of_balayage`).
+
+**Not formalised.**
+- **The balayage identity** `∫_X^∞ x⁻²τ(x) dx = ∫₀^X (−ln t)h_X(t) dt`: harmonic measure on the doubly slit plane, the hypothesis `hbal` of `exteriorMoment_eq` and `sixteenPi_of_balayage`.
+- **The note's four inputs (vii)(a)–(d).** None of these is touched:
+  - (a) Hypothesis D at the wall, which is RH-strength at every δ;
+  - (b) the reduction's five lemmas;
+  - (c) that the ground state's wall sits at the reduced problem's maximiser `X = 2`;
+  - (d) the continuum density in place of the discrete zeros.
+- Also, `defect_*` take the zeros as enumerated sequences; the bridge to the `ZeroIdx` families of `HadamardApply` is not built.
+
+So the formal status of `1/(16π)` is:
+
+**(balayage identity) ∧ D at the wall ∧ (b)–(d) ⇒ τ_a = e^{−δ}/(16π)**
+
+Every arithmetic and calculus step in between is now checked. Nothing here bears on RH.
+
+**Also this round (numerical).** At `δ = 5`:
+- `K = 1300` gives `sin²θ = 3.4781e-6` at both 3200 and 4000 bits.
+- `K = 1500` gives `3.5426e-6`, a change of `1.9%`, so `K = 1500` is still not converged.
+- `sin²θ·e^{10} = 0.0766` at `K = 1300` and `0.0780` at `K = 1500`, against the note's prediction `(13.98/16π)² = 0.0774`.
+- `K = 1700` is running.
+
+## Round 75: the reduced problem's `1/(16π)`, with no hypothesis (SixteenPi.lean)
+
+Round 74 kept one hypothesis inside the reduced problem: the balayage identity `hbal`. Round 75 proves it. With it proved, every statement *about the reduced problem* is unconditional.
+
+**The balayage identity** (`balayage_identity`).
+- Take the paper's explicit density (Theorem 1bm(iv)), `τ(x) = −I(x)/(π√(x² − X²))` with `I(x) = ∫_{−X}^{X} √(X² − t²) ln|t|/(x − t) dt`.
+- For every `X > 0`: `x⁻²τ` is integrable on `(X, ∞)`, and `∫_X^∞ x⁻²τ = ∫₀^X (−ln t) h_X(t) dt`.
+- **Method.**
+  1. Write `x⁻²τ(x) = ∫ (−ln|t|) k(t, x) dt`, with the kernel `k(t, x) = √(X² − t²)/(π x² √(x² − X²)(x − t)) ≥ 0`, and exchange the two integrals (`integral_integral_swap`).
+  2. Integrability on the product follows from the bound `0 ≤ ∫_X^∞ k(t, x) dx ≤ 1/X²` (`Abal_bounds`) and the integrability of `ln` near 0.
+  3. The paired kernel `k(t, ·) + k(−t, ·)` splits by partial fractions into two arctan kernels, `x/((x² − X² + c²)√(x² − X²))` with `c = √(X² − t²)` and `c = X` (`kBal_pair`).
+  4. Each arctan kernel integrates to `π/(2c)` (`integral_gAt`). So `∫_X^∞ [k(t, x) + k(−t, x)] dx = h_X(t)` (`kBal_integrals`).
+  5. Folding `t < 0` onto `t > 0` finishes the proof.
+- Harmonic measure is never used.
+
+**Consequences, with no hypothesis.**
+- `∫_X^∞ x⁻²[ln x − τ(x)] dx = (π/(2X))(1 + ln(X/2))` for `X ≥ 1` (`exteriorMoment_reduced`).
+- At the wall, `(∫_2^∞ x⁻²[ln x − τ]) / (2πT₀) = e^{−δ}/(16π)` with `T₀ = 2πe^δ` (`sixteenPi_reduced`).
+- The paper's reduced exponent `f(X) = 2πX(1 + ln 2 − ln X)` satisfies `f ≤ 4π`, with equality only at `X = 2` (`fBalExp_le`). This proves the paper's `X* = 2` and `f_∞ = 4π`.
+
+**Admissibility at the wall: a closed form, proved on paper.** The paper states that the positivity of `τ` on the whole exterior at `X = 2` "is checked to 10⁶X, not proved". The density has a closed form, which proves it.
+- **The closed form.** With `s = √(x² − X²)`, `τ_X(x) = ln(Xx/(x + s)) − x·ln(X/2)/s`.
+- **Proof.**
+  1. Rewrite `√(X² − t²)/(x² − t²)` as `[1 − s²/(x² − t²)]/√(X² − t²)` and substitute `t = X sin θ`. This leaves `L = ∫₀^{π/2} ln sin θ/(x² − X² sin²θ) dθ`.
+  2. Use `ln sin θ = −ln 2 − Σ_k cos(2kθ)/k` together with the classical `∫₀^π cos kφ/(a + b cos φ) dφ = (π/√(a² − b²))·((√(a² − b²) − a)/b)^k`, here with `a = x² − X²/2` and `b = X²/2`. The ratio becomes `−q`, where `q = (x − s)/(x + s)`.
+  3. Summing the series gives `L = (π/(2xs)) ln(x/(x + s))`.
+- **At `X = 2`.** `τ(x) = ln(2x/(x + √(x² − 4)))`. This is strictly positive for `x > 2`, equals `ln 2` at the edge (the paper's edge value) and tends to 0 at infinity.
+- **Numerical checks (`scratchpad`, 30 digits).** The closed form matches the paper's `−I/(π√)` at `X = 0.7, 1.5, 2, 3`. At `X = 2` its moment matches `(ln 2 − π/2 + 1)/2 = 0.0611754…`. Its mass matches `2(1 − ln 2)` to quadrature accuracy.
+- **Not formalised.** This needs the Fourier series of `ln sin`, which is not in Mathlib.
+
+**What remains conditional, and why it cannot be removed here.** These are the note's inputs (vii)(a)–(d), the link from the reduced problem to ζ's actual ground state:
+- (a) Hypothesis D at the wall. At every δ with `T → ∞` it is the strip target itself, so removing it is RH-strength.
+- (b) The five reduction lemmas: the paper's "the reduction is not a theorem".
+- (c) That the *ground state's* wall is the reduced problem's maximiser. Round 75 proves the maximiser inside the reduced problem, not the transfer to the ground state.
+- (d) The continuum limit. This is an approximation whose error is the pilot's measured `−0.0058e^{−δ}` term, not a hypothesis that could be discharged.
+
+So `1/(16π)` is now a theorem about the paper's reduced problem, and a conjecture about ζ's ground state exactly to the extent of (a)–(d).
+
+## Round 76: the balayage density in closed form, and its positivity at the wall (SixteenPi.lean)
+
+Round 75 recorded a closed form for the paper's balayage density, proved on paper using the Fourier series of `ln sin`, which Mathlib lacks. Round 76 proves it in Lean by a route that avoids that series.
+
+**The theorem** (`tauBal_closed`). For `x > X > 0`, with `s = √(x² − X²)`:
+
+`τ_X(x) = −I(x)/(πs) = ln(Xx/(x + s)) − x·ln(X/2)/s`.
+
+Equivalently (`Ibal_closed`): `I(x) = πx ln X − πx ln 2 − πs ln x + (πs/2)(ln(x + s) − ln(x − s))`.
+
+**Route.** Every step is elementary.
+1. **The logarithm as an integral** (`integral_logRep`): `ln c = ∫₀^∞ (1/(1 + v) − 1/(c + v)) dv`, with `∫|·| = |ln c|`. So `ln|t| = ½∫₀^∞ (1/(1 + v) − 1/(t² + v)) dv`.
+2. **Fubini** on `(−X, X) × (0, ∞)`. The product integrand is integrable because `√(X² − t²)/(x − t) ≤ X/(x − X)` and `∫|·| dv = 2|ln|t||`.
+3. **For fixed `v`, the `t`-integral** (`integral_Cv`). Partial fractions `1/((x − t)(t² + v)) = [1/(x − t) + (x + t)/(t² + v)]/(x² + v)` reduce it to three pieces:
+   - `C₀ = ∫√(X² − t²)/(x − t) = π(x − s)` (`integral_C0`), by the antiderivative `x·arcsin(t/X) − √(X² − t²) + s·arcsin((X² − xt)/(X(x − t)))`;
+   - `D(v) = ∫√(X² − t²)/(t² + v) = π(√(X² + v) − √v)/√v` (`integral_Dv`), by the antiderivative `(√(X² + v)/√v)·arcsin(t√(X² + v)/(X√(t² + v))) − arcsin(t/X)`;
+   - an odd part, which vanishes (`integral_Ev`).
+   Both arcsin antiderivatives are continuous on the closed interval, so no improper integrals are needed.
+4. **The `v`-integral** (`integral_Qv`). Its antiderivative is `2π[ln(√v + √(X² + v)) − ½ln(x² + v) − (s/(2x))(ln(x√(X² + v) + s√v) − ln(x√(X² + v) − s√v))]`:
+   - its derivative is checked with one polynomial identity (`hasDerivAt_Qprim`);
+   - its limit at `∞` comes from rescaling to `2πΨ(1/v)` with `Ψ` continuous at 0 (`Qprim_eq_Psi`, `tendsto_Qprim`).
+5. **Assembly.** Combine the pieces, then use `(x + s)(x − s) = X²` to reach the stated form.
+
+**Admissibility at the wall, proved** (`tauBal_two`). For every `x > 2`, `τ(x) = ln(2x/(x + √(x² − 4))) > 0`. The paper's Theorem 1bm(iv) states that "positivity on the whole exterior at X = 2 is checked to 10⁶X, not proved". The closed form proves it for every `x > 2`: the balayage at the wall is a positive density on the whole exterior, as the paper's "admissibility threshold is the maximiser" needs.
+
+**Status of the reduced problem.** Every statement of the note's §3.4 inside the paper's reduced problem is now a Lean theorem with no hypothesis:
+- the balayage identity;
+- the exterior moment and `e^{−δ}/(16π)`;
+- the wall `X* = 2` with `f_∞ = 4π`;
+- the density's closed form and its positivity at the wall.
+
+What stays conditional is only the transfer to ζ's ground state, the note's (vii)(a)–(d); (a) is RH-strength (round 75).
+
+## Round 77: the whole multiplier in closed form (numerical, `frontier/nullvec/multiplier_closed.py`)
+
+**What round 76 implies.** Write `x = 2 cosh u` and `s = 2 sinh u`. At the wall, the closed form `τ(x) = ln(2x/(x + s))` becomes `ln(1 + e^{−2u})`. The exterior zero deficit is therefore exactly
+
+`ln x − τ(x) = u = arccosh(x/2)`,
+
+the Green's function of the band `[−2, 2]` with its pole at infinity. For a general wall the deficit is `arccosh(x/X) + (x/s)·ln(X/2)`. `X = 2` is the only wall where the second term, whose edge singularity is the admissibility issue, vanishes identically.
+
+**The multiplier.** Summing `ln(1 − z²/r²)` against this deficit, not just its `r⁻²` moment, gives the whole multiplier:
+
+`ln M(z) = −(1/2π)∫_{2T₀}^∞ ln(1 − z²/r²)·arccosh(r/(2T₀)) dr = T₀[w·arcsin w + √(1 − w²) − 1]`,
+
+with `w = z/(2T₀)` and `T₀ = 2πe^δ`.
+- Proof sketch: expand the log. The moments are `∫₁^∞ y^{−2k} arccosh y dy = (√π/2)Γ(k − ½)/((2k − 1)Γ(k))`. The resulting series has second derivative `1/√(1 − w²)`.
+- The formula was checked against direct quadrature at `w = 0.3` and `0.8` to 10⁻¹⁰.
+- Its small-`w` expansion is `z²/(8T₀) + z⁴/(384T₀³) + …`. So the Gaussian `e^{τz²}` with `τ = e^{−δ}/(16π)` is just the first term, and round 69's `γ/(β²/2) → 1` is automatic from scaling: the quartic cumulant is `O(e^{−3δ})`.
+- On the imaginary axis, `ln M(iy) = −T₀[η·arsinh η − √(1 + η²) + 1]`, with `η = y/(2T₀)`. For large `y` this is `≈ −(y/2) ln(y/T₀) + y/2`. That is exactly the factor turning `Ξ`'s growth `(y/2) ln(y/2πe)` into the exponential type `a = δ/2` that a probe supported on `[−a, a]` must have.
+
+**Measured against the ground state** (`explain.py` at `δ = 2` and `δ = 3`; ratio = measured `ln M` / closed form; no fitted parameter):
+
+| `y/y₀` | 0.05 | 0.3 | 1.0 | 2.0 | 5.0 |
+|---|---|---|---|---|---|
+| `δ = 2` | 1.0430 | 1.0407 | 1.0287 | 1.0183 | 1.0083 |
+| `δ = 3` | 1.0149 | 1.0142 | 1.0102 | 1.0066 | 1.0030 |
+
+At `y = 5y₀` the Gaussian is off by a factor of 2: −1112 against a measured −557 at `δ = 2`, and −2956 against −1506 at `δ = 3`. The closed form is within 0.8% and 0.3% there.
+- The small-`y` ratio is the known offset of `τ` itself: `τ_fit·16πe^δ = 1.037` and `1.014`. Round 70's "remainder `≈ −0.0058e^{−δ}`" fits this.
+- The ratio falls with `δ` roughly like `e^{−δ}` at every `y`, and the real axis agrees: 1.043 at `δ = 2` and 1.015 at `δ = 3` for small `x`.
+
+**Reading.**
+- Within the paper's reduced problem, the ground state's transform is `ĝ_a(z)/ĝ_a(0) ≈ (Ξ(z)/Ξ(0))·exp{T₀[w·arcsin w + √(1 − w²) − 1]}`, uniformly over the range tested (up to five times the Paley–Wiener scale `y₀`), with a relative error of order `e^{−δ}`.
+- The heat-flow picture of rounds 70–73 is this formula's small-`w` limit.
+- The edge layer and caustic of round 71 are where `w` stops being small.
+- The formula's inputs remain those of the note's §3.4 (vii): the transfer from the reduced problem to the actual ground state. It is a prediction of the reduced problem that the data confirm. It is not a theorem about ζ, and nothing about RH follows.
+
+## Round 78: the pole overlap at large support, and δ = 5 confirmed (numerical)
+
+**The pole overlap of the second pole-free mode** (`frontier/simplicity/overlap_big.py`).
+- **Method.** Block inverse iteration in arb. `Q₀` has exactly one negative eigenvalue (≈ −4.3), so `ψ₂` belongs to the smallest nonnegative eigenvalue `μ₂`.
+- **Results.** `κ = ⟨c, ψ₂⟩/μ₂`, with `ψ₂(0) > 0`:
+
+| `δ` | 2.0 | 2.5 | 3.0 | 3.5 | 4.0 |
+|---|---|---|---|---|---|
+| `κ` | −0.35022 | −0.34543 | −0.34269 | −0.34108 | −0.34013 |
+| `μ₂` | 1.5e-23 | 1.0e-47 | 7.4e-89 | 5.1e-158 | 2.7e-273 |
+
+- `κ` is stable in `K` to 6 digits (`K = 120/180` at `δ = 2`, `300/400` at `δ = 3`). It continues round 51's trend and settles near `−0.34`, but it is not proved.
+- The overlap itself, `κμ₂`, collapses super-exponentially. So the gap bound `simple_of_pole_overlap` certifies simplicity window by window, but with a gap of size `μ₂²`.
+- Simplicity is not an input of the RH chain since `StructureD.lean` (`topGS`, "simplicity is no longer a separate input"). The overlap's role is only to identify `topGS` with the computed ground state.
+
+**The closeness hypothesis of `rh_of_close_top`, measured.** Distance `‖Φ‖ sin θ` against the threshold `e^{−a/2}/√(2a)`:
+- the ratio is `2.7e-2, 1.5e-2, 7.9e-3, 4.2e-3` at `δ = 2, 3, 4, 5`, decreasing like `e^{−3a/2}√a`;
+- the hypothesis is satisfied with a growing margin at every computed window;
+- no finite computation discharges it, because it is a limit statement.
+
+**`δ = 5` converged.** `K = 1700` (3600 bits) gives `sin²θ = 3.5437e-6`, against `3.5426e-6` at `K = 1500`: stable to 3 parts in `10⁴`. So `sin²θ·e^{2δ} = 0.0806, 0.0793, 0.0785, 0.0781` at `δ = 3.5, 4, 4.5, 5`.
+- The excess over the note's prediction `(13.98/16π)² = 0.0774` is `0.0019, 0.0011, 0.0007` at `δ = 4, 4.5, 5`. It shrinks by `≈ 0.6 = e^{−1/2}` per half-unit of `δ`, i.e. like `e^{−δ}` (`≈ 0.10e^{−δ}`), the same order as round 77's corrections.
+- So the data converge to `0.0774`.
+
+**The heat family at `δ = 3`, converged** (`m = 64`). `c_opt = 0.0197318`, against the ground state's `0.020179` and `1/(16π) = 0.019894`. The ratio `c_opt/c_ground` is `1.064` at `δ = 2` and `0.978` at `δ = 3`. The least-edge-cost heat member crosses the ground state's time rather than converging to it. This confirms round 73: the family alone does not fix the constant.
+
+## Round 79: the functor, and what the pilot has been computing (`frontier/nullvec/repkernel.py`)
+
+**The functor.**
+- The windows `a > 0`, ordered by inclusion, map to the spaces `PW_a = {ĝ : g ∈ L²[−a, a]}` carrying Weil's form `Q`. Inclusion of windows is an isometric embedding, since `Q_b` restricted to `PW_a` is `Q_a`.
+- This is a functor into quadratic spaces, with no hypothesis.
+- It lands in Hilbert spaces up to window `a` iff `Q_a ≥ 0`. For every `a` that is Weil's criterion, i.e. RH.
+- Where it is positive, it is a de Branges chain. Suzuki shows that the Hilbert space built from Weil's distribution is a de Branges space, and that RH is equivalent to the existence of a Krein canonical system (a Hamiltonian `H(t)` on all of `[0, ∞)`) generating it ([arXiv 2301.00421](https://arxiv.org/abs/2301.00421), [arXiv 1204.1827](https://arxiv.org/abs/1204.1827)).
+- Positivity is proved for small windows. In this pilot that is FourierGap/ParabolaGap (`2a < log 2`) and the certified simplicity cells.
+
+**What the pilot has been computing.** The ground state of `Q_a` is, up to normalisation, the chain's reproducing kernel at `z = 0`: `k₀ = Q_a⁻¹ ev₀` with `ev₀(g) = ĝ(0)`.
+
+| `δ` | `K` | `sin²∠(k₀, g₁)` | `λ₁/λ₂` | `ln K_a(0, 0)` | `−ln λ₁` |
+|---|---|---|---|---|---|
+| 2 | 180 | 4.0e-14 | 2.7e-7 | 66.23 | 67.24 |
+| 3 | 400 | 7.4e-18 | 3.7e-9 | 220.52 | 221.90 |
+
+The two agree to relative order `(λ₁/λ₂)²` times an overlap ratio, and the agreement improves with `δ`.
+- **The open hypothesis, restated.** Rounds 62–78 ask whether the chain's normalised kernels `K_a(z, 0)/K_a(0, 0)` converge to `Ξ(z)/Ξ(0)` fast enough.
+- **Round 77's multiplier, restated.** It is a prediction for the asymptotics of these kernels.
+- **Round 27, restated.** Round 27 found `ĝ_δ` and `∂_δĝ_δ` interlacing at every `δ` tested. That is the Hermite–Biehler property of the chain's structure function, which the canonical system `∂_t(A, B) = zJH(t)(A, B)` provides wherever the chain exists. This is a plausible explanation, not checked here.
+- **Status.** Nothing here removes the open input. The chain exists for all `a` iff RH. The reformulation turns global positivity into positivity of a Hamiltonian that is local in `t`.
+
+## Round 80: the window chain's Hamiltonian, and the law behind `1/(16π)` (`frontier/nullvec/kchain*.py`)
+
+**Setting.** On the even functions, the window chain `a ↦ (PW_a, Q)` of round 79 is a diagonal canonical system (a Krein string) `H = diag(h₁, h₂)`. It is determined by two functionals:
+- `ℓ₀(F) = F(0) = ∫g`;
+- `ℓ₂(F) = −[z²]F = ½∫t²g`.
+
+Their kernel matrix is `𝒦(a) = L Q_a⁻¹ Lᵀ = ∫₀^a h₁[1 c; c c²]`, with `c = ∫ h₂ 𝒦₀₀`. Hence, in the window variable `a = δ/2`:
+- `h₁ = d𝒦₀₀/da`;
+- `h₂ = (dc/da)/𝒦₀₀`;
+- `c = r + r′/ℓ′`, where `ℓ = ln 𝒦₀₀` and `r = 𝒦₀₂/𝒦₀₀`.
+
+`kchain.py` computes `𝒦` at `δ = 0.3, 0.35, …, 3.2`, with `K = 20e^δ + 40` and `30e^δ + 40` at `300 + 40e^δ` bits.
+
+**1. `det H = 1` in the window variable.**
+- `det H = h₁h₂ = 4ℓ′c′` (derivatives in `δ`) comes out as `1.004 ± 0.013` over `δ ≥ 1.5` at both `K`. It is within `±0.08` down to `δ = 0.4`.
+- This is the Krein–de Branges type formula: exponential type `= ∫√det H`, and the space at window `a` has type exactly `a`. So it is a check on the extraction, not a discovery.
+- It says the chain is a Dirac system in `a`, with `H = diag(e^{2φ}, e^{−2φ})`, `φ = ½ ln(d𝒦₀₀/da)`, and potential `q = φ′`. Asymptotically `q ≈ 4πe^{2a} − 4.5`, with structure where prime powers enter at `a = ½ log pᵏ`. This is visible as dips in `ℓ′`, not resolved at step 0.05.
+
+**2. The two clues are one law.** `det H = 1` gives `c′ = 1/(4ℓ′)`. If the kernels converge, `c → κ_Ξ = 0.02310499`, so the multiplier time `τ = κ_Ξ − r` satisfies
+
+`τ(δ) = ∫_δ^∞ du/(4ℓ′(u)) + r′/ℓ′`.
+
+Measured against predicted (data up to `δ = 3.15`, then a tail with `ℓ′ ≈ 4πe^u − 4.5`): the ratio `τ_meas/τ_pred` is `1.001–1.007` at every window from `δ = 0.5` to `3.1`, at both `K`. Consequences:
+- The paper's exponent law `ln 𝒦₀₀ ≈ −ln λ₁ ≈ 4πe^δ` (`f_∞ = 4π`) forces `τ ≈ e^{−δ}/(16π)`. The constant is `1/(4·4π)`, so round 70's quarter-exponent rule `τ = 1/(4T)` is this identity.
+- The `O(1)` offset `ℓ′ − 4πe^δ ≈ −4.5` produces the `e^{−2δ}` correction. Predicted: `≈ 0.0053–0.0057`. Measured: `0.0058–0.0062`, consistent with round 70's `≈ 0.0058`. The remaining gap is the tail extrapolation.
+- So the whole multiplier time follows from the growth of one number, the reproducing kernel at 0.
+
+**Status.** The Hamiltonian of the window chain is explicit in terms of `K_a(0, 0)`: it is diagonal, has determinant 1, and has potential `½ d/da ln(dK_a(0, 0)/da)`. Its asymptotics are fixed by the reduced problem's `4π`. RH is equivalent to this chain existing for every `a`. Our numbers describe it where it provably or numerically exists. Nothing here shows it exists for all `a`.
+
+## Round 81: the prime structure of the chain's potential (`frontier/nullvec/kprime*.py`, `kedge.py`)
+
+**Method.** Each prime power `n` enters the form through `−2(Λ(n)/√n)·f(log n)`, where `f` is the probe's autocorrelation, when the window passes `δ = log n`. `kprime.py` computes `Δℓ(ε)`: the value of `ℓ = ln K_a(0, 0)` at `δ = log n + ε` with the term of `n` on, minus its value with the term off. Both use the same basis, so the truncation ripple that spoils fixed-`K` scans (`kfine.py`: slope noise `±2–3` at step `0.0025`) cancels exactly.
+
+**1. In every truncation, the potential jumps, with an exact first-order law.** `ℓ′` jumps at `log n` by
+
+`J_n = 2·(Λ(n)/√n)·E(log n)`, where `E = k(a)²/K(0, 0)` is the reproducing kernel's edge weight.
+
+Measured by Richardson extrapolation in `ε`, the ratio `J/(2wE)` is `0.9993, 0.9996, 0.9998, 0.9997, 0.9991, 0.9987, 0.9957` for `n = 2, 3, 4, 5, 7, 8, 9`, at `K = 25e^δ + 60`. At `K = 50e^δ + 60` it is `0.998` (n = 3) and `0.996` (n = 7). For `n ≥ 11` the `ε`-steps are not small against the edge scale: the ratio is `0.97 → 0.50`.
+
+**2. But `E` is a truncation artefact: the continuum kernel vanishes at the edge.** At `δ = log 3`, `E = 6.25, 5.36, 4.83, 4.37, 3.98` for `K = 135, 210, 300, 450, 700`, falling like `K^{−0.27}`. The profile just inside the edge (`k(a − h)²/K(0, 0)` at `h = 0.005–0.05`) is `K`-converged. So in the true chain `J_n = 0`: no prime power makes the potential jump.
+
+**3. The continuum onset is a soft, non-universal kink.** `Δℓ(ε)` at `ε ≥ 0.002`, where the basis resolves it (at `n = 3`, `K = 450` and `690` agree to 0.5%):
+
+| `n` | 3 | 5 | 7 | 8 | 9 |
+|---|---|---|---|---|---|
+| local exponent, `ε` = .002 → .004 | 1.43 | 1.59 | 1.34 | 1.84 | 1.12 |
+| `Δℓ(.002)/(w·.002^{3/2})` | 297 | 740 | 1531 | 2720 | 3423 |
+
+At `n = 3` the exponent is `1.41 → 1.53` over `ε = 0.002–0.016`, i.e. `Δℓ ∝ ε^{≈3/2}`, a kernel edge exponent of about `¼`. It varies from prime to prime (`1.1–1.8`), and the amplitude per unit weight does not follow a smooth function of `δ`. For example, `7 → 8` grows ×1.78 in `Δδ = 0.13`, but `8 → 9` only ×1.26 in `Δδ = 0.12`.
+
+**Reading.** The hypothesis "potential = archimedean part + Σ(Λ(n)/√n) × one universal profile" fails in this simple form. Each prime's imprint depends on the kernel's near-edge profile at that window, and that profile is itself reshaped by the prime powers that entered just before. The chain has memory. Two things survive:
+- the exact first-order identity, whose content is `J_n ∝ (Λ(n)/√n)·(edge weight)` in any regularisation;
+- a measured continuum onset exponent near `3/2` at `n = 3`.
+
+Neither is derived.
+
+## Round 82: the Hamiltonian, tabulated and validated (`frontier/nullvec/kham.py`, `zdirect.py`, `ktable.py`, `hamiltonian_*`)
+
+**The object.** The window chain's Hamiltonian is `H(a) = diag(e^{2φ(a)}, e^{−2φ(a)})`, from its diagonal form (round 80) and `det H = 1`. Here `e^{2φ} = h(a) = dK_a(0, 0)/da` and `K_a(0, 0) = sup (∫g)²/Q(g)` over `g` supported in `[−a, a]`. So the Hamiltonian is determined by the one function `L(a) = d ln K_a(0, 0)/da`. With `b = B/K_a(0, 0)` the canonical system becomes
+
+`A′ = −(z/L)·b`,  `b′ = L·(zA − b)`,  `K_a(z, 0)/K_a(0, 0) = b/z`.
+
+**Validation: the Hamiltonian generates the chain.**
+- **Method.** `L` comes from `ln K_a(0, 0)` on a grid (`kchain.py`, `K = 30e^δ + 40`), smoothed by local cubic fits of half-width `0.02` in `δ`. The system is integrated from `δ = 0.5` (exact initial data from the direct kernel at `δ = 0.49, 0.5, 0.51`) to `δ = 2`, and the result compared with `K_a(z, 0)/K_a(0, 0)` computed directly from the Gram (`zdirect.py`).
+- **Results.** Relative errors:
+
+| grid step in `δ` | `z = 1` | `5` | `10` | `18` | `40i` | at `γ₁ = 14.1347` (absolute) |
+|---|---|---|---|---|---|---|
+| 0.01 | 5.1e-6 | 1.4e-4 | 6.2e-4 | 5.1e-3 | 1.6e-3 | 9.6e-7 |
+| 0.0025 | **2.8e-7** | **4.5e-6** | **2.0e-5** | **1.2e-3** | **3.1e-3** | **1.1e-7** |
+
+- **Convergence.** The error falls with the grid step. Doubling `K` does not change it (`K = 60e^δ + 40`: `1.2e-5` at `z = 1` on the 0.01 grid), so it is set by how well the grid resolves `L`'s fine structure, not by the basis.
+- **Coarse errors.** Starting instead at `δ = 0.02` with first-order data gives `2.4e-5·z²`. Using unsmoothed secant slopes gives `2.2e-5` at `z = 1`.
+
+**The tabulated Hamiltonian.**
+- `hamiltonian_table.json`: `a, ln K_a(0, 0), L, φ, q = φ′` at 616 windows, `a ∈ [0.24, 1.01]`.
+- `hamiltonian.png`: the Dirac potential `q` against `4πe^{2a}`.
+- Smooth part: `ln K_a(0, 0) ≈ 4πe^δ − 5.18δ − 15.65` (rms residual `0.10` on `δ ∈ [0.5, 2]`), so `q ≈ 4πe^{2a} − 5`.
+
+**Two findings about the fine structure.**
+- **The smooth model is not enough.** The closed-form `L = 2(4πe^δ − 5.18)` reproduces the chain to `4e-4` at `z = 1` and `6e-2` at `z = 10`. But it misses the zeta zeros: the kernel at `γ₁` comes out `1.4e-3` instead of `≈ 0` (the tabulated `L` gives `1e-7`). The positions of the zeros the chain dodges live in the fine structure of the potential.
+- **The fine structure is not explained.** The potential has about 37 extrema on `a ∈ [0.25, 1]`: features at `a = ½ log n` for the prime powers `n = 2, 3, 4, 5, 7`, and more between them, growing denser with `a`.
+  - A hypothesis that the extra features are zeta zeros crossing a horizon `c·e^{2a}` fits well: `c = 5.65`, mean distance `0.0018`.
+  - But it fails a fair null test. Surrogate zero sequences with `c` optimised the same way fit equally well: median `0.00175`, and 53% of surrogates do at least as well. So it is not supported.
+
+**Status.** We have the Hamiltonian as a computed object. It is exactly defined, tabulated on `a ∈ [0.24, 1.01]`, and shown to generate the chain's kernels to `3e-7` (at `z = 1`) to `3e-3` (at `z = 40i`). We do not have a closed form. Its existence for every `a` is equivalent to RH.
+
+## Round 83: the Hamiltonian pushed to `a = 1.5`; its fine structure is real, and multi-scale (`kcompare.py`, `kcount.py`)
+
+**1. The fine structure is not a numerical artefact.** The potential `q − 4πe^{2a}` was recomputed on `δ ∈ [1.5, 2.0]` (step 0.0025) with a different basis size (`K = 45e^δ + 40` instead of `30e^δ + 40`):
+- the two residual curves correlate at `0.9997`, with rms difference `0.16` against a signal rms of `7.1`;
+- all 18 extrema coincide (mean shift `0.0001` in `δ`).
+
+**2. Extension and validation to `δ = 3` (`a = 1.5`).** `ln K_a(0, 0)` is now tabulated on `δ ∈ [0.46, 3.0]` at step `0.0025` (`hamiltonian_grid_to3.jsonl`, 1020 windows). Integrating the canonical system from `δ = 0.5` to `δ = 3` (`K_a(0, 0)` grows by `≈ e²⁰⁰`) reproduces the directly computed kernel at `δ = 3` to:
+
+| `z = 1` | `5` | `10` | `18` | `30` | `40i` | `γ₁` (absolute) |
+|---|---|---|---|---|---|---|
+| 2.2e-6 | 5.8e-5 | 2.7e-4 | 2.0e-3 | 2.9e-4 | 7.1e-4 | 7.5e-8 |
+
+`hamiltonian_table.json` and `hamiltonian.png` now cover `a ∈ [0.24, 1.49]`.
+
+**3. No spacing law, but a growth law for the density of features.**
+- **Counting against models.** Counting prominent maxima of `q − 4πe^δ` with a smoothing window `∝ e^{−δ}`, the count fits `A·e^δ` (rms 0.46–0.59) much better than the zero-count shapes `A·e^δ·δ` or `A·N_ζ(c·T₀)` (rms 1.0–1.5). So the features are not zeta-zero crossings, independently of round 82's null test.
+- **At fixed resolution.** Per 0.25 in `δ`, with `hw = 0.008`, the counts are `2, 1, 2, 4, 5, 7, 10, 12, 12, 12`. They grow by about `×1.3 ≈ e^{1/4}` per bin until the grid's resolution caps them, and they keep rising as the resolution improves.
+- **No clean coefficient.** `N ≈ πe^δ` appears at one smoothing choice, but `dN/d ln K_a(0, 0)` runs `0.35 → 0.25 → 0.19` as the smoothing factor goes `0.10 → 0.15 → 0.25`.
+- **Amplitude.** The residual's rms is `≈ 6–11` in `q` units across the range, against `q ≈ 250` at `δ = 3`, so its relative size falls like `e^{−δ}`.
+
+**Reading.** The Hamiltonian's potential is `q ≈ 4πe^{2a} − 5` plus a fine structure that is real, of roughly constant absolute amplitude, and multi-scale. The density of its features grows with the window at every resolution tested, with no regular spacing and no scale-free constant. It is not a zero-crossing pattern. Round 81 showed it is not a sum of independent prime-power pieces either. Together these rule out the natural closed forms. The Hamiltonian is tabulated and validated to `a = 1.5`. It has no closed form, and its existence for all `a` is equivalent to RH.
+
+## Round 84: the fine structure is quasi-periodic in `x = e^{2a}` (`frontier/nullvec/kspectrum.py`)
+
+**Question** (the owner's "a higher-dimensional shadow?"). A quasi-periodic function, meaning a sum of a few incommensurate frequencies, is the restriction of a periodic function on a torus to a line. Bohr's view of ζ and the Kurasov–Sarnak Fourier quasicrystals are of this kind. Does the Hamiltonian's fine structure have a discrete spectrum?
+
+**Method.** Take the residual of `ln K_a(0, 0)` on `δ ∈ [0.5, 3]` after the smooth fit. The fitted leading coefficient is `12.5666 = 4π` to five digits, which confirms the reduced problem's exponent. Resample the residual uniformly in `x = e^δ = e^{2a}`, detrend it, apply a Hann window, and take its spectrum (`kspectrum_results.txt`).
+
+**Findings.**
+- **Discrete.** Over `x ∈ [1.65, 20.1]`, the eight main lines hold `0.48` of the power in their centre bins alone, and `≈ 0.9` including each line's ±2-bin Hann main lobe, against `≈ 0.03` for a flat spectrum. The ±2-bin sums double-count slightly where lines are within 4 bins: `kspectrum_results.txt` prints values up to `1.04`.
+- **Stable in `x`.** The lines appear independently in both halves of the range, at the same positions within resolution:
+
+| `x ∈ [1.65, 10]` (res 0.75) | 5.27 | 9.78 | 12.79 | 16.56 | 23.33 |
+|---|---|---|---|---|---|
+| `x ∈ [10, 20.1]` (res 0.62) | 4.99 | 9.37 | 13.11 | 16.86 | 23.72 |
+
+  The dominant line, `ω ≈ 9.5`, carries 24–30%.
+- **Not stable in `δ`.** The lines drift between halves, so the structure is not log-periodic. That argues against frequencies set by zeta zeros, which would enter as `e^{iγ·a}`.
+- **Not prime powers on the integers.** Prime powers enter at `x = n`, so an arithmetic event train would give lines periodic in `ω` with period `2π`. They are not. The residual does not correlate with `Σ_{n≤x} Λ(n)/√n`: corr `−0.02`, best over lag `0.155`, inside the null band from random integer positions (95% point `0.20`).
+
+**Reading.** In the variable `x = e^{2a} = T₀/(2π)`, the natural horizon scale, the fine structure of the chain's Hamiltonian is quasi-periodic with a handful of stable frequencies. That is the signature of a shadow of a low-dimensional torus flow. What remains open:
+- The number of independent frequencies, i.e. the torus dimension, is undetermined at this resolution (`Δω ≈ 0.34` over `x ≤ 20`).
+- The frequencies are unidentified: not prime-lattice, not zero-driven, and not harmonics of `π` within resolution.
+- Sharper lines need larger windows (`x` up to `e⁴` would give `3×` resolution, at `K ≈ 1650`).
+
+## Round 85: larger windows (to `a = 2`, `x = e^{2a} = 55`); the main line sits at `3π` (`kspectrum2.py`)
+
+**Data.** 289 new windows at uniform step `0.12` in `x = e^δ ∈ [20, 54.6]`, i.e. `δ ∈ [3, 4]` (`hamiltonian_grid_x20_55.jsonl`). The basis is `K = 15x + 40` at `300 + 24x` bits: about 4 minutes per window at `x = 55`, where `ln K_a(0, 0) = 650.5`. `K = 15` was validated against `K = 30` on `δ ∈ [1.5, 2]`: the residual of `ln K_a(0, 0)` correlates at `0.9976`, with rms difference 7% of the signal. The joint smooth fit over `x ∈ [1.65, 54.6]` (with a step term at the `K`-factor junction `x = 20`) again gives the leading coefficient `12.565 ≈ 4π`.
+
+**The spectrum in `x`** (`kspectrum2_results.txt`; resolution `0.119` over the combined range, `≈ 0.18–0.37` per segment):
+- **The dominant line persists** in every segment, including the new ones, and does not drift. Its refined centre (zero-padded peak) is `9.436, 9.390, 9.472, 9.437` on `x ∈ [1.65, 12], [12, 25], [25, 40], [40, 54.6]`, and `9.417` combined. The mean over segments is `9.434 ± 0.017`, against `3π = 9.4248`.
+- **The next strongest lines** are `5.246` (`5π/3 = 5.236`) and `16.741` (`16π/3 = 16.755`).
+- **Weaker lines do not fit a `π/3` lattice**: `2.04, 4.30, 6.69, 13.19` sit at ratios `1.95, 4.10, 6.39, 12.59` to `π/3`.
+
+**Caveats.**
+- The `π/3` lattice was chosen after seeing the data, from a handful of natural candidates.
+- The chance that three given lines fall within their observed deviations (0.008, 0.010, 0.014) of a lattice of spacing `1.047` is about `1e-5`. Choosing the lattice and the three lines afterwards costs perhaps two orders of magnitude, so this is suggestive, not established.
+- No mechanism is known. An oscillation `cos(3πx)` in `ln K_a(0, 0)` is `cos(3T₀/2)` in the horizon `T₀ = 2πx`, or `cos(¾·4πx)` against the smooth part `4πx`.
+- Rounds 82–84 exclude a zero-crossing origin (not log-periodic) and a prime-lattice origin (not `2π`-periodic in `ω`; no correlation with `Σ Λ(n)/√n`).
+
+**Reading.** In the variable `x = e^{2a}`, the Hamiltonian's fine structure is quasi-periodic and stable out to `a = 2`, `x = 55`. Its dominant frequency is `3π` to `0.2%`. Its identity and the torus it would be a shadow of are open.
+
+## Round 86: the cascade tower through the window chain, a pre-registered test (`PREREG_tower_layers.md`, `ztower*.py`)
+
+**Primes-off control.** With the prime terms removed (Γ-archimedean part and pole only), the chain collapses: `ln K_a(0, 0) = 0.18` at `δ = 1.5`, against `≈ 29` with primes, and the 2×2 kernel matrix is indefinite. So the trend `4πe^δ` is not "the Gamma part". It is the balance between Γ and the primes.
+
+**The dictionary.** The owner's paper, Theorem 1, defines the tower as `Γ_ℝ(d+1)` with `Ω(d) = |S^d|`. Its Theorem 1b evaluates the explicit formula at `z = d+½`. By the functional equation, `Ξ(i(d+½)) = ξ(d+1) = ½(d+1)d·Γ_ℝ(d+1)ζ(d+1)`, checked to 20 digits. So the chain's kernel at `z = i(d+½)` is, in the limit, the tower times `ζ(d+1)`. Round 77's multiplier gives each layer at a finite window, with a dimension horizon at `d* ≈ 4πe^δ`.
+
+**Pre-registered prediction P1** (committed in `b53b470` before any computation):
+
+`ln[K_a(i(d+½),0)/K_a(0,0)] = ln[ξ(d+1)/ξ(½)] + T₀[√(1+η²) − 1 − η·arsinh η]`,  `η = (d+½)/(2T₀)`.
+
+It passes if `|ratio − 1| ≤ 3e^{−δ}` for `d = 0…60`.
+
+**Result** (`tower_results/score.txt`, `K = 15e^δ + 40`):
+
+| `δ` | tolerance | P1: max `\|ratio − 1\|` | verdict | Gaussian null |
+|---|---|---|---|---|
+| 2.0 | 0.41 | 9.9e-3 | PASS | 6.4e-3 (passes too) |
+| 3.0 | 0.15 | 1.25e-3 | PASS | 9.0e-4 (passes too) |
+| **4.3 (fresh)** | 0.041 | **9.0e-5** | **PASS** | 8.3e-5 (passes too) |
+
+**Honest scoring.**
+- P1 passes at every window, including the fresh one, with large margins. The registered tolerance was loose.
+- The registered null did not fail. At layers `d ≤ 60`, the `ξ(d+1)` term dominates and the closed-form multiplier and the Gaussian differ by less than the residual. The pre-registration's statement that the null "must fail beyond `d ≈ √T₀`" was wrong for this range.
+- So the test confirms the dictionary (the chain at the tower points is the tower times `ζ(d+1)`, up to the multiplier). It does not discriminate the multiplier's shape.
+
+**The residual is fully accounted for.** It is `∝ −z²` with coefficient `−9.9e-5, −1.46e-5, −1.12e-6` at `δ = 2, 3, 4.3`. That matches the known `e^{−2δ}` correction of `τ` (rounds 70 and 80), `0.0058·e^{−2δ} = 1.06e-4, 1.44e-5, 1.07e-6`.
+
+**Reading.** Each window of the Weil chain carries the cascade's ball tower `Γ_ℝ(d+1)ζ(d+1)` at the imaginary half-integers, to `≈ 1e-4` relative at `δ = 4.3`. The only deviation is the known finite-window correction. That is the precise sense in which "the Gamma and the arithmetic are one object" shows up in the chain. It is the explicit formula's identity seen through the window chain, not new physics. No prediction for the wiggle frequencies was registered, and none is claimed.
+
+## Round 87: the tower up to the dimension horizon, a second pre-registered test (`PREREG_tower_horizon.md`, `ztower_score2.py`)
+
+**The test.** It was registered in `1367192` before any computation. Round 86's test could not separate the closed-form multiplier from the Gaussian at `d ≤ 60`, so this one goes to the dimension horizon. The window is `δ = 3.5` (`T₀ = 208`, `2T₀ = 416`), with layers `d = 0, 25, …, 500` (`1.2 × 2T₀`). Two bases are used: `K = 536` (top frequency ≈ 968) and `K = 867` (≈ 1558).
+
+**Result** (`tower_results/score_horizon.txt`). Every registered criterion passes:
+
+| criterion | registered | measured | verdict |
+|---|---|---|---|
+| validity: the bases agree | `≤ 1e-3` | `≤ 2.3e-5` at every `d` | valid |
+| (A) P1 holds | `\|m/P1 − 1\| ≤ 3e-3`, `d ≤ 500` | max `1.23e-3` (at `d = 500`) | **PASS** |
+| (B) the Gaussian null fails | `\|m/N − 1\| > 3e-3`, `300 ≤ d ≤ 500` | `4.3e-3` (d = 300) rising to `1.74e-2` (d = 500) | **PASS** |
+| (C) the residual is the known correction | `c` within ±30% of `5.29e-6` | `3.86e-6` (ratio `0.73`) | **PASS, narrowly** |
+
+**The residual's shape**, recorded honestly. `(m − P1)/z²` is `−5.29e-6` at `d = 50`, equal to `0.0058·e^{−2δ}` to three digits. It then shrinks steadily: `−5.20e-6, −4.87e-6, −4.43e-6, −3.97e-6, −3.54e-6` at `d = 100, 200, 300, 400, 500`. So the finite-window correction is not a pure `Δτ·z²`. It has its own shape in `η = z/(2T₀)`, like a correction `T₀·Δ(η)` to the multiplier. Its small-`z` limit is the known `τ` correction. Criterion (C) passed only because of the ±30% band. Its shape is not derived.
+
+**Reading.** Through the dimension horizon and 20% beyond it, the Weil window chain at `z = i(d+½)` carries the cascade tower `Γ_ℝ(d+1)ζ(d+1)`, shaped by the closed-form multiplier `exp{T₀[w·arcsin w + √(1−w²) − 1]}`. The agreement is `1.2e-3`, and the Gaussian is excluded beyond `d ≈ 300`. The ball-tower layers are seen through each window up to `d ≈ 4πe^δ`, with a suppression law now tested and distinguished from the naive one. As in round 86, this is the explicit formula seen through the chain, not a derivation of the cascade hypothesis. The wiggles remain unexplained.
+
+
+## Round 88: the wiggles against the discrete zeros, a third pre-registered test (`PREREG_wiggles_balayage.md`, `kbalayage_model.py`)
+
+**Pre-registered in `eb7bc7a` before any evaluation.** Prediction P3: the fine structure of `ln K_a(0,0)` is the discreteness structure of `−F(δ)`, where `F(δ) = min_T [4Σ_{γ<T} ln((1 + √(1 − γ²/T²))T/γ) − δT]` (Theorem 1bm(v); the first 6700 ζ zeros; no free parameter). The test uses the 1290 measured points, `x = e^δ ∈ [1.65, 54.6]`. **Evaluation.** Between consecutive zeros, `dF/dT` decreases from `+∞`. So `F` is concave on each gap and the minimum is attained exactly at a zero or at an end of `[1.2T₀, 2.8T₀]`; no grid search is needed. The minimiser sits at `T*/T₀ ∈ [1.30, 2.05]`. The null replaces the zeros by the density `(1/2π)ln(γ/2π)`.
+
+**Result: P3 FAILS, as stated in advance.**
+- **(i)** fails. The measured dominant line is `9.38` (power share 0.214), but the model's dominant line is `5.11` (0.152), well outside `9.42 ± 0.2`. The model has no line near 9.4; its nearest line is `8.67` (0.018).
+- **(ii)** fails. The residual correlation is `0.277` at the grid points and `0.180` uniformly resampled in `x`, below `0.5`.
+- **The null holds.** The continuum model's residual has `0.13%` of the discrete model's variance (a single smooth 0.36 line from detrending). So the model's structure is purely discreteness.
+- `kbalayage_results.json` holds the numbers; `kbalayage_model_series.npz` holds the series.
+
+**Reading.** The paper's discrete-balayage mechanism produces wiggles of the right *size* (rms `0.057` vs measured `0.071`). Its smooth part also has the right leading coefficient (`12.5676` vs `4π = 12.5664`). But its *spectrum is not the measured one*: the `3π` line of rounds 82–85 is not the zero-hopping of the balayage minimum. This agrees with rounds 82–84, which found the wiggles not tied to zero crossings. The origin of the `≈ 3π` line remains open.
+
+**Post hoc, not registered, and not evidence.**
+- The model's strongest line `5.11` lies near the measured second line `5.22` (0.071).
+- The uniform-`x` correlation `0.18` sits at about the 97th percentile of a circular-shift null (sd 0.064, 95th percentile of `|c|` 0.115, max 0.204 over 186 shifts).
+- Both are weak hints that part of the measured residual is zero-discreteness. Neither may be claimed without a new pre-registration.
+
+## Round 89: topological depths in the wiggles, a fourth pre-registered test (`PREREG_topology.md`, `ktopology.py`)
+
+**Registered in `8d8870e` before any statistic was computed.** The depth map is derived, not fitted: the multiplier's branch point `z = 2T₀ = 4πx` reaches cascade layer `D` (tower index `d = D − 1`, sphere `S^{D−1}`) at `x_D = (D − ½)/4π`. A feature recurring with period `P` in `D` gives a line at `8π²/P` in `x`. The accessible layers are `D ∈ [21, 687]`, so `d_V, d₀, d₁` and the Adams/Hopf dimensions are below range.
+
+**Result: every test fails. Hypothesis T is not supported.**
+
+| Test | Target | Power / flank 95th percentile | Flank rank | Verdict |
+|---|---|---|---|---|
+| H2: hairy ball / Lefschetz parity (P = 2), blind | 39.48 | 0.23 | 0.79 | fail |
+| H3: Bott fermion layers `D ≡ 5 mod 8` (P = 8), not blind | 9.87 | 0.076 | 0.60 | fail, as expected |
+| H4: Bott half-period (P = 4), not blind | 19.74 | 0.035 | 0.57 | fail |
+| H1: threshold `d₂ = 217` at `x = 17.23`, blind | — | — | jump 0.42, rms 0.15 (needs 0.975) | fail |
+
+**Positive control (post hoc).** The same line test at the known 9.38 gives power 14.6 times the flank 95th percentile, rank 1.0. So the method detects a real line of this data's size, and the topology lines are absent, not merely undetected. The strongest lines in `(26, 62)` on `[1.65, 20]` are 30.2 and 36.7, with none at 39.5.
+
+**Reading.** Under the derived depth map, the wiggles carry no parity comb (hairy ball), no period-8 comb (Bott / fermion layers), no period-4 comb, and no event at `d₂ = 217`. Two readings remain, and this test cannot separate them:
+- the wiggles of `ln K_a(0,0)` at `z = 0` do not see the layer structure;
+- the horizon is not the depth probe for them. The multiplier's transition is smooth, with an arccosh deficit, not a sharp edge.
+
+The recorded caveat stands: a period-8 comb gives exactly `3π` only if the slope is 12 instead of the derived 4π, and that slope is not available without a fit. The `3π` line's origin remains open after rounds 82–89.
+
+## Round 90: digging the Bott, a fifth pre-registered test (`PREREG_bott.md`, `kbott.py`)
+
+**Registered in `14cc729` before the data existed.** The depth slope `s` is left free, since round 89 excluded `4π`. Bott periodicity (period 8 on the integer layers) then predicts two things whatever `s` and whichever 8-periodic pattern:
+- **B1:** harmonics at `3ω₁` or `4ω₁`, because a pattern on integer layers is not a pure sinusoid;
+- **B2:** the lattice line at `8ω₁ = 2πs`.
+
+**New data.** 426 new windows (`kchain_list.py`, same basis `K = 15x + 40`, reproducing existing points exactly), merged into a uniform step of 0.03 on `x ∈ [20, 37.04]`. This gives 569 points with Nyquist 104.7, where previously no line above 26 had been observed. The file is `hamiltonian_grid_x20_37_fine.jsonl`.
+
+**Result: B1 and B2 both fail. Bott is not visible as a lattice pattern.**
+
+The fundamental is `ω₁ = 9.586` (power 15.0 times its flank 95th percentile, the positive control). So the implied slope would be `s = 8ω₁/2π = 12.2`.
+
+| `k` | `kω₁` | Power / flank q95 | Verdict |
+|---|---|---|---|
+| 2 (not blind) | 19.17 | 0.025 | — |
+| **3** | 28.76 | 0.087 | fail |
+| **4** | 38.34 | 0.80 | fail |
+| 5, 6, 7 | 47.9, 57.5, 67.1 | 0.76, 0.31, 0.52 | — |
+| **8 (lattice)** | 76.69 | 0.15 | fail |
+
+The strongest line in `[50, 100]` is at 50.1, which is `5.23ω₁`, not an integer multiple.
+
+**Quantitative bound.** Relative to the fundamental, the harmonic amplitudes are:
+- `|c₃/c₁| < 0.061`;
+- `|c₄/c₁| < 0.042`;
+- `|c₈/c₁| < 0.0049`.
+
+The 3π line is therefore sinusoidal to about 5% in amplitude. An equal-weight comb on integer layers (the fermion layers `D ≡ 5 mod 8`) would need each layer's feature smeared over a Gaussian width of at least `1.06` layers (from `k = 3`) to hide its harmonics.
+
+**Reading.** Rounds 89–90 give two results:
+- At the derived slope `4π`, there is no line at `π²`.
+- At a free slope, the line that exists has no harmonics and no lattice line.
+
+So the wiggles show no trace of the integer layer structure. Bott could still be present only if every layer's feature is spread over more than about one layer. In that case a period-8 pattern cannot be told apart from any other smooth oscillation of that frequency in this data, and the Bott reading is not testable here. The `≈ 3π` line (9.4–9.6 depending on range and detrending, resolution 0.37 here) is a clean single-frequency oscillation of unknown origin.
+
+## Round 91: the one remaining route, geometric resonance, is closed; the 3π line is arithmetic (`PREREG_resonance.md`, `kzeroside.py`, `kresonance.py`)
+
+**Two structural facts, found on the way.**
+- **The prime side cannot be dissected.** At `x = 12` (`kchain_variant.py`), `ln K00` is `122.5` with the full prime side. It becomes:
+  - `1.9` with every `Λ(n)` scaled by 0.9;
+  - indefinite with the weights scaled by 1.1;
+  - `0.09` with `n ≤ 5` dropped;
+  - `100.4` with `n = 11` alone dropped.
+
+  The `e^{4πx}` growth is an exact Γ–prime cancellation that exists only at prime weight 1.
+- **The zero side is exact and robust.** By Weil's explicit formula (zeros on the line), `K_a(0,0) = sup ĝ(0)²/Σ_γ |ĝ(γ)|²`. `kzeroside.py` evaluates this in the cosine basis on the first 6700 zeros. It reproduces the prime-side chain up to a near-constant offset: `0.667` and `0.664` nats at `x = 5` and `8`, close to `ln 2` less the truncation. Its residual correlates with the measured one at **`0.985`**. Any point set gives a positive form, so the zeros can be replaced safely.
+
+**The test (registered in `56f642c`).** Route R said the line is a geometric resonance between the window and the *mean* zero spacing. The test replaces the 6700 zeros by their fluctuation-free quantiles, `θ(γ̃_k) = (k − 3/2)π`, and recomputes on `x ∈ [3, 12]` (451 windows, step 0.02).
+
+| | True zeros | Smooth quantiles | Measured (prime side) |
+|---|---|---|---|
+| Line at 9.075 (power / flank q95) | **5.07** | **0.074** | 5.12 |
+| Residual rms | 0.074 | 0.010 | — |
+| Top lines | 9.07, 4.89, 16.75, 13.26, 23.73 | none (a detrending remnant at 1.4) | 9.07, 4.89, 16.75, 13.26, 23.73 |
+
+The quantile residual correlates with the true one at `0.08`.
+
+**Result: V passes, R fails, A holds.**
+- With the zeros at their mean positions, the chain has *no* wiggles: it keeps 14% of the rms, and that remnant has no structure.
+- The whole fine structure, including the 3π line, its companions at 4.9 and 16.75, and their relative powers, is carried by the **fluctuations of the zeta zeros about their mean positions**.
+- The line position is 9.075 here (resolution 0.70 on this range) against 9.4 on the larger ranges.
+
+**Reading.** The route is closed, and the question now has a precise answer. The trend is Γ, and the wiggles are arithmetic: they are the zeros' deviations `S(t) = (1/π)arg ζ(½ + it)` read through the window's extremal problem. This fits every earlier negative:
+- not the mean density (round 88's continuum null, and now Z1);
+- not the individual zero crossings (rounds 82–83, 88);
+- not the layer topology (rounds 89–90).
+
+The zero side makes the next step possible, because it can be dissected where the prime side could not. Replacing the zeros by quantiles *in height bands* will localise which zeros carry the 3π line: those near the edge `2T₀ = 4πx`, or the low zeros.
+
+## Round 92: the discretised d-ball has a consistent arithmetic only for d = 1, 2 (`PREREG_latticeball.md`, `klatticeball.py`)
+
+**Registered in `052cdfb`.** The owner's claim was that "the arithmetic is forced by discretising the unit ball". It was made operational as follows:
+- sum the Gaussian `e^{−π|t|²x}` over the integer lattice ℤ^d instead of integrating it over ℝ^d;
+- take the Mellin transform, which gives the completed Epstein zeta `Λ_d(s) = π^{−s}Γ(s)Σ'_{m∈ℤ^d}|m|^{−2s}`.
+
+The discretised d-ball has a window chain only if every zero of `Ξ_d = s(s − d/2)Λ_d` lies on `Re s = d/4`. `Λ_d` is computed from its theta integral, which matches the closed forms at `d = 1, 2, 4, 8` to `1e-31`–`1e-47`. The test compares zeros on the line (sign changes) with all zeros (argument principle) up to `T = 40`.
+
+| `d` | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|
+| all zeros, `0 < Im < 40` | 21 | 20 | 20 | 20 | 20 | 21 | 21 | 21 |
+| on `Re s = d/4` | 21 | 20 | 10 | 8 | 8 | 9 | 9 | 9 |
+| off-line | 0 | 0 | **10** | **12** | **12** | **12** | **12** | **12** |
+| consistent (chain exists) | yes | yes | no | no | no | no | no | no |
+
+**Cross-checks.**
+- `d = 1` is `ζ(2s)`: its line zeros are `γ/2` (7.07, 10.51, …), 21 of them.
+- `d = 2` is `ζ(s)L(s, χ₋₄)`, the Gaussian integers: 6 ζ-zeros plus 14 `L`-zeros.
+- `d = 4` is exact: 8 line zeros from `1 − 4^{1−s}` at `t = 2πk/ln 4 = 4.53k`, and 12 off-line zeros (6 ζ-zeros at `Re s = ½` and their mirrors at `3/2`).
+- `d = 8` is exact: 9 line zeros from `1 − 2^{1−s} + 2^{4−2s}` (whose roots have `|2^{−s}| = ¼`, so they lie on the line) plus 12 off-line zeros.
+
+**Result: H fails, as expected.** The literal lattice discretisation of the d-ball gives a consistent arithmetic, zeros all on the centre line, **only for d = 1 and d = 2**. It fails for every `d = 3, …, 8` computed. The two exact cases, `d = 4` and `d = 8`, fail because their Epstein zetas factor into ζ's *shifted off* the centre. `d = 3, 5, 6, 7`, which have no Euler product, fail with 10–12 off-line zeros below height 40.
+
+**Reading.**
+- **Supported.** In one dimension, discretising the Gaussian on a lattice through the origin forces ζ uniquely: every such lattice is `λℤ`, and `Λ_{λℤ} = λ^{−2s}Λ_1` has the same zeros. `d = 2` (ℤ[i]) gives `ζ·L(χ₋₄)`, which contains ζ. So "the arithmetic is the 1-D lattice sampling of the Gaussian, with Γ as its continuum" holds exactly (Riemann 1859). The measured chain is its window chain.
+- **Not supported.** "The arithmetic is forced by discretising the *higher-dimensional* ball." From `d = 3` on, the ball's own lattice discretisation gives an arithmetic *without* a consistent window chain.
+  - In the distinguished dimensions 4 and 8 (quaternions, octonions), it gives ζ back, but shifted off-centre.
+  - The higher balls' lattices do not carry the chain. Only the lowest dimensions do.
+
+## Round 93: the octonion ball and the shift (`ke8ball.py`)
+
+**The question** (owner): could the octonions be responsible for the phase shift?
+
+**The octonion lattice.** The integral octonions (Coxeter's octavians) form the `E₈` lattice. Its theta function is `½(θ₂⁸ + θ₃⁸ + θ₄⁸)`, which equals the weight-4 Eisenstein series. Its Epstein zeta is therefore *exactly*
+
+`Σ'_{v∈E₈} |v|^{−2s} = 240·2^{−s} ζ(s) ζ(s − 3)`.
+
+It contains nothing but Riemann's ζ, with no extra 2-adic factor as ℤ⁸ has. `ke8ball.py` is round 92's code with the `E₈` theta:
+- it matches the closed form to `1e-32`–`1e-46`;
+- up to `T = 30` it finds **6 zeros, none on the centre `Re s = 2`**. These are ζ's first three zeros (14.13, 21.02, 25.01), each appearing twice, at `Re s = ½` and at `Re s = 7/2`, i.e. at `2 ∓ 3/2`.
+
+**What the shift is.** For a lattice whose theta is an Eisenstein series of weight `k = d/2`, the zeta is `ζ(s)ζ(s − k + 1)`. Its two copies of ζ's zeros sit at `k/2 ∓ (k − 1)/2`, a displacement of `(d/2 − 1)/2` from the centre. That is `½` for `d = 4` and `3/2` for `d = 8`. It is fixed by the modular weight, i.e. by the dimension. The octonions supply the lattice (`E₈`) whose zeta is *purely* ζ.
+
+**Is it a shift seen in the chain? No, on three counts.**
+- **Positivity.** A zero displaced by `β` from the centre contributes `ĥ(γ − iβ)`, weighted by `e^{βu}` across the window, i.e. an amplitude `x^{±β}`, not a phase. It also makes the zero-side form indefinite (round 91). The measured chain is positive out to `x = 55`, so it contains no displaced zeros.
+- **The Hamiltonian–wiggle lead** (the figure from round 90) is derived: `2φ = ln K00 + ln(2 d ln K00/dδ)` adds the derivative, a quarter-cycle lead. No further cause is needed.
+- **The `3/2` coincidence**, checked because the 3π line is `cos(3T₀/2)`: a real-part displacement of `3/2` changes the Γ-phase by a *constant*, `arg Γ(σ + 3/2 + it) − arg Γ(σ + it) → 3π/4`. It does not change the frequency. So it cannot make a line at `1.5·T₀`, and the match is numerical only.
+
+**Reading.**
+- The octonion 8-ball, discretised on its own lattice, carries *exactly* Riemann's zeros, twice, displaced by `±3/2` from its centre.
+- Undoing that displacement (the factor `ζ(s)`) returns the ζ chain.
+- So "the octonion ball contains the arithmetic, shifted" is a theorem, not a hypothesis.
+- What the chain sees is the unshifted copy. The displacement itself does not appear in it.
+
+## Round 94: the octonion superposition (`PREREG_superposition.md`, `ksuperpose_zeros.py`, `ksuperpose_score.py`)
+
+**The idea** (owner), made exact and registered in `3c41236`. The chain's arithmetic is a *superposition* of the octonion ball's two displaced copies of Riemann's function, `G(t) = Ξ(t + 3i/2) + Ξ(t − 3i/2) = 2 Re ξ(2 + it)`.
+
+**Theorem** (de Bruijn 1950). If `F` is real entire of order `< 2` with its zeros in `|Im z| ≤ Δ`, then `F(z+ib) + F(z−ib)` has only real zeros for `b ≥ Δ`. For `Ξ`, `Δ ≤ ½` unconditionally, so every zero of the octonionic superposition lies on the critical line, **unconditionally**.
+
+**The zeros.** `ksuperpose_zeros.py` finds `G`'s zeros as the points where `arg ξ(2 + it) ≡ π/2 (mod π)`. `ζ(2 + it)` comes from its absolutely convergent series and matches mpmath to `1e-13`–`7e-11`.
+- There are 6700 zeros up to `t = 6996.5`, against ζ's `6996.9`, and the phase is monotone.
+- The first ones are 12.77, 19.39, 23.94, 28.70, … They are not Riemann's zeros.
+- They sit a near-constant ≈ 3/8 of a spacing from ζ's smooth quantiles. This is the constant Γ-phase `3π/4` of round 93, halved by `Γ(s/2)`. On top of that there is a ripple from `arg ζ(2+it)`, i.e. prime weights `Λ(n)/n²`.
+
+**Result: S fails as registered.**
+
+| Measure | Superposed zeros | True zeros | Smooth quantiles (round 91) |
+|---|---|---|---|
+| Correlation with measured wiggles (needs ≥ 0.9) | **0.47** | 0.985 | ~0.08 |
+| Residual rms | 0.022 (29%) | 0.074 | 0.010 |
+| Dominant line | **9.77**, 41× threshold | 9.075 | none |
+| Other lines | 16.75, 23.73, 4.89 (weak) | 4.89, 16.75, 13.26, 23.73 | — |
+
+The registered line test at 9.075 technically finds power within `±res`. But it finds it at the bin edge (9.773, resolution 0.70), and the correlation criterion fails, so S fails.
+
+**Post hoc, not evidence.** The superposition does far more than the smooth quantiles:
+- its residual correlates with the true-zero wiggles at 0.54;
+- it carries a strong single line one resolution bin above the measured one;
+- it shares the 16.75 and 23.73 lines exactly.
+
+Its only arithmetic is `arg ζ(2 + it)`, which is dominated by the smallest primes (weights `Λ(n)/n²`). This suggests that the *line positions* of the wiggle family are set by low primes, while the full wiggle, including its amplitude and the 4.89 line, needs the critical-line fluctuations. That is a hypothesis for a new registration, not a result.
+
+## Round 95: the wiggles are the small primes (`PREREG_lowprimes.md`, `kprimezeros.py`, `kzeroside2.py`, `klowprimes_score.py`)
+
+**Faster protocol.** `kzeroside2.py` keeps the zeros below `H = 1000` individually and replaces the zeros above by their smooth density, with `sin²(ta)` replaced by its mean. Together with a step of 0.04 (226 windows, Nyquist 78), a variant costs about 1/10 of round 91's. **Validation V: correlation `0.9999`** with round 91's full kernel on the true zeros.
+
+**Construction** (registered in `5e9051c`). The zero sets solve `θ(t)/π + 1 + S_P(t) = k − ½`, where `S_P` is the Euler product truncated at the prime `P`. Their mean deviation from the true zeros (below 1000) falls from 0.306 (`P = 0`) through 0.222, 0.158, 0.121, 0.096, 0.077 and 0.060 to 0.041 (`P = 101`).
+
+| `P` | 0 | **2** | 3 | 5 | **7** | 13 | 31 | 101 | 1009 |
+|---|---|---|---|---|---|---|---|---|---|
+| Correlation with true-zero wiggles | 0.08 | **0.45** | 0.69 | 0.71 | **0.90** | 0.92 | 0.96 | 0.95 | −0.09 |
+| rms ratio | 0.14 | 0.83 | 0.93 | 1.13 | 1.10 | 1.29 | 1.14 | 1.20 | 3.88 |
+| Line test at `ω₀ = 9.075` (power / q95) | 0.38 | **13.3** | 3.6 | 4.8 | 4.5 | 4.8 | 2.9 | 4.1 | 0.13 |
+| Where the line peaks | — | 9.77 | 9.77 | 9.77 | 9.77 | **9.075** | 9.075 | 9.075 | — |
+
+**Result: LP passes as registered.**
+- (i): the line test passes for every `P` from 2 to 101.
+- (ii): the correlation at `P = 3` is 0.69 ≥ 0.5.
+
+**Honest qualifications.**
+1. For `P ≤ 7` the line sits one resolution bin (0.70) above `ω₀`, at 9.77. It moves onto `ω₀` from `P = 13`. At this resolution the two are adjacent bins and cannot be separated.
+2. `P = 1009` breaks down: the truncated Euler product does not converge on the critical line, and the zero set becomes misaligned (mean deviation 13.8). This is an expected artefact of the construction, not evidence against LP.
+
+**Reading.**
+- **The prime 2 alone** turns the featureless smooth-quantile chain into one with the dominant line at 13× the threshold and 83% of the true rms.
+- **The primes up to 7** reproduce the true chain's wiggles at correlation 0.90.
+- So the wiggle family is set by the smallest primes, overwhelmingly by `p = 2`, with 3, 5 and 7 shaping it. Larger primes refine it.
+
+**Next.** The next step is a single-prime dictionary (only `p = 3`, only `p = 5`, …) to identify which line each prime creates. Deriving the frequencies from `ln p` needs the *reading height* of the window: `4π ln 2 = 8.71` with the edge at `2T₀`, against the measured 9.1–9.4. That derivation is open.
+
+## Round 96: one prime at a time, one prime removed (`PREREG_primeablation.md`, `kprimezeros2.py`, `kablation_score.py`)
+
+**Registered in `a34af8f`.** The zero sets come from `S_Q` over a prime set `Q`: only-`p` (`Q = {p}`), or minus-`p` (the primes up to 101 without `p`), for `p = 2, 3, 5, 7, 11, 13`. They use round 95's fast kernel and grid. The baseline is `P = 101`, with correlation `0.945`.
+
+**Deviation, stated.** The zero scan starts at `t = 1`. For the minus-`p` sets it produced a pair of crossings near `t ≈ 1.1–1.5`, where the smooth count is below ½ and no zero can exist. Crossings with `t < 10` were therefore dropped from every set; round 95's sets had none there. Elsewhere "all crossings" was kept as registered. In only-11 this gives a triple crossing at 47.05/47.19/47.25, and in only-13 an extra pair at 13.95/14.85.
+
+| `p` | 2 | 3 | 5 | 7 | 11 | 13 |
+|---|---|---|---|---|---|---|
+| minus-`p`: correlation (drop) | 0.931 (0.014) | 0.916 (**0.029**) | 0.942 (0.003) | 0.958 (**−0.013**) | 0.949 (−0.004) | 0.962 (−0.017) |
+| minus-`p`: line at 9.075 (× q95) | **2.2** | 5.3 | 4.6 | 3.9 | 5.5 | 3.6 |
+| only-`p`: correlation | 0.45 | 0.31 | 0.40 | 0.29 | −0.09* | −0.03* |
+| only-`p`: strongest lines | **9.77**, 2.79, 4.89 | 3.49, **16.75**, 5.58 | 3.49, 6.28, 8.38 | 2.79, 5.58, 11.87 | 2.09* | 2.09* |
+| only-`p`: line at 9.075 (× q95) | **13.3** | 0.29 | 0.34 | 0.52 | 0.03 | 0.02 |
+
+\* Only-11 and only-13 are dominated by their close crossing pairs (rms 9× and 6× the true value). These are artefacts of the construction and are not interpreted.
+
+**Result: D7 fails, F fails.**
+- **D7.** The drop ranking is 3, 2, 5, 11, 7, 13. Removing 7 slightly *raises* the correlation (−0.013). No single prime is essential once the others are present: the largest drop is 0.029. The owner's reading that 7 is special is not supported. The Weil-weight maximum at `e² ≈ 7.39` does not show up either.
+- **F.** The single-prime lines do not scale with `ln p`: predicted 15.5, 22.7 and 27.4 for 3, 5 and 7, against observed strongest lines of 3.49, 3.49 and 2.79.
+
+**What the dictionary does show** (descriptive):
+- **The main line (≈ 9.1–9.8) belongs to `p = 2`.** Only-2 carries it at 13×. Removing 2 is the only removal that weakens it, to 2.2×, after which the 4.89 line becomes the strongest.
+- **The 16.75 line belongs to `p = 3`.** It is only-3's second line, at 12% of the power.
+- The other single primes contribute low-frequency structure (2.8–8.4). The full pattern is the non-additive combination: correlation 0.45 for 2 alone, and 0.94–0.96 for the full set.
+
+## Round 97: the chain is not a resonator; the lines need arithmetic coherence (`PREREG_resonator.md`, `knoisezeros.py`, `kresonator_score.py`)
+
+**Registered in `4e85240`.**
+- **Hypothesis RES:** the recurring line frequencies are intrinsic modes of the chain, excited by any fluctuation.
+- **Test:** drive the chain with non-arithmetic fluctuations of the true size, using 4 seeds each:
+  - **N1, white:** the smooth quantiles plus i.i.d. Gaussian jitter (sd 0.383; mean |dev| 0.29–0.31, against the true zeros' 0.306);
+  - **N2:** the prime sum up to 101 with random phases.
+
+**Result: RES fails and ARITH holds.** The 9.42 line is present in **0 of 4** white seeds and 0 of 4 N2 seeds. So are 4.97 and 16.75.
+
+| Run | Strongest lines (relative power) | rms ratio | Correlation with true |
+|---|---|---|---|
+| true zeros | 2.92 (.12) · 4.97 (.48) · 6.67 (.11) · **9.42 (1.0)** · 16.75 (.12) | 1 | 1 |
+| N1 s1 | 2.88 (1.0) · 4.71 (.51) · 9.16 (.03) | 1.44 | 0.17 |
+| N1 s2 | 2.31 (1.0) · 5.45 (.50) · 7.90 (.13) | 1.39 | 0.06 |
+| N1 s3 | 2.70 (1.0) · 4.01 (.62) · 5.28 (.25) | 1.67 | 0.18 |
+| N1 s4 | 2.97 (1.0) · 5.89 (.27) · 8.38 (.07) | 1.40 | −0.18 |
+
+- **White noise.** White jitter of the true size makes wiggles 1.4–1.7× *larger* than the true ones. They are red (dominated by low frequencies), their line positions change from seed to seed, and nothing lands at 9.42.
+- **N2 is artefact-dominated, as anticipated.** With random phases, the partial Euler sum folds the counting function back 73–77 times per seed, giving 790–800 points instead of 649, with pairs as close as 0.013. With the *true* phases, the same sum up to 101 produced a monotone counting function (round 95).
+
+**Reading.**
+- The lines are not modes of the chain waiting to be struck. They need the fluctuations to have arithmetic structure.
+- The recurrence of the same lines across different prime subsets (round 96) therefore points to something all true-prime subsets share and random phases lack: every term `p^{−1/2} sin(t ln p)` starts **in phase at `t = 0`**. So the low zeros are displaced coherently, in the same direction, whatever the subset.
+- This makes the low zeros the candidate carriers of the line family. The height-band swap (true zeros below `H`, quantiles above) is the direct test.
+
+## Round 98: the lines are carried by the zeros up to the window's edge (`PREREG_heightbands.md`, `kheightbands_score.py`)
+
+**Registered in `b506709`.** The sets are:
+- **L_H:** true zeros below `H`, smooth quantiles above;
+- **U_H:** quantiles below `H`, true zeros above.
+
+The window's edge `2T₀ = 4πx` runs over 38–151 on this grid.
+
+| `H` | 30 | 50 | 100 | 200 | 500 |
+|---|---|---|---|---|---|
+| true zeros below `H` | 3 | 10 | 29 | 79 | 269 |
+| **L_H**: correlation with true (rms ratio) | 0.08 (0.14) | 0.22 (0.43) | 0.50 (0.81) | **0.983** (0.99) | 1.000 (1.00) |
+| L_H: 9.42 line | no | no | no (8.94) | **yes** (9.38) | yes |
+| **U_H**: correlation with true (rms ratio) | **1.000** (1.00) | 0.91 (1.00) | 0.60 (0.98) | 0.17 (0.21) | 0.07 (0.14) |
+| U_H: 9.42 line | **yes** | yes (9.38) | no (9.12) | no | no |
+
+**Result: EDGE passes and LOW fails.**
+- **EDGE (all three registered clauses hold):** L_100 lacks the line, L_200 has it (correlation 0.983), and U_30 keeps it (correlation 1.000).
+- **LOW fails:** L_50 has no line and correlates at only 0.22, while U_50 keeps the line.
+
+**The low zeros are not the carriers.**
+- Replacing the first 3 zeros changes nothing (U_30 correlation 1.000); replacing the first 10 still leaves 0.91.
+- What carries the line family is the zeros between about 100 and 200. That is the band swept by the window's moving edge `4πx` (up to 151), plus a margin.
+- Zeros above 200 add almost nothing on this range (U_200: 21% of the rms).
+- Round 97's lead (coherent low-zero displacement) is refuted. The recurrence of lines across prime subsets must instead come from how each subset displaces the zeros *near the edge*.
+
+**Reading.**
+- At window `x` the chain reads the zeros near its edge `T ≈ 4πx`.
+- A line fixed at `ω` in `x` therefore corresponds to structure repeating every `Δt = 4π·2π/ω` in the zeros near the edge. For `ω = 3π` that is `8π/3 ≈ 8.38`.
+- For comparison, `p = 2`'s term `sin(t ln 2)` repeats every `2π/ln 2 = 9.06`. That is within 8% of the required period: the same 8% gap as `4π ln 2 = 8.71` against 9.42.
+- Closing it needs the exact reading height (`≈ 1.08 × 4πx`?), which is the next thing to pin down. A window-relative band test would do it: true zeros only in `[c₁, c₂]·4πx` at each window.
+
+## Round 99: the reading height, and a height-to-frequency ladder (`PREREG_readingheight.md`, `kzeroside3.py`, `kreading_score.py`)
+
+**Registered in `96adb56`.** At each window, the true zeros are used only in the band `r = γ/(4πx) ∈ B_j` ("keep"), or everywhere except `B_j` ("drop"), with smooth quantiles elsewhere. There are ten bands of width 0.2 on `[0.2, 2.2)`, giving 20 chains.
+
+| band `r` | .2–.4 | .4–.6 | .6–.8 | .8–1.0 | **1.0–1.2** | 1.2–1.4 | 1.4–1.6 | 1.6–1.8 | 1.8–2.0 | 2.0–2.2 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| drop: loss `1 − corr` | 0.12 | 0.18 | 0.16 | 0.30 | **0.56** | 0.12 | 0.03 | 0.02 | 0.007 | 0.005 |
+| keep: corr with true | −0.27 | 0.06 | 0.20 | 0.01 | **0.56** | 0.46 | 0.15 | 0.14 | 0.14 | 0.07 |
+| keep: rms ratio | 0.61 | 0.68 | 0.60 | 0.94 | 1.10 | 0.45 | 0.29 | 0.21 | 0.18 | 0.16 |
+| keep: strongest line | 3.36 | 3.49 | 7.02 | 6.81 | **9.12** | **9.38** | **16.62** | **16.75** | **23.34** | **23.56** |
+
+**Result: RH fails.** (i) fails and (ii) passes.
+- **(i) fails.** The loss-weighted reading height is `r̄ = 0.92`, outside `[1.03, 1.13]`. Read at that height, `p = 2` would put the line at `r̄·4π ln 2 = 8.01`, not 9.42. So the single-height `p = 2` derivation of the 3π line fails.
+- **(ii) passes.** The band `[1.0, 1.2)` carries the most: removing it costs 0.56 of the correlation, and keeping it alone gives 0.56 with a line at 9.12. The interior bands (`r < 1`) also cost 0.12–0.30 when dropped, and that is what pulls `r̄` below 1.
+
+**Post hoc, not registered: a height-to-frequency ladder.** Each band, kept alone, produces its own dominant line, and the line frequency rises with the band's height:
+
+| band `r` | 1.0–1.4 | 1.4–1.8 | 1.8–2.2 |
+|---|---|---|---|
+| line | 9.1–9.4 | 16.6–16.75 | 23.3–23.6 |
+
+These are exactly the true chain's line family (9.42, 16.75, 23.73; rounds 84–85), and the steps are nearly equal (≈ 7.1–7.3). The family is therefore not several primes' lines. It is **one mechanism read at successive heights beyond the window's edge**: `r > 1`, i.e. zeros up to about `2.2 × 2T₀`, contribute with falling weight. A finer band ladder would measure the frequency-versus-height relation `ω(r)` precisely. That relation is the window's "dispersion law", and it is the object a derivation has to produce.
+
+## Round 100: ω(r) is a staircase (`PREREG_ladder.md`, `kladder_score.py`)
+
+**Registered in `c415988`.** Sixteen keep-bands of width 0.1 cover `r = γ/(4πx) ∈ [0.9, 2.5)`. `ω` is the strongest interpolated peak in `[4, 35]`, and the second peak is also recorded.
+
+| `r` | .95 | 1.05 | 1.15 | 1.25 | 1.35 | 1.45 | 1.55 | 1.65 | 1.75 | 1.85 | 1.95 | 2.05 | 2.15 | 2.25 | 2.35 | 2.45 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `ω` | 7.81 | **9.03** | **9.29** | **9.38** | **9.29** | **16.49** | **16.75** | **16.75** | **16.84** | **23.25** | **23.43** | **23.51** | **23.56** | **23.51** | **23.43** | **23.21** |
+| second peak | 4.89 | 5.02 | 5.41 | 15.75 | 16.18 | 9.12 | 8.72 | 22.68 | 23.08 | 16.62 | 16.45 | 29.31 | 29.53 | 29.79 | 29.97 | 30.14 |
+| linear response, `p = 2` (`8.71r`) | 8.27 | 9.15 | 10.02 | 10.89 | 11.76 | 12.63 | 13.50 | 14.37 | 15.24 | 16.11 | 16.99 | 17.86 | 18.73 | 19.60 | 20.47 | 21.34 |
+
+**Result: STAIR passes and LIN fails.**
+- **STAIR.** Every band with `r ≥ 1` locks onto one of 9.42, 16.75 or 23.6 (±0.6), in contiguous, non-decreasing runs:
+  - 9.03–9.38 for `r ∈ [1.0, 1.4)`;
+  - 16.49–16.84 for `r ∈ [1.4, 1.8)`;
+  - 23.21–23.56 for `r ∈ [1.8, 2.5)`.
+- **LIN.** The best straight line leaves an rms residual of 2.15 and adjacent bands jump by up to 7.2.
+- **Linear response.** The `p = 2` reference agrees only at `r ≈ 1.05` (9.15 against 9.03), then departs steadily.
+
+**What the staircase shows.**
+- The drift within each plateau is at most 0.35. A linear law would move 3.5 (`8.71·0.4`) to 5.0 (`4π·0.4`) across the same span. The window therefore **quantises** the continuum of heights into discrete tones.
+- Near each step both neighbouring rungs are present (the second peaks), as in mode switching.
+- A **fourth rung** is emerging as the second peak for `r ≥ 2.0`, at 29.3–30.1.
+- The rungs are 9.3, 16.7, 23.4 and ≈ 30.0, with spacings 7.4, 6.7 and 6.6.
+
+**Post hoc, not evidence.**
+- The least-squares slope through the staircase is `12.589`, i.e. `4π` (12.566) to 0.2%. The steps track `4πr` on average while locking to discrete values.
+- The rungs fit `≈ 6.9(n + 0.38)` for `n = 1, …, 4`, and `6.9 ≈ 2π ln 3 = 6.903`. This is one of many candidate constants, so it is not evidence.
+
+**Next.** A falsifiable extension, to be registered before computing: bands at `r ∈ [2.5, 3.5)` should show the fourth rung (29–31) as dominant, and a fifth near 36–38.
+
+## Round 101: the ladder continues, but the registered test fails on plateau width (`PREREG_ladder2.md`, `kladder2_score.py`)
+
+**Registered in `eacd58e`.** Ten keep-bands of width 0.1 cover `r ∈ [2.5, 3.5)`.
+
+| `r` | 2.55 | 2.65 | 2.75 | 2.85 | 2.95 | 3.05 | 3.15 | 3.25 | 3.35 | 3.45 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| `ω` | 22.95 | **30.14** | **36.42** | **36.56** | **36.60** | **36.69** | **36.69** | **36.60** | **36.47** | **42.97** |
+| second peak | 30.14 | 36.21 | 22.47 | 29.97 | 29.88 | 42.53 | 42.75 | 42.79 | 43.01 | 36.42 |
+
+**Result: CONTINUES fails as registered.** Order holds; P4 and P5 fail.
+- **P4 fails.** The fourth rung (29–31) is dominant in only one band (`r = 2.65`); two were required.
+- **P5 fails on its ordering clause.** The fifth rung (36.4–36.7) first appears as the second peak in that same band, not above it.
+- **Order holds.** The assigned rung never decreases with `r`.
+
+**What happened, post hoc.** Substantively, the ladder does continue:
+- rung 4 at 30.1 is dominant only across a narrow step;
+- rung 5 at 36.4–36.7 is dominant over `r ∈ [2.7, 3.4)`;
+- a **sixth** rung, at 42.97, takes over at `r = 3.45`.
+
+The registration fixed the widths too tightly. The plateaus, in `r`, are:
+- 1.0–1.4 (width 0.4);
+- 1.4–1.8 (0.4);
+- 1.8–2.6 (0.8);
+- 2.6–2.7 (0.1);
+- 2.7–3.4 (0.7).
+
+They are irregular, while the rung values are regular: 9.3, 16.7, 23.4, 30.1, 36.6, 43.0, with spacings 7.4, 6.7, 6.7, 6.5 and 6.4, slowly narrowing.
+
+**Robustness check.** Subtracting the smooth-quantile chain before the spectrum (the baseline has no power in `[4, 45]`) gives the same peaks in all 26 bands of rounds 100–101. Each band's contribution falls smoothly with height, from rms 0.083 at `r = 0.95` to 0.0012 at `r = 3.45`.
+
+**Reading.** The window turns zero heights into a ladder of tones with near-constant spacing ≈ 6.4–7.4. Each tone locks over a height range of irregular width. The tones lag `4πr` by a lag that shrinks with height: `4πr − ω = 5.8, 4.3, 1.7, 0.4` at the plateau centres 1.2, 2.2, 3.05 and 3.45. Deriving the rung spacing and the irregular plateau boundaries is the concrete target.
+
+## Round 102: the tones are arithmetic and universal; the band-to-tone map is not (`PREREG_laddercontrols.md`, `kladdercontrols_score.py`)
+
+**Registered in `cc39e23`.** Three controls on the ladder of rounds 100–101.
+
+**Execution note.** The first launch of C and D crashed before computing anything: an edit to `kzeroside3.py` had put the definition of `ZQ` inside a comment. It was fixed, and the fixed script was checked to reproduce round 100's value (`x = 5`, band [1.1, 1.2): `39.3249127…`, identical). The chains were then rerun.
+
+**S (sub-range stability) fails.** In only 8 of 26 bands (31%) do both half-ranges (`x ∈ [3, 7.5]` and `[7.5, 12]`) give the full-range tone to within 1.40. The registered reading was "artefact of the finite range". Looking at the data, that needs qualifying:
+- The half-range tones still belong to the *same set*: ≈ 9.4, 16.6, 23.4, 29.9, 36.5 and 42.
+- What changes is which tone a given band shows. At fixed `r` the lower half-range (smaller `x`) tends to show the *higher* tone. For example, `r = 2.15` gives 29.5 on `[3, 7.5]` and 23.6 on `[7.5, 12]`.
+- So round 100's staircase in `r` is a range average of a structure in both `r` and `x`. The robust object is the discrete tone set, not the band-to-tone map.
+
+**C (construction control, white-jittered quantiles): ARITH.** 1 of 6 bands hit, at the threshold `≤ 1`.
+
+| band | 1.1 | 1.5 | 2.1 | 2.6 | 3.0 | 3.4 |
+|---|---|---|---|---|---|---|
+| true-zero tone | 9.29 | 16.75 | 23.56 | 30.14 | 36.69 | 42.97 |
+| white noise | 5.80 | 14.96 | 27.48 | 30.36 | 30.06 | 39.30 |
+| **P = 7 zeros** | **9.34** | **16.75** | **23.60** | **30.10** | **36.69** | **43.01** |
+
+The band construction does not make the ladder. Noise gives scattered tones, and its single hit (30.36) is at chance level.
+
+**D (another arithmetic, the `P = 7` zeros): UNIVERSAL-RUNGS, 6 of 6.** The zero set built from the primes 2, 3, 5 and 7 alone reproduces all six tones to `≤ 0.05`.
+
+**Reading.**
+- The tone set 9.3, 16.75, 23.6, 30.1, 36.7, 43.0 is an arithmetic object.
+- It is absent under noise.
+- It is fixed already by the primes up to 7, to 0.05.
+- It is the same at every height band.
+
+Which band shows which tone depends on `r` and `x` together, which still has to be mapped. The concrete target is now a formula for the tone set in terms of the small primes. The spacings (7.45, 6.85, 6.5, 6.6, 6.3) are not constant, so a pure lattice is excluded.
+
+## Round 103: the tone set needs the primes up to 7 (`PREREG_tonesprimes.md`, `ktonesprimes_score.py`)
+
+**Registered in `aaaed41`.** The six ladder bands were rerun with zero sets built from subsets of the primes. A band hits if its strongest tone is within ±0.3 of the true tone.
+
+| band `r` (true tone) | 1.1 (9.29) | 1.5 (16.75) | 2.1 (23.56) | 2.6 (30.14) | 3.0 (36.69) | 3.4 (42.97) | hits |
+|---|---|---|---|---|---|---|---|
+| `{2}` | **9.38** | 8.86 | **23.51** | 22.73 | 21.07 | 42.66 | **2** |
+| `{3}` | 15.01 | **16.71** | 15.79 | 13.09 | 33.28 | 42.44 | **1** |
+| `{2, 3}` | **9.38** | **16.71** | **23.56** | 22.77 | **36.64** | 36.29 | **4** |
+| `{2, 3, 5}` | **9.34** | **16.75** | **23.56** | **30.14** | **36.64** | 36.34 | **5** |
+| `{2, 3, 5, 7}` | **9.34** | **16.75** | **23.60** | **30.10** | **36.69** | **43.01** | **6** |
+
+For `{2}`, band 3.4: 42.66 lies 0.31 from 42.97, so it narrowly misses the ±0.3 window. Only-2 therefore hits 2.
+
+**Result.**
+- **T2 passes** (`{2}` hits 2 ≤ 3).
+- **T3 passes** (`{3}` hits 1 ≤ 3).
+- **T23 fails**: `{2, 3}` hits 4, and 5 were required.
+- The minimal set that reproduces all six tones is **`{2, 3, 5, 7}`**.
+- Each added prime corrects one more band, and always the highest band still wrong: 2.6 is fixed by 5, and 3.4 by 7.
+
+**Post hoc.** In the missed bands the correct tone is usually present already, as the second peak. Examples: `{2, 3}` at 3.4 has 42.71 second; `{2, 3, 5}` at 3.4 has 43.01 second. Even `{2}` alone produces family values in several bands (16.79, 23.51, 42.49–42.66). So the added primes mostly decide *which* tone dominates a band; they do not create new tones. The tone values look like a property of the Γ lens driven by `p = 2`. The larger primes supply the weighting that selects the tone in each band.
+
+## Round 104: the semi-explicit Hamiltonian (`PREREG_linresp.md`, `klinresp.py`, `klinresp_score.py`)
+
+**Registered in `2baded5`.** The chain is expanded about its pure-Γ base: the zeros are set at their smooth quantiles `γ̃_k`, `θ(γ̃_k) = (k − 3/2)π`. The arithmetic enters only through the displacements `δ_k = γ_k − γ̃_k`.
+
+**The formula** (conditional on RH, like every zero-side computation; exact algebra, no fitted parameter):
+
+`ln K_a(0,0) = ln K_Γ(a) + Σ_k w_k δ_k + ½ Σ_{k,l} h_kl δ_k δ_l + O(δ³)`
+
+with the following ingredients:
+- `y = M⁻¹e₀` and `s = y₀` come from the Γ chain's Gram `M = ΦᵀΦ` at the quantiles;
+- `F_k = φ(γ̃_k)·y` is the base ground state's transform at node `k`, and `F′_k`, `F″_k` are its derivatives;
+- `u_k = φ′_k F_k + φ_k F′_k`;
+- the first-order kernel is `w_k = −2F_kF′_k/s`;
+- the second-order kernel is `h_kl = −2(F_kF″_k + F′_k²)/s·[k = l] + 2u_kᵀM⁻¹u_l/s − w_k w_l`;
+- the Hamiltonian is `H(a) = diag(e^{2φ}, e^{−2φ})`, with `2φ = ln K + ln(d ln K/da)`.
+
+Every kernel is built from the Γ side alone. The arithmetic supplies only `δ`, i.e. `S(t)`.
+
+**Result: LR2 passes.** Grid `x ∈ [3, 12]`, 226 windows. The base reproduces round 95's smooth chain exactly (maximum difference 0).
+
+| Displacements | Order | Correlation with actual residual | rms ratio | rms error / actual rms |
+|---|---|---|---|---|
+| true zeros | 1st | 0.849 | 0.84 | 0.070 / 0.094 |
+| true zeros | **2nd** | **0.937** | **0.90** | **0.026 / 0.094** |
+| `P = 7` zeros | 1st | 0.831 | 0.85 | 0.095 / 0.112 |
+| `P = 7` zeros | **2nd** | **0.930** | **0.92** | **0.037 / 0.112** |
+
+**Tones of the prediction.** The second-order prediction's tones are 3.40, 5.19, 6.72, **9.42**, **16.75**. The actual ones are 2.92, 4.97, 6.67, **9.42**, **16.75**.
+
+**At the level of the Hamiltonian** (`2φ` residuals, excluding the two edge points at each end):
+- second order: correlation **0.947**, rms ratio 0.92, maximum `|2φ_pred − 2φ_true|` **0.087**, against `2φ ≈ 74`;
+- first order: correlation 0.879, maximum error 0.49;
+- Γ only: correlation 0.05.
+
+**The kernel's structure.** The mean `|w|` of the first-order kernel over bands of `r = γ/(4πx)` behaves the same way at `x = 5`, 8 and 11:
+
+| Region | Mean `|w|` | `F′²/s` | Reading |
+|---|---|---|---|
+| inside the window, `r < 1` | 0.06–0.25 | `10²`–`10³⁴` | huge diagonal second-order terms, cancelled almost exactly by the re-optimisation term `u M⁻¹ u` |
+| just beyond the edge, `r = 1.0–1.2` | ≈ 0.03 | ≈ 0.02 | |
+| farther out | falls roughly like `1/r²` | | |
+
+- **Inside.** The ground state *tracks* the displaced zeros, as in the balayage region.
+- **Beyond.** The zeros are free, and the response is ordinary and decaying.
+- `F′²/s` crosses `O(1)` exactly at the edge `r = 1`. That is the structural origin of "the window reads just beyond its edge".
+
+**Honest limits.**
+- The formula is conditional on RH, and is validated only on `x ∈ [3, 12]`.
+- The second-order truncation leaves 6% of the residual correlation, and a maximum error of 0.08 in `ln K`.
+- It describes the true Hamiltonian. It does not prove that the Hamiltonian exists for every `a`.
+- My pre-registered physical guess, that the first-order kernel vanishes below the edge, was wrong. There the quadratic terms are huge and cancel, and the first-order kernel is not small.
+
+**Round 104 addendum: the window's primes predict zeros beyond its horizon** (descriptive, not registered). The window at `x = 12` sees the primes `n < x`, i.e. 2, 3, 5, 7 and 11, and its horizon is `4πx ≈ 151`. The zeros built from Γ's phase plus `S_{≤11}` (`pzeros_set_2-3-5-7-11.json`) match the true zeros at every height tested:
+
+| Heights | Mean `|error|`/spacing, Γ + primes ≤ 11 | Mean `|error|`/spacing, Γ only |
+|---|---|---|
+| 10–151 | 0.032 | 0.170 |
+| 151–300 | 0.046 | 0.188 |
+| 300–600 | 0.061 | 0.211 |
+| 600–1000 | 0.065 | 0.213 |
+
+**Caveats.**
+- This is the classical truncated-Euler-product phenomenon (cf. hybrid Euler–Hadamard products), not new.
+- It places the zeros on the line by construction, so it cannot detect an off-line zero.
+- Adding primes does not make it converge (round 95, `P = 1009`), and its error grows slowly with height.
+
+## Round 105: third order, larger windows, and a precision lesson (`PREREG_linresp3.md`, `klinresp3.py`, `klinresp3_A_score.py`, `klinresp3_B_score.py`)
+
+**Registered in `eda0ac5`.** The response expansion is carried to third order (`s₃`, and the `u − u²/2 + u³/3` terms), and tested:
+- **A:** on the round-104 grid, `x ∈ [3, 12]`;
+- **B:** on larger windows, `x ∈ [12, 30]`, step 0.12, with 151 windows; the zeros enter individually up to `H = 2500`, and the quantiles are extended to 2500.
+
+**Two execution defects, both fixed. The earlier outputs are archived in `r105_v1/` and `r105_v2/`.**
+1. **The first B run blew up** (`|Δ₂| ≈ 10⁵⁷` at 10 windows). I first suspected the removable singularity of `φ_k` at `γ = ω_k`, and rewrote the rows in the stable sinc form `φ_k = g(γ − ω_k) + g(γ + ω_k)`, `g(u) = sin(au)/u`, with a series near 0. This matches the old form and finite differences to 12 digits at generic points. The blow-ups remained, so that was not the cause.
+2. **The real cause was cancellation beyond the working precision.** The second-order diagonal term `−a₂/s` and the re-optimisation term `v₁ᵀM⁻¹v₁/s` are each `≈ 3.4·10⁷³` at `x = 16.9` and cancel to `O(0.3)`. Because only midpoints were written out, windows that *looked* sane could also be wrong: at `x = 16.92` the old `Δ₂ = −0.074` had a radius of `8·10¹¹`, while the correct value is `+0.355`.
+   - `klinresp3.py` now reports the ball radii. It raises the working precision (factors 1, 2, 3, 4, 6, 8) until every reported order is enclosed to `10⁻⁸`.
+   - In the final run all 377 windows are enclosed to `≤ 7.7·10⁻⁹`. They needed factors 1 or 2 only.
+   - The A results are unchanged by the fix.
+
+(One worker was also killed for lack of memory at double precision, at about 3.7 GB each; its 3 windows were rerun separately.)
+
+**Results** (all enclosed; the scoring is as registered):
+
+| Grid | Set | 1st order | 2nd order | **3rd order** | 3rd: rms error / raw maximum error |
+|---|---|---|---|---|---|
+| A: `x ∈ [3, 12]` | true | 0.849 | 0.937 | **0.981** | 0.018 / 0.101 |
+| A | `P = 7` | 0.831 | 0.930 | **0.984** | 0.020 / 0.079 |
+| B: `x ∈ [12, 30]` | true | 0.684 | **0.846** | **0.957** | 0.018 / 0.122 |
+
+Tones on B: the third-order prediction gives 2.18, 5.26, 6.67, **9.42**, **16.75**; the actual residual gives 2.20, 5.26, 6.67, 9.40, 16.75. **Every line is reproduced.**
+
+**Verdicts.**
+- **A: partial.** The correlation reaches 0.981, but the raw maximum error (0.101) is not below round 104's 0.080.
+- **B: HOLDS fails.** The second-order correlation is 0.846 < 0.9, so the second-order formula degrades as the window grows.
+- **B, third order: partial** (0.957).
+
+**Reading.**
+- The expansion converges at every window tested, but it needs more orders as `x` grows. Measured by correlation, the unexplained part shrinks as follows:
+
+  | Grid | after 1st order | after 2nd order | after 3rd order |
+  |---|---|---|---|
+  | `x ∈ [3, 12]` | 15% | 6% | 2% |
+  | `x ∈ [12, 30]` | 32% | 15% | 4% |
+
+- The third-order semi-explicit Hamiltonian reproduces the wiggles' complete tone set on both grids.
+- The natural next steps are:
+  - a fourth order, to see whether B's remaining 4% follows the same geometric decay (factor ≈ 2.5–3.5 per order);
+  - or a resummation, i.e. expanding about a partially displaced base, which should converge faster.
+
+**Round 105 correction: the expansion looks asymptotic, not convergent** (descriptive, computed from round 105's enclosed data). The round-105 reading said "the expansion converges at every window, needing more orders as `x` grows". That rested on residual correlations measured *after* the 4-term smooth fit. The raw error `rms(ln K_true − ln K_Γ − Δₙ)` per `x`-bin tells a different story:
+
+| `x` bin | rms actual | error after 1st | after 2nd | after 3rd | ratio 2→3 |
+|---|---|---|---|---|---|
+| [3, 6) | 0.169 | 0.216 | 0.023 | 0.017 | 1.33 |
+| [6, 9) | 0.265 | 0.323 | 0.034 | 0.041 | 0.82 |
+| [9, 12) | 0.276 | 0.336 | 0.030 | 0.037 | 0.80 |
+| [12, 18) | 0.339 | 0.399 | 0.034 | 0.056 | 0.60 |
+| [18, 24) | 0.364 | 0.428 | 0.035 | 0.066 | 0.53 |
+| [24, 30) | 0.382 | 0.446 | 0.033 | 0.073 | 0.44 |
+
+- **Second order is best for the raw values.** Its error stays flat at ≈ 0.03 at every size tested.
+- **Third order makes the raw values worse** for `x ≥ 6`, and increasingly so as `x` grows. It sharpens the wiggles' *shape*, which is why the correlation rose, while adding a smooth drift that the smooth fit absorbs.
+- **Optimal truncation is at second order,** with a third term that grows. This is the signature of an asymptotic series whose terms start to grow sooner as the window widens.
+- **Consequence:** more orders will not remove the remainder. Resummation or a non-perturbative treatment would be needed. A uniform-in-`a` bound on the response cannot come from truncating this expansion.
+
+## Round 106: deriving the tones from the kernel — the edge-step law fails; a linear dictionary and a heterodyne clue (`PREREG_tonederive.md`, `klinkernel.py`, `ktonederive_score.py`)
+
+**Registered in `84ffe0a`.**
+- **Linear theory.** In the linear theory `Δ₁ = Σ_p Δ₁^{(p)}`, with `Δ₁^{(p)} = −Σ_k w_x(γ̃_k) S_p(γ̃_k)/ρ(γ̃_k)`.
+- **Proposed law.** A sharp step of the kernel at a height `r_e` gives each prime the tone `ω_p = 4π r_e ln p`.
+- **Defining `r_e` independently.** `r_e` is the height where `F′²/s` crosses 1.
+
+The kernel (`w_x`, `F′²/s`) was dumped at all 649 nodes for 226 windows, enclosed to `10⁻¹⁰`. It reproduces round 104's `Δ₁` to 15 digits.
+
+**Result.**
+- **E1 passes.** `r_e = 0.861 ± 0.045`, range 0.73–0.91.
+- **E2 fails (0 of 4 primes).**
+- **E3 fails.** `4π r_e ln 2 = 7.50`, against the observed 9.42.
+
+The edge-step `ln p` law is dead at first order. The earlier `ln p` test (round 96) failed too, on the full nonlinear chains.
+
+**The linear dictionary is clean anyway** (descriptive). The linearised `S_{≤101}` reproduces the exact first order at correlation 0.786. The first-order total gives the lines 9.42, 16.75, 5.19 and 23.56.
+
+| prime | strongest first-order lines (relative power) |
+|---|---|
+| 2 | **9.47** (1.00), with nothing else above 0.02 |
+| 3 | **16.75** (1.00), then 3.32, 5.28 (0.27) |
+| 5 | 4.89, 6.46, 3.58, **30.14** (0.78) |
+| 7 | 4.89, 2.92, 6.89, 7.98 |
+
+At first order, **`p = 2` alone is the 3π line** and **`p = 3` alone is the 16.75 line**.
+
+**The mechanism clue** (descriptive, post hoc).
+- **Inside the edge,** the kernel is positive and smooth, peaking near `r ≈ 0.96`.
+- **Beyond the edge,** it alternates in sign with a period of 2–4 nodes.
+- **Its dominant wavenumber** over `r ∈ [1.05, 1.8]` (the strength of the best single wave is 0.51–0.72):
+
+  | `x` | 6 | 8 | 10 | 12 |
+  |---|---|---|---|---|
+  | wavenumber | 1.93 | 2.23 | 2.46 | 2.65 |
+  | `ln x = 2a` | 1.79 | 2.08 | 2.30 | 2.49 |
+
+  So the wavenumber is `ln x + 0.15`: the window's own frequency `2a`, as a Paley–Wiener ground state oscillating past its wall would give (`F² ∼ cos 2aγ`).
+- **So the response is a heterodyne.** Each prime's oscillation `sin(γ ln p)` beats against the window frequency `2a`. It is then sampled on the Γ nodes, where `2θ(γ̃_k) ≡ π (mod 2π)`, so aliasing against `2θ` enters.
+- **A first pass shows why fixed tones can arise:** the `m = −1` alias makes the `ln x` terms cancel, leaving a phase linear in `x` at each height `r`. But my first closed form, `4πr(1 + c + ln(p/2r))`, does not give 9.42 at a plausible `r`.
+- **Next step.** Replace `w` by its measured heterodyne form `A(r)cos(κγ + φ)` and check numerically that it reproduces 9.47 and 16.75. Only if it does, derive the closed form.
+
+## Round 107: the heterodyne test (`PREREG_heterodyne.md`, `kheterodyne.py`, `kheterodyne_branch.py`)
+
+**Registered in `92ea383`.**
+- **M1:** the kernel smoothed in `γ`, which removes the node-scale oscillation.
+- **M2:** M1 plus a single wave `E(r)(c₁ cos κγ + c₂ sin κγ)` beyond the edge, with `κ`, `c₁`, `c₂` fitted per window to the kernel alone.
+- **Prediction HET:** M2 reproduces the first-order tones (`p = 2` → 9.47, `p = 3` → 16.75, ±0.3) and M1 does not.
+
+| Kernel | `p = 2` strongest tones | `p = 3` strongest tones |
+|---|---|---|
+| true | **9.47**, 3.97, 2.84 | **16.75**, 3.32, 5.28 |
+| M1 (smooth) | 1.74, 8.90, 7.90 | 2.44, 3.49, 13.83 |
+| M2 (registered) | 9.99, 8.51, 3.75 | 5.28, 3.32, 16.66 |
+| M2, `κ` held to the `ln x` branch (**post hoc**) | **9.64**, 3.97, 5.10 | 5.32, 3.32, 18.23 |
+
+**Result: HET fails.** (a) fails and (b) holds.
+- **(b) holds:** the smooth kernel destroys both tones, so the oscillation beyond the edge is necessary.
+- **(a) fails:** the registered M2's `κ` search jumped between aliasing branches over the first ≈ 100 windows (`κ − ln x ≈ 2.4–3.8`, against ≈ 0.33 later). That split the `p = 2` line into 9.99 and 8.51, and left `p = 3`'s 16.66 as the second line only.
+
+**Post hoc** (not evidence). Holding `κ` to the branch near `ln x` gives a stable wavenumber, `κ = ln x + 0.33 ± 0.02` over the whole grid. With that wave, **`p = 2` gives a single clean line at 9.64** (true 9.47). `p = 3` is still not reproduced (18.23 against 16.75). The single wave captures 60–67% of the oscillatory variance.
+
+**A closed-form attempt (recorded; it does not match).** Put the kernel `E(r)cos(κγ)`, `κ = ln x + c`, against the prime wave `sin(γ ln p)`, and sample on the nodes. Poisson summation over the nodes adds the aliases `e^{2imθ(γ)}`.
+- For `m = ∓1` the `ln x` cancels.
+- Stationary phase in the height `r` then puts the reading point at `r* = p e^c/2`, and gives the fixed tone `ω_p = 4πr* = 2π e^c p`.
+- With `c = 0.33` this predicts **17.5** for `p = 2` and **26.2** for `p = 3`.
+- The observed values are 9.47 and 16.75. The prediction is wrong by factors of 1.85 and 1.57, so this stationary-phase model is **not** the mechanism, or it is missing the phase of the envelope `E(r)` and the kernel's chirp (its wavenumber drifts with `r`).
+
+**Status.**
+- The tones need the kernel's oscillation beyond the edge.
+- A single wave at `κ ≈ 2a + 1/3` reproduces the `p = 2` line approximately, but not `p = 3`'s.
+- The closed form is not derived.
+
+## Round 108: the chirped heterodyne reproduces both tones (`PREREG_chirp.md`, `kchirp.py`)
+
+**Registered in `c9a55f8`.** Model M3 is the smooth kernel plus a single chirped wave beyond the edge:
+- the wave is `E(r)cos Ψ(γ)`;
+- its local wavenumber is `κ = ln x + c₀ + c₁(r − 1.4) + c₂(r − 1.4)²`;
+- it has five shape numbers per window, fitted to the kernel alone.
+
+| Kernel | `p = 2` strongest tones | `p = 3` strongest tones |
+|---|---|---|
+| true | **9.47**, 3.97, 2.84 | **16.75**, 3.32, 5.28 |
+| **M3** (chirped wave) | **9.42**, 4.01, 2.79 | **16.75**, 5.23, 3.32 |
+| M3, parameters shuffled across windows (control) | 3.80, 9.55, 29.75 | 2.53, 30.14, 19.59 |
+
+**Result: CHIRP passes.**
+- **Both tones.** `p = 2` gives 9.42 (true 9.47) and `p = 3` gives 16.75 (true 16.75), each within ±0.3.
+- **The control fails, as it should.** With the shuffled parameters the tones disappear, so the fits carry window-specific information.
+- **The single chirped wave captures 94% of the oscillatory variance**, against 60–67% for round 107's unchirped wave.
+
+**The chirp law.** The shape parameters are stable across all 226 windows: `c₀ = 0.114 ± 0.023`, `c₁ = −0.34 ± 0.07`, `c₂ = 0.59 ± 0.26`. The mean offset `κ − ln x` is:
+
+| `r` | 1.0 | 1.2 | 1.4 | 1.6 | 1.8 | 2.0 | 2.2 |
+|---|---|---|---|---|---|---|---|
+| `κ − ln x` | 0.343 | 0.205 | 0.114 | 0.070 | 0.074 | 0.126 | 0.225 |
+
+So the kernel beyond the edge is the window's own oscillation `cos(2aγ)` (`2a = ln x`), with a small, universal, parabolic chirp whose minimum is near `r ≈ 1.7`.
+
+**The window phase** (descriptive). The fitted phase at the reference height `γ = 1.4·4πx` advances at local rates of 41.5, 50.6 and 56.4 on `x` ∈ [3, 6), [6, 9) and [9, 12]. That is about 5% below `4π·1.4(ln x + 1)`, the rate an absolute phase `2aγ` would give (44.1, 53.0, 58.9). This supports `F² ∼ cos(2aγ + ψ)`.
+
+**Status of the derivation.**
+- **Established numerically.** The tones are the primes' waves `sin(γ ln p)` beating against this chirped window oscillation, sampled on the Γ nodes.
+- **An intermediate result (post hoc).** Stationarity of the combined phase (`2aγ + ψ + γ ln p − 2θ`) puts the reading heights at `r*(p) = (p/2)·exp(κ_c(r*))`, with `κ_c = κ − ln x`. That gives `r*(2) ≈ 1.21` and `r*(3) ≈ 1.61`, both inside the oscillating region.
+- **Still open.** A closed-form `ω_p` needs the `x`-derivative of the full phase at `r*`, including the chirp term `∂ψ/∂x`. The naive `4πr*` (15.3 for `p = 2`) is wrong, so that term matters. This is the remaining step.
+
+## Round 109: the tone formula (`ktoneformula.py`; derived after the tones were known, so not a registered prediction)
+
+**The formula.** Beyond the edge, the first-order kernel is `E(r)cos Φ(γ, x)` (round 108). Its phase has a **scaling form**
+
+`Φ(γ, x) = γ ln x + 4πx·K̃(r)`,  with `r = γ/4πx`.
+
+Here `γ ln x = 2aγ` is the window's own oscillation. `K̃′ = κ_c` is the chirp, and `K̃(1.4) = β′/4π` is fixed by the measured rate of the window phase.
+
+Each prime enters as `S_p ≈ −(1/π)p^{−1/2} sin(γ ln p)`, sampled on the Γ nodes. Poisson summation over the nodes brings in the aliases `e^{2imθ(γ)}`, with `2θ′ = ln(γ/2π) = ln x + ln 2r`.
+- **Only one branch has a fixed tone:** `+Φ + γ ln p − 2θ(γ)` (`m = −1`), where `ln x` cancels.
+- **Stationarity in `γ`** gives the reading height: `K̃′(r*) = ln(2r*/p)`.
+- **The tone** is `∂/∂x` of the phase at fixed `γ`, evaluated at `r*`. That is `4π[r* + K̃(r*) − r*K̃′(r*)]`, i.e.
+
+  **`ω_p = 4π · stat_r [ r(1 + ln(p/2r)) + K̃(r) ]`**,
+
+  a Legendre transform of the kernel's scaled phase.
+- **Without a chirp** (`K̃ ≡ 0`), `r* = p/2` and `ω_p = 2πp` (12.57 and 18.85). The chirp moves both tones down.
+
+**Evaluation.** The inputs are only the round-108 kernel fits: `κ_c(r) = 0.114 − 0.336(r − 1.4) + 0.593(r − 1.4)²` and `β′ = −2.31` (segments −2.14, −2.32, −2.45). No tone information enters.
+
+| prime | `r*` | formula `ω_p` | range from `β′` spread | observed (first order) |
+|---|---|---|---|---|
+| 2 | 1.216 | **9.64** | 9.49–9.80 | **9.47** |
+| 3 | 1.608 | **16.73** | 16.58–16.89 | **16.75** |
+| 4, 5, 7 | no stationary point in `r ∈ [0.8, 2.6]` | — | — | no clean first-order tone (round 106) |
+
+**Honest status.**
+- **Not pre-registered.** The formula's structure was worked out knowing the target tones, even though every numerical input is measured from the kernel alone. It is a derivation to be tested, not a confirmed prediction.
+- **Input caveat.** `β′` comes from unwrapping the fitted phase at step 0.04 (about 2 rad per step, near the unwrap limit). The consistency across the three segments supports the value, but it is the least certain input.
+- **Not yet derived from Γ.** `K̃(r)`, the chirp and its offset, is measured, not derived. Deriving it from the Γ chain's ground state beyond its wall would close the loop, because then every quantity would come from Γ.
+- **Scope.** This is linear (first-order) theory. The full chain's tones agree with it (9.42, 16.75).
+- **The p ≥ 4 remark is post hoc.** No stationary point for `p ≥ 4` in the fitted range is consistent with the absence of clean first-order tones for 5 and 7, but that is an observation, not a test.
+- **Test it next with a registered prediction.** The formula makes testable claims for a different L-function, whose "primes" and weights change. Examples: Dirichlet `L(s, χ₋₄)`, where `p ≡ 3 (mod 4)` enter with a sign flip, or the prime-2-removed chain. Also, the tone should not depend on the analysis range.
+
+## Round 110: the Dirichlet-twisted test is void as constructed (`PREREG_dirichlet.md`, `kprimezeros2.py` `chi:` specs)
+
+**Registered in `0ed48fb`.** The plan was to keep the ζ lens and replace the arithmetic input by `S_χ` (primes ≤ 101) for `χ₋₄` and `χ₋₃`, then check that the tones move exactly as the round-109 formula says. No chain was run.
+
+**The construction is degenerate.** Before any chain was computed, the twisted counting functions `θ/π + 1 + S_χ` turned out not to be monotone:
+
+| primes ≤ | 3 | 5 | 7 | 11 | 13 | 17 | 23 | 31 | 101 |
+|---|---|---|---|---|---|---|---|---|---|
+| `χ₋₄` fold-backs | 3 | 4 | 11 | 14 | 18 | 17 | 31 | 34 | 76 |
+| `χ₋₃` fold-backs | 3 | 3 | 9 | 7 | 18 | 15 | 30 | 30 | 76 |
+| ζ (all `χ = +1`) | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+
+At `P = 101` this gives about 796 points instead of 649. Even **one sign flip on one prime** breaks monotonicity:
+- prime 3 alone with `χ(3) = −1` folds back at `t = 14.21`, 26.01 and 37.05, where `θ′` is small;
+- with `χ(3) = +1` it does not fold back at all.
+
+**So the test is void, and no verdict on the formula is drawn.** A twisted arithmetic cannot be read through the ζ lens as a consistent zero set.
+
+**Finding, not a test result.** On the ζ lens's Γ phase, the true arithmetic (every `χ(p) = +1`) keeps the counting function monotone. Sign-flipped arithmetic, and randomly phased arithmetic (round 97), do not. The Γ phase and the ζ arithmetic are mutually consistent in a way other arithmetics are not.
+
+**The proper test.** Use a real `L(s, χ)` with its **own** lens:
+- its own Γ factor and conductor, with phase `θ_χ` and density `ln(qγ/2π)/2π`;
+- its own zeros, computed from the Hardy-type function `e^{iθ_χ(t)}L(½ + it, χ)`;
+- its own quantile base chain and kernel `K̃_χ`, fitted as in rounds 106–108.
+
+Then the tones are predicted from the analogue of the round-109 formula. The conductor enters the alias phase, so the formula's `ln 2r` term becomes `ln 2qr`-type. This must be written down and registered before the `L` chain is computed.
+
+## Round 111: the tone formula predicts a real L-function's tone in advance (`PREREG_Lchi4.md` + amendments, `kLzeros.py`, `kLlens.py`, `kLchirp.py`, `kLscore.py`)
+
+**The object.** `L(s, χ₋₄)`, conductor `q = 4`. **868 zeros** up to 1000 come from the real Hardy-type function `Z(t) = e^{iθ_χ}L(½ + it, χ₋₄)`. The first are 6.0209, 10.2437, 12.9881 and 16.3426, matching the known values. `|Im Z|/|Z| ≤ 3.4·10⁻¹⁸`. There are no missed zeros: the counting-function deviation is at most 0.63, and the count offset is 0.0002.
+
+**Order of commits.**
+1. `35a7e0f`: the procedure, and the formula `ω_p = 4π stat_r[r(1 + ln(p/2qr)) + K̃_χ(r)]` for this lens.
+2. `115654c`, amendment 1: the `L` kernel's edge sits at `r ≈ 0.20` rather than ζ's 0.86, so the fit region was scaled by the measured `λ = 0.236 ≈ 1/q`. This used kernel information only.
+3. `19170dd`, amendment 2: the numbers, committed **before the `L` chain or any per-prime response was computed**. Only `p = 3` (`χ = −1`) is read inside the lens's oscillating region, and the prediction is **`ω₃ = 4.14`** (range 4.05–4.19).
+
+The pre-registration's own expectation, that primes near 8–17 would be read, was wrong. It assumed ζ's region; amendment 1 corrected this before any prediction was made.
+
+**Results.**
+
+| | Line(s) | vs prediction 4.14 |
+|---|---|---|
+| `p = 3` first-order response, `L` kernel | **4.19**, 1.96 | **hit** (0.05) |
+| full `L` chain (true zeros) | **4.23**, 1.61, 7.55, 10.77 | **hit** (0.09) |
+| `L` chain minus its Γ base | 4.23, 1.57, 7.55, 10.77 | — |
+
+**Verdicts.**
+- **Single-prime check: passes.**
+- **L3 passes:** no line near 9.47. The ζ chain's `p = 2` tone is absent, as `χ(2) = 0` requires.
+- **L2:** the strongest line matches (4.23); the second (1.61) matches nothing. Only one prediction existed.
+- **L1:** not meaningful, since fewer than 2 primes are in range.
+- **First order.** The first-order theory with the `L` kernel tracks the `L` chain's wiggles at correlation **0.961**.
+
+**Reading.**
+- The formula, with its conductor term `ln(p/2qr)`, predicted the dominant tone of a different `L`-function before it was computed, to within 0.09 (about 2%). This was the formula's first out-of-sample test.
+- The frequency moves from ζ's 16.75 (`p = 3`, `q = 1`) to 4.14 (`p = 3`, `q = 4`, `χ = −1`). The conductor, not the sign, sets the move.
+- The ζ `p = 2` line disappears with `χ(2) = 0`.
+
+**Honest limits.**
+- One tone, one `L`-function.
+- The `L` chirp fits scatter much more than ζ's.
+- The formula predicts only primes read inside the fitted region. The `L` chain's 7.55 line (`p = 5`'s first-order tone is 7.59) and its 1.61 line were not predicted.
+- `K̃` is still measured, not derived from Γ.
+- Next: a second character (e.g. `χ₋₃`, `q = 3`), or extend the kernel fit region so that more primes get a prediction.
+
+## Round 112: a second L-function, blind (χ₋₃), and the widened fit (`PREREG_Lwide.md` + 2 amendments, `kLwide.py`, `kLchirp.py`, `kL3score.py`)
+
+**Registered in `9d8b48d`, before anything about `L(s, χ₋₃)` was computed.**
+
+**B. The widened fit fails its own consistency check** (amendment 1, `c50e687`). The method was:
+- the range `[r_e, 4λ]`;
+- the oscillation normalised by its envelope;
+- a cubic chirp.
+
+Applied to `χ₋₄`, whose results were already known, it captures only 65% of the normalised oscillation. Its window-phase rate scatters across segments (−0.56, −8.27, −1.74). It no longer reproduces round 111's 4.14: it gives 1.33, with a range of −3.4 to 4.3. The widened method is unstable and is not used as evidence. The fading far region cannot pin the phase.
+
+**A. `L(s, χ₋₃)`, conductor 3, blind.**
+- **Zeros:** 823 up to 1000, starting 8.0397, 11.2492, 15.7046, 18.2620 (the known values). There are no missed zeros, and `|Im Z|/|Z| ≤ 3.6·10⁻¹⁸`.
+- **Kernel:** edge `r_e = 0.278`, `λ = 0.323 ≈ 1/q`.
+- **Predictions**, committed in amendment 2 (`ce240ab`) **before the chain or any per-prime response was computed**:
+  - **A1, widened:** uninformative. The `β′` segments are −0.58, −4.95, −13.76, and the ranges span 0–10, so it cannot fail. It is not scored.
+  - **A2, narrow (round 111's method):** only `p = 2` (`χ(2) = −1`) is read in range, and the prediction is **`ω₂ = 3.22`** (range 3.15–3.29). The fit is stable: variance captured 0.95, `β′` segments −0.71, −0.79, −0.85.
+
+| | Line(s) | vs prediction 3.22 |
+|---|---|---|
+| `p = 2` first-order response, `χ₋₃` kernel | **3.14**, 1.66 | **hit** (0.08) |
+| full `χ₋₃` chain | **3.10** (1.00), 4.62 (0.05), 7.90 (0.04) | **hit** (0.12) |
+
+**Other results.**
+- **The ζ `p = 3` line (16.75) is absent**, as `χ(3) = 0` requires.
+- **First order** tracks the `χ₋₃` chain at correlation **0.965**.
+- **The `χ₋₃` chain is essentially a single tone**: the next line has 5% of its power.
+
+**The prime 2 across three L-functions.** Same prime, different lens:
+
+| L-function | tone of the prime read in range |
+|---|---|
+| ζ (`q = 1`), `p = 2` | 9.47 |
+| `χ₋₃` (`q = 3`), `p = 2`, `χ = −1` | **3.10–3.14** (predicted 3.22) |
+| `χ₋₄` (`q = 4`), `p = 3`, `χ = −1` | 4.19–4.23 (predicted 4.14) |
+
+**Reading.** The narrow-method tone formula has now predicted the dominant tone of **two** different `L`-functions in advance, to within 2–4%. In each case the lens's conductor sets which prime is read and at what frequency. Two things did not work: the attempt to widen the method to more primes failed, and the extra primes (e.g. `χ₋₃`'s 4.62 and 7.90, `χ₋₄`'s 7.55) remain unpredicted.
+
+**Limits.**
+- One tone per `L`-function.
+- `K̃` is still measured per lens, not derived from Γ.
+
+## Round 113: the response kernel and the tone calculus, formalised (`src/ResponseKernel.lean`)
+
+Seven new theorems. None of them has a hypothesis about ζ, RH or any `L`-function, and all depend only on the standard axioms. The pilot's `#print axioms` count goes from 391 to 398.
+
+**`RespKernel`: the first-order response kernel of round 104.**
+- `hasDerivAt_quad_inv`: for a differentiable family of invertible matrices, `d/ds (v ⬝ M(s)⁻¹ v) = −v ⬝ (M⁻¹M′M⁻¹) v`. It comes from Mathlib's `hasFDerivAt_ringInverse` under the `L∞` operator norm.
+- `hasDerivAt_gram`: the derivative of a Gram family `C + Σ_k φ_k φ_kᵀ`. `vecMulVec` is packaged as a continuous bilinear map.
+- **`response_kernel`**: for `M(s) = C + Σ_k φ_k(s)φ_k(s)ᵀ` (`C` symmetric, `M(t)` invertible) and `S = e ⬝ M⁻¹ e > 0`,
+
+  `d/ds log S = −(2/S) Σ_k (y ⬝ φ_k)(y ⬝ φ_k′)`, with `y = M(t)⁻¹ e`.
+
+  This is round 104's kernel `w_k = −2F_kF′_k/s`, for any family of sampling points.
+  - With `φ_k(s) = φ(γ_k(s))`, the chain rule gives `φ_k′ = φ′(γ_k)γ̇_k`.
+  - Consequence: the chain's response to moving the zeros is fixed entirely by the Γ chain's ground state, and the arithmetic enters only through the velocities `γ̇_k`.
+
+**`ToneCalc`: the calculus of the tone formula (rounds 109–112).** The phase is idealised as `Ψ(γ, x) = γ log x + 4πx K(γ/4πx) + γ log p − 2θ(γ)`, with `2θ′(γ) = log(qγ/2π)` and any differentiable `K`.
+- `hasDerivAt_gamma`: `∂Ψ/∂γ = K′(r) + log p − log(2qr)`, where `r = γ/4πx`. **`log x` cancels identically.**
+- `stationary_iff`: stationarity holds exactly when `K′(r) = log(2qr/p)`.
+- `hasDerivAt_x`: the `x`-rate at fixed `γ` is `4π(r + K(r) − rK′(r))`.
+- `tone_at_stationary`: at a stationary point this equals `4π[r(1 + log(p/2qr)) + K(r)]`, the Legendre form of `ω_p`.
+
+**What is and is not certified.**
+- **Certified:**
+  - the algebra and calculus of both derivations, exactly;
+  - the fact that the conductor enters only through `log(2qr)`.
+- **Not certified:**
+  - that the real kernel is well described by first order (round 105: the series is asymptotic);
+  - that its phase has the scaling form with the measured `K̃`;
+  - that `θ` equals its idealised Stirling form. These remain numerical findings.
+
+## Round 114: `K̃` derived from Γ, and the parameter-free tone law `ω = 2π(n − 1/n)/q` (`frontier/nullvec/kKderive.py`)
+
+**Derivation (analytic, no fitted constant).**
+- Beyond the wall (`r = γ/4πx > 1`), the closed-form multiplier `ln M = T₀[w arcsin w + √(1−w²) − 1]` (`T₀ = 2πx`, `w = r`) continues to a pure phase `T₀[√(r²−1) − r arccosh r]`.
+- The kernel `F·F′` carries twice this phase.
+- On the Γ nodes (`2θ(γ̃_k) = (2k−3)π`), the wave is represented shifted by `2θ(γ) ≈ γ ln x + 4πx r(ln 2r − 1)`.
+- Together:
+
+  **`K̃(r) = r ln 2r − r + √(r²−1) − r arccosh r`**, `K̃′(r) = ln 2r − arccosh r`.
+
+- Put into round 113's `stationary_iff` / `tone_at_stationary`:
+  - the stationary point is **`r* = cosh(ln p) = (p + 1/p)/2`**;
+  - the tone is `4π sinh(ln p)`, i.e. **`ω_p = 2π(p − 1/p)`**;
+  - for an `L`-lens it becomes `/q`, through round 111's edge scaling `λ ≈ 1/q`.
+
+**Post hoc matches.** Every line below had been observed before this derivation existed.
+
+| line | law | value | observed |
+|---|---|---|---|
+| ζ, `p = 2` | `3π` | 9.425 | 9.47 |
+| ζ, `p = 3` | `16π/3` | 16.755 | 16.75 |
+| fine ladder `n = 2..7` | `2π(n − 1/n)` | 9.42, 16.76, 23.56, 30.16, 36.65, 43.08 | ladder lines; plateau heights at `r* = (n + 1/n)/2` |
+| ratio lines `n = 3/2, 5/3, 7/5, 5/4` | same | 5.24, 6.70, 4.31, 2.83 | present |
+| `χ₋₄`, `p = 3, 5, 7` | `/4` | 4.19, 7.54, 10.77 | 4.19–4.23, 7.55, — |
+| `χ₋₃`, `p = 2, 4, 5` | `/3` | 3.14, 7.85, 10.05 | 3.10–3.14, 7.90, — |
+
+The law also accounts for the two `L` lines that round 112 left unpredicted (`χ₋₄` 7.55, `χ₋₃` 7.90). It improves on the blind round-111/112 predictions (4.14 and 3.22), which used the measured `K̃`.
+
+**Kernel-level checks (`kKderive.py`).**
+
+(a) Chirp, fitted `κ_c` vs derived `K̃′`:
+
+| `r` | 1.0 | 1.2 | 1.4 | 1.6 | 1.8 | 2.0 | 2.2 |
+|---|---|---|---|---|---|---|---|
+| fitted | 0.343 | 0.205 | 0.114 | 0.070 | 0.074 | 0.126 | 0.225 |
+| derived | 0.693 | 0.253 | 0.163 | 0.116 | 0.088 | 0.069 | 0.056 |
+
+  The mid-range agrees roughly. There is a clear mismatch at the wall (`r = 1`) and for `r ≥ 2`, where the fitted chirp turns up and the derived one keeps falling.
+
+(b) `K̃(1.4)` = −0.1926 derived, vs the measured `β′/4π` = −0.1834 (range −0.195..−0.170). **Passes.**
+
+(c) A per-window fit of only amplitude and phase offset, using the derived phase `γ ln x + 4πx K̃(r)`, captures **16.3%** of the oscillation variance. Round 108's 5-parameter fitted chirp captured 94.2%. The residual phase offset has sd 0.33 rad and drifts −0.125 rad per unit `x`. **Fails as a waveform model.**
+
+(d) Per-prime first-order tones using the derived-phase kernel: `p = 2` → 9.38 (true 9.47), `p = 3` → 16.62 (true 16.75). **Passes.**
+
+**Reading.**
+- The derived `K̃` gets the stationary-phase structure right, and that structure alone sets the tone frequencies. It does not get the node-level waveform: the chirp is wrong at the ends and most of the variance is missed.
+- The tone law `ω = 2π(n − 1/n)/q` has no parameters and is exact in form. It follows from Γ (the Stirling phase and the closed-form multiplier's continuation) plus round 113's calculus.
+- **All of its matches are post hoc.** Its first real test is a blind, pre-registered run on an `L`-function not yet examined.
+
+**Open.**
+- Why the waveform (as opposed to the stationary points) departs from the derived phase near `r = 1` and for `r ≥ 2`. Candidates: sub-leading Stirling terms, the `arcsin` branch at the wall, and higher-order response terms (round 105: the series is asymptotic).
+- A blind test of the law on `q = 5, 7` or `8`. At `q ≥ 5` the `p = 2` tone falls below about 1.9, which the `x ∈ [3,12]` window resolves poorly, so the test needs either a longer window or a target prime `p ≥ 3`.
+
+## Round 115: the tone law passes its first blind test (`L(s, χ₋₈)`; `PREREG_L8law.md` + amendment 1, `kL8score.py`)
+
+**Order of commits.**
+1. `a524d80`: the law's predictions `ω_p = 2π(p − 1/p)/8` and the scoring script, committed **before any `χ₋₈` zero was computed**.
+2. `22201b8`, amendment 1 (kernel stage, before the chain or any response):
+   - `λ = 0.109`, 12.6% below `1/8`, so the registered `λ` check (B4a) **fails**;
+   - the measured-`K̃` narrow method is unstable (`β′` segments −6.2, −0.16, −0.34) and uninformative (ω = 0.31, range −3.7 to 2.4).
+
+**Zeros.** 979 up to 1000, the first being 3.5762 (the known value). There are no missed zeros, and `|Im Z|/|Z| ≤ 3.9·10⁻¹⁸`.
+
+**Results.**
+
+| | law | observed (strongest line) | error | verdict |
+|---|---|---|---|---|
+| `p = 3` (`χ = +1`) first order | 2.094 | 1.96 | 0.13 | hit, but inside the flagged 1.6–2.0 artefact zone |
+| `p = 5` (`χ = −1`) first order | 3.770 | **3.75** | 0.02 | hit |
+| `χ₋₈` chain, strongest | 2.094 | **2.14** | 0.05 | hit |
+| `p = 7` first order (far) | 5.386 | 1.70 (second: 5.23) | — | miss |
+| `p = 11` first order (far) | 8.568 | **8.68** | 0.11 | hit |
+| `p = 13` first order (far) | 10.150 | 3.53 (second: **10.16**, 0.76 relative power) | — | miss |
+
+- **B1 passes, B2 passes. The law passes as registered.**
+- **B3:** 1/3 of the far primes hit. As anticipated from `χ₋₄`, the far primes' first-order strongest line is not reliable. Even so, `p = 7` and `p = 13` each carry the law's line as their second peak (5.23, 10.16).
+- **Unscored:** the chain's top four lines are 2.14, 3.75, 5.45 and 6.94. The law gives 2.094 (`n = 3`), 3.770 (`n = 5`), 5.386 (`n = 7`) and 6.981 (`n = 9 = 3²`), so all four lie within 0.06 of a law line. First order tracks the chain at correlation 0.955.
+- **The `λ` failure does not carry to the tones.** Rescaling by the measured `λ` instead of `1/q` would have predicted 1.83 and 3.29. The chain's 3.75 rules that out (off by 0.46). The conductor enters the tone as exactly `1/q`, even though the kernel's edge sits at `0.874/q`.
+
+**Reading.**
+- A parameter-free formula derived from Γ (round 114) predicted, before any data existed, the dominant line (2.14 vs 2.094) and the second prime's line (3.75 vs 3.770) of an `L`-function never examined, to within 2.5% and 0.5%. It did so for a `χ = +1` dominant prime, which is new relative to rounds 111/112.
+- The competing measured-`K̃` method made no usable prediction here.
+- Across ζ, `χ₋₃`, `χ₋₄` and `χ₋₈`, the lines sit at `2π(n − 1/n)/q`.
+
+**Limits.**
+- One blind `L`-function.
+- The `p = 3` per-prime hit is weak (artefact zone). The strong evidence is `p = 5` and the chain.
+- Far primes are unreliable at first order.
+- Why the tones take `1/q` exactly while the kernel edge does not is unexplained.
+- The waveform-level failure of round 114 (16% of the variance) stands.
+- The rule "the smallest prime not dividing `q` dominates" is empirical.
+- As before, the zero-side kernel formulation presumes RH/GRH for the zero sets used.
+
+## Round 116: the tone law passes a second blind test, on two even characters (`χ₅`, `χ₁₂`; `PREREG_Leven.md` + amendment 1, `kLblind.py`)
+
+**Order of commits.**
+1. `d3b3a38`: predictions and scorer, committed before any zero.
+2. `b160c71`, amendment 1 (kernel stage, before any chain or response):
+   - `λ = 1/4.98` (`χ₅`) and `1/12.1` (`χ₁₂`), both within 1% of `1/q`;
+   - the measured-`K̃` competitor predicts `χ₅` `p = 2` → 1.75 and `p = 3` → 3.25, and gives nothing for `χ₁₂`.
+
+**Zeros.**
+- `χ₅`: 904, first 6.6485.
+- `χ₁₂`: 1043, first 3.8046.
+- No missed zeros. The Γ factor is `Γ(¼ + it/2)`, the first even-character tests.
+
+**Primary results (±0.3).**
+
+| | law | competitor | observed | law error | verdict |
+|---|---|---|---|---|---|
+| `χ₅` `p = 3` first order (B1) | 3.351 | 3.25 | **3.36** | 0.01 | hit |
+| `χ₅` chain strongest (B2) | 1.885 | 1.75 | 1.70 | 0.19 | hit (weak: artefact zone, declared) |
+| `χ₁₂` `p = 5` first order (B1) | 2.513 | — | 2.70 | 0.19 | hit |
+| `χ₁₂` chain strongest (B2) | 2.513 | — | **2.49** | 0.02 | hit |
+
+**4/4. The law passes round 116 as registered.** First order tracks the chains at correlation 0.975 (`χ₅`) and 0.996 (`χ₁₂`).
+
+**Secondary results.**
+- **`χ₅` `p = 2` first order:** 1.88 (law 1.885, error 0.005; competitor 1.75).
+  - On the per-prime responses the law beats the competitor for both primes (0.005 and 0.01 vs 0.13 and 0.11).
+  - On the chain the competitor is closer (1.70 vs 1.75, 0.05; law 0.19). The chain's second line, 3.53, is 0.18 from the law and 0.28 from the competitor.
+  - The chain's lines sit about 0.15 below the single-prime lines. That is consistent with interference between `p = 2` and `p = 3`, but not tested.
+- **`χ₁₂`:**
+  - the chain's second line, 5.80, is 0.09 from `p = 11`'s law line 5.712;
+  - `p = 13` (far) hits: 6.81 vs 6.767.
+- **Far primes (`ρ* > 3`)** are, as expected, unreliable as the *strongest* first-order line (`χ₅` 0/3, `χ₁₂` 1/3). But the law line is present among the top two peaks every time. Examples: `χ₅` `p = 11` gives 13.65 at 0.99 relative power, `χ₁₂` `p = 11` gives 5.71 exactly. The strongest peak is instead a low line (1.57–1.66) or a stray one.
+  - Post hoc tally over rounds 115–116: the law line is in the top two for **9/9 far primes**, within 0.2 in every case. This is unscored and should be registered as a criterion before any further test.
+- **No parity effect,** as predicted: the even characters follow the same `ω = 2π(n − 1/n)/q` as the odd ones.
+
+**Standing of the law.**
+- Blind tests: 3 `L`-functions (`χ₋₈`, `χ₅`, `χ₁₂`), 6/6 primary criteria, 2 parities, 3 different dominant primes (3, 2, 5), and conductors 5, 8 and 12.
+- Post hoc: ζ, `χ₋₃` and `χ₋₄`.
+- Where the competitor could predict (`χ₅`), it and the law differ by only 0.1–0.13, within the tolerance. The law's per-prime lines are the more accurate there, and the competitor's chain line the more accurate.
+
+**Limits.**
+- ±0.3 tolerance at a frequency resolution of about 0.7. The dense law set means unscored "nearest law line" matches are weak.
+- The low-frequency artefact line (1.57–1.70) is unexplained.
+- The `χ₋₈` `λ` anomaly (0.874/q, round 115) did not recur (1.00/q and 0.99/q here).
+- The waveform-level failure of round 114 stands.
+- As before, the zero-side formulation presumes GRH for the zero sets used.
+
+## Round 117: the tone law formalised as hyperbolic geometry (`src/ToneHyperbola.lean`)
+
+Fourteen new theorems. They are **unconditional**: none has a hypothesis about ζ, RH or any `L`-function, and all depend only on the standard axioms (`propext`, `Classical.choice`, `Quot.sound`). The file imports round 113's `ResponseKernel`, which `build.sh` now compiles to an `.olean`, and it closes round 114's derivation onto `ToneCalc`.
+
+**The tone law.** With `K̃(r) = r log 2r − r + √(r²−1) − r arcosh r` and the conductor-`q` kernel `K_q(r) = K̃(qr)/q`:
+- `hasDerivAt_Kt`: `K̃′(r) = log 2r − arcosh r` for `r > 1`. `hasDerivAt_Kq`: `K_q′(r) = K̃′(qr)`.
+- `stationary_iff`: `ToneCalc`'s stationarity condition holds **iff `qr = cosh(log p)`**.
+- `tone_eq`, and **`tone_law`** (assembled through `ToneCalc.stationary_iff` and `ToneCalc.tone_at_stationary`): wherever the γ-derivative vanishes, the x-rate `4π(r + K_q − rK_q′)` equals **`2π(p − 1/p)/q`** exactly.
+- `on_hyperbola`: `(qr*)² − (qω/4π)² = 1`. Every tone lies on the unit hyperbola at rapidity `log p`.
+
+**Products and ratios: rapidities add.**
+- `boost_mul`: the stationary point and tone of `mn` are those of `n` under a Lorentz boost of rapidity `log m`.
+- `tone_mul`, `tone_div`: `tone(mn) = 4π sinh(log m + log n)/q` and `tone(m/n) = 4π sinh(log m − log n)/q`.
+- **`tone_mul_gt`**: for `m, n > 1`, `tone(m) + tone(n) < tone(mn)`. The gap is `2π(m−1)(n−1)(1 − 1/mn)/q`. So "rapidity addition" and "frequency addition" are distinguishable predictions. Examples: ζ `n = 4` gives 23.56 vs 18.85, `n = 6` gives 36.65 vs 26.18.
+
+**The conductor, and parity.**
+- `stirling_scaling`: the leading Stirling phase `(γ/2) log(qγ/2πe)` at conductor `q` equals the `q = 1` phase at `qγ`, divided by `q`.
+- `stirling_deriv`: its derivative is exactly `log(qγ/2π)/2`, which is `ToneCalc.hasDerivAt_gamma`'s hypothesis on `θ`. The Γ-shift (¼ even, ¾ odd) does not appear in it.
+
+**The multiplier.** `multiplier_deriv`: inside the wall, `d/dw [w arcsin w + √(1−w²) − 1] = arcsin w`. Beyond the wall, the continued phase's derivative `−arcosh r` is part of `hasDerivAt_Kt`.
+
+**What is and is not certified.**
+- **Certified, unconditionally:**
+  - the whole calculus from `K̃` to `ω = 2π(n − 1/n)/q`;
+  - the hyperbola and boost structure;
+  - that product lines differ from summed tones;
+  - the exact conductor scaling and the parity independence of the leading Stirling phase.
+- **Not certified:**
+  - that the chain's first-order response carries this phase. This is the round-114 aliasing step, and the waveform captures only 16%.
+  - that the `L` kernel is `K̃(qr)/q`, as opposed to that form being assumed. The measured `λ ≈ 1/q` supports it; `χ₋₈`'s 0.874/q does not.
+  - the Stirling error term for `Im log Γ(a + iγ/2)`;
+  - the round-77 integral identity for the multiplier.
+
+  These are numerical findings or classical inputs, not RH-conditional statements. The only RH/GRH-conditional step in the programme remains the zero-side formula for the chain.
+
+## Round 118: the window chain rebuilt on the prime side, and the tones survive unchanged (`PREREG_primeside.md`, `kprimeside.py`, `kprimeside_score.py`)
+
+**Construction.**
+- `kprimeside.py` builds the window Gram matrix from the prime side of the Guinand–Weil explicit formula: the poles, the archimedean `Re ψ(¼ + ir/2)`, `log π`, and `Σ_{n ≤ x} Λ(n) n^{−½} G(log n)`. It uses no zeros.
+- Every entry is in closed form. The cosine basis turns each functional into a divided difference, in `A = ω²`, of one scalar function. With `z = ¼ + iω/2`:
+  - `G(0)`: `Φ_G(ω) = ω sin(2aω)/4`;
+  - `G(u)`: `Φ_u(ω) = −(ω/4)[sin uω − sin 2aω cos uω]`;
+  - archimedean: `Φ_ψ(ω) = (ω sin 2aω/4) Re ψ(z) + (ω/4) Im ψ(z) − (ω²/2) Σ_m x^{−(2m+½)}/((2m+½)² + ω²)`, using ψ's partial fractions and `Σ_m 1/((2m+½)² + ω²) = Im ψ(z)/2ω`;
+  - the pole term is rank one.
+- The matrix equals `½ Σ_ρ |ĝ(γ_ρ)|²` over **all** zeros as an identity. The resulting chain is therefore defined without RH, and it runs about 100× faster than the zero side.
+
+**Checks, before registration.**
+- Against the 6700-zero sum plus its tail: agreement to `5·10⁻⁵`, the tail model's accuracy.
+- Against an independent u-space quadrature: `5·10⁻¹⁶`.
+- On the smallest eigen-direction at `x = 9`, `K = 7`: `1.655·10⁻¹⁷` on the prime side vs `1.654·10⁻¹⁷` on the zero side.
+- **A bug was found and fixed first:** `ln x` taken as a double shifts the window edge by `10⁻¹⁶` against the exact prime positions `ln n` and makes the form indefinite, because its smallest eigenvalues are far below `10⁻¹⁶`. `x` is now an exact decimal.
+- Single-prime forms (Γ + one prime) have `lnK ≈ 1` and are often indefinite. The chain's deep near-null structure is collective, so no per-prime attribution was registered.
+
+**Results (226 windows, `x ∈ [3, 12]`; all at base precision, max arb radius `3·10⁻⁵³`).**
+
+| | prime side (unconditional) | zero side (`r95`) |
+|---|---|---|
+| lines | **9.42** (1.00), 4.97 (0.48), **16.75** (0.12), 2.92 (0.12) | 9.42 (1.00), 4.97 (0.48), 16.75 (0.12), 2.92 (0.12) |
+
+- **P1:** wiggle correlation **0.9996**. **P2:** strongest line 9.42 vs `3π = 9.425`. **P3:** top-4 lines identical. **All pass.**
+- Max `|ΔlnK|` = 0.044. The rms of the difference's wiggle is 0.0021, i.e. 3% of the chain's 0.074.
+- The difference (the zero side's truncation at 6997 plus its averaged tail) has lines 9.38, 16.71, 23.51 and 5.1. The truncation error is itself prime-shaped, since the averaged tail drops the prime terms' fine structure. Its 23.51 sits at the law's `n = 4` line 23.56. This is post hoc and unscored.
+
+**Reading.**
+- The tones studied since round 100 are properties of an object built only from primes, Γ and the poles. Its `lnK(x)` is a closed-form function of `x` with no RH input, and the tone law (round 117's Lean theorems) describes that object.
+- The zero-side chain was an RH-conditional *representation* of it, accurate to 3% in the wiggle.
+- This does not bear on RH: positivity of this form for all windows is equivalent to RH, and nothing here establishes that.
+
+**Limits.**
+- The link from `K̃` to the chain (round 114's aliasing step) is still not a theorem, on either side.
+- The 4.97 and 2.92 lines are not explained by the law.
+- On this side, the per-prime and per-prime-power tones (e.g. the rapidity test `n = 4` → 23.56 vs 18.85) have no clean exact decomposition. A registered test of them still needs the zero-side responses or a new prime-side linearisation.
+
+## Round 119: certified positivity of the window form, and what a counterexample would look like (`kpos_cert.py`; `PREREG_counterexample.md`, `kcounter.py`, `kcounter_score.py`)
+
+### Part 1: certified positivity (unconditional)
+
+**Method.**
+- The prime-side form of round 118, with every entry an arb enclosure:
+  - digamma and Hurwitz ζ by arb;
+  - exact primes, and exact decimal `x`;
+  - a rigorous geometric remainder on the one truncated series, `T(ω)`, now inside the radii (about `10⁻¹⁶²`).
+- A Cholesky factorisation in which every pivot's enclosure is strictly positive (`kpos_cert.py`).
+
+**Result.** **All 226 windows `x = 3.00, …, 12.00` are certified positive-definite** on their `K = 40 + 15x` dimensional cosine subspaces, all at base precision. The smallest pivots run from `10⁻³·³⁵` to `10⁻¹¹·⁹⁵`.
+
+**The statement.** For each window, `Q(g) = Σ_ρ |ĝ(γ_ρ)|² > 0` for every nonzero `g = Σ_{k<K} c_k cos(kπu/a)` on `[−a, a]`. It is proved from primes, Γ and the poles, with no zeros and no RH.
+
+**Scope.**
+- It is a finite-dimensional certificate: not all `g` in the window, not all `x`.
+- It rests on the closed forms, which are derived by hand in `kprimeside.py`'s docstring and checked to `5·10⁻¹⁶` against independent quadrature, but not formally proved.
+- The form's positivity margin is far below any practical full-space (Schur-complement) bound, so extending to all `g` needs an analytic argument, not more numerics.
+
+### Part 2: the counterexample signature (pre-registered, `a844586`)
+
+**Setup.**
+- Hypothesis `H(n, δ)`: the true zeros `γ_n, γ_{n+1}` collide at `γ₀` and leave the line as `½ ± δ + iγ₀`. This is a legal quadruple.
+- The perturbed form is `M + ΔM`, with the zeros taken to 210 digits.
+- Positivity is decided by certified Cholesky. There were no undecided windows (2034 in total).
+
+**First window where positivity is lost, `x_c`,** with horizon `x_h = γ₀/(4π · 0.8613)`:
+
+| `γ₀` (`x_h`) | `δ = 0.001` | `δ = 0.01` | `δ = 0.1` |
+|---|---|---|---|
+| 31.68 (2.93) | 4.24 (1.45 `x_h`) | 3.72 (1.27) | 3.24 (1.11) |
+| 60.09 (5.55) | 6.60 (1.19) | 6.04 (1.09) | 5.40 (0.97) |
+| 102.52 (9.47) | 10.12 (1.07) | 9.48 (1.00) | 8.64 (0.91) |
+
+In every case, once positivity is lost it stays lost for all larger `x`.
+
+**Scores.**
+- **S1 passes:** no loss below `0.9 x_h`. The closest is 0.91.
+- **S2 fails:** `γ₀ = 31.68`, `δ = 0.001` loses positivity only at `1.45 x_h`, beyond the registered `1.3 x_h`. The other 5 applicable cases pass.
+- **S3 passes:** `x_c` decreases with `δ`.
+- **S4 fails:** outside the horizon, first order underestimates the exact `Δ lnK`. The median ratio is 0.58, and only 9% of cases are within 20%. The response series is not quantitative here either (compare round 105).
+
+**The signature.**
+- An off-line pair at height `γ₀` is invisible to windows below `x ≈ 0.9 x_h = γ₀/12`.
+- Positivity breaks within about `1.0–1.45 x_h`, and stays broken, even for `δ = 0.001`.
+- `x_c` moves by about 0.5–0.8 per decade of `δ`. This is post hoc: it fits a detection condition `δ² · e^{κx} ~ const` with `κ ≈ 6–9`, comparable to the chain's own growth of `lnK`, about 12 per unit `x`.
+- **In the window chain, a counterexample to RH would appear as `lnK(x)` diverging, and positivity failing, just past `x ≈ γ₀/10.8`.**
+
+**Reading.**
+- Together with Part 1: certified positivity at window `x` excludes off-line zeros up to height about `10.8x`, i.e. about 130 at `x = 12`.
+- That is a correct but tiny range compared with known zero verification (height about `3·10¹²`). The value is the **shape**: how the chain would register a counterexample, stated concretely enough to check.
+- Nothing here bears on RH beyond the verified range.
+
+## Round 120: rounds 118–119 formalised (`src/WindowForm.lean`)
+
+Twelve new theorems. They are **unconditional**: no hypothesis about ζ, RH or any zero, and all depend only on the standard axioms. The file imports only Mathlib.
+
+**The closed forms of round 118.**
+- `ghat_cos`: `∫_{−a}^{a} cos(ω_k u) cos(tu) du = (−1)^k · 2t sin(ta)/(t² − ω_k²)`, with `ω_k = kπ/a` and `t ≠ ±ω_k`. These are the rows of every window chain since round 95, now a theorem (proved via an explicit antiderivative and the fundamental theorem of calculus).
+- `ghat_pole`: `∫ cos(ω_k u) cosh(u/2) du = (−1)^k sinh(a/2)/(ω_k² + ¼)`. This is the rank-one pole term.
+- `product_dd`: `s/((s−A)(s−B)) = (A/(s−A) − B/(s−B))/(A−B)`.
+- `hasDerivAt_uA`: the diagonal `A`-derivative `c s/(s−A)²`.
+- Together these are why every functional of `ĝ_j ĝ_k` is a divided difference of one scalar function.
+- `phi_u_trig`, `basis_trig`: the prime term's trigonometric reduction, and `sin 2aω_k = 0`, `cos 2aω_k = 1`.
+
+**The certification logic of round 119, part 1.**
+- `posDef_of_cholesky`: if `L` is lower triangular with a strictly positive diagonal, then `L Lᵀ` is positive definite.
+- `gram_quadratic`, `gram_pos`: a positive-definite Gram matrix gives `B(g, g) > 0` for every nonzero `g = Σ c_k φ_k`.
+- So the arb Cholesky of round 119 proves `Q(g) > 0` on each certified subspace, **provided** its enclosures contain the true entries.
+
+**The counterexample mechanism of round 119, part 2.**
+- `quadruple_sum`: for `f` even and real on the real axis, the zeros `½ ± δ ± iγ₀` contribute `4 Re f(γ₀ + iδ)²`.
+- `offline_second_order`: if `F(γ₀) = 0` and `F′(γ₀) = c ∈ ℝ`, then `Re F(γ₀ + iδ)² = −c²δ² + o(δ²)`.
+- **`offline_negative`**: if moreover `c ≠ 0`, that contribution is **strictly negative for all small `δ ≠ 0`**.
+- This is why a test function that vanishes next to an off-line pair drives the form negative, and why positivity was lost in round 119 even at `δ = 0.001`.
+
+**Proved in Lean vs. not.**
+
+| Piece | Status |
+|---|---|
+| basis transforms, pole term, divided-difference structure, trig reductions | **Lean** |
+| Cholesky ⇒ PD ⇒ `Q > 0` on the subspace | **Lean** |
+| off-line quadruple ⇒ negative contribution near a zero of `ĝ` | **Lean** |
+| Guinand–Weil explicit formula | classical input when round 120 was written; proved over the zeros of `ζ` for strip test functions in round 156 (`weilExplicit_zeta`), not wired into this file's basis |
+| principal-value and digamma evaluations (archimedean `Φ_ψ`, prime `Φ_u` integrals) | hand-derived, checked to `5·10⁻¹⁶` numerically |
+| the 226 certificates themselves | arb interval arithmetic, outside Lean |
+| the horizon `x_h = γ₀/(4π · 0.8613)` and the detection windows | empirical (round 119, S1 passed and S2 failed once) |
+
+## Round 121: Weil positivity on every probe at small support, in Lean (`src/SmallPositivity.lean`)
+
+**`weilQ_ge_quarter`.** For every `0 < a ≤ 1/16` (support `δ = 2a ≤ 1/8`), every normalised probe `g` has **`Q(g) ≥ 1/4`**, i.e. `λ₁ ≥ 1/4`.
+- This is **full-space** positivity of Weil's form: every real, even, square-integrable `g` supported in `[−a, a]`, with no finite-dimensional truncation and no orthogonality condition.
+- It is the first theorem in the pilot that bounds `λ₁` itself from below by a positive number. Round 11's analytic bound was negative, and rounds 19–21 bounded only the gap orthogonal to `w`.
+- Seven new theorems, standard axioms only. No zero of `ζ` and no RH; the numerical inputs are only Mathlib's bounds on `π`, `log 2`, `√2` and `γ`.
+
+**Method: archimedean dominance.** Below `log 2` there is no prime (`primeS_eq_zero`), and the pole term is `≥ 0`. So `Q(g) ≥ c₀ + Far(a) + Near(g)`, where:
+
+| Piece | Theorem | Value |
+|---|---|---|
+| `ψ(¼) = −γ − π/2 − 3 log 2`, exact | `digamma_quarter`, from Mathlib's `digamma_one_half`, `digamma_two_mul` (duplication) and `digamma_one_sub` (reflection) | |
+| `c₀ = Re ψ(¼) − log π` | `weilConst_eq`, `weilConst_ge` | `≥ −5.489` (`γ < 2/3`, `log π ≤ 2 log 2 + π/4 − 1`) |
+| `Far(a) = ∫_{u>2a} K = log((eᵃ+1)/(eᵃ−1)) + π/2 − arctan(sinh a)`, exact | `farField_eq`, via `K = ½csch(u/2) + ½sech(u/2)` and the improper FTC | `≥ 4.911` for `a ≤ 1/16` (`farField_ge`) |
+| `Near(g) = ∫_{(0,2a]} (1 − f)K` | `nearField_all`: round 20's exact mode expansion with tail level `ψ₃ ≥ Cin(3π/2) − err` (`tail3_ok`) and unconditional Cauchy–Schwarz caps `p₀ ≤ ¼`, `p_{±1} ≤ (1 + 2/π)/8`, `p_{±2} ≤ ⅛` (`pm_cap0/1/2`) | `≥ 0.8344` |
+
+The total is `−5.489 + 4.911 + 0.8344 = 0.2564 ≥ 1/4`.
+
+**How sharp it is (numerics from round 118's closed forms, `frontier/nullvec/ksmall_lams.py`).**
+
+| `a` | 0.01 | 0.05 | 0.1 | 0.15 | 0.2 | 0.3 | 0.3466 (`2a = log 2`) |
+|---|---|---|---|---|---|---|---|
+| `λ₀` (pole-free `Q₀`) | 2.42 | 0.79 | 0.073 | −0.36 | −0.67 | −1.12 | −1.29 |
+| `λ₁` (full `Q`) | 2.46 | 0.98 | 0.457 | 0.218 | 0.095 | 0.0076 | 0.0013 |
+
+- At `a = 1/16` the true `λ₁` is about 0.84, against the proved `1/4`.
+- The method (`Q ≥ Q₀ ≥ c₀ + Far + Near`) cannot pass `a ≈ 0.105`, where `λ₀` changes sign: beyond it, positivity depends on the pole term.
+- With sharper constants (a better `γ`, exact `log π`, a larger low block) the analytic bound tracks `λ₀` to within about 0.1, so the same method could reach about `a ≈ 0.09`.
+
+**Scope and honesty.**
+- **Not new mathematics.** Connes–Consani proved Weil positivity for supports up to `2a = log 2` (as recalled, not re-checked here), and computer-assisted certificates reach much further (round 39 and Liu, `L = 17/16`). What is new is a complete, machine-checked analytic proof on the pilot's own definitions of `Q`.
+- Probes are even by definition, so the odd sector is not covered.
+- The next step past `a ≈ 0.105` needs the pole term: a Sherman–Morrison-type argument with a certified lower bound on `Q₀`'s second eigenvalue together with the overlap `⟨w, φ₀⟩`. That is the regime of rounds 18–21, and at `2a = log 2` the margin shrinks to `λ₁ ≈ 1.3·10⁻³`.
+
+## Round 122: Weil positivity with the pole term, sharper constants, and the odd sector (`SmallPositivity2.lean`, `OddPositivity.lean`, `PoleRelax.lean`, `frontier/nullvec/kpole_cert.py`)
+
+Three extensions of round 121. All three are full-space results: every probe in the window, with no truncation. The first and third are pure Lean. The second is computer-assisted: Lean proves that a finite certificate implies positivity, and arb checks the certificate.
+
+| | Result | Range | Method | Status |
+|---|---|---|---|---|
+| **1** | `weilQ_ge_twentieth`: `Q(g) ≥ 1/20`, even | `0 < a ≤ 1/12` | round 121 with sharper constants: `γ < H₁₆ − 4 log 2 < 0.60815`, `log 3 > 1.0986` (Taylor), far field `≥ log(2/a) + π/2 − sinh a` via `tanh y ≤ y` (proved by monotonicity) | pure Lean, 7 theorems |
+| **2** | `weilQ_ge_pole`: `Q(g) ≥ 1/1000`, even, **with the pole term** | `0 < a ≤ 1/4` | finite relaxation plus Bessel plus a Gram certificate (below) | Lean reduction, 7 main theorems; `Cert14` checked in arb |
+| **3** | `weilQodd_ge`: `Q(g) ≥ 1/20`, odd | `0 < a ≤ 1/4` | pole term `2ĝ(i/2)ĝ(−i/2) = −2 poleR²` (negative but tiny, `poleR² ≤ sinh a − a`); odd modes `p_n = (∫ g sin)²/8a`, `p₀ = 0`; near field `≥ 2.016 + 0.99a − err`; two-range budget | pure Lean, 5 main theorems |
+
+### Part 2 in detail: past `λ₀ = 0`
+
+The pole-free form `Q₀` is negative for `a ≳ 0.105` (round 121's table), so from there positivity depends on the pole term. The ingredients:
+
+1. **The relaxation** (`weilQ_ge_relax`, any `N`).
+   - Round 20's mode expansion gives `Q(g) ≥ κ + xᵀ diag(s) x` exactly on the full space.
+   - Here `κ = c₀ + Far(a) + τ`, `x₀ = ∫ g cosh(t/2) = ĝ(i/2)` (weight `s₀ = 2`, the pole), and `x_{k+1} = ∫ g cos(πkt/4a)` (weights `−τ/8a` and `2(ψ̲_k − τ)/8a`).
+2. **Bessel** (`bessel_gram`): `2yᵀx − yᵀGy ≤ ‖g‖²` for the Gram matrix `G` of `(cosh(t/2), cos(πkt/4a))` on `[−a, a]`.
+3. **The finite step** (`quad_lower`): `G ≻ 0` and `(κ − ε)G + G diag(s) G ⪰ 0` together imply `κ‖g‖² + xᵀ diag(s) x ≥ ε‖g‖²`. Use `y = G⁻¹x`.
+4. **Closed forms** (`gramM_eq`): every Gram entry, from `int_coshsq`, `int_cosh_cos`, `int_cos_cos`, `int_cos_sq`. `κ` uses `weilConst_eq` and `farField_eq`. The `N = 6` data are rational: `cin_val1..6`, `cinH7`, `dlo1..6`, `errK`.
+5. **Monotonicity** (`probe_mono`, `weilQ_mono`): a probe at `a` is a probe at every `b ≥ a`, with the same `Q`. So `λ₁` is non-increasing in `a`, and **one certificate at `a = 1/4` covers `(0, 1/4]`**.
+
+**The certificate `Cert14`** (`kpole_cert.py`, `kpole_cert_result.json`):
+- At exactly `a = 1/4`, `ε = 1/1000`, 400-bit ball Cholesky of both `8×8` matrices: `gram6` ≻ 0 and `M` ≻ 0.
+- All 16 pivots are strictly positive. The smallest is `1.86·10⁻¹⁴`; the largest ball radius is `4·10⁻¹⁰³`. The run agrees at 800 bits.
+- `κ(1/4) = 1.05409620161`.
+- The script mirrors the Lean definitions one for one (`errK`, `tau6`, `cv6`, `dd6`, `sfun`, `kappa6`, `gC`). The only things arb contributes are the ball evaluations of `sin`, `cos`, `sinh`, `cosh`, `log`, `atan`, `π` and `γ`.
+
+**Why a single point.**
+- The window Gram matrices are extremely ill-conditioned (smallest pivot about `10⁻¹⁴`): `cosh(t/2)` and the low cosines are nearly dependent, like monomials.
+- An interval-in-`a` certificate would need `a`-intervals of width about `10⁻¹⁵`. Monotonicity makes that unnecessary, and at an exact point, arb at 400 bits resolves `10⁻¹⁴` pivots without difficulty.
+
+**Margins and limits.**
+- True `λ₁(1/4) ≈ 0.033`. The relaxation certifies `≥ 1/1000` but fails for `ε = 0.005`, and fails at `a = 0.26`: the rational `Cin` lower bounds and the `N = 6` truncation cost the rest.
+- Going further needs more modes (more certified `Cin` values) and, from `2a = log 2` on, the prime `n = 2`. There `λ₁ ≈ 1.3·10⁻³`.
+- Part 2 is **computer-assisted**. The Lean theorem `weilQ_ge_pole` takes `Cert14` as a hypothesis.
+
+### Scope
+- **Not new mathematics.** Positivity at these supports is known: Connes–Consani analytically up to `2a = log 2` (as recalled), and computer-assisted certificates much further (round 39; Liu, `L = 17/16`).
+- **What is new.**
+  - The pilot now has full-space positivity of its own `Q` on `(0, 1/4]` in both parity sectors: pure Lean for odd `g` and for even `g` up to `1/12`, and Lean plus one arb certificate for even `g` up to `1/4`.
+  - The reduction from full-space positivity to a finite Gram certificate is itself formalised, for any number of modes.
+
+## Round 123: Weil positivity past the first prime (`src/PrimeRelax.lean`, `frontier/nullvec/kprime_cert.py`)
+
+Two follow-ups to round 122:
+1. push the even-sector certificate past `2a = log 2`, where the prime `n = 2` enters;
+2. make the certificate well conditioned.
+
+**Result.** `weilQ_ge_prime`: `Q(g) ≥ 1/10000` for every normalised even probe, for all `0 < a ≤ 2/5`. The support is `2a ≤ 0.8`, past `log 2 ≈ 0.693`. It is computer-assisted: Lean proves the reduction, and the hypothesis `CertP` is checked in arb. The three new theorems print `[propext, Classical.choice, Quot.sound]` only.
+
+### Diagnosis: what capped round 122
+Round 122 stopped at `a = 1/4`, although the true `λ₁` stays positive well beyond. The limit was not the number of modes `N`. Scoping (`kscope_prime.py`) separates two losses:
+- **The kernel remainder `errK(a)`** in the Cin-based lower bounds `ψ̲_k` grows with `a`. It costs about the whole margin by `a ≈ 0.26`.
+- **Loose certified Cin constants.** For example, `cinH7` sits `0.0146` below the true `Cin(7π/2) = 3.0486`.
+
+The fix: replace the low-mode bounds by **exact mode energies `ψ_m`, enclosed by arb quadrature**. Keep the crude Lean bound only for the tail. The tail enters only through its mass, so its looseness is cheap.
+
+Scoping, with bound `= κ′ + λ_min(LᵀSL)` (a certified bound is available when positive):
+
+| `a` | exact modes, `N = 40` | true `λ₁` |
+|---|---|---|
+| 0.30 | 0.0073 | |
+| 0.3466 (`2a = log 2`) | 0.0012 | |
+| 0.36 | 0.00078 | |
+| 0.40 | 0.00016 (mixed, `N = 60`: 0.000163) | ≈ 0.00018 |
+
+### Option 1: the prime is diagonal in the circle modes
+- **The prime term.** For `2a < log 3` only `n = 2` contributes: `2·primeS(g) = √2 log 2 · f(log 2)` (`primeS_eq_two'`).
+- **Mode expansion.** Round 20's expansion gives `f(u) = Σ p_m cos(πmu/4a)` on `[0, 2a]`.
+- **Absorbing the prime.** The prime is absorbed mode by mode into an effective energy `modeEP = ψ_m − c·cos(πm·log 2/4a)`, with `c = √2 log 2` (`prime_trunc`).
+- **Unchanged machinery.** The relaxation, Bessel step and monotonicity of round 122 go through unchanged (`weilQ_ge_relaxP`, generic in `c`, `u₀` and `N`).
+
+### The certificate `CertP` (`kprime_cert.py`, `kprime_cert_result.json`)
+Setting: exactly `a = 2/5`, `N = 60` modes (a 62×62 system), `ε = 1/10000`.
+- **Mode bounds.** 60 rational lower bounds `ψ̲_m` (12 decimals), each strictly below an arb enclosure of `ψ_m`. The enclosure uses `acb.integral` of `(1 − cos(zw))e^{z/2}/sinh z` on `[δ, 2a]` plus a rigorous head bound. The same 60 rationals are hard-coded in Lean (`psiCq`), and the script checks that the two lists agree.
+- **Tail.** From `cinH61 : 5.098076 ≤ Cin(122π/4)`, giving `τ = 5.098076 − errK − c`.
+- **Constant.** `κ(2/5) = 1.500996…`, and `ε ≤ κ`.
+- **Cholesky checks**, at 2400 bits:
+
+| matrix | positive definite | smallest pivot |
+|---|---|---|
+| Gram matrix | yes | `3.6·10⁻¹⁰⁴` |
+| `M = (κ − ε)G + G diag(s) G` (direct) | yes | `5.4·10⁻¹⁰⁴` |
+| `M′ = (κ − ε)I + LᵀSL` (congruence) | yes | `0.0082` |
+
+### Option 2: the conditioning
+- **The problem.** The raw window Gram matrix is Slepian-like: its smallest pivot is `10⁻¹⁴` at `N = 6` and `10⁻¹⁰⁴` at `N = 60`.
+- **The fix.** Write `G = LLᵀ`, which amounts to orthonormalising the basis. Then `M = L M′ Lᵀ` with `M′ = (κ − ε)I + LᵀSL`, and `M ⪰ 0 ⟺ M′ ⪰ 0`.
+- **The payoff.** `M′`'s pivots are `O(margin)`, the smallest being `0.0082`, and they read off the margin directly. The direct route needs 2400-bit balls to resolve `10⁻¹⁰⁴`.
+- **What it does not buy.** It is a diagnostic and efficiency gain, not a stronger theorem. The ill-conditioning lives in `G` itself, so an interval-in-`a` certificate is still infeasible. Monotonicity (`weilQ_mono`) remains the way to cover `(0, 2/5]` from one point.
+
+### Scope, honestly
+- **Not new mathematics.** Positivity at these supports is known (see round 122's scope note).
+- **Thin margin.** The certified `10⁻⁴` compares with a true `λ₁ ≈ 1.8·10⁻⁴`.
+- **The next prime.** `n = 3` enters at `2a = log 3 ≈ 1.099`. Past that the same diagonal trick applies with one more cosine per mode, but `λ₁` keeps shrinking.
+- **The odd sector** is still proved only to `a = 1/4` (pure Lean, round 122).
+- **Status.** The pilot now has full-space even-sector positivity of its own `Q` up to support `0.8`: Lean plus one arb certificate.
+
+## Round 124: consolidation (efficiencies from the round-124 audit)
+
+A whole-codebase audit (every `src/*.lean` file read end to end) found duplicated proofs, superseded routes and stale text. This round removes them. **No theorem is weakened.** Every public theorem keeps its name and statement, except for the renames listed below. `src/` goes from 25,007 to 24,093 lines, and every file still ends in `#print axioms` with only `propext`, `Classical.choice` and `Quot.sound`.
+
+**Shared machinery (one proof instead of two or more)**
+
+| New | Replaces |
+|---|---|
+| `ProbeForm` (Uniqueness.lean): `inf`, `inf_le`, `inf_mul_le`, `space`, `isMin_iff` for any quadratic form on probes | the parallel `lam`/`lam0`, `groundSpace`/`groundSpace0`, `isGroundState_iff`/`isGroundState0_iff` developments; `lam`, `lam0`, `groundSpace`, `groundSpace0` are now abbreviations for its instances |
+| `exists_min_weilQc` (GroundStateExists.lean): a minimiser of `Q_c = Q − (2 − c)ĝ(i/2)²` for every `c ≥ 0` | the line-for-line copies `exists_groundState` (`c = 2`) and `exists_groundState0` (`c = 0`), both now two-line corollaries |
+| `tonelli_zero` moved to Positivity.lean | the inline Tonelli argument in `one_sign_of_autocorr` |
+| `SProbe` (FourierGap.lean): a parity-free probe; the mode machinery (`hasSum_pmS`, `energy_ge_truncS`, `cs_suppS`, …) proved once for it | OddPositivity's `…O` replays of eight lemmas |
+| `weilQ_ge_relaxP` with `c = 0` | the separate proof of `weilQ_ge_relax`; `prime_trunc`, `modeEP`, `sfunP`, `weilQ_ge_relaxP` move from PrimeRelax.lean to PoleRelax.lean |
+| `Probe.mono`, `poleR_eq_integral`, `weilQ_mono` in FourierGap.lean | the copies in SimpleCover.lean and PoleRelax.lean (`probe_mono`, a second `weilQ_mono`) |
+| `poleR_eq_cosh_sub_sinh`, `intervalIntegral_odd` | the cosh/sinh parity splits in `integral_sq_perp`, `poleR_eq_xv0` and `poleR_sq_odd` |
+| `eventually_ghatC_zero_ne`, `HypConv.eventually_ne` (PrimeSide.lean) | four copies of "(a) forces `ĝ_n(0) ≠ 0` eventually" (PrimeSide, HurwitzCross, StripConv, ZeroCount) |
+| `split_mem_groundSpace`, `exists_two_real_ghatC_ne` (ZeroSwap.lean) | the "`Q` splits along a swap" block (ZeroSwap, SimpleStructure) and the "two real points" block (ZeroSwap, DegenerateFlat) |
+| `layer_fubini` (Concave.lean), generic in the target space | the two layer-cake Fubini arguments in `layer_nonneg` and `norm_ghatC_le_of_antitone` |
+| `term_prime` (FourierGap.lean) | the 15 per-mode wrappers `term1`–`term5`, `termB1`–`termB5` (FourierGap) and `termC1`–`termC5` (ParabolaGap), now inline calls |
+| `sc_quarter`, `pieceQ4`, `cin_chain4`, `lowP4` (FourierGap.lean): the `Cin` chain on quarter steps over `ℚ(√2)`, checked by kernel evaluation | the hand-unrolled `piece1`–`piece11`, `cinc1`–`cinc12` and `sc7`, `sc9`, `sc11`, `sc12`. The certified values are unchanged or slightly sharper (e.g. `Cin(3π) ≥ 2.780135` against `2.780109`) |
+| `int_cos_cos`, `int_cosh_cos`, `int_cos_sq`, `int_coshsq` in WindowForm.lean (Mathlib-only; PoleRelax now imports it) | WindowForm's separate proofs of `ghat_cos` and `ghat_pole`, now corollaries |
+| `hasDerivAt_sqsubT`, `hasDerivAt_sqsubR`, `rpow_eq_mul_rpow_sub_one` (T1ca.lean) | seven hand-written chain-rule steps; `continuous_N0` is proved once instead of twice |
+| `osc_abs_le` | the duplicated tail of `osc_bound`, now a corollary |
+| `archIntegrand_eq`, `kerK_measurable` (StrictPositivity) | Mollify.lean's copies (`archIntegrand_eq`, `measurable_kerK`) |
+| one `primeS_eq_two` (`2a < log 3`), one `log_three_gt` (`> 1.0986`), one `weilConst_ge` (`≥ −5.4301`, with `gamma_lt` in SmallPositivity.lean) | the pairs `primeS_eq_two`/`primeS_eq_two'`, `log_three_gt`/`log_three_gt'` and `weilConst_ge`/`weilConst_ge'` |
+
+**Superseded code removed**
+- `rh_of_prime_side` is now the case "every zero real" of `rh_of_prime_side_cross`, three lines in HurwitzCross.lean.
+- The Pólya-class route (`polyaFn`, `integral_trap`, `ghatC_polya`, `realRooted_polya`, `realRooted_of_polya_shape`) is removed. `Concave.lean` proves real-rootedness for every even concave `g ≥ 0` directly, with no representation hypothesis. Polya.lean keeps the trapezoid-ratio lemmas that Concave.lean uses.
+
+**Renames and fixes**
+- Renames: FourierGap's `Fk` is now `Ftan`, and SixteenPi's `sin_image_Ioo` is now `sin_image_Ioo_half_pi`. Both clashed with declarations of the same name in `Split.lean`, which would have broken a joint import.
+- Stale docstrings are fixed:
+  - SixteenPi's header and `exteriorMoment_eq` still called the balayage identity unproved. It has been proved since round 75.
+  - PoleRelax's header described a-interval certificates. It uses the single point certificate `Cert14`.
+
+**Not done here** (they are links, not efficiencies): a bridge from `WeilExplicit` to `weilQ` (done in round 126), which would unify the four statements of the explicit formula; a single zero-family encoding for T1bt's `zetaZeroFamily` and Hadamard's `ZeroIdx`; the parity split `Q(g) = Q(g_even) + Q(g_odd)` for all real `g` (done in round 125).
+
+## Round 125: the parity split, and Weil positivity for every real `g` (`src/ParitySplit.lean`)
+
+The first "link" left open in round 124.
+
+**The identity (`weilQg_parity`).** For every real `g` supported in `[−a, a]` (`SProbe`), with even part `e = (g + g(−·))/2` and odd part `o = (g − g(−·))/2`:
+
+  `weilQg a g = weilQ a e + weilQg a o`.
+
+- **No cross term in the autocorrelation** (`autocorr_parity`). The parallelogram law gives `f_{e+o} + f_{e−o} = 2f_e + 2f_o`. Since `e − o = g(−·)` has the same autocorrelation as `g` (`autocorr_reflect`), `f_g = f_e + f_o`. The constant, archimedean and prime terms are linear in `f_g`, so they split.
+- **The pole term splits.** `ĝ(±i/2) = E ± O`, so `2ĝ(i/2)ĝ(−i/2) = 2E² − 2O²`, the sum of the two sectors' pole terms (`poleL_even`, `poleL_odd`).
+- **The parts are probes** (`probe_evenPart`, `oprobe_oddPart`). The archimedean integrands of `e` and `o` are nonnegative and sum to `g`'s, so both are integrable.
+
+This is Zhu's parity splitting (his Lemma 6.1, used numerically in round 39), now formalised on the pilot's own definitions.
+
+**Positivity for every real `g`.**
+
+| theorem | support | bound | status |
+|---|---|---|---|
+| `weilQg_ge_twentieth_all` | `0 < a ≤ 1/12` | `Q(g) ≥ ‖g‖²/20` | pure Lean |
+| `weilQg_ge_all` | `0 < a ≤ 1/4` | `Q(g) ≥ ‖g‖²/1000` | Lean plus the arb certificate `Cert14` (a hypothesis, not an axiom) |
+
+The even sector comes from `weilQ_ge_twentieth` or `weilQ_ge_pole`, turned into `c‖e‖² ≤ Q(e)` through `λ₁` (`weilQ_ge_mul`). The odd sector comes from `weilQodd_ge`, unnormalised by scaling (`weilQodd_ge_mul`, `weilQg_smul`); the case `o = 0` a.e. is handled separately. All eight new theorems print `[propext, Classical.choice, Quot.sound]`.
+
+**Scope, honestly.**
+- Positivity at these supports is known: Connes–Consani for `2a ≤ log 2` (as recalled), and certified results much further (round 39; Liu). What is new is a checked proof for every real `g`, in both parities, on the pilot's definitions.
+- The range stops at `a = 1/4` because the odd sector is proved only that far. The even sector reaches `2/5` (round 123, `CertP`).
+- **No bearing on RH.** Weil's criterion needs positivity at every support, and a fixed finite range carries no information about RH.
+
+## Round 126: the explicit-formula bridge (`src/ExplicitBridge.lean`)
+
+This round builds the second link left open in round 124. Four places in the pilot assume Weil's explicit formula, each in a different shape:
+
+- T1bt's `h_explicit`;
+- Exterior's `WeilExplicit`;
+- the `hQ` hypothesis of `Saturation.lean`;
+- the `hQ` hypothesis of `Unconditional.lean`.
+
+Until now, nothing connected the classical statement `WeilExplicit` to the pilot's own form `weilQ`.
+
+**The bridge (`weilQ_eq_zero_sum`).** Take an even probe `g` with `a > 0`. Apply `WeilExplicit` to `h = ĝ²`, with real values `hsq g a = ĝ|ℝ²`, and assume `DigammaDiff`. Then
+
+  `Σ_ρ ĝ(t_ρ)² = weilQ a g`   (as a `HasSum`; `weilQ_eq_tsum` gives the `tsum` form).
+
+The first conjunct of `WeilExplicit` holds by `hsq_ofReal`. `weilQ_eq_tsum` is exactly the `hQ` hypothesis of `Unconditional.lean`, and `weilQ_eq_zero_sum` has the shape of T1bt's `h_explicit`. So `WeilExplicit` becomes the single named input behind those statements. The `Saturation.lean` form additionally needs the zeros to be on the line, paired as `±γ`.
+
+**Proved outright (no new input).**
+- **The convolution identity** (`fourier_autocorr`): `∫ f(x)e^{irx} dx = ĝ(r)²`, where `f` is the autocorrelation. The proof is Fubini on `g ⊗ g`.
+- **`∫ĝ² < ∞`** (`integrable_hsq`). The key fact is `ĝ(2π·)² = 𝓕f ≥ 0`. Regularising with a Gaussian, using Mathlib's Gaussian Fourier transform and the multiplication formula, gives `∫ e^{−x²/c} ĝ(2πx)² dx → f(0)`. Monotone convergence then gives finiteness. This is a Bochner-type argument and needs no Plancherel.
+- **Fourier inversion** (`gh_hsq`): `g_h = f`, that is `(1/2π)∫ĝ(r)² cos(ru) dr = f(u)`. It uses Mathlib's `Continuous.fourierInv_fourier_eq`. So `WeilExplicit`'s constant term gives `‖g‖² ln π`, and its prime term gives the prime sum `primeS g`.
+- **The pole terms**: `h(±i/2) = poleR²`.
+
+**The archimedean term** (`arch_term`):
+
+  `(1/2π)∫ ĝ² Re ψ(¼ + ir/2) dr = Re ψ(¼)‖g‖² + archE g`.
+
+This uses a new named input, **`DigammaDiff`**: Gauss's integral `ψ(z) − ψ(w) = ∫_0^∞ (e^{−wt} − e^{−zt})/(1 − e^{−t}) dt` for `Re z, Re w > 0`, with the integrand integrable. Mathlib's `Digamma.lean` lists this representation as a TODO, so it enters as a hypothesis, as `BinetFormula` does. From it:
+- `Re ψ(¼ + ir/2) − Re ψ(¼) = ∫_0^∞ k(t)(1 − cos(rt/2)) dt`, with `k(t) = e^{−t/4}/(1 − e^{−t}) ≥ 0` (`psiRe_sub`).
+- Fubini on the nonnegative integrand `ĝ(r)² k(t)(1 − cos(rt/2))` gives `∫ ĝ²(Re ψ − Re ψ(¼)) = 2π ∫_0^∞ k(t)(f(0) − f(t/2)) dt` (`hsq_psi_sub`). The product integrability comes from `integrable_prod_iff'`.
+- Substituting `t = 2u`, with `2k(2u) = e^{u/2}/sinh u`, turns this into `2π·archE g`.
+
+All ten new `#print axioms` lines show `[propext, Classical.choice, Quot.sound]`.
+
+**Scope, honestly.**
+- **Named inputs.** Only `WeilExplicit` and `DigammaDiff` are assumed. Both are classical theorems, and neither is in Mathlib.
+- **Standard mathematics.** The identity `Q(g) = Σ_ρ ĝ(t_ρ)²` is Weil's own route to his criterion. What is new is the checked connection between the pilot's four statements of the explicit formula.
+- **No bearing on RH.** The bridge rewrites `weilQ` as a sum over zeros. Positivity of that sum for all `g` is equivalent to RH, which is Weil's criterion and was already in the pilot. The bridge adds no positivity.
+
+## Round 127: phase retrieval, one Fourier inversion for two jobs (`src/FourierInv.lean`)
+
+Round 126 proved Fourier inversion for the autocorrelation (`gh_hsq`: `(1/2π)∫ĝ(r)² cos(ru) dr = f(u)`) inside ExplicitBridge.lean. That proof never used the archimedean hypothesis. This round moves it ahead of SwapRealize.lean, so that the zero swap uses it too.
+
+**The link.** Walther's phase-retrieval theorem says a compactly supported function is determined by `|ĝ|` on `ℝ` only up to flipping zeros. The zero swap of rounds 43–46 is exactly such a flip: `ĝ ↦ ĝ·(z² − σ̄)/(z² − σ)` is unimodular on `ℝ`. Fourier inversion is the half of that theorem the swap needs. On the real line `ĝ` fixes the autocorrelation, so a flip preserves it.
+
+**What changed.**
+- **New file `FourierInv.lean`**, which imports HurwitzCross. It holds `ESupp` (even, supported in `[−a, a]`, `L²`: a probe without the archimedean field) and round 126's Part A stated for `ESupp`:
+  - `fourier_autocorr`, `integrable_hsq`, `gh_hsq`, `integral_hsq`;
+  - `integral_hsq_cos` and `integrable_hsq_cos`;
+  - the translation-continuity lemmas moved from Mollify.lean (`tendsto_normSq_shift`, now also `continuous_autocorr`);
+  - `ghatC_conj` and `ghatC_im_zero`, moved from SwapRealize.lean. They no longer take an `L²` hypothesis; evenness is enough, via Exterior's `ghatC_even`.
+- **SwapRealize.lean, R2** (`swap_autocorr`). The new proof takes three steps:
+  - `swap_hsq`: `ĝ_u(t)² + ĝ_v(t)² = ĝ(t)²` on `ℝ`, from R1 and the unimodular multiplier;
+  - `gh_hsq`, applied to `u`, `v` and `g`;
+  - linearity of the integral.
+
+  This replaces the Fourier coefficients on `[−6a, 6a]` with Parseval for shifts. `cf_eq_ghatC`, `swap_cf` and `autocorr_eq_zero_far` are deleted. SwapRealize.lean goes from 487 to 428 lines.
+- **Mollify.lean**: `Fsh_continuous` is now three lines, via `continuous_autocorr`.
+- **ExplicitBridge.lean**: Part A is removed. Part B calls FourierInv's lemmas through `Probe.toE`.
+
+**Scope.** No theorem is weakened. `ghatC_conj` and `ghatC_im_zero` lose a hypothesis they never used. `src/` grows by 12 lines, because the `ESupp` scaffolding and the new file header outweigh the deletions, so the gain is structural: one Fourier inversion now serves both the explicit-formula bridge and the zero swap. No new input, and no bearing on RH.
+
+## Round 128: Weil's form as a Toeplitz form, and Q₀ as a jump process (ExplicitBridge.lean, §C)
+
+Two links from the round-124 analysis, each a short corollary of rounds 126–127.
+
+**The symbol form (`weilQ_symbol`).** Given `DigammaDiff` alone, with no `WeilExplicit`, for every even probe and every `a > 0`:
+
+  `Q(g) = 2ĝ(i/2)² + (1/2π)∫ ĝ(r)² σ_a(r) dr`,  `σ_a(r) = Re ψ(¼ + ir/2) − log π − 2 Σ_{n ≤ e^{2a}} Λ(n) n^{−1/2} cos(r log n)` (`sigmaW`).
+
+- So `Q` is a rank-one pole term plus a truncated Wiener–Hopf (Toeplitz) form on `PW_a`, with an explicit real symbol.
+- The proof is `arch_term` for the digamma part, `integral_hsq` for the constant, and `integral_hsq_cos` summed over `n ≤ e^{2a}` for the primes (`prime_sum_eq`).
+- `Q` sees `g` only through `ĝ²` on `ℝ` and `ĝ(i/2)`. That is the fact behind the phase-retrieval form of the zero swap (round 127).
+- The minimum of `σ_a` is at `r = 0`, where it equals `c₀ − 2P(a)`. `weilQ_ge` is exactly that bound, so the symbol form reproduces it rather than improving it.
+
+**The jump form (`weilQ0_jump`)**, with no named input:
+
+  `Q₀(g) = (c₀ − 2P(a))‖g‖² + E(g) + Σ_{n ≤ e^{2a}} Λ(n) n^{−1/2} ‖g − g(· + log n)‖²`.
+
+Every term after the constant is a nonnegative jump energy:
+- The archimedean kernel `e^{u/2}/sinh u = 2Σ_k e^{−(2k+½)u}` is completely monotone.
+- Each prime power `n` is a jump of size `log n` at rate `Λ(n)/√n`.
+
+So `Q₀ + (2P(a) − c₀)‖·‖²` is the energy form of a symmetric Lévy process killed outside `[−a, a]`. `psiRe_sub` (round 126) is its Lévy–Khintchine formula, and `psiRe_ge` records that the exponent is nonnegative.
+
+This makes explicit why round 51's Beurling–Deny and Perron–Frobenius arguments work for `Q₀`. It also locates the obstruction: `Q = Q₀ + 2ĝ(i/2)²`. The killing constant `2P(a)` grows like `4e^a`, and at every support RH asks the single rank-one pole term to lift `Q₀`'s one negative direction.
+
+**Scope.** Both are reformulations: no new bound, and no bearing on RH. `DigammaDiff` is the only named input, and only for the symbol form.
+
+## Round 129: negative directions count off-line zeros (ExplicitBridge.lean, §D)
+
+Given the explicit formula (round 126), `Q(g) = Σ_ρ ĝ(t_ρ)²`. A zero on the critical line has real `t_ρ`, and `ĝ` is real on `ℝ` for even `g`, so its term is a real square. Three consequences:
+
+- **`weilQ_nonneg_of_zeros_on_line`**: if every zero of the family is on the line, then `Q(g) ≥ 0` for every even probe at every support. This is the RH ⇒ positivity half of Weil's criterion, now a theorem of the pilot, modulo `WeilExplicit` and `DigammaDiff`.
+- **`exists_offline_of_neg`**: any probe with `Q(g) < 0` exhibits a zero off the line.
+- **`finrank_le_offline`**: suppose `Q` is negative definite on a finite-dimensional space `V` of probes, and every zero outside a finite index set `F` is on the line. Then `dim V ≤ |F|`.
+  - Proof: `v ↦ (Im ĝ_v(t_i))_{i ∈ F}` is linear. If `dim V > |F|` it has a nonzero kernel element, all of whose terms are real squares. So `Q ≥ 0` there, a contradiction (rank–nullity).
+
+This is the negative-squares (Krein–Langer / Pontryagin index) form of Weil's criterion, in the easy direction. The count is by family members, so an off-line quadruple `ρ, ρ̄, 1 − ρ, 1 − ρ̄` counts 4. The sharp count, one negative direction per quadruple, is round 130's `finrank_le_quadruples`.
+
+**Not formalised: the converse.** Off-line zeros do produce negative directions of `Q` once the support is large enough to separate them. Without that, the index statement bounds zeros from `Q`, not `Q` from zeros.
+
+**Scope.** This is a restatement of Weil's criterion, not progress. `Q ≥ 0` at a fixed support says nothing about the zeros, since off-line zeros need not show at small support. So the certificates of rounds 121–125 exclude no zero. What the round adds is that the pilot's prime-side objects are now formally tied to the zeros in both the identity (round 126) and the sign (this round).
+
+## Round 130: the sharp count, one negative direction per off-line quadruple
+
+`finrank_le_quadruples` sharpens round 129's count from family members to distinct quadruples.
+
+**Statement.** Let `R` index one representative per off-line quadruple. That is, every member of the zero family is either on the line or has its ordinate in the orbit `{t_r, −t_r, t̄_r, −t̄_r}` of some `r ∈ R`. If `Q` is negative definite on a finite-dimensional space `V` of probes, then `dim V ≤ |R|`.
+
+**Why one condition per quadruple is enough** (`im_ghat_of_orbit`). For even real `g`, `ĝ(−z) = ĝ(z)` (`ghatC_even`) and `ĝ(z̄) = conj ĝ(z)` (`ghatC_conj`). So the single real condition `Im ĝ(t_r) = 0` makes `ĝ` real on the whole orbit, and every term of the quadruple is a real square. For `ζ` the orbit is exactly the quadruple:
+- `ρ` has ordinate `t`;
+- `1 − ρ` has `−t`;
+- `ρ̄` has `−t̄`;
+- `1 − ρ̄` has `t̄`.
+
+**Multiplicity.** A zero of multiplicity `m` lists `m` family members with the same ordinate, all sharing one representative. So a multiple quadruple still counts once. That is correct: it contributes `m·4 Re ĝ(t)²`, which has one negative direction. Round 129's `finrank_le_offline` is now the corollary where each off-line member is its own representative.
+
+**Scope.** Unchanged from round 129. This is the easy direction of the index form of Weil's criterion. The converse (off-line quadruples do produce negative directions once the support separates them) is not formalised, and there is no bearing on RH.
+
+## Round 131: the converse, an off-line zero makes Weil's form negative (`src/WeilConverse.lean`)
+
+Round 129 proved RH ⇒ `Q ≥ 0` at every support. This round proves the converse for zero families with finitely many off-line members, so Weil's criterion holds in both directions (`weil_criterion_finite`).
+
+**`exists_weilQ_neg_of_offline`.** Assume the following:
+- `WeilExplicit` holds for every probe, and `DigammaDiff` holds;
+- every member of the zero family outside a finite set `F` is on the critical line;
+- no member of `F` is real (`Im ρ ≠ 0`; for `ζ` this is `zetaNoZeroInUnitInterval`);
+- some member of `F` is off the line.
+
+Then some probe at some support has `Q(g) < 0`.
+
+**Proof.** The argument has five steps, C1–C5, and needs no limits:
+- **C1, twin probes.** The test functions are two boxes at `±λ`, `twin (box 1) λ`. They are probes (`twin_probe`, using the translation invariance of the archimedean integrand), and their transform is `2cos(λz)ĝ₀(z)` (`ghatC_twin`). The box transform `ĝ₀(z) = √2 sin z / z` never vanishes off `ℝ` (`ghat_box_ne`).
+- **C3, the bound.** `Q(twin) ≤ S + Σ_{i∈F} Re(2cos(λt_i)ĝ₀(t_i))²` (`weilQ_twin_le`). Each on-line term is at most `4‖ĝ₀(t_i)²‖`. That family is summable, because the explicit formula for `ĝ₀` gives an absolutely summable zero sum.
+- **C2 and C4, the weighted integral.** Suppose `Q(twin) ≥ 0` for every `λ ≥ 0`. Integrate the bound against `e^{−2Yλ}(1 + cos(2x*λ + θ)) ≥ 0` over `[0, T]`. Here `Y` is the largest `|Im t_i|` over `F`, attained at a zero with `|Re t| = x* > 0`.
+  - Each term is `Re(c e^{sλ})` with `Re s ≤ 0`.
+  - Against the weight, it integrates to `T·(main) + O(1)`, with the `O(1)` bound explicit (`int_wt`, `member_int`).
+- **C5, the main term.** Only exponents that vanish exactly contribute to the main term. By the evenness and conjugate symmetry of `ĝ₀`, they come from zeros in the orbit `{±x* ± iY}`, and each such zero contributes `Re(ĝ₀(t*)² e^{iθ})/2` (`member_main`). Choosing `θ = π − arg ĝ₀(t*)²` makes this `−|ĝ₀(t*)²|/2`. Every other zero's main term is `≤ 0`.
+- **Conclusion.** At `T = 2(C + 1)/|ĝ₀(t*)²|` the integral of a nonnegative function is `≤ −1`, a contradiction.
+
+All of it is pure Lean on top of the round 126 bridge. The seven new `#print axioms` lines show only `propext`, `Classical.choice` and `Quot.sound`.
+
+**Scope, honestly.**
+- **The finiteness restriction is real.** The argument needs the maximum of `|Im t|` over off-line zeros to be attained, and uses finitely many to bound their contribution. A family with infinitely many off-line zeros is not covered. (For `ζ`, round 220 removes the restriction by a different argument, `WeilLandau.rh_of_weil`.)
+- **This is not the index converse.** That would say `K` off-line quadruples give a `K`-dimensional negative space. Here a single negative value is produced.
+- **It is Weil's criterion, now a two-sided theorem of the pilot** (for such families, and modulo `WeilExplicit` and `DigammaDiff`). It does not prove RH. It says RH is equivalent to `Q ≥ 0` at every support, which is what the pilot has always taken as its target.
+- **What is new** is that the prime-side form and the zeros are now formally tied in both directions. So a proof of `Q ≥ 0` at every support by any route in the pilot would now close RH for such families, with no further analytic input.
+
+## Round 132: Riemann's kernel is a null vector of the explicit formula (`src/PhiNull.lean`)
+
+This formalises the first finding of the whole-corpus review.
+
+**The mechanism.** At every nontrivial zero of `ζ`, `Ξ(t_ρ) = ξ(ρ) = 0` (`Xi_zeta_zero`). So the zero side of the explicit formula vanishes for every test transform divisible by `Ξ`, and so does its prime side `weilSide h hR`:
+- **`explicit_null_of_Xi`**: `h = Ξ·m` ⟹ `weilSide h hR = 0`, given `WeilExplicit` for that `h`.
+- **`explicit_null_RPhi`**: by Riemann's formula `Φ̂ = Ξ/2` (`RPhiHat_eq`, round 63), `Φ̂·m` is null for every `m`. So Riemann's kernel `Φ` is a null vector of the bilinear Weil functional over the zeros of `ζ`.
+- **`weil_energy_RPhi`**: for `h = Φ̂²`, the pole terms are `Ξ(±i/2)²/4 = ξ(0)²/4 = ξ(1)²/4 = 1/16`. So the archimedean-plus-prime side of `Φ̂²` equals exactly `−1/8`, and Weil's energy of `Φ` is `0`.
+- **`bil_zero_sum`**: the polarised bridge for probes, `Σ_ρ ĝ(t_ρ)k̂(t_ρ) = (Q(g + k) − Q(g − k))/4`.
+
+The review agent checked the nullity numerically on the prime side, to a relative `10⁻³¹` (`scratchpad/hunt/e1_null.py`).
+
+**Not formalised.**
+- **Identifying the prime side with the pilot's form.** This means matching `g_h` for `h = Φ̂k̂` with the pilot's cross-correlation `∫Φ(t)k(t + u) dt`, which would state the result as `B(Φ, k) = 0` in the pilot's prime-side form. It needs Fourier inversion for a function that is not compactly supported, and a signed Fubini for the archimedean term, both using the decay of `Ξ` on `ℝ`.
+- **The quantitative corollary.** This is `λ₁(a) ≤ Q(Φ_a)/‖Φ_a‖²`, double-exponentially small. It needs `Φ_a` to be a probe (a derivative bound on `Φ` over the window), plus a tail estimate summed over the zeros.
+
+**Scope.** This is the explicit formula evaluated at a function that vanishes on the zeros. It is exact and unconditional given `WeilExplicit`, but it restates the zero set and has no bearing on RH. `Φ` is null for every zero family on which `Ξ` vanishes, on or off the line.
+
+## Round 133: the ground energy decays faster than every exponential (`src/PhiDecay.lean`)
+
+This is the quantitative corollary of round 132. Riemann's kernel `Φ` is null for the explicit formula, so its truncation `Φ_a = 1_{[−a,a]}Φ` is almost null, and it bounds the ground energy of Weil's form.
+
+**The chain.**
+- **A–B.** `Φ` is `C¹`, with `Φ' = Σ φ_n'` differentiated termwise (`hasDerivAt_RPhi`). `Φ'` is odd and decays at every exponential rate (`RPhi1_decay`).
+- **C.** `Φ_a` is an admissible probe (`probe_PhiA`). This uses `ind_energy` from CosTrunc with the Lipschitz bound `RPhi_lip`.
+- **D.** On the strip `|Im t| ≤ ½`, `∫f e^{itu} = ĝ_a(t) + tail` (`fourier_split`), and `‖tail‖ ≤ C e^{−(D−3/2)a} ∫e^{−|u|}` for `|f| ≤ C e^{−D|u|}` (`norm_tailT_le`).
+- **E.** At a zero `t` of `Ξ`, `ĝ(t) = −tail Φ`. Integrating by parts on `ℝ` gives `∫Φ'e^{itu} = −itΦ̂(t) = 0` (`RPhi1_hat`). Integrating by parts on `[−a, a]` (`ibp_window`) then gives `‖t‖‖ĝ(t)‖ ≤ 2|Φ(a)|e^{a/2} + ‖tail Φ'‖` (`zero_bounds`).
+- **F.** Summing with the weight `‖1/(t² + 4)‖` gives `Q(Φ_a) ≤ (τ₁² + 4τ₀²) Σ_ρ ‖1/(t_ρ² + 4)‖` (`weilQ_PhiA_le`).
+- **G.** `λ₁(a)‖Φ_a‖² ≤ Q(Φ_a)` and `‖Φ_a‖² ≥ ‖Φ_1‖² > 0` (by `RPhi_pos`). So **`λ₁(a) ≤ K_B e^{−Ba}` for every `B`**, for `a ≥ 1` (`lam_decay`). Over the zeros of `ζ` this is `lam_decay_zeta`.
+
+**Named inputs.** `WeilExplicit` for each `Φ_a`, and for `h(z) = 1/(z² + 4)`, which is analytic on `|Im z| < 2` and `O(r⁻²)`, so a legitimate Guinand–Weil test function. Its explicit formula gives `Σ_ρ ‖1/(t_ρ² + 4)‖ < ∞`. `DigammaDiff` is the third input. There are no other hypotheses: the strip comes from `IsNontrivialZero.mem_strip`, and `Ξ(t_ρ) = 0` from `Xi_zeta_zero`.
+
+**What it says.** The general theorem `lam_decay` holds for any zero family on which `Ξ` vanishes inside the strip, whether on or off the critical line. So `λ₁(a)` is at most super-exponentially small, and this is a property of `Ξ`'s zero set rather than of where the zeros lie.
+
+**Scope.** This is an upper bound on `λ₁`. RH is equivalent to the lower bound `λ₁(a) ≥ 0` for every `a` (round 131, `weil_criterion_finite`, for finitely many off-line zeros). So the corollary has no bearing on RH. It quantifies how close to degenerate Weil's form is at large support, which is the known difficulty.
+
+## Round 134: Weil positivity up to the second prime (`src/PrimeRelax3.lean`, `frontier/nullvec/kprime3_cert.py`)
+
+**Result.** `weilQ_ge_prime3`: `Q(g) ≥ 2·10⁻⁸` for every normalised even probe at every support `0 < a ≤ 0.5493`, that is `2a ≤ 1.0986 < log 3 ≈ 1.098612`. This is the whole range where `n = 2` is the only prime power in the prime sum. The result is computer-assisted in the same way as round 123: Lean proves the reduction, and the hypothesis `CertP3` is checked in arb. `weilQ_ge_prime3` prints `[propext, Classical.choice, Quot.sound]` only.
+
+**Why round 123's construction reaches this far unchanged.**
+- **Prime term.** Below `log 3`, `2·primeS(g) = √2 log 2 · f(log 2)` (`primeS_eq_two`), which is still diagonal in the circle modes.
+- **Reused machinery.** The relaxation (`weilQ_ge_relaxP`), the Bessel step (`bessel_gram`), the quadratic lower bound (`quad_lower`), the far field (`farField_eq`), the tail (`htailP` from `cinH61`) and monotonicity (`weilQ_mono`) are all reused as they are.
+- **New content.** Only the 60 certified mode energies `psiCq3` (arb quadrature at `a* = 0.5493`) and the certificate `CertP3` are new.
+
+**Scoping.** The bound is `κ + λ_min(LᵀSL)`, with exact low modes and the Cin tail.
+
+| `a` | `N = 40` | `N = 60` | `N = 80` | Ritz `λ₁` (K = 50) |
+|---|---|---|---|---|
+| 0.45 | 1.18e-5 | 1.37e-5 | 1.45e-5 | 1.63e-5 |
+| 0.50 | 6.5e-7 | 7.7e-7 | 8.2e-7 | 9.4e-7 |
+| 0.53 | 1.23e-7 | 1.61e-7 | 1.76e-7 | 2.10e-7 |
+| 0.549 | 2.3e-8 | 4.25e-8 | 4.79e-8 | 5.76e-8 |
+
+At `a* = 0.5493` with Lean's tail constant (`5.098076 ≤ Cin(61π/2)`, true value `5.129`), the bound is **`4.199·10⁻⁸`**. The tail's looseness costs only `3·10⁻¹⁰`. The Ritz estimate of the true `λ₁(a*)` is `5.6·10⁻⁸` (K = 70).
+
+### The certificate `CertP3` (`kprime3_cert.py`, `kprime3_cert_result.json`)
+Setting: `a* = 5493/10000`, `N = 60` (a 62×62 system), `ε = 1/50000000`, 2400-bit balls.
+- **Mode bounds.** 60 twelve-decimal rationals `ψ̲_m`, each strictly below an arb enclosure of `ψ_m`. The script checks that the list hard-coded in Lean (`psiCq3`) is identical.
+- **Constant.** `κ(a*) = 1.00277352104…`, and `ε ≤ κ`.
+- **Cholesky checks:**
+
+| matrix | positive definite | smallest pivot |
+|---|---|---|
+| Gram matrix | yes | `4.95·10⁻¹⁰⁴` |
+| `M = (κ − ε)G + G diag(s) G` (direct) | yes | `4.96·10⁻¹⁰⁴` |
+| `M′ = (κ − ε)I + LᵀSL` (congruence) | yes | `0.00358` |
+
+- **Sharpness check.** The same script passes at `ε = 4.1·10⁻⁸` and fails at `4.3·10⁻⁸`. That brackets the float bound `4.199·10⁻⁸`, so the certificate is not passing vacuously.
+
+### Scope, honestly
+- **Not new mathematics.** Weil positivity at these supports is known. This round extends the pilot's own certified range from `2a ≤ 0.8` to `2a ≤ 1.0986`.
+- **Thin margin.** The certified `ε = 2·10⁻⁸` compares with a relaxation bound of `4.2·10⁻⁸` and a true `λ₁ ≈ 5.6·10⁻⁸`. `λ₁` falls by about 10⁴ between `a = 0.4` and `a = 0.549`.
+- **Even sector only.** The odd sector is still proved only to `a = 1/4`.
+- **Past `log 3`.** The prime `n = 3` enters, adding one more cosine per mode, and `n = 4` enters at `log 4`. The diagonal trick still applies, but `λ₁` keeps falling super-exponentially (round 133). So each further step needs a larger `N` and a sharper tail, at an exponentially shrinking `ε`.
+- **Bearing on RH.** None. Weil's criterion needs `Q ≥ 0` at every support; a certificate on a bounded range of supports is territory already known to be positive.
+
+## Round 135: both parity sectors to `2a = 1.6`, just below `log 5` (`src/ParityRelax.lean`, `src/ParityCert.lean`, `frontier/nullvec/kpar_cert.py`)
+
+**Results.** These are computer-assisted in the round-123 style: Lean proves the reduction, and one arb certificate per sector checks the finite matrix hypotheses.
+
+| sector | supports | bound | certificate |
+|---|---|---|---|
+| even | `0 < a ≤ 0.8` (`2a ≤ 1.6 < log 5`; prime powers `2, 3, 4`) | `Q(g) ≥ 3·10⁻¹⁸` (`weilQ_ge_E`) | `CertE`: `N = 350`, `K = 5` |
+| odd | `0 < a ≤ 0.8` | `Q(g) ≥ 5·10⁻¹⁵` (`weilQ_ge_O`) | `CertO`: `N = 350`, `K = 5` |
+| every real `g` | `0 < a ≤ 0.8` | `Q(g) ≥ 3·10⁻¹⁸‖g‖²` (`weilQg_ge_both`) | both |
+
+Previously the even sector reached `a ≤ 0.5493` (round 134) and the odd sector `a ≤ 1/4` (round 122). Every new theorem prints `[propext, Classical.choice, Quot.sound]` only.
+
+### The generic relaxation (`ParityRelax.lean`)
+- **Any even mode weight.** `trunc_W`: if `Σ p_m w_m = P` and every mode outside `S₀` has `ψ_m − w_m ≥ τ`, then `τ + Σ_{S₀}(ψ_m − w_m − τ)p_m ≤ Near − P`. It is proved once for parity-free probes.
+- **Every prime power below `e^{2a}`.** `primeS_range` gives `2S(g) = Σ_{n<K} c_n f(log n)` with `c_n = 2Λ(n)/√n`, when `2a < log K`. `hasSum_wP` makes this the mode weight `w_m = Σ_{n<K} c_n cos(πm log n/4a)`.
+- **Even sector.** `weilQ_ge_relaxW` uses the vectors `cosh(t/2)` and `cos(πkt/4a)`, generalising round 123's single prime.
+- **Odd sector (new).** `weilQodd_ge_relaxW` uses the odd pole term `−2 poleR²`, with `poleR = −∫g sinh(t/2)` (`poleR_odd_eq`), and the odd mode masses `p_k = (∫g sin(πkt/4a))²/8a` with `p₀ = 0`. The vectors are `sinh(t/2)` (weight `−2`) and `sin(πkt/4a)`.
+- **Supporting lemmas.**
+  - `bessel_V`: Bessel's inequality for any continuous window vectors.
+  - `gramO_eq`: the odd Gram matrix in closed form, via `int_sinh_sin`, `int_sin_sin` and `int_sin_sq`.
+  - `weilQg_mono`: monotonicity of the general form in the support.
+  - `tail_W`: a tail level from any certified `Cin` value.
+- **Certificate theorems.** `weilQ_ge_of_certW` and `weilQodd_ge_of_certW` take one support `b` to every `a ≤ b`. `weilQg_ge_min` combines the sectors through `weilQg_parity`.
+
+### What sets the reach
+- **The tail level.** Functions orthogonal to the first `N` modes get only `κ = c₀ + Far + τ` from the relaxation. So `τ = Cin((N+1)π/2) − err − Σ_n c_n` must beat `−(c₀ + Far) ≈ 3`. Each prime power adds `c_n` to that requirement, and `Cin` grows only like `log N`:
+  - with `2` and `3` (`Σc = 2.25`), `N ≳ 80`;
+  - with `4` added (`Σc = 2.94`), `N ≳ 300`;
+  - with `5` added (`c₅ = 2 log 5/√5 = 1.44`), `N ≳ 1300`. That is out of reach for the arb system, so **`log 5` is this method's ceiling**.
+- **Lean's `Cin` chain is cheap.** `cin_of_check` at mode 351 costs about 10 s of kernel time: `Cin(351π/2) ≥ 6.860363` (`cinE`, `cinO`).
+- **The arb system is the expensive part.** The Gram matrix of `N + 2` oversampled window vectors has smallest pivot `≈ 10⁻⁵⁸⁷` at `N = 350`. The check needs 12000-bit balls, at about 40 minutes per certificate.
+- **The relaxation loss** shrinks with `N`, but slowly. It is what finally stops each sector: at `N = 350`, odd `a = 0.804` scopes negative (`−2.5·10⁻¹⁵`).
+
+### The certificates (`kpar_cert.py`, `kpar_cert_even_0.80.json`, `kpar_cert_odd_0.80.json`)
+- **Mode bounds.** 350 rationals `ψ̲_m` with 25 decimals, each strictly below an arb quadrature enclosure (radius `≈ 10⁻²⁰`). `gen_paritycert.py` writes the Lean file from the same JSON.
+  - An early run used 12-decimal `ψ̲`. At the `10⁻¹³` scale that rounding alone cost about `7·10⁻¹³`, enough to flip the even bound at `a = 0.691`.
+- **Tail.** `T = 6.860363 ≤ Cin(351π/2)`, with `K = 5` (`log 4 ≤ 1.6 < log 5`; `log_five_gt : 1.609 < log 5`).
+- **Checks.** Ball Cholesky of the Gram matrix and of `M = (κ − ε)G + G diag(s) G` succeeds with every pivot provably positive. `κ(0.8) = 0.0723079…`.
+
+| sector | min Gram pivot | min `M` pivot | passes at `ε` | fails at `ε` |
+|---|---|---|---|---|
+| even, `a = 0.8` | `10^{−587.0}` | `10^{−588.2}` | `3·10⁻¹⁸` | `2·10⁻¹⁷` |
+| odd, `a = 0.8` | `10^{−585.6}` | `10^{−586.8}` | `5·10⁻¹⁵` | `2·10⁻¹⁴` |
+
+### The frontier scan
+
+Scoped bound `κ + λ_min(LᵀSL)`, with the exact `Cin` tail and 25-decimal `ψ̲`:
+
+| `a` | `N` | primes | even | odd |
+|---|---|---|---|---|
+| 0.60 | 150–200 | 2, 3 | 1.4e-9 | 4.7e-7 |
+| 0.65 | 200 | 2, 3 | 3.1e-11 | 1.5e-8 |
+| 0.69 | 200 | 2, 3 | 2.2e-13 | 4.9e-10 |
+| 0.693 | 200 | 2, 3 | 6.1e-13 | 3.3e-10 |
+| 0.70 | 350 | 2, 3, 4 | 3.5e-13 | 2.1e-10 |
+| 0.75 | 350 | 2, 3, 4 | 2.7e-15 | 1.1e-12 |
+| 0.78 | 350 | 2, 3, 4 | 1.1e-16 | 9.5e-14 |
+| 0.80 | 350 | 2, 3, 4 | 9.9e-18 | 1.1e-14 |
+| 0.804 | 350 | 2, 3, 4 | | −2.5e-15 |
+
+**Comparison.** A Ritz estimate of the smallest eigenvalue of the full `Q` is `1.9·10⁻¹⁷` at `a = 0.8` (K = 60). Against that, the even certificate's `3·10⁻¹⁸` is the super-exponential decay of round 133 seen directly. The odd sector sits about three orders higher throughout.
+
+### Scope, honestly
+- **Not new mathematics.** Weil positivity at these supports is known. What is new is a checked proof on the pilot's own definitions, for both parities and so for every real `g`, up to `2a = 1.6`.
+- **The certificates are the trusted step.** As in rounds 122–123, `CertE` and `CertO` are hypotheses checked in arb, not in Lean.
+- **Bearing on RH.** None. Weil's criterion needs every support. Here each new prime power needs a tail level that grows like `e^{Σc_n}` against a `λ₁` that falls super-exponentially.
+
+## Round 136: the two RH routes, measured: `c₂(a)` and the Hurwitz distance (`frontier/nullvec/kc2_hurwitz.py`)
+
+**The question.** Write `Q = Q₀ + 2ĝ(i/2)²`, a rank-one positive semidefinite pole term. Interlacing gives `λ_k(Q₀) ≤ λ_k(Q) ≤ λ_{k+1}(Q₀)`. `Q₀` has one strongly negative direction, and the pole can repair only one. Two routes follow:
+
+- **(A) the pole route.** Show that `Q₀` never acquires a second negative direction: `c₂(a) := λ₂(Q₀) ≥ 0` for every `a`.
+- **(B) the Hurwitz route.** Show that the ground state `g_a` of `Q` stays close to `ΦP(z²)`, meaning the span of `{Φ^{(2j)}|_{[−a,a]}}`, on the scale that controls transforms on the strip: `δ_J(a) = ‖g_a − Π_J g_a‖₂ · e^{a/2}√a ≥ sup_{|Im z| ≤ ½} |ĝ_a − Φ̂P|`, using `‖·‖₁ ≤ √(2a)‖·‖₂`.
+
+**Method.**
+- **The form.** The even form in `cos(kπt/a)`, `k < K`, uses `weil_prime_gram.gram`: arb entries, every prime power below `e^{2a}`. `Q₀` is that Gram minus `2ppᵀ`, and all eigenvalues come from 150–220-digit mpmath solves.
+- **The derivatives.** They are exact: `Φ^{(m)} = Σ_n p_m(q_n)e^{u/2−q_n}` with `p_{m+1} = 2qp_m′ + (½ − 2q)p_m`.
+- **The distance.** It uses the true `L²[−a, a]` Gram of `Φ^{(2j)}`, not the truncated one, with 1536-node Gauss–Legendre quadrature (`‖g‖` checks to `1.0`).
+- **Convergence.** `K = 48/80/112/144`. `a ≤ 1.5` is converged: `K = 112` and `K = 144` agree to about 1%. At `a = 2` every quantity is still falling with `K`, so those values are upper-side estimates. `a = 2.5` hit the precision floor and is omitted.
+
+**Results** (largest `K` per row; the `a = 2.0` row is not converged):
+
+| `a` | `λ₁(Q)` | `c₂ = λ₂(Q₀)` | `λ₂(Q)` | `c₂/λ₂(Q)` | `δ₀` (`P = 1`) | `δ₃` | `δ₆` |
+|---|---|---|---|---|---|---|---|
+| 0.25 | 3.3e-2 | 0.91 | 0.95 | 0.96 | 0.091 | 2.6e-3 | 9.1e-4 |
+| 0.5 | 9.4e-7 | 1.2e-2 | 1.8e-2 | 0.66 | 0.12 | 3.5e-4 | 1.3e-4 |
+| 0.75 | 4.4e-15 | 8.2e-10 | 1.3e-9 | 0.640 | 0.092 | 5.8e-5 | 2.7e-7 |
+| 1.0 | 6.7e-30 | 1.6e-23 | 2.5e-23 | 0.640 | 0.068 | 1.4e-5 | 7.6e-9 |
+| 1.5 | 6.7e-97 | 1.2e-88 | 1.9e-88 | 0.640 | 0.037 | 2.8e-7 | 8.1e-12 |
+| 2.0 | ≤ 2.5e-197 | ≤ 5.2e-189 | ≤ 8.1e-189 | 0.641 | ≤ 4.1e-3 | ≤ 1.9e-13 | ≤ 7.6e-18 |
+
+- **(A): `c₂(a) → 0` super-exponentially.** It sits at a fixed fraction `≈ 0.64` of `λ₂(Q)`, which collapses too. The Galerkin values are Ritz upper bounds, so the collapse is not a truncation artefact. Route (A) needs `c₂ ≥ 0` with a margin that vanishes faster than any exponential, and `c₂ ≥ λ₁(Q) ≥ 0` is itself implied by RH. So the route has no margin to work with.
+- **(B): `δ_J(a) → 0` at every fixed `J`, including `J = 0`.** Up to `a = 1.5`, `‖g_a − Π₀g_a‖ ≈ 15τ` with `τ = e^{−2a}/(16π)`, consistent with the heat-flow picture `ĝ_a ≈ ½Ξ(z)e^{τz²}` (the pencil of the whole-corpus review agent's E3 run, `scratchpad/hunt/e3_pencil.py`). That gives `δ₀ ~ e^{−3a/2}√a`. Higher `J` add a factor of roughly `30–10³` per step.
+
+**Reading.** Both quantities tend to zero, with opposite meanings. A vanishing `c₂` is a vanishing *margin*, so route (A) is dropped. A vanishing `δ_J` is route (B)'s *success condition*: `ĝ_a → ½Ξ` uniformly on the strip.
+- **What route (B) still needs.**
+  - **Real-rootedness.** Hurwitz transfers zeros from the approximants to the limit. A non-real zero of `Ξ` would attract non-real zeros of `ĝ_a` for large `a`, so the step that remains is that `ĝ_a` has only real zeros in the strip, for all large `a`. These measurements do not touch that.
+  - **Uniformity in height.** `|Ξ|` is `~ e^{−πt/4}` at height `t`, so zeros up to height `T` need `δ(a) ≪ e^{−πT/4}`, that is `a ≳ πT/6`. Hurwitz on compacts is fine; the support needed grows with the height.
+- **Scope.** This is numerical evidence (arb Gram entries, midpoint eigensolves), not a certificate. No bearing on RH is claimed.
+
+## Round 137: real zeros from the parity gap (`src/ParityGap.lean`)
+
+**Theorem A** (`realRooted_of_parityGap`). Suppose the parity gap holds at support `a` (`ParityGap a`): every normalised odd probe has `Q_g(o) > λ₁(a)`, the even ground energy. Then the transform of every even ground state has **only real zeros, in the whole complex plane**. Simplicity is not assumed.
+
+**Corollary** (`rh_of_parity_gap`). Eventually-parity-gapped ground states together with `HypConv` give Mathlib's `RiemannHypothesis`. This replaces round 55's "eventual simplicity" in the chain (`rh_of_eventually_simple`) with the parity gap, and it also handles zeros on the imaginary axis directly at each support.
+
+Both theorems print `[propext, Classical.choice, Quot.sound]` only.
+
+**The proof** (735 lines):
+- **G1: Fourier inversion without parity.** For any real `L²` function on `[−a, a]`, `∫f(x)e^{irx}dx = ĝ(r)ĝ(−r) = |ĝ(r)|²` (`fourier_autocorr_gen`), and `f(u) = ∫|ĝ(2πv)|²cos(2πvu)dv` (`autocorr_eq_inv_gen`). So `|ĝ|` on `ℝ` determines the autocorrelation (`autocorr_eq_of_norm`). Round 127 had this only for even functions.
+- **G2: the first-order Green function.** `k_c(x) = ∫_{−a}^{x} g(y)e^{ic(x−y)}dy` vanishes outside `[−a, a]` when `ĝ(−c) = 0` (`kG_supp`), has `k̂_c = iĝ/(z + c)` (`kG_hat`, from `hat_exp_Pc`), and satisfies `conj k_c = k_{−c̄}`.
+- **G3: the generic contradiction.** Let `h` be a real function with `|ĥ| = |ĝ|` on `ℝ` and the same pole product `ĥ(i/2)ĥ(−i/2)`. Then `Q_g(h) = λ₁` and `‖h‖ = 1`. The parity split `λ₁ = Q(e) + Q_g(o)`, together with the gap, forces `o = 0`, so `ĥ` is even (`swap_even_of_gap`).
+- **G4: the two real swaps.** Both use a multiplier `m` with `|m| = 1` on `ℝ` and `m(z)m(−z) ≡ 1`:
+  - `hR = g + (4 Im w/Re w)·Re(w·k_{−w})`, with `ĥ = ĝ·(z − w̄)(z + w)/((z − w)(z + w̄))` (`hR_hat`), for zeros off the imaginary axis;
+  - `hI = g + 2 Im w·Re k_{−w}`, with `ĥ = ĝ·(z − w̄)/(z − w)` (`hI_hat`), for zeros `w = iy`, including `w = ±i/2`, where the pole product is `0` on both sides.
+- **G5: the finish.** `ĥ` even and `ĥ = ĝm` on `ℝ` give `ĝ(r)(m(r) − m(−r)) = 0`. Since `m(r) ≠ m(−r)` off `{0, ±|w|}`, `ĝ = 0` a.e. on `ℝ`, and inversion at `0` gives `‖g‖ = 0`.
+
+**Relation to earlier rounds.**
+- **Round 43's zero swap** (`zeros_real_or_imag`) needed simplicity, and it left the imaginary axis open at every support.
+- **The Connes–van Suijlekom version** needs global simplicity with an even eigenfunction.
+- **This round** needs only the strict parity gap. The mechanism is the same Carathéodory–Fejér flip, done with real (non-even) swaps, so the odd sector absorbs the flipped zero.
+
+**What remains, honestly.** Everything now rests on `λ_even(a) < λ_odd(a)` for all large `a`, and that is not proved here or anywhere I know of.
+- **Why it's plausible.** Writing odd probes as `o = e′` turns the odd problem into the even symbol with weight `r²` and pole coefficient `−½` instead of `+2`. That is heuristic support: round 135's certified odd lower bound at `a = 0.8`, `5·10⁻¹⁵`, exceeds even Ritz values of about `2·10⁻¹⁷`.
+- **Why it isn't proved.** The symbol is indefinite, so the two minima are not ordered by any inequality I can see.
+- **Bearing on RH.** Theorem A turns RH into this spectral comparison plus `HypConv`, which is a genuine reduction. It is not a proof.
+
+## Round 138: the reflection identity for the parity gap (analysis + numerics, no Lean)
+
+**Question.** Can `λ_odd(a) > λ_even(a)` be derived from the jump form or the symbol form alone, with no zeros? **Answer: no inequality found. This round gives the exact reason.**
+
+**The identity** (exact, zero-free). Pair each half-profile `h` on `[0, a]` with `g_e = h(|t|)` and `g_o = sgn(t)·h(|t|)`, which have the same norm. Then
+
+`Q(g_e) − Q(g_o) = 4·W₁(h)`, where `W₁(h) = Lh(½)² + Lh(−½)² + (1/2π)∫Re[Lh(ir)²]·σ_a(r)dr` and `Lh(s) = ∫₀^a h(x)e^{sx}dx`.
+
+- **Derivation.** It uses `ĝ_e = 2∫h cos`, `ĝ_o = 2i∫h sin`, and `|ĝ_e|² − |ĝ_o|² = 4Re(Lh(ir))²`. The pole terms are `+2ĝ_e(i/2)²` and `−2ô(i/2)²`, which sum to `4(Lh(½)² + Lh(−½)²)`.
+- **Jump-form reading.** The local and diagonal parts cancel. What remains is the Hankel form `∫∫k(x + y)h(x)h(y)` of the off-diagonal kernel `k(u) = 2cosh(u/2) − K_arch(u) − 2Σ_{n ≤ e^{2a}} Λ(n)n^{−½}δ(u − log n)`. Taken piece by piece:
+  - The completely monotone archimedean piece is negative semidefinite, which is the right sign.
+  - The pole piece is `+2[(∫h cosh)² + (∫h sinh)²]`, positive of rank 2, which is the wrong sign.
+  - The prime piece is indefinite.
+  - The pole and primes cancel at leading order by the PNT, and what survives is governed by `ψ(x) − x`.
+
+**Consequences.**
+- **(N)** `λ_o ≤ λ_e − 4W₁(h_e)`, so the gap forces `W₁(h_e) < 0`. This is a necessary condition.
+- **(S)** `λ_e ≤ λ_o + 4W₁(h_o)`, so `W₁(h_o) < 0` would imply the gap. This is a sufficient condition.
+- By (N) applied the other way round, `W₁(h_o) ≥ −(λ_o − λ_e)/4`, which is super-exponentially close to 0. So (S) can only hold in a vanishing window.
+
+**Measurements** (`frontier/nullvec/khankel_parity.py`, `khankel_parity_results.jsonl`; Gram instruments with K = 40, re-expansion to 300 modes). Round 138 did not rerun these at other K. A bigger K would move the fourth digit of `W₁(h_e)`, whose `sgn·g_e` has a jump at 0 (truncated norm ≈ 0.995), but not its sign.
+
+| δ = 2a | λ_e | λ_o | W₁(h_e) | W₁(h_o) |
+|---|---|---|---|---|
+| 1.0 | 9.5e-7 | 2.2e-4 | −0.152 | +0.034 |
+| 1.6 | 1.9e-17 | 1.8e-14 | −0.134 | +0.020 |
+| 2.2 | 3.9e-38 | 1.5e-34 | −0.127 | +0.016 |
+| 3.0 | 3.3e-67 | 1.0e-63 | −0.119 | +0.013 |
+
+- (N) holds with an O(1) margin.
+- (S) fails, because `W₁(h_o) > 0` at every measured δ. The reflection comparison therefore cannot prove the gap, even with perfect knowledge of `h_o`.
+
+**Why no zero-free inequality from these forms.**
+- `W₁` is the Weil functional on `h * h`, the half-line self-convolution, and not on an autocorrelation. Its zero-side value is `Σ_ρ Lh(ρ − ½)²`, a sum of complex squares. That sum is indefinite even under RH.
+- Any linear parity-transfer map `T` has defect `W(Tg * T̃g − g * g̃)`. Controlling that defect from the symbol side needs `σ_a ≥ 0` wherever `|T̂g| > |ĝ|`, but `σ_a` is indefinite, and the only sign-definite object is the total form (Weil positivity).
+- The jump form's Markov structure gives Perron–Frobenius, and hence the gap, for `Q₀` only. The pole enters with `+` on even and `−` on odd, so every comparison inherited from `Q₀` points the wrong way.
+
+**Bearing on RH:** none. The parity gap stays open. This round shows that the reflection pairing, and the positivity structures of both forms, cannot force it.
+
+## Round 139: the parity gap in the limit a → ∞ (numerics, no Lean)
+
+**Setup.** Put `κ(a) = −Φ′(a)/Φ(a) ≈ 2πe^{2a}`, the decay rate of the theta kernel at the edge of the support. Scripts: `frontier/nullvec/klimit_gap.py` and `klimit_overlap.py`; data in `klimit_results.jsonl`. Each value below was checked stable between K = 40/70/100. `δ = 3.0` is excluded because it has not converged in K.
+
+**Findings.**
+
+1. **Bulk limits.** The normalised ground states converge to `Φ/‖Φ‖` (even) and `Φ′/‖Φ′‖` (odd). The L² distance is `≈ 1.73/κ` (even) and `≈ 2.82/κ` (odd), and the constants are stable to about 1% across δ = 1.6, 2.2 and 2.6.
+
+2. **Derivative series.** Projecting onto `span{Φ, Φ″, Φ⁗, Φ⁽⁶⁾}` (even) and `span{Φ′, Φ‴, Φ⁽⁵⁾, Φ⁽⁷⁾}` (odd) removes roughly a factor `κ/2` of the residual with each added derivative. At δ = 2.6 the residual reaches `5.9e-7` (even) and `1.8e-6` (odd).
+   - So `ĝ ≈ Ξ(r)·P_a(r)` and `ô ≈ rΞ(r)·Q_a(r)`, where the multipliers are power series in `r/κ`.
+   - Their zeros sit at scale κ. This is the round-136 Hurwitz picture, now with its multiplier structure visible.
+
+3. **Energy ratio.** `λ_o/λ_e ≈ c·κ²` with `c ≈ 1.3–1.5`:
+
+   | δ | κ | λ_o/λ_e | ratio/κ² |
+   |---|---|---|---|
+   | 1.0 | 12.2 | 220 | 1.49 |
+   | 1.6 | 26.4 | 916 | 1.31 |
+   | 2.2 | 52.1 | 3799 | 1.40 |
+   | 2.6 | 80.0 | 9317 | 1.46 |
+
+   - The gap grows like `e^{4a}` in ratio.
+   - Each energy on its own is far below the edge-amplitude scale: `λ_e‖Φ‖²/Φ(a)²` falls from `8e-5` to `1e-33`. The derivative series cancels the edge jet to many orders, and the cancellation depth is the same in both sectors.
+
+4. **The naive edge model gets the scaling right and the constant wrong.** Truncating Φ and Φ′ predicts `κ²·‖Φ‖²/‖Φ′‖² = κ²/10.21`, which is about 14× too small.
+   - Likely reason: odd `o = q′` corresponds to an even `q` that must vanish at `±a`, a Dirichlet edge condition that the even minimiser does not face.
+   - The constant `c` has not been derived.
+
+**What this does and does not give.** In the limit the gap is not marginal: the ratio is `≈ cκ²` and tends to infinity. The mechanism also looks parity-local, since both sectors share the bulk `Ξ` and the cancellation depth, and differ by one derivative, which is a factor κ at the edge. But a proof would need two things:
+- a rigorous edge-layer asymptotic `λ_par(a) = S(a)·κ^{2·[par odd]}·(e_par + o(1))` with a common factor `S(a)`;
+- a lower bound on `λ_o` at the super-exponentially small scale of `λ_e`.
+
+The second is a quantitative positivity statement for Q on the complement of the Φ-jet, and nothing zero-free in this program reaches it beyond the certified small-a cells.
+
+**Bearing on RH:** none. This is an asymptotic description, not a proof.
+
+## Round 140: why "odd > even" is intuitive, and why that intuition is RH (analysis + numerics, no Lean)
+
+**1. The node costs `γ²` at every zero.**
+- **The map.** Each odd probe is `o = q′`, where `q = ∫_{−a}^t o` is even and `q(±a) = 0`, so `q` is admissible. Then `ô(z) = −iz·q̂(z)`, so `Q(o) = Σ_γ γ²|q̂(γ)|²` while `Q(q) = Σ_γ |q̂(γ)|²`.
+- **The chain.** If every ordinate is real, `λ_e ≤ Q(q)/‖q‖² ≤ Q(o)/(γ₁²‖q‖²)`. Hence `λ_o/λ_e ≥ γ₁²‖q‖²`, and the gap follows whenever `‖q′‖/‖q‖ < γ₁ = 14.13`.
+- **Measured** on the odd minimiser (`frontier/nullvec/kstruct_check.py`, `kstruct_results.jsonl`, K = 70): `‖q′‖/‖q‖ = 3.90, 3.50, 3.35, 3.29` at δ = 1.0, 1.6, 2.2, 2.6.
+  - The chain's bound `γ₁²‖q‖²` is 13–18; the true ratio is 220–9158.
+  - This regularity condition is measured, not proved.
+- **Off the line the factor stops being a cost.** An off-line zero gives a complex ordinate, and `γ²` is then complex.
+- **Consequence.** Together with Theorem A (round 137), the eventual gap sits between two implications: gap + HypConv ⟹ RH, and RH + `‖q′‖ < γ₁‖q‖` ⟹ gap. A zero-free structural proof of the gap would therefore be a proof of RH, modulo those two conditions.
+
+**2. On the prime side the node costs nothing in the bulk.** `Q_∞` vanishes on every `g` with `ĝ = Ξ·m`, and both parities occur, e.g. `Φ` and `Φ′`. Parity shows only at the edge (round 139: ratio `≈ 1.4κ²`).
+
+**3. Ground-state transform.**
+- **Identity.** Suppose the even ground state `e` is positive; measured `min e = e(a) = 2.8e-30 > 0` at δ = 2.6. The Euler–Lagrange equation is `Q₀e = λ_e e − 2C_e cosh(t/2)`. For odd `o = eφ` this gives exactly
+
+  `Q(o) − λ_e‖o‖² = ½∬k₀(x − y)e(x)e(y)(φ(x) − φ(y))² − 2C_e∫cosh(t/2)o²/e − 2S(o)²`.
+
+  - The first term is the Markov "node cost" from the archimedean and prime pieces, `k₀ ≥ 0`.
+  - Both negative terms come from the pole.
+- **Balance.** At the odd minimiser the three terms cancel to about `λ_o ~ 1e-57`, so there is no slack for an inequality between the pieces.
+- **Folded asymmetry.**
+  - In the odd sector the pole is attractive (`−2S²`, with positive vector `sinh(x/2)` on `(0, a)`), and the archimedean kernel satisfies `K(x − y) − K(x + y) ≥ 0`. Only the prime reflections `δ(x + y − log n)` break Perron–Frobenius.
+  - In the even sector the pole is repulsive.
+  - So the odd sector is the "more Markov" one, and the attractive pole lowers its energy. The prime-side structure pulls against the gap rather than for it.
+
+**Bearing on RH:** none. This round explains the intuition and relocates it rather than proving it.
+
+## Round 141: the regularity condition `‖q′‖ < γ₁‖q‖` (analysis, no Lean)
+
+**Not proved.** What *is* proved (on paper) is a reduction of the condition to "not all mass escapes". Both the reduction and the obstruction are stated below.
+
+**Restatement.** With `‖o‖ = 1` and `q = ∫_{−a}^t o`, the condition is `‖q‖ > 1/γ₁`. By Plancherel it is equivalent to `∫|ô(r)|²(1/r² − 1/γ₁²)dr > 0`: the odd minimiser's spectral mass must sit mostly below `γ₁`. For arbitrary odd `o` it is false (take high-frequency `o`), so any proof must use minimality.
+
+**Lemma (weak lower semicontinuity).**
+- **Hypotheses.** Let `o_a` be odd, supported in `[−a, a]` and zero-extended to `ℝ`, with `‖o_a‖ = 1`. Let `q_a = ∫_{−∞}^t o_a`, which is supported in `[−a, a]` because `∫o_a = 0`.
+- **Conclusion.** If `o_a ⇀ w` weakly in `L²(ℝ)` along a subsequence, then `liminf ‖q_a‖ ≥ ‖W‖`, where `W = ∫_{−∞}^t w`. If `liminf ‖q_a‖` is infinite there is nothing to prove.
+- **Proof.** Pass to a further subsequence with `q_a ⇀ Q`. Then `⟨q_a, φ′⟩ = −⟨o_a, φ⟩` gives `Q′ = w` in the sense of distributions. Since `Q ∈ L²`, `Q = W`. Weak lower semicontinuity of the norm finishes it.
+- **Corollary.** The regularity condition holds eventually if every weak limit point `w` of the normalised odd minimisers has `‖∫w‖ > 1/γ₁ = 0.0707`.
+- **What the corollary asks for.** For `w = c·Φ′/‖Φ′‖` we have `‖∫w‖ = 0.3130c`, so it is enough that `c > 0.2260`, i.e. 5.1% of the L² mass converges to the `Φ′` profile. Round 139 measures `c² ≈ 1 − (2.82/κ)² → 1`.
+
+**Obstruction.** The one failure mode is escape of mass to frequencies `≳ γ₁`, or a weak limit equal to 0.
+- **Prime side.** The zero-free tools bound high-frequency mass only where `σ_a(r) > 0` is guaranteed. From the jump form this needs `log r > 2Σ_{n ≤ e^{2a}} Λ(n)n^{−½} + O(1) ≈ 4e^a`, i.e. `r > e^{4e^a}`, far above `γ₁ = 14.13`.
+- **Zero side.** Under RH the minimality `Σ|ô(γ)|² ≤ λ_o` only makes `ô` small at the ordinates. Below about `2πe^{2a}` the ordinates are too sparse to sample a type-`a` function, so mass can hide between them.
+- **Jet elements.** `Φ^{(2k+1)}` has `Q_∞ = 0` and spectral mass at frequency growing with k, so `Q_∞`-nullity alone does not pin the frequency. Excluding high-k minimisers needs the edge asymptotics of round 139.
+
+**Status.** RH + (weak limits of the odd minimisers keep more than 5.1% of their mass on `Φ′`) ⟹ eventual parity gap. The mass condition is an odd-sector analogue of HypConv. It is measured with a large margin but not proved.
+
+## Round 142: the sphere-area maximum and the parity gap (analysis, no Lean)
+
+**The connection (pure Gamma function; the cascade hypothesis is not used, per Check 8).**
+- **Sphere area as a Gamma ratio.** The unit-sphere area is `S_{d−1} = 2π^{d/2}/Γ(d/2)`, so `π^{−s/2}Γ(s/2) = 2/S_{s−1}`. The archimedean factor of `ξ` is therefore the reciprocal sphere area continued in the dimension.
+- **Where the maximum sits.** The maximum of `S_{d−1}` over real `d` is at the root of `ψ(d/2) = log π`, namely `d* = 7.256946…`. Over the integers it is at `d = 7` (`S₆ = 33.07`, against `31.01` at `d = 6` and `32.47` at `d = 8`).
+- **Link to the symbol.** The archimedean symbol of the Weil form is `A(r) = Re ψ(¼ + ir/2) − log π`. It is the same function `ψ(s/2) − log π` on the critical line.
+- **Its zero there.** `A` has exactly one sign change on `r > 0`, at `r₀ = 6.289836…`, with `A < 0` below `r₀` (`A(0) = −5.37`) and `A > 0` above it. So `d*` and `r₀` are two zeros of one function: one on the real axis, one on the critical line.
+
+**What it gives (exact, zero-free).**
+- **Pointwise bound.** Because `A` changes sign only at `r₀`, `r²A(r) ≥ r₀²A(r)` for every real `r`: where `A < 0` the node weight `r²` is smaller than `r₀²`, and where `A > 0` it is larger.
+- **Archimedean comparison.** Hence `∫r²|q̂|²A ≥ r₀²∫|q̂|²A`. For the archimedean part, the odd form at `q′` dominates `r₀²` times the even form at `q`. This is the zero-side argument of round 140 with `γ₁ = 14.13` replaced by `r₀ = 6.29`, the critical-line image of the sphere-area maximum.
+
+**Why it does not reach the gap.**
+- **(i) The pole.** It enters the explicit formula as the ordinates `±i/2`, where `z² = −¼ < 0`. Tracking it: `Q_odd(q′) ≥ r₀²Q_even(q) − (2r₀² + ½)q̂(i/2)²`, and `q̂(i/2)` is O(1) for the odd minimiser (its limit is proportional to `Ξ(i/2) = ½`).
+- **(ii) The primes add sign changes.** For the full symbol `σ_a`, counting sign changes on `(0, 200]`:
+
+  | a | 0.3 | 0.35 | 0.55 | 0.7 | 1.0 | 1.3 |
+  |---|---|---|---|---|---|---|
+  | sign changes | 1 (at `r₀`) | 3 | 11 | 15 | 52 | 90 |
+
+  The single-crossing property, and with it the pointwise bound, holds only before the first prime enters at `2a = log 2`.
+- **Two meanings of "odd".** That `7` is odd is unrelated to the parity `t ↦ −t` of test functions. The link is `ψ(s/2) − log π` itself, not the integer parity.
+
+**Bearing on RH:** none.
+
+## Round 143: can the cascade chirality theorem handle the pole? (analysis, no Lean)
+
+**Source read directly** (Check 1): `src/cascade-series-part4b.tex` lines 1203–1314, covering `thm:chirality-factorisation` and `thm:chirality-selection-rule`.
+- Its conclusion is a factor `G_Q(d, d*) = G(d, d*)/χ^k` for the cascade *layer* Green's function.
+- Its proof combines three steps:
+  - (A) Poincaré–Hopf on `S^{2n}`, which gives two equal-area basins under `h ↦ −h`;
+  - (B) cascade propagator unitarity and the phase lockstep (Part II);
+  - (C) basin orthogonality.
+- The text reports its numerical confirmation against `α_s` data (line 1228: "The data requires 1/2").
+
+**Verdict: not usable as an input here.**
+1. **No bridge.** The theorem is about `G(d, d*)` on the layer index `d`. No theorem in the series identifies the ζ-pole term `2ĝ(i/2)ĝ(−i/2)` of Weil's form with a cascade layer observable. Asserting such an identification would add an input, and step (B) plus the data check tie the theorem to the physical reading, which Check 8 excludes.
+2. **The theorem's mathematical core is the reflection `ℤ₂`, which is already fully used.** The `ℤ₂` of step (A) acts on `[−a, a]` as `t ↦ −t`, and the parity split `Q(g) = Q(e) + Q(o)` (`ParitySplit`) is exactly that decomposition.
+3. **The pole does not split equally.** Step (A)'s "equal splitting" `δφ₊ = δφ₋ = δφ/χ` holds for a `ℤ₂`-invariant scalar. The pole is the indefinite rank-2 form `2(C² − S²)`, signature `(1, 1)`: it contributes `+2C²` on the even sector and `−2S²` on the odd one. That opposite-sign split is precisely the obstruction.
+
+**What can be said about removing the pole (pure Fourier analysis).**
+- **Setting.** Any transfer map `ô = −izq̂ ↦ ĝ = m(z)q̂` whose even target has no pole contribution needs `m(±i/2) = 0`.
+- **Entire and bounded on ℝ.** Then `m` has positive exponential type b, for example `m = cosh(b/2) − cos(bz)`. This widens the support to `[−a − b, a + b]`, and since `λ_e` decreases in `a`, the fixed-`a` comparison is lost.
+- **Polynomial.** For example `m = z² + ¼`, which is `g = −o′ + q/4`. It keeps the support, but it needs `o(±a) = 0`, and the weight ratio `(r² + ¼)²/r²` is unbounded both at 0 and at ∞. So no pointwise comparison `r²σ ≷ c·m²σ` of the round-142 kind can hold.
+- **Consequence.** There is no pole-free transfer at fixed support with a bounded weight ratio. The pole is intrinsic to the fixed-`a` parity comparison, which is consistent with its role as the pseudo-ordinate `z² = −¼`.
+
+**Bearing on RH:** none.
+
+## Round 144: the widened-support transfer with `λ_even` monotonicity (analysis + numerics, no Lean)
+
+**The construction.**
+- Take `o`, the odd minimiser at `a′ = a − b`, and its primitive `q = ∫o`. Set `g_b = cosh(b/2)q − ½[q(· + b) + q(· − b)]`.
+- Then `g_b` is even and supported in `[−a, a]`, with `ĝ_b = (cosh(b/2) − cos bz)q̂`, so `ĝ_b(±i/2) = 0` and its pole term vanishes.
+- Script: `frontier/nullvec/kwiden.py`; data: `kwiden_results.jsonl`; a = 0.8, K = 50.
+
+| b | λ_e(a) | λ_o(a) | λ_o(a − b) | Rayleigh(g_b) | ½q̂(i/2)² |
+|---|---|---|---|---|---|
+| 0.02 | 1.9e-17 | 1.7e-14 | 1.4e-13 | 1.1e-11 | 0.029 |
+| 0.1 | 1.9e-17 | 1.7e-14 | 2.8e-10 | 8.9e-11 | 0.027 |
+| 0.3 | 1.9e-17 | 1.7e-14 | 2.1e-4 | 9.1e-6 | 0.021 |
+
+**Three failures, each structural.**
+
+1. **Monotonicity points the wrong way.**
+   - The transfer bounds `λ_e(a)` by the odd energy at the smaller support, and `λ_o(a − b) ≥ λ_o(a)`.
+   - The loss is super-exponential: `λ_o(a − b)/λ_o(a) = 8, 1.7e4, 1.2e10` at `b = 0.02, 0.1, 0.3`.
+   - The best case it can give is a *shifted* gap `λ_e(a) < λ_o(a − b)`. That holds numerically for `b ≥ 0.1` (ratio 0.31 at `b = 0.1`, 0.043 at `b = 0.3`) and fails at `b = 0.02` (ratio 82, because `m_b ≈ b²(z² + ¼)/2`).
+   - In every case `Rayleigh(g_b) ≫ λ_o(a)`, so the same-`a` gap is never reached.
+
+2. **Theorem A needs the same-`a` gap.** In G3 the swapped function `h` has support `[−a, a]`, and its odd part must beat `λ₁(a)` *at that support*. A shifted gap does not feed it.
+
+3. **The pole is removed only on the even side.**
+   - The odd source still carries `Q(o) = −½q̂(i/2)² + (1/2π)∫r²q̂²σ`, with `½q̂(i/2)² ≈ 0.02–0.03`.
+   - That term cancels the symbol integral to within `λ_o`, i.e. relative 1e-12 or better.
+   - Any prime-side bound `Q(g_b) ≤ c·∫r²q̂²σ` therefore delivers an O(0.03) bound on `Q(g_b)`, twelve or more orders above `λ_e`. Whatever makes `λ_o` tiny lives in that cancellation, and no symbol-level comparison keeps it.
+
+**Bearing on RH:** none.
+
+## Round 145: topological arguments for the parity gap (analysis + numerics, no Lean)
+
+Five topological handles were tried: continuation in `a`, crossing type, zero topology, the pole-strength homotopy, and nodal / equivariant index theory.
+
+**1. Continuation in `a` (a rigorous reduction, on paper).**
+- `λ_e` is antitone (`lam_antitone`), and so is `λ_o` by `OProbe.mono`.
+- Both are continuous in `a`:
+  - from the left, by dilating a minimiser into a smaller support;
+  - from the right, by the lower semicontinuity and compactness already used in `Existence`.
+- By the intermediate value theorem, the gap holds on `[a₀, ∞)` iff it holds at `a₀` and `λ_e(a) ≠ λ_o(a)` for all `a ≥ a₀`. The small-`a` gap is certified, so everything reduces to *no cross-parity eigenvalue crossing*.
+- Continuity is formalised in round 146 (`ParityCont.lean`).
+
+**2. Crossings of this kind are not topologically obstructed.**
+- The two levels belong to different symmetry sectors. By the von Neumann–Wigner count, such crossings have codimension 1 in a one-parameter family; only same-sector crossings are avoided generically.
+- Theorem D (`degenerate_flat`, `simple_iff_no_green_pair`) cannot see them.
+  - The Green map `ĥ = −ŵ/(z² + ¼)` commutes with parity, because `z² + ¼` is even. So a Green pair in `V = V_e ⊕ V_o` splits into Green pairs in the sectors.
+  - A crossing with `dim V_e = dim V_o = 1` therefore carries no Green pair.
+  - In the full space, a pole-free `w` needs `R(w) = L(w) = 0`, which is two conditions on a 2-dimensional `V`, so there is none.
+- Result: Theorem D's degeneracy machinery rules out *same-sector* degeneracy structure only.
+
+**3. Zero topology.**
+- The zeros of `ê_a` move continuously in `a`. Since `ê` is even and real, a zero can leave `ℝ` only through a real double zero, or through the strip edge or infinity.
+- Theorem A (round 137) says gap ⇒ real-rooted. So the first `a` at which `ê_a` has a non-real zero in the strip lies after a crossing.
+- At a crossing, the mixed ground states `v_θ = cos θ·e + sin θ·o` have no real zeros other than common zeros of `ê` and `ô`, because on `ℝ` `ê` is real and `ô` purely imaginary.
+- **Corrected in round 146:** collisions are *excluded*, not merely unconserved. Round 31's zero-swap lemma (`zeros_real_or_imag`) confines every zero to the cross `ℝ ∪ iℝ` while the even ground state is simple within the even sector, and a collision of two nonzero real zeros would produce a zero with `w² ∉ ℝ`. The remaining exits are the origin (needs `∫g = 0`) and imaginary infinity (needs a sign change of `g(a)`). A cross-parity crossing does not break even-sector simplicity, so `ê` stays on the cross: that, not collisions, is why the zero picture cannot see a crossing.
+
+**4. Pole-strength homotopy `Q_t = Q₀ + t·pole`** (`frontier/nullvec/khomotopy.py`, `khomotopy_results.jsonl`, K = 50).
+- At `t = 0` the gap is Perron–Frobenius (`groundState0_one_sign`).
+- `λ_e(t)` rises with slope `2C_e²` (Hellmann–Feynman); `λ_o(t)` falls with slope `−2S_o²` on its steep branch.
+- The full form is nonnegative only on `t ∈ [1 − ε_e, 1 + ε_o]`, with `ε_e = λ_e/(2C_e²)` and `ε_o = λ_o/(2S_o²)`.
+- The parity crossing sits at `t* = 1 + (λ_o − λ_e)/(2C_e² + 2S_o²)`:
+
+  | δ | ε_e | ε_o | t* − 1 |
+  |---|---|---|---|
+  | 1.0 | 7.4e-7 | 1.0e-2 | 1.6e-4 |
+  | 1.6 | 1.3e-17 | 5.9e-13 | 1.2e-14 |
+  | 2.2 | 2.1e-38 | 3.4e-33 | 7.3e-35 |
+
+- So `t = 1` is doubly critical: positivity fails immediately on both sides, and the crossing is super-exponentially close.
+- The homotopy parameter carries no O(1) margin. The gap is equivalent to `t* > 1`, the same statement as before.
+- Side finding: for `t < 1` the odd minimum lies on a flat, nearly pole-free branch at `λ₁(Q₀, odd)` (`1.07e-9` at δ = 1.6). The odd ground state of `Q` comes from a steep branch that crosses it only within about `4e-8` of `t = 1`.
+
+**5. Nodal and equivariant index theory.**
+- Courant / Sturm ordering (even below odd) needs Perron–Frobenius or locality. Q is nonlocal, and its off-diagonal weight has the wrong sign beyond `u ≈ 0.28` (earlier rounds).
+- The Krasnoselskii genus and Fadell–Rabinowitz index for the `t ↦ −t` action give multiplicity counts, not an ordering between sectors.
+
+**Conclusion.** The one rigorous topological gain is item 1: the gap for all large `a` is equivalent to "no cross-parity crossing past a certified `a₀`". Every tool here treats such crossings as generic, and the homotopy shows the relevant margin is super-exponentially small in every parameter tried.
+
+**Bearing on RH:** none.
+
+
+## Round 146: the continuation theorem, formal (`src/ParityCont.lean`)
+
+**Theorem** (`parityGap_of_no_crossing`). Suppose `0 < a₀` and `lam a₀ < lamO a₀`, and suppose the even and odd ground energies never coincide for `a ≥ a₀`. Then `ParityGap a` holds for every `a ≥ a₀`.
+
+Here `lamO a` is the odd ground energy, the infimum of `weilQg` over normalised odd probes at half-support `a`. Every new theorem prints `[propext, Classical.choice, Quot.sound]`; the file is 785 lines.
+
+**The pieces.**
+- **The odd ground energy.**
+  - `weilQg_odd_ge` gives an `a`-dependent floor `ψ(¼) − log π − 2P(a) − 2(sinh a − a)`, so `lamO` is a genuine infimum (`lamO_bdd`).
+  - `exists_oprobe` builds an odd probe at every support (`√2·oddPart` of a quarter box moved to `[a/4, 3a/4]`).
+  - `lamO_antitone`: `λ_odd` is nonincreasing in `a`.
+- **C1, the continuation lemma** (`gap_of_no_crossing`, `gap_of_no_crossing_Ici`).
+  - Only `λ_odd` has to be continuous; `λ_even` enters through `lam_antitone`.
+  - Let `m = inf{a : λ_odd < λ_even}`. If the gap holds at `m`, continuity of `λ_odd` pushes it to the right of `m`. If it fails at `m`, continuity pushes the failure to the left of `m`. Either way `m` is contradicted.
+- **C2, right-continuity** (`lamO_right`).
+  - Take near-minimisers at `bₙ ↓ a`. They are bounded in archimedean energy, so `exists_convergent_subseq_S` makes them precompact in `L²`.
+  - The odd cut `antiCut a G` of the limit is still their limit: by `normSq_sub_antiCut_le`, `‖o − A_a G‖² ≤ 6‖o − G‖² + 4∫_{a<|u|≤b} G²`, and `tendsto_shellSq` sends the shell mass to 0 by dominated convergence.
+  - The pole, norm and prime terms converge, and Fatou bounds the archimedean term.
+- **C3, left-continuity** (`lamO_left`), by dilation `o_s(t) = √s·o(st)`.
+  - The dilation maps odd probes at `a` to odd probes at `a/s` with the same norm (`oprobe_dil`, `normSq_dil`), and `f_{o_s}(u) = f_o(su)` (`autocorr_dil`).
+  - After substitution, `archE(o_s) = s⁻¹∫(f(0) − f(v))K(v/s)dv`.
+  - The new bound `K(u) ≤ (1/u + 2)e^{−u/2}` (`kerK_le_exp`, equivalent to `1 + 2u ≤ e^{2u}`) dominates the integrand by `8A(o)(v) + 8f(0)e^{−v/4}` for `1 ≤ s ≤ 2`. The pole integral and the finite prime sum are continuous in `s`.
+- **Continuity** (`continuousOn_lamO`): `λ_odd` is continuous on `(0, ∞)`.
+
+**Refactor.**
+- `SProbe` moves from `FourierGap` to `Existence`.
+- The compactness chain now takes `SProbe`, i.e. either parity: `weighted_le_archE`, `tail_le`, `coef_sq_le`, `hasSum_sub`, `summable_coef`, plus the new `archE_nonneg_S` and `exists_convergent_subseq_S`. The even-sector names remain as wrappers.
+- `poleL_eq_integral`, `weilQg_mono` and `OProbe.mono` move from `ParityRelax` to `ParitySplit`. `ParityRelax` and `ParityGap`'s import chain both define `tail_W`, so they cannot be imported together.
+- `ParityGap` now writes an olean. The full chain was rebuilt with no warnings.
+
+**Correction to round 145, item 3.** Zero collisions *are* ruled out, by round 31's zero-swap lemma while the even ground state is simple within its sector. The text there is amended.
+
+**Status.** The eventual parity gap, and with Theorem A and `HypConv` the whole chain, now reduces formally to one statement: *the even and odd ground energies never cross beyond a certified `a₀`*. The small-`a` start is certified, but only as sector positivity, not yet as `lam a₀ < lamO a₀` in Lean. The no-crossing statement is not proved.
+
+**Bearing on RH:** none by itself.
+
+**Addendum (round 146).** With collisions excluded, "tracking the zeros" is not a new route. It is the route already formal as `rh_of_simple_ground_states'` (`HurwitzCross.lean`): eventual even-sector simplicity + `HypConv` ⟹ RH.
+- **No tracking needed.** Confinement to the cross `ℝ ∪ iℝ` (`zeros_real_or_imag`) already suffices, because Hurwitz limits of zeros on the cross stay on the cross, and `Ξ` has no imaginary zeros in the strip (`ζ ≠ 0` on `(0, 1)`, discharged). The sign conditions `∫g ≠ 0` and `g(a) ≠ 0` only matter for real-rootedness at finite `a`, not for RH.
+- **The two open routes are therefore:**
+  - (A) eventual even-sector simplicity, `λ₁^even < λ₂^even` (the older route);
+  - (B) the eventual parity gap, `λ_even < λ_odd` (Theorem A, round 137).
+  Neither implies the other. Both are no-crossing statements. *(Round 252 adds a third along `a n → ∞`: any eventual bound on the ground-space dimension, `rh_of_dim_bounded`, of which (A) is the case `dim V ≤ 1`; and with no bound, (a) forces `dim V → ∞` unless RH holds.)*
+- **The asymmetry.** (A) concerns same-sector levels. Those avoid each other generically (codimension 2, von Neumann–Wigner), and Theorem D (`degenerate_flat`, `theoremD`) forces a degeneracy to carry a Green chain. (B) concerns cross-sector levels, which cross generically, and no structure theorem constrains them. On structure alone, (A) is the better-equipped route. Genericity is not a proof, and (A) is open.
+
+
+## Round 147: the certified start, and the chain as one theorem (`src/ParityCont.lean`, section C4)
+
+**Theorem** (`gap_quarter`). `λ_even(1/4) < 1/5 ≤ λ_odd(1/4)`, proved in Lean with no computer-assisted input.
+- **Odd floor** (`weilQodd_quarter`). This is round 20's odd-sector bound evaluated at the endpoint `a = 1/4` rather than minimised over `(0, 1/4]`. It gives `≥ 0.2099` from:
+  - the pole: `−2(sinh a − a)`;
+  - `weilConst ≥ −5.4301`;
+  - the near field: `≥ 2.016 + 0.99a − err(a)`;
+  - the far field: `≥ log 8 + π/2 − sinh(1/4)`.
+- **Even ceiling** (`lam_quarter_lt`). The parabola trial function has `Q(par) ≤ 0.1228`, from:
+  - `pole_par_le`;
+  - `nearField_par_le`;
+  - the far field `log coth(1/8) + π/2 − arctan(sinh ¼)`, with `coth(1/8) ≤ 8.07` from the cubic Taylor lower bound of `e^{1/4}`, and `arctan(sinh a) ≥ sin(arctan(sinh a)) = tanh a`;
+  - the new `weilConst_le : ψ(¼) − log π ≤ −5.3` (`gamma_gt : γ > 0.5456`, from Mathlib's `H₁₆ − log 17 < γ`).
+- **Numerics.** Measured values are `λ_even(1/4) = 0.0334` and `λ_odd(1/4) = 0.413`, and `Q(par) = 0.0446`.
+
+**Corollaries.**
+- `parityGap_of_no_crossing_quarter`: if `λ_even(a) ≠ λ_odd(a)` for all `a ≥ 1/4`, then `ParityGap a` for all `a ≥ 1/4`.
+- **`rh_of_no_crossing`**: no crossing for `a ≥ 1/4`, together with `HypConv` along supports `aₙ → ∞`, gives Mathlib's `RiemannHypothesis`.
+
+  The one analytic hypothesis besides `HypConv` is now the absence of a single kind of event: an even–odd ground-energy crossing beyond `a = 1/4`.
+
+**Simplicity, for comparison.** Route (A), eventual even-sector simplicity, also has a Lean start: `simpleGround_036` covers `a ≤ 0.36`. The round-47 cells to `a = 1.035` rest on `Round47Certs`, which are not checked in Lean. The continuation argument of round 146 would transfer if `λ₂^even` were shown continuous in `a`. Min–max and the same compactness/dilation tools make that plausible, but it is not done.
+
+**Bearing on RH:** none. The no-crossing hypothesis is open.
+
+
+## Round 148: continuation for simplicity (`src/SimpleCont.lean`)
+
+**The literal transfer is a tautology.** `λ₁ ≤ λ₂` always holds. So "`λ₁(a) ≠ λ₂(a)` for all `a ≥ a₀`" already *is* simplicity on `[a₀, ∞)`, and a continuation argument adds nothing: unlike `λ_odd`, `λ₂` can never pass below `λ₁`.
+
+What continuity buys for this route is **closedness of the degeneracy set**. That is formalised here, with no separate `λ₂`: continuity of `λ₁` plus compactness suffices.
+
+**S1. Continuity of `λ₁` in the even sector.**
+- `lsc_even`: normalised even probes at `bₙ ↓ a` whose energies tend to `L` have a subsequence converging in `L²` to a normalised probe at `a` with `Q ≤ L`. It uses the even shell estimate `normSq_sub_symCut_shell`.
+- `lam_right` follows from `lsc_even`.
+- `lam_left` follows from dilation. Round 146's dilation lemmas were generalised to `SProbe`, adding `sprobe_integrable`.
+- `continuousOn_lam`: `λ₁` is continuous on `(0, ∞)`.
+
+**S2. Degeneracy.**
+- `Degenerate a` means there are two orthonormal ground states. `degenerate_iff` shows this is equivalent to `¬ SimpleGround a g` for any ground state `g`, via Gram–Schmidt in one direction and orthonormality in the other.
+- `degenerate_of_tendsto`: if `bₙ → a > 0` and every `bₙ` is degenerate, so is `a`.
+  - The ground pairs at `bₙ` are probes at `max(bₙ, a)`, and their energies `λ₁(bₙ)` tend to `λ₁(a)` by S1.
+  - `lsc_even`, applied twice, gives limits `G` and `H` that are ground states at `a`.
+  - Orthogonality passes to the `L²` limit.
+
+**S3. The first degeneracy** (`first_degeneracy`, `first_degeneracy_036`).
+- **Statement.** If some support `a₁ ≥ 0.36` is degenerate, there is a *least* degenerate `m ∈ (0.36, a₁]`.
+  - Every support in `[0.36, m)` has a simple ground state.
+  - At `m`, Theorem D (`degenerate_flat`) puts a nonzero pole-free `w` and its Green solution `G w` (`(Gw)″ − Gw/4 = w`, compactly supported) in the ground space.
+- **Start.** The start `0.36` is Lean's `simpleGround_036`, so the statement is unconditional.
+- **Consequence.** Eventual simplicity, route (A), reduces to excluding such a first Green-chain degeneracy that is approached from the left by simple ground states.
+
+**Contrast with route (B).** For the parity gap the continuation lemma is substantive (rounds 146–147), because `λ_odd` could in principle pass below `λ_even`. For simplicity the substantive formal gain is S3's *structure* at the first failure, which the parity route lacks.
+
+**Bearing on RH:** none. Both no-crossing statements remain open.
+
+## Round 149: is a Green pair approached by simple ground states? (numerics, no Lean)
+
+**Reduction.**
+- In the even sector, `Q = Q₀ + 2cc*` with `c = cosh(t/2)·1_{[−a,a]}`, so `λ₁(Q₀) < λ₁(Q) ≤ λ_⊥ ≤ λ₂(Q₀)`, where `λ_⊥ = min{Q(h) : ĥ(i/2) = 0}` (`lamPerp`).
+- A degeneracy forces `λ₁(Q) = λ_⊥`, attained by a pole-free `w`. That `w` is Theorem D's, and then `Gw` must also be a ground state.
+
+**Measurements** (`frontier/nullvec/kgreen_margin.py`, `kgreen_margin_results.jsonl`, K = 60):
+
+| δ | λ_⊥/λ₁ | pole overlap of φ₂(Q₀) | Q(Gw)/λ₁ | cos(Gw, g) |
+|---|---|---|---|---|
+| 0.5 | 26.2 | 0.14 | 4.23 | 0.9392 |
+| 1.0 | 1.26e4 | 4.3e-3 | 19.2 | 0.99972 |
+| 1.5 | 1.90e5 | 2.3e-10 | 8.76 | 0.99998964 |
+| 2.0 | 2.40e6 | 4.2e-24 | 6.21 | 0.99999948 |
+| 2.5 | 2.03e7 | 4.4e-48 | 6.58 | 0.99999993 |
+
+**Findings.**
+1. **Half of the pair is always nearly present.**
+   - The pole-free minimiser `w` exists: `φ₂(Q₀)` is pole-free to super-exponential accuracy, and `λ_⊥ = λ₂(Q₀)` to six digits.
+   - Its Green partner is essentially the ground state: `cos(Gw, g) → 1`.
+   - Equivalently, `w ≈ g″ − g/4`. The pole value of `g″ − g/4` is, after integration by parts, a combination of the edge values `g(±a)` and `g′(±a)`. Those are super-exponentially small (round 139), which explains the near pole-freeness.
+2. **The other half is missing, by a growing factor.** A Green-pair degeneracy needs `w` itself to be a ground state, i.e. `λ_⊥ = λ₁`. The ratio `λ_⊥/λ₁` grows from 26 to `2×10⁷` over δ = 0.5–2.5; the earlier `c₂/λ₁` data reach about `2×10⁸` at δ = 3. No approach towards 1 is visible.
+3. **So a first degeneracy (round 148) would need a qualitative reversal.** `λ_⊥/λ₁` would have to fall from its super-exponentially separated regime to 1. This is the simplicity-route analogue of round 139's `λ_o/λ_e ≈ 1.4κ²` for the parity route.
+
+**Status.** No proof. The margin `λ_⊥/λ₁` is multiplicatively large but not established analytically, and the Theorem D structure is "half-present" everywhere, so it does not by itself rule out a degeneracy.
+
+**Bearing on RH:** none.
+
+
+## Round 150: the secular reduction, completed (`src/SimpleCont.lean`, section S4)
+
+**Prior work.** Most of the reduction was already formal from rounds 49–50 (`GapCriterion.lean`):
+- `lam_le_of_perp` (interlacing: `λ₁(Q) ≤ Q₀` on `φ₀^⊥`);
+- `simpleGround_of_gap` (energy gap ⇒ simplicity);
+- `not_simple_gap` (without simplicity, `λ₁(Q) = min_{φ₀^⊥} Q₀`, attained);
+- `pole_overlap_identity`.
+
+Round 50's README already stated the "only failure mode" and observed that the `ψ₂` pole overlap has the size of `μ₂`. That anticipates round 149's finding 1, which should have been cross-referenced there (Check 4).
+
+**New theorems.**
+- **`poleR_zero_of_perp_min`**: a normalised `v ⊥ φ₀` with `Q₀(v) = λ₁(Q)` is automatically pole-free. The pole-free trial gives `λ₁(1 + r²) ≤ λ₁ + r²λ₀`, and `λ₀ < λ₁`, so `r = 0`.
+- **`secular_of_not_simple`**: if the ground state is not simple, there is a normalised `w ⊥ φ₀` that
+  - is pole-free (`ŵ(i/2) = 0`),
+  - is a ground state of `Q`,
+  - is an eigenfunction of `Q₀` at level `λ₁(Q)`: `B₀(w, ψ) = λ₁⟨w, ψ⟩` for every probe `ψ`,
+
+  with `λ₁(Q) = Q₀(w) = min_{φ₀^⊥} Q₀`. So `λ₁(Q) = μ₂(Q₀)`, attained by a pole-free eigenfunction.
+- **`not_simple_iff_secular`**: for a ground state `g` with `ĝ(i/2) ≠ 0`, `g` is not simple **iff** some normalised `w ⊥ φ₀` has `Q₀(w) = λ₁(Q)`.
+  - For the converse direction, such a `w` is pole-free, so it cannot be a multiple of `g`.
+  - The excluded case, a simple pole-free ground state, is the lone edge case.
+
+**What this pins down.** On the simplicity route, failure means exactly one event: the second `Q₀` level, restricted to `φ₀^⊥`, descending to `λ₁(Q)`. Round 149 measures the ratio of these two at `2×10⁷` at δ = 2.5, and growing. Proving it stays above 1 is the open problem, and it needs a lower bound on `μ₂(Q₀)` at a super-exponentially small scale.
+
+**Bearing on RH:** none.
+
+## Round 151: lower bounds on `μ₂(Q₀)` (analysis, no Lean)
+
+**Prior work (Check 4).** Round 49 already reduced simplicity to `λ₁(Q) < μ₂(Q₀)`, including the pole-overlap identity `2·poleR(g)·⟨c, ψ₂⟩ = (λ₁ − μ₂)⟨g, ψ₂⟩` and the finding `⟨c, ψ₂⟩/μ₂ ≈ 0.35`. Rounds 148–150 formalised pieces of this; round 149's finding 1 re-measured round 49 §3.
+
+**The one general rigorous bound: Markov / Poincaré.**
+- **Setup.** `Q₀` is a Markov (jump) form, and its ground state `φ₀` is positive.
+- **Ground-state transform.** For `h = φ₀f ⊥ φ₀`:
+  `Q₀(h) − μ₁‖h‖² = ½∬k₀(x − y)φ₀(x)φ₀(y)(f(x) − f(y))²`, with `k₀ ≥ K(|x − y|) ≥ K(2a)`, where `K = e^{u/2}/sinh u` is decreasing and the prime jumps are `≥ 0`.
+- **Variance step.** Let `ν ∝ φ₀` and `μ ∝ φ₀²`. Then `E_μ f = 0`, `dμ/dν ≤ R`, and `Var_ν f ≥ E_μ f²/R`.
+- **Result.** `μ₂(Q₀) − μ₁(Q₀) ≥ K(2a)·∫φ₀/max φ₀ ≤ 2a·K(2a)`.
+- **Why it is useless.** `μ₁(Q₀)` is `O(1)` and negative (`−1.99, −4.31, −7.23` at δ = 1, 2, 3), while `2aK(2a) = 1.40, 1.50, 1.34`. So the bound gives `μ₂ ≥ −0.6, −2.8, −5.9`, against true values `1.2e-2, 1.6e-23, 1.2e-88`. `μ₂ − μ₁` equals `|μ₁|` to 88 digits, so a gap bound must be exact to super-exponential relative precision. Poincaré, Cheeger and log-Sobolev bounds all lose `O(1)`.
+
+**Other routes.**
+- **Temple / Lehmann–Goerisch.** These need a residual of about `√μ₂ ~ 10⁻⁴⁴`. The form's symbol grows only like `log r`, so Galerkin truncation errors decay like `1/log K`. This is feasible at fixed `a` only while `μ₂` is not too small (round 47's Zhu certificates reached `4×10⁻²⁶`, for `λ₂(Q)`). It certifies finite ranges only, never all large `a`.
+- **Relative bounds** `μ₂ ≥ c·λ₂(Q)` or `≥ C·λ₁(Q)`. These are equivalent to the open large-support asymptotics of the two lowest levels (round 49 §4: the prolate regime of Connes–Consani–Moscovici).
+- **Sign form** (round 49 identity). `μ₂ > λ₁` iff `poleR(g)·⟨c, ψ₂⟩·⟨g, ψ₂⟩ < 0`. This is a sign condition on edge-sized quantities, and no structural sign argument is known (round 49 §2: local and boundary arguments fail).
+
+**Status.** No lower bound on `μ₂(Q₀)` at the needed scale exists or is in reach with these tools. The certified range stays `δ ≤ 0.72` in Lean (`simpleGround_036`) and `δ ≤ 2.07` via `Round47Certs`, which Lean does not check.
+
+**Bearing on RH:** none.
+
+## Round 152: the prolate-asymptotics approach (literature + numerics, no Lean)
+
+**Literature** (read via abstracts and the arXiv HTML summary; statements quoted from the fetch):
+- [Zhu, arXiv:2608.24827](https://arxiv.org/html/2608.24827) (Aug 2026) certifies `8.9e-18 ≤ λ_min(0.8) ≤ 2.27e-17` and `8.206e-15 ≤ λ₁^odd(0.8) ≤ 2.347e-14`, matching our Gram values. It certifies "the ground state is simple, and even" **at L = 0.8 only**. Its "Landau–Widom decay law" `−ln λ_min(L) ≈ C·N(T*)/ln N(T*)`, with `T* = 2πe^{2L}` and `C ≈ 2π²`, is Conjecture 12.1, empirical. It gives no law for the second eigenvalue.
+- [Connes–Consani–Moscovici, arXiv:2511.22755](https://arxiv.org/abs/2511.22755) builds rank-one perturbations of prolate/scaling spectral triples. Convergence to the zeros is numerical, and the authors say that proving it would establish RH. See also [arXiv:2310.18423](https://arxiv.org/abs/2310.18423) and [arXiv:2112.05500](https://arxiv.org/pdf/2112.05500).
+
+**Numerics: the low spectrum is a parity-alternating ladder** (`frontier/nullvec/kladder.py`, `kladder_results.jsonl`, K = 70). These are the six lowest levels (three even, three odd), merged in increasing order, with `κ = −Φ′(a)/Φ(a) ≈ T*`:
+
+| δ | κ | order of levels | consecutive ratio / κ² |
+|---|---|---|---|
+| 1.0 | 12.2 | e o e o e o | 1.49, 0.59, 0.14, 0.015, 0.007 |
+| 1.6 | 26.4 | e o e o e o | 1.31, 0.78, 0.46, 0.34, 0.17 |
+| 2.2 | 52.1 | e o e o e o | 1.40, 0.70, 0.56, 0.52, 0.28 |
+| 2.6 | 80.0 | e o e o e o | 1.43, 0.86, 0.57, 0.40, 0.28 |
+
+- **Parity strictly alternates**, as in Sturm–Liouville / prolate spectra.
+- **Levels form a geometric ladder** `λ_{j+1} ≈ c_j κ² λ_j`. The `c_j` decrease slowly (about 1.6/j at δ ≥ 2.2) and stabilise in δ. The ladder index is the jet order of round 139: `Φ, Φ′, Φ″ + …`, one derivative per rung, each costing about `κ²` at the edge.
+- **Both routes are rungs of this ladder.** Route (B) is rung 0 → 1 (`c₀ ≈ 1.4`, round 139). Route (A) is rung 0 → 2 (`c₀c₁κ⁴`, round 149's `2×10⁷`).
+
+**What the prolate approach would give, and why it does not close.**
+- **The prolate mechanism.** Slepian's time–band-limiting operator commutes with a second-order Sturm–Liouville operator. That forces a simple spectrum with alternating parity and gives sharp eigenvalue asymptotics. An operator commuting with the truncated Weil form would prove both routes at once.
+- **Obstruction 1: no exact commuting operator.** For translation-invariant kernels on an interval, commuting differential operators are rare (the bispectral kernels: sinc and its relatives). The Weil symbol `Re ψ(¼ + ir/2) − log π − 2ΣΛ(n)n^{−½}cos(r log n)` is not of that kind; this assessment was not checked against a specific classification theorem.
+- **Obstruction 2: approximate commutation is not enough.** It must control errors at the ladder's super-exponential scale.
+- **Obstruction 3: the ladder's lower half is RH-strength.** A rigorous lower bound `λ₁(a) ≥ S(a)A₀ > 0`, together with the odd rung, gives Weil positivity on every window, and so RH directly. Even the rung-2 lower bound alone says `Q` has at most one negative direction on every window. Upper bounds (trial jets `Σ cᵢΦ^{(i)}`, as in `PhiDecay`) are accessible.
+
+**Status.** The prolate picture is the right *description*: parity alternation and a `κ²` ladder hold at every scale tested. It is not a *proof route* that avoids RH-strength inputs.
+
+**Bearing on RH:** none.
+
+## Round 153: jet upper bounds on rungs 1 and 2, no RH input (`src/PhiLadder.lean`)
+
+Round 133 (`lam_decay`) bounds rung 0 of the round-152 ladder: `λ₁(a) ≤ K e^{−Ba}` for every `B`. This file bounds the next two rungs in the same way. The named inputs are the same: `WeilExplicit` for the trial functions used, and `DigammaDiff`. The zero family may lie anywhere in the strip `|Im t| ≤ ½`, with `Σ‖1/(t² + 4)‖ < ∞`. **No RH input.**
+
+**Trial functions.** Copies of `Φ_b`, `b = a/8`, shifted to disjoint positions:
+- twins `T_l = Φ_b(· − l) + Φ_b(· + l)` (round 62), with `T̂_l = 2cos(lz)Φ̂_b` (`ghatC_twin`);
+- the antitwin `A_l = Φ_b(· − l) − Φ_b(· + l)`, which is odd.
+
+**Rung 1** (`lamO_decay`): `λ_odd(a) ≤ K e^{−Ba}` for `a ≥ 1`, every `B`.
+- `weilQg_shift`: Weil's general form is translation invariant. The pole weights scale as `e^{±c/2}`, and their product is unchanged.
+- `weilQg_atwin`: the parity split of `Φ_b(· − l)` gives `Q(A_l) = 4Q(Φ_b) − Q(T_l)`.
+- Over the zeros this is `Σ (4 − 4cos²(l t_ρ)) Φ̂_b(t_ρ)²`. Each factor is at most `4e^{l}` in the strip (`norm_four_sub_cos_sq_le`). The per-zero bound `‖Φ̂_b(t_ρ)‖² ≤ K′e^{−2(D−3/2)b} w_ρ` is round 133's, restated at a general window (`ghat_PhiA_sq_le`).
+- With `l = a/4`, `D = 4|B| + 5` and `‖A_l‖² = 2‖Φ_b‖² ≥ 2‖Φ_{1/8}‖²`, the bound follows. Only the even explicit formula is used (for `Φ_b` and `T_l`).
+
+**Rung 2** (`lam2_decay`): every `s` with `Lam2Ge a s` (`λ₂ ≥ s` in min–max form) satisfies `s ≤ K e^{−Ba}` for `a ≥ 1`, every `B`.
+- `T_{a/4}` and `T_{3a/4}` have disjoint supports (`twin_mul_twin_zero`), so after normalising they are orthonormal.
+- On their span, `‖v̂(t_ρ)‖ ≤ 2(|p| + |q|)e^{3a/8}‖Φ̂_b(t_ρ)‖` (`weilQ_pair_le`), and `(|p| + |q|)² ≤ 1/‖Φ_b‖²`.
+- Input: `WeilExplicit` for each `pT_{a/4} + qT_{3a/4}` at window `a`.
+
+**What this does not give.**
+- These are upper halves only. The lower halves are RH-strength (round 152, obstruction 3).
+- The bounds are absolute (`O(e^{−Ba})` for each `B`), not relative. They do not capture the ladder ratios `λ_{j+1}/λ_j ≈ c_jκ²`, and they do not order the rungs.
+- There are no zeta-family corollaries yet. They would follow as `lam_decay_zeta` does, from `WeilExplicit` for the trial families and for `1/(z² + 4)`.
+
+**Housekeeping.**
+- `PhiDecay` now writes an olean. The auxiliary lemmas are `normSq_PhiA_mono'`, `normSq_PhiA_pos` (general-window versions of round 133's) and `ghatC_window`.
+- **Consolidation note.** `Mollify.lean` and `ParityCont.lean` each carry dilation machinery (`memLp_dil`/`memLp_dilS` and relatives, renamed in round 146 to avoid the clash). Merging them is a future cleanup.
+
+**Check 4.** Round 139/152 observed the ladder numerically. Round 62 built twins for the converse, and round 133 proved rung 0. The rung-1 and rung-2 upper bounds are new here.
+
+**Bearing on RH:** none.
+
+## Round 154: `DigammaDiff` proved (`src/DigammaGauss.lean`)
+
+Round 126 introduced `DigammaDiff`, Gauss's integral for the digamma function in difference form:
+
+`ψ(z) − ψ(w) = ∫_0^∞ (e^{−wt} − e^{−zt})/(1 − e^{−t}) dt`, for `Re z, Re w > 0`, with the integrand integrable.
+
+It was a named input because Mathlib's `Digamma.lean` lists the integral representation as a TODO. It is now a theorem, `digammaDiff : DigammaDiff` (`ExplicitBridge.lean`). The proof uses only Mathlib's `ψ = Γ′/Γ`, the recurrence `ψ(s + n) = ψ(s) + Σ_{k<n} 1/(s + k)` (`digamma_apply_add_nat`), and the convexity of `log Γ` on `(0, ∞)` (Bohr–Mollerup, `convexOn_log_Gamma`).
+
+**A. The series.** `ψ(z) − ψ(1) = Σ_k (1/(k + 1) − 1/(k + z))` for `Re z > 0` (`digamma_sub_one_eq`).
+- *On `(0, ∞)`.* The real digamma `(log Γ)′` is increasing, since `log Γ` is convex (`rpsi_mono`). The complex `ψ` agrees with it on the reals (`digamma_ofReal`, by uniqueness of the derivative along `ℝ`).
+- For `x, y ≤ K`, monotonicity and the recurrence squeeze `ψ(n) ≤ ψ(x + n), ψ(y + n) ≤ ψ(n) + K/n`, so `ψ(x + n) − ψ(y + n) → 0` (`tendsto_rpsi_sub`). The recurrence then telescopes to the series.
+- *To `Re z > 0`.* `ψ` is holomorphic there (`Γ` is holomorphic and nonzero). The series is holomorphic, being locally uniformly dominated by `C/(k + 1)²`. The two agree at `1 + 1/(n + 1) → 1`, so they agree on the half-plane by the identity theorem.
+
+**B. The integral** (`digamma_sub_eq_integral`).
+- Each term is `1/(k + w) − 1/(k + z) = ∫_0^∞ e^{−kt}(e^{−wt} − e^{−zt}) dt`.
+- The mean-value theorem on the half-plane `Re ≥ σ = min(Re z, Re w)` gives `|e^{−wt} − e^{−zt}| ≤ |z − w| t e^{−σt}`. So `∫|term_k| ≤ |z − w|/(k + σ)²`, which is summable, and sum and integral commute (`hasSum_integral_of_summable_integral_norm`).
+- The geometric series `Σ_k e^{−kt} = 1/(1 − e^{−t})` identifies the sum. Integrability of the kernel follows from `t/(1 − e^{−t}) ≤ 1 + t`.
+
+**Downstream.** The `(hD : DigammaDiff)` hypothesis is removed from every theorem that carried it:
+- `ExplicitBridge`: `psiRe_sub`, `hsq_psi_sub`, `arch_term`, `weilQ_eq_zero_sum`, `weilQ_eq_tsum`, `psiRe_ge`, `integrable_hsq_psi`, `weilQ_symbol`, the zeros-on-the-line results and the finrank bounds;
+- `WeilConverse`;
+- `PhiNull`;
+- `PhiDecay`: `weilQ_PhiA_le`, `lam_decay`, `lam_decay_zeta`;
+- `PhiLadder`: `weilQg_atwin_le`, `lamO_decay`, `weilQ_pair_le`, `lam2_decay`.
+
+**The remaining classical named inputs** are `WeilExplicit` (the Guinand–Weil explicit formula, per test function) and `BinetFormula` (Binet's second formula, used only in `Exterior.lean`, round 4).
+
+**Check 4.** This discharges a named input that rounds 126–153 carried. It is classical analysis: no bearing on RH, and no change to any conclusion.
+
+**Bearing on RH:** none.
+
+## Round 155: `BinetFormula` proved (`src/BinetProof.lean`)
+
+Round 4 introduced `BinetFormula` (`Exterior.lean`), Binet's second formula for the digamma function:
+
+`ψ(z) = log z − 1/(2z) − 2∫_0^∞ t dt/((t² + z²)(e^{2πt} − 1))`, for `Re z > 0`.
+
+It was a named input because Mathlib has `Complex.digamma` but not this representation. It is now a theorem, `binetFormula : BinetFormula` (`Exterior.lean`). `binet_remainder_le` and `Earch_bound` no longer take it as a hypothesis. The proof builds on round 154's `digamma_sub_eq_integral` and uses only Mathlib otherwise.
+
+**C. `ψ` as a Laplace transform** (`digamma_eq_lap`): `ψ(z) = log z − 1/(2z) − ∫_0^∞ e^{−zs}φ(s) ds`, where `φ(s) = 1/(1 − e^{−s}) − 1/s − 1/2` and `|φ| ≤ ½`.
+- *The complex Frullani integral* (`integral_frullani`): `∫_0^∞ (e^{−ws} − e^{−zs})/s ds = log z − log w` for `Re z, Re w > 0`.
+  - Write `(e^{−ws} − e^{−zs})/s = ∫_0^1 (z − w)e^{−(w + θ(z − w))s} dθ`.
+  - Swap the integrals (Fubini). The integrand is dominated by `|z − w|e^{−σs}`, since the segment `[w, z]` stays in `Re ≥ σ`.
+  - The inner integral is `(z − w)/(w + θ(z − w))`. Integrate it in `θ` using `(log)′`, which is valid because the segment lies in the slit plane.
+- Gauss's formula (round 154), Frullani and `1/z = ∫e^{−zs}` combine to show that `K(z) = ψ(z) − log z + 1/(2z) + ∫e^{−zs}φ` does not depend on `z` (`K_const`).
+- At `z = n + 1`: `ψ(n + 1) − log(n + 1) = H_n − log(n + 1) − γ → 0` (Mathlib's `tendsto_harmonic_sub_log_add_one`), and `|∫e^{−(n+1)s}φ| ≤ 1/(2(n + 1))`. So `K ≡ 0`.
+
+**D. `φ` as a sine transform** (`phiB_eq_sine`): `φ(s) = 2∫_0^∞ sin(st)/(e^{2πt} − 1) dt`.
+- Expand `1/(e^{2πt} − 1) = Σ_{n≥1} e^{−2πnt}` and integrate termwise: `∫_0^∞ sin(st)e^{−ct} dt = s/(s² + c²)`. Termwise integration is justified by `|sin(st)| ≤ st`, which gives `Σ s/(2πn)² < ∞`.
+- The resulting series `Σ_{n≥1} 2s/(s² + 4π²n²)` equals `φ(s)` (`hasSum_phiB`). This is Mathlib's Mittag-Leffler expansion of `π cot(πx) − 1/x` (`cotTerm`, `tendsto_logDeriv_euler_cot_sub`) at `x = is/(2π)`, where `cot(is/2) = −i coth(s/2)`.
+
+**E. Fubini** (`lap_eq`).
+- `∫_0^∞ e^{−zs} sin(st) ds = t/(z² + t²)` (`integral_exp_mul_sin`).
+- The double integral `∫∫ e^{−zs} sin(st)/(e^{2πt} − 1)` is absolutely convergent, dominated by `s e^{−σs} · e^{−πt}/(2π)` (`integrable_binet_prod`, via `t/(e^{2πt} − 1) ≤ e^{−πt}/(2π)`).
+- So `∫_0^∞ e^{−zs}φ(s) ds = 2∫_0^∞ t/((t² + z²)(e^{2πt} − 1)) dt`, which completes Binet's formula (`binet`).
+
+**Build.** `DigammaGauss` and `BinetProof` are now built before `Exterior`, which imports `BinetProof`.
+
+**Remaining classical named input:** `WeilExplicit` (the Guinand–Weil explicit formula, per test function). Also still named: the numerical certificates, and the open RH-strength hypotheses (`HypConv`, no crossing, the gap hypotheses).
+
+**Check 4.** This discharges a named input carried since round 4. It is classical analysis: no bearing on RH, and no change to any conclusion.
+
+**Bearing on RH:** none.
+
+## Round 156: `WeilExplicit` proved for strip test functions (`src/StripShift.lean` … `src/WeilZeta.lean`)
+
+`WeilExplicit ρ h hR` (`Exterior.lean`, round 4) is the Guinand–Weil explicit formula over a zero family `ρ`, for one test function `h`. It was the last classical named input. It is now a theorem over the nontrivial zeros of `ζ` for every test function in the class below. **No RH input**: the zeros may lie anywhere in the critical strip.
+
+**The test class** (`StripTest h C`, `StripShift.lean`): `h` is holomorphic on the closed strip `|Im t| ≤ 1`, and `‖h(t)‖ ≤ C/(1 + (Re t)²)` there. `h` must also be even and real on `ℝ` (`h r = hR r`).
+
+**Main theorem** (`weilExplicit_zeta`, `WeilZeta.lean`): `StripTest h C → (∀ t, h(−t) = h t) → (∀ r : ℝ, h r = hR r) → WeilExplicit zetaZeroFamily h hR`.
+
+**The proof.** Compute `Z = ∫_ℝ h(r − i)·Ξ′/Ξ(r − i) dr` in two ways.
+
+- **A. Strip shift and poles** (`StripShift.lean`, Mathlib only).
+  - `strip_shift`: for `f` holomorphic on a closed horizontal strip with integrable decay, the line integrals along its two edges agree (Cauchy on rectangles, with the vertical sides vanishing).
+  - `inversion`: Fourier inversion for the kernel `F(x) = ∫h(r)e^{−irx} dr`. On the strip, `|F(x)| ≤ πC e^{−|x|}`.
+  - `pole_pair`: `∫_ℝ h(r − i)·2(r − i)/((r − i)² − τ²) dr = 2πi·h(τ)` for every `|Im τ| ≤ ½`. The proof writes each simple pole as a half-line Laplace integral and applies Fourier inversion.
+  - `kernel_integral_le`: these integrals are `≤ K(1 + |τ|)^{−7/4}`, uniformly in the strip.
+- **B. The zero side** (`XiLogDeriv.lean`, `WeilCount.lean`).
+  - `hasSum_logDeriv_Xi`: on `Im t = −1`, `Ξ′/Ξ(t) = Σ_u 2t/(t² − u)` over `ZeroIdx (sqF Ξ)`. This is the logarithmic derivative of round 18's genus-0 Hadamard product, via Mathlib's `logDeriv_tprod_eq_tsum`.
+  - `summable_Xi_zeros_rpow`: `Σ_u |u|^{−7/8} < ∞`. It uses the Jensen count with exponent `3/4 < 7/8`.
+  - `zero_side` (`WeilAssemble.lean`): exchange the sum and the integral, using the bound in A. This gives `Z = 2πi Σ_u h(√u)`.
+- **C. The prime side** (`WeilAssemble.lean`). At `t = r − i`, `s = ½ + it` has `Re s = 3/2`. There, `Ξ′/Ξ = i[1/s + 1/(s − 1) − (log π)/2 + ψ(s/2)/2 − L(Λ, s)]` (`logDeriv_Xi_eq`).
+  - The two poles give `2πi(h(i/2) + h(−i/2))`, again by `pole_pair`.
+  - The constant term, shifted back to `ℝ`, gives `2π g_h(0)`.
+  - The digamma term, shifted back to `ℝ`, gives `(1/2π)∫ hR·Re ψ`. The shift uses `|ψ(z)| ≤ 12√(1 + |z|)` on `Re z ≥ ¼` (`norm_digamma_le`, from round 155's Laplace form). The imaginary part vanishes by `ψ(z̄) = ψ(z)‾` (`psi_real`).
+  - The primes are integrated termwise, each giving `2π Λ(n)n^{−1/2} g_h(log n)` (`prime_line`, via `F = 2πg_h`).
+  - Together these give `weil_Xi` and then `weilExplicit_Xi`, both over the family `rhoXi`, `ρ = ½ ± i√u`.
+- **D. From `Ξ`'s zeros to `ζ`'s** (`WeilZeta.lean`).
+  - `order_xi_zeta`, `order_Xi_xi`, `order_sqF_Xi`: at a nontrivial zero, the multiplicities agree: `ord_ζ = ord_ξ = ord_Ξ = ord_{Ξ(√·)}(t²)`.
+  - `zetaEquiv`: an explicit bijection from Mathlib's index type `Σ ρ, Fin (zeroMult ρ)` to `Bool × ZeroIdx (sqF Ξ)`, carrying `rhoXi` to `zetaZeroFamily`. It is built fiberwise (`Equiv.ofFiberEquiv`).
+  - `weilExplicit_zeta_of` transports the `HasSum` along it.
+
+**Discharged downstream.**
+- `WeilDischarge.lean` proves `lam_decay_uncond`, `lamO_decay_uncond` and `lam2_decay_uncond` over `Ξ`'s zero family, for rungs 0–2 of the round-152 ladder.
+  - For every `B` there is `K` with `λ₁(a), λ₁^odd(a), λ₂(a) ≤ K e^{−Ba}` for `a ≥ 1`.
+  - The trial functions `ĝ(Φ_a)²`, their twins, the rung-2 combinations and `1/(z² + 4)` are all shown to be `StripTest`s (`striptest_PhiA`, `striptest_four`, `striptest_mul_sq`).
+- `WeilZeta.lean` proves `lam_decay_zeta_uncond`. This is round 133's `lam_decay_zeta`, which is stated over `zetaZeroFamily`, with both `WeilExplicit` hypotheses discharged.
+- These are upper bounds only, as before.
+
+**What stays conditional, and why.**
+- Theorems stated for an *arbitrary* zero family `ρ` keep `WeilExplicit ρ …` as a hypothesis. That is their form, not a gap: they apply to any family satisfying the formula. `WeilConverse`, `PhiNull`, and `ExplicitBridge`'s `weilQ_nonneg_of_zeros_on_line` are of this kind.
+- `weilQ_eq_zero_sum` for a *general* `L²` probe is not covered. `ĝ²` need not satisfy the `StripTest` bound, because `ĝ` has no pointwise `r^{−2}` decay for a discontinuous probe. The same holds for `exterior_identity_zeta` and `wall_law_zeta`: these would need a `StripTest` instance for `ĝ²χ`, which is not proved here.
+- Still named elsewhere: the numerical certificates, and the open RH-strength hypotheses (`HypConv`, no crossing, the gap hypotheses).
+
+**Build.** Six new files, built in order after `PhiLadder`: `StripShift`, `XiLogDeriv`, `WeilCount`, `WeilAssemble`, `WeilDischarge`, `WeilZeta`.
+
+**Check 4.** This discharges a classical named input carried since round 4, for the test class above. It is classical analysis: no conclusion changes.
+
+**Bearing on RH:** none.
+
+## Round 157: Tier A — the remaining classical inputs over `ζ`, discharged (`src/WeilCriterion.lean`, `src/ZetaInputs.lean`, `src/ExteriorZeta.lean`, `src/WeilRH.lean`)
+
+Round 156 proved Weil's explicit formula over the zeros of `ζ` for strip test functions. An audit of the whole stack for this round found four places where a named classical input could now be discharged with that theorem plus short arguments. All four are done. Every new theorem prints `[propext, Classical.choice, Quot.sound]` only.
+
+### 1. Weil's criterion for `ζ`, both directions (`WeilCriterion.lean`, `WeilRH.lean`)
+- **The converse needed only two instances.** `exists_weilQ_neg_of_offline` (round 131) assumed the explicit formula for every probe, but its proof uses it only for `box 1` and its twins. `WeilConverse.lean` now states that (`exists_weilQ_neg_of_offline_of`); the old statement is a corollary.
+- **Monotone profiles are strip test functions** (`striptest_antitone`). An even profile, `≥ 0` and non-increasing on `[0, a]`, has `‖ĝ(z)‖ ≤ 2g(0)cosh(a Im z)/‖z‖` (round 37's layer-cake bound), so `ĝ²` decays like `(Re z)⁻²` on the strip. The box qualifies; its twins follow from `striptest_mul_sq`.
+- **`exists_weilQ_neg_of_offline_zeta`**: if all but finitely many nontrivial zeros of `ζ` are on the line and one is not, some probe has `Q < 0`. `Im ρ ≠ 0` comes from `ζ ≠ 0` on `(0, 1)`.
+- **`rh_of_weil_finite`**: `Q ≥ 0` on every probe, plus `{s nontrivial : Re s ≠ ½}` finite, gives Mathlib's `RiemannHypothesis`.
+- **The other direction needs density** (`WeilRH.lean`).
+  - `ibp_C2`: for a `C²` probe vanishing near the edges, `itĝ(t) = −ĝ₁(t)`, so `ĝ²` is a strip test function (`weilExplicit_C2_zeta`).
+  - `lam_nonneg_of_RH`: under RH, `λ₁(a) ≥ 0` at every support. If `λ₁ < 0`, round 55's `av3_dense` gives a `C²` probe `h` near a ground state `g`. Then `Q(h) − λ₁‖h‖² ≤ 2C(‖h − g‖² + E(h − g))` (`Qlam_add_le`, `Qlam_le_d`) and `‖h‖² ≥ ½ − ε`, so `Q(h) < 0`, while RH and the explicit formula for `h` give `Q(h) ≥ 0`.
+  - `weilQ_nonneg_of_RH`: `Q(g) ≥ λ₁‖g‖² ≥ 0` for every probe.
+- **`weil_criterion_zeta`**: with finitely many off-line zeros, `Q ≥ 0` on every probe at every support **iff** `RiemannHypothesis`. No named input.
+
+### 2. Hadamard's identity and Theorem 1bt(i) (`ZetaInputs.lean`)
+- **`hadamard_zeta`**: `Σ_ρ 1/(ρ(1 − ρ)) = 2 + γ − log 4π` over the nontrivial zeros with multiplicity.
+  - `hasSum_logDeriv_Xi` at `t = −i/2`, where `Ξ(−i/2) = ξ(1) = ½ ≠ 0`, gives `Σ_u 1/(u + ¼) = ξ′(1)/ξ(1) = Λ₀(1)` (`ξ = (s(s − 1)Λ₀ + 1)/2`, so `ξ′(1) = Λ₀(1)/2`).
+  - Mathlib's `completedRiemannZeta₀_one` gives `Λ₀(1) = 1 + (γ − log 4π)/2`.
+  - `ρ(1 − ρ) = ¼ + u` for `ρ = ½ ± i√u`; each `u` is counted twice; `zetaEquiv` transports the sum.
+- **`pole_free_form_negative_zeta_explicit`**: 1bt(i) over `ζ` with `h_hadamard` and `h_explicit` discharged. The witness `ĝ_a²` is a strip test function by 1bt's own bound `‖ĝ_a‖ ≤ V(a)e^{a|Im t|}/‖t‖`. The value of the form is the explicit formula's prime side (`weilRHS`). **One named input is left: `γ₁ ≥ 14`.** *(Removed in round 233.)*
+
+### 3. The pinning theorem (`ZetaInputs.lean`)
+- **`pinned_zeta`**: `Unconditional.lean`'s `pinned_unconditional` over the zeros of `ζ` for a monotone probe, with `Q = weilQ`.
+  - `hQ`: from `weilExplicit_antitone_zeta` and `weilQ_eq_zero_sum`.
+  - `hstrip`: from the strip.
+  - `hS`: `summable_tail_zeta`, comparing `(Re t)⁻²` with `‖1/(t² + 4)‖` for `H ≥ 1`.
+- **Left:** RH verified to height `H` (numeric), and the probe's monotonicity (a hypothesis on `g`; for ground states it is observed, not proved).
+
+### 4. The exterior identity for every probe (`ExteriorZeta.lean`)
+- **The cut is holomorphic.** `differentiable_Phi`: the complex normal distribution function `Φ` is entire, by differentiation under the integral with a Gaussian dominating function.
+- **The cut decays.** `Phi_add_neg`: `Φ(w) + Φ(−w) = 1`, from Mathlib's shifted complex Gaussian integral. Right of the band, `χ` is then a sum of four left tails of `Φ`, so `‖χ(t)‖ ≤ 2e^{1/(2Δ²)}e^{−(Re t − T′)²/(2Δ²)}` (`norm_chi_right`). By evenness and compactness near the band, `‖χ(t)‖(1 + (Re t)²)` is bounded on the strip (`chi_strip`).
+- **`exterior_identity_probe_zeta`**: round 4's 1ca(iv) identity over the zeros of `ζ` for every even integrable probe, with no named input. The three integrability conditions on the real values are the identity's own regularity hypotheses and are kept.
+
+### What remains named, after this round
+- **Numeric facts:** `γ₁ ≥ 14` (`T1bt`, the 1ca wall law; *round 233 removes it from `T1bt`*); RH verified to a height (`pinned_zeta`); the arb certificates `Cert14`, `CertP`, `CertP3`, `CertE`, `CertO` and `Round47Certs`. None of the certificates sits in an RH chain; they extend certified ranges.
+- **Classical but heavy:** `|S(T)| ≤ C log T` and `|S₁(T)| ≤ C log T` (`hSlog`, `hS1log`, used only by the 1ca wall law). They need the argument principle for `Ξ` and Stirling for `arg Γ`, which Mathlib lacks. *(Round 228: `hSlog` is proved, from zeta23's Riemann–von Mangoldt machinery; `hS1log` remains.)*
+- **Open, not classical:** monotonicity or concavity of ground states.
+- **RH-strength:** `HypConv` for a cross-rooted family, or anything stronger (no crossing, the parity gap, simplicity, D).
+
+### A documentation correction (Check 2)
+Rounds 146–147 say "The two open routes are therefore:" (simplicity and the parity gap) and "The one analytic hypothesis besides `HypConv` is now the absence of a single kind of event". Round 54 had already reduced the chain further: "The remaining gap is therefore exactly `HypConv a (topGS ∘ a)`" (`rh_of_hypConv_top`, `StructureD.lean`), with no simplicity, gap or crossing hypothesis. The later routes only let `HypConv` be asked of the computed ground state rather than of `topGS` (`hypConv_top_of_simple`). The weakest chain to `RiemannHypothesis` in the stack is `HypConv(topGS)` alone.
+
+**Check 4.** Round 156 listed `exterior_identity_zeta` and general-probe `weilQ_eq_zero_sum` as not covered. The first is closed here. The second is closed in the form that matters for Weil's criterion: every probe is reached by density, not by the explicit formula for the probe itself. `T1bt`'s Hadamard identity, the pinning theorem's inputs and the ζ instance of round 131's converse were not flagged before.
+
+**Bearing on RH:** none. Weil's criterion is an equivalence, and its finite-exception form is a real restriction. Every chain to `RiemannHypothesis` is exactly as conditional as before. (Round 220 removes the finite-exception restriction: `WeilLandau.rh_of_weil`.)
+
+## Round 158: an approximate commuting operator for Weil's form? (numerics + a paper obstruction, no Lean)
+
+**The question.** Slepian's time–band-limiting has super-exponentially small eigenvalues, like Weil's form on a window. Its spectrum was controlled because it commutes with a second-order differential operator `−((a² − t²)v′)′ + c²t²v`. Round 152 measured the same fingerprints for Weil's form: parity alternation and a geometric ladder with ratio about `κ²`. Does Weil's form admit such an operator, even approximately?
+
+**Method** (`frontier/commop/`). For a family `{v_j}` of both parities, fit one Sturm–Liouville operator `Lv = −(pv′)′ + qv`, with `p` and `q` even and in a finite basis. The residual is the weak (Galerkin) form in the window's cosine/sine basis (`slweak.py`, `slgen.py`):
+
+`ρ = min over (p, q) of √(Σ_j ‖(I − v_jv_jᵀ)Lv_j‖² / Σ_j ‖Lv_j‖²)`.
+
+The identity is excluded, `ρ = 0` means the `v_j` are exact simultaneous eigenfunctions, and `xval.py` fits on the lowest levels and tests the same operator on held-out higher levels.
+
+**Controls.**
+- **Exact prolate functions**, from a Legendre expansion (`prolate_ctrl.py`): the fit recovers `p = a² − t²`, `q = c²t²` with `ρ ≈ 1e-13` on training and held-out levels.
+- **A pitfall.** Sampling eigenfunctions from the Weil instrument's own sine basis forces `v(±a) = 0`. That wrecks the derivatives of prolate controls, which is why the controls use Legendre expansions. Weil eigenfunctions are edge-flat for `δ ≥ 2.2` (relative `v′(±a)` below `1e-8`).
+
+**Results.**
+
+| family (params) | Weil ladder, 6 levels, `δ = 1.6–2.6` | Φ-jet ladder, 14 train / 10 test | `exp(−t⁴)` jets (control) | Gaussian-kernel eigenfunctions (control) |
+|---|---|---|---|---|
+| `p = (1 − s²)·poly`, `q` poly (3–7) | `0.13` (flat in degree and `δ`) | — | — | `0.11` to `0.015` |
+| `{1, s², s⁴, cosh 2t, cosh 4t}` (9) | overfits (6 functions) | train `2e-4`, test `8e-4 → 2e-2` | train `3e-2`, test `0.1 → 1.0` | test up to `0.96` (16 functions) |
+| `+ {s⁶, cosh 6t}` (13) | — | train `2e-7`, test `2e-6 → 2e-4` | train `4e-4`, test `2e-3 → 0.14` | — |
+| `{1, s², s⁴, cosh 2mt, t sinh 2mt}`, `m ≤ 3` (17) | — | train `1e-8`, test `4e-8 → 9e-6` | train `2e-6`, test `1e-5 → 5e-3` | — |
+
+- The "Φ-jet ladder" is the Gram–Schmidt system of `Φ, Φ′, Φ″, …` in extended precision (`phijets.py`, `a = 2`). It is the large-support limit of the Weil ladder (rounds 139 and 152), and it gives as many exact levels as needed.
+- **Prolate-type operators fail on the Weil ladder**: `ρ ≈ 0.13`, worse than a generic Gaussian kernel.
+- **Exponential coefficients fit the Φ-jet ladder well**, about 100–1000× better than the `exp(−t⁴)` control at each family size, and the fits generalise to held-out levels. The natural coordinate is `e^{2t}`.
+- **But the residual never closes.** It falls by roughly `10⁻³` per four added parameters for both the ladder and the control. That is the signature of approximation by a growing basis, not of an exact operator.
+
+**Why no exact operator can exist (paper argument, not formalised).**
+- `Φ(t) = e^{t/2}(2x²θ″(x) + 3xθ′(x))` with `x = e^{2t}` and `θ(x) = Σ_{n≥1} e^{−πn²x}`.
+- `θ` has a natural boundary on `Re x = 0`: `θ₃` has the real `τ`-axis as its natural boundary. If `g = 2x²θ″ + 3xθ′` continued across `Re x = 0` away from `0`, the linear ODE `2x²θ″ + 3xθ′ = g`, singular only at `x = 0`, would continue `θ`. So `Φ` has natural boundaries on `Im t = ±π/4`.
+- A solution of a linear ODE of any finite order, with entire coefficients and leading coefficient not identically zero, continues along every path that avoids the zeros of the leading coefficient. So it cannot have a natural boundary.
+- **Hence `Φ` is not an eigenfunction of any finite-order differential operator with entire coefficients.** No window-independent commuting differential operator can have the limit ladder among its eigenfunctions. A commuting operator for each window `a` would have to degenerate as `a → ∞`.
+
+**What an approximate operator would need.** Transferring simplicity or the parity gap from `L` to `Q` needs `Q`'s off-diagonal entries in `L`'s eigenbasis to be small against the rung gaps. At `δ = 2.6` the rungs are `10⁻⁶¹–10⁻³⁷`, and a `10⁻⁸` operator misses by about 50 orders. At about 3 orders per 4 parameters, the family size needed grows like `log(1/λ₁)`, which is `~ e^{2a}/a` (round 152's Landau–Widom law). That is the Galerkin dimension. The approximate operator is a re-encoding of the Galerkin problem, not a shortcut. Even an exact commuting operator would give eigenvectors, not the ordering of eigenvalues. Slepian's ordering needs total positivity of the sinc kernel on top, and Weil's kernel is not totally positive (round 145).
+
+**Check 4.** Round 152, obstructions 1–2, anticipated this ("no exact commuting operator"; "approximate commutation is not enough") without a proof or measurements. The natural-boundary obstruction and the measurements are new here.
+
+**Bearing on RH:** none.
+
+## Round 159: rigorous rung asymptotics (`src/PhiDExp.lean`, `frontier/rungs/`)
+
+**Question.** Rounds 133 and 153 proved `λ₁, λ₁^odd, λ₂ ≤ K e^{−Ba}` for every `B`: single-exponential. The measured rungs are double-exponential, following Zhu's Landau–Widom scale `−ln λ₁ ≈ 2π²N(T*)/ln N(T*)` with `T* = 2πe^{2a}` (140.3 against 142.3 at `δ = 2.6`). How much of that can be proved?
+
+**The weak link was the decay input, not the method.** The zero-side argument bounds `Φ̂_b(t_ρ) = −tail(t_ρ)` at every zero. It only used `|Φ(u)| ≤ Ce^{−B|u|}`. Splitting `πn²X = πX + π(n² − 1)X` (with `X = e^{2u} ≥ 1`) instead of halving the exponent gives the true decay.
+
+**Theorems** (Lean; over the zeros of `Ξ`, all in the strip; no RH input, no named input). Every one prints `[propext, Classical.choice, Quot.sound]` only.
+- **Pointwise decay** (`RPhi_dexp`, `RPhi1_dexp`): `|Φ(u)| ≤ C e^{9|u|/2 − πe^{2|u|}}` and `|Φ′(u)| ≤ C e^{13|u|/2 − πe^{2|u|}}`.
+- **Tails** (`norm_tailT_dexp`): if `|f(u)| ≤ Ce^{k|u| − πe^{2|u|}}` and `k + 3/2 ≤ 2πe^{2a}`, the tail beyond `±a` is `≤ Ce^{(k+3/2)a − πe^{2a}}∫e^{−|u|}` on the strip. The proof uses convexity, `e^{2v} ≥ e^{2a}(1 + 2(v − a))`.
+- **Per zero** (`ghat_PhiA_sq_dexp`): `‖Φ̂_b(t_ρ)‖² ≤ K e^{16b − 2πe^{2b}}‖1/(t_ρ² + 4)‖` for `b ≥ 1/4`.
+- **Rung 0** (`lam_dexp`): `λ₁(a) ≤ K e^{16a − 2πe^{2a}}` for `a ≥ 1`.
+- **Rung 1** (`lamO_dexp`): `λ₁^odd(a) ≤ K e^{16a − 2πe^{a − 1/4}}` for `a ≥ 1`. The trial is the antitwin of `Φ_b` with `b = a/2 − 1/8` and `l = a/2`, replacing round 153's `b = a/8`.
+- **Rung 2** (`lam2_dexp`): `λ₂(a) ≤ K e^{16a − 2πe^{a/2 − 1/4}}` for `a ≥ 3/2`. The trial is two disjoint twins of `Φ_b` with `b = a/4 − 1/8`, `l = a/4` and `m = 3a/4 − 1/8`; `weilExplicit_combo_gen` gives the explicit formula for these parameters.
+
+**How sharp** (`rungs_vs_bounds.py`).
+
+| `δ` | true `−ln λ₁` | theorem's `2πe^{2a} − 16a` |
+|---|---|---|
+| 1.6 | 38.6 | 18.3 |
+| 2.2 | 86.6 | 39.1 |
+| 2.6 | 140.3 | 63.8 |
+
+- Asymptotically the ratio between Zhu's scale and `2πe^{2a}` is `2.07, 2.21, 2.32` at `a = 3, 4, 5`, tending slowly to `π`. **So `lam_dexp` has the right double-exponential form and the right `e^{2a}` rate, with a constant off by a bounded factor.**
+- The rung-1 and rung-2 exponents (`e^{a}`, `e^{a/2}`) are weaker than rung 0's, because their trials live on narrower windows. They are nontrivial only for `a ≳ 2.5` and `a ≳ 4.3`.
+- A full-window odd trial (`Φ′·1_{[−a,a]}`) would give rung 1 the rung-0 rate. That needs the explicit-formula bridge for odd probes (`weilQg = Σ ĝ(t)ĝ(−t)`), which is not formalised.
+
+**Where the rest of the exponent is: jets** (`jet_rayleigh.py`, `jet_zeroside.py`).
+- **Method.** Trial spaces `span{Φ^{(k)}·1_{[−a,a]}}` are the only zero-free trials: `Φ̂^{(k)} = (−iz)^kΞ/2` vanishes at every zero, wherever it is.
+- **Evaluation.** They are evaluated on the zero side, where `Q(g) = Σ_ρ |tail_g(t_ρ)|²` is exact: tails are incomplete-gamma sums, with 2000 zeros (1000 zeros changes values by 3%).
+- **Why not the prime side.** A prime-side Galerkin evaluation in the cosine basis plateaus at `10⁻²⁵` and `10⁻²⁹` for `δ = 2.2` and `2.6`, which is truncation error. The zero side avoids it. At `δ = 1.6` the two agree.
+
+| `δ` | jets | even rung-0 bound | odd rung-1 bound | even rung-2 bound | truth (e0, o1, e2) |
+|---|---|---|---|---|---|
+| 1.6 | 1 | 8.6e-9 | 7.2e-7 | — | 1.9e-17, 1.7e-14, 9e-12 |
+| 1.6 | 13 | **1.9e-17** | **1.9e-14** | **1.1e-11** | (converged) |
+| 2.2 | 14 | 1.7e-35 | 2.2e-32 | 6.6e-29 | 2.4e-38, 9.1e-35, 1.8e-31 |
+| 2.6 | 14 | 6.2e-52 | 1.6e-48 | 1.2e-44 | 1.2e-61, 1.2e-57, 7.2e-54 |
+
+- Jets converge to the true rungs, and the ladder ratios `≈ κ²` are already visible in the jet bounds.
+- But the number of jets needed grows with the support. At `δ = 2.6` it is beyond 14, still gaining about ×10 per jet. It tracks the zero count `N(T*)`, as the prolate picture predicts.
+- A rigorous asymptotic statement from `J` jets needs the tails of an optimised combination at every zero. That is the next step and is not done.
+
+**What this does not give.** Upper bounds only. The lower halves (`λ₁ ≥ 0`, gaps between rungs) are RH-strength (round 152). The bounds do not order the rungs. Their ratios are not the rungs' ratios.
+
+**Check 4.** Round 133 (`lam_decay`) and round 153 (`lamO_decay`, `lam2_decay`) are superseded in strength. The double-exponential decay, the parameter choices and the jet measurements are new.
+
+**Bearing on RH:** none.
+
+## Round 160: the optimised J-jet combination (numerics + analysis, no Lean; `frontier/rungs/`)
+
+**Question.** Round 159 left the rung bounds' constant off by a bounded factor. It also measured jets to `J = 14` while they were still gaining. How far does an optimised combination of `J` jets go, and what law does it follow?
+
+**Method.**
+- **Trial space.** `span{Φ^{(2k)}·1_{[−a,a]} : k < J}` (`jet_big.py`, `jet_save.py`).
+- **Zero side.** `Q(g) = Σ_ρ |tail_g(t_ρ)|²` exactly (round 159). Zeros are assumed on the line for the numerics, and the sum is truncated at 500–1500 zeros. Tails are incomplete-gamma sums.
+- **Precision.** 420–560 digits. The window Gram uses mp Newton-refined Gauss–Legendre nodes, because float64 nodes are too inaccurate for these ill-conditioned Grams.
+- **What the numbers are.** Every value is a Rayleigh–Ritz upper bound on `λ₁`, under the numerics' assumptions.
+
+**Results** (`X = πe^{2a}`; Zhu's scale is `2π²N(T*)/ln N(T*)` with `T* = 2πe^{2a}`, round 152):
+
+| `δ` | `X` | `J` | best `λ₁` bound | `−ln` | saturates at | `4X + ln λ₁` | Zhu's scale | earlier reference |
+|---|---|---|---|---|---|---|---|---|
+| 2.2 | 28.4 | 26 | 2.37e-38 | 86.6 | `J ≈ 24` | 26.8 | 93.9 | round 159: 2.4e-38 |
+| 2.6 | 42.3 | 44 | 5.84e-62 | 141.0 | `J ≈ 40` | 28.2 | 142.3 | round 159: 1.2e-61 (K = 80 Galerkin) |
+| 3.0 | 63.1 | 70 | 1.07e-97 | 223.3 | `J ≈ 60` | 29.1 | 218.1 | round 136: 6.7e-97 (K = 144 Galerkin) |
+| 3.4 | 94.1 | 104 | 2.02e-152 | 349.3 | `J ≈ 90` | 27.2 | 335.1 | none |
+
+**Findings.**
+1. **Saturation at `J ≈ X`.** The optimum needs about `X` jets. This matches the endpoint-flattening model below.
+2. **Corrections to rounds 136 and 159.**
+   - Both "truth" values at `δ = 2.6` and `3.0` were Galerkin Ritz values, and the jets beat them by factors of 2 and 6.
+   - Round 136 called `a = 1.5` converged because `K = 112` and `K = 144` agreed. That was agreement of two unconverged truncations.
+   - Zero truncation cannot explain the gap: 1000 against 2000 zeros changes values by 3% (round 159).
+3. **Zhu's scale underestimates `−ln λ₁` from `δ = 3.0` on.** The margin is 5.2 at `δ = 3.0` and 14.2 at `δ = 3.4`. The jets are upper bounds on `λ₁`, so the true `−ln λ₁` is at least the jet value.
+4. **Empirical law.** Over `δ ∈ [2.2, 3.4]`, `−ln λ₁ = 4X − 28 ± 1.5`.
+   - A three-point fit `4X − 9a − c` (`c ≈ 15.6–16.9`) does not hold at `δ = 3.4`, where `c ≈ 12`.
+   - Zhu's scale tends to `2πX` asymptotically (round 159), not `4X`. So the two laws must separate at larger `a`. These four points do not decide which holds asymptotically.
+
+**Analysis.**
+- **Endpoint flattening.** With `x = πe^{2u}` and `D = 2x∂ₓ`, a jet `P(D)Φ` corresponds to `x^{1/4}e^{−x}R(x)`. Its tail at a zero is `≈ e^{−X}Σₖ(x^{s−1}R)^{(k)}(X)`. An `m`-fold zero of `R` at `x = X` gains a factor of about `m!/X^m`, which is best near `m ≈ X`. Hence saturation at `J ≈ X`, and a gain of about `(X/m)²` per added order.
+- **Pochhammer correspondence.**
+  - `xᵏ ↔ (s)ₖ`, and `L = 2x∂ + ½ − 2x = e^{x}(2x∂ + ½)e^{−x}` acts as multiplication by `(½ − 2s)`.
+  - Admissible even Φ-jets correspond exactly to polynomials `U(s)` symmetric under `s ↦ ½ − s` with `U(0) = 0`, via `e^{−x}R(x) = Σⱼ U(−j)(−x)ʲ/j!`.
+  - The explicit family `U = s(s − ½)(s + c)ₙ(½ − s + c)ₙ` gives the jet operator `∏ₖ((2(k + c) + ½)² − D²)`. At `c = 0` it gives `xⁿLₙ^{(n−½)}`.
+- **Explicit families against the optimum** (`family.py`, `family2.py`; `−ln` gain over the single jet at `δ = 2.2`, `2.6`).
+  - The Laguerre family peaks at about 57 against the optimum's 86.9 (`δ = 2.2`).
+  - The heat family `e^{−cD²}`, with `c ≈ 0.05–0.06/X`, captures 44% and 57% of the optimal gain.
+  - Neither closed form is optimal.
+- **The optimum's shape** (`optroots.py`). The roots of the optimal `P*(w)`, with `w = D²`, lie on an arc, a Szegő-type picture. By Mellin–Barnes the problem becomes a weighted polynomial extremal problem against `Γ(σ)X^{−σ}`, with its saddle at `σ ≈ X`.
+
+**Status.** Numerics and a heuristic model. The rigorous rung-0 bound stays `lam_dexp`'s `2πe^{2a} − 16a = 2X − 16a`, against the measured `≈ 4X`. A proved `4X` would need the tails of the optimal combination bounded at every zero, uniformly in `J ≈ X`. That is not done.
+
+**Check 4.**
+- Jets and zero-side evaluation: round 159.
+- Ladder ratios `≈ κ²`: round 139.
+- New here: the saturation `J ≈ X`, the Pochhammer characterisation, the family comparisons, the `4X` law over this range, and the corrections to rounds 136 and 159.
+
+**Bearing on RH:** none. These are upper bounds on `λ₁`; RH needs the lower half.
+
+## Round 161: the first positivity failure (`src/FirstFailure.lean`, `frontier/firstfail/`)
+
+**The in-house technique.** Rounds 146–150 built two continuation arguments: the parity gap (route B) and even-sector simplicity (route A). Each ends in a *first-failure* structure. The same argument applies one level down, to positivity itself.
+
+**Theorems** (Lean; 120 lines; every one prints `[propext, Classical.choice, Quot.sound]` only):
+- **`lam_ge_quarter`**: `λ₁(a) ≥ 1/4` for `0 < a ≤ 1/16`, from round 121's probe-wise bound.
+- **`exists_lam_neg_of_not_RH`**: with finitely many off-line zeros, `¬RH` gives a support with `λ₁ < 0`, via `weil_criterion_zeta` (round 157).
+- **`first_failure`**: with finitely many off-line zeros, `¬RH` gives `a₁ > 1/16` such that:
+  - `λ₁ > 0` on `(0, a₁)`, `λ₁(a₁) = 0`, `λ₁ ≤ 0` on `[a₁, ∞)`, and `λ₁ < 0` at some `a₀ ≥ a₁`;
+  - `Q ≥ 0` on every probe at support `a₁`;
+  - a normalised ground state `g*` has `Q(g*) = 0` and satisfies the kernel equation `bil0(g*, ψ) + 2ĝ*(i/2)ψ̂(i/2) = 0` for every probe `ψ`.
+
+  Ingredients: `continuousOn_lam` (round 148), `lam_antitone`, `exists_groundState`, `euler_lagrange_mem`, with `a₁ = inf{a > 0 : λ₁(a) ≤ 0}`.
+
+**Build fix.** `build.sh` had no `WeilRH` line since round 157. It is added, and `SimpleCont` now writes an olean.
+
+**The three first-failure events.**
+
+| route | event at the first failure | Lean | start | measured margin |
+|---|---|---|---|---|
+| positivity (this round) | `λ₁ = 0`, and a PSD form with a kernel vector | `first_failure` | `a > 1/16` pure Lean; 0.8 with certificates | `λ₁ ≈ e^{−4X}`, absolute, tends to 0 |
+| simplicity (A) | the first degeneracy, which carries a Green chain | `first_degeneracy_036`, `secular_of_not_simple` | `a ≥ 0.36` | ratio `λ_⊥/λ₁`, `2×10⁷` at `δ = 2.5` and growing |
+| parity (B) | an even–odd crossing | `parityGap_of_no_crossing_quarter` | `a ≥ 1/4` | ratio `λ_o/λ_e ≈ 1.4κ²` |
+
+- Positivity is the only route whose margin tends to 0 in absolute terms. Any argument there must contradict the kernel equation *exactly*.
+- The other two margins are ratios that grow. They are still not robust: an additive perturbation of size `≫ λ₁` destroys them.
+
+**Zero-side reading of the kernel** (paper, not Lean).
+- **The identity.** Assuming the explicit formula extends to `g*` and to the test probes (proved for C² probes, round 157), the kernel equation reads
+  `Σ_on ĝ*(γ)ψ̂(γ) = −Σ_off ĝ*(τ)ψ̂(τ)` for every probe `ψ`, with the off-line side a finite sum.
+  - On `V = {ψ : ψ̂(τ) = 0` at the off-line zeros`}` (codimension `≤ 2m` for `m` quadruples), `Q` is the on-line sum and is `≥ 0`.
+  - At `ψ = g*`: `Σ_on ĝ*(γ)² = −4Σ Re ĝ*(τ)² > 0`.
+- **`g*` cannot vanish at every zero.** `ĝ*` has exponential type `a₁`, so it has `O(r)` zeros in `|z| < r`, while `Ξ` has `~ (r/π)ln r`. So some off-line `ĝ*(τ)` is nonzero and the off-line sum is strictly negative. That is Weil's mechanism (round 120, `offline_negative`), now located at the first failure.
+- **Where `a₁` sits.**
+  - A zero count bounds the detection support: an entire function of type `a` can vanish at every zero of `Ξ` below height `T` only while `ln(T/2πe) ≲ 2a`.
+  - So an off-line zero at height `γ₀` becomes detectable at `e^{2a₁} ≈ γ₀/17.1` (cumulative count), or at `γ₀/6.3` (local density `a/π`).
+  - Round 119 measured `e^{2a₁} ≈ (0.9–1.45)·γ₀/10.8` on the window chain, which lies between the two. This gives round 119's empirical horizon a derivation up to an `O(1)` factor. It is new to the pilot and presumably folklore.
+
+**What could contradict the kernel equation, and the Davenport–Heilbronn barrier** (`frontier/firstfail/markov.py`).
+- **Setup.** At fixed `a₁` the form sees only `Λ(n)` for `n ≤ e^{2a₁}`. The one arithmetic input the pilot uses beyond the explicit formula is Markov positivity: the prime weights `c(n)` of `−F′/F` are `≥ 0` (`Positivity.lean`, round 151's ground-state transform).
+- **Test.** Does that property already separate `ζ` from the classical functions that have functional equations and off-line zeros? Up to `n ≤ 20000`:
+
+  | function | Euler product | `c(n) < 0` | support off prime powers | first negatives |
+  |---|---|---|---|---|
+  | `ζ` | yes | 0 | none | — |
+  | Dedekind `ζ_{ℚ(√−5)}` | yes | 0 | none | — |
+  | Epstein `x² + 5y²` (off-line zeros) | no | 305 | 1104 (from `n = 6`) | `36, 54, 84, 126` |
+  | Davenport–Heilbronn (off-line zeros) | no | 3909 | 5502 (from `n = 6`) | `3, 4, 9, 12` |
+
+- **Reading.**
+  - Both classical counterexamples violate `c ≥ 0`: Davenport–Heilbronn at `n = 3`, Epstein at `n = 36`. So an argument that genuinely uses `c(n) ≥ 0` for *every* `n` is not refuted by either.
+  - Epstein's form is Markov for `2a < ln 36`. So `c ≥ 0` up to `e^{2a}` alone, at fixed support, cannot separate the two.
+  - `c ≥ 0` is still far from sufficient. For the weights `tΛ`, `t > 1`, positivity fails at once: `λ₁ ≈ e^{−4X}`, while `∂λ₁/∂Λ(n)` is of order the autocorrelation of `g*` at lag `ln n`. That is the precision barrier again.
+  - What remains available is an **exact multiplicative identity**: `Λ(p^k) = Λ(p)`, or Selberg's `Λ·log + Λ⋆Λ = μ⋆log²`, which is `(ζ′/ζ)′` in operator form (`T_{ln d}T_{ln n/d} = T_{ln n}` on the whole line).
+  - On the window `[−a, a]`, compression breaks that algebra by edge terms. At the first failure those edge terms meet `g*`, whose edge values are super-exponentially small (round 139).
+  - Whether the compressed identity forces a contradiction with the kernel equation is the open question this round isolates. No calculation of it is attempted here.
+
+**Check 4.**
+- Continuation, first-failure structures and margins: rounds 146–151 (acknowledged).
+- Detection horizon: round 119 (acknowledged); the density derivation is new.
+- Precision barrier: round 159, and the earlier audit (acknowledged).
+- New here: `first_failure` and its companions, the zero-side reading at `a₁`, the Markov-sign table, and the `WeilRH` build fix.
+
+**Bearing on RH:** none. `first_failure` restates the negation of RH (finite exceptions) as the existence of a PSD kernel vector. Nothing here excludes it.
+
+## Round 162: the jet law is Connes' prolate law (literature + numerics, no Lean; `frontier/prolate/`)
+
+**Check-4 correction to rounds 159–160.** Those rounds compared the rungs only with Zhu's scale. The law they found is already in Connes, *The Riemann Hypothesis: Past, Present and a Letter Through Time* ([arXiv:2602.04022](https://arxiv.org/abs/2602.04022), February 2026), §6.3–6.4:
+
+> "1−χ₂ ∼ (2¹⁴/3)√2 π⁵ e^{−4πe^L+9/2L}"
+
+- **Variables.** Here `L = 2 log λ` is the support length, so `L = 2a` and `4πe^L = 4X`. The formula reads `−ln(1 − χ₂) ≈ 4X − 9a − 14.68`. Round 160's `4X − 9a − c` with `c ≈ 15.6–16.9` is this formula.
+- **Connes' status.** He identifies `ϵ(λ)`, the smallest eigenvalue, with `1 − χ₂` from numerics: "a careful analysis reveals a striking similarity (Figure 1) between the behavior of ϵ(λ) and of the angular function 1−χ₂(λ)". The constant comes from Fuchs's theorem.
+- **Connes' eigenvector.** His approximate eigenvector is `k_λ = E(h_λ)`, where "h_λ is, up to a multiplicative scalar, the only linear combination of h_{0,λ}, h_{4,λ} with vanishing integral".
+- **Consequence for rounds 159–160.** Round 160's finding 3 ("Zhu's scale underestimates") stands, but the relevant comparison is Connes' formula, not Zhu's.
+
+**The jet ↔ prolate dictionary** (derived here independently; it is Connes' `E` map in jet language).
+- **Change of variable.** Put `x = √(2π)·n·e^u`. The `n`-th theta term of Φ is `(2π)^{−1/4}n^{−1/2}x^{1/2}ψ(x)` with `ψ = ½(x⁴ − 3x²)e^{−x²/2}`, a combination of the Hermite functions `h₀` and `h₄`. So `ψ` is Fourier self-dual.
+- **Derivatives become dilations.** `∂_u` acts as `A = x∂_x + ½ = ½(a² − a†²)`, the dilation generator, which anticommutes with the Fourier transform.
+- **Jets.** An even jet `P(∂_u)Φ` is the periodisation `Σ_n` of `f = P(A)ψ ∈ span{h_{4k}}`, a self-dual function. Evenness of `G` in `u` is Poisson summation.
+- **The Rayleigh quotient.** It becomes a time–frequency concentration problem on `[−ξ, ξ]` with `ξ² = 2πe^{2a} = 2X`, which is Slepian's `c = 2X`.
+- **Why index 4.** Jets are `O(x²)` at 0 (the pole constraint), which kills the `h₀` direction and leaves index 4.
+
+**Exact prolate deficits against the jet bounds** (`prolate_mp.py`: Bouwkamp–Legendre in mpmath, `ν_n = 1 − (c/2π)μ_n²`, at `c = 2X`).
+
+| `a` | `−ln(1 − ν₄)` | jets `−ln λ₁` | `−ln(1 − ν₆)` | jets `−ln λ₁^odd` | `−ln(1 − ν₈)` | jets `−ln λ₂` |
+|---|---|---|---|---|---|---|
+| 0.8 | 39.95 | 38.5 (true value) | 32.62 | 31.7 | 26.04 | 25.4 |
+| 1.1 | 88.29 | 86.6 | 79.61 | 78.4 | 71.62 | 70.8 |
+| 1.3 | 142.22 | 141.0 | 132.69 | — | 123.82 | 123.2 |
+| 1.5 | 223.60 | 223.3 | 213.23 | — | 203.51 | 203.8 |
+
+- **The first three levels track the self-dual prolates of index 4, 6, 8 (even, odd, even),** to within 0.3–1.7 in the logarithm, and the gap shrinks as `a` grows. Round 152's ladder ratios follow Slepian's `64c²/((2j+5)(2j+6))` at about 0.75× over five rungs. Connes' paper uses the first level; ref. [25] of his paper constructs higher ones. The ladder match is probably not new.
+- **The `a = 1.7` jet value is under test.** It is 349.3 against the prolate prediction of about 346. That run used only 500 zeros (height 811), and a 1500-zero rerun is in progress.
+
+**What is open.**
+- **Upper bound.** A proof that `λ₁(a) ≤ C·poly(X)·(1 − ν₄(2X))`, i.e. `λ₁ ≤ poly·e^{−4X+9a}`, would make the jet law rigorous. It is the upper half of Connes' heuristic identification. Connes lists as remaining "to show that k_λ is a sufficiently good approximation". A proof would need Fuchs-type pointwise prolate estimates (classical, but not in Mathlib) plus the zero-side machinery of `PhiDExp`. `lam_dexp` (round 159) proves the exponent `2X − 16a`, half of the truth.
+- **Lower bound.** RH-strength (round 152, obstruction 3).
+
+**Check 4.** The law, the prolate identification and the `h₀/h₄` eigenvector are Connes 2026 (acknowledged, literature). New here: the jet–Hermite dictionary written as `P(A)ψ` (equivalent to Connes' `E` map), the exact-deficit table, and the correction of rounds 159–160.
+
+**Bearing on RH:** none.
+
+## Round 163: the doubled rate, proved (`src/Kaiser*.lean`, `frontier/kaiser/`)
+
+**The theorem.** `lam_kaiser` in `KaiserBulk.lean` states:
+
+```lean
+theorem lam_kaiser :
+    ∃ K, 0 ≤ K ∧ ∀ a, 4 ≤ a → lam a ≤ K * Real.exp (20 * a - 4 * π * Real.exp (2 * a))
+```
+
+- **What it bounds.** `λ₁(a)` is the least eigenvalue of Weil's form on probes supported in `[−a, a]`, over the zeros of `Ξ`. As in `lam_dexp` there is no RH input and no named input. The build checks it against the standard axioms only.
+- **The gain.** `lam_dexp` (round 159) proved the exponent `2πe^{2a} = 2X`. `lam_kaiser` proves `4πe^{2a} = 4X`, the rate of Connes' prolate law `1 − χ₂ ∼ C e^{−4X + 9a}` (round 162). The polynomial prefactor here is `e^{20a}` against Connes' `e^{9a}`.
+
+**The construction** (paper sketch in `frontier/kaiser/PROOF.md`; the Lean constants differ). Take `L = e^a`, `η = 1/L` and `β = 2π(L − 4η)`.
+- **The trial.** It is the Kaiser window, not a prolate: `H(z) = z²(z² − α)·cos(β√(z² − L²))·sinc(πηz)⁸`. It is entire of type `2πL`, so `h = 𝓕⁻H` vanishes outside `[−L, L]` (Paley–Wiener, `KaiserPW`). On `(−L, L)` it equals `cosh(β√(L² − x²))`, which peaks at `e^{βL}`.
+- **The probe.** `f = h + H` is self-dual, and `KF = E f`, where `E F(x) = √x Σ_{n≥1} F(nx)` is Connes' map. The probe is `g(u) = 1_{|u|≤a}·Re KF(e^u)`.
+- **The zero side.**
+  - `mellin(E f)(s) = ζ(s + ½)·mellin f(s + ½)`, so `∫ KF(e^u)e^{itu} du = 0` at every zero of `Ξ` (`KaiserZero`).
+  - What survives in `ĝ(t)` is the tail beyond `a`. Two integrations by parts bound it by the polynomial `P = (L/π)⁸` and `D₀ = 6 + 2β² + 32πη` (`KaiserTail`, `KaiserIBP`).
+  - Hence `Q(g) ≤ 720P²(1+D₀)²·Σ_ρ |1/(t_ρ² + 4)|` (`weilQ_gK_le`).
+- **The moment condition.** `∫H = 0` is needed for the Poisson step `E h(x) = E H(1/x)`, and it forces `α = m₄/m₂`.
+  - Compare `K` with the Gaussian `(e^{βL}/2)e^{−bx²}`, `b = β/(2L)`, from above and below, using `√(L² − x²) ≤ L − x²/2L` and `≥ L − x²/2L − x⁴/2L³`.
+  - The Gaussian moments are exact by parts: `G₄ = (3/2b)G₂` and `G₂ = √(π/b)/2b`.
+  - Result: `m₂ > 0` and `−m₂ ≤ m₄ ≤ (3/4)m₂` for `L ≥ 50` (`alpha_ok`). The true ratio tends to `3/(2π) ≈ 0.477`.
+- **The bulk.** With `α ≤ 3/4`, every term `H(nx)` with `x² ≥ 4/5` is `≥ −5P/n²` (it is `≥ 0` below `L`). The first term is `≥ e^{βL−8}/12800` when `x² ≤ 5/4`. So `g ≥ e^{βL−8}/51200` on `|u| ≤ 1/10`, and `‖g‖² ≥ e^{2βL−16}/(5·51200²)`.
+- **The rate.** Since `2βL = 4πL² − 16π`, `λ₁ ≤ Q/‖g‖² ≤ K·L²⁰·e^{−4πL²}`.
+
+**Numerics context.**
+- `kaiser2.py` (round 163, part 0) measured `−ln R(g) = 4X − 47` at `a = 1.1` and `4X − 50.6` at `a = 1.5` for this trial. The rate is right; the constant is loose.
+- The `a = 1.7` jet value that round 162 left under test has been rerun with 1500 zeros: `−ln λ₁ ≈ 344.86`, against 349.3 with 500 zeros and the prolate `−ln(1 − ν₄) ≈ 346`. The jets now sit about 1.1 below the prolate value, as at smaller `a`. The runs at `a = 1.85` and `2.0` are still going.
+
+**Check 4.**
+- **Acknowledged (literature).** Connes 2026 (arXiv:2602.04022, §6.4) has the rate and the prolate/`h₀,h₄` eigenvector as a heuristic. He lists "to show that k_λ is a sufficiently good approximation" as the remaining step. The Kaiser–Bessel window as a near-prolate is classical signal processing.
+- **New here.** A rigorous upper bound `λ₁(a) ≤ K e^{20a − 4πe^{2a}}` at Connes' leading rate, machine-checked. It uses an elementary trial (cosh of a square root) in place of prolate functions, so it needs no Fuchs-type prolate estimates. I checked it against Connes 2026 only, not against later literature.
+- **Still open.**
+  - The prefactor `e^{9a}`, i.e. the full upper half of Connes' asymptotic.
+  - Any lower bound, which is RH-strength (round 152, obstruction 3).
+
+**Bearing on RH:** none. An upper bound on `λ₁` says the form has small eigenvalues, which is compatible with RH and with its failure. The sign of `λ₁` is what RH concerns, and nothing here touches it.
+
+## Round 164: the prefactor (`src/KaiserPoissonK.lean`, `KaiserZeroWeight.lean`, `KaiserPlanch.lean`, `KaiserPrefactor.lean`, `frontier/prefactor/`)
+
+**The theorem.**
+
+```lean
+theorem lam_prefactor :
+    ∃ K, 0 ≤ K ∧ ∀ a, 4 ≤ a → lam a ≤ K * (a + 1) * Real.exp (10 * a - 4 * π * Real.exp (2 * a))
+```
+
+- **Improvement.** Round 163 had `e^{20a}`. The trial and the lower bound on `‖g‖²` are round 163's; only the zero side is new, bounded at the density level instead of pointwise.
+- **Distance from Connes' prefactor** `e^{9a}` (round 162): the factor `a + 1` and one factor `e^a`. Both are explained below.
+- **The general form.** `lam_le_kappa` proves `λ₁(a) ≤ K(a+1)·κ·e^{9a−4πe^{2a}}` for any `κ` with `e^{2a|Im τ|} ≤ κ` at every zero. The only RH-free choice available is `κ = e^a`.
+
+**The argument.**
+1. **Shift.** The tail is `T(t) = e^{ita}F(t)` with `F(t) = ∫_0^∞ φ(a+w)e^{itw}dw`, so `‖T(t_ρ)‖² = e^{−2a·Im t_ρ}‖F(t_ρ)‖² ≤ e^a‖F(t_ρ)‖²`.
+2. **Poisson.** `F` is a Fourier transform supported on `w ≥ 0`, so `F(σ + is) = ∫ P_{1+s}(x) F(σ + x − i) dx` for `s > −1`. Cauchy–Schwarz gives `‖F(t_ρ)‖² ≤ ∫ P_{1+s_ρ}(x − σ_ρ) ‖F(x − i)‖² dx`.
+3. **The zero weight.** Summing over zeros gives `Σ_ρ P_{1+s_ρ}(x − σ_ρ) = Im(Ξ′/Ξ)(x − i)/π`. Every term is positive, whether the zero is on the line or not. On `Re s = 3/2` this equals `Re ξ′/ξ(3/2 + ix)/π ≤ (5 + Σ Λ(n)n^{−3/2} + ½log(|x| + 2))/π`. This uses Hadamard (`hasSum_logDeriv_Xi`), `ξ′/ξ` (`logDeriv_Xi_eq`) and Binet (`Re ψ(z) ≤ log|z| + 4`). No zero-counting input is needed.
+4. **Plancherel.** `∫‖F(x − i)‖²e^{−x²/M²} ≤ 2π∫|φ(a+w)|²e^{2w} ≤ (32π/5)P²e^{−7a}`, by a Gaussian-regularised Plancherel inequality (Schur's test). For `|x| > M`, integrating by parts on the line `Im t = −1` gives `‖F(x − i)‖ ≤ 8P(1+D₀)e^{−a}/|x|`. With `M = e^{36a}` the log weight costs `O(a)`.
+5. **Assembly.** `Q(g) ≤ 16κ·Kz·(a+1)·e^{9a}` (`weilQ_prefactor`) with `κ = e^a`, then `‖g‖² ≥ c·e^{2βL}`.
+
+**Numerics** (`frontier/prefactor/spec.py`, `diag.py`; same trial, zeros to height 6997).
+
+| `a` | 1.1 | 1.3 | 1.5 | 1.8 | 2.1 | 2.4 |
+|---|---|---|---|---|---|---|
+| `−ln R − (4X − 9a)` | −37.12 | −37.07 | −37.15 | −37.07 | −37.22 | −37.19 |
+
+- **The trial.** It sits at `R ≈ e^{37.1}·e^{9a−4X}`. That is Connes' `e^{9a}` exactly, with no visible factor `a`: the drift is at most 0.15, where a factor `a` would give 0.78.
+- **Where the leakage sits.** `ĝ` lives at `t ≈ 1.6c–2c`, just above a caustic at `t = 2βL ≈ 2c`. That is where the phase derivative `βx²/√(x² − L²)` has its minimum, at `x = √2 L`. Plancherel checks to `1 − 4·10⁻⁵`.
+- **Density vs actual sum.** The density prediction `Σ_ρ ≈ ∫|ĝ|²·(1/2π)log(t/2π)` grows like `a` (ratio 1.60 from `a = 1.5` to 2.4). The actual zero sum grows by only 1.14, and at `a = 2.4` it is 19% below the density value. So the explicit formula's prime terms partly cancel the log growth of the zero density.
+
+**What is open (the two losses).**
+- **The factor `e^a`: off-line zeros.** A zero with `|Im t| = δ` near height `c ≈ 2πe^{2a}` enters `Q(g)` with weight `e^{2aδ}`. This is a genuine feature of any probe supported in `[−a, a]`, not slack in the estimate. The known zero-free regions only save a constant here. *(Round 234: true for de la Vallée Poussin's region, not for Korobov–Vinogradov's, which saves `exp(c·a^{1/3}/(log a)^{1/3})`; see round 234.)*
+  - **The clean way to remove it** is a case split on RH, which gives an unconditional (but ineffective-`K`) `e^{9a}` bound:
+    - If RH holds, `κ = 1`.
+    - If RH fails, Weil's criterion should make `λ₁(a) < 0` for large `a` (`λ₁` is antitone, `lam_antitone`). The finite range of `a` is then absorbed into `K`.
+  - **What is missing.** That needs the converse of Weil's criterion for infinitely many off-line zeros. The pilot proves it only for finitely many (`rh_of_weil_finite`, round 157). Its twin-probe proof needs a zero of maximal `|Im t|`, which need not exist when there are infinitely many. (Closed in round 220: `WeilLandau.rh_of_weil`, then `KaiserNine.lam_nine`.)
+  - **The other route** is zero-density estimates: Ingham's exponent is already enough, but it is far from the pilot.
+- **The factor `a + 1`: zero density.** Removing it needs the zero–prime correlation seen in the numerics, not a density bound. The numerics suggest the trial's true prefactor has no factor `a`.
+- **The lower bound.** Any lower bound on `λ₁` is RH-strength.
+
+**Check 4.**
+- **Acknowledged (classical).** The Poisson/`Re ξ′/ξ` positivity bound on zero sums is classical (it is how `N(T+1) − N(T) ≪ log T` is proved; see Titchmarsh, ch. 9). So are regularised Plancherel and Schur's test. The rate and the `e^{9a}` prefactor are Connes 2026 (heuristic, §6.4).
+- **New here.**
+  - A machine-checked upper bound on `λ₁` at Connes' rate with prefactor `(a+1)e^{10a}`, with no RH input.
+  - The isolation of the whole off-line-zero loss in the single factor `κ`.
+  - The numerical evidence that the trial has no factor `a`, and that this comes from prime-side cancellation.
+  - I checked novelty against Connes 2026 only.
+
+**Bearing on RH:** none. `lam_prefactor` is an upper bound on `λ₁`, compatible with RH and with its failure.
+
+## Round 165: the Davenport–Heilbronn first-failure test (numerics, no Lean; `frontier/dh/`)
+
+**The test.** Round 161 derived the first-failure structure of Weil positivity and predicted where an off-line zero at height `γ₀` first shows up: `e^{2a₁} ≈ γ₀/(2πe)` from the cumulative zero count, or `γ₀/6.3` from the local density. It also found that the Davenport–Heilbronn function `f = ((1−iκ)/2)L(s,χ) + ((1+iκ)/2)L(s,χ̄)` (`χ` mod 5, `χ(2) = i`) breaks Markov positivity (`c(3) < 0`). Here the Weil form of `f` is computed directly, and its first failure located.
+
+**The form** (`dh_gram.py`). `weil_prime_gram.py` is generalised to any degree-1 `Λ(s) = (q/π)^{s/2}Γ((s+1)/2)F(s) = Λ(1−s)`:
+- the kernel `e^{−u/2}/sinh u` (digamma at `¾ + iω/2`);
+- the constant `ψ(¾) + log(q/π)`;
+- no pole;
+- prime weights `c(n)`, the coefficients of `−F′/F`, computed exactly in balls. For DH they are neither prime-power-supported nor `≥ 0`.
+
+Checks:
+- **χ₄.** On `L(s, χ₄)` (zeros on the line; 122 found by sign changes to height 200) the Gram reproduces `Σ_γ ĝ(γ)²` to `2·10⁻⁹` at `δ = 1` (`validate.py`).
+- **ζ baseline.** Rerun through the same code: `λ₁(a=1) = 8.6·10⁻³⁰`, as the prolate law predicts.
+- **DH.** `Λ(s) = Λ(1−s)` to `10⁻²⁵`. Spira's zero refines to `ρ₀ = 0.8085171825 + 85.6993484854i`.
+
+**λ₁ of the DH form** (`scan.py`; even cosine basis, `K = 80` and `120`, Gram at 600–800 bits, eigenvalues at ~175 digits).
+
+| `a` | 0.5 | 1.0 | 1.2 | 1.4 | 1.6 | 1.70 | 1.71 | **1.715** | 1.725 | 1.8 | 2.0 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| `λ₁^{DH}` | 0.30 | 3.4e−5 | 7.3e−9 | 1.5e−14 | 5.4e−23 | 1.1e−28 | 4.6e−30 | **−6.0e−30** | −8.3e−30 | −2.5e−7 | −0.70 |
+
+- **Where it fails.** It first crosses zero at `a₁ = 1.712–1.714` (between `δ = 3.42` and `3.43` at both `K`).
+- **Certified.** A ball Rayleigh quotient certifies `λ₁^{DH}(1.725) ≤ −7.8·10⁻³⁰ < 0` (`cert.py`), and likewise at `a = 1.8` and `2.0`. So Weil positivity provably fails for DH at support `a = 1.725`.
+- **Before the failure.** `λ₁^{DH}` decays like `e^{−(4π/5)e^{2a}}`: ζ's prolate rate divided by the conductor.
+
+**The location.** Put the conductor into round 161's count: `N(T) ≈ (T/π)log(qT/2πe)`, so the horizon is `e^{2a₁} ≈ qγ₀/(2πe) = 25.1`. The measured value is `e^{2a₁} = 30.8`, a factor 1.23. That sits inside round 119's empirical band (0.9–1.45 on the synthetic window chain). The local-density version (`a₁ ≈ 2.1`) is off. The Markov reading is refuted: `c(3) < 0` enters at `a = 0.55`, over a unit of `a` before the failure, and `c(4), c(9), …` follow without effect.
+
+**The mechanism** (`anal.py`).
+
+| `δ` | `λ₁` | peak of `\|ĝ\|` | `4Re ĝ(τ₀)²` at `ρ₀` | next three off-line zeros |
+|---|---|---|---|---|
+| 3.40 | +1.3e−28 | `t = 0` | −3.6e−30 | ≤ 2e−30 |
+| 3.45 | −7.8e−30 | `t = 0` | −9.0e−29 | ≤ 3e−31 |
+| 3.50 | −1.9e−23 (second branch) | `t = 3` | −3.4e−22 | ≤ 1e−24 |
+| 3.60 | −2.2e−7 | `t = 20.5` | −6.1e−6 | ≤ 4e−9 |
+
+- **The failing mode** is the prolate ground state itself (`|ĝ|` peaks at `t = 0`). It is not a mode localised at `γ₀ = 85.7`.
+- **What tips it.** Its tiny off-line term `4Re ĝ(τ₀)²` overtakes the on-line sum, which decays by the prolate law. This is round 161's kernel identity `Σ_on ĝ*² = −4ΣRe ĝ*(τ)²` realised numerically.
+- **Which zero.** `ρ₀` alone drives it; the next three off-line zeros (`0.6508 + 114.16i`, `0.5744 + 166.48i`, `0.7243 + 176.70i`) contribute 10²–10³ times less.
+- **Afterwards.** The ground branch turns positive again by `δ = 3.5` as the phase of `ĝ(τ₀)²` rotates. Higher prolate branches have gone negative by then, so `λ₁` stays negative (`lam_antitone`).
+
+**The Selberg-identity experiment** (`selberg.py`). This is the test round 161 left open: can an exact multiplicative identity, Selberg's `Λ·log + Λ⋆Λ = μ⋆log²`, contradict the kernel equation at a first failure?
+
+*Setup.*
+- The prime part of the form is `⟨g, P(A + A*)P g⟩`, where `A g(u) = Σ c(n)n^{−1/2} g(u + log n)` is the one-sided shift operator and `P` the window projection.
+- Selberg's identity is the operator identity `D + A² = B`. Here `D` has weights `c(n)log n` and `B` has weights `μ⋆log²`.
+- Measured at `δ = 3.427` on DH's first-failure vector `g*` and on ζ's ground state (Gram at 600 bits, quadrature on 6001 points):
+
+| | DH `g*` (`λ₁ = −1.3e−30`) | ζ ground state (`λ₁ = 2.8e−115`) |
+|---|---|---|
+| E1 = `⟨g,(PAPAP − PA²P)g⟩` (one-sided compression) | 4e−10 (quadrature noise) | 3e−11 (quadrature noise) |
+| E2 = `⟨g,(PAPA*P − P AA* P)g⟩` (mixed compression) | −0.10 | −16.3 |
+| S = `⟨g, P(D + A² − B_μ)P g⟩` (Selberg with `μ⋆log²`) | −0.52 | 7e−18 |
+| coefficient defect `c·log + c⋆c − μ⋆log²` | nonzero from `n = 2` | 0 |
+
+*Reading.*
+1. **One-sided products compress exactly.** For shifts `x, y ≥ 0` on an interval, `u ∈ W` and `u + x + y ∈ W` imply `u + x ∈ W`. So `P T_x P T_y P = P T_{x+y} P`, and E1 = 0 (the measured 1e−10 is quadrature error). **Correction to round 161:** the statement there that "compression breaks that algebra by edge terms" is wrong for Selberg's one-sided algebra.
+2. **So the windowed identity is vector-blind.** It is exactly the coefficient identity for `n ≤ e^{2a}`. With `c(1) = 0` that recursion determines `c(n)` uniquely, so on the window Selberg's identity *is* the statement `c = Λ`. For ζ it holds for every vector, kernel or not (S = 7e−18 on ζ's ground state). For DH it fails (S = −0.52) because DH's weights are not `Λ`, already at `n = 2`, and not because of anything about `g*`. The identity separates the functions but carries no information about the kernel vector beyond the weights, which the kernel equation already contains.
+3. **The kernel equation involves `A + A*`, not `A`.** Anything quadratic built from it involves the mixed products `AA*` and `A*A`, i.e. shifts by `log(m/n)`. Selberg's algebra does not govern these, and their compression defect is `O(0.1)` for DH and `O(16)` for ζ. That is 29 and 115 orders of magnitude above the kernel scale `|λ₁|`.
+
+*Verdict: the route is closed, for a structural reason.* The Selberg identity (and, by the same argument, `Λ(p^k) = Λ(p)` or any identity among the one-sided weights) reduces on the window to the values of `Λ(n)`, `n ≤ e^{2a}`. It cannot add a constraint that the kernel equation does not already contain. The two-sided terms, where the kernel equation actually lives, are outside any Dirichlet-series identity and are 10²⁹–10¹¹⁵ times larger than the precision a contradiction would need. Of the two outcomes anticipated when this test was proposed ("defect shows up at DH and stays small for ζ" versus "swamped by edge terms"), neither is quite what happens. The one-sided defect is exactly zero for both functions, and the part that is not zero is not governed by the identity.
+
+**What this settles and what it does not.**
+- It confirms round 161's picture: an off-line zero is detected by the prolate ground state once `e^{2a}` reaches about `qγ₀/(2πe)`. The failure is an exact balance between an exponentially small on-line sum and an exponentially small off-line term.
+- DH has infinitely many zeros off the line. At the first failure, though, only `ρ₀` matters, which is the finite-exception situation the pilot's Lean covers. So this is numerical evidence that the infinite-exception converse of Weil's criterion (round 164's open item) holds in the expected form. It is not a proof.
+- It closes the multiplicative-identity route that round 161 isolated as the one remaining candidate for contradicting the kernel equation.
+
+**Check 4.**
+- **Acknowledged.** Weil's criterion; Li's criterion computations for DH-type functions (literature); the first-failure structure (round 161); the detection horizon (rounds 119, 161).
+- **New here.**
+  - The DH Weil-form eigenvalues, and a ball-certified negative `λ₁^{DH}(1.725)`.
+  - The first-failure support `a₁ ≈ 1.713` and its agreement with the conductor-corrected horizon.
+  - The failing mode is the prolate ground state, driven by `ρ₀`.
+  - The DH prolate rate `4πe^{2a}/5`.
+  - The exact compression of one-sided products, which corrects round 161, and the resulting closure of the Selberg route.
+  - I have not checked whether any of these specific numbers or the closure argument appear in the literature.
+
+**Bearing on RH:** negative. This round was the test of the one candidate route round 161 left open, and the route is closed for the structural reason above. Nothing here excludes an off-line zero of ζ.
+
+## Round 166: what "in practice" would take (literature survey, no Lean; `frontier/literature/IN_PRACTICE.md`)
+
+This round surveys the literature on controlling the mixed shift terms that round 165 left as the only place the kernel equation lives. Full text, with verified quotes, is in `frontier/literature/IN_PRACTICE.md`.
+
+- **Prime-pair correlations: closed.**
+  - Every asymptotic for `Σ Λ(n)Λ(n+h)` assumes RH (Montgomery; Goldston–Montgomery; Goldston–Gonek–Montgomery).
+  - Unconditionally there are only sieve upper bounds, and log-power savings on average over `h` (Matomäki–Radziwiłł–Tao).
+  - Even the conjectured error `X^{1/2+o(1)}` is far above the `e^{−4πe^{2a}}` precision needed.
+- **Guardrails.** Neither one-sided input suffices.
+  - Broucke (arXiv:2409.10051) Thm 6.3: Beurling systems with `N(x) = Ax + O(√x log x)` can still have a positive proportion of zeros on `σ = 3/4`.
+  - Davenport–Heilbronn has a functional equation but no Euler product, and fails (round 165).
+- **The live programme.** Connes–Consani–Moscovici (arXiv:2511.22755 §8, "The missing steps") reduce RH to two steps:
+  - (i) a simple, even ground state of `QW_λ` for all `λ`;
+  - (ii) prolate approximation of that eigenvector.
+
+  The pilot already formalises the same reduction: `rh_of_eventually_simple`, `rh_of_parity_gap`, with `HypConv` in the role of (ii).
+- **Precision barrier.** Both steps need a lower bound on `λ₂(a)` for all large `a`.
+  - The Kaiser trial's residual `e^{−201.7}` exceeds `λ₂ ≈ e^{−203}` at `a = 1.5`, so it is useless for a Davis–Kahan approximation.
+  - No method in the literature bounds `λ₂` at this scale.
+
+**Bearing on RH:** none new. The survey shows the prime-correlation route is closed even under standard conjectures. It locates the remaining obstacle (a structural `λ₂` lower bound) where CCM and the pilot both already place it.
+
+## Round 167: the λ₂ lower bound, attacked directly (`frontier/lambda2/LAMBDA2.md`, numerics + paper proof, no Lean)
+
+**The three kinds of bound.**
+- **(P) `λ₂ > 0` for all `a`.** RH-strength (round 152).
+- **(N) `λ₂ ≥ −Ce^{2θa}` for all `a`.** For `θ < ½` this forces a zero-free strip `Re ρ ≤ ½ + θ`. The sketch uses round 131's twin probes: an off-line zero with real part `½ + η₀` drives `λ₁ ≤ −c e^{2η₀a}` along a sequence. `θ = ½` is the trivial floor, already in Lean.
+- **(G) `λ₂ > λ₁`.** Simplicity: not RH-strength but open (rounds 48–52, 148–151).
+
+So unconditional absolute improvements can only be finite-range.
+
+**Theorem NP (paper proof; constants in `near_pos_constants.py`).**
+- **Statement.** Given Platt–Trudgian (RH verified to `3·10¹²`), for every `0 < a ≤ ½log 67 − 10⁻⁶` (`δ ≤ 4.2047`) and every real probe, `Q(g) ≥ −10^{−18985}‖g‖²`. Hence `λ₂ ≥ λ₁ ≥ −10^{−18985}` in both sectors.
+- **Proof idea.**
+  - Split `Q = 2G(i/2) + (1/2π)∫|ĝ|²σ_a` with an entire cutoff `w = 1_{[−T₂,T₂]} * c(sin αy/αy)^{2m}`, of type below the gap to the next prime power.
+  - The explicit formula for `|ĝ|²w` sees only primes `≤ e^{2a}`. Its zero sum is `≥ 0` below `3·10¹²` (Platt–Trudgian).
+  - The remainder is `≥ 0` wherever `σ_a ≥ 0`, i.e. above Zhu's threshold `T₁ = 2πe^{A_a}` (`2.41·10¹²` at `a*`).
+  - The only negative terms are the cutoff's transition errors, of order `(αX)^{1−2m}` with `X ≈ 3·10¹¹`.
+  - Monotonicity (`lam_antitone`) covers all smaller `a`.
+- **How it compares.**
+  - Against the truth: `λ₁(a*) ≈ 10^{−366}`, so the bound is uselessly low.
+  - Against the trivial floor (`≈ −28`): it is about 19 000 orders of magnitude better.
+  - Reach: `δ = 4.2`, against the pilot's certified `2.07` and Zhu's `1.6`.
+
+**The one missing step to unconditional Weil positivity at `δ ≤ 4.2`.** A sampling inequality on `PW_a` at the zeros up to `T₂`, with constant `≫ 10^{−18985}`. The truth is about `10^{−366}`. It needs local zero-spacing data up to `2.4·10¹²` (max gap `< π/a`); Trudgian's `S(T)` bound alone gives gaps below about 3, which is not enough.
+
+**Barrier.** The reach grows like `δ_max ≈ 2 log(log H₀/4)` in the verification height: doubly logarithmic.
+
+**Illustration (Davenport–Heilbronn).** After the first failure, `λ₁^{DH}` goes `−8·10⁻³⁰ → −0.71` over `a = 1.725 → 2.0`, and a second negative eigenvalue appears at `a = 2.0`.
+
+**Comparative bound (G).** Nothing new.
+
+**Check 4.**
+- **Acknowledged.** (P), (G), the threshold `T₁` (Zhu; round 47), the explicit formula, and the Platt–Trudgian and Trudgian bounds.
+- **New as far as checked.** The band-limited split, Theorem NP, the (N) barrier sketch, and the missing sampling step.
+- **Literature.** The closest analogue found is Oesterlé's unpublished Li-coefficient statement "RH to height T₀ ⟹ λₙ > 0 for n < T₀²" (quoted by Voros, arXiv:2204.01036). No windowed Weil-form analogue was found. Novelty is not established.
+
+**Bearing on RH:** none. (N) for all `a` is zero-free-strip-hard, and the finite-range bound's reach grows only doubly logarithmically in the verification height.
+
+## Round 168: the ball's d-slices, discretised self-dually, d = 2–8 (`PREREG_isodual.md`, `klatticeslice.py`, `kisodual_p3.py`)
+
+**Registered in `1c52bb6`, before any zero was computed.**
+
+**What was tested.** The owner's intuition is that the arithmetic is the imperfection of discretising the infinite-dimensional ball. Round 92 tested only `ℤ^d`. Here each d-slice (the Gaussian on ℝ^d, by Poincaré–Borel) is discretised on every lattice in a fixed list of **isodual** lattices (`L* ≅ L`, covolume 1). Isoduality is exactly what keeps the Gaussian's Fourier self-duality under Poisson summation, and so gives a centre line `Re s = d/4`.
+
+**Validation.**
+- Isoduality holds to `1e-56`.
+- `A₂` matches `6(2/√3)^{−s}ζ(s)L(s,χ₋₃)` and `E₈` matches `240·2^{−s}ζ(s)ζ(s−3)`, to `1e-40`–`1e-56`.
+
+**Results** (`isodual_results.jsonl`; `T = 40`, all zeros by the argument principle, line zeros by sign changes):
+
+| d | lattice | all | on `Re s = d/4` | off | |
+|---|---|---|---|---|---|
+| 2 | ℤ² | 20 | 20 | 0 | **pass** |
+| 2 | A₂ | 19 | 19 | 0 | **pass** |
+| 3 | ℤ³ / ℤ⊕A₂ | 20 / 19 | 10 / 13 | 10 / 6 | fail |
+| 4 | ℤ⁴ / D₄ / A₂² | 20 / 16 / 18 | 8 / 4 / 6 | 12 / 12 / 12 | fail |
+| 5 | ℤ⁵ / ℤ⊕D₄ / ℤ⊕A₂² | 20 / 16 / 19 | 8 / 6 / 7 | 12 / 10 / 12 | fail |
+| 6 | ℤ⁶ / A₂³ / A₂⊕D₄ | 21 / 19 / 15 | 9 / 7 / 11 | 12 / 12 / 4 | fail |
+| 7 | ℤ⁷ / ℤ⊕A₂³ / ℤ⊕A₂⊕D₄ | 21 / 19 / 17 | 9 / 7 / 5 | 12 / 12 / 12 | fail |
+| 8 | ℤ⁸ / E₈ / D₄² / A₂⁴ | 21 / 12 / 16 / 19 | 9 / 0 / 4 / 7 | 12 / 12 / 12 / 12 | fail |
+
+**P3 (displacement)** (`isodual_p3.txt`). For `D₄`, `A₂²`, `ℤ⁴` and `E₈`, `|Ξ_L|` at `ζ`'s first three zero ordinates is `1e-38`–`1e-48` of its value 0.3 away, exactly at `Re s = ½` and at `d/2 − ½`. So the off-line zeros are ζ's own zeros, displaced by `±(d − 2)/4` from the centre.
+
+**Verdict: P1, P2 and P3 all hold as registered.**
+- Among self-dual discretisations, only the 2-dimensional slice (together with the 1-dimensional one, round 92) gives a consistent arithmetic.
+- In every `d ≥ 3`, every lattice tested fails, 17 of 17.
+- The failure does not depend on the lattice. It is set by the modular weight `k = d/2`: the Eisenstein part carries ζ displaced by `(k − 1)/2 = (d − 2)/4`, which vanishes only at `d = 2`.
+
+**Reading.**
+- **The intuition, sharpened and confirmed.** Discretising the ball's slice self-dually does produce ζ's zeros in every dimension tested. They lie on the slice's centre line only in `d ≤ 2`. In `d ≥ 3` they appear as symmetric pairs displaced by `±(d − 2)/4`.
+- **What is exceptional about `d = 2`.** It is the slice where discretisation (weight 1) does not shift the arithmetic. The consistent lattices there are the rings of integers `ℤ[i]` and `ℤ[ω]` of the complex composition algebra.
+- **What this does not give.** An Euler product, or anything past what ζ already has. The consistent cases just return ζ (times `L(χ)`), whose positivity is the open problem.
+
+**Check 4.**
+- **Acknowledged.** Rounds 92–93 (`ℤ^d`, `E₈`). The theta series of isodual lattices are modular forms of weight `d/2`, and Eisenstein Dirichlet series are products of shifted ζ/L (standard).
+- **New here.** The pre-registered test over the root-lattice isodual family, and the lattice-independence of the `d ≥ 3` failure.
+
+**Bearing on RH:** none.
+
+## Round 169: the grid on the sphere and in the ball, d = 2, 3, 4 (`frontier/nullvec/kresidual.py`, numerics, no Lean)
+
+**The owner's idea.** Placing the grid on a circle, sphere or ball leaves an imperfection, and that imperfection *is* the arithmetic.
+
+**Exact form (classical, restated).**
+- `r_d(n)` counts the grid points of `ℤ^d` *on* the sphere of radius `√n`.
+- The residual of the count *in* the ball, `Δ_d(x) = N_d(x) − V_d x^{d/2}`, has Mellin transform `Z_d(s)/s`, where `Z_d = Σ r_d(n)n^{−s}` is the Epstein zeta (up to the volume pole).
+- So the residual carries exactly the arithmetic that rounds 92 and 168 studied through its zeros.
+
+**Computed to `x = 2·10⁶`.**
+
+| d | size of the residual | `r_d(n)/r_d(1)` multiplicative on coprime `m, n < 300` | arithmetic |
+|---|---|---|---|
+| 2 | `≈ x^{0.31}` (circle problem; conjectured `x^{1/4+ε}`) | 27019 / 27019 | `4ζ(s)L(s,χ₋₄)`: only primes `≡ 1 (mod 4)` split (Fermat) |
+| 3 | `≈ x^{0.60}` | **4054 / 27019** | class numbers; no Euler product |
+| 4 | `≈ x^{1.03}` | 27019 / 27019 | `8(1 − 4^{1−s})ζ(s)ζ(s−1)`: all primes, via `σ(n)` (Jacobi) |
+
+**Checks.**
+- Summation by parts holds to `1e-16`.
+- The Dirichlet sums match the closed forms at `s = d/2 + 1 + 2i` to `2–3·10⁻⁷`, the truncation error at `2·10⁶`.
+- Jacobi's formulas for `r₂` and `r₄` are reproduced exactly for `n ≤ 2000`.
+
+**Reading.**
+- **Every slice leaves a residual, and the residual is always an arithmetic.** It gets larger with dimension.
+- **Whether the arithmetic has an Euler product** depends on the dimension: yes in 2D and 4D, no in 3D, where the sphere's grid points are counted by class numbers and multiplicativity fails for 85% of coprime pairs.
+- **The 4D residual is the most complete arithmetic:** every prime enters, and it contains ζ itself. But it enters shifted, with `ζ(s−1)` alongside `ζ(s)`, so its zeros are off the slice's centre (round 168, P3).
+- **The 2D residual is centred but partial.** It is `ζ·L(χ₋₄)`, which contains ζ with its zeros on the line only if RH holds.
+- **The imperfection reproduces ζ; it does not constrain it.** The residual's zeros are ζ's zeros. Nothing in the geometry of placing the grid forces them onto the line.
+
+**Check 4.** All acknowledged, classical: Gauss, Jacobi, Hardy–Landau–Voronoi (circle problem), and the Epstein-zeta Mellin identity. Nothing here is new mathematics. The round tests the owner's reading against it.
+
+**Bearing on RH:** none.
+
+## Round 170: the spacetime-signature grid `ℤ^{3,1}` (`PREREG_lorentz.md`, `frontier/nullvec/klorentz.py`)
+
+**Registered in `dd2f552`, before any count was computed.**
+
+**Measurement.** The grid-point density on each hyperboloid `x² + y² + z² − t² = n`:
+- counted as `N_n(T) = Σ_{|t|≤T} r₃(n + t²)`, with `r₃` exact to `2·10⁶`;
+- divided by the real volume;
+- at `T = 1000` and `T = 1400` (spread `≤ 0.012`), for odd `|n| < 400`, both signs.
+
+**Result: L1 and L2 fail as registered.**
+- The uniform prediction `δ(n)/δ(1) = Σ_{d|n}χ₋₄(d)/d` is off by up to 2.4 (median 0.18).
+- Multiplicativity fails on odd coprime pairs by up to 0.83 (101 pairs).
+- By the verdict rule this is "no Euler product".
+
+**Post hoc** (`klorentz_posthoc.txt`; identified after seeing the data, not a registered prediction).
+- **The failure is purely 2-adic.** Write `δ(n) = C(n mod 4)·Σ_{d|n}χ₋₄(d)/d`, with one constant for `n ≡ 1` and one for `n ≡ 3 (mod 4)`, and the same constants for both signs of `n`. This fits every odd `|n| < 400` to `0.5%`, and `C₁/C₃ = 2.9997`.
+- **So the odd-shell Dirichlet series is a sum of two Euler products with opposite shifts:**
+  `Σ_{n odd} n·δ(n)n^{−s} = a·ζ_odd(s−1)L(s,χ₋₄) + (a/2)·ζ_odd(s)L(s−1,χ₋₄)`.
+  The weights are measured as `b/a = 0.5000`, and the partial sums match at `s = 3.5 + 2i` to `3.5·10⁻⁴`.
+
+**Reading.**
+- **The owner's hunch, partly borne out.** The spacetime-signature grid does contain an **unshifted ζ(s)**, which the registration did not predict.
+- **But only inside a sum.** It comes paired with its mirror (`ζ(s−1)`, and `L(χ₋₄)` swapped between shifted and unshifted), added together with weights 2 : 1.
+- **A sum of Euler products has no Euler product.** That is the Davenport–Heilbronn situation, where off-line zeros are generic. The zeros of this sum were not computed here; that is the natural next registration.
+- **The ½ displacement is unchanged.** Both summands sit at `±½` about the centre `Re s = 1`.
+
+**Check 4.**
+- **Acknowledged.** Siegel's theory of indefinite forms and local densities: the `n mod 4` dependence is the 2-adic density of an odd unimodular lattice. The `χ₋₄` character comes from discriminant `−1`.
+- **New here.** The measurement, and the explicit two-term decomposition for `ℤ^{3,1}` as the pilot's test of the owner's idea.
+
+**Bearing on RH:** none.
+
+**Correction to rounds 168–170 (the "±½ displacement").**
+- **Unconditional:**
+  - the factorisations (for example `Z₄ = 8(1 − 4^{1−s})ζ(s)ζ(s−1)`, Jacobi);
+  - the pairing of each ζ-zero `ρ` with its mirror `d/2 − ρ` about the centre `Re s = d/4` (in 4D, `ρ ↦ 2 − ρ`);
+  - the band each copy lies in.
+- **Conditional on RH:** the distance of each pair from the centre. A zero `β + iγ` of ζ gives a pair at distance `(d − 2)/4 + ½ − β` either side. That equals `(d − 2)/4` exactly when `β = ½`.
+- **What P3 of round 168 checked:** only ζ's first three zeros, which are known numerically to be on the line.
+- **So:** "±(d − 2)/4" should be read as "±(d − 2)/4 under RH". In 4D, RH is equivalent to "every mirror pair sits exactly ½ from the centre". The geometry restates RH; it does not derive it.
+
+## Round 171: all ball dimensions, weighted by sphere area (`PREREG_sphereweighted.md`, `frontier/nullvec/ksphereweighted.py`)
+
+**Registered in `d54bdc3`, before any value was computed.**
+
+**The object.** `G(z) = Σ_{d≥1} S_{d−1}[Ξ(z + ib_d) + Ξ(z − ib_d)]`, with `b_d = (d − 2)/4` and `S_{d−1} = 2π^{d/2}/Γ(d/2)`.
+
+The sum over dimensions collapses to a single multiplier on Riemann's kernel:
+- `G(z) = 8∫₀^∞ Φ(u)W(u)cos(zu)du` (with `Ξ = 4∫₀^∞ Φ cos`);
+- `W(u) = e^{−u/2}f(√π e^{u/4}) + e^{u/2}f(√π e^{−u/4})`;
+- `f(x) = Σ_{d≥1} x^d/Γ(d/2) = x/√π + x²e^{x²}(1 + erf x)`;
+- so `W(u) ≈ 2π e^{π e^{|u|/2}}`.
+
+**Validation.**
+- `W` matches `Σ_{d≤200}` to `1e-50`.
+- The integral form of `G` matches the direct sum over `d ≤ 200` (ξ at shifted points) to `1e-51`.
+
+**Results** (`ksw_real.json`, `ksw_disc.json`).
+- **Real zeros on (0, 40):** 7, at `12.236, 18.733, 23.313, 27.955, 31.554, 35.417, 38.914`. `G(0) = 312.8 > 0`.
+- **All zeros in `|z| < 40`** (argument principle): 14.0 = 2 × 7.
+
+| | Result |
+|---|---|
+| **Q1** (real-rooted in the disc) | **holds** |
+| **Q2** (not ζ's zeros) | **holds**: the nearest ζ-zero is 1.3–2.5 away in every case. Each zero of `G` sits below the nearest ζ-zero, like round 94's octonion superposition. |
+| **Q3** (density differs) | **holds**: 7 against ζ's 6 below 40 |
+
+**Reading.**
+- The sphere-weighted superposition of every ball's mirror pair is a real-rooted entire function in the tested disc, as expected from the dominance of the large-`d` terms.
+- It is a new function, not ζ: its zeros are a different, denser sequence.
+- As registered, no outcome here bears on RH. Real-rootedness of a positive sum of mirror averages neither implies nor is implied by RH, and `W` has infinite order, so the Pólya–de Bruijn multiplier theorems do not apply.
+- The closed form is the one structural finding: summing sphere areas over all dimensions gives back a Gaussian, `e^{πx²}` with `x² = e^{u/2}`. It sits next to Riemann's `e^{−πn²e^{2u}}` at a different scale (`e^{u/2}` against `e^{2u}`), so the two do not cancel.
+
+**Check 4.**
+- **Acknowledged.** de Bruijn 1950; round 94 (the 8D superposition); the Mittag-Leffler-type sum `Σ z^k/Γ(k + ½)`.
+- **New here.** The sphere-weighted dimension sum `G`, its closed-form multiplier `W`, and the measured zeros.
+
+**Bearing on RH:** none.
+
+## Round 172: the grids physically rescaled to the layer area ratio (`PREREG_densityscaled.md`, `frontier/nullvec/kdensityscaled.py`)
+
+**Registered in `21929cc`, before any value was computed.**
+
+**The object.** Each dimension's grid is rescaled to point density `ρ_d = S_{d−1}/S_{d−2}` (`d ≥ 2`). That multiplies its mirror pair by `ρ_d^{1/2}e^{ic_d z}`, with `c_d = 2 log(ρ_d)/d`:
+
+  `G_B(z) = Σ_d S_{d−1}ρ_d^{1/2}e^{ic_d z}[Ξ(z + ib_d) + Ξ(z − ib_d)] = ∫K(v)e^{izv}dv`
+
+with `K` real and not even.
+
+**Validation.** The integral form matches the direct ξ-sum to `1e-46`–`1e-49`. `G_B(3) = 214.6 + 27.3i` is complex, as predicted.
+
+**Results** (`kds_disc.json`, `kds_locate.json`). The argument principle gives 28 zeros in `|z| < 40`. All 28 were located.
+
+| | Result |
+|---|---|
+| **B1** (no real zeros) | **holds**: all 28 have `|Im z| ≥ 0.38` |
+| **B2** (pairs `z, −z̄`) | **holds**: 28 of 28 |
+| **B3** (between 10 and 20 zeros) | **fails**: 28, twice round 171's 14 |
+| **B4** (real-rootedness lost) | **holds**: 28 of 28 have `|Im z| > 0.1` |
+
+**Structure (post hoc).** The zeros form two rows of 7 per side.
+- **Upper row, `Im z ≈ +0.38` to `+0.91`:** real parts `11.84, 17.82, 22.94, 27.34, 31.23, 34.76, 38.52`. These are round 171's real zeros (`12.24, …, 38.91`), each lifted off the axis and moved slightly left.
+- **Lower row, `Im z ≈ −2.3` to `−3.4`:** real parts `3.08, 8.68, 14.46, 20.26, 25.16, 30.97, 36.18`. This row is new. The phases `e^{ic_d z}` grow in the lower half-plane (`c₂ = log π` for `d = 2`), which creates a second family of zeros there. That explains B3's failure.
+
+**Reading.**
+- As expected, physically rescaling the grids breaks each slice's self-duality. The sum loses its reality on ℝ.
+- The real zeros of the self-dual superposition (round 171) are lifted off the axis, and a new row of zeros appears.
+- Density scaling alone never moves an individual lattice's zeros. The effect is entirely in how the dimensions combine once their symmetry centres no longer agree.
+
+**Check 4.** New here: the construction and the measurement. It is an owner-specified variant; no literature is involved.
+
+**Bearing on RH:** none.
+
+## Round 173: the "critical gap" curiosity, explained (`frontier/nullvec/kcritical.py`, exploratory, not pre-registered)
+
+**The curiosity** (round 172 follow-up). Round 171's sum over dimensions produced the multiplier `e^{π e^{u/2}}`. With mirror gaps `b_d = κ(d − 2)` in place of `(d − 2)/4`, it becomes `≈ 2π e^{π e^{2κ|u|}}`. At `κ = 1` this exactly cancels the leading `e^{−π e^{2u}}` of Riemann's kernel `Φ`.
+
+**Measured** (`kcritical.txt`): `|T_d(0)|`, where `T_d = S_{d−1}[Ξ(z + ib_d) + Ξ(z − ib_d)]`, for `d = 10, 20, 40, 80`:
+
+| κ | `d = 10` | 20 | 40 | 80 | the sum over `d` |
+|---|---|---|---|---|---|
+| 0.25 | 27.8 | 0.81 | `1.0e-6` | `1.1e-23` | converges (round 171) |
+| 0.50 | 36.5 | 3.0 | `1.5e-4` | `1.0e-16` | converges |
+| 0.75 | 57.0 | 22.4 | 0.17 | `9.1e-8` | converges |
+| **1.00** | 104 | 291 | 745 | 1835 | **diverges polynomially** (`∝ d^{5/4}`) |
+| 1.25 | 220 | 5960 | `9.8e6` | `3.9e14` | diverges super-exponentially |
+
+**The explanation is round 142's identity, `π^{−s/2}Γ(s/2) = 2/S_{s−1}`.**
+- At gap `κ(d − 2)`, the d-th term evaluates ξ at `s ≈ κd`. Its archimedean factor is then `≈ 1/S_{κd−1}`, while the weight is `S_{d−1}`.
+- For `κ = 1` the sphere-area weight and ξ's Gamma factor are reciprocal, and cancel up to a polynomial. So `κ = 1` is exactly the edge of convergence of the dimension sum.
+- The measured `T_d` at `κ = 1` equals its Gamma-factor part to 6 digits.
+
+**What survives at the critical gap.**
+- The arithmetic part is `ζ(s) − 1` along `s = d − 3/2`, which is `2.7e-6` at `d = 20` and `2e-24` at `d = 80`.
+- That is ζ deep in its half-plane of absolute convergence, where it has no zeros and carries no RH content.
+- So the cancellation happens exactly where the arithmetic is trivial.
+
+**Reading.**
+- The "touching" of the ball tower and Riemann's theta function is the reciprocity between sphere area and Gamma factor, already recorded in round 142. It is not a new mechanism.
+- At the critical spacing, the geometry cancels its own image (the Gamma factor) and leaves only ζ's trivially convergent Dirichlet series.
+
+**Check 4.** Acknowledged: the round 142 identity, and Stirling's formula. New here: the convergence threshold `κ = 1` of the sphere-weighted dimension sum, and its identification with that identity.
+
+**Bearing on RH:** none.
+
+**Correction to round 173.** The ladder is `s_d = d − 3/2`, i.e. `½ (d = 2), 3/2 (d = 3), 5/2, …`.
+- **It starts on the critical line.** The 2D rung is the bare `ζ(½ + it)`, with the Gamma factor cancelled. Only the high rungs lie in the trivial region where `ζ ≈ 1`; the text above quoted only those (d = 20, 80).
+- **Corrected reading.** At the critical gap, the sphere-weighted tower gives ζ on the ladder `½ + k`, stripped of its Gamma factor: `F(t) = w₀ζ(½ + it) + Σ_{k≥1} w_k[ζ(½ + k + it) − 1]`, regularised.
+- **What stripping the Gamma factor costs.** It removes the functional-equation symmetry that the geometry supplied. The isolated arithmetic keeps the Euler product but loses the pairing that could hold zeros on the line (the round 166 guardrails).
+- **Bearing on RH:** unchanged, none.
+
+## Round 174: are the octonionic and quaternionic mirror averages blind to an off-line zero? (`PREREG_fakezero.md`, `frontier/nullvec/kfakezero.py`)
+
+**Registered in `225fd70`, before any value was computed.**
+
+**Test.** A fake `Ξ̃` equal to Riemann's `Ξ`, except that its first two zeros (14.13 and 21.02) are replaced by a planted off-line quadruple at `17.58 ± iη`. That is a deliberate RH violation.
+- **Construction check:** `Ξ̃` vanishes at the planted point, and not at the old zero (`0.0024`, against `6e-44` for the true `Ξ`).
+- **Measured:** the mirror averages `G_b = Ξ̃(t + ib) + Ξ̃(t − ib)`. Zeros in `|z| < 30` by the argument principle, against real zeros by sign changes.
+
+**Results** (`kfakezero_results.jsonl`).
+
+| gap `b` | `η = 0` (true Ξ) | `η = 0.3` (planted violation) | `η = 0.45` |
+|---|---|---|---|
+| `3/2`, 8D octonionic | 8/8 real | **8/8 real** | **8/8 real** |
+| `½`, 4D quaternionic | 6/6 real | **6/6 real** | **6/6 real** |
+| `¼` ("3D") | 6/6 real | 2/6 real: **detects** | 2/6 real: **detects** |
+
+**F1 holds, F2 holds, F3 is observed:**
+- **F1:** the octonionic average is real-rooted with and without the planted violation.
+- **F2:** so is the quaternionic average.
+- **F3:** the `b = ¼` average loses real-rootedness when `η > b`, and 4 of its 6 zeros leave the axis.
+
+**Reading.**
+- The octonionic (8D) and quaternionic (4D) structures give the same verdict whether or not RH holds. Their clean real-rootedness comes from de Bruijn's theorem and the width of the critical strip (all zeros lie within ½ of the line), not from where the zeros are.
+- They cannot detect, and so cannot constrain, the position of ζ's zeros.
+- Only a mirror gap smaller than the violation (`b < η`) can see it, and as `b → 0` that is exactly RH (the de Bruijn dial).
+- The octonions keep appearing because the experiments asked for multiplicative ball arithmetic (Hurwitz 1, 2, 4, 8). They inherit ζ's zeros (`E₈ = 240·2^{−s}ζ(s)ζ(s−3)`) without constraining them.
+
+**Check 4.** Acknowledged: de Bruijn 1950, which predicts F1 and F2. New here: the planted-violation demonstration, against the owner's octonion question.
+
+**Bearing on RH:** none.
+
+## Round 175: the primes' "grinding", seen directly (`frontier/grind/`, demonstration, classical)
+
+**What.**
+- The grinding error is `E(u) = (ψ(x) − x)/√x`, with `x = e^u`, computed exactly up to `x = 10⁸` (sieve; 65 536 log-spaced samples).
+- Its spectrum on the log scale uses a Hann window.
+- Its loudness is the max `|E|` per decade.
+- Plot: `frontier/grind/grinding.png`.
+
+**Results** (`kgrind_results.json`).
+- **Tones:** every spectral peak above 25% of the maximum, 12 of them, sits on a zero of ζ: 14.13, 21.02, 25.01, 30.42, 32.93, 37.59, 40.92, 43.32, 48.01, 49.77, 52.97, 56.45. The largest offset from the nearest zero is 0.007.
+- **Explicit formula:** the first 200 zeros alone reproduce `E(u)` at correlation 0.955.
+- **Loudness:** the max `|E|` per decade is 0.77, 0.80, 0.71, 0.70, 0.66, 0.72 for `10²` through `10⁸`. It is flat. This is the `√x` "volume" that RH asserts holds forever. An off-line zero `β + iγ` would add a tone growing like `x^{β−½}` in these units.
+
+**Reading.**
+- The owner's "grinding gears" picture, made literal: the prime-count error looks like noise, but it is a superposition of tones whose frequencies are exactly ζ's zero heights.
+- RH is equivalent to: every tone has the same volume law, so `|E|` never grows.
+- This is the classical Riemann–von Mangoldt explicit formula, verified numerically to `10⁸`. It checks the volume only up to `10⁸`, so it says nothing beyond that.
+
+**Check 4.** Acknowledged, all classical (Riemann 1859; von Mangoldt; the explicit formula). It is a demonstration for the owner, and nothing here is new.
+
+**Bearing on RH:** none.
+
+## Round 176: gear slippage, the Mertens function (`frontier/grind/kslip.py`, demonstration, classical)
+
+**The owner's picture.** Each prime is a gear whose teeth are 1D ridges spaced `p` apart. Rolling along the integers, gear `p` touches every multiple of `p`. Score `n`:
+- `−1` / `+1` for an odd / even number of distinct gears touching it once each;
+- `0` if one gear touches it twice (`p² | n`, a jammed tooth).
+
+That score is `μ(n)`, and the net slippage `M(x) = Σ_{n≤x} μ(n)` is the Mertens function. RH ⟺ `M(x) = O(x^{½+ε})`.
+
+**Computed exactly to `10⁸`** (`kslip_results.json`, `slippage.png`).
+- **Size:** `max |M|/√x` per decade is 0.57, 0.47, 0.46, 0.43, 0.42, 0.46 for `10²` through `10⁸`, i.e. random-walk size. `M(10⁸) = 1928`.
+- **Tones:** spectral peaks at 14.13, 21.02, 25.01, 30.42, 32.94, 37.59, 40.92, 43.33, 48.01, 49.77, the same pitches as round 175's grinding (ζ's zero heights).
+- **Volumes:** relative tone strengths, read at each `γ`, against the explicit-formula prediction `2/|ρζ′(ρ)|` computed from ζ alone. They agree to 3 decimals for all 12 zeros, from `1.000, 0.469, 0.327, 0.283, 0.246, …` down to `0.084`.
+  - Caveat: the amplitudes were read off at the known `γ`; the peak positions were located blind.
+
+**Reading.**
+- The slippage is the same chord as the grinding: the same pitches, with each note's volume set by how steeply ζ crosses zero there.
+- **The Mertens conjecture `|M| < √x` is false** (Odlyzko–te Riele 1985, at astronomically large `x`; recalled). So "never exceeds random-walk size by a constant" is too strong. RH asserts only `x^{½+ε}`: the loudness may creep up, but slower than any power.
+
+**Check 4.** All classical (Möbius, Mertens; the explicit formula for `M`; Odlyzko–te Riele). A demonstration for the owner; nothing new.
+
+**Bearing on RH:** none.
+
+## Round 177: what sets a tone's volume (`frontier/grind/kslope.py`, demonstration, classical)
+
+**The owner's question.** Is the tone volume `2/|ρζ′(ρ)|` just an angle or hypotenuse between nearest points?
+
+**Two factors.**
+- **`|ρ| = √(¼ + γ²)` is literally a hypotenuse.** Its legs are ½ (distance from the imaginary axis to the critical line) and `γ` (height). This factor alone makes the volumes fall off roughly like `1/γ`.
+- **`|ζ′(ρ)|` is the slope at which ζ crosses zero.** By the Hadamard product it is approximately a product over the *other zeros*. So it is set by the nearest points in the zero set, not in the integer grid.
+
+**Measured over 299 zeros** (`kslope_results.json`). First the smooth growth with height is removed by regressing `log|ζ′(ρ)|` on `[1, log log γ]`. Then, with neighbour gaps normalised by the mean density `log(γ/2π)/2π`, the residual correlates with:
+- the log of the product of the left and right gaps: **0.947**;
+- the log of the nearest gap: **0.849**.
+
+**Reading.** Zeros with close neighbours have a shallow crossing and so a loud tone; isolated zeros are quiet. The volumes carry the local spacing of the zeros, which is random-matrix-like.
+
+**Check 4.** Classical: the Hadamard product, and the known link between small `|ζ′(ρ)|` and close zero pairs (Lehmer pairs; Conrey, Hughes–Keating–O'Connell moments). The numbers are a demonstration; nothing new.
+
+**Bearing on RH:** none.
+
+## Round 178: fake gear sets, including tilted higher-dimensional ones (`frontier/fakegears/`, pre-registered)
+
+Pre-registration: `PREREG_fakegears.md` (commit 173d5fc, before any run).
+
+**The owner's hypothesis G ("locked gears").** How far the prime count drifts is limited by how regular the integers are (the floor): `θ_D ≤ max(½, θ_F) + 0.10`.
+
+**Setup.** 17 systems run to `10⁷` (`kfakegears_results.json`):
+- real primes in dimensions 1, 2 and 4, where dims 2 and 4 have tilted teeth (Gaussian split pairs; `p + 1` teeth per norm for `ζ(s)ζ(s−1)`);
+- Cramér fake primes, random tilts, and both together (3 seeds each);
+- two planted systems, real primes greedily modified to drift `∓2Re(x^ρ/ρ)` with `ρ = ¾ + 5i`: Z1 is the zero phase, P1 the pole phase.
+
+**Exponents** (dyadic block maxima, `2^14`–`2^23`, ζ scale):
+
+| system | θ_F (floor) | θ_D (drift) |
+|---|---|---|
+| R1 real, dim 1 | 0.00 | 0.48 |
+| R2 real Gaussian, dim 2 (tilted pairs) | 0.30 | 0.48 |
+| R4 real `ζζ(s−1)`, dim 4 (p+1 tilts) | 0.02 | 0.475 |
+| C1 Cramér (3 seeds) | 0.34–0.42 | 0.39–0.61 |
+| T2 random tilts | 0.30–0.44 | 0.44–0.62 |
+| CT2 fake primes + random tilts | 0.35–0.42 | 0.33–0.63 |
+| C4 fake primes, p+1 tilts | 0.38–0.48 | 0.44–0.60 |
+| Z1 zero-phase plant | 0.67 | 0.70 |
+| P1 pole-phase plant | 0.68 | 0.74 |
+
+**Scoring.**
+- **E1 held.** Real systems have drift ≈ ½ in every dimension. Tilting does not change the drift. It roughens the floor in dim 2 (0.30, the circle problem) but not in dim 4.
+- **E2 failed as stated.** Five of twelve fake drift exponents fall outside [0.40, 0.60], and three floor exponents fall below 0.35. The fake drift slopes scatter ±0.15 across seeds around ½, so my band was too tight. Qualitatively, the fakes' floors (0.30–0.48) are far rougher than the real dim-1 and dim-4 floors (≈ 0).
+- **E3 held** (P1).
+- **E4 failed.** This was the discriminating prediction. I predicted a floor exponent ≤ 0.60 for the zero-phase plant; it came out at 0.67. The floor moves with a planted zero just as it does with a planted pole.
+- **G, by the pre-registered rule: falsified.** Five random fakes have margins 0.101–0.135 above the 0.10 tolerance (C1 s3, T2 s1, CT2 s1 and s3, C4 s3). All five lie inside the ±0.15 seed-to-seed slope noise. On the noise-free plants, G held (margins 0.03 and 0.06). **Verdict: G failed on the pre-registered rule, but only because its tolerance was set tighter than the seed-to-seed noise. On the planted systems, the only non-random test, the evidence favours G at this range.**
+
+**Post-hoc (not pre-registered; `kfakegears_posthoc.py`, `kfakegears_posthoc.json`).** Fit the planted tone `x^{3/4}cos(5 log x)` in floor and drift over three decades.
+- The drift tone amplitude is 0.398 (Z1) and 0.393 (P1), against the planted 0.396.
+- The floor carries the same tone. The floor/drift ratio is 0.073, 0.059, 0.049 on `[10⁴,10⁵]`, `[10⁵,10⁶]`, `[10⁶,10⁷]`. Ratio × `log x` stays at 0.73–0.76 for both plants.
+- So the floor inherits the drift, divided by `log x`, whatever the phase. A `1/log x` factor does not change the exponent, so at the level of exponents the floor and drift stay locked in these systems.
+- Why a planted *zero* shows up in the floor at all is open here. Exact Beurling theory puts a zero of the gear zeta into the drift but not the floor. One possibility (unverified) is that an exact zero factor is not realisable with positive integer gears, so the discrete realisation leaks it into the floor.
+
+**Check 4.**
+- Classical: Cramér's model; Beurling systems; the Gauss circle problem.
+- Acknowledged: the discreteness cost in Beurling constructions (Broucke, round 166).
+- New here, as finite-range numerics only: the tilted real systems' drift/floor exponents; the failed E4 prediction; the `0.75/log x` floor leakage of a planted tone, identical for zero and pole phase.
+
+**Bearing on RH:** none. These are finite-range exponent fits on toy systems. Whether a perfectly regular floor forces the drift down to `√x` is not tested here, since the real primes are the only system with such a floor.
+
+## Round 179: gear sets built floor-first (`frontier/fakegears/ksmoothfloor.py`, pre-registered)
+
+Pre-registration: `PREREG_smoothfloor.md` (commit 753a031, before any run).
+
+**Construction.** Choose the target integer count `T(x)` first. Walking up the integers, place just enough new gears at each `n` to keep the integer count on target. Run to `10⁷`; results in `ksmoothfloor_results.json`.
+
+| system | floor exponent θ_F | drift exponent θ_D | notes |
+|---|---|---|---|
+| S1: `T = x` | 0 | 0.48 | **gears = the primes exactly** (checked) |
+| `T = 1 + A(x−1)`, A = π/4 | 0.27 | 0.79 | greedy overshoots at 81% of steps |
+| A = 0.9 | 0.32 | 0.66 | max floor error 72 near 8·10⁶ |
+| A = 1.1 | 0.34 | 0.73 | max floor error 209 near 8·10⁶ |
+| A = √2, 2, e | 0.92–1.04 | 0.96–1.04 | floor cannot be held |
+| W25: `x + ½x^{1/4}cos(5 log x)` | 0.29 | 0.46 | |
+| W40: `x + ½x^{0.4}cos(5 log x)` | 0.24 | 0.54 | |
+
+**Scoring.**
+- **S1 held.** Asking for "one integer per integer" and building gears greedily gives exactly the primes. The primes are the unique gear set with the perfectly flat floor `⌊x⌋` under this rule.
+- **Sa prediction failed.** I predicted the floor would stay smooth for `A ≤ 1.1`; it does not. Products of the gears keep overshooting the target (at 81–87% of steps), and the floor ends at `x^{0.27–0.34}`. Only `A = 1` can be held exactly.
+- **H: not falsified, and never tested.** The rule was: any system with `θ_F ≤ 0.25` must have `θ_D ≤ 0.65`. The only systems that qualify, S1 and W40, have drift exponents 0.48 and 0.54. Every alternative gear set failed to reach a floor that smooth, so a perfectly smooth floor was never tested beyond the real primes.
+- **W prediction held.** The planted floor tone `½x^θ cos(5 log x)` reappears in the drift with amplitude 9.09 (W25) and 8.74 (W40), i.e. amplified 18.2× and 17.5× against the predicted `log x/0.75 ≈ 18.4` at `x ≈ 10⁶`. This is the inverse of round 178's leakage.
+  - The JSON field `drift_over_floor_tone` divides by the residual floor tone, which is near 0 because the floor follows its target. It is not this ratio.
+
+**Post-hoc (not pre-registered; `ksmoothfloor_posthoc.py`, `ksmoothfloor_posthoc.json`).** In the `A = π/4, 0.9, 1.1` systems:
+- the drift oscillates, with 63–121 sign changes and 39–56% of each block positive, so it is not a one-signed bias;
+- its size is far above `√x`: `|D(10⁷)| ≈ 37 000` for `A = π/4`, against `√x ≈ 3 200`.
+
+So these gear sets have floors well below `√x` (max error 64–209 near `8·10⁶`) yet drift at `x^{0.66–0.79}`. They break round 178's "locked gears" rule `θ_D ≤ max(½, θ_F) + 0.10` by 0.16–0.29.
+- They are not counterexamples to H: their floors (0.27–0.34) sit above H's 0.25 threshold.
+- They show that "floor below `√x`" does not lock the drift. Only the perfectly flat floor (S1, the primes) has been seen with drift ≈ ½.
+- (Inference, not computed: their gear zetas presumably have zeros near `σ ≈ 0.7–0.8`.)
+
+**Check 4.**
+- Classical: Beurling systems; the greedy/sieve view of the primes as the minimal generators of ℕ.
+- Recalled, not re-read: Hilberdink's `max(θ_N, θ_ψ) ≥ ½`.
+- New here, finite-range numerics only: floor-first gear sets with floors `x^{0.27–0.34}` and drift `x^{0.66–0.79}`; the `≈ log x/0.75` amplification of a planted floor tone into the drift.
+
+**Bearing on RH:** none. The one smooth-floor system with a proper drift is the primes, which is where we started. Near-smooth fakes drift far more, so any mechanism has to use *exact* flatness of the floor, not approximate flatness.
+
+## Rounds 180–182: the gear / lattice-ball model locked down (`frontier/fakegears/GEARS_SPEC.md`)
+
+- **Round 180.** The gear model, with each part marked forced or chosen: floor, wheels, rolling = multiplication, and the straight line on the Bohr torus that looks Brownian.
+- **Round 181.** Lattice balls from first principles. Hurwitz forces `d = 1, 2, 4, 8` if balls roll by multiplication. Shell counts for ℤ[i], ℤ[ω], Hurwitz and E₈ checked (`klatticeballs.py`), as is the count of `p + 1` wheels in 4D.
+- **Round 182.** The lumpy ball ℤ^d in every dimension. The lumpiness of each shell is exactly a product over primes for `d ≤ 8`, and fails by 10% at `d = 9` and 32% at `d = 10` (`klumpy.py`).
+
+**Check 4:** all classical (Hurwitz; Siegel; class number of ℤ^d; Deligne). **Bearing on RH:** none.
+
+## Round 183: the lattice ball tower from integers and primes (`frontier/fakegears/TOWER_FROM_INTEGERS.md`, `ktower.py`)
+
+- **Counting.** Counting points of ℤ^d, using only the list of squares, reproduces the ball volumes `π^{d/2}/Γ(d/2+1)` for `d = 1…10` to about `10⁻⁵`. The counted volume peaks at `d = 5`, and the counted sphere area at `S⁶`.
+- **Symmetry.** Poisson's `θ(1/t) = √t θ(t)` extends this to every real `d` (checked to 12 digits at `d = 0.5, 2.5, 7.26, 19, 217`). The Gamma function enters through the Laplace/Tauberian step.
+- **Primes.** The primes supply the lumps (round 182).
+- **Primes plus symmetry.** Together they force `π^{−s/2}Γ(s/2) = 2/S_{s−1}` as the unique completing factor (zero-free, order ≤ 1, up to a constant).
+- **Not reproduced.** Part 0's `d₁ = 19` and `d₂ = 217`, and its "no fifth" claim.
+
+**Check 4:** classical; new only as numerics. **Bearing on RH:** none.
+
+## Round 184: the ball tower in Lean (`src/BallTower.lean`, imports only Mathlib)
+
+Compiles with no `sorry`. Every main theorem depends only on the standard axioms `propext`, `Classical.choice`, `Quot.sound`.
+
+| theorem | statement |
+|---|---|
+| `ballVol_eq_volume` | `ballVol n = √π^n/Γ(n/2+1)` is Mathlib's volume of the unit ball in `ℝⁿ` |
+| `ballVol_add_two`, `sphereArea_add_two` | two-step recurrences `V(n+2) = 2π/(n+2)·V(n)` and `S(n+2) = 2π/n·S(n)` |
+| `ballVol_lt_five` | for every whole number `n ≠ 5`, `V(n) < V(5)` |
+| `sphereArea_lt_seven` | for every `n ≠ 7`, `S(n) < S(7)`: the sphere `S⁶` has the largest area |
+| `Gammaℝ_mul_sphereArea` | `Gammaℝ(n)·|S^{n−1}| = 2` |
+| `zeta_from_primes` | `ζ = ∏_p (1 − p^{−s})⁻¹` for `Re s > 1` (Mathlib's Euler product) |
+| `exists_exp_of_ne_zero` | a zero-free entire function is `exp` of an entire function |
+| `affine_of_re_growth` | an entire `g` with `Re g ≤ K(1+|z|)^ρ`, `ρ < 2`, is affine (Borel–Carathéodory plus Cauchy) |
+| `const_of_symmetric` | a zero-free entire `h` of order `< 2` with `h(1−s) = h(s)` is constant |
+| `completing_factor_unique` | if `h·Gammaℝ` also completes `ζ` symmetrically (`h Λ` invariant under `s ↦ 1−s` on `Re s > 1`), with `h` zero-free and entire of order `< 2`, then `h` is constant |
+
+**Reading.** Take the primes (the Euler product) and the integers' mirror symmetry (the functional equation `Λ(1−s) = Λ(s)`, which Mathlib proves from theta and Poisson). Then the ball-tower factor `Gammaℝ = 2/sphereArea` is the unique completing factor of order `< 2`, up to a constant. The tower's two whole-number maxima, volume at 5 and sphere area at `S⁶`, are theorems.
+
+**Not formalised.**
+- The integer-counting route to `V_d` (round 183, Step 1) and the Tauberian step. These are numerical only.
+- Part 0's `d₁ = 19` and `d₂ = 217`, and its "no fifth" claim.
+- The growth hypothesis (order `< 2`) is an assumption on the competing factor `h`, not derived.
+
+**Check 4:** the mathematics is classical (Hurwitz/Hamburger-type uniqueness of the Gamma factor). The Lean formalisation is new to the pilot. **Bearing on RH:** none.
+
+## Round 185: the integer-counting route in Lean (`src/LatticeCount.lean`, imports BallTower)
+
+Compiles with no `sorry`. The main theorems depend only on `propext`, `Classical.choice`, `Quot.sound`.
+
+| theorem | statement |
+|---|---|
+| `mem_intLattice` | `intLattice n` is exactly the vectors in `ℝⁿ` with whole-number coordinates |
+| `covolume_intLattice` | one unit cell has volume 1 |
+| `count_div_pow_tendsto_ballVol` | `latticeCount n R / Rⁿ → √π^n / Γ(n/2+1)` as `R → ∞`, where `latticeCount n R = #{v ∈ ℤⁿ : √(Σ vᵢ²) ≤ R}` |
+| `counted_volume_max_five` | the counted-volume limit in any dimension `m ≠ 5` is strictly below the one in dimension 5 |
+
+**Route.**
+- The counting asymptotic is Mathlib's `ZLattice.covolume.tendsto_card_le_div`: lattice points in a dilated region, via box-integral Riemann sums.
+- The ball's volume is Mathlib's `volume_sum_rpow_le`, computed through Gaussian integrals. That is where `Γ` enters.
+- This file supplies the specialisation to `ℤⁿ` and the round ball, and discharges every hypothesis: bounded; measurable; boundary of volume zero (shown by squeezing between the open and closed balls, which have equal volume); covolume 1.
+
+**Reading.** Counting whole-number points in round balls produces the ball tower `√π^n/Γ(n/2+1)` and its maximum at dimension 5, as a theorem. Round 183 had this numerically only.
+
+**Still not formalised.**
+- Continuous (non-integer) `d` via the theta symmetry (round 183, Step 2).
+- The prime-by-prime lumpiness (round 182).
+- Part 0's 19 and 217.
+
+**Check 4:** classical (Gauss lattice counting). The Lean specialisation is new to the pilot. **Bearing on RH:** none.
+
+## Round 186: the teeth, one prime at a time (`src/LocalTeeth.lean`, imports only Mathlib)
+
+Compiles with no `sorry`; standard axioms only. Everything holds in any finite field `F` of odd size `q`, and in particular modulo an odd prime `p`.
+
+| theorem | statement |
+|---|---|
+| `card_add_eq` | solutions of `f(x) + g(y) = a`, counted fibre by fibre |
+| `card_two_sq` | `#{x² + y² = a} = q − χ(−1)` for `a ≠ 0` |
+| `card_two_sq_zero` | `#{x² + y² = 0} = q + (q − 1)·χ(−1)` |
+| `card_four_sq` | `#{x² + y² + z² + w² = a} = q³ − q` for `a ≠ 0` |
+| `teeth_mod_prime` | mod an odd prime `p` and `a ≠ 0`: 2D count `p − χ₄(p)`, 4D count `p³ − p` |
+
+- **Proof route.** Count square roots with the quadratic character. Then evaluate `Σ χ(b)χ(a−b)` as the Jacobi sum `J(χ,χ) = −χ(−1)` (Mathlib's `jacobiSum_nontrivial_inv`).
+- **Brute-force check** for `p = 3, 5, 7, 11, 13`: the 2D counts `4, 4, 8, 12, 12` and 4D counts `24, 120, 336, 1320, 2184` match the formulas.
+
+**Reading.**
+- Divide by the smooth expectation (`q` points per shell in 2D, `q³` in 4D). The prime-`p` tooth density on any nonzero shell is `1 − χ₄(p)/p` in 2D and `1 − 1/p²` in 4D.
+- These are exactly the prime-`p` Euler factors of `L(1, χ₄)⁻¹` and `ζ(2)⁻¹`. In 4D the teeth at each prime are exactly one Euler factor of `1/ζ(2)`, the same on every shell not divisible by `p`.
+
+**Not formalised.** The global assembly: teeth on shell `n` = smooth sphere × `∏_p δ_p(n)` (Siegel's formula). It needs the densities at primes dividing `n` and at `p = 2`, and the one-class genus for `d ≤ 8`. It stays the numerical check of round 182.
+
+**Check 4:** classical (Gauss, Jacobi sums); the Lean proofs are new to the pilot. **Bearing on RH:** none.
+
+## Round 187: the global step in 2D, Jacobi's two-square theorem (`src/GlobalTeeth.lean`, imports only Mathlib)
+
+Compiles with no `sorry`; standard axioms only.
+
+**Main theorem `two_sq_count`.** For every `n ≥ 1`,
+`#{(x, y) ∈ ℤ² : x² + y² = n} = 4 · Σ_{d ∣ n} χ₄(d)`.
+
+It is assembled prime by prime. Write `n = pᵏ·m` with `p ∤ m`; the count on shell `n` is the count on shell `m` times:
+
+| prime | factor | theorem | mechanism |
+|---|---|---|---|
+| `p = 2` | `1` | `R_two_pow_mul` | every point of an even shell is divisible by `1 + i` |
+| `p ≡ 3 (mod 4)` | `1` if `k` even, `0` if `k` odd | `R_three_pow_mul` | `p ∣ x² + y²` forces `p ∣ x` and `p ∣ y`, since `−1` is not a square mod `p` |
+| `p ≡ 1 (mod 4)` | `k + 1` | `R_one_mod_four_pow_mul` | `p = ππ̄` splits into two non-associate Gaussian primes |
+
+**The `p ≡ 1` proof.** The shell splits into its `π`-divisible and `π̄`-divisible parts, which overlap in the `p`-divisible part. Multiplying by `π` maps shell `m` onto the `π`-divisible part of shell `N(π)·m` (`image_mul_shell`). This gives the recursion `t_{k+1} = 2t_k − t_{k−1}`, so `t_k = (k+1)·t_0`.
+
+**Reading.**
+- This is the global step of round 182 for the 2D ball. The teeth on every shell are exactly a product of one factor per prime, with no remainder.
+- The factors are the local counts of round 186 made global. `1 − χ₄(p)/p` is the density on shells not divisible by `p`, and `Σ_{j≤k} χ₄(p)^j` is the multiplicity on shells divisible by `pᵏ`.
+- Where the pilot now stands on "integers and primes → lattice ball tower":
+  - the smooth part is a theorem in every dimension (round 185, counting);
+  - the local tooth factors are theorems in 2D and 4D (round 186);
+  - the global lumpiness identity is a theorem in 2D (this round).
+
+**Not formalised.**
+- The 4D global identity (Jacobi's four-square theorem, `r₄(n) = 8 Σ_{d∣n, 4∤d} d`), which would need Hurwitz-quaternion arithmetic.
+- Siegel's general formula.
+
+**Check 4:** classical (Fermat, Gauss, Jacobi); the Lean proof is new to the pilot. **Bearing on RH:** none.
+
+## Round 188: angular grinding of the 2D ball's wheels (`frontier/grind/kangle.py`, demonstration, classical)
+
+**Question (owner).** The distribution of teeth over a ball is surely not as simple as a flat grid. Where the wheels sit *in angle* is a second layer of grinding.
+
+**Computed** to norm `10⁸`: 5.76M Gaussian primes (`kangle_results.json`). The angular drift is
+`A_k(X) = Σ_{N(π)≤X} log N(π)·cos(4k·arg π)`.
+- `k = 0` is the ordinary prime drift `ψ − x`.
+- `k ≥ 1` measures lopsidedness in angle. Its tones are the zeros of Hecke's L-functions `L(s, ξ^k)`, one per angular harmonic.
+
+| k | 0 | 1 | 2 | 3 | 4 |
+|---|---|---|---|---|---|
+| drift exponent | 0.482 | 0.502 | 0.485 | 0.488 | 0.526 |
+| max \|A\|/√X, last block | 1.87 | 1.09 | 0.91 | 1.72 | 1.81 |
+
+Sector fractions over 8 equal angles: 0.12490–0.12507 (uniform is 0.125).
+
+**Reading.**
+- In angle the wheels spread evenly (Hecke 1918–20, a theorem).
+- Each angular harmonic grinds at random-walk size `√X`, exactly as the radial drift does. So each harmonic is a separate "RH" (GRH for Hecke characters), all open.
+- The ball has infinitely many independent grinding channels: one radial (ζ, plus `L(s, χ₄)`), and one per angular harmonic `k`.
+- In 3D and 4D the analogous angular layers are governed by modular forms of half-integral weight (Duke) and by quaternion Hecke operators. There, angular equidistribution of the teeth on a single shell is proved, with rate control coming from Deligne's bound.
+
+**Check 4.** Classical (Hecke Grössencharacters; Duke 1988; Linnik). A demonstration; nothing new.
+
+**Bearing on RH:** none. It shows RH is one member of an infinite family of grinding bounds on the same ball, each open.
+
+## Round 189: RH is the radial member of the ball's angular family, in Lean (`src/AngularFamily.lean`, imports GlobalTeeth)
+
+Compiles with no `sorry`; standard axioms only.
+
+| definition / theorem | statement |
+|---|---|
+| `angularCoeff k n` | `¼ Σ_{z on shell n} (z/|z|)^{4k}`: the `k`-th angular harmonic of the teeth |
+| `angularL k` | its Dirichlet series: the `k`-th grinding channel of round 188 |
+| `member_zero_coeff` | `angularCoeff 0 n = Σ_{d∣n} χ₄(d)` (from round 187's two-square theorem) |
+| `member_zero_eq` | `angularL 0 s = ζ(s)·L(s, χ₄)` for `Re s > 1` |
+| `angularL0` | `ζ·L(χ₄)`, the radial member continued to all of ℂ |
+| `zeta_neg_odd_ne_zero` | `ζ(−(2n+1)) ≠ 0`, via the functional equation at `2n+2` |
+| `GRHMemberZero` | every zero of `angularL0`, apart from the negative integers and `s = 1`, has `Re s = ½` |
+| `rh_of_member_zero` | `GRHMemberZero → RiemannHypothesis` (Mathlib's definition) |
+
+**Reading.**
+- The teeth of the 2D lattice ball, averaged radially (harmonic `k = 0`), have exactly the Dirichlet series `ζ·L(χ₄)`.
+- So RH is one factor of the grinding statement for the radial channel of the ball.
+- The other factor is GRH for `L(χ₄)`. The angular channels `k ≥ 1` are Hecke L-functions: here only defined as Dirichlet series, not continued.
+- The implication runs one way only. The family's radial statement implies RH; RH does not imply it.
+
+**Check 4:** classical (Dedekind zeta of ℚ(i) = ζ·L(χ₄); the functional equation). The Lean chain from counting lattice points to Mathlib's `RiemannHypothesis` is new to the pilot. **Bearing on RH:** none. This is a reformulation, not progress on the hypothesis.
+
+## Round 190: bounding the wander, the ladder and rung 0 in Lean (`src/WanderBound.lean`)
+
+`wander_rung0` (no `sorry`; standard axioms): eventually `|ψ(x) − x| ≤ (2/5)·x`.
+- This is Chebyshev's level, built from Mathlib's `psi_le` and `psi_ge'`.
+- Mathlib has no prime number theorem.
+
+**The ladder** (bounds on the drift `ψ(x) − x`; best-known statements are recalled, not re-read):
+
+| rung | bound | key input | status |
+|---|---|---|---|
+| 0 | `≤ 0.4·x` | Chebyshev: binomial coefficients and the lcm | **Lean (this round)** |
+| 1 | `o(x)` (PNT) | `ζ ≠ 0` on `Re s = 1`, from the 3-4-1 "gear" inequality, plus a Tauberian step | nonvanishing is in Mathlib; PNT itself is formalised outside Mathlib (PrimeNumberTheoremAnd project) [recalled] |
+| 2 | `x·e^{−c√log x}` | quantitative zero-free region `σ > 1 − c/log t` + truncated explicit formula | not formalised here; Borel–Carathéodory is now in Mathlib, and the pilot has the explicit formula |
+| 3 | `x·e^{−c(log x)^{3/5}(log log x)^{−1/5}}` | Vinogradov's exponential sums over primes | best known since 1958 [recalled] |
+| — | `x^{1−δ}` for some `δ > 0` | a zero-free strip | open; equivalent to a zero-free strip |
+| RH | `√x·log²x` | all zeros on `Re s = ½` | open |
+
+**Finite range** [recalled, not re-read]. Using RH verified to height `3·10¹²` (Platt–Trudgian), Büthe-type arguments give `|ψ(x) − x| < √x` for all `x` up to about `10¹⁹`.
+
+**Check 4:** everything classical; only the rung-0 Lean file is new to the pilot. **Bearing on RH:** none.
+
+## Round 191: rungs 1 and 2 of the wander ladder, machine-checked (`external/pnt/`)
+
+The PrimeNumberTheoremAnd project already proves both rungs in Lean. We built it at commit `650d312` (3765 jobs, no errors) and restated its results in the pilot's terms in `WanderLadderPNT.lean`.
+
+| theorem | statement | source |
+|---|---|---|
+| `rung1` | `ψ(x) − x = o(x)` (prime number theorem) | their `WeakPNT''` (Wiener–Ikehara route) |
+| `rung2` | `ψ(x) − x = O(x·e^{−c√log x})` for some `c > 0` (de la Vallée Poussin) | their `StrongPNT` (zero-free region + Perron formula) |
+| `wander_below_any_eps` | for every `ε > 0`, eventually `\|ψ(x) − x\| ≤ εx` | from `rung1`; sharpens round 190's `ε = 2/5` |
+
+**Axiom audit.** All three depend only on `propext`, `Classical.choice`, `Quot.sound`. Their `Wiener.lean` has two `sorry` lemmas, and neither is used.
+
+**Ladder status.**
+- Rungs 0, 1, 2 are machine-checked.
+- Rung 3 (Korobov–Vinogradov) is not formalised anywhere, as far as I know [unverified].
+- The gap `x^{1−δ}` and RH are open.
+
+**Check 4:** the mathematics is classical and the formalisation is the PNT+ project's. The pilot contributes only the restatement and the audit. **Bearing on RH:** none.
+
+## Round 192: rung 3 (Korobov–Vinogradov), reduced to its analytic input (`external/pnt/Rung3.lean`)
+
+- **`rung3_of_region`** (axioms clean, built against PNT+ `650d312`). Suppose `KVInput n₁ n₂`: ζ has no zeros for `σ ≥ 1 − A/(log|t|)^{n₁}`, and there `|ζ'/ζ| ≤ C(log|t|)^{n₂}`. Then `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))`. The proof is PNT+'s general `GenStrengthPNT`, fed through its holomorphy and bound lemmas.
+- **`rung3_exponent`.** For `n₁ ∈ (2/3, 1)` the exponent lies strictly between 1/2 (rung 2) and 3/5 (rung 3). The KV region gives every `n₁ > 2/3`, so every exponent below 3/5 (the `(log log x)^{−1/5}` refinement is not captured).
+
+**What remains is the analytic input, in three layers.**
+
+| layer | content | status |
+|---|---|---|
+| (I) Vinogradov's mean value theorem | `∫|Σ_{n≤N} e(α₁n + … + α_k n^k)|^{2s} ≪ N^{2s − k(k+1)/2 + ε}` (Wooley; Bourgain–Demeter–Guth) | not formalised anywhere that I know of |
+| (II) KV exponential-sum and ζ bounds | `Σ_{N<n≤2N} n^{−it} ≪ N·exp(−c(log N)³/(log t)²)`; then `|ζ(σ+it)| ≪ t^{B(1−σ)^{3/2}}(log t)^{2/3}` near `σ = 1` | not formalised (PNT+ has a Vinogradov-type explicit bound only as a stated `sorry`, `theorem_1_4`) |
+| (III) Landau's lemma | growth bound (II) + the 3-4-1 inequality + Borel–Carathéodory ⇒ `KVInput n₁ n₂` for every `n₁ > 2/3` | not formalised in this generality; PNT+ does the `n₁ = 1` case |
+
+**Check 4:** classical; the reduction file is new to the pilot. **Bearing on RH:** none.
+
+## Round 193: layer III of rung 3, Landau's lemma in general form (`external/pnt/Landau.lean`)
+
+The chain is now machine-checked from a growth bound on ζ to the drift. Axioms are clean (`propext`, `Classical.choice`, `Quot.sound`), built against PNT+ `650d312`.
+
+- **Hypothesis `PolylogGrowth a K`.** `|ζ(σ+it)| ≤ K(log|t|)^K` for `|t| ≥ 3`, `1 − (log|t|)^{−a} ≤ σ ≤ 2`.
+- **`zeroFree_of_growth`** (`a < n₁`). No zeros in `σ ≥ 1 − A/(log|t|)^{n₁}`. The route:
+  - the 3-4-1 inequality;
+  - Borel–Carathéodory at radius `¼(log|t|)^{−a}`, through PNT+'s `FinalBound`;
+  - `1/|ζ(s)| ≤ ζ(Re s)`;
+  - an explicit shift `δ(t) = ρ(2t)/(N(1 + log log 2t))`.
+- **`logDerivBnd_of_growth`** (`0 < a ≤ 1`, `a < n₁`). `|ζ'/ζ| ≤ C(log|t|)³` on that region, in four cases:
+  - `σ ≥ 3/2`: bounded;
+  - `3 < |t| < 5`: PNT+'s strip bound;
+  - right of the disc: `|ζ'/ζ(s)| ≤ −ζ'/ζ(Re s)` plus the pole bound;
+  - inside the disc: the local bound at a point, with every zero at distance at least the gap `3·δ(|t|+1)/26`.
+- **`rung3_of_growth`.** `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))` for every `n₁ > a`.
+
+| layer | content | status |
+|---|---|---|
+| (I) Vinogradov's mean value theorem | exponential-sum moments | not formalised |
+| (II) KV growth bound | `PolylogGrowth (2/3) K` | not formalised: **the only open input** |
+| (III) Landau's lemma | growth ⇒ zero-free region + `ζ'/ζ` bound ⇒ drift | **done (this round)** |
+
+Once layer II is proved at `a = 2/3`, `rung3_of_growth` gives every exponent below 3/5. The hypothesis is a growth bound on ζ, not RH, and nothing here is conditional on RH. **Check 4:** classical (Landau 1924; Titchmarsh §3.10–3.11). The general-`a` Lean form is new to the pilot. **Bearing on RH:** none. The rung-3 region still shrinks to the line `σ = 1`, and RH needs a fixed strip.
+
+## Round 194: Vinogradov's mean value theorem, foundations (`src/Vinogradov.lean`, `frontier/vmvt/`)
+
+This is layer I of rung 3. `J s k N` counts the pairs of `s`-tuples from `{1..N}` whose power sums agree in degrees `1..k`: Vinogradov's mean value, in counting form. Axioms are clean.
+
+- **`J_ge`, `J_le`, `J_anti`.** `N^s ≤ J ≤ N^{2s}`, and `J` falls as `k` grows.
+- **`agree_iff` (the rigid range `s ≤ k`).** The power sums in degrees `1..k` agree exactly when `y` rearranges `x`. The proof runs Newton's identities (Mathlib's `mul_esymm_eq_sum`) to get equal elementary symmetric functions, then Vieta to get equal root multisets.
+- **`J_le_diag`.** For `s ≤ k`, `J ≤ s!·N^s`. This is the main conjecture's diagonal case, proved exactly.
+- **`agree_shift`.** Shifting every coordinate by `h` preserves the system. This is the affine invariance that every proof uses.
+
+**Numerics** (`frontier/vmvt/`, pre-registered in `PREREG_vmvt.md`):
+- **P1 (exact, `s ≤ k`):** `J` equals the rearrangement count in all 6 cases. Confirmed.
+- **P2:** the trivial bounds hold in every case.
+- **P3 (ratio `J/(N^s + N^{2s−k(k+1)/2})` stays `O(1)` up to slow growth):**
+  - `(k,s) = (2,4)`: settles near 2.56.
+  - `(2,3)`: grows slowly, 2.0→3.5 for `N = 4..20`. This is consistent with the known `N³ log N` at this critical point.
+  - `(3,4)`, `(3,5)`, `(3,6)`: still rising in range; `(3,6)` goes 24→139 over `N = 3..8`.
+  - Post-hoc explanation, not pre-registered: the diagonal alone contributes about `s!·N^s`, which is 720·N⁶ for `s = 6`. The ratio's ceiling is therefore of order `s!/2`, not 1. So P3 is not confirmed as written in this window. It is consistent once the constant `s!` is allowed.
+
+**What remains for layer I:**
+
+| step | content | status |
+|---|---|---|
+| I.1 | orthogonality: `J = ∫_{[0,1]^k} |Σ e(α·(n,…,nᵏ))|^{2s}` | open |
+| I.2 | Hölder/Cauchy–Schwarz monotonicity `J_{s+1} ≤ N²·J_s` | open |
+| I.3 | Linnik–Karatsuba p-adic iteration, giving `J_{s,k}(N) ≤ C·N^{2s − k(k+1)/2 + Δ}` with `Δ → 0` as `s/k² → ∞` | open (the core) |
+| I.4 | from I.3 to the Weyl-sum bound `Σ n^{−it} ≪ N^{1−c/k²}` for `N ~ t^{1/k}` | open (layer II) |
+
+Only the classical I.3 is needed for Korobov–Vinogradov. The sharp theorem (Bourgain–Demeter–Guth, Wooley) is not.
+
+**Check 4:** the mathematics is classical (Newton, Vieta, Vinogradov 1935). The Lean file is new to the pilot. **Bearing on RH:** none.
+
+## Round 195: VMVT steps I.1 and I.2 (`src/Vinogradov.lean`)
+
+Axioms are clean.
+
+- **I.1, orthogonality (`J_eq_integral_norm`).** `J_{s,k}(N) = ∫_{(0,1]^k} |Σ_{n≤N} e(α₁n + … + α_k nᵏ)|^{2s} dα`, with `e(t) = exp(2πit)`. The proof has three steps:
+  1. `∫₀¹ e(mt) dt = [m = 0]`;
+  2. the product-measure formula on the torus;
+  3. expanding `f^s·conj(f)^s` over pairs of tuples.
+  This is the link between the counting problem and exponential sums: layer II will run through it.
+- **I.2 (`J_succ_le`).** `J_{s+1,k}(N) ≤ N²·J_{s,k}(N)`. The proof:
+  - Split off the first coordinate.
+  - Each fibre is a shifted count `#{(x,y) : pv x = pv y + w}`.
+  - The shifted count never exceeds the unshifted one (`shiftCount_le`, from `2ab ≤ a² + b²` and injectivity of translation).
+  The round-194 data satisfy it, for example `J_{4,2}(20) = 8 610 124 ≤ 400·J_{3,2}(20) = 22 601 600`.
+
+| step | status |
+|---|---|
+| I.1 orthogonality | **done** |
+| I.2 `J_{s+1} ≤ N² J_s` | **done** |
+| I.3 Linnik–Karatsuba p-adic iteration | open (the core) |
+| I.4 Weyl-sum bound from I.3 | open |
+
+**Check 4:** classical (Vinogradov 1935). The Lean forms are new to the pilot. **Bearing on RH:** none.
+
+## Round 196: VMVT step I.3a, p-adic rigidity and Linnik's lemma (`src/VinoPadic.lean`)
+
+Axioms are clean.
+
+- **`lift_step`, `rigid`.** Take a prime `p > k`, and `x ≡ y (mod p)` where `x` has distinct residues mod `p`. If the power sums agree mod `p^M` in degrees `1..k`, then `x ≡ y (mod p^M)`. The proof lifts one digit at a time:
+  - write `y = x + pᵐz`;
+  - the first-order expansion `(a + d·b)^j = a^j + j·a^{j−1}·d·b + d²·r` reduces degree `j` to `j·Σ xᵢ^{j−1}zᵢ ≡ 0 (mod p)`;
+  - `p ∤ j`, and the Vandermonde matrix of distinct residues is invertible mod `p` (Mathlib's `det_vandermonde_ne_zero_iff`), so `z ≡ 0`.
+- **`linnik`, `linnik_exponent`: Linnik's lemma.** Take distinct residues `a` mod `p > k` and targets `c`. The tuples `x ∈ [0,p^k)^k` with `x ≡ a (mod p)` and `Σ xᵢʲ ≡ c_j (mod p^j)` (`j = 1..k`) number at most `∏_{j=1}^{k} p^{k−j} = p^{k(k−1)/2}`. The proof:
+  - rigidity makes the map to power-sum residues mod `p^k` injective;
+  - the admissible targets number `∏ p^{k−j}`.
+
+**Numerics** (`frontier/vmvt/`, pre-registered in `PREREG_linnik.md`), for `(p,k) = (3,2), (5,2), (7,2), (5,3)`:
+- **L1 (bound holds):** confirmed in all 4 cases.
+- **L2 (bound attained):** confirmed in all 4.
+- **L3 (repeated residues exceed the bound):** true for `k = 3` (625 against 125). **False for `k = 2`**, where the repeated class still meets the bound exactly. The prediction was wrong there.
+
+| step | status |
+|---|---|
+| I.1 orthogonality | done |
+| I.2 `J_{s+1} ≤ N² J_s` | done |
+| I.3a p-adic rigidity + Linnik's lemma | **done** |
+| I.3b the iteration (Karatsuba): split variables by residue class mod `p ≈ N^{1/k}`, bound the well-conditioned part by Linnik, recurse on the rest | open |
+| I.4 Weyl-sum bound from I.3 | open |
+
+**Check 4:** classical (Linnik 1943; Karatsuba). The Lean forms are new to the pilot. **Bearing on RH:** none.
+
+## Round 197: VMVT step I.3b begins: the Karatsuba spec and the conditioned count (`src/VinoStep.lean`, `frontier/vmvt/KARATSUBA_SPEC.md`)
+
+- **Spec.** `KARATSUBA_SPEC.md` writes out one recursion step from `J_s` to `J_{s+k}`:
+  - A, good/bad split and Cauchy–Schwarz;
+  - B, Hölder over residue classes;
+  - C, the conditioned count;
+  - D, the bad count.
+
+  The resulting recursion is `η_{s+k} = max((1−1/k)η_s, k(k+1)/2 − 2(s+1)/k)`, from `η_k = k(k−1)/2`. So `η_s → 0`, which is VMVT in weak classical form.
+- **Numerics** (pre-registered in `PREREG_karatsuba.md`): inequalities K1–K3 of Steps A–C hold in all 14 cases (`k = 2`, `p = 3`, `P = 3..9`, `s = 1,2`). The K3 slack is 2.4–4.5×.
+- **Lean, Step C (`cond_count`, axioms clean).** Take `p > k` prime, `P ≤ p^k`, a shift `a` and a tuple `u'`. The `u ∈ [1,P]^k` with `u − a` distinct mod `p` and `Σ(uᵢ−a)^j ≡ Σ(u'ᵢ−a)^j (mod p^j)` for `j ≤ k` number at most `k!·p^{k(k−1)/2}`. The ingredients:
+  - Newton over `ZMod p` (`map_eq_of_psum_field`);
+  - at most `k!` rearrangements (`card_multiset_fibre_le`);
+  - Linnik in integer form (`linnikZ`).
+
+| I.3b piece | status |
+|---|---|
+| C conditioned count | **done** |
+| C′ `G_a ≤ k!·P^k·p^{k(k−1)/2}·J_s(Q)` (fibre over `(u,u')`, shifted count, class ↦ interval by scaling) | open |
+| B Hölder over classes | open |
+| A good/bad split | open |
+| D bad count | open |
+| recursion with the Bertrand prime | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
+## Round 198: VMVT step I.3b, the class count `G_a` (`src/VinoIter.lean`)
+
+Axioms are clean.
+
+- **`Jc_cls_le`.** A residue class `a` mod `p` inside `[1,P]` carries no more solutions than an interval of length `⌊P/p⌋+1`. The map is `w ↦ w/p + 1`, and agreement is preserved by three steps:
+  - shift by `−a` (`psZ_shift`);
+  - divide by `p` (`psZ_smul_cancel`);
+  - shift by `+1`.
+- **`cong_of_agree`.** If `pv u + pv w = pv u' + pv w'` with `w, w'` in class `a`, then `Σ(uᵢ−a)^j ≡ Σ(u'ᵢ−a)^j (mod p^j)`. The proof shifts the concatenated tuples by `−a`; the `w`-part is then divisible by `p^j`.
+- **`Gcls_le` (Step C′).** `G_a ≤ P^k·k!·p^{k(k−1)/2}·J_c(class a)`. So with `Jc_cls_le`, `G_a ≤ P^k·k!·p^{k(k−1)/2}·J_s(⌊P/p⌋+1)`. The proof fibres over `(u,u')`:
+  - each fibre is a shifted count, so at most `J_c` (`shiftCount_le`);
+  - admissible pairs number at most `P^k·k!·p^{k(k−1)/2}` (`cond_count`).
+
+| I.3b piece | status |
+|---|---|
+| C conditioned count | done |
+| C′ `G_a` bound | **done** |
+| B Hölder over classes: `G ≤ p^{2s−1} Σ_a G_a` (orthogonality for general finite sets, plus power mean) | open |
+| A good/bad split | open |
+| D bad count | open |
+| recursion with the Bertrand prime | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
+## Round 199: VMVT step I.3b, Hölder over residue classes (`src/VinoHolder.lean`)
+
+Axioms are clean.
+
+- **`count_eq_integral`.** Orthogonality for any finite set: `∫ |Σ_{x∈X} e(α·φ(x))|² dα = #{(x,y) ∈ X² : φ x = φ y}`.
+- **`Gfull_le` (Step B).** `G ≤ p^{2s−1} Σ_{a<p} G_a`. The proof:
+  - the generating function of `G` factorises as `F·f^s` (`E_prod`, `E_pi`), with `f = Σ_{a<p} f_a` over residue classes (`g_split`);
+  - the power mean inequality, pointwise: `|Σ_a f_a|^{2s} ≤ p^{2s−1} Σ_a |f_a|^{2s}` (`power_mean`, from Mathlib's `pow_sum_div_card_le_sum_pow`);
+  - integrate.
+
+  With round 198 this gives `G ≤ p^{2s}·P^k·k!·p^{k(k−1)/2}·J_s(⌊P/p⌋+1)`: the conditioned half of the Karatsuba step is complete.
+
+| I.3b piece | status |
+|---|---|
+| C, C′ conditioned and class counts | done |
+| B Hölder over classes | **done** |
+| A good/bad split (`T ≤ 2T_BB + 16·C(s+k,k)²·G`) | open |
+| D bad count | open |
+| recursion with the Bertrand prime | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
+## Round 200: VMVT step I.3b, the good/bad split (`src/VinoSplit.lean`)
+
+Axioms are clean.
+
+- **`stepA`.** `J_{k+s,k}(P) ≤ 2·T_BB + 16·(k+s)^{2k}·G`. Here `T_BB` counts agreeing pairs of *bad* tuples (fewer than `k` residue classes mod `p`), and `G` is the conditioned count (`Gfull`). The pieces:
+  - `pairCount_split` and `pairCount_swap_le` give `T ≤ 2·T(x good) + T_BB`.
+  - `exists_inj`: a good tuple has an injective `k`-subtuple with distinct residues. So `T(good) ≤ Σ_ι T_ι` (`pairCount_biUnion_le`), with at most `(k+s)^k` injections `ι`.
+  - `pairCount_sq_le`, Cauchy–Schwarz in counting form: `T_ι² ≤ G_ι·T`.
+  - `exists_perm` (via Mathlib's `Equiv.extendSubtype`): a permutation carries the first `k` slots onto `ι`, so `G_ι ≤ G` (`G_ι_le`).
+  - Case split: either `T ≤ 2T_BB`, or `T < 4·T(good)`, which gives `T < 16(k+s)^{2k}·G`.
+
+  The spec's `C(s+k,k)²` became `(k+s)^{2k}`, a crude but harmless constant.
+
+**Chained with rounds 197–199:**
+`J_{k+s}(P) ≤ 2·T_BB + 16(k+s)^{2k}·p^{2s−1}·Σ_{a<p} P^k·k!·p^{k(k−1)/2}·J_s(⌊P/p⌋+1)`.
+
+| I.3b piece | status |
+|---|---|
+| A good/bad split | **done** |
+| B Hölder over classes | done |
+| C, C′ conditioned and class counts | done |
+| D bad count `#bad ≤ C(p,k−1)·((k−1)(⌊P/p⌋+1))^{k+s}` | open |
+| recursion with the Bertrand prime, exponent bookkeeping | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
+## Round 201: VMVT step I.3b, the bad count and one full Karatsuba step (`src/VinoRec.lean`)
+
+Axioms are clean.
+
+- **`bad_card` (Step D).** The tuples in `[1,P]^n` meeting fewer than `k` residue classes mod `p` number at most `p^{k−1}·((k−1)(⌊P/p⌋+1))^n`. The proof:
+  - each such tuple lies inside some set of `k−1` classes (`exists_subsuperset_card_eq`);
+  - there are `C(p,k−1) ≤ p^{k−1}` such sets;
+  - each class holds at most `⌊P/p⌋+1` numbers (`card_cls_le`).
+- **`one_step` (A–D chained).** For a prime `p > k ≥ 1` with `P ≤ p^k` and `s ≥ 1`:
+  `J_{k+s,k}(P) ≤ 2(p^{k−1}((k−1)(⌊P/p⌋+1))^{k+s})² + 16(k+s)^{2k}·p^{2s}·P^k·k!·p^{k(k−1)/2}·J_{s,k}(⌊P/p⌋+1)`.
+
+  This is the whole combinatorial and arithmetic content of the classical p-adic iteration, in natural numbers, with no asymptotics.
+
+| I.3b piece | status |
+|---|---|
+| A, B, C, C′, D | **done** |
+| recursion: Bertrand prime `p ∈ (max(m,k), 2max(m,k)]` with `m^k ≥ P` minimal; real-exponent bookkeeping `η_{s+k} = max((1−1/k)η_s, k(k+1)/2 − 2(s+1)/k)` | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
+## Round 202: Vinogradov's mean value theorem, weak classical form, proved in Lean (`src/VinoRec.lean`)
+
+- **`vmvt_weak`** (axioms: `propext`, `Classical.choice`, `Quot.sound`; no `sorry`). For every `k ≥ 2` and `ε > 0` there exist `s` and `C > 0` with
+  `J_{s,k}(P) ≤ C·P^{2s − k(k+1)/2 + ε}` for all `P ≥ 1`.
+  Here `J_{s,k}(P)` is the number of pairs `x, y ∈ [1,P]^s` with `Σxᵢʲ = Σyᵢʲ` for `j = 1..k` (round 194). By orthogonality (round 195) it equals `∫|Σ_{n≤P} e(α₁n + … + α_k nᵏ)|^{2s}`.
+- **How.**
+  - `exists_good_prime`: Bertrand's postulate (Mathlib) gives a prime `p > k` with `P ≤ p^k` and `P^{1/k} ≤ p ≤ 2(k+2)P^{1/k}`.
+  - `step_real`: writing everything as powers of `t = P^{1/k}` turns `one_step` (round 201) into `J_{k+s}(P) ≤ C'·P^{max(μ,β)/k}`.
+  - `vmvt_iter`: `J_{k+mk,k}(P) ≤ C_m·P^{2(k+mk) − k(k+1)/2 + η_m}`, where `η_0 = k(k−1)/2` (from `J_le_diag`) and `η_{m+1} = max((1−1/k)η_m, k(k+1)/2 − 2(k+mk+1)/k)`.
+  - `eta_small`: once `m ≥ k²` the second term is nonpositive, so `η` contracts by `1 − 1/k` and tends to 0.
+- **What this is and is not.**
+  - It is the classical "Δ → 0" form, with the crude bad-set bound: it needs `s ≈ k³`, versus Vinogradov's `k² log k`. It is not the sharp theorem (Bourgain–Demeter–Guth, Wooley).
+  - The constants are explicit in the proof (`Kbad`, `Kmain`) but hidden behind `∃` in the statement.
+  - Layer II (the Weyl-sum bound, then ζ growth) needs them explicit and uniform in `k`, because `k` grows with `log t` there. The next step is to restate `vmvt_iter` with explicit `C(k,m)`.
+  - Through layer II, `s ≈ k³` should give a growth exponent `a` strictly between 2/3 and 1. That is my estimate, not yet derived. It would still be a region beyond de la Vallée Poussin, via `rung3_of_growth` (round 193).
+
+| layer | content | status |
+|---|---|---|
+| I | Vinogradov's mean value theorem | **done, weak classical form** (rounds 194–202) |
+| II | Weyl-sum bound ⇒ `PolylogGrowth a K` | open (needs explicit constants from I) |
+| III | Landau: growth ⇒ zero-free region ⇒ drift | done (round 193) |
+
+**Check 4:** classical (Vinogradov 1935, Linnik 1943, Karatsuba). The Lean proof is new to the pilot. I know of no other formalisation of any form of VMVT; I have not checked this exhaustively. **Bearing on RH:** none.
+
+## Round 203: layer II begins, the exponential-sum bound (`src/ExpSum.lean`, `frontier/expsum/`)
+
+- **Route** (`EXPSUM_SPEC.md`), after T. Tao, *254A Notes 5* (2015), Theorem 2(ii). For each fixed `n`, the Taylor coefficients of `−(t/2π) log(n + ab)` give a bilinear double sum over `a, b ≤ M`. The double sum is bounded directly, with no spacing lemma over `n`. The steps are:
+  - (A) geometric sum;
+  - (B) one-dimensional bilinear bound;
+  - (D) double Hölder, the link to `J`;
+  - (E) shift and Taylor;
+  - (F) assembly;
+  - (G) ζ growth.
+- **Numerics** (pre-registered in `PREREG_expsum.md`):
+  - E1, step (D): holds in 800/800 random trials over 4 parameter sets. The median slack is 6 at `ℓ = 1` and 10³–10⁴ at `ℓ = 2`, as expected at small `M`.
+  - E2, step (B): holds in 500/500, with median slack about 9.
+- **Lean** (axioms clean):
+  - **`double_holder`, step (D).** For all `α ∈ ℝ^K` and `M, ℓ ≥ 1`: `|Σ_{a,b≤M} e(Σ_j α_j a^{j+1}b^{j+1})|^{2ℓ²} ≤ M^{4ℓ(ℓ−1)}·J_{ℓ,K}(M)²·Z`, for any `Z` bounding `Σ_{x'∈X} |Σ_{y∈X} e(α·(x−x')·y)|` for every `x ∈ X`. The pieces:
+    - power mean in `a` (`power_mean_fs`);
+    - `ℓ`-th powers become `ℓ`-tuples (`pow_expand`);
+    - duality with unit weights `c_a`;
+    - power mean over tuples;
+    - Cauchy–Schwarz against the representation counts, whose sum of squares is `J` (`shiftCount_eq_sum`);
+    - the square expansion with `ν(x)ν(x') ≤ (ν(x)² + ν(x')²)/2` (`sum_normSq_le`).
+  - **`geom_bound`, step (A).** `|Σ_{i<Y} e(θ(u+i))| ≤ 1/(2‖θ‖)` for non-integer `θ`. The proof uses the chord `|e(θ) − 1| = 2|sin πθ|` and Jordan's inequality `|sin πθ| ≥ 2‖θ‖` (`abs_sin_ge`).
+
+| layer II step | status |
+|---|---|
+| (A) geometric sum | **done** |
+| (D) double Hölder | **done** |
+| (B) one-dimensional bilinear bound; factorising `Z` over coordinates | open |
+| (E) shift `n → n+ab` and Taylor for `log` | open |
+| (F) assembly with explicit VMVT constants (restate `vmvt_iter` with explicit `C`) | open |
+| (G) ζ growth: `PolylogGrowth a K` | open |
+
+**Check 4:** classical (Vinogradov; the presentation follows Tao 2015). The Lean forms are new to the pilot. **Bearing on RH:** none.
+
+## Round 204: layer II, the per-`n` bilinear bound (`src/ExpSum2.lean`)
+
+Axioms are clean.
+
+- **Correction to round 203's statement of (D).** Its box sum ran over `y ∈ X`, the set of power-sum vectors, and that does not factorise. `double_holder` now takes any `Y ⊇ X`. That is valid because `|F|^{2ℓ} ≥ 0`, and the proof changed only there.
+- **`Z_factor`.** Over boxes `D = ∏[−L_j, L_j]` and `B = ∏[1, L_j]`, the box sum `Σ_{z∈D} |Σ_{y∈B} e(Σ_j α_j z_j y_j)|` equals the product over coordinates of `Σ_{|z|≤L_j} |Σ_{y=1}^{L_j} e(α_j z y)|`.
+- **`oneD_bound`, step (B′).** If `0 < |α|·X ≤ 1/2`, then `Σ_{|z|≤X} |Σ_{y=1}^{Y} e(αzy)| ≤ Y + (1/|α|)(1 + log X)`, against the trivial `(2X+1)Y` (`oneD_trivial`). The proof:
+  - no wrap-around, since `|αz| ≤ 1/2` means `‖αz‖ ≥ |αz|` (`abs_le_dist_round`);
+  - the geometric bound (A) term by term;
+  - Mathlib's `harmonic_le_one_add_log`.
+
+  This replaces the spec's wrap-around version (B). A single good coordinate is enough, because the weak VMVT's excess `η` can be made arbitrarily small.
+- **`bilinear_bound`.** For every `α ∈ ℝ^K` and `ℓ ≥ 1`:
+  `|Σ_{a,b≤M} e(Σ_j α_j (ab)^{j+1})|^{2ℓ²} ≤ M^{4ℓ(ℓ−1)}·J_{ℓ,K}(M)²·∏_j Σ_{|z|≤L_j} |Σ_{y≤L_j} e(α_j z y)|`, with `L_j = ℓM^{j+1}`.
+  This is (D) with the box enlarged, differences placed in `D` (`pv_mem_box`), and `Z_factor`.
+
+| layer II step | status |
+|---|---|
+| (A) geometric sum | done |
+| (B′) one-dimensional bound, no wrap-around | **done** |
+| (D) double Hölder + factorisation = per-`n` bilinear bound | **done** |
+| (E) shift `n → n+ab` and Taylor for `−(t/2π) log` | open |
+| (F) assembly: explicit VMVT constants, choice of `M, K, ℓ`, one good coordinate `j ≈ 1.5 log t / log N` | open |
+| (G) ζ growth `PolylogGrowth a K` (approximate formula for ζ, dyadic partial summation) | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
+## Round 205: layer II, step (E), shift and Taylor (`src/ExpSum3.lean`)
+
+Axioms are clean.
+
+- **`shift_avg`.** For `|f| ≤ 1`: `|Σ_{A<n≤B} f(n)| ≤ M^{−2} Σ_{A<n≤B} |Σ_{a,b≤M} f(n+ab)| + 2M²`. Shifting an interval sum by `h` changes it by at most `2h` (`shift_diff`).
+- **`phase_taylor`.** For `0 ≤ h ≤ x/2`: `−(t/2π) log(x+h) = −(t/2π) log x + Σ_{j<K} α_j h^{j+1} + ρ`, with `α_j = (t/2π)(−1)^{j+1}/((j+1)x^{j+1})` and `|ρ| ≤ (|t|/π)(h/x)^{K+1}`. This comes from Mathlib's `Real.abs_log_sub_add_sum_range_le`.
+- **`per_n`.** For `2M² ≤ n`: `|Σ_{a,b≤M} e(−(t/2π) log(n+ab))| ≤ |Σ_{a,b≤M} e(Σ_j α_j(n)(ab)^{j+1})| + 2|t|M²(M²/n)^{K+1}`. The proof uses `|e(ρ) − 1| ≤ 2π|ρ|`. The right-hand double sum is exactly the one bounded by `bilinear_bound` (round 204).
+- **`stepE`.** For `2M² ≤ N₁`: `|Σ_{N₁<n≤N₂} n^{−it}| ≤ M^{−2} Σ_n (|bilinear sum at α(n)| + 2|t|M²(M²/n)^{K+1}) + 2M²`.
+
+| layer II step | status |
+|---|---|
+| (A), (B′), (D), factorisation, per-`n` bilinear bound | done |
+| (E) shift and Taylor | **done** |
+| (F) assembly: explicit VMVT constants; choose `M ≈ N^{1/4}`, `K`, `ℓ`; good coordinate `j` with `|α_j| L_j ≤ 1/2` and `1/(|α_j| L_j²)` small | open |
+| (G) ζ growth `PolylogGrowth a K` | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
+## Round 206: layer II, step (F), the block bound (`src/ExpSum4.lean`)
+
+- **`block_bound`** (axioms clean). Suppose:
+  - `J_{ℓ,K}(M) ≤ C·M^{2ℓ − K(K+1)/2 + η}`;
+  - `2M² ≤ N`;
+  - a good coordinate `1 ≤ r ≤ K` satisfies `|t|·ℓ·M^r ≤ π·r·N^r`.
+
+  Then
+  `|Σ_{N<n≤2N} n^{−it}| ≤ N·Φ + 2|t|N(M²/N)^{K+1} + 2M²`,
+  where `Φ = (C²·3^K·ℓ^{2K}·M^{2η}·W)^{1/(2ℓ²)}` and
+  `W = 1/(ℓM^r) + 2πr(2N)^r(1 + log(ℓM^r))/(|t|ℓ²M^{2r})`.
+- **How.** `Bn_bound` gives the bound `M²·Φ` at each `n`:
+  - `bilinear_bound`;
+  - `oneD_bound` at the good coordinate, where `|α_r(n)|·ℓM^r ≤ 1/2`;
+  - `oneD_three` elsewhere;
+  - `∏_j 3L_j² = 3^K ℓ^{2K} M^{K(K+1)}` (`prod_three_L`);
+  - the hypothesis on `J`;
+  - a `(2ℓ²)`-th root.
+
+  `stepE` then sums over `n`.
+- **What the bound gives.** It is nontrivial when `Φ < 1`. That needs:
+  - `η` small (VMVT with many variables);
+  - `W ≈ M^{−σ}`. This holds when `N^r M^{σ−2r} ≲ |t| ≲ N^r M^{−r}`: the upper end is the good-coordinate hypothesis, the lower end makes the second term of `W` small.
+  - The Taylor term needs `|t| ≪ N^{(K+1)/2}`, so `K ≈ 2r`.
+
+  Choosing `M = N^θ` per block covers `N ≤ t` with `r ≥ 2`. **(G) must make these choices and do the ζ bookkeeping.** My current estimate, not yet derived, is growth `t^{C(1−σ)^{7/6}}`, i.e. `a = 6/7`, with the weak VMVT's `ℓ ≈ K³`.
+
+| layer II step | status |
+|---|---|
+| (A), (B′), (D), (E), per-`n` bound | done |
+| (F) block bound with explicit constants | **done** |
+| (G) parameter choice + explicit VMVT constants + ζ approximation + partial summation ⇒ `PolylogGrowth a K` | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
+## Round 207: VMVT with explicit constants (`src/VinoConst.lean`, `frontier/expsum/kfeas_constants.py`)
+
+Axioms are clean.
+
+- **`vmvt_explicit`.** `J_{k+mk,k}(P) ≤ C_m·P^{2(k+mk) − k(k+1)/2 + η_m}` with an explicit `C_m`: `C_0 = k!` and `C_{m+1} = K_bad + K_main(C_m)`.
+- **`Cvm_le`.** `C_m ≤ (8(k+2))^{g(m)}`, with `g(0) = k` and `g(m+1) = g(m) + 6k(m+1) + k² + 3k + 2`, so `g(m) ≈ 3k m²`. Supporting lemmas: `eta_le` (`η_m ≤ k(k+1)/2`), `expo_le` (the exponent is at most `2s`), `Cvm_ge_one`.
+- **Why it matters.** Layer II takes a `(2ℓ²)`-th root with `ℓ = k(m+1)`. Then `log C_m / ℓ² ≲ 3·log(8(k+2))/k → 0`, so the constant costs `N^{o(1)}` in the block bound.
+- **Feasibility numerics** (`kfeas_constants.py`, the exact recursion, target `η ≤ 1/4`):
+  - `log C/ℓ²` falls from 1.56 (`k = 2`) to 0.11 (`k = 48`).
+  - A block needs `log M ≳ 2.8k⁵` before `Φ < 1`.
+  - Hence `N ≥ exp(c (log t)^{5/6})`. With the per-block saving `N^{−c(log N/log t)^6}`, this points to growth exponent **`a = 6/7`** (my estimate; (G) must prove it).
+
+| layer II step | status |
+|---|---|
+| (A)–(F) | done |
+| (G1) explicit VMVT constants | **done** |
+| (G2) parameter choice per block (`M = N^θ`, `r`, `K ≈ 2r`, `ℓ`) ⇒ `|Σ_{N<n≤N'} n^{−it}| ≤ N^{1−c(log N/log t)^6}` | open |
+| (G3) partial summation to `n^{−σ−it}`; ζ approximation; small-`N` blocks trivially | open |
+| (G4) assemble `PolylogGrowth (6/7) K` ⇒ `rung3_of_growth` | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
+## Round 208: layer II, partial blocks and Abel summation (`src/ExpSum5.lean`)
+
+Axioms are clean.
+
+- **`block_bound_partial`.** The block bound of round 206 holds for every partial block `(N, N']` with `N ≤ N' ≤ 2N`, with the same right-hand side.
+- **`abel_bound`.** Suppose every initial segment `Σ_{N<n≤m} aₙ` is at most `B`, and the weights `wₙ ≥ 0` decrease. Then `|Σ_{N<n≤N'} wₙaₙ| ≤ w_{N+1}·B`. With `wₙ = n^{−σ}`, this turns the `n^{−it}` bounds into `|Σ_{N<n≤2N} n^{−σ−it}| ≤ N^{−σ}·(block bound)`.
+- **Plan for the rest of (G)**, recorded for the next rounds:
+  - PNT+'s `Zeta0EqZeta` + `ZetaBnd_aux1` give `ζ(s) = Σ_{n≤X} n^{−s} − X^{1−s}/(1−s) − X^{−s}/2 + R` with `|R| ≤ 2|t|X^{−σ}/σ`.
+  - `X ≈ |t|^{3/2}` makes the extra terms `O(1)` for `σ ≥ 2/3`, so blocks `N ≤ t^{3/2}` (`λ = log t/log N ≥ 2/3`) must be covered.
+  - On paper, `M = N^{1/3}` (windows `[r/3 + σ'/3, 2r/3]`, overlapping from `r = 2` on) and `M = N^{1/4}` (for the gap near `λ ≈ 0.7`) cover `λ ≥ 2/3`, with `K = 2r+1` satisfying the Taylor constraint.
+  - Small blocks, `N < exp(c(log t)^{5/6})`, are bounded trivially.
+- **Toolchain split (not yet resolved).** Layers I–II live in the pilot (Mathlib at `MATHLIB_REV`, Lean v4.35.0-rc2). Layer III and the ζ approximation live in PNT+ (Lean v4.33.1). A single machine-checked chain needs the layer I–II files ported into the PNT+ environment, or the reverse.
+
+| layer II step | status |
+|---|---|
+| (A)–(F), (G1) explicit constants | done |
+| (G2a) partial blocks, (G2b) Abel summation | **done** |
+| (G2c) parameter choice per block ⇒ per-block saving `N^{−c(log N/log t)^6}` for `N ≥ exp(c(log t)^{5/6})` | open |
+| (G2d) Dirichlet-polynomial growth `|Σ_{n≤t^{3/2}} n^{−σ−it}| ≤ K(log t)^K` for `σ ≥ 1 − (log t)^{−a}` | open |
+| (G4) bridge in PNT+: ζ approximation ⇒ `PolylogGrowth a K` ⇒ `rung3_of_growth`; port layers I–II to PNT+'s toolchain | open |
+
+**Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
+
+
+## Round 209: VMVT parameters at `m = 2K²` (`src/VinoConst2.lean`)
+
+Axioms are clean.
+
+- **`eta_contract`, `eta_geo`.** Once `m ≥ K²`, the recursion's second branch drops below the first, so `η_{m+1} ≤ (1−1/K)η_m`. Therefore `η_{K²+j} ≤ (1−1/K)^j η_{K²}`.
+- **`eta_two_sq`.** For `K ≥ 7`, `η_{2K²} ≤ 1/8`. The proof uses `(1−1/K)^{K²} ≤ e^{−K}`, `η_{K²} ≤ K(K+1)/2` and `4K(K+1) ≤ e^K`; the last comes from the degree-5 Taylor lower bound of `exp`.
+- **`gexp_closed`, `gexp_two_sq`.** The constant exponent has the closed form `g(m) = K + 3Km(m+1) + (K²+3K+2)m`. Hence `g(2K²) ≤ 20K⁵`, and VMVT at `s = K(2K²+1)` has constant at most `(8(K+2))^{20K⁵}`.
+
+These are the parameter facts needed by (G2c).
+
+**Check 4:** classical. **Bearing on RH:** none.
+
+## Round 210: layer II, step (G2c), the per-block saving (`src/ExpSum6.lean`)
+
+Axioms are clean.
+
+**`block_saving`.** Write `N = u^20` with `u ≥ 2`. Take:
+- `M = ⌊u⁸⌋`;
+- `r ≥ 2`, `K = 5r+5`, `m = 2K²` and `ℓ = K(2K²+1)`;
+- `ℓ ≤ u⁴` and `u^{5r+3} ≤ |t| ≤ u^{10r}`.
+
+Then every partial block `N ≤ N' ≤ 2N` satisfies
+
+`|Σ_{N<n≤N'} n^{−it}| ≤ 2^{27}·N·u^{−1/ℓ²} = 2^{27}·N^{1−1/(20ℓ²)}`.
+
+The pieces:
+- **`wsave_le`.** The saving factor satisfies `W ≤ 2^{5r+8}/u⁴`. The log factor is bounded by `(8r+5)u`, using `log u ≤ u − 1`, so no fractional power is lost.
+- **`phi_le`.** `M^{2η} ≤ u²`, since `η ≤ 1/8` (round 209). Hence `Φ ≤ 2^{25}·u^{−1/ℓ²}`.
+- **`const_bound`.** `C²·3^K·ℓ^{2K}·2^{5r+8} ≤ 2^{50ℓ²}`, using `C ≤ (8(K+2))^{20K⁵}`. So the VMVT constant costs only the factor `2^{25}` after the `(2ℓ²)`-th root.
+- **Remaining terms.** The Taylor term is at most `2`, and `2M² ≤ 2u^{16}`.
+
+Choosing `r = ⌈2 log|t|/log N⌉` meets the `t`-window whenever `N ≤ |t|^{5/4}`. So (G2c) holds on the whole range needed for `X = |t|^{5/4}`. The saving is `N^{−c/λ⁶}` with `λ = log|t|/log N`.
+
+**Check 4:** classical (Vinogradov–Korobov block estimate, explicit form). **Bearing on RH:** none.
+
+## Round 211: layer II, step (G2d), growth of the Dirichlet polynomial (`src/ExpSum7.lean`)
+
+Axioms are clean.
+
+**`growth_sum`.** For every `6/7 ≤ a ≤ 1` there is an absolute `B` such that, whenever `log|t| ≥ 1`, `σ ≥ 1 − (log|t|)^{−a}` and `X ≤ |t|^{5/4}`,
+
+`|Σ_{1≤n≤X} n^{−σ−it}| ≤ B·log|t|`.
+
+The explicit constant is `B = 260e^{128} + 3·2^{27}`.
+
+- **`big_block`.** Let `L = log|t|` and `ν = log N`, with `128·L^{1−a/6} ≤ ν ≤ 5L/4`. Take `r = ⌈2L/ν⌉`. Then every hypothesis of `block_saving` (round 210) holds, and `20ℓ²(1−σ) ≤ 1`, because `ℓ ≤ 2^{16}(L/ν)³`. Abel summation with weights `n^{−σ}` (`weighted_block`) then bounds the block by `2^{27}`.
+- **`dyadic`.** The range `(N₀, X]` splits into at most `log₂X + 1 ≤ 3L` blocks `(N, N']` with `N' ≤ 2N`.
+- **`small_part`.** For `n ≤ e^Λ`, where `Λ = 128·L^{1−a/6}`, the bound is `n^{−σ} ≤ e^{ΛL^{−a}}/n ≤ e^{128}/n`. This step needs `a ≥ 6/7`, because `1 − a/6 − a ≤ 0` exactly when `a ≥ 6/7`. The harmonic sum is at most `2 + Λ`.
+
+**Correction to the plan of rounds 208–209.** Those rounds planned the exponent `a = 9/10`. The explicit bookkeeping gives every `a ≥ 6/7`. With `ℓ ≍ K³`, the per-block saving is `N^{−c/λ⁶}`, and `6/7` is the resulting threshold. It is weaker than the Korobov–Vinogradov `2/3`, which needs the sharp VMVT (`ℓ ≍ K²`), and stronger than the classical `a = 1`.
+
+| layer II step | status |
+|---|---|
+| (A)–(G2d) | **done** |
+| (G4) bridge in PNT+: ζ approximation with `X = |t|^{5/4}` ⇒ `PolylogGrowth (6/7) K` ⇒ `rung3_of_growth`; port layers I–II to PNT+'s toolchain | open |
+
+**Check 4:** classical (Vinogradov's method with a weak mean value theorem). **Bearing on RH:** none.
+
+## Round 212: layer II, step (G4), the bridge to ζ; rung 3 closed (`external/pnt/KVBridge.lean`, `external/pnt/kv_port.sh`)
+
+Axioms are clean for all three final theorems (checked on a fresh build from `kv_port.sh`). There are no hypotheses and no RH-conditional steps.
+
+- **Port.** All 16 layer I–II files compile on PNT+'s toolchain (Lean v4.33.1, PNT+ commit 650d312) with three lemma renames. The monoid `Finset.prod_le_prod` was called `prod_le_prod'`, and `prod_le_prod₀`/`prod_le_one₀` were `prod_le_prod`/`prod_le_one`. `kv_port.sh` applies the renames to copies, so the pilot sources stay the single source of truth.
+  - One tactic step in `wsave_le` (`ExpSum6`) timed out under the older `linarith`. It is now written out explicitly in the pilot too.
+- **`zeta_bound_large`.** Suppose `log|t| ≥ 25` and `1 − (log|t|)^{−a} ≤ σ ≤ 2`. Then `σ ≥ 4/5`.
+  - PNT+'s `Zeta0EqZeta` gives `ζ(s) = Σ_{n≤X} n^{−s} − X^{1−s}/(1−s) − X^{−s}/2 + R`.
+  - Take `X = ⌊|t|^{5/4}⌋`. The sum is at most `B·log|t|` (`growth_sum`, round 211).
+  - The other terms are at most `1`, `1/2` and `5`; the last uses `ZetaBnd_aux1`.
+- **`zeta_bound_compact`.** On `0 ≤ σ ≤ 2`, `3 ≤ |t| ≤ e^{25}`, ζ is continuous (since `s ≠ 1`) on a compact set, hence bounded.
+- **`polylogGrowth_kv`**, `6/7 ≤ a ≤ 1`: `|ζ(σ+it)| ≤ K(log|t|)^K` on `σ ≥ 1 − (log|t|)^{−a}`, `|t| ≥ 3`.
+- **`zeroFree_kv`**, `n₁ > 6/7`: `ζ(σ+it) ≠ 0` for `σ ≥ 1 − A/(log|t|)^{n₁}` and `|t| > 3`.
+- **`rung3_kv`**, `n₁ > 6/7`: `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))`, i.e. every exponent below `7/13 ≈ 0.538`.
+
+**What this is.**
+- The chain is machine-checked end to end. It covers Vinogradov's mean value theorem (weak form), the exponential-sum estimate, the ζ growth bound, Landau's lemma, the zero-free region and the prime number theorem error term.
+- The result improves on de la Vallée Poussin's exponent `1/2` (rung 2).
+- It is weaker than the Korobov–Vinogradov exponent `3/5`. That needs `a = 2/3`, and hence the sharp VMVT (Bourgain–Demeter–Guth / Wooley), which is not formalised here.
+
+**Check 4:** classical. Zero-free regions of the form `1 − c/(log t)^{θ}` with `θ < 1` go back to Vinogradov's method in the 1930s; the Korobov–Vinogradov form is `θ = 2/3` (up to `log log` factors). The formalisation is new to the pilot. I have not checked whether it is new to Lean more broadly. **Bearing on RH:** none. Every zero-free region of this type is asymptotically thinner than any fixed strip, so it says nothing about zeros off the critical line at bounded distance from `σ = 1`.
+
+| rung 3 layer | status |
+|---|---|
+| I, VMVT (weak) | done (rounds 194–202, 207, 209) |
+| II, exponential sums ⇒ `PolylogGrowth (6/7) K` | **done** (rounds 203–212) |
+| III, Landau ⇒ zero-free region ⇒ PNT error | done (round 193) |
+| sharpening to `a = 2/3` (exponent `3/5`) | open; needs the sharp VMVT |
+
+## Round 213: sharpening, step S1: many good coordinates (`src/ExpSum8–10.lean`, `frontier/sharpen/`); rung 3 at every exponent below 5/9
+
+Axioms are clean. This includes the fresh PNT+ build via `kv_port.sh`, which now also compiles `ExpSum8–10` with no further renames.
+
+**Correction to round 212.** Round 212 said that reaching `a = 2/3` (exponent `3/5`) "needs the sharp VMVT". That is wrong. Korobov and Vinogradov (1958) used the classical mean value theorem, at `s ≍ k² log k`. The pilot has two removable losses:
+1. The block bound used a single good coordinate.
+2. The weak VMVT's crude bad-tuple bound (Step D) forces `s ~ k³`.
+
+This round removes loss 1. Loss 2 is step S2.
+
+**Pre-registration** (`frontier/sharpen/PREREG_sharpen.md`, `ksharpen.py`, `ksharpen_results.json`):
+- **P1 failed as stated.** At `R = 20` the window has one coordinate and `R·#G/6 − 2 < R²/100`. The true minimum ratio is `1/300`.
+  - Amendment: prove `η ≤ 1/32`, which lowers the loss `u²` to `u^{1/2}`, and use `R² ≤ 50·#G·R − 150`. The Lean `window` lemma proves this for every `R ≥ 16`.
+- **P2 was inconclusive by design.** Up to `L = 10¹²` it cannot separate `a = 0.79` from `a = 0.80`, since the difference is a factor `L^{0.0125}`. The Lean proof replaces it.
+- **P3 held**, with `log C/ℓ² ≤ 1.31` under S2's recursion.
+- **P4 held**, with `c = 1.4·10⁻⁶`.
+
+**What is proved:**
+- **`block_bound_multi`** (`ExpSum8`). The block bound with a set `G` of good coordinates. Each `j ∈ G` satisfying the no-wrap condition contributes its own saving factor `W_j`.
+- **`block_saving_multi`, `window`** (`ExpSum9`). Take `N = u^20`, `M = ⌊u⁸⌋`, `u^R ≤ |t| ≤ u^{R+1}`, `K = ⌊R/4⌋ + 6`, and the window `R+5 ≤ 12j`, `24j+6 ≤ 5R`. Each window coordinate saves `u^{−R/6}`, and
+  `|Σ_{N<n≤N'} n^{−it}| ≤ 2^{Q₀+2} N u^{−s}` with `s ≥ R²/(600ℓ²)`.
+  The saving grows like `K²/ℓ²`; previously it was `1/ℓ²`. Also here: `eta_two_sq32` (`η_{2K²} ≤ 1/32` for `K ≥ 10`).
+- **`growth_gen`** (`ExpSum10`). For any VMVT family (`VMVTFamily`: `K ≤ ℓ(K) ≤ B₀K^q`, `η ≤ 1/32`, constants absorbed), the Dirichlet-polynomial growth bound holds for every `(2q−2)/(2q−1) ≤ a ≤ 1`.
+- **`weakFamily`, `growth_weak`.** The existing weak VMVT is a family with `q = 3`. This gives every `a ≥ 4/5`.
+- **KVBridge.** Now generic: `GrowthSum a` gives `PolylogGrowth a`. The results are `zeroFree_kv` and `rung3_kv` for every `n₁ > 4/5`, i.e. every exponent below `5/9 ≈ 0.556`; round 212 had `7/13`.
+
+| step | target | status |
+|---|---|---|
+| S1 many good coordinates | `a = 4/5` | **done** |
+| S2 VMVT at `s ≍ k² log k` (bad tuples by class Hölder plus induction on `P`) | every `a > 2/3`, exponent → `3/5` | next |
+
+**Check 4:** classical. **Bearing on RH:** none.
+
+## Round 214: sharpening, step S2: VMVT at `s ≍ k² log k`; rung 3 at every exponent below 3/5 (`src/VinoBad.lean`, `src/VinoRec2.lean`, `src/VinoFam.lean`)
+
+Axioms are clean, including the fresh PNT+ build via `kv_port.sh`.
+
+**What is proved:**
+- **`TBB_le2`, `one_step2`** (`VinoBad`). Pairs of bad tuples (coordinates in fewer than `k` classes mod `p`) with equal power sums satisfy
+  `T_BB ≤ 2·C(p,k−1)²·(k−1)^{2(k+s)}·J_{k+s}(⌊P/p⌋+1)`.
+  This replaces round 201's `#bad²`, which ignored agreement. The proof:
+  - cover the bad tuples by pieces `S^{k+s}` with `|S| = k−1`;
+  - split cross-piece pairs by Cauchy–Schwarz in counting form;
+  - inside a piece, apply Hölder over its `k−1` classes in integral form (as in Step B), leaving one class, which is an interval of length `⌊P/p⌋+1`.
+- **`step_real2`, `vmvt2`** (`VinoRec2`). The bad term has the same exponent at the smaller length `P/p`, so it is fed back by strong induction on `P`. Its size is `C'P^{E'}/2` once `P^{1/k} ≥ T₀ = (4k)^{20}`; below `(4k)^{20k}` the trivial bound `J ≤ P^{2(k+s)}` applies.
+  - Result: `J_{k+mk,k}(P) ≤ C_m P^{2(k+mk) − k(k+1)/2 + η_m}` with `η_m = (1−1/k)^m k(k−1)/2` from `m = 0`. There is no second branch, whereas rounds 202/207 had `max(…, k(k+1)/2 − 2(s+1)/k)`.
+  - The feedback needs the margin `D = E' − 2(k−1)` to satisfy `2k + 2(k+s) + E' ≤ 20D`. This follows from Bernoulli's `(1−1/k)^m ≥ 1 − m/k`.
+- **`Cv2_le`.** `C_m ≤ (8(k+2))^{40k²(m+1) + g(m)}`. The trivial range enters through a `max`, not a product, so `log C_m = O(ℓ²)` once `m + 1 ≥ k`.
+- **`sharpFamily ε`, `growth_sharp`** (`VinoFam`).
+  - At `m = K(⌊log₂(16K²)⌋ + 1)`, `η ≤ 1/32` and `ℓ = K(m+1) ≤ (6 + 3/ε)K^{2+ε}`, with `Q₀ = 300`.
+  - `growth_gen` (round 213) with `q = 2 + (3a−2)/2` then gives the Dirichlet-polynomial growth bound for every `2/3 < a ≤ 1`.
+- **KVBridge.**
+  - `polylogGrowth_sharp`: `PolylogGrowth a K` for every `2/3 < a ≤ 1`.
+  - `zeroFree_kv`: ζ has no zeros in `σ ≥ 1 − A/(log|t|)^{n₁}` for every `n₁ > 2/3`.
+  - `rung3_kv`: `ψ(x) − x = O(x·exp(−c(log x)^{1/(1+n₁)}))` for every `n₁ > 2/3`, i.e. every exponent below `3/5`.
+
+**Pre-registration.** P3 (constants, `log C/ℓ² ≤ 1.31`) and P4 (`ρλ² log²(λ+2) ≥ 1.4·10⁻⁶`) held numerically, and the Lean proofs now replace them. P1 failed as stated (round 213) and was amended.
+
+**What this is and is not.**
+- This is the Korobov–Vinogradov zero-free region in the form `σ ≥ 1 − A/(log t)^{2/3+ε}` for every `ε > 0`, and the matching prime number theorem error `exp(−c(log x)^{3/5−ε})`.
+- It does not include the `(log log t)^{1/3}` refinement (`σ ≥ 1 − c/((log t)^{2/3}(log log t)^{1/3})`, exponent exactly `3/5`) or the sharp VMVT. Neither is needed for any exponent below `3/5`.
+
+| rung 3 | exponent reached | round |
+|---|---|---|
+| de la Vallée Poussin (rung 2) | `1/2` | 191 |
+| weak VMVT, one coordinate | `< 7/13` | 212 |
+| weak VMVT, many coordinates | `< 5/9` | 213 |
+| VMVT at `s ≍ k² log k`, many coordinates | **`< 3/5`** | 214 |
+
+**Check 4:** classical (Korobov 1958; Vinogradov 1958). The Lean chain is new to the pilot; I have not checked whether it is new to Lean. **Bearing on RH:** none. The zero-free region still shrinks to `σ = 1`.
+
+## Round 215: the Korobov–Vinogradov zero-free region with its `(log log t)^{1/3}` (`src/VinoKV.lean`, `external/pnt/LandauW.lean`, `external/pnt/LandauKV.lean`)
+
+Axioms are clean, checked on a fresh `kv_port.sh` build.
+
+**`zeroFree_KV`.** There is `A > 0` such that `ζ(σ+it) ≠ 0` for `|t| ≥ e³` and
+`σ ≥ 1 − A/((log|t|)^{2/3}(log log|t|)^{1/3})`.
+
+This is the Korobov–Vinogradov zero-free region in its classical form.
+
+- **R1, `growth_kv`** (`VinoKV`). `|Σ_{n≤X} n^{−σ−it}| ≤ B(log|t|)²` on `σ ≥ 1 − c₂(log L/L)^{2/3}`, with `L = log|t| ≥ 5` and `X ≤ |t|^{5/4}`.
+  - The window of good coordinates saves about `u^{K²/3}`. So the VMVT excess only has to satisfy `η ≤ K²/8192` (`block_saving_multiH`, a generalisation of round 213's block bound to any `η ≤ H`), not `η ≤ 1/32`.
+  - By `vmvt2`, that holds after `m = 12K` steps. So `ℓ ≤ 13K²` with no `log K`, and the per-block saving is `N^{−c/λ²}` with no logarithmic loss (`big_block_kv`).
+  - The initial segment up to `Λ = 20L(log L/L)^{1/3}` costs `e^{Λδ}(2+Λ) ≤ L(2+Λ)`.
+- **R3a, `LandauW`.** Round 193's Landau lemma, rewritten for any admissible width `w`: positive, at most 1, non-increasing, with `log(1/w(L)) = O(1 + log L)`. The proofs are round 193's, with the radius `¼(log|t|)^{−a}` replaced by `¼w(log(|t|+1))`.
+- **R3b, `LandauKV`.** For the width `w(L) = c₂(log(L+2)/(L+2))^{2/3}`:
+  - `wkv_ok`: `w` is admissible.
+  - `growthW_kv`: `|ζ| ≤ K(log|t|)^K` on `σ ≥ 1 − w(log|t|)`. For `log|t| ≥ 25` this goes through `zeta_le_sum` (`|ζ| ≤ |Σ_{n≤X}| + 13/2`), since `w ≤ c₂(log L/L)^{2/3}`; below that, compactness.
+  - `zeroFree_KV`: Landau's shift `≍ w(log t)/log log t` gives the region.
+
+**Still open: R4, the prime number theorem error term `exp(−c(log x)^{3/5}(log log x)^{−1/5})`.** This needs:
+- PNT+'s contour bounds `I2GenBound`–`I8GenBound` and `GenStrengthPNT` rewritten for a width function (all are stated for widths `A/(log T)^{n₁}`);
+- a `ζ'/ζ` bound on the KV region (the width-function version of round 193's `logDerivBnd_of_growth`).
+
+Until then, rung 3 in the PNT form stays at "every exponent below 3/5" (round 214).
+
+**Check 4:** classical (Korobov 1958; Vinogradov 1958). **Bearing on RH:** none.
+
+## Round 216: the prime number theorem with the Korobov–Vinogradov error term (`external/pnt/LogDerivKV.lean`, `external/pnt/MediumPNTW.lean`, `external/pnt/PNTKV.lean`)
+
+**`PNTKV.PNT_KV`.** There is `c > 0` with
+
+`ψ(x) − x = O(x · exp(−c (log x)^{3/5} / (log log x)^{1/5}))`.
+
+This is the strongest known unconditional form of the prime number theorem (Korobov 1958; Vinogradov 1958). This round closes R4, left open in round 215. Rung 3 in the PNT form now has exponent exactly `3/5` with the `(log log x)^{−1/5}` factor, not just every exponent below `3/5` (round 214).
+
+Axioms are clean (`propext`, `Classical.choice`, `Quot.sound`), checked on a fresh `kv_port.sh` build. There is no `sorry`.
+
+- **R4a, `LogDerivKV.logDerivBnd_KV`.** `‖ζ'/ζ(σ+it)‖ ≤ C (log|t|)³` for `|t| > 3` and `σ ≥ 1 − A·u(|t|)`, where `u(T) = 1/((log T)^{2/3} (log(log T + 3))^{1/3})`.
+  - This is round 193's `logDerivBnd_of_growth`, rewritten for round 215's width `w`.
+  - `σ ≥ 3/2`: PNT+'s bounded-region estimate.
+  - `|t| < 5`: PNT+'s strip bound.
+  - Near `σ = 1`: the local disc bound (`near_boundW`), fed by round 215's zero gap.
+  - Right of the disc: the shift bound.
+  - The `(log log)` shapes are compared in `shape_lower`, `radW_lower_u` and `dltW_lower_u`.
+- **R4b, `MediumPNTW`.** PNT+'s contour bounds `I2GenBound`–`I8GenBound`, restated for any depth `D` with `σ₁ = 1 − D T`.
+  - PNT+ states them for the depth `A/(log T)^{n₁}`, but the proofs use only three of its properties: `0 < D T ≤ 1/2`, and `D` non-increasing (`DepthOK`). The proofs are PNT+'s, with those three facts swapped in.
+  - `I4`/`I6` take `σ₂ ≤ 1 − D T` as a hypothesis in place of PNT+'s explicit `T` threshold.
+  - `GenPNTW` assembles the pieces. Given cutoffs `T(x) → ∞` and `ε(x) → 0` with `x ε(x) > 2` and `D(T(x)) → 0`, it gives `ψ(x) − x = O(x F(x))` for any `F` that eventually dominates `ε log x`, `log x/(εT)`, `x^{−D(T)}/ε` and `x^{σ₂−1}/ε` for every `σ₂ < 1`.
+- **R4c, `PNTKV`.**
+  - Depth: `D(T) = A·u(T)`, with `A` shrunk so that `ζ ≠ 0` on every box `[1 − D T, 2] × [−T, T]` (`zeroFree_boxes`). Below height 21 this uses PNT+'s `ZetaNoZerosInBox`. Above it, since `log(log T + 3) ≥ log log T`, it uses round 215's `zeroFree_KV`.
+  - Cutoffs: `log T(x) = G(log x)` with `G(L) = L^{3/5}/(log L)^{1/5}`, `ε = e^{−(A/2)G}` and `F = e^{−(A/4)G}`.
+  - The error terms reduce to four facts about `G`:
+    - `log L = o(G)`;
+    - `G = o(L)`;
+    - `G → ∞`;
+    - `G ≤ L·u(e^G)` (`G_le_depth`), which comes from `G^{5/3} = L/(log L)^{1/3}` and `log(G + 3) ≤ log L`.
+
+`kv_port.sh` now also builds `LogDerivKV`, `MediumPNTW` and `PNTKV`, and prints the axioms of `logDerivBnd_KV`, `GenPNTW` and `PNT_KV`.
+
+**Check 4:** classical (Korobov 1958; Vinogradov 1958). The Lean proof is new work; the result is not. **Bearing on RH:** none. The result is unconditional, and zero-free regions near `σ = 1` say nothing about the critical line.
+
+## Round 217: one toolchain for the whole pilot, Lean v4.35.0-rc3 (`build.sh`, `external/pnt/build.sh`, `external/pnt/pnt_port.patch`, `external/pnt/Architect.lean`)
+
+The pilot, the PNT+ files it uses and the external layer now build on one toolchain: Lean v4.35.0-rc3 with Mathlib master `0f64d30a` (29 September 2026). This closes the toolchain split recorded in round 211. Rung 3 and the Korobov–Vinogradov prime number theorem (rounds 212–216) now compile against the pilot's own oleans, in one environment.
+
+- **Pilot (`src/`).** All 124 files compile. Three proofs in two files changed, all for one Mathlib change (#42924): `MemLp.indicator` and `memLp_indicator_iff_restrict` now take a `NullMeasurableSet`. `GroundStateExists` and `ParityCont` now pass `.nullMeasurableSet`.
+- **`build.sh` fix.** `CosTrunc` wrote no olean, although `PhiDecay` has imported it since round 133, so a clean `./build.sh` stopped at `PhiDecay`. It now writes one. So do the seven other lines that did not (`KernelChain`, `ZeroCount`, `SixteenPi`, `ToneHyperbola`, `PrimeRelax3`, `ParityCert`, `FirstFailure`).
+- **PNT+.** Upstream PNT+ is still on Lean v4.33.1. The external layer imports 19 of its files (22,183 lines). `external/pnt/pnt_port.patch` ports them with five small changes, all forced by Mathlib API drift:
+  - `EulerMaclaurin`: import `Mathlib.MeasureTheory.Function.Floor` directly, since `AbelSummation` no longer re-exports it;
+  - `MellinCalculus`: `Integrable.piecewise` now takes a `NullMeasurableSet`, and one goal is restated with `change`;
+  - `Wiener`: two binders get their type `ℝ`, which elaboration no longer infers from the filter;
+  - `Consequences`: `Nat.factorization` was redefined and `Nat.primeFactorsList_count_eq` is no longer a simp lemma, so it is passed to `norm_num`;
+  - `StrongPNT`: `Finset.prod_le_prod` becomes `prod_le_prod₀` (renamed), and `logDeriv_prod` becomes `logDeriv_fun_prod` (the pointwise form took the new name).
+- **LeanArchitect.** PNT+ tags its results with `@[blueprint ...]` and `blueprint_comment` from the LeanArchitect package. The tags only feed PNT+'s blueprint document. `external/pnt/Architect.lean` accepts the same syntax and does nothing, so the PNT+ files need no edits for it.
+- **External layer.** The nine files in `external/pnt/` compile with no code changes. `external/pnt/build.sh` replaces `kv_port.sh`:
+  - it fetches the 19 PNT+ files at `650d312` and applies the patch;
+  - it compiles `Architect.lean`, the PNT+ files (with PNT+'s `autoImplicit = false`) and the layer into `build/`;
+  - it prints the axioms.
+
+  The layer I–II files are no longer copied or renamed: `KVBridge` and `LandauW` import the pilot's own oleans.
+
+Axioms are clean, checked on a clean build (`./build.sh`, then `external/pnt/build.sh`). All 701 `#print axioms` outputs, from the pilot, the PNT+ files and the layer, list only `propext`, `Classical.choice` and `Quot.sound`. The only `sorry`s compiled are the two in PNT+'s `Wiener.lean`, and no printed theorem depends on them.
+
+- **Parallel, incremental `build.sh`.** `build.sh` now reads the import graph from the sources instead of a hand-kept list. It compiles each file as soon as its imports are built, `JOBS` at a time, and skips files whose olean is newer than their source and imports. On 4 cores a clean build takes 11.7 minutes, down from 29.3 minutes serially. With nothing changed it takes about a second. After an edit only that file and its dependents are rebuilt. `external/pnt/build.sh` takes 8 minutes.
+
+**Check 4:** not applicable; there is no new mathematics. **Bearing on RH:** none.
+
+## Round 218: dead and duplicated code removed
+
+765 lines fewer (863 deleted, 98 added), with no change to any headline statement. Every file compiles, and the axioms are unchanged.
+
+- **Superseded chain.** `ExpSum6` (`const_bound`, `wsave_le`, `phi_le`, `block_saving`) and `ExpSum7` (`weighted_block`, `big_block`, `growth_sum`, the `6/7 ≤ a` growth bound) are gone. `ExpSum10.growth_weak` (`4/5 ≤ a`) and `VinoFam.growth_sharp` (`2/3 < a`) supersede them. The helpers that later files use stay.
+- **Dead code.** `VinoPadic.linnik` and `card_residue_le` were unused; `VinoStep.linnikZ` replaced them.
+- **Exact duplicates.**
+  - `VinoRec2.J_le_pow` is now `Vinogradov.J_le`.
+  - `LandauW.gap_algebra` is now `Landau.gap_algebra`.
+  - `ParityCert`'s odd sector reuses the even sector's certified `ψ̲` list (identical data), `cinE` and the prime-window bounds. That saves a second 351-step `decide +kernel`. `frontier/nullvec/gen_paritycert.py` still emits both copies.
+- **Shared proofs.**
+  - The five "`L²` and supported in `[−a, a]` ⇒ integrable" proofs are one lemma, `Positivity.integrable_of_supp`.
+  - `weilQ_ge_prime` and `weilQ_ge_prime3` are one-line instances of `weilQ_ge_of_certP`.
+  - `KVBridge.zeta_bound_large` now follows from `zeta_le_sum`, moved there from `LandauKV`.
+
+**Check 4:** not applicable; there is no new mathematics. **Bearing on RH:** none.
+
+## Round 219: the remaining duplicates factored
+
+963 lines of Lean fewer (592 added, 1555 deleted, `LandauW.lean` included), with no change to any headline statement. Every file compiles. The 11 external headline theorems depend only on `propext`, `Classical.choice` and `Quot.sound`.
+
+- **Landau's lemma, once.** `LandauW.lean` is merged into `Landau.lean`. The local steps (`apply_localW`, `zero_gapW`, `disc_factsW`, `near_boundW`, the radius `radW` and its lemmas) are proved once for any `WidthOK` width. The power-width versions are instances at `wpow a L = L^(−a)`, and `LogDerivKV` drops its own copy of the disc steps. `near_boundW` loses an unused parameter.
+- **Block-bound family.** After round 218 nothing used `ExpSum4.Phi`, `Bn_bound`, `block_bound` or `ExpSum5.block_bound_partial`, so they are gone. Also unused: `ExpSum.T_neg_left`, `VinoConst2.eta_two_sq`, `VinoRec2.eta2_nonneg`.
+- **Vinogradov chain.**
+  - `VinoRec.expo_step` is the exponent step shared by `vmvt_iter` and `VinoConst.vmvt_explicit`.
+  - `q_bound` and `main_part` are the two halves shared by `step_real` and `step_real2`.
+  - `const_bound_m` moves from `VinoKV` to `VinoFam`, and `const_bound3` is its instance at `m = mf K`.
+- **Parity continuity.** `ParityCont` has three generic lemmas, which take the cut and the probe class as arguments: `normSq_sub_cut_le`, `left_cont_of_dil` and `continuousOn_of_right_left`. The odd (`ParityCont`) and even (`SimpleCont`) sectors are instances of them. The right-continuity/lower-semicontinuity pair stays as two proofs, because a shared version would need more parameters than it saves.
+- **Kaiser.**
+  - `KaiserPW.norm_kH_core`/`kH_exp_eq` serve both `norm_kH_le` and `KaiserDeriv.norm_kH_le2`.
+  - `KaiserIBP.tail_ibp_gen` is the tail integration by parts on `t.im ≥ −c`, for any `0 ≤ c ≤ 1`. `tail_ibp` is its instance at `c = ½`, and `KaiserPrefactor.tail_ibp_line` its instance at `c = 1`.
+
+**Check 4:** not applicable; there is no new mathematics. **Bearing on RH:** none.
+
+## Round 220: Landau's theorem for Laplace transforms, used three times
+
+**The theorem** (`src/LandauLaplace.lean`). Let `A ≥ 0` and `φ ≥ 0` on a measure space, and `L(s) = ∫ A e^{−sφ} dμ`. `landau`: if the integral converges for every real `σ > σ₀`, and near `σ₀` it agrees, on `Re s > σ₀`, with a function holomorphic on a disc around `σ₀`, then it converges at some `σ < σ₀`. With `φ(λ) = λ` this is the Laplace transform; with `φ = log` on `(1, ∞)` it is the Mellin integral `∫A(x)x^{−s}dx`.
+- **The proof.** At `c = σ₀ + η/4`, `L` has the power series `Σ(−y)ⁿ/n!·∫Aφⁿe^{−cφ}` (`lap_hasFPowerSeriesOnBall`, which also gives `lap_differentiableOn`). By uniqueness of power series this is the Taylor series of the holomorphic extension, so it converges on a disc of radius `η/2`. At the real point `c − 3η/8` every term is nonnegative, and Tonelli turns the series back into the integral.
+- **The global form** `landau_abscissa`: if the integral converges somewhere, and near every real `c > σ₀` where it converges on `(c, ∞)` it agrees on `Re s > c` with a holomorphic function, then it converges for every `σ > σ₀`.
+- **The pole test** `residue_eq_zero`: if a function equals `L` on `p + (0, ε)` and has the form `G(z) + R/(z − p)` there, with `G` and `L` continuous at `p`, then `R = 0`.
+- Mathlib has only the weaker `LSeries_positive_of_differentiable_of_eqOn` (an entire continuation is positive on the reals), which does not give convergence.
+
+**Use 1: Weil's criterion for `ζ` with no finiteness hypothesis** (`src/WeilLandau.lean`).
+- `rh_of_weil_twins`: if `Q(twin (box 1) λ) ≥ 0` for every `λ ≥ 0`, then Mathlib's `RiemannHypothesis` holds.
+- `rh_of_weil`: the same, assuming `Q ≥ 0` for every probe.
+- Downstream, `hfin` is gone from `weil_criterion_zeta` (`WeilRH.lean`) and from `exists_lam_neg_of_not_RH` and `first_failure` (`FirstFailure.lean`). `rh_of_weil_finite` and `exists_weilQ_neg_of_offline_zeta` were removed as superseded. Round 131's `WeilConverse.lean` stays: it covers general zero families.
+- **The transform.** With `P_ρ = 2(ρ − ½)`, the explicit formula for the twins gives `Q(λ) = Σ_ρ ĝ₀(t_ρ)²(2 + e^{λP_ρ} + e^{−λP_ρ})`. For `Re z > 1`, `∫_0^∞ Q(λ)e^{−zλ}dλ = F(z) = Σ_ρ ĝ₀(t_ρ)²(2/z + 1/(z − P_ρ) + 1/(z + P_ρ))` (`lap_eq_Fw`).
+- **The poles** `0, ±P_ρ` are locally finite (`finite_poleP`, from Hadamard's `Σ1/|u| < ∞`). None is real, because `ζ ≠ 0` on `(0, 1)`. So by the identity theorem on thin strips, `F` equals the transform near every real `c > 0`, and Landau gives convergence on all of `Re z > 0` (`conv_pos`).
+- **The contradiction.** An off-line zero gives a pole with `Re P > 0`. Take the pole with the largest real part on its horizontal line. To its right there is a pole-free strip, on which `F` equals the transform, which is continuous there. But `F = G + R/(z − p)`, with `R = N·ĝ₀(t_p)²`, `N ≥ 1` and `ĝ₀ ≠ 0` off the real axis (`Rp_ne_zero`). So `R ≠ 0`, contradicting the pole test.
+- **What round 157 lacked.** Its proof needed a zero of maximal `|Im t|`. This argument needs only the rightmost pole on one horizontal line, which always exists.
+
+**Use 2: Connes' prefactor `e^{9a}`, ineffective constant** (`src/KaiserNine.lean`). `lam_nine`: `λ₁(a) ≤ K(a+1)e^{9a − 4πe^{2a}}` for every `a ≥ 4`. This is round 164's "clean way", which was blocked only by use 1.
+- If RH holds, every `τ` is real (`tau_im_eq_zero_of_RH`), so `κ = 1` in `lam_le_kappa`.
+- If RH fails, `λ₁(a₀) < 0` for some `a₀` (`exists_lam_neg_of_not_RH`, now without `hfin`), and `λ₁` is antitone, so `λ₁ < 0` from `a₀` on. On `[4, a₀]`, `e^{10a} ≤ e^{a₀}e^{9a}`.
+- `K` is ineffective: it depends on the unknown `a₀`. The factor `a + 1` remains.
+
+**Use 3: a floor under the drift, `ψ(x) − x = Ω±(x^θ)`** (`src/PsiOmega.lean`).
+- `zeta_ne_zero_of_psi`: if `ε(ψ(x) − x) ≤ c·x^θ` for every `x > 1` (`ε ≠ 0`, `0 < θ < 1`), then `ζ ≠ 0` on `Re s > θ`. `A(x) = (c·x^θ − ε(ψ(x) − x))/x ≥ 0`. For `Re s > 1`, `∫_1^∞ A x^{−s} = c/(s − θ) + ε(ζ′/(sζ) + 1/(s − 1))` (`lap_eq_Fψ`, from Mathlib's `LSeries_eq_mul_integral` and `L(Λ, s) = −ζ′/ζ`). With the entire `Z(s) = (s − 1)ζ(s)` this is `c/(s − θ) + ε(Z′/(sZ) + 1/s)`. The argument is use 1's: zero-free strips, Landau, then the rightmost zero on a horizontal line, where `Z = (s − ρ*)ⁿg` gives the residue `εn/ρ* ≠ 0`.
+- `psi_omega`: for every zero `ρ` and every `0 < θ < Re ρ`, whatever `c` and `X`, some `x > X` has `ψ(x) − x > c·x^θ`, and some has `ψ(x) − x < −c·x^θ`.
+- `exists_zero_re_ge_half`: `ζ` has a zero with `Re ρ ≥ ½`. Hadamard's identity (`hadamard_zeta`) sums over the nontrivial zeros to `2 + γ − log 4π`, which is positive (`hadamard_const_pos`, from `γ > 0.5456` and `log π < 1.15`), so a zero exists; `ρ ↦ 1 − ρ` preserves the zeros.
+- `psi_omega_half`: hence, unconditionally, `ψ(x) − x = Ω±(x^θ)` for every `0 < θ < ½`.
+- The wander ladder (rungs 1–3) bounds the drift from above; this is the matching floor.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`; 696 checked theorems in `src/`. The external layer is unaffected (it imports none of the changed files).
+
+**Check 4.**
+- **Acknowledged (classical).** Landau's theorem (Landau 1905; Widder, *The Laplace Transform*, ch. II) and Landau's Ω± theorem for `ψ` (Ingham, ch. V) are textbook.
+- **New here.**
+  - Machine-checked proofs of both, from Mathlib.
+  - The removal of the finite-exception hypothesis from the pilot's Weil criterion and first-failure theorem. The Laplace transform of the twin-box form, with its pole test, is the route. Round 164 had flagged this as the blocker.
+  - The unconditional `e^{9a}` prefactor, with an ineffective constant.
+
+**Bearing on RH:** none. Use 1 widens an equivalence. Use 2 improves an upper bound on `λ₁` that is compatible with RH and with its failure. Use 3 runs from zeros to oscillation.
+
+## Round 221: the doors round 220 opened
+
+Four follow-ups to Landau's theorem. All build, with no warnings; every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (713 checked theorems in `src/`).
+
+**1. Weil positivity, graded** (`WeilLandau.lean`, `WeilRate.lean`). Round 220's argument works for a lower bound, not only for positivity. Adding `C·e^{σλ}` to `Q` adds one real pole at `σ` to the transform, and Landau's theorem only looks to the right of `σ` (`abs_re_poleP_le`, since round 225 `TwinLandau.abs_re_le`). The converse is the sum over zeros (`weilQ_twin_ge`).
+- `weil_twins_rate`: for `σ ≥ 0`, `Q(twin (box 1) λ) ≥ −C·e^{σλ}` for some `C` and all `λ ≥ 0` **iff** every nontrivial zero has `|2 Re ρ − 1| ≤ σ`. The exponential rate at which the twin form goes negative is exactly `2Θ − 1`.
+- `rh_iff_twins_subexp`: RH iff the twin form's defect is subexponential. Round 220's `rh_of_weil_twins` is the case `C = σ = 0`.
+- `zeros_of_lam_ge`: a lower bound `λ₁(a) ≥ −C·e^{σa}` for `a ≥ 1` gives the zero-free half-plane `Re s > (1 + σ)/2`. It uses `Q ≥ λ₁‖g‖²` and `‖twin (box 1) λ‖² ≤ 4` (`normSq_twin_le`).
+- `rh_iff_lam_subexp`: RH iff, for every `σ > 0`, `λ₁(a) ≥ −C_σ·e^{σa}`. This grades round 164's "any lower bound on `λ₁` is RH-strength".
+
+**2. If RH fails, it fails exponentially** (`WeilRate.lean`).
+- `lam_rate`: a zero with `|2 Re ρ − 1| > σ` makes `λ₁(a) < −C·e^{σa}` at arbitrarily large `a`, for every `C` (with `lam_antitone`).
+- `lam_fails_exponentially`: if RH fails, there is `δ > 0` with `λ₁(a) < −C·e^{σa}` infinitely often for every `σ < δ`. Round 40's heuristic "if RH fails, `λ₁(a) < 0` for all large `a`" is now a theorem (`exists_lam_neg_of_not_RH` plus `lam_antitone`), with a rate.
+- Under RH, `KaiserNine.lam_nine` gives `0 ≤ λ₁ ≤ K(a+1)e^{9a−4πe^{2a}}`. The two regimes are separated by exponential scales, so the first failure (`first_failure`) is not a marginal crossing.
+- This is also a quantitative target for round 165's Davenport–Heilbronn numerics: the growth rate of the negative part should be `2β₀ − 1` for DH's off-line zero `ρ₀`. That has not been tested.
+
+**3. The oscillation machinery, made generic** (`PsiOmega.lean`, `MertensOmega.lean`).
+- `zeta_ne_zero_of_mellin`: `A ≥ 0` on `(1, ∞)`, with Mellin transform `F` holomorphic on `Re s > θ` off the zeros of `Z(s) = (s − 1)ζ(s)` and with a pole of some order at each zero (`PoleAt`), gives `ζ ≠ 0` on `Re s > θ`. The pole test now handles any order (`LandauLaplace.pole_test`).
+- For summatory functions `S(x) = Σ_{k ≤ x} f(k)` with `|S(x)| ≤ Kx`, the transform is computed once (`lap_Aof`), and `omega_of_zeroFree` turns a zero-free theorem into Ω±.
+- **`ψ`**: round 220's results, now instances.
+- **Mertens**: `zeta_ne_zero_of_mertens` (`εM(x) ≤ c·x^θ` ⟹ `ζ ≠ 0` on `Re s > θ`), `mertens_omega` and, unconditionally, `mertens_omega_half`: `M(x) = Ω±(x^θ)` for every `θ < ½`. The pole at a zero of order `n` has order `n`.
+- **Liouville**:
+  - `LSeries_liouville` proves `L(λ, s)ζ(s) = ζ(2s)` from the Euler products: `λ` is completely multiplicative with `λ(p) = −1`, and `(1 + p^{−s})⁻¹(1 − p^{−s})⁻¹ = (1 − p^{−2s})⁻¹`.
+  - `zeta_ne_zero_of_liouville`: for `θ ≥ ½`, a one-sided bound on `L(x)` gives a zero-free half-plane. `ζ(2s)` is holomorphic and nonzero there.
+  - `rh_of_liouville_bound`: `εL(x) ≤ c√x` gives RH (with `ρ ↦ 1 − ρ`).
+  - `rh_of_polya`: **Pólya's conjecture `L(x) ≤ 0` implies RH.** Pólya's conjecture is false (Haselgrove 1958), so this closes nothing. It is the classical implication, now machine-checked. *(Correction, round 238: as stated in this round the hypothesis was `L(x) ≤ 0` for every `x > 1`, which is refutable at `x = 3/2` (`L(3/2) = λ(1) = 1`), so the theorem was vacuous. It now assumes `L(x) ≤ 0` for `x ≥ 2`.)*
+
+**4. Landau for L-series** (`LSeriesLandau.lean`). With the counting measure on `ℕ` and `φ = log`, `LandauLaplace.landau` becomes the classical Dirichlet-series theorem.
+- `LSeries_landau`: if `L(a, s)` has nonnegative coefficients and converges for `σ > σ₀`, and a function holomorphic on a disc around `σ₀` agrees with it on `Re s > σ₀`, then it converges at some `σ < σ₀`.
+- `LSeries_not_holomorphic_at_abscissa`: an L-series with nonnegative coefficients is singular at the real point of its abscissa of absolute convergence.
+- Mathlib has only `LSeries_positive_of_differentiable_of_eqOn`. These statements use only Mathlib's `LSeries` API and `LandauLaplace.lean`, so they can be upstreamed. They have not been submitted.
+
+**Check 4.**
+- **Acknowledged (classical).**
+  - Item 4 is Landau's theorem (Widder ch. II).
+  - Item 3 is Landau 1905 and Ingham ch. V: the Ω± results for `ψ` and `M`, and Pólya ⟹ RH.
+  - The growth-rate/abscissa correspondence behind items 1–2 is the same classical mechanism.
+- **New here.**
+  - Machine-checked proofs.
+  - The graded form of the pilot's Weil criterion, with its converse.
+  - The `λ₁` versions (`zeros_of_lam_ge`, `rh_iff_lam_subexp`, `lam_rate`), which turn round 40's heuristic into theorems.
+  - The Mathlib-ready L-series lemma.
+
+**Bearing on RH:** none. Items 1–2 grade an equivalence and quantify a hypothetical failure. They do not supply the lower bound on `λ₁` that would be needed. Item 3's bounds on `M` and `L` are not proved, and Pólya's is false.
+
+
+## Round 222: prime races, and the Davenport–Heilbronn rate test
+
+### Prime races (`PsiOmega.lean`, `DirichletOmega.lean`)
+
+**The generic theorem, for any `Z`.**
+- `PsiOmega.ne_zero_of_mellin` replaces `(s − 1)ζ(s)` by any `Z` with `ZData Z θ`: `Z` entire, no zero on `Re s ≥ 1`, and no real zero in `(θ, ∞)`.
+- Local finiteness of the zeros is now proved for any such `Z` (`ZData.zeros_finite`, from `AnalyticOnNhd.preimage_zero_mem_codiscrete`).
+- `zeta_ne_zero_of_mellin`, `strip_free`, `FZ` (formerly `Fψ`, now `Fψ = FZ Zr · · · 1`), `FZ_pole` and `local_factor` are instances or generalisations. Their statements for `ζ` are unchanged, and `MertensOmega.lean` builds as before.
+
+**Dirichlet characters.** Take `χ ≠ 1` real, `Z = L(·, χ)` and `ψ(x, χ) = Σ_{n ≤ x} Λ(n)χ(n)`. The L-series of `ψ(x, χ)` is `−L′/L` (Mathlib's `LSeries_twist_vonMangoldt_eq`).
+- `LFunction_ne_zero_of_psiChi`: suppose `L(σ, χ) ≠ 0` for real `σ ∈ (θ, 1)`. Then `εψ(x, χ) ≤ c·x^θ` implies `L(s, χ) ≠ 0` on `Re s > θ`.
+- `psiChi_omega`: under the same real-zero hypothesis, a zero `ρ` of `L(s, χ)` with `Re ρ > θ` gives `ψ(x, χ) = Ω±(x^θ)`.
+- `race_four`: `ψ(x, χ₄) = ψ(x; 4, 1) − ψ(x; 4, 3)` (`summ_fχ_chi4`). A zero of `L(s, χ₄)` with `Re ρ > θ`, together with no real zero in `(θ, 1)`, makes the `log p`-weighted race between primes `≡ 1` and `≡ 3` (mod 4) change lead infinitely often, by more than `c·x^θ` each way. This is the `ψ`-form of Littlewood's 1914 theorem.
+
+**The two hypotheses are real.**
+- *Real zeros.* A real zero of `L(s, χ)` in `(θ, 1)` (a Siegel zero, if it lies near 1) is a real singularity. Landau's theorem allows real singularities, so it must be excluded. `L(σ, χ₄) > 0` on `(0, 1)` is classical (an alternating series) but is not proved here: Mathlib's `LFunction` is not identified with the conditionally convergent series.
+- *A zero exists.* Proving that `L(s, χ)` has a zero needs a Hadamard product for `L`. The pilot has one only for `Ξ`, where `exists_zero_re_ge_half` makes the `ζ` results unconditional.
+
+So the ζ, `M` and `L` results of rounds 220–221 are unconditional, and the race is conditional on these two inputs.
+
+### DH rate test (`frontier/dh/RATE_PREREG.md`, `rate_*.jsonl`)
+
+**Pre-registered** (before any run past `a = 2`):
+- The least-squares slope of `log(−λ₁^{DH}(a))` over `a ∈ [2.5, 3.5]` lies in `[0.55, 0.70]`, with target `2β₀ − 1 = 0.617` for `ρ₀ = 0.8085 + 85.70i`.
+- The ground state is dominated by `ρ₀`.
+
+The runs used `scan.py dh K 300 δ` with `δ = 2a`. A validity condition was found during the runs: the basis frequencies `kπ/a` must reach 85.7, so `K ≳ 27a`.
+
+| a | 2.0 | 2.25 | 2.5 | 2.75 | 3.0 | 3.25 | 3.5 | 4.0 | 4.5 |
+|---|---|---|---|---|---|---|---|---|---|
+| `−λ₁`, K = 120 | 0.710 | 1.326 | 1.855 | 2.724 | 3.680 | 4.779 | 6.274 | 10.36 | (0.020, truncated) |
+| `−λ₁`, K = 160 | 0.712 | 1.327 | 1.858 | 2.732 | 3.691 | 4.789 | 6.284 | 10.64 | |
+| `−λ₁`, K = 200 | | | | | | | | 10.65 | 16.52 |
+
+**Result 1: the slope prediction is falsified.**
+- The least-squares slope over `[2.5, 3.5]` is **1.20**, outside `[0.55, 0.70]`. It is stable in `K`: K = 120 and K = 160 agree to 0.2% up to `a = 3.5`.
+- Local slopes: 1.54, 1.20, 1.05 and 1.09 on the quarter-intervals from 2.5 to 3.5, then 1.06 on `[3.5, 4]` and 0.88 on `[4, 4.5]`.
+
+**Result 2: the mechanism is confirmed.** The ground state's `ρ₀` term `4 Re ĝ(τ₀)²` (`anal.py`) accounts for `λ₁`:
+
+| a | `λ₁` | `ρ₀` term |
+|---|---|---|
+| 2.5 | −1.855 | −1.956 |
+| 3.0 | −3.680 | −3.840 |
+| 3.5 | −6.274 | −6.587 |
+
+- The other off-line zeros contribute at most 1e−3.
+- `|ĝ|` peaks at `t = 85–86.5`.
+- The second mode is the same picture for `ρ₁ = 0.651 + 114.16i`. At `a = 3.5` it disappears at K = 120 (`π·120/3.5 = 107.7 < 114`) and returns at K = 160. This is the truncation diagnostic.
+- The `ρ₀` term matches `λ₁` to within 5%, which leaves no room for another zero to cause the excess slope. Only the four known off-line zeros below `t = 177` were checked individually.
+
+**Reading (post hoc, not pre-registered).**
+- The heuristic "`−λ₁ ∝ e^{(2β₀−1)a}`" ignored the prefactor. The ceiling for one zero is `max ‖g‖=1 of 4|ĝ(τ₀)|² = 4 sinh(2ηa)/η` with `η = β₀ − ½`.
+- The ground state reaches a growing fraction of that ceiling: 6.4%, 9.1%, 11.3%, 13.6% and 15.9% at `a = 2.5, 3, 3.5, 4, 4.5`. It has to resolve `ρ₀` in frequency against the on-line zeros nearby (spacing ≈ 1.5), and that resolution improves with `a`.
+- A fit `−λ₁ ≈ C a^{1.5} e^{0.617a}` on `[3, 4]` predicts a local slope near 0.97 at `a = 4.25`. The observed value is 0.88. The slope is falling towards 0.617 but has not reached it.
+- `lam_rate` concerns `a → ∞` and gives a lower bound on the rate. Every observed slope exceeds 0.617, as it must. The data neither confirm nor refute the asymptotic rate; reaching `a ≈ 8` would need `N ≈ e^{16}` prime-power weights, which is out of reach for this code.
+
+**Check 4.**
+- **Acknowledged (classical).**
+  - Landau's Ω± theorem for `ψ(x, χ)` and Littlewood's race theorem mod 4 (Littlewood 1914; Ingham ch. V).
+  - DH's off-line zeros (round 165).
+- **New here.**
+  - Machine-checked `race_four` and `psiChi_omega`, with their hypotheses explicit.
+  - The generic theorem for any `ZData`.
+  - A falsified pre-registered slope, with the mechanism check that explains it.
+
+**Bearing on RH:** none. The race theorems run from zeros of `L(s, χ)` to oscillation. The DH numerics test a transfer heuristic for a function that is known to violate RH.
+
+## Round 223: the race mod 4, unconditional (`Chi4.lean`; merged into `RealDirichlet.lean` and `PrimeRaces.lean` in round 224)
+
+Round 222's `race_four` needed two inputs: no real zero of `L(σ, χ₄)` in `(θ, 1)`, and some zero of `L(s, χ₄)`. Both are now proved, from Mathlib and the pilot's own Hadamard theorem.
+
+**No real zero: `L(σ, χ₄) ≥ 1 − 3^{−σ}` for every real `σ > 0`.**
+- The partial sums `S(n) = Σ_{k ≤ n} χ₄(k)` are `1` for `n ≡ 1, 2` and `0` for `n ≡ 0, 3 (mod 4)` (`sum_c4`).
+- Partial summation (`PsiOmega.integral_summ`) gives `L(s, χ₄) = s∫_1^∞ S(x)x^{−s−1}dx` for `Re s > 1`. The right side is a Mellin transform holomorphic on `Re s > 0` (`I4_differentiableAt`), so the identity extends there (`LFunction_chi4_eq`).
+- `S ≥ 0`, and `S = 1` on `[1, 3)`. This gives the lower bound `LFunction_chi4_real_ge` and the growth bound `‖L(s, χ₄)‖ ≤ ‖s‖/Re s` (`norm_LFunction_chi4_le`).
+
+**A zero exists with `½ ≤ Re ρ < 1`** (`exists_zero_chi4`).
+- `χ₄` is primitive (`chi4_isPrimitive`: level 2 would force `χ₄(3) = 1`) and real (`chi4_inv`). Mathlib's functional equation then gives `Λ*(1 − s) = εΛ*(s)` for `Λ*(s) = 4^{s/2}Λ(s, χ₄)` (`Lam_one_sub`). The root number `ε` is not computed and is not needed.
+- `‖Γ(w)‖ ≤ Γ(Re w)` (`norm_cGamma_le`), plus the bound on `L`, gives `‖Λ*(s)‖ ≤ n^{3n}` on `Re s ≥ ½` for `n ≥ ‖s‖ + 3`.
+- `f(z) = Λ*(½ + iz)Λ*(½ − iz)` is even and entire, with `f(0) = Λ*(½)² ≠ 0` and `‖f(z)‖ ≤ C·exp(48‖z‖^{3/2})` (`norm_fL_le`). The product form makes `f` even without knowing `ε`.
+- If there were no zero, `f` would have none either. Hadamard's genus-0 factorisation (`hadamardW_even`, rounds 17–20) would then make `f` constant. But `f(−i(σ − ½)) = εΛ*(σ)²`, and `‖Λ*(2k + 1)‖ ≥ (4/π)^k/3` (`norm_Lam_odd_ge`).
+
+**`race_four_half`.** For every `0 < θ < ½` and every `c`, `ψ(x; 4, 1) − ψ(x; 4, 3)` exceeds `c·x^θ` and falls below `−c·x^θ` at arbitrarily large `x`. This is the `ψ`-form of Littlewood's 1914 theorem, with no hypotheses; round 222's statement is the special case.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (720 checked theorems in `src/`). The build has no warnings.
+
+**What this does not give.**
+- Littlewood's theorem for the prime *counts* `π(x; 4, 3) − π(x; 4, 1)` needs oscillation of size `√x·log log log x`. The prime powers contribute `≍ √x/log x` to the difference, which swamps `x^θ` for `θ < ½`.
+- The argument is specific to `χ₄` in two places:
+  - the nonnegative partial sums (true also for `χ₋₃` and `χ₋₈`, false for `χ₈`);
+  - `L(½, χ) ≠ 0`, which is where `f(0) ≠ 0` comes from.
+
+**Check 4.**
+- **Acknowledged (classical).** `L(σ, χ₄) > 0` (alternating series), zero existence (Hadamard), and Littlewood 1914.
+- **New here.**
+  - Machine-checked proofs.
+  - The root-number-free route to a zero (the product `f`).
+
+**Bearing on RH:** none. The theorems run from zeros to oscillation, and the zero found is not located beyond `½ ≤ Re ρ < 1`.
+
+## Round 224: every primitive real character, the races mod 3/4/8, and the χ₄ control
+
+**1. A zero for every primitive real Dirichlet character** (`RealDirichlet.lean`). Round 223's `χ₄` argument works for every primitive quadratic `χ ≠ 1`, of any modulus `N` and either parity.
+- `abs_sum_cR_le`: the partial sums are bounded by `N`, since `χ` sums to zero over a period.
+- `LFunction_eq_Iχ`: partial summation gives `L(s, χ) = s∫_1^∞ S(x)x^{−s−1}dx` on `Re s > 0`. Hence `‖L(s, χ)‖ ≤ (N + 1)‖s‖/Re s` and `|L(σ, χ) − 1| ≤ (N + 2)/(σ − 1)`.
+- `exists_zero_of_primitive`: **`L(s, χ)` has a zero with `½ ≤ Re ρ < 1`.**
+  - `Λ*(s) = N^{s/2}Λ(s, χ)` satisfies `Λ*(1 − s) = εΛ*(s)`.
+  - `f(z) = Λ*(½ + iz)Λ*(½ − iz)` has order `≤ 3/2`.
+  - If `L` had no such zero, Hadamard would make `f` constant. But `‖Λ*(2k + 2 − δ)‖ ≥ k!/(2π^{k+1})`.
+  - If `L(½, χ) = 0`, then `½` is the zero.
+- `psiChi_omega_of_primitive`: `ψ(x, χ) = Ω±(x^θ)` for every `θ < ½`. The only remaining hypothesis is no real zero of `L(σ, χ)` in `(θ, 1)`. It cannot be dropped in general: that is the Siegel-zero problem.
+- `LFunction_real_ge`: nonnegative partial sums give `L(σ, χ) ≥ 1 − 2^{−σ}`, so no real zero at all. `psiChi_omega_of_sums_nonneg` is the unconditional Ω±.
+- `hadamard_fG`: the genus-0 Hadamard product of `f` when `L(½, χ) ≠ 0`.
+
+**2. The races mod 3, 4 and 8** (`PrimeRaces.lean`).
+- `χ₋₃` (defined here), `χ₋₄` and `χ₋₈ = χ₈'` are primitive and quadratic, and their partial sums are nonnegative (periodic, with values in `{0, 1}`, `{0, 1}` and `{0, 1, 2}`).
+- For every `0 < θ < ½`, each `log p`-weighted race changes lead infinitely often, by more than `c·x^θ` each way:
+  - `race_three_half`: `ψ(x; 3, 1) − ψ(x; 3, 2)`;
+  - `race_four_half`: `ψ(x; 4, 1) − ψ(x; 4, 3)`;
+  - `race_eight_half`: `ψ(x; 8, 1) + ψ(x; 8, 3) − ψ(x; 8, 5) − ψ(x; 8, 7)`.
+- `χ₈` (the `{1, 7}` vs `{3, 5}` race) is not covered: its partial sums reach `−1`, so the positivity criterion fails.
+- `Chi4.lean` is retired into these two files.
+
+**3. The `χ₄` control for the DH test** (numerics `frontier/dh/`, pre-registered in `CHI4_PREREG.md`; Lean `hadamard_chi4`).
+
+The same Gram code and parameters as round 165's DH scan are used, on `L(s, χ₄)`: `z0 = ¾`, `log(4/π)`, no pole, weights `Λ(n)χ₄(n)`.
+
+| `a` | 1.0 | 1.5 | 1.715 | 2.0 | 2.25 | 2.5 |
+|---|---|---|---|---|---|---|
+| `λ₁^{χ₄}`, best K | 6.1e−7 | 1.8e−23 | 8.3e−38 | 1.4e−69 | 1.9e−117 | 1.2e−171 |
+| K | 120 | 120 | 120 | 120 | 200 | 200 |
+| `−log λ₁/e^{2a}` | – | 2.60 | 2.76 | 2.90 | 2.99 | 2.65 |
+| `λ₁^{DH}` (round 165/222) | 3.4e−5 | – (1.5e−14 at 1.4, 5.4e−23 at 1.6) | **−6.0e−30** | −0.71 | −1.33 | −1.86 |
+
+- **Prediction 1 held.** `λ₁^{χ₄}` is positive at every point, including past DH's first failure (`a = 1.715`), at the same `K` where DH is negative.
+- **Prediction 2 holds at the best `K`.** The rate lies in `[0.8π, 1.2π] = [2.51, 3.77]`, but the runs at `a ≥ 2` are not converged in `K`:
+  - `a = 2.25`: `6.4e−106 → 1.4e−114 → 1.9e−117` for `K = 120, 160, 200`;
+  - `a = 2.5`: `1.4e−135 → 2.5e−156 → 1.2e−171`.
+  - Truncation only raises the lowest eigenvalue (Rayleigh–Ritz), so the listed values are upper bounds on `λ₁` and the rates are lower bounds. At `a = 2.5` the rate entered the band only at `K = 200`.
+- **What the control shows.** The method that finds DH's failure (a negative Rayleigh quotient, certified in round 165) finds none for `χ₄` at the same supports and resolution.
+  - A positive truncated eigenvalue is not a certificate of positivity. A certificate would be a GRH-strength statement.
+  - The control rules out a failure of the kind DH shows (one driven by a zero at height ≈ 86) within the band the basis sees.
+- **Lean.**
+  - `hadamard_chi4` gives the genus-0 Hadamard product of `Λ*(½ + iz)Λ*(½ − iz)`, the first input the ζ-side Weil chain needed.
+  - The rest of that chain for `χ₄` is not done: the explicit formula for `L(s, χ₄)` (the analogue of WeilExplicit W1–W6) and the ground-state layer. Building it would be a multi-round port.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (727 checked theorems in `src/`). The build has no warnings.
+
+**Check 4.**
+- **Acknowledged (classical).**
+  - Zero existence for L-functions (Hadamard).
+  - Positivity of `L(σ, χ)` from nonnegative partial sums.
+  - Littlewood-type races (Littlewood 1914; Knapowski–Turán).
+  - DH as the classical counterexample (round 165).
+- **New here.**
+  - Machine-checked proofs for every primitive real `χ`.
+  - The root-number-free product `f`.
+  - Unconditional races mod 3, 4 and 8.
+  - The `χ₄` numerical control, pre-registered, with its non-convergence at `a ≥ 2` stated.
+
+**Bearing on RH:** none. The Lean results run from zeros to oscillation. The control compares a function believed to satisfy GRH with one known to violate it; it proves nothing about either.
+
+## Round 225: the Weil chain for Dirichlet L-functions
+
+The ζ chain's middle, from Hadamard's product to Weil's criterion with rates, now runs for every primitive real Dirichlet character `χ` with `L(½, χ) ≠ 0`. Positivity supplies that hypothesis for `χ₋₃`, `χ₋₄` and `χ₋₈`, so the chain is unconditional for those three.
+
+**1. The Landau argument, generic** (`TwinLandau.lean`).
+- Round 220's twin-form argument never used ζ beyond a list of properties, now bundled as `TwinData P c G Q`:
+  - a countable family of poles `P_q` that is locally finite, with `|Re P_q| < 1` and `Im P_q ≠ 0`;
+  - summable weights `c_q = G(P_q)`, with `G` even and nonzero on `Re p > 0`;
+  - `Q(λ) = Σ_q c_q(2 + e^{λP_q} + e^{−λP_q})`.
+- `abs_re_le` and `rate_iff`: `Q ≥ −Ce^{σλ}` ⟺ every `|Re P_q| ≤ σ`.
+- `WeilLandau.lean` shrinks from 909 to 193 lines and is now the ζ instance (`twinData_zeta`). Its downstream results (`rh_of_weil`, `weil_twins_rate`, `rh_iff_twins_subexp`) are unchanged.
+
+**2. The explicit formula for `χ`** (`WeilChi.lean`, following round 156's `WeilAssemble`).
+- Setup:
+  - `GoodChar χ`: primitive, quadratic, `≠ 1`, and `L(½, χ) ≠ 0`.
+  - `rootNumber_eq_one`: `ε = 1`, because `Λ*(½) = εΛ*(½) ≠ 0`. So `Ξ_χ(t) = Λ*(½ + it)` is even (`XiC_even`).
+  - `norm_XiC_le`: order `≤ 3/2`, from round 224's bound.
+  - `hadamard_XiC`: the genus-0 product.
+  - `XiC_zero_im`: the zeros lie in `|Im t| < ½`.
+- `hasSum_logDeriv_XiC` and `logDeriv_XiC_eq`: `Ξ_χ′/Ξ_χ` as a sum over zeros, and on `Re s > 1` as `i(½log N − ½log π + ½ψ((s + δ)/2) − Σ Λ(n)χ(n)n^{−s})`. Here `δ` is the parity; `logDeriv_LamG` handles `N^{s/2}` and the gamma factor `Γ_ℝ(s + δ)`.
+- `weil_XiC`: the explicit formula, for every even strip test function `h` real on `ℝ`:
+  `Σ_u 2h(τ_u) = g_h(0)log(N/π) + (1/2π)∫_ℝ h(r) Re ψ((½ + δ)/2 + ir/2)dr − 2Σ Λ(n)χ(n)n^{−1/2}g_h(log n)`.
+  - The zero side uses the same line integral at `Im t = −1` as for ζ.
+  - There is no pole term.
+  - The ψ term is shifted to `(1 + 2δ)/4`, and the prime weights are `Λ(n)χ(n)`.
+
+**3. Weil's criterion for `L(s, χ)`** (`WeilChiCriterion.lean`).
+- `QC χ a g`: Weil's form in its Guinand–Weil presentation (the right side of the explicit formula for `h = ĝ²`). No zero enters it.
+- `QC_hasSum`: `Q_χ(g) = Σ_u 2ĝ(τ_u)²`.
+- `zero_of_tau` and `tau_of_zero`: the zeros of `Ξ_χ` are exactly the zeros of `L(s, χ)` in the critical strip, written `½ + iτ`.
+- `twinData_chi`: the `TwinLandau` data, given `L(σ, χ) ≠ 0` on `(0, 1)`.
+- `QC_nonneg_of_GRH`: GRH(χ) ⟹ `Q_χ(g) ≥ 0` for every probe whose `ĝ²` is a strip test function (monotone profiles and twins).
+- **`grh_iff_twins`**: GRH(χ) ⟺ `Q_χ(twin (box 1) λ) ≥ 0` for every `λ ≥ 0`.
+- **`twins_rate`**: `Q_χ(twin) ≥ −Ce^{σλ}` ⟺ every zero in the strip has `|2 Re ρ − 1| ≤ σ`.
+- The ground-energy layer, in quantifier form (`ProbeS` is a probe with strip-test `ĝ²`):
+  - `zeros_of_QC_ge`: `Q_χ(g) ≥ −Ce^{σa}‖g‖²` on all `ProbeS` at supports `a ≥ 1` gives the zero-free half-plane `Re s > (1 + σ)/2`.
+  - `grh_iff_QC_subexp`: GRH(χ) ⟺ for every `σ > 0` such a bound holds.
+  - `QC_fails_rate`: a zero with `|2β − 1| > σ` gives probes with `Q_χ(g) < −Ce^{σa}‖g‖²` at arbitrarily large `a`, for every `C`.
+- Instances: `grh_iff_twins_chi3`, `grh_iff_twins_chi4`, `grh_iff_twins_chi8`, `twins_rate_chi4`, `grh_iff_QC_subexp_chi4`.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (742 checked theorems in `src/`). The build has no warnings.
+
+**What is not ported.**
+- *The `u`-space form.* The ζ side proves that the spectral form equals the `u`-space form (autocorrelation, kernel `e^{u/2}/sinh u`, `ExplicitBridge.lean`, round 126), which is what `dh_gram.py` computes. For odd `χ` (all three instances) the kernel is `e^{−u/2}/sinh u`; for even `χ` it is ζ's. That identity is not proved for `χ`. So round 224's `χ₄` numerics and `QC` agree only through a standard identity that is not yet checked here. *(Ported in round 226, `QC_eq_QCu`. The bridge is round 126, not round 61 as this paragraph first said.)*
+- *All probes.* GRH ⟹ `Q_χ ≥ 0` is proved for strip-test probes only. The ζ side extends it to every probe by density (round 157, `WeilRH`); that step is not ported. *(Ported in round 227, `QC_nonneg_of_GRH_all`.)*
+- *The ground state.* `λ₁^χ` as a number, the existence of ground states, monotonicity and continuity in `a`, first failure, and the Kaiser upper bound are not ported. The rate theorems are stated with quantifiers instead, which is all the equivalences need.
+
+**Check 4.**
+- **Acknowledged (classical).** The explicit formula for Dirichlet L-functions, and Weil's criterion for them (Weil 1952).
+- **New here.** Machine-checked proofs, including `ε = 1` from `L(½, χ) ≠ 0`, the generic twin-form Landau core, and the graded criterion and its exponential-rate form for `χ₋₃`, `χ₋₄` and `χ₋₈`.
+
+**Bearing on RH:** none. These are equivalences, as for ζ. GRH for `χ₋₃`, `χ₋₄` and `χ₋₈` is as open as RH.
+
+## Round 226: `Q_χ` in u-space
+
+Round 225's first "not ported" item. For every probe `g` and every real character `χ`, the spectral form `QC χ a g` equals the u-space form that `frontier/dh/dh_gram.py` computes:
+
+  `Q_χ(g) = (Re ψ(q_χ) + log(N/π))‖g‖² + ∫_0^∞ [f(0) − f(u)] e^{(1−2q_χ)u}/sinh u du − 2Σ Λ(n)χ(n)n^{−1/2} f(log n)`
+
+Here `f = autocorr g` and `q_χ = (1 + 2δ)/4`. This is `dh_gram.py`'s `z0`, and `e^{(1−2q)u}/sinh u = 2Σ_m e^{−(2m+2q)u}` is its `K_{z0}`. So round 224's `χ₄` numerics now compute `QC` itself, with no unchecked identity in between. That covers the formula; the numerics are still floating-point and ball arithmetic outside Lean.
+
+**1. The archimedean term at a general shift** (`ArchShift.lean`). Round 126's bridge, with `¼` replaced by a parameter `q`:
+- `psiReQ_sub` (B1): `Re ψ(q + ir/2) − Re ψ(q) = ∫_0^∞ e^{−qt}/(1 − e^{−t})·(1 − cos(rt/2)) dt` for `q > 0`, from Gauss's digamma integral (round 154). `psiReQ_ge` is the positivity of this Lévy–Khintchine exponent.
+- `two_kkQ`: `2k_q(2u) = e^{(1−2q)u}/sinh u`.
+- `archIntegrandQ_integrable`: for `q ≥ ¼` the integrand is integrable for every probe. The proof is `K_q = K_{1/4}·e^{(½−2q)u}`, whose second factor is `≤ 1` on `u > 0`, together with the probe's own condition at `q = ¼`.
+- `hsq_psiQ_sub` (B2, Tonelli and `t = 2u`) and **`arch_termQ`**: `(1/2π)∫ĝ² Re ψ(q + ir/2) = Re ψ(q)‖g‖² + ∫_0^∞ [f(0) − f(u)]K_q(u) du`.
+
+**2. ζ is the instance `q = ¼`** (`ExplicitBridge.lean`, 463 → 352 lines). `psiRe_sub`, `hsq_psi_sub`, `arch_term`, `psiRe_ge` and `integrable_hsq_psi` are now one-line instances (`kkQ_quarter`, `psiReQ_quarter`, `archEQ_quarter`). The ζ-specific proofs of B1 and B2 are deleted. Their statements are unchanged.
+
+**3. The χ bridge** (`WeilChiBridge.lean`).
+- `psiReC_eq`: `z_χ(r) = q_χ + ir/2`.
+- **`QC_eq_QCu`**: the identity above, from `gh_hsq` (Fourier inversion, round 127) and `arch_termQ`. It needs no `GoodChar` hypothesis and no zero of `L`.
+- `archKer_odd`: the kernel for odd `χ` is `e^{−u/2}/sinh u`.
+- `archEQ_even`: for even `χ` the archimedean term is ζ's.
+- `chi3_odd`, `chi4_odd`, `chi8_odd`: the three instances are odd (`χ(−1) = −1`), so they use `q = ¾`.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (753 checked theorems in `src/`). The build has no warnings.
+
+**Still not ported.** GRH ⟹ `Q_χ ≥ 0` on all probes (density; done in round 227), and the ground-state layer. See round 225.
+
+**Check 4.**
+- **Acknowledged (classical).** The explicit formula's archimedean term in u-space (Weil; Guinand), and Gauss's digamma integral.
+- **New here.** Machine-checked, parametric in the gamma shift, with ζ recovered as the `q = ¼` instance.
+
+**Bearing on RH:** none. This is an identity between two presentations of the same form. It makes the `χ₄` numerics a computation of `QC` itself; it does not change what those numerics show.
+
+## Round 227: GRH(χ) gives `Q_χ ≥ 0` on every probe
+
+Round 225's second "not ported" item. Round 225 proved GRH(χ) ⟹ `Q_χ ≥ 0` only for probes whose `ĝ²` is a strip test function (monotone profiles and their twins), because the explicit formula is proved only for those. Round 157 closed the same gap for ζ by density, through a ground state. Here it is closed without ground states: the probe itself is approximated, and `Q_χ` is shown to be continuous.
+
+**1. `Q_χ` is a quadratic form, bounded by the energy** (`WeilChiDensity.lean`, with `ArchShift.lean`).
+- `archEQ_add_smul`: `E_q(φ + sψ) = E_q(φ) + 2s∫(x(0) − x(u))K_q + s²E_q(ψ)`. Also `archEQ_nonneg` and `archEQ_le_archE` (`0 ≤ E_q ≤ E` for `q ≥ ¼`, since `K_q = K_{1/4}e^{(½−2q)u}`).
+- `QCu_add_smul`: `Q_χ(φ + sψ) = Q_χ(φ) + 2s·B_χ(φ, ψ) + s²Q_χ(ψ)`. The prime sum is finite for every support; `tsum_autocorr_eq` generalises `prime_sum_eq` (GroundState.lean) to any coefficients, and `prime_sum_eq` is now its instance.
+- `QCu_ge` and `QCu_le`: `−M‖g‖² ≤ Q_χ(g) ≤ M‖g‖² + E(g)`. Here `M = |Re ψ(q_χ) + log(N/π)| + 2Σ_{n ≤ e^{2a}} |Λ(n)χ(n)|/√n`.
+- `RC_add_le`: Cauchy–Schwarz for the nonnegative form `R = Q_χ + M‖·‖²`, i.e. `R(x + y) ≤ (1 + t)R(x) + (1 + 1/t)R(y)`.
+
+**2. Density** (`QC_nonneg_of_GRH_all`). Suppose `Q_χ(g) = −η < 0`.
+- Round 55's `av3_dense` gives a `C²` probe `h` (a triple box average) with `‖h − g‖² + E(h − g) ≤ 2ε`.
+- `striptest_C2` shows `ĝ_h²` is a strip test function. It is split out of round 157's `weilExplicit_C2_zeta`, which is now a two-line corollary. So GRH gives `Q_χ(h) ≥ 0`.
+- `RC_add_le` and `normSq_add_le_t` with `t = η/(6(M‖g‖² + η))` and `ε = ηt/(8(1 + t)(5M + 4))` give `(1 + t)Q_χ(h) ≤ −η/4` (`density_arith`). That is a contradiction.
+
+**3. The criterion.**
+- **`weil_criterion_chi`**: with `L(σ, χ) ≠ 0` on `(0, 1)`, `Q_χ ≥ 0` on every probe at every support ⟺ GRH(χ). This is the same statement as `weil_criterion_zeta`.
+- `grh_iff_QC_subexp_all`: round 225's rate form, over all probes instead of strip-test probes.
+- Instances: `weil_criterion_chi3`, `weil_criterion_chi4`, `weil_criterion_chi8`, each unconditional.
+
+**What this changes for the numerics.** `dh_gram.py` minimises `Q_χ` over combinations of a cosine basis. Those are probes but not known to be strip test. With rounds 226 and 227 together, a rigorously certified negative value of `Q_{χ₋₄}` on any probe would now formally refute GRH(χ₋₄). Round 224's scan found no negative value, so no result changes.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (766 checked theorems in `src/`). The build has no warnings.
+
+**Still not ported.** The ground-state layer for `χ` (`λ₁^χ`, existence of ground states, continuity in `a`, first failure) and the Kaiser upper bound.
+
+**Check 4.**
+- **Acknowledged.** Weil's criterion for Dirichlet L-functions is classical (Weil 1952). The gap closed here was listed in round 225's "What is not ported".
+- **New here.** A machine-checked proof, by a density argument that needs no ground state, unlike round 157's.
+
+**Bearing on RH:** none. This completes an equivalence and says nothing about where the zeros are.
+
+## Round 228: building on zeta23; von Mangoldt's bound `S(T) = O(log T)` (`external/zeta23/`)
+
+The stack review's second item: "Build on zeta23". zeta23 is the Lean formalisation that accompanies Alpöge–Furman (arXiv 2608.13637), in `anthropics/formal-math`, Apache 2.0. The "one Mathlib" half of that item was done in round 217. This round does the other half: it takes zeta23's analytic inputs onto the pilot's toolchain, and it uses them to discharge one of the wall law's named inputs.
+
+**1. The port** (`external/zeta23/build.sh`, `zeta23_port.patch`).
+- `build.sh` fetches 50 zeta23 files at commit `fbdc36b` (Lean v4.33.0-rc2). These are the import closures of three results:
+  - the Montgomery–Vaughan weighted Hilbert inequality (`Zeta23.MV.mv_hilbert`);
+  - Riemann–von Mangoldt with the local count (`Zeta23.RvM.riemannVonMangoldt`, `zeta_local_zero_count`);
+  - the Γ facts, i.e. Stirling for `μ` (`Zeta23.gammaFacts`).
+- The patch changes four files, all by Mathlib API drift: `prod_le_prod₀`, `logDeriv_fun_mul`, and one import. The layer mirrors `external/pnt/`: the upstream copy is generated, and the patch and the pin are committed.
+- Every printed theorem is axiom-clean. The zeta23 files keep their upstream warnings (deprecations, unused variables); the pilot's own file prints none.
+
+**2. `S(T) = O(log T)`** (`external/zeta23/SlogZeta.lean`).
+- `Ncnt_good`: at heights that are not ordinates of zeros, the pilot's count `Ncnt zetaOrd T` equals zeta23's `Ncount 0 T`. Both count with multiplicity `(analyticOrderAt ζ ρ).toNat`; only the endpoint convention differs.
+- `Ncount_contour`: zeta23's folded argument principle, Backlund's bound on the horizontals and the side `σ = 2` give `|N(T₁, T₂) − ∫_{T₁}^{T₂} μ| ≤ (|C_B| log T₁ + π + |C_B| log T₂)/π` at good heights. Here `μ(τ) = (1/2π)(Re ψ(¼ + iτ/2) − log π)`, the pilot's `psiRe` up to scaling.
+- `int_mu_near`: Stirling gives `∫_a^b μ = N₀(b) − N₀(a) + O(1)`, since `N₀′(r) = (1/2π)log(r/2π)`.
+- **`Slog_zeta`**: `∃ C ≥ 0, ∀ t ≥ 14, |S(t)| ≤ C log t` for `S = N − N₀ − 7/8`.
+  - One end is fixed at a good height `T₁` above Backlund's threshold.
+  - For large `t`, `N(t)` is sandwiched between counts at good heights in `[t − 1, t]` and `[t, t + 1]`.
+  - On `[14, T₀]`, `S` is bounded by monotonicity of `N` and `N₀`.
+- **`wall_law_zeta_S`**: round 5's `wall_law_zeta` without `hSlog`. The named inputs left are Littlewood's `S₁(T) = O(log T)` (`hS1log`) and the first-zero height.
+
+**Not used yet.** Montgomery–Vaughan is compiled but has no consumer here; it is the input for zero-density estimates (the review's item 5). zeta23's Dirichlet explicit formula is not ported: rounds 225–227 prove our own for real characters.
+
+**Check 4.**
+- **Acknowledged.** `hSlog` was a named input since round 5 ("von Mangoldt's and Littlewood's bounds"), and round 157's ledger lists it.
+- **New here.** It is discharged, with the classical proof formalised by zeta23 and bridged to the pilot's counting function. The port to the pilot's toolchain is also new.
+
+**Bearing on RH:** none. `S(T) = O(log T)` is a classical unconditional bound, and the wall law is a statement about the zero-sum functional, not about the location of zeros.
+
+## Round 229: negative directions count off-line zeros, with no named input (`src/WeilIndexZeta.lean`)
+
+Round 130's `finrank_le_quadruples` takes Weil's explicit formula for every probe in `V` as a hypothesis (`hEF`). For ζ that hypothesis is now a theorem on two classes of probes: those whose `ĝ²` is a strip test function (round 156, `weilExplicit_zeta`), and `C²` probes vanishing near `±a` (round 157, `striptest_C2`).
+
+- `weilExplicit_of_strip`: the explicit formula for a strip-test probe, in the form `hEF` asks for.
+- **`finrank_le_quadruples_zeta`**: if `Q` is negative definite on a finite-dimensional space `V` of strip-test probes, then ζ has at least `dim V` distinct off-line zero quadruples (`R` holds one representative per quadruple).
+- `finrank_le_offline_zeta`: the crude count, `dim V ≤ |F|` for any finite set `F` of indices outside which every zero is on the line.
+- `finrank_le_quadruples_C2`: the same for a space of `C²` probes, the class a Gram-matrix computation would use.
+- `exists_offline_of_neg_zeta`, `exists_offline_of_neg_C2`: one such probe with `Q < 0` exhibits an off-line zero.
+
+**What this buys.** A negative-definite block of Weil's form on `C²` probes, certified in ball arithmetic and checked in Lean, becomes a Lean theorem giving a lower bound on the number of off-line zeros. Every scan so far (ζ, and χ₋₄ in round 224) finds `Q ≥ 0`, so today it certifies nothing.
+
+**Not done.** The converse count: that `m` off-line quadruples force `m` negative directions at large support. Round 131 gives one direction (round 220 removed its finiteness hypothesis); the full Krein–Langer count is not formalised. *(Done in round 230, for finitely many off-line zeros.)*
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (772 checked theorems in `src/`). The build has no warnings.
+
+**Check 4.** Acknowledged: round 130 stated the count conditional on `hEF`. New: `hEF` is discharged for ζ on strip-test and `C²` probes.
+
+**Bearing on RH:** none. This is the counting half of Weil's criterion; it turns a hypothetical negative direction into a count of off-line zeros, and says nothing when `Q ≥ 0`.
+
+## Round 230: the converse count; the negative index of `Q` is the number of off-line quadruples (`src/WeilIndexConverse.lean`)
+
+Round 229 bounds the negative index of Weil's form by the number of off-line zero quadruples. This round proves the converse, for finitely many off-line zeros. If they form `m` quadruples `{ρ, 1 − ρ, ρ̄, 1 − ρ̄}`, then at some support there is an `m`-dimensional space of strip-test probes on which `Q` is negative definite. Together:
+
+- **`negIndex_eq_quadruples`**: with the off-line zeros finite (in `F`) and represented by `R`, one per quadruple, every negative-definite space of strip-test probes has dimension `≤ |R|` at every support, and one of dimension exactly `|R|` exists.
+- **`negDirections_of_quadruples`**: the existence half.
+
+The construction is explicit.
+
+**1. Polynomial probes** (`twinPow`, `polyProbe`, `ghatC_polyProbe_box`, `striptest_polyProbe`). The `k`-fold twin of the box has transform `(2 cos Λt)^k ĝ₀(t)`. So for a real polynomial `q`, the probe `Σ q_k T_Λ^k box` has transform `M(t) = q(2 cos Λt)·ĝ₀(t)`, and `M²` is a strip test function.
+
+**2. The frequency** (`exists_good_Λ`).
+- Put `t_r = (ρ_r − ½)/i` for the representatives. Then `Re t_r = Im ρ_r ≠ 0` and `Im t_r ≠ 0` (off-line).
+- The nodes `x_r = 2 cos(Λ t_r)` must be non-real, and separated from each other and from each other's conjugates. Each failure puts `Λ` in `{Λ : Λ·d ∈ 2πℤ}` for some nonzero `d` built from the `t_r` (`Complex.cos_eq_cos_iff`), so the bad `Λ` form a countable set, and `Set.Countable.dense_compl` gives a good `Λ` above any bound.
+- `|2 cos w| ≥ e^{|Im w|} − e^{−|Im w|}` (`norm_two_cos_ge`) then gives `|x_r| > 2` once `Λ|Im t_r| ≥ 1`.
+
+**3. Interpolation** (`basisP`). `B_r = Π_{s≠r}(X − x_s)(X − x̄_s)·(αX + β)` is a real polynomial. It vanishes at the other nodes, and real `α, β` give it any complex value at `x_r`, because `x_r` is not real. It is bounded on `[−2, 2]` by a constant times that value (`abs_basisP_le`).
+
+**4. The space.** Set `q_s = X^N Σ_r s_r B_r`, with `q_s(x_r) = s_r·i/ĝ₀(t_r)` (the box transform is nonzero off the real line, `ghat_box_ne`).
+- On the orbit `{t_r, −t_r, t̄_r, −t̄_r}` the transform is `±i s_r`, so every off-line zero contributes exactly `−s_r²` (`Mz_sq_orb`).
+- On the line, `|2 cos Λt| ≤ 2 < |x_r|`, so the on-line zeros contribute at most `(2/|x_r|)^{2N}` times a constant times `Σ s_r²` (`Mz_sq_re_le`, Cauchy–Schwarz).
+- For `N` large, the explicit formula gives `Q ≤ −Σ s_r² + (small)·Σ s_r² < 0`. The map `s ↦ probe` is injective, because `M(t_r) = i s_r`.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (782 checked theorems in `src/`). The build has no warnings.
+
+**Scope.** The finiteness hypothesis is used twice: the off-line contribution is a finite sum, and `N` is chosen after the finitely many nodes. With infinitely many off-line zeros, the statement "for every `m`, some support has an `m`-dimensional negative space" would need a different argument; it is not attempted. *(Partly extended in round 231: only the zeros above a level need be finite. Closed in round 232: no finiteness is needed.)*
+
+**Check 4.** Acknowledged: round 130 named the converse ("that off-line zeros do produce negative directions at large support, is not formalised"), and round 229 listed it as not done. New: a machine-checked proof by an explicit polynomial-probe construction. *(Attribution added in round 232: the result is Bombieri's, for the complex form. E. Bombieri, "Remarks on Weil's quadratic functional in the theory of prime numbers, I", Rend. Mat. Acc. Lincei (2000): "if the Riemann Hypothesis is false but only with finitely many non-trivial zeros off the critical line … the number of negative eigenvalues is precisely one-half of the number of zeros failing to satisfy the Riemann Hypothesis". Half of four zeros per quadruple is two directions in the complex form, which matches one direction per quadruple in the real even sector used here.)*
+
+**Bearing on RH:** none. This is the Krein–Langer form of Weil's criterion under a finiteness hypothesis. It counts off-line zeros when there are some; it says nothing about whether there are any.
+
+## Round 231: negative directions from the zeros above a level (`src/WeilIndexConverse.lean`)
+
+Round 230 needs every off-line zero to be in a finite set. This round needs that only for the zeros far from the line.
+
+- **`negDirections_above`**: let `v₀ ≥ 0`. Suppose only finitely many zeros of ζ (all in `F`) have `|β − ½| > v₀`, and they form `m` quadruples with representatives `R`. Then at some support there is an `m`-dimensional space of strip-test probes on which `Q` is negative definite. The zeros with `|β − ½| ≤ v₀`, on the line or off it and however many, are allowed.
+- **`negDirections_of_quadruples`** (round 230) is now the case `v₀ = 0`, because `|β − ½| > 0` means `β ≠ ½`.
+
+**What changes in the proof.** The zeros below the level are handled like the on-line zeros of round 230.
+- For such a zero, `|Im t| = |β − ½| ≤ v₀`, so `|2 cos Λt| ≤ 2e^{Λ|Im t|} ≤ X₀ := 2e^{Λv₀}` (`norm_two_cos_le`).
+- For a representative, `|x_r| > X₀` once `Λ(|Im t_r| − v₀) ≥ 3` (`two_exp_lt_norm_two_cos`, from `|2 cos w| ≥ e^{|Im w|} − e^{−|Im w|}`). `exists_good_Λ` now takes a lower bound for `Λ`, and `Λ > Σ_r 3/(|Im t_r| − v₀)` is used.
+- The interpolation bound `abs_basisP_le` now holds on the complex disc `‖y‖ ≤ X₀`, not just on `[−2, 2]`. Then `|q_s| ≤ δ·Σ|s_r|c_r` on that disc, with `(X₀/|x_r|)^N ≤ δ`.
+- Below the level, `ĝ₀(t)²` is complex, so its real part no longer controls the term. `Mz_sq_re_le` now bounds `Re M(t)² ≤ B²‖ĝ₀(t)²‖`. The dominating series is `Σ_i ‖ĝ₀(t_i)²‖`, which converges because the box's zero sum converges unconditionally in `ℂ` (`summable_norm_iff`).
+
+The support `a` grows with `v₀`, because `Λ` and `N` both do.
+
+**What it gives.** Suppose there are infinitely many off-line quadruples, but for each `v₀ > 0` only finitely many zeros have `|β − ½| > v₀`: the off-line zeros are infinitely many but approach the line. Then, as `v₀ → 0`, the number of quadruples above `v₀` is unbounded. So for every `m`, some support has an `m`-dimensional negative space. This step, choosing a representative per quadruple at a given level, is not stated as a separate Lean theorem.
+
+**Scope.** Still not covered: infinitely many zeros with `|β − ½| > v₀` for every `v₀` below some `v* > 0`. An example is infinitely many zeros at one fixed distance from the line, with none farther out. There the argument's finite sum above the level is infinite.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (784 checked theorems in `src/`). The build has no warnings.
+
+**Check 4.** Acknowledged: round 230's Scope line names the infinite case as not attempted. New: the finiteness hypothesis is weakened from all off-line zeros to those above a level, with the level-0 case recovering round 230.
+
+**Bearing on RH:** none. This is still the counting form of Weil's criterion. It counts off-line zeros under a finiteness hypothesis on the far ones, and says nothing about whether there are any.
+
+## Round 232: every off-line quadruple gives a negative direction, with no finiteness (`src/WeilIndexInfinite.lean`)
+
+Rounds 230 and 231 turn `m` off-line zero quadruples into `m` negative directions of Weil's form. Both need a finiteness hypothesis: all off-line zeros (round 230), or all those above some level (round 231), must be finitely many. This round removes it.
+
+- **`negDirections_offline`**: take any `m` off-line zeros of ζ in pairwise different quadruples `{ρ, 1 − ρ, ρ̄, 1 − ρ̄}`. Then at some support there is an `m`-dimensional space of strip-test probes on which `Q` is negative definite. Nothing is assumed about the other zeros.
+- **`negDirections_unbounded`**: suppose no finite set of quadruples holds every off-line zero. Then for every `m`, some support has an `m`-dimensional negative-definite space. So the negative index of `Q`, taken over all supports, is unbounded.
+
+With round 229 (`finrank_le_quadruples_zeta`), this settles the count in all cases: the largest dimension of a negative-definite space of strip-test probes, over all supports, equals the number of off-line quadruples, finite or infinite.
+
+**The proof: density, not construction.** Round 230 built the probes explicitly, and its polynomial probes could not control off-line zeros sitting as far from the line as the chosen ones. Here a Hilbert-space argument replaces the construction.
+
+1. **Twin combinations** (`twinComb`, `ghatC_twinComb`, `striptest_twinComb`, `hasSum_twinComb`). For finitely many shifts `s ≥ 0` with real weights `c_s`, the probe `Σ c_s·twin(box 1, s)` has transform `m_c(z)ĝ₀(z)`, where `m_c(z) = Σ c_s·2cos(sz)`. It is a strip-test probe, so the explicit formula applies to it.
+2. **`ℓ²` over the zeros** (`L2Z`, `vecL`, `Bre`, `weilQ_eq_Bre`). The values `(m_c(t_ρ)ĝ₀(t_ρ))_ρ` form a vector in `ℓ²` over the zeros, counted with multiplicity. `Q` equals `Bre(v, v) = Re Σ_ρ v_ρ²`, and `|Bre(u, w)| ≤ ‖u‖‖w‖`.
+3. **Targets** (`Tvec`). For an off-line zero `r`, `T_r` is `i` on the zeros with `t_ρ = ±t_r`, `−i` on those with `t_ρ = ±t̄_r`, and `0` elsewhere. For `T_x = Σ x_r T_r`, every entry is purely imaginary and the entry at `r` is `i·x_r`, so `Bre(T_x, T_x) ≤ −Σ x_r²`.
+4. **Density** (`inner_Tvec_eq_zero`, `Tvec_mem_closure`). Each `T_r` lies in the closure of the span of the twin vectors `v_s = (2cos(s t_ρ)ĝ₀(t_ρ))_ρ`, `s ≥ 0`. The argument goes through the orthogonal complement (`Submodule.orthogonal_orthogonal_eq_closure`): suppose `a` is orthogonal to every `v_s`.
+   - Put weights `ĝ₀(t_ρ)ā_ρ` on the poles `±2i·t_ρ` and `conj(ĝ₀(t_ρ))a_ρ` on the poles `±2i·t̄_ρ`. The twin sum `Σ_q c_q(2 + e^{λP_q} + e^{−λP_q})` is then constant in `λ ≥ 0`, because its non-constant part is `2⟨v_{2λ}, a⟩ = 0`.
+   - **The uniqueness lemma** (`TwinLandau.Rp_eq_zero_of_Wsum_const`, new). The Laplace transform of that constant sum equals `K/z` for `Re z > 1`. The poles are countable, so their complement is connected, and the identity theorem extends `F = K/z` to every point off the poles. So the residue at every pole `p ≠ 0` vanishes.
+   - The residue at `2i·t_r` is `ĝ₀(t_r)(S₁ + S₂)`, where `S₁ = Σ_{t_ρ = ±t_r} ā_ρ` and `S₂ = Σ_{t_ρ = ±t̄_r} a_ρ`. Since `ĝ₀(t_r) ≠ 0` off the line, `S₁ + S₂ = 0`, and `⟨a, T_r⟩ = −Im(S₁ + S₂) = 0`.
+5. **The space** (`negDirections_offline`). Approximate each `T_r` within `ε` by a twin vector `v_{c_r}`, and set `L(x) = Σ x_r·twinComb(c_r)`. With `S = Σ|x_r|` and `C = Σ‖T_r‖`, `|Q(L x) − Bre(T_x, T_x)| ≤ ε(2C + ε)S² ≤ ε(2C + ε)·m·Σx_r²`. Choosing `ε = 1/(m(2C + 1) + 1)` gives `Q(L x) < 0` for `x ≠ 0`. So `L` is injective, and its range is the negative-definite space.
+
+The argument needs no zero-density input. The only analytic facts used are the explicit formula for twin combinations and the summability of `|ĝ₀(t_ρ)|²`.
+
+**Supporting changes.**
+- `TwinLandau.lean`: `TwinData` now extends `TwinPoles`, the pole-only part (summability, `|Re P| < 1`, `Im P ≠ 0`, local finiteness). The lemmas that use only the poles take `TwinPoles`, so they apply to arbitrary complex weights. The new `integral_Wsum` and `Rp_eq_zero_of_Wsum_const` live there, and `lap_eq_Fw` is now a corollary of `integral_Wsum`. The only change downstream is one call in `WeilChiCriterion.lean`.
+- `WeilIndexConverse.lean`: `probe_finset_sum` and `ghatC_finset_sum` now take any index type.
+
+Rounds 230–231 remain as explicit constructions. Their existence halves are now special cases of `negDirections_offline`.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (791 checked theorems in `src/`). The build has no warnings.
+
+**Check 4.**
+- Acknowledged: the finite case is Bombieri's (2000), cited in round 230's entry. Round 231's Scope line named the infinite case (heights piling up at the top) as out of reach, and so did the discussion before this round.
+- New, as far as I have checked: the statement with no finiteness hypothesis, and a proof by `ℓ²` density plus Laplace uniqueness. The proof avoids Krein–Langer / Pontryagin-space theory, which I had expected to need.
+- Not checked: whether the infinite case is in print. Suzuki's screw-function papers (arXiv 2206.03682, 2606.09096) work in the Krein–Langer framework, and the full text of Bombieri's paper was not read.
+
+**Bearing on RH:** none. This counts off-line zeros whenever they exist, however many. It says nothing about whether any exist.
+
+## Round 233: Theorem 1bt(i) with no named input (`src/T1bt.lean`, `src/ZetaInputs.lean`)
+
+Round 157 left one named input in `pole_free_form_negative_zeta_explicit`: the first zero's height, `γ₁ ≥ 14`. This round removes it. **Theorem 1bt(i) over the zeros of Mathlib's `riemannZeta` now has no hypothesis beyond `a ≥ 1/5`.**
+
+**Why the height was not needed.** The proof bounds each zero's term by `‖ĝ_a(t_ρ)²‖ ≤ V(a)²eᵃ/γ²`. It then compares `1/γ²` with Hadamard's term, using `Re 1/(ρ(1 − ρ)) ≥ 1/(γ² + 5/4)` (`re_inv_zero_term_ge`). The height enters only through the factor `(γ² + 5/4)/γ² = 1 + (5/4)/γ²`, and round 1 bounded it by `1 + 5/784` using `γ ≥ 14`. But Hadamard's identity already bounds the height:
+
+- **`one_le_hadamard_height`**: every term of `Σ_ρ 1/(ρ(1 − ρ)) = K` has real part at least `1/(γ² + 5/4) > 0`. A sum of nonnegative terms bounds each term, so `1/(γ² + 5/4) ≤ K`, i.e. `1 ≤ K(γ² + 5/4)`, for every zero.
+- Then `1 + (5/4)/γ² ≤ 4/(4 − 5K)`. `final_ineq` accepts any `K′ ≤ 289/5000`, and `K′ = 4K/(4 − 5K)` qualifies exactly when `21445K ≤ 1156`, i.e. `K ≤ 0.053905…`.
+- **`hadamard_const_lt`** is sharpened from `K < 0.0572` to `K < 0.0539`. The true value is `0.046191…`. It now uses Mathlib's `γ_E < H_n − log n` at `n = 128` instead of `64`, with `log 128 = 7 log 2` and `H₁₂₈ < 5.4335` checked by `norm_num`. At `n = 64` the bound is about `γ_E + 1/128 ≈ 0.58503`, just above the `0.58492` needed.
+
+`pole_free_form_negative`, `pole_free_form_negative_zeta` and `pole_free_form_negative_zeta_explicit` lose the `h_height` argument.
+
+**A corollary.** `four_lt_abs_im_zero`: every nontrivial zero of `ζ` has `|Im ρ| > 4`, from Hadamard's identity and `K < 0.0539` alone (`γ² ≥ 1/K − 5/4 > 17`). Each zero ρ has a partner ρ̄ with an equal term. Pairing them doubles the bound to `γ² ≥ 2/K − 5/4`, i.e. `|γ| > 5.9` with this `K` bound, or `6.48` with the true `K`. That version needs the conjugation symmetry of multiplicities on the index type and is not formalised.
+
+**Scope.** Only 1bt(i) is freed. The 1ca wall law (`wall_law_zeta`) uses `γ₁ ∈ [14, 2πe]` quantitatively and still takes the numeric fact.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound` (793 checked theorems in `src/`). The build has no warnings.
+
+**Check 4.** Acknowledged: round 157 recorded `γ₁ ≥ 14` as the last named input of 1bt(i), and the Lean-review report proposed this removal. New: the formal removal and the `|Im ρ| > 4` corollary.
+
+**Bearing on RH:** none. 1bt(i) is a statement about the pole-free form on one witness, and the change removes a numeric input from it.
+
+## Round 234: the Korobov–Vinogradov region in the Kaiser prefactor (`src/KaiserSplit.lean`, `external/pnt/KaiserKV.lean`)
+
+Round 164 proved `λ₁(a) ≤ K(a + 1)e^{10a − 4πe^{2a}}` with no RH input (`lam_prefactor`). The factor `eᵃ` over Connes' `e^{9a}` is the weight `e^{2a|Im τ|} ≤ eᵃ` of a zero. Round 164 said of it: "The known zero-free regions only save a constant here." That is true for de la Vallée Poussin's region, but not for the Korobov–Vinogradov region, which the pilot proved in round 215 (`LandauKV.zeroFree_KV`). This round uses it:
+
+- **`KaiserKV.lam_prefactor_KV`**: there are `K ≥ 0` and `c > 0` such that for every `a ≥ 4`, `λ₁(a) ≤ K(a + 1)·exp(10a − c·a^{1/3}/(log a)^{1/3} − 4πe^{2a})`, with no RH input.
+
+The saving over round 164 is the factor `exp(−c·a^{1/3}/(log a)^{1/3})`, which grows with `a`. The main term `e^{−4πe^{2a}}` is unchanged.
+
+**Relation to round 220 (correction, added after the commit that introduced this round).** This bound is weaker than round 220's `KaiserNine.lam_nine`: `λ₁(a) ≤ K(a + 1)e^{9a − 4πe^{2a}}`, which removes the whole factor `eᵃ` by a case split on RH. The Lean-review report that proposed this round was written before round 220, and I did not recheck it. What round 234 adds is effectivity in principle, and nothing else.
+- `lam_nine`'s constant depends on the unknown `a₀` at which `λ₁` would turn negative if RH failed. It cannot be computed from anything known.
+- Here `K` and `c` depend only on the Korobov–Vinogradov constant `A` and the height-`e³` zero-free box. Explicit values of both exist in the literature (e.g. Ford's explicit Korobov–Vinogradov region, and numerical zero verification). In Lean both are still existential: `zeroFree_KV` is stated with `∃ A`, and `σ₀` comes from `ZetaNoZerosInBox`'s compactness argument. So neither bound is numerically explicit in the pilot.
+
+**Not pursued: a fully explicit version (decided after this round).** Making `K` and `c` numeric would mean one of two things. Either rebuild about 8,000 lines of existential-constant proofs with explicit constants (the Vinogradov layer in `src/Vino*`, `ExpSum*` and `Vinogradov.lean`, plus `external/pnt`'s Landau/KV files), or take Ford's explicit region as a named input. The first route also needs replacements for PNT+ lemmas proved non-constructively (`ZetaNoZerosInBox` is a compactness argument). And the result would be numerically negligible. With Ford's published constant `A = 1/57.54`, `c = 2A/(41^{2/3}·4^{1/3}) ≈ 0.0018`, so the saving `exp(c·a^{1/3}/(log a)^{1/3})` first exceeds a factor of 2 at `a ≈ 10⁹`, where `e^{−4πe^{2a}}` is already far below anything computable. So `lam_prefactor_KV` stays effective in principle only.
+
+**Why the zeros must be split by height.** The Korobov–Vinogradov region shrinks with the height: a zero at height `γ` has `|β − ½| ≤ ½ − A/f(γ)`, with `f(γ) = (log γ)^{2/3}(log log γ)^{1/3}`. So no single weight `κ < eᵃ` bounds every zero, and round 164's `lam_le_kappa` needs such a uniform `κ`. The Kaiser probe's transform lives at heights up to about `e^{36a}`. Zeros far above that should cost almost nothing, whatever their weight.
+
+**1. The split** (`src/KaiserSplit.lean`, no zero-free input).
+- **One far zero** (`pk_far_le`, `pk_int_lower`, `Vz_le_int`). Take a zero with `|Re τ| > T ≥ 2` and a point `|x| ≤ T/2`. Its Poisson pair `V_τ` satisfies `V_τ(x) ≤ 6/(πγ²)` per kernel. It also puts mass at least `4/(15πγ²)` near its centre against the weight `g_T(u) = 1/u²` on `|u| ≥ T/2`. So `V_τ(x) ≤ (45/2)∫ g_T V_τ`.
+- **All far zeros** (`sum_high_le`). Sum over any finite set of far zeros, and use round 164's zero weight `Σ_τ V_τ ≤ W` (`tsum_Vz_le`). This gives `Σ_{far} V_τ(x) ≤ (45/2)∫ g_T W ≤ E_T`, where `E_T = O((1 + (T/2)²)^{−1/8})` by round 164's `Wf_tail_le`. No zero count is needed.
+- **`weilQ_le_split`**: `Q(g) ≤ 4κ₁J + 4κ₂(E_T·J + B²R(T)I₅₈)`, where `κ₁` bounds the weight below `T`, `κ₂` bounds the weight of every zero, `J = ∫ W‖F‖²`, `‖F(x − i)‖ ≤ B/|x|`, and `R(T) = 2((8 + Λ)/π)(1 + (T/2)²)^{−1/8}`. On `|x| > T/2` the far zeros are bounded by `W`, and the tail `B²W/x²` by `Wf_tail_le`.
+- **`lam_le_split`**: at `T = 2e^{40a}`, `R(T) ≤ 2((8 + Λ)/π)e^{−10a}`, so the far part is `O((a + 1)e^{9a})` even with `κ₂ = eᵃ`. Hence `λ₁(a) ≤ K(a + 1)κ₁e^{9a − 4πe^{2a}}` for any `κ₁ ≥ 1` that bounds only the zeros with `|Re τ| ≤ 2e^{40a}`.
+- `KaiserPrefactor.lean` is refactored so both routes share their numbers: `prefactor_data` (the bounds on `J` and `B` at `η = 1/L`) and `lam_le_of_weilQ` (from `Q` to `λ₁`). `weilQ_prefactor` and `lam_le_kappa` keep their statements.
+
+**2. The region** (`external/pnt/KaiserKV.lean`, on PNT+).
+- `region`: take PNT+'s `ZetaNoZerosInBox` (no zeros with `σ ≥ σ₀ < 1`, `|t| ≤ e³`) together with `zeroFree_KV` above `e³`. Then for every `T ≥ e³`, every zero `β + iγ` with `|γ| ≤ T` has `β < 1 − A/f(T)`, because `f` is increasing.
+- `abs_im_tau_le`: applying `region` to both `½ ± iτ` gives `|Im τ| ≤ ½ − A/f(T)` for the zeros of `Ξ` with `|Re τ| ≤ T`.
+- `lam_prefactor_KV`: take `κ₁ = e^{a − 2aA/f(2e^{40a})} ≥ 1`. Then `f(2e^{40a}) ≤ (41a)^{2/3}(4 log a)^{1/3}` for `a ≥ 4` (`fKV_le`, using `log 41 < 4`), so the saving is at least `c·a^{1/3}/(log a)^{1/3}` with `c = 2A/(41^{2/3}·4^{1/3})`.
+
+The constants `K` and `c` are not numerically explicit: `A` comes from `zeroFree_KV` and `σ₀` from a compactness argument.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 799 checked theorems in `src/`, and `lam_prefactor_KV` in `external/pnt`. Neither build prints warnings from these files.
+
+**Check 4.** Acknowledged: round 164 noted the factor `eᵃ`, and the Lean-review report proposed feeding the Korobov–Vinogradov region into it, citing the toolchain split as a blocker (since resolved, rounds 106–111). New: the height split, whose far-zero bound needs no zero count, and the formal `lam_prefactor_KV`. The remark quoted from round 164 is corrected in place. The bound is dominated by round 220's `lam_nine` except in effectivity (see above).
+
+**Bearing on RH:** none. This is a sharper upper bound on `λ₁`.
+
+## Round 235: primes in short intervals, `θ > 3/4`, unconditional (`src/Short*.lean`, `src/DirMean.lean`, `src/DivSq.lean`, `src/ZeroLocal.lean`, `src/Density*.lean`, `src/MollId.lean`, `external/pnt/ShortKV.lean`, `external/pnt/DetectEM.lean`)
+
+This is job 2 of the Lean-review report: a zero-density theorem, and from it primes in short intervals.
+
+- **`DetectEM.short_primes`**: for every `θ > 3/4`, every large enough `y` has a prime `p` with `y < p ≤ y + y^θ`. There is no RH input and no named hypothesis.
+- **`DetectEM.density_unconditional`**: for every `0 < δ ≤ 1/4`, `N(σ, T) ≤ C·T^{4(1+δ)(1−σ)}(log T)^{11}` for `½ ≤ σ ≤ 1`, `T ≥ 2`. Here `N(σ, T)` counts the zeros of the pilot's `Ξ` with `|Re τ| ≤ T` and `|Im τ| ≥ σ − ½` (`NX`, `DensityXi`).
+
+**Historical level.** `θ > 3/4` is Chudakov's 1936 result. Ingham (1937) reached `θ > 5/8`, and Huxley (1972) `θ > 7/12`. The density exponent `4(1 + δ)(1 − σ)` has Carlson's shape, with log-power (not power) losses at `σ = 1`. That is what lets it combine with the Korobov–Vinogradov region.
+
+**Correction to the report.** The report said Ingham's density `N(σ, T) ≪ T^{3(1−σ)/(2−σ)}`, with the Korobov–Vinogradov region, gives `θ > 5/8`. It does not. The exponent `A(σ) = 3/(2 − σ)` has supremum 3 at `σ = 1`, so it gives `θ > 1 − 1/3 = 2/3`. Ingham's `5/8` needs his 1937 density theorem together with Weyl's subconvexity bound `ζ(½ + it) ≪ t^{1/6}`, which gives the uniform exponent `A = 8/3`.
+
+**1. From density to primes** (`ShortWeil`, `ShortZeros`, `ShortPrimes`, `external/pnt/ShortKV`).
+- The test function is `h(z) = 2cos(Lz)·ĝ_J(z)²`, where `g_J` is the `J`-fold iterated autocorrelation of a box. It goes into round 158's explicit formula `weilExplicit_zeta` (`weil_hmod`).
+- The prime side gives a lower bound for a smoothed `ψ` over the window (`lower_bound`). The difference `ψ − θ` is at most `2√x log x` (Mathlib), so the window contains primes, not just prime powers (`exists_prime_of_window`).
+- The zero sum is split at a height. The head is bounded by layers in `|Im τ|`, using `DensityXi A B` and a zero-free region `ZeroFreeXi α` of width `A_z/(log T)^α`, `α < 1`. The tail is bounded by `summable_Xi_zeros_rpow`.
+- `short_primes_of_density`: `DensityXi A B` and `ZeroFreeXi α` give a prime in `(y, y + y^θ]` for every `θ > max(½, 1 − 1/A)` and all large `y`.
+- `ShortKV.zeroFreeXi_KV`: round 215's Korobov–Vinogradov region gives `ZeroFreeXi (3/4)`.
+
+**2. The density theorem** (`DirMean`, `DivSq`, `ZeroLocal`, `DensityCore`, `DensityAsym`, `MollId`, `external/pnt/DetectEM`). The route is elementary: a mollifier and large values of Dirichlet polynomials, not Ingham's contour integral.
+- **Detection** (`DetectEM.detectHyp`). Take `X = ⌊U^{2σ−1}⌋` and `N = ⌊U^{3−2σ+2δ}⌋`. At a zero `ρ = β + iγ` with `U ≤ |γ| ≤ 2U` and `β ≥ σ ≥ 3/4`, PNT+'s Euler–Maclaurin formula gives a bound on `|Σ_{n≤N} n^{−ρ}|` (`norm_partial_zeta_le`). The mollifier identity `M_X(s)Σ_{n≤N} n^{−s} = 1 + D(s)` (`moll_identity`) and `|M_X(ρ)| ≤ X^{1−σ}(1 + log X)` (`norm_moll_le`) then give `|D(ρ)| ≥ ½`.
+- **Counting the detected zeros** (`DensityCore.card_detect_le`).
+  - `D` splits into dyadic blocks, and one of them carries `|D_k(ρ)| ≥ 1/(2K)`.
+  - Take one zero per unit window of `|γ|`, split by parity, so the chosen zeros are 1-separated. Each window holds `O(log U)` zeros, by round 164's zero weight (`ZeroLocal.card_local_le`).
+  - The large-values theorem is applied off the line of the coefficients, at `β ≥ σ` rather than `β = σ`. It uses Taylor weights for `j^{−(β−σ)}` in place of partial summation, so the loss is a log power, not a power (`large_values_off'`). Its inputs are the mean value theorem with a crude Hilbert constant and Gallagher's lemma.
+  - The coefficient bound is `Σ d(j)² ≤ M(1 + log M)³` (`DivSq`).
+- **Assembly** (`DensityAsym.density_of_detect`). Dyadic in the height, with the trivial count `O(T log T)` for `σ < 3/4`, this gives `DetectHyp δ → DensityXi (4(1 + δ)) 11`.
+- `short_primes` takes `δ = min(1/4, (4θ − 3)/8)`, so `1 − 1/(4(1 + δ)) < θ`.
+
+`ShortPrimes.short_primes_aux` raises `maxHeartbeats` to 2,000,000.
+
+**Novelty.** I know of no Lean formalisation of primes in short intervals `(y, y + y^θ]` with `θ < 1`, or of a zero-density theorem, in Mathlib or PNT+. The unreviewed repository smccolm/Lean claims stronger results; I have not checked them. As mathematics, this round is 1936-level.
+
+**Not done.**
+- `θ > 2/3`: this needs a bound `ζ(½ + it) ≪ t^{c}` with a power saving (van der Corput, `c = 1/4`) in the detection step, in place of Euler–Maclaurin's `c = 1/2`.
+- `θ > 5/8`: this needs Weyl's `c = 1/6`, or an Ingham-type mean value.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 829 checked theorems in `src/`, and `zeroFreeXi_KV`, `density_unconditional` and `short_primes` in `external/pnt`. Neither build prints warnings from these files.
+
+**Check 4.** Acknowledged: the Lean-review report listed "zero density, then primes in short intervals" as job 2. New: the formal theorems above, and the correction of the report's `5/8` claim to `2/3`.
+
+**Bearing on RH:** none. Short-interval primes at `θ > 3/4` follow from zero-free regions and density bounds that are far from RH. Under RH one gets `θ > 1/2`.
+
+## Round 236: a twin form for `ζ_{ℚ(i)} = ζ·L(s, χ₋₄)` (ζ-zeros doubled) (`src/WeilDedekind.lean`)
+
+This round is the first of a structural review of the pilot (`STRUCTURAL-REVIEW.md`). Rounds 220–225 built one Landau argument (`TwinLandau`) and instantiated it twice: for `ζ` (`twinData_zeta`, round 221) and for `L(s, χ)` (`twinData_chi`, round 225). The two instances have the same weight function up to a factor 2 (`GboxC p = 2·Gbox p`), so they combine into one instance on the sum of the index types, which is the explicit formula of `ζ(s)·ζ_{ℚ(i)}(s) = ζ(s)²L(s, χ₋₄)`: its poles are the zeros of the Dedekind zeta function `ζ(s)L(s, χ₋₄)` of `ℚ(i)`, with each `ζ` zero weighted twice.
+
+- `twinData_K`: `TwinLandau.TwinData PK cK GboxC (fun λ => Q_K(twin (box 1) λ))` on `ZIdx ⊕ ZeroIdx (sqF (XiC chi4))`, with `Q_K(a, g) = 2·weilQ a g + QC chi4 a g`. The `hasSum` field is `HasSum.sum` of the two explicit formulas; the finiteness field is the union of the two.
+- **`rh_grh_iff_QK_twins`: `RiemannHypothesis ∧ GRH chi4` ⟺ `2Q_ζ(twin (box 1) λ) + Q_{χ₋₄}(twin (box 1) λ) ≥ 0` for every `λ ≥ 0`.** One positivity statement for both hypotheses, from one application of `TwinLandau.abs_re_le`.
+- `QK_twins_rate`: the graded form. `Q_K(twin λ) ≥ −Ce^{σλ}` for some `C` iff every zero of `ζ` and every zero of `L(s, χ₋₄)` in the strip has `|2 Re ρ − 1| ≤ σ`.
+- `rh_grh_iff_QK_subexp`: `RH ∧ GRH(χ₋₄)` ⟺ the defect of `Q_K` is subexponential.
+- **The angular island joined.** `AngularFamily.lean` (round 187) defines `GRHMemberZero`, RH for `ζ(s)·L(s, χ4C)`, and proves only `rh_of_member_zero : GRHMemberZero → RH`; nothing imported it. `χ4C` is definitionally `chi4` (`χ4C_eq`), so `rh_grh_of_member_zero : GRHMemberZero → RH ∧ GRH chi4` and `QK_nonneg_of_member_zero`. The converse `RH ∧ GRH chi4 → GRHMemberZero` needs that `L(s, χ₋₄)` has no zeros with `Re s ≤ 0` other than `−(2n+1)` and none with `Re s ≥ 1`; not done.
+
+The factor 2 is the normalisation difference between the two zero families: `ZIdx` lists each zero of `ζ` once, `ZeroIdx (sqF (XiC χ))` lists each `±τ` pair once, and `QC` carries the 2 (`QC_hasSum`). The form with the ζ-zeros counted once, `Q_ζ + Q_{χ₋₄}`, needs the index `ZIdx ⊕ Bool × ZeroIdx …`; the same proof, not done.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 835 checked theorems in `src/`.
+
+**Check 4.** Acknowledged: round 225 noted that `TwinLandau` is generic in the pole family. New: the sum-type instance, the joint criterion, and the link to `AngularFamily`.
+
+**Bearing on RH:** none. It is Weil's criterion for `ζ_{ℚ(i)}` in the twin-box form, equivalent to RH together with GRH for `χ₋₄`.
+
+## Round 237: the Korobov–Vinogradov region as a lower bound on the twin form (`external/pnt/TwinKV.lean`)
+
+Round 221's `weil_twins_rate` says: `Q(twin (box 1) λ) ≥ −Ce^{σλ}` for all `λ ≥ 0` iff every zero has `|2 Re ρ − 1| ≤ σ`. So without a zero-free strip no rate `σ < 1` is provable, and the best unconditional statement about the defect must have the shape of the best zero-free region. This round proves that statement.
+
+- `TwinLandau.Q_ge_of_rates`: the converse bound of round 221 (`Q_ge`) with a rate per pole: if `|Re P_q| ≤ r_q` for every `q` and `Σ‖c_q‖e^{r_q λ} < ∞`, then `Q(λ) ≥ −4Σ_q ‖c_q‖e^{r_q λ}`.
+- The zeros with `|Re τ| ≤ T` get the rate `1 − 2A/f(T)` from round 234's `abs_im_tau_le` (`f(T) = (log T)^{2/3}(log log T)^{1/3}`); the zeros above `T` get the trivial rate 1 and the tail bound `Σ_{|Re τ| > T} |ĝ₀(τ)|² ≤ K₀²S₁T^{−1/4}`, from `norm_ghatC_le_of_antitone` (`|ĝ₀(τ)| ≤ 2g(0)cosh(½)/|τ|`) and round 235's `summable_Xi_zeros_rpow`. With `T = e^{8λ}` the tail is `O(e^{−λ})`.
+- **`TwinKV.twins_lower_KV`: there are `C` and `A > 0` with `Q(twin (box 1) λ) ≥ −C·exp((1 − A/f(e^{8λ}))·λ)` for every `λ ≥ 1`**, i.e. `≥ −C·exp(λ − c·λ^{1/3}(log 8λ)^{−1/3})`. No RH input; `A` is round 215's Korobov–Vinogradov constant, so the bound is effective in principle only (as in round 234).
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: `Q_ge_of_rates` and `twins_lower_KV` in `external/pnt`.
+
+**Check 4.** New. Round 234 fed the region into the Kaiser prefactor bound on `λ₁`; this is the same region in the twin-box form of round 221, where it is sharp in shape by `weil_twins_rate`.
+
+**Bearing on RH:** none. It is the positivity-side statement of the widest known zero-free region. *(Correction, round 242: the exponent `1/3` is an artefact of the cutoff `T = e^{8λ}`, not of the region; with the cutoff optimised the defect is `exp(λ − c λ^{3/5}(log λ)^{−1/5})`, the shape of `PNT_KV`. The sentence "any better exponent than `λ^{1/3}` would be a wider region" was wrong.)*
+
+## Round 238: `rh_of_polya` was vacuous (`src/MertensOmega.lean`)
+
+Round 222 stated `rh_of_polya (h : ∀ x : ℝ, 1 < x → summ fLi x ≤ 0) : RiemannHypothesis`, with `summ f x = Σ_{k ≤ x} f k` over `Finset.Icc 1 ⌊x⌋₊`. At `x = 3/2` the hypothesis says `L(3/2) = λ(1) = 1 ≤ 0`. So the hypothesis is refutable and the theorem was `False → RH`; round 222's "the classical implication, now machine-checked" was wrong.
+
+- `polya_hyp_false : ¬ (∀ x : ℝ, 1 < x → summ fLi x ≤ 0)`.
+- `rh_of_polya` now assumes `L(x) ≤ 0` for every `x ≥ 2` (Pólya's conjecture as stated by Pólya). The proof goes through `rh_of_liouville_bound` with `c = 1`: on `1 < x < 2`, `L(x) = 1 ≤ √x`.
+
+The other five theorems of round 222's file are unaffected (`rh_of_liouville_bound` is non-vacuous, e.g. at `ε = 1`, `c ≥ 1`).
+
+Every theorem of the file depends only on `propext`, `Classical.choice` and `Quot.sound`: 836 checked theorems in `src/`.
+
+**Check 4.** New (found by the structural review's reading pass; the vacuity was not recorded anywhere).
+
+**Bearing on RH:** none; Pólya's conjecture is false. It was a correctness defect in a stated theorem.
+
+## Round 239: the Galerkin gap hypothesis was refutable (`src/GapBound.lean`, `src/CosTrunc.lean`)
+
+Round 60's `simple_of_trunc_gap` was described as "if `T` is dense and eventually `λ₂(T K) ≥ λ₁(T K) + γ`, then every ground state is simple". Its Lean hypothesis was `∀ᶠ K, ∀ f ∈ T K, 0 < normSq f → Lam2GeT a (T K) (weilQ a f / normSq f + γ)`: the gap over **every** nonzero `f ∈ T K`, including the maximiser of the Rayleigh quotient. Once `dim T K ≥ 2` that is impossible: take `g, h ∈ T K` independent and `f` maximising `Q/‖·‖²` on the unit circle of `span{g, h}`; `Lam2GeT` at `(g, h)` gives `(R(f) + γ)‖αg + βh‖² ≤ Q(αg + βh) ≤ R(f)‖αg + βh‖²`, so `αg + βh = 0` a.e., contradicting independence. A dense truncation has `dim T K → ∞`, so the hypothesis was false for every dense `T`, and `simple_of_cos_gap` (round 62) inherited this at `K ≥ 2`. The proof used the hypothesis only at the approximants `F K` of the ground state, whose Rayleigh quotients tend to `λ₁`.
+
+- `simple_of_trunc_gap` now assumes `∀ᶠ K, Lam2GeT a (T K) (lam a + γ)`: eventually `λ₂(Q|T K) ≥ λ₁ + γ`. This follows from `λ₂(T K) ≥ λ₁(T K) + γ` because `λ₁(T K) ≥ λ₁` (`lam_mul_le`), so it is what the round-60 table promised. The proof is the old one with `γ/2` in place of `γ`, through the new `Lam2GeT.anti`.
+- `simple_of_trunc_gap_of_forall`, `simple_of_cos_gap_of_forall`: the round-60 forms, derived from the new theorems (the old hypothesis at `F K` gives the new one, since `R(F K) ≥ λ₁`). They are kept only to record that the new statements are stronger.
+- `simple_of_cos_gap` likewise.
+
+The refutation of the old hypothesis is argued above, not compiled (it needs the maximiser on a compact circle; about 100 lines).
+
+Every theorem of both files depends only on `propext`, `Classical.choice` and `Quot.sound`: 838 checked theorems in `src/`.
+
+**Check 4.** New. Round 60's prose and the Lean disagreed; no round recorded it.
+
+**Bearing on RH:** none directly. The Galerkin transfer is the theorem that the numerical gap certificates of rounds 60–62 were meant to feed, and as stated it could not be fed.
+
+## Round 240: the build prints no warnings again (`src/GlobalTeeth.lean`, `src/ExpSum.lean`, `src/ExpSum8.lean`, `src/ExpSum10.lean`, `src/VinoBad.lean`, `src/VinoFam.lean`, `src/VinoKV.lean`, `src/KaiserIBP.lean`, `external/pnt/Landau.lean`, `external/pnt/KVBridge.lean`)
+
+The header's sentence "The build prints no warnings" had been false since the round-187 and round-213–216 files: the pilot build printed 21 linter-warning lines from eight files, and the `external/pnt` build six more from its own files (deprecated names `if_true`/`if_false`/`if_neg`, unused `simp` arguments and variables, `<;>` where `;` suffices, `haveI` for a `Prop`, unreachable tactic alternatives, and two evaluations of `2^302` above the exponentiation threshold in `VinoKV.lean`, silenced with `set_option exponentiation.threshold 400 in`). No statement changes; the sentence is true again.
+
+**Check 4.** New (found by the structural review's baseline reproduction).
+
+**Bearing on RH:** none.
+
+## Round 241: two statements brought up to their docstrings (`src/Unconditional.lean`, `external/pnt/TwinKV.lean`)
+
+- `pinned_unconditional` (round 152) concluded `(ĝ x).re = 0` while its docstring and the module header promised "a real zero of `ĝ`". Since `ĝ` is real on the real line for even integrable `g` (`ghatC_im_eq_zero`, same file, same hypotheses), the promised statement is one `Complex.ext` away: **`pinned_unconditional_zero`** concludes `ghatC g a x = 0` under the hypotheses of `pinned_unconditional`.
+- Round 237 stated `twins_lower_KV` with the exponent `(1 − A/f(e^{8λ}))·λ` and paraphrased it as `λ − c·λ^{1/3}(log 8λ)^{−1/3}`. The paraphrase is now a theorem: `fKV_exp_eight : f(e^{8λ}) = 4λ^{2/3}(log 8λ)^{1/3}` and **`twins_lower_KV'`: there are `C` and `c > 0` with `Q(twin (box 1) λ) ≥ −C·exp(λ − c·λ^{1/3}/(log 8λ)^{1/3})` for every `λ ≥ 1`** (`c = A/4`).
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 839 checked theorems in `src/`, and `twins_lower_KV'` in `external/pnt`.
+
+**Check 4.** New (both are docstring-versus-statement gaps found by the structural review).
+
+**Bearing on RH:** none.
+
+## Round 242: the twin form's defect has the PNT exponent, and every twin form is `≥ −o(e^λ)` (`external/pnt/TwinKV.lean`, `src/TwinLandau.lean`, `src/WeilDedekind.lean`)
+
+Round 237 chose the cutoff `T = e^{8λ}` and got the exponent `λ^{1/3}`; I then wrote that "any better exponent than `λ^{1/3}` would be a wider region". That was wrong: `weil_twins_rate` pins the *exponential* rate `2Θ − 1` to the zero-free strip, not the subexponential correction, which depends on the cutoff. The structural review's lens pass found the optimisation.
+
+- `twins_lower_cut`: the round-237 proof with the cutoff `u` free: `Q(twin (box 1) λ) ≥ −C(exp((1 − 2A/f(e^u))λ) + exp(λ − u/4))` for `λ ≥ 0`, `u ≥ 3`.
+- `twins_lower_KV35` (`u = 3λ^{3/5}`): `Q ≥ −C·exp(λ − c λ^{3/5}(log 3λ^{3/5})^{−1/3})`.
+- **`twins_lower_KV_sharp`**: with the cutoff balanced, `Q(twin (box 1) λ) ≥ −C·exp(λ − c·λ^{3/5}/(log λ)^{1/5})` for `λ ≥ e`. This is `PNT_KV`'s error term `exp(−c(log x)^{3/5}/(log log x)^{1/5})` in the positivity language, from the same region and the same split.
+- `TwinLandau.Q_ge_of_rates` moves from the pnt layer to `TwinLandau.lean`, and **`TwinLandau.twin_Q_littleO`**: for every `TwinData` and every `ε > 0`, eventually `−ε e^λ ≤ Q λ` (per-pole rates `|Re P_q| < 1` and dominated convergence, no region). Instances: `Dedekind4.QC_chi4_littleO` (the first unconditional rate statement for `Q_{χ₋₄}`) and `QK_littleO`.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`.
+
+**Check 4.** New; corrects round 237's closing sentence in place.
+
+**Bearing on RH:** none. `o(e^λ)` is `Θ ≤ 1` (the trivial strip); the `3/5` bound is the KV region.
+
+## Round 243: `L(1, χ₋₄) = π/4` from lattice points, two islands joined (`src/AngularResidue.lean`)
+
+`LatticeCount.count_div_pow_tendsto_ballVol` at dimension 2 counts Gaussian integers of norm `≤ N` (`latticeCount_two_sqrt`), which are `GlobalTeeth`'s shells, so `Σ_{k≤N} r₂(k)/4 / N → π/4`. Mathlib's Abelian theorem for Dirichlet series with nonnegative coefficients gives the residue of `angularL 0 = ζ·L(χ₋₄)` at `s = 1` (`residue_angular`), and dividing by the residue of `ζ` gives **`LFunction χ4C 1 = π/4`**. Neither island had a consumer before; `ballVol_two` is now the pole weight of the Dedekind zeta function behind round 236.
+
+**Check 4.** New. **Bearing on RH:** none (the class number formula for `ℚ(i)`).
+
+## Round 244: joins on the `ζ` side (`src/ZetaJoins.lean`)
+
+- **`short_primes_of_RH`**: RH gives a prime in `(y, y + y^θ]` for every `θ > ½` and all large `y`. Under RH every `τ` is real (`tau_im_eq_zero_of_RH`), so `DensityXi 2 1` and `ZeroFreeXi (½)` hold by the local count `card_re_le`, and round 235's `short_primes_of_density` applies with `A = 2`. Round 235's sentence "Under RH one gets `θ > 1/2`" is now a theorem.
+- `weil_rate_of_psi_bound`, `weil_rate_of_mertens_bound`: a one-sided bound `ε(ψ(x) − x) ≤ c x^θ` (or for Mertens' `M`) gives `Q(twin (box 1) λ) ≥ −Ce^{(2θ−1)λ}`; `rh_of_psi_upper`: one-sided upper bounds at every `θ > ½` give RH.
+- `pinned_zeta_zero` (round 241's fix at the `ζ` instance) and `multiplier_time_probe`, the first instance of `SixteenPi.multiplier_expansion`.
+
+**Check 4.** `short_primes_of_RH` is acknowledged in round 235's prose, new as Lean. **Bearing on RH:** none.
+
+## Round 245: the twin criterion for every real-rooted base and every good character (`src/WeilTwinGeneral.lean`)
+
+Round 220 used `box 1`; the only property of the base the Landau argument needs is that `ĝ₀` has no zeros off the real axis (`G_ne`), which is `RealRooted`. So `rh_iff_twins_realRooted` holds for every even, antitone, nonnegative, real-rooted `g₀`, with Pólya's theorem (`Concave`) supplying real-rootedness for concave bases (`rh_iff_twins_concave`); `box_realRooted` recovers round 220. `twinAdd` combines any two `TwinData` with the same weight function, so round 236's Dedekind criterion holds for every `GoodChar χ` with no real zero (`rh_grh_iff_QKχ_twins`), and `χ₋₇` joins `χ₋₃`, `χ₋₄`, `χ₋₈` (`good_chi7`, `race_seven_half`).
+
+**Check 4.** New. **Bearing on RH:** none.
+
+## Round 246: the `hS` blind spot and the root locus of `Ξ_χ` (`src/ChiHalfSharp.lean`, `src/WeilChiRoots.lean`, `src/OddProbe.lean`, `src/CrossCriteria.lean`, `src/ParityGapLower.lean`)
+
+The `χ` chain carried two hypotheses, `GoodChar.half : L(½, χ) ≠ 0` and `hS : L(σ, χ) ≠ 0 on (0, 1)`. The second contains the first (`goodChar_of_hS`), so `grh_iff_twins'` and `weil_criterion_chi'` take `hS` alone. Even probes cannot see real zeros: `Q_χ ≥ 0` follows from GRH off the real axis (`QC_nonneg_of_cross`, `QC_nonneg_of_GRH'`), and in root coordinates `u = τ²`, `GRH'` is "every root real", `hS` is "no root `≤ 0`", GRH is "every root real and positive" (`grh_iff_roots_pos`). Odd probes see the sign (`OddProbe`). The local zero count improves from `13/2` to `5/2` (`card_local_le_sharp`), and the open inputs of the density route and the `χ` chain are stated as named `Prop`s in `CrossCriteria.lean`. `ParityGapLower`: a one-sector lower bound at the prefactor scale gives the parity gap eventually and, under `HypConv`, RH along a ground-state sequence.
+
+**Check 4.** `GoodChar.half` is acknowledged (rounds 224–225); its redundancy given `hS`, the cross criterion and the root-locus dictionary are new. **Bearing on RH:** indirect (GRH for `χ` modulo real zeros).
+
+## Round 247: kernel identities (`src/WallKernel.lean`, `src/GhatSamples.lean`, `src/PsiReQDup.lean`)
+
+`SixteenPi`'s reduced exponent is the wall law under the involution `X ↦ 4/X` (`fBalExp_eq_wall`), maximal exactly at the wall; the archimedean kernels obey `archKer ¼ ± archKer ¾ = 1/sinh(u/2), 1/cosh(u/2)`; the Fourier coefficients of a probe are samples of `ĝ` (Parseval is the sampled Plancherel identity); Legendre's duplication for `psiReQ`.
+
+**Check 4.** New. **Bearing on RH:** none.
+
+## Round 248: the zeta23 layer joined (`external/zeta23/ZeroWindow.lean`, `Dictionary.lean`, `CountCompare.lean`, `CoImportMV.lean`, `CoImportGamma.lean`)
+
+- **`zero_in_window`**: there is `H` such that every window `[t, t + H)`, `t ≥ T₀`, contains a zero ordinate of `ζ` (from `S(T) = O(log T)` and the growth of `N₀`).
+- `Dictionary`: `Zeta23.mu τ = (psiRe τ − log π)/(2π)`, `weilConst = 2π·mu 0`, `sigmaW a r = 2π(mu r + PX (e^{2a}) r)`, `ToneHyperbola.stirl q γ = π N₀(qγ)/q`; `CountCompare`: zeta23's `Ncount t (t+1) ≤ Kloc (t + ½)`.
+- **The layer clash is narrower than round 228 and the review's first draft said**: `DetectEM` loads together with `Zeta23.MV.Final` and with `Zeta23.GammaFacts.Complete`; only the vendored `FromPNTPlus` copies (used by `SlogZeta`) clash with PNT+. So `mv_hilbert` can reach the density theorem. `CoImportMV` records the co-import, `large_values_amgm`, the parametric `DetectHypP`, and Mathlib's `dedekindZeta` of `ℚ(i)` as `ζ·L(χ₋₄)` given the ideal count.
+
+**Check 4.** New. **Bearing on RH:** none.
+
+## Round 249: the KV width subsumes the growth chain (`external/pnt/KVSubsumes.lean`, `external/pnt/Domination.lean`)
+
+`LandauKV.growthW_kv` alone gives `PolylogGrowth a K` for every `a > 2/3`, hence `KVBridge.zeroFree_kv`, `rung3_kv` and `Rung3.KVInput n₁ 3` for every `n₁ > 2/3`, without rounds 212–214's `GrowthSum` route (`KVSubsumes`). `Domination` proves rounds 230–231's counts from round 232's, the `FourierInv` lemmas from the weaker `ESupp`, and **rounds 163, 164 and 234's λ₁ bounds (`lam_prefactor`, `lam_kaiser`, `lam_prefactor_KV`) as corollaries of round 220's `lam_nine`**: `e^{9a}` is below `e^{10a − c a^{1/3}/(log a)^{1/3}}`, so round 234's statement carries no kernel content beyond `lam_nine` (its effectivity remark stands). The retired chains are not deleted in this round; the census of what they free (about 700–850 lines) is in `STRUCTURAL-REVIEW.md`.
+
+**Check 4.** Round 234 acknowledged `lam_nine`'s dominance in prose; the Lean corollaries and the `KVInput` discharge are new. **Bearing on RH:** none.
+
+## Round 250: small simplifications compiled (`src/CertInstances.lean`, `src/DecayCorollaries.lean`)
+
+The `PoleRelax`/`PrimeRelax` certificates (`weilQ_ge_of_cert`, `weilQ_ge_of_certP`) as instances of the weighted certificate; `lam_decay` with its four hypotheses shown superfluous; `lamO_decay_uncond` from `lamO_dexp`; `VinoRec.vmvt_iter` from `vmvt_explicit`.
+
+Every theorem of rounds 242–250 depends only on `propext`, `Classical.choice` and `Quot.sound`: 930 checked theorems in `src/`; the `external/pnt` and `external/zeta23` builds print the new ones too. All three builds print no warnings from these files.
+
+**Check 4.** New. **Bearing on RH:** none.
+
+## Round 251: the ground-state ↔ Weil-index join (`src/GroundIndex.lean`)
+
+Rounds 57–58 count the off-line zeros from the ground-state side: under (a) (`HypConv`) for ground states whose ground spaces eventually have dimension `≤ M`, `ζ` has at most `2⌊(M − 1)/2⌋` zeros with `Re s > ½` (`zeta_offline_card_le`). Round 229 counts them from the Weil side: a `k`-dimensional space of strip-test probes on which `Q` is negative definite exhibits `k` distinct off-line quadruples (`finrank_le_quadruples_zeta`). The two counts had never been composed. `finrank_le_ground_index`: under the ground-state hypotheses, every finite-dimensional space `V` of strip-test probes on which `Q` is negative definite has `dim V ≤ ⌊(M − 1)/2⌋`; `finrank_le_ground_index_C2` for `C²` probes vanishing near the edges; `zeta_upper_offline_card_le`: at most `⌊(M − 1)/2⌋` zeros with `Re s > ½` and `Im s > 0`, i.e. at most `⌊(M − 1)/2⌋` off-line quadruples; `offRight_finite`; `isNontrivialZero_conj` (conjugation preserves the nontrivial zeros, from Mathlib's `riemannZeta_conj`). The contrapositive `gdim_lower_of_neg_block`: a certified negative-definite block of dimension `k ≥ 1` forces `dim (ground space) ≥ 2k + 1` infinitely often along every (a)-family, the first statement in the stack in which a Weil-side computation constrains the ground-state side. The proof: the zeros to the right of the line form a finite set closed under conjugation with no real member (`ζ ≠ 0` on `(0, 1)`), so its upper half has at most `⌊(M − 1)/2⌋` members; one index per member is a representative set `R` for the quadruple lemma, since a zero with `Re ρ < ½` is `1 − ρ'` for a zero `ρ'` to the right and `t_{1−ρ'} = −t_{ρ'}`. At `M ≤ 2` the bound reads `dim V = 0`, which `rh_of_dim_le_two` and Weil's criterion also give.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 936 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New (`STRUCTURAL-REVIEW.md` §7 candidate M21, the lens pass's top-ranked unbuilt join). **Bearing on RH:** none by itself; it converts any future certified negative block (round 229's ball-arithmetic Gram matrices, every scan of which has found `Q ≥ 0`) into a lower bound on the ground-space dimension, and any future eventual dimension bound into a cap on Weil's negative index. *(Round 252: composed with the ground space itself as a negative block, any eventual dimension bound gives RH along `a n → ∞`.)*
+
+## Round 252: the ground space is a negative block of `Q`; (a) with any dimension bound gives RH (`src/GroundBlock.lean`)
+
+A knock-on of round 251, found by asking what the join composes with. A ground state minimises the *full* Weil form (`IsGroundState`, round 6), so wherever `λ₁(a) < 0` the ground space is a space on which `Q = λ₁‖·‖² < 0`, and round 229 counts such spaces by off-line quadruples, provided their elements are strip-test probes. Round 54's Green chain supplies that regularity: `Ĝf = −f̂/(z² + ¼)` (`Gpole_hat`, round 53) with `f̂` bounded on the strip and `Ĝf` continuous near `±i/2` gives `striptest_Gpole`, so the chain above its base, `Gw, …, G^{m−1}w`, spans a `(gdim a − 1)`-dimensional negative-definite space of strip-test probes (`exists_ground_block`; independence from `chain_linearIndependent`). Hence `gdim a − 1 ≤ R.card` for every representative set `R` of quadruples (`gdim_sub_one_le_quadruples`), and under (a) with an eventual bound `M`, round 251's join gives `gdim (a n) ≤ ⌊(M − 1)/2⌋ + 1` at every `n` with `λ₁(a n) < 0` (`gdim_le_of_lam_neg`).
+
+If RH fails, `λ₁(a n) < 0` eventually along `a n → ∞` (`exists_lam_neg_of_not_RH`, round 161; `lam_antitone`, round 47). The bound then descends, `M ↦ ⌊(M − 1)/2⌋ + 1 < M` for `M ≥ 3`, until round 56's `rh_of_dim_le_two` closes: **`rh_of_dim_bounded`: (a) for ground states along `a n → ∞` with eventually `gdim (a n) ≤ M`, for any `M`, gives `RiemannHypothesis`.** Round 56's `M ≤ 2` becomes every `M`; eventual simplicity (round 46, `gdim ≤ 1`) is the case `M = 1`. Since (a) passes to subsequences (`hypConv_comp`), the contrapositive is a dichotomy: **`rh_or_gdim_tendsto`: (a) along `a n → ∞` gives RH or `gdim (a n) → ∞`.** In words: under (a), finitely many off-line zeros are impossible — either there are none, or the ground spaces grow without bound (round 57's count already forced the latter when the quadruples are infinite; the new half is that finitely many, but at least one, are excluded).
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 942 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. The README's RH chains each took (a) plus a second input — eventual simplicity (round 46), `dim ≤ 2` (round 56), the parity gap (round 137), or (a) for the top-of-chain family (round 54); none stated a dimension bound for an arbitrary family, and none stated the dichotomy. **Bearing on RH:** (a) remains the open input. The second input is now any bound at all on the ground-space dimension, and its absence is itself a prediction: along any (a)-family, `gdim (a n) → ∞` unless RH holds.
+
+## Round 253: Davenport–Heilbronn in Lean, stage 1 (`src/DavenportHeilbronn.lean`)
+
+Round 165 computed the Weil form of the Davenport–Heilbronn function numerically and certified `λ₁ < 0` at `2a = 3.45, 3.6, 4.0` in ball arithmetic — the only certified negative block in the programme, outside Lean. This round puts the function itself into Lean, on Mathlib's Dirichlet L-functions, with its functional equation and nondegeneracy kernel-checked; the explicit formula and the certificate are stated as the remaining walls.
+
+**The construction, for any primitive `χ ≠ 1` mod `N`.** Mathlib's functional equation reads `Λ(1 − s, χ) = N^{s − ½}·ε_χ·Λ(s, χ⁻¹)`. Applied twice at `s = 2`, where `Λ(2, χ) ≠ 0`, it gives `ε_χ ε_{χ⁻¹} = 1` (`rootNumber_mul_rootNumber_inv`), with no Gauss-sum computation. The combination `DH_χ(s) = (1 + ε_{χ⁻¹}) L(s, χ) + (1 + ε_χ) L(s, χ⁻¹)` (`dhL`) then has the self-dual completion `Λ_{DH}(s) = (1 + ε_{χ⁻¹}) Λ*(s, χ) + (1 + ε_χ) Λ*(s, χ⁻¹)` with **`Λ_{DH}(1 − s) = Λ_{DH}(s)`** (`dhLam_one_sub`), so `Ξ_{DH}(t) = Λ_{DH}(½ + it)` is even and entire (`XiDH_even`, `differentiable_XiDH`); for odd `χ`, `Λ_{DH} = N^{s/2} Γ_ℝ(s + 1) DH_χ` on `Re s > 0` (`dhLam_eq`, `dhL_eq_zero_iff`). Along the real axis `DH_χ(x) → 2 + ε_χ + ε_{χ⁻¹} = (1 + ε_χ)²/ε_χ` (`dhL_tendsto`, from Mathlib's `LSeries.tendsto_atTop`), so **`DH_χ` is not identically zero as soon as `ε_χ ≠ −1`** (`dhL_ne_zero`).
+
+**The character.** `chi5 : DirichletCharacter ℂ 5` with `χ(2) = i` (`chi5_ne_one`, `chi5_odd`, `chi5_isPrimitive`). Its Gauss sum has real part `−2 sin(π/5) < 0` (`gaussSum_chi5_re`), so its root number is not `−1` (`rootNumber_chi5_ne_neg_one`) and `dh := dhL chi5` is the Davenport–Heilbronn function: `dh ≠ 0`, `Λ_{dh}(1 − s) = Λ_{dh}(s)`, `Ξ_{dh}` even and entire (`dh_ne_zero`, `dh_functional_equation`, `XiDH_chi5_even`). Up to a positive real factor it is the classical `((1 − iκ)/2) L(s, χ) + ((1 + iκ)/2) L(s, χ̄)`: with `ε_χ = e^{iθ}`, `1 + ε̄_χ = 2cos(θ/2) e^{−iθ/2}` and `κ = tan(θ/2)`, `tan θ = 1/φ`; the identity with round 165's `κ = (√(10 − 2√5) − 2)/(√5 − 1)` is numerical, not proved (NUMERICAL; it is not needed: the zeros are those of `dh`).
+
+**What is not here (the walls, in order of cost).** (1) *Conjugation symmetry* `dh(s̄) = conj dh(s)` needs `ε_{χ⁻¹} = conj ε_χ`, a Gauss-sum identity not in Mathlib at the pinned revision (a page). (2) *Growth and Hadamard product* for `Ξ_{dh}`: the pilot's chain `norm_LamG_le → norm_XiC_le → hadamard_XiC` (rounds 225) is stated for quadratic `χ` through the real-coefficient representation `LFunction_eq_Iχ`; a complex-coefficient port would give `HadamardW (XiDH chi5)` from `hadamardW_even`, provided `Λ_{dh}(½) ≠ 0` (numerically true; a rigorous evaluation of `L(½, χ₅)` would be needed). (3) *The explicit formula*: the prime side is the Dirichlet series of `−dh′/dh`, which is not an Euler product and converges only where `dh` has no zeros to the right — the function is known to have zeros with `Re s > 1` — so round 225's route through `logDeriv_LFunction_eq` at `Re s > 1` does not transfer; this is the real wall. (4) *The certificate*: round 165's Gram matrices at `2a = 3.45` (margin `10⁻³⁰`) or `4.0` (margin `0.7`) would have to be evaluated in Lean with rigorous bounds on the `c(n)` and the archimedean integrals, as rounds 134 and 250 did for `ζ` at `2a ≤ 1.1`. With (3) and (4), round 130's `finrank_le_quadruples` would turn the certificate into a Lean proof that `dh` has an off-line zero quadruple (Spira, *Math. Comp.* 63 (1994) 747–748).
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 954 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New in Lean (round 165 is numerics only). **Bearing on RH:** none; this is the test bed for the certification chain of rounds 229, 251 and 252 on a function whose Weil form is certifiably indefinite.
+
+## Round 254: Davenport–Heilbronn in Lean, stage 2, the Hadamard product of `Ξ_dh` (`src/DHHadamard.lean`)
+
+Round 225's growth chain for `Ξ_χ` (`norm_LamG_le → norm_XiC_le → hadamard_XiC`) takes `χ` real: `LFunction_eq_Iχ` is the integral representation of the L-series of `Re χ`, and the reflection to `Re s < ½` uses `χ⁻¹ = χ`. This round rebuilds the chain for every primitive `χ ≠ 1`. The partial sums of a nontrivial complex `χ` are bounded by `N` (`norm_sum_cC_le`, the period sums vanish), so `L(s, χ) = s∫_1^∞ S(x)x^{−s−1}dx` on `Re s > 0` follows from Mathlib's `LSeries_eq_mul_integral` and the identity theorem (`LFunction_eq_IχC`), giving `‖L(s, χ)‖ ≤ (N + 1)‖s‖/Re s` (`norm_LFunction_leC`) and `‖Λ*(w)‖ ≤ n^{3n}` on `Re w ≥ ½` (`norm_LamG_leC`). The reflection `Λ*(1 − s, χ) = ε_χ Λ*(s, χ⁻¹)` (`LamG_one_sub'`) carries the bound to `Re s < ½` through `χ⁻¹`, so `‖Ξ_χ(t)‖ ≤ K_χ e^{36‖t‖^{3/2}}` for every primitive `χ ≠ 1` (`norm_XiC_le'`); unlike round 225's `norm_XiC_le`, which squared through `fG` and the root number, this needs no `L(½, χ) ≠ 0`. For the Davenport–Heilbronn combination of round 253: `‖Ξ_{DH}(t)‖ ≤ K e^{36‖t‖^{3/2}}` by the triangle inequality (`norm_XiDH_le`), `Ξ_{DH}(0) = 2(1 + ε_{χ⁻¹}) Λ*(½, χ)` by the functional equation at `½` (`XiDH_zero_eq`), and **the Hadamard product `HadamardW (XiDH χ)`** from round 8's `hadamardW_even`, under `ε_χ ≠ −1` and `L(½, χ) ≠ 0` (`hadamard_XiDH`).
+
+For `χ₅` the first input is round 253's `rootNumber_chi5_ne_neg_one`. The second is the named input `DHHalf : L(½, χ₅) ≠ 0` (numerically `L(½, χ₅) ≈ 0.763748 + 0.216965i`, `|L(½, χ₅)| ≈ 0.793968`, by Hurwitz zeta in mpmath, not proved here; NUMERICAL). *(Round 255: proved, `Re L(½, χ₅) ≥ ½`, with no numerics.)* Then `hadamard_dh : DHHalf → HadamardW (XiDH chi5) …`: the squared zeros of the Davenport–Heilbronn `Ξ` are the indexed family `ZeroIdx (sqF (XiDH chi5))` with multiplicities, their inverses are summable, and `Ξ_dh(t)/Ξ_dh(0) = Π(1 − t²/u)`.
+
+Byproducts for the stack: `LFunction_eq_IχC`, `norm_LFunction_leC`, `norm_LamG_leC`, `LamG_one_sub'` and `norm_XiC_le'` are round 225's lemmas with `IsQuadratic` dropped; `GoodChar.quad` is now needed only on the prime side (`logDeriv_LFunction_eq`), not for growth.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 966 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none. For the certificate chain of rounds 229, 251 and 252 on `dh`, what remains is the explicit formula (the prime side of `−dh′/dh`, no Euler product, zeros with `Re s > 1`) and the certificate arithmetic; `DHHalf` could be discharged by a rigorous evaluation of `L(½, χ₅)`. *(Rounds 255–261: `DHHalf` proved without numerics (`dhHalf`), the prime side and the explicit formula landed (rounds 256–257), and the certificate closed (`dh_offline_zero`, round 261).)*
+
+## Round 255: `L(½, χ₅) ≠ 0` proved, and the zero side of the explicit formula for `Ξ_dh` (`src/DHZeros.lean`)
+
+Round 254's one named input, `DHHalf : L(½, χ₅) ≠ 0`, is discharged without numerics. Round 254's integral representation at `s = ½` reads `L(½, χ₅) = ½∫_1^∞ S(x)x^{−3/2}dx` with `S(x) = Σ_{n ≤ x} χ₅(n)`. The period sums of `χ₅` vanish, so `S` depends only on `⌊x⌋ + 1` mod 5, and its real part runs `0, 0, 1, 1, 1` (`re_sum_range_cC_chi5`): `Re S ≥ 0` everywhere and `Re S = 1` on `[1, 4)`. Since `∫_1^4 x^{−3/2}dx = 1`, **`Re L(½, χ₅) ≥ ½`** (`re_LFunction_chi5_half_ge`; the true value is `0.7637…`), so `L(½, χ₅) ≠ 0` (`LFunction_chi5_half_ne_zero`, `dhHalf`), and the Hadamard product of the Davenport–Heilbronn `Ξ` holds outright (`hadamard_dh'`, `XiDH_chi5_zero_ne'`).
+
+With the product in hand, the zero side of Weil's explicit formula follows exactly as for `Ξ_χ` in round 225: off the zeros, `Ξ_{DH}′(t)/Ξ_{DH}(t) = Σ_u 2t/(t² − u)` over the zeros `u` of `Ξ_{DH}(√w)` (`hasSum_logDeriv_XiDH`, generic in a primitive `χ` with `ε_χ ≠ −1` and `L(½, χ) ≠ 0`; `hasSum_logDeriv_dh` for `χ₅`), the zeros are nonzero (`ZeroIdxDH_ne_zero`), and `Σ |u|^{−7/8} < ∞` (`summable_XiDH_zeros_rpow`, `summable_dh_zeros_rpow`).
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 977 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none. The method, "`Re S ≥ 0` with `Re S = 1` on an interval", proves `L(½, χ) ≠ 0` for any character whose summatory real parts are nonnegative; it is a cheap nonvanishing test that may apply elsewhere. For the certificate chain on `dh`, what remains is the prime side of the explicit formula (the Dirichlet series of `−dh′/dh` on a half-plane `Re s > σ₁` free of zeros, `σ₁ > 1`) and the certificate arithmetic.
+
+## Round 256: the prime side of the Davenport–Heilbronn function (`src/DHPrime.lean`)
+
+The Weil form of `dh` needs `−dh′/dh` as a Dirichlet series with explicit coefficients: round 165's `c(n)`, "the coefficients of `−F′/F`, computed exactly in balls". This round makes them a theorem. `dh(s) = Σ a(n) n^{−s}` on `Re s > 1` with `a(n) = (1 + ε′)χ₅(n) + (1 + ε)χ₅⁻¹(n)` (`dhL_eq_LSeries`), and `a(1) = 2 + ε + ε′ = (1 + ε)(1 + ε′) ≠ 0` by `εε′ = 1` (`aDH_one_eq`); normalising, `a = a(1)(δ + u)` with `u(n) = a(n)/a(1)` on `n ≥ 2` (`LSeries_aDH_eq`). There is no Euler product, so the inverse is built by hand: for any `u` vanishing at `0, 1`, `DInv.dinv u` is the Dirichlet inverse of `δ + u` by strong recursion (`convolution_dinv`), and from `‖dinv u n‖ n^{−σ} ≤ [n = 1] + Σ_{de = n} ‖u d‖ d^{−σ} ‖dinv u e‖ e^{−σ}` summed over `n ≤ N`, `B_N ≤ 1 + K B_N`, so **`Σ_{n ≤ N} ‖dinv u n‖ n^{−σ} ≤ 1/(1 − K)` whenever `Σ_{n ≤ N} ‖u n‖ n^{−σ} ≤ K < 1`** (`sum_norm_dinv_le`); hence `LSeries (δ + u) · LSeries (dinv u) = 1` on `Re s ≥ σ` (`LSeries_mul_dinv`). Mathlib's `LSeries_deriv` and `LSeries_convolution'` then give, for every primitive `χ ≠ 1` with `ε_χ ≠ −1`, `DH_χ′(s)/DH_χ(s) = −Σ c(n) n^{−s}` with `c = logMul(δ + u) ⍟ dinv u`, on `Re s > 1`, `Re s ≥ σ` (`logDeriv_dhL_eq`).
+
+For `χ₅` the abscissa is made concrete. The Gauss sum is `−2 sin(π/5) + 2i sin(2π/5)`, so `ε = (2 sin(2π/5) + 2i sin(π/5))/√5` (`rootNumber_chi5_eq`); `sin²(π/5) + sin²(2π/5) = 5/4` from `cos(π/5) = (1 + √5)/4` gives `‖ε‖ = 1` (`norm_rootNumber_chi5`), `sin²(2π/5) = (5 + √5)/8` gives `Re ε ≥ 4/5` (`re_rootNumber_chi5_ge`), so `‖1 + ε‖ ≥ 9/5`, `ε′ = ε̄` (`rootNumber_chi5_inv_eq_conj`; round 253's wall 1 for `χ₅`) and `‖1 + ε′‖ ≥ 9/5`. Then `‖u(n)‖ ≤ 1/‖1 + ε‖ + 1/‖1 + ε′‖ ≤ 10/9`, and with `Σ_{2 ≤ n ≤ N} n^{−2} ≤ 7/10` (peel `n = 2, 3`, telescope), `Σ_{n ≤ N} ‖u(n)‖ n^{−2} ≤ 7/9 < 1` (`sum_norm_uDH_chi5_le`). **On `Re s > 2`, `dh′(s)/dh(s) = −Σ c(n) n^{−s}`, absolutely convergent** (`logDeriv_dh_eq`, `LSeriesSummable_cDH_chi5`), and `dh ≠ 0` there (`dh_ne_zero_of_two_lt`). The abscissa `2` is what the crude bounds give (the true value is below `1.8`); it is not sharp and does not need to be.
+
+The Dirichlet inverse and the numeric bounds were built by agents to a stated interface and re-read and recompiled by the lead before merging.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 993 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none. The explicit formula for `dh` now has both sides as theorems, the zero side (round 255) and the prime side (this round), but not yet the identity between them: round 225's contour argument runs on the strip `|Im t| ≤ 1`, i.e. `Re s ≤ 3/2`, while the prime side is available on `Re s > 2`, so the strip machinery (`StripTest`, `zero_sideC`, `psi_strip_boundC`) must be widened before the two sides can be equated. That widening is the remaining wall before a certificate. *(Round 257: the wall is removed by scaling, `Ξ₃(t) = Ξ_dh(3t)`, not by widening; the width-1 machinery is reused unchanged. See round 257.)*
+
+## Round 257: Weil's explicit formula for the Davenport–Heilbronn function, and the off-line-zero certificate (`src/DHExplicit.lean`)
+
+Round 256's wall was that the contour argument of round 225 runs on `|Im t| ≤ 1` (`Re s ≤ 3/2`) while the prime side of `dh` is available only on `Re s > 2`. It is removed by scaling instead of widening: `Ξ₃(t) := Ξ_dh(3t)` (`XiDH3`). Its line `Im t = −1` is `Re s = 7/2`, where `dh′/dh = −Σ c(n) n^{−s}` holds, and its zeros have `|Im τ| ≤ ½` (`tau3_im`: `Ξ_dh(t) ≠ 0` for `Im t < −3/2` by `dh_ne_zero_of_two_lt`, and evenness), which is exactly what `kernel_integral_le` and `pole_pair` ask for. So no width-1 lemma of `StripShift` or `WeilAssemble` is widened or changed, and the three sides of round 225's formula are re-instantiated. `Ξ₃` is entire, even, `Ξ₃(0) ≠ 0` and of order `≤ 3/2` with constant `216` (`norm_XiDH3_le`), giving the Hadamard product (`hadamard_XiDH3`), the zero side `Ξ₃′/Ξ₃(t) = Σ_u 2t/(t² − u)` (`hasSum_logDeriv_XiDH3`, through the generic `hasSum_logDeriv_of_hadamardW`, round 255's argument with the function abstracted) and `zero_side3`; the archimedean term with `z₃(t) = 3/4 + 3it/2` (`psi_line3`, `psi_real3`, `integrable_psi_line3`; the constant `48` survives); the prime line at `Re s = 7/2` with complex coefficients and generic in the coefficient sequence (`term_lineC`, `prime_line3` under `LSeriesSummable f (7/2)`, `integrable_prime_line3` under `LSeriesSummable f 3`). `Λ_dh′/Λ_dh = ½ log 5 + Γ_ℝ′/Γ_ℝ(s + 1) − Σ c(n) n^{−s}` on `Re s > 2` (`logDeriv_dhLam_eq`, from `dhLam_eq` and round 256's `logDeriv_dh_eq`) gives `Ξ₃′/Ξ₃` on the line (`logDeriv_XiDH3_eq`). The coefficients `c(n)` are real (`conjFixed_cDH_chi5`: `ε′ = ε̄` and `χ₅⁻¹ = χ̄₅` make `a(n)` real, and reality passes through `dinv`, `logMul` and `⍟`), so the right-hand side is a real number.
+
+**The theorem** (`weil_XiDH3`): for `h` even, holomorphic on `|Im t| ≤ 1` with `|h| ≤ C/(1 + (Re t)²)` there and real on `ℝ`, `Σ_u 2h(τ_u) = 3·[g_h(0) log(5/π) + (1/2π)∫ h(r) Re ψ(3/4 + 3ir/2) dr − 2 Σ c(n) n^{−1/2} g_h(3 log n)]`, over the zeros `±τ_u` of `Ξ₃`, i.e. the zeros `½ ± 3iτ_u` of `Λ_{dh}`, which contain every zero of `dh` with `Re s > 0` (`tau3_of_dh_zero`) and, in each pair, a zero of `dh` with `Re s ≥ ½` (`dh_zero_of_XiDH3`). **Weil's form for `dh`**, `Q_dh(a, g) := weilRHSDH(ĝ²)` (no zero enters): `Q_dh(g) = Σ_u 2ĝ(τ_u)²` for every probe whose `ĝ²` is a strip test function (`QDH_hasSum`); under the Riemann hypothesis for `dh` (`DHRH`, every zero with `Re s > 0` on the line; false by Davenport–Heilbronn) every `τ_u` is real and `Q_dh ≥ 0` (`tau3_real_of_DHRH`, `QDH_nonneg_of_DHRH`); hence **`Q_dh(g) < 0` for one probe certifies an off-line zero of `dh`** (`exists_offline_dh_of_neg`). This is round 252's negative block with its sign read off, for a function that has off-line zeros. Because the form is written for `Ξ₃`, a probe `(a, g)` here is the probe `(a/3, 3g(3·))` of the unscaled form: round 165's ball-certified `λ₁ < 0` at unscaled `2a = 3.45` would be a scaled probe of support about `5.2`. Which probes make `Q_dh` negative is a computation not done in Lean (NUMERICAL, open); the lowest off-line zeros are near height `85.7` (`ρ₀` above), so the probe must resolve that scale. *(Round 258: the unscaled u-space form `QDHu`, the one `frontier/dh/cert.py` evaluates, with the box and monotone certificates needing no strip hypothesis.)*
+
+The archimedean and prime-line sections were built by agents to a stated interface and re-read and recompiled by the lead; the generic log-derivative lemma, the scaling, the zero side, the reality of `c(n)`, the assembly and Weil's form are the lead's.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1013 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none directly. Two things change for the programme. The negative-block instrument of round 252 (`exists_ground_block`, `gdim_le_of_lam_neg`) now has a kernel-checked twin for a function with off-line zeros, so the sign of a Weil form can be tested against a known negative case, and the explicit formula is proved for an L-function without an Euler product by the same width-1 machinery: the scaling `t ↦ 3t` is the general device for any prime side whose abscissa exceeds `3/2`, and nothing in round 225's strip lemmas needed to be widened.
+
+## Round 258: Weil's form for `dh` in u-space, and the box certificate (`src/DHBridge.lean`)
+
+Round 257's form `QDH a g` is Weil's form of the *scaled* probe, because the explicit formula is stated for `Ξ₃(t) = Ξ_dh(3t)`. This round undoes the scaling on the test-function side. Taking `h(z) = ĝ(3z)²` in `weil_XiDH3`, the right-hand side collapses: `g_{h(3·)}(u) = ⅓ g_h(u/3)` (`gh_comp_three`, the substitution `r ↦ 3r` in `gh`), `Re ψ(3/4 + 3ir/2) = ψ_{3/4}(3r)` (`psiRe3_eq`), and round 226's `arch_termQ` at the odd shift `q = ¾` turn `weilRHSDH (hsq g a ∘ (3·))` into
+
+`Q_dh(g) = (Re ψ(¾) + log(5/π))‖g‖² + ∫_0^∞ [f(0) − f(u)] e^{−u/2}/sinh u du − 2 Σ c(n) n^{−1/2} f(log n)`,  `f = autocorr g`
+
+(`QDHu`, `weilRHSDH_scaled`). This is round 226's `QCu` with `N = 5`, `q = ¾` and `c(n)` for `Λ(n)χ(n)`: the u-space form that `frontier/dh/dh_gram.py` and `frontier/dh/cert.py` evaluate in ball arithmetic (round 165), now with its Lean meaning fixed. **`QDHu_hasSum`**: `Q_dh(g) = Σ_u 2ĝ(3τ_u)²` over the zeros `½ ± 3iτ_u` of `dh`, for every probe whose `ĝ(3·)²` is a strip test function; `QDHu_nonneg_of_DHRH`; **`exists_offline_dh_of_neg_u`**: `Q_dh(g) < 0` for one such probe gives a zero of `dh` with `Re s > 0`, `Re s ≠ ½`. For even, nonnegative profiles non-increasing on `[0, a]` the width-3 strip test is automatic (`striptest_antitone3`: `norm_ghatC_le_of_antitone` with `cosh(3a)`, and `‖ĝ(z)‖ ≤ e^{a|Im z|}∫|g|`, `norm_ghatC_le_exp_im`), so **`exists_offline_dh_of_neg_antitone`** and **`exists_offline_dh_of_neg_box`** (`QDHu (box a) < 0` for one `a > 0`) carry no strip hypothesis.
+
+What a kernel-checked off-line zero of `dh` now needs is one verified real inequality, `QDHu g < 0` for an explicit `g`. Its ingredients are finite and elementary: the `c(n)` with `log n ≤ 2a` (`f(log n) = 0` beyond the autocorrelation's support), which are algebraic numbers in `ℚ(ε, i)`; `Re ψ(¾)`; and the integral `E_{3/4}(g) = ∫_0^∞ [f(0) − f(u)] e^{−u/2}/sinh u du`, elementary for the box (`f` is a hat function). Round 165's certificate had `λ₁ < 0` at unscaled `2a = 3.45` for the ground-state probe, not for a box; whether a box (or another monotone profile) of some support is already negative, or a polynomial probe with its own strip test is needed, is the next computation (NUMERICAL, open). *(Round 261: closed by a wave packet, not a monotone profile: `QDHu_packet_neg` at `(a, ω) = (12/5, 169/2)` and `dh_offline_zero`. See round 261.)*
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1023 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none. It closes the gap between the Lean statement and the numerical instrument: the number `cert.py` certifies negative is, up to the identification of its `c(n)` with `cDH`, the number `exists_offline_dh_of_neg_u` consumes.
+
+**Numerics (NUMERICAL, not verified; `frontier/dh/qdhu_probe_scan.py`, about ten minutes).** `QDHu` was evaluated with `c(n)` built exactly as `cDH chi5` (`c(2) = 0.196909`, `c(3) = −0.312093`, `c(4) = −1.442232`, `c(5) = 0`, `c(6) = 1.936356`; `Re ψ(¾) + log(5/π) = −0.621153`). **Every monotone profile scanned is positive**: normalised by `‖g‖²`, the box gives `+0.045` to `+0.13` for `a ∈ [1.8, 3.4]`, the hat `+0.0003` to `+0.014`, `1 + cos(πu/a)` and a truncated Gaussian `≤ +0.0003`. A monotone probe concentrates `ĝ` near `τ = 0`, far from every zero of `dh` (the first off-line ordinate is `85.70`), so it sees almost nothing and `exists_offline_dh_of_neg_box` / `…_antitone` cannot be discharged. **A detuned wave packet is negative**: for `g(u) = cos(ωu)·1_{[−a,a]}`, minimising over `ω ∈ [80, 90]`, `Q_dh/‖g‖² = −0.26` at `(a, ω) = (2.2, 84.5)`, `−0.50` at `(2.4, 84.5)`, `−0.77` at `(2.8, 84.75)`, `−1.18` at `(3.0, 86.5)`, `−1.83` at `(3.2, 86.5)`; the value swings from `+11.3` at `ω = 86.0` through `−1.83` at `86.5` to `+2.7` at `87.0`, the on-line zeros near `86` and `87` and the off-line pair `85.70 ∓ 0.31i` interfering. The decomposition at `(2.4, 84.5)` is `−0.62 + 4.83 − 4.71`: the archimedean term `E_{3/4}(g)/‖g‖² ≈ 4.83 ≈ Re ψ(¾ + iω/2) − ψ(¾)` is large and must be *evaluated*, not bounded, since the margin is a tenth of it.
+
+So the target for a kernel-checked off-line zero of `dh` is `QDHu (fun u => cos(ωu) · box) < 0` at, say, `(a, ω) = (2.4, 84.5)`: `f(u) = ½(2a − u)cos(ωu) + sin(ω(2a − u))/(2ω)` in closed form, `120` prime terms `c(n)/√n · f(log n)` with `c(n)` algebraic (`ℚ(κ)`, `κ = tan(arg ε/2)`) and `cos(ω log n)` needing range reduction with `π` to about `10⁻⁸`, the width-3 strip test from `ĝ(z) = sin((z + ω)a)/(z + ω) + sin((z − ω)a)/(z − ω)` (the packet is not monotone, so `striptest_antitone3` does not apply), and an upper bound on `E_{3/4}(g)` to a few percent, through the `m`-series of `K_{3/4}` with a verified tail or a verified Stirling bound for `Re ψ(¾ + iω/2)`. That is a verified-numerics project of a different size from rounds 253–258; it is the one remaining step. *(Round 261: done at `(a, ω) = (12/5, 169/2)`: `QDHu_packet_neg`, `dh_offline_zero`. See round 261.)*
+
+## Round 259: the certificate, stage 1 — the box wave packet in closed form (`src/DHPacket.lean`)
+
+**Target.** Round 258 left one inequality between the programme and a kernel-checked off-line zero of `dh`: `Q_dh(g) < 0` for an explicit probe. The probe is fixed here: `packet a ω = 1_{[−a,a]}·cos(ω·)` at `(a, ω) = (12/5, 169/2)`. High-precision numerics (`frontier/dh/qdhu_hp.py`, 40 digits; the script was committed only with round 262's corrections): `Q_dh = −1.20937614`, `‖g‖² = 2.39805715`, prime sum `S = 5.64621214` over `2 ≤ n ≤ 121`, archimedean term `E_{3/4} = 11.5726082`, and the decomposition the certificate will use, `E = ‖g‖²·[Re ψ(¾ + iω/2) − ψ(¾)] + R₁ + R₂ + R₃` with `R₁ = 1.3·10⁻⁵`, `R₂ = 2.2·10⁻⁵`, `R₃ = −0.0087`, `Re ψ(¾ + iω/2) = 3.7435985` against `log|¾ + iω/2| = 3.7437619`; the r-space and u-space evaluations of the archimedean term agree to `2·10⁻⁴` (quadrature). The bound the certificate proves is `Q_dh ≤ ‖g‖²(log 5 − log π + log|¾ + iω/2| + 3/ω) + (4/3)‖g‖² e^{−3a}/(1 − e^{−4a}) + (2 + log 2aω)/(2ω) − 2S = −1.065`, a margin of `1.06` for the verified arithmetic (the fine scan gives `−1.396` at `(2.5, 84.55)` with `148` terms; `(2.4, 84.5)` was kept for the smaller sum).
+
+**This round** is everything exact about the packet, for every `0 < a`, `0 < ω`. It is a probe (`packet_probe`: the archimedean integrand is integrable by `f(0) − f(u) ≤ (aω²u + 1)u`, `packet_autocorr_diff_le`, the shifted packet differing by at most `ωu` inside and by at most `1` on two edge intervals); `‖g‖² = a + sin(2ωa)/(2ω)` (`packet_normSq`); `f(u) = ½(2a − u)cos(ωu) + sin(ω(2a − u))/(2ω)` on `[0, 2a]` and `0` beyond (`packet_autocorr`, by an explicit antiderivative; `packet_autocorr_of_abs_le`); `ĝ(z) = sin((z + ω)a)/(z + ω) + sin((z − ω)a)/(z − ω)` (`packet_ghatC`) and, from `‖sin w‖ ≤ e^{|Im w|}`, the width-3 strip test that `QDHu_hasSum` needs (`packet_striptest`), hence `packet_QDHu_hasSum` and **`exists_offline_dh_of_neg_packet`**: `Q_dh(packet a ω) < 0` gives a zero of `dh` with `Re s > 0`, `Re s ≠ ½`. The prime sum is finite: `c(0) = c(1) = 0` (`cDH_zero`, `cDH_one`) and `f(log n) = 0` for `n > ⌊e^{2a}⌋` (`tsum_fDH_eq_sum`, `QDHu_eq_sum`, `two_mul_le_log_of_floor_exp_lt`). The κ-structure: `u(n) = a(n)/a(1) ∈ {0, 1, κ, −κ, −1}` by `n mod 5` for `n ≥ 2` (`uDH_chi5_eq`, `uR_eq`) with `κ = 2 sin(π/5)/(√5 + 2 sin(2π/5)) = Im ε/(1 + Re ε)` and `0.28407 < κ < 0.28408` (from `sin²(π/5) = (5 − √5)/8`, `sin²(2π/5) = (5 + √5)/8`, `Real.cos_pi_div_five`); the Dirichlet inverse and `c(n)` are real recursions (`dinvR_of_two_le`, `fDH_eq`), so every `c(n)` is an integer polynomial in `κ` with `log d` coefficients over `d ∣ n`. **`QDHu_packet_eq`**: `Q_dh(g) = (Re ψ(¾) + log(5/π))(a + sin(2ωa)/(2ω)) + E_{3/4}(g) − 2 Σ_{2 ≤ n ≤ ⌊e^{2a}⌋} c(n) n^{−1/2} [½(2a − log n)cos(ω log n) + sin(ω(2a − log n))/(2ω)]`.
+
+The five sections were built by agents to stated interfaces (one statement gained the hypothesis `0 ≤ a`, without which it is false: the empty packet has `ĝ = 0`) and re-read and recompiled by the lead; the assembly is the lead's.
+
+**Numerics of the DH ground space (NUMERICAL, `frontier/dh/gdim_scan.py`, output in `gdim_scan_output.txt` and `gdim_scan_results.jsonl`).** `Q_dh` restricted to the even cosine basis on `[−a, a]` (`K = 60a + 40` modes, ordinates up to about `210`) is a Gram matrix; its negative eigenvalues are negative directions of `Q_dh`. Validation: the lowest eigenvalue reproduces round 165's ball-arithmetic certificate (`δ = 2a = 3.6`: `−2.42·10⁻⁷` against `−2.24·10⁻⁷`; `δ = 4.0`: `−0.709` against `−0.703`; `δ = 3.45`: both are numerical zeros). Below `a = 2` there is no negative direction; at `a = 2` there is one, the ground state a packet with `|ĝ|` peaking at `84.55, 86.65, 88.65`; **at each of the twelve grid points `a = 2.25, 2.5, …, 5` there are exactly four**, the number of off-line zero quadruples of `dh` with ordinate below `200` (`85.70, 114.16, 166.48, 176.70`), one negative direction per quadruple as the Weil-index bound of round 229 (`finrank_le_quadruples`) allows, since `4 Re ĝ(τ)²` has signature `(1, 1)`; a fifth off-line zero, `0.8695 + 240.40i` (NUMERICAL, `|dh| < 10⁻²⁸` at the refined root; round 262), lies below the basis cutoff `(K − 1)π/a` at `a = 1.5, 1.75, 2, 2.25` (the cutoff is `237.5` at `a = 2.5`), where no fifth negative direction appears *(corrected in round 271)*, so the bound is attained for the four low quadruples and not saturated against every quadruple below the cutoff. The lowest eigenvalue grows from `−0.72` at `a = 2` to `−24.6` at `a = 5`, the ground state locked on the ordinate `85.70` (its primary peak within `84.5–86.6` throughout; the secondary peaks range over `81–89`), the off-line zero with the largest `|Re ρ − ½|` among the four. Bearing on the ζ programme: `HypConv` (`PrimeSide.lean`: `ĝ_n/ĝ_n(0) → Ξ/Ξ(0)` locally uniformly) cannot hold for `dh`'s ground states, whose `ĝ_n(0)` is a sidelobe of a packet at height `85`; it is the RH-flavoured hypothesis of `rh_of_dim_bounded`, and this is the first function on which its failure is visible.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1038 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none. Stage 2 (round 260) bounds `E_{3/4}` analytically; stage 3 evaluates the 120-term sum in verified arithmetic (the generic toolkit, `log n` for `n ≤ 121` to `10⁻⁹` and `cos(ω log n)`, `sin(ω log n)` to `5·10⁻⁵` are already compiled in scratch; the landed width, round 261, is `1.3·10⁻⁴`).
+
+## Round 260: the certificate, stage 2 — the archimedean term of the packet, bounded (`src/DHArch.lean`)
+
+The archimedean term `E_{3/4}(g) = ∫_0^∞ [f(0) − f(u)] e^{−u/2}/sinh u du` of a wave packet is `≈ 4.83‖g‖²` at the target, ten times the margin, so it has to be evaluated. The evaluation is analytic and closes with every number elementary: **`packet_arch_total_le`**, for `0 < a`, `0 < ω`, `2aω ≥ 1`,
+
+`Re ψ(¾)·‖g‖² + E_{3/4}(g) ≤ ‖g‖²·[log √(9/16 + ω²/4) + 3/ω] + ‖g‖²·(4/3)e^{−3a}/(1 − e^{−4a}) + 1/(2ω) + (1 + log 2aω)/(2ω)`,
+
+in which `ψ(¾)` has cancelled. The steps. (1) Two Frullani integrals, `∫_0^∞ (1 − cos bt)e^{−ct}/t dt = ½ log(1 + b²/c²)` and `∫_0^∞ (e^{−ct} − e^{−dt})/t dt = log(d/c)`, as the real parts of round 155's complex `PilotDigamma.integral_frullani` (`integral_one_sub_cos_mul_exp_div`, `integral_exp_sub_exp_div`). (2) The Gauss kernel at shift `¾` splits as `e^{−3t/4}/(1 − e^{−t}) = e^{−3t/4}/t + h(t)`, `h = e^{−3t/4}φ₂`, `φ₂(t) = 1/(1 − e^{−t}) − 1/t ∈ [½, 1]` increasing (`one_half_le_phi2` is `tanh(t/2) ≤ t/2`, `deriv_phi2_nonneg` is `t ≤ 2 sinh(t/2)`), and integration by parts on `(0, ∞)` gives `|∫_0^∞ h(t) cos(ct) dt| ≤ (3/2)/c` (`abs_integral_hK_cos_le`, from `∫_0^∞ |h′| ≤ 3/2`). (3) Binet at `¾`: `∫_0^∞ e^{−t}φ₂(t) dt = γ` (`integral_exp_mul_phi2_eq_eulerMascheroni`: the truncations `∫ (1 − e^{−nt})e^{−t}φ₂` are exactly `H_n − log(n + 1) = eulerMascheroniSeq n`, and monotone convergence meets Mathlib's `tendsto_eulerMascheroniSeq`), so Gauss's difference formula of round 154 at `z = ¾`, `w = 1` gives `∫_0^∞ h = log ¾ − ψ(¾)` (`integral_hK_eq`). (4) Hence `Re ψ(¾ + iω/2) = log √(9/16 + ω²/4) − ∫_0^∞ h(t) cos(ωt/2) dt ≤ log √(9/16 + ω²/4) + 3/ω` (`psiReQ_three_quarters_sub`, `psiReQ_three_quarters_le`): the value of the digamma function at a complex point, to `3/ω`, with no numerics. (5) The kernel `K(u) = e^{−u/2}/sinh u`: `K ≤ 1/u`, `∫_{2a}^∞ K ≤ (4/3)e^{−3a}/(1 − e^{−4a})`, `uK/2 ≤ ½` non-increasing (`u coth u ≥ 1`), whence `|∫_0^{2a} (u/2)K cos ωu| ≤ 1/(2ω)` and `|∫_0^{2a} K sin ωu| ≤ 1 + log 2aω` (`abs_integral_uK_cos_le`, `abs_integral_K_sin_le`). (6) The assembly (`packet_archEQ_le`): on `(0, 2a]` the closed form of round 259 gives `f(0) − f(u) = f(0)(1 − cos ωu) + (u/2)cos ωu + β sin ωu` with `β = cos(2ωa)/(2ω)`, beyond `2a` `f = 0`, the `(1 − cos)` pieces recombine to `f(0)·[Re ψ(¾ + iω/2) − ψ(¾)]` by `t = 2u` in Gauss's integral (`psiReQ_three_quarters_sub_u`), and the remainders are (5).
+
+At the target `(a, ω) = (12/5, 169/2)` the bound reads `≤ 9.1134` against the true value `Re ψ(¾)‖g‖² + E = 8.9687` (round 259's numerics): the analytic loss is `0.14`, well inside the margin `1.06`.
+
+The Frullani, `h`, Binet, `K` and assembly sections were built by agents to stated interfaces and re-read and recompiled by the lead; the split Gauss integral and its `u`-form are the lead's.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1056 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none directly; `psiReQ_three_quarters_le` is a reusable tool: `Re ψ(q + ir/2)` to `O(1/r)` for the odd shift, by the same route for any `q ≥ ¼`. Stage 3 (the verified arithmetic of the 120 prime terms and the constants) is compiled in scratch; stage 4 assembles the inequality.
+
+## Round 261: the certificate, stages 3 and 4 — `dh` has a zero off the critical line, kernel-checked (`src/DHCertificate.lean` and six files of verified arithmetic)
+
+**`dh_offline_zero : ∃ s : ℂ, dh s = 0 ∧ 0 < s.re ∧ s.re ≠ 1/2`**, depending only on `propext`, `Classical.choice` and `Quot.sound`. The proof is `exists_offline_dh_of_neg_packet` (round 259) applied to **`QDHu_packet_neg : QDHu (packet (12/5) (169/2)) < 0`**, and that inequality is the certificate: round 259's closed form `QDHu_packet_eq` at `⌊e^{24/5}⌋ = 121` (`floor_exp_twoA`: `log 121 < 24/5 < log 122` from `log_bound_121` and one series term of `log(1 + 1/121)`), round 260's `packet_arch_total_le` for the archimedean term, and a lower bound `S ≥ 5.64560494881841` on the 120-term prime sum (`partial_121`) with the six constants of the bound, all in rational arithmetic the kernel checks. The margin: the bound is `(log 5 − log π)‖g‖² + ‖g‖²(log √(9/16 + ω²/4) + 3/ω) + ‖g‖²(4/3)e^{−3a}/(1 − e^{−4a}) + 1/(2ω) + (1 + log 2aω)/(2ω) − 2S ≤ 1.11440 + 9.06290 + 0.00312 + 0.00592 + 0.04145 − 11.29121 = −1.0634` (`Q_dh = −1.2094` in floating point; `S = 5.6462121`, the certified `S ≥ 5.6456049` loses `6·10⁻⁴`).
+
+**Stage 3, the verified arithmetic.** The pieces, each a theorem with a rational two-sided bound, and their precisions.
+
+- `DHNumerics.lean` (204 lines): the toolkit. Interval arithmetic by lemmas (`mul_bounds`, `add_bounds`, `neg_bounds`, `inv_bounds`); `cos` on `|x| ≤ 1` and `sin` on `0 ≤ x ≤ 1` between consecutive partial sums of the alternating series (`cos_bounds`, `sin_bounds`, degree 12, from `Real.hasSum_cos`/`hasSum_sin` and `Antitone.alternating_series_le_tendsto`); `log(1 + 1/m)` to any precision from Mathlib's `Real.hasSum_log_one_add_inv` with the geometric tail (`log_one_add_inv_bounds`); and `κ` to fifteen decimals, `0.284079043840412 < κ < 0.284079043840413` (`kappa_bounds`, from `√5` and the two sines of round 259).
+- `DHLogBounds.lean` (1325 lines): `log n` for `2 ≤ n ≤ 121` to `2.1·10⁻⁹` (`log_bound_n`; the per-step series tail is `10⁻¹⁰`, the chained widths grow from `2·10⁻¹⁰` at `n = 2` to `2.1·10⁻⁹` at `n = 121`), chained from `Real.log_two_near_10` through `log n = log(n − 1) + log(1 + 1/(n − 1))` with `K = 7, …, 2` series terms.
+- `DHTrigBounds.lean` (5943 lines): `cos(ω log n)`, `sin(ω log n)` for `2 ≤ n ≤ 121` and `cos(2ωa)`, `sin(2ωa)` at `2ωa = 2028/5` (`theta_n_cos`, `theta_n_sin`, `twoOmegaA_cos`, `twoOmegaA_sin`), interval width at most `1.3·10⁻⁴`: the angle is reduced to `redAngle θ M = θ − Mπ/2` with `|redAngle| ≤ 0.8` by `Real.pi_gt_d6`/`pi_lt_d6` (`M` up to `258`, costing up to `6.5·10⁻⁵` per reduction), evaluated at a rational centre by `cos_bounds`/`sin_bounds`, transferred by `Real.abs_cos_sub_cos_le`/`abs_sin_sub_sin_le`, and rotated back through `cos_add_int_mul_two_pi`, `cos_add_pi_div_two`, `sin_add_pi`.
+- `DHCoeffs.lean` (3952 lines): `u(d) ∈ {0, ±1, ±κ}` by `d mod 5` (`uR_val_d`), the Dirichlet inverse `dinv(n)` and the coefficients `c(n)` for `n ≤ 121` as intervals of width `≤ 2.1·10⁻¹³` and `≤ 4.2·10⁻⁹` (`dinvR_bounds_n`, `fDH_bounds_n`), by running round 259's real recursions `dinvR_of_two_le`, `fDH_eq` over `Nat.divisorsAntidiagonal n` (evaluated by `decide`) in interval arithmetic.
+- `DHTerms.lean` (5058 lines): `√n` by squaring (`sqrt_bounds_n`, `10⁻¹²`), the prime terms `T(n) = c(n)n^{−1/2}[½(2a − log n)cos(ω log n) + sin(ω(2a − log n))/(2ω)]` as intervals (`primeTerm`, `primeTerm_bounds_n`, `sin(ω(2a − log n))` expanded by `sin_sub` through `2ωa`), and the running partial sums `partial_k`, `k ≤ 121`, ending in **`partial_121 : 5.64560494881841 ≤ Σ_{n ∈ Icc 2 121} T(n)`**.
+- `DHConstants.lean` (153 lines): `log π ∈ (1.1447296, 1.1447301)` from `Real.pi_gt_d6`/`pi_lt_d6` and the real-argument form of the series (`log_one_add_inv_bounds'`), `log √(9/16 + ω²/4) = ½(log 5 + log 2857 − 3 log 2) ∈ (3.7437617, 3.7437620)`, `log(2aω) = log(2028/5) = 2 log 2 + log 3 + 2 log 13 − log 5 ∈ (6.0053, 6.0054)`, `e^{−36/5} ≤ (0.3678794412)^7` and `1 − e^{−48/5} ≥ 0.9998` from `Real.exp_neg_one_lt_d9`, and `‖g‖² = 12/5 + sin(2028/5)/169 ∈ (2.398056, 2.398058)`.
+
+The four generated files are produced byte-for-byte by `frontier/dh/lean_gen/gen_logbounds.py`, `gen_trig.py`, `gen_coeffs.py`, `gen_terms.py` (exact rational arithmetic in Python, outward rounding; the generators carry the same recursions as the Lean statements and were re-run against the committed files before this commit). Every number in them is checked by the kernel against Mathlib's `log_two_near_10`, `pi_gt_d6`, `pi_lt_d6`, `exp_neg_one_lt_d9`, the three `hasSum` lemmas above and `decide` on divisor sets; nothing is trusted from the generators. Compile times in the pilot build: `DHTrigBounds` 274 s, `DHTerms` 214 s, `DHCoeffs` 190 s, `DHLogBounds` 27 s, `DHCertificate` 12 s.
+
+**Stage 4, the assembly** (`DHCertificate.lean`, 85 lines): rewrite by `QDHu_packet_eq` and `floor_exp_twoA`; the finite sum is `Σ primeTerm n` by `rfl`; the three products `‖g‖²·(L + 3/ω)`, `‖g‖²·T`, `(log 5 − log π)‖g‖²` are bounded by `mul_le_mul` from the constant intervals; `linarith` closes with `partial_121`, `packet_arch_total_le` and the remainder bounds.
+
+**What has been proved.** The Davenport–Heilbronn function of round 253 — `dh = (1 + ε′)L(s, χ₅) + (1 + ε)L(s, χ₅⁻¹)`, `ε, ε′` the root numbers of `χ₅, χ₅⁻¹`, `χ₅(2) = i`, the classical function up to a positive real factor — with its functional equation (round 253), Hadamard growth (round 254), `L(½, χ₅) ≠ 0` (round 255), Dirichlet inverse and prime side (round 256), explicit formula (round 257), `u`-space form (round 258), packet (round 259), archimedean bound (round 260) and this certificate, has a zero with `0 < Re s ≤ 2` and `Re s ≠ ½` (`dh_ne_zero_of_two_lt` for the upper bound), checked by the kernel. This is weaker than Davenport and Heilbronn's 1936 theorem (*J. London Math. Soc.* 11 (1936) 181–185: infinitely many zeros with `Re s > 1`, by Bohr's equivalence theorem): one zero, with `Re s` not located, by a different route (Weil's form with one explicit probe). *(Corrected in round 262: the sentence first attributed the theorem itself to this round.)* The zero is not located: the packet at `(a, ω) = (12/5, 169/2)` sees the quadruple at ordinate `85.70` (round 259's numerics), but the theorem is existential.
+
+The toolkit, the log, trig, coefficient and term generators, the constants file and the assembly were built by agents to stated interfaces and re-read and recompiled by the lead; the error budget (`frontier/dh/qdhu_hp.py`, round 259) and the final assembly are the lead's.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1076 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none — and that is the point. Rounds 253–261 show that the whole pilot apparatus (Weil's form, probes, the ground space, the certificate route) applies verbatim to `dh` and there produces an off-line zero; every argument in the pilot that does not distinguish `ζ` from `dh` cannot prove RH. The distinction is the Euler product: round 256's `c(n)` are not supported on prime powers (`fDH_bounds_6`: `c(6) ∈ (1.93635607648, 1.93635607689)`), and `c(n) ≥ 0` fails from `n = 3` (`fDH_bounds_3`). `HypConv`, the RH-flavoured hypothesis of `rh_of_dim_bounded`, cannot hold for `dh`'s ground states (round 259's numerics), and `dh` now carries a kernel-checked off-line zero.
+
+## Round 262: the certificate's zero is non-real and lies in `½ < Re s ≤ 2` (`src/DHOffCross.lean`); corrections to rounds 253–261 from the hostile review of the arc
+
+**What the certificate places.** Round 261's witness satisfies `0 < Re s` and `Re s ≠ ½`; `dh_ne_zero_of_two_lt` (round 256) adds `Re s ≤ 2`. Nothing in rounds 253–261 puts it in the critical strip `0 < Re s < 1` — functions of this kind do have zeros with `Re s > 1` (Davenport–Heilbronn 1936) — and the width-3 strip test behind the explicit formula (`tau3_im : |Im τ| ≤ ½`, i.e. `−1 ≤ Re s ≤ 2`) is exactly this bound. The same certificate `QDHu (packet 12/5 169/2) < 0` is read once more here: `ĝ(iy) = ∫ g(u)e^{−yu} du` is real for a real `g` (`ghatC_I_mul_im`), so a zero of `dh` on the real axis contributes `2ĝ(3τ)² ≥ 0` to the zero side exactly as a zero on the line does (`QDHu_packet_nonneg_of_line_or_real`); hence the witness is non-real (**`dh_offline_nonreal_zero`**: `dh s = 0 ∧ 0 < Re s ∧ Re s ≠ ½ ∧ Im s ≠ 0`) and, by the zero symmetry `s ↦ 1 − s` of round 253 (`dh_zero_symm`), may be taken in `½ < Re s ≤ 2` (**`dh_offline_zero_right`**). Still existential: the zero is not located.
+
+The file is an agent's (the localisation study of this round), re-read and recompiled by the lead.
+
+**Corrections to rounds 253–261** (hostile review of the arc's prose by a fresh-context agent: 1 MAJOR, 4 minor, 5 cosmetic; every finding verified by the lead by direct reading or recomputation, all accepted and applied in place). (1) MAJOR: round 261 and F25 called the result "Davenport and Heilbronn's 1936 theorem, by a different route". It is weaker: Davenport and Heilbronn (*J. London Math. Soc.* 11 (1936) 181–185) prove infinitely many zeros with `Re s > 1` through Bohr's equivalence theorem; the pilot proves one zero in `0 < Re s ≤ 2` off the line. Corrected at both places. (2) `qdhu_hp.py`, round 259's 40-digit numerics, was cited but had never been committed; it is now `frontier/dh/qdhu_hp.py` and the two citing sentences are corrected. (3) Spira's computation is *Math. Comp.* 63 (1994) 747–748, not 1968 (round 253). (4) The `log n` bounds of round 261 have chained width up to `2.1·10⁻⁹`, not `10⁻¹⁰` (the per-step tail), corrected on three surfaces. (5) Round 259's "from `a = 2.25` to `a = 5` exactly four" is a statement about twelve grid points, and the count of off-line quadruples "below the basis cutoff" is five, not four, at `a ≤ 2.25` *(corrected in round 271)*: a fifth off-line zero `0.8695 + 240.40i` (reviewer's numerics, reproduced by the lead: `|dh| < 10⁻²⁸` at the refined root) lies below the cutoff `(K − 1)π/a = 242.9` at `a = 2.25`; and "peaks within `84–88` throughout" holds for the primary peak only. Rewritten, with F23. (6) `DHPrime.lean` has 605 lines (two docstring lines added in round 257). (7) A dangling fragment in STRUCTURAL-REVIEW §0 item 11 removed. (8) `exp_one_gt_d9`/`exp_one_lt_d9` are used by no DH file (round 261's list). (9) Round 258: "every monotone profile" is the eight families scanned; the unverifiable "stable under doubling the grid" dropped; the sum has `120` terms. (10) Six constants, not five, in `DHConstants.lean`; `sin_bounds` is stated on `0 ≤ x ≤ 1`; round 254's growth bound needs `χ ≠ 1`; round 259's preview width `5·10⁻⁵` landed as `1.3·10⁻⁴`. Also from the survey of this round: `HypConv` is defined in `PrimeSide.lean`, not `Roadmap.lean` (round 259); a dead no-op line removed from `gen_terms.py` (regeneration still byte-identical).
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1078 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none. The pilot's statements pinned at strip width `½` (`rh_of_strip_cross` and its kin) can be instantiated at `dh` only at width `2` until an off-line zero with `Re s < 1` is certified; locating one (a minimum-modulus argument with an Euler–Maclaurin evaluation of `dh` near `0.8085 + 85.6993i`) is in preparation.
+
+## Round 263: the dh column of the substitution matrix, part 1 (`src/DHColumn.lean`, `src/DHRealAxis.lean`, `src/DHForm.lean`)
+
+**The survey.** The pilot has 49 theorems concluding `RiemannHypothesis` (or an RH-equivalent) in 25 files, and ten taking RH as a hypothesis *(corrected in round 271)*. A fresh-context survey (nine readers, one per file group, and a synthesis, all reading the sources directly; every reader's scratch Lean recompiled by the synthesis and again by the lead) classified each proof by what it consumes of `ζ`: **G** (15 theorems: the Hurwitz, pairing/D and dodging families — every ζ link is a datum object whose dh counterpart is landed: `Ξ ↦ XiDH chi5`, `hadamardW_Xi ↦ hadamard_dh'`, `Xi_zero_ne_zero ↦ XiDH_chi5_zero_ne'`), **G†** (17: the twin, rate, Dedekind and Mellin families — the twin and rate rows need a twin datum and two small dh lemmas; the Dedekind rows are about `ζ·L(χ)`, and the Mellin rows need `ZData` generalised *(corrected in round 271)*), **P** (14: the ground-state block — generic, but needs the `QDHu` ground-state stack ported), **E** (3: `rh_of_liouville_bound`, `rh_of_polya`, `rh_of_liouville_theta`, whose proofs consume the Euler product essentially through `LSeries_liouville`, `L(λ, s)ζ(s) = ζ(2s)`). The honest form of round 261's sentence: apart from those three, every RH-concluding argument in the pilot uses the Euler product at most through ζ's explicit-formula datum and the zero-free region `Re s ≥ 1` as a strip-width constant; swap `Ξ → XiDH chi5`, `weilQ → QDHu`, `weilExplicit_zeta → QDHu_hasSum`, widen the strip to `|Im t| ≤ 3/2`, replace Riemann's `Φ > 0` by `dh_ne_zero_of_real`, and most of them then have a dh instance which `dh_offline_zero` refutes. **This round lands ten of the 15 G rows — seven stated and refuted, three (`rh_of_Xi_params`, `rh_of_dodging`, `rh_of_pairing_and_realRooted`) as the generic positive lemmas `real_of_params`, `real_of_dodging`, `real_of_pairing` only — the positivity rows, and the two lemmas; `rh_of_ground_states`, `rh_of_groundStates_dodging`, `rh_of_D_and_realRooted`, `rh_of_D_and_realRooted_final` and `rh_grh_of_member_zero` have no dh statement in `src/`.** *(Net state, round 272: all fifteen have a dh column refuted at `dh` except `rh_grh_of_member_zero`, which has no honest analogue.)* *(corrected in round 271)*
+
+**`src/DHRealAxis.lean`** — `dh` has no zero on the positive real axis, the dh counterpart of `ζ(σ) ≠ 0` on `(0, 1)` (Riemann's `Φ > 0`, `zetaNoZeroInUnitInterval`), and like it a partial-sum positivity fact, not a multiplicativity fact: the coefficients are `a(n) = a(1)·u(n mod 5)` with `u = 0, 1, κ, −κ, −1` (`aDH_chi5_eq_mul`), so the partial sums are `a(1)·B` with `B ∈ {0, 1, 1 + κ}` (`sum_range_aDH_chi5`, `Bval_mod_five`), nonnegative and `= 1` on `[1, 2)`; round 254's integral representation `L(s, χ) = s∫_1^∞ S_χ(x)x^{−s−1}dx` on both terms gives `dh(s) = s∫_1^∞ A(x)x^{−s−1}dx` on `Re s > 0` (`dh_eq_integral`), whence `dh(σ)/a(1) = σ∫_1^∞ B(x)x^{−σ−1}dx ≥ 1 − 2^{−σ} > 0` (`dh_div_a1_real_ge`): **`dh_ne_zero_of_real`**, `dhLam_real_ne_zero` (every real `σ`, by the functional equation for `σ ≤ 0`), `XiDH_I_mul_ne_zero` (no zero of `Ξ_dh` on the imaginary axis), and `dh_offcross_zero`, an independent route to round 262's non-real zero.
+
+**`src/DHForm.lean`** — `QDHu` is a `ProbeForm` in the sense of round 124's ground-state theory *(corrected in round 271)* (`QDHu_form`: `Q(0) = 0`, `Q(cg) = c²Q(g)`, the parallelogram law from `archEQ_add_smul` at `s = ±1`, a.e. invariance, and `Q_dh(g) ≥ −M_dh(a)‖g‖²` with `M_dh(a) = |Re ψ(¾) + log(5/π)| + 2Σ_{n ≤ e^{2a}}|c(n)|/√n`, since `E_{3/4} ≥ 0` and `|f(log n)| ≤ ‖g‖²`); hence the DH ground energy `lamDH a`, non-increasing in `a` (`lamDH_antitone`; `QDHu` does not depend on the window), and **`lamDH_neg : λ_dh(b) < 0` for every `b ≥ 12/5`** from the certificate — the dh column of `exists_lam_neg_of_not_RH`, unconditional (`exists_lamDH_neg`).
+
+**`src/DHColumn.lean`** — the 28 statements, each labelled in the file header with the pilot declaration (file:line) it is the dh column of, or marked as having none *(corrected in round 271)*. `HypConvDH` (`ĝ_n/ĝ_n(0) → Ξ_dh/Ξ_dh(0)` locally uniformly) and the Hurwitz chains: `dhRH_of_realRooted` (the column of `rh_of_prime_side`, with the ground-state hypothesis replaced by the integrability it is used for), `dhRHcross_of_cross` (of `rh_of_prime_side_cross`, concluding the cross `Re s = ½ ∨ Im s = 0` with no real-zero input), `dhRH_of_cross` (with the real-zero exclusion as the input `dh_ne_zero_of_real` now discharges), `dhRHcross_of_strip` (of `rh_of_strip_cross`, at width `2`: `ordinate_mem_stripW` from `dh_ne_zero_of_two_lt` — ζ's width `½` is the Euler-product zero-free region); the pairing/D route (`tendstoLocallyUniformly_of_pairing_gen`, `real_of_pairing`, `hypConvDH_of_D`, `dhRH_of_D_and_realRooted_proved`, with `XiGrowth` and `Ξ(0) ≠ 0` discharged by `hadamard_dh'`); the dodging route (`real_of_params`, `real_of_dodging`, the proof text of Curvature.lean with `Ξ` replaced by any `F` with a Hadamard factorisation). **The refutations**, from `dh_offline_zero`, round 262's non-real zero or (for `not_weil_positivity_dh`) `QDHu_packet_neg` *(corrected in round 271)*: `not_hypConvDH_of_realRooted` (no integrable sequence with eventually real-rooted transforms satisfies `HypConvDH`), `not_hypConvDH_of_cross`, `not_hypConvStripDH_of_cross` (width 2), `not_realRooted_limit_XiDH` (of `rh_of_realRooted_limit`), `not_dodging_dh` (of `rh_of_dodging_final`), `not_D_dh` and `not_D_and_realRooted` (of `rh_of_D_and_realRooted_proved`: exact Hypothesis D against `Ξ_dh`'s own zero list with tails `→ 0` fails for every real-rooted family), `not_weil_positivity_dh` (of `rh_of_weil`), `weil_criterion_dh` (of `weil_criterion_zeta`: both sides false, so the iff needs no strip test), `not_GRH_dh` (of `rh_of_member_zero`'s `GRHMemberZero`, with `dh`'s trivial zeros `−(2n+1)`). Also `dh_ne_zero_of_two_le` and `tau3_im_lt` (the zeros of `Ξ₃` lie in the *open* strip `|Im τ| < ½`), and the Weil-index bound of round 229 with the form and the zero-sum identity abstracted (`finrank_le_quadruples_gen`; the ζ statement re-derived as `finrank_le_quadruples'`) and instantiated at `dh` (`finrank_le_quadruples_dh`: `Q_dh` negative definite on `V` gives `dim V ≤ |R|` for every representative set `R` of the off-line zeros).
+
+What `HypConvDH` alone does not give: it cannot be refuted on its own (truncations of `dh`'s theta kernel should satisfy it, as `kernelApprox_RPhi` does for ζ); what is refuted is `HypConvDH` together with a real-rooted, cross or Hypothesis-D hypothesis — which is what round 259's "`HypConv` cannot hold for `dh`'s ground states" meant, now as theorems with the ground-state hypothesis weakened to integrability.
+
+The survey (a workflow of nine readers and a synthesis agent), the three files (three builder agents to stated interfaces) and the assembly were re-read end to end and recompiled in the pilot build by the lead; the classification in the first paragraph is the synthesis's, checked by the lead against the cited lines.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1114 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none, by construction — but the column is the first kernel-checked map of which pilot hypotheses are Euler-product-blind. Next: the twin datum `twinData_dh` (the G† rows: `rh_of_weil_twins`, `rh_iff_twins_subexp`, `weil_twins_rate`, the Dedekind joins), a sine-packet certificate for the odd sector (`rh_of_lamO_lower`'s hypothesis), and the ground-state port (`not_hypConvDH_top`).
+
+## Round 264: Euler–Maclaurin for the Hurwitz zeta function with an explicit remainder, and the approximant of `dh` (`src/HurwitzEM.lean`, `src/DHHurwitzEM.lean`)
+
+**Why.** Round 262 left the certificate's zero unlocated, and the localisation study of that round found one route that closes: a minimum-modulus argument (the inner step of the pilot's own Hurwitz lemma `hurwitz_closed_on`: if `|f(c)| < |f|` on a circle, `f` has a zero inside) applied to `dh` on a disc of radius `1/100` about `c = 0.8085 + 85.6993i`, which needs `dh` *evaluated* inside the critical strip with an explicit error. Mathlib has `hurwitzZeta` (so `LFunction`, so `dh`) by analytic continuation and the series for `Re s > 1`, Abel summation, the Bernoulli polynomials and their Fourier series — but no evaluation inside the strip. The vendored PNT+ layer has only the first-order Euler–Maclaurin formula. This round supplies the instrument.
+
+**`src/HurwitzEM.lean`** — for `x ∈ (0, 1]`, `M ≥ 1`, `K ≥ 1`, `Re s > 0`, `s ≠ 1` (**`norm_hurwitzZeta_sub_EM_le`**):
+
+`ζ(s, x) = Σ_{m<M} (m+x)^{−s} + (M+x)^{1−s}/(s−1) + ½(M+x)^{−s} + Σ_{k<K} B_{2k+2}/(2k+2)! · s(s+1)⋯(s+2k) · (M+x)^{−s−2k−1} − R`, `‖R‖ ≤ |B_{2K}|/(2K)! · ‖s(s+1)⋯(s+2K−1)‖ · (M+x)^{1−Re s−2K}/(Re s+2K−1)`,
+
+with the remainder explicit as `R = Σ_n ∫_0^1 B_{2K}(u)/(2K)! · (s)_{2K} (M+x+n+u)^{−s−2K} du` (`hurwitzZeta_eq_EM_explicit`). The route: `|B_{2K}(u)| ≤ |B_{2K}|` on `[0, 1]` from Mathlib's Fourier series of `B_{2K}` (`abs_bernoulliFun_le`); `2K` integrations by parts against `B_j(u)/j!` on one unit interval give `c^{−s} = T(c) − T(c+1) − R(c)` for every `s ≠ 1`, `c > 0` (`cpow_eq_T_sub`; the odd boundary terms vanish, `B_{2k+1}(0) = B_{2k+1}(1) = 0`); summing over `c = M + x + n` telescopes for `Re s > 1` (`hurwitz_eq_of_one_lt`); both sides are holomorphic on `{Re s > 0, s ≠ 1}` — the remainder series by `differentiableOn_tsum_of_summable_norm`, since each `R(c)` is the finite expression `T(c) − T(c+1) − c^{−s}` — and the set is preconnected (four convex pieces), so the identity theorem extends the identity (`hurwitzZeta_eq_EM`); the remainder bound telescopes (`norm_EMrem_le`). The constant: `|B_{2K}|/(2K)! = 2ζ(2K)/(2π)^{2K}` (`hasSum_zeta_CB`, from `hasSum_zeta_nat`) `≤ (π²/3)/(2π)^{2K}` (`CB_le`, from `ζ(2K) ≤ ζ(2)`), so no Bernoulli number has to be evaluated for the *error*. The box version `norm_hurwitzZeta_sub_EM_le_box`, uniform on `σ₀ ≤ Re s ≤ σ₁`, `|Im s| ≤ τ` with the rational check `Π_{i<2K}((σ₁+i)² + τ²) ≤ B²`, is the form the minimum-modulus certificate consumes.
+
+**`src/DHHurwitzEM.lean`** — the bridge, for every `s`: **`dh(s) = 5^{−s}(a(1)ζ(s, 1/5) + a(2)ζ(s, 2/5) + a(3)ζ(s, 3/5) + a(4)ζ(s, 4/5))`** (`dh_eq_hurwitz`, from Mathlib's `ZMod.LFunction` as a sum of Hurwitz zetas at `j/5`); the approximant `dhEM M K s = 5^{−s}Σ_j a(j)·EM_{M,K}(j/5, s)` with `‖dh s − dhEM M K s‖ ≤ 5^{−Re s}Σ_j ‖a(j)‖·C_K‖(s)_{2K}‖(M+j/5)^{1−Re s−2K}/(Re s+2K−1)` (`norm_dh_sub_EM_le`) and its box version (`norm_dh_sub_EM_le_box`).
+
+At the target (NUMERICAL, the builder's mpmath check; `K = 12`, `M = 20`, `ρ ≈ 0.8085 + 85.6993i`): the per-`ζ(s, j/5)` bounds are `1.66·10⁻⁵, 1.31·10⁻⁵, 1.04·10⁻⁵, 8.25·10⁻⁶` against actual errors `3.3·10⁻⁶` down to `1.5·10⁻⁶`; the `dh` bound is `3.17·10⁻⁵` pointwise and `5.48·10⁻⁵` on the box of radius `1/100` — against a certificate margin of order `10⁻²` (round 262's study). The next stage (in scratch at the time of this commit): the certificate reduced to three inequalities at the centre, `|Re P(c)| ≤ 10⁻³`, `|Im P(c)| ≤ 10⁻³`, `Re P′(c) ≥ 1` for the normalised approximant `P`, with the Bernoulli numbers `B₂, …, B₂₄` as rationals, the second-derivative bound on the disc (termwise for the Dirichlet polynomial, Cauchy for the four tail terms) and the Euler–Maclaurin error on the disc discharged; then the generated numerics for the 84 values `n^{−s}`.
+
+Both files are one builder agent's, to a stated interface, re-read end to end and recompiled in the pilot build by the lead.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1124 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none directly; `norm_hurwitzZeta_sub_EM_le` is a general instrument — any Dirichlet L-function of a character mod `N` is `N^{−s}Σ_j χ(j)ζ(s, j/N)`, so the same bound evaluates every such function inside the critical strip with an explicit error.
+
+## Round 265: the dh column, part 2 — the twin form (`src/DHTwin.lean`)
+
+The G† rows of round 263's survey: the twin-form Landau argument (`TwinLandau.lean`), whose data for `ζ` is `twinData_zeta` and for `L(s, χ)` is `twinData_chi`. **`twinData_dh`** is the exact analogue in the normalisation of `QDH`: poles `P_u = 2iτ_u` over the zeros `±τ_u` of `Ξ₃(t) = Ξ_dh(3t)`, weights `2ĝ₀(τ_u)² = GboxC(P_u)`, `Q(λ) = Q_dh(twin (box 1) λ)` at support `λ + 1`; its fields are `|Re P_u| < 1` (round 263's `tau3_im_lt`), `Im P_u ≠ 0` (`XiDH_I_mul_ne_zero`: `Λ_dh` has no real zero, so `dh` has none with `Re s > 0` — this is exactly where ζ uses Riemann's `Φ > 0`) *(corrected in round 271)*, local finiteness from `hadamard_XiDH3`, and the sums from `QDH_hasSum` with `striptest_twin_box`. The scaling: a zero `s = ½ + 3iτ_u` has `|2 Re s − 1| = 3|Re P_u|` (`abs_two_re_sub_one_eq`). Then: **`dhRH_of_twins`** (the column of `rh_of_weil_twins`: twins `≥ 0` for every `λ ≥ 0` put every zero on the line), **`not_twins_nonneg_dh`** (its hypothesis refuted by `dh_offline_zero`), **`dh_twins_rate`** (the column of `weil_twins_rate`: `∃ C, Q_dh(twin (box 1) λ) ≥ −Ce^{σλ}` iff every zero of `dh` with `Re s > 0` has `|2 Re s − 1| ≤ 3σ` — for every real `σ`, both sides being false for `σ < 0`), `not_twins_subexp_dh` (the right-hand side of `rh_iff_twins_subexp`). The ground energy of round 263 is reached through a second datum, **`twinData_dhu`** (the same poles with the u-space form `QDHu` on `twin (box 1) (λ/3)`, weights `2ĝ₀(3τ_u)²`, with the width-3 strip test for twins `striptest_twin_box3`), giving the columns of round 222's rate theorems: `zeros_of_lamDH_ge` (a lower bound `λ_dh(a) ≥ −Ce^{σa}` is a zero-free region `|2 Re s − 1| ≤ σ`), `lamDH_rate`, **`lamDH_fails_exponentially`** — `lam_fails_exponentially` with its hypothesis `¬RiemannHypothesis` discharged by the certificate — and `not_lamDH_subexp`.
+
+One builder agent to a stated interface; the file re-read end to end and recompiled in the pilot build by the lead.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1134 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none; with rounds 263 and 265, seven of the 15 G rows and three twin and rate rows (`rh_of_weil_twins`, `rh_iff_twins_subexp`, `rh_iff_lam_subexp`) have their dh instance landed and refuted, and four twin and rate rows (`weil_twins_rate`, `zeros_of_lam_ge`, `lam_rate`, `lam_fails_exponentially`) have it landed as a positive theorem *(corrected in round 271: round 268's version read "the 15 G rows and the twin and rate rows named in `DHTwin.lean`'s header have their dh instance landed and refuted"; corrected in round 268: the sentence originally read "32 of the 49 RH-concluding theorems have their dh instance landed and refuted (the 15 G rows and the 17 G† rows except the Mellin/ψ family …)", a count that added the survey's whole G† tally)*; the `WeilTwinGeneral` iff's, the Dedekind rows (`ζ·L(χ)`, not applicable as stated), the Mellin/ψ family (whose `ZData` has an abscissa-1 field false for `dh`) and `first_failure` have none (the other `¬RH ⇒` row, `exists_lam_neg_of_not_RH`, has its dh column `exists_lamDH_neg`, round 263 — corrected in round 271 from "the two `¬RH ⇒` rows have none"); the 14 P rows wait on the ground-state port.
+
+## Round 266: every off-line quadruple of `dh` gives a negative direction of `Q_dh` (`src/DHNegIndex.lean`)
+
+Round 232's `negDirections_offline` — for `ζ`, every finite set of off-line zero quadruples gives a negative space of Weil's form of that dimension, with no finiteness hypothesis — consumes, by a dependency walk over the compiled environment, only datum facts: the zero family and ordinates, the explicit formula on twin combinations in `HasSum` form, `Σ‖ĝ₀(t)‖² < ∞`, the strip `|Im t| ≤ ½` and the strict `|Re P| < 1`, `Im P ≠ 0` (no real zero), local finiteness, a countable index. `riemannZeta_conj` is not in its closure; `Λ(n) ≥ 0` is, through `vonMangoldt_le_log` *(corrected in round 271)*, and neither is in the closure of the dh port. Every input has a landed dh counterpart (`tau3`, `QDHu_hasSum`, `tau3_im`/`tau3_im_lt`, `XiDH_I_mul_ne_zero`, `hadamard_XiDH3`, `countable_ZeroIdx3`), so the proof ports by renaming: **`negDirections_offline_dh`** — for a finite set `R` of off-line zeros of `Ξ₃` in distinct quadruples there are a support `a` and an `|R|`-dimensional space of probes at support `a`, each passing the width-3 strip test, on which `QDHu` is negative definite. The new pieces: the width-3 strip test for twin combinations (`striptest_twinComb3`), `Q_dh(twinComb c) = 2·Bre(v, v)` (`QDH_eq_BreD`, the weight `2` of `QDHu_hasSum`, one index per pair `±τ`), and the reparametrised twin shifts `s = 2l/3` so that TwinLandau's kernels are reused unchanged. **The payoff: `negIndex_ge_of_located`** — `n` *located* off-line zeros of `dh` (`‖ρ_k − c_k‖ < 1/100`, with centres right of `Re s = 1/100`, at least `1/100` from the line, and pairwise at least `2/100` from each other's images under `s ↦ s, 1 − s, s̄, 1 − s̄`) give an `n`-dimensional negative space of `Q_dh` at some support and hence (`negIndex_ge_mono`) at every larger one: the Weil index of `Q_dh` is at least `n`, with no Gram matrix and no further numerics once the zeros are located. Not ported: rounds 230–231's `negDirections_above`, `negDirections_of_quadruples`, `negIndex_eq_quadruples`, whose finiteness hypotheses are false for `dh` (infinitely many off-line zeros, Davenport–Heilbronn 1936), and the matching upper bound `finrank_le_quadruples_dh` of round 263 cannot become an equality for the same reason.
+
+The assessment and the port are one agent's; the lead re-read the file end to end (the §B–E text against round 232's) and recompiled it in the pilot build.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1137 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none. Next: the located zero (round 267, in scratch at this commit: `dh_zero_located`, `‖ρ − (1617/2000 + 856993i/10000)‖ < 1/100`), then three more, and `negIndex_ge_of_located` at `n = 4`.
+
+## Round 267: a located zero of `dh` — `0.7985 < Re ρ < 0.8185`, `85.6893 < Im ρ < 85.7093` (`src/DHLocateSkeleton.lean`, `src/DHLocateExp.lean`, `src/DHLocateTrig.lean`, `src/DHLocateNum.lean`)
+
+**`dh_zero_located : ∃ ρ, dh ρ = 0 ∧ ‖ρ − c‖ < 1/100`**, `c = 1617/2000 + (856993/10000)i`, and in coordinates **`dh_zero_located_box`**: a zero of the Davenport–Heilbronn function with `1597/2000 < Re ρ < 1637/2000` and `856893/10000 < Im ρ < 857093/10000`. So the zero is in the critical strip, off the line (`Re ρ > ½`), non-real, and where the numerics put it (`0.808517 + 85.699348i`; the pilot's round 165 and the paper's §(vi)); round 262's caveat — that rounds 253–266 placed their witness only in `0 < Re s ≤ 2` — is closed. Depends only on `propext`, `Classical.choice`, `Quot.sound`.
+
+**The route** (round 262's study, carried out): minimum modulus. If `|f(c)| < |f|` on a circle, `f` has a zero inside (`exists_zero_of_center_lt_sphere`: the maximum principle `Complex.norm_le_of_forall_mem_frontier_norm_le` for `1/f`, the inner step of the pilot's own Hurwitz lemma). With an approximant `P` and `‖f − P‖ ≤ E` on the disc, `P` within `M r²` of its linearisation on the circle, and `‖P′(c)‖r − Mr² > 2(‖P(c)‖ + E)`, the zero follows (`exists_zero_of_approx`); the linearisation bound on a disc from a second-derivative bound is two mean-value inequalities (`norm_sub_linear_le_ball`, proved for `P` differentiable on the disc only, since `dhEM` has a pole at `1`); `exists_zero_of_bounds` packages the margin `2(p₀ + e₀) < a₀r − m₂r²`. The approximant is round 264's `P = dhEM 20 12` (`M = 20`, `K = 12`), decomposed as `a(1)·(DEM + GEM)`: the Dirichlet polynomial `Σ_{m<20} Σ_j u(j)(5m+j)^{−s}` and the four tail terms `u(j)(100+j)^{−s}Q_{20+j/5}(s)` with `Q_x(s) = x/(s−1) + ½ + Σ_{k<12} B_{2k+2}/(2k+2)!·(s)_{2k+1}/x^{2k+1}` (`EMmain_explicit`); the Bernoulli numbers `B₂, …, B₂₄ = −236364091/2730` as rationals from Mathlib's recursion for `bernoulli'` (`bernoulli_vals`, binomials by `decide`).
+
+**The disc-uniform inputs, discharged in the skeleton.** (i) The Euler–Maclaurin error on `closedBall c (1/100)`: `‖dh z − dhEM 20 12 z‖ ≤ ‖a(1)‖·16·10⁻⁶ ≤ 6·10⁻⁵` (`norm_dh_sub_dhEM_le_ball`; true `5.5·10⁻⁵`), from round 264's box bound with `Π_{i<24}((1637/2000 + i)² + (857093/10000)²) = 1.15358…·10⁹³` as an exact rational (`prod_box_eq`, `norm_num`) `≤ (34·10⁴⁵)²`, `5^{−1597/2000} ≤ 0.2805`, `(20 + j/5)^{−47597/2000} ≤ 8.8246, 6.9807, 5.5348, 4.3982·10⁻³²` *(corrected in round 271)* (`rpow_neg_add_div_le`: the exponent split as `−23 − 79/100`), `(π²/3)/(2π)²⁴ ≤ 1/(3·2²⁴·3.141592²²)`, and `‖a(1)‖ = ‖a(4)‖ ≤ 3.7014`, `‖a(2)‖ = ‖a(3)‖ = κ‖a(1)‖`. (ii) The second derivative on the disc: `‖dhEM″‖ ≤ ‖a(1)‖(36 + 53/8) ≤ 158` (`norm_deriv2_dhEM_ball`) — termwise for the Dirichlet polynomial, `(n^{−s})″ = log²n·n^{−s}`, `D2sum(1597/2000, 20) ≤ 36` (`D2sum_le`; true `34.003`, each term from `log_bound_n` and an rpow bound), and Cauchy's estimate (`Complex.norm_iteratedDeriv_le_of_forall_mem_sphere_norm_le`) on circles of radius `2/5` for the four tail terms, with the termwise sup `‖GEM‖ ≤ 53/100` on `closedBall c (41/100)` (`Gsup_ball_le`; the termwise majorant evaluates to `0.5165`, the true sup on the box is about `0.20` *(corrected in round 271)*), giving `‖GEM″‖ ≤ 53/8`. Why the split: Cauchy's estimate for all of `fEM` needs a sup of the Dirichlet polynomial on a disc, and the only elementary sup is termwise, which gives `2·sup/R² ≥ 142` for every radius against the admissible `m₂ < 124`; the termwise `D2sum` is far above the true `sup‖fEM″‖ ≈ 0.75`, but the margin absorbs it (`m₂r² = 4.3·10⁻³` against `|fEM′(c)|r = 1.26·10⁻²`). (iii) The ladder `dh_zero_near_of_numerics → _of_fEM → _of_elementary → _of_center → _of_center'` (`_of_dhEM` is a side branch off `_of_numerics`), ending with three inequalities at the single point `c` in elementary form (`PRe`, `PIm`, `ARe`: sums over `n = 5m + j < 100` of `n^{−σ}cos(t log n)`, `n^{−σ}sin(t log n)`, `log n · n^{−σ}cos(t log n)` with `u(j) ∈ {1, κ, −κ, −1}`, plus the four tail terms with the exact Gaussian rationals `Q_{20+j/5}(c)`, `Q′_{20+j/5}(c)` computed through `(s)_n` and its derivative at `c`): `H1 : |PRe 20 12| ≤ 10⁻³`, `H2 : |PIm 20 12| ≤ 10⁻³`, `H3 : 1 ≤ ARe 20 12` (true `−3.23·10⁻⁵`, `−5.44·10⁻⁵`, `1.2323`).
+
+**The numerics** (`frontier/dh/lean_gen/gen_locate.py`, exact rational arithmetic, outward rounding; the three generated files reproduced byte-for-byte before this commit; every enclosure checked against mpmath at 60 digits by the generator, and by the kernel against Mathlib). The 84 atoms `n ∈ {5m + j : m < 20, j = 1..4} ∪ {101, …, 104}`: `n^{−1617/2000} = exp(−y)` two-sided to `9.2·10⁻¹¹` from `log_bound_n` (round 261), `exp(−y) = exp(−y/8)⁸` (`Real.exp_nat_mul`) and `Real.exp_bound` at `y/8 ≤ 0.47` with 12 terms; `cos`, `sin` of `(856993/10000) log n` (angles up to `398`) to `1.7·10⁻⁷` by round 261's reduction scheme with `|M| ≤ 253` and Mathlib's `Real.pi_gt_d20`/`pi_lt_d20` — at `10⁻⁶` on `π` the reduction alone would cost `6.3·10⁻⁵` per angle, above the per-term budget `10⁻⁵` — centres on a `10⁻⁹` grid, the degree-12 alternating series, `abs_cos_sub_cos_le`; `κ` from `kappa_bounds`. Then the products, twenty block sums and the four tail terms, each enclosure one `linarith` (about `65 000` heartbeats for `PRe`, `PIm` and `112 000` for `ARe`, so each is split into its two sides): `PRe 20 12 ∈ [−3.23745·10⁻⁵, −3.21578·10⁻⁵]`, `PIm 20 12 ∈ [−5.44682·10⁻⁵, −5.42516·10⁻⁵]`, `ARe 20 12 ∈ [1.2323329, 1.2323338]` *(corrected in round 271)* (widths `2.2·10⁻⁷`, `2.2·10⁻⁷`, `7.7·10⁻⁷`, against tolerances `10⁻³`, `10⁻³`, `0.23`).
+
+Compile times in the pilot build: skeleton 64 s, `DHLocateExp` 34 s, `DHLocateTrig` 191 s, `DHLocateNum` 97 s. The skeleton and the numerics are two builder agents' (the second against the first's machine-readable open list); the lead read the skeleton's analytic core (§§1–9) and the generated files' structure end to end, re-ran the generator, and recompiled all four files in the pilot build.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1173 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none. Two things follow at once: `negIndex_ge_of_located` (round 266) at `n = 1` is now unconditional, and the pilot's statements pinned at strip width `½` can be instantiated at `dh` (a zero with `½ < Re ρ < 1` is what round 262 lacked). Next: the same certificate at the next three off-line zeros (`0.6508 + 114.163i`, `0.5744 + 166.479i`, `0.7243 + 176.702i`; `M` must grow with the ordinate, `≈ 20·τ/86`, since the Euler–Maclaurin error grows like `(τ/(M+x))^{2K}`), then `negIndex_ge_of_located` at `n = 4`.
+
+## Round 268: the dh column, part 3 — the ground-state stack of `Q_dh`, and `HypConvDH` fails for its top-of-chain ground states (`src/DHGround.lean`)
+
+**`not_hypConvDH_top {a : ℕ → ℝ} (ha : ∀ n, 0 < a n) : ¬ HypConvDH a (fun n => topGSDH (a n))`** — the dh column of `rh_of_hypConv_top` (StructureD.lean:682: `HypConv` for the top-of-chain ground states implies RH), with its hypothesis refuted at every sequence of positive supports; and **`not_simple_hypConvDH`**: no sequence of ground states of `Q_dh` that is eventually simple satisfies `HypConvDH` (the column of `rh_of_eventually_simple`, SwapRealize.lean:412, and of `rh_of_simple_ground_states`/`'`, HurwitzCross.lean:86/102, whose further `SwapRealization` hypothesis the refutation does not need). The P rows of round 263's survey need the ground-state theory of `weilQ` (round 124's `ProbeForm` stack *(corrected in round 271)*, round 48's Theorem D) for `QDHu`; `DHGround.lean` ports it in four stages, 45 of its 77 declarations naming the ζ declaration (file:line) they are the column of *(corrected in round 271)*. 34 checked theorems.
+
+**Stage 1, existence.** `groundSpaceDH a := (QDHu_form a).space` (round 263), `IsGroundStateDH a g := Probe a g ∧ ‖g‖² = 1 ∧ Q_dh(g) = λ_dh(a)` (`isGroundStateDH_iff`, `isGroundStateDH_iff_min`), **`exists_groundStateDH (ha : 0 < a) : ∃ g, IsGroundStateDH a g`** through `exists_min_QDHu`, and `exists_groundStatesDH` along a sequence. The one place the port is not verbatim: compactness (`exists_convergent_subseq`, Compactness.lean:233) is stated with a bound on the archimedean energy at `q = ¼`, while `QDHu` controls `E_{3/4}`. Since `K_{1/4}(u) = e^u K_{3/4}(u)` (`archIntegrand_eq_exp_mul`), on `(0, 2a]` the `¼`-integrand is at most `e^{2a}` times the `¾`-integrand, and beyond `2a` the autocorrelation of a probe at support `a` vanishes, so there the `¼`-integrand is `‖g‖²K_{1/4}(u)`, integrable (`integrableOn_tail`): **`archE_le_DH : E(g) ≤ e^{2a}E_{3/4}(g) + ‖g‖²·tailDH a`**, `tailDH a = ∫_{u>2a} K_{1/4}` (`archIntegrand_le_dom`); the same domination carries Fatou and the probe property of the limit (`arch_of_archQ`).
+
+**Stage 2, Euler–Lagrange.** `bilDH a φ ψ = c·x(0) + ∫_0^∞ (x(0) − x(u))K_{3/4}(u)du − 2Σ_{n<N(a)} c(n)n^{−1/2}x(log n)`, `x = xcorr φ ψ`, written through `xcorr` like `bil0` (StrictPositivity.lean:92) and without the pole term `2ĝ(i/2)ĥ(i/2)` of `euler_lagrange_mem` (UniquenessQ.lean:83); symmetric (`bilDH_comm`), the polarisation of `Q_dh` (`bilDH_polar`, from `QDHu_add_smul`), and **`euler_lagrangeDH_mem : w ∈ groundSpaceDH a → Probe a ψ → bilDH a w ψ = λ_dh(a)·⟨w, ψ⟩`**.
+
+**Stage 3, the swap closure.** `SimpleGroundDH`, `split_mem_groundSpaceDH` (the column of `split_mem_groundSpace`, ZeroSwap.lean:158; its pole hypothesis `ĝ_u(i/2)² + ĝ_v(i/2)² = ĝ(i/2)²` drops out), `zero_swap_falseDH`, `zeros_real_or_imagDH`/`'` (a simple ground state's `ĝ` has only real or purely imaginary zeros: the cross), `swap_pair_memDH`, `green_mem_groundSpaceDH`; then `dhRHcross_of_eventually_simple` and its refutation `not_simple_hypConvDH`, through round 263's `not_hypConvDH_of_cross` and round 262's `dh_offline_nonreal_zero`.
+
+**Stage 4, Theorem D.** `Gpole_annihilatesDH` (the column of `Gpole_annihilates`, DegenerateFlat.lean:511, whose hypothesis `v̂(i/2) = 0` only killed the pole term and drops out), `G_mem_partnerDH`, `finiteDimensional_groundL2DH` (the image of the ground space in `L²` is finite-dimensional), the chain filtration `chainSpaceDH`, `chain_stepDH`, `gdimDH a := finrank (range (iotaGSDH a))`, `gdimDH_pos`, `exists_long_chainDH`, `chain_linearIndependentDH`, `chain_spanDH`/`_aeDH`/`_hatDH`, `offcross_rootDH`, `chain_top_zerosDH`, and **`theoremDDH`** (Theorem D for `Q_dh`): a nonzero `w` whose Green chain `w, Gw, …, G^{m−1}w` (`m = gdimDH a`) is linearly independent in `L²` and spans the ground space a.e., and whose top `h = G^{m−1}w` has `ω² ∈ ℝ` at every zero of `ĥ`. Then the top-of-chain ground state `topGSDH` (the normalised `G^{m−1}w`; `topGSDH_isGroundState`, `topGSDH_cross`), `dhRHcross_of_hypConv_top`, `not_hypConvDH_top`, and `hypConvDH_top_of_simple` (eventually simple ground states agree with the top-of-chain ones up to scalars, so `HypConvDH` transfers).
+
+**What differs from the ζ statements, all in the direction of fewer hypotheses.** The ζ theorems conclude `RiemannHypothesis` using the real-zero exclusion `zetaNoZeroInUnitInterval`; the dh columns conclude the cross `DHRHcross` (`dh s = 0 → 0 < Re s → Re s = ½ ∨ Im s = 0`, round 263), which is what `dh_offline_nonreal_zero` refutes, so no real-zero input enters. The pole hypothesis of `split_mem_groundSpace` and the hypothesis `v̂(i/2) = 0` of `Gpole_annihilates` drop out, since `QDHu` has no pole term (`Gpole_annihilatesDH` keeps `poleR m a = 0`, which the Green image `Gpole m a` needs to be a probe) *(corrected in round 271)*. *(Round 268 also listed "No `a_n → ∞` is assumed anywhere" as a difference; none of the ζ statements assumes it either — withdrawn in round 271.)*
+
+One builder agent to the survey's stated interface (round 263); the lead read the file end to end and recompiled it in the pilot build (28 s, in a build shared with rounds 269–270).
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1207 checked theorems in `src/`. The build prints no warnings.
+
+**Correction to round 265.** Round 265's Check 4 said "with rounds 263 and 265, 32 of the 49 RH-concluding theorems have their dh instance landed and refuted (the 15 G rows and the 17 G† rows except the Mellin/ψ family …)". The number added the survey's whole G† count to its G count and is withdrawn: round 265 instantiated the twin and rate rows named in `DHTwin.lean`'s header (`line_of_weil_twins`/`rh_of_weil_twins`, `weil_twins_rate`, `rh_iff_twins_subexp`, `zeros_of_lam_ge`, `lam_rate`, `lam_fails_exponentially`, `rh_iff_lam_subexp`) and round 263 `rh_of_weil` and `weil_criterion_zeta`; the `WeilTwinGeneral` iff's, the Dedekind `QK`/`QKχ` rows (about `ζ·L(χ)`, not applicable as stated), the Mellin/ψ family and `first_failure` have no dh instance in `src/` (`exists_lam_neg_of_not_RH` has, `exists_lamDH_neg`; and of the seven twin and rate rows only three are refuted, the other four being positive dh theorems *(corrected in round 271)*). The sentence is corrected in place.
+
+**Check 4.** New. **Bearing on RH:** none. The P rows after this round: `rh_of_hypConv_top`, `rh_of_simple_ground_states`/`'` and `rh_of_eventually_simple` have their hypotheses refuted at `dh`; `rh_of_lamO_lower` is round 269's; the other ten (`rh_of_hypConvStrip_top`, `rh_of_close_top`, `rh_of_relgap`, `rh_of_close_RPhi`, `rh_of_dim_le_two`, `zeta_offline_card_le`, `rh_of_dim_bounded`, `rh_or_gdim_tendsto`, `rh_of_parity_gap`, `rh_of_no_crossing`) now have their ground-state inputs (`gdimDH`, `theoremDDH`, `topGSDH`, `lamDH`) in `src/` but no dh instance stated — `rh_of_hypConvStrip_top`'s would be three lines from `not_hypConvStripDH_of_cross` and `topGSDH_cross` *(landed in round 272: `not_hypConvStripDH_top`)*; the `gdim` rows need a value of `gdimDH`, which no round has measured.
+
+## Round 269: the sine-packet certificate — `Q_dh < 0` on an odd probe, and the odd ground energy `λ_dh^odd(b) < 0` for every `b ≥ 12/5` (`src/DHOddPacket.lean`, `src/DHOddTerms.lean`)
+
+**`QDHu_sinPacket_le : QDHu (sinPacket (12/5) (169/2)) ≤ −111/100`** (numerically `Q_dh = −1.24351…`, `−0.51771‖g‖²`; the kernel's bound evaluates to `−1.1149`), `QDHu_sinPacket_neg`, and the dh column of `rh_of_lamO_lower` (ParityGapLower.lean:57; the P row whose hypothesis needs no ground-state stack): **`exists_oprobe_QDHu_neg (hb : 12/5 ≤ b) : ∃ o, OProbe b o ∧ ‖o‖² = 1 ∧ QDHu o < 0`** (the normalised sine packet, at every larger support, since `QDHu` sees the probe and not the window — for ζ, `lamO` is defined through the form at support `a`, `weilQg a`), the odd ground energy **`lamODH a := sInf {Q_dh(o) : OProbe a o, ‖o‖² = 1}`** (bounded below by `−M_dh(a)`, `QDHu_ge_odd`, `lamODH_bdd`), **`lamODH_neg (hb : 12/5 ≤ b) : lamODH b < 0`**, and the refutations **`not_odd_lower_dh`**, **`not_lamODH_lower`**: for no `c > 0` and no real `δ` is `c·e^{(9+δ)b − 4πe^{2b}}` eventually a lower bound for `Q_dh` on odd unit probes at support `b`, nor for `λ_dh^odd(b)`. 16 checked theorems (15 in `DHOddPacket.lean`; the generated `oddPartial_121`).
+
+**The packet.** `sinPacket a ω = 1_{[−a,a]}·sin(ω·)`, with closed forms for every `0 < a`, `0 < ω`: `‖g‖² = a − sin(2ωa)/(2ω)` (`sinPacket_normSq`), the autocorrelation `f(u) = ½(2a − u)cos(ωu) − sin(ω(2a − u))/(2ω)` on `[0, 2a]` and `0` beyond (`sinPacket_autocorr`, `sinPacket_autocorr_of_le`: the cosine packet's autocorrelation with the sidelobe sign flipped), `ĝ(z) = i[sin((z − ω)a)/(z − ω) − sin((z + ω)a)/(z + ω)]` (`sinPacket_ghatC`), the width-3 strip test (`sinPacket_striptest`, stated for the record and not used downstream) and the odd probe (`sinPacket_oprobe : OProbe a (sinPacket a ω)`). **`QDHu_sinPacket_eq`**: `dh` is entire, so `QDHu` has no pole term and on an odd probe is the same expression as on an even one, `Q_dh(g) = (Re ψ(¾) + log(5/π))‖g‖² + E_{3/4}(g) − 2Σ_{2≤n≤⌊e^{2a}⌋} c(n)n^{−1/2}f(log n)`. **The archimedean bound** (`sinPacket_archEQ_le`, `sinPacket_arch_total_le`), by round 260's kernel lemmas unchanged: on `(0, 2a]`, `f(0) − f(u) = f(0)(1 − cos ωu) + (u/2)cos ωu + β′ sin ωu` with `β′ = −cos(2ωa)/(2ω)`, where the cosine packet has `β = +cos(2ωa)/(2ω)`, and only `|β′| = |β| ≤ 1/(2ω)` enters.
+
+**The numerics.** `DHOddTerms.lean` (generated by `gen_oddterms.py`, round 261's `gen_terms.py` with the sign of the sidelobe term flipped; the atoms `fDH_bounds_n`, `log_bound_n`, `theta_n_cos`/`sin`, `twoOmegaA_cos`/`sin` and `sqrt_bounds_n` are reused from `DHCoeffs`, `DHLogBounds`, `DHTrigBounds`, `DHTerms`; byte-identical regeneration checked before this commit): `oddTerm n = c(n)n^{−1/2}f(log n)`, two-sided bounds `oddTerm_bounds_n` for `2 ≤ n ≤ 121` and the partial sums to **`oddPartial_121 : 5.67959599624443 ≤ Σ_{n=2}^{121} oddTerm n`** (the cosine packet's `partial_121` is `5.64560494881841`). `Num.normSq_sinPacket_bounds : 2.401942 < ‖g‖² < 2.401944` from `twoOmegaA_sin` (the cosine packet's `‖g‖²` is `2.398057`). The assembly is `DHCertificate`'s: `f₀(L + 3/ω) ≤ 2.401944·3.779265`, `f₀T ≤ 2.401944·0.0013`, `(log 5 − log π)f₀ ≤ 0.4647084·2.401944`, the remainders `1/(2ω) + (1 + log(2028/5))/(2ω) ≤ 0.0474`, and `linarith` with `oddPartial_121`: `Q_dh ≤ 9.0776 + 0.0031 + 1.1162 + 0.0474 − 11.3592 = −1.1149`.
+
+One builder agent to a stated interface; the lead read `DHOddPacket.lean` end to end and the generated file's structure, re-ran the generator, and recompiled both in the pilot build (`DHOddPacket` 40 s, `DHOddTerms` 499 s in the shared build; 35 s and 561 s in the builder's single-file compiles).
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1223 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none. For ζ, `rh_of_lamO_lower`'s hypothesis is a lower bound `c·e^{(9+δ)b − 4πe^{2b}}` on the odd ground energy `λ_odd(b)`, modelled on `lam_nine` (the even upper bound); for `dh`, both parity sectors of `Q_dh` are negative at every support `≥ 12/5` (`lamDH_neg`, round 263; `lamODH_neg` here), and the odd certificate is the even one with one sign changed. The P rows refuted at `dh` are now `rh_of_hypConv_top`, `rh_of_simple_ground_states`/`'`, `rh_of_eventually_simple` (round 268) and `rh_of_lamO_lower`.
+
+## Round 270: four located zeros of `dh`, and the Weil index of `Q_dh` is at least `4` (`src/DHLogBoundsExt.lean`, `src/DHLocateGen.lean`, `src/DHLocate2Base.lean` … `src/DHLocate4Num.lean`, `src/DHLocateFour.lean`)
+
+**`DHNegIndex.negIndex_ge_four : ∃ a, 0 < a ∧ ∃ V : Submodule ℝ (ℝ → ℝ), finrank ℝ V = 4 ∧ (∀ v ∈ V, Probe a v ∧ ∃ K, StripTest (fun z => ĝ_v(3z)²) K) ∧ ∀ v ∈ V, v ≠ 0 → QDHu v < 0`** — a four-dimensional space of width-3 probes at one support on which Weil's form of `dh` is negative definite — from **`dh_zeros_located_four`**, four zeros of `dh` with `‖ρ − c‖ < r` (`dh_zeros_located_four_box` restates them in the boxes)
+
+| | `Re ρ` | `Im ρ` | centre `c`, radius `r` |
+|---|---|---|---|
+| zero 1 (round 267) | `0.7985 < Re ρ < 0.8185` | `85.6893 < Im ρ < 85.7093` | `1617/2000 + (856993/10000)i`, `1/100` |
+| zero 2 | `0.64583 < Re ρ < 0.65583` | `114.15834 < Im ρ < 114.16834` | `65083/100000 + (11416334/100000)i`, `1/200` |
+| zero 3 | `0.57236 < Re ρ < 0.57636` | `166.47731 < Im ρ < 166.48131` | `57436/100000 + (16647931/100000)i`, `1/500` |
+| zero 4 | `0.71759 < Re ρ < 0.73093` | `176.69579 < Im ρ < 176.70913` | `72426/100000 + (17670246/100000)i`, `1/150` |
+
+(**`dh_zero_located_2`/`_3`/`_4 : ∃ ρ, dh ρ = 0 ∧ ‖ρ − c‖ < r`**, boxes `dh_zero_located_box_2`/`_3`/`_4`; the centres are the mpmath zeros `0.650830080609737… + 114.163342730756…i`, `0.574356050450805… + 166.479305913168…i`, `0.724257694626809… + 176.702461242855…i` *(corrected in round 271)* rounded to the grid `10⁻⁵`; zeros 1 and 2 are the two the paper's §(vi) lists). `negIndex_ge_four_of` is round 266's `negIndex_ge_of_located` at `n = 4`: each radius is at most `1/100`, every centre is right of `Re s = 1/100` and at least `1/100` from the critical line, and each centre is at least `2/100` from every image `s, 1 − s, s̄, 1 − s̄` of every other, by the imaginary parts alone (`sep_of_im`: the four ordinates are positive and pairwise more than `2/100` apart). 85 checked theorems. This supersedes the Gram-matrix plan of item 4a (a `4×4` negative-definite Gram of packets at the four ordinates): the support `a = 12/5` cannot carry four packets at these ordinates, and `a = 5` would need `22025` prime terms (`2 ≤ n ≤ ⌊e^{10}⌋ = 22026` *(corrected in round 271)*).
+
+**The parametric layer** (`DHLocateGen.lean`, 400 lines, 4 theorems) re-states the centre-dependent parts of round 267's skeleton for an arbitrary centre `c` and radius `r < Im c`, the analytic instruments (`exists_zero_of_bounds`, `norm_sub_linear_le_ball`, `fEM = DEM + GEM`, `QEM`, `bernoulli_vals`) reused unchanged: `dh_zero_near_of_fEMG` (the ladder in normalised units: `‖fEM(c)‖ ≤ p₀`, `a₀ ≤ ‖fEM′(c)‖`, `‖fEM″‖ ≤ m₂` and `‖dh − dhEM‖ ≤ ‖a(1)‖e₀` on the ball, margin `2(p₀ + e₀) < a₀r − m₂r²`), `norm_dh_sub_dhEM_le_ballG` (the Euler–Maclaurin error on `closedBall c r` from five rational bounds `5^{−σ₀} ≤ y₅`, `(M + j/5)^{1−σ₀−24} ≤ y_j` and the box product `Π_{i<24}((σ₁ + i)² + τ²) ≤ B²`, `K = 12`), `norm_deriv2_fEM_ballG` (`‖DEM″ + GEM″‖ ≤ d₂ + 2C/R²` from `D2sum σ_d M ≤ d₂` termwise and Cauchy on circles of radius `R` with `Gsup M K σ₀ σ₁ τ τ₀ ≤ C` on the box of `closedBall c (r + R)`) and `dh_zero_near_of_elementaryG` (the ladder in elementary form: `|PReG c M K| ≤ pr`, `|PImG c M K| ≤ pi`, `ar ≤ |AReG c M K|`, margin `2(pr + pi + e₀) < ar·r − m₂r²`).
+
+**The instances** (`gen_locate_zero.py`, one `CONFIG` line per zero; exact rationals, outward rounding; every budget inequality asserted by the generator before emission and re-checked by the kernel; `M ≈ 20τ/86` as round 267 predicted, since the Euler–Maclaurin error grows like `(τ/(M + x))^{2K}`):
+
+| | zero 2 | zero 3 | zero 4 |
+|---|---|---|---|
+| `r`, `M`, `R` | `1/200`, `28`, `2/5` | `1/500`, `41`, `7/20` | `1/150`, `41`, `7/20` |
+| Euler–Maclaurin error `e₀` per unit `a(1)` (`norm_dh_sub_dhEM_le_ball`) | `1.060·10⁻⁵` | `1.660·10⁻⁵` | `3.200·10⁻⁵` |
+| `D2sum ≤ d₂` (true) | `81.09` (`80.82`) | `156.7` (`155.0`) | `83.77` (`82.84`) |
+| `‖GEM‖ ≤ C` on the box of `closedBall c (r + R)`; `2C/R²` | `0.9415`; `11.77` | `0.9803`; `16.00` | `0.471`; `7.69` |
+| `m₂ = d₂ + 2C/R²` | `92.86` | `172.7` | `91.46` |
+| `ar` (true `Re fEM′(c)`) | `0.85` (`0.8679`) | `0.6` (`0.6179`) | `1.1` (`1.1680`) |
+| `pr = pi` (true `|Re fEM(c)|`, `|Im fEM(c)|`) | `3·10⁻⁴` (`2.1·10⁻⁷`, `2.0·10⁻⁶`) | `9·10⁻⁵` (`3.0·10⁻⁶`, `2.5·10⁻⁶`) | `6·10⁻⁴` (`1.1·10⁻⁶`, `3.3·10⁻⁶`) |
+| margin `2(pr + pi + e₀) < ar·r − m₂r²` | `1.22·10⁻³ < 1.93·10⁻³` | `3.93·10⁻⁴ < 5.09·10⁻⁴` | `2.46·10⁻³ < 3.27·10⁻³` |
+| enclosures `PReG`, `PImG` (widths), rounded outward *(corrected in round 271)* | `[−1.36, 5.84]·10⁻⁷` (`7.2·10⁻⁷`), `[−2.335, −1.615]·10⁻⁶` (`7.2·10⁻⁷`) | `[1.98, 4.01]·10⁻⁶` (`2.0·10⁻⁶`), `[1.45, 3.48]·10⁻⁶` (`2.0·10⁻⁶`) | `[5.73, 16.96]·10⁻⁷` (`1.1·10⁻⁶`), `[−3.881, −2.757]·10⁻⁶` (`1.1·10⁻⁶`) |
+| enclosure `AReG` (width), rounded outward | `[0.8679346, 0.8679376]` (`2.9·10⁻⁶`) | `[0.6178761, 0.6178851]` (`8.9·10⁻⁶`) | `[1.1679517, 1.1679566]` (`4.8·10⁻⁶`) |
+| atoms `n` (largest) | 115 (144) | 167 (209) | 167 (209) |
+| files (lines) | Base 1912, Exp 1164, Trig 7044, Num 3001 | Base 2484, Exp 1684, Trig 5072 + Trig2 5139, Num 4264 | Base 2484, Exp 1684, Trig 5096 + Trig2 5143, Num 4264 |
+
+The atoms beyond round 261's `n ≤ 121` need `log n` for `122 ≤ n ≤ 209`: `DHLogBoundsExt.lean` (`gen_logext.py`) chains upward from `log_bound_121` by `log n = log(n − 1) + log(1 + 1/(n − 1))` with `log_one_add_inv_bounds` (tail `≤ 10⁻²²`), every bound rounded outward to the grid `10⁻³⁰`; the widths stay below `2.1·10⁻⁹` at `n = 209`. The per-zero files follow round 267's pattern: `Base` (the centre, the Euler–Maclaurin box constants and the error on the ball, `Gsup`/`D2sum`/`m2_ball`, the exact Gaussian rationals `(s)_n(c)`, `(s)′_n(c)`, `Q_{M+j/5}(c)`, `Q′_{M+j/5}(c)`, the substituted elementary forms, the ladder), `Exp` (`n^{−σ}` two-sided), `Trig` (`cos`, `sin` of `τ log n`, with the reduction by `pi_gt_d20`/`pi_lt_d20`), `Num` (the interval products, block sums, `Q`-tails, `H1`–`H3`, `dh_zero_located`, the box). Two compile-budget options, neither an axiom: `set_option maxRecDepth 20000` on the `D2sum_le` of each of zeros 2–4 (the skeleton's needs none *(corrected in round 271)*), and `set_option maxHeartbeats 1000000` on `AReG_ge`/`AReG_le` of zeros 3 and 4 — at `M = 41` the closing `linarith` over the `2M + 8` block and tail bounds needs about `334 000` heartbeats (measured with `#count_heartbeats` on zero 3) against the default `200 000`. The trig files of zeros 3 and 4 are split in two so that no file compiles for much over six minutes.
+
+**Generation and compile times.** Sixteen generated files (`DHLogBoundsExt`, the fourteen `DHLocate{2,3,4}*` files and round 269's `DHOddTerms`) were regenerated into a fresh directory before this commit and compared byte for byte: 16 identical, 0 differ. Single-file compiles in the builder's chain: `DHLogBoundsExt` 39 s, `DHLocateGen` 17 s; zero 2: Base 44 s, Exp 43 s, Trig 280 s, Num 139 s; zero 3: 59, 58, 202 + 205, 212 s; zero 4: 59, 61, 219 + 211, 204 s; `DHLocateFour` 12 s (about 34 minutes). In the pilot build (two jobs, shared with rounds 268–269): `DHLogBoundsExt` 59 s, `DHLocateGen` 21 s; zero 2: 65, 69, 442, 250 s; zero 3: 87, 67, 324 + 356, 353 s; zero 4: 64, 104, 351 + 328, 219 s; `DHLocateFour` 11 s.
+
+One builder agent (relaunched once on its own partial scratch — zero 2 compiled, zero 3 under way — after an interruption; it found the heartbeat limit and the six-minute trig files); the lead read `DHLocateGen.lean` and `DHLocateFour.lean` end to end, the heads and tails of the generated files and the generators' configuration, re-ran the generators, and recompiled all seventeen files in the pilot build.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1308 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none. What the four zeros add: round 266's `negIndex_ge_of_located` has an unconditional instance at `n = 4` (`negIndex_ge_four`), the certificate is now a tool up to height about `176` (one `CONFIG` line with `M ≤ 41`, since `DHLogBoundsExt` reaches `n = 209 = 5·41 + 4`; a higher zero needs `M ≈ 20τ/86 > 41`, hence the log table extended and every generated `DHLocate{2,3,4}*` file recompiled; 8 to 20 minutes of compilation per zero) *(corrected in round 271)*, and both zeros the paper's §(vi) lists are kernel-boxed. Next: the citation in the paper, and the hostile review round it triggers.
+
+## Round 271: corrections to rounds 262–270, the reading cards' docstring sweep, and `dh(−1) = 0` (`src/DHRealAxis.lean`; docstrings in 32 files)
+
+**`dh_neg_one_eq_zero : dh (-1 : ℂ) = 0`** and **`exists_real_zero_dh : ∃ σ : ℝ, dh (σ : ℂ) = 0`**: the trivial zero shared by `L(s, χ₅)` and `L(s, χ₅⁻¹)`, both characters being odd (`chi5_odd`, `chi5_inv_odd`, Mathlib's `Odd.LFunction_neg_two_mul_nat_sub_one` at `n = 0`). They are the kernel anchor for the first correction below: `dh` has no zero on the *positive* real axis (`dh_ne_zero_of_real`), `Λ_dh` none on the real axis (`dhLam_real_ne_zero`), and `dh` itself vanishes at `−1, −3, …`. The two theorems are the hostile reviewer's scratch file, re-compiled by the lead inside `DHRealAxis.lean`. 2 checked theorems.
+
+**Corrections to rounds 262–270** (hostile review of the arc's prose by a fresh-context agent running the session model at maximum effort: 1 MAJOR, 8 minor, 4 cosmetic; every finding verified by the lead by direct reading, recomputation or a re-run of the reviewer's Lean probe; all accepted; corrected in place with *(corrected in round 271)* markers). (1) MAJOR: "`dh` has no zero on the real axis" (the `DHRealAxis.lean` table row and module title), "`dh` has no real zero" (round 265 and `DHTwin.lean`'s header) and "no real zeros" (F27) — false: `dh_ne_zero_of_real` assumes `σ > 0`, and `dh(−1) = 0` (above). (2) Round 265's Check 4, as corrected in round 268, still said the twin and rate rows "have their dh instance landed and refuted" and that the two `¬RH ⇒` rows have none: three of the seven twin and rate rows are refuted (`not_twins_nonneg_dh`, `not_twins_subexp_dh`, `not_lamDH_subexp`), four are positive dh theorems (`dh_twins_rate`, `zeros_of_lamDH_ge`, `lamDH_rate`, `lamDH_fails_exponentially`), and `exists_lam_neg_of_not_RH` has its dh column `exists_lamDH_neg` (round 263). (3) Round 263 said "This round lands the 15 G rows" and that each RH-concluding argument "has a dh instance which `dh_offline_zero` refutes": seven G rows are stated and refuted, three have only the generic positive lemmas (`real_of_params`, `real_of_dodging`, `real_of_pairing`), five (`rh_of_ground_states`, `rh_of_groundStates_dodging`, `rh_of_D_and_realRooted`, `rh_of_D_and_realRooted_final`, `rh_grh_of_member_zero`) have no dh statement; the 49 RH-concluding theorems are in 25 files, not 29; F27 and F29 corrected alike. (4) Enclosures and bounds quoted with endpoints rounded inward (round 267: five of the six endpoints and three of the four `rpow` bounds; round 270's table: eight of eighteen endpoints): now rounded outward from the kernel's rationals. (5) Round 270's "one `CONFIG` line and about 35 minutes of compilation per further zero": `DHLogBoundsExt` reaches `n = 209 = 5·41 + 4`, so `M ≤ 41` and height about `176`; a higher zero needs the log table extended and every generated `DHLocate{2,3,4}*` file recompiled, and the per-zero compile time is 8 to 20 minutes (the 35 minutes were the whole round). (6) Round 262's basis-cutoff correction: the fifth off-line zero `0.8695 + 240.40i` lies below `(K − 1)π/a` at `a = 1.5` to `2.25`, not at `a = 2.5` (cutoff `237.5`). (7) Round 266's "Neither `riemannZeta_conj` nor `Λ(n) ≥ 0` is in its closure" of ζ's `negDirections_offline`: `vonMangoldt_nonneg` is in it (through `vonMangoldt_le_log`; the lead re-ran the reviewer's closure probe); it is not in the closure of the dh port. (8) STRUCTURAL-REVIEW §2.4's dump census was taken at `78f6af5` (round 264, 190 modules), not at `04a9b87` plus the round-267 files; the dump is regenerated after round 272 (§2.4). (9) Round 268 listed "No `a_n → ∞` is assumed anywhere" as a difference from the ζ statements (none of them assumes it), and `Gpole_annihilatesDH` keeps one pole hypothesis (`poleR m a = 0`); `DHGround.lean`'s docstring of `not_hypConvDH_top` corrected alike. (10) "`maxRecDepth 20000` on each `D2sum_le` (as in the skeleton)": the skeleton's needs none. (11) Four digit strings ending in `…` were rounded rather than truncated. (12) "round 116's `ProbeForm`": round 124. (13) Counts and quantifiers: "45 of its 77 declarations" (not "each declaration") of `DHGround.lean` cite their ζ counterpart; `DHColumn`'s header labels each statement with a pilot declaration or marks it as having none; `not_weil_positivity_dh` refutes through `QDHu_packet_neg`; `a = 5` needs `22025` prime terms. Also corrected: "true `0.52`" for `Gsup_ball_le` (the termwise majorant evaluates to `0.5165`; the true sup of `‖GEM‖` on the box is about `0.20`, the lead's 61 × 61 grid), and round 270's exp-file rows named the box edge `σ₀` instead of the centre's `σ` (`DHLocate{2,3,4}Exp` bound `n^{−65083/100000}`, `n^{−57436/100000}`, `n^{−72426/100000}`).
+
+**The reading cards and the docstring sweep.** The 63 `src/` modules added since round 235 were read into structural cards by reader agents: 20 chunks read line by line (16 291 lines) and 23 generated files carded structurally (heads, tails, two interior windows, lemma-family censuses). The cards raised 200 docstring-mismatch claims; 24 triage agents re-read every cited line and returned 287 items (with the module docstrings re-read): 101 false, 15 stale, 119 imprecise (a summary omitting side hypotheses, left alone), 52 rejected. The lead read the cited source of every false and stale item before accepting it; after deduplication against each other and against the prose review, 84 edits were applied: 51 to Lean docstrings in 27 files, 21 to README passages, 5 to STRUCTURAL-REVIEW, 7 to generator comments. The false ones, by kind: overclaims (a hypothesis dropped from a summary that the statement needs, as in `G_mem_pole_free`'s and `topGS_cross`'s docstrings, `rh_of_lamO_lower`'s `HypConv`, `GoodChar.half` in `ChiHalfSharp`); wrong objects (`QDHu_hasSum` and round 257 sum over the zeros of `Λ_dh`, which contain every zero of `dh` with `Re s > 0`, not over those zeros; `hadamard_XiDH`'s summable inverses are those of the squared zeros; round 236's form `2·Q_ζ + Q_{χ₋₄}` is the Weil form of `ζ·ζ_{ℚ(i)} = ζ²L(s, χ₋₄)`, the ζ zeros weighted twice — `weilQ` sums over every zero with multiplicity, `QC` over `±` pairs with weight 2); wrong names, rounds and signs (`NX_zero_le` for `card_re_le`, round 154 for 155, `PrimeRelax3`/`ParityRelax` for `PoleRelax`/`PrimeRelax` in `CertInstances`, `−2i` for `2i` in `ô_λ`, the ladder of `DHLocateSkeleton`, whose `dh_zero_near_of_dhEM` is a side branch); and stale "what remains" sentences now closed (rounds 254, 255, 258). Two generator bugs: `gen_locate.py` wrote `dh_zero_near_of_center H1 H2 H3` because a Python literal `'…center'' H1…'` concatenates two strings and drops the prime, and `gen_locate_zero.py` wrote `closedBall cZ 1 / 200` (precedence) in three docstrings; both fixed, and `gen_locate_zero.py`'s `BUDGET` switch, which read `== '1' or True`, now works. Regenerating every generated file after the fixes: four files change, by the one intended docstring line each (`DHLocateNum`, `DHLocate{2,3,4}Base`), and the other nineteen are byte-identical. The cards' simplification candidates, dead-code suspects and hunches are recorded in STRUCTURAL-REVIEW §7 as candidates, not acted on. The file table's line counts are brought to the current sources (36 rows: 29 had drifted in earlier rounds, 7 change here).
+
+**The end-state build.** `FORCE=1 ./build.sh` on this round's tree (`JOBS=3`): 216 compiled, 0 up to date, in 6261 s, exit 0; 1310 `#print axioms` lines, every one `[propext, Classical.choice, Quot.sound]`; no warning and no `sorry` in the log (its one line matching "error" is the theorem name `trunc_error`). The external pnt and zeta23 layers are rebuilt after round 272 (STRUCTURAL-REVIEW §0 item 9).
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1310 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New (the two theorems); the corrections are the record's. **Bearing on RH:** none.
+
+## Round 272: the dh column, part 4 — the remaining G rows and the strip row of the P block (`src/DHColumnRest.lean`)
+
+Seven refutations for nine more rows of round 263's survey, each the ζ statement with every hypothesis kept (renamed, `Xi ↦ XiDH chi5`, `IsGroundState ↦ IsGroundStateDH`, `topGS ↦ topGSDH`) and the conclusion `False`, or the last hypothesis negated where the ζ statement ends in a limit. **G rows:** `not_ground_states_dh` (the column of `rh_of_ground_states`, Roadmap.lean:333, through `not_realRooted_limit_XiDH`), `not_groundStates_dodging_dh` (`rh_of_groundStates_dodging`, GroundState.lean:153, through `not_dodging_dh`, evenness and integrability from the ground state's probe), `not_D_and_realRooted_hadamard` (`rh_of_D_and_realRooted`, Limit.lean:303: with the named Hadamard inputs `hF`, `hX` kept, the tails do not tend to `0`), and, from round 263's generic positive lemmas with `XiDH_nonreal_zero`, `not_XiDH_params` (`rh_of_Xi_params`, Curvature.lean:53: no Hadamard factorisation of `Ξ_dh` has every parameter a non-negative real), `not_dodging_hadamard` (`rh_of_dodging`, Curvature.lean:86) and `not_pairing_and_realRooted` (`rh_of_pairing_and_realRooted`, Limit.lean:191: the pairing errors do not tend to `0`). `rh_of_D_and_realRooted_final` (XiBounds.lean:360) shares round 263's `not_D_and_realRooted` with the `_proved` row, since `hadamard_dh'` discharges both named `Ξ` inputs at once. **P row:** `not_hypConvStripDH_top` (`rh_of_hypConvStrip_top`, StripConv.lean:100): `HypConvStripDH` at width `2` fails for the top-of-chain ground states of `Q_dh` at every sequence of positive supports, the strip form of round 268's `not_hypConvDH_top`. **No column:** `rh_grh_of_member_zero` (WeilDedekind.lean:177) concludes `RH ∧ GRH(χ₋₄)` from GRH for the product `ζ·L(χ₋₄)`, each conjunct coming from one factor; `dh` is a linear combination of `L(s, χ₅)` and `L(s, χ₅⁻¹)`, not a product, so GRH for `dh` says nothing about either summand, and the first conjunct's column is round 263's `not_GRH_dh`.
+
+**The dh column after this round** (round 263's survey of the 49 RH-concluding theorems): **G** (15) — 14 refuted at `dh`, `rh_grh_of_member_zero` without an honest analogue. **G†** (17) — `rh_of_weil`, `weil_criterion_zeta` and three twin and rate rows refuted, four twin and rate rows and `exists_lam_neg_of_not_RH` with positive dh theorems; the `WeilTwinGeneral` iff's, the Dedekind rows (about `ζ·L(χ)`), the Mellin/ψ family (whose `ZData` needs generalising) and `first_failure` without a dh instance. **P** (14) — `rh_of_hypConv_top`, `rh_of_simple_ground_states`/`'`, `rh_of_eventually_simple`, `rh_of_hypConvStrip_top` refuted and `rh_of_lamO_lower`'s hypothesis refuted; `rh_of_close_top`, `rh_of_relgap`, `rh_of_close_RPhi`, `rh_of_dim_le_two`, `zeta_offline_card_le`, `rh_of_dim_bounded`, `rh_or_gdim_tendsto`, `rh_of_parity_gap`, `rh_of_no_crossing` with their ground-state inputs landed but no dh instance (the `gdim` rows need a value of `gdimDH`, the kernel rows a `Φ_dh`). **E** (3) — no dh instance.
+
+One builder agent to a stated interface (extended once at the lead's request with the three Hadamard-parameter rows); the lead read the file end to end, removed a fourth theorem that restated `not_D_and_realRooted` word for word, recompiled it (12 s) and built it in the pilot build (`DHColumnRest` 14 s; 1 compiled, 216 up to date). The round also drops the agents' model names from the process notes of rounds 263–271 and from STRUCTURAL-REVIEW.md; the notes now say only builder, reader or synthesis agent.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1317 checked theorems in `src/`. The build prints no warnings.
+
+**Check 4.** New. **Bearing on RH:** none; every G row with an honest dh analogue is now refuted at `dh`.
+
+## Round 273: the cause of the Davenport–Heilbronn off-line zeros — two channels, one archimedean clock, the inert primes (`src/DHChannels.lean`, `src/DHInert.lean`, `frontier/dh/cause/`)
+
+The question: which part of `dh`'s structure makes its off-line zeros, and what holds the others on the line. `dh = (1 + ε′)L(s, χ₅) + (1 + ε)L(s, χ₅⁻¹)` is a sum of two Dirichlet channels with one Gamma factor. This round proves, in the kernel, the identities that relate the channels (two files, 39 checked theorems), and tests a mechanism stated in advance against a census of the zeros of `dh` up to height `10⁴`. The pre-registration (`frontier/dh/cause/PREREG_cause.md`) was committed at `0f8de53`, before any zero above height 200 was computed. It fixed every prediction, threshold and scoring rule, and nothing in it was changed afterwards.
+
+**`src/DHChannels.lean`** — the channel identities, for Dirichlet characters under the hypotheses each statement names (`χ ≠ 1`, primitive, `‖ε‖ = 1`, `1 + ε ≠ 0`), and then for `χ₅`. *(corrected after review)*
+
+- `conj_LFunction`: `conj L(s, χ) = L(s̄, χ⁻¹)` for `χ ≠ 1`. It is proved by the identity theorem from `Re s > 1`, as for Mathlib's `riemannZeta_conj`.
+- **`LFunction_mul_one_sub`**: for primitive `χ` and every `s`, `L(s, χ)L(1 − s, χ) = ε²L(s, χ⁻¹)L(1 − s, χ⁻¹)`.
+  - The proof applies Mathlib's functional equation at `s` and at `1 − s`; the conductor powers cancel (`completedLFunction_mul_one_sub`).
+  - `χ` and `χ⁻¹` have the same Gamma factor (`gammaFactor_inv`), so the archimedean factor cancels with no exceptional points.
+  - For the channel ratio `R = L(·, χ)/L(·, χ⁻¹)` this reads `R(s)R(1 − s) = ε²` (`LFunction_ratio_mul`): the reflection acts on `R` only by reciprocation.
+- **`phase_lock`**: for primitive `χ ≠ 1` with `‖ε‖ = 1`, `ε̄L(½ + it, χ)·conj L(½ + it, χ⁻¹)` is real. *(corrected after review)* On the line `s̄ = 1 − s`, so the reflection becomes conjugation. Hence `R(½ + it) ∈ εℝ` (`channel_ratio_real`).
+- `dhL_eq_mul`: for primitive `χ ≠ 1`, `DH_χ = (1 + ε′)(L(·, χ) + εL(·, χ⁻¹))`. `dhL_eq_zero_iff_channel`: if also `1 + ε ≠ 0`, `DH_χ` vanishes iff `L(s, χ) = −εL(s, χ⁻¹)`. *(corrected after review)*
+- For `χ₅`: `chi5_channel_fe`, `chi5_phase_lock`, `chi5_channel_ratio_real` and `chi5_channel_ratio`, plus:
+  - **`dh_eq_zero_iff_channel`**: `dh(s) = 0 ↔ L(s, χ₅) = −εL(s, χ₅⁻¹)`.
+  - **`dh_line_zero_iff`**: where `L(½ + it, χ₅⁻¹) ≠ 0`, `dh(½ + it) = 0` iff the real number `L(½ + it, χ₅)/(εL(½ + it, χ₅⁻¹))` equals `−1`. On the line, a zero of `dh` is one real equation in `t`.
+
+16 checked theorems.
+
+**`src/DHInert.lean`** — coefficient localisation. The coefficients `c(n)` of `−dh′/dh` (`cDH`, round 256) differ from those of `−L′/L(s, χ₅)`, namely `Λ(n)χ₅(n)`, only at inert-smooth `n`: integers whose prime factors are all `≡ ±2 (mod 5)`, the primes inert in `ℚ(√5)`, where `χ₅(p) = ±i`.
+
+- **`cDH_chi5_eq_of_dvd`**: `c(n) = Λ(n)χ₅(n)` at every `n` with a prime factor `p = 5` or `p ≡ ±1`.
+- **`cDH_chi5_decomp`**: `c = Λ·s + c_inert`, with `c_inert` supported on inert-smooth integers (`logDer_inertA_mul_inertInvA_eq_zero`).
+
+The proof:
+
+1. Unique factorisation into a split part (`≡ ±1`) and an inert part (`smoothInd_conv_eq_one`).
+2. `χ₅` is real on split-smooth integers (`chi5_inv_eq_of_split`). So `χ₅ = s ⍟ t` and `χ₅⁻¹ = s ⍟ t̄` share one split factor `s` (`splitSeq_conv_chi5Seq`, `splitSeq_conv_chi5InvSeq`).
+3. The normalised coefficients of `dh` therefore factor as `δ + u = s ⍟ b`, with `b` inert-smooth (`dhA_eq_splitA_mul_inertA`).
+4. `X ↦ log·X` is a derivation of Dirichlet convolution (`logDer_mul`), so the logarithmic derivative splits (`logDer_dhA_mul_dhInvA`).
+5. `log s ⍟ s⁻¹ = Λs` (`logDer_splitA_mul_splitInvA`, from Mathlib's `log * μ = Λ`), and `b⁻¹` stays inert-smooth (`dinv_inertW_eq_zero`).
+
+23 checked theorems. The pre-registration's fact (E4) is checked in this coefficient form. Its Euler-product form, `R(s) = Π_{p ≡ ±2 (5)}(1 + χ₅(p)p^{−s})/(1 − χ₅(p)p^{−s})` on `Re s > 1`, is the same factorisation, but it is not itself a Lean statement. So the pre-registration's "all four kernel-checked" covers (E4) only through its "Equivalently" clause.
+
+**The mechanism under test** (PREREG, "The claim under test"):
+
+- Off the line, the zeros are the solutions of `R = −ε`.
+- `R` is an Euler product over the inert primes alone, so they make the off-line zeros, at the statistics of their random Euler product (Bohr–Jessen). The archimedean factor, common to both channels, has no part there.
+- On the line, the phase lock reduces `R = −ε` to one real equation.
+- `dh` has one zero per antiphase beat of its two channels' Hardy functions (`Z_f = (Z_χ + Z_χ̄)/(2cos θ)`). The zero is on the line when the beat is bounded by one zero of each channel ("mixed"). It leaves the line, with its mirror, when the beat is bounded by two zeros of one channel ("same-type", a reversal of the two zero trains).
+
+**The census** (`instrument/dh_census.py`, validated on `[1, 200]` before the pre-registration) covered `(199.5, 9999.54]` in 392 windows. All were complete, with 0 flagged.
+
+- `N_f = N_χ = N_χ̄ = 12703` at `9999.54` (`129` at `199.5`).
+- `11448` on-line zeros of `dh` and `12574` of each channel.
+- `563` zeros with `Re ρ > ½`, each located. With their mirrors, 1126 of the 12574 zeros (9.0%) are off the line.
+- No zero has `Re ρ ≥ 0.9`.
+
+The outputs are in `census/` and the scoring in `results/score.log` (`score_cause.py`).
+
+- **P1, the phase signature: PASS.**
+  - For the `K = 455` zeros with `Re ρ ≥ 0.6`, `m₁(q) = K⁻¹Σ e^{−iγ log q}`. The inert primes:
+
+    | `q` | 2 | 3 | 7 | 13 | 17 | 23 | 37 | 43 |
+    |---|---|---|---|---|---|---|---|---|
+    | `m₁(q)` | `−0.679 − 0.017i` | `+0.648 − 0.026i` | `−0.474` | `+0.313` | `−0.262` | `+0.267` | `−0.140` | `+0.179` |
+
+    `|Im| ≤ 0.026` throughout, and every sign is the predicted one: `−` for `q ≡ 2`, `+` for `q ≡ 3 (mod 5)`. The mechanism the pre-registration states: at a zero, `χ₅(p)p^{−iγ}` is pulled towards `−i`, where an inert Euler factor of `R` is a pure rotation. The pull is statistical (`|m₁(2)| = 0.68`). At individual zeros the factors at 2 and 3 have moduli from `0.56` to `2.34` (P5's anatomy). *(corrected after review)*
+  - The split primes 11, 19, 29, 31, 41, 59, 61, 71 have `|m₁| ≤ 0.112` *(corrected after review)*. Each is within `0.04` of the same mean taken over the on-line zeros of `L(½ + it, χ₅)`, for example `−0.111` against `−0.090` at 11. They carry only the modulation shared with the channels' own zero trains.
+  - Thresholds (a)–(e) are all met.
+  - The magnitudes at 2 and 3 exceed the model's `σ = 0.6` rows (`−0.29` to `−0.40`, `+0.20` to `+0.33`) and sit near its `σ = 0.7` row (`−0.76`, `+0.70`). The mean real part over the 455 zeros is `0.713`.
+- **P2, the beat law: FAIL, on one clause of four.**
+  - There are 12573 beats in range: 11129 mixed and 1444 same-type, with 0 parity violations.
+  - (a) Met: 11118 of 11129 mixed beats (99.90%) hold exactly one on-line zero.
+  - (b) Met: `N_f` equals the number of antiphase beats below it, within ±1, at 392 of 392 window ends.
+  - (c) Met exactly: `2K = 1126 = S₀ − S₂ − 2E = 1296 − 148 − 2·11`.
+  - (d) First half met: every one of the 563 zeros has a zero-free same-type beat within `2λ` below and above it.
+  - (d) Converse **failed**: only 1130 of the 1296 zero-free same-type beats (87.2%, against 95%) have an off-line zero within `2λ` of their midpoint.
+  - The split `S₀ : S₂ = 1296 : 148` was not predicted.
+  - `score_cause.py`'s P2 verdict also requires zero parity violations, an instrument check the pre-registration lists separately. That is stricter than the text; the outcome is unchanged. *(corrected after review)*
+- **P3, the rates: PASS, 12 of 12 cells.** Counts with `Re ρ ≥ σ₀` against the random-model bracket from `X = √(5t/2π)` to `X = t`:
+
+  | `σ₀` | `(200, 2000]` | `(2000, 5000]` | `(5000, 10⁴]` |
+  |---|---|---|---|
+  | 0.60 | 66 (57.9–115.3) | 138 (116.6–214.5) | 251 (215.0–374.1) |
+  | 0.65 | 48 (39.4–69.9) | 107 (78.7–124.5) | 194 (143.2–215.4) |
+  | 0.70 | 37 (21.8–40.8) | 71 (46.7–72.3) | 128 (87.2–122.4) |
+  | 0.80 | 13 (2.9–7.7) | 18 (7.6–13.4) | 30 (15.0–22.3) |
+
+  The rule passes a cell up to the 97.5% Poisson quantile of its high value. Four cells lie above their high value and pass only through that tolerance: all three at `σ₀ = 0.8`, and `(5000, 10⁴]` at `σ₀ = 0.70` *(corrected after review)*. See the depth profile below.
+- **P4, the Weil-form control: PASS.**
+  - On the certificate packet `(a, ω) = (12/5, 169/2)`, `Q = A − 2S` with the same archimedean part `A = 10.08305` exactly.
+  - `Q_dh = −1.20938` (round 259's value; `S_dh = 5.64621`), against `Q_χ₅ = +6.49164` for the single channel (`S_χ = 1.79570`).
+  - No `n ≤ 121` with a prime factor `≢ ±2 (mod 5)` contributes to the difference (`results/weil_channels.log`).
+  - The largest contributions are inert-smooth: `n = 6` (`−1.955`), 14 (`−1.641`), 21 (`−1.179`), 9 (`−0.980`), 4 (`−0.794`) and 34 (`−0.735`).
+- **P5, exploratory.**
+  - `Re ρ` falls in `[0.50, 0.55)`: 36, `[0.55, 0.60)`: 72, `[0.60, 0.65)`: 106, `[0.65, 0.70)`: 113, `[0.70, 0.75)`: 91, `[0.75, 0.80)`: 84, `[0.80, 0.85)`: 40 and `[0.85, 0.90)`: 21. None has `Re ρ > 1`.
+  - Anatomy of the four kernel-located zeros (`anatomy.py`, `results/anatomy.log`):
+    - `R(ρ) = −ε` to `|R + ε| ≤ 3.4·10⁻¹⁴` at all four.
+    - The partial inert products approach `R`: `|R_P − R| = 0.002, 0.024, 0.108, 0.025` at `P = 2·10⁶`. They do not approach monotonically (for the third zero: `0.161, 0.117, 0.132, 0.108` at `P = 10⁴, 10⁵, 10⁶, 2·10⁶`). Convergence of the product in the strip holds under GRH for `L(s, χ₅)` and is not known unconditionally. *(corrected after review)*
+    - The factors at 2 and 3 alone rotate by `−1.02 − 0.78`, `−1.06 − 0.90`, `−1.02 − 0.86` and `−1.09 − 0.73` rad, against the target `arg(−ε) = −2.588`.
+  - The value distribution of `log|R(σ + it)|` (`p5_valuedist.py`, `results/p5_valuedist.log`) is stationary across the three windows and matches the random model, at `σ = 0.7` (pre-registered) and at `σ = 0.8` (added).
+    - At `σ = 0.7` the standard deviations are `1.249, 1.252, 1.245`, against `1.252` at `X = ∞`. The two-sample Kolmogorov–Smirnov distances are `≤ 0.012` between windows and `≤ 0.0133` to the model (`≤ 0.010` to `X = ∞`) *(corrected after review)*.
+    - At `σ = 0.8`, KS distances are `≤ 0.011` between windows and `≤ 0.009` to the model.
+
+**Post-hoc (not pre-registered; labelled).**
+
+1. P2(d)'s converse. Each of the 166 zero-free same-type beats without an off-line zero within `2λ` has an *overshoot* beat within `2λ` (`posthoc/posthoc_beats.py`). An overshoot is a same-type beat with two on-line zeros or a mixed beat with three; there are 159 (148 and 11).
+   - In the identity (c), each `S₂` overshoot offsets one reversal and each `E` overshoot two; the identity is exact *(corrected after review)*.
+   - So the beat law's exact form is (c), and (d)'s converse was the wrong local statement. The local rule is that a reversal is resolved either by an off-line pair or by a nearby overshoot.
+   - Near-collisions: the separation of the `χ` and `χ̄` zeros nearest to a height, in units of `λ`, has median `0.182` at the off-line zeros, against `0.243` at the on-line zeros of `dh` and `0.352` at uniform heights (`posthoc/nearcol.py`). *(corrected after review)* The `0.269` first given here as the baseline was a different statistic: each `χ` zero's distance to the nearest `χ̄` zero.
+2. **The census's off-line zeros and the inert Euler product's** *(corrected after review)* (`posthoc/euler_zeros.py`; the table is `posthoc/euler_zeros_table.log`, from the chunk counts in `posthoc/chunks/`). `g_X = c₁P_X + c₂`, with `P_X` the Euler product over the inert primes `≤ X`, is holomorphic on `Re s > 0`.
+   - Its zeros with `Re s > σ₀` are counted by the argument principle on `[σ₀, 3] × (T₁, T₂]`, over `(200, 10⁴]` in 33 chunks, and no refinement is unresolved. The windings' distance from an integer (`1.1·10⁻¹⁴`), first cited here as a check, is not one: a sum of principal increments around a closed sampled polygon is an integer whatever the sampling. The check is the grid. Halving the step (`dt = 0.005`, `dσ = 0.001`) on three chunks, `(200, 500]`, `(4700, 5000]` and `(9800, 10⁴]`, leaves all 84 counts unchanged (`posthoc/grid_check.py`, `posthoc/grid_check.log`). *(corrected after review)*
+   - On `(0, 200]`, the `X = 10⁵` counts are `3, 2, 1, 0` at `σ₀ = 0.6, 0.7, 0.8, 0.85`: the four located zeros (`posthoc/validation_0_200.json`).
+   - At `X = 10⁵` the counts equal the census's at `Re > 0.85` and `0.8`, and differ by 4 and 11 at `0.7` and `0.6` *(corrected after review)*:
+
+     | `Re >` | 0.85 | 0.8 | 0.7 | 0.6 |
+     |---|---|---|---|---|
+     | `g_{10⁵}` | 21 | 61 | 232 | 466 |
+     | census | 21 | 61 | 236 | 455 |
+
+     At `0.6` the truncated product has not converged: in the random-phase approximation the primes above `10⁵` move `log R` by `0.25` rms at `σ = 0.6` (`posthoc/tail_rms.py`) *(corrected after review)*.
+   - Positions as well as counts (`posthoc/euler_positions.py`): Newton's method on `g_{10⁵}`, started at each of the 563 census zeros, converges to 563 distinct zeros. The median distance moved is `0.013` (`0.0017` for `Re ρ ≥ 0.8`), and the largest is `0.13`. At `Re > 0.7`, `0.8` and `0.85` the limits are all of `g_{10⁵}`'s zeros there (232, 61 and 21, the argument-principle counts). At `Re > 0.6` the product has at least six zeros that no census zero reaches (466 against 460 limits). One census zero, `0.5195 + 7130.83i`, reaches a zero of `g_{10⁵}` left of the line (`Re 0.450`). *(corrected after review)*
+   - At `X = 30` and `100` the counts at `Re > 0.7` follow the random model at the same cutoff (126 and 177 against 126.9 and 181.0). At `Re > 0.6` they fall below it (304 and 440 against 323.9 and 456.2), and at `Re > 0.85`, `X = 30` gives 0 against the model's 4.1 (item 3.1). *(corrected after review)*
+3. **The depth profile** (`posthoc/euler_zeros_heights.py`, `posthoc/euler_heights_summary.py` and its log, `posthoc/argtail.py`). P3's `σ₀ = 0.8` cells and the histogram show more deep zeros than the model at `X = ∞`: 61 against 48.4 with `Re > 0.8`, and 21 against 10.4 with `Re > 0.85`. The deep share also falls with height: among the zeros with `Re ≥ 0.6`, those with `Re ≥ 0.8` are 19.7%, 13.0% and 12.0% in the three windows.
+   1. At `X = 30` the model's deep tail is unreliable. Over 588 000 units of height (60 windows from `10⁶`), `g_30` has 71 zeros with `Re > 0.85`, a rate of `1.2·10⁻⁴` against the model's `(4.2 ± 1.4)·10⁻⁴`. At `X = 300` and `3000` the model agrees with the deterministic controls (`9.7 ± 1.8` and `10.4 ± 1.6` per 9800 at `Re > 0.85`, against `9.67` and `11.33`), so the census excess is an excess against the model there too. The comparisons below use the deterministic controls. *(corrected after review)*
+   2. At `σ = 0.8`, the inert product to `10⁵` at the census heights matches the random model (`posthoc/argtail_08.log`):
+      - the fraction of `log R` in the square of half-side `0.3` about `log(−ε)` (0.00265–0.00290 against 0.00282);
+      - the standard deviation of `Im log R` by prime range (`p ≤ 30`, `30 < p ≤ 1000`, `1000 < p ≤ 10⁵`) *(corrected after review)*;
+      - correlations between the ranges below `0.013`.
+   3. At the census heights the count of zeros with `Re > 0.85` grows with `X`: 13 at `X = 300`, 18 at `X = 1000` and 19 at `X = 3000`. At random heights the mean grows from 9.67 to 11.33. Part of the excess is already present at `X = 300`: 13 against `9.67 ± 1.40` at random heights (`z = +2.4`) and against `10.55 ± 1.93` at the heights `10⁴k` (`z = +1.3`). In `(5000, 10⁴]`, where every prime up to 3000 is below the height, the count rises from 7 to 10, so there the growth is not carried by primes beyond the height. *(corrected after review)*
+   4. Windows of length 9800 at other heights, counted the same way. At `X = 3000` the inert primes above 3000 move `log R` by `0.034` rms at `σ = 0.85`, in the random-phase approximation (`posthoc/tail_rms.py`) *(corrected after review)*. The random heights are drawn with numpy seed 2732, and `euler_heights_summary.py` recomputes every control height from its generator.
+
+      | `X = 3000`, `Re > 0.85` | windows | mean ± sd | range |
+      |---|---|---|---|
+      | random heights in `(10⁵, 10⁸)` | 30 | 11.3 ± 2.0 | 7–16 |
+      | heights `10⁴k`, `k = 1..9` | 9 | 11.4 ± 3.1 | 8–16 |
+      | census heights | 1 | 19 (`dh` itself: 21) | |
+
+      - With `Re > 0.8` the census heights (56) lie within the range of the random-height windows (40–58), but above the 9 windows at `10⁴k` (46–55). *(corrected after review)*
+      - At `X = 300`, `Re > 0.85`, they lie within the range of the 20 windows at `10⁴k` (13 against 7–15), but above the 30 random-height windows (6–12). *(corrected after review)*
+      - The counts mostly vary less than Poisson counts would (at `X = 3000`, `Re > 0.85`: standard deviation 1.97 against a Poisson 3.37 at random heights), but not in every set (3.05 against 3.38 at the heights `10⁴k`; 1.35 against 1.09 at `X = 30`). *(corrected after review)*
+
+   So on `(200, 10⁴]`, `g_3000` has 19 zeros with `Re > 0.85`, about 1.7 times the typical count: `z = +3.9` against the random-height windows and `+2.5` against the windows at `10⁴k`, and none of the 39 windows reaches 19. `dh` itself has 21 there; its count at other heights was not measured. The excess is carried by the inert primes below 3000, part of it already by those below 300. Its cause is open. It touches P3 only in the deep cells, which the pre-registered rule passed. *(corrected after review)*
+
+**What this says.**
+
+- The off-line zeros of `dh` are made by the inert primes.
+  - Off the line they are the solutions of `R = −ε`. Every channel zero in range is on the line, so no zero of `L(s, χ₅⁻¹)` interferes.
+  - The archimedean factor cancels from `R` exactly (`LFunction_mul_one_sub`'s proof, `gammaFactor_inv`). The split primes contribute to `−dh′/dh` exactly what they contribute to `−L′/L(s, χ₅)` (`cDH_chi5_eq_of_dvd`). `R`'s Euler product over the inert primes on `Re s > 1` is the classical form of the latter, not a Lean statement. *(corrected after review)*
+  - The inert prime phases at the zeros carry the predicted signature (P1).
+  - The Weil form separates `dh` from its own channel through inert-smooth integers only (P4).
+  - At the census heights, Newton's method carries the 563 census zeros to 563 distinct zeros of the inert Euler product truncated at `10⁵`, each within `0.13`. At `Re > 0.7` these are all of that product's zeros (post-hoc 2). *(corrected after review)*
+- The archimedean factor's role is exact and two-sided.
+  - It cancels from `R`: the reflection acts on `R` only by reciprocation, `R(1 − s) = ε²/R(s)`, and no Gamma factor enters `R`. Where `R = −ε` in the strip is decided by `R`'s values there: those of the continuation of the inert Euler product from `Re s > 1`, and of the product itself under GRH for `L(s, χ₅)`. *(corrected after review)*
+  - On the line it becomes conjugation, which phase-locks `R/ε` to the reals. The same archimedean phase `ϑ(t)` also drives both channels' Hardy functions, so their zero trains share one clock and mostly interleave *(corrected after review)*.
+  - Each interleaving (a mixed beat) forces a zero of `dh` onto the line, by the intermediate value theorem; 88.5% of the beats are mixed.
+  - The "reciprocal process" that keeps those zeros on the line is the conjugation symmetry plus the shared clock. What breaks it is arithmetic: the inert primes swing `R` far enough to reorder the two trains. *(corrected after review)*
+  - A reversal (a beat bounded by two zeros of one channel) is resolved either by a pair of zeros off the line at `R = −ε`, or by a nearby overshoot beat that carries extra zeros on the line. The exact statement is P2(c), `2K = S₀ − S₂ − 2E`. The local rule that every reversal sends a zero off the line is P2(d)'s converse, which failed. *(The conclusions first restated that failed rule; corrected after review.)*
+- `ζ` has one channel. There is no second train to reorder against, and nothing in this mechanism applies to it. This is consistent with §(vi)'s reading of `dh` and proves nothing about RH.
+- Open: why on `(200, 10⁴]` the truncated product `g_3000` has 19 zeros with `Re > 0.85` where windows of the same length at other heights have about 11 (post-hoc 3). `dh` has 21 there; its count at other heights was not measured. *(corrected after review)*
+
+**Review.** A hostile review of this round by a fresh-context agent running the session model at maximum effort re-ran every script: the scoring, the beat census, the post-hoc counts on two chunks and one control window, and the P5 value distribution. It reproduced every log and chunk exactly, and compiled both Lean files (16 and 23 clean axiom lines, no warnings). It returned 1 MAJOR, 12 minor and 10 cosmetic findings, all in the prose and in the evidence cited. It also made two out-of-scope observations: no build log is committed, and the pre-registration's timing cannot be checked from the artefacts.
+
+The lead verified each finding by reading, by recomputation (the Newton limits by real part, the prime-tail sums, a like-for-like near-collision statistic) and by new committed scripts, and accepted all 23. The passages above are corrected in place and marked *(corrected after review)*.
+
+- The MAJOR: the conclusions restated, as the mechanism, the local beat rule whose test (P2(d)'s converse) had failed.
+- New scripts:
+  - `posthoc/grid_check.py` recounts chunks at half the step. It is the check that the integer windings could not be.
+  - `posthoc/nearcol.py` and `posthoc/tail_rms.py`.
+- `euler_heights_summary.py` now recomputes the control heights from their generators.
+- The docstrings of `euler_zeros.py`, `argtail.py` and `anatomy.py` now state that the product's convergence in the strip is conditional on GRH for `L(s, χ₅)`.
+
+Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 1356 checked theorems in `src/`. The build prints no warnings.
+
+A builder agent wrote both files to statements the lead specified. The lead read both end to end and compiled them in the pilot build (`DHChannels`, `DHInert`: 2 compiled, 217 up to date, in 38 s; 39 clean axiom lines). The census, scoring, model and post-hoc scripts are in `frontier/dh/cause/`. The pre-registered files are unchanged since `0f8de53`, except for one dated note in `instrument/README_instrument.md`.
+
+**Check 4.** New. The kernel identities, the census and the mechanism are not in earlier rounds; the off-line zeros' existence and location are rounds 261–270. **Bearing on RH:** none.
+
+## Round 274: the factorisation pass (`src/GroundChain.lean`; `StructureD`, `DHGround`, `WeilIndexInfinite`, `DHNegIndex`, `XiLogDeriv`, `WeilChi`, `DHZeros`, `DHExplicit`, `Exterior`, `PhiNull`, `ZetaInputs`, `ParityRelax`, `CertInstances`, `WeilChiDensity`)
+
+The structural review (rounds 236–273, `STRUCTURAL-REVIEW.md` §7 and §0 item 10) listed copies that the dh column had made of the ζ chain, and name clashes that kept modules from being imported together. This round removes the copies it named that could be removed without changing any headline statement. No theorem is new in content: every headline theorem keeps its name and statement, and each proof now runs once, through a generic statement.
+
+**1. One ground-state stack** (`GroundChain.lean`).
+- `GroundData` bundles what round 48's Theorem D uses about a ground space: a family of `ProbeForm`s; closure under the two Green steps (`partner`, `poleFree`) and under the off-cross swap (`green`); finite dimension in `L²` (`fd`); a unit vector (`nonzero`).
+- Proved once: Green chains, `finrank_chain`, `exists_long_chain`, independence and spanning, `offcross_root`, `chain_top_zeros`, `theoremD`, and the top-of-chain ground state with `topGS_mem` and `topGS_cross`.
+- `StructureD` is now the ζ instance `zetaGD`: finite dimension proved there, the Green steps from `DegenerateFlat`, the swap from `SimpleStructure`. `DHGround`'s stage 4 is now the dh instance `dhGD`. Round 268's stage 4 had been a renamed copy of `StructureD`.
+- The old names (`IsChain`, `gdim`, `chainVec`, `chainBase`, `topGS`, `theoremD`, `topGS_cross`, …, and their `DH` versions) are abbreviations or one-line corollaries, so every downstream file is unchanged.
+
+**2. One negative-index argument** (`WeilIndexInfinite.lean`).
+- Round 232's §B–E (ℓ² over the zeros, the targets, density through `TwinLandau.Rp_eq_zero_of_Wsum_const`, the negative space) is stated for any `NegData`:
+  - ordinates `t_i` with `|Im t_i| < ½`, `Re t_i ≠ 0`, finitely many below any height;
+  - a scale `κ > 0` with `Σ‖ĝ₀(κt_i)‖² < ∞`;
+  - a form `Q`, a weight `w > 0`, and the explicit formula `Q(Σ c_s twin_s) = w·Σ_i (m_c(κt_i)ĝ₀(κt_i))²`;
+  - a predicate `Good` that every twin combination satisfies (the strip test at the right width).
+- `negDirections_offline` (ζ: `κ = 1`, `w = 1`) and `negDirections_offline_dh` (dh: `κ = 3`, `w = 2`) are instances. Round 266's `DHNegIndex` §B–E had been a renamed copy.
+- The test points `κτ` and the reparametrisation `s = 2l/κ` are the only places the scale enters.
+
+**3. One Hadamard log-derivative.** `hasSum_logDeriv_of_hadamardW` (round 257, in `DHExplicit`) moves to `XiLogDeriv`. `hasSum_logDeriv_Xi`, `hasSum_logDeriv_XiC` and `hasSum_logDeriv_XiDH` become instances of it. They had been three copies of the same 80-line proof.
+
+**4. One `weilRHS`.** `PhiNull.weilSide` and `ZetaInputs.weilRHS` were the same definition, character for character. Now `weilRHS` is defined once in `Exterior`, next to `WeilExplicit`, and `PhiNull` uses it. `WeilExplicit` itself still spells the expression out: restating it through `weilRHS` would change the unfolding behaviour that many files rely on.
+
+**5. Name clashes.** These kept `ParityRelax`/`ParityCert`/`CertInstances` from being imported with `WeilLandau`/`Concave`, and the dh chain from being imported with `WeilChiDensity`. The renames:
+- `ParityRelax.cw` (the weight `2Λ(n)/√n`) → `cwΛ`;
+- `ParityRelax.tail_W` → `tail_Wp`;
+- `WeilChiDensity.cC` → `cChi`.
+
+A test file importing `WeilLandau`, `Concave`, `ParityRelax`, `ParityCert`, `CertInstances`, `DHHadamard` and `WeilChiDensity` together compiles. The PNT+/`Zeta23.FromPNTPlus` duplicate (`BlaschkeB`) is unchanged.
+
+**Size.** The fourteen changed files lose 2,005 lines and gain 559, and the new `GroundChain.lean` adds 657: 789 lines fewer in `src/`. The chain counts are 3,407 → 2,837 lines for `StructureD` + `DHGround` + `WeilIndexInfinite` + `DHNegIndex` (with `GroundChain`). The checked-theorem count is 1359 (was 1356): the generic theorems are checked in their own right, and `#print axioms` lines for the removed copies are dropped.
+
+**Not done** (the review's residual list, still open):
+- a parametric explicit formula over `ζ`, `L(s, χ)` and `dh` (`WeilAssemble`/`WeilChi`/`DHExplicit` keep separate archimedean and prime sides);
+- `DHOddPacket` as a phase packet shared with `DHPacket`;
+- moving the generated dh numerics (about 60% of `src/`) into their own build layer;
+- retiring the superseded growth chain (`KVSubsumes`);
+- feeding zeta23's Montgomery–Vaughan inequality into `DirMean.mean_value`.
+
+The pilot build at this round, before the split of round 275: 168 compiled, 52 up to date, in 2624 s at `JOBS=3`; 0 warnings; all 1190 printed `#print axioms` lines are `[propext, Classical.choice, Quot.sound]`. The three external layers import none of the changed declarations except `Domination` (pnt layer), which uses `negDirections_offline` with its statement unchanged.
+
+**Check 4.** Acknowledged: every item is from `STRUCTURAL-REVIEW.md` §3.2, §7 and §0 item 10. New: the generic statements (`GroundData`, `NegData`) and the co-import test.
+
+**Bearing on RH:** none. Same theorems, fewer proofs.
+
+## Round 275: the Davenport–Heilbronn chain becomes its own layer (`external/dh/`, `build.sh`)
+
+The dh chain of rounds 253–273 was 50 of the 220 files in `src/` and about 94k of its 153k lines, most of it generated interval arithmetic. In round 274's build it took about three quarters of the compile time: 4863 of 6368 CPU-seconds summed over the files. No file outside the chain imports it, and neither external layer does. So it moves, unchanged, to `external/dh/`, the way the PNT+ and zeta23 work lives in `external/pnt/` and `external/zeta23/`. The files are the 49 modules that import `DavenportHeilbronn`, plus `HurwitzEM`, which only `DHHurwitzEM` uses.
+
+- **Builds.** `./build.sh` now compiles `src/` only (170 files). `external/dh/build.sh` compiles the dh layer into the same `build/`.
+- **How `build.sh` changed.** It takes the source directory from `SRC` (default `src/`), and `external/dh/build.sh` is that script with `SRC` set. A file now also counts as stale when the olean of a module it imports from another layer is newer than its own. So the dh layer rebuilds exactly what a pilot change touches.
+- **Unchanged.** Module names (`DHGround`, `DHNegIndex`, …) and every statement are unchanged, and the oleans in `build/` stay valid across the move.
+- **Generators.** The three dh generators that read Lean sources (`gen_locate.py`, `gen_locate_zero.py`, `gen_logext.py`) now read them from `external/dh/`.
+- **README.** The file table keeps the dh rows, prefixed `external/dh/`.
+
+Counts: 953 checked theorems in `src/` (59,550 lines) and 406 in `external/dh/` (93,690 lines). Together that is round 274's 1359.
+
+Verified after the move: `./build.sh` reports 0 compiled, 170 up to date. After touching `src/StructureD.lean`, `./build.sh` recompiled its 67 pilot dependents (338 s), and `external/dh/build.sh` then recompiled the 35 dh files that import them. That took two runs, because a container restart interrupted the first: 20 files, then 15 compiled and 35 up to date, 5207 CPU-seconds in all. Both runs had 0 warnings, and every printed axiom line is `[propext, Classical.choice, Quot.sound]`. The other 15 dh files were last compiled in round 274's build, with the same result.
+
+**Check 4.** Acknowledged: the round-273 assessment proposed this split. New: the cross-layer staleness rule in `build.sh`.
+
+**Bearing on RH:** none.
+
+## Round 276: the same-space hybrid certificate on zeta23's zero side, with no RH (`external/zeta23/HybridCertificate.lean`, `HybridExamples.lean`)
+
+Alpöge–Furman (zeta23) count distinct on-line zeros with a rank–trace inequality for `A = Σ_z m_z v_z v_zᵀ`. Here `v_z` is the vector of Fourier evaluations at the zero `z`. This round asks whether a second family of information, such as a mollified `ζ′` weight `g`, can enter the same certificate without RH. The coupling is in the same space: `v_z = w_z + (η g_z) u_z`. The round states the resulting certificate in Lean. One term is a sum over the off-line zeros alone, and it can be replaced by a displayed hypothesis.
+
+**1. The zero side** (`build.sh`). The import closure of `Zeta23.ZeroSide` has 13 zeta23 files. Nine of them are new to the layer, and they compile unpatched: `LinAlg` and five of its parts, `Hypotheses.GzGp`, `Assembly.Inputs` and `ZeroSide`. The layer now compiles 59 zeta23 files, up from 50, plus its eight own files. Two other changes to `build.sh`:
+- It fetches again when `MODS` names a file missing from `upstream/`.
+- It fails if Lean reports a use of `sorry` in a compiled file, or if any axiom line printed during the build is not exactly `[propext, Classical.choice, Quot.sound]`. The axiom lines are those a compiled file prints with its own `#print axioms`, and those of the final check. Before, it only printed them, and `lean` exits 0 on a `sorry` and on a `sorryAx` line.
+
+**2. The certificates.** These hold for any `ZeroBlockData` and any unit `c > 0`; zeta23 takes `c = aL²`.
+- `cert_offline`: `2c⁻¹ Re tr A − ‖c⁻¹A‖²_F + Σ_{z∈R} (4c⁻¹ m_z Re β_z − 4) ≤ s₁ + s₂`. Here `β_z = v_z·v_z` and `R` holds one zero from each off-line pair. There is no hypothesis on the vectors.
+- **`hybrid_cert`**: the only hypotheses are `v = w + (ηg)u` and `Σ_k |w_z k|² ≤ c` at the on-line zeros. The latter has the shape of zeta23's `hPois`, imposed on `w` alone. Then
+  `c⁻¹(4A_w + 2A_g) − 2N − ‖c⁻¹A‖²_F + 2c⁻¹ Σ_{z off the line} m_z Re G_z ≤ s₁ + s₂`,
+  where `G_z = 2η g_z (w_z·u_z) + η² g_z² (u_z·u_z)`.
+  `A_w`, `A_g` and `N` are sums over all zeros in the window, and `‖A‖_F` is a function of the entries of `A`, which are such sums. The last term is the only one that is a sum over the off-line zeros alone.
+- `hybrid_cert_pairs`: for reflection-symmetric `w`, the last term is `4c⁻¹ Σ_{z∈R} m_z Re G_z`.
+- `hybrid_cert_of_offline` replaces the last term by `−2c⁻¹E`, given `OFF(E): −E ≤ Σ_{z off the line} m_z Re G_z`.
+- `hybrid_cert_of_moments` splits `OFF` by order in `η` into two one-sided inputs: `−E₁ ≤ 2η Σ_{off} m Re(g (w·u))` and `−E₂ ≤ Σ_{off} m Re(g² (u·u))`.
+- `hybrid_cert_of_no_offline` takes `E = 0` when every zero of the window is on the line.
+- `hybrid_cert_eta_zero` gives the inequality of zeta23's `Assembly.zeroside_rank_core` at `η = 0`.
+
+**3. Instances** (`HybridExamples.lean`).
+- On small concrete `ZeroBlockData`, every hypothesis of `hybrid_cert`, `hybrid_cert_pairs`, `hybrid_cert_of_moments`, `hybrid_cert_of_no_offline` and `hybrid_cert_eta_zero` is discharged. So none of them is vacuous. One instance uses a base family `w` that is not reflection-symmetric.
+- **`last_term_needed`**: on one off-line pair with no on-line zero (`v ≡ 1 = w + ηgu`, with `w ≡ 10`, `u ≡ g ≡ 1`, `η = −9`, `c = 1`), the bound of `hybrid_cert` without its off-line term is false: `396 ≤ 0`.
+- **`with_last_term_value`**: with that term, the left side is exactly `0 = s₁ + s₂`, so the bound is attained.
+- So for abstract data the off-line term cannot be dropped. Any RH-free use of the certificate has to supply `OFF(E)` or something equivalent.
+
+**What it fixes for the analytic side.** At `η = 0` the certificate is zeta23's, so the coupling is worth having only if it beats `η = 0`. That needs three inputs.
+- **The window sums, from a prime side.** A prime side computes sums over all zeros, so asymptotics for the all-zeros terms come from there. `A_w` is zeta23's. The `η` part of `A_g` needs twisted first moments of the weight. Its `η²` part is a mean square of the weight. `‖A‖_F` needs upper bounds through the quartic terms in `η`.
+- **The tail.** The window sums are the prime-side sums less a tail over the zeros outside the window, as in zeta23's `Ez = Gz − Az` (prop:tail). For the coupled family that tail contains `g` at every zero outside the window. zeta23's `Tail.lean` does not bound it.
+- **`OFF(E)`.** `2c⁻¹E` must be smaller than the net gain over `η = 0`: the increase in `2c⁻¹A_g`, less the increase in `‖c⁻¹A‖²_F`. The input is one-sided: only a lower bound on the off-line sum is needed.
+
+The normalisation is imposed on `w` alone. If it were imposed on `v`, it would need a pointwise bound of fixed size on `g` at each on-line zero. The known pointwise bounds for a mollified `ζ′` weight grow with the height. That is why the off-line term remains. On the line the proof uses only `Re(w·w) ≤ Σ_k |w_k|²`, which holds for every complex vector, so no symmetry of `w`, `u` or `g` is assumed.
+
+**Not done.**
+- No prime side is formalised: neither zeta23's `Assembly` nor its prime and tail files are ported.
+- The certificate is stated for the abstract `ZeroBlockData`, not for zeta23's concrete `blockData`.
+- No proportion is claimed.
+
+**Hostile review, first pass** (fresh-context reviewer; the lead then checked each finding). It reviewed the round's first two commits, `04159c4` and `de596d8`, and found no MAJOR findings, 6 minor, 8 cosmetic and 2 out-of-scope observations (F1–F16). All 14 findings and the first observation were accepted. Of the second observation, one item of three was acted on.
+- **The theorems.**
+  - F1: the symmetry hypotheses on `u` and `g` were redundant. Writing the off-line term over all off-line zeros removes the one on `w` too. So `hybrid_cert` now has no symmetry hypothesis, and the old `R`-form is `hybrid_cert_pairs`, which needs only symmetric `w`. Also, `hybrid_cert_eta_zero` no longer assumes `w` symmetric, which followed from `v = w` anyway.
+  - F14: the first-order input of `hybrid_cert_of_moments` was two-sided (`|…| ≤ E₁`). It is now one-sided.
+- **The prose,** corrected above, in the docstrings, in the zeta23 README and in the patch header.
+  - F2: "the only place the zeros' positions enter". The off-line zeros also enter `A_w`, `A_g`, `N` and `‖A‖_F`, and positions enter every term.
+  - F3: a condition for beating `η = 0` had been stated as a condition for any proportion.
+  - F4: the tail input had been left out.
+  - F5: `A_g` had been described by twisted first moments, though its `η²` part is a mean square of the weight.
+  - F6: "only mean values over the zeros are known". Pointwise bounds exist; they grow with the height.
+  - F7: `‖A‖_F` had been called a sum over zeros.
+  - F8: a Poisson example in `cert_offline`'s docstring cannot hold on zeta23's finite grid.
+  - F9: the module docstring's "using only" omitted hypotheses.
+  - F10: a proof comment lacked the factor `c`.
+  - F11: notation clashes (`P`, `/m`).
+  - F12: the patch header said 50 files.
+  - F13: the counts (13-file closure; 59 zeta23 files plus the layer's own) and the zeta23 README's table row.
+- **The axiom check (F15).** `build.sh`'s axiom check could not fail. It was made to fail closed; see the second pass.
+- **The fetch logic (F16).** Of its three items, the third is now documented: a `ZETA23` clone inside `upstream/` is deleted by a re-fetch. The first two are not addressed. The fetch logic predates this round, and it still does not notice a change of `REV` or an edited upstream file.
+
+**Hostile review, second pass** (convergence, on the sweep `0bce5c8`). It found no MAJOR findings, 2 minor and 3 cosmetic, and made 2 out-of-scope observations (O1, O2). All seven were accepted.
+- R276C-1: the new gate checked only the 18 lines of the final check, not the 20 axiom lines the layer files print while compiling. Six of those theorems were reached by no gated theorem. `build.sh` now applies the same rule to every compiled file's output.
+- R276C-2: this record had left out F9 and F10, misdescribed F16, and paraphrased loosely. It is rewritten above.
+- R276C-3: the final check could be passed by a dirty line next to a line the count missed: an indented `#print axioms`, `open … in`, or a double space. It now also fails on any axiom line in its output that is not the standard one. On the reviewer's 11 test inputs it passes the clean one and fails the other 10, each with a message.
+- R276C-4: "displayed as a hypothesis" was reworded.
+- R276C-5: the non-vacuity check had been a scratch run listed under "Verified". It is now `HybridExamples.lean`, compiled and gated by `build.sh`. It also includes the reviewer's tightness instance (`last_term_needed`, `with_last_term_value`).
+- O1: the round-228 sentence "All axioms are clean" rested on ungated compile output. That output is now gated.
+- O2: a printed forgery of a clean axiom line next to a `sorry` passed the final check. It now fails (test input d7).
+
+**Hostile review, third pass** (convergence, on the second sweep `0cdaed3`). It found no MAJOR findings, 1 minor and 1 cosmetic, and made 2 out-of-scope observations. The minor and the cosmetic were accepted, and so was the second observation.
+- R276C2-1: the lemma that shows the example's base family is not reflection-symmetric (`w1_not_symm`) was compiled but not gated. A `sorry` in its proof passed the build. Now `build.sh` fails if Lean reports a use of `sorry` in any compiled file, and `w1_not_symm` is in the final check. The reviewer's mutant now fails at compile time.
+- R276C2-2: this record had omitted O1 and O2, credited the forgery to R276C-3, and dated the first pass to one commit. All three are corrected above.
+- First observation, not addressed: under `open Classical`, `#print axioms` shortens the names, so a clean theorem would fail the check. It fails closed, and no committed check runs under `open Classical`.
+- Second observation, accepted: a file that fails the gate no longer leaves its `.olean` in `build/`.
+
+**Hostile review, fourth pass** (convergence, on the third sweep `cab3e28`). It found no MAJOR findings, 1 minor and no cosmetic, and made 2 out-of-scope observations. The minor was accepted.
+- R276C3-1: the `sorry` check matched only Lean's default wording, ``declaration uses `sorry` ``. Under `pp.sorrySource`, `pp.all`, `pp.explicit`, `pp.notation false` or `pp.raw`, Lean renders the term in that warning differently, and the build passed. The check was widened to forms beginning `` `sorry ``, which covered those five options; the fifth pass found more. The gate sentences now say what it checks: a use of `sorry` that Lean reports.
+- Not addressed: both observations are deliberate subversions with no committed reach. Neither is matched by any compiled file.
+  - A file can turn the warning off (`set_option warn.sorry false`, `#guard_msgs (drop warning)`).
+  - `debug.skipKernelTC` can give a false theorem a clean axiom line by switching the kernel off.
+
+**Hostile review, fifth pass** (convergence, on the fourth sweep `9d59e08`). It found no MAJOR findings, 1 minor and 1 cosmetic, and no new out-of-scope observations. Both were accepted.
+- R276C4-1: under `pp.proofs false`, `pp.exprSizes true` or `pp.maxSteps 0`, Lean renders the term in the warning as `⋯` or `[size …] sorry`, and the build still passed. Lean's warning is ``m!"declaration uses `{s}`"``, and no other Lean message begins ``declaration uses ` ``. So the check now looks for that fixed text anywhere in the output, and no longer depends on how the term is rendered. Output that merely quotes the text also fails: `#help term sorry` and `#print Lean.warnIfUsesSorry` both quote it, and neither appears in any committed file.
+  - Tested on the reviewer's 31 option-scan inputs and on the earlier inputs on which Lean prints a `sorry` warning: all fail on the `sorry` check.
+  - The committed layer files pass.
+- R276C4-2: the record and a comment in `build.sh` had misquoted one rendered form. The forms are no longer quoted.
+
+**Hostile review, sixth pass** (convergence, on the fifth sweep `44fb031`). It found no MAJOR findings, no minor findings and 2 cosmetic, and made no new out-of-scope observations. **The round converged.** Both cosmetics were fixed in an editorial commit.
+- R276C5-1: the check's rationale was worded about how messages begin, while the check looks for the text anywhere in the output. The wording now says so. Output that merely quotes the text also fails the check, which errs closed.
+- R276C5-2: two qualifiers were restored in the fifth-pass record.
+
+Verified:
+- **Layer build** (final, after the sixth pass's editorial fixes). `external/zeta23/build.sh` compiled the 59 zeta23 files and the eight layer files in 499 s, exit 0. Lean reports no use of `sorry` in any compiled file, and `HybridCertificate` and `HybridExamples` print no warnings.
+- **Axiom lines.** The build printed 48, all `[propext, Classical.choice, Quot.sound]` and all gated:
+  - 20 from the layer files' own `#print axioms` during compilation;
+  - 25 from the main final check: the seven earlier theorems, the eight `HybridCert` theorems and ten from `HybridExamples`;
+  - 3 from the co-import check.
+
+**Check 4.** New: no earlier round couples a second family into zeta23's certificate. **Bearing on RH:** none. The certificate counts on-line zeros without assuming RH.

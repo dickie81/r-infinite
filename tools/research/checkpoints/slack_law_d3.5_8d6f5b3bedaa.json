@@ -1,0 +1,40 @@
+{
+"script_sha256": "241c93e527623dc8d4bd5fee294c7176b1260091a12938821151cb42ba6f5a1a",
+"key": "8d6f5b3bedaaf4aed1f311febfa5344d68361f0b6e2d1435f7c5777ed7871b11",
+"params": {
+"deps": {
+"slack_law_flint.py": "241c93e527623dc8d4bd5fee294c7176b1260091a12938821151cb42ba6f5a1a"
+},
+"cell": "d3.5",
+"delta": 3.5,
+"parity": "even",
+"prec": 1400,
+"extra": 120,
+"zeros_sha256": "e0ce93cf748e71c827ac920e903407da8cb168093274aecb6e2af4ce31769c30",
+"tail_panels": 50,
+"tail_pts": 16,
+"round": 1
+},
+"state": {
+"cell": "d3.5",
+"delta": 3.5,
+"parity": "even",
+"prec": 1400,
+"extra": 120,
+"nz": 6700,
+"gmax": 6996.886975870423,
+"m": 351,
+"zeros_sha256": "e0ce93cf748e71c827ac920e903407da8cb168093274aecb6e2af4ce31769c30",
+"tail_panels": 50,
+"tail_pts": 16,
+"eig_mid": "3.716313962604267771168103976321681902836e-167",
+"rq_mid": "3.716313962604267771168103976321681902836e-167",
+"rq_rad": 0.0,
+"rq_upper": "3.716313962604267771168103976321681902836e-167",
+"ln_rq_upper": -383.2189782232247,
+"ln_eig": -383.2189782232247,
+"gram_s": 1408.4110670089722,
+"eig_s": 438.73946237564087,
+"verdict": "COMPUTED (two-sided model value; the Rayleigh ball is a rigorous upper bound on the truncated model's lambda_1)"
+}
+}
