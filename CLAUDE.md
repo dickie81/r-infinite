@@ -93,7 +93,14 @@ At the start of your first response in any session, state plainly: "Running mand
 
 **Battery scoping and compute reuse (owner's decisions; Addenda 334, 337, 340, 341 record the commissions).** Classify each round by its diff:
 
-- **Prose-only** (no verifier bytes, no manifest, no gate semantics) *and* **docstring-only** (verifier changes wholly inside docstrings/comments — no executable statement, gate label, conjunct, or needle list; the reviewer confirms by reading the hunks): the battery is the manifest-integrity precheck + a full run of the tower TOP verifier + a full run of any other verifier whose bytes or block text the diff touches (docstring-only additionally commits the manifest refresh with the change). Any executable-line change reverts to the full-tower class.
+- **Prose-only** (no verifier bytes, no manifest, no gate semantics) *and* **docstring-only** (verifier changes wholly inside docstrings/comments — no executable statement, gate label, conjunct, or needle list; the reviewer confirms by reading the hunks): the battery is the manifest-integrity precheck + a full run of the tower TOP verifier + a full run of any other verifier whose bytes or block text the diff touches (docstring-only additionally commits the manifest refresh with the change).
+  - **In this class the TOP verifier runs with `CASCADE_CHAIN=manifest`** (owner's decision, 2026-10-07, round 390). Its chain gate then checks two things against the committed record instead of re-executing the certified tower serially:
+    - every ancestor's committed bytes, by sha256 against `tower_manifest.json`;
+    - the census strings, against the paper.
+  - Why: the full chain took 75–95 min per run and added nothing for a prose diff. The TOP verifier's checkpoints are reused, and `run_tower.py`'s prechecks already verify every member's bytes and every declared paper surface live. Round 389 ran it three times for a one-sentence edit.
+  - Verifiers whose block text the diff touches keep the default full chain mode; they gate the edited text and are cheap.
+  - Full chain re-execution (`CASCADE_CHAIN` unset) remains owed in the full-tower class.
+  - Any executable-line change reverts to the full-tower class.
 - **Full-tower class**: landings, certifications, code- or manifest-touching diffs, and any round after a battery failure.
 - **Sabotage suites always run live** — cached or skipped gates cannot produce an observed census.
 - **Save points**: long computations run under `tools/research/run_with_checkpoints.sh`, which commits and pushes `tools/research/checkpoints/` to origin every 10 minutes (the only restore-proof storage); compute scripts are written resumable. The checkpoints directory is ephemeral compute state — out of review scope, never cited by a paper or verifier, cleaned at each arc's completion; auto-checkpoint commits carry no review obligations.
