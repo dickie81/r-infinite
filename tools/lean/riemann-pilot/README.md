@@ -8570,7 +8570,7 @@ Verified:
 
 **Check 4.** New: no earlier round couples a second family into zeta23's certificate. **Bearing on RH:** none. The certificate counts on-line zeros without assuming RH.
 
-## Round 277: an external result — a zero-free half-plane `Re s > 7/8` (OpenAI, 2026-10-07) — what it fills in the stack, what the stack lacked, and the plan to derive it here
+## Round 277: an external result — a zero-free half-plane `Re s > 7/8` (OpenAI, released 2026-10-06; read here 2026-10-07) — what it fills in the stack, what the stack lacked, and the plan to derive it here
 
 **The claim.** OpenAI's release `github.com/openai/math` (read at commit `adc7f12`, entry 003) states that every Dirichlet L-function, ζ included, and every finite-order Hecke L-function over `ℚ(√−3)`, has no zero in `Re s > 7/8`. The principal pole is excluded. Sources:
 - Preprint "The Quasi-Riemann Hypothesis: A Zero-Free Half-Plane Re(s)>7/8", dated 30 September 2026.

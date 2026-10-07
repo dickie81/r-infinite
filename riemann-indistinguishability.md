@@ -3877,19 +3877,27 @@ and goes negative (7 entries by n = 20). ~~Every proven zero-free
 result consumes exactly the positivity ζ has and f lacks.~~ **The
 zero-free results for ζ on and near σ = 1 recorded here, F2
 (3 + 4cos θ + cos 2θ ≥ 0) and F3 (de la Vallée Poussin), consume
-it. Zero-freeness as such does not need it: f itself has no zero
+~~it~~ **the positivity of ζ's log-spectrum, Λ(n) ≥ 0**. Zero-freeness
+as such does not need ~~it~~ **that positivity**: f itself has no zero
 on Re s ≥ 2, where its first coefficient dominates the rest (the
 Lean pilot's `dh_ne_zero_of_two_le` for dh = a(1)·f, from
 Σ_{n≥2}|a(n)/a(1)|·n^(−2) ≤ 7/9 — a record beside the gates here,
 not a gate), and L(s, χ) ≠ 0 on Re s > 1 for a complex character χ
 follows from the Euler product with no sign condition.** *(round
 389: the struck sentence quantified over all proofs without a
-survey, and the two half-planes now named made it false when
+survey, and the two half-planes ~~now named~~ **in the replacement
+(f on Re s ≥ 2; L(s, χ) on Re s > 1)** made it false when
 written (CLAUDE.md Check 9). The zero-free half-planes claimed by
-OpenAI on 2026-10-07, Re s > 7/8 and, by a second route,
-Re s > 11/12, have not been checked here; they run through the
+OpenAI ~~on 2026-10-07~~ **in a release of 2026-10-06 (preprints dated
+30 September and 5 October 2026)**, Re s > 7/8 and, by a second route,
+Re s > 11/12, have not been checked here~~; they run through the
 local Euler factors of Hecke L-functions over ℚ(√−3) and prime
-counting in ray classes — Lean pilot README round 277.)* The
+counting in ray classes — Lean pilot README round 277~~ **(the Lean
+pilot's README, round 277, summarises the second route)**. Round-389
+review: F389-1 named the positivity; F389-5 named the two
+half-planes; F389-4 dated the release; F389-2 struck a route
+description its cited source did not contain and that was wrong for
+the second route.)* The
 superposition anatomy: f is an equal-weight superposition of two
 product states (|c₁| = |c₂|), and at BOTH off-line zeros the
 components are nonzero, of equal modulus, with ratio exactly
@@ -4366,7 +4374,8 @@ beside a spurious competitor; the two round-198 reviewers
 conflicted here and the committed-parameter reading governs),
 strain at 3–6, blur beyond — as the θ_k spacings predict; true ordinates
 entered only at the labeled comparison step. *(vi) The
-dichotomy — why the engine cannot be an estimate.* On the
+dichotomy — ~~why the engine cannot be an estimate~~ **why estimating
+the ledger itself is circular**.* On the
 line, each zero's contribution 2(1 − cos nθ) lies in [0, 4]:
 under RH the positivity holds TERMWISE, with no cancellation
 needed. Off the line at β > ½, the quadruple contributes
@@ -4374,12 +4383,21 @@ needed. Off the line at β > ½, the quadruple contributes
 (2β − 1)/2γ² per step (gated at three (β, γ) examples),
 unboundedly negative on a subsequence. **There is no
 intermediate regime**: the bound is trivially true or
-exponentially false, and magnitude estimation has no purchase
+exponentially false, ~~and magnitude estimation has no purchase
 on a dichotomy — only a structural a priori positivity can
 decide it. This recovers, from inside the Li ledger and by
 elimination, exactly what Theorem 1at's three-worlds
 triangulation found from outside: the missing mathematics is
-an archimedean positivity. *(vii) The informational-pressure
+an archimedean positivity.~~ **so estimating the ledger itself is
+circular: the bound it would have to establish is equivalent to
+RH (Li's criterion), as 1as(iv)'s ψ(x) − x = O(x^(½+ε)) is. The
+dichotomy does not show that no estimate decides RH (an estimate
+of an auxiliary quantity with an independent second
+representation lies outside it), so it does not by itself select
+the positivity that Theorem 1at found, from outside, in each of
+its three worlds.** *(round 389 F389-3: the struck clauses drew a
+conclusion about all estimation from an elimination that covered
+only the ledger's own magnitude; CLAUDE.md Check 9.)* *(vii) The informational-pressure
 program (DECLARED RESEARCH PROGRAM — named, dated, never
 citable as a result).* The owner's proposal: the arithmetic
 fill exerting informational pressure on the archimedean ball
@@ -4388,7 +4406,9 @@ Mechanism-class MEMBERSHIP: thermodynamic/informational
 functionals are among the mechanisms yielding a priori
 positivity without estimates (states, entropy production,
 convex pressure) — members of the broader structural-positivity
-class (vi)'s elimination selects (~~necessity … precisely~~
+class ~~(vi)'s elimination selects~~ **of a priori positivity
+mechanisms** *(round 389 F389-3: (vi)'s elimination is struck)*
+(~~necessity … precisely~~
 [struck round 198 F6, both reviewers ("F2/F6" at the sweep;
 pointer re-synced round 200) — the elimination
 covers magnitude estimation only; rival structural mechanisms —
@@ -4427,8 +4447,9 @@ Stieltjes/polygamma, Cauchy extraction, ESPRIT, classical
 zeros at the labeled comparison steps, entropy integrals); the
 census and mechanism are data; the inversion is a
 demonstration of classical analytic rigidity at stated
-precision; the dichotomy is elementary algebra with the
-mechanism-class conclusion argued by elimination; (vii) is a
+precision; the dichotomy is elementary algebra ~~with the
+mechanism-class conclusion argued by elimination~~ **(its
+mechanism-class conclusion struck round 389 F389-3)**; (vii) is a
 declared program whose hardness is conserved (the difficulty
 reconvenes at P4) and whose monotonicity clause is a guess; two
 instrument failures disclosed in place (the branch jump; the

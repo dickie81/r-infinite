@@ -58,13 +58,14 @@ Before answering any question about the cascade's derivations, predictions, uniq
 - (b) **Enter X in the open-targets register** (`tools/lean/riemann-pilot/STRUCTURAL-REVIEW.md` §6) with its socket theorem and an attack note. An equivalence moves the difficulty somewhere else; it does not close the line.
 - (c) **Record the signals fed to any criterion.** When a "bound ⇒ zero-free / continuation" theorem is in hand, record which signals were fed to it and whether each is **circular** (its bound equivalent to the conclusion, as for ψ, M, L and the Weil twins). The open question is then an *auxiliary* signal with an independent second representation, and that question goes on the register too.
 
-Precedent, all written while round 222's `LFunction_ne_zero_of_psiChi` sat in the stack run only from zeros to oscillation (it is a one-sided bound ⇒ zero-free half-plane, the endgame shape of OpenAI's argument):
+Precedent (round 222's `LFunction_ne_zero_of_psiChi`, landed 2026-09-29, is a one-sided bound ⇒ zero-free half-plane, the endgame shape of OpenAI's argument; it landed after the paper and README precedents below and before the STRUCTURAL-REVIEW ones, and the stack ran it only from zeros to oscillation):
 - the pilot's ladder row "`x^{1−δ}` … open; equivalent to a zero-free strip" (README round 190);
 - round 167's "(N) for all `a` is zero-free-strip-hard";
 - STRUCTURAL-REVIEW §5b's "a wider zero-free region, if one existed" and §6's "(Siegel-zero exclusion), which the stack does not attempt";
 - `riemann-indistinguishability.md`'s "Every proven zero-free result consumes exactly the positivity ζ has and f lacks".
+- `riemann-indistinguishability.md` 1av(vi)'s "magnitude estimation has no purchase on a dichotomy — only a structural a priori positivity can decide it" (both struck in round 389).
 
-OpenAI's claimed proof of a zero-free half-plane `Re s > 7/8` (2026-10-07) fed that endgame an auxiliary cubic-theta signal over a family. See "Looking in the right places" below.
+OpenAI's claimed proof of a zero-free half-plane `Re s > 7/8` (released 2026-10-06) fed that endgame an auxiliary cubic-theta signal over a family. See "Looking in the right places" below.
 
 At the start of your first response in any session, state plainly: "Running mandatory review protocol. Checks 0–9 active." This is the confirmation that the protocol is in force. Any response that does not begin with that line is out of compliance.
 
