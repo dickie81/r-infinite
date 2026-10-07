@@ -4457,6 +4457,12 @@
 "rc": 0,
 "when": "2026-09-08T16:19Z"
 },
+"c652cd57821a3af9b7292209": {
+"dt": 571.1660344600677,
+"file": "cascade_smooth_functional.py",
+"rc": 0,
+"when": "2026-10-07T17:40Z"
+},
 "c656ab9a449b6b291a9040a1": {
 "dt": 11.146709203720093,
 "file": "cascade_sonin_dirac.py",
