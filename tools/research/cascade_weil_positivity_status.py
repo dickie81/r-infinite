@@ -49,12 +49,16 @@ disclosure precedent): run for runnability only, their READING
 sentences anchored at source.
 
 Gates:
-  V1 -- prior-pursuit census: "Weil positivity", "Weil's
-        criterion", "positivity criterion" occur ONLY within
-        Theorem 1ai's own span in the paper; zero hits in the
+  V1 -- prior-pursuit census, AT THE CENSUS POINT (round 395; the
+        live-tree form had failed since the 1bf landing): on the tree
+        of the round-140 sweep commit 4f51753, "Weil positivity",
+        "Weil's criterion", "positivity criterion" occur ONLY within
+        Theorem 1ai's own span in the paper, with zero hits in the
         formulation, every src/*.tex, and every tools *.py except
         this instrument (repo-wide per round 140 F6; record files
-        excluded as declared history).
+        excluded as declared history); and zero in the live paper's
+        pre-1ai span. Needs the repository's history back to 4f51753
+        (a shallow clone fails closed and says so).
   V2 -- W1 blindness over the TRUE corpus (round 140 F1/F5; the
         landing docstring claimed the full 25 x 121 grid at "all
         214 committed s values" while the code subsampled -- the
@@ -171,6 +175,9 @@ def at_census(path):
 
 
 rc_ls, ls = git_out("ls-tree", "-r", "--name-only", CENSUS)
+if rc_ls != 0:
+    print(f"  V1: census commit {CENSUS} unreachable -- a shallow clone? "
+          f"run `git fetch --unshallow` (round 396 F396-B4)", flush=True)
 hist_paper = at_census("riemann-indistinguishability.md")
 hist_form = at_census("cascade-riemann-formulation.md")
 SELF_REL = "tools/research/cascade_weil_positivity_status.py"

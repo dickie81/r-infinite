@@ -8,8 +8,8 @@ Rounds 389-393 found delimiters that GitHub does not render as written
 surface with cmark-gfm -- the renderer behind GitHub's markdown, whose
 HTML for this paper matched GitHub's own API rendering at 2b76ff1 and
 49ab366 (the round-395 reviewers compared the visible text and the
-em/strong/del/code markers) -- and fails on nine defect classes, each
-decidable from the rendering:
+em/strong/del/code markers) -- and fails on fourteen defect classes,
+each decidable from the rendering:
 
   L1 single-tilde strike: GitHub parses ONE tilde as a strike
      delimiter too, so two approximation signs ("~9.3 ... ~20%") can
@@ -47,16 +47,31 @@ decidable from the rendering:
      must not change the rendering ("|x|_p" opens an italic that a
      later "x_ " closes; the paper's 1bo(i) italicised half a
      paragraph this way).
+  L10 a block that interrupts a paragraph: a list, blockquote or
+     heading whose first source line follows a non-blank line of
+     running text -- a hard-wrapped line that happens to begin with
+     "+ ", "1) " or "> " (round 396: nine such lines dropped their
+     operators from formulas in 1bf-1ca). Re-wrap; do not escape.
+  L11 a setext heading: a heading whose source line does not begin
+     with "#" (a stray "===" or "---" under a line of text).
+  L12 a hard line break (<br>): a trailing backslash or two trailing
+     spaces; the surfaces never break lines inside a paragraph.
+  L13 raw HTML: any tag markdown does not produce itself ("a<b and
+     c>d" renders "ad").
+  L14 an indented code block: a <pre> whose source line is not a
+     fence.
 
-Scope, stated: L1-L9 detect markup that does not render as written,
+Scope, stated: L1-L14 detect markup that does not render as written,
 under cmark-gfm's server-side HTML. Not seen: a star after a
 multi-letter token that closes an italic early while the stray it
 leaves follows a letter; a quoted LaTeX escape of one of the allowed
-characters ("\\_", "\\*", "\\~", "\\|"), which renders without its
-backslash; and GitHub's client-side typesetting of "$...$" math, which
-the server HTML does not carry. Those stay with the pre-landing
-self-review. Code spans and code blocks are exempt (backtick strings
-matched as maximal runs, never across a blank line). The per-item
+characters ("\\_", "\\*", "\\~", "\\|", "\\`" and the backslash
+itself), which renders without its backslash; and GitHub's client-side
+typesetting of "$...$" math, which the server HTML does not carry.
+Those stay with the pre-landing self-review. Code spans and fenced
+code blocks are exempt from L5-L9 (backtick strings matched as
+maximal runs, never across a blank line); an indented code block is
+itself a defect (L14). The per-item
 tests of L6 and L9 render one paragraph at a time: cmark-gfm's process
 grows by megabytes per whole-paper render (round 395 O2).
 
@@ -236,6 +251,45 @@ def lint(src):
     for m in re.finditer("`", stxt):
         out.append(("L8", "literal backtick at: "
                     + _snip(stxt[max(0, m.start() - 50):m.start() + 30])))
+    out += _block_defects(src)
+    return out
+
+
+_MD_TAGS = {"p", "em", "strong", "del", "code", "pre", "a", "ul", "ol",
+            "li", "blockquote", "h1", "h2", "h3", "h4", "h5", "h6", "hr",
+            "table", "thead", "tbody", "tr", "th", "td", "br", "img",
+            "input"}
+_LINE_BLOCK = re.compile(r"\s*([-*+]|\d+[.)]|>)(\s|$)|\s*#|\s*\||\s*([-*_]\s*){3,}$")
+
+
+def _block_defects(src):
+    """L10-L14 from the source-positioned rendering."""
+    out = []
+    lines = src.split("\n")
+    h = _render(src, OPT | Options.CMARK_OPT_SOURCEPOS)
+    h_nocode = _drop_code_html(h)
+    for m in re.finditer(r'<(ul|ol|blockquote|h[1-6])[^>]*data-sourcepos='
+                         r'"(\d+):', h):
+        ln = int(m.group(2))
+        prev = lines[ln - 2] if ln >= 2 else ""
+        if prev.strip() and not _LINE_BLOCK.match(prev):
+            out.append(("L10", f"line {ln}: <{m.group(1)}> interrupts a "
+                        f"paragraph: ..." + _snip(prev[-40:], 40) + " | "
+                        + _snip(lines[ln - 1][:40], 40)))
+        if m.group(1).startswith("h") and not lines[ln - 1].lstrip() \
+                .startswith("#"):
+            out.append(("L11", f"line {ln}: setext heading: "
+                        + _snip(lines[ln - 1], 60)))
+    for m in re.finditer(r"<br\s*/?>", h_nocode):
+        out.append(("L12", "hard line break at: " + _snip(
+            _text(h_nocode[max(0, m.start() - 80):m.start()]), 60)))
+    for t in sorted(set(re.findall(r"</?([a-zA-Z][a-zA-Z0-9]*)", h_nocode))
+                    - _MD_TAGS):
+        out.append(("L13", f"raw HTML tag <{t}>"))
+    for m in re.finditer(r'<pre[^>]*data-sourcepos="(\d+):', h):
+        ln = int(m.group(1))
+        if not lines[ln - 1].lstrip().startswith(("```", "~~~")):
+            out.append(("L14", f"line {ln}: indented code block"))
     return out
 
 
@@ -272,6 +326,11 @@ PROBES = (
     ("L7", "*(note: the conjugate f(x)* is real, see 1aa)* rest\n"),
     ("L8", "a quoted ``open quote'' and then `code.py` here\n"),
     ("L9", "the norm |x|_p^s and the tail x_ here\n"),
+    ("L10", "the sum S(T) = arg ζ(½\n+ iT) up to a remainder\n"),
+    ("L11", "a stray rule under text\n===\n"),
+    ("L12", "a line ending in a backslash\\\nand the next\n"),
+    ("L13", "the order a<b and c>d holds\n"),
+    ("L14", "para\n\n    an indented line\n"),
     (None, "~~struck~~ *em* **strong** x\\* ≈ 9.3, \\~9, τ* = 2, "
            "a_k and `a*b ~c~` \\`\\`q''\n"),
 )

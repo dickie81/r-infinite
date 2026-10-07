@@ -145,6 +145,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # member touches the paper ONLY through these entries.
 PAPER_NEEDLES = [
     {'g': 'g9', 's': '**Theorem 1aw (the floor and the meter:'},
+    {'g': 'g9', 's': 'off-line zero at γ = 85.699348)'},   # round 396 (F396-B3/C3): 1aw(iii)'s ordinate, unbound before
+    {'g': 'g9', 's': '4/(1 + 4γ²) ≈ 1.4×10⁻⁴ rad per unit'},   # round 396 (C-O2): g6's published density
+    {'g': 'g9', 's': '(ratio 10.3, gated)'},   # round 396 (C-O2): g6's published ratio
     {'g': 'g9', 's': '**no proof is claimed,\nand none resulted**'},
     {'g': 'g9', 's': 'a float64 Hermite-recurrence artifact'},
     {'g': 'g9', 's': 'refuted the rebound\non its first run'},
@@ -397,6 +400,10 @@ gDH = 85.699348
 dens = 4/(1 + 4*gDH*gDH)
 resol = 2*math.pi/4500
 ok = 9 < resol/dens < 12
+# round 396 (C-O2): the comment above claimed single-site mangles of
+# either surface were pinned; the code side now pins the printed
+# digits (ratio 10.3, density 1.4e-4) and g9's needles pin the paper's
+ok &= round(resol/dens, 1) == 10.3 and f"{dens:.1e}" == "1.4e-04"
 dens20 = 4/(1 + 4*20.0*20.0)
 ok &= 17 < dens20/dens < 20      # the planted target sits where density is ~18x thinner
 print(f"  g6 |dtheta/dgamma| at 85.699 = {dens:.4e}; resolution at n = 4500 = "

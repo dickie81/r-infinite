@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
-"""Theorem 1au verifier: the push record -- the open-region census, the
+"""Theorem 1au verifier: the push record -- the hyperbolicity census, the
 first-stage floor's data, the Turan rate law, and the thinnest Li
 direction. (The docstring title had carried the refuted monotone
 draft's name -- the fourth carrier of the round-194 F2 class, caught
-round 195 F2 and corrected here.)
+round 195 F2 and corrected here. It also said "open-region census",
+struck in the paper's title as false when written at round 395
+F395-C4; this carrier and g2's label were swept round 396 F396-A3/C2.)
 
 Gates (all exit-gated; any failure exits 1):
   g1  the moment instrument: 2*int Phi over [0,8] equals xi(1/2)/2 to
@@ -12,7 +14,9 @@ Gates (all exit-gated; any failure exits 1):
       construction, round-194 F7); the real instrument evidence is the
       gamma(1) cross-check against an independent derivative route
       (relative deviation < 1e-20). Coefficients through j = 56.
-  g2  the open-region census (beyond GORZ's proven d <= 8): for
+  g2  the hyperbolicity census (past GORZ's d <= 8, but inside the
+      proven range -- every d <= 9*10^24 at every n, GORTTW's Theorem
+      1.2 at Platt-Trudgian's height, per the paper's 1at(v)): for
       d in {9, 12, 16, 20, 25} and every reachable n (n <= 56 - d),
       every Jensen stage is hyperbolic with relative imaginary root
       part < 1e-40 (observed: exactly zero).
@@ -49,7 +53,9 @@ Gates (all exit-gated; any failure exits 1):
       could not fail.)
   g7  the paper needles for the 1au block (title; the no-proof frame;
       the FIRST-STAGE FLOOR; the n = 0 reduction; the rate law; the
-      archimedean inequality; the closed-form digits; beyond-GORZ;
+      archimedean inequality; the closed-form digits; the census's
+      inside-the-proven-range correction (round 396: it replaced the
+      needle on the struck beyond-GORZ sentence);
       plus the round-194 repair needles including a unique-context
       anchor for the 1au closed-form sentence -- the in-code list is
       the authoritative census; the original docstring's "MONOTONE
@@ -113,7 +119,7 @@ PAPER_NEEDLES = [
     {'g': 'g7', 's': 'r_j ≈ 1/(2j)'},
     {'g': 'g7', 's': '2 + γ > log 4π'},
     {'g': 'g7', 's': '0.0230957'},
-    {'g': 'g7', 's': "far beyond GORZ's proven"},
+    {'g': 'g7', 's': 'so the census confirms a theorem'},   # round 396 (F396-A3/C2): was "far beyond GORZ's proven", inside the round-395 strike
     {'g': 'g9', 's': '`cascade_attraction_margins.py`', 'min': 2},
     {'g': 'g9', 's': 'the **103 scripts cited in place** above'},
     {'g': 'g9', 's': 'extended by Theorems 1i–1ca:'},
@@ -169,7 +175,7 @@ for d in (9, 12, 16, 20, 25):
         seq.append(min(re[i+1] - re[i] for i in range(len(re) - 1))/(re[-1] - re[0]))
     gapseq[d] = seq
 print(f"  g2 worst relative imaginary part: {float(worst_im):.2e}")
-gate("g2 open-region census: every stage d in {9,12,16,20,25}, all reachable n, "
+gate("g2 hyperbolicity census: every stage d in {9,12,16,20,25}, all reachable n, "
      "hyperbolic", worst_im < mpf(10)**-40)
 
 def hermite_gap(d):

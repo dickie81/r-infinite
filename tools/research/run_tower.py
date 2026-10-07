@@ -65,17 +65,19 @@ pushed every 10 minutes -- git is the only restore-proof storage.
 Failures are never cached.
 
 ROUND 395 (the owner's residual sweep): the key also binds an
-ENVIRONMENT FINGERPRINT (F394-1: the interpreter, the driver's BLAS
-thread count, the mpmath backend switches, and the versions of the
-third-party distributions the member's reach imports, closed under
-their requirements -- see env_fingerprint), so an interpreter or
+ENVIRONMENT FINGERPRINT (F394-1: the interpreter, the C library, the
+CPU, the driver's BLAS thread count, the numeric libraries'
+environment switches, and the versions of the third-party
+distributions the member's reach imports, closed under their
+requirements, with mpmath's and sympy's optional backends -- see
+env_fingerprint), so an interpreter or
 library change re-runs the affected members live without a manual
 TOWER_FRESH; and two prechecks join the run: the render lint of the
 markdown paper surfaces (render_lint.py, pinned) and the gate-label
 census-numeral scan (A561 O-3). The round-395 sweep adds a third, the
 PAPER-READER precheck: every non-member verifier that reads a markdown
-paper surface, discovered structurally and run (cached on a key that
-binds the surfaces' bytes) -- see that block.
+paper surface, discovered structurally and run live on every
+invocation (round 396 retired its cache) -- see that block.
 """
 import concurrent.futures as cf
 import hashlib, json, os, re, subprocess, sys, time
@@ -741,7 +743,7 @@ if (_pp.returncode != 0 or _m2 is None or int(_m2.group(1)) != PRECHECK_PROBE_CA
 # sabotage cases; the census line is gated, the probe count pinned
 # exactly like the two suites above, and the script is pinned in the
 # manifest's keying list
-RENDER_PROBE_CASES, RENDER_SURFACES = 10, 2   # 7 -> 10 at the round-395 sweep (L7-L9)
+RENDER_PROBE_CASES, RENDER_SURFACES = 15, 2   # 7 -> 10 at the round-395 sweep (L7-L9), 15 at round 396 (L10-L14)
 _rl = subprocess.run([sys.executable, os.path.join(HERE, "render_lint.py")],
                      capture_output=True, text=True)
 _rl_line = [l for l in _rl.stdout.splitlines() if l.startswith("render lint:")]
@@ -764,11 +766,15 @@ if (_rl.returncode != 0 or _m3 is None or int(_m3.group(1)) != RENDER_SURFACES
 # label in tools/research may carry a census numeral or a Theorem-range
 # literal; the needles carry the live values. Scope (round-395 sweep,
 # F395-B6/C9): every string constant anywhere in the first argument of
-# a call to gate or to a name bound to it (so f-strings and
-# concatenations are read part by part), a range written with any dash,
-# and a floor on the number of labels scanned, so a renamed gate cannot
-# pass by scanning nothing. Its own sabotage cases run first.
-_CENSUS_NUM = re.compile(r"\d+ (?:scripts )?cited in place|1i\s*[–—-]+\s*1[a-z]{2}")
+# a call to gate or to a name bound to it by plain, annotated or
+# tuple assignment (so f-strings and concatenations are read part by
+# part, and joined), a range written with any dash or minus sign, and a
+# floor on the number of labels scanned, so a renamed gate cannot pass
+# by scanning nothing (round 396 F396-B8 widened the aliases, dashes and
+# joins). Not read: a label passed in a variable. Its own sabotage
+# cases run first.
+_CENSUS_NUM = re.compile(r"\d+ (?:scripts )?cited in place"
+                         r"|1i\s*[-\u2010-\u2015\u2212]+\s*1[a-z]{2}")
 GATE_LABELS_MIN = 650
 
 
@@ -776,29 +782,42 @@ def _label_hits(tree):
     """(labels scanned, [lineno of each census-bearing label])."""
     names = {"gate"}
     for node in _ast.walk(tree):
-        if (isinstance(node, _ast.Assign) and isinstance(node.value, _ast.Name)
-                and node.value.id == "gate"):
-            names |= {t.id for t in node.targets if isinstance(t, _ast.Name)}
+        tgts, val = [], None
+        if isinstance(node, _ast.Assign):
+            tgts, val = node.targets, node.value
+        elif isinstance(node, _ast.AnnAssign) and node.value is not None:
+            tgts, val = [node.target], node.value
+        if val is None:
+            continue
+        vals = val.elts if isinstance(val, _ast.Tuple) else [val]
+        for t in tgts:
+            ts = t.elts if isinstance(t, _ast.Tuple) else [t]
+            for tt, vv in zip(ts, vals if len(vals) == len(ts) else vals * len(ts)):
+                if (isinstance(tt, _ast.Name) and isinstance(vv, _ast.Name)
+                        and vv.id in names):
+                    names.add(tt.id)
     n, bad = 0, []
     for node in _ast.walk(tree):
         if (isinstance(node, _ast.Call) and isinstance(node.func, _ast.Name)
                 and node.func.id in names and node.args):
             n += 1
-            if any(isinstance(c, _ast.Constant) and isinstance(c.value, str)
-                   and _CENSUS_NUM.search(c.value)
-                   for c in _ast.walk(node.args[0])):
+            consts = [c.value for c in _ast.walk(node.args[0])
+                      if isinstance(c, _ast.Constant)
+                      and isinstance(c.value, str)]
+            if any(_CENSUS_NUM.search(c) for c in consts + ["".join(consts)]):
                 bad.append(node.lineno)
     return n, bad
 
 
 _sab = _ast.parse('gate("g1 ok", 1)\n'
                   'gate(f"g2 {k}: 88 cited in place", 1)\n'
-                  'gate("g3 the range " + "1i—1ca", 1)\n'
-                  'G = gate\nG("g4 88 cited in place", 1)\n')
+                  'gate("g3 the range " + "1i\u22121ca", 1)\n'
+                  'G = gate\nG("g4 88 cited in place", 1)\n'
+                  'H: object = gate\nH("g5 88 " + "cited in place", 1)\n')
 if not (_CENSUS_NUM.search("88 cited in place; the range 1i–1bl")
         and _CENSUS_NUM.search("Theorems 1i--1bj")
         and not _CENSUS_NUM.search("the anchored count and range needles")
-        and _label_hits(_sab) == (4, [2, 3, 5])):
+        and _label_hits(_sab) == (5, [2, 3, 5, 7])):
     print("GATE-LABEL PRECHECK FAILURE: the census-numeral scan missed "
           "its sabotage cases", flush=True)
     sys.exit(2)
@@ -837,7 +856,8 @@ THR = str(max(1, (os.cpu_count() or 4)//NW))
 # ground types -- round-395 sweep, F395-B4), the presence and value of
 # the environment switches those libraries and the BLAS read, and the
 # CPU (model name and feature flags: OpenBLAS picks its kernel per CPU
-# at run time). A change in any bound input rotates the key of every
+# at run time) and the C library (round 396 F396-B10: Python's math
+# module calls it). A change in any bound input rotates the key of every
 # member whose reach is affected, which then re-runs live -- for the
 # bound inputs, over-invalidation and never a stale PASS. NOT bound
 # (disclosed): a library rebuilt in place at the same version, a
@@ -941,7 +961,8 @@ def env_fingerprint(name):
                 dists.add(m.group(1))
                 frontier.append(m.group(1))
     parts = [sys.implementation.name, sys.version, _platform.machine(),
-             _CPU, f"blas_threads={THR}"]
+             "libc=" + "-".join(_platform.libc_ver()), _CPU,
+             f"blas_threads={THR}"]
     parts += [f"{v}={os.environ[v]!r}" if v in os.environ else f"{v} unset"
               for v in _ENV_SWITCHES]
     parts += sorted(f"{d.lower()}=={_dist_version(d)}" for d in dists)
@@ -998,91 +1019,70 @@ def run(name):
 # round-394 meta-rule found "non-member verifiers that read the paper
 # directly" by a grep that saw six of nineteen, and that round's
 # render escapes broke three of the thirteen it missed. Discovery is
-# now structural: every .py file under the code roots whose
-# docstring-stripped string constants name a markdown paper surface is
-# a reader (members never do -- clause A). Each runs here, keyed like a
-# member on its code reach and the environment fingerprint and, unlike
-# a member, on the raw bytes of both surfaces, since readers match raw
-# paper text outside the needle precheck. A reader whose key is
-# unchanged since its last PASS is served from
-# checkpoints/reader_results.json; any paper or formulation edit
-# re-runs every reader (about 45 s in all). The discovered count has a
-# floor, so a broken discovery cannot pass empty. TOWER_FRESH=1 runs
-# every reader live too.
+# structural: every .py file under the code roots (subdirectories
+# included) whose docstring-stripped string constants name a markdown
+# paper surface is a reader. Members never name the paper (clause A);
+# one naming only the formulation would be discovered here and simply
+# run twice. EVERY READER RUNS LIVE ON EVERY INVOCATION (round 396,
+# F396-B1, MAJOR): a cache key cannot bind what readers actually read
+# -- docstring text anchored as source, modules imported through
+# sys.path roots outside the reach walk (tools/cascade_constants.py),
+# and files read by glob (src/*.tex, PREDICTIONS.md) -- and the 19 run
+# in about 15 s in parallel. The discovered count has a floor, so a
+# broken discovery cannot pass empty.
 READER_SURFACES = ("riemann-indistinguishability.md",
                    "cascade-riemann-formulation.md")
 READER_INFRA = {"paper_needles.py", "run_tower.py", "render_lint.py",
                 "precheck_probes.py", "refresh_tower_manifest.py"}
 READERS_MIN = 19
-READER_CACHE = os.path.join(HERE, "checkpoints", "reader_results.json")
 
 
 def discover_readers():
     out = []
     for root in CODE_ROOTS:
-        for f in sorted(os.listdir(root)):
-            if not f.endswith(".py") or f in READER_INFRA:
-                continue
-            path = os.path.join(root, f)
-            tree = _ast.parse(open(path, "rb").read())
-            for node in _ast.walk(tree):
-                body = getattr(node, "body", None)
-                if (isinstance(body, list) and body
-                        and isinstance(body[0], _ast.Expr)
-                        and isinstance(body[0].value, _ast.Constant)
-                        and isinstance(body[0].value.value, str)):
-                    node.body = body[1:]
-            if any(isinstance(n, _ast.Constant) and isinstance(n.value, str)
-                   and any(sf in n.value for sf in READER_SURFACES)
-                   for n in _ast.walk(tree)):
-                out.append(os.path.relpath(path, HERE))
+        for dirpath, dirnames, filenames in os.walk(root):
+            dirnames[:] = sorted(d for d in dirnames
+                                 if d not in ("__pycache__", "checkpoints"))
+            for f in sorted(filenames):
+                if not f.endswith(".py") or f in READER_INFRA:
+                    continue
+                path = os.path.join(dirpath, f)
+                tree = _ast.parse(open(path, "rb").read())
+                for node in _ast.walk(tree):
+                    body = getattr(node, "body", None)
+                    if (isinstance(body, list) and body
+                            and isinstance(body[0], _ast.Expr)
+                            and isinstance(body[0].value, _ast.Constant)
+                            and isinstance(body[0].value.value, str)):
+                        node.body = body[1:]
+                if any(isinstance(n, _ast.Constant)
+                       and isinstance(n.value, str)
+                       and any(sf in n.value for sf in READER_SURFACES)
+                       for n in _ast.walk(tree)):
+                    out.append(os.path.relpath(path, HERE))
     return out
 
 
-_surface_bytes = b"".join(
-    open(os.path.join(HERE, "..", "..", sf), "rb").read()
-    for sf in READER_SURFACES)
-
-
-def reader_key(rel):
-    h = hashlib.sha256()
-    for f in sorted(member_reach(rel)):
-        h.update(f.encode())
-        h.update(ckpt_key.code_sha(
-            os.path.join(HERE, f), strip_prints=False).encode())
-    h.update(hashlib.sha256(_surface_bytes).digest())
-    h.update(env_fingerprint(rel).encode())
-    return h.hexdigest()[:24]
+def run_reader(name):
+    t0 = time.time()
+    r = subprocess.run([sys.executable, os.path.join(HERE, name)],
+                       capture_output=True, text=True, env=env)
+    fails = [l for l in r.stdout.splitlines() if "FAIL" in l]
+    return name, r.returncode, time.time() - t0, fails, r.stdout[-300:]
 
 
 readers = discover_readers()
-rcache = {}
-if os.path.exists(READER_CACHE):
-    try:
-        rcache = json.load(open(READER_CACHE, encoding="utf-8"))
-    except Exception:
-        rcache = {}
-rkeys = {r: reader_key(r) for r in readers}
-r_cached = [] if fresh else \
-    [r for r in readers if rcache.get(rkeys[r], {}).get("rc") == 0]
-r_live = [r for r in readers if r not in r_cached]
 r_fail = []
-if r_live:
-    with cf.ProcessPoolExecutor(max_workers=NW) as ex:
-        for name, rc, dt, tail in ex.map(run, r_live):
-            if rc != 0:
-                r_fail.append(name)
-                print(f"  READER FAIL {name} (exit {rc})\n{tail}", flush=True)
-            else:
-                rcache[rkeys[name]] = {
-                    "file": name, "rc": 0, "dt": dt,
-                    "when": time.strftime("%Y-%m-%dT%H:%MZ", time.gmtime())}
-                os.makedirs(os.path.dirname(READER_CACHE), exist_ok=True)
-                json.dump(rcache, open(READER_CACHE, "w"),
-                          indent=0, sort_keys=True)
+with cf.ProcessPoolExecutor(max_workers=NW) as ex:
+    for name, rc, dt, fails, tail in ex.map(run_reader, readers):
+        if rc != 0:
+            r_fail.append(name)
+            print(f"  READER FAIL {name} (exit {rc}):", flush=True)
+            for l in (fails[:12] or [tail]):
+                print(f"    {l}", flush=True)
 print(f"paper-reader precheck: {len(readers)} readers discovered, "
-      f"{len(readers) - len(r_fail)} PASS ({len(r_live) - len(r_fail)} live, "
-      f"{len(r_cached)} cached), {len(r_fail)} FAIL", flush=True)
+      f"{len(readers) - len(r_fail)} PASS (all live), "
+      f"{len(r_fail)} FAIL", flush=True)
 if r_fail or len(readers) < READERS_MIN:
     print(f"PAPER-READER PRECHECK FAILURE: {r_fail} (discovered "
           f"{len(readers)}, floor {READERS_MIN})", flush=True)
@@ -1090,6 +1090,19 @@ if r_fail or len(readers) < READERS_MIN:
 
 names = [e["file"] for e in MAN["tower"]]
 keys = {n: member_key(n) for n in names}
+# round 396 (F396-B1, the F269-3 class): an import the reach walk cannot
+# resolve is either an uninstalled library (the member would crash) or
+# a local module outside the code roots (tools/cascade_constants.py is
+# one) -- code the member runs that its key would not bind. No member
+# may carry one.
+_unres = {n: [l for l in env_fingerprint(n).split("\n")
+              if l.startswith("unresolved:")] for n in names}
+_unres = {n: u for n, u in _unres.items() if u}
+if _unres:
+    print(f"REACH PRECHECK FAILURE: unresolved imports in member reach "
+          f"{_unres} (a local module outside the code roots is a "
+          f"stale-PASS channel)", flush=True)
+    sys.exit(2)
 cached = [] if fresh else \
     [n for n in names if cache.get(keys[n], {}).get("rc") == 0]
 live = [n for n in names if n not in cached]
