@@ -3873,8 +3873,23 @@ censuses to n = 20) — multiplicativity as an information
 structure: coefficient channel empty (all 1s), information
 factorizing over primes, a product state over the places; f's
 log-spectrum leaks off the prime powers (Λ_f(6) = +1.94 ≠ 0)
-and goes negative (7 entries by n = 20). Every proven zero-free
-result consumes exactly the positivity ζ has and f lacks. The
+and goes negative (7 entries by n = 20). ~~Every proven zero-free
+result consumes exactly the positivity ζ has and f lacks.~~ **The
+zero-free results for ζ on and near σ = 1 recorded here, F2
+(3 + 4cos θ + cos 2θ ≥ 0) and F3 (de la Vallée Poussin), consume
+it. Zero-freeness as such does not need it: f itself has no zero
+on Re s ≥ 2, where its first coefficient dominates the rest (the
+Lean pilot's `dh_ne_zero_of_two_le` for dh = a(1)·f, from
+Σ_{n≥2}|a(n)/a(1)|·n^(−2) ≤ 7/9 — a record beside the gates here,
+not a gate), and L(s, χ) ≠ 0 on Re s > 1 for a complex character χ
+follows from the Euler product with no sign condition.** *(round
+389: the struck sentence quantified over all proofs without a
+survey, and the two half-planes now named made it false when
+written (CLAUDE.md Check 9). The zero-free half-planes claimed by
+OpenAI on 2026-10-07, Re s > 7/8 and, by a second route,
+Re s > 11/12, have not been checked here; they run through the
+local Euler factors of Hecke L-functions over ℚ(√−3) and prime
+counting in ray classes — Lean pilot README round 277.)* The
 superposition anatomy: f is an equal-weight superposition of two
 product states (|c₁| = |c₂|), and at BOTH off-line zeros the
 components are nonzero, of equal modulus, with ratio exactly
