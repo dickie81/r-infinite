@@ -6003,3 +6003,30 @@ Swept: 33361b9. Convergence round 391 is owed.
   - No needle overlaps a struck span (739 needles checked).
 
 **Swept:** 6fdf91f. **Converged: stable.**
+
+### Round 393 — the 1au(viii) Check-9 strike and T2 marker
+
+**Scope.** Commit e489972, landed after the lead's pre-landing self-review.
+- Battery (prose-only), all green:
+  - reviewer on e489972: tower 36/36, TOP verifier 9/9 (manifest mode), attraction-margins 9/9;
+  - lead on the sweep, e7e6061: the same three runs.
+- Brief: `brief_round393.md`.
+
+**Findings.** 0 MAJOR, 1 minor, 1 cosmetic; accepted (A565).
+- **Minor F393-1:** 1au(v)'s "A uniformity proof must establish …" was struck.
+- **Cosmetic F393-2:** the T2 marker now cites 1av(vi) and 1ao(iv), and its closing clause is anchored.
+- **Out of scope O-1:** T1 ⟺ RH (residual).
+- **Swept:** e7e6061. Convergence round 394 owed.
+
+### Round 394 — the convergence test on the round-393 sweep (converged)
+
+**Scope.** Commit e7e6061. The review ran in parallel with the lead's battery. Under the owner's amendment the reviewer ran `run_tower.py` (36/36) and audited the lead's logs rather than re-running verifiers. Brief: `brief_round394.md`.
+
+**Findings.** 0 MAJOR, 0 minor, 0 cosmetic.
+- **Out of scope F394-1:** the meta-rule's "can never fail" claim was scoped to an unchanged environment; an environment change now owes a `TOWER_FRESH=1` run (A566).
+- **Held:**
+  - strikes and dispositions verbatim;
+  - citations, render, antecedents and needles;
+  - a necessity-word scan over all of 1au.
+
+**Converged: stable.**

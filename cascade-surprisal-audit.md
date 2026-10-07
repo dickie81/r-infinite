@@ -20035,3 +20035,94 @@ Lead: re-read 2488–2490 and 4076–4078 directly.
 - Round 393 is opened on 1au(viii).
 
 ---
+
+## Addendum 565 — round 393 on the 1au(viii) Check-9 strike and T2 marker (e489972) (0 MAJOR, 1 minor, 1 cosmetic; accepted; swept e7e6061)
+
+**The round.**
+- The owner directed this round after A564 O-2. The lead landed e489972 after a pre-landing self-review: overclaim, antecedents, citations, GitHub render and needle overlap.
+- The self-review changed the staged text before landing:
+  - "superseded" became "refine", because 1av(ii) keeps T2's engine for Regime II;
+  - the struck content "with data behind each formulation" was retained;
+  - a 1av(vi) juxtaposition that implied T2 was circular was dropped.
+- Change: "What a proof still needs" was struck as an unscoped universal over all proofs of RH (Check 9). The two targets were scoped as "neither shown to be necessary for a proof", and T2 received a net-state marker.
+- Review: a fresh-context `hostile-reviewer` (session model, max effort), brief `brief_round393.md`. It returned 0 MAJOR, 1 minor, 1 cosmetic and 1 out-of-scope observation.
+
+**F393-1 (minor; accepted).** 1au(v) carried a second universal in the same block: "A uniformity proof must establish the degree-d analogue of this decays-but-never-vanishes law."
+- The law it names is labelled empirical in (v)'s heading.
+- The lead's pre-landing scan searched for "proof still needs" but not for "must", so it missed this sentence.
+- **Lead:** re-read 1au(iv)–(vi) at 4190–4212 directly.
+- **Disposition:** strike-and-annotate. Self-review item (d) in the CLAUDE.md meta-rule, a necessity-word scan of the whole touched block, is the systemic remedy.
+
+**F393-2 (cosmetic; accepted).** The T2 marker omitted two relevant blocks and left a clause unanchored:
+- it did not cite 1av(vi)'s circularity record;
+- it did not cite 1ao(iv), which found positivity arithmetic-carried at the low rungs and was written before T2 (f01befa, 2026-08-05, against 225e569, 2026-08-07);
+- "the last clause" had no anchor.
+
+**Disposition:**
+- 1av(vi) added, phrased to track its own sentence ("its dichotomy does not reach …");
+- 1ao(iv) added as "written before it";
+- "~~Later blocks refine T2:~~ Other blocks bear on T2";
+- "~~the last clause~~ T2's closing clause".
+
+Before the sweep landed, cmark-gfm rendered the 1au block with 0 literal `~~` and 0 literal `*`.
+
+**Out-of-scope observation O-1 (residual).** T1's n = 0 line taken over all d is itself RH (Jensen–Pólya). It was not added to the marker, because adding it would introduce a new classical claim the paper does not state for n = 0.
+
+**Check-1 record (re-read this round).** `riemann-indistinguishability.md`:
+- 4143–4285 (Theorem 1au, the operative theorem);
+- 3242–3250 (1ao(iv));
+- 4400–4420 (1av(vi));
+- 4296–4316 (1av(ii));
+- 4590–4600 (1aw(iv)).
+
+**Battery.** Prose-only; owed under the rules then in force: tower, TOP in manifest mode, and `cascade_attraction_margins.py`.
+- **Reviewer, on e489972:**
+  - TOWER PASS (36/36);
+  - TOP 9/9 in manifest mode, 25 REUSED;
+  - `cascade_attraction_margins.py` 9/9, full chain;
+  - extra: li-two-channels 10/10 in manifest mode;
+  - all rc 0.
+- **Lead, on e7e6061** (logs under `scratchpad/r393/battery_lead/`, 14:48–15:11 UTC):
+  - TOWER PASS (36/36);
+  - TOP 9/9, "chain [manifest mode]: 35 ancestor hashes verified", 25 REUSED;
+  - `cascade_attraction_margins.py` 9/9, chain to `cascade_finite_fill.py`;
+  - all rc 0.
+
+---
+
+## Addendum 566 — round 394, the convergence test on the round-393 sweep (e7e6061) (0 MAJOR, 0 minor, 0 cosmetic — converged)
+
+**The round.**
+- A fresh-context `hostile-reviewer` (brief `brief_round394.md`) ran in parallel with the lead's battery, under the owner's round-394 decisions.
+- Mid-round the reviewer received the owner's amendment: run `run_tower.py` and audit the lead's logs instead of re-running verifiers. It stopped its own TOP and 1au runs by PID; neither is a result.
+- **Findings:** 0 MAJOR, 0 minor, 0 cosmetic. **The round converges.** 1au(v) and 1au(viii) are stable.
+
+**Held:**
+- every struck span is verbatim the text it replaced;
+- every disposition is realised as recorded;
+- every citation is verified against its source: 1ao(iv), 1av(ii), 1av(vi) as swept in round 389, 1aw(iv), (v)'s heading, and Li's criterion at 3205;
+- the GitHub-rendered HTML at e7e6061 shows 0 literal `~~` and 0 literal `*` in 1au, with both annotations as single `<em>` spans;
+- every antecedent resolves;
+- a necessity-word scan over all of 1au finds every hit classified and held;
+- no needle overlaps the edit (586 member needles, plus the 12 needles of the six non-member readers, none of them in 1au), so no non-member verifier is owed;
+- an independent session check that j·r_j rises strictly at every j = 1…55 (`scratchpad/r394/scripts/jr_monotone.py`; not committed code).
+
+**Out-of-scope observation F394-1 (accepted; CLAUDE.md corrected).** The new meta-rule said a separate member run "can never fail where the tower passes". That holds only with an unchanged interpreter and libraries: `member_key` hashes code reach, and `tower_results.json` stores no environment.
+- **Disposition:** the sentence is scoped to an unchanged environment.
+- An environment change now owes one `TOWER_FRESH=1` run.
+- An environment fingerprint in `member_key` is added to the residual list (a code change, full-tower class).
+
+**Battery** (prose-only; reviewer per the amendment):
+- **Reviewer:** `run_tower.py` at 0347d08 (paper byte-identical to e7e6061; sha256 `4edde0d7…2123f`) — the four precheck lines, census 0 live + 36 cached + 0 FAIL, TOWER PASS (36/36), rc 0.
+- **Audit of the lead's r393 logs:** the HEAD recorded at start is e7e6061 with a clean tree, and every rc is 0, with census and chain lines as recorded in A565. The intermediate HEAD moves to 0347d08, 657c9b4 and b879cda touched CLAUDE.md only.
+
+**Standing state.**
+- **Stable after round 394:** 1au(v) and 1au(viii) (rounds 393–394), plus 1as(vi) and 1av(vi)–(vii) (rounds 389–392).
+- **Residual list:**
+  - the render lint (A562 O-1, A563 F391-2);
+  - the stale g15/g10/g9 labels (A561 O-3);
+  - the D–H partner tolerance (A564 O-1);
+  - T1 ⟺ RH (A565 O-1);
+  - an environment fingerprint in `member_key` (F394-1).
+
+---

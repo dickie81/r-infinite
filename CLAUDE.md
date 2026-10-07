@@ -112,7 +112,8 @@ Applied:
 1. **Tower members.** `run_tower.py` already implements the rule.
    - A member whose executable reach is unchanged is served from cache.
    - Since round 275, members hold no paper text. Every member's paper surface is its `PAPER_NEEDLES` literal, re-evaluated live by the precheck on every invocation. A paper edit therefore either flips a declared needle, which fails the precheck before any cached PASS is served, or touches no member's surface.
-   - So for members, `run_tower.py` is the whole owed battery in every class. Separate full runs of the TOP verifier or of a member's block verifier can never fail where the tower passes, and are not owed. In the full-tower class, the tower's own live re-runs of changed members are the owed runs.
+   - So for members, `run_tower.py` is the whole owed battery in every class. While the interpreter and the numeric libraries are unchanged, separate full runs of the TOP verifier or of a member's block verifier can never fail where the tower passes, and are not owed. In the full-tower class, the tower's own live re-runs of changed members are the owed runs.
+   - **The environment is an input too** (round 394 F394-1). Member keys hash code reach, not the Python or library versions. After any change to the interpreter or to a library in a member's path (mpmath, numpy, scipy, …), one `TOWER_FRESH=1 python3 tools/research/run_tower.py` is owed: it runs every member live. An environment fingerprint in `member_key` would make this automatic; that is a code change, held on the residual list.
 2. **Non-member verifiers that read the paper directly** (`grep -l 'open(.*riemann-indistinguishability' tools/research/*.py`; six at the time of writing) are outside the tower's precheck. One is owed whenever the diff touches paper text it reads.
 3. **Defect classes no gate sees.** Rounds 389–393 found these:
    - delimiters that do not render;
