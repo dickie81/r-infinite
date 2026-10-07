@@ -20617,3 +20617,91 @@ The reviewer demonstrated a stale cached PASS: a helper flipped to failing, the 
 - The final cache was committed by the wrapper (1c8f1d5).
 
 ---
+
+## Addendum 571 — round 399, the convergence test on the round-398 sweep (d677ae1) (the F269-3 class for the fourth round: closed by observing the run; 2 minors, cosmetics; not converged; all verified and accepted; swept b6dd58b)
+
+**The round.**
+- Three fresh-context `hostile-reviewer` agents ran in parallel (lenses: paper and rendering; code and keying; mathematics and claims). This was a workflow at the owner's ultracode setting.
+- Brief: `brief_round399.md`. Reports: `scratchpad/r399/report_{0,1,2}.md`.
+- **Lead's battery on d677ae1:** "census: 31 live PASS + 5 cached PASS + 0 FAIL of 36", TOWER PASS (36/36), exit 0, BATTERY DONE (recorded in A570).
+- Reviewers B and C each ran the main-repository tower once after BATTERY DONE (36 cached PASS, all prechecks green). Lens A's launch was denied by the session's permission system while the lead's processes were still visible, and it did not retry.
+- Every finding below was verified by the lead directly.
+
+**F399-A1 / B1 / B2 / C1 (MAJOR as one class; the F269-3 / F397-B1 / F398-B1/B2 class in its fourth round; zero committed reach).** The static walk left ordinary spellings unbound:
+- shell command strings (`shell=True`, `os.system`, `os.popen`), rejected whole by the space rule;
+- `-m` on a module inside a regular package, whose `__init__.py` was unbound, and `-m` on a package (`__init__` and `__main__`);
+- a path fragment with a prefix ("/sub/x.py" from an f-string or a concatenation). Round 398's new branch kept the leading separator and matched against "//sub/x.py";
+- `__import__(name=...)`: the call reader looked only at the first positional argument;
+- `importlib.import_module(".x", "pkg")`;
+- a `.tex` named with a directory part.
+
+B and C each demonstrated a stale cached PASS end to end (B: `-m` of a package module, an f-string path, and the keyword import from outside the roots; C: a concatenated path and `-m` with a planted `__init__`), each with a bound control that failed as it should.
+- **Lead:** read `run_tower.py` 161–310 and confirmed each spelling against the code. Two of the gaps were in round 398's own code: the leading separator and the dotted tails.
+- **Disposition: observe the run.** CLAUDE.md item 5 says a repeated class gets a check that closes it. Four rounds of static spellings showed that enumeration does not close it.
+  - Every live member runs under an audit-hook tracer, `reach_trace/sitecustomize.py`. It is new, pinned in the manifest's keying list, and chains to the system sitecustomize.
+  - The tracer records each file the member's Python processes read and each command line they spawn.
+  - The repository files recorded, each `.py` widened by its static reach (for a child that loads no tracer), are hashed (`code_sha` for `.py`, bytes otherwise) and stored with the PASS.
+  - A cache hit needs the static key AND every recorded file unchanged.
+  - Exclusions: the paper surfaces (the needle precheck evaluates them live), the cache, the manifest (integrity-checked), `.git`, `__pycache__` and the tracer.
+  - A `.py` read from outside the repository and the Python installation fails the member.
+  - Entries written before round 399 carry no record and are not served, so every member runs live once.
+- **The tracer's sabotage case:** a planted script reaches each round-399 spelling, a glob, a data file and an `-E` child (recorded from its spawn line, its import only through the static widening), and imports a module from outside the root.
+  - Four mutations each fail it: no read events, no spawn lines, no static widening, no external class.
+  - Two real members traced: recorded dependencies equal their static reach (finite_fill 19, primes_side_ball 18).
+- **The static walk is fixed too**, since it still defines the key and the needle precheck's scan set:
+  - command-string words shaped like file references;
+  - the leading separator dropped;
+  - every package `__init__.py` on a dotted spec, plus `__main__.py`;
+  - `.tex` basenames;
+  - the `name=` keyword and relative `import_module`.
+- **A misstep, caught by the precheck before landing.** The first version bound every prose word, and the needle precheck then scanned `strip_note/ledger.py` (a label's word "ledger") and failed clause G. Words inside a sentence now bind only when they are shaped like a file reference.
+- The committed reach and all 36 fingerprints are unchanged (snapshot diff).
+- The static sabotage case now plants 23 files, hermetic in code and text roots. Thirteen source mutations each exit 2; the lead spot-checked two failure causes.
+
+**F399-B3 = C2 (minor).** "every import and spawn spelling" (CLAUDE.md) and "every spelling the walk must bind" (the driver) were unscoped. The `import_module` branch and the positional and tuple fromlists were not planted, so their mutations passed.
+- **Disposition:** both sentences now name the planted spellings, and those branches are planted.
+
+**F399-A2 (minor).** The lint was silent on three things:
+- an ordered list renumbered by the renderer (IP1: a duplicate "2." in §10; IP2: an item deleted, so §10.4 lost its target);
+- a split table cell (IP3);
+- a "|"-led line absorbed into a table.
+- **Disposition:**
+  - the new L20 compares each ordered item's rendered number with its source number;
+  - L16 requires every table line to begin and end with "|" and to carry the header's count of unescaped "|";
+  - a split that keeps the header's cell count cannot be decided from the source and is recorded in "Not seen" (B6's case).
+
+**Cosmetics:**
+- **A4 = B4:** L10's branches were not pinned one at a time. The after-block clause is now L18 and the absorbed paragraph L19, each with a probe of its own. The top-level-paragraph "before" clause is dropped, since L18 on the block above implies it.
+- **A3 = B5:** false positives on a quoted list's indented line, a fence's info string, and a fence or heading opening a list item. All are fixed and carried in the clean-structure probe.
+- **B7:** the allowlist wording; L17 states its ordered-number and fence-info exemptions.
+- **B8:** the label scan now sorts constants by position. A dict-display sabotage case was added; the round-398 scan misses it.
+- **A5:** the footer's round-398 "only" clause omitted its own entry and listed 1au(iii). It is struck and annotated.
+- Probes went from 37 to 42.
+
+**Out-of-scope observations:**
+- **C-O1 (accepted).** floor_meter said the planted target's "density is ~18x thinner"; |dθ/dγ| is ~18× larger there. The docstring now says so and states the per-neighbour figure: ζ's mean spacing 5.43 at γ = 20, ~67× wider, 0.23 per cell at N = 2000. This is docstring and comment only, so no key rotates. The paper's "zero tower is ~18× thinner" (1aw(iii)) stands, read per unit height.
+- **B-O1:** `__import__("importlib").import_module(...)` passes clause H. It is a deliberate construction under round 279, and a candidate exact clause is held for the owner.
+
+**Check-1 record (re-read this round):**
+- `run_tower.py` 140–330 (the static walk) and 1140–1420 (readers, the reach and dependency prechecks, members);
+- `render_lint.py` 290–470;
+- the paper's footer line;
+- `cascade_floor_meter.py` 60–80 and 405–430.
+
+**Lead's verification commands** (scripts under `scratchpad/r399/lead/`):
+- `tracetest/`: the reviewer spellings traced;
+- `dry_trace_mut.py`: four tracer mutations;
+- `trace_one.py`: two members traced;
+- `snap.py` against `snap_wt398.json`: 0 differences;
+- `dry_m399.py`: thirteen static mutations plus the control;
+- `lint/`: the scratch lint, 42 probes, nine cases;
+- `needle_diff.py`: 741 needles, 0 count changes.
+
+**Battery on the sweep.** Full-tower class: `run_tower.py` on b6dd58b under the checkpoint wrapper with the maximum background limit (`scratchpad/r400/battery_lead/`, 23:21–23:51 UTC).
+- Every member ran live once, since entries written before this round carry no dependency record.
+- All nine prechecks were green, including "render lint: 2 surfaces, 0 defects; probes 42/42 as expected", "reach precheck: 36 members, 109 reach files (floor 109), 0 unresolved imports; sabotage case reached 23 planted files" and "dependency precheck: the tracer's sabotage case recorded 14 planted files and 1 external module".
+- The run ended "census: 36 live PASS + 0 cached PASS + 0 FAIL of 36", "TOWER PASS (36/36)", exit 0, "WRAPPER-COMPLETE", "BATTERY DONE". The wrapper committed the final cache (112bd93).
+- Recorded dependencies per member range from 16 to 136 (median 73.5).
+- The larger sets include the content-addressed producer checkpoints the rung members read (`ladder_caster_*`, `rung_anatomy_*`, `rung_laws_*`). No static key bound those inputs before this round.
+
+---

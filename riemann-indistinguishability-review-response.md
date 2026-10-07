@@ -6113,3 +6113,22 @@ Swept: 33361b9. Convergence round 391 is owed.
 - **Held:** listed in A570.
 
 **Swept:** d677ae1. Convergence round 399 owed.
+
+### Round 399 — the convergence test on the round-398 sweep
+
+**Scope.** Commit d677ae1.
+- **Battery** (full-tower class, run by the lead on d677ae1): 31 live + 5 cached PASS, 36/36, BATTERY DONE. Reviewers B and C ran the main-repository tower after it (36 cached PASS); lens A's run was denied by the session's permission system.
+- **Review:** three parallel lenses. Brief: `brief_round399.md`.
+
+**Findings.** The F269-3 class for the fourth round (A1, B1, B2, C1; demonstrated stale cached PASSes), 2 minors, plus cosmetics. All were verified by the lead and accepted (A571).
+- **MAJOR (class):** ordinary spellings the static walk missed — shell strings, `-m` on a regular package, prefixed path fragments, `__import__(name=...)`, relative `import_module`, `.tex` with a directory.
+  - The run is now observed: an audit-hook tracer records what each live member reads and spawns, and a cache hit needs every recorded file unchanged.
+  - The static walk is also fixed for each spelling.
+- **Minor:**
+  - F399-B3 = C2: the sabotage-case claims are scoped and the missing branches planted.
+  - F399-A2: L20 checks ordered numbering; L16 checks table cell counts.
+- **Cosmetic:** A3 = B5, A4 = B4 (L18 and L19 split out), A5, B6, B7, B8.
+- **Out of scope:** C-O1 (accepted), B-O1 (held for the owner).
+- **Held:** listed in A571.
+
+**Swept:** b6dd58b. Convergence round 400 owed.
