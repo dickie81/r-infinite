@@ -93,7 +93,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 # declared paper surface (the needle-precheck arc, A397): the
 # member touches the paper ONLY through these entries.
 PAPER_NEEDLES = [
-    {'g': 'g7', 's': '**Theorem 1au (the push record: two fronts advanced past their'},
+    {'g': 'g7', 's': '**Theorem 1au (the push record: two fronts ~~advanced past their'},  # round 395: title struck (F395-C4)
     {'g': 'g7', 's': '**no proof is\nclaimed, and none resulted**'},
     {'g': 'g7', 's': 'the FIRST-STAGE FLOOR'},
     {'g': 'g7', 's': "refuted the\nlead's monotone draft pre-commit"},

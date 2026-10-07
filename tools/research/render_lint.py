@@ -6,9 +6,10 @@ class found twice gets a cheap automated check).
 Rounds 389-393 found delimiters that GitHub does not render as written
 (F390-1, A562 O-1, A563 F391-2) by hand; this script renders each
 surface with cmark-gfm -- the renderer behind GitHub's markdown, whose
-HTML for this paper matched GitHub's own API rendering in the
-<del> census at 2b76ff1 (183 = 183) -- and fails on five defect
-classes, each decidable from the rendering:
+HTML for this paper matched GitHub's own API rendering at 2b76ff1 and
+49ab366 (the round-395 reviewers compared the visible text and the
+em/strong/del/code markers) -- and fails on nine defect classes, each
+decidable from the rendering:
 
   L1 single-tilde strike: GitHub parses ONE tilde as a strike
      delimiter too, so two approximation signs ("~9.3 ... ~20%") can
@@ -25,23 +26,39 @@ classes, each decidable from the rendering:
      never intended markup.
   L5 a backslash consumed by markdown: a backslash before ASCII
      punctuation outside code, other than the escapes the surfaces use
-     on purpose (* _ ~ ` | [ ] # < > ( ) and the backslash itself) --
-     e.g. a quoted LaTeX "\\!" renders as "!".
+     on purpose (* _ ~ ` | and the backslash itself) -- e.g. a quoted
+     LaTeX "\\!", "\\(" or "\\#" renders without its backslash.
   L6 a variable's star acting as an emphasis delimiter: every
      unescaped single star that follows a one-letter variable (a
      letter, optionally subscripted or primed, not itself preceded by
      a letter or an apostrophe: "ℓ*", "N*", "d*₁", "2x*") is escaped
-     in a copy, and the rendering must not change; each star whose
-     escape alone changes it is reported. This catches the star that
-     closes an intended italic early ("*(... ℓ* = 0.456 ... ≥ 1)*"
-     rendered half-italic with a dangling "*") as well as the pairs
-     L4 sees.
+     in a copy of its paragraph, and the rendering must not change;
+     each star whose escape alone changes it is reported.
+  L7 a stray star: an unescaped "*" left literal in the rendered text
+     whose preceding character is not a letter, digit, subscript,
+     superscript or prime -- the residue of an italic closed early
+     ("*(note: f(x)* is real)*" leaves ")*") or of an opener that never
+     closed. A literal star meant as text is written "\\*".
+  L8 a literal backtick in the rendered text outside code: an unpaired
+     backtick string (a quoted LaTeX ``open quote) that also stops a
+     later code span from forming. Write it "\\`".
+  L9 underscore emphasis: the surfaces never use "_" for emphasis, so
+     escaping every unescaped "_" outside code, paragraph by paragraph,
+     must not change the rendering ("|x|_p" opens an italic that a
+     later "x_ " closes; the paper's 1bo(i) italicised half a
+     paragraph this way).
 
-Scope, stated: L1-L6 detect markup that does not render as written.
-A star after a multi-letter token ("aim*") is outside L6's variable
-rule and stays with the pre-landing self-review. Code spans and code
-blocks are exempt (backtick strings matched as maximal runs, never
-across a blank line).
+Scope, stated: L1-L9 detect markup that does not render as written,
+under cmark-gfm's server-side HTML. Not seen: a star after a
+multi-letter token that closes an italic early while the stray it
+leaves follows a letter; a quoted LaTeX escape of one of the allowed
+characters ("\\_", "\\*", "\\~", "\\|"), which renders without its
+backslash; and GitHub's client-side typesetting of "$...$" math, which
+the server HTML does not carry. Those stay with the pre-landing
+self-review. Code spans and code blocks are exempt (backtick strings
+matched as maximal runs, never across a blank line). The per-item
+tests of L6 and L9 render one paragraph at a time: cmark-gfm's process
+grows by megabytes per whole-paper render (round 395 O2).
 
 The script runs its own sabotage cases first (one per class, plus a
 clean case that must pass) and fails if any rule misses its case, so
@@ -68,9 +85,11 @@ ROOT = os.path.normpath(os.path.join(os.path.dirname(
     os.path.abspath(__file__)), "..", ".."))
 SURFACES = ("riemann-indistinguishability.md",
             "cascade-riemann-formulation.md")
-ALLOWED_ESCAPES = set("*_~`|[]#<>()\\")
+ALLOWED_ESCAPES = set("*_~`|\\")
 OPT = Options.CMARK_OPT_UNSAFE
 OPT_DT = OPT | Options.CMARK_OPT_STRIKETHROUGH_DOUBLE_TILDE
+_SUBS = "₀₁₂₃₄₅₆₇₈₉ₐₑₒₓₔₕₖₗₘₙₚₛₜ′'"
+_SUPS = "⁰¹²³⁴⁵⁶⁷⁸⁹ⁿⁱ⁺⁻"
 
 
 def _render(src, opt):
@@ -89,9 +108,10 @@ def _text(h):
 # fenced blocks, then inline code spans -- backtick strings are
 # maximal runs closed by a run of the same length, and a span never
 # crosses a blank line (a paragraph boundary), so an unpaired
-# backtick cannot mask the rest of the document
+# backtick cannot mask the rest of the document; an escaped backtick
+# opens nothing
 _CODE = re.compile(r"^(```|~~~).*?^\1"
-                   r"|(?<!`)(`+)(?!`)(?:(?!\n[ \t]*\n)[^\x00])+?(?<!`)\2(?!`)",
+                   r"|(?<![`\\])(`+)(?!`)(?:(?!\n[ \t]*\n)[^\x00])+?(?<!`)\2(?!`)",
                    flags=re.S | re.M)
 
 
@@ -113,6 +133,21 @@ def _snip(s, n=90):
     return s if len(s) <= n else s[:n] + " ..."
 
 
+def _paragraphs(src):
+    """(offset, text) of each blank-line-separated block."""
+    return [(m.start(), m.group(0))
+            for m in re.finditer(r"(?:[^\n]|\n(?![ \t]*\n))+", src)]
+
+
+def _escaped(src, k):
+    """True if src[k] is preceded by an odd run of backslashes."""
+    n, j = 0, k - 1
+    while j >= 0 and src[j] == "\\":
+        n += 1
+        j -= 1
+    return n % 2 == 1
+
+
 def lint(src):
     """Return a list of (rule, message) defects for one surface."""
     out = []
@@ -128,10 +163,9 @@ def lint(src):
             if d in pool:
                 pool.remove(d)
             else:
-                extra.append(d)
-        for d in extra or ["(renderings differ; no <del> diff found)"]:
-            out.append(("L1", "single-tilde strike over: "
-                        + _snip(_text(d))))
+                extra.append(_snip(_text(d)))
+        for d in extra or ["(renderings differ; no strike-span diff found)"]:
+            out.append(("L1", "single-tilde strike over: " + d))
     body = _drop_code_html(gh)
     txt = _text(body)
     # L2, L3: literal delimiters left in the rendered text
@@ -147,38 +181,69 @@ def lint(src):
             out.append(("L4", f"<{m.group(1)}> opened after "
                         f"{prev[-1]!r}: ..." + _snip(prev[-30:], 30)
                         + "[" + _snip(_text(body[m.end():j]), 50) + "]"))
+    mask = _code_mask(src)
     # L5: a backslash markdown consumes, outside code
     for m in re.finditer(r"\\([!-/:-@\[-`{-~])", _drop_code_src(src)):
-        if m.group(1) not in ALLOWED_ESCAPES:
-            out.append(("L5", f"backslash consumed before "
+        if m.group(1) not in ALLOWED_ESCAPES and not _escaped(src, m.start()):
+            ln = src.count("\n", 0, m.start()) + 1
+            out.append(("L5", f"line {ln}: backslash consumed before "
                         f"{m.group(1)!r}"))
-    # L6: a variable's star acting as an emphasis delimiter -- escape
-    # every star that follows a one-letter variable (ℓ*, N*, d*₁, x*)
-    # and require the rendering to be unchanged
-    stars = _variable_stars(src)
-    if stars:
-        esc = list(src)
-        for i in stars:
-            esc[i] = "\\*"
-        if _render("".join(esc), OPT) != gh:
-            for i in stars:
-                one = src[:i] + "\\*" + src[i + 1:]
-                if _render(one, OPT) != gh:
-                    ln = src.count("\n", 0, i) + 1
-                    out.append(("L6", f"line {ln}: variable star acts "
-                                "as a delimiter: ..." + _snip(
-                                    src[max(0, i - 40):i + 20], 70)))
+    # L6 / L9: per paragraph, escaping the candidates must not change
+    # the rendering; per-item tests only inside a paragraph that changed
+    stars = set(_variable_stars(src, mask))
+    for off, para in _paragraphs(src):
+        cands = {"L6": [k for k in range(len(para)) if off + k in stars],
+                 "L9": [k for k, c in enumerate(para)
+                        if c == "_" and not mask[off + k]
+                        and not _escaped(para, k)]}
+        base = None
+        for rule, ks in cands.items():
+            if not ks:
+                continue
+            base = base or _render(para, OPT)
+            esc = list(para)
+            for k in ks:
+                esc[k] = "\\" + para[k]
+            if _render("".join(esc), OPT) == base:
+                continue
+            for k in ks:
+                if _render(para[:k] + "\\" + para[k:], OPT) != base:
+                    ln = src.count("\n", 0, off + k) + 1
+                    what = ("variable star acts as a delimiter"
+                            if rule == "L6" else
+                            "underscore acts as an emphasis delimiter")
+                    out.append((rule, f"line {ln}: {what}: ..." + _snip(
+                        para[max(0, k - 40):k + 20], 70)))
+    # L7, L8: stray literal stars and backticks (escaped ones swapped
+    # for an escaped sentinel of the same punctuation class, so only
+    # unescaped ones can render as "*" or "`")
+    sent = []
+    k = 0
+    while k < len(src):
+        if (src[k] == "\\" and k + 1 < len(src) and src[k + 1] in "*`"
+                and not mask[k] and not _escaped(src, k)):
+            sent.append("\\@")
+            k += 2
+            continue
+        sent.append(src[k])
+        k += 1
+    stxt = _text(_drop_code_html(_render("".join(sent), OPT)))
+    for m in re.finditer(r"\*", stxt):
+        prev = stxt[m.start() - 1] if m.start() else ""
+        if not (prev.isalnum() or prev in _SUBS or prev in _SUPS):
+            out.append(("L7", "stray '*' after " + repr(prev) + ": "
+                        + _snip(stxt[max(0, m.start() - 50):m.start() + 20])))
+    for m in re.finditer("`", stxt):
+        out.append(("L8", "literal backtick at: "
+                    + _snip(stxt[max(0, m.start() - 50):m.start() + 30])))
     return out
 
 
-_SUBS = "₀₁₂₃₄₅₆₇₈₉ₐₑₒₓₔₕₖₗₘₙₚₛₜ′'"
-
-
-def _variable_stars(src):
+def _variable_stars(src, code=None):
     """Offsets of unescaped single stars that follow a one-letter
     variable (a letter, optionally subscripted or primed, not itself
-    preceded by a letter), outside code."""
-    code = _code_mask(src)
+    preceded by a letter or an apostrophe), outside code."""
+    code = code if code is not None else _code_mask(src)
     out = []
     for m in re.finditer(r"(?<![\\*])\*(?!\*)", src):
         i = m.start()
@@ -204,8 +269,11 @@ PROBES = (
     ("L4", "the d*₁ = 19.73, while 27.73 = d*₁ + 8\n"),
     ("L5", "the formula \\psi\\!\\left(x\\right)\n"),
     ("L6", "*(round 224: the crossover ℓ* = 0.456 is sub-spacing)*\n"),
-    (None, "~~struck~~ *em* **strong** x\\* ≈ 9.3, \\~9, τ* = 2 and "
-           "`a*b ~c~`\n"),
+    ("L7", "*(note: the conjugate f(x)* is real, see 1aa)* rest\n"),
+    ("L8", "a quoted ``open quote'' and then `code.py` here\n"),
+    ("L9", "the norm |x|_p^s and the tail x_ here\n"),
+    (None, "~~struck~~ *em* **strong** x\\* ≈ 9.3, \\~9, τ* = 2, "
+           "a_k and `a*b ~c~` \\`\\`q''\n"),
 )
 
 

@@ -146,36 +146,68 @@ def K(s, b, g):
 
 
 print("V1 -- the prior-pursuit census (repo-wide, round 140 F6)")
+# round 395 (found by that round's reviewers): the claim is HISTORICAL --
+# zero occurrences "before this theorem", "census gated repo-wide as of
+# round 140 F6" -- but the gate read the LIVE tree, where post-1ai
+# material (section 11's roadmap, the footer's classical inputs, the
+# 1bf+ instruments) uses the terms legitimately, so it had failed since
+# the 1bf landing. The census is now evaluated on the tree of the
+# round-140 sweep commit itself (git objects, read-only; fails closed if
+# the commit is unreachable), and the paper as it stands is checked live
+# only on its pre-1ai span, the one region the claim names.
+CENSUS = "4f51753"   # Round 140 sweep (F6: the census made repo-wide)
+terms = ["Weil positivity", "Weil's criterion", "positivity criterion"]
+
+
+def git_out(*args):
+    r = subprocess.run(["git", "-C", ROOT] + list(args),
+                       capture_output=True, text=True)
+    return r.returncode, r.stdout
+
+
+def at_census(path):
+    rc_, out_ = git_out("show", f"{CENSUS}:{path}")
+    return out_ if rc_ == 0 else None
+
+
+rc_ls, ls = git_out("ls-tree", "-r", "--name-only", CENSUS)
+hist_paper = at_census("riemann-indistinguishability.md")
+hist_form = at_census("cascade-riemann-formulation.md")
+SELF_REL = "tools/research/cascade_weil_positivity_status.py"
+wide_files = [f for f in ls.split()
+              if ((f.startswith("src/") and f.count("/") == 1
+                   and f.endswith(".tex"))
+                  or (f.startswith("tools/") and f.endswith(".py")))
+              and f != SELF_REL]
+hist_ok = rc_ls == 0 and hist_paper is not None and hist_form is not None
+outside = wide = form_n = -1
+if hist_ok:
+    h0 = hist_paper.find("**Theorem 1ai (")
+    h1 = hist_paper.find("**Remark (Door 3:")
+    hist_ok = 0 < h0 < h1
+    outside = sum(hist_paper[:h0].count(x) + hist_paper[h1:].count(x)
+                  for x in terms)
+    wide = 0
+    for f in wide_files:
+        txt = at_census(f)
+        if txt is None:
+            hist_ok = False
+            break
+        wide += sum(txt.count(x) for x in terms)
+    form_n = sum(hist_form.count(x) for x in terms)
 paper_raw = open(PAPER, encoding="utf-8").read()
 i0 = paper_raw.find("**Theorem 1ai (")
-i1 = paper_raw.find("**Remark (Door 3:")
-assert 0 < i0 < i1
-terms = ["Weil positivity", "Weil's criterion", "positivity criterion"]
-outside = sum(paper_raw[:i0].count(x) + paper_raw[i1:].count(x) for x in terms)
-form_raw = open(FORM, encoding="utf-8").read()
-wide = 0
-# round 141 F3: SELF is excluded from the list itself, so the printed
-# file count equals the count actually scanned.  1aj landing: the
-# sibling instrument cascade_weil_route_traveled.py POSTDATES this
-# census's "before 1ai" point (Theorem 1aj sits after 1ai inside the
-# same span) and is excluded with disclosure -- the census claim is
-# about the pre-1ai record, which it is not part of.
-SIBLING = os.path.join(os.path.dirname(SELF), "cascade_weil_route_traveled.py")
-wide_files = [p for p in
-              (glob.glob(os.path.join(ROOT, "src", "*.tex"))
-               + glob.glob(os.path.join(ROOT, "tools", "**", "*.py"),
-                           recursive=True))
-              if os.path.abspath(p) not in (SELF, os.path.abspath(SIBLING))]
-for path in wide_files:
-    txt = open(path, encoding="utf-8", errors="replace").read()
-    wide += sum(txt.count(x) for x in terms)
-gate("the route's terms occur only within 1ai's span (zero in the paper "
-     "outside it; zero in the formulation; zero in src/*.tex and the "
-     "tools tree minus this instrument and the post-1ai sibling "
-     "route_traveled -- record files excluded as declared history)",
-     outside == 0 and sum(form_raw.count(x) for x in terms) == 0
-     and wide == 0,
-     f"outside-span {outside}, repo-wide {wide} over {len(wide_files)} files")
+assert i0 > 0
+live_pre = sum(paper_raw[:i0].count(x) for x in terms)
+gate("the route's terms occur only within 1ai's span at the census point "
+     "(the round-140 sweep tree: zero in the paper outside the span, in "
+     "the formulation, in src/*.tex and in the tools tree minus this "
+     "instrument -- record files excluded as declared history) and zero "
+     "in the live paper's pre-1ai span",
+     hist_ok and outside == 0 and form_n == 0 and wide == 0
+     and live_pre == 0 and len(wide_files) > 200,
+     f"census tree {CENSUS}: outside-span {outside}, repo-wide {wide} "
+     f"over {len(wide_files)} files; live pre-span {live_pre}")
 
 print("V2 -- W1: the blindness grid over the true corpus (round 140 F1)")
 bs = np.linspace(0.01, 0.99, 25)

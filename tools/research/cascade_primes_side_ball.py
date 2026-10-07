@@ -103,6 +103,7 @@ PAPER_NEEDLES = [
     {'g': 'g13', 's': 'either obstruction kills self-duality at'},
     {'g': 'g13', 's': 'Θ = sup Re ρ ∈ [½, 1], and Θ = ½ ⟺ RH'},
     {'g': 'g13', 's': '114.163342…i'},
+    {'g': 'g13', 's': '0.808517… + 85.699348…i'},   # round 395 (F395-B5/C5): the first zero's ordinate, unbound before
     {'g': 'g13', 's': "§3's Theorem 1e, the A1 dynamics block"},
     {'g': 'g13', 's': 'Theorem 2 fixes its occupant in two steps:'},
     {'g': 'g13', 's': 'The free commutative monoid on'},

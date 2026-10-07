@@ -109,6 +109,7 @@ suite passed 13/0 on the commutative tower; and the fiber-fork
 gate).  The S2 support-structure checks and the Gram gate are
 relabeled sign-insensitive, disclosed.
 """
+import re
 import itertools
 import os
 import subprocess
@@ -132,6 +133,14 @@ def gate(name, ok, detail=""):
 
 def norm(s):
     return " ".join(s.split())
+
+
+def md_unescape(s):
+    """Drop markdown's backslash escapes before ASCII punctuation (round
+    395, F395-A1: the render fixes escaped variable stars and
+    approximation tildes in the paper, d* -> d\\*, and these anchors
+    match the text as read, not as written)."""
+    return re.sub(r"\\([!-/:-@\[-`{-~])", r"\1", s)
 
 
 # ---- the implemented Clifford algebra (monomial bitmask basis, e_i^2 = +1)
@@ -163,7 +172,7 @@ def left_mult_matrix(A, dim_bits):
     return M
 
 
-paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
+paper = norm(md_unescape(open(PAPER, encoding="utf-8").read())).replace("**", "")
 
 print("S1 -- the implemented algebra")
 rng = np.random.default_rng(20260801)
@@ -241,7 +250,7 @@ print("  IDENTITY (declared, not gated): 2^8 = 256; 29 - 21 = 8 -- literal "
       "arithmetic")
 
 print("S4 -- the committed anchors")
-form = norm(open(FORM, encoding="utf-8").read())
+form = norm(md_unescape(open(FORM, encoding="utf-8").read()))
 part4a = norm(open(PART4A, encoding="utf-8").read())
 part4b = norm(open(PART4B, encoding="utf-8").read())
 ok = "e^(±½) per measured mode — lemma S4, anchored by equipartition" in form

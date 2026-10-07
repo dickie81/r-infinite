@@ -72,7 +72,10 @@ their requirements -- see env_fingerprint), so an interpreter or
 library change re-runs the affected members live without a manual
 TOWER_FRESH; and two prechecks join the run: the render lint of the
 markdown paper surfaces (render_lint.py, pinned) and the gate-label
-census-numeral scan (A561 O-3).
+census-numeral scan (A561 O-3). The round-395 sweep adds a third, the
+PAPER-READER precheck: every non-member verifier that reads a markdown
+paper surface, discovered structurally and run (cached on a key that
+binds the surfaces' bytes) -- see that block.
 """
 import concurrent.futures as cf
 import hashlib, json, os, re, subprocess, sys, time
@@ -733,11 +736,12 @@ if (_pp.returncode != 0 or _m2 is None or int(_m2.group(1)) != PRECHECK_PROBE_CA
 # O-1, A563 F391-2): the markdown paper surfaces must render as
 # written under cmark-gfm (render_lint.py: single-tilde strikes,
 # unrendered ~~ or **, intraword emphasis, consumed backslashes,
-# variable stars acting as delimiters). The lint carries its own
+# variable stars acting as delimiters, stray stars, literal backticks,
+# underscore emphasis). The lint carries its own
 # sabotage cases; the census line is gated, the probe count pinned
 # exactly like the two suites above, and the script is pinned in the
 # manifest's keying list
-RENDER_PROBE_CASES, RENDER_SURFACES = 7, 2
+RENDER_PROBE_CASES, RENDER_SURFACES = 10, 2   # 7 -> 10 at the round-395 sweep (L7-L9)
 _rl = subprocess.run([sys.executable, os.path.join(HERE, "render_lint.py")],
                      capture_output=True, text=True)
 _rl_line = [l for l in _rl.stdout.splitlines() if l.startswith("render lint:")]
@@ -750,7 +754,7 @@ if (_rl.returncode != 0 or _m3 is None or int(_m3.group(1)) != RENDER_SURFACES
     print(f"RENDER-LINT PRECHECK FAILURE (expected {RENDER_SURFACES} surfaces, "
           f"0 defects, {RENDER_PROBE_CASES}/{RENDER_PROBE_CASES} probes, exit 0):",
           flush=True)
-    print(_rl.stdout[-4000:] + _rl.stderr[-2000:], flush=True)
+    print(_rl.stdout[:4000] + _rl.stderr[-2000:], flush=True)   # head: the defect list starts there (round 395 B9)
     sys.exit(2)
 
 # gate-label precheck (round 395, A561 O-3): a gate label that spells
@@ -758,34 +762,59 @@ if (_rl.returncode != 0 or _m3 is None or int(_m3.group(1)) != RENDER_SURFACES
 # at the next landing while its needles advance -- rounds 167 F6, 175
 # F2/F5, 213 F3 and A561 O-3 each re-synced labels by hand. No gate
 # label in tools/research may carry a census numeral or a Theorem-range
-# literal; the needles carry the live values. Its own sabotage pair
-# runs first.
-_CENSUS_NUM = re.compile(r"\d+ (?:scripts )?cited in place|1i\s*[–-]+\s*1[a-z]{2}")
+# literal; the needles carry the live values. Scope (round-395 sweep,
+# F395-B6/C9): every string constant anywhere in the first argument of
+# a call to gate or to a name bound to it (so f-strings and
+# concatenations are read part by part), a range written with any dash,
+# and a floor on the number of labels scanned, so a renamed gate cannot
+# pass by scanning nothing. Its own sabotage cases run first.
+_CENSUS_NUM = re.compile(r"\d+ (?:scripts )?cited in place|1i\s*[–—-]+\s*1[a-z]{2}")
+GATE_LABELS_MIN = 650
+
+
+def _label_hits(tree):
+    """(labels scanned, [lineno of each census-bearing label])."""
+    names = {"gate"}
+    for node in _ast.walk(tree):
+        if (isinstance(node, _ast.Assign) and isinstance(node.value, _ast.Name)
+                and node.value.id == "gate"):
+            names |= {t.id for t in node.targets if isinstance(t, _ast.Name)}
+    n, bad = 0, []
+    for node in _ast.walk(tree):
+        if (isinstance(node, _ast.Call) and isinstance(node.func, _ast.Name)
+                and node.func.id in names and node.args):
+            n += 1
+            if any(isinstance(c, _ast.Constant) and isinstance(c.value, str)
+                   and _CENSUS_NUM.search(c.value)
+                   for c in _ast.walk(node.args[0])):
+                bad.append(node.lineno)
+    return n, bad
+
+
+_sab = _ast.parse('gate("g1 ok", 1)\n'
+                  'gate(f"g2 {k}: 88 cited in place", 1)\n'
+                  'gate("g3 the range " + "1i—1ca", 1)\n'
+                  'G = gate\nG("g4 88 cited in place", 1)\n')
 if not (_CENSUS_NUM.search("88 cited in place; the range 1i–1bl")
         and _CENSUS_NUM.search("Theorems 1i--1bj")
-        and not _CENSUS_NUM.search("the anchored count and range needles")):
-    print("GATE-LABEL PRECHECK FAILURE: the census-numeral pattern "
-          "missed its sabotage pair", flush=True)
+        and not _CENSUS_NUM.search("the anchored count and range needles")
+        and _label_hits(_sab) == (4, [2, 3, 5])):
+    print("GATE-LABEL PRECHECK FAILURE: the census-numeral scan missed "
+          "its sabotage cases", flush=True)
     sys.exit(2)
 _nlab, _lab_bad = 0, []
 for _f in sorted(os.listdir(HERE)):
     if not _f.endswith(".py"):
         continue
-    for _node in _ast.walk(_ast.parse(open(os.path.join(HERE, _f), "rb").read())):
-        if (isinstance(_node, _ast.Call)
-                and isinstance(_node.func, _ast.Name)
-                and _node.func.id == "gate" and _node.args
-                and isinstance(_node.args[0], _ast.Constant)
-                and isinstance(_node.args[0].value, str)):
-            _nlab += 1
-            if _CENSUS_NUM.search(_node.args[0].value):
-                _lab_bad.append(f"{_f}:{_node.lineno}")
+    _n, _b = _label_hits(_ast.parse(open(os.path.join(HERE, _f), "rb").read()))
+    _nlab += _n
+    _lab_bad += [f"{_f}:{_ln}" for _ln in _b]
 print(f"gate-label precheck: {_nlab} gate labels scanned, "
       f"{len(_lab_bad)} carry a census numeral", flush=True)
-if _lab_bad:
-    print(f"GATE-LABEL PRECHECK FAILURE: {_lab_bad}", flush=True)
+if _lab_bad or _nlab < GATE_LABELS_MIN:
+    print(f"GATE-LABEL PRECHECK FAILURE: {_lab_bad} "
+          f"(scanned {_nlab}, floor {GATE_LABELS_MIN})", flush=True)
     sys.exit(2)
-
 
 # thread pinning (round 252, measured): 4 workers x full-core
 # BLAS oversubscribed the box ~4x -- cascade_heatflow_energy ran
@@ -804,20 +833,47 @@ THR = str(max(1, (os.cpu_count() or 4)//NW))
 # third-party module imported anywhere in the member's reach, closed
 # under the distributions' non-extra requirements, plus the optional
 # backends a library loads without declaring them (mpmath uses gmpy2
-# or gmpy when installed). A library change rotates the key of every
-# member whose reach imports it, which then re-runs live: over-
-# invalidation, never a stale PASS. NOT bound (disclosed): a library
-# rebuilt in place at the same version, a system BLAS swapped under
-# an unchanged numpy, and the producers' compute checkpoints (their
+# or gmpy when installed; sympy uses python-flint or gmpy2 for its
+# ground types -- round-395 sweep, F395-B4), the presence and value of
+# the environment switches those libraries and the BLAS read, and the
+# CPU (model name and feature flags: OpenBLAS picks its kernel per CPU
+# at run time). A change in any bound input rotates the key of every
+# member whose reach is affected, which then re-runs live -- for the
+# bound inputs, over-invalidation and never a stale PASS. NOT bound
+# (disclosed): a library rebuilt in place at the same version, a
+# system BLAS swapped under an unchanged numpy, edits inside the
+# interpreter's own installation, environment variables outside
+# _ENV_SWITCHES, and the producers' compute checkpoints (their
 # ckpt_key keys bind code only; the members that read them re-run
-# live and re-gate the data).
+# live and re-gate the data). After any of those, TOWER_FRESH=1.
 import importlib.metadata as _md
 import platform as _platform
 
 _STDLIB = set(sys.stdlib_module_names)
 _PKG_DISTS = _md.packages_distributions()
-_OPTIONAL_BACKENDS = {"mpmath": ("gmpy2", "gmpy")}
-_ENV_SWITCHES = ("MPMATH_NOGMPY", "MPMATH_NOSAGE")
+_OPTIONAL_BACKENDS = {"mpmath": ("gmpy2", "gmpy"),
+                      "sympy": ("python-flint", "gmpy2", "gmpy")}
+_ENV_SWITCHES = ("MPMATH_NOGMPY", "MPMATH_NOSAGE", "MPMATH_SAGE",
+                 "MPMATH_STRICT", "SAGE_ROOT", "SYMPY_GROUND_TYPES",
+                 "SYMPY_USE_CACHE", "OPENBLAS_CORETYPE",
+                 "NPY_DISABLE_CPU_FEATURES", "NPY_ENABLE_CPU_FEATURES")
+
+
+def _cpu_fingerprint():
+    """The CPU model name and a hash of its feature flags (Linux
+    /proc/cpuinfo; elsewhere platform.processor())."""
+    try:
+        txt = open("/proc/cpuinfo", encoding="utf-8").read()
+    except OSError:
+        return "cpu=" + _platform.processor()
+    model = re.search(r"^model name\s*:\s*(.*)$", txt, flags=re.M)
+    flags = re.search(r"^flags\s*:\s*(.*)$", txt, flags=re.M)
+    fl = " ".join(sorted(flags.group(1).split())) if flags else ""
+    return (f"cpu={model.group(1).strip() if model else '?'}; flags="
+            + hashlib.sha256(fl.encode()).hexdigest()[:16])
+
+
+_CPU = _cpu_fingerprint()
 _TP_MEMO = {}
 
 
@@ -885,8 +941,9 @@ def env_fingerprint(name):
                 dists.add(m.group(1))
                 frontier.append(m.group(1))
     parts = [sys.implementation.name, sys.version, _platform.machine(),
-             f"blas_threads={THR}"]
-    parts += [f"{v}={os.environ.get(v, '')}" for v in _ENV_SWITCHES]
+             _CPU, f"blas_threads={THR}"]
+    parts += [f"{v}={os.environ[v]!r}" if v in os.environ else f"{v} unset"
+              for v in _ENV_SWITCHES]
     parts += sorted(f"{d.lower()}=={_dist_version(d)}" for d in dists)
     parts += sorted(f"unresolved:{t}" for t in unresolved)
     return "\n".join(parts)
@@ -936,6 +993,100 @@ def run(name):
                        capture_output=True, text=True, env=env)
     return name, r.returncode, time.time() - t0, r.stdout[-400:]
 
+
+# THE PAPER-READER PRECHECK (round-395 sweep, F395-A1/A2/B1): the
+# round-394 meta-rule found "non-member verifiers that read the paper
+# directly" by a grep that saw six of nineteen, and that round's
+# render escapes broke three of the thirteen it missed. Discovery is
+# now structural: every .py file under the code roots whose
+# docstring-stripped string constants name a markdown paper surface is
+# a reader (members never do -- clause A). Each runs here, keyed like a
+# member on its code reach and the environment fingerprint and, unlike
+# a member, on the raw bytes of both surfaces, since readers match raw
+# paper text outside the needle precheck. A reader whose key is
+# unchanged since its last PASS is served from
+# checkpoints/reader_results.json; any paper or formulation edit
+# re-runs every reader (about 45 s in all). The discovered count has a
+# floor, so a broken discovery cannot pass empty. TOWER_FRESH=1 runs
+# every reader live too.
+READER_SURFACES = ("riemann-indistinguishability.md",
+                   "cascade-riemann-formulation.md")
+READER_INFRA = {"paper_needles.py", "run_tower.py", "render_lint.py",
+                "precheck_probes.py", "refresh_tower_manifest.py"}
+READERS_MIN = 19
+READER_CACHE = os.path.join(HERE, "checkpoints", "reader_results.json")
+
+
+def discover_readers():
+    out = []
+    for root in CODE_ROOTS:
+        for f in sorted(os.listdir(root)):
+            if not f.endswith(".py") or f in READER_INFRA:
+                continue
+            path = os.path.join(root, f)
+            tree = _ast.parse(open(path, "rb").read())
+            for node in _ast.walk(tree):
+                body = getattr(node, "body", None)
+                if (isinstance(body, list) and body
+                        and isinstance(body[0], _ast.Expr)
+                        and isinstance(body[0].value, _ast.Constant)
+                        and isinstance(body[0].value.value, str)):
+                    node.body = body[1:]
+            if any(isinstance(n, _ast.Constant) and isinstance(n.value, str)
+                   and any(sf in n.value for sf in READER_SURFACES)
+                   for n in _ast.walk(tree)):
+                out.append(os.path.relpath(path, HERE))
+    return out
+
+
+_surface_bytes = b"".join(
+    open(os.path.join(HERE, "..", "..", sf), "rb").read()
+    for sf in READER_SURFACES)
+
+
+def reader_key(rel):
+    h = hashlib.sha256()
+    for f in sorted(member_reach(rel)):
+        h.update(f.encode())
+        h.update(ckpt_key.code_sha(
+            os.path.join(HERE, f), strip_prints=False).encode())
+    h.update(hashlib.sha256(_surface_bytes).digest())
+    h.update(env_fingerprint(rel).encode())
+    return h.hexdigest()[:24]
+
+
+readers = discover_readers()
+rcache = {}
+if os.path.exists(READER_CACHE):
+    try:
+        rcache = json.load(open(READER_CACHE, encoding="utf-8"))
+    except Exception:
+        rcache = {}
+rkeys = {r: reader_key(r) for r in readers}
+r_cached = [] if fresh else \
+    [r for r in readers if rcache.get(rkeys[r], {}).get("rc") == 0]
+r_live = [r for r in readers if r not in r_cached]
+r_fail = []
+if r_live:
+    with cf.ProcessPoolExecutor(max_workers=NW) as ex:
+        for name, rc, dt, tail in ex.map(run, r_live):
+            if rc != 0:
+                r_fail.append(name)
+                print(f"  READER FAIL {name} (exit {rc})\n{tail}", flush=True)
+            else:
+                rcache[rkeys[name]] = {
+                    "file": name, "rc": 0, "dt": dt,
+                    "when": time.strftime("%Y-%m-%dT%H:%MZ", time.gmtime())}
+                os.makedirs(os.path.dirname(READER_CACHE), exist_ok=True)
+                json.dump(rcache, open(READER_CACHE, "w"),
+                          indent=0, sort_keys=True)
+print(f"paper-reader precheck: {len(readers)} readers discovered, "
+      f"{len(readers) - len(r_fail)} PASS ({len(r_live) - len(r_fail)} live, "
+      f"{len(r_cached)} cached), {len(r_fail)} FAIL", flush=True)
+if r_fail or len(readers) < READERS_MIN:
+    print(f"PAPER-READER PRECHECK FAILURE: {r_fail} (discovered "
+          f"{len(readers)}, floor {READERS_MIN})", flush=True)
+    sys.exit(2)
 
 names = [e["file"] for e in MAN["tower"]]
 keys = {n: member_key(n) for n in names}

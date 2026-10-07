@@ -80,6 +80,7 @@ RESULT line's first draft said 10 and this docstring said 14 --
 both corrected pre-commit, the recurring count defect's fifth
 instance).
 """
+import re
 import itertools
 import os
 import subprocess
@@ -106,6 +107,14 @@ def gate(name, ok, detail=""):
 
 def norm(s):
     return " ".join(s.split())
+
+
+def md_unescape(s):
+    """Drop markdown's backslash escapes before ASCII punctuation (round
+    395, F395-A1: the render fixes escaped variable stars and
+    approximation tildes in the paper, d* -> d\\*, and these anchors
+    match the text as read, not as written)."""
+    return re.sub(r"\\([!-/:-@\[-`{-~])", r"\1", s)
 
 
 D_MIN, D_MAX = 4, 217
@@ -164,7 +173,7 @@ gate("injection at the pinned node yields the rigid shift: response "
      f"spread {spread:.1e}, stretch {stretch:.1e}")
 
 print("E5 -- the paper and the sibling")
-paper = norm(open(PAPER, encoding="utf-8").read()).replace("**", "")
+paper = norm(md_unescape(open(PAPER, encoding="utf-8").read())).replace("**", "")
 ok = ("Look for the deeper grounding. Interesting pattern but this is no "
       "first principles derivation or proof." in paper)
 ok &= "G(d, d*) = Σ_{k = max(d, d*)}^{216} α(k)" in paper

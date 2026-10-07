@@ -1,0 +1,116 @@
+{
+"14cc240057e65c6a6e6c2d0f": {
+"dt": 4.368793249130249,
+"file": "cascade_spinor_transport.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"1ac88f48aaf6f36cb7db640b": {
+"dt": 2.17879319190979,
+"file": "cascade_a3_rules.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"2908cea3952962170416683c": {
+"dt": 11.38287878036499,
+"file": "cascade_mirror_coherence.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"321744db73211abf283abce9": {
+"dt": 8.390547752380371,
+"file": "cascade_c1_closure.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"3dcba33f2b8c3b742f326363": {
+"dt": 1.3075854778289795,
+"file": "cascade_zeta_rational.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"47b62a7cecee44f6148c08e9": {
+"dt": 0.08118891716003418,
+"file": "cascade_door4_status.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"53f7280eb2479ab77173f743": {
+"dt": 0.05043601989746094,
+"file": "cascade_forcing_ledger.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"6012387bd00abe82c565ae59": {
+"dt": 1.495107889175415,
+"file": "cascade_given_irreducibility.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"60e7ab7e2a81302388e1385a": {
+"dt": 0.5742435455322266,
+"file": "cascade_participation_rule.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"70b7b9f4d94cae342f52739d": {
+"dt": 1.5929758548736572,
+"file": "cascade_grammar_need.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"7775d64a62bf25e8622d485f": {
+"dt": 0.2848799228668213,
+"file": "cascade_species_census.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"7e1614816bc648eec92034ea": {
+"dt": 0.9820425510406494,
+"file": "cascade_participation_dichotomy.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"962b549d74ce28a946c7ed92": {
+"dt": 1.2828426361083984,
+"file": "cascade_site_e_pairing.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"b4f91c5c4b7dbef40ae097b6": {
+"dt": 8.339780807495117,
+"file": "cascade_weil_positivity_status.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"b58da65b411cbdb558edca64": {
+"dt": 2.8893306255340576,
+"file": "cascade_bridge_asymmetry.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"c93b35bd20864f7bd358e5f5": {
+"dt": 0.1106712818145752,
+"file": "cascade_colour_count.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"d215fcc8189b0eac408dee85": {
+"dt": 0.5616095066070557,
+"file": "cascade_endpoint_data.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"d3a77cd95088255718355bf5": {
+"dt": 1.4151628017425537,
+"file": "cascade_riemann_kernel.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+},
+"edcf725108ade468dbb8e4bc": {
+"dt": 1.904926061630249,
+"file": "cascade_deeper_grounding.py",
+"rc": 0,
+"when": "2026-10-07T17:05Z"
+}
+}
