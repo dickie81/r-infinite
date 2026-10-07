@@ -19948,3 +19948,47 @@ Lead, on 33361b9 (logs under `scratchpad/r390/battery_lead/`, 11:37–12:06 UTC,
 **Standing state.** Round 391 is owed: the convergence test on the 33361b9 sweep.
 
 ---
+
+## Addendum 563 — round 391, the convergence test on the round-390 sweep (33361b9; records f611636) (0 MAJOR, 1 minor; accepted; swept a474103)
+
+**The round.**
+- **Reviewer:** a fresh-context hostile reviewer, the repo agent `hostile-reviewer` (session model, max effort), on 33361b9, with the records f611636 read as claims under test. Brief: `brief_round391.md`.
+- **Experiments:** under `scratchpad/r391/`. These include GitHub's own rendered HTML of the paper at 8636412, 1882852 and 33361b9 (`gh api -H "Accept: application/vnd.github.html+json"`). Local cmark-gfm reproduces those whole-document counts exactly.
+- **Findings:** 0 MAJOR, 1 minor (F391-1), 0 cosmetic, and 2 out-of-scope observations. The round does not converge.
+
+**F391-1 (minor; accepted; created by the F390-2 disposition).** The F390-2 replacement called the Weil positivity "an archimedean positivity". That identification is new, and the paper's own theorems contradict it:
+- Weil's functional is global. 1ai(ii) (2488–2490) states the criterion over "the explicit-formula functional".
+- 1at(ii) (4076–4078) keeps "the Weil-positivity equivalence" and the archimedean "Arakelov gap" apart, as separate landscape items.
+- 1ax(vi) (4701–4704) calls the meeting with Weil positivity "unbuilt".
+
+Lead: re-read 2488–2490 and 4076–4078 directly.
+
+**Disposition:** "**~~an archimedean positivity,~~ the Weil positivity W(g∗g̃) ≥ 0 that (P4) targets**", annotated. GitHub's renderer (cmark-gfm), after the sweep:
+- 1as (3729–4018): 10 `<del>`, 0 literal `~~`, 0 literal `*`.
+- 1av (4268–4469): 8 `<del>`, 0 literal `~~`, 0 literal `*`.
+- The whole document's 8 literal `~~` are A562 O-1's pre-existing strikes.
+
+**Out-of-scope observations.**
+- **F391-2.** 1as(vii)'s quoted part0 formula contains "\!", which GitHub renders as a literal "!". This is pre-existing (b4b8062). It joins the render-lint residual with A562 O-1.
+- **F391-3.** STRUCTURAL-REVIEW §6's header ("quoted from the compiled sources") was contradicted by its paper-side and external entries, and the Li entry lacked an attack note. Both were amended in a474103; that file is not a paper surface.
+
+**Check-1 record (re-read this round).**
+- `riemann-indistinguishability.md` 4396–4447: 1av(vi)–(vii) and (P4) within Theorem 1av (4268–4469), the operative theorem.
+- 2486–2490 (1ai(ii)) and 4074–4078 (1at(ii)).
+
+**Battery.**
+- Classification: prose-only; the sweep edits 1av only. Owed: the manifest-integrity precheck, the TOP verifier with `CASCADE_CHAIN=manifest`, and a full run of `cascade_li_two_channels.py`.
+- Reviewer on f611636 (all rc 0), which also ran `cascade_primes_side_ball.py`:
+  - tower: TOWER PASS (36/36), census 0 live + 36 cached + 0 FAIL;
+  - TOP: chain [manifest mode], 35 ancestor hashes, ALL GATES PASS (9/9), 25 REUSED;
+  - primes-side-ball: 15/15;
+  - li-two-channels: 10/10.
+- Lead on a474103 (logs under `scratchpad/r391/battery_lead/`, 12:41–13:05 UTC, clean tree):
+  - `run_tower.py`: TOWER PASS (36/36), with the same precheck lines;
+  - TOP in manifest mode: ALL GATES PASS (9/9), 25 REUSED, none recomputed;
+  - `cascade_li_two_channels.py`: ALL GATES PASS (10/10).
+  - All rc 0.
+
+**Standing state.** Round 392 is owed: the convergence test on the a474103 sweep.
+
+---

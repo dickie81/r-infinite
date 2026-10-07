@@ -5963,3 +5963,23 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 - **Held:** the dispositions realised verbatim; F2 and F3 consume Λ ≥ 0; Li's criterion used correctly; the dating; the README citation; the Check 9 chronology.
 
 Swept: 33361b9. Convergence round 391 is owed.
+
+### Round 391 — the convergence test on the round-390 sweep
+
+**Scope.** Commit 33361b9: 1as(vi)'s repaired strike and scoped "here"; 1av(vii)'s named positivity; the round-198 marker. The records f611636 were read as claims.
+- **Battery** (prose-only): tower 36/36, TOP verifier 9/9 (manifest mode) and li-two-channels 10/10, from both the reviewer and the lead on the sweep a474103. The reviewer also ran primes-side-ball 15/15.
+- **Brief:** `brief_round391.md`.
+
+**Findings.** 0 MAJOR, 1 minor, 0 cosmetic. Verified by the lead and accepted (A563).
+- **Minor:** F391-1, the F390-2 appositive "an archimedean positivity" misidentified the global Weil positivity.
+- **Out of scope:**
+  - F391-2: a literal "\!" in 1as(vii) renders as "!"; added to the render-lint residual.
+  - F391-3: STRUCTURAL-REVIEW §6's header and Li entry; amended.
+- **Held:**
+  - GitHub-rendered output is clean in both blocks, checked against GitHub's own HTML.
+  - Every A562 disposition is realised verbatim.
+  - The struck phrases are verbatim.
+  - No further antecedent losses.
+  - The README rebuild quote is exact.
+
+**Swept:** a474103. Convergence round 392 is owed.
