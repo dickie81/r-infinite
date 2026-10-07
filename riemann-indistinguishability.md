@@ -3890,14 +3890,18 @@ survey, and the two half-planes ~~now named~~ **in the replacement
 written (CLAUDE.md Check 9). The zero-free half-planes claimed by
 OpenAI ~~on 2026-10-07~~ **in a release of 2026-10-06 (preprints dated
 30 September and 5 October 2026)**, Re s > 7/8 and, by a second route,
-Re s > 11/12, have not been checked here~~; they run through the
+Re s > 11/12, have not been checked ~~here~~ **by the gates here** ~~; they run through the
 local Euler factors of Hecke L-functions over ℚ(√−3) and prime
 counting in ray classes — Lean pilot README round 277~~ **(the Lean
-pilot's README, round 277, summarises the second route)**. Round-389
+pilot's README, round 277, summarises the second route, and records
+an independent kernel rebuild of the 7/8 theorem: its statements and
+axioms, not its proof read in full)**. Round-389
 review: F389-1 named the positivity; F389-5 named the two
 half-planes; F389-4 dated the release; F389-2 struck a route
 description its cited source did not contain and that was wrong for
-the second route.)* The
+the second route.)* *(round 390: F390-1 repaired the delimiters of
+F389-2's strike, which had not rendered; F390-4 scoped "here" to the
+gates and recorded the rebuild.)* The
 superposition anatomy: f is an equal-weight superposition of two
 product states (|c₁| = |c₂|), and at BOTH off-line zeros the
 components are nonzero, of equal modulus, with ratio exactly
@@ -4401,7 +4405,9 @@ only the ledger's own magnitude; CLAUDE.md Check 9.)* *(vii) The informational-p
 program (DECLARED RESEARCH PROGRAM — named, dated, never
 citable as a result).* The owner's proposal: the arithmetic
 fill exerting informational pressure on the archimedean ball
-as the source of that positivity. Three graded supports. (a)
+as the source of ~~that positivity~~ **an archimedean positivity, the
+Weil positivity W(g∗g̃) ≥ 0 that (P4) targets** *(round 390 F390-2:
+the struck antecedent was (vi)'s struck clause)*. Three graded supports. (a)
 Mechanism-class MEMBERSHIP: thermodynamic/informational
 functionals are among the mechanisms yielding a priori
 positivity without estimates (states, entropy production,
@@ -4411,7 +4417,8 @@ mechanisms** *(round 389 F389-3: (vi)'s elimination is struck)*
 (~~necessity … precisely~~
 [struck round 198 F6, both reviewers ("F2/F6" at the sweep;
 pointer re-synced round 200) — the elimination
-covers magnitude estimation only; rival structural mechanisms —
+covers magnitude estimation only *(round 390 F390-3: narrowed by round
+389 F389-3 to the ledger's own magnitude)*; rival structural mechanisms —
 spectral self-adjointness, Weil-cone positive-definiteness, the
 very cone P4 targets — were never eliminated]). (b) The
 equilibrium shadow is a theorem: the de Bruijn–Newman constant
