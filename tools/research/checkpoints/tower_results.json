@@ -425,6 +425,12 @@
 "rc": 0,
 "when": "2026-09-02T01:07Z"
 },
+"1494bcdd829986c9d72f8a02": {
+"dt": 785.9855017662048,
+"file": "cascade_attraction_margins.py",
+"rc": 0,
+"when": "2026-10-07T17:21Z"
+},
 "14cc3ee63cc4b9e946aa59ab": {
 "dt": 246.3997666835785,
 "file": "cascade_lattice_forcing.py",
@@ -1391,6 +1397,12 @@
 "rc": 0,
 "when": "2026-08-28T11:26Z"
 },
+"41d3e91ea8f076cf4cf29216": {
+"dt": 52.58490300178528,
+"file": "cascade_saddle_curvature.py",
+"rc": 0,
+"when": "2026-10-07T17:21Z"
+},
 "41e01577c1cc293e055560b8": {
 "dt": 0.9032652378082275,
 "file": "cascade_prime_budget_fold.py",
@@ -2074,6 +2086,12 @@
 "file": "cascade_prime_budget_fold.py",
 "rc": 0,
 "when": "2026-09-03T11:44Z"
+},
+"5ecf1ddda233692e12edbd79": {
+"dt": 650.9706313610077,
+"file": "cascade_weil_margin.py",
+"rc": 0,
+"when": "2026-10-07T17:24Z"
 },
 "5ed906e04b2d7b2a2e1760f9": {
 "dt": 63.95333218574524,
@@ -3635,6 +3653,12 @@
 "rc": 0,
 "when": "2026-08-28T13:43Z"
 },
+"a54fbba658ae809f8b6e30b0": {
+"dt": 64.59329771995544,
+"file": "cascade_heatflow_energy.py",
+"rc": 0,
+"when": "2026-10-07T17:21Z"
+},
 "a58ec8b7749a3671982d0ca8": {
 "dt": 2.7402656078338623,
 "file": "cascade_floor_closure.py",
@@ -4391,6 +4415,12 @@
 "rc": 0,
 "when": "2026-09-08T16:19Z"
 },
+"c8d2155b2ae9a5d7aedb9a69": {
+"dt": 229.95764684677124,
+"file": "cascade_li_two_channels.py",
+"rc": 0,
+"when": "2026-10-07T17:21Z"
+},
 "c90459941807abbdc35c374f": {
 "dt": 345.1719527244568,
 "file": "cascade_floor_meter.py",
@@ -4877,6 +4907,12 @@
 "rc": 0,
 "when": "2026-08-27T18:43Z"
 },
+"e16eb8fa1d60f055c66bbaa2": {
+"dt": 454.8878085613251,
+"file": "cascade_floor_meter.py",
+"rc": 0,
+"when": "2026-10-07T17:21Z"
+},
 "e181af739a774ad223210589": {
 "dt": 338.4894518852234,
 "file": "cascade_floor_meter.py",
@@ -5224,6 +5260,12 @@
 "file": "cascade_floor_closure.py",
 "rc": 0,
 "when": "2026-09-08T16:19Z"
+},
+"f0910e8e2ad83b81519c3fb8": {
+"dt": 81.94982862472534,
+"file": "cascade_weil_crossover.py",
+"rc": 0,
+"when": "2026-10-07T17:24Z"
 },
 "f0b5c0b5dc42ba4c76d5a4ad": {
 "dt": 71.36956238746643,
