@@ -19828,3 +19828,73 @@ The ratio η₂/λ₁ falls slowly (5.3 → 2.03); the loosest primes sit at the
 **Standing state.** Stable after round 388: the §(vi) citation of the Lean pilot's Davenport–Heilbronn certificate (rounds 386–388), the working note's §5 and its three `strip_note` instruments (rounds 383–388). No further round is owed on these surfaces.
 
 ---
+
+## Addendum 561 — round 389 on the 1as(vi) strike of "Every proven zero-free result …" (8636412) (0 MAJOR, 3 minor, 2 cosmetic; all accepted; swept 1882852)
+
+**The round.**
+- **Reviewer:** a fresh-context hostile reviewer (the repo agent `hostile-reviewer`: session model, max effort) on 8636412, with brief `brief_round389.md`.
+- **Scratch:** experiments under `scratchpad/r389/`: `work/dominance.py` computes the dominance numerics with mpmath; battery logs are under `battery/`.
+- **The change under review.** The lead struck 1as(vi)'s "Every proven zero-free result consumes exactly the positivity ζ has and f lacks." This applied the false-when-written branch of the marking rule. The sentence quantified over all proofs without a survey, and two half-planes already contradicted it when it landed (b4b8062f, 2026-08-06):
+  - f is zero-free on Re s ≥ 2 by first-coefficient dominance (the Lean pilot's `dh_ne_zero_of_two_le`, a record, not a gate);
+  - L(s, χ) ≠ 0 on Re s > 1 for complex χ, with no sign condition.
+- **Findings:** 0 MAJOR, 3 minor, 2 cosmetic. A convergence round is owed.
+
+**F389-1 (minor; accepted).** The replacement's "consume it" and "does not need it" took their antecedent, "the positivity ζ has and f lacks", from the struck sentence alone. Read live, "it" fell on "the Euler product alone", and under that reading the second sentence undercuts itself.
+- **Lead:** with the struck span removed, "positivity" no longer occurs in the passage.
+- **Disposition:** "~~it~~ **the positivity of ζ's log-spectrum, Λ(n) ≥ 0**" and "~~it~~ **that positivity**".
+
+**F389-2 (minor; accepted).** The annotation said the claimed half-planes "run through the local Euler factors of Hecke L-functions over ℚ(√−3) and prime counting in ray classes", citing pilot README round 277.
+- Round 277 says neither. Its route description is the companion's: Möbius sums, the sextic family, Poisson, cubic theta and the quadratic large sieve.
+- For the 11/12 route the clause is wrong: the companion uses Landau's prime ideal theorem (paper2.tex 288–289), and "prime counting" occurs 0 times in it.
+- **Lead:**
+  - `sed -n 8573,8625p tools/lean/riemann-pilot/README.md | grep -i -c 'euler\|ray class'` gives 0;
+  - paper2.tex 288 reads "By Landau's prime ideal theorem".
+- **Disposition:** the route description is struck. The README round is cited as summarising the second route.
+
+**F389-3 (minor; accepted; novel).** Theorem 1av(vi) carries the struck sentence's twin: "magnitude estimation has no purchase on a dichotomy — only a structural a priori positivity can decide it", with "the missing mathematics is an archimedean positivity", argued by elimination.
+- **Lead:** read 1av(vi)–(vii) and the honest scope (4362–4434) and 1as(iv) (3800–3812) directly.
+  - The elimination covers only the ledger's own magnitude.
+  - By Li's criterion that bound is equivalent to RH, as 1as(iv)'s ψ(x) − x = O(x^(½+ε)) is. So the dichotomy shows that estimating this canonical quantity is circular. It does not show that no estimate decides RH.
+  - Round 198 F6 had narrowed (vii)(a) but kept "the elimination covers magnitude estimation".
+- **Disposition:** strike-and-annotate at four sites, with the needle `'**There is no\nintermediate regime**'` of `cascade_li_two_channels.py` kept intact:
+  - the (vi) heading;
+  - the claim;
+  - (vii)(a)'s "(vi)'s elimination selects";
+  - the honest scope's "mechanism-class conclusion argued by elimination".
+
+**F389-4 (cosmetic; accepted).** "claimed by OpenAI on 2026-10-07": the release is dated 2026-10-06.
+- **Lead:** `git -C /home/user/openai/math log -1` gives adc7f1241, 2026-10-06 14:58:50 −0700.
+- **Disposition:** "in a release of 2026-10-06 (preprints dated 30 September and 5 October 2026)". The sibling dates in CLAUDE.md Check 9, pilot README round 277's heading and STRUCTURAL-REVIEW §6 are corrected likewise.
+
+**F389-5 (cosmetic; accepted).** "the two half-planes now named" could be read as OpenAI's. That reading is anachronistic, and it would make external claims a premise.
+- **Disposition:** the two half-planes are named (f on Re s ≥ 2; L(s, χ) on Re s > 1).
+
+**Out-of-scope observations.**
+- **O-1.** The reviewer agent's opening line said "Checks 0–8"; CLAUDE.md now says "0–9". At the owner's instruction it was updated in ad58285.
+- **O-2.** Check 9's precedent chronology was wrong: round 222's `LFunction_ne_zero_of_psiChi` (e39a6f6, 2026-09-29) postdates three of the precedents (b4b8062, 2026-08-06; bea87c0 and e16b3dd, 2026-09-28).
+  - **Lead:** verified with `git log -S`.
+  - Corrected in CLAUDE.md in 1882852, which also adds 1av(vi) as a precedent.
+- **O-3.** g15's label "88 cited in place; the range 1i–1bl" is stale in 14 verifiers. The needles check the 103-script census and 1i–1ca.
+  - This is pre-existing and an executable-bytes change (full-tower class). It is left on the residual list.
+
+**Check-1 record (re-read this round):**
+- `riemann-indistinguishability.md` 3729–3893 (Theorem 1as, the operative theorem, with (vi) as swept), 4362–4434 (1av(vi)–(vii) and the honest scope) and 4028–4042 (1at's three worlds);
+- `DHColumn.lean` 84–98;
+- `DHPrime.lean` 238–245, 293–294 and 553–554;
+- paper2.tex 206–440;
+- paper.tex 3723–3900.
+
+**Battery (prose-only; owed: the manifest-integrity precheck, a full run of the tower TOP verifier, and full runs of `cascade_primes_side_ball.py` (1as's block) and, for the sweep, `cascade_li_two_channels.py` (1av's block)).**
+- **Reviewer on 8636412** (logs under `scratchpad/r389/battery/`):
+  - TOWER PASS (36/36): census 0 live + 36 cached PASS + 0 FAIL; prechecks 36 members, 4 keying files; 105 reach files, 45 surfaces; probes 24/24 and 85/85.
+  - `cascade_smooth_functional.py`: ALL GATES PASS (9/9); 25 REUSED, none recomputed. The verifier's own exit code was not observed: the reviewer killed its own timeout wrapper mid-run, and the banner prints only on the zero-failure path.
+  - `cascade_primes_side_ball.py`: ALL GATES PASS (15/15).
+- **Lead on 1882852** (logs under `scratchpad/r389/battery_lead/`, 09:34–11:09 UTC, clean tree):
+  - `run_tower.py`: the same precheck and census lines, TOWER PASS (36/36), rc 0.
+  - `cascade_smooth_functional.py`: ALL GATES PASS (9/9), rc 0; chain to `cascade_gap_law.py`; 25 REUSED, none recomputed.
+  - `cascade_primes_side_ball.py`: ALL GATES PASS (15/15), rc 0; chain to `cascade_lattice_forcing.py`.
+  - `cascade_li_two_channels.py`: ALL GATES PASS (10/10), rc 0; chain to `cascade_attraction_margins.py`.
+
+**Standing state.** Round 390, the convergence test on the 1882852 sweep, is owed. Its surfaces are 1as(vi) and 1av(vi)–(vii) with 1av's honest scope.
+
+---

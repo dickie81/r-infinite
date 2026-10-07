@@ -5923,3 +5923,26 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
 **Scope.** Commit 65bf6fb (the round-387 sweep: §(vi)'s round attribution, the note's header, §4 item 4 and §5.4, the docstrings of `zeroside.py` and `zeroside_census.py`), with the records 29461ff read as claims. Battery owed (prose-only and docstring-only): tower 36/36, TOP verifier 9/9, primes-side-ball 15/15 (the reviewer on 29461ff; the lead on the sweep, 0b7084f: tower 36/36, primes-side-ball 15/15, TOP verifier 9/9). Brief `brief_round388.md`.
 
 **Findings.** 0 MAJOR, 0 minor, 4 cosmetic; all verified by the lead and accepted (A560). Cosmetic: F388-1 the lemmas beneath the dh chain listed too narrowly; F388-2 the census is a sample; F388-3 §4 item 4 did not name the census; F388-4 §5 never named `ledger.py` (pre-existing). Held: every round-387 disposition, the closures reproduced independently, the timings and arithmetic, the docstring-only classification. Swept: 0b7084f. **Converged: stable.**
+
+### Round 389 — the 1as(vi) strike of "Every proven zero-free result …"
+
+**Scope.** Commit 8636412 struck 1as(vi)'s unscoped universal over all zero-free proofs: false when written, under CLAUDE.md Check 9. It added a scoped replacement and an annotation on OpenAI's claimed half-planes.
+- **Battery owed (prose-only):** tower 36/36, TOP verifier 9/9 and primes-side-ball 15/15, plus li-two-channels 10/10 for the sweep.
+- **Reviewer on 8636412:** tower 36/36, 9/9, 15/15.
+- **Lead on the sweep, 1882852:** tower 36/36, 9/9, 15/15, 10/10.
+- **Brief:** `brief_round389.md`.
+
+**Findings.** 0 MAJOR, 3 minor, 2 cosmetic; all verified by the lead and accepted (A561).
+- **Minor:**
+  - F389-1: the replacement's "it" had its antecedent only in struck text.
+  - F389-2: the annotation's route description was absent from its cited source and wrong for the 11/12 route.
+  - F389-3: 1av(vi)'s sibling universal "magnitude estimation has no purchase on a dichotomy — only a structural a priori positivity can decide it" was struck at four sites.
+- **Cosmetic:**
+  - F389-4: the release date (2026-10-06).
+  - F389-5: "the two half-planes now named" was ambiguous.
+- **Out of scope:**
+  - O-1: the reviewer agent's opening line; updated in ad58285.
+  - O-2: Check 9's chronology; corrected.
+  - O-3: stale g15 labels in 14 verifiers; residual.
+- **Held:** the strike branch (decided from the mathematics); F2 and F3 consume Λ ≥ 0; `dh_ne_zero_of_two_le` is first-coefficient dominance with Σ ≤ 7/9 as stated; dh = a(1)·f; the L(s, χ) claim; no premise from external content; no other surface carries the claim.
+- **Swept:** 1882852. Convergence round 390 owed.
