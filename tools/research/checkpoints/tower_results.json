@@ -1751,6 +1751,12 @@
 "rc": 0,
 "when": "2026-08-28T15:48Z"
 },
+"53e8fb9d0725c4590ce58eae": {
+"dt": 80.16048645973206,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-10-07T15:58Z"
+},
 "53f64fafc6873f1bd2b11968": {
 "dt": 207.12517976760864,
 "file": "cascade_li_two_channels.py",
@@ -3016,6 +3022,12 @@
 "file": "cascade_saddle_curvature.py",
 "rc": 0,
 "when": "2026-08-27T18:33Z"
+},
+"8fd916a32d91a47bbc7bc08e": {
+"dt": 28.651652812957764,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-10-07T15:58Z"
 },
 "9083883cdc67c4117dc01b55": {
 "dt": 721.9147562980652,
@@ -5194,6 +5206,12 @@
 "file": "cascade_lfunction_test.py",
 "rc": 0,
 "when": "2026-09-09T02:52Z"
+},
+"f9ac69c460cbb39daf844080": {
+"dt": 236.07562518119812,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-10-07T15:58Z"
 },
 "faa94c4aa2b69567517344f7": {
 "dt": 4.062723875045776,
