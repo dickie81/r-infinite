@@ -5665,7 +5665,7 @@ theorem lam_prefactor :
 - **Density vs actual sum.** The density prediction `Σ_ρ ≈ ∫|ĝ|²·(1/2π)log(t/2π)` grows like `a` (ratio 1.60 from `a = 1.5` to 2.4). The actual zero sum grows by only 1.14, and at `a = 2.4` it is 19% below the density value. So the explicit formula's prime terms partly cancel the log growth of the zero density.
 
 **What is open (the two losses).**
-- **The factor `e^a`: off-line zeros.** A zero with `|Im t| = δ` near height `c ≈ 2πe^{2a}` enters `Q(g)` with weight `e^{2aδ}`. This is a genuine feature of any probe supported in `[−a, a]`, not slack in the estimate. The known zero-free regions only save a constant here. *(Round 234: true for de la Vallée Poussin's region, not for Korobov–Vinogradov's, which saves `exp(c·a^{1/3}/(log a)^{1/3})`; see round 234.)*
+- **The factor `e^a`: off-line zeros.** A zero with `|Im t| = δ` near height `c ≈ 2πe^{2a}` enters `Q(g)` with weight `e^{2aδ}`. This is a genuine feature of any probe supported in `[−a, a]`, not slack in the estimate. The known zero-free regions only save a constant here. *(Round 234: true for de la Vallée Poussin's region, not for Korobov–Vinogradov's, which saves `exp(c·a^{1/3}/(log a)^{1/3})`; see round 234.)* *(Round 277: under the claimed half-plane `Re s > 7/8`, every zero has `|Re ρ − ½| ≤ 3/8`, so `δ ≤ 3/8` and the weight is at most `e^{3a/4}`. That is an exponential saving of `e^{a/4}` over the trivial `e^{a}`, not a constant. See round 277.)*
   - **The clean way to remove it** is a case split on RH, which gives an unconditional (but ineffective-`K`) `e^{9a}` bound:
     - If RH holds, `κ = 1`.
     - If RH fails, Weil's criterion should make `λ₁(a) < 0` for large `a` (`λ₁` is antitone, `lam_antitone`). The finite range of `a` is then absorbed into `K`.
@@ -5820,7 +5820,7 @@ So unconditional absolute improvements can only be finite-range.
 - **New as far as checked.** The band-limited split, Theorem NP, the (N) barrier sketch, and the missing sampling step.
 - **Literature.** The closest analogue found is Oesterlé's unpublished Li-coefficient statement "RH to height T₀ ⟹ λₙ > 0 for n < T₀²" (quoted by Voros, arXiv:2204.01036). No windowed Weil-form analogue was found. Novelty is not established.
 
-**Bearing on RH:** none. (N) for all `a` is zero-free-strip-hard, and the finite-range bound's reach grows only doubly logarithmically in the verification height.
+**Bearing on RH:** none. (N) for all `a` is zero-free-strip-hard, and the finite-range bound's reach grows only doubly logarithmically in the verification height. *(Round 277: "strip-hard" is a reformulation, not a barrier (CLAUDE.md Check 9). A zero-free half-plane `Re s > 7/8`, a strip at `½ + 3/8`, is now claimed externally. (N) for `θ < 3/8` lies beyond it. See round 277.)*
 
 ## Round 168: the ball's d-slices, discretised self-dually, d = 2–8 (`PREREG_isodual.md`, `klatticeslice.py`, `kisodual_p3.py`)
 
@@ -6410,7 +6410,7 @@ Compiles with no `sorry`; standard axioms only.
 | 1 | `o(x)` (PNT) | `ζ ≠ 0` on `Re s = 1`, from the 3-4-1 "gear" inequality, plus a Tauberian step | nonvanishing is in Mathlib; PNT itself is formalised outside Mathlib (PrimeNumberTheoremAnd project) [recalled] |
 | 2 | `x·e^{−c√log x}` | quantitative zero-free region `σ > 1 − c/log t` + truncated explicit formula | not formalised here; Borel–Carathéodory is now in Mathlib, and the pilot has the explicit formula |
 | 3 | `x·e^{−c(log x)^{3/5}(log log x)^{−1/5}}` | Vinogradov's exponential sums over primes | best known since 1958 [recalled] |
-| — | `x^{1−δ}` for some `δ > 0` | a zero-free strip | open; equivalent to a zero-free strip |
+| — | `x^{1−δ}` for some `δ > 0` | a zero-free strip | open; equivalent to a zero-free strip *(Round 277: claimed closed externally, with `δ = 1/8 − ε`, by OpenAI's zero-free half-plane `Re s > 7/8`, which is Lean-formalised in their release; not yet derived here. See round 277.)* |
 | RH | `√x·log²x` | all zeros on `Re s = ½` | open |
 
 **Finite range** [recalled, not re-read]. Using RH verified to height `3·10¹²` (Platt–Trudgian), Büthe-type arguments give `|ψ(x) − x| < √x` for all `x` up to about `10¹⁹`.
@@ -8569,3 +8569,57 @@ Verified:
   - 3 from the co-import check.
 
 **Check 4.** New: no earlier round couples a second family into zeta23's certificate. **Bearing on RH:** none. The certificate counts on-line zeros without assuming RH.
+
+## Round 277: an external result — a zero-free half-plane `Re s > 7/8` (OpenAI, 2026-10-07) — what it fills in the stack, what the stack lacked, and the plan to derive it here
+
+**The claim.** OpenAI's release `github.com/openai/math` (read at commit `adc7f12`, entry 003) states that every Dirichlet L-function, ζ included, and every finite-order Hecke L-function over `ℚ(√−3)`, has no zero in `Re s > 7/8`. The principal pole is excluded. Sources:
+- Preprint "The Quasi-Riemann Hypothesis: A Zero-Free Half-Plane Re(s)>7/8", dated 30 September 2026.
+- A companion preprint, dated 5 October 2026 and "written with human assistance", gives a different proof of `Re s > 11/12`.
+
+The Lean targets are stated against Mathlib's own objects:
+- `OAI.riemannZeta_ne_zero_of_seven_eighths_lt_re {s : ℂ} (hs : (7 / 8 : ℝ) < s.re) : riemannZeta s ≠ 0`;
+- `OAI.DirichletCharacter.LFunction_ne_zero_of_seven_eighths_lt_re`, for Mathlib's `DirichletCharacter.LFunction` with `¬ (χ = 1 ∧ s = 1)`.
+
+Their Comparator configuration permits `propext`, `Quot.sound` and `Classical.choice`.
+
+**What was checked here.**
+- The two challenge statements, read in the release's `ComparatorChallenges/` files. Those files import Mathlib only.
+- A static scan of the import closure of the solution module (2,924 modules, 486,490 lines): no `sorry`, `admit`, `axiom`, `native_decide`, `implemented_by` or `set_option`, and no meta or IO code.
+- An independent kernel rebuild on Lean v4.34.1 with the release's Mathlib (`d13f23b`) and its two dependency patches for this closure (`rellich-kondrachov`, `PrimeNumberTheoremAnd`). The patches were scanned: they add no escape hatch. **The rebuild is in progress; this line is updated when it finishes.**
+- Not checked here: the proofs themselves, read in full. As of the release, outside mathematicians had not confirmed them.
+
+**What it fills in the stack**, if it holds. Net-state markers sit on rounds 164, 167 and 190 and on STRUCTURAL-REVIEW §5b and §6.
+- Round 190's ladder: the row `x^{1−δ}` is filled with `δ = 1/8 − ε`, giving `ψ(x) − x = O(x^{7/8+ε})`.
+- `weil_twins_rate`: the exponential rate of the twins' negative part is at most `3/4`, i.e. `−C exp((3/4) l) ≤ weilQ (l + 1) (twin (box 1) l)`.
+- `TwinLandau.Q_ge_of_rates`: the instance STRUCTURAL-REVIEW §5b listed as "a wider zero-free region, if one existed".
+- Round 164's off-line weight `e^{2aδ}`: `δ ≤ 3/8`, so the weight is at most `e^{3a/4}`.
+- Siegel zeros: real zeros in `(7/8, 1)` are excluded for every Dirichlet character. `grh_iff_twins`'s hypothesis `hS` on all of `(0, 1)` is not discharged.
+- Not touched: RH; (N) of round 167 for `θ < 3/8`; Lindelöf; the density exponents of §6.
+
+**What the stack lacked.**
+- It had the endgame. Round 222's `LFunction_ne_zero_of_psiChi` and `PsiOmega.zeta_ne_zero_of_mellin` are "one-sided bound ⇒ zero-free half-plane", but they were run only from zeros to oscillation. The signals fed to them (ψ, `M`, `L`, `ψ(x, χ)`, the Weil twins) are circular: each bound is equivalent to the strip.
+- The companion preprint's route feeds the same endgame an auxiliary signal:
+  1. Power savings for the smoothed Möbius sums of `ζ_{ℚ(√−3)}` give the half-plane.
+  2. The target is embedded in a sextic-twisted family `A_u`, where `A_{p⁶} ≈ A_1` for `≍ Y/log Y` primes `p`. A mean square over the family therefore bounds the target.
+  3. Poisson summation in `u`, with Gauss–Jacobi identities, turns `μ` times sextic Gauss sums into cubic Gauss sums.
+  4. Kubota's cubic theta function supplies a transformation: Patterson's coefficient formula and the Dunn–Radziwiłł cusp expansions. The quadratic large sieve over `ℤ[ω]` then bounds the dual mean square.
+  5. The cube factors are removed by Möbius inversion. The exponent is `11/12`.
+- None of this was in the stack. It treats ζ and the characters `χ₋₃`, `χ₋₄`, `χ₋₇`, `χ₋₈`, `χ₅` one at a time. "Large sieve" occurs in none of the strand's surfaces. It has no Eisenstein-integer arithmetic, residue symbols or automorphic forms.
+- The pilot's Mathlib has none of these either. It has `gaussSum` and `jacobiSum` over finite rings and Poisson summation on `ℝ`.
+- The rules adopted in response are CLAUDE.md Check 9 and "Looking in the right places".
+
+**The plan: derive it on this stack, not vendor it.** The release's Lean is a reference, not an import. The target is the companion's `11/12` route first, which already gives a fixed half-plane; `7/8` is a later option.
+- **Scale.** In the release's import closure for the `7/8` theorem, the directories named for this route's components total about 196,000 lines. They are Eisenstein 53k, QuadraticSieve 24k, GaussSum 23k, Reflection 23k, Hecke 21k, MeanSquare 11k, RowCompletion 9k, Mellin 8k, Poisson 5k, Arithmetic 5k, Reciprocity 4k, Cusp 3k, Fourier 3k and PrimeCounting 1k. The mapping is by directory name, not by a dependency analysis.
+- The main preprint's part-II machinery adds about 273,000 lines more: Moments, Detector, Descent, CubicSieve, Energy, Inversion and PrimeRows.
+- For comparison, the pilot's own Lean (`src/` and the `external/` layers, without vendored upstream) is 159,692 lines.
+
+Stages, each landing as its own round. Inputs not yet derived are stated as displayed hypotheses, in the manner of round 276.
+- **S0, the reduction.** Let `r(n) = Σ_{d∣n} χ₋₃(d)`, so that `Σ r(n)n^{−s} = ζ(s)L(s, χ₋₃)` on `Re s > 1`, and let `μ_K` be its Dirichlet inverse. Suppose that for every smooth `W` compactly supported in `(0, ∞)` and every `ε > 0`, `Σ_n μ_K(n)W(n/D) = O(D^{θ+ε})`. Then `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` on `Re s > θ`. This is built on round 222's Mellin machinery and Mathlib's `DirichletCharacter.LFunction`. It is small.
+- **S1, arithmetic of `ℤ[ω]`.** A Euclidean domain, primary generators, the norm, and quadratic, cubic and sextic residue symbols with multiplicativity. Also a lower bound `≫ Y/log Y` for split primes of norm `≤ Y`.
+- **S2, family extraction.** `A_{p⁶}(D) = A_1(D) + O(D/Y)`, and the mean square over `u` gives `A_1 ≪ D^{11/12+ε}`. Here the mean square is a displayed hypothesis: the socket for S3–S6.
+- **S3, the transform.** Poisson summation over the lattice `ℤ[ω]` with smooth weights. The identity `μ(n)γ₋₁(n) = χ_n(−1)G(n)⁻¹ᾱ(n)γ₂(n)`, which needs cubic and sextic Gauss sums and reciprocity.
+- **S4, the quadratic large sieve over `ℤ[ω]`** (Heath-Brown; Goldmakher–Louvel).
+- **S5, Kubota's cubic theta function.** Patterson's coefficient formula and the transformation with cusp expansions. This is the critical-path risk. Until derived, it is a displayed hypothesis in the shape of the companion's reflection proposition.
+- **S6, assembly.** The completed mean square, removal of the cube factors, and the exponent `11/12`.
+
+**Check 4.** Nothing new in Lean this round. The result is external, and the plan is new to the pilot. **Bearing on RH:** a fixed half-plane is strictly weaker than RH. It fills the sockets listed above.
