@@ -8585,7 +8585,10 @@ Their Comparator configuration permits `propext`, `Quot.sound` and `Classical.ch
 **What was checked here.**
 - The two challenge statements, read in the release's `ComparatorChallenges/` files. Those files import Mathlib only.
 - A static scan of the import closure of the solution module (2,924 modules, 486,490 lines): no `sorry`, `admit`, `axiom`, `native_decide`, `implemented_by` or `set_option`, and no meta or IO code.
-- An independent kernel rebuild on Lean v4.34.1 with the release's Mathlib (`d13f23b`) and its two dependency patches for this closure (`rellich-kondrachov`, `PrimeNumberTheoremAnd`). The patches were scanned: they add no escape hatch. **The rebuild is in progress; this line is updated when it finishes.**
+- An independent kernel rebuild on Lean v4.34.1 with the release's Mathlib (`d13f23b`) and its two dependency patches for this closure (`rellich-kondrachov`, `PrimeNumberTheoremAnd`). The patches were scanned: they add no escape hatch. ~~The rebuild is in progress; this line is updated when it finishes.~~ **Done (2026-10-07, 09:54 UTC).**
+  - All 2,924 modules built, with no errors.
+  - Both theorems depend only on `[propext, Classical.choice, Quot.sound]`.
+  - Their fully elaborated statements (`set_option pp.all true`) are character-identical to those of the two challenge files, elaborated against Mathlib alone (843 and 2,141 characters).
 - Not checked here: the proofs themselves, read in full. As of the release, outside mathematicians had not confirmed them.
 
 **What it fills in the stack**, if it holds. Net-state markers sit on rounds 164, 167 and 190 and on STRUCTURAL-REVIEW §5b and §6.
