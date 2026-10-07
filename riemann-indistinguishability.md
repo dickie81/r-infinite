@@ -4244,12 +4244,22 @@ a percentage; corrected round 194 F4). The gap functional's
 scarcest direction is a pure
 gamma-channel constant inequality: the two channels of Theorems
 1as–1at meet exactly where positivity is tightest. *(viii) The
-two targets, stated.* What a proof still needs, now with data
-behind each formulation: (T1) prove the first-stage floor — or
+two targets, stated.* ~~What a proof still needs, now with data
+behind each formulation:~~ **Two targets, each now with data behind
+its formulation, neither shown to be necessary for a proof:** (T1) prove the first-stage floor — or
 any n-uniform positive lower bound on the margin trajectory —
 reducing uniformity to the n = 0 line; (T2) an archimedean inequality
 engine forcing λ_n ≥ 0 without consulting zeros — the λ₁ closed
-form exhibits what such an engine's outputs look like. *Honest
+form exhibits what such an engine's outputs look like. *(round 393:
+the struck phrase quantified over all proofs of RH without a survey
+(CLAUDE.md Check 9). T2 is RH-strength: λₙ ≥ 0 for all n ≥ 1 is RH
+(Li's criterion). Later blocks refine T2: 1av(ii) closes Regime I
+(n ≤ 10) by computation, finds the first direction's positivity
+carried by the primes channel (λ_B(1) = −0.5541 in the gamma
+channel), and names Regime II, beyond it, the engine's target, the
+gamma channel first dominating at n = 11; 1aw(iv) holds λ₁ positive
+in the primes channel, the Γ-reading of γ behind the last clause
+notwithstanding.)* *Honest
 scope:* category (a) — instruments classical throughout
 (Jensen–Pólya, Turán, Li's criterion, the theta-kernel moment
 representation); the FIRST-STAGE-FLOOR conjecture is DECLARED,
