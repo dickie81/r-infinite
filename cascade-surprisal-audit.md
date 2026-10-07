@@ -19959,7 +19959,7 @@ Lead, on 33361b9 (logs under `scratchpad/r390/battery_lead/`, 11:37–12:06 UTC,
 **F391-1 (minor; accepted; created by the F390-2 disposition).** The F390-2 replacement called the Weil positivity "an archimedean positivity". That identification is new, and the paper's own theorems contradict it:
 - Weil's functional is global. 1ai(ii) (2488–2490) states the criterion over "the explicit-formula functional".
 - 1at(ii) (4076–4078) keeps "the Weil-positivity equivalence" and the archimedean "Arakelov gap" apart, as separate landscape items.
-- 1ax(vi) (4701–4704) calls the meeting with Weil positivity "unbuilt".
+- 1ax(vi) (4704–4706; line range corrected at round 392) calls the meeting with Weil positivity "unbuilt".
 
 Lead: re-read 2488–2490 and 4076–4078 directly.
 
@@ -19990,5 +19990,48 @@ Lead: re-read 2488–2490 and 4076–4078 directly.
   - All rc 0.
 
 **Standing state.** Round 392 is owed: the convergence test on the a474103 sweep.
+
+---
+
+## Addendum 564 — round 392, the convergence test on the round-391 sweep (a474103; records 852eec5) (0 MAJOR, 0 minor, 1 cosmetic: converged; accepted; swept 6fdf91f)
+
+**The round.**
+- **Reviewer:** a fresh-context hostile reviewer, the repo agent `hostile-reviewer` (session model, max effort), on a474103, with the records 852eec5 read as claims. Brief `brief_round392.md`. GitHub's own rendered HTML was fetched at a474103 and matched local cmark-gfm exactly, document-wide.
+- **Findings:** 0 MAJOR, 0 minor, 1 cosmetic, and 3 out-of-scope observations. **The round converges.** 1as(vi), 1av(vi)–(vii) and 1av's honest scope are stable as of this round's sweep.
+
+**F392-1 (cosmetic; accepted).** The F391-1 annotation cited 1ai(ii) and 1at(ii) for "Weil's functional is global, not archimedean". Neither passage says "global"; 1ai(ii) does not mention the archimedean side at all.
+- **Lead check:** re-read three passages directly:
+  - 1as(vii), 3924–3926: "(log Γ_ℝ)′ is the archimedean local term of the explicit formula";
+  - 1bl(i), 6272–6276: "is Weil's full functional whenever 2a is below the next prime-power lag";
+  - 1bt(iv), 7293–7299: the archimedean terms sum negative on the pole's witness.
+- **Disposition:** the citation was struck and the annotation re-pointed to those three loci.
+- **Render check after the sweep (cmark-gfm):** 1as has 10 `<del>` and 1av has 9; both blocks have 0 literal `~~` and 0 literal `*`.
+
+**Out-of-scope observations.**
+- **O-1 (pre-existing; residual).** 1as(vi) says the D–H zeros are "both gated to 10^(−25), FE partners included". But `cascade_primes_side_ball.py` g8 holds the partners to `< 10**-24` and does not compare the ordinates against the printed values. The values are correct to every printed digit, by the reviewer's replica. A gate change is full-tower class; this goes on the residual list.
+- **O-2 (pre-existing).** 1au(viii)'s "What a proof still needs … (T2) an archimedean inequality engine" is a Check-9 sibling. The owner directed that it be taken up: round 393.
+- **O-3 (record prose; corrected when noticed).** The round-391 table's battery attribution and A563's 1ax(vi) line range are corrected in place.
+
+**Check-1 record (re-read this round).**
+- `riemann-indistinguishability.md` 4404–4415: 1av(vii) as swept, within Theorem 1av (4268–4475), the operative theorem.
+- 3924–3926, 6272–6276 and 7292–7300.
+
+**Battery** (prose-only; owed: the manifest-integrity precheck, the TOP verifier with `CASCADE_CHAIN=manifest`, and `cascade_li_two_channels.py`).
+- **Reviewer on 852eec5:**
+  - `run_tower.py`: TOWER PASS (36/36);
+  - TOP verifier, manifest mode: 9/9, 25 REUSED;
+  - li-two-channels: 10/10;
+  - extra: primes-side-ball 15/15;
+  - all rc 0.
+- **Lead on 6fdf91f** (logs under `scratchpad/r392/battery_lead/`, 13:42–14:08 UTC, clean tree):
+  - `run_tower.py`: TOWER PASS (36/36), with the same precheck lines;
+  - TOP verifier, manifest mode: "chain [manifest mode]: 35 ancestor hashes verified; census strings verified", ALL GATES PASS (9/9), 25 REUSED, none recomputed;
+  - `cascade_li_two_channels.py`: ALL GATES PASS (10/10);
+  - all rc 0.
+
+**Standing state.**
+- Stable after round 392: rounds 389–392's surfaces (1as(vi); 1av(vi)–(vii) and its honest scope).
+- Residual list: the render lint (A562 O-1, A563 F391-2), the stale g15/g10 labels (A561 O-3), and the D–H partner tolerance (O-1 above).
+- Round 393 is opened on 1au(viii).
 
 ---

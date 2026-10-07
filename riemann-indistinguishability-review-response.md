@@ -5967,7 +5967,7 @@ Swept: 33361b9. Convergence round 391 is owed.
 ### Round 391 — the convergence test on the round-390 sweep
 
 **Scope.** Commit 33361b9: 1as(vi)'s repaired strike and scoped "here"; 1av(vii)'s named positivity; the round-198 marker. The records f611636 were read as claims.
-- **Battery** (prose-only): tower 36/36, TOP verifier 9/9 (manifest mode) and li-two-channels 10/10, from both the reviewer and the lead on the sweep a474103. The reviewer also ran primes-side-ball 15/15.
+- **Battery** (prose-only): tower 36/36, TOP verifier 9/9 (manifest mode) and li-two-channels 10/10, from the reviewer (on f611636) and the lead (on the sweep, a474103) *(attribution corrected at round 392)*. The reviewer also ran primes-side-ball 15/15.
 - **Brief:** `brief_round391.md`.
 
 **Findings.** 0 MAJOR, 1 minor, 0 cosmetic. Verified by the lead and accepted (A563).
@@ -5983,3 +5983,23 @@ Swept: 33361b9. Convergence round 391 is owed.
   - The README rebuild quote is exact.
 
 **Swept:** a474103. Convergence round 392 is owed.
+
+### Round 392 — the convergence test on the round-391 sweep (converged)
+
+**Scope.** Commit a474103 struck F391-1's "archimedean" appositive. The records 852eec5 were read as claims.
+- **Battery:** prose-only, owed tower 36/36, TOP verifier 9/9 (manifest mode) and li-two-channels 10/10. The reviewer ran it on 852eec5 and the lead on the sweep, 6fdf91f.
+- **Brief:** `brief_round392.md`.
+
+**Findings.** 0 MAJOR, 0 minor, 1 cosmetic, all verified by the lead and accepted (A564).
+- **Cosmetic:** F392-1, the F391-1 annotation's citations were re-pointed to 1as(vii), 1bl(i) and 1bt(iv).
+- **Out of scope:**
+  - O-1: the D–H partner tolerance (residual).
+  - O-2: 1au(viii)'s T2, taken up as round 393.
+  - O-3: record slips, corrected.
+- **Held:**
+  - GitHub's own HTML matches local cmark-gfm across the whole document.
+  - Strikes are verbatim and antecedents are intact.
+  - The identification checks against 1ai(ii), 1at(ii), (P4) and 1ax(vi) all pass.
+  - No needle overlaps a struck span (739 needles checked).
+
+**Swept:** 6fdf91f. **Converged: stable.**
