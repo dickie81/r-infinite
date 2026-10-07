@@ -19898,3 +19898,53 @@ The ratio η₂/λ₁ falls slowly (5.3 → 2.03); the loosest primes sit at the
 **Standing state.** Round 390, the convergence test on the 1882852 sweep, is owed. Its surfaces are 1as(vi) and 1av(vi)–(vii) with 1av's honest scope.
 
 ---
+
+## Addendum 562 — round 390, the convergence test on the round-389 sweep (1882852; records ebef547) (0 MAJOR, 2 minor, 2 cosmetic; all accepted; swept 33361b9)
+
+**The round.** A fresh-context hostile reviewer, the repo agent `hostile-reviewer` (session model, max effort, now under "Checks 0–9"), reviewed 1882852, with the records ebef547 read as claims under test.
+- Brief: `brief_round390.md`.
+- Experiments are under `scratchpad/r390/`: render checks with cmark-gfm and markdown-it under `work/`, and battery logs under `battery/`.
+- Findings: 0 MAJOR, 2 minor, 2 cosmetic, all created by the sweep. The round does not converge.
+
+**F390-1 (minor; accepted).** F389-2's strike `here~~; …~~` was malformed and never rendered. The opening `~~` follows a letter and precedes punctuation, so it is not left-flanking.
+- Effect: the route description read live, and under cmark-gfm the round-389 annotation lost its italics.
+- Lead check: re-ran `scratchpad/r390/work/render_strikes.py` on lines 3729–4014. It gave 8 `<del>` spans and 2 literal `~~`.
+- **Disposition:** "have not been checked ~~here~~ **by the gates here** ~~; they run … round 277~~". The struck phrase is kept verbatim.
+- After the sweep, cmark-gfm gives 0 literal `~~` and 0 literal `*` for 1as (lines 3729–4014; 10 `<del>`) and 1av (lines 4264–4475; 7 `<del>`), and the annotation italics are restored.
+
+**F390-2 (minor; accepted).** F389-3's strike removed the antecedent of (vii)'s "as the source of that positivity".
+- Lead check: re-read lines 4396–4441. (P4) targets "W(g∗g̃) ≥ 0".
+- **Disposition:** "~~that positivity~~ **an archimedean positivity, the Weil positivity W(g∗g̃) ≥ 0 that (P4) targets**", annotated.
+
+**F390-3 (cosmetic; accepted).** The round-198 bracket still said the elimination "covers magnitude estimation only".
+- **Disposition:** a net-state marker records that round 389 F389-3 narrowed this to the ledger's own magnitude.
+
+**F390-4 (cosmetic; accepted).** "have not been checked here" sat beside a cited README that, since 32b7770, records a kernel rebuild of the 7/8 theorem.
+- **Disposition:** the claim is scoped to "by the gates here". The README parenthesis now also records the rebuild: its statements and axioms, not its proof read in full.
+
+**Out-of-scope observations.**
+- **O-1.** Eight round 218–227 strikes at lines 5230–5572 also fail under cmark-gfm, next to single-tilde approximations. The defect is pre-existing (the same count at 8636412). It is left on the residual list, with a render lint as the remedy.
+- **O-2.** Li's criterion was not on the open-targets register. Added to STRUCTURAL-REVIEW §6 in 33361b9.
+
+**Check-1 record (re-read this round).**
+- `riemann-indistinguishability.md`: 3876–3905, 1as(vi) as swept, within Theorem 1as (3729–4014), the operative theorem.
+- `riemann-indistinguishability.md`: 4364–4441, 1av(vi)–(vii) and (P4).
+- The render scripts' output on both blocks, before and after the sweep.
+
+**Battery** (prose-only; owed: the manifest-integrity precheck, the TOP verifier with `CASCADE_CHAIN=manifest` under the round-390 amendment, and full runs of `cascade_primes_side_ball.py` and `cascade_li_two_channels.py`).
+
+Reviewer, on ebef547/58fa638:
+- `run_tower.py`: TOWER PASS (36/36). Census: 0 live PASS + 36 cached PASS + 0 FAIL. Prechecks: 36 members and 4 keying files; 105 reach files and 45 surfaces; probes 24/24 and 85/85.
+- `CASCADE_CHAIN=manifest cascade_smooth_functional.py`: "chain [manifest mode]: 35 ancestor hashes verified; census strings verified". ALL GATES PASS (9/9), 25 REUSED, rc 0. An earlier full-mode run was stopped by PID before the amendment arrived; it is not a result.
+- `cascade_primes_side_ball.py`: ALL GATES PASS (15/15).
+- `cascade_li_two_channels.py`: ALL GATES PASS (10/10).
+
+Lead, on 33361b9 (logs under `scratchpad/r390/battery_lead/`, 11:37–12:06 UTC, clean tree):
+- `run_tower.py`: the same precheck and census lines, TOWER PASS (36/36), rc 0.
+- TOP verifier in manifest mode: the same chain line, ALL GATES PASS (9/9), 25 REUSED, none recomputed, rc 0. It took 8 min, against 75 min in full mode in round 389.
+- `cascade_primes_side_ball.py`: ALL GATES PASS (15/15), rc 0.
+- `cascade_li_two_channels.py`: ALL GATES PASS (10/10), rc 0.
+
+**Standing state.** Round 391 is owed: the convergence test on the 33361b9 sweep.
+
+---

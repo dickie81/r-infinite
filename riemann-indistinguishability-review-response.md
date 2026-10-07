@@ -5946,3 +5946,20 @@ One cosmetic (F242-1, held per the rounds-226/228/233 precedent, locus named for
   - O-3: stale g15 labels in 14 verifiers; residual.
 - **Held:** the strike branch (decided from the mathematics); F2 and F3 consume Λ ≥ 0; `dh_ne_zero_of_two_le` is first-coefficient dominance with Σ ≤ 7/9 as stated; dh = a(1)·f; the L(s, χ) claim; no premise from external content; no other surface carries the claim.
 - **Swept:** 1882852. Convergence round 390 owed.
+
+### Round 390 — the convergence test on the round-389 sweep
+
+**Scope.** Commit 1882852 is the round-389 sweep: 1as(vi)'s annotation and 1av(vi)–(vii) with its honest scope. Records ebef547 are read as claims.
+- Battery owed (prose-only): tower 36/36; the TOP verifier 9/9, run with `CASCADE_CHAIN=manifest` under the owner's round-390 amendment (CLAUDE.md, 58fa638); primes-side-ball 15/15; li-two-channels 10/10.
+- The reviewer and the lead (on the sweep, 33361b9) both ran it green.
+- Brief: `brief_round390.md`.
+
+**Findings.** 0 MAJOR, 2 minor, 2 cosmetic. All were verified by the lead and accepted (A562).
+- **F390-1 (minor):** F389-2's strike delimiters did not render, and broke the annotation's italics on GitHub.
+- **F390-2 (minor):** (vii)'s "that positivity" lost its antecedent.
+- **F390-3 (cosmetic):** the round-198 bracket claimed a wider coverage than F389-3 found.
+- **F390-4 (cosmetic):** "not checked here" sat beside the recorded kernel rebuild.
+- **Out of scope:** O-1, eight older strikes that fail under cmark-gfm (residual); O-2, Li's criterion added to the register.
+- **Held:** the dispositions realised verbatim; F2 and F3 consume Λ ≥ 0; Li's criterion used correctly; the dating; the README citation; the Check 9 chronology.
+
+Swept: 33361b9. Convergence round 391 is owed.
