@@ -120,6 +120,7 @@ PAPER_NEEDLES = [
     {'g': 'g7', 's': '2 + γ > log 4π'},
     {'g': 'g7', 's': '0.0230957'},
     {'g': 'g7', 's': 'so the census confirms a theorem'},   # round 396 (F396-A3/C2): was "far beyond GORZ's proven", inside the round-395 strike
+    {'g': 'g7', 's': "~~The empirical base for the uniformity conjecture now extends far beyond GORZ's proven range.~~", 'form': 'ws'},   # round 397 (B-O1): the retraction itself, so un-striking or deleting it fails
     {'g': 'g9', 's': '`cascade_attraction_margins.py`', 'min': 2},
     {'g': 'g9', 's': 'the **103 scripts cited in place** above'},
     {'g': 'g9', 's': 'extended by Theorems 1i–1ca:'},

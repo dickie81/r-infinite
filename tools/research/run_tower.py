@@ -77,7 +77,12 @@ markdown paper surfaces (render_lint.py, pinned) and the gate-label
 census-numeral scan (A561 O-3). The round-395 sweep adds a third, the
 PAPER-READER precheck: every non-member verifier that reads a markdown
 paper surface, discovered structurally and run live on every
-invocation (round 396 retired its cache) -- see that block.
+invocation (round 396 retired its cache) -- see that block. Round 396
+adds the REACH precheck after the key computation: no member's reach
+may carry an import the walk cannot resolve, and since round 397 the
+walk runs its own sabotage case first (F397-B1: `from pkg import
+helper` and relative imports); it prints "reach precheck: ..." when
+it passes.
 """
 import concurrent.futures as cf
 import hashlib, json, os, re, subprocess, sys, time
@@ -204,6 +209,50 @@ def _named_py(rel):
 _IMP_MEMO = {}
 
 
+def _import_targets(path):
+    """Per import statement of the file at path: (top-level name or
+    None for a relative import, the directories it resolves against,
+    the dotted candidates as path-segment lists). Round 397 F397-B1
+    (the F269-3 class, its other spelling): `from pkg import helper`
+    may name the SUBMODULE pkg/helper.py, so pkg.helper is a candidate
+    beside pkg; a relative import resolves against its own package
+    directory, `from . import x` included (module None)."""
+    import ast
+    tree = ast.parse(open(path, "rb").read())
+    d = os.path.dirname(path) or HERE
+    out = []
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for a in node.names:
+                out.append((a.name.split(".")[0], {d} | set(CODE_ROOTS),
+                            [a.name.split(".")]))
+        elif isinstance(node, ast.ImportFrom):
+            base = node.module.split(".") if node.module else []
+            if node.level:
+                pkg = d
+                for _ in range(node.level - 1):
+                    pkg = os.path.dirname(pkg)
+                top, roots = None, {pkg}
+            else:
+                top, roots = base[0], {d} | set(CODE_ROOTS)
+            cands = [base] if base else []
+            cands += [base + [a.name] for a in node.names if a.name != "*"]
+            out.append((top, roots, cands))
+    return out
+
+
+def _local_files(roots, parts):
+    """Every module file and package __init__.py on the dotted path
+    parts, under each root."""
+    found = set()
+    for root in roots:
+        cands = [os.path.join(root, *parts) + ".py"]
+        for i in range(1, len(parts) + 1):
+            cands.append(os.path.join(root, *parts[:i], "__init__.py"))
+        found.update(pth for pth in cands if os.path.exists(pth))
+    return found
+
+
 def _imports_of(rel):
     """HERE-relative import closure step for the file at rel,
     resolved against the file's OWN directory AND every code
@@ -215,34 +264,27 @@ def _imports_of(rel):
         return set()
     if rel in _IMP_MEMO:
         return _IMP_MEMO[rel]
-    import ast
-    tree = ast.parse(open(os.path.join(HERE, rel), "rb").read())
-    mods = set()
-    for node in ast.walk(tree):
-        if isinstance(node, ast.ImportFrom) and node.module:
-            mods.add(node.module)
-        elif isinstance(node, ast.Import):
-            mods.update(a.name for a in node.names)
-    d = os.path.dirname(os.path.join(HERE, rel)) or HERE
-    out = set()
-    for m in mods:
-        # round-269 F269-3: dotted local imports resolve as path
-        # segments -- the old `m + ".py"` probe never existed for
-        # `import pkg.helper`, so a package-housed helper escaped
-        # BOTH the precheck scan and the cache key (a demonstrated
-        # stale-PASS channel against paper AND code edits). Every
-        # module file and every package __init__.py on the dotted
-        # path joins the reach.
-        parts = m.split(".")
-        for root in {d} | set(CODE_ROOTS):
-            cands = [os.path.join(root, *parts) + ".py"]
-            for i in range(1, len(parts) + 1):
-                cands.append(os.path.join(root, *parts[:i],
-                                          "__init__.py"))
-            for pth in cands:
-                if os.path.exists(pth):
-                    out.add(os.path.relpath(pth, HERE))
+    # round-269 F269-3: dotted local imports resolve as path
+    # segments -- the old `m + ".py"` probe never existed for
+    # `import pkg.helper`, so a package-housed helper escaped
+    # BOTH the precheck scan and the cache key (a demonstrated
+    # stale-PASS channel against paper AND code edits). Every
+    # module file and every package __init__.py on the dotted
+    # path joins the reach; round 397 F397-B1 adds the
+    # `from pkg import helper` and relative spellings
+    # (_import_targets).
+    out = {os.path.relpath(pth, HERE)
+           for pth in _local_imports(os.path.join(HERE, rel))}
     _IMP_MEMO[rel] = out
+    return out
+
+
+def _local_imports(path):
+    """Absolute paths of the local files the imports of path resolve to."""
+    out = set()
+    for _top, roots, cands in _import_targets(path):
+        for parts in cands:
+            out |= _local_files(roots, parts)
     return out
 
 
@@ -739,11 +781,14 @@ if (_pp.returncode != 0 or _m2 is None or int(_m2.group(1)) != PRECHECK_PROBE_CA
 # written under cmark-gfm (render_lint.py: single-tilde strikes,
 # unrendered ~~ or **, intraword emphasis, consumed backslashes,
 # variable stars acting as delimiters, stray stars, literal backticks,
-# underscore emphasis). The lint carries its own
+# underscore emphasis; since round 396 block structure too, and since
+# round 397 any block without a blank line before it, any raw HTML and
+# LaTeX quote pairs read as code -- the classes are listed in its
+# docstring). The lint carries its own
 # sabotage cases; the census line is gated, the probe count pinned
 # exactly like the two suites above, and the script is pinned in the
 # manifest's keying list
-RENDER_PROBE_CASES, RENDER_SURFACES = 15, 2   # 7 -> 10 at the round-395 sweep (L7-L9), 15 at round 396 (L10-L14)
+RENDER_PROBE_CASES, RENDER_SURFACES = 23, 2   # 7 -> 10 at the round-395 sweep (L7-L9), 15 at round 396 (L10-L14), 23 at round 397 (L10, L13 widened; L15)
 _rl = subprocess.run([sys.executable, os.path.join(HERE, "render_lint.py")],
                      capture_output=True, text=True)
 _rl_line = [l for l in _rl.stdout.splitlines() if l.startswith("render lint:")]
@@ -768,14 +813,27 @@ if (_rl.returncode != 0 or _m3 is None or int(_m3.group(1)) != RENDER_SURFACES
 # F395-B6/C9): every string constant anywhere in the first argument of
 # a call to gate or to a name bound to it by plain, annotated or
 # tuple assignment (so f-strings and concatenations are read part by
-# part, and joined), a range written with any dash or minus sign, and a
+# part, and joined in source order -- round 397 F397-B4: the round-396
+# join followed ast.walk's breadth-first order), a range written with
+# any Unicode dash (category Pd) or the minus sign, and a
 # floor on the number of labels scanned, so a renamed gate cannot pass
 # by scanning nothing (round 396 F396-B8 widened the aliases, dashes and
 # joins). Not read: a label passed in a variable. Its own sabotage
 # cases run first.
+import unicodedata as _ud
+_DASHES = "".join(ch for ch in map(chr, range(0x110000))
+                  if _ud.category(ch) == "Pd") + "\u2212"
 _CENSUS_NUM = re.compile(r"\d+ (?:scripts )?cited in place"
-                         r"|1i\s*[-\u2010-\u2015\u2212]+\s*1[a-z]{2}")
+                         r"|1i\s*[" + re.escape(_DASHES) + r"]+\s*1[a-z]{2}")
 GATE_LABELS_MIN = 650
+
+
+def _consts_in_order(node):
+    """The string constants under node, in source order."""
+    if isinstance(node, _ast.Constant) and isinstance(node.value, str):
+        yield node.value
+    for c in _ast.iter_child_nodes(node):
+        yield from _consts_in_order(c)
 
 
 def _label_hits(tree):
@@ -801,9 +859,7 @@ def _label_hits(tree):
         if (isinstance(node, _ast.Call) and isinstance(node.func, _ast.Name)
                 and node.func.id in names and node.args):
             n += 1
-            consts = [c.value for c in _ast.walk(node.args[0])
-                      if isinstance(c, _ast.Constant)
-                      and isinstance(c.value, str)]
+            consts = list(_consts_in_order(node.args[0]))
             if any(_CENSUS_NUM.search(c) for c in consts + ["".join(consts)]):
                 bad.append(node.lineno)
     return n, bad
@@ -813,11 +869,13 @@ _sab = _ast.parse('gate("g1 ok", 1)\n'
                   'gate(f"g2 {k}: 88 cited in place", 1)\n'
                   'gate("g3 the range " + "1i\u22121ca", 1)\n'
                   'G = gate\nG("g4 88 cited in place", 1)\n'
-                  'H: object = gate\nH("g5 88 " + "cited in place", 1)\n')
+                  'H: object = gate\nH("g5 88 " + "cited in place", 1)\n'
+                  'gate("g6 the range " + "1i" + "\ufe581ca", 1)\n'
+                  'J, K = gate, print\nJ(f"g7 {k} the range 1i" + "\u2e3a1ca", 1)\n')
 if not (_CENSUS_NUM.search("88 cited in place; the range 1i–1bl")
         and _CENSUS_NUM.search("Theorems 1i--1bj")
         and not _CENSUS_NUM.search("the anchored count and range needles")
-        and _label_hits(_sab) == (5, [2, 3, 5, 7])):
+        and _label_hits(_sab) == (7, [2, 3, 5, 7, 8, 10])):
     print("GATE-LABEL PRECHECK FAILURE: the census-numeral scan missed "
           "its sabotage cases", flush=True)
     sys.exit(2)
@@ -899,32 +957,28 @@ _TP_MEMO = {}
 
 def _third_party_of(rel):
     """Top-level imported module names of the file at rel that are
-    neither stdlib nor local (local = resolvable in the file's own
-    directory or a code root, the same roots _imports_of uses)."""
+    neither stdlib nor local (local = some dotted candidate of the
+    statement resolves to a file in the file's own directory or a code
+    root, by the same resolution _imports_of uses -- round 397
+    F397-B1: a namespace package such as strip_note, which has no
+    __init__.py, is local through its module files). Relative imports
+    are local by construction."""
     if not rel.endswith(".py"):
         return set()
     if rel in _TP_MEMO:
         return _TP_MEMO[rel]
-    tree = _ast.parse(open(os.path.join(HERE, rel), "rb").read())
-    d = os.path.dirname(os.path.join(HERE, rel)) or HERE
+    _TP_MEMO[rel] = _third_party_in(os.path.join(HERE, rel))
+    return _TP_MEMO[rel]
+
+
+def _third_party_in(path):
     out = set()
-    for node in _ast.walk(tree):
-        mods = []
-        if isinstance(node, _ast.Import):
-            mods = [a.name for a in node.names]
-        elif (isinstance(node, _ast.ImportFrom) and node.module
-                and not node.level):
-            mods = [node.module]
-        for m in mods:
-            top = m.split(".")[0]
-            if top in _STDLIB or top == "__future__":
-                continue
-            if any(os.path.exists(os.path.join(r, top + ".py"))
-                   or os.path.exists(os.path.join(r, top, "__init__.py"))
-                   for r in {d} | set(CODE_ROOTS)):
-                continue
-            out.add(top)
-    _TP_MEMO[rel] = out
+    for top, roots, cands in _import_targets(path):
+        if top is None or top in _STDLIB or top == "__future__":
+            continue
+        if any(_local_files(roots, parts) for parts in cands):
+            continue
+        out.add(top)
     return out
 
 
@@ -1067,7 +1121,10 @@ def run_reader(name):
     t0 = time.time()
     r = subprocess.run([sys.executable, os.path.join(HERE, name)],
                        capture_output=True, text=True, env=env)
+    # the FAIL lines, then the stderr tail (round 397 F397-A6/B3: a
+    # crash's traceback went to stderr and was dropped)
     fails = [l for l in r.stdout.splitlines() if "FAIL" in l]
+    fails += r.stderr.strip().splitlines()[-6:]
     return name, r.returncode, time.time() - t0, fails, r.stdout[-300:]
 
 
@@ -1078,7 +1135,7 @@ with cf.ProcessPoolExecutor(max_workers=NW) as ex:
         if rc != 0:
             r_fail.append(name)
             print(f"  READER FAIL {name} (exit {rc}):", flush=True)
-            for l in (fails[:12] or [tail]):
+            for l in (fails[:18] or [tail]):
                 print(f"    {l}", flush=True)
 print(f"paper-reader precheck: {len(readers)} readers discovered, "
       f"{len(readers) - len(r_fail)} PASS (all live), "
@@ -1095,6 +1152,32 @@ keys = {n: member_key(n) for n in names}
 # a local module outside the code roots (tools/cascade_constants.py is
 # one) -- code the member runs that its key would not bind. No member
 # may carry one.
+# Round 397 (F397-B1): the reach walk's own sabotage case -- the
+# spellings it must resolve, planted in a temporary directory outside
+# the repository: `from pkg import helper` (the submodule), a dotted
+# import of a namespace package, `from nsp import sib`, and the relative
+# `from . import mod`; numpy stays third-party and the namespace
+# package stays local.
+import tempfile as _tempfile
+with _tempfile.TemporaryDirectory() as _td:
+    _plant = {"zzpkg/__init__.py": "", "zzpkg/helper.py": "",
+              "nsp/mod.py": "", "nsp/sib.py": "from . import mod\n",
+              "m.py": "from zzpkg import helper\nimport nsp.mod\n"
+                      "from nsp import sib\nimport numpy.linalg\n"}
+    for _f, _t in _plant.items():
+        os.makedirs(os.path.dirname(os.path.join(_td, _f)), exist_ok=True)
+        open(os.path.join(_td, _f), "w").write(_t)
+    _got = [sorted(os.path.relpath(p, _td)
+                   for p in _local_imports(os.path.join(_td, f)))
+            for f in ("m.py", "nsp/sib.py")]
+    _tp = _third_party_in(os.path.join(_td, "m.py"))
+_want = [["nsp/mod.py", "nsp/sib.py", "zzpkg/__init__.py", "zzpkg/helper.py"],
+         ["nsp/mod.py"]]
+if _got != _want or _tp != {"numpy"}:
+    print(f"REACH PRECHECK FAILURE: the reach walk missed its sabotage "
+          f"case (resolved {_got}, third-party {sorted(_tp)})",
+          flush=True)
+    sys.exit(2)
 _unres = {n: [l for l in env_fingerprint(n).split("\n")
               if l.startswith("unresolved:")] for n in names}
 _unres = {n: u for n, u in _unres.items() if u}
@@ -1103,6 +1186,8 @@ if _unres:
           f"{_unres} (a local module outside the code roots is a "
           f"stale-PASS channel)", flush=True)
     sys.exit(2)
+print(f"reach precheck: {len(names)} members, 0 unresolved imports; "
+      f"sabotage case resolved ({sum(map(len, _want))} imports)", flush=True)
 cached = [] if fresh else \
     [n for n in names if cache.get(keys[n], {}).get("rc") == 0]
 live = [n for n in names if n not in cached]

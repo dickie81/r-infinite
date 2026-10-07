@@ -8,7 +8,7 @@ Rounds 389-393 found delimiters that GitHub does not render as written
 surface with cmark-gfm -- the renderer behind GitHub's markdown, whose
 HTML for this paper matched GitHub's own API rendering at 2b76ff1 and
 49ab366 (the round-395 reviewers compared the visible text and the
-em/strong/del/code markers) -- and fails on fourteen defect classes,
+em/strong/del/code markers) -- and fails on fifteen defect classes,
 each decidable from the rendering:
 
   L1 single-tilde strike: GitHub parses ONE tilde as a strike
@@ -47,28 +47,45 @@ each decidable from the rendering:
      must not change the rendering ("|x|_p" opens an italic that a
      later "x_ " closes; the paper's 1bo(i) italicised half a
      paragraph this way).
-  L10 a block that interrupts a paragraph: a list, blockquote or
-     heading whose first source line follows a non-blank line of
-     running text -- a hard-wrapped line that happens to begin with
-     "+ ", "1) " or "> " (round 396: nine such lines dropped their
-     operators from formulas in 1bf-1ca). Re-wrap; do not escape.
+  L10 a block with no blank line before it: a list, blockquote,
+     heading, thematic break, code block or table whose first source
+     line directly follows a non-blank line (blockquote markers
+     aside), decided from the source-positioned rendering alone -- a
+     hard-wrapped line that happens to begin with "+ ", "1) ", "> ",
+     "***" or "~~~" (round 396: nine such lines dropped their
+     operators from formulas in 1bf-1ca; round 397 F397-A1/B2: the
+     round-396 form exempted any previous line that merely began like
+     a block, "|x|", "#33" or "47) " among them). Re-wrap an
+     accidental one; give an intended one, nested or not, a blank
+     line before it.
   L11 a setext heading: a heading whose source line does not begin
      with "#" (a stray "===" or "---" under a line of text).
   L12 a hard line break (<br>): a trailing backslash or two trailing
      spaces; the surfaces never break lines inside a paragraph.
-  L13 raw HTML: any tag markdown does not produce itself ("a<b and
-     c>d" renders "ad").
+  L13 raw HTML of any kind, inline or block, tag or comment: every
+     "raw HTML omitted" in cmark-gfm's safe rendering ("a<b and c>d"
+     renders "ad"; "2<p and q>3" and a line beginning "<p " too --
+     round 397 F397-A2/B2: the round-396 form exempted tag names
+     markdown also produces).
   L14 an indented code block: a <pre> whose source line is not a
      fence.
+  L15 a LaTeX quote pair read as code: a code span opened by a run
+     of two or more backticks with no backtick inside it -- the only
+     reason for the longer run is a literal backtick within, so the
+     span is two ``open quotes that swallowed the text between them
+     (round 396 F396-A2, acted on round 397 F397-A2). Write "\\`\\`".
 
-Scope, stated: L1-L14 detect markup that does not render as written,
+Scope, stated: L1-L15 detect markup that does not render as written,
 under cmark-gfm's server-side HTML. Not seen: a star after a
 multi-letter token that closes an italic early while the stray it
 leaves follows a letter; a quoted LaTeX escape of one of the allowed
 characters ("\\_", "\\*", "\\~", "\\|", "\\`" and the backslash
-itself), which renders without its backslash; and GitHub's client-side
-typesetting of "$...$" math, which the server HTML does not carry.
-Those stay with the pre-landing self-review. Code spans and fenced
+itself), which renders without its backslash; a pair of LaTeX
+single open-quotes ("`a' ... `b'"), which forms an ordinary
+one-backtick code span; inside a list, a wrapped line that begins
+with the item's own marker, which renders as a sibling item; and
+GitHub's client-side typesetting of "$...$" math, which the server
+HTML does not carry. Those stay with the pre-landing self-review. Code spans and fenced
 code blocks are exempt from L5-L9 (backtick strings matched as
 maximal runs, never across a blank line); an indented code block is
 itself a defect (L14). The per-item
@@ -251,15 +268,20 @@ def lint(src):
     for m in re.finditer("`", stxt):
         out.append(("L8", "literal backtick at: "
                     + _snip(stxt[max(0, m.start() - 50):m.start() + 30])))
+    # L15: a multi-backtick code span with no backtick inside
+    for m in _CODE.finditer(src):
+        run = m.group(2)
+        if run and len(run) >= 2 and "`" not in m.group(0)[len(run):-len(run)]:
+            ln = src.count("\n", 0, m.start()) + 1
+            out.append(("L15", f"line {ln}: a {len(run)}-backtick code span "
+                        "with no backtick inside (a LaTeX quote pair?): "
+                        + _snip(m.group(0), 60)))
     out += _block_defects(src)
     return out
 
 
-_MD_TAGS = {"p", "em", "strong", "del", "code", "pre", "a", "ul", "ol",
-            "li", "blockquote", "h1", "h2", "h3", "h4", "h5", "h6", "hr",
-            "table", "thead", "tbody", "tr", "th", "td", "br", "img",
-            "input"}
-_LINE_BLOCK = re.compile(r"\s*([-*+]|\d+[.)]|>)(\s|$)|\s*#|\s*\||\s*([-*_]\s*){3,}$")
+_QUOTE_PREFIX = re.compile(r"^\s*(?:>\s?)*")
+_RAW_HTML = "<!-- raw HTML omitted -->"
 
 
 def _block_defects(src):
@@ -268,24 +290,25 @@ def _block_defects(src):
     lines = src.split("\n")
     h = _render(src, OPT | Options.CMARK_OPT_SOURCEPOS)
     h_nocode = _drop_code_html(h)
-    for m in re.finditer(r'<(ul|ol|blockquote|h[1-6])[^>]*data-sourcepos='
-                         r'"(\d+):', h):
+    for m in re.finditer(r'<(ul|ol|blockquote|h[1-6]|hr|pre|table)\b'
+                         r'[^>]*data-sourcepos="(\d+):', h):
         ln = int(m.group(2))
         prev = lines[ln - 2] if ln >= 2 else ""
-        if prev.strip() and not _LINE_BLOCK.match(prev):
-            out.append(("L10", f"line {ln}: <{m.group(1)}> interrupts a "
-                        f"paragraph: ..." + _snip(prev[-40:], 40) + " | "
-                        + _snip(lines[ln - 1][:40], 40)))
-        if m.group(1).startswith("h") and not lines[ln - 1].lstrip() \
-                .startswith("#"):
+        if _QUOTE_PREFIX.sub("", prev).strip():
+            out.append(("L10", f"line {ln}: <{m.group(1)}> has no blank "
+                        f"line before it: ..." + _snip(prev[-40:], 40)
+                        + " | " + _snip(lines[ln - 1][:40], 40)))
+        if m.group(1)[0] == "h" and m.group(1) != "hr" \
+                and not lines[ln - 1].lstrip().startswith("#"):
             out.append(("L11", f"line {ln}: setext heading: "
                         + _snip(lines[ln - 1], 60)))
     for m in re.finditer(r"<br\s*/?>", h_nocode):
         out.append(("L12", "hard line break at: " + _snip(
             _text(h_nocode[max(0, m.start() - 80):m.start()]), 60)))
-    for t in sorted(set(re.findall(r"</?([a-zA-Z][a-zA-Z0-9]*)", h_nocode))
-                    - _MD_TAGS):
-        out.append(("L13", f"raw HTML tag <{t}>"))
+    safe = _render(src, 0)
+    for m in re.finditer(re.escape(_RAW_HTML), safe):
+        out.append(("L13", "raw HTML at: ..." + _snip(
+            _text(safe[max(0, m.start() - 80):m.start()])[-50:], 50)))
     for m in re.finditer(r'<pre[^>]*data-sourcepos="(\d+):', h):
         ln = int(m.group(1))
         if not lines[ln - 1].lstrip().startswith(("```", "~~~")):
@@ -327,10 +350,18 @@ PROBES = (
     ("L8", "a quoted ``open quote'' and then `code.py` here\n"),
     ("L9", "the norm |x|_p^s and the tail x_ here\n"),
     ("L10", "the sum S(T) = arg ζ(½\n+ iT) up to a remainder\n"),
+    ("L10", "text line one\n|x| + y is the norm\n+ iT) continues it\n"),
+    ("L10", "> a quoted sum ζ(½\n> + iT) continues it\n"),
+    ("L10", "a wrapped product\n***\n"),
+    ("L10", "a strike that wraps\n~~~230~~ and more\n\nnext\n"),
     ("L11", "a stray rule under text\n===\n"),
     ("L12", "a line ending in a backslash\\\nand the next\n"),
     ("L13", "the order a<b and c>d holds\n"),
+    ("L13", "for q<p and p>3 we sum\n"),
+    ("L13", "a <!-- hidden --> c\n"),
+    ("L13", "the bound holds\n<p ≤ x for every prime\n"),
     ("L14", "para\n\n    an indented line\n"),
+    ("L15", "the ``one period'' and the ``other'' here\n"),
     (None, "~~struck~~ *em* **strong** x\\* ≈ 9.3, \\~9, τ* = 2, "
            "a_k and `a*b ~c~` \\`\\`q''\n"),
 )

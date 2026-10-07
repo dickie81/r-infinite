@@ -58,7 +58,8 @@ Gates:
         this instrument (repo-wide per round 140 F6; record files
         excluded as declared history); and zero in the live paper's
         pre-1ai span. Needs the repository's history back to 4f51753
-        (a shallow clone fails closed and says so).
+        (a clone whose history stops short of it fails closed and its
+        FAIL line names the cause).
   V2 -- W1 blindness over the TRUE corpus (round 140 F1/F5; the
         landing docstring claimed the full 25 x 121 grid at "all
         214 committed s values" while the code subsampled -- the
@@ -214,7 +215,10 @@ gate("the route's terms occur only within 1ai's span at the census point "
      hist_ok and outside == 0 and form_n == 0 and wide == 0
      and live_pre == 0 and len(wide_files) > 200,
      f"census tree {CENSUS}: outside-span {outside}, repo-wide {wide} "
-     f"over {len(wide_files)} files; live pre-span {live_pre}")
+     f"over {len(wide_files)} files; live pre-span {live_pre}"
+     + ("" if rc_ls == 0 else
+        f"; census commit {CENSUS} unreachable: the clone's history stops "
+        f"short of it (`git fetch --unshallow`)"))
 
 print("V2 -- W1: the blindness grid over the true corpus (round 140 F1)")
 bs = np.linspace(0.01, 0.99, 25)

@@ -73,7 +73,11 @@ Gates (all exit-gated; any failure exits 1):
       instrument at this reach, recorded as such (the planted target
       at gamma = 20, where the density is ~18x thinner, is the honest
       validation). Constants-only arithmetic; nature stated at the
-      gate per the 1av-g2 precedent.
+      gate per the 1av-g2 precedent. Every published figure of the
+      record (the ordinate, n = 4500, gamma = 20, the density, the
+      resolving power, the ratio 10.3 and the ~18x factor) is pinned
+      at its printed precision here and needled in the paper by g9
+      (round 397 F397-B5/C1).
   g7  the atomic peek (the P2 candidate's atomic refutation):
       Delta_p(1) = -ln p/(p - 1) < 0 for EVERY prime (closed form,
       matched against the Cauchy loop at every p <= 2000); the sign
@@ -148,6 +152,8 @@ PAPER_NEEDLES = [
     {'g': 'g9', 's': 'off-line zero at γ = 85.699348)'},   # round 396 (F396-B3/C3): 1aw(iii)'s ordinate, unbound before
     {'g': 'g9', 's': '4/(1 + 4γ²) ≈ 1.4×10⁻⁴ rad per unit'},   # round 396 (C-O2): g6's published density
     {'g': 'g9', 's': '(ratio 10.3, gated)'},   # round 396 (C-O2): g6's published ratio
+    {'g': 'g9', 's': 'resolving power 2π/4500 ≈ 1.4×10⁻³', 'form': 'ws'},   # round 397 (F397-B5/C1): g6's resolving power
+    {'g': 'g9', 's': 'zero tower is ~18× thinner'},   # round 397 (F397-B5/C1): g6's thinning factor
     {'g': 'g9', 's': '**no proof is claimed,\nand none resulted**'},
     {'g': 'g9', 's': 'a float64 Hermite-recurrence artifact'},
     {'g': 'g9', 's': 'refuted the rebound\non its first run'},
@@ -396,19 +402,26 @@ gate("g5 the planted-zero detection: winding 0, the off-line pole found at "
 # it is not a computation that could discover anything. The empirical
 # content of the infeasibility record lives in g5 (where detection
 # demonstrably works) plus this density comparison.
-gDH = 85.699348
+gDH, n_res, g20 = 85.699348, 4500, 20.0
 dens = 4/(1 + 4*gDH*gDH)
-resol = 2*math.pi/4500
+resol = 2*math.pi/n_res
+dens20 = 4/(1 + 4*g20*g20)
 ok = 9 < resol/dens < 12
-# round 396 (C-O2): the comment above claimed single-site mangles of
-# either surface were pinned; the code side now pins the printed
-# digits (ratio 10.3, density 1.4e-4) and g9's needles pin the paper's
-ok &= round(resol/dens, 1) == 10.3 and f"{dens:.1e}" == "1.4e-04"
-dens20 = 4/(1 + 4*20.0*20.0)
 ok &= 17 < dens20/dens < 20      # the planted target sits where density is ~18x thinner
-print(f"  g6 |dtheta/dgamma| at 85.699 = {dens:.4e}; resolution at n = 4500 = "
-      f"{resol:.4e}; ratio = {resol/dens:.1f}; thinning factor at gamma = 20: "
-      f"{dens20/dens:.1f}", flush=True)
+# round 396 (C-O2) pinned the printed ratio and density; round 397
+# (F397-B5/C1: the resolving power, the thinning factor and the code's
+# own constants were still free) pins every figure of the published
+# record at its printed precision -- the ordinate, the coefficient
+# count, the planted height, the density, the resolving power, the
+# ratio and the thinning factor -- and g9's needles pin each in the
+# paper, so a single-site mangle of any one of them, on either
+# surface, fails
+ok &= (f"{gDH:.6f}", n_res, f"{g20:.1f}", f"{dens:.1e}", f"{resol:.1e}",
+       round(resol/dens, 1), round(dens20/dens)) == \
+    ("85.699348", 4500, "20.0", "1.4e-04", "1.4e-03", 10.3, 18)
+print(f"  g6 |dtheta/dgamma| at {gDH} = {dens:.4e}; resolution at n = {n_res} = "
+      f"{resol:.4e}; ratio = {resol/dens:.1f}; thinning factor at gamma = "
+      f"{g20:g}: {dens20/dens:.1f}", flush=True)
 gate("g6 the D-H crowding infeasibility: neighbour separation an order of "
      "magnitude below the meter's resolution at reachable n", ok)
 
