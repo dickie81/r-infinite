@@ -6030,3 +6030,67 @@ Swept: 33361b9. Convergence round 391 is owed.
   - a necessity-word scan over all of 1au.
 
 **Converged: stable.**
+
+### Round 395 — the residual sweep (the owner's "hit all the residuals")
+
+**Scope.** Commit 49ab366 landed A566's five residuals: the render lint, the stale footer-census labels, the D–H partner tolerance, T1 ⟺ RH, and the environment fingerprint.
+- **Battery** (full-tower class, run by the lead on 49ab366): tower 36/36 fully live, with all six prechecks green; the six readers the meta-rule then named, 5/5 each; `render_lint.py` rc 0.
+- **Review:** three parallel lenses (paper and rendering; code and keying; mathematics and gates). Brief: `brief_round395.md`.
+
+**Findings.** 1 MAJOR and 13 minors as raised (9 distinct), plus cosmetics. All were verified by the lead and accepted (A567).
+- **MAJOR F395-A1 = B1:** the escapes broke three paper-cited readers the battery did not run (deeper_grounding, spinor_transport, c1_closure). Fixed with `md_unescape`.
+- **Minor:**
+  - F395-A2: the meta-rule's reader census found 6 of 19. The fix is a structural paper-reader precheck.
+  - A-O1 / B-O-2: weil_positivity_status V1 had failed since 1bf. Its census now runs on the round-140 tree.
+  - F395-A3 / B2 / B3 / C6: the lint's blind spots. Rules L7–L9 added, the allowlist narrowed, three paper fixes.
+  - F395-B4: the fingerprint claim is scoped; backends, switches and the CPU are bound.
+  - F395-B5 = C5: the D–H ordinate is needled.
+  - F395-B6 / C9: the label scan was widened and given a floor.
+  - F395-C1: "a gain at each fixed degree" was struck; GORTTW cited.
+  - F395-C2: the register's socket is named (`rh_of_realRooted_limit`).
+  - F395-C3 / A7: the register's survey was completed.
+  - F395-C4: 1at and 1au's "open region past the proven boundaries" was false when written. Struck and annotated.
+- **Cosmetic:** A4 / B8 / C7, A5, A6 / C8, B9.
+- **Held:** listed in A567.
+
+**Swept:** 937ad31. Convergence round 396 owed.
+
+### Round 396 — the convergence test on the round-395 sweep
+
+**Scope.** Commit 937ad31.
+- **Battery** (full-tower class, run by the lead on 937ad31): tower 36/36 fully live; all seven prechecks green; 19 readers PASS.
+- **Review:** three parallel lenses. Brief: `brief_round396.md`.
+
+**Findings.** 1 MAJOR, 8 distinct minors, plus cosmetics. All were verified by the lead and accepted (A568).
+- **MAJOR F396-B1:** the reader cache key missed three kinds of input: docstring text read as source, a module outside the reach roots, and files found by glob. Readers now run live with no cache, and an unresolved-import guard was added for members.
+- **Minor:**
+  - F396-A2 = B2: nine hard-wrapped lines rendered as lists or blockquotes. Re-wrapped; lint rules L10–L14.
+  - F396-A1 = C1: the proven range is d ≤ 9×10²⁴ (GORTTW Theorem 1.2 at Platt–Trudgian's 3·10¹²), not 9.36×10²⁰. Struck and annotated.
+  - F396-A3 = C2: the "open-region" carriers in attraction_margins were swept and the needle re-anchored.
+  - F396-B3 = C3: 1aw(iii)'s γ is needled.
+  - F396-B4: V1 now names the shallow-clone cause.
+  - F396-A4 = C6 = B11: V1's docstring was rewritten.
+- **Cosmetic:** C5, A5 / B12 / C4, A6, B5–B10.
+- **Out of scope:** C-O2 (floor_meter g6's unbound numbers; accepted and fixed), B-O1 (an orphan process), C-O4 (disk full).
+- **Held:** listed in A568.
+
+**Swept:** 994461f. Convergence round 397 owed.
+
+### Round 397 — the convergence test on the round-396 sweep
+
+**Scope.** Commit 994461f.
+- **Battery** (full-tower class, run by the lead on 994461f): tower 36/36, fully live; all seven prechecks green; 19 readers PASS. Each reviewer ran the tower once afterwards: 36 cached PASS.
+- **Review:** three parallel lenses, relaunched after a container restart. Brief: `brief_round397.md`.
+
+**Findings.** 1 MAJOR, 5 distinct minors, plus cosmetics. All were verified by the lead and accepted (A569).
+- **MAJOR F397-B1:** the reach walk missed `from pkg import helper` and relative imports (the F269-3 class; zero committed reach). Fixed: full resolution, plus the walk's own sabotage case.
+- **Minor:**
+  - F397-A1 = B2: L10's source regex exempted running text. L10 is now decided from the rendering.
+  - F397-A2 = B2: unlisted silent classes. L13 widened to safe-mode raw HTML; new L15; "Not seen" completed.
+  - F397-B5 = C1: g6's single-site claim. Every published figure is now pinned and needled.
+  - F397-A6 = B3: reader failures dropped the cause. V1's detail names it, and the printer relays stderr.
+- **Cosmetic:** A3 = B6, A4 / C2 / A5, A7, B4, B7, C3.
+- **Out of scope:** B-O1 (g7 now binds the retraction itself; accepted), A-O1 (by design), A-O2.
+- **Held:** listed in A569.
+
+**Swept:** bdb4816. Convergence round 398 owed.

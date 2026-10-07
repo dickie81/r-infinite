@@ -20126,3 +20126,386 @@ Before the sweep landed, cmark-gfm rendered the 1au block with 0 literal `~~` an
   - an environment fingerprint in `member_key` (F394-1).
 
 ---
+
+## Addendum 567 — round 395, the residual sweep (49ab366) (1 MAJOR, 13 minor as raised — 9 distinct after merging duplicates — and cosmetics; all verified and accepted; swept 937ad31)
+
+**The round.**
+- The owner directed "hit all the residuals". The A566 residual list held five items:
+  - the render lint;
+  - the stale g15/g10/g9 labels;
+  - the D–H partner tolerance;
+  - T1 ⟺ RH;
+  - an environment fingerprint in `member_key`.
+- The lead landed all five in 49ab366 after a pre-landing self-review:
+  - **Render lint:** the new `render_lint.py` runs as a pinned tower precheck. Its escapes fixed four broken `~~` strikes, two false single-tilde strikes, 19 variable stars acting as emphasis delimiters (17 paper, 2 formulation), the zero-width-space bold period and the quoted `\!`. The commit message said "21 variable stars"; the true count is 19.
+  - **Stale labels:** there were 18 stale footer-census labels, not 14 (three said "86"; `cascade_arithmetic_section.py` carried the current numbers). A gate-label precheck now guards the class.
+  - **D–H tolerance:** g8 now holds the FE partners to 1e-25 and gates the printed truncations.
+  - **T1:** 1au(viii) records the n = 0 Jensen line ⟺ RH, quoting Griffin–Ono–Rolen–Zagier (GORZ). It is entered on STRUCTURAL-REVIEW §6.
+  - **Fingerprint:** `member_key` binds an environment fingerprint.
+- **Lead's battery on 49ab366** (logs under `scratchpad/r395/battery_lead/`, 15:54–16:24 UTC):
+  - TOWER PASS (36/36), census "36 live PASS + 0 cached PASS + 0 FAIL", all six prechecks green;
+  - the six readers then named by the meta-rule: 5/5 each;
+  - `render_lint.py`: rc 0.
+- **Session demonstration** (`scratchpad/r395/fp_demo.log`; session evidence, not committed code):
+  - `MPMATH_NOGMPY=1`, a scipy bump and a gmpy2 install each rotate 36 of 36 keys;
+  - a python-flint bump rotates 16 of 36;
+  - keys are deterministic and restore.
+- **Review.** Three fresh-context `hostile-reviewer` agents ran in parallel (lenses: paper and rendering; code and keying; mathematics and gates). This was a workflow at the owner's ultracode setting. Brief: `brief_round395.md`. Reports: `scratchpad/r395/report_{0,1,2}.md`.
+- **Result:** 1 MAJOR, 13 minors as raised (9 distinct after merging duplicates across lenses), and cosmetics. Every finding was verified by the lead directly (below) and accepted. The sweep commit's message says "11 minor"; this count supersedes it.
+
+**F395-A1 = B1 (MAJOR; created by 49ab366).** The escapes broke three paper-cited readers that the battery did not run:
+- `cascade_deeper_grounding.py` 10/1 (Theorem 1af's anchor "G(d, d*) = Σ_{k = max(d, d*)}^{216} α(k)");
+- `cascade_spinor_transport.py` 13/2 (1ag's "… layers d and d* is χ^−|d−d*| with χ = 2", and its sibling gate);
+- `cascade_c1_closure.py` 9/1 (1ah, through its sibling).
+
+The lead reproduced all three at HEAD: rc 1, with the failing gate labels as reported.
+- **Disposition:** `md_unescape` drops markdown's backslash escapes before ASCII punctuation, before matching. It is applied to the paper in both readers and to the formulation in spinor_transport.
+- **Results:** 11/0, 15/0, 10/0.
+
+**F395-A2 (minor; root cause of A1).** CLAUDE.md's census of the non-member paper readers missed most of them:
+- its grep (`open(.*riemann-indistinguishability`) found six of the nineteen;
+- the other thirteen open the paper through a `PAPER` constant.
+
+The lead's structural census (AST: string constants naming a surface) found 19. They ran in 43 s, and four failed: the three of A1 and `cascade_weil_positivity_status.py` (below).
+- **Disposition:** a paper-reader precheck in `run_tower.py`.
+  - Discovery is structural, with a floor of 19.
+  - Each reader is keyed on its code reach, the environment fingerprint and both surfaces' bytes, and cached in `checkpoints/reader_results.json`.
+  - CLAUDE.md items 2 and 4 and the prose-only battery bullet were rewritten.
+
+**Out-of-scope observations A-O1 / B-O-2 (accepted).** `cascade_weil_positivity_status.py` V1 had failed since the 1bf landing. The lead verified:
+- the old census passes at 1d596fb (paper outside the span 0; repo-wide 0 over 286 files);
+- it fails at 2fcac9c, the 1bf landing (paper 1; `cascade_twosided_witness.py` 2).
+
+The paper's claim (1ai(i)) is historical: "zero occurrences on any committed object-level surface before this theorem (census gated repo-wide as of round 140 F6 …)".
+- **Disposition:** V1 now evaluates the census on the round-140 sweep tree, 4f51753, through git objects. The lead's replay there gives 0 over 252 files.
+- It also checks the live paper's pre-1ai span.
+- A sabotage term inserted before 1ai fails the gate.
+- 1ai(i) carries a net-state marker.
+
+**F395-A3 / B2 / B3 / C6 (minor).** The lint's stated blind spot ("a star after a multi-letter token") was not its only one.
+- B2 found a live defect. The unpaired LaTeX quote "``one Bott period past $d_1$''" (≈1974) stopped a later code span from forming (≈2015). GitHub's HTML showed literal backticks.
+- L5's allowlist admitted seven escapes the surfaces never use, LaTeX's `\( \_ \#` among them.
+- The lead found one more by testing the reviewers' suggested rule: underscore emphasis italicised half of 1bo(i) (`|x|_p … 1_{ℤ_p}`).
+
+- **Disposition:**
+  - new rules: L7 (stray literal stars after a non-letter), L8 (literal backticks outside code), L9 (underscore emphasis);
+  - L5's allowlist narrowed to `* _ ~ \` |` and the backslash;
+  - per-paragraph item tests;
+  - probes 7 → 10.
+- **Fixed in the paper:**
+  - `src/\*.tex`;
+  - `\`\`one Bott period past $d_1$''`;
+  - `|x|\_p^s` and `1\_{ℤ_p}`.
+- The docstring now states what remains unseen:
+  - a stray after a letter;
+  - quoted-LaTeX escapes of allowed characters;
+  - GitHub's client-side `$…$` math.
+
+**F395-B4 (minor).** The fingerprint's "never a stale PASS" was unscoped:
+- sympy loads python-flint undeclared;
+- unset and empty environment switches collided;
+- `MPMATH_SAGE`, `MPMATH_STRICT` and `SYMPY_GROUND_TYPES` were unbound;
+- OpenBLAS picks its kernel per CPU.
+
+No verdict flip was demonstrated.
+- **Disposition:**
+  - sympy's optional backends are bound;
+  - `_ENV_SWITCHES` is widened, with presence semantics;
+  - the CPU model and flags hash are bound;
+  - the claim is scoped to the bound inputs, and the unbound list is stated in the driver and in CLAUDE.md.
+
+**F395-B5 = C5 (minor).** The paper's ordinate "85.699348…i" (≈3838) was bound by no needle. The reviewer showed a sabotaged ordinate passing.
+- **Disposition:** needle `'0.808517… + 85.699348…i'` in `cascade_primes_side_ball.py` g13. A sabotaged ordinate now fails.
+
+**F395-B6 / C9 (minor; A9 cosmetic).** The gate-label scan had gaps:
+- it read only string-constant labels (588 of 684);
+- it missed aliases and em-dash ranges;
+- it had no floor.
+
+Nothing committed was hit.
+- **Disposition:** the scan now reads every constant in a label's subtree and follows aliases, matches any dash, and has the floor `GATE_LABELS_MIN = 650`. An AST sabotage case was added; 684 labels are scanned.
+
+**F395-C1 (minor; created by 49ab366).** The R4 marker's "a gain at each fixed degree" was false for d ≤ 8 (GORZ) and for every d ≤ 9.36×10²⁰ (Griffin–Ono–Rolen–Thorner–Tripp–Wagner, "GORTTW").
+- **Lead:** read GORTTW's TeX (`reviewer_C/gorz_dl/gorttw.tex` 312–321): "If $d\leq 9.36\times 10^{20}$ and $n\geq 0$, then $J^{d,n}(X)$ is hyperbolic.", from Platt's RH₀(3.06×10¹⁰).
+- **Disposition:** strike-and-annotate, scoped to degrees above 9.36×10²⁰.
+
+**F395-C2 (minor; STRUCTURAL-REVIEW).** "Socket: none in the stack" was false.
+- **Lead:** read `Roadmap.lean` 258–275. `rh_of_realRooted_limit` takes real-rooted F_n with c_n·F_n → Ξ to RH.
+- **Disposition:** the socket is named, fed by F_d(t) = J^(d,0)(−t²/d), and the two missing classical inputs are named.
+
+**F395-C3 / A7 (minor / cosmetic).** The register entry's survey omitted two results, and "to d = 25 / 100" overstated a sampled census.
+- The omitted results: Chasse's n = 0 range, d ≤ 2·10¹⁷ (in GORZ's footnote to the quoted sentence), and GORTTW.
+- **Disposition:** both results recorded; the census described as sampled degrees.
+
+**F395-C4 (minor; pre-existing, novel by Check 4).** 1at and 1au placed the hyperbolicity data "past the proven boundaries", in an "open region" beyond "d ≤ 8 fully". This was false when written: GORTTW (arXiv v3 2020-12) predates both landings.
+- **Disposition:**
+  - strike-and-annotate: 1at(v)'s range; 1au's title phrases; 1au(i)'s frame; 1au(iii)'s "Beyond it —" and "The empirical base … far beyond GORZ's proven range.";
+  - 1au(iv) net-state;
+  - GORTTW and Platt appended to the footer's classical inputs;
+  - the 1au title needle in `cascade_attraction_margins.py` g7 re-anchored.
+- The annotation also covers Front B: its λ₁…λ₄₀ lie inside the committed gate's n = 1…50 (1au(vi)).
+
+**Cosmetics:**
+- A4 / B8 / C7: the docstring said "five" classes;
+- A5: the L1 fallback text;
+- A6 / C8: the GORZ quote's dropped citation and footnote, now marked "[…]";
+- B9: the failure print's tail is now its head.
+
+**Record numbers corrected here:**
+- the false strike from "~9.3" to "Reading~" is 6,476 rendered characters (A8 / B7), not "2,477";
+- `<em>` is 965 at 49ab366, not 964.
+
+**Out of scope, noted:**
+- A-O2: cmark-gfm grows about 7 MB per whole-paper render. Per-paragraph tests now limit it.
+- A-O3: GitHub's client-side math typesetting. It is in the lint's stated scope.
+- B-O-1: the docstrings carry live census numerals. They are prose; not gated.
+- The reviewers' own process slips (`pkill -f`, one `timeout`) affected only their own processes.
+
+**Check-1 record (re-read this round):**
+- `riemann-indistinguishability.md`:
+  - 4076–4135 (1at(iii)–(v));
+  - 4143–4300 (Theorem 1au, the operative theorem);
+  - 2466–2490 (1ai(i));
+  - 3832–3846 (1as(vi));
+  - 6830–6845 (1bo(i));
+  - 1909–2016;
+- `cascade_weil_positivity_status.py` 120–190;
+- `cascade_deeper_grounding.py` 105–172;
+- `cascade_spinor_transport.py` 130–170;
+- `Roadmap.lean` 250–275;
+- GORTTW TeX 300–322;
+- GORZ v2 TeX 286–296.
+
+**Lead's verification commands:**
+- the three readers at HEAD (rc 1, then rc 0 after the fix);
+- all 19 readers, timed (`scratchpad/r395/readers/`);
+- census replays at 4f51753, 1d596fb and 2fcac9c;
+- `render_lint.py` (0 defects, 10/10 probes);
+- `needle_diff.py` (735 declared needles; the one change is the intended title re-anchor);
+- the driver dry run (`scratchpad/r395/dry_prechecks.py`):
+  - all seven prechecks green;
+  - "paper-reader precheck: 19 readers discovered, 19 PASS";
+  - 684 labels.
+
+**Battery on the sweep.** Full-tower class (fingerprint format change, member and reader edits). A fully live `run_tower.py` under the checkpoint wrapper on 937ad31; recorded with round 396.
+
+**Standing state.**
+- **Residual list:** emptied by this round. Its five items are landed.
+- **New residual:** none beyond the lint's stated blind spots, which stay with the self-review.
+- Round 396 tests convergence on 937ad31.
+
+---
+
+## Addendum 568 — round 396, the convergence test on the round-395 sweep (937ad31) (1 MAJOR, 8 distinct minors, cosmetics; not converged; all verified and accepted; swept 994461f)
+
+**The round.**
+- Three fresh-context `hostile-reviewer` agents ran in parallel (lenses: paper and rendering; code and keying; mathematics and claims). This was a workflow at the owner's ultracode setting.
+- Brief: `brief_round396.md`. Reports: `scratchpad/r396/report_{0,1,2}.md`.
+- **Lead's battery on 937ad31** (`scratchpad/r396/battery_lead/`, 17:07–17:47 UTC):
+  - all seven prechecks green, including "paper-reader precheck: 19 readers discovered, 19 PASS (19 live, 0 cached), 0 FAIL";
+  - "census: 36 live PASS + 0 cached PASS + 0 FAIL of 36", TOWER PASS (36/36), exit 0.
+- Every finding below was verified by the lead directly.
+
+**F396-B1 (MAJOR; created by 937ad31).** The reader cache key bound only three things:
+- each reader's docstring-stripped code reach;
+- the two surfaces;
+- the environment.
+
+Readers also read:
+- **docstring text as source:** deeper_grounding anchors three sentences of the `cascade_greens_function.py` docstring;
+- **a module outside the reach roots:** seven readers import `tools/cascade_constants.py` through `sys.path`;
+- **files found by glob:** `src/cascade-series-*.tex` in door4_status and species_census; `PREDICTIONS.md` in grammar_need.
+
+The reviewer edited all three kinds of input on a scratch clone. The keys did not change, and the cached run passed 19/19 while five readers failed standalone.
+- **Lead:** read `cascade_deeper_grounding.py` 128–140 and 93–95, and confirmed the glob reads at door4_status 109–117 and grammar_need 96.
+- **Disposition:** the reader cache is removed and every reader runs live on every invocation, about 15 s in parallel. Discovery recurses into subdirectories, and a failure prints the reader's FAIL lines.
+- **Members:** a new guard fails the tower on any unresolved import in a member's reach (the F269-3 class); the committed reach has none.
+
+**F396-A2 = B2 (minor; the defects predate the round, the lint's scope text is new).** Nine hard-wrapped lines rendered as lists or blockquotes:
+- seven start with "+ " (5700, 7244, 7650–7651, 7749, 7896, 8217);
+- one with "1) +" (8234);
+- one with "> " (8284).
+
+They span 1bf–1ca and dropped operators from formulas on GitHub. The lint did not see them, and its stated blind spots omitted the class.
+- **Lead:** a sourcepos census found exactly these nine.
+- **Disposition:**
+  - the nine lines were re-wrapped by moving each leading operator to the end of the previous line. The whitespace-collapsed needle forms are unchanged: 738 needles, 0 count changes;
+  - new lint rules: L10 (a block interrupting a paragraph; on the pre-fix paper it gives 9 reports on 8 lines, 8234 twice, with 7651 inside 7650's flagged list — round 397 A3/B6), L11 (setext headings), L12 (hard breaks), L13 (raw HTML), L14 (indented code);
+  - 15 probes;
+  - CLAUDE.md tells authors to re-wrap such lines rather than escape them.
+- Disposition of A2's further remark (L5 would reject the `\+` escape): kept by design. The fix is re-wrapping.
+
+**F396-A1 = C1 (minor; created by 937ad31).** The round-395 "proven range" every d ≤ 9.36×10²⁰ understated the literature.
+- It is GORTTW's corollary at Platt's height 3.06×10¹⁰.
+- GORTTW's Theorem 1.2 (TeX 312–314: "If $\mathrm{RH}_m(T)$ is true and $d\leq \lfloor T\rfloor ^2$, then $J^{d,n}(X)$ is hyperbolic for all $n\geq m$") at Platt–Trudgian's height 3·10¹² gives d ≤ 9×10²⁴. Platt–Trudgian is arXiv 2004.09765, which the lead fetched: "all zeroes β + iγ … with 0<γ≤3·10¹² have β = 1/2".
+- The paper's Theorem 1b already uses that height.
+- **Disposition:**
+  - strike-and-annotate at 1at(v) and at 1au(iii), (iv) and (viii);
+  - Platt–Trudgian appended to the classical inputs. Theorem 1b had used it unlisted (C-O1);
+  - the register's open part is scoped to the survey, and Farmer 2020 (C-O3) is added by title.
+
+**F396-A3 = C2 (minor).** The struck "open-region" claim survived in `cascade_attraction_margins.py`:
+- in its docstring;
+- in the printed g2 label;
+- in g7's needle "far beyond GORZ's proven", which anchored only the struck sentence. The reviewer showed the correction's deletion passing.
+- **Disposition:** the carriers are swept. The needle now anchors the correction ("so the census confirms a theorem"), and its removal fails.
+
+**F396-B3 = C3 (minor; F395-B5/C5's disposition was incomplete).** 1aw(iii)'s "γ = 85.699348" was unbound.
+- **Disposition:** needle `'off-line zero at γ = 85.699348)'` in floor_meter g9. Its sabotage fails.
+
+**F396-B4 (minor).** V1's git-history census fails a shallow clone without naming the cause.
+- **Disposition:** V1 prints the cause and the remedy (`git fetch --unshallow`), and CLAUDE.md states that the battery needs full history.
+
+**F396-A4 = C6 = B11 (minor/cosmetic).** V1's docstring described the retired live-tree gate.
+- **Disposition:** the docstring is rewritten.
+
+**Cosmetics:**
+- **C5:** the 1au(iii) annotation gave the wrong ground. The struck spans name GORZ's range and are literally true; the false element was the open-region frame. The annotation's ground is corrected.
+- **A5 / B12 / C4:** the old census first fails at 5e527f1, the 1bf verifier commit, through the tools tree. The 1ai(i) marker is corrected.
+- **A6:** 1at's honest scope did not name GORTTW. It now does.
+- **B5:** reader failures printed READING prose. They now print FAIL lines.
+- **B6:** discovery's wording ("every .py") overstated a top-level-only scan. Discovery now recurses.
+- **B7:** moot, since the cache is gone.
+- **B8:** label-scan aliases, dashes and joins widened.
+- **B9:** the driver docstring.
+- **B10:** libc added to the fingerprint.
+
+**Out-of-scope observations:**
+- **C-O2 (accepted and fixed).** floor_meter g6's comment claimed it pinned "the published infeasibility numbers against single-site mangles of either surface", but no needle bound "ratio 10.3" or "≈ 1.4×10⁻⁴". Fixed with needles on both numbers and code-side digit pins (`round(ratio, 1) == 10.3`, `f"{dens:.1e}" == "1.4e-04"`).
+- **B-O1.** PID 1040, an orphan from round 395's reviewer B, ran at 99% CPU. The lead stopped it by PID.
+- **C-O4.** The disk reached 100%. The lead removed the reviewers' scratch tree clones (about 1.5 GB), keeping their reports, scripts and logs.
+
+**Check-1 record (re-read this round):**
+- `riemann-indistinguishability.md`:
+  - 4115–4145 (1at(iii)–(v));
+  - 4154–4330 (Theorem 1au, the operative theorem);
+  - 2466–2490 (1ai(i));
+  - 4600–4615 (1aw(iii));
+  - the nine re-wrapped loci;
+- `cascade_deeper_grounding.py` 93–140;
+- `cascade_weil_positivity_status.py` 49–60;
+- `cascade_attraction_margins.py` 1–60 and 110–176;
+- `cascade_floor_meter.py` 146–150 and 390–406;
+- GORTTW TeX 300–322;
+- Platt–Trudgian and Farmer arXiv abstract pages.
+
+**Battery on the sweep.** Full-tower class. A fully live `run_tower.py` on 994461f, recorded with round 397.
+
+---
+
+## Addendum 569 — round 397, the convergence test on the round-396 sweep (994461f) (1 MAJOR, 5 distinct minors, cosmetics; not converged; all verified and accepted; swept bdb4816)
+
+**The round.**
+- Three fresh-context `hostile-reviewer` agents ran in parallel (lenses: paper and rendering; code and keying; mathematics and claims). This was a workflow at the owner's ultracode setting.
+- A container restart lost the first launch; the round was relaunched fresh.
+- Brief: `brief_round397.md`. Reports: `scratchpad/r397/report_{0,1,2}.md`.
+- **Lead's battery on 994461f** (`scratchpad/r397/battery_lead/`), fully live under the checkpoint wrapper:
+  - all seven prechecks green;
+  - "census: 36 live PASS + 0 cached PASS + 0 FAIL of 36", "TOWER PASS (36/36)", exit 0.
+- Each reviewer ran `run_tower.py` once after it: 36 cached PASS, all prechecks green, 19 readers PASS.
+- Every finding below was verified by the lead directly.
+
+**F397-B1 (MAJOR; pre-existing since round 269; zero committed reach).** The reach walk had a gap:
+- `_imports_of` resolved `from pkg import helper` only to `pkg/__init__.py`, so `pkg/helper.py` stayed outside both the member key and the paper-needle scan set;
+- `from . import x` (module None) was skipped entirely.
+
+The reviewer demonstrated a stale cached PASS in a worktree. The guard also misfired on a namespace package (`import strip_note.zeroside` → "unresolved:strip_note").
+- **Lead:** read `run_tower.py` 207–244 (the round-269 F269-3 fix covered `import pkg.helper` only) and 900–925.
+- **Grading:** MAJOR, per F269-3, the same class with the same zero reach.
+- **Disposition:**
+  - `_import_targets` resolves each statement's dotted candidates: `pkg.helper` beside `pkg`, and relative imports against their package directory.
+  - `_third_party_of` uses the same resolution, so a namespace package is local.
+  - The walk's own sabotage case runs before the reach precheck. It plants a package, a namespace package and a relative import in a temporary directory, with per-file expectations.
+  - The precheck prints a pass line.
+- **Lead's checks:**
+  - three source mutations (the submodule candidate dropped, relative roots emptied, namespace resolution truncated) each exit 2;
+  - a before/after snapshot of all 36 members shows reach and fingerprint unchanged, so no member key rotated through the driver edit.
+
+**F397-A1 = B2 (minor; the remedy for F396-A2/B2 missed its own class).** L10 skipped any previous line matching a block-start regex. That covers running text beginning "|x|", "#33" or "47) ", the first lines of list items, and blockquote lines; there are 25 such lines in the paper and 2 in the formulation.
+- **Lead:** reproduced the reviewer's M1 (a break moved after the "|"-led line 7346 renders `<ul>`, and the old lint returned `[]`).
+- **Disposition:** L10 is now decided from the source-positioned rendering alone. It flags any ul, ol, blockquote, h1–h6, hr, pre or table whose first source line follows a non-blank line, with blockquote markers stripped.
+  - M1 is now caught.
+  - On 8d83070 it gives 9 reports on 8 lines.
+  - Every intended block on both surfaces follows a blank line.
+  - A-O1 (an intended list directly after an intro line is flagged) is now by design: such a list needs a blank line.
+
+**F397-A2 = B2 (minor; incomplete disposition of F396-A2).** Several silent classes were missing from "Not seen":
+- paired LaTeX quotes (raised in F396-A2, not acted on);
+- raw HTML whose tag names markdown also uses, comments, and HTML blocks;
+- thematic breaks and tilde fences interrupting a paragraph.
+- **Lead:** confirmed each case on the committed lint.
+- **Disposition:**
+  - L13 now counts every "raw HTML omitted" marker in cmark-gfm's safe rendering;
+  - the new L15 flags a code span opened by two or more backticks with no backtick inside;
+  - breaks and fences fall under L10;
+  - "Not seen" adds LaTeX single-quote pairs and a wrapped line that begins with its list item's own marker;
+  - probes go from 15 to 23 (`RENDER_PROBE_CASES` pinned), each firing its own rule.
+- Both surfaces: 0 defects.
+
+**F397-B5 = C1 (minor; incomplete disposition of round-396 C-O2).** g6's comment claimed protection against "single-site mangles of either surface". That was false in two places:
+- the paper's "2π/4500 ≈ 1.4×10⁻³" and "~18× thinner" had no needle;
+- the code's constants (4500 → 4480, `gDH` → 85.8, 20.0 → 20.5) could be mangled without failing.
+- **Lead:** replayed the g6 block and confirmed both.
+- **Disposition:** g6 pins every published figure at its printed precision:
+  - the ordinate, n = 4500 and γ = 20;
+  - the density and the resolving power;
+  - the ratio and the thinning factor.
+
+  g9 needles "resolving power 2π/4500 ≈ 1.4×10⁻³" and "zero tower is ~18× thinner".
+- **Lead's checks:**
+  - nine code mangles all fail;
+  - three paper mangles all miss.
+
+**F397-A6 = B3 (minor; the F396-B4 fix did not reach the battery).** The reader printer kept only lines containing "FAIL", so it dropped both V1's shallow-clone hint and every stderr traceback. Separately, "a shallow clone fails closed" is false for this checkout, which is shallow but still reaches 4f51753.
+- **Disposition:**
+  - V1's FAIL detail now names the cause;
+  - the printer relays the stderr tail;
+  - CLAUDE.md and the V1 docstring now say "history that reaches 4f51753".
+- **Lead:** ran V1 with `GIT_DIR` pointed at an empty repository. The FAIL line ends "census commit 4f51753 unreachable: the clone's history stops short of it (`git fetch --unshallow`)".
+
+**Cosmetics:**
+- **B4:** the label scan joined constants in breadth-first order and covered 7 of the 26 Pd dashes. It now joins in source order and matches every Pd dash plus U+2212. Two sabotage cases were added; the round-396 scan misses both (lines 8 and 10).
+- **B7:** four CLAUDE.md precision items (libc dated round 396, the `READER_INFRA` exclusions, "per-reach cache key", the reach precheck in the battery bullet), plus the driver docstring.
+- **A4 / C2 / A5:** at 1au(iii) the attribution is struck and completed, and the raised figure is dated. 1au(iv)'s marker is dated. The footer carries a net-state marker, and the honest-scope dating is struck and corrected.
+- **C3:** RH_m(T) is defined by quoting GORTTW TeX 310, and Platt–Trudgian's statement is read as RH₀(3·10¹²) on its two grounds.
+- **A7:** 1ai(i)'s "after 1ai's span" is struck to "outside 1ai's span".
+- **A3 = B6 (record only):** L10's nine pre-fix reports fall on eight lines. 8234 is reported twice, and 7651 sits inside 7650's flagged list. The round-396 phrase "all nine" is a coincidence of counting.
+
+**Out-of-scope observations:**
+- **B-O1 (accepted and fixed).** g7's re-anchored needle no longer caught un-striking or deleting the retraction. It now has a ws-form needle on the struck sentence with its delimiters; un-striking and deletion both miss.
+- **A-O1:** by design, as above.
+- **A-O2:** GitHub's POST /markdown is unavailable to this session (403); cmark-gfm stands in for it.
+
+**Check-1 record (re-read this round):**
+- `riemann-indistinguishability.md`:
+  - 4115–4152 (1at(v));
+  - 4194–4236 (1au(iii)–(iv));
+  - 4316–4330 (1au(viii); Theorem 1au is the operative theorem);
+  - 2474–2484 (1ai(i));
+  - 4620–4632 (1aw(iii));
+  - the footer clause;
+- `render_lint.py` in full;
+- `run_tower.py`:
+  - 195–270 (the reach walk);
+  - 762–830 (the label scan);
+  - 895–975 (the fingerprint);
+  - 1035–1110 (readers and guard);
+- `cascade_floor_meter.py` 60–76 and 380–415;
+- `cascade_weil_positivity_status.py` 50–64 and 160–235;
+- GORTTW TeX 308–316.
+
+**Lead's verification commands** (scripts under `scratchpad/r397/lead/`):
+- `proto.py`: block census;
+- `mut.py`: M1 and 8d83070;
+- `snap.py`: reach and fingerprint snapshots, HEAD vs sweep, with 0 differences;
+- `t_reach.py`;
+- `dry.py`, `dry_mut.py` and `dry_m.py`: driver dry runs and three mutations;
+- `g6_test.py`: nine code mangles;
+- `needle_sab.py`: three paper mangles, two g7 cases;
+- `lab_old.py`;
+- `needle_diff.py`: 741 needles, 0 count changes;
+- `render_lint.py`: 0 defects, 23/23.
+
+**Battery on the sweep.** Full-tower class: `run_tower.py` on bdb4816 under the checkpoint wrapper. floor_meter and attraction_margins changed. 33 members' code reaches name `cascade_attraction_margins.py` (31 also name `cascade_floor_meter.py`), so 33 keys rotated and those members run live; lattice_forcing, primes_side_ball and finite_fill are served from cache. The lead's round-398 brief at first said "the other 34 members are served from cache". That came from comparing reach sets and fingerprints but not the reach files' hashes, and was corrected in the brief during the run. Result (`scratchpad/r398/battery_lead/`, 20:09–20:35 UTC): all eight prechecks green, including "render lint: 2 surfaces, 0 defects; probes 23/23 as expected" and "reach precheck: 36 members, 0 unresolved imports; sabotage case resolved (5 imports)"; "census: 33 live PASS + 3 cached PASS + 0 FAIL of 36", "TOWER PASS (36/36)", exit 0. The session's background limit stopped the wrapper during its last sleep, after the tower had finished; the lead committed the final cache by hand (5cdcea8).
+
+---
