@@ -4201,9 +4201,12 @@ stays positive as d → ∞ is the d-uniformity component of the
 residual, open. *(v) Front A, the rate law
 (empirical).* The degree-2 margins obey r_j ≈ 1/(2j): the
 products j·r_j climb steadily (0.2932 at j = 10, 0.4687 at
-j = 55, gated), consistent with j·r_j → ½. A uniformity proof
+j = 55, gated), consistent with j·r_j → ½. ~~A uniformity proof
 must establish the degree-d analogue of this
-decays-but-never-vanishes law. *(vi) Front B, the Li margins.*
+decays-but-never-vanishes law.~~ *(round 393 F393-1: the struck
+sentence stated what every uniformity proof must establish, without
+a survey (CLAUDE.md Check 9), and the law it names is empirical, per
+(v)'s heading.)* *(vi) Front B, the Li margins.*
 Li's criterion (RH ⟺ λ_n ≥ 0 for all n; the criterion is a
 committed classical input of this paper's ladder): ~~λ₁ through
 λ₄₀ computed from 200 zero pairs with explicit tail bounds —
@@ -4253,13 +4256,19 @@ engine forcing λ_n ≥ 0 without consulting zeros — the λ₁ closed
 form exhibits what such an engine's outputs look like. *(round 393:
 the struck phrase quantified over all proofs of RH without a survey
 (CLAUDE.md Check 9). T2 is RH-strength: λₙ ≥ 0 for all n ≥ 1 is RH
-(Li's criterion). Later blocks refine T2: 1av(ii) closes Regime I
+(Li's criterion); 1av(vi), as swept in round 389, records that
+estimating the ledger itself is circular, and that its dichotomy does
+not reach an estimate of an auxiliary quantity with an independent
+second representation. ~~Later blocks refine T2:~~ Other blocks bear on
+T2: 1ao(iv), written before it, finds positivity arithmetic-carried
+at the low rungs; 1av(ii) closes Regime I
 (n ≤ 10) by computation, finds the first direction's positivity
 carried by the primes channel (λ_B(1) = −0.5541 in the gamma
 channel), and names Regime II, beyond it, the engine's target, the
 gamma channel first dominating at n = 11; 1aw(iv) holds λ₁ positive
-in the primes channel, the Γ-reading of γ behind the last clause
-notwithstanding.)* *Honest
+in the primes channel, the Γ-reading of γ behind ~~the last clause~~
+T2's closing clause notwithstanding. Round 393 F393-2 added 1ao(iv)
+and 1av(vi) and anchored the closing clause.)* *Honest
 scope:* category (a) — instruments classical throughout
 (Jensen–Pólya, Turán, Li's criterion, the theta-kernel moment
 representation); the FIRST-STAGE-FLOOR conjecture is DECLARED,
