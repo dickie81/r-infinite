@@ -4405,9 +4405,11 @@ only the ledger's own magnitude; CLAUDE.md Check 9.)* *(vii) The informational-p
 program (DECLARED RESEARCH PROGRAM — named, dated, never
 citable as a result).* The owner's proposal: the arithmetic
 fill exerting informational pressure on the archimedean ball
-as the source of ~~that positivity~~ **an archimedean positivity, the
+as the source of ~~that positivity~~ **~~an archimedean positivity,~~ the
 Weil positivity W(g∗g̃) ≥ 0 that (P4) targets** *(round 390 F390-2:
-the struck antecedent was (vi)'s struck clause)*. Three graded supports. (a)
+the struck antecedent was (vi)'s struck clause; round 391 F391-1:
+Weil's functional is global, not archimedean — 1ai(ii)'s criterion
+and 1at(ii) keep the two apart)*. Three graded supports. (a)
 Mechanism-class MEMBERSHIP: thermodynamic/informational
 functionals are among the mechanisms yielding a priori
 positivity without estimates (states, entropy production,
