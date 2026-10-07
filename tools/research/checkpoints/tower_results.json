@@ -185,6 +185,12 @@
 "rc": 0,
 "when": "2026-09-09T20:18Z"
 },
+"08585363dc89891c246768b7": {
+"dt": 40.63012933731079,
+"file": "cascade_finite_fill.py",
+"rc": 0,
+"when": "2026-10-07T17:12Z"
+},
 "09084c4a3d95b537f8ec45f4": {
 "dt": 1.0385854244232178,
 "file": "cascade_oneprime_interval.py",
@@ -4199,6 +4205,12 @@
 "rc": 0,
 "when": "2026-09-16T19:56Z"
 },
+"c0adaea7da6278ad2eee6379": {
+"dt": 106.41199016571045,
+"file": "cascade_primes_side_ball.py",
+"rc": 0,
+"when": "2026-10-07T17:12Z"
+},
 "c0ba7a286d74758a99bcbb73": {
 "dt": 375.3603391647339,
 "file": "cascade_prime_ball.py",
@@ -5026,6 +5038,12 @@
 "file": "cascade_lfunction_test.py",
 "rc": 0,
 "when": "2026-09-09T03:25Z"
+},
+"e7432d627d6c5ca5e7fa9889": {
+"dt": 249.5729103088379,
+"file": "cascade_lattice_forcing.py",
+"rc": 0,
+"when": "2026-10-07T17:12Z"
 },
 "e78771f1674d1893c292b22c": {
 "dt": 240.66714715957642,
