@@ -389,6 +389,12 @@
 "rc": 0,
 "when": "2026-09-16T15:06Z"
 },
+"1318496708b5b468c0ba625e": {
+"dt": 74.0384681224823,
+"file": "cascade_weil_crossover.py",
+"rc": 0,
+"when": "2026-10-07T16:07Z"
+},
 "13585c3cfbcfdf7256502426": {
 "dt": 4.949806213378906,
 "file": "cascade_floor_closure.py",
@@ -2290,6 +2296,12 @@
 "file": "cascade_saddle_curvature.py",
 "rc": 0,
 "when": "2026-09-03T21:40Z"
+},
+"6d8fa9442d3c78a002f8fcf5": {
+"dt": 438.7207565307617,
+"file": "cascade_weil_margin.py",
+"rc": 0,
+"when": "2026-10-07T16:07Z"
 },
 "6e11b5eedf905ff025f87e1a": {
 "dt": 462.06480383872986,
