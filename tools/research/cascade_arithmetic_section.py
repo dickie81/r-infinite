@@ -472,7 +472,7 @@ ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_arithmetic_section.py`', 'pla
 ok &= paper_needles.needle(PAPER_NEEDLES, '103 scripts cited in place', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1ca', 'plain')
 gate("g10 the footer census (this script backticked in body and "
-     "footer; \"103 scripts cited in place\"; \"Theorems 1i–1ca\")", ok)
+     "footer; the count and range needles)", ok)
 
 n_fail = sum(1 for x in results if not x)
 print(f"RESULT: {len(results) - n_fail} pass / {n_fail} fail ({len(results)} gates)")

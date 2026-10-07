@@ -199,9 +199,10 @@ g19-g20):
        round 147, listed round 148 F4); the per-zero probe; the
        wall-stands sentence; R2''s monotonicity; the
        no-role-of-the-action;
-       g18 the footer census (the script backticked; "103 scripts cited in place"; "Theorems 1i--1bj" -- the census
-       advances with each landing; the gate carries the live
-       values).
+       g18 the footer census (the script backticked; the count and
+       range needles -- the census advances with each landing, and
+       the needles carry the live values; round 395 took the numbers
+       out of the gate label).
 
 Grading: R1-R3 exact algebra with machine-precision gates (the
 t-integral identities are classical Fourier bookkeeping); R4(a)
@@ -691,10 +692,10 @@ ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_weil_route_traveled.py`', 'pl
 ok &= paper_needles.needle(PAPER_NEEDLES, '103 scripts cited in place', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1ca', 'plain')
 gate("g18 the footer census (advanced with each landing, "
-     "disclosed): this script backticked; 86 cited in "
-     "place; the range 1i–1bl (advance disclosed; label re-synced "
-     "rounds 175 F2, 176 F2, and again round 213 F3 -- the census "
-     "value missed in the 175 pass and in the 1ba sweep)", ok)
+     "disclosed): this script backticked; the count and range "
+     "needles (advance disclosed; label re-synced rounds 175 F2, "
+     "176 F2, and again round 213 F3 -- the census value missed in "
+     "the 175 pass and in the 1ba sweep)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (22 gates)")

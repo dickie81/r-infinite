@@ -33,7 +33,10 @@ Gates (all exit-gated; any failure exits 1):
       sign change brackets gamma_1.
   g8  the insufficiency certificate (Davenport-Heilbronn): kappa to 12
       digits; Lambda(s) = Lambda(1-s) to 1e-28; both off-line zeros
-      (Re = 0.808517..., 0.650830...) with |f| < 1e-25 and FE partners;
+      (Re = 0.808517..., 0.650830...) with |f| < 1e-25 and FE partners
+      (the partners to the same 1e-25 since round 395, A564 O-1; they
+      were held to 1e-24), and the printed six-decimal truncations of
+      both coordinates (0.808517 + 85.699348i, 0.650830 + 114.163342i);
       component congruence |L(chi)| = |L(chibar)| != 0 with ratio exactly
       -c2/c1 to 1e-20 at both roots.
   g9  the log-spectrum anatomy: Lambda_zeta supported exactly on prime
@@ -257,12 +260,19 @@ def Lfun(sv, ch):
     return 5**(-sv) * sum(ch[a-1]*zeta(sv, mpf(a)/5) for a in range(1, 5))
 c1, c2 = (1 - mpc(0, 1)*kappa)/2, (1 + mpc(0, 1)*kappa)/2
 target = -c2/c1
-for seed, re_expect in ((mpc("0.81", "85.7"), mpf("0.808517182456")),
-                        (mpc("0.65", "114.16"), mpf("0.650830080609"))):
+# round 395 (A564 O-1): the FE partner is held to the paper's printed
+# 10^(-25), not 10^(-24); and the printed six-decimal truncations of
+# both coordinates ("0.808517… + 85.699348…i", "0.650830… +
+# 114.163342…i") are gated, not only the real part's 1e-8 match
+# (int() truncates an mpf toward zero: the printed "…" digits)
+for seed, re_expect, printed in (
+        (mpc("0.81", "85.7"), mpf("0.808517182456"), (808517, 85699348)),
+        (mpc("0.65", "114.16"), mpf("0.650830080609"), (650830, 114163342))):
     r = findroot(fdh, seed)
     ok &= abs(fdh(r)) < mpf(10)**-25
     ok &= abs(r.real - re_expect) < mpf(10)**-8
-    ok &= abs(fdh(1 - mpc(r.real, -r.imag))) < mpf(10)**-24
+    ok &= abs(fdh(1 - mpc(r.real, -r.imag))) < mpf(10)**-25
+    ok &= (int(r.real*10**6), int(r.imag*10**6)) == printed   # truncation (both > 0)
     L1 = Lfun(r, chi5); L2 = Lfun(r, [z.conjugate() for z in chi5])
     ok &= abs(abs(L1) - abs(L2)) < mpf(10)**-20 and abs(L1) > mpf("0.4")
     ok &= abs(L1/L2 - target) < mpf(10)**-20
@@ -363,8 +373,8 @@ gate("g14 the chain obligation to cascade_lattice_forcing.py (Theorem 1ar) met",
 ok, _missC = paper_needles.verify(PAPER_NEEDLES, g='g15')
 for _d, _n in _missC:
     print(f"  g15 MISSING (count {_n}): {_d['s']!r}", flush=True)
-gate("g15 the footer census (this script backticked >= 2; 88 cited in place; "
-     "the range 1i–1bl)", ok)
+gate("g15 the footer census (this script backticked >= 2; the "
+     "anchored count and range needles)", ok)
 
 print()
 if fails:

@@ -398,8 +398,8 @@ ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_unit_ball_rh.py`', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, '103 scripts cited in place', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1ca', 'plain')
 gate("g13 the footer census (advanced at this landing, disclosed): "
-     "this script backticked; 88 cited in place; the range 1i–1bl "
-     "(advance disclosed; label re-synced rounds 175 F2, 213 F3)", ok)
+     "this script backticked; the count and range needles (advance "
+     "disclosed; label re-synced rounds 175 F2, 213 F3)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (13 gates)")

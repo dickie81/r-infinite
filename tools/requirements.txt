@@ -4,3 +4,4 @@ matplotlib
 mpmath
 sympy
 python-flint==0.9.0
+cmarkgfm==2025.10.22

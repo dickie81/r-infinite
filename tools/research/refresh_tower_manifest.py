@@ -4,7 +4,8 @@ tower (root -> top), each member's sha256 at the current commit, and
 the paper's current census strings. Must be run (and the result
 committed) by any commit that touches a tower member, a pinned keying
 file (ckpt_key.py, ckpt_migrate.py, ckpt_key_probes.py,
-precheck_probes.py -- round 283/284), or advances the
+precheck_probes.py -- round 283/284; render_lint.py -- round 395),
+or advances the
 footer census -- a stale below-top entry fails every manifest-mode chain gate above it; a stale top entry is caught by run_tower's precheck (round-215 F3).
 (Relocated from tools/build/ -- the .gitignore `build/` pattern had
 silently excluded the original, discovered when restore #11 deleted
@@ -56,7 +57,8 @@ TOWER = [
 ]
 
 KEYING = ["ckpt_key.py", "ckpt_migrate.py", "ckpt_key_probes.py",
-          "precheck_probes.py"]     # the last added round 284 (observation a)
+          "precheck_probes.py",     # added round 284 (observation a)
+          "render_lint.py"]         # added round 395 (the render-lint precheck)
 
 paper = open(PAPER, encoding="utf-8").read()
 mc = re.search(r"the \*\*(\d+) scripts cited in place\*\*", paper)

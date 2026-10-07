@@ -92,9 +92,9 @@ Gates (twelve):
        self-satisfying-gate lesson; g11 1ak's key sentences
        anchored as swept round 151 (the two-plane pole image;
        the up-to-half prefactor); g12 the footer census (the script
-       backticked; "103 scripts cited in place"; "Theorems
-       1i–1bl" -- the census advances with each landing; the
-       gate carries the live values).
+       backticked; the count and range needles -- the census
+       advances with each landing, and the needles carry the live
+       values; round 395 took the numbers out of the gate label).
 
 Sabotage record (full-tree scratchpad copy, at the landing
 commit; mid-anchor perturbations): (a) the paper's "the
@@ -355,8 +355,8 @@ ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_quarter_square.py`', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, '103 scripts cited in place', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1ca', 'plain')
 gate("g12 the footer census (advanced at the 1al-1ap landings, "
-     "disclosed): this script backticked; 88 cited in place; the "
-     "range 1i–1bl (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
+     "disclosed): this script backticked; the count and range "
+     "needles (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (12 gates)")

@@ -351,8 +351,8 @@ gate("g9 the chain obligation to cascade_attraction_margins.py (Theorem 1au) met
 ok, _missC = paper_needles.verify(PAPER_NEEDLES, g='g10')
 for _d, _n in _missC:
     print(f"  g10 MISSING (count {_n}): {_d['s']!r}", flush=True)
-gate("g10 the footer census (this script backticked >= 2; 88 cited in place; "
-     "the range 1i–1bl)", ok)
+gate("g10 the footer census (this script backticked >= 2; the "
+     "anchored count and range needles)", ok)
 
 print()
 if fails:

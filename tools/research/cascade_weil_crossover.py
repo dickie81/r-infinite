@@ -330,8 +330,8 @@ gate("g7 the chain obligation to cascade_weil_margin.py (Theorem 1az) met",
 ok, _missC = paper_needles.verify(PAPER_NEEDLES, g='g8')
 for _d, _n in _missC:
     print(f"  g8 MISSING (count {_n}): {_d['s']!r}", flush=True)
-gate("g8 the footer census (this script backticked >= 2; 86 cited in "
-     "place; the range 1i–1bl)", ok)
+gate("g8 the footer census (this script backticked >= 2; the "
+     "anchored count and range needles)", ok)
 
 print(("\nALL GATES PASS (8/8)" if not fails else
        f"\nFAILURES: {fails}"), flush=True)

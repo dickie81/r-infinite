@@ -63,6 +63,16 @@ member to run live (reviewers may always force fresh). Run under
 tools/research/run_with_checkpoints.sh so the cache is committed and
 pushed every 10 minutes -- git is the only restore-proof storage.
 Failures are never cached.
+
+ROUND 395 (the owner's residual sweep): the key also binds an
+ENVIRONMENT FINGERPRINT (F394-1: the interpreter, the driver's BLAS
+thread count, the mpmath backend switches, and the versions of the
+third-party distributions the member's reach imports, closed under
+their requirements -- see env_fingerprint), so an interpreter or
+library change re-runs the affected members live without a manual
+TOWER_FRESH; and two prechecks join the run: the render lint of the
+markdown paper surfaces (render_lint.py, pinned) and the gate-label
+census-numeral scan (A561 O-3).
 """
 import concurrent.futures as cf
 import hashlib, json, os, re, subprocess, sys, time
@@ -94,7 +104,7 @@ if bad:
     sys.exit(2)
 # round 284 F284-1: the pinned SET is checked by name, not by count
 KEYING_PINS = {"ckpt_key.py", "ckpt_migrate.py", "ckpt_key_probes.py",
-               "precheck_probes.py"}
+               "precheck_probes.py", "render_lint.py"}   # the last: round 395
 _pinned = {e["file"] for e in MAN.get("keying", [])}
 if _pinned != KEYING_PINS or len(MAN.get("keying", [])) != len(KEYING_PINS):   # F285-1: no duplicates
     print(f"MANIFEST keying pins {sorted(_pinned)} != required "
@@ -719,6 +729,168 @@ if (_pp.returncode != 0 or _m2 is None or int(_m2.group(1)) != PRECHECK_PROBE_CA
     print(_pp.stdout[-2000:] + _pp.stderr[-2000:], flush=True)
     sys.exit(2)
 
+# render-lint precheck (round 395, the owner's residual sweep; A562
+# O-1, A563 F391-2): the markdown paper surfaces must render as
+# written under cmark-gfm (render_lint.py: single-tilde strikes,
+# unrendered ~~ or **, intraword emphasis, consumed backslashes,
+# variable stars acting as delimiters). The lint carries its own
+# sabotage cases; the census line is gated, the probe count pinned
+# exactly like the two suites above, and the script is pinned in the
+# manifest's keying list
+RENDER_PROBE_CASES, RENDER_SURFACES = 7, 2
+_rl = subprocess.run([sys.executable, os.path.join(HERE, "render_lint.py")],
+                     capture_output=True, text=True)
+_rl_line = [l for l in _rl.stdout.splitlines() if l.startswith("render lint:")]
+print("render-lint precheck: " + (_rl_line[-1] if _rl_line else "no census line"), flush=True)
+_m3 = re.match(r"render lint: (\d+) surfaces, (\d+) defects; probes (\d+)/(\d+) as expected",
+               _rl_line[-1]) if _rl_line else None
+if (_rl.returncode != 0 or _m3 is None or int(_m3.group(1)) != RENDER_SURFACES
+        or int(_m3.group(2)) != 0 or int(_m3.group(4)) != RENDER_PROBE_CASES
+        or int(_m3.group(3)) != RENDER_PROBE_CASES):
+    print(f"RENDER-LINT PRECHECK FAILURE (expected {RENDER_SURFACES} surfaces, "
+          f"0 defects, {RENDER_PROBE_CASES}/{RENDER_PROBE_CASES} probes, exit 0):",
+          flush=True)
+    print(_rl.stdout[-4000:] + _rl.stderr[-2000:], flush=True)
+    sys.exit(2)
+
+# gate-label precheck (round 395, A561 O-3): a gate label that spells
+# the footer census ("88 cited in place; the range 1i–1bl") goes stale
+# at the next landing while its needles advance -- rounds 167 F6, 175
+# F2/F5, 213 F3 and A561 O-3 each re-synced labels by hand. No gate
+# label in tools/research may carry a census numeral or a Theorem-range
+# literal; the needles carry the live values. Its own sabotage pair
+# runs first.
+_CENSUS_NUM = re.compile(r"\d+ (?:scripts )?cited in place|1i\s*[–-]+\s*1[a-z]{2}")
+if not (_CENSUS_NUM.search("88 cited in place; the range 1i–1bl")
+        and _CENSUS_NUM.search("Theorems 1i--1bj")
+        and not _CENSUS_NUM.search("the anchored count and range needles")):
+    print("GATE-LABEL PRECHECK FAILURE: the census-numeral pattern "
+          "missed its sabotage pair", flush=True)
+    sys.exit(2)
+_nlab, _lab_bad = 0, []
+for _f in sorted(os.listdir(HERE)):
+    if not _f.endswith(".py"):
+        continue
+    for _node in _ast.walk(_ast.parse(open(os.path.join(HERE, _f), "rb").read())):
+        if (isinstance(_node, _ast.Call)
+                and isinstance(_node.func, _ast.Name)
+                and _node.func.id == "gate" and _node.args
+                and isinstance(_node.args[0], _ast.Constant)
+                and isinstance(_node.args[0].value, str)):
+            _nlab += 1
+            if _CENSUS_NUM.search(_node.args[0].value):
+                _lab_bad.append(f"{_f}:{_node.lineno}")
+print(f"gate-label precheck: {_nlab} gate labels scanned, "
+      f"{len(_lab_bad)} carry a census numeral", flush=True)
+if _lab_bad:
+    print(f"GATE-LABEL PRECHECK FAILURE: {_lab_bad}", flush=True)
+    sys.exit(2)
+
+
+# thread pinning (round 252, measured): 4 workers x full-core
+# BLAS oversubscribed the box ~4x -- cascade_heatflow_energy ran
+# 105 min in-tower vs 38 s standalone. Each member gets
+# cpu_count/workers BLAS threads.
+NW = min(4, os.cpu_count() or 4)
+THR = str(max(1, (os.cpu_count() or 4)//NW))
+# (moved above the fingerprint at round 395: the key binds THR)
+
+# THE ENVIRONMENT FINGERPRINT (round 395, F394-1): a member's verdict
+# depends on the interpreter and the numeric libraries as well as on
+# its code, so the key binds them too. Per member: the interpreter
+# (implementation, full version string, machine), the BLAS thread
+# count the driver sets, the mpmath backend switches read from the
+# environment, and name==version of every distribution providing a
+# third-party module imported anywhere in the member's reach, closed
+# under the distributions' non-extra requirements, plus the optional
+# backends a library loads without declaring them (mpmath uses gmpy2
+# or gmpy when installed). A library change rotates the key of every
+# member whose reach imports it, which then re-runs live: over-
+# invalidation, never a stale PASS. NOT bound (disclosed): a library
+# rebuilt in place at the same version, a system BLAS swapped under
+# an unchanged numpy, and the producers' compute checkpoints (their
+# ckpt_key keys bind code only; the members that read them re-run
+# live and re-gate the data).
+import importlib.metadata as _md
+import platform as _platform
+
+_STDLIB = set(sys.stdlib_module_names)
+_PKG_DISTS = _md.packages_distributions()
+_OPTIONAL_BACKENDS = {"mpmath": ("gmpy2", "gmpy")}
+_ENV_SWITCHES = ("MPMATH_NOGMPY", "MPMATH_NOSAGE")
+_TP_MEMO = {}
+
+
+def _third_party_of(rel):
+    """Top-level imported module names of the file at rel that are
+    neither stdlib nor local (local = resolvable in the file's own
+    directory or a code root, the same roots _imports_of uses)."""
+    if not rel.endswith(".py"):
+        return set()
+    if rel in _TP_MEMO:
+        return _TP_MEMO[rel]
+    tree = _ast.parse(open(os.path.join(HERE, rel), "rb").read())
+    d = os.path.dirname(os.path.join(HERE, rel)) or HERE
+    out = set()
+    for node in _ast.walk(tree):
+        mods = []
+        if isinstance(node, _ast.Import):
+            mods = [a.name for a in node.names]
+        elif (isinstance(node, _ast.ImportFrom) and node.module
+                and not node.level):
+            mods = [node.module]
+        for m in mods:
+            top = m.split(".")[0]
+            if top in _STDLIB or top == "__future__":
+                continue
+            if any(os.path.exists(os.path.join(r, top + ".py"))
+                   or os.path.exists(os.path.join(r, top, "__init__.py"))
+                   for r in {d} | set(CODE_ROOTS)):
+                continue
+            out.add(top)
+    _TP_MEMO[rel] = out
+    return out
+
+
+def _dist_version(dist):
+    try:
+        return _md.version(dist)
+    except _md.PackageNotFoundError:
+        return "absent"
+
+
+def env_fingerprint(name):
+    tops = set()
+    for f in member_reach(name):
+        tops |= _third_party_of(f)
+    dists, unresolved = set(), set()
+    for t in tops:
+        ds = _PKG_DISTS.get(t)
+        if ds:
+            dists.update(ds)
+        else:
+            unresolved.add(t)
+        dists.update(_OPTIONAL_BACKENDS.get(t, ()))
+    frontier = list(dists)
+    while frontier:                     # close under non-extra requirements
+        try:
+            reqs = _md.requires(frontier.pop()) or []
+        except _md.PackageNotFoundError:
+            continue
+        for r in reqs:
+            if ";" in r and "extra" in r.split(";", 1)[1]:
+                continue
+            m = re.match(r"\s*([A-Za-z0-9][A-Za-z0-9._-]*)", r)
+            if m and m.group(1) not in dists:
+                dists.add(m.group(1))
+                frontier.append(m.group(1))
+    parts = [sys.implementation.name, sys.version, _platform.machine(),
+             f"blas_threads={THR}"]
+    parts += [f"{v}={os.environ.get(v, '')}" for v in _ENV_SWITCHES]
+    parts += sorted(f"{d.lower()}=={_dist_version(d)}" for d in dists)
+    parts += sorted(f"unresolved:{t}" for t in unresolved)
+    return "\n".join(parts)
+
 
 def member_key(name):
     h = hashlib.sha256()
@@ -740,6 +912,8 @@ def member_key(name):
         # compute keys (ckpt_key.code_key) ignore pure prints.
         h.update(ckpt_key.code_sha(
             os.path.join(HERE, f), strip_prints=False).encode())
+    # round 395 (F394-1): the environment is an input too
+    h.update(env_fingerprint(name).encode())
     return h.hexdigest()[:24]
 
 
@@ -751,12 +925,6 @@ if os.path.exists(CACHE_PATH):
         cache = {}
 
 fresh = os.environ.get("TOWER_FRESH") == "1"
-# thread pinning (round 252, measured): 4 workers x full-core
-# BLAS oversubscribed the box ~4x -- cascade_heatflow_energy ran
-# 105 min in-tower vs 38 s standalone. Each member gets
-# cpu_count/workers BLAS threads.
-NW = min(4, os.cpu_count() or 4)
-THR = str(max(1, (os.cpu_count() or 4)//NW))
 env = dict(os.environ, CASCADE_CHAIN="manifest",
            OMP_NUM_THREADS=THR, OPENBLAS_NUM_THREADS=THR,
            MKL_NUM_THREADS=THR, NUMEXPR_NUM_THREADS=THR)

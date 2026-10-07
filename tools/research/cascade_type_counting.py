@@ -319,8 +319,8 @@ ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_type_counting.py`', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, '103 scripts cited in place', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1ca', 'plain')
 gate("g11 the footer census (advanced at the 1am-1ap landings, "
-     "disclosed): this script backticked; 88 cited in place; the "
-     "range 1i–1bl (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
+     "disclosed): this script backticked; the count and range "
+     "needles (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
 ok = True
 for s, expect in (("cascade_quarter_square", "12 pass / 0 fail"),
                   ("cascade_weil_route_traveled", "22 pass / 0 fail")):

@@ -1909,7 +1909,7 @@ extrapolated fourth-generation mass is ≈543 eV, *lighter* than the electron,
 so *"lower mass at fixed charge does not produce invisibility; it produces
 enhanced low-energy accessibility."* Part4a's candidate resolution
 (time-decoupling past supercritical depth) brackets a threshold empirically
-between Gen 1's overshoot and d=29's (1.3 to ~9.3 layers past d*₁ = 19.731)
+between Gen 1's overshoot and d=29's (1.3 to \~9.3 layers past d\*₁ = 19.731)
 but derives no value. *(ii) The rule, and the census theorem.* Partition the
 descent's Dirac seats into their trailing Bott cells — for each seat d, the
 eight layers (d−8, d] it terminates. *Orientation disclosure (round 124 F5):
@@ -1922,7 +1922,7 @@ is 6-of-8 robust, but the specific contents {5}, {7}, {14, 19} and the
 14/19-collision explanation below are trailing-specific (the offset census
 is gated in the verifier).* *(Net-state, Theorem 1ae round 125: the
 orientation convention is eliminated — 1ae's symmetric distance rule
-δ(d) = min|d − d*| needs no partition, no offset, no direction, and yields
+δ(d) = min|d − d\*| needs no partition, no offset, no direction, and yields
 the identical census {5, 13, 21}, gated as an equivalence; this disclosure
 stands as history of the cell formulation only.)* **The rule: a seat hosts propagating
 (time-coupled) content iff its cell contains a distinguished source layer**
@@ -1966,8 +1966,8 @@ the formula's own exponent read structurally. (c) The cut, and its
 committed precedent [rewritten round 124 F3 — the landing sentence
 ("the threshold sharpened … d₁ + 8 ≈ 27.7 … the bracket's midpoint mystery
 resolves to the period length") conflated two anchors: "the last source" is
-d₁ = 19, an integer, giving 19 + 8 = 27 exactly, while 27.73 = d*₁ + 8 uses
-the continuous supercritical threshold d*₁ = 19.731, which is not a source;
+d₁ = 19, an integer, giving 19 + 8 = 27 exactly, while 27.73 = d\*₁ + 8 uses
+the continuous supercritical threshold d\*₁ = 19.731, which is not a source;
 and "midpoint mystery" was loose — the bracket's midpoint is 25]: the
 rule's cut is **last source + one Bott period = 27**, integer arithmetic —
 and this is not novel to the theorem: part4a's rem:bott-tower-open already
@@ -2002,7 +2002,7 @@ the *structural source mass that does not correspond to a particle*; the
 rule instantiates **Reading B**; (ii) the falsification logic was
 backwards — a KATRIN-visible sterile at d=29 is propagating fermion
 content in an unsourced cell, which the rule's biconditional forbids, and
-part4a says so for this reading family: *"Reading~B and Reading~C predict
+part4a says so for this reading family: *"Reading\~B and Reading\~C predict
 no such observation."* The corrected statement: the rule PREDICTS a null
 KATRIN/TRISTAN result; a detection consistent with ~~part4b's~~
 **part4a's** [corrected round 125 F2: the sterile-mixing prediction
@@ -2060,7 +2060,7 @@ inputs are cited theorems, the cost model is not], proves the dichotomy's
 census and gap exactly, and reduces what remains to two named unproved
 items. *(ii) The
 convention-free rule.* For each Dirac seat d, define **δ(d) = min over the
-source set S = {5, 7, 14, 19} of |d − d*|** — symmetric, orientation-free:
+source set S = {5, 7, 14, 19} of |d − d\*|** — symmetric, orientation-free:
 no partition, no offset, no direction. The rule: a seat participates iff
 δ(d) < 8. The census is exact: δ(5) = 0, δ(13) = 1, δ(21) = 2; δ(29) = 10,
 and for every deeper seat (seat_k = 8k − 3, k ≥ 4) the nearest source is
@@ -2197,12 +2197,12 @@ committed instrument (`cascade_greens_function.py`, cited by
 of 1ac's landing — F4 round 130: "since 1ac" compressed over the
 round-120 F3 strike) already derives
 the observer-row closed form G(4, d*) = Σ_{k≥d*} α(k) by the flux
-argument: *"for a unit source at d*, the flux below d* is zero (Neumann at
-d_min), the flux above d* is unit."* Check 7 status is the instrument's
+argument: *"for a unit source at d\*, the flux below d\* is zero (Neumann at
+d_min), the flux above d\* is unit."* Check 7 status is the instrument's
 own: the cascade-lattice Green's function, classical finite-dimensional
 linear algebra — admissible. *(iii) Theorem (the two-point structure —
 new).* The same flux argument, applied between arbitrary points, gives
-**G(d, d*) = Σ_{k = max(d, d*)}^{216} α(k)** — the two-point function
+**G(d, d\*) = Σ_{k = max(d, d\*)}^{216} α(k)** — the two-point function
 depends only on max(d, d*): below the source no bond carries flux, so the
 potential is constant from the free end up to the higher of the two
 indices; above it, unit flux integrates the compliances down to the pinned
@@ -2316,7 +2316,7 @@ LLN"*) turning expectation into record — content at layer D carries
 expected weight **exactly 2^−(D−d)** in Cl(d): the equipartitioned
 Gaussian's expected retained fraction equals the dimension fraction,
 which T1 makes exactly 2^−(D−d). Combining with T2: **within the model, the expected
-coupling weight between content at layers d and d* is χ^−|d−d*| with
+coupling weight between content at layers d and d\* is χ^−|d−d\*| with
 χ = 2** — the per-layer factor and the symmetric layer-index metric both
 follow ~~derived~~ [regraded round 133: derived WITHIN the model; the
 model's own conditions are (vii)'s census]. Gated two ways: exact dimension counting, and a Monte-Carlo
@@ -2354,7 +2354,7 @@ reviewer who rejects either rejects committed text … What remains is
 each lead-verified]. The model's census: **(C1) the fiber assignment** *(net-state, Theorem 1ah round 137,
 regraded within the round: ~~CLOSED~~ — the selection legs fell; C1
 stays open, RECONCILED in classification by 1ah's Theorem B but
-selected only by value; see 1ah(v))*​**.**
+selected only by value; see 1ah(v))*.
 The derivation runs on the FULL Clifford algebra (dim 2^d); part4a's
 committed assignment is to *minimal spinors* (*"complex minimal
 spinors"*) and part4b's bundle is the spinor bundle S = S⁺ ⊕ S⁻ — under
@@ -3001,8 +3001,8 @@ there; domain qualifier added round 159 F2 — on ψ's full domain every
 negative branch carries a further root, e.g. −0.3816…), and the
 extremum conditions of the cascade's Γ-objects are that one equation in
 three half-unit-shifted arguments: the ball-volume maximum at
-d = 2x*−2 = 5.2569…, the sphere-area (Ω_d) maximum = the potential's
-zero at d = 2x*−1 = 6.2569…, and the S^(d−1)-area maximum at
+d = 2x\*−2 = 5.2569…, the sphere-area (Ω_d) maximum = the potential's
+zero at d = 2x\*−1 = 6.2569…, and the S^(d−1)-area maximum at
 d = 2x* = 7.2569… — three continuous landmarks spaced EXACTLY one layer
 apart (gated as three independent root-finds agreeing to 30 digits).
 Equivalently: the volume maximum is p(d+1) = 0 and the third rung is
@@ -3920,7 +3920,7 @@ off-line freedom; ζ has nothing to bank. *(vii) The CC identity
 (two orthogonal slices of one factor).* Part 0's
 cosmological-constant engine is verbatim this paper's committed
 potential: part0's decay rate *"p(d) = -\tfrac{1}{2}\ln\pi +
-\tfrac{1}{2}\psi\!\left(\tfrac{d+1}{2}\right)"* equals
+\tfrac{1}{2}\psi\\!\left(\tfrac{d+1}{2}\right)"* equals
 (log Γ_ℝ)′(d+1) — §2's primitive — identically (gated,
 d = 1…10), and (log Γ_ℝ)′ is the archimedean local term of the
 explicit formula. The cascade reads Γ_ℝ along the REAL AXIS
@@ -4268,7 +4268,20 @@ channel), and names Regime II, beyond it, the engine's target, the
 gamma channel first dominating at n = 11; 1aw(iv) holds λ₁ positive
 in the primes channel, the Γ-reading of γ behind ~~the last clause~~
 T2's closing clause notwithstanding. Round 393 F393-2 added 1ao(iv)
-and 1av(vi) and anchored the closing clause.)* *Honest
+and 1av(vi) and anchored the closing clause.)* *(round 395, A565 O-1:
+T1's n = 0 line taken over all d, every J^(d,0) hyperbolic, is
+equivalent to RH. Griffin–Ono–Rolen–Zagier, cited in 1at(iii): "Thus,
+the RH is equivalent to the hyperbolicity of the polynomials
+J_γ^{d,n}(X) for all non-negative integers d and n. Since this
+condition is preserved under differentiation, to prove RH it would be
+enough to show hyperbolicity for the J_γ^{d,0}(X)." Their γ is defined
+by (−1+4z²)Λ(½+z) = Σ γ(n)z^(2n)/n! with Λ = Γ_ℝζ, and
+(−1+4z²)Λ(½+z) = 8ξ(½+z), so their γ is 8 times 1at(iii)'s, a positive
+factor hyperbolicity ignores. T1, if proven, would reduce
+all-n hyperbolicity to one stage per degree, a gain at each fixed
+degree; over all degrees the n = 0 line alone already gives RH and with
+it every J^(d,n), so the line T1 leaves is the RH-strength remainder
+(CLAUDE.md Check 9).)* *Honest
 scope:* category (a) — instruments classical throughout
 (Jensen–Pólya, Turán, Li's criterion, the theta-kernel moment
 representation); the FIRST-STAGE-FLOOR conjecture is DECLARED,
@@ -5259,12 +5272,12 @@ The fit R_ζ = −0.126 − 0.0056·Z on the in-band smooth count Z
 comb discount grows with the number of levels in the band.
 *(iv) The calibration.* Unconditioned GUE-unfolded sets
 (semicircle-CDF unfolding, three seeded realizations) ~~carry
-±1–2-level count errors and pay for them at ~6 decades per
+±1–2-level count errors and pay for them at \~6 decades per
 un-dodgeable level~~ *(struck round-218 F2: the committed
 unfolding is mis-scaled — the ensemble's semicircle edge sits at
-√2 where the CDF formula assumes 1 — so each set carries ~735
+√2 where the CDF formula assumes 1 — so each set carries \~735
 levels mapped onto the 380-zero range, roughly double density,
-with in-band excesses of ~+65 levels at c = 120 driving the
+with in-band excesses of \~+65 levels at c = 120 driving the
 in-band count (134–154; round-220 F1 corrected the sweep's 152 top end) at or beyond the section dimension (80),
 so the margin saturates (round-219 F3 corrected the sweep's
 attachment of the threshold to the excess); no committed
@@ -5290,7 +5303,7 @@ restarting seed ladder — a dispersion summary, not an
 independent-sample standard error, round-218 F6): the zeros are
 STIFFER than
 count-matched generic fluctuations — the stiffness excess, a
-factor ~5 in margin —
+factor \~5 in margin —
 the third instrument on the low-height rigidity anomaly,
 alongside the 1ax GUE percentiles (1.5%/10.5%) and the 1ay
 curvature census. *(vi) The ordering.*
@@ -5315,7 +5328,7 @@ count-matched rigid comb — zero fluctuation, no arithmetic
 beyond the same smooth density the model itself uses — exceeds
 the model by +34.94 and +54.18 on the same committed instrument
 and grid, 96% of the zeros' excess (lead-verified: comb
-τ*(10⁻³, 40) = 216.93), and the conditioned CUE sets beat the
+τ\*(10⁻³, 40) = 216.93), and the conditioned CUE sets beat the
 model by more than the zeros: the model gap is
 an excess shared by every discrete configuration measured —
 discreteness against the smooth heuristic plus the model's
@@ -5330,7 +5343,7 @@ ladder (all negative, strictly increasing, ends pinned) — and
 the model reproduces the 1bb deep-threshold pattern (deeper ε
 crosses earlier and extrapolates interior; the model's offset
 magnitude, 306.30 − 263.52 = 42.78, overpredicts the measured
-342.54 − 320.07 = 22.47 by a factor ~1.9 — the reproduction is
+342.54 − 320.07 = 22.47 by a factor \~1.9 — the reproduction is
 sign-and-pattern, not magnitude, round-218 F9): the 1bb
 ε-offset is concentration economics, not a hidden wall — the
 interpretation Theorem 1bb deferred to the concentration-null
@@ -5347,7 +5360,7 @@ measured outruns it; see (vii))*. What the low-height
 instruments (1ax, 1ay) reported as a rigidity anomaly in
 spectral statistics, this measurement
 (`cascade_fluctuation_price.py`, g5) reprices in dodging
-economics: the anomaly costs the zeros a factor ~5 in margin ON
+economics: the anomaly costs the zeros a factor \~5 in margin ON
 AVERAGE against generic count-matched configurations (per-point
 factors 1.4–13.4; what holds at every point is positivity,
 gated — round-218 F10). *Honest scope:* float64 throughout; one δ, 380
@@ -5358,9 +5371,9 @@ the zeros' own in-band count differs from that target by 1
 (direction conservative: the zeros get the easier task, biasing
 the excess down; round-218 F5); the LW model's absolute
 normalization is a convention (the bare mean density as
-prefactor — alternative Parseval bookkeepings shift it ~0.8
-decade and its crossings by ~10–30 in τ (±11–12 in τ∞, per threshold — round-220 F2; round-219 F1
-corrected the sweep's ~5–10 understatement, lead-recomputed
+prefactor — alternative Parseval bookkeepings shift it \~0.8
+decade and its crossings by \~10–30 in τ (±11–12 in τ∞, per threshold — round-220 F2; round-219 F1
+corrected the sweep's \~5–10 understatement, lead-recomputed
 −22.9/+28.5 at c = 40, 10⁻³); the (vii) comparisons
 are exact for the committed convention, round-218 F3); three GUE
 and 16-per-point CUE realizations (deterministic seeds — the
@@ -5368,7 +5381,7 @@ ensemble spread is reported, not resampled); the LW model's
 crossings are bisection on its own continuous curve while the
 1bb measured crossings are grid-interpolated (both schemes
 committed; the ±1.5 pins and the excess windows absorb this);
-the "factor ~5" is 10^0.710 rounded; the low-height rigidity
+the "factor \~5" is 10^0.710 rounded; the low-height rigidity
 link is a reading, not a derivation; no literature sweep; no RH
 leverage claimed anywhere. Check 7 clean (finite random-matrix
 ensembles, Slepian concentration theory, the classical explicit
@@ -5505,7 +5518,7 @@ lags 8/16/24, on the fixed-shift statistic); for the zeros it ~~follows the
 same universal law only to a crossover at a few spacings and then
 saturates~~ *(round-224 F5: at this height window the budget binds
 from the first lag — Σ²(1) = 0.346 already exceeds the bracket
-0.266, the formal crossover ℓ* = 0.456 is sub-spacing, and the
+0.266, the formal crossover ℓ\* = 0.456 is sub-spacing, and the
 measured zeros sit below the universal law at every lag ≥ 1)* sits
 at its saturated budget from the first measured lag, because **the primes' budget** is finite — the
 fixed-shift saturation bracket is **ln ln(T/2π) + Mertens + 1**
@@ -5546,8 +5559,8 @@ grid, +0.952 ± 0.127, matched exactly by the re-pin. *(iv) The
 remainder — attribution inverted at round 227.* The surrogates
 overshoot by +0.24/+0.21 (gated in (0.05, 0.40)); ~~real zeta
 dodges slightly WORSE than its Gaussian second-order twin — **the
-non-Gaussian remainder**, ~25% of the surrogate excess (range
-~10–35% given the dispersion), the measured trace of
+non-Gaussian remainder**, \~25% of the surrogate excess (range
+\~10–35% given the dispersion), the measured trace of
 higher-than-second-order structure (the primes' third and fourth
 cumulants) in the dodging economics, and the open piece~~ *(struck
 round 227, the remainder attack's own finding — strike rendered
@@ -5566,40 +5579,40 @@ confound bounded at ±0.05 non-systematic in D~~ — corrected at the
 round-227 sweep, F2, to the measured truth: the twins' band-lag D
 mismatch is SYSTEMATIC, −0.05 to −0.07 one-signed at lags 24–120,
 and the anchoring and registration conventions each shift the
-margin by ~0.11 decades in opposite directions, cancelling; none
+margin by \~0.11 decades in opposite directions, cancelling; none
 of it carries the gap, established by the committed fully-matched
 control (anchoring + registration + measured-D + calibration
 matching): the premium survives at +0.23 ± 0.09, ≥ 7/10 points,
 gated g15. The decomposition arithmetic: zeta-twin −0.068
 minus CUE-twin +0.272 = −0.34 against the observed −0.24, within
-~1.3 sem.)* **At this sample the real zeros' dodging economics is
+\~1.3 sem.)* **At this sample the real zeros' dodging economics is
 consistent with their second-order Gaussian twin** (the
 zeta field's strong sub-Gaussianity — excess kurtosis −0.64, the
 bounded almost-periodic signature — does not price into the
 margin at measurable strength); the open piece is now the
 **determinantal premium**: why the CUE-380 comparator ensemble
-pays ~0.24 decades against Gaussian fields matched in every
+pays \~0.24 decades against Gaussian fields matched in every
 measured convention and second-order profile, while the zeros do
 not. *(v) The
 reading.* That the 1ax GUE-percentile anomaly, the 1ay curvature
-census, and 1bc's factor-~5 stiffness excess are one phenomenon
+census, and 1bc's factor-\~5 stiffness excess are one phenomenon
 with one cause — the primes' displacement budget is finite
 (ln ln + Mertens + 1) while genericity's grows (ln 2πℓ) — is the
 reading this measurement supports (round-224 F8: a reading, per
 1bc's own scope, not a derivation across the low-height
 instruments); what is derived and gated is that the certified
-section instrument reads the second-order gap to ~75%~~, plus the
+section instrument reads the second-order gap to \~75%~~, plus the
 measured non-Gaussian premium~~ *(struck at the round-227 sweep,
 F1: the premium is the comparator's, adjudicated g13–g15)*.
 Jointly with
 Theorem 1bd (the archimedean operator carries counting and no
 fluctuations), the bracket closes: counting is archimedean, the
 fluctuation excess is the pair-correlation prime budget, and
-anything deeper contributes ~~at most the ~20% remainder~~
+anything deeper contributes ~~at most the \~20% remainder~~
 *(round-225 F1: the closing sentence had kept the
 floored-configuration figure and asserted it as a ceiling —
 annotation restored at the round-227 sweep, F5)* ~~the measured
-remainder — ~25% of the surrogate excess, within its ~10–35%
+remainder — \~25% of the surrogate excess, within its \~10–35%
 dispersion band~~ *(round 227, strike rendered verbatim at the
 sweep, F5: the overshoot's carrier is the comparator's
 determinantal premium, not zeta — the zeros themselves are
@@ -5791,7 +5804,7 @@ measured plunge rate is basis-truncation-conditioned: extending
 the section by 8 modes moves it +42% and the ratio to 1.76); the
 apparent c-independence at 60/120 was the shared truncation
 depth of the standard basis, n = N_sh + 4. The honest law is
-m_Z ≈ m_sat·10^(−β(N* − n_b)) with β ≈ 1.1, at most weakly
+m_Z ≈ m_sat·10^(−β(N\* − n_b)) with β ≈ 1.1, at most weakly
 c-dependent; the plunge remains the mechanism — the minimizer's
 occupancy edge advances ≈ 2 modes per added zero — but the 2.4
 is a conditioned slope ratio, not a constant to derive)*. Below the horizon the margin

@@ -564,8 +564,8 @@ gate("g10 the chain obligation to cascade_li_two_channels.py (Theorem 1av) met",
 ok, _missC = paper_needles.verify(PAPER_NEEDLES, g='g11')
 for _d, _n in _missC:
     print(f"  g11 MISSING (count {_n}): {_d['s']!r}", flush=True)
-gate("g11 the footer census (this script backticked >= 2; 88 cited in place; "
-     "the range 1i–1bl)", ok)
+gate("g11 the footer census (this script backticked >= 2; the "
+     "anchored count and range needles)", ok)
 
 print(flush=True)
 if fails:

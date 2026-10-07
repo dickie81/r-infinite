@@ -349,8 +349,8 @@ ok = paper_needles.needle(PAPER_NEEDLES, '`cascade_riemann_selection.py`', 'plai
 ok &= paper_needles.needle(PAPER_NEEDLES, '103 scripts cited in place', 'plain')
 ok &= paper_needles.needle(PAPER_NEEDLES, 'Theorems 1i–1ca', 'plain')
 gate("g12 the footer census (advanced at the 1an-1ap landings, "
-     "disclosed): this script backticked; 88 cited in place; the "
-     "range 1i–1bl (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
+     "disclosed): this script backticked; the count and range "
+     "needles (label re-synced rounds 167 F6, 175 F2, 213 F3)", ok)
 
 n_pass, n_fail = sum(results), len(results) - sum(results)
 print(f"\nRESULT: {n_pass} pass / {n_fail} fail (12 gates)")

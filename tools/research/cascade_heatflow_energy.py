@@ -250,8 +250,8 @@ gate("g6 the chain obligation to cascade_floor_meter.py (Theorem 1aw) met",
 ok, _miss7 = paper_needles.verify(PAPER_NEEDLES, g='g7')
 for d, n in _miss7:
     print(f"  g7 MISSING (count {n}): {d['s']!r}", flush=True)
-gate("g7 the footer census (this script backticked >= 2; 88 cited in place; "
-     "the range 1i–1bl)", ok)
+gate("g7 the footer census (this script backticked >= 2; the "
+     "anchored count and range needles)", ok)
 
 print(flush=True)
 if fails:

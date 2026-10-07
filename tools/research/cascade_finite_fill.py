@@ -174,8 +174,8 @@ gate("g7 the chain obligation to cascade_primes_side_ball.py (Theorem 1as) met",
 ok, _missC = paper_needles.verify(PAPER_NEEDLES, g='g8')
 for _d, _n in _missC:
     print(f"  g8 MISSING (count {_n}): {_d['s']!r}", flush=True)
-gate("g8 the footer census (this script backticked >= 2; 88 cited in place; "
-     "the range 1i–1bl)", ok)
+gate("g8 the footer census (this script backticked >= 2; the "
+     "anchored count and range needles)", ok)
 
 print()
 if fails:
