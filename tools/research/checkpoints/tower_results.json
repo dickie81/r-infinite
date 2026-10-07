@@ -3179,10 +3179,38 @@
 "when": "2026-08-28T08:43Z"
 },
 "8048494f0f611aa793359083": {
-"dt": 382.94106888771057,
+"deps": {
+"src/cascade-series-part0.tex": "47bb4b40368ac89d521c15232dc751550fa8600f30e0bd0c57eb77bc45c8203f",
+"src/cascade-series-part4a.tex": "92261e8f60dc069c0d71fa6458f20d0ff2e33078dc7bb319c280e50a04a39aab",
+"src/cascade-series-part4b.tex": "78c0f7d3682a21fc015c7cc2801dd23c962b0ce13f4699a3d7a96ff6291b00e7",
+"tools/research/cascade_arithmetic_section.py": "53fba7194457955ac4cad815c160aa0d947954052a72b3d5024f1637d61f30a3",
+"tools/research/cascade_attraction_margins.py": "e9b35fcf52cb66675d41d7ef2d2293ef90a0eccf7c3d78fc01b886e6620da406",
+"tools/research/cascade_concentration_regrade.py": "cd98ead8e053b9b76c444f85d883c07939a8ca9c4d398cc5ff33783122ba73b0",
+"tools/research/cascade_explicit_formula_bridge.py": "932ccaab2614292dac7ea1479eb32d2e72d49f84637154f6ffddb8c9fbbed50d",
+"tools/research/cascade_finite_fill.py": "0cafd2011ce8d05ea2dad393bc6cab6211dafffdb162a511183a9ec70643b129",
+"tools/research/cascade_floor_meter.py": "195362b3f5e47a77f53b4597158e596a85f292343c25a33b656d935cd74a5858",
+"tools/research/cascade_heatflow_energy.py": "850ef0aeab95beab61652fa59695eb1067ac5c8c3c4876793dc8b83520b2cbba",
+"tools/research/cascade_lattice_forcing.py": "bbaa75414bd159605e1491c5d4869093918786b7d5e51249cee91f2a8a23a527",
+"tools/research/cascade_li_two_channels.py": "57c5f8ff127aada0c57658a0d6ced1c88508b91f1880656d5b3b2bf0badf680a",
+"tools/research/cascade_precedence_vacuity.py": "85239524981d91a780a5edd4f5b337ca40e5ea78289802e3a297c89a15d271a8",
+"tools/research/cascade_primes_side_ball.py": "2ddbbba122eabcd09bf406b848761b61c2e36c26923bc8a789e5412cd0247687",
+"tools/research/cascade_quarter_square.py": "26c7c3e6ab5662c20b59aadc51ec5d12d64cc60f1dd0c32c5680db8ea5940373",
+"tools/research/cascade_riemann_selection.py": "808a097c6150d8944333dc97b5ee2c2cd6156568392204d1097dc722e06cbab2",
+"tools/research/cascade_saddle_curvature.py": "533453babba077dd20b8a7f585878e0b0db3aedcab5921655ad593e541f6c7f8",
+"tools/research/cascade_tower.py": "38c2dcb08522d6d32dd0d4ea0022df89acbe3e7048a5e3516a5a89f1c12e5eae",
+"tools/research/cascade_type_counting.py": "af4b31e8c56034b3130f5d3e996a48ff2915886a448774d5ea65ac46e048c77a",
+"tools/research/cascade_unit_ball_rh.py": "55c2864fcb7dc005cf450e09d305bc98366eeeb6fc07d0d6b8a4a14911da0a46",
+"tools/research/cascade_weil_margin.py": "80902a2302dcabdfba96b0dde74037cd9c859f9b927a93ec61848da3d0fd5c9a",
+"tools/research/cascade_weil_route_traveled.py": "15379c3694f2d824666c07b2aa7abf679b9d534b40e85eaa2b8e5886150c46e1",
+"tools/research/cascade_windows_overlap.py": "2257f61e7d006ad943f0a3c7cff1bb7c48dc59f9e26dd52e31ecde7adf379524",
+"tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
+"tools/research/zeta_zeros_cache.py": "1035849fa7cb845e88ac49c774f0e42a97fa2978bd046d8bdfcd1fe0a74c42b5",
+"tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
+},
+"dt": 384.26026010513306,
 "file": "cascade_weil_margin.py",
 "rc": 0,
-"when": "2026-10-07T21:43Z"
+"when": "2026-10-07T23:32Z"
 },
 "80c308f4d1f62f9c9522f8c1": {
 "dt": 3.900162935256958,
@@ -4097,10 +4125,39 @@
 "when": "2026-09-16T11:33Z"
 },
 "a239701bc32783481f09b8b5": {
-"dt": 64.11835360527039,
+"deps": {
+"src/cascade-series-part0.tex": "47bb4b40368ac89d521c15232dc751550fa8600f30e0bd0c57eb77bc45c8203f",
+"src/cascade-series-part4a.tex": "92261e8f60dc069c0d71fa6458f20d0ff2e33078dc7bb319c280e50a04a39aab",
+"src/cascade-series-part4b.tex": "78c0f7d3682a21fc015c7cc2801dd23c962b0ce13f4699a3d7a96ff6291b00e7",
+"tools/research/cascade_arithmetic_section.py": "53fba7194457955ac4cad815c160aa0d947954052a72b3d5024f1637d61f30a3",
+"tools/research/cascade_attraction_margins.py": "e9b35fcf52cb66675d41d7ef2d2293ef90a0eccf7c3d78fc01b886e6620da406",
+"tools/research/cascade_concentration_regrade.py": "cd98ead8e053b9b76c444f85d883c07939a8ca9c4d398cc5ff33783122ba73b0",
+"tools/research/cascade_explicit_formula_bridge.py": "932ccaab2614292dac7ea1479eb32d2e72d49f84637154f6ffddb8c9fbbed50d",
+"tools/research/cascade_finite_fill.py": "0cafd2011ce8d05ea2dad393bc6cab6211dafffdb162a511183a9ec70643b129",
+"tools/research/cascade_floor_meter.py": "195362b3f5e47a77f53b4597158e596a85f292343c25a33b656d935cd74a5858",
+"tools/research/cascade_heatflow_energy.py": "850ef0aeab95beab61652fa59695eb1067ac5c8c3c4876793dc8b83520b2cbba",
+"tools/research/cascade_lattice_forcing.py": "bbaa75414bd159605e1491c5d4869093918786b7d5e51249cee91f2a8a23a527",
+"tools/research/cascade_li_two_channels.py": "57c5f8ff127aada0c57658a0d6ced1c88508b91f1880656d5b3b2bf0badf680a",
+"tools/research/cascade_precedence_vacuity.py": "85239524981d91a780a5edd4f5b337ca40e5ea78289802e3a297c89a15d271a8",
+"tools/research/cascade_primes_side_ball.py": "2ddbbba122eabcd09bf406b848761b61c2e36c26923bc8a789e5412cd0247687",
+"tools/research/cascade_quarter_square.py": "26c7c3e6ab5662c20b59aadc51ec5d12d64cc60f1dd0c32c5680db8ea5940373",
+"tools/research/cascade_riemann_selection.py": "808a097c6150d8944333dc97b5ee2c2cd6156568392204d1097dc722e06cbab2",
+"tools/research/cascade_saddle_curvature.py": "533453babba077dd20b8a7f585878e0b0db3aedcab5921655ad593e541f6c7f8",
+"tools/research/cascade_tower.py": "38c2dcb08522d6d32dd0d4ea0022df89acbe3e7048a5e3516a5a89f1c12e5eae",
+"tools/research/cascade_type_counting.py": "af4b31e8c56034b3130f5d3e996a48ff2915886a448774d5ea65ac46e048c77a",
+"tools/research/cascade_unit_ball_rh.py": "55c2864fcb7dc005cf450e09d305bc98366eeeb6fc07d0d6b8a4a14911da0a46",
+"tools/research/cascade_weil_crossover.py": "e2016c1f491fc2624c837080b1dfce3a285cefa6c7a412ab4cb5d8adb968af8c",
+"tools/research/cascade_weil_margin.py": "80902a2302dcabdfba96b0dde74037cd9c859f9b927a93ec61848da3d0fd5c9a",
+"tools/research/cascade_weil_route_traveled.py": "15379c3694f2d824666c07b2aa7abf679b9d534b40e85eaa2b8e5886150c46e1",
+"tools/research/cascade_windows_overlap.py": "2257f61e7d006ad943f0a3c7cff1bb7c48dc59f9e26dd52e31ecde7adf379524",
+"tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
+"tools/research/zeta_zeros_cache.py": "1035849fa7cb845e88ac49c774f0e42a97fa2978bd046d8bdfcd1fe0a74c42b5",
+"tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
+},
+"dt": 61.58928203582764,
 "file": "cascade_weil_crossover.py",
 "rc": 0,
-"when": "2026-10-07T21:43Z"
+"when": "2026-10-07T23:32Z"
 },
 "a2600f73a947ac9429b198e4": {
 "dt": 149.47748804092407,
