@@ -58,7 +58,8 @@ TOWER = [
 
 KEYING = ["ckpt_key.py", "ckpt_migrate.py", "ckpt_key_probes.py",
           "precheck_probes.py",     # added round 284 (observation a)
-          "render_lint.py"]         # added round 395 (the render-lint precheck)
+          "render_lint.py",         # added round 395 (the render-lint precheck)
+          "reach_trace/sitecustomize.py"]   # added round 399 (the dependency tracer)
 
 paper = open(PAPER, encoding="utf-8").read()
 mc = re.search(r"the \*\*(\d+) scripts cited in place\*\*", paper)

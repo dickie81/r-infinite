@@ -74,8 +74,11 @@ Gates (all exit-gated; any failure exits 1):
       gate's "neighbour separation" wording) -- the wild D-H target
       is INFEASIBLE for this
       instrument at this reach, recorded as such (the planted target
-      at gamma = 20, where the density is ~18x thinner, is the honest
-      validation). Constants-only arithmetic; nature stated at the
+      at gamma = 20, where |d theta / d gamma| is ~18x larger -- the
+      pole frequencies spread ~18x wider per unit height; per neighbour
+      pair, with zeta's mean spacing 5.43 there, ~67x wider, 0.23 per
+      resolution cell at N = 2000; round 399 C-O1 corrected "density
+      ~18x thinner" -- is the honest validation). Constants-only arithmetic; nature stated at the
       gate per the 1av-g2 precedent. Every published figure of the
       record (the ordinate, n = 4500, gamma = 20, the density, the
       resolving power, the ratio 10.3 and the ~18x factor) is pinned
@@ -410,7 +413,7 @@ dens = 4/(1 + 4*gDH*gDH)
 resol = 2*math.pi/n_res
 dens20 = 4/(1 + 4*g20*g20)
 ok = 9 < resol/dens < 12
-ok &= 17 < dens20/dens < 20      # the planted target sits where density is ~18x thinner
+ok &= 17 < dens20/dens < 20      # at the planted target |dtheta/dgamma| is ~18x larger (frequencies ~18x wider per unit height)
 # round 396 (C-O2) pinned the printed ratio and density; round 397
 # (F397-B5/C1: the resolving power, the thinning factor and the code's
 # own constants were still free) pins every figure of the published

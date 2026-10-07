@@ -86,6 +86,14 @@ a constant name and fromlist, and a script spawned from a code-root
 subdirectory by bare name, relative path or dotted module spec), with
 a floor on the committed reach (F398-B6); it prints "reach precheck:
 ..." when it passes.
+
+ROUND 399 (F399-A1/B1/B2/C1, the static walk's fourth round of missed
+spellings): the run is observed. Every live member runs under the
+tracer (reach_trace/sitecustomize.py, pinned); the files it read or
+spawned are hashed and stored with its PASS, and a cache hit needs the
+static key AND every recorded file unchanged. The tracer's own sabotage
+case runs first ("dependency precheck: ..."). See THE DYNAMIC
+DEPENDENCY RECORD below.
 """
 import concurrent.futures as cf
 import hashlib, json, os, re, subprocess, sys, time
@@ -117,7 +125,8 @@ if bad:
     sys.exit(2)
 # round 284 F284-1: the pinned SET is checked by name, not by count
 KEYING_PINS = {"ckpt_key.py", "ckpt_migrate.py", "ckpt_key_probes.py",
-               "precheck_probes.py", "render_lint.py"}   # the last: round 395
+               "precheck_probes.py", "render_lint.py",   # render_lint: round 395
+               "reach_trace/sitecustomize.py"}          # the tracer: round 399
 _pinned = {e["file"] for e in MAN.get("keying", [])}
 if _pinned != KEYING_PINS or len(MAN.get("keying", [])) != len(KEYING_PINS):   # F285-1: no duplicates
     print(f"MANIFEST keying pins {sorted(_pinned)} != required "
@@ -158,57 +167,104 @@ def _py_files(roots):
     return _PY_INDEX[key]
 
 
-def _resolve(sc, roots=None):
+_SUFFIX_INDEX = {}
+
+
+def _suffix_index(roots):
+    """Every path suffix ("/b.py", "/a/b.py", ...) of every .py file
+    under the roots, mapped to the files that end with it."""
+    key = tuple(roots)
+    if key not in _SUFFIX_INDEX:
+        idx = {}
+        for f in _py_files(roots):
+            parts = f.split(os.sep)
+            for i in range(1, len(parts)):
+                idx.setdefault(os.sep + os.sep.join(parts[-i:]), set()).add(f)
+        _SUFFIX_INDEX[key] = idx
+    return _SUFFIX_INDEX[key]
+
+
+_TOKEN_MEMO = {}
+
+
+def _resolve_token(tok, roots, text_roots):
+    key = (tok, tuple(roots), tuple(text_roots))
+    if key in _TOKEN_MEMO:
+        return _TOKEN_MEMO[key]
+    out = set()
+    idx = _suffix_index(roots)
+    if tok.endswith(".tex"):
+        base = os.path.basename(tok)
+        if base[:-4].replace("_", "").replace("-", "").isalnum():
+            for r in text_roots:
+                pth = os.path.join(r, base)
+                if os.path.exists(pth):
+                    out = {pth}
+                    break
+    elif "/" in tok:
+        if tok.endswith(".py"):
+            tail = os.path.normpath(tok)
+            while tail.startswith(".." + os.sep):
+                tail = tail[3:]
+            out = set(idx.get(os.sep + tail.lstrip(os.sep), ()))
+    else:
+        stem = tok[:-3] if tok.endswith(".py") else tok
+        parts = stem.split(".")
+        if all(x.replace("_", "").isalnum() for x in parts):
+            if len(parts) == 1 or not tok.endswith(".py"):
+                # a module spec (-m, import_module, a bare stem): every
+                # package __init__.py on the dotted path, the module, and
+                # the package's __init__ and __main__ (round 399
+                # F399-B1/C1: -m on a regular package runs its __init__)
+                tails = [os.path.join(*parts[:i], "__init__.py")
+                         for i in range(1, len(parts) + 1)]
+                tails += [os.path.join(*parts) + ".py",
+                          os.path.join(*parts, "__main__.py")]
+                for t in tails:
+                    out |= idx.get(os.sep + t, set())
+    _TOKEN_MEMO[key] = out
+    return out
+
+
+def _resolve(sc, roots=None, text_roots=None):
     """Resolve a string constant to the substrate files it may name
-    (absolute paths; empty for non-substrate constants). Code: bare
-    .py names AND module stems (round-256 F256-1 -- spawns built as
-    s + ".py"), searched in every code root. Round 398 (F398-B2):
-    every code root's SUBDIRECTORIES too, plus a relative path ending
-    in .py ("sub/check.py", matched as a path suffix) and a dotted
-    module spec ("sub.check", for -m), so a script spawned one
-    directory down joins the reach. TEXT substrates (round-257
-    F257-1): .tex names searched in src/ -- three reach files (one
+    (absolute paths; empty for non-substrate constants). The constant is
+    read word by word (round 399 F399-A1/B1: a shell command string
+    names its scripts between spaces), each word with surrounding quotes
+    dropped. Code: a bare .py name or module stem, searched through
+    every code root and its subdirectories (round 398 F398-B2); a
+    relative .py path, matched as a path suffix, leading separators and
+    "../" dropped (round 399 F399-B1/C1: "/sub/x.py" from an f-string or
+    a concatenation); a dotted module spec, with every package
+    __init__.py on its path and a package's __main__.py (round 399). TEXT
+    substrates (round-257 F257-1): a .tex name, directory part dropped
+    (round 399 F399-C1), searched in src/ -- three reach files (one
     manifest member plus two chained verifiers) needle-gate raw
-    substrings of the cascade tex papers, so those bytes are
-    verdict inputs and must be in the key (bound by raw-byte sha
-    via code_sha's non-.py fallback), exactly the rationale that
-    byte-binds the main paper."""
+    substrings of the cascade tex papers, so those bytes are verdict
+    inputs and must be in the key (bound by raw-byte sha via code_sha's
+    non-.py fallback), exactly the rationale that byte-binds the main
+    paper."""
     roots = CODE_ROOTS if roots is None else roots
-    if " " in sc or not sc:
-        return set()
-    if sc.endswith(".tex"):
-        if "/" in sc or not sc[:-4].replace("_", "").replace("-", "").isalnum():
-            return set()
-        for r in TEXT_ROOTS:
-            pth = os.path.join(r, sc)
-            if os.path.exists(pth):
-                return {pth}
-        return set()
-    files = _py_files(roots)
-    if "/" in sc:
-        if not sc.endswith(".py"):
-            return set()
-        tail = os.path.normpath(sc)
-        while tail.startswith(".." + os.sep):
-            tail = tail[3:]
-        return {f for f in files if f.endswith(os.sep + tail)}
-    stem = sc[:-3] if sc.endswith(".py") else sc
-    parts = stem.split(".")
-    if not all(x.replace("_", "").isalnum() for x in parts):
-        return set()
-    if len(parts) == 1:
-        return {f for f in files if os.path.basename(f) == stem + ".py"}
-    if sc.endswith(".py"):
-        return set()
-    tails = (os.sep + os.path.join(*parts) + ".py",
-             os.sep + os.path.join(*parts, "__init__.py"))
-    return {f for f in files if f.endswith(tails)}
+    text_roots = TEXT_ROOTS if text_roots is None else text_roots
+    out = set()
+    words = sc.split()
+    for w in words:
+        w = w.strip("'\"")
+        # inside a sentence or a command line only a word shaped like a
+        # file reference binds (a .py or .tex name, a path, a dotted
+        # spec): a prose word that happens to equal a file's stem would
+        # pull an unrelated helper into the reach; a constant that is a
+        # single word keeps the full stem rule (spawns built as s + ".py")
+        if w and (len(words) == 1 or w.endswith((".py", ".tex"))
+                  or "/" in w or "." in w.strip(".")):
+            out |= _resolve_token(w, roots, text_roots)
+    return out
 
 
 _NAMED_MEMO = {}
 
 
-def _named_abs(path, roots=None):
+def _named_abs(path, roots=None, text_roots=None):
     """Every substrate named by a string constant (bare .py name,
     module stem, relative .py path, dotted module spec, or .tex name)
     in the DOCSTRING-STRIPPED AST of the file at path -- the
@@ -216,7 +272,8 @@ def _named_abs(path, roots=None):
     Over-approximates (any mention counts): the safe direction.
     Memoized per file and roots per run."""
     roots = CODE_ROOTS if roots is None else roots
-    key = (path, tuple(roots))
+    text_roots = TEXT_ROOTS if text_roots is None else text_roots
+    key = (path, tuple(roots), tuple(text_roots))
     if key in _NAMED_MEMO:
         return _NAMED_MEMO[key]
     import ast
@@ -232,7 +289,7 @@ def _named_abs(path, roots=None):
     for node in ast.walk(tree):
         if (isinstance(node, ast.Constant)
                 and isinstance(node.value, str)):
-            out |= _resolve(node.value, roots)
+            out |= _resolve(node.value, roots, text_roots)
     _NAMED_MEMO[key] = out
     return out
 
@@ -270,12 +327,23 @@ def _import_targets(path, roots=None):
             fn = node.func
             fname = (fn.id if isinstance(fn, ast.Name) else
                      fn.attr if isinstance(fn, ast.Attribute) else None)
-            arg = node.args[0] if node.args else None
-            if (fname in ("__import__", "import_module")
-                    and isinstance(arg, ast.Constant)
-                    and isinstance(arg.value, str)
-                    and all(x.isidentifier() for x in arg.value.split("."))):
-                base = arg.value.split(".")
+            kw = {k.arg: k.value for k in node.keywords if k.arg}
+            arg = node.args[0] if node.args else kw.get("name")
+            pkg_arg = (node.args[1] if len(node.args) > 1 else
+                       kw.get("package")) if fname == "import_module" else None
+            name = (arg.value if isinstance(arg, ast.Constant)
+                    and isinstance(arg.value, str) else None)
+            if (name and name.startswith(".") and isinstance(pkg_arg, ast.Constant)
+                    and isinstance(pkg_arg.value, str)):
+                # round 399 F399-C1: import_module(".x", "pkg") is pkg.x
+                lvl = len(name) - len(name.lstrip("."))
+                bp = pkg_arg.value.split(".")
+                bp = bp[:len(bp) - (lvl - 1)] if lvl > 1 else bp
+                name = ".".join(bp + ([name.lstrip(".")]
+                                      if name.lstrip(".") else []))
+            if (fname in ("__import__", "import_module") and name
+                    and all(x.isidentifier() for x in name.split("."))):
+                base = name.split(".")
                 fl = [k.value for k in node.keywords if k.arg == "fromlist"]
                 fl += node.args[3:4]
                 names = [e.value for f in fl
@@ -351,7 +419,7 @@ def _local_imports(path, roots=None):
     return out
 
 
-def _reach_abs(path, roots):
+def _reach_abs(path, roots, text_roots=None):
     """The fixed-point reach of the file at path over both expansions,
     against the given code roots alone (absolute paths) -- the form the
     reach walk's own sabotage case runs on a temporary tree."""
@@ -362,7 +430,8 @@ def _reach_abs(path, roots):
             continue
         reach.add(f)
         if f.endswith(".py"):
-            frontier |= (_local_imports(f, roots) | _named_abs(f, roots)) - reach
+            frontier |= (_local_imports(f, roots)
+                         | _named_abs(f, roots, text_roots)) - reach
     return reach
 
 
@@ -866,7 +935,7 @@ if (_pp.returncode != 0 or _m2 is None or int(_m2.group(1)) != PRECHECK_PROBE_CA
 # sabotage cases; the census line is gated, the probe count pinned
 # exactly like the two suites above, and the script is pinned in the
 # manifest's keying list
-RENDER_PROBE_CASES, RENDER_SURFACES = 37, 2   # 7 -> 10 at the round-395 sweep (L7-L9), 15 at round 396 (L10-L14), 23 at round 397 (L10, L13 widened; L15), 37 at round 398 (L10, L15 widened; L16, L17)
+RENDER_PROBE_CASES, RENDER_SURFACES = 42, 2   # 7 -> 10 at the round-395 sweep (L7-L9), 15 at round 396 (L10-L14), 23 at round 397 (L10, L13 widened; L15), 37 at round 398 (L10, L15 widened; L16, L17), 42 at round 399 (L18-L20 split out or new; L16 cell counts)
 _rl = subprocess.run([sys.executable, os.path.join(HERE, "render_lint.py")],
                      capture_output=True, text=True)
 _rl_line = [l for l in _rl.stdout.splitlines() if l.startswith("render lint:")]
@@ -891,10 +960,11 @@ if (_rl.returncode != 0 or _m3 is None or int(_m3.group(1)) != RENDER_SURFACES
 # F395-B6/C9): every string constant anywhere in the first argument of
 # a call to gate or to a name bound to it by plain, annotated or
 # tuple assignment (so f-strings and concatenations are read part by
-# part, and joined in AST field order -- source order, except that a
-# conditional expression yields its test before its body (round 397
-# F397-B4: the round-396 join followed ast.walk's breadth-first order;
-# round 398 F398-B7), a range written with
+# part, and joined in source order, by position (round 397 F397-B4:
+# the round-396 join followed ast.walk's breadth-first order; round 398
+# F398-B7; round 399 F399-B8: field order put a conditional's test
+# before its body and a dict display's keys before its values), a range
+# written with
 # any Unicode dash (category Pd) or the minus sign, and a
 # floor on the number of labels scanned, so a renamed gate cannot pass
 # by scanning nothing (round 396 F396-B8 widened the aliases, dashes and
@@ -910,11 +980,20 @@ GATE_LABELS_MIN = 650
 
 
 def _consts_in_order(node):
-    """The string constants under node, in source order."""
-    if isinstance(node, _ast.Constant) and isinstance(node.value, str):
-        yield node.value
-    for c in _ast.iter_child_nodes(node):
-        yield from _consts_in_order(c)
+    """The string constants under node, in source order: sorted by
+    position (round 399 F399-B8: field order put a dict display's keys
+    before its values), ties -- the parts of an f-string, which share
+    its position before Python 3.12 -- kept in field order."""
+    found = []
+
+    def walk(n):
+        if isinstance(n, _ast.Constant) and isinstance(n.value, str):
+            found.append(((getattr(n, "lineno", 0), getattr(n, "col_offset", 0),
+                           len(found)), n.value))
+        for c in _ast.iter_child_nodes(n):
+            walk(c)
+    walk(node)
+    return [v for _, v in sorted(found)]
 
 
 def _label_hits(tree):
@@ -952,11 +1031,12 @@ _sab = _ast.parse('gate("g1 ok", 1)\n'
                   'G = gate\nG("g4 88 cited in place", 1)\n'
                   'H: object = gate\nH("g5 88 " + "cited in place", 1)\n'
                   'gate("g6 the range " + "1i" + "\ufe581ca", 1)\n'
-                  'J, K = gate, print\nJ(f"g7 {k} the range 1i" + "\u2e3a1ca", 1)\n')
+                  'J, K = gate, print\nJ(f"g7 {k} the range 1i" + "\u2e3a1ca", 1)\n'
+                  'gate({"88": " cited", " in": " place"}["88"], 1)\n')
 if not (_CENSUS_NUM.search("88 cited in place; the range 1i–1bl")
         and _CENSUS_NUM.search("Theorems 1i--1bj")
         and not _CENSUS_NUM.search("the anchored count and range needles")
-        and _label_hits(_sab) == (7, [2, 3, 5, 7, 8, 10])):
+        and _label_hits(_sab) == (8, [2, 3, 5, 7, 8, 10, 11])):
     print("GATE-LABEL PRECHECK FAILURE: the census-numeral scan missed "
           "its sabotage cases", flush=True)
     sys.exit(2)
@@ -1143,11 +1223,128 @@ env = dict(os.environ, CASCADE_CHAIN="manifest",
            MKL_NUM_THREADS=THR, NUMEXPR_NUM_THREADS=THR)
 
 
+# THE DYNAMIC DEPENDENCY RECORD (round 399, F399-A1/B1/B2/C1: the
+# F269-3 class in its fourth round -- shell command strings, -m on a
+# regular package, path fragments with a prefix, __import__(name=...),
+# relative import_module, .tex names with a directory -- each an
+# ordinary spelling the static walk missed, three demonstrated as a
+# stale cached PASS). The static key cannot enumerate every spelling;
+# the run can be observed. Every live member runs with the tracer
+# (reach_trace/sitecustomize.py, pinned) first on PYTHONPATH: an audit
+# hook records every file the member's Python processes open for
+# reading and every command line they spawn. The files under the
+# repository that the run read or named, each .py widened by its static
+# reach (a child started in isolated mode loads no tracer), are hashed
+# and stored with the PASS; a cache hit needs the static key AND every
+# recorded file unchanged (a dropped dependency only re-runs a member:
+# the safe direction). Excluded: .git, __pycache__, the two markdown
+# paper surfaces (the needle precheck evaluates them live), this cache
+# and the manifest (integrity-checked above) and the tracer itself. A
+# .py read from outside both the repository and the Python installation
+# fails the member (external code). An entry with no record (written
+# before round 399) is not served; the member runs live once.
+import site as _site
+import sysconfig as _sysconfig
+import tempfile as _tempfile
+REPO = os.path.realpath(os.path.join(HERE, "..", ".."))
+TRACE_DIR = os.path.realpath(os.path.join(HERE, "reach_trace"))
+_DEP_SKIP = {os.path.realpath(x) for x in (
+    os.path.join(REPO, "riemann-indistinguishability.md"),
+    os.path.join(REPO, "cascade-riemann-formulation.md"),
+    CACHE_PATH, MAN_PATH)}
+_ENV_DIRS = tuple(sorted({os.path.realpath(x) + os.sep for x in (
+    [sys.prefix, sys.base_prefix, sys.exec_prefix]
+    + list(_site.getsitepackages()) + [_site.getusersitepackages()]
+    + list(_sysconfig.get_paths().values())) if x}))
+
+
+def _trace_env(trace):
+    pp = env.get("PYTHONPATH")
+    return dict(env, CASCADE_TRACE=trace,
+                PYTHONPATH=TRACE_DIR + (os.pathsep + pp if pp else ""))
+
+
+def _trace_deps(trace, root):
+    """(deps, external) from a trace file: the files under root the run
+    read or named on a spawned command line (absolute paths, the
+    exclusions applied, each .py widened by its static reach), and the
+    .py files it read from outside both root and the Python
+    installation."""
+    try:
+        lines = open(trace, encoding="utf-8",
+                     errors="surrogateescape").read().splitlines()
+    except OSError:
+        lines = []
+    deps, external = set(), set()
+    for ln in lines:
+        kind, _, rest = ln.partition(" ")
+        if kind == "R":
+            cands = [rest]
+        elif kind == "X":
+            words = rest.split(" ")
+            cands = [os.path.join(words[0], w) for w in words[1:] if w]
+        else:
+            continue
+        for c in cands:
+            q = os.path.realpath(c)
+            if not os.path.isfile(q):
+                continue
+            if q.startswith(root + os.sep):
+                parts = q[len(root) + 1:].split(os.sep)
+                if (parts[0] == ".git" or "__pycache__" in parts
+                        or q in _DEP_SKIP
+                        or q.startswith(TRACE_DIR + os.sep)):
+                    continue
+                deps.add(q)
+            elif q.endswith(".py") and not q.startswith(_ENV_DIRS):
+                external.add(q)
+    for q in [d for d in deps if d.endswith(".py")]:
+        deps |= {os.path.realpath(x) for x in _reach_abs(q, CODE_ROOTS)
+                 if os.path.realpath(x).startswith(root + os.sep)
+                 and os.path.isfile(x)}
+    return deps, external
+
+
+_DEP_MEMO = {}
+
+
+def _dep_hash(path):
+    if path not in _DEP_MEMO:
+        h = None
+        if path.endswith(".py"):
+            try:
+                h = ckpt_key.code_sha(path, strip_prints=False)
+            except Exception:
+                h = None
+        _DEP_MEMO[path] = h or _sha(path)
+    return _DEP_MEMO[path]
+
+
+def _deps_ok(entry):
+    deps = entry.get("deps")
+    if deps is None:
+        return False
+    for rel, h in deps.items():
+        q = os.path.join(REPO, rel)
+        if not os.path.isfile(q) or _dep_hash(q) != h:
+            return False
+    return True
+
+
 def run(name):
     t0 = time.time()
-    r = subprocess.run([sys.executable, os.path.join(HERE, name)],
-                       capture_output=True, text=True, env=env)
-    return name, r.returncode, time.time() - t0, r.stdout[-400:]
+    fd, trace = _tempfile.mkstemp(prefix="tower_trace_", suffix=".txt")
+    os.close(fd)
+    try:
+        r = subprocess.run([sys.executable, os.path.join(HERE, name)],
+                           capture_output=True, text=True,
+                           env=_trace_env(trace))
+        deps, external = _trace_deps(trace, REPO)
+    finally:
+        os.unlink(trace)
+    hashes = {os.path.relpath(q, REPO): _dep_hash(q) for q in sorted(deps)}
+    return (name, r.returncode, time.time() - t0, r.stdout[-400:], hashes,
+            sorted(external))
 
 
 # THE PAPER-READER PRECHECK (round-395 sweep, F395-A1/A2/B1): the
@@ -1241,34 +1438,57 @@ keys = {n: member_key(n) for n in names}
 # one) -- code the member runs that its key would not bind. No member
 # may carry one.
 # The reach walk's own sabotage case (round 397 F397-B1; widened and
-# made hermetic at round 398, F398-B1/B2/B6): every spelling the walk
-# must bind, planted in a temporary directory outside the repository
-# and walked against that directory ALONE (so a same-named file under a
-# code root cannot leak in), through the full fixed point -- imports
-# and named files both. Spellings: `from pkg import helper` (the
-# submodule), a dotted import of a namespace package, `from nsp import
-# sib` and its relative `from . import mod`, `__import__("pkg.x")`,
-# `__import__("pkg", fromlist=[...])`, and a script named as a bare
-# subdirectory file, a relative path and a dotted module spec. numpy and
-# an out-of-root module stay third-party; the namespace package stays
-# local.
+# made hermetic at round 398, F398-B1/B2/B6; widened at round 399,
+# F399-B1/B2/B3/C1/C2): the spellings planted below, in a temporary
+# directory outside the repository, walked against that directory ALONE
+# (code and text roots both) through the full fixed point, and through
+# the import half alone. The planted spellings: `from pkg import
+# helper`; a dotted import of a namespace package; `from nsp import sib`
+# and its relative `from . import mod`; __import__ with a constant name,
+# a keyword name, a keyword list fromlist, a positional list fromlist
+# and a tuple fromlist; importlib.import_module (attribute form), and
+# relative with a constant package; a script named as a bare
+# subdirectory file, a relative path, an f-string path led by "/",
+# a "../" path and a shell command string; -m on a regular package's
+# module and on a package; a .tex named with a directory. numpy and an
+# out-of-root module stay third-party; the namespace package stays
+# local. A spelling not planted here is not claimed; the dynamic record
+# below binds what a live run actually reads.
 import tempfile as _tempfile
 with _tempfile.TemporaryDirectory() as _td:
     _plant = {"zzpkg/__init__.py": "", "zzpkg/helper.py": "",
               "zzpkg/viaimp.py": "", "zzpkg/viafrom.py": "",
+              "zzpkg/viakw.py": "", "zzpkg/viapos.py": "",
+              "zzpkg/viatup.py": "", "zzpkg/viaim.py": "",
+              "zzpkg/viarel.py": "",
               "nsp/mod.py": "", "nsp/sib.py": "from . import mod\n",
               "sub/check.py": "", "sub/deep.py": "", "sub/dotted.py": "",
+              "sub/fslash.py": "", "sub/updir.py": "", "shellrun.py": "",
+              "rpkg/__init__.py": "", "rpkg/leaf.py": "",
+              "mpkg/__init__.py": "", "mpkg/__main__.py": "",
+              "srcx/paper.tex": "",
               "m.py": "from zzpkg import helper\nimport nsp.mod\n"
                       "from nsp import sib\nimport numpy.linalg\n"
                       "__import__('zzpkg.viaimp')\n"
                       "__import__('zzpkg', fromlist=['viafrom'])\n"
+                      "__import__(name='zzpkg.viakw')\n"
+                      "__import__('zzpkg', None, None, ['viapos'])\n"
+                      "__import__('zzpkg', fromlist=('viatup',))\n"
+                      "importlib.import_module('zzpkg.viaim')\n"
+                      "importlib.import_module('.viarel', 'zzpkg')\n"
                       "__import__('outside_mod')\n"
-                      "X = ['sub/check.py', 'deep.py', 'sub.dotted']\n"}
+                      "X = ['sub/check.py', 'deep.py', 'sub.dotted',\n"
+                      "     f'{H}/sub/fslash.py', '../sub/updir.py',\n"
+                      "     'python3 shellrun.py --flag',\n"
+                      "     ['-m', 'rpkg.leaf'], ['-m', 'mpkg'],\n"
+                      "     'srcx/paper.tex']\n"}
     for _f, _t in _plant.items():
         os.makedirs(os.path.dirname(os.path.join(_td, _f)), exist_ok=True)
         open(os.path.join(_td, _f), "w").write(_t)
+    _tx_roots = (os.path.join(_td, "srcx"),)
     _got = [sorted(os.path.relpath(p, _td)
-                   for p in _reach_abs(os.path.join(_td, f), (_td,)))
+                   for p in _reach_abs(os.path.join(_td, f), (_td,),
+                                       _tx_roots))
             for f in ("m.py", "nsp/sib.py")]
     # the import half alone (the named-file half also binds the
     # dotted and fromlist spellings, so the closure cannot tell which
@@ -1277,8 +1497,10 @@ with _tempfile.TemporaryDirectory() as _td:
                        _local_imports(os.path.join(_td, "m.py"), (_td,))))
     _tp = _third_party_in(os.path.join(_td, "m.py"), (_td,))
 _want = [sorted(_plant), ["nsp/mod.py", "nsp/sib.py"],
-         ["nsp/mod.py", "nsp/sib.py", "zzpkg/__init__.py", "zzpkg/helper.py",
-          "zzpkg/viafrom.py", "zzpkg/viaimp.py"]]
+         sorted(["nsp/mod.py", "nsp/sib.py", "zzpkg/__init__.py"]
+                + [f"zzpkg/{x}.py" for x in ("helper", "viafrom", "viaimp",
+                                              "viakw", "viapos", "viatup",
+                                              "viaim", "viarel")])]
 if _got != _want or _tp != {"numpy", "outside_mod"}:
     print(f"REACH PRECHECK FAILURE: the reach walk missed its sabotage "
           f"case (reached {_got}, third-party {sorted(_tp)})",
@@ -1304,28 +1526,97 @@ if len(_union) < REACH_FILES_MIN:
 print(f"reach precheck: {len(names)} members, {len(_union)} reach files "
       f"(floor {REACH_FILES_MIN}), 0 unresolved imports; sabotage case "
       f"reached {len(_want[0])} planted files", flush=True)
+# the tracer's own sabotage case (round 399): a planted script in a
+# temporary root reaches each spelling round 399 found, each through a
+# file only that spelling touches -- a shell command string, os.system,
+# -m on a regular package's module and on a package, an f-string path,
+# __import__(name=...) after a sys.path insert, a glob-discovered
+# script, a data file, a .tex named with a directory, a child started
+# with -E (no tracer: recorded from the spawn line, its own import only
+# through the static widening) -- and imports a module from a second
+# directory outside the root, which must be classed external
+_TPLANT = {"a_shell.py": "", "b_system.py": "", "pkg/__init__.py": "",
+           "pkg/mod.py": "", "pkg2/__init__.py": "", "pkg2/__main__.py": "",
+           "sub/fsub.py": "", "sub/chain_a.py": "", "out/zz_outside.py": "",
+           "data/table.json": "{}", "data/part0.tex": "x",
+           "iso.py": "import iso_dep\n", "iso_dep.py": "",
+           "m.py": (
+               "import glob, os, subprocess, sys\n"
+               "H = os.path.dirname(os.path.abspath(__file__))\n"
+               "E = sys.executable\n"
+               "subprocess.run(f'\"{E}\" a_shell.py', shell=True, cwd=H,"
+               " check=True)\n"
+               "assert os.system(f'cd \"{H}\" && \"{E}\" b_system.py') == 0\n"
+               "subprocess.run([E, '-m', 'pkg.mod'], cwd=H, check=True)\n"
+               "subprocess.run([E, '-m', 'pkg2'], cwd=H, check=True)\n"
+               "subprocess.run([E, f'{H}/sub/fsub.py'], check=True)\n"
+               "sys.path.insert(0, os.path.join(H, 'out'))\n"
+               "__import__(name='zz_outside')\n"
+               "for f in glob.glob(os.path.join(H, 'sub', 'chain_*.py')):\n"
+               "    subprocess.run([E, f], check=True)\n"
+               "open(os.path.join(H, 'data', 'table.json')).read()\n"
+               "open(H + '/data/part0.tex').read()\n"
+               "subprocess.run([E, '-E', os.path.join(H, 'iso.py')], cwd=H,"
+               " check=True)\n"
+               "sys.path.insert(0, sys.argv[1])\n"
+               "import ext_mod\n")}
+with _tempfile.TemporaryDirectory() as _tr, \
+        _tempfile.TemporaryDirectory() as _tx:
+    _tr, _tx = os.path.realpath(_tr), os.path.realpath(_tx)
+    for _f, _t in _TPLANT.items():
+        os.makedirs(os.path.dirname(os.path.join(_tr, _f)), exist_ok=True)
+        open(os.path.join(_tr, _f), "w").write(_t)
+    open(os.path.join(_tx, "ext_mod.py"), "w").write("")
+    _fd, _trf = _tempfile.mkstemp(prefix="tower_trace_", suffix=".txt")
+    os.close(_fd)
+    _trr = subprocess.run([sys.executable, os.path.join(_tr, "m.py"), _tx],
+                          capture_output=True, text=True, cwd=_tr,
+                          env=_trace_env(_trf))
+    _tdeps, _text = _trace_deps(_trf, _tr)
+    os.unlink(_trf)
+    _tgot = {os.path.relpath(q, _tr) for q in _tdeps}
+    _textn = {os.path.basename(q) for q in _text}
+if (_trr.returncode != 0 or _tgot != set(_TPLANT)
+        or _textn != {"ext_mod.py"}):
+    print(f"DEPENDENCY PRECHECK FAILURE: the tracer missed its sabotage "
+          f"case (rc {_trr.returncode}; missed "
+          f"{sorted(set(_TPLANT) - _tgot)}; extra {sorted(_tgot - set(_TPLANT))}; "
+          f"external {sorted(_textn)}) {_trr.stderr[-300:]}", flush=True)
+    sys.exit(2)
+print(f"dependency precheck: the tracer's sabotage case recorded "
+      f"{len(_tgot)} planted files and 1 external module", flush=True)
+
 cached = [] if fresh else \
-    [n for n in names if cache.get(keys[n], {}).get("rc") == 0]
+    [n for n in names if cache.get(keys[n], {}).get("rc") == 0
+     and _deps_ok(cache[keys[n]])]
 live = [n for n in names if n not in cached]
 for n in cached:
     c = cache[keys[n]]
     print(f"  PASS {n} (cached {c.get('when', '?')}, "
           f"{c.get('dt', 0)/60:.1f} min live at an identical "
-          f"executable-reach key; the paper re-verified by the "
-          f"live needle precheck)", flush=True)
+          f"executable-reach key, {len(c['deps'])} recorded dependencies "
+          f"unchanged; the paper re-verified by the live needle "
+          f"precheck)", flush=True)
 
 fails = []
 if live:
     with cf.ProcessPoolExecutor(max_workers=NW) as ex:
-        for name, rc, dt, tail in ex.map(run, live):
+        for name, rc, dt, tail, deps, external in ex.map(run, live):
+            if rc == 0 and external:
+                rc = "external code"
             print(f"  {'PASS' if rc == 0 else 'FAIL'} {name} "
-                  f"(exit {rc}, {dt/60:.1f} min)", flush=True)
+                  f"(exit {rc}, {dt/60:.1f} min, {len(deps)} recorded "
+                  f"dependencies)", flush=True)
             if rc != 0:
                 fails.append(name)
                 print(tail, flush=True)
+                if external:
+                    print(f"  EXTERNAL CODE read from outside the "
+                          f"repository and the Python installation: "
+                          f"{external}", flush=True)
             else:
                 cache[keys[name]] = {
-                    "file": name, "rc": 0, "dt": dt,
+                    "file": name, "rc": 0, "dt": dt, "deps": deps,
                     "when": time.strftime("%Y-%m-%dT%H:%MZ",
                                           time.gmtime())}
                 os.makedirs(os.path.dirname(CACHE_PATH),
