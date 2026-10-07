@@ -3191,6 +3191,12 @@
 "rc": 0,
 "when": "2026-09-08T16:13Z"
 },
+"8e927c27555f22025e2e8998": {
+"dt": 62.676596879959106,
+"file": "cascade_weil_crossover.py",
+"rc": 0,
+"when": "2026-10-07T18:31Z"
+},
 "8ece8d7301031a4836751415": {
 "dt": 125.89221358299255,
 "file": "cascade_lfunction_test.py",
@@ -5800,6 +5806,12 @@
 "file": "cascade_finite_fill.py",
 "rc": 0,
 "when": "2026-08-28T13:35Z"
+},
+"ff3f66aad26aaa6151b3a1e2": {
+"dt": 382.9702479839325,
+"file": "cascade_weil_margin.py",
+"rc": 0,
+"when": "2026-10-07T18:31Z"
 },
 "fffe94f898ff89c26081f600": {
 "dt": 7.86848258972168,
