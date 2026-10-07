@@ -6094,3 +6094,22 @@ Swept: 33361b9. Convergence round 391 is owed.
 - **Held:** listed in A569.
 
 **Swept:** bdb4816. Convergence round 398 owed.
+
+### Round 398 — the convergence test on the round-397 sweep
+
+**Scope.** Commit bdb4816.
+- **Battery** (full-tower class, run by the lead on bdb4816): 33 live + 3 cached PASS, 36/36; all eight prechecks green. The wrapper was stopped before "BATTERY DONE", so the reviewers ran the tower in worktrees: 36 cached PASS each.
+- **Review:** three parallel lenses. Brief: `brief_round398.md`.
+
+**Findings.** 2 MAJOR, 2 distinct minors, plus cosmetics; lens C found none. All were verified by the lead and accepted (A570).
+- **MAJOR F398-B1:** `__import__` with a constant name bound nothing. Calls are now read as imports.
+- **MAJOR F398-B2:** a script spawned from a code-root subdirectory bound nothing. `_resolve` now searches recursively and matches paths and dotted specs.
+  - B6 rider: the reach sabotage case is now hermetic and walks the full closure, and the committed reach has a floor.
+- **Minor:**
+  - F398-A1 = B3(b): L15 is now any multi-backtick run outside a fence.
+  - F398-A2 = B3(a, c): the third round with silent classes. Two structural checks and one invariant: L10 checks blank lines after blocks too and catches absorbed paragraphs; L16 catches lazy continuation; L17 checks text preservation against an element allowlist. Footnotes are enabled.
+- **Cosmetic:** A3, A4, B4, B5, B6, B7.
+- **Out of scope:** C1 (g6's wording; accepted), B-O1 (held for the owner), A-O1/O2, C-O2.
+- **Held:** listed in A570.
+
+**Swept:** d677ae1. Convergence round 399 owed.

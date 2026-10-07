@@ -20509,3 +20509,111 @@ The reviewer demonstrated a stale cached PASS in a worktree. The guard also misf
 **Battery on the sweep.** Full-tower class: `run_tower.py` on bdb4816 under the checkpoint wrapper. floor_meter and attraction_margins changed. 33 members' code reaches name `cascade_attraction_margins.py` (31 also name `cascade_floor_meter.py`), so 33 keys rotated and those members run live; lattice_forcing, primes_side_ball and finite_fill are served from cache. The lead's round-398 brief at first said "the other 34 members are served from cache". That came from comparing reach sets and fingerprints but not the reach files' hashes, and was corrected in the brief during the run. Result (`scratchpad/r398/battery_lead/`, 20:09–20:35 UTC): all eight prechecks green, including "render lint: 2 surfaces, 0 defects; probes 23/23 as expected" and "reach precheck: 36 members, 0 unresolved imports; sabotage case resolved (5 imports)"; "census: 33 live PASS + 3 cached PASS + 0 FAIL of 36", "TOWER PASS (36/36)", exit 0. The session's background limit stopped the wrapper during its last sleep, after the tower had finished; the lead committed the final cache by hand (5cdcea8).
 
 ---
+
+## Addendum 570 — round 398, the convergence test on the round-397 sweep (bdb4816) (2 MAJOR, 2 distinct minors, cosmetics; not converged; all verified and accepted; swept d677ae1)
+
+**The round.**
+- Three fresh-context `hostile-reviewer` agents ran in parallel (lenses: paper and rendering; code and keying; mathematics and claims). This was a workflow at the owner's ultracode setting.
+- Brief: `brief_round398.md`. Reports: `scratchpad/r398/report_{0,1,2}.md`.
+- **Lead's battery on bdb4816** (`scratchpad/r398/battery_lead/`):
+  - all eight prechecks green;
+  - "census: 33 live PASS + 3 cached PASS + 0 FAIL of 36", "TOWER PASS (36/36)", exit 0 (recorded in A569).
+  - The session's 30-minute background limit stopped the wrapper during its last sleep, so `progress.log` never reached "BATTERY DONE". The brief gated the reviewers' main-repository tower run on that line, so each reviewer ran the tower in a worktree at bdb4816 with the final cache (36 cached PASS, all eight prechecks green).
+  - The round-399 battery runs under the maximum background limit.
+- Lens C returned no findings.
+- Every finding below was verified by the lead directly.
+
+**F398-B1 (MAJOR; the F269-3/F397-B1 class; pre-existing; zero committed reach).** `_import_targets` read only import statements. So these bound nothing:
+- `__import__("pkg.helper")`;
+- `__import__("pkg", fromlist=["helper"])`;
+- `__import__("outside_mod")` after a `sys.path` insert.
+
+The reviewer demonstrated a stale cached PASS: a helper flipped to failing, the tower served "36 cached PASS", and the member alone exited 1.
+- **Lead:** read `run_tower.py` 207–300.
+- **Disposition:**
+  - A call to `__import__` or `importlib.import_module` with a constant name is now an import of that name, with its constant fromlist entries as candidates beside it.
+  - An out-of-root name becomes "unresolved", and the guard fires.
+
+**F398-B2 (MAJOR; the same class through the named-file half; pre-existing; zero committed reach).** A script spawned from a code-root subdirectory was not bound in any of three spellings:
+- `os.path.join(HERE, "zzsub", "check.py")`;
+- `"zzsub/check.py"`;
+- `-m zzsub.check`.
+
+`_resolve` returned None for any constant containing "/" and searched only a root's top level. The reviewer demonstrated a stale PASS, with a top-level control that failed as it should.
+- **Lead:** read `run_tower.py` 140–205.
+- **Disposition:** `_resolve` is now set-valued. It searches every code root's subdirectories for a bare name, and matches a relative .py path (as a path suffix) and a dotted module spec.
+- **Lead's check:** the committed reach and all 36 fingerprints are unchanged, so no key rotates through the driver.
+
+**F398-B6 (cosmetic, taken with B1 and B2): the reach sabotage case.** The reviewer charged three things:
+- its label counted files, not imports;
+- it tested only `_local_imports`;
+- it was not hermetic: a same-named package under a code root broke it.
+
+**Disposition:**
+- The case now walks its temporary directory alone through `_reach_abs`, the full fixed point.
+- It also checks the import half alone. The named-file half also binds the dotted and fromlist spellings, so the closure alone cannot tell which half did.
+- It covers every spelling above.
+- A floor `REACH_FILES_MIN = 109` holds the committed reach.
+- **Lead's mutations:**
+  - seven source mutations each exit 2: call handling, fromlist, slash paths, recursive basenames, dotted specs, the submodule candidate, and relative roots;
+  - emptying `_imports_of` drops the union to 58 and trips the floor;
+  - the unmutated driver completes.
+  - A first attempt at the call mutation was itself a syntax error and the fromlist one was masked by the named-file half. Both were fixed before the record.
+
+**F398-A1 = B3(b) (minor; the L15 remedy missed its own class).** A code span between two LaTeX open-quotes hid the pair from L15, which required no backtick inside. The reviewer's in-paper MQ3 swallowed lines 1909–1974 with a lint of `[]`.
+- **Disposition:** L15 now flags any unescaped run of two or more backticks outside a fence; the surfaces use none. MQ3, re-run by the lead, fires L15.
+
+**F398-A2 = B3(a, c) (minor; the third round to find silent classes missing from "Not seen").** Three kinds of silent class:
+- a block swallowing the next line: a marker under a table, a quote or a list (MB1–MB3);
+- tables under running text, whose position cmark-gfm reports as the absorbed paragraph's (T1, T5);
+- links, reference definitions, entities, autolinks, task boxes and footnotes.
+
+**Disposition:** per CLAUDE.md item 5, two structural checks and one invariant instead of more rules.
+- L10 also flags a top-level block with no blank line after it, and a paragraph with no source position.
+- The new L16 flags lazy continuation into a quote, a table or a list item.
+- The new L17 is the invariant: the source's letters and digits must survive rendering in order, and the rendering may hold no element the surfaces never use. Footnotes are now enabled, as on GitHub.
+- "Not seen" is stated as the survey's record, not a proof of completeness.
+- Probes went from 23 to 37.
+- **Lead's checks:**
+  - MQ3, MB1–MB3 and T1 each fail, re-run by content;
+  - both surfaces give 0 defects;
+  - the lint takes 0.7 s.
+
+**Cosmetics:**
+- **A3:** fences may be indented or quoted; L11 and L14 strip quote markers; the nested-list cost of L10 is documented.
+- **A4:** the footer's "stand only in their struck history" was false as worded. It is struck and replaced with "are consumed by no live range, and stand only in struck spans and in the dated annotations …". The honest scope carries the matching note.
+- **B4:** V1 reports git's own error. The lead tested both an empty repository and a missing git directory.
+- **B5:** the reader printer shows the FAIL lines (12, the rest counted), the stdout tail when there are none, and the stderr tail. The lead ran a planted warning reader and an 18-FAIL reader.
+- **B7:** the label-scan comments, CLAUDE.md's `READER_INFRA` list and the block-structure dating.
+
+**Out-of-scope observations:**
+- **C1 (accepted and fixed).** g6's label and docstring said "neighbour separation", but the ratio is per unit height.
+  - The lead recomputed the D–H main-term spacing, 2π/log(5γ/2π) = 1.488 at γ = 85.699348.
+  - That puts poles 2.03×10⁻⁴ rad apart, 6.89 per resolution cell.
+  - The wording is corrected. The verdict stands.
+- **B-O1:** adding pkgutil, imp and zipimport to `_RISKY_MODULES` is a candidate exact clause with zero reach. It is held for the owner.
+- **A-O1:** the brief's "34" was corrected during the run.
+- **A-O2 / C-O2:** the stopped wrapper, as above.
+
+**Check-1 record (re-read this round):**
+- `riemann-indistinguishability.md`: the footer line and the 1at(v) honest scope (4148–4160);
+- `run_tower.py` 140–330 (the reach walk), 1150–1240 (readers and the reach precheck) and 840–900 (the label scan);
+- `render_lint.py` in full;
+- `cascade_weil_positivity_status.py` 160–235;
+- `cascade_floor_meter.py` 60–80 and 400–430.
+
+**Lead's verification commands** (scripts under `scratchpad/r398/lead/`):
+- `shape_proto.py` and `shape_cases.py`: the prototype invariants on both surfaces and 16 cases;
+- `mut398.py`: the reviewers' mutations, run by content;
+- `snap.py` against `snap_wt.json`: 0 reach or fingerprint differences;
+- `dry_m398.py`: nine reach mutations plus the control;
+- `t_printer.py`: the reader printer;
+- `needle_diff.py`: 741 needles, 0 count changes.
+
+**Battery on the sweep.** Full-tower class: `run_tower.py` on d677ae1 under the checkpoint wrapper, with the maximum background limit (`scratchpad/r399/battery_lead/`, 21:36–21:56 UTC).
+- All eight prechecks green, including "render lint: 2 surfaces, 0 defects; probes 37/37 as expected" and "reach precheck: 36 members, 109 reach files (floor 109), 0 unresolved imports; sabotage case reached 10 planted files".
+- "census: 31 live PASS + 5 cached PASS + 0 FAIL of 36", "TOWER PASS (36/36)", exit 0, "WRAPPER-COMPLETE", "BATTERY DONE".
+- The five cached members are those whose reach does not name `cascade_floor_meter.py`.
+- The final cache was committed by the wrapper (1c8f1d5).
+
+---
