@@ -4408,8 +4408,11 @@ fill exerting informational pressure on the archimedean ball
 as the source of ~~that positivity~~ **~~an archimedean positivity,~~ the
 Weil positivity W(g∗g̃) ≥ 0 that (P4) targets** *(round 390 F390-2:
 the struck antecedent was (vi)'s struck clause; round 391 F391-1:
-Weil's functional is global, not archimedean — 1ai(ii)'s criterion
-and 1at(ii) keep the two apart)*. Three graded supports. (a)
+Weil's functional is global, not archimedean — ~~1ai(ii)'s criterion
+and 1at(ii) keep the two apart~~ 1as(vii): the archimedean term is one
+local term of the explicit formula; 1bl(i): Weil's full functional adds
+the prime-power terms; 1bt(iv): the archimedean terms alone sum negative
+on the pole's witness; round 392 F392-1 re-pointed the support)*. Three graded supports. (a)
 Mechanism-class MEMBERSHIP: thermodynamic/informational
 functionals are among the mechanisms yielding a priori
 positivity without estimates (states, entropy production,
