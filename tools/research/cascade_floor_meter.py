@@ -68,8 +68,11 @@ Gates (all exit-gated; any failure exits 1):
       density |d theta / d gamma| = 4/(1 + 4 gamma^2) ~ 1.4e-4 rad per
       unit height, while the meter's resolving power at n <= 4500
       coefficients is 2 pi / 4500 ~ 1.4e-3 rad: the ratio (in (9, 12))
-      says neighbouring zeros crowd an order of magnitude below
-      resolution -- the wild D-H target is INFEASIBLE for this
+      is per unit height, not per neighbour pair (at the D-H mean
+      zero spacing ~1.49 there, neighbouring poles sit ~2.0e-4 rad
+      apart, ~7 per resolution cell; round 398 C1 corrected the
+      gate's "neighbour separation" wording) -- the wild D-H target
+      is INFEASIBLE for this
       instrument at this reach, recorded as such (the planted target
       at gamma = 20, where the density is ~18x thinner, is the honest
       validation). Constants-only arithmetic; nature stated at the
@@ -422,8 +425,9 @@ ok &= (f"{gDH:.6f}", n_res, f"{g20:.1f}", f"{dens:.1e}", f"{resol:.1e}",
 print(f"  g6 |dtheta/dgamma| at {gDH} = {dens:.4e}; resolution at n = {n_res} = "
       f"{resol:.4e}; ratio = {resol/dens:.1f}; thinning factor at gamma = "
       f"{g20:g}: {dens20/dens:.1f}", flush=True)
-gate("g6 the D-H crowding infeasibility: neighbour separation an order of "
-     "magnitude below the meter's resolution at reachable n", ok)
+gate("g6 the D-H crowding infeasibility: the pole-frequency density per "
+     "unit height an order of magnitude finer than the meter's resolution "
+     "at reachable n", ok)
 
 # ---------------------------------------------------------------- g7
 def primes_upto(n):

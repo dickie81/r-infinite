@@ -8,7 +8,7 @@ Rounds 389-393 found delimiters that GitHub does not render as written
 surface with cmark-gfm -- the renderer behind GitHub's markdown, whose
 HTML for this paper matched GitHub's own API rendering at 2b76ff1 and
 49ab366 (the round-395 reviewers compared the visible text and the
-em/strong/del/code markers) -- and fails on fifteen defect classes,
+em/strong/del/code markers) -- and fails on seventeen defect classes,
 each decidable from the rendering:
 
   L1 single-tilde strike: GitHub parses ONE tilde as a strike
@@ -47,17 +47,20 @@ each decidable from the rendering:
      must not change the rendering ("|x|_p" opens an italic that a
      later "x_ " closes; the paper's 1bo(i) italicised half a
      paragraph this way).
-  L10 a block with no blank line before it: a list, blockquote,
-     heading, thematic break, code block or table whose first source
-     line directly follows a non-blank line (blockquote markers
-     aside), decided from the source-positioned rendering alone -- a
-     hard-wrapped line that happens to begin with "+ ", "1) ", "> ",
-     "***" or "~~~" (round 396: nine such lines dropped their
-     operators from formulas in 1bf-1ca; round 397 F397-A1/B2: the
-     round-396 form exempted any previous line that merely began like
-     a block, "|x|", "#33" or "47) " among them). Re-wrap an
-     accidental one; give an intended one, nested or not, a blank
-     line before it.
+  L10 a block not set off by blank lines, decided from the
+     source-positioned rendering: a list, blockquote, heading,
+     thematic break, code block or table (and a top-level paragraph)
+     whose first line directly follows a non-blank line, a top-level
+     block whose last line is directly followed by one (blockquote
+     markers aside), and a paragraph the rendering gives no source
+     position because the table under it absorbed it. Hard-wrapped
+     lines that begin with "+ ", "1) ", "> ", "***" or "~~~" (round
+     396: nine such lines dropped their operators from formulas in
+     1bf-1ca; round 397 F397-A1/B2 decided it from the rendering;
+     round 398 F398-A2/B3 added the line after a block and the
+     absorbed paragraph). Re-wrap an accidental one; give an intended
+     one, nested or not, blank lines around it (a nested list made
+     loose by this is the price; the surfaces nest none).
   L11 a setext heading: a heading whose source line does not begin
      with "#" (a stray "===" or "---" under a line of text).
   L12 a hard line break (<br>): a trailing backslash or two trailing
@@ -69,23 +72,43 @@ each decidable from the rendering:
      markdown also produces).
   L14 an indented code block: a <pre> whose source line is not a
      fence.
-  L15 a LaTeX quote pair read as code: a code span opened by a run
-     of two or more backticks with no backtick inside it -- the only
-     reason for the longer run is a literal backtick within, so the
-     span is two ``open quotes that swallowed the text between them
-     (round 396 F396-A2, acted on round 397 F397-A2). Write "\\`\\`".
+  L15 a run of two or more backticks outside a fence: the surfaces
+     use none, and a LaTeX ``open quote is one -- two of them in a
+     paragraph form a code span that swallows the text between,
+     code spans included (round 396 F396-A2; round 397 F397-A2;
+     round 398 F398-A1/B3: the round-397 form required the span to
+     hold no backtick, so a code span between the quotes hid it).
+     Write "\\`\\`".
+  L16 a line that continues a block it does not belong to (lazy
+     continuation): a line inside a blockquote that does not begin
+     with ">", a line of a table that does not begin with "|" (prose
+     absorbed as a row, or prose whose "|x|" and a following "-|-"
+     made a table), and a line inside a list item that is neither
+     indented nor an item (round 398 F398-A2: a marker written
+     directly under a quote, a table or a list joined it).
+  L17 the text is not what the source says: the letters and digits of
+     the source, in order (an ordered item's number aside), must be
+     exactly those of the rendering, and the rendering may hold no
+     element the surfaces never use (a link, autolink, image, task
+     checkbox or footnote). A character reference, a link's target, a
+     link reference definition, a task box and a footnote each fail it
+     (round 398 F398-A2/B3, the third round to find such a class: one
+     invariant in place of further rules).
 
-Scope, stated: L1-L15 detect markup that does not render as written,
-under cmark-gfm's server-side HTML. Not seen: a star after a
-multi-letter token that closes an italic early while the stray it
-leaves follows a letter; a quoted LaTeX escape of one of the allowed
-characters ("\\_", "\\*", "\\~", "\\|", "\\`" and the backslash
-itself), which renders without its backslash; a pair of LaTeX
-single open-quotes ("`a' ... `b'"), which forms an ordinary
-one-backtick code span; inside a list, a wrapped line that begins
-with the item's own marker, which renders as a sibling item; and
-GitHub's client-side typesetting of "$...$" math, which the server
-HTML does not carry. Those stay with the pre-landing self-review. Code spans and fenced
+Scope, stated: L1-L17 detect markup that does not render as written,
+under cmark-gfm's server-side HTML with GitHub's footnotes. The "Not
+seen" list below is what the reviews of rounds 395-398 found and the
+rules do not catch; it is the survey's record, not a proof that
+nothing else exists. Not seen: a star after a multi-letter token that
+closes an italic early while the stray it leaves follows a letter; a
+quoted LaTeX escape of one of the allowed characters ("\\_", "\\*",
+"\\~", "\\|", "\\`" and the backslash itself), which renders without its
+backslash; a pair of LaTeX single open-quotes ("`a' ... `b'"), which
+forms an ordinary one-backtick code span; inside a list, a wrapped
+line that begins with the item's own marker, which renders as a
+sibling item; and GitHub's client-side typesetting of "$...$" math,
+which the server HTML does not carry. Those stay with the pre-landing
+self-review. Code spans and fenced
 code blocks are exempt from L5-L9 (backtick strings matched as
 maximal runs, never across a blank line); an indented code block is
 itself a defect (L14). The per-item
@@ -104,6 +127,7 @@ import html
 import os
 import re
 import sys
+from html.parser import HTMLParser
 
 try:
     import cmarkgfm
@@ -118,7 +142,9 @@ ROOT = os.path.normpath(os.path.join(os.path.dirname(
 SURFACES = ("riemann-indistinguishability.md",
             "cascade-riemann-formulation.md")
 ALLOWED_ESCAPES = set("*_~`|\\")
-OPT = Options.CMARK_OPT_UNSAFE
+# GitHub renders footnotes (round 398: without the option a footnote
+# rendered as plain text here and L17 could not see it)
+OPT = Options.CMARK_OPT_UNSAFE | Options.CMARK_OPT_FOOTNOTES
 OPT_DT = OPT | Options.CMARK_OPT_STRIKETHROUGH_DOUBLE_TILDE
 _SUBS = "₀₁₂₃₄₅₆₇₈₉ₐₑₒₓₔₕₖₗₘₙₚₛₜ′'"
 _SUPS = "⁰¹²³⁴⁵⁶⁷⁸⁹ⁿⁱ⁺⁻"
@@ -142,7 +168,7 @@ def _text(h):
 # crosses a blank line (a paragraph boundary), so an unpaired
 # backtick cannot mask the rest of the document; an escaped backtick
 # opens nothing
-_CODE = re.compile(r"^(```|~~~).*?^\1"
+_CODE = re.compile(r"^[ \t>]*(```|~~~).*?^[ \t>]*\1"
                    r"|(?<![`\\])(`+)(?!`)(?:(?!\n[ \t]*\n)[^\x00])+?(?<!`)\2(?!`)",
                    flags=re.S | re.M)
 
@@ -268,51 +294,147 @@ def lint(src):
     for m in re.finditer("`", stxt):
         out.append(("L8", "literal backtick at: "
                     + _snip(stxt[max(0, m.start() - 50):m.start() + 30])))
-    # L15: a multi-backtick code span with no backtick inside
-    for m in _CODE.finditer(src):
-        run = m.group(2)
-        if run and len(run) >= 2 and "`" not in m.group(0)[len(run):-len(run)]:
+    # L15: any unescaped run of two or more backticks outside a fence
+    # (round 398 F398-A1/B3: the round-397 form, "no backtick inside",
+    # was silent when a code span sat between two LaTeX open-quotes)
+    fence = _fence_mask(src)
+    for m in re.finditer(r"(?<![`\\])``+", src):
+        if not fence[m.start()]:
             ln = src.count("\n", 0, m.start()) + 1
-            out.append(("L15", f"line {ln}: a {len(run)}-backtick code span "
-                        "with no backtick inside (a LaTeX quote pair?): "
-                        + _snip(m.group(0), 60)))
-    out += _block_defects(src)
+            out.append(("L15", f"line {ln}: a run of {len(m.group(0))} "
+                        "backticks (a LaTeX ``open quote?)"))
+    out += _block_defects(src, gh)
     return out
 
 
 _QUOTE_PREFIX = re.compile(r"^\s*(?:>\s?)*")
 _RAW_HTML = "<!-- raw HTML omitted -->"
+_ITEM_LINE = re.compile(r"\s|\s*(?:>\s?)*\s*(?:[-*+]|\d+[.)])(?:\s|$)")
+# every element the surfaces use; anything else in the rendering (a
+# link, autolink, image, task checkbox, footnote) is a construct they
+# never use on purpose (L17)
+_USED_TAGS = {"p", "em", "strong", "del", "code", "pre", "ul", "ol", "li",
+              "blockquote", "h1", "h2", "h3", "h4", "h5", "h6", "hr",
+              "table", "thead", "tbody", "tr", "th", "td", "br"}
+_BLOCK_TAGS = {"p", "ul", "ol", "li", "blockquote", "h1", "h2", "h3", "h4",
+               "h5", "h6", "hr", "pre", "table"}
 
 
-def _block_defects(src):
-    """L10-L14 from the source-positioned rendering."""
+def _fence_mask(src):
+    mask = [False] * len(src)
+    for m in _CODE.finditer(src):
+        if m.group(1):
+            for k in range(m.start(), m.end()):
+                mask[k] = True
+    return mask
+
+
+class _Blocks(HTMLParser):
+    """Every block element of the source-positioned rendering: tag,
+    first and last source line (a trailing blank line excluded), the
+    raw position, and its depth among block elements."""
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.stack, self.els = [], []
+
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag not in _BLOCK_TAGS or "data-sourcepos" not in a:
+            return
+        m = re.match(r"(\d+):(\d+)-(\d+):(\d+)", a["data-sourcepos"])
+        sl, _sc, el, ec = map(int, m.groups())
+        if ec == 0 and el > sl:
+            el -= 1
+        e = {"tag": tag, "s": sl, "e": el, "raw": a["data-sourcepos"],
+             "depth": len(self.stack)}
+        self.els.append(e)
+        if tag != "hr":
+            self.stack.append(e)
+
+    def handle_endtag(self, tag):
+        if tag in _BLOCK_TAGS and self.stack and self.stack[-1]["tag"] == tag:
+            self.stack.pop()
+
+
+def _block_defects(src, gh):
+    """L10-L14, L16 and L17 from the source-positioned rendering."""
     out = []
     lines = src.split("\n")
     h = _render(src, OPT | Options.CMARK_OPT_SOURCEPOS)
     h_nocode = _drop_code_html(h)
-    for m in re.finditer(r'<(ul|ol|blockquote|h[1-6]|hr|pre|table)\b'
-                         r'[^>]*data-sourcepos="(\d+):', h):
-        ln = int(m.group(2))
-        prev = lines[ln - 2] if ln >= 2 else ""
-        if _QUOTE_PREFIX.sub("", prev).strip():
-            out.append(("L10", f"line {ln}: <{m.group(1)}> has no blank "
-                        f"line before it: ..." + _snip(prev[-40:], 40)
-                        + " | " + _snip(lines[ln - 1][:40], 40)))
-        if m.group(1)[0] == "h" and m.group(1) != "hr" \
-                and not lines[ln - 1].lstrip().startswith("#"):
-            out.append(("L11", f"line {ln}: setext heading: "
-                        + _snip(lines[ln - 1], 60)))
+    tree = _Blocks()
+    tree.feed(h)
+
+    def blank(i):
+        return (i < 1 or i > len(lines)
+                or not _QUOTE_PREFIX.sub("", lines[i - 1]).strip())
+
+    for e in tree.els:
+        t, s0, e0 = e["tag"], e["s"], e["e"]
+        if e["raw"].startswith("0:0"):
+            out.append(("L10", f"<{t}> has no source position: a paragraph "
+                        "absorbed by the block that follows it"))
+            continue
+        if t == "li":
+            # L16: a list item's later lines are indented or begin an item
+            for i in range(s0 + 1, e0 + 1):
+                if lines[i - 1].strip() and not _ITEM_LINE.match(lines[i - 1]):
+                    out.append(("L16", f"line {i}: lazy continuation into a "
+                                "list item: " + _snip(lines[i - 1], 50)))
+            continue
+        # L10: a blank line before every block (a paragraph nested in a
+        # container excepted) and after every top-level block
+        if (e["depth"] == 0 or t != "p") and not blank(s0 - 1):
+            out.append(("L10", f"line {s0}: <{t}> has no blank line before "
+                        "it: ..." + _snip(lines[s0 - 2][-40:], 40) + " | "
+                        + _snip(lines[s0 - 1][:40], 40)))
+        if e["depth"] == 0 and not blank(e0 + 1):
+            out.append(("L10", f"line {e0}: <{t}> has no blank line after "
+                        "it: ..." + _snip(lines[e0 - 1][-40:], 40) + " | "
+                        + _snip(lines[e0][:40], 40)))
+        # L16: every line of a blockquote begins with ">", every line of
+        # a table with "|"
+        if t == "blockquote":
+            for i in range(s0, e0 + 1):
+                if lines[i - 1].strip() and not re.match(r"\s*>", lines[i - 1]):
+                    out.append(("L16", f"line {i}: lazy continuation into a "
+                                "blockquote: " + _snip(lines[i - 1], 50)))
+        if t == "table":
+            for i in range(s0, e0 + 1):
+                if not re.match(r"\s*(?:>\s*)*\|", lines[i - 1]):
+                    out.append(("L16", f"line {i}: a table line that does not "
+                                "begin with '|': " + _snip(lines[i - 1], 50)))
+        body = _QUOTE_PREFIX.sub("", lines[s0 - 1]).lstrip()
+        if t[0] == "h" and t != "hr" and not body.startswith("#"):
+            out.append(("L11", f"line {s0}: setext heading: "
+                        + _snip(lines[s0 - 1], 60)))
+        if t == "pre" and not body.startswith(("```", "~~~")):
+            out.append(("L14", f"line {s0}: indented code block"))
     for m in re.finditer(r"<br\s*/?>", h_nocode):
         out.append(("L12", "hard line break at: " + _snip(
             _text(h_nocode[max(0, m.start() - 80):m.start()]), 60)))
-    safe = _render(src, 0)
+    safe = _render(src, Options.CMARK_OPT_FOOTNOTES)
     for m in re.finditer(re.escape(_RAW_HTML), safe):
         out.append(("L13", "raw HTML at: ..." + _snip(
             _text(safe[max(0, m.start() - 80):m.start()])[-50:], 50)))
-    for m in re.finditer(r'<pre[^>]*data-sourcepos="(\d+):', h):
-        ln = int(m.group(1))
-        if not lines[ln - 1].lstrip().startswith(("```", "~~~")):
-            out.append(("L14", f"line {ln}: indented code block"))
+    # L17: the letters and digits survive rendering, in order (an
+    # ordered item's number aside), and no element appears that the
+    # surfaces never use
+    items = {e["s"] for e in tree.els if e["tag"] == "li"}
+    src2 = "\n".join(re.sub(r"^(\s*(?:>\s?)*\s*)\d+[.)]", r"\1", ln)
+                     if i + 1 in items else ln for i, ln in enumerate(lines))
+    a = "".join(c for c in src2 if c.isalnum())
+    b = "".join(c for c in _text(gh) if c.isalnum())
+    if a != b:
+        k = next((i for i, (x, y) in enumerate(zip(a, b)) if x != y),
+                 min(len(a), len(b)))
+        out.append(("L17", "text changed by the rendering at: ..."
+                    + a[max(0, k - 30):k + 20] + " -> ..."
+                    + b[max(0, k - 30):k + 20]))
+    for t in sorted(set(re.findall(r"<([a-zA-Z][a-zA-Z0-9]*)", gh))
+                    - _USED_TAGS):
+        out.append(("L17", f"an element the surfaces never use: <{t}>"))
     return out
 
 
@@ -362,6 +484,22 @@ PROBES = (
     ("L13", "the bound holds\n<p ≤ x for every prime\n"),
     ("L14", "para\n\n    an indented line\n"),
     ("L15", "the ``one period'' and the ``other'' here\n"),
+    ("L15", "says ``one period'' (gated in `x.py`), and ``the other''\n"),
+    ("L10", "intro text\n| a | b |\n|---|---|\n| 1 | 2 |\n"),
+    ("L10", "# a heading\ntext right under it\n"),
+    ("L16", "> a quoted line\n*(a marker)*\n"),
+    ("L16", "| a | b |\n|---|---|\n| 1 | 2 |\n*(a marker)*\n"),
+    ("L16", "1. item one\na lazy line\n"),
+    ("L16", "|x| + y is the norm\n-|-\n"),
+    ("L17", "the letter &#x3B1; here\n"),
+    ("L17", "see [0, 1](x) here\n"),
+    ("L17", "text\n\n[a]: b\n"),
+    ("L17", "see <https://ab.cd/ef> here\n"),
+    ("L17", "- [x] done\n"),
+    ("L17", "a claim[^1] here\n\n[^1]: the note\n"),
+    (None, "para one\n\n> quote\n\n| a |\n|---|\n| 1 |\n\n1. one\n"
+           "2. two\n\n- x\n- y\n\n> # quoted heading\n\n   ```\n"
+           "   a fenced line\n   ```\n"),
     (None, "~~struck~~ *em* **strong** x\\* ≈ 9.3, \\~9, τ* = 2, "
            "a_k and `a*b ~c~` \\`\\`q''\n"),
 )

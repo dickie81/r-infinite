@@ -164,9 +164,14 @@ CENSUS = "4f51753"   # Round 140 sweep (F6: the census made repo-wide)
 terms = ["Weil positivity", "Weil's criterion", "positivity criterion"]
 
 
+GIT_ERR = []
+
+
 def git_out(*args):
     r = subprocess.run(["git", "-C", ROOT] + list(args),
                        capture_output=True, text=True)
+    if r.returncode and r.stderr.strip():
+        GIT_ERR.append(r.stderr.strip().splitlines()[0])
     return r.returncode, r.stdout
 
 
@@ -177,8 +182,10 @@ def at_census(path):
 
 rc_ls, ls = git_out("ls-tree", "-r", "--name-only", CENSUS)
 if rc_ls != 0:
-    print(f"  V1: census commit {CENSUS} unreachable -- a shallow clone? "
-          f"run `git fetch --unshallow` (round 396 F396-B4)", flush=True)
+    print(f"  V1: census commit {CENSUS} unreachable (git: "
+          f"{GIT_ERR[0] if GIT_ERR else 'no message'}); if the clone's "
+          f"history stops short of it, run `git fetch --unshallow` "
+          f"(round 396 F396-B4, round 398 F398-B4)", flush=True)
 hist_paper = at_census("riemann-indistinguishability.md")
 hist_form = at_census("cascade-riemann-formulation.md")
 SELF_REL = "tools/research/cascade_weil_positivity_status.py"
@@ -217,8 +224,9 @@ gate("the route's terms occur only within 1ai's span at the census point "
      f"census tree {CENSUS}: outside-span {outside}, repo-wide {wide} "
      f"over {len(wide_files)} files; live pre-span {live_pre}"
      + ("" if rc_ls == 0 else
-        f"; census commit {CENSUS} unreachable: the clone's history stops "
-        f"short of it (`git fetch --unshallow`)"))
+        f"; census commit {CENSUS} unreachable (git: "
+        f"{GIT_ERR[0] if GIT_ERR else 'no message'}) -- if the clone's "
+        f"history stops short of it, `git fetch --unshallow`"))
 
 print("V2 -- W1: the blindness grid over the true corpus (round 140 F1)")
 bs = np.linspace(0.01, 0.99, 25)
