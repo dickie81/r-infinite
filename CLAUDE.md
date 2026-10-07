@@ -100,6 +100,9 @@ At the start of your first response in any session, state plainly: "Running mand
   - Why: the full chain took 75–95 min per run and added nothing for a prose diff. The TOP verifier's checkpoints are reused, and `run_tower.py`'s prechecks already verify every member's bytes and every declared paper surface live. Round 389 ran it three times for a one-sentence edit.
   - Verifiers whose block text the diff touches keep the default full chain mode; they gate the edited text and are cheap.
   - Full chain re-execution (`CASCADE_CHAIN` unset) remains owed in the full-tower class.
+- **Parallel review (owner's decision, 2026-10-07, round 394).** Launch the hostile review as soon as the change or sweep is committed. Do not wait for the lead's battery: in the prose-only and docstring-only classes the lead's battery and the reviewer's battery may run concurrently. This is safe because every tower member is cached in those classes, and `run_tower.py` writes `tools/research/checkpoints/tower_results.json` only when a member runs live.
+  - In the full-tower class, tower runs stay serialized: concurrent live runs would race on that file.
+  - The round's records are written once both batteries and the review have reported.
   - Any executable-line change reverts to the full-tower class.
 - **Full-tower class**: landings, certifications, code- or manifest-touching diffs, and any round after a battery failure.
 - **Sabotage suites always run live** — cached or skipped gates cannot produce an observed census.
