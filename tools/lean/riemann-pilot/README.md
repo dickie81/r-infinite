@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1295 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1333 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -223,6 +223,7 @@ Every file ends with `#print axioms`. All 1295 checked theorems in `src/` (and t
 | `EisensteinPairedGauss.lean` | 480 | **S4, part 4: the paired Gauss sums**: twisted quadratic sums over squarefree moduli (`sqSum_mul_t`, `sqSum_prod`); **`gamF_three_eq`** (`γ₃(n) = Φ(a, b)/2` for squarefree `n = a + bω`, the paper's `γ₃(n) = Γ_quad(n)`) and `gamF_three_sq` (`γ₃(n)² = χ_n(−1)`); `χ_n(4)` through `n mod 2` (`prod_chi6_four`); unit norms (`norm_gamF`, `norm_aF`); **`paired_gauss`** (`μ(z₁)μ(z₂)·γ(χ_{z₁}χ̄_{z₂}) = ā(z₁)·a(z₂)·χ_{z₁}(4)⁻¹·χ_{z₂}(4)·γ₃(z₁z₂)`) and **`pairFactor_eq_of_mod_four`** (the factor depends only on `z₁, z₂ mod 4`) (round 304) |
 | `EisensteinDualMeanSquare.lean` | 276 | **S4, part 5: the dual mean square**: the primes prime to `6` with their primary generators (`Pr`, `πP`); a squarefree ideal of norm prime to `6` as a set of primes (`primeSet`, `pgen_eq_prod`, `sym6_eq_prod`, `primeSet_mul`); `γ_j`, `α` and the paper's `a_ξ` on ideals (`gamI`, `alphaI`, `aXi`, bridged to round 300 by `gamI_eq_gamF`, `alphaI_eq_prod`); **`aXi_mul`** (the paper's (4.6), `a_ξ(𝔞𝔟) = a_ξ(𝔞)a_ξ(𝔟)χ_𝔟(a)⁴`); the column sum `colSum` and the displayed hypothesis **`DualMeanSquare ϑ`**, the paper's (4.12) (round 305) |
 | `EisensteinDualExcl.lean` | 827 | **S4, part 6: removing the exclusion, classes modulo `4`, two coefficient families**: the paper's Lemma 4.4 (`colSum_excl`, `colSum_excl_meanSquare_le`, **`dualMeanSquare_excl`**); a function of two unit classes as a sum of products of characters (`sum_mulChar_eq_zero`, `indicator_eq_sum_mulChar`, **`pair_eq_sum_mulChar`**, `norm_pairCoeff_le`); units modulo `4` (`isUnit_mk_four`, `isCoprime_pgen_two`); **`MellinSep.bilinear_dual_bound₂`** (round 306) |
+| `EisensteinMeanSquarePoisson.lean` | 614 | **S4, part 7: the mean square after Poisson summation**: finite sets of primes as squarefree ideals (`idl`, `chiS`, `fsLe`, `primeSet_idl`, `pgen_idl`, `sym6_idl`, `moebius_idl`); the family as a finite sum (`famSum_eq`); the majorant (`sum_sq_le_majorant`); the expansion over pairs (`famSum_majorant_eq`); one pair after Poisson summation with its Gauss sums evaluated (**`pairSum_poisson`**, the paper's (4.14)); both combined (`majorant_poisson`) (round 307) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9576,7 +9577,38 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 
 **Check 4.** Lemma 4.4 follows the paper's proof. New here: the expansion of the paired factor as a function of two classes, in place of the paper's reduction to one class, and the two-family bilinear bound that this requires.
 
-**Not yet here:** the assembly of Proposition 4.5. In order: the majorant; the expansion of the mean square over pairs of ideals; Lemma 4.2 with the exclusion `g`; the Gauss transform and the paired factor; the zero frequency; the Möbius inversion of `(z₁, z₂) = 1`; the injective change of rows `(e, v, h) ↦ (f, k)`; the dyadic ranges; and the bilinear bound with the count over `𝔟`.
+**Not yet here:** the assembly of Proposition 4.5. In order: the majorant; the expansion of the mean square over pairs of ideals; Lemma 4.2 with the exclusion `g`; the Gauss transform and the paired factor *(Round 307: these four landed, `Eis.sum_sq_le_majorant`, `Eis.famSum_majorant_eq` and `Eis.pairSum_poisson`.)*; the zero frequency; the Möbius inversion of `(z₁, z₂) = 1`; the injective change of rows `(e, v, h) ↦ (f, k)`; the dyadic ranges; and the bilinear bound with the count over `𝔟`.
+
+**Check 9.** No barrier claim is made.
+
+**Bearing on RH:** none.
+
+## Round 307: S4, part 7 — the mean square after Poisson summation (`src/EisensteinMeanSquarePoisson.lean`)
+
+**What it is.** The first half of the assembly of the companion paper's Proposition 4.5, as exact identities: the paper's majorant, the expansion of the mean square over pairs of columns, and its (4.14) for one pair with the Gauss sums evaluated.
+
+**Finite sets of primes as squarefree ideals.**
+- For a finite set `A` of primes not containing `6` (round 305's `Pr`), `idl A = ∏_{P∈A} P` is squarefree of norm prime to `6` (`idl_squarefree`, `idl_coprime6`). The norm statement comes from `coprime6_Pr`: the residue field of `P` has characteristic `p ∤ 6` and `p^f` elements.
+- The primes of `idl A` are `A` (`primeSet_idl`), its primary generator is `∏_{P∈A} π_P` (`pgen_idl`), its sextic symbol is `χ_A = ∏_{P∈A} χ_P` (`chiS`, `sym6_idl`), and `μ(idl A) = (−1)^{|A|}` (`moebius_idl`).
+- `fsLe Y` is the finite set of the `A` with `N(idl A) ≤ ⌊Y⌋` (`mem_fsLe`).
+- **`famSum_eq`**: round 288's family is `A_Z(u) = Σ_A (−1)^{|A|}·χ_A(u)·W(N(A)/Z)` over `A ∈ fsLe ⌈βZ⌉`, for `W` vanishing beyond `β`.
+
+**The majorant.** The paper: "Choose a nonnegative radial Schwartz weight `Φ` such that `Φ(x) ≥ 1` on `[0, 1]` and `supp Φ̂ ⊂ [0, C_Φ]` for some fixed `C_Φ > 0`." With round 301's `Φ` (`Φ ≥ 1` on the unit disc and `Φ ≥ 0`), **`sum_sq_le_majorant`** gives `Σ_{z∈T} |g(z)|² ≤ Re Σ_u g(u)ḡ(u)·Φ(u/√H)` when `N(z) ≤ H` on `T`. The sum converges for bounded `g` (`summable_mul_Phi`).
+
+**The expansion over pairs** (`famSum_majorant_eq`): the smoothed mean square of the family is `Σ_{A₁,A₂} W(N(A₁)/Z)·W(N(A₂)/Z)·μ(A₁)μ(A₂)·Σ_u χ_{A₁}(u)χ̄_{A₂}(u)·Φ(u/√H)`.
+
+**One pair** (**`pairSum_poisson`**, the paper's (4.14) with its Gauss sums evaluated).
+- Put `B = A₁∩A₂`, `C₁ = A₁∖A₂` and `C₂ = A₂∖A₁`. Then `χ_{A₁}(u)χ̄_{A₂}(u) = 1_{(u,B)=1}·F(u)` with `F = χ_{C₁}χ̄_{C₂} = ∏_{P∈C₁∪C₂} χ_P^{±1}` (`chiS_mul_conj`, `chiS_mul_conj_disjoint`), using `χ̄_P = χ_P⁻¹` (`conj_chi6`) and `|χ_P|² = 1_{P∤u}` (`chi6_mul_conj`).
+- Round 303's `poisson_excl_Phi` with exclusion `B` and modulus `c = ∏_{C₁∪C₂} π_P` applies.
+- The Gauss transform of a product of nontrivial characters at `μ` is `F̄(μ)` times its value at `1` (`gaussTr_chars_mu`, from round 295's `gaussTr_prod_primes`), which is `|σc|·γ` (`gaussTr_one_eq_gamF`). Round 304's `paired_gauss` turns `μ(C₁)μ(C₂)γ` into `ā(C₁)a(C₂)Ψ(C₁, C₂)`.
+- The result: `μ(A₁)μ(A₂)·Σ_u χ_{A₁}χ̄_{A₂}·Φ(u/√H) = Σ_{T⊆B} (−1)^{|T|}·2H/(√3·√N(c)·N(d_T))·ā(C₁)a(C₂)Ψ(C₁, C₂)·F(d_T)·Σ_μ F̄(μ)·Φ̂(√(4HN(μ)/(3N(c)N(d_T))))`, with `d_T = ∏_{P∈T} π_P` and round 304's paired factor `Ψ` (`pairPsi`).
+- `majorant_poisson` combines this with the expansion over pairs.
+
+**Build.** Incremental pilot build: 1 compiled, 196 up to date, 13 s, 0 warnings. The 38 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1333 in `src/`. No other file imports `EisensteinMeanSquarePoisson`. The 43 new named declarations were checked against `src/` and `external/` for clashes. The draft's `pair_poisson` clashed with the theorem of that name in `src/PlanePoisson.lean` and was renamed `pairSum_poisson` before landing.
+
+**Check 4.** The steps follow the paper's proof of Proposition 4.5 up to its (4.14). New here: the bookkeeping by finite sets of primes, and the Gauss sums through round 304's closed form instead of the paper's (4.15).
+
+**Not yet here:** the second half of the assembly. In order: the zero frequency; the expansion of the paired factor in characters modulo `4` (round 306) with the Möbius inversion of `(z₁, z₂) = 1`; the injective change of rows `(e, v, h) ↦ (f, k)`; the dyadic ranges; and the bilinear bound with the count over `𝔟`.
 
 **Check 9.** No barrier claim is made.
 
