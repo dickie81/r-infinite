@@ -9740,7 +9740,7 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 - **The primal side** (round 289, for comparison): through Theorem 1.1, `MeanSquare σ` needs `σ ≥ 1`. Through (1.5) the term `(AB)^{2/3}`, with `A = Z^{1+σ}` and `B ≍ Z`, is at most `Z^{1+σ}` only for `σ ≥ 1` as well.
 - So these norms need `ϑ ≥ 1/2` at the dual block and `σ ≥ 1` on the primal side, against the target `1/5`. The dual side does better than the primal side, but not enough.
 
-**What the theta supplies.** The companion paper, its LaTeX rendered as text: "For the twist (5.4), the theta transformation converts the relevant sextic twists into quadratic characters. Combining it with the quadratic large sieve gives the following estimate". Its Proposition 5.2 is "Σ_{0<N_K(k)≪𝓗} |T(X;k,f)|² ≪ D^ε‖W‖²_{C^J(I)}(𝓗 + 𝓗²N_K(f)/X) whenever 1 ≤ 𝓗, X, N_K(f) ≤ D^{C_0}". Its `T` carries the factor `X^{−1/2}`: "The b=1 part is exactly X^{−1/2}Σ*_{(n,S)=1} ᾱ(n)γ₂(n)Ψ(n)W(N_K(n)/X)."
+**What the theta supplies.** The companion paper, its LaTeX rendered as text: "For the twist (5.4), the theta transformation converts the relevant sextic twists into quadratic characters. Combining it with the quadratic large sieve gives the following estimate". Its Proposition 5.2 is "Σ_{0<N_K(k)≪𝓗} |T(X;k,f)|² ≪_{I,ξ,S,ε,C_0} D^ε‖W‖²_{C^J(I)}(𝓗 + 𝓗²N_K(f)/X) whenever 1 ≤ 𝓗, X, N_K(f) ≤ D^{C_0}". Its `T` carries the factor `X^{−1/2}`: "The b=1 part is exactly X^{−1/2}Σ*_{(n,S)=1} ᾱ(n)γ₂(n)Ψ(n)W(N_K(n)/X)."
 - So for one `f`, `Σ_k |X^{1/2}T(X;k,f)|² ≪ D^ε(𝓗X + 𝓗²N(f))`: on average over `k`, square-root cancellation in each twisted sum of cubic Gauss sums. The `b = 1` part of `X^{1/2}T` is the dual mean square's column sum at that `f`.
 - Bounding that column sum through the operator norm cannot give less than about `X²`. The norm is at least about `X`: test the sequence `λ_n = conj(Ψ_{k₀}(n))` against the row `k₀`. And `‖λ‖² ≍ X`. When `𝓗 ≤ X^{1−δ}` and `𝓗²N(f) ≤ X^{2−δ}` for some `δ > 0`, Proposition 5.2's bound is `≪ D^ε X^{2−δ}`: below every operator-norm bound by the factor `X^δ`, up to `D^ε`.
 
@@ -9762,5 +9762,48 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 - No result found fills a socket on the register or contradicts a barrier claim.
 
 **Next.** S5 of round 291's plan, the paper's Sections 5–7: its Proposition 5.1 from its Lemma 5.3 (the cube reduction), Proposition 5.4 (the transfer estimate) and Proposition 5.2, and through them `DualMeanSquare ϑ` for `0 < ϑ ≤ 1/10`.
+
+**Bearing on RH:** none.
+
+## Round 312: the theta half mapped — the plan for S5 (no new Lean)
+
+**What was read.** The companion paper's Sections 5–7 (`preprints/The-Quasi-Riemann-Hypothesis-October-5-2026/build/paper2.tex`, its Proposition 5.1 through its Lemma 7.3), read directly. For calibration, the line counts of the release's directories under `OAI/NumberTheory/DirichletL/` were taken at `adc7f12`.
+
+**The structure of S5.**
+- **Proposition 5.1** ("Fix `κ>0` and `C_0≥1`. Suppose that `𝓗,X,F≥1`, `Σ=XF≤D^{C_0}`, `𝓗≤ΣD^{−κ}`. For every `ε>0` there is an integer `J=J(κ,C_0,ε)≥1` such that `E(𝓗,X,F;ξ,W) ≪_{I,ν,S,κ,C_0,ε} ‖W‖²_{C^J(I)}D^εΣ` …"). Its proof is an induction on `j` under `𝓗 ≤ D^{jκ}`. The base `j = 0` is counting. A step applies Lemma 5.3 and then Proposition 5.4 to the long cube terms, whose new rows satisfy `𝓗′ < D^{−2κ}𝓗`, so the induction hypothesis covers them. The paper's proof of its Proposition 3.1 then takes `κ = ϑ/2`: "For large `D`, Proposition 5.1 applies with `κ=ϑ/2` and `C_0=2`."
+- **Lemma 5.3, the cube reduction.** The completed sum `T(X;Ψ)` of (5.3) carries a cube index `b`; "The extra index `b` supplies the cubes in the Fourier expansion of the Kubota theta function." Möbius inversion in `b` writes the column sum through `T` (5.8). The cubes of norm at most `H_c` go to Cauchy–Schwarz and Proposition 5.2. The longer ones regroup into dual mean squares of length `L_b = X/N(b)³`.
+- **Proposition 5.4, the transfer estimate.** Section 7 proves it with two Poisson summations (Lemmas 7.1–7.3). The first uses the paired Gauss-sum identity "`a_ξ(u_1)·conj(a_ξ(u_2))·γ(χ_{u_1}·conj(χ_{u_2})) = μ(u_1)μ(u_2)(ξG)(u_1u_2^{−1})`". Round 304's `paired_gauss` proves the identity in its form before the expansion in the characters `ξ`. Both use the smooth-weight principle of rounds 302 and 306 and Lemma 4.4 (round 306).
+- **Proposition 5.2, the completed mean-square estimate** ("`Σ_{0<N_K(k)≪𝓗} |T(X;k,f)|² ≪_{I,ξ,S,ε,C_0} D^ε‖W‖²_{C^J(I)}(𝓗 + 𝓗²N_K(f)/X)`" …). Section 6 proves it in four steps:
+  - Lemma 6.1 writes `T` through the Fourier coefficients of Kubota's cubic theta function, "in the normalization of [DR, §5.1, (5.6)]", with "the coefficient sequence given explicitly in [DR, (5.7)–(5.8)], following Patterson's calculation [Pat77, Theorem 8.1]".
+  - Proposition 6.2, the theta transformation, turns `T(X;Ψ)` into `O(2^{|𝒫|})` dual sums over the coefficients `d_0, d_+, d_−` of `θ̄` at three cusps. Its proof, in Appendix A.2, uses the automorphy of `θ` and the cusp expansions "[DR, (5.9), (5.15)]". Lemmas 6.3 and 6.4 add uniformity in the twist, coefficient bounds and the decay of the transformed weight.
+  - Lemma 6.5 is "Goldmakher and Louvel's quadratic large sieve [GL, Theorem 1.1]".
+  - Section 6.4 assembles them over squarefree rows and the repeated prime factors of `k`.
+
+**What the pilot has toward S5.**
+- Round 310 turns `DualMeanSquare ϑ` into `MeanSquare ϑ` and into the half-plane.
+- S4's machinery: Poisson summation over `ℤ[ω]` with twists and excluded primes (rounds 293–294, 303), the paired Gauss sums (round 304), Lemma 4.4 (round 306), the Mellin separation of kernels (rounds 302, 306), and the row/column bookkeeping (rounds 308–310).
+- S3's Gauss-sum identities (rounds 292–300) and sextic reciprocity (round 298).
+
+**What it lacks.**
+- The completed sums `T(X;Ψ)`.
+- Kubota's cubic theta function: upper half-space, the cubic metaplectic Eisenstein series and its residue, the Fourier coefficients at the cusps, and the automorphy. The release's `Eisenstein/` directory has 82 files and 53,369 lines.
+- The quadratic large sieve over `ℤ[ω]`. The release's `QuadraticSieve/` has 36 files and 23,974 lines.
+- For comparison, the pilot's S0–S4 files have 15,360 lines in total (30 files). Round 286's grep found no large sieve, metaplectic form or Kubota theta in the pilot's Mathlib.
+
+**The plan for S5.** It is staged by displayed hypotheses, as S4 was staged by `DualMeanSquare`.
+- **S5a.** `T(X;Ψ)` and its cube inversion (5.8); Lemma 5.3, with Proposition 5.2 as a displayed hypothesis (`CompletedMeanSquare`).
+- **S5b.** The induction of Proposition 5.1, with Proposition 5.4 also displayed (`TransferEstimate`). With rounds 310 and 288 this is the third conditional milestone: the two displayed estimates give `DualMeanSquare ϑ` for every `ϑ > 0`, hence `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5ϑ)/12` for every `ϑ > 0`, that is on `Re s > 11/12`. (Round 282: the release's Lean for this route reaches `23/24`.)
+- **S5c.** Proposition 5.4 derived (Section 7), reusing S4.
+- **S5d.** Proposition 5.2 derived from the theta transformation (Proposition 6.2 with Lemmas 6.3–6.4) and Lemma 6.5. Both stay displayed hypotheses for now; this round does Section 6.4's assembly.
+- **S5e.** The quadratic large sieve over `ℤ[ω]` (Lemma 6.5) derived.
+- **S5f.** Kubota's cubic theta, its coefficients and automorphy (Patterson; Dunn–Radziwiłł), and Appendix A.2's calculation, derived. This is the deepest step. Until it lands, the transformation is the strand's one displayed external input.
+- **Order.** S5a and S5b come first: they reach the third milestone and fix the interfaces. Then S5c, which reuses S4, then S5d, then S5e and S5f.
+
+**Check 9.**
+- (a) The statements are about the paper's Sections 5–7 and the release's directory sizes as counted, nothing wider.
+- (b) No barrier claim is made.
+- (c) The signal is unchanged (round 311).
+
+**Check 4.** New here: the map of S5 onto the pilot's stack. Nothing is derived in Lean this round.
 
 **Bearing on RH:** none.
