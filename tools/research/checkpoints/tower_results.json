@@ -4330,6 +4330,7 @@
 "6603aa1b9ac2a6a2959f19a4": {
 "deps": {
 "dir:tools/research": "07e245734deb1db243be976f040b32287c036f2027946c46e2a35aed6e303c8e",
+"manifest:tools/research/tower_manifest.json": "f915b4d5f92c56f883d7dad9b7fe74d9b72a302d8df6b6b50a2914172594ae61",
 "src/cascade-series-part0.tex": "47bb4b40368ac89d521c15232dc751550fa8600f30e0bd0c57eb77bc45c8203f",
 "src/cascade-series-part4a.tex": "92261e8f60dc069c0d71fa6458f20d0ff2e33078dc7bb319c280e50a04a39aab",
 "src/cascade-series-part4b.tex": "78c0f7d3682a21fc015c7cc2801dd23c962b0ce13f4699a3d7a96ff6291b00e7",
@@ -4463,11 +4464,11 @@
 "tools/research/zeta_zeros_cache.py": "1035849fa7cb845e88ac49c774f0e42a97fa2978bd046d8bdfcd1fe0a74c42b5",
 "tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
 },
-"deps_v": 2,
-"dt": 551.9378881454468,
+"deps_v": 3,
+"dt": 539.8250889778137,
 "file": "cascade_smooth_functional.py",
 "rc": 0,
-"when": "2026-10-08T02:18Z"
+"when": "2026-10-08T03:52Z"
 },
 "664263bad19851f6c73a774e": {
 "dt": 3.9888739585876465,
