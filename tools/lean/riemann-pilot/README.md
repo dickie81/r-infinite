@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 969 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 981 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -200,6 +200,7 @@ Every file ends with `#print axioms`. All 969 checked theorems in `src/` (and th
 | `HalfPlaneS0.lean` | 325 | **S0 of the round-277 plan: power savings for the smoothed Möbius sums of `ζ · L(·, χ₋₃)` give a zero-free half-plane**: `r = 1 ⍟ χ₋₃` with `L(r, s) = ζ(s)L(s, χ₋₃)` (`LSeries_rK`) and `μ_K = μ ⍟ (χ₋₃μ)` with `L(r, s)L(μ_K, s) = 1` on `Re s > 1` (`LSeries_rK_mul_muK`); if `Σ_n μ_K(n)W(n/D) = O(D^{θ+ε})` for every smooth `W` compactly supported in `(0, ∞)` and every `ε > 0` (`SmoothBound θ`, a displayed hypothesis), then `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` on `Re s > θ` (**`ne_zero_of_smoothBound`**) (round 278) |
 | `HalfPlaneJoins.lean` | 120 | **S0's joins: `SmoothBound θ` fed to the stack's sockets for a fixed zero-free strip**: the zeros of `ζ` and of `L(s, χ₋₃)` lie in `1 − θ ≤ Re ρ ≤ θ` (`zeta_band`, `chi3_band`) and the zeros `τ` of `Ξ` have `|Im τ| ≤ θ − ½` (`abs_im_tau_le`); for `θ ≥ ½` the twin forms of `ζ`, of `L(s, χ₋₃)` and of `ζ·ζ_{ℚ(√−3)}` are `≥ −C e^{(2θ−1)λ}` (`weil_rate_of_smoothBound`, `chi3_rate_of_smoothBound`, `QK3_rate_of_smoothBound`) and `λ₁(a) ≤ K(a + 1)e^{(8+2θ)a − 4πe^{2a}}` (`lam_prefactor_of_smoothBound`) (round 279) |
 | `HalfPlaneTrivial.lean` | 82 | **The trivial range of S0's hypothesis**: `SmoothBound θ` for every `θ ≥ 1` (**`smoothBound_of_one_le`**), by Rankin's trick (`norm_le_rpow_mul_norm_term`: `|a(n)| ≤ X^σ|a(n)|n^{−σ}` for `1 ≤ n ≤ X`) and the convergence of `Σ|μ_K(n)|n^{−1−ε}`; so S0's hypothesis is satisfiable, and every `θ < 1` is open (round 280) |
+| `EisensteinSymbol.lean` | 363 | **S1, part 1: the sextic residue symbol on `ℤ[ω]`**: `𝓞 ℚ(ζ₃)` with units `±1, ±ω, ±ω²` (`units_mem`); away from `6`, reduction is injective on units (`red_injective`), every sixth root of unity mod `P` is a reduced unit (`exists_red_eq`) and `6 ∣ N(P) − 1` (`six_dvd_card_sub_one`); the character `χ_P(x) = σ(u)` with `u ≡ x^{(N(P)−1)/6}` (`chi6`, `chi6_spec`, `chi6_pow_six`) and the symbol `(a/𝔞)₆ = Π_{P∣𝔞} χ_P(a)` (`sym6`), multiplicative in `a` and `𝔞` (`sym6_mul_left`, `sym6_mul_right`) (round 281) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -8621,7 +8622,7 @@ Their Comparator configuration permits `propext`, `Quot.sound` and `Classical.ch
 
 Stages, each landing as its own round. Inputs not yet derived are stated as displayed hypotheses, in the manner of round 276.
 - **S0, the reduction.** Let `r(n) = Σ_{d∣n} χ₋₃(d)`, so that `Σ r(n)n^{−s} = ζ(s)L(s, χ₋₃)` on `Re s > 1`, and let `μ_K` be its Dirichlet inverse. Suppose that for every smooth `W` compactly supported in `(0, ∞)` and every `ε > 0`, `Σ_n μ_K(n)W(n/D) = O(D^{θ+ε})`. Then `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` on `Re s > θ`. This is built on round 222's Mellin machinery and Mathlib's `DirichletCharacter.LFunction`. It is small. *(Round 278: landed as `HalfPlaneS0.ne_zero_of_smoothBound`, with the bound as the displayed hypothesis `SmoothBound θ`. It uses round 222's `Zr`, not its Landau machinery: the bound is two-sided. See round 278.)*
-- **S1, arithmetic of `ℤ[ω]`.** A Euclidean domain, primary generators, the norm, and quadratic, cubic and sextic residue symbols with multiplicativity. Also a lower bound `≫ Y/log Y` for split primes of norm `≤ Y`.
+- **S1, arithmetic of `ℤ[ω]`.** A Euclidean domain, primary generators, the norm, and quadratic, cubic and sextic residue symbols with multiplicativity. Also a lower bound `≫ Y/log Y` for split primes of norm `≤ Y`. *(Round 281: part 1 landed in `EisensteinSymbol.lean`: the sextic, cubic and quadratic symbols with both multiplicativities, on Mathlib's principal ideal domain `𝓞 ℚ(ζ₃)` in place of a Euclidean domain. Primary generators, the ideal counts and the split-prime count remain.)*
 - **S2, family extraction.** `A_{p⁶}(D) = A_1(D) + O(D/Y)`, and the mean square over `u` gives `A_1 ≪ D^{11/12+ε}`. Here the mean square is a displayed hypothesis: the socket for S3–S6.
 - **S3, the transform.** Poisson summation over the lattice `ℤ[ω]` with smooth weights. The identity `μ(n)γ₋₁(n) = χ_n(−1)G(n)⁻¹ᾱ(n)γ₂(n)`, which needs cubic and sextic Gauss sums and reciprocity.
 - **S4, the quadratic large sieve over `ℤ[ω]`** (Heath-Brown; Goldmakher–Louvel).
@@ -8707,5 +8708,34 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 **Build.** Incremental pilot build: 1 compiled, 172 up to date, 9 s, 0 warnings. The 2 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 969 in `src/`. No other file imports `HalfPlaneTrivial`.
 
 **Check 4.** Classical (Rankin's trick). New here: the satisfiability witness for S0's hypothesis.
+
+**Bearing on RH:** none.
+
+## Round 281: S1, part 1 — the sextic residue symbol on `ℤ[ω]` (`src/EisensteinSymbol.lean`)
+
+**The setting.** `K = ℚ(ζ₃)` is Mathlib's `CyclotomicField 3 ℚ`, and `𝓞 K = ℤ[ω]` is a principal ideal domain (Mathlib's `three_pid`). Its units are `±1, ±ω, ±ω²` (`units_mem`, from Mathlib's `IsCyclotomicExtension.Rat.Three.Units.mem`), so every unit has sixth power `1` (`units_pow_six`). Also `(ω − 1)² = −3ω` (`lam_sq`).
+
+**Away from `6`.** Let `P` be a maximal ideal with `6 ∉ P`.
+- A unit `w ≠ 1` has `w − 1 ∉ P` (`sub_one_not_mem`): `w − 1` is `−2`, a unit times `ω − 1`, or a unit. So reduction modulo `P` is injective on units (`red_injective`).
+- Every sixth root of unity modulo `P` is the reduction of a unit (`exists_red_eq`): `ξ⁶ − 1` factors over `ℤ[ω]/P` as `(ξ − 1)(ξ − ω)(ξ − ω²)(ξ + 1)(ξ + ω)(ξ + ω²)`.
+- The reduction of `−ω` has order `6`, so `6 ∣ N(P) − 1` (`six_dvd_card_sub_one`).
+
+**The character and the symbol.**
+- `chi6 P : MulChar (𝓞 K ⧸ P) ℂ`. For a unit `x`, `χ_P(x) = σ(u)`, where `u` is the unit of `ℤ[ω]` with `u ≡ x^{(N(P)−1)/6} (mod P)` and `σ : K → ℂ` is a fixed complex embedding (`chi6_spec`). It has `χ_P⁶ = 1` (`chi6_pow_six`). The construction is an isomorphism from the units of `ℤ[ω]` onto the sixth roots of unity modulo `P` (`redEquiv`), composed with `x ↦ x^{(N(P)−1)/6}` and `σ`.
+- `chiP P a` extends it to every ideal: it is `0` unless `P` is maximal and `6 ∉ P`. It is multiplicative in `a` (`chiP_mul`) and vanishes for `a ∈ P` (`chiP_eq_zero_of_mem`).
+- **`sym6 a 𝔞`** `= (a/𝔞)₆ = Π_{P ∣ 𝔞} χ_P(a)`: the product over Mathlib's `normalizedFactors 𝔞`, with multiplicity. It is multiplicative in `a` (`sym6_mul_left`) and in `𝔞` for nonzero ideals (`sym6_mul_right`), with `(a/1)₆ = 1` (`sym6_one_right`). The cubic and quadratic symbols are its square and its cube (`sym3`, `sym2`).
+
+**What it is, and what it is not.**
+- The definitions use no primary normalisation: given `σ`, they are canonical. Conjugating `σ` conjugates every value.
+- This is the first part of S1. Not yet built:
+  - primary generators;
+  - the ideal counts, i.e. `Σ_{N𝔞=n} μ(𝔞) = μ_K(n)`, which joins the family's ideal sums to S0's `μ_K`;
+  - cubic reciprocity;
+  - the count of split primes.
+- For the ideal counts, the pinned Mathlib already has the Dedekind zeta function as the L-series of ideal counts (`NumberField.dedekindZeta`) and the splitting law in cyclotomic fields (`IsCyclotomicExtension.Rat.inertiaDegIn_eq_of_not_dvd`).
+
+**Build.** Incremental pilot build: 1 compiled, 173 up to date, 11 s, 0 warnings. The 12 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 981 in `src/`. No other file imports `EisensteinSymbol`.
+
+**Check 4.** Classical (power residue symbols; Ireland–Rosen ch. 9 and 14). New here: the machine-checked construction on Mathlib's `𝓞 ℚ(ζ₃)`.
 
 **Bearing on RH:** none.
