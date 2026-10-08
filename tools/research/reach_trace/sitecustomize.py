@@ -6,10 +6,13 @@ run_tower.py puts this directory first on PYTHONPATH for every live
 member run and names a trace file in CASCADE_TRACE. Python then imports
 this module at startup, in the member and in every Python process the
 member spawns that keeps the environment and loads site (a child started
-with -I, -E or -S, or with a cleared environment, does not), and an
+with -I, -E or -S, with a cleared environment or with its PYTHONPATH
+replaced, does not), and an
 audit hook appends one line per event to the trace file:
 
-  R <path>      a file opened for reading: open(), os.open() and
+  R <path>      a file opened for reading (a trace that cannot be
+                written ends the process with status 97, round 401
+                F401-B2): open(), os.open() and
                 io.open_code() (the import system's reads); a bytecode
                 cache is written as its source when it has one (round
                 400 F400-B1/C1: with a valid cache CPython never opens
@@ -27,7 +30,8 @@ audit hook appends one line per event to the trace file:
                 included), os.system, os.exec*, os.posix_spawn or
                 os.spawn*: {"cwd": ..., "argv": [...]}, the argument
                 list kept whole, so the driver can resolve quoted
-                paths, "-m" specs and a "cd" inside a shell string
+                paths, "-m" specs and a "cd" written as its own word
+                inside a shell string
 
 An audit event fires before its operation, so a read or listing that
 finds nothing is recorded too; the driver keeps such a path under the
@@ -68,10 +72,18 @@ if _OUT:
             if _fd[0] is None:
                 _fd[0] = os.open(_OUT, os.O_WRONLY | os.O_APPEND | os.O_CREAT,
                                  0o600)
-            os.write(_fd[0], (line.replace("\n", " ") + "\n").encode(
-                "utf-8", "surrogateescape"))
+            data = (line.replace("\n", " ") + "\n").encode(
+                "utf-8", "surrogateescape")
+            if os.write(_fd[0], data) != len(data):
+                raise OSError("short write")
         except OSError:
-            pass
+            # round 401 F401-B2: a trace that cannot be written would be
+            # cached as a complete record; fail closed instead
+            try:
+                os.write(2, b"reach_trace: the trace could not be written\n")
+            except OSError:
+                pass
+            os._exit(97)
         finally:
             _local.busy = False
 
@@ -111,7 +123,9 @@ if _OUT:
             # the import system's own listings (its path finder caches a
             # sys.path directory's names) are left to the static walk,
             # which resolves imports against the code roots: a file that
-            # would shadow an import rotates the key there
+            # would shadow an import written in a reach file rotates the
+            # key there; one that shadows a library's own import is not
+            # bound by either (round 401 F401-B6/C2)
             caller = sys._getframe(1)
             if caller.f_code.co_filename.startswith("<frozen importlib"):
                 return

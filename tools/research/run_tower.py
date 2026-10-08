@@ -54,9 +54,10 @@ every gate re-runs live on every non-cached run; data-only
 corruption of a cached pass's inputs is caught only at the next
 key rotation or TOWER_FRESH -- the disclosed, accepted residual.
 [Net state, round 400 F400-B10/C4: superseded since round 399 -- the
-dependency record stored with each PASS hashes every file a live run
-read, checkpoint data included, and a cached PASS is served only while
-each is unchanged; see the tracer block below.]
+dependency record stored with each PASS hashes every file under the
+repository a live run read, checkpoint data included (the main paper,
+this cache and the manifest's hashes aside), and a cached PASS is
+served only while each is unchanged; see the tracer block below.]
 A member with a cached PASS at the current key is SKIPPED and reported
 as "PASS (cached ...)"; the run's summary prints the live-vs-cached
 census explicitly (no silent caps). This is the same
@@ -967,7 +968,9 @@ if (_rl.returncode != 0 or _m3 is None or int(_m3.group(1)) != RENDER_SURFACES
 # part, and joined in source order, by position (round 397 F397-B4:
 # the round-396 join followed ast.walk's breadth-first order; round 398
 # F398-B7; round 399 F399-B8: field order put a conditional's test
-# before its body and a dict display's keys before its values), a range
+# before its body and a dict display's keys before its values), an
+# f-string as one unit in field order (round 400 F400-B6; inside its
+# replacement fields field order remains, round 401 F401-C6), a range
 # written with
 # any Unicode dash (category Pd) or the minus sign, and a
 # floor on the number of labels scanned, so a renamed gate cannot pass
@@ -1269,15 +1272,20 @@ env = dict(os.environ, CASCADE_CHAIN="manifest",
 # only re-runs a member: the safe
 # direction). Excluded: .git, __pycache__ (a cache's source is recorded
 # instead), the main paper (the needle precheck evaluates it live),
-# this cache and the manifest (integrity-checked above) and the tracer
-# itself. Code (a .py, or a .pyc with no source) read from outside both
+# this cache, the manifest's hashes (integrity-checked above; its member
+# list and census strings, which members read, are recorded as a
+# "manifest:" view, round 401 F401-B1) and the tracer's directory.
+# Code (a .py, or a .pyc with no source) read from outside both
 # the repository and the Python installation, tested on the path as
 # read and as resolved, fails the member (external code). An entry
 # whose record predates the current format (DEPS_V) is not served; the
-# member runs live once. Not recorded: an existence test (os.stat raises
-# no audit event), a read by C code that bypasses Python's audited calls,
-# reads by a process that drops the tracer, and spawns that raise none
-# of the events above.
+# member runs live once. A trace that cannot be written ends the
+# process (status 97), and a record without the member's own script is
+# not cached (round 401 F401-B2). Not recorded: an existence test
+# (os.stat raises no audit event), a read by C code that bypasses
+# Python's audited calls, the import system's own listings and listings
+# by file descriptor, reads by a process that drops the tracer, and
+# spawns that raise none of the events above.
 import json as _json
 import shlex as _shlex
 import site as _site
@@ -1285,7 +1293,7 @@ import sysconfig as _sysconfig
 import tempfile as _tempfile
 REPO = os.path.realpath(os.path.join(HERE, "..", ".."))
 TRACE_DIR = os.path.realpath(os.path.join(HERE, "reach_trace"))
-DEPS_V = 2      # round 400: .pyc reads mapped to sources, listings recorded
+DEPS_V = 3      # round 400: .pyc reads mapped to sources, listings recorded; round 401: the manifest's member list and census strings
 _DEP_SKIP = {os.path.realpath(x) for x in (
     os.path.join(REPO, "riemann-indistinguishability.md"),
     CACHE_PATH, MAN_PATH)}
@@ -1308,9 +1316,11 @@ def _trace_env(trace):
 def _spawn_cands(rec):
     """The files a spawned command line may name: every argument and
     every shell word (quotes honoured), joined to the working directory
-    and to each directory a "cd" in the line moves to; and for "-m X" the
-    module X's files and its packages' __init__.py, under the same
-    directories (round 400 F400-B3/C5)."""
+    and to the target of each "cd" written as its own word, each target
+    joined to the working directory (a chain of cds is not followed);
+    and for "-m X" (X a separate word) the module X's files and its
+    packages' __init__.py, under the same directories (round 400
+    F400-B3/C5; round 401 F401-B5/C5)."""
     cwd, argv = rec.get("cwd") or os.curdir, rec.get("argv") or []
     words = []
     for a in argv:
@@ -1341,18 +1351,21 @@ def _in_env(path):
         os.path.realpath(path).startswith(_ENV_DIRS)
 
 
-def _trace_deps(trace, root):
+def _trace_deps(trace, root, man=MAN_PATH):
     """(deps, external) from a trace file: the files under root the run
-    read or named on a spawned command line, and the directories under
-    root it listed as "dir:" entries (absolute paths, the exclusions
-    applied, each .py widened by its static reach); and the code it
-    read from outside both root and the Python installation."""
+    read or named on a spawned command line, the directories under root
+    it listed as "dir:" entries, the paths under root a read or listing
+    found absent as "missing:" entries, and the manifest man as a
+    "manifest:" view (absolute paths, the exclusions applied, each .py
+    widened by its static reach); and the code it read from outside
+    both root and the Python installation."""
     try:
         lines = open(trace, encoding="utf-8",
                      errors="surrogateescape").read().splitlines()
     except OSError:
         lines = []
     deps, external = set(), set()
+    man = os.path.realpath(man)
 
     def excluded(q):
         parts = q[len(root) + 1:].split(os.sep)
@@ -1391,6 +1404,12 @@ def _trace_deps(trace, root):
             if not os.path.isfile(c):
                 continue
             q = os.path.realpath(c)
+            if q == man:
+                # round 401 F401-B1: members read the manifest's member
+                # list and census strings, which the integrity precheck
+                # does not compare; they are recorded, its hashes not
+                deps.add("manifest:" + q)
+                continue
             if q.startswith(root + os.sep):
                 if not excluded(q):
                     deps.add(q)
@@ -1404,7 +1423,7 @@ def _trace_deps(trace, root):
 
 
 _DEP_MEMO = {}
-_DEP_KINDS = ("dir:", "missing:")
+_DEP_KINDS = ("dir:", "missing:", "manifest:")
 
 
 def _dep_rel(q, root):
@@ -1425,6 +1444,16 @@ def _dep_hash(path, memo=True):
     if not memo or path not in _DEP_MEMO:
         if path.startswith("missing:"):
             h = "absent"
+        elif path.startswith("manifest:"):
+            try:
+                m = json.load(open(path[9:], encoding="utf-8"))
+                view = {k: v for k, v in m.items()
+                        if k not in ("tower", "keying")}
+                view["tower"] = [e.get("file") for e in m.get("tower", [])]
+                h = hashlib.sha256(json.dumps(view, sort_keys=True)
+                                   .encode("utf-8")).hexdigest()
+            except (OSError, ValueError, AttributeError, TypeError):
+                h = _sha(path[9:])
         elif path.startswith("dir:"):
             h = hashlib.sha256("\n".join(sorted(os.listdir(path[4:])))
                                .encode("utf-8", "surrogateescape")).hexdigest()
@@ -1441,6 +1470,14 @@ def _dep_hash(path, memo=True):
     return _DEP_MEMO[path]
 
 
+def _alive(name, deps, root=REPO, here=HERE):
+    """True iff a record holds the member's own script (round 401
+    F401-B2): a run whose tracer did not load, or whose trace was lost,
+    records nothing of its own main script."""
+    return _dep_rel(os.path.realpath(os.path.join(here, name)),
+                    root) in deps
+
+
 def _deps_ok(entry, root=REPO):
     """True iff entry's record is in the current format and every
     recorded file and listing under root is unchanged and every missing
@@ -1451,6 +1488,10 @@ def _deps_ok(entry, root=REPO):
     for rel, h in deps.items():
         if rel.startswith("missing:"):
             if os.path.lexists(os.path.join(root, rel[8:])):
+                return False
+        elif rel.startswith("manifest:"):
+            q = os.path.join(root, rel[9:])
+            if not os.path.isfile(q) or _dep_hash("manifest:" + q) != h:
                 return False
         elif rel.startswith("dir:"):
             q = "dir:" + os.path.join(root, rel[4:])
@@ -1663,7 +1704,9 @@ print(f"reach precheck: {len(names)} members, {len(_union)} reach files "
 # F400-B1/B2/B3/B4/B8/C1/C3): a planted script in a temporary root,
 # every module in it precompiled first (so the import system reads
 # bytecode caches, as it does in the repository), reaches each planted
-# spelling through a file only that spelling touches: a shell command
+# spelling's file (several are also reached by a traced child or by the
+# static widening, so this case alone does not pin every branch; round
+# 401 F401-B4/C7): a shell command
 # string; os.system and os.popen, each running a child with -E (no
 # tracer) after a "cd" into a subdirectory (relative for os.system,
 # absolute for os.popen), so the child's script resolves only through
@@ -1684,6 +1727,9 @@ print(f"reach precheck: {len(names)} members, {len(_union)} reach files "
 # outside the root (the source must be recorded, the cache not classed
 # external). A spelling not planted here is
 # not claimed.
+_TMAN = {"census_count_string": "the **7 scripts cited in place** above",
+         "tower": [{"file": "a.py", "sha256": "0" * 64},
+                   {"file": "b.py", "sha256": "1" * 64}], "keying": []}
 _TPLANT = {"a_shell.py": "", "b_system.py": "", "pkg/__init__.py": "",
            "pkg/mod.py": "", "pkg2/__init__.py": "", "pkg2/__main__.py": "",
            "sub/fsub.py": "", "sub/chain_a.py": "", "out/zz_outside.py": "",
@@ -1694,6 +1740,7 @@ _TPLANT = {"a_shell.py": "", "b_system.py": "", "pkg/__init__.py": "",
            "q iso.py": "", "isopkg/__init__.py": "", "isopkg/iso_m.py": "",
            "rpk/__init__.py": "", "rpk/relmod.py": "",
            "pfx_main.py": "import pfx_mod\n", "pfx_mod.py": "",
+           "man.json": json.dumps(_TMAN),
            **{f"thr/t{i}.txt": "x" for i in range(64)},
            "m.py": (
                "import glob, importlib, os, subprocess, sys\n"
@@ -1713,6 +1760,7 @@ _TPLANT = {"a_shell.py": "", "b_system.py": "", "pkg/__init__.py": "",
                "for f in glob.glob(os.path.join(H, 'sub', 'chain_*.py')):\n"
                "    subprocess.run([E, f], check=True)\n"
                "os.listdir(H)\n"
+               "open(os.path.join(H, 'man.json')).read()\n"
                "try:\n"
                "    open(os.path.join(H, 'opt', 'override.json')).read()\n"
                "except FileNotFoundError:\n"
@@ -1772,7 +1820,7 @@ with _tempfile.TemporaryDirectory() as _tr, \
                            _tp],
                           capture_output=True, text=True, cwd=_tr,
                           env=_trace_env(_trf))
-    _tdeps, _text = _trace_deps(_trf, _tr)
+    _tdeps, _text = _trace_deps(_trf, _tr, man=os.path.join(_tr, "man.json"))
     os.unlink(_trf)
     _tgot = {_dep_rel(q, _tr) for q in _tdeps}
     _textn = {os.path.basename(q) for q in _text}
@@ -1809,10 +1857,37 @@ with _tempfile.TemporaryDirectory() as _tr, \
     os.unlink(os.path.join(_tr, "opt", "override.json"))
     _dserved.append(_served())
     _dserved.append(_served(dict(_entry, deps_v=DEPS_V - 1)))
+
+    def _man(**kw):
+        json.dump(dict(_TMAN, **kw), open(os.path.join(_tr, "man.json"), "w"))
+
+    _man(tower=[{"file": "a.py", "sha256": "2" * 64}, _TMAN["tower"][1]])
+    _dserved.append(_served())
+    _man(tower=_TMAN["tower"][:1])
+    _dserved.append(_served())
+    _man(census_count_string="the **8 scripts cited in place** above")
+    _dserved.append(_served())
+    _man()
+    _dserved.append(_served())
     _DEP_MEMO.clear()
-_DSERVED = [True, True, False, True, False, True, False, True, False]
-_twant = set(_TPLANT) | {"dir:sub", "dir:.", "missing:opt/override.json",
-                         "missing:optdir"}
+    # round 401 F401-B2: a trace that cannot be written ends the process
+    # (status 97), and a record without the member's own script is not a
+    # record of the run
+    _tgot_rel = {_dep_rel(q, _tr) for q in _tdeps}
+    _dserved.append(_alive("m.py", _tgot_rel, _tr, _tr))
+    _dserved.append(_alive("m.py", _tgot_rel - {"m.py"}, _tr, _tr))
+    if os.path.exists("/dev/full"):
+        _dserved.append(subprocess.run(
+            [sys.executable, "-c", "pass"], capture_output=True,
+            env=dict(_trace_env(_trf), CASCADE_TRACE="/dev/full")
+        ).returncode == 97)
+    else:
+        _dserved.append(True)
+_DSERVED = [True, True, False, True, False, True, False, True, False,
+            True, False, False, True, True, False, True]
+_twant = (set(_TPLANT) - {"man.json"}) | {
+    "dir:sub", "dir:.", "missing:opt/override.json", "missing:optdir",
+    "manifest:man.json"}
 if (_trr.returncode != 0 or _tgot != _twant
         or _textn != {"ext_mod.py"} or _dserved != _DSERVED):
     print(f"DEPENDENCY PRECHECK FAILURE: the tracer missed its sabotage "
@@ -1822,11 +1897,11 @@ if (_trr.returncode != 0 or _tgot != _twant
           f"expected {_DSERVED}) {_trr.stderr[-300:]}", flush=True)
     sys.exit(2)
 print(f"dependency precheck: the tracer's sabotage case recorded "
-      f"{len(_tgot)} planted files, listings and missing paths (bytecode "
-      f"caches present) and 1 external module; the record refused "
-      f"{_DSERVED.count(False)} of {_DSERVED.count(False)} planted changes "
-      f"and served the unchanged, comment-edited and restored states",
-      flush=True)
+      f"{len(_tgot)} planted files, listings, missing paths and manifest "
+      f"views (modules precompiled) and 1 external module; the record "
+      f"refused 6 of 6 planted changes, served the unchanged, comment-"
+      f"edited, re-hashed and restored states, refused a record without "
+      f"its script, and a lost trace failed closed", flush=True)
 
 cached = [] if fresh else \
     [n for n in names if cache.get(keys[n], {}).get("rc") == 0
@@ -1846,6 +1921,11 @@ if live:
         for name, rc, dt, tail, deps, external in ex.map(run, live):
             if rc == 0 and external:
                 rc = "external code"
+            if rc == 0 and not _alive(name, deps):
+                # round 401 F401-B2: a record without the member's own
+                # script is not a record of this run (the tracer did not
+                # load, or its trace was lost); it is not cached
+                rc = "record incomplete"
             print(f"  {'PASS' if rc == 0 else 'FAIL'} {name} "
                   f"(exit {rc}, {dt/60:.1f} min, {len(deps)} recorded "
                   f"dependencies)", flush=True)

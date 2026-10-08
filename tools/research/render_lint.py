@@ -77,8 +77,10 @@ each decidable from the rendering:
      Write "\\`\\`".
   L16 a line that continues a block it does not belong to (lazy
      continuation): a line inside a blockquote that does not begin
-     with ">", a line inside a list item that is neither indented nor
-     an item (quote markers aside), and a table line that does not
+     with ">" (after any list markers), a line inside a list item that
+     is neither indented nor an item (quote markers aside; a list
+     inside an indented quote is not checked, round 401 F401-A2), and
+     a table line that does not
      begin and end with "|" or has another count of unescaped "|" than
      the header -- prose absorbed as a row, prose whose "|x|" and a
      following "-|-" made a table, or an unescaped "|x|" that splits
@@ -90,9 +92,11 @@ each decidable from the rendering:
      and the first word of a rendered fence's info string, which cmark
      keeps as its language, aside -- round 400 F400-A2), must be exactly
      those of the rendering, and the rendering may hold no element
-     outside the allowlist of the elements the surfaces' markup
-     produces: paragraphs, emphasis, strikes, code, lists, quotes,
-     headings, rules, tables and line breaks (round 400 F400-B10: not
+     outside the allowlist of block and inline elements, a superset
+     of what the surfaces render: paragraphs, emphasis, strikes, code
+     and code blocks, lists, quotes, headings, rules, tables and line
+     breaks (round 401 F401-A3/C1: the surfaces render no code block,
+     line break or heading below h3; round 400 F400-B10: not
      "plain markdown's elements" -- strikes and tables are GFM's, and
      CommonMark's own links and images are outside it, as are an
      autolink, a task checkbox and a footnote). A
@@ -109,14 +113,15 @@ each decidable from the rendering:
      source number -- an item inserted or deleted without
      renumbering, so a cross-reference by number points elsewhere
      (round 399 F399-A2).
-  L21 a table delimiter row ("|---|---|") that no rendered table holds:
-     the table did not form -- an unescaped "|x|" in its header, or a
+  L21 a table delimiter row of two or more cells ("|---|---|") that no
+     rendered table holds: the table did not form -- an unescaped "|x|"
+     in its header, or a
      header and delimiter row of different widths -- and the whole table
      rendered as one paragraph of bars and dashes (round 400 F400-A1).
 
 Scope, stated: L1-L21 detect markup that does not render as written,
 under cmark-gfm's server-side HTML with GitHub's footnotes. The "Not
-seen" list below is what the reviews of rounds 395-400 found and the
+seen" list below is what the reviews of rounds 395-401 found and the
 rules do not catch; it is the survey's record, not a proof that
 nothing else exists. Not seen: a star after a multi-letter token that
 closes an italic early while the stray it leaves follows a letter; a
@@ -128,12 +133,18 @@ line that begins with the item's own marker, which renders as a
 sibling item; an unescaped "|" inside a table cell that splits it
 while the row keeps the header's cell count; a "|"-led line that ends
 with "|" and has the header's cell count, written directly under a
-table, which joins it as a row; and GitHub's client-side typesetting
+table, which joins it as a row; an accidental fence whose opening
+line holds one word (a struck "~~~0.3%~~" alone at a paragraph start),
+which renders the rest of its container as code with every letter
+kept, and the line on which a container closes an unclosed fence,
+which the code mask also covers (round 401 F401-A1); a lazy line of a
+list inside an indented quote (F401-A2); a one-column table that did
+not form (F401-A5/B8/C9); and GitHub's client-side typesetting
 of "$...$" math,
 which the server HTML does not carry. Those stay with the pre-landing
-self-review. Code spans and fenced
-code blocks are exempt from L5-L9 (backtick strings matched as
-maximal runs, never across a blank line); an indented code block is
+self-review. Code spans (backtick strings matched as maximal runs,
+never across a blank line) and the lines the renderer put in a <pre>
+(round 400 F400-A2) are exempt from L5-L9; an indented code block is
 itself a defect (L14). The per-item
 tests of L6 and L9 render one paragraph at a time: cmark-gfm's process
 grows by megabytes per whole-paper render (round 395 O2).
@@ -375,9 +386,10 @@ _BLOCK_PREFIX = re.compile(r"^(?:\s*(?:>\s?|(?:[-*+]|\d+[.)])\s+))*\s*")
 _DELIM_ROW = re.compile(r"^\|?\s*:?-+:?\s*(?:\|\s*:?-+:?\s*)+\|?\s*$")
 _FENCE_OPEN = re.compile(r"^(\s*(?:>\s?)*\s*(?:(?:[-*+]|\d+[.)])\s+)*"
                          r"(?:`{3,}|~{3,}))(.*)$")
-# the allowlist: the elements the surfaces' markup produces
-# (paragraphs, emphasis, strike, code, lists, quotes, headings, rules,
-# tables, line breaks); anything else in the rendering (a link,
+# the allowlist: block and inline elements, a superset of what the
+# surfaces render (paragraphs, emphasis, strike, code and code blocks,
+# lists, quotes, headings, rules, tables, line breaks); anything else
+# in the rendering (a link,
 # autolink, image, task checkbox, footnote) is a construct they never
 # use on purpose (L17)
 _USED_TAGS = {"p", "em", "strong", "del", "code", "pre", "ul", "ol", "li",
