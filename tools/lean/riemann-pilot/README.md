@@ -9930,3 +9930,57 @@ The deviations from the paper are the displayed form of Proposition 5.4 (its con
 - (c) The signal is unchanged from round 311.
 
 **Bearing on RH:** none. The milestone is a zero-free half-plane `Re s > 11/12` for `ζ` and `L(s, χ₋₃)`, conditional on two displayed estimates from the companion paper. It says nothing about the critical line.
+
+## Round 316: the transfer estimate mapped — the plan for S5c (no new Lean)
+
+**What was read.** The companion paper's Section 7 (its Lemmas 7.1–7.3 and the proof of Proposition 5.4) and Appendix B (Lemmas B.1–B.3), read directly in `paper2.tex`. Round 315 displays Proposition 5.4 as `TransferEstimate`; this round maps its proof onto the pilot's stack.
+
+**The structure of Section 7.**
+- **Lemma 7.1** ("first application of Poisson summation"): "If `M≥0` satisfies `𝒬_{ξ_1}(U)≤M‖U‖²_{C^j(I_*)}` for every `U∈C_c^∞(I_*)` and every `ξ_1`, then `𝒜(W)≪D^{ε_0}(Σ+M)‖W‖²_{C^{2j+4}(I)}`." Here `𝒬_{ξ_1}(U)` is the paper's (7.2), a weighted mean square over `C, t` squarefree, `d ∣ C` and rows `y`, of the Möbius sums `P_{C,d,t}(y;U) = Σ*_n μ(n)ξ_1(n)1_{(n,t)=1}·conj(χ_n(y))χ_n(C)⁴χ_n(d)·U(N(n)/ℓ)` of (7.1). The proof has these steps:
+  - Expand the square in `𝒜(W)` and write `n_i = Cu_i` with `C = (n_1, n_2)`.
+  - Apply Poisson summation in the rows `k` (Lemma 4.2).
+  - Turn the Gauss sums around: "`a_ξ(u_1)·conj(a_ξ(u_2))·γ(χ_{u_1}·conj(χ_{u_2})) = μ(u_1)μ(u_2)(ξG)(u_1u_2^{−1})`" (7.3).
+  - Insert Möbius for `(u_1, u_2) = 1` through `t`.
+  - Pass to the rows `y = hf²`: "the map `(f,h)↦y=hf²` has divisor-bounded multiplicity in `y`".
+  - Separate the weights (Lemma B.2).
+  - Bound the zero frequency by `𝓗‖W‖²_∞`.
+- **Lemma 7.2** ("Second Poisson identity"): an exact identity. Poisson summation in `y` turns the Möbius coefficients of `P` back into the Gauss-sum coefficients `a^♯(n) = a_{ξ′}(n)1_{(n,tg/e)=1}χ_n(deh)χ_n(Cew)⁴` at the column scale `X′ = ℓ/N(gw)` (7.5), plus a zero frequency `Z ≪ Yℓ‖U‖²_∞`.
+- **Lemma 7.3**: "`𝒬_{ξ_1}(U)≪D^{ε_0}Σ(1+S_m)‖U‖²_{C^{2m+4}(I_*)}`", with `S_m` the supremum of (5.11). The proof:
+  - It regroups the output of Lemma 7.2 by `r = tg/e`, `f′ = Cew`, `k′ = deh`. Over the preimages, "At a prime `p∣f′`, the choices `p∣C`, `p∣e`, and `p∣w`, respectively, contribute `(1+1_{p∣k′})−1_{p∣k′}−1_{p∤k′}=1_{p∣k′}`", so only `f′ ∣ k′` survives.
+  - In dyadic blocks of `N(r)`, `N(f′)`, it removes the exclusion `r` by Lemma 4.4.
+  - The resulting dual mean squares lie in the supremum, since `𝓗′/Σ′ ≤ 𝓗/Σ`, `Σ′ ≤ L` and `𝓗′ ≤ 𝓗L/(ΣF)`.
+- **Proposition 5.4**: Lemma 7.3 supplies Lemma 7.1's hypothesis with `j = 2m+4`, so the derivative order is `4m+12`.
+- **Lemma B.2** separates the row-dependent kernels: from "`Σ_r w_r|S_{j,r}(U)|²≤M_j‖U‖²_{C^m(I_*)}`" for every test `U` it gives a bound by "`√(M_1M_2) sup_r‖𝒦_r‖_{C^{2m+4}(I²)}`".
+
+**What the pilot has toward S5c.** Section 7 runs S4's argument twice, once in each direction, so most inputs are rounds 301–310:
+- the majorant `Φ` (round 301);
+- Poisson summation over `ℤ[ω]` with excluded primes (round 303);
+- the paired Gauss sums and their dependence on classes modulo `4` (round 304);
+- `a_ξ(𝔞𝔟) = a_ξ(𝔞)a_ξ(𝔟)χ_𝔟(a)⁴` (round 305);
+- Lemma 4.4, the characters modulo `4` and the two-family bilinear bound (round 306);
+- the expansion over pairs of columns (round 307);
+- the Möbius inversion of disjointness and the column factorization (round 308);
+- the row and block bookkeeping (rounds 309–310).
+
+**What it lacks.**
+- **Constants uniform in the weight.** Round 302's `dilated_meanSquare` takes its constant from the Mellin coefficient `c` of the given `W₀` (`K = (∫‖c‖)·(…·∫‖c‖(1+|t|)^{2J})`); round 302 says so: "Here the constants depend on `W₀`, `V`, `G`, `σ`, `J` and `[ρ₀, ρ₁]`". `TransferEstimate`'s constant is chosen before `W`, as is Lemma B.2's, whose bound is in terms of `‖𝒦_r‖_{C^{2m+4}}`. Its use in Lemma 7.3, with the test function `U` in the kernel, needs the same uniformity. The route is to bound the Mellin coefficient by derivatives: `|𝓕h(t)|·|2πt|^q ≤ ∫|h^{(q)}|` (Mathlib's `Real.fourier_iteratedDeriv`), with `h = W₀ ∘ exp` and its derivatives bounded through Faà di Bruno (Mathlib's `norm_iteratedFDeriv_comp_le`, already used in round 302's `schwartz_exp_comp`).
+- **Poisson summation from Gauss-sum columns to Möbius columns.** Round 307 goes from Möbius columns to Gauss-sum columns. The reverse identity (7.3) follows from round 304's `paired_gauss`, since `|a(n)| = 1` and `μ(n)² = 1` on the columns.
+- **Twisted Möbius families.** Lemma 7.2's columns carry `ξ_1(n)1_{(n,t)=1}χ_n(C)⁴χ_n(d)`, which rounds 307–308 do not; the twists are multiplicative in `n`, so the steps carry over.
+- **The regrouping of Lemma 7.3**: the preimage identity above, the count `τ_div(r)` of the choices `t ∣ r`, and the multiplicity of `y = hf²`.
+
+**The plan for S5c.**
+- **S5c-1.** The uniform Mellin separation: coefficient bounds from derivative bounds, then `dilated_meanSquare` and `bilinear_dual_bound₂` with constants independent of the weight, as `K·N²` for a bound `N` on its derivatives. This also gives the weight `x^{−1/2}W(x)` of Lemma 7.1's kernel.
+- **S5c-2.** Lemma 7.1's identity: the expansion of `𝒜(W)`, round 307's pair Poisson identity with (7.3), the characters modulo `4`, and the insertion of `t`.
+- **S5c-3.** Lemma 7.1's bound: the multiplicity of `y = hf²`, the separation of S5c-1 and the zero frequency.
+- **S5c-4.** Lemma 7.2 for the twisted Möbius family, following rounds 307–308.
+- **S5c-5.** Lemma 7.3: the regrouping, Lemma 4.4, the dyadic blocks and the zero frequency `𝒵`.
+- **S5c-6.** The assembly: `TransferEstimate` derived, and round 315's milestone with `CompletedMeanSquare` as its only displayed hypothesis.
+
+**Check 9.**
+- (a) The statements are about Section 7 and Appendix B as read, and about round 302's constants as written in its code, nothing wider.
+- (b) No barrier claim is made.
+- (c) The signal is unchanged.
+
+**Check 4.** New here: the map of S5c onto the pilot's stack, and the uniformity requirement on round 302's constants. Nothing is derived in Lean this round.
+
+**Bearing on RH:** none.
