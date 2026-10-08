@@ -8795,7 +8795,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
   The count of split primes is dropped.
 - **S0′:** S0 for the totient-weighted sum over ideals prime to `2` and `λ`, with the Euler correction. *(Round 285: landed as `Eis.smoothBound_of_weightedBound`. The correction is a multiplicative function on `ℕ`, and the transfer is made on the smoothed sums, so the result is S0's own hypothesis `SmoothBound θ`.)*
 - **S2′:** the sixth-power average and Cauchy–Schwarz. *(Round 287: the count of ideals of bounded norm with a square-root error, which the average needs, is landed: `Eis.abs_idealCount_sub_le`, `Eis.card_multiples`.)* The first conditional milestone is then: the mean square at `σ` (a displayed hypothesis, the socket for S3–S5) gives `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5σ)/12`. *(Round 288: landed. The milestone is `Eis.ne_zero_of_meanSquare`, with the mean square as the displayed hypothesis `Eis.MeanSquare σ`.)*
-- **S3–S5** as in round 277. The theta input is displayed in the shape of `HasCanonicalThetaModels` until it is derived.
+- **S3–S5** as in round 277. The theta input is displayed in the shape of `HasCanonicalThetaModels` until it is derived. *(Round 291: replaced by the plan there.)*
 - **The target:** `23/24` (`σ = 1/10`), the release's kernel-checked figure. `11/12` is reached only if the mean square is derived at `σ → 0`.
 
 **Check 9.**
@@ -9058,3 +9058,43 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 **Bearing on RH:** none.
 
+## Round 291: the release's proof of the family mean square, mapped — the plan for S3–S5 (no new Lean)
+
+**What was surveyed.** The release (`github.com/openai/math`, entry 003, at commit `adc7f12`), from `outside_mean_square_of_theta_models` (`MeanSquare/ThetaDensity.lean:269–286`) down; paths are relative to `OAI/NumberTheory/DirichletL/`. A fresh-context survey produced the map with static declaration-reach scripts. Every statement cited below was then read directly in the source.
+
+**Finding 1: two halves.** `outside_mean_square_of_theta_models` is `outside_mean_square_of_canonical_density_at_radius` (`MeanSquare/ThetaDensity.lean:192–203`) applied to `hasInitialCanonicalDensityAtRadius_of_theta` (`RowCompletion/InitialDensity.lean:91–96`).
+- The mean-square half takes the hypothesis `HasInitialCanonicalDensityAtRadius` (`Eisenstein/SeedHeight.lean:588–604`). It bounds "child energies", mean squares of shorter rows of normalized cubic Gauss sums twisted by sextic symbols, by `C·Z^δ·(X·L)²` on the bins with `K·c·N(R) ≤ X·L·Z^{−1/20}`.
+- The theta half proves that hypothesis from `HasCanonicalThetaModels`, by an induction on a rank of at most `3000`. The release discharges `HasCanonicalThetaModels` itself (`actual_fixedShellModels`, `RowCompletion/ZeroFreeRegion.lean:174`).
+
+**Finding 2: the steps of the mean-square half.**
+- The family becomes a Möbius row over subsets of the prime pool. The sum over `T` is majorized by a smoothed sum over the lattice `ℤ[ω]`, and the square is expanded.
+- **Poisson summation over `ℤ[ω]`** (`canonical_radial_poisson`, `GaussSum/SexticRadialPoisson.lean:669–686`), from Poisson summation over `ℤ²` (`integer_pair_poisson`, `GaussSum/SecondPoissonScale.lean:935`). The inner sums of the dual sum are twisted Gauss sums.
+- The zero mode and the tail give the diagonal `Z·Z^{1+σ}`. The rest, the "source", is bounded by `C·Z^{1+σ}·Z^ε` (`nonzero_source_bound`, `MeanSquare/ThetaDensity.lean:86–105`).
+- **The Gauss-sum identities.** For a primary generator `p`, `(g/|p|)³ = −p/|p|` (`cubicGauss_normalized_cube_breveE`, `GaussSum/CubicNormalization.lean:24–32`). The sextic factorization is `breveGamma1_gamma2_eq_neg_alpha_G` (`GaussSum/SexticNormalization.lean:173–179`).
+- **Cubic reciprocity.**
+  - `mixed_cross_eq_quadratic` (`QuadraticSieve/CrossSeparation.lean:142`) turns a sextic cross phase into its cube, a quadratic symbol, through `canonicalSextic_sq_reciprocity_primary`.
+  - `canonicalSextic_four_eq_fixed_two` (`GaussSum/SquarePhaseFactorization.lean:336`) applies the law with the primary `−2`.
+  - Round 290's `cub_recip` covers both uses, since `(2)` is inert and prime to `3`.
+- **Where `σ > 1/20` enters.** The source is split into bins. The hypothesis is used on a bin only under `ν + θ ≤ σ − 1/20` (`retained_density`, `RowCompletion/InitialDensity.lean:385–389`), and `nonzero_source_bound` takes `ν = θ = (σ − 1/20)/3` (`MeanSquare/ThetaDensity.lean:107–115`). The `1/20` is the margin in the hypothesis's bin condition.
+
+**Finding 3: the inputs of the theta half.**
+- The quadratic large sieve over `ℤ[ω]`, `sieveNorm_sharp` (`QuadraticSieve/LogarithmicLoss.lean:474–476`). It is proved by `HasSieveExponent.improve`, which takes the exponent `α` to `2 − 1/α` (`:461–462`), iterated from `α = 2` (`hasSieveExponent_one`, `:471`).
+- The cube removal, `shortCompletedSum` (`QuadraticSieve/ProductColumns.lean:175`).
+- Sizes, from the survey's static reach (declarations reachable by name, proofs included): about 21,000 declaration-lines for the mean-square half, 57,000 for the theta half, 61,000 for `outside_mean_square_of_theta_models` and 106,000 for the release's unconditional theorem. These are estimates; the scripts can over- and under-count.
+
+**The plan for S3–S5.** Where it differs, this supersedes rounds 277 and 282.
+- **S3: the Gauss-sum layer.**
+  - The cube of the cubic Gauss sum, `g(χ_P, ψ)³ = −N(P)·π` for any primitive additive character `ψ`: round 290's `jacobiSum_eq_neg` with Mathlib's `gaussSum_pow_eq_prod_jacobiSum`. It is the release's `cubicGauss_normalized_cube_breveE` before normalization.
+  - The sextic factorization, and the twisted Gauss sums of products of sextic characters modulo squarefree moduli.
+  - The cross phase, through round 290's law.
+- **S4: the mean-square half.** Poisson summation over `ℤ[ω]` for radial Schwartz weights, and the mean square from a child-energy bound displayed in the shape of `HasInitialCanonicalDensityAtRadius`. That is the second conditional milestone: the child-energy bound gives `MeanSquare σ` for `σ > 1/20`, hence, with round 288, `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5σ)/12`.
+- **S5: the theta half.** The quadratic large sieve over `ℤ[ω]`, the cube removal and the rank induction, with Kubota's theta displayed in the shape of `HasCanonicalThetaModels` until it is derived.
+- **Order.** S3 first: it is finite-field and algebraic content of the kind built in rounds 281–290. S4's lattice Poisson summation is next.
+
+**Check 9.**
+- (a) The statements are about the surveyed release at `adc7f12`, nothing wider.
+- (c) No new signal. The family mean square has been on the register since round 282.
+
+**Check 4.** New here: the map of the release's proof below `MeanSquare σ`, and where cubic reciprocity enters it. Nothing is derived in Lean this round.
+
+**Bearing on RH:** none.
