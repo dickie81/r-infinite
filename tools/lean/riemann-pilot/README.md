@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1033 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1046 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -204,6 +204,7 @@ Every file ends with `#print axioms`. All 1033 checked theorems in `src/` (and t
 | `EisensteinCount.lean` | 334 | **S1, part 2a: the ideal Möbius sums `m(n) = Σ_{N𝔞=n} μ(𝔞)` on `ℤ[ω]`**: multiplicative in coprime `n` (**`mI_mul`**, via `I ↦ (I + a𝓞, I + b𝓞)`); at prime powers a signed count of sets of prime factors of `p𝓞` (**`mI_prime_pow`**); `p𝓞` has one prime factor of norm `p²` or two of norm `p` (`pFactors_cases`) (round 283) |
 | `EisensteinMobius.lean` | 491 | **S1, part 2b: the splitting law in `ℤ[ω]` and `Σ_{N𝔞=n} μ(𝔞) = μ_K(n)`**: `p ≡ 1 (mod 3)` splits into two primes of norm `p` (`split_of_mod_one`), `p ≡ 2` is inert (`inert_of_mod_two`), `3𝓞 = (ω − 1)²` (`ramified_three`); `m(p^k)` and `μ_K(p^k)` in closed form (`mI_prime_pow_eq`, `muK_prime_pow`); **`mI_eq_muK`**: the ideal Möbius sums of `ℤ[ω]` are S0's `μ_K` (round 284) |
 | `HalfPlaneWeighted.lean` | 871 | **S0′: the totient-weighted sums over `ℤ[ω]` give S0's hypothesis**: `f(n) = Σ_{N𝔞=n} [(N𝔞, 6) = 1]·μ(𝔞)·Π_{P∣𝔞}(1 − 1/NP)` is multiplicative with explicit prime powers (`fW_split`, `fW_inert`); `μ_K = f ⍟ h` for an explicit multiplicative Euler correction `h` (`fA_mul_hA`) with `Σ_n |h(n)|n^{−σ} < ∞` for every `σ > 0` (`summable_hfun`, through `summable_of_mult_local`); **`smoothBound_of_weightedBound`**: `O(Z^{θ+ε})` for the `f`-sums gives `SmoothBound θ`, `θ ≥ 0` (round 285) |
+| `EisensteinIdealCount.lean` | 605 | **The ideals of `ℤ[ω]` of bounded norm**: the number of ideals of norm `n ≥ 1` is `Σ_{d∣n} χ₋₃(d)` (`rA_eq`); `κ = L(1, χ₋₃) > 0` with `|Σ_{d≤U} χ₋₃(d)/d − κ| ≤ 3/(U+1)`; Dirichlet's hyperbola method (`hyperbola`); **`abs_idealCount_sub_le`**: `|#{𝔞 ≠ 0 : N𝔞 ≤ x} − κx| ≤ 5√x + κ`; the multiples of `𝔡` of norm `≤ Y` are counted by `#{N𝔞 ≤ Y/N𝔡}` (`card_multiples`) (round 287) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -8790,7 +8791,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
   
   The count of split primes is dropped.
 - **S0′:** S0 for the totient-weighted sum over ideals prime to `2` and `λ`, with the Euler correction. *(Round 285: landed as `Eis.smoothBound_of_weightedBound`. The correction is a multiplicative function on `ℕ`, and the transfer is made on the smoothed sums, so the result is S0's own hypothesis `SmoothBound θ`.)*
-- **S2′:** the sixth-power average and Cauchy–Schwarz. The first conditional milestone is then: the mean square at `σ` (a displayed hypothesis, the socket for S3–S5) gives `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5σ)/12`.
+- **S2′:** the sixth-power average and Cauchy–Schwarz. *(Round 287: the count of ideals of bounded norm with a square-root error, which the average needs, is landed: `Eis.abs_idealCount_sub_le`, `Eis.card_multiples`.)* The first conditional milestone is then: the mean square at `σ` (a displayed hypothesis, the socket for S3–S5) gives `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5σ)/12`.
 - **S3–S5** as in round 277. The theta input is displayed in the shape of `HasCanonicalThetaModels` until it is derived.
 - **The target:** `23/24` (`σ = 1/10`), the release's kernel-checked figure. `11/12` is reached only if the mean square is derived at `σ → 0`.
 
@@ -8929,3 +8930,29 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 **Outcome.** No result found fills a socket on the register or contradicts a barrier claim. Markers are on round 277 (the third manuscript) and on STRUCTURAL-REVIEW §6 (external status, the Siegel-zero entry, and the lead for the mean-square socket).
 
 **Check 9.** (a) Every negative is scoped to the sources the survey read. (b) No barrier claim is made or accepted. **Bearing on RH:** none.
+
+## Round 287: the ideals of `ℤ[ω]` of bounded norm — `#{𝔞 : N𝔞 ≤ x} = κx + O(√x)` (`src/EisensteinIdealCount.lean`)
+
+**Why S2′ needs it.** S2′ averages the family over the ideals `𝔟` of norm at most `Y`. The ideals `𝔟` prime to a squarefree `𝔞` are counted by inclusion–exclusion over the divisors `𝔡 ∣ 𝔞`, so the average needs the number of multiples of `𝔡` of norm at most `Y`, with an error of size `√Y`. (The error has to be this small: with `Y = Z^{(1+σ)/6}`, an error `O(Y^{1−δ})` keeps the exponent `(11 + 5σ)/12` for every `σ ≥ 0` only when `δ ≥ 1/2`.)
+
+**The results.**
+- `rA_eq`: the number of ideals of norm `n ≥ 1` is `Σ_{d∣n} χ₋₃(d)`.
+  - At prime powers it comes from round 284's splitting law. A split `p` has the `k + 1` ideals `P^a Q^{k−a}` of norm `p^k` (`card_ofNorm_split`). An inert `p` has one ideal of norm `p^k` when `k` is even and none otherwise (`card_ofNorm_inert`). There is one ideal of norm `3^k`, namely `(ω − 1)^k` (`card_ofNorm_three`).
+  - Multiplicativity comes from round 283's `ofNorm_mul`. The two sides are then compared at prime powers (Mathlib's `eq_iff_eq_on_prime_powers`).
+- **The constant** `κ = Σ_d χ₋₃(d)/d`, which is `L(1, χ₋₃)` (`kappa`).
+  - It is defined as the sum of the pairs `1/(3k+1) − 1/(3k+2)`. Each pair is at most `1/(3k+1) − 1/(3k+4)`, so the tail after `q` pairs lies in `[0, 1/(3q+1)]` (`kappa_tail`).
+  - `κ ≥ 1/2 > 0` (`kappa_pos`), and `|Σ_{d≤U} χ₋₃(d)/d − κ| ≤ 3/(U+1)` (`abs_sum_chi_div_sub_kappa_le`).
+- **Dirichlet's hyperbola method** (`hyperbola`): `|Σ_{n≤N} χ₋₃(n)⌊N/n⌋ − κN| ≤ 5√N`.
+  - The left side is the ideal count, by Mathlib's `sum_Ioc_mul_zeta_eq_sum`.
+  - Split at `U = ⌊√N⌋`. For `n ≤ U`, replacing `⌊N/n⌋` by `N/n` costs at most `U`, and the tail of `κ` costs `3N/(U+1) ≤ 3√N`.
+  - For `n > U`, the order of summation is swapped (`mem_swap`). Each inner sum is a sum of `χ₋₃` over an interval, which is `−1`, `0` or `1`, because the partial sums of `χ₋₃` are `0` or `1` (`sum_chiInt_Ioc`). At most `N/(U+1) ≤ √N` of them are nonempty.
+- **The ideal theorem with a square-root error** (`abs_idealCount_sub_le`): `|#{𝔞 ≠ 0 : N𝔞 ≤ x} − κx| ≤ 5√x + κ` for `x ≥ 0`.
+- **Multiples** (`card_multiples`): for `𝔡 ≠ 0` and `Y ≥ 0`, the ideals of norm at most `Y` that `𝔡` divides are `𝔡𝔞` with `N𝔞 ≤ Y/N𝔡`. There are `#{𝔞 ≠ 0 : N𝔞 ≤ Y/N𝔡}` of them. Mathlib's `tendsto_norm_le_div_atTop` gives the limit `κ` but no error term.
+
+**Not used:** lattice-point geometry. The count is arithmetic, through `ζ_{ℚ(√−3)} = ζ·L(·, χ₋₃)`.
+
+**Build.** Incremental pilot build: 1 compiled, 177 up to date, 13 s, 0 warnings. The 13 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1046 in `src/`. No other file imports `EisensteinIdealCount`.
+
+**Check 4.** Classical: the ideal count `Σ_{d∣n} χ₋₃(d)` and the hyperbola method. New here: both machine-checked on Mathlib's `𝓞 ℚ(ζ₃)`, with explicit constants.
+
+**Bearing on RH:** none.
