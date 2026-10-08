@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1163 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1180 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -213,6 +213,7 @@ Every file ends with `#print axioms`. All 1163 checked theorems in `src/` (and t
 | `EisensteinPoisson.lean` | 561 | **S4, part 2: Poisson summation over `ℤ[ω]`**: **`eis_poisson`**: `Σ_{z∈ℤ[ω]} F(σz) = |det M_ϖ|⁻¹·Σ_{k∈ℤ²} 𝓕F(ξ_k)`, `|det M_ϖ| = √3/2`; the affine Fourier transform (`fourier_affine`); **`eis_poisson_twisted`**: twists periodic modulo `c`; **`ξd_eq`**: the dual points are `conj(2σ(μ)/σ(δ))`, `μ ∈ ℤ[ω]`, `δ = 1 + 2ω`; the trace character `ψ_c` of `ℤ[ω]/c` (`ψc_add`, `ψc_add_mul`); **`eis_poisson_quot`**: `Σ_z P(z mod c)F(σz) = 2/(√3·N(c))·Σ_{μ∈ℤ[ω]} (Σ_r P(r)ψ_c(rμ))·𝓕F(conj(2σ(μ)/σ(δc)))` (round 294) |
 | `EisensteinGaussTransform.lean` | 439 | **S3, part 2: the Gauss transform modulo squarefree moduli**: the trace character on `ℤ[ω]/c` (`ψQ`), primitive at primes (`ψQ_isPrimitive`); `inner_sum_prime`: `Σ_{r mod π} χ(r)ψ_π(rμ) = χ⁻¹(μ)·g(χ, ψ_π)`; **`eis_poisson_char`**; the Gauss transform `G_c(f, μ) = Σ_{r mod c} f(r)ψ_c(rμ)` (`gaussTr`) and **`eis_poisson_gaussTr`**; Chinese remainders (`crt_rep_bijective`, **`gaussTr_mul`**, **`gaussTr_prod`**); **`gaussTr_prod_primes`**: `G_c(∏ χ_i, μ) = ∏_i χ_i(c/π_i)·χ_i⁻¹(μ)·g(χ_i, ψ_{π_i})` for `c = ∏ π_i` (round 295) |
 | `PlaneGaussian.lean` | 345 | **Gaussians and Gaussian chirps in the plane**: the Gaussian `e^{-πa|z|²}` as a Schwartz function on `ℂ` (`gaussR`, `gaussC`, from `norm_iteratedFDeriv_gauss_le`); chirps `e^{2πi q(z)}e^{-πa|z|²}` (`chirp`); `fourier_prod_gauss`; **`fourier_chirp`**: `𝓕[e^{2πi Re(wz²)}e^{-πη|z|²}](ξ) = (η² + 4|w|²)^{-1/2}·exp(-π(η|ξ|² + 2i Re(wξ²))/(η² + 4|w|²))` (round 296) |
+| `EisensteinQuadGauss.lean` | 778 | **S3, part 3: quadratic Gauss sums over `ℤ[ω]`**: Gaussian Poisson summation modulo `m` (`gauss_poisson`) and its zero-frequency limit (**`tendsto_gauss_poisson`**); the chirp's dual side (`chirp_sum_dual`, `dual_term`); **`quad_gauss`**: `Σ_{x mod c} ψ_c(x²) = (\|σc\|/2)·Σ_{y mod 2} e(−Re(σ(cy²)/σ(δ))/2)` for `c ≠ 0`; **`quad_gauss_coords`**: for `c = a + bω` the sum is `(\|σc\|/2)·(1 + i^{−b} + i^a + i^{b−a})` (round 297) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9230,7 +9231,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 ## Round 296: Gaussians and Gaussian chirps in the plane (`src/PlaneGaussian.lean`)
 
-**Why.** Round 295 left the cross phase of the sextic symbols. The family `A_u(D)` of round 282 uses sextic symbols, so S4 needs sextic reciprocity: round 290's cubic law times quadratic reciprocity in `ℤ[ω]`. The companion paper of the release (`preprints/The-Quasi-Riemann-Hypothesis-October-5-2026`, Appendix A.1, proof of its Lemma 4.1) gets the quadratic part from the evaluation of the quadratic Gauss sum, `Γ(c) = |c|⁻¹Σ_{x mod c} e(x²/c) = ½Σ_{y mod 2} e(−cy²/4)`, which depends only on `c mod 4`. The proof is Poisson summation over `ℤ[ω]` applied to the chirp `e(z²/c)e^{−πη|z|²}`, with `η → 0`. That needs the Gaussian as a Schwartz function and the Fourier transform of the chirp. Mathlib has the one-variable Gaussian Fourier transform but neither of these. This round supplies both. It is general analysis on `ℂ`.
+**Why.** Round 295 left the cross phase of the sextic symbols. The family `A_u(D)` of round 282 uses sextic symbols, so S4 needs sextic reciprocity: round 290's cubic law times quadratic reciprocity in `ℤ[ω]`. The companion paper of the release (`preprints/The-Quasi-Riemann-Hypothesis-October-5-2026`, Appendix A.1, proof of its Lemma 4.1) gets the quadratic part from the evaluation of the quadratic Gauss sum, `Γ(c) = |c|⁻¹Σ_{x mod c} e(x²/c) = ½Σ_{y mod 2} e(−cy²/4)`, which depends only on `c mod 4`. *(Round 297: the paper states it for `c` coprime to `2`; `Eis.quad_gauss` proves it for every `c ≠ 0`.)* The proof is Poisson summation over `ℤ[ω]` applied to the chirp `e(z²/c)e^{−πη|z|²}`, with `η → 0`. That needs the Gaussian as a Schwartz function and the Fourier transform of the chirp. Mathlib has the one-variable Gaussian Fourier transform but neither of these. This round supplies both. It is general analysis on `ℂ`.
 
 **The Gaussian is a Schwartz function** (`gaussR`, `gaussC`).
 - `norm_iteratedFDeriv_gauss_le`: `‖Dⁿ e^{−πa|z|²}‖ ≤ n!·e^{−πa|z|²}·(2(1 + πa)(1 + |z|)²)ⁿ`. It comes from Mathlib's Faà di Bruno bound `norm_iteratedFDeriv_comp_le`, with `‖Dⁱ|z|²‖ ≤ 2ⁱ(1 + |z|)²` (`norm_iteratedFDeriv_normSq_le`, through the bilinear bound for the inner product).
@@ -9248,7 +9249,48 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 **Check 4.** Classical: Gaussians are Schwartz functions, and the Fourier transform of a Gaussian chirp. New here: both machine-checked in the plane on Mathlib.
 
-**Not yet here:** the theta transformation for the chirp over `ℤ[ω]` and the limit `η → 0`, which give `Γ(c)` (round 297); then quadratic reciprocity in `ℤ[ω]` with the bicharacter `R(a, b) = Γ(ab)/(Γ(a)Γ(b))` on classes modulo `4`, and the paper's Lemma 4.1.
+**Not yet here:** the theta transformation for the chirp over `ℤ[ω]` and the limit `η → 0`, which give `Γ(c)` (round 297) *(Round 297: landed, `Eis.quad_gauss` and `Eis.quad_gauss_coords`.)*; then quadratic reciprocity in `ℤ[ω]` with the bicharacter `R(a, b) = Γ(ab)/(Γ(a)Γ(b))` on classes modulo `4`, and the paper's Lemma 4.1.
+
+**Check 9.** No barrier claim is made.
+
+**Bearing on RH:** none.
+
+## Round 297: S3, part 3 — quadratic Gauss sums over `ℤ[ω]` (`src/EisensteinQuadGauss.lean`)
+
+**What it is.** The evaluation that round 296 prepared. For every `c ≠ 0`, `Σ_{x mod c} ψ_c(x²) = (|σc|/2)·Σ_{y mod 2} e(−Re(σ(cy²)/σ(δ))/2)` (`quad_gauss`), and for `c = a + bω` the sum is `(|σc|/2)·(1 + i^{−b} + i^a + i^{b−a})` (`quad_gauss_coords`). Here `ψ_c` is round 294's trace character, and the sum is round 295's Gauss transform `G_c(qphase c, 0)` with `qphase c x = ψ_c(x²)`. In the companion paper's notation (`ω = e^{2πi/3}`, `e(z) = exp(4πi·Im z/√3)`), `ψ_c(x) = e(x/c)`, whichever root `σ(ω)` is. The two results are then the paper's `Γ_quad(c) = |c|⁻¹Σ_{x mod c} e(x²/c) = ½Σ_{y mod 2} e(−cy²/4)` and `Γ_quad(a + bω) = (1 + i^{−b} + i^a + i^{b−a})/2` (Appendix A.1). The paper states the first for `c` coprime to `2`; the proof here needs only `c ≠ 0`.
+
+**Gaussian Poisson summation.**
+- `gauss_poisson`: round 295's `eis_poisson_gaussTr` for the Gaussian `e^{−πa|z|²}`, whose Fourier transform is `a⁻¹e^{−π|ξ|²/a}` (`fourier_gaussC`, from Mathlib's `fourier_gaussian_innerProductSpace`).
+- **`tendsto_gauss_poisson`**: for `f` periodic modulo `m ≠ 0`, `a·Σ_x f(x)e^{−πa|σx|²} → 2G_m(f, 0)/(√3·N(m))` as `a → 0⁺`. A frequency `ν ≠ 0` carries the factor `e^{−4πN(ν)/(3N(m)a)} → 0`, and dominated convergence applies with the uniform bound `|G_m(f, ν)| ≤ Σ_r |f(r)|` (`exists_norm_gaussTr_le`).
+- At `m = 1`, for `0 < a ≤ 1`: `Σ_μ e^{−πaN(μ)} ≤ C/a` (`exists_tsum_exp_le`), and with `te^{−bt} ≤ (2/b)e^{−bt/2}` (`mul_exp_neg_le`), `Σ_μ N(μ)e^{−πaN(μ)} ≤ C/a²` (`exists_tsum_mul_exp_le`).
+
+**The chirp and its dual side.**
+- `chirp_σO`: `ψ_c(x²)e^{−πη|σx|²}` is round 296's chirp `e^{2πi Re(w_c z²)}e^{−πη|z|²}` at `z = σx`, with `w_c = 2/σ(δc)`.
+- `chirp_sum_dual`: by round 294's `eis_poisson'` and `ξd_eq`, `Σ_x ψ_c(x²)e^{−πη|σx|²} = (2/√3)·Σ_{μ∈ℤ[ω]} 𝓕F_η(conj(2σ(μ)/σ(δ)))`.
+- **`dual_term`**: by `fourier_chirp` and `Re(w_c·conj(2σ(μ)/σ(δ))²) = 2|w_c|²·R(μ)` (`re_wq_dual`), each dual term is `D^{−1/2}·e^{−πεN(μ)}·P₂(μ)·e(R(μ)η²/(2D))`, where `D = η² + 4|w_c|²`, `ε = 4η/(3D)`, `R(μ) = Re(σ(cμ²)/σ(δ))` and `P₂(μ) = e(−R(μ)/2)`.
+- `P2_periodic`: `P₂` is periodic modulo `2`, since `R(μ + 2ν) = R(μ) + 2n` with `n` the `ω`-coordinate of `c(μν + ν²)`.
+
+**The limit `η → 0⁺`.**
+- `eta_sum_decomp`: `η·Σ_x ψ_c(x²)e^{−πη|σx|²}` is the main term `(2/√3)(3/4)√D·ε·Σ_x P₂(x)e^{−πε|σx|²}` plus the error `(2/√3)(η/√D)·Σ_μ e^{−πεN(μ)}·P₂(μ)·(e(R(μ)η²/(2D)) − 1)`.
+- `tendsto_main`: `ε → 0⁺` and `√D → 2|w_c|` (`tendsto_sqrt_Dq`), so `tendsto_gauss_poisson` at `m = 2`, with `N(2) = 4`, gives the limit `(|w_c|/2)·G_2(P₂, 0)`.
+- `tendsto_err`: with `|e(t) − 1| ≤ 2π|t|` (`norm_fourierChar_sub_one_le`) and `|R(μ)| ≤ |σc|·N(μ)/√3` (`norm_Rq_le`), the second lattice sum bounds the error by `K·η·√D` for `0 < η ≤ 3|w_c|²`, so it tends to `0`.
+- **`quad_gauss`**: the same function also tends to `2G_c(qphase c, 0)/(√3·N(c))` (`tendsto_gauss_poisson` at `m = c`). Uniqueness of limits, `|w_c| = 2/(√3·|σc|)` (`norm_wq`) and `N(c) = |σc|²` give `G_c(qphase c, 0) = (|σc|/2)·G_2(P₂, 0)`.
+
+**In coordinates.**
+- `rep2_bijective`: `0, 1, ω, 1 + ω` represent the residues modulo `2`, so `G_2(g, 0) = g(0) + g(1) + g(ω) + g(1 + ω)` (`gaussTr_two`).
+- `P2_coord`: `R(μ)` is half the `ω`-coordinate `n` of `cμ²` (round 294's `re_two_σO_div_δ3`), so `P₂(μ) = i^{−n}`.
+- **`quad_gauss_coords`**: for `c = a + bω ≠ 0` the `ω`-coordinates of `c`, `cω²` and `c(1 + ω)²` are `b`, `−a` and `a − b`, so `Σ_{x mod c} ψ_c(x²) = (|σc|/2)·(1 + i^{−b} + i^a + i^{b−a})`. The normalized sum depends only on `a` and `b` modulo `4`.
+
+**Comparison with the release.** The release proves the same evaluation for every `c ≠ 0`: `quadraticGammaO_formula` (`GaussSum/ThetaLocalRows.lean:388–391`), from `quadraticGammaO_eq_fourTerms` (`:340–343`), which compares the Abel limit `original_abel_gamma_limit` (`Poisson/OscillatoryGaussian.lean:159–171`) with a dual limit by `tendsto_nhds_unique`, and `breveGaussianFourTerms_formula` (`GaussSum/RamifiedTracePhase.lean:545–547`). They were not used here.
+
+**Build.** Incremental pilot build: 1 compiled, 186 up to date, 21 s, 0 warnings. The 17 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1180 in `src/`. No other file imports `EisensteinQuadGauss`.
+
+**Check 4.** Classical: quadratic Gauss sums evaluated by Poisson summation with a Gaussian. The release machine-checks the same evaluation (above). New here: the derivation on the pilot's stack, from rounds 294–296.
+
+**Not yet here:**
+- the square classes modulo `4` and the bicharacter `R(c₁, c₂) = Γ(c₁c₂)/(Γ(c₁)Γ(c₂))`, which the paper evaluates as `R((−1)^e λ^f, (−1)^g λ^h) = (−1)^{eh+fg+fh}`;
+- `Γ(p) = γ₃(p)` at primes, by counting square roots, and its extension to squarefree moduli by the Chinese remainder theorem;
+- with round 290's cubic law, the sextic cross phase of round 295 and the paper's Lemma 4.1.
 
 **Check 9.** No barrier claim is made.
 
