@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1066 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1102 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -206,6 +206,8 @@ Every file ends with `#print axioms`. All 1066 checked theorems in `src/` (and t
 | `HalfPlaneWeighted.lean` | 871 | **S0′: the totient-weighted sums over `ℤ[ω]` give S0's hypothesis**: `f(n) = Σ_{N𝔞=n} [(N𝔞, 6) = 1]·μ(𝔞)·Π_{P∣𝔞}(1 − 1/NP)` is multiplicative with explicit prime powers (`fW_split`, `fW_inert`); `μ_K = f ⍟ h` for an explicit multiplicative Euler correction `h` (`fA_mul_hA`) with `Σ_n |h(n)|n^{−σ} < ∞` for every `σ > 0` (`summable_hfun`, through `summable_of_mult_local`); **`smoothBound_of_weightedBound`**: `O(Z^{θ+ε})` for the `f`-sums gives `SmoothBound θ`, `θ ≥ 0` (round 285) |
 | `EisensteinIdealCount.lean` | 605 | **The ideals of `ℤ[ω]` of bounded norm**: the number of ideals of norm `n ≥ 1` is `Σ_{d∣n} χ₋₃(d)` (`rA_eq`); `κ = L(1, χ₋₃) > 0` with `|Σ_{d≤U} χ₋₃(d)/d − κ| ≤ 3/(U+1)`; Dirichlet's hyperbola method (`hyperbola`); **`abs_idealCount_sub_le`**: `|#{𝔞 ≠ 0 : N𝔞 ≤ x} − κx| ≤ 5√x + κ`; the multiples of `𝔡` of norm `≤ Y` are counted by `#{N𝔞 ≤ Y/N𝔡}` (`card_multiples`) (round 287) |
 | `HalfPlaneMeanSquare.lean` | 737 | **S2′ and the first conditional milestone**: the family `A_Z(u) = Σ_𝔞 μ(𝔞)(u/𝔞)₆W(N𝔞/Z)` over ideals of norm prime to `6` (`famSum`); `(b⁶/𝔞)₆ = [b in no prime of 𝔞]` (`sym6_pow_six`); inclusion–exclusion with round 287's count (`abs_card_coprime_sub_le`); the average over sixth powers of generators is `κY` times round 285's `f`-sum plus `O(√Y·Z^{1+ε})` (`norm_sum_famSum_sub_le`, `sum_w2_le`); Cauchy–Schwarz against the displayed hypothesis `MeanSquare σ` (`weightedBound_of_meanSquare`); **`ne_zero_of_meanSquare`**: `MeanSquare σ`, `σ ≥ 0`, gives `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5σ)/12` (round 288) |
+| `EisensteinCubicChar.lean` | 714 | **S1, part 3a: the cubic character, its Jacobi sum and the Gauss-sum relation**: `χ_P(x) ∈ {1, ω, ω²} ⊂ ℤ[ω]` with `χ_P(x) ≡ x^{(N(P)−1)/3} (mod P)` (`cubChar`, `cubChar_spec`); every element is `m + nω` (`exists_coords`); primary associates exist and are unique (`exists_primary`, `Primary.unit_eq_one`); conjugation `ω ↦ ω²` (`cj`); **`jacobiSum_eq_neg`**: `J(χ_P, χ_P) = −π` for `P = (π)`, `π ≡ 1 (mod 3)`; **`cubChar_fundamental`**: `χ_Q(−N(P)·π) = χ_P(N(Q))²`, from Gauss sums in characteristic `char(𝓞/Q)` (round 290) |
+| `EisensteinCubicRecip.lean` | 733 | **S1, part 3b: cubic reciprocity on `ℤ[ω]`**: maximal ideals prime to `3` are inert or of prime norm (`maximal_cases`); the cases inert/split, split/split and inert/inert (`recip_inert`, `recip_split`, `recip_inert_inert`) and conjugate primes (`recip_conj`); primary generators (`pgen`, `prod_pgen`); **`cub_recip`**: `(a/b)₃ = (b/a)₃` for coprime `a ≡ b ≡ 1 (mod 3)` (round 290) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -8788,7 +8790,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 **The revised plan.** Where it differs, this supersedes round 277's S1–S6. The stage names are kept.
 - **S1** (part 1 is round 281). Still to do:
   - part 2, the coefficient identity `Σ_{N𝔞=n} μ(𝔞) = μ_K(n)`. Its multiplicativity in `n` is proved in scratch (`m(ab) = m(a)m(b)` for coprime `a, b`, by `I ↦ (I + a·O, I + b·O)`); the prime powers, via Mathlib's cyclotomic splitting law, are next;
-  - primary generators and cubic reciprocity, which S3 and S4 use.
+  - primary generators and cubic reciprocity, which S3 and S4 use. *(Round 290: landed, `Eis.cub_recip`. Round 291 locates the release's uses of the law: the cross phase, and the primary `−2`.)*
   
   The count of split primes is dropped.
 - **S0′:** S0 for the totient-weighted sum over ideals prime to `2` and `λ`, with the Euler correction. *(Round 285: landed as `Eis.smoothBound_of_weightedBound`. The correction is a multiplicative function on `ℕ`, and the transfer is made on the smoothed sums, so the result is S0's own hypothesis `SmoothBound θ`.)*
@@ -9010,3 +9012,49 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 - (b) The register entry is updated (STRUCTURAL-REVIEW §6).
 
 **Bearing on RH:** none.
+
+## Round 290: S1, part 3 — cubic reciprocity on `ℤ[ω]` (`src/EisensteinCubicChar.lean`, `src/EisensteinCubicRecip.lean`)
+
+**The theorem.** `cub_recip (ha : Primary a) (hb : Primary b) (hab : IsCoprime a b) : cub a (span {b}) = cub b (span {a})`: for coprime `a, b ∈ ℤ[ω]` with `a ≡ b ≡ 1 (mod 3)`, `(a/b)₃ = (b/a)₃`.
+- `Primary a` is `3 ∣ a − 1`. It is the release's "primary", `λ² ∣ a − 1`, since `λ² = −3ω` (`lam_sq`).
+- `cub a 𝔟 = Π_{P∣𝔟} χ_P(a)`, over the prime factors of `𝔟` with multiplicity. Here `χ_P(a) ∈ ℤ[ω]` is the cube root of unity congruent to `a^{(N(P)−1)/3}` modulo `P` (`cubChar`, `cubChar_spec`); `chi3` sets it to `0` unless `P` is maximal with `3 ∉ P`.
+- Round 282 listed primary generators and cubic reciprocity under S1, as inputs to S3 and S4. Round 291 locates the release's uses of the law.
+
+**The proof** (the Jacobi- and Gauss-sum proof, in the form of Ireland and Rosen, *A Classical Introduction to Modern Number Theory*, Chapter 9).
+- **The Jacobi sum** (`jacobiSum_eq_neg`): `J(χ_P, χ_P) = −π` for `P = (π)` with `π` primary.
+  - `J ∈ P` (`jacobiSum_mem`). Modulo `P`, `J` is `Σ_x x^m(1 − x)^m` with `m = (N(P) − 1)/3`. That polynomial has degree `2m < N(P) − 1`, so its sum over the field vanishes (Mathlib's `FiniteField.sum_pow_lt_card_sub_one`).
+  - `J·J̄ = N(P)` (`jacobiSum_mul_cj`), from Mathlib's `jacobiSum_mul_jacobiSum_inv` in `K`, with `χ_P⁻¹ = χ̄_P` (`cubChar_inv_apply`). Conjugation preserves the norms of principal ideals (`absNorm_span_cj`), so `N(J) = N(P)` and `(J) = P`.
+  - `J ≡ −1 (mod 3)` (`three_dvd_jacobiSum_add_one`), from Mathlib's `exists_jacobiSum_eq_neg_one_add` at `μ = ω`. The six units are distinct modulo `3` (`unit_eq_one_of_three_dvd`), so the unit is `−1`.
+- **The Gauss-sum relation** (`cubChar_fundamental`): for `P = (π)` with `π` primary, and a maximal `Q` prime to `3` and to `N(P)`, `χ_Q(−N(P)·π) = χ_P(N(Q))²`.
+  - Take the Gauss sum `g` of `χ_P` with values in a cyclotomic extension of `𝓞/Q` (Mathlib's `FiniteField.primitiveChar`).
+  - `g³ = N(P)·J(χ_P, χ_P) = −N(P)·π` (Mathlib's `gaussSum_pow_eq_prod_jacobiSum`).
+  - Frobenius applied `f` times, where `N(Q) = ℓ^f` (`gaussSum_pow_char_pow`, from Mathlib's `gaussSum_frob`), and `gaussSum_mulShift_eq` give `g^{N(Q)} = χ_P(N(Q))⁻¹·g`.
+  - So `(−N(P)·π)^{(N(Q)−1)/3} = χ_P(N(Q))²` modulo `Q`. The left side is `χ_Q(−N(P)·π)` modulo `Q` (`cubChar_spec`), and cube roots of unity are determined by their residues (`cube_eq_of_mk_eq`).
+- **Four cases at primes.** A maximal ideal prime to `3` is either inert, `(q)` with `q ≡ 2 (mod 3)`, or of prime norm `p ≡ 1 (mod 3)` (`maximal_cases`, from round 284's splitting law).
+  - (A) `recip_inert`: `π` of prime norm against an inert `q`, whose primary associate is `−q`. Rational integers prime to `q` are cubes modulo `q` (`chi3_natCast_inert`), and `N((q)) = q²`.
+  - (B) `recip_split`: `π`, `ρ` of distinct prime norms `p`, `p'`. The relation for `(P, Q)` and for `(Q, P)` gives `χ_Q(p)χ_Q(π) = χ_P(p')²` and `χ_P(p')χ_P(ρ) = χ_Q(p)²`. Eliminating gives `χ_Q(π) = χ_P(ρ)`.
+  - (C) `recip_conj`: conjugate primes `P`, `P̄` of norm `p`, with `π̄ = cj π`.
+    - `P̄ ≠ P` (`map_cj_ne`): otherwise the primary generator is real and `p` is a square.
+    - With `T = −(π + π̄) ∈ ℤ`: `χ_P(π̄) = χ_P(T)`, since `π̄ ≡ −T` modulo `P`.
+    - `χ_P(T) = (π/T)₃` and `χ_{P̄}(T) = (π̄/T)₃`, by the law at coprime norms (`cub_recip_of_coprime_norm`, which uses (A), (B) and (D)); `N(T) = T²` is prime to `p`.
+    - `(π̄/T)₃ = (π/T)₃`, since `π̄ ≡ −π` modulo `T`. And `χ_{P̄}(T) = conj χ_P(T)` (`chi3_map_cj`). So `χ_P(T)` is a real cube root of unity, which is `1`.
+    - Hence `χ_P(π̄) = 1`, and `χ_{P̄}(π) = conj χ_P(π̄) = 1`.
+  - (D) `recip_inert_inert`: two inert primes; both symbols are `1`.
+- **From primes to elements.**
+  - Every maximal ideal prime to `3` has a unique primary generator (`pgen`, `exists_primary_of_maximal`, `primary_unique`).
+  - A primary element is the product of the primary generators of its prime factors (`prod_pgen`).
+  - So the law at primes gives the law for elements (`cub_recip_of_prime`). Two distinct primes either have coprime norms or are conjugate (`chi3_pgen_recip`).
+
+**Comparison with the release.**
+- The release proves the law at primes, `cubic_reciprocity_primary` (`GaussSum/SquarePhaseFactorization.lean:274–290`). It splits the cases by residue characteristic: `cubic_reciprocity_distinct_residue_char` (`GaussSum/CubicTrace.lean:274`) and `cubic_reciprocity_equal_residue_char` (`SquarePhaseFactorization.lean:205`).
+- Its equal-characteristic case factors `t = −(p + q)` and applies the distinct case at each prime factor of `t`, to `P` and to `Q` alike. It needs no conjugation map. Case (C) here goes through conjugation instead, and shows that both symbols are `1`.
+- The release's Lean was read as a reference. Nothing is imported from it.
+
+**Build.** Incremental pilot build: 2 compiled, 179 up to date, 28 s, 0 warnings. The 36 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1102 in `src/`. No other file imports the two new files. A scratch file importing them together with `HalfPlaneMeanSquare` and `HalfPlaneJoins` compiles, so no names clash.
+
+**Check 4.** Classical: cubic reciprocity and its Jacobi- and Gauss-sum proof. New here: the law machine-checked on the pilot's stack, from Mathlib's Gauss- and Jacobi-sum library and round 284's splitting law.
+
+**Check 9.** No barrier claim is made.
+
+**Bearing on RH:** none.
+
