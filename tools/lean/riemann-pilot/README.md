@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1208 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1219 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -217,6 +217,7 @@ Every file ends with `#print axioms`. All 1208 checked theorems in `src/` (and t
 | `EisensteinQuadRecip.lean` | 325 | **S3, part 4: quadratic and sextic reciprocity in `ℤ[ω]`**: twisted quadratic sums `S_c(t) = Σ_{x mod c} ψ_c(tx²)` and Chinese remainders (**`sqSum_mul`**); `S_p(t) = ρ_p(t)·g(ρ_p, ψ_p)` at primes (`sqSum_prime`); `g(ρ_p, ψ_p) = (\|σp\|/2)·Φ(x, y)` for `p = x + yω` (`gaussSum_quadR_coords`); `4ρ_p(−1) = Φ(x, y)²` (`quadR_neg_one`); **`quad_recip_coords`**: `ρ_a(b)ρ_b(a)·Φ(a)Φ(b) = 2Φ(ab)`; **`sextic_recip_coords`**: `χ_b(a)·Φ(a)Φ(b) = 2Φ(ab)·χ_a(b)` for coprime primary primes `a, b ∤ 6` (round 298) |
 | `EisensteinGaussPrime.lean` | 299 | **S3, part 5: the companion paper's Lemma 4.1 at a prime**: for a primary prime `p ∤ 6` and `γ_j(p) = g(χ_p^j, ψ_p)/\|σp\|` (`gamN`): **`gamN_two_cube`** `γ₂³ = −α(p)`; **`gamN_one_mul_two`** `γ₁γ₂ = −α(p)·G(p)` with `G(p) = χ_p(4)⁻¹γ₃(p)`; `gamN_one_mul_inv` `γ₁γ₋₁ = χ_p(−1)`; `gamN_three` `γ₃ = Φ/2`; `2` is inert (`span_two_isMaximal`); **`chi6_four`**: `χ_p(4) = σ(u)` for the cube root of unity `u ≡ p (mod 2)`; `\|G(p)\| = 1` (`norm_Gp`) and **`Gp_eq_of_mod_four`**: `G` depends only on `p mod 4` (round 299) |
 | `EisensteinGaussSquarefree.lean` | 289 | **S3, part 6: the companion paper's Lemma 4.1 for squarefree moduli**: **`gamF_eq`** `γ(n) = ∏_i χ_i(n/π_i)·γ(π_i)` for `n = ∏ π_i`; **`gamF_union`** for disjoint sets of primes; for the sextic characters of distinct primary primes `∤ 6`: **`gamF_two_cube`** `γ₂(n)³ = μ(n)α(n)`, **`gamF_one_mul_two`** `γ₁γ₂ = μ(n)α(n)G(n)`, `gamF_one_mul_inv` `γ₁γ₋₁ = χ_n(−1)`; **`GF_union`** `G(ab) = G(a)G(b)·∏ ρ_p(q)ρ_q(p)`; **`gamF_two_union`** `γ₂(ab) = γ₂(a)γ₂(b)·∏ χ_q(p)⁴` (round 300) |
+| `PlaneMajorant.lean` | 234 | **S4, part 1: a radial majorant with compactly supported Fourier transform**: the bump `η(z) = s(1 − 64\|z\|²)`; `𝓕η` real (`fourier_eta_im`) with `Re 𝓕η ≥ (∫η)/2` on the unit disc (`fourier_eta_re_ge`); **`Phi`** `= c·𝓕(η ⋆ η) = c·(𝓕η)²`: real, `≥ 0`, **`one_le_Phi_re`** (`Φ ≥ 1` on the unit disc), radial (`Phi_rot`); **`fourier_Phi`** `𝓕Φ(x) = c·(η ⋆ η)(−x)` and **`exists_fourier_Phi_eq_zero`** (compact support) (round 301) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9390,6 +9391,33 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 **Not yet here:**
 - the bicharacter `R` on classes modulo `4`, which turns `GF_union` into the paper's `G(ab) = G(a)G(b)R(a, b)`, and the expansion of `G` and `R` in characters of `(ℤ[ω]/4)^×`;
 - S4 of round 291's plan, the Poisson reduction: the paper's Lemmas 4.2 and 4.4 and Proposition 4.5, from the dual mean square to `MeanSquare σ`. By the owner's decision (2026-10-08), S4 comes next, followed by a survey of whether large sieves alone can give `MeanSquare σ` for some `σ < 1/5`, the range in which round 288 gives a zero-free half-plane inside `Re s < 1`.
+
+**Check 9.** No barrier claim is made.
+
+**Bearing on RH:** none.
+
+## Round 301: S4, part 1 — a radial majorant with compactly supported Fourier transform (`src/PlaneMajorant.lean`)
+
+**Why.** S4 of round 291's plan follows the companion paper's Section 4: Poisson summation reduces the mean square of round 288's family to the paper's "dual mean square" (its Proposition 4.5). The proof of Proposition 4.5 begins with a weight (the paper's sentence, its LaTeX rendered as text): "Choose a nonnegative radial Schwartz weight `Φ` such that `Φ(x) ≥ 1` on `[0,1]` and `supp Φ̂ ⊂ [0, C_Φ]` for some fixed `C_Φ > 0`." The smoothed sum `Σ_u Φ(u/√H)·|A_u|²` bounds the sum over `0 < N(u) ≤ H`. After Poisson summation in `u`, the compact support of `Φ̂` makes the dual sum finite, inside the range of the dual mean square. This round constructs `Φ` on `ℂ`.
+
+**The bump.** `η(z) = s(1 − 64|z|²)` (`etaR`, `eta`), for Mathlib's smooth transition `s`. It is smooth, real, nonnegative, radial and even, supported in `|z| ≤ 1/8`, and `∫η > 0` (`integral_etaR_pos`).
+
+**Its Fourier transform.**
+- `fourier_eta_im`: `𝓕η` is real, since `η` is real and even (`conj 𝓕η(ξ) = 𝓕η(ξ)` through `integral_neg_eq_self`).
+- **`fourier_eta_re_ge`**: `Re 𝓕η(ξ) ≥ (∫η)/2` for `|ξ| ≤ 1`. On the support of `η`, `|⟨v, ξ⟩| ≤ 1/8`, so `cos(2π⟨v, ξ⟩) ≥ 1 − π²/32 ≥ 1/2`.
+
+**The majorant.**
+- `Phi = c·𝓕(η ⋆ η)` with `c = 4/(∫η)²`. Mathlib's convolution theorem for Schwartz functions gives `Φ(ξ) = c·(𝓕η(ξ))²` (`Phi_apply`). So `Φ` is real (`Phi_im`), `Φ ≥ 0` (`Phi_re_nonneg`), and **`Φ ≥ 1` on the unit disc** (`one_le_Phi_re`).
+- **`fourier_Phi`**: `𝓕Φ(x) = c·(η ⋆ η)(−x)`, by Fourier inversion. Hence **`exists_fourier_Phi_eq_zero`**: `𝓕Φ` vanishes outside a disc.
+- `Phi_rot`, `fourier_Phi_rot`: `Φ` and `𝓕Φ` are radial, by Mathlib's `fourier_comp_linearIsometry` for rotations. Later rounds use `𝓕Φ` through its values on the positive real axis. That avoids having to show that a smooth radial function is a smooth function of `|w|²`.
+
+**Comparison with the release.** The release's `radialMajorant` (`Dictionary/InverseMarkedPadding.lean:16–26`) is compactly supported itself and equal to `1` on `[0, 1]`. It was not used here.
+
+**Build.** Incremental pilot build: 1 compiled, 190 up to date, 13 s, 0 warnings. The 11 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1219 in `src/`. No other file imports `PlaneMajorant`.
+
+**Check 4.** Classical: a Beurling–Selberg-type majorant from the square of the Fourier transform of a bump. New here: machine-checked on Mathlib.
+
+**Not yet here:** the rest of S4. In order: the smooth-weight principle of the paper's Appendix B; Poisson summation with excluded primes (Lemma 4.2); the expansion of the mean square with the Gauss-sum identities of rounds 299–300 and characters of `(ℤ[ω]/4)^×`; the dual mean square (Definition 4.3) and Lemma 4.4; Proposition 4.5.
 
 **Check 9.** No barrier claim is made.
 
