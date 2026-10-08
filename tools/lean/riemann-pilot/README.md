@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1011 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1033 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -203,6 +203,7 @@ Every file ends with `#print axioms`. All 1011 checked theorems in `src/` (and t
 | `EisensteinSymbol.lean` | 363 | **S1, part 1: the sextic residue symbol on `ℤ[ω]`**: `𝓞 ℚ(ζ₃)` with units `±1, ±ω, ±ω²` (`units_mem`); away from `6`, reduction is injective on units (`red_injective`), every sixth root of unity mod `P` is a reduced unit (`exists_red_eq`) and `6 ∣ N(P) − 1` (`six_dvd_card_sub_one`); the character `χ_P(x) = σ(u)` with `u ≡ x^{(N(P)−1)/6}` (`chi6`, `chi6_spec`, `chi6_pow_six`) and the symbol `(a/𝔞)₆ = Π_{P∣𝔞} χ_P(a)` (`sym6`), multiplicative in `a` and `𝔞` (`sym6_mul_left`, `sym6_mul_right`) (round 281) |
 | `EisensteinCount.lean` | 334 | **S1, part 2a: the ideal Möbius sums `m(n) = Σ_{N𝔞=n} μ(𝔞)` on `ℤ[ω]`**: multiplicative in coprime `n` (**`mI_mul`**, via `I ↦ (I + a𝓞, I + b𝓞)`); at prime powers a signed count of sets of prime factors of `p𝓞` (**`mI_prime_pow`**); `p𝓞` has one prime factor of norm `p²` or two of norm `p` (`pFactors_cases`) (round 283) |
 | `EisensteinMobius.lean` | 491 | **S1, part 2b: the splitting law in `ℤ[ω]` and `Σ_{N𝔞=n} μ(𝔞) = μ_K(n)`**: `p ≡ 1 (mod 3)` splits into two primes of norm `p` (`split_of_mod_one`), `p ≡ 2` is inert (`inert_of_mod_two`), `3𝓞 = (ω − 1)²` (`ramified_three`); `m(p^k)` and `μ_K(p^k)` in closed form (`mI_prime_pow_eq`, `muK_prime_pow`); **`mI_eq_muK`**: the ideal Möbius sums of `ℤ[ω]` are S0's `μ_K` (round 284) |
+| `HalfPlaneWeighted.lean` | 871 | **S0′: the totient-weighted sums over `ℤ[ω]` give S0's hypothesis**: `f(n) = Σ_{N𝔞=n} [(N𝔞, 6) = 1]·μ(𝔞)·Π_{P∣𝔞}(1 − 1/NP)` is multiplicative with explicit prime powers (`fW_split`, `fW_inert`); `μ_K = f ⍟ h` for an explicit multiplicative Euler correction `h` (`fA_mul_hA`) with `Σ_n |h(n)|n^{−σ} < ∞` for every `σ > 0` (`summable_hfun`, through `summable_of_mult_local`); **`smoothBound_of_weightedBound`**: `O(Z^{θ+ε})` for the `f`-sums gives `SmoothBound θ`, `θ ≥ 0` (round 285) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -8788,7 +8789,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
   - primary generators and cubic reciprocity, which S3 and S4 use.
   
   The count of split primes is dropped.
-- **S0′:** S0 for the totient-weighted sum over ideals prime to `2` and `λ`, with the Euler correction.
+- **S0′:** S0 for the totient-weighted sum over ideals prime to `2` and `λ`, with the Euler correction. *(Round 285: landed as `Eis.smoothBound_of_weightedBound`. The correction is a multiplicative function on `ℕ`, and the transfer is made on the smoothed sums, so the result is S0's own hypothesis `SmoothBound θ`.)*
 - **S2′:** the sixth-power average and Cauchy–Schwarz. The first conditional milestone is then: the mean square at `σ` (a displayed hypothesis, the socket for S3–S5) gives `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5σ)/12`.
 - **S3–S5** as in round 277. The theta input is displayed in the shape of `HasCanonicalThetaModels` until it is derived.
 - **The target:** `23/24` (`σ = 1/10`), the release's kernel-checked figure. `11/12` is reached only if the mean square is derived at `σ → 0`.
@@ -8858,5 +8859,41 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 **Build.** Incremental pilot build: 1 compiled, 175 up to date, 12 s, 0 warnings. The 17 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1011 in `src/`. No other file imports `EisensteinMobius`.
 
 **Check 4.** Classical: the decomposition of primes in `ℚ(√−3)`, and `ζ_{ℚ(√−3)} = ζ·L(·, χ₋₃)` coefficientwise. New here: the machine-checked identity on Mathlib's `𝓞 ℚ(ζ₃)`, joined to S0's `μ_K`.
+
+**Bearing on RH:** none.
+
+## Round 285: S0′ — the totient-weighted sums over `ℤ[ω]` give S0's hypothesis (`src/HalfPlaneWeighted.lean`)
+
+**The gap.** Round 282's extraction averages the family over `b ∈ ℤ[ω]`. What it yields is not S0's `Σ_n μ_K(n)W(n/Z)` but `Σ_𝔞 μ(𝔞)·Π_{P∣𝔞}(1 − 1/N P)·W(N𝔞/Z)`, over the ideals `𝔞` of norm prime to `6`. Its coefficients are `f(n) = Σ_{N𝔞=n} wf(𝔞)`, with `wf(𝔞) = [(N𝔞, 6) = 1]·μ(𝔞)·Π_{P∣𝔞}(1 − 1/N P)`.
+
+**The result.** `smoothBound_of_weightedBound (hθ : 0 ≤ θ) (h : WeightedBound θ) : SmoothBound θ`. `WeightedBound θ` says that for every weight `W` (smooth, compactly supported in `(0, ∞)`) and every `ε > 0`, `Σ_n f(n)W(n/Z) = O(Z^{θ+ε})`. So round 278's S0 and round 279's joins apply to the extracted sums: `WeightedBound θ` gives `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` on `Re s > θ`.
+
+**The proof.**
+- **`f` is multiplicative** (`fA_mult`). A weight multiplicative on relatively prime ideals has multiplicative norm sums (`normSum_mul`, from round 283's `ofNorm_mul`).
+- **Its prime powers.** As in rounds 283–284, `f(p^k)` is a sum over sets of prime factors of `p𝓞` (`normSum_prime_pow`), counted binomially (`weighted_count`, which generalises round 284's `signed_count`). With round 284's splitting law:
+  - `f(p^k) = C(2, k)·(−(1 − 1/p))^k` for `p ≡ 1 (mod 3)` (`fW_split`);
+  - `f(p^k) = [2 ∣ k]·C(1, k/2)·(−(1 − 1/p²))^{k/2}` for `p ≡ 2 (mod 3)`, `p ≠ 2` (`fW_inert`);
+  - `f(p^k) = [k = 0]` at `p = 2` and `p = 3`, where the norm is not prime to `6` (`fW_two`, `fW_three`).
+- **The Euler correction.** `h(n) = Π_{p^k∥n} H(p, k)`, where `H(p, ·)` are the coefficients of `(1 − x)(1 − χ₋₃(p)x)/F_p(x)` and `F_p(x) = Σ_k f(p^k)x^k`. That is:
+  - `1 − x` at `3` and `1 − x²` at `2`;
+  - `(1 − x)²/(1 − cx)²`, `c = 1 − 1/p`, at split primes: `H(p, k) = −(2/p)c^{k−1} + (k − 1)c^{k−2}/p²` for `k ≥ 1`;
+  - `(1 − x²)/(1 − c′x²)`, `c′ = 1 − 1/p²`, at inert `p ≥ 5`: `H(p, k) = −c′^{k/2−1}/p²` for even `k ≥ 2`, and `0` for odd `k`.
+- **`μ_K = f ⍟ h`** (`fA_mul_hA`). Both sides are multiplicative, so they are compared at prime powers (Mathlib's `eq_iff_eq_on_prime_powers`). There the convolution is `H(k) + f(p)H(k − 1) + f(p²)H(k − 2)` (`conv_small`), and the split and inert recurrences close it (`split_rec`, `inert_rec`).
+- **Convergence on `Re s > 0`.**
+  - `|H(p, k)| ≤ (k + 2)/p` for `k ≥ 1` (`norm_Hloc_le`). So `Σ_k |h(p^k)|p^{−kσ} ≤ 1 + A_σ p^{−1−σ}` with `A_σ = 3/(1 − 2^{−σ})²`.
+  - `summable_of_mult_local`: a nonnegative multiplicative function with such local sums is summable. Mathlib's Euler product over smooth numbers (`summable_and_hasSum_smoothNumbers_prod_primesBelow_tsum`) bounds its partial sums by `exp(A_σ Σ_n n^{−1−σ})`.
+  - Hence `Σ_n |h(n)|n^{−σ} < ∞` for every `σ > 0` (`summable_hfun`).
+- **The transfer.**
+  - `smoothSum_eq_sum_h`: `Σ_n μ_K(n)W(n/Z) = Σ_{1≤d≤N} h(d)·Σ_m f(m)W(md/Z)` once `W` vanishes beyond `R` and `RZ ≤ N`. All sums are finite. The reindexing is a weighted form of Mathlib's `sum_Ioc_mul_eq_sum_prod_filter` (`sum_Ioc_mul_weight`).
+  - `fSmooth_uniform`: the bound `O(Z^{θ+ε})` at infinity extends to every `Z > 0`. For small `Z` the sum vanishes; in between it is a bounded finite sum. This step uses `θ + ε ≥ 0`.
+  - So `|Σ_n μ_K(n)W(n/Z)| ≤ K·Z^{θ+ε}·Σ_d |h(d)|d^{−θ−ε}`.
+
+**Comparison with the release.** Its analogue is `corrected_weighted_mellin_identity` (`RowCompletion/ThetaNonvanishing.lean:85–92`). There the correction is an infinite product over prime ideals, `eulerCorrection` (`Hecke/MobiusEulerCorrection.lean:262`), proved analytic on `Re s > 0` (`eulerCorrection_analytic`, line 685), and it enters a Mellin identity. Here the correction is a multiplicative function on `ℕ`, and the transfer is made on the smoothed sums. The result is S0's own hypothesis, so round 278's Mellin argument is reused unchanged.
+
+**Not yet here.** `WeightedBound θ` is a displayed hypothesis. S2′ is to derive it from the family's mean square, at exponent `(11 + 5σ)/12`.
+
+**Build.** Incremental pilot build: 1 compiled, 176 up to date, 17 s, 0 warnings. The 22 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1033 in `src/`. No other file imports `HalfPlaneWeighted`.
+
+**Check 4.** Classical: an Euler-product correction between two Dirichlet series, and the transfer of smoothed bounds through convolution with an absolutely convergent factor. New here: the machine-checked identity `μ_K = f ⍟ h` on Mathlib's `𝓞 ℚ(ζ₃)`, and the transfer to round 278's `SmoothBound θ`.
 
 **Bearing on RH:** none.
