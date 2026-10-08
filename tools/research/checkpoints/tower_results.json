@@ -1102,6 +1102,7 @@
 },
 "1a630daa47029302cacfb7ff": {
 "deps": {
+"manifest:tools/research/tower_manifest.json": "f915b4d5f92c56f883d7dad9b7fe74d9b72a302d8df6b6b50a2914172594ae61",
 "src/cascade-series-part0.tex": "47bb4b40368ac89d521c15232dc751550fa8600f30e0bd0c57eb77bc45c8203f",
 "src/cascade-series-part4a.tex": "92261e8f60dc069c0d71fa6458f20d0ff2e33078dc7bb319c280e50a04a39aab",
 "src/cascade-series-part4b.tex": "78c0f7d3682a21fc015c7cc2801dd23c962b0ce13f4699a3d7a96ff6291b00e7",
@@ -1121,11 +1122,11 @@
 "tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
 "tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
 },
-"deps_v": 2,
-"dt": 66.94501900672913,
+"deps_v": 3,
+"dt": 67.73390460014343,
 "file": "cascade_primes_side_ball.py",
 "rc": 0,
-"when": "2026-10-08T01:57Z"
+"when": "2026-10-08T03:32Z"
 },
 "1aa4db8feee507c850fbe411": {
 "dt": 182.23344659805298,
@@ -1861,6 +1862,7 @@
 },
 "2e6ecd3fbaa74b681b1e609f": {
 "deps": {
+"manifest:tools/research/tower_manifest.json": "f915b4d5f92c56f883d7dad9b7fe74d9b72a302d8df6b6b50a2914172594ae61",
 "src/cascade-series-part0.tex": "47bb4b40368ac89d521c15232dc751550fa8600f30e0bd0c57eb77bc45c8203f",
 "src/cascade-series-part4a.tex": "92261e8f60dc069c0d71fa6458f20d0ff2e33078dc7bb319c280e50a04a39aab",
 "src/cascade-series-part4b.tex": "78c0f7d3682a21fc015c7cc2801dd23c962b0ce13f4699a3d7a96ff6291b00e7",
@@ -1887,11 +1889,11 @@
 "tools/research/zeta_zeros_cache.py": "1035849fa7cb845e88ac49c774f0e42a97fa2978bd046d8bdfcd1fe0a74c42b5",
 "tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
 },
-"deps_v": 2,
-"dt": 50.67562460899353,
+"deps_v": 3,
+"dt": 49.45539164543152,
 "file": "cascade_heatflow_energy.py",
 "rc": 0,
-"when": "2026-10-08T02:03Z"
+"when": "2026-10-08T03:38Z"
 },
 "2ed5c5b646cb3b4caa8276dd": {
 "dt": 839.8396284580231,
@@ -3407,6 +3409,7 @@
 },
 "4cd9dda8321438826c395945": {
 "deps": {
+"manifest:tools/research/tower_manifest.json": "f915b4d5f92c56f883d7dad9b7fe74d9b72a302d8df6b6b50a2914172594ae61",
 "src/cascade-series-part0.tex": "47bb4b40368ac89d521c15232dc751550fa8600f30e0bd0c57eb77bc45c8203f",
 "src/cascade-series-part4a.tex": "92261e8f60dc069c0d71fa6458f20d0ff2e33078dc7bb319c280e50a04a39aab",
 "src/cascade-series-part4b.tex": "78c0f7d3682a21fc015c7cc2801dd23c962b0ce13f4699a3d7a96ff6291b00e7",
@@ -3427,11 +3430,11 @@
 "tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
 "tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
 },
-"deps_v": 2,
-"dt": 28.068641424179077,
+"deps_v": 3,
+"dt": 26.477428436279297,
 "file": "cascade_finite_fill.py",
 "rc": 0,
-"when": "2026-10-08T01:57Z"
+"when": "2026-10-08T03:32Z"
 },
 "4ce27a79d5e8fe538b9a27ce": {
 "dt": 221.5188775062561,
@@ -4033,6 +4036,7 @@
 },
 "5bf0fbe0a9059c4ae2f008ac": {
 "deps": {
+"manifest:tools/research/tower_manifest.json": "f915b4d5f92c56f883d7dad9b7fe74d9b72a302d8df6b6b50a2914172594ae61",
 "src/cascade-series-part0.tex": "47bb4b40368ac89d521c15232dc751550fa8600f30e0bd0c57eb77bc45c8203f",
 "src/cascade-series-part4a.tex": "92261e8f60dc069c0d71fa6458f20d0ff2e33078dc7bb319c280e50a04a39aab",
 "src/cascade-series-part4b.tex": "78c0f7d3682a21fc015c7cc2801dd23c962b0ce13f4699a3d7a96ff6291b00e7",
@@ -4056,11 +4060,11 @@
 "tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
 "tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
 },
-"deps_v": 2,
-"dt": 301.35236716270447,
+"deps_v": 3,
+"dt": 296.47192311286926,
 "file": "cascade_floor_meter.py",
 "rc": 0,
-"when": "2026-10-08T02:03Z"
+"when": "2026-10-08T03:38Z"
 },
 "5bf46584d7511d0996052cbd": {
 "dt": 4.660355091094971,
@@ -8571,6 +8575,7 @@
 },
 "b1b5e9386b629eff96db2846": {
 "deps": {
+"manifest:tools/research/tower_manifest.json": "f915b4d5f92c56f883d7dad9b7fe74d9b72a302d8df6b6b50a2914172594ae61",
 "src/cascade-series-part0.tex": "47bb4b40368ac89d521c15232dc751550fa8600f30e0bd0c57eb77bc45c8203f",
 "src/cascade-series-part4a.tex": "92261e8f60dc069c0d71fa6458f20d0ff2e33078dc7bb319c280e50a04a39aab",
 "src/cascade-series-part4b.tex": "78c0f7d3682a21fc015c7cc2801dd23c962b0ce13f4699a3d7a96ff6291b00e7",
@@ -8593,11 +8598,11 @@
 "tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
 "tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
 },
-"deps_v": 2,
-"dt": 152.81415009498596,
+"deps_v": 3,
+"dt": 152.1440348625183,
 "file": "cascade_li_two_channels.py",
 "rc": 0,
-"when": "2026-10-08T02:03Z"
+"when": "2026-10-08T03:38Z"
 },
 "b1fa167b7fb77aabe99eda05": {
 "dt": 64.81489491462708,
@@ -8811,6 +8816,7 @@
 },
 "b93dec3b9017ea8b3f8a3bed": {
 "deps": {
+"manifest:tools/research/tower_manifest.json": "f915b4d5f92c56f883d7dad9b7fe74d9b72a302d8df6b6b50a2914172594ae61",
 "src/cascade-series-part0.tex": "47bb4b40368ac89d521c15232dc751550fa8600f30e0bd0c57eb77bc45c8203f",
 "src/cascade-series-part4a.tex": "92261e8f60dc069c0d71fa6458f20d0ff2e33078dc7bb319c280e50a04a39aab",
 "src/cascade-series-part4b.tex": "78c0f7d3682a21fc015c7cc2801dd23c962b0ce13f4699a3d7a96ff6291b00e7",
@@ -8832,11 +8838,11 @@
 "tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
 "tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
 },
-"deps_v": 2,
-"dt": 495.3157513141632,
+"deps_v": 3,
+"dt": 486.96883940696716,
 "file": "cascade_attraction_margins.py",
 "rc": 0,
-"when": "2026-10-08T02:03Z"
+"when": "2026-10-08T03:38Z"
 },
 "b9d58eaef1ad244738ec84dc": {
 "dt": 447.30223298072815,
@@ -9317,11 +9323,11 @@
 "tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
 "tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
 },
-"deps_v": 2,
-"dt": 170.90849447250366,
+"deps_v": 3,
+"dt": 169.35624408721924,
 "file": "cascade_lattice_forcing.py",
 "rc": 0,
-"when": "2026-10-08T01:57Z"
+"when": "2026-10-08T03:32Z"
 },
 "c855d96fda2663687bcbf5b5": {
 "dt": 34.39267826080322,
@@ -9476,6 +9482,7 @@
 "ccc4d34fb1da336501e86c27": {
 "deps": {
 "dir:tools/research": "07e245734deb1db243be976f040b32287c036f2027946c46e2a35aed6e303c8e",
+"manifest:tools/research/tower_manifest.json": "f915b4d5f92c56f883d7dad9b7fe74d9b72a302d8df6b6b50a2914172594ae61",
 "src/cascade-series-part0.tex": "47bb4b40368ac89d521c15232dc751550fa8600f30e0bd0c57eb77bc45c8203f",
 "src/cascade-series-part4a.tex": "92261e8f60dc069c0d71fa6458f20d0ff2e33078dc7bb319c280e50a04a39aab",
 "src/cascade-series-part4b.tex": "78c0f7d3682a21fc015c7cc2801dd23c962b0ce13f4699a3d7a96ff6291b00e7",
@@ -9502,11 +9509,11 @@
 "tools/research/zeta_zeros_cache.py": "1035849fa7cb845e88ac49c774f0e42a97fa2978bd046d8bdfcd1fe0a74c42b5",
 "tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
 },
-"deps_v": 2,
-"dt": 40.007617473602295,
+"deps_v": 3,
+"dt": 39.223655223846436,
 "file": "cascade_saddle_curvature.py",
 "rc": 0,
-"when": "2026-10-08T02:03Z"
+"when": "2026-10-08T03:38Z"
 },
 "ccd5ce2abb1ec525118103fd": {
 "dt": 395.1215670108795,
