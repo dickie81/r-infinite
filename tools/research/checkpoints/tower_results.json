@@ -869,10 +869,11 @@
 "tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
 "tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
 },
-"dt": 71.77029490470886,
+"deps_v": 2,
+"dt": 66.94501900672913,
 "file": "cascade_primes_side_ball.py",
 "rc": 0,
-"when": "2026-10-07T23:24Z"
+"when": "2026-10-08T01:57Z"
 },
 "1aa4db8feee507c850fbe411": {
 "dt": 182.23344659805298,
@@ -1484,6 +1485,40 @@
 "file": "cascade_saddle_curvature.py",
 "rc": 0,
 "when": "2026-08-28T13:42Z"
+},
+"2e6ecd3fbaa74b681b1e609f": {
+"deps": {
+"src/cascade-series-part0.tex": "47bb4b40368ac89d521c15232dc751550fa8600f30e0bd0c57eb77bc45c8203f",
+"src/cascade-series-part4a.tex": "92261e8f60dc069c0d71fa6458f20d0ff2e33078dc7bb319c280e50a04a39aab",
+"src/cascade-series-part4b.tex": "78c0f7d3682a21fc015c7cc2801dd23c962b0ce13f4699a3d7a96ff6291b00e7",
+"tools/research/cascade_arithmetic_section.py": "53fba7194457955ac4cad815c160aa0d947954052a72b3d5024f1637d61f30a3",
+"tools/research/cascade_attraction_margins.py": "e9b35fcf52cb66675d41d7ef2d2293ef90a0eccf7c3d78fc01b886e6620da406",
+"tools/research/cascade_concentration_regrade.py": "cd98ead8e053b9b76c444f85d883c07939a8ca9c4d398cc5ff33783122ba73b0",
+"tools/research/cascade_explicit_formula_bridge.py": "932ccaab2614292dac7ea1479eb32d2e72d49f84637154f6ffddb8c9fbbed50d",
+"tools/research/cascade_finite_fill.py": "0cafd2011ce8d05ea2dad393bc6cab6211dafffdb162a511183a9ec70643b129",
+"tools/research/cascade_floor_meter.py": "964878323b1889cb3e235feb72b317546bc1dd1995cc160c2fc2b4470a604de2",
+"tools/research/cascade_heatflow_energy.py": "850ef0aeab95beab61652fa59695eb1067ac5c8c3c4876793dc8b83520b2cbba",
+"tools/research/cascade_lattice_forcing.py": "bbaa75414bd159605e1491c5d4869093918786b7d5e51249cee91f2a8a23a527",
+"tools/research/cascade_li_two_channels.py": "57c5f8ff127aada0c57658a0d6ced1c88508b91f1880656d5b3b2bf0badf680a",
+"tools/research/cascade_precedence_vacuity.py": "85239524981d91a780a5edd4f5b337ca40e5ea78289802e3a297c89a15d271a8",
+"tools/research/cascade_primes_side_ball.py": "2ddbbba122eabcd09bf406b848761b61c2e36c26923bc8a789e5412cd0247687",
+"tools/research/cascade_quarter_square.py": "26c7c3e6ab5662c20b59aadc51ec5d12d64cc60f1dd0c32c5680db8ea5940373",
+"tools/research/cascade_riemann_selection.py": "808a097c6150d8944333dc97b5ee2c2cd6156568392204d1097dc722e06cbab2",
+"tools/research/cascade_tower.py": "38c2dcb08522d6d32dd0d4ea0022df89acbe3e7048a5e3516a5a89f1c12e5eae",
+"tools/research/cascade_type_counting.py": "af4b31e8c56034b3130f5d3e996a48ff2915886a448774d5ea65ac46e048c77a",
+"tools/research/cascade_unit_ball_rh.py": "55c2864fcb7dc005cf450e09d305bc98366eeeb6fc07d0d6b8a4a14911da0a46",
+"tools/research/cascade_weil_route_traveled.py": "15379c3694f2d824666c07b2aa7abf679b9d534b40e85eaa2b8e5886150c46e1",
+"tools/research/cascade_windows_overlap.py": "2257f61e7d006ad943f0a3c7cff1bb7c48dc59f9e26dd52e31ecde7adf379524",
+"tools/research/checkpoints/zeta_zeros_cache.json": "0a4504805b1fb6ad2e5913480690e1db916210606719a4a9d2c849c2bb279bcf",
+"tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
+"tools/research/zeta_zeros_cache.py": "1035849fa7cb845e88ac49c774f0e42a97fa2978bd046d8bdfcd1fe0a74c42b5",
+"tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
+},
+"deps_v": 2,
+"dt": 50.67562460899353,
+"file": "cascade_heatflow_energy.py",
+"rc": 0,
+"when": "2026-10-08T02:03Z"
 },
 "2ed5c5b646cb3b4caa8276dd": {
 "dt": 839.8396284580231,
@@ -2637,10 +2672,11 @@
 "tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
 "tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
 },
-"dt": 28.412147998809814,
+"deps_v": 2,
+"dt": 28.068641424179077,
 "file": "cascade_finite_fill.py",
 "rc": 0,
-"when": "2026-10-07T23:24Z"
+"when": "2026-10-08T01:57Z"
 },
 "4ce27a79d5e8fe538b9a27ce": {
 "dt": 221.5188775062561,
@@ -3124,6 +3160,37 @@
 "file": "cascade_spectrum_ladder.py",
 "rc": 0,
 "when": "2026-10-07T18:40Z"
+},
+"5bf0fbe0a9059c4ae2f008ac": {
+"deps": {
+"src/cascade-series-part0.tex": "47bb4b40368ac89d521c15232dc751550fa8600f30e0bd0c57eb77bc45c8203f",
+"src/cascade-series-part4a.tex": "92261e8f60dc069c0d71fa6458f20d0ff2e33078dc7bb319c280e50a04a39aab",
+"src/cascade-series-part4b.tex": "78c0f7d3682a21fc015c7cc2801dd23c962b0ce13f4699a3d7a96ff6291b00e7",
+"tools/research/cascade_arithmetic_section.py": "53fba7194457955ac4cad815c160aa0d947954052a72b3d5024f1637d61f30a3",
+"tools/research/cascade_attraction_margins.py": "e9b35fcf52cb66675d41d7ef2d2293ef90a0eccf7c3d78fc01b886e6620da406",
+"tools/research/cascade_concentration_regrade.py": "cd98ead8e053b9b76c444f85d883c07939a8ca9c4d398cc5ff33783122ba73b0",
+"tools/research/cascade_explicit_formula_bridge.py": "932ccaab2614292dac7ea1479eb32d2e72d49f84637154f6ffddb8c9fbbed50d",
+"tools/research/cascade_finite_fill.py": "0cafd2011ce8d05ea2dad393bc6cab6211dafffdb162a511183a9ec70643b129",
+"tools/research/cascade_floor_meter.py": "964878323b1889cb3e235feb72b317546bc1dd1995cc160c2fc2b4470a604de2",
+"tools/research/cascade_lattice_forcing.py": "bbaa75414bd159605e1491c5d4869093918786b7d5e51249cee91f2a8a23a527",
+"tools/research/cascade_li_two_channels.py": "57c5f8ff127aada0c57658a0d6ced1c88508b91f1880656d5b3b2bf0badf680a",
+"tools/research/cascade_precedence_vacuity.py": "85239524981d91a780a5edd4f5b337ca40e5ea78289802e3a297c89a15d271a8",
+"tools/research/cascade_primes_side_ball.py": "2ddbbba122eabcd09bf406b848761b61c2e36c26923bc8a789e5412cd0247687",
+"tools/research/cascade_quarter_square.py": "26c7c3e6ab5662c20b59aadc51ec5d12d64cc60f1dd0c32c5680db8ea5940373",
+"tools/research/cascade_riemann_selection.py": "808a097c6150d8944333dc97b5ee2c2cd6156568392204d1097dc722e06cbab2",
+"tools/research/cascade_tower.py": "38c2dcb08522d6d32dd0d4ea0022df89acbe3e7048a5e3516a5a89f1c12e5eae",
+"tools/research/cascade_type_counting.py": "af4b31e8c56034b3130f5d3e996a48ff2915886a448774d5ea65ac46e048c77a",
+"tools/research/cascade_unit_ball_rh.py": "55c2864fcb7dc005cf450e09d305bc98366eeeb6fc07d0d6b8a4a14911da0a46",
+"tools/research/cascade_weil_route_traveled.py": "15379c3694f2d824666c07b2aa7abf679b9d534b40e85eaa2b8e5886150c46e1",
+"tools/research/cascade_windows_overlap.py": "2257f61e7d006ad943f0a3c7cff1bb7c48dc59f9e26dd52e31ecde7adf379524",
+"tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
+"tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
+},
+"deps_v": 2,
+"dt": 301.35236716270447,
+"file": "cascade_floor_meter.py",
+"rc": 0,
+"when": "2026-10-08T02:03Z"
 },
 "5bf46584d7511d0996052cbd": {
 "dt": 4.660355091094971,
@@ -6501,10 +6568,11 @@
 "tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
 "tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
 },
-"dt": 156.7057752609253,
+"deps_v": 2,
+"dt": 152.81415009498596,
 "file": "cascade_li_two_channels.py",
 "rc": 0,
-"when": "2026-10-07T23:30Z"
+"when": "2026-10-08T02:03Z"
 },
 "b1fa167b7fb77aabe99eda05": {
 "dt": 64.81489491462708,
@@ -6739,10 +6807,11 @@
 "tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
 "tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
 },
-"dt": 500.4266040325165,
+"deps_v": 2,
+"dt": 495.3157513141632,
 "file": "cascade_attraction_margins.py",
 "rc": 0,
-"when": "2026-10-07T23:30Z"
+"when": "2026-10-08T02:03Z"
 },
 "b9d58eaef1ad244738ec84dc": {
 "dt": 447.30223298072815,
@@ -7138,6 +7207,7 @@
 },
 "c84135c96bb8e5f7047a3265": {
 "deps": {
+"dir:tools/research": "07e245734deb1db243be976f040b32287c036f2027946c46e2a35aed6e303c8e",
 "src/cascade-series-part0.tex": "47bb4b40368ac89d521c15232dc751550fa8600f30e0bd0c57eb77bc45c8203f",
 "src/cascade-series-part4a.tex": "92261e8f60dc069c0d71fa6458f20d0ff2e33078dc7bb319c280e50a04a39aab",
 "src/cascade-series-part4b.tex": "78c0f7d3682a21fc015c7cc2801dd23c962b0ce13f4699a3d7a96ff6291b00e7",
@@ -7155,10 +7225,11 @@
 "tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
 "tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
 },
-"dt": 173.21933722496033,
+"deps_v": 2,
+"dt": 170.90849447250366,
 "file": "cascade_lattice_forcing.py",
 "rc": 0,
-"when": "2026-10-07T23:24Z"
+"when": "2026-10-08T01:57Z"
 },
 "c855d96fda2663687bcbf5b5": {
 "dt": 34.39267826080322,
@@ -7309,6 +7380,41 @@
 "file": "cascade_lfunction_test.py",
 "rc": 0,
 "when": "2026-10-07T18:40Z"
+},
+"ccc4d34fb1da336501e86c27": {
+"deps": {
+"dir:tools/research": "07e245734deb1db243be976f040b32287c036f2027946c46e2a35aed6e303c8e",
+"src/cascade-series-part0.tex": "47bb4b40368ac89d521c15232dc751550fa8600f30e0bd0c57eb77bc45c8203f",
+"src/cascade-series-part4a.tex": "92261e8f60dc069c0d71fa6458f20d0ff2e33078dc7bb319c280e50a04a39aab",
+"src/cascade-series-part4b.tex": "78c0f7d3682a21fc015c7cc2801dd23c962b0ce13f4699a3d7a96ff6291b00e7",
+"tools/research/cascade_arithmetic_section.py": "53fba7194457955ac4cad815c160aa0d947954052a72b3d5024f1637d61f30a3",
+"tools/research/cascade_attraction_margins.py": "e9b35fcf52cb66675d41d7ef2d2293ef90a0eccf7c3d78fc01b886e6620da406",
+"tools/research/cascade_concentration_regrade.py": "cd98ead8e053b9b76c444f85d883c07939a8ca9c4d398cc5ff33783122ba73b0",
+"tools/research/cascade_explicit_formula_bridge.py": "932ccaab2614292dac7ea1479eb32d2e72d49f84637154f6ffddb8c9fbbed50d",
+"tools/research/cascade_finite_fill.py": "0cafd2011ce8d05ea2dad393bc6cab6211dafffdb162a511183a9ec70643b129",
+"tools/research/cascade_floor_meter.py": "964878323b1889cb3e235feb72b317546bc1dd1995cc160c2fc2b4470a604de2",
+"tools/research/cascade_heatflow_energy.py": "850ef0aeab95beab61652fa59695eb1067ac5c8c3c4876793dc8b83520b2cbba",
+"tools/research/cascade_lattice_forcing.py": "bbaa75414bd159605e1491c5d4869093918786b7d5e51249cee91f2a8a23a527",
+"tools/research/cascade_li_two_channels.py": "57c5f8ff127aada0c57658a0d6ced1c88508b91f1880656d5b3b2bf0badf680a",
+"tools/research/cascade_precedence_vacuity.py": "85239524981d91a780a5edd4f5b337ca40e5ea78289802e3a297c89a15d271a8",
+"tools/research/cascade_primes_side_ball.py": "2ddbbba122eabcd09bf406b848761b61c2e36c26923bc8a789e5412cd0247687",
+"tools/research/cascade_quarter_square.py": "26c7c3e6ab5662c20b59aadc51ec5d12d64cc60f1dd0c32c5680db8ea5940373",
+"tools/research/cascade_riemann_selection.py": "808a097c6150d8944333dc97b5ee2c2cd6156568392204d1097dc722e06cbab2",
+"tools/research/cascade_saddle_curvature.py": "533453babba077dd20b8a7f585878e0b0db3aedcab5921655ad593e541f6c7f8",
+"tools/research/cascade_tower.py": "38c2dcb08522d6d32dd0d4ea0022df89acbe3e7048a5e3516a5a89f1c12e5eae",
+"tools/research/cascade_type_counting.py": "af4b31e8c56034b3130f5d3e996a48ff2915886a448774d5ea65ac46e048c77a",
+"tools/research/cascade_unit_ball_rh.py": "55c2864fcb7dc005cf450e09d305bc98366eeeb6fc07d0d6b8a4a14911da0a46",
+"tools/research/cascade_weil_route_traveled.py": "15379c3694f2d824666c07b2aa7abf679b9d534b40e85eaa2b8e5886150c46e1",
+"tools/research/cascade_windows_overlap.py": "2257f61e7d006ad943f0a3c7cff1bb7c48dc59f9e26dd52e31ecde7adf379524",
+"tools/research/paper_needles.py": "20df486a4eca749b5897fc64671a0c3d369ae3def978ae3fd98321f4e6a4b57c",
+"tools/research/zeta_zeros_cache.py": "1035849fa7cb845e88ac49c774f0e42a97fa2978bd046d8bdfcd1fe0a74c42b5",
+"tools/verifiers/verify_selection_rule.py": "52099c6937ab277598643a6f275a24907755650b029eb8480f75854f99e15755"
+},
+"deps_v": 2,
+"dt": 40.007617473602295,
+"file": "cascade_saddle_curvature.py",
+"rc": 0,
+"when": "2026-10-08T02:03Z"
 },
 "ccd5ce2abb1ec525118103fd": {
 "dt": 395.1215670108795,
