@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1449 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1479 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -227,6 +227,7 @@ Every file ends with `#print axioms`. All 1449 checked theorems in `src/` (and t
 | `EisensteinMeanSquareRowCol.lean` | 1058 | **S4, part 8: the mean square in row/column form**: reindexing over subsets (`sum_powerset_pair_split`, `sum_pair_T_split`, the Möbius step `sum_disjoint_mobius`); elements and primes of bounded norm (`eltsLe`, `primesLe`); the paired factor in characters modulo `4` (`pairPsiCls`, `pairTerm_expand`); the zero frequency (`tsum_mu_eq`); the column factorization (`col_factor`, `WW_kap`); **`meanSquare_rowcol`** (round 308) |
 | `EisensteinMeanSquareBlock.lean` | 520 | **S4, part 9: the bilinear bound for one block of rows**: the column sums over subsets (`colSum_eq_powerset`); rows and their injectivity (`Row`, **`row_injective`**); the column mean squares from round 306's exclusion lemma (`rows_colMeanSquare`); a row's double column sum as round 306's bilinear form (`rowSum_eq_bilinear`, `ARow_ge`); **`rowBlock_bound`** (round 309) |
 | `EisensteinMeanSquareDual.lean` | 1020 | **S4, part 10: the mean square from the dual mean square**: weights and bumps (`weight_support`, `exists_bump`); counting (`idealCount_le`, `four_pow_card_le`, `sum_fsLe_inv_le`, `sum_fsLe_four_pow_le`); the zero frequency (`zero_term_le`); the rows that can contribute (`goodRow`, `rowTerm_eq_zero`); one excluded ideal over the dyadic levels of `N(f)` (`bTerm_bound`); the mean square at one scale (`famSum_meanSquare_le`); **`meanSquare_of_dualMeanSquare`** (`DualMeanSquare ϑ ⇒ MeanSquare ϑ` for `ϑ > 0`) and **`ne_zero_of_dualMeanSquare`** (round 310) |
+| `EisensteinCompletedSums.lean` | 568 | **S5, part 1: the completed sums and the cube inversion**: primary generators and `α` multiplicative on all ideals of norm prime to `6` (`exists_primary_gen`, `pgen_mul6`, `alphaI_mul6`); the twist `twistPsi` (completely multiplicative); `Σ_{𝔥∣𝔠} μ(𝔥) = [𝔠 = 1]` (`tsum_moebius_dvd`); the completed sum `compT` (the companion paper's (5.3)); **`cube_inversion`** (its (5.8)) (round 313) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9791,7 +9792,7 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 - For comparison, the pilot's S0–S4 files have 15,360 lines in total (30 files). Round 286's grep found no large sieve, metaplectic form or Kubota theta in the pilot's Mathlib.
 
 **The plan for S5.** It is staged by displayed hypotheses, as S4 was staged by `DualMeanSquare`.
-- **S5a.** `T(X;Ψ)` and its cube inversion (5.8); Lemma 5.3, with Proposition 5.2 as a displayed hypothesis (`CompletedMeanSquare`).
+- **S5a.** `T(X;Ψ)` and its cube inversion (5.8); Lemma 5.3, with Proposition 5.2 as a displayed hypothesis (`CompletedMeanSquare`). *(Round 313: `T(X;Ψ)` and the cube inversion landed, `Eis.compT` and `Eis.cube_inversion`.)*
 - **S5b.** The induction of Proposition 5.1, with Proposition 5.4 also displayed (`TransferEstimate`). With rounds 310 and 288 this is the third conditional milestone: the two displayed estimates give `DualMeanSquare ϑ` for every `ϑ > 0`, hence `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5ϑ)/12` for every `ϑ > 0`, that is on `Re s > 11/12`. (Round 282: the release's Lean for this route reaches `23/24`.)
 - **S5c.** Proposition 5.4 derived (Section 7), reusing S4.
 - **S5d.** Proposition 5.2 derived from the theta transformation (Proposition 6.2 with Lemmas 6.3–6.4) and Lemma 6.5. Both stay displayed hypotheses for now; this round does Section 6.4's assembly.
@@ -9805,5 +9806,37 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 - (c) The signal is unchanged (round 311).
 
 **Check 4.** New here: the map of S5 onto the pilot's stack. Nothing is derived in Lean this round.
+
+**Bearing on RH:** none.
+
+## Round 313: S5, part 1 — the completed sums and the cube inversion (`src/EisensteinCompletedSums.lean`)
+
+**What it is.** The first step of S5a in round 312's plan: the companion paper's completed sum (5.3) and its cube inversion (5.8), on the ideals of `ℤ[ω]`. The paper's (5.8), with its LaTeX rendered as text: "`X^{−1/2}Σ*_{(n,S)=1} a_ξ(n)χ_n(k)χ_n(f)⁴W(N(n)/X) = Σ_{(h,S)=1} μ(h)·conj(α(h))³Ψ_k(h)³/N(h)·T(X/N(h)³;k,f)`." Its justification: "Indeed, after substitution of (5.3), the coefficient of the total cube index `b` contains `Σ_{h∣b}μ(h)=1_{b=1}`. This is Möbius inversion".
+
+**Primary generators of all ideals prime to `6`.** Round 305 had `pgen` and `α` multiplicative on coprime squarefree ideals. The cube index ranges over all ideals, so:
+- `exists_primary_gen`: every ideal of norm prime to `6` has a primary generator, the product of those of its prime factors.
+- `pgen_mul6` and `alphaI_mul6`: `pgen` and `α(𝔫) = σn/|σn|` are multiplicative on these ideals; `pgen 1 = 1`, `α(1) = 1`.
+
+**The twist.** `twistPsi ξ k f 𝔫 = ξ(n)·(k/𝔫)₆·(f/𝔫)₆⁴` on the ideals of norm prime to `6`, and `0` otherwise. It is the paper's `Ψ_k` of (5.4), with the zero extension at `S = {2, 3}`. It is completely multiplicative (`twistPsi_mul`), with `|Ψ| ≤ 1` and `Ψ(1) = 1`.
+
+**The Möbius sum over divisors** (`tsum_moebius_dvd`). For `𝔠` of norm prime to `6`, `Σ_{𝔥 ∣ 𝔠} μ(𝔥) = [𝔠 = 1]`. The squarefree divisors are the products `∏_{P∈A} P` over the subsets `A` of `𝔠`'s prime set, and Mathlib's `Finset.sum_powerset_neg_one_pow_card` sums the signs. Mathlib's `UniqueFactorizationMonoid.moebius` comes with no divisor-sum identity.
+
+**The completed sum** (`compT`, the paper's (5.3)).
+- The definition: `T(X;Ψ) = Σ_{𝔫 squarefree, 𝔟} ᾱ(𝔫)γ₂(𝔫)Ψ(𝔫)·ᾱ(𝔟)³Ψ(𝔟)³/(√N𝔫·N𝔟)·V_*(N𝔫·N𝔟³/X)`, with `V_*(y) = √y·W(y)`. The sum runs over all ideals, and `Ψ` vanishes off those of norm prime to `6`.
+- The paper's sums run over primary elements prime to `S`; an ideal of norm prime to `6` has exactly one primary generator.
+- The column coefficient `ᾱ(𝔫)γ₂(𝔫)Ψ(𝔫)` is round 305's `a_ξ(𝔫)(k/𝔫)₆(f/𝔫)₆⁴` (`gCoef_eq_col`).
+- At length `X/N(𝔥)³`, `T` is a finite double sum over the ideals of norm at most `βX` when `W` vanishes beyond `β` (`compT_eq_sum`).
+
+**The cube inversion.**
+- `inner_cube_sum`: for `n ≥ 1`, `Σ_𝔥 μ(𝔥)ᾱ(𝔥)³Ψ(𝔥)³/N𝔥 · Σ_𝔟 ᾱ(𝔟)³Ψ(𝔟)³/N𝔟 · V_*(n·N(𝔟)³N(𝔥)³/X) = V_*(n/X)`. The products `𝔠 = 𝔥𝔟` are regrouped through round 306's `tsum_ideal_dvd_eq`, and `tsum_moebius_dvd` keeps `𝔠 = 1`.
+- **`cube_inversion`**: `X^{−1/2}·colSum ξ W X 1 k f = Σ'_𝔥 μ(𝔥)ᾱ(𝔥)³Ψ(𝔥)³/N𝔥 · T(X/N𝔥³; Ψ)` for `X > 0` and `W` vanishing beyond some `β`.
+
+**Build.** Incremental pilot build: 1 compiled, 200 up to date, 14 s, 0 warnings. The 30 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1479 in `src/`. No other file imports `EisensteinCompletedSums`. The 36 new named declarations were checked against the Lean files of `src/` and `external/` for clashes. The draft's `psiK` and `norm_psiK_le` also name declarations in `src/KaiserPrefactor.lean`, so they were renamed `twistPsi` and `norm_twistPsi_le` before landing.
+
+**Check 4.** The identity is the paper's (5.8). New here: the multiplicativity of the primary generator on all ideals prime to `6`, and the divisor-sum identity for the Möbius function on the ideals of `ℤ[ω]`.
+
+**Not yet here:** the rest of S5a, which is Lemma 5.3 (the cube reduction) with Proposition 5.2 as a displayed hypothesis; then S5b–S5f.
+
+**Check 9.** No barrier claim is made.
 
 **Bearing on RH:** none.
