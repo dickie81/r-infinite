@@ -8991,3 +8991,22 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 **Check 9.** (c) The signal fed to round 278's criterion is now the family mean square. It is auxiliary: its second representation, through Poisson duality, is the Gauss-sum side, and it has been on the register since round 282. No barrier claim is made.
 
 **Bearing on RH:** none. A fixed half-plane is strictly weaker than RH.
+
+## Round 289: the sextic large sieve as a source for the mean square — an exponent computation (no new Lean)
+
+**The question.** Round 286 entered de Faveri's "Optimal large sieve for fixed order characters" (arXiv:2610.04045) on the register as a lead for round 288's displayed hypothesis `MeanSquare σ`. Does its bound give `MeanSquare σ` for some `σ < 1`?
+
+**The bound.** The paper's Theorem 1.1, read in the arXiv PDF (v1, 2 October 2026), reads (`Θ_n` is the large-sieve operator norm over `n`-th power free ideals, defined in its (1.2)): "Let n ≥ 3. Then for every A, B ≥ 1 and ε > 0 we have Θ_n(A,B) ≪_ε (AB)^ε (A + B + A^{1−1/n}B^{2/n} + A^{2/n}B^{1−1/n})." The paper expects this to be optimal in logarithmic scale, and its matching lower bounds (Dunn–Radziwiłł; de Faveri–Dunn–Hoffstein) establish that for its cubic and quartic families.
+
+**The computation.**
+- Bounding the mean square by this operator norm puts the characters at `z`, with `N(z) ≤ A = Z^{1+σ}`, and the sequence `λ_𝔞 = μ(𝔞)W(N𝔞/Z)` at `N𝔞 ≤ B ≍ Z`, with `‖λ‖² ≍ Z`.
+- `MeanSquare σ` needs the norm to be at most `Z^{1+σ+ε}`. At `n = 6` the term `A^{5/6}B^{1/3} = Z^{(7+5σ)/6}` is at most `Z^{1+σ}` only when `σ ≥ 1`. At `σ = 0`, `1/20` and `1/10` it exceeds `Z^{1+σ}` by `Z^{1/6}`, `Z^{4/30}` and `Z^{3/20}`.
+- At `σ ≥ 1`, round 288's half-plane `Re s > (11 + 5σ)/12 ≥ 4/3` adds nothing.
+- So, through the operator norm alone, the lead does not supply `MeanSquare σ` for any `σ < 1`. The release reaches `σ > 1/20` by using the Möbius structure of the coefficients: Poisson summation in `z`, the Gauss-sum identities, the quadratic large sieve over `ℤ[ω]` and the cubic theta function (round 282's spine).
+- The paper's own proof sketch (§1.3.1) opens the square and applies Poisson summation in the outer variable, as the release does. That step is where the coefficients' structure would enter.
+
+**Check 9.**
+- (a) The negative is scoped: it concerns this one reduction, which bounds the mean square by the large-sieve operator norm. It says nothing about routes that use the coefficients' structure.
+- (b) The register entry is updated (STRUCTURAL-REVIEW §6).
+
+**Bearing on RH:** none.
