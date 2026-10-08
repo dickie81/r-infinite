@@ -20880,3 +20880,44 @@ B and C each demonstrated a stale cached PASS end to end (B: `-m` of a package m
 - **The records:** 17 to 138 recorded dependencies per member (median 75). 35 hold the manifest view (every member but the root, which calls no chain check), 25 the listing of `tools/research`, and none a missing path.
 
 ---
+
+## Addendum 574 — round 402, the convergence test on the round-401 sweep (c04f16b), under the owner's drift-detector standard (0 MAJOR, 0 minor; converged; stable)
+
+**The round.**
+- Two fresh-context `hostile-reviewer` agents ran in parallel on the sweep diff only (lenses: code and keying; claims and prose). Brief: `brief_round402.md`, which states the standard. Reports: `scratchpad/r402/report_{B,C}.md`.
+- **Lead's battery on c04f16b:** 36 live PASS, then 36 cached PASS with each record unchanged (recorded in A573). Lens B also ran an independent fresh tower in its own worktree: 35 of 35 non-root records hold the manifest view, and 36 of 36 hold their own script.
+- Both lenses graded under the standard. The lead re-read each charge against the code.
+
+**Result: 0 MAJOR, 0 minor. Converged.** The round-401 sweep is stable under the owner's standard, and with it the residual sweep that began at round 395 (49ab366). The paper surfaces have not changed since fafb386.
+
+**Cosmetics, held for the next substantive round** (prose only; no committed exposure):
+- **B1 = C5.** Several passages describe the comparison as "bytes" or "unchanged": the docstrings of `_dep_hash` and `_deps_ok`, two driver comments, the tracer docstring and the record-case comment. In fact the manifest is compared by its view and a `.py` file by its executable content.
+- **C1.** The spawn-line claim is wider than `_spawn_cands`: a `cd` target joined to `;` or `&&`, and an attached `-mX`, are not resolved.
+- **C2.** "Not cached" is in fact a member FAIL. The static widening also covers a child's own directory.
+- **C3.** CLAUDE.md:118's "only" points to a list that omits line 119's unbound inputs, the tower's thread and chain settings, and data outside the repository.
+- **C4.** The net-state marker's exception list is incomplete.
+- **C6.** "Not seen" lacks round 401's lens-A O1 and O2, and narrows two entries.
+- **C7(a).** L21 is scoped by the delimiter row's cell count, not the table's column count.
+- **C8.** The shadow sentence covers only `.py` shadows.
+- **C9(i).** The census line says the lost trace "failed closed" even when the step is skipped (no /dev/full).
+
+**Out-of-scope observations, held:**
+- **B2 = C9(ii).** The lost-trace step's child is `-c pass` (`run_tower.py:1881`). It raises an audited event only by reading a system `sitecustomize`. On an interpreter without one, the precheck fails closed: a false alarm on other installations, not a stale PASS. Candidate: spawn a planted script instead.
+- **B3 = C10.**
+  - The real manifest binding rides on `_trace_deps`'s default argument (`run()` at 1515 passes no `man`). The results loop's `_alive` call (1924–1928) and the short-write test (`sitecustomize.py:77`) are pinned by no precheck.
+  - The committed wiring is correct: 35 of 35 views, 36 of 36 scripts.
+  - Lens B proposed exact checks.
+- **C7(b).** L16 skips indented lines, so a lazy line of a nested list item is unchecked. This predates the sweep, and neither surface nests a list.
+- **C8's mechanism.** A sourceless `.pyc` shadow rotates nothing. There is no `.pyc` in the code roots outside `__pycache__`.
+
+**Check-1 record (re-read this round):**
+- `run_tower.py`: the record functions, `run()` (1515), the dependency precheck's lost-trace step (1879–1885) and the results loop (1920–1935);
+- `reach_trace/sitecustomize.py` 60–90.
+
+Confirmed:
+- `run()` calls `_trace_deps(trace, REPO)` without `man`;
+- the child is `-c pass`;
+- "record incomplete" goes to `fails` and prints FAIL;
+- the short-write test is at `sitecustomize.py:77`.
+
+---

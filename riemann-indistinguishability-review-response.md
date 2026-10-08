@@ -6182,3 +6182,15 @@ Swept: 33361b9. Convergence round 391 is owed.
 **Battery on the sweep:** 36 live PASS, then 36 cached PASS, each record unchanged.
 
 **Swept:** c04f16b. Convergence round 402 owed: two lenses, the sweep diff only.
+
+### Round 402 — the convergence test on the round-401 sweep
+
+**Scope.** Commit c04f16b, the sweep diff only, under the owner's drift-detector standard (ec500d4).
+- **Battery** (full-tower class, run by the lead on c04f16b): 36 live PASS, then 36 cached PASS with each record unchanged.
+- **Review:** two parallel lenses (code and keying; claims and prose). Brief: `brief_round402.md`.
+
+**Findings.** 0 MAJOR, 0 minor (A574).
+- **Cosmetic, held for the next substantive round:** B1 = C5, C1, C2, C3, C4, C6, C7(a), C8, C9(i). All are prose only.
+- **Out-of-scope observations, held:** B2 = C9(ii) (the lost-trace probe needs a system sitecustomize; elsewhere it gives a false alarm), B3 = C10 (branches no precheck pins; the committed wiring is correct), C7(b), C8's mechanism.
+
+**Converged.** The round-401 sweep is stable, and with it the residual sweep that began at round 395.
