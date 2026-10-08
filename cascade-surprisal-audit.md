@@ -20805,6 +20805,78 @@ B and C each demonstrated a stale cached PASS end to end (B: `-m` of a package m
 - **The records:**
   - 17 to 137 recorded dependencies per member (median 74);
   - 25 of the 36 hold the listing `dir:tools/research`, and none holds a missing path.
-  - By grep, the research scripts' only listing of that directory is `ckpt_migrate.py:155`, the producer search over keyed instruments. So a file added there now re-runs those 25 members live: the safe direction, at the cost of one live tower.
+  - By grep, the research scripts' only listing of that directory is `ckpt_migrate.py:155`, the producer search over keyed instruments. So a file added there now re-runs those 25 members live: the safe direction, at the cost of one live tower. [Corrected in A573 (F401-C10, lens B's O1): the listing comes from `importlib.metadata`'s scan of `sys.path` during scipy's import, not from `ckpt_migrate`. The cost statement stands.]
+
+---
+
+## Addendum 573 — round 401, the convergence test on the round-400 sweep (fafb386), graded under the owner's drift-detector standard (2 minors with committed exposure; the rest cosmetic or out of scope; swept c04f16b)
+
+**The round.**
+- Three fresh-context `hostile-reviewer` agents ran in parallel (lenses: paper and rendering; code and keying; mathematics and claims). Brief: `brief_round401.md`. Reports: `scratchpad/r401/report_{0,1,2}.md`.
+- **Lead's battery on fafb386:** 36 live PASS, then 36 cached PASS on a stability re-run, each record unchanged (recorded in A572).
+- **The owner's decision, mid-round (ec500d4).** After rounds 397–400 each extended the dependency record or the render lint in response to findings with zero committed exposure, the owner asked why the review was not converging. The lead's account: the instruments were growing to answer planted examples, and each extension became the next round's attack surface. Of the options put to the owner, they chose the drift-detector standard.
+  - CLAUDE.md now treats the dependency record and the render lint as drift-detection instruments, as round 279 did the needle precheck.
+  - A defect counts as MAJOR or minor only if it touches a committed tower member or the text or rendering of the paper surfaces.
+  - A gap shown only on a planted example is an out-of-scope observation: recorded, held, and never a reason to sweep.
+  - Round 401 was briefed before the decision and graded under it. Lens B saw ec500d4 mid-round and graded under it; the lead re-graded lenses A and C.
+- Every finding below was verified by the lead directly.
+
+**F401-B1 (minor; committed exposure).**
+- **The defect:** 35 members call `cascade_tower.chain_ok`, which reads the manifest's member list, its order and the two census strings. The record excluded the manifest as "integrity-checked", but the integrity precheck compares only each listed entry's sha.
+- **How it shows:** a refreshed manifest that dropped a member, or that took a struck census string, served every cached PASS while the members failed live. The refresher takes the first bold census match.
+- **Lead:** read `cascade_tower.py` 59–100 and `run_tower.py` 110–126 and confirmed both reads and the gap.
+- **Disposition:**
+  - The record now holds a "manifest:" view: the member list and every non-hash field, hashed. The per-entry hashes stay with the integrity precheck. `DEPS_V = 3`.
+  - The record's sabotage case plants a manifest-like file. A hash edit is served, a dropped member or a changed census is refused, and the restored file is served.
+
+**F401-B2 (minor; committed exposure).**
+- **The defect:** the tracer swallowed its own write errors, so a full disk cached a truncated record. Lens B showed it on `cascade_lfunction_test.py` with a 4 KiB size limit, and `/` was at 97% this round.
+- **Lead** (`scratchpad/r401/lead/b2_member.py`, `CASCADE_TRACE=/dev/full`): rc 0 and an empty trace before the fix; "reach_trace: the trace could not be written", rc 97 after.
+- **Disposition:**
+  - A failed or short write ends the process with status 97.
+  - The driver refuses to cache a run whose record lacks the member's own script (`_alive`).
+  - Both are planted in the precheck: a `/dev/full` run must exit 97, and `_alive` must refuse a record without the script.
+
+**Cosmetic: overstated coverage, scoped in prose (no new mechanism).**
+- C4: "can never fail where the tower passes".
+- A3 = C1: the L17 exemption (now the first word of a rendered fence's info string), the allowlist (a superset of what the surfaces render), and the code-mask description.
+- A5 = B8 = C9: L21 covers delimiter rows of two or more cells.
+- B3 = C3: a replaced `PYTHONPATH` joins the untraced-child list.
+- B5 and C5(d): a `cd` is resolved only as its own word, each target joined to the spawn's directory.
+- B6 = C2: a library's own import is not bound.
+- B7 and C5(a–c): the listings not recorded, the new entry kinds, `.py` files compared by executable content, and the tracer's directory.
+- B4 = C7: the sabotage comment's "only that spelling".
+- C6: the f-string field order.
+- "Not seen", and CLAUDE.md's self-review list, add A1, A2 and the one-column table.
+
+**Out-of-scope observations, held:**
+- **A1 (lint regression).** A one-word accidental fence swallows the rest of its container, and the code mask covers the line a container closes a fence on. Exposure is zero: neither surface holds `~~~` or renders a `<pre>`.
+- **A2 (lint regression).** A lazy line of a list inside an indented quote. Exposure is zero.
+- A4 (clauses unpinned by probes), lens A's O1–O2, B4 and C7 (untested branches).
+- **B6 = C2.** A file shadowing a library's import. The tower fails closed through the always-live prechecks.
+- **Lens B's O1.** The `dir:tools/research` listing comes from `importlib.metadata` scanning `sys.path` during scipy's import.
+- Lens B's O2–O4, C8–C9.
+
+**Record correction (C10).** A572 said: "By grep, the research scripts' only listing of that directory is `ckpt_migrate.py:155` … So a file added there now re-runs those 25 members live". The grep was right but the cause was wrong. The listing comes from `importlib.metadata` (lens B's O1; C10's traces: `importlib/metadata/__init__.py:800`, reached by `scipy.special`, `scipy.linalg` and `scipy.stats`). The cost statement stands, and any untracked file in `tools/research` triggers it.
+
+**Check-1 record (re-read this round):**
+- `cascade_tower.py` 55–100;
+- `run_tower.py` 105–130 (integrity), 1250–1500 (the record) and the dependency precheck;
+- `reach_trace/sitecustomize.py` in full;
+- `render_lint.py` 60–140 and 370–390;
+- CLAUDE.md 92–130.
+
+**Lead's verification commands** (`scratchpad/r401/lead/`):
+- `b2_member.py`;
+- `dry_mut401.py`: the control completes, and six mutations exit 2, each flipping exactly its own check: no_exit97, no_manifest_view, view_bytes, view_no_names, dok_no_manifest, no_alive (`mut401.txt`).
+- render lint: "2 surfaces, 0 defects; probes 46/46 as expected".
+
+**Battery on the sweep.** Full-tower class: `scratchpad/r402/battery_lead.sh` on c04f16b. The live run took 03:29–03:59 UTC and the stability re-run 03:59–04:00.
+- **Run 1:** all nine prechecks were green, including:
+  - "render lint: 2 surfaces, 0 defects; probes 46/46 as expected";
+  - "dependency precheck: the tracer's sabotage case recorded 95 planted files, listings, missing paths and manifest views (modules precompiled) and 1 external module; the record refused 6 of 6 planted changes, served the unchanged, comment-edited, re-hashed and restored states, refused a record without its script, and a lost trace failed closed".
+  - It ended "census: 36 live PASS + 0 cached PASS + 0 FAIL of 36", "TOWER PASS (36/36)", exit 0, WRAPPER-COMPLETE.
+- **Run 2 (stability):** "census: 0 live PASS + 36 cached PASS + 0 FAIL of 36", "TOWER PASS (36/36)", exit 0. All 36 PASS lines read "recorded dependencies unchanged". Then BATTERY DONE, at HEAD 728895b with a clean tree.
+- **The records:** 17 to 138 recorded dependencies per member (median 75). 35 hold the manifest view (every member but the root, which calls no chain check), 25 the listing of `tools/research`, and none a missing path.
 
 ---

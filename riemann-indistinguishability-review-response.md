@@ -6160,3 +6160,25 @@ Swept: 33361b9. Convergence round 391 is owed.
 **Battery on the sweep:** 36 live PASS, then 36 cached PASS on a stability re-run, each with its record unchanged.
 
 **Swept:** fafb386. Convergence round 401 owed.
+
+### Round 401 — the convergence test on the round-400 sweep
+
+**Scope.** Commit fafb386.
+- **Battery** (full-tower class, run by the lead on fafb386): 36 live PASS, then 36 cached PASS on a stability re-run.
+- **Review:** three parallel lenses. Brief: `brief_round401.md`.
+- **Standard:** the owner's drift-detector decision (ec500d4), adopted mid-round. Findings are graded under it.
+
+**Findings.** 2 minors with committed exposure, both verified and fixed (A573). The rest are cosmetic (the prose was scoped) or out-of-scope observations (held).
+- **Minor F401-B1:** the manifest's member list and census strings, which members read, were unbound. The record now holds a "manifest:" view.
+- **Minor F401-B2:** a trace write failure cached a truncated record. A failed write now ends the process with status 97, and a record without the member's script is not cached.
+- **Cosmetic:** A3 = C1, A5 = B8 = C9, B3 = C3, B4 = C7, B5, B6 = C2, B7, C4, C5, C6 (prose only).
+- **Held observations:**
+  - A1 and A2 (zero-exposure lint regressions, now in "Not seen");
+  - A4, and the untested branches of B4/C7;
+  - the B6/C2 mechanism;
+  - lens B's O1–O4, C8 and C9.
+- C10 corrects A572's record.
+
+**Battery on the sweep:** 36 live PASS, then 36 cached PASS, each record unchanged.
+
+**Swept:** c04f16b. Convergence round 402 owed: two lenses, the sweep diff only.
