@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1240 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1257 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -220,6 +220,7 @@ Every file ends with `#print axioms`. All 1240 checked theorems in `src/` (and t
 | `PlaneMajorant.lean` | 234 | **S4, part 1: a radial majorant with compactly supported Fourier transform**: the bump `η(z) = s(1 − 64\|z\|²)`; `𝓕η` real (`fourier_eta_im`) with `Re 𝓕η ≥ (∫η)/2` on the unit disc (`fourier_eta_re_ge`); **`Phi`** `= c·𝓕(η ⋆ η) = c·(𝓕η)²`: real, `≥ 0`, **`one_le_Phi_re`** (`Φ ≥ 1` on the unit disc), radial (`Phi_rot`); **`fourier_Phi`** `𝓕Φ(x) = c·(η ⋆ η)(−x)` and **`exists_fourier_Phi_eq_zero`** (compact support) (round 301) |
 | `MellinSeparation.lean` | 845 | **S4, part 2: separating variables with one-dimensional Mellin transforms**: `log_fourier_inversion` (`h(log y) = ∫ 𝓕h(t)·y^{2πit} dt`) and `mellin_of_compact`; `schwartz_exp_comp` and **`mellin_of_dual`** (`G(√y) = ∫ c(t)·y^{−σ+2πit} dt` for `G` vanishing on `[R, ∞)`); `testFun_bound` (`‖(V·x^s)^{(j)}‖ ≤ C(1 + \|s\|)^J` for `\|Re s\| ≤ A`); `sum_norm_integral_sq_le`; **`dilated_meanSquare`** and **`bilinear_dual_bound`**, the companion paper's Lemma B.2 for the kernel of its Proposition 4.5 (round 302) |
 | `EisensteinPoissonExcl.lean` | 304 | **S4, part 3: Poisson summation with excluded primes**, the companion paper's Lemma 4.2: inclusion–exclusion `indicator_not_dvd`; **`poisson_excl`** (`Σ_{u : π_i ∤ u} f(u)F(σu)` as `Σ_{T⊆S} (−1)^{\|T\|}·2/(√3·N(c)·N(d_T))·Σ_μ G_c(f(d_T·), μ)·𝓕F(…)`); the dual weight `dualG` `= 𝓕Φ` on `ℝ` (`fourier_Phi_eq_dualG`, `dualG_contDiff`, `dualG_bounded`, `exists_dualG_eq_zero`); **`poisson_excl_Phi`**, the formula for round 301's majorant (round 303) |
+| `EisensteinPairedGauss.lean` | 480 | **S4, part 4: the paired Gauss sums**: twisted quadratic sums over squarefree moduli (`sqSum_mul_t`, `sqSum_prod`); **`gamF_three_eq`** (`γ₃(n) = Φ(a, b)/2` for squarefree `n = a + bω`, the paper's `γ₃(n) = Γ_quad(n)`) and `gamF_three_sq` (`γ₃(n)² = χ_n(−1)`); `χ_n(4)` through `n mod 2` (`prod_chi6_four`); unit norms (`norm_gamF`, `norm_aF`); **`paired_gauss`** (`μ(z₁)μ(z₂)·γ(χ_{z₁}χ̄_{z₂}) = ā(z₁)·a(z₂)·χ_{z₁}(4)⁻¹·χ_{z₂}(4)·γ₃(z₁z₂)`) and **`pairFactor_eq_of_mod_four`** (the factor depends only on `z₁, z₂ mod 4`) (round 304) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9482,7 +9483,41 @@ It uses `|σ(δ)|² = 3` (`normSq_σO_δ3`) and `𝓕[Φ(·/√H)](ξ) = H·𝓕
 
 **Check 4.** Classical: Möbius inclusion–exclusion and Poisson summation over a lattice. New here: machine-checked on the pilot's stack from rounds 294, 295 and 301.
 
-**Not yet here:** the rest of S4. In order: the expansion of the mean square with the Gauss-sum identities of rounds 299–300 and classes modulo `4`; the dual mean square (Definition 4.3) and Lemma 4.4; Proposition 4.5.
+**Not yet here:** the rest of S4. In order: the expansion of the mean square with the Gauss-sum identities of rounds 299–300 and classes modulo `4` *(Round 304: the Gauss-sum step landed, `Eis.paired_gauss` and `Eis.pairFactor_eq_of_mod_four`; the expansion itself is in the assembly.)*; the dual mean square (Definition 4.3) and Lemma 4.4; Proposition 4.5.
+
+**Check 9.** No barrier claim is made.
+
+**Bearing on RH:** none.
+
+## Round 304: S4, part 4 — the paired Gauss sums of the Poisson reduction (`src/EisensteinPairedGauss.lean`)
+
+**Why.** After Poisson summation (round 303), each pair of coprime squarefree columns `z₁, z₂` of the expanded mean square contributes the normalized Gauss sum of the character `χ_{z₁}·χ̄_{z₂}` modulo `z₁z₂`. The paper's sentence, with its LaTeX rendered as text: "The Chinese remainder theorem and (4.5)–(4.7) give `μ(z₁)μ(z₂)·ν̄(z₁)ν(z₂)·γ(χ̄_{z₁}χ_{z₂}) = Σ_ξ c_ξ a_ξ(z₁)·ā_ξ(z₂)`." The paper's (4.5)–(4.7) are identities of its Lemma 4.1, and (4.7), `χ_a(−1)·Ḡ(a)·G(b)·R(a, b) = G(ba⁻¹)`, uses a bicharacter `R` on a ray class group. This round makes the conversion without the bicharacter. The factor left after splitting off the column coefficients is computed in closed form, and it depends only on `z₁, z₂ mod 4`. Here the second column carries the conjugate; the paper conjugates the first, which only swaps the roles.
+
+**Quadratic sums over squarefree moduli.**
+- `ψc_one`: the trace character modulo a unit is trivial, so `S_1(t) = 1` (`sqSum_one_left`).
+- `sqSum_mul_t`: `S_{ab}(t) = S_a(tb)·S_b(ta)` for coprime `a, b`, round 298's `sqSum_mul` with a twist `t`.
+- `sqSum_prod`: by induction, `S_{∏c_i}(t) = ∏_i S_{c_i}(t·∏_{j≠i} c_j)` for pairwise coprime `c_i`.
+
+**`γ₃` for squarefree moduli.**
+- **`gamF_three_eq`**: `γ₃(n) = Φ(a, b)/2` for `n = ∏_{i∈S} π_i = a + bω` with distinct primes `π_i ∤ 6`. This is the paper's `γ₃(n) = Γ_quad(n)`. Round 300's factorization writes the Gauss sum of the Jacobi symbol as `∏_i ρ_i(n/π_i)·g(ρ_i)`. By round 298's `sqSum_prime` that is `∏_i S_{π_i}(n/π_i)`, which is `S_n(1)` by `sqSum_prod`, and round 297's `quad_gauss_coords` evaluates it.
+- `gamF_three_sq`: `γ₃(n)² = χ_n(−1)`, from Mathlib's `gaussSum_sq` at each prime (`gamN_three_sq`).
+
+**Other ingredients.**
+- `prod_chi6_four`: `∏_i χ_{π_i}(4) = σ(u)` for a cube root of unity `u ≡ n (mod 2)`, from round 299's `chi6_four`. So `χ_n(4)` depends only on `n mod 2` (`prod_chi6_four_eq`).
+- Unit norms: `|γ(n)| = 1` for nontrivial characters of order dividing `6` (`norm_gamF`), `|α(p)| = |χ_p(4)| = 1`, and `|a(n)| = 1` for the paper's `a(n) = ᾱ(n)γ₂(n)` (`aF`, `norm_aF`).
+- `chiF_mul_inv_pair`: `χ_p(q)·χ_q(p)⁻¹ = ρ_p(q)ρ_q(p)` for coprime primary primes, by round 298's `sextic_recip`.
+
+**The paired identity.** **`paired_gauss`**: for disjoint sets `A, B` of primary primes `∤ 6` with products `z₁, z₂`,
+`μ(z₁)μ(z₂)·γ(χ_{z₁}χ̄_{z₂}) = ā(z₁)·a(z₂)·χ_{z₁}(4)⁻¹·χ_{z₂}(4)·γ₃(z₁z₂)`.
+The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_pair`, then `gamF_one_mul_two` for `z₁` and `gamF_one_mul_inv` and `gamF_one_mul_two` for `z₂`, then `GF_union`, and `γ₃(z₂)² = χ_{z₂}(−1)` to cancel what remains. **`pairFactor_eq_of_mod_four`**: the factor `χ_{z₁}(4)⁻¹·χ_{z₂}(4)·γ₃(z₁z₂)` is unchanged when `z₁, z₂` are replaced by products congruent to them modulo `4`. This holds because `γ₃(z₁z₂) = Φ(z₁z₂)/2` and `Φ` depends only on the coordinates modulo `4` (round 299's `quadPhi_add_four`).
+
+**How it will be used.** In the assembly of Proposition 4.5, the factor is a function on pairs of classes modulo `4`. So the double sum over the columns splits into finitely many products of single sums, over the columns in fixed classes. The dual mean square is then needed for the coefficients `a(n)·1_{n ≡ r (mod 4)}`, two families at a time, which the paper's characters `ξ` of the ray class group give through the finite Fourier expansion of the indicator. That comparison, and a two-family version of round 302's `bilinear_dual_bound`, belong to the next rounds.
+
+**Build.** Incremental pilot build: 1 compiled, 193 up to date, 15 s, 0 warnings. The 17 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1257 in `src/`. No other file imports `EisensteinPairedGauss`. A scratch file importing it together with `EisensteinPoissonExcl`, `HalfPlaneMeanSquare` and `MellinSeparation` compiles, so no names clash.
+
+**Check 4.** Classical: the Gauss sum of a Jacobi symbol is the quadratic exponential sum, and Gauss sums of products of characters factor by the Chinese remainder theorem. New here: the paired identity in closed form, without the bicharacter table, machine-checked on the pilot's stack from rounds 297–300.
+
+**Not yet here:** the rest of S4. In order: the dual mean square (Definition 4.3), with characters of `(ℤ[ω]/4)^×`, and Lemma 4.4; the comparison of class indicators with characters; the two-family bilinear bound; the assembly of Proposition 4.5.
 
 **Check 9.** No barrier claim is made.
 
