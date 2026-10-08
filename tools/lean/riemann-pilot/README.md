@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1190 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1200 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -215,6 +215,7 @@ Every file ends with `#print axioms`. All 1190 checked theorems in `src/` (and t
 | `PlaneGaussian.lean` | 345 | **Gaussians and Gaussian chirps in the plane**: the Gaussian `e^{-πa\|z\|²}` as a Schwartz function on `ℂ` (`gaussR`, `gaussC`, from `norm_iteratedFDeriv_gauss_le`); chirps `e^{2πi q(z)}e^{-πa\|z\|²}` (`chirp`); `fourier_prod_gauss`; **`fourier_chirp`**: `𝓕[e^{2πi Re(wz²)}e^{-πη\|z\|²}](ξ) = (η² + 4\|w\|²)^{-1/2}·exp(-π(η\|ξ\|² + 2i Re(wξ²))/(η² + 4\|w\|²))` (round 296) |
 | `EisensteinQuadGauss.lean` | 778 | **S3, part 3: quadratic Gauss sums over `ℤ[ω]`**: Gaussian Poisson summation modulo `m` (`gauss_poisson`) and its zero-frequency limit (**`tendsto_gauss_poisson`**); the chirp's dual side (`chirp_sum_dual`, `dual_term`); **`quad_gauss`**: `Σ_{x mod c} ψ_c(x²) = (\|σc\|/2)·Σ_{y mod 2} e(−Re(σ(cy²)/σ(δ))/2)` for `c ≠ 0`; **`quad_gauss_coords`**: for `c = a + bω` the sum is `(\|σc\|/2)·(1 + i^{−b} + i^a + i^{b−a})` (round 297) |
 | `EisensteinQuadRecip.lean` | 325 | **S3, part 4: quadratic and sextic reciprocity in `ℤ[ω]`**: twisted quadratic sums `S_c(t) = Σ_{x mod c} ψ_c(tx²)` and Chinese remainders (**`sqSum_mul`**); `S_p(t) = ρ_p(t)·g(ρ_p, ψ_p)` at primes (`sqSum_prime`); `g(ρ_p, ψ_p) = (\|σp\|/2)·Φ(x, y)` for `p = x + yω` (`gaussSum_quadR_coords`); `4ρ_p(−1) = Φ(x, y)²` (`quadR_neg_one`); **`quad_recip_coords`**: `ρ_a(b)ρ_b(a)·Φ(a)Φ(b) = 2Φ(ab)`; **`sextic_recip_coords`**: `χ_b(a)·Φ(a)Φ(b) = 2Φ(ab)·χ_a(b)` for coprime primary primes `a, b ∤ 6` (round 298) |
+| `EisensteinGaussPrime.lean` | 299 | **S3, part 5: the companion paper's Lemma 4.1 at a prime**: for a primary prime `p ∤ 6` and `γ_j(p) = g(χ_p^j, ψ_p)/\|σp\|` (`gamN`): **`gamN_two_cube`** `γ₂³ = −α(p)`; **`gamN_one_mul_two`** `γ₁γ₂ = −α(p)·G(p)` with `G(p) = χ_p(4)⁻¹γ₃(p)`; `gamN_one_mul_inv` `γ₁γ₋₁ = χ_p(−1)`; `gamN_three` `γ₃ = Φ/2`; `2` is inert (`span_two_isMaximal`); **`chi6_four`**: `χ_p(4) = σ(u)` for the cube root of unity `u ≡ p (mod 2)`; `\|G(p)\| = 1` (`norm_Gp`) and **`Gp_eq_of_mod_four`**: `G` depends only on `p mod 4` (round 299) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9326,7 +9327,39 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 **Not yet here:**
 - the bicharacter `R` on classes modulo `4` (the paper's table `R((−1)^e λ^f, (−1)^g λ^h) = (−1)^{eh+fg+fh}`), and the laws for composite `a, b`;
-- the other identities of Lemma 4.1 for squarefree `n`: `γ₂(n)³ = μ(n)α(n)`, `γ₁(n)γ₂(n) = μ(n)α(n)G(n)`, `G(n) = χ̄_n(4)γ₃(n)`, `γ₁(n)γ₋₁(n) = χ_n(−1)` and `G(ab) = G(a)G(b)R(a, b)`. At primes they come from round 292's `gaussSum_cubCharC_cube` and `gaussSum_chi6`, Mathlib's `gaussSum_mul_gaussSum_eq_card`, and this round. The squarefree case needs round 295's Chinese remainder step with its cross phases.
+- the other identities of Lemma 4.1 for squarefree `n`: `γ₂(n)³ = μ(n)α(n)`, `γ₁(n)γ₂(n) = μ(n)α(n)G(n)`, `G(n) = χ̄_n(4)γ₃(n)`, `γ₁(n)γ₋₁(n) = χ_n(−1)` and `G(ab) = G(a)G(b)R(a, b)`. At primes they come from round 292's `gaussSum_cubCharC_cube` and `gaussSum_chi6`, Mathlib's `gaussSum_mul_gaussSum_eq_card`, and this round. *(Round 299: at primes, `Eis.gamN_two_cube`, `Eis.gamN_one_mul_two`, `Eis.gamN_one_mul_inv` and `Eis.gamN_three`, with `G` on classes modulo `4`, `Eis.Gp_eq_of_mod_four`.)* The squarefree case needs round 295's Chinese remainder step with its cross phases.
+
+**Check 9.** No barrier claim is made.
+
+**Bearing on RH:** none.
+
+## Round 299: S3, part 5 — the companion paper's Lemma 4.1 at a prime (`src/EisensteinGaussPrime.lean`)
+
+**What it is.** The Gauss-sum identities of the companion paper's Lemma 4.1 for a primary prime `p ∤ 6`, with the normalized Gauss sums `γ_j(p) = g(χ_p^j, ψ_p)/|σp|` (`gamN`) of round 281's sextic character `χ_p`, `α(p) = σp/|σp|` (`alphaN`) and `μ(p) = −1`. The paper states them for squarefree `n`, as `γ₂(n)³ = μ(n)α(n)`, `γ₁(n)γ₂(n) = μ(n)α(n)G(n)`, `G(n) = χ̄_n(4)γ₃(n)` and `γ₁(n)γ₋₁(n) = χ_n(−1)`.
+
+**The identities at a prime.**
+- **`gamN_two_cube`**: `γ₂(p)³ = −α(p)`, from round 292's `gaussSum_cubCharC_cube`, `g(χ₃)³ = −N(p)·σp`, with `χ₆² = χ₃` and `N(p) = |σp|²`.
+- **`gamN_one_mul_two`**: `γ₁(p)γ₂(p) = −α(p)·G(p)` with `G(p) = χ_p(4)⁻¹γ₃(p)` (`Gp`). Round 292's `gaussSum_chi6`, `χ_p(4)·g(χ₆)·N(p) = g(χ₃)²·g(ρ)`, times `g(χ₃)` and the cube give `χ_p(4)·g(χ₆)·g(χ₃) = −σp·g(ρ)`. Here `χ_p(4)⁻¹` is the paper's `χ̄_p(4)`, since `χ_p(4)⁶ = 1` (`chi6_four_pow_six`).
+- `gamN_one_mul_inv`: `γ₁(p)γ₋₁(p) = χ_p(−1)`, from Mathlib's `gaussSum_mul_gaussSum_eq_card` and `mul_gaussSum_inv_eq_gaussSum`.
+- `gamN_three`: `γ₃(p) = Φ(x, y)/2` for `p = x + yω`. This is round 298's `gaussSum_quadR_coords` with `χ₆³ = ρ`, the paper's `γ₃(p) = Γ_quad(p)`.
+- `norm_gamN`: `|γ| = 1` for every nontrivial character modulo `p`.
+
+**`χ_p(4)` and `G` on classes modulo `4`.**
+- `span_two_isMaximal`: `2` is inert in `ℤ[ω]`, from round 284's `inert_of_mod_two`; `𝓞/(2)` has four elements (`card_quot_two`), so the cubic character modulo `2` is `x ↦ x`, as a cube root of unity.
+- **`chi6_four`**: `χ_p(4) = χ_p(2)² = (2/p)₃`, and since `−2` is primary (`primary_neg_two`), round 290's `cub_recip` gives `(2/p)₃ = (−2/p)₃ = (p/2)₃`. So `χ_p(4) = σ(u)` for the cube root of unity `u ≡ p (mod 2)`.
+- `Gp_coords`: `G(p) = σ(u)⁻¹·Φ(x, y)/2`; `norm_Gp`: `|G(p)| = 1`.
+- **`Gp_eq_of_mod_four`**: `G(p) = G(q)` for primary primes `p, q ∤ 6` with `p ≡ q (mod 4)`, since `Φ` depends only on the coordinates modulo `4` (`quadPhi_add_four`) and the cube roots of unity are distinct modulo `2`. This is the paper's "`G(c) = χ̄_c(4)Γ_quad(c)` factors through a fixed ray class group", at primes.
+
+**Comparison with the release.** The release proves `γ₂(p)³ = −α(p)` as `cubicGauss_normalized_cube_breveE` (`GaussSum/CubicNormalization.lean:24–32`). It was not used here.
+
+**Build.** Incremental pilot build: 1 compiled, 188 up to date, 13 s, 0 warnings. The 10 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1200 in `src/`. No other file imports `EisensteinGaussPrime`.
+
+**Check 4.** Classical: Gauss–Jacobi identities for the sextic character, and the cubic character of `2` by cubic reciprocity. New here: machine-checked on the pilot's stack at a prime, from rounds 281, 284, 290, 292 and 298.
+
+**Not yet here:**
+- the identities for squarefree `n`, through round 295's Chinese remainder step: the cross phases are `χ_a(b)^j·χ_b(a)^j`, so `γ₂(ab) = γ₂(a)γ₂(b)χ_a(b)²χ_b(a)²` (cubic reciprocity then gives the paper's `a_ξ(ab) = a_ξ(a)a_ξ(b)χ_b(a)⁴`), and `γ₃(ab) = γ₃(a)γ₃(b)·ρ_a(b)ρ_b(a)`, which with round 298 gives `G(ab) = G(a)G(b)R(a, b)`;
+- the bicharacter table of `R` on classes modulo `4`;
+- the Poisson reduction (the paper's Lemmas 4.2 and 4.4 and Proposition 4.5), with `G` and `R` expanded in characters of the ray class group modulo `4`.
 
 **Check 9.** No barrier claim is made.
 
