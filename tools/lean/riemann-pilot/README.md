@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1680 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1701 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -238,6 +238,7 @@ Every file ends with `#print axioms`. All 1680 checked theorems in `src/` (and t
 | `EisensteinPairRatio.lean` | 459 | **S5c-5, part 1: the paired factor through the ratio class, and Lemma 7.2 in one character**: `Γ_quad` modulo `4` (`gamQ`, `gaussTr_P2_coords`, `gamQ_coords`, `gamQ_congr`) and under squares (`P2_mul_sq`, **`gamQ_mul_sq`**); `γ₃ = Γ_quad` (`gamF_three_eq_gamQ`); the companion paper's (4.7) (`lift4`, `chi4Cls`, `pairG`, **`pairPsi_eq_pairG`**); one class through characters (`classCoeff`, `fun_eq_sum_mulChar`, `norm_classCoeff_le`); the single expansion (`pairH`, `norm_pairH_le`, **`pairTerm_expandD`**, `pair_char_formD`, **`Mq_rowcolD`**) (round 322) |
 | `EisensteinTransferRegroup.lean` | 600 | **S5c-5, part 2: Lemma 7.3's regrouping**: the split of `𝒬` at the common range `𝓗L/(ΣF)` (`zeroQ`, `dualQ`, `hY2_common`, **`Qform_le_split`**); the rows `((b, T, V), (b₂, T₂, V₂), μ)` (`RowQ`, `termQ`, `sum_wt_dualQ_eq`); the rows that vanish (`goodQ`, **`termQ_eq_zero_of_not_good`**, `rowsQ`); `r = V ∪ b₂`, `f′ = b ∪ T ∪ T₂ ∪ V₂`, `k′ = d_T d_{T₂}μ` (`rQ`, `fQ`, `kQ`) and each term in the bilinear shape at a common column scale `L/(RF′)` (`aQ`, `wQr`, `rhoQ`, `AQ`, `WBQ`, **`termQ_eq_bilin`**, `rowSumQ_eq_bilinear`); the dyadic blocks (`lvl`, `sum_rowsQ_blocks`) (round 323) |
 | `EisensteinTransferColumns.lean` | 665 | **S5c-5, part 3: the column mean square of a block**: a row's columns as round 305's column sum with the exclusion `r` (`fQe`, **`colQ_eq`**, `eS_fQ`, `colB`, `sum_aQ_eq_colB`, `sum_rQ_eq_colB`, **`sum_aQ_eq_colSum`**); the multiplicity `2^{|r|}8^{|f′|}` of `(r, 𝔣′, k′)` (`phiQ`, **`card_fiber_phiQ_le`**, `sum_phiQ_le`); the child mean squares (`ChildBound`, `colSum_const_mul`, `rowE_const_mul`, `ChildBound.scaled`, `Ctriv`, **`child_rowE_le`**); the block (`blkQ`, `kQ_bounds`, `blk_RF_le`, **`blockQ_colMS`**) (round 324) |
+| `EisensteinThirdTransfer.lean` | 629 | **S5c-5, part 4: the companion paper's Lemma 7.3**: the block quantities (`norm_wQr_blk_le`, `rhoQ_blk_mem`, `AQ_blk_ge`); the bound for one block through round 317's bilinear bound (**`blockQ_bound`**); the counting factors (`mult_le`, `sum_four_pow_rQ_le`, `blockBoundQ_eq`); all blocks (**`dualQ_sum_le`**); the zero frequencies (`sum_qTriples_inv_le`, **`zeroQ_sum_le`**); **`third_transfer`** (round 325) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9981,7 +9982,7 @@ The deviations from the paper are the displayed form of Proposition 5.4 (its con
 - **S5c-2.** Lemma 7.1's identity: the expansion of `𝒜(W)`, round 307's pair Poisson identity with (7.3), the characters modulo `4`, and the insertion of `t`. *(Round 318: the expansion and the dual pair identity landed, `Eis.dualMS_poisson`. Round 319: the rest landed, `Eis.dualMS_rowcol`.)*
 - **S5c-3.** Lemma 7.1's bound: the multiplicity of `y = hf²`, the separation of S5c-1 and the zero frequency. *(Round 320: landed, `Eis.first_transfer`.)*
 - **S5c-4.** Lemma 7.2 for the twisted Möbius family, following rounds 307–308. *(Round 321: landed, `Eis.Mq_rowcol` and `Eis.zero_Mq_le`.)*
-- **S5c-5.** Lemma 7.3: the regrouping, Lemma 4.4, the dyadic blocks and the zero frequency `𝒵`. *(Round 322: its first part landed, the paper's (4.7) and the single-character expansion, `Eis.pairPsi_eq_pairG` and `Eis.Mq_rowcolD`.)* *(Round 323: the regrouping landed, `Eis.Qform_le_split` and `Eis.termQ_eq_bilin`.)* *(Round 324: the column mean square of a block landed, `Eis.blockQ_colMS`.)*
+- **S5c-5.** Lemma 7.3: the regrouping, Lemma 4.4, the dyadic blocks and the zero frequency `𝒵`. *(Round 322: its first part landed, the paper's (4.7) and the single-character expansion, `Eis.pairPsi_eq_pairG` and `Eis.Mq_rowcolD`.)* *(Round 323: the regrouping landed, `Eis.Qform_le_split` and `Eis.termQ_eq_bilin`.)* *(Round 324: the column mean square of a block landed, `Eis.blockQ_colMS`.)* *(Round 325: landed, `Eis.third_transfer`.)*
 - **S5c-6.** The assembly: `TransferEstimate` derived, and round 315's milestone with `CompletedMeanSquare` as its only displayed hypothesis.
 
 **Check 9.**
@@ -10315,6 +10316,49 @@ A child of the block `(R, F′)` has the scale `X′ = L/(RF′N(S))`, rows of n
 **Check 4.** New here: the column mean square of Lemma 7.3's blocks, machine-checked, with the multiplicity count and the counting bound for the short children in place of the paper's signed count.
 
 **Not yet here:** the bilinear bound for each block, the sum over the blocks, the zero frequency `𝒵` and Lemma 7.3 itself; then the assembly of `TransferEstimate` (S5c-6).
+
+*(Round 325: the block bound, the sum over the blocks, the zero frequency and Lemma 7.3 landed, `Eis.third_transfer`.)*
+
+**Check 9.** No barrier claim is made.
+
+**Bearing on RH:** none.
+
+## Round 325: S5c, part 9 — the companion paper's Lemma 7.3 (`src/EisensteinThirdTransfer.lean`)
+
+**What it is.** The last part of S5c-5: the companion paper's Lemma 7.3, "`\mathcal Q_{\xi_1}(U)\ll D^{\varepsilon_0}\Sigma(1+S_m) \|U\|_{C^{2m+4}(I_*)}^2`", with `S_m` the supremum of the child mean squares of its Proposition 5.4. Its proof applies Lemma B.2 to each dyadic block, sums over the blocks and bounds the zero frequency `𝒵`. Rounds 323–324 gave the rows of the blocks and their column mean square.
+
+**The block quantities.** On the block `(i, j)`, with `R = 2^i` and `F′ = 2^j`:
+- `|w_ρ| ≤ 1` (`norm_wQr_blk_le`): the row factor has modulus at most `1`, and `N(V)N(b₂) = N(r) < 2R`;
+- `ρ_ρ = N(r)N(f′)/(RF′) ∈ [1, 4]` (`rhoQ_blk_mem`);
+- `A_ρ ≥ 1/(3𝓗L)` for `c_I, Σ, F ≥ 1` (`AQ_blk_ge`). Here `A_ρ = 4c_IΣF·N(μ)R²F′²/(3𝓗L·N(b)²N(T)N(V₂)²N(T₂))`, and `4F′² > N(f′)² ≥ N(b)²N(T)N(V₂)²N(T₂)`.
+
+**The bound for one block** (**`blockQ_bound`**). This is round 317's `bilinear_dual_bound_unif` on `[α/2, 2β]`, with `[ρ₀, ρ₁] = [1, 4]`, `J = m`, the kernel `Φ̂` and `W₀ = conj ∘ W₀c U`. Its bump is round 320's `exists_bump_one`, equal to `1` on `[α/8, 2β]` with support in `[α/16, 4β]`, and round 324's `blockQ_colMS` is its column hypothesis. For a test function `U` supported in `[α/2, 2β]` with its first `2m+2` derivatives bounded by `N_U`, the block's terms sum to at most `W_B·K·N_U²·(3𝓗L)^σ·B·Σ_r 4^{|r|}·(M + C_triv)·(L/R)²`.
+
+**The counting factors.** Round 310's `four_pow_card_le` gives `4^{|A|} ≤ C·N(A)^δ`, and `N(r), N(f′) ≤ 2βL`. So:
+- `2^{|r|}8^{|f′|} ≤ C³(2βL)^{3δ}` (`mult_le`);
+- `Σ_r 4^{|r|} ≤ (2κ+5)·2R·C(2βL)^δ` over the `r` of a block, which lie in `fsLe(2R)` (`sum_four_pow_rQ_le`).
+
+Then `R` cancels (`blockBoundQ_eq`), as in the paper's "`(\Sigma R/L^2)R(L/R)^2=\Sigma`". A block contributes at most `(16/3)(2κ+5)K·C⁴·c_IΣFL·(3𝓗L)^σ·(2βL)^{4δ}·(M + C_triv)·N_U²`, the pilot's form of "`=D^{2\delta}\Sigma S_m\|U\|_{C^{2m+4}(I_*)}^2`".
+
+**All blocks** (**`dualQ_sum_le`**). Round 323's `sum_wt_dualQ_eq`, `sum_rows_eq_rowsQ` and `sum_rowsQ_blocks` reduce `Σ_t w_t·dualQ ξ t` to the `(⌊log₂⌊2βL⌋⌋ + 1)²` blocks. Its norm is at most `(⌊log₂⌊2βL⌋⌋ + 1)²·K′·c_IΣFL·(3𝓗L)^σ·(2βL)^{4δ}·(M + C_triv)·N_U²`.
+
+**The zero frequencies** (**`zeroQ_sum_le`**). For each triple, round 321's `zero_Mq_le` applies, with `#fsLe(2βℓ_t) ≤ (2κ+5)·2βℓ_t` (since `N(b)N(T)N(V) ≤ 2βL`) and `w_t·Y_{C,d} = 2c_IΣF/(√3·N(b)N(T))`. So `w_t|zeroQ t| ≤ (2κ+5)(8/3)β|Φ̂(0)|·c_IΣFL·N_U²/(N(b)N(T)N(V))`. Over the triples, `Σ_t 1/(N(b)N(T)N(V)) ≤ (Σ_{A∈fsLe(2βL)} 1/N(A))³` (`sum_qTriples_inv_le`), and round 310's `sum_fsLe_inv_le` bounds the inner sum by `2(2κ+5)(⌊log₂⌊2βL⌋⌋ + 1)`.
+
+**Lemma 7.3** (**`third_transfer`**). For `σ, η > 0` there is `K` with the following property. Take `ξ₁`, a test function `U` supported in `[α/2, 2β]` with its first `2m+2` derivatives bounded by `N_U`, `1 ≤ 𝓗, L, F`, `𝓗 ≤ Σ`, `c_I ≥ max(1, 3β²R_Φ²)`, `M ≥ 0` and `ChildBound α β m 𝓗 L Σ F M`. Then `𝒬_{ξ₁}(U) ≤ K·c_IΣFL·(3𝓗L)^σ·L^η·(1 + M)·N_U²`. The proof combines:
+- round 323's split, `zeroQ_sum_le`, and `|ĉ(ξ)| ≤ 2` (round 322) with `dualQ_sum_le` for each character;
+- `⌊log₂⌊2βL⌋⌋ + 1 ≤ C·L^{η/8}` (round 310's `log_floor_succ_le`) and `δ = η/8`, so the powers of `L` total at most `L^η` (`rpow_pow_le`);
+- `M + C_triv ≤ (1 + C_triv)(1 + M)` (`add_le_one_add_mul`).
+
+**Comparison with the paper.**
+- The paper's `𝒬` is `Qform` divided by `2LF/√3`. So its `D^{ε_0}Σ(1+S_m)` corresponds here to `c_IΣFL·(…)·(1 + M)`, with `c_I` explicit and the constant `M` of `ChildBound` in place of `S_m`.
+- The paper's loss `D^{ε_0}` is `(3𝓗L)^σ·L^η` here. `(3𝓗L)^σ` is the separation's `A_min^{−σ}`; `L^η` covers the multiplicity, the divisor bounds and the number of blocks. Round 326 turns both into a power of `D`.
+- The test functions need `2m+2` derivatives, against the paper's `C^{2m+4}`, since round 317's bound needs `2J+2` derivatives of `W₀` for `J = m`.
+
+**Build.** Incremental pilot build: 1 compiled, 211 up to date, 38 s, 0 warnings. The 21 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1701 in `src/`. No other file imports `EisensteinThirdTransfer`. The 21 new named declarations were checked for clashes against the Lean files of `src/` and `external/` and against Mathlib's `theorem`, `lemma`, `def`, `abbrev`, `structure`, `class`, `inductive` and `instance` lines.
+
+**Check 4.** New here: the companion paper's Lemma 7.3, machine-checked in the pilot's form, from `TransferEstimate`'s hypothesis on the child mean squares.
+
+**Not yet here:** S5c-6, the assembly of `TransferEstimate` from `first_transfer` (round 320) and `third_transfer`.
 
 **Check 9.** No barrier claim is made.
 
