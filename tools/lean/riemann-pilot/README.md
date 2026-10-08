@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1230 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1240 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -219,6 +219,7 @@ Every file ends with `#print axioms`. All 1230 checked theorems in `src/` (and t
 | `EisensteinGaussSquarefree.lean` | 289 | **S3, part 6: the companion paper's Lemma 4.1 for squarefree moduli**: **`gamF_eq`** `γ(n) = ∏_i χ_i(n/π_i)·γ(π_i)` for `n = ∏ π_i`; **`gamF_union`** for disjoint sets of primes; for the sextic characters of distinct primary primes `∤ 6`: **`gamF_two_cube`** `γ₂(n)³ = μ(n)α(n)`, **`gamF_one_mul_two`** `γ₁γ₂ = μ(n)α(n)G(n)`, `gamF_one_mul_inv` `γ₁γ₋₁ = χ_n(−1)`; **`GF_union`** `G(ab) = G(a)G(b)·∏ ρ_p(q)ρ_q(p)`; **`gamF_two_union`** `γ₂(ab) = γ₂(a)γ₂(b)·∏ χ_q(p)⁴` (round 300) |
 | `PlaneMajorant.lean` | 234 | **S4, part 1: a radial majorant with compactly supported Fourier transform**: the bump `η(z) = s(1 − 64\|z\|²)`; `𝓕η` real (`fourier_eta_im`) with `Re 𝓕η ≥ (∫η)/2` on the unit disc (`fourier_eta_re_ge`); **`Phi`** `= c·𝓕(η ⋆ η) = c·(𝓕η)²`: real, `≥ 0`, **`one_le_Phi_re`** (`Φ ≥ 1` on the unit disc), radial (`Phi_rot`); **`fourier_Phi`** `𝓕Φ(x) = c·(η ⋆ η)(−x)` and **`exists_fourier_Phi_eq_zero`** (compact support) (round 301) |
 | `MellinSeparation.lean` | 845 | **S4, part 2: separating variables with one-dimensional Mellin transforms**: `log_fourier_inversion` (`h(log y) = ∫ 𝓕h(t)·y^{2πit} dt`) and `mellin_of_compact`; `schwartz_exp_comp` and **`mellin_of_dual`** (`G(√y) = ∫ c(t)·y^{−σ+2πit} dt` for `G` vanishing on `[R, ∞)`); `testFun_bound` (`‖(V·x^s)^{(j)}‖ ≤ C(1 + \|s\|)^J` for `\|Re s\| ≤ A`); `sum_norm_integral_sq_le`; **`dilated_meanSquare`** and **`bilinear_dual_bound`**, the companion paper's Lemma B.2 for the kernel of its Proposition 4.5 (round 302) |
+| `EisensteinPoissonExcl.lean` | 304 | **S4, part 3: Poisson summation with excluded primes**, the companion paper's Lemma 4.2: inclusion–exclusion `indicator_not_dvd`; **`poisson_excl`** (`Σ_{u : π_i ∤ u} f(u)F(σu)` as `Σ_{T⊆S} (−1)^{\|T\|}·2/(√3·N(c)·N(d_T))·Σ_μ G_c(f(d_T·), μ)·𝓕F(…)`); the dual weight `dualG` `= 𝓕Φ` on `ℝ` (`fourier_Phi_eq_dualG`, `dualG_contDiff`, `dualG_bounded`, `exists_dualG_eq_zero`); **`poisson_excl_Phi`**, the formula for round 301's majorant (round 303) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9449,7 +9450,39 @@ In Proposition 4.5, `G` will be round 301's `𝓕Φ` on the positive real axis. 
 
 **Check 4.** Classical: Mellin inversion as Fourier inversion in logarithmic coordinates, and separation of variables in smooth weights (the paper cites Petrow–Young for the multivariable form). New here: machine-checked on Mathlib, in the one-dimensional form above.
 
-**Not yet here:** the rest of S4. In order: Poisson summation with excluded primes (Lemma 4.2); the expansion of the mean square with the Gauss-sum identities of rounds 299–300 and characters of `(ℤ[ω]/4)^×`; the dual mean square (Definition 4.3) and Lemma 4.4; Proposition 4.5.
+**Not yet here:** the rest of S4. In order: Poisson summation with excluded primes (Lemma 4.2) *(Round 303: landed, `Eis.poisson_excl` and `Eis.poisson_excl_Phi`.)*; the expansion of the mean square with the Gauss-sum identities of rounds 299–300 and characters of `(ℤ[ω]/4)^×`; the dual mean square (Definition 4.3) and Lemma 4.4; Proposition 4.5.
+
+**Check 9.** No barrier claim is made.
+
+**Bearing on RH:** none.
+
+## Round 303: S4, part 3 — Poisson summation with excluded primes (`src/EisensteinPoissonExcl.lean`)
+
+**What it is.** The companion paper's Lemma 4.2 in the pilot's normalization. The paper's proof, with its LaTeX rendered as text: "Inclusion–exclusion followed by `k = dℓ` gives `Σ_k χ(k)1_{(k,𝔯)=1}Φ(N(k)/𝓗) = Σ_{d∣rad 𝔯} μ(d)χ(d) Σ_ℓ χ(ℓ)Φ(N(ℓ)/(𝓗/N(d)))`." Then lattice Poisson summation in `ℓ`. In Proposition 4.5 the excluded ideal is the common factor of the two columns.
+
+**Inclusion–exclusion.** `indicator_not_dvd`: for pairwise coprime `π_i`, `1_{π_i ∤ u for all i ∈ S} = Σ_{T⊆S} (−1)^{|T|}·1_{d_T ∣ u}` with `d_T = ∏_{i∈T} π_i`. The proof expands `∏_{i∈S}(1 − 1_{π_i∣u})` with Mathlib's `Finset.prod_add`; a product of pairwise coprime divisors divides `u` (`Finset.prod_dvd_of_coprime`).
+
+**Poisson.** **`poisson_excl`**: for `f` periodic modulo `c ≠ 0` and Schwartz `F`,
+`Σ_{u : π_i ∤ u ∀i∈S} f(u)F(σu) = Σ_{T⊆S} (−1)^{|T|}·2/(√3·N(c)·N(d_T))·Σ_{μ∈ℤ[ω]} G_c(f(d_T·), μ)·𝓕F(conj(2σ(μ)/σ(δc))/conj σ(d_T))`.
+- A function periodic modulo `c` is bounded (`exists_bound_of_periodic`), so each inclusion–exclusion term is summable and the finite sum commutes with the lattice sum.
+- `tsum_dvd_eq`: `Σ_u 1_{d∣u}·g(u) = Σ_ℓ g(dℓ)`, through Mathlib's `Function.Injective.tsum_eq`.
+- Round 295's `eis_poisson_gaussTr` is applied to `ℓ ↦ f(d_T ℓ)`, periodic modulo `c`, against `F(σ(d_T)·)` (round 294's `affS`). Round 294's `fourier_affS` gives the factor `N(d_T)⁻¹` and the argument `ξ/conj σ(d_T)`.
+
+**The dual weight.** `dualG ρ = 𝓕Φ(ρ)` for round 301's majorant `Φ`.
+- **`fourier_Phi_eq_dualG`**: `𝓕Φ(w) = G(|w|)`, by round 301's `fourier_Phi_rot` with `w = e^{i arg w}·|w|`.
+- `dualG_contDiff`, `dualG_bounded` (each derivative bounded on `ℝ`, from the Schwartz decay of `𝓕Φ` composed with `ℝ → ℂ`), `exists_dualG_eq_zero` (`G = 0` on `[R, ∞)`). These are the hypotheses on `G` in round 302's `mellin_of_dual` and `bilinear_dual_bound`.
+
+**For the majorant.** **`poisson_excl_Phi`**: for `H > 0`,
+`Σ_{u : π_i ∤ u ∀i∈S} f(u)·Φ(σu/√H) = Σ_{T⊆S} (−1)^{|T|}·2H/(√3·N(c)·N(d_T))·Σ_μ G_c(f(d_T·), μ)·G(√(4H·N(μ)/(3·N(c)·N(d_T))))`.
+It uses `|σ(δ)|² = 3` (`normSq_σO_δ3`) and `𝓕[Φ(·/√H)](ξ) = H·𝓕Φ(√H·ξ)`. The factor `2/√3` is the reciprocal covolume of `σ(ℤ[ω])`, which the paper normalizes to `1`.
+
+**Comparison with the paper.** The paper states the formula for a primitive character `χ` with its Gauss transform already evaluated as `√N(𝔪)·γ(χ)·χ̄(h)`. Here `f` is any function periodic modulo `c`, and the evaluation is round 295's `gaussTr_prod_primes`, used when the character is fixed in Proposition 4.5. This round did not search the release's Lean for its form of Lemma 4.2.
+
+**Build.** Incremental pilot build: 1 compiled, 192 up to date, 14 s, 0 warnings. The 10 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1240 in `src/`. No other file imports `EisensteinPoissonExcl`. A scratch file importing it together with `HalfPlaneMeanSquare`, `MellinSeparation`, `EisensteinGaussSquarefree` and `EisensteinQuadRecip` compiles, so no names clash. (`HalfPlaneMeanSquare` already has an `Eis.indicator_coprime` for ideals; the new lemma is named `indicator_not_dvd`.)
+
+**Check 4.** Classical: Möbius inclusion–exclusion and Poisson summation over a lattice. New here: machine-checked on the pilot's stack from rounds 294, 295 and 301.
+
+**Not yet here:** the rest of S4. In order: the expansion of the mean square with the Gauss-sum identities of rounds 299–300 and classes modulo `4`; the dual mean square (Definition 4.3) and Lemma 4.4; Proposition 4.5.
 
 **Check 9.** No barrier claim is made.
 
