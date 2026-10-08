@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1516 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1534 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -230,6 +230,7 @@ Every file ends with `#print axioms`. All 1516 checked theorems in `src/` (and t
 | `EisensteinCompletedSums.lean` | 568 | **S5, part 1: the completed sums and the cube inversion**: primary generators and `α` multiplicative on all ideals of norm prime to `6` (`exists_primary_gen`, `pgen_mul6`, `alphaI_mul6`); the twist `twistPsi` (completely multiplicative); `Σ_{𝔥∣𝔠} μ(𝔥) = [𝔠 = 1]` (`tsum_moebius_dvd`); the completed sum `compT` (the companion paper's (5.3)); **`cube_inversion`** (its (5.8)) (round 313) |
 | `EisensteinCubeReduction.lean` | 867 | **S5, part 2: Lemma 5.3, the cube reduction**: the harmonic sum over ideals (`sum_idealsLe_inv_le`); the completed sum through the column sums (`compT_eq_sum_colSum`); the split at `N(𝔥)³ ≤ H_c³` (`colSum_split`); weighted Cauchy–Schwarz over the rows (`rows_cs`, `rows_short_le`, `rows_long_le`); the long part at one scale (`inv_mul_rowE_le`); the companion paper's Proposition 5.2 displayed (`CompletedMeanSquare`); **`cube_reduction`** (its Lemma 5.3) (round 314) |
 | `EisensteinDescent.lean` | 515 | **S5, part 3: Proposition 5.1 and the third conditional milestone**: counting (`colSum_eq_zero_of_lt`, `norm_colSum_le`, `rowE_le_count`); the companion paper's Proposition 5.4 displayed (`TransferEstimate`); the induction on `𝓗 ≤ D^{jη}` (`CanonicalAt`, `canonicalAt_zero`, `canonicalAt_succ`, `transferred_level`, `transferred_gap`); **`canonical_bound`** (its Proposition 5.1); **`dualMeanSquare_of_completed_transfer`** (`DualMeanSquare ϑ` for every `ϑ > 0`); **`ne_zero_of_completed_transfer`** (`ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > 11/12` from Propositions 5.2 and 5.4) (round 315) |
+| `MellinUniform.lean` | 719 | **S5c-1: separating variables uniformly in the weight**: the Mellin coefficient `𝓕h`, `h(v) = W(e^v)`, named (`expSchwartz`, `mellin_expSchwartz`) and bounded by the weight's derivatives (`norm_fourier_expSchwartz_le`, `integral_fourier_expSchwartz_le`); round 302's dilated mean square and round 306's two-family bilinear bound with constants `K·N_W²` (`dilated_meanSquare_unif`, **`bilinear_dual_bound_unif`**); the weight `x^{−1/2}W(x)` (`W0c_unif`) (round 317) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9454,7 +9455,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 In Proposition 4.5, `G` will be round 301's `𝓕Φ` on the positive real axis. It is smooth with bounded derivatives (a Schwartz function) and vanishes outside a disc (`exists_fourier_Phi_eq_zero`). There `A_r` is bounded below by a constant times a negative power of the norm scale `D`, so the factor `A_min^{−σ}` costs a power of `D` proportional to `σ`, and `σ` is taken small against `ε`. That bookkeeping belongs to the assembly round.
 
-**Comparison with the paper.** The paper bounds its kernels through their `C^{2m+4}` norms, which tracks the dependence on its weight `W`. Here the constants depend on `W₀`, `V`, `G`, `σ`, `J` and `[ρ₀, ρ₁]`. That suffices for round 288's `MeanSquare`, whose constant may depend on the weight. This round did not search the release's Lean for its form of Lemma B.2.
+**Comparison with the paper.** The paper bounds its kernels through their `C^{2m+4}` norms, which tracks the dependence on its weight `W`. Here the constants depend on `W₀`, `V`, `G`, `σ`, `J` and `[ρ₀, ρ₁]`. That suffices for round 288's `MeanSquare`, whose constant may depend on the weight. This round did not search the release's Lean for its form of Lemma B.2. *(Round 317: versions whose constants depend on `W₀` only through a bound on its first `2J+2` derivatives, `MellinSep.dilated_meanSquare_unif` and `MellinSep.bilinear_dual_bound_unif`.)*
 
 **Build.** Incremental pilot build: 1 compiled, 191 up to date, 23 s, 0 warnings. The 11 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1230 in `src/`. No other file imports `MellinSeparation`. A scratch file importing it together with `PlaneMajorant`, `HalfPlaneMeanSquare`, `EisensteinPoisson` and `EisensteinGaussSquarefree` compiles, so no names clash.
 
@@ -9969,7 +9970,7 @@ The deviations from the paper are the displayed form of Proposition 5.4 (its con
 - **The regrouping of Lemma 7.3**: the preimage identity above, the count `τ_div(r)` of the choices `t ∣ r`, and the multiplicity of `y = hf²`.
 
 **The plan for S5c.**
-- **S5c-1.** The uniform Mellin separation: coefficient bounds from derivative bounds, then `dilated_meanSquare` and `bilinear_dual_bound₂` with constants independent of the weight, as `K·N²` for a bound `N` on its derivatives. This also gives the weight `x^{−1/2}W(x)` of Lemma 7.1's kernel.
+- **S5c-1.** The uniform Mellin separation: coefficient bounds from derivative bounds, then `dilated_meanSquare` and `bilinear_dual_bound₂` with constants independent of the weight, as `K·N²` for a bound `N` on its derivatives. This also gives the weight `x^{−1/2}W(x)` of Lemma 7.1's kernel. *(Round 317: landed, `MellinSep.bilinear_dual_bound_unif` and `MellinSep.W0c_unif`.)*
 - **S5c-2.** Lemma 7.1's identity: the expansion of `𝒜(W)`, round 307's pair Poisson identity with (7.3), the characters modulo `4`, and the insertion of `t`.
 - **S5c-3.** Lemma 7.1's bound: the multiplicity of `y = hf²`, the separation of S5c-1 and the zero frequency.
 - **S5c-4.** Lemma 7.2 for the twisted Möbius family, following rounds 307–308.
@@ -9982,5 +9983,36 @@ The deviations from the paper are the displayed form of Proposition 5.4 (its con
 - (c) The signal is unchanged.
 
 **Check 4.** New here: the map of S5c onto the pilot's stack, and the uniformity requirement on round 302's constants. Nothing is derived in Lean this round.
+
+**Bearing on RH:** none.
+
+## Round 317: S5c, part 1 — separating variables uniformly in the weight (`src/MellinUniform.lean`)
+
+**What it is.** S5c-1 in round 316's plan. Round 302's Mellin separation takes its constants from the Mellin coefficient of the given weight `W₀`. `TransferEstimate` (round 315) chooses its constant before the weight, and the companion paper's Lemma B.2 bounds by "`√(M_1M_2) sup_r‖𝒦_r‖_{C^{2m+4}(I²)}`", uniformly in the kernels. This round gives versions of round 302's and round 306's bounds whose constants depend on the weight only through a bound on its derivatives.
+
+**The Mellin coefficient.**
+- `expSchwartz W` is the Schwartz function `h(v) = W(e^v)` for smooth `W` vanishing outside `[α, β]`, `0 < α ≤ β`.
+- `mellin_expSchwartz`: `W(y) = ∫ 𝓕h(t)·y^{2πit} dt` for `y > 0`. This is round 302's `mellin_of_compact` with the coefficient named.
+- **`norm_fourier_expSchwartz_le`**: if the first `q` derivatives of `W` are bounded by `N`, then `|𝓕h(t)|·(1+|t|)^q ≤ coeffConst(α, β, q)·N`, with `coeffConst(α, β, q) = 2^q(log β − log α)(1 + q!·max(1, β)^q/(2π)^q)`. Its two inputs:
+  - `|2πt|^q·|𝓕h(t)| = |𝓕(h^{(q)})(t)| ≤ ∫|h^{(q)}|`, by Mathlib's `Real.fourier_iteratedDeriv`;
+  - `|h^{(q)}| ≤ q!·N·max(1, β)^q` on `[log α, log β]` and `0` outside, by Faà di Bruno, Mathlib's `norm_iteratedFDeriv_comp_le` (`norm_iteratedDeriv_expComp_le`, `iteratedDeriv_expComp_eq_zero`).
+- `integral_fourier_expSchwartz_le`: `∫|𝓕h(t)|(1+|t|)^k dt ≤ π·coeffConst(α, β, k+2)·N`, through `(1+|t|)² ≥ 1 + t²` and Mathlib's `integral_univ_inv_one_add_sq`.
+
+**The uniform bounds.**
+- `dilated_meanSquare_of_coeff`: round 302's `dilated_meanSquare` with any Schwartz coefficient `c` representing `W₀`. The constant is `(∫|c|)·(C²·64^J·∫|c|(1+|t|)^{2J})`, with `C` depending only on `V`, `A` and `J`.
+- **`dilated_meanSquare_unif`**: the constant is `K·N_W²` for a bound `N_W` on the first `2J+2` derivatives of `W₀`. `K` depends only on `[α, β]`, `V`, `[ρ₀, ρ₁]`, `A` and `J`.
+- `bilinear_dual_bound_of_dilated`: round 306's `bilinear_dual_bound₂`, with the two dilated bounds on the line `Re s = σ` as hypotheses and a constant depending only on `G`, `σ` and `J`.
+- **`bilinear_dual_bound_unif`**: the two-family bilinear bound with constant `K·N_W²`.
+- **`W0c_unif`**: the weight `W₀(x) = x^{−1/2}W(x)` of the kernels is smooth, with its first `q` derivatives bounded by `C·N` when those of `W` are bounded by `N`. `C` depends only on `[α, β]` and `q`. The proof writes `W₀ = W·ψ` with `ψ = V(x)·x^{−1/2}` for round 310's bump `V`, and applies Leibniz with the fixed factor `ψ` (`iteratedDeriv_mul_fixed_le`, Mathlib's `norm_iteratedFDeriv_mul_le`).
+
+**Comparison with the paper.** The paper's Lemma B.1 bounds the two-dimensional Mellin coefficient of a general kernel by its `C^q` norm. Here the kernels have round 302's product form `W₀(ρx₁)·conj W₀(ρx₂)·G(√(A/(x₁x₂)))` with `G` fixed, so only the one-dimensional coefficient of `W₀` needs the bound.
+
+**Build.** Incremental pilot build: 1 compiled, 203 up to date, 18 s, 0 warnings. The 18 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1534 in `src/`. No other file imports `MellinUniform`. The 21 new named declarations were checked for clashes against the Lean files of `src/` and `external/` and against Mathlib's `theorem`, `lemma`, `def`, `abbrev`, `structure`, `class`, `inductive` and `instance` lines.
+
+**Check 4.** Classical: Fourier decay from integrability of derivatives, and Faà di Bruno and Leibniz bounds. New here: the constants of rounds 302 and 306 made uniform in the weight, machine-checked.
+
+**Not yet here:** S5c-2 to S5c-6 (round 316's plan).
+
+**Check 9.** No barrier claim is made.
 
 **Bearing on RH:** none.
