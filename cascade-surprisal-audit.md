@@ -20705,3 +20705,106 @@ B and C each demonstrated a stale cached PASS end to end (B: `-m` of a package m
 - The larger sets include the content-addressed producer checkpoints the rung members read (`ladder_caster_*`, `rung_anatomy_*`, `rung_laws_*`). No static key bound those inputs before this round.
 
 ---
+
+## Addendum 572 — round 400, the convergence test on the round-399 sweep (b6dd58b) (2 MAJOR in the dependency record, 10 distinct minors, cosmetics; not converged; all verified and accepted; swept fafb386)
+
+**The round.**
+- Three fresh-context `hostile-reviewer` agents ran in parallel (lenses: paper and rendering; code and keying; mathematics and claims). This was a workflow at the owner's ultracode setting.
+- Brief: `brief_round400.md`. Reports: `scratchpad/r400/report_{0,1,2}.md`.
+- **Lead's battery on b6dd58b:** "census: 36 live PASS + 0 cached PASS + 0 FAIL of 36", TOWER PASS (36/36), exit 0, BATTERY DONE (recorded in A571).
+- Lens B ran the main-repository tower once after BATTERY DONE: 36 cached PASS, each with "N recorded dependencies unchanged", all nine prechecks green.
+- Every finding below was verified by the lead directly against b6dd58b. The scripts are under `scratchpad/r400/lead/`.
+
+**F400-B1 = C1 (MAJOR).** A module served from a valid bytecode cache was never recorded. CPython then reads only the `.pyc`, and the record excluded `__pycache__`. The external-code check failed open from the second run for the same reason: the first run writes the cache.
+- **Lead** (`verify/v_b6.py`, the b6dd58b tracer and `_trace_deps`): a precompiled `import mod` gave deps `['m.py']`, so `mod.py` was not recorded. An external module gave `external ['ext_mod.py']` on run 1 and `external []` on run 2.
+- **Disposition:** the tracer records a `.pyc` read as its source when one exists, mapped in the member's own process with its own pycache prefix. A `.pyc` with no source is recorded, or classed external, as itself.
+  - The lead's pre-landing check found that a driver-side mapping (the sweep's first form) missed caches under `PYTHONPYCACHEPREFIX`. There every stdlib cache was classed external (fail-closed), and a prefix inside the installation or the repository would have hidden a source. So the mapping moved into the tracer.
+  - The sabotage case precompiles every planted module, and a child imports a module served from a cache under a `PYTHONPYCACHEPREFIX` outside the root.
+  - The record format is versioned (`DEPS_V = 2`). Older entries are not served, so every member runs live once.
+
+**F400-B2 (MAJOR).** The record bound the files a glob found, not the glob. A file the glob would pick up later ran unbound.
+- **Lead** (`v_b6.py`): the b6dd58b trace of a glob over `data/*.json` holds 0 listing lines and records only the two files read.
+- **Disposition:** `os.listdir` and `os.scandir` (glob, `os.walk` and pathlib go through them) are recorded, except by the import system itself, as "dir:" entries hashed by their sorted names.
+  - The lead's pre-landing check added the root's own listing, which the first form dropped (`q == root`).
+  - A listing by file descriptor is not recorded, and is disclosed.
+  - **The same class for a single file**, found by the lead's pre-landing check: a read or listing that found nothing dropped its path, so a file created later ran unbound. Such a path under the repository is now recorded as "missing:", and a cache hit needs it still absent. A read and a listing that find nothing are planted.
+  - **The record's own gate had no sabotage case** (the lead's pre-landing check): nothing tested `_deps_ok`.
+    - The dependency precheck now runs it on the plant's record. It must serve the record unchanged and after a comment-only `.py` edit, and serve it again once each change is undone. It must refuse it after a byte appended to a data file, a file added to a listed directory, a missing path created, and an older record format.
+    - A run's own record now hashes without the cache check's memo (`memo=False`). Before, a file the member changed while it ran could be recorded with its pre-run hash; that costs a re-run, the safe direction.
+
+**Minors:**
+- **F400-B3 (= C5(b)).** The spawn-line claim failed for a quoted path, an `-m` spec, a path with a space and a `cd` inside a shell string.
+  - Lead (`v_b6.py`): of five `-E` children, b6dd58b recorded only `iso_plain.py`.
+  - Disposition: the spawn line is recorded whole, as JSON. The driver splits shell strings with shlex, follows a `cd`, and resolves `-m` to the module's files and its packages' `__init__.py`. Each form is planted.
+- **F400-B4 = C2.** The re-entry guard was shared by the process, so other threads' reads were dropped while one thread wrote.
+  - Lead: 8 threads reading 2000 files recorded 775, 1341 and 1252 of 2000 under the b6dd58b tracer. With the per-thread guard: 2000 of 2000, three times.
+  - Disposition: per-thread guard; 64 files read by eight threads are planted.
+- **F400-B5.** The installation's own `sitecustomize` (a symlink into `/etc`) was classed external when read from source.
+  - Lead: with an empty pycache prefix, b6dd58b gave `external ['/etc/python3.11/sitecustomize.py']`. The swept code gives `[]`.
+  - Disposition: code counts as the installation's when the path as read or as resolved lies inside it.
+- **F400-C3.** `os.popen` and the relative `import_module` were claimed but not planted. The lead's grep of b6dd58b's `_TPLANT` found 0 hits. Both are now planted.
+- **F400-C4 (= B10(i)).** The driver docstring still described checkpoint data as unbound. Both passages now carry net-state markers.
+- **F400-C5.**
+  - (a) Spawns raising none of the audited events (multiprocessing's own) are disclosed.
+  - (c) "Every Python process" is scoped to processes that keep the environment and load site.
+  - (d) The tracer is named in the exclusion lists.
+- **F400-C6.** The formulation was excluded from the record on the needle precheck's justification, but the precheck reads only the main paper. The lead's grep of `paper_needles.py` for "formulation" found 0 hits. It is no longer excluded.
+- **F400-A3 = B9 = C7.** CLAUDE.md's self-review list omitted the split cell. It now names it, and the "|"-led line ending with "|".
+- **F400-A1.** The lint was silent when a table failed to form.
+  - Lead (`verify/v_lint.py`): a split header and a narrower delimiter row each give `[]` at b6dd58b and `['L21']` now.
+  - Disposition: new rule L21, a delimiter row that no rendered table holds. "Not seen" adds A1(b) = B7(iv), the absorbed "|"-led line that ends with "|".
+- **F400-A2.** The info-string exemption covered the whole info string and followed the lint's own fence pairing.
+  - Lead: the reviewer's F1, F2 and F3 give `[]` at b6dd58b and `['L17']` now.
+  - Disposition: only the first word of a rendered fence is exempt. The code mask follows the renderer's own `<pre>` line ranges.
+
+**Cosmetics:**
+- **B6.** On Python 3.11 the label join put an f-string's literal parts before its fields' constants. The lead's check gave 'g1  cited in place88' at b6dd58b and 'g1 88 cited in place' now. An f-string is read as one unit, and a sabotage case is added: (9, [2, 3, 5, 7, 8, 10, 11, 12]).
+- **B7(i, ii) = A4(a, a′).** False positives on a quote inside a list item and on backticks inside a tilde fence. Lead: `['L16']` and `['L17']` at b6dd58b, `[]` now.
+- **A4(b).** A table, a quote, a quoted heading or a quoted fence opening a list item. Lead: L16, L11 or L14 at b6dd58b, `[]` now.
+- **A4(c) is held.** A list item's second paragraph at column 4 or more gives L9 on its own rendering, at b6dd58b and now. It fails closed and occurs in neither surface.
+- **B7(iii) = A5.** The begin and end clauses, L21 and the L17 info string each gained a probe: 42 → 46. Six lint mutations each fail exactly one probe (`lintmut/run_lintmut.py`): no end clause, no begin clause, no cell count, no L21, the whole info string exempt, no info strip.
+- **B8.** Four branches of the tracer's sabotage case were unpinned. The lead's own mutation batch on the sweep's first form found two more survivors: "r+" also contains "r", and the `cd` went to the spawn's own directory. They are now "a+" and a `cd` into a subdirectory.
+- **B10(ii) = C5(d), B10(iii) = C9, B10(iv).** The exclusion list, "rounds 396–400", the allowlist wording (CLAUDE.md and the lint docstring), and the refresher's pinned-file list.
+- **C8.** The paper's "zero tower is ~18× thinner" (1aw(iii)) is struck and annotated. This reverses A571's C-O1 disposition ("stands, read per unit height").
+  - The ~18× is the ratio of the pole-frequency density 4/(1 + 4γ²) between the two heights, 18.35. By height the zeros are about 3.65× sparser (ζ's mean spacing 5.43 at γ = 20 against D–H's 1.49 at γ = 85.7), and per neighbour the poles are about 67× farther apart.
+  - g9's needle now pins the live wording, "pole frequencies spread ~18× wider per unit height" (form ws). g6's print label and two comments follow.
+
+**Also disclosed:** a read by C code that bypasses Python's audited calls.
+
+**Check-1 record (re-read this round):**
+- `run_tower.py`: the tracer block, `_spawn_cands` through `_deps_ok`, `run`, the label scan, and the dependency precheck;
+- `reach_trace/sitecustomize.py` in full;
+- `render_lint.py` 76–135 and 420–560;
+- the paper's 1aw(iii) (4630–4645);
+- `cascade_floor_meter.py` 70–85, 155–165 and 410–435.
+
+**Lead's verification commands** (under `scratchpad/r400/lead/`):
+- `verify/v_b6.py` and `verify/v_now.py`: B1–B5 at b6dd58b and swept;
+- `verify/v_lint.py`: the lens-A cases on both lints;
+- `lintmut/run_lintmut.py`: six lint mutations;
+- `dry_trace_mut2.py`: the tracer, driver and label-scan mutations, results in `mut400c.txt` and `mut400d.txt`;
+- `r395/needle_diff.py` (HEAD paper against the swept paper): 741 needles, 1 count change, the new g9 needle (0 → 1).
+
+**Mutation record** (`dry_trace_mut2.py`). Each run executes the driver's prechecks in place, with one mutation applied to a temporary copy of the tracer or to the driver source.
+- `mut400.txt`, the sweep's first form: no_plus and no_cd completed, so both plants were changed.
+- `mut400c.txt`, before the missing-path and record changes: the control completes, and all 21 mutation runs exit 2.
+- `mut400d.txt`, the final code (fafb386): the control completes with "94 planted files, listings and missing paths … the record refused 4 of 4 planted changes …". All 28 mutation runs exit 2:
+  - tracer: no_read, no_list, no_spawn, shared_busy (5 of 5 runs), no_osopen, no_plus, no_system, no_pyc_map, no_pfx;
+  - driver: no_cd, no_shlex, no_m, no_cwdjoin, no_widen, no_external, env_real_only, no_root, no_missing;
+  - record: dok_no_missing, dok_no_dir, dok_no_file and dok_no_v each flip exactly their own entry in the served list. dok_py_bytes flips every state after the comment edit;
+  - label scan: no_fstr_unit.
+- env_real_only is caught here only because this installation's `sitecustomize` is a symlink out of the prefix ("external ['ext_mod.py', 'sitecustomize.py']"). On an installation without one it would pass.
+
+**Battery on the sweep.** Full-tower class: `scratchpad/r401/battery_lead.sh` on fafb386. It runs `run_tower.py` under the checkpoint wrapper with the maximum background limit (01:54–02:24 UTC), then a second, unwrapped invocation (02:24–02:25).
+- **Run 1:** all nine prechecks were green, including:
+  - "render lint: 2 surfaces, 0 defects; probes 46/46 as expected";
+  - "reach precheck: 36 members, 109 reach files (floor 109), 0 unresolved imports; sabotage case reached 23 planted files";
+  - "dependency precheck: the tracer's sabotage case recorded 94 planted files, listings and missing paths (bytecode caches present) and 1 external module; the record refused 4 of 4 planted changes and served the unchanged, comment-edited and restored states".
+  - It ended "census: 36 live PASS + 0 cached PASS + 0 FAIL of 36", "TOWER PASS (36/36)", exit 0, WRAPPER-COMPLETE.
+- **Run 2 (stability):** "census: 0 live PASS + 36 cached PASS + 0 FAIL of 36", "TOWER PASS (36/36)", exit 0. All 36 PASS lines read "recorded dependencies unchanged". Then BATTERY DONE, at HEAD cc150e3 (the wrapper's checkpoint commits) with a clean tree.
+- **The records:**
+  - 17 to 137 recorded dependencies per member (median 74);
+  - 25 of the 36 hold the listing `dir:tools/research`, and none holds a missing path.
+  - By grep, the research scripts' only listing of that directory is `ckpt_migrate.py:155`, the producer search over keyed instruments. So a file added there now re-runs those 25 members live: the safe direction, at the cost of one live tower.
+
+---

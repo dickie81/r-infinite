@@ -6132,3 +6132,31 @@ Swept: 33361b9. Convergence round 391 is owed.
 - **Held:** listed in A571.
 
 **Swept:** b6dd58b. Convergence round 400 owed.
+
+### Round 400 — the convergence test on the round-399 sweep
+
+**Scope.** Commit b6dd58b.
+- **Battery** (full-tower class, run by the lead on b6dd58b): 36 live PASS, 36/36, BATTERY DONE. Lens B ran the main-repository tower after it: 36 cached PASS, each with its recorded dependencies unchanged.
+- **Review:** three parallel lenses. Brief: `brief_round400.md`.
+
+**Findings.** 2 MAJOR, 10 distinct minors, plus cosmetics. All were verified by the lead against b6dd58b and accepted (A572).
+- **MAJOR F400-B1 = C1:** a module served from a bytecode cache was never recorded, and the external-code check failed open from the second run. The tracer now records a cache as its source, mapped under the member's own pycache prefix.
+- **MAJOR F400-B2:** a glob's later matches ran unbound. Directory listings are now recorded and hashed.
+- **Minor:**
+  - B3: the spawn line is recorded whole and resolved (quotes, `cd`, `-m`);
+  - B4 = C2: per-thread guard;
+  - B5: the installation is tested on the path as read and as resolved;
+  - C3: os.popen and relative import_module planted;
+  - C4: net-state markers;
+  - C5: claims scoped;
+  - C6: the formulation is recorded;
+  - A1: L21, a table that did not form;
+  - A2: the info-string exemption narrowed, and the code mask follows the renderer;
+  - A3 = B9 = C7: the self-review list.
+- **Cosmetic:** B6, B7 = A4(a, a′), A4(b), A5, B8, B10, C8 (the paper's "~18× thinner" struck), C9.
+- **Held:** A4(c), a fail-closed L9 false positive with no occurrence.
+- **The lead's own pre-landing checks:** the pycache-prefix mapping, the root listing, "missing:" paths, the record's own sabotage case, two more sabotage plants ("a+", a `cd` into a subdirectory), and two disclosures (C-level reads, listings by file descriptor).
+
+**Battery on the sweep:** 36 live PASS, then 36 cached PASS on a stability re-run, each with its record unchanged.
+
+**Swept:** fafb386. Convergence round 401 owed.
