@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1139 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1154 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -211,6 +211,7 @@ Every file ends with `#print axioms`. All 1139 checked theorems in `src/` (and t
 | `EisensteinGaussSum.lean` | 294 | **S3, part 1: Gauss sums at a prime of `ℤ[ω]`**: **`gaussSum_cubCharC_cube`**: `g(χ_P, ψ)³ = −N(P)·π` for `P = (π)`, `π ≡ 1 (mod 3)` and any primitive `ψ`, and `|g|² = N(P)`; duplication `χ(4)·J(χ, χ) = J(χ, ρ)` and the Hasse–Davenport product formula for `m = 2` (`jacobiSum_self_dup`, `gaussSum_dup`); the sextic character's square and cube are the cubic and the quadratic characters (`chi6_sq`, `chi6_cube`); **`gaussSum_chi6`**: `χ₆(4)·g(χ₆)·N(P) = g(χ₃)²·g(ρ)` (round 292) |
 | `PlanePoisson.lean` | 474 | **Poisson summation in the plane**: for `F` Schwartz on `ℂ`, the periodization over `ℤ²` descends to the torus (`perT`) with Fourier coefficients `𝓕F(k)` (`mFourierCoeff_perT`, through the fundamental domain of `ℤ²`, `integral_eq_tsum_box`); **`pair_poisson`**: `Σ_{n∈ℤ²} F(n) = Σ_{k∈ℤ²} 𝓕F(k)`; **`fourier_comp_linearEquiv`**: `𝓕(f ∘ M)(w) = |det M|⁻¹·𝓕f((M⁻¹)* w)`; **`lattice_poisson`**: `Σ_{n∈ℤ²} F(Mn) = |det M|⁻¹·Σ_k 𝓕F((M⁻¹)* k)` (round 293) |
 | `EisensteinPoisson.lean` | 561 | **S4, part 2: Poisson summation over `ℤ[ω]`**: **`eis_poisson`**: `Σ_{z∈ℤ[ω]} F(σz) = |det M_ϖ|⁻¹·Σ_{k∈ℤ²} 𝓕F(ξ_k)`, `|det M_ϖ| = √3/2`; the affine Fourier transform (`fourier_affine`); **`eis_poisson_twisted`**: twists periodic modulo `c`; **`ξd_eq`**: the dual points are `conj(2σ(μ)/σ(δ))`, `μ ∈ ℤ[ω]`, `δ = 1 + 2ω`; the trace character `ψ_c` of `ℤ[ω]/c` (`ψc_add`, `ψc_add_mul`); **`eis_poisson_quot`**: `Σ_z P(z mod c)F(σz) = 2/(√3·N(c))·Σ_{μ∈ℤ[ω]} (Σ_r P(r)ψ_c(rμ))·𝓕F(conj(2σ(μ)/σ(δc)))` (round 294) |
+| `EisensteinGaussTransform.lean` | 439 | **S3, part 2: the Gauss transform modulo squarefree moduli**: the trace character on `ℤ[ω]/c` (`ψQ`), primitive at primes (`ψQ_isPrimitive`); `inner_sum_prime`: `Σ_{r mod π} χ(r)ψ_π(rμ) = χ⁻¹(μ)·g(χ, ψ_π)`; **`eis_poisson_char`**; the Gauss transform `G_c(f, μ) = Σ_{r mod c} f(r)ψ_c(rμ)` (`gaussTr`) and **`eis_poisson_gaussTr`**; Chinese remainders (`crt_rep_bijective`, **`gaussTr_mul`**, **`gaussTr_prod`**); **`gaussTr_prod_primes`**: `G_c(∏ χ_i, μ) = ∏_i χ_i(c/π_i)·χ_i⁻¹(μ)·g(χ_i, ψ_{π_i})` for `c = ∏ π_i` (round 295) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9125,7 +9126,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 **Check 4.** Classical: the cube of the cubic Gauss sum (Gauss, Jacobi), and the Hasse–Davenport product formula for `m = 2`. New here: both machine-checked on the pilot's stack, together with the identification of round 281's sextic character with the cubic and quadratic ones.
 
-**Not yet here** (the rest of S3): the twisted Gauss sums modulo squarefree moduli, their multiplicativity across coprime moduli with the cross phase, and the additive character of `ℤ[ω]` that Poisson summation will use.
+**Not yet here** (the rest of S3): the twisted Gauss sums modulo squarefree moduli, their multiplicativity across coprime moduli with the cross phase, and the additive character of `ℤ[ω]` that Poisson summation will use. *(Round 294: the additive character is `Eis.ψc`. Round 295: the twisted Gauss sums modulo squarefree moduli and their multiplicativity are `Eis.gaussTr_prod_primes`, with the cross phase as a factor; its evaluation through round 290's law is not yet there.)*
 
 **Check 9.** No barrier claim is made.
 
@@ -9183,9 +9184,45 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 **Not yet here:**
 - the radial weights `F(z) = W(|z|²/K)` of the release's mean square (`canonical_radial_poisson`, `GaussSum/SexticRadialPoisson.lean:669–686`);
-- the inner sums evaluated as Gauss sums modulo squarefree `c` (the rest of S3);
+- the inner sums evaluated as Gauss sums modulo squarefree `c` (the rest of S3); *(round 295: landed, `Eis.gaussTr_prod_primes`.)*
 - the mean-square expansion.
 
 **Check 9.** No barrier claim is made.
+
+**Bearing on RH:** none.
+
+## Round 295: S3, part 2 — the Gauss transform modulo squarefree moduli (`src/EisensteinGaussTransform.lean`)
+
+**What it is.** The inner sums of round 294's Poisson formula, evaluated as Gauss sums. For `c ∈ ℤ[ω]` and `g` periodic modulo `c`, the Gauss transform is `G_c(g, μ) = Σ_{r∈ℤ[ω]/c} g(r)·ψ_c(rμ)` (`gaussTr`), with round 294's trace character `ψ_c`.
+
+**The trace character on `ℤ[ω]/c`.**
+- `ψ_c` descends to an additive character `ψQ` of `ℤ[ω]/c` (`ψQ_mk`).
+- `trPhase_mul_absNorm`: `N(c)·Re(2σ(x)/σ(δc)) = Re(2σ(xc̄)/σ(δ))`, which is the `ω`-coordinate of `xc̄`. So if `ψ_c ≡ 1`, then `N(c)` divides both coordinates of `c̄`, `cc̄ ∣ c̄`, and `c` is a unit (`ψc_ne_one`).
+- At a prime `π`, `ψQ` is therefore a nontrivial character of the field `ℤ[ω]/π`, hence primitive (`ψQ_isPrimitive`, through Mathlib's `IsPrimitive.of_ne_one`). Round 292's `gaussSum_cubCharC_cube` and `norm_gaussSum_cubCharC_sq` apply to it.
+
+**At a prime.**
+- `inner_sum_prime`: `Σ_{r mod π} χ(r)ψ_π(rμ) = χ⁻¹(μ)·g(χ, ψ_π)` for `χ ≠ 1`, from Mathlib's `gaussSum_mulShift_eq` (and `gaussSum_one_right` when `π ∣ μ`).
+- **`eis_poisson_char`**: `Σ_z χ(z)F(σz) = 2/(√3·N(π))·g(χ, ψ_π)·Σ_{μ∈ℤ[ω]} χ⁻¹(μ)·𝓕F(conj(2σ(μ)/σ(δπ)))`. The dual side is again a character sum, with the conjugate character.
+
+**The Gauss transform.**
+- `gaussTr_eq_sum`: `G_c(g, μ)` is the sum over any complete residue system modulo `c`. Hence **`eis_poisson_gaussTr`**: `Σ_z f(z)F(σz) = 2/(√3·N(c))·Σ_{μ∈ℤ[ω]} G_c(f, μ)·𝓕F(conj(2σ(μ)/σ(δc)))` for `f` periodic modulo `c`.
+- **Chinese remainders** (`crt_rep_bijective`): for coprime `a, b` and residue systems `r_i` modulo `a`, `s_j` modulo `b`, the elements `b·r_i + a·s_j` form a residue system modulo `ab`. With `ψ_{ab}(by) = ψ_a(y)` (`ψc_mul_right`), this gives **`gaussTr_mul`**: `G_{ab}(f_a f_b, μ) = G_a(f_a(b·), μ)·G_b(f_b(a·), μ)` for `f_a` periodic modulo `a` and `f_b` modulo `b`.
+- **`gaussTr_prod`**: by induction, for any finite family of pairwise coprime moduli `c_i` and `f_i` periodic modulo `c_i`, `G_{∏c_i}(∏ f_i, μ) = ∏_i G_{c_i}(f_i((∏_{j≠i} c_j)·), μ)`.
+
+**Squarefree moduli.**
+- `gaussTr_prime`: `G_π(χ(m·), μ) = χ(m)·χ⁻¹(μ)·g(χ, ψ_π)`.
+- **`gaussTr_prod_primes`**: for pairwise coprime primes `π_i`, characters `χ_i ≠ 1` modulo `π_i` and `c = ∏ π_i`, `G_c(∏ χ_i, μ) = ∏_i χ_i(c/π_i)·χ_i⁻¹(μ)·g(χ_i, ψ_{π_i})`. The factor `∏_i χ_i(c/π_i)` is the cross phase.
+
+**Comparison with the release.** The release factors its Gauss transforms through an abstract ring isomorphism `ℤ[ω]/∏P_i ≃ ∏ ℤ[ω]/P_i` and the coordinate characters of an arbitrary additive character (`gauss_transform_finite_crt`, `Poisson/EisensteinLattice.lean:538–561`; `gauss_transform_finite_ideal_crt`, `:609–623`). Here the trace character makes the coordinate characters explicit, `ψ_{c}` at `(c/π_i)·y` being `ψ_{π_i}(y)`, so the cross phase appears as `χ_i(c/π_i)`.
+
+**Build.** Incremental pilot build: 1 compiled, 184 up to date, 14 s, 0 warnings. The 15 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1154 in `src/`. No other file imports `EisensteinGaussTransform`.
+
+**Check 4.** Classical: Gauss sums of characters modulo squarefree moduli and their factorization by the Chinese remainder theorem. New here: both machine-checked on the pilot's stack, for the trace character of `ℤ[ω]`.
+
+**Not yet here:**
+- the cross phase evaluated through round 290's law (round 291's S3);
+- the radial weights and the mean-square expansion (S4). Bounded trivially, with `|G_c(μ)| ≤ N(c)^{1/2}` from `gaussTr_prod_primes` and `|g|² = N(π)`, the off-diagonal terms come to about `Σ_{N𝔞, N𝔟 ≤ Z} N(𝔞𝔟)^{1/2} ≈ Z³`. Against the target `Z^{2+σ}` that is `σ = 1`. The release goes below it through cancellation among the Gauss sums, in its theta half (S5).
+
+**Check 9.** The last item compares one trivial bound with the release's route; it states no barrier.
 
 **Bearing on RH:** none.
