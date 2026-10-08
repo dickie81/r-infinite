@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 981 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 994 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -201,6 +201,7 @@ Every file ends with `#print axioms`. All 981 checked theorems in `src/` (and th
 | `HalfPlaneJoins.lean` | 120 | **S0's joins: `SmoothBound θ` fed to the stack's sockets for a fixed zero-free strip**: the zeros of `ζ` and of `L(s, χ₋₃)` lie in `1 − θ ≤ Re ρ ≤ θ` (`zeta_band`, `chi3_band`) and the zeros `τ` of `Ξ` have `|Im τ| ≤ θ − ½` (`abs_im_tau_le`); for `θ ≥ ½` the twin forms of `ζ`, of `L(s, χ₋₃)` and of `ζ·ζ_{ℚ(√−3)}` are `≥ −C e^{(2θ−1)λ}` (`weil_rate_of_smoothBound`, `chi3_rate_of_smoothBound`, `QK3_rate_of_smoothBound`) and `λ₁(a) ≤ K(a + 1)e^{(8+2θ)a − 4πe^{2a}}` (`lam_prefactor_of_smoothBound`) (round 279) |
 | `HalfPlaneTrivial.lean` | 82 | **The trivial range of S0's hypothesis**: `SmoothBound θ` for every `θ ≥ 1` (**`smoothBound_of_one_le`**), by Rankin's trick (`norm_le_rpow_mul_norm_term`: `|a(n)| ≤ X^σ|a(n)|n^{−σ}` for `1 ≤ n ≤ X`) and the convergence of `Σ|μ_K(n)|n^{−1−ε}`; so S0's hypothesis is satisfiable, and every `θ < 1` is open (round 280) |
 | `EisensteinSymbol.lean` | 363 | **S1, part 1: the sextic residue symbol on `ℤ[ω]`**: `𝓞 ℚ(ζ₃)` with units `±1, ±ω, ±ω²` (`units_mem`); away from `6`, reduction is injective on units (`red_injective`), every sixth root of unity mod `P` is a reduced unit (`exists_red_eq`) and `6 ∣ N(P) − 1` (`six_dvd_card_sub_one`); the character `χ_P(x) = σ(u)` with `u ≡ x^{(N(P)−1)/6}` (`chi6`, `chi6_spec`, `chi6_pow_six`) and the symbol `(a/𝔞)₆ = Π_{P∣𝔞} χ_P(a)` (`sym6`), multiplicative in `a` and `𝔞` (`sym6_mul_left`, `sym6_mul_right`) (round 281) |
+| `EisensteinCount.lean` | 334 | **S1, part 2a: the ideal Möbius sums `m(n) = Σ_{N𝔞=n} μ(𝔞)` on `ℤ[ω]`**: multiplicative in coprime `n` (**`mI_mul`**, via `I ↦ (I + a𝓞, I + b𝓞)`); at prime powers a signed count of sets of prime factors of `p𝓞` (**`mI_prime_pow`**); `p𝓞` has one prime factor of norm `p²` or two of norm `p` (`pFactors_cases`) (round 283) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -8802,3 +8803,35 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 **Check 4.** New here: the map of the formalised route and the finding that it proves `23/24`. Nothing is derived in Lean this round.
 
 **Bearing on RH:** none. A fixed half-plane is strictly weaker than RH.
+
+## Round 283: S1, part 2a — the ideal Möbius sums on `ℤ[ω]` (`src/EisensteinCount.lean`)
+
+**The target of S1 part 2.** `mI n = Σ_{N𝔞=n} μ(𝔞)`, with `μ` Mathlib's `UniqueFactorizationMonoid.moebius` on the ideals of `𝓞 ℚ(ζ₃)`, summed over the finitely many ideals of norm `n` (`ofNorm n`). The aim is `mI n = μ_K(n)`, the coefficient S0 uses. That identity is what joins the family's sums over ideals (round 282) to S0. This round proves its two structural halves.
+
+**Multiplicativity** (`mI_mul`): `m(ab) = m(a)m(b)` for coprime `a, b ≥ 1`.
+- If `N(J) = a`, then `a·𝓞 ≤ J` (Mathlib's `span_singleton_absNorm_le`). Coprime `a, b` give `a𝓞 ⊔ b𝓞 = ⊤` (`span_sup_span_eq_top`).
+- So `JL ⊔ a𝓞 = J` whenever `N(J) = a` and `N(L) = b` (`mul_sup_span_eq`), and `(J, L) ↦ JL` is injective (`injOn_mul`).
+- Conversely, an ideal `I` of norm `ab` is `(I ⊔ a𝓞)(I ⊔ b𝓞)` (`sup_mul_sup_eq`). The factors have norms `a` and `b`, because `N(I ⊔ a𝓞)` divides both `ab` and `N(a𝓞) = a^{[K:ℚ]}` (`norm_sup_span_dvd`, `absNorm_natCast_span`). This gives `ofNorm_mul`.
+- The two factors are coprime, so `μ(JL) = μ(J)μ(L)` (Mathlib's `IsRelPrime.moebius_mul`).
+
+**Prime powers** (`mI_prime_pow`).
+- `m(p^k) = Σ (−1)^{|T|}`, over the sets `T` of prime factors of `p𝓞` with `Π_{P∈T} N(P) = p^k`.
+- Non-squarefree ideals contribute `0`. A squarefree ideal of norm `p^k` is the product of its distinct prime factors, and these divide `p𝓞` (`mem_pFactors_of_mem`).
+- A product of distinct nonzero primes has exactly those factors (`finset_prod_spec`), and `μ(Π_{P∈T} P) = (−1)^{|T|}` (`moebius_finset_prod`).
+
+**The three patterns** (`pFactors_cases`).
+- `[K:ℚ] = 2` (`finrank_O`), so `N(p𝓞) = p²`, and the norms of its prime factors multiply to `p²` (`prod_norm_pFactors`). Each norm is `p` or `p²` (`norm_of_mem_pFactors`).
+- So `p𝓞` has either one prime factor, of norm `p²` (inert), or two prime factors with multiplicity, each of norm `p`. The two-factor case covers split primes (two distinct factors) and the ramified prime (one factor, twice).
+
+**Not yet here** (S1 part 2b):
+- which pattern occurs: split for `p ≡ 1`, inert for `p ≡ 2 (mod 3)`, ramified at `3`. The planned argument is elementary:
+  - for `p ≡ 2`, a residue field with `p` elements would contain a primitive cube root of unity;
+  - for `p ≡ 1`, `(ω − a)(ω − a²) ∈ p𝓞` while `ω − a ∉ p𝓞`, by the count `|𝓞/p𝓞| = p²`;
+- the values `μ_K(p^k)`;
+- the assembled identity `mI n = μ_K(n)`.
+
+**Build.** Incremental pilot build: 1 compiled, 174 up to date, 10 s, 0 warnings. The 13 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 994 in `src/`. No other file imports `EisensteinCount`.
+
+**Check 4.** Classical (the ideal-theoretic Möbius function and the decomposition of rational primes in `ℚ(√−3)`). New here: the machine-checked multiplicativity and prime-power formula on Mathlib's `𝓞 ℚ(ζ₃)`.
+
+**Bearing on RH:** none.
