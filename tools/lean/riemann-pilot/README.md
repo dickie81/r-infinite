@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 967 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 969 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -199,6 +199,7 @@ Every file ends with `#print axioms`. All 967 checked theorems in `src/` (and th
 | `external/dh/DHInert.lean` | 623 | **coefficient localisation**: the coefficients of `−dh′/dh` equal `Λ(n)χ₅(n)` at every `n` with a prime factor `≢ ±2 (mod 5)` (**`cDH_chi5_eq_of_dvd`**); `c = Λ·s + c_inert` with `c_inert` supported on inert-smooth integers (**`cDH_chi5_decomp`**); `δ + u = s ⍟ b` (`dhA_eq_splitA_mul_inertA`); `logDer_mul`, `log` a derivation of Dirichlet convolution (round 273) |
 | `HalfPlaneS0.lean` | 325 | **S0 of the round-277 plan: power savings for the smoothed Möbius sums of `ζ · L(·, χ₋₃)` give a zero-free half-plane**: `r = 1 ⍟ χ₋₃` with `L(r, s) = ζ(s)L(s, χ₋₃)` (`LSeries_rK`) and `μ_K = μ ⍟ (χ₋₃μ)` with `L(r, s)L(μ_K, s) = 1` on `Re s > 1` (`LSeries_rK_mul_muK`); if `Σ_n μ_K(n)W(n/D) = O(D^{θ+ε})` for every smooth `W` compactly supported in `(0, ∞)` and every `ε > 0` (`SmoothBound θ`, a displayed hypothesis), then `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` on `Re s > θ` (**`ne_zero_of_smoothBound`**) (round 278) |
 | `HalfPlaneJoins.lean` | 120 | **S0's joins: `SmoothBound θ` fed to the stack's sockets for a fixed zero-free strip**: the zeros of `ζ` and of `L(s, χ₋₃)` lie in `1 − θ ≤ Re ρ ≤ θ` (`zeta_band`, `chi3_band`) and the zeros `τ` of `Ξ` have `|Im τ| ≤ θ − ½` (`abs_im_tau_le`); for `θ ≥ ½` the twin forms of `ζ`, of `L(s, χ₋₃)` and of `ζ·ζ_{ℚ(√−3)}` are `≥ −C e^{(2θ−1)λ}` (`weil_rate_of_smoothBound`, `chi3_rate_of_smoothBound`, `QK3_rate_of_smoothBound`) and `λ₁(a) ≤ K(a + 1)e^{(8+2θ)a − 4πe^{2a}}` (`lam_prefactor_of_smoothBound`) (round 279) |
+| `HalfPlaneTrivial.lean` | 82 | **The trivial range of S0's hypothesis**: `SmoothBound θ` for every `θ ≥ 1` (**`smoothBound_of_one_le`**), by Rankin's trick (`norm_le_rpow_mul_norm_term`: `|a(n)| ≤ X^σ|a(n)|n^{−σ}` for `1 ≤ n ≤ X`) and the convergence of `Σ|μ_K(n)|n^{−1−ε}`; so S0's hypothesis is satisfiable, and every `θ < 1` is open (round 280) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -8646,7 +8647,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 **What it is, and what it is not.**
 - The bound is two-sided, so no positivity and no Landau theorem are used. Unlike round 222's `LFunction_ne_zero_of_psiChi`, no hypothesis on real zeros is needed.
-- `SmoothBound θ` is a **displayed hypothesis**: the socket for S1–S6. No instance is proved here for any `θ`, not even the trivial `θ = 1` (from `|μ_K(n)| ≤ τ(n)`).
+- `SmoothBound θ` is a **displayed hypothesis**: the socket for S1–S6. No instance is proved here for any `θ`, not even the trivial `θ = 1` (from `|μ_K(n)| ≤ τ(n)`). *(Round 280: the trivial range `θ ≥ 1` is now `smoothBound_of_one_le`, by Rankin's trick rather than the divisor bound. Every `θ < 1` is still open.)*
 - **The signal (CLAUDE.md Check 9(c)).** The signal fed to this "bound ⇒ zero-free" theorem is the smoothed sums of `μ_K`. On its own it is circular, like ψ: the bound at `θ` follows classically from the half-plane `Re s > θ` for `ζ·L(·, χ₋₃)` (not proved here). It becomes an auxiliary signal only through the companion's second representation, the sextic-twisted family and its dual mean square (S2–S6), which the stack has not built.
 
 **Build.** Incremental pilot build: 1 compiled, 170 up to date, 11 s, 0 warnings. The 7 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 960 in `src/`. The build before it in this container also recompiled 119 modules downstream of `WeilChiDensity` and `WeilIndexInfinite`, whose sources were newer than their oleans after the checkout. It exited 0 (120 compiled, 51 up to date, 692 s); its per-file output was not kept. No other layer imports `HalfPlaneS0`.
@@ -8691,3 +8692,20 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 - **New here:** the kernel-checked compositions from S0's hypothesis.
 
 **Bearing on RH:** none. A fixed half-plane is strictly weaker than RH.
+
+## Round 280: the trivial range of S0's hypothesis (`src/HalfPlaneTrivial.lean`)
+
+**The statement.** `smoothBound_of_one_le : 1 ≤ θ → SmoothBound θ`. So the hypothesis of round 278's `ne_zero_of_smoothBound` and of round 279's joins is satisfiable, and those theorems are not vacuous as statements.
+
+**The proof.** Rankin's trick.
+- `norm_le_rpow_mul_norm_term`: for `1 ≤ n ≤ X` and `σ ≥ 0`, `|a(n)| ≤ X^σ|a(n)|n^{−σ}`.
+- A weight is bounded by some `M` (continuous, compact support) and vanishes beyond some `R` (`exists_vanish_right`). So every nonzero term of `Σ_n μ_K(n)W(n/D)` has `n ≤ (R + 1)D`, and for `D ≥ 1` the sum is at most `M((R + 1)D)^σ Σ_n |μ_K(n)|n^{−σ}`.
+- With `σ = 1 + ε` the series converges (`LSeriesSummable_muK`, with Mathlib's `summable_norm_iff`), which gives `O(D^{1+ε})`, and so `O(D^{θ+ε})` for every `θ ≥ 1`.
+
+**What it is, and what it is not.** At `θ = 1` the conclusion of S0 is the classical `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > 1`. Nothing below `Re s = 1` follows. Every `θ < 1` remains open in the stack: that is the target of S1–S6.
+
+**Build.** Incremental pilot build: 1 compiled, 172 up to date, 9 s, 0 warnings. The 2 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 969 in `src/`. No other file imports `HalfPlaneTrivial`.
+
+**Check 4.** Classical (Rankin's trick). New here: the satisfiability witness for S0's hypothesis.
+
+**Bearing on RH:** none.
