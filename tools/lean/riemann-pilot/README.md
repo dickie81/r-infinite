@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1102 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1111 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -208,6 +208,7 @@ Every file ends with `#print axioms`. All 1102 checked theorems in `src/` (and t
 | `HalfPlaneMeanSquare.lean` | 737 | **S2′ and the first conditional milestone**: the family `A_Z(u) = Σ_𝔞 μ(𝔞)(u/𝔞)₆W(N𝔞/Z)` over ideals of norm prime to `6` (`famSum`); `(b⁶/𝔞)₆ = [b in no prime of 𝔞]` (`sym6_pow_six`); inclusion–exclusion with round 287's count (`abs_card_coprime_sub_le`); the average over sixth powers of generators is `κY` times round 285's `f`-sum plus `O(√Y·Z^{1+ε})` (`norm_sum_famSum_sub_le`, `sum_w2_le`); Cauchy–Schwarz against the displayed hypothesis `MeanSquare σ` (`weightedBound_of_meanSquare`); **`ne_zero_of_meanSquare`**: `MeanSquare σ`, `σ ≥ 0`, gives `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5σ)/12` (round 288) |
 | `EisensteinCubicChar.lean` | 714 | **S1, part 3a: the cubic character, its Jacobi sum and the Gauss-sum relation**: `χ_P(x) ∈ {1, ω, ω²} ⊂ ℤ[ω]` with `χ_P(x) ≡ x^{(N(P)−1)/3} (mod P)` (`cubChar`, `cubChar_spec`); every element is `m + nω` (`exists_coords`); primary associates exist and are unique (`exists_primary`, `Primary.unit_eq_one`); conjugation `ω ↦ ω²` (`cj`); **`jacobiSum_eq_neg`**: `J(χ_P, χ_P) = −π` for `P = (π)`, `π ≡ 1 (mod 3)`; **`cubChar_fundamental`**: `χ_Q(−N(P)·π) = χ_P(N(Q))²`, from Gauss sums in characteristic `char(𝓞/Q)` (round 290) |
 | `EisensteinCubicRecip.lean` | 733 | **S1, part 3b: cubic reciprocity on `ℤ[ω]`**: maximal ideals prime to `3` are inert or of prime norm (`maximal_cases`); the cases inert/split, split/split and inert/inert (`recip_inert`, `recip_split`, `recip_inert_inert`) and conjugate primes (`recip_conj`); primary generators (`pgen`, `prod_pgen`); **`cub_recip`**: `(a/b)₃ = (b/a)₃` for coprime `a ≡ b ≡ 1 (mod 3)` (round 290) |
+| `EisensteinGaussSum.lean` | 294 | **S3, part 1: Gauss sums at a prime of `ℤ[ω]`**: **`gaussSum_cubCharC_cube`**: `g(χ_P, ψ)³ = −N(P)·π` for `P = (π)`, `π ≡ 1 (mod 3)` and any primitive `ψ`, and `|g|² = N(P)`; duplication `χ(4)·J(χ, χ) = J(χ, ρ)` and the Hasse–Davenport product formula for `m = 2` (`jacobiSum_self_dup`, `gaussSum_dup`); the sextic character's square and cube are the cubic and the quadratic characters (`chi6_sq`, `chi6_cube`); **`gaussSum_chi6`**: `χ₆(4)·g(χ₆)·N(P) = g(χ₃)²·g(ρ)` (round 292) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9096,5 +9097,34 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 - (c) No new signal. The family mean square has been on the register since round 282.
 
 **Check 4.** New here: the map of the release's proof below `MeanSquare σ`, and where cubic reciprocity enters it. Nothing is derived in Lean this round.
+
+**Bearing on RH:** none.
+
+## Round 292: S3, part 1 — Gauss sums at a prime of `ℤ[ω]` (`src/EisensteinGaussSum.lean`)
+
+**What it is.** The first piece of round 291's S3, at a single maximal `P` and any primitive additive character `ψ` of `𝓞/P` with values in `ℂ`.
+
+**The cubic Gauss sum.** `cubCharC` is round 290's cubic character composed with the embedding `σ`.
+- **`gaussSum_cubCharC_cube`**: `g(χ_P, ψ)³ = −N(P)·π` for `P = (π)` with `π ≡ 1 (mod 3)`. Mathlib's `gaussSum_pow_eq_prod_jacobiSum` gives `g³ = χ(−1)·N(P)·J(χ, χ)`; `χ(−1) = 1` for a cubic character (`cubCharC_neg_one`); and round 290's `jacobiSum_eq_neg` gives `J = −π`.
+- This is the release's `cubicGauss_normalized_cube_breveE` (`GaussSum/CubicNormalization.lean:24–32`) before normalization, for every primitive `ψ` rather than one fixed additive character.
+- `norm_gaussSum_cubCharC_sq`: `|g(χ_P, ψ)|² = N(P)`, from Mathlib's `gaussSum_mul_gaussSum_eq_card` and `star_gaussSum_eq`.
+
+**Duplication** (any finite field of odd characteristic, `ρ` the quadratic character, values in a domain).
+- `jacobiSum_self_dup`: `χ(4)·J(χ, χ) = J(χ, ρ)` for `χ ≠ 1`. The proof uses `4x(1 − x) = 1 − (2x − 1)²` and the count `#{u : u² = t} = 1 + ρ(t)` (`sum_sq_eq`, from Mathlib's `quadraticChar_card_sqrts`).
+- `gaussSum_dup`, the Hasse–Davenport product formula for `m = 2`: `χ(4)·g(χ)·g(χρ) = g(χ²)·g(ρ)` for `χ, χ² ≠ 1`. It follows from duplication and Mathlib's `jacobiSum_mul_nontrivial`.
+
+**The sextic character** of round 281 (`chi6`), at `P` with `6 ∉ P`.
+- `chi6_sq`: its square is the cubic character. Both are fixed by their residues modulo `P`, and `(N(P) − 1)/3 = 2·(N(P) − 1)/6`.
+- `chi6_cube`: its cube is `ρ`, by Euler's criterion (Mathlib's `quadraticChar_eq_pow_of_char_ne_two'`), since `±1` stay distinct modulo `P`.
+- **`gaussSum_chi6`**: `χ₆(4)·g(χ₆)·N(P) = g(χ₃)²·g(ρ)`. `gaussSum_dup` at `χ = χ₆` gives `χ₆(4)·g(χ₆)·g(χ₃²) = g(χ₃)·g(ρ)`, since `χ₆ρ = χ₆⁴ = χ₃²`; then `g(χ₃)·g(χ₃²) = N(P)`.
+- So the sextic Gauss sum is the square of the cubic one times the quadratic one, up to the unit `χ₆(4)` and the factor `N(P)`. The release packages the same relation as `normalized_gauss_sextic_relation` (`GaussSum/CubicNormalization.lean:611–618`) and `breveGamma1_gamma2_eq_neg_alpha_G` (`GaussSum/SexticNormalization.lean:173–179`).
+
+**Build.** Incremental pilot build: 1 compiled, 181 up to date, 10 s, 0 warnings. The 9 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1111 in `src/`. No other file imports `EisensteinGaussSum`.
+
+**Check 4.** Classical: the cube of the cubic Gauss sum (Gauss, Jacobi), and the Hasse–Davenport product formula for `m = 2`. New here: both machine-checked on the pilot's stack, together with the identification of round 281's sextic character with the cubic and quadratic ones.
+
+**Not yet here** (the rest of S3): the twisted Gauss sums modulo squarefree moduli, their multiplicativity across coprime moduli with the cross phase, and the additive character of `ℤ[ω]` that Poisson summation will use.
+
+**Check 9.** No barrier claim is made.
 
 **Bearing on RH:** none.
