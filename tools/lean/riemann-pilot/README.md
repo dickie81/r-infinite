@@ -61,7 +61,7 @@ Every file ends with `#print axioms`. All 1180 checked theorems in `src/` (and t
 | `SixteenPi.lean` | 1251 | the strip note's §3.4 derivation of `1/(16π)`; **the balayage identity proved (Fubini), so the reduced problem gives `e^{−δ}/(16π)` with no hypothesis**; the wall maximiser `X* = 2`; **the balayage density in closed form, positive at the wall**; `P`, `Q`, `J(X) = (π/(2X))(1 + ln(X/2))`, the wall at `X = 2`, `τ = e^{−δ}/(16π)`; the multiplier's `z²` coefficient is the curvature defect; exact and tolerant D cancel the matched zeros |
 | `GapBound.lean` | 478 | **the pole-overlap gap bound** `λ₂ − λ₁ ≥ c₂²(μ₂ − μ₁)/(c₁² + c₂²)` at operator level, hence simplicity from a nonzero overlap `⟨c, ψ₂⟩`; **the Galerkin transfer**: dense truncations with a uniform truncated gap give simplicity |
 | `CosTrunc.lean` | 663 | **`TruncDense` for the paper's cosine basis** `span{1_{[−a,a]}cos(kπt/a) : k < K}`: `C²` approximant, its cosine series by Mathlib's Fourier theorem, Hölder tails, energy of a truncated Hölder function; round 60's transfer for this basis with no density hypothesis |
-| `StripConv.lean` | 537 | **(a) is needed only on the strip `|{Im z}| < ½`**: RH from strip convergence; strip convergence from `L²` closeness of the ground state to a kernel at rate `o(e^{−a/2}/√a)` (`rh_of_close_top`); the min–max angle bound and `rh_of_relgap`; every moment condition (`k = 2`: `κ → 0`) as a corollary |
+| `StripConv.lean` | 537 | **(a) is needed only on the strip `\|{Im z}\| < ½`**: RH from strip convergence; strip convergence from `L²` closeness of the ground state to a kernel at rate `o(e^{−a/2}/√a)` (`rh_of_close_top`); the min–max angle bound and `rh_of_relgap`; every moment condition (`k = 2`: `κ → 0`) as a corollary |
 | `RiemannKernel.lean` | 901 | **Riemann's kernel formula** `∫ Φ(u)e^{izu}du = Ξ(z)/2` on all of `ℂ`, from Mathlib's theta kernel and completed zeta: termwise Gamma integrals on a half-plane, evenness of `Φ` from the theta functional equation, decay, the identity theorem. **`Φ > 0`, hence `ξ(σ) ≠ 0` for real `σ`**: `Ξ(0) ≠ 0` and `ζ(σ) ≠ 0` on `(0, 1)` |
 | `KernelChain.lean` | 41 | Riemann's formula discharges `KernelApprox` (`kernelApprox_RPhi`); RH from `L²` closeness to `Φ` (`rh_of_close_RPhi`) |
 | `PrimeSide.lean` | 74 | §11 item 1 restated with no zero of `ζ` in any hypothesis; `(a) + (b) ⇒ RiemannHypothesis` |
@@ -83,11 +83,11 @@ Every file ends with `#print axioms`. All 1180 checked theorems in `src/` (and t
 | `StripShift.lean`, `XiLogDeriv.lean`, `WeilCount.lean`, `WeilAssemble.lean` | 731, 230, 132, 629 | the strip class `StripTest`, contour shifts, `Ξ′/Ξ` as a sum over zeros and on `Re s > 1`, the zero count, and **Weil's explicit formula over the zeros of `Ξ`** (round 156) |
 | `WeilDischarge.lean`, `WeilZeta.lean` | 245, 270 | the pilot's test functions are strip test functions; **`weilExplicit_zeta`**: the explicit formula over the zeros of `ζ` (round 156) |
 | `WeilCriterion.lean` | 140 | monotone profiles are strip test functions; the explicit formula for the box and its twins over the zeros of `ζ`; no nontrivial zero is real (round 157; its finite-exception criterion `rh_of_weil_finite` was superseded in round 220) |
-| `ZetaInputs.lean` | 247 | **Hadamard's identity `Σ_ρ 1/(ρ(1−ρ)) = 2 + γ − log 4π` proved**; 1bt(i) and the pinning theorem with their classical inputs discharged (round 157); 1bt(i) with **no named input** and `|Im ρ| > 4` for every zero (`four_lt_abs_im_zero`) (round 233) |
+| `ZetaInputs.lean` | 247 | **Hadamard's identity `Σ_ρ 1/(ρ(1−ρ)) = 2 + γ − log 4π` proved**; 1bt(i) and the pinning theorem with their classical inputs discharged (round 157); 1bt(i) with **no named input** and `\|Im ρ\| > 4` for every zero (`four_lt_abs_im_zero`) (round 233) |
 | `ExteriorZeta.lean` | 310 | `Φ` entire, `Φ(w) + Φ(−w) = 1`, `χ` in the strip class; **the exterior identity over the zeros of `ζ` for every probe** (round 157) |
 | `WeilRH.lean` | 168 | **RH ⟹ `Q ≥ 0` on every probe**; `weil_criterion_zeta`: `Q ≥ 0` everywhere ⟺ RH, with no finiteness hypothesis since round 220 (round 157) |
 | `WeilIndexZeta.lean` | 107 | **negative directions of `Q` count off-line zeros of ζ with no named input**: `finrank_le_quadruples_zeta`, `finrank_le_offline_zeta` (strip-test probes), `finrank_le_quadruples_C2`, `exists_offline_of_neg_C2` (round 229) |
-| `WeilIndexConverse.lean` | 802 | **the converse count**: finitely many off-line zeros forming `m` quadruples force an `m`-dimensional space of strip-test probes with `Q < 0` (`negDirections_of_quadruples`); with round 229, the negative index of `Q` equals the number of off-line quadruples (`negIndex_eq_quadruples`) (round 230). The same above any level `v₀` beyond which only finitely many zeros have `|β − ½| > v₀`, whatever lies below (`negDirections_above`, round 231) |
+| `WeilIndexConverse.lean` | 802 | **the converse count**: finitely many off-line zeros forming `m` quadruples force an `m`-dimensional space of strip-test probes with `Q < 0` (`negDirections_of_quadruples`); with round 229, the negative index of `Q` equals the number of off-line quadruples (`negIndex_eq_quadruples`) (round 230). The same above any level `v₀` beyond which only finitely many zeros have `\|β − ½\| > v₀`, whatever lies below (`negDirections_above`, round 231) |
 | `WeilIndexInfinite.lean` | 771 | **every off-line quadruple gives a negative direction, with no finiteness**: any `m` off-line zeros in different quadruples give an `m`-dimensional space of strip-test probes with `Q < 0` (`negDirections_offline`); infinitely many off-line quadruples make the negative index unbounded (`negDirections_unbounded`). Proof by density of twin-box vectors in `ℓ²` over the zeros (round 232) Since round 274 §B–E are stated for any `NegData`, ζ being the instance `zetaND`. |
 | `PhiDExp.lean` | 484 | **double-exponential rung bounds, no RH input**: `λ₁ ≤ Ke^{16a−2πe^{2a}}`, `λ₁^odd ≤ Ke^{16a−2πe^{a−1/4}}`, `λ₂ ≤ Ke^{16a−2πe^{a/2−1/4}}` (round 159) |
 | `FirstFailure.lean` | 116 | **the first positivity failure**: if RH fails, there is a least `a₁ > 1/16` with `λ₁(a₁) = 0`, `λ₁ > 0` before it, the form PSD at `a₁`, and a normalised ground state in its kernel (round 161; no finiteness hypothesis since round 220) |
@@ -101,24 +101,24 @@ Every file ends with `#print axioms`. All 1180 checked theorems in `src/` (and t
 | `KaiserIBP.lean` | 277 | the tail integral `∫_a^∞ φ e^{itv}`: `≤ 2P` and `≤ 6P(1+D₀)/‖t‖` by parts (round 163) |
 | `KaiserWindow.lean` | 357 | the probe `g = 1_{[−a,a]}·Re KF(e^u)`: probe, strip test, explicit formula; **zero side `Q(g) ≤ 720P²(1+D₀)²S`** (round 163) |
 | `KaiserMoment.lean` | 553 | Gaussian moments by parts; **`α = m₄/m₂ ∈ [−1, 3/4]` gives `∫H = 0`** for `L ≥ 50` (round 163) |
-| `KaiserBulk.lean` | 318 | the bulk `g ≥ e^{βL−8}/51200` on `|u| ≤ 1/10`; **`λ₁(a) ≤ K e^{20a − 4πe^{2a}}` for `a ≥ 4`, no RH input** (round 163) |
-| `KaiserPoissonK.lean` | 240 | the Poisson kernel: `∫ P_y(x)e^{ixw}dx = e^{−y|w|}` by Fourier inversion; **`F(σ+is) = ∫ P_{1+s}(x)F(σ+x−i)dx`** for `F = ∫_0^∞ψ e^{itw}`, and the majorant `‖F(σ+is)‖² ≤ ∫ P_{1+s}(x−σ)‖F(x−i)‖²` (round 164) |
+| `KaiserBulk.lean` | 318 | the bulk `g ≥ e^{βL−8}/51200` on `\|u\| ≤ 1/10`; **`λ₁(a) ≤ K e^{20a − 4πe^{2a}}` for `a ≥ 4`, no RH input** (round 163) |
+| `KaiserPoissonK.lean` | 240 | the Poisson kernel: `∫ P_y(x)e^{ixw}dx = e^{−y\|w\|}` by Fourier inversion; **`F(σ+is) = ∫ P_{1+s}(x)F(σ+x−i)dx`** for `F = ∫_0^∞ψ e^{itw}`, and the majorant `‖F(σ+is)‖² ≤ ∫ P_{1+s}(x−σ)‖F(x−i)‖²` (round 164) |
 | `KaiserZeroWeight.lean` | 142 | **the RH-free zero weight**: `Σ_τ [P_{1+s}(x−σ) + P_{1−s}(x+σ)] = Im(Ξ′/Ξ)(x−i)/π ≤ (5 + Σ Λ(n)n^{−3/2} + ½log(\|x\|+2))/π`, from Hadamard and `ξ′/ξ` on `Re s = 3/2`; `Re ψ(z) ≤ log\|z\| + 4` (round 164) |
 | `KaiserPlanch.lean` | 163 | **regularised Plancherel**: `∫‖F̂(x)‖²e^{−bx²} ≤ 2π∫‖Ψ‖²` for `Ψ ∈ L¹∩L²`, by the Gaussian kernel and Schur's test (round 164) |
-| `KaiserPrefactor.lean` | 689 | the tail at `Im t = −1`; the log-weighted `L²` bound; `Q(g) ≤ 16κ Kz(a+1)e^{9a}`; **`λ₁(a) ≤ K(a+1)e^{10a−4πe^{2a}}`, no RH input**; the bound for any `κ ≥ e^{2a|Im τ|}` over the zeros (round 164); `prefactor_data`, `lam_le_of_weilQ` factored out (round 234) |
+| `KaiserPrefactor.lean` | 689 | the tail at `Im t = −1`; the log-weighted `L²` bound; `Q(g) ≤ 16κ Kz(a+1)e^{9a}`; **`λ₁(a) ≤ K(a+1)e^{10a−4πe^{2a}}`, no RH input**; the bound for any `κ ≥ e^{2a\|Im τ\|}` over the zeros (round 164); `prefactor_data`, `lam_le_of_weilQ` factored out (round 234) |
 | `KaiserSplit.lean` | 463 | **the zeros split by height**: far zeros barely see the window (`Vz_le_int`, `sum_high_le`); `weilQ_le_split`; `λ₁(a) ≤ K(a+1)κ₁e^{9a−4πe^{2a}}` with `κ₁` bounding only the zeros below `2e^{40a}` (`lam_le_split`) (round 234) |
 | `KaiserNine.lean` | 75 | **Connes' prefactor `e^{9a}` with an ineffective constant**: `λ₁(a) ≤ K(a+1)e^{9a−4πe^{2a}}` for `a ≥ 4`, by a case split on RH (round 220) |
 | `LandauLaplace.lean` | 419 | **Landau's theorem for Laplace transforms**: `A ≥ 0`, `φ ≥ 0`; if `∫Ae^{−sφ}` agrees near the real point of its abscissa with a holomorphic function, it converges beyond it; the pole test for poles of any order (rounds 220–221) |
-| `TwinLandau.lean` | 960 | **the Landau argument for twin forms, for any zero family** (`TwinData`): `Q(λ) ≥ −Ce^{σλ}` ⟺ every pole has `|Re P| ≤ σ` (round 225; round 220's argument, abstracted). For any weights on the poles (`TwinPoles`), a sum of exponentials constant in `λ` has no residues (`Rp_eq_zero_of_Wsum_const`, round 232) |
-| `WeilLandau.lean` | 193 | **Weil's criterion for `ζ`, graded**, as the `ζ` instance of `TwinLandau`: `Q(twin (box 1) λ) ≥ −Ce^{σλ}` for all `λ ≥ 0` ⟺ every zero has `|2 Re ρ − 1| ≤ σ`; RH ⟺ the defect is subexponential; `σ = 0` is Weil's criterion with no finiteness hypothesis (rounds 220–221) |
-| `WeilRate.lean` | 119 | **the ground energy's rate of failure measures the zeros**: `λ₁(a) ≥ −Ce^{σa}` ⟹ `|2 Re ρ − 1| ≤ σ`; RH ⟺ `λ₁` has no negative part of exponential rate; if RH fails, `λ₁(a) < −Ce^{σa}` at arbitrarily large `a` (round 221) |
+| `TwinLandau.lean` | 960 | **the Landau argument for twin forms, for any zero family** (`TwinData`): `Q(λ) ≥ −Ce^{σλ}` ⟺ every pole has `\|Re P\| ≤ σ` (round 225; round 220's argument, abstracted). For any weights on the poles (`TwinPoles`), a sum of exponentials constant in `λ` has no residues (`Rp_eq_zero_of_Wsum_const`, round 232) |
+| `WeilLandau.lean` | 193 | **Weil's criterion for `ζ`, graded**, as the `ζ` instance of `TwinLandau`: `Q(twin (box 1) λ) ≥ −Ce^{σλ}` for all `λ ≥ 0` ⟺ every zero has `\|2 Re ρ − 1\| ≤ σ`; RH ⟺ the defect is subexponential; `σ = 0` is Weil's criterion with no finiteness hypothesis (rounds 220–221) |
+| `WeilRate.lean` | 119 | **the ground energy's rate of failure measures the zeros**: `λ₁(a) ≥ −Ce^{σa}` ⟹ `\|2 Re ρ − 1\| ≤ σ`; RH ⟺ `λ₁` has no negative part of exponential rate; if RH fails, `λ₁(a) < −Ce^{σa}` at arbitrarily large `a` (round 221) |
 | `PsiOmega.lean` | 721 | **one-sided bounds on summatory functions are zero-free half-planes** (generic Mellin theorem, for any entire `Z` with no zero on `Re s ≥ 1`, round 222); **`ψ(x) − x = Ω±(x^θ)`** below the real part of any zero, and for every `θ < ½` unconditionally (rounds 220–221) |
 | `MertensOmega.lean` | 316 | **Mertens and Liouville**: `M(x) = Ω±(x^θ)` for every `θ < ½`; `L(λ, s)ζ(s) = ζ(2s)`; a one-sided bound `εL(x) ≤ c√x` gives RH, in particular **Pólya's conjecture ⟹ RH** (round 221) |
 | `DirichletOmega.lean` | 168 | **prime races**: for real `χ ≠ 1`, `ψ(x, χ) = Ω±(x^θ)` below any zero of `L(s, χ)` if there is no real zero in `(θ, 1)`; the race between primes `≡ 1` and `≡ 3` (mod 4) changes lead infinitely often, under those two hypotheses (round 222) |
 | `RealDirichlet.lean` | 680 | **every primitive real Dirichlet character `χ ≠ 1`**: partial sums `≤ N`; `L(s, χ) = s∫S(x)x^{−s−1}` on `Re s > 0`; `L(s, χ)` has a zero with `½ ≤ Re ρ < 1` (Hadamard, via the functional equation); `ψ(x, χ) = Ω±(x^θ)` for `θ < ½` given no real zero in `(θ, 1)`; nonnegative partial sums ⟹ `L(σ, χ) > 0` on `(0, ∞)` and the Ω± unconditionally (rounds 223–224) |
 | `PrimeRaces.lean` | 233 | **the `log p`-weighted prime races mod 3, 4 and 8 change lead infinitely often**, by more than `c·x^θ` for every `θ < ½`, unconditionally; the Hadamard product for `L(s, χ₄)` (rounds 223–224) |
-| `WeilChi.lean` | 662 | **Weil's explicit formula for every primitive real `χ` with `L(½, χ) ≠ 0`**: `Ξ_χ(t) = Λ*(½ + it)` is even (`ε = 1`), of order `≤ 3/2`, with a Hadamard product and zeros in `|Im t| < ½`; `Σ_u 2h(τ_u) = g_h(0)log(N/π) + (1/2π)∫h Re ψ((½ + δ)/2 + ir/2) − 2Σ Λ(n)χ(n)n^{−1/2}g_h(log n)` (round 225) |
-| `WeilChiCriterion.lean` | 390 | **Weil's criterion for `L(s, χ)`**: GRH(χ) ⟺ `Q_χ(twin (box 1) λ) ≥ 0`; the graded rate; GRH(χ) ⟺ `Q_χ/‖g‖²` has no negative part of exponential rate; an off-line zero forces failure at rate `|2β − 1|`; instances `χ₋₃`, `χ₋₄`, `χ₋₈` (round 225) |
+| `WeilChi.lean` | 662 | **Weil's explicit formula for every primitive real `χ` with `L(½, χ) ≠ 0`**: `Ξ_χ(t) = Λ*(½ + it)` is even (`ε = 1`), of order `≤ 3/2`, with a Hadamard product and zeros in `\|Im t\| < ½`; `Σ_u 2h(τ_u) = g_h(0)log(N/π) + (1/2π)∫h Re ψ((½ + δ)/2 + ir/2) − 2Σ Λ(n)χ(n)n^{−1/2}g_h(log n)` (round 225) |
+| `WeilChiCriterion.lean` | 390 | **Weil's criterion for `L(s, χ)`**: GRH(χ) ⟺ `Q_χ(twin (box 1) λ) ≥ 0`; the graded rate; GRH(χ) ⟺ `Q_χ/‖g‖²` has no negative part of exponential rate; an off-line zero forces failure at rate `\|2β − 1\|`; instances `χ₋₃`, `χ₋₄`, `χ₋₈` (round 225) |
 | `WeilChiBridge.lean` | 95 | **`Q_χ` in u-space**: `QC χ a g = (Re ψ(q_χ) + log(N/π))‖g‖² + ∫[f(0) − f(u)]e^{(1−2q_χ)u}/sinh u − 2Σ Λ(n)χ(n)n^{−1/2}f(log n)`, `q_χ = (1 + 2δ)/4`, the form `dh_gram.py` computes (`QC_eq_QCu`); `χ₋₃`, `χ₋₄`, `χ₋₈` are odd (round 226) |
 | `WeilChiDensity.lean` | 278 | **GRH(χ) ⟹ `Q_χ ≥ 0` on every probe**, by density without ground states; `weil_criterion_chi`: `Q_χ ≥ 0` on every probe ⟺ GRH(χ); the rate form over all probes; instances `χ₋₃`, `χ₋₄`, `χ₋₈` (round 227) |
 | `LSeriesLandau.lean` | 95 | **Landau's theorem for L-series with nonnegative coefficients**: singular at the real point of the abscissa (Mathlib-ready; round 221) |
@@ -149,12 +149,12 @@ Every file ends with `#print axioms`. All 1180 checked theorems in `src/` (and t
 | `GroundBlock.lean` | 282 | **the ground space as a negative block of `Q`**: Green images are strip-test probes (`striptest_Gpole`); with `λ₁ < 0` the chain above its base is a `(gdim − 1)`-dimensional negative-definite block (`exists_ground_block`), so `gdim − 1 ≤ #quadruples` (`gdim_sub_one_le_quadruples`); **(a) and any eventual dimension bound give RH** along `a n → ∞` (`rh_of_dim_bounded`); **(a) alone gives RH or `gdim → ∞`** (`rh_or_gdim_tendsto`) (round 252) |
 | `external/dh/DavenportHeilbronn.lean` | 407 | **Davenport–Heilbronn in Lean, stage 1**: for any primitive `χ ≠ 1`, `ε_χ ε_{χ⁻¹} = 1` from the functional equation applied twice (`rootNumber_mul_rootNumber_inv`); the self-dual combination `DH_χ = (1 + ε_{χ⁻¹})L(χ) + (1 + ε_χ)L(χ⁻¹)` with `Λ_{DH}(1 − s) = Λ_{DH}(s)` (`dhLam_one_sub`), `Ξ_{DH}` even and entire, `DH_χ(x) → (1 + ε_χ)²/ε_χ` (`dhL_tendsto`, `dhL_ne_zero`); `chi5` mod 5 with `χ(2) = i`, its Gauss sum's real part `−2 sin(π/5)`, root number `≠ −1`; `dh := dhL chi5` with `dh ≠ 0`, the functional equation and zero symmetry (`dh_ne_zero`, `dh_functional_equation`, `dh_zero_symm`) (round 253) |
 | `external/dh/DHHadamard.lean` | 400 | **Davenport–Heilbronn, stage 2**: round 225's growth chain rebuilt for every primitive `χ ≠ 1` (complex partial sums, `LFunction_eq_IχC`, `norm_LFunction_leC`, `norm_LamG_leC`, the reflection `LamG_one_sub'`, `norm_XiC_le'` with no `L(½, χ) ≠ 0`); `‖Ξ_{DH}(t)‖ ≤ K e^{36‖t‖^{3/2}}`, `Ξ_{DH}(0) = 2(1 + ε_{χ⁻¹})Λ*(½, χ)`; **the Hadamard product `HadamardW (XiDH χ)`** under `ε_χ ≠ −1` and `L(½, χ) ≠ 0` (`hadamard_XiDH`), and `hadamard_dh` for `χ₅` under the named input `DHHalf` (round 254; discharged in round 255) |
-| `external/dh/DHZeros.lean` | 216 | **`Re L(½, χ₅) ≥ ½`, so `L(½, χ₅) ≠ 0`** (`re_LFunction_chi5_half_ge`): the summatory function of `χ₅` has real part `0, 0, 1, 1, 1` by residue, so the integral representation at `s = ½` is bounded below by `½∫_1^4 x^{−3/2}dx = ½`; the Hadamard product of `Ξ_dh` unconditional (`hadamard_dh'`); the zero side `Ξ_{DH}′/Ξ_{DH} = Σ 2t/(t² − u)` (`hasSum_logDeriv_XiDH`, `hasSum_logDeriv_dh`) and `Σ |u|^{−7/8} < ∞` (round 255) |
+| `external/dh/DHZeros.lean` | 216 | **`Re L(½, χ₅) ≥ ½`, so `L(½, χ₅) ≠ 0`** (`re_LFunction_chi5_half_ge`): the summatory function of `χ₅` has real part `0, 0, 1, 1, 1` by residue, so the integral representation at `s = ½` is bounded below by `½∫_1^4 x^{−3/2}dx = ½`; the Hadamard product of `Ξ_dh` unconditional (`hadamard_dh'`); the zero side `Ξ_{DH}′/Ξ_{DH} = Σ 2t/(t² − u)` (`hasSum_logDeriv_XiDH`, `hasSum_logDeriv_dh`) and `Σ \|u\|^{−7/8} < ∞` (round 255) |
 | `external/dh/DHPrime.lean` | 605 | **the prime side of `dh`**: a Dirichlet inverse with a norm bound (`DInv.dinv`, `sum_norm_dinv_le`, `LSeries_mul_dinv`); `dh = Σ a(n)n^{−s}` with `a(1) = (1 + ε)(1 + ε′)`; `‖ε‖ = 1`, `Re ε ≥ 4/5`, `ε′ = ε̄` for `χ₅`; **`dh′/dh = −Σ c(n) n^{−s}` on `Re s > 2`**, absolutely convergent, `c = logMul(δ + u) ⍟ (δ + u)^{−1}` (`logDeriv_dh_eq`), and `dh ≠ 0` there (round 256) |
-| `external/dh/DHExplicit.lean` | 798 | **Weil's explicit formula for the Davenport–Heilbronn function**: the scaling `Ξ₃(t) = Ξ_dh(3t)` puts the contour at `Re s = 7/2` and the zeros in `|Im τ| ≤ ½`, so round 225's width-1 machinery applies unchanged (`hadamard_XiDH3`, `zero_side3`, `psi_line3`, `prime_line3` generic in the coefficients, `logDeriv_XiDH3_eq`); `c(n)` real (`conjFixed_cDH_chi5`); **`weil_XiDH3`**; Weil's form `QDH` with `QDH_hasSum`, `QDH_nonneg_of_DHRH`, and **`exists_offline_dh_of_neg`: a negative `Q_dh` certifies an off-line zero of `dh`** (round 257) |
+| `external/dh/DHExplicit.lean` | 798 | **Weil's explicit formula for the Davenport–Heilbronn function**: the scaling `Ξ₃(t) = Ξ_dh(3t)` puts the contour at `Re s = 7/2` and the zeros in `\|Im τ\| ≤ ½`, so round 225's width-1 machinery applies unchanged (`hadamard_XiDH3`, `zero_side3`, `psi_line3`, `prime_line3` generic in the coefficients, `logDeriv_XiDH3_eq`); `c(n)` real (`conjFixed_cDH_chi5`); **`weil_XiDH3`**; Weil's form `QDH` with `QDH_hasSum`, `QDH_nonneg_of_DHRH`, and **`exists_offline_dh_of_neg`: a negative `Q_dh` certifies an off-line zero of `dh`** (round 257) |
 | `external/dh/DHBridge.lean` | 215 | **Weil's form for `dh` in u-space, unscaled**: `QDHu g = (Re ψ(¾) + log(5/π))‖g‖² + E_{3/4}(g) − 2Σ c(n)n^{−1/2} f(log n)`, the form `frontier/dh/cert.py` evaluates; `weilRHSDH_scaled` (round 257's scaled RHS at `ĝ(3·)²` is `QDHu g`, via `gh_comp_three`, `psiRe3_eq`, round 226's `arch_termQ` at `q = ¾`); **`QDHu_hasSum`**, `QDHu_nonneg_of_DHRH`, **`exists_offline_dh_of_neg_u`**; width-3 strip test for monotone profiles (`striptest_antitone3`), so **`exists_offline_dh_of_neg_box`: `QDHu (box a) < 0` for one `a > 0` gives an off-line zero of `dh`** with no strip hypothesis (round 258) |
 | `external/dh/DHPacket.lean` | 727 | **the box wave packet `cos(ωu)·1_{[−a,a]}` in closed form** (certificate stage 1): `Probe` (`packet_probe`), `‖g‖² = a + sin(2ωa)/(2ω)`, `f(u) = ½(2a − u)cos(ωu) + sin(ω(2a − u))/(2ω)` (`packet_autocorr`), `ĝ(z) = sin((z+ω)a)/(z+ω) + sin((z−ω)a)/(z−ω)`, the width-3 strip test (`packet_striptest`), the finite prime sum (`QDHu_eq_sum`), the κ-structure `u(n) ∈ {0, 1, κ, −κ, −1}` with `0.28407 < κ < 0.28408` and the real recursions for `dinv` and `c(n)` (`dinvR_of_two_le`, `fDH_eq`); **`QDHu_packet_eq`** and `exists_offline_dh_of_neg_packet` (round 259) |
-| `external/dh/DHArch.lean` | 1179 | **the archimedean term of the packet, bounded** (certificate stage 2): two Frullani integrals as real parts of round 155's complex one, the Gauss-kernel split `e^{−3t/4}/(1−e^{−t}) = e^{−3t/4}/t + h(t)` with `|∫ h cos(ct)| ≤ (3/2)/c` by parts, the Euler–Mascheroni integral `∫ e^{−t}φ₂ = γ` and Binet at `¾` (`integral_hK_eq`), `Re ψ(¾ + iω/2) ≤ log √(9/16 + ω²/4) + 3/ω` (`psiReQ_three_quarters_le`), the kernel bounds `K ≤ 1/u`, the tail, the two oscillatory remainders; **`packet_arch_total_le`**: `Re ψ(¾)‖g‖² + E_{3/4}(g) ≤ ‖g‖²(log √(9/16 + ω²/4) + 3/ω) + ‖g‖²(4/3)e^{−3a}/(1 − e^{−4a}) + 1/(2ω) + (1 + log 2aω)/(2ω)` (round 260) |
+| `external/dh/DHArch.lean` | 1179 | **the archimedean term of the packet, bounded** (certificate stage 2): two Frullani integrals as real parts of round 155's complex one, the Gauss-kernel split `e^{−3t/4}/(1−e^{−t}) = e^{−3t/4}/t + h(t)` with `\|∫ h cos(ct)\| ≤ (3/2)/c` by parts, the Euler–Mascheroni integral `∫ e^{−t}φ₂ = γ` and Binet at `¾` (`integral_hK_eq`), `Re ψ(¾ + iω/2) ≤ log √(9/16 + ω²/4) + 3/ω` (`psiReQ_three_quarters_le`), the kernel bounds `K ≤ 1/u`, the tail, the two oscillatory remainders; **`packet_arch_total_le`**: `Re ψ(¾)‖g‖² + E_{3/4}(g) ≤ ‖g‖²(log √(9/16 + ω²/4) + 3/ω) + ‖g‖²(4/3)e^{−3a}/(1 − e^{−4a}) + 1/(2ω) + (1 + log 2aω)/(2ω)` (round 260) |
 | `external/dh/DHNumerics.lean` | 204 | **the verified-numerics toolkit** (certificate stage 3): interval arithmetic by lemmas (`mul_bounds`, `add_bounds`, `neg_bounds`, `inv_bounds`), `cos` on `\|x\| ≤ 1` and `sin` on `0 ≤ x ≤ 1` between consecutive partial sums of the alternating series (`cos_bounds`, `sin_bounds`, degree 12), `log(1 + 1/m)` to any precision from `Real.hasSum_log_one_add_inv` with the geometric tail (`log_one_add_inv_bounds`), `κ` to fifteen decimals (`kappa_bounds`) (round 261) |
 | `external/dh/DHLogBounds.lean` | 1325 | **generated**: `log n` for `2 ≤ n ≤ 121` to `2.1·10⁻⁹` (`log_bound_n`), chained from `Real.log_two_near_10` through `log(1 + 1/(n − 1))`; produced by `frontier/dh/lean_gen/gen_logbounds.py` (round 261) |
 | `external/dh/DHTrigBounds.lean` | 5943 | **generated**: `cos(ω log n)`, `sin(ω log n)` for `2 ≤ n ≤ 121` and `cos(2028/5)`, `sin(2028/5)` to `1.3·10⁻⁴` (`theta_n_cos`, `theta_n_sin`, `twoOmegaA_cos`, `twoOmegaA_sin`): reduction `redAngle θ M = θ − Mπ/2` by `pi_gt_d6`/`pi_lt_d6`, a rational centre, `abs_cos_sub_cos_le`; `gen_trig.py` (round 261) |
@@ -166,10 +166,10 @@ Every file ends with `#print axioms`. All 1180 checked theorems in `src/` (and t
 | `external/dh/DHRealAxis.lean` | 269 | **`dh` has no zero on the positive real axis** *(corrected in round 271)*: the coefficients `a(n) = a(1)·u(n mod 5)` have partial sums `a(1)·{0, 1, 1 + κ}` (`sum_range_aDH_chi5`), so round 254's integral representation gives `dh(σ)/a(1) = σ∫_1^∞ B(x)x^{−σ−1}dx ≥ 1 − 2^{−σ} > 0` (`dh_eq_integral`, `dh_div_a1_real_ge`); `dh_ne_zero_of_real`, `dhLam_real_ne_zero`, `XiDH_I_mul_ne_zero`, `dh_offcross_zero` (round 263); `dh_neg_one_eq_zero`, `exists_real_zero_dh`: the trivial zero at `−1` (round 271) |
 | `external/dh/DHForm.lean` | 182 | **`QDHu` is a `ProbeForm`** (`QDHu_form`: `Q(0) = 0`, `Q(cg) = c²Q(g)`, the parallelogram law, a.e. invariance, `Q_dh(g) ≥ −M_dh(a)‖g‖²`); the DH ground energy `lamDH`, `lamDH_antitone`, **`lamDH_neg : λ_dh(b) < 0` for `b ≥ 12/5`**, `exists_lamDH_neg` (round 263) |
 | `external/dh/DHColumn.lean` | 706 | **the dh column of the substitution matrix, part 1**: `HypConvDH` and the Hurwitz chains at `Ξ_dh` (`dhRH_of_realRooted`, `dhRHcross_of_cross`, `dhRHcross_of_strip` at width 2), the pairing/D route (`hypConvDH_of_D`, `dhRH_of_D_and_realRooted_proved`), the dodging route (`real_of_params`, `real_of_dodging`), and their refutations by the certificate: **`not_hypConvDH_of_realRooted`, `not_hypConvDH_of_cross`, `not_hypConvStripDH_of_cross`, `not_realRooted_limit_XiDH`, `not_dodging_dh`, `not_D_dh`, `not_weil_positivity_dh`, `weil_criterion_dh`, `not_GRH_dh`**; `tau3_im_lt` (open strip), `dh_ne_zero_of_two_le`; the Weil index bound abstracted (`finrank_le_quadruples_gen`) and instantiated at `dh` (`finrank_le_quadruples_dh`) (round 263) |
-| `external/dh/HurwitzEM.lean` | 755 | **Euler–Maclaurin for the Hurwitz zeta function with an explicit remainder**, on `Re s > 0`, `s ≠ 1`, for every `x ∈ (0, 1]`, `M ≥ 1`, `K ≥ 1`: `ζ(s, x) = Σ_{m<M}(m+x)^{−s} + (M+x)^{1−s}/(s−1) + ½(M+x)^{−s} + Σ_{k<K} B_{2k+2}/(2k+2)!·(s)_{2k+1}(M+x)^{−s−2k−1} − R` with `‖R‖ ≤ |B_{2K}|/(2K)!·‖(s)_{2K}‖·(M+x)^{1−Re s−2K}/(Re s+2K−1)` (`norm_hurwitzZeta_sub_EM_le`, `hurwitzZeta_eq_EM_explicit`); `|B_{2K}|/(2K)! = 2ζ(2K)/(2π)^{2K} ≤ (π²/3)/(2π)^{2K}` (`hasSum_zeta_CB`, `CB_le`); a version uniform on boxes (`norm_hurwitzZeta_sub_EM_le_box`) (round 264) |
+| `external/dh/HurwitzEM.lean` | 755 | **Euler–Maclaurin for the Hurwitz zeta function with an explicit remainder**, on `Re s > 0`, `s ≠ 1`, for every `x ∈ (0, 1]`, `M ≥ 1`, `K ≥ 1`: `ζ(s, x) = Σ_{m<M}(m+x)^{−s} + (M+x)^{1−s}/(s−1) + ½(M+x)^{−s} + Σ_{k<K} B_{2k+2}/(2k+2)!·(s)_{2k+1}(M+x)^{−s−2k−1} − R` with `‖R‖ ≤ \|B_{2K}\|/(2K)!·‖(s)_{2K}‖·(M+x)^{1−Re s−2K}/(Re s+2K−1)` (`norm_hurwitzZeta_sub_EM_le`, `hurwitzZeta_eq_EM_explicit`); `\|B_{2K}\|/(2K)! = 2ζ(2K)/(2π)^{2K} ≤ (π²/3)/(2π)^{2K}` (`hasSum_zeta_CB`, `CB_le`); a version uniform on boxes (`norm_hurwitzZeta_sub_EM_le_box`) (round 264) |
 | `external/dh/DHHurwitzEM.lean` | 164 | **`dh(s) = 5^{−s}Σ_{j=1}^{4} a(j)ζ(s, j/5)`** for every `s` (`dh_eq_hurwitz`); the approximant `dhEM M K s` and the explicit error bounds `norm_dh_sub_EM_le`, `norm_dh_sub_EM_le_box` (round 264) |
-| `external/dh/DHTwin.lean` | 374 | **the dh column, part 2: the twin form**: `twinData_dh` (poles `2iτ_u`, weights `2ĝ₀(τ_u)²`, `Q_dh` on the box twins; `|Re P| < 1` from `tau3_im_lt`, `Im P ≠ 0` from `XiDH_I_mul_ne_zero`), `dhRH_of_twins`, **`not_twins_nonneg_dh`**, **`dh_twins_rate`** (`Q_dh(twin) ≥ −Ce^{σλ}` iff every zero has `|2Re s − 1| ≤ 3σ`, every `σ`), `not_twins_subexp_dh`; the u-space datum `twinData_dhu` and **`lamDH_fails_exponentially`** (unconditional), `zeros_of_lamDH_ge`, `not_lamDH_subexp` (round 265) |
-| `external/dh/DHNegIndex.lean` | 367 | **every off-line quadruple of `dh` gives a negative direction of `Q_dh`**: round 232 ported (`negDirections_offline_dh`: `|R|` off-line zeros in distinct quadruples give an `|R|`-dimensional space of width-3 probes on which `QDHu < 0`), the inputs `striptest_twinComb3`, `QDH_eq_BreD`, and **`negIndex_ge_of_located`**: `n` located zeros (`‖ρ_k − c_k‖ < 1/100`, separated centres) give `n` negative directions at every large support (`negIndex_ge_mono`) (round 266) Since round 274 §B–E are `WeilIndexInfinite`'s generic `NegData` argument at the instance `dhND`. |
+| `external/dh/DHTwin.lean` | 374 | **the dh column, part 2: the twin form**: `twinData_dh` (poles `2iτ_u`, weights `2ĝ₀(τ_u)²`, `Q_dh` on the box twins; `\|Re P\| < 1` from `tau3_im_lt`, `Im P ≠ 0` from `XiDH_I_mul_ne_zero`), `dhRH_of_twins`, **`not_twins_nonneg_dh`**, **`dh_twins_rate`** (`Q_dh(twin) ≥ −Ce^{σλ}` iff every zero has `\|2Re s − 1\| ≤ 3σ`, every `σ`), `not_twins_subexp_dh`; the u-space datum `twinData_dhu` and **`lamDH_fails_exponentially`** (unconditional), `zeros_of_lamDH_ge`, `not_lamDH_subexp` (round 265) |
+| `external/dh/DHNegIndex.lean` | 367 | **every off-line quadruple of `dh` gives a negative direction of `Q_dh`**: round 232 ported (`negDirections_offline_dh`: `\|R\|` off-line zeros in distinct quadruples give an `\|R\|`-dimensional space of width-3 probes on which `QDHu < 0`), the inputs `striptest_twinComb3`, `QDH_eq_BreD`, and **`negIndex_ge_of_located`**: `n` located zeros (`‖ρ_k − c_k‖ < 1/100`, separated centres) give `n` negative directions at every large support (`negIndex_ge_mono`) (round 266) Since round 274 §B–E are `WeilIndexInfinite`'s generic `NegData` argument at the instance `dhND`. |
 | `external/dh/DHLocateSkeleton.lean` | 2717 | **the zero-location certificate, reduced to three point values**: the minimum-modulus instrument (`exists_zero_of_center_lt_sphere`, `exists_zero_of_approx`, `norm_sub_linear_le_ball`, `exists_zero_of_bounds`), the approximant decomposed (`dhEM = a(1)·(DEM + GEM)`, `QEM` with `B₂, …, B₂₄` as rationals, `bernoulli_vals`), the Euler–Maclaurin error on the disc (`norm_dh_sub_dhEM_le_ball ≤ 6·10⁻⁵`), the second derivative on the disc (`D2sum_le`, `Gsup_ball_le`, `norm_deriv2_dhEM_ball ≤ 158`), the ladder to `dh_zero_near_of_center'` (round 267) |
 | `external/dh/DHLocateExp.lean` | 893 | **generated**: `n^{−1617/2000}` two-sided to `9.2·10⁻¹¹` for the 84 values `n ∈ NS` (`Real.exp_bound` at `y/8`, `exp_nat_mul`); `gen_locate.py` (round 267) |
 | `external/dh/DHLocateTrig.lean` | 4930 | **generated**: `cos`, `sin` of `(856993/10000)·log n`, `n ∈ NS`, to `1.7·10⁻⁷` (`redAngle` with `pi_gt_d20`/`pi_lt_d20`, centres on a `10⁻⁹` grid); `gen_locate.py` (round 267) |
@@ -198,21 +198,21 @@ Every file ends with `#print axioms`. All 1180 checked theorems in `src/` (and t
 | `external/dh/DHChannels.lean` | 285 | **the two channels of `dh`**: `conj_LFunction`; the archimedean-free functional equation `LFunction_mul_one_sub` (`L(s, χ)L(1 − s, χ) = ε²L(s, χ⁻¹)L(1 − s, χ⁻¹)`; for the channel ratio, `R(s)R(1 − s) = ε²`, `LFunction_ratio_mul`); `phase_lock`, `channel_ratio_real` (`R(½ + it) ∈ εℝ`); `dhL_eq_zero_iff_channel`; for `χ₅`, **`dh_eq_zero_iff_channel`** (`dh(s) = 0 ↔ L(s, χ₅) = −εL(s, χ₅⁻¹)`) and **`dh_line_zero_iff`** (on the line, one real equation) (round 273) |
 | `external/dh/DHInert.lean` | 623 | **coefficient localisation**: the coefficients of `−dh′/dh` equal `Λ(n)χ₅(n)` at every `n` with a prime factor `≢ ±2 (mod 5)` (**`cDH_chi5_eq_of_dvd`**); `c = Λ·s + c_inert` with `c_inert` supported on inert-smooth integers (**`cDH_chi5_decomp`**); `δ + u = s ⍟ b` (`dhA_eq_splitA_mul_inertA`); `logDer_mul`, `log` a derivation of Dirichlet convolution (round 273) |
 | `HalfPlaneS0.lean` | 325 | **S0 of the round-277 plan: power savings for the smoothed Möbius sums of `ζ · L(·, χ₋₃)` give a zero-free half-plane**: `r = 1 ⍟ χ₋₃` with `L(r, s) = ζ(s)L(s, χ₋₃)` (`LSeries_rK`) and `μ_K = μ ⍟ (χ₋₃μ)` with `L(r, s)L(μ_K, s) = 1` on `Re s > 1` (`LSeries_rK_mul_muK`); if `Σ_n μ_K(n)W(n/D) = O(D^{θ+ε})` for every smooth `W` compactly supported in `(0, ∞)` and every `ε > 0` (`SmoothBound θ`, a displayed hypothesis), then `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` on `Re s > θ` (**`ne_zero_of_smoothBound`**) (round 278) |
-| `HalfPlaneJoins.lean` | 120 | **S0's joins: `SmoothBound θ` fed to the stack's sockets for a fixed zero-free strip**: the zeros of `ζ` and of `L(s, χ₋₃)` lie in `1 − θ ≤ Re ρ ≤ θ` (`zeta_band`, `chi3_band`) and the zeros `τ` of `Ξ` have `|Im τ| ≤ θ − ½` (`abs_im_tau_le`); for `θ ≥ ½` the twin forms of `ζ`, of `L(s, χ₋₃)` and of `ζ·ζ_{ℚ(√−3)}` are `≥ −C e^{(2θ−1)λ}` (`weil_rate_of_smoothBound`, `chi3_rate_of_smoothBound`, `QK3_rate_of_smoothBound`) and `λ₁(a) ≤ K(a + 1)e^{(8+2θ)a − 4πe^{2a}}` (`lam_prefactor_of_smoothBound`) (round 279) |
-| `HalfPlaneTrivial.lean` | 82 | **The trivial range of S0's hypothesis**: `SmoothBound θ` for every `θ ≥ 1` (**`smoothBound_of_one_le`**), by Rankin's trick (`norm_le_rpow_mul_norm_term`: `|a(n)| ≤ X^σ|a(n)|n^{−σ}` for `1 ≤ n ≤ X`) and the convergence of `Σ|μ_K(n)|n^{−1−ε}`; so S0's hypothesis is satisfiable, and every `θ < 1` is open (round 280) |
+| `HalfPlaneJoins.lean` | 120 | **S0's joins: `SmoothBound θ` fed to the stack's sockets for a fixed zero-free strip**: the zeros of `ζ` and of `L(s, χ₋₃)` lie in `1 − θ ≤ Re ρ ≤ θ` (`zeta_band`, `chi3_band`) and the zeros `τ` of `Ξ` have `\|Im τ\| ≤ θ − ½` (`abs_im_tau_le`); for `θ ≥ ½` the twin forms of `ζ`, of `L(s, χ₋₃)` and of `ζ·ζ_{ℚ(√−3)}` are `≥ −C e^{(2θ−1)λ}` (`weil_rate_of_smoothBound`, `chi3_rate_of_smoothBound`, `QK3_rate_of_smoothBound`) and `λ₁(a) ≤ K(a + 1)e^{(8+2θ)a − 4πe^{2a}}` (`lam_prefactor_of_smoothBound`) (round 279) |
+| `HalfPlaneTrivial.lean` | 82 | **The trivial range of S0's hypothesis**: `SmoothBound θ` for every `θ ≥ 1` (**`smoothBound_of_one_le`**), by Rankin's trick (`norm_le_rpow_mul_norm_term`: `\|a(n)\| ≤ X^σ\|a(n)\|n^{−σ}` for `1 ≤ n ≤ X`) and the convergence of `Σ\|μ_K(n)\|n^{−1−ε}`; so S0's hypothesis is satisfiable, and every `θ < 1` is open (round 280) |
 | `EisensteinSymbol.lean` | 363 | **S1, part 1: the sextic residue symbol on `ℤ[ω]`**: `𝓞 ℚ(ζ₃)` with units `±1, ±ω, ±ω²` (`units_mem`); away from `6`, reduction is injective on units (`red_injective`), every sixth root of unity mod `P` is a reduced unit (`exists_red_eq`) and `6 ∣ N(P) − 1` (`six_dvd_card_sub_one`); the character `χ_P(x) = σ(u)` with `u ≡ x^{(N(P)−1)/6}` (`chi6`, `chi6_spec`, `chi6_pow_six`) and the symbol `(a/𝔞)₆ = Π_{P∣𝔞} χ_P(a)` (`sym6`), multiplicative in `a` and `𝔞` (`sym6_mul_left`, `sym6_mul_right`) (round 281) |
 | `EisensteinCount.lean` | 334 | **S1, part 2a: the ideal Möbius sums `m(n) = Σ_{N𝔞=n} μ(𝔞)` on `ℤ[ω]`**: multiplicative in coprime `n` (**`mI_mul`**, via `I ↦ (I + a𝓞, I + b𝓞)`); at prime powers a signed count of sets of prime factors of `p𝓞` (**`mI_prime_pow`**); `p𝓞` has one prime factor of norm `p²` or two of norm `p` (`pFactors_cases`) (round 283) |
 | `EisensteinMobius.lean` | 491 | **S1, part 2b: the splitting law in `ℤ[ω]` and `Σ_{N𝔞=n} μ(𝔞) = μ_K(n)`**: `p ≡ 1 (mod 3)` splits into two primes of norm `p` (`split_of_mod_one`), `p ≡ 2` is inert (`inert_of_mod_two`), `3𝓞 = (ω − 1)²` (`ramified_three`); `m(p^k)` and `μ_K(p^k)` in closed form (`mI_prime_pow_eq`, `muK_prime_pow`); **`mI_eq_muK`**: the ideal Möbius sums of `ℤ[ω]` are S0's `μ_K` (round 284) |
-| `HalfPlaneWeighted.lean` | 871 | **S0′: the totient-weighted sums over `ℤ[ω]` give S0's hypothesis**: `f(n) = Σ_{N𝔞=n} [(N𝔞, 6) = 1]·μ(𝔞)·Π_{P∣𝔞}(1 − 1/NP)` is multiplicative with explicit prime powers (`fW_split`, `fW_inert`); `μ_K = f ⍟ h` for an explicit multiplicative Euler correction `h` (`fA_mul_hA`) with `Σ_n |h(n)|n^{−σ} < ∞` for every `σ > 0` (`summable_hfun`, through `summable_of_mult_local`); **`smoothBound_of_weightedBound`**: `O(Z^{θ+ε})` for the `f`-sums gives `SmoothBound θ`, `θ ≥ 0` (round 285) |
-| `EisensteinIdealCount.lean` | 605 | **The ideals of `ℤ[ω]` of bounded norm**: the number of ideals of norm `n ≥ 1` is `Σ_{d∣n} χ₋₃(d)` (`rA_eq`); `κ = L(1, χ₋₃) > 0` with `|Σ_{d≤U} χ₋₃(d)/d − κ| ≤ 3/(U+1)`; Dirichlet's hyperbola method (`hyperbola`); **`abs_idealCount_sub_le`**: `|#{𝔞 ≠ 0 : N𝔞 ≤ x} − κx| ≤ 5√x + κ`; the multiples of `𝔡` of norm `≤ Y` are counted by `#{N𝔞 ≤ Y/N𝔡}` (`card_multiples`) (round 287) |
+| `HalfPlaneWeighted.lean` | 871 | **S0′: the totient-weighted sums over `ℤ[ω]` give S0's hypothesis**: `f(n) = Σ_{N𝔞=n} [(N𝔞, 6) = 1]·μ(𝔞)·Π_{P∣𝔞}(1 − 1/NP)` is multiplicative with explicit prime powers (`fW_split`, `fW_inert`); `μ_K = f ⍟ h` for an explicit multiplicative Euler correction `h` (`fA_mul_hA`) with `Σ_n \|h(n)\|n^{−σ} < ∞` for every `σ > 0` (`summable_hfun`, through `summable_of_mult_local`); **`smoothBound_of_weightedBound`**: `O(Z^{θ+ε})` for the `f`-sums gives `SmoothBound θ`, `θ ≥ 0` (round 285) |
+| `EisensteinIdealCount.lean` | 605 | **The ideals of `ℤ[ω]` of bounded norm**: the number of ideals of norm `n ≥ 1` is `Σ_{d∣n} χ₋₃(d)` (`rA_eq`); `κ = L(1, χ₋₃) > 0` with `\|Σ_{d≤U} χ₋₃(d)/d − κ\| ≤ 3/(U+1)`; Dirichlet's hyperbola method (`hyperbola`); **`abs_idealCount_sub_le`**: `\|#{𝔞 ≠ 0 : N𝔞 ≤ x} − κx\| ≤ 5√x + κ`; the multiples of `𝔡` of norm `≤ Y` are counted by `#{N𝔞 ≤ Y/N𝔡}` (`card_multiples`) (round 287) |
 | `HalfPlaneMeanSquare.lean` | 737 | **S2′ and the first conditional milestone**: the family `A_Z(u) = Σ_𝔞 μ(𝔞)(u/𝔞)₆W(N𝔞/Z)` over ideals of norm prime to `6` (`famSum`); `(b⁶/𝔞)₆ = [b in no prime of 𝔞]` (`sym6_pow_six`); inclusion–exclusion with round 287's count (`abs_card_coprime_sub_le`); the average over sixth powers of generators is `κY` times round 285's `f`-sum plus `O(√Y·Z^{1+ε})` (`norm_sum_famSum_sub_le`, `sum_w2_le`); Cauchy–Schwarz against the displayed hypothesis `MeanSquare σ` (`weightedBound_of_meanSquare`); **`ne_zero_of_meanSquare`**: `MeanSquare σ`, `σ ≥ 0`, gives `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5σ)/12` (round 288) |
 | `EisensteinCubicChar.lean` | 714 | **S1, part 3a: the cubic character, its Jacobi sum and the Gauss-sum relation**: `χ_P(x) ∈ {1, ω, ω²} ⊂ ℤ[ω]` with `χ_P(x) ≡ x^{(N(P)−1)/3} (mod P)` (`cubChar`, `cubChar_spec`); every element is `m + nω` (`exists_coords`); primary associates exist and are unique (`exists_primary`, `Primary.unit_eq_one`); conjugation `ω ↦ ω²` (`cj`); **`jacobiSum_eq_neg`**: `J(χ_P, χ_P) = −π` for `P = (π)`, `π ≡ 1 (mod 3)`; **`cubChar_fundamental`**: `χ_Q(−N(P)·π) = χ_P(N(Q))²`, from Gauss sums in characteristic `char(𝓞/Q)` (round 290) |
 | `EisensteinCubicRecip.lean` | 733 | **S1, part 3b: cubic reciprocity on `ℤ[ω]`**: maximal ideals prime to `3` are inert or of prime norm (`maximal_cases`); the cases inert/split, split/split and inert/inert (`recip_inert`, `recip_split`, `recip_inert_inert`) and conjugate primes (`recip_conj`); primary generators (`pgen`, `prod_pgen`); **`cub_recip`**: `(a/b)₃ = (b/a)₃` for coprime `a ≡ b ≡ 1 (mod 3)` (round 290) |
-| `EisensteinGaussSum.lean` | 294 | **S3, part 1: Gauss sums at a prime of `ℤ[ω]`**: **`gaussSum_cubCharC_cube`**: `g(χ_P, ψ)³ = −N(P)·π` for `P = (π)`, `π ≡ 1 (mod 3)` and any primitive `ψ`, and `|g|² = N(P)`; duplication `χ(4)·J(χ, χ) = J(χ, ρ)` and the Hasse–Davenport product formula for `m = 2` (`jacobiSum_self_dup`, `gaussSum_dup`); the sextic character's square and cube are the cubic and the quadratic characters (`chi6_sq`, `chi6_cube`); **`gaussSum_chi6`**: `χ₆(4)·g(χ₆)·N(P) = g(χ₃)²·g(ρ)` (round 292) |
-| `PlanePoisson.lean` | 474 | **Poisson summation in the plane**: for `F` Schwartz on `ℂ`, the periodization over `ℤ²` descends to the torus (`perT`) with Fourier coefficients `𝓕F(k)` (`mFourierCoeff_perT`, through the fundamental domain of `ℤ²`, `integral_eq_tsum_box`); **`pair_poisson`**: `Σ_{n∈ℤ²} F(n) = Σ_{k∈ℤ²} 𝓕F(k)`; **`fourier_comp_linearEquiv`**: `𝓕(f ∘ M)(w) = |det M|⁻¹·𝓕f((M⁻¹)* w)`; **`lattice_poisson`**: `Σ_{n∈ℤ²} F(Mn) = |det M|⁻¹·Σ_k 𝓕F((M⁻¹)* k)` (round 293) |
-| `EisensteinPoisson.lean` | 561 | **S4, part 2: Poisson summation over `ℤ[ω]`**: **`eis_poisson`**: `Σ_{z∈ℤ[ω]} F(σz) = |det M_ϖ|⁻¹·Σ_{k∈ℤ²} 𝓕F(ξ_k)`, `|det M_ϖ| = √3/2`; the affine Fourier transform (`fourier_affine`); **`eis_poisson_twisted`**: twists periodic modulo `c`; **`ξd_eq`**: the dual points are `conj(2σ(μ)/σ(δ))`, `μ ∈ ℤ[ω]`, `δ = 1 + 2ω`; the trace character `ψ_c` of `ℤ[ω]/c` (`ψc_add`, `ψc_add_mul`); **`eis_poisson_quot`**: `Σ_z P(z mod c)F(σz) = 2/(√3·N(c))·Σ_{μ∈ℤ[ω]} (Σ_r P(r)ψ_c(rμ))·𝓕F(conj(2σ(μ)/σ(δc)))` (round 294) |
+| `EisensteinGaussSum.lean` | 294 | **S3, part 1: Gauss sums at a prime of `ℤ[ω]`**: **`gaussSum_cubCharC_cube`**: `g(χ_P, ψ)³ = −N(P)·π` for `P = (π)`, `π ≡ 1 (mod 3)` and any primitive `ψ`, and `\|g\|² = N(P)`; duplication `χ(4)·J(χ, χ) = J(χ, ρ)` and the Hasse–Davenport product formula for `m = 2` (`jacobiSum_self_dup`, `gaussSum_dup`); the sextic character's square and cube are the cubic and the quadratic characters (`chi6_sq`, `chi6_cube`); **`gaussSum_chi6`**: `χ₆(4)·g(χ₆)·N(P) = g(χ₃)²·g(ρ)` (round 292) |
+| `PlanePoisson.lean` | 474 | **Poisson summation in the plane**: for `F` Schwartz on `ℂ`, the periodization over `ℤ²` descends to the torus (`perT`) with Fourier coefficients `𝓕F(k)` (`mFourierCoeff_perT`, through the fundamental domain of `ℤ²`, `integral_eq_tsum_box`); **`pair_poisson`**: `Σ_{n∈ℤ²} F(n) = Σ_{k∈ℤ²} 𝓕F(k)`; **`fourier_comp_linearEquiv`**: `𝓕(f ∘ M)(w) = \|det M\|⁻¹·𝓕f((M⁻¹)* w)`; **`lattice_poisson`**: `Σ_{n∈ℤ²} F(Mn) = \|det M\|⁻¹·Σ_k 𝓕F((M⁻¹)* k)` (round 293) |
+| `EisensteinPoisson.lean` | 561 | **S4, part 2: Poisson summation over `ℤ[ω]`**: **`eis_poisson`**: `Σ_{z∈ℤ[ω]} F(σz) = \|det M_ϖ\|⁻¹·Σ_{k∈ℤ²} 𝓕F(ξ_k)`, `\|det M_ϖ\| = √3/2`; the affine Fourier transform (`fourier_affine`); **`eis_poisson_twisted`**: twists periodic modulo `c`; **`ξd_eq`**: the dual points are `conj(2σ(μ)/σ(δ))`, `μ ∈ ℤ[ω]`, `δ = 1 + 2ω`; the trace character `ψ_c` of `ℤ[ω]/c` (`ψc_add`, `ψc_add_mul`); **`eis_poisson_quot`**: `Σ_z P(z mod c)F(σz) = 2/(√3·N(c))·Σ_{μ∈ℤ[ω]} (Σ_r P(r)ψ_c(rμ))·𝓕F(conj(2σ(μ)/σ(δc)))` (round 294) |
 | `EisensteinGaussTransform.lean` | 439 | **S3, part 2: the Gauss transform modulo squarefree moduli**: the trace character on `ℤ[ω]/c` (`ψQ`), primitive at primes (`ψQ_isPrimitive`); `inner_sum_prime`: `Σ_{r mod π} χ(r)ψ_π(rμ) = χ⁻¹(μ)·g(χ, ψ_π)`; **`eis_poisson_char`**; the Gauss transform `G_c(f, μ) = Σ_{r mod c} f(r)ψ_c(rμ)` (`gaussTr`) and **`eis_poisson_gaussTr`**; Chinese remainders (`crt_rep_bijective`, **`gaussTr_mul`**, **`gaussTr_prod`**); **`gaussTr_prod_primes`**: `G_c(∏ χ_i, μ) = ∏_i χ_i(c/π_i)·χ_i⁻¹(μ)·g(χ_i, ψ_{π_i})` for `c = ∏ π_i` (round 295) |
-| `PlaneGaussian.lean` | 345 | **Gaussians and Gaussian chirps in the plane**: the Gaussian `e^{-πa|z|²}` as a Schwartz function on `ℂ` (`gaussR`, `gaussC`, from `norm_iteratedFDeriv_gauss_le`); chirps `e^{2πi q(z)}e^{-πa|z|²}` (`chirp`); `fourier_prod_gauss`; **`fourier_chirp`**: `𝓕[e^{2πi Re(wz²)}e^{-πη|z|²}](ξ) = (η² + 4|w|²)^{-1/2}·exp(-π(η|ξ|² + 2i Re(wξ²))/(η² + 4|w|²))` (round 296) |
+| `PlaneGaussian.lean` | 345 | **Gaussians and Gaussian chirps in the plane**: the Gaussian `e^{-πa\|z\|²}` as a Schwartz function on `ℂ` (`gaussR`, `gaussC`, from `norm_iteratedFDeriv_gauss_le`); chirps `e^{2πi q(z)}e^{-πa\|z\|²}` (`chirp`); `fourier_prod_gauss`; **`fourier_chirp`**: `𝓕[e^{2πi Re(wz²)}e^{-πη\|z\|²}](ξ) = (η² + 4\|w\|²)^{-1/2}·exp(-π(η\|ξ\|² + 2i Re(wξ²))/(η² + 4\|w\|²))` (round 296) |
 | `EisensteinQuadGauss.lean` | 778 | **S3, part 3: quadratic Gauss sums over `ℤ[ω]`**: Gaussian Poisson summation modulo `m` (`gauss_poisson`) and its zero-frequency limit (**`tendsto_gauss_poisson`**); the chirp's dual side (`chirp_sum_dual`, `dual_term`); **`quad_gauss`**: `Σ_{x mod c} ψ_c(x²) = (\|σc\|/2)·Σ_{y mod 2} e(−Re(σ(cy²)/σ(δ))/2)` for `c ≠ 0`; **`quad_gauss_coords`**: for `c = a + bω` the sum is `(\|σc\|/2)·(1 + i^{−b} + i^a + i^{b−a})` (round 297) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
@@ -368,10 +368,10 @@ With `lo, hi ~ T` this is the paper's `|T_u − T^s| = O(T^{1/4}(ln T)^{1/2})`.
 
 | Lemma | Content |
 |---|---|
-| `osc_bound` | the paper's displayed bound `|Osc(T) − Osc_∞| ≤ 4 sup|S|·[arccosh(T/(T−Δ)) − ln(T/(T−Δ))] + 8 sup_{[γ₁,T]}|S₁|·D_T(T−Δ) + 8 sup_{[T,∞)}|S₁|/T`, for every `Δ ∈ (0, T − γ₁)`. The proof integrates by parts against `S₁` off the countable jump set of `S`. |
+| `osc_bound` | the paper's displayed bound `\|Osc(T) − Osc_∞\| ≤ 4 sup\|S\|·[arccosh(T/(T−Δ)) − ln(T/(T−Δ))] + 8 sup_{[γ₁,T]}\|S₁\|·D_T(T−Δ) + 8 sup_{[T,∞)}\|S₁\|/T`, for every `Δ ∈ (0, T − γ₁)`. The proof integrates by parts against `S₁` off the countable jump set of `S`. |
 | `integral_DT`, `near_term_le`, `DT_le` | `∫_{T−Δ}^T D_T = arccosh(T/(T−Δ)) − ln(T/(T−Δ)) ≤ 2√(Δ/T)`, and `D_T(T−Δ) ≤ 2/√(ΔT)` for `T ≥ 2Δ` |
-| **`osc_log`** | **`Osc(T) = Osc_∞ + O(ln T/√T)`** from the two named inputs: `Osc_∞` converges, and `|Osc(T) − Osc_∞| ≤ (8C√Δ + 16C/√Δ + 12C) ln T/√T` for `T ≥ max(γ₁ + 2Δ, 3)` |
-| `wall_value` | the minimum's value: `|min F − (F^s(T^s) + Osc_∞)| ≤ ε`, and `F^s(T_u) − F^s(T^s) ≤ Osc(T^s) − Osc(T_u) ≤ 2ε` |
+| **`osc_log`** | **`Osc(T) = Osc_∞ + O(ln T/√T)`** from the two named inputs: `Osc_∞` converges, and `\|Osc(T) − Osc_∞\| ≤ (8C√Δ + 16C/√Δ + 12C) ln T/√T` for `T ≥ max(γ₁ + 2Δ, 3)` |
+| `wall_value` | the minimum's value: `\|min F − (F^s(T^s) + Osc_∞)\| ≤ ε`, and `F^s(T_u) − F^s(T^s) ≤ Osc(T^s) − Osc(T_u) ≤ 2ε` |
 | `convex_quadratic_lower`, `wall_stability` | `F^s″ ≥ κ` gives `(T_u − T^s)² ≤ 4ε/κ` |
 | `wall_stability_Fs` | the same for the paper's `F_k^s`, with `κ = (1 − T·G(lo))/hi`, from `T·F″ = 1 − T·G` and `T·G` decreasing (round 2) |
 | `wall_law_Fs` | `osc_log` + `wall_stability_Fs` |
@@ -382,10 +382,10 @@ With `lo, hi ~ T` this is the paper's `|T_u − T^s| = O(T^{1/4}(ln T)^{1/2})`.
 |---|---|
 | **`exterior_identity`** | from Weil's explicit formula for an even `h` real on `ℝ`: **`Σ_ρ h(t_ρ) = (1/π)∫₀^∞ h ln(r/2π) + E_arch + 2h(i/2) − 2Σ_n Λ(n)n^{−1/2} f_χ(ln n)`**, with `t_ρ = (ρ − ½)/i` |
 | `exterior_identity_probe` | the same for `h = ĝ²χ` with an even probe, where `E_pole = 2ĝ(i/2)²χ(i/2)` literally |
-| `binet_remainder_le` | from Binet's formula, `|Re ψ(¼ + ir/2) − ln(r/2)| ≤ 3/(2r²)` for `r ≥ 8`. The pieces are `(1/2)ln(1 + 1/4r²)`, `Re 1/(2z)`, and the Binet integral `≤ 8/(π²r²) + 4e^{−πr/4}/(π²r)`. |
-| `Earch_bound` | `|E_arch| ≤ (3/2)/(T² ln(T/2π)) · (1/π)∫_T^∞ h ln(r/2π) + (3/2π)∫_{(8,T]} h/r² + (1/π)∫_{(0,8]} |h(Re ψ − ln(r/2))|` for `h ≥ 0` and `T ≥ 8` |
-| `norm_Phi_le`, `norm_chi_le` | `|Φ(z)| ≤ e^{(Im² − Re²)/2}/2` for `Re z ≤ 0`, with `Φ` extended to `ℂ`; `|χ(±i/2)| ≤ 2e^{−(T² − 1/4)/(2Δ²)}` for the mirrored four-term cut |
-| `norm_ghat_half_le`, `norm_Epole_le` | `|ĝ(i/2)| ≤ √(2a)e^{a/2}` for `‖g‖₂ = 1`, via a pointwise AM–GM; `|E_pole| ≤ 8a eᵃ e^{−(T² − 1/4)/(2Δ²)}` |
+| `binet_remainder_le` | from Binet's formula, `\|Re ψ(¼ + ir/2) − ln(r/2)\| ≤ 3/(2r²)` for `r ≥ 8`. The pieces are `(1/2)ln(1 + 1/4r²)`, `Re 1/(2z)`, and the Binet integral `≤ 8/(π²r²) + 4e^{−πr/4}/(π²r)`. |
+| `Earch_bound` | `\|E_arch\| ≤ (3/2)/(T² ln(T/2π)) · (1/π)∫_T^∞ h ln(r/2π) + (3/2π)∫_{(8,T]} h/r² + (1/π)∫_{(0,8]} \|h(Re ψ − ln(r/2))\|` for `h ≥ 0` and `T ≥ 8` |
+| `norm_Phi_le`, `norm_chi_le` | `\|Φ(z)\| ≤ e^{(Im² − Re²)/2}/2` for `Re z ≤ 0`, with `Φ` extended to `ℂ`; `\|χ(±i/2)\| ≤ 2e^{−(T² − 1/4)/(2Δ²)}` for the mirrored four-term cut |
+| `norm_ghat_half_le`, `norm_Epole_le` | `\|ĝ(i/2)\| ≤ √(2a)e^{a/2}` for `‖g‖₂ = 1`, via a pointwise AM–GM; `\|E_pole\| ≤ 8a eᵃ e^{−(T² − 1/4)/(2Δ²)}` |
 | `psiRe_even`, `gh_eq_fchi` | `Re ψ(¼ − ir/2) = Re ψ(¼ + ir/2)`, from `Γ(z̄) = Γ(z)‾`; `g_h = f_χ` for even `h` |
 
 The two named inputs are stated as `Prop`s:
@@ -443,7 +443,7 @@ The remainder's leading term `−1/(24r²)`, which the paper quotes, agrees with
 | `split_zeta` | **1ca(i) for ζ's own zeros**: `F_k = F_k^s + Osc` with `S = N − N₀ − 7/8`, where `N` is ζ's zero count |
 | **`wall_law_zeta`** | **1ca(i)–(iii) for ζ's own zeros** |
 | `exterior_identity_zeta` | **1ca(iv)** with the zero side summed over Mathlib's nontrivial zeros, with multiplicity |
-| `zetaOrd_ge_of_height`, `fourteen_le_two_pi_e` | T1bt's `h_height` (`14 ≤ |Im ρ|`) gives `G = 14`, and `14 ≤ 2πe` |
+| `zetaOrd_ge_of_height`, `fourteen_le_two_pi_e` | T1bt's `h_height` (`14 ≤ \|Im ρ\|`) gives `G = 14`, and `14 ≤ 2πe` |
 
 `wall_law_zeta` still takes these named inputs:
 
@@ -462,7 +462,7 @@ The remainder's leading term `−1/(24r²)`, which the paper quotes, agrees with
 | `Probe a g` | real, even, supported in `[−a, a]`, in `L²`, with the archimedean integral convergent |
 | `IsGroundState a g` | a normalized probe minimizing `Q` among probes |
 | `xi`, `Xi` | Riemann's `ξ(s) = (s(s−1)Λ₀(s) + 1)/2` from Mathlib's `completedRiemannZeta₀`, and `Ξ(t) = ξ(½ + it)` |
-| `HypD a g T_D` | item 1(a), Hypothesis D of 1bu(ii): `ĝ` and `Ξ` have equal analytic orders at every point of `|z| < T_D` |
+| `HypD a g T_D` | item 1(a), Hypothesis D of 1bu(ii): `ĝ` and `Ξ` have equal analytic orders at every point of `\|z\| < T_D` |
 | `RealRooted a g` | item 1(b): every zero of `ĝ` is real |
 
 `ghatC_I_div_two` checks that `ĝ(i/2)` in `Q` is the transform at `i/2`.
@@ -472,7 +472,7 @@ The remainder's leading term `−1/(24r²)`, which the paper quotes, agrees with
 | Theorem | Content |
 |---|---|
 | `xi_eq_zero_of_nontrivial` | every nontrivial zero of `riemannZeta` is a zero of `ξ`; `ξ(2) ≠ 0` |
-| **`zeros_on_line_below`** / `finite_advance` | **item 5's finite advance**: D at one support plus real-rootedness there puts every nontrivial zero with `|t_ρ| < T_D` on `Re s = ½`. Only one direction of D is used: every zero of `Ξ` below `T_D` is a zero of `ĝ`. The ground-state property plays no role; the reduction is about `ĝ` alone. |
+| **`zeros_on_line_below`** / `finite_advance` | **item 5's finite advance**: D at one support plus real-rootedness there puts every nontrivial zero with `\|t_ρ\| < T_D` on `Re s = ½`. Only one direction of D is used: every zero of `Ξ` below `T_D` is a zero of `ĝ`. The ground-state property plays no role; the reduction is about `ĝ` alone. |
 | **`hurwitz_real`** | Hurwitz's theorem in the form needed, proved from the maximum modulus principle: locally uniform limits of entire functions with only real zeros have only real zeros (unless identically zero) |
 | `ghatC_differentiable` | `ĝ` is entire, by differentiation under the integral |
 | **`rh_of_realRooted_limit`** / **`rh_of_ground_states`** | **item 6's step**: real-rooted ground states `g_n` with nonzero `c_n` such that `c_n ĝ_n → Ξ` locally uniformly give Mathlib's `RiemannHypothesis` |
@@ -494,7 +494,7 @@ Hadamard's factorisations are written in the variable `w = τ⁻²`. `HadamardW 
 | `hadamard_compare` | for two factorisations over one pairing, `‖f(z)/f(0) − g(z)/g(0)‖ ≤ ‖z‖²·exp(‖z‖²(Σ‖w‖ + Σ‖v‖))·Σ‖w_i − v_i‖` |
 | **`tendstoLocallyUniformly_of_pairing`** | **1bu(ii)'s limit shape**: if `Σ‖w_n‖` is bounded and the pairing error `θ_n = Σ‖w_{n,i} − v_{n,i}‖ → 0`, then `ĝ_n/ĝ_n(0) → Ξ/Ξ(0)` locally uniformly |
 | `rh_of_pairing_and_realRooted` | adding real-rootedness at every support gives Mathlib's `RiemannHypothesis` (via `hurwitz_real`) |
-| `pairing_of_D` | **exact Hypothesis D is a special case**: the zeros below `T_D` matched by D, plus padding for the tails, give a pairing with `θ ≤ ε(δ) = Σ_{|τ|≥T_D}|τ|⁻² + Σ_{|γ|≥T_D}|γ|⁻²` |
+| `pairing_of_D` | **exact Hypothesis D is a special case**: the zeros below `T_D` matched by D, plus padding for the tails, give a pairing with `θ ≤ ε(δ) = Σ_{\|τ\|≥T_D}\|τ\|⁻² + Σ_{\|γ\|≥T_D}\|γ\|⁻²` |
 | **`rh_of_D_and_realRooted`** | **the paper's statement end to end**. Suppose ground states at supports `δ_n` have real-rooted transforms, D holds exactly below `T_D(δ_n)`, `Σ_τ τ⁻²` is bounded, and `ε(δ_n) → 0`. Then Mathlib's `RiemannHypothesis` follows. |
 
 What this adds:
@@ -521,9 +521,9 @@ Mathlib has no Hadamard factorisation. It is now proved here from Mathlib's comp
 
 | Step | Lemma | Mathlib inputs |
 |---|---|---|
-| A | `disc_estimate`: if `G` is zero-free on `|w| ≤ R` with `G(0) = 1`, then on `|w| ≤ r < R/2`, `‖G − 1‖ ≤ 12Mr/(R/2 − r)`, where `M` bounds the circle average of `log⁺|G|` | Poisson formula for harmonic functions and its kernel bounds; harmonic conjugate on a disc; maximum modulus; Borel–Carathéodory |
-| B | `zero_count`, `summable_ord_div`: `n(R) ≤ log C + A(eR)^α − log‖F(0)‖`, then `Σ ord(u)/|u| < ∞` via dyadic shells | Jensen's inequality (`sum_divisor_le`) |
-| C | `disc_factor`: `F = F(0)·Π_{|u|≤R}(1 − w/u)^{ord u}·G_R` on `|w| ≤ R`. `avg_posLog_G_le`: the circle average of `log⁺|G_R|` is `O(R^α)`, since each zero contributes at most `log 2` (`circleAverage_negLog_le`). | `extract_zeros_poles`; circle averages of `log‖· − u‖` |
+| A | `disc_estimate`: if `G` is zero-free on `\|w\| ≤ R` with `G(0) = 1`, then on `\|w\| ≤ r < R/2`, `‖G − 1‖ ≤ 12Mr/(R/2 − r)`, where `M` bounds the circle average of `log⁺\|G\|` | Poisson formula for harmonic functions and its kernel bounds; harmonic conjugate on a disc; maximum modulus; Borel–Carathéodory |
+| B | `zero_count`, `summable_ord_div`: `n(R) ≤ log C + A(eR)^α − log‖F(0)‖`, then `Σ ord(u)/\|u\| < ∞` via dyadic shells | Jensen's inequality (`sum_divisor_le`) |
+| C | `disc_factor`: `F = F(0)·Π_{\|u\|≤R}(1 − w/u)^{ord u}·G_R` on `\|w\| ≤ R`. `avg_posLog_G_le`: the circle average of `log⁺\|G_R\|` is `O(R^α)`, since each zero contributes at most `log 2` (`circleAverage_negLog_le`). | `extract_zeros_poles`; circle averages of `log‖· − u‖` |
 | limit | `G_R(w) → 1` as `R → ∞`, and the partial products converge to the unconditional product | `multipliable_one_add_of_summable` |
 
 **`hadamardW_even`.** An even entire `f` of order `< 2` satisfies `HadamardW f (u⁻¹)`, the product taken over `f`'s own zero pairs.
@@ -587,7 +587,7 @@ Two changes to the hypotheses of the round-9 chain.
 | Lemma | Content |
 |---|---|
 | `HadamardW.expansion` | `‖f(z)/f(0) − (1 − z²Σw)‖ ≤ (‖z‖²Σ‖w‖)²`, from `‖Π(1 + x) − 1 − Σx‖ ≤ e^S − 1 − S` |
-| `ghat_expansion` | `‖ĝ(x) − ∫g + (x²/2)∫u²g‖ ≤ |x|³a³∫|g|`; the odd moment vanishes by evenness, and the rest is Mathlib's `Complex.exp_bound` |
+| `ghat_expansion` | `‖ĝ(x) − ∫g + (x²/2)∫u²g‖ ≤ \|x\|³a³∫\|g\|`; the odd moment vanishes by evenness, and the rest is Mathlib's `Complex.exp_bound` |
 | `ghat_curvature` | real-rooted case: each term `τ⁻²` is a positive real, so `Σ‖τ⁻²‖ = ∫u²g / (2∫g)` |
 | `xi_expansion` | `Ξ(z)/Ξ(0) = 1 − z²Σ_jγ_j⁻² + O(‖z‖⁴)`, so the target `Σ_jγ_j⁻²` is `Ξ`'s curvature, `−Ξ″(0)/(2Ξ(0)) = 0.023105` in the paper |
 
@@ -617,8 +617,8 @@ It also defines the admissible class `Probe` (real, even, supported in `[−a, a
 
 | Theorem | Content |
 |---|---|
-| `abs_autocorr_le` | `|f(u)| ≤ f(0) = ‖g‖²`, from `|g(t)g(t+u)| ≤ (g(t)² + g(t+u)²)/2`, so the archimedean integrand is non-negative |
-| `autocorr_eq_zero` | `f(u) = 0` for `|u| > 2a` |
+| `abs_autocorr_le` | `\|f(u)\| ≤ f(0) = ‖g‖²`, from `\|g(t)g(t+u)\| ≤ (g(t)² + g(t+u)²)/2`, so the archimedean integrand is non-negative |
+| `autocorr_eq_zero` | `f(u) = 0` for `\|u\| > 2a` |
 | `prime_sum_eq` | the prime sum is the finite sum over `n ≤ e^{2a} = e^δ`, as Theorem 1bn(i) says |
 | `weilQ_ge` | `Q(g) ≥ (ψ(¼) − log π − 2Σ_{n ≤ e^δ} Λ(n)/√n)‖g‖²` on probes |
 | `groundState_energy_ge` | the ground energy `λ₁(δ)` is finite: `λ₁(δ) ≥ ψ(¼) − log π − 2Σ_{n ≤ e^δ} Λ(n)/√n` |
@@ -643,12 +643,12 @@ Stage 1 expands a probe `g` (half-support `a > 0`) in the Fourier series of `[�
 |---|---|
 | `normSq_sub_shift` | `‖g − g(· + s)‖² = 2(f(0) − f(s))` |
 | `hasSum_cf_sq` | Parseval on `[−2a, 2a]`, from Mathlib's `hasSum_sq_fourierCoeffOn` |
-| `cf_shift` | for `|s| < a`, a shift multiplies `c_n` by `e^{2πins/4a}` (the shifted probe stays inside the period) |
-| `hasSum_shift` | `Σ_n |c_n|²(2 − 2cos(2πns/4a)) = (4a)⁻¹·2(f(0) − f(s))` |
+| `cf_shift` | for `\|s\| < a`, a shift multiplies `c_n` by `e^{2πins/4a}` (the shifted probe stays inside the period) |
+| `hasSum_shift` | `Σ_n \|c_n\|²(2 − 2cos(2πns/4a)) = (4a)⁻¹·2(f(0) − f(s))` |
 | `archK_ge` | `e^{s/2}/sinh s ≥ 1/(2s)` on `(0, 1]` |
 | `weight_ge` | `J(k) = ∫₀^b (2 − 2cos ks)/s ds ≥ 2 log(kb) − 6` for `kb ≥ 1`, by parts on `[1/k, b]` |
-| `weighted_le_archE` | `a Σ_{n∈S} |c_n|² J_n ≤ E(g)` for every finite set `S`, where `E` is the archimedean integral, `0 < b ≤ 1` and `b < a` |
-| `tail_le` | **`Σ_{|n|≥N} |c_n|² ≤ E(g) / (a(2 log(2πNb/4a) − 6))`**, uniformly over probes |
+| `weighted_le_archE` | `a Σ_{n∈S} \|c_n\|² J_n ≤ E(g)` for every finite set `S`, where `E` is the archimedean integral, `0 < b ≤ 1` and `b < a` |
+| `tail_le` | **`Σ_{\|n\|≥N} \|c_n\|² ≤ E(g) / (a(2 log(2πNb/4a) − 6))`**, uniformly over probes |
 
 So probes of bounded archimedean energy have uniformly small high-frequency tails. The rate is logarithmic, as the `log|r|` growth of the archimedean weight predicts.
 
@@ -676,7 +676,7 @@ The proof is the direct method:
 | bounded below | `weilQ_ge` (round 11) | the infimum `λ` is finite |
 | minimising sequence | Mathlib `exists_seq_tendsto_sInf` | `Q(h_j) → λ`, and the archimedean energies are uniformly bounded |
 | compactness | `exists_convergent_subseq` (round 13) | a subsequence converges in `L²` to some `G` |
-| a probe again | `symCut`, `normSq_sub_symCut_le` | `S f = 1_{|u|≤a}(f(u) + f(−u))/2` fixes probes and does not increase `‖·‖²`, so `S G` is even, supported in `[−a, a]` and still the `L²` limit |
+| a probe again | `symCut`, `normSq_sub_symCut_le` | `S f = 1_{\|u\|≤a}(f(u) + f(−u))/2` fixes probes and does not increase `‖·‖²`, so `S G` is even, supported in `[−a, a]` and still the `L²` limit |
 | continuity | `tendsto_integral_mul` | `‖g‖²`, `ĝ(i/2)` and every `f(u)` are `L²` inner products, so they converge; hence the pole, constant and prime terms converge (the prime sum is finite) |
 | semicontinuity | `fatou_real` | the archimedean integrands converge pointwise, so by Fatou the limit's integral converges and is at most the limit of the energies |
 | conclusion | `exists_groundState` | `Q(S G) ≤ λ` and `‖S G‖² = 1`, so `S G` is a ground state |
@@ -717,9 +717,9 @@ For the chain, `rh_of_groundStates_dodging` holds for any choice of ground state
 | Theorem | Content |
 |---|---|
 | `exists_groundState0`, `isGroundState0_iff` | existence and the ground-state space, as in rounds 14–15 with the pole term removed |
-| `weilQ0_abs_le` | **Beurling–Deny**: `|g|` is a probe and `Q₀(|g|) ≤ Q₀(g)`. Here `‖|g|‖ = ‖g‖`; `f_{|g|}(u) ≥ f_g(u)`, so the archimedean integrand does not increase; and the prime weights `Λ(n)/√n ≥ 0`, so the subtracted prime term does not decrease. |
-| `one_sign_of_autocorr` | if `f_{|g|}(u) = f_g(u)` for a.e. `u > 0`, then `g ≥ 0` a.e. or `g ≤ 0` a.e. With `g = g⁺ − g⁻`, `f_{|g|}(u) − f_g(u) = 2(X(u) + X(−u))` where `X(u) = ∫g⁺(t)g⁻(t+u)dt ≥ 0`; so `X = 0` a.e., and by Tonelli `(∫g⁺)(∫g⁻) = ∫X = 0`. |
-| `groundState0_one_sign` | **every ground state of `Q₀` has one sign.** At a ground state `Q₀(|g|) = Q₀(g)`, so the archimedean integrals agree, and since the integrands are ordered they agree a.e. on `(0, ∞)`. |
+| `weilQ0_abs_le` | **Beurling–Deny**: `\|g\|` is a probe and `Q₀(\|g\|) ≤ Q₀(g)`. Here `‖\|g\|‖ = ‖g‖`; `f_{\|g\|}(u) ≥ f_g(u)`, so the archimedean integrand does not increase; and the prime weights `Λ(n)/√n ≥ 0`, so the subtracted prime term does not decrease. |
+| `one_sign_of_autocorr` | if `f_{\|g\|}(u) = f_g(u)` for a.e. `u > 0`, then `g ≥ 0` a.e. or `g ≤ 0` a.e. With `g = g⁺ − g⁻`, `f_{\|g\|}(u) − f_g(u) = 2(X(u) + X(−u))` where `X(u) = ∫g⁺(t)g⁻(t+u)dt ≥ 0`; so `X = 0` a.e., and by Tonelli `(∫g⁺)(∫g⁻) = ∫X = 0`. |
+| `groundState0_one_sign` | **every ground state of `Q₀` has one sign.** At a ground state `Q₀(\|g\|) = Q₀(g)`, so the archimedean integrals agree, and since the integrands are ordered they agree a.e. on `(0, ∞)`. |
 | `groundState0_unique` | **the ground state of `Q₀` is unique up to sign.** For two ground states, `(∫h)g − (∫g)h` lies in the ground-state space with integral `0`. If non-zero, its normalisation is a one-signed ground state with integral `0`, which is impossible. |
 | `exists_unique_groundState0` | **`Q₀` has a ground state `φ ≥ 0` a.e., and every ground state is `±φ` a.e.** |
 
@@ -739,13 +739,13 @@ Round 16's note said the Euler–Lagrange route fails because the indicator of `
 | Euler–Lagrange | `euler_lagrange0` | at a ground state, `B(φ, ψ) = λ₀⟨φ, ψ⟩` for every probe `ψ`, since `R(φ + sψ) = 2s·b + s²c ≥ 0` for all `s` forces `b = 0` |
 | cross term | `xcorr_sub_eq` | `x(0) − x(u) = ½∫(φ(t) − φ(t+u))(ψ(t) − ψ(t+u))dt` |
 | test functions | `trunc_probe`, `etaF_probe` | `min(φ, ε)` is a probe (a contraction: `A_{min(φ,ε)} ≤ A_φ`), so `η_ε = (1 − φ/ε)⁺·1_{[−a,a]} = c⁻¹·box − ε⁻¹·min(φ, ε)` is a probe |
-| lower bound | `archX_eta_ge` | the Euler–Lagrange equation with `ψ = η_ε`, the prime cross term `≥ 0` and `⟨φ, η_ε⟩ ≤ aε/2` give `∫_{u>0} archX(φ, η_ε) ≥ −|λ₀ − C|(a/2)ε` |
+| lower bound | `archX_eta_ge` | the Euler–Lagrange equation with `ψ = η_ε`, the prime cross term `≥ 0` and `⟨φ, η_ε⟩ ≤ aε/2` give `∫_{u>0} archX(φ, η_ε) ≥ −\|λ₀ − C\|(a/2)ε` |
 | pairwise bound | `pair_le` | `(φ(t) − φ(t+u))(η(t) − η(t+u)) ≤ (ε/4)·1_{strips}(t)`. Inside `[−a, a]` the product is `≤ 0` because `η` decreases in `φ`; across the boundary it is `φ·η ≤ ε/4`, on two strips of width `u`. |
 | exact gap | `integral_gapH` | the non-negative gap `H_ε = (ε/4)·1_{strips} − (pair)` has `K(u)∫H_ε = εuK(u)/2 − 2archX(u)`, so `∫_{u>0}K∫H_ε ≤ ε(M/2 + 2κ) → 0`, with `M = ∫uK < ∞` |
 | limit | `eta_tendsto`, `gapH_tendsto` | `η_ε → 1_Z` pointwise, `Z = {φ = 0} ∩ [−a, a]`; `H_ε → 1_Z(t)φ(t+u) + φ(t)1_Z(t+u)` |
 | Fatou | `gapInf_zero` | Fatou in `t` and then in `u` (lintegral form): `∫1_Z(t)φ(t+u)dt = ∫φ(t)1_Z(t+u)dt = 0` for a.e. `u > 0` |
 | Tonelli | `tonelli_zero` | `(∫⁻ 1_Z)(∫⁻ φ) = 0`, splitting `u` at `0` and reflecting the negative half |
-| conclusion | `groundState0_pos_of_nonneg`, `exists_positive_groundState0` | `∫φ > 0`, so `|Z| = 0`; the positive representative is `symCut` of the absolute value of a measurable version of the round-16 ground state |
+| conclusion | `groundState0_pos_of_nonneg`, `exists_positive_groundState0` | `∫φ > 0`, so `\|Z\| = 0`; the positive representative is `symCut` of the absolute value of a measurable version of the round-16 ground state |
 
 So the pole-free form's ground state is simple (round 16) and strictly positive. This is the Perron–Frobenius picture, proved here without operator theory. The full form `Q` is not covered, as round 15 explains: its pole term breaks the `|g|` step. Round 18 narrows what can go wrong for `Q`.
 
@@ -801,13 +801,13 @@ The bound is analytic. Nothing is computed, and the only numbers used are `log 2
 
 | Step | Theorems | Content |
 |---|---|---|
-| A. representation | `cf_shift'`, `hasSum_shift'`, `hasSum_pm`, `hasSum_one_sub_autocorr` | round 12's shift identity, generalised to support `r` and any shift with `r + |s| < 2A`; the mode masses `p_n = 8a|c_n|²` |
-| B. truncation | `sum_modeE_le`, `energy_ge_trunc` | `∫_{(0,2a]} A_g ≥ τ + Σ_{|n|≤5}(ψ_n − τ)p_n` whenever `ψ_n ≥ τ` for every `|n| ≥ 6`; the limit uses `Σ p_n = 1` |
+| A. representation | `cf_shift'`, `hasSum_shift'`, `hasSum_pm`, `hasSum_one_sub_autocorr` | round 12's shift identity, generalised to support `r` and any shift with `r + \|s\| < 2A`; the mode masses `p_n = 8a\|c_n\|²` |
+| B. truncation | `sum_modeE_le`, `energy_ge_trunc` | `∫_{(0,2a]} A_g ≥ τ + Σ_{\|n\|≤5}(ψ_n − τ)p_n` whenever `ψ_n ≥ τ` for every `\|n\| ≥ 6`; the limit uses `Σ p_n = 1` |
 | C. kernel | `kerK_eq`, `kerK_le'`, `sinh_le_taylor`, `cosh_le_taylor`, `kerK_ge_taylor`, `modeE_ge` | `K(u) = ½csch(u/2) + ½sech(u/2) ∈ [1/u + ½ − r(u), 1/u + ½]` from Mathlib's Taylor bound for `exp`; so `ψ_n ≥ Cin(πn/2) + a(1 − 2sin(πn/2)/(πn)) − err(a)` |
 | D. `Cin` values | `Fk_deriv`, `cin_step`, `cin_quarter`, `piece1`–`piece11`, `pieceH6`–`pieceH60`, `cin_val1`–`cin_val6`, `cinH11`, `cinH21`, `cinH61` | `Cin(x) = ∫₀ˣ (1 − cos s)/s` via a Taylor piece on `[0, π/4]` and tangent-line pieces `1/s ≥ 2/c − s/c²` with exact antiderivatives; trig values at multiples of `π/4` by recursion; `π`, `√2` from Mathlib's bounds. Certified: `Cin(π/2) ≥ 0.5408`, …, `Cin(3π) ≥ 2.7801`, `Cin(61π/2) ≥ 5.098` |
 | E. mode masses | `cs_supp`, `cf_even`, `pm_even`, `integral_sq_perp`, `integral_cos_sub_sq`, `pm_le`, `cval1`–`cval5` | for even `g`, `p_n = (∫ g cos(πnt/4a))²/(8a)`. Orthogonality to `w` gives `∫ g cosh(t/2) = 0`, so `(∫ g)² ≤ ∫(1 − cosh(t/2))² ≤ a⁵/30`. Cauchy–Schwarz against `cos − β_n` then gives `p_1 ≤ 0.0031`, `p_2 ≤ 0.0254`, `p_3 ≤ 0.0799`, `p_4 ≤ 0.1313`, `p_5 ≤ 0.1395` |
 | F–G. no primes | `nearField_box_le'`, `pole_box_le`, `tail_ok`, `nearField_fourier`, `weilQ_perp_ge_fourier` | box: near field `≤ 1 + a/2`, pole `≤ 4a(1 + a²/24 + a⁴/1600)²`. For `2a < log 2`: `Q(g) ≥ Q(box) + 1/10` |
-| H–J. the prime `n = 2` | `primeS_eq_two`, `autocorr_two_a`, `hasSum_autocorr`, `primeD_le`, `energy_prime_trunc`, `tailB_all`, `termB1`–`termB5`, `weilQ_perp_ge_sliver` | for `log 2 ≤ 2a ≤ 0.7` only `n = 2` enters: `−√2 log 2·f(log 2)`. Since `f(2a) = 0`, `f(log 2) = Σ p_n(cos(ω_n log 2) − cos(ω_n 2a))`, and each defect is `≤ min(ω_n(2a − log 2), 2) ≤ min(0.0155|n|, 2)`. It is absorbed mode by mode, with tail levels `n ∈ [6,10], [11,20], [21,60], [61,∞)` |
+| H–J. the prime `n = 2` | `primeS_eq_two`, `autocorr_two_a`, `hasSum_autocorr`, `primeD_le`, `energy_prime_trunc`, `tailB_all`, `termB1`–`termB5`, `weilQ_perp_ge_sliver` | for `log 2 ≤ 2a ≤ 0.7` only `n = 2` enters: `−√2 log 2·f(log 2)`. Since `f(2a) = 0`, `f(log 2) = Σ p_n(cos(ω_n log 2) − cos(ω_n 2a))`, and each defect is `≤ min(ω_n(2a − log 2), 2) ≤ min(0.0155\|n\|, 2)`. It is absorbed mode by mode, with tail levels `n ∈ [6,10], [11,20], [21,60], [61,∞)` |
 
 **Scope and honesty.**
 * The constants are proved, not computed. Every numerical input is a Lean theorem from Mathlib's bounds on `π`, `√2` (via `Real.sqrt`), `log 2` and `e`; there are no floating-point certificates.
@@ -1127,7 +1127,7 @@ At the zeros pinned onto zeta zeros, though, the inequality holds only by expone
 |---|---|---|
 | 1.0 | 6 | 1 |
 | 1.38 | 12 | 5 |
-| 2.0 | 29 | 19 (`|ε| < 10⁻²`) |
+| 2.0 | 29 | 19 (`\|ε\| < 10⁻²`) |
 
 The alternation extends past the pinned zeros and then breaks: overall only 17–33% of consecutive pairs up to `γ₆₇₀₀` alternate.
 
@@ -1162,8 +1162,8 @@ The per-zero scatter is `0.2–0.33` in `log₁₀`, about a factor of 2. Separa
 |---|---|---|
 | `ζ` (control, and high precision to `δ = 2`, round 27) | yes | yes at every `δ` |
 | `log(1 + r)` | no | yes, yes, yes, yes, yes |
-| `|r|` | no | yes, yes, yes, yes, yes |
-| prolate: `1_{|r| > 12}` | no | yes, yes, yes, yes, yes |
+| `\|r\|` | no | yes, yes, yes, yes, yes |
+| prolate: `1_{\|r\| > 12}` | no | yes, yes, yes, yes, yes |
 | archimedean `Re ψ − log π`, no primes | no | yes, yes, yes, yes, yes |
 | archimedean, no primes | **yes** | yes (`= ζ` there), **no** (`W > 0` at 898 points), **no**, **no**, **no** (one zero moving up) |
 | `Λ(n)` replaced by `log n` (differs from `ζ` only for `δ ≥ log 4`) | yes | yes, yes, yes, yes, yes |
@@ -1204,7 +1204,7 @@ In both families the commutator is linear in the coefficients, so the best `L` i
 |---|---|---|---|
 | control (band-limit) | 0.002–0.004 | 0.0005–0.0012 | 1.000000 |
 | `log(1 + r)` | 0.95 / 0.87 | 0.42–0.44 | 0.79–0.89 |
-| `|r|` | 0.61 / – | 0.85 | 0.70 |
+| `\|r\|` | 0.61 / – | 0.85 | 0.70 |
 | archimedean, no pole | 0.97 / 0.89 | 0.42 | 0.86–0.94 |
 | archimedean + pole | 0.93–0.98 / – | 0.42–0.58 | 0.90–0.98 |
 | **`ζ`** | 0.62–0.93 / **0.15–0.31** | **0.42–0.76** | **0.65–0.93** |
@@ -1763,11 +1763,11 @@ where `P_c(x) = ∫_{−a}^{x} g(y)e^{icy} dy`. Put `f₂ = g + (σ̄ − σ)h`,
 
 | theorem | statement |
 |---|---|
-| `hSw_supp` | `h` vanishes for `|x| > a`. For `x ≥ a`, `P_{±w}(x) = ĝ(±w) = 0`. `P_{−c}(−x) = ĝ(c) − P_c(x)` (`Pc_neg`) makes `h` even (`hSw_even`), which covers `x ≤ −a`. |
+| `hSw_supp` | `h` vanishes for `\|x\| > a`. For `x ≥ a`, `P_{±w}(x) = ĝ(±w) = 0`. `P_{−c}(−x) = ĝ(c) − P_c(x)` (`Pc_neg`) makes `h` even (`hSw_even`), which covers `x ≤ −a`. |
 | `triangle_swap` | `∫_α^β e(x)∫_α^x f(y) dy dx = ∫_α^β f(y)∫_y^β e(x) dx dy`, for continuous `e` and integrable `f` (Fubini on the product with an indicator) |
 | `hSw_hat` | `ĥ(z) = −ĝ(z)/(z² − w²)` for `z² ≠ w²`: `triangle_swap`, then `∫_y^a e^{i(z±w)x}dx` in closed form; the boundary terms carry `ĝ(±w) = 0` |
 | `swap_hat` | **R1:** `û(z) + iv̂(z) = ĝ(z)(z² − σ̄)/(z² − σ)` |
-| `swap_autocorr` | **R2:** `A_u(s) + A_v(s) = A_g(s)` for every `s`. On `[−6a, 6a]` the Fourier coefficients are `ĝ`-values at real points (`cf_eq_ghatC`). There `ĝ_u` and `ĝ_v` are real (`ghatC_im_zero`: even real functions), and the multiplier has modulus 1 (`norm_swapB`). So `|c_n(u)|² + |c_n(v)|² = |c_n(g)|²` (`swap_cf`). Parseval for `g − g(·+s)` (`hasSum_shift'`, which needs only `L²` and the support) gives R2 for `|s| < 3a`. For `|s| > 2a` all three sides vanish (`autocorr_eq_zero_far`). |
+| `swap_autocorr` | **R2:** `A_u(s) + A_v(s) = A_g(s)` for every `s`. On `[−6a, 6a]` the Fourier coefficients are `ĝ`-values at real points (`cf_eq_ghatC`). There `ĝ_u` and `ĝ_v` are real (`ghatC_im_zero`: even real functions), and the multiplier has modulus 1 (`norm_swapB`). So `\|c_n(u)\|² + \|c_n(v)\|² = \|c_n(g)\|²` (`swap_cf`). Parseval for `g − g(·+s)` (`hasSum_shift'`, which needs only `L²` and the support) gives R2 for `\|s\| < 3a`. For `\|s\| > 2a` all three sides vanish (`autocorr_eq_zero_far`). |
 | `arch_dom` | `u` and `v` are admissible: `0 ≤ E_u(x) ≤ E_g(x)` pointwise, from R2 and `archIntegrand_nonneg` |
 | `swapRealization_of_zero` | `SwapRealization a g (w²)`: `u` and `v` are probes (even, supported in `[−a, a]`, in `L²` since `h` is continuous with compact support, archimedean-integrable), with R1 and R2 |
 | `zeros_real_or_imag'` | **every zero of a simple ground state is real or purely imaginary**, with no further input |
@@ -2035,7 +2035,7 @@ Round 48's converse direction (Theorem D) is now machine-checked, by a route tha
 
 | theorem | statement |
 |---|---|
-| `Gpole_lip` | `G w` is Lipschitz on `[−R, R]` with constant `cosh R·∫_{−R}^{R}|w|` (mean value theorem on the `sinh` kernel) |
+| `Gpole_lip` | `G w` is Lipschitz on `[−R, R]` with constant `cosh R·∫_{−R}^{R}\|w\|` (mean value theorem on the `sinh` kernel) |
 | `Gpole_autocorr_le`, `Gpole_probe` | its autocorrelation defect is `O(u)`, so the archimedean integral converges: **`G w` is a probe** |
 | `triangle_swap_int` | Fubini on a triangle with merely integrable weights |
 | `kernel_zero` | a pole-free even probe annihilates `2 sinh((s − c)/2)` |
@@ -2262,9 +2262,9 @@ Round 60's Galerkin transfer assumed `TruncDense`. This round proves it for the 
 | step | theorems | content |
 |---|---|---|
 | smooth approximant | `av3_C2`, `av3_dense` (TheoremC.lean) | round 55's density, refactored. `f` is approximated by `h = Av_δ³ψ`, which is `C²`, with `h, h', h''` vanishing outside `[−a, a]`. `green_dense` is now a corollary |
-| cosine series | `fco_norm_le`, `fco_deriv`, `cos_series` | two integrations by parts with Mathlib's `fourierCoeffOn_of_hasDerivAt`; the edge terms vanish because `h(±a) = h'(±a) = 0`. So `|ĉ_n| ≤ (a/π)² sup|h''|/n²`. Mathlib's `has_pointwise_sum_fourier_series_of_summable`, on the circle of length `2a` via `AddCircle.liftIco`, gives `h(t) + r = Σ_n d_n cos(nπt/a)` on `[−a, a]`, with `|d_n| ≤ C/n²`. Averaging `t` and `−t` removes the sines |
-| tails | `abs_cos_sub_cos_le_sqrt`, `trunc_error` | the error `S_K − h` of the partial sums is `≤ μ_K = Σ_{n≥K}|d_n|` and `½`-Hölder with constant `ν_K = Σ_{n≥K}|d_n|√(2nπ/a)`, from `|cos x − cos y| ≤ √(2|x − y|)`. Since `|d_n|√n = O(n^{−3/2})`, `μ_K, ν_K → 0` |
-| energy | `ind_autocorr_le`, `ind_energy` | if `φ² ≤ M` and `(φ(t) − φ(s))² ≤ D|t − s|` on `[−a, a]`, then `f(0) − f(u) ≤ (aD + M)u` for `1_{[−a,a]}φ`. The interior costs `D·u·2a` and the two edge jumps cost `M·2u`. With `u·K(u) ≤ 16e^{−u/4}` this gives `E_arch ≤ (aD + M)E₀` and `‖·‖² ≤ 2aM` |
+| cosine series | `fco_norm_le`, `fco_deriv`, `cos_series` | two integrations by parts with Mathlib's `fourierCoeffOn_of_hasDerivAt`; the edge terms vanish because `h(±a) = h'(±a) = 0`. So `\|ĉ_n\| ≤ (a/π)² sup\|h''\|/n²`. Mathlib's `has_pointwise_sum_fourier_series_of_summable`, on the circle of length `2a` via `AddCircle.liftIco`, gives `h(t) + r = Σ_n d_n cos(nπt/a)` on `[−a, a]`, with `\|d_n\| ≤ C/n²`. Averaging `t` and `−t` removes the sines |
+| tails | `abs_cos_sub_cos_le_sqrt`, `trunc_error` | the error `S_K − h` of the partial sums is `≤ μ_K = Σ_{n≥K}\|d_n\|` and `½`-Hölder with constant `ν_K = Σ_{n≥K}\|d_n\|√(2nπ/a)`, from `\|cos x − cos y\| ≤ √(2\|x − y\|)`. Since `\|d_n\|√n = O(n^{−3/2})`, `μ_K, ν_K → 0` |
+| energy | `ind_autocorr_le`, `ind_energy` | if `φ² ≤ M` and `(φ(t) − φ(s))² ≤ D\|t − s\|` on `[−a, a]`, then `f(0) − f(u) ≤ (aD + M)u` for `1_{[−a,a]}φ`. The interior costs `D·u·2a` and the two edge jumps cost `M·2u`. With `u·K(u) ≤ 16e^{−u/4}` this gives `E_arch ≤ (aD + M)E₀` and `‖·‖² ≤ 2aM` |
 | basis | `cosB_probe`, `probe_of_mem_cosTrunc`, `cosTrunc_mono`, `cosSum_mem` | each `1_{[−a,a]}cos(kπt/a)` is a probe (by `ind_energy`, despite the jump at `±a`), so is every element of the span; the spaces increase in `K`; the truncated partial sum lies in `cosTrunc a K` |
 | diagonal | `truncDense_of_approx`, `cos_approx` | every accuracy is reached in some `cosTrunc a K`; with increasing spaces, `Nat.findGreatest` picks one sequence |
 | corollaries | `cosTrunc_dense`, `simple_of_cos_gap`, `lam2Ge_of_cos` | round 60's `simple_of_trunc_gap` and `lam2Ge_of_trunc` for this basis |
@@ -2289,8 +2289,8 @@ The target was the second-moment condition `κ(a) → 0`, i.e. `m₂(g_a) → M�
 
 | theorem | statement |
 |---|---|
-| `hurwitz_closed_on`, `rh_of_strip_cross`, `rh_of_hypConvStrip_top` | Hurwitz on an open set. Every zero of `Ξ` lies in `|Im z| < ½`, so **locally uniform convergence on that strip alone** gives RH for the top-of-chain ground states |
-| `norm_ghatC_sub_le` | `|ĝ(z) − φ̂(z)| ≤ √(2a) e^{a|Im z|} ‖g − φ‖` (Cauchy–Schwarz on `[−a, a]`) |
+| `hurwitz_closed_on`, `rh_of_strip_cross`, `rh_of_hypConvStrip_top` | Hurwitz on an open set. Every zero of `Ξ` lies in `\|Im z\| < ½`, so **locally uniform convergence on that strip alone** gives RH for the top-of-chain ground states |
+| `norm_ghatC_sub_le` | `\|ĝ(z) − φ̂(z)\| ≤ √(2a) e^{a\|Im z\|} ‖g − φ‖` (Cauchy–Schwarz on `[−a, a]`) |
 | `tendstoLocallyUniformlyOn_of_close`, `tendstoLocallyUniformlyOn_ratio`, `hypConvStrip_of_close` | if `φ̂_n → cΞ` on the strip (`KernelApprox`) and `√(2a_n) e^{b a_n}‖g_n − φ_n‖ → 0` for every `b < ½`, then (a) holds on the strip |
 | `rh_of_close_top` | **RH ⇐ `‖σ_n·topGS(a_n) − φ_n‖ = o(e^{−b a_n}/√a_n)` for every `b < ½`**, with signs `σ_n ≠ 0` |
 | `normSq_sub_le_of_gap`, `rh_of_relgap` | min–max: `‖g − φ‖² ≤ 2(Q(φ) − λ₁)/(λ₂ − λ₁)`; hence RH from a relative spectral gap |
@@ -2338,11 +2338,11 @@ Round 62 left one classical input unformalised: `KernelApprox`, Riemann's formul
 | Euler's integral on the line | `integral_exp_theta_term`, `integrable_exp_theta_term` | `∫_ℝ e^{αu} e^{−ce^{2u}} du = ½(1/c)^{α/2}Γ(α/2)` for `Re α > 0`, via `x = e^{2u}` (`integral_comp_exp`) and `integral_cpow_mul_exp_neg_mul_Ioi` |
 | one term | `phiT_split`, `integral_phiT` | `∫ φ_n(u)e^{izu} du = (s(s−1)/4)(πn²)^{−s/2}Γ(s/2)`, with `s = ½ + iz` and `Im z < −½`; the functional equation of `Γ` combines the two pieces |
 | the sum | `summable_integral_norm_phiT`, `integral_RPhi_halfplane` | the norm integrals are `O(n^{−Re s})`, so the sum integrates termwise (`hasSum_integral_of_summable_integral_norm`). Mathlib's `completedZeta_eq_tsum_of_one_lt_re` gives `ξ(s)/2` for `Im z < −½` |
-| derivatives | `hasDerivAt_thF`, `hasDerivAt_thF1`, `th_all_le`, `hasDerivAt_thG`, `hasDerivAt_thG1` | termwise differentiation of `Σ e^{u/2 − πn²e^{2u}}` twice, with one majorant `K(n⁴ + 1)e^{−rn}` on `|u| ≤ R` |
+| derivatives | `hasDerivAt_thF`, `hasDerivAt_thF1`, `th_all_le`, `hasDerivAt_thG`, `hasDerivAt_thG1` | termwise differentiation of `Σ e^{u/2 − πn²e^{2u}}` twice, with one majorant `K(n⁴ + 1)e^{−rn}` on `\|u\| ≤ R` |
 | theta kernel | `theta_eq_sum`, `theta_even` | `e^{u/2}θ(e^{2u}) = 2Σ_{n≥0} e^{u/2−πn²e^{2u}} − e^{u/2}` (`hasSum_int_evenKernel`); it is even by `evenKernel_functional_equation` |
 | evenness | `thFF1_odd`, `thFF2_even`, `RPhi_eq`, `RPhi_even` | `4Φ = F'' − F/4` with `F` even, so `Φ` is even |
-| decay, continuity | `RPhi_decay`, `continuous_RPhi`, `memLp_RPhi` | `|Φ(u)| ≤ Ce^{−2|u|}` |
-| continuation | `norm_RPhiHat_sub_le`, `tendstoUniformlyOn_ghatC_RPhi`, `differentiableOn_RPhiHat`, `RPhiHat_eq` | truncations converge uniformly on `|Im z| ≤ 1` (tail `≤ De^{−a/2}`), so `Φ̂` is holomorphic on `|Im z| < 1`. It equals `Ξ/2` on `−1 < Im z < −½`, hence on the whole strip (identity theorem) |
+| decay, continuity | `RPhi_decay`, `continuous_RPhi`, `memLp_RPhi` | `\|Φ(u)\| ≤ Ce^{−2\|u\|}` |
+| continuation | `norm_RPhiHat_sub_le`, `tendstoUniformlyOn_ghatC_RPhi`, `differentiableOn_RPhiHat`, `RPhiHat_eq` | truncations converge uniformly on `\|Im z\| ≤ 1` (tail `≤ De^{−a/2}`), so `Φ̂` is holomorphic on `\|Im z\| < 1`. It equals `Ξ/2` on `−1 < Im z < −½`, hence on the whole strip (identity theorem) |
 | conclusion | `kernelApprox_RPhi`, `rh_of_close_RPhi` | `KernelApprox a (fun _ => Φ)` for every `a_n → ∞`; RH from closeness to `Φ` |
 
 **What this gives, and what it does not.**
@@ -2355,8 +2355,8 @@ Round 62 left one classical input unformalised: `KernelApprox`, Riemann's formul
 
 | theorem | change |
 |---|---|
-| `RPhi_decay_gen` | `|Φ(u)| ≤ C_B e^{−B|u|}` for every real `B`, from `X^m e^{−πX/2} ≤ m!(2/π)^m` with `m = ⌈B/2⌉ + 3` and `X = e^{2u}`; evenness for `u < 0`. `RPhi_decay` is the case `B = 2` |
-| `norm_RPhi_exp_le`, `integrable_RPhi_exp`, `norm_RPhiHat_sub_le`, `tendstoUniformlyOn_ghatC_RPhi` | now on every strip `|Im z| ≤ M`, using the decay rate `M + 1` |
+| `RPhi_decay_gen` | `\|Φ(u)\| ≤ C_B e^{−B\|u\|}` for every real `B`, from `X^m e^{−πX/2} ≤ m!(2/π)^m` with `m = ⌈B/2⌉ + 3` and `X = e^{2u}`; evenness for `u < 0`. `RPhi_decay` is the case `B = 2` |
+| `norm_RPhi_exp_le`, `integrable_RPhi_exp`, `norm_RPhiHat_sub_le`, `tendstoUniformlyOn_ghatC_RPhi` | now on every strip `\|Im z\| ≤ M`, using the decay rate `M + 1` |
 | `differentiable_RPhiHat` | `Φ̂` is entire: each `z` lies in an open strip where the truncations converge uniformly |
 | `RPhiHat_eq` | the identity theorem on `ℂ` (preconnected), from agreement on `Im z < −½` |
 
@@ -2449,7 +2449,7 @@ The certified gaps (round 20's `a ≤ 0.3466` and `log 2 ≤ 2a ≤ 0.7`, round 
 | `pm_le_of` | the proofs of `pm_le1`–`pm_le5`, `pm_leB1`–`pm_leB5` and `pm_leC1`–`pm_leC5`. From `cval_k ≤ C` and `a ≤ A ≤ ½`, `p_k ≤ (1.05·C + 21β²A⁴/30)/8`. Each stated bound is this value rounded up, checked by `norm_num` |
 | `term_mode` | the proofs of `term1`–`term5`, `termB1`–`termB5` and `termC1`–`termC5`. It is `modeE_ge` plus `term_ge` with a generic subtracted prime term `Y ≤ X`. The side condition `ψ̲ ≤ τ` now needs only `err(a) ≥ 0` (`errK_nonneg`): every `C_v + a_max·D ≤ τ`, so the old lower bounds on `a` and `err(a)` were not needed |
 | `tail_branch` | the six-way and four-way case splits of `tailC_pos` and `tailB_pos`: one `Cin` value at `Mπ/2` and a bound `D_n ≤ B` give one branch. The tightest branch is `tailC_pos` at `n ≤ 6`: `2.7011 ≥ 2.7` |
-| `sum_lowS_even` | the three unrolled 11-term expansions of `Σ_{|n| ≤ 5}` in the gap assemblies |
+| `sum_lowS_even` | the three unrolled 11-term expansions of `Σ_{\|n\| ≤ 5}` in the gap assemblies |
 
 **On kernel evaluation.** Round 65's `decide +kernel` applied because the `Cin` chain reduces to closed rational sums. These files' numerics do not: they are inequalities in a real parameter `a` with `π`, `log 2` and `√2`. The rational leftovers after parametrising are single `norm_num` or `linarith` steps, so kernel evaluation would add cast plumbing and no reduction. The reduction here comes from parametrising.
 
@@ -6008,10 +6008,10 @@ with `K` real and not even.
 
 | | Result |
 |---|---|
-| **B1** (no real zeros) | **holds**: all 28 have `|Im z| ≥ 0.38` |
+| **B1** (no real zeros) | **holds**: all 28 have `\|Im z\| ≥ 0.38` |
 | **B2** (pairs `z, −z̄`) | **holds**: 28 of 28 |
 | **B3** (between 10 and 20 zeros) | **fails**: 28, twice round 171's 14 |
-| **B4** (real-rootedness lost) | **holds**: 28 of 28 have `|Im z| > 0.1` |
+| **B4** (real-rootedness lost) | **holds**: 28 of 28 have `\|Im z\| > 0.1` |
 
 **Structure (post hoc).** The zeros form two rows of 7 per side.
 - **Upper row, `Im z ≈ +0.38` to `+0.91`:** real parts `11.84, 17.82, 22.94, 27.34, 31.23, 34.76, 38.52`. These are round 171's real zeros (`12.24, …, 38.91`), each lifted off the axis and moved slightly left.
@@ -6269,10 +6269,10 @@ Compiles with no `sorry`. Every main theorem depends only on the standard axioms
 | `ballVol_add_two`, `sphereArea_add_two` | two-step recurrences `V(n+2) = 2π/(n+2)·V(n)` and `S(n+2) = 2π/n·S(n)` |
 | `ballVol_lt_five` | for every whole number `n ≠ 5`, `V(n) < V(5)` |
 | `sphereArea_lt_seven` | for every `n ≠ 7`, `S(n) < S(7)`: the sphere `S⁶` has the largest area |
-| `Gammaℝ_mul_sphereArea` | `Gammaℝ(n)·|S^{n−1}| = 2` |
+| `Gammaℝ_mul_sphereArea` | `Gammaℝ(n)·\|S^{n−1}\| = 2` |
 | `zeta_from_primes` | `ζ = ∏_p (1 − p^{−s})⁻¹` for `Re s > 1` (Mathlib's Euler product) |
 | `exists_exp_of_ne_zero` | a zero-free entire function is `exp` of an entire function |
-| `affine_of_re_growth` | an entire `g` with `Re g ≤ K(1+|z|)^ρ`, `ρ < 2`, is affine (Borel–Carathéodory plus Cauchy) |
+| `affine_of_re_growth` | an entire `g` with `Re g ≤ K(1+\|z\|)^ρ`, `ρ < 2`, is affine (Borel–Carathéodory plus Cauchy) |
 | `const_of_symmetric` | a zero-free entire `h` of order `< 2` with `h(1−s) = h(s)` is constant |
 | `completing_factor_unique` | if `h·Gammaℝ` also completes `ζ` symmetrically (`h Λ` invariant under `s ↦ 1−s` on `Re s > 1`), with `h` zero-free and entire of order `< 2`, then `h` is constant |
 
@@ -6396,7 +6396,7 @@ Compiles with no `sorry`; standard axioms only.
 
 | definition / theorem | statement |
 |---|---|
-| `angularCoeff k n` | `¼ Σ_{z on shell n} (z/|z|)^{4k}`: the `k`-th angular harmonic of the teeth |
+| `angularCoeff k n` | `¼ Σ_{z on shell n} (z/\|z\|)^{4k}`: the `k`-th angular harmonic of the teeth |
 | `angularL k` | its Dirichlet series: the `k`-th grinding channel of round 188 |
 | `member_zero_coeff` | `angularCoeff 0 n = Σ_{d∣n} χ₄(d)` (from round 187's two-square theorem) |
 | `member_zero_eq` | `angularL 0 s = ζ(s)·L(s, χ₄)` for `Re s > 1` |
@@ -6462,8 +6462,8 @@ The PrimeNumberTheoremAnd project already proves both rungs in Lean. We built it
 
 | layer | content | status |
 |---|---|---|
-| (I) Vinogradov's mean value theorem | `∫|Σ_{n≤N} e(α₁n + … + α_k n^k)|^{2s} ≪ N^{2s − k(k+1)/2 + ε}` (Wooley; Bourgain–Demeter–Guth) | not formalised anywhere that I know of |
-| (II) KV exponential-sum and ζ bounds | `Σ_{N<n≤2N} n^{−it} ≪ N·exp(−c(log N)³/(log t)²)`; then `|ζ(σ+it)| ≪ t^{B(1−σ)^{3/2}}(log t)^{2/3}` near `σ = 1` | not formalised (PNT+ has a Vinogradov-type explicit bound only as a stated `sorry`, `theorem_1_4`) |
+| (I) Vinogradov's mean value theorem | `∫\|Σ_{n≤N} e(α₁n + … + α_k n^k)\|^{2s} ≪ N^{2s − k(k+1)/2 + ε}` (Wooley; Bourgain–Demeter–Guth) | not formalised anywhere that I know of |
+| (II) KV exponential-sum and ζ bounds | `Σ_{N<n≤2N} n^{−it} ≪ N·exp(−c(log N)³/(log t)²)`; then `\|ζ(σ+it)\| ≪ t^{B(1−σ)^{3/2}}(log t)^{2/3}` near `σ = 1` | not formalised (PNT+ has a Vinogradov-type explicit bound only as a stated `sorry`, `theorem_1_4`) |
 | (III) Landau's lemma | growth bound (II) + the 3-4-1 inequality + Borel–Carathéodory ⇒ `KVInput n₁ n₂` for every `n₁ > 2/3` | not formalised in this generality; PNT+ does the `n₁ = 1` case |
 
 **Check 4:** classical; the reduction file is new to the pilot. **Bearing on RH:** none.
@@ -6515,7 +6515,7 @@ This is layer I of rung 3. `J s k N` counts the pairs of `s`-tuples from `{1..N}
 
 | step | content | status |
 |---|---|---|
-| I.1 | orthogonality: `J = ∫_{[0,1]^k} |Σ e(α·(n,…,nᵏ))|^{2s}` | open |
+| I.1 | orthogonality: `J = ∫_{[0,1]^k} \|Σ e(α·(n,…,nᵏ))\|^{2s}` | open |
 | I.2 | Hölder/Cauchy–Schwarz monotonicity `J_{s+1} ≤ N²·J_s` | open |
 | I.3 | Linnik–Karatsuba p-adic iteration, giving `J_{s,k}(N) ≤ C·N^{2s − k(k+1)/2 + Δ}` with `Δ → 0` as `s/k² → ∞` | open (the core) |
 | I.4 | from I.3 to the Weyl-sum bound `Σ n^{−it} ≪ N^{1−c/k²}` for `N ~ t^{1/k}` | open (layer II) |
@@ -6790,7 +6790,7 @@ Axioms are clean.
 |---|---|
 | (A), (B′), (D), factorisation, per-`n` bilinear bound | done |
 | (E) shift and Taylor | **done** |
-| (F) assembly: explicit VMVT constants; choose `M ≈ N^{1/4}`, `K`, `ℓ`; good coordinate `j` with `|α_j| L_j ≤ 1/2` and `1/(|α_j| L_j²)` small | open |
+| (F) assembly: explicit VMVT constants; choose `M ≈ N^{1/4}`, `K`, `ℓ`; good coordinate `j` with `\|α_j\| L_j ≤ 1/2` and `1/(\|α_j\| L_j²)` small | open |
 | (G) ζ growth `PolylogGrowth a K` | open |
 
 **Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
@@ -6846,7 +6846,7 @@ Axioms are clean.
 |---|---|
 | (A)–(F) | done |
 | (G1) explicit VMVT constants | **done** |
-| (G2) parameter choice per block (`M = N^θ`, `r`, `K ≈ 2r`, `ℓ`) ⇒ `|Σ_{N<n≤N'} n^{−it}| ≤ N^{1−c(log N/log t)^6}` | open |
+| (G2) parameter choice per block (`M = N^θ`, `r`, `K ≈ 2r`, `ℓ`) ⇒ `\|Σ_{N<n≤N'} n^{−it}\| ≤ N^{1−c(log N/log t)^6}` | open |
 | (G3) partial summation to `n^{−σ−it}`; ζ approximation; small-`N` blocks trivially | open |
 | (G4) assemble `PolylogGrowth (6/7) K` ⇒ `rung3_of_growth` | open |
 
@@ -6870,7 +6870,7 @@ Axioms are clean.
 | (A)–(F), (G1) explicit constants | done |
 | (G2a) partial blocks, (G2b) Abel summation | **done** |
 | (G2c) parameter choice per block ⇒ per-block saving `N^{−c(log N/log t)^6}` for `N ≥ exp(c(log t)^{5/6})` | open |
-| (G2d) Dirichlet-polynomial growth `|Σ_{n≤t^{3/2}} n^{−σ−it}| ≤ K(log t)^K` for `σ ≥ 1 − (log t)^{−a}` | open |
+| (G2d) Dirichlet-polynomial growth `\|Σ_{n≤t^{3/2}} n^{−σ−it}\| ≤ K(log t)^K` for `σ ≥ 1 − (log t)^{−a}` | open |
 | (G4) bridge in PNT+: ζ approximation ⇒ `PolylogGrowth a K` ⇒ `rung3_of_growth`; port layers I–II to PNT+'s toolchain | open |
 
 **Check 4:** classical. The Lean forms are new to the pilot. **Bearing on RH:** none.
@@ -6930,7 +6930,7 @@ The explicit constant is `B = 260e^{128} + 3·2^{27}`.
 | layer II step | status |
 |---|---|
 | (A)–(G2d) | **done** |
-| (G4) bridge in PNT+: ζ approximation with `X = |t|^{5/4}` ⇒ `PolylogGrowth (6/7) K` ⇒ `rung3_of_growth`; port layers I–II to PNT+'s toolchain | open |
+| (G4) bridge in PNT+: ζ approximation with `X = \|t\|^{5/4}` ⇒ `PolylogGrowth (6/7) K` ⇒ `rung3_of_growth`; port layers I–II to PNT+'s toolchain | open |
 
 **Check 4:** classical (Vinogradov's method with a weak mean value theorem). **Bearing on RH:** none.
 
@@ -8214,7 +8214,7 @@ Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`
 | `‖GEM‖ ≤ C` on the box of `closedBall c (r + R)`; `2C/R²` | `0.9415`; `11.77` | `0.9803`; `16.00` | `0.471`; `7.69` |
 | `m₂ = d₂ + 2C/R²` | `92.86` | `172.7` | `91.46` |
 | `ar` (true `Re fEM′(c)`) | `0.85` (`0.8679`) | `0.6` (`0.6179`) | `1.1` (`1.1680`) |
-| `pr = pi` (true `|Re fEM(c)|`, `|Im fEM(c)|`) | `3·10⁻⁴` (`2.1·10⁻⁷`, `2.0·10⁻⁶`) | `9·10⁻⁵` (`3.0·10⁻⁶`, `2.5·10⁻⁶`) | `6·10⁻⁴` (`1.1·10⁻⁶`, `3.3·10⁻⁶`) |
+| `pr = pi` (true `\|Re fEM(c)\|`, `\|Im fEM(c)\|`) | `3·10⁻⁴` (`2.1·10⁻⁷`, `2.0·10⁻⁶`) | `9·10⁻⁵` (`3.0·10⁻⁶`, `2.5·10⁻⁶`) | `6·10⁻⁴` (`1.1·10⁻⁶`, `3.3·10⁻⁶`) |
 | margin `2(pr + pi + e₀) < ar·r − m₂r²` | `1.22·10⁻³ < 1.93·10⁻³` | `3.93·10⁻⁴ < 5.09·10⁻⁴` | `2.46·10⁻³ < 3.27·10⁻³` |
 | enclosures `PReG`, `PImG` (widths), rounded outward *(corrected in round 271)* | `[−1.36, 5.84]·10⁻⁷` (`7.2·10⁻⁷`), `[−2.335, −1.615]·10⁻⁶` (`7.2·10⁻⁷`) | `[1.98, 4.01]·10⁻⁶` (`2.0·10⁻⁶`), `[1.45, 3.48]·10⁻⁶` (`2.0·10⁻⁶`) | `[5.73, 16.96]·10⁻⁷` (`1.1·10⁻⁶`), `[−3.881, −2.757]·10⁻⁶` (`1.1·10⁻⁶`) |
 | enclosure `AReG` (width), rounded outward | `[0.8679346, 0.8679376]` (`2.9·10⁻⁶`) | `[0.6178761, 0.6178851]` (`8.9·10⁻⁶`) | `[1.1679517, 1.1679566]` (`4.8·10⁻⁶`) |

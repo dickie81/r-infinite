@@ -4,7 +4,7 @@ These files build on zeta23, the Lean formalisation that accompanies Alpöge–F
 
 | file | round | content |
 |---|---|---|
-| `SlogZeta.lean` | 228 | von Mangoldt's bound `|S(t)| ≤ C log t` for Mathlib's `riemannZeta`, in the pilot's terms; the 1ca wall law without `hSlog` |
+| `SlogZeta.lean` | 228 | von Mangoldt's bound `\|S(t)\| ≤ C log t` for Mathlib's `riemannZeta`, in the pilot's terms; the 1ca wall law without `hSlog` |
 | `HybridCertificate.lean` | 276 | the rank–trace certificate on zeta23's zero side for coupled vectors `v = w + (ηg)u`, with no RH: one term is a sum over the off-line zeros alone, and it can be replaced by a displayed hypothesis |
 | `HybridExamples.lean` | 276 | concrete instances of five of the hybrid certificates, with every hypothesis discharged; an instance on which the off-line term cannot be dropped |
 
@@ -15,7 +15,7 @@ These files build on zeta23, the Lean formalisation that accompanies Alpöge–F
 | result | zeta23 name | content |
 |---|---|---|
 | Montgomery–Vaughan | `Zeta23.MV.mv_hilbert` | the weighted Hilbert inequality `∃ C > 0, MVHilbert C` (C = 26) |
-| Riemann–von Mangoldt | `Zeta23.RvM.riemannVonMangoldt` | `N(T, 2T) = (T/2π)ℓ₁(T) + O(log T)` and the local count `N(t, t+1] ≤ A₀ log(|t| + 3)`, given the Γ facts |
+| Riemann–von Mangoldt | `Zeta23.RvM.riemannVonMangoldt` | `N(T, 2T) = (T/2π)ℓ₁(T) + O(log T)` and the local count `N(t, t+1] ≤ A₀ log(\|t\| + 3)`, given the Γ facts |
 | the Γ facts | `Zeta23.gammaFacts` | Stirling for `μ(τ) = (1/2π)Re ψ(¼ + iτ/2) − log π/2π` and its integrals |
 | the zero side | `ZeroBlockData`, `RHLinalg.rank_trace_ineq_two` | the abstract zero-block data on which zeta23 proves prop:block (`Zeta23.ZeroSide`), its split `Â = P_c + Q_c`, and the rank–trace inequality (`Zeta23.LinAlg.RankTrace`) |
 
