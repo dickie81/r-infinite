@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1505 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1516 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -229,6 +229,7 @@ Every file ends with `#print axioms`. All 1505 checked theorems in `src/` (and t
 | `EisensteinMeanSquareDual.lean` | 1020 | **S4, part 10: the mean square from the dual mean square**: weights and bumps (`weight_support`, `exists_bump`); counting (`idealCount_le`, `four_pow_card_le`, `sum_fsLe_inv_le`, `sum_fsLe_four_pow_le`); the zero frequency (`zero_term_le`); the rows that can contribute (`goodRow`, `rowTerm_eq_zero`); one excluded ideal over the dyadic levels of `N(f)` (`bTerm_bound`); the mean square at one scale (`famSum_meanSquare_le`); **`meanSquare_of_dualMeanSquare`** (`DualMeanSquare ϑ ⇒ MeanSquare ϑ` for `ϑ > 0`) and **`ne_zero_of_dualMeanSquare`** (round 310) |
 | `EisensteinCompletedSums.lean` | 568 | **S5, part 1: the completed sums and the cube inversion**: primary generators and `α` multiplicative on all ideals of norm prime to `6` (`exists_primary_gen`, `pgen_mul6`, `alphaI_mul6`); the twist `twistPsi` (completely multiplicative); `Σ_{𝔥∣𝔠} μ(𝔥) = [𝔠 = 1]` (`tsum_moebius_dvd`); the completed sum `compT` (the companion paper's (5.3)); **`cube_inversion`** (its (5.8)) (round 313) |
 | `EisensteinCubeReduction.lean` | 867 | **S5, part 2: Lemma 5.3, the cube reduction**: the harmonic sum over ideals (`sum_idealsLe_inv_le`); the completed sum through the column sums (`compT_eq_sum_colSum`); the split at `N(𝔥)³ ≤ H_c³` (`colSum_split`); weighted Cauchy–Schwarz over the rows (`rows_cs`, `rows_short_le`, `rows_long_le`); the long part at one scale (`inv_mul_rowE_le`); the companion paper's Proposition 5.2 displayed (`CompletedMeanSquare`); **`cube_reduction`** (its Lemma 5.3) (round 314) |
+| `EisensteinDescent.lean` | 515 | **S5, part 3: Proposition 5.1 and the third conditional milestone**: counting (`colSum_eq_zero_of_lt`, `norm_colSum_le`, `rowE_le_count`); the companion paper's Proposition 5.4 displayed (`TransferEstimate`); the induction on `𝓗 ≤ D^{jη}` (`CanonicalAt`, `canonicalAt_zero`, `canonicalAt_succ`, `transferred_level`, `transferred_gap`); **`canonical_bound`** (its Proposition 5.1); **`dualMeanSquare_of_completed_transfer`** (`DualMeanSquare ϑ` for every `ϑ > 0`); **`ne_zero_of_completed_transfer`** (`ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > 11/12` from Propositions 5.2 and 5.4) (round 315) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9794,7 +9795,7 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 
 **The plan for S5.** It is staged by displayed hypotheses, as S4 was staged by `DualMeanSquare`.
 - **S5a.** `T(X;Ψ)` and its cube inversion (5.8); Lemma 5.3, with Proposition 5.2 as a displayed hypothesis (`CompletedMeanSquare`). *(Round 313: `T(X;Ψ)` and the cube inversion landed, `Eis.compT` and `Eis.cube_inversion`.)* *(Round 314: Lemma 5.3 landed, `Eis.cube_reduction`, with Proposition 5.2 displayed as `Eis.CompletedMeanSquare`; S5a is complete.)*
-- **S5b.** The induction of Proposition 5.1, with Proposition 5.4 also displayed (`TransferEstimate`). With rounds 310 and 288 this is the third conditional milestone: the two displayed estimates give `DualMeanSquare ϑ` for every `ϑ > 0`, hence `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5ϑ)/12` for every `ϑ > 0`, that is on `Re s > 11/12`. (Round 282: the release's Lean for this route reaches `23/24`.)
+- **S5b.** The induction of Proposition 5.1, with Proposition 5.4 also displayed (`TransferEstimate`). With rounds 310 and 288 this is the third conditional milestone: the two displayed estimates give `DualMeanSquare ϑ` for every `ϑ > 0`, hence `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5ϑ)/12` for every `ϑ > 0`, that is on `Re s > 11/12`. (Round 282: the release's Lean for this route reaches `23/24`.) *(Round 315: landed. `Eis.ne_zero_of_completed_transfer` derives `Re s > 11/12` from `Eis.CompletedMeanSquare` and `Eis.TransferEstimate`.)*
 - **S5c.** Proposition 5.4 derived (Section 7), reusing S4.
 - **S5d.** Proposition 5.2 derived from the theta transformation (Proposition 6.2 with Lemmas 6.3–6.4) and Lemma 6.5. Both stay displayed hypotheses for now; this round does Section 6.4's assembly.
 - **S5e.** The quadratic large sieve over `ℤ[ω]` (Lemma 6.5) derived.
@@ -9867,7 +9868,7 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 **The hypothesis's range.**
 - The paper's supremum runs over the values `L_b = X/N_K(b)³` with `N_K(b) > H_c` and `L_b > 1`. Each has `L_b ≤ X` and `L_b·H_c³ < X`.
 - The Lean hypothesis asks for the bound at every real `L` in that range, which is more than the supremum needs.
-- In the paper's proof of Proposition 5.1 (read this round), `L_b` enters through three facts. The first is `L_b > 1`. The second is `L_b ≤ X`: "Since `L_b≤X` and `Σ≥max{𝓗,L_bF}`", and `Σ′ ≤ L_b ≤ Σ`. The third is `N_K(b) > H_c`: "By (5.12) and `N_K(b)>H_c`", with `𝓗′ ≤ 𝓗L_b/(ΣF) < 𝓗(𝓗/Σ)²`. For real `L` the third reads `L < 𝓗²/X`, which is `L·H_c³ < X` when `𝓗² > X`. So that argument covers the real range, and S5b will carry it out.
+- In the paper's proof of Proposition 5.1 (read this round), `L_b` enters through three facts. The first is `L_b > 1`. The second is `L_b ≤ X`: "Since `L_b≤X` and `Σ≥max{𝓗,L_bF}`", and `Σ′ ≤ L_b ≤ Σ`. The third is `N_K(b) > H_c`: "By (5.12) and `N_K(b)>H_c`", with `𝓗′ ≤ 𝓗L_b/(ΣF) < 𝓗(𝓗/Σ)²`. For real `L` the third reads `L < 𝓗²/X`, which is `L·H_c³ < X` when `𝓗² > X`. So that argument covers the real range, and S5b will carry it out. *(Round 315: carried out in `Eis.canonicalAt_succ`.)*
 
 **Build.** Incremental pilot build: 1 compiled, 201 up to date, 41 s, 0 warnings. The 26 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1505 in `src/`. No other file imports `EisensteinCubeReduction`. The 29 new named declarations were checked for clashes against the Lean files of `src/` and `external/` and against Mathlib's `theorem`, `lemma`, `def` and `abbrev` lines. The draft's `Lp` also names Mathlib's `MeasureTheory.Lp`, so it was renamed `pairScale` before landing.
 
@@ -9876,8 +9877,56 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 - its use of the completed mean-square estimate at `2D`;
 - the hypothesis on the real range of `L`.
 
-**Not yet here:** S5b, the induction of Proposition 5.1, with Proposition 5.4 displayed as `TransferEstimate`; then S5c–S5f.
+**Not yet here:** S5b, the induction of Proposition 5.1, with Proposition 5.4 displayed as `TransferEstimate`; then S5c–S5f. *(Round 315: S5b landed, `Eis.canonical_bound` and `Eis.ne_zero_of_completed_transfer`.)*
 
 **Check 9.** No barrier claim is made.
 
 **Bearing on RH:** none.
+
+## Round 315: S5, part 3 — Proposition 5.1 and the third conditional milestone (`src/EisensteinDescent.lean`)
+
+**What it is.** S5b in round 312's plan. The companion paper's Proposition 5.1 is proved by its induction, with its Proposition 5.4 displayed as a second hypothesis beside round 314's `CompletedMeanSquare`. With rounds 310 and 288 this gives the third conditional milestone.
+
+**The milestone** (`ne_zero_of_completed_transfer`): `CompletedMeanSquare → TransferEstimate → 11/12 < Re s → ζ(s) ≠ 0 ∧ L(s, χ₋₃) ≠ 0`. The proof takes `ϑ = (12·Re s − 11)/10 > 0` in round 310's `ne_zero_of_dualMeanSquare`, with `DualMeanSquare ϑ` from `dualMeanSquare_of_completed_transfer`. (Round 282: the release's Lean for this route reaches `23/24`.)
+
+**The displayed hypothesis** (`TransferEstimate`). The paper's Proposition 5.4, with its LaTeX rendered as text: "Assume `1≤𝓗,L,F,Σ≤D^{C_0}` and `max{𝓗,LF}≤Σ`, for fixed `C_0≥1`. For every integer `m≥0` and `ε>0`, `𝒜(W) ≪ D^εΣ‖W‖²_{C^{4m+12}(I)}(1 + sup E(𝓗′,X′,F′;ξ′,U)/Σ′)` where the supremum is over the family (4.9), with `Σ′=X′F′`, `𝓗′,X′,F′≥1`, and `𝓗′≤𝓗L/(ΣF)`, `𝓗′/Σ′≤𝓗/Σ`, `Σ′≤L`. For `I=[u,v]`, the tests satisfy `U∈C_c^∞(I′)`, `I′=[u/16,4v]`, and `‖U‖_{C^m(I′)}≤1`; an empty supremum is zero." Its constant depends "on `m,C_0,ε,I,ν,S` and the fixed ray class group".
+- The Lean form keeps the consequence the proof of Proposition 5.1 uses, "`E(𝓗,L_b,F;ξ,W)≤𝒜(W)`". It bounds the row sums at `L` of any finite set of rows by `K·D^ε·Σ·N²·(1 + M)·LF`, where `N` bounds the first `4m+12` derivatives of `W`.
+- The supremum becomes a hypothesis with a parameter `M ≥ 0`. In the transferred range, for every character `ξ′` and every test `U` supported in `[α/16, 4β]` with its first `m` derivatives bounded by `1`, the row sums at `(𝓗′, X′, F′)` are at most `M·Σ′²`.
+- The paper's statement implies this form, for three reasons:
+  - for the full set of rows the row sum is `LF·E ≤ LF·𝒜(W)`;
+  - the tests with `‖U‖_{C^m} ≤ 1` are among those with each derivative bounded by `1`;
+  - `‖W‖_{C^{4m+12}}` is at most a multiple of `N` that depends only on `m`.
+
+**The induction** (`canonicalAt_zero`, `canonicalAt_succ`), as in the paper's proof.
+- **The level-`j` statement** (`CanonicalAt η C₀ j`) is Proposition 5.1's bound under `𝓗 ≤ D^{jη}`, its derivative order and constant depending on `j`. The paper's gap `𝓗 ≤ ΣD^{−κ}` is written `𝓗·D^η ≤ XF`. The paper's `κ` is `η` here, and `kappa` stays the pilot's ideal-count constant.
+- **The base** `j = 0`: `𝓗 ≤ 1`, and counting (`rowE_le_count`).
+- **The step**:
+  - It applies Lemma 5.3 (round 314's `cube_reduction`) at exponent `ε/3`.
+  - Its hypothesis at each long scale (`1 < L ≤ X`, `L·H_c³ < X`) comes from the transfer estimate at exponent `ε/3`, with `m` the level-`j` derivative order at exponent `ε/3`.
+  - The transferred rows satisfy the level-`j` hypotheses: `transferred_level` gives `𝓗′ ≤ D^{jη}` through the paper's `𝓗′ < 𝓗(𝓗/Σ)²`, and `transferred_gap` gives `𝓗′·D^η ≤ Σ′`. So the level-`j` bound on `[α/16, 4β]`, with `N = 1`, supplies `M = K_j·D^{ε/3}`.
+  - The derivative order is `max(J₁, 4m+12)`, as in the paper's "Choose `J` at least `4m+12` and at least the derivative order required by Lemma 5.3".
+  - The step gives the long-scale bound at every real `L` of the range, which is what round 314's hypothesis asks.
+- **`canonical_bound`**: level `⌈C₀/η⌉` covers every `𝓗 ≤ Σ ≤ D^{C₀}`, as in the paper's "take `j=⌈C_0/κ⌉`".
+
+**From Proposition 5.1 to the dual mean square** (`dualMeanSquare_of_completed_transfer`). This follows the paper's proof of its Proposition 3.1: "For large `D`, Proposition 5.1 applies with `κ=ϑ/2` and `C_0=2`. If `X<1`, nonempty support forces `X≫_I1`, and counting gives `E≪_I𝓗‖W‖²_∞≪Σ‖W‖²_∞`; if `𝓗<1`, the sum is empty." and "Bounded `D` is again covered by counting." The cases, with `X = D/(BF)` and `Σ = XF = D/B`:
+- `𝓗 < 1`: there are no rows `k`.
+- `X < 1`: counting, with `F ≤ βΣ` and `𝓗 ≤ CΣ`.
+- `X ≥ 1` and `C ≤ D^{ϑ/2}`: Proposition 5.1 at `η = ϑ/2` and `C₀ = 1`, since `Σ = D/B ≤ D`.
+- `X ≥ 1` and `D^{ϑ/2} < C`: counting, with `D < C^{2/ϑ}`.
+
+**Build.** Incremental pilot build: 1 compiled, 202 up to date, 21 s, 0 warnings. The 11 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1516 in `src/`. No other file imports `EisensteinDescent`. The 13 new named declarations were checked for clashes against the Lean files of `src/` and `external/` and against Mathlib's `theorem`, `lemma`, `def`, `abbrev`, `structure`, `class`, `inductive` and `instance` lines. The draft's `canonical` was renamed `canonical_bound` before landing, and its `one_le_absNorm_span` was dropped for round 309's lemma of that name.
+
+**Check 4.** New here:
+- the Lean statement of Proposition 5.1;
+- the composition from Propositions 5.2 and 5.4 to (4.12) for every `ϑ > 0` and to `Re s > 11/12`.
+
+The deviations from the paper are the displayed form of Proposition 5.4 (its consequence `E ≤ 𝒜(W)`) and round 314's real range of `L`.
+
+**Not yet here:** S5c (Proposition 5.4 derived, Section 7) and S5d–S5f (Proposition 5.2 derived, Section 6 and Appendix A.2). Until they land, the milestone is conditional on the two displayed estimates.
+
+**Check 9.**
+- (a) No barrier claim is made.
+- (b) The open-targets register (STRUCTURAL-REVIEW §6) now lists the two displayed estimates as the half-plane strand's socket, with attack notes.
+- (c) The signal is unchanged from round 311.
+
+**Bearing on RH:** none. The milestone is a zero-free half-plane `Re s > 11/12` for `ζ` and `L(s, χ₋₃)`, conditional on two displayed estimates from the companion paper. It says nothing about the critical line.
