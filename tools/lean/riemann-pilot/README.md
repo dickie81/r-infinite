@@ -8581,7 +8581,7 @@ Verified:
 
 **The claim.** OpenAI's release `github.com/openai/math` (read at commit `adc7f12`, entry 003) states that every Dirichlet L-function, ζ included, and every finite-order Hecke L-function over `ℚ(√−3)`, has no zero in `Re s > 7/8`. The principal pole is excluded. Sources:
 - Preprint "The Quasi-Riemann Hypothesis: A Zero-Free Half-Plane Re(s)>7/8", dated 30 September 2026.
-- A companion preprint, dated 5 October 2026 and "written with human assistance", gives a different proof of `Re s > 11/12`.
+- A companion preprint, dated 5 October 2026 and "written with human assistance", gives a different proof of `Re s > 11/12`. *(Round 286: family 003 has a third manuscript, "Uniform exclusion of Landau–Siegel zeros" (1 October 2026), with its own comparator challenge `SiegelZeros.json`. See round 286.)*
 
 The Lean targets are stated against Mathlib's own objects:
 - `OAI.riemannZeta_ne_zero_of_seven_eighths_lt_re {s : ℂ} (hs : (7 / 8 : ℝ) < s.re) : riemannZeta s ≠ 0`;
@@ -8897,3 +8897,35 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 **Check 4.** Classical: an Euler-product correction between two Dirichlet series, and the transfer of smoothed bounds through convolution with an absolutely convergent factor. New here: the machine-checked identity `μ_K = f ⍟ h` on Mathlib's `𝓞 ℚ(ζ₃)`, and the transfer to round 278's `SmoothBound θ`.
 
 **Bearing on RH:** none.
+
+## Round 286: horizon scan of 2026-10-08 for the half-plane strand (no new Lean)
+
+**Scope.** This is the horizon scan of CLAUDE.md's "Looking in the right places". It covered `github.com/openai/math`, arXiv math.NT and the Lean community, looking for results that fill a socket on the open-targets register or contradict a barrier claim. A fresh-context survey ran the searches. Every item below was then checked here against its source: repository refs, raw files and arXiv metadata. The survey could not reach:
+- the Lean Zulip (its API needs a login; the public archive was last updated 28 February 2026);
+- the OpenAI announcement page;
+- Reddit.
+
+**The release.**
+- `openai/math` moved from `adc7f12` (read in rounds 277 and 282) to `fd4aeeb` on 2026-10-08, merging PR #1. Its new `history.md`, under "October 7, 2026":
+  - three manuscripts are withdrawn: "In “Algebraicity of Weil classes on split abelian eightfolds” a sign error invalidates a stabilization-trace cancellation argument and the construction used by two dependent papers";
+  - 14 other manuscripts are revised;
+  - "This brings the total percentage of top-line results formalized to 300 / 719 = ~42%."
+- **Family 003 is unchanged.** These files are byte-identical at `fd4aeeb` and `adc7f12`: its four comparator challenges (`QuasiRiemannHypothesis`, `DirichletSevenEighths`, `HeckeSevenEighths`, `SiegelZeros`), `lean/docs/003.md`, `lake-manifest.json` and `lean-toolchain`.
+- **Family 003 has three manuscripts, not the two round 277 lists.** The third is "Uniform exclusion of Landau–Siegel zeros" (1 October 2026). The release's `CONTENTS.md` states an absolute `c > 0` with `(1 − β) log q ≥ c` for every real zero `β ∈ (0, 1)` of every primitive nonprincipal real Dirichlet L-function of conductor `q ≥ 3`. It has its own comparator challenge, `SiegelZeros.json`, with solution module `OAI.NumberTheory.SiegelZeros.Main`. Neither it nor the half-plane excludes real zeros from all of `(0, 1)`, which is what `grh_iff_twins`'s `hS` asks.
+
+**Checks of the release by others.** These were not reproduced here.
+- `davegoldblatt/openai-zeta-proof-check` re-ran the `7/8` comparator at `adc7f12` with the independent nanoda kernel switched on. Its README: "Bottom line: unless both checkers are broken in the same way, the proof checks out. Two caveats. We didn't review OpenAI's written paper, only the computer proof." It adds: "OpenAI's configs leave the second kernel off (402 of 405 set it to false)." Round 277's rebuild here used Lean's kernel only.
+- The survey found no mathematical review of family 003. It searched arXiv (quasi-Riemann, and OpenAI for 6–8 October), the math.NT listings for 2–8 October, and MathOverflow.
+
+**A claimed refinement, not checked here.** `ArgonautMath0/argonaut-math-quasi-riemann-boundary` (README dated October 8, 2026): "Argonaut Math refines the zero-free boundary in OpenAI's quasi-Riemann result from **7/8 = 0.875** to **3499999/4000000 = 0.87499975**, an improvement of **1/4000000**." The README says "The proof builds on the pinned OpenAI source project" (`adc7f12`) and "External reproduction and public review remain open."
+
+**Literature for the open sockets.** A. de Faveri, "Optimal large sieve for fixed order characters", arXiv:2610.04045 (2 October 2026). Its abstract: "We improve the large sieve inequality for n-th order Hecke characters over any number field containing the n-th roots of unity. Our bound is expected to be optimal in all ranges of parameters." This bears on S4, the large sieve over `ℤ[ω]`, and through it on the family mean square. Whether it lowers the `σ` at which the mean square holds is not examined here. It goes on the register as a lead.
+
+**Lean.**
+- The pilot's Mathlib (`0f64d30`) has no match for cubic reciprocity, power residue, large sieve, Hecke character, metaplectic, Kubota or Davenport–Hasse (case-insensitive grep of `Mathlib/`).
+- The release's own library has `cubic_reciprocity` for primary Eisenstein integers (`CubicGram/Reciprocity.lean:189`) and an `EuclideanDomain` instance (`CubicGram/EuclideanDomain.lean:90`). Family 003 also has `symbol_reciprocity` for `λ² ∣ a − 1`, `λ² ∣ b − 1` (`DirichletL/Reciprocity/CubicJacobi.lean:202`).
+- These are evidence for S1's remaining item (primary generators and cubic reciprocity). As with everything else in the release, they are to be derived here, not vendored.
+
+**Outcome.** No result found fills a socket on the register or contradicts a barrier claim. Markers are on round 277 (the third manuscript) and on STRUCTURAL-REVIEW §6 (external status, the Siegel-zero entry, and the lead for the mean-square socket).
+
+**Check 9.** (a) Every negative is scoped to the sources the survey read. (b) No barrier claim is made or accepted. **Bearing on RH:** none.
