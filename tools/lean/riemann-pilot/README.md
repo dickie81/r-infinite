@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 960 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 967 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -198,6 +198,7 @@ Every file ends with `#print axioms`. All 960 checked theorems in `src/` (and th
 | `external/dh/DHChannels.lean` | 285 | **the two channels of `dh`**: `conj_LFunction`; the archimedean-free functional equation `LFunction_mul_one_sub` (`L(s, χ)L(1 − s, χ) = ε²L(s, χ⁻¹)L(1 − s, χ⁻¹)`; for the channel ratio, `R(s)R(1 − s) = ε²`, `LFunction_ratio_mul`); `phase_lock`, `channel_ratio_real` (`R(½ + it) ∈ εℝ`); `dhL_eq_zero_iff_channel`; for `χ₅`, **`dh_eq_zero_iff_channel`** (`dh(s) = 0 ↔ L(s, χ₅) = −εL(s, χ₅⁻¹)`) and **`dh_line_zero_iff`** (on the line, one real equation) (round 273) |
 | `external/dh/DHInert.lean` | 623 | **coefficient localisation**: the coefficients of `−dh′/dh` equal `Λ(n)χ₅(n)` at every `n` with a prime factor `≢ ±2 (mod 5)` (**`cDH_chi5_eq_of_dvd`**); `c = Λ·s + c_inert` with `c_inert` supported on inert-smooth integers (**`cDH_chi5_decomp`**); `δ + u = s ⍟ b` (`dhA_eq_splitA_mul_inertA`); `logDer_mul`, `log` a derivation of Dirichlet convolution (round 273) |
 | `HalfPlaneS0.lean` | 325 | **S0 of the round-277 plan: power savings for the smoothed Möbius sums of `ζ · L(·, χ₋₃)` give a zero-free half-plane**: `r = 1 ⍟ χ₋₃` with `L(r, s) = ζ(s)L(s, χ₋₃)` (`LSeries_rK`) and `μ_K = μ ⍟ (χ₋₃μ)` with `L(r, s)L(μ_K, s) = 1` on `Re s > 1` (`LSeries_rK_mul_muK`); if `Σ_n μ_K(n)W(n/D) = O(D^{θ+ε})` for every smooth `W` compactly supported in `(0, ∞)` and every `ε > 0` (`SmoothBound θ`, a displayed hypothesis), then `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` on `Re s > θ` (**`ne_zero_of_smoothBound`**) (round 278) |
+| `HalfPlaneJoins.lean` | 120 | **S0's joins: `SmoothBound θ` fed to the stack's sockets for a fixed zero-free strip**: the zeros of `ζ` and of `L(s, χ₋₃)` lie in `1 − θ ≤ Re ρ ≤ θ` (`zeta_band`, `chi3_band`) and the zeros `τ` of `Ξ` have `|Im τ| ≤ θ − ½` (`abs_im_tau_le`); for `θ ≥ ½` the twin forms of `ζ`, of `L(s, χ₋₃)` and of `ζ·ζ_{ℚ(√−3)}` are `≥ −C e^{(2θ−1)λ}` (`weil_rate_of_smoothBound`, `chi3_rate_of_smoothBound`, `QK3_rate_of_smoothBound`) and `λ₁(a) ≤ K(a + 1)e^{(8+2θ)a − 4πe^{2a}}` (`lam_prefactor_of_smoothBound`) (round 279) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -8592,7 +8593,7 @@ Their Comparator configuration permits `propext`, `Quot.sound` and `Classical.ch
   - Their fully elaborated statements (`set_option pp.all true`) are character-identical to those of the two challenge files, elaborated against Mathlib alone (843 and 2,141 characters).
 - Not checked here: the proofs themselves, read in full. As of the release, outside mathematicians had not confirmed them.
 
-**What it fills in the stack**, if it holds. Net-state markers sit on rounds 164, 167 and 190 and on STRUCTURAL-REVIEW §5b and §6.
+**What it fills in the stack**, if it holds. Net-state markers sit on rounds 164, 167 and 190 and on STRUCTURAL-REVIEW §5b and §6. *(Round 279: under round 278's `SmoothBound θ`, the `weil_twins_rate` and round-164 items below are kernel-checked with `2θ − 1` and `e^{(2θ−1)a}` in place of `3/4` and `e^{3a/4}` (`HalfPlaneJoins`). The ladder row is not: the stack has no theorem from a zero-free half-plane to a bound on `ψ(x) − x`. See round 279.)*
 - Round 190's ladder: the row `x^{1−δ}` is filled with `δ = 1/8 − ε`, giving `ψ(x) − x = O(x^{7/8+ε})`.
 - `weil_twins_rate`: the exponential rate of the twins' negative part is at most `3/4`, i.e. `−C exp((3/4) l) ≤ weilQ (l + 1) (twin (box 1) l)`.
 - `TwinLandau.Q_ge_of_rates`: the instance STRUCTURAL-REVIEW §5b listed as "a wider zero-free region, if one existed".
@@ -8655,3 +8656,38 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 - **New here:** the machine-checked reduction for `ζ·L(·, χ₋₃)` with smooth weights, its hypothesis displayed as the socket for the rest of the plan.
 
 **Bearing on RH:** none directly. S0 turns the target of S1–S6 into a statement about smoothed sums. A fixed half-plane is strictly weaker than RH.
+
+## Round 279: S0's joins — `SmoothBound θ` fed to the stack's sockets for a fixed zero-free strip (`src/HalfPlaneJoins.lean`)
+
+**The statements.** All are under round 278's displayed hypothesis `SmoothBound θ`.
+- `zeta_band`: every nontrivial zero of `ζ` has `|2 Re ρ − 1| ≤ 2θ − 1`. The bound `Re ρ ≤ θ` is `ne_zero_of_smoothBound`. The bound `Re ρ ≥ 1 − θ` applies it at `1 − ρ` (`PsiOmega.IsNontrivialZero.one_sub`).
+- `chi3_band`: the same for the zeros of `L(s, χ₋₃)` in the critical strip. The lower bound reflects through the evenness of `Ξ(·, χ₋₃)` (`XiC_even`).
+- `abs_im_tau_le`: every zero `τ` of `Ξ` has `|Im τ| ≤ θ − ½`.
+- With `θ ≥ ½`:
+  - `weil_rate_of_smoothBound`: `−C e^{(2θ−1)λ} ≤ Q(twin (box 1) λ)` for `λ ≥ 0`, through `weil_twins_rate`;
+  - `chi3_rate_of_smoothBound`: the same for `Q_{χ₋₃}`, through `twins_rate` with `good_chi3` and `hS3`;
+  - `QK3_rate_of_smoothBound`: the same for `2Q_ζ + Q_{χ₋₃}`, the twin form of `ζ·ζ_{ℚ(√−3)}`, through `QKχ_twins_rate`;
+  - `lam_prefactor_of_smoothBound`: `λ₁(a) ≤ K(a + 1)e^{(8+2θ)a − 4πe^{2a}}` for `a ≥ 4`, through `Kaiser.lam_le_split` with `κ₁ = e^{(2θ−1)a}`.
+
+**Against the unconditional bounds.**
+- The twin form of `ζ`: `−C·exp(λ − cλ^{3/5}(log λ)^{−1/5})` (`twins_lower_KV_sharp`, round 242). The forms of `L(s, χ₋₃)` and `ζ·ζ_{ℚ(√−3)}`: `−o(e^λ)` (`twin_Q_littleO`).
+- `λ₁`: `e^{10a − 4πe^{2a}}` (`lam_prefactor`, round 164), less a Korobov–Vinogradov saving `c·a^{1/3}/(log a)^{1/3}` in the exponent (`lam_prefactor_KV`, round 234).
+- At the plan's `θ = 11/12` the rate is `5/6` and the prefactor saves `e^{a/6}`. At `θ = 7/8` they are `3/4` and `e^{a/4}`, with weight `e^{3a/4}`, the figures of round 277.
+
+**What the joins do not reach.**
+- `ShortPrimes.short_primes_of_density`. Its `ZeroFreeXi α` (`α < 1`) is already supplied unconditionally (`ShortKV.zeroFreeXi_KV`, `α = 3/4`), and its exponent depends on the density input alone.
+- Round 190's ladder row `x^{1−δ}`. The stack's one theorem from a zero-free region to a bound on `ψ(x) − x` is `rung3_of_region` (`external/pnt`). It needs a region of width `(log t)^{−n₁}` with `n₁ > 0` and a bound on `ζ′/ζ` inside it, and `SmoothBound θ` gives neither. The row needs a new theorem: a zero-free half-plane gives `ψ(x) − x = O(x^{θ+ε})`.
+- `zeros_of_lam_ge`, which runs the other way: a lower bound on `λ₁` gives the strip.
+- Statements at the level of RH or GRH, characters other than `χ₋₃`, and the real zeros of `L(s, χ₋₃)`, which `hS3` already excludes on `(0, 1)` unconditionally.
+
+**How the consumers were found.** A scan of the parenthesised hypotheses of every theorem in the 244 files of `src/` and `external/` (vendored upstream excluded) for hypotheses that bound where zeros lie; the criteria on round 277's list; and the graded twin criteria by name (`rate_iff` and its instances). The scan is syntactic. A condition inside a definition is seen only through the definitions named above (`ZeroFreeXi`, `DensityXi`, `KVInput`).
+
+**What it is, and what it is not.** Everything here is conditional on `SmoothBound θ`, which is unproved for every `θ < 1`. Nothing in the stack becomes unconditionally stronger, and no register entry closes.
+
+**Build.** Incremental pilot build: 1 compiled, 171 up to date, 60 s, 0 warnings. The 7 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 967 in `src/`. No other file imports `HalfPlaneJoins`.
+
+**Check 4.**
+- **Acknowledged:** what a fixed zero-free strip gives each socket, recorded at each socket's own round.
+- **New here:** the kernel-checked compositions from S0's hypothesis.
+
+**Bearing on RH:** none. A fixed half-plane is strictly weaker than RH.
