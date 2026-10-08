@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1408 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1449 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -226,6 +226,7 @@ Every file ends with `#print axioms`. All 1408 checked theorems in `src/` (and t
 | `EisensteinMeanSquarePoisson.lean` | 614 | **S4, part 7: the mean square after Poisson summation**: finite sets of primes as squarefree ideals (`idl`, `chiS`, `fsLe`, `primeSet_idl`, `pgen_idl`, `sym6_idl`, `moebius_idl`); the family as a finite sum (`famSum_eq`); the majorant (`sum_sq_le_majorant`); the expansion over pairs (`famSum_majorant_eq`); one pair after Poisson summation with its Gauss sums evaluated (**`pairSum_poisson`**, the paper's (4.14)); both combined (`majorant_poisson`) (round 307) |
 | `EisensteinMeanSquareRowCol.lean` | 1058 | **S4, part 8: the mean square in row/column form**: reindexing over subsets (`sum_powerset_pair_split`, `sum_pair_T_split`, the Möbius step `sum_disjoint_mobius`); elements and primes of bounded norm (`eltsLe`, `primesLe`); the paired factor in characters modulo `4` (`pairPsiCls`, `pairTerm_expand`); the zero frequency (`tsum_mu_eq`); the column factorization (`col_factor`, `WW_kap`); **`meanSquare_rowcol`** (round 308) |
 | `EisensteinMeanSquareBlock.lean` | 520 | **S4, part 9: the bilinear bound for one block of rows**: the column sums over subsets (`colSum_eq_powerset`); rows and their injectivity (`Row`, **`row_injective`**); the column mean squares from round 306's exclusion lemma (`rows_colMeanSquare`); a row's double column sum as round 306's bilinear form (`rowSum_eq_bilinear`, `ARow_ge`); **`rowBlock_bound`** (round 309) |
+| `EisensteinMeanSquareDual.lean` | 1020 | **S4, part 10: the mean square from the dual mean square**: weights and bumps (`weight_support`, `exists_bump`); counting (`idealCount_le`, `four_pow_card_le`, `sum_fsLe_inv_le`, `sum_fsLe_four_pow_le`); the zero frequency (`zero_term_le`); the rows that can contribute (`goodRow`, `rowTerm_eq_zero`); one excluded ideal over the dyadic levels of `N(f)` (`bTerm_bound`); the mean square at one scale (`famSum_meanSquare_le`); **`meanSquare_of_dualMeanSquare`** (`DualMeanSquare ϑ ⇒ MeanSquare ϑ` for `ϑ > 0`) and **`ne_zero_of_dualMeanSquare`** (round 310) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9002,7 +9003,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 - The release averages with a smooth radial weight `V(|b|²/Y)` and Poisson summation over `ℤ[ω]` (`idealRowSum_sixth_average`, `MeanSquare/ThetaDensity.lean:554–562`). Here the cutoff is sharp, and the count is round 287's arithmetic one.
 - The release's assembly (`outside_totient_moebius_bound`, `Mellin/SixthPowerAverage.lean:317–404`) fixes `σ = 1/10` and `Y = Z^{11/60}`. Here `σ` is a parameter and `Y = Z^{(1+σ)/6}`, which is `Z^{11/60}` at `σ = 1/10`.
 
-**Not yet here:** `MeanSquare σ` itself, which is S3–S5: Poisson summation over `ℤ[ω]`, the Gauss-sum identities, the quadratic large sieve and Kubota's cubic theta.
+**Not yet here:** `MeanSquare σ` itself, which is S3–S5: Poisson summation over `ℤ[ω]`, the Gauss-sum identities, the quadratic large sieve and Kubota's cubic theta. *(Round 310: `MeanSquare ϑ` is derived from the dual mean square, `Eis.meanSquare_of_dualMeanSquare`, which completes S3 and S4; the dual mean square itself, S5, is not derived.)*
 
 **Build.** Incremental pilot build: 1 compiled, 178 up to date, 18 s, 0 warnings. The 20 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1066 in `src/`. No other file imports `HalfPlaneMeanSquare`.
 
@@ -9105,7 +9106,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
   - The cube of the cubic Gauss sum, `g(χ_P, ψ)³ = −N(P)·π` for any primitive additive character `ψ`: round 290's `jacobiSum_eq_neg` with Mathlib's `gaussSum_pow_eq_prod_jacobiSum`. It is the release's `cubicGauss_normalized_cube_breveE` before normalization.
   - The sextic factorization, and the twisted Gauss sums of products of sextic characters modulo squarefree moduli.
   - The cross phase, through round 290's law.
-- **S4: the mean-square half.** Poisson summation over `ℤ[ω]` for radial Schwartz weights, and the mean square from a child-energy bound displayed in the shape of `HasInitialCanonicalDensityAtRadius`. That is the second conditional milestone: the child-energy bound gives `MeanSquare σ` for `σ > 1/20`, hence, with round 288, `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5σ)/12`.
+- **S4: the mean-square half.** Poisson summation over `ℤ[ω]` for radial Schwartz weights, and the mean square from a child-energy bound displayed in the shape of `HasInitialCanonicalDensityAtRadius`. That is the second conditional milestone: the child-energy bound gives `MeanSquare σ` for `σ > 1/20`, hence, with round 288, `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5σ)/12`. *(Round 310: landed in the companion paper's form rather than the release's: from round 301 on, S4 follows the paper's Section 4, the displayed hypothesis is the paper's (4.12) as `Eis.DualMeanSquare ϑ` (round 305), and `Eis.meanSquare_of_dualMeanSquare` gives `MeanSquare ϑ` for every `ϑ > 0`; with round 288, `Eis.ne_zero_of_dualMeanSquare`.)*
 - **S5: the theta half.** The quadratic large sieve over `ℤ[ω]`, the cube removal and the rank induction, with Kubota's theta displayed in the shape of `HasCanonicalThetaModels` until it is derived.
 - **Order.** S3 first: it is finite-field and algebraic content of the kind built in rounds 281–290. S4's lattice Poisson summation is next.
 
@@ -9425,7 +9426,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 **Check 4.** Classical: a Beurling–Selberg-type majorant from the square of the Fourier transform of a bump. New here: machine-checked on Mathlib.
 
-**Not yet here:** the rest of S4. In order: the smooth-weight principle of the paper's Appendix B *(Round 302: landed in a one-dimensional form, `MellinSep.dilated_meanSquare` and `MellinSep.bilinear_dual_bound`.)*; Poisson summation with excluded primes (Lemma 4.2); the expansion of the mean square with the Gauss-sum identities of rounds 299–300 and characters of `(ℤ[ω]/4)^×` *(Rounds 304 and 306: the Gauss-sum step and the expansion in characters landed, `Eis.paired_gauss` and `Eis.pair_eq_sum_mulChar`; the expansion of the mean square itself is in the assembly.)*; the dual mean square (Definition 4.3) and Lemma 4.4 *(Rounds 305–306: landed, `Eis.DualMeanSquare` and `Eis.dualMeanSquare_excl`.)*; Proposition 4.5.
+**Not yet here:** the rest of S4. In order: the smooth-weight principle of the paper's Appendix B *(Round 302: landed in a one-dimensional form, `MellinSep.dilated_meanSquare` and `MellinSep.bilinear_dual_bound`.)*; Poisson summation with excluded primes (Lemma 4.2); the expansion of the mean square with the Gauss-sum identities of rounds 299–300 and characters of `(ℤ[ω]/4)^×` *(Rounds 304 and 306: the Gauss-sum step and the expansion in characters landed, `Eis.paired_gauss` and `Eis.pair_eq_sum_mulChar`; the expansion of the mean square itself is in the assembly.)*; the dual mean square (Definition 4.3) and Lemma 4.4 *(Rounds 305–306: landed, `Eis.DualMeanSquare` and `Eis.dualMeanSquare_excl`.)*; Proposition 4.5. *(Round 310: landed, `Eis.meanSquare_of_dualMeanSquare`.)*
 
 **Check 9.** No barrier claim is made.
 
@@ -9456,7 +9457,7 @@ In Proposition 4.5, `G` will be round 301's `𝓕Φ` on the positive real axis. 
 
 **Check 4.** Classical: Mellin inversion as Fourier inversion in logarithmic coordinates, and separation of variables in smooth weights (the paper cites Petrow–Young for the multivariable form). New here: machine-checked on Mathlib, in the one-dimensional form above.
 
-**Not yet here:** the rest of S4. In order: Poisson summation with excluded primes (Lemma 4.2) *(Round 303: landed, `Eis.poisson_excl` and `Eis.poisson_excl_Phi`.)*; the expansion of the mean square with the Gauss-sum identities of rounds 299–300 and characters of `(ℤ[ω]/4)^×` *(Rounds 304 and 306: the Gauss-sum step and the expansion in characters landed, `Eis.paired_gauss` and `Eis.pair_eq_sum_mulChar`; the expansion of the mean square itself is in the assembly.)*; the dual mean square (Definition 4.3) and Lemma 4.4 *(Rounds 305–306: landed, `Eis.DualMeanSquare` and `Eis.dualMeanSquare_excl`.)*; Proposition 4.5.
+**Not yet here:** the rest of S4. In order: Poisson summation with excluded primes (Lemma 4.2) *(Round 303: landed, `Eis.poisson_excl` and `Eis.poisson_excl_Phi`.)*; the expansion of the mean square with the Gauss-sum identities of rounds 299–300 and characters of `(ℤ[ω]/4)^×` *(Rounds 304 and 306: the Gauss-sum step and the expansion in characters landed, `Eis.paired_gauss` and `Eis.pair_eq_sum_mulChar`; the expansion of the mean square itself is in the assembly.)*; the dual mean square (Definition 4.3) and Lemma 4.4 *(Rounds 305–306: landed, `Eis.DualMeanSquare` and `Eis.dualMeanSquare_excl`.)*; Proposition 4.5. *(Round 310: landed, `Eis.meanSquare_of_dualMeanSquare`.)*
 
 **Check 9.** No barrier claim is made.
 
@@ -9488,7 +9489,7 @@ It uses `|σ(δ)|² = 3` (`normSq_σO_δ3`) and `𝓕[Φ(·/√H)](ξ) = H·𝓕
 
 **Check 4.** Classical: Möbius inclusion–exclusion and Poisson summation over a lattice. New here: machine-checked on the pilot's stack from rounds 294, 295 and 301.
 
-**Not yet here:** the rest of S4. In order: the expansion of the mean square with the Gauss-sum identities of rounds 299–300 and classes modulo `4` *(Round 304: the Gauss-sum step landed, `Eis.paired_gauss` and `Eis.pairFactor_eq_of_mod_four`; the expansion itself is in the assembly.)*; the dual mean square (Definition 4.3) and Lemma 4.4 *(Rounds 305–306: landed, `Eis.DualMeanSquare` and `Eis.dualMeanSquare_excl`.)*; Proposition 4.5.
+**Not yet here:** the rest of S4. In order: the expansion of the mean square with the Gauss-sum identities of rounds 299–300 and classes modulo `4` *(Round 304: the Gauss-sum step landed, `Eis.paired_gauss` and `Eis.pairFactor_eq_of_mod_four`; the expansion itself is in the assembly.)*; the dual mean square (Definition 4.3) and Lemma 4.4 *(Rounds 305–306: landed, `Eis.DualMeanSquare` and `Eis.dualMeanSquare_excl`.)*; Proposition 4.5. *(Round 310: landed, `Eis.meanSquare_of_dualMeanSquare`.)*
 
 **Check 9.** No barrier claim is made.
 
@@ -9522,7 +9523,7 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 
 **Check 4.** Classical: the Gauss sum of a Jacobi symbol is the quadratic exponential sum, and Gauss sums of products of characters factor by the Chinese remainder theorem. New here: the paired identity in closed form, without the bicharacter table, machine-checked on the pilot's stack from rounds 297–300.
 
-**Not yet here:** the rest of S4. In order: the dual mean square (Definition 4.3), with characters of `(ℤ[ω]/4)^×` *(Round 305: landed, `Eis.colSum` and `Eis.DualMeanSquare`.)*, and Lemma 4.4 *(Round 306: landed, `Eis.dualMeanSquare_excl`.)*; the comparison of class indicators with characters *(Round 306: landed, `Eis.indicator_eq_sum_mulChar` and `Eis.pair_eq_sum_mulChar`.)*; the two-family bilinear bound *(Round 306: landed, `MellinSep.bilinear_dual_bound₂`.)*; the assembly of Proposition 4.5.
+**Not yet here:** the rest of S4. In order: the dual mean square (Definition 4.3), with characters of `(ℤ[ω]/4)^×` *(Round 305: landed, `Eis.colSum` and `Eis.DualMeanSquare`.)*, and Lemma 4.4 *(Round 306: landed, `Eis.dualMeanSquare_excl`.)*; the comparison of class indicators with characters *(Round 306: landed, `Eis.indicator_eq_sum_mulChar` and `Eis.pair_eq_sum_mulChar`.)*; the two-family bilinear bound *(Round 306: landed, `MellinSep.bilinear_dual_bound₂`.)*; the assembly of Proposition 4.5. *(Round 310: landed, `Eis.meanSquare_of_dualMeanSquare`.)*
 
 **Check 9.** No barrier claim is made.
 
@@ -9552,7 +9553,7 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 
 **Check 4.** The definitions transcribe the paper's. New here: the bridge from ideals to round 300's sets of primes, and the paper's (4.6) on ideals, machine-checked.
 
-**Not yet here:** the rest of S4. In order: Lemma 4.4 (removing the exclusion) *(Round 306: landed, `Eis.dualMeanSquare_excl`.)*; the comparison of class indicators modulo `4` with the characters `ξ` *(Round 306: landed, `Eis.indicator_eq_sum_mulChar` and `Eis.pair_eq_sum_mulChar`.)*; a two-family version of round 302's `bilinear_dual_bound` *(Round 306: landed, `MellinSep.bilinear_dual_bound₂`.)*; the assembly of Proposition 4.5.
+**Not yet here:** the rest of S4. In order: Lemma 4.4 (removing the exclusion) *(Round 306: landed, `Eis.dualMeanSquare_excl`.)*; the comparison of class indicators modulo `4` with the characters `ξ` *(Round 306: landed, `Eis.indicator_eq_sum_mulChar` and `Eis.pair_eq_sum_mulChar`.)*; a two-family version of round 302's `bilinear_dual_bound` *(Round 306: landed, `MellinSep.bilinear_dual_bound₂`.)*; the assembly of Proposition 4.5. *(Round 310: landed, `Eis.meanSquare_of_dualMeanSquare`.)*
 
 **Check 9.** No barrier claim is made.
 
@@ -9579,7 +9580,7 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 
 **Check 4.** Lemma 4.4 follows the paper's proof. New here: the expansion of the paired factor as a function of two classes, in place of the paper's reduction to one class, and the two-family bilinear bound that this requires.
 
-**Not yet here:** the assembly of Proposition 4.5. In order: the majorant; the expansion of the mean square over pairs of ideals; Lemma 4.2 with the exclusion `g`; the Gauss transform and the paired factor *(Round 307: these four landed, `Eis.sum_sq_le_majorant`, `Eis.famSum_majorant_eq` and `Eis.pairSum_poisson`.)*; the zero frequency; the Möbius inversion of `(z₁, z₂) = 1` *(Round 308: both landed, `Eis.tsum_mu_eq`, `Eis.sum_disjoint_mobius` and `Eis.meanSquare_rowcol`.)*; the injective change of rows `(e, v, h) ↦ (f, k)`; the dyadic ranges; and the bilinear bound with the count over `𝔟`.
+**Not yet here:** the assembly of Proposition 4.5. In order: the majorant; the expansion of the mean square over pairs of ideals; Lemma 4.2 with the exclusion `g`; the Gauss transform and the paired factor *(Round 307: these four landed, `Eis.sum_sq_le_majorant`, `Eis.famSum_majorant_eq` and `Eis.pairSum_poisson`.)*; the zero frequency; the Möbius inversion of `(z₁, z₂) = 1` *(Round 308: both landed, `Eis.tsum_mu_eq`, `Eis.sum_disjoint_mobius` and `Eis.meanSquare_rowcol`.)*; the injective change of rows `(e, v, h) ↦ (f, k)`; the dyadic ranges; and the bilinear bound with the count over `𝔟`. *(Round 309: the change of rows and the bilinear bound for one block of rows landed, `Eis.row_injective` and `Eis.rowBlock_bound`. Round 310: the dyadic ranges and the count over `𝔟` landed, `Eis.bTerm_bound` and `Eis.sum_fsLe_four_pow_le`, and with them `Eis.meanSquare_of_dualMeanSquare`.)*
 
 **Check 9.** No barrier claim is made.
 
@@ -9610,7 +9611,7 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 
 **Check 4.** The steps follow the paper's proof of Proposition 4.5 up to its (4.14). New here: the bookkeeping by finite sets of primes, and the Gauss sums through round 304's closed form instead of the paper's (4.15).
 
-**Not yet here:** the second half of the assembly. In order: the zero frequency; the expansion of the paired factor in characters modulo `4` (round 306) with the Möbius inversion of `(z₁, z₂) = 1` *(Round 308: landed, `Eis.meanSquare_rowcol`.)*; the injective change of rows `(e, v, h) ↦ (f, k)`; the dyadic ranges; and the bilinear bound with the count over `𝔟`.
+**Not yet here:** the second half of the assembly. In order: the zero frequency; the expansion of the paired factor in characters modulo `4` (round 306) with the Möbius inversion of `(z₁, z₂) = 1` *(Round 308: landed, `Eis.meanSquare_rowcol`.)*; the injective change of rows `(e, v, h) ↦ (f, k)`; the dyadic ranges; and the bilinear bound with the count over `𝔟`. *(Round 309: the change of rows and the bilinear bound for one block of rows landed, `Eis.row_injective` and `Eis.rowBlock_bound`. Round 310: the zero frequency's bound, the dyadic ranges and the count over `𝔟` landed, `Eis.zero_term_le`, `Eis.bTerm_bound` and `Eis.sum_fsLe_four_pow_le`, and with them `Eis.meanSquare_of_dualMeanSquare`.)*
 
 **Check 9.** No barrier claim is made.
 
@@ -9648,7 +9649,7 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 
 **Check 4.** The steps follow the paper's proof of Proposition 4.5 from (4.14) to the display before (4.16). New here: the bookkeeping by finite sets of primes, and the expansion of the paired factor in two characters in place of the paper's (4.15).
 
-**Not yet here:** the bounds. In order: the injective change of rows `(e, v, h) ↦ (f, k)` with the column sums identified with round 305's `colSum` *(Round 309: landed, `Eis.row_injective` and `Eis.colSum_eq_powerset`.)*; the dyadic ranges; the bilinear bound (round 306's `bilinear_dual_bound₂` with `dualMeanSquare_excl`) *(Round 309: landed for one block of rows, `Eis.rowBlock_bound`.)*; the count over `𝔟` and the divisor bound; the zero frequency; and the conclusion `MeanSquare ϑ` from `DualMeanSquare ϑ`.
+**Not yet here:** the bounds. In order: the injective change of rows `(e, v, h) ↦ (f, k)` with the column sums identified with round 305's `colSum` *(Round 309: landed, `Eis.row_injective` and `Eis.colSum_eq_powerset`.)*; the dyadic ranges; the bilinear bound (round 306's `bilinear_dual_bound₂` with `dualMeanSquare_excl`) *(Round 309: landed for one block of rows, `Eis.rowBlock_bound`.)*; the count over `𝔟` and the divisor bound; the zero frequency; and the conclusion `MeanSquare ϑ` from `DualMeanSquare ϑ`. *(Round 310: landed, `Eis.bTerm_bound`, `Eis.sum_fsLe_four_pow_le`, `Eis.zero_term_le` and `Eis.meanSquare_of_dualMeanSquare`.)*
 
 **Check 9.** No barrier claim is made.
 
@@ -9677,8 +9678,43 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 
 **Check 4.** The step follows the paper's application of its Lemma B.2 with Lemma 4.4 and (4.12). New here: the Mellin form of the smooth-weight principle (round 302, two families in round 306) in place of Lemma B.2, and the per-`b` application with `B = N(b)` in the range of `𝓗`.
 
-**Not yet here:** the summation. In order: the decomposition of the rows into the dyadic ranges of `N(f)`, dropping the rows whose dual weight vanishes; the count over `𝔟` with the divisor bound for `4^{ω(𝔟)}`; the zero frequency; and `MeanSquare ϑ` from `DualMeanSquare ϑ`.
+**Not yet here:** the summation. In order: the decomposition of the rows into the dyadic ranges of `N(f)`, dropping the rows whose dual weight vanishes; the count over `𝔟` with the divisor bound for `4^{ω(𝔟)}`; the zero frequency; and `MeanSquare ϑ` from `DualMeanSquare ϑ`. *(Round 310: landed, `Eis.bTerm_bound`, `Eis.sum_fsLe_four_pow_le`, `Eis.zero_term_le` and `Eis.meanSquare_of_dualMeanSquare`.)*
 
 **Check 9.** No barrier claim is made.
 
 **Bearing on RH:** none.
+
+## Round 310: S4, part 10 — the mean square from the dual mean square (`src/EisensteinMeanSquareDual.lean`)
+
+**What it is.** The last step of S4 and the second conditional milestone: the companion paper's Proposition 4.5, from its hypothesis (4.12) to its mean-square estimate. The paper's statement, with its LaTeX rendered as text, begins "Fix `0<ϑ≤1/10` and put `H=D^{1+ϑ}`. For each fixed `C≥1` and all real `B,F≥1`, consider the ranges `X = D/(BF)`, `0 < 𝓗 ≤ CD²/(HB²)`, `XF = D/B`." and ends "Then the original mean-square estimate in Proposition 3.1 holds." Here (4.12) is round 305's displayed hypothesis `DualMeanSquare ϑ`, and the conclusion is round 288's `MeanSquare ϑ`.
+
+**The milestones.**
+- **`meanSquare_of_dualMeanSquare`**: `0 < ϑ → DualMeanSquare ϑ → MeanSquare ϑ`. The paper fixes `0 < ϑ ≤ 1/10`; the proof here uses only `ϑ > 0`. Round 288's `MeanSquare ϑ` lets its constant depend on the weight `W`, where the paper's Proposition 3.1 states the dependence, `(max_{0≤j≤k} ‖W^{(j)}‖_∞)²`.
+- **`ne_zero_of_dualMeanSquare`**: with round 288's `ne_zero_of_meanSquare`, `DualMeanSquare ϑ` for `ϑ > 0` gives `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5ϑ)/12`. At `ϑ = 1/10` this is `Re s > 23/24`.
+
+**The proof**, at a scale `Z ≥ 1` with `H = Z^{1+ϑ}`.
+1. **One scale** (`famSum_meanSquare_le`). Round 307's majorant and round 308's `meanSquare_rowcol` give the zero frequency plus, for each pair of characters `ξ₁, ξ₂` modulo `4`, with `|ĉ(ξ₁⁻¹, ξ₂)| ≤ 1` (round 306's `norm_pairCoeff_le`), a sum over sets of primes `𝔟` of sums over rows `(T, V, μ)` (`rowsOf`, `sum_rowsOf`).
+2. **The zero frequency** (`zero_term_le`). It is at most `#𝒜·B²·2H/√3·|Φ̂(0)|` for `|W| ≤ B`, where `𝒜` is the family of sets of primes of norm at most `⌈βZ⌉`, and `#𝒜 ≤ (2κ + 5)⌈βZ⌉` (`card_fsLe_le`, from round 287's ideal theorem through `idealCount_le`). This is `≪ HZ`.
+3. **The rows that cannot contribute** (`rowTerm_eq_zero`). A row's double column sum is `0` unless three conditions hold:
+   - `μ` is prime to the primes of `V`; otherwise `χ_V(μ) = 0`.
+   - `N(𝔟)N(f) ≤ βZ`; otherwise a weight `W₀` vanishes.
+   - `N(d_T μ) ≤ C_I·Z²/(H·N(𝔟)²)` with `C_I = max(1, 3R²β²/4)`, where `R` is a radius beyond which `Φ̂` vanishes; otherwise a weight `W₀` or `Φ̂` vanishes (`rcTerm_eq_zero_of_large`).
+
+   The third is the paper's range `0 < 𝓗 ≤ CD²/(HB²)` at `D = Z`, `B = N(𝔟)`, `C = C_I`. By the second, no `𝔟` with `N(𝔟) > βZ` contributes (`good_eq_empty`).
+4. **One `𝔟`** (`bTerm_bound`). The rows that can contribute are grouped by their level `j = ⌊log₂ N(f)⌋ ≤ ⌊log₂⌊βZ⌋⌋`, and each group is a block of round 309's `rowBlock_bound` at `F = 2^j`. The blocks' column mean squares come from `DualMeanSquare ϑ` through round 306's `dualMeanSquare_excl` and round 309's `rows_colMeanSquare`.
+5. **The sum over `𝔟`** (`sum_fsLe_four_pow_le`). `4^{|𝔟|} ≤ C_δ·N(𝔟)^δ` (`four_pow_card_le`): the primes with `N(P)^δ ≥ 4` contribute at most `N(𝔟)^δ`, and the others are finitely many. `Σ_{N𝔟 ≤ x} 1/N𝔟 ≤ 2(2κ + 5)(⌊log₂⌊x⌋⌋ + 1)`, by dyadic shells (`sum_fsLe_inv_le`).
+6. **The parameters** (`meanSquare_of_dualMeanSquare`). Five auxiliary exponents are each `ε/5`: the Mellin line `σ` of round 306's bilinear bound, the dual mean square's `ε`, the divisor bound's `δ`, and the two logarithms, of the levels and of the shells (`log_floor_succ_le`). With `A_min^{−ε/5} ≤ 3^{ε/5}Z^{ε/5}` for `Z ≤ H` (`Amin_rpow_le`, `blockBound_le`), the dual part is `≪ HZ·Z^ε = Z^{2+ϑ+ε}`.
+
+**Comparison with the paper.** After its change of variables, the paper's proof reads: "Partition `B≤N(b)<2B` and `F≤N(f)<2F` into dyadic ranges." Of the divisor factors it says: "Here `N(b)≪_I D`, so the divisor factors are absorbed in `D^{ε/4}`." Of the count: "where `XF=D/B` and ideal counting gives `O(B)` choices of `b`. Summing the `O((log D)²)` nonempty dyadic ranges bounds `𝒮_ξ` as required." Here only `N(f)` is cut dyadically. Each `𝔟` is its own block with `B = N(𝔟)`, so the kernel's `r = N(f)/F` lies in `[1, 2]` where the paper's lies in `[1, 4)`. The divisor factors are bounded through `4^{|𝔟|} ≤ C_δ N(𝔟)^δ` and the shells. Of the rows, the paper says: "The larger row range `0<N(k)≤𝓗` adds only terms whose original kernel vanishes." Here that is step 3.
+
+**Build.** Incremental pilot build: 1 compiled, 199 up to date, 28 s, 0 warnings. The 41 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1449 in `src/`. No other file imports `EisensteinMeanSquareDual`. The 45 new named declarations were checked against the Lean files of `src/` and `external/` for clashes. The draft's `nI_le_of_mem_fsLe'` was renamed `nI_le_of_mem_fsLe_real`, to keep it apart from round 308's `nI_le_of_mem_fsLe`.
+
+**Check 4.** The step is the paper's proof of Proposition 4.5 after its application of Lemma B.2. New here: the vanishing of the rows outside the ranges, as a lemma; the sums over `N(f)` and `𝔟` done by explicit counting; the statement for every `ϑ > 0`; and the composition with round 288's milestone.
+
+**Not yet here:**
+- `DualMeanSquare ϑ` for any `ϑ > 0`. This is S5 of round 291's plan, the paper's Sections 5–7. The paper's proof of its Proposition 3.1 obtains (4.12) from its Proposition 5.1: "For large `D`, Proposition 5.1 applies with `κ=ϑ/2` and `C_0=2`."
+- The survey of the owner's order of 2026-10-08 (round 300): whether large sieves alone can give `MeanSquare σ` for some `σ < 1/5`. By this round, `DualMeanSquare ϑ` for some `ϑ < 1/5` would suffice.
+
+**Check 9.** No barrier claim is made. (c) The signal fed to round 288's criterion is still the family mean square. It is now derived from its Poisson-dual representation, `DualMeanSquare ϑ`, which becomes the displayed hypothesis. No instance of either is proved.
+
+**Bearing on RH:** none. A fixed half-plane is strictly weaker than RH, and its hypothesis is not proved here.
