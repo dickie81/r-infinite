@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1565 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1609 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -233,6 +233,7 @@ Every file ends with `#print axioms`. All 1565 checked theorems in `src/` (and t
 | `MellinUniform.lean` | 719 | **S5c-1: separating variables uniformly in the weight**: the Mellin coefficient `𝓕h`, `h(v) = W(e^v)`, named (`expSchwartz`, `mellin_expSchwartz`) and bounded by the weight's derivatives (`norm_fourier_expSchwartz_le`, `integral_fourier_expSchwartz_le`); round 302's dilated mean square and round 306's two-family bilinear bound with constants `K·N_W²` (`dilated_meanSquare_unif`, **`bilinear_dual_bound_unif`**); the weight `x^{−1/2}W(x)` (`W0c_unif`) (round 317) |
 | `EisensteinTransferPoisson.lean` | 260 | **S5c-2, part 1: the first Poisson summation of the transfer estimate**: the dual paired identity (`pairPsiDual`, **`pairSum_poisson_dual`**, the companion paper's (7.3) before its expansion in characters); the coefficient of a pair of columns (`alpha_pair`); the smoothed mean square of any column family (`majorant_expand`); **`dualMS_poisson`** (round 318) |
 | `EisensteinTransferRowCol.lean` | 593 | **S5c-2, part 2: the transfer's first Poisson summation in row/column form**: the column coefficients (`colP`, the companion paper's `p_y` with `c = C⁴d·t⁶`; `colP_natural`, `colP_eq_zero_of_dvd`); the paired factor in characters modulo `4` (`pairPsiXi`, `dualPair_expand`); the split into frequencies (`tauDual`, `pair_char_form_dual`); the insertion of `t` and the factorization (`wPair`, `wNat`, `wPair_split`, `rcDual`, `WW_kapC`, `term_factor_dual`, `xi_chain_dual`); **`dualMS_rowcol`** (round 319) |
+| `EisensteinFirstTransfer.lean` | 1217 | **S5c-3: the companion paper's Lemma 7.1**: the form `𝒬` of its (7.2) (`ellS`, `Ycd`, `Pcol`, `qTriples`, `Qform`); the multiplicity of `y = μf²` (`card_sq_dvd_le`, `sum_pairs_le_mult`); the terms that vanish (`rcDual_eq_zero_of_meet`, `rcDual_eq_zero_of_large_bTV`, `rcDual_eq_zero_of_large_mu`); the bilinear form with enlarged columns (`RowD`, `wRowD`, `colE`, `xE`, `rcDual_eq_bilin`, `rowSumD_eq_bilinear`); the column mean square (`rowsD`, `rows_meanSquareD`); the bound for one pair of characters (`exists_bump_one`, `blockD_bound`); the zero frequency (`RΦ`, `zero_rowD_le`); **`first_transfer`** (round 320) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9974,7 +9975,7 @@ The deviations from the paper are the displayed form of Proposition 5.4 (its con
 **The plan for S5c.**
 - **S5c-1.** The uniform Mellin separation: coefficient bounds from derivative bounds, then `dilated_meanSquare` and `bilinear_dual_bound₂` with constants independent of the weight, as `K·N²` for a bound `N` on its derivatives. This also gives the weight `x^{−1/2}W(x)` of Lemma 7.1's kernel. *(Round 317: landed, `MellinSep.bilinear_dual_bound_unif` and `MellinSep.W0c_unif`.)*
 - **S5c-2.** Lemma 7.1's identity: the expansion of `𝒜(W)`, round 307's pair Poisson identity with (7.3), the characters modulo `4`, and the insertion of `t`. *(Round 318: the expansion and the dual pair identity landed, `Eis.dualMS_poisson`. Round 319: the rest landed, `Eis.dualMS_rowcol`.)*
-- **S5c-3.** Lemma 7.1's bound: the multiplicity of `y = hf²`, the separation of S5c-1 and the zero frequency.
+- **S5c-3.** Lemma 7.1's bound: the multiplicity of `y = hf²`, the separation of S5c-1 and the zero frequency. *(Round 320: landed, `Eis.first_transfer`.)*
 - **S5c-4.** Lemma 7.2 for the twisted Möbius family, following rounds 307–308.
 - **S5c-5.** Lemma 7.3: the regrouping, Lemma 4.4, the dyadic blocks and the zero frequency `𝒵`.
 - **S5c-6.** The assembly: `TransferEstimate` derived, and round 315's milestone with `CompletedMeanSquare` as its only displayed hypothesis.
@@ -10093,7 +10094,58 @@ Then S5c-3 to S5c-6.
 
 **Check 4.** The steps follow the paper's proof of Lemma 7.1 from (7.3) to its display of `𝒜(W) − Z`. New here: that display machine-checked for one row, with the indicator `1_{(n,t)=1}` written as `χ_n(t)⁶`.
 
-**Not yet here:** S5c-3 to S5c-6 (round 316's plan). S5c-3 is next: the multiplicity of `y = hf²`, the separation of S5c-1 and the zero frequency.
+**Not yet here:** S5c-3 to S5c-6 (round 316's plan). S5c-3 is next: the multiplicity of `y = hf²`, the separation of S5c-1 and the zero frequency. *(Round 320: S5c-3 landed, `Eis.first_transfer`.)*
+
+**Check 9.** No barrier claim is made.
+
+**Bearing on RH:** none.
+
+## Round 320: S5c, part 4 — the companion paper's Lemma 7.1 (`src/EisensteinFirstTransfer.lean`)
+
+**What it is.** S5c-3 in round 316's plan. The companion paper's Lemma 7.1, with its LaTeX rendered as text: "If `M≥0` satisfies `𝒬_{ξ_1}(U)≤M‖U‖²_{C^j(I_*)}` for every `U∈C_c^∞(I_*)` and every `ξ_1`, then `𝒜(W)≪D^{ε_0}(Σ+M)‖W‖²_{C^{2j+4}(I)}`." Round 319 derived its identity for one row. This round derives the bound: the multiplicity of `y = hf²`, the separation of the row-dependent kernels (the paper's Lemma B.2, in round 317's uniform form) and the zero frequency.
+
+**The form `𝒬`** (`Qform`, the paper's (7.2)).
+- Its index set is the paper's coprime squarefree `C, t` with `N(C)N(t) ≤ 2vL` and `d ∣ C`. Here it is `qTriples (2βL)`: the triples `(b, d, t)` of pairwise disjoint sets of primes with `C = b ∪ d` and `N(b)N(d)N(t) ≤ 2βL`.
+- Each triple carries the weight `2H·N(b)/(√3·L)` times `Re Σ_y |P_{C,d,t}(y; U)|²·Φ(y/√Y_{C,d})`.
+- `P_{C,d,t}(y; U) = Σ_n p_y(n)U(N(n)/ℓ)` (`Pcol`) is round 319's `colP` with `c = b⁴d⁵t⁶`, over the columns of norm at most `2βℓ`.
+- `ℓ = L/(N(C)N(t))` (`ellS`), and `Y_{C,d} = c_I·SLF/(H·N(b)²N(d))` (`Ycd`) is the paper's `c_I·ΣLFN(d)/(𝓗N(C)²)`.
+- The weight is the paper's `w_{C,d} = 𝓗N(C)/(N(d)L²F)` times `2LF/√3`, the normalization of round 319's `rcDual`.
+
+**The multiplicity of `y = μf²`** (`card_sq_dvd_le`, `sum_pairs_le_mult`). The paper: "the map `(f,h)↦y=hf^2` has divisor-bounded multiplicity in `y`". Here the `f` with `pgen(f)² ∣ y` are determined by their sets of primes, which lie among the primes of `(y)` (round 313's `dvd_of_subset_primeSet`). So they number at most `2^{ω(y)} ≤ 4^{ω(y)} ≤ C_δ·N(y)^δ` (round 310's `four_pow_card_le`). For nonnegative `G`, `Σ_{(f,μ)} G(μf²) ≤ C_δ·Y^δ·Σ_y G(y)` over the image.
+
+**The terms that vanish.**
+- `rcDual_eq_zero_of_large_mu` is the paper's "its nonzero image satisfies `N(y)≤4C_Φv^2L^2F^2N(d)/(𝓗N(C)^2)≤Y_{C,d}`". With `3β²R_Φ² ≤ c_I`, `LF ≤ S` and `Y_{C,d} < 4F²·N(μ)`, every term with columns prime to `V` vanishes: the dual weight's argument exceeds `R_Φ`, a support radius of `Φ̂` fixed once (`RΦ`).
+- `rcDual_eq_zero_of_large_bTV`: the rows with `N(b)N(T)N(V) > βL` vanish.
+- `rcDual_eq_zero_of_meet`: the columns meeting `b ∪ T ∪ V` vanish, the paper's "the other original zeros are supplied by `p_{hf^2}(x_i)`".
+
+**The bilinear form with enlarged columns** (`rcDual_eq_bilin`, `rowSumD_eq_bilinear`).
+- The paper's Lemma B.2 allows points `x_{j,r,n}` that depend on the row. Round 317's `bilinear_dual_bound_unif` takes points that depend on the column only.
+- The column scale `ℓ = L/(N(C)N(t))` depends on the row, so the columns are indexed by pairs (row, set of primes). The coefficient `colE` is `√w_r·p(M)` on the row's own block and `0` elsewhere, at the point `xE = N(M)/ℓ_r`.
+- The weight `w_r = 2H·N(b)/(√3·L)` is absorbed as `√w_r` into both coefficient families. The row factor `wRowD` (the signs, `ξ₁(V)ξ̄₂(V)` and the restrictions) has norm at most `1` (`norm_wRowD_le`).
+
+**The column mean square** (`rows_meanSquareD`). The paper: "`Σ_{C,t}Σ_{d∣C}w_{C,d}Σ_{f,h}|P_{C,d,t}(hf^2;U)|^2 ≼ 𝒬_{ξ_1}(U)`", where `A≼B` means `A≪_εD^εB`. Here the rows that do not vanish are `rowsD`. For every test function vanishing beyond `2β`, `Σ_r |Σ_n colE(r, n)U(x_n)|² ≤ C·(c_I·SLF/H)^δ·𝒬(U)`. The proof combines the multiplicity count with round 307's majorant `sum_sq_le_majorant` (the paper's "Since `Φ≥1` on `[0,1]` and is nonnegative").
+
+**The bound for one pair of characters** (`blockD_bound`). This is round 317's `bilinear_dual_bound_unif` with the enlarged columns, `ρ = 1` and `A_r ≥ 4H/(3L²)` (`ARowD_ge`). Its bump is `exists_bump_one`, equal to `1` on `[α, β]` and supported in `[α/2, 2β]`. Suppose `𝒬_ξ(U) ≤ M_Q·N_U²` for every test function vanishing outside `[α/2, 2β]` with its first `J` derivatives bounded by `N_U`. Then the rows contribute at most `K·N_W²·(4H/(3L²))^{−σ}·(c_I·SLF/H)^δ·M_Q`.
+
+**The zero frequency** (`zero_rowD_le`): at most `(2κ+5)·max(β,1)L·N²·2H/√3·|Φ̂(0)|` for one row.
+
+**`first_transfer`** (the paper's Lemma 7.1).
+- Hypotheses: `W` supported in `[α, β]` with its first `2J+2` derivatives bounded by `N_W`; `1 ≤ H, L, F`; `LF ≤ S`; `3β²R_Φ² ≤ c_I`; and `𝒬_{ξ₁}(U) ≤ M_Q·N_U²` for every `ξ₁` and every test function `U` vanishing outside `[α/2, 2β]` with its first `J` derivatives bounded by `N_U`.
+- Conclusion: `E ≤ K₁·N_W²·HLF + K₂·N_W²·(4H/(3L²))^{−σ}·(c_I·SLF/H)^δ·M_Q`, with `E` round 314's row sum and `K₁, K₂` depending only on `α, β, J, σ, δ`.
+- The proof chains round 307's majorant, round 319's identity for each row, `sum_f_eq_rowsD` (the rows of all the `f` in one sum, through `sum_nested_eq_triplesOf`), `blockD_bound` for each pair of characters with `‖ĉ(ξ₁, ξ₂⁻¹)‖ ≤ 1` (`norm_pairCoeff_xi_le`), and the zero frequency.
+
+**Comparison with the paper.**
+- The paper's bound is `𝒜(W)≪D^{ε_0}(Σ+M)‖W‖²_{C^{2j+4}(I)}`, with `𝒜` normalized by `1/(LF)`. Here the zero frequency gives `HLF·N_W²`; the paper's hypotheses have `𝓗 ≤ Σ`. The other frequencies give `(4H/(3L²))^{−σ}·(c_I·SLF/H)^δ·M_Q·N_W²` in place of `D^{ε_0}·M`. These are the losses of the pilot's Mellin separation (`A_min^{−σ}`, round 302) and of the multiplicity count (`Y^δ`). With all scales at most `D^{C_0}` they are at most a power `D^ε` for `σ, δ` small, which S5c-6 has to choose.
+- `𝒬` here is the paper's times `2LF/√3`.
+- The test functions of the hypothesis vanish outside `[α/2, 2β]`, the paper's `I_*=[u/2,2v]`. Lemma 7.3 rescales them (the paper's "Moreover `1≤X'/X'_0<4`") into `I'=[u/16,4v]`, and its "have support in `[u/8,2v]^2⊂int(I'^2)`" needs that room at `u/16`. A draft of this round used round 310's bump, supported in `[α/4, 2β]`, which would leave none.
+- The derivative order is `2J+2`, at most the paper's `2j+4`.
+- The paper's single character `ξ_1` is a pair `(ξ₁, ξ₂)` here (round 319). The hypothesis on `𝒬` is for every character, as in the paper.
+
+**Build.** Incremental pilot build: 1 compiled, 206 up to date, 23 s, 0 warnings. The 44 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1609 in `src/`. No other file imports `EisensteinFirstTransfer`. The 58 new named declarations were checked for clashes against the Lean files of `src/` and `external/` and against Mathlib's `theorem`, `lemma`, `def`, `abbrev`, `structure`, `class`, `inductive` and `instance` lines.
+
+**Check 4.** The steps follow the paper's proof of Lemma 7.1. New here: the lemma machine-checked, with the row-dependent scale handled by enlarged columns and the multiplicity of `y = hf²` counted through the primes of `(y)`.
+
+**Not yet here:** S5c-4 to S5c-6 (round 316's plan): Lemma 7.2 for the twisted Möbius family; Lemma 7.3, which bounds `𝒬` (here `Qform`); and the assembly of `TransferEstimate`.
 
 **Check 9.** No barrier claim is made.
 
