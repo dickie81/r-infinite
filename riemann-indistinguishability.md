@@ -4638,7 +4638,10 @@ pole-frequency density 4/(1 + 4γ²) ≈ 1.4×10⁻⁴ rad per unit
 height there, against the meter's resolving power 2π/4500 ≈
 1.4×10⁻³ at reachable coefficient counts: an order of magnitude
 short (ratio 10.3, gated); the planted target sits where the
-zero tower is ~18× thinner. The wild target is INFEASIBLE for
+~~zero tower is \~18× thinner~~ pole frequencies spread ~18× wider
+per unit height *(round 400 F400-C8: the ~18× is the ratio of that
+density between the two heights, not a ratio of zero spacings)*.
+The wild target is INFEASIBLE for
 this instrument at this reach — the validation is honest about
 where the instrument works. *(iv) The A-peek: the atomic
 refutation.* The 1av program's P2 clause (an entropy functional

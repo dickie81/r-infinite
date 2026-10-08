@@ -53,6 +53,10 @@ and the zeros cache is anchor-validated, not content-addressed);
 every gate re-runs live on every non-cached run; data-only
 corruption of a cached pass's inputs is caught only at the next
 key rotation or TOWER_FRESH -- the disclosed, accepted residual.
+[Net state, round 400 F400-B10/C4: superseded since round 399 -- the
+dependency record stored with each PASS hashes every file a live run
+read, checkpoint data included, and a cached PASS is served only while
+each is unchanged; see the tracer block below.]
 A member with a cached PASS at the current key is SKIPPED and reported
 as "PASS (cached ...)"; the run's summary prints the live-vs-cached
 census explicitly (no silent caps). This is the same
@@ -935,7 +939,7 @@ if (_pp.returncode != 0 or _m2 is None or int(_m2.group(1)) != PRECHECK_PROBE_CA
 # sabotage cases; the census line is gated, the probe count pinned
 # exactly like the two suites above, and the script is pinned in the
 # manifest's keying list
-RENDER_PROBE_CASES, RENDER_SURFACES = 42, 2   # 7 -> 10 at the round-395 sweep (L7-L9), 15 at round 396 (L10-L14), 23 at round 397 (L10, L13 widened; L15), 37 at round 398 (L10, L15 widened; L16, L17), 42 at round 399 (L18-L20 split out or new; L16 cell counts)
+RENDER_PROBE_CASES, RENDER_SURFACES = 46, 2   # 7 -> 10 at the round-395 sweep (L7-L9), 15 at round 396 (L10-L14), 23 at round 397 (L10, L13 widened; L15), 37 at round 398 (L10, L15 widened; L16, L17), 42 at round 399 (L18-L20 split out or new; L16 cell counts), 46 at round 400 (L16 end and begin clauses, L17 info string, L21)
 _rl = subprocess.run([sys.executable, os.path.join(HERE, "render_lint.py")],
                      capture_output=True, text=True)
 _rl_line = [l for l in _rl.stdout.splitlines() if l.startswith("render lint:")]
@@ -982,14 +986,26 @@ GATE_LABELS_MIN = 650
 def _consts_in_order(node):
     """The string constants under node, in source order: sorted by
     position (round 399 F399-B8: field order put a dict display's keys
-    before its values), ties -- the parts of an f-string, which share
-    its position before Python 3.12 -- kept in field order."""
+    before its values), an f-string taken as one unit at its own
+    position with its parts and the constants in its replacement fields
+    in field order (round 400 F400-B6: before Python 3.12 an f-string's
+    literal parts carry the f-string's position while a field's
+    constants carry their own, so sorting moved the parts first)."""
     found = []
 
-    def walk(n):
+    def unit(n, pos):
         if isinstance(n, _ast.Constant) and isinstance(n.value, str):
-            found.append(((getattr(n, "lineno", 0), getattr(n, "col_offset", 0),
-                           len(found)), n.value))
+            found.append((pos + (len(found),), n.value))
+        for c in _ast.iter_child_nodes(n):
+            unit(c, pos)
+
+    def walk(n):
+        pos = (getattr(n, "lineno", 0), getattr(n, "col_offset", 0))
+        if isinstance(n, _ast.JoinedStr):
+            unit(n, pos)
+            return
+        if isinstance(n, _ast.Constant) and isinstance(n.value, str):
+            found.append((pos + (len(found),), n.value))
         for c in _ast.iter_child_nodes(n):
             walk(c)
     walk(node)
@@ -1032,11 +1048,12 @@ _sab = _ast.parse('gate("g1 ok", 1)\n'
                   'H: object = gate\nH("g5 88 " + "cited in place", 1)\n'
                   'gate("g6 the range " + "1i" + "\ufe581ca", 1)\n'
                   'J, K = gate, print\nJ(f"g7 {k} the range 1i" + "\u2e3a1ca", 1)\n'
-                  'gate({"88": " cited", " in": " place"}["88"], 1)\n')
+                  'gate({"88": " cited", " in": " place"}["88"], 1)\n'
+                  'gate(f"g9 {\'88\'} cited in place", 1)\n')
 if not (_CENSUS_NUM.search("88 cited in place; the range 1i–1bl")
         and _CENSUS_NUM.search("Theorems 1i--1bj")
         and not _CENSUS_NUM.search("the anchored count and range needles")
-        and _label_hits(_sab) == (8, [2, 3, 5, 7, 8, 10, 11])):
+        and _label_hits(_sab) == (9, [2, 3, 5, 7, 8, 10, 11, 12])):
     print("GATE-LABEL PRECHECK FAILURE: the census-numeral scan missed "
           "its sabotage cases", flush=True)
     sys.exit(2)
@@ -1085,6 +1102,11 @@ THR = str(max(1, (os.cpu_count() or 4)//NW))
 # _ENV_SWITCHES, and the producers' compute checkpoints (their
 # ckpt_key keys bind code only; the members that read them re-run
 # live and re-gate the data). After any of those, TOWER_FRESH=1.
+# [Net state, round 400 F400-B10/C4: the key still binds no
+# checkpoint, but since round 399 the dependency record binds every
+# checkpoint a member's live run read, so a changed checkpoint re-runs
+# that member with no manual step; TOWER_FRESH=1 stays owed after the
+# other unbound inputs above.]
 import importlib.metadata as _md
 import platform as _platform
 
@@ -1228,31 +1250,50 @@ env = dict(os.environ, CASCADE_CHAIN="manifest",
 # regular package, path fragments with a prefix, __import__(name=...),
 # relative import_module, .tex names with a directory -- each an
 # ordinary spelling the static walk missed, three demonstrated as a
-# stale cached PASS). The static key cannot enumerate every spelling;
-# the run can be observed. Every live member runs with the tracer
-# (reach_trace/sitecustomize.py, pinned) first on PYTHONPATH: an audit
-# hook records every file the member's Python processes open for
-# reading and every command line they spawn. The files under the
-# repository that the run read or named, each .py widened by its static
-# reach (a child started in isolated mode loads no tracer), are hashed
-# and stored with the PASS; a cache hit needs the static key AND every
-# recorded file unchanged (a dropped dependency only re-runs a member:
-# the safe direction). Excluded: .git, __pycache__, the two markdown
-# paper surfaces (the needle precheck evaluates them live), this cache
-# and the manifest (integrity-checked above) and the tracer itself. A
-# .py read from outside both the repository and the Python installation
-# fails the member (external code). An entry with no record (written
-# before round 399) is not served; the member runs live once.
+# stale cached PASS; round 400, F400-B1/B2/C1: a module served from a
+# valid bytecode cache, and a file a glob picks up later). The static
+# key cannot enumerate every spelling; the run can be observed. Every
+# live member runs with the tracer (reach_trace/sitecustomize.py,
+# pinned) first on PYTHONPATH: an audit hook records each file its
+# Python processes open for reading (a bytecode cache recorded as its
+# source when it has one, mapped by the tracer under the process's own
+# pycache prefix), each directory they list, and each command line they
+# spawn through subprocess, os.system, os.exec*, os.posix_spawn or
+# os.spawn*. The files and listings under the repository the run read,
+# listed or named, each .py widened by its static reach, and the paths
+# under it that a read or listing found absent (a child that
+# drops the tracer is resolved from its spawn line, and its own imports
+# only through that widening), are hashed and stored with the PASS; a
+# cache hit needs the static key AND every recorded file and listing
+# unchanged and every absent path still absent (an extra dependency
+# only re-runs a member: the safe
+# direction). Excluded: .git, __pycache__ (a cache's source is recorded
+# instead), the main paper (the needle precheck evaluates it live),
+# this cache and the manifest (integrity-checked above) and the tracer
+# itself. Code (a .py, or a .pyc with no source) read from outside both
+# the repository and the Python installation, tested on the path as
+# read and as resolved, fails the member (external code). An entry
+# whose record predates the current format (DEPS_V) is not served; the
+# member runs live once. Not recorded: an existence test (os.stat raises
+# no audit event), a read by C code that bypasses Python's audited calls,
+# reads by a process that drops the tracer, and spawns that raise none
+# of the events above.
+import json as _json
+import shlex as _shlex
 import site as _site
 import sysconfig as _sysconfig
 import tempfile as _tempfile
 REPO = os.path.realpath(os.path.join(HERE, "..", ".."))
 TRACE_DIR = os.path.realpath(os.path.join(HERE, "reach_trace"))
+DEPS_V = 2      # round 400: .pyc reads mapped to sources, listings recorded
 _DEP_SKIP = {os.path.realpath(x) for x in (
     os.path.join(REPO, "riemann-indistinguishability.md"),
-    os.path.join(REPO, "cascade-riemann-formulation.md"),
     CACHE_PATH, MAN_PATH)}
 _ENV_DIRS = tuple(sorted({os.path.realpath(x) + os.sep for x in (
+    [sys.prefix, sys.base_prefix, sys.exec_prefix]
+    + list(_site.getsitepackages()) + [_site.getusersitepackages()]
+    + list(_sysconfig.get_paths().values())) if x}
+    | {os.path.abspath(x) + os.sep for x in (
     [sys.prefix, sys.base_prefix, sys.exec_prefix]
     + list(_site.getsitepackages()) + [_site.getusersitepackages()]
     + list(_sysconfig.get_paths().values())) if x}))
@@ -1264,39 +1305,96 @@ def _trace_env(trace):
                 PYTHONPATH=TRACE_DIR + (os.pathsep + pp if pp else ""))
 
 
+def _spawn_cands(rec):
+    """The files a spawned command line may name: every argument and
+    every shell word (quotes honoured), joined to the working directory
+    and to each directory a "cd" in the line moves to; and for "-m X" the
+    module X's files and its packages' __init__.py, under the same
+    directories (round 400 F400-B3/C5)."""
+    cwd, argv = rec.get("cwd") or os.curdir, rec.get("argv") or []
+    words = []
+    for a in argv:
+        words.append(a)
+        try:
+            words += _shlex.split(a)
+        except ValueError:
+            words += a.split()
+    bases = [cwd]
+    for i, w in enumerate(words[:-1]):
+        if w == "cd":
+            bases.append(os.path.normpath(os.path.join(cwd, words[i + 1])))
+    cands = [os.path.join(b, w) for b in bases for w in words]
+    for i, w in enumerate(words[:-1]):
+        if w == "-m":
+            parts = words[i + 1].split(".")
+            if all(x.isidentifier() for x in parts):
+                for b in bases:
+                    cands += [os.path.join(b, *parts[:k], "__init__.py")
+                              for k in range(1, len(parts) + 1)]
+                    cands += [os.path.join(b, *parts) + ".py",
+                              os.path.join(b, *parts, "__main__.py")]
+    return cands
+
+
+def _in_env(path):
+    return os.path.abspath(path).startswith(_ENV_DIRS) or \
+        os.path.realpath(path).startswith(_ENV_DIRS)
+
+
 def _trace_deps(trace, root):
     """(deps, external) from a trace file: the files under root the run
-    read or named on a spawned command line (absolute paths, the
-    exclusions applied, each .py widened by its static reach), and the
-    .py files it read from outside both root and the Python
-    installation."""
+    read or named on a spawned command line, and the directories under
+    root it listed as "dir:" entries (absolute paths, the exclusions
+    applied, each .py widened by its static reach); and the code it
+    read from outside both root and the Python installation."""
     try:
         lines = open(trace, encoding="utf-8",
                      errors="surrogateescape").read().splitlines()
     except OSError:
         lines = []
     deps, external = set(), set()
+
+    def excluded(q):
+        parts = q[len(root) + 1:].split(os.sep)
+        return (parts[0] == ".git" or "__pycache__" in parts
+                or q in _DEP_SKIP or q == TRACE_DIR
+                or q.startswith(TRACE_DIR + os.sep))
+
+    def ours(q):
+        return (q == root or q.startswith(root + os.sep)) and not excluded(q)
+
     for ln in lines:
         kind, _, rest = ln.partition(" ")
+        if kind in ("L", "R") and not os.path.lexists(rest):
+            # a read or listing that found nothing: its later creation
+            # changes the run (the round-400 sweep's pre-landing check,
+            # the F400-B2 class for a single file)
+            q = os.path.realpath(rest)
+            if ours(q):
+                deps.add("missing:" + q)
+            continue
+        if kind == "L":
+            q = os.path.realpath(rest)
+            if os.path.isdir(q) and ours(q):
+                deps.add("dir:" + q)
+            continue
         if kind == "R":
             cands = [rest]
         elif kind == "X":
-            words = rest.split(" ")
-            cands = [os.path.join(words[0], w) for w in words[1:] if w]
+            try:
+                cands = _spawn_cands(_json.loads(rest))
+            except ValueError:
+                continue
         else:
             continue
         for c in cands:
-            q = os.path.realpath(c)
-            if not os.path.isfile(q):
+            if not os.path.isfile(c):
                 continue
+            q = os.path.realpath(c)
             if q.startswith(root + os.sep):
-                parts = q[len(root) + 1:].split(os.sep)
-                if (parts[0] == ".git" or "__pycache__" in parts
-                        or q in _DEP_SKIP
-                        or q.startswith(TRACE_DIR + os.sep)):
-                    continue
-                deps.add(q)
-            elif q.endswith(".py") and not q.startswith(_ENV_DIRS):
+                if not excluded(q):
+                    deps.add(q)
+            elif (c.endswith((".py", ".pyc")) and not _in_env(c)):
                 external.add(q)
     for q in [d for d in deps if d.endswith(".py")]:
         deps |= {os.path.realpath(x) for x in _reach_abs(q, CODE_ROOTS)
@@ -1306,28 +1404,62 @@ def _trace_deps(trace, root):
 
 
 _DEP_MEMO = {}
+_DEP_KINDS = ("dir:", "missing:")
 
 
-def _dep_hash(path):
-    if path not in _DEP_MEMO:
-        h = None
-        if path.endswith(".py"):
-            try:
-                h = ckpt_key.code_sha(path, strip_prints=False)
-            except Exception:
-                h = None
-        _DEP_MEMO[path] = h or _sha(path)
+def _dep_rel(q, root):
+    """A recorded dependency's key: its path relative to root, kind
+    prefix kept."""
+    for k in _DEP_KINDS:
+        if q.startswith(k):
+            return k + os.path.relpath(q[len(k):], root)
+    return os.path.relpath(q, root)
+
+
+def _dep_hash(path, memo=True):
+    """A recorded dependency's hash: "absent" for a "missing:" entry, a
+    listing's sorted names for a "dir:" entry, ckpt_key's executable
+    hash for a .py, bytes else. The cache check memoizes it; a run's own
+    record never reads the memo (memo=False), so a file a member changed
+    while it ran is hashed as the run left it (the round-400 sweep)."""
+    if not memo or path not in _DEP_MEMO:
+        if path.startswith("missing:"):
+            h = "absent"
+        elif path.startswith("dir:"):
+            h = hashlib.sha256("\n".join(sorted(os.listdir(path[4:])))
+                               .encode("utf-8", "surrogateescape")).hexdigest()
+        else:
+            h = None
+            if path.endswith(".py"):
+                try:
+                    h = ckpt_key.code_sha(path, strip_prints=False)
+                except Exception:
+                    h = None
+            h = h or _sha(path)
+        _DEP_MEMO[path] = h
+        return h
     return _DEP_MEMO[path]
 
 
-def _deps_ok(entry):
+def _deps_ok(entry, root=REPO):
+    """True iff entry's record is in the current format and every
+    recorded file and listing under root is unchanged and every missing
+    path still absent."""
     deps = entry.get("deps")
-    if deps is None:
+    if deps is None or entry.get("deps_v") != DEPS_V:
         return False
     for rel, h in deps.items():
-        q = os.path.join(REPO, rel)
-        if not os.path.isfile(q) or _dep_hash(q) != h:
-            return False
+        if rel.startswith("missing:"):
+            if os.path.lexists(os.path.join(root, rel[8:])):
+                return False
+        elif rel.startswith("dir:"):
+            q = "dir:" + os.path.join(root, rel[4:])
+            if not os.path.isdir(q[4:]) or _dep_hash(q) != h:
+                return False
+        else:
+            q = os.path.join(root, rel)
+            if not os.path.isfile(q) or _dep_hash(q) != h:
+                return False
     return True
 
 
@@ -1342,7 +1474,8 @@ def run(name):
         deps, external = _trace_deps(trace, REPO)
     finally:
         os.unlink(trace)
-    hashes = {os.path.relpath(q, REPO): _dep_hash(q) for q in sorted(deps)}
+    hashes = {_dep_rel(q, REPO): _dep_hash(q, memo=False)
+              for q in sorted(deps)}
     return (name, r.returncode, time.time() - t0, r.stdout[-400:], hashes,
             sorted(external))
 
@@ -1526,22 +1659,45 @@ if len(_union) < REACH_FILES_MIN:
 print(f"reach precheck: {len(names)} members, {len(_union)} reach files "
       f"(floor {REACH_FILES_MIN}), 0 unresolved imports; sabotage case "
       f"reached {len(_want[0])} planted files", flush=True)
-# the tracer's own sabotage case (round 399): a planted script in a
-# temporary root reaches each spelling round 399 found, each through a
-# file only that spelling touches -- a shell command string, os.system,
-# -m on a regular package's module and on a package, an f-string path,
-# __import__(name=...) after a sys.path insert, a glob-discovered
-# script, a data file, a .tex named with a directory, a child started
-# with -E (no tracer: recorded from the spawn line, its own import only
-# through the static widening) -- and imports a module from a second
-# directory outside the root, which must be classed external
+# the tracer's own sabotage case (round 399; widened at round 400,
+# F400-B1/B2/B3/B4/B8/C1/C3): a planted script in a temporary root,
+# every module in it precompiled first (so the import system reads
+# bytecode caches, as it does in the repository), reaches each planted
+# spelling through a file only that spelling touches: a shell command
+# string; os.system and os.popen, each running a child with -E (no
+# tracer) after a "cd" into a subdirectory (relative for os.system,
+# absolute for os.popen), so the child's script resolves only through
+# the "cd"; -m on a regular package's module and on a
+# package; an f-string path; __import__(name=...) after a sys.path
+# insert; a relative importlib.import_module; a glob (its listing is a
+# dependency) and a listing of the root itself; a read and a listing
+# that find nothing (each recorded as missing); a data file read with
+# open, one with os.open and one
+# opened "a+" (read only by virtue of the "+"); a .tex named with a
+# directory; -E children named by an
+# absolute path (its own import reached only through the static
+# widening), by a path relative to the spawn's directory, by a quoted
+# path with a space, and by "-m"; 64 files read by eight threads -- and
+# it imports a precompiled module from a second directory outside the
+# root, which must be classed external, and runs a child that imports a
+# module served from a bytecode cache under a PYTHONPYCACHEPREFIX
+# outside the root (the source must be recorded, the cache not classed
+# external). A spelling not planted here is
+# not claimed.
 _TPLANT = {"a_shell.py": "", "b_system.py": "", "pkg/__init__.py": "",
            "pkg/mod.py": "", "pkg2/__init__.py": "", "pkg2/__main__.py": "",
            "sub/fsub.py": "", "sub/chain_a.py": "", "out/zz_outside.py": "",
            "data/table.json": "{}", "data/part0.tex": "x",
+           "data/raw.bin": "r", "data/rw.txt": "w",
            "iso.py": "import iso_dep\n", "iso_dep.py": "",
+           "cdd/sys_iso.py": "", "cdd/popen_iso.py": "", "rel_iso.py": "",
+           "q iso.py": "", "isopkg/__init__.py": "", "isopkg/iso_m.py": "",
+           "rpk/__init__.py": "", "rpk/relmod.py": "",
+           "pfx_main.py": "import pfx_mod\n", "pfx_mod.py": "",
+           **{f"thr/t{i}.txt": "x" for i in range(64)},
            "m.py": (
-               "import glob, os, subprocess, sys\n"
+               "import glob, importlib, os, subprocess, sys\n"
+               "from concurrent.futures import ThreadPoolExecutor\n"
                "H = os.path.dirname(os.path.abspath(__file__))\n"
                "E = sys.executable\n"
                "subprocess.run(f'\"{E}\" a_shell.py', shell=True, cwd=H,"
@@ -1552,39 +1708,125 @@ _TPLANT = {"a_shell.py": "", "b_system.py": "", "pkg/__init__.py": "",
                "subprocess.run([E, f'{H}/sub/fsub.py'], check=True)\n"
                "sys.path.insert(0, os.path.join(H, 'out'))\n"
                "__import__(name='zz_outside')\n"
+               "sys.path.insert(0, H)\n"
+               "importlib.import_module('.relmod', 'rpk')\n"
                "for f in glob.glob(os.path.join(H, 'sub', 'chain_*.py')):\n"
                "    subprocess.run([E, f], check=True)\n"
+               "os.listdir(H)\n"
+               "try:\n"
+               "    open(os.path.join(H, 'opt', 'override.json')).read()\n"
+               "except FileNotFoundError:\n"
+               "    pass\n"
+               "try:\n"
+               "    os.listdir(os.path.join(H, 'optdir'))\n"
+               "except FileNotFoundError:\n"
+               "    pass\n"
                "open(os.path.join(H, 'data', 'table.json')).read()\n"
                "open(H + '/data/part0.tex').read()\n"
+               "os.close(os.open(os.path.join(H, 'data', 'raw.bin'),"
+               " os.O_RDONLY))\n"
+               "f = open(os.path.join(H, 'data', 'rw.txt'), 'a+')\n"
+               "f.seek(0)\n"
+               "f.read()\n"
+               "f.close()\n"
                "subprocess.run([E, '-E', os.path.join(H, 'iso.py')], cwd=H,"
+               " check=True)\n"
+               "assert os.system(f'cd cdd && \"{E}\" -E sys_iso.py') == 0\n"
+               "os.popen(f'cd \"{H}/cdd\" && \"{E}\" -E popen_iso.py').read()\n"
+               "subprocess.run([E, '-E', 'rel_iso.py'], cwd=H, check=True)\n"
+               "subprocess.run(f'\"{E}\" -E \"{H}/q iso.py\"', shell=True,"
+               " check=True)\n"
+               "subprocess.run([E, '-E', '-m', 'isopkg.iso_m'], cwd=H,"
+               " check=True)\n"
+               "def rd(i):\n"
+               "    return open(os.path.join(H, 'thr', f't{i}.txt')).read()\n"
+               "with ThreadPoolExecutor(8) as ex:\n"
+               "    list(ex.map(rd, range(64)))\n"
+               "subprocess.run([E, os.path.join(H, 'pfx_main.py')],"
+               " env=dict(os.environ, PYTHONPYCACHEPREFIX=sys.argv[2]),"
                " check=True)\n"
                "sys.path.insert(0, sys.argv[1])\n"
                "import ext_mod\n")}
+import compileall as _compileall
+import py_compile as _py_compile
 with _tempfile.TemporaryDirectory() as _tr, \
-        _tempfile.TemporaryDirectory() as _tx:
-    _tr, _tx = os.path.realpath(_tr), os.path.realpath(_tx)
+        _tempfile.TemporaryDirectory() as _tx, \
+        _tempfile.TemporaryDirectory() as _tp:
+    _tr, _tx, _tp = (os.path.realpath(_tr), os.path.realpath(_tx),
+                     os.path.realpath(_tp))
     for _f, _t in _TPLANT.items():
         os.makedirs(os.path.dirname(os.path.join(_tr, _f)), exist_ok=True)
         open(os.path.join(_tr, _f), "w").write(_t)
     open(os.path.join(_tx, "ext_mod.py"), "w").write("")
+    os.makedirs(os.path.join(_tr, "opt"))
+    _compileall.compile_dir(_tr, quiet=2)
+    _compileall.compile_dir(_tx, quiet=2)
+    _pp, sys.pycache_prefix = sys.pycache_prefix, _tp
+    try:
+        _py_compile.compile(os.path.join(_tr, "pfx_mod.py"), doraise=True)
+    finally:
+        sys.pycache_prefix = _pp
     _fd, _trf = _tempfile.mkstemp(prefix="tower_trace_", suffix=".txt")
     os.close(_fd)
-    _trr = subprocess.run([sys.executable, os.path.join(_tr, "m.py"), _tx],
+    _trr = subprocess.run([sys.executable, os.path.join(_tr, "m.py"), _tx,
+                           _tp],
                           capture_output=True, text=True, cwd=_tr,
                           env=_trace_env(_trf))
     _tdeps, _text = _trace_deps(_trf, _tr)
     os.unlink(_trf)
-    _tgot = {os.path.relpath(q, _tr) for q in _tdeps}
+    _tgot = {_dep_rel(q, _tr) for q in _tdeps}
     _textn = {os.path.basename(q) for q in _text}
-if (_trr.returncode != 0 or _tgot != set(_TPLANT)
-        or _textn != {"ext_mod.py"}):
+    # the record's own sabotage case (the round-400 sweep): the plant's
+    # record is served unchanged and after a comment-only edit to a
+    # recorded .py (the key's prose policy), and refused after a byte
+    # appended to a recorded data file, a file added to a recorded
+    # listing, a recorded missing path created, and with an older
+    # record format; each undone change is served again
+    _entry = {"deps": {_dep_rel(q, _tr): _dep_hash(q, memo=False)
+                       for q in _tdeps}, "deps_v": DEPS_V}
+
+    def _served(e=_entry):
+        _DEP_MEMO.clear()
+        return _deps_ok(e, _tr)
+
+    def _edit(rel, text, mode="a"):
+        with open(os.path.join(_tr, rel), mode) as _fh:
+            _fh.write(text)
+
+    _dserved = [_served()]
+    _edit("pkg/mod.py", "# a comment\n")
+    _dserved.append(_served())
+    _edit("data/table.json", " ")
+    _dserved.append(_served())
+    _edit("data/table.json", "{}", "w")
+    _dserved.append(_served())
+    _edit("sub/later.py", "")
+    _dserved.append(_served())
+    os.unlink(os.path.join(_tr, "sub", "later.py"))
+    _dserved.append(_served())
+    _edit("opt/override.json", "{}")
+    _dserved.append(_served())
+    os.unlink(os.path.join(_tr, "opt", "override.json"))
+    _dserved.append(_served())
+    _dserved.append(_served(dict(_entry, deps_v=DEPS_V - 1)))
+    _DEP_MEMO.clear()
+_DSERVED = [True, True, False, True, False, True, False, True, False]
+_twant = set(_TPLANT) | {"dir:sub", "dir:.", "missing:opt/override.json",
+                         "missing:optdir"}
+if (_trr.returncode != 0 or _tgot != _twant
+        or _textn != {"ext_mod.py"} or _dserved != _DSERVED):
     print(f"DEPENDENCY PRECHECK FAILURE: the tracer missed its sabotage "
           f"case (rc {_trr.returncode}; missed "
-          f"{sorted(set(_TPLANT) - _tgot)}; extra {sorted(_tgot - set(_TPLANT))}; "
-          f"external {sorted(_textn)}) {_trr.stderr[-300:]}", flush=True)
+          f"{sorted(_twant - _tgot)}; extra {sorted(_tgot - _twant)}; "
+          f"external {sorted(_textn)}; record served {_dserved}, "
+          f"expected {_DSERVED}) {_trr.stderr[-300:]}", flush=True)
     sys.exit(2)
 print(f"dependency precheck: the tracer's sabotage case recorded "
-      f"{len(_tgot)} planted files and 1 external module", flush=True)
+      f"{len(_tgot)} planted files, listings and missing paths (bytecode "
+      f"caches present) and 1 external module; the record refused "
+      f"{_DSERVED.count(False)} of {_DSERVED.count(False)} planted changes "
+      f"and served the unchanged, comment-edited and restored states",
+      flush=True)
 
 cached = [] if fresh else \
     [n for n in names if cache.get(keys[n], {}).get("rc") == 0
@@ -1617,6 +1859,7 @@ if live:
             else:
                 cache[keys[name]] = {
                     "file": name, "rc": 0, "dt": dt, "deps": deps,
+                    "deps_v": DEPS_V,
                     "when": time.strftime("%Y-%m-%dT%H:%MZ",
                                           time.gmtime())}
                 os.makedirs(os.path.dirname(CACHE_PATH),

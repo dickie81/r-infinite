@@ -8,7 +8,7 @@ Rounds 389-393 found delimiters that GitHub does not render as written
 surface with cmark-gfm -- the renderer behind GitHub's markdown, whose
 HTML for this paper matched GitHub's own API rendering at 2b76ff1 and
 49ab366 (the round-395 reviewers compared the visible text and the
-em/strong/del/code markers) -- and fails on twenty defect classes,
+em/strong/del/code markers) -- and fails on twenty-one defect classes,
 each decidable from the rendering:
 
   L1 single-tilde strike: GitHub parses ONE tilde as a strike
@@ -83,14 +83,19 @@ each decidable from the rendering:
      the header -- prose absorbed as a row, prose whose "|x|" and a
      following "-|-" made a table, or an unescaped "|x|" that splits
      a cell (round 398 F398-A2: a marker written directly under a
-     quote, a table or a list joined it; round 399 F399-A2/B6 added
-     the end and the cell count).
+     quote, a table or a list joined it; round 399 F399-A2, its in-paper
+     case IP3, added the end and the cell count).
   L17 the text is not what the source says: the letters and digits of
      the source, in order (an ordered item's number, which L20 checks,
-     and a fence's info string aside), must be exactly those of the
-     rendering, and the rendering may hold no element outside the
-     allowlist of plain markdown's block and inline elements (a link,
-     autolink, image, task checkbox or footnote is outside it). A
+     and the first word of a rendered fence's info string, which cmark
+     keeps as its language, aside -- round 400 F400-A2), must be exactly
+     those of the rendering, and the rendering may hold no element
+     outside the allowlist of the elements the surfaces' markup
+     produces: paragraphs, emphasis, strikes, code, lists, quotes,
+     headings, rules, tables and line breaks (round 400 F400-B10: not
+     "plain markdown's elements" -- strikes and tables are GFM's, and
+     CommonMark's own links and images are outside it, as are an
+     autolink, a task checkbox and a footnote). A
      character reference, a link's target, a link reference
      definition, a task box and a footnote each fail it (round 398
      F398-A2/B3, the third round to find such a class: one invariant
@@ -104,10 +109,14 @@ each decidable from the rendering:
      source number -- an item inserted or deleted without
      renumbering, so a cross-reference by number points elsewhere
      (round 399 F399-A2).
+  L21 a table delimiter row ("|---|---|") that no rendered table holds:
+     the table did not form -- an unescaped "|x|" in its header, or a
+     header and delimiter row of different widths -- and the whole table
+     rendered as one paragraph of bars and dashes (round 400 F400-A1).
 
-Scope, stated: L1-L20 detect markup that does not render as written,
+Scope, stated: L1-L21 detect markup that does not render as written,
 under cmark-gfm's server-side HTML with GitHub's footnotes. The "Not
-seen" list below is what the reviews of rounds 395-399 found and the
+seen" list below is what the reviews of rounds 395-400 found and the
 rules do not catch; it is the survey's record, not a proof that
 nothing else exists. Not seen: a star after a multi-letter token that
 closes an italic early while the stray it leaves follows a letter; a
@@ -117,8 +126,10 @@ backslash; a pair of LaTeX single open-quotes ("`a' ... `b'"), which
 forms an ordinary one-backtick code span; inside a list, a wrapped
 line that begins with the item's own marker, which renders as a
 sibling item; an unescaped "|" inside a table cell that splits it
-while the row keeps the header's cell count; and GitHub's client-side
-typesetting of "$...$" math,
+while the row keeps the header's cell count; a "|"-led line that ends
+with "|" and has the header's cell count, written directly under a
+table, which joins it as a row; and GitHub's client-side typesetting
+of "$...$" math,
 which the server HTML does not carry. Those stay with the pre-landing
 self-review. Code spans and fenced
 code blocks are exempt from L5-L9 (backtick strings matched as
@@ -175,19 +186,52 @@ def _text(h):
     return html.unescape(re.sub(r"<[^>]+>", "", h))
 
 
-# fenced blocks, then inline code spans -- backtick strings are
-# maximal runs closed by a run of the same length, and a span never
-# crosses a blank line (a paragraph boundary), so an unpaired
-# backtick cannot mask the rest of the document; an escaped backtick
-# opens nothing
-_CODE = re.compile(r"^(?:[ \t>]|[-*+][ \t]|\d+[.)][ \t])*(```|~~~).*?^[ \t>]*\1"
-                   r"|(?<![`\\])(`+)(?!`)(?:(?!\n[ \t]*\n)[^\x00])+?(?<!`)\2(?!`)",
-                   flags=re.S | re.M)
+# code blocks are the lines the renderer itself put in a <pre> (round
+# 400 F400-A2: the lint's own fence pairing differed from cmark's and
+# masked text the renderer dropped); inline code spans are backtick
+# strings matched as maximal runs closed by a run of the same length,
+# never across a blank line (a paragraph boundary) or into a code
+# block, so an unpaired backtick cannot mask the rest of the document;
+# an escaped backtick opens nothing
+_SPAN = re.compile(r"(?<![`\\])(`+)(?!`)(?:(?!\n[ \t]*\n)[^\x00])+?(?<!`)\1(?!`)",
+                   flags=re.S)
+_PRE_MEMO = {}
+
+
+def _pre_lines(src):
+    """The source lines of every code block the renderer produced, and
+    the first line of each (sourcepos), memoized per source."""
+    if src not in _PRE_MEMO:
+        if len(_PRE_MEMO) > 64:
+            _PRE_MEMO.clear()
+        h = _render(src, OPT | Options.CMARK_OPT_SOURCEPOS)
+        lines, starts = set(), set()
+        for m in re.finditer(r'<pre[^>]*data-sourcepos="(\d+):\d+-(\d+):(\d+)"',
+                             h):
+            a, b, c = int(m.group(1)), int(m.group(2)), int(m.group(3))
+            if c == 0 and b > a:
+                b -= 1
+            lines.update(range(a, b + 1))
+            starts.add(a)
+        _PRE_MEMO[src] = (frozenset(lines), frozenset(starts))
+    return _PRE_MEMO[src]
+
+
+def _fence_mask(src):
+    lines = _pre_lines(src)[0]
+    mask, ln = [], 1
+    for c in src:
+        mask.append(ln in lines)
+        if c == "\n":
+            ln += 1
+    return mask
 
 
 def _code_mask(src):
-    mask = [False] * len(src)
-    for m in _CODE.finditer(src):
+    mask = _fence_mask(src)
+    blanked = "".join(" " if mask[k] and c != "\n" else c
+                      for k, c in enumerate(src))
+    for m in _SPAN.finditer(blanked):
         for k in range(m.start(), m.end()):
             mask[k] = True
     return mask
@@ -325,26 +369,22 @@ _RAW_HTML = "<!-- raw HTML omitted -->"
 # item of its own (round 399 F399-A3/B5: a quoted list's indented line)
 _ITEM_LINE = re.compile(r"\s|\s*(?:[-*+]|\d+[.)])(?:\s|$)")
 _QUOTE_MARKS = re.compile(r"^\s*(?:>\s?)+")
-_BLOCK_PREFIX = re.compile(r"^\s*(?:>\s?)*\s*(?:(?:[-*+]|\d+[.)])\s+)*")
+# quote markers and list markers, in any order (round 400 F400-A4: a
+# quote, table or heading opening a list item)
+_BLOCK_PREFIX = re.compile(r"^(?:\s*(?:>\s?|(?:[-*+]|\d+[.)])\s+))*\s*")
+_DELIM_ROW = re.compile(r"^\|?\s*:?-+:?\s*(?:\|\s*:?-+:?\s*)+\|?\s*$")
 _FENCE_OPEN = re.compile(r"^(\s*(?:>\s?)*\s*(?:(?:[-*+]|\d+[.)])\s+)*"
                          r"(?:`{3,}|~{3,}))(.*)$")
-# the allowlist: plain markdown's block and inline elements; anything
-# else in the rendering (a link, autolink, image, task checkbox,
-# footnote) is a construct the surfaces never use on purpose (L17)
+# the allowlist: the elements the surfaces' markup produces
+# (paragraphs, emphasis, strike, code, lists, quotes, headings, rules,
+# tables, line breaks); anything else in the rendering (a link,
+# autolink, image, task checkbox, footnote) is a construct they never
+# use on purpose (L17)
 _USED_TAGS = {"p", "em", "strong", "del", "code", "pre", "ul", "ol", "li",
               "blockquote", "h1", "h2", "h3", "h4", "h5", "h6", "hr",
               "table", "thead", "tbody", "tr", "th", "td", "br"}
 _BLOCK_TAGS = {"p", "ul", "ol", "li", "blockquote", "h1", "h2", "h3", "h4",
                "h5", "h6", "hr", "pre", "table"}
-
-
-def _fence_mask(src):
-    mask = [False] * len(src)
-    for m in _CODE.finditer(src):
-        if m.group(1):
-            for k in range(m.start(), m.end()):
-                mask[k] = True
-    return mask
 
 
 class _Blocks(HTMLParser):
@@ -402,8 +442,11 @@ def _block_defects(src, gh):
         if t == "li":
             # L16: a list item's later lines are indented or begin an item
             for i in range(s0 + 1, e0 + 1):
-                ln = _QUOTE_MARKS.sub("", lines[i - 1])
-                if ln.strip() and not _ITEM_LINE.match(ln):
+                raw = lines[i - 1]
+                if not raw.strip() or raw[:1] in " \t":
+                    continue        # indented: inside the item
+                ln = _QUOTE_MARKS.sub("", raw)     # a list inside a quote
+                if not _ITEM_LINE.match(ln):
                     out.append(("L16", f"line {i}: lazy continuation into a "
                                 "list item: " + _snip(lines[i - 1], 50)))
             # L20: an ordered item renders the number its source gives
@@ -427,7 +470,8 @@ def _block_defects(src, gh):
         # a table with "|"
         if t == "blockquote":
             for i in range(s0, e0 + 1):
-                if lines[i - 1].strip() and not re.match(r"\s*>", lines[i - 1]):
+                if lines[i - 1].strip() and not re.match(
+                        r"(?:\s*(?:[-*+]|\d+[.)])\s+)*\s*>", lines[i - 1]):
                     out.append(("L16", f"line {i}: lazy continuation into a "
                                 "blockquote: " + _snip(lines[i - 1], 50)))
         if t == "table":
@@ -436,7 +480,7 @@ def _block_defects(src, gh):
             # cell splits it; a "|"-led line under a table joins it)
             cells = None
             for i in range(s0, e0 + 1):
-                ln = _QUOTE_MARKS.sub("", lines[i - 1]).strip()
+                ln = _BLOCK_PREFIX.sub("", lines[i - 1]).strip()
                 n = len(re.findall(r"(?<!\\)(?:\\\\)*\|", ln))
                 cells = n if cells is None else cells
                 if not (ln.startswith("|") and ln.endswith("|")) \
@@ -451,6 +495,20 @@ def _block_defects(src, gh):
                         + _snip(lines[s0 - 1], 60)))
         if t == "pre" and not body.startswith(("```", "~~~")):
             out.append(("L14", f"line {s0}: indented code block"))
+    # L21: a delimiter row that no rendered table holds -- a table that
+    # did not form (round 400 F400-A1: an unescaped "|x|" in the header,
+    # or a header and delimiter row of different widths, turns the whole
+    # table into one paragraph of bars and dashes)
+    spans = [(e["s"], e["e"]) for e in tree.els if e["tag"] == "table"]
+    code_lines = _pre_lines(src)[0]
+    for i, raw in enumerate(lines, 1):
+        if i in code_lines or not _DELIM_ROW.match(
+                _BLOCK_PREFIX.sub("", raw).strip()):
+            continue
+        if not any(a <= i <= b for a, b in spans):
+            out.append(("L21", f"line {i}: a table delimiter row that no "
+                        "table holds (the table did not form): "
+                        + _snip(raw, 50)))
     for m in re.finditer(r"<br\s*/?>", h_nocode):
         out.append(("L12", "hard line break at: " + _snip(
             _text(h_nocode[max(0, m.start() - 80):m.start()]), 60)))
@@ -462,18 +520,21 @@ def _block_defects(src, gh):
     # ordered item's number aside), and no element appears that the
     # surfaces never use
     items = {e["s"] for e in tree.els if e["tag"] == "li"}
-    fence = _fence_mask(src)
-    starts, k = [], 0
-    for ln in lines:
-        starts.append(k)
-        k += len(ln) + 1
+    pre_starts = _pre_lines(src)[1]
+
     def norm(i, ln):
-        # an ordered item's number (L20 checks it) and a fence's info
-        # string (round 399 F399-A3/B5) are not rendered as text
+        # an ordered item's number (L20 checks it) and the first word
+        # of a rendered fence's info string (cmark keeps it as the
+        # language; round 399 F399-A3/B5) are not rendered as text --
+        # the rest of an info string is dropped, so it stays in the
+        # comparison (round 400 F400-A2: a stray "~~~" at a paragraph
+        # start swallows its line into an info string)
         if i + 1 in items:
             ln = re.sub(r"^(\s*(?:>\s?)*\s*)\d+[.)]", r"\1", ln)
-        if starts[i] < len(fence) and fence[starts[i]]:
-            ln = _FENCE_OPEN.sub(r"\1", ln)
+        if i + 1 in pre_starts:
+            m = _FENCE_OPEN.match(ln)
+            if m:
+                ln = m.group(1) + " " + " ".join(m.group(2).split()[1:])
         return ln
     src2 = "\n".join(norm(i, ln) for i, ln in enumerate(lines))
     a = "".join(c for c in src2 if c.isalnum())
@@ -544,6 +605,10 @@ PROBES = (
     ("L20", "1. one\n2. two\n4. four\n"),
     ("L16", "| a | b |\n|---|---|\n| 1 | 2 |\n|x| + y\n"),
     ("L16", "| a | b | c |\n|---|---|---|\n| norm of |x| | 5 | ok |\n"),
+    ("L16", "| p | q | note |\n|---|---|---|\n| 7 | ab is |small| —\n"),
+    ("L16", "| a | b | c |\n|---|---|---|\nx | y | z | |\n"),
+    ("L21", "| a | b |\n|---|---|---|\n| 1 | 2 |\n"),
+    ("L17", "~~~4 supports~~ five supports are certified\n"),
     ("L16", "> a quoted line\n*(a marker)*\n"),
     ("L16", "| a | b |\n|---|---|\n| 1 | 2 |\n*(a marker)*\n"),
     ("L16", "1. item one\na lazy line\n"),
@@ -558,7 +623,9 @@ PROBES = (
            "2. two\n\n- x\n- y\n\n> # quoted heading\n\n   ```\n"
            "   a fenced line\n   ```\n\n> 1. a quoted item\n>    continued\n"
            "\n```python\nprint(1)\n```\n\n1. # a heading in an item\n\n"
-           "- ```\n  code line\n  ```\n"),
+           "- ```\n  code line\n  ```\n\n1. an item\n\n   > a quote in it\n\n"
+           "- | a | b |\n  |---|---|\n  | 1 | 2 |\n\n~~~\n```python\nx = 1\n```\n"
+           "~~~\n\n1. > a quoted line\n   > its second line\n"),
     (None, "~~struck~~ *em* **strong** x\\* ≈ 9.3, \\~9, τ* = 2, "
            "a_k and `a*b ~c~` \\`\\`q''\n"),
 )

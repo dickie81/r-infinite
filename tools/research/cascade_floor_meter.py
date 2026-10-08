@@ -78,7 +78,8 @@ Gates (all exit-gated; any failure exits 1):
       pole frequencies spread ~18x wider per unit height; per neighbour
       pair, with zeta's mean spacing 5.43 there, ~67x wider, 0.23 per
       resolution cell at N = 2000; round 399 C-O1 corrected "density
-      ~18x thinner" -- is the honest validation). Constants-only arithmetic; nature stated at the
+      ~18x thinner", and round 400 F400-C8 struck the paper's sibling,
+      "zero tower is ~18x thinner" -- is the honest validation). Constants-only arithmetic; nature stated at the
       gate per the 1av-g2 precedent. Every published figure of the
       record (the ordinate, n = 4500, gamma = 20, the density, the
       resolving power, the ratio 10.3 and the ~18x factor) is pinned
@@ -159,7 +160,7 @@ PAPER_NEEDLES = [
     {'g': 'g9', 's': '4/(1 + 4γ²) ≈ 1.4×10⁻⁴ rad per unit'},   # round 396 (C-O2): g6's published density
     {'g': 'g9', 's': '(ratio 10.3, gated)'},   # round 396 (C-O2): g6's published ratio
     {'g': 'g9', 's': 'resolving power 2π/4500 ≈ 1.4×10⁻³', 'form': 'ws'},   # round 397 (F397-B5/C1): g6's resolving power
-    {'g': 'g9', 's': 'zero tower is ~18× thinner'},   # round 397 (F397-B5/C1): g6's thinning factor
+    {'g': 'g9', 's': 'pole frequencies spread ~18× wider per unit height', 'form': 'ws'},   # round 397 (F397-B5/C1): g6's ~18x factor; round 400 (F400-C8): the live wording, "zero tower is ~18× thinner" struck
     {'g': 'g9', 's': '**no proof is claimed,\nand none resulted**'},
     {'g': 'g9', 's': 'a float64 Hermite-recurrence artifact'},
     {'g': 'g9', 's': 'refuted the rebound\non its first run'},
@@ -415,18 +416,18 @@ dens20 = 4/(1 + 4*g20*g20)
 ok = 9 < resol/dens < 12
 ok &= 17 < dens20/dens < 20      # at the planted target |dtheta/dgamma| is ~18x larger (frequencies ~18x wider per unit height)
 # round 396 (C-O2) pinned the printed ratio and density; round 397
-# (F397-B5/C1: the resolving power, the thinning factor and the code's
+# (F397-B5/C1: the resolving power, the ~18x spread factor and the code's
 # own constants were still free) pins every figure of the published
 # record at its printed precision -- the ordinate, the coefficient
 # count, the planted height, the density, the resolving power, the
-# ratio and the thinning factor -- and g9's needles pin each in the
+# ratio and the ~18x spread factor -- and g9's needles pin each in the
 # paper, so a single-site mangle of any one of them, on either
 # surface, fails
 ok &= (f"{gDH:.6f}", n_res, f"{g20:.1f}", f"{dens:.1e}", f"{resol:.1e}",
        round(resol/dens, 1), round(dens20/dens)) == \
     ("85.699348", 4500, "20.0", "1.4e-04", "1.4e-03", 10.3, 18)
 print(f"  g6 |dtheta/dgamma| at {gDH} = {dens:.4e}; resolution at n = {n_res} = "
-      f"{resol:.4e}; ratio = {resol/dens:.1f}; thinning factor at gamma = "
+      f"{resol:.4e}; ratio = {resol/dens:.1f}; spread factor at gamma = "
       f"{g20:g}: {dens20/dens:.1f}", flush=True)
 gate("g6 the D-H crowding infeasibility: the pole-frequency density per "
      "unit height an order of magnitude finer than the meter's resolution "
