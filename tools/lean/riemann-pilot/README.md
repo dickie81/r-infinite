@@ -8942,7 +8942,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 **A claimed refinement, not checked here.** `ArgonautMath0/argonaut-math-quasi-riemann-boundary` (README dated October 8, 2026): "Argonaut Math refines the zero-free boundary in OpenAI's quasi-Riemann result from **7/8 = 0.875** to **3499999/4000000 = 0.87499975**, an improvement of **1/4000000**." The README says "The proof builds on the pinned OpenAI source project" (`adc7f12`) and "External reproduction and public review remain open."
 
-**Literature for the open sockets.** A. de Faveri, "Optimal large sieve for fixed order characters", arXiv:2610.04045 (2 October 2026). Its abstract: "We improve the large sieve inequality for n-th order Hecke characters over any number field containing the n-th roots of unity. Our bound is expected to be optimal in all ranges of parameters." This bears on S4, the large sieve over `ℤ[ω]`, and through it on the family mean square. Whether it lowers the `σ` at which the mean square holds is not examined here. It goes on the register as a lead.
+**Literature for the open sockets.** A. de Faveri, "Optimal large sieve for fixed order characters", arXiv:2610.04045 (2 October 2026). Its abstract: "We improve the large sieve inequality for n-th order Hecke characters over any number field containing the n-th roots of unity. Our bound is expected to be optimal in all ranges of parameters." This bears on S4, the large sieve over `ℤ[ω]`, and through it on the family mean square. Whether it lowers the `σ` at which the mean square holds is not examined here. It goes on the register as a lead. *(Round 289: through the operator norm alone it gives `MeanSquare σ` only for `σ ≥ 1`. Round 311: on the dual side it gives the block `B = F = 1` of `DualMeanSquare ϑ` only for `ϑ ≥ 1/2`.)*
 
 **Lean.**
 - The pilot's Mathlib (`0f64d30`) has no match for cubic reciprocity, power residue, large sieve, Hecke character, metaplectic, Kubota or Davenport–Hasse (case-insensitive grep of `Mathlib/`).
@@ -9023,7 +9023,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 - Bounding the mean square by this operator norm puts the characters at `z`, with `N(z) ≤ A = Z^{1+σ}`, and the sequence `λ_𝔞 = μ(𝔞)W(N𝔞/Z)` at `N𝔞 ≤ B ≍ Z`, with `‖λ‖² ≍ Z`.
 - `MeanSquare σ` needs the norm to be at most `Z^{1+σ+ε}`. At `n = 6` the term `A^{5/6}B^{1/3} = Z^{(7+5σ)/6}` is at most `Z^{1+σ}` only when `σ ≥ 1`. Below that it exceeds `Z^{1+σ}` by the factor `Z^{(1−σ)/6}`: `Z^{1/6}`, `Z^{19/120}` and `Z^{3/20}` at `σ = 0`, `1/20` and `1/10`.
 - At `σ ≥ 1`, round 288's half-plane `Re s > (11 + 5σ)/12 ≥ 4/3` adds nothing.
-- So, through the operator norm alone, the lead does not supply `MeanSquare σ` for any `σ < 1`. The release reaches `σ > 1/20` by using the Möbius structure of the coefficients: Poisson summation in `z`, the Gauss-sum identities, the quadratic large sieve over `ℤ[ω]` and the cubic theta function (round 282's spine).
+- So, through the operator norm alone, the lead does not supply `MeanSquare σ` for any `σ < 1`. *(Round 311: on the dual side of round 310's reduction, the same norm gives the block `B = F = 1` of `DualMeanSquare ϑ` only for `ϑ ≥ 1/2`.)* The release reaches `σ > 1/20` by using the Möbius structure of the coefficients: Poisson summation in `z`, the Gauss-sum identities, the quadratic large sieve over `ℤ[ω]` and the cubic theta function (round 282's spine).
 - The paper's own proof sketch (§1.3.1) opens the square and applies Poisson summation in the outer variable, as the release does. That step is where the coefficients' structure would enter.
 
 **Check 9.**
@@ -9399,7 +9399,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 **Not yet here:**
 - the bicharacter `R` on classes modulo `4`, which turns `GF_union` into the paper's `G(ab) = G(a)G(b)R(a, b)`, and the expansion of `G` and `R` in characters of `(ℤ[ω]/4)^×`;
-- S4 of round 291's plan, the Poisson reduction: the paper's Lemmas 4.2 and 4.4 and Proposition 4.5, from the dual mean square to `MeanSquare σ`. By the owner's decision (2026-10-08), S4 comes next, followed by a survey of whether large sieves alone can give `MeanSquare σ` for some `σ < 1/5`, the range in which round 288 gives a zero-free half-plane inside `Re s < 1`.
+- S4 of round 291's plan, the Poisson reduction: the paper's Lemmas 4.2 and 4.4 and Proposition 4.5, from the dual mean square to `MeanSquare σ`. By the owner's decision (2026-10-08), S4 comes next, followed by a survey of whether large sieves alone can give `MeanSquare σ` for some `σ < 1/5`, the range in which round 288 gives a zero-free half-plane inside `Re s < 1`. *(Round 310: S4 landed. Round 311: the survey; the large sieves surveyed, through their operator norms, reach neither `MeanSquare σ` below `σ = 1` nor the dual mean square's block `B = F = 1` below `ϑ = 1/2`.)*
 
 **Check 9.** No barrier claim is made.
 
@@ -9713,8 +9713,54 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 
 **Not yet here:**
 - `DualMeanSquare ϑ` for any `ϑ > 0`. This is S5 of round 291's plan, the paper's Sections 5–7. The paper's proof of its Proposition 3.1 obtains (4.12) from its Proposition 5.1: "For large `D`, Proposition 5.1 applies with `κ=ϑ/2` and `C_0=2`."
-- The survey of the owner's order of 2026-10-08 (round 300): whether large sieves alone can give `MeanSquare σ` for some `σ < 1/5`. By this round, `DualMeanSquare ϑ` for some `ϑ < 1/5` would suffice.
+- The survey of the owner's order of 2026-10-08 (round 300): whether large sieves alone can give `MeanSquare σ` for some `σ < 1/5`. By this round, `DualMeanSquare ϑ` for some `ϑ < 1/5` would suffice. *(Round 311: surveyed.)*
 
 **Check 9.** No barrier claim is made. (c) The signal fed to round 288's criterion is still the family mean square. It is now derived from its Poisson-dual representation, `DualMeanSquare ϑ`, which becomes the displayed hypothesis. No instance of either is proved.
 
 **Bearing on RH:** none. A fixed half-plane is strictly weaker than RH, and its hypothesis is not proved here.
+
+## Round 311: large sieves alone and the dual mean square below `1/5` — a survey and an exponent computation (no new Lean)
+
+**The question** (the owner's order of 2026-10-08, round 300). Can large sieves alone, without Kubota's cubic theta, give `MeanSquare σ` for some `σ < 1/5`, where round 288's half-plane lies inside `Re s < 1`? The sieves in view are Heath-Brown's quadratic and cubic sieves over `ℤ[ω]` and their extensions. By round 310, `DualMeanSquare ϑ` for some `ϑ < 1/5` would suffice.
+
+**The inequalities, as read.** A. de Faveri, "Optimal large sieve for fixed order characters", arXiv:2610.04045 v1 (2 October 2026), is the source of all but the last item; its symbols are rendered as text. Its (1.2) defines `Ξ_n(A,B)` as the supremum over `‖λ‖₂ = 1` of `Σ*_{N(a)≤A} |Σ*_{N(b)≤B} λ_b χ_a(b)|²`, with `Σ*` "summation over squarefree ideals of I(S)". `Θ_n(A,B)` is the same over `n`-th power free ideals.
+- (1.4): "Heath-Brown's quadratic large sieve [20] and its generalization to number fields by Goldmakher and Louvel [19] (see also [27]) give Ξ₂(A,B) ≪_ε (AB)^ε(A+B)." Over `ℤ[ω]` the release proves this sieve in Lean (`sieveNorm_sharp`, round 291).
+- (1.5): "For n ≥ 3, the best known upper bound is Ξ_n(A,B) ≪_ε (AB)^ε(A+B+(AB)^{2/3}). This is due to Heath-Brown [21] for n = 3 with K = ℚ(ζ₃), and to Blomer, Goldmakher, and Louvel [2] in full generality (see also [1,18])."
+- The lower bounds. The folklore expectation was "disproved for n = 3, assuming the generalized Riemann hypothesis (GRH), by Dunn and Radziwiłł [13]". Then: "Recent work of the author with Dunn and Hoffstein [9] established the lower bound (1.6) unconditionally, and also proved an unconditional lower bound for n = 4". Their source: "These lower bounds are obtained from biases coming from higher order Gauss sums, which are detected via Rankin–Selberg theory [32] applied to metaplectic forms [9, Section 5]."
+- (1.8), a conjecture: "Ξ_n(A,B) = (AB)^{o(1)}(A + B + A^{1−1/n}B^{2/n} + A^{2/n}B^{1−1/n}) as min(A,B) → ∞."
+- Theorem 1.1: "Let n ≥ 3. Then for every A, B ≥ 1 and ε > 0 we have Θ_n(A,B) ≪_ε (AB)^ε(A + B + A^{1−1/n}B^{2/n} + A^{2/n}B^{1−1/n})."
+- The sextic case of (1.5) over `ℤ[ω]` is Lemma 2.9 of P. Gao and L. Zhao, "Moments and one level density of sextic Hecke L-functions of ℚ(ω)", arXiv:2201.01885 v2, citing "[2, Theorem 1.3]". It reads "Σ*_{m∈ℤ[ω], N(m)≤M} |Σ*_{n∈ℤ[ω], N(n)≤N} a_n (n/m)₆|² ≪_ε (M + N + (MN)^{2/3})(MN)^ε Σ_{N(n)≤N} |a_n|²", where "the asterisks indicate that m and n run over square-free E-primary elements of Z[ω]".
+
+**The computation.**
+- **The block `B = F = 1` of `DualMeanSquare ϑ`** (round 305). Here `f` is the unit ideal (`F ≤ N(f) < 2F`), `X = D`, and the rows are `0 < N(k) ≤ 𝓗 = C·D^{1−ϑ}`. The hypothesis asks for `Σ_k |Σ_n a_ξ(n)(k/n)₆W(N(n)/D)|² ≤ K·N²·D^ε·D²`.
+- Treat `λ_n = a_ξ(n)W(N(n)/D)` as an arbitrary sequence, with `‖λ‖² ≍ D`, and bound the sum by the operator norm of the sextic family with moduli `n` (`A ≍ D`) and arguments `k` (`B = 𝓗`). The block then needs the norm to be at most `D^{1+ε}`. (The rows `k` that are not sixth-power free only add to the sum, so they cannot help this route.)
+- (1.5) with Lemma 2.9: the term `(AB)^{2/3} = D^{(4−2ϑ)/3}` is at most `D` only for `ϑ ≥ 1/2`.
+- Theorem 1.1 at `n = 6`: `A + B ≤ 2D`; `A^{1/3}B^{5/6} = D^{7/6−5ϑ/6}` is at most `D` for `ϑ ≥ 1/5`; `A^{5/6}B^{1/3} = D^{7/6−ϑ/3}` is at most `D` only for `ϑ ≥ 1/2`. Below `ϑ = 1/2` this term exceeds `D` by `D^{1/6−ϑ/3}`: `D^{1/6}` as `ϑ → 0`, `D^{2/15}` at `ϑ = 1/10`, `D^{1/10}` at `ϑ = 1/5`.
+- The quadratic sieve (1.4) does not apply directly, since `(k/n)₆` is sextic in `k`. Splitting `k` into its classes modulo squares or modulo cubes turns each class into a cubic or a quadratic family in the remaining variable. But (1.4) and (1.5) charge each class at least `A·‖λ‖² ≍ D²`, and there are about `𝓗` classes.
+- **The primal side** (round 289, for comparison): through Theorem 1.1, `MeanSquare σ` needs `σ ≥ 1`. Through (1.5) the term `(AB)^{2/3}`, with `A = Z^{1+σ}` and `B ≍ Z`, is at most `Z^{1+σ}` only for `σ ≥ 1` as well.
+- So these norms need `ϑ ≥ 1/2` at the dual block and `σ ≥ 1` on the primal side, against the target `1/5`. The dual side does better than the primal side, but not enough.
+
+**What the theta supplies.** The companion paper, its LaTeX rendered as text: "For the twist (5.4), the theta transformation converts the relevant sextic twists into quadratic characters. Combining it with the quadratic large sieve gives the following estimate". Its Proposition 5.2 is "Σ_{0<N_K(k)≪𝓗} |T(X;k,f)|² ≪ D^ε‖W‖²_{C^J(I)}(𝓗 + 𝓗²N_K(f)/X) whenever 1 ≤ 𝓗, X, N_K(f) ≤ D^{C_0}". Its `T` carries the factor `X^{−1/2}`: "The b=1 part is exactly X^{−1/2}Σ*_{(n,S)=1} ᾱ(n)γ₂(n)Ψ(n)W(N_K(n)/X)."
+- So for one `f`, `Σ_k |X^{1/2}T(X;k,f)|² ≪ D^ε(𝓗X + 𝓗²N(f))`: on average over `k`, square-root cancellation in each twisted sum of cubic Gauss sums. The `b = 1` part of `X^{1/2}T` is the dual mean square's column sum at that `f`.
+- Bounding that column sum through the operator norm cannot give less than about `X²`. The norm is at least about `X`: test the sequence `λ_n = conj(Ψ_{k₀}(n))` against the row `k₀`. And `‖λ‖² ≍ X`. When `𝓗 ≤ X^{1−δ}` and `𝓗²N(f) ≤ X^{2−δ}` for some `δ > 0`, Proposition 5.2's bound is `≪ D^ε X^{2−δ}`: below every operator-norm bound by the factor `X^δ`, up to `D^ε`.
+
+**Scope (Check 9).**
+- (a) The negatives are scoped to the reductions computed here. These are the block `B = F = 1` of the dual mean square, and round 289's primal sum, bounded through the operator norms of (1.4), (1.5) with Lemma 2.9, and Theorem 1.1, with the coefficients treated as an arbitrary sequence; and the class splitting for (1.4) and (1.5). Nothing is said about routes that use the coefficients' structure.
+- Whether a better operator-norm bound could exist at this block is a question about the norm itself. Conjecture (1.8) puts `Ξ₆` at the size of Theorem 1.1's bound; its lower bound is proved for `n = 3` and `n = 4`, not for `n = 6`. If it holds, a better bound at this block has to use more than the norm, for instance the Gauss-sum structure of `a_ξ`. De Faveri's lower bounds, for the cubic and quartic families, come from "biases coming from higher order Gauss sums"; `a_ξ` carries cubic Gauss sums against sextic twists. Whether `a_ξ` comes near the extremal sequences is not examined here.
+- (b) Register: a sub-entry for the dual mean square under the fixed-strip entry of STRUCTURAL-REVIEW §6, with its socket and an attack note.
+- (c) The signal is unchanged. `DualMeanSquare ϑ` is the auxiliary signal fed to round 288's criterion through round 310; in the paper its independent bound is the theta route.
+
+**The machinery checklist** (CLAUDE.md, "Looking in the right places").
+- Surveyed: the quadratic large sieves of Heath-Brown and Goldmakher–Louvel, through (1.4); Heath-Brown's cubic and Blomer–Goldmakher–Louvel's sieves, through (1.5) and Lemma 2.9; de Faveri's Theorem 1.1 with the lower bounds of Dunn–Radziwiłł and de Faveri–Dunn–Hoffstein, through (1.6)–(1.8); and the metaplectic route, through the paper's Proposition 5.2.
+- Not surveyed here: Huxley's large sieve over number fields, additive and planar large sieves, zero detectors, moments over families, Hecke L-functions over imaginary quadratic fields beyond the sextic family, and modern zero density (Guth–Maynard).
+
+**Horizon scan**, since round 286 this morning.
+- `openai/math`: `git ls-remote` at about 17:20 UTC gives `fd4aeeb` for `HEAD` and `main`, unchanged since round 286.
+- arXiv math.NT: the titles of the "new" listing of 8 October (55 entries), and the arXiv API's latest entries for "large sieve" (12), "cubic Gauss sums" (8), "zero-free region" with "Dirichlet" (12) and "sextic" with "character" (7). Apart from de Faveri's paper, already on the register, two entries are on large sieves for fixed-order characters or on sums of Gauss sums, and both are older: A. Dunn and M. Radziwiłł, "Bias in cubic Gauss sums: Patterson's conjecture" (arXiv:2109.07463, 2021; de Faveri's reference [13]), and A. Dunn, "Metaplectic cusp forms and the large sieve" (arXiv:2403.13151, 2024, v4 of 2025-11-09). None is on zero-free half-planes. De Faveri's reference [9], the unconditional lower bounds, is arXiv:2607.07911 (de Faveri, Dunn and Hoffstein, "Non-orthogonality of the cubic and quartic large sieves via Rankin–Selberg"); it was not read here.
+- A web search surfaced a third-party verification repository of the release, `tomoto0/quasi-riemann-hypothesis-7-8-verification`. It was not read here, and nothing is claimed about it.
+- The Lean community was not reached, as in round 286.
+- No result found fills a socket on the register or contradicts a barrier claim.
+
+**Next.** S5 of round 291's plan, the paper's Sections 5–7: its Proposition 5.1 from its Lemma 5.3 (the cube reduction), Proposition 5.4 (the transfer estimate) and Proposition 5.2, and through them `DualMeanSquare ϑ` for `0 < ϑ ≤ 1/10`.
+
+**Bearing on RH:** none.
