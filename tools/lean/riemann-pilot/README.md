@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file ends with `#print axioms`. All 1122 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
+Every file ends with `#print axioms`. All 1139 checked theorems in `src/` (and the 406 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence).
 
 | File | Lines | Content |
 |---|---|---|
@@ -210,6 +210,7 @@ Every file ends with `#print axioms`. All 1122 checked theorems in `src/` (and t
 | `EisensteinCubicRecip.lean` | 733 | **S1, part 3b: cubic reciprocity on `ℤ[ω]`**: maximal ideals prime to `3` are inert or of prime norm (`maximal_cases`); the cases inert/split, split/split and inert/inert (`recip_inert`, `recip_split`, `recip_inert_inert`) and conjugate primes (`recip_conj`); primary generators (`pgen`, `prod_pgen`); **`cub_recip`**: `(a/b)₃ = (b/a)₃` for coprime `a ≡ b ≡ 1 (mod 3)` (round 290) |
 | `EisensteinGaussSum.lean` | 294 | **S3, part 1: Gauss sums at a prime of `ℤ[ω]`**: **`gaussSum_cubCharC_cube`**: `g(χ_P, ψ)³ = −N(P)·π` for `P = (π)`, `π ≡ 1 (mod 3)` and any primitive `ψ`, and `|g|² = N(P)`; duplication `χ(4)·J(χ, χ) = J(χ, ρ)` and the Hasse–Davenport product formula for `m = 2` (`jacobiSum_self_dup`, `gaussSum_dup`); the sextic character's square and cube are the cubic and the quadratic characters (`chi6_sq`, `chi6_cube`); **`gaussSum_chi6`**: `χ₆(4)·g(χ₆)·N(P) = g(χ₃)²·g(ρ)` (round 292) |
 | `PlanePoisson.lean` | 474 | **Poisson summation in the plane**: for `F` Schwartz on `ℂ`, the periodization over `ℤ²` descends to the torus (`perT`) with Fourier coefficients `𝓕F(k)` (`mFourierCoeff_perT`, through the fundamental domain of `ℤ²`, `integral_eq_tsum_box`); **`pair_poisson`**: `Σ_{n∈ℤ²} F(n) = Σ_{k∈ℤ²} 𝓕F(k)`; **`fourier_comp_linearEquiv`**: `𝓕(f ∘ M)(w) = |det M|⁻¹·𝓕f((M⁻¹)* w)`; **`lattice_poisson`**: `Σ_{n∈ℤ²} F(Mn) = |det M|⁻¹·Σ_k 𝓕F((M⁻¹)* k)` (round 293) |
+| `EisensteinPoisson.lean` | 561 | **S4, part 2: Poisson summation over `ℤ[ω]`**: **`eis_poisson`**: `Σ_{z∈ℤ[ω]} F(σz) = |det M_ϖ|⁻¹·Σ_{k∈ℤ²} 𝓕F(ξ_k)`, `|det M_ϖ| = √3/2`; the affine Fourier transform (`fourier_affine`); **`eis_poisson_twisted`**: twists periodic modulo `c`; **`ξd_eq`**: the dual points are `conj(2σ(μ)/σ(δ))`, `μ ∈ ℤ[ω]`, `δ = 1 + 2ω`; the trace character `ψ_c` of `ℤ[ω]/c` (`ψc_add`, `ψc_add_mul`); **`eis_poisson_quot`**: `Σ_z P(z mod c)F(σz) = 2/(√3·N(c))·Σ_{μ∈ℤ[ω]} (Σ_r P(r)ψ_c(rμ))·𝓕F(conj(2σ(μ)/σ(δc)))` (round 294) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9151,7 +9152,39 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 **Check 4.** Classical: Poisson summation for lattices. New here: the two-dimensional formula and the linear change of variables, machine-checked on Mathlib's torus Fourier series.
 
-**Not yet here:** the `ℤ[ω]` specialization, with the dual lattice described through `ℤ[ω]` and periodic twists modulo `c` (round 291's S4).
+**Not yet here:** the `ℤ[ω]` specialization, with the dual lattice described through `ℤ[ω]` and periodic twists modulo `c` (round 291's S4). *(Round 294: landed, `Eis.eis_poisson_quot`.)*
+
+**Check 9.** No barrier claim is made.
+
+**Bearing on RH:** none.
+
+## Round 294: S4, part 2 — Poisson summation over `ℤ[ω]`, with twists modulo `c` (`src/EisensteinPoisson.lean`)
+
+**What it is.** Round 293's lattice formula for the lattice `σ(ℤ[ω]) ⊂ ℂ`, with what round 293 listed as not yet there: periodic twists modulo `c`, and the dual lattice described through `ℤ[ω]`. Here `σ` is the embedding of `K = ℚ(ζ₃)` fixed in round 281's `EisensteinSymbol`, `ϖ = σ(ω)` and `δ = 1 + 2ω`, with `δ² = −3` (`δ3_sq`).
+
+**The lattice.**
+- `crdEquiv`: `n ↦ n₀ + n₁ω` is a bijection `ℤ² ≃ ℤ[ω]`. `σ(n₀ + n₁ω) = M_ϖ(n₀ + n₁i)` for the `ℝ`-linear map `M_ϖ(x + iy) = x + yϖ` (`σO_crd`), and `|det M_ϖ| = √3/2` (`abs_det_Mw`).
+- **`eis_poisson`**: `Σ_{z∈ℤ[ω]} F(σz) = |det M_ϖ|⁻¹·Σ_{k∈ℤ²} 𝓕F(ξ_k)` with `ξ_k = (M_ϖ⁻¹)* k`, from `lattice_poisson`. The dual points pair with the coordinates: `⟪σ(m₀ + m₁ω), ξ_k⟫ = m₀k₀ + m₁k₁` (`inner_σO_dual`).
+
+**Twists modulo `c`.**
+- `fourier_affine`: `𝓕[F(a + b·)](ξ) = |b|⁻²·e(⟪a, ξ/b̄⟫)·𝓕F(ξ/b̄)`, from round 293's change of variables and Mathlib's translation rule. With `|σ(x)|² = N(x)` (`normSq_σO`), each coset `r + cℤ[ω]` becomes a dual sum.
+- **`eis_poisson_twisted`**: for `f` periodic modulo `c ≠ 0` and representatives `rep i` of the residues, each class once, `Σ_z f(z)F(σz) = |det M_ϖ|⁻¹N(c)⁻¹·Σ_{k∈ℤ²} (Σ_i f(rep i)·e(⟪σ(rep i), ξ_k/σc̄⟫))·𝓕F(ξ_k/σc̄)`. The interchanges of sums use `summable_σO` and `summable_fourier_dual`, and `f` is bounded by `Σ_i |f(rep i)|`.
+
+**The dual lattice through `ℤ[ω]`.**
+- **`ξd_eq`**: `ξ_k = conj(2σ(μ_k)/σ(δ))` with `μ_k = (k₀ + k₁) + k₀ω`, and `k ↦ μ_k` is a bijection `ℤ² ≃ ℤ[ω]` (`μEquiv`). Classically, the dual lattice is the conjugate of `σ(2δ⁻¹ℤ[ω])`, twice the inverse different.
+- The trace character `ψ_c(x) = e(Re(2σ(x)/σ(δc)))`, classically `e(Tr(x/(δc)))`. It is additive (`ψc_add`) and periodic modulo `c` (`ψc_add_mul`), since `Re(2σ(y)/σ(δ))` is the `ω`-coordinate of `y` (`re_two_σO_div_δ3`).
+- **`eis_poisson_trace`**, and **`eis_poisson_quot`** for `P` on `ℤ[ω]/c` with representatives `repQ` (`repQ_bijective`): `Σ_z P(z mod c)F(σz) = 2/(√3·N(c))·Σ_{μ∈ℤ[ω]} (Σ_{r∈ℤ[ω]/c} P(r)·ψ_c(rμ))·𝓕F(conj(2σ(μ)/σ(δc)))`. For `P` a character modulo `c`, the inner sums are the twisted Gauss sums of S3.
+
+**Comparison with the release.** The release's `actual_eisenstein_periodic_fourier` (`Poisson/EisensteinLattice.lean:374–393`) is the same formula. It writes the dual frequencies out with `eisensteinDualFrequency_explicit` (`:429–446`), for its fixed `ω₃ = −1/2 + i√3/2`. Here `ξd_eq` writes them through `ℤ[ω]` instead, so the phases are a character of `ℤ[ω]/c` and the statements do not depend on which root `σ(ω)` is.
+
+**Build.** Incremental pilot build: 1 compiled, 183 up to date, 17 s, 0 warnings. The 17 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1139 in `src/`. No other file imports `EisensteinPoisson`.
+
+**Check 4.** Classical: Poisson summation over a lattice with congruence twists, and the inverse different of `ℤ[ω]`. New here: both machine-checked on the pilot's stack, with the phases written as the trace character of `ℤ[ω]/c`.
+
+**Not yet here:**
+- the radial weights `F(z) = W(|z|²/K)` of the release's mean square (`canonical_radial_poisson`, `GaussSum/SexticRadialPoisson.lean:669–686`);
+- the inner sums evaluated as Gauss sums modulo squarefree `c` (the rest of S3);
+- the mean-square expansion.
 
 **Check 9.** No barrier claim is made.
 
