@@ -9000,7 +9000,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 **The computation.**
 - Bounding the mean square by this operator norm puts the characters at `z`, with `N(z) ≤ A = Z^{1+σ}`, and the sequence `λ_𝔞 = μ(𝔞)W(N𝔞/Z)` at `N𝔞 ≤ B ≍ Z`, with `‖λ‖² ≍ Z`.
-- `MeanSquare σ` needs the norm to be at most `Z^{1+σ+ε}`. At `n = 6` the term `A^{5/6}B^{1/3} = Z^{(7+5σ)/6}` is at most `Z^{1+σ}` only when `σ ≥ 1`. At `σ = 0`, `1/20` and `1/10` it exceeds `Z^{1+σ}` by `Z^{1/6}`, `Z^{4/30}` and `Z^{3/20}`.
+- `MeanSquare σ` needs the norm to be at most `Z^{1+σ+ε}`. At `n = 6` the term `A^{5/6}B^{1/3} = Z^{(7+5σ)/6}` is at most `Z^{1+σ}` only when `σ ≥ 1`. Below that it exceeds `Z^{1+σ}` by the factor `Z^{(1−σ)/6}`: `Z^{1/6}`, `Z^{19/120}` and `Z^{3/20}` at `σ = 0`, `1/20` and `1/10`.
 - At `σ ≥ 1`, round 288's half-plane `Re s > (11 + 5σ)/12 ≥ 4/3` adds nothing.
 - So, through the operator norm alone, the lead does not supply `MeanSquare σ` for any `σ < 1`. The release reaches `σ > 1/20` by using the Möbius structure of the coefficients: Poisson summation in `z`, the Gauss-sum identities, the quadratic large sieve over `ℤ[ω]` and the cubic theta function (round 282's spine).
 - The paper's own proof sketch (§1.3.1) opens the square and applies Poisson summation in the outer variable, as the release does. That step is where the coefficients' structure would enter.
