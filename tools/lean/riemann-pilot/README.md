@@ -8615,7 +8615,7 @@ Their Comparator configuration permits `propext`, `Quot.sound` and `Classical.ch
 - The pilot's Mathlib has none of these either. It has `gaussSum` and `jacobiSum` over finite rings and Poisson summation on `ℝ`.
 - The rules adopted in response are CLAUDE.md Check 9 and "Looking in the right places".
 
-**The plan: derive it on this stack, not vendor it.** The release's Lean is a reference, not an import. The target is the companion's `11/12` route first, which already gives a fixed half-plane; `7/8` is a later option.
+**The plan: derive it on this stack, not vendor it.** The release's Lean is a reference, not an import. The target is the companion's `11/12` route first, which already gives a fixed half-plane; `7/8` is a later option. *(Round 282: the release formalises this route to `23/24` only (`ShortDraft.riemannZeta_ne_zero_of_re_gt`). Its mean square holds at modulus `Z^{1+σ}` for `σ > 1/20`, and it takes `σ = 1/10`. `11/12` is the value at `σ = 0`, which it does not formalise. See round 282.)*
 - **Scale.** In the release's import closure for the `7/8` theorem, the directories named for this route's components total about 196,000 lines. They are Eisenstein 53k, QuadraticSieve 24k, GaussSum 23k, Reflection 23k, Hecke 21k, MeanSquare 11k, RowCompletion 9k, Mellin 8k, Poisson 5k, Arithmetic 5k, Reciprocity 4k, Cusp 3k, Fourier 3k and PrimeCounting 1k. The mapping is by directory name, not by a dependency analysis.
 - The main preprint's part-II machinery adds about 273,000 lines more: Moments, Detector, Descent, CubicSieve, Energy, Inversion and PrimeRows.
 - For comparison, the pilot's own Lean (`src/` and the `external/` layers, without vendored upstream) is 159,692 lines.
@@ -8623,11 +8623,11 @@ Their Comparator configuration permits `propext`, `Quot.sound` and `Classical.ch
 Stages, each landing as its own round. Inputs not yet derived are stated as displayed hypotheses, in the manner of round 276.
 - **S0, the reduction.** Let `r(n) = Σ_{d∣n} χ₋₃(d)`, so that `Σ r(n)n^{−s} = ζ(s)L(s, χ₋₃)` on `Re s > 1`, and let `μ_K` be its Dirichlet inverse. Suppose that for every smooth `W` compactly supported in `(0, ∞)` and every `ε > 0`, `Σ_n μ_K(n)W(n/D) = O(D^{θ+ε})`. Then `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` on `Re s > θ`. This is built on round 222's Mellin machinery and Mathlib's `DirichletCharacter.LFunction`. It is small. *(Round 278: landed as `HalfPlaneS0.ne_zero_of_smoothBound`, with the bound as the displayed hypothesis `SmoothBound θ`. It uses round 222's `Zr`, not its Landau machinery: the bound is two-sided. See round 278.)*
 - **S1, arithmetic of `ℤ[ω]`.** A Euclidean domain, primary generators, the norm, and quadratic, cubic and sextic residue symbols with multiplicativity. Also a lower bound `≫ Y/log Y` for split primes of norm `≤ Y`. *(Round 281: part 1 landed in `EisensteinSymbol.lean`: the sextic, cubic and quadratic symbols with both multiplicativities, on Mathlib's principal ideal domain `𝓞 ℚ(ζ₃)` in place of a Euclidean domain. Primary generators, the ideal counts and the split-prime count remain.)*
-- **S2, family extraction.** `A_{p⁶}(D) = A_1(D) + O(D/Y)`, and the mean square over `u` gives `A_1 ≪ D^{11/12+ε}`. Here the mean square is a displayed hypothesis: the socket for S3–S6.
+- **S2, family extraction.** `A_{p⁶}(D) = A_1(D) + O(D/Y)`, and the mean square over `u` gives `A_1 ≪ D^{11/12+ε}`. Here the mean square is a displayed hypothesis: the socket for S3–S6. *(Round 282: the release extracts by averaging `A_{b⁶}` over every `b` with `|b|² ≤ Y`, not over primes. The exponent from a mean square at `σ` is `(11 + 5σ)/12`, which is `23/24` at the release's `σ = 1/10`.)*
 - **S3, the transform.** Poisson summation over the lattice `ℤ[ω]` with smooth weights. The identity `μ(n)γ₋₁(n) = χ_n(−1)G(n)⁻¹ᾱ(n)γ₂(n)`, which needs cubic and sextic Gauss sums and reciprocity.
 - **S4, the quadratic large sieve over `ℤ[ω]`** (Heath-Brown; Goldmakher–Louvel).
 - **S5, Kubota's cubic theta function.** Patterson's coefficient formula and the transformation with cusp expansions. This is the critical-path risk. Until derived, it is a displayed hypothesis in the shape of the companion's reflection proposition.
-- **S6, assembly.** The completed mean square, removal of the cube factors, and the exponent `11/12`.
+- **S6, assembly.** The completed mean square, removal of the cube factors, and the exponent `11/12`. *(Round 282: `23/24` in the release's Lean.)*
 
 **Check 4.** Nothing new in Lean this round. The result is external, and the plan is new to the pilot. **Bearing on RH:** a fixed half-plane is strictly weaker than RH. It fills the sockets listed above.
 
@@ -8739,3 +8739,66 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 **Check 4.** Classical (power residue symbols; Ireland–Rosen ch. 9 and 14). New here: the machine-checked construction on Mathlib's `𝓞 ℚ(ζ₃)`.
 
 **Bearing on RH:** none.
+
+## Round 282: deriving S0's hypothesis — the release's route to it, mapped, and the revised plan (no new Lean)
+
+**What was surveyed.** The release's Lean (`github.com/openai/math`, entry 003, at commit `adc7f12`; the local rebuild of round 277), mapped from the companion route's top theorem down to its analytic inputs. A fresh-context survey produced the map: a declaration index, import closures and line counts. Every statement cited below was then read directly in the source. Paths are relative to `OAI/NumberTheory/DirichletL/`.
+
+**Finding 1: the formalised companion route proves `23/24`, not `11/12`.**
+- The top theorems are `ShortDraft.riemannZeta_ne_zero_of_re_gt (hs : (23/24:ℝ) < s.re) (hs1 : s ≠ 1) : riemannZeta s ≠ 0` and `ShortDraft.dirichlet_LFunction_ne_zero`, for every Dirichlet character (`RowCompletion/ZeroFreeRegion.lean:204–213`). The target `DirichletTarget` is stated with `(23 / 24 : ℝ) < s.re` (`Arithmetic/EisensteinCoordinates.lean:253–256`).
+- The family mean square `outside_mean_square_of_theta_models` requires `(hσ : (1:ℝ)/20 < σ)`. For nonzero `z` with `N(z) ≤ Z^{1+σ}` it bounds `Σ_z |A(z)|² ≤ C·Z·Z^{1+σ}·Z^ε` (`MeanSquare/ThetaDensity.lean:269–286`).
+- The assembly `outside_totient_moebius_bound` takes `σ = 1/10` and `Y = Z^{11/60}` (so `Y⁶ = Z^{11/10}`), and concludes `≤ C·Z^{23/24+ε}` (`Mellin/SixthPowerAverage.lean:317–404`). The release's own bookkeeping lemma is `mean_square_exponent : (21/10 : ℚ) − 11/60 = 23/12` (`Arithmetic/EisensteinCoordinates.lean:348–349`).
+- In general the mean-square step gives `(11 + 5σ)/12`: `|S|² ≲ (mean square)/Y = Z^{2+σ}/Z^{(1+σ)/6}`. That is `23/24` at `σ = 1/10`. The formula gives the preprint's `11/12` at `σ = 0`, where the release's mean square is not proved.
+- So round 277's plan for this route ("the exponent `11/12`") is the preprint's figure. The kernel-checked figure for the route is `23/24`.
+
+**Finding 2: the extraction averages over every `b`, not over primes.**
+- `idealRowSum_sixth_eq_coprime_sum`: the family twisted by `b⁶` is the sum over the ideals coprime to `b` (`Mellin/SixthPowerAverage.lean:161–166`). This is the fact behind round 277's `A_{p⁶} ≈ A_1`, but used for every `b`.
+- `idealRowSum_sixth_average`: averaging over `b ∈ ℤ[ω]` with weight `V(|b|²/Y)` gives `Y·V̂(0)·Σ_I μ(I)χ(N I)W(N I)·Π_{P∣I}(1 − 1/N P)` plus a remainder (`MeanSquare/ThetaDensity.lean:554–562`). Cauchy–Schwarz against the mean square over `z = b⁶` then bounds that sum.
+- So no count of split primes is needed. Two things are needed instead:
+  - a smooth lattice-point count over `ℤ[ω]` in residue classes;
+  - for the totient weight `Π(1 − 1/N P)`, an Euler correction that is analytic beyond `Re s = 1`.
+- The release's analogue of S0 carries that correction. It is `corrected_weighted_mellin_identity` (`RowCompletion/ThetaNonvanishing.lean:85–92`), fed to `pair_zero_free_of_identity_gt_two` (`Mellin/CompactScale.lean:613–626`), which has the same shape as round 278's argument.
+
+**The spine below the mean square** (each statement read in the source):
+- **Poisson summation over the lattice `ℤ[ω]`** with radial Schwartz weights: `canonical_radial_poisson` (`GaussSum/SexticRadialPoisson.lean:669–686`).
+- **Sextic to cubic Gauss sums:** `breveGamma1_gamma2_eq_neg_alpha_G`, `γ₁γ₂ = −(p/|p|)·G` for primary `p` (`λ² ∣ p − 1`) (`GaussSum/SexticNormalization.lean:173–179`).
+- **The quadratic large sieve over `ℤ[ω]`:** `sieveNorm_sharp`, `‖·‖² ≤ C(MN)^ε(M + N)`. It is proved by Heath-Brown's iteration `HasSieveExponent α → HasSieveExponent (2 − 1/α)` from `α = 2` down to `1` (`QuadraticSieve/LogarithmicLoss.lean:461–477`; the definition is at `CubicSieve/FirstCoreCutoff.lean:501–505`).
+- **The cube factors,** removed by Möbius inversion: `shortCompletedSum` (`QuadraticSieve/ProductColumns.lean:175–178`).
+- **The cubic theta function.** It enters the analytic half through one hypothesis, `HasCanonicalThetaModels` (`RowCompletion/CompletedEnergy.lean:104–119`). The release discharges it with:
+  - `SourceCuspDatum.reflection`, the transformation of Kubota's theta function at the cusps (`Eisenstein/RamifiedValuation.lean:526–529`);
+  - `infinityCoefficient_squarefree_cube`, the Patterson-type coefficient formula: Gauss sums at squarefree arguments (`Eisenstein/SquarefreeCoefficients.lean:134–139`).
+
+**Sizes** (the survey's counts; raw `wc -l`):
+- The import closure of the `23/24` theorem is 286 modules and 190,290 lines.
+- Declarations reachable from it by name, an over-approximation, span 114,783 lines:
+  - the analytic half (from `dirichletTarget_of_theta_models`), 67,282;
+  - the theta half (from `exists_actual_fixedShellModels`), 59,393.
+- By directory: Eisenstein 53,369; CubicSieve 32,011; QuadraticSieve 23,974; GaussSum 23,362. For comparison, the pilot's own Lean is about 160,000 lines.
+
+**Agreement with what is built here.**
+- The release also works on Mathlib's `CyclotomicField 3 ℚ` and `𝓞 K`, with `three_pid` and `Three.Units.mem`.
+- Its sextic character is `cubicChar ^ 2 * quadraticCharO` (`GaussSum/FiniteFourier.lean:801–803`). That is `x ↦ x^{(N(P)−1)/6}`, the same character as round 281's `chi6` up to the choice of complex embedding.
+- Its "primary" is `λ² ∣ p − 1`.
+
+**The revised plan.** Where it differs, this supersedes round 277's S1–S6. The stage names are kept.
+- **S1** (part 1 is round 281). Still to do:
+  - part 2, the coefficient identity `Σ_{N𝔞=n} μ(𝔞) = μ_K(n)`. Its multiplicativity in `n` is proved in scratch (`m(ab) = m(a)m(b)` for coprime `a, b`, by `I ↦ (I + a·O, I + b·O)`); the prime powers, via Mathlib's cyclotomic splitting law, are next;
+  - primary generators and cubic reciprocity, which S3 and S4 use.
+  
+  The count of split primes is dropped.
+- **S0′:** S0 for the totient-weighted sum over ideals prime to `2` and `λ`, with the Euler correction.
+- **S2′:** the sixth-power average and Cauchy–Schwarz. The first conditional milestone is then: the mean square at `σ` (a displayed hypothesis, the socket for S3–S5) gives `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5σ)/12`.
+- **S3–S5** as in round 277. The theta input is displayed in the shape of `HasCanonicalThetaModels` until it is derived.
+- **The target:** `23/24` (`σ = 1/10`), the release's kernel-checked figure. `11/12` is reached only if the mean square is derived at `σ → 0`.
+
+**Check 9.**
+- (a) Every statement here is about the surveyed release and the sources read, nothing wider.
+- (c) The new auxiliary signal is the family mean square `Σ_z |A(z)|²`. It has two independent representations:
+  - directly: the family sums;
+  - through Poisson duality: Gauss sums bounded by the large sieve and the cubic theta.
+  
+  It goes on the register (STRUCTURAL-REVIEW §6).
+
+**Check 4.** New here: the map of the formalised route and the finding that it proves `23/24`. Nothing is derived in Lean this round.
+
+**Bearing on RH:** none. A fixed half-plane is strictly weaker than RH.
