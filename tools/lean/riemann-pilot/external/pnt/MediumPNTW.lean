@@ -7,6 +7,9 @@ it is positive, at most `1/2`, and non-increasing in `T`. This file restates tho
 depth function `D` with these properties (`DepthOK`), with `σ₁ = 1 − D T`. The proofs are
 PNT+'s (`PrimeNumberTheoremAnd/MediumPNT.lean`), with the `A/(log T)^{n₁}` facts replaced by the
 `DepthOK` fields.
+
+Round 337: `GenPNTW'` takes the abscissa `σ₂` of the small-height box as a parameter and asks only
+`σ₂ < 1 − D(T(x))` eventually, so a constant depth is allowed; `GenPNTW` is its case with PNT+'s `σ₂`.
 -/
 import PrimeNumberTheoremAnd.MediumPNT
 
@@ -805,29 +808,30 @@ lemma I6GenBoundW {SmoothingF : ℝ → ℝ}
 
 open Filter Topology
 
-/-- **Generic PNT from a width-`D` region.** If `ζ'/ζ` is bounded by a power of `log|t|` on
-`σ ≥ 1 − D|t|` and holomorphic on the boxes `[1 − D T, 2] × [−T, T] ∖ {1}`, then for any choice of
-cutoffs `T(x) → ∞`, `ε(x) → 0` with `x ε(x) > 2` and `D(T(x)) → 0`, the error `ψ(x) − x` is
-`O(x F(x))` for any `F` dominating the four error terms `ε log x`, `log x/(ε T)`, `x^{−D(T)}/ε`
-and `x^{σ₂−1}/ε` (the last for every `σ₂ < 1`). -/
-theorem GenPNTW {D : ℝ → ℝ} (hD : DepthOK D) {n₂ C₂ : ℝ} (n₂_pos : 0 < n₂) (C₂_pos : 0 < C₂)
+/-- **Generic PNT from a width-`D` region, with the small-height abscissa given** (round 337). `GenPNTW`
+with PNT+'s `σ₂` (from `LogDerivZetaHolcSmallT'`) replaced by any `σ₂ ∈ (0, 1)` at which `ζ'/ζ` is
+holomorphic on `[σ₂, 2] × [−3, 3] ∖ {1}`, and the condition `D(T(x)) → 0` by `σ₂ < 1 − D(T(x))` eventually,
+which is the only use `GenPNTW` makes of it. A depth that does not shrink, such as that of a zero-free
+half-plane, is then allowed. The four error terms are those of `GenPNTW`, the last at this `σ₂` only. -/
+theorem GenPNTW' {D : ℝ → ℝ} (hD : DepthOK D) {n₂ C₂ : ℝ} (n₂_pos : 0 < n₂) (C₂_pos : 0 < C₂)
     (hb : LogDerivZetaHasBoundW D n₂ C₂)
     (holo : ∀ T : ℝ, 3 ≤ T → HolomorphicOn (fun s : ℂ ↦ ζ' s / ζ s)
       ((Icc (1 - D T) 2 ×ℂ Icc (-T) T) \ {1}))
     (Tx εx Fx : ℝ → ℝ) (hT : Tendsto Tx atTop atTop)
     (hε0 : ∀ᶠ x in atTop, 0 < εx x) (hε : Tendsto εx atTop (𝓝 0))
+    {σ₂ : ℝ} (σ₂InIoo : σ₂ ∈ Ioo 0 1)
+    (holo2 : HolomorphicOn (fun s : ℂ ↦ ζ' s / ζ s) ((uIcc σ₂ 2 ×ℂ uIcc (-3) 3) \ {1}))
     (h2 : ∀ᶠ x in atTop, 2 < x * εx x)
-    (hDT : Tendsto (fun x ↦ D (Tx x)) atTop (𝓝 0))
+    (hσ₂D : ∀ᶠ x in atTop, σ₂ < 1 - D (Tx x))
     (e1 : ∀ᶠ x in atTop, εx x * Real.log x ≤ Fx x)
     (e2 : ∀ᶠ x in atTop, Real.log x / (εx x * Tx x) ≤ Fx x)
     (e3 : ∀ᶠ x in atTop, x ^ (-D (Tx x)) / εx x ≤ Fx x)
-    (e4 : ∀ σ₂ : ℝ, σ₂ < 1 → ∀ᶠ x in atTop, x ^ (σ₂ - 1) / εx x ≤ Fx x) :
+    (e4 : ∀ᶠ x in atTop, x ^ (σ₂ - 1) / εx x ≤ Fx x) :
     (ψ - id) =O[atTop] fun x : ℝ ↦ x * Fx x := by
   have ⟨ν, ContDiffν, ν_nonneg', ν_supp, ν_massOne'⟩ := SmoothExistence
   have ContDiff1ν : ContDiff ℝ 1 ν := by exact ContDiffν.of_le (by simp)
   have ν_nonneg : ∀ x > 0, 0 ≤ ν x := fun x _ ↦ ν_nonneg' x
   have ν_massOne : ∫ x in Ioi 0, ν x / x = 1 := by rwa [← integral_Ici_eq_integral_Ioi]
-  obtain ⟨σ₂, σ₂InIoo, holo2⟩ := LogDerivZetaHolcSmallT'
   obtain ⟨c_close, c_close_pos, h_close⟩ :=
     SmoothedChebyshevClose ContDiff1ν ν_supp ν_nonneg ν_massOne
   obtain ⟨ε_main, C_main, ε_main_pos, C_main_pos, h_main⟩ :=
@@ -843,12 +847,8 @@ theorem GenPNTW {D : ℝ → ℝ} (hD : DepthOK D) {n₂ C₂ : ℝ} (n₂_pos :
   obtain ⟨c₆, c₆pos, hc₆⟩ := I6GenBoundW ν_supp ContDiff1ν holo2 σ₂InIoo hD
   rw [Asymptotics.isBigO_iff]
   refine ⟨(c_close + C_main) + (c₁ + c₂ + c₈ + c₉) + (c₃ + c₄ + c₆ + c₇) + c₅, ?_⟩
-  have eventually_σ₂_lt_σ₁ : ∀ᶠ x in atTop, σ₂ < 1 - D (Tx x) := by
-    have : ∀ᶠ x in atTop, D (Tx x) < 1 - σ₂ :=
-      (tendsto_order.mp hDT).2 _ (by linarith [σ₂InIoo.2])
-    filter_upwards [this] with x hx
-    linarith
-  have e4' := e4 σ₂ σ₂InIoo.2
+  have eventually_σ₂_lt_σ₁ := hσ₂D
+  have e4' := e4
   filter_upwards [eventually_gt_atTop 3, (tendsto_order.mp hε).2 1 one_pos, h2,
     hT.eventually_gt_atTop 3, eventually_σ₂_lt_σ₁, (tendsto_order.mp hε).2 ε_main ε_main_pos,
     Real.tendsto_log_atTop.eventually_ge_atTop 1, hε0, e1, e2, e3, e4'] with X X_gt_3 ε_lt_one ε_X
@@ -975,5 +975,32 @@ theorem GenPNTW {D : ℝ → ℝ} (hD : DepthOK D) {n₂ C₂ : ℝ} (n₂_pos :
   rw [hre]
   refine tot.trans (le_of_eq ?_)
   rw [Real.norm_of_nonneg (by positivity)]
+
+/-- **Generic PNT from a width-`D` region.** If `ζ'/ζ` is bounded by a power of `log|t|` on
+`σ ≥ 1 − D|t|` and holomorphic on the boxes `[1 − D T, 2] × [−T, T] ∖ {1}`, then for any choice of
+cutoffs `T(x) → ∞`, `ε(x) → 0` with `x ε(x) > 2` and `D(T(x)) → 0`, the error `ψ(x) − x` is
+`O(x F(x))` for any `F` dominating the four error terms `ε log x`, `log x/(ε T)`, `x^{−D(T)}/ε`
+and `x^{σ₂−1}/ε` (the last for every `σ₂ < 1`). Since round 337 it is the case of `GenPNTW'` with PNT+'s `σ₂`. -/
+theorem GenPNTW {D : ℝ → ℝ} (hD : DepthOK D) {n₂ C₂ : ℝ} (n₂_pos : 0 < n₂) (C₂_pos : 0 < C₂)
+    (hb : LogDerivZetaHasBoundW D n₂ C₂)
+    (holo : ∀ T : ℝ, 3 ≤ T → HolomorphicOn (fun s : ℂ ↦ ζ' s / ζ s)
+      ((Icc (1 - D T) 2 ×ℂ Icc (-T) T) \ {1}))
+    (Tx εx Fx : ℝ → ℝ) (hT : Tendsto Tx atTop atTop)
+    (hε0 : ∀ᶠ x in atTop, 0 < εx x) (hε : Tendsto εx atTop (𝓝 0))
+    (h2 : ∀ᶠ x in atTop, 2 < x * εx x)
+    (hDT : Tendsto (fun x ↦ D (Tx x)) atTop (𝓝 0))
+    (e1 : ∀ᶠ x in atTop, εx x * Real.log x ≤ Fx x)
+    (e2 : ∀ᶠ x in atTop, Real.log x / (εx x * Tx x) ≤ Fx x)
+    (e3 : ∀ᶠ x in atTop, x ^ (-D (Tx x)) / εx x ≤ Fx x)
+    (e4 : ∀ σ₂ : ℝ, σ₂ < 1 → ∀ᶠ x in atTop, x ^ (σ₂ - 1) / εx x ≤ Fx x) :
+    (ψ - id) =O[atTop] fun x : ℝ ↦ x * Fx x := by
+  obtain ⟨σ₂, σ₂InIoo, holo2⟩ := LogDerivZetaHolcSmallT'
+  have hσ₂D : ∀ᶠ x in atTop, σ₂ < 1 - D (Tx x) := by
+    have : ∀ᶠ x in atTop, D (Tx x) < 1 - σ₂ :=
+      (tendsto_order.mp hDT).2 _ (by linarith [σ₂InIoo.2])
+    filter_upwards [this] with x hx
+    linarith
+  exact GenPNTW' hD n₂_pos C₂_pos hb holo Tx εx Fx hT hε0 hε σ₂InIoo holo2 h2 hσ₂D e1 e2 e3
+    (e4 σ₂ σ₂InIoo.2)
 
 end MediumPNTW

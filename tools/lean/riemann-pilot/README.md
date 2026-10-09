@@ -6456,7 +6456,7 @@ Compiles with no `sorry`; standard axioms only.
 | 1 | `o(x)` (PNT) | `ζ ≠ 0` on `Re s = 1`, from the 3-4-1 "gear" inequality, plus a Tauberian step | nonvanishing is in Mathlib; PNT itself is formalised outside Mathlib (PrimeNumberTheoremAnd project) [recalled] |
 | 2 | `x·e^{−c√log x}` | quantitative zero-free region `σ > 1 − c/log t` + truncated explicit formula | not formalised here; Borel–Carathéodory is now in Mathlib, and the pilot has the explicit formula |
 | 3 | `x·e^{−c(log x)^{3/5}(log log x)^{−1/5}}` | Vinogradov's exponential sums over primes | best known since 1958 [recalled] |
-| — | `x^{1−δ}` for some `δ > 0` | a zero-free strip | open; equivalent to a zero-free strip *(Round 277: claimed closed externally, with `δ = 1/8 − ε`, by OpenAI's zero-free half-plane `Re s > 7/8`, which is Lean-formalised in their release; not yet derived here. See round 277.)* |
+| — | `x^{1−δ}` for some `δ > 0` | a zero-free strip | open; equivalent to a zero-free strip *(Round 277: claimed closed externally, with `δ = 1/8 − ε`, by OpenAI's zero-free half-plane `Re s > 7/8`, which is Lean-formalised in their release; not yet derived here. See round 277.)* *(Round 337: the stack proves the direction from a half-plane, with `δ = (1 − θ)/2 − ε` from `Re s > θ` (`HalfPlanePNT.psi_isBigO_of_zeroFree`); conditionally, `x^{23/24+ε}` under round 326's completed mean square. See round 337.)* |
 | RH | `√x·log²x` | all zeros on `Re s = ½` | open |
 
 **Finite range** [recalled, not re-read]. Using RH verified to height `3·10¹²` (Platt–Trudgian), Büthe-type arguments give `|ψ(x) − x| < √x` for all `x` up to about `10¹⁹`.
@@ -7110,7 +7110,7 @@ Axioms are clean (`propext`, `Classical.choice`, `Quot.sound`), checked on a fre
 - **R4b, `MediumPNTW`.** PNT+'s contour bounds `I2GenBound`–`I8GenBound`, restated for any depth `D` with `σ₁ = 1 − D T`.
   - PNT+ states them for the depth `A/(log T)^{n₁}`, but the proofs use only three of its properties: `0 < D T ≤ 1/2`, and `D` non-increasing (`DepthOK`). The proofs are PNT+'s, with those three facts swapped in.
   - `I4`/`I6` take `σ₂ ≤ 1 − D T` as a hypothesis in place of PNT+'s explicit `T` threshold.
-  - `GenPNTW` assembles the pieces. Given cutoffs `T(x) → ∞` and `ε(x) → 0` with `x ε(x) > 2` and `D(T(x)) → 0`, it gives `ψ(x) − x = O(x F(x))` for any `F` that eventually dominates `ε log x`, `log x/(εT)`, `x^{−D(T)}/ε` and `x^{σ₂−1}/ε` for every `σ₂ < 1`.
+  - `GenPNTW` assembles the pieces. Given cutoffs `T(x) → ∞` and `ε(x) → 0` with `x ε(x) > 2` and `D(T(x)) → 0`, it gives `ψ(x) − x = O(x F(x))` for any `F` that eventually dominates `ε log x`, `log x/(εT)`, `x^{−D(T)}/ε` and `x^{σ₂−1}/ε` for every `σ₂ < 1`. *(Round 337: it is now the case of `GenPNTW'`, which takes `σ₂` as a parameter and asks `σ₂ < 1 − D(T(x))` eventually in place of `D(T(x)) → 0`.)*
 - **R4c, `PNTKV`.**
   - Depth: `D(T) = A·u(T)`, with `A` shrunk so that `ζ ≠ 0` on every box `[1 − D T, 2] × [−T, T]` (`zeroFree_boxes`). Below height 21 this uses PNT+'s `ZetaNoZerosInBox`. Above it, since `log(log T + 3) ≥ log log T`, it uses round 215's `zeroFree_KV`.
   - Cutoffs: `log T(x) = G(log x)` with `G(L) = L^{3/5}/(log L)^{1/5}`, `ε = e^{−(A/2)G}` and `F = e^{−(A/4)G}`.
@@ -8638,7 +8638,7 @@ Their Comparator configuration permits `propext`, `Quot.sound` and `Classical.ch
 - Not checked here: the proofs themselves, read in full. As of the release, outside mathematicians had not confirmed them.
 
 **What it fills in the stack**, if it holds. Net-state markers sit on rounds 164, 167 and 190 and on STRUCTURAL-REVIEW §5b and §6. *(Round 279: under round 278's `SmoothBound θ`, the `weil_twins_rate` and round-164 items below are kernel-checked with `2θ − 1` and `e^{(2θ−1)a}` in place of `3/4` and `e^{3a/4}` (`HalfPlaneJoins`). The ladder row is not: the stack has no theorem from a zero-free half-plane to a bound on `ψ(x) − x`. See round 279.)*
-- Round 190's ladder: the row `x^{1−δ}` is filled with `δ = 1/8 − ε`, giving `ψ(x) − x = O(x^{7/8+ε})`.
+- Round 190's ladder: the row `x^{1−δ}` is filled with `δ = 1/8 − ε`, giving `ψ(x) − x = O(x^{7/8+ε})`. *(Round 337: `7/8 + ε` is the classical exponent. The stack's route from a half-plane `Re s > θ` gives `O(x^{(1+θ)/2+ε})`, so `O(x^{15/16+ε})` from `Re s > 7/8`. See round 337.)*
 - `weil_twins_rate`: the exponential rate of the twins' negative part is at most `3/4`, i.e. `−C exp((3/4) l) ≤ weilQ (l + 1) (twin (box 1) l)`.
 - `TwinLandau.Q_ge_of_rates`: the instance STRUCTURAL-REVIEW §5b listed as "a wider zero-free region, if one existed".
 - Round 164's off-line weight `e^{2aδ}`: `δ ≤ 3/8`, so the weight is at most `e^{3a/4}`.
@@ -8720,7 +8720,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 **What the joins do not reach.**
 - `ShortPrimes.short_primes_of_density`. Its `ZeroFreeXi α` (`α < 1`) is already supplied unconditionally (`ShortKV.zeroFreeXi_KV`, `α = 3/4`), and its exponent depends on the density input alone.
-- Round 190's ladder row `x^{1−δ}`. The stack's one theorem from a zero-free region to a bound on `ψ(x) − x` is `rung3_of_region` (`external/pnt`). It needs a region of width `(log t)^{−n₁}` with `n₁ > 0` and a bound on `ζ′/ζ` inside it, and `SmoothBound θ` gives neither. The row needs a new theorem: a zero-free half-plane gives `ψ(x) − x = O(x^{θ+ε})`.
+- Round 190's ladder row `x^{1−δ}`. The stack's one theorem from a zero-free region to a bound on `ψ(x) − x` is `rung3_of_region` (`external/pnt`). It needs a region of width `(log t)^{−n₁}` with `n₁ > 0` and a bound on `ζ′/ζ` inside it, and `SmoothBound θ` gives neither. The row needs a new theorem: a zero-free half-plane gives `ψ(x) − x = O(x^{θ+ε})`. *(Round 337: reached, with the exponent `(1+θ)/2 + ε` in place of `θ + ε`: `HalfPlanePNT` bounds `ζ′/ζ` in the half-plane through PNT+'s `FinalBound` and runs round 216's contour argument at a constant depth (`GenPNTW'`). See round 337.)*
 - `zeros_of_lam_ge`, which runs the other way: a lower bound on `λ₁` gives the strip.
 - Statements at the level of RH or GRH, characters other than `χ₋₃`, and the real zeros of `L(s, χ₋₃)`, which `hS3` already excludes on `(0, 1)` unconditionally.
 
@@ -10836,3 +10836,58 @@ DHGround's form is the instance `dhU` (`c = constDH`, `q = ¾`, `f = fDH`): `dhU
 **Check 9.** No barrier claim is made.
 
 **Bearing on RH:** none.
+
+## Round 337: a zero-free half-plane gives a power saving in the prime number theorem (`external/pnt/HalfPlanePNT.lean`)
+
+**What it is.** N1 of the second stack review: round 190's ladder row `x^{1−δ}`, reached from a zero-free half-plane. Round 279 found no theorem in the stack that runs from a zero-free half-plane to a bound on `ψ(x) − x`. This round proves one.
+
+- **`psi_isBigO_of_zeroFree`.** If `ζ(s) ≠ 0` for `Re s > θ`, with `θ < 1`, then `ψ(x) − x = O(x^{(1+θ)/2+ε})` for every `ε > 0`.
+- **`psi_isBigO_of_smoothBound`.** The same bound under round 278's `SmoothBound θ`, `θ < 1`.
+- **`psi_isBigO_of_completed`.** `ψ(x) − x = O(x^{23/24+ε})` under round 326's completed mean square, `Eis.CompletedMeanSquare` (the companion paper's Proposition 5.2), which gives `ζ(s) ≠ 0` on `Re s > 11/12`.
+
+It is one new file, `external/pnt/HalfPlanePNT.lean` (463 lines), and one change to `external/pnt/MediumPNTW.lean` (979 lines to 1,006). The paper (`riemann-indistinguishability.md`) says nothing about the ladder row or the error term of the prime number theorem, so it is not edited.
+
+**The route.**
+
+- **Growth** (`riemannZeta_linear_growth`). `|ζ(s)| ≤ (5/2 + 1/δ)|Im s|` for `Re s ≥ δ > 0` and `|Im s| ≥ 1`. It comes from `|ζ(s)| ≤ ½ + 1/|1 − s| + |s|/Re s` (`norm_riemannZeta_le_of_re_pos`), which is PNT+'s Euler–Maclaurin formula at `N = 1` (`Zeta0EqZeta`, `ZetaBnd_aux1b`). The proof is that of zeta23's `RvM.norm_riemannZeta_le_of_re_pos` (`Zeta23/RvM/ZetaGrowth.lean`), whose two inputs have the same statements in PNT+. zeta23's copy cannot be imported next to the pnt layer (STRUCTURAL-REVIEW §2.3).
+- **The log-derivative** (`logDeriv_le_of_zeroFree`). Under a zero-free half-plane `Re s > θ ≥ 0`, for every `θ' ∈ (θ, 3/2)`: `|ζ′/ζ(σ + it)| ≤ C log|t|` for `σ ≥ θ'` and `|t| > 3`. Right of `3/2` this is PNT+'s `LogDerivZetaBdd_of_Re_ge_three_halves`.
+- **The disc** (`disc_point`). Left of `3/2`, it applies PNT+'s `FinalBound` (Borel–Carathéodory with the zeros divided out) to `ζ(s₀ + ρw)/ζ(s₀)` on the disc of radius `ρ = 3/2 − θ` around `s₀ = 3/2 + it`. The radii `r' < r < R' < R < 1` are fixed by `θ'`, with `r' = (3/2 − θ')/ρ`. The disc of radius `ρr` holds no zero, so no zero term enters. On the disc of radius `ρR` the bound is the growth bound times `1/|ζ(s₀)| ≤ ζ(3/2)` (`Landau.inv_norm_zeta_le`). Round 193's `Landau.local_bound_point` runs the same argument at the fixed radii `¼, ½, 5/8, ¾`. Here the radii depend on `θ'`, so the point can lie as close to the edge of the half-plane as `θ'` asks.
+- **The contour** (`MediumPNTW.GenPNTW'`). Round 216's `GenPNTW` took PNT+'s abscissa `σ₂` for the box `[σ₂, 2] × [−3, 3]` and asked `D(T(x)) → 0`. It used that only to put `σ₂` below `1 − D(T(x))`. `GenPNTW'` takes `σ₂` as a parameter, with `ζ′/ζ` holomorphic on that box, and asks `σ₂ < 1 − D(T(x))` eventually, so a constant depth is allowed. `GenPNTW` is now its case with PNT+'s `σ₂`; its statement is unchanged.
+- **The assembly.** `GenPNTW'` runs at the depth `1 − θ'`, with `θ' = θ + min(ε, (1 − θ)/2)` and `σ₂ = (θ + θ')/2`. The cutoffs are `T(x) = x`, smoothing width `x^{−(1−θ')/2}` and `F(x) = x^{−(1−θ')/2 + ε/2}`. `θ ≥ ½` holds because ζ has a zero with real part at least `½` (`PsiOmega.exists_zero_re_ge_half`, used by `half_le_of_zeroFree`).
+
+**The exponent is `(1 + θ)/2`, not the classical `θ`.**
+
+- In the contour argument, PNT+ bounds the segments `I₃`, `I₄`, `I₆` and `I₇`, which lie left of `Re s = 1`, by `C·x·x^{−D(T)}/ε` (`I3BoundW`, `I4BoundW` and their reflections). At depth `1 − θ'` that is `x^{θ'}/ε`. For `I₃` and `I₇`, the `1/ε` comes from `MellinOfSmooth1b`'s bound `|M(s)| ≤ C/(ε|s|²)` on the Mellin transform of the smoothing. The smoothing itself costs `εx`, and the two balance at `ε = x^{−(1−θ')/2}`.
+- A sharper bound would remove the loss. The smoothing is non-increasing from `1` to `0`, so `|M(s)| ≤ 2^{Re s}/|s|` as well. The integrals along the vertical segments would then cost a power of `log(1/ε)` in place of `1/ε`, and `ε = x^{θ'−1}` would give the classical `θ + ε`. This was checked by hand, not compiled, and is not attempted here.
+- So the row holds with `δ = (1 − θ)/2 − ε`: `x^{23/24+ε}` under the completed mean square, and `x^{15/16+ε}` from the external half-plane `Re s > 7/8`, if that holds. Round 277's `7/8 + ε` is the classical exponent.
+
+**Horizon scan.** CLAUDE.md asks for one at the start of a series. It was a subagent survey, and the lead re-read only the hit.
+
+- The survey's report on PNT+ (main at `c39a751`, 2026-10-01): its generic contour theorem `GenStrengthPNT` takes a zero-free region of width `A/(log|t|)^{n₁}` with `n₁ > 0`. PNT+ has no half-plane version and no `ζ′/ζ` bound under a half-plane.
+- Its report on `openai/math`: the `7/8` files are unchanged between `adc7f12` and `fd4aeeb`, and there is no PNT corollary in Lean.
+- **The hit.** arXiv 2610.12234 (Baiying Liu, submitted 8 October 2026), "Slightly improved zero-free half-planes for the quasi-Riemann hypothesis". Its abstract says it improves OpenAI's `7/8` to about `0.874975` and then about `0.874957`, by varying two parameters used in the original proof, and that the result is formalised in Lean. Only the abstract was read here. It is a second claimed refinement after round 286's (`3499999/4000000`). If such a half-plane `Re s > θ` holds, `psi_isBigO_of_zeroFree` turns it into `ψ(x) − x = O(x^{(1+θ)/2+ε})`.
+
+**Not here.**
+
+- The classical exponent `θ + ε` (above).
+- Round 279's other unreached item, `short_primes_of_density`. The review's join that reaches it through the trivial density count is not landed.
+
+**Records.**
+
+- Net-state markers on round 190's ladder row, round 216's description of `GenPNTW`, round 277's list of what the external half-plane fills, and round 279's "What the joins do not reach".
+- STRUCTURAL-REVIEW §6: the register's sockets and joins for the fixed zero-free strip, and its external status (the new claim).
+- `external/pnt/README.md`: the file table and a section for `HalfPlanePNT.lean`.
+- `external/pnt/build.sh` builds `HalfPlanePNT.lean`, and its final check prints the axioms of `GenPNTW'` and of four theorems of the new file.
+
+**Build.** On 4 cores, under round 327's gate.
+
+- `external/pnt/build.sh`: exit 0 in 603 s. Against round 336's output the only additions are the new module's 7 axiom lines and 5 lines of the final check (`GenPNTW'` and four theorems of the new file), which now has 27. Every one of them is `[propext, Classical.choice, Quot.sound]`, and nothing else changed. The other axiom lines are as before, PNT+'s `StrongPNT` with its short name included.
+- `external/zeta23/build.sh`: exit 0 in 561 s, and its output is byte for byte round 336's. It recompiles all its files on every run; none of them imports `MediumPNTW` or `HalfPlanePNT`.
+- No file of `src/` or `external/dh/` changed, and none imports a file of `external/pnt/`, so their builds are not rerun.
+- The new names are in the new namespace `HalfPlanePNT`, apart from `MediumPNTW.GenPNTW'`. No other Lean file of the pilot, and no file of Mathlib or of the vendored PNT+, declares `GenPNTW'`.
+
+**Check 4.** The theorem is classical: a zero-free half-plane `Re s > θ` gives `ψ(x) − x = O(x^{θ+ε})`, and this round proves a weaker exponent. New in Lean here are the `ζ′/ζ` bound under a half-plane, `GenPNTW'` and the bound itself. The stack's earlier `ζ′/ζ` bounds (rounds 193 and 216) are for regions whose width tends to `0`, and round 279 found no theorem from a half-plane to a bound on `ψ(x) − x`.
+
+**Check 9.** "This route gives `(1 + θ)/2`" is scoped to this route. The classical `θ + ε` is recorded as reachable by a sharper Mellin bound, by hand, not as a barrier.
+
+**Bearing on RH:** none. A zero-free half-plane with `θ > ½` says nothing about the critical line, and the stack proves the input for no `θ < 1`.
