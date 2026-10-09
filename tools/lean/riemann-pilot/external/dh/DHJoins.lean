@@ -34,11 +34,11 @@ directions of `negIndex_ge_four` (round 270) and the odd sine packet span a `5`-
 only in `0`, and `Q_dh` adds across the two parities.
 
 **`QCu χ` is a `ProbeForm`** (`QCu_form`) for every Dirichlet character `χ` (modulus `N ≠ 0`) at every
-support: DHForm's proof of `QDHu_form`, with `fχ`, `cChi χ`, `qC χ` and `MC χ a` (WeilChiDensity, round
-227) in place of `fDH`, `constDH`, `3/4` and `MDH a`. It uses DHForm's `archEQ_smul` and `archEQ_congr_ae`,
-which hold for every `q` but live in this layer, so it is stated here and not in `src/`. It defines the
-χ ground energy `λ_χ(a)` (`lamC`), non-increasing in the support (`lamC_antitone`), the first piece of the
-ground-state layer for `χ` that round 227 lists as not ported.
+support: DHForm's proof of `QDHu_form`, with `fχ` (DirichletOmega), `qC χ` (WeilChiBridge), `cChi χ` and
+`MC χ a` (WeilChiDensity) in place of `fDH`, `3/4`, `constDH` and `MDH a`. It uses DHForm's `archEQ_smul`
+and `archEQ_congr_ae`, which hold for every `q` but live in this layer, so it is stated here and not in
+`src/`. It defines the χ ground energy `λ_χ(a)` (`lamC`), non-increasing in the support
+(`lamC_antitone`), the first piece of the ground-state layer for `χ` that round 227 lists as not ported.
 -/
 
 open Real Complex MeasureTheory Set Filter Topology
