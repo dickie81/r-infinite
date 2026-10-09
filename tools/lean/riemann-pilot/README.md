@@ -7,7 +7,7 @@ Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all co
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
 
-Every file but 29 ends with `#print axioms` (corrected in round 327; the 29 are `AngularFamily`, `BallTower`, `GlobalTeeth`, `LatticeCount`, `LocalTeeth`, `WanderBound`, the ten `ExpSum` files, `Vinogradov` and the twelve other `Vino` files). All 1798 checked theorems in `src/` (and the 455 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. Since round 327 the build checks this: a compiled file fails if Lean reports a use of `sorry` in it or one of its axiom lines names an axiom outside the three. The axioms of a theorem without a print are seen only through the checked theorems that use it, so an `axiom` declaration that no checked theorem depends on would pass. `external/dh/build.sh` runs the same check, `external/pnt/build.sh` runs it on its own files, and `external/zeta23/build.sh` has run it since round 276. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence); warnings are not gated.
+Every file but 29 ends with `#print axioms` (corrected in round 327; the 29 are `AngularFamily`, `BallTower`, `GlobalTeeth`, `LatticeCount`, `LocalTeeth`, `WanderBound`, the ten `ExpSum` files, `Vinogradov` and the twelve other `Vino` files). All 1814 checked theorems in `src/` (and the 455 of `external/dh/`) depend only on `propext`, `Classical.choice` and `Quot.sound`: there is no `sorry` and no added axiom. Since round 327 the build checks this: a compiled file fails if Lean reports a use of `sorry` in it or one of its axiom lines names an axiom outside the three. The axioms of a theorem without a print are seen only through the checked theorems that use it, so an `axiom` declaration that no checked theorem depends on would pass. `external/dh/build.sh` runs the same check, `external/pnt/build.sh` runs it on its own files, and `external/zeta23/build.sh` has run it since round 276. The build prints no warnings (restored in round 240; before it, 21 linter-warning lines from eight files contradicted this sentence); warnings are not gated.
 
 | File | Lines | Content |
 |---|---|---|
@@ -251,6 +251,7 @@ Every file but 29 ends with `#print axioms` (corrected in round 327; the 29 are 
 | `EisensteinThetaAssembly.lean` | 670 | **S5d-4: Lemma 6.6 assembled, and the half-plane from the two displays**: the split of a squarefree row `s = u·gen(𝔱)·k₀` (**`exists_row_split`**) and the count of its keys (`tIdeals`, `card_tIdeals_le`); the rows with one key in mean square (**`rows_meanSquare`**, with `class_bound_le` and `card_image_mk_le`); the losses as powers of `D` (`pow64_le`, `max_rpow_le`, `last_le`); **`squarefreeCompleted_of`** (the companion paper's Lemma 6.6 from `ThetaRows` and `QuadLargeSieve`) and **`ne_zero_of_theta`** (`ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > 11/12` from the two displays) (round 342) |
 | `EisensteinQuadSieveNorm.lean` | 672 | **S5e-1: the norm of the quadratic large sieve and its symmetry**: the quadratic Gauss sum modulo `4` (`P2_add_four`, `gq4_congr`); twisted quadratic sums of squarefree moduli (**`sqSum_prod_πP`**, `sqSum_prod_one_ne_zero`); quadratic reciprocity for admissible elements (**`sym2_recip_adm`**: `(n/k)₂(k/n)₂·φ(k)φ(n) = 2φ(kn)`); the duality principle (`duality`); the norm over balls (`QBound`), its symmetry (**`QBound.symm`**, Heath-Brown's Lemma 1) and trivial bound (`qBound_trivial`); the exponent (`QExp`, `QExp.reverse`); **`quadLargeSieve_of_exp`** (the companion paper's Lemma 6.5 from `QExp 1`) (round 344) |
 | `EisensteinQuadSieveBase.lean` | 611 | **S5e-2: the base case `(E_2)`**: the pair product of quadratic characters (`q2_mul_q2`); the Gauss sum bound (`norm_gaussTr_q2_le`, `gaussTr_q2_zero`); the dual sum (`norm_tsum_dualG_le`); the pair sums through Poisson summation with excluded primes (`norm_pS_le`, `norm_pS_off`, `norm_pS_diag`); the transposed bound (**`dual_q2_bound`**, Goldmakher and Louvel's form of `(E_2)`); `qBound_base`; **`qExp_two`** (`QExp 2`) (round 345) |
+| `EisensteinQuadSieveSep.lean` | 1203 | **S5e-3: Heath-Brown's Lemmas 2 and 10**: the weighted norm in prime-set coordinates (`FBound`, `FBound.sub`) and its bridge to round 344's norm (`qBound_of_fBound`, `fBound_of_qBound`); Möbius inversion, factored (`sum_disjoint_factor`, `sum_inter_eq_factor`); the pairs sorted by their greatest common divisor (`gcdPart`, `gcdPart_eq`, **`fBound_gcd`**); the separation of `d ∣ n₁n₂` (`sepInner_eq`, `sep_one`, `count_cover`, **`fBound_sep`**) (round 346) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -9820,7 +9821,7 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 - **S5b.** The induction of Proposition 5.1, with Proposition 5.4 also displayed (`TransferEstimate`). With rounds 310 and 288 this is the third conditional milestone: the two displayed estimates give `DualMeanSquare ϑ` for every `ϑ > 0`, hence `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5ϑ)/12` for every `ϑ > 0`, that is on `Re s > 11/12`. (Round 282: the release's Lean for this route reaches `23/24`.) *(Round 315: landed. `Eis.ne_zero_of_completed_transfer` derives `Re s > 11/12` from `Eis.CompletedMeanSquare` and `Eis.TransferEstimate`.)* *(Round 326: `Eis.TransferEstimate` is derived, `Eis.transferEstimate`, so `Eis.ne_zero_of_completed` has `Eis.CompletedMeanSquare` as its only hypothesis.)*
 - **S5c.** Proposition 5.4 derived (Section 7), reusing S4.
 - **S5d.** Proposition 5.2 derived from the theta transformation (Proposition 6.2 with Lemmas 6.3–6.4) and Lemma 6.5. Both stay displayed hypotheses for now; this round does Section 6.4's assembly. *(Round 339: S5d-1 landed first, the last step of Section 6.4: Proposition 5.2 from Lemma 6.6, `Eis.completedMeanSquare_of_squarefree`. Round 339 stages the rest of S5d as S5d-2 to S5d-5.)* *(Round 340: S5d-2 landed, the prepared sums' mean square from Lemma 6.5, displayed as `Eis.QuadLargeSieve` (`Eis.prepSum_meanSquare`); the rest is restaged as S5d-3 and S5d-4.)* *(Round 341: S5d-3 landed, the theta transformation for the rows displayed as `Eis.ThetaRows` and one transformed term's mean square, `Eis.dualTerm_meanSquare`; S5d-4 remains.)* *(Round 342: S5d-4 landed, the paper's Lemma 6.6 from the two displays, `Eis.squarefreeCompleted_of`, and the half-plane from them, `Eis.ne_zero_of_theta`; S5d is complete.)*
-- **S5e.** The quadratic large sieve over `ℤ[ω]` (Lemma 6.5) derived. *(Round 343: mapped as S5e-1 to S5e-7, after Goldmakher and Louvel and Heath-Brown; the norm is to be taken over balls. See round 343.)* *(Round 344: S5e-1 landed; `Eis.quadLargeSieve_of_exp` reduces Lemma 6.5 to the exponent `1`, `Eis.QExp 1`.)* *(Round 345: S5e-2 landed; `Eis.qExp_two` is the base case `QExp 2`.)*
+- **S5e.** The quadratic large sieve over `ℤ[ω]` (Lemma 6.5) derived. *(Round 343: mapped as S5e-1 to S5e-7, after Goldmakher and Louvel and Heath-Brown; the norm is to be taken over balls. See round 343.)* *(Round 344: S5e-1 landed; `Eis.quadLargeSieve_of_exp` reduces Lemma 6.5 to the exponent `1`, `Eis.QExp 1`.)* *(Round 345: S5e-2 landed; `Eis.qExp_two` is the base case `QExp 2`.)* *(Round 346: S5e-3 landed; `Eis.fBound_gcd` and `Eis.fBound_sep` are Heath-Brown's Lemmas 2 and 10.)*
 - **S5f.** Kubota's cubic theta, its coefficients and automorphy (Patterson; Dunn–Radziwiłł), and Appendix A.2's calculation, derived. This is the deepest step. Until it lands, the transformation is the strand's one displayed external input. *(Round 342: until S5e lands, `Eis.QuadLargeSieve` is displayed too; the half-plane rests on the two, `Eis.ne_zero_of_theta`.)*
 - **Order.** S5a and S5b come first: they reach the third milestone and fix the interfaces. Then S5c, which reuses S4, then S5d, then S5e and S5f.
 
@@ -11233,7 +11234,7 @@ So S5d is complete, and the half-plane `Re s > 11/12` rests on two displayed inp
 
 - **S5e-1. The norm.** The definitions over balls, the duality principle and monotonicity. Then the composite reciprocity law, the symmetry (Heath-Brown's Lemma 1), and the reduction of `QuadLargeSieve` to the norm. That reduction covers its columns divisible by `2`, `n = −2n′`, whose factor `(−2/k)` depends only on the row; its shell `U/2 ≤ N(n) ≤ 2U`; and its orientation, rows as moduli, which is Heath-Brown's. *(Round 344: landed, `Eis.QBound`, `Eis.QBound.symm` and `Eis.quadLargeSieve_of_exp`. See round 344.)*
 - **S5e-2. The base case `(E_2)`**, with the majorant of round 301, whose dual sums are finite, and excluded primes for `(n_1, n_2) ≠ 1`. *(Round 345: landed, `Eis.qExp_two`, through the transposed bound `Eis.dual_q2_bound`. See round 345.)*
-- **S5e-3. Heath-Brown's Lemmas 2 and 10.**
+- **S5e-3. Heath-Brown's Lemmas 2 and 10.** *(Round 346: landed, `Eis.fBound_gcd` and `Eis.fBound_sep`, for a weighted norm in prime-set coordinates. See round 346.)*
 - **S5e-4. `Σ_3`**: Poisson summation in `m`, the dual frequencies `h = abc²`, Poisson summation in `c`, and the planar Lemma 14.
 - **S5e-5. `Σ_4`**: `m = u²v` and Poisson summation in `u`.
 - **S5e-6. The main terms compared** (Heath-Brown's Lemma 5), with the evaluation of the supplementary sum.
@@ -11345,7 +11346,7 @@ Goldmakher and Louvel's Lemma 4.2 is "`The bound (E_2) holds.`" Their `B_1(M,N)`
 - **The nonprincipal sums** are bounded by Poisson summation with excluded primes and the Gauss sums. Goldmakher and Louvel use the completed L-function. Heath-Brown uses the Pólya–Vinogradov inequality, after reciprocity: "`Now χ(m) = (n_1n_2/m) is a Dirichlet character of conductor at most 4n_1n_2 ≤ 4N^2, and is non-principal unless n_1n_2 is a square. In the remaining case the Pólya–Vinogradov inequality yields`". The excluded primes cost the factor `2^{|A₁∩A₂|}`, absorbed by the divisor bound.
 - **Round 343's list** of what the pilot lacked has the bound for the base case summed "over primary elements". The sums here run over all of `ℤ[ω]`, since the transposed sum's arguments need no condition.
 
-**The staging.** S5e-3 is next: Heath-Brown's Lemmas 2 and 10.
+**The staging.** S5e-3 is next: Heath-Brown's Lemmas 2 and 10. *(Round 346: landed. See round 346.)*
 
 **Records.**
 
@@ -11356,6 +11357,66 @@ Goldmakher and Louvel's Lemma 4.2 is "`The bound (E_2) holds.`" Their `B_1(M,N)`
 **Build.** Incremental pilot build: 1 compiled, 220 up to date, 15 s, no warnings. The 14 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1798 in `src/`. No other file imports the new file, and no file of `external/` changed. The new names are in the namespace `Eis`. No other declaration line in the pilot, in `external/` or in Mathlib declares any of the 31 new names (a grep of the declaration lines).
 
 **Check 4.** New against the pilot: the base case `(E_2)` of the quadratic large sieve over `ℤ[ω]`, machine-checked. The release was not used here.
+
+**Check 9.** No barrier claim is made.
+
+**Bearing on RH:** none.
+
+## Round 346: S5e-3 — Heath-Brown's Lemmas 2 and 10 for a weighted norm (`src/EisensteinQuadSieveSep.lean`)
+
+**What it is.** The third step of S5e in round 343's plan. It proves Heath-Brown's Lemma 2, which sorts the pairs of columns by their greatest common divisor, and his Lemma 10, which separates `d ∣ n₁n₂`. Both are proved for any nonnegative summable weight on the arguments, so one statement serves his `B(M, N)` and his `B(M, N, K)`.
+
+- **`fBound_gcd`**: Heath-Brown's Lemma 2, Goldmakher and Louvel's Lemma 5.1.
+- **`fBound_sep`**: Heath-Brown's Lemma 10, Goldmakher and Louvel's Lemma 7.1.
+- **`qBound_of_fBound`, `fBound_of_qBound`**: with the admissible arguments of norm at most `M` as rows, the weighted norm at `N` is round 344's `QBound N M`.
+
+**The weighted norm** (`FBound w N Δ`).
+
+- **Rows.** The arguments `m ∈ ℤ[ω]`, with a summable weight `w(m) ≥ 0`.
+- **Columns.** The squarefree moduli `∏_{P∈A} π_P` of norm at most `N`, given by their sets of primes `A`.
+- **The bound.** `Σ_m w(m)|Σ_A α(A)(m/A)₂|² ≤ Δ·Σ_A |α(A)|²`, where `(m/A)₂ = ∏_{P∈A} ρ_P(m)` is round 345's `q2`.
+- **Orientation.** This is Heath-Brown's orientation after his Lemma 1: "`Lemma 1 shows that we may replace the Jacobi symbol (n/m) by (m/n) in the definition of Σ1, at the expense of a factor 2.`" It is also Goldmakher and Louvel's `B_1`, whose rows are the arguments of `χ_𝔟`.
+- **Round 344's norm.** The weight `admW M`, the indicator of the admissible arguments of norm at most `M`, gives round 344's norm by duality (`qBound_of_fBound`, `fBound_of_qBound`). Heath-Brown's `B(M, N, K)` is to be the weighted norm with a smooth weight restricted to `s(m) > K` (S5e-4).
+- **Sub-families** (`FBound.sub`). The columns containing a set `F`, with `F` taken out, satisfy the norm at the smaller scale, since `|ρ_F(m)| ≤ 1`.
+
+**Möbius inversion, factored** (`sum_disjoint_factor`, `sum_inter_eq_factor`). A double sum over pairs of columns with `A₁ ∩ A₂ = ∅` (or with `A₁ ∩ A₂ = G`) is an alternating sum over `E` of products of single sums: each runs over the columns containing `E` (or `G ∪ E`). Both of Heath-Brown's proofs do this: "`We can pick out the condition (n_1,n_2)=1 by using a sum involving the Möbius function`".
+
+**Lemma 2** (`fBound_gcd`). Heath-Brown: "`It is quite easy to bound B(M,N,K) in terms of C(M,N,K,∆), as the following lemma shows.`" Goldmakher and Louvel: "`By opening the square and sorting the terms according to their greatest common divisor, we obtain`".
+
+- **The parts.** The expanded mean square (`tsum_w_colSum_eq`) is the sum over `G` of the parts `gcdPart w G`, from the pairs with `A₁ ∩ A₂ = G`.
+- **Small divisors.** The parts with `N(G) ≤ g₀` are bounded by hypothesis, `Re gcdPart ≤ F₃(G)·Σ|α|²`. These are Heath-Brown's `C(M, N, K, ∆)` and Goldmakher and Louvel's `B_3(M, N, K, 𝔤)`.
+- **Large divisors.** For `N(G) > g₀`, each part is an alternating sum over `E` of the norms of the columns containing `G ∪ E`, at the scale `N/g₀` (`gcdPart_eq`). Each column `A` is counted at most `4^{|A|}` times (`sum_triple_le`), and `4^{|A|} ≤ C·N^δ` by round 310's `four_pow_card_le`.
+- **The conclusion.** `FBound w (N/g₀) Δ` gives `FBound w N (C·N^δ·Δ + Σ_{N(G)≤g₀} F₃(G))`. Heath-Brown has `B(M, N₁, K)` "`for some N_1≤N/∆_0`". Over balls, the norm at `N/g₀` itself serves.
+
+**Lemma 10** (`fBound_sep`). Heath-Brown's Lemma 10 bounds `Σ_{D<d≤2D} Σ*_m |Σ_{(n_1,n_2)=1, d∣n_1n_2} a_{n_1}b_{n_2}(m/n_1n_2)|`. Goldmakher and Louvel: "`The following useful result is adapted from [HB, Lemma 10].`"
+
+- **The splitting** (`ite_disjoint_cover`, `sepInner_eq`). For coprime `n₁, n₂` with `d ∣ n₁n₂`, exactly one splitting `d = d₁d₂` has `d₁ ∣ n₁` and `d₂ ∣ n₂`, namely `d₁ = (n₁, d)`. Heath-Brown: "`If we decompose the sum over n_1,n_2 according to the value of (n_1,d)=d_1, say,`". Then "`We now pick out the condition (n_1,n_2)=1 by introducing a factor`" `Σ_{d∣n_1,n_2} µ(d)`, and the double sum factors.
+- **Cauchy–Schwarz** over the arguments and the splittings (`sep_one`, `sum3_sqrt_le`, `tsum_le_sqrt_mul_sqrt`).
+- **The classes.** The splittings are sorted by `j = ⌈log₂ N(d₁)⌉`, so `2^{j−1} < N(d₁) ≤ 2^j` and `N(d₂) < 4D/2^j`. On the class `j`, the columns of the first factor have norm below `2N/2^j` and those of the second below `N·2^j/D` (`FBound.sub`).
+- **The counts** (`count_cover`, `sum_triple_swap`). The triples `(d, d₁, E)` that reach a column `A` number at most `4^{|A|}·(2κ+5)·4D/2^j` on the first side and `4^{|A|}·(2κ+5)·2^j` on the second. For a fixed divisor `d₁` (or `d₂`), `d ↦ d/d₁` (or `d/d₂`) is injective into the squarefree ideals of bounded norm (`card_fsLe_le'`, from round 310's ideal count).
+- **The conclusion.** Take `N ≥ 1`, `D > 0`, and any `F ≥ 0` with `FBound w x (F(x))` for every `x`. Then the sum is at most `C·N^δ·Σ_j √(4D·F(2N/2^j)·F(N·2^j/D))·‖α‖·‖β‖`, over `0 ≤ j ≤ ⌈log₂ ⌊2D⌋⌉`.
+
+**Deviations from the papers.**
+
+- **No Lemma 9.** Heath-Brown's proof uses his near-monotonicity: "`However, Lemma 9 yields B(M,N/d_1)≪B(M,θN/D_1) for θ=C log(2MN),`". The norm here is over balls, so inclusion bounds the norm at `N/N(d₁)` by the norm at `2N/2^j`, as planned in round 343.
+- **The classes are kept.** Heath-Brown: "`Since there are O(log D) possible pairs D_1,D_2, and the lemma is trivial unless D≪N, we see that there is some pair D_1,D_2 for which`". Here the sum over the classes stays in the statement. Its largest term is Heath-Brown's pair, with `D₁ = 2^j` and `D₂` of order `D/2^j`. One index suffices, since `N(d₁)` fixes `N(d₂)` within a factor `4`.
+- **Weights.** Heath-Brown's Lemma 2 is for his weighted `B(M, N, K)`, and his Lemma 10 for the squarefree arguments of `B(M, N)`. Both lemmas here are stated for any nonnegative summable weight on the arguments.
+- **Ray classes.** Goldmakher and Louvel's proof of their Lemma 5.1 takes "`max_{g∈G}`" over ray classes. The symbols here are on elements, and the columns need no reciprocity, so there are no classes.
+
+**The staging.** S5e-4 is next: Heath-Brown's `Σ_3`. It needs Poisson summation in the arguments, the dual frequencies `h = abc²`, Poisson summation in `c`, and the planar Lemma 14.
+
+**Records.**
+
+- The file table, and the header's count of checked theorems in `src/` (1798 to 1814).
+- Net-state markers on round 312's S5e bullet, round 343's S5e-3 bullet and round 345's staging line.
+- STRUCTURAL-REVIEW §6: S5e-3 landed.
+
+**Build.** Incremental pilot build: 1 compiled, 221 up to date, 21 s, no warnings. The 16 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1814 in `src/`. No other file imports the new file, and no file of `external/` changed. The new names are in the namespace `Eis`.
+
+- Two draft names were already taken. `norm_colSum_le` (round 315) led to the rename `norm_q2Sum_le`. For `lt_nI_of_not_mem_fsLe`, round 320's declaration is reused.
+- No other declaration line in the pilot, in `external/` or in Mathlib declares any of the 42 new undotted names (a grep of the declaration lines). The two dotted names are in the new namespace `FBound`.
+
+**Check 4.** New against the pilot: Heath-Brown's Lemmas 2 and 10 over `ℤ[ω]`, for any nonnegative summable weight on the arguments, machine-checked. The release was not used here.
 
 **Check 9.** No barrier claim is made.
 
