@@ -29,12 +29,11 @@ namespace Eis
 
 section IdealCount
 
+/-- `chiInt` is the character `χ₃` of `PrimeRaces` (round 332). -/
+theorem chiInt_eq (n : ℕ) : chiInt n = PsiOmega.χ₃ n := (PsiOmega.χ₃_nat n).symm
+
 theorem chiInt_mul (m n : ℕ) : chiInt (m * n) = chiInt m * chiInt n := by
-  unfold chiInt
-  have h := Nat.mul_mod m n 3
-  have hm : m % 3 < 3 := Nat.mod_lt _ (by norm_num)
-  have hn : n % 3 < 3 := Nat.mod_lt _ (by norm_num)
-  interval_cases hm' : m % 3 <;> interval_cases hn' : n % 3 <;> simp_all
+  rw [chiInt_eq, chiInt_eq, chiInt_eq, Nat.cast_mul, map_mul]
 
 /-- An ideal all of whose prime factors equal `P` is a power of `P`. -/
 theorem eq_pow_of_factors {I P : Ideal (𝓞 K)} (hI : I ≠ ⊥) (h : ∀ Q ∈ normalizedFactors I, Q = P) :

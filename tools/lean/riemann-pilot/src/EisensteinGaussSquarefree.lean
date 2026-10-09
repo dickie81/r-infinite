@@ -133,19 +133,6 @@ theorem chi6_ne_zero_of_ne_zero (P : Ideal (𝓞 K)) [P.IsMaximal] (hP6 : (6 : �
   have := chi6_pow_six_of_ne_zero P hP6 hx
   rw [h0] at this; norm_num at this
 
-theorem chi6_pow_ne_one (P : Ideal (𝓞 K)) [P.IsMaximal] (hP6 : (6 : 𝓞 K) ∉ P) {j : ℕ}
-    (hj : j ∈ ({1, 2, 3} : Finset ℕ)) : chi6 P hP6 ^ j ≠ 1 := by
-  classical
-  have hF := ringChar_ne_two P hP6
-  have hq : quadR (𝓞 K ⧸ P) ℂ ≠ 1 :=
-    (MulChar.ringHomComp_ne_one_iff (RingHom.injective_int (Int.castRingHom ℂ))).2
-      (quadraticChar_ne_one hF)
-  simp only [Finset.mem_insert, Finset.mem_singleton] at hj
-  rcases hj with rfl | rfl | rfl
-  · intro h; apply hq; rw [← chi6_cube P hP6, pow_one] at *; rw [h, one_pow]
-  · rw [chi6_sq]; exact cubCharC_ne_one P _
-  · rw [chi6_cube]; exact hq
-
 end SexticSquarefree
 
 section LemmaSquarefree

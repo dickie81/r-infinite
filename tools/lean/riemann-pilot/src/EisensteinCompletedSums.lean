@@ -17,6 +17,9 @@ inversion (5.8), on the ideals of `ℤ[ω]`.
   ᾱ(𝔫)γ₂(𝔫)Ψ(𝔫)·ᾱ(𝔟)³Ψ(𝔟)³/(√N𝔫·N𝔟)·V_*(N𝔫·N𝔟³/X)` with `V_*(y) = √y·W(y)`; its column coefficient
   is the dual mean square's (`gCoef_eq_col`), and at length `X/N(𝔥)³` it is a finite double sum over
   the ideals of norm at most `βX` (`compT_eq_sum`).
+* **Two finite sums** (round 332): the column sum over the ideals of norm at most `βX`
+  (`colSum_eq_sum_gCoef`, round 314's, from `EisensteinCubeReduction.lean`), and the sum over `𝔥` of
+  the cube inversion, whose terms with `N𝔥 > βX` vanish (`tsum_compT_eq_sum`).
 * **`inner_cube_sum`** and **`cube_inversion`** (the paper's (5.8)): the normalized column sum of
   the dual mean square is `X^{−1/2}·colSum = Σ_𝔥 μ(𝔥)ᾱ(𝔥)³Ψ(𝔥)³/N𝔥 · T(X/N𝔥³; Ψ)`.
 -/
@@ -444,6 +447,54 @@ section Inversion2
 
 variable (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K)
 
+/-- The column sum of the dual mean square as a finite sum of the completed sums' column
+coefficients, over the ideals of norm at most `βX`. -/
+theorem colSum_eq_sum_gCoef {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {X : ℝ}
+    (hX : 0 < X) :
+    colSum ξ W X 1 k f = ∑ I ∈ idealsLe (β * X), gCoef ξ k f I * W ((absNorm I : ℝ) / X) := by
+  unfold colSum
+  rw [tsum_eq_sum (s := idealsLe (β * X)) (fun I hI => ?_)]
+  · refine Finset.sum_congr rfl fun I _ => ?_
+    rw [ite_eq_left isRelPrime_one_right, gCoef_eq_col]
+  · rw [ite_eq_left isRelPrime_one_right]
+    have h0 : aXi ξ I * (sym6 k I * sym6 f I ^ 4) * W ((absNorm I : ℝ) / X) = 0 :=
+      colSum_summand_eq_zero ξ hW hX (fun I => sym6 k I * sym6 f I ^ 4) hI
+    linear_combination h0
+
+/-- **The sum over `𝔥` in the cube inversion is finite**: the terms with `N𝔥 > βX` vanish (round 332,
+from round 314's `cube_inversion_sum`). -/
+theorem tsum_compT_eq_sum {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {X : ℝ}
+    (hX : 0 < X) :
+    ∑' H : Ideal (𝓞 K), (moebius H : ℂ) * dCoef ξ k f H / (absNorm H : ℂ) *
+        compT ξ k f W (X / (absNorm H : ℝ) ^ 3) =
+      ∑ H ∈ idealsLe (β * X), (moebius H : ℂ) * dCoef ξ k f H / (absNorm H : ℂ) *
+        compT ξ k f W (X / (absNorm H : ℝ) ^ 3) := by
+  refine tsum_eq_sum fun H hH => ?_
+  by_cases hd : dCoef ξ k f H = 0
+  · rw [hd]; simp
+  have h1 := one_le_absNorm_of_coprime6 (coprime6_of_dCoef ξ k f hd)
+  have hgt : β * X < absNorm H := by
+    by_contra hle
+    exact hH (mem_idealsLe_of h1 (not_lt.1 hle))
+  rw [compT_eq_sum ξ k f hW hX h1]
+  have hz : ∀ I ∈ idealsLe (β * X), ∀ J ∈ idealsLe (β * X), gCoef ξ k f I * dCoef ξ k f J /
+        (((Real.sqrt (absNorm I : ℝ) : ℝ) : ℂ) * (absNorm J : ℂ)) *
+      Vstar W ((absNorm I : ℝ) * (absNorm J : ℝ) ^ 3 * (absNorm H : ℝ) ^ 3 / X) = 0 := by
+    intro I hI J hJ
+    have hI1 : (1 : ℝ) ≤ absNorm I := by rw [mem_idealsLe] at hI; exact_mod_cast hI.1
+    have hJ1 : (1 : ℝ) ≤ absNorm J := by rw [mem_idealsLe] at hJ; exact_mod_cast hJ.1
+    have hV : Vstar W ((absNorm I : ℝ) * (absNorm J : ℝ) ^ 3 * (absNorm H : ℝ) ^ 3 / X) = 0 := by
+      unfold Vstar
+      rw [hW _ ?_, mul_zero]
+      rw [lt_div_iff₀ hX]
+      have hJ3 : (1 : ℝ) ≤ (absNorm J : ℝ) ^ 3 := one_le_pow₀ hJ1
+      calc β * X < absNorm H := hgt
+        _ ≤ (absNorm H : ℝ) ^ 3 := le_cube h1
+        _ = 1 * 1 * (absNorm H : ℝ) ^ 3 := by ring
+        _ ≤ (absNorm I : ℝ) * (absNorm J : ℝ) ^ 3 * (absNorm H : ℝ) ^ 3 := by gcongr
+    rw [hV, mul_zero]
+  rw [Finset.sum_eq_zero fun I hI => Finset.sum_eq_zero fun J hJ => hz I hI J hJ, mul_zero]
+
 /-- **The cube inversion** (the companion paper's (5.8)): the normalized column sum of the dual mean
 square is `X^{−1/2}·Σ_𝔫 a_ξ(𝔫)(k/𝔫)₆(f/𝔫)₆⁴W(N𝔫/X) = Σ_𝔥 μ(𝔥)ᾱ(𝔥)³Ψ(𝔥)³/N𝔥 · T(X/N𝔥³; Ψ)`. -/
 theorem cube_inversion {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {X : ℝ} (hX : 0 < X) :
@@ -453,50 +504,19 @@ theorem cube_inversion {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x 
   set 𝓘 := idealsLe (β * X) with h𝓘
   have hL : ((Real.sqrt X : ℝ) : ℂ)⁻¹ * colSum ξ W X 1 k f =
       ∑ I ∈ 𝓘, gCoef ξ k f I * (((Real.sqrt X : ℝ) : ℂ)⁻¹ * W ((absNorm I : ℝ) / X)) := by
-    unfold colSum
-    rw [← tsum_mul_left, tsum_eq_sum (s := 𝓘) (fun I hI => ?_)]
-    · refine Finset.sum_congr rfl fun I _ => ?_
-      rw [ite_eq_left isRelPrime_one_right, gCoef_eq_col]
-      ring
-    · rw [ite_eq_left isRelPrime_one_right]
-      have h0 : aXi ξ I * (sym6 k I * sym6 f I ^ 4) * W ((absNorm I : ℝ) / X) = 0 :=
-        colSum_summand_eq_zero ξ hW hX (fun I => sym6 k I * sym6 f I ^ 4) hI
-      linear_combination ((Real.sqrt X : ℝ) : ℂ)⁻¹ * h0
+    rw [colSum_eq_sum_gCoef ξ k f hW hX, Finset.mul_sum]
+    exact Finset.sum_congr rfl fun I _ => by ring
   have hR : ∑' H : Ideal (𝓞 K), (moebius H : ℂ) * dCoef ξ k f H / (absNorm H : ℂ) *
         compT ξ k f W (X / (absNorm H : ℝ) ^ 3) =
       ∑ H ∈ 𝓘, (moebius H : ℂ) * dCoef ξ k f H / (absNorm H : ℂ) *
         ∑ I ∈ 𝓘, ∑ J ∈ 𝓘, gCoef ξ k f I * dCoef ξ k f J /
             (((Real.sqrt (absNorm I : ℝ) : ℝ) : ℂ) * (absNorm J : ℂ)) *
           Vstar W ((absNorm I : ℝ) * (absNorm J : ℝ) ^ 3 * (absNorm H : ℝ) ^ 3 / X) := by
-    rw [tsum_eq_sum (s := 𝓘) (fun H hH => ?_)]
-    · refine Finset.sum_congr rfl fun H hH => ?_
-      have h1 : (1 : ℝ) ≤ absNorm H := by
-        rw [mem_idealsLe] at hH; exact_mod_cast hH.1
-      rw [compT_eq_sum ξ k f hW hX h1]
-    · by_cases hd : dCoef ξ k f H = 0
-      · rw [hd]; simp
-      have h1 := one_le_absNorm_of_coprime6 (coprime6_of_dCoef ξ k f hd)
-      rw [compT_eq_sum ξ k f hW hX h1]
-      have hgt : β * X < absNorm H := by
-        by_contra hle
-        exact hH (mem_idealsLe_of h1 (not_lt.1 hle))
-      have hz : ∀ I ∈ 𝓘, ∀ J ∈ 𝓘, gCoef ξ k f I * dCoef ξ k f J /
-            (((Real.sqrt (absNorm I : ℝ) : ℝ) : ℂ) * (absNorm J : ℂ)) *
-          Vstar W ((absNorm I : ℝ) * (absNorm J : ℝ) ^ 3 * (absNorm H : ℝ) ^ 3 / X) = 0 := by
-        intro I hI J hJ
-        have hI1 : (1 : ℝ) ≤ absNorm I := by rw [mem_idealsLe] at hI; exact_mod_cast hI.1
-        have hJ1 : (1 : ℝ) ≤ absNorm J := by rw [mem_idealsLe] at hJ; exact_mod_cast hJ.1
-        have hV : Vstar W ((absNorm I : ℝ) * (absNorm J : ℝ) ^ 3 * (absNorm H : ℝ) ^ 3 / X) = 0 := by
-          unfold Vstar
-          rw [hW _ ?_, mul_zero]
-          rw [lt_div_iff₀ hX]
-          have hJ3 : (1 : ℝ) ≤ (absNorm J : ℝ) ^ 3 := one_le_pow₀ hJ1
-          calc β * X < absNorm H := hgt
-            _ ≤ (absNorm H : ℝ) ^ 3 := le_cube h1
-            _ = 1 * 1 * (absNorm H : ℝ) ^ 3 := by ring
-            _ ≤ (absNorm I : ℝ) * (absNorm J : ℝ) ^ 3 * (absNorm H : ℝ) ^ 3 := by gcongr
-        rw [hV, mul_zero]
-      rw [Finset.sum_eq_zero fun I hI => Finset.sum_eq_zero fun J hJ => hz I hI J hJ, mul_zero]
+    rw [tsum_compT_eq_sum ξ k f hW hX]
+    refine Finset.sum_congr rfl fun H hH => ?_
+    have h1 : (1 : ℝ) ≤ absNorm H := by
+      rw [mem_idealsLe] at hH; exact_mod_cast hH.1
+    rw [compT_eq_sum ξ k f hW hX h1]
   rw [hL, hR]
   have hreg : ∑ H ∈ 𝓘, (moebius H : ℂ) * dCoef ξ k f H / (absNorm H : ℂ) *
         ∑ I ∈ 𝓘, ∑ J ∈ 𝓘, gCoef ξ k f I * dCoef ξ k f J /
@@ -565,4 +585,6 @@ end
 #print axioms Eis.cubeF_mul
 #print axioms Eis.cubeF_one
 #print axioms Eis.inner_cube_sum
+#print axioms Eis.colSum_eq_sum_gCoef
+#print axioms Eis.tsum_compT_eq_sum
 #print axioms Eis.cube_inversion

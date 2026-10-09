@@ -22,15 +22,16 @@ S4 of round 291's plan, part 6: three inputs of the companion paper's proof of i
   `exists_apply_ne_one_of_hasEnoughRootsOfUnity`); `1_{x = c} = N⁻¹·Σ_ξ ξ(c⁻¹)ξ(x)`
   (`indicator_eq_sum_mulChar`); and a function `Ψ` of two unit classes is
   `Σ_{ξ₁,ξ₂} ĉ(ξ₁, ξ₂)·ξ₁(x)·ξ₂(y)` (`pair_eq_sum_mulChar`) with `|ĉ| ≤ max |Ψ|`
-  (`norm_pairCoeff_le`). Primary generators of squarefree ideals of norm prime to `6` are prime to
+  (`norm_pairCoeff_le`; a character's values at units have norm `1`, `norm_mulChar_unit`, round
+  332). Primary generators of squarefree ideals of norm prime to `6` are prime to
   `2` (`isCoprime_pgen_two`), so their classes modulo `4` are units (`isUnit_mk_four`). With
   `M = ℤ[ω]/4` this expands round 304's paired factor, which depends only on the classes of `z₁, z₂`
   modulo `4` (`pairFactor_eq_of_mod_four`), into products of characters. The paper instead reduces its
   pair factor to a function of one class with its (4.7) and expands that.
 * **Two coefficient families** (`MellinSep.bilinear_dual_bound₂`): round 302's `bilinear_dual_bound`
   with coefficient families `a` and `b` on the two columns, each satisfying the mean-square hypothesis
-  with the same `M`. The proof is round 302's with `b` in the second column; its AM–GM step combines
-  the two hypotheses.
+  with the same `M`. Since round 332 it is an instance of `bilinear_dual_bound_of_dilated`
+  (`MellinSeparation.lean`), whose AM–GM step combines the dilated bounds of the two families.
 -/
 
 open NumberField Complex Ideal UniqueFactorizationMonoid
@@ -104,33 +105,15 @@ theorem prod_Pr_dvd_iff (T : Finset Pr) (I : Ideal (𝓞 K)) :
   exact h
 
 open Classical in
-/-- **Inclusion–exclusion over primes**: `1_{P ∤ I ∀ P∈S} = Σ_{T⊆S} (−1)^{|T|}·1_{∏_T P ∣ I}`. -/
+/-- **Inclusion–exclusion over primes**: `1_{P ∤ I ∀ P∈S} = Σ_{T⊆S} (−1)^{|T|}·1_{∏_T P ∣ I}`, an
+instance of `indicator_forall_not` (round 332) through `prod_Pr_dvd_iff`. -/
 theorem indicator_Pr (S : Finset Pr) (I : Ideal (𝓞 K)) :
     (if ∀ P ∈ S, ¬ P.1 ∣ I then (1 : ℂ) else 0) =
       ∑ T ∈ S.powerset, (-1 : ℂ) ^ T.card * (if (∏ P ∈ T, P.1) ∣ I then 1 else 0) := by
-  have h1 : (if ∀ P ∈ S, ¬ P.1 ∣ I then (1 : ℂ) else 0) =
-      ∏ P ∈ S, ((-1 : ℂ) * (if P.1 ∣ I then 1 else 0) + 1) := by
-    by_cases h : ∀ P ∈ S, ¬ P.1 ∣ I
-    · rw [ite_eq_left h]
-      symm
-      refine Finset.prod_eq_one fun P hP => ?_
-      rw [ite_eq_right (h P hP)]; ring
-    · rw [ite_eq_right h]
-      push Not at h
-      obtain ⟨P, hP, hd⟩ := h
-      symm
-      refine Finset.prod_eq_zero hP ?_
-      rw [ite_eq_left hd]; ring
-  rw [h1, Finset.prod_add]
-  refine Finset.sum_congr rfl fun T hT => ?_
-  rw [Finset.prod_const_one, mul_one, Finset.prod_mul_distrib, Finset.prod_const]
+  rw [indicator_forall_not S (fun P : Pr => P.1 ∣ I)]
+  refine Finset.sum_congr rfl fun T _ => ?_
   congr 1
-  by_cases h : ∀ P ∈ T, P.1 ∣ I
-  · rw [Finset.prod_eq_one fun P hP => ite_eq_left (h P hP), ite_eq_left ((prod_Pr_dvd_iff T I).2 h)]
-  · push Not at h
-    obtain ⟨P, hP, hd⟩ := h
-    rw [Finset.prod_eq_zero hP (ite_eq_right hd), ite_eq_right]
-    exact fun hdiv => hd (((prod_Pr_dvd_iff T I).1 hdiv) P hP)
+  exact if_congr (prod_Pr_dvd_iff T I).symm rfl rfl
 
 /-- `I` is prime to `R` iff no prime of `R` divides it (for `R` of norm prime to `6`). -/
 theorem isRelPrime_iff_primeSet {I R : Ideal (𝓞 K)} (hI : I ≠ ⊥) (hR6 : (absNorm R).Coprime 6)
@@ -146,23 +129,11 @@ theorem isRelPrime_iff_primeSet {I R : Ideal (𝓞 K)} (hI : I ≠ ⊥) (hR6 : (
 
 
 open Classical in
-/-- `Σ_I 1_{𝔡 ∣ I}·h(I) = Σ_𝔪 h(𝔡𝔪)` over the ideals, for `𝔡 ≠ 0`. -/
+/-- `Σ_I 1_{𝔡 ∣ I}·h(I) = Σ_𝔪 h(𝔡𝔪)` over the ideals, for `𝔡 ≠ 0` (`tsum_ite_dvd_eq`, since
+round 332). -/
 theorem tsum_ideal_dvd_eq (D : Ideal (𝓞 K)) (hD : D ≠ ⊥) (h : Ideal (𝓞 K) → ℂ) :
     ∑' I : Ideal (𝓞 K), (if D ∣ I then h I else 0) = ∑' M : Ideal (𝓞 K), h (D * M) := by
-  have hinj : Function.Injective fun M : Ideal (𝓞 K) => D * M := fun a b hab =>
-    mul_left_cancel₀ hD hab
-  have hsupp : Function.support (fun I : Ideal (𝓞 K) => if D ∣ I then h I else 0) ⊆
-      Set.range fun M : Ideal (𝓞 K) => D * M := by
-    intro I hI
-    by_contra hr
-    apply hI
-    show (if D ∣ I then h I else 0) = 0
-    rw [ite_eq_right]
-    rintro ⟨M, rfl⟩
-    exact hr ⟨M, rfl⟩
-  rw [← hinj.tsum_eq hsupp]
-  refine tsum_congr fun M => ?_
-  rw [ite_eq_left (dvd_mul_right D M)]
+  convert tsum_ite_dvd_eq D (by simpa using hD) h
 
 open Classical in
 theorem aXi_bot (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) : aXi ξ ⊥ = 0 := by
@@ -271,6 +242,13 @@ theorem colSum_excl (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : ℝ
 
 /-! ### Norm bounds -/
 
+/-- A character of a monoid with finitely many units has values of norm `1` at the units: they are
+roots of unity (round 332). -/
+theorem norm_mulChar_unit {M : Type*} [CommMonoid M] [Finite Mˣ] (ξ : MulChar M ℂ) (u : Mˣ) :
+    ‖ξ (u : M)‖ = 1 :=
+  norm_eq_one_of_pow_eq_one (by rw [← map_pow, ← Units.val_pow_eq_pow_val, pow_orderOf_eq_one,
+    Units.val_one, map_one]) (orderOf_pos u).ne'
+
 /-- A character of `ℤ[ω]/4` has values of norm at most `1`. -/
 theorem norm_xi_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (x : 𝓞 K ⧸ span {(4 : 𝓞 K)}) :
     ‖ξ x‖ ≤ 1 := by
@@ -278,10 +256,7 @@ theorem norm_xi_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (x : 𝓞
     Ideal.finiteQuotientOfFreeOfNeBot _ (by rw [Ne, Ideal.span_singleton_eq_bot]; norm_num)
   by_cases hx : IsUnit x
   · obtain ⟨u, rfl⟩ := hx
-    have hord : 0 < orderOf u := orderOf_pos u
-    have h1 : ξ (u : 𝓞 K ⧸ span {(4 : 𝓞 K)}) ^ orderOf u = 1 := by
-      rw [← map_pow, ← Units.val_pow_eq_pow_val, pow_orderOf_eq_one, Units.val_one, map_one]
-    exact (norm_eq_one_of_pow_eq_one h1 hord.ne').le
+    exact (norm_mulChar_unit ξ u).le
   · rw [MulChar.map_nonunit ξ hx, norm_zero]; exact zero_le_one
 
 open Classical in
@@ -573,11 +548,7 @@ theorem norm_pairCoeff_le [Fintype (MulChar M ℂ)] [Fintype Mˣ] (Ψ : M → M 
     rw [← Nat.card_eq_fintype_card, ← Nat.card_eq_fintype_card]
     exact MulChar.card_eq_card_units_of_hasEnoughRootsOfUnity M ℂ
   have hN : (0 : ℝ) < Fintype.card (MulChar M ℂ) := Nat.cast_pos.2 Fintype.card_pos
-  have hv : ∀ (ξ : MulChar M ℂ) (c : Mˣ), ‖ξ ((c : Mˣ) : M)‖ = 1 := fun ξ c => by
-    have hord : 0 < orderOf c := orderOf_pos c
-    have h1 : ξ (c : M) ^ orderOf c = 1 := by
-      rw [← map_pow, ← Units.val_pow_eq_pow_val, pow_orderOf_eq_one, Units.val_one, map_one]
-    exact norm_eq_one_of_pow_eq_one h1 hord.ne'
+  have hv : ∀ (ξ : MulChar M ℂ) (c : Mˣ), ‖ξ ((c : Mˣ) : M)‖ = 1 := norm_mulChar_unit
   unfold pairCoeff
   rw [norm_mul, norm_mul, norm_inv, Complex.norm_natCast]
   calc (Fintype.card (MulChar M ℂ) : ℝ)⁻¹ * (Fintype.card (MulChar M ℂ) : ℝ)⁻¹ *
@@ -643,158 +614,14 @@ theorem bilinear_dual_bound₂ (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {�
           (W0 (ρ r * x n1) * conj (W0 (ρ r * x n2)) *
             G (Real.sqrt (Ar r / (x n1 * x n2))))‖ ≤ K * Amin ^ (-σ) * M := by
   obtain ⟨Kd, hKd⟩ := dilated_meanSquare W0 hW0 hα hW0s V hV hVc hVp hρ0 hV1 σ J
-  obtain ⟨h, hh⟩ := mellin_of_dual G hG hGb hR hσ
-  refine ⟨Kd * 64 ^ J * (1 + σ) ^ (2 * J) * ∫ t, ‖h t‖ * (1 + |t|) ^ (2 * J), ?_⟩
-  intro ι κ T C a b x hx M hM hyp hypb ρ hρ w hw Ar Amin hAmin hAr
-  set e : ℝ → ℂ := fun t => ((2 * Real.pi * t : ℝ) : ℂ) * I with he
-  set z : ℝ → ℂ := fun t => (-σ : ℂ) + e t with hz
-  set s1 : ℝ → ℂ := fun t => (σ : ℂ) - e t with hs1
-  set s2 : ℝ → ℂ := fun t => (σ : ℂ) + e t with hs2
-  have hzs : ∀ t, -z t = s1 t := fun t => by simp only [hz, hs1]; ring
-  have hconj : ∀ t, conj (s2 t) = s1 t := fun t => by
-    simp only [hs1, hs2, he, map_add, map_mul, Complex.conj_ofReal, Complex.conj_I]; ring
-  have hre1 : ∀ t, (s1 t).re = σ := fun t => by simp [hs1, he]
-  have hre2 : ∀ t, (s2 t).re = σ := fun t => by simp [hs2, he]
-  have hrez : ∀ t, (z t).re = -σ := fun t => by simp [hz, he]
-  have hArpos : ∀ r ∈ T, 0 < Ar r := fun r hr => lt_of_lt_of_le hAmin (hAr r hr)
-  -- the two separated column sums
-  set p : ι → κ → ℝ → ℂ := fun r n t => a r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s1 t) with hp
-  set q : ι → κ → ℝ → ℂ := fun r n t => b r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s2 t) with hq
-  set F : ι → κ → κ → ℝ → ℂ := fun r n1 n2 t =>
-    w r * (h t * ((Ar r : ℂ) ^ z t * (p r n1 t * conj (q r n2 t)))) with hF
-  have hcont_e : Continuous e := continuous_tI
-  have hcpow : ∀ (y : ℝ), 0 < y → ∀ (f : ℝ → ℂ), Continuous f →
-      Continuous fun t => (y : ℂ) ^ f t := fun y hy f hf =>
-    hf.const_cpow (Or.inl (by exact_mod_cast hy.ne'))
-  -- integrability of each term
-  have hFint : ∀ r ∈ T, ∀ n1 ∈ C, ∀ n2 ∈ C, Integrable (F r n1 n2) := by
-    intro r hr n1 hn1 n2 hn2
-    have hb : ∀ t, ‖(Ar r : ℂ) ^ z t * (p r n1 t * conj (q r n2 t))‖ ≤
-        Ar r ^ (-σ) * ((‖a r n1‖ * (‖W0 (ρ r * x n1)‖ * x n1 ^ σ)) *
-          (‖b r n2‖ * (‖W0 (ρ r * x n2)‖ * x n2 ^ σ))) := by
-      intro t
-      simp only [hp, hq]
-      rw [norm_mul, norm_mul, RCLike.norm_conj, norm_mul, norm_mul, norm_mul, norm_mul,
-        Complex.norm_cpow_eq_rpow_re_of_pos (hArpos r hr), hrez,
-        Complex.norm_cpow_eq_rpow_re_of_pos (hx n1 hn1), hre1,
-        Complex.norm_cpow_eq_rpow_re_of_pos (hx n2 hn2), hre2]
-    have hc : Continuous fun t => (Ar r : ℂ) ^ z t * (p r n1 t * conj (q r n2 t)) := by
-      simp only [hp, hq, hz, hs1, hs2]
-      refine (hcpow _ (hArpos r hr) _ (continuous_const.add hcont_e)).mul
-        ((continuous_const.mul (continuous_const.mul
-          (hcpow _ (hx n1 hn1) _ (continuous_const.sub hcont_e)))).mul
-          (Complex.continuous_conj.comp (continuous_const.mul (continuous_const.mul
-            (hcpow _ (hx n2 hn2) _ (continuous_const.add hcont_e))))))
-    exact (h.integrable.mul_bdd hc.aestronglyMeasurable
-      (Filter.Eventually.of_forall hb)).const_mul (w r)
-  -- the pointwise Mellin representation of each summand
-  have hterm : ∀ r ∈ T, ∀ n1 ∈ C, ∀ n2 ∈ C,
-      w r * (a r n1 * conj (b r n2) * (W0 (ρ r * x n1) * conj (W0 (ρ r * x n2)) *
-        G (Real.sqrt (Ar r / (x n1 * x n2))))) = ∫ t, F r n1 n2 t := by
-    intro r hr n1 hn1 n2 hn2
-    have hy : 0 < Ar r / (x n1 * x n2) := div_pos (hArpos r hr) (mul_pos (hx n1 hn1) (hx n2 hn2))
-    rw [hh _ hy, ← integral_const_mul, ← integral_const_mul, ← integral_const_mul]
-    refine integral_congr_ae (Filter.Eventually.of_forall fun t => ?_)
-    simp only [hF, hp, hq]
-    rw [cpow_div_mul _ _ _ (hArpos r hr) (hx n1 hn1) (hx n2 hn2), hzs, map_mul, map_mul,
-      conj_ofReal_cpow (hx n2 hn2), hconj]
-    ring
-  -- exchange the finite sums with the integral
-  have hsum : ∑ r ∈ T, w r * ∑ n1 ∈ C, ∑ n2 ∈ C, a r n1 * conj (b r n2) *
-        (W0 (ρ r * x n1) * conj (W0 (ρ r * x n2)) * G (Real.sqrt (Ar r / (x n1 * x n2)))) =
-      ∫ t, ∑ r ∈ T, ∑ n1 ∈ C, ∑ n2 ∈ C, F r n1 n2 t := by
-    have hI2 : ∀ r ∈ T, ∀ n1 ∈ C, Integrable fun t => ∑ n2 ∈ C, F r n1 n2 t :=
-      fun r hr n1 hn1 => integrable_finsetSum _ fun n2 hn2 => hFint r hr n1 hn1 n2 hn2
-    have hI1 : ∀ r ∈ T, Integrable fun t => ∑ n1 ∈ C, ∑ n2 ∈ C, F r n1 n2 t :=
-      fun r hr => integrable_finsetSum _ fun n1 hn1 => hI2 r hr n1 hn1
-    rw [integral_finsetSum _ hI1]
-    refine Finset.sum_congr rfl fun r hr => ?_
-    rw [integral_finsetSum _ (hI2 r hr), Finset.mul_sum]
-    refine Finset.sum_congr rfl fun n1 hn1 => ?_
-    rw [integral_finsetSum _ fun n2 hn2 => hFint r hr n1 hn1 n2 hn2, Finset.mul_sum]
-    exact Finset.sum_congr rfl fun n2 hn2 => hterm r hr n1 hn1 n2 hn2
-  -- the pointwise bound
-  set Bd : ℝ → ℝ := fun t => Amin ^ (-σ) * (Kd * M * 64 ^ J * (1 + σ) ^ (2 * J)) *
-    (‖h t‖ * (1 + |t|) ^ (2 * J)) with hBd
-  have hBdint : Integrable Bd :=
-    (integrable_norm_mul_one_add_pow h (2 * J)).const_mul _
-  have hpt : ∀ t, ‖∑ r ∈ T, ∑ n1 ∈ C, ∑ n2 ∈ C, F r n1 n2 t‖ ≤ Bd t := by
-    intro t
-    have hfac : ∀ r ∈ T, ∑ n1 ∈ C, ∑ n2 ∈ C, F r n1 n2 t =
-        w r * (h t * ((Ar r : ℂ) ^ z t *
-          ((∑ n ∈ C, p r n t) * conj (∑ n ∈ C, q r n t)))) := by
-      intro r hr
-      rw [map_sum, Finset.sum_mul_sum, Finset.mul_sum, Finset.mul_sum, Finset.mul_sum]
-      refine Finset.sum_congr rfl fun n1 _ => ?_
-      rw [Finset.mul_sum, Finset.mul_sum, Finset.mul_sum]
-    rw [Finset.sum_congr rfl hfac]
-    -- norms
-    have hs1n : ‖s1 t‖ ≤ σ + 8 * |t| := by
-      calc ‖s1 t‖ ≤ ‖(σ : ℂ)‖ + ‖e t‖ := norm_sub_le _ _
-        _ ≤ σ + 8 * |t| := by
-          rw [Complex.norm_real, Real.norm_eq_abs, abs_of_pos hσ]
-          linarith [norm_tI_le t]
-    have hs2n : ‖s2 t‖ = ‖s1 t‖ := by rw [← hconj t, RCLike.norm_conj]
-    have hpoly : (1 + ‖s1 t‖) ^ (2 * J) ≤ 64 ^ J * (1 + σ) ^ (2 * J) * (1 + |t|) ^ (2 * J) := by
-      have h8 : 1 + ‖s1 t‖ ≤ 8 * ((1 + σ) * (1 + |t|)) := by
-        nlinarith [abs_nonneg t, mul_nonneg hσ.le (abs_nonneg t)]
-      calc (1 + ‖s1 t‖) ^ (2 * J) ≤ (8 * ((1 + σ) * (1 + |t|))) ^ (2 * J) :=
-            pow_le_pow_left₀ (by positivity) h8 _
-        _ = 64 ^ J * (1 + σ) ^ (2 * J) * (1 + |t|) ^ (2 * J) := by
-            rw [mul_pow, mul_pow, pow_mul, show (8 : ℝ) ^ 2 = 64 by norm_num]; ring
-    have hP := hKd T C a x hx M hM hyp ρ hρ (s1 t) (by rw [hre1 t, abs_of_pos hσ])
-    have hQ := hKd T C b x hx M hM hypb ρ hρ (s2 t) (by rw [hre2 t, abs_of_pos hσ])
-    rw [hs2n] at hQ
-    have hPQ : ∑ r ∈ T, ‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖ ≤
-        Kd * M * (1 + ‖s1 t‖) ^ (2 * J) := by
-      have hamgm : ∀ r ∈ T, ‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖ ≤
-          (‖∑ n ∈ C, p r n t‖ ^ 2 + ‖∑ n ∈ C, q r n t‖ ^ 2) / 2 := fun r _ => by
-        nlinarith [sq_nonneg (‖∑ n ∈ C, p r n t‖ - ‖∑ n ∈ C, q r n t‖)]
-      refine (Finset.sum_le_sum hamgm).trans ?_
-      rw [← Finset.sum_div, Finset.sum_add_distrib]
-      simp only [hp, hq]
-      linarith
-    have hAr' : ∀ r ∈ T, ‖(Ar r : ℂ) ^ z t‖ ≤ Amin ^ (-σ) := fun r hr => by
-      rw [Complex.norm_cpow_eq_rpow_re_of_pos (hArpos r hr), hrez]
-      exact Real.rpow_le_rpow_of_nonpos hAmin (hAr r hr) (by linarith)
-    calc ‖∑ r ∈ T, w r * (h t * ((Ar r : ℂ) ^ z t *
-            ((∑ n ∈ C, p r n t) * conj (∑ n ∈ C, q r n t))))‖
-        ≤ ∑ r ∈ T, ‖w r * (h t * ((Ar r : ℂ) ^ z t *
-            ((∑ n ∈ C, p r n t) * conj (∑ n ∈ C, q r n t))))‖ := norm_sum_le _ _
-      _ ≤ ∑ r ∈ T, ‖h t‖ * (Amin ^ (-σ) *
-            (‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖)) := by
-          refine Finset.sum_le_sum fun r hr => ?_
-          rw [norm_mul, norm_mul, norm_mul, norm_mul, RCLike.norm_conj]
-          calc ‖w r‖ * (‖h t‖ * (‖(Ar r : ℂ) ^ z t‖ *
-                (‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖)))
-              ≤ 1 * (‖h t‖ * (Amin ^ (-σ) *
-                (‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖))) := by
-                gcongr
-                · exact hw r hr
-                · exact hAr' r hr
-            _ = _ := one_mul _
-      _ = ‖h t‖ * Amin ^ (-σ) * ∑ r ∈ T, ‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖ := by
-          rw [Finset.mul_sum]; refine Finset.sum_congr rfl fun r _ => by ring
-      _ ≤ ‖h t‖ * Amin ^ (-σ) * (Kd * M * (64 ^ J * (1 + σ) ^ (2 * J) * (1 + |t|) ^ (2 * J))) := by
-          gcongr
-          calc ∑ r ∈ T, ‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖
-              ≤ Kd * M * (1 + ‖s1 t‖) ^ (2 * J) := hPQ
-            _ ≤ _ := by
-              have hKd0 : 0 ≤ Kd * M := by
-                have := (hKd T C a x hx M hM hyp ρ hρ (s1 t) (by rw [hre1 t, abs_of_pos hσ]))
-                -- Kd·M·(1+‖s‖)^{2J} ≥ a sum of squares ≥ 0
-                have hpos : 0 < (1 + ‖s1 t‖) ^ (2 * J) := by positivity
-                have h0 : 0 ≤ Kd * M * (1 + ‖s1 t‖) ^ (2 * J) :=
-                  le_trans (Finset.sum_nonneg fun r _ => by positivity) this
-                exact nonneg_of_mul_nonneg_left h0 hpos
-              gcongr
-      _ = Bd t := by simp only [hBd]; ring
-  rw [hsum]
-  refine (norm_integral_le_of_norm_le hBdint (Filter.Eventually.of_forall hpt)).trans
-    (le_of_eq ?_)
-  simp only [hBd]
-  rw [integral_const_mul]
-  ring
+  obtain ⟨Kg, -, hKg⟩ := bilinear_dual_bound_of_dilated J G hG hGb hR hσ
+  refine ⟨Kg * Kd, fun T C a b x hx M hM hyp hypb ρ hρ w hw Ar Amin hAmin hAr => ?_⟩
+  have hs : ∀ s : ℂ, s.re = σ → |s.re| ≤ σ := fun s hs => by rw [hs, abs_of_pos hσ]
+  have h := hKg W0 T C a b x hx ρ (Kd * M)
+    (fun s hsr => hKd T C a x hx M hM hyp ρ hρ s (hs s hsr))
+    (fun s hsr => hKd T C b x hx M hM hypb ρ hρ s (hs s hsr)) w hw Ar Amin hAmin hAr
+  calc _ ≤ Kg * (Kd * M) * Amin ^ (-σ) := h
+    _ = Kg * Kd * Amin ^ (-σ) * M := by ring
 
 end MellinSep
 
@@ -812,6 +639,7 @@ end
 #print axioms Eis.colSum_summand_eq_zero
 #print axioms Eis.prod_sub_primeSet
 #print axioms Eis.colSum_excl
+#print axioms Eis.norm_mulChar_unit
 #print axioms Eis.norm_xi_le
 #print axioms Eis.norm_chiP_le
 #print axioms Eis.norm_sym6_le

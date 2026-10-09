@@ -37,11 +37,7 @@ noncomputable def mI (n : ℕ) : ℤ := ∑ I ∈ ofNorm n, moebius I
 
 /-- The norm of `a·𝓞 K` is a power of `a`. -/
 theorem absNorm_natCast_span (a : ℕ) :
-    absNorm (span {(a : 𝓞 K)}) = a ^ Module.finrank ℤ (𝓞 K) := by
-  have h := Ideal.absNorm_algebraMap (R := ℤ) (S := 𝓞 K) (I := span {(a : ℤ)})
-  rw [Ideal.map_span, Set.image_singleton, map_natCast] at h
-  rw [h, Ideal.absNorm_span_singleton]
-  simp
+    absNorm (span {(a : 𝓞 K)}) = a ^ Module.finrank ℤ (𝓞 K) := Ideal.absNorm_span_natCast a
 
 theorem natCast_span_le (I : Ideal (𝓞 K)) : span {((absNorm I : ℕ) : 𝓞 K)} ≤ I :=
   Ideal.span_singleton_absNorm_le I

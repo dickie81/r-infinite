@@ -215,11 +215,7 @@ theorem norm_classCoeff_le [Fintype (MulChar M ℂ)] [Fintype Mˣ] (h : M → �
     rw [← Nat.card_eq_fintype_card, ← Nat.card_eq_fintype_card]
     exact MulChar.card_eq_card_units_of_hasEnoughRootsOfUnity M ℂ
   have hN : (0 : ℝ) < Fintype.card (MulChar M ℂ) := Nat.cast_pos.2 Fintype.card_pos
-  have hv : ∀ c : Mˣ, ‖ξ ((c : Mˣ) : M)‖ = 1 := fun c => by
-    have hord : 0 < orderOf c := orderOf_pos c
-    have h1 : ξ (c : M) ^ orderOf c = 1 := by
-      rw [← map_pow, ← Units.val_pow_eq_pow_val, pow_orderOf_eq_one, Units.val_one, map_one]
-    exact norm_eq_one_of_pow_eq_one h1 hord.ne'
+  have hv : ∀ c : Mˣ, ‖ξ ((c : Mˣ) : M)‖ = 1 := norm_mulChar_unit ξ
   unfold classCoeff
   rw [norm_mul, norm_inv, Complex.norm_natCast]
   calc (Fintype.card (MulChar M ℂ) : ℝ)⁻¹ * ‖∑ c : Mˣ, h c * ξ ((c⁻¹ : Mˣ) : M)‖
@@ -276,9 +272,7 @@ theorem norm_classCoeff_pairH_le (ξ1 ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K
 
 theorem xi_units_inv (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (x : (𝓞 K ⧸ span {(4 : 𝓞 K)})ˣ) :
     ξ ((x⁻¹ : (𝓞 K ⧸ span {(4 : 𝓞 K)})ˣ) : 𝓞 K ⧸ span {(4 : 𝓞 K)}) =
-      (ξ (x : 𝓞 K ⧸ span {(4 : 𝓞 K)}))⁻¹ := by
-  refine eq_inv_of_mul_eq_one_left ?_
-  rw [← map_mul, ← Units.val_mul, inv_mul_cancel, Units.val_one, map_one]
+      (ξ (x : 𝓞 K ⧸ span {(4 : 𝓞 K)}))⁻¹ := map_units_inv ξ x
 
 /-- **The twisted pair coefficients in one character** (the companion paper's
 "`\mu(z_1)\mu(z_2)\xi_1(z_1)\overline{\xi_1(z_2)} \gamma(\overline{\chi_{z_1}}\chi_{z_2}) =\sum_{\xi'}c_{\xi'}a_{\xi'}(z_1)\overline{a_{\xi'}(z_2)}`",

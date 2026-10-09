@@ -14,7 +14,8 @@ defining `𝒜(W)`, and write `n_i=Cu_i`, where `C=(n_1,n_2)`", then applies Poi
 * **The coefficient of a pair** (`alpha_pair`): with `B = A₁∩A₂`, `a_ξ(A₁)χ_{A₁}(f)⁴·conj(…)` is
   `a(C₁)ā(C₂)` times `ξ(C₁)ξ̄(C₂)χ_{C₁}(b)⁴conj(χ_{C₂}(b)⁴)χ_{A₁}(f)⁴conj(χ_{A₂}(f)⁴)`, through round 306's
   `aXi_mul_left` and `|a_ξ(B)| = 1` (`aXi_idl_mul_conj`).
-* **The smoothed mean square of any column family** (`majorant_expand`) as a double sum over pairs, and
+* **The smoothed mean square of any column family** (`majorant_expand`, in
+  `EisensteinMeanSquarePoisson.lean` since round 332) as a double sum over pairs, and
   **`dualMS_poisson`**: the smoothed dual mean square of one row after Poisson summation.
 -/
 
@@ -32,29 +33,12 @@ theorem aF_mul_conj (C : Finset Pr) : aF πP h6Pr C * conj (aF πP h6Pr C) = 1 :
 
 theorem norm_xi_cls4 (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (C : Finset Pr) :
     ‖ξ (cls4 C)‖ = 1 := by
-  set x := (isUnit_cls4 C).unit
-  have hx : (x : 𝓞 K ⧸ span {(4 : 𝓞 K)}) = cls4 C := IsUnit.unit_spec _
-  have hord : 0 < orderOf x := orderOf_pos x
-  have h1 : ξ (x : 𝓞 K ⧸ span {(4 : 𝓞 K)}) ^ orderOf x = 1 := by
-    rw [← map_pow, ← Units.val_pow_eq_pow_val, pow_orderOf_eq_one, Units.val_one, map_one]
-  rw [← hx]
-  exact norm_eq_one_of_pow_eq_one h1 hord.ne'
+  rw [← (isUnit_cls4 C).unit_spec]; exact norm_mulChar_unit ξ _
 
 theorem aXi_idl_mul_conj (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (C : Finset Pr) :
     aXi ξ (idl C) * conj (aXi ξ (idl C)) = 1 := by
   rw [Complex.mul_conj, Complex.normSq_eq_norm_sq, aXi_idl, norm_mul,
     norm_aF πP h6Pr C (hcopPr _), norm_xi_cls4, one_mul]; simp
-
-theorem sign_sdiff (A1 A2 : Finset Pr) :
-    (-1 : ℂ) ^ A1.card * (-1) ^ A2.card = (-1) ^ (A1 \ A2).card * (-1) ^ (A2 \ A1).card := by
-  have e1 : A1.card = (A1 ∩ A2).card + (A1 \ A2).card := by
-    rw [add_comm]; exact (Finset.card_sdiff_add_card_inter A1 A2).symm
-  have e2 : A2.card = (A1 ∩ A2).card + (A2 \ A1).card := by
-    rw [add_comm, Finset.inter_comm]; exact (Finset.card_sdiff_add_card_inter A2 A1).symm
-  rw [e1, e2, pow_add, pow_add]
-  have : ((-1 : ℂ) ^ (A1 ∩ A2).card) * (-1) ^ (A1 ∩ A2).card = 1 := by
-    rw [← pow_add, ← two_mul, pow_mul]; norm_num
-  linear_combination ((-1 : ℂ) ^ (A1 \ A2).card * (-1) ^ (A2 \ A1).card) * this
 
 /-! ### The paired identity in the dual direction -/
 
@@ -157,40 +141,6 @@ theorem alpha_pair (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (f : 𝓞
 
 /-! ### The smoothed mean square of a column family -/
 
-/-- **The smoothed mean square as a double sum over pairs**, for any column coefficients:
-`Σ_u |Σ_{A∈𝒜} α(A)χ_A(u)|²·Φ(u/√H) = Σ_{A₁,A₂} α(A₁)ᾱ(A₂)·Σ_u χ_{A₁}(u)χ̄_{A₂}(u)·Φ(u/√H)`. -/
-theorem majorant_expand (H : ℝ) (hH : 0 < H) (𝒜 : Finset (Finset Pr)) (α : Finset Pr → ℂ) :
-    ∑' u : 𝓞 K, (∑ A ∈ 𝒜, α A * chiS A u) * conj (∑ A ∈ 𝒜, α A * chiS A u) *
-      Majorant.Phi (σO u / (Real.sqrt H : ℂ)) =
-    ∑ A1 ∈ 𝒜, ∑ A2 ∈ 𝒜, α A1 * conj (α A2) *
-      ∑' u : 𝓞 K, chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ)) := by
-  have hexp : ∀ u : 𝓞 K, (∑ A ∈ 𝒜, α A * chiS A u) * conj (∑ A ∈ 𝒜, α A * chiS A u) *
-      Majorant.Phi (σO u / (Real.sqrt H : ℂ)) =
-      ∑ A1 ∈ 𝒜, ∑ A2 ∈ 𝒜, α A1 * conj (α A2) *
-        (chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ))) := by
-    intro u
-    rw [map_sum, Finset.sum_mul_sum, Finset.sum_mul]
-    refine Finset.sum_congr rfl fun A1 _ => ?_
-    rw [Finset.sum_mul]
-    refine Finset.sum_congr rfl fun A2 _ => ?_
-    rw [map_mul]
-    ring
-  rw [tsum_congr hexp]
-  have hs : ∀ A1 A2 : Finset Pr, Summable fun u : 𝓞 K => α A1 * conj (α A2) *
-      (chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ))) := by
-    intro A1 A2
-    have hb : ∀ u, ‖chiS A1 u * conj (chiS A2 u)‖ ≤ 1 := fun u => by
-      rw [norm_mul, RCLike.norm_conj]
-      calc ‖chiS A1 u‖ * ‖chiS A2 u‖ ≤ 1 * 1 :=
-            mul_le_mul (norm_chiS_le A1 u) (norm_chiS_le A2 u) (norm_nonneg _) zero_le_one
-        _ = 1 := one_mul 1
-    exact (summable_mul_Phi H hH _ hb).mul_left _
-  rw [Summable.tsum_finsetSum fun A1 _ => summable_sum fun A2 _ => hs A1 A2]
-  refine Finset.sum_congr rfl fun A1 _ => ?_
-  rw [Summable.tsum_finsetSum fun A2 _ => hs A1 A2]
-  refine Finset.sum_congr rfl fun A2 _ => ?_
-  rw [tsum_mul_left]
-
 /-- The column sum of the dual mean square over the subsets of `U`. -/
 theorem colSum_eq_powerset_one (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : ℝ → ℂ} {β' : ℝ}
     (hW : ∀ x, β' < x → W x = 0) {X : ℝ} (hX : 0 < X) {U : Finset Pr}
@@ -251,10 +201,8 @@ end
 #print axioms Eis.aF_mul_conj
 #print axioms Eis.norm_xi_cls4
 #print axioms Eis.aXi_idl_mul_conj
-#print axioms Eis.sign_sdiff
 #print axioms Eis.norm_pairPsiDual
 #print axioms Eis.pairSum_poisson_dual
 #print axioms Eis.alpha_pair
-#print axioms Eis.majorant_expand
 #print axioms Eis.colSum_eq_powerset_one
 #print axioms Eis.dualMS_poisson

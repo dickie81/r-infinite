@@ -134,13 +134,22 @@ theorem norm_gamN {χ : MulChar (𝓞 K ⧸ span {p}) ℂ} (hχ : χ ≠ 1) : �
   rw [gamN, norm_div, hn, Complex.norm_real, Real.norm_eq_abs, abs_of_nonneg (norm_nonneg _),
     div_self hp0]
 
+theorem chi6_pow_ne_one (P : Ideal (𝓞 K)) [P.IsMaximal] (hP6 : (6 : 𝓞 K) ∉ P) {j : ℕ}
+    (hj : j ∈ ({1, 2, 3} : Finset ℕ)) : chi6 P hP6 ^ j ≠ 1 := by
+  classical
+  have hF := ringChar_ne_two P hP6
+  have hq : quadR (𝓞 K ⧸ P) ℂ ≠ 1 :=
+    (MulChar.ringHomComp_ne_one_iff (RingHom.injective_int (Int.castRingHom ℂ))).2
+      (quadraticChar_ne_one hF)
+  simp only [Finset.mem_insert, Finset.mem_singleton] at hj
+  rcases hj with rfl | rfl | rfl
+  · intro h; apply hq; rw [← chi6_cube P hP6, pow_one] at *; rw [h, one_pow]
+  · rw [chi6_sq]; exact cubCharC_ne_one P _
+  · rw [chi6_cube]; exact hq
+
 open Classical in
 theorem chi6_ne_one (hp6 : (6 : 𝓞 K) ∉ span {p}) : chi6 (span {p}) hp6 ≠ 1 := by
-  intro h
-  have h3 := chi6_cube (span {p}) hp6
-  rw [h, one_pow] at h3
-  exact (MulChar.ringHomComp_ne_one_iff (RingHom.injective_int (Int.castRingHom ℂ))).2
-    (quadraticChar_ne_one (ringChar_ne_two (span {p}) hp6)) h3.symm
+  simpa using chi6_pow_ne_one (span {p}) hp6 (j := 1) (by simp)
 
 /-- `χ_p(4)⁶ = 1`, so `χ_p(4) ≠ 0`. -/
 theorem chi6_four_pow_six (hp6 : (6 : 𝓞 K) ∉ span {p}) : chi6 (span {p}) hp6 4 ^ 6 = 1 := by

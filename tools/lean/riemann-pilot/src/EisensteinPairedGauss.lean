@@ -10,7 +10,8 @@ bicharacter `R` on that group. Here the conversion is made without the bicharact
 after splitting off `ā(z₁)a(z₂)` is computed in closed form, and it depends only on `z₁, z₂ mod 4`.
 
 * **Quadratic sums over squarefree moduli.** `ψ₁ = 1` (`ψc_one`); `S_{ab}(t) = S_a(tb)·S_b(ta)` for
-  coprime `a, b` (`sqSum_mul_t`, round 298's `sqSum_mul` with a twist `t`); by induction
+  coprime `a, b` (`sqSum_mul_t`, round 298's `sqSum_mul` with a twist `t`, in `EisensteinQuadRecip.lean`
+  since round 332); by induction
   `S_{∏c_i}(t) = ∏_i S_{c_i}(t·∏_{j≠i} c_j)` (`sqSum_prod`).
 * **`γ₃(n) = Φ(a, b)/2`** for `n = ∏_{i∈S} π_i = a + bω` (`gamF_three_eq`), the paper's
   `γ₃(n) = Γ_quad(n)`: round 300's factorization of the Gauss sum of the Jacobi symbol is
@@ -46,47 +47,7 @@ theorem ψc_one (x : 𝓞 K) : ψc 1 x = 1 := by
 
 /-- `S_1(t) = 1`. -/
 theorem sqSum_one_left (t : 𝓞 K) : sqSum 1 t = 1 := by
-  have hR : Function.Bijective
-      (fun p : Unit × 𝓞 K => (fun _ : Unit => (0 : 𝓞 K)) p.1 + 1 * p.2) := by
-    constructor
-    · rintro ⟨⟨⟩, u⟩ ⟨⟨⟩, u'⟩ h
-      simp only [zero_add, one_mul] at h
-      rw [h]
-    · intro z; exact ⟨((), z), by simp⟩
-  unfold sqSum
-  rw [gaussTr_eq_sum 1 one_ne_zero _ (sq_periodic 1 t one_ne_zero) (fun _ => 0) hR 0]
-  simp [ψc_one]
-
-/-- **Chinese remainders for the twisted quadratic sums**: `S_{ab}(t) = S_a(tb)·S_b(ta)` for coprime
-`a, b`. -/
-theorem sqSum_mul_t (a b t : 𝓞 K) (ha : a ≠ 0) (hb : b ≠ 0) (hab : IsCoprime a b) :
-    sqSum (a * b) t = sqSum a (t * b) * sqSum b (t * a) := by
-  have : Finite (𝓞 K ⧸ span {a}) :=
-    Ideal.finiteQuotientOfFreeOfNeBot _ (by rwa [Ne, Ideal.span_singleton_eq_bot])
-  let : Fintype (𝓞 K ⧸ span {a}) := Fintype.ofFinite _
-  have : Finite (𝓞 K ⧸ span {b}) :=
-    Ideal.finiteQuotientOfFreeOfNeBot _ (by rwa [Ne, Ideal.span_singleton_eq_bot])
-  let : Fintype (𝓞 K ⧸ span {b}) := Fintype.ofFinite _
-  have hcrt := crt_rep_bijective a b ha hb hab (repQ a) (repQ b) (repQ_bijective a ha)
-    (repQ_bijective b hb)
-  have e1 := gaussTr_eq_sum (ι := (𝓞 K ⧸ span {a}) × (𝓞 K ⧸ span {b})) (a * b)
-    (mul_ne_zero ha hb) (fun x => ψc (a * b) (t * (x * x)))
-    (sq_periodic (a * b) t (mul_ne_zero ha hb))
-    (fun q => b * repQ a q.1 + a * repQ b q.2) hcrt 0
-  have e2 := gaussTr_eq_sum a ha (fun x => ψc a (t * b * (x * x))) (sq_periodic a (t * b) ha)
-    (repQ a) (repQ_bijective a ha) 0
-  have e3 := gaussTr_eq_sum b hb (fun x => ψc b (t * a * (x * x))) (sq_periodic b (t * a) hb)
-    (repQ b) (repQ_bijective b hb) 0
-  unfold sqSum
-  rw [e1, e2, e3, Fintype.sum_prod_type, Finset.sum_mul_sum]
-  refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => ?_
-  simp only [mul_zero, ψc_zero, mul_one]
-  set r := repQ a i
-  set s := repQ b j
-  have hx : t * ((b * r + a * s) * (b * r + a * s)) =
-      b * (t * b * (r * r)) + a * (t * a * (s * s)) + (a * b) * (2 * t * r * s) := by ring
-  rw [hx, ψc_add, ψc_add, ψc_mul_right a b _ hb, mul_comm a b, ψc_mul_right b a _ ha,
-    ψc_mul_self _ (mul_ne_zero hb ha), mul_one]
+  simp only [sqSum, ψc_one]; exact gaussTr_one_const 1 0
 
 /-- **The twisted quadratic sum over pairwise coprime moduli**:
 `S_{∏c_i}(t) = ∏_i S_{c_i}(t·∏_{j≠i} c_j)`. -/
@@ -271,8 +232,7 @@ theorem chiF_mul_inv_pair (i k : ι) (hi : Primary (π i)) (hk : Primary (π k))
     hq1 + hq2))
 
 /-- For `‖z‖ = 1`, `conj z = z⁻¹`. -/
-theorem conj_eq_inv_of_norm {z : ℂ} (hz : ‖z‖ = 1) : conj z = z⁻¹ := by
-  rw [Complex.inv_def, Complex.normSq_eq_norm_sq, hz]; simp
+theorem conj_eq_inv_of_norm {z : ℂ} (hz : ‖z‖ = 1) : conj z = z⁻¹ := (Complex.inv_eq_conj hz).symm
 
 
 /-- **The paired Gauss sums** (the companion paper's `μ(z₁)μ(z₂)γ(χ_{z₁}χ̄_{z₂}) = Σ_ξ c_ξ a_ξ(z₁)ā_ξ(z₂)`,
@@ -463,7 +423,6 @@ end
 
 #print axioms Eis.ψc_one
 #print axioms Eis.sqSum_one_left
-#print axioms Eis.sqSum_mul_t
 #print axioms Eis.sqSum_prod
 #print axioms Eis.gamF_three_eq
 #print axioms Eis.gamF_congr

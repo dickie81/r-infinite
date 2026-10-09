@@ -92,8 +92,7 @@ theorem absNorm_eq_card : absNorm P = Fintype.card (𝓞 K ⧸ P) := by
   rw [absNorm_apply, Submodule.cardQuot_apply, Nat.card_eq_fintype_card]
 
 omit hP hP3 in
-theorem natCast_absNorm_mem : ((absNorm P : ℕ) : 𝓞 K) ∈ P :=
-  natCast_span_le P (Ideal.mem_span_singleton_self _)
+theorem natCast_absNorm_mem : ((absNorm P : ℕ) : 𝓞 K) ∈ P := Ideal.absNorm_mem P
 
 end Symbol3
 
@@ -168,14 +167,18 @@ theorem chi3_natCast_inert {q : ℕ} (hq : q.Prime) (hq2 : q % 3 = 2) {Q : Ideal
   rw [map_natCast]
   exact cube_eq_of_mk_eq Q hQ3 hu.2 (one_pow 3) (by rw [hu.1, map_one])
 
-theorem three_not_mem_of_primary {P : Ideal (𝓞 K)} (hP : P ≠ ⊤) {π : 𝓞 K} (hπ : Primary π)
-    (hPπ : P = span {π}) : (3 : 𝓞 K) ∉ P := by
+/-- A prime ideal containing a primary element does not contain `3`. -/
+theorem three_not_mem_of_primary_mem {P : Ideal (𝓞 K)} (hP : P ≠ ⊤) {a : 𝓞 K} (ha : Primary a)
+    (haP : a ∈ P) : (3 : 𝓞 K) ∉ P := by
   intro h3
-  rw [hPπ, Ideal.mem_span_singleton] at h3
-  have h1 : π ∣ π - 1 := h3.trans hπ
-  have : π ∣ (1 : 𝓞 K) := by
-    have := dvd_sub (dvd_refl π) h1; rwa [sub_sub_cancel] at this
-  exact hP (by rw [hPπ, Ideal.span_singleton_eq_top]; exact isUnit_of_dvd_one this)
+  have h1 : a - 1 ∈ P := by
+    obtain ⟨c, hc⟩ := ha
+    rw [hc]; exact P.mul_mem_right _ h3
+  exact hP ((Ideal.eq_top_iff_one _).2 (by simpa using P.sub_mem haP h1))
+
+theorem three_not_mem_of_primary {P : Ideal (𝓞 K)} (hP : P ≠ ⊤) {π : 𝓞 K} (hπ : Primary π)
+    (hPπ : P = span {π}) : (3 : 𝓞 K) ∉ P :=
+  three_not_mem_of_primary_mem hP hπ (hPπ ▸ Ideal.mem_span_singleton_self _)
 
 /-- The fundamental relation in terms of `chi3` and norms. -/
 theorem chi3_fundamental {P Q : Ideal (𝓞 K)} [hP : P.IsMaximal] [hQ : Q.IsMaximal]
@@ -311,15 +314,6 @@ theorem exists_primary_of_maximal (P : Ideal (𝓞 K)) [hP : P.IsMaximal] (hP3 :
 theorem pgen_maximal (P : Ideal (𝓞 K)) [P.IsMaximal] (hP3 : (3 : 𝓞 K) ∉ P) :
     Primary (pgen P) ∧ span {pgen P} = P :=
   pgen_spec (exists_primary_of_maximal P hP3)
-
-/-- A prime ideal containing a primary element does not contain `3`. -/
-theorem three_not_mem_of_primary_mem {P : Ideal (𝓞 K)} (hP : P ≠ ⊤) {a : 𝓞 K} (ha : Primary a)
-    (haP : a ∈ P) : (3 : 𝓞 K) ∉ P := by
-  intro h3
-  have h1 : a - 1 ∈ P := by
-    obtain ⟨c, hc⟩ := ha
-    rw [hc]; exact P.mul_mem_right _ h3
-  exact hP ((Ideal.eq_top_iff_one _).2 (by simpa using P.sub_mem haP h1))
 
 theorem primary_multiset_prod {m : Multiset (𝓞 K)} (h : ∀ x ∈ m, Primary x) : Primary m.prod := by
   induction m using Multiset.induction_on with

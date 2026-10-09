@@ -126,25 +126,12 @@ theorem prod_ne_bot {T : Finset (Ideal (𝓞 K))} (hT : ∀ P ∈ T, P.IsMaximal
     exact Ring.ne_bot_of_isMaximal_of_not_isField (hT P hP) (RingOfIntegers.not_isField K) hb
 
 open Classical in
-/-- Inclusion–exclusion at one ideal: `[no P ∈ S divides J] = Σ_{T ⊆ S} (−1)^{|T|}[every P ∈ T divides J]`. -/
+/-- Inclusion–exclusion at one ideal: `[no P ∈ S divides J] = Σ_{T ⊆ S} (−1)^{|T|}[every P ∈ T divides J]`
+(`indicator_forall_not`, since round 332). -/
 theorem indicator_coprime (S : Finset (Ideal (𝓞 K))) (J : Ideal (𝓞 K)) :
     (if ∀ P ∈ S, ¬ P ∣ J then (1 : ℝ) else 0) =
       ∑ T ∈ S.powerset, (-1 : ℝ) ^ T.card * (if ∀ P ∈ T, P ∣ J then 1 else 0) := by
-  have hset : S.powerset.filter (fun T => ∀ P ∈ T, P ∣ J) = (S.filter fun P => P ∣ J).powerset := by
-    ext T
-    simp only [Finset.mem_filter, Finset.mem_powerset, Finset.subset_iff]
-    constructor
-    · rintro ⟨h1, h2⟩ P hP; exact ⟨h1 hP, h2 P hP⟩
-    · intro h; exact ⟨fun P hP => (h hP).1, fun P hP => (h hP).2⟩
-  simp_rw [mul_ite, mul_one, mul_zero]
-  rw [← Finset.sum_filter, hset]
-  have h := congrArg (fun z : ℤ => (z : ℝ))
-    (Finset.sum_powerset_neg_one_pow_card (x := S.filter fun P => P ∣ J))
-  push_cast at h
-  rw [h]
-  congr 1
-  apply propext
-  rw [Finset.filter_eq_empty_iff]
+  convert indicator_forall_not (R := ℝ) S (fun P => P ∣ J)
 
 open Classical in
 /-- **The ideals of norm at most `Y` divisible by no `P ∈ S`**, for distinct maximal `P`:

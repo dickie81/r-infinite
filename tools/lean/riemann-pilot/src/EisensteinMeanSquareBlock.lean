@@ -55,15 +55,15 @@ theorem isRelPrime_idl {M b : Finset Pr} (h : Disjoint M b) : IsRelPrime (idl M)
   intro P hP hPM
   exact Finset.disjoint_left.1 h ((dvd_idl_iff P M).1 hPM) hP
 
+theorem chiS_eq_zero_of_dvd {V : Finset Pr} {μ : 𝓞 K} {P : Pr} (hP : P ∈ V) (h : πP P ∣ μ) :
+    chiS V μ = 0 := by
+  unfold chiS
+  exact Finset.prod_eq_zero hP (by rw [(mk_πP_eq_zero_iff P μ).2 h, MulChar.map_zero])
+
 /-- A column coefficient vanishes when a prime of the column divides `f`. -/
 theorem colA_eq_zero (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K) {M : Finset Pr}
     {P : Pr} (hP : P ∈ M) (hf : πP P ∣ f) : colA ξ k f M = 0 := by
-  unfold colA
-  have h0 : chiS M f = 0 := by
-    unfold chiS
-    refine Finset.prod_eq_zero hP ?_
-    rw [(mk_πP_eq_zero_iff P f).2 hf, MulChar.map_zero]
-  rw [h0]; ring
+  unfold colA; rw [chiS_eq_zero_of_dvd hP hf]; ring
 
 theorem sym6_idl_eq (u : 𝓞 K) (M : Finset Pr) : sym6 u (idl M) = chiS M u := sym6_idl M u
 
@@ -500,6 +500,7 @@ end
 #print axioms Eis.prime_Pr
 #print axioms Eis.dvd_idl_iff
 #print axioms Eis.isRelPrime_idl
+#print axioms Eis.chiS_eq_zero_of_dvd
 #print axioms Eis.colA_eq_zero
 #print axioms Eis.sym6_idl_eq
 #print axioms Eis.colSum_eq_powerset

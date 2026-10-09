@@ -191,11 +191,15 @@ def wq (c : 𝓞 K) : ℂ := 2 / (σO δ3 * σO c)
 /-- The quadratic phase `x ↦ ψ_c(x²)`. -/
 def qphase (c x : 𝓞 K) : ℂ := ψc c (x * x)
 
+theorem sq_periodic (c t : 𝓞 K) (hc : c ≠ 0) (z u : 𝓞 K) :
+    ψc c (t * ((z + c * u) * (z + c * u))) = ψc c (t * (z * z)) := by
+  have : t * ((z + c * u) * (z + c * u)) = t * (z * z) + c * (t * (2 * z * u + c * u * u)) := by
+    ring
+  rw [this, ψc_add_mul c hc]
+
 theorem qphase_periodic (c : 𝓞 K) (hc : c ≠ 0) (z u : 𝓞 K) :
     qphase c (z + c * u) = qphase c z := by
-  unfold qphase
-  have : (z + c * u) * (z + c * u) = z * z + c * (2 * z * u + c * u * u) := by ring
-  rw [this, ψc_add_mul c hc]
+  simpa [qphase] using sq_periodic c 1 hc z u
 
 /-- On `σ(ℤ[ω])` the chirp is `ψ_c(x²)·e^{-πη|σx|²}`. -/
 theorem chirp_σO (c : 𝓞 K) (η : ℝ) (hη : 0 < η) (x : 𝓞 K) :

@@ -7,8 +7,9 @@ S5b in round 312's plan: the companion paper's Proposition 5.1, by its induction
 314's `CompletedMeanSquare`; then `DualMeanSquare ϑ` for every `ϑ > 0` and, through round 310, the
 half-plane `Re s > 11/12`.
 
-* **Counting** (`colSum_eq_zero_of_lt`, `norm_colSum_le`, `rowE_le_count`, `rowE_eq_zero_of_lt`): a
-  column sum at scale `X` is empty when `βX < 1` and has at most `(2κ+5)βX` terms otherwise.
+* **Counting** (`colSum_eq_zero_of_lt`, `norm_colSum_le`, `rowE_le_count`, `rowE_eq_zero_of_lt`; in
+  `EisensteinCubeReduction.lean` since round 332): a column sum at scale `X` is empty when `βX < 1`
+  and has at most `(2κ+5)βX` terms otherwise.
 * **`TransferEstimate`**, the paper's Proposition 5.4, displayed in the form its proof of
   Proposition 5.1 uses (`E(𝓗, L, F; ξ, W) ≤ 𝒜(W)`).
 * **The induction** (`CanonicalAt`, `canonicalAt_zero`, `canonicalAt_succ`): the base `j = 0` by
@@ -26,71 +27,6 @@ open scoped ComplexConjugate ContDiff
 noncomputable section
 
 namespace Eis
-
-/-! ### Counting -/
-
-section Count
-
-variable (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
-
-/-- A column sum at a scale `X` with `βX < 1` is empty. -/
-theorem colSum_eq_zero_of_lt {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {X : ℝ}
-    (hX : 0 < X) (h : β * X < 1) (k f : 𝓞 K) : colSum ξ W X 1 k f = 0 := by
-  rw [colSum_eq_sum_gCoef ξ k f hW hX]
-  refine Finset.sum_eq_zero fun I hI => ?_
-  exfalso
-  rw [mem_idealsLe] at hI
-  have h0 : ⌊β * X⌋₊ = 0 := Nat.floor_eq_zero.2 h
-  omega
-
-/-- A column sum at a scale `X` with `βX ≥ 1` has at most `(2κ+5)βX` terms, each at most `N`. -/
-theorem norm_colSum_le {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {N : ℝ}
-    (hN : ∀ x, ‖W x‖ ≤ N) {X : ℝ} (hX : 0 < X) (h1 : 1 ≤ β * X) (k f : 𝓞 K) :
-    ‖colSum ξ W X 1 k f‖ ≤ (2 * kappa + 5) * (β * X) * N := by
-  have hN0 : 0 ≤ N := (norm_nonneg _).trans (hN 0)
-  rw [colSum_eq_sum_gCoef ξ k f hW hX]
-  calc ‖∑ I ∈ idealsLe (β * X), gCoef ξ k f I * W ((absNorm I : ℝ) / X)‖
-      ≤ ∑ I ∈ idealsLe (β * X), ‖gCoef ξ k f I * W ((absNorm I : ℝ) / X)‖ := norm_sum_le _ _
-    _ ≤ ∑ _I ∈ idealsLe (β * X), N := Finset.sum_le_sum fun I _ => by
-        rw [norm_mul]
-        exact (mul_le_of_le_one_left (norm_nonneg _) (norm_gCoef_le ξ k f I)).trans (hN _)
-    _ = (idealsLe (β * X)).card * N := by rw [Finset.sum_const, nsmul_eq_mul]
-    _ ≤ (2 * kappa + 5) * (β * X) * N := by
-        rw [card_idealsLe]
-        exact mul_le_mul_of_nonneg_right (idealCount_le h1) hN0
-
-/-- **The row sum by counting**: `≤ 98(2κ+5)³(βX)²N²·F·𝓗` for `βX ≥ 1`. -/
-theorem rowE_le_count {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {N : ℝ}
-    (hN : ∀ x, ‖W x‖ ≤ N) {Hh X F : ℝ} (hH : 1 ≤ Hh) (hF : 1 ≤ F) (hX : 0 < X)
-    (h1 : 1 ≤ β * X) {Fs : Finset (Ideal (𝓞 K))} {T : Finset (𝓞 K)}
-    (hFs : ∀ f ∈ Fs, (absNorm f).Coprime 6 ∧ Squarefree f ∧ F ≤ (absNorm f : ℝ) ∧
-      (absNorm f : ℝ) < 2 * F)
-    (hT : ∀ k ∈ T, k ≠ 0 ∧ (absNorm (span {k}) : ℝ) ≤ Hh) :
-    rowE ξ W X Fs T ≤ 98 * (2 * kappa + 5) ^ 3 * (β * X) ^ 2 * N ^ 2 * F * Hh := by
-  have hk := kappa_pos
-  have hrow : rowE ξ W X Fs T ≤ (Fs.card : ℝ) * (T.card * ((2 * kappa + 5) * (β * X) * N) ^ 2) := by
-    unfold rowE
-    calc ∑ f ∈ Fs, ∑ k ∈ T, ‖colSum ξ W X 1 k (pgen f)‖ ^ 2
-        ≤ ∑ _f ∈ Fs, ∑ _k ∈ T, ((2 * kappa + 5) * (β * X) * N) ^ 2 :=
-          Finset.sum_le_sum fun f _ => Finset.sum_le_sum fun k _ =>
-            pow_le_pow_left₀ (norm_nonneg _) (norm_colSum_le ξ hW hN hX h1 k (pgen f)) 2
-      _ = _ := by simp only [Finset.sum_const, nsmul_eq_mul]
-  have hFc := card_rows_le hF hFs
-  have hTc := card_T_le hH hT
-  calc rowE ξ W X Fs T ≤ (Fs.card : ℝ) * (T.card * ((2 * kappa + 5) * (β * X) * N) ^ 2) := hrow
-    _ ≤ (2 * (2 * kappa + 5) * F) * ((49 * Hh) * ((2 * kappa + 5) * (β * X) * N) ^ 2) := by
-        gcongr
-    _ = _ := by ring
-
-/-- A row sum at a scale `X` with `βX < 1` vanishes. -/
-theorem rowE_eq_zero_of_lt {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {X : ℝ}
-    (hX : 0 < X) (h : β * X < 1) (Fs : Finset (Ideal (𝓞 K))) (T : Finset (𝓞 K)) :
-    rowE ξ W X Fs T = 0 := by
-  unfold rowE
-  refine Finset.sum_eq_zero fun f _ => Finset.sum_eq_zero fun k _ => ?_
-  rw [colSum_eq_zero_of_lt ξ hW hX h k (pgen f), norm_zero]; norm_num
-
-end Count
 
 /-! ### The displayed transfer estimate and the canonical bounds -/
 
@@ -502,10 +438,6 @@ end Eis
 
 end
 
-#print axioms Eis.colSum_eq_zero_of_lt
-#print axioms Eis.norm_colSum_le
-#print axioms Eis.rowE_le_count
-#print axioms Eis.rowE_eq_zero_of_lt
 #print axioms Eis.canonicalAt_zero
 #print axioms Eis.transferred_level
 #print axioms Eis.transferred_gap

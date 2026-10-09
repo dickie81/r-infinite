@@ -13,9 +13,11 @@ completed mean-square estimate) as a displayed hypothesis.
 * **Cauchy–Schwarz over the rows** (`rows_cs`, `rows_short_le`, `rows_long_le`). For the long part the
   paper groups the pairs by `b = hc` and weighs by `τ(b)/N(b)`; here the weight is `1/(N𝔥·N𝔟)` on the
   pairs themselves, whose sum is at most `(Σ_{N𝔞 ≤ βX} 1/N𝔞)²`, the bound the paper gives for its divisor
-  sum. The harmonic sum is `O(log X)` by dyadic shells (`sum_idealsLe_inv_le`).
+  sum. The harmonic sum is `O(log X)` by dyadic shells (`sum_idealsLe_inv_le`, in
+  `EisensteinMeanSquareDual.lean` since round 332).
 * **The long part at one scale** (`inv_mul_rowE_le`): from the hypothesis when `L > 1`, and by counting
-  when `L ≤ 1` (`card_rows_le`, `card_T_le`, `card_eltsLe_le`).
+  when `L ≤ 1` (`card_rows_le`, `card_T_le`, `card_eltsLe_le`, and round 315's `rowE_le_count` and
+  `rowE_eq_zero_of_lt`, in this file since round 332).
 * **`CompletedMeanSquare`** (the paper's Proposition 5.2, displayed) and **`cube_reduction`** (the
   paper's Lemma 5.3): the row sum at `X` is at most `K·D^ε·(N²(XF)² + XF·E_sup)` when the row sums at
   the long scales `1 < L ≤ X`, `L·H_c³ < X`, are at most `E_sup·LF`.
@@ -28,76 +30,9 @@ noncomputable section
 
 namespace Eis
 
-open Classical in
-/-- **The harmonic sum over all ideals by dyadic shells**:
-`Σ_{𝔞 : N𝔞 ≤ x} 1/N𝔞 ≤ 2(2κ+5)(⌊log₂⌊x⌋⌋ + 1)`. -/
-theorem sum_idealsLe_inv_le (x : ℝ) :
-    ∑ I ∈ idealsLe x, 1 / (absNorm I : ℝ) ≤
-      2 * (2 * kappa + 5) * ((Nat.log 2 ⌊x⌋₊ : ℕ) + 1 : ℝ) := by
-  set L := Nat.log 2 ⌊x⌋₊
-  set lv : Ideal (𝓞 K) → ℕ := fun I => Nat.log 2 (absNorm I) with hlv
-  have hmaps : ∀ I ∈ idealsLe x, lv I ∈ Finset.range (L + 1) := by
-    intro I hI
-    rw [Finset.mem_range, Nat.lt_succ_iff]
-    exact Nat.log_mono_right (mem_idealsLe.1 hI).2
-  rw [← Finset.sum_fiberwise_of_maps_to hmaps]
-  have hk := kappa_pos
-  calc ∑ j ∈ Finset.range (L + 1), ∑ I ∈ idealsLe x with lv I = j, 1 / (absNorm I : ℝ)
-      ≤ ∑ _j ∈ Finset.range (L + 1), 2 * (2 * kappa + 5) := by
-        refine Finset.sum_le_sum fun j _ => ?_
-        have hsub : (idealsLe x).filter (fun I => lv I = j) ⊆ idealsLe ((2 : ℝ) ^ (j + 1)) := by
-          intro I hI
-          rw [Finset.mem_filter] at hI
-          rw [mem_idealsLe]
-          have h0 := (mem_idealsLe.1 hI.1).1
-          have h1 : absNorm I < 2 ^ (j + 1) := by
-            rw [← hI.2]; exact Nat.lt_pow_succ_log_self (by norm_num) _
-          have hf : ⌊(2 : ℝ) ^ (j + 1)⌋₊ = 2 ^ (j + 1) := by
-            rw [show (2 : ℝ) ^ (j + 1) = ((2 ^ (j + 1) : ℕ) : ℝ) by push_cast; ring,
-              Nat.floor_natCast]
-          rw [hf]; exact ⟨h0, h1.le⟩
-        have hterm : ∀ I ∈ (idealsLe x).filter (fun I => lv I = j),
-            1 / (absNorm I : ℝ) ≤ 1 / (2 : ℝ) ^ j := by
-          intro I hI
-          rw [Finset.mem_filter] at hI
-          have h0 := (mem_idealsLe.1 hI.1).1
-          have h1 : 2 ^ j ≤ absNorm I := by
-            rw [← hI.2]; exact Nat.pow_log_le_self 2 h0.ne'
-          have h1' : (2 : ℝ) ^ j ≤ absNorm I := by exact_mod_cast h1
-          exact one_div_le_one_div_of_le (by positivity) h1'
-        calc ∑ I ∈ idealsLe x with lv I = j, 1 / (absNorm I : ℝ)
-            ≤ ∑ _I ∈ (idealsLe x).filter (fun I => lv I = j), 1 / (2 : ℝ) ^ j :=
-              Finset.sum_le_sum hterm
-          _ = ((idealsLe x).filter (fun I => lv I = j)).card * (1 / (2 : ℝ) ^ j) := by
-              rw [Finset.sum_const, nsmul_eq_mul]
-          _ ≤ ((2 * kappa + 5) * (2 : ℝ) ^ (j + 1)) * (1 / (2 : ℝ) ^ j) := by
-              refine mul_le_mul_of_nonneg_right ?_ (by positivity)
-              calc (((idealsLe x).filter (fun I => lv I = j)).card : ℝ)
-                  ≤ (idealsLe ((2 : ℝ) ^ (j + 1))).card := by
-                    exact_mod_cast Finset.card_le_card hsub
-                _ = idealCount ((2 : ℝ) ^ (j + 1)) := by rw [card_idealsLe]
-                _ ≤ _ := idealCount_le (one_le_pow₀ (by norm_num))
-          _ = 2 * (2 * kappa + 5) := by
-              rw [pow_succ]; field_simp
-    _ = _ := by rw [Finset.sum_const, Finset.card_range, nsmul_eq_mul]; push_cast; ring
-
 section Columns
 
 variable (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K)
-
-/-- The column sum of the dual mean square as a finite sum of the completed sums' column
-coefficients, over the ideals of norm at most `βX`. -/
-theorem colSum_eq_sum_gCoef {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {X : ℝ}
-    (hX : 0 < X) :
-    colSum ξ W X 1 k f = ∑ I ∈ idealsLe (β * X), gCoef ξ k f I * W ((absNorm I : ℝ) / X) := by
-  unfold colSum
-  rw [tsum_eq_sum (s := idealsLe (β * X)) (fun I hI => ?_)]
-  · refine Finset.sum_congr rfl fun I _ => ?_
-    rw [ite_eq_left isRelPrime_one_right, gCoef_eq_col]
-  · rw [ite_eq_left isRelPrime_one_right]
-    have h0 : aXi ξ I * (sym6 k I * sym6 f I ^ 4) * W ((absNorm I : ℝ) / X) = 0 :=
-      colSum_summand_eq_zero ξ hW hX (fun I => sym6 k I * sym6 f I ^ 4) hI
-    linear_combination h0
 
 /-- For `0 < L ≤ Y`, the column sum at `L` is a sum over the ideals of norm at most `βY` (used at the
 long scales `L = X/N(𝔥𝔟)³ ≤ X` with `Y = X`). -/
@@ -206,11 +141,8 @@ theorem norm_sum_sq_le_weighted {ι : Type*} (s : Finset ι) (c z : ι → ℂ) 
         pow_le_pow_left₀ (norm_nonneg _) h1 2
     _ ≤ _ := h2
 
-theorem norm_add_sq_le_two (a b : ℂ) : ‖a + b‖ ^ 2 ≤ 2 * (‖a‖ ^ 2 + ‖b‖ ^ 2) := by
-  have h := norm_add_le a b
-  have h0 := norm_nonneg (a + b)
-  have h1 : ‖a + b‖ ^ 2 ≤ (‖a‖ + ‖b‖) ^ 2 := pow_le_pow_left₀ h0 h 2
-  nlinarith [sq_nonneg (‖a‖ - ‖b‖)]
+theorem norm_add_sq_le_two (a b : ℂ) : ‖a + b‖ ^ 2 ≤ 2 * (‖a‖ ^ 2 + ‖b‖ ^ 2) :=
+  (pow_le_pow_left₀ (norm_nonneg _) (norm_add_le a b) 2).trans add_sq_le
 
 section Expand
 
@@ -261,32 +193,7 @@ theorem cube_inversion_sum {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → 
     ((Real.sqrt X : ℝ) : ℂ)⁻¹ * colSum ξ W X 1 k f =
       ∑ H ∈ idealsLe (β * X), (moebius H : ℂ) * dCoef ξ k f H / (absNorm H : ℂ) *
         compT ξ k f W (X / (absNorm H : ℝ) ^ 3) := by
-  rw [cube_inversion ξ k f hW hX]
-  refine tsum_eq_sum fun H hH => ?_
-  by_cases hd : dCoef ξ k f H = 0
-  · rw [hd]; simp
-  have h1 := one_le_absNorm_of_coprime6 (coprime6_of_dCoef ξ k f hd)
-  have hgt : β * X < absNorm H := by
-    by_contra hle
-    exact hH (mem_idealsLe_of h1 (not_lt.1 hle))
-  rw [compT_eq_sum ξ k f hW hX h1]
-  have hz : ∀ I ∈ idealsLe (β * X), ∀ J ∈ idealsLe (β * X), gCoef ξ k f I * dCoef ξ k f J /
-        (((Real.sqrt (absNorm I : ℝ) : ℝ) : ℂ) * (absNorm J : ℂ)) *
-      Vstar W ((absNorm I : ℝ) * (absNorm J : ℝ) ^ 3 * (absNorm H : ℝ) ^ 3 / X) = 0 := by
-    intro I hI J hJ
-    have hI1 : (1 : ℝ) ≤ absNorm I := by rw [mem_idealsLe] at hI; exact_mod_cast hI.1
-    have hJ1 : (1 : ℝ) ≤ absNorm J := by rw [mem_idealsLe] at hJ; exact_mod_cast hJ.1
-    have hV : Vstar W ((absNorm I : ℝ) * (absNorm J : ℝ) ^ 3 * (absNorm H : ℝ) ^ 3 / X) = 0 := by
-      unfold Vstar
-      rw [hW _ ?_, mul_zero]
-      rw [lt_div_iff₀ hX]
-      have hJ3 : (1 : ℝ) ≤ (absNorm J : ℝ) ^ 3 := one_le_pow₀ hJ1
-      calc β * X < absNorm H := hgt
-        _ ≤ (absNorm H : ℝ) ^ 3 := le_cube h1
-        _ = 1 * 1 * (absNorm H : ℝ) ^ 3 := by ring
-        _ ≤ (absNorm I : ℝ) * (absNorm J : ℝ) ^ 3 * (absNorm H : ℝ) ^ 3 := by gcongr
-    rw [hV, mul_zero]
-  rw [Finset.sum_eq_zero fun I hI => Finset.sum_eq_zero fun J hJ => hz I hI J hJ, mul_zero]
+  rw [cube_inversion ξ k f hW hX, tsum_compT_eq_sum ξ k f hW hX]
 
 end Expand
 
@@ -299,20 +206,18 @@ def rowE (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (W : ℝ → ℂ) (
     (Fs : Finset (Ideal (𝓞 K))) (T : Finset (𝓞 K)) : ℝ :=
   ∑ f ∈ Fs, ∑ k ∈ T, ‖colSum ξ W L 1 k (pgen f)‖ ^ 2
 
-theorem norm_sq_eq_mul_inv_sqrt {X : ℝ} (hX : 0 < X) (c : ℂ) :
-    ‖c‖ ^ 2 = X * ‖((Real.sqrt X : ℝ) : ℂ)⁻¹ * c‖ ^ 2 := by
-  rw [norm_mul, norm_inv, Complex.norm_real, Real.norm_of_nonneg (Real.sqrt_nonneg _), mul_pow,
-    inv_pow, Real.sq_sqrt hX.le]
-  field_simp
-
-theorem norm_mul_le_one {a b : ℂ} (ha : ‖a‖ ≤ 1) (hb : ‖b‖ ≤ 1) : ‖a * b‖ ≤ 1 := by
-  rw [norm_mul]
-  exact (mul_le_mul ha hb (norm_nonneg _) zero_le_one).trans_eq (one_mul 1)
-
 theorem norm_inv_sqrt_mul_sq {L : ℝ} (hL : 0 ≤ L) (c : ℂ) :
     ‖((Real.sqrt L : ℝ) : ℂ)⁻¹ * c‖ ^ 2 = L⁻¹ * ‖c‖ ^ 2 := by
   rw [norm_mul, norm_inv, Complex.norm_real, Real.norm_of_nonneg (Real.sqrt_nonneg _), mul_pow,
     inv_pow, Real.sq_sqrt hL]
+
+theorem norm_sq_eq_mul_inv_sqrt {X : ℝ} (hX : 0 < X) (c : ℂ) :
+    ‖c‖ ^ 2 = X * ‖((Real.sqrt X : ℝ) : ℂ)⁻¹ * c‖ ^ 2 := by
+  rw [norm_inv_sqrt_mul_sq hX.le, ← mul_assoc, mul_inv_cancel₀ hX.ne', one_mul]
+
+theorem norm_mul_le_one {a b : ℂ} (ha : ‖a‖ ≤ 1) (hb : ‖b‖ ≤ 1) : ‖a * b‖ ≤ 1 := by
+  rw [norm_mul]
+  exact (mul_le_mul ha hb (norm_nonneg _) zero_le_one).trans_eq (one_mul 1)
 
 /-! ### The split at `N(𝔥) = H_c` -/
 
@@ -486,6 +391,63 @@ section Final
 
 variable (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
 
+/-- A column sum at a scale `X` with `βX < 1` is empty. -/
+theorem colSum_eq_zero_of_lt {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {X : ℝ}
+    (hX : 0 < X) (h : β * X < 1) (k f : 𝓞 K) : colSum ξ W X 1 k f = 0 := by
+  rw [colSum_eq_sum_gCoef ξ k f hW hX]
+  refine Finset.sum_eq_zero fun I hI => ?_
+  exfalso
+  rw [mem_idealsLe] at hI
+  have h0 : ⌊β * X⌋₊ = 0 := Nat.floor_eq_zero.2 h
+  omega
+
+/-- A column sum at a scale `X` with `βX ≥ 1` has at most `(2κ+5)βX` terms, each at most `N`. -/
+theorem norm_colSum_le {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {N : ℝ}
+    (hN : ∀ x, ‖W x‖ ≤ N) {X : ℝ} (hX : 0 < X) (h1 : 1 ≤ β * X) (k f : 𝓞 K) :
+    ‖colSum ξ W X 1 k f‖ ≤ (2 * kappa + 5) * (β * X) * N := by
+  have hN0 : 0 ≤ N := (norm_nonneg _).trans (hN 0)
+  rw [colSum_eq_sum_gCoef ξ k f hW hX]
+  calc ‖∑ I ∈ idealsLe (β * X), gCoef ξ k f I * W ((absNorm I : ℝ) / X)‖
+      ≤ ∑ I ∈ idealsLe (β * X), ‖gCoef ξ k f I * W ((absNorm I : ℝ) / X)‖ := norm_sum_le _ _
+    _ ≤ ∑ _I ∈ idealsLe (β * X), N := Finset.sum_le_sum fun I _ => by
+        rw [norm_mul]
+        exact (mul_le_of_le_one_left (norm_nonneg _) (norm_gCoef_le ξ k f I)).trans (hN _)
+    _ = (idealsLe (β * X)).card * N := by rw [Finset.sum_const, nsmul_eq_mul]
+    _ ≤ (2 * kappa + 5) * (β * X) * N := by
+        rw [card_idealsLe]
+        exact mul_le_mul_of_nonneg_right (idealCount_le h1) hN0
+
+/-- **The row sum by counting**: `≤ 98(2κ+5)³(βX)²N²·F·𝓗` for `βX ≥ 1`. -/
+theorem rowE_le_count {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {N : ℝ}
+    (hN : ∀ x, ‖W x‖ ≤ N) {Hh X F : ℝ} (hH : 1 ≤ Hh) (hF : 1 ≤ F) (hX : 0 < X)
+    (h1 : 1 ≤ β * X) {Fs : Finset (Ideal (𝓞 K))} {T : Finset (𝓞 K)}
+    (hFs : ∀ f ∈ Fs, (absNorm f).Coprime 6 ∧ Squarefree f ∧ F ≤ (absNorm f : ℝ) ∧
+      (absNorm f : ℝ) < 2 * F)
+    (hT : ∀ k ∈ T, k ≠ 0 ∧ (absNorm (span {k}) : ℝ) ≤ Hh) :
+    rowE ξ W X Fs T ≤ 98 * (2 * kappa + 5) ^ 3 * (β * X) ^ 2 * N ^ 2 * F * Hh := by
+  have hk := kappa_pos
+  have hrow : rowE ξ W X Fs T ≤ (Fs.card : ℝ) * (T.card * ((2 * kappa + 5) * (β * X) * N) ^ 2) := by
+    unfold rowE
+    calc ∑ f ∈ Fs, ∑ k ∈ T, ‖colSum ξ W X 1 k (pgen f)‖ ^ 2
+        ≤ ∑ _f ∈ Fs, ∑ _k ∈ T, ((2 * kappa + 5) * (β * X) * N) ^ 2 :=
+          Finset.sum_le_sum fun f _ => Finset.sum_le_sum fun k _ =>
+            pow_le_pow_left₀ (norm_nonneg _) (norm_colSum_le ξ hW hN hX h1 k (pgen f)) 2
+      _ = _ := by simp only [Finset.sum_const, nsmul_eq_mul]
+  have hFc := card_rows_le hF hFs
+  have hTc := card_T_le hH hT
+  calc rowE ξ W X Fs T ≤ (Fs.card : ℝ) * (T.card * ((2 * kappa + 5) * (β * X) * N) ^ 2) := hrow
+    _ ≤ (2 * (2 * kappa + 5) * F) * ((49 * Hh) * ((2 * kappa + 5) * (β * X) * N) ^ 2) := by
+        gcongr
+    _ = _ := by ring
+
+/-- A row sum at a scale `X` with `βX < 1` vanishes. -/
+theorem rowE_eq_zero_of_lt {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {X : ℝ}
+    (hX : 0 < X) (h : β * X < 1) (Fs : Finset (Ideal (𝓞 K))) (T : Finset (𝓞 K)) :
+    rowE ξ W X Fs T = 0 := by
+  unfold rowE
+  refine Finset.sum_eq_zero fun f _ => Finset.sum_eq_zero fun k _ => ?_
+  rw [colSum_eq_zero_of_lt ξ hW hX h k (pgen f), norm_zero]; norm_num
+
 /-- **The long part at one scale**: `L⁻¹·(the row sum at L) ≤ F·(E_sup + 98(2κ+5)³β³N²·XF)` for
 `0 < L ≤ X` with `L·H_c³ < X`: from the hypothesis when `L > 1`, and by counting when `L ≤ 1` (the
 paper's `E(𝓗, L_b, F) ≪ (𝓗/L_b)‖W‖²_∞`). -/
@@ -499,63 +461,26 @@ theorem inv_mul_rowE_le {W : ℝ → ℂ} {β : ℝ} (hβ : 1 ≤ β) (hW : ∀ 
     {L : ℝ} (hL : 0 < L) (hLX : L ≤ X) (hLc : L * Hc3 < X) :
     L⁻¹ * rowE ξ W L Fs T ≤ F * (Esup + 98 * (2 * kappa + 5) ^ 3 * β ^ 3 * N ^ 2 * (X * F)) := by
   have hk := kappa_pos
-  have hN0 : 0 ≤ N := (norm_nonneg _).trans (hN 0)
   have hF0 : 0 < F := by linarith
   have hXF : 0 < X * F := by linarith
-  have hX : 0 < X := pos_of_mul_pos_left hXF hF0.le
-  have hC : 0 ≤ 98 * (2 * kappa + 5) ^ 3 * β ^ 3 * N ^ 2 * (X * F) := by positivity
-  have hR0 := rowE_nonneg ξ W L Fs T
   rcases lt_or_ge 1 L with h1 | h1
   · calc L⁻¹ * rowE ξ W L Fs T ≤ L⁻¹ * (Esup * (L * F)) :=
           mul_le_mul_of_nonneg_left (hlong L h1 hLX hLc) (by positivity)
       _ = F * Esup := by field_simp
-      _ ≤ _ := by nlinarith
-  · rcases lt_or_ge (L * β) 1 with h2 | h2
-    · -- `L < 1/β`: every column sum vanishes
-      have hz : rowE ξ W L Fs T = 0 := by
-        unfold rowE
-        refine Finset.sum_eq_zero fun f _ => Finset.sum_eq_zero fun k _ => ?_
-        rw [colSum_eq_sum_gCoef_le ξ k (pgen f) hW hL h1]
-        rw [Finset.sum_eq_zero fun I hI => ?_]
-        · simp
-        · have hI1 : (1 : ℝ) ≤ absNorm I := by rw [mem_idealsLe] at hI; exact_mod_cast hI.1
-          rw [hW _ ?_, mul_zero]
-          rw [lt_div_iff₀ hL]; nlinarith
-      rw [hz, mul_zero]; positivity
-    · -- `1/β ≤ L ≤ 1`: at most `(2κ+5)β` ideals in each column sum
-      have hLinv : L⁻¹ ≤ β := by
-        rw [inv_le_iff_one_le_mul₀ hL]; linarith
-      have hcol : ∀ f ∈ Fs, ∀ k ∈ T, ‖colSum ξ W L 1 k (pgen f)‖ ≤ (2 * kappa + 5) * β * N := by
-        intro f _ k _
-        rw [colSum_eq_sum_gCoef_le ξ k (pgen f) hW hL h1]
-        calc ‖∑ I ∈ idealsLe (β * 1), gCoef ξ k (pgen f) I * W ((absNorm I : ℝ) / L)‖
-            ≤ ∑ I ∈ idealsLe (β * 1), ‖gCoef ξ k (pgen f) I * W ((absNorm I : ℝ) / L)‖ :=
-              norm_sum_le _ _
-          _ ≤ ∑ _I ∈ idealsLe (β * 1), N := Finset.sum_le_sum fun I _ => by
-              rw [norm_mul]
-              exact (mul_le_of_le_one_left (norm_nonneg _) (norm_gCoef_le ξ k (pgen f) I)).trans
-                (hN _)
-          _ = (idealsLe (β * 1)).card * N := by rw [Finset.sum_const, nsmul_eq_mul]
-          _ ≤ (2 * kappa + 5) * β * N := by
-              rw [card_idealsLe, mul_one]
-              exact mul_le_mul_of_nonneg_right (idealCount_le hβ) hN0
-      have hrow : rowE ξ W L Fs T ≤ (Fs.card : ℝ) * (T.card * ((2 * kappa + 5) * β * N) ^ 2) := by
-        unfold rowE
-        calc ∑ f ∈ Fs, ∑ k ∈ T, ‖colSum ξ W L 1 k (pgen f)‖ ^ 2
-            ≤ ∑ _f ∈ Fs, ∑ _k ∈ T, ((2 * kappa + 5) * β * N) ^ 2 :=
-              Finset.sum_le_sum fun f hf => Finset.sum_le_sum fun k hk =>
-                pow_le_pow_left₀ (norm_nonneg _) (hcol f hf k hk) 2
-          _ = _ := by simp only [Finset.sum_const, nsmul_eq_mul]
-      have hFc := card_rows_le hF hFs
-      have hTc := card_T_le hH hT
-      calc L⁻¹ * rowE ξ W L Fs T
-          ≤ β * ((Fs.card : ℝ) * (T.card * ((2 * kappa + 5) * β * N) ^ 2)) :=
-            mul_le_mul hLinv hrow hR0 (by linarith)
-        _ ≤ β * ((2 * (2 * kappa + 5) * F) * ((49 * Hh) * ((2 * kappa + 5) * β * N) ^ 2)) := by
-            gcongr
-        _ = 98 * (2 * kappa + 5) ^ 3 * β ^ 3 * N ^ 2 * F * Hh := by ring
-        _ ≤ 98 * (2 * kappa + 5) ^ 3 * β ^ 3 * N ^ 2 * F * (X * F) := by gcongr
-        _ ≤ _ := by nlinarith
+      _ ≤ _ := by
+          nlinarith [mul_nonneg (mul_nonneg (mul_nonneg (by positivity :
+            (0 : ℝ) ≤ 98 * (2 * kappa + 5) ^ 3 * β ^ 3) (sq_nonneg N)) hXF.le) hF0.le]
+  rcases lt_or_ge (β * L) 1 with h2 | h2
+  · rw [rowE_eq_zero_of_lt ξ hW hL h2, mul_zero]; positivity
+  have hc := rowE_le_count ξ hW hN hH hF hL h2 hFs hT
+  calc L⁻¹ * rowE ξ W L Fs T
+      ≤ L⁻¹ * (98 * (2 * kappa + 5) ^ 3 * (β * L) ^ 2 * N ^ 2 * F * Hh) :=
+        mul_le_mul_of_nonneg_left hc (by positivity)
+    _ = 98 * (2 * kappa + 5) ^ 3 * β ^ 2 * N ^ 2 * F * (L * Hh) := by field_simp
+    _ ≤ 98 * (2 * kappa + 5) ^ 3 * β ^ 2 * N ^ 2 * F * (β * (X * F)) := by
+        gcongr
+        linarith
+    _ ≤ _ := by nlinarith [mul_nonneg hF0.le hE]
 
 /-- **The cube reduction with its explicit constants**: with `s₁ = Σ_{N𝔥 ≤ βX} 1/N𝔥`, a bound `B` for
 the completed sums at the short `𝔥` (`N𝔥³ ≤ H_c³`) and the hypothesis at the long scales,
@@ -839,8 +764,6 @@ end Eis
 
 end
 
-#print axioms Eis.sum_idealsLe_inv_le
-#print axioms Eis.colSum_eq_sum_gCoef
 #print axioms Eis.colSum_eq_sum_gCoef_le
 #print axioms Eis.norm_moebius_le
 #print axioms Eis.norm_alphaI_le
@@ -862,6 +785,10 @@ end
 #print axioms Eis.card_rows_le
 #print axioms Eis.card_T_le
 #print axioms Eis.rowE_nonneg
+#print axioms Eis.colSum_eq_zero_of_lt
+#print axioms Eis.norm_colSum_le
+#print axioms Eis.rowE_le_count
+#print axioms Eis.rowE_eq_zero_of_lt
 #print axioms Eis.inv_mul_rowE_le
 #print axioms Eis.rowE_le_explicit
 #print axioms Eis.cube_reduction

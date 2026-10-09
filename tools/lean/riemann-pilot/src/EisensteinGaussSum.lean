@@ -122,13 +122,8 @@ theorem cubCharC_ne_one : cubCharC P hP3 ≠ 1 :=
 theorem orderOf_cubCharC : orderOf (cubCharC P hP3) = 3 :=
   orderOf_eq_prime (cubCharC_pow_three P hP3) (cubCharC_ne_one P hP3)
 
-theorem cubCharC_neg_one : cubCharC P hP3 (-1) = 1 := by
-  have h1 : cubCharC P hP3 (-1) ^ 3 = 1 := by
-    rw [← MulChar.pow_apply' _ (by norm_num), cubCharC_pow_three, MulChar.one_apply isUnit_one.neg]
-  have h2 : cubCharC P hP3 (-1) ^ 2 = 1 := by
-    rw [sq, ← map_mul, neg_one_mul, neg_neg, MulChar.map_one]
-  calc cubCharC P hP3 (-1) = cubCharC P hP3 (-1) ^ 3 := by rw [pow_succ, h2, one_mul]
-    _ = 1 := h1
+theorem cubCharC_neg_one : cubCharC P hP3 (-1) = 1 :=
+  MulChar.val_neg_one_eq_one_of_odd_order ⟨1, rfl⟩ (cubCharC_pow_three P hP3)
 
 /-- **The cube of the cubic Gauss sum**: `g(χ_P, ψ)³ = −N(P)·π` for `P = (π)`, `π` primary, and any
 primitive additive character `ψ`. -/
@@ -153,6 +148,15 @@ theorem norm_gaussSum_cubCharC_sq {ψ : AddChar (𝓞 K ⧸ P) ℂ} (hψ : ψ.Is
 
 end GaussCube
 
+/-- The residue ring `𝓞/P` has characteristic `≠ 2` when `2 ∉ P` (round 332; `ringChar_ne_two` and
+`ringChar_ne_two_of_two` are its instances). -/
+theorem ringChar_ne_two_of_not_mem (P : Ideal (𝓞 K)) (h2 : (2 : 𝓞 K) ∉ P) :
+    ringChar (𝓞 K ⧸ P) ≠ 2 := by
+  intro h
+  apply h2
+  rw [← Ideal.Quotient.eq_zero_iff_mem, show (2 : 𝓞 K) = ((2 : ℕ) : 𝓞 K) by norm_num, map_natCast,
+    ringChar.spec, h]
+
 section Sextic
 
 variable (P : Ideal (𝓞 K)) [hPm : P.IsMaximal] (hP6 : (6 : 𝓞 K) ∉ P)
@@ -169,11 +173,8 @@ theorem two_not_mem_of_six : (2 : 𝓞 K) ∉ P := fun h =>
 
 omit hPm in
 include hP6 in
-theorem ringChar_ne_two : ringChar (𝓞 K ⧸ P) ≠ 2 := by
-  intro h
-  apply two_not_mem_of_six P hP6
-  rw [← Ideal.Quotient.eq_zero_iff_mem, show (2 : 𝓞 K) = ((2 : ℕ) : 𝓞 K) by norm_num, map_natCast,
-    ringChar.spec, h]
+theorem ringChar_ne_two : ringChar (𝓞 K ⧸ P) ≠ 2 :=
+  ringChar_ne_two_of_not_mem P (two_not_mem_of_six P hP6)
 
 include hP6 in
 theorem m3_eq_two_mul_m6 : m3 P = 2 * m6 P := by

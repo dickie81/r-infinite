@@ -16,12 +16,12 @@ depend on the weight only through a bound on its derivatives.
   and `|h^{(q)}| ≤ q!·N·max(1, β)^q` on `[log α, log β]` (Faà di Bruno, Mathlib's
   `norm_iteratedFDeriv_comp_le`). Hence `∫|𝓕h(t)|(1+|t|)^k dt ≤ π·coeffConst(α, β, k+2)·N`
   (`integral_fourier_expSchwartz_le`).
-* **Dilated weights** (`dilated_meanSquare_of_coeff`, `dilated_meanSquare_unif`): round 302's
-  `dilated_meanSquare` with the coefficient as data, and with constant `K·N_W²` for a bound `N_W` on the
-  first `2J+2` derivatives of `W₀`.
-* **The bilinear form with the dual kernel** (`bilinear_dual_bound_of_dilated`,
-  `bilinear_dual_bound_unif`): round 306's two-family `bilinear_dual_bound₂` from the two dilated bounds
-  on `Re s = σ`, and with constant `K·N_W²`.
+* **Dilated weights** (`dilated_meanSquare_unif`): round 302's `dilated_meanSquare` with constant
+  `K·N_W²` for a bound `N_W` on the first `2J+2` derivatives of `W₀`. Its input, the same bound with the
+  coefficient as data (`dilated_meanSquare_of_coeff`), is in `MellinSeparation.lean` since round 332.
+* **The bilinear form with the dual kernel** (`bilinear_dual_bound_unif`): round 306's two-family
+  `bilinear_dual_bound₂` with constant `K·N_W²`. Its input, the same bound from the two dilated bounds
+  on `Re s = σ` (`bilinear_dual_bound_of_dilated`), is in `MellinSeparation.lean` since round 332.
 * **The weight `x^{−1/2}W(x)`** (`W0c`, `W0c_unif`): smooth, with its first `q` derivatives bounded by
   `C·N`, `C` depending only on `[α, β]` and `q` (Leibniz with a fixed bump, `iteratedDeriv_mul_fixed_le`).
 -/
@@ -264,115 +264,6 @@ theorem integral_fourier_expSchwartz_le (W : ℝ → ℂ) (hW : ContDiff ℝ ∞
 
 /-! ### Dilated weights with a given Mellin coefficient -/
 
-/-- **Mean square of dilated weights, with the Mellin coefficient as data**: round 302's
-`dilated_meanSquare`, whose constant is `(∫‖c‖)·(C²·64^J·∫‖c‖(1+|t|)^{2J})` for any Schwartz `c`
-representing `W₀`, with `C` depending only on `V`, `A` and `J`. -/
-theorem dilated_meanSquare_of_coeff {α β : ℝ} (V : ℝ → ℂ) (hV : ContDiff ℝ ∞ V)
-    (hVc : HasCompactSupport V) (hVp : tsupport V ⊆ Ioi 0) {ρ0 ρ1 : ℝ} (hρ0 : 0 < ρ0)
-    (hV1 : ∀ y, α / ρ1 ≤ y → y ≤ β / ρ0 → V y = 1) (A : ℝ) (J : ℕ) :
-    ∃ Ctf : ℝ, 0 ≤ Ctf ∧ ∀ (W0 : ℝ → ℂ), (∀ y, y < α ∨ β < y → W0 y = 0) →
-      ∀ c : 𝓢(ℝ, ℂ), (∀ y : ℝ, 0 < y →
-        W0 y = ∫ t : ℝ, c t * ((y : ℂ) ^ (((2 * Real.pi * t : ℝ) : ℂ) * I))) →
-      ∀ {ι κ : Type} (T : Finset ι) (C : Finset κ) (a : ι → κ → ℂ) (x : κ → ℝ),
-      (∀ n ∈ C, 0 < x n) → ∀ M : ℝ, 0 ≤ M →
-      (∀ U : ℝ → ℂ, ContDiff ℝ ∞ U → tsupport U ⊆ tsupport V → ∀ N : ℝ,
-        (∀ j ≤ J, ∀ y, ‖iteratedDeriv j U y‖ ≤ N) →
-        ∑ r ∈ T, ‖∑ n ∈ C, a r n * U (x n)‖ ^ 2 ≤ M * N ^ 2) →
-      ∀ ρ : ι → ℝ, (∀ r ∈ T, ρ0 ≤ ρ r ∧ ρ r ≤ ρ1) → ∀ s : ℂ, |s.re| ≤ A →
-      ∑ r ∈ T, ‖∑ n ∈ C, a r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s)‖ ^ 2 ≤
-        (∫ t, ‖c t‖) * (Ctf ^ 2 * 64 ^ J * ∫ t, ‖c t‖ * (1 + |t|) ^ (2 * J)) * M *
-          (1 + ‖s‖) ^ (2 * J) := by
-  obtain ⟨Ctf, hCtf0, hCtf⟩ := testFun_bound V hV hVc hVp A J
-  refine ⟨Ctf, hCtf0, fun W0 hW0s c hc => fun T C a x hx M hM hyp ρ hρ s hs => ?_⟩
-  set e : ℝ → ℂ := fun t => ((2 * Real.pi * t : ℝ) : ℂ) * I with he
-  set U : ℝ → ℝ → ℂ := fun t y => V y * (y : ℂ) ^ (s + e t) with hU
-  have hρpos : ∀ r ∈ T, 0 < ρ r := fun r hr => lt_of_lt_of_le hρ0 (hρ r hr).1
-  have hre : ∀ t, (s + e t).re = s.re := fun t => by simp [he]
-  have hpt : ∀ r ∈ T, ∀ n ∈ C, W0 (ρ r * x n) * (x n : ℂ) ^ s =
-      ∫ t, c t * ((ρ r : ℂ) ^ e t * U t (x n)) := by
-    intro r hr n hn
-    have hxn := hx n hn
-    have hρr := hρpos r hr
-    have hVW : W0 (ρ r * x n) * (x n : ℂ) ^ s = V (x n) * (x n : ℂ) ^ s * W0 (ρ r * x n) := by
-      by_cases hW : W0 (ρ r * x n) = 0
-      · rw [hW]; ring
-      · have h1 : α ≤ ρ r * x n := by
-          by_contra h; exact hW (hW0s _ (Or.inl (not_le.1 h)))
-        have h2 : ρ r * x n ≤ β := by
-          by_contra h; exact hW (hW0s _ (Or.inr (not_le.1 h)))
-        have hρ1 : 0 < ρ1 := lt_of_lt_of_le hρr (hρ r hr).2
-        have hV' : V (x n) = 1 := by
-          refine hV1 _ ?_ ?_
-          · rw [div_le_iff₀ hρ1]
-            nlinarith [(hρ r hr).2]
-          · rw [le_div_iff₀ hρ0]
-            nlinarith [(hρ r hr).1]
-        rw [hV']; ring
-    rw [hVW, hc _ (mul_pos hρr hxn), ← integral_const_mul]
-    refine integral_congr_ae (Filter.Eventually.of_forall fun t => ?_)
-    simp only [hU, he]
-    rw [Complex.cpow_add _ _ (by exact_mod_cast hxn.ne'), Complex.ofReal_mul,
-      Complex.mul_cpow_ofReal_nonneg hρr.le hxn.le]
-    ring
-  have hcontU : ∀ n ∈ C, Continuous fun t => U t (x n) := fun n hn =>
-    continuous_const.mul ((continuous_const.add continuous_tI).const_cpow
-      (Or.inl (by exact_mod_cast (hx n hn).ne')))
-  have hcontρ : ∀ r ∈ T, Continuous fun t => (ρ r : ℂ) ^ e t := fun r hr =>
-    continuous_tI.const_cpow (Or.inl (by exact_mod_cast (hρpos r hr).ne'))
-  have hnormρ : ∀ r ∈ T, ∀ t, ‖(ρ r : ℂ) ^ e t‖ = 1 := fun r hr t =>
-    norm_cpow_tI (ρ r) t (hρpos r hr)
-  have hint : ∀ r ∈ T, ∀ n ∈ C,
-      Integrable fun t => a r n * (c t * ((ρ r : ℂ) ^ e t * U t (x n))) := by
-    intro r hr n hn
-    refine (c.integrable.mul_bdd (c := ‖V (x n)‖ * x n ^ s.re)
-      ((hcontρ r hr).mul (hcontU n hn)).aestronglyMeasurable
-      (Filter.Eventually.of_forall fun t => ?_)).const_mul (a r n)
-    simp only [Pi.mul_apply]
-    rw [norm_mul, hnormρ r hr t, one_mul]
-    simp only [hU]
-    rw [norm_mul, Complex.norm_cpow_eq_rpow_re_of_pos (hx n hn), hre t]
-  have hrep : ∀ r ∈ T, ∑ n ∈ C, a r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s) =
-      ∫ t, c t * ((ρ r : ℂ) ^ e t * ∑ n ∈ C, a r n * U t (x n)) := by
-    intro r hr
-    have h1 : ∀ n ∈ C, a r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s) =
-        ∫ t, a r n * (c t * ((ρ r : ℂ) ^ e t * U t (x n))) := by
-      intro n hn; rw [hpt r hr n hn, integral_const_mul]
-    rw [Finset.sum_congr rfl h1, ← integral_finsetSum _ (hint r hr)]
-    refine integral_congr_ae (Filter.Eventually.of_forall fun t => ?_)
-    simp only
-    rw [Finset.mul_sum, Finset.mul_sum]
-    exact Finset.sum_congr rfl fun n _ => by ring
-  set g := fun r (t : ℝ) => (ρ r : ℂ) ^ e t * ∑ n ∈ C, a r n * U t (x n) with hg
-  have hgc : ∀ r ∈ T, Continuous (g r) := fun r hr =>
-    (hcontρ r hr).mul (continuous_finsetSum _ fun n hn => continuous_const.mul (hcontU n hn))
-  have hb : ∀ t, ∑ r ∈ T, ‖g r t‖ ^ 2 ≤
-      (M * (Ctf ^ 2 * 64 ^ J * (1 + ‖s‖) ^ (2 * J))) * (1 + |t|) ^ (2 * J) := by
-    intro t
-    have hgr : ∀ r ∈ T, ‖g r t‖ ^ 2 = ‖∑ n ∈ C, a r n * U t (x n)‖ ^ 2 := fun r hr => by
-      simp only [hg]; rw [norm_mul, hnormρ r hr t, one_mul]
-    rw [Finset.sum_congr rfl hgr]
-    have hN := hyp (U t) (testFun_contDiff V hV hVp (s + e t)) tsupport_mul_subset_left
-      (Ctf * (1 + ‖s + e t‖) ^ J) (fun j hj y => hCtf (s + e t) (by rw [hre t]; exact hs) j hj y)
-    refine hN.trans ?_
-    have h8 : 1 + ‖s + e t‖ ≤ 8 * ((1 + ‖s‖) * (1 + |t|)) := by
-      have := norm_add_le s (e t)
-      have := norm_tI_le t
-      nlinarith [norm_nonneg s, abs_nonneg t, mul_nonneg (norm_nonneg s) (abs_nonneg t)]
-    have h8' : (1 + ‖s + e t‖) ^ (2 * J) ≤
-        64 ^ J * (1 + ‖s‖) ^ (2 * J) * (1 + |t|) ^ (2 * J) := by
-      calc (1 + ‖s + e t‖) ^ (2 * J) ≤ (8 * ((1 + ‖s‖) * (1 + |t|))) ^ (2 * J) :=
-            pow_le_pow_left₀ (by positivity) h8 _
-        _ = 64 ^ J * (1 + ‖s‖) ^ (2 * J) * (1 + |t|) ^ (2 * J) := by
-            rw [mul_pow, mul_pow, pow_mul, show (8 : ℝ) ^ 2 = 64 by norm_num]; ring
-    calc M * (Ctf * (1 + ‖s + e t‖) ^ J) ^ 2 = M * Ctf ^ 2 * (1 + ‖s + e t‖) ^ (2 * J) := by
-          rw [mul_pow, ← pow_mul, mul_comm J 2]; ring
-      _ ≤ M * Ctf ^ 2 * (64 ^ J * (1 + ‖s‖) ^ (2 * J) * (1 + |t|) ^ (2 * J)) := by gcongr
-      _ = _ := by ring
-  have key := sum_norm_integral_sq_le T c g hgc hb
-  rw [Finset.sum_congr rfl fun r hr => by rw [hrep r hr]]
-  refine key.trans (le_of_eq ?_)
-  ring
-
 /-- **Mean square of dilated weights, uniformly in the weight**: the constant of round 302's
 `dilated_meanSquare` is `K·N_W²` for a bound `N_W` on the first `2J+2` derivatives of `W₀`, with `K`
 depending only on `[α, β]`, `V`, `[ρ₀, ρ₁]`, `A` and `J`. -/
@@ -417,179 +308,6 @@ theorem dilated_meanSquare_unif {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β)
         (1 + ‖s‖) ^ (2 * J)
       ≤ (c0 * NW) * (Ctf ^ 2 * 64 ^ J * (c1 * NW)) * M * (1 + ‖s‖) ^ (2 * J) := by gcongr
     _ = c0 * (Ctf ^ 2 * 64 ^ J * c1) * NW ^ 2 * M * (1 + ‖s‖) ^ (2 * J) := by ring
-
-/-- **The bilinear form with the dual kernel, from the dilated mean squares**: round 306's
-`bilinear_dual_bound₂` with the two dilated mean-square bounds on the line `Re s = σ` as hypotheses,
-`Σ_r |Σ_n a_r(n)·W₀(ρ_r x_n)·x_n^s|² ≤ K_d(1+|s|)^{2J}` and the same for `b`. The constant `K_g` depends only
-on `G`, `σ` and `J`. -/
-theorem bilinear_dual_bound_of_dilated (J : ℕ) (G : ℝ → ℂ) (hG : ContDiff ℝ ∞ G)
-    (hGb : ∀ n : ℕ, ∃ C, ∀ ρ, ‖iteratedFDeriv ℝ n G ρ‖ ≤ C)
-    {R : ℝ} (hR : ∀ ρ, R ≤ ρ → G ρ = 0) {σ : ℝ} (hσ : 0 < σ) :
-    ∃ Kg : ℝ, 0 ≤ Kg ∧ ∀ (W0 : ℝ → ℂ) {ι κ : Type} (T : Finset ι) (C : Finset κ)
-      (a b : ι → κ → ℂ) (x : κ → ℝ), (∀ n ∈ C, 0 < x n) → ∀ (ρ : ι → ℝ) (Kd : ℝ),
-      (∀ s : ℂ, s.re = σ →
-        ∑ r ∈ T, ‖∑ n ∈ C, a r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s)‖ ^ 2 ≤
-          Kd * (1 + ‖s‖) ^ (2 * J)) →
-      (∀ s : ℂ, s.re = σ →
-        ∑ r ∈ T, ‖∑ n ∈ C, b r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s)‖ ^ 2 ≤
-          Kd * (1 + ‖s‖) ^ (2 * J)) →
-      ∀ w : ι → ℂ, (∀ r ∈ T, ‖w r‖ ≤ 1) → ∀ (Ar : ι → ℝ) (Amin : ℝ), 0 < Amin →
-      (∀ r ∈ T, Amin ≤ Ar r) →
-      ‖∑ r ∈ T, w r * ∑ n1 ∈ C, ∑ n2 ∈ C, a r n1 * conj (b r n2) *
-          (W0 (ρ r * x n1) * conj (W0 (ρ r * x n2)) *
-            G (Real.sqrt (Ar r / (x n1 * x n2))))‖ ≤ Kg * Kd * Amin ^ (-σ) := by
-  obtain ⟨h, hh⟩ := mellin_of_dual G hG hGb hR hσ
-  refine ⟨64 ^ J * (1 + σ) ^ (2 * J) * ∫ t, ‖h t‖ * (1 + |t|) ^ (2 * J),
-    by positivity, ?_⟩
-  intro W0 ι κ T C a b x hx ρ Kd hPa hQb w hw Ar Amin hAmin hAr
-  set e : ℝ → ℂ := fun t => ((2 * Real.pi * t : ℝ) : ℂ) * I with he
-  set z : ℝ → ℂ := fun t => (-σ : ℂ) + e t with hz
-  set s1 : ℝ → ℂ := fun t => (σ : ℂ) - e t with hs1
-  set s2 : ℝ → ℂ := fun t => (σ : ℂ) + e t with hs2
-  have hzs : ∀ t, -z t = s1 t := fun t => by simp only [hz, hs1]; ring
-  have hconj : ∀ t, conj (s2 t) = s1 t := fun t => by
-    simp only [hs1, hs2, he, map_add, map_mul, Complex.conj_ofReal, Complex.conj_I]; ring
-  have hre1 : ∀ t, (s1 t).re = σ := fun t => by simp [hs1, he]
-  have hre2 : ∀ t, (s2 t).re = σ := fun t => by simp [hs2, he]
-  have hrez : ∀ t, (z t).re = -σ := fun t => by simp [hz, he]
-  have hArpos : ∀ r ∈ T, 0 < Ar r := fun r hr => lt_of_lt_of_le hAmin (hAr r hr)
-  -- the two separated column sums
-  set p : ι → κ → ℝ → ℂ := fun r n t => a r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s1 t) with hp
-  set q : ι → κ → ℝ → ℂ := fun r n t => b r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s2 t) with hq
-  set F : ι → κ → κ → ℝ → ℂ := fun r n1 n2 t =>
-    w r * (h t * ((Ar r : ℂ) ^ z t * (p r n1 t * conj (q r n2 t)))) with hF
-  have hcont_e : Continuous e := continuous_tI
-  have hcpow : ∀ (y : ℝ), 0 < y → ∀ (f : ℝ → ℂ), Continuous f →
-      Continuous fun t => (y : ℂ) ^ f t := fun y hy f hf =>
-    hf.const_cpow (Or.inl (by exact_mod_cast hy.ne'))
-  -- integrability of each term
-  have hFint : ∀ r ∈ T, ∀ n1 ∈ C, ∀ n2 ∈ C, Integrable (F r n1 n2) := by
-    intro r hr n1 hn1 n2 hn2
-    have hb : ∀ t, ‖(Ar r : ℂ) ^ z t * (p r n1 t * conj (q r n2 t))‖ ≤
-        Ar r ^ (-σ) * ((‖a r n1‖ * (‖W0 (ρ r * x n1)‖ * x n1 ^ σ)) *
-          (‖b r n2‖ * (‖W0 (ρ r * x n2)‖ * x n2 ^ σ))) := by
-      intro t
-      simp only [hp, hq]
-      rw [norm_mul, norm_mul, RCLike.norm_conj, norm_mul, norm_mul, norm_mul, norm_mul,
-        Complex.norm_cpow_eq_rpow_re_of_pos (hArpos r hr), hrez,
-        Complex.norm_cpow_eq_rpow_re_of_pos (hx n1 hn1), hre1,
-        Complex.norm_cpow_eq_rpow_re_of_pos (hx n2 hn2), hre2]
-    have hc : Continuous fun t => (Ar r : ℂ) ^ z t * (p r n1 t * conj (q r n2 t)) := by
-      simp only [hp, hq, hz, hs1, hs2]
-      refine (hcpow _ (hArpos r hr) _ (continuous_const.add hcont_e)).mul
-        ((continuous_const.mul (continuous_const.mul
-          (hcpow _ (hx n1 hn1) _ (continuous_const.sub hcont_e)))).mul
-          (Complex.continuous_conj.comp (continuous_const.mul (continuous_const.mul
-            (hcpow _ (hx n2 hn2) _ (continuous_const.add hcont_e))))))
-    exact (h.integrable.mul_bdd hc.aestronglyMeasurable
-      (Filter.Eventually.of_forall hb)).const_mul (w r)
-  -- the pointwise Mellin representation of each summand
-  have hterm : ∀ r ∈ T, ∀ n1 ∈ C, ∀ n2 ∈ C,
-      w r * (a r n1 * conj (b r n2) * (W0 (ρ r * x n1) * conj (W0 (ρ r * x n2)) *
-        G (Real.sqrt (Ar r / (x n1 * x n2))))) = ∫ t, F r n1 n2 t := by
-    intro r hr n1 hn1 n2 hn2
-    have hy : 0 < Ar r / (x n1 * x n2) := div_pos (hArpos r hr) (mul_pos (hx n1 hn1) (hx n2 hn2))
-    rw [hh _ hy, ← integral_const_mul, ← integral_const_mul, ← integral_const_mul]
-    refine integral_congr_ae (Filter.Eventually.of_forall fun t => ?_)
-    simp only [hF, hp, hq]
-    rw [cpow_div_mul _ _ _ (hArpos r hr) (hx n1 hn1) (hx n2 hn2), hzs, map_mul, map_mul,
-      conj_ofReal_cpow (hx n2 hn2), hconj]
-    ring
-  -- exchange the finite sums with the integral
-  have hsum : ∑ r ∈ T, w r * ∑ n1 ∈ C, ∑ n2 ∈ C, a r n1 * conj (b r n2) *
-        (W0 (ρ r * x n1) * conj (W0 (ρ r * x n2)) * G (Real.sqrt (Ar r / (x n1 * x n2)))) =
-      ∫ t, ∑ r ∈ T, ∑ n1 ∈ C, ∑ n2 ∈ C, F r n1 n2 t := by
-    have hI2 : ∀ r ∈ T, ∀ n1 ∈ C, Integrable fun t => ∑ n2 ∈ C, F r n1 n2 t :=
-      fun r hr n1 hn1 => integrable_finsetSum _ fun n2 hn2 => hFint r hr n1 hn1 n2 hn2
-    have hI1 : ∀ r ∈ T, Integrable fun t => ∑ n1 ∈ C, ∑ n2 ∈ C, F r n1 n2 t :=
-      fun r hr => integrable_finsetSum _ fun n1 hn1 => hI2 r hr n1 hn1
-    rw [integral_finsetSum _ hI1]
-    refine Finset.sum_congr rfl fun r hr => ?_
-    rw [integral_finsetSum _ (hI2 r hr), Finset.mul_sum]
-    refine Finset.sum_congr rfl fun n1 hn1 => ?_
-    rw [integral_finsetSum _ fun n2 hn2 => hFint r hr n1 hn1 n2 hn2, Finset.mul_sum]
-    exact Finset.sum_congr rfl fun n2 hn2 => hterm r hr n1 hn1 n2 hn2
-  -- the pointwise bound
-  set Bd : ℝ → ℝ := fun t => Amin ^ (-σ) * (Kd * 64 ^ J * (1 + σ) ^ (2 * J)) *
-    (‖h t‖ * (1 + |t|) ^ (2 * J)) with hBd
-  have hBdint : Integrable Bd :=
-    (integrable_norm_mul_one_add_pow h (2 * J)).const_mul _
-  have hpt : ∀ t, ‖∑ r ∈ T, ∑ n1 ∈ C, ∑ n2 ∈ C, F r n1 n2 t‖ ≤ Bd t := by
-    intro t
-    have hfac : ∀ r ∈ T, ∑ n1 ∈ C, ∑ n2 ∈ C, F r n1 n2 t =
-        w r * (h t * ((Ar r : ℂ) ^ z t *
-          ((∑ n ∈ C, p r n t) * conj (∑ n ∈ C, q r n t)))) := by
-      intro r hr
-      rw [map_sum, Finset.sum_mul_sum, Finset.mul_sum, Finset.mul_sum, Finset.mul_sum]
-      refine Finset.sum_congr rfl fun n1 _ => ?_
-      rw [Finset.mul_sum, Finset.mul_sum, Finset.mul_sum]
-    rw [Finset.sum_congr rfl hfac]
-    -- norms
-    have hs1n : ‖s1 t‖ ≤ σ + 8 * |t| := by
-      calc ‖s1 t‖ ≤ ‖(σ : ℂ)‖ + ‖e t‖ := norm_sub_le _ _
-        _ ≤ σ + 8 * |t| := by
-          rw [Complex.norm_real, Real.norm_eq_abs, abs_of_pos hσ]
-          linarith [norm_tI_le t]
-    have hs2n : ‖s2 t‖ = ‖s1 t‖ := by rw [← hconj t, RCLike.norm_conj]
-    have hpoly : (1 + ‖s1 t‖) ^ (2 * J) ≤ 64 ^ J * (1 + σ) ^ (2 * J) * (1 + |t|) ^ (2 * J) := by
-      have h8 : 1 + ‖s1 t‖ ≤ 8 * ((1 + σ) * (1 + |t|)) := by
-        nlinarith [abs_nonneg t, mul_nonneg hσ.le (abs_nonneg t)]
-      calc (1 + ‖s1 t‖) ^ (2 * J) ≤ (8 * ((1 + σ) * (1 + |t|))) ^ (2 * J) :=
-            pow_le_pow_left₀ (by positivity) h8 _
-        _ = 64 ^ J * (1 + σ) ^ (2 * J) * (1 + |t|) ^ (2 * J) := by
-            rw [mul_pow, mul_pow, pow_mul, show (8 : ℝ) ^ 2 = 64 by norm_num]; ring
-    have hP := hPa (s1 t) (hre1 t)
-    have hQ := hQb (s2 t) (hre2 t)
-    rw [hs2n] at hQ
-    have hPQ : ∑ r ∈ T, ‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖ ≤
-        Kd * (1 + ‖s1 t‖) ^ (2 * J) := by
-      have hamgm : ∀ r ∈ T, ‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖ ≤
-          (‖∑ n ∈ C, p r n t‖ ^ 2 + ‖∑ n ∈ C, q r n t‖ ^ 2) / 2 := fun r _ => by
-        nlinarith [sq_nonneg (‖∑ n ∈ C, p r n t‖ - ‖∑ n ∈ C, q r n t‖)]
-      refine (Finset.sum_le_sum hamgm).trans ?_
-      rw [← Finset.sum_div, Finset.sum_add_distrib]
-      simp only [hp, hq]
-      linarith
-    have hAr' : ∀ r ∈ T, ‖(Ar r : ℂ) ^ z t‖ ≤ Amin ^ (-σ) := fun r hr => by
-      rw [Complex.norm_cpow_eq_rpow_re_of_pos (hArpos r hr), hrez]
-      exact Real.rpow_le_rpow_of_nonpos hAmin (hAr r hr) (by linarith)
-    calc ‖∑ r ∈ T, w r * (h t * ((Ar r : ℂ) ^ z t *
-            ((∑ n ∈ C, p r n t) * conj (∑ n ∈ C, q r n t))))‖
-        ≤ ∑ r ∈ T, ‖w r * (h t * ((Ar r : ℂ) ^ z t *
-            ((∑ n ∈ C, p r n t) * conj (∑ n ∈ C, q r n t))))‖ := norm_sum_le _ _
-      _ ≤ ∑ r ∈ T, ‖h t‖ * (Amin ^ (-σ) *
-            (‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖)) := by
-          refine Finset.sum_le_sum fun r hr => ?_
-          rw [norm_mul, norm_mul, norm_mul, norm_mul, RCLike.norm_conj]
-          calc ‖w r‖ * (‖h t‖ * (‖(Ar r : ℂ) ^ z t‖ *
-                (‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖)))
-              ≤ 1 * (‖h t‖ * (Amin ^ (-σ) *
-                (‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖))) := by
-                gcongr
-                · exact hw r hr
-                · exact hAr' r hr
-            _ = _ := one_mul _
-      _ = ‖h t‖ * Amin ^ (-σ) * ∑ r ∈ T, ‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖ := by
-          rw [Finset.mul_sum]; refine Finset.sum_congr rfl fun r _ => by ring
-      _ ≤ ‖h t‖ * Amin ^ (-σ) * (Kd * (64 ^ J * (1 + σ) ^ (2 * J) * (1 + |t|) ^ (2 * J))) := by
-          gcongr
-          calc ∑ r ∈ T, ‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖
-              ≤ Kd * (1 + ‖s1 t‖) ^ (2 * J) := hPQ
-            _ ≤ _ := by
-              have hKd0 : 0 ≤ Kd := by
-                have := hPa (s1 t) (hre1 t)
-                have hpos : 0 < (1 + ‖s1 t‖) ^ (2 * J) := by positivity
-                have h0 : 0 ≤ Kd * (1 + ‖s1 t‖) ^ (2 * J) :=
-                  le_trans (Finset.sum_nonneg fun r _ => by positivity) this
-                exact nonneg_of_mul_nonneg_left h0 hpos
-              gcongr
-      _ = Bd t := by simp only [hBd]; ring
-  rw [hsum]
-  refine (norm_integral_le_of_norm_le hBdint (Filter.Eventually.of_forall hpt)).trans
-    (le_of_eq ?_)
-  simp only [hBd]
-  rw [integral_const_mul]
-  ring
 
 /-- **The bilinear form with the dual kernel, uniformly in the weight**: round 306's
 `bilinear_dual_bound₂` with constant `K·N_W²`, for a bound `N_W` on the first `2J+2` derivatives of
@@ -710,9 +428,7 @@ end
 #print axioms MellinSep.integral_norm_mul_le_pi
 #print axioms MellinSep.coeffConst_nonneg
 #print axioms MellinSep.integral_fourier_expSchwartz_le
-#print axioms MellinSep.dilated_meanSquare_of_coeff
 #print axioms MellinSep.dilated_meanSquare_unif
-#print axioms MellinSep.bilinear_dual_bound_of_dilated
 #print axioms MellinSep.bilinear_dual_bound_unif
 #print axioms MellinSep.iteratedDeriv_mul_fixed_le
 #print axioms MellinSep.W0c_eq_zero

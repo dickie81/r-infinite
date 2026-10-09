@@ -246,7 +246,8 @@ theorem rcDual_eq_zero_of_large_bTV {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β
 
 /-- **The rows beyond the paper's `Y_{C,d}` vanish** (the companion paper's "its nonzero image
 satisfies `N(y)≤4C_Φv^2L^2F^2N(d)/(𝓗N(C)^2)≤Y_{C,d}`"): with `3β²R² ≤ c_I`, `LF ≤ S`, `Φ̂` vanishing beyond `R`, and
-`Y_{C,d} < 4F²·N(μ)`, every term with columns prime to `V` vanishes. -/
+`Y_{C,d} < 4F²·N(μ)`, every term with columns prime to `V` vanishes (`dualW_eq_zero_of_le` at
+`c = βL`). -/
 theorem rcDual_eq_zero_of_large_mu {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {L H S F cI : ℝ}
     (hL : 0 < L) (hH : 0 < H) (hF : 0 < F) (hS : L * F ≤ S) {R : ℝ} (hR0 : 0 < R)
     (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0) (hcI : 3 * β ^ 2 * R ^ 2 ≤ cI) (f : 𝓞 K)
@@ -258,23 +259,14 @@ theorem rcDual_eq_zero_of_large_mu {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β 
   · exact rcDual_eq_zero_of_W1 W L H f ξ1 ξ2 b T V μ M1 M2 h1
   by_cases h2 : MellinSep.W0c W (nI b * nI T * nI V * nI M2 / L) = 0
   · exact rcDual_eq_zero_of_W2 W L H f ξ1 ξ2 b T V μ M1 M2 h2
-  have hx1 : nI b * nI T * nI V * nI M1 / L ≤ β := by
-    by_contra hc; exact h1 (W0c_eq_zero_of_gt hW (not_le.1 hc))
-  have hx2 : nI b * nI T * nI V * nI M2 / L ≤ β := by
-    by_contra hc; exact h2 (W0c_eq_zero_of_gt hW (not_le.1 hc))
-  refine rcDual_eq_zero_of_dualW W L H f ξ1 ξ2 b T V μ M1 M2 ?_
-  unfold dualW
-  refine hR _ ?_
+  refine rcDual_eq_zero_of_dualW W L H f ξ1 ξ2 b T V μ M1 M2
+    (dualW_eq_zero_of_le hR0 hR b T V M1 M2 μ hV1 hV2 (c := β * L) ?_ ?_ ?_)
+  · by_contra hc; exact h1 (W0c_eq_zero_of_gt hW (by rw [lt_div_iff₀ hL]; linarith))
+  · by_contra hc; exact h2 (W0c_eq_zero_of_gt hW (by rw [lt_div_iff₀ hL]; linarith))
   have hb := nI_pos b
   have hT := nI_pos T
-  have hV := nI_pos V
-  have hm1 := nI_pos M1
-  have hm2 := nI_pos M2
   set Nμ := (absNorm (span {μ}) : ℝ) with hNμ
   have hNμ0 : 0 ≤ Nμ := Nat.cast_nonneg _
-  rw [Real.le_sqrt' hR0, nI_union hV1, nI_union hV2, le_div_iff₀ (by positivity)]
-  have e1 : nI b * nI T * nI V * nI M1 ≤ β * L := by rwa [div_le_iff₀ hL] at hx1
-  have e2 : nI b * nI T * nI V * nI M2 ≤ β * L := by rwa [div_le_iff₀ hL] at hx2
   have ey : cI * S * L * F < Nμ * (4 * F ^ 2) * (H * nI b ^ 2 * nI T) := by
     unfold Ycd at hy; rwa [div_lt_iff₀ (by positivity)] at hy
   have hcI0 : 0 ≤ cI := le_trans (by positivity) hcI
@@ -284,19 +276,7 @@ theorem rcDual_eq_zero_of_large_mu {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β 
   have ek : cI * L ^ 2 < 4 * Nμ * H * nI b ^ 2 * nI T := by
     have h4 : cI * L ^ 2 * F ^ 2 < 4 * Nμ * H * nI b ^ 2 * nI T * F ^ 2 := by nlinarith
     exact lt_of_mul_lt_mul_right h4 (sq_nonneg F)
-  have e3 : (nI b * nI T * nI V * nI M1) * (nI b * nI T * nI V * nI M2) ≤ (β * L) * (β * L) :=
-    mul_le_mul e1 e2 (by positivity) (le_trans (by positivity) e1)
-  have key : R ^ 2 * (3 * (nI V * nI M1 * (nI V * nI M2)) * nI T) * (nI b ^ 2 * nI T) ≤
-      4 * H * Nμ * (nI b ^ 2 * nI T) := by
-    calc R ^ 2 * (3 * (nI V * nI M1 * (nI V * nI M2)) * nI T) * (nI b ^ 2 * nI T)
-        = 3 * R ^ 2 * ((nI b * nI T * nI V * nI M1) * (nI b * nI T * nI V * nI M2)) := by ring
-      _ ≤ 3 * R ^ 2 * ((β * L) * (β * L)) :=
-          mul_le_mul_of_nonneg_left e3 (by positivity)
-      _ = 3 * β ^ 2 * R ^ 2 * L ^ 2 := by ring
-      _ ≤ cI * L ^ 2 := mul_le_mul_of_nonneg_right hcI (sq_nonneg L)
-      _ ≤ 4 * Nμ * H * nI b ^ 2 * nI T := ek.le
-      _ = 4 * H * Nμ * (nI b ^ 2 * nI T) := by ring
-  exact le_of_mul_le_mul_right key (by positivity)
+  nlinarith [sq_nonneg L]
 
 /-- `N(μ·pgen(f)²) = N(μ)·N(f)²` for `f` of norm prime to `6`. -/
 theorem absNorm_mul_pgen_sq {f : Ideal (𝓞 K)} (h6 : (absNorm f).Coprime 6) (μ : 𝓞 K) :
@@ -750,37 +730,6 @@ theorem ARowD_ge {H L : ℝ} (hH : 0 ≤ H) (hL : 0 < L) {r : RowD} (hμ : r.2.2
         mul_le_mul_of_nonneg_left h1 h4
     _ = _ := by ring
 
-/-- **A bump** equal to `1` on `[α, β]` with topological support in `[α/2, 2β]`, for `0 < α ≤ β`
-(round 310's `exists_bump` with the paper's `I_* = [u/2, 2v]`). -/
-theorem exists_bump_one {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) :
-    ∃ V : ℝ → ℂ, ContDiff ℝ ∞ V ∧ HasCompactSupport V ∧ tsupport V ⊆ Set.Ioi 0 ∧
-      tsupport V ⊆ Set.Icc (α / 2) (2 * β) ∧ ∀ y, α ≤ y → y ≤ β → V y = 1 := by
-  let f : ContDiffBump ((α + β) / 2) :=
-    ⟨(β - α) / 2 + α / 8, (β - α) / 2 + α / 4, by linarith, by linarith⟩
-  refine ⟨fun x => ((f x : ℝ) : ℂ), ofRealCLM.contDiff.comp f.contDiff, ?_, ?_, ?_, ?_⟩
-  · exact f.hasCompactSupport.comp_left Complex.ofReal_zero
-  · intro x hx
-    have hx' : x ∈ tsupport f := tsupport_comp_subset Complex.ofReal_zero _ hx
-    rw [f.tsupport_eq, Metric.mem_closedBall, Real.dist_eq] at hx'
-    have := neg_abs_le (x - (α + β) / 2)
-    show 0 < x
-    change |x - (α + β) / 2| ≤ (β - α) / 2 + α / 4 at hx'
-    linarith
-  · intro x hx
-    have hx' : x ∈ tsupport f := tsupport_comp_subset Complex.ofReal_zero _ hx
-    rw [f.tsupport_eq, Metric.mem_closedBall, Real.dist_eq] at hx'
-    change |x - (α + β) / 2| ≤ (β - α) / 2 + α / 4 at hx'
-    have h1 := neg_abs_le (x - (α + β) / 2)
-    have h2 := le_abs_self (x - (α + β) / 2)
-    exact ⟨by linarith, by linarith⟩
-  · intro y hy1 hy2
-    have : f y = 1 := f.one_of_mem_closedBall (by
-      rw [Metric.mem_closedBall, Real.dist_eq]
-      change |y - (α + β) / 2| ≤ (β - α) / 2 + α / 8
-      rw [abs_le]
-      constructor <;> linarith)
-    simp [this]
-
 open Classical in
 /-- **The bound for one pair of characters** (the companion paper's application of its Lemma B.2 in
 the proof of Lemma 7.1, through round 317's `bilinear_dual_bound_unif` with the enlarged columns of
@@ -886,34 +835,14 @@ theorem zero_rowD_le {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 
     · rfl
     · have : W (nI A / L) = 0 := hW _ (by rw [lt_div_iff₀ hL0]; linarith [not_le.1 h])
       simp [hg, this]
-  have hterm : ∀ A, ‖g A‖ ≤ N ^ 2 * (2 * H / Real.sqrt 3 * ‖dualG 0‖) := by
+  have hw : ∀ A, ‖(chiS A f ^ 4 * conj (chiS A f ^ 4)) * (W (nI A / L) * conj (W (nI A / L)))‖ ≤
+      N ^ 2 := by
     intro A
-    simp only [hg]
-    rw [← Finset.sum_mul, sum_kap_empty]
-    obtain ⟨h0, h1⟩ := prod_one_sub_inv_mem A
-    have hc1 : ‖chiS A f ^ 4 * conj (chiS A f ^ 4)‖ ≤ 1 := by
-      rw [norm_mul, RCLike.norm_conj, norm_pow]
-      have := norm_chiS_le A f
-      have h4 : ‖chiS A f‖ ^ 4 ≤ 1 := pow_le_one₀ (norm_nonneg _) this
-      calc ‖chiS A f‖ ^ 4 * ‖chiS A f‖ ^ 4 ≤ 1 * 1 := mul_le_mul h4 h4 (by positivity) zero_le_one
-        _ = 1 := one_mul 1
-    have hc2 : ‖W (nI A / L) * conj (W (nI A / L))‖ ≤ N ^ 2 := by
-      rw [norm_mul, RCLike.norm_conj, sq]
-      exact mul_le_mul (hN _) (hN _) (norm_nonneg _) hN0
-    have hc3 : ‖((2 * H / Real.sqrt 3 * ∏ P ∈ A, (1 - 1 / (absNorm P.1 : ℝ)) : ℝ) : ℂ)‖ ≤
-        2 * H / Real.sqrt 3 := by
-      rw [Complex.norm_real, Real.norm_of_nonneg (by positivity)]
-      calc 2 * H / Real.sqrt 3 * ∏ P ∈ A, (1 - 1 / (absNorm P.1 : ℝ)) ≤
-            2 * H / Real.sqrt 3 * 1 := mul_le_mul_of_nonneg_left h1 (by positivity)
-        _ = _ := mul_one _
-    have hc4 : ‖((2 * H / Real.sqrt 3 * ∏ P ∈ A, (1 - 1 / (absNorm P.1 : ℝ)) : ℝ) : ℂ) * dualG 0‖ ≤
-        2 * H / Real.sqrt 3 * ‖dualG 0‖ := by
-      rw [norm_mul]; exact mul_le_mul_of_nonneg_right hc3 (norm_nonneg _)
-    calc _ ≤ ‖chiS A f ^ 4 * conj (chiS A f ^ 4)‖ * ‖W (nI A / L) * conj (W (nI A / L))‖ *
-          ‖((2 * H / Real.sqrt 3 * ∏ P ∈ A, (1 - 1 / (absNorm P.1 : ℝ)) : ℝ) : ℂ) * dualG 0‖ :=
-          (norm_mul_le _ _).trans (mul_le_mul_of_nonneg_right (norm_mul_le _ _) (norm_nonneg _))
-      _ ≤ 1 * N ^ 2 * (2 * H / Real.sqrt 3 * ‖dualG 0‖) := by gcongr
-      _ = N ^ 2 * (2 * H / Real.sqrt 3 * ‖dualG 0‖) := by ring
+    have h4 : ‖chiS A f‖ ^ 4 ≤ 1 := pow_le_one₀ (norm_nonneg _) (norm_chiS_le A f)
+    rw [norm_mul, norm_mul, norm_mul, RCLike.norm_conj, RCLike.norm_conj, norm_pow, sq]
+    calc ‖chiS A f‖ ^ 4 * ‖chiS A f‖ ^ 4 * (‖W (nI A / L)‖ * ‖W (nI A / L)‖) ≤
+          1 * 1 * (N * N) := by gcongr <;> first | exact h4 | exact hN _
+      _ = N * N := by ring
   have hcard : ((U0.powerset.filter (fun A => nI A ≤ β * L)).card : ℝ) ≤
       (2 * kappa + 5) * (max β 1 * L) := by
     have hsub : U0.powerset.filter (fun A => nI A ≤ β * L) ⊆ fsLe (max β 1 * L) := fun A hA =>
@@ -925,12 +854,10 @@ theorem zero_rowD_le {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 
           card_fsLe_le (one_le_mul_of_one_le_of_one_le (le_max_right β 1) hL)
   rw [hfilt]
   calc ‖∑ A ∈ U0.powerset.filter (fun A => nI A ≤ β * L), g A‖
-      ≤ ∑ A ∈ U0.powerset.filter (fun A => nI A ≤ β * L), ‖g A‖ := norm_sum_le _ _
-    _ ≤ ∑ _A ∈ U0.powerset.filter (fun A => nI A ≤ β * L),
-          N ^ 2 * (2 * H / Real.sqrt 3 * ‖dualG 0‖) := Finset.sum_le_sum fun A _ => hterm A
-    _ = ((U0.powerset.filter (fun A => nI A ≤ β * L)).card : ℝ) *
-          (N ^ 2 * (2 * H / Real.sqrt 3 * ‖dualG 0‖)) := by
-        rw [Finset.sum_const, nsmul_eq_mul]
+      ≤ ((U0.powerset.filter (fun A => nI A ≤ β * L)).card : ℝ) *
+          (N ^ 2 * (2 * H / Real.sqrt 3 * ‖dualG 0‖)) :=
+        norm_zeroSum_le hH _ (fun A => (chiS A f ^ 4 * conj (chiS A f ^ 4)) *
+          (W (nI A / L) * conj (W (nI A / L)))) fun A _ => hw A
     _ ≤ _ := mul_le_mul_of_nonneg_right hcard (by positivity)
 
 /-! ### The rows of all the `f` -/
@@ -1205,7 +1132,6 @@ end
 #print axioms Eis.rows_meanSquareD
 #print axioms Eis.mem_rowsD
 #print axioms Eis.ARowD_ge
-#print axioms Eis.exists_bump_one
 #print axioms Eis.blockD_bound
 #print axioms Eis.RΦ_pos
 #print axioms Eis.dualG_eq_zero_of_ge

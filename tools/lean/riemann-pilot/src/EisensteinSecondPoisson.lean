@@ -278,7 +278,7 @@ theorem term_factorQ (U : ℝ → ℂ) {ℓ H : ℝ} (hℓ : 0 < ℓ) (c : 𝓞 
     _ = _ := by rw [hUK, hcf]; simp only [map_mul]; ring
 
 /-- **The chain for one pair of characters, second direction** (round 308's `xi_chain` with the
-weight `wQ`). -/
+weight `wQ`): `sum_pair_chain` with the factorization `term_factorQ`. -/
 theorem xi_chainQ (U : ℝ → ℂ) {ℓ H : ℝ} (hℓ : 0 < ℓ) (c : 𝓞 K) (E : Finset (𝓞 K))
     (ξa ξb : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U0 : Finset Pr) (𝒜 : Finset (Finset Pr))
     (h𝒜 : ∀ A ∈ 𝒜, A ⊆ U0) (hvan : ∀ A ⊆ U0, A ∉ 𝒜 → U (nI A / ℓ) = 0) :
@@ -291,38 +291,10 @@ theorem xi_chainQ (U : ℝ → ℂ) {ℓ H : ℝ} (hℓ : 0 < ℓ) (c : 𝓞 K) 
     rcases h with h | h
     · unfold wQ; rw [hvan A1 h1 h]; simp
     · unfold wQ; rw [hvan A2 h2 h]; simp)]
-  rw [sum_pair_T_split U0 (wQ U ℓ c) (tauXi H E ξa ξb)]
-  refine Finset.sum_congr rfl fun b hb => Finset.sum_congr rfl fun T hT => ?_
-  rw [sum_disjoint_mobius (U0 \ (b ∪ T)) (fun C1 C2 =>
-    wQ U ℓ c ((b ∪ T) ∪ C1) ((b ∪ T) ∪ C2) * tauXi H E ξa ξb C1 C2 T)]
-  refine Finset.sum_congr rfl fun V hV => ?_
-  have hbT : Disjoint b T := disjoint_of_mem_powerset_sdiff hT
-  have hVbT : Disjoint (b ∪ T) V := disjoint_of_mem_powerset_sdiff hV
-  rw [Finset.disjoint_union_left] at hVbT
-  have e : ∀ M1 ∈ ((U0 \ (b ∪ T)) \ V).powerset, ∀ M2 ∈ ((U0 \ (b ∪ T)) \ V).powerset,
-      (-1 : ℂ) ^ V.card * (wQ U ℓ c ((b ∪ T) ∪ (V ∪ M1)) ((b ∪ T) ∪ (V ∪ M2)) *
-        tauXi H E ξa ξb (V ∪ M1) (V ∪ M2) T) =
-      ∑ μ ∈ E, rcQ U ℓ H c ξa ξb b T V μ M1 M2 := by
-    intro M1 hM1 M2 hM2
-    have hV1 : Disjoint V M1 := disjoint_of_mem_powerset_sdiff hM1
-    have hV2 : Disjoint V M2 := disjoint_of_mem_powerset_sdiff hM2
-    have hM1' : M1 ⊆ U0 \ (b ∪ T) := (Finset.mem_powerset.1 hM1).trans Finset.sdiff_subset
-    have hM2' : M2 ⊆ U0 \ (b ∪ T) := (Finset.mem_powerset.1 hM2).trans Finset.sdiff_subset
-    have hbT1 : Disjoint (b ∪ T) M1 := ((Finset.subset_sdiff.1 hM1').2).symm
-    have hbT2 : Disjoint (b ∪ T) M2 := ((Finset.subset_sdiff.1 hM2').2).symm
-    rw [Finset.disjoint_union_left] at hbT1 hbT2
-    exact term_factorQ U hℓ c ξa ξb E hbT hVbT.1 hbT1.1 hbT2.1 hVbT.2 hbT1.2 hbT2.2 hV1 hV2
-  rw [Finset.mul_sum]
-  calc ∑ M1 ∈ ((U0 \ (b ∪ T)) \ V).powerset, (-1 : ℂ) ^ V.card *
-        ∑ M2 ∈ ((U0 \ (b ∪ T)) \ V).powerset, wQ U ℓ c ((b ∪ T) ∪ (V ∪ M1)) ((b ∪ T) ∪ (V ∪ M2)) *
-          tauXi H E ξa ξb (V ∪ M1) (V ∪ M2) T
-      = ∑ M1 ∈ ((U0 \ (b ∪ T)) \ V).powerset, ∑ M2 ∈ ((U0 \ (b ∪ T)) \ V).powerset,
-          ∑ μ ∈ E, rcQ U ℓ H c ξa ξb b T V μ M1 M2 := by
-        refine Finset.sum_congr rfl fun M1 hM1 => ?_
-        rw [Finset.mul_sum]
-        exact Finset.sum_congr rfl fun M2 hM2 => e M1 hM1 M2 hM2
-    _ = _ := by
-        rw [Finset.sum_congr rfl fun M1 _ => Finset.sum_comm, Finset.sum_comm]
+  exact sum_pair_chain U0 (wQ U ℓ c) (fun B C1 C2 => wQ U ℓ c (B ∪ C1) (B ∪ C2)) (fun _ _ _ => rfl)
+    (tauXi H E ξa ξb) E (rcQ U ℓ H c ξa ξb)
+    (fun hbT hbV hb1 hb2 hTV hT1 hT2 hV1 hV2 =>
+      term_factorQ U hℓ c ξa ξb E hbT hbV hb1 hb2 hTV hT1 hT2 hV1 hV2)
 
 open Classical in
 /-- **The second mean square in row/column form** (the companion paper's Lemma 7.2 before its
@@ -408,42 +380,13 @@ theorem zero_Mq_le {U : ℝ → ℂ} {NU : ℝ} (hNU : ∀ x, ‖U x‖ ≤ NU) 
         ∑ T ∈ A.powerset, (-1 : ℂ) ^ T.card * (kap Y ∅ ∅ T : ℂ) * dualG 0‖ ≤
       𝒜.card * (NU ^ 2 * (2 * Y / Real.sqrt 3 * ‖dualG 0‖)) := by
   have hNU0 : 0 ≤ NU := (norm_nonneg _).trans (hNU 0)
-  have hterm : ∀ A : Finset Pr, ‖wQ U ℓ c A A *
-      ∑ T ∈ A.powerset, (-1 : ℂ) ^ T.card * (kap Y ∅ ∅ T : ℂ) * dualG 0‖ ≤
-      NU ^ 2 * (2 * Y / Real.sqrt 3 * ‖dualG 0‖) := by
-    intro A
-    rw [← Finset.sum_mul, sum_kap_empty]
-    obtain ⟨h0, h1⟩ := prod_one_sub_inv_mem A
-    have hw : ‖wQ U ℓ c A A‖ ≤ NU ^ 2 := by
-      unfold wQ
-      have hc : ‖conj (chiS A c) * chiS A c‖ ≤ 1 := by
-        rw [norm_mul, RCLike.norm_conj]
-        have := norm_chiS_le A c
-        calc ‖chiS A c‖ * ‖chiS A c‖ ≤ 1 * 1 := mul_le_mul this this (norm_nonneg _) zero_le_one
-          _ = 1 := one_mul 1
-      have hu : ‖conj (U (nI A / ℓ)) * U (nI A / ℓ)‖ ≤ NU ^ 2 := by
-        rw [norm_mul, RCLike.norm_conj, sq]
-        exact mul_le_mul (hNU _) (hNU _) (norm_nonneg _) hNU0
-      calc ‖conj (chiS A c) * chiS A c * (conj (U (nI A / ℓ)) * U (nI A / ℓ))‖
-          ≤ ‖conj (chiS A c) * chiS A c‖ * ‖conj (U (nI A / ℓ)) * U (nI A / ℓ)‖ := norm_mul_le _ _
-        _ ≤ 1 * NU ^ 2 := mul_le_mul hc hu (norm_nonneg _) zero_le_one
-        _ = NU ^ 2 := one_mul _
-    have hs : ‖((2 * Y / Real.sqrt 3 * ∏ P ∈ A, (1 - 1 / (absNorm P.1 : ℝ)) : ℝ) : ℂ) * dualG 0‖ ≤
-        2 * Y / Real.sqrt 3 * ‖dualG 0‖ := by
-      rw [norm_mul, Complex.norm_real, Real.norm_of_nonneg (by positivity)]
-      refine mul_le_mul_of_nonneg_right ?_ (norm_nonneg _)
-      calc 2 * Y / Real.sqrt 3 * ∏ P ∈ A, (1 - 1 / (absNorm P.1 : ℝ)) ≤ 2 * Y / Real.sqrt 3 * 1 :=
-            mul_le_mul_of_nonneg_left h1 (by positivity)
-        _ = _ := mul_one _
-    calc _ ≤ ‖wQ U ℓ c A A‖ *
-          ‖((2 * Y / Real.sqrt 3 * ∏ P ∈ A, (1 - 1 / (absNorm P.1 : ℝ)) : ℝ) : ℂ) * dualG 0‖ :=
-          norm_mul_le _ _
-      _ ≤ NU ^ 2 * (2 * Y / Real.sqrt 3 * ‖dualG 0‖) :=
-          mul_le_mul hw hs (norm_nonneg _) (sq_nonneg _)
-  calc _ ≤ ∑ A ∈ 𝒜, ‖wQ U ℓ c A A *
-        ∑ T ∈ A.powerset, (-1 : ℂ) ^ T.card * (kap Y ∅ ∅ T : ℂ) * dualG 0‖ := norm_sum_le _ _
-    _ ≤ ∑ _A ∈ 𝒜, NU ^ 2 * (2 * Y / Real.sqrt 3 * ‖dualG 0‖) := Finset.sum_le_sum fun A _ => hterm A
-    _ = _ := by rw [Finset.sum_const, nsmul_eq_mul]
+  refine norm_zeroSum_le hY 𝒜 _ fun A _ => ?_
+  unfold wQ
+  rw [norm_mul, norm_mul, norm_mul, RCLike.norm_conj, RCLike.norm_conj, sq]
+  have := norm_chiS_le A c
+  calc ‖chiS A c‖ * ‖chiS A c‖ * (‖U (nI A / ℓ)‖ * ‖U (nI A / ℓ)‖) ≤ 1 * 1 * (NU * NU) := by
+        gcongr <;> first | exact this | exact hNU _
+    _ = NU * NU := by ring
 
 end Eis
 

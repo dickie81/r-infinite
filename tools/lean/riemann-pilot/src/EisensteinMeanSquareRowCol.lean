@@ -11,6 +11,8 @@ paired factor expanded in characters modulo `4`.
   differences (`sum_powerset_pair_split`), splitting off `T ⊆ B` (`sum_powerset_sub_split`), both at
   once (`sum_pair_T_split`), and the paper's `1_{(z₁,z₂)=1} = Σ_{v∣z₁,v∣z₂} μ(v)` as
   `Σ_{C₁∩C₂=∅} F(C₁, C₂) = Σ_V (−1)^{|V|}·Σ_{M₁,M₂⊆U∖V} F(V ∪ M₁, V ∪ M₂)` (`sum_disjoint_mobius`).
+  The three together carry a weighted sum over pairs to row/column form, given a natural form of the
+  weight and a per-term factorization (`sum_pair_chain`, round 332).
 * **Bounded norms**: `N(a + bω) = (a − b/2)² + 3b²/4` (`absNorm_crd`); the finite set `eltsLe Y` of
   elements of norm at most `Y` (`mem_eltsLe`) and `primesLe Y` of primes (`mem_primesLe`).
 * **The paired factor in characters modulo `4`**: round 304's factor as a function of the two classes
@@ -285,6 +287,64 @@ theorem sum_family_eq_powerset (U : Finset α) (𝒜 : Finset (Finset α)) (h�
     exact Finset.sum_eq_zero fun A2 hA2 =>
       hg A1 (Finset.mem_powerset.1 hA1) A2 (h𝒜 A2 hA2) (Or.inl h1)
 
+theorem disjoint_of_mem_powerset_sdiff {X Y S : Finset α} (h : X ∈ (S \ Y).powerset) :
+    Disjoint Y X := ((Finset.subset_sdiff.1 (Finset.mem_powerset.1 h)).2).symm
+
+/-- **From pairs of sets to row/column form** (round 332): the pair split (`sum_pair_T_split`), the
+weight's natural form `w(B ∪ C₁, B ∪ C₂) = w_N(B, C₁, C₂)` on disjoint `B, C₁, C₂`, Möbius inversion
+of disjointness (`sum_disjoint_mobius`), and a per-term factorization
+`(−1)^{|V|}·w_N(b ∪ T, V ∪ M₁, V ∪ M₂)·τ(V ∪ M₁, V ∪ M₂, T) = Σ_{μ∈E} rc(b, T, V, μ, M₁, M₂)`.
+`xi_chain`, `xi_chainQ` and `xi_chain_dual` are its instances. -/
+theorem sum_pair_chain {ι : Type*} (U : Finset α) (w : Finset α → Finset α → ℂ)
+    (wN : Finset α → Finset α → Finset α → ℂ)
+    (hnat : ∀ {B C1 C2 : Finset α}, Disjoint C1 B → Disjoint C2 B → Disjoint C1 C2 →
+      w (B ∪ C1) (B ∪ C2) = wN B C1 C2)
+    (τ : Finset α → Finset α → Finset α → ℂ) (E : Finset ι)
+    (rc : Finset α → Finset α → Finset α → ι → Finset α → Finset α → ℂ)
+    (hterm : ∀ {b T V M1 M2 : Finset α}, Disjoint b T → Disjoint b V → Disjoint b M1 →
+      Disjoint b M2 → Disjoint T V → Disjoint T M1 → Disjoint T M2 → Disjoint V M1 →
+      Disjoint V M2 →
+      (-1 : ℂ) ^ V.card * (wN (b ∪ T) (V ∪ M1) (V ∪ M2) * τ (V ∪ M1) (V ∪ M2) T) =
+        ∑ μ ∈ E, rc b T V μ M1 M2) :
+    ∑ A1 ∈ U.powerset, ∑ A2 ∈ U.powerset,
+        w A1 A2 * ∑ T ∈ (A1 ∩ A2).powerset, τ (A1 \ A2) (A2 \ A1) T =
+      ∑ b ∈ U.powerset, ∑ T ∈ (U \ b).powerset, ∑ V ∈ (U \ (b ∪ T)).powerset, ∑ μ ∈ E,
+        ∑ M1 ∈ ((U \ (b ∪ T)) \ V).powerset, ∑ M2 ∈ ((U \ (b ∪ T)) \ V).powerset,
+          rc b T V μ M1 M2 := by
+  rw [sum_pair_T_split U w τ]
+  refine Finset.sum_congr rfl fun b hb => Finset.sum_congr rfl fun T hT => ?_
+  have hn : ∀ C1 ∈ (U \ (b ∪ T)).powerset, ∀ C2 ∈ (U \ (b ∪ T)).powerset,
+      (if Disjoint C1 C2 then w ((b ∪ T) ∪ C1) ((b ∪ T) ∪ C2) * τ C1 C2 T else 0) =
+      (if Disjoint C1 C2 then wN (b ∪ T) C1 C2 * τ C1 C2 T else 0) := by
+    intro C1 hC1 C2 hC2
+    by_cases h12 : Disjoint C1 C2
+    · rw [ite_eq_left h12, ite_eq_left h12, hnat (disjoint_of_mem_powerset_sdiff hC1).symm
+        (disjoint_of_mem_powerset_sdiff hC2).symm h12]
+    · rw [ite_eq_right h12, ite_eq_right h12]
+  rw [Finset.sum_congr rfl fun C1 hC1 => Finset.sum_congr rfl fun C2 hC2 => hn C1 hC1 C2 hC2,
+    sum_disjoint_mobius (U \ (b ∪ T)) (fun C1 C2 => wN (b ∪ T) C1 C2 * τ C1 C2 T)]
+  refine Finset.sum_congr rfl fun V hV => ?_
+  have hbT : Disjoint b T := disjoint_of_mem_powerset_sdiff hT
+  have hVbT : Disjoint (b ∪ T) V := disjoint_of_mem_powerset_sdiff hV
+  rw [Finset.disjoint_union_left] at hVbT
+  rw [Finset.mul_sum]
+  calc ∑ M1 ∈ ((U \ (b ∪ T)) \ V).powerset, (-1 : ℂ) ^ V.card *
+        ∑ M2 ∈ ((U \ (b ∪ T)) \ V).powerset, wN (b ∪ T) (V ∪ M1) (V ∪ M2) * τ (V ∪ M1) (V ∪ M2) T
+      = ∑ M1 ∈ ((U \ (b ∪ T)) \ V).powerset, ∑ M2 ∈ ((U \ (b ∪ T)) \ V).powerset,
+          ∑ μ ∈ E, rc b T V μ M1 M2 := by
+        refine Finset.sum_congr rfl fun M1 hM1 => ?_
+        rw [Finset.mul_sum]
+        refine Finset.sum_congr rfl fun M2 hM2 => ?_
+        have hM1' : M1 ⊆ U \ (b ∪ T) := (Finset.mem_powerset.1 hM1).trans Finset.sdiff_subset
+        have hM2' : M2 ⊆ U \ (b ∪ T) := (Finset.mem_powerset.1 hM2).trans Finset.sdiff_subset
+        have hbT1 : Disjoint (b ∪ T) M1 := ((Finset.subset_sdiff.1 hM1').2).symm
+        have hbT2 : Disjoint (b ∪ T) M2 := ((Finset.subset_sdiff.1 hM2').2).symm
+        rw [Finset.disjoint_union_left] at hbT1 hbT2
+        exact hterm hbT hVbT.1 hbT1.1 hbT2.1 hVbT.2 hbT1.2 hbT2.2
+          (disjoint_of_mem_powerset_sdiff hM1) (disjoint_of_mem_powerset_sdiff hM2)
+    _ = _ := by
+        rw [Finset.sum_congr rfl fun M1 _ => Finset.sum_comm, Finset.sum_comm]
+
 end Reindex2
 
 /-! ### Elements and primes of bounded norm -/
@@ -459,10 +519,7 @@ theorem pairTerm_expand {C1 C2 : Finset Pr} (hd : Disjoint C1 C2) :
   refine Finset.sum_congr rfl fun ξ2 _ => ?_
   have hc : (ξ1⁻¹ : MulChar _ ℂ) (cls4 C1) = conj (ξ1 (cls4 C1)) := by
     rw [← hx, MulChar.inv_apply_eq_inv', conj_eq_inv_of_norm]
-    have hord : 0 < orderOf x := orderOf_pos x
-    have h1 : ξ1 (x : 𝓞 K ⧸ span {(4 : 𝓞 K)}) ^ orderOf x = 1 := by
-      rw [← map_pow, ← Units.val_pow_eq_pow_val, pow_orderOf_eq_one, Units.val_one, map_one]
-    exact norm_eq_one_of_pow_eq_one h1 hord.ne'
+    exact norm_mulChar_unit ξ1 x
   simp only [Equiv.inv_apply]
   rw [aXi_idl, aXi_idl, map_mul, hc]
   ring
@@ -617,22 +674,28 @@ theorem chiS_mul_conj_eS {V T : Finset Pr} (h : Disjoint V T) :
   rw [mk_πP_eq_zero_iff]
   exact not_dvd_eS (Finset.disjoint_left.1 h hP)
 
-/-- `χ̄_M(d_T) = χ_M(d_T⁵)` for `M` disjoint from `T`. -/
-theorem conj_chiS_eS {M T : Finset Pr} (h : Disjoint M T) :
-    conj (chiS M (eS T)) = chiS M (eS T ^ 5) := by
+/-- `χ̄_M(a) = χ_M(a)⁵`: the values of `χ_M` are sixth roots of unity or `0` (round 319; in this file
+since round 332). -/
+theorem chiS_conj_eq_pow_five (M : Finset Pr) (a : 𝓞 K) : conj (chiS M a) = chiS M a ^ 5 := by
   unfold chiS
-  rw [map_prod]
-  refine Finset.prod_congr rfl fun P hP => ?_
-  have hx : Ideal.Quotient.mk (span {πP P}) (eS T) ≠ 0 := by
-    rw [Ne, mk_πP_eq_zero_iff]; exact not_dvd_eS (Finset.disjoint_left.1 h hP)
-  have h6 := chi6_pow_six_of_ne_zero (span {πP P}) (h6Pr P) hx
-  set z := chiF πP h6Pr P (Ideal.Quotient.mk (span {πP P}) (eS T)) with hzdef
-  have hz6 : z ^ 6 = 1 := h6
-  have hz : ‖z‖ = 1 := norm_eq_one_of_pow_eq_one hz6 (by norm_num)
-  have hz0 : z ≠ 0 := by intro h0; rw [h0] at hz6; norm_num at hz6
-  rw [map_pow, map_pow, ← hzdef, conj_eq_inv_of_norm hz]
-  calc z⁻¹ = z⁻¹ * z ^ 6 := by rw [hz6, mul_one]
-    _ = z ^ 5 := by field_simp
+  rw [map_prod, ← Finset.prod_pow]
+  refine Finset.prod_congr rfl fun P _ => ?_
+  by_cases hx : Ideal.Quotient.mk (span {πP P}) a = 0
+  · rw [hx]; simp [chiF, MulChar.map_zero]
+  · have h6 := chi6_pow_six_of_ne_zero (span {πP P}) (h6Pr P) hx
+    set z := chiF πP h6Pr P (Ideal.Quotient.mk (span {πP P}) a) with hzdef
+    have hz6 : z ^ 6 = 1 := h6
+    have hz : ‖z‖ = 1 := norm_eq_one_of_pow_eq_one hz6 (by norm_num)
+    have hz0 : z ≠ 0 := by intro h0; rw [h0] at hz6; norm_num at hz6
+    rw [conj_eq_inv_of_norm hz]
+    calc z⁻¹ = z⁻¹ * z ^ 6 := by rw [hz6, mul_one]
+      _ = z ^ 5 := by field_simp
+
+/-- `χ̄_M(d_T) = χ_M(d_T⁵)` for `M` disjoint from `T`, by `chiS_conj_eq_pow_five`; since round 332 the
+disjointness is not used. -/
+theorem conj_chiS_eS {M T : Finset Pr} (_h : Disjoint M T) :
+    conj (chiS M (eS T)) = chiS M (eS T ^ 5) := by
+  rw [chiS_conj_eq_pow_five, chiS_pow]
 
 theorem chiS_eS_pow_six {M T : Finset Pr} (h : Disjoint M T) : chiS M (eS T) ^ 6 = 1 := by
   unfold chiS
@@ -875,13 +938,9 @@ theorem term_factor (W : ℝ → ℝ) {Z H : ℝ} (hZ : 0 < Z) (ξ1 ξ2 : MulCha
           dualW H (V ∪ M1) (V ∪ M2) T μ := by ring
     _ = _ := by rw [hcast, hcf]; ring
 
-theorem disjoint_of_mem_powerset_sdiff {X Y S : Finset Pr} (h : X ∈ (S \ Y).powerset) :
-    Disjoint Y X := ((Finset.subset_sdiff.1 (Finset.mem_powerset.1 h)).2).symm
-
 /-- **The chain for one pair of characters**: from the sum over pairs of sets of primes to the
 row/column form. The family `𝒜` is extended to all subsets of `U` (the weights vanish outside it),
-split by `sum_pair_T_split`, Möbius-inverted by `sum_disjoint_mobius`, and factored by
-`term_factor`. -/
+and `sum_pair_chain` applies with the factorization `term_factor`. -/
 theorem xi_chain (W : ℝ → ℝ) {Z H : ℝ} (hZ : 0 < Z) (E : Finset (𝓞 K))
     (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U : Finset Pr) (𝒜 : Finset (Finset Pr))
     (h𝒜 : ∀ A ∈ 𝒜, A ⊆ U) (hvan : ∀ A ⊆ U, A ∉ 𝒜 → W (nI A / Z) = 0) :
@@ -894,45 +953,19 @@ theorem xi_chain (W : ℝ → ℝ) {Z H : ℝ} (hZ : 0 < Z) (E : Finset (𝓞 K)
     rcases h with h | h
     · rw [hvan A1 h1 h]; simp
     · rw [hvan A2 h2 h]; simp)]
-  rw [sum_pair_T_split U (fun A1 A2 => (((W (nI A1 / Z) * W (nI A2 / Z)) : ℝ) : ℂ))
-    (tauXi H E ξ1 ξ2)]
-  refine Finset.sum_congr rfl fun b hb => Finset.sum_congr rfl fun T hT => ?_
-  rw [sum_disjoint_mobius (U \ (b ∪ T)) (fun C1 C2 =>
-    (((W (nI ((b ∪ T) ∪ C1) / Z) * W (nI ((b ∪ T) ∪ C2) / Z)) : ℝ) : ℂ) * tauXi H E ξ1 ξ2 C1 C2 T)]
-  refine Finset.sum_congr rfl fun V hV => ?_
-  have hbT : Disjoint b T := disjoint_of_mem_powerset_sdiff hT
-  have hVbT : Disjoint (b ∪ T) V := disjoint_of_mem_powerset_sdiff hV
-  rw [Finset.disjoint_union_left] at hVbT
-  have e : ∀ M1 ∈ ((U \ (b ∪ T)) \ V).powerset, ∀ M2 ∈ ((U \ (b ∪ T)) \ V).powerset,
-      (-1 : ℂ) ^ V.card * ((((W (nI ((b ∪ T) ∪ (V ∪ M1)) / Z) *
-        W (nI ((b ∪ T) ∪ (V ∪ M2)) / Z)) : ℝ) : ℂ) * tauXi H E ξ1 ξ2 (V ∪ M1) (V ∪ M2) T) =
-      ∑ μ ∈ E, rcTerm W Z H ξ1 ξ2 b T V μ M1 M2 := by
-    intro M1 hM1 M2 hM2
-    have hV1 : Disjoint V M1 := disjoint_of_mem_powerset_sdiff hM1
-    have hV2 : Disjoint V M2 := disjoint_of_mem_powerset_sdiff hM2
-    have hM1' : M1 ⊆ U \ (b ∪ T) := (Finset.mem_powerset.1 hM1).trans Finset.sdiff_subset
-    have hM2' : M2 ⊆ U \ (b ∪ T) := (Finset.mem_powerset.1 hM2).trans Finset.sdiff_subset
-    have hbT1 : Disjoint (b ∪ T) M1 := ((Finset.subset_sdiff.1 hM1').2).symm
-    have hbT2 : Disjoint (b ∪ T) M2 := ((Finset.subset_sdiff.1 hM2').2).symm
-    rw [Finset.disjoint_union_left] at hbT1 hbT2
-    rw [← mul_assoc]
-    exact term_factor W hZ ξ1 ξ2 E hbT hVbT.1 hbT1.1 hbT2.1 hVbT.2 hbT1.2 hbT2.2 hV1 hV2
-  rw [Finset.mul_sum]
-  calc ∑ M1 ∈ ((U \ (b ∪ T)) \ V).powerset, (-1 : ℂ) ^ V.card *
-        ∑ M2 ∈ ((U \ (b ∪ T)) \ V).powerset, (((W (nI ((b ∪ T) ∪ (V ∪ M1)) / Z) *
-          W (nI ((b ∪ T) ∪ (V ∪ M2)) / Z)) : ℝ) : ℂ) * tauXi H E ξ1 ξ2 (V ∪ M1) (V ∪ M2) T
-      = ∑ M1 ∈ ((U \ (b ∪ T)) \ V).powerset, ∑ M2 ∈ ((U \ (b ∪ T)) \ V).powerset,
-          ∑ μ ∈ E, rcTerm W Z H ξ1 ξ2 b T V μ M1 M2 := by
-        refine Finset.sum_congr rfl fun M1 hM1 => ?_
-        rw [Finset.mul_sum]
-        exact Finset.sum_congr rfl fun M2 hM2 => e M1 hM1 M2 hM2
-    _ = _ := by
-        rw [Finset.sum_congr rfl fun M1 _ => Finset.sum_comm, Finset.sum_comm]
+  exact sum_pair_chain U (fun A1 A2 => (((W (nI A1 / Z) * W (nI A2 / Z)) : ℝ) : ℂ))
+    (fun B C1 C2 => (((W (nI (B ∪ C1) / Z) * W (nI (B ∪ C2) / Z)) : ℝ) : ℂ)) (fun _ _ _ => rfl)
+    (tauXi H E ξ1 ξ2) E (rcTerm W Z H ξ1 ξ2)
+    (fun hbT hbV hb1 hb2 hTV hT1 hT2 hV1 hV2 => by
+      rw [← mul_assoc]; exact term_factor W hZ ξ1 ξ2 E hbT hbV hb1 hb2 hTV hT1 hT2 hV1 hV2)
 
-theorem nI_le_of_mem_fsLe {M : ℕ} {A : Finset Pr} (hA : A ∈ fsLe (M : ℝ)) : nI A ≤ M := by
-  have := mem_fsLe.1 hA
-  rw [Nat.floor_natCast] at this
-  unfold nI; exact_mod_cast this
+theorem nI_le_of_mem_fsLe_real {x : ℝ} (hx : 0 ≤ x) {b : Finset Pr} (hb : b ∈ fsLe x) : nI b ≤ x := by
+  have h := mem_fsLe.1 hb
+  have h' : nI b ≤ (⌊x⌋₊ : ℝ) := by unfold nI; exact_mod_cast h
+  exact h'.trans (Nat.floor_le hx)
+
+theorem nI_le_of_mem_fsLe {M : ℕ} {A : Finset Pr} (hA : A ∈ fsLe (M : ℝ)) : nI A ≤ M :=
+  nI_le_of_mem_fsLe_real (Nat.cast_nonneg _) hA
 
 theorem W_nI_eq_zero {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {Z : ℝ} (hZ : 0 < Z)
     {A : Finset Pr} (hA : A ∉ fsLe (⌈β * Z⌉₊ : ℝ)) : W (nI A / Z) = 0 := by
@@ -1013,6 +1046,8 @@ end
 #print axioms Eis.pair_split_facts
 #print axioms Eis.sum_pair_T_split
 #print axioms Eis.sum_family_eq_powerset
+#print axioms Eis.disjoint_of_mem_powerset_sdiff
+#print axioms Eis.sum_pair_chain
 #print axioms Eis.absNorm_crd
 #print axioms Eis.mem_eltsLe
 #print axioms Eis.absNorm_idl_singleton
@@ -1045,6 +1080,7 @@ end
 #print axioms Eis.chiS_mul
 #print axioms Eis.chiS_pow
 #print axioms Eis.chiS_mul_conj_eS
+#print axioms Eis.chiS_conj_eq_pow_five
 #print axioms Eis.conj_chiS_eS
 #print axioms Eis.chiS_eS_pow_six
 #print axioms Eis.col_factor
@@ -1054,8 +1090,8 @@ end
 #print axioms Eis.W_eq_W0f
 #print axioms Eis.WW_kap
 #print axioms Eis.term_factor
-#print axioms Eis.disjoint_of_mem_powerset_sdiff
 #print axioms Eis.xi_chain
+#print axioms Eis.nI_le_of_mem_fsLe_real
 #print axioms Eis.nI_le_of_mem_fsLe
 #print axioms Eis.W_nI_eq_zero
 #print axioms Eis.meanSquare_rowcol

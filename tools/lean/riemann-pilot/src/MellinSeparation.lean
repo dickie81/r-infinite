@@ -29,6 +29,10 @@ Mellin transform instead and records the resulting bounds.
   `|Σ_r w_r Σ_{n₁,n₂} a_r(n₁)·conj a_r(n₂)·W₀(ρ_r x_{n₁})·conj W₀(ρ_r x_{n₂})·G(√(A_r/(x_{n₁}x_{n₂})))|
   ≤ K·A_min^{−σ}·M` for `|w_r| ≤ 1` and `A_r ≥ A_min > 0`, with `K` independent of the same data
   and of `w`, `A`. The cost of the dual weight's `y^{−σ}` is the factor `A_min^{−σ}`.
+* **The coefficient as data** (round 317; in this file since round 332):
+  `dilated_meanSquare_of_coeff` takes any Schwartz coefficient `c` representing `W₀`, and
+  `bilinear_dual_bound_of_dilated` takes the dilated bounds of two coefficient families on `Re s = σ`
+  as hypotheses. `dilated_meanSquare` and `bilinear_dual_bound` are derived from them.
 
 The paper bounds the contribution of its kernels through their `C^{2m+4}` norms, which tracks the
 dependence on the weight `W`. Here the constants depend on `W₀`, `V`, `G`, `σ`, `J` and `[ρ₀, ρ₁]`
@@ -516,33 +520,30 @@ theorem norm_tI_le (t : ℝ) : ‖((2 * Real.pi * t : ℝ) : ℂ) * I‖ ≤ 8 *
   gcongr
   linarith
 
-/-- **Mean square of dilated weights.** Let the row sums `S_r(U) = Σ_{n∈C} a_r(n)·U(x_n)`
-(`x_n > 0`) satisfy `Σ_r ‖S_r(U)‖² ≤ M·N²` for every smooth `U` supported in `tsupport V` whose
-first `J` derivatives are bounded by `N`. Then, for dilations `ρ_r ∈ [ρ₀, ρ₁]` and `|Re s| ≤ A`,
-`Σ_r ‖S_r(x ↦ W₀(ρ_r x)·x^s)‖² ≤ K·M·(1+|s|)^{2J}`, with `K` independent of the rows, the
-columns, the coefficients, the points, `M`, the dilations and `s`. Here `V = 1` on
-`[α/ρ₁, β/ρ₀]` and `W₀` is supported in `[α, β]`. -/
-theorem dilated_meanSquare (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α β : ℝ} (hα : 0 < α)
-    (hW0s : ∀ y, y < α ∨ β < y → W0 y = 0) (V : ℝ → ℂ) (hV : ContDiff ℝ ∞ V)
+/-- **Mean square of dilated weights, with the Mellin coefficient as data** (round 317; in this file
+since round 332): `dilated_meanSquare`, whose constant is `(∫‖c‖)·(C²·64^J·∫‖c‖(1+|t|)^{2J})` for any Schwartz `c`
+representing `W₀`, with `C` depending only on `V`, `A` and `J`. -/
+theorem dilated_meanSquare_of_coeff {α β : ℝ} (V : ℝ → ℂ) (hV : ContDiff ℝ ∞ V)
     (hVc : HasCompactSupport V) (hVp : tsupport V ⊆ Ioi 0) {ρ0 ρ1 : ℝ} (hρ0 : 0 < ρ0)
     (hV1 : ∀ y, α / ρ1 ≤ y → y ≤ β / ρ0 → V y = 1) (A : ℝ) (J : ℕ) :
-    ∃ K, ∀ {ι κ : Type} (T : Finset ι) (C : Finset κ) (a : ι → κ → ℂ) (x : κ → ℝ),
+    ∃ Ctf : ℝ, 0 ≤ Ctf ∧ ∀ (W0 : ℝ → ℂ), (∀ y, y < α ∨ β < y → W0 y = 0) →
+      ∀ c : 𝓢(ℝ, ℂ), (∀ y : ℝ, 0 < y →
+        W0 y = ∫ t : ℝ, c t * ((y : ℂ) ^ (((2 * Real.pi * t : ℝ) : ℂ) * I))) →
+      ∀ {ι κ : Type} (T : Finset ι) (C : Finset κ) (a : ι → κ → ℂ) (x : κ → ℝ),
       (∀ n ∈ C, 0 < x n) → ∀ M : ℝ, 0 ≤ M →
       (∀ U : ℝ → ℂ, ContDiff ℝ ∞ U → tsupport U ⊆ tsupport V → ∀ N : ℝ,
         (∀ j ≤ J, ∀ y, ‖iteratedDeriv j U y‖ ≤ N) →
         ∑ r ∈ T, ‖∑ n ∈ C, a r n * U (x n)‖ ^ 2 ≤ M * N ^ 2) →
       ∀ ρ : ι → ℝ, (∀ r ∈ T, ρ0 ≤ ρ r ∧ ρ r ≤ ρ1) → ∀ s : ℂ, |s.re| ≤ A →
       ∑ r ∈ T, ‖∑ n ∈ C, a r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s)‖ ^ 2 ≤
-        K * M * (1 + ‖s‖) ^ (2 * J) := by
-  obtain ⟨c, hc⟩ := mellin_of_compact W0 hW0 hα hW0s
+        (∫ t, ‖c t‖) * (Ctf ^ 2 * 64 ^ J * ∫ t, ‖c t‖ * (1 + |t|) ^ (2 * J)) * M *
+          (1 + ‖s‖) ^ (2 * J) := by
   obtain ⟨Ctf, hCtf0, hCtf⟩ := testFun_bound V hV hVc hVp A J
-  refine ⟨(∫ t, ‖c t‖) * (Ctf ^ 2 * 64 ^ J * ∫ t, ‖c t‖ * (1 + |t|) ^ (2 * J)),
-    fun T C a x hx M hM hyp ρ hρ s hs => ?_⟩
+  refine ⟨Ctf, hCtf0, fun W0 hW0s c hc => fun T C a x hx M hM hyp ρ hρ s hs => ?_⟩
   set e : ℝ → ℂ := fun t => ((2 * Real.pi * t : ℝ) : ℂ) * I with he
   set U : ℝ → ℝ → ℂ := fun t y => V y * (y : ℂ) ^ (s + e t) with hU
   have hρpos : ∀ r ∈ T, 0 < ρ r := fun r hr => lt_of_lt_of_le hρ0 (hρ r hr).1
   have hre : ∀ t, (s + e t).re = s.re := fun t => by simp [he]
-  -- the pointwise Mellin representation
   have hpt : ∀ r ∈ T, ∀ n ∈ C, W0 (ρ r * x n) * (x n : ℂ) ^ s =
       ∫ t, c t * ((ρ r : ℂ) ^ e t * U t (x n)) := by
     intro r hr n hn
@@ -569,7 +570,6 @@ theorem dilated_meanSquare (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α β
     rw [Complex.cpow_add _ _ (by exact_mod_cast hxn.ne'), Complex.ofReal_mul,
       Complex.mul_cpow_ofReal_nonneg hρr.le hxn.le]
     ring
-  -- continuity and boundedness in `t`
   have hcontU : ∀ n ∈ C, Continuous fun t => U t (x n) := fun n hn =>
     continuous_const.mul ((continuous_const.add continuous_tI).const_cpow
       (Or.inl (by exact_mod_cast (hx n hn).ne')))
@@ -598,7 +598,6 @@ theorem dilated_meanSquare (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α β
     simp only
     rw [Finset.mul_sum, Finset.mul_sum]
     exact Finset.sum_congr rfl fun n _ => by ring
-  -- the mean-square bound for the separated sums
   set g := fun r (t : ℝ) => (ρ r : ℂ) ^ e t * ∑ n ∈ C, a r n * U t (x n) with hg
   have hgc : ∀ r ∈ T, Continuous (g r) := fun r hr =>
     (hcontρ r hr).mul (continuous_finsetSum _ fun n hn => continuous_const.mul (hcontU n hn))
@@ -615,7 +614,8 @@ theorem dilated_meanSquare (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α β
       have := norm_add_le s (e t)
       have := norm_tI_le t
       nlinarith [norm_nonneg s, abs_nonneg t, mul_nonneg (norm_nonneg s) (abs_nonneg t)]
-    have h8' : (1 + ‖s + e t‖) ^ (2 * J) ≤ 64 ^ J * (1 + ‖s‖) ^ (2 * J) * (1 + |t|) ^ (2 * J) := by
+    have h8' : (1 + ‖s + e t‖) ^ (2 * J) ≤
+        64 ^ J * (1 + ‖s‖) ^ (2 * J) * (1 + |t|) ^ (2 * J) := by
       calc (1 + ‖s + e t‖) ^ (2 * J) ≤ (8 * ((1 + ‖s‖) * (1 + |t|))) ^ (2 * J) :=
             pow_le_pow_left₀ (by positivity) h8 _
         _ = 64 ^ J * (1 + ‖s‖) ^ (2 * J) * (1 + |t|) ^ (2 * J) := by
@@ -629,7 +629,27 @@ theorem dilated_meanSquare (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α β
   refine key.trans (le_of_eq ?_)
   ring
 
-
+/-- **Mean square of dilated weights.** Let the row sums `S_r(U) = Σ_{n∈C} a_r(n)·U(x_n)`
+(`x_n > 0`) satisfy `Σ_r ‖S_r(U)‖² ≤ M·N²` for every smooth `U` supported in `tsupport V` whose
+first `J` derivatives are bounded by `N`. Then, for dilations `ρ_r ∈ [ρ₀, ρ₁]` and `|Re s| ≤ A`,
+`Σ_r ‖S_r(x ↦ W₀(ρ_r x)·x^s)‖² ≤ K·M·(1+|s|)^{2J}`, with `K` independent of the rows, the
+columns, the coefficients, the points, `M`, the dilations and `s`. Here `V = 1` on
+`[α/ρ₁, β/ρ₀]` and `W₀` is supported in `[α, β]`. -/
+theorem dilated_meanSquare (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α β : ℝ} (hα : 0 < α)
+    (hW0s : ∀ y, y < α ∨ β < y → W0 y = 0) (V : ℝ → ℂ) (hV : ContDiff ℝ ∞ V)
+    (hVc : HasCompactSupport V) (hVp : tsupport V ⊆ Ioi 0) {ρ0 ρ1 : ℝ} (hρ0 : 0 < ρ0)
+    (hV1 : ∀ y, α / ρ1 ≤ y → y ≤ β / ρ0 → V y = 1) (A : ℝ) (J : ℕ) :
+    ∃ K, ∀ {ι κ : Type} (T : Finset ι) (C : Finset κ) (a : ι → κ → ℂ) (x : κ → ℝ),
+      (∀ n ∈ C, 0 < x n) → ∀ M : ℝ, 0 ≤ M →
+      (∀ U : ℝ → ℂ, ContDiff ℝ ∞ U → tsupport U ⊆ tsupport V → ∀ N : ℝ,
+        (∀ j ≤ J, ∀ y, ‖iteratedDeriv j U y‖ ≤ N) →
+        ∑ r ∈ T, ‖∑ n ∈ C, a r n * U (x n)‖ ^ 2 ≤ M * N ^ 2) →
+      ∀ ρ : ι → ℝ, (∀ r ∈ T, ρ0 ≤ ρ r ∧ ρ r ≤ ρ1) → ∀ s : ℂ, |s.re| ≤ A →
+      ∑ r ∈ T, ‖∑ n ∈ C, a r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s)‖ ^ 2 ≤
+        K * M * (1 + ‖s‖) ^ (2 * J) := by
+  obtain ⟨c, hc⟩ := mellin_of_compact W0 hW0 hα hW0s
+  obtain ⟨Ctf, -, hD⟩ := dilated_meanSquare_of_coeff (α := α) (β := β) V hV hVc hVp hρ0 hV1 A J
+  exact ⟨_, fun T C a x hx M hM hyp ρ hρ s hs => hD W0 hW0s c hc T C a x hx M hM hyp ρ hρ s hs⟩
 
 /-! ### The bilinear form with the dual kernel -/
 
@@ -649,35 +669,30 @@ theorem conj_ofReal_cpow {x : ℝ} (hx : 0 < x) (s : ℂ) :
     conj ((x : ℂ) ^ s) = (x : ℂ) ^ conj s := by
   rw [Complex.cpow_conj _ _ (arg_ofReal_ne_pi hx), Complex.conj_ofReal]
 
-/-- **The bilinear form with the dual kernel.** Under the hypotheses of `dilated_meanSquare`,
-for unimodular-bounded row coefficients `w_r`, dilations `ρ_r ∈ [ρ₀, ρ₁]` and kernel parameters
-`A_r ≥ A_min > 0`, the bilinear form
-`Σ_r w_r Σ_{n₁,n₂} a_r(n₁)·conj a_r(n₂)·W₀(ρ_r x_{n₁})·conj W₀(ρ_r x_{n₂})·G(√(A_r/(x_{n₁}x_{n₂})))`
-is at most `K·A_min^{−σ}·M`, with `K` independent of the rows, columns, coefficients, points,
-`M`, dilations, `w` and `A`. Here `G` is smooth with bounded derivatives and vanishes on `[R, ∞)`,
-and `σ > 0`. -/
-theorem bilinear_dual_bound (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α β : ℝ} (hα : 0 < α)
-    (hW0s : ∀ y, y < α ∨ β < y → W0 y = 0) (V : ℝ → ℂ) (hV : ContDiff ℝ ∞ V)
-    (hVc : HasCompactSupport V) (hVp : tsupport V ⊆ Ioi 0) {ρ0 ρ1 : ℝ} (hρ0 : 0 < ρ0)
-    (hV1 : ∀ y, α / ρ1 ≤ y → y ≤ β / ρ0 → V y = 1) (J : ℕ)
-    (G : ℝ → ℂ) (hG : ContDiff ℝ ∞ G)
+/-- **The bilinear form with the dual kernel, from the dilated mean squares** (round 317; in this
+file since round 332): round 306's `bilinear_dual_bound₂` (EisensteinDualExcl.lean) with the two dilated mean-square bounds on the line `Re s = σ` as hypotheses,
+`Σ_r |Σ_n a_r(n)·W₀(ρ_r x_n)·x_n^s|² ≤ K_d(1+|s|)^{2J}` and the same for `b`. The constant `K_g` depends only
+on `G`, `σ` and `J`. -/
+theorem bilinear_dual_bound_of_dilated (J : ℕ) (G : ℝ → ℂ) (hG : ContDiff ℝ ∞ G)
     (hGb : ∀ n : ℕ, ∃ C, ∀ ρ, ‖iteratedFDeriv ℝ n G ρ‖ ≤ C)
     {R : ℝ} (hR : ∀ ρ, R ≤ ρ → G ρ = 0) {σ : ℝ} (hσ : 0 < σ) :
-    ∃ K, ∀ {ι κ : Type} (T : Finset ι) (C : Finset κ) (a : ι → κ → ℂ) (x : κ → ℝ),
-      (∀ n ∈ C, 0 < x n) → ∀ M : ℝ, 0 ≤ M →
-      (∀ U : ℝ → ℂ, ContDiff ℝ ∞ U → tsupport U ⊆ tsupport V → ∀ N : ℝ,
-        (∀ j ≤ J, ∀ y, ‖iteratedDeriv j U y‖ ≤ N) →
-        ∑ r ∈ T, ‖∑ n ∈ C, a r n * U (x n)‖ ^ 2 ≤ M * N ^ 2) →
-      ∀ ρ : ι → ℝ, (∀ r ∈ T, ρ0 ≤ ρ r ∧ ρ r ≤ ρ1) →
+    ∃ Kg : ℝ, 0 ≤ Kg ∧ ∀ (W0 : ℝ → ℂ) {ι κ : Type} (T : Finset ι) (C : Finset κ)
+      (a b : ι → κ → ℂ) (x : κ → ℝ), (∀ n ∈ C, 0 < x n) → ∀ (ρ : ι → ℝ) (Kd : ℝ),
+      (∀ s : ℂ, s.re = σ →
+        ∑ r ∈ T, ‖∑ n ∈ C, a r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s)‖ ^ 2 ≤
+          Kd * (1 + ‖s‖) ^ (2 * J)) →
+      (∀ s : ℂ, s.re = σ →
+        ∑ r ∈ T, ‖∑ n ∈ C, b r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s)‖ ^ 2 ≤
+          Kd * (1 + ‖s‖) ^ (2 * J)) →
       ∀ w : ι → ℂ, (∀ r ∈ T, ‖w r‖ ≤ 1) → ∀ (Ar : ι → ℝ) (Amin : ℝ), 0 < Amin →
       (∀ r ∈ T, Amin ≤ Ar r) →
-      ‖∑ r ∈ T, w r * ∑ n1 ∈ C, ∑ n2 ∈ C, a r n1 * conj (a r n2) *
+      ‖∑ r ∈ T, w r * ∑ n1 ∈ C, ∑ n2 ∈ C, a r n1 * conj (b r n2) *
           (W0 (ρ r * x n1) * conj (W0 (ρ r * x n2)) *
-            G (Real.sqrt (Ar r / (x n1 * x n2))))‖ ≤ K * Amin ^ (-σ) * M := by
-  obtain ⟨Kd, hKd⟩ := dilated_meanSquare W0 hW0 hα hW0s V hV hVc hVp hρ0 hV1 σ J
+            G (Real.sqrt (Ar r / (x n1 * x n2))))‖ ≤ Kg * Kd * Amin ^ (-σ) := by
   obtain ⟨h, hh⟩ := mellin_of_dual G hG hGb hR hσ
-  refine ⟨Kd * 64 ^ J * (1 + σ) ^ (2 * J) * ∫ t, ‖h t‖ * (1 + |t|) ^ (2 * J), ?_⟩
-  intro ι κ T C a x hx M hM hyp ρ hρ w hw Ar Amin hAmin hAr
+  refine ⟨64 ^ J * (1 + σ) ^ (2 * J) * ∫ t, ‖h t‖ * (1 + |t|) ^ (2 * J),
+    by positivity, ?_⟩
+  intro W0 ι κ T C a b x hx ρ Kd hPa hQb w hw Ar Amin hAmin hAr
   set e : ℝ → ℂ := fun t => ((2 * Real.pi * t : ℝ) : ℂ) * I with he
   set z : ℝ → ℂ := fun t => (-σ : ℂ) + e t with hz
   set s1 : ℝ → ℂ := fun t => (σ : ℂ) - e t with hs1
@@ -691,7 +706,7 @@ theorem bilinear_dual_bound (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α �
   have hArpos : ∀ r ∈ T, 0 < Ar r := fun r hr => lt_of_lt_of_le hAmin (hAr r hr)
   -- the two separated column sums
   set p : ι → κ → ℝ → ℂ := fun r n t => a r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s1 t) with hp
-  set q : ι → κ → ℝ → ℂ := fun r n t => a r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s2 t) with hq
+  set q : ι → κ → ℝ → ℂ := fun r n t => b r n * (W0 (ρ r * x n) * (x n : ℂ) ^ s2 t) with hq
   set F : ι → κ → κ → ℝ → ℂ := fun r n1 n2 t =>
     w r * (h t * ((Ar r : ℂ) ^ z t * (p r n1 t * conj (q r n2 t)))) with hF
   have hcont_e : Continuous e := continuous_tI
@@ -703,7 +718,7 @@ theorem bilinear_dual_bound (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α �
     intro r hr n1 hn1 n2 hn2
     have hb : ∀ t, ‖(Ar r : ℂ) ^ z t * (p r n1 t * conj (q r n2 t))‖ ≤
         Ar r ^ (-σ) * ((‖a r n1‖ * (‖W0 (ρ r * x n1)‖ * x n1 ^ σ)) *
-          (‖a r n2‖ * (‖W0 (ρ r * x n2)‖ * x n2 ^ σ))) := by
+          (‖b r n2‖ * (‖W0 (ρ r * x n2)‖ * x n2 ^ σ))) := by
       intro t
       simp only [hp, hq]
       rw [norm_mul, norm_mul, RCLike.norm_conj, norm_mul, norm_mul, norm_mul, norm_mul,
@@ -721,7 +736,7 @@ theorem bilinear_dual_bound (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α �
       (Filter.Eventually.of_forall hb)).const_mul (w r)
   -- the pointwise Mellin representation of each summand
   have hterm : ∀ r ∈ T, ∀ n1 ∈ C, ∀ n2 ∈ C,
-      w r * (a r n1 * conj (a r n2) * (W0 (ρ r * x n1) * conj (W0 (ρ r * x n2)) *
+      w r * (a r n1 * conj (b r n2) * (W0 (ρ r * x n1) * conj (W0 (ρ r * x n2)) *
         G (Real.sqrt (Ar r / (x n1 * x n2))))) = ∫ t, F r n1 n2 t := by
     intro r hr n1 hn1 n2 hn2
     have hy : 0 < Ar r / (x n1 * x n2) := div_pos (hArpos r hr) (mul_pos (hx n1 hn1) (hx n2 hn2))
@@ -732,7 +747,7 @@ theorem bilinear_dual_bound (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α �
       conj_ofReal_cpow (hx n2 hn2), hconj]
     ring
   -- exchange the finite sums with the integral
-  have hsum : ∑ r ∈ T, w r * ∑ n1 ∈ C, ∑ n2 ∈ C, a r n1 * conj (a r n2) *
+  have hsum : ∑ r ∈ T, w r * ∑ n1 ∈ C, ∑ n2 ∈ C, a r n1 * conj (b r n2) *
         (W0 (ρ r * x n1) * conj (W0 (ρ r * x n2)) * G (Real.sqrt (Ar r / (x n1 * x n2)))) =
       ∫ t, ∑ r ∈ T, ∑ n1 ∈ C, ∑ n2 ∈ C, F r n1 n2 t := by
     have hI2 : ∀ r ∈ T, ∀ n1 ∈ C, Integrable fun t => ∑ n2 ∈ C, F r n1 n2 t :=
@@ -746,7 +761,7 @@ theorem bilinear_dual_bound (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α �
     rw [integral_finsetSum _ fun n2 hn2 => hFint r hr n1 hn1 n2 hn2, Finset.mul_sum]
     exact Finset.sum_congr rfl fun n2 hn2 => hterm r hr n1 hn1 n2 hn2
   -- the pointwise bound
-  set Bd : ℝ → ℝ := fun t => Amin ^ (-σ) * (Kd * M * 64 ^ J * (1 + σ) ^ (2 * J)) *
+  set Bd : ℝ → ℝ := fun t => Amin ^ (-σ) * (Kd * 64 ^ J * (1 + σ) ^ (2 * J)) *
     (‖h t‖ * (1 + |t|) ^ (2 * J)) with hBd
   have hBdint : Integrable Bd :=
     (integrable_norm_mul_one_add_pow h (2 * J)).const_mul _
@@ -774,11 +789,11 @@ theorem bilinear_dual_bound (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α �
             pow_le_pow_left₀ (by positivity) h8 _
         _ = 64 ^ J * (1 + σ) ^ (2 * J) * (1 + |t|) ^ (2 * J) := by
             rw [mul_pow, mul_pow, pow_mul, show (8 : ℝ) ^ 2 = 64 by norm_num]; ring
-    have hP := hKd T C a x hx M hM hyp ρ hρ (s1 t) (by rw [hre1 t, abs_of_pos hσ])
-    have hQ := hKd T C a x hx M hM hyp ρ hρ (s2 t) (by rw [hre2 t, abs_of_pos hσ])
+    have hP := hPa (s1 t) (hre1 t)
+    have hQ := hQb (s2 t) (hre2 t)
     rw [hs2n] at hQ
     have hPQ : ∑ r ∈ T, ‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖ ≤
-        Kd * M * (1 + ‖s1 t‖) ^ (2 * J) := by
+        Kd * (1 + ‖s1 t‖) ^ (2 * J) := by
       have hamgm : ∀ r ∈ T, ‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖ ≤
           (‖∑ n ∈ C, p r n t‖ ^ 2 + ‖∑ n ∈ C, q r n t‖ ^ 2) / 2 := fun r _ => by
         nlinarith [sq_nonneg (‖∑ n ∈ C, p r n t‖ - ‖∑ n ∈ C, q r n t‖)]
@@ -807,16 +822,15 @@ theorem bilinear_dual_bound (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α �
             _ = _ := one_mul _
       _ = ‖h t‖ * Amin ^ (-σ) * ∑ r ∈ T, ‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖ := by
           rw [Finset.mul_sum]; refine Finset.sum_congr rfl fun r _ => by ring
-      _ ≤ ‖h t‖ * Amin ^ (-σ) * (Kd * M * (64 ^ J * (1 + σ) ^ (2 * J) * (1 + |t|) ^ (2 * J))) := by
+      _ ≤ ‖h t‖ * Amin ^ (-σ) * (Kd * (64 ^ J * (1 + σ) ^ (2 * J) * (1 + |t|) ^ (2 * J))) := by
           gcongr
           calc ∑ r ∈ T, ‖∑ n ∈ C, p r n t‖ * ‖∑ n ∈ C, q r n t‖
-              ≤ Kd * M * (1 + ‖s1 t‖) ^ (2 * J) := hPQ
+              ≤ Kd * (1 + ‖s1 t‖) ^ (2 * J) := hPQ
             _ ≤ _ := by
-              have hKd0 : 0 ≤ Kd * M := by
-                have := (hKd T C a x hx M hM hyp ρ hρ (s1 t) (by rw [hre1 t, abs_of_pos hσ]))
-                -- Kd·M·(1+‖s‖)^{2J} ≥ a sum of squares ≥ 0
+              have hKd0 : 0 ≤ Kd := by
+                have := hPa (s1 t) (hre1 t)
                 have hpos : 0 < (1 + ‖s1 t‖) ^ (2 * J) := by positivity
-                have h0 : 0 ≤ Kd * M * (1 + ‖s1 t‖) ^ (2 * J) :=
+                have h0 : 0 ≤ Kd * (1 + ‖s1 t‖) ^ (2 * J) :=
                   le_trans (Finset.sum_nonneg fun r _ => by positivity) this
                 exact nonneg_of_mul_nonneg_left h0 hpos
               gcongr
@@ -827,6 +841,41 @@ theorem bilinear_dual_bound (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α �
   simp only [hBd]
   rw [integral_const_mul]
   ring
+
+/-- **The bilinear form with the dual kernel.** Under the hypotheses of `dilated_meanSquare`,
+for unimodular-bounded row coefficients `w_r`, dilations `ρ_r ∈ [ρ₀, ρ₁]` and kernel parameters
+`A_r ≥ A_min > 0`, the bilinear form
+`Σ_r w_r Σ_{n₁,n₂} a_r(n₁)·conj a_r(n₂)·W₀(ρ_r x_{n₁})·conj W₀(ρ_r x_{n₂})·G(√(A_r/(x_{n₁}x_{n₂})))`
+is at most `K·A_min^{−σ}·M`, with `K` independent of the rows, columns, coefficients, points,
+`M`, dilations, `w` and `A`. Here `G` is smooth with bounded derivatives and vanishes on `[R, ∞)`,
+and `σ > 0`. -/
+theorem bilinear_dual_bound (W0 : ℝ → ℂ) (hW0 : ContDiff ℝ ∞ W0) {α β : ℝ} (hα : 0 < α)
+    (hW0s : ∀ y, y < α ∨ β < y → W0 y = 0) (V : ℝ → ℂ) (hV : ContDiff ℝ ∞ V)
+    (hVc : HasCompactSupport V) (hVp : tsupport V ⊆ Ioi 0) {ρ0 ρ1 : ℝ} (hρ0 : 0 < ρ0)
+    (hV1 : ∀ y, α / ρ1 ≤ y → y ≤ β / ρ0 → V y = 1) (J : ℕ)
+    (G : ℝ → ℂ) (hG : ContDiff ℝ ∞ G)
+    (hGb : ∀ n : ℕ, ∃ C, ∀ ρ, ‖iteratedFDeriv ℝ n G ρ‖ ≤ C)
+    {R : ℝ} (hR : ∀ ρ, R ≤ ρ → G ρ = 0) {σ : ℝ} (hσ : 0 < σ) :
+    ∃ K, ∀ {ι κ : Type} (T : Finset ι) (C : Finset κ) (a : ι → κ → ℂ) (x : κ → ℝ),
+      (∀ n ∈ C, 0 < x n) → ∀ M : ℝ, 0 ≤ M →
+      (∀ U : ℝ → ℂ, ContDiff ℝ ∞ U → tsupport U ⊆ tsupport V → ∀ N : ℝ,
+        (∀ j ≤ J, ∀ y, ‖iteratedDeriv j U y‖ ≤ N) →
+        ∑ r ∈ T, ‖∑ n ∈ C, a r n * U (x n)‖ ^ 2 ≤ M * N ^ 2) →
+      ∀ ρ : ι → ℝ, (∀ r ∈ T, ρ0 ≤ ρ r ∧ ρ r ≤ ρ1) →
+      ∀ w : ι → ℂ, (∀ r ∈ T, ‖w r‖ ≤ 1) → ∀ (Ar : ι → ℝ) (Amin : ℝ), 0 < Amin →
+      (∀ r ∈ T, Amin ≤ Ar r) →
+      ‖∑ r ∈ T, w r * ∑ n1 ∈ C, ∑ n2 ∈ C, a r n1 * conj (a r n2) *
+          (W0 (ρ r * x n1) * conj (W0 (ρ r * x n2)) *
+            G (Real.sqrt (Ar r / (x n1 * x n2))))‖ ≤ K * Amin ^ (-σ) * M := by
+  obtain ⟨Kd, hKd⟩ := dilated_meanSquare W0 hW0 hα hW0s V hV hVc hVp hρ0 hV1 σ J
+  obtain ⟨Kg, -, hKg⟩ := bilinear_dual_bound_of_dilated J G hG hGb hR hσ
+  refine ⟨Kg * Kd, fun T C a x hx M hM hyp ρ hρ w hw Ar Amin hAmin hAr => ?_⟩
+  have hs : ∀ s : ℂ, s.re = σ → |s.re| ≤ σ := fun s hs => by rw [hs, abs_of_pos hσ]
+  have h := hKg W0 T C a a x hx ρ (Kd * M)
+    (fun s hsr => hKd T C a x hx M hM hyp ρ hρ s (hs s hsr))
+    (fun s hsr => hKd T C a x hx M hM hyp ρ hρ s (hs s hsr)) w hw Ar Amin hAmin hAr
+  calc _ ≤ Kg * (Kd * M) * Amin ^ (-σ) := h
+    _ = Kg * Kd * Amin ^ (-σ) * M := by ring
 
 end MellinSep
 
@@ -841,5 +890,7 @@ end
 #print axioms MellinSep.testFun_bound
 #print axioms MellinSep.sq_integral_mul_le
 #print axioms MellinSep.sum_norm_integral_sq_le
+#print axioms MellinSep.dilated_meanSquare_of_coeff
 #print axioms MellinSep.dilated_meanSquare
+#print axioms MellinSep.bilinear_dual_bound_of_dilated
 #print axioms MellinSep.bilinear_dual_bound

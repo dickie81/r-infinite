@@ -18,7 +18,8 @@ Proposition 4.5, as exact identities.
   `Φ ≥ 0`), `Σ_{z∈T} |g(z)|² ≤ Re Σ_u g(u)ḡ(u)·Φ(u/√H)` when `N(z) ≤ H` on `T`. The sum converges for
   bounded `g` (`summable_mul_Phi`).
 * **The expansion over pairs** (`famSum_majorant_eq`): the smoothed mean square of the family is
-  `Σ_{A₁,A₂} W(N(A₁)/Z)·W(N(A₂)/Z)·μ(A₁)μ(A₂)·Σ_u χ_{A₁}(u)χ̄_{A₂}(u)·Φ(u/√H)`.
+  `Σ_{A₁,A₂} W(N(A₁)/Z)·W(N(A₂)/Z)·μ(A₁)μ(A₂)·Σ_u χ_{A₁}(u)χ̄_{A₂}(u)·Φ(u/√H)`, the case of round
+  318's `majorant_expand` (any column coefficients; in this file since round 332).
 * **One pair** (`pairSum_poisson`): the paper's (4.14), with its Gauss sums evaluated. Put
   `B = A₁∩A₂`, `C₁ = A₁∖A₂` and `C₂ = A₂∖A₁`. Then `χ_{A₁}χ̄_{A₂} = 1_{(u,B)=1}·F` with
   `F = χ_{C₁}χ̄_{C₂} = ∏_{P∈C₁∪C₂} χ_P^{±1}` (`chiS_mul_conj`, `chiS_mul_conj_disjoint`). Round 303's
@@ -27,7 +28,8 @@ Proposition 4.5, as exact identities.
   `gaussTr_prod_primes`) and round 304's `paired_gauss` give
   `μ(A₁)μ(A₂)·Σ_u χ_{A₁}χ̄_{A₂}·Φ(u/√H) =
   Σ_{T⊆B} (−1)^{|T|}·2H/(√3·√N(c)·N(d_T))·ā(C₁)a(C₂)Ψ(C₁, C₂)·F(d_T)·Σ_μ F̄(μ)·Φ̂(√(4HN(μ)/(3N(c)N(d_T))))`,
-  with `d_T = ∏_{P∈T} π_P` and round 304's paired factor `Ψ` (`pairPsi`).
+  with `d_T = ∏_{P∈T} π_P` and round 304's paired factor `Ψ` (`pairPsi`). The signs are
+  `μ(A₁)μ(A₂) = μ(C₁)μ(C₂)` (`sign_sdiff`, in this file since round 332).
 * `majorant_poisson` combines the last two.
 -/
 
@@ -329,6 +331,17 @@ def pairPsi (C1 C2 : Finset Pr) : ℂ :=
   (∏ P ∈ C1, chiF πP h6Pr P 4)⁻¹ * (∏ P ∈ C2, chiF πP h6Pr P 4) *
     gamF πP (C1 ∪ C2) (fun P => chiF πP h6Pr P ^ 3)
 
+theorem sign_sdiff (A1 A2 : Finset Pr) :
+    (-1 : ℂ) ^ A1.card * (-1) ^ A2.card = (-1) ^ (A1 \ A2).card * (-1) ^ (A2 \ A1).card := by
+  have e1 : A1.card = (A1 ∩ A2).card + (A1 \ A2).card := by
+    rw [add_comm]; exact (Finset.card_sdiff_add_card_inter A1 A2).symm
+  have e2 : A2.card = (A1 ∩ A2).card + (A2 \ A1).card := by
+    rw [add_comm, Finset.inter_comm]; exact (Finset.card_sdiff_add_card_inter A2 A1).symm
+  rw [e1, e2, pow_add, pow_add]
+  have : ((-1 : ℂ) ^ (A1 ∩ A2).card) * (-1) ^ (A1 ∩ A2).card = 1 := by
+    rw [← pow_add, ← two_mul, pow_mul]; norm_num
+  linear_combination ((-1 : ℂ) ^ (A1 \ A2).card * (-1) ^ (A2 \ A1).card) * this
+
 open Classical in
 /-- **Poisson summation and the Gauss sums for one pair of columns** (the paper's (4.14), with its
 Gauss sums evaluated by round 304's `paired_gauss`). For sets of primes `A₁, A₂` put `B = A₁∩A₂`,
@@ -397,15 +410,7 @@ theorem pairSum_poisson (H : ℝ) (hH : 0 < H) (A1 A2 : Finset Pr) :
     rw [← tsum_mul_left]
     exact tsum_congr fun μ => by ring
   rw [hsum]
-  have hsign : (-1 : ℂ) ^ A1.card * (-1) ^ A2.card = (-1) ^ (A1 \ A2).card * (-1) ^ (A2 \ A1).card := by
-    have e1 : A1.card = (A1 ∩ A2).card + (A1 \ A2).card := by
-      rw [add_comm]; exact (Finset.card_sdiff_add_card_inter A1 A2).symm
-    have e2 : A2.card = (A1 ∩ A2).card + (A2 \ A1).card := by
-      rw [add_comm, Finset.inter_comm]; exact (Finset.card_sdiff_add_card_inter A2 A1).symm
-    rw [e1, e2, pow_add, pow_add]
-    have : ((-1 : ℂ) ^ (A1 ∩ A2).card) * (-1) ^ (A1 ∩ A2).card = 1 := by
-      rw [← pow_add, ← two_mul, pow_mul]; norm_num
-    linear_combination ((-1 : ℂ) ^ (A1 \ A2).card * (-1) ^ (A2 \ A1).card) * this
+  have hsign := sign_sdiff A1 A2
   have hpg : (-1 : ℂ) ^ (A1 \ A2).card * (-1) ^ (A2 \ A1).card * gamF πP (A1 \ A2 ∪ A2 \ A1) (mixedChar (A1 \ A2)) =
       conj (aF πP h6Pr (A1 \ A2)) * aF πP h6Pr (A2 \ A1) * pairPsi (A1 \ A2) (A2 \ A1) := by
     have := paired_gauss πP h6Pr (A1 \ A2) (A2 \ A1) hd (hcopPr _) (fun P _ => (πP_spec P).1)
@@ -507,8 +512,44 @@ theorem norm_famSum_le {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x 
         mul_le_mul_of_nonneg_right (norm_chiS_le A u) (abs_nonneg _)
     _ = _ := one_mul _
 
+/-- **The smoothed mean square as a double sum over pairs**, for any column coefficients (round 318; in
+this file since round 332):
+`Σ_u |Σ_{A∈𝒜} α(A)χ_A(u)|²·Φ(u/√H) = Σ_{A₁,A₂} α(A₁)ᾱ(A₂)·Σ_u χ_{A₁}(u)χ̄_{A₂}(u)·Φ(u/√H)`. -/
+theorem majorant_expand (H : ℝ) (hH : 0 < H) (𝒜 : Finset (Finset Pr)) (α : Finset Pr → ℂ) :
+    ∑' u : 𝓞 K, (∑ A ∈ 𝒜, α A * chiS A u) * conj (∑ A ∈ 𝒜, α A * chiS A u) *
+      Majorant.Phi (σO u / (Real.sqrt H : ℂ)) =
+    ∑ A1 ∈ 𝒜, ∑ A2 ∈ 𝒜, α A1 * conj (α A2) *
+      ∑' u : 𝓞 K, chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ)) := by
+  have hexp : ∀ u : 𝓞 K, (∑ A ∈ 𝒜, α A * chiS A u) * conj (∑ A ∈ 𝒜, α A * chiS A u) *
+      Majorant.Phi (σO u / (Real.sqrt H : ℂ)) =
+      ∑ A1 ∈ 𝒜, ∑ A2 ∈ 𝒜, α A1 * conj (α A2) *
+        (chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ))) := by
+    intro u
+    rw [map_sum, Finset.sum_mul_sum, Finset.sum_mul]
+    refine Finset.sum_congr rfl fun A1 _ => ?_
+    rw [Finset.sum_mul]
+    refine Finset.sum_congr rfl fun A2 _ => ?_
+    rw [map_mul]
+    ring
+  rw [tsum_congr hexp]
+  have hs : ∀ A1 A2 : Finset Pr, Summable fun u : 𝓞 K => α A1 * conj (α A2) *
+      (chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ))) := by
+    intro A1 A2
+    have hb : ∀ u, ‖chiS A1 u * conj (chiS A2 u)‖ ≤ 1 := fun u => by
+      rw [norm_mul, RCLike.norm_conj]
+      calc ‖chiS A1 u‖ * ‖chiS A2 u‖ ≤ 1 * 1 :=
+            mul_le_mul (norm_chiS_le A1 u) (norm_chiS_le A2 u) (norm_nonneg _) zero_le_one
+        _ = 1 := one_mul 1
+    exact (summable_mul_Phi H hH _ hb).mul_left _
+  rw [Summable.tsum_finsetSum fun A1 _ => summable_sum fun A2 _ => hs A1 A2]
+  refine Finset.sum_congr rfl fun A1 _ => ?_
+  rw [Summable.tsum_finsetSum fun A2 _ => hs A1 A2]
+  refine Finset.sum_congr rfl fun A2 _ => ?_
+  rw [tsum_mul_left]
+
 /-- **The mean square as a double sum over pairs**: `Σ_u A_Z(u)·Ā_Z(u)·Φ(u/√H)` is
-`Σ_{A₁,A₂} W(N(A₁)/Z)·W(N(A₂)/Z)·μ(A₁)μ(A₂)·Σ_u χ_{A₁}(u)χ̄_{A₂}(u)·Φ(u/√H)`. -/
+`Σ_{A₁,A₂} W(N(A₁)/Z)·W(N(A₂)/Z)·μ(A₁)μ(A₂)·Σ_u χ_{A₁}(u)χ̄_{A₂}(u)·Φ(u/√H)`; `majorant_expand` with
+the coefficients of `famSum` (round 332). -/
 theorem famSum_majorant_eq {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {Z : ℝ} (hZ : 0 < Z)
     (H : ℝ) (hH : 0 < H) :
     ∑' u : 𝓞 K, famSum W Z u * conj (famSum W Z u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ)) =
@@ -516,38 +557,14 @@ theorem famSum_majorant_eq {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → 
         ((W ((absNorm (idl A1) : ℝ) / Z) * W ((absNorm (idl A2) : ℝ) / Z) : ℝ) : ℂ) *
           ((-1 : ℂ) ^ A1.card * (-1) ^ A2.card *
             ∑' u : 𝓞 K, chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ))) := by
-  set 𝒜 := fsLe (⌈β * Z⌉₊ : ℝ)
-  have hexp : ∀ u : 𝓞 K, famSum W Z u * conj (famSum W Z u) *
-      Majorant.Phi (σO u / (Real.sqrt H : ℂ)) =
-      ∑ A1 ∈ 𝒜, ∑ A2 ∈ 𝒜,
-        ((W ((absNorm (idl A1) : ℝ) / Z) * W ((absNorm (idl A2) : ℝ) / Z) : ℝ) : ℂ) *
-          ((-1 : ℂ) ^ A1.card * (-1) ^ A2.card *
-            (chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ)))) := by
-    intro u
-    rw [famSum_eq hW hZ u, map_sum, Finset.sum_mul_sum, Finset.sum_mul]
-    refine Finset.sum_congr rfl fun A1 _ => ?_
-    rw [Finset.sum_mul]
-    refine Finset.sum_congr rfl fun A2 _ => ?_
-    rw [map_mul, map_mul, map_pow, map_neg, map_one, Complex.conj_ofReal]
-    push_cast
-    ring
-  rw [tsum_congr hexp]
-  have hs : ∀ A1 A2 : Finset Pr, Summable fun u : 𝓞 K =>
-      ((W ((absNorm (idl A1) : ℝ) / Z) * W ((absNorm (idl A2) : ℝ) / Z) : ℝ) : ℂ) *
-        ((-1 : ℂ) ^ A1.card * (-1) ^ A2.card *
-          (chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ)))) := by
-    intro A1 A2
-    have hb : ∀ u, ‖chiS A1 u * conj (chiS A2 u)‖ ≤ 1 := fun u => by
-      rw [norm_mul, RCLike.norm_conj]
-      calc ‖chiS A1 u‖ * ‖chiS A2 u‖ ≤ 1 * 1 :=
-            mul_le_mul (norm_chiS_le A1 u) (norm_chiS_le A2 u) (norm_nonneg _) zero_le_one
-        _ = 1 := one_mul 1
-    exact ((summable_mul_Phi H hH _ hb).mul_left _).mul_left _
-  rw [Summable.tsum_finsetSum fun A1 _ => summable_sum fun A2 _ => hs A1 A2]
-  refine Finset.sum_congr rfl fun A1 _ => ?_
-  rw [Summable.tsum_finsetSum fun A2 _ => hs A1 A2]
-  refine Finset.sum_congr rfl fun A2 _ => ?_
-  rw [tsum_mul_left, tsum_mul_left]
+  have e : ∀ u, famSum W Z u = ∑ A ∈ fsLe (⌈β * Z⌉₊ : ℝ),
+      ((-1 : ℂ) ^ A.card * ((W ((absNorm (idl A) : ℝ) / Z) : ℝ) : ℂ)) * chiS A u := fun u => by
+    rw [famSum_eq hW hZ]; exact Finset.sum_congr rfl fun A _ => by ring
+  simp_rw [e]
+  rw [majorant_expand H hH]
+  refine Finset.sum_congr rfl fun A1 _ => Finset.sum_congr rfl fun A2 _ => ?_
+  simp only [map_mul, map_pow, map_neg, map_one, Complex.conj_ofReal]
+  push_cast; ring
 
 
 /-- **The mean square after Poisson summation**: `famSum_majorant_eq` with `pairSum_poisson` in each
@@ -604,11 +621,13 @@ end
 #print axioms Eis.gaussTr_const_mul
 #print axioms Eis.gaussTr_chars_mu
 #print axioms Eis.gaussTr_one_eq_gamF
+#print axioms Eis.sign_sdiff
 #print axioms Eis.pairSum_poisson
 #print axioms Eis.norm_chiS_le
 #print axioms Eis.Phi_div_sqrt_eq
 #print axioms Eis.summable_mul_Phi
 #print axioms Eis.sum_sq_le_majorant
 #print axioms Eis.norm_famSum_le
+#print axioms Eis.majorant_expand
 #print axioms Eis.famSum_majorant_eq
 #print axioms Eis.majorant_poisson

@@ -8,21 +8,22 @@ of sets of prime factors of `p𝓞`. This file decides the splitting type of eve
 concludes **`mI_eq_muK`**: `m(n) = μ_K(n)`, the coefficients of `1/(ζ(s)L(s, χ₋₃))` used by round 278's
 S0. So sums over the ideals of `ℤ[ω]` (the family of round 282) and S0's `μ_K` are the same objects.
 
-* **Counting** (`card_quot_le_of_ω_mem`): if `ω ≡ c (mod p𝓞)` for an integer `c`, then
-  `|𝓞/p𝓞| ≤ p`, since every element is an integer polynomial in `ω` (`exists_eq_aeval_ω`). But
-  `|𝓞/p𝓞| = p²` (`card_quot_natCast`).
-* **Inert** (`inert_of_mod_two`): for `p ≡ 2 (mod 3)`, `p𝓞` is prime. A prime factor of norm `p`
-  would contain `p` and have a residue field of `p` elements holding the primitive cube root of unity
-  `ω mod P`, forcing `3 ∣ p − 1` (`three_dvd_of_norm_eq`).
-* **Split** (`split_of_mod_one`): for `p ≡ 1 (mod 3)`, `p𝓞 = PQ` with `P ≠ Q` of norm `p`. Cauchy's
-  theorem in `(ℤ/p)ˣ` gives `p ∣ a² + a + 1` (`exists_cube_root_mod`), so
-  `(ω − a)(ω − a²) ∈ p𝓞` (`prod_sub_mem`) while neither factor is (the counting bound). That excludes
-  `p𝓞` prime, and `p𝓞 = P²` too: the roots `a`, `a²` differ by the unit `a(1 − a)` mod `p`, so one
-  factor is invertible mod `P` and the other would lie in `P² = p𝓞`.
+* **Split and inert, from Mathlib's cyclotomic theory** (round 332; round 284 proved both by hand,
+  through a counting bound on `𝓞/p𝓞` and cube roots of unity mod `p`). For `p ≠ 3` every prime
+  factor of `p𝓞` has norm `p^{ord₃(p)}` (`absNorm_of_mem_pFactors`, from Mathlib's
+  `IsCyclotomicExtension.Rat.inertiaDeg_eq_of_not_dvd`) and multiplicity one
+  (`count_pFactors_eq_one`, from `ramificationIdx_eq_of_not_dvd`). So `p ≡ 1 (mod 3)` gives
+  `p𝓞 = PQ` with `P ≠ Q` of norm `p` (`split_of_mod_one`), and `p ≡ 2` makes `p𝓞` prime
+  (`inert_of_mod_two`).
 * **Ramified** (`ramified_three`): `3𝓞 = (ω − 1)²`, with `N(ω − 1) = 3`.
 * **Closed forms**: `m(p^k)` and `μ_K(p^k)` are both `1, −(1 + χ₋₃(p)), χ₋₃(p), 0, 0, …`
   (`mI_prime_pow_eq`, `muK_prime_pow`, via `signed_count` and the convolution `μ ⍟ χ₋₃μ`), and `μ_K`
   is multiplicative (`muK_mul`). Induction over coprime factorisations gives `mI_eq_muK`.
+* **Inclusion–exclusion and sums over multiples** (round 332): `1_{¬p(i) ∀ i∈S} =
+  Σ_{T⊆S} (−1)^{|T|}·1_{p(i) ∀ i∈T}` in any commutative ring (`indicator_forall_not`), and
+  `Σ_u 1_{d ∣ u}·g(u) = Σ_ℓ g(dℓ)` in a cancellative monoid with zero (`tsum_ite_dvd_eq`).
+  `indicator_coprime`, `indicator_not_dvd`, `indicator_Pr`, `tsum_dvd_eq` and `tsum_ideal_dvd_eq` in
+  later files are their instances.
 -/
 
 open NumberField Ideal UniqueFactorizationMonoid Polynomial
@@ -33,52 +34,6 @@ namespace Eis
 theorem exists_eq_aeval_ω (x : 𝓞 K) : ∃ f : ℤ[X], x = aeval ω f := by
   obtain ⟨f, hf⟩ := hζ.integralPowerBasis.exists_eq_aeval' x
   exact ⟨f, by rw [hf, IsPrimitiveRoot.integralPowerBasis_gen]; rfl⟩
-
-theorem card_quot_natCast (p : ℕ) : Nat.card (𝓞 K ⧸ span {(p : 𝓞 K)}) = p ^ 2 := by
-  rw [← absNorm_natCast_span_sq p, absNorm_apply, Submodule.cardQuot_apply]
-
-/-- If `ω ≡ c (mod p)` for an integer `c`, then `𝓞/p𝓞` has at most `p` elements. -/
-theorem card_quot_le_of_ω_mem {p : ℕ} (hp : p ≠ 0) {c : ℤ} (hc : ω - c ∈ span {(p : 𝓞 K)}) :
-    Nat.card (𝓞 K ⧸ span {(p : 𝓞 K)}) ≤ p := by
-  set I := span {(p : 𝓞 K)}
-  have hωc : Ideal.Quotient.mk I ω = Ideal.Quotient.mk I (c : 𝓞 K) := Ideal.Quotient.eq.2 hc
-  have hint : ∀ m : ℤ, Ideal.Quotient.mk I (m : 𝓞 K) =
-      Ideal.Quotient.mk I (((m % p).toNat : ℕ) : 𝓞 K) := by
-    intro m
-    rw [Ideal.Quotient.eq]
-    have hnn : 0 ≤ m % (p : ℤ) := Int.emod_nonneg _ (by exact_mod_cast hp)
-    have e : (((m % p).toNat : ℕ) : ℤ) = m % p := Int.toNat_of_nonneg hnn
-    have e2 : (p : ℤ) * (m / p) + m % p = m := Int.mul_ediv_add_emod m p
-    have : (m : 𝓞 K) - (((m % p).toNat : ℕ) : 𝓞 K) = (p : 𝓞 K) * ((m / p : ℤ) : 𝓞 K) := by
-      have h3 : ((((m % p).toNat : ℕ) : ℤ) : 𝓞 K) = ((m % p : ℤ) : 𝓞 K) := by rw [e]
-      have h4 : (m : 𝓞 K) = (p : 𝓞 K) * ((m / p : ℤ) : 𝓞 K) + ((m % p : ℤ) : 𝓞 K) := by
-        exact_mod_cast congrArg (Int.cast : ℤ → 𝓞 K) e2.symm
-      rw [h4, ← h3]; push_cast; ring
-    rw [this]
-    exact Ideal.mul_mem_right _ _ (Ideal.mem_span_singleton_self _)
-  have hlt : ∀ m : ℤ, (m % p).toNat < p := by
-    intro m
-    have := Int.emod_lt_of_pos m (by exact_mod_cast Nat.pos_of_ne_zero hp : (0 : ℤ) < p)
-    omega
-  have hsurj : Function.Surjective fun m : Fin p => Ideal.Quotient.mk I ((m : ℕ) : 𝓞 K) := by
-    intro y
-    obtain ⟨x, rfl⟩ := Ideal.Quotient.mk_surjective y
-    obtain ⟨f, rfl⟩ := exists_eq_aeval_ω x
-    have h1 : Ideal.Quotient.mk I (aeval ω f) = Ideal.Quotient.mk I ((f.eval c : ℤ) : 𝓞 K) := by
-      calc Ideal.Quotient.mk I (aeval ω f)
-          = aeval (Ideal.Quotient.mk I ω) f :=
-            (Polynomial.aeval_algHom_apply (Ideal.Quotient.mk I).toIntAlgHom ω f).symm
-        _ = aeval (Ideal.Quotient.mk I (c : 𝓞 K)) f := by rw [hωc]
-        _ = Ideal.Quotient.mk I (aeval (c : 𝓞 K) f) :=
-            Polynomial.aeval_algHom_apply (Ideal.Quotient.mk I).toIntAlgHom _ f
-        _ = Ideal.Quotient.mk I ((f.eval c : ℤ) : 𝓞 K) := by
-            congr 1
-            rw [Polynomial.aeval_def, Polynomial.eval₂_at_intCast]; rfl
-    exact ⟨⟨(f.eval c % p).toNat, hlt _⟩, by rw [h1, hint]⟩
-  have : Fintype (𝓞 K ⧸ I) :=
-    @Fintype.ofFinite _ (Ideal.finiteQuotientOfFreeOfNeBot I (span_natCast_ne_bot hp))
-  rw [Nat.card_eq_fintype_card]
-  simpa using Fintype.card_le_of_surjective _ hsurj
 
 section Splitting
 
@@ -95,167 +50,82 @@ theorem not_coprime_mem {P : Ideal (𝓞 K)} (hP : P ≠ ⊤) {a b : ℕ} (hab :
   rw [eq_top_iff, ← span_sup_span_eq_top hab]
   exact sup_le ((Ideal.span_singleton_le_iff_mem _).2 ha) ((Ideal.span_singleton_le_iff_mem _).2 hb)
 
-/-- **A prime factor of `p𝓞` of norm `p`, with `p ≠ 3`, forces `p ≡ 1 (mod 3)`**: its residue field
-contains the primitive cube root of unity `ω mod P`. -/
-theorem three_dvd_of_norm_eq {p : ℕ} (hp : p.Prime) (hp3 : p ≠ 3) {P : Ideal (𝓞 K)}
-    (hP : P ∈ pFactors p) (hN : absNorm P = p) : 3 ∣ p - 1 := by
-  classical
-  obtain ⟨hPp, hpP⟩ := (mem_pFactors hp.ne_zero).1 hP
-  have hPb : P ≠ ⊥ := fun h => by
-    rw [h, Ideal.mem_bot] at hpP; exact hp.ne_zero (by exact_mod_cast hpP)
-  have : P.IsMaximal := hPp.isMaximal hPb
-  have hcard : Fintype.card (𝓞 K ⧸ P) = p := by
-    rw [← hN, absNorm_apply, Submodule.cardQuot_apply, Nat.card_eq_fintype_card]
-  set e := Ideal.Quotient.mk P ω with he
-  have he3 : e ^ 3 = 1 := mk_ω_cube P
-  have he1 : e ≠ 1 := by
-    intro h
-    have hlam : ω - 1 ∈ P := by
-      rw [← Ideal.Quotient.eq_zero_iff_mem, map_sub, map_one, ← he, h, sub_self]
-    exact not_coprime_mem hPp.ne_top ((Nat.coprime_primes hp Nat.prime_three).2 hp3)
-      hpP (by exact_mod_cast three_mem_of_lam_mem hlam)
-  have he0 : e ≠ 0 := fun h => by rw [h, zero_pow (by norm_num)] at he3; exact zero_ne_one he3
-  set u := Units.mk0 e he0
-  have hu3 : u ^ 3 = 1 := Units.ext (by simp [u, he3])
-  have hu1 : u ≠ 1 := fun h => he1 (by simpa [u] using congrArg Units.val h)
-  have hord : orderOf u = 3 := orderOf_eq_prime hu3 hu1
-  have := orderOf_dvd_card (x := u)
-  rwa [hord, Fintype.card_units, hcard] at this
-
-
-/-- For `p ≡ 1 (mod 3)` there is an integer `a` with `p ∣ a² + a + 1` (Cauchy's theorem in `(ℤ/p)ˣ`). -/
-theorem exists_cube_root_mod {p : ℕ} (hp : p.Prime) (h1 : p % 3 = 1) :
-    ∃ a : ℤ, (p : ℤ) ∣ a ^ 2 + a + 1 := by
+/-- A prime factor of `p𝓞` lies over `p`. -/
+theorem liesOver_of_mem_pFactors {p : ℕ} (hp : p.Prime) {P : Ideal (𝓞 K)} (hP : P ∈ pFactors p) :
+    P.LiesOver (Ideal.span {(p : ℤ)}) := by
   have := Fact.mk hp
-  have h3 : 3 ∣ Fintype.card (ZMod p)ˣ := by
-    rw [ZMod.card_units p]; omega
-  have : Fact (Nat.Prime 3) := ⟨Nat.prime_three⟩
-  obtain ⟨g, hg⟩ := exists_prime_orderOf_dvd_card 3 h3
-  have hg3 : g ^ 3 = 1 := by rw [← hg]; exact pow_orderOf_eq_one g
-  have hg1 : g ≠ 1 := by intro h; rw [h, orderOf_one] at hg; norm_num at hg
-  set x : ZMod p := (g : ZMod p)
-  have hx3 : x ^ 3 = 1 := by simp [x, ← Units.val_pow_eq_pow_val, hg3]
-  have hx1 : x ≠ 1 := fun h => hg1 (Units.ext h)
-  have hx : x ^ 2 + x + 1 = 0 := by
-    have : (x - 1) * (x ^ 2 + x + 1) = 0 := by linear_combination hx3
-    exact (mul_eq_zero.1 this).resolve_left (sub_ne_zero.2 hx1)
-  refine ⟨(x.val : ℤ), (ZMod.intCast_zmod_eq_zero_iff_dvd _ p).1 ?_⟩
-  push_cast
-  rw [ZMod.natCast_zmod_val]; exact hx
+  obtain ⟨hPp, hpP⟩ := (mem_pFactors hp.ne_zero).1 hP
+  rw [Ideal.liesOver_iff]
+  refine IsMaximal.eq_of_le (Int.ideal_span_isMaximal_of_prime p) IsPrime.ne_top' ?_
+  rw [Ideal.span_le, Set.singleton_subset_iff, SetLike.mem_coe, Ideal.under_def, Ideal.mem_comap]
+  simpa using hpP
 
-/-- The integer analogue of `not_coprime_mem`. -/
-theorem not_isCoprime_mem {P : Ideal (𝓞 K)} (hP : P ≠ ⊤) {m n : ℤ} (hmn : IsCoprime m n)
-    (hm : (m : 𝓞 K) ∈ P) (hn : (n : 𝓞 K) ∈ P) : False := by
-  obtain ⟨x, y, hxy⟩ := hmn
-  apply hP
-  rw [eq_top_iff_one]
-  have : (1 : 𝓞 K) = (x : 𝓞 K) * m + (y : 𝓞 K) * n := by
-    exact_mod_cast congrArg (Int.cast : ℤ → 𝓞 K) hxy.symm
-  rw [this]
-  exact P.add_mem (P.mul_mem_left _ hm) (P.mul_mem_left _ hn)
+/-- **Norms from Mathlib's cyclotomic theory**: for `p ≠ 3`, every prime factor of `p𝓞` has norm
+`p^{ord₃(p)}` (`IsCyclotomicExtension.Rat.inertiaDeg_eq_of_not_dvd`, `Ideal.pow_inertiaDeg`). -/
+theorem absNorm_of_mem_pFactors {p : ℕ} (hp : p.Prime) (hp3 : p ≠ 3) {P : Ideal (𝓞 K)}
+    (hP : P ∈ pFactors p) : absNorm P = p ^ orderOf (p : ZMod 3) := by
+  have := Fact.mk hp
+  have := liesOver_of_mem_pFactors hp hP
+  have : P.IsPrime := ((mem_pFactors hp.ne_zero).1 hP).1
+  have hdvd : ¬ p ∣ 3 := fun h => hp3 ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_three).1 h)
+  rw [← Ideal.pow_inertiaDeg p P,
+    IsCyclotomicExtension.Rat.inertiaDeg_eq_of_not_dvd (m := 3) p K P hdvd]
 
-/-- `(ω − a)(ω − a²) ∈ p𝓞` when `p ∣ a² + a + 1`. -/
-theorem prod_sub_mem {p : ℕ} {a t : ℤ} (ht : a ^ 2 + a + 1 = p * t) :
-    (ω - a) * (ω - (a ^ 2 : ℤ)) ∈ span {(p : 𝓞 K)} := by
-  have ht' : (a : 𝓞 K) ^ 2 + a + 1 = (p : 𝓞 K) * t := by exact_mod_cast congrArg (Int.cast : ℤ → 𝓞 K) ht
-  have : (ω - a) * (ω - (a ^ 2 : ℤ)) = (p : 𝓞 K) * ((t : 𝓞 K) * (a - 1 - ω)) := by
-    push_cast
-    linear_combination ω_sq_add + ((a : 𝓞 K) - 1 - ω) * ht'
-  rw [this]; exact Ideal.mul_mem_right _ _ (Ideal.mem_span_singleton_self _)
+/-- `p𝓞` is unramified at every prime factor when `p ≠ 3`. -/
+theorem count_pFactors_eq_one {p : ℕ} (hp : p.Prime) (hp3 : p ≠ 3) {P : Ideal (𝓞 K)}
+    (hP : P ∈ pFactors p) : (pFactors p).count P = 1 := by
+  have := Fact.mk hp
+  have := liesOver_of_mem_pFactors hp hP
+  have : P.IsPrime := ((mem_pFactors hp.ne_zero).1 hP).1
+  have hdvd : ¬ p ∣ 3 := fun h => hp3 ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_three).1 h)
+  have hmap : (Ideal.span {(p : ℤ)}).map (algebraMap ℤ (𝓞 K)) = span {(p : 𝓞 K)} := by
+    rw [Ideal.map_span, Set.image_singleton]; simp
+  have hne : (Ideal.span {(p : ℤ)}).map (algebraMap ℤ (𝓞 K)) ≠ ⊥ := by
+    rw [hmap]; exact span_natCast_ne_bot hp.ne_zero
+  have h := Ideal.IsDedekindDomain.ramificationIdx_eq_normalizedFactors_count (Ideal.span {(p : ℤ)}) P hne
+  rw [IsCyclotomicExtension.Rat.ramificationIdx_eq_of_not_dvd (m := 3) p K P hdvd, hmap] at h
+  exact h.symm
 
 /-- **Split**: for `p ≡ 1 (mod 3)`, `p𝓞` is the product of two distinct primes of norm `p`. -/
 theorem split_of_mod_one {p : ℕ} (hp : p.Prime) (h1 : p % 3 = 1) :
     ∃ P Q : Ideal (𝓞 K), P ≠ Q ∧ pFactors p = {P, Q} ∧ absNorm P = p ∧ absNorm Q = p := by
-  classical
   have hp3 : p ≠ 3 := by rintro rfl; norm_num at h1
-  have hp0 := hp.ne_zero
-  have hcard := card_quot_natCast p
-  have hp2 := hp.two_le
-  obtain ⟨a, t, ht⟩ := exists_cube_root_mod hp h1
-  have hmem := prod_sub_mem (a := a) (t := t) (p := p) ht
-  -- no prime `P` contains `ω − a` or `ω − a²` together with `p𝓞 ≤ P²`-type collapse:
-  have hnot : ∀ c : ℤ, ω - (c : 𝓞 K) ∉ span {(p : 𝓞 K)} := fun c hc => by
-    have := card_quot_le_of_ω_mem hp0 hc
-    rw [hcard] at this; nlinarith
-  rcases pFactors_cases hp with ⟨P, hPf, -⟩ | ⟨hc2, hall⟩
-  · -- inert: `p𝓞 = P` would be prime
-    exfalso
-    have hspan : span {(p : 𝓞 K)} = P := by rw [← prod_pFactors hp0, hPf, Multiset.prod_singleton]
-    have hPp : P.IsPrime := ((mem_pFactors hp0).1 (by rw [hPf]; exact Multiset.mem_singleton_self P)).1
-    rw [hspan] at hmem hnot
-    rcases hPp.mem_or_mem hmem with h | h
-    · exact hnot a h
-    · exact hnot (a ^ 2) h
+  have hord : orderOf (p : ZMod 3) = 1 := by
+    rw [orderOf_eq_one_iff]
+    have : ((p : ℕ) : ZMod 3) = ((p % 3 : ℕ) : ZMod 3) := (ZMod.natCast_mod p 3).symm
+    rw [this, h1]; rfl
+  rcases pFactors_cases hp with ⟨P, hPf, hPn⟩ | ⟨hc2, hall⟩
+  · exfalso
+    have := absNorm_of_mem_pFactors hp hp3 (P := P) (by rw [hPf]; exact Multiset.mem_singleton_self P)
+    rw [hPn, hord, pow_one] at this
+    have h2 := hp.two_le
+    nlinarith
   · obtain ⟨P, Q, hPQ⟩ := Multiset.card_eq_two.1 hc2
     have hPf : P ∈ pFactors p := by rw [hPQ]; simp
     have hQf : Q ∈ pFactors p := by rw [hPQ]; simp
-    refine ⟨P, Q, ?_, hPQ, hall P hPf, hall Q hQf⟩
-    -- ramified: `p𝓞 = P²` is impossible
-    rintro rfl
-    have hspan : span {(p : 𝓞 K)} = P * P := by
-      rw [← prod_pFactors hp0, hPQ]; simp
-    obtain ⟨hPp, hpP⟩ := (mem_pFactors hp0).1 hPf
-    have hPb : P ≠ ⊥ := fun h => by
-      rw [h, Ideal.mem_bot] at hpP; exact hp0 (by exact_mod_cast hpP)
-    have hPm : P.IsMaximal := hPp.isMaximal hPb
-    have hmemP : (ω - a) * (ω - (a ^ 2 : ℤ)) ∈ P := by
-      rw [hspan] at hmem; exact Ideal.mul_le_left hmem
-    -- the two roots differ by a unit modulo `P`
-    have hpa : ¬ (p : ℤ) ∣ a * (1 - a) := by
-      intro hd
-      rcases (Int.prime_iff_natAbs_prime.2 (by simpa using hp)).dvd_or_dvd hd with h | h
-      · have : (p : ℤ) ∣ 1 := by
-          have := dvd_sub (Dvd.intro t ht.symm) (dvd_mul_of_dvd_left h (a + 1))
-          ring_nf at this ⊢; simpa using this
-        exact hp.one_lt.ne' (by exact_mod_cast Int.eq_one_of_dvd_one (by positivity) this)
-      · have : (p : ℤ) ∣ 3 := by
-          have := dvd_sub (Dvd.intro t ht.symm) (dvd_mul_of_dvd_left h (-(a + 2)))
-          ring_nf at this ⊢; simpa using this
-        have h3 : p ∣ 3 := by exact_mod_cast this
-        exact hp3 ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_three).1 h3)
-    have hcop : IsCoprime (a * (1 - a)) (p : ℤ) :=
-      ((Nat.prime_iff_prime_int.mp hp).irreducible.coprime_iff_not_dvd.2 hpa).symm
-    -- one root lies in `P`, the other does not
-    have key : ∀ b b' : ℤ, ω - (b : 𝓞 K) ∈ P → (b : 𝓞 K) - b' = (a * (1 - a) : ℤ) ∨ (b : 𝓞 K) - b' = -(a * (1 - a) : ℤ) →
-        (ω - b) * (ω - b') ∈ P * P → False := by
-      intro b b' hb hdiff hprod
-      have hb' : ω - (b' : 𝓞 K) ∉ P := by
-        intro hb'
-        have hd : (b : 𝓞 K) - b' ∈ P := by
-          have := P.sub_mem hb' hb; ring_nf at this ⊢; simpa [sub_eq_add_neg, add_comm] using this
-        rcases hdiff with e | e <;> rw [e] at hd
-        · exact not_isCoprime_mem hPp.ne_top hcop hd (by exact_mod_cast hpP)
-        · exact not_isCoprime_mem hPp.ne_top hcop (P.neg_mem_iff.1 hd) (by exact_mod_cast hpP)
-      -- invert `ω − b'` modulo `P`
-      let := Ideal.Quotient.field P
-      have hne : Ideal.Quotient.mk P (ω - b') ≠ 0 := by rwa [Ne, Ideal.Quotient.eq_zero_iff_mem]
-      obtain ⟨y, hy⟩ := Ideal.Quotient.mk_surjective (Ideal.Quotient.mk P (ω - b'))⁻¹
-      have hq : (ω - b') * y - 1 ∈ P := by
-        rw [← Ideal.Quotient.eq_zero_iff_mem, map_sub, map_mul, hy, mul_inv_cancel₀ hne, map_one, sub_self]
-      have hsq : ω - (b : 𝓞 K) ∈ P * P := by
-        have e : ω - (b : 𝓞 K) = (ω - b) * (ω - b') * y - (ω - b) * ((ω - b') * y - 1) := by ring
-        rw [e]
-        exact (P * P).sub_mem (Ideal.mul_mem_right _ _ hprod) (Ideal.mul_mem_mul hb hq)
-      rw [← hspan] at hsq
-      exact hnot b hsq
-    have hprodPP : (ω - a) * (ω - (a ^ 2 : ℤ)) ∈ P * P := hspan ▸ hmem
-    rcases hPp.mem_or_mem hmemP with h | h
-    · exact key a (a ^ 2) h (Or.inl (by push_cast; ring)) hprodPP
-    · refine key (a ^ 2) a h (Or.inr (by push_cast; ring)) ?_
-      rw [show (ω - ((a ^ 2 : ℤ) : 𝓞 K)) * (ω - (a : 𝓞 K)) = (ω - a) * (ω - ((a ^ 2 : ℤ) : 𝓞 K)) by ring]
-      exact hprodPP
-
+    refine ⟨P, Q, fun h => ?_, hPQ, hall P hPf, hall Q hQf⟩
+    have := count_pFactors_eq_one hp hp3 hPf
+    rw [hPQ, ← h] at this
+    simp at this
 
 /-- **Inert**: for `p ≡ 2 (mod 3)`, `p𝓞` is prime, of norm `p²`. -/
 theorem inert_of_mod_two {p : ℕ} (hp : p.Prime) (h2 : p % 3 = 2) :
     ∃ P, pFactors p = {P} ∧ absNorm P = p ^ 2 := by
+  have hp3 : p ≠ 3 := by rintro rfl; norm_num at h2
   rcases pFactors_cases hp with h | ⟨hc2, hall⟩
   · exact h
   · exfalso
     obtain ⟨P, hP⟩ := Multiset.card_pos_iff_exists_mem.1 (by rw [hc2]; norm_num)
-    have hp3 : p ≠ 3 := by rintro rfl; norm_num at h2
-    have := three_dvd_of_norm_eq hp hp3 hP (hall P hP)
-    omega
+    have h1 := absNorm_of_mem_pFactors hp hp3 hP
+    rw [hall P hP] at h1
+    have hord : orderOf (p : ZMod 3) = 2 := by
+      have : ((p : ℕ) : ZMod 3) = ((p % 3 : ℕ) : ZMod 3) := (ZMod.natCast_mod p 3).symm
+      rw [this, h2]
+      have : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
+      exact orderOf_eq_prime (by decide) (by decide)
+    rw [hord] at h1
+    have := hp.two_le
+    nlinarith
 
 /-- **Ramified**: `3𝓞 = (ω − 1)²`, and `N(ω − 1) = 3`. -/
 theorem ramified_three :
@@ -470,14 +340,68 @@ theorem mI_eq_muK (n : ℕ) : (mI n : ℂ) = HalfPlaneS0.muK n := by
 
 end MuK
 
+section InclusionExclusion
+
+open Classical in
+/-- **Inclusion–exclusion** (round 332): in any commutative ring,
+`1_{¬p(i) for all i ∈ S} = Σ_{T ⊆ S} (−1)^{|T|}·1_{p(i) for all i ∈ T}`, by expanding
+`∏_{i∈S}(1 − 1_{p(i)})` with Mathlib's `Finset.prod_add`. `indicator_not_dvd`, `indicator_Pr` and
+`indicator_coprime` are its instances. -/
+theorem indicator_forall_not {ι R : Type*} [DecidableEq ι] [CommRing R] (S : Finset ι)
+    (p : ι → Prop) :
+    (if ∀ i ∈ S, ¬ p i then (1 : R) else 0) =
+      ∑ T ∈ S.powerset, (-1 : R) ^ T.card * (if ∀ i ∈ T, p i then 1 else 0) := by
+  have h1 : (if ∀ i ∈ S, ¬ p i then (1 : R) else 0) =
+      ∏ i ∈ S, ((-1 : R) * (if p i then 1 else 0) + 1) := by
+    by_cases h : ∀ i ∈ S, ¬ p i
+    · rw [ite_eq_left h]; symm
+      exact Finset.prod_eq_one fun i hi => by rw [ite_eq_right (h i hi)]; ring
+    · rw [ite_eq_right h]
+      push Not at h
+      obtain ⟨i, hi, hd⟩ := h
+      symm
+      exact Finset.prod_eq_zero hi (by rw [ite_eq_left hd]; ring)
+  rw [h1, Finset.prod_add]
+  refine Finset.sum_congr rfl fun T hT => ?_
+  rw [Finset.prod_const_one, mul_one, Finset.prod_mul_distrib, Finset.prod_const]
+  congr 1
+  by_cases h : ∀ i ∈ T, p i
+  · rw [Finset.prod_eq_one fun i hi => ite_eq_left (h i hi), ite_eq_left h]
+  · push Not at h
+    obtain ⟨i, hi, hd⟩ := h
+    rw [Finset.prod_eq_zero hi (ite_eq_right hd), ite_eq_right fun h' => hd (h' i hi)]
+
+end InclusionExclusion
+
+section DivisorSums
+
+open Classical in
+/-- **A sum over the multiples of `d`** (round 332): `Σ_u 1_{d ∣ u}·g(u) = Σ_ℓ g(dℓ)` for `d ≠ 0` in a
+cancellative monoid with zero. `tsum_dvd_eq` and `tsum_ideal_dvd_eq` are its instances. -/
+theorem tsum_ite_dvd_eq {M : Type*} [MonoidWithZero M] [IsLeftCancelMulZero M] (d : M) (hd : d ≠ 0)
+    (g : M → ℂ) : ∑' u : M, (if d ∣ u then g u else 0) = ∑' ℓ : M, g (d * ℓ) := by
+  have hinj : Function.Injective fun ℓ : M => d * ℓ := fun a b hab => mul_left_cancel₀ hd hab
+  have hsupp : Function.support (fun u : M => if d ∣ u then g u else 0) ⊆
+      Set.range fun ℓ : M => d * ℓ := by
+    intro u hu
+    by_contra hr
+    apply hu
+    show (if d ∣ u then g u else 0) = 0
+    rw [ite_eq_right]
+    rintro ⟨ℓ, rfl⟩
+    exact hr ⟨ℓ, rfl⟩
+  rw [← hinj.tsum_eq hsupp]
+  refine tsum_congr fun ℓ => ?_
+  rw [ite_eq_left (dvd_mul_right d ℓ)]
+
+end DivisorSums
+
 end Eis
 
 #print axioms Eis.exists_eq_aeval_ω
-#print axioms Eis.card_quot_natCast
-#print axioms Eis.card_quot_le_of_ω_mem
-#print axioms Eis.three_dvd_of_norm_eq
-#print axioms Eis.exists_cube_root_mod
-#print axioms Eis.prod_sub_mem
+#print axioms Eis.liesOver_of_mem_pFactors
+#print axioms Eis.absNorm_of_mem_pFactors
+#print axioms Eis.count_pFactors_eq_one
 #print axioms Eis.split_of_mod_one
 #print axioms Eis.inert_of_mod_two
 #print axioms Eis.ramified_three
@@ -489,3 +413,5 @@ end Eis
 #print axioms Eis.mI_zero
 #print axioms Eis.mI_one
 #print axioms Eis.mI_eq_muK
+#print axioms Eis.indicator_forall_not
+#print axioms Eis.tsum_ite_dvd_eq

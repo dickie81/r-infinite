@@ -36,36 +36,18 @@ namespace Eis
 
 open Classical in
 /-- **Inclusion–exclusion over a set of pairwise coprime primes**:
-`1_{π_i ∤ u for all i ∈ S} = Σ_{T ⊆ S} (−1)^{|T|}·1_{∏_{i∈T} π_i ∣ u}`. -/
+`1_{π_i ∤ u for all i ∈ S} = Σ_{T ⊆ S} (−1)^{|T|}·1_{∏_{i∈T} π_i ∣ u}`. An instance of
+`indicator_forall_not` (round 332), since a product of pairwise coprime divisors divides `u`. -/
 theorem indicator_not_dvd {ι : Type*} [DecidableEq ι] (S : Finset ι) (π : ι → 𝓞 K)
     (hcop : ∀ i ∈ S, ∀ j ∈ S, i ≠ j → IsCoprime (π i) (π j)) (u : 𝓞 K) :
     (if ∀ i ∈ S, ¬ π i ∣ u then (1 : ℂ) else 0) =
       ∑ T ∈ S.powerset, (-1 : ℂ) ^ T.card * (if (∏ i ∈ T, π i) ∣ u then 1 else 0) := by
-  have h1 : (if ∀ i ∈ S, ¬ π i ∣ u then (1 : ℂ) else 0) =
-      ∏ i ∈ S, ((-1 : ℂ) * (if π i ∣ u then 1 else 0) + 1) := by
-    by_cases h : ∀ i ∈ S, ¬ π i ∣ u
-    · rw [ite_eq_left h]
-      symm
-      refine Finset.prod_eq_one fun i hi => ?_
-      rw [ite_eq_right (h i hi)]; ring
-    · rw [ite_eq_right h]
-      push Not at h
-      obtain ⟨i, hi, hd⟩ := h
-      symm
-      refine Finset.prod_eq_zero hi ?_
-      rw [ite_eq_left hd]; ring
-  rw [h1, Finset.prod_add]
+  rw [indicator_forall_not S (fun i => π i ∣ u)]
   refine Finset.sum_congr rfl fun T hT => ?_
-  rw [Finset.prod_const_one, mul_one, Finset.prod_mul_distrib, Finset.prod_const]
   congr 1
-  have hT := Finset.mem_powerset.1 hT
-  by_cases h : ∀ i ∈ T, π i ∣ u
-  · rw [Finset.prod_eq_one fun i hi => ite_eq_left (h i hi), ite_eq_left]
-    exact Finset.prod_dvd_of_coprime (fun i hi j hj hij => hcop i (hT hi) j (hT hj) hij) h
-  · push Not at h
-    obtain ⟨i, hi, hd⟩ := h
-    rw [Finset.prod_eq_zero hi (ite_eq_right hd), ite_eq_right]
-    exact fun hdiv => hd ((Finset.dvd_prod_of_mem π hi).trans hdiv)
+  refine if_congr ⟨fun h => ?_, fun h i hi => (Finset.dvd_prod_of_mem π hi).trans h⟩ rfl rfl
+  exact Finset.prod_dvd_of_coprime (fun i hi j hj hij =>
+    hcop i (Finset.mem_powerset.1 hT hi) j (Finset.mem_powerset.1 hT hj) hij) h
 
 /-- A function periodic modulo `c ≠ 0` is bounded. -/
 theorem exists_bound_of_periodic (c : 𝓞 K) (hc : c ≠ 0) (f : 𝓞 K → ℂ)
@@ -79,22 +61,10 @@ theorem exists_bound_of_periodic (c : 𝓞 K) (hc : c ≠ 0) (f : 𝓞 K → ℂ
     (Finset.mem_univ _)
 
 open Classical in
-/-- `Σ_u 1_{d ∣ u}·g(u) = Σ_ℓ g(dℓ)` for `d ≠ 0`. -/
+/-- `Σ_u 1_{d ∣ u}·g(u) = Σ_ℓ g(dℓ)` for `d ≠ 0` (`tsum_ite_dvd_eq`, since round 332). -/
 theorem tsum_dvd_eq (d : 𝓞 K) (hd : d ≠ 0) (g : 𝓞 K → ℂ) :
     ∑' u : 𝓞 K, (if d ∣ u then g u else 0) = ∑' ℓ : 𝓞 K, g (d * ℓ) := by
-  have hinj : Function.Injective fun ℓ : 𝓞 K => d * ℓ := fun a b h => mul_left_cancel₀ hd h
-  have hsupp : Function.support (fun u : 𝓞 K => if d ∣ u then g u else 0) ⊆
-      Set.range fun ℓ : 𝓞 K => d * ℓ := by
-    intro u hu
-    by_contra hr
-    apply hu
-    show (if d ∣ u then g u else 0) = 0
-    rw [ite_eq_right]
-    rintro ⟨ℓ, rfl⟩
-    exact hr ⟨ℓ, rfl⟩
-  rw [← hinj.tsum_eq hsupp]
-  refine tsum_congr fun ℓ => ?_
-  rw [ite_eq_left (dvd_mul_right d ℓ)]
+  convert tsum_ite_dvd_eq d hd g
 
 open Classical in
 /-- **Poisson summation with excluded primes** (the companion paper's Lemma 4.2, in the pilot's

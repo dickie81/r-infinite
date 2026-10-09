@@ -39,21 +39,15 @@ def sqSum (c t : 𝓞 K) : ℂ := gaussTr c (fun x => ψc c (t * (x * x))) 0
 theorem sqSum_one (c : 𝓞 K) : sqSum c 1 = gaussTr c (qphase c) 0 := by
   unfold sqSum qphase; simp only [one_mul]
 
-theorem sq_periodic (c t : 𝓞 K) (hc : c ≠ 0) (z u : 𝓞 K) :
-    ψc c (t * ((z + c * u) * (z + c * u))) = ψc c (t * (z * z)) := by
-  have : t * ((z + c * u) * (z + c * u)) = t * (z * z) + c * (t * (2 * z * u + c * u * u)) := by
-    ring
-  rw [this, ψc_add_mul c hc]
-
 /-- `ψ_c(c·u) = 1`. -/
 theorem ψc_mul_self (c : 𝓞 K) (hc : c ≠ 0) (u : 𝓞 K) : ψc c (c * u) = 1 := by
   have := ψc_add_mul c hc 0 u
   rwa [zero_add, ψc_zero] at this
 
-/-- **Chinese remainders for the quadratic sums**: `S_{ab}(1) = S_a(b)·S_b(a)` for coprime
-`a, b`. -/
-theorem sqSum_mul (a b : 𝓞 K) (ha : a ≠ 0) (hb : b ≠ 0) (hab : IsCoprime a b) :
-    sqSum (a * b) 1 = sqSum a b * sqSum b a := by
+/-- **Chinese remainders for the twisted quadratic sums**: `S_{ab}(t) = S_a(tb)·S_b(ta)` for coprime
+`a, b` (round 304; in this file since round 332). -/
+theorem sqSum_mul_t (a b t : 𝓞 K) (ha : a ≠ 0) (hb : b ≠ 0) (hab : IsCoprime a b) :
+    sqSum (a * b) t = sqSum a (t * b) * sqSum b (t * a) := by
   have : Finite (𝓞 K ⧸ span {a}) :=
     Ideal.finiteQuotientOfFreeOfNeBot _ (by rwa [Ne, Ideal.span_singleton_eq_bot])
   let : Fintype (𝓞 K ⧸ span {a}) := Fintype.ofFinite _
@@ -63,22 +57,29 @@ theorem sqSum_mul (a b : 𝓞 K) (ha : a ≠ 0) (hb : b ≠ 0) (hab : IsCoprime 
   have hcrt := crt_rep_bijective a b ha hb hab (repQ a) (repQ b) (repQ_bijective a ha)
     (repQ_bijective b hb)
   have e1 := gaussTr_eq_sum (ι := (𝓞 K ⧸ span {a}) × (𝓞 K ⧸ span {b})) (a * b)
-    (mul_ne_zero ha hb) (fun x => ψc (a * b) (1 * (x * x))) (sq_periodic (a * b) 1 (mul_ne_zero ha hb))
+    (mul_ne_zero ha hb) (fun x => ψc (a * b) (t * (x * x)))
+    (sq_periodic (a * b) t (mul_ne_zero ha hb))
     (fun q => b * repQ a q.1 + a * repQ b q.2) hcrt 0
-  have e2 := gaussTr_eq_sum a ha (fun x => ψc a (b * (x * x))) (sq_periodic a b ha) (repQ a)
-    (repQ_bijective a ha) 0
-  have e3 := gaussTr_eq_sum b hb (fun x => ψc b (a * (x * x))) (sq_periodic b a hb) (repQ b)
-    (repQ_bijective b hb) 0
+  have e2 := gaussTr_eq_sum a ha (fun x => ψc a (t * b * (x * x))) (sq_periodic a (t * b) ha)
+    (repQ a) (repQ_bijective a ha) 0
+  have e3 := gaussTr_eq_sum b hb (fun x => ψc b (t * a * (x * x))) (sq_periodic b (t * a) hb)
+    (repQ b) (repQ_bijective b hb) 0
   unfold sqSum
   rw [e1, e2, e3, Fintype.sum_prod_type, Finset.sum_mul_sum]
   refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => ?_
   simp only [mul_zero, ψc_zero, mul_one]
   set r := repQ a i
   set s := repQ b j
-  have hx : 1 * ((b * r + a * s) * (b * r + a * s)) =
-      b * (b * (r * r)) + a * (a * (s * s)) + (a * b) * (2 * r * s) := by ring
+  have hx : t * ((b * r + a * s) * (b * r + a * s)) =
+      b * (t * b * (r * r)) + a * (t * a * (s * s)) + (a * b) * (2 * t * r * s) := by ring
   rw [hx, ψc_add, ψc_add, ψc_mul_right a b _ hb, mul_comm a b, ψc_mul_right b a _ ha,
     ψc_mul_self _ (mul_ne_zero hb ha), mul_one]
+
+/-- **Chinese remainders for the quadratic sums**: `S_{ab}(1) = S_a(b)·S_b(a)` for coprime
+`a, b`, the case `t = 1` of `sqSum_mul_t` (round 332). -/
+theorem sqSum_mul (a b : 𝓞 K) (ha : a ≠ 0) (hb : b ≠ 0) (hab : IsCoprime a b) :
+    sqSum (a * b) 1 = sqSum a b * sqSum b a := by
+  simpa using sqSum_mul_t a b 1 ha hb hab
 
 section Prime
 
@@ -86,11 +87,8 @@ variable (p : 𝓞 K) [hP : (span {p} : Ideal (𝓞 K)).IsMaximal]
 
 omit hP in
 theorem ringChar_ne_two_of_two [(span {p} : Ideal (𝓞 K)).IsMaximal]
-    (h2 : (2 : 𝓞 K) ∉ span {p}) : ringChar (𝓞 K ⧸ span {p}) ≠ 2 := by
-  intro h
-  apply h2
-  rw [← Ideal.Quotient.eq_zero_iff_mem, show (2 : 𝓞 K) = ((2 : ℕ) : 𝓞 K) by norm_num,
-    map_natCast, ringChar.spec, h]
+    (h2 : (2 : 𝓞 K) ∉ span {p}) : ringChar (𝓞 K ⧸ span {p}) ≠ 2 :=
+  ringChar_ne_two_of_not_mem _ h2
 
 open Classical in
 /-- **The twisted quadratic sum at a prime**: `S_p(t) = ρ_p(t)·g(ρ_p, ψ_p)` for `p ∤ 2` and
@@ -259,8 +257,7 @@ theorem chi6_eq_quadR_mul (P : Ideal (𝓞 K)) [P.IsMaximal] (hP6 : (6 : 𝓞 K)
 open Classical in
 theorem quadR_sq_eq_one (P : Ideal (𝓞 K)) [P.IsMaximal] (x : 𝓞 K ⧸ P) (hx : x ≠ 0) :
     quadR (𝓞 K ⧸ P) ℂ x ^ 2 = 1 := by
-  rw [MulChar.ringHomComp_apply]
-  rcases quadraticChar_dichotomy hx with h | h <;> rw [h] <;> simp
+  rw [MulChar.ringHomComp_apply, ← map_pow, quadraticChar_sq_one hx, map_one]
 
 open Classical in
 /-- **Sextic reciprocity in `ℤ[ω]`** (the paper's `χ_b(a) = R(a, b)·χ_a(b)`): for coprime primary
@@ -313,6 +310,7 @@ end Eis
 
 end
 
+#print axioms Eis.sqSum_mul_t
 #print axioms Eis.sqSum_mul
 #print axioms Eis.sqSum_prime
 #print axioms Eis.gaussSum_quadR

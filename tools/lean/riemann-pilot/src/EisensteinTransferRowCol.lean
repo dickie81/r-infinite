@@ -16,8 +16,8 @@ proof of its Lemma 7.1 continues, with its LaTeX rendered as text: "Expand
 * **The zero frequency and the nonzero frequencies** (`pair_char_form_dual`), through round 308's
   `tsum_mu_eq`.
 * **The insertion of `t`** (`xi_chain_dual`), through round 308's `sum_pair_T_split` and
-  `sum_disjoint_mobius`, and **the column factorization** (`term_factor_dual`, with `colP_natural` and
-  `WW_kapC`).
+  `sum_disjoint_mobius` (since round 332 through their composite `sum_pair_chain`), and **the column
+  factorization** (`term_factor_dual`, with `colP_natural` and `WW_kapC`).
 * **`dualMS_rowcol`**: the smoothed dual mean square of one row in row/column form.
 -/
 
@@ -29,21 +29,6 @@ noncomputable section
 namespace Eis
 
 /-! ### Symbols -/
-
-theorem chiS_conj_eq_pow_five (M : Finset Pr) (a : 𝓞 K) : conj (chiS M a) = chiS M a ^ 5 := by
-  unfold chiS
-  rw [map_prod, ← Finset.prod_pow]
-  refine Finset.prod_congr rfl fun P _ => ?_
-  by_cases hx : Ideal.Quotient.mk (span {πP P}) a = 0
-  · rw [hx]; simp [chiF, MulChar.map_zero]
-  · have h6 := chi6_pow_six_of_ne_zero (span {πP P}) (h6Pr P) hx
-    set z := chiF πP h6Pr P (Ideal.Quotient.mk (span {πP P}) a) with hzdef
-    have hz6 : z ^ 6 = 1 := h6
-    have hz : ‖z‖ = 1 := norm_eq_one_of_pow_eq_one hz6 (by norm_num)
-    have hz0 : z ≠ 0 := by intro h0; rw [h0] at hz6; norm_num at hz6
-    rw [conj_eq_inv_of_norm hz]
-    calc z⁻¹ = z⁻¹ * z ^ 6 := by rw [hz6, mul_one]
-      _ = z ^ 5 := by field_simp
 
 /-- `χ_M(f)⁴ = conj(χ_M(f²))`: the paper's `χ_n(f)⁴` with the frequency `h` gives `conj(χ_n(hf²))`. -/
 theorem chiS_pow_four (M : Finset Pr) (f : 𝓞 K) : chiS M f ^ 4 = conj (chiS M (f ^ 2)) := by
@@ -95,27 +80,13 @@ def pairPsiXi (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (x y : 𝓞 K 
 theorem norm_pairPsiXi_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (x y : 𝓞 K ⧸ span {(4 : 𝓞 K)})
     (hx : IsUnit x) (hy : IsUnit y) : ‖pairPsiXi ξ x y‖ ≤ 1 := by
   unfold pairPsiXi
-  have h1 : ‖ξ x‖ = 1 := by
-    obtain ⟨u, rfl⟩ := hx
-    have hord : 0 < orderOf u := orderOf_pos u
-    have : ξ (u : 𝓞 K ⧸ span {(4 : 𝓞 K)}) ^ orderOf u = 1 := by
-      rw [← map_pow, ← Units.val_pow_eq_pow_val, pow_orderOf_eq_one, Units.val_one, map_one]
-    exact norm_eq_one_of_pow_eq_one this hord.ne'
-  have h2 : ‖ξ y‖ = 1 := by
-    obtain ⟨u, rfl⟩ := hy
-    have hord : 0 < orderOf u := orderOf_pos u
-    have : ξ (u : 𝓞 K ⧸ span {(4 : 𝓞 K)}) ^ orderOf u = 1 := by
-      rw [← map_pow, ← Units.val_pow_eq_pow_val, pow_orderOf_eq_one, Units.val_one, map_one]
-    exact norm_eq_one_of_pow_eq_one this hord.ne'
+  have h1 : ‖ξ x‖ = 1 := by obtain ⟨u, rfl⟩ := hx; exact norm_mulChar_unit ξ u
+  have h2 : ‖ξ y‖ = 1 := by obtain ⟨u, rfl⟩ := hy; exact norm_mulChar_unit ξ u
   rw [norm_mul, norm_mul, RCLike.norm_conj, h1, h2, one_mul, one_mul]
   exact norm_pairPsiCls_le x y
 
 theorem conj_xi_cls4 (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (C : Finset Pr) :
-    conj (ξ (cls4 C)) = ξ⁻¹ (cls4 C) := by
-  set x := (isUnit_cls4 C).unit
-  have hx : (x : 𝓞 K ⧸ span {(4 : 𝓞 K)}) = cls4 C := IsUnit.unit_spec _
-  rw [← hx, MulChar.inv_apply_eq_inv', conj_eq_inv_of_norm]
-  rw [hx]; exact norm_xi_cls4 ξ C
+    conj (ξ (cls4 C)) = ξ⁻¹ (cls4 C) := MulChar.star_apply' ξ (cls4 C)
 
 /-- **The dual pair factor in characters modulo `4`**: for disjoint `C₁, C₂`,
 `ξ(C₁)ξ̄(C₂)·μ(C₁)μ(C₂)Ψ(C₁, C₂) = Σ_{ξ₁,ξ₂} ĉ(ξ₁, ξ₂⁻¹)·(μ(C₁)ξ₁(C₁))·conj(μ(C₂)ξ₂(C₂))`. -/
@@ -436,58 +407,19 @@ theorem term_factor_dual (W : ℝ → ℂ) {X H : ℝ} (hX : 0 < X) (f : 𝓞 K)
     _ = _ := by rw [hWK, e1, e2, e3]; ring
 
 /-- **The chain for one pair of characters**: from the sum over pairs of sets of primes to the
-row/column form, split by `sum_pair_T_split`, put in natural form by `wPair_split`, Möbius-inverted
-by `sum_disjoint_mobius`, and factored by `term_factor_dual`. -/
+row/column form, by `sum_pair_chain` with the natural form `wPair_split` and the factorization
+`term_factor_dual`. -/
 theorem xi_chain_dual (W : ℝ → ℂ) {X H : ℝ} (hX : 0 < X) (f : 𝓞 K) (E : Finset (𝓞 K))
     (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U : Finset Pr) :
     ∑ A1 ∈ U.powerset, ∑ A2 ∈ U.powerset, wPair W X f A1 A2 *
         ∑ T ∈ (A1 ∩ A2).powerset, tauDual H E ξ1 ξ2 (A1 \ A2) (A2 \ A1) T =
       ∑ b ∈ U.powerset, ∑ T ∈ (U \ b).powerset, ∑ V ∈ (U \ (b ∪ T)).powerset, ∑ μ ∈ E,
         ∑ M1 ∈ ((U \ (b ∪ T)) \ V).powerset, ∑ M2 ∈ ((U \ (b ∪ T)) \ V).powerset,
-          rcDual W X H f ξ1 ξ2 b T V μ M1 M2 := by
-  rw [sum_pair_T_split U (wPair W X f) (tauDual H E ξ1 ξ2)]
-  refine Finset.sum_congr rfl fun b hb => Finset.sum_congr rfl fun T hT => ?_
-  have hnat : ∀ C1 ∈ (U \ (b ∪ T)).powerset, ∀ C2 ∈ (U \ (b ∪ T)).powerset,
-      (if Disjoint C1 C2 then wPair W X f ((b ∪ T) ∪ C1) ((b ∪ T) ∪ C2) *
-        tauDual H E ξ1 ξ2 C1 C2 T else 0) =
-      (if Disjoint C1 C2 then wNat W X f (b ∪ T) C1 C2 * tauDual H E ξ1 ξ2 C1 C2 T else 0) := by
-    intro C1 hC1 C2 hC2
-    by_cases h12 : Disjoint C1 C2
-    · have hd1 : Disjoint C1 (b ∪ T) := (disjoint_of_mem_powerset_sdiff hC1).symm
-      have hd2 : Disjoint C2 (b ∪ T) := (disjoint_of_mem_powerset_sdiff hC2).symm
-      rw [ite_eq_left h12, ite_eq_left h12, wPair_split W X f hd1 hd2 h12]
-    · rw [ite_eq_right h12, ite_eq_right h12]
-  rw [Finset.sum_congr rfl fun C1 hC1 => Finset.sum_congr rfl fun C2 hC2 => hnat C1 hC1 C2 hC2]
-  rw [sum_disjoint_mobius (U \ (b ∪ T)) (fun C1 C2 =>
-    wNat W X f (b ∪ T) C1 C2 * tauDual H E ξ1 ξ2 C1 C2 T)]
-  refine Finset.sum_congr rfl fun V hV => ?_
-  have hbT : Disjoint b T := disjoint_of_mem_powerset_sdiff hT
-  have hVbT : Disjoint (b ∪ T) V := disjoint_of_mem_powerset_sdiff hV
-  rw [Finset.disjoint_union_left] at hVbT
-  have e : ∀ M1 ∈ ((U \ (b ∪ T)) \ V).powerset, ∀ M2 ∈ ((U \ (b ∪ T)) \ V).powerset,
-      (-1 : ℂ) ^ V.card * (wNat W X f (b ∪ T) (V ∪ M1) (V ∪ M2) *
-        tauDual H E ξ1 ξ2 (V ∪ M1) (V ∪ M2) T) =
-      ∑ μ ∈ E, rcDual W X H f ξ1 ξ2 b T V μ M1 M2 := by
-    intro M1 hM1 M2 hM2
-    have hV1 : Disjoint V M1 := disjoint_of_mem_powerset_sdiff hM1
-    have hV2 : Disjoint V M2 := disjoint_of_mem_powerset_sdiff hM2
-    have hM1' : M1 ⊆ U \ (b ∪ T) := (Finset.mem_powerset.1 hM1).trans Finset.sdiff_subset
-    have hM2' : M2 ⊆ U \ (b ∪ T) := (Finset.mem_powerset.1 hM2).trans Finset.sdiff_subset
-    have hbT1 : Disjoint (b ∪ T) M1 := ((Finset.subset_sdiff.1 hM1').2).symm
-    have hbT2 : Disjoint (b ∪ T) M2 := ((Finset.subset_sdiff.1 hM2').2).symm
-    rw [Finset.disjoint_union_left] at hbT1 hbT2
-    exact term_factor_dual W hX f ξ1 ξ2 E hbT hVbT.1 hbT1.1 hbT2.1 hVbT.2 hbT1.2 hbT2.2 hV1 hV2
-  rw [Finset.mul_sum]
-  calc ∑ M1 ∈ ((U \ (b ∪ T)) \ V).powerset, (-1 : ℂ) ^ V.card *
-        ∑ M2 ∈ ((U \ (b ∪ T)) \ V).powerset, wNat W X f (b ∪ T) (V ∪ M1) (V ∪ M2) *
-          tauDual H E ξ1 ξ2 (V ∪ M1) (V ∪ M2) T
-      = ∑ M1 ∈ ((U \ (b ∪ T)) \ V).powerset, ∑ M2 ∈ ((U \ (b ∪ T)) \ V).powerset,
-          ∑ μ ∈ E, rcDual W X H f ξ1 ξ2 b T V μ M1 M2 := by
-        refine Finset.sum_congr rfl fun M1 hM1 => ?_
-        rw [Finset.mul_sum]
-        exact Finset.sum_congr rfl fun M2 hM2 => e M1 hM1 M2 hM2
-    _ = _ := by
-        rw [Finset.sum_congr rfl fun M1 _ => Finset.sum_comm, Finset.sum_comm]
+          rcDual W X H f ξ1 ξ2 b T V μ M1 M2 :=
+  sum_pair_chain U (wPair W X f) (wNat W X f) (fun h1 h2 h12 => wPair_split W X f h1 h2 h12)
+    (tauDual H E ξ1 ξ2) E (rcDual W X H f ξ1 ξ2)
+    (fun hbT hbV hb1 hb2 hTV hT1 hT2 hV1 hV2 =>
+      term_factor_dual W hX f ξ1 ξ2 E hbT hbV hb1 hb2 hTV hT1 hT2 hV1 hV2)
 
 open Classical in
 /-- **The dual mean square of a row in row/column form** (the companion paper's display for
@@ -570,7 +502,6 @@ end Eis
 
 end
 
-#print axioms Eis.chiS_conj_eq_pow_five
 #print axioms Eis.chiS_pow_four
 #print axioms Eis.cls4_union
 #print axioms Eis.colP_union
