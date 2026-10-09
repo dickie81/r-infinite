@@ -28,6 +28,16 @@ theorem ne_neg_nat_of_re_pos {z : ℂ} (hz : 0 < z.re) : ∀ m : ℕ, z ≠ -(m 
   simp only [Complex.neg_re, Complex.natCast_re] at this
   linarith [Nat.cast_nonneg (α := ℝ) m]
 
+/-- **`ψ(z̄) = ψ(z)‾`** off the poles (round 335: `Exterior.psiRe_even` and the three explicit
+formulas' `digamma_z*_neg` each proved it). -/
+theorem digamma_conj {z : ℂ} (hz : ∀ m : ℕ, z ≠ -(m : ℂ)) :
+    Complex.digamma ((starRingEnd ℂ) z) = (starRingEnd ℂ) (Complex.digamma z) := by
+  have hd := (Complex.differentiableAt_Gamma z hz).hasDerivAt.conj_conj
+  have hG : (starRingEnd ℂ) ∘ Complex.Gamma ∘ (starRingEnd ℂ) = Complex.Gamma := by
+    funext w; simp [Complex.Gamma_conj]
+  rw [hG] at hd
+  rw [Complex.digamma, logDeriv_apply, logDeriv_apply, hd.deriv, Complex.Gamma_conj, ← map_div₀]
+
 /-! ## A1. The real digamma function is increasing -/
 
 /-- The real digamma function `(log Γ)'`. -/
@@ -427,3 +437,4 @@ end PilotDigamma
 #print axioms PilotDigamma.hasSum_Gk
 #print axioms PilotDigamma.integrableOn_gaussK
 #print axioms PilotDigamma.digamma_sub_eq_integral
+#print axioms PilotDigamma.digamma_conj

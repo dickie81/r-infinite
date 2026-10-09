@@ -90,17 +90,11 @@ theorem grh_of_cross (hcross : ∀ s : ℂ, LFunction χ s = 0 → 0 < s.re → 
 theorem rh_of_liouville_theta {ε : ℝ} (hε : ε ≠ 0)
     (h : ∀ θ : ℝ, 1 / 2 < θ → θ < 1 → ∃ c : ℝ, ∀ x : ℝ, 1 < x → ε * summ fLi x ≤ c * x ^ θ) :
     RiemannHypothesis := by
-  intro s hs htriv h1
-  have hs' : IsNontrivialZero s := ⟨hs, htriv⟩
-  have key : ∀ ρ : ℂ, 1 / 2 < ρ.re → riemannZeta ρ ≠ 0 := fun ρ hρ => by
-    rcases le_or_gt 1 ρ.re with h1' | h1'
-    · exact zeta_ne_zero_re_ge_one h1'
-    · obtain ⟨c, hc⟩ := h ((1 / 2 + ρ.re) / 2) (by linarith) (by linarith)
-      exact zeta_ne_zero_of_liouville (by linarith) (by linarith) hε hc (by linarith)
-  rcases lt_trichotomy s.re (1 / 2) with hlt | heq | hgt
-  · exact absurd (IsNontrivialZero.one_sub hs').1 (key _ (by simp; linarith))
-  · exact heq
-  · exact absurd hs (key s hgt)
+  refine PsiOmega.rh_of_zeroFree_half fun ρ hρ => ?_
+  rcases le_or_gt 1 ρ.re with h1' | h1'
+  · exact zeta_ne_zero_re_ge_one h1'
+  · obtain ⟨c, hc⟩ := h ((1 / 2 + ρ.re) / 2) (by linarith) (by linarith)
+    exact zeta_ne_zero_of_liouville (by linarith) (by linarith) hε hc (by linarith)
 
 /-! ### (C) The exact missing Props (well-typed; none is proved in the three layers, except `NoRealZero` at `chi3`, `chi4`, `chi7`, `chi8`, whose bodies are `WeilTwinGeneral.hS3`, `Dedekind4.hS4`, `WeilTwinGeneral.hS7`, `WeilTwinGeneral.hS8`) -/
 

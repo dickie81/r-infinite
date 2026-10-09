@@ -24,15 +24,6 @@ namespace Pilot1ca
 
 /-! ## a.e. invariance -/
 
-theorem autocorr_congr_ae {g g' : ℝ → ℝ} (h : g =ᵐ[volume] g') (u : ℝ) :
-    autocorr g u = autocorr g' u := by
-  unfold autocorr
-  apply integral_congr_ae
-  have h2 := (measurePreserving_add_right volume u).quasiMeasurePreserving.ae_eq_comp h
-  filter_upwards [h, h2] with t h1 h2
-  simp only [Function.comp_apply] at h2
-  rw [h1, h2]
-
 theorem poleR_congr_ae {g g' : ℝ → ℝ} (h : g =ᵐ[volume] g') (a : ℝ) :
     poleR g a = poleR g' a := by
   unfold poleR
@@ -43,24 +34,11 @@ theorem poleR_congr_ae {g g' : ℝ → ℝ} (h : g =ᵐ[volume] g') (a : ℝ) :
 theorem normSq_congr_ae {g g' : ℝ → ℝ} (h : g =ᵐ[volume] g') : normSq g = normSq g' :=
   integral_congr_ae (h.mono fun t ht => by simp only [ht])
 
-theorem archIntegrand_congr_ae {g g' : ℝ → ℝ} (h : g =ᵐ[volume] g') :
-    archIntegrand g = archIntegrand g' := by
-  funext u; unfold archIntegrand; rw [autocorr_congr_ae h 0, autocorr_congr_ae h u]
-
 theorem weilQ_congr_ae {g g' : ℝ → ℝ} (h : g =ᵐ[volume] g') (a : ℝ) :
     weilQ a g = weilQ a g' := by
   unfold weilQ
   rw [poleR_congr_ae h, normSq_congr_ae h, archIntegrand_congr_ae h]
   simp_rw [autocorr_congr_ae h]
-
-theorem measurable_archIntegrand {g : ℝ → ℝ} (hg : MemLp g 2 volume) :
-    Measurable (archIntegrand g) := by
-  have hm : Measurable (hg.aestronglyMeasurable.mk g) :=
-    hg.aestronglyMeasurable.stronglyMeasurable_mk.measurable
-  rw [archIntegrand_congr_ae hg.aestronglyMeasurable.ae_eq_mk]
-  unfold archIntegrand
-  exact (measurable_const.sub (autocorr_stronglyMeasurable hm).measurable).mul
-    ((Real.measurable_exp.comp (measurable_id.div_const 2)).div Real.measurable_sinh)
 
 theorem ae_zero_of_normSq {g : ℝ → ℝ} (hg : MemLp g 2 volume) (h0 : normSq g = 0) :
     g =ᵐ[volume] 0 := by
@@ -303,6 +281,50 @@ theorem isMin_iff (F : ProbeForm a Q) (ha : 0 < a) {g : ℝ → ℝ} :
     rw [hq, hn, mul_one]
     exact F.inf_le hph hnh
 
+/-- **Uniqueness up to sign from a functional**: if `L`, linear on the ground-state space, vanishes on
+no unit vector of it, any two unit vectors of the space agree up to sign (round 335; `groundState_unique`
+takes `L = ĝ(i/2)` and `groundState0_unique` takes `L = ∫`). -/
+theorem unique_of_functional (F : ProbeForm a Q) (L : (ℝ → ℝ) → ℝ)
+    (hLs : ∀ g c, g ∈ F.space → L (fun t => c * g t) = c * L g)
+    (hLsub : ∀ {g h}, g ∈ F.space → h ∈ F.space → L (fun t => g t - h t) = L g - L h)
+    (hL : ∀ v ∈ F.space, normSq v = 1 → L v ≠ 0)
+    {g h : ℝ → ℝ} (hgS : g ∈ F.space) (hgn : normSq g = 1) (hhS : h ∈ F.space)
+    (hhn : normSq h = 1) :
+    g =ᵐ[volume] h ∨ g =ᵐ[volume] fun t => -h t := by
+  have hLg : L g ≠ 0 := hL g hgS hgn
+  have h1 : (fun t => L h * g t) ∈ F.space := F.space.smul_mem (L h) hgS
+  have h2 : (fun t => L g * h t) ∈ F.space := F.space.smul_mem (L g) hhS
+  set v : ℝ → ℝ := fun t => L h * g t - L g * h t with hv
+  have hvS : v ∈ F.space := F.space.sub_mem h1 h2
+  have hv0 : L v = 0 := by
+    rw [hv, hLsub h1 h2, hLs _ _ hgS, hLs _ _ hhS]; ring
+  rcases (normSq_nonneg v).lt_or_eq with hpos | h0
+  · exfalso
+    set c := 1 / Real.sqrt (normSq v) with hc
+    have hcv : (fun t => c * v t) ∈ F.space := F.space.smul_mem c hvS
+    apply hL _ hcv (by rw [normSq_smul, hc, div_pow, Real.sq_sqrt hpos.le]; field_simp)
+    rw [hLs _ _ hvS, hv0, mul_zero]
+  · have hz := ae_zero_of_normSq hvS.1.memL2 h0.symm
+    set r := L h / L g with hr
+    have hhr : h =ᵐ[volume] fun t => r * g t := by
+      filter_upwards [hz] with t ht
+      simp only [hv, Pi.zero_apply] at ht
+      rw [hr]; field_simp; linarith
+    have hn := normSq_congr_ae hhr
+    rw [hhn, normSq_smul, hgn, mul_one] at hn
+    have hr2 : r = 1 ∨ r = -1 := by
+      have : (r - 1) * (r + 1) = 0 := by linear_combination -hn
+      rcases mul_eq_zero.1 this with h1 | h1
+      · left; linarith
+      · right; linarith
+    rcases hr2 with h1 | h1
+    · left
+      filter_upwards [hhr] with t ht
+      rw [ht, h1, one_mul]
+    · right
+      filter_upwards [hhr] with t ht
+      rw [ht, h1]; ring
+
 end ProbeForm
 
 /-- Weil's form is a `ProbeForm`. -/
@@ -341,67 +363,27 @@ theorem isGroundState_iff {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} :
 theorem groundSpace_fun {a : ℝ} {g : ℝ → ℝ} (hg : g ∈ groundSpace a) (c : ℝ) :
     (fun t => c * g t) ∈ groundSpace a := (groundSpace a).smul_mem c hg
 
-/-- **If two ground states are not equal up to sign, some ground state is orthogonal to
-`w = 1_{[−a,a]}e^{−u/2}`**, i.e. has `ĝ(i/2) = 0`. -/
-theorem exists_perp_of_not_unique {a : ℝ} (ha : 0 < a) {g h : ℝ → ℝ}
-    (hg : IsGroundState a g) (hh : IsGroundState a h)
-    (hne : ¬ (g =ᵐ[volume] h ∨ g =ᵐ[volume] fun t => -h t)) :
-    ∃ v, IsGroundState a v ∧ poleR v a = 0 := by
-  have hgS := ((isGroundState_iff ha).1 hg).1
-  have hhS := ((isGroundState_iff ha).1 hh).1
-  set pg := poleR g a
-  set ph := poleR h a
-  by_cases hpg : pg = 0
-  · exact ⟨g, hg, hpg⟩
-  by_cases hph : ph = 0
-  · exact ⟨h, hh, hph⟩
-  set v : ℝ → ℝ := fun t => ph * g t - pg * h t with hv
-  have hvS : v ∈ groundSpace a := by
-    have := (groundSpace a).sub_mem (groundSpace_fun hgS ph) (groundSpace_fun hhS pg)
-    exact this
-  have hvm : MemLp v 2 volume := hvS.1.memL2
-  have hvp : poleR v a = 0 := by
-    rw [hv, poleR_sub (hg.1.memL2.const_mul ph) (hh.1.memL2.const_mul pg), poleR_smul, poleR_smul]
-    ring
-  rcases (normSq_nonneg v).lt_or_eq with hpos | h0
-  · -- normalise `v`
-    set c := 1 / Real.sqrt (normSq v) with hc
-    refine ⟨fun t => c * v t, (isGroundState_iff ha).2 ⟨groundSpace_fun hvS c, ?_⟩, ?_⟩
-    · rw [normSq_smul, hc, div_pow, Real.sq_sqrt hpos.le]; field_simp
-    · rw [poleR_smul, hvp, mul_zero]
-  · -- `v = 0` a.e.: `h = (ph/pg)·g` a.e., and the norms force `ph/pg = ±1`
-    exfalso
-    apply hne
-    have hz := ae_zero_of_normSq hvm h0.symm
-    set r := ph / pg with hr
-    have hhr : h =ᵐ[volume] fun t => r * g t := by
-      filter_upwards [hz] with t ht
-      simp only [hv, Pi.zero_apply] at ht
-      rw [hr]; field_simp; linarith
-    have hn := normSq_congr_ae hhr
-    rw [hh.2.1, normSq_smul, hg.2.1, mul_one] at hn
-    have hr2 : r = 1 ∨ r = -1 := by
-      have : (r - 1) * (r + 1) = 0 := by linear_combination -hn
-      rcases mul_eq_zero.1 this with h1 | h1
-      · left; linarith
-      · right; linarith
-    rcases hr2 with h1 | h1
-    · left
-      filter_upwards [hhr] with t ht
-      rw [ht, h1, one_mul]
-    · right
-      filter_upwards [hhr] with t ht
-      rw [ht, h1]; ring
-
 /-- **Uniqueness up to sign, criterion form**: if no ground state is orthogonal to `w`
 (`ĝ(i/2) ≠ 0` for every ground state), the ground state is unique up to sign. -/
 theorem groundState_unique {a : ℝ} (ha : 0 < a)
     (hw : ∀ v, IsGroundState a v → poleR v a ≠ 0) {g h : ℝ → ℝ}
     (hg : IsGroundState a g) (hh : IsGroundState a h) :
     g =ᵐ[volume] h ∨ g =ᵐ[volume] fun t => -h t := by
-  by_contra hne
-  obtain ⟨v, hv, hv0⟩ := exists_perp_of_not_unique ha hg hh hne
-  exact hw v hv hv0
+  have hgS := (isGroundState_iff ha).1 hg
+  have hhS := (isGroundState_iff ha).1 hh
+  exact (weilQ_form a).unique_of_functional (fun f => poleR f a) (fun f c _ => poleR_smul c f a)
+    (fun hf hg' => poleR_sub hf.1.memL2 hg'.1.memL2 a)
+    (fun v hv hvn => hw v ((isGroundState_iff ha).2 ⟨hv, hvn⟩)) hgS.1 hgS.2 hhS.1 hhS.2
+
+/-- **If two ground states are not equal up to sign, some ground state is orthogonal to
+`w = 1_{[−a,a]}e^{−u/2}`**, i.e. has `ĝ(i/2) = 0`. -/
+theorem exists_perp_of_not_unique {a : ℝ} (ha : 0 < a) {g h : ℝ → ℝ}
+    (hg : IsGroundState a g) (hh : IsGroundState a h)
+    (hne : ¬ (g =ᵐ[volume] h ∨ g =ᵐ[volume] fun t => -h t)) :
+    ∃ v, IsGroundState a v ∧ poleR v a = 0 := by
+  by_contra hw
+  push Not at hw
+  exact hne (groundState_unique ha hw hg hh)
 
 /-- `λ_⊥ = inf {Q(g) : g a probe, ‖g‖ = 1, ĝ(i/2) = 0}`, the minimum of `Q` (equivalently of the
 pole-free `Q₀`) orthogonally to `w`. -/
@@ -432,3 +414,4 @@ end Pilot1ca
 #print axioms Pilot1ca.exists_perp_of_not_unique
 #print axioms Pilot1ca.groundState_unique
 #print axioms Pilot1ca.groundState_unique_of_gap
+#print axioms Pilot1ca.ProbeForm.unique_of_functional

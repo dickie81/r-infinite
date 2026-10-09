@@ -159,6 +159,14 @@ theorem logDeriv_Gammaℝ {s : ℂ} (hs : 0 < s.re) :
     hpow.deriv, ← Complex.ofReal_log Real.pi_pos.le]
   field_simp
 
+/-- `Γ_ℝ` is differentiable on `Re s > 0`: Mathlib's `1/Γ_ℝ` is entire and `Γ_ℝ` has no zero there
+(from `WeilZeta.lean` since round 335, where it was proved from `Γ`; the same proof stood in
+`logDeriv_xi` and in `WeilChi.lean`). -/
+theorem differentiableAt_Gammaℝ' {s : ℂ} (hs : 0 < s.re) : DifferentiableAt ℂ Gammaℝ s := by
+  have h := (differentiable_Gammaℝ_inv s).inv (inv_ne_zero (Gammaℝ_ne_zero_of_re_pos hs))
+  convert h using 1
+  funext z; simp
+
 /-- `ξ′/ξ = 1/s + 1/(s − 1) + Γℝ′/Γℝ + ζ′/ζ` on `Re s > 1`. -/
 theorem logDeriv_xi {s : ℂ} (hs : 1 < s.re) :
     logDeriv xi s = 1 / s + 1 / (s - 1) + logDeriv Gammaℝ s + logDeriv riemannZeta s := by
@@ -182,13 +190,7 @@ theorem logDeriv_xi {s : ℂ} (hs : 1 < s.re) :
   rw [hlog]
   have hG : Gammaℝ s ≠ 0 := Gammaℝ_ne_zero_of_re_pos (by linarith)
   have hz : riemannZeta s ≠ 0 := riemannZeta_ne_zero_of_one_le_re hs.le
-  have hdG : DifferentiableAt ℂ Gammaℝ s := by
-    have hs2 : ∀ m : ℕ, s / 2 ≠ -(m : ℂ) := fun m h => by
-      have := congrArg Complex.re h
-      simp at this; linarith [Nat.cast_nonneg (α := ℝ) m]
-    have hπ : (π : ℂ) ≠ 0 := ofReal_ne_zero.2 Real.pi_ne_zero
-    exact (((hasDerivAt_id s).neg.div_const 2).const_cpow (c := (π : ℂ)) (Or.inl hπ)).differentiableAt.mul
-      ((Complex.differentiableAt_Gamma _ hs2).comp s ((hasDerivAt_id s).div_const 2).differentiableAt)
+  have hdG : DifferentiableAt ℂ Gammaℝ s := differentiableAt_Gammaℝ' (by linarith)
   have hdz : DifferentiableAt ℂ riemannZeta s := differentiableAt_riemannZeta hs1
   have hs1' : s - 1 ≠ 0 := sub_ne_zero.2 hs1
   simp only [P]

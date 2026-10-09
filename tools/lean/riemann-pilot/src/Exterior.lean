@@ -197,19 +197,7 @@ theorem binetFormula : BinetFormula := fun _ hz => PilotDigamma.binet hz
 
 theorem bose_le {t : ℝ} (ht : 0 < t) :
     t / (Real.exp (2 * π * t) - 1) ≤ Real.exp (-π * t) / (2 * π) := by
-  have hx : 0 < π * t := by positivity
-  have hsinh : π * t ≤ Real.sinh (π * t) := Real.self_le_sinh_iff.2 hx.le
-  have hden : 0 < Real.exp (2 * π * t) - 1 := by
-    have h1 := Real.add_one_le_exp (2 * π * t)
-    have h2 : 0 < 2 * π * t := by positivity
-    linarith
-  rw [div_le_div_iff₀ hden (by positivity)]
-  have e : Real.exp (-π * t) * (Real.exp (2 * π * t) - 1) = 2 * Real.sinh (π * t) := by
-    rw [Real.sinh_eq, mul_sub, ← Real.exp_add, mul_one,
-      show -π * t + 2 * π * t = π * t by ring, show -(π * t) = -π * t by ring]
-    ring
-  rw [e]
-  nlinarith [Real.pi_pos]
+  simpa only [neg_mul] using PilotDigamma.bose_le' ht
 
 /-- `z = 1/4 + ir/2`. -/
 def zB (r : ℝ) : ℂ := 1 / 4 + Complex.I * r / 2
@@ -520,14 +508,8 @@ theorem psiRe_even (r : ℝ) : psiRe (-r) = psiRe r := by
     rw [zB_re] at this
     simp at this
     linarith [(Nat.cast_nonneg m : (0 : ℝ) ≤ m)]
-  have hdiff := (Complex.differentiableAt_Gamma (zB r) hnp).hasDerivAt
-  have hG : (starRingEnd ℂ) ∘ Complex.Gamma ∘ (starRingEnd ℂ) = Complex.Gamma := by
-    funext z; simp [Complex.Gamma_conj]
-  have hd := hdiff.conj_conj
-  rw [hG] at hd
   unfold psiRe
-  rw [hconj, Complex.digamma, logDeriv_apply, logDeriv_apply, hd.deriv, Complex.Gamma_conj,
-    ← map_div₀, Complex.conj_re]
+  rw [hconj, PilotDigamma.digamma_conj hnp, Complex.conj_re]
 
 /-- `g_h(u) = (1/2π)∫_ℝ h(r)cos(ru) dr` and the paper's `f_χ(u) = (1/π)∫_0^∞ h(r)cos(ru) dr`. -/
 def gh (hR : ℝ → ℝ) (u : ℝ) : ℝ := 1 / (2 * π) * ∫ r, hR r * Real.cos (r * u)

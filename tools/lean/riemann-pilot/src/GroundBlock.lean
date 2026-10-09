@@ -100,14 +100,7 @@ theorem striptest_Gpole {a : ℝ} (ha : 0 < a) {f : ℝ → ℝ} (hp : Probe a f
 
 theorem memLp_sum_smul {ι : Type*} (s : Finset ι) {f : ι → ℝ → ℝ}
     (hf : ∀ i ∈ s, MemLp (f i) 2 volume) (c : ι → ℝ) :
-    MemLp (∑ i ∈ s, c i • f i) 2 volume := by
-  classical
-  induction s using Finset.induction_on with
-  | empty => simp only [Finset.sum_empty]; exact MemLp.zero
-  | insert i s hi ih =>
-    rw [Finset.sum_insert hi]
-    exact ((hf i (Finset.mem_insert_self _ _)).const_smul (c i)).add
-      (ih fun j hj => hf j (Finset.mem_insert_of_mem hj))
+    MemLp (∑ i ∈ s, c i • f i) 2 volume := memLp_finsetSum' s fun i hi => (hf i hi).const_smul (c i)
 
 theorem Gpole_sum {ι : Type*} (s : Finset ι) {f : ι → ℝ → ℝ}
     (hf : ∀ i ∈ s, MemLp (f i) 2 volume) (c : ι → ℝ) (a : ℝ) :

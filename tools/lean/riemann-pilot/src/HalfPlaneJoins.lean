@@ -28,14 +28,8 @@ namespace HalfPlaneJoins
 
 /-- Under `SmoothBound θ`, every nontrivial zero of `ζ` has `1 − θ ≤ Re ρ ≤ θ`. -/
 theorem zeta_band {θ : ℝ} (h : SmoothBound θ) {s : ℂ} (hs : IsNontrivialZero s) :
-    |2 * s.re - 1| ≤ 2 * θ - 1 := by
-  have h1 : s.re ≤ θ := by
-    by_contra hc; exact (ne_zero_of_smoothBound h (not_le.1 hc)).1 hs.1
-  have h2 : (1 - s).re ≤ θ := by
-    by_contra hc
-    exact (ne_zero_of_smoothBound h (not_le.1 hc)).1 (PsiOmega.IsNontrivialZero.one_sub hs).1
-  rw [Complex.sub_re, Complex.one_re] at h2
-  rw [abs_le]; constructor <;> linarith
+    |2 * s.re - 1| ≤ 2 * θ - 1 :=
+  PsiOmega.band_of_zeroFree (fun _ hρ => (ne_zero_of_smoothBound h hρ).1) hs
 
 /-- Under `SmoothBound θ`, every zero of `L(s, χ₋₃)` in the critical strip has `1 − θ ≤ Re ρ ≤ θ`.
 The lower bound uses the evenness of `Ξ(·, χ₋₃)` (`XiC_even`). -/

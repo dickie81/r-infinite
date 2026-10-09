@@ -13,7 +13,7 @@ The ground-state theory of Weil's form `weilQ` for `ζ`, ported to the Davenport
 the dh column of.
 
 **Stage 1 (existence).** `groundSpaceDH`, `IsGroundStateDH`, and `exists_groundStateDH`, the port of
-`exists_groundState` (GroundStateExists.lean:448) through `exists_min_weilQc`
+`exists_groundState` (GroundStateExists.lean:485) through `exists_min_weilQc`
 (GroundStateExists.lean:355). Compactness (`exists_convergent_subseq`, Compactness.lean:233) needs a
 bound on the archimedean energy at `q = ¼`; `QDHu` controls it at `q = ¾`. The transfer:
 `K_{1/4}(u) = e^u K_{3/4}(u)` (`archIntegrand_eq_exp_mul`), so on `(0, 2a]` the `¼`-integrand is at
@@ -269,7 +269,7 @@ theorem exists_min_QDHu {a : ℝ} (ha : 0 < a) : ∃ g, Probe a g ∧ normSq g =
   exact hQG.trans (csInf_le hbdd ⟨h', hp', hn', rfl⟩)
 
 /-- **A ground state of `QDHu` exists at every support `a > 0`** (the dh column of
-`exists_groundState`, GroundStateExists.lean:448). -/
+`exists_groundState`, GroundStateExists.lean:485). -/
 theorem exists_groundStateDH {a : ℝ} (ha : 0 < a) : ∃ g, IsGroundStateDH a g := by
   obtain ⟨g, hp, hn, hmin⟩ := exists_min_QDHu ha
   exact ⟨g, (isGroundStateDH_iff_min ha).2 ⟨hp, hn, hmin⟩⟩

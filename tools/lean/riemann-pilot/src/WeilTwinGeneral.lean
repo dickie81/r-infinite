@@ -175,14 +175,8 @@ theorem chi7_ne_one : chi7 ≠ 1 := fun h => by
   simp only [MulChar.one_apply h3, chi7_nat, χ₇_nat] at this
   norm_num at this
 
-theorem chi7_isPrimitive : chi7.IsPrimitive := by
-  rw [isPrimitive_def]
-  have hd := conductor_dvd_level chi7
-  have hle : conductor chi7 ≤ 7 := Nat.le_of_dvd (by norm_num) hd
-  have hpos : 1 ≤ conductor chi7 := Nat.pos_of_ne_zero (conductor_ne_zero chi7)
-  interval_cases h : conductor chi7
-  · exact absurd (eq_one_iff_conductor_eq_one.2 h) chi7_ne_one
-  all_goals first | rfl | exact absurd hd (by decide)
+theorem chi7_isPrimitive : chi7.IsPrimitive :=
+  PsiOmega.isPrimitive_of_prime_level (by norm_num) chi7_ne_one
 
 theorem sum_chi7 (n : ℕ) : ∑ k ∈ Finset.Icc 1 n, cR chi7 k =
     if n % 7 = 1 ∨ n % 7 = 3 ∨ n % 7 = 5 then 1 else if n % 7 = 2 ∨ n % 7 = 4 then 2 else 0 := by

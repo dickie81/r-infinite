@@ -268,15 +268,8 @@ theorem zeta_ne_zero_of_liouville (hθ : 1 / 2 ≤ θ) (hθ1 : θ ≤ 1) (hε : 
 
 /-- **A one-sided bound `εL(x) ≤ c√x` gives RH.** -/
 theorem rh_of_liouville_bound (hε : ε ≠ 0) (h : ∀ x : ℝ, 1 < x → ε * summ fLi x ≤ c * x ^ (1 / 2 : ℝ)) :
-    RiemannHypothesis := by
-  intro s hs htriv h1
-  have hs' : IsNontrivialZero s := ⟨hs, htriv⟩
-  have key : ∀ ρ : ℂ, 1 / 2 < ρ.re → riemannZeta ρ ≠ 0 := fun ρ hρ =>
-    zeta_ne_zero_of_liouville (le_refl _) (by norm_num) hε h hρ
-  rcases lt_trichotomy s.re (1 / 2) with hlt | heq | hgt
-  · exact absurd (IsNontrivialZero.one_sub hs').1 (key _ (by simp; linarith))
-  · exact heq
-  · exact absurd hs (key s hgt)
+    RiemannHypothesis :=
+  rh_of_zeroFree_half fun _ hρ => zeta_ne_zero_of_liouville (le_refl _) (by norm_num) hε h hρ
 
 /-- The hypothesis "`L(x) ≤ 0` for every `x > 1`" is refutable: `L(3/2) = λ(1) = 1`. Pólya's
 conjecture starts at `x = 2` (round 238). -/

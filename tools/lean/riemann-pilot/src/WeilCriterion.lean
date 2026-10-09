@@ -31,18 +31,6 @@ open Pilot1bt PilotWeil
 
 /-! ## Monotone profiles are strip test functions -/
 
-/-- **The strip bound from two pointwise bounds**: `‖G‖ ≤ τ₀` and `‖t‖‖G‖ ≤ τ₁` on the strip give
-`‖G‖²(1 + (Re t)²) ≤ τ₀² + τ₁²`. -/
-theorem sq_strip_bound {G : ℂ → ℂ} {τ0 τ1 : ℝ} {t : ℂ} (h0 : ‖G t‖ ≤ τ0)
-    (h1 : ‖t‖ * ‖G t‖ ≤ τ1) : ‖G t‖ ^ 2 * (1 + t.re ^ 2) ≤ τ0 ^ 2 + τ1 ^ 2 := by
-  have hx : t.re ^ 2 ≤ ‖t‖ ^ 2 := by
-    have := Complex.abs_re_le_norm t
-    nlinarith [abs_nonneg t.re, sq_abs t.re]
-  have hgn := norm_nonneg (G t)
-  have hτ0 : 0 ≤ τ0 := le_trans hgn h0
-  nlinarith [mul_le_mul h0 h0 hgn hτ0, mul_self_nonneg (‖t‖ * ‖G t‖),
-    mul_le_mul h1 h1 (by positivity) (le_trans (by positivity) h1)]
-
 /-- **`ĝ` on the strip from a `1/‖z‖` bound**: if `‖ĝ(z)‖ ≤ B/‖z‖` for `z ≠ 0` on the strip, then
 `‖ĝ(z)‖²(1 + (Re z)²) ≤ K` there. -/
 theorem ghat_strip_of_inv {g : ℝ → ℝ} {a B : ℝ} (ha : 0 ≤ a) (hB : 0 ≤ B)
@@ -102,23 +90,11 @@ theorem weilExplicit_box_zeta :
 /-- The explicit formula for the twin boxes' `ĝ²` over the zeros of `ζ`. -/
 theorem weilExplicit_twinbox_zeta {l : ℝ} (hl : 0 ≤ l) :
     WeilExplicit zetaZeroFamily (fun z => ghatC (twin (box 1) l) (l + 1) z ^ 2)
-      (hsq (twin (box 1) l) (l + 1)) := by
-  have hp := box_probe 1
-  have hpt := twin_probe hp hl
-  obtain ⟨K, hK⟩ := ghat_antitone_strip one_pos hp.even box_antitone box_nonneg hp.intervalIntegrable
-  have hT := striptest_mul_sq (G := ghatC (box 1) 1) (m := fun z => 2 * Complex.cos (l * z))
-    (ghatC_differentiable hp.intervalIntegrable) (by fun_prop) hK (fun t ht => norm_two_cos_strip hl ht)
-  have e : (fun z => ghatC (twin (box 1) l) (l + 1) z ^ 2)
-      = fun z => (2 * Complex.cos (l * z) * ghatC (box 1) 1 z) ^ 2 := by
-    funext z; rw [ghatC_twin one_pos hp hl]
-  rw [e]
-  refine weilExplicit_zeta hT (fun t => ?_) (fun r => ?_)
-  · have := even_ghat_sq hpt.even (l + 1) t
-    rw [ghatC_twin one_pos hp hl, ghatC_twin one_pos hp hl] at this
-    exact this
-  · have := hsq_ofReal hpt (by linarith) r
-    rw [ghatC_twin one_pos hp hl] at this
-    exact this
+      (hsq (twin (box 1) l) (l + 1)) :=
+
+  weilExplicit_twin_gen weilExplicit_zeta one_pos (box_probe 1) hl
+    (ghat_antitone_strip one_pos (box_probe 1).even box_antitone box_nonneg
+      (box_probe 1).intervalIntegrable).choose_spec
 
 /-! ## No nontrivial zero is real -/
 

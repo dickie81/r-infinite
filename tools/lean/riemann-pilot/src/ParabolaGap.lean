@@ -138,30 +138,11 @@ theorem par_autocorr_diff_le {a : ℝ} (ha : 0 < a) {u : ℝ} (hu : 0 < u) :
     nlinarith [pow_le_pow_left₀ hv0.le hv2 4, sq_nonneg v]
   · rw [autocorr_par_zero_gt ha h, sub_zero, div_mul_eq_mul_div, le_div_iff₀ ha]; nlinarith
 
-theorem par_probe {a : ℝ} (ha : 0 < a) : Probe a (par a) := by
-  refine ⟨fun u => by rw [par_apply, par_apply, abs_neg]; ring_nf, fun u hu => by
-    rw [par_apply]; simp [not_le.2 hu], par_memLp a, ?_⟩
-  have hm : AEStronglyMeasurable (archIntegrand (par a)) (volume.restrict (Ioi 0)) := by
-    have h1 := (autocorr_stronglyMeasurable (par_measurable a)).measurable
-    have : Measurable (archIntegrand (par a)) := by
-      unfold archIntegrand
-      exact ((measurable_const.sub h1).mul
-        ((Real.measurable_exp.comp (measurable_id.div_const 2)).div Real.measurable_sinh))
-    exact this.aestronglyMeasurable
-  refine Integrable.mono' ((exp_neg_integrableOn_Ioi 0 (by norm_num : (0 : ℝ) < 1 / 4)).const_mul
-    (3 / a * 16)) hm ((ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun u hu => ?_))
-  have hu0 : 0 < u := hu
-  have hK : 0 < Real.exp (u / 2) / Real.sinh u :=
-    div_pos (Real.exp_pos _) (Real.sinh_pos_iff.2 hu0)
-  rw [Real.norm_eq_abs, abs_of_nonneg (archIntegrand_nonneg (par_memLp a) hu0)]
-  unfold archIntegrand
-  calc (autocorr (par a) 0 - autocorr (par a) u) * (Real.exp (u / 2) / Real.sinh u)
-      ≤ (3 / a * u) * (Real.exp (u / 2) / Real.sinh u) :=
-        mul_le_mul_of_nonneg_right (par_autocorr_diff_le ha hu0) hK.le
-    _ = 3 / a * (u * (Real.exp (u / 2) / Real.sinh u)) := by ring
-    _ ≤ 3 / a * (16 * Real.exp (-(1 / 4) * u)) :=
-        mul_le_mul_of_nonneg_left (u_archK_le hu0) (by positivity)
-    _ = 3 / a * 16 * Real.exp (-(1 / 4) * u) := by ring
+theorem par_probe {a : ℝ} (ha : 0 < a) : Probe a (par a) :=
+
+  ⟨fun u => by rw [par_apply, par_apply, abs_neg]; ring_nf, fun u hu => by
+    rw [par_apply]; simp [not_le.2 hu], par_memLp a,
+    archIntegrand_integrableOn_of_lin (par_memLp a) (by positivity) fun _ hu => par_autocorr_diff_le ha hu⟩
 
 
 theorem integral_mono5 (α β c : ℝ) : (∫ t in α..β, c * t ^ 5) = c * (β ^ 6 - α ^ 6) / 6 := by

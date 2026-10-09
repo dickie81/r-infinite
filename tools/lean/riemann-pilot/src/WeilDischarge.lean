@@ -31,19 +31,11 @@ theorem striptest_sq {G : ℂ → ℂ} (hd : Differentiable ℂ G) {K : ℝ}
 theorem norm_ghatC_strip_le {g : ℝ → ℝ} {a : ℝ} (ha : 0 ≤ a)
     (hg : IntervalIntegrable g volume (-a) a) {z : ℂ} (hz : |z.im| ≤ 1) :
     ‖ghatC g a z‖ ≤ Real.exp a * ∫ u in (-a)..a, |g u| := by
-  unfold ghatC
-  refine (intervalIntegral.norm_integral_le_of_norm_le (by linarith)
-    (Eventually.of_forall fun u hu => ?_) (hg.abs.const_mul (Real.exp a))).trans_eq
-    (intervalIntegral.integral_const_mul _ _)
-  rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, Complex.norm_exp, mul_comm]
-  apply mul_le_mul_of_nonneg_right _ (abs_nonneg _)
-  apply Real.exp_le_exp.2
-  have e : (Complex.I * z * u).re = -(z.im * u) := by simp [Complex.mul_re]
-  rw [e]
-  have h1 : |u| ≤ a := abs_le.2 ⟨hu.1.le, hu.2⟩
-  have h2 := neg_abs_le (z.im * u)
-  rw [abs_mul] at h2
-  nlinarith [abs_nonneg u, abs_nonneg z.im]
+  refine (norm_ghatC_le_exp_im ha hg z).trans ?_
+  have hI : 0 ≤ ∫ u in (-a)..a, |g u| :=
+    intervalIntegral.integral_nonneg (by linarith) fun u _ => abs_nonneg _
+  gcongr
+  nlinarith [abs_nonneg z.im]
 
 theorem norm_cexp_strip_le {z : ℂ} (hz : |z.im| ≤ 1) {b : ℝ} (hb : 0 ≤ b) :
     ‖Complex.exp (Complex.I * z * b)‖ ≤ Real.exp b ∧ ‖Complex.exp (-(Complex.I * z * b))‖ ≤ Real.exp b := by
@@ -55,6 +47,18 @@ theorem norm_cexp_strip_le {z : ℂ} (hz : |z.im| ≤ 1) {b : ℝ} (hb : 0 ≤ b
   · rw [Complex.norm_exp, e1]; apply Real.exp_le_exp.2; nlinarith
   · rw [Complex.norm_exp, Complex.neg_re, e1]; apply Real.exp_le_exp.2; nlinarith
 
+/-- **The strip bound from two pointwise bounds**: `‖G‖ ≤ τ₀` and `‖t‖‖G‖ ≤ τ₁` on the strip give
+`‖G‖²(1 + (Re t)²) ≤ τ₀² + τ₁²` (from `WeilCriterion.lean` since round 335). -/
+theorem sq_strip_bound {G : ℂ → ℂ} {τ0 τ1 : ℝ} {t : ℂ} (h0 : ‖G t‖ ≤ τ0)
+    (h1 : ‖t‖ * ‖G t‖ ≤ τ1) : ‖G t‖ ^ 2 * (1 + t.re ^ 2) ≤ τ0 ^ 2 + τ1 ^ 2 := by
+  have hx : t.re ^ 2 ≤ ‖t‖ ^ 2 := by
+    have := Complex.abs_re_le_norm t
+    nlinarith [abs_nonneg t.re, sq_abs t.re]
+  have hgn := norm_nonneg (G t)
+  have hτ0 : 0 ≤ τ0 := le_trans hgn h0
+  nlinarith [mul_le_mul h0 h0 hgn hτ0, mul_self_nonneg (‖t‖ * ‖G t‖),
+    mul_le_mul h1 h1 (by positivity) (le_trans (by positivity) h1)]
+
 /-- **`ĝ(Φ_b)` on the strip**: `‖ĝ(z)‖²(1 + (Re z)²) ≤ K`. -/
 theorem ghat_PhiA_strip {b : ℝ} (hb : 0 < b) : ∃ K, ∀ t ∈ PilotWeil.strip (-1) 1,
     ‖ghatC (PhiA b) b t‖ ^ 2 * (1 + t.re ^ 2) ≤ K := by
@@ -65,28 +69,20 @@ theorem ghat_PhiA_strip {b : ℝ} (hb : 0 < b) : ∃ K, ∀ t ∈ PilotWeil.stri
   refine ⟨τ0 ^ 2 + τ1 ^ 2, fun t ht => ?_⟩
   have hz : |t.im| ≤ 1 := abs_le.2 ⟨ht.1, ht.2⟩
   rw [ghatC_PhiA hb.le]
-  have h0 : ‖ghatC RPhi b t‖ ≤ τ0 := norm_ghatC_strip_le hb.le hR hz
-  have h1 : ‖t‖ * ‖ghatC RPhi b t‖ ≤ τ1 := by
-    have hi := ibp_window b t
-    have hn : ‖t‖ * ‖ghatC RPhi b t‖ = ‖Complex.I * t * ghatC RPhi b t‖ := by
-      rw [norm_mul, norm_mul, Complex.norm_I, one_mul]
-    rw [hn, hi]
-    obtain ⟨e1, e2⟩ := norm_cexp_strip_le hz hb.le
-    have hg1 := norm_ghatC_strip_le hb.le hR1 hz
-    calc _ ≤ ‖(RPhi b : ℂ) * (Complex.exp (Complex.I * t * b) - Complex.exp (-(Complex.I * t * b)))‖
-          + ‖ghatC RPhi1 b t‖ := norm_sub_le _ _
-      _ ≤ |RPhi b| * (Real.exp b + Real.exp b) + Real.exp b * ∫ u in (-b)..b, |RPhi1 u| := by
-          rw [norm_mul, Complex.norm_real, Real.norm_eq_abs]
-          gcongr
-          exact (norm_sub_le _ _).trans (add_le_add e1 e2)
-      _ = τ1 := by simp only [τ1]; ring
-  have hx : t.re ^ 2 ≤ ‖t‖ ^ 2 := by
-    have := Complex.abs_re_le_norm t
-    nlinarith [abs_nonneg t.re, sq_abs t.re]
-  have hg0 := norm_nonneg (ghatC RPhi b t)
-  have hτ0 : 0 ≤ τ0 := le_trans hg0 h0
-  nlinarith [mul_le_mul h0 h0 hg0 hτ0, mul_self_nonneg (‖t‖ * ‖ghatC RPhi b t‖),
-    mul_le_mul h1 h1 (by positivity) (le_trans (by positivity) h1)]
+  refine sq_strip_bound (norm_ghatC_strip_le hb.le hR hz) ?_
+  have hi := ibp_window b t
+  have hn : ‖t‖ * ‖ghatC RPhi b t‖ = ‖Complex.I * t * ghatC RPhi b t‖ := by
+    rw [norm_mul, norm_mul, Complex.norm_I, one_mul]
+  rw [hn, hi]
+  obtain ⟨e1, e2⟩ := norm_cexp_strip_le hz hb.le
+  have hg1 := norm_ghatC_strip_le hb.le hR1 hz
+  calc _ ≤ ‖(RPhi b : ℂ) * (Complex.exp (Complex.I * t * b) - Complex.exp (-(Complex.I * t * b)))‖
+        + ‖ghatC RPhi1 b t‖ := norm_sub_le _ _
+    _ ≤ |RPhi b| * (Real.exp b + Real.exp b) + Real.exp b * ∫ u in (-b)..b, |RPhi1 u| := by
+        rw [norm_mul, Complex.norm_real, Real.norm_eq_abs]
+        gcongr
+        exact (norm_sub_le _ _).trans (add_le_add e1 e2)
+    _ = τ1 := by simp only [τ1]; ring
 
 /-- **`ĝ(Φ_b)²` is in the strip class.** -/
 theorem striptest_PhiA {b : ℝ} (hb : 0 < b) : ∃ K, StripTest (fun z => ghatC (PhiA b) b z ^ 2) K := by
@@ -152,25 +148,34 @@ theorem norm_two_cos_strip {l : ℝ} (hl : 0 ≤ l) {t : ℂ} (ht : t ∈ PilotW
   have : |t.im| ≤ 1 := abs_le.2 ⟨ht.1, ht.2⟩
   nlinarith
 
-/-- The explicit formula for the twins' `ĝ(T_l)²`, over the zeros of `Ξ`. -/
-theorem weilExplicit_twin {b l : ℝ} (hb : 0 < b) (hl : 0 ≤ l) :
-    WeilExplicit rhoXi (fun z => ghatC (twin (PhiA b) l) (l + b) z ^ 2) (hsq (twin (PhiA b) l) (l + b)) := by
-  have hp := probe_PhiA hb.le
+/-- **The twins' explicit formula for any family** whose explicit formula holds on the strip class,
+and any probe `g` with the strip bound on `ĝ` (round 335: `weilExplicit_twin` over the zeros of `Ξ`
+and `WeilCriterion`'s `weilExplicit_twinbox_zeta` over those of `ζ` are its cases). -/
+theorem weilExplicit_twin_gen {ι : Type*} {ρ : ι → ℂ}
+    (hEF : ∀ {h : ℂ → ℂ} {C : ℝ}, StripTest h C → (∀ t, h (-t) = h t) →
+      ∀ {hR : ℝ → ℝ}, (∀ r : ℝ, h r = hR r) → WeilExplicit ρ h hR)
+    {g : ℝ → ℝ} {b l : ℝ} (hb : 0 < b) (hp : Probe b g) (hl : 0 ≤ l) {K : ℝ}
+    (hK : ∀ t ∈ PilotWeil.strip (-1) 1, ‖ghatC g b t‖ ^ 2 * (1 + t.re ^ 2) ≤ K) :
+    WeilExplicit ρ (fun z => ghatC (twin g l) (l + b) z ^ 2) (hsq (twin g l) (l + b)) := by
   have hpt := twin_probe hp hl
-  obtain ⟨K, hK⟩ := ghat_PhiA_strip hb
-  have hT := striptest_mul_sq (G := ghatC (PhiA b) b) (m := fun z => 2 * Complex.cos (l * z))
+  have hT := striptest_mul_sq (G := ghatC g b) (m := fun z => 2 * Complex.cos (l * z))
     (ghatC_differentiable hp.intervalIntegrable) (by fun_prop) hK (fun t ht => norm_two_cos_strip hl ht)
-  have e : (fun z => ghatC (twin (PhiA b) l) (l + b) z ^ 2)
-      = fun z => (2 * Complex.cos (l * z) * ghatC (PhiA b) b z) ^ 2 := by
+  have e : (fun z => ghatC (twin g l) (l + b) z ^ 2)
+      = fun z => (2 * Complex.cos (l * z) * ghatC g b z) ^ 2 := by
     funext z; rw [ghatC_twin hb hp hl]
   rw [e]
-  refine weilExplicit_Xi hT (fun t => ?_) (fun r => ?_)
+  refine hEF hT (fun t => ?_) (fun r => ?_)
   · have := even_ghat_sq hpt.even (l + b) t
     rw [ghatC_twin hb hp hl, ghatC_twin hb hp hl] at this
     exact this
   · have := hsq_ofReal hpt (by linarith) r
     rw [ghatC_twin hb hp hl] at this
     exact this
+
+/-- The explicit formula for the twins' `ĝ(T_l)²`, over the zeros of `Ξ`. -/
+theorem weilExplicit_twin {b l : ℝ} (hb : 0 < b) (hl : 0 ≤ l) :
+    WeilExplicit rhoXi (fun z => ghatC (twin (PhiA b) l) (l + b) z ^ 2) (hsq (twin (PhiA b) l) (l + b)) :=
+  weilExplicit_twin_gen weilExplicit_Xi hb (probe_PhiA hb.le) hl (ghat_PhiA_strip hb).choose_spec
 
 /-- The explicit formula for the rung-2 combinations `pT_{a/4} + qT_{3a/4}`, over the zeros of `Ξ`. -/
 theorem weilExplicit_combo {a : ℝ} (ha : 1 ≤ a) (p q : ℝ) :
@@ -243,3 +248,4 @@ end Pilot1ca
 #print axioms Pilot1ca.lam_decay_uncond
 #print axioms Pilot1ca.lamO_decay_uncond
 #print axioms Pilot1ca.lam2_decay_uncond
+#print axioms Pilot1ca.weilExplicit_twin_gen

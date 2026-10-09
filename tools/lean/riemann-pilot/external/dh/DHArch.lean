@@ -586,10 +586,6 @@ theorem K_eq_exp {u : ℝ} (hu : 0 < u) :
   rw [e1, e2]
   linear_combination (-(Real.exp (-(u / 2)))) * e3
 
-theorem K_le_exp {u : ℝ} (hu : 0 < u) :
-    archKer (3 / 4) u ≤ 2 * Real.exp (-(3 / 2 * u)) / (1 - Real.exp (-(2 * u))) :=
-  (K_eq_exp hu).le
-
 /-- On `u ≥ 2a`: `K u ≤ (2/(1 − e^{−4a})) e^{−3u/2}`. -/
 theorem K_le_exp_tail {a u : ℝ} (ha : 0 < a) (hu : 2 * a ≤ u) :
     archKer (3 / 4) u ≤ 2 / (1 - Real.exp (-(4 * a))) * Real.exp (-(3 / 2) * u) := by

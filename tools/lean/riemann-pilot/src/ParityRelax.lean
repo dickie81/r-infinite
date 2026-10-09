@@ -12,7 +12,8 @@ Round 122–123's relaxation handled the even sector with at most one prime. Her
 * **The odd sector** (`weilQodd_ge_relaxW`): the odd pole term is `−2 poleR²` with
   `poleR = −∫ g sinh(t/2)`, and the odd mode masses are `p_k = (∫ g sin(πkt/4a))²/8a`, `p₀ = 0`. So
   `Q(g) ≥ κ + Σ sᵢ yᵢ²` with `y₀ = ∫ g sinh(t/2)` (`s₀ = −2`) and `y_k = ∫ g sin(πkt/4a)`.
-* **Bessel for any continuous window vectors** (`bessel_V`), the odd Gram entries in closed form
+* **Bessel for any continuous window vectors** (`bessel_V`, in PoleRelax.lean since round 335, where
+  the even sector's `bessel_gram` is its case), the odd Gram entries in closed form
   (`gramO_eq`), monotonicity of the general form in the support (`weilQg_mono`), and the tail level
   from any certified `Cin` value (`tail_Wp`).
 -/
@@ -251,65 +252,6 @@ theorem weilQodd_ge_relaxW {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : OProbe
   linarith
 
 /-! ## E. Bessel for any continuous window vectors, and the odd Gram matrix -/
-
-def gramV (v : ℕ → ℝ → ℝ) (a : ℝ) (m : ℕ) : Matrix (Fin m) (Fin m) ℝ :=
-  Matrix.of fun i j => ∫ t in (-a)..a, v i t * v j t
-
-def xV (v : ℕ → ℝ → ℝ) (g : ℝ → ℝ) (m : ℕ) : Fin m → ℝ := fun i => ∫ t, g t * v i t
-
-theorem memLp_indV {v : ℕ → ℝ → ℝ} (hv : ∀ i, Continuous (v i)) (a : ℝ) (i : ℕ) :
-    MemLp ((Icc (-a) a).indicator (v i)) 2 volume := by
-  obtain ⟨C, hC⟩ := (isCompact_Icc (a := -a) (b := a)).exists_bound_of_continuousOn (hv i).continuousOn
-  exact memLp_indicator_of_continuous (hv i) measurableSet_Icc measure_Icc_lt_top.ne
-    (C := C) fun x hx => by simpa [Real.norm_eq_abs] using hC x hx
-
-theorem ind_mul_indV (v : ℕ → ℝ → ℝ) (a : ℝ) (i j : ℕ) (ha : 0 ≤ a) :
-    (∫ t, (Icc (-a) a).indicator (v i) t * (Icc (-a) a).indicator (v j) t)
-      = ∫ t in (-a)..a, v i t * v j t := by
-  rw [intervalIntegral.integral_of_le (by linarith), ← integral_Icc_eq_integral_Ioc,
-    ← integral_indicator measurableSet_Icc]
-  congr 1; funext t
-  by_cases ht : t ∈ Icc (-a) a <;> simp [ht]
-
-/-- **Bessel's inequality for any continuous window vectors**: `2 yᵀx − yᵀGy ≤ ‖g‖²`. -/
-theorem bessel_V {v : ℕ → ℝ → ℝ} (hv : ∀ i, Continuous (v i)) {a : ℝ} (ha : 0 ≤ a) {g : ℝ → ℝ}
-    (hg : MemLp g 2 volume) (hsupp : ∀ u, a < |u| → g u = 0) (m : ℕ) (y : Fin m → ℝ) :
-    2 * (y ⬝ᵥ xV v g m) - y ⬝ᵥ (gramV v a m *ᵥ y) ≤ normSq g := by
-  set hI : Fin m → ℝ → ℝ := fun i => (Icc (-a) a).indicator (v i) with hhI
-  have hmem : ∀ i, MemLp (hI i) 2 volume := fun i => memLp_indV hv a i
-  set H : ℝ → ℝ := fun t => ∑ i, y i * hI i t with hH
-  have hHmem : MemLp H 2 volume := memLp_finsetSum _ fun i _ => (hmem i).const_mul (y i)
-  have hq : 0 ≤ ∫ t, (g t - H t) ^ 2 := integral_nonneg fun _ => sq_nonneg _
-  have iG := hg.integrable_sq
-  have iH := hHmem.integrable_sq
-  have iGH := integrable_mul₂ hg hHmem
-  have hgH : (∫ t, g t * H t) = y ⬝ᵥ xV v g m := by
-    have : (fun t => g t * H t) = fun t => ∑ i, y i * (g t * hI i t) := by
-      funext t; simp only [hH, Finset.mul_sum]; refine Finset.sum_congr rfl fun i _ => by ring
-    rw [this, integral_finsetSum _ fun i _ => (integrable_mul₂ hg (hmem i)).const_mul (y i)]
-    simp only [integral_const_mul, dotProduct, xV]
-    refine Finset.sum_congr rfl fun i _ => ?_
-    congr 1; congr 1; funext t; exact ind_eq_of_supp ha hsupp _ t
-  have hHH : (∫ t, H t ^ 2) = y ⬝ᵥ (gramV v a m *ᵥ y) := by
-    have : (fun t => H t ^ 2) = fun t => ∑ i, ∑ j, y i * y j * (hI i t * hI j t) := by
-      funext t; simp only [hH, sq, Finset.sum_mul_sum]
-      refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => by ring
-    rw [this, integral_finsetSum _ fun i _ => integrable_finsetSum _ fun j _ =>
-      (integrable_mul₂ (hmem i) (hmem j)).const_mul _]
-    simp only [dotProduct, mulVec, gramV, Matrix.of_apply, Finset.mul_sum]
-    refine Finset.sum_congr rfl fun i _ => ?_
-    rw [integral_finsetSum _ fun j _ => (integrable_mul₂ (hmem i) (hmem j)).const_mul _]
-    refine Finset.sum_congr rfl fun j _ => ?_
-    rw [integral_const_mul, ind_mul_indV v a i j ha]; ring
-  have e3 : (∫ t, (g t - H t) ^ 2) = normSq g - 2 * (∫ t, g t * H t) + ∫ t, H t ^ 2 := by
-    have i2 : Integrable (fun t => 2 * (g t * H t)) := iGH.const_mul _
-    have ef : (fun t => (g t - H t) ^ 2) = fun t => g t ^ 2 - 2 * (g t * H t) + H t ^ 2 := by
-      funext t; ring
-    have i3 : Integrable (fun t => g t ^ 2 - 2 * (g t * H t)) := iG.sub i2
-    rw [ef, integral_add i3 iH, integral_sub iG i2, integral_const_mul]
-    unfold normSq; ring
-  rw [e3, hgH, hHH] at hq
-  linarith
 
 theorem int_sinh_sin {a : ℝ} (ω : ℝ) :
     (∫ t in (-a)..a, Real.sinh (t / 2) * Real.sin (ω * t))
@@ -566,7 +508,6 @@ end Pilot1ca
 #print axioms Pilot1ca.primeS_range
 #print axioms Pilot1ca.weilQ_ge_relaxW
 #print axioms Pilot1ca.weilQodd_ge_relaxW
-#print axioms Pilot1ca.bessel_V
 #print axioms Pilot1ca.gramO_eq
 #print axioms Pilot1ca.weilQg_mono
 #print axioms Pilot1ca.weilQ_ge_of_certW

@@ -40,14 +40,6 @@ theorem order_Xi_xi (t : ℂ) : analyticOrderAt Xi t = analyticOrderAt xi (1 / 2
   have h := analyticOrderAt_comp_of_deriv_ne_zero (f := xi) hg hd
   exact h
 
-theorem differentiableAt_Gammaℝ' {s : ℂ} (hs : 0 < s.re) : DifferentiableAt ℂ Gammaℝ s := by
-  have hs2 : ∀ m : ℕ, s / 2 ≠ -(m : ℂ) := fun m h => by
-    have := congrArg Complex.re h
-    simp at this; linarith [Nat.cast_nonneg (α := ℝ) m]
-  have hπ : (π : ℂ) ≠ 0 := ofReal_ne_zero.2 Real.pi_ne_zero
-  exact (((hasDerivAt_id s).neg.div_const 2).const_cpow (c := (π : ℂ)) (Or.inl hπ)).differentiableAt.mul
-    ((Complex.differentiableAt_Gamma _ hs2).comp s ((hasDerivAt_id s).div_const 2).differentiableAt)
-
 /-- `ord_ξ(s) = ord_ζ(s)` for `Re s > 0`, `s ≠ 1`. -/
 theorem order_xi_zeta {s : ℂ} (hs : 0 < s.re) (h1 : s ≠ 1) :
     analyticOrderAt xi s = analyticOrderAt riemannZeta s := by

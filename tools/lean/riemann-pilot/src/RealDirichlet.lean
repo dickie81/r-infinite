@@ -38,6 +38,15 @@ open LandauLaplace DirichletCharacter Pilot1ca Pilot1bt
 
 variable {N : ℕ} [NeZero N] {χ : DirichletCharacter ℂ N}
 
+/-- **A nontrivial character of prime level is primitive** (round 335; `chi3_isPrimitive` in
+`PrimeRaces.lean`, `WeilTwinGeneral.chi7_isPrimitive` and `chi5_isPrimitive` in `external/dh/` are its
+cases). -/
+theorem isPrimitive_of_prime_level {p : ℕ} (hp : p.Prime) {χ : DirichletCharacter ℂ p} (h : χ ≠ 1) :
+    χ.IsPrimitive :=
+  haveI : NeZero p := ⟨hp.ne_zero⟩
+  (hp.eq_one_or_self_of_dvd _ (conductor_dvd_level χ)).resolve_left
+    fun h1 => h (eq_one_iff_conductor_eq_one.2 h1)
+
 /-! ## Partial sums -/
 
 /-- `Re χ(n)`. -/
@@ -678,3 +687,4 @@ end PsiOmega
 #print axioms PsiOmega.psiChi_omega_of_primitive
 #print axioms PsiOmega.psiChi_omega_of_sums_nonneg
 #print axioms PsiOmega.hadamard_fG
+#print axioms PsiOmega.isPrimitive_of_prime_level

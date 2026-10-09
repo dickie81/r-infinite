@@ -27,64 +27,27 @@ namespace ZetaJoins
 theorem weil_rate_of_psi_bound {θ c ε : ℝ} (hθ : 1 / 2 ≤ θ) (hθ1 : θ ≤ 1) (hε : ε ≠ 0)
     (h : ∀ x : ℝ, 1 < x → ε * (Chebyshev.psi x - x) ≤ c * x ^ θ) :
     ∃ C, ∀ l : ℝ, 0 ≤ l → -(C * Real.exp ((2 * θ - 1) * l)) ≤
-      weilQ (l + 1) (twin (box 1) l) := by
-  refine (weil_twins_rate (by linarith)).2 fun s hs => ?_
-  have hθ0 : 0 < θ := by linarith
-  have h1 : s.re ≤ θ := by
-    by_contra hc
-    exact PsiOmega.zeta_ne_zero_of_psi hθ0 hθ1 hε h (not_le.1 hc) hs.1
-  have h2 : (1 - s).re ≤ θ := by
-    by_contra hc
-    exact PsiOmega.zeta_ne_zero_of_psi hθ0 hθ1 hε h (not_le.1 hc)
-      (PsiOmega.IsNontrivialZero.one_sub hs).1
-  rw [Complex.sub_re, Complex.one_re] at h2
-  rw [abs_le]; constructor <;> linarith
+      weilQ (l + 1) (twin (box 1) l) :=
+  (weil_twins_rate (by linarith)).2 fun s hs => PsiOmega.band_of_zeroFree
+    (fun ρ hρ => PsiOmega.zeta_ne_zero_of_psi (by linarith) hθ1 hε h hρ) hs
 
 theorem weil_rate_of_mertens_bound {θ c ε : ℝ} (hθ : 1 / 2 ≤ θ) (hθ1 : θ ≤ 1) (hε : ε ≠ 0)
     (h : ∀ x : ℝ, 1 < x → ε * PsiOmega.summ PsiOmega.fμ x ≤ c * x ^ θ) :
     ∃ C, ∀ l : ℝ, 0 ≤ l → -(C * Real.exp ((2 * θ - 1) * l)) ≤
-      weilQ (l + 1) (twin (box 1) l) := by
-  refine (weil_twins_rate (by linarith)).2 fun s hs => ?_
-  have hθ0 : 0 < θ := by linarith
-  have h1 : s.re ≤ θ := by
-    by_contra hc
-    exact PsiOmega.zeta_ne_zero_of_mertens hθ0 hθ1 hε h (not_le.1 hc) hs.1
-  have h2 : (1 - s).re ≤ θ := by
-    by_contra hc
-    exact PsiOmega.zeta_ne_zero_of_mertens hθ0 hθ1 hε h (not_le.1 hc)
-      (PsiOmega.IsNontrivialZero.one_sub hs).1
-  rw [Complex.sub_re, Complex.one_re] at h2
-  rw [abs_le]; constructor <;> linarith
+      weilQ (l + 1) (twin (box 1) l) :=
+  (weil_twins_rate (by linarith)).2 fun s hs => PsiOmega.band_of_zeroFree
+    (fun ρ hρ => PsiOmega.zeta_ne_zero_of_mertens (by linarith) hθ1 hε h hρ) hs
 
 /-! ### A4. One-sided upper bounds `ψ(x) − x ≤ c_θ x^θ` for every `θ > 1/2` give RH. -/
 theorem rh_of_psi_upper
     (h : ∀ θ : ℝ, 1 / 2 < θ → θ ≤ 1 → ∃ c : ℝ, ∀ x : ℝ, 1 < x → Chebyshev.psi x - x ≤ c * x ^ θ) :
     RiemannHypothesis := by
-  intro s hs htriv _
-  have hs' : Pilot1bt.IsNontrivialZero s := ⟨hs, htriv⟩
-  have key : ∀ θ, 1 / 2 < θ → θ ≤ 1 → s.re ≤ θ ∧ 1 - s.re ≤ θ := by
-    intro θ hθ hθ1
-    obtain ⟨c, hc⟩ := h θ hθ hθ1
-    have hc' : ∀ x : ℝ, 1 < x → (1 : ℝ) * (Chebyshev.psi x - x) ≤ c * x ^ θ :=
-      fun x hx => by simpa using hc x hx
-    constructor
-    · by_contra hlt
-      exact PsiOmega.zeta_ne_zero_of_psi (by linarith) hθ1 one_ne_zero hc' (not_le.1 hlt) hs
-    · by_contra hlt
-      refine PsiOmega.zeta_ne_zero_of_psi (by linarith) hθ1 one_ne_zero hc' (ρ := 1 - s) ?_
-        (PsiOmega.IsNontrivialZero.one_sub hs').1
-      rw [Complex.sub_re, Complex.one_re]; exact not_le.1 hlt
-  have hlt1 := hs'.re_lt_one
-  have hpos := hs'.re_pos
-  have hA : s.re ≤ 1 / 2 := by
-    by_contra hgt
-    have := (key ((1 / 2 + s.re) / 2) (by linarith [not_le.1 hgt]) (by linarith)).1
-    linarith [not_le.1 hgt]
-  have hB : 1 - s.re ≤ 1 / 2 := by
-    by_contra hgt
-    have := (key ((1 / 2 + (1 - s.re)) / 2) (by linarith [not_le.1 hgt]) (by linarith)).2
-    linarith [not_le.1 hgt]
-  linarith
+  refine PsiOmega.rh_of_zeroFree_half fun ρ hρ => ?_
+  rcases le_or_gt 1 ρ.re with h1' | h1'
+  · exact PsiOmega.zeta_ne_zero_re_ge_one h1'
+  · obtain ⟨c, hc⟩ := h ((1 / 2 + ρ.re) / 2) (by linarith) (by linarith)
+    exact PsiOmega.zeta_ne_zero_of_psi (θ := (1 / 2 + ρ.re) / 2) (by linarith) (by linarith) one_ne_zero
+      (fun x hx => by simpa using hc x hx) (by linarith)
 
 /-! ### A6. Round 241's fix, applied to the ζ instance: `pinned_zeta` concludes `(ĝ x).re = 0`; `ĝ x = 0` follows. -/
 theorem pinned_zeta_zero {g : ℝ → ℝ} {a : ℝ} (ha : 0 < a) (hp : Probe a g)

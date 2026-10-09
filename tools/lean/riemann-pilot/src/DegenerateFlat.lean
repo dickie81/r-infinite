@@ -312,21 +312,8 @@ theorem Gpole_autocorr_le (hp : Probe a f) (ha : 0 ≤ a) (hpole : poleR f a = 0
 theorem Gpole_probe (hp : Probe a f) (ha : 0 ≤ a) (hpole : poleR f a = 0) :
     Probe a (Gpole f a) := by
   obtain ⟨K, hK, hle⟩ := Gpole_autocorr_le hp ha hpole
-  have hG := Gpole_memLp hp hpole
-  refine ⟨Gpole_even hp hpole, Gpole_supp hp hpole, hG, ?_⟩
-  refine Integrable.mono' ((exp_neg_integrableOn_Ioi 0 (by norm_num : (0 : ℝ) < 1 / 4)).const_mul
-    (K * 16)) (measurable_archIntegrand hG).aestronglyMeasurable
-    ((ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun u hu => ?_))
-  have hu0 : 0 < u := hu
-  have hk : 0 < Real.exp (u / 2) / Real.sinh u :=
-    div_pos (Real.exp_pos _) (Real.sinh_pos_iff.2 hu0)
-  rw [Real.norm_eq_abs, abs_of_nonneg (archIntegrand_nonneg hG hu0)]
-  unfold archIntegrand
-  calc (autocorr (Gpole f a) 0 - autocorr (Gpole f a) u) * (Real.exp (u / 2) / Real.sinh u)
-      ≤ (K * u) * (Real.exp (u / 2) / Real.sinh u) := mul_le_mul_of_nonneg_right (hle u hu0) hk.le
-    _ = K * (u * (Real.exp (u / 2) / Real.sinh u)) := by ring
-    _ ≤ K * (16 * Real.exp (-(1 / 4) * u)) := mul_le_mul_of_nonneg_left (u_archK_le hu0) hK
-    _ = K * 16 * Real.exp (-(1 / 4) * u) := by ring
+  exact ⟨Gpole_even hp hpole, Gpole_supp hp hpole, Gpole_memLp hp hpole,
+    archIntegrand_integrableOn_of_lin (Gpole_memLp hp hpole) hK hle⟩
 
 end ProbeG
 

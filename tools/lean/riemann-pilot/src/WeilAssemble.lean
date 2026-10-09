@@ -159,13 +159,7 @@ theorem digamma_zB_neg (r : ℝ) : Complex.digamma (zB (-r)) = (starRingEnd ℂ)
     rw [zB_re] at this
     simp at this
     linarith [(Nat.cast_nonneg m : (0 : ℝ) ≤ m)]
-  have hdiff := (Complex.differentiableAt_Gamma (zB r) hnp).hasDerivAt
-  have hG : (starRingEnd ℂ) ∘ Complex.Gamma ∘ (starRingEnd ℂ) = Complex.Gamma := by
-    funext z; simp [Complex.Gamma_conj]
-  have hd := hdiff.conj_conj
-  rw [hG] at hd
-  rw [hconj, Complex.digamma, logDeriv_apply, logDeriv_apply, hd.deriv, Complex.Gamma_conj,
-    ← map_div₀]
+  rw [hconj, PilotDigamma.digamma_conj hnp]
 
 
 /-- The archimedean integrand `f(t) = h(t)ψ((½ + it)/2)` on the strip `−1 ≤ Im t ≤ 0`. -/

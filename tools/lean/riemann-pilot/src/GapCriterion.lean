@@ -80,20 +80,6 @@ theorem lam_le_of_perp {a : ℝ} (ha : 0 < a) {φ ψ : ℝ → ℝ} (hφ : IsGro
 def EnergyGap (a : ℝ) : Prop :=
   ∀ φ, IsGroundState0 a φ → ∀ v, Probe a v → normSq v = 1 → xcorr v φ 0 = 0 → lam a < weilQ0 a v
 
-/-- **Energy gap ⇒ simplicity.** -/
-theorem simpleGround_of_gap {a : ℝ} (ha : 0 < a) (hgap : EnergyGap a) {g : ℝ → ℝ}
-    (hg : IsGroundState a g) : SimpleGround a g := by
-  obtain ⟨-, φ, hφ, -, -, -, hcase⟩ := groundState_unique_or_excited ha
-  rcases hcase with huniq | ⟨v, hv, -, hvφ, hq0, -⟩
-  · refine simpleGround_of_unique ha hg fun h hh => ?_
-    rcases huniq h g hh hg with e | e
-    · exact Or.inl e
-    · exact Or.inr e
-  · exfalso
-    have hx : xcorr v φ 0 = 0 := by rw [xcorr_zero_eq]; exact hvφ
-    have := hgap φ hφ v hv.1 hv.2.1 hx
-    linarith
-
 /-- **Without simplicity, the gap closes exactly**: there is a positive ground state `φ₀` of `Q₀` and a
 normalised `v ⊥ φ₀` with `Q₀(v) = λ₁(Q)`, while `λ₁(Q) ≤ Q₀(ψ)` for every normalised `ψ ⊥ φ₀`. So
 `λ₁(Q) = min_{φ₀^⊥} Q₀ = μ₂(Q₀)`, attained. -/
@@ -111,6 +97,14 @@ theorem not_simple_gap {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hg : IsGroundSt
     · exact Or.inl e
     · exact Or.inr e
   · exact ⟨v, hv.1, hv.2.1, by rw [xcorr_zero_eq]; exact hvφ, hq0⟩
+
+/-- **Energy gap ⇒ simplicity.** -/
+theorem simpleGround_of_gap {a : ℝ} (ha : 0 < a) (hgap : EnergyGap a) {g : ℝ → ℝ}
+    (hg : IsGroundState a g) : SimpleGround a g := by
+  by_contra hs
+  obtain ⟨φ, hφ, -, -, ⟨v, hv, hn, hx, heq⟩, -⟩ := not_simple_gap ha hg hs
+  have := hgap φ hφ v hv hn hx
+  linarith
 
 /-! ## The Jacobi lemma -/
 

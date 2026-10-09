@@ -108,32 +108,36 @@ theorem hadamardW_even {f : ℂ → ℂ} (hf : Differentiable ℂ f) (heven : �
 
 /-! ## `ĝ` -/
 
+/-- `‖ĝ(z)‖ ≤ e^{a|Im z|}∫|g|` (round 335; it was `DHBridge.lean`'s, and the two bounds below and
+`WeilDischarge`'s `norm_ghatC_strip_le` repeated its proof). -/
+theorem norm_ghatC_le_exp_im {g : ℝ → ℝ} {a : ℝ} (ha : 0 ≤ a) (hg : IntervalIntegrable g volume (-a) a)
+    (z : ℂ) : ‖ghatC g a z‖ ≤ Real.exp (a * |z.im|) * ∫ u in (-a)..a, |g u| := by
+  unfold ghatC
+  refine (intervalIntegral.norm_integral_le_of_norm_le (by linarith)
+    (Eventually.of_forall fun u hu => ?_) (hg.abs.const_mul (Real.exp (a * |z.im|)))).trans_eq
+    (intervalIntegral.integral_const_mul _ _)
+  rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, Complex.norm_exp, mul_comm]
+  apply mul_le_mul_of_nonneg_right _ (abs_nonneg _)
+  apply Real.exp_le_exp.2
+  have e : (Complex.I * z * u).re = -(z.im * u) := by simp [Complex.mul_re]
+  rw [e]
+  have h1 : |u| ≤ a := abs_le.2 ⟨hu.1.le, hu.2⟩
+  calc -(z.im * u) ≤ |z.im * u| := neg_le_abs _
+    _ = |z.im| * |u| := abs_mul _ _
+    _ ≤ |z.im| * a := mul_le_mul_of_nonneg_left h1 (abs_nonneg _)
+    _ = a * |z.im| := mul_comm _ _
+
 theorem norm_ghatC_le {g : ℝ → ℝ} {a : ℝ} (ha : 0 ≤ a) (hg : IntervalIntegrable g volume (-a) a)
     (z : ℂ) :
     ‖ghatC g a z‖ ≤ (1 + ∫ u in (-a)..a, |g u|) * Real.exp (a * ‖z‖ ^ (1 : ℝ)) := by
-  rw [Real.rpow_one]
-  have hle : -a ≤ a := by linarith
-  have hpt : ∀ u ∈ Set.Ioc (-a) a,
-      ‖((g u : ℝ) : ℂ) * Complex.exp (I * z * u)‖ ≤ Real.exp (a * ‖z‖) * |g u| := by
-    intro u hu
-    rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, Complex.norm_exp, mul_comm]
-    apply mul_le_mul_of_nonneg_right _ (abs_nonneg _)
-    apply Real.exp_le_exp.2
-    have e : (I * z * (u : ℂ)).re = -(z.im * u) := by simp [mul_re]
-    rw [e]
-    have hu' : |u| ≤ a := abs_le.2 ⟨by linarith [hu.1], hu.2⟩
-    calc -(z.im * u) ≤ |z.im * u| := neg_le_abs _
-      _ = |z.im| * |u| := abs_mul _ _
-      _ ≤ ‖z‖ * a := mul_le_mul (abs_im_le_norm z) hu' (abs_nonneg _) (norm_nonneg _)
-      _ = a * ‖z‖ := mul_comm _ _
-  have h1 := intervalIntegral.norm_integral_le_of_norm_le hle
-    (Filter.Eventually.of_forall hpt) (hg.abs.const_mul (Real.exp (a * ‖z‖)))
-  rw [intervalIntegral.integral_const_mul] at h1
-  unfold ghatC
-  refine h1.trans ?_
+  refine (norm_ghatC_le_exp_im ha hg z).trans ?_
   have hI : 0 ≤ ∫ u in (-a)..a, |g u| :=
-    intervalIntegral.integral_nonneg hle (fun u _ => abs_nonneg _)
-  nlinarith [Real.exp_pos (a * ‖z‖)]
+    intervalIntegral.integral_nonneg (by linarith) fun u _ => abs_nonneg _
+  rw [Real.rpow_one, mul_comm]
+  have h1 : Real.exp (a * |z.im|) ≤ Real.exp (a * ‖z‖) :=
+    Real.exp_le_exp.2 (mul_le_mul_of_nonneg_left (Complex.abs_im_le_norm z) ha)
+  have h2 := Real.exp_pos (a * ‖z‖)
+  nlinarith
 
 /-- **Hadamard's factorisation of the transform** of an even probe with `ĝ(0) ≠ 0`, over its own zero
 pairs. No named input. -/
@@ -196,3 +200,4 @@ end Pilot1ca
 #print axioms Pilot1ca.Xi_even
 #print axioms Pilot1ca.hadamardW_Xi
 #print axioms Pilot1ca.rh_of_D_and_realRooted_proved
+#print axioms Pilot1ca.norm_ghatC_le_exp_im

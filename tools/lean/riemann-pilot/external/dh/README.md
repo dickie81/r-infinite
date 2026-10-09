@@ -11,4 +11,4 @@ The Davenport–Heilbronn function `dh = (1 + ε′)L(s, χ₅) + (1 + ε)L(s, �
 
 `./build.sh` is the pilot's `build.sh` with `SRC` set to this directory: parallel, incremental, and a file is rebuilt when it or any pilot module it imports changed. Recompiling 35 of its 50 files took about 5,200 CPU-seconds (round 275), so a clean build of this layer costs well over an hour of CPU on top of the pilot's.
 
-Every file ends with `#print axioms`; all 454 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`. See the main README, rounds 253–275. Since round 327 `./build.sh` checks this: a compiled file fails if Lean reports a use of `sorry` in it or it prints an axiom outside those three.
+Every file ends with `#print axioms`; all 455 checked theorems depend only on `propext`, `Classical.choice` and `Quot.sound`. See the main README, rounds 253–275. Since round 327 `./build.sh` checks this: a compiled file fails if Lean reports a use of `sorry` in it or it prints an axiom outside those three.

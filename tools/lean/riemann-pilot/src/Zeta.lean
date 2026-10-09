@@ -21,9 +21,8 @@ namespace Pilot1ca
 open Pilot1bt
 
 /-- `ζ` has no zeros in a punctured neighbourhood of its pole. -/
-theorem zeta_ne_zero_near_one : ∀ᶠ s in 𝓝[≠] (1 : ℂ), riemannZeta s ≠ 0 := by
-  filter_upwards [riemannZeta_residue_one.eventually_ne one_ne_zero] with s hs h
-  exact hs (by rw [h, mul_zero])
+theorem zeta_ne_zero_near_one : ∀ᶠ s in 𝓝[≠] (1 : ℂ), riemannZeta s ≠ 0 :=
+  riemannZeta_eventually_ne_zero_nhds_one.filter_mono nhdsWithin_le_nhds
 
 /-- **Finitely many nontrivial zeros of `ζ` have `0 < Im ρ < T`.** -/
 theorem finite_zeros_below (T : ℝ) :

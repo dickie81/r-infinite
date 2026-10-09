@@ -53,7 +53,7 @@ Each declaration (left) and the pilot declaration it is the dh column of (right)
   - `real_of_pairing` — `rh_of_pairing_and_realRooted` (Limit.lean:191)
   - `hypConvDH_of_D` — `hypConv_of_D` (PrimeSide.lean:63)
   - `dhRH_of_D_and_realRooted_proved`, `not_D_and_realRooted`, `not_D_dh` —
-    `rh_of_D_and_realRooted_proved` (HadamardApply.lean:177); its named inputs `XiGrowth` and
+    `rh_of_D_and_realRooted_proved` (HadamardApply.lean:181); its named inputs `XiGrowth` and
     `Xi 0 ≠ 0` are replaced by `hadamard_dh'`
 * the dodging route
   - `real_of_params` — `rh_of_Xi_params` (Curvature.lean:53)

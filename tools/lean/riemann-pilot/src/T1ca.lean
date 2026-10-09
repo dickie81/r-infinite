@@ -45,10 +45,7 @@ theorem abs_N0_le_one {r : ℝ} (h0 : 0 ≤ r) (h1 : r ≤ 2 * π * Real.exp 1) 
   · rw [← hs]; simp
   · have hlog_le : Real.log s ≤ 1 := by
       rw [← Real.log_exp 1]; exact Real.log_le_log hs hse
-    have hlog_ge : 1 - s⁻¹ ≤ Real.log s := Real.one_sub_inv_le_log_of_pos hs
-    have hsl : s - 1 ≤ s * Real.log s := by
-      have := mul_le_mul_of_nonneg_left hlog_ge hs.le
-      rwa [mul_sub, mul_one, mul_inv_cancel₀ hs.ne'] at this
+    have hsl : s - 1 ≤ s * Real.log s := Real.self_sub_one_le_mul_log hs.le
     rw [abs_le]
     constructor
     · nlinarith
@@ -153,25 +150,26 @@ theorem N0_nonpos {r : ℝ} (h0 : 0 ≤ r) (h1 : r ≤ 2 * π * Real.exp 1) : N0
       rw [← Real.log_exp 1]; exact Real.log_le_log hs hse
     nlinarith
 
+/-- `d/dT[T²(T² − r²)^{−p}] = 2T((1 − p)T² − r²)(T² − r²)^{−p−1}` for `r² < T²` (round 335: `hasDerivAt_fall`
+and `hasDerivAt_rise` are its cases `p = 3/2, 5/2`). -/
+theorem hasDerivAt_sq_mul_rpow (r T p : ℝ) (h : r ^ 2 < T ^ 2) :
+    HasDerivAt (fun T => T ^ 2 * (T ^ 2 - r ^ 2) ^ (-p))
+      (2 * T * ((1 - p) * T ^ 2 - r ^ 2) * (T ^ 2 - r ^ 2) ^ (-p - 1)) T := by
+  have hpos : 0 < T ^ 2 - r ^ 2 := by linarith
+  have h2 := (hasDerivAt_sqsubT r T).rpow_const (p := -p) (Or.inl hpos.ne')
+  have h3 : HasDerivAt (fun T => T ^ 2) (2 * T) T := by
+    simpa using hasDerivAt_pow 2 T
+  convert h3.mul h2 using 1
+  rw [rpow_eq_mul_rpow_sub_one hpos (-p)]
+  ring
+
 /-- 1ca(ii), the holes' and the constant's terms: `T·d/dT[T²(T²−r²)^{−3/2}] = −T²(T²+2r²)(T²−r²)^{−5/2}`
 (stated as the derivative `−T(T²+2r²)(T²−r²)^{−5/2}`), for `r² < T²`. -/
 theorem hasDerivAt_fall (r T : ℝ) (h : r ^ 2 < T ^ 2) :
     HasDerivAt (fun T => T ^ 2 * (T ^ 2 - r ^ 2) ^ (-(3 / 2 : ℝ)))
       (-(T * (T ^ 2 + 2 * r ^ 2) * (T ^ 2 - r ^ 2) ^ (-(5 / 2 : ℝ)))) T := by
-  have hpos : 0 < T ^ 2 - r ^ 2 := by linarith
-  have h1 := hasDerivAt_sqsubT r T
-  have h2 := h1.rpow_const (p := -(3 / 2 : ℝ)) (Or.inl hpos.ne')
-  have h3 : HasDerivAt (fun T => T ^ 2) (2 * T) T := by
-    have := hasDerivAt_pow 2 T
-    convert this using 1; push_cast; ring
-  have h4 := h3.mul h2
-  convert h4 using 1
-  have hsplit : (T ^ 2 - r ^ 2) ^ (-(3 / 2 : ℝ))
-      = (T ^ 2 - r ^ 2) * (T ^ 2 - r ^ 2) ^ (-(5 / 2 : ℝ)) := by
-    rw [rpow_eq_mul_rpow_sub_one hpos]; norm_num
-  have hexp : (-(3 / 2 : ℝ)) - 1 = -(5 / 2) := by norm_num
-  rw [hexp, hsplit]
-  ring
+  convert hasDerivAt_sq_mul_rpow r T (3 / 2) h using 1
+  rw [show -(3 / 2 : ℝ) - 1 = -(5 / 2) by norm_num]; ring
 
 /-- 1ca(ii), the piece below γ₁: `d/dT[T²(T²−r²)^{−5/2}] = −T(3T²+2r²)(T²−r²)^{−7/2}`, so that
 `T·d/dT` of `12T²∫₀^{γ₁} N₀ r (T²−r²)^{−5/2}` is the rise `12T²∫₀^{γ₁}|N₀| r(3T²+2r²)(T²−r²)^{−7/2}`
@@ -179,20 +177,8 @@ theorem hasDerivAt_fall (r T : ℝ) (h : r ^ 2 < T ^ 2) :
 theorem hasDerivAt_rise (r T : ℝ) (h : r ^ 2 < T ^ 2) :
     HasDerivAt (fun T => T ^ 2 * (T ^ 2 - r ^ 2) ^ (-(5 / 2 : ℝ)))
       (-(T * (3 * T ^ 2 + 2 * r ^ 2) * (T ^ 2 - r ^ 2) ^ (-(7 / 2 : ℝ)))) T := by
-  have hpos : 0 < T ^ 2 - r ^ 2 := by linarith
-  have h1 := hasDerivAt_sqsubT r T
-  have h2 := h1.rpow_const (p := -(5 / 2 : ℝ)) (Or.inl hpos.ne')
-  have h3 : HasDerivAt (fun T => T ^ 2) (2 * T) T := by
-    have := hasDerivAt_pow 2 T
-    convert this using 1; push_cast; ring
-  have h4 := h3.mul h2
-  convert h4 using 1
-  have hsplit : (T ^ 2 - r ^ 2) ^ (-(5 / 2 : ℝ))
-      = (T ^ 2 - r ^ 2) * (T ^ 2 - r ^ 2) ^ (-(7 / 2 : ℝ)) := by
-    rw [rpow_eq_mul_rpow_sub_one hpos]; norm_num
-  have hexp : (-(5 / 2 : ℝ)) - 1 = -(7 / 2) := by norm_num
-  rw [hexp, hsplit]
-  ring
+  convert hasDerivAt_sq_mul_rpow r T (5 / 2) h using 1
+  rw [show -(5 / 2 : ℝ) - 1 = -(7 / 2) by norm_num]; ring
 
 /-- The polynomial `p(x) = 64(x−1)⁵ − x³(x+2)² = 63x⁵ − 324x⁴ + 636x³ − 640x² + 320x − 64` is
 positive for `x ≥ 2.28`: shifted to `x = 57/25 + s` every coefficient is positive. -/
@@ -1490,3 +1476,4 @@ end Pilot1ca
 #print axioms Pilot1ca.Fp_unique_min
 #print axioms Pilot1ca.Fp_exactly_two_zeros
 #print axioms Pilot1ca.Fs_max_then_min
+#print axioms Pilot1ca.hasDerivAt_sq_mul_rpow

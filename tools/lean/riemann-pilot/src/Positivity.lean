@@ -361,50 +361,13 @@ theorem integral_ne_zero_of_one_sign {g : ℝ → ℝ} (hi : Integrable g) (hn :
 theorem groundState0_unique {a : ℝ} (ha : 0 < a) {g h : ℝ → ℝ}
     (hg : IsGroundState0 a g) (hh : IsGroundState0 a h) :
     g =ᵐ[volume] h ∨ g =ᵐ[volume] fun t => -h t := by
-  have hgS := ((isGroundState0_iff ha).1 hg).1
-  have hhS := ((isGroundState0_iff ha).1 hh).1
-  have hgi := probe_integrable hg.1
-  have hhi := probe_integrable hh.1
-  set sg := ∫ t, g t with hsgd
-  set sh := ∫ t, h t with hshd
-  have hsg : sg ≠ 0 := integral_ne_zero_of_one_sign hgi hg.2.1 (groundState0_one_sign hg)
-  set v : ℝ → ℝ := fun t => sh * g t - sg * h t with hv
-  have hvS : v ∈ groundSpace0 a :=
-    (groundSpace0 a).sub_mem ((groundSpace0 a).smul_mem sh hgS) ((groundSpace0 a).smul_mem sg hhS)
-  have hvi : ∫ t, v t = 0 := by
-    simp only [hv]
-    rw [integral_sub (hgi.const_mul sh) (hhi.const_mul sg), integral_const_mul,
-      integral_const_mul]
-    ring
-  rcases (normSq_nonneg v).lt_or_eq with hpos | h0
-  · exfalso
-    set c := 1 / Real.sqrt (normSq v) with hc
-    have hu : IsGroundState0 a (fun t => c * v t) :=
-      (isGroundState0_iff ha).2 ⟨(groundSpace0 a).smul_mem c hvS, by
-        show normSq (fun t => c * v t) = 1
-        rw [normSq_smul, hc, div_pow, Real.sq_sqrt hpos.le]; field_simp⟩
-    apply integral_ne_zero_of_one_sign (probe_integrable hu.1) hu.2.1 (groundState0_one_sign hu)
-    rw [integral_const_mul, hvi, mul_zero]
-  · have hz := ae_zero_of_normSq hvS.1.memL2 h0.symm
-    set r := sh / sg with hr
-    have hhr : h =ᵐ[volume] fun t => r * g t := by
-      filter_upwards [hz] with t ht
-      simp only [hv, Pi.zero_apply] at ht
-      rw [hr]; field_simp; linarith
-    have hn := normSq_congr_ae hhr
-    rw [hh.2.1, normSq_smul, hg.2.1, mul_one] at hn
-    have hr2 : r = 1 ∨ r = -1 := by
-      have : (r - 1) * (r + 1) = 0 := by linear_combination -hn
-      rcases mul_eq_zero.1 this with h1 | h1
-      · left; linarith
-      · right; linarith
-    rcases hr2 with h1 | h1
-    · left
-      filter_upwards [hhr] with t ht
-      rw [ht, h1, one_mul]
-    · right
-      filter_upwards [hhr] with t ht
-      rw [ht, h1]; ring
+  have hgS := (isGroundState0_iff ha).1 hg
+  have hhS := (isGroundState0_iff ha).1 hh
+  exact (weilQ0_form a).unique_of_functional (fun f => ∫ t, f t)
+    (fun f c _ => integral_const_mul c f)
+    (fun hf hg' => integral_sub (probe_integrable hf.1) (probe_integrable hg'.1))
+    (fun v hv hvn => integral_ne_zero_of_one_sign (probe_integrable hv.1) hvn
+      (groundState0_one_sign ((isGroundState0_iff ha).2 ⟨hv, hvn⟩))) hgS.1 hgS.2 hhS.1 hhS.2
 
 /-- **`Q₀` has a unique ground state up to sign, and it can be taken non-negative.** -/
 theorem exists_unique_groundState0 {a : ℝ} (ha : 0 < a) :

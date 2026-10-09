@@ -430,13 +430,7 @@ theorem digamma_zC3_neg (r : ℝ) :
     have := congrArg Complex.re h
     simp [zC3] at this
     linarith [(Nat.cast_nonneg m : (0 : ℝ) ≤ m)]
-  have hdiff := (Complex.differentiableAt_Gamma (zC3 r) hnp).hasDerivAt
-  have hGc : (starRingEnd ℂ) ∘ Complex.Gamma ∘ (starRingEnd ℂ) = Complex.Gamma := by
-    funext z; simp [Complex.Gamma_conj]
-  have hd := hdiff.conj_conj
-  rw [hGc] at hd
-  rw [hconj, Complex.digamma, logDeriv_apply, logDeriv_apply, hd.deriv, Complex.Gamma_conj,
-    ← map_div₀]
+  rw [hconj, PilotDigamma.digamma_conj hnp]
 
 theorem psi_strip_bound3 {h : ℂ → ℂ} {C : ℝ} (H : StripTest h C) {t : ℂ}
     (ht : t ∈ PilotWeil.strip (-1) 0) :

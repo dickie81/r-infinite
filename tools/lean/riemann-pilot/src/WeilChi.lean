@@ -161,13 +161,8 @@ theorem logDeriv_LFunction_eq (hq : χ.IsQuadratic) {s : ℂ} (hs : 1 < s.re) :
   rw [LSeries_fχ (isReal_of_isQuadratic hq) hs, logDeriv_apply]; ring
 
 omit hG in
-theorem differentiableAt_Gammaℝ_of_re_pos {s : ℂ} (hs : 0 < s.re) : DifferentiableAt ℂ Gammaℝ s := by
-  have hs2 : ∀ m : ℕ, s / 2 ≠ -(m : ℂ) := fun m h => by
-    have := congrArg Complex.re h
-    simp at this; linarith [Nat.cast_nonneg (α := ℝ) m]
-  have hπ : (π : ℂ) ≠ 0 := ofReal_ne_zero.2 Real.pi_ne_zero
-  exact (((hasDerivAt_id s).neg.div_const 2).const_cpow (c := (π : ℂ)) (Or.inl hπ)).differentiableAt.mul
-    ((Complex.differentiableAt_Gamma _ hs2).comp s ((hasDerivAt_id s).div_const 2).differentiableAt)
+theorem differentiableAt_Gammaℝ_of_re_pos {s : ℂ} (hs : 0 < s.re) : DifferentiableAt ℂ Gammaℝ s :=
+  differentiableAt_Gammaℝ' hs
 
 omit hG in
 /-- `Λ*′/Λ* = ½ log N + Γ_ℝ′/Γ_ℝ(s + δ) − Σ Λ(n)χ(n)n^{−s}` on `Re s > 1`. -/
@@ -336,13 +331,7 @@ theorem digamma_zC_neg (r : ℝ) :
     have := congrArg Complex.re h
     simp [zC] at this
     linarith [(Nat.cast_nonneg m : (0 : ℝ) ≤ m), parity_nonneg' χ]
-  have hdiff := (Complex.differentiableAt_Gamma (zC χ r) hnp).hasDerivAt
-  have hGc : (starRingEnd ℂ) ∘ Complex.Gamma ∘ (starRingEnd ℂ) = Complex.Gamma := by
-    funext z; simp [Complex.Gamma_conj]
-  have hd := hdiff.conj_conj
-  rw [hGc] at hd
-  rw [hconj, Complex.digamma, logDeriv_apply, logDeriv_apply, hd.deriv, Complex.Gamma_conj,
-    ← map_div₀]
+  rw [hconj, PilotDigamma.digamma_conj hnp]
 
 omit [NeZero N] hG in
 theorem psi_strip_boundC {h : ℂ → ℂ} {C : ℝ} (H : StripTest h C) {t : ℂ} (ht : t ∈ PilotWeil.strip (-1) 0) :

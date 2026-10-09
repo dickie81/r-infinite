@@ -83,10 +83,27 @@ def gramM (a : ℝ) (m : ℕ) : Matrix (Fin m) (Fin m) ℝ :=
 /-- The coefficients `xᵢ = ∫ g vᵢ`. -/
 def xv (a : ℝ) (g : ℝ → ℝ) (m : ℕ) : Fin m → ℝ := fun i => ∫ t, g t * vv a i t
 
-theorem memLp_ind (a : ℝ) (i : ℕ) : MemLp ((Icc (-a) a).indicator (vv a i)) 2 volume := by
-  obtain ⟨C, hC⟩ := (isCompact_Icc (a := -a) (b := a)).exists_bound_of_continuousOn (vv_cont a i).continuousOn
-  exact memLp_indicator_of_continuous (vv_cont a i) measurableSet_Icc measure_Icc_lt_top.ne
+def gramV (v : ℕ → ℝ → ℝ) (a : ℝ) (m : ℕ) : Matrix (Fin m) (Fin m) ℝ :=
+  Matrix.of fun i j => ∫ t in (-a)..a, v i t * v j t
+
+def xV (v : ℕ → ℝ → ℝ) (g : ℝ → ℝ) (m : ℕ) : Fin m → ℝ := fun i => ∫ t, g t * v i t
+
+theorem memLp_indV {v : ℕ → ℝ → ℝ} (hv : ∀ i, Continuous (v i)) (a : ℝ) (i : ℕ) :
+    MemLp ((Icc (-a) a).indicator (v i)) 2 volume := by
+  obtain ⟨C, hC⟩ := (isCompact_Icc (a := -a) (b := a)).exists_bound_of_continuousOn (hv i).continuousOn
+  exact memLp_indicator_of_continuous (hv i) measurableSet_Icc measure_Icc_lt_top.ne
     (C := C) fun x hx => by simpa [Real.norm_eq_abs] using hC x hx
+
+theorem ind_mul_indV (v : ℕ → ℝ → ℝ) (a : ℝ) (i j : ℕ) (ha : 0 ≤ a) :
+    (∫ t, (Icc (-a) a).indicator (v i) t * (Icc (-a) a).indicator (v j) t)
+      = ∫ t in (-a)..a, v i t * v j t := by
+  rw [intervalIntegral.integral_of_le (by linarith), ← integral_Icc_eq_integral_Ioc,
+    ← integral_indicator measurableSet_Icc]
+  congr 1; funext t
+  by_cases ht : t ∈ Icc (-a) a <;> simp [ht]
+
+theorem memLp_ind (a : ℝ) (i : ℕ) : MemLp ((Icc (-a) a).indicator (vv a i)) 2 volume :=
+  memLp_indV (vv_cont a) a i
 
 theorem ind_eq_of_supp {a : ℝ} (ha : 0 ≤ a) {g : ℝ → ℝ} (hsupp : ∀ u, a < |u| → g u = 0) (h : ℝ → ℝ) (t : ℝ) :
     g t * (Icc (-a) a).indicator h t = g t * h t := by
@@ -101,42 +118,38 @@ theorem ind_eq_of_supp {a : ℝ} (ha : 0 ≤ a) {g : ℝ → ℝ} (hsupp : ∀ u
 
 theorem ind_mul_ind (a : ℝ) (i j : ℕ) (ha : 0 ≤ a) :
     (∫ t, (Icc (-a) a).indicator (vv a i) t * (Icc (-a) a).indicator (vv a j) t)
-      = ∫ t in (-a)..a, vv a i t * vv a j t := by
-  rw [intervalIntegral.integral_of_le (by linarith), ← integral_Icc_eq_integral_Ioc,
-    ← integral_indicator measurableSet_Icc]
-  congr 1; funext t
-  by_cases ht : t ∈ Icc (-a) a <;> simp [ht]
+      = ∫ t in (-a)..a, vv a i t * vv a j t := ind_mul_indV (vv a) a i j ha
 
-/-- **Bessel's inequality**: `2 yᵀx − yᵀGy ≤ ‖g‖²` for every `y`, from `∫(g − Σ yᵢ vᵢ)² ≥ 0`. -/
-theorem bessel_gram {a : ℝ} (ha : 0 ≤ a) {g : ℝ → ℝ} (hg : MemLp g 2 volume)
-    (hsupp : ∀ u, a < |u| → g u = 0) (m : ℕ) (y : Fin m → ℝ) :
-    2 * (y ⬝ᵥ xv a g m) - y ⬝ᵥ (gramM a m *ᵥ y) ≤ normSq g := by
-  set hI : Fin m → ℝ → ℝ := fun i => (Icc (-a) a).indicator (vv a i) with hhI
-  have hmem : ∀ i, MemLp (hI i) 2 volume := fun i => memLp_ind a i
+/-- **Bessel's inequality for any continuous window vectors**: `2 yᵀx − yᵀGy ≤ ‖g‖²`. -/
+theorem bessel_V {v : ℕ → ℝ → ℝ} (hv : ∀ i, Continuous (v i)) {a : ℝ} (ha : 0 ≤ a) {g : ℝ → ℝ}
+    (hg : MemLp g 2 volume) (hsupp : ∀ u, a < |u| → g u = 0) (m : ℕ) (y : Fin m → ℝ) :
+    2 * (y ⬝ᵥ xV v g m) - y ⬝ᵥ (gramV v a m *ᵥ y) ≤ normSq g := by
+  set hI : Fin m → ℝ → ℝ := fun i => (Icc (-a) a).indicator (v i) with hhI
+  have hmem : ∀ i, MemLp (hI i) 2 volume := fun i => memLp_indV hv a i
   set H : ℝ → ℝ := fun t => ∑ i, y i * hI i t with hH
   have hHmem : MemLp H 2 volume := memLp_finsetSum _ fun i _ => (hmem i).const_mul (y i)
   have hq : 0 ≤ ∫ t, (g t - H t) ^ 2 := integral_nonneg fun _ => sq_nonneg _
   have iG := hg.integrable_sq
   have iH := hHmem.integrable_sq
   have iGH := integrable_mul₂ hg hHmem
-  have hgH : (∫ t, g t * H t) = y ⬝ᵥ xv a g m := by
+  have hgH : (∫ t, g t * H t) = y ⬝ᵥ xV v g m := by
     have : (fun t => g t * H t) = fun t => ∑ i, y i * (g t * hI i t) := by
       funext t; simp only [hH, Finset.mul_sum]; refine Finset.sum_congr rfl fun i _ => by ring
     rw [this, integral_finsetSum _ fun i _ => (integrable_mul₂ hg (hmem i)).const_mul (y i)]
-    simp only [integral_const_mul, dotProduct, xv]
+    simp only [integral_const_mul, dotProduct, xV]
     refine Finset.sum_congr rfl fun i _ => ?_
     congr 1; congr 1; funext t; exact ind_eq_of_supp ha hsupp _ t
-  have hHH : (∫ t, H t ^ 2) = y ⬝ᵥ (gramM a m *ᵥ y) := by
+  have hHH : (∫ t, H t ^ 2) = y ⬝ᵥ (gramV v a m *ᵥ y) := by
     have : (fun t => H t ^ 2) = fun t => ∑ i, ∑ j, y i * y j * (hI i t * hI j t) := by
       funext t; simp only [hH, sq, Finset.sum_mul_sum]
       refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => by ring
     rw [this, integral_finsetSum _ fun i _ => integrable_finsetSum _ fun j _ =>
       (integrable_mul₂ (hmem i) (hmem j)).const_mul _]
-    simp only [dotProduct, mulVec, gramM, Matrix.of_apply, Finset.mul_sum]
+    simp only [dotProduct, mulVec, gramV, Matrix.of_apply, Finset.mul_sum]
     refine Finset.sum_congr rfl fun i _ => ?_
     rw [integral_finsetSum _ fun j _ => (integrable_mul₂ (hmem i) (hmem j)).const_mul _]
     refine Finset.sum_congr rfl fun j _ => ?_
-    rw [integral_const_mul, ind_mul_ind a i j ha]; ring
+    rw [integral_const_mul, ind_mul_indV v a i j ha]; ring
   have e3 : (∫ t, (g t - H t) ^ 2) = normSq g - 2 * (∫ t, g t * H t) + ∫ t, H t ^ 2 := by
     have i2 : Integrable (fun t => 2 * (g t * H t)) := iGH.const_mul _
     have ef : (fun t => (g t - H t) ^ 2) = fun t => g t ^ 2 - 2 * (g t * H t) + H t ^ 2 := by
@@ -146,6 +159,11 @@ theorem bessel_gram {a : ℝ} (ha : 0 ≤ a) {g : ℝ → ℝ} (hg : MemLp g 2 v
     unfold normSq; ring
   rw [e3, hgH, hHH] at hq
   linarith
+
+/-- **Bessel's inequality**: `2 yᵀx − yᵀGy ≤ ‖g‖²` for every `y`, from `∫(g − Σ yᵢ vᵢ)² ≥ 0`. -/
+theorem bessel_gram {a : ℝ} (ha : 0 ≤ a) {g : ℝ → ℝ} (hg : MemLp g 2 volume)
+    (hsupp : ∀ u, a < |u| → g u = 0) (m : ℕ) (y : Fin m → ℝ) :
+    2 * (y ⬝ᵥ xv a g m) - y ⬝ᵥ (gramM a m *ᵥ y) ≤ normSq g := bessel_V (vv_cont a) ha hg hsupp m y
 
 /-! ## C. The exact lower bound `Q ≥ κ + xᵀ diag(s) x` -/
 
@@ -485,3 +503,4 @@ end Pilot1ca
 #print axioms Pilot1ca.gramM_eq
 #print axioms Pilot1ca.weilQ_ge_of_cert
 #print axioms Pilot1ca.weilQ_ge_pole
+#print axioms Pilot1ca.bessel_V

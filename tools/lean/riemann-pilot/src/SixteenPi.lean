@@ -75,10 +75,7 @@ theorem wall_quadratic {X : ℝ} (hX : 0 < X) :
   set y := X / 2 with hy
   have hy0 : 0 < y := by positivity
   have hX' : X = 2 * y := by rw [hy]; ring
-  have hl := Real.one_sub_inv_le_log_of_pos hy0
-  have key : y - 1 ≤ y * log y := by
-    have := mul_le_mul_of_nonneg_left hl hy0.le
-    rwa [mul_sub, mul_one, mul_inv_cancel₀ hy0.ne'] at this
+  have key : y - 1 ≤ y * log y := Real.self_sub_one_le_mul_log hy0.le
   rw [hX']
   have e : 1 / 2 - (1 + log y) / (2 * y) - (y - 1) ^ 2 / (2 * y ^ 2)
       = (y - 1 - y * log y) / (2 * y ^ 2) := by field_simp; ring
@@ -728,25 +725,14 @@ theorem fBalExp_le {X : ℝ} (hX : 0 < X) : fBalExp X ≤ 4 * π ∧ (fBalExp X 
   have key : fBalExp X = 4 * π - 4 * π * (1 - y + y * log y) := by
     unfold fBalExp
     rw [show 1 + log 2 - log X = 1 - log y by rw [← hl]; ring, hy]; ring
-  -- `y ln y ≥ y − 1`, strictly unless `y = 1`
-  have weak : y - 1 ≤ y * log y := by
-    have := mul_le_mul_of_nonneg_left (Real.one_sub_inv_le_log_of_pos hy0) hy0.le
-    rwa [mul_sub, mul_one, mul_inv_cancel₀ hy0.ne'] at this
+  -- `y ln y ≥ y − 1`, strictly unless `y = 1` (Mathlib's pair, since round 335)
+  have weak := Real.self_sub_one_le_mul_log hy0.le
   refine ⟨by rw [key]; nlinarith [pi_pos], ⟨fun h => ?_, fun h => by subst h; unfold fBalExp; ring⟩⟩
   rw [key] at h
-  have h0 : 1 - y + y * log y = 0 := by
-    have := pi_pos
-    have : 4 * π * (1 - y + y * log y) = 0 := by linarith
-    rcases mul_eq_zero.1 this with h' | h'
-    · linarith
-    · exact h'
   by_contra hne
   have hy1 : y ≠ 1 := fun h1 => hne (by rw [hy] at h1; linarith)
-  have hs := Real.log_lt_sub_one_of_pos (inv_pos.2 hy0) (fun h1 => hy1 (inv_eq_one.1 h1))
-  rw [Real.log_inv] at hs
-  have := mul_lt_mul_of_pos_left hs hy0
-  rw [mul_sub, mul_inv_cancel₀ hy0.ne', mul_one] at this
-  linarith
+  have := Real.self_sub_one_lt_mul_log hy0.le hy1
+  nlinarith [pi_pos]
 
 
 /-! ## I. The balayage density in closed form, and its positivity at the wall -/

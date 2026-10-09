@@ -22,7 +22,7 @@ Each declaration (left) and the pilot declaration it is the dh column of (right)
   `hypConvDH_of_D` and `not_hypConvDH_of_realRooted`
 * `rh_of_D_and_realRooted_final` (XiBounds.lean:360) has no new declaration: its dh column is
   `not_D_and_realRooted` (DHColumn.lean:395), because `hadamard_dh'` discharges the two named `Ξ`
-  inputs of `rh_of_D_and_realRooted_proved` (HadamardApply.lean:177) at once, so the `_proved` and
+  inputs of `rh_of_D_and_realRooted_proved` (HadamardApply.lean:181) at once, so the `_proved` and
   `_final` rows have one dh column
 * `not_hypConvStripDH_top` — `rh_of_hypConvStrip_top` (StripConv.lean:100), via
   `not_hypConvStripDH_of_cross` and `topGSDH_cross` (the strip analogue of `not_hypConvDH_top`)

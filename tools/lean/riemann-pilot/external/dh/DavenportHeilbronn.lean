@@ -114,10 +114,7 @@ theorem chi5_odd : chi5.Odd := by
   show chi5 (-1) = -1
   rw [zmod5_neg_one, chi5_apply_four]
 
-theorem chi5_isPrimitive : chi5.IsPrimitive := by
-  rcases Nat.prime_five.eq_one_or_self_of_dvd _ (conductor_dvd_level chi5) with h | h
-  · exact absurd (eq_one_iff_conductor_eq_one.mpr h) chi5_ne_one
-  · exact h
+theorem chi5_isPrimitive : chi5.IsPrimitive := isPrimitive_of_prime_level Nat.prime_five chi5_ne_one
 
 theorem chi5_inv_apply (a : ZMod 5) : chi5⁻¹ a = (starRingEnd ℂ) (chi5 a) := by
   rw [← MulChar.star_apply']

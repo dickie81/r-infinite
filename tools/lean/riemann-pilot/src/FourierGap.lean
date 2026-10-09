@@ -861,22 +861,13 @@ theorem integrable_mul₂ {f h : ℝ → ℝ} (hf : MemLp f 2 volume) (hh : MemL
     Integrable (fun t => f t * h t) := by
   simpa using integrable_mul_shift₂ hf hh 0
 
-/-- A quadratic `A s² − 2Bs + C ≥ 0` for all `s`, with `A ≥ 0`, has `B² ≤ AC`. -/
-theorem disc_le {A B C : ℝ} (hA : 0 ≤ A) (h : ∀ s : ℝ, 0 ≤ A * s ^ 2 - 2 * B * s + C) :
+/-- A quadratic `A s² − 2Bs + C ≥ 0` for all `s`, with `A ≥ 0`, has `B² ≤ AC`: Mathlib's
+`discrim_le_zero` (round 335; it does not need `A ≥ 0`). -/
+theorem disc_le {A B C : ℝ} (_hA : 0 ≤ A) (h : ∀ s : ℝ, 0 ≤ A * s ^ 2 - 2 * B * s + C) :
     B ^ 2 ≤ A * C := by
-  rcases hA.lt_or_eq with hA | hA
-  · have := h (B / A)
-    have e : A * (B / A) ^ 2 - 2 * B * (B / A) + C = C - B ^ 2 / A := by field_simp; ring
-    rw [e, sub_nonneg, div_le_iff₀ hA] at this
-    linarith
-  · subst hA
-    have hC : 0 ≤ C := by simpa using h 0
-    by_contra hB
-    have hB0 : B ≠ 0 := by intro h0; apply hB; rw [h0]; simp
-    have := h ((C + 1) / (2 * B))
-    have e : 0 * ((C + 1) / (2 * B)) ^ 2 - 2 * B * ((C + 1) / (2 * B)) + C = -1 := by
-      field_simp; ring
-    linarith
+  have := discrim_le_zero (a := A) (b := -2 * B) (c := C) fun x => by
+    have := h x; nlinarith
+  unfold discrim at this; nlinarith
 
 /-- **Cauchy–Schwarz against a continuous function on `[−a, a]`.** -/
 theorem cs_suppS {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : SProbe a g) {h : ℝ → ℝ} (hh : Continuous h) :

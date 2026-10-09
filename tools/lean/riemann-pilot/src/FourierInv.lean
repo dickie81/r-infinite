@@ -27,14 +27,28 @@ namespace Pilot1ca
 
 /-! ## Elementary `L²` and energy inequalities -/
 
+/-- `‖x + y‖² ≤ (1 + t)‖x‖² + (1 + 1/t)‖y‖²` (from `GapBound.lean` since round 335). -/
+theorem normSq_add_le_t {x y : ℝ → ℝ} (hx : MemLp x 2 volume) (hy : MemLp y 2 volume) {t : ℝ}
+    (ht : 0 < t) : normSq (fun u => x u + y u) ≤ (1 + t) * normSq x + (1 + 1 / t) * normSq y := by
+  have e1 := normSq_add_smul hx hy 1
+  have e2 := normSq_add_smul hx hy (-(1 / t))
+  have n2 := normSq_nonneg (fun u => x u + -(1 / t) * y u)
+  simp only [one_mul] at e1
+  rw [e2] at n2
+  set X := xcorr x y 0
+  have hB : 2 * X ≤ t * normSq x + normSq y / t := by
+    have h2 : 0 ≤ t * (normSq x + 2 * -(1 / t) * X + (-(1 / t)) ^ 2 * normSq y) :=
+      mul_nonneg ht.le n2
+    have : t * (normSq x + 2 * -(1 / t) * X + (-(1 / t)) ^ 2 * normSq y)
+        = t * normSq x - 2 * X + normSq y / t := by field_simp; ring
+    linarith
+  have : (1 + 1 / t) * normSq y = normSq y + normSq y / t := by field_simp
+  rw [e1]; nlinarith [normSq_nonneg x, normSq_nonneg y]
+
 theorem normSq_add_le {g h : ℝ → ℝ} (hg : MemLp g 2 volume) (hh : MemLp h 2 volume) :
     normSq (fun t => g t + h t) ≤ 2 * normSq g + 2 * normSq h := by
-  unfold normSq
-  rw [← integral_const_mul, ← integral_const_mul,
-    ← integral_add (hg.integrable_sq.const_mul _) (hh.integrable_sq.const_mul _)]
-  exact integral_mono (hg.add hh).integrable_sq
-    ((hg.integrable_sq.const_mul _).add (hh.integrable_sq.const_mul _))
-    fun t => by nlinarith [sq_nonneg (g t - h t)]
+  have := normSq_add_le_t hg hh one_pos
+  norm_num at this; linarith
 
 theorem normSq_sub_le {g h : ℝ → ℝ} (hg : MemLp g 2 volume) (hh : MemLp h 2 volume) :
     normSq (fun t => g t - h t) ≤ 2 * normSq g + 2 * normSq h := by

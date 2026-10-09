@@ -114,15 +114,8 @@ theorem chi3_ne_one : chi3 ≠ 1 := fun h => by
   simp only [MulChar.one_apply h2, chi3_nat, χ₃_nat] at this
   norm_num at this
 
-theorem chi3_isPrimitive : chi3.IsPrimitive := by
-  rw [isPrimitive_def]
-  have hd := conductor_dvd_level chi3
-  have hle : conductor chi3 ≤ 3 := Nat.le_of_dvd (by norm_num) hd
-  have hpos : 1 ≤ conductor chi3 := Nat.pos_of_ne_zero (conductor_ne_zero chi3)
-  interval_cases h : conductor chi3
-  · exact absurd (eq_one_iff_conductor_eq_one.2 h) chi3_ne_one
-  · exact absurd hd (by decide)
-  · rfl
+theorem chi3_isPrimitive : chi3.IsPrimitive :=
+  isPrimitive_of_prime_level Nat.prime_three chi3_ne_one
 
 theorem sum_chi3 (n : ℕ) : ∑ k ∈ Finset.Icc 1 n, cR chi3 k = if n % 3 = 1 then 1 else 0 := by
   induction n with

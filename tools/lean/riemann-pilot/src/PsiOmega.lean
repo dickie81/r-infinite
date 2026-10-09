@@ -687,6 +687,25 @@ theorem IsNontrivialZero.one_sub {s : ℂ} (hs : IsNontrivialZero s) : IsNontriv
   have e : (1 - s - 1 / 2) / I = -((s - 1 / 2) / I) := by ring
   rw [e, Xi_even, ← nontrivial_iff_Xi]; exact hs
 
+/-- **A zero-free half-plane `Re s > θ` puts every nontrivial zero in the band** `|2 Re s − 1| ≤ 2θ − 1`
+(round 335; six proofs of the stack wrote this out). -/
+theorem band_of_zeroFree {θ : ℝ} (hzf : ∀ ρ : ℂ, θ < ρ.re → riemannZeta ρ ≠ 0) {s : ℂ}
+    (hs : IsNontrivialZero s) : |2 * s.re - 1| ≤ 2 * θ - 1 := by
+  have h1 : s.re ≤ θ := by by_contra hc; exact hzf s (not_le.1 hc) hs.1
+  have h2 : (1 - s).re ≤ θ := by
+    by_contra hc; exact hzf _ (not_le.1 hc) (IsNontrivialZero.one_sub hs).1
+  rw [Complex.sub_re, Complex.one_re] at h2
+  rw [abs_le]; constructor <;> linarith
+
+/-- **A zero-free half-plane `Re s > ½` is RH** (round 335). -/
+theorem rh_of_zeroFree_half (hzf : ∀ ρ : ℂ, 1 / 2 < ρ.re → riemannZeta ρ ≠ 0) :
+    RiemannHypothesis := by
+  intro s hs htriv _
+  have h := band_of_zeroFree hzf ⟨hs, htriv⟩
+  have h0 : |2 * s.re - 1| ≤ 0 := by linarith
+  have := abs_nonpos_iff.1 h0
+  linarith
+
 /-- **`ζ` has a zero with `½ ≤ Re ρ < 1`.** Hadamard's identity sums `1/(ρ(1 − ρ))` over the nontrivial
 zeros to `2 + γ − log 4π ≠ 0`, so there is one; `ρ ↦ 1 − ρ` preserves them. -/
 theorem exists_zero_re_ge_half : ∃ ρ : ℂ, riemannZeta ρ = 0 ∧ 1 / 2 ≤ ρ.re := by
@@ -719,3 +738,5 @@ end PsiOmega
 #print axioms PsiOmega.psi_omega
 #print axioms PsiOmega.exists_zero_re_ge_half
 #print axioms PsiOmega.psi_omega_half
+#print axioms PsiOmega.band_of_zeroFree
+#print axioms PsiOmega.rh_of_zeroFree_half

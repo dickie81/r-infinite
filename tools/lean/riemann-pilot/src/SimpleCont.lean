@@ -11,7 +11,8 @@ be used for:
 
 * **S1.** `λ₁` (even sector) is continuous on `(0, ∞)`: right-continuity by compactness and lower
   semicontinuity (`lsc_even`), left-continuity by dilation (round 146's `dil`, now for either parity).
-* **S2.** `Degenerate a` (two orthonormal ground states) is equivalent to non-simplicity, and the set of
+* **S2.** `Degenerate a` (two orthonormal ground states; defined, with `degenerate_of_not_simple`, in
+  SimpleCover.lean since round 335) is equivalent to non-simplicity, and the set of
   degenerate supports is closed in `(0, ∞)` (`degenerate_of_tendsto`): orthonormal ground pairs at
   `bₙ → a` have `L²` limits that are an orthonormal ground pair at `a`.
 * **S3. The first degeneracy** (`first_degeneracy`). If the ground state is simple at `a₀` but not at
@@ -201,55 +202,9 @@ theorem continuousOn_lam : ContinuousOn lam (Ioi 0) :=
 
 /-! ## S2: degeneracy -/
 
-/-- **Degeneracy**: two orthonormal ground states. -/
-def Degenerate (a : ℝ) : Prop :=
-  ∃ g h, IsGroundState a g ∧ IsGroundState a h ∧ xcorr g h 0 = 0
-
 theorem isGroundState_of_le {a : ℝ} {G : ℝ → ℝ} (hp : Probe a G) (hn : normSq G = 1)
     (hle : weilQ a G ≤ lam a) : IsGroundState a G :=
   ⟨hp, hn, fun _ hh hnh => hle.trans (lam_le hh hnh)⟩
-
-/-- A non-simple ground state gives an orthonormal pair of ground states (Gram–Schmidt). -/
-theorem degenerate_of_not_simple {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hg : IsGroundState a g)
-    (hns : ¬ SimpleGround a g) : Degenerate a := by
-  have hgm : g ∈ groundSpace a := ((isGroundState_iff ha).1 hg).1
-  obtain ⟨h, hh, hnot⟩ : ∃ h ∈ groundSpace a, ∀ c : ℝ, ¬ h =ᵐ[volume] fun t => c * g t := by
-    by_contra H
-    push Not at H
-    exact hns ⟨hg, H⟩
-  have hp : Probe a h := hh.1
-  set c := xcorr h g 0 with hc
-  set h' : ℝ → ℝ := fun t => h t + (-c) * g t with hh'
-  have hmem' : h' ∈ groundSpace a := by
-    have := (groundSpace a).add_mem hh ((groundSpace a).smul_mem (-c) hgm)
-    convert this using 1
-  have hp' : Probe a h' := hmem'.1
-  have n0 := normSq_add_smul hp.memL2 hg.1.memL2 (-c)
-  have n1 := normSq_add_smul hp'.memL2 hg.1.memL2 1
-  have n2 := normSq_add_smul hp.memL2 hg.1.memL2 (1 - c)
-  have eqf : (fun t => h' t + 1 * g t) = fun t => h t + (1 - c) * g t := by
-    funext t; simp only [hh']; ring
-  rw [eqf, n2] at n1
-  rw [← hh'] at n0
-  have hgn := hg.2.1
-  have hx' : xcorr h' g 0 = 0 := by
-    rw [hgn] at n0 n1; rw [← hc] at n0 n1
-    linear_combination (-(1 : ℝ) / 2) * n1 + (-(1 : ℝ) / 2) * n0
-  have h0 : normSq h' ≠ 0 := by
-    intro h0
-    apply hnot c
-    filter_upwards [ae_zero_of_normSq hp'.memL2 h0] with t ht
-    have : h t + (-c) * g t = 0 := by simpa [hh'] using ht
-    linarith
-  have hpos : 0 < normSq h' := lt_of_le_of_ne (normSq_nonneg _) (Ne.symm h0)
-  set k := (Real.sqrt (normSq h'))⁻¹
-  have hk : k ^ 2 * normSq h' = 1 := by
-    simp only [k, inv_pow, Real.sq_sqrt hpos.le]; exact inv_mul_cancel₀ h0
-  refine ⟨g, fun t => k * h' t, hg, (isGroundState_iff ha).2 ⟨groundSpace_fun hmem' k, ?_⟩, ?_⟩
-  · rw [normSq_smul]; exact hk
-  · rw [xcorr_zero_eq]
-    have : (fun t => g t * (k * h' t)) = fun t => k * (h' t * g t) := by funext t; ring
-    rw [this, integral_const_mul, ← xcorr_zero_eq, hx', mul_zero]
 
 /-- A degenerate support has no simple ground state. -/
 theorem not_simple_of_degenerate {a : ℝ} (ha : 0 < a) (hd : Degenerate a) {g : ℝ → ℝ}

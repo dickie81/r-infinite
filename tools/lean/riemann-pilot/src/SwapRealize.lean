@@ -105,13 +105,9 @@ theorem Pc_neg {g : ℝ → ℝ} (hg : MemLp g 2 volume) (heven : ∀ u, g (-u) 
   rw [e, intervalIntegral.integral_comp_neg, neg_neg, neg_neg,
     intervalIntegral.integral_interval_sub_left (ii_mul_exp hg c _ _) (ii_mul_exp hg c _ _)]
 
-theorem ghatC_neg_of_even {g : ℝ → ℝ} (hg : MemLp g 2 volume) (heven : ∀ u, g (-u) = g u)
-    (a : ℝ) (c : ℂ) : ghatC g a (-c) = ghatC g a c := by
-  have h := Pc_neg hg heven a c (-a)
-  rw [neg_neg] at h
-  have h0 : Pc g a c (-a) = 0 := intervalIntegral.integral_same
-  rw [h0, sub_zero] at h
-  exact h
+/-- `Exterior`'s `ghatC_even` (round 335; the `MemLp` hypothesis is not used). -/
+theorem ghatC_neg_of_even {g : ℝ → ℝ} (_hg : MemLp g 2 volume) (heven : ∀ u, g (-u) = g u)
+    (a : ℝ) (c : ℂ) : ghatC g a (-c) = ghatC g a c := ghatC_even heven a c
 
 theorem Pc_of_ge {g : ℝ → ℝ} (hg : MemLp g 2 volume) {a : ℝ} (hsupp : ∀ u, a < |u| → g u = 0)
     (c : ℂ) {x : ℝ} (hx : a ≤ x) : Pc g a c x = ghatC g a c := by

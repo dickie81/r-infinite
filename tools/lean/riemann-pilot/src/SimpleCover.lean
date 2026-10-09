@@ -92,20 +92,27 @@ theorem normSq_comb {g h : ℝ → ℝ} (hg : MemLp g 2 volume) (hh : MemLp h 2 
   simp only [one_mul] at e
   rw [e, ex, normSq_smul, normSq_smul]; ring
 
-/-- **Simplicity from `λ₁ < s ≤ λ₂`.** -/
-theorem simpleGround_of_lam2 {a s : ℝ} (ha : 0 < a) (hl : lam a < s) (H : Lam2Ge a s)
-    {g : ℝ → ℝ} (hg : IsGroundState a g) : SimpleGround a g := by
-  refine ⟨hg, fun h hh => ?_⟩
+/-- **Degeneracy**: two orthonormal ground states. -/
+def Degenerate (a : ℝ) : Prop :=
+  ∃ g h, IsGroundState a g ∧ IsGroundState a h ∧ xcorr g h 0 = 0
+
+/-- A non-simple ground state gives an orthonormal pair of ground states (Gram–Schmidt; from `SimpleCont.lean`
+since round 335). -/
+theorem degenerate_of_not_simple {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hg : IsGroundState a g)
+    (hns : ¬ SimpleGround a g) : Degenerate a := by
   have hgm : g ∈ groundSpace a := ((isGroundState_iff ha).1 hg).1
+  obtain ⟨h, hh, hnot⟩ : ∃ h ∈ groundSpace a, ∀ c : ℝ, ¬ h =ᵐ[volume] fun t => c * g t := by
+    by_contra H
+    push Not at H
+    exact hns ⟨hg, H⟩
   have hp : Probe a h := hh.1
-  obtain ⟨c, hc⟩ : ∃ c, c = xcorr h g 0 := ⟨_, rfl⟩
+  set c := xcorr h g 0 with hc
   set h' : ℝ → ℝ := fun t => h t + (-c) * g t with hh'
   have hmem' : h' ∈ groundSpace a := by
     have := (groundSpace a).add_mem hh ((groundSpace a).smul_mem (-c) hgm)
     convert this using 1
-  -- `h' ⊥ g`, from two instances of `normSq_add_smul`
-  have n0 := normSq_add_smul hp.memL2 hg.1.memL2 (-c)
   have hp' : Probe a h' := hmem'.1
+  have n0 := normSq_add_smul hp.memL2 hg.1.memL2 (-c)
   have n1 := normSq_add_smul hp'.memL2 hg.1.memL2 1
   have n2 := normSq_add_smul hp.memL2 hg.1.memL2 (1 - c)
   have eqf : (fun t => h' t + 1 * g t) = fun t => h t + (1 - c) * g t := by
@@ -113,36 +120,41 @@ theorem simpleGround_of_lam2 {a s : ℝ} (ha : 0 < a) (hl : lam a < s) (H : Lam2
   rw [eqf, n2] at n1
   rw [← hh'] at n0
   have hgn := hg.2.1
-  rw [← hc] at n0 n1
   have hx' : xcorr h' g 0 = 0 := by
-    rw [hgn] at n0 n1; linear_combination (-(1 : ℝ) / 2) * n1 + (-(1 : ℝ) / 2) * n0
-  by_cases h0 : normSq h' = 0
-  · refine ⟨c, ?_⟩
+    rw [hgn] at n0 n1; rw [← hc] at n0 n1
+    linear_combination (-(1 : ℝ) / 2) * n1 + (-(1 : ℝ) / 2) * n0
+  have h0 : normSq h' ≠ 0 := by
+    intro h0
+    apply hnot c
     filter_upwards [ae_zero_of_normSq hp'.memL2 h0] with t ht
     have : h t + (-c) * g t = 0 := by simpa [hh'] using ht
     linarith
-  · exfalso
-    have hpos : 0 < normSq h' := lt_of_le_of_ne (normSq_nonneg _) (Ne.symm h0)
-    set k := (Real.sqrt (normSq h'))⁻¹
-    have hk : k ^ 2 * normSq h' = 1 := by
-      simp only [k, inv_pow, Real.sq_sqrt hpos.le]; exact inv_mul_cancel₀ h0
-    set h'' : ℝ → ℝ := fun t => k * h' t
-    have hm'' : h'' ∈ groundSpace a := groundSpace_fun hmem' k
-    have hn'' : normSq h'' = 1 := by simp only [h'', normSq_smul]; exact hk
-    have hx'' : xcorr g h'' 0 = 0 := by
-      rw [xcorr_zero_eq]; simp only [h'']
-      have : (fun t => g t * (k * h' t)) = fun t => k * (h' t * g t) := by funext t; ring
-      rw [this, integral_const_mul, ← xcorr_zero_eq, hx', mul_zero]
-    obtain ⟨α, β, hab, hs⟩ := H g h'' hg.1 hm''.1 hgn hn'' hx''
-    have hcomb : (fun t => α * g t + β * h'' t) ∈ groundSpace a := by
-      have := (groundSpace a).add_mem ((groundSpace a).smul_mem α hgm)
-        ((groundSpace a).smul_mem β hm'')
-      convert this using 1
-    have hq := hcomb.2
-    have hN : normSq (fun t => α * g t + β * h'' t) = 1 := by
-      rw [normSq_comb hg.1.memL2 hm''.1.memL2, hgn, hn'', hx'']; linarith
-    rw [hq, hN, mul_one] at hs
-    linarith
+  have hpos : 0 < normSq h' := lt_of_le_of_ne (normSq_nonneg _) (Ne.symm h0)
+  set k := (Real.sqrt (normSq h'))⁻¹
+  have hk : k ^ 2 * normSq h' = 1 := by
+    simp only [k, inv_pow, Real.sq_sqrt hpos.le]; exact inv_mul_cancel₀ h0
+  refine ⟨g, fun t => k * h' t, hg, (isGroundState_iff ha).2 ⟨groundSpace_fun hmem' k, ?_⟩, ?_⟩
+  · rw [normSq_smul]; exact hk
+  · rw [xcorr_zero_eq]
+    have : (fun t => g t * (k * h' t)) = fun t => k * (h' t * g t) := by funext t; ring
+    rw [this, integral_const_mul, ← xcorr_zero_eq, hx', mul_zero]
+
+/-- **Simplicity from `λ₁ < s ≤ λ₂`.** -/
+theorem simpleGround_of_lam2 {a s : ℝ} (ha : 0 < a) (hl : lam a < s) (H : Lam2Ge a s)
+    {g : ℝ → ℝ} (hg : IsGroundState a g) : SimpleGround a g := by
+  by_contra hns
+  obtain ⟨g₁, h₁, hg₁, hh₁, hx⟩ := degenerate_of_not_simple ha hg hns
+  obtain ⟨α, β, hab, hs⟩ := H g₁ h₁ hg₁.1 hh₁.1 hg₁.2.1 hh₁.2.1 hx
+  have hm1 := ((isGroundState_iff ha).1 hg₁).1
+  have hm2 := ((isGroundState_iff ha).1 hh₁).1
+  have hcomb : (fun t => α * g₁ t + β * h₁ t) ∈ groundSpace a := by
+    have := (groundSpace a).add_mem ((groundSpace a).smul_mem α hm1) ((groundSpace a).smul_mem β hm2)
+    convert this using 1
+  have hN : normSq (fun t => α * g₁ t + β * h₁ t) = 1 := by
+    rw [normSq_comb hg₁.1.memL2 hh₁.1.memL2, hg₁.2.1, hh₁.2.1, hx]; linarith
+  have hq := hcomb.2
+  rw [hq, hN, mul_one] at hs
+  linarith
 
 /-- **Monotone covering.** `λ₁(a₀) < s` and `λ₂(a₁) ≥ s` give simple ground states at every
 support in `[a₀, a₁]`. -/

@@ -278,39 +278,20 @@ theorem packet_autocorr_diff_le {a ω : ℝ} (ha : 0 < a) (hω : 0 ≤ ω) {u : 
   rw [hBv] at hle
   linarith
 
-theorem packet_arch {a ω : ℝ} (ha : 0 < a) (hω : 0 ≤ ω) :
-    IntegrableOn (archIntegrand (packet a ω)) (Set.Ioi 0) := by
-  have hm : AEStronglyMeasurable (archIntegrand (packet a ω)) (volume.restrict (Ioi 0)) := by
-    have h1 := (autocorr_stronglyMeasurable (packet_measurable a ω)).measurable
-    have : Measurable (archIntegrand (packet a ω)) := by
-      unfold archIntegrand
-      exact ((measurable_const.sub h1).mul
-        ((Real.measurable_exp.comp (measurable_id.div_const 2)).div Real.measurable_sinh))
-    exact this.aestronglyMeasurable
-  refine Integrable.mono' ((exp_neg_integrableOn_Ioi 0 (by norm_num : (0 : ℝ) < 1 / 8)).const_mul
-    (16 * (8 * (a * ω ^ 2) + 1))) hm
-    ((ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun u hu => ?_))
-  have hu0 : 0 < u := hu
-  have hK : 0 < Real.exp (u / 2) / Real.sinh u :=
-    div_pos (Real.exp_pos _) (Real.sinh_pos_iff.2 hu0)
-  rw [Real.norm_eq_abs, abs_of_nonneg (archIntegrand_nonneg (packet_memLp a ω) hu0)]
-  unfold archIntegrand
-  have hA : 0 ≤ a * ω ^ 2 := by positivity
-  have hpoly : a * ω ^ 2 * u + 1 ≤ (8 * (a * ω ^ 2) + 1) * Real.exp (1 / 8 * u) := by
-    have e1 := Real.add_one_le_exp (1 / 8 * u)
-    have e2 : 1 ≤ Real.exp (1 / 8 * u) := Real.one_le_exp (by positivity)
+/-- `(Au + 1)u ≤ (8A + 1)·u·e^{u/8}` for `A, u ≥ 0` (round 335). -/
+theorem poly_absorb {A u : ℝ} (hA : 0 ≤ A) (hu : 0 ≤ u) :
+    (A * u + 1) * u ≤ (8 * A + 1) * u * Real.exp (1 / 8 * u) := by
+  have e1 := Real.add_one_le_exp (1 / 8 * u)
+  have e2 : 1 ≤ Real.exp (1 / 8 * u) := Real.one_le_exp (by positivity)
+  have : A * u + 1 ≤ (8 * A + 1) * Real.exp (1 / 8 * u) := by
     nlinarith [mul_le_mul_of_nonneg_left e1 hA]
-  have hexp : Real.exp (1 / 8 * u) * Real.exp (-(1 / 4) * u) = Real.exp (-(1 / 8) * u) := by
-    rw [← Real.exp_add]; ring_nf
-  calc (autocorr (packet a ω) 0 - autocorr (packet a ω) u) * (Real.exp (u / 2) / Real.sinh u)
-      ≤ ((a * ω ^ 2 * u + 1) * u) * (Real.exp (u / 2) / Real.sinh u) :=
-        mul_le_mul_of_nonneg_right (packet_autocorr_diff_le ha hω hu0.le) hK.le
-    _ = (a * ω ^ 2 * u + 1) * (u * (Real.exp (u / 2) / Real.sinh u)) := by ring
-    _ ≤ (a * ω ^ 2 * u + 1) * (16 * Real.exp (-(1 / 4) * u)) :=
-        mul_le_mul_of_nonneg_left (u_archK_le hu0) (by positivity)
-    _ ≤ ((8 * (a * ω ^ 2) + 1) * Real.exp (1 / 8 * u)) * (16 * Real.exp (-(1 / 4) * u)) :=
-        mul_le_mul_of_nonneg_right hpoly (by positivity)
-    _ = 16 * (8 * (a * ω ^ 2) + 1) * Real.exp (-(1 / 8) * u) := by rw [← hexp]; ring
+  nlinarith [mul_le_mul_of_nonneg_right this hu]
+
+theorem packet_arch {a ω : ℝ} (ha : 0 < a) (hω : 0 ≤ ω) :
+    IntegrableOn (archIntegrand (packet a ω)) (Set.Ioi 0) :=
+
+  archIntegrand_integrableOn_of_defect (packet_memLp a ω) (by positivity) (c := 1 / 8) (by norm_num)
+    fun _ hu => (packet_autocorr_diff_le ha hω hu.le).trans (poly_absorb (by positivity) hu.le)
 
 theorem packet_probe {a ω : ℝ} (ha : 0 < a) (hω : 0 ≤ ω) : Probe a (packet a ω) :=
   ⟨packet_even a ω, fun u hu => packet_supp u hu, packet_memLp a ω, packet_arch ha hω⟩
@@ -725,3 +706,4 @@ end PsiOmega
 #print axioms PsiOmega.QDHu_packet_eq
 #print axioms PsiOmega.packet_QDHu_hasSum
 #print axioms PsiOmega.exists_offline_dh_of_neg_packet
+#print axioms PsiOmega.poly_absorb

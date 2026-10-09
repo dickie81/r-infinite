@@ -32,19 +32,27 @@ theorem integrable_line {f : ℂ → ℂ} {a b C : ℝ} (hd : DifferentiableOn �
     add_zero] at this
   simpa [div_eq_mul_inv] using this
 
-/-- **Contour shift across a strip.** -/
-theorem strip_shift {f : ℂ → ℂ} {a b C : ℝ} (hab : a ≤ b) (hd : DifferentiableOn ℂ f (strip a b))
-    (hb : ∀ t ∈ strip a b, ‖f t‖ ≤ C / (1 + t.re ^ 2)) :
+theorem integrable_om32 : Integrable fun x : ℝ => (1 + |x|) ^ (-(3 / 2 : ℝ)) := by
+  have := integrable_one_add_norm (E := ℝ) (μ := volume) (r := 3 / 2) (by norm_num)
+  simpa [Real.norm_eq_abs] using this
+
+/-- **Contour shift across a strip**, for `‖f t‖ ≤ K(1 + |Re t|)^{−3/2}`. -/
+theorem strip_shift' {f : ℂ → ℂ} {a b K : ℝ} (hab : a ≤ b) (hd : DifferentiableOn ℂ f (strip a b))
+    (hb : ∀ t ∈ strip a b, ‖f t‖ ≤ K * (1 + |t.re|) ^ (-(3 / 2 : ℝ))) :
     ∫ r : ℝ, f (r + a * I) = ∫ r : ℝ, f (r + b * I) := by
-  have hC : 0 ≤ C := by
-    have := hb (a * I) (by simp [strip, hab])
-    have h1 : 0 < 1 + (a * I : ℂ).re ^ 2 := by positivity
-    by_contra h; push Not at h
-    have : C / (1 + (a * I : ℂ).re ^ 2) < 0 := div_neg_of_neg_of_pos h h1
-    linarith [norm_nonneg (f (a * I))]
-  have Ia := integrable_line hd hb (y := a) ⟨le_rfl, hab⟩
-  have Ib := integrable_line hd hb (y := b) ⟨hab, le_rfl⟩
-  -- the rectangle identity for every `R`
+  have hline : ∀ y ∈ Icc a b, Integrable (fun r : ℝ => f (r + y * I)) := by
+    intro y hy
+    have hmem : ∀ r : ℝ, ((r : ℂ) + y * I) ∈ strip a b := fun r => by
+      show a ≤ ((r : ℂ) + y * I).im ∧ ((r : ℂ) + y * I).im ≤ b
+      simpa using hy
+    have hc : Continuous fun r : ℝ => f (r + y * I) :=
+      hd.continuousOn.comp_continuous (by fun_prop) hmem
+    refine (integrable_om32.const_mul K).mono' hc.aestronglyMeasurable
+      (Eventually.of_forall fun r => ?_)
+    have := hb _ (hmem r)
+    simpa using this
+  have Ia := hline a ⟨le_rfl, hab⟩
+  have Ib := hline b ⟨hab, le_rfl⟩
   have hrect : ∀ R : ℝ, (∫ x in (-R)..R, f (x + a * I)) - (∫ x in (-R)..R, f (x + b * I))
       + I • (∫ y in a..b, f (R + y * I)) - I • (∫ y in a..b, f ((-R : ℝ) + y * I)) = 0 := by
     intro R
@@ -55,21 +63,22 @@ theorem strip_shift {f : ℂ → ℂ} {a b C : ℝ} (hab : a ≤ b) (hd : Differ
     simp only at ht
     rw [uIcc_of_le hab] at ht
     exact ht.2
-  -- vertical sides
-  have hvert : ∀ R : ℝ, ‖∫ y in a..b, f (R + y * I)‖ ≤ C / (1 + R ^ 2) * |b - a| := fun R =>
-    intervalIntegral.norm_integral_le_of_norm_le_const fun y hy => by
+  have hvert : ∀ R : ℝ, ‖∫ y in a..b, f (R + y * I)‖ ≤ K * (1 + |R|) ^ (-(3 / 2 : ℝ)) * |b - a| :=
+    fun R => intervalIntegral.norm_integral_le_of_norm_le_const fun y hy => by
       rw [uIoc_of_le hab] at hy
       have := hb (R + y * I) (by simp [strip, hy.1.le, hy.2])
       simpa using this
-  have hdecay : Tendsto (fun R : ℝ => C / (1 + R ^ 2) * |b - a|) atTop (𝓝 0) := by
-    have h1 : Tendsto (fun R : ℝ => 1 + R ^ 2) atTop atTop :=
-      tendsto_atTop_add_const_left _ _ (tendsto_pow_atTop two_ne_zero)
-    simpa using (tendsto_const_nhds.div_atTop h1).mul_const |b - a|
+  have hdecay : Tendsto (fun R : ℝ => K * (1 + |R|) ^ (-(3 / 2 : ℝ)) * |b - a|) atTop (𝓝 0) := by
+    have h1 : Tendsto (fun R : ℝ => (1 + |R|) ^ (-(3 / 2 : ℝ))) atTop (𝓝 0) := by
+      have h2 : Tendsto (fun R : ℝ => 1 + |R|) atTop atTop :=
+        tendsto_atTop_add_const_left _ _ (tendsto_abs_atTop_atTop.comp tendsto_id)
+      exact (tendsto_rpow_neg_atTop (by norm_num)).comp h2
+    simpa using (h1.const_mul K).mul_const |b - a|
   have hv1 : Tendsto (fun R : ℝ => ∫ y in a..b, f (R + y * I)) atTop (𝓝 0) :=
     squeeze_zero_norm hvert hdecay
   have hv2 : Tendsto (fun R : ℝ => ∫ y in a..b, f ((-R : ℝ) + y * I)) atTop (𝓝 0) :=
     squeeze_zero_norm (fun R => by
-      have := hvert (-R); rwa [neg_sq] at this) hdecay
+      have := hvert (-R); rwa [abs_neg] at this) hdecay
   have hA := intervalIntegral_tendsto_integral Ia tendsto_neg_atTop_atBot tendsto_id
   have hB := intervalIntegral_tendsto_integral Ib tendsto_neg_atTop_atBot tendsto_id
   have hlim := ((hA.sub hB).add (hv1.const_smul I)).sub (hv2.const_smul I)
@@ -78,6 +87,35 @@ theorem strip_shift {f : ℂ → ℂ} {a b C : ℝ} (hab : a ≤ b) (hd : Differ
       (𝓝 ((∫ r : ℝ, f (r + a * I)) - ∫ r : ℝ, f (r + b * I))) :=
     hlim.congr fun R => hrect R
   exact sub_eq_zero.1 (tendsto_nhds_unique tendsto_const_nhds h0).symm
+
+/-- **Contour shift across a strip**, for `‖f t‖ ≤ C/(1 + (Re t)²)`: `strip_shift'` with `K = 2C`
+(round 335). -/
+theorem strip_shift {f : ℂ → ℂ} {a b C : ℝ} (hab : a ≤ b) (hd : DifferentiableOn ℂ f (strip a b))
+    (hb : ∀ t ∈ strip a b, ‖f t‖ ≤ C / (1 + t.re ^ 2)) :
+    ∫ r : ℝ, f (r + a * I) = ∫ r : ℝ, f (r + b * I) := by
+  have hC : 0 ≤ C := by
+    have := hb (a * I) (by simp [strip, hab])
+    have h1 : 0 < 1 + (a * I : ℂ).re ^ 2 := by positivity
+    by_contra h; push Not at h
+    have : C / (1 + (a * I : ℂ).re ^ 2) < 0 := div_neg_of_neg_of_pos h h1
+    linarith [norm_nonneg (f (a * I))]
+  refine strip_shift' (K := 2 * C) hab hd fun t ht => (hb t ht).trans ?_
+  set x := t.re
+  have hx1 : 1 ≤ 1 + |x| := by linarith [abs_nonneg x]
+  have h2 : (1 + |x|) ^ 2 ≤ 2 * (1 + x ^ 2) := by
+    nlinarith [sq_abs x, abs_nonneg x, sq_nonneg (|x| - 1)]
+  have hpow : (1 + |x|) ^ (-(2 : ℝ)) ≤ (1 + |x|) ^ (-(3 / 2 : ℝ)) :=
+    Real.rpow_le_rpow_of_exponent_le hx1 (by norm_num)
+  have e2 : (1 + |x|) ^ (-(2 : ℝ)) = ((1 + |x|) ^ 2)⁻¹ := by
+    rw [Real.rpow_neg (by linarith), show (2 : ℝ) = ((2 : ℕ) : ℝ) by norm_num, Real.rpow_natCast]
+  have hpos : 0 < 1 + x ^ 2 := by positivity
+  calc C / (1 + x ^ 2) ≤ C * (2 * ((1 + |x|) ^ 2)⁻¹) := by
+        rw [div_eq_mul_inv]
+        refine mul_le_mul_of_nonneg_left ?_ hC
+        rw [inv_le_comm₀ hpos (by positivity), mul_inv, inv_inv]
+        nlinarith [inv_mul_cancel₀ (show (2 : ℝ) ≠ 0 by norm_num)]
+    _ ≤ 2 * C * (1 + |x|) ^ (-(3 / 2 : ℝ)) := by
+        rw [← e2]; nlinarith [mul_le_mul_of_nonneg_left hpow hC]
 
 
 theorem strip_mono {a b a' b' : ℝ} (ha : a ≤ a') (hb : b' ≤ b) : strip a' b' ⊆ strip a b :=
@@ -663,64 +701,6 @@ theorem kernel_integral_le {h : ℂ → ℂ} {C : ℝ} (H : StripTest h C) {τ :
   rw [integral_const_mul, e1, e2, e3, e4]
   ring
 
-
-/-! ## The strip shift under `(1 + |Re t|)^{−3/2}` decay -/
-
-theorem integrable_om32 : Integrable fun x : ℝ => (1 + |x|) ^ (-(3 / 2 : ℝ)) := by
-  have := integrable_one_add_norm (E := ℝ) (μ := volume) (r := 3 / 2) (by norm_num)
-  simpa [Real.norm_eq_abs] using this
-
-/-- **Contour shift across a strip**, for `‖f t‖ ≤ K(1 + |Re t|)^{−3/2}`. -/
-theorem strip_shift' {f : ℂ → ℂ} {a b K : ℝ} (hab : a ≤ b) (hd : DifferentiableOn ℂ f (strip a b))
-    (hb : ∀ t ∈ strip a b, ‖f t‖ ≤ K * (1 + |t.re|) ^ (-(3 / 2 : ℝ))) :
-    ∫ r : ℝ, f (r + a * I) = ∫ r : ℝ, f (r + b * I) := by
-  have hline : ∀ y ∈ Icc a b, Integrable (fun r : ℝ => f (r + y * I)) := by
-    intro y hy
-    have hmem : ∀ r : ℝ, ((r : ℂ) + y * I) ∈ strip a b := fun r => by
-      show a ≤ ((r : ℂ) + y * I).im ∧ ((r : ℂ) + y * I).im ≤ b
-      simpa using hy
-    have hc : Continuous fun r : ℝ => f (r + y * I) :=
-      hd.continuousOn.comp_continuous (by fun_prop) hmem
-    refine (integrable_om32.const_mul K).mono' hc.aestronglyMeasurable
-      (Eventually.of_forall fun r => ?_)
-    have := hb _ (hmem r)
-    simpa using this
-  have Ia := hline a ⟨le_rfl, hab⟩
-  have Ib := hline b ⟨hab, le_rfl⟩
-  have hrect : ∀ R : ℝ, (∫ x in (-R)..R, f (x + a * I)) - (∫ x in (-R)..R, f (x + b * I))
-      + I • (∫ y in a..b, f (R + y * I)) - I • (∫ y in a..b, f ((-R : ℝ) + y * I)) = 0 := by
-    intro R
-    have := integral_boundary_rect_eq_zero_of_differentiableOn f ⟨-R, a⟩ ⟨R, b⟩ (hd.mono ?_)
-    · simpa using this
-    intro t ht
-    rw [mem_reProdIm] at ht
-    simp only at ht
-    rw [uIcc_of_le hab] at ht
-    exact ht.2
-  have hvert : ∀ R : ℝ, ‖∫ y in a..b, f (R + y * I)‖ ≤ K * (1 + |R|) ^ (-(3 / 2 : ℝ)) * |b - a| :=
-    fun R => intervalIntegral.norm_integral_le_of_norm_le_const fun y hy => by
-      rw [uIoc_of_le hab] at hy
-      have := hb (R + y * I) (by simp [strip, hy.1.le, hy.2])
-      simpa using this
-  have hdecay : Tendsto (fun R : ℝ => K * (1 + |R|) ^ (-(3 / 2 : ℝ)) * |b - a|) atTop (𝓝 0) := by
-    have h1 : Tendsto (fun R : ℝ => (1 + |R|) ^ (-(3 / 2 : ℝ))) atTop (𝓝 0) := by
-      have h2 : Tendsto (fun R : ℝ => 1 + |R|) atTop atTop :=
-        tendsto_atTop_add_const_left _ _ (tendsto_abs_atTop_atTop.comp tendsto_id)
-      exact (tendsto_rpow_neg_atTop (by norm_num)).comp h2
-    simpa using (h1.const_mul K).mul_const |b - a|
-  have hv1 : Tendsto (fun R : ℝ => ∫ y in a..b, f (R + y * I)) atTop (𝓝 0) :=
-    squeeze_zero_norm hvert hdecay
-  have hv2 : Tendsto (fun R : ℝ => ∫ y in a..b, f ((-R : ℝ) + y * I)) atTop (𝓝 0) :=
-    squeeze_zero_norm (fun R => by
-      have := hvert (-R); rwa [abs_neg] at this) hdecay
-  have hA := intervalIntegral_tendsto_integral Ia tendsto_neg_atTop_atBot tendsto_id
-  have hB := intervalIntegral_tendsto_integral Ib tendsto_neg_atTop_atBot tendsto_id
-  have hlim := ((hA.sub hB).add (hv1.const_smul I)).sub (hv2.const_smul I)
-  rw [smul_zero, add_zero, sub_zero] at hlim
-  have h0 : Tendsto (fun _ : ℝ => (0 : ℂ)) atTop
-      (𝓝 ((∫ r : ℝ, f (r + a * I)) - ∫ r : ℝ, f (r + b * I))) :=
-    hlim.congr fun R => hrect R
-  exact sub_eq_zero.1 (tendsto_nhds_unique tendsto_const_nhds h0).symm
 
 end PilotWeil
 

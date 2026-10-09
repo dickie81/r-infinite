@@ -149,11 +149,8 @@ theorem ind_energy {a D M : ℝ} (ha : 0 ≤ a) {φ : ℝ → ℝ} (hc : Continu
       _ = (a * D + M) * (u * (Real.exp (u / 2) / Real.sinh u)) := by ring
       _ ≤ (a * D + M) * (16 * Real.exp (-(1 / 4) * u)) :=
           mul_le_mul_of_nonneg_left (u_archK_le hu0) hC
-  have hint : IntegrableOn (archIntegrand g) (Ioi 0) := by
-    refine hE.mono' (measurable_archIntegrand hb).aestronglyMeasurable
-      ((ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun u hu => ?_))
-    rw [Real.norm_eq_abs, abs_of_nonneg (archIntegrand_nonneg hb hu)]
-    exact hpt u hu
+  have hint : IntegrableOn (archIntegrand g) (Ioi 0) :=
+    archIntegrand_integrableOn_of_lin hb hC fun _ hu => ind_autocorr_le ha hc hM hD hD0 hu
   refine ⟨hb, hint, ?_, ?_⟩
   · have := setIntegral_Ioi_le hE (fun u hu => archIntegrand_nonneg hb hu) hpt
     unfold archE E0

@@ -294,31 +294,68 @@ theorem u_archK_le {u : ℝ} (hu : 0 < u) :
     have := Real.exp_pos (3 / 4 * u)
     nlinarith [mul_le_mul_of_nonneg_left hl this.le]
 
-theorem box_probe (a : ℝ) : Probe a (box a) := by
-  refine ⟨fun u => by rw [box_apply, box_apply, abs_neg], fun u hu => by
-    rw [box_apply]; simp [not_le.2 hu], box_memLp a, ?_⟩
-  set c := 1 / Real.sqrt (2 * a)
-  have hm : AEStronglyMeasurable (archIntegrand (box a)) (volume.restrict (Ioi 0)) := by
-    have h1 := (autocorr_stronglyMeasurable (box_measurable a)).measurable
-    have : Measurable (archIntegrand (box a)) := by
-      unfold archIntegrand
-      exact ((measurable_const.sub h1).mul
-        ((Real.measurable_exp.comp (measurable_id.div_const 2)).div Real.measurable_sinh))
-    exact this.aestronglyMeasurable
-  refine Integrable.mono' ((exp_neg_integrableOn_Ioi 0 (by norm_num : (0 : ℝ) < 1 / 4)).const_mul
-    (c ^ 2 * 16)) hm ((ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun u hu => ?_))
+/-- The autocorrelation depends only on the a.e. class of `g` (from `Uniqueness.lean` since round 335). -/
+theorem autocorr_congr_ae {g g' : ℝ → ℝ} (h : g =ᵐ[volume] g') (u : ℝ) :
+    autocorr g u = autocorr g' u := by
+  unfold autocorr
+  apply integral_congr_ae
+  have h2 := (measurePreserving_add_right volume u).quasiMeasurePreserving.ae_eq_comp h
+  filter_upwards [h, h2] with t h1 h2
+  simp only [Function.comp_apply] at h2
+  rw [h1, h2]
+
+/-- So does the archimedean integrand (from `Uniqueness.lean` since round 335). -/
+theorem archIntegrand_congr_ae {g g' : ℝ → ℝ} (h : g =ᵐ[volume] g') :
+    archIntegrand g = archIntegrand g' := by
+  funext u; unfold archIntegrand; rw [autocorr_congr_ae h 0, autocorr_congr_ae h u]
+
+/-- The archimedean integrand of a square-integrable `g` is measurable (from `Uniqueness.lean` since
+round 335). -/
+theorem measurable_archIntegrand {g : ℝ → ℝ} (hg : MemLp g 2 volume) :
+    Measurable (archIntegrand g) := by
+  have hm : Measurable (hg.aestronglyMeasurable.mk g) :=
+    hg.aestronglyMeasurable.stronglyMeasurable_mk.measurable
+  rw [archIntegrand_congr_ae hg.aestronglyMeasurable.ae_eq_mk]
+  unfold archIntegrand
+  exact (measurable_const.sub (autocorr_stronglyMeasurable hm).measurable).mul
+    ((Real.measurable_exp.comp (measurable_id.div_const 2)).div Real.measurable_sinh)
+
+/-- **The archimedean integrand is integrable** once the autocorrelation defect is at most
+`B·u·e^{cu}` with `c < ¼` (round 335: every probe construction of the stack goes through it). -/
+theorem archIntegrand_integrableOn_of_defect {g : ℝ → ℝ} (hg : MemLp g 2 volume) {B c : ℝ}
+    (hB : 0 ≤ B) (hc : c < 1 / 4)
+    (h : ∀ u, 0 < u → autocorr g 0 - autocorr g u ≤ B * u * Real.exp (c * u)) :
+    IntegrableOn (archIntegrand g) (Ioi 0) := by
+  refine Integrable.mono' ((exp_neg_integrableOn_Ioi 0 (by linarith : (0 : ℝ) < 1 / 4 - c)).const_mul
+    (B * 16)) (measurable_archIntegrand hg).aestronglyMeasurable
+    ((ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun u hu => ?_))
   have hu0 : 0 < u := hu
   have hK : 0 < Real.exp (u / 2) / Real.sinh u :=
     div_pos (Real.exp_pos _) (Real.sinh_pos_iff.2 hu0)
-  rw [Real.norm_eq_abs, abs_of_nonneg (archIntegrand_nonneg (box_memLp a) hu0)]
+  rw [Real.norm_eq_abs, abs_of_nonneg (archIntegrand_nonneg hg hu0)]
   unfold archIntegrand
-  calc (autocorr (box a) 0 - autocorr (box a) u) * (Real.exp (u / 2) / Real.sinh u)
-      ≤ (c ^ 2 * u) * (Real.exp (u / 2) / Real.sinh u) :=
-        mul_le_mul_of_nonneg_right (box_autocorr_diff_le hu0) hK.le
-    _ = c ^ 2 * (u * (Real.exp (u / 2) / Real.sinh u)) := by ring
-    _ ≤ c ^ 2 * (16 * Real.exp (-(1 / 4) * u)) :=
-        mul_le_mul_of_nonneg_left (u_archK_le hu0) (sq_nonneg c)
-    _ = c ^ 2 * 16 * Real.exp (-(1 / 4) * u) := by ring
+  have hexp : Real.exp (c * u) * Real.exp (-(1 / 4) * u) = Real.exp (-(1 / 4 - c) * u) := by
+    rw [← Real.exp_add]; ring_nf
+  calc (autocorr g 0 - autocorr g u) * (Real.exp (u / 2) / Real.sinh u)
+      ≤ (B * u * Real.exp (c * u)) * (Real.exp (u / 2) / Real.sinh u) :=
+        mul_le_mul_of_nonneg_right (h u hu0) hK.le
+    _ = B * Real.exp (c * u) * (u * (Real.exp (u / 2) / Real.sinh u)) := by ring
+    _ ≤ B * Real.exp (c * u) * (16 * Real.exp (-(1 / 4) * u)) :=
+        mul_le_mul_of_nonneg_left (u_archK_le hu0) (by positivity)
+    _ = B * 16 * Real.exp (-(1 / 4 - c) * u) := by rw [← hexp]; ring
+
+/-- The linear case `f(0) − f(u) ≤ B·u` (round 335). -/
+theorem archIntegrand_integrableOn_of_lin {g : ℝ → ℝ} (hg : MemLp g 2 volume) {B : ℝ} (hB : 0 ≤ B)
+    (h : ∀ u, 0 < u → autocorr g 0 - autocorr g u ≤ B * u) :
+    IntegrableOn (archIntegrand g) (Ioi 0) :=
+  archIntegrand_integrableOn_of_defect hg hB (c := 0) (by norm_num) fun u hu => by
+    simpa using h u hu
+
+theorem box_probe (a : ℝ) : Probe a (box a) :=
+
+  ⟨fun u => by rw [box_apply, box_apply, abs_neg], fun u hu => by
+    rw [box_apply]; simp [not_le.2 hu], box_memLp a,
+    archIntegrand_integrableOn_of_lin (box_memLp a) (sq_nonneg _) fun _ hu => box_autocorr_diff_le hu⟩
 
 /-! ## The minimiser -/
 
@@ -465,3 +502,5 @@ end Pilot1ca
 #print axioms Pilot1ca.box_probe
 #print axioms Pilot1ca.exists_groundState
 #print axioms Pilot1ca.exists_groundStates
+#print axioms Pilot1ca.archIntegrand_integrableOn_of_defect
+#print axioms Pilot1ca.archIntegrand_integrableOn_of_lin

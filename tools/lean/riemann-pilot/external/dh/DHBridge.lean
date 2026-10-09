@@ -126,23 +126,10 @@ theorem exists_offline_dh_of_neg_u (hp : Probe a g) (ha : 0 < a) {K : ℝ}
 
 /-! ## The strip test at width 3 for monotone profiles -/
 
-/-- `‖ĝ(z)‖ ≤ e^{a|Im z|}∫|g|`. -/
+/-- `‖ĝ(z)‖ ≤ e^{a|Im z|}∫|g|`: `HadamardApply`'s (`src/`, since round 335). -/
 theorem norm_ghatC_le_exp_im (ha : 0 ≤ a) (hg : IntervalIntegrable g volume (-a) a) (z : ℂ) :
-    ‖ghatC g a z‖ ≤ Real.exp (a * |z.im|) * ∫ u in (-a)..a, |g u| := by
-  unfold ghatC
-  refine (intervalIntegral.norm_integral_le_of_norm_le (by linarith)
-    (Eventually.of_forall fun u hu => ?_) (hg.abs.const_mul (Real.exp (a * |z.im|)))).trans_eq
-    (intervalIntegral.integral_const_mul _ _)
-  rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, Complex.norm_exp, mul_comm]
-  apply mul_le_mul_of_nonneg_right _ (abs_nonneg _)
-  apply Real.exp_le_exp.2
-  have e : (Complex.I * z * u).re = -(z.im * u) := by simp [Complex.mul_re]
-  rw [e]
-  have h1 : |u| ≤ a := abs_le.2 ⟨hu.1.le, hu.2⟩
-  calc -(z.im * u) ≤ |z.im * u| := neg_le_abs _
-    _ = |z.im| * |u| := abs_mul _ _
-    _ ≤ |z.im| * a := mul_le_mul_of_nonneg_left h1 (abs_nonneg _)
-    _ = a * |z.im| := mul_comm _ _
+    ‖ghatC g a z‖ ≤ Real.exp (a * |z.im|) * ∫ u in (-a)..a, |g u| :=
+  Pilot1ca.norm_ghatC_le_exp_im ha hg z
 
 /-- **The raw width-3 strip bound** behind `striptest_antitone3`: `‖ĝ(3t)‖²(1 + (Re t)²) ≤ K` on
 `|Im t| ≤ 1` (from `DHNegIndex.lean` since round 333). -/
