@@ -9818,7 +9818,7 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 - **S5b.** The induction of Proposition 5.1, with Proposition 5.4 also displayed (`TransferEstimate`). With rounds 310 and 288 this is the third conditional milestone: the two displayed estimates give `DualMeanSquare ϑ` for every `ϑ > 0`, hence `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5ϑ)/12` for every `ϑ > 0`, that is on `Re s > 11/12`. (Round 282: the release's Lean for this route reaches `23/24`.) *(Round 315: landed. `Eis.ne_zero_of_completed_transfer` derives `Re s > 11/12` from `Eis.CompletedMeanSquare` and `Eis.TransferEstimate`.)* *(Round 326: `Eis.TransferEstimate` is derived, `Eis.transferEstimate`, so `Eis.ne_zero_of_completed` has `Eis.CompletedMeanSquare` as its only hypothesis.)*
 - **S5c.** Proposition 5.4 derived (Section 7), reusing S4.
 - **S5d.** Proposition 5.2 derived from the theta transformation (Proposition 6.2 with Lemmas 6.3–6.4) and Lemma 6.5. Both stay displayed hypotheses for now; this round does Section 6.4's assembly. *(Round 339: S5d-1 landed first, the last step of Section 6.4: Proposition 5.2 from Lemma 6.6, `Eis.completedMeanSquare_of_squarefree`. Round 339 stages the rest of S5d as S5d-2 to S5d-5.)* *(Round 340: S5d-2 landed, the prepared sums' mean square from Lemma 6.5, displayed as `Eis.QuadLargeSieve` (`Eis.prepSum_meanSquare`); the rest is restaged as S5d-3 and S5d-4.)* *(Round 341: S5d-3 landed, the theta transformation for the rows displayed as `Eis.ThetaRows` and one transformed term's mean square, `Eis.dualTerm_meanSquare`; S5d-4 remains.)* *(Round 342: S5d-4 landed, the paper's Lemma 6.6 from the two displays, `Eis.squarefreeCompleted_of`, and the half-plane from them, `Eis.ne_zero_of_theta`; S5d is complete.)*
-- **S5e.** The quadratic large sieve over `ℤ[ω]` (Lemma 6.5) derived.
+- **S5e.** The quadratic large sieve over `ℤ[ω]` (Lemma 6.5) derived. *(Round 343: mapped as S5e-1 to S5e-7, after Goldmakher and Louvel and Heath-Brown; the norm is to be taken over balls. See round 343.)*
 - **S5f.** Kubota's cubic theta, its coefficients and automorphy (Patterson; Dunn–Radziwiłł), and Appendix A.2's calculation, derived. This is the deepest step. Until it lands, the transformation is the strand's one displayed external input. *(Round 342: until S5e lands, `Eis.QuadLargeSieve` is displayed too; the half-plane rests on the two, `Eis.ne_zero_of_theta`.)*
 - **Order.** S5a and S5b come first: they reach the third milestone and fix the interfaces. Then S5c, which reuses S4, then S5d, then S5e and S5f.
 
@@ -11186,3 +11186,70 @@ So S5d is complete, and the half-plane `Re s > 11/12` rests on two displayed inp
 **Check 9.** No barrier claim is made.
 
 **Bearing on RH:** none. A fixed half-plane is strictly weaker than RH, and the half-plane here is conditional on the two displays.
+
+## Round 343: the quadratic large sieve mapped — the plan for S5e (no new Lean)
+
+**What was read.**
+
+- The companion paper's proof of its Lemma 6.5 (`paper2.tex`, lines 1900–1913): "`This is Goldmakher and Louvel's quadratic large sieve [GL, Theorem 1.1], after fixing the product of the prime factors of n lying in S, and finitely many ray classes.`"
+- Goldmakher and Louvel, "A quadratic large sieve inequality over number fields" (arXiv:1112.1642v2), its LaTeX source in full (974 lines).
+- Heath-Brown, "A mean value estimate for real character sums", Acta Arith. 72 (1995), 235–275: its Sections 2–8 (pp. 240–265), the plan of attack, the preliminary lemmas and the proof. Goldmakher and Louvel defer three steps to it: their Lemma 4.4 ("`The proof is substantially similar to that in [HB, Lemma 9]`"), their Lemma 7.1 ("`adapted from [HB, Lemma 10]`") and their Lemma 3.3 ("`can be deduced from Lemma 3.1 as in [HB, Lemma 13]`").
+
+**The structure of the proof** (Goldmakher and Louvel's numbering, with Heath-Brown's lemmas named where they differ).
+
+- **The iteration.** Their `(E_α)` is "`B_1(M,N)≪(MN)^ε(M+N^α), for all M,N≥1 and ε>0`". Theorem 4.1: "`For every α≥1, the upper bound (E_α) implies the upper bound (E_{2−1/α}).`" Lemma 4.2: "`The bound (E_2) holds.`" From `α = 2` the exponents are `(j+1)/j`, which tend to `1`.
+- **Symmetry**, Lemma 4.5 (Heath-Brown's Lemma 1): "`For all M,N≥1, we have B_1(M,N)≪B_1(N,M).`" The proof twists the coefficients by the reciprocity factor of each class and applies the duality principle.
+- **The recursive estimate**, Theorem 4.3 (Heath-Brown's Lemma 7): "`Let M,N≥1, ε>0 and suppose (E_α) holds. Then B_1(M,N)≪(MN)^ε(M+N+N^{2α−1}M^{1−α}).`" Theorem 4.1 follows from it with the near-monotonicity of Lemma 4.4 (Heath-Brown's Lemma 9).
+- **The obstruction.** Their Remark 4: "`The reason our argument is significantly more complicated is the presence of the squarefree restriction on the sums, which prevents us from directly applying Poisson summation.`" Heath-Brown's device is to keep the rows whose squarefree part `s(m)` exceeds `K`, with "`the critical size for K is of order N²M^{−1}, when N≤M`", and to write that sum as `Σ_3 − Σ_4`: all rows, less those with `s(m) ≤ K`.
+- **`Σ_3`** (Heath-Brown's Lemma 3): Poisson summation in `m`, then in the square part `c` of each dual frequency `h = abc²`, gives a main term `M_3` and errors.
+- **`Σ_4`** (his Lemma 4): for the rows `m = u²v` with `v ≤ K`, Poisson summation in `u` gives a main term `M_4` and errors.
+- **The main terms cancel** (his Lemma 5): "`M_3−M_4≪M^{1/2}K^{−1/2}(MN)^εB(K∆²(MN)^ε,N(MN)^ε)`". In his words, "`It turns out that the two leading terms cancel to a large extent.`"
+- **The errors** are bounded at smaller scales, `B(B, N/(D_i∆))`, through the separation Lemma 7.1 (Heath-Brown's Lemma 10).
+- **The recursion** (his Lemmas 6–8) ends with "`B(M,N)≪_ε(MN)^ε(M+N^{(2ξ−1)/ξ})`".
+
+**What the pilot has toward S5e.**
+
+- Poisson summation over `ℤ[ω]` with twists (round 294) and Gauss transforms of primitive characters modulo squarefree moduli (round 295, `gaussTr_prod_primes`): Heath-Brown's Lemma 11.
+- Poisson summation with excluded primes (round 303, `poisson_excl`): his Lemma 13, in the lattice.
+- The Mellin separation of variables, uniform in the weight (rounds 302 and 317): his Lemma 12.
+- The quadratic Gauss sum evaluated for every modulus, `Σ_{x mod c} ψ_c(x²) = (|σc|/2)·Φ(a, b)` for `c = a + bω` (round 297, `quad_gauss_coords`); quadratic reciprocity at primes, with a factor determined by the classes modulo `4` (round 298, `quad_recip_coords`, `quadR_neg_one`); and the multiplicativity of the twisted sums (`sqSum_mul_t`).
+- The quadratic symbol `sym2 = sym6³` (`EisensteinSymbol.lean`), the radial majorant with compactly supported Fourier transform (round 301), the Fourier transform of the chirp (round 296, `fourier_chirp`), and the divisor and ideal counts (round 310, `four_pow_card_le`, `idealCount_le`).
+- The target, round 340's display `QuadLargeSieve`.
+
+**What it lacks.**
+
+- **The norm.** A sieve norm for finite families, the duality principle, and quadratic reciprocity for composite squarefree moduli with its factor on the classes modulo `4`. The last should follow from `sqSum_mul_t` and `quad_gauss_coords`; it is not yet stated.
+- **The base case `(E_2)`**: a bound `≪ N(q)^{1/2+ε}` for a nonprincipal product of two quadratic characters summed against a smooth weight over primary elements.
+- **The bookkeeping**: Heath-Brown's Lemma 2 (`B` from the norms with fixed `(n_1, n_2) = ∆`) and his Lemma 10.
+- **The explicit formulas** for `Σ_3` and `Σ_4`, two Poisson summations each. Their main terms need a planar form of Heath-Brown's Lemma 14, "`∫_{−∞}^{∞}Ŵ(αx²)dx=(1−sign(α)i)/√|α| ∫_0^∞W(x²)dx`". The expected planar form is `∫_ℂ 𝓕f(αz²) = |α|^{−1}∫_ℂ f(z²)`, from the planar Fourier transform of `|x|^{−1}`, which is `|ξ|^{−1}`. It is to be proved, perhaps through the chirp. They also need the analogue of his evaluation "`Σ_{e∣2∆}Σ_{a=±1,±2}µ(e)/√e·(ea/q)·(1−sign(a)i)/√|a|=√q/τ(q)·κ(∆,q)`". Over `ℤ[ω]` the factor `a` is expected to run over `±λ^e 2^f` with `e, f ∈ {0, 1}`, and the evaluation is to be derived from round 297's.
+- **The comparison of the main terms.** Heath-Brown's two multiplicative functions `α(w)` and `β(w)`: "`it is an elementary exercise to show that they are identically equal`".
+- **The recursion and its limit.**
+
+**A planned deviation: balls in place of dyadic ranges.** Heath-Brown's Lemma 9 averages over primes "`p satisfying 2K/3<p<4K/3`" and uses that "`the number of available primes is of exact order K/log K`". Over `ℤ[ω]` this needs a count of prime ideals in such a range. The pilot's PNT layer has the prime number theorem in progressions (`WeakPNT_AP` of its vendored PrimeNumberTheoremAnd, whose axioms are the standard three), from which such a count would follow. The count is not stated, and that layer builds after `src/`. The plan instead defines the norm over balls, rows of norm at most `M` and columns of norm at most `N`. It is then monotone in both arguments by inclusion. The dyadic ranges of the sums `Σ_i` are covered by `O(log)` shells, a loss absorbed in `(MN)^ε`. The release does the same: its rows and columns are balls (`idealRange`), and its `sieveNorm_mono` is by inclusion. Lemma 9's uses then follow from inclusion: in Heath-Brown's Lemmas 5, 8 and 10, and in Goldmakher and Louvel's Theorem 4.1 and Lemma 7.3.
+
+**The plan for S5e.**
+
+- **S5e-1. The norm.** The definitions over balls, the duality principle and monotonicity. Then the composite reciprocity law, the symmetry (Heath-Brown's Lemma 1), and the reduction of `QuadLargeSieve` to the norm. That reduction covers its columns divisible by `2`, `n = −2n′`, whose factor `(−2/k)` depends only on the row; its shell `U/2 ≤ N(n) ≤ 2U`; and its orientation, rows as moduli, which is Heath-Brown's.
+- **S5e-2. The base case `(E_2)`**, with the majorant of round 301, whose dual sums are finite, and excluded primes for `(n_1, n_2) ≠ 1`.
+- **S5e-3. Heath-Brown's Lemmas 2 and 10.**
+- **S5e-4. `Σ_3`**: Poisson summation in `m`, the dual frequencies `h = abc²`, Poisson summation in `c`, and the planar Lemma 14.
+- **S5e-5. `Σ_4`**: `m = u²v` and Poisson summation in `u`.
+- **S5e-6. The main terms compared** (Heath-Brown's Lemma 5), with the evaluation of the supplementary sum.
+- **S5e-7. The recursion** (his Lemmas 6–8) and `QuadLargeSieve` derived. With round 342, the half-plane `Re s > 11/12` then rests on `ThetaRows` alone.
+
+**Scale.** The release derives the same estimate in its `DirichletL/QuadraticSieve/` directory, 36 files and 23,974 lines (`sieveNorm_sharp`, used through `finite_family_quadratic_large_sieve`). For comparison, S5c took eleven rounds (316–326).
+
+**Records.**
+
+- A net-state marker on round 312's S5e bullet.
+- STRUCTURAL-REVIEW §6: S5e mapped.
+
+**Check 9.**
+
+- (a) The statements are about the two papers' sections as read and about the pilot as grepped, nothing wider. The scale is a count of the release's files and lines, not a claim about the difficulty of any proof.
+- (b) No barrier claim is made.
+- (c) The signal is unchanged.
+
+**Check 4.** New here: the map of S5e onto the pilot's stack, and the deviation to balls. Nothing is derived in Lean this round.
+
+**Bearing on RH:** none.
