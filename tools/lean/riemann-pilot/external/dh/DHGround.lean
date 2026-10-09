@@ -9,7 +9,7 @@ import GroundStateExists
 /-! # The dh column, part 3: the ground-state stack of `QDHu`
 
 The ground-state theory of Weil's form `weilQ` for `ζ`, ported to the Davenport–Heilbronn form
-`QDHu` (DHBridge.lean:71), which has no pole term. Each declaration cites the ζ declaration it is
+`QDHu` (DHBridge.lean:72), which has no pole term. Each declaration cites the ζ declaration it is
 the dh column of.
 
 **Stage 1 (existence).** `groundSpaceDH`, `IsGroundStateDH`, and `exists_groundStateDH`, the port of
@@ -592,7 +592,7 @@ theorem G_mem_partnerDH {a : ℝ} (ha : 0 ≤ a) {w k : ℝ → ℝ} (hw : w ∈
 
 /-! ### The ground space in `L²` -/
 
-/-- The ground space of `QDHu` mapped into `L²` (the dh column of `iotaGS`, StructureD.lean:27). -/
+/-- The ground space of `QDHu` mapped into `L²` (the dh column of `iotaGS`, StructureD.lean:32). -/
 abbrev iotaGSDH (a : ℝ) : groundSpaceDH a →ₗ[ℝ] Lp ℝ 2 (volume : Measure ℝ) := iotaOf QDHu_form a
 
 theorem norm_iotaGSDH_sq {a : ℝ} (x : groundSpaceDH a) : ‖iotaGSDH a x‖ ^ 2 = normSq x.1 := by
@@ -628,7 +628,7 @@ theorem nonArchDH_ge' {a : ℝ} {g : ℝ → ℝ} (hp : Probe a g) :
   nlinarith
 
 /-- The archimedean energy of a ground-space element is controlled by its norm (the dh column of
-`archE_le_of_mem`, StructureD.lean:40, through `archE_le_DH`). -/
+`archE_le_of_mem`, StructureD.lean:42, through `archE_le_DH`). -/
 theorem archE_le_of_memDH {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hg : g ∈ groundSpaceDH a) :
     archE g ≤ (Real.exp (2 * a) * (|lamDH a| + MDH a) + tailDH a) * normSq g := by
   have hq : QDHu g = lamDH a * normSq g := hg.2
@@ -645,7 +645,7 @@ theorem archE_le_of_memDH {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hg : g ∈ g
   nlinarith
 
 /-- **The ground space of `QDHu` is finite-dimensional** (its image in `L²`; the dh column of
-`finiteDimensional_groundL2`, StructureD.lean:54). -/
+`finiteDimensional_groundL2`, StructureD.lean:56). -/
 theorem finiteDimensional_groundL2DH {a : ℝ} (ha : 0 < a) :
     FiniteDimensional ℝ (LinearMap.range (iotaGSDH a)) := by
   by_contra hfin
@@ -740,7 +740,7 @@ theorem topGSDH_cross {a : ℝ} (ha : 0 < a) (z : ℂ) (hz : ghatC (topGSDH a) a
   dhGD.topGS_cross ha z hz
 
 /-- **The chain for `dh` with simplicity removed** (the dh column of `rh_of_hypConv_top`,
-StructureD.lean:682): `HypConvDH` for the top-of-chain ground states gives `DHRHcross`. -/
+StructureD.lean:192): `HypConvDH` for the top-of-chain ground states gives `DHRHcross`. -/
 theorem dhRHcross_of_hypConv_top {a : ℕ → ℝ} (ha : ∀ n, 0 < a n)
     (hconv : HypConvDH a fun n => topGSDH (a n)) : DHRHcross :=
   dhRHcross_of_cross (fun n => (probe_integrable (topGSDH_isGroundState (ha n)).1).intervalIntegrable)
@@ -757,7 +757,7 @@ theorem not_hypConvDH_top {a : ℕ → ℝ} (ha : ∀ n, 0 < a n) :
 
 /-- If the ground states `g n` of `QDHu` are eventually simple, they agree with the top-of-chain
 ground states up to scalars, so `HypConvDH` transfers (the dh column of `hypConv_top_of_simple`,
-StructureD.lean:689). -/
+StructureD.lean:199). -/
 theorem hypConvDH_top_of_simple {a : ℕ → ℝ} {g : ℕ → ℝ → ℝ} (ha : ∀ n, 0 < a n)
     (hsimple : ∀ᶠ n in atTop, SimpleGroundDH (a n) (g n)) (hconv : HypConvDH a g) :
     HypConvDH a fun n => topGSDH (a n) := by
