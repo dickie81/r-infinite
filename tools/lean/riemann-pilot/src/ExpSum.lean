@@ -306,7 +306,7 @@ lemma norm_ee_sub_one (θ : ℝ) : ‖ee θ - 1‖ = 2 * |Real.sin (Real.pi * θ
     Real.norm_eq_abs, abs_two] at h
   rw [← h, ee]
   congr 2
-  push_cast; ring
+  push_cast; ring_nf
 
 /-- Jordan: `|sin(πθ)| ≥ 2‖θ‖`, where `‖θ‖ = |θ − round θ|`. -/
 lemma abs_sin_ge (θ : ℝ) : 2 * |θ - round θ| ≤ |Real.sin (Real.pi * θ)| := by
