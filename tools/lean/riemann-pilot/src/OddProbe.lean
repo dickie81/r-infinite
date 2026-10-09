@@ -39,15 +39,7 @@ theorem ghatC_odd_re {g : ℝ → ℝ} (hg : ∀ u, g (-u) = -g u) {a : ℝ} (ha
 
 /-- For every real `g` and real `y`, `ĝ(iy)` is real. -/
 theorem ghatC_mul_I_im (g : ℝ → ℝ) (a y : ℝ) : (ghatC g a ((y : ℂ) * I)).im = 0 := by
-  have h : ∀ u : ℝ, ((g u : ℝ) : ℂ) * cexp (I * ((y : ℂ) * I) * u)
-      = ((g u * Real.exp (-(y * u)) : ℝ) : ℂ) := by
-    intro u
-    have e : I * ((y : ℂ) * I) * (u : ℂ) = ((-(y * u) : ℝ) : ℂ) := by
-      push_cast; linear_combination ((y : ℂ) * u) * Complex.I_sq
-    rw [e, ← Complex.ofReal_exp, ← Complex.ofReal_mul]
-  unfold ghatC
-  simp_rw [h]
-  rw [intervalIntegral.integral_ofReal]
+  rw [mul_comm, ghatC_I_mul_eq_ofReal]
   exact Complex.ofReal_im _
 
 /-- Even sector, real zero: `ĝ(iy)² ≥ 0`. -/

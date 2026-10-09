@@ -263,37 +263,42 @@ theorem RPhi_lip : ∃ L, 0 ≤ L ∧ ∀ t s, |RPhi t - RPhi s| ≤ L * |t - s|
     (fun x _ => by rw [Real.norm_eq_abs]; simpa using hL x) convex_univ (mem_univ s) (mem_univ t)
   simpa [Real.norm_eq_abs] using this
 
-theorem probe_PhiA {a : ℝ} (ha : 0 ≤ a) : Probe a (PhiA a) := by
-  obtain ⟨C, hC0, hC⟩ := RPhi_decay_gen 0
-  obtain ⟨L, hL0, hL⟩ := RPhi_lip
-  have hM : ∀ t ∈ Icc (-a) a, RPhi t ^ 2 ≤ C ^ 2 := by
-    intro t _
-    have := hC t; simp only [zero_mul, neg_zero, Real.exp_zero, mul_one] at this
+/-- **A probe from an even continuous profile that is Lipschitz on the window** `[−a, a]` (round 336;
+`probe_PhiA` below and `KaiserWindow.lean`'s `probe_gK` are its cases). -/
+theorem probe_indicator_of_lip {a L : ℝ} (ha : 0 ≤ a) {φ : ℝ → ℝ} (hc : Continuous φ)
+    (hev : ∀ u, φ (-u) = φ u)
+    (hL : ∀ t ∈ Icc (-a) a, ∀ s ∈ Icc (-a) a, |φ t - φ s| ≤ L * |t - s|) :
+    Probe a ((Icc (-a) a).indicator φ) := by
+  obtain ⟨M, hM⟩ := isCompact_Icc.exists_bound_of_continuousOn (hc.continuousOn (s := Icc (-a) a))
+  have hMb : ∀ t ∈ Icc (-a) a, φ t ^ 2 ≤ M ^ 2 := fun t ht => by
+    have := hM t ht; rw [Real.norm_eq_abs] at this
     rw [← sq_abs]; exact pow_le_pow_left₀ (abs_nonneg _) this 2
-  have hD : ∀ t ∈ Icc (-a) a, ∀ s ∈ Icc (-a) a,
-      (RPhi t - RPhi s) ^ 2 ≤ L ^ 2 * (2 * a) * |t - s| := by
+  have hD : ∀ t ∈ Icc (-a) a, ∀ s ∈ Icc (-a) a, (φ t - φ s) ^ 2 ≤ (L ^ 2 * (2 * a)) * |t - s| := by
     intro t ht s hs
-    have h1 := hL t s
-    have h2 : |t - s| ≤ 2 * a := by rw [abs_le]; constructor <;> linarith [ht.1, ht.2, hs.1, hs.2]
-    have h3 : (RPhi t - RPhi s) ^ 2 ≤ (L * |t - s|) ^ 2 := by
-      rw [← sq_abs]; exact pow_le_pow_left₀ (abs_nonneg _) h1 2
-    have h4 : (L * |t - s|) ^ 2 ≤ L ^ 2 * (2 * a) * |t - s| := by
-      have := mul_le_mul_of_nonneg_left h2 (mul_nonneg (sq_nonneg L) (abs_nonneg (t - s)))
-      calc (L * |t - s|) ^ 2 = L ^ 2 * |t - s| * |t - s| := by ring
-        _ ≤ L ^ 2 * |t - s| * (2 * a) := this
-        _ = _ := by ring
-    linarith
-  obtain ⟨hm, harch, -, -⟩ := ind_energy ha continuous_RPhi hM hD (by positivity)
+    have h2 : |t - s| ≤ 2 * a := by
+      rw [abs_le]; constructor <;> linarith [ht.1, ht.2, hs.1, hs.2]
+    have h3 : (φ t - φ s) ^ 2 ≤ (L * |t - s|) ^ 2 := by
+      rw [← sq_abs]
+      calc |φ t - φ s| ^ 2 ≤ (|L| * |t - s|) ^ 2 := by
+            gcongr; exact (hL t ht s hs).trans (mul_le_mul_of_nonneg_right (le_abs_self L) (abs_nonneg _))
+        _ = (L * |t - s|) ^ 2 := by rw [mul_pow, mul_pow, sq_abs]
+    calc (φ t - φ s) ^ 2 ≤ (L * |t - s|) ^ 2 := h3
+      _ = L ^ 2 * |t - s| * |t - s| := by ring
+      _ ≤ L ^ 2 * |t - s| * (2 * a) := by gcongr
+      _ = _ := by ring
+  obtain ⟨hm, harch, -, -⟩ := ind_energy ha hc hMb hD (by positivity)
   refine ⟨fun u => ?_, fun u hu => ?_, hm, harch⟩
-  · unfold PhiA
-    by_cases h : u ∈ Icc (-a) a
+  · by_cases h : u ∈ Icc (-a) a
     · have h' : -u ∈ Icc (-a) a := ⟨by linarith [h.2], by linarith [h.1]⟩
-      rw [indicator_of_mem h, indicator_of_mem h', RPhi_even]
+      rw [indicator_of_mem h, indicator_of_mem h', hev]
     · have h' : -u ∉ Icc (-a) a := fun h' => h ⟨by linarith [h'.2], by linarith [h'.1]⟩
       rw [indicator_of_notMem h, indicator_of_notMem h']
-  · unfold PhiA
-    apply indicator_of_notMem
+  · apply indicator_of_notMem
     intro h; have := abs_le.2 ⟨h.1, h.2⟩; linarith
+
+theorem probe_PhiA {a : ℝ} (ha : 0 ≤ a) : Probe a (PhiA a) := by
+  obtain ⟨L, -, hL⟩ := RPhi_lip
+  exact probe_indicator_of_lip ha continuous_RPhi RPhi_even fun t _ s _ => hL t s
 
 theorem ghatC_PhiA {a : ℝ} (ha : 0 ≤ a) (t : ℂ) : ghatC (PhiA a) a t = ghatC RPhi a t := by
   unfold ghatC
@@ -405,6 +410,29 @@ theorem hasDerivAt_cexp_mul (t : ℂ) (x : ℝ) :
   rw [mul_comm (Complex.I * t)]
   exact h1.comp_ofReal
 
+/-- **Integration by parts on the window** `[−a, a]`: `it·ĝ_u(t) = u(a)e^{ita} − u(−a)e^{−ita} − ĝ_{u′}(t)`
+(round 336; `ibp_window` below and `WeilRH.lean`'s `ibp_C2` are its cases). -/
+theorem ibp_ghatC {a : ℝ} {u u' : ℝ → ℝ} (hu : ∀ x ∈ uIcc (-a) a, HasDerivAt u (u' x) x)
+    (hu' : IntervalIntegrable u' volume (-a) a) (t : ℂ) :
+    Complex.I * t * ghatC u a t = (u a : ℂ) * Complex.exp (Complex.I * t * a)
+      - (u (-a) : ℂ) * Complex.exp (-(Complex.I * t * a)) - ghatC u' a t := by
+  have H := intervalIntegral.integral_mul_deriv_eq_deriv_mul (a := -a) (b := a)
+    (u := fun x : ℝ => (u x : ℂ)) (u' := fun x : ℝ => (u' x : ℂ))
+    (v := fun y : ℝ => Complex.exp (Complex.I * t * y))
+    (v' := fun x : ℝ => Complex.I * t * Complex.exp (Complex.I * t * x))
+    (fun x hx => (hu x hx).ofReal_comp) (fun x _ => hasDerivAt_cexp_mul t x)
+    ⟨hu'.1.ofReal, hu'.2.ofReal⟩
+    ((by fun_prop : Continuous fun x : ℝ =>
+      Complex.I * t * Complex.exp (Complex.I * t * x)).intervalIntegrable _ _)
+  unfold ghatC
+  rw [← intervalIntegral.integral_const_mul]
+  have e : (fun x : ℝ => Complex.I * t * ((u x : ℂ) * Complex.exp (Complex.I * t * x)))
+      = fun x => (u x : ℂ) * (Complex.I * t * Complex.exp (Complex.I * t * x)) := by
+    funext x; ring
+  rw [e, H]
+  push_cast
+  ring_nf
+
 /-- **`∫Φ' e^{itu} = −it Φ̂(t)`** (integration by parts on the line). -/
 theorem RPhi1_hat {t : ℂ} (ht : |t.im| ≤ 1 / 2) :
     ∫ u, (RPhi1 u : ℂ) * Complex.exp (Complex.I * t * u) = -(Complex.I * t) * RPhiHat t := by
@@ -434,23 +462,8 @@ theorem ibp_window (a : ℝ) (t : ℂ) :
     Complex.I * t * ghatC RPhi a t
       = (RPhi a : ℂ) * (Complex.exp (Complex.I * t * a) - Complex.exp (-(Complex.I * t * a)))
         - ghatC RPhi1 a t := by
-  have H := intervalIntegral.integral_mul_deriv_eq_deriv_mul
-    (a := -a) (b := a)
-    (u := fun x : ℝ => (RPhi x : ℂ)) (u' := fun x : ℝ => (RPhi1 x : ℂ))
-    (v := fun y : ℝ => Complex.exp (Complex.I * t * y))
-    (v' := fun x : ℝ => Complex.I * t * Complex.exp (Complex.I * t * x))
-    (fun x _ => (hasDerivAt_RPhi x).ofReal_comp) (fun x _ => hasDerivAt_cexp_mul t x)
-    ((Complex.continuous_ofReal.comp continuous_RPhi1).intervalIntegrable _ _)
-    ((by fun_prop : Continuous fun x : ℝ =>
-      Complex.I * t * Complex.exp (Complex.I * t * x)).intervalIntegrable _ _)
-  unfold ghatC
-  rw [← intervalIntegral.integral_const_mul]
-  have e : (fun x : ℝ => Complex.I * t * ((RPhi x : ℂ) * Complex.exp (Complex.I * t * x)))
-      = fun x => (RPhi x : ℂ) * (Complex.I * t * Complex.exp (Complex.I * t * x)) := by
-    funext x; ring
-  rw [e, H, RPhi_even]
-  push_cast
-  ring_nf
+  rw [ibp_ghatC (fun x _ => hasDerivAt_RPhi x) (continuous_RPhi1.intervalIntegrable _ _) t, RPhi_even]
+  ring
 
 theorem norm_cexp_sub_le {t : ℂ} (ht : |t.im| ≤ 1 / 2) (a : ℝ) :
     ‖Complex.exp (Complex.I * t * a) - Complex.exp (-(Complex.I * t * a))‖ ≤ 2 * Real.exp (|a| / 2) := by
@@ -644,3 +657,5 @@ end Pilot1ca
 #print axioms Pilot1ca.weilQ_PhiA_le
 #print axioms Pilot1ca.lam_decay
 #print axioms Pilot1ca.lam_decay_zeta
+#print axioms Pilot1ca.ibp_ghatC
+#print axioms Pilot1ca.probe_indicator_of_lip

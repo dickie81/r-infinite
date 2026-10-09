@@ -37,7 +37,7 @@ Each declaration (left) and the pilot declaration it is the dh column of (right)
   - `dhRH_of_realRooted`, `not_hypConvDH_of_realRooted` — `rh_of_prime_side` (HurwitzCross.lean:78),
     with the ground-state hypothesis replaced by the integrability it is used for
     (HurwitzCross.lean:52–53)
-  - `DHRHcross` — the χ-side `GRHCross` (CrossCriteria.lean:131); for `ζ` the cross occurs only
+  - `DHRHcross` — the χ-side `GRHCross` (CrossCriteria.lean:116); for `ζ` the cross occurs only
     inside `rh_of_prime_side_cross`
   - `dhRHcross_of_cross`, `dhRH_of_cross`, `not_hypConvDH_of_cross` — `rh_of_prime_side_cross`
     (HurwitzCross.lean:45); `dhRHcross_of_cross` has no real-zero input and concludes the cross,
@@ -58,13 +58,13 @@ Each declaration (left) and the pilot declaration it is the dh column of (right)
 * the dodging route
   - `real_of_params` — `rh_of_Xi_params` (Curvature.lean:53)
   - `real_of_dodging` — `rh_of_dodging` (Curvature.lean:86)
-  - `not_dodging_dh` — `rh_of_dodging_final` (Curvature.lean:415)
+  - `not_dodging_dh` — `rh_of_dodging_final` (Curvature.lean:421)
 * Weil positivity
   - `tau3_cross_of_DHRHcross` — the cross form of `tau3_real_of_DHRH` (DHExplicit.lean:387)
-  - `QDHu_nonneg_of_DHRHcross` — the χ-side `QC_nonneg_of_cross` (CrossCriteria.lean:43); the
+  - `QDHu_nonneg_of_DHRHcross` — the χ-side `QC_nonneg_of_cross` (CrossCriteria.lean:34); the
     every-probe form of `QDHu_packet_nonneg_of_line_or_real` (DHOffCross.lean:35)
   - `not_weil_positivity_dh` — `rh_of_weil` (WeilLandau.lean:153)
-  - `weil_criterion_dh` — `weil_criterion_zeta` (WeilRH.lean:157)
+  - `weil_criterion_dh` — `weil_criterion_zeta` (WeilRH.lean:143)
   - `not_GRH_dh` — `GRHMemberZero` / `rh_of_member_zero` (AngularFamily.lean:97, 102)
 * the Weil index
   - `nonneg_of_hasSum_sq`, `finrank_le_quadruples_gen`, `finrank_le_quadruples'` —

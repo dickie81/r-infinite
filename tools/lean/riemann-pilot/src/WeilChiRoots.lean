@@ -150,22 +150,8 @@ open Pilot1ca
 
 theorem archKer_dup (q : ℝ) {u : ℝ} (hu : 0 < u) :
     archKer q u + archKer (q + 1 / 2) u = archKer (2 * q) (u / 2) := by
-  unfold archKer
-  have hs : Real.sinh u = 2 * Real.sinh (u / 2) * Real.cosh (u / 2) := by
-    have := Real.sinh_two_mul (u / 2); rwa [show 2 * (u / 2) = u by ring] at this
-  have h2 : 0 < Real.sinh (u / 2) := Real.sinh_pos_iff.2 (by linarith)
-  have hc : 0 < Real.cosh (u / 2) := Real.cosh_pos _
-  have e1 : Real.exp ((1 - 2 * q) * u)
-      = Real.exp ((1 - 2 * (2 * q)) * (u / 2)) * Real.exp (u / 2) := by
-    rw [← Real.exp_add]; congr 1; ring
-  have e2 : Real.exp ((1 - 2 * (q + 1 / 2)) * u)
-      = Real.exp ((1 - 2 * (2 * q)) * (u / 2)) * Real.exp (-(u / 2)) := by
-    rw [← Real.exp_add]; congr 1; ring
-  rw [e1, e2, ← add_div, ← mul_add]
-  have hcosh : Real.exp (u / 2) + Real.exp (-(u / 2)) = 2 * Real.cosh (u / 2) := by
-    rw [Real.cosh_eq]; ring
-  rw [hcosh, hs, div_eq_div_iff (mul_pos (mul_pos two_pos h2) hc).ne' h2.ne']
-  ring
+  rw [(archKer_pair q hu).1]
+  unfold archKer; congr 2; ring
 
 /-- The Dedekind `ζ_{ℚ(i)}` kernel: `K_{1/4} + K_{3/4} = K_{1/2}(·/2)`. -/
 theorem archKer_quarter_dup {u : ℝ} (hu : 0 < u) :

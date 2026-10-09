@@ -19,20 +19,11 @@ open PsiOmega Pilot1ca Pilot1bt PilotWeil DirichletCharacter
 
 /-! ### (A) Real zeros are invisible to even real probes -/
 
-/-- `ĝ(iy) = ∫ g(u) e^{−yu} du` is real, for every real `g` (no parity needed). -/
+/-- `ĝ(iy) = ∫ g(u) e^{−yu} du` is real, for every real `g` (no parity needed):
+`ZetaInputs.lean`'s `ghatC_I_mul_eq_ofReal` (round 336). -/
 theorem ghatC_I_mul (g : ℝ → ℝ) (a y : ℝ) :
-    ghatC g a (I * y) = ((∫ u in (-a)..a, g u * Real.exp (-(y * u)) : ℝ) : ℂ) := by
-  unfold ghatC
-  rw [← intervalIntegral.integral_ofReal]
-  apply intervalIntegral.integral_congr
-  intro u _
-  have e : I * (I * (y : ℂ)) * (u : ℂ) = ((-(y * u) : ℝ) : ℂ) := by
-    push_cast
-    linear_combination (y * u : ℂ) * I_mul_I
-  simp only
-  rw [e, ← ofReal_exp]
-  push_cast
-  ring
+    ghatC g a (I * y) = ((∫ u in (-a)..a, g u * Real.exp (-(y * u)) : ℝ) : ℂ) :=
+  ghatC_I_mul_eq_ofReal g a y
 
 variable {N : ℕ} [NeZero N] {χ : DirichletCharacter ℂ N}
 

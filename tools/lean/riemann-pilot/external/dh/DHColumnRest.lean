@@ -17,7 +17,7 @@ Each declaration (left) and the pilot declaration it is the dh column of (right)
 * `not_ground_states_dh` — `rh_of_ground_states` (Roadmap.lean:333), via
   `not_realRooted_limit_XiDH` (the column of `rh_of_realRooted_limit`, Roadmap.lean:260)
 * `not_groundStates_dodging_dh` — `rh_of_groundStates_dodging` (GroundState.lean:153), via
-  `not_dodging_dh` (the column of `rh_of_dodging_final`, Curvature.lean:415)
+  `not_dodging_dh` (the column of `rh_of_dodging_final`, Curvature.lean:421)
 * `not_D_and_realRooted_hadamard` — `rh_of_D_and_realRooted` (Limit.lean:303), via
   `hypConvDH_of_D` and `not_hypConvDH_of_realRooted`
 * `rh_of_D_and_realRooted_final` (XiBounds.lean:360) has no new declaration: its dh column is

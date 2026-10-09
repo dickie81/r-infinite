@@ -212,12 +212,18 @@ theorem ghatC_zero (g : ℝ → ℝ) (a : ℝ) : ghatC g a 0 = ((∫ u in (-a)..
   simp only [mul_zero, zero_mul, Complex.exp_zero, mul_one]
   exact intervalIntegral.integral_ofReal
 
+/-- An odd integrand integrates to `0` over `[−a, a]` (from `FourierGap.lean` since round 336;
+`integral_mul_even_eq_zero` below and `ParityGapLower.ghatC_re_eq_zero_of_odd` use it). -/
+theorem intervalIntegral_odd {f : ℝ → ℝ} (hf : ∀ t, f (-t) = -f t) (a : ℝ) :
+    (∫ t in (-a)..a, f t) = 0 := by
+  have h := intervalIntegral.integral_comp_neg (a := -a) (b := a) f
+  simp only [neg_neg, hf, intervalIntegral.integral_neg] at h
+  linarith
+
 /-- The odd moment of an even function vanishes. -/
 theorem integral_mul_even_eq_zero {g : ℝ → ℝ} (heven : ∀ u, g (-u) = g u) (a : ℝ) :
-    ∫ u in (-a)..a, u * g u = 0 := by
-  have h := intervalIntegral.integral_comp_neg (a := -a) (b := a) (f := fun u => u * g u)
-  simp only [neg_neg, heven, neg_mul, intervalIntegral.integral_neg] at h
-  linarith
+    ∫ u in (-a)..a, u * g u = 0 :=
+  intervalIntegral_odd (f := fun u => u * g u) (fun u => by simp only [heven]; ring) a
 
 theorem sum_range_three (y : ℂ) :
     ∑ m ∈ Finset.range 3, y ^ m / (m.factorial : ℂ) = 1 + y + y ^ 2 / 2 := by

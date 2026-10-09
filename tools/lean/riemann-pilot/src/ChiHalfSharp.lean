@@ -65,15 +65,7 @@ theorem grh_half_iff :
 
 /-- `ĝ(iy)` is real for every real probe `g` and real `y`. -/
 theorem ghatC_mul_I_im (g : ℝ → ℝ) (a y : ℝ) : (ghatC g a ((y : ℂ) * I)).im = 0 := by
-  have h : ∀ u : ℝ, ((g u : ℝ) : ℂ) * cexp (I * ((y : ℂ) * I) * u)
-      = ((g u * Real.exp (-(y * u)) : ℝ) : ℂ) := by
-    intro u
-    have e : I * ((y : ℂ) * I) * (u : ℂ) = ((-(y * u) : ℝ) : ℂ) := by
-      push_cast; linear_combination ((y : ℂ) * u) * Complex.I_sq
-    rw [e, ← Complex.ofReal_exp, ← Complex.ofReal_mul]
-  unfold ghatC
-  simp_rw [h]
-  rw [intervalIntegral.integral_ofReal]
+  rw [mul_comm, ghatC_I_mul_eq_ofReal]
   exact Complex.ofReal_im _
 
 /-- **Real zeros are invisible to the `ĝ²` form**: under GRH for the non-real zeros only,
@@ -132,25 +124,16 @@ theorem kerK_eq_archKer (u : ℝ) : kerK u = archKer (1 / 4) u := by
   unfold kerK archKer
   rw [show (1 - 2 * (1 / 4 : ℝ)) * u = u / 2 by ring]
 
-theorem archIntegrand_eq_Q (g : ℝ → ℝ) (u : ℝ) : archIntegrand g u = archIntegrandQ (1 / 4) g u := by
-  unfold archIntegrand archIntegrandQ archKer
-  rw [show (1 - 2 * (1 / 4 : ℝ)) * u = u / 2 by ring]
+theorem archIntegrand_eq_Q (g : ℝ → ℝ) (u : ℝ) : archIntegrand g u = archIntegrandQ (1 / 4) g u :=
+  by rw [archIntegrandQ_quarter]
 
 /-- **The `Γ_ℂ` kernel**: `K_{1/4}(u) + K_{3/4}(u) = 1/sinh(u/2)`. -/
 theorem archKer_quarter_add {u : ℝ} (hu : 0 < u) :
     archKer (1 / 4) u + archKer (3 / 4) u = 1 / Real.sinh (u / 2) := by
-  unfold archKer
-  have hs : Real.sinh u = 2 * Real.sinh (u / 2) * Real.cosh (u / 2) := by
-    have := Real.sinh_two_mul (u / 2)
-    rwa [show 2 * (u / 2) = u by ring] at this
-  have h2 : 0 < Real.sinh (u / 2) := Real.sinh_pos_iff.2 (by linarith)
-  have hc : 0 < Real.cosh (u / 2) := Real.cosh_pos _
-  rw [show (1 - 2 * (1 / 4 : ℝ)) * u = u / 2 by ring, show (1 - 2 * (3 / 4 : ℝ)) * u = -(u / 2) by ring,
-    ← add_div]
-  have hcosh : Real.exp (u / 2) + Real.exp (-(u / 2)) = 2 * Real.cosh (u / 2) := by
-    rw [Real.cosh_eq]; ring
-  rw [hcosh, hs, div_eq_div_iff (mul_pos (mul_pos two_pos h2) hc).ne' h2.ne']
-  ring
+  have h := (archKer_pair (1 / 4) hu).1
+  rw [show (1 / 4 : ℝ) + 1 / 2 = 3 / 4 by norm_num, show (1 - 4 * (1 / 4 : ℝ)) * (u / 2) = 0 by ring,
+    Real.exp_zero] at h
+  exact h
 
 end ArchKerQuarter
 

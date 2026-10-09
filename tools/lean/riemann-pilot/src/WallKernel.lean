@@ -52,18 +52,10 @@ open Pilot1ca
 
 theorem archKer_quarter_sub {u : ℝ} (hu : 0 < u) :
     archKer (1 / 4) u - archKer (3 / 4) u = 1 / Real.cosh (u / 2) := by
-  unfold archKer
-  have hs : Real.sinh u = 2 * Real.sinh (u / 2) * Real.cosh (u / 2) := by
-    have := Real.sinh_two_mul (u / 2)
-    rwa [show 2 * (u / 2) = u by ring] at this
-  have h2 : 0 < Real.sinh (u / 2) := Real.sinh_pos_iff.2 (by linarith)
-  have hc : 0 < Real.cosh (u / 2) := Real.cosh_pos _
-  rw [show (1 - 2 * (1 / 4 : ℝ)) * u = u / 2 by ring, show (1 - 2 * (3 / 4 : ℝ)) * u = -(u / 2) by ring,
-    ← sub_div]
-  have hsinh : Real.exp (u / 2) - Real.exp (-(u / 2)) = 2 * Real.sinh (u / 2) := by
-    rw [Real.sinh_eq]; ring
-  rw [hsinh, hs, div_eq_div_iff (mul_pos (mul_pos two_pos h2) hc).ne' hc.ne']
-  ring
+  have h := (archKer_pair (1 / 4) hu).2
+  rw [show (1 / 4 : ℝ) + 1 / 2 = 3 / 4 by norm_num, show (1 - 4 * (1 / 4 : ℝ)) * (u / 2) = 0 by ring,
+    Real.exp_zero] at h
+  exact h
 
 /-- **The odd-character kernel**, the twin of FourierGap's `kerK_eq`:
 `K_{3/4}(u) = ½csch(u/2) − ½sech(u/2)`. -/

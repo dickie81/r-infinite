@@ -979,13 +979,6 @@ theorem integral_supp {a : ℝ} (ha : 0 < a) {g : ℝ → ℝ} (hp : Probe a g) 
 
 /-! ## The pole term split by parity -/
 
-/-- An odd integrand integrates to `0` over `[−a, a]`. -/
-theorem intervalIntegral_odd {f : ℝ → ℝ} (hf : ∀ t, f (-t) = -f t) (a : ℝ) :
-    (∫ t in (-a)..a, f t) = 0 := by
-  have h := intervalIntegral.integral_comp_neg (a := -a) (b := a) f
-  simp only [neg_neg, hf, intervalIntegral.integral_neg] at h
-  linarith
-
 /-- `ĝ(i/2) = ∫g cosh(t/2) − ∫g sinh(t/2)` over `[−a, a]`. -/
 theorem poleR_eq_cosh_sub_sinh {a : ℝ} {g : ℝ → ℝ} (hg : IntervalIntegrable g volume (-a) a) :
     poleR g a = (∫ t in (-a)..a, g t * Real.cosh (t / 2)) - ∫ t in (-a)..a, g t * Real.sinh (t / 2) := by

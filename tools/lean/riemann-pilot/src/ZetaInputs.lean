@@ -111,6 +111,22 @@ theorem WeilExplicit.hasSum_rhs {ι : Type*} {ρ : ι → ℂ} {h : ℂ → ℂ}
 /-- The real values of the witness' squared transform on `ℝ`. -/
 def hRbt (a r : ℝ) : ℝ := (ghat a r).re ^ 2
 
+/-- **`ĝ(iy) = ∫ g(u) e^{−yu} du`, a real number**, for every real `g` (round 336; `CrossCriteria`'s
+`ghatC_I_mul` and the `ghatC_mul_I_im` of `ChiHalfSharp.lean` and `OddProbe.lean` are its cases). -/
+theorem ghatC_I_mul_eq_ofReal (g : ℝ → ℝ) (a y : ℝ) :
+    ghatC g a (I * y) = ((∫ u in (-a)..a, g u * Real.exp (-(y * u)) : ℝ) : ℂ) := by
+  unfold ghatC
+  rw [← intervalIntegral.integral_ofReal]
+  apply intervalIntegral.integral_congr
+  intro u _
+  have e : I * (I * (y : ℂ)) * (u : ℂ) = ((-(y * u) : ℝ) : ℂ) := by
+    push_cast
+    linear_combination (y * u : ℂ) * I_mul_I
+  simp only
+  rw [e, ← ofReal_exp]
+  push_cast
+  ring
+
 theorem ghat_eq_ghatC (a : ℝ) : ghat a = ghatC (fun u => Real.cosh (u / 2)) a := rfl
 
 theorem V_nonneg (a : ℝ) : 0 ≤ V a := by
@@ -245,3 +261,4 @@ end Pilot1ca
 #print axioms Pilot1ca.four_lt_abs_im_zero
 #print axioms Pilot1ca.summable_tail_zeta
 #print axioms Pilot1ca.pinned_zeta
+#print axioms Pilot1ca.ghatC_I_mul_eq_ofReal

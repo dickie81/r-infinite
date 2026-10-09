@@ -37,21 +37,7 @@ theorem ibp_C2 {a r : ℝ} {h h₁ h₂ : ℝ → ℝ} (hc : C2Supp r h h₁ h�
   have z1 : h a = 0 := zero_of_ge hr hc0 hc.supp a (by rw [abs_of_nonneg (by linarith)]; exact hra)
   have z2 : h (-a) = 0 :=
     zero_of_ge hr hc0 hc.supp (-a) (by rw [abs_neg, abs_of_nonneg (by linarith)]; exact hra)
-  have H := intervalIntegral.integral_mul_deriv_eq_deriv_mul
-    (a := -a) (b := a)
-    (u := fun x : ℝ => (h x : ℂ)) (u' := fun x : ℝ => (h₁ x : ℂ))
-    (v := fun y : ℝ => Complex.exp (Complex.I * t * y))
-    (v' := fun x : ℝ => Complex.I * t * Complex.exp (Complex.I * t * x))
-    (fun x _ => (hc.d1 x).ofReal_comp) (fun x _ => hasDerivAt_cexp_mul t x)
-    ((Complex.continuous_ofReal.comp hc1).intervalIntegrable _ _)
-    ((by fun_prop : Continuous fun x : ℝ =>
-      Complex.I * t * Complex.exp (Complex.I * t * x)).intervalIntegrable _ _)
-  unfold ghatC
-  rw [← intervalIntegral.integral_const_mul]
-  have e : (fun x : ℝ => Complex.I * t * ((h x : ℂ) * Complex.exp (Complex.I * t * x)))
-      = fun x => (h x : ℂ) * (Complex.I * t * Complex.exp (Complex.I * t * x)) := by
-    funext x; ring
-  rw [e, H, z1, z2]
+  rw [ibp_ghatC (fun x _ => hc.d1 x) (hc1.intervalIntegrable _ _) t, z1, z2]
   simp
 
 /-- **`ĝ²` is a strip test function for every `C²` probe vanishing near the edges.** -/

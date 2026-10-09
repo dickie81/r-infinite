@@ -78,13 +78,7 @@ theorem ghatC_re_eq_zero_of_odd {o : ℝ → ℝ} {a : ℝ} (hodd : ∀ u, o (-u
   have hodd' : ∀ u, f (-u) = -f u := by
     intro u
     rw [hform, hform, hodd, mul_neg, Real.cos_neg, neg_mul]
-  have h := intervalIntegral.integral_comp_neg (a := -a) (b := a) f
-  simp only [neg_neg] at h
-  have : ∫ u in (-a)..a, f u = -∫ u in (-a)..a, f u := by
-    conv_lhs => rw [← h]
-    rw [← intervalIntegral.integral_neg]
-    exact intervalIntegral.integral_congr fun u _ => hodd' u
-  linarith
+  exact intervalIntegral_odd hodd' a
 
 /-- The odd-sector zero term `−ô(τ)²` is `≥ 0` at a real `τ` (a zero on the line). -/
 theorem odd_term_nonneg_real {o : ℝ → ℝ} {a : ℝ} (hodd : ∀ u, o (-u) = -o u)

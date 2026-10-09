@@ -45,6 +45,31 @@ def archIntegrandQ (q : ℝ) (g : ℝ → ℝ) (u : ℝ) : ℝ := (autocorr g 0 
 /-- `∫_0^∞ [f(0) − f(u)] K_q(u) du`. -/
 def archEQ (q : ℝ) (g : ℝ → ℝ) : ℝ := ∫ u in Ioi (0 : ℝ), archIntegrandQ q g u
 
+/-- **`K_q ± K_{q+½}`**: `e^{(1−4q)u/2}/sinh(u/2)` and `e^{(1−4q)u/2}/cosh(u/2)`, from
+`sinh u = 2 sinh(u/2) cosh(u/2)` (round 336; `WeilChiRoots.lean`'s `archKer_dup`, `ChiHalfSharp.lean`'s
+`archKer_quarter_add` and `WallKernel.lean`'s `archKer_quarter_sub` are its cases). -/
+theorem archKer_pair (q : ℝ) {u : ℝ} (hu : 0 < u) :
+    archKer q u + archKer (q + 1 / 2) u = Real.exp ((1 - 4 * q) * (u / 2)) / Real.sinh (u / 2) ∧
+    archKer q u - archKer (q + 1 / 2) u = Real.exp ((1 - 4 * q) * (u / 2)) / Real.cosh (u / 2) := by
+  unfold archKer
+  have hs : Real.sinh u = 2 * Real.sinh (u / 2) * Real.cosh (u / 2) := by
+    have := Real.sinh_two_mul (u / 2); rwa [show 2 * (u / 2) = u by ring] at this
+  have h2 : 0 < Real.sinh (u / 2) := Real.sinh_pos_iff.2 (by linarith)
+  have hc : 0 < Real.cosh (u / 2) := Real.cosh_pos _
+  have e1 : Real.exp ((1 - 2 * q) * u) = Real.exp ((1 - 4 * q) * (u / 2)) * Real.exp (u / 2) := by
+    rw [← Real.exp_add]; congr 1; ring
+  have e2 : Real.exp ((1 - 2 * (q + 1 / 2)) * u)
+      = Real.exp ((1 - 4 * q) * (u / 2)) * Real.exp (-(u / 2)) := by
+    rw [← Real.exp_add]; congr 1; ring
+  have hcosh : Real.exp (u / 2) + Real.exp (-(u / 2)) = 2 * Real.cosh (u / 2) := by
+    rw [Real.cosh_eq]; ring
+  have hsinh : Real.exp (u / 2) - Real.exp (-(u / 2)) = 2 * Real.sinh (u / 2) := by
+    rw [Real.sinh_eq]; ring
+  rw [e1, e2, ← add_div, ← sub_div, ← mul_add, ← mul_sub, hcosh, hsinh, hs]
+  constructor
+  · rw [div_eq_div_iff (mul_pos (mul_pos two_pos h2) hc).ne' h2.ne']; ring
+  · rw [div_eq_div_iff (mul_pos (mul_pos two_pos h2) hc).ne' hc.ne']; ring
+
 /-! ## B1. The digamma difference as a positive-kernel integral -/
 
 theorem kkQ_nonneg (q : ℝ) {t : ℝ} (ht : 0 < t) : 0 ≤ kkQ q t := by
@@ -303,3 +328,4 @@ end Pilot1ca
 #print axioms Pilot1ca.arch_termQ
 #print axioms Pilot1ca.archEQ_le_archE
 #print axioms Pilot1ca.archEQ_add_smul
+#print axioms Pilot1ca.archKer_pair

@@ -158,47 +158,20 @@ theorem gK_re (hp : Par L η) (hint : ∫ x, Hr L η α x = 0) (u : ℝ) :
 
 theorem probe_gK (hp : Par L η) (hint : ∫ x, Hr L η α x = 0) {a : ℝ} (ha : 0 ≤ a) :
     Probe a (gK L η α a) := by
-  set φ : ℝ → ℝ := fun u => (KF L η α (Real.exp u)).re
-  have hφ : φ = fun u => (Gc L η α u).re := funext (gK_re hp hint)
-  have hc : Continuous φ := by rw [hφ]; exact Complex.continuous_re.comp (continuous_Gc hp)
-  obtain ⟨M, hM⟩ := isCompact_Icc.exists_bound_of_continuousOn (hc.continuousOn (s := Icc (-a) a))
+  have hφ : (fun u => (KF L η α (Real.exp u)).re) = fun u => (Gc L η α u).re :=
+    funext (gK_re hp hint)
   obtain ⟨C, hC⟩ := isCompact_Icc.exists_bound_of_continuousOn
     ((continuous_Gcd hp (α := α)).continuousOn (s := Icc (-a) a))
-  have hC0 : 0 ≤ C := (norm_nonneg _).trans (hC a ⟨by linarith, le_rfl⟩)
-  have hMb : ∀ t ∈ Icc (-a) a, φ t ^ 2 ≤ M ^ 2 := fun t ht => by
-    have := hM t ht; rw [Real.norm_eq_abs] at this
-    rw [← sq_abs]; exact pow_le_pow_left₀ (abs_nonneg _) this 2
-  have hLip : ∀ t ∈ Icc (-a) a, ∀ s ∈ Icc (-a) a, ‖Gc L η α t - Gc L η α s‖ ≤ C * ‖t - s‖ :=
-    fun t ht s hs => (convex_Icc (-a) a).norm_image_sub_le_of_norm_hasDerivWithin_le
-      (fun x _ => (hasDerivAt_Gc hp x).hasDerivWithinAt) (fun x hx => hC x hx) hs ht
-  have hD : ∀ t ∈ Icc (-a) a, ∀ s ∈ Icc (-a) a, (φ t - φ s) ^ 2 ≤ (C ^ 2 * (2 * a)) * |t - s| := by
-    intro t ht s hs
-    have h1 : |φ t - φ s| ≤ C * |t - s| := by
-      rw [hφ]; simp only
-      calc |(Gc L η α t).re - (Gc L η α s).re| = |(Gc L η α t - Gc L η α s).re| := by rw [sub_re]
-        _ ≤ ‖Gc L η α t - Gc L η α s‖ := Complex.abs_re_le_norm _
-        _ ≤ C * ‖t - s‖ := hLip t ht s hs
-        _ = C * |t - s| := by rw [Real.norm_eq_abs]
-    have h2 : |t - s| ≤ 2 * a := by
-      rw [abs_le]; constructor <;> linarith [ht.1, ht.2, hs.1, hs.2]
-    have h3 : (φ t - φ s) ^ 2 ≤ (C * |t - s|) ^ 2 := by
-      rw [← sq_abs]; exact pow_le_pow_left₀ (abs_nonneg _) h1 2
-    calc (φ t - φ s) ^ 2 ≤ (C * |t - s|) ^ 2 := h3
-      _ = C ^ 2 * |t - s| * |t - s| := by ring
-      _ ≤ C ^ 2 * |t - s| * (2 * a) := by gcongr
-      _ = _ := by ring
-  obtain ⟨hm, harch, -, -⟩ := ind_energy ha hc hMb hD (by positivity)
-  refine ⟨fun u => ?_, fun u hu => ?_, hm, harch⟩
-  · unfold gK
-    by_cases h : u ∈ Icc (-a) a
-    · have h' : -u ∈ Icc (-a) a := ⟨by linarith [h.2], by linarith [h.1]⟩
-      rw [indicator_of_mem h, indicator_of_mem h', gK_re hp hint, gK_re hp hint]
-      simp only [Gc, neg_neg]; rw [add_comm]
-    · have h' : -u ∉ Icc (-a) a := fun h' => h ⟨by linarith [h'.2], by linarith [h'.1]⟩
-      rw [indicator_of_notMem h, indicator_of_notMem h']
-  · unfold gK
-    apply indicator_of_notMem
-    intro h; have := abs_le.2 ⟨h.1, h.2⟩; linarith
+  show Probe a ((Icc (-a) a).indicator fun u => (KF L η α (Real.exp u)).re)
+  rw [hφ]
+  refine probe_indicator_of_lip (L := C) ha (Complex.continuous_re.comp (continuous_Gc hp))
+    (fun u => by simp only [Gc, neg_neg]; rw [add_comm]) fun t ht s hs => ?_
+  calc |(Gc L η α t).re - (Gc L η α s).re|
+      = |(Gc L η α t - Gc L η α s).re| := by rw [sub_re]
+    _ ≤ ‖Gc L η α t - Gc L η α s‖ := Complex.abs_re_le_norm _
+    _ ≤ C * ‖t - s‖ := (convex_Icc (-a) a).norm_image_sub_le_of_norm_hasDerivWithin_le
+        (fun x _ => (hasDerivAt_Gc hp x).hasDerivWithinAt) (fun x hx => hC x hx) hs ht
+    _ = C * |t - s| := by rw [Real.norm_eq_abs]
 
 /-- **`‖ĝ(t)‖ ≤ B/‖t‖` on the strip** (integration by parts on the window). -/
 theorem ghat_inv (hp : Par L η) (hint : ∫ x, Hr L η α x = 0) {a : ℝ} (ha : 0 ≤ a) :
