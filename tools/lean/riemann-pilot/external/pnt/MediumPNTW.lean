@@ -10,6 +10,11 @@ PNT+'s (`PrimeNumberTheoremAnd/MediumPNT.lean`), with the `A/(log T)^{n₁}` fac
 
 Round 337: `GenPNTW'` takes the abscissa `σ₂` of the small-height box as a parameter and asks only
 `σ₂ < 1 − D(T(x))` eventually, so a constant depth is allowed; `GenPNTW` is its case with PNT+'s `σ₂`.
+
+Round 338: the segments `I₃` to `I₇`, left of `Re s = 1`, are also bounded without the factor `1/ε`
+(`I3NoEpsBoundW` to `I7NoEpsBoundW`), from the Mellin bound `|M(Smooth1 ν ε)(s)| ≤ B/|s|` (`MellinOfSmooth1d`).
+`GenPNTWOfLeft` is the contour argument with the bound on those five segments as a hypothesis; `GenPNTW'` and
+`GenPNTWNoEps` are its cases with PNT+'s bounds and with these.
 -/
 import PrimeNumberTheoremAnd.MediumPNT
 
@@ -806,14 +811,278 @@ lemma I6GenBoundW {SmoothingF : ℝ → ℝ}
   intro σ₁
   rwa [I6I4 (by linarith), norm_neg, norm_conj]
 
+/-! ### The segments left of `Re s = 1` without `1/ε` (round 338)
+
+PNT+'s bounds above for `I₃` to `I₇` use `MellinOfSmooth1b`, `|M(Smooth1 ν ε)(s)| ≤ C/(ε|s|²)`, and so cost
+`1/ε`. `MellinOfSmooth1d` trades one power of `|s|` for it: `|M(Smooth1 ν ε)(s)| ≤ B/|s|`, from
+`MellinOfSmooth1a` and a bound on the Mellin transform of `ν` itself (`MellinOfPsi_bdd`). With it, `I₃` and
+`I₇` cost `X^{1−D T} (log T)^{n₂+1}` and `I₄`, `I₅`, `I₆` cost `X^{1−D T}` and `X^{σ₂}`. -/
+
+/-- The Mellin transform of a continuous bump supported in `[1/2, 2]` is bounded on `0 ≤ Re w ≤ 2`. -/
+lemma MellinOfPsi_bdd {ν : ℝ → ℝ} (diffν : ContDiff ℝ 1 ν) (suppν : ν.support ⊆ Icc (1 / 2) 2) :
+    ∃ B > 0, ∀ w : ℂ, 0 ≤ w.re → w.re ≤ 2 → ‖𝓜 (fun x ↦ (ν x : ℂ)) w‖ ≤ B := by
+  obtain ⟨a, -, ha⟩ := isCompact_Icc.exists_isMaxOn
+    (Set.nonempty_Icc.mpr (by norm_num : (1 / 2 : ℝ) ≤ 2))
+    (diffν.continuous.norm.continuousOn (s := Icc (1 / 2) 2))
+  refine ⟨‖ν a‖ * 8 * (3 / 2) + 1, by positivity, fun w hw0 hw2 ↦ ?_⟩
+  have hsupp : (fun x : ℝ ↦ (x : ℂ) ^ (w - 1) • (ν x : ℂ)).support ⊆ Icc (1 / 2) 2 := by
+    intro x hx
+    apply suppν
+    rw [Function.mem_support] at hx ⊢
+    intro h
+    exact hx (by simp [h])
+  rw [mellin, SetIntegral.integral_eq_integral_inter_of_support_subset_Icc hsupp
+    ((Icc_subset_Ioi_iff (by norm_num)).mpr (by norm_num))]
+  refine (norm_setIntegral_le_of_norm_le_const (C := ‖ν a‖ * 8) measure_Icc_lt_top ?_).trans ?_
+  · intro x hx
+    have hx0 : 0 < x := by linarith [hx.1]
+    rw [norm_smul, norm_cpow_eq_rpow_re_of_pos hx0, Complex.norm_real, mul_comm]
+    refine mul_le_mul (isMaxOn_iff.mp ha x hx) ?_ (by positivity) (norm_nonneg _)
+    rw [sub_re, one_re, Real.rpow_sub hx0, Real.rpow_one, div_le_iff₀ hx0]
+    calc x ^ w.re ≤ 2 ^ w.re := Real.rpow_le_rpow hx0.le hx.2 hw0
+      _ ≤ 2 ^ (2 : ℝ) := Real.rpow_le_rpow_of_exponent_le (by norm_num) hw2
+      _ = 4 := by norm_num
+      _ ≤ 8 * x := by linarith [hx.1]
+  · rw [Real.volume_real_Icc_of_le (by norm_num)]
+    norm_num
+
+/-- **A Mellin bound without `1/ε`.** `|M(Smooth1 ν ε)(s)| ≤ B/|s|` for `0 < Re s ≤ 2` and `0 < ε < 1`,
+with `B` independent of `ε`. PNT+'s `MellinOfSmooth1b` has `C/(ε|s|²)`. -/
+lemma MellinOfSmooth1d {ν : ℝ → ℝ} (diffν : ContDiff ℝ 1 ν) (suppν : ν.support ⊆ Icc (1 / 2) 2) :
+    ∃ B > 0, ∀ s : ℂ, 0 < s.re → s.re ≤ 2 → ∀ ε : ℝ, 0 < ε → ε < 1 →
+      ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) s‖ ≤ B * ‖s‖⁻¹ := by
+  obtain ⟨B, Bpos, hB⟩ := MellinOfPsi_bdd diffν suppν
+  refine ⟨B, Bpos, fun s hs0 hs2 ε hε0 hε1 ↦ ?_⟩
+  rw [MellinOfSmooth1a diffν suppν hε0 hs0, norm_mul, norm_inv, mul_comm]
+  have hre : ((ε : ℂ) * s).re = ε * s.re := by simp
+  exact mul_le_mul_of_nonneg_right (hB _ (by rw [hre]; positivity) (by rw [hre]; nlinarith))
+    (by positivity)
+
+lemma norm_twoPiI_inv_le : ‖1 / (2 * (π : ℂ) * I)‖ ≤ 1 := by
+  rw [one_div, norm_inv]
+  apply inv_le_one_of_one_le₀
+  simp only [Complex.norm_mul, Complex.norm_ofNat, norm_real, norm_eq_abs, abs_of_nonneg pi_nonneg,
+    norm_I, mul_one]
+  nlinarith [pi_gt_three]
+
+/-- The norm of the integrand, factor by factor. -/
+lemma norm_SmoothedChebyshevIntegrand_le {ν : ℝ → ℝ} {ε X : ℝ} (Xpos : 0 < X) {s : ℂ} {A M : ℝ}
+    (hA : ‖ζ' s / ζ s‖ ≤ A) (hM : ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) s‖ ≤ M) :
+    ‖SmoothedChebyshevIntegrand ν ε X s‖ ≤ A * M * X ^ s.re := by
+  have hA0 : 0 ≤ A := (norm_nonneg _).trans hA
+  have hM0 : 0 ≤ M := (norm_nonneg _).trans hM
+  simp only [SmoothedChebyshevIntegrand, norm_mul, neg_div, norm_neg,
+    norm_cpow_eq_rpow_re_of_pos Xpos]
+  exact mul_le_mul (mul_le_mul hA hM (norm_nonneg _) hA0) le_rfl (by positivity)
+    (mul_nonneg hA0 hM0)
+
+/-- **`I₇` without `1/ε`**: `|I₇| ≤ C X^{1 − D T} (log T)^{n₂+1}`. On the segment `|ζ'/ζ| ≤ Cζ (log T)^{n₂}` and
+`|M(s)| ≤ B/t`, and `∫₃^T dt/t ≤ log T`. -/
+theorem I7NoEpsBoundW {ν : ℝ → ℝ} (suppν : ν.support ⊆ Icc (1 / 2) 2) (diffν : ContDiff ℝ 1 ν)
+    {D : ℝ → ℝ} (hD : DepthOK D) {n₂ : ℝ} (n₂_pos : 0 < n₂) {Cζ : ℝ}
+    (hCζ : LogDerivZetaHasBoundW D n₂ Cζ) (Cζpos : 0 < Cζ) :
+    ∃ C > 0, ∀ (X : ℝ) (_ : 3 < X) {ε : ℝ} (_ : 0 < ε) (_ : ε < 1) {T : ℝ} (_ : 3 < T),
+      ‖I₇ ν ε T X (1 - D T)‖ ≤ C * X * X ^ (-D T) * Real.log T ^ (n₂ + 1) := by
+  obtain ⟨B, Bpos, hB⟩ := MellinOfSmooth1d diffν suppν
+  refine ⟨Cζ * B, by positivity, fun X hX ε hε0 hε1 T hT ↦ ?_⟩
+  have hD0 := hD.pos T hT
+  have hD1 := hD.half T hT
+  set σ₁ : ℝ := 1 - D T with hσ₁
+  have σ₁pos : 0 < σ₁ := by linarith
+  have Xpos : 0 < X := by linarith
+  have hlogT : 1 < Real.log T := logt_gt_one hT.le
+  set K : ℝ := Cζ * B * X ^ σ₁ * Real.log T ^ n₂ with hK
+  have K0 : 0 ≤ K := by positivity
+  have hpt : ∀ t ∈ Ioc (3 : ℝ) T,
+      ‖SmoothedChebyshevIntegrand ν ε X (σ₁ + t * I)‖ ≤ K * t⁻¹ := by
+    intro t ht
+    have t0 : 0 < t := by linarith [ht.1]
+    have habs : |t| = t := abs_of_pos t0
+    have hζ : ‖ζ' (σ₁ + t * I) / ζ (σ₁ + t * I)‖ ≤ Cζ * Real.log T ^ n₂ := by
+      refine (hCζ σ₁ t (by rw [habs]; exact ht.1) ?_).trans ?_
+      · rw [mem_Ici, habs, hσ₁]
+        linarith [hD.anti t T ht.1 ht.2]
+      · rw [habs]
+        exact mul_le_mul_of_nonneg_left (Real.rpow_le_rpow (Real.log_nonneg (by linarith [ht.1]))
+          (Real.log_le_log t0 ht.2) n₂_pos.le) Cζpos.le
+    have hre : ((σ₁ : ℂ) + t * I).re = σ₁ := by simp
+    have hnorm : t ≤ ‖(σ₁ : ℂ) + t * I‖ := by
+      have := Complex.abs_im_le_norm ((σ₁ : ℂ) + t * I)
+      simpa [habs] using this
+    have hM := hB ((σ₁ : ℂ) + t * I) (by rw [hre]; exact σ₁pos) (by rw [hre]; linarith) ε hε0 hε1
+    have hM' : ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) ((σ₁ : ℂ) + t * I)‖ ≤ B * t⁻¹ :=
+      hM.trans (mul_le_mul_of_nonneg_left (inv_anti₀ t0 hnorm) Bpos.le)
+    refine (norm_SmoothedChebyshevIntegrand_le Xpos hζ hM').trans (le_of_eq ?_)
+    rw [hre, hK]
+    ring
+  have hint : ‖∫ t in (3 : ℝ)..T, SmoothedChebyshevIntegrand ν ε X (σ₁ + t * I)‖ ≤
+      K * Real.log T := by
+    refine (intervalIntegral.norm_integral_le_of_norm_le hT.le
+      (Eventually.of_forall fun t ht ↦ hpt t ht) ?_).trans ?_
+    · apply ContinuousOn.intervalIntegrable
+      refine continuousOn_const.mul (continuousOn_inv₀.mono ?_)
+      intro x hx
+      rw [uIcc_of_le hT.le] at hx
+      exact (show x ≠ 0 by linarith [hx.1])
+    · rw [intervalIntegral.integral_const_mul, integral_inv_of_pos (by norm_num) (by linarith)]
+      exact mul_le_mul_of_nonneg_left
+        (Real.log_le_log (by positivity) (div_le_self (by linarith) (by norm_num))) K0
+  unfold I₇
+  rw [norm_mul, norm_mul, norm_I, one_mul]
+  calc ‖1 / (2 * (π : ℂ) * I)‖ * ‖∫ t in (3 : ℝ)..T, SmoothedChebyshevIntegrand ν ε X (σ₁ + t * I)‖
+      ≤ 1 * (K * Real.log T) := mul_le_mul norm_twoPiI_inv_le hint (norm_nonneg _) zero_le_one
+    _ = Cζ * B * X * X ^ (-D T) * Real.log T ^ (n₂ + 1) := by
+      have e1 : X ^ σ₁ = X * X ^ (-D T) := by
+        rw [hσ₁, sub_eq_add_neg, Real.rpow_add Xpos, Real.rpow_one]
+      have e2 : Real.log T ^ (n₂ + 1) = Real.log T ^ n₂ * Real.log T :=
+        Real.rpow_add_one (by linarith) n₂
+      rw [hK, e1, e2]
+      ring
+
+/-- **`I₃` without `1/ε`**, by conjugation from `I₇`. -/
+theorem I3NoEpsBoundW {ν : ℝ → ℝ} (suppν : ν.support ⊆ Icc (1 / 2) 2) (diffν : ContDiff ℝ 1 ν)
+    {D : ℝ → ℝ} (hD : DepthOK D) {n₂ : ℝ} (n₂_pos : 0 < n₂) {Cζ : ℝ}
+    (hCζ : LogDerivZetaHasBoundW D n₂ Cζ) (Cζpos : 0 < Cζ) :
+    ∃ C > 0, ∀ (X : ℝ) (_ : 3 < X) {ε : ℝ} (_ : 0 < ε) (_ : ε < 1) {T : ℝ} (_ : 3 < T),
+      ‖I₃ ν ε T X (1 - D T)‖ ≤ C * X * X ^ (-D T) * Real.log T ^ (n₂ + 1) := by
+  obtain ⟨C, Cpos, h⟩ := I7NoEpsBoundW suppν diffν hD n₂_pos hCζ Cζpos
+  refine ⟨C, Cpos, fun X hX ε hε0 hε1 T hT ↦ ?_⟩
+  have := h X hX hε0 hε1 hT
+  rwa [I7I3 (by linarith), norm_conj] at this
+
+/-- **`I₄` without `1/ε`**: `|I₄| ≤ C X^{1 − D T}`. On the segment `|ζ'/ζ|` is bounded (a compact set where
+it is holomorphic) and `|M(s)| ≤ B/|s| ≤ B`. -/
+theorem I4NoEpsBoundW {ν : ℝ → ℝ} (suppν : ν.support ⊆ Icc (1 / 2) 2) (diffν : ContDiff ℝ 1 ν)
+    {σ₂ : ℝ} (holo2 : LogDerivZetaIsHoloSmall σ₂) (hσ₂ : σ₂ ∈ Ioo 0 1) {D : ℝ → ℝ}
+    (hD : DepthOK D) :
+    ∃ C ≥ 0, ∀ (X : ℝ) (_ : 3 < X) {ε : ℝ} (_ : 0 < ε) (_ : ε < 1) {T : ℝ} (_ : 3 < T)
+      (_ : σ₂ ≤ 1 - D T), ‖I₄ ν ε X (1 - D T) σ₂‖ ≤ C * X * X ^ (-D T) := by
+  obtain ⟨B, Bpos, hB⟩ := MellinOfSmooth1d diffν suppν
+  have hcont : ContinuousOn (fun σ : ℝ ↦ ζ' ((σ : ℂ) - 3 * I) / ζ ((σ : ℂ) - 3 * I))
+      (Icc σ₂ 1) := by
+    refine holo2.continuousOn.comp' (by fun_prop) ?_
+    intro σ hσ
+    refine ⟨?_, ?_⟩
+    · rw [mem_reProdIm]
+      have hre : ((σ : ℂ) - 3 * I).re = σ := by simp
+      have him : ((σ : ℂ) - 3 * I).im = -3 := by simp
+      rw [hre, him, uIcc_of_le (by linarith [hσ₂.2]), uIcc_of_le (by norm_num)]
+      exact ⟨⟨hσ.1, by linarith [hσ.2]⟩, by norm_num, by norm_num⟩
+    · intro h
+      have := congrArg Complex.im (mem_singleton_iff.mp h)
+      simp at this
+  obtain ⟨K, hK⟩ := isCompact_Icc.exists_bound_of_continuousOn hcont
+  have K0 : 0 ≤ K := (norm_nonneg _).trans (hK σ₂ ⟨le_rfl, hσ₂.2.le⟩)
+  refine ⟨K * B, mul_nonneg K0 Bpos.le, fun X hX ε hε0 hε1 T hT hσ₂T ↦ ?_⟩
+  have hD0 := hD.pos T hT
+  set σ₁ : ℝ := 1 - D T with hσ₁
+  have Xpos : 0 < X := by linarith
+  have hpt : ∀ σ ∈ uIoc σ₂ σ₁,
+      ‖SmoothedChebyshevIntegrand ν ε X (σ - 3 * I)‖ ≤ K * B * X ^ σ₁ := by
+    intro σ hσ
+    rw [uIoc_of_le hσ₂T] at hσ
+    have hσ0 : 0 < σ := by linarith [hσ₂.1, hσ.1]
+    have hσ1 : σ ≤ 1 := by linarith [hσ.2]
+    have hre : ((σ : ℂ) - 3 * I).re = σ := by simp
+    have hnorm : 1 ≤ ‖(σ : ℂ) - 3 * I‖ := by
+      have := Complex.abs_im_le_norm ((σ : ℂ) - 3 * I)
+      have him : ((σ : ℂ) - 3 * I).im = -3 := by simp
+      rw [him] at this
+      norm_num at this
+      linarith
+    have hM := hB ((σ : ℂ) - 3 * I) (by rw [hre]; exact hσ0) (by rw [hre]; linarith) ε hε0 hε1
+    have hM' : ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) ((σ : ℂ) - 3 * I)‖ ≤ B :=
+      hM.trans (by simpa using mul_le_mul_of_nonneg_left (inv_le_one_of_one_le₀ hnorm) Bpos.le)
+    refine (norm_SmoothedChebyshevIntegrand_le Xpos (hK σ ⟨hσ.1.le, hσ1⟩) hM').trans ?_
+    rw [hre]
+    exact mul_le_mul_of_nonneg_left (Real.rpow_le_rpow_of_exponent_le (by linarith) hσ.2)
+      (mul_nonneg K0 Bpos.le)
+  unfold I₄
+  rw [norm_mul]
+  have hint := intervalIntegral.norm_integral_le_of_norm_le_const hpt
+  have hlen : |σ₁ - σ₂| ≤ 1 := by
+    rw [abs_of_nonneg (by linarith)]
+    linarith [hσ₂.1, hD0]
+  have hKB : 0 ≤ K * B * X ^ σ₁ := mul_nonneg (mul_nonneg K0 Bpos.le) (by positivity)
+  calc ‖1 / (2 * (π : ℂ) * I)‖ * ‖∫ σ in σ₂..σ₁, SmoothedChebyshevIntegrand ν ε X (σ - 3 * I)‖
+      ≤ 1 * (K * B * X ^ σ₁ * 1) :=
+        mul_le_mul norm_twoPiI_inv_le (hint.trans (mul_le_mul_of_nonneg_left hlen hKB))
+          (norm_nonneg _) zero_le_one
+    _ = K * B * X * X ^ (-D T) := by
+      rw [hσ₁, sub_eq_add_neg, Real.rpow_add Xpos, Real.rpow_one]
+      ring
+
+/-- **`I₆` without `1/ε`**, by conjugation from `I₄`. -/
+theorem I6NoEpsBoundW {ν : ℝ → ℝ} (suppν : ν.support ⊆ Icc (1 / 2) 2) (diffν : ContDiff ℝ 1 ν)
+    {σ₂ : ℝ} (holo2 : LogDerivZetaIsHoloSmall σ₂) (hσ₂ : σ₂ ∈ Ioo 0 1) {D : ℝ → ℝ}
+    (hD : DepthOK D) :
+    ∃ C ≥ 0, ∀ (X : ℝ) (_ : 3 < X) {ε : ℝ} (_ : 0 < ε) (_ : ε < 1) {T : ℝ} (_ : 3 < T)
+      (_ : σ₂ ≤ 1 - D T), ‖I₆ ν ε X (1 - D T) σ₂‖ ≤ C * X * X ^ (-D T) := by
+  obtain ⟨C, C0, h⟩ := I4NoEpsBoundW suppν diffν holo2 hσ₂ hD
+  refine ⟨C, C0, fun X hX ε hε0 hε1 T hT hσ₂T ↦ ?_⟩
+  have := h X hX hε0 hε1 hT hσ₂T
+  rwa [I6I4 (by linarith), norm_neg, norm_conj]
+
+/-- **`I₅` without `1/ε`**: `|I₅| ≤ C X^{σ₂}`. On the segment `|ζ'/ζ|` is bounded and
+`|M(s)| ≤ B/|s| ≤ B/σ₂`. -/
+theorem I5NoEpsBound {ν : ℝ → ℝ} (suppν : ν.support ⊆ Icc (1 / 2) 2) (diffν : ContDiff ℝ 1 ν)
+    {σ₂ : ℝ} (holo2 : LogDerivZetaIsHoloSmall σ₂) (hσ₂ : σ₂ ∈ Ioo 0 1) :
+    ∃ C ≥ 0, ∀ (X : ℝ) (_ : 3 < X) {ε : ℝ} (_ : 0 < ε) (_ : ε < 1),
+      ‖I₅ ν ε X σ₂‖ ≤ C * X ^ σ₂ := by
+  obtain ⟨B, Bpos, hB⟩ := MellinOfSmooth1d diffν suppν
+  have hcont : ContinuousOn (fun t : ℝ ↦ ζ' ((σ₂ : ℂ) + t * I) / ζ ((σ₂ : ℂ) + t * I))
+      (Icc (-3) 3) := by
+    refine holo2.continuousOn.comp' (by fun_prop) ?_
+    intro t ht
+    refine ⟨?_, ?_⟩
+    · rw [mem_reProdIm]
+      have hre : ((σ₂ : ℂ) + t * I).re = σ₂ := by simp
+      have him : ((σ₂ : ℂ) + t * I).im = t := by simp
+      rw [hre, him, uIcc_of_le (by linarith [hσ₂.2]), uIcc_of_le (by norm_num)]
+      exact ⟨⟨le_rfl, by linarith [hσ₂.2]⟩, ht⟩
+    · intro h
+      have := congrArg Complex.re (mem_singleton_iff.mp h)
+      simp only [add_re, ofReal_re, mul_re, ofReal_im, I_re, mul_zero, I_im, mul_one, sub_self,
+        add_zero, one_re] at this
+      linarith [hσ₂.2]
+  obtain ⟨K, hK⟩ := isCompact_Icc.exists_bound_of_continuousOn hcont
+  have K0 : 0 ≤ K := (norm_nonneg _).trans (hK 0 ⟨by norm_num, by norm_num⟩)
+  have hKB : 0 ≤ K * (B * σ₂⁻¹) := mul_nonneg K0 (mul_nonneg Bpos.le (inv_nonneg.mpr hσ₂.1.le))
+  refine ⟨K * (B * σ₂⁻¹) * 6, mul_nonneg hKB (by norm_num), fun X hX ε hε0 hε1 ↦ ?_⟩
+  have Xpos : 0 < X := by linarith
+  have hpt : ∀ t ∈ uIoc (-3 : ℝ) 3,
+      ‖SmoothedChebyshevIntegrand ν ε X (σ₂ + t * I)‖ ≤ K * (B * σ₂⁻¹) * X ^ σ₂ := by
+    intro t ht
+    rw [uIoc_of_le (by norm_num)] at ht
+    have hre : ((σ₂ : ℂ) + t * I).re = σ₂ := by simp
+    have hnorm : σ₂ ≤ ‖(σ₂ : ℂ) + t * I‖ := by
+      have := Complex.abs_re_le_norm ((σ₂ : ℂ) + t * I)
+      rwa [hre, abs_of_pos hσ₂.1] at this
+    have hM := hB ((σ₂ : ℂ) + t * I) (by rw [hre]; exact hσ₂.1) (by rw [hre]; linarith [hσ₂.2])
+      ε hε0 hε1
+    have hM' : ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) ((σ₂ : ℂ) + t * I)‖ ≤ B * σ₂⁻¹ :=
+      hM.trans (mul_le_mul_of_nonneg_left (inv_anti₀ hσ₂.1 hnorm) Bpos.le)
+    have := norm_SmoothedChebyshevIntegrand_le Xpos (hK t ⟨ht.1.le, ht.2⟩) hM'
+    rwa [hre] at this
+  unfold I₅
+  rw [norm_mul, norm_mul, norm_I, one_mul]
+  have hint := intervalIntegral.norm_integral_le_of_norm_le_const hpt
+  calc ‖1 / (2 * (π : ℂ) * I)‖ * ‖∫ t in (-3 : ℝ)..3, SmoothedChebyshevIntegrand ν ε X (σ₂ + t * I)‖
+      ≤ 1 * (K * (B * σ₂⁻¹) * X ^ σ₂ * |3 - (-3 : ℝ)|) :=
+        mul_le_mul norm_twoPiI_inv_le hint (norm_nonneg _) zero_le_one
+    _ = K * (B * σ₂⁻¹) * 6 * X ^ σ₂ := by
+      rw [show |3 - (-3 : ℝ)| = 6 by norm_num]
+      ring
+
 open Filter Topology
 
-/-- **Generic PNT from a width-`D` region, with the small-height abscissa given** (round 337). `GenPNTW`
-with PNT+'s `σ₂` (from `LogDerivZetaHolcSmallT'`) replaced by any `σ₂ ∈ (0, 1)` at which `ζ'/ζ` is
-holomorphic on `[σ₂, 2] × [−3, 3] ∖ {1}`, and the condition `D(T(x)) → 0` by `σ₂ < 1 − D(T(x))` eventually,
-which is the only use `GenPNTW` makes of it. A depth that does not shrink, such as that of a zero-free
-half-plane, is then allowed. The four error terms are those of `GenPNTW`, the last at this `σ₂` only. -/
-theorem GenPNTW' {D : ℝ → ℝ} (hD : DepthOK D) {n₂ C₂ : ℝ} (n₂_pos : 0 < n₂) (C₂_pos : 0 < C₂)
+/-- **Generic PNT from a width-`D` region, given a bound on the segments left of `Re s = 1`** (round 338).
+The part of `GenPNTW'` that does not depend on how `I₃` to `I₇` are bounded: the smoothing, the main term, and
+`I₁`, `I₂`, `I₈`, `I₉`. Hypothesis `eL` asks, for every bump `ν` that is `C¹` and supported in `[1/2, 2]`, a
+constant `cL` with `|I₃| + |I₄| + |I₅| + |I₆| + |I₇| ≤ cL x F(x)` eventually, at `ε = ε(x)`, `T = T(x)` and
+`σ₁ = 1 − D(T(x))`. `GenPNTW'` and `GenPNTWNoEps` are its cases with PNT+'s bounds and with those of
+`MellinOfSmooth1d`. -/
+theorem GenPNTWOfLeft {D : ℝ → ℝ} (hD : DepthOK D) {n₂ C₂ : ℝ} (n₂_pos : 0 < n₂) (C₂_pos : 0 < C₂)
     (hb : LogDerivZetaHasBoundW D n₂ C₂)
     (holo : ∀ T : ℝ, 3 ≤ T → HolomorphicOn (fun s : ℂ ↦ ζ' s / ζ s)
       ((Icc (1 - D T) 2 ×ℂ Icc (-T) T) \ {1}))
@@ -825,8 +1094,10 @@ theorem GenPNTW' {D : ℝ → ℝ} (hD : DepthOK D) {n₂ C₂ : ℝ} (n₂_pos 
     (hσ₂D : ∀ᶠ x in atTop, σ₂ < 1 - D (Tx x))
     (e1 : ∀ᶠ x in atTop, εx x * Real.log x ≤ Fx x)
     (e2 : ∀ᶠ x in atTop, Real.log x / (εx x * Tx x) ≤ Fx x)
-    (e3 : ∀ᶠ x in atTop, x ^ (-D (Tx x)) / εx x ≤ Fx x)
-    (e4 : ∀ᶠ x in atTop, x ^ (σ₂ - 1) / εx x ≤ Fx x) :
+    (eL : ∀ ν : ℝ → ℝ, ContDiff ℝ 1 ν → ν.support ⊆ Icc (1 / 2) 2 → ∃ cL : ℝ, ∀ᶠ x in atTop,
+      ‖I₃ ν (εx x) (Tx x) x (1 - D (Tx x))‖ + ‖I₄ ν (εx x) x (1 - D (Tx x)) σ₂‖ +
+        ‖I₅ ν (εx x) x σ₂‖ + ‖I₆ ν (εx x) x (1 - D (Tx x)) σ₂‖ +
+        ‖I₇ ν (εx x) (Tx x) x (1 - D (Tx x))‖ ≤ cL * (x * Fx x)) :
     (ψ - id) =O[atTop] fun x : ℝ ↦ x * Fx x := by
   have ⟨ν, ContDiffν, ν_nonneg', ν_supp, ν_massOne'⟩ := SmoothExistence
   have ContDiff1ν : ContDiff ℝ 1 ν := by exact ContDiffν.of_le (by simp)
@@ -838,21 +1109,15 @@ theorem GenPNTW' {D : ℝ → ℝ} (hD : DepthOK D) {n₂ C₂ : ℝ} (n₂_pos 
     MellinOfSmooth1cExplicit ContDiff1ν ν_supp ν_massOne
   obtain ⟨c₁, c₁pos, hc₁⟩ := I1Bound ν_supp ContDiff1ν ν_nonneg ν_massOne
   obtain ⟨c₂, c₂pos, hc₂⟩ := I2GenBoundW ν_supp ContDiff1ν hD n₂_pos hb C₂_pos
-  obtain ⟨c₃, c₃pos, hc₃⟩ := I3GenBoundW ν_supp ContDiff1ν hD n₂_pos hb C₂_pos
-  obtain ⟨c₅, c₅pos, hc₅⟩ := I5Bound ν_supp ContDiff1ν holo2 σ₂InIoo
-  obtain ⟨c₇, c₇pos, hc₇⟩ := I7GenBoundW ν_supp ContDiff1ν hD n₂_pos hb C₂_pos
   obtain ⟨c₈, c₈pos, hc₈⟩ := I8GenBoundW ν_supp ContDiff1ν hD n₂_pos hb C₂_pos
   obtain ⟨c₉, c₉pos, hc₉⟩ := I9Bound ν_supp ContDiff1ν ν_nonneg ν_massOne
-  obtain ⟨c₄, c₄pos, hc₄⟩ := I4GenBoundW ν_supp ContDiff1ν holo2 σ₂InIoo hD
-  obtain ⟨c₆, c₆pos, hc₆⟩ := I6GenBoundW ν_supp ContDiff1ν holo2 σ₂InIoo hD
+  obtain ⟨cL, hcL⟩ := eL ν ContDiff1ν ν_supp
   rw [Asymptotics.isBigO_iff]
-  refine ⟨(c_close + C_main) + (c₁ + c₂ + c₈ + c₉) + (c₃ + c₄ + c₆ + c₇) + c₅, ?_⟩
-  have eventually_σ₂_lt_σ₁ := hσ₂D
-  have e4' := e4
+  refine ⟨(c_close + C_main) + (c₁ + c₂ + c₈ + c₉) + cL, ?_⟩
   filter_upwards [eventually_gt_atTop 3, (tendsto_order.mp hε).2 1 one_pos, h2,
-    hT.eventually_gt_atTop 3, eventually_σ₂_lt_σ₁, (tendsto_order.mp hε).2 ε_main ε_main_pos,
-    Real.tendsto_log_atTop.eventually_ge_atTop 1, hε0, e1, e2, e3, e4'] with X X_gt_3 ε_lt_one ε_X
-      T_gt_3 σ₂_lt_σ₁ ε_lt_ε_main logX_ge ε_pos event_1 event_2 event_3 event_4
+    hT.eventually_gt_atTop 3, hσ₂D, (tendsto_order.mp hε).2 ε_main ε_main_pos,
+    Real.tendsto_log_atTop.eventually_ge_atTop 1, hε0, e1, e2, hcL] with X X_gt_3 ε_lt_one ε_X
+      T_gt_3 σ₂_lt_σ₁ ε_lt_ε_main logX_ge ε_pos event_1 event_2 event_L
   set ε : ℝ := εx X with hεdef
   specialize h_close X X_gt_3 ε ε_pos ε_lt_one ε_X
   set ψ_ε_of_X := SmoothedChebyshev ν ε X with hψεdef
@@ -906,13 +1171,8 @@ theorem GenPNTW' {D : ℝ → ℝ} (hD : DepthOK D) {n₂ C₂ : ℝ} (n₂_pos 
     rw [norm_real, norm_of_nonneg (by linarith)]
   specialize hc₁ ε ε_pos ε_lt_one X X_gt_3 T_gt_3
   specialize hc₂ X X_gt_3 ε_pos ε_lt_one T_gt_3
-  specialize hc₃ X X_gt_3 ε_pos ε_lt_one T_gt_3
-  specialize hc₅ X X_gt_3 ε_pos ε_lt_one
-  specialize hc₇ X X_gt_3 ε_pos ε_lt_one T_gt_3
   specialize hc₈ X X_gt_3 ε_pos ε_lt_one T_gt_3
   specialize hc₉ ε_pos ε_lt_one X X_gt_3 T_gt_3
-  specialize hc₄ X X_gt_3 ε_pos ε_lt_one T_gt_3 σ₂_lt_σ₁.le
-  specialize hc₆ X X_gt_3 ε_pos ε_lt_one T_gt_3 σ₂_lt_σ₁.le
   have Xpos : 0 < X := by linarith
   have Tpos : 0 < T := by linarith
   have hF : 0 ≤ Fx X := le_trans (by positivity) event_1
@@ -928,13 +1188,6 @@ theorem GenPNTW' {D : ℝ → ℝ} (hD : DepthOK D) {n₂ C₂ : ℝ} (n₂_pos 
     refine le_trans ?_ q2
     apply div_le_div_of_nonneg_right _ (by positivity)
     exact le_mul_of_one_le_right Xpos.le logX_ge
-  have q3 : X * X ^ (-D T) / ε ≤ X * Fx X := by
-    rw [mul_div_assoc]; exact mul_le_mul_of_nonneg_left event_3 Xpos.le
-  have q4 : X ^ σ₂ / ε ≤ X * Fx X := by
-    have e : X ^ σ₂ = X * X ^ (σ₂ - 1) := by
-      rw [← Real.rpow_one_add' Xpos.le (by linarith [σ₂InIoo.1])]; ring_nf
-    rw [e, mul_div_assoc]
-    exact mul_le_mul_of_nonneg_left event_4 Xpos.le
   have hψ : ‖(ψ X : ℂ) - ψ_ε_of_X‖ ≤ c_close * ε * X * Real.log X := by
     convert! h_close using 1
     rw [← norm_neg]
@@ -944,25 +1197,16 @@ theorem GenPNTW' {D : ℝ → ℝ} (hD : DepthOK D) {n₂ C₂ : ℝ} (n₂_pos 
   have r9 : c₉ * X * Real.log X / (ε * T) = c₉ * (X * Real.log X / (ε * T)) := by ring
   have r2 : c₂ * X / (ε * T) = c₂ * (X / (ε * T)) := by ring
   have r8 : c₈ * X / (ε * T) = c₈ * (X / (ε * T)) := by ring
-  have r3 : ∀ c : ℝ, c * X * X ^ (-D T) / ε = c * (X * X ^ (-D T) / ε) := fun c ↦ by ring
-  have r5 : c₅ * X ^ σ₂ / ε = c₅ * (X ^ σ₂ / ε) := by ring
   rw [r1] at hc₁; rw [r9] at hc₉; rw [r2] at hc₂; rw [r8] at hc₈
-  rw [r3] at hc₃ hc₄ hc₆ hc₇; rw [r5] at hc₅
   have k1 := mul_le_mul_of_nonneg_left q2 c₁pos.le
   have k9 := mul_le_mul_of_nonneg_left q2 c₉pos.le
   have k2 := mul_le_mul_of_nonneg_left q2' c₂pos.le
   have k8 := mul_le_mul_of_nonneg_left q2' c₈pos.le
-  have k3 := mul_le_mul_of_nonneg_left q3 c₃pos.le
-  have k4 := mul_le_mul_of_nonneg_left q3 c₄pos
-  have k6 := mul_le_mul_of_nonneg_left q3 c₆pos
-  have k7 := mul_le_mul_of_nonneg_left q3 c₇pos.le
-  have k5 := mul_le_mul_of_nonneg_left q4 c₅pos.le
   have kc : c_close * ε * X * Real.log X ≤ c_close * (X * Fx X) := by
     have := mul_le_mul_of_nonneg_left q1 c_close_pos.le; linarith [this]
   have km : C_main * ε * X ≤ C_main * (X * Fx X) := by
     have := mul_le_mul_of_nonneg_left q0 C_main_pos.le; linarith [this]
-  have tot : ‖((ψ X : ℂ) - X)‖ ≤ ((c_close + C_main) + (c₁ + c₂ + c₈ + c₉) +
-      (c₃ + c₄ + c₆ + c₇) + c₅) * (X * Fx X) := by
+  have tot : ‖((ψ X : ℂ) - X)‖ ≤ ((c_close + C_main) + (c₁ + c₂ + c₈ + c₉) + cL) * (X * Fx X) := by
     have split : ((ψ X : ℂ) - X) = ((ψ X : ℂ) - ψ_ε_of_X) +
         (ψ_ε_of_X - 𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) 1 * X) +
         (𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) 1 * X - X) := by ring
@@ -975,6 +1219,121 @@ theorem GenPNTW' {D : ℝ → ℝ} (hD : DepthOK D) {n₂ C₂ : ℝ} (n₂_pos 
   rw [hre]
   refine tot.trans (le_of_eq ?_)
   rw [Real.norm_of_nonneg (by positivity)]
+
+/-- **Generic PNT from a width-`D` region, with the small-height abscissa given** (round 337). `GenPNTW`
+with PNT+'s `σ₂` (from `LogDerivZetaHolcSmallT'`) replaced by any `σ₂ ∈ (0, 1)` at which `ζ'/ζ` is
+holomorphic on `[σ₂, 2] × [−3, 3] ∖ {1}`, and the condition `D(T(x)) → 0` by `σ₂ < 1 − D(T(x))` eventually,
+which is the only use `GenPNTW` makes of it. A depth that does not shrink, such as that of a zero-free
+half-plane, is then allowed. The four error terms are those of `GenPNTW`, the last at this `σ₂` only. Since
+round 338 it is the case of `GenPNTWOfLeft` with PNT+'s bounds for `I₃` to `I₇`. -/
+theorem GenPNTW' {D : ℝ → ℝ} (hD : DepthOK D) {n₂ C₂ : ℝ} (n₂_pos : 0 < n₂) (C₂_pos : 0 < C₂)
+    (hb : LogDerivZetaHasBoundW D n₂ C₂)
+    (holo : ∀ T : ℝ, 3 ≤ T → HolomorphicOn (fun s : ℂ ↦ ζ' s / ζ s)
+      ((Icc (1 - D T) 2 ×ℂ Icc (-T) T) \ {1}))
+    (Tx εx Fx : ℝ → ℝ) (hT : Tendsto Tx atTop atTop)
+    (hε0 : ∀ᶠ x in atTop, 0 < εx x) (hε : Tendsto εx atTop (𝓝 0))
+    {σ₂ : ℝ} (σ₂InIoo : σ₂ ∈ Ioo 0 1)
+    (holo2 : HolomorphicOn (fun s : ℂ ↦ ζ' s / ζ s) ((uIcc σ₂ 2 ×ℂ uIcc (-3) 3) \ {1}))
+    (h2 : ∀ᶠ x in atTop, 2 < x * εx x)
+    (hσ₂D : ∀ᶠ x in atTop, σ₂ < 1 - D (Tx x))
+    (e1 : ∀ᶠ x in atTop, εx x * Real.log x ≤ Fx x)
+    (e2 : ∀ᶠ x in atTop, Real.log x / (εx x * Tx x) ≤ Fx x)
+    (e3 : ∀ᶠ x in atTop, x ^ (-D (Tx x)) / εx x ≤ Fx x)
+    (e4 : ∀ᶠ x in atTop, x ^ (σ₂ - 1) / εx x ≤ Fx x) :
+    (ψ - id) =O[atTop] fun x : ℝ ↦ x * Fx x := by
+  refine GenPNTWOfLeft hD n₂_pos C₂_pos hb holo Tx εx Fx hT hε0 hε σ₂InIoo holo2 h2 hσ₂D e1 e2
+    fun ν hν hsupp ↦ ?_
+  obtain ⟨c₃, c₃pos, hc₃⟩ := I3GenBoundW hsupp hν hD n₂_pos hb C₂_pos
+  obtain ⟨c₄, c₄pos, hc₄⟩ := I4GenBoundW hsupp hν holo2 σ₂InIoo hD
+  obtain ⟨c₅, c₅pos, hc₅⟩ := I5Bound hsupp hν holo2 σ₂InIoo
+  obtain ⟨c₆, c₆pos, hc₆⟩ := I6GenBoundW hsupp hν holo2 σ₂InIoo hD
+  obtain ⟨c₇, c₇pos, hc₇⟩ := I7GenBoundW hsupp hν hD n₂_pos hb C₂_pos
+  refine ⟨c₃ + c₄ + c₅ + c₆ + c₇, ?_⟩
+  filter_upwards [eventually_gt_atTop 3, (tendsto_order.mp hε).2 1 one_pos,
+    hT.eventually_gt_atTop 3, hσ₂D, hε0, e3, e4] with X X_gt_3 ε_lt_one T_gt_3 σ₂_lt_σ₁ ε_pos
+      event_3 event_4
+  set ε : ℝ := εx X with hεdef
+  set T : ℝ := Tx X with hTdef
+  have Xpos : 0 < X := by linarith
+  have q3 : X * X ^ (-D T) / ε ≤ X * Fx X := by
+    rw [mul_div_assoc]; exact mul_le_mul_of_nonneg_left event_3 Xpos.le
+  have q4 : X ^ σ₂ / ε ≤ X * Fx X := by
+    have e : X ^ σ₂ = X * X ^ (σ₂ - 1) := by
+      rw [← Real.rpow_one_add' Xpos.le (by linarith [σ₂InIoo.1])]; ring_nf
+    rw [e, mul_div_assoc]
+    exact mul_le_mul_of_nonneg_left event_4 Xpos.le
+  specialize hc₃ X X_gt_3 ε_pos ε_lt_one T_gt_3
+  specialize hc₄ X X_gt_3 ε_pos ε_lt_one T_gt_3 σ₂_lt_σ₁.le
+  specialize hc₅ X X_gt_3 ε_pos ε_lt_one
+  specialize hc₆ X X_gt_3 ε_pos ε_lt_one T_gt_3 σ₂_lt_σ₁.le
+  specialize hc₇ X X_gt_3 ε_pos ε_lt_one T_gt_3
+  have r3 : ∀ c : ℝ, c * X * X ^ (-D T) / ε = c * (X * X ^ (-D T) / ε) := fun c ↦ by ring
+  have r5 : c₅ * X ^ σ₂ / ε = c₅ * (X ^ σ₂ / ε) := by ring
+  rw [r3] at hc₃ hc₄ hc₆ hc₇; rw [r5] at hc₅
+  have k3 := mul_le_mul_of_nonneg_left q3 c₃pos.le
+  have k4 := mul_le_mul_of_nonneg_left q3 c₄pos
+  have k6 := mul_le_mul_of_nonneg_left q3 c₆pos
+  have k7 := mul_le_mul_of_nonneg_left q3 c₇pos.le
+  have k5 := mul_le_mul_of_nonneg_left q4 c₅pos.le
+  linarith
+
+/-- **Generic PNT from a width-`D` region, without `1/ε` on the left** (round 338). `GenPNTW'` with its
+error terms `x^{−D(T)}/ε` and `x^{σ₂−1}/ε` replaced by `x^{−D(T)} (log T)^{n₂+1}` and `x^{σ₂−1}`: the case of
+`GenPNTWOfLeft` with the bounds `I3NoEpsBoundW` to `I7NoEpsBoundW`, which come from `MellinOfSmooth1d`. -/
+theorem GenPNTWNoEps {D : ℝ → ℝ} (hD : DepthOK D) {n₂ C₂ : ℝ} (n₂_pos : 0 < n₂) (C₂_pos : 0 < C₂)
+    (hb : LogDerivZetaHasBoundW D n₂ C₂)
+    (holo : ∀ T : ℝ, 3 ≤ T → HolomorphicOn (fun s : ℂ ↦ ζ' s / ζ s)
+      ((Icc (1 - D T) 2 ×ℂ Icc (-T) T) \ {1}))
+    (Tx εx Fx : ℝ → ℝ) (hT : Tendsto Tx atTop atTop)
+    (hε0 : ∀ᶠ x in atTop, 0 < εx x) (hε : Tendsto εx atTop (𝓝 0))
+    {σ₂ : ℝ} (σ₂InIoo : σ₂ ∈ Ioo 0 1)
+    (holo2 : HolomorphicOn (fun s : ℂ ↦ ζ' s / ζ s) ((uIcc σ₂ 2 ×ℂ uIcc (-3) 3) \ {1}))
+    (h2 : ∀ᶠ x in atTop, 2 < x * εx x)
+    (hσ₂D : ∀ᶠ x in atTop, σ₂ < 1 - D (Tx x))
+    (e1 : ∀ᶠ x in atTop, εx x * Real.log x ≤ Fx x)
+    (e2 : ∀ᶠ x in atTop, Real.log x / (εx x * Tx x) ≤ Fx x)
+    (e3 : ∀ᶠ x in atTop, x ^ (-D (Tx x)) * Real.log (Tx x) ^ (n₂ + 1) ≤ Fx x)
+    (e4 : ∀ᶠ x in atTop, x ^ (σ₂ - 1) ≤ Fx x) :
+    (ψ - id) =O[atTop] fun x : ℝ ↦ x * Fx x := by
+  refine GenPNTWOfLeft hD n₂_pos C₂_pos hb holo Tx εx Fx hT hε0 hε σ₂InIoo holo2 h2 hσ₂D e1 e2
+    fun ν hν hsupp ↦ ?_
+  obtain ⟨c₃, c₃pos, hc₃⟩ := I3NoEpsBoundW hsupp hν hD n₂_pos hb C₂_pos
+  obtain ⟨c₄, c₄pos, hc₄⟩ := I4NoEpsBoundW hsupp hν holo2 σ₂InIoo hD
+  obtain ⟨c₅, c₅pos, hc₅⟩ := I5NoEpsBound hsupp hν holo2 σ₂InIoo
+  obtain ⟨c₆, c₆pos, hc₆⟩ := I6NoEpsBoundW hsupp hν holo2 σ₂InIoo hD
+  obtain ⟨c₇, c₇pos, hc₇⟩ := I7NoEpsBoundW hsupp hν hD n₂_pos hb C₂_pos
+  refine ⟨c₃ + c₄ + c₅ + c₆ + c₇, ?_⟩
+  filter_upwards [eventually_gt_atTop 3, (tendsto_order.mp hε).2 1 one_pos,
+    hT.eventually_gt_atTop 3, hσ₂D, hε0, e3, e4] with X X_gt_3 ε_lt_one T_gt_3 σ₂_lt_σ₁ ε_pos
+      event_3 event_4
+  set ε : ℝ := εx X with hεdef
+  set T : ℝ := Tx X with hTdef
+  have Xpos : 0 < X := by linarith
+  have hL1 : 1 ≤ Real.log T ^ (n₂ + 1) :=
+    Real.one_le_rpow (logt_gt_one T_gt_3.le).le (by linarith)
+  have q3 : X * X ^ (-D T) * Real.log T ^ (n₂ + 1) ≤ X * Fx X := by
+    rw [mul_assoc]; exact mul_le_mul_of_nonneg_left event_3 Xpos.le
+  have q4 : X * X ^ (-D T) ≤ X * Fx X := (le_mul_of_one_le_right (by positivity) hL1).trans q3
+  have q5 : X ^ σ₂ ≤ X * Fx X := by
+    have e : X ^ σ₂ = X * X ^ (σ₂ - 1) := by
+      rw [← Real.rpow_one_add' Xpos.le (by linarith [σ₂InIoo.1])]; ring_nf
+    rw [e]
+    exact mul_le_mul_of_nonneg_left event_4 Xpos.le
+  specialize hc₃ X X_gt_3 ε_pos ε_lt_one T_gt_3
+  specialize hc₄ X X_gt_3 ε_pos ε_lt_one T_gt_3 σ₂_lt_σ₁.le
+  specialize hc₅ X X_gt_3 ε_pos ε_lt_one
+  specialize hc₆ X X_gt_3 ε_pos ε_lt_one T_gt_3 σ₂_lt_σ₁.le
+  specialize hc₇ X X_gt_3 ε_pos ε_lt_one T_gt_3
+  have r3 : ∀ c : ℝ, c * X * X ^ (-D T) * Real.log T ^ (n₂ + 1) =
+      c * (X * X ^ (-D T) * Real.log T ^ (n₂ + 1)) := fun c ↦ by ring
+  have r4 : ∀ c : ℝ, c * X * X ^ (-D T) = c * (X * X ^ (-D T)) := fun c ↦ by ring
+  rw [r3] at hc₃ hc₇; rw [r4] at hc₄ hc₆
+  have k3 := mul_le_mul_of_nonneg_left q3 c₃pos.le
+  have k7 := mul_le_mul_of_nonneg_left q3 c₇pos.le
+  have k4 := mul_le_mul_of_nonneg_left q4 c₄pos
+  have k6 := mul_le_mul_of_nonneg_left q4 c₆pos
+  have k5 := mul_le_mul_of_nonneg_left q5 c₅pos
+  linarith
 
 /-- **Generic PNT from a width-`D` region.** If `ζ'/ζ` is bounded by a power of `log|t|` on
 `σ ≥ 1 − D|t|` and holomorphic on the boxes `[1 − D T, 2] × [−T, T] ∖ {1}`, then for any choice of

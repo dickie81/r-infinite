@@ -11,7 +11,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LandauKV.lean` | 215 | the Korobov–Vinogradov zero-free region |
 | `LogDerivKV.lean`, `MediumPNTW.lean`, `PNTKV.lean` | 216 | the prime number theorem with the Korobov–Vinogradov error term |
 | `KaiserKV.lean` | 234 | the Korobov–Vinogradov region in the Kaiser prefactor: `λ₁(a) ≤ K(a+1)exp(10a − c·a^{1/3}/(log a)^{1/3} − 4πe^{2a})` |
-| `HalfPlanePNT.lean` | 337 | a zero-free half-plane `Re s > θ` gives `ψ(x) − x = O(x^{(1+θ)/2+ε})` |
+| `HalfPlanePNT.lean` | 337, 338 | a zero-free half-plane `Re s > θ` gives `ψ(x) − x = O(x^{θ+ε})` |
 
 ## Building (round 217)
 
@@ -86,11 +86,12 @@ All axioms are clean. See the main README, round 234.
 
 All axioms are clean. See the main README, round 235.
 
-## HalfPlanePNT.lean (round 337)
+## HalfPlanePNT.lean (rounds 337, 338)
 
 - `riemannZeta_linear_growth`: `|ζ(s)| ≤ (5/2 + 1/δ)|Im s|` for `Re s ≥ δ > 0`, `|Im s| ≥ 1`, from PNT+'s Euler–Maclaurin formula. The proof is that of zeta23's `RvM.norm_riemannZeta_le_of_re_pos`, run against PNT+.
 - `logDeriv_le_of_zeroFree`: if `ζ(s) ≠ 0` on `Re s > θ ≥ 0`, then `|ζ'/ζ(σ + it)| ≤ C log|t|` for `σ ≥ θ' > θ` and `|t| > 3`, through PNT+'s `FinalBound` on a disc that holds no zero.
 - `MediumPNTW.GenPNTW'`: `GenPNTW` with the abscissa `σ₂` of the small-height box as a parameter, and `σ₂ < 1 − D(T(x))` eventually in place of `D(T(x)) → 0`, so a constant depth is allowed. `GenPNTW` is its case with PNT+'s `σ₂`.
-- `psi_isBigO_of_zeroFree`: if `ζ(s) ≠ 0` on `Re s > θ` with `θ < 1`, then `ψ(x) − x = O(x^{(1+θ)/2+ε})` for every `ε > 0`. Its instances are `psi_isBigO_of_smoothBound` (round 278's `SmoothBound θ`) and `psi_isBigO_of_completed` (`O(x^{23/24+ε})` under round 326's completed mean square). The exponent is `(1+θ)/2`, not the classical `θ`; see the main README, round 337.
+- `MediumPNTW.MellinOfSmooth1d` (round 338): `|M(Smooth1 ν ε)(s)| ≤ B/|s|` for `0 < Re s ≤ 2` and `0 < ε < 1`, with `B` independent of `ε`, from PNT+'s `MellinOfSmooth1a`. With it the five segments left of `Re s = 1` are bounded without the factor `1/ε` (`I3NoEpsBoundW` to `I7NoEpsBoundW`, `I5NoEpsBound`). `GenPNTWOfLeft` is the contour argument with the bound on those five segments as a hypothesis. `GenPNTW'` is its case with PNT+'s bounds, and `GenPNTWNoEps` its case with these.
+- `psi_isBigO_of_zeroFree`: if `ζ(s) ≠ 0` on `Re s > θ` with `θ < 1`, then `ψ(x) − x = O(x^{θ+ε})` for every `ε > 0`, through `GenPNTWNoEps`. Its instances are `psi_isBigO_of_smoothBound` (round 278's `SmoothBound θ`) and `psi_isBigO_of_completed` (`O(x^{11/12+ε})` under round 326's completed mean square). Round 337 had the exponent `(1+θ)/2 + ε`, through `GenPNTW'`; see the main README, rounds 337 and 338.
 
 For the instances, the file imports `src/HalfPlaneS0.lean` and `src/EisensteinTransferEstimate.lean`. All axioms are clean.

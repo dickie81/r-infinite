@@ -3,9 +3,9 @@
 
 Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
-Plain statement. If `ζ(s) ≠ 0` for `Re s > θ`, `θ < 1`, then `ψ(x) − x = O(x^{(1+θ)/2+ε})` for every `ε > 0`
+Plain statement. If `ζ(s) ≠ 0` for `Re s > θ`, `θ < 1`, then `ψ(x) − x = O(x^{θ+ε})` for every `ε > 0`
 (`psi_isBigO_of_zeroFree`). Under round 278's `SmoothBound θ` and under the completed mean square of round
-326 (`Re s > 11/12`) this gives `O(x^{(1+θ)/2+ε})` and `O(x^{23/24+ε})`.
+326 (`Re s > 11/12`) this gives `O(x^{θ+ε})` and `O(x^{11/12+ε})`.
 
 * `riemannZeta_linear_growth`: `|ζ(s)| ≤ (5/2 + 1/δ)|Im s|` for `Re s ≥ δ > 0`, `|Im s| ≥ 1`, from PNT+'s
   Euler–Maclaurin formula.
@@ -13,11 +13,12 @@ Plain statement. If `ζ(s) ≠ 0` for `Re s > θ`, `θ < 1`, then `ψ(x) − x =
   `σ ≥ θ'`, `|t| > 3`, for every `θ' > θ`. Left of `3/2` this is PNT+'s `FinalBound` (Borel–Carathéodory with
   the zeros divided out) on the disc of radius `3/2 − θ` around `3/2 + it`, which holds no zero, with radii
   fixed by `θ'` (`disc_point`); right of `3/2`, PNT+'s `LogDerivZetaBdd_of_Re_ge_three_halves`.
-* `psi_isBigO_of_zeroFree`: `MediumPNTW.GenPNTW'` at the constant depth `1 − θ'`.
+* `psi_isBigO_of_zeroFree`: `MediumPNTW.GenPNTWNoEps` at the constant depth `1 − θ'`.
 
-The exponent is `(1+θ)/2`, not the classical `θ`: in the contour argument the segments left of `Re s = 1`
-cost `x^{θ'}/ε` (PNT+'s `I3GenBoundW`-type bounds, through `MellinOfSmooth1b`), against `εx` for the
-smoothing, and the two balance at `ε = x^{−(1−θ')/2}`.
+Round 338: the exponent is the classical `θ + ε`. Round 337 had `(1+θ)/2 + ε`: through `MediumPNTW.GenPNTW'`
+the segments left of `Re s = 1` cost `x^{θ'}/ε` (PNT+'s bounds, through `MellinOfSmooth1b`) against `εx` for
+the smoothing, and the two balanced at `ε = x^{−(1−θ')/2}`. Through `GenPNTWNoEps` they cost
+`x^{θ'} (log x)²`, so the smoothing width can be `x^{θ'−1}`.
 -/
 import MediumPNTW
 import Landau
@@ -345,20 +346,16 @@ open scoped Chebyshev
 
 open MediumPNTW
 
-/-- `x^y / x^z = x^{y − z}` for `x > 0`. -/
-lemma rpow_div_rpow' {x : ℝ} (hx : 0 < x) (y z : ℝ) : x ^ y / x ^ z = x ^ (y - z) :=
-  (Real.rpow_sub hx y z).symm
-
 /-- **A zero-free half-plane gives a power saving in the prime number theorem.** If `ζ(s) ≠ 0` for
-`Re s > β` with `β < 1`, then `ψ(x) − x = O(x^{(1+β)/2+ε})` for every `ε > 0`. `GenPNTW'` at the
-constant depth `1 − β'`, `β' = β + min(ε, (1 − β)/2)`, with `T = x`, smoothing width `x^{−(1−β')/2}` and the
-bound of `logDeriv_le_of_zeroFree`. (`β` for the abscissa: `θ` is Chebyshev's function here.) -/
+`Re s > β` with `β < 1`, then `ψ(x) − x = O(x^{β+ε})` for every `ε > 0`. `GenPNTWNoEps` at the constant depth
+`1 − β'`, `β' = β + min(ε/2, (1 − β)/2)`, with `T = x`, smoothing width `x^{β'−1}` and the bound of
+`logDeriv_le_of_zeroFree`. (`β` for the abscissa: `θ` is Chebyshev's function here.) -/
 theorem psi_isBigO_of_zeroFree {β : ℝ} (hβ1 : β < 1) (hzf : ∀ s : ℂ, β < s.re → ζ s ≠ 0) {ε : ℝ}
-    (hε : 0 < ε) : (ψ - id) =O[atTop] fun x : ℝ ↦ x ^ ((1 + β) / 2 + ε) := by
+    (hε : 0 < ε) : (ψ - id) =O[atTop] fun x : ℝ ↦ x ^ (β + ε) := by
   have hβ := half_le_of_zeroFree hzf
-  set η : ℝ := min ε ((1 - β) / 2) with hηdef
-  have hη : 0 < η := lt_min hε (by linarith)
-  have hηε : η ≤ ε := min_le_left _ _
+  set η : ℝ := min (ε / 2) ((1 - β) / 2) with hηdef
+  have hη : 0 < η := lt_min (by linarith) (by linarith)
+  have hηε : η ≤ ε / 2 := min_le_left _ _
   have hη1 : η ≤ (1 - β) / 2 := min_le_right _ _
   set β' : ℝ := β + η with hβ'def
   have hβ'1 : β' < 1 := by linarith
@@ -383,9 +380,9 @@ theorem psi_isBigO_of_zeroFree {β : ℝ} (hβ1 : β < 1) (hzf : ∀ s : ℂ, β
       have h := (Complex.mem_reProdIm.mp hs.1).1
       rw [uIcc_of_le (by linarith)] at h
       linarith [h.1]))
-  set a : ℝ := (1 - β') / 2 with hadef
+  set a : ℝ := 1 - β' with hadef
   have ha : 0 < a := by linarith
-  set b : ℝ := ε / 2 with hbdef
+  set b : ℝ := ε / 4 with hbdef
   have hb0 : 0 < b := by linarith
   -- `log x ≤ x^b` eventually
   have hlog : ∀ᶠ x in atTop, Real.log x ≤ x ^ b := by
@@ -394,7 +391,8 @@ theorem psi_isBigO_of_zeroFree {β : ℝ} (hβ1 : β < 1) (hzf : ∀ s : ℂ, β
     rw [one_mul, Real.norm_of_nonneg (Real.log_nonneg hx1.le),
       Real.norm_of_nonneg (by positivity)] at hx
     exact hx
-  have key := GenPNTW' hD one_pos hC hb holo (fun x ↦ x) (fun x ↦ x ^ (-a)) (fun x ↦ x ^ (-a + b))
+  have key := GenPNTWNoEps hD one_pos hC hb holo (fun x ↦ x) (fun x ↦ x ^ (-a))
+    (fun x ↦ x ^ (-a + 2 * b))
     tendsto_id
     (by filter_upwards [eventually_gt_atTop 0] with x hx using Real.rpow_pos_of_pos hx _)
     (tendsto_rpow_neg_atTop ha)
@@ -408,9 +406,11 @@ theorem psi_isBigO_of_zeroFree {β : ℝ} (hβ1 : β < 1) (hzf : ∀ s : ℂ, β
       exact hx)
     (Eventually.of_forall fun x ↦ by simp only [hDdef]; linarith)
     (by -- `ε log x ≤ F`
-      filter_upwards [hlog, eventually_gt_atTop 0] with x hx hx0
-      rw [Real.rpow_add hx0]
-      exact mul_le_mul_of_nonneg_left hx (by positivity))
+      filter_upwards [hlog, eventually_gt_atTop 1] with x hx hx1
+      have hx0 : 0 < x := by linarith
+      calc x ^ (-a) * Real.log x ≤ x ^ (-a) * x ^ b := mul_le_mul_of_nonneg_left hx (by positivity)
+        _ = x ^ (-a + b) := (Real.rpow_add hx0 _ _).symm
+        _ ≤ x ^ (-a + 2 * b) := Real.rpow_le_rpow_of_exponent_le hx1.le (by linarith))
     (by -- `log x/(ε T) ≤ F`
       filter_upwards [hlog, eventually_gt_atTop 1] with x hx hx1
       have hx0 : 0 < x := by linarith
@@ -418,37 +418,39 @@ theorem psi_isBigO_of_zeroFree {β : ℝ} (hβ1 : β < 1) (hzf : ∀ s : ℂ, β
         rw [mul_comm, sub_eq_add_neg, Real.rpow_add hx0, Real.rpow_one]
       rw [e, div_le_iff₀ (by positivity), ← Real.rpow_add hx0]
       calc Real.log x ≤ x ^ b := hx
-        _ ≤ x ^ (-a + b + (1 - a)) := Real.rpow_le_rpow_of_exponent_le hx1.le (by linarith))
-    (by -- `x^{−D}/ε ≤ F`
-      filter_upwards [eventually_gt_atTop 1] with x hx1
+        _ ≤ x ^ (-a + 2 * b + (1 - a)) := Real.rpow_le_rpow_of_exponent_le hx1.le (by linarith))
+    (by -- `x^{−D} (log T)² ≤ F`
+      filter_upwards [hlog, eventually_gt_atTop 1] with x hx hx1
       have hx0 : 0 < x := by linarith
-      simp only [hDdef]
-      rw [rpow_div_rpow' hx0]
-      exact Real.rpow_le_rpow_of_exponent_le hx1.le (by simp only [hadef]; linarith))
-    (by -- `x^{σ₂−1}/ε ≤ F`
+      have hl0 : 0 ≤ Real.log x := Real.log_nonneg hx1.le
+      show x ^ (-a) * Real.log x ^ ((1 : ℝ) + 1) ≤ x ^ (-a + 2 * b)
+      rw [Real.rpow_add_one (Real.log_pos hx1).ne' 1, Real.rpow_one]
+      calc x ^ (-a) * (Real.log x * Real.log x) ≤ x ^ (-a) * (x ^ b * x ^ b) :=
+            mul_le_mul_of_nonneg_left (mul_le_mul hx hx hl0 (by positivity)) (by positivity)
+        _ = x ^ (-a + 2 * b) := by
+            rw [← Real.rpow_add hx0, ← Real.rpow_add hx0]
+            ring_nf)
+    (by -- `x^{σ₂−1} ≤ F`
       filter_upwards [eventually_gt_atTop 1] with x hx1
-      have hx0 : 0 < x := by linarith
-      rw [rpow_div_rpow' hx0]
       exact Real.rpow_le_rpow_of_exponent_le hx1.le (by simp only [hadef, hσ₂def, hβ'def]; linarith))
   refine key.trans (Asymptotics.IsBigO.of_bound 1 ?_)
   filter_upwards [eventually_gt_atTop 1] with x hx1
   have hx0 : 0 < x := by linarith
   rw [Real.norm_of_nonneg (by positivity), Real.norm_of_nonneg (by positivity), one_mul]
-  rw [show x * x ^ (-a + b) = x ^ (1 + (-a + b)) by rw [Real.rpow_add hx0 1 (-a + b), Real.rpow_one]]
+  rw [show x * x ^ (-a + 2 * b) = x ^ (1 + (-a + 2 * b)) by
+    rw [Real.rpow_add hx0 1 (-a + 2 * b), Real.rpow_one]]
   exact Real.rpow_le_rpow_of_exponent_le hx1.le (by simp only [hadef, hbdef, hβ'def]; linarith)
 
-/-- Under round 278's `SmoothBound β`, `β < 1`: `ψ(x) − x = O(x^{(1+β)/2+ε})`. -/
+/-- Under round 278's `SmoothBound β`, `β < 1`: `ψ(x) − x = O(x^{β+ε})`. -/
 theorem psi_isBigO_of_smoothBound {β : ℝ} (h : HalfPlaneS0.SmoothBound β) (hβ1 : β < 1) {ε : ℝ}
-    (hε : 0 < ε) : (ψ - id) =O[atTop] fun x : ℝ ↦ x ^ ((1 + β) / 2 + ε) :=
+    (hε : 0 < ε) : (ψ - id) =O[atTop] fun x : ℝ ↦ x ^ (β + ε) :=
   psi_isBigO_of_zeroFree hβ1 (fun _ hs ↦ (HalfPlaneS0.ne_zero_of_smoothBound h hs).1) hε
 
 /-- Under the completed mean square (`Eis.CompletedMeanSquare`, the companion paper's Proposition 5.2), which
-gives `ζ(s) ≠ 0` on `Re s > 11/12` (round 326): `ψ(x) − x = O(x^{23/24+ε})`. -/
+gives `ζ(s) ≠ 0` on `Re s > 11/12` (round 326): `ψ(x) − x = O(x^{11/12+ε})`. -/
 theorem psi_isBigO_of_completed (hC : Eis.CompletedMeanSquare) {ε : ℝ} (hε : 0 < ε) :
-    (ψ - id) =O[atTop] fun x : ℝ ↦ x ^ ((23 : ℝ) / 24 + ε) := by
-  have h := psi_isBigO_of_zeroFree (by norm_num : (11 : ℝ) / 12 < 1)
-    (fun _ hs ↦ (Eis.ne_zero_of_completed hC hs).1) hε
-  convert h using 3; norm_num
+    (ψ - id) =O[atTop] fun x : ℝ ↦ x ^ ((11 : ℝ) / 12 + ε) :=
+  psi_isBigO_of_zeroFree (by norm_num) (fun _ hs ↦ (Eis.ne_zero_of_completed hC hs).1) hε
 
 end PNT
 
