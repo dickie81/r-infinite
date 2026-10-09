@@ -152,8 +152,6 @@ theorem piece_bound {σ a' a₀ Y' Y B H₀ : ℝ} (hσ : 0 < σ) (ha' : 0 ≤ a
 
 theorem nI_eq_absNorm (A : Finset Pr) : nI A = (absNorm (idl A) : ℝ) := rfl
 
-theorem one_le_nI' (A : Finset Pr) : 1 ≤ nI A := one_le_nI A
-
 /-- The coefficient bound of a piece is at most `a₀`. -/
 theorem piece_coef_le {a₀ : ℝ} (ha₀ : 0 ≤ a₀) (Q T T₁ : Finset Pr) :
     a₀ * (∏ P ∈ Q \ T, (Real.sqrt (absNorm P.1 : ℝ))⁻¹) *
