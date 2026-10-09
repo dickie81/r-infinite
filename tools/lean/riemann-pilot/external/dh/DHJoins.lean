@@ -5,10 +5,11 @@ import DHChannels
 import DHOddPacket
 import DHLocateFour
 import WeilChiDensity
+import WeilTwinGeneral
 
-/-! # Joins in the Davenport–Heilbronn layer (round 328)
+/-! # Joins in the Davenport–Heilbronn layer (rounds 328–329)
 
-Five results whose parts the layer already had, but which no file stated. None needs new analysis.
+Results whose parts the layer already had, but which no file stated. None needs new analysis.
 
 **`DHRH ↔ DHRHcross`** (`dhRH_iff_cross`). `dhRH_of_cross` (DHColumn, round 263) takes the exclusion of
 positive real zeros as a named input `hreal`, and `dh_ne_zero_of_real` (DHRealAxis, the same round)
@@ -39,6 +40,14 @@ support: DHForm's proof of `QDHu_form`, with `fχ` (DirichletOmega), `qC χ` (We
 and `archEQ_congr_ae`, which hold for every `q` but live in this layer, so it is stated here and not in
 `src/`. It defines the χ ground energy `λ_χ(a)` (`lamC`), non-increasing in the support
 (`lamC_antitone`), the first piece of the ground-state layer for `χ` that round 227 lists as not ported.
+
+**GRH(χ) iff `λ_χ ≥ 0` at every support** (`grh_iff_lamC_nonneg`, round 329). `Q_χ ≥ 0` on every probe at
+every support iff `λ_χ ≥ 0` at every support, for every `χ` (`probe_nonneg_iff_lamC_nonneg`), so round 227's
+`weil_criterion_chi` (for `GoodChar χ` with `L(σ, χ) ≠ 0` on `(0, 1)`) becomes a statement about `λ_χ`.
+Since `λ_χ` is non-increasing, GRH(χ) also holds iff `λ_χ ≥ 0` at all large supports
+(`grh_iff_lamC_eventually_nonneg`), and its failure makes `λ_χ` negative from some support on
+(`exists_lamC_neg_of_not_GRH`). Instances: `χ₋₃`, `χ₋₄`, `χ₋₈` and `χ₋₇`, the characters whose Weil
+criterion the stack proves.
 -/
 
 open Real Complex MeasureTheory Set Filter Topology
@@ -212,6 +221,83 @@ theorem lamC_antitone {a b : ℝ} (ha : 0 < a) (hab : a ≤ b) : lamC χ b ≤ l
 
 end ChiForm
 
+/-! ## GRH(χ) and the χ ground energy (round 329) -/
+
+section ChiGRH
+
+open DirichletCharacter
+
+variable {N : ℕ} [NeZero N] {χ : DirichletCharacter ℂ N}
+
+/-- **`Q_χ ≥ 0` on every probe at every support iff `λ_χ ≥ 0` at every support**, for every `χ`
+(`QC_eq_QCu`, `lamC_mul_le`). -/
+theorem probe_nonneg_iff_lamC_nonneg (χ : DirichletCharacter ℂ N) :
+    (∀ (a : ℝ) (g : ℝ → ℝ), 0 < a → Probe a g → 0 ≤ QC χ a g) ↔ ∀ a : ℝ, 0 < a → 0 ≤ lamC χ a := by
+  constructor
+  · intro h a ha
+    show 0 ≤ sInf {q | ∃ h, Probe a h ∧ normSq h = 1 ∧ QCu χ h = q}
+    refine le_csInf ⟨_, box a, box_probe a, normSq_box ha, rfl⟩ ?_
+    rintro q ⟨g, hp, -, rfl⟩
+    rw [← QC_eq_QCu (χ := χ) hp ha]
+    exact h a g ha hp
+  · intro h a g ha hp
+    rw [QC_eq_QCu (χ := χ) hp ha]
+    exact (mul_nonneg (h a ha) (normSq_nonneg g)).trans (lamC_mul_le hp)
+
+/-- **Under GRH(χ), `λ_χ ≥ 0` at every support** (the χ column of `lam_nonneg_of_RH`). -/
+theorem lamC_nonneg_of_GRH (hG : GoodChar χ) (hGRH : GRH χ) {a : ℝ} (ha : 0 < a) : 0 ≤ lamC χ a :=
+  (probe_nonneg_iff_lamC_nonneg χ).1 (fun _ _ ha hp => QC_nonneg_of_GRH_all hG hGRH hp ha) a ha
+
+/-- **GRH(χ) iff `λ_χ ≥ 0` at every support**, given `L(σ, χ) ≠ 0` on `(0, 1)`: round 227's
+`weil_criterion_chi` through `probe_nonneg_iff_lamC_nonneg`. -/
+theorem grh_iff_lamC_nonneg (hG : GoodChar χ) (hS : ∀ σ : ℝ, 0 < σ → σ < 1 → LFunction χ σ ≠ 0) :
+    GRH χ ↔ ∀ a : ℝ, 0 < a → 0 ≤ lamC χ a :=
+  (weil_criterion_chi hG hS).symm.trans (probe_nonneg_iff_lamC_nonneg χ)
+
+/-- **GRH(χ) iff `λ_χ ≥ 0` at all large supports**: `λ_χ` is non-increasing (`lamC_antitone`). -/
+theorem grh_iff_lamC_eventually_nonneg (hG : GoodChar χ)
+    (hS : ∀ σ : ℝ, 0 < σ → σ < 1 → LFunction χ σ ≠ 0) :
+    GRH χ ↔ ∀ᶠ a in atTop, 0 ≤ lamC χ a := by
+  rw [grh_iff_lamC_nonneg hG hS]
+  constructor
+  · intro h
+    filter_upwards [eventually_gt_atTop 0] with a ha using h a ha
+  · intro h a ha
+    obtain ⟨A, hA⟩ := eventually_atTop.1 h
+    exact (hA (max a A) (le_max_right _ _)).trans (lamC_antitone ha (le_max_left _ _))
+
+/-- **If GRH(χ) fails, `λ_χ` is negative from some support on** (the χ column of
+`exists_lam_neg_of_not_RH`; every larger support by `lamC_antitone`). -/
+theorem exists_lamC_neg_of_not_GRH (hG : GoodChar χ)
+    (hS : ∀ σ : ℝ, 0 < σ → σ < 1 → LFunction χ σ ≠ 0) (h : ¬ GRH χ) :
+    ∃ a, 0 < a ∧ ∀ b, a ≤ b → lamC χ b < 0 := by
+  rw [grh_iff_lamC_nonneg hG hS] at h
+  push Not at h
+  obtain ⟨a, ha, hneg⟩ := h
+  exact ⟨a, ha, fun b hb => (lamC_antitone ha hb).trans_lt hneg⟩
+
+end ChiGRH
+
+/-! The instances: the characters whose Weil criterion the stack proves (`weil_criterion_chi3`,
+`weil_criterion_chi4`, `weil_criterion_chi8`, `WeilTwinGeneral.weil_criterion_chi7`). -/
+
+/-- **GRH for `χ₋₃` iff `λ_{χ₋₃} ≥ 0` at every support.** -/
+theorem grh_iff_lamC_nonneg_chi3 : GRH chi3 ↔ ∀ a : ℝ, 0 < a → 0 ≤ lamC chi3 a :=
+  weil_criterion_chi3.symm.trans (probe_nonneg_iff_lamC_nonneg chi3)
+
+/-- **GRH for `χ₋₄` iff `λ_{χ₋₄} ≥ 0` at every support.** -/
+theorem grh_iff_lamC_nonneg_chi4 : GRH chi4 ↔ ∀ a : ℝ, 0 < a → 0 ≤ lamC chi4 a :=
+  weil_criterion_chi4.symm.trans (probe_nonneg_iff_lamC_nonneg chi4)
+
+/-- **GRH for `χ₋₈` iff `λ_{χ₋₈} ≥ 0` at every support.** -/
+theorem grh_iff_lamC_nonneg_chi8 : GRH chi8 ↔ ∀ a : ℝ, 0 < a → 0 ≤ lamC chi8 a :=
+  weil_criterion_chi8.symm.trans (probe_nonneg_iff_lamC_nonneg chi8)
+
+/-- **GRH for `χ₋₇` iff `λ_{χ₋₇} ≥ 0` at every support.** -/
+theorem grh_iff_lamC_nonneg_chi7 :
+    GRH WeilTwinGeneral.chi7 ↔ ∀ a : ℝ, 0 < a → 0 ≤ lamC WeilTwinGeneral.chi7 a :=
+  WeilTwinGeneral.weil_criterion_chi7.symm.trans (probe_nonneg_iff_lamC_nonneg _)
+
 end PsiOmega
 
 namespace DHNegIndex
@@ -285,3 +371,12 @@ end DHNegIndex
 #print axioms PsiOmega.QCu_form
 #print axioms PsiOmega.lamC_antitone
 #print axioms DHNegIndex.negIndex_ge_five
+#print axioms PsiOmega.probe_nonneg_iff_lamC_nonneg
+#print axioms PsiOmega.lamC_nonneg_of_GRH
+#print axioms PsiOmega.grh_iff_lamC_nonneg
+#print axioms PsiOmega.grh_iff_lamC_eventually_nonneg
+#print axioms PsiOmega.exists_lamC_neg_of_not_GRH
+#print axioms PsiOmega.grh_iff_lamC_nonneg_chi3
+#print axioms PsiOmega.grh_iff_lamC_nonneg_chi4
+#print axioms PsiOmega.grh_iff_lamC_nonneg_chi8
+#print axioms PsiOmega.grh_iff_lamC_nonneg_chi7
