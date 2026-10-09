@@ -144,22 +144,20 @@ theorem norm_ghatC_le_exp_im (ha : 0 ≤ a) (hg : IntervalIntegrable g volume (-
     _ ≤ |z.im| * a := mul_le_mul_of_nonneg_left h1 (abs_nonneg _)
     _ = a * |z.im| := mul_comm _ _
 
-/-- **`ĝ(3z)²` is a strip test function** for every even, nonnegative profile non-increasing on
-`[0, a]`: the width-3 form of `striptest_antitone`. -/
-theorem striptest_antitone3 (ha : 0 < a) (hev : ∀ u, g (-u) = g u)
-    (hmono : AntitoneOn g (Icc 0 a)) (hnn : ∀ u ∈ Icc 0 a, 0 ≤ g u)
+/-- **The raw width-3 strip bound** behind `striptest_antitone3`: `‖ĝ(3t)‖²(1 + (Re t)²) ≤ K` on
+`|Im t| ≤ 1` (from `DHNegIndex.lean` since round 333). -/
+theorem ghat3_antitone_bound {g : ℝ → ℝ} {a : ℝ} (ha : 0 < a) (hev : ∀ u, g (-u) = g u)
+    (hmono : AntitoneOn g (Set.Icc 0 a)) (hnn : ∀ u ∈ Set.Icc 0 a, 0 ≤ g u)
     (hint : IntervalIntegrable g volume (-a) a) :
-    ∃ K, StripTest (fun z => ghatC g a (3 * z) ^ 2) K := by
+    ∃ K, ∀ t ∈ PilotWeil.strip (-1) 1, ‖ghatC g a (3 * t)‖ ^ 2 * (1 + t.re ^ 2) ≤ K := by
   have hg0 : 0 ≤ g 0 := hnn 0 ⟨le_rfl, ha.le⟩
   refine ⟨(Real.exp (3 * a) * ∫ u in (-a)..a, |g u|) ^ 2
-      + (2 * g 0 * Real.cosh (3 * a) / 3) ^ 2,
-    striptest_sq ((ghatC_differentiable hint).comp (differentiable_id.const_mul 3))
-      fun t ht => ?_⟩
+      + (2 * g 0 * Real.cosh (3 * a) / 3) ^ 2, fun t ht => ?_⟩
   have h3im : (3 * t).im = 3 * t.im := by simp
   have htim : |t.im| ≤ 1 := abs_le.2 ⟨ht.1, ht.2⟩
   have h3 : |(3 * t).im| ≤ 3 := by
     rw [h3im, abs_mul, abs_of_pos (by norm_num : (0 : ℝ) < 3)]; linarith
-  refine sq_strip_bound ?_ ?_
+  refine sq_strip_bound (G := fun z => ghatC g a (3 * z)) ?_ ?_
   · refine (norm_ghatC_le_exp_im ha.le hint _).trans ?_
     refine mul_le_mul_of_nonneg_right (Real.exp_le_exp.2 ?_)
       (intervalIntegral.integral_nonneg (by linarith) fun u _ => abs_nonneg _)
@@ -180,6 +178,15 @@ theorem striptest_antitone3 (ha : 0 < a) (hev : ∀ u, g (-u) = g u)
           mul_le_mul_of_nonneg_left hb htn.le
       _ = 2 * g 0 * Real.cosh (a * |(3 * t).im|) / 3 := by field_simp
       _ ≤ 2 * g 0 * Real.cosh (3 * a) / 3 := by gcongr
+
+/-- **`ĝ(3z)²` is a strip test function** for every even, nonnegative profile non-increasing on
+`[0, a]`: the width-3 form of `striptest_antitone`. -/
+theorem striptest_antitone3 (ha : 0 < a) (hev : ∀ u, g (-u) = g u)
+    (hmono : AntitoneOn g (Icc 0 a)) (hnn : ∀ u ∈ Icc 0 a, 0 ≤ g u)
+    (hint : IntervalIntegrable g volume (-a) a) :
+    ∃ K, StripTest (fun z => ghatC g a (3 * z) ^ 2) K := by
+  obtain ⟨K, hK⟩ := ghat3_antitone_bound ha hev hmono hnn hint
+  exact ⟨K, striptest_sq ((ghatC_differentiable hint).comp (differentiable_id.const_mul 3)) hK⟩
 
 /-- **The certificate for monotone probes**: no strip hypothesis. -/
 theorem exists_offline_dh_of_neg_antitone (ha : 0 < a) (hp : Probe a g)

@@ -12,43 +12,6 @@ open Real Finset
 
 namespace PsiOmega.Num
 
-/-- `log(1 + 1/a)` bounds for real `a > 0` (the same series). -/
-theorem log_one_add_inv_bounds' {a : ℝ} (ha : 0 < a) (K : ℕ) :
-    ∑ k ∈ range K, 2 * (1 / (2 * (k : ℝ) + 1)) * (1 / (2 * a + 1)) ^ (2 * k + 1)
-        ≤ Real.log (1 + a⁻¹) ∧
-      Real.log (1 + a⁻¹)
-        ≤ ∑ k ∈ range K, 2 * (1 / (2 * (k : ℝ) + 1)) * (1 / (2 * a + 1)) ^ (2 * k + 1)
-          + 2 * (1 / (2 * a + 1)) ^ (2 * K + 1) / (1 - (1 / (2 * a + 1)) ^ 2) := by
-  have hs := Real.hasSum_log_one_add_inv ha
-  set q : ℝ := 1 / (2 * a + 1) with hq
-  have hq0 : 0 ≤ q := by positivity
-  have hq1 : q < 1 := by rw [hq, div_lt_one (by positivity)]; linarith
-  have hterm : ∀ k : ℕ, 0 ≤ 2 * (1 / (2 * (k : ℝ) + 1)) * q ^ (2 * k + 1) := fun k => by positivity
-  refine ⟨sum_le_hasSum (range K) (fun i _ => hterm i) hs, ?_⟩
-  have hsum := hs.summable
-  have key := hsum.sum_add_tsum_nat_add K
-  rw [hs.tsum_eq] at key
-  rw [← key]
-  gcongr
-  have hq2 : q ^ 2 < 1 := by nlinarith
-  have hg : HasSum (fun i : ℕ => 2 * q ^ (2 * K + 1) * (q ^ 2) ^ i)
-      (2 * q ^ (2 * K + 1) * (1 - q ^ 2)⁻¹) :=
-    (hasSum_geometric_of_lt_one (by positivity) hq2).mul_left _
-  have hshift : HasSum (fun i : ℕ => 2 * (1 / (2 * ((i + K : ℕ) : ℝ) + 1)) * q ^ (2 * (i + K) + 1))
-      (∑' i : ℕ, 2 * (1 / (2 * ((i + K : ℕ) : ℝ) + 1)) * q ^ (2 * (i + K) + 1)) :=
-    ((summable_nat_add_iff K).2 hsum).hasSum
-  rw [div_eq_mul_inv]
-  refine hasSum_le (fun i => ?_) hshift hg
-  have h1 : 1 / (2 * ((i + K : ℕ) : ℝ) + 1) ≤ 1 := by
-    rw [div_le_one (by positivity)]; linarith [(Nat.cast_nonneg (i + K) : (0 : ℝ) ≤ (i + K : ℕ))]
-  have h2 : q ^ (2 * (i + K) + 1) = q ^ (2 * K + 1) * (q ^ 2) ^ i := by
-    rw [← pow_mul, ← pow_add]; congr 1; ring
-  rw [h2]
-  have hp : 0 ≤ q ^ (2 * K + 1) * (q ^ 2) ^ i := by positivity
-  calc 2 * (1 / (2 * ((i + K : ℕ) : ℝ) + 1)) * (q ^ (2 * K + 1) * (q ^ 2) ^ i)
-      ≤ 2 * 1 * (q ^ (2 * K + 1) * (q ^ 2) ^ i) := by gcongr
-    _ = 2 * q ^ (2 * K + 1) * (q ^ 2) ^ i := by ring
-
 /-! ## `log π` -/
 
 theorem log_pi_bounds : (11447296 : ℝ) / 10 ^ 7 < Real.log π ∧ Real.log π < (11447301 : ℝ) / 10 ^ 7 := by

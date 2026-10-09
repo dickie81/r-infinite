@@ -3,6 +3,7 @@ import WeilIndexInfinite
 import DHColumn
 import DHRealAxis
 import DHForm
+import DHTwin
 
 /-! # Every off-line quadruple of `dh` gives a negative direction of `Q_dh` (round 266)
 
@@ -36,14 +37,7 @@ abbrev ZD := ZeroIdx (sqF XiDH3)
 
 /-! ### (1) `Im P ≠ 0`: no zero of `Ξ₃` on the imaginary axis -/
 
-theorem tau3_re_ne (i : ZD) : (tau3 i).re ≠ 0 := by
-  intro h
-  have hz := XiDH3_tau i
-  have e : (3 : ℂ) * tau3 i = I * ((3 * (tau3 i).im : ℝ) : ℂ) :=
-    Complex.ext (by simp [h]) (by simp)
-  unfold XiDH3 at hz
-  rw [e] at hz
-  exact XiDH_I_mul_ne_zero _ hz
+theorem tau3_re_ne (i : ZD) : (tau3 i).re ≠ 0 := PsiOmega.tau3_re_ne i
 
 /-! ### (2) the pole family `P = 2i·τ` -/
 
@@ -60,28 +54,9 @@ theorem abs_re_PD (i : ZD) : |(PD i).re| < 1 := by
 theorem im_PD_ne (i : ZD) : (PD i).im ≠ 0 := by
   rw [im_PD]; exact mul_ne_zero two_ne_zero (tau3_re_ne i)
 
-/-- Local finiteness from the Hadamard product of `Ξ₃` (the column of `finite_poleP`). -/
-theorem finite_PD (R : ℝ) : {i : ZD | ‖PD i‖ ≤ R}.Finite := by
-  have hs : Summable fun i : ZD => ‖i.1⁻¹‖ := hadamard_XiDH3.summ
-  set K : ℝ := max (R ^ 2 / 4) 1
-  have hK : 0 < K := lt_of_lt_of_le one_pos (le_max_right _ _)
-  have hfin : {i : ZD | ‖i.1‖ ≤ K}.Finite := by
-    have h := hs.tendsto_cofinite_zero.eventually (gt_mem_nhds (inv_pos.2 hK))
-    rw [Filter.eventually_cofinite] at h
-    refine h.subset fun i hi => ?_
-    simp only [Set.mem_ofPred_eq, not_lt]
-    rw [norm_inv]
-    have hi' : ‖i.1‖ ≤ K := hi
-    have hp : 0 < ‖i.1‖ := norm_pos_iff.2 (ZeroIdx3_ne_zero i)
-    exact inv_anti₀ hp hi'
-  refine hfin.subset fun i hi => ?_
-  simp only [Set.mem_ofPred_eq] at hi ⊢
-  have e1 : ‖PD i‖ = 2 * ‖tau3 i‖ := by unfold PD; rw [norm_mul, norm_mul]; simp
-  have e2 : ‖i.1‖ = ‖tau3 i‖ ^ 2 := by rw [← tau3_sq, norm_pow]
-  rw [e2]
-  have h0 := norm_nonneg (tau3 i)
-  have : ‖tau3 i‖ ^ 2 ≤ R ^ 2 / 4 := by nlinarith
-  exact this.trans (le_max_left _ _)
+/-- Local finiteness from the Hadamard product of `Ξ₃` (the column of `finite_poleP`; DHTwin's
+`finite_tau3` since round 333). -/
+theorem finite_PD (R : ℝ) : {i : ZD | ‖PD i‖ ≤ R}.Finite := PsiOmega.finite_tau3 R
 
 /-! ### (3) `Σ‖ĝ₀(3τ)‖² < ∞` from the dh explicit formula at the box -/
 
@@ -99,40 +74,6 @@ theorem summable_G0D_sq : Summable fun i : ZD => ‖G0D i‖ ^ 2 := by
 
 theorem twinPoles_dh : TwinLandau.TwinPoles PD (fun i => G0D i ^ 2) :=
   ⟨summable_G0D_sq.congr fun i => by rw [norm_pow], abs_re_PD, im_PD_ne, finite_PD⟩
-
-/-- The raw width-3 strip bound inside `striptest_antitone3`. -/
-theorem ghat3_antitone_bound {g : ℝ → ℝ} {a : ℝ} (ha : 0 < a) (hev : ∀ u, g (-u) = g u)
-    (hmono : AntitoneOn g (Set.Icc 0 a)) (hnn : ∀ u ∈ Set.Icc 0 a, 0 ≤ g u)
-    (hint : IntervalIntegrable g volume (-a) a) :
-    ∃ K, ∀ t ∈ PilotWeil.strip (-1) 1, ‖ghatC g a (3 * t)‖ ^ 2 * (1 + t.re ^ 2) ≤ K := by
-  have hg0 : 0 ≤ g 0 := hnn 0 ⟨le_rfl, ha.le⟩
-  refine ⟨(Real.exp (3 * a) * ∫ u in (-a)..a, |g u|) ^ 2
-      + (2 * g 0 * Real.cosh (3 * a) / 3) ^ 2, fun t ht => ?_⟩
-  have h3im : (3 * t).im = 3 * t.im := by simp
-  have htim : |t.im| ≤ 1 := abs_le.2 ⟨ht.1, ht.2⟩
-  have h3 : |(3 * t).im| ≤ 3 := by
-    rw [h3im, abs_mul, abs_of_pos (by norm_num : (0 : ℝ) < 3)]; linarith
-  refine sq_strip_bound (G := fun z => ghatC g a (3 * z)) ?_ ?_
-  · refine (norm_ghatC_le_exp_im ha.le hint _).trans ?_
-    refine mul_le_mul_of_nonneg_right (Real.exp_le_exp.2 ?_)
-      (intervalIntegral.integral_nonneg (by linarith) fun u _ => abs_nonneg _)
-    linarith [mul_le_mul_of_nonneg_left h3 ha.le]
-  · rcases eq_or_ne t 0 with rfl | ht0
-    · simp; positivity
-    have h3t : (3 : ℂ) * t ≠ 0 := mul_ne_zero (by norm_num) ht0
-    have hb := norm_ghatC_le_of_antitone ha hev hmono hnn h3t
-    have hn3 : ‖(3 : ℂ) * t‖ = 3 * ‖t‖ := by rw [norm_mul]; norm_num
-    rw [hn3] at hb
-    have hc : Real.cosh (a * |(3 * t).im|) ≤ Real.cosh (3 * a) := by
-      rw [Real.cosh_le_cosh, abs_of_nonneg (mul_nonneg ha.le (abs_nonneg _)),
-        abs_of_pos (by linarith : (0 : ℝ) < 3 * a)]
-      linarith [mul_le_mul_of_nonneg_left h3 ha.le]
-    have htn : 0 < ‖t‖ := norm_pos_iff.2 ht0
-    calc ‖t‖ * ‖ghatC g a (3 * t)‖
-        ≤ ‖t‖ * (2 * g 0 * Real.cosh (a * |(3 * t).im|) / (3 * ‖t‖)) :=
-          mul_le_mul_of_nonneg_left hb htn.le
-      _ = 2 * g 0 * Real.cosh (a * |(3 * t).im|) / 3 := by field_simp
-      _ ≤ 2 * g 0 * Real.cosh (3 * a) / 3 := by gcongr
 
 /-- **Twin combinations pass the width-3 strip test.** -/
 theorem striptest_twinComb3 {c : NNReal →₀ ℝ} {A : ℝ} (h : Fits c A) :

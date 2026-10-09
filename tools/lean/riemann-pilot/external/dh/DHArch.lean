@@ -413,58 +413,14 @@ theorem integrableOn_exp_mul_phi2 {c : ℝ} (hc : 0 < c) :
   rw [Real.norm_eq_abs, abs_of_nonneg (mul_nonneg (Real.exp_pos _).le (phi2_pos ht).le)]
   exact mul_le_of_le_one_right (Real.exp_pos _).le (phi2_le_one ht)
 
-/-- **Frullani for exponentials**, by Fubini: for `0 < a ≤ b`,
-`∫_0^∞ (e^{−at} − e^{−bt})/t dt = log (b/a)`, with the integrand integrable. -/
+/-- **Frullani for exponentials**: for `0 < a ≤ b`,
+`∫_0^∞ (e^{−at} − e^{−bt})/t dt = log (b/a)`, with the integrand integrable. The pair
+`integrableOn_exp_sub_exp_div`, `integral_exp_sub_exp_div` above (round 333; it was proved a second
+time, by Fubini). -/
 theorem bq_frullani {a b : ℝ} (ha : 0 < a) (hab : a ≤ b) :
     IntegrableOn (fun t : ℝ => (Real.exp (-(a * t)) - Real.exp (-(b * t))) / t) (Ioi 0) ∧
-      ∫ t in Ioi (0 : ℝ), (Real.exp (-(a * t)) - Real.exp (-(b * t))) / t = Real.log (b / a) := by
-  have hb : 0 < b := lt_of_lt_of_le ha hab
-  have hrep : EqOn (fun t : ℝ => (Real.exp (-(a * t)) - Real.exp (-(b * t))) / t)
-      (fun t => ∫ s in Ioc a b, Real.exp (-(s * t))) (Ioi 0) := by
-    intro t ht
-    have htne : t ≠ 0 := (ne_of_gt ht)
-    simp only
-    rw [← intervalIntegral.integral_of_le hab]
-    have hd : ∀ s ∈ uIcc a b, HasDerivAt (fun s => Real.exp (-(s * t)) / (-t))
-        (Real.exp (-(s * t))) s := by
-      intro s _
-      have h := (((hasDerivAt_id' s).mul_const t).neg.exp).div_const (-t)
-      convert h using 1
-      simp only [Pi.neg_apply, one_mul]
-      field_simp
-    rw [intervalIntegral.integral_eq_sub_of_hasDerivAt hd
-      ((by fun_prop : Continuous fun s : ℝ => Real.exp (-(s * t))).intervalIntegrable a b)]
-    field_simp
-    ring
-  let f : ℝ → ℝ → ℝ := fun s t => Real.exp (-(s * t))
-  have hmeas : AEStronglyMeasurable (Function.uncurry f)
-      ((volume.restrict (Ioc a b)).prod (volume.restrict (Ioi (0 : ℝ)))) :=
-    (show Continuous fun p : ℝ × ℝ => Real.exp (-(p.1 * p.2)) by fun_prop).aestronglyMeasurable
-  have hinner : ∀ s : ℝ, 0 < s → ∫ t in Ioi (0 : ℝ), ‖f s t‖ = s⁻¹ := by
-    intro s hs
-    simp only [f, Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)]
-    rw [bq_integral_exp hs, one_div]
-  have hint : Integrable (Function.uncurry f)
-      ((volume.restrict (Ioc a b)).prod (volume.restrict (Ioi (0 : ℝ)))) := by
-    rw [integrable_prod_iff hmeas]
-    refine ⟨(ae_restrict_iff' measurableSet_Ioc).2 (Eventually.of_forall fun s hs =>
-      bq_integrableOn_exp (ha.trans hs.1)), ?_⟩
-    have hc : IntegrableOn (fun s : ℝ => s⁻¹) (Ioc a b) :=
-      ((continuousOn_inv₀.mono fun s hs => ne_of_gt (ha.trans_le hs.1)).integrableOn_compact
-        isCompact_Icc).mono_set Ioc_subset_Icc_self
-    exact hc.congr_fun (fun s hs => (hinner s (ha.trans hs.1)).symm) measurableSet_Ioc
-  refine ⟨IntegrableOn.congr_fun hint.integral_prod_right (fun t ht => (hrep ht).symm)
-    measurableSet_Ioi, ?_⟩
-  · rw [setIntegral_congr_fun measurableSet_Ioi hrep]
-    have hswap := integral_integral_swap hint
-    simp only [f] at hswap
-    rw [← hswap]
-    have e : EqOn (fun s : ℝ => ∫ t in Ioi (0 : ℝ), Real.exp (-(s * t))) (fun s => s⁻¹) (Ioc a b) :=
-      fun s hs => by
-        have := hinner s (ha.trans hs.1)
-        simpa [f, Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)] using this
-    rw [setIntegral_congr_fun measurableSet_Ioc e, ← intervalIntegral.integral_of_le hab,
-      integral_inv_of_pos ha hb]
+      ∫ t in Ioi (0 : ℝ), (Real.exp (-(a * t)) - Real.exp (-(b * t))) / t = Real.log (b / a) :=
+  ⟨integrableOn_exp_sub_exp_div ha (ha.trans_le hab), integral_exp_sub_exp_div ha (ha.trans_le hab)⟩
 
 theorem bq_exp_succ (t : ℝ) (k : ℕ) :
     Real.exp (-(((k : ℝ) + 1) * t)) = Real.exp (-t) * Real.exp (-t) ^ k := by

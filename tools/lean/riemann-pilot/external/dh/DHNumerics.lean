@@ -115,16 +115,16 @@ theorem sin_bounds {x : ℝ} (hx0 : 0 ≤ x) (hx : x ≤ 1) :
 
 /-! ## `log(1 + 1/m)` by Mathlib's series, with the tail -/
 
-/-- Two-sided bounds for `log(1 + 1/m)` from `K` terms of `Real.hasSum_log_one_add_inv`. -/
-theorem log_one_add_inv_bounds {m : ℕ} (hm : 0 < m) (K : ℕ) :
-    ∑ k ∈ range K, 2 * (1 / (2 * (k : ℝ) + 1)) * (1 / (2 * (m : ℝ) + 1)) ^ (2 * k + 1)
-        ≤ Real.log (1 + (m : ℝ)⁻¹) ∧
-      Real.log (1 + (m : ℝ)⁻¹)
-        ≤ ∑ k ∈ range K, 2 * (1 / (2 * (k : ℝ) + 1)) * (1 / (2 * (m : ℝ) + 1)) ^ (2 * k + 1)
-          + 2 * (1 / (2 * (m : ℝ) + 1)) ^ (2 * K + 1) / (1 - (1 / (2 * (m : ℝ) + 1)) ^ 2) := by
-  have hm' : (0 : ℝ) < m := by exact_mod_cast hm
-  have hs := Real.hasSum_log_one_add_inv hm'
-  set q : ℝ := 1 / (2 * (m : ℝ) + 1) with hq
+/-- Two-sided bounds for `log(1 + 1/a)`, real `a > 0`, from `K` terms of `Real.hasSum_log_one_add_inv`
+(from `DHConstants.lean` since round 333). -/
+theorem log_one_add_inv_bounds' {a : ℝ} (ha : 0 < a) (K : ℕ) :
+    ∑ k ∈ range K, 2 * (1 / (2 * (k : ℝ) + 1)) * (1 / (2 * a + 1)) ^ (2 * k + 1)
+        ≤ Real.log (1 + a⁻¹) ∧
+      Real.log (1 + a⁻¹)
+        ≤ ∑ k ∈ range K, 2 * (1 / (2 * (k : ℝ) + 1)) * (1 / (2 * a + 1)) ^ (2 * k + 1)
+          + 2 * (1 / (2 * a + 1)) ^ (2 * K + 1) / (1 - (1 / (2 * a + 1)) ^ 2) := by
+  have hs := Real.hasSum_log_one_add_inv ha
+  set q : ℝ := 1 / (2 * a + 1) with hq
   have hq0 : 0 ≤ q := by positivity
   have hq1 : q < 1 := by rw [hq, div_lt_one (by positivity)]; linarith
   have hterm : ∀ k : ℕ, 0 ≤ 2 * (1 / (2 * (k : ℝ) + 1)) * q ^ (2 * k + 1) := fun k => by positivity
@@ -152,6 +152,15 @@ theorem log_one_add_inv_bounds {m : ℕ} (hm : 0 < m) (K : ℕ) :
   calc 2 * (1 / (2 * ((i + K : ℕ) : ℝ) + 1)) * (q ^ (2 * K + 1) * (q ^ 2) ^ i)
       ≤ 2 * 1 * (q ^ (2 * K + 1) * (q ^ 2) ^ i) := by gcongr
     _ = 2 * q ^ (2 * K + 1) * (q ^ 2) ^ i := by ring
+
+/-- Two-sided bounds for `log(1 + 1/m)`: `log_one_add_inv_bounds'` at `a = m` (round 333). -/
+theorem log_one_add_inv_bounds {m : ℕ} (hm : 0 < m) (K : ℕ) :
+    ∑ k ∈ range K, 2 * (1 / (2 * (k : ℝ) + 1)) * (1 / (2 * (m : ℝ) + 1)) ^ (2 * k + 1)
+        ≤ Real.log (1 + (m : ℝ)⁻¹) ∧
+      Real.log (1 + (m : ℝ)⁻¹)
+        ≤ ∑ k ∈ range K, 2 * (1 / (2 * (k : ℝ) + 1)) * (1 / (2 * (m : ℝ) + 1)) ^ (2 * k + 1)
+          + 2 * (1 / (2 * (m : ℝ) + 1)) ^ (2 * K + 1) / (1 - (1 / (2 * (m : ℝ) + 1)) ^ 2) :=
+  log_one_add_inv_bounds' (a := (m : ℝ)) (by exact_mod_cast hm) K
 
 end PsiOmega.Num
 

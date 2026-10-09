@@ -107,25 +107,36 @@ theorem QDHu_congr_ae {g g' : ℝ → ℝ} (hgg : g =ᵐ[volume] g') : QDHu g = 
 /-- `M_dh(a) = |Re ψ(¾) + log(5/π)| + 2Σ_{n ≤ e^{2a}} |c(n)|/√n`. -/
 def MDH (a : ℝ) : ℝ := |constDH| + 2 * ∑ n ∈ Finset.range (primeCut a), |fDH n / Real.sqrt n|
 
-theorem abs_primeDH_le (hp : Probe a g) :
+/-- `|Σ c(n) n^{−1/2} f(log n)| ≤ (Σ |c(n)|/√n)‖g‖²` for any square-integrable `g`. -/
+theorem abs_primeDH_le_of_memLp {a : ℝ} {g : ℝ → ℝ} (hg : MemLp g 2 volume) :
     |∑ n ∈ Finset.range (primeCut a), fDH n / Real.sqrt n * autocorr g (Real.log n)|
       ≤ (∑ n ∈ Finset.range (primeCut a), |fDH n / Real.sqrt n|) * normSq g := by
   rw [Finset.sum_mul]
   refine (Finset.abs_sum_le_sum_abs _ _).trans (Finset.sum_le_sum fun n _ => ?_)
   rw [abs_mul]
-  exact mul_le_mul_of_nonneg_left (abs_autocorr_le hp.memL2 _) (abs_nonneg _)
+  exact mul_le_mul_of_nonneg_left (abs_autocorr_le hg _) (abs_nonneg _)
 
-/-- **`Q_dh(g) ≥ −M_dh(a)‖g‖²`** on probes at support `a`. -/
-theorem QDHu_ge (hp : Probe a g) : -(MDH a * normSq g) ≤ QDHu g := by
-  rw [QDHu_eq_range hp.supp]
+theorem abs_primeDH_le (hp : Probe a g) :
+    |∑ n ∈ Finset.range (primeCut a), fDH n / Real.sqrt n * autocorr g (Real.log n)|
+      ≤ (∑ n ∈ Finset.range (primeCut a), |fDH n / Real.sqrt n|) * normSq g :=
+  abs_primeDH_le_of_memLp hp.memL2
+
+/-- **`Q_dh(g) ≥ −M_dh(a)‖g‖²`** for every square-integrable `g` vanishing outside `[−a, a]` (round
+333): probes, odd probes and the `SProbe`s alike. -/
+theorem QDHu_ge_of_supp (hsupp : ∀ u, a < |u| → g u = 0) (hg : MemLp g 2 volume) :
+    -(MDH a * normSq g) ≤ QDHu g := by
+  rw [QDHu_eq_range hsupp]
   have hN := normSq_nonneg g
-  have hE := archEQ_nonneg (3 / 4) hp.memL2
-  have hP := abs_primeDH_le hp
+  have hE := archEQ_nonneg (3 / 4) hg
+  have hP := abs_primeDH_le_of_memLp (a := a) hg
   have hc : -(|constDH| * normSq g) ≤ constDH * normSq g := by
     rw [← neg_mul]; exact mul_le_mul_of_nonneg_right (neg_abs_le _) hN
   unfold MDH
   nlinarith [le_abs_self (∑ n ∈ Finset.range (primeCut a), fDH n / Real.sqrt n
     * autocorr g (Real.log n))]
+
+/-- **`Q_dh(g) ≥ −M_dh(a)‖g‖²`** on probes at support `a` (`QDHu_ge_of_supp`). -/
+theorem QDHu_ge (hp : Probe a g) : -(MDH a * normSq g) ≤ QDHu g := QDHu_ge_of_supp hp.supp hp.memL2
 
 /-! ## The ground energy -/
 

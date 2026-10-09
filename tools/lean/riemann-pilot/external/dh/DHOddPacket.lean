@@ -655,26 +655,9 @@ theorem not_odd_lower_dh {δ c : ℝ} (hc : 0 < c) :
 
 /-! ## The odd ground energy of `dh` -/
 
-/-- `|Σ c(n) n^{−1/2} f(log n)| ≤ (Σ |c(n)|/√n)‖g‖²` for any square-integrable `g`. -/
-theorem abs_primeDH_le_of_memLp {a : ℝ} {g : ℝ → ℝ} (hg : MemLp g 2 volume) :
-    |∑ n ∈ Finset.range (primeCut a), fDH n / Real.sqrt n * autocorr g (Real.log n)|
-      ≤ (∑ n ∈ Finset.range (primeCut a), |fDH n / Real.sqrt n|) * normSq g := by
-  rw [Finset.sum_mul]
-  refine (Finset.abs_sum_le_sum_abs _ _).trans (Finset.sum_le_sum fun n _ => ?_)
-  rw [abs_mul]
-  exact mul_le_mul_of_nonneg_left (abs_autocorr_le hg _) (abs_nonneg _)
-
 /-- **`Q_dh(o) ≥ −M_dh(a)‖o‖²`** on odd probes at support `a`. -/
-theorem QDHu_ge_odd {a : ℝ} {o : ℝ → ℝ} (hp : OProbe a o) : -(MDH a * normSq o) ≤ QDHu o := by
-  rw [QDHu_eq_range hp.supp]
-  have hN := normSq_nonneg o
-  have hE := archEQ_nonneg (3 / 4) hp.memL2
-  have hP := abs_primeDH_le_of_memLp (a := a) hp.memL2
-  have hc : -(|constDH| * normSq o) ≤ constDH * normSq o := by
-    rw [← neg_mul]; exact mul_le_mul_of_nonneg_right (neg_abs_le _) hN
-  unfold MDH
-  nlinarith [le_abs_self (∑ n ∈ Finset.range (primeCut a), fDH n / Real.sqrt n
-    * autocorr o (Real.log n))]
+theorem QDHu_ge_odd {a : ℝ} {o : ℝ → ℝ} (hp : OProbe a o) : -(MDH a * normSq o) ≤ QDHu o :=
+  QDHu_ge_of_supp hp.supp hp.memL2
 
 /-- **The odd `dh` ground energy** `λ_dh^odd(a) = inf {Q_dh(o) : o an odd probe at support a, ‖o‖ = 1}`. -/
 def lamODH (a : ℝ) : ℝ := sInf {q | ∃ o, OProbe a o ∧ normSq o = 1 ∧ QDHu o = q}

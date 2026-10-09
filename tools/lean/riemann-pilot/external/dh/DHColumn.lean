@@ -24,8 +24,8 @@ Each declaration (left) and the pilot declaration it is the dh column of (right)
 
 * zero-free half-plane and strip
   - `dh_ne_zero_of_two_le` — `dh_ne_zero_of_two_lt` (DHPrime.lean:580), with `≤` in place of `<`
-  - `XiDH_ne_zero_of_le` — `XiDH_ne_zero_of_lt` (DHExplicit.lean:204), with `≤` in place of `<`
-  - `tau3_im_lt` — `tau_im` (WeilAssemble.lean:32); the strict form of `tau3_im` (DHExplicit.lean:214)
+  - `XiDH_ne_zero_of_le` — `XiDH_ne_zero_of_lt` (DHExplicit.lean:128), with `≤` in place of `<`
+  - `tau3_im_lt` — `tau_im` (WeilAssemble.lean:32); the strict form of `tau3_im` (DHExplicit.lean:138)
 * the ordinate map; the certificate in `Ξ`-coordinates
   - `XiDH_at_ordinate` — `Xi_at_ordinate` (Roadmap.lean:113)
   - `XiDH_nonreal_zero` — no ζ counterpart (for `ζ` it would be `¬ RiemannHypothesis`):
@@ -60,7 +60,7 @@ Each declaration (left) and the pilot declaration it is the dh column of (right)
   - `real_of_dodging` — `rh_of_dodging` (Curvature.lean:86)
   - `not_dodging_dh` — `rh_of_dodging_final` (Curvature.lean:415)
 * Weil positivity
-  - `tau3_cross_of_DHRHcross` — the cross form of `tau3_real_of_DHRH` (DHExplicit.lean:463)
+  - `tau3_cross_of_DHRHcross` — the cross form of `tau3_real_of_DHRH` (DHExplicit.lean:387)
   - `QDHu_nonneg_of_DHRHcross` — the χ-side `QC_nonneg_of_cross` (CrossCriteria.lean:43); the
     every-probe form of `QDHu_packet_nonneg_of_line_or_real` (DHOffCross.lean:35)
   - `not_weil_positivity_dh` — `rh_of_weil` (WeilLandau.lean:153)

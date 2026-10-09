@@ -766,248 +766,124 @@ theorem norm_dh_sub_dhEM_le_ball {z : ℂ} (hz : z ∈ closedBall cLoc (1 / 100)
 
 /-! ## 6. Bernoulli numbers `B₂, …, B₂₄` as rationals
 
-Mathlib's `bernoulli'` (`B₁ = +1/2`) by its defining recursion, one step per index (binomials by
-`decide`); `bernoulli n = bernoulli' n` for `n ≠ 1` (`bernoulli_eq_bernoulli'_of_ne_one`). -/
+Mathlib's `bernoulli'` (`B₁ = +1/2`) by its defining recursion, one step per index (binomials through
+`Nat.choose_eq_descFactorial_div_factorial`, round 333; they were 150 `decide` lemmas);
+`bernoulli n = bernoulli' n` for `n ≠ 1` (`bernoulli_eq_bernoulli'_of_ne_one`). -/
 
 theorem bernoulli'_5_val : bernoulli' 5 = 0 :=
   bernoulli'_eq_zero_of_odd (by decide) (by norm_num)
 
 theorem bernoulli'_6_val : bernoulli' 6 = 1 / 42 := by
-  have c0 : Nat.choose 6 0 = 1 := by decide
-  have c1 : Nat.choose 6 1 = 6 := by decide
-  have c2 : Nat.choose 6 2 = 15 := by decide
-  have c3 : Nat.choose 6 3 = 20 := by decide
-  have c4 : Nat.choose 6 4 = 15 := by decide
-  have c5 : Nat.choose 6 5 = 6 := by decide
   rw [bernoulli'_def]
-  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one, bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val,
-    c0, c1, c2, c3, c4, c5]
-  norm_num
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one,
+    bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val,
+    Nat.choose_eq_descFactorial_div_factorial]
+  norm_num [Nat.descFactorial, Nat.factorial]
 
 theorem bernoulli'_7_val : bernoulli' 7 = 0 :=
   bernoulli'_eq_zero_of_odd (by decide) (by norm_num)
 
 theorem bernoulli'_8_val : bernoulli' 8 = -1 / 30 := by
-  have c0 : Nat.choose 8 0 = 1 := by decide
-  have c1 : Nat.choose 8 1 = 8 := by decide
-  have c2 : Nat.choose 8 2 = 28 := by decide
-  have c3 : Nat.choose 8 3 = 56 := by decide
-  have c4 : Nat.choose 8 4 = 70 := by decide
-  have c5 : Nat.choose 8 5 = 56 := by decide
-  have c6 : Nat.choose 8 6 = 28 := by decide
-  have c7 : Nat.choose 8 7 = 8 := by decide
   rw [bernoulli'_def]
-  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one, bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val, bernoulli'_7_val,
-    c0, c1, c2, c3, c4, c5, c6, c7]
-  norm_num
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one,
+    bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val,
+    bernoulli'_7_val, Nat.choose_eq_descFactorial_div_factorial]
+  norm_num [Nat.descFactorial, Nat.factorial]
 
 theorem bernoulli'_9_val : bernoulli' 9 = 0 :=
   bernoulli'_eq_zero_of_odd (by decide) (by norm_num)
 
 theorem bernoulli'_10_val : bernoulli' 10 = 5 / 66 := by
-  have c0 : Nat.choose 10 0 = 1 := by decide
-  have c1 : Nat.choose 10 1 = 10 := by decide
-  have c2 : Nat.choose 10 2 = 45 := by decide
-  have c3 : Nat.choose 10 3 = 120 := by decide
-  have c4 : Nat.choose 10 4 = 210 := by decide
-  have c5 : Nat.choose 10 5 = 252 := by decide
-  have c6 : Nat.choose 10 6 = 210 := by decide
-  have c7 : Nat.choose 10 7 = 120 := by decide
-  have c8 : Nat.choose 10 8 = 45 := by decide
-  have c9 : Nat.choose 10 9 = 10 := by decide
   rw [bernoulli'_def]
-  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one, bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val, bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val,
-    c0, c1, c2, c3, c4, c5, c6, c7, c8, c9]
-  norm_num
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one,
+    bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val,
+    bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val, Nat.choose_eq_descFactorial_div_factorial]
+  norm_num [Nat.descFactorial, Nat.factorial]
 
 theorem bernoulli'_11_val : bernoulli' 11 = 0 :=
   bernoulli'_eq_zero_of_odd (by decide) (by norm_num)
 
 theorem bernoulli'_12_val : bernoulli' 12 = -691 / 2730 := by
-  have c0 : Nat.choose 12 0 = 1 := by decide
-  have c1 : Nat.choose 12 1 = 12 := by decide
-  have c2 : Nat.choose 12 2 = 66 := by decide
-  have c3 : Nat.choose 12 3 = 220 := by decide
-  have c4 : Nat.choose 12 4 = 495 := by decide
-  have c5 : Nat.choose 12 5 = 792 := by decide
-  have c6 : Nat.choose 12 6 = 924 := by decide
-  have c7 : Nat.choose 12 7 = 792 := by decide
-  have c8 : Nat.choose 12 8 = 495 := by decide
-  have c9 : Nat.choose 12 9 = 220 := by decide
-  have c10 : Nat.choose 12 10 = 66 := by decide
-  have c11 : Nat.choose 12 11 = 12 := by decide
   rw [bernoulli'_def]
-  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one, bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val, bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val, bernoulli'_10_val, bernoulli'_11_val,
-    c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11]
-  norm_num
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one,
+    bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val,
+    bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val, bernoulli'_10_val, bernoulli'_11_val,
+    Nat.choose_eq_descFactorial_div_factorial]
+  norm_num [Nat.descFactorial, Nat.factorial]
 
 theorem bernoulli'_13_val : bernoulli' 13 = 0 :=
   bernoulli'_eq_zero_of_odd (by decide) (by norm_num)
 
 theorem bernoulli'_14_val : bernoulli' 14 = 7 / 6 := by
-  have c0 : Nat.choose 14 0 = 1 := by decide
-  have c1 : Nat.choose 14 1 = 14 := by decide
-  have c2 : Nat.choose 14 2 = 91 := by decide
-  have c3 : Nat.choose 14 3 = 364 := by decide
-  have c4 : Nat.choose 14 4 = 1001 := by decide
-  have c5 : Nat.choose 14 5 = 2002 := by decide
-  have c6 : Nat.choose 14 6 = 3003 := by decide
-  have c7 : Nat.choose 14 7 = 3432 := by decide
-  have c8 : Nat.choose 14 8 = 3003 := by decide
-  have c9 : Nat.choose 14 9 = 2002 := by decide
-  have c10 : Nat.choose 14 10 = 1001 := by decide
-  have c11 : Nat.choose 14 11 = 364 := by decide
-  have c12 : Nat.choose 14 12 = 91 := by decide
-  have c13 : Nat.choose 14 13 = 14 := by decide
   rw [bernoulli'_def]
-  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one, bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val, bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val, bernoulli'_10_val, bernoulli'_11_val, bernoulli'_12_val, bernoulli'_13_val,
-    c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13]
-  norm_num
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one,
+    bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val,
+    bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val, bernoulli'_10_val, bernoulli'_11_val,
+    bernoulli'_12_val, bernoulli'_13_val, Nat.choose_eq_descFactorial_div_factorial]
+  norm_num [Nat.descFactorial, Nat.factorial]
 
 theorem bernoulli'_15_val : bernoulli' 15 = 0 :=
   bernoulli'_eq_zero_of_odd (by decide) (by norm_num)
 
 theorem bernoulli'_16_val : bernoulli' 16 = -3617 / 510 := by
-  have c0 : Nat.choose 16 0 = 1 := by decide
-  have c1 : Nat.choose 16 1 = 16 := by decide
-  have c2 : Nat.choose 16 2 = 120 := by decide
-  have c3 : Nat.choose 16 3 = 560 := by decide
-  have c4 : Nat.choose 16 4 = 1820 := by decide
-  have c5 : Nat.choose 16 5 = 4368 := by decide
-  have c6 : Nat.choose 16 6 = 8008 := by decide
-  have c7 : Nat.choose 16 7 = 11440 := by decide
-  have c8 : Nat.choose 16 8 = 12870 := by decide
-  have c9 : Nat.choose 16 9 = 11440 := by decide
-  have c10 : Nat.choose 16 10 = 8008 := by decide
-  have c11 : Nat.choose 16 11 = 4368 := by decide
-  have c12 : Nat.choose 16 12 = 1820 := by decide
-  have c13 : Nat.choose 16 13 = 560 := by decide
-  have c14 : Nat.choose 16 14 = 120 := by decide
-  have c15 : Nat.choose 16 15 = 16 := by decide
   rw [bernoulli'_def]
-  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one, bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val, bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val, bernoulli'_10_val, bernoulli'_11_val, bernoulli'_12_val, bernoulli'_13_val, bernoulli'_14_val, bernoulli'_15_val,
-    c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15]
-  norm_num
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one,
+    bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val,
+    bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val, bernoulli'_10_val, bernoulli'_11_val,
+    bernoulli'_12_val, bernoulli'_13_val, bernoulli'_14_val, bernoulli'_15_val,
+    Nat.choose_eq_descFactorial_div_factorial]
+  norm_num [Nat.descFactorial, Nat.factorial]
 
 theorem bernoulli'_17_val : bernoulli' 17 = 0 :=
   bernoulli'_eq_zero_of_odd (by decide) (by norm_num)
 
 theorem bernoulli'_18_val : bernoulli' 18 = 43867 / 798 := by
-  have c0 : Nat.choose 18 0 = 1 := by decide
-  have c1 : Nat.choose 18 1 = 18 := by decide
-  have c2 : Nat.choose 18 2 = 153 := by decide
-  have c3 : Nat.choose 18 3 = 816 := by decide
-  have c4 : Nat.choose 18 4 = 3060 := by decide
-  have c5 : Nat.choose 18 5 = 8568 := by decide
-  have c6 : Nat.choose 18 6 = 18564 := by decide
-  have c7 : Nat.choose 18 7 = 31824 := by decide
-  have c8 : Nat.choose 18 8 = 43758 := by decide
-  have c9 : Nat.choose 18 9 = 48620 := by decide
-  have c10 : Nat.choose 18 10 = 43758 := by decide
-  have c11 : Nat.choose 18 11 = 31824 := by decide
-  have c12 : Nat.choose 18 12 = 18564 := by decide
-  have c13 : Nat.choose 18 13 = 8568 := by decide
-  have c14 : Nat.choose 18 14 = 3060 := by decide
-  have c15 : Nat.choose 18 15 = 816 := by decide
-  have c16 : Nat.choose 18 16 = 153 := by decide
-  have c17 : Nat.choose 18 17 = 18 := by decide
   rw [bernoulli'_def]
-  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one, bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val, bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val, bernoulli'_10_val, bernoulli'_11_val, bernoulli'_12_val, bernoulli'_13_val, bernoulli'_14_val, bernoulli'_15_val, bernoulli'_16_val, bernoulli'_17_val,
-    c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17]
-  norm_num
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one,
+    bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val,
+    bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val, bernoulli'_10_val, bernoulli'_11_val,
+    bernoulli'_12_val, bernoulli'_13_val, bernoulli'_14_val, bernoulli'_15_val, bernoulli'_16_val,
+    bernoulli'_17_val, Nat.choose_eq_descFactorial_div_factorial]
+  norm_num [Nat.descFactorial, Nat.factorial]
 
 theorem bernoulli'_19_val : bernoulli' 19 = 0 :=
   bernoulli'_eq_zero_of_odd (by decide) (by norm_num)
 
 theorem bernoulli'_20_val : bernoulli' 20 = -174611 / 330 := by
-  have c0 : Nat.choose 20 0 = 1 := by decide
-  have c1 : Nat.choose 20 1 = 20 := by decide
-  have c2 : Nat.choose 20 2 = 190 := by decide
-  have c3 : Nat.choose 20 3 = 1140 := by decide
-  have c4 : Nat.choose 20 4 = 4845 := by decide
-  have c5 : Nat.choose 20 5 = 15504 := by decide
-  have c6 : Nat.choose 20 6 = 38760 := by decide
-  have c7 : Nat.choose 20 7 = 77520 := by decide
-  have c8 : Nat.choose 20 8 = 125970 := by decide
-  have c9 : Nat.choose 20 9 = 167960 := by decide
-  have c10 : Nat.choose 20 10 = 184756 := by decide
-  have c11 : Nat.choose 20 11 = 167960 := by decide
-  have c12 : Nat.choose 20 12 = 125970 := by decide
-  have c13 : Nat.choose 20 13 = 77520 := by decide
-  have c14 : Nat.choose 20 14 = 38760 := by decide
-  have c15 : Nat.choose 20 15 = 15504 := by decide
-  have c16 : Nat.choose 20 16 = 4845 := by decide
-  have c17 : Nat.choose 20 17 = 1140 := by decide
-  have c18 : Nat.choose 20 18 = 190 := by decide
-  have c19 : Nat.choose 20 19 = 20 := by decide
   rw [bernoulli'_def]
-  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one, bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val, bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val, bernoulli'_10_val, bernoulli'_11_val, bernoulli'_12_val, bernoulli'_13_val, bernoulli'_14_val, bernoulli'_15_val, bernoulli'_16_val, bernoulli'_17_val, bernoulli'_18_val, bernoulli'_19_val,
-    c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19]
-  norm_num
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one,
+    bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val,
+    bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val, bernoulli'_10_val, bernoulli'_11_val,
+    bernoulli'_12_val, bernoulli'_13_val, bernoulli'_14_val, bernoulli'_15_val, bernoulli'_16_val,
+    bernoulli'_17_val, bernoulli'_18_val, bernoulli'_19_val,
+    Nat.choose_eq_descFactorial_div_factorial]
+  norm_num [Nat.descFactorial, Nat.factorial]
 
 theorem bernoulli'_21_val : bernoulli' 21 = 0 :=
   bernoulli'_eq_zero_of_odd (by decide) (by norm_num)
 
 theorem bernoulli'_22_val : bernoulli' 22 = 854513 / 138 := by
-  have c0 : Nat.choose 22 0 = 1 := by decide
-  have c1 : Nat.choose 22 1 = 22 := by decide
-  have c2 : Nat.choose 22 2 = 231 := by decide
-  have c3 : Nat.choose 22 3 = 1540 := by decide
-  have c4 : Nat.choose 22 4 = 7315 := by decide
-  have c5 : Nat.choose 22 5 = 26334 := by decide
-  have c6 : Nat.choose 22 6 = 74613 := by decide
-  have c7 : Nat.choose 22 7 = 170544 := by decide
-  have c8 : Nat.choose 22 8 = 319770 := by decide
-  have c9 : Nat.choose 22 9 = 497420 := by decide
-  have c10 : Nat.choose 22 10 = 646646 := by decide
-  have c11 : Nat.choose 22 11 = 705432 := by decide
-  have c12 : Nat.choose 22 12 = 646646 := by decide
-  have c13 : Nat.choose 22 13 = 497420 := by decide
-  have c14 : Nat.choose 22 14 = 319770 := by decide
-  have c15 : Nat.choose 22 15 = 170544 := by decide
-  have c16 : Nat.choose 22 16 = 74613 := by decide
-  have c17 : Nat.choose 22 17 = 26334 := by decide
-  have c18 : Nat.choose 22 18 = 7315 := by decide
-  have c19 : Nat.choose 22 19 = 1540 := by decide
-  have c20 : Nat.choose 22 20 = 231 := by decide
-  have c21 : Nat.choose 22 21 = 22 := by decide
   rw [bernoulli'_def]
-  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one, bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val, bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val, bernoulli'_10_val, bernoulli'_11_val, bernoulli'_12_val, bernoulli'_13_val, bernoulli'_14_val, bernoulli'_15_val, bernoulli'_16_val, bernoulli'_17_val, bernoulli'_18_val, bernoulli'_19_val, bernoulli'_20_val, bernoulli'_21_val,
-    c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21]
-  norm_num
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one,
+    bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val,
+    bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val, bernoulli'_10_val, bernoulli'_11_val,
+    bernoulli'_12_val, bernoulli'_13_val, bernoulli'_14_val, bernoulli'_15_val, bernoulli'_16_val,
+    bernoulli'_17_val, bernoulli'_18_val, bernoulli'_19_val, bernoulli'_20_val, bernoulli'_21_val,
+    Nat.choose_eq_descFactorial_div_factorial]
+  norm_num [Nat.descFactorial, Nat.factorial]
 
 theorem bernoulli'_23_val : bernoulli' 23 = 0 :=
   bernoulli'_eq_zero_of_odd (by decide) (by norm_num)
 
 theorem bernoulli'_24_val : bernoulli' 24 = -236364091 / 2730 := by
-  have c0 : Nat.choose 24 0 = 1 := by decide
-  have c1 : Nat.choose 24 1 = 24 := by decide
-  have c2 : Nat.choose 24 2 = 276 := by decide
-  have c3 : Nat.choose 24 3 = 2024 := by decide
-  have c4 : Nat.choose 24 4 = 10626 := by decide
-  have c5 : Nat.choose 24 5 = 42504 := by decide
-  have c6 : Nat.choose 24 6 = 134596 := by decide
-  have c7 : Nat.choose 24 7 = 346104 := by decide
-  have c8 : Nat.choose 24 8 = 735471 := by decide
-  have c9 : Nat.choose 24 9 = 1307504 := by decide
-  have c10 : Nat.choose 24 10 = 1961256 := by decide
-  have c11 : Nat.choose 24 11 = 2496144 := by decide
-  have c12 : Nat.choose 24 12 = 2704156 := by decide
-  have c13 : Nat.choose 24 13 = 2496144 := by decide
-  have c14 : Nat.choose 24 14 = 1961256 := by decide
-  have c15 : Nat.choose 24 15 = 1307504 := by decide
-  have c16 : Nat.choose 24 16 = 735471 := by decide
-  have c17 : Nat.choose 24 17 = 346104 := by decide
-  have c18 : Nat.choose 24 18 = 134596 := by decide
-  have c19 : Nat.choose 24 19 = 42504 := by decide
-  have c20 : Nat.choose 24 20 = 10626 := by decide
-  have c21 : Nat.choose 24 21 = 2024 := by decide
-  have c22 : Nat.choose 24 22 = 276 := by decide
-  have c23 : Nat.choose 24 23 = 24 := by decide
   rw [bernoulli'_def]
-  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one, bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val, bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val, bernoulli'_10_val, bernoulli'_11_val, bernoulli'_12_val, bernoulli'_13_val, bernoulli'_14_val, bernoulli'_15_val, bernoulli'_16_val, bernoulli'_17_val, bernoulli'_18_val, bernoulli'_19_val, bernoulli'_20_val, bernoulli'_21_val, bernoulli'_22_val, bernoulli'_23_val,
-    c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23]
-  norm_num
+  simp only [Finset.sum_range_succ, Finset.sum_range_zero, bernoulli'_zero, bernoulli'_one,
+    bernoulli'_two, bernoulli'_three, bernoulli'_four, bernoulli'_5_val, bernoulli'_6_val,
+    bernoulli'_7_val, bernoulli'_8_val, bernoulli'_9_val, bernoulli'_10_val, bernoulli'_11_val,
+    bernoulli'_12_val, bernoulli'_13_val, bernoulli'_14_val, bernoulli'_15_val, bernoulli'_16_val,
+    bernoulli'_17_val, bernoulli'_18_val, bernoulli'_19_val, bernoulli'_20_val, bernoulli'_21_val,
+    bernoulli'_22_val, bernoulli'_23_val, Nat.choose_eq_descFactorial_div_factorial]
+  norm_num [Nat.descFactorial, Nat.factorial]
 
 theorem bernoulli_2_eq : bernoulli 2 = 1 / 6 := by
   rw [bernoulli_eq_bernoulli'_of_ne_one (by norm_num), bernoulli'_two]
