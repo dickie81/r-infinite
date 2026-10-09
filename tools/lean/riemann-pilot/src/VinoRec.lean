@@ -42,39 +42,50 @@ lemma card_cls_le {P p a : ℕ} : (cls P p a).card ≤ P / p + 1 := by
           rw [← Nat.div_add_mod n p, ← Nat.div_add_mod m p, h, hn'.2, hm'.2]
     _ = P / p + 1 := card_range _
 
+/-- Numbers in `[1,P]` with residue in `S`. -/
+def pieceS (P p : ℕ) (S : Finset (ZMod p)) : Finset ℕ :=
+  (Icc 1 P).filter fun m => ((m : ℕ) : ZMod p) ∈ S
+
+/-- Tuples with every coordinate in `pieceS`. -/
+def piece (n P p : ℕ) (S : Finset (ZMod p)) : Finset (Fin n → ℕ) :=
+  Fintype.piFinset fun _ : Fin n => pieceS P p S
+
+/-- A bad tuple lies in a piece `S^n` with `|S| = k − 1` (from `VinoBad.lean` since round 334). -/
+lemma bad_sub {n k P p : ℕ} [NeZero p] (hp : p.Prime) (hk : 1 ≤ k) (hkp : k ≤ p) :
+    (box n P).filter (isBad k p) ⊆
+      (powersetCard (k - 1) (univ : Finset (ZMod p))).biUnion (piece n P p) := by
+  have : Fact p.Prime := ⟨hp⟩
+  intro x hx
+  rw [mem_filter] at hx
+  set R := univ.image fun i => (x i : ZMod p)
+  have hR0 : R.card < k := hx.2
+  have hR : R.card ≤ k - 1 := by omega
+  have hRp : k - 1 ≤ (univ : Finset (ZMod p)).card := by
+    rw [card_univ, ZMod.card]; omega
+  obtain ⟨S, hRS, _, hS⟩ := exists_subsuperset_card_eq (subset_univ R) hR hRp
+  refine mem_biUnion.mpr ⟨S, mem_powersetCard.mpr ⟨subset_univ _, hS⟩, ?_⟩
+  rw [piece, Fintype.mem_piFinset]
+  intro i
+  rw [pieceS, mem_filter]
+  have hb := hx.1
+  rw [Vinogradov.box, Fintype.mem_piFinset] at hb
+  exact ⟨hb i, hRS (mem_image_of_mem _ (mem_univ i))⟩
+
 /-- **Step D (bad count).** -/
 theorem bad_card {n k P p : ℕ} (hp : p.Prime) (hk : 1 ≤ k) (hkp : k ≤ p) :
     ((box n P).filter (isBad k p)).card ≤ p ^ (k - 1) * ((k - 1) * (P / p + 1)) ^ n := by
   have : Fact p.Prime := ⟨hp⟩
   set F := powersetCard (k - 1) (univ : Finset (ZMod p)) with hF
-  set piece : Finset (ZMod p) → Finset (Fin n → ℕ) := fun S =>
-    Fintype.piFinset fun _ : Fin n => (Icc 1 P).filter fun m => ((m : ℕ) : ZMod p) ∈ S with hpiece
-  have hsub : (box n P).filter (isBad k p) ⊆ F.biUnion piece := by
-    intro x hx
-    rw [mem_filter] at hx
-    set R := univ.image fun i => (x i : ZMod p)
-    have hR0 : R.card < k := hx.2
-    have hR : R.card ≤ k - 1 := by omega
-    have hRp : k - 1 ≤ (univ : Finset (ZMod p)).card := by
-      rw [card_univ, ZMod.card]; omega
-    obtain ⟨S, hRS, _, hS⟩ := exists_subsuperset_card_eq (subset_univ R) hR hRp
-    refine mem_biUnion.mpr ⟨S, mem_powersetCard.mpr ⟨subset_univ _, hS⟩, ?_⟩
-    rw [hpiece, Fintype.mem_piFinset]
-    intro i
-    rw [mem_filter]
-    have hb := hx.1
-    rw [Vinogradov.box, Fintype.mem_piFinset] at hb
-    exact ⟨hb i, hRS (mem_image_of_mem _ (mem_univ i))⟩
-  have hpc : ∀ S ∈ F, (piece S).card ≤ ((k - 1) * (P / p + 1)) ^ n := by
+  have hpc : ∀ S ∈ F, (piece n P p S).card ≤ ((k - 1) * (P / p + 1)) ^ n := by
     intro S hS
     rw [mem_powersetCard] at hS
-    rw [hpiece, Fintype.card_piFinset, prod_const, card_univ, Fintype.card_fin]
+    rw [piece, Fintype.card_piFinset, prod_const, card_univ, Fintype.card_fin]
     apply Nat.pow_le_pow_left
-    calc ((Icc 1 P).filter fun m => ((m : ℕ) : ZMod p) ∈ S).card
+    calc (pieceS P p S).card
         ≤ (S.biUnion fun r => cls P p r.val).card := by
           apply card_le_card
           intro m hm
-          rw [mem_filter] at hm
+          rw [pieceS, mem_filter] at hm
           refine mem_biUnion.mpr ⟨((m : ℕ) : ZMod p), hm.2, ?_⟩
           rw [cls, mem_filter, ZMod.val_natCast]
           exact ⟨hm.1, rfl⟩
@@ -84,8 +95,9 @@ theorem bad_card {n k P p : ℕ} (hp : p.Prime) (hk : 1 ≤ k) (hkp : k ≤ p) :
   have hFc : F.card ≤ p ^ (k - 1) := by
     rw [hF, card_powersetCard, card_univ, ZMod.card]
     exact Nat.choose_le_pow p (k - 1)
-  calc ((box n P).filter (isBad k p)).card ≤ (F.biUnion piece).card := card_le_card hsub
-    _ ≤ ∑ S ∈ F, (piece S).card := card_biUnion_le
+  calc ((box n P).filter (isBad k p)).card ≤ (F.biUnion (piece n P p)).card :=
+        card_le_card (bad_sub hp hk hkp)
+    _ ≤ ∑ S ∈ F, (piece n P p S).card := card_biUnion_le
     _ ≤ ∑ _S ∈ F, ((k - 1) * (P / p + 1)) ^ n := sum_le_sum hpc
     _ = F.card * ((k - 1) * (P / p + 1)) ^ n := by rw [sum_const, smul_eq_mul]
     _ ≤ p ^ (k - 1) * ((k - 1) * (P / p + 1)) ^ n := Nat.mul_le_mul_right _ hFc
@@ -97,6 +109,19 @@ lemma TBB_le {k s P p : ℕ} (hp : p.Prime) (hk : 1 ≤ k) (hkp : k ≤ p) :
   rw [card_product, sq]
   exact Nat.mul_le_mul (bad_card hp hk hkp) (bad_card hp hk hkp)
 
+/-- **Steps B and C**: `G ≤ p^{2s−1}·p·P^k·k!·p^{k(k−1)/2}·J_{s,k}(⌊P/p⌋+1)` (round 334: `one_step` and
+`VinoBad.one_step2` share it). -/
+lemma Gfull_le_J {k s P p : ℕ} (hp : p.Prime) (hpk : k < p) (hP : P ≤ p ^ k) (hs : 1 ≤ s) :
+    Gfull k s P p ≤ p ^ (2 * s - 1) *
+      (p * (P ^ k * (k.factorial * p ^ (k * (k - 1) / 2)) * J s k (P / p + 1))) := by
+  refine (Gfull_le hp.pos hs).trans (Nat.mul_le_mul_left _ ?_)
+  calc ∑ a ∈ range p, Gcls k s P p a
+      ≤ ∑ _a ∈ range p, P ^ k * (k.factorial * p ^ (k * (k - 1) / 2)) * J s k (P / p + 1) := by
+        apply sum_le_sum
+        intro a _
+        exact (Gcls_le hp hpk hP).trans (Nat.mul_le_mul_left _ (Jc_cls_le hp.pos s k))
+    _ = _ := by rw [sum_const, card_range, smul_eq_mul]
+
 /-- **One Karatsuba step** (A–D chained). -/
 theorem one_step {k s P p : ℕ} (hp : p.Prime) (hk : 1 ≤ k) (hpk : k < p) (hP : P ≤ p ^ k)
     (hs : 1 ≤ s) :
@@ -105,20 +130,9 @@ theorem one_step {k s P p : ℕ} (hp : p.Prime) (hk : 1 ≤ k) (hpk : k < p) (hP
         (p * (P ^ k * (k.factorial * p ^ (k * (k - 1) / 2)) * J s k (P / p + 1)))) := by
   have hA := stepA k s P p
   have hD := TBB_le (s := s) (P := P) hp hk hpk.le
-  have hB := Gfull_le (k := k) (s := s) (P := P) hp.pos hs
-  have hC : ∑ a ∈ range p, Gcls k s P p a ≤
-      p * (P ^ k * (k.factorial * p ^ (k * (k - 1) / 2)) * J s k (P / p + 1)) := by
-    calc ∑ a ∈ range p, Gcls k s P p a
-        ≤ ∑ _a ∈ range p, P ^ k * (k.factorial * p ^ (k * (k - 1) / 2)) * J s k (P / p + 1) := by
-          apply sum_le_sum
-          intro a _
-          exact (Gcls_le hp hpk hP).trans (Nat.mul_le_mul_left _ (Jc_cls_le hp.pos s k))
-      _ = _ := by rw [sum_const, card_range, smul_eq_mul]
-  have hG : Gfull k s P p ≤ p ^ (2 * s - 1) *
-      (p * (P ^ k * (k.factorial * p ^ (k * (k - 1) / 2)) * J s k (P / p + 1))) :=
-    hB.trans (Nat.mul_le_mul_left _ hC)
   calc J (k + s) k P ≤ 2 * TBB k s P p + 16 * (k + s) ^ (2 * k) * Gfull k s P p := hA
-    _ ≤ _ := Nat.add_le_add (Nat.mul_le_mul_left _ hD) (Nat.mul_le_mul_left _ hG)
+    _ ≤ _ := Nat.add_le_add (Nat.mul_le_mul_left _ hD)
+          (Nat.mul_le_mul_left _ (Gfull_le_J hp hpk hP hs))
 
 /-! ## Choosing the prime -/
 
@@ -384,37 +398,46 @@ lemma eta_nonneg {k : ℕ} (hk : 2 ≤ k) (m : ℕ) : 0 ≤ eta k m := by
   | zero => simp only [eta]; nlinarith
   | succ m ih => rw [eta]; exact le_max_of_le_left (mul_nonneg h1 ih)
 
+/-- Once `m ≥ k²`, `η_{m+1} ≤ (1 − 1/k)η_m` (from `VinoConst2.lean` since round 334). -/
+lemma eta_contract {k : ℕ} (hk : 2 ≤ k) (m : ℕ) (hm : k * k ≤ m) :
+    eta k (m + 1) ≤ (1 - 1 / (k : ℝ)) * eta k m := by
+  have hk' : (2 : ℝ) ≤ k := by exact_mod_cast hk
+  rw [eta]
+  apply max_le le_rfl
+  have hmr : ((k * k : ℕ) : ℝ) ≤ m := by exact_mod_cast hm
+  push_cast at hmr
+  have hlin : (k : ℝ) * ((k : ℝ) + 1) / 2 ≤ 2 * (((k + m * k : ℕ) : ℝ) + 1) / k := by
+    rw [div_le_div_iff₀ (by norm_num) (by linarith)]
+    push_cast
+    nlinarith
+  have hr0 : 0 ≤ 1 - 1 / (k : ℝ) := by rw [sub_nonneg, div_le_one (by linarith)]; linarith
+  have := mul_nonneg hr0 (eta_nonneg hk m)
+  linarith
+
+/-- `η_{k²+j} ≤ (1 − 1/k)^j η_{k²}` (from `VinoConst2.lean` since round 334). -/
+lemma eta_geo {k : ℕ} (hk : 2 ≤ k) (j : ℕ) :
+    eta k (k * k + j) ≤ (1 - 1 / (k : ℝ)) ^ j * eta k (k * k) := by
+  have hk' : (2 : ℝ) ≤ k := by exact_mod_cast hk
+  have hr0 : 0 ≤ 1 - 1 / (k : ℝ) := by rw [sub_nonneg, div_le_one (by linarith)]; linarith
+  induction j with
+  | zero => simp
+  | succ j ih =>
+    calc eta k (k * k + (j + 1)) = eta k (k * k + j + 1) := by rw [add_assoc]
+      _ ≤ (1 - 1 / (k : ℝ)) * eta k (k * k + j) := eta_contract hk _ (Nat.le_add_right _ _)
+      _ ≤ (1 - 1 / (k : ℝ)) * ((1 - 1 / (k : ℝ)) ^ j * eta k (k * k)) :=
+          mul_le_mul_of_nonneg_left ih hr0
+      _ = (1 - 1 / (k : ℝ)) ^ (j + 1) * eta k (k * k) := by ring
+
 /-- **`η_m → 0`**: the excess exponent can be made as small as we like. -/
 theorem eta_small {k : ℕ} (hk : 2 ≤ k) (ε : ℝ) (hε : 0 < ε) : ∃ m, eta k m ≤ ε := by
   have hk' : (2 : ℝ) ≤ k := by exact_mod_cast hk
+  have hgeo := eta_geo hk
   set r : ℝ := 1 - 1 / (k : ℝ)
   have hr0 : 0 ≤ r := by
     show 0 ≤ 1 - 1 / (k : ℝ); rw [sub_nonneg, div_le_one (by linarith)]; linarith
   have hr1 : r < 1 := by
     show 1 - 1 / (k : ℝ) < 1; have : 0 < 1 / (k : ℝ) := by positivity
     linarith
-  -- past `m₀ = k²` the linear term is nonpositive, so `η` contracts by `r`
-  have hcontract : ∀ m, k * k ≤ m → eta k (m + 1) ≤ r * eta k m := by
-    intro m hm
-    rw [eta]
-    apply max_le le_rfl
-    have hmr : ((k * k : ℕ) : ℝ) ≤ m := by exact_mod_cast hm
-    push_cast at hmr
-    have hlin : (k : ℝ) * ((k : ℝ) + 1) / 2 ≤ 2 * (((k + m * k : ℕ) : ℝ) + 1) / k := by
-      rw [div_le_div_iff₀ (by norm_num) (by linarith)]
-      push_cast
-      nlinarith
-    have := mul_nonneg hr0 (eta_nonneg hk m)
-    linarith
-  have hgeo : ∀ j, eta k (k * k + j) ≤ r ^ j * eta k (k * k) := by
-    intro j
-    induction j with
-    | zero => simp
-    | succ j ihj =>
-      calc eta k (k * k + (j + 1)) = eta k (k * k + j + 1) := by rw [add_assoc]
-        _ ≤ r * eta k (k * k + j) := hcontract _ (Nat.le_add_right _ _)
-        _ ≤ r * (r ^ j * eta k (k * k)) := mul_le_mul_of_nonneg_left ihj hr0
-        _ = r ^ (j + 1) * eta k (k * k) := by ring
   obtain ⟨j, hj⟩ := exists_pow_lt_of_lt_one (show 0 < ε / (eta k (k * k) + 1) by
     have := eta_nonneg hk (k * k); positivity) hr1
   refine ⟨k * k + j, (hgeo j).trans ?_⟩

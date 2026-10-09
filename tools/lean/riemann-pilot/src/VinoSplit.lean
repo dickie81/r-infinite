@@ -32,23 +32,10 @@ variable {β : Type*} {k : ℕ} (φ : β → Fin k → ℤ)
 
 lemma pairCount_eq_sum (A B : Finset β) (U : Finset (Fin k → ℤ)) (hU : A.image φ ⊆ U) :
     pairCount A B φ = ∑ v ∈ U, (A.filter fun x => φ x = v).card * (B.filter fun x => φ x = v).card := by
+  have h := shiftCount₂_eq_sum A B φ 0 U (fun _ hx => hU (mem_image_of_mem φ hx))
+  simp only [add_zero, sub_zero] at h
   unfold pairCount
-  rw [card_eq_sum_card_fiberwise (f := fun q => φ q.1) (t := U)]
-  · apply sum_congr rfl
-    intro v _
-    rw [← card_product]
-    congr 1
-    ext q
-    simp only [mem_filter, mem_product]
-    constructor
-    · rintro ⟨⟨⟨h1, h2⟩, h3⟩, h4⟩
-      exact ⟨⟨h1, h4⟩, h2, h3.symm.trans h4⟩
-    · rintro ⟨⟨h1, h4⟩, h2, h5⟩
-      exact ⟨⟨⟨h1, h2⟩, h4.trans h5.symm⟩, h4⟩
-  · intro q hq
-    have hq' := mem_coe.mp hq
-    rw [mem_filter, mem_product] at hq'
-    exact mem_coe.mpr (hU (mem_image_of_mem φ hq'.1.1))
+  convert h
 
 /-- **Cauchy–Schwarz in counting form.** `pairCount(A,B)² ≤ pairCount(A,A)·pairCount(B,B)`. -/
 lemma pairCount_sq_le [DecidableEq β] (A B : Finset β) :

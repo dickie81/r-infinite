@@ -2,8 +2,9 @@
 # Explicit VMVT parameters for layer II (round 209)
 
 Plain statements, for `K ≥ 7` and `m = 2K²` (so `ℓ = K(2K²+1)` variables):
-* `eta_geo`: after `K²` steps the excess exponent `η` contracts by `1 − 1/K` per step (used by
-  `ExpSum9.eta_two_sq32`, `η_{2K²} ≤ 1/32` for `K ≥ 10`).
+* `eta_geo` (in `VinoRec.lean` since round 334, where `eta_small` uses it): after `K²` steps the
+  excess exponent `η` contracts by `1 − 1/K` per step (used by `ExpSum9.eta_two_sq32`,
+  `η_{2K²} ≤ 1/32` for `K ≥ 10`).
 * `gexp_closed`: `g(m) = K + 3K·m(m+1) + (K² + 3K + 2)·m`.
 * `gexp_two_sq`: `g(2K²) ≤ 20K⁵`. With `Cvm_le`, `C_{2K²} ≤ (8(K+2))^{20K⁵}`.
 -/
@@ -12,34 +13,6 @@ import VinoConst
 open Finset
 
 namespace VinoRec
-
-lemma eta_contract {k : ℕ} (hk : 2 ≤ k) (m : ℕ) (hm : k * k ≤ m) :
-    eta k (m + 1) ≤ (1 - 1 / (k : ℝ)) * eta k m := by
-  have hk' : (2 : ℝ) ≤ k := by exact_mod_cast hk
-  rw [eta]
-  apply max_le le_rfl
-  have hmr : ((k * k : ℕ) : ℝ) ≤ m := by exact_mod_cast hm
-  push_cast at hmr
-  have hlin : (k : ℝ) * ((k : ℝ) + 1) / 2 ≤ 2 * (((k + m * k : ℕ) : ℝ) + 1) / k := by
-    rw [div_le_div_iff₀ (by norm_num) (by linarith)]
-    push_cast
-    nlinarith
-  have hr0 : 0 ≤ 1 - 1 / (k : ℝ) := by rw [sub_nonneg, div_le_one (by linarith)]; linarith
-  have := mul_nonneg hr0 (eta_nonneg hk m)
-  linarith
-
-lemma eta_geo {k : ℕ} (hk : 2 ≤ k) (j : ℕ) :
-    eta k (k * k + j) ≤ (1 - 1 / (k : ℝ)) ^ j * eta k (k * k) := by
-  have hk' : (2 : ℝ) ≤ k := by exact_mod_cast hk
-  have hr0 : 0 ≤ 1 - 1 / (k : ℝ) := by rw [sub_nonneg, div_le_one (by linarith)]; linarith
-  induction j with
-  | zero => simp
-  | succ j ih =>
-    calc eta k (k * k + (j + 1)) = eta k (k * k + j + 1) := by rw [add_assoc]
-      _ ≤ (1 - 1 / (k : ℝ)) * eta k (k * k + j) := eta_contract hk _ (Nat.le_add_right _ _)
-      _ ≤ (1 - 1 / (k : ℝ)) * ((1 - 1 / (k : ℝ)) ^ j * eta k (k * k)) :=
-          mul_le_mul_of_nonneg_left ih hr0
-      _ = (1 - 1 / (k : ℝ)) ^ (j + 1) * eta k (k * k) := by ring
 
 lemma gexp_closed (k m : ℕ) : gexp k m = k + 3 * k * m * (m + 1) + (k ^ 2 + 3 * k + 2) * m := by
   induction m with

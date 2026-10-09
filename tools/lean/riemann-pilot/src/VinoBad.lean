@@ -19,34 +19,6 @@ namespace VinoBad
 
 open Vinogradov VinoIter VinoHolder VinoSplit VinoRec
 
-/-- Numbers in `[1,P]` with residue in `S`. -/
-def pieceS (P p : ℕ) (S : Finset (ZMod p)) : Finset ℕ :=
-  (Icc 1 P).filter fun m => ((m : ℕ) : ZMod p) ∈ S
-
-/-- Tuples with every coordinate in `pieceS`. -/
-def piece (n P p : ℕ) (S : Finset (ZMod p)) : Finset (Fin n → ℕ) :=
-  Fintype.piFinset fun _ : Fin n => pieceS P p S
-
-lemma bad_sub {n k P p : ℕ} [NeZero p] (hp : p.Prime) (hk : 1 ≤ k) (hkp : k ≤ p) :
-    (box n P).filter (isBad k p) ⊆
-      (powersetCard (k - 1) (univ : Finset (ZMod p))).biUnion (piece n P p) := by
-  have : Fact p.Prime := ⟨hp⟩
-  intro x hx
-  rw [mem_filter] at hx
-  set R := univ.image fun i => (x i : ZMod p)
-  have hR0 : R.card < k := hx.2
-  have hR : R.card ≤ k - 1 := by omega
-  have hRp : k - 1 ≤ (univ : Finset (ZMod p)).card := by
-    rw [card_univ, ZMod.card]; omega
-  obtain ⟨S, hRS, _, hS⟩ := exists_subsuperset_card_eq (subset_univ R) hR hRp
-  refine mem_biUnion.mpr ⟨S, mem_powersetCard.mpr ⟨subset_univ _, hS⟩, ?_⟩
-  rw [piece, Fintype.mem_piFinset]
-  intro i
-  rw [pieceS, mem_filter]
-  have hb := hx.1
-  rw [Vinogradov.box, Fintype.mem_piFinset] at hb
-  exact ⟨hb i, hRS (mem_image_of_mem _ (mem_univ i))⟩
-
 section counting
 variable {β : Type*} {k : ℕ} (φ : β → Fin k → ℤ)
 
@@ -91,15 +63,6 @@ lemma g_pieceS {P p : ℕ} (hp : p.Prime) (S : Finset (ZMod p)) {k : ℕ} (α : 
         Nat.mod_eq_of_lt (ZMod.val_lt r)]
     exact ⟨⟨h1, hr ▸ ‹r ∈ S›⟩, hr⟩
 
-lemma integrable_normsq {β : Type*} {k : ℕ} (X : Finset β) (φ : β → Fin k → ℤ) :
-    Integrable (fun α => ‖E X φ α‖ ^ 2) (torus k) := by
-  refine Integrable.of_bound ((continuous_E X φ).norm.pow 2).aestronglyMeasurable
-    ((X.card : ℝ) ^ 2) (Filter.Eventually.of_forall fun α => ?_)
-  rw [Real.norm_eq_abs, abs_of_nonneg (by positivity)]
-  apply pow_le_pow_left₀ (norm_nonneg _)
-  calc ‖E X φ α‖ ≤ ∑ x ∈ X, ‖ee (∑ j, (φ x j : ℝ) * α j)‖ := norm_sum_le _ _
-    _ = X.card := by simp [norm_ee]
-
 /-- **One piece.** `pairCount(S^n, S^n) ≤ (k−1)^{2n}·J_n(⌊P/p⌋+1)` for `|S| = k − 1`. -/
 theorem piece_self_le {n k P p : ℕ} (hp : p.Prime) (hn : 1 ≤ n) (S : Finset (ZMod p))
     (hS : S.card = k - 1) (kk : ℕ) :
@@ -123,19 +86,10 @@ theorem piece_self_le {n k P p : ℕ} (hp : p.Prime) (hn : 1 ≤ n) (S : Finset 
     have h1 : ‖∑ r ∈ S, g (cls P p r.val) α‖ ^ (2 * n) ≤
         (∑ r ∈ S, ‖g (cls P p r.val) α‖) ^ (2 * n) :=
       pow_le_pow_left₀ (norm_nonneg _) (norm_sum_le _ _) _
-    have h2 := pow_sum_div_card_le_sum_pow (s := S) (f := fun r => ‖g (cls P p r.val) α‖)
-      (fun r _ => norm_nonneg _) (2 * n - 1)
-    rw [show 2 * n - 1 + 1 = 2 * n by omega, hS] at h2
-    rcases Nat.eq_zero_or_pos (k - 1) with h0 | hpos
-    · have hS0 : S = ∅ := card_eq_zero.mp (hS.trans h0)
-      subst hS0
-      simp only [sum_empty, norm_zero]
-      rw [zero_pow (by omega)]; simp
-    · have hkpos : (0 : ℝ) < ((k - 1 : ℕ) : ℝ) ^ (2 * n - 1) := by positivity
-      rw [div_le_iff₀ hkpos] at h2
-      refine h1.trans ?_
-      linarith [mul_comm (((k - 1 : ℕ) : ℝ) ^ (2 * n - 1))
-        (∑ r ∈ S, ‖g (cls P p r.val) α‖ ^ (2 * n))]
+    have h2 := power_mean_fs S (fun r => ‖g (cls P p r.val) α‖) (fun r => norm_nonneg _)
+      (ℓ := 2 * n) (by omega)
+    rw [hS] at h2
+    exact h1.trans h2
   have hmono := integral_mono (integrable_normsq _ _)
     ((integrable_finsetSum _ fun r _ => integrable_normsq _ _).const_mul
       (((k - 1 : ℕ) : ℝ) ^ (2 * n - 1))) hpt
@@ -193,23 +147,11 @@ theorem one_step2 {k s P p : ℕ} (hp : p.Prime) (hk : 1 ≤ k) (hpk : k < p) (h
         (p * (P ^ k * (k.factorial * p ^ (k * (k - 1) / 2)) * J s k (P / p + 1)))) := by
   have hA := stepA k s P p
   have hD := TBB_le2 (s := s) (P := P) hp hk hpk.le
-  have hB := Gfull_le (k := k) (s := s) (P := P) hp.pos hs
-  have hC : ∑ a ∈ range p, Gcls k s P p a ≤
-      p * (P ^ k * (k.factorial * p ^ (k * (k - 1) / 2)) * J s k (P / p + 1)) := by
-    calc ∑ a ∈ range p, Gcls k s P p a
-        ≤ ∑ _a ∈ range p, P ^ k * (k.factorial * p ^ (k * (k - 1) / 2)) * J s k (P / p + 1) := by
-          apply sum_le_sum
-          intro a _
-          exact (Gcls_le hp hpk hP).trans (Nat.mul_le_mul_left _ (Jc_cls_le hp.pos s k))
-      _ = _ := by rw [sum_const, card_range, smul_eq_mul]
-  have hG : Gfull k s P p ≤ p ^ (2 * s - 1) *
-      (p * (P ^ k * (k.factorial * p ^ (k * (k - 1) / 2)) * J s k (P / p + 1))) :=
-    hB.trans (Nat.mul_le_mul_left _ hC)
   calc J (k + s) k P ≤ 2 * TBB k s P p + 16 * (k + s) ^ (2 * k) * Gfull k s P p := hA
     _ ≤ 2 * (2 * (p.choose (k - 1)) ^ 2 * ((k - 1) ^ (2 * (k + s)) * J (k + s) k (P / p + 1))) +
         16 * (k + s) ^ (2 * k) * (p ^ (2 * s - 1) *
           (p * (P ^ k * (k.factorial * p ^ (k * (k - 1) / 2)) * J s k (P / p + 1)))) :=
-        Nat.add_le_add (Nat.mul_le_mul_left _ hD) (Nat.mul_le_mul_left _ hG)
+        Nat.add_le_add (Nat.mul_le_mul_left _ hD) (Nat.mul_le_mul_left _ (Gfull_le_J hp hpk hP hs))
     _ = _ := by ring
 
 end VinoBad

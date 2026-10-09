@@ -6560,7 +6560,7 @@ Axioms are clean.
 - **I.1, orthogonality (`J_eq_integral_norm`).** `J_{s,k}(N) = ∫_{(0,1]^k} |Σ_{n≤N} e(α₁n + … + α_k nᵏ)|^{2s} dα`, with `e(t) = exp(2πit)`. The proof has three steps:
   1. `∫₀¹ e(mt) dt = [m = 0]`;
   2. the product-measure formula on the torus;
-  3. expanding `f^s·conj(f)^s` over pairs of tuples.
+  3. expanding `f^s·conj(f)^s` over pairs of tuples. *(Round 334: the three steps are now round 199's `count_eq_integral`, moved to `Vinogradov.lean`, at `X = box s N`, `φ = pv k`.)*
   This is the link between the counting problem and exponential sums: layer II will run through it.
 - **I.2 (`J_succ_le`).** `J_{s+1,k}(N) ≤ N²·J_{s,k}(N)`. The proof:
   - Split off the first coordinate.
@@ -6658,10 +6658,10 @@ Axioms are clean.
 
 Axioms are clean.
 
-- **`count_eq_integral`.** Orthogonality for any finite set: `∫ |Σ_{x∈X} e(α·φ(x))|² dα = #{(x,y) ∈ X² : φ x = φ y}`.
+- **`count_eq_integral`.** Orthogonality for any finite set: `∫ |Σ_{x∈X} e(α·φ(x))|² dα = #{(x,y) ∈ X² : φ x = φ y}`. *(Round 334: now in `Vinogradov.lean`, where `J_eq_integral_norm` is its instance.)*
 - **`Gfull_le` (Step B).** `G ≤ p^{2s−1} Σ_{a<p} G_a`. The proof:
   - the generating function of `G` factorises as `F·f^s` (`E_prod`, `E_pi`), with `f = Σ_{a<p} f_a` over residue classes (`g_split`);
-  - the power mean inequality, pointwise: `|Σ_a f_a|^{2s} ≤ p^{2s−1} Σ_a |f_a|^{2s}` (`power_mean`, from Mathlib's `pow_sum_div_card_le_sum_pow`);
+  - the power mean inequality, pointwise: `|Σ_a f_a|^{2s} ≤ p^{2s−1} Σ_a |f_a|^{2s}` (`power_mean`, from Mathlib's `pow_sum_div_card_le_sum_pow`); *(Round 334: `power_mean` is now an instance of round 203's `power_mean_fs`, which moved to `VinoHolder.lean`.)*
   - integrate.
 
   With round 198 this gives `G ≤ p^{2s}·P^k·k!·p^{k(k−1)/2}·J_s(⌊P/p⌋+1)`: the conditioned half of the Karatsuba step is complete.
@@ -6909,7 +6909,7 @@ Axioms are clean.
 
 Axioms are clean.
 
-- **`eta_contract`, `eta_geo`.** Once `m ≥ K²`, the recursion's second branch drops below the first, so `η_{m+1} ≤ (1−1/K)η_m`. Therefore `η_{K²+j} ≤ (1−1/K)^j η_{K²}`.
+- **`eta_contract`, `eta_geo`.** Once `m ≥ K²`, the recursion's second branch drops below the first, so `η_{m+1} ≤ (1−1/K)η_m`. Therefore `η_{K²+j} ≤ (1−1/K)^j η_{K²}`. *(Round 334: both are now in `VinoRec.lean`, before round 202's `eta_small`, which uses `eta_geo`.)*
 - **`eta_two_sq`.** For `K ≥ 7`, `η_{2K²} ≤ 1/8`. The proof uses `(1−1/K)^{K²} ≤ e^{−K}`, `η_{K²} ≤ K(K+1)/2` and `4K(K+1) ≤ e^K`; the last comes from the degree-5 Taylor lower bound of `exp`.
 - **`gexp_closed`, `gexp_two_sq`.** The constant exponent has the closed form `g(m) = K + 3Km(m+1) + (K²+3K+2)m`. Hence `g(2K²) ≤ 20K⁵`, and VMVT at `s = K(2K²+1)` has constant at most `(8(K+2))^{20K⁵}`.
 
@@ -10689,6 +10689,44 @@ DHGround's form is the instance `dhU` (`c = constDH`, `q = ¾`, `f = fDH`): `dhU
 - The `File.lean:N` citations of declarations in the Lean files of `src/` and `external/` were re-checked: 62 resolve and none is stale, up from 59 and 3. The census reads the Lean files only; round 332's entry said it also read the Markdown files, and now carries a correction.
 
 **Check 4.** Nothing here is new as mathematics: each derived theorem was proved before this round. The paper cites none of these proofs.
+
+**Check 9.** No barrier claim is made.
+
+**Bearing on RH:** none.
+
+## Round 334: simplification batch C1 — the Vinogradov strand (`src/Vinogradov.lean`, `VinoHolder.lean`, `VinoSplit.lean`, `VinoRec.lean`, `VinoBad.lean`, `VinoConst2.lean`, `ExpSum.lean`)
+
+**What it is.** The third simplification batch from the second stack review: arguments that the strand of rounds 194–218 proves twice are proved once. Every theorem keeps its statement. Seven declarations move to another file and take that file's namespace: `E` and `count_eq_integral` (from `VinoHolder` to `Vinogradov`), `power_mean_fs` (from `ExpSum` to `VinoHolder`), `integrable_normsq` (from `VinoBad` to `VinoHolder`), and `pieceS`, `piece` and `bad_sub` (from `VinoBad` to `VinoRec`). Every use names them unqualified, under an `open` that covers both namespaces, so no use changes. No file of the strand carries a `#print axioms` line (round 327's list of 29), so no count changes. The paper (`riemann-indistinguishability.md`) cites none of these proofs. The seven files edited lose 91 lines net, from 1,979 to 1,888.
+
+**The changes.**
+
+- **Orthogonality once.** Round 195's `J_eq_integral` expanded `f^s·conj(f)^s` over pairs of tuples and integrated term by term. Round 199's `count_eq_integral` is the same expansion for any finite set `X` and map `φ`. `E` and `count_eq_integral` move up into `Vinogradov.lean`. `J_eq_integral_norm` is now `count_eq_integral` at `X = box s N`, `φ = pv k` (through `wsum_pow`), and `J_eq_integral` is `J_eq_integral_norm` read in `ℂ`.
+- **The fibre count once.** Round 195's `shiftCount_eq_sum` (one set, a shift) and round 200's `pairCount_eq_sum` (two sets, no shift) counted pairs along the fibres of the map by the same argument. The new `shiftCount₂_eq_sum` takes two sets, a shift and the fibres over any `U ⊇ f(A)`, and both are its cases.
+- **The power mean once.** Round 199's `power_mean` (over `range p`, exponent `2s`) and round 203's `power_mean_fs` (any finite set and exponent) were one argument from Mathlib's `pow_sum_div_card_le_sum_pow`, and round 214's `piece_self_le` repeated it inline with a case split on `k − 1 = 0`. `power_mean_fs` moves into `VinoHolder.lean`, and `power_mean` and the inline step are its instances.
+- **`|E_X|²` is integrable, once.** Round 214's `integrable_normsq` repeated a step inside round 199's `Gfull_le`. It moves into `VinoHolder.lean`, and `Gfull_le` uses it.
+- **The cover of the bad tuples once.** Round 214's `bad_sub` repeated the covering step inside round 201's `bad_card`. It moves into `VinoRec.lean` with the definitions `pieceS` and `piece`, and `bad_card` uses it.
+- **Steps B and C once.** Round 201's `one_step` and round 214's `one_step2` bounded `G` by the same lines. The new `Gfull_le_J` states that bound, and both use it.
+- **The contraction of `η` once.** Round 209's `eta_contract` and `eta_geo` (`VinoConst2.lean`) restated the inner steps of round 202's `eta_small` downstream. They move into `VinoRec.lean`, before `eta_small`, which now uses `eta_geo`. Their namespace, `VinoRec`, is unchanged.
+
+**Not done, and why.**
+
+- Cauchy–Schwarz in counting form appears twice: as `shiftCount_le` (round 195, by `2ab ≤ a² + b²`) and as `pairCount_sq_le` (round 200, by `sum_mul_sq_le_sq_mul_sq`). They are different inequalities (a shift does not increase the count; `T(A, B)² ≤ T(A, A)·T(B, B)`), and neither is a case of the other.
+- `block_saving_multi` (round 213) is already `block_saving_multiH` at `H = 1/32`, in four lines.
+- `VinoIter.lean`'s `cls_decomp` and the `hdecomp` step of its `Jc_cls_le` are one division identity, in two forms of about five lines each, with `Jc_cls_le` standing above `cls_decomp`: too small a saving for the move.
+- `Vinogradov.J_le_diag` bounds its permutation fibres inline over tuples of natural numbers, while `VinoStep.card_multiset_fibre_le` is stated for a `Fintype`, so it does not apply as stated.
+- The review's other items of this kind (`GroundBlock`'s `memLp_sum_smul`, `FourierGap`'s discriminant step and the rest) lie in the core of `src/`. They go to batch C2.
+
+**Records.** Net-state markers on round 195's three steps, on round 199's `count_eq_integral` and `power_mean`, and on round 209's `eta_contract` and `eta_geo`. The module headers of `VinoHolder.lean` and `VinoConst2.lean` say where the moved lemmas now live. The file table has no rows for the strand.
+
+**Build.** On 4 cores, under round 327's gate.
+
+- `./build.sh` compiled 23 modules, the seven edited and the 16 downstream of them, with 190 up to date, in 534 s, exit 0. Its 5 axiom lines, all `DecayCorollaries.lean`'s, are each `[propext, Classical.choice, Quot.sound]`, and Lean printed nothing else.
+- `external/pnt/build.sh` (630 s) and `external/zeta23/build.sh` (658 s), which recompile all their files on every run and import `VinoFam` and `VinoKV` (pnt directly, zeta23 through pnt's `DetectEM`): exit 0, and their output is byte for byte round 328's.
+- No file of `external/dh/` imports a file of the strand, directly or not, so its build is not rerun.
+- The two new names, `shiftCount₂_eq_sum` and `Gfull_le_J`, were checked for clashes against the Lean files of `src/` and `external/` and against Mathlib's declaration lines: none.
+- The `File.lean:N` citations of declarations in the Lean files of `src/` and `external/` were re-checked: 62 resolve and none is stale.
+
+**Check 4.** Nothing here is new as mathematics: each derived theorem was proved before this round, and each shared lemma is one of its proofs, stated once. The paper cites none of these proofs.
 
 **Check 9.** No barrier claim is made.
 

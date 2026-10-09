@@ -74,19 +74,6 @@ lemma pow_expand (α : Fin K → ℝ) (M ℓ : ℕ) (c : ℕ → ℂ) (y : Fin K
   intro a _
   rw [Finset.prod_mul_distrib, pv_eq_sum_A, T_sum_left]
 
-/-- Power mean over a finset: `(Σ r)^ℓ ≤ (#s)^{ℓ−1} Σ r^ℓ` for `r ≥ 0`, `ℓ ≥ 1`. -/
-lemma power_mean_fs {ι : Type*} (s : Finset ι) (r : ι → ℝ) (hr : ∀ i, 0 ≤ r i) {ℓ : ℕ}
-    (hℓ : 1 ≤ ℓ) : (∑ i ∈ s, r i) ^ ℓ ≤ (s.card : ℝ) ^ (ℓ - 1) * ∑ i ∈ s, r i ^ ℓ := by
-  rcases s.eq_empty_or_nonempty with rfl | hs
-  · simp; exact (zero_pow (by omega)).le
-  have h := pow_sum_div_card_le_sum_pow (s := s) (f := r) (fun i _ => hr i) (ℓ - 1)
-  rw [Nat.sub_add_cancel hℓ] at h
-  have hpos : (0 : ℝ) < (s.card : ℝ) ^ (ℓ - 1) := by
-    have : (0 : ℝ) < s.card := by exact_mod_cast hs.card_pos
-    positivity
-  rw [div_le_iff₀ hpos] at h
-  linarith [mul_comm ((s.card : ℝ) ^ (ℓ - 1)) (∑ i ∈ s, r i ^ ℓ)]
-
 /-- The squared-norm expansion used in step (4). -/
 lemma sum_normSq_le {X Ys : Finset (Fin K → ℤ)} (α : Fin K → ℝ) (μ : (Fin K → ℤ) → ℂ)
     (ν : (Fin K → ℤ) → ℝ) (hμ : ∀ x, ‖μ x‖ ≤ ν x) (Zb : ℝ)

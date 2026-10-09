@@ -197,11 +197,13 @@ theorem agree_shift {s k : ℕ} (x y : Fin s → ℤ) (h : ℤ)
 noncomputable def shiftCount {α β : Type*} [AddCommGroup β] (P : Finset α) (f : α → β) (w : β) :
     ℕ := ((P ×ˢ P).filter fun p => f p.1 = f p.2 + w).card
 
-lemma shiftCount_eq_sum {α β : Type*} [AddCommGroup β] (P : Finset α) (f : α → β) (w : β) :
-    shiftCount P f w = ∑ v ∈ P.image f,
-      (P.filter fun x => f x = v).card * (P.filter fun x => f x = v - w).card := by
-  unfold shiftCount
-  rw [card_eq_sum_card_fiberwise (f := fun p => f p.1) (t := P.image f)]
+/-- Pairs `(x, y) ∈ A × B` with `f x = f y + w`, counted along the fibres of `f` over any
+`U ⊇ f(A)` (round 334: `shiftCount_eq_sum` and `VinoSplit.pairCount_eq_sum` are its cases). -/
+lemma shiftCount₂_eq_sum {α β : Type*} [AddCommGroup β] (A B : Finset α) (f : α → β) (w : β)
+    (U : Finset β) (hU : ∀ x ∈ A, f x ∈ U) :
+    ((A ×ˢ B).filter fun p => f p.1 = f p.2 + w).card =
+      ∑ v ∈ U, (A.filter fun x => f x = v).card * (B.filter fun x => f x = v - w).card := by
+  rw [card_eq_sum_card_fiberwise (f := fun p => f p.1) (t := U)]
   · apply sum_congr rfl
     intro v _
     rw [← card_product]
@@ -216,7 +218,12 @@ lemma shiftCount_eq_sum {α β : Type*} [AddCommGroup β] (P : Finset α) (f : �
   · intro p hp
     have hp' := mem_coe.mp hp
     rw [mem_filter, mem_product] at hp'
-    exact mem_coe.mpr (mem_image_of_mem f hp'.1.1)
+    exact mem_coe.mpr (hU _ hp'.1.1)
+
+lemma shiftCount_eq_sum {α β : Type*} [AddCommGroup β] (P : Finset α) (f : α → β) (w : β) :
+    shiftCount P f w = ∑ v ∈ P.image f,
+      (P.filter fun x => f x = v).card * (P.filter fun x => f x = v - w).card :=
+  shiftCount₂_eq_sum P P f w _ fun _ => mem_image_of_mem f
 
 /-- **Cauchy–Schwarz in counting form:** the shifted count never beats the unshifted one. -/
 theorem shiftCount_le {α β : Type*} [AddCommGroup β] (P : Finset α) (f : α → β) (w : β) :
@@ -413,48 +420,69 @@ lemma integrable_ee {k : ℕ} (g : (Fin k → ℝ) → ℝ) (hg : Continuous g) 
   Integrable.of_bound (continuous_ee.comp hg).aestronglyMeasurable 1
     (Filter.Eventually.of_forall fun _ => (norm_ee _).le)
 
-/-- **Step I.1 (orthogonality), complex form.** `J = ∫ f^s · conj(f)^s` over the torus. -/
-theorem J_eq_integral (s k N : ℕ) :
-    (J s k N : ℂ) = ∫ α, wsum k N α ^ s * (starRingEnd ℂ) (wsum k N α) ^ s ∂torus k := by
-  have hexp : ∀ α, wsum k N α ^ s * (starRingEnd ℂ) (wsum k N α) ^ s =
-      ∑ x ∈ box s N, ∑ y ∈ box s N,
-        ee (∑ j, ((pv k x j - pv k y j : ℤ) : ℝ) * α j) := by
-    intro α
-    rw [← map_pow, wsum_pow, map_sum, Finset.sum_mul_sum]
-    apply sum_congr rfl; intro x _
-    apply sum_congr rfl; intro y _
-    rw [conj_ee, ← ee_add]
-    congr 1
-    push_cast
-    rw [← Finset.sum_neg_distrib, ← Finset.sum_add_distrib]
-    apply sum_congr rfl; intro j _; ring
-  simp_rw [hexp]
-  have hint : ∀ x y : Fin s → ℕ, Integrable
-      (fun α => ee (∑ j, ((pv k x j - pv k y j : ℤ) : ℝ) * α j)) (torus k) := fun x y =>
-    integrable_ee _ (by fun_prop)
-  rw [integral_finsetSum _ (fun x _ => integrable_finsetSum _ (fun y _ => hint x y))]
-  simp_rw [integral_finsetSum _ (fun y _ => hint _ y)]
-  have e : ∀ x y : Fin s → ℕ, ∫ α, ee (∑ j, ((pv k x j - pv k y j : ℤ) : ℝ) * α j) ∂torus k =
-      if pv k x = pv k y + 0 then 1 else 0 := by
-    intro x y
-    rw [show (fun α : Fin k → ℝ => ee (∑ j, ((pv k x j - pv k y j : ℤ) : ℝ) * α j)) =
-      fun α => ee (∑ j, (((pv k x - pv k y) j : ℤ) : ℝ) * α j) by rfl, integral_torus]
-    simp only [add_zero, sub_eq_zero]
-  simp_rw [e]
-  rw [← Finset.sum_product', Finset.sum_boole, J_eq_shiftCount, shiftCount]
-  norm_cast
+/-- The generating function of a finite set `X` of points `φ x ∈ ℤᵏ` (from `VinoHolder.lean` since
+round 334). -/
+noncomputable def E {β : Type*} {k : ℕ} (X : Finset β) (φ : β → Fin k → ℤ) (α : Fin k → ℝ) : ℂ :=
+  ∑ x ∈ X, ee (∑ j, (φ x j : ℝ) * α j)
 
-/-- **Step I.1 (orthogonality).** `J_{s,k}(N) = ∫_{(0,1]^k} |Σ_{n ≤ N} e(α₁n + … + α_k nᵏ)|^{2s} dα`. -/
+/-- **Orthogonality for any finite set.** `∫ |E_X|² = #{(x, y) ∈ X² : φ x = φ y}` (from
+`VinoHolder.lean` since round 334). -/
+theorem count_eq_integral {β : Type*} {k : ℕ} (X : Finset β) (φ : β → Fin k → ℤ) :
+    ((((X ×ˢ X).filter fun q => φ q.1 = φ q.2).card : ℕ) : ℝ) =
+      ∫ α, ‖E X φ α‖ ^ 2 ∂torus k := by
+  have hc : ((((X ×ˢ X).filter fun q => φ q.1 = φ q.2).card : ℕ) : ℂ) =
+      ∫ α, E X φ α * (starRingEnd ℂ) (E X φ α) ∂torus k := by
+    have hexp : ∀ α, E X φ α * (starRingEnd ℂ) (E X φ α) =
+        ∑ x ∈ X, ∑ y ∈ X, ee (∑ j, ((φ x j - φ y j : ℤ) : ℝ) * α j) := by
+      intro α
+      rw [E, map_sum, Finset.sum_mul_sum]
+      apply sum_congr rfl; intro x _
+      apply sum_congr rfl; intro y _
+      rw [conj_ee, ← ee_add]
+      congr 1
+      push_cast
+      rw [← Finset.sum_neg_distrib, ← Finset.sum_add_distrib]
+      apply sum_congr rfl; intro j _; ring
+    simp_rw [hexp]
+    have hint : ∀ x y : β, Integrable
+        (fun α => ee (∑ j, ((φ x j - φ y j : ℤ) : ℝ) * α j)) (torus k) := fun x y =>
+      integrable_ee _ (by fun_prop)
+    rw [integral_finsetSum _ (fun x _ => integrable_finsetSum _ (fun y _ => hint x y))]
+    simp_rw [integral_finsetSum _ (fun y _ => hint _ y)]
+    have e : ∀ x y : β, ∫ α, ee (∑ j, ((φ x j - φ y j : ℤ) : ℝ) * α j) ∂torus k =
+        if φ x = φ y then 1 else 0 := by
+      intro x y
+      rw [show (fun α : Fin k → ℝ => ee (∑ j, ((φ x j - φ y j : ℤ) : ℝ) * α j)) =
+        fun α => ee (∑ j, (((φ x - φ y) j : ℤ) : ℝ) * α j) by rfl, integral_torus]
+      simp only [sub_eq_zero]
+    simp_rw [e]
+    rw [← Finset.sum_product', Finset.sum_boole]
+  have e2 : ∀ α, E X φ α * (starRingEnd ℂ) (E X φ α) = ((‖E X φ α‖ ^ 2 : ℝ) : ℂ) := by
+    intro α
+    rw [Complex.mul_conj, Complex.normSq_eq_norm_sq]
+  simp_rw [e2, integral_complex_ofReal] at hc
+  exact_mod_cast hc
+
+/-- **Step I.1 (orthogonality).** `J_{s,k}(N) = ∫_{(0,1]^k} |Σ_{n ≤ N} e(α₁n + … + α_k nᵏ)|^{2s} dα`:
+`count_eq_integral` at `X = box s N`, `φ = pv k` (round 334). -/
 theorem J_eq_integral_norm (s k N : ℕ) :
     (J s k N : ℝ) = ∫ α, ‖wsum k N α‖ ^ (2 * s) ∂torus k := by
-  have h := J_eq_integral s k N
+  have h := count_eq_integral (box s N) (pv k)
+  simp only [E, ← wsum_pow, norm_pow, ← pow_mul, mul_comm s 2] at h
+  rw [J_eq_shiftCount, shiftCount, ← h]
+  simp only [add_zero]
+
+/-- **Step I.1 (orthogonality), complex form.** `J = ∫ f^s · conj(f)^s` over the torus (from
+`J_eq_integral_norm` since round 334). -/
+theorem J_eq_integral (s k N : ℕ) :
+    (J s k N : ℂ) = ∫ α, wsum k N α ^ s * (starRingEnd ℂ) (wsum k N α) ^ s ∂torus k := by
   have e : ∀ α, wsum k N α ^ s * (starRingEnd ℂ) (wsum k N α) ^ s =
       ((‖wsum k N α‖ ^ (2 * s) : ℝ) : ℂ) := by
     intro α
     rw [← mul_pow, Complex.mul_conj, Complex.normSq_eq_norm_sq]
     push_cast; ring
-  simp_rw [e, integral_complex_ofReal] at h
-  exact_mod_cast h
+  simp_rw [e, integral_complex_ofReal]
+  exact_mod_cast J_eq_integral_norm s k N
 
 end Orthogonality
 
