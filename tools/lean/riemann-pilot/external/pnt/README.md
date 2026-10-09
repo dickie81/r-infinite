@@ -27,11 +27,11 @@ Everything builds on the pilot's toolchain (`../../lean-toolchain`, Mathlib at `
 - It compiles `Architect.lean`, the PNT+ files and this directory's files into `../../build`, next to the pilot's oleans.
   - `Architect.lean` is a no-op stand-in for LeanArchitect, the package behind PNT+'s `@[blueprint]` tags. The tags only feed PNT+'s blueprint document.
   - The PNT+ files are compiled with PNT+'s own lakefile options, `autoImplicit = false` and `relaxedAutoImplicit = false`.
-- It prints the axioms of the final theorems.
+- It prints the axioms of the final theorems. It fails if Lean reports a use of `sorry` in one of this directory's files, or if those files or the final check print an axiom outside `propext`, `Classical.choice` and `Quot.sound`. The final check also needs one clean line per `#print axioms` (round 327).
 
 The pilot's layer I–II files (`Vinogradov` … `VinoKV`) are no longer copied and renamed: `KVBridge.lean` and `LandauKV.lean` import the pilot's own oleans. `kv_port.sh` is gone.
 
-The two `sorry` lemmas in PNT+'s `Wiener.lean` are not in the dependency cone of any theorem here.
+The two `sorry` lemmas in PNT+'s `Wiener.lean` are not in the dependency cone of any theorem here. So the build does not check the PNT+ files (`StrongPNT.lean`, which prints its axioms under `open Classical` as `[propext, choice, Quot.sound]`, would also fail the check). A checked theorem here that used one of the two lemmas would print `sorryAx` in its axiom line and fail the build.
 
 ## WanderLadderPNT.lean (round 191)
 
