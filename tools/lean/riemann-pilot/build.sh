@@ -8,6 +8,10 @@
 # SRC: the source directory (default ./src). external/dh/build.sh sets it to compile the
 # Davenport–Heilbronn layer into the same build/; a file is then also stale if the olean of a module it
 # imports from another layer is newer than its own.
+# A compiled file fails, and its olean is removed, if Lean reports a use of `sorry` in it or it prints an axiom
+# outside propext, Classical.choice and Quot.sound: Lean itself exits 0 on both (round 327, the rule of
+# external/zeta23/build.sh since round 276, with any subset of the three allowed). Only files compiled in this
+# run are checked; FORCE=1 checks every file.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 cd "${MATHLIB:-$HERE/mathlib4}"
@@ -38,16 +42,32 @@ def stale(m):
         any(mtime(olean(d)) > o for d in deps[m] | ext[m])
 done, failed, blocked, running = set(), set(), set(), set()
 nbuilt, lock, t00 = 0, threading.Condition(), time.time()
+STD = {'propext', 'Classical.choice', 'Quot.sound'}
+def gate(log):
+    # Lean's sorry warning is m!"declaration uses `{s}`"; how s renders depends on display options, so match its
+    # fixed text anywhere in the output, as external/zeta23/build.sh does. An axiom line that does not parse
+    # also fails.
+    if 'declaration uses `' in log: return 'uses sorry'
+    for l in log.splitlines():
+        if "' depends on axioms: " in l:
+            a = re.search(r"' depends on axioms: \[(.*)\]$", l)
+            if a is None or not set(a.group(1).split(', ')) <= STD:
+                return 'prints an axiom outside [propext, Classical.choice, Quot.sound]'
+    return ''
 def run(m):
     global nbuilt
     t0 = time.time()
     r = subprocess.run(['lean', '-R', src, '-o', olean(m), '-i', os.path.join(out, m + '.ilean'),
                         os.path.join(src, m + '.lean')], capture_output=True, text=True)
+    log = r.stdout + r.stderr
+    why = gate(log) if r.returncode == 0 else ''
     with lock:
-        print(f'== {m} ({time.time() - t0:.0f}s)' + ('' if r.returncode == 0 else ' FAILED'))
-        sys.stdout.write(r.stdout + r.stderr); sys.stdout.flush()
+        print(f'== {m} ({time.time() - t0:.0f}s)' + ('' if r.returncode == 0 and not why else ' FAILED'))
+        sys.stdout.write(log)
+        if why: print(f'axioms check FAILED: {m} {why}')
+        sys.stdout.flush()
         running.discard(m)
-        if r.returncode == 0: done.add(m); nbuilt += 1
+        if r.returncode == 0 and not why: done.add(m); nbuilt += 1
         else:
             failed.add(m)
             if os.path.exists(olean(m)): os.remove(olean(m))

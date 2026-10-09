@@ -5,7 +5,11 @@
 # The script takes the 19 PrimeNumberTheoremAnd (PNT+) files that the layer imports, at 650d312 (Lean v4.33.1),
 # applies pnt_port.patch (the port to the pilot's Lean and Mathlib), and compiles Architect.lean (a no-op
 # stand-in for the LeanArchitect blueprint package), those files and this directory's files into ../../build.
-# It then prints the axioms of the final theorems.
+# It then prints the axioms of the final theorems. The build fails if Lean reports a use of sorry in one of this
+# directory's files, or if this directory's files or the final check print an axiom outside propext,
+# Classical.choice and Quot.sound (round 327, the rule of ../../build.sh). The vendored PNT+ files are not checked:
+# two lemmas of PNT+'s Wiener.lean are sorry, outside the dependency cone of every theorem here, and the final
+# check gates the theorems built on PNT+.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 PILOT="$(cd "$HERE/../.." && pwd)"
@@ -33,17 +37,39 @@ cd "${MATHLIB:-$PILOT/mathlib4}"
 export PATH="$HOME/.elan/bin:$PATH"
 B="$PILOT/build"
 LP="$(lake env printenv LEAN_PATH):$B"
-# c ROOT MODULE [lean options]: compile ROOT/MODULE.lean to B/MODULE.olean
-c() {
-  local root=$1 rel=${2//.//}; shift 2
-  echo "== ${rel//\//.}"; mkdir -p "$B/$(dirname "$rel")"
-  LEAN_PATH="$LP" lean "$@" -R "$root" -o "$B/$rel.olean" -i "$B/$rel.ilean" "$root/$rel.lean"
+STD='(propext|Classical\.choice|Quot\.sound)'
+CLEAN="' depends on axioms: \[$STD(, $STD)*\]\$"
+# dirty TEXT: the number of axiom lines in TEXT that name an axiom outside propext, Classical.choice, Quot.sound
+dirty() {
+  printf '%s\n' "$1" | grep -e "' depends on axioms: " | grep -vEc "$CLEAN" || true
 }
-c "$HERE" Architect
+# c GATE ROOT MODULE [lean options]: compile ROOT/MODULE.lean to B/MODULE.olean. With GATE = 1, fail, removing
+# that olean, if Lean reports a use of sorry in the file or it prints an axiom outside the three.
+c() {
+  local gate=$1 root=$2 rel=${3//.//} out; shift 3
+  echo "== ${rel//\//.}"; mkdir -p "$B/$(dirname "$rel")"
+  out="$(LEAN_PATH="$LP" lean "$@" -R "$root" -o "$B/$rel.olean" -i "$B/$rel.ilean" "$root/$rel.lean" 2>&1)" \
+    || { printf '%s\n' "$out"; exit 1; }
+  [ -z "$out" ] || printf '%s\n' "$out"
+  [ "$gate" = 1 ] || return 0
+  # Lean's sorry warning is m!"declaration uses `{s}`"; match its fixed text, as ../../build.sh does
+  if [[ "$out" == *'declaration uses `'* ]]; then
+    rm -f "$B/$rel.olean" "$B/$rel.ilean"
+    echo "axioms check FAILED: ${rel//\//.} uses sorry" >&2
+    exit 1
+  fi
+  if [ "$(dirty "$out")" != 0 ]; then
+    rm -f "$B/$rel.olean" "$B/$rel.ilean"
+    echo "axioms check FAILED: ${rel//\//.} prints an axiom outside [propext, Classical.choice, Quot.sound]" >&2
+    exit 1
+  fi
+}
+c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
-for f in $PNTFILES; do c "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination; do c "$HERE" $f; done
+for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
+for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
+trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
 import WanderLadderPNT
 import Rung3
@@ -77,5 +103,14 @@ import Domination
 #print axioms DetectEM.short_primes
 EOT
 echo "== axioms"
-LEAN_PATH="$LP" lean "$AX"
+# every #print axioms line must print an axiom list inside the three, and no axiom line may name another axiom
+out="$(LEAN_PATH="$LP" lean "$AX" 2>&1)" || { printf '%s\n' "$out"; echo "axioms check FAILED: lean exited nonzero" >&2; exit 1; }
+printf '%s\n' "$out"
+want=$(grep -c '^#print axioms' "$AX" || true)
+good=$(printf '%s\n' "$out" | grep -Ec "$CLEAN|' does not depend on any axioms" || true)
+bad=$(dirty "$out")
+if [ "$bad" != 0 ] || [ "$good" != "$want" ]; then
+  echo "axioms check FAILED: $good of $want #print axioms lines are inside [propext, Classical.choice, Quot.sound]; $bad axiom lines are not" >&2
+  exit 1
+fi
 rm -f "$AX"
