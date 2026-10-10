@@ -10,9 +10,10 @@ import KubotaRows
 
 /-! # The geometric strand joined to the pilot (round 398)
 
-The owner asked whether rounds 391–397 can be plugged into the theorems of the pilot. This file proves the joins that
-exist. Each runs from the pilot's results into the geometric picture, or between two tools. None of them proves a
-hypothesis that the open-targets register (`STRUCTURAL-REVIEW.md` §6) lists as open.
+The owner asked whether rounds 391–397 can be plugged into the theorems of the pilot. This file proves the joins found
+by a survey of the README's file table and of the open-targets register (`STRUCTURAL-REVIEW.md` §6). Each runs from the
+pilot's results into the geometric picture, or between two tools. None of them proves a hypothesis that the register
+lists as open.
 
 * **Zero-free regions are shells around the sphere** (**`shell_of_zeroFree`**, with `norm_vF_le_norm_vF`): if `ζ ≠ 0`
   on `Re s > θ`, every nontrivial zero `ρ` has `‖v_F(θ)‖ ≤ ‖v_F(ρ)‖ ≤ ‖v_F(1 − θ)‖` for every nonempty finite set `F`
