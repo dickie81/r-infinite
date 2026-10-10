@@ -16,12 +16,14 @@ independent of $\ell$.`" This file proves it and, with round 367's grouping, the
 * **The phase at `π_P`** (`psiR_local`): with `δ′s_Ph_P ≡ 1` and `s_Pt_P ≡ 1 (mod π_P)`,
   `ψ_{π_P}(−mδ′w) = ψ_P(e·m/h_P)` with `e = −wt_P`.
 * **The phase split** (`phase_split`): `ψ_{λ³Dr}(−mδ′) = ψ_{λ³D}(−mδ₀u)∏_Pψ_{π_P}(−mδ′w_P)` for
-  `δ′ ≡ δ₀ (mod 9D)`, by round 366's `ψc_prod_crt`.
+  `δ′ ≡ δ₀ (mod 9D)`, by round 366's `ψc_prod_crt`. There `ur ≡ 1 (mod λ³D)` (`ψc_prod_crt_inv`,
+  round 379).
 * **The sum over a group at one frequency** (**`group_local_sum`**): round 366's `local_transform` at every
   prime of `A`, through the expansion of a product of sums.
 * **The per-group identity** (**`group_sum`**, **`group_expansion`**): the sum over a group of
   `∏_PC_{P,j_P}(h_P)·θ̄(z + z_h, v)` is a unimodular `C₀` times one theta-type series at `(−W, V)`, with
-  coefficients `d̄_H(−m)ψ_{λ³D}(−my)∏_PB_{P,j_P}(m)`.
+  coefficients `d̄_H(−m)ψ_{λ³D}(−my)∏_PB_{P,j_P}(m)`. In `group_sum`, `y = δ₀u` with `u∏_Pπ_P ≡ 1
+  (mod λ³D)` (since round 379).
 * **The expansion** (**`twisted_theta_expansion`**): the twisted `θ̄` of round 367 as a sum over `h₀` and the
   active sets of these series.
 -/
@@ -158,11 +160,40 @@ theorem phase_split {A : Finset Pr} {D δ δ₀ u : 𝓞 K} {w : Pr → 𝓞 K} 
     linear_combination (-(m * u)) * hk
   rw [e, ψc_add_mul _ hc]
 
+/-- **The coefficient of the Chinese remainder theorem is an inverse**: if
+`ψ_{cr}(x) = ψ_c(xu)·∏_{P∈A}ψ_{π_P}(xv_P)` for every `x`, with `r = ∏_{P∈A}π_P`, then `ur ≡ 1 (mod c)`
+(round 379). -/
+theorem ψc_prod_crt_inv (A : Finset Pr) {c u : 𝓞 K} {v : Pr → 𝓞 K} (hc : c ≠ 0)
+    (h : ∀ x, ψc (c * ∏ P ∈ A, πP P) x = ψc c (x * u) * ∏ P ∈ A, ψc (πP P) (x * v P)) :
+    c ∣ u * ∏ P ∈ A, πP P - 1 := by
+  have hr0 := prod_πP_ne_zero A
+  refine dvd_of_ψc_mul_eq_one c _ hc fun x => ?_
+  have h1 := h ((∏ P ∈ A, πP P) * x)
+  rw [ψc_mul_right c _ x hr0] at h1
+  have h2 : ∏ P ∈ A, ψc (πP P) ((∏ Q ∈ A, πP Q) * x * v P) = 1 := by
+    refine Finset.prod_eq_one fun P hP => ?_
+    rw [← ψc_zero (πP P)]
+    refine ψc_congr _ (ne_zero_of_maximal (πP P)) ?_
+    rw [Ideal.Quotient.eq, sub_zero, Ideal.mem_span_singleton]
+    exact ((πP_dvd_prod hP).mul_right x).mul_right (v P)
+  rw [h2, mul_one] at h1
+  have hne : ψc c x ≠ 0 := by
+    intro h0
+    have := norm_ψc c x
+    rw [h0, norm_zero] at this
+    exact zero_ne_one this
+  have h3 : ψc c ((u * ∏ P ∈ A, πP P - 1) * x) * ψc c x = ψc c x := by
+    rw [← ψc_add, h1]
+    congr 1
+    ring
+  exact (mul_eq_right₀ hne).1 h3
+
 open Classical in
 /-- **The per-group identity** (S5f-3e; the companion paper's (A.11)–(A.12) for a group): under the
 cusp data of round 370, the sum over a group of `∏_PC_{P,j_P}(h_P)·θ̄(z + z_h, v)` is
 `κ̄₀∏_P(χ_P(s_P)²)⁻¹ω_{P,j_P}(e_P)` times one theta-type series at `(−W, V)`, with constant term
-`c̄_H∏_PB_{P,j_P}(0)` and coefficients `d̄_H(−m)ψ_{λ³D}(−mδ₀u)∏_PB_{P,j_P}(m)`. -/
+`c̄_H∏_PB_{P,j_P}(0)` and coefficients `d̄_H(−m)ψ_{λ³D}(−mδ₀u)∏_PB_{P,j_P}(m)`, where
+`u∏_Pπ_P ≡ 1 (mod λ³D)` (since round 379). -/
 theorem group_sum {θ : ℂ → ℝ → ℂ} {Kc : ℝ} {L : 𝓞 K} (h₀ : 𝓞 K ⧸ span {L}) (A : Finset Pr)
     (j : Pr → ℕ) {D δ₀ : 𝓞 K} {cH κ₀ : ℂ} {dH : 𝓞 K → ℂ} {s : Pr → 𝓞 K}
     (hD : D ≠ 0) (hDA : ∀ P ∈ A, D ∉ P.1) (hdH : ThetaSupp Kc dH) (hs : ∀ P ∈ A, s P ∉ P.1)
@@ -172,7 +203,8 @@ theorem group_sum {θ : ℂ → ℝ → ℂ} {Kc : ℝ} {L : 𝓞 K} (h₀ : �
           κ₀ * (∏ P : A, chiP P.1.1 (s P.1 * repQ (πP P.1) (h P)) ^ 2) *
             thSer cH (fun m => dH m * ψc (δ3 ^ 3 * (D * ∏ P ∈ A, πP P)) (-(m * δ)))
               (-cuspW (D * ∏ P ∈ A, πP P) z v) (cuspV (D * ∏ P ∈ A, πP P) z v)) :
-    ∃ (u : 𝓞 K) (e : Pr → 𝓞 K), (∀ P ∈ A, e P ∉ P.1) ∧ ∀ z (v : ℝ), 0 < v →
+    ∃ (u : 𝓞 K) (e : Pr → 𝓞 K), δ3 ^ 3 * D ∣ u * ∏ P ∈ A, πP P - 1 ∧ (∀ P ∈ A, e P ∉ P.1) ∧
+      ∀ z (v : ℝ), 0 < v →
       ∑ h ∈ Fintype.piFinset (fun P : A => (Finset.univ : Finset (𝓞 K ⧸ span {πP P.1})).erase 0),
           (∏ P : A, locCoef P.1 (j P.1) (repQ (πP P.1) (h P))) * conj (θ (z + trShift L ⟨(h₀, A), h⟩) v) =
         conj κ₀ * (∏ P : A, (chiP P.1.1 (s P.1) ^ 2)⁻¹ * ωloc P.1 (j P.1) (e P.1)) *
@@ -203,7 +235,7 @@ theorem group_sum {θ : ℂ → ℝ → ℂ} {Kc : ℝ} {L : 𝓞 K} (h₀ : �
       rw [Ideal.eq_top_iff_one]
       have := P.1.sub_mem (P.1.mul_mem_left (s P) h) (ht P hP)
       rwa [show s P * t P - (s P * t P - 1) = 1 by ring] at this
-  refine ⟨u, fun P => -(w P * t P), he, fun z v hv => ?_⟩
+  refine ⟨u, fun P => -(w P * t P), ψc_prod_crt_inv A hc hcrt, he, fun z v hv => ?_⟩
   have hV : 0 < cuspV (D * ∏ P ∈ A, πP P) z v := cuspV_pos (mul_ne_zero hD (prod_πP_ne_zero A)) z hv
   -- the weights and the phases of the translates
   obtain ⟨a, ha⟩ : ∃ a : ((P : A) → 𝓞 K ⧸ span {πP P.1}) → ℂ, a = fun h =>
@@ -291,7 +323,7 @@ theorem group_expansion {θ : ℂ → ℝ → ℂ} {Kc : ℝ} {c0 cP cM : ℂ} {
   have hDA : ∀ P ∈ A, D ∉ P.1 := fun P hP hm => hA P hP (by
     obtain ⟨k, hk⟩ := hDL
     rw [hk]; exact P.1.mul_mem_right _ hm)
-  obtain ⟨u, e, he, hsum⟩ := group_sum h₀ A j hD hDA hdH hs hall
+  obtain ⟨u, e, -, he, hsum⟩ := group_sum h₀ A j hD hDA hdH hs hall
   refine ⟨D, conj κ₀ * ∏ P : A, (chiP P.1.1 (s P.1) ^ 2)⁻¹ * ωloc P.1 (j P.1) (e P.1), cH, dH, δ₀ * u, hD,
     hDL, ?_, hdH, fun z v hv => ?_⟩
   · rw [norm_mul, Complex.norm_conj, hκ, one_mul, norm_prod]
@@ -360,6 +392,7 @@ end
 #print axioms Eis.psiR_local
 #print axioms Eis.group_local_sum
 #print axioms Eis.phase_split
+#print axioms Eis.ψc_prod_crt_inv
 #print axioms Eis.group_sum
 #print axioms Eis.group_expansion
 #print axioms Eis.twisted_theta_expansion

@@ -34,7 +34,8 @@ $\NK(\ell)X/\NK(c)^2$.`" This file proves these steps for round 374's `𝒥(s)`,
   `Re s = 2` is the sum over the cusp terms and the coefficients `m` of `d(m)φ(m)N(c)x_m^{−2}·2πV^♯(x_m²Z/(4N(c)²))`.
   This holds for every smooth weight supported in `[α, β] ⊂ (0, ∞)` whose first `14` derivatives are bounded.
 * **For the twisted `θ̄`** (**`twisted_theta_voronoi`**): the identity with the data of round 373's
-  `twisted_theta_dbar`, chosen before the weight.
+  `twisted_theta_dbar`, chosen before the weight. Since round 379 it is `twisted_theta_voronoi_of`, the
+  identity for any data given with the `∂_{z̄}` identity, at the data of `twisted_theta_dbar`.
 -/
 
 open Real Set Filter MeasureTheory Complex NumberField Ideal Asymptotics
@@ -703,6 +704,66 @@ theorem voronoi_FE {ι κ : Type*} (S : Finset ι) (T : Finset κ) {Ka Ca Cc : �
       (((hinner i hi k hk).1.const_mul _).const_mul _).const_mul _).const_mul _
 
 open Classical in
+/-- **The Voronoi-type identity from the `∂_{z̄}` identity** (round 379): the identity of
+`twisted_theta_voronoi` for data `(D, C₀, d_H, y)` given with the identity of round 373's
+`twisted_theta_dbar` at every height, rather than chosen by it. -/
+theorem twisted_theta_voronoi_of {τ : 𝓞 K → ℂ} {Kc : ℝ} (hτ : ThetaSupp Kc τ) {L : 𝓞 K} (hL : L ≠ 0)
+    (φ₀ : 𝓞 K → ℂ) (hφ : ∀ z u, φ₀ (z + L * u) = φ₀ z) (Ps : Finset Pr) (j : Pr → ℕ)
+    (D : (𝓞 K ⧸ span {L}) → Finset Pr → 𝓞 K) (C₀ : (𝓞 K ⧸ span {L}) → Finset Pr → ℂ)
+    (dH : (𝓞 K ⧸ span {L}) → Finset Pr → 𝓞 K → ℂ) (y : (𝓞 K ⧸ span {L}) → Finset Pr → 𝓞 K)
+    (hDATA : ∀ h₀, ∀ A ∈ Ps.powerset, D h₀ A ≠ 0 ∧ ThetaSupp Kc (dH h₀ A))
+    (hid : ∀ v : ℝ, 0 < v →
+          ∑' m : 𝓞 K, twAt (fun x => φ₀ x * ∏ P ∈ Ps, chiPow P.1 (j P) x) m * conj (τ (-m)) * (v : ℂ) *
+              besselK (1 / 3) (4 * Real.pi * ‖σO m‖ * v / 9) * (2 * Real.pi * I * conj (σO m) / 9) =
+            ∑ᶠ h₀ : 𝓞 K ⧸ span {L}, fCoef L φ₀ (repQ L h₀) *
+              ∑ A ∈ Ps.powerset, (∏ P ∈ Ps \ A, locCoef P (j P) 0) *
+                (C₀ h₀ A * (-(σO (D h₀ A * ∏ P ∈ A, πP P) ^ 2 * (v : ℂ) ^ 2)⁻¹ *
+                  ∑' m : 𝓞 K, conj (dH h₀ A (-m)) * ψc (δ3 ^ 3 * D h₀ A) (-(m * y h₀ A)) *
+                      (∏ P : A, Bloc P.1.1 (j P.1) m) *
+                    (((Complex.normSq (σO (D h₀ A * ∏ P ∈ A, πP P)) * v)⁻¹ : ℝ) : ℂ) *
+                    besselK (1 / 3)
+                      (4 * Real.pi * ‖σO m‖ * (Complex.normSq (σO (D h₀ A * ∏ P ∈ A, πP P)) * v)⁻¹ / 9) *
+                    (2 * Real.pi * I * σO m / 9))))
+    {W : ℝ → ℂ} {α₀ β₀ : ℝ} (hα₀ : 0 < α₀) (hαβ₀ : α₀ ≤ β₀) (hW : ∀ y, y < α₀ ∨ β₀ < y → W y = 0)
+    (hs : ContDiff ℝ ∞ W) {N : ℝ} (hN : ∀ i ≤ 14, ∀ y, ‖iteratedDeriv i W y‖ ≤ N) {Z : ℝ} (hZ : 0 < Z) :
+    ∫ u : ℝ, mellin (Vstar W) (((2 : ℝ) : ℂ) + u * I - 1 / 2) *
+        Fq (fun m => twAt (fun x => φ₀ x * ∏ P ∈ Ps, chiPow P.1 (j P) x) m * conj (τ (-m)))
+          (fun m => 2 * Real.pi * I * conj (σO m) / 9) (((2 : ℝ) : ℂ) + u * I) *
+        (Z : ℂ) ^ (((2 : ℝ) : ℂ) + u * I - 1 / 2) =
+      ∑ᶠ h₀ : 𝓞 K ⧸ span {L}, fCoef L φ₀ (repQ L h₀) *
+        ∑ A ∈ Ps.powerset, (∏ P ∈ Ps \ A, locCoef P (j P) 0) *
+          (C₀ h₀ A * (-(σO (D h₀ A * ∏ P ∈ A, πP P) ^ 2)⁻¹ *
+            ∑' m : 𝓞 K, conj (dH h₀ A (-m)) * ψc (δ3 ^ 3 * D h₀ A) (-(m * y h₀ A)) *
+                (∏ P : A, Bloc P.1.1 (j P.1) m) * (2 * Real.pi * I * σO m / 9) *
+              ((Complex.normSq (σO (D h₀ A * ∏ P ∈ A, πP P)) *
+                ((4 * Real.pi * ‖σO m‖ / 9) ^ 2)⁻¹ : ℝ) : ℂ) *
+              (2 * Real.pi * Vsharp W ((4 * Real.pi * ‖σO m‖ / 9) ^ 2 /
+                (4 * Complex.normSq (σO (D h₀ A * ∏ P ∈ A, πP P)) ^ 2) * Z)))) := by
+  obtain ⟨B₀, hB₀⟩ := exists_bound_of_periodic L hL φ₀ hφ
+  have hB₀0 : 0 ≤ B₀ := (norm_nonneg _).trans (hB₀ 0)
+  have hF : ∀ x, ‖φ₀ x * ∏ P ∈ Ps, chiPow P.1 (j P) x‖ ≤ B₀ := by
+    intro x
+    rw [norm_mul, norm_prod]
+    exact (mul_le_of_le_one_right (norm_nonneg _) (Finset.prod_le_one₀ (fun _ _ => norm_nonneg _)
+      (fun P _ => norm_chiPow_le _ _ _))).trans (hB₀ x)
+  have ha := thetaSupp_twisted hτ hB₀0 hF
+  have hcne : ∀ (h₀ : 𝓞 K ⧸ span {L}), ∀ A ∈ Ps.powerset, σO (D h₀ A * ∏ P ∈ A, πP P) ≠ 0 := by
+    intro h₀ A hA
+    have hc : D h₀ A * ∏ P ∈ A, πP P ≠ 0 := mul_ne_zero (hDATA h₀ A hA).1 (prod_πP_ne_zero A)
+    exact fun h => hc (σO_injective (h.trans (map_zero σO).symm))
+  have := finite_quot L hL
+  let _ : Fintype (𝓞 K ⧸ span {L}) := Fintype.ofFinite _
+  rw [voronoi_FE Finset.univ Ps.powerset ha (fun m => norm_phiInf_le m)
+    (fun m => norm_phiCusp_le m) (fun h₀ => fCoef L φ₀ (repQ L h₀))
+    (fun A => ∏ P ∈ Ps \ A, locCoef P (j P) 0) C₀
+    (fun h₀ A m => conj (dH h₀ A (-m)) * ψc (δ3 ^ 3 * D h₀ A) (-(m * y h₀ A)) *
+      ∏ P : A, Bloc P.1.1 (j P.1) m)
+    (fun h₀ A => D h₀ A * ∏ P ∈ A, πP P) (fun _ A => (∏ P : A, Real.sqrt (absNorm P.1.1)) * Kc)
+    (fun h₀ _ A hA => ⟨thetaSupp_cuspCoef (hDATA h₀ A hA).2 _ _ A j, hcne h₀ A hA⟩)
+    (fun v hv => by rw [← finsum_eq_sum_of_fintype]; exact hid v hv) hα₀ hαβ₀ hW hs hN hZ,
+    finsum_eq_sum_of_fintype]
+
+open Classical in
 /-- **The Voronoi-type identity for the twisted `θ̄`**: with the data of round 373's `twisted_theta_dbar`,
 chosen once, for every smooth weight `W` supported in `[α₀, β₀] ⊂ (0, ∞)` whose first `14` derivatives
 are at most `N`, and every `Z > 0`, the integral along `Re s = 2` of `V̂_*(s − 1/2)`, `𝒥(s)/(Γ(s + 1/3)Γ(s + 2/3))`
@@ -732,32 +793,9 @@ theorem twisted_theta_voronoi {θ : ℂ → ℝ → ℂ} {Kc : ℝ} {c0 cP cM : 
                   (2 * Real.pi * Vsharp W ((4 * Real.pi * ‖σO m‖ / 9) ^ 2 /
                     (4 * Complex.normSq (σO (D h₀ A * ∏ P ∈ A, πP P)) ^ 2) * Z)))) := by
   obtain ⟨D, C₀, dH, y, hDATA, hid⟩ := twisted_theta_dbar hd hL φ₀ hφ hφ0 Ps hPs j
-  obtain ⟨B₀, hB₀⟩ := exists_bound_of_periodic L hL φ₀ hφ
-  have hB₀0 : 0 ≤ B₀ := (norm_nonneg _).trans (hB₀ 0)
-  have hF : ∀ x, ‖φ₀ x * ∏ P ∈ Ps, chiPow P.1 (j P) x‖ ≤ B₀ := by
-    intro x
-    rw [norm_mul, norm_prod]
-    exact (mul_le_of_le_one_right (norm_nonneg _) (Finset.prod_le_one₀ (fun _ _ => norm_nonneg _)
-      (fun P _ => norm_chiPow_le _ _ _))).trans (hB₀ x)
-  have ha := thetaSupp_twisted hd.1 hB₀0 hF
-  have hcne : ∀ (h₀ : 𝓞 K ⧸ span {L}), ∀ A ∈ Ps.powerset, σO (D h₀ A * ∏ P ∈ A, πP P) ≠ 0 := by
-    intro h₀ A hA
-    have hD := (hDATA h₀ A hA).1
-    have hprod : (∏ P ∈ A, πP P) ≠ 0 := Finset.prod_ne_zero_iff.2 fun P _ => ne_zero_of_maximal (πP P)
-    have hc : D h₀ A * ∏ P ∈ A, πP P ≠ 0 := mul_ne_zero hD hprod
-    exact fun h => hc (σO_injective (h.trans (map_zero σO).symm))
-  have := finite_quot L hL
-  let _ : Fintype (𝓞 K ⧸ span {L}) := Fintype.ofFinite _
-  refine ⟨D, C₀, dH, y, hDATA, fun W α₀ β₀ hα₀ hαβ₀ hW hs N hN Z hZ => ?_⟩
-  rw [voronoi_FE Finset.univ Ps.powerset ha (fun m => norm_phiInf_le m)
-    (fun m => norm_phiCusp_le m) (fun h₀ => fCoef L φ₀ (repQ L h₀))
-    (fun A => ∏ P ∈ Ps \ A, locCoef P (j P) 0) C₀
-    (fun h₀ A m => conj (dH h₀ A (-m)) * ψc (δ3 ^ 3 * D h₀ A) (-(m * y h₀ A)) *
-      ∏ P : A, Bloc P.1.1 (j P.1) m)
-    (fun h₀ A => D h₀ A * ∏ P ∈ A, πP P) (fun _ A => (∏ P : A, Real.sqrt (absNorm P.1.1)) * Kc)
-    (fun h₀ _ A hA => ⟨thetaSupp_cuspCoef (hDATA h₀ A hA).2.2.2 _ _ A j, hcne h₀ A hA⟩)
-    (fun v hv => by rw [← finsum_eq_sum_of_fintype]; exact hid v hv) hα₀ hαβ₀ hW hs hN hZ,
-    finsum_eq_sum_of_fintype]
+  exact ⟨D, C₀, dH, y, hDATA, fun W α₀ β₀ hα₀ hαβ₀ hW hs N hN Z hZ =>
+    twisted_theta_voronoi_of hd.1 hL φ₀ hφ Ps j D C₀ dH y
+      (fun h₀ A hA => ⟨(hDATA h₀ A hA).1, (hDATA h₀ A hA).2.2.2⟩) hid hα₀ hαβ₀ hW hs hN hZ⟩
 
 end Eis
 
@@ -793,4 +831,5 @@ end
 #print axioms Eis.Fq_dual_line
 #print axioms Eis.AY_eq
 #print axioms Eis.voronoi_FE
+#print axioms Eis.twisted_theta_voronoi_of
 #print axioms Eis.twisted_theta_voronoi

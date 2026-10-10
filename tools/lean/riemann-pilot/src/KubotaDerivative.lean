@@ -28,7 +28,8 @@ combined as `(∂_x + i∂_y)/2`.
   `Σ_m a(m)·v·K_{1/3}(4π|m|v/9)·2πi·m̄/9` equals the same combination of
   `−(σ(c)v)^{−2}·Σ_m d(m)·V₀·K_{1/3}(4π|m|V₀/9)·2πi·m/9`, with `V₀ = 1/(N(c)v)`.
 * **For the twisted `θ̄`** (**`twisted_theta_dbar`**, with `thetaSupp_mul_le` and `norm_twAt_le`): the
-  identity for round 371's expansion. The cusp constant terms do not appear in it.
+  identity for round 371's expansion. The cusp constant terms do not appear in it. Since round 379 it is
+  `twisted_theta_dbar_of`, the identity for any data given with their expansion, at the data of round 371.
 -/
 
 open Real Set Filter MeasureTheory Complex NumberField Ideal
@@ -524,6 +525,71 @@ theorem dbar_identity {ι κ : Type*} (s : Finset ι) (t : Finset κ) {Ka : ℝ}
   exact tsum_congr fun m => by ring
 
 open Classical in
+/-- **`∂_{z̄}` at `z = 0` from any expansion in cusp coordinates** (round 379): the identity of
+`twisted_theta_dbar` for data `(D, C₀, c_H, d_H, y)` given with their expansion of the twisted `θ̄`, rather
+than chosen by round 371's `twisted_theta_expansion`. -/
+theorem twisted_theta_dbar_of {τ : 𝓞 K → ℂ} {Kc : ℝ} (hτ : ThetaSupp Kc τ) {L : 𝓞 K} (hL : L ≠ 0)
+    (φ₀ : 𝓞 K → ℂ) (hφ : ∀ z u, φ₀ (z + L * u) = φ₀ z) (Ps : Finset Pr) (j : Pr → ℕ)
+    (D : (𝓞 K ⧸ span {L}) → Finset Pr → 𝓞 K) (C₀ cH : (𝓞 K ⧸ span {L}) → Finset Pr → ℂ)
+    (dH : (𝓞 K ⧸ span {L}) → Finset Pr → 𝓞 K → ℂ) (y : (𝓞 K ⧸ span {L}) → Finset Pr → 𝓞 K)
+    (hDATA : ∀ h₀, ∀ A ∈ Ps.powerset, D h₀ A ≠ 0 ∧ ThetaSupp Kc (dH h₀ A))
+    (hexp : ∀ z (v : ℝ), 0 < v →
+      ∑' m : 𝓞 K, twAt (fun x => φ₀ x * ∏ P ∈ Ps, chiPow P.1 (j P) x) m * conj (τ (-m)) * (v : ℂ) *
+          besselK (1 / 3) (4 * Real.pi * ‖σO m‖ * v / 9) * ebr (σO m * z / 9) =
+        ∑ᶠ h₀ : 𝓞 K ⧸ span {L}, fCoef L φ₀ (repQ L h₀) *
+          ∑ A ∈ Ps.powerset, (∏ P ∈ Ps \ A, locCoef P (j P) 0) *
+            (C₀ h₀ A * thSer (conj (cH h₀ A) * ∏ P : A, Bloc P.1.1 (j P.1) 0)
+              (fun m => conj (dH h₀ A (-m)) * ψc (δ3 ^ 3 * D h₀ A) (-(m * y h₀ A)) *
+                ∏ P : A, Bloc P.1.1 (j P.1) m)
+              (-cuspW (D h₀ A * ∏ P ∈ A, πP P) z v) (cuspV (D h₀ A * ∏ P ∈ A, πP P) z v)))
+    {v : ℝ} (hv : 0 < v) :
+    ∑' m : 𝓞 K, twAt (fun x => φ₀ x * ∏ P ∈ Ps, chiPow P.1 (j P) x) m * conj (τ (-m)) * (v : ℂ) *
+        besselK (1 / 3) (4 * Real.pi * ‖σO m‖ * v / 9) * (2 * Real.pi * I * conj (σO m) / 9) =
+      ∑ᶠ h₀ : 𝓞 K ⧸ span {L}, fCoef L φ₀ (repQ L h₀) *
+        ∑ A ∈ Ps.powerset, (∏ P ∈ Ps \ A, locCoef P (j P) 0) *
+          (C₀ h₀ A * (-(σO (D h₀ A * ∏ P ∈ A, πP P) ^ 2 * (v : ℂ) ^ 2)⁻¹ *
+            ∑' m : 𝓞 K, conj (dH h₀ A (-m)) * ψc (δ3 ^ 3 * D h₀ A) (-(m * y h₀ A)) *
+                (∏ P : A, Bloc P.1.1 (j P.1) m) *
+              (((Complex.normSq (σO (D h₀ A * ∏ P ∈ A, πP P)) * v)⁻¹ : ℝ) : ℂ) *
+              besselK (1 / 3)
+                (4 * Real.pi * ‖σO m‖ * (Complex.normSq (σO (D h₀ A * ∏ P ∈ A, πP P)) * v)⁻¹ / 9) *
+              (2 * Real.pi * I * σO m / 9))) := by
+  obtain ⟨B₀, hB₀⟩ := exists_bound_of_periodic L hL φ₀ hφ
+  have hB₀0 : 0 ≤ B₀ := (norm_nonneg _).trans (hB₀ 0)
+  have hF : ∀ x, ‖φ₀ x * ∏ P ∈ Ps, chiPow P.1 (j P) x‖ ≤ B₀ := by
+    intro x
+    rw [norm_mul, norm_prod]
+    exact (mul_le_of_le_one_right (norm_nonneg _) (Finset.prod_le_one₀ (fun _ _ => norm_nonneg _)
+      (fun P _ => norm_chiPow_le _ _ _))).trans (hB₀ x)
+  have ha : ThetaSupp (B₀ * Kc)
+      fun m => twAt (fun x => φ₀ x * ∏ P ∈ Ps, chiPow P.1 (j P) x) m * conj (τ (-m)) := by
+    have h1 := thetaSupp_mul_le (thetaSupp_conj hτ) hB₀0 (norm_twAt_le hB₀0 hF)
+    have e : (fun m => conj (τ (-m)) * twAt (fun x => φ₀ x * ∏ P ∈ Ps, chiPow P.1 (j P) x) m) =
+        fun m => twAt (fun x => φ₀ x * ∏ P ∈ Ps, chiPow P.1 (j P) x) m * conj (τ (-m)) :=
+      funext fun m => mul_comm _ _
+    rwa [e] at h1
+  have := finite_quot L hL
+  let _ : Fintype (𝓞 K ⧸ span {L}) := Fintype.ofFinite _
+  rw [finsum_eq_sum_of_fintype]
+  refine dbar_identity Finset.univ Ps.powerset ha (fun h₀ => fCoef L φ₀ (repQ L h₀))
+    (fun A => ∏ P ∈ Ps \ A, locCoef P (j P) 0) C₀
+    (fun h₀ A => conj (cH h₀ A) * ∏ P : A, Bloc P.1.1 (j P.1) 0)
+    (fun h₀ A m => conj (dH h₀ A (-m)) * ψc (δ3 ^ 3 * D h₀ A) (-(m * y h₀ A)) *
+      ∏ P : A, Bloc P.1.1 (j P.1) m)
+    (fun h₀ A => D h₀ A * ∏ P ∈ A, πP P) (fun _ A => (∏ P : A, Real.sqrt (absNorm P.1.1)) * Kc)
+    (fun h₀ _ A hA => ⟨?_, ?_⟩) hv (fun z => ?_)
+  · have h1 := thetaSupp_mul (thetaSupp_conj (hDATA h₀ A hA).2)
+      (fun m => (norm_ψc (δ3 ^ 3 * D h₀ A) (-(m * y h₀ A))).le)
+    exact thetaSupp_mul_le h1 (Finset.prod_nonneg fun _ _ => Real.sqrt_nonneg _) fun m => by
+      rw [norm_prod]
+      exact Finset.prod_le_prod₀ (fun _ _ => norm_nonneg _) fun P _ => norm_Bloc_le_sqrt P.1 (j P.1) m
+  · have hc : D h₀ A * ∏ P ∈ A, πP P ≠ 0 := mul_ne_zero (hDATA h₀ A hA).1 (prod_πP_ne_zero A)
+    exact fun h => hc (σO_injective (h.trans (map_zero σO).symm))
+  · rw [← finsum_eq_sum_of_fintype, ← hexp z v hv]
+    unfold thSer
+    rw [zero_mul, zero_add]
+
+open Classical in
 /-- **`∂_{z̄}` at `z = 0` of the twisted `θ̄`, in both expansions** (S5f-4b): for data `(D, C₀, d_H, y)` as in
 `twisted_theta_expansion` and `v > 0`, the series `Σ_m a(m)·v·K_{1/3}(4π|m|v/9)·2πi·m̄/9` of the
 twisted coefficients `a(m) = φ(m/λ)·conj τ(−m)` equals the sum over `h₀` and the active sets `A` of
@@ -549,43 +615,8 @@ theorem twisted_theta_dbar {θ : ℂ → ℝ → ℂ} {Kc : ℝ} {c0 cP cM : ℂ
                     (4 * Real.pi * ‖σO m‖ * (Complex.normSq (σO (D h₀ A * ∏ P ∈ A, πP P)) * v)⁻¹ / 9) *
                   (2 * Real.pi * I * σO m / 9))) := by
   obtain ⟨D, C₀, cH, dH, y, hDATA, hexp⟩ := twisted_theta_expansion hd hL φ₀ hφ hφ0 Ps hPs j
-  refine ⟨D, C₀, dH, y, hDATA, fun v hv => ?_⟩
-  obtain ⟨B₀, hB₀⟩ := exists_bound_of_periodic L hL φ₀ hφ
-  have hB₀0 : 0 ≤ B₀ := (norm_nonneg _).trans (hB₀ 0)
-  have hF : ∀ x, ‖φ₀ x * ∏ P ∈ Ps, chiPow P.1 (j P) x‖ ≤ B₀ := by
-    intro x
-    rw [norm_mul, norm_prod]
-    exact (mul_le_of_le_one_right (norm_nonneg _) (Finset.prod_le_one₀ (fun _ _ => norm_nonneg _)
-      (fun P _ => norm_chiPow_le _ _ _))).trans (hB₀ x)
-  have ha : ThetaSupp (B₀ * Kc)
-      fun m => twAt (fun x => φ₀ x * ∏ P ∈ Ps, chiPow P.1 (j P) x) m * conj (τ (-m)) := by
-    have h1 := thetaSupp_mul_le (thetaSupp_conj hd.1) hB₀0 (norm_twAt_le hB₀0 hF)
-    have e : (fun m => conj (τ (-m)) * twAt (fun x => φ₀ x * ∏ P ∈ Ps, chiPow P.1 (j P) x) m) =
-        fun m => twAt (fun x => φ₀ x * ∏ P ∈ Ps, chiPow P.1 (j P) x) m * conj (τ (-m)) :=
-      funext fun m => mul_comm _ _
-    rwa [e] at h1
-  have := finite_quot L hL
-  let _ : Fintype (𝓞 K ⧸ span {L}) := Fintype.ofFinite _
-  rw [finsum_eq_sum_of_fintype]
-  refine dbar_identity Finset.univ Ps.powerset ha (fun h₀ => fCoef L φ₀ (repQ L h₀))
-    (fun A => ∏ P ∈ Ps \ A, locCoef P (j P) 0) C₀
-    (fun h₀ A => conj (cH h₀ A) * ∏ P : A, Bloc P.1.1 (j P.1) 0)
-    (fun h₀ A m => conj (dH h₀ A (-m)) * ψc (δ3 ^ 3 * D h₀ A) (-(m * y h₀ A)) *
-      ∏ P : A, Bloc P.1.1 (j P.1) m)
-    (fun h₀ A => D h₀ A * ∏ P ∈ A, πP P) (fun _ A => (∏ P : A, Real.sqrt (absNorm P.1.1)) * Kc)
-    (fun h₀ _ A hA => ⟨?_, ?_⟩) hv (fun z => ?_)
-  · have h1 := thetaSupp_mul (thetaSupp_conj (hDATA h₀ A hA).2.2.2)
-      (fun m => (norm_ψc (δ3 ^ 3 * D h₀ A) (-(m * y h₀ A))).le)
-    exact thetaSupp_mul_le h1 (Finset.prod_nonneg fun _ _ => Real.sqrt_nonneg _) fun m => by
-      rw [norm_prod]
-      exact Finset.prod_le_prod₀ (fun _ _ => norm_nonneg _) fun P _ => norm_Bloc_le_sqrt P.1 (j P.1) m
-  · have hD := (hDATA h₀ A hA).1
-    have hprod : (∏ P ∈ A, πP P) ≠ 0 := Finset.prod_ne_zero_iff.2 fun P _ => ne_zero_of_maximal (πP P)
-    have hc : D h₀ A * ∏ P ∈ A, πP P ≠ 0 := mul_ne_zero hD hprod
-    exact fun h => hc (σO_injective (h.trans (map_zero σO).symm))
-  · rw [← finsum_eq_sum_of_fintype, ← hexp z v hv]
-    unfold thSer
-    rw [zero_mul, zero_add]
+  exact ⟨D, C₀, dH, y, hDATA, fun v hv => twisted_theta_dbar_of hd.1 hL φ₀ hφ Ps j D C₀ cH dH y
+    (fun h₀ A hA => ⟨(hDATA h₀ A hA).1, (hDATA h₀ A hA).2.2.2⟩) hexp hv⟩
 
 end Eis
 
@@ -611,4 +642,5 @@ end
 #print axioms Eis.dq_sum
 #print axioms Eis.sum_comb
 #print axioms Eis.dbar_identity
+#print axioms Eis.twisted_theta_dbar_of
 #print axioms Eis.twisted_theta_dbar
