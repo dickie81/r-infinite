@@ -277,7 +277,7 @@ for seed, re_expect, printed in (
     L1 = Lfun(r, chi5); L2 = Lfun(r, [z.conjugate() for z in chi5])
     ok &= abs(abs(L1) - abs(L2)) < mpf(10)**-20 and abs(L1) > mpf("0.4")
     ok &= abs(L1/L2 - target) < mpf(10)**-20
-gate("g8 Davenport-Heilbronn: same FE geometry, off-line zeros, component congruence", ok)
+gate("g8 Davenport-Heilbronn: same FE involution, off-line zeros, component congruence", ok)
 
 # ---------------------------------------------------------------- g9
 def lam_table(a, N):

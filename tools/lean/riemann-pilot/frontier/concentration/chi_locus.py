@@ -18,7 +18,14 @@
       |χ_DH(σ + 1.19i)| − 1 and |χ_DH(σ + 1.23i)| − 1 lie in balls of opposite strict signs, while 40 balls
       covering |χ(σ + it)| − 1 for t in [1.19, 1.23] all lie on one side of 0. So |χ_DH| = 1 at a point with
       Re s = σ ≠ ½ where |χ| ≠ 1: the two loci share the line and differ off it. With mpmath, the D–H branch
-      crosses the line at t₁ = 1.2116358 (to 10⁻⁶), where ∂σ log|χ_DH| vanishes on the line."""
+      crosses the line at t₁ = 1.2116358 (to 10⁻⁶), where ∂σ log|χ_DH| vanishes on the line.
+  C6  (Arb, a proof, with the monotonicity below; added in the paper's review round 403) the locus leaves the line
+      only at low height. For σ in [0, 1], ∂σ log|χ(σ + it)| = −Re ψ_ℝ(σ + it) − Re ψ_ℝ(1 − σ + it), where
+      ψ_ℝ = Γ_ℝ′/Γ_ℝ = −½ log π + ½ψ(s/2). By ψ(z) = −γ + Σ_{n≥0} (1/(n + 1) − 1/(n + z)), Re ψ(x + iy) strictly
+      increases in y > 0 for x ≥ 0 (each Re 1/(n + x + iy) = (n + x)/((n + x)² + y²) decreases in y, and is 0 for
+      n + x = 0), so the derivative strictly decreases in |t|. The gate certifies it negative at t = 7 on 1000 balls
+      covering σ in [0, 1]. So for |t| ≥ 7, log|χ(σ + it)| is strictly decreasing in σ on [0, 1] and vanishes only
+      at σ = ½: the points of |χ| = 1 off the line with 0 ≤ Re s ≤ 1 lie below height 7."""
 import sys
 from flint import acb, arb, ctx
 from mpmath import mp, mpf, mpc, gamma, pi, log, findroot, diff, siegeltheta, fabs
@@ -92,5 +99,13 @@ for k in range(1, 400):
             off.append((k, j))
         prev = v
 gate("C4 no crossing off the line along σ", not off, f"{len(off)} off-line sign changes on 399 × 99 grid")
+def dsig_arb(sg, t):
+    # the σ-derivative of log|χ(σ + it)|: −Re ψ_ℝ(σ + it) − Re ψ_ℝ(1 − σ + it), ψ_ℝ(z) = −½ log π + ½ψ(z/2)
+    psiR = lambda z: -acb.pi().log() / 2 + (z / 2).digamma() / 2
+    return -psiR(acb(sg, t)).real - psiR(acb(1 - sg, t)).real
+# σ in [k/1000, (k+1)/1000] as the ball (2k + 1 ± 1)/2000; the union covers [0, 1]
+d7 = [dsig_arb((arb(2 * k + 1) + arb(0, 1)) / 2000, arb(7)) for k in range(1000)]
+gate("C6 ∂σ log|χ| < 0 at t = 7 for σ in [0, 1]", all(b < 0 for b in d7),
+     f"1000 balls; largest upper bound {max(b.upper() for b in d7).str(6)}")
 print("all gates pass" if fails == 0 else f"{fails} gate(s) failed")
 sys.exit(1 if fails else 0)
