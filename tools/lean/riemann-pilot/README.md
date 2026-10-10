@@ -9835,7 +9835,7 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 - **S5c.** Proposition 5.4 derived (Section 7), reusing S4.
 - **S5d.** Proposition 5.2 derived from the theta transformation (Proposition 6.2 with Lemmas 6.3–6.4) and Lemma 6.5. Both stay displayed hypotheses for now; this round does Section 6.4's assembly. *(Round 339: S5d-1 landed first, the last step of Section 6.4: Proposition 5.2 from Lemma 6.6, `Eis.completedMeanSquare_of_squarefree`. Round 339 stages the rest of S5d as S5d-2 to S5d-5.)* *(Round 340: S5d-2 landed, the prepared sums' mean square from Lemma 6.5, displayed as `Eis.QuadLargeSieve` (`Eis.prepSum_meanSquare`); the rest is restaged as S5d-3 and S5d-4.)* *(Round 341: S5d-3 landed, the theta transformation for the rows displayed as `Eis.ThetaRows` and one transformed term's mean square, `Eis.dualTerm_meanSquare`; S5d-4 remains.)* *(Round 342: S5d-4 landed, the paper's Lemma 6.6 from the two displays, `Eis.squarefreeCompleted_of`, and the half-plane from them, `Eis.ne_zero_of_theta`; S5d is complete.)*
 - **S5e.** The quadratic large sieve over `ℤ[ω]` (Lemma 6.5) derived. *(Round 343: mapped as S5e-1 to S5e-7, after Goldmakher and Louvel and Heath-Brown; the norm is to be taken over balls. See round 343.)* *(Round 344: S5e-1 landed; `Eis.quadLargeSieve_of_exp` reduces Lemma 6.5 to the exponent `1`, `Eis.QExp 1`.)* *(Round 345: S5e-2 landed; `Eis.qExp_two` is the base case `QExp 2`.)* *(Round 346: S5e-3 landed; `Eis.fBound_gcd` and `Eis.fBound_sep` are Heath-Brown's Lemmas 2 and 10.)* *(Round 347: S5e-4a landed; `Eis.integral_fourier_Phi_sq` is the planar Lemma 14 for the majorant.)* *(Round 348: S5e-4b landed; `Eis.excl_eq_main_add` is the sum over arguments prime to a set of primes, with its error as an Euler product under a Mellin integral, `Eis.latErr_moebius`. The rest of S5e is replanned in round 348.)* *(Round 349: S5e-4c landed; `Eis.sum_sqf_sq` sums over the square parts, `Eis.fBound_sqf_of_adm` bounds the squarefree rows by the admissible ones, and `Eis.fBound_admW_split` is Heath-Brown's (11) over balls.)* *(Round 350: S5e-4d, part 1 landed; `Eis.sig4_eq_main_add` is the explicit formula for `Σ_4` for a pair, and `Eis.bilin_disj_le_c` the bilinear bound over disjoint pairs of columns.)* *(Round 351: S5e-4d, part 2 landed; `Eis.sig3_eq_main_add` is the explicit formula for `Σ_3` for a pair, with the dual sum truncated at its support.)* *(Round 352: S5e-4e landed; `Eis.err4_bilin` and `Eis.err3_bilin` bound the error terms of `Σ_4` and `Σ_3` over the disjoint pairs of columns.)* *(Round 353: S5e-6, part 1 landed; the pairs with `ρ_D(−1) = −1` vanish (`Eis.sig3_eq_zero`, `Eis.sig4_eq_zero`) and `γ(D) = 1` on the others (`Eis.gamD_eq_one`).)* *(Round 354: S5e-6, part 2 landed; `Eis.main_cancel` is the cancellation of the main terms and `Eis.pair_eq` the pair identity for `Σ_3 − Σ_4`.)* *(Round 355: S5e-7, part 1 landed; `Eis.main_bilin` bounds the surviving main term over the disjoint pairs of columns.)* *(Round 356: S5e-7, part 2 landed; `Eis.gcdPart_bw_le` bounds one gcd part of the norm of `B(M, N, K)`.)* *(Round 357: S5e-7, part 3 landed; the shells (`Eis.fBound_of_shells`), the recursion (`Eis.fBound_rec`) and the norms of the rows from `(E_α)` (`Eis.fBound_wR_of_qExp`).)* *(Round 358: S5e-7, part 4 landed; `Eis.fBound_cor` is Goldmakher and Louvel's Theorem cor.)* *(Round 359: S5e complete. `Eis.qExp_one` is `(E_1)` and `Eis.quadLargeSieve` the companion paper's Lemma 6.5, so `Eis.QuadLargeSieve` is no longer a displayed input; see round 359.)*
-- **S5f.** Kubota's cubic theta, its coefficients and automorphy (Patterson; Dunn–Radziwiłł), and Appendix A.2's calculation, derived. This is the deepest step. Until it lands, the transformation is the strand's one displayed external input. *(Round 342: until S5e lands, `Eis.QuadLargeSieve` is displayed too; the half-plane rests on the two, `Eis.ne_zero_of_theta`.)* *(Round 359: S5e landed; `Eis.ne_zero_of_thetaRows` gives the half-plane from `Eis.ThetaRows` alone, which is again the strand's one displayed external input.)*
+- **S5f.** Kubota's cubic theta, its coefficients and automorphy (Patterson; Dunn–Radziwiłł), and Appendix A.2's calculation, derived. This is the deepest step. Until it lands, the transformation is the strand's one displayed external input. *(Round 342: until S5e lands, `Eis.QuadLargeSieve` is displayed too; the half-plane rests on the two, `Eis.ne_zero_of_theta`.)* *(Round 359: S5e landed; `Eis.ne_zero_of_thetaRows` gives the half-plane from `Eis.ThetaRows` alone, which is again the strand's one displayed external input.)* *(Round 360: mapped in two parts. Part I derives `Eis.ThetaRows` from a display of the Kubota–Patterson theorem, `Eis.KubotaTheta`; Part II derives that theorem. See round 360.)*
 - **Order.** S5a and S5b come first: they reach the third milestone and fix the interfaces. Then S5c, which reuses S4, then S5d, then S5e and S5f.
 
 **Check 9.**
@@ -11934,7 +11934,7 @@ Write `E = M + N + N^{2α−1}M^{1−α}` (round 357's `sizeE`), `Q = MN`, and `
 
 **Scale.** S5e is the 16 files `src/EisensteinQuadSieve*.lean` of rounds 344–359, 8536 lines. Round 343 recorded that the release derives the same estimate in 36 files and 23,974 lines.
 
-**The next step.** S5f, the theta transformation (round 312's plan).
+**The next step.** S5f, the theta transformation (round 312's plan). *(Round 360: mapped as S5f-1 to S5f-16; see round 360.)*
 
 **Records.**
 
@@ -11952,3 +11952,86 @@ Write `E = M + N + N^{2α−1}M^{1−α}` (round 357's `sizeE`), `Q = MN`, and `
 **Check 9.** No barrier claim is made.
 
 **Bearing on RH:** none. The half-plane `Re s > 11/12` is conditional on `Eis.ThetaRows` and far from the critical line.
+
+## Round 360: S5f mapped — the transformation from the Kubota–Patterson theorem, and that theorem (no new Lean)
+
+**What was read.**
+
+- The companion paper's Section 6 (`paper2.tex`, lines 1632–2215): Lemma 6.1 (the realization by the cubic theta function), Proposition 6.2 (the transformation), Lemma 6.3 (uniformity in the twist), Lemma 6.4 (support and size of the cusp coefficients and of the transformed weight), and the proof of Lemma 6.6, which uses them.
+- Its Appendix A.2 (lines 2874–3480), which proves Proposition 6.2 and Lemmas 6.3–6.4. It opens: "`The proof adapts the theta-transformation method of Dunn and Radziwi\l\l\ \cite[\S5 and Appendix~A]{DR}, which extends Patterson \cite{Pat77} and Yoshimoto \cite{Yos87}.`"
+- Dunn and Radziwiłł, "Bias in cubic Gauss sums: Patterson's conjecture" (arXiv:2109.07463), from its LaTeX source: §5.1–5.3 (the groups, Kubota's character, θ at the cusps, the sieving of the coefficients and the twists) and the Appendix (the coefficients `d_j` of Patterson's Table III, with the action of the generators).
+- The release's `DirichletL/Eisenstein/`, 82 files and 53,369 lines by round 312's count. It was surveyed through its import lines and the names and statements of its declarations, not read in full.
+
+**What Appendix A.2 uses about θ.**
+
+- θ is Dunn and Radziwiłł's. The paper (line 358): "`Let $\theta(z,v)$ be Kubota's cubic theta function on hyperbolic three-space ($z\in\mathbb C$, $v \in \R_{>0}$), obtained as a residue of a cubic metaplectic Eisenstein series \cite{Kub69,Pat77}.`"
+- Its Fourier expansion at `∞`, the paper's (6.1), with Patterson's coefficients `τ` on `λ^{−3}𝒪` (DR's (5.7)–(5.8), as the paper cites them).
+- Its expansions at three cusps, `γ_0 = I`, `γ_+ = (1 0; ω 1)` and `γ_− = (1 0; ω² 1)`, through DR's `τ_1` and `τ_2` (their (5.13)–(5.14), from Patterson's Table III). The paper's (A.6): "`t_0(\ell)=\tau(\ell),\qquad t_-(\ell)=\omega^2\tau_1(\omega^2\ell)\breve e(\ell), \qquad t_+(\ell)=\omega\tau_2(\omega\ell)\breve e(\ell).`" Its "`representatives $\gamma_0,\gamma_+,\gamma_-$ correspond to $\gamma_1,\gamma_{10},\gamma_{19}$, respectively, in the numbering of \cite[\S5.1]{DR}`".
+- Automorphy: the invariances under `SL_2(ℤ)` and under the translations by `ℤ + 3𝒪` (lines 3089–3093), and the law `θ(g_1w) = κ(g_1)θ(w)` with `κ(g_1) = (c_1/a_1)_3` for `g_1 ≡ I (mod 3)` (lines 3149–3156), "`where $\kappa$ is Kubota's cubic character \cite[(5.4), (5.6)]{DR}`". Dunn and Radziwiłł record the extension of `κ`: "`It was shown by Patterson \cite[\S 2]{Pat1} that $\chi$ extends to a well-defined homomorphism`" on `Γ_2 = SL_2(ℤ)Γ_1(3)` "`when one defines $\chi \lvert_{\operatorname{SL}_2(\mathbb{Z})} \equiv 1$`"; and of θ, "`It is automorphic on $\Gamma_2$ with multiplier $\chi$.`"
+
+**What Appendix A.2 does with θ.**
+
+- **Translates.** The finite Fourier expansion of the twist writes `Θ_Ψ` as a sum of translates `θ̄(z + z_h, v)` with coefficients `c_F(h) = φ̂(h_0)∏_p C_{p,j_p}(h_p)` (the paper's (A.4)–(A.5)). Their constant terms cancel, since `Σ_h c_F(h) = 0`.
+- **Cusp matrices.** Each translate has reduced denominator `c = c_0 r`, with `r` the product of the active primes. The Chinese remainder theorem gives `g = g_1H ∈ SL_2(𝒪)` with `g∞ = a/c`, `g_1 ≡ I (mod 3)` and `H` of one of three shapes, and the invariances reduce `θ̄(Hw)` to one of the three expansions.
+- **The multiplier.** `κ(g_1) = κ_0(a/r)_3`, with `κ_0` fixed by the residues at the primes dividing `L` (the paper's (A.10)). The proof is cubic reciprocity with its supplementary laws.
+- **The local factors.** The phase `ĕ(−δ′ℓ/c)` splits by the additive Chinese remainder theorem (A.11). The sum over the nonzero `h_p` then gives `B_{p,j}` (A.12), through Gauss sums of the sextic characters.
+- **The Mellin side.** The Mellin transform `𝒥(s)` of `∂_{z̄}Θ_Ψ(0, v)` is `(3^{5/2}/4)(27/(2π)²)^s Γ(s + 1/3)Γ(s + 2/3)𝒯(s, Ψ)` (A.16), by the Bessel–Mellin integral (A.15). Automorphy makes `𝒥` entire with the functional equation (A.18). Phragmén–Lindelöf and Stirling's formula move the contour, and the kernel's own shift gives `V^♯` and its decay (A.20).
+- **Uniformity.** Fixing `k_0` modulo `M²` fixes `(d, ψ, c_0)` (Lemma 6.3).
+
+**What the pilot has toward S5f.**
+
+- Cubic reciprocity for coprime primary elements (round 290, `cub_recip`), primary generators (`pgen`), the sextic symbols and characters `χ_P` (`EisensteinSymbol.lean`), and quadratic and sextic reciprocity (round 298).
+- The normalized Gauss sums `γ_j` on ideals (`gamI`), the cube of the cubic Gauss sum (round 292), the companion paper's Lemma 4.1 (rounds 299–300) and the paired Gauss sums (round 304).
+- Poisson summation over `ℤ[ω]` with twists (rounds 294 and 303) and the Mellin separation (rounds 302, 317 and 340).
+- The target and its interfaces: `compT` (round 313), and `ThetaRows`, `Bloc` and `dualTerm` (round 341).
+
+**What it lacks.**
+
+- Upper half-space with the action of `SL_2(ℂ)` (DR §5.1), and `ĕ(z) = exp(2πi(z + z̄))`.
+- The Bessel function `K_ν`. Mathlib's `Analysis/SpecialFunctions/Bessel.lean` defines only the first kind, `Complex.besselJ`; its TODO list begins "`Bessel function of the second kind`". The pilot has none.
+- The supplementary laws of cubic reciprocity at `λ` and at the units. The paper uses them for the periodicity of `φ` ("`The supplementary law of cubic reciprocity for $\lambda$ \cite[(1.5)]{DR}`") and in (A.10).
+- Phragmén–Lindelöf is in Mathlib (`PhragmenLindelof.vertical_strip`), unused in the pilot. A vertical-line Stirling estimate is in zeta23's upstream (`Zeta23/GammaFacts/StirlingVert.lean`), not yet checked for this use.
+- Kubota's character, the Eisenstein series and θ.
+
+**Normalizations.** The paper puts `λ = 1 + 2ω` (line 361: "`Put $\lambda=1+2\omega$.`"). Round 341's `dualPt` uses `ω − 1`, and `1 + 2ω = −ω(ω − 1)`. The paper's `e(z) = exp(4πi Im z/√3)` is "`$e(z)=\breve e(z/\lambda)$`" (lines 2899–2901).
+
+**The plan for S5f, in two parts.**
+
+Part I: the transformation from the Kubota–Patterson theorem.
+
+- **S5f-1. The objects and the display.** Upper half-space and the action; `K_ν(x) = ½∫_0^∞ t^{ν−1}e^{−x(t+1/t)/2} dt`, with its Mellin transform (A.15) and its decay; Patterson's coefficients `τ`, `τ_1` and `τ_2` as explicit functions; the series for θ and for its expansions at `γ_±`. Then the display `Eis.KubotaTheta`: these series are automorphic as above, and the two others are θ's expansions at `γ_±`. The display leaves the coefficient of the constant term `v^{2/3}` existential. Appendix A.2 cancels the constant terms, and Part II is planned to determine θ's other coefficients up to one common scalar.
+- **S5f-2. Lemma 6.1 and the translates.** `compT` as a sum of theta coefficients (the paper's (6.3), with Patterson's values at `λ^{−3}nb³`), and the finite Fourier expansion (A.3)–(A.5). With it, the paper's (6.17) from round 298's sextic reciprocity, round 341's open item.
+- **S5f-3. The cusp matrices and the local factors.** `c = c_0r` and `g = g_1H`, then (A.10) from cubic reciprocity and the supplementary laws, then (A.11) and (A.12).
+- **S5f-4. The Mellin side.** `𝒯(s, Ψ)` and `𝒥(s)` with (A.15)–(A.16), `𝒥` entire, and its functional equation (A.18)–(A.19).
+- **S5f-5. The contour.** Polynomial bounds for `𝒯` in vertical strips by Phragmén–Lindelöf, the shift, `V^♯`, and its decay (A.20), which is Lemma 6.4's weight bound.
+- **S5f-6. The assembly.** Lemma 6.3, and `KubotaTheta → ThetaRows`. The half-plane then rests on `KubotaTheta` alone.
+
+Part II: the Kubota–Patterson theorem, `KubotaTheta` derived. Every construction of θ in the sources read (the companion paper, Dunn and Radziwiłł, and the release) takes it as a residue of the cubic Eisenstein series. The plan does the same.
+
+- **S5f-7. Kubota's character.** `(c/a)_3` on `Γ_1(3)` is a homomorphism by cubic reciprocity, and extends to `Γ_2` (Patterson's §2, as DR cite it). The cosets of `Γ_2\Γ` ("`We also have $[\Gamma:\Gamma_2]=27$`") are needed as far as the cusps need them.
+- **S5f-8. Analysis on the quotient.** The invariant measure, the Laplacian and its invariance, unfolding over `Γ_∞\Γ`, and a smooth partition of unity modulo the group, so that Green's identity has no boundary faces to pair.
+- **S5f-9. The Eisenstein series for `Re s > 2`.** Convergence; the Fourier expansion by Poisson summation over `𝒪`, with Dirichlet series of Gauss sums against `K_{s−1}`; the constant terms at the cusps; and the pole of the scattering coefficient at `s = 4/3`.
+- **S5f-10. The residue, a planned deviation.** The release proves its resolvent meromorphic at the pole, `kernelEisensteinResolvent_meromorphicAt`: "`MeromorphicAt kernelEisensteinResolvent (4/3:ℂ)`" (in `MeromorphicResolvent.lean`, which imports its `FredholmAlternative.lean`). The plan uses the resolvent only off the real axis. There Lax–Milgram over `ℂ` for the energy form gives `‖R(λ)‖ ≤ |Im λ|⁻¹`, with no spectral theorem. θ is then a weak limit of `(s − 4/3)(E_s − h_s)` along `s = 4/3 + iε`. These are bounded, since `|Im λ|` is of order `ε` there. The constant term `Res φ · v^{2/3}` makes the limit nonzero. Its Fourier modes solve Bessel's equation, and square-integrability selects `K_{1/3}`. Whether the weak limit serves every later step is to be checked at S5f-11 and S5f-12.
+- **S5f-11. The constant-term principle.** The residue is orthogonal to the functions whose constant terms vanish at every cusp. So a combination of its translates whose constant terms all vanish is zero (the release's `commonCover_source_sum_eq_zero_of_inverse_cusp_decay`).
+- **S5f-12. The cube eigenrelation** at a primary prime `p`, from S5f-11 at level `p³`. It is the release's `cubicSource_cubeAverage`, "`cubeAverage p hp.ne_zero cubicSourceResidualFunction w= (Ideal.absNorm (Ideal.span {p}):ℂ)⁻¹*cubicSourceResidualFunction w`", which gives its `sourceArithmeticResidue_prime_cube`, "`sourceArithmeticResidue (h*p^3)=sourceArithmeticResidue h`".
+- **S5f-13. The coefficients away from `λ`.** Twisted multiplicativity of the Gauss sums and the prime-power tables, with S5f-12, give Patterson's coefficients at the squarefree-times-cube indices prime to `3`, up to one scalar.
+- **S5f-14. The prime `λ` and the units**: DR's (5.7) in full.
+- **S5f-15. The cusps `γ_±`**: `τ_1` and `τ_2`.
+- **S5f-16.** `KubotaTheta` derived. The half-plane `Re s > 11/12` for `ζ(s)L(s, χ₋₃)` then has no displayed hypothesis.
+
+**Scale.** Round 312 counted the release's `Eisenstein/` at 82 files and 53,369 lines. It also draws on other directories of the release, not counted here. For comparison, S5e is 16 files and 8,536 lines here, where the release used 36 files and 23,974 lines (rounds 343 and 359). These are counts, not claims about the difficulty of any proof.
+
+**Records.**
+
+- Net-state markers on round 312's S5f bullet and on round 359's next step.
+- STRUCTURAL-REVIEW §6: S5f mapped.
+
+**Check 9.**
+
+- (a) The statements are about the sections read (the companion paper's Section 6 and Appendix A.2, and Dunn and Radziwiłł's §5.1–5.3 and Appendix), the release as surveyed and the pilot as grepped. "Every construction of θ in the sources read" covers those three sources only.
+- (b) No barrier claim is made.
+- (c) The signal is unchanged.
+
+**Check 4.** New here: the map of S5f, its split at the display `KubotaTheta`, and the weak-limit deviation. Nothing is derived in Lean this round.
+
+**Bearing on RH:** none.
