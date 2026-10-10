@@ -9,6 +9,7 @@ These files build on zeta23, the Lean formalisation that accompanies Alpöge–F
 | `HybridExamples.lean` | 276 | concrete instances of five of the hybrid certificates, with every hypothesis discharged; an instance on which the off-line term cannot be dropped |
 | `ShellDensity.lean` | 400 | round 235's zero-density estimate and Riemann–von Mangoldt in one environment: for every `w > ¼` the proportion of the pilot's zero pairs up to height `T` that lie outside the Bohr shell of half-width `w` tends to `0` |
 | `ShellSixth.lean` | 401 | the Euler–Maclaurin approximation of `ζ` by partial sums (`MeanSquareZeta.EMApprox`) from zeta23's copy of `ZetaBounds`; with it, for every `w > 1/6` the proportion of the pilot's zero pairs up to height `T` that lie outside the Bohr shell of half-width `w` tends to `0` |
+| `BohrLandau.lean` | 402 | for every `w > 0` the proportion of the pilot's zero pairs up to height `T` that lie outside the Bohr shell of half-width `w` tends to `0` (Bohr and Landau, 1914), from `src/BohrLandauCore.lean` and the lower bound `ShellDensity.NX_zero_ge` |
 
 ## What is used from zeta23
 
@@ -21,7 +22,7 @@ These files build on zeta23, the Lean formalisation that accompanies Alpöge–F
 | the Γ facts | `Zeta23.gammaFacts` | Stirling for `μ(τ) = (1/2π)Re ψ(¼ + iτ/2) − log π/2π` and its integrals |
 | the zero side | `ZeroBlockData`, `RHLinalg.rank_trace_ineq_two` | the abstract zero-block data on which zeta23 proves prop:block (`Zeta23.ZeroSide`), its split `Â = P_c + Q_c`, and the rank–trace inequality (`Zeta23.LinAlg.RankTrace`) |
 
-`SlogZeta.lean` uses the second and third, through their parts: the argument principle for `Λ = completedRiemannZeta` folded onto the right half-contour (`N_eq_halfContour_completedZeta`), the split `Λ'/Λ = ζ'/ζ + Γ_ℝ'/Γ_ℝ`, Backlund's bound on the horizontals (`backlund_horizontal`), the vertical side at `σ = 2` (`vertical_two`), the Γ side (`gamma_side`) and Stirling (`gammaFacts.stirling`). Montgomery–Vaughan is compiled but not yet used here. `ShellDensity.lean` uses the second and third through the main term of Riemann–von Mangoldt, and zeta23's copy of PNT+'s `ZetaBounds` (`Zeta0EqZeta`, `ZetaBnd_aux1`) for the Euler–Maclaurin bound at a zero. `ShellSixth.lean` uses the same copy (`Zeta0EqZeta`, `ZetaBnd_aux1b`) for the Euler–Maclaurin approximation at every point of `Re s > 0`, `|t| ≥ 2`.
+`SlogZeta.lean` uses the second and third, through their parts: the argument principle for `Λ = completedRiemannZeta` folded onto the right half-contour (`N_eq_halfContour_completedZeta`), the split `Λ'/Λ = ζ'/ζ + Γ_ℝ'/Γ_ℝ`, Backlund's bound on the horizontals (`backlund_horizontal`), the vertical side at `σ = 2` (`vertical_two`), the Γ side (`gamma_side`) and Stirling (`gammaFacts.stirling`). Montgomery–Vaughan is compiled but not yet used here. `ShellDensity.lean` uses the second and third through the main term of Riemann–von Mangoldt, and zeta23's copy of PNT+'s `ZetaBounds` (`Zeta0EqZeta`, `ZetaBnd_aux1`) for the Euler–Maclaurin bound at a zero. `ShellSixth.lean` uses the same copy (`Zeta0EqZeta`, `ZetaBnd_aux1b`) for the Euler–Maclaurin approximation at every point of `Re s > 0`, `|t| ≥ 2`. `BohrLandau.lean` uses the main term of Riemann–von Mangoldt through `ShellDensity.NX_zero_ge`.
 
 ## Building
 
@@ -35,7 +36,7 @@ These files build on zeta23, the Lean formalisation that accompanies Alpöge–F
 - It applies `zeta23_port.patch`, which ports those files to the pilot's toolchain. Four files change, all by Mathlib API drift; the top of the patch lists them. Each changed file carries a note saying so. The nine zero-side files added in round 276 compile unpatched.
 - It compiles the zeta23 files (with zeta23's own `relaxedAutoImplicit = false`) and this directory's files into `../../build`. It then prints the axioms of the final theorems. It fails if Lean reports a use of `sorry` in a compiled file, or if any axiom line printed during the build is not exactly `[propext, Classical.choice, Quot.sound]` (round 276). The axiom lines are those a compiled file prints with its own `#print axioms`, and those of the final check.
 
-The zeta23 files print their own upstream warnings (deprecations, unused variables); they are compiled unedited apart from the patch. `SlogZeta.lean`, `HybridCertificate.lean`, `HybridExamples.lean`, `ShellDensity.lean` and `ShellSixth.lean` print none.
+The zeta23 files print their own upstream warnings (deprecations, unused variables); they are compiled unedited apart from the patch. `SlogZeta.lean`, `HybridCertificate.lean`, `HybridExamples.lean`, `ShellDensity.lean`, `ShellSixth.lean` and `BohrLandau.lean` print none.
 
 ## SlogZeta.lean (round 228)
 
@@ -75,7 +76,7 @@ On the line the proof uses only `Re(w·w) ≤ Σ_k |w_k|²`, which holds for eve
 - `Ncount_le_NX`: zeta23's zeros with `T < γ ≤ 2T`, counted with multiplicity, inject into the pilot's pairs up to height `2T`, by the construction of round 248's `CountCompare.local_count_le`. Hence `NX_zero_ge`: for large `X` at least `X log X/(8π)` pairs lie up to height `X`.
 - **`tendsto_NX_div_quarter`**, **`tendsto_outside_div_quarter`**: for every `w > ¼` the proportion of pairs up to height `T` that lie outside the shell of half-width `w` tends to `0`. `ncard_outside_le_unconditional`: their number is at most `C T^{4(1+δ)(½−w)}(log T)^{11}`.
 
-Not proved: the same for `w ≤ ¼`. Bohr and Landau (1914) proved it for every `w > 0`; the standard proof uses a mean-square bound for `ζ` on `Re s > ½`, and no such bound was found in the stack (main README, round 400). *(round 401: `ShellSixth.lean` proves it for every `w > 1/6`.)* A proportion statement does not bear on RH. All axioms are clean. See the main README, round 400.
+Not proved: the same for `w ≤ ¼`. Bohr and Landau (1914) proved it for every `w > 0`; the standard proof uses a mean-square bound for `ζ` on `Re s > ½`, and no such bound was found in the stack (main README, round 400). *(round 401: `ShellSixth.lean` proves it for every `w > 1/6`.)* *(round 402: `BohrLandau.lean` proves it for every `w > 0`.)* A proportion statement does not bear on RH. All axioms are clean. See the main README, round 400.
 
 ## ShellSixth.lean (round 401)
 
@@ -84,4 +85,12 @@ Not proved: the same for `w ≤ ¼`. Bohr and Landau (1914) proved it for every 
 - `emApprox_zeta23`: `EMApprox` from zeta23's copy of PNT+'s `ZetaBounds`, by the proof of `ShellDensity.emBound_zeta23` at every point rather than only at a zero.
 - **`tendsto_NX_div_sixth`**: for every `w > 1/6`, `NX w T / NX 0 T → 0`, with `ShellDensity.NX_zero_ge` as the lower bound. **`tendsto_outside_div_sixth`**: the same in Bohr-shell form.
 
-Not proved: `w ≤ 1/6`. A proportion statement does not bear on RH. All axioms are clean. See the main README, round 401.
+Not proved: `w ≤ 1/6`. *(round 402: `BohrLandau.lean` proves every `w > 0`.)* A proportion statement does not bear on RH. All axioms are clean. See the main README, round 401.
+
+## BohrLandau.lean (round 402)
+
+`src/BohrLandauCore.lean` proves the proportion statement for every `w > 0` from one input, a lower bound `c·T log T` on the number of pairs up to height `T`. The proof runs through a mean square of `ζ` on `Re s ≥ (2K+1)/(4K+1)`, from round 264's Euler–Maclaurin formula of order `2K` for the Hurwitz zeta function at `x = 1` (`src/MeanSquareHigh.lean`), and Jensen's formula on discs of radius `2 − σ₀` about `2 + it` (`src/ZetaDiscsR.lean`).
+
+- **`tendsto_NX_div_pos`**: for every `w > 0`, `NX w T / NX 0 T → 0`, with `ShellDensity.NX_zero_ge` as the lower bound. **`tendsto_outside_div_pos`**: the same in Bohr-shell form.
+
+This is Bohr and Landau's theorem of 1914 in the pilot's zero family. A proportion statement does not bear on RH. All axioms are clean. See the main README, round 402.

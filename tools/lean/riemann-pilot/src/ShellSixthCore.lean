@@ -24,8 +24,8 @@ proportion of pairs with `β ≥ ½ + w` tends to `0` for every `w > 1/6`.
 * **`tendsto_NX_div_of_EMApprox`**: given `EMApprox` and `NX 0 T ≥ c·T log T` for large `T`, `NX w T / NX 0 T → 0` for
   every `w > 1/6`.
 
-Not proved: `w ≤ 1/6`. The stack's mean square of `ζ` (`MeanSquareZeta.mean_square_zeta_le`) is proved for `σ ≥ 2/3`
-only.
+Not proved here: `w ≤ 1/6`, because `MeanSquareZeta.mean_square_zeta_le` is proved for `σ ≥ 2/3` only. Round 402's
+`BohrLandauCore` proves every `w > 0` from the order-`2K` mean square of `MeanSquareHigh`.
 -/
 
 open Real Complex Metric Set Filter MeasureTheory

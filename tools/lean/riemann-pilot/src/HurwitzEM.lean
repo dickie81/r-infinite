@@ -21,6 +21,10 @@ Route. §1: `|B_{2K}(u)| ≤ |B_{2K}|` on `[0,1]` from Mathlib's Fourier series 
 holomorphic on `{Re s > 0, s ≠ 1}` (preconnected), so the identity theorem extends the identity
 (`hurwitzZeta_eq_EM`); the remainder series converges locally uniformly (`norm_R_shift_le`), with terms holomorphic because each `R(c)` is
 the finite expression `T(c) − T(c+1) − c^{-s}`. §8: the remainder bound telescopes.
+
+Round 264 wrote this file for the Davenport–Heilbronn function (`DHHurwitzEM`); round 275 moved it to `external/dh/`
+with the rest of that chain. Round 402 moved it back to `src/`, where `MeanSquareHigh` uses it at `x = 1` to
+approximate `ζ`. It imports only Mathlib, and its statements are unchanged.
 -/
 
 open Complex Set Filter Topology intervalIntegral MeasureTheory HurwitzZeta

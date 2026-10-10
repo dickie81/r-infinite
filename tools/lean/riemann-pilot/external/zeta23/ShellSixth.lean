@@ -15,8 +15,8 @@ both on zeta23's side of the layer boundary.
 * **`tendsto_outside_div_sixth`**: the same in Bohr-shell form: for every nonempty finite set `F` of primes, the
   proportion of pairs up to height `T` whose Bohr vectors lie outside the shell of half-width `w` tends to `0`.
 
-This extends round 400's `w > ¼` (`ShellDensity.tendsto_NX_div_quarter`) to `w > 1/6`. Not proved: `w ≤ 1/6` (Bohr and
-Landau proved every `w > 0`). A proportion statement, for any `w`, allows a set of off-shell zeros of smaller order than
+This extends round 400's `w > ¼` (`ShellDensity.tendsto_NX_div_quarter`) to `w > 1/6`. Not proved here: `w ≤ 1/6`;
+round 402's `BohrLandau.lean` proves every `w > 0`, as Bohr and Landau did in 1914. A proportion statement, for any `w`, allows a set of off-shell zeros of smaller order than
 the set of all zeros, so it does not bear on RH.
 -/
 
