@@ -13426,3 +13426,71 @@ Here `E` is round 387's series, `3P` is the period parallelogram of `3ℤ[ω]`, 
 **Check 9.** No barrier claim is made.
 
 **Bearing on RH:** none.
+
+## Round 390: the critical line as the support of a limiting measure — a survey (`frontier/concentration/kconc.py`, numerics, no Lean)
+
+**The commission.** The owner asked whether the line `Re s = ½` can be realised as the support of a limiting measure coming from concentration of volume on high-dimensional spheres, in a way that constrains the zeros of ζ. The required construction is a space with a natural probability measure, with explicit finite-dimensional marginals, such that:
+
+1. a radial coordinate is a monotone function of `Re s`, and the critical line is the unit sphere;
+2. the mass outside every neighbourhood of that sphere tends to `0` with the dimension;
+3. the zeros of ζ are charged by the limiting measure, or lie in its support.
+
+The places to examine were the Gamma factor of ξ, sphere volumes through special values of a spectral zeta, Siegel theta series, and measures on Dirichlet polynomials and automorphic forms. The terms: "Do not treat the geometric analogy as evidence. Report only identities, theorems, or explicit obstructions."
+
+**Result.** Over the constructions surveyed below, the space and the measure exist, several times over, with explicit marginals, and conditions 1 and 2 hold unconditionally in several of them. Condition 3 is the missing step in every one. In each it is equivalent to RH, false for the typical member of the family, or empty of content because the construction contains no zero of ζ or its measure charges no point and has full support.
+
+**The reduction (elementary).** Let `μ` be the limit, `r` a continuous radius, and `Φ` a map from the zeros with `r(Φ(ρ)) = f(Re ρ)`, `f` strictly monotone, `f(½) = 1`. If the masses `μ_n(|r − 1| > ε)` tend to `0` and `μ_n → μ` weakly, then `μ` gives full mass to the closed set `{r = 1}`, which therefore contains the support. If every `Φ(ρ)` lies in the support, then `f(Re ρ) = 1` and `Re ρ = ½`. Conditions 1 and 2 concern only `r`, `f` and `μ`, so whatever a construction contributes toward RH sits in condition 3.
+
+**Measures built from the zeros.** Let `ν_T` be the normalised counting measure of the real parts `β` of the zeros with `0 < γ ≤ T`.
+
+- Bohr and Landau (1914): for each `δ > 0` only `O_δ(T)` of the `~ (T/2π) log T` zeros up to height `T` have `|β − ½| > δ`, so `ν_T → δ_{½}` weakly.
+- Selberg (1946): `N(σ, T) ≪ T^{1 − (σ − ½)/4} log T` for `σ ≥ ½`, so `ν_T(β > ½ + δ) ≪ T^{−δ/4}`, and by the functional equation the same holds below `½ − δ`.
+- Averages over families of automorphic L-functions behave the same way: the one-level densities of low-lying zeros match the symmetry types of Katz and Sarnak for test functions of restricted support (Iwaniec, Luo and Sarnak, 2000), statements about averages that are blind to sets of density zero.
+- So conditions 1 and 2 hold with an explicit rate, and condition 3 holds at each `T` with atoms of mass `1/N(T) → 0`. In the limit, condition 3 is RH, since the support of the limit is `{½}`. At finite height, RH up to `T` says that the mass off the line is less than one atom. A bound `N(σ, T) ≤ C T^{c(1 − σ)}(log T)^B` with `c > 0` exceeds `1` at every `σ < 1` once `T` is large, so it leaves room for zeros off the line.
+
+**Measures independent of the zeros, in which ζ is one point.**
+
+- **Bohr's torus and Bagchi's measure.** `Ω = ∏_p S¹` with Haar measure; the marginals are uniform on finite subtori. For `σ > 1`, `ζ(σ + it)` is the Euler product evaluated at `x(t) = (p^{−it})_p`, a one-parameter subgroup that is dense and equidistributed (Kronecker–Weyl) and has Haar measure `0`. Bagchi (thesis, 1981): on the strip `D = {½ < σ < 1}`, the laws of the translates `ζ(· + iτ)`, `τ` uniform on `[0, T]`, converge in the space of holomorphic functions on `D` to the law `P` of the random Euler product `∏_p (1 − x_p p^{−s})^{−1}`, and `supp P` contains every function with no zero in `D` (the support step of his proof of Voronin's universality). The random Euler product converges almost surely on `D` and has no zero there, and by Hurwitz's theorem the closure of the zero-free functions adds only `0`. So `supp P` is the set of functions with no zero in `D`, together with `0`, derived here from those two facts. Hence "ζ lies in the support of its own limit law" is the statement that ζ has no zero in `D`: RH verbatim. Bagchi's theorem in its dynamical form is RH ⟺ strong recurrence (Matsumoto's survey, arXiv 1407.4216, Theorem 20), and ζ is not strongly universal in `D` because of the zero-density estimates (its Corollary 2).
+- **Random multiplicative functions.** Wintner (Duke Math. J., 1944): for a Rademacher random multiplicative `f`, `Σ_{n≤x} f(n) = O(x^{½+ε})` almost surely, for every `ε > 0`. RH is equivalent to the same bound for `μ(n)` (Littlewood). The Möbius function is one point of the sequence space, of measure `0`, and RH is the statement that it lies in Wintner's full-measure set. In this model `½` has an exact measure-theoretic meaning: for independent `x_p` uniform on the circle, `Σ_p x_p p^{−s}` converges almost surely if and only if `Σ_p p^{−2σ} < ∞`, that is, `σ > ½` (Kolmogorov's theorems for independent bounded mean-zero terms). That is a theorem about the model, not about ζ.
+- **Siegel's measure and Epstein zeta functions.** On the space `X_n` of lattices of covolume `1`, with Siegel's measure (marginals explicit through Siegel's mean value theorem and Rogers' formulas), `E_n(L, s) = Σ′|v|^{−2s}` has functional equation `s ↦ n/2 − s` and critical line `Re s = n/4`. Strömbergsson and Södergren (Math. Ann., 2018, arXiv 1305.1333), Proposition 1: for `n ≥ 2` and almost every `L`, `E_n(L, s)` has infinitely many zeros with `Re s > n/2`, more than `n/4` to the right of the critical line. Their Theorem 1: `n^{−1}` times the supremum of the real parts of the zeros converges in distribution to a random variable with values in `(½, ∞)`, defined from a Poisson process of intensity `½`. Under the natural measure on high-dimensional lattices, the zeros spread away from the critical line, the opposite of concentration. ζ is the member `E_1(ℤ, s) = 2ζ(2s)` of dimension `1`. In higher dimensions it appears as a factor for special rational lattices, shifted off the centre (rounds 92 and 93: `ℤ⁴` and `E₈`), and the rational lattices lie in the null set where that paper's independence condition fails (its Lemma 2 gives the condition for almost every lattice, and it notes that every rational lattice fails it). For fixed lattices in dimensions 3 to 8, rounds 92 and 168 found off-line zeros.
+- **Dirichlet polynomials.** Finite Euler products have no zeros (`riemann-indistinguishability.md` 1as(viii)). The largest real part of the zeros of the partial sum `Σ_{n≤N} n^{−s}` is `1 + (4/π − 1 + o(1)) log log N / log N` (Montgomery, 1983), and the partial sum has zeros in `Re s > 1` for every `N` other than `N ≤ 18`, `20`, `21` and `28` (Platt and Trudgian, 2016).
+- **Gaussian measures.** The premise needs one correction. The standard Gaussian of an infinite-dimensional Hilbert space is only cylindrical there. Realised on `ℝ^ℕ` as a product measure, it gives full mass to the set where `n^{−1}Σ_{i≤n} x_i²` converges to the variance (the strong law), and that set is disjoint from `ℓ²`. The limiting radius is a tail function, so it is almost surely constant under every product measure (Kolmogorov's zero-one law), and product Gaussians of different variances are mutually singular (Kakutani, 1948). The concentration is automatic. The measure has no atoms, so the image of the countable set of zeros under any map has measure `0`, and its support in the product topology is the whole space, so lying in the support constrains nothing; the limiting radius is not continuous in that topology, so the reduction above does not apply.
+
+**Coordinates for condition 1.**
+
+- **Li's coordinate.** `w = 1 − 1/ρ` satisfies `|w|² − 1 = (1 − 2β)/(β² + γ²)` and `w(1 − ρ)·w(ρ) = 1` (gated, I4). It sends the critical line to the unit circle and `Re ρ > ½` inside it. Since `0 < β < 1`, a zero at height `γ` has `||w|² − 1| < 1/γ²`. So the empirical measure of the `w_ρ` concentrates on the circle whether or not RH holds, and concentration in this coordinate carries no information. Li's criterion, RH ⟺ `λ_n = Σ_ρ (1 − w_ρ^n) ≥ 0` for every `n`, is acknowledged (`riemann-indistinguishability.md` 1ao).
+- **The unitary axis.** The Mellin transform is unitary from `L²((0, ∞), dx)` onto `L²` of the line `Re s = ½` (Mellin–Plancherel), so the line is the unitary axis of the dilations. The functional equation's isometry locus `|χ(½ + it)| = 1` is acknowledged (1as(v)).
+
+**The Gamma factor and sphere volumes (acknowledged).**
+
+- `Γ_ℝ(n)·|S^{n−1}| = 2` (gated, I1; the paper's `Ω_d = 2/Γ_ℝ(d + 1)`).
+- Lerch: `ζ′(0, a) = log Γ(a) − ½ log 2π`, so `|S^{n−1}| = 2π^{n/2} exp(ζ′(0) − ζ′(0, n/2))`, with `ζ(s, a)` the Hurwitz zeta of the spectrum `a + ℤ_{≥0}`, whose zeta-regularised product is `√(2π)/Γ(a)` (gated, I2).
+- `ζ(2k) = 2^{2k−1}|B_{2k}|·|B^{4k}|` (gated, I3).
+- In each identity the dimension enters as the argument of `Γ`, as the Hurwitz shift, or as the even argument `2k`, never as a radius. `Γ` has no zeros, and the zeros of ξ in the strip are zeros of the arithmetic factor `(s − 1)ζ(s)` in 1ao's split `ξ = B·A`. The insufficiency certificate (1as(vi)) applies: the Davenport–Heilbronn function has the same Gamma structure and functional equation and has zeros off the line, kernel-checked in this pilot as `dh_offline_zero`.
+
+**Spectral constructions.** Connes (Selecta Math. 1999, arXiv math/9811068): the critical zeros are an absorption spectrum on the adele class space, noncritical zeros would appear as resonances, and RH reduces to the validity of a trace formula. There the zeros are charged points of a spectral measure and the line is the unitary axis, and the missing step is a positivity, not a concentration. The three finite worlds in which the line is a theorem, each by a positivity, and the Gaussian attractor of the Jensen polynomials are acknowledged (1at).
+
+**The missing step.** It is condition 3, the identification of the zeros with charged points, and not the space or the measure. Construction by construction:
+
+- the empirical measure: RH (the limit forgets every set of density zero);
+- Bagchi's measure: RH verbatim (the support is the set of zero-free functions, with `0`);
+- Wintner's model: RH (Littlewood), as membership of `μ(n)` in a full-measure set;
+- Siegel's measure: false for almost every lattice in every dimension `n ≥ 2`;
+- Dirichlet polynomials: false for the natural approximants;
+- Gaussian measures: no atoms, and full support in the product topology, so neither form of condition 3 constrains anything;
+- the Gamma factor and sphere volumes: the identities contain no zero of ζ, since `Γ` has none;
+- Connes' absorption spectrum: the trace formula, equivalent to RH;
+- the Jensen polynomials: uniformity of the Gaussian attraction, whose `n = 0` line is RH (already in STRUCTURAL-REVIEW §6).
+
+Condition 3 does not follow from the Gamma factor, the functional equation and the theta-series structure together: the Davenport–Heilbronn function and the Epstein zeta of `x² + 5y²` have all three and have zeros off the line (1as(vi); round 161's table of the prime weights of `−F′/F` records where the two differ from ζ).
+
+**Gates** (`frontier/concentration/kconc.py`, mpmath at 40 digits, run before landing). I1 to I4 pass with errors at most `4·10⁻⁴⁰`. In a scratch copy with `2^{2k−1}` replaced by `2^{2k}` in I3, and the denominator of I4 doubled, those two gates fail (errors `1.64` and `0.002`).
+
+**Check 4.**
+
+- Acknowledged: the Gamma factor and sphere areas (`riemann-indistinguishability.md` §2), concentration to the Gaussian (1as(ii)), the isometry locus (1as(v)), the insufficiency certificate (1as(vi)), finite Euler products (1as(viii)), the positivity worlds and the Jensen attractor (1at), Li's criterion (1ao), the density statements (1as(iv), F5) and the statistical/perfect gap (1at(v)), the lattice discretisations (rounds 92, 93, 168 and 169).
+- New to the program, all classical: the reduction; Selberg's density theorem as a concentration rate; Bagchi's measure and its support; Wintner's model; Strömbergsson and Södergren; Montgomery and Platt–Trudgian; the correction on Gaussian measures; Li's coordinate identity; Lerch's identity; Connes' absorption spectrum.
+
+**Check 9.** The negative result is scoped to the constructions listed here, which are the ones surveyed; no claim is made about constructions outside the list. The target is entered in STRUCTURAL-REVIEW §6 with its signals. In Bagchi's criterion the signal is ζ itself, in the empirical measure the zero set, and in Wintner's model `M(x)`; all three are circular.
+
+**Bearing on RH:** none.
