@@ -34,7 +34,7 @@ These files build on zeta23, the Lean formalisation that accompanies Alpöge–F
 - It applies `zeta23_port.patch`, which ports those files to the pilot's toolchain. Four files change, all by Mathlib API drift; the top of the patch lists them. Each changed file carries a note saying so. The nine zero-side files added in round 276 compile unpatched.
 - It compiles the zeta23 files (with zeta23's own `relaxedAutoImplicit = false`) and this directory's files into `../../build`. It then prints the axioms of the final theorems. It fails if Lean reports a use of `sorry` in a compiled file, or if any axiom line printed during the build is not exactly `[propext, Classical.choice, Quot.sound]` (round 276). The axiom lines are those a compiled file prints with its own `#print axioms`, and those of the final check.
 
-The zeta23 files print their own upstream warnings (deprecations, unused variables); they are compiled unedited apart from the patch. `SlogZeta.lean`, `HybridCertificate.lean` and `HybridExamples.lean` print none.
+The zeta23 files print their own upstream warnings (deprecations, unused variables); they are compiled unedited apart from the patch. `SlogZeta.lean`, `HybridCertificate.lean`, `HybridExamples.lean` and `ShellDensity.lean` print none.
 
 ## SlogZeta.lean (round 228)
 
@@ -74,4 +74,4 @@ On the line the proof uses only `Re(w·w) ≤ Σ_k |w_k|²`, which holds for eve
 - `Ncount_le_NX`: zeta23's zeros with `T < γ ≤ 2T`, counted with multiplicity, inject into the pilot's pairs up to height `2T`, by the construction of round 248's `CountCompare.local_count_le`. Hence `NX_zero_ge`: for large `X` at least `X log X/(8π)` pairs lie up to height `X`.
 - **`tendsto_NX_div_quarter`**, **`tendsto_outside_div_quarter`**: for every `w > ¼` the proportion of pairs up to height `T` that lie outside the shell of half-width `w` tends to `0`. `ncard_outside_le_unconditional`: their number is at most `C T^{4(1+δ)(½−w)}(log T)^{11}`.
 
-Not proved: the same for `w ≤ ¼`. Bohr and Landau (1914) proved it for every `w > 0`; the standard proof uses a mean-square bound for `ζ` on `Re s > ½`, and no such bound was found in the stack (main README, round 400). A proportion statement does not bear on RH. See the main README, round 400, for the build record.
+Not proved: the same for `w ≤ ¼`. Bohr and Landau (1914) proved it for every `w > 0`; the standard proof uses a mean-square bound for `ζ` on `Re s > ½`, and no such bound was found in the stack (main README, round 400). A proportion statement does not bear on RH. All axioms are clean. See the main README, round 400.
