@@ -1,0 +1,9 @@
+{"b": 0.5, "eta": 0.0, "N_disc": 6.0, "N_real": 6, "real_rooted": true}
+{"b": 1.5, "eta": 0.0, "N_disc": 8.0, "N_real": 8, "real_rooted": true}
+{"b": 1.5, "eta": 0.3, "N_disc": 8.0, "N_real": 8, "real_rooted": true}
+{"b": 1.5, "eta": 0.45, "N_disc": 8.0, "N_real": 8, "real_rooted": true}
+{"b": 0.5, "eta": 0.3, "N_disc": 6.0, "N_real": 6, "real_rooted": true}
+{"b": 0.25, "eta": 0.0, "N_disc": 6.0, "N_real": 6, "real_rooted": true}
+{"b": 0.5, "eta": 0.45, "N_disc": 6.0, "N_real": 6, "real_rooted": true}
+{"b": 0.25, "eta": 0.3, "N_disc": 6.0, "N_real": 2, "real_rooted": false}
+{"b": 0.25, "eta": 0.45, "N_disc": 6.0, "N_real": 2, "real_rooted": false}

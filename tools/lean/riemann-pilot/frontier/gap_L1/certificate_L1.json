@@ -1,0 +1,6 @@
+{"L": 1, "support_of_g": 2, "Tsharp": 2496, "beta_star": 0.131698657701514, "N_modes_per_sector": 1850, "n0": 16,
+ "quadrature_error_per_entry": 4.03e-60, "K_Psi": 42.54, "eps_D_even": 5.5e-279, "eps_B_even": 5.1e-134, "eps_D_odd": 6.3e-280, "eps_B_odd": 1.7e-134,
+ "even": {"lambda1_lower": 5.1920e-30, "lambda2_lower": 1.8854e-23, "reduced_form_lambda1_bracket": [5.1920e-30, 5.2022e-30], "reduced_form_lambda2_bracket": [1.8854e-23, 1.8875e-23]},
+ "odd": {"lambda1_lower": 1.3097e-26, "lambda2_lower": 1.9622e-20},
+ "even_lambda1_upper_ball_rayleigh_cosine_K240": 6.0391422e-30,
+ "note": "lower bounds are for the Weil form Q (Q >= R, Zhu Thm 1.1), minus eps_B < 1e-133; the upper bound is a ball Rayleigh quotient of Q itself"}

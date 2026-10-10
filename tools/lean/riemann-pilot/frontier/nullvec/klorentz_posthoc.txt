@@ -1,0 +1,6 @@
+C(n=1 mod 4)=1.63754  C(n=3 mod 4)=0.54591  ratio=2.99967  (2-adic factor)
+max relative deviation of delta(n) from C(n mod 4)*sum chi(d)/d over all odd |n|<400, both signs: 0.0048
+reference: 2*pi/L(2,chi_-4) etc: Catalan G=0.915966, 8/(pi*...)
+decomposition weights  a (zeta(s-1)L(s,chi)) = 1.09172   b (zeta(s)L(s-1,chi)) = 0.54582   b/a = 0.5000
+partial-sum check at s=3.5+2i: |lhs/rhs-1| = 0.0277
+corrected partial-sum check at s=3.5+2i: |lhs/rhs-1| = 0.00035

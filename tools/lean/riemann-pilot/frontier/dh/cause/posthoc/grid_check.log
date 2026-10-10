@@ -1,0 +1,9 @@
+$ grid_check.py 200 500
+(200, 500]: MATCH (every sigma0 and X)
+grid check: all counts unchanged at half the step
+$ grid_check.py 4700 5000
+(4700, 5000]: MATCH (every sigma0 and X)
+grid check: all counts unchanged at half the step
+$ grid_check.py 9800 10000
+(9800, 10000]: MATCH (every sigma0 and X)
+grid check: all counts unchanged at half the step

@@ -19,12 +19,27 @@ uniquely fixed by at least one route, with cross-route consistency).
 DERIVATION-LEVEL UNIQUENESS (deriving the entire pattern from a single
 mechanism) remains open — the Tier 2 promotion target.
 
-The proof structure:
+The proof structure (route census synced to Part IVb's Check-8
+table by the papers-side round: routes = math-theorem-anchored and
+mutually independent; integer relations and placement conventions
+are consistency cross-checks; the round also applied the three
+registered route-independence corrections):
   1. d_observer = 4 forced by Lovelock + Clifford (Part III)
-  2. d_V = 5 forced by THREE routes (Γ-vol-max, observer+1, dim ℍ+1)
-  3. d_0 = 7 forced by FOUR routes (Γ-area-max, ρ(8)−1, Lie G_2-uniqueness, dim 𝕆−1)
-  4. d_g = 12 forced by Adams (smallest d > d_observer with ρ(d)−1 = 3)
-  5. d_gw = 14 forced by Adams + Catalan (gauge window upper edge)
+  2. d_V = 5: ONE independent route (Γ-vol-max) + two cross-checks
+     (observer+1, dim ℍ+1)
+  3. d_0 = 7: TWO independent routes (Γ-area-max, transcendental;
+     the octonion route — ρ(8)−1 ≡ dim 𝕆−1 ≡ G_2-uniqueness on S^6
+     (B/D merged papers-side, the G_2 facet round 51): the HR
+     fields on S^7 are the octonion
+     multiplications and the G_2 route's integer is dim Im 𝕆 = 7,
+     linkage resolved per cascade_d0_rho8_identity.py)
+  4. d_g = 12: ONE route — Adams (smallest d > d_observer with
+     ρ(d)−1 = 3); N_c·dim ℍ (shares the ρ(12) arithmetic) and
+     d_V + d_0 are cross-checks
+  5. d_gw = 14: ONE unconditional route (Adams ρ−1 = 1) plus ONE
+     conditional (dim G_2 — graded conditionally forced; the
+     G_2/SU(3) chain is shared with d_0's route); 2·d_0 Catalan is
+     a cross-check
   6. d_1 = 19, d_2 = 217 forced by Γ critical points alone
 
 Cascade integer pattern is UNIQUE at the integer level; derivation-level
@@ -73,9 +88,9 @@ def main() -> None:
     print()
 
     # ============================================================
-    # Step 2: d_V = 5 — three independent routes, all give 5
+    # Step 2: d_V = 5 — one route + two cross-checks, all give 5
     # ============================================================
-    print("STEP 2 — d_V = 5 forced by THREE routes:")
+    print("STEP 2 — d_V = 5: one independent route + two cross-checks:")
     print()
     print("  Route A (Γ-volume-max integer):")
     candidates = [(d, gamma_volume(d)) for d in range(2, 10)]
@@ -85,30 +100,34 @@ def main() -> None:
     print(f"    Unique integer maximizer of V_d.")
     assert d_max == 5
     print()
-    print("  Route B (cover sheet thought experiment):")
+    print("  Cross-check B (cover sheet thought experiment; Check-8:")
+    print("  presupposes placement, not an independent forcing):")
     print(f"    Observer at d_observer = 4 (Step 1).")
     print(f"    Cover sheet: observer on S^(d_observer-1) horizon of (d_observer+1)D BH.")
     print(f"    Host at d_V = d_observer + 1 = 5.")
     print()
-    print("  Route C (Cayley-Dickson, ℍ+1):")
+    print("  Cross-check C (Cayley-Dickson placement, ℍ+1):")
     print(f"    dim ℍ = 4 (C-D doubling from ℂ).")
     print(f"    d_V = dim ℍ + 1 = 5 (one above ℍ-completion).")
     print()
-    print("  All three routes give d_V = 5 → integer-level uniqueness.")
+    print("  The route and both cross-checks give d_V = 5 →")
+    print("  integer-level uniqueness (route A alone carries it).")
     print()
     print("  CASE ANALYSIS for d_V ≠ 5:")
     for d_alt in [3, 4, 6, 7]:
         violations = []
         if d_alt != 5: violations.append('A (Γ-vol-max)')
-        if d_alt != 5: violations.append('B (d_obs+1)')
-        if d_alt != 5: violations.append('C (ℍ+1)')
-        print(f"    d_V = {d_alt}: violates routes {violations} → ruled out.")
+        if d_alt != 5: violations.append('cross-check B (d_obs+1)')
+        if d_alt != 5: violations.append('cross-check C (ℍ+1)')
+        print(f"    d_V = {d_alt}: violates {violations} → ruled out.")
     print()
 
     # ============================================================
-    # Step 3: d_0 = 7 — four independent routes
+    # Step 3: d_0 = 7 — two independent routes (octonion cluster merged)
     # ============================================================
-    print("STEP 3 — d_0 = 7 forced by FOUR routes:")
+    print("STEP 3 — d_0 = 7 forced by TWO routes (B/C/D one octonion")
+    print("route; B/D merged by the papers-side application, the G_2")
+    print("facet by round 51):")
     print()
     print("  Route A (Γ-area-max integer):")
     candidates_a = [(d, gamma_area(d)) for d in range(4, 12)]
@@ -122,16 +141,20 @@ def main() -> None:
     print(f"    ρ(8) = 8 (Adams maximum at parallelizable octonion sphere).")
     print(f"    d_0 = ρ(8) − 1 = 7 (PR #141 via Spin(7)/G_2).")
     print()
-    print("  Route C (Lie-theoretic G_2-uniqueness):")
+    print("  Route B continued — C merged (round 51: the G_2 route's")
+    print("  integer is dim Im 𝕆 = dim 𝕆 − 1 = 7, same octonion")
+    print("  structure; linkage resolved, cascade_d0_rho8_identity.py):")
     print(f"    G_2 = Aut(𝕆) acts transitively on S^6 = G_2/SU(3) (NOT S^7).")
     print(f"    Cascade convention layer d → S^(d−1):")
     print(f"    G_2/SU(3) = S^6 at d_0 with d_0 − 1 = 6, hence d_0 = 7.")
     print()
-    print("  Route D (Cayley-Dickson, 𝕆−1):")
+    print("  Route B continued — D merged into B (papers-side round:")
+    print("  ρ(8) = 8 = dim 𝕆 by the same Clifford/octonion structure;")
+    print("  the HR fields on S^7 ARE the octonion multiplications):")
     print(f"    dim 𝕆 = 8 (C-D termination).")
     print(f"    d_0 = dim 𝕆 − 1 = 7 (one below 𝕆-completion).")
     print()
-    print("  All four routes give d_0 = 7 → integer-level uniqueness.")
+    print("  Both routes give d_0 = 7 → integer-level uniqueness.")
     print()
     print("  CASE ANALYSIS for d_0 ≠ 7:")
     for d_alt in [5, 6, 8, 9]:
@@ -145,7 +168,7 @@ def main() -> None:
             else:
                 violations.append('B (would match!)')
             violations.append('C (G_2-uniqueness, only S^6 fits)')
-            violations.append('D (𝕆−1)')
+            violations.append('B-merged (𝕆−1 facet of the octonion route)')
         print(f"    d_0 = {d_alt}: violates {violations} → ruled out.")
     print()
 
@@ -177,9 +200,10 @@ def main() -> None:
     print()
 
     # ============================================================
-    # Step 5: d_gw = 14 forced by Adams + Catalan
+    # Step 5: d_gw = 14 — Adams + conditional dim G_2 + Catalan cross-check
     # ============================================================
-    print("STEP 5 — d_gw = 14 forced by Adams + Catalan:")
+    print("STEP 5 — d_gw = 14: one route + one conditional + a")
+    print("cross-check:")
     print()
     print("  Cascade SM has gauge factors {SU(3), SU(2), U(1)}.")
     print("  d_g = 12 (SU(3)), d=13 (SU(2) broken), d_gw = ? (U(1)).")
@@ -196,9 +220,13 @@ def main() -> None:
     print()
     print("  d_gw = 14 is the UNIQUE smallest d > 13 with ρ(d) − 1 = 1.")
     print()
-    print("  Cascade Catalan reading: d_gw = 2·d_0 = 14 (cover sheet).")
-    print("  Lie identity: dim G_2 = 14 = 2·(dim 𝕆 − 1).")
-    print(f"  Three routes give d_gw = 14 → integer-level uniqueness.")
+    print("  Cross-check (integer relation; Catalan reading): d_gw =")
+    print("  2·d_0 = 14 — presupposes d_0, reclassified papers-side.")
+    print("  Conditional route — Lie identity: dim G_2 = 14 (graded")
+    print("  conditionally forced; cross-row caveat: the G_2/SU(3)")
+    print("  chain is shared with d_0's route).")
+    print(f"  One route + the conditional + the cross-check give")
+    print(f"  d_gw = 14 → integer-level uniqueness.")
     print()
 
     # ============================================================
@@ -225,10 +253,10 @@ def main() -> None:
     print("=" * 92)
     print()
     summary = [
-        ('d_V',  5,  'Γ-vol-max + observer+1 + ℍ+1 (3 routes)'),
-        ('d_0',  7,  'Γ-area-max + ρ(8)−1 + G_2-uniqueness + 𝕆−1 (4 routes)'),
-        ('d_g', 12,  'Adams smallest d > 4 with ρ-1 = 3 (1 route + 2 confirms)'),
-        ('d_gw',14,  'Adams smallest d > 13 with ρ-1 = 1 + Catalan + dim G_2 (3 routes)'),
+        ('d_V',  5,  'Γ-vol-max (1 route + 2 cross-checks)'),
+        ('d_0',  7,  'Γ-area-max + octonion route [ρ(8)−1 ≡ 𝕆−1 ≡ G_2] (2 routes)'),
+        ('d_g', 12,  'Adams smallest d > 4 with ρ-1 = 3 (1 route + 2 cross-checks)'),
+        ('d_gw',14,  'Adams ρ-1 = 1 + conditional dim G_2 (1+1 routes, 1 cross-check)'),
         ('d_1', 19,  'Γ first threshold (1 route + integer relation)'),
         ('d_2', 217, 'Γ second threshold (1 route)'),
     ]

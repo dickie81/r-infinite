@@ -1,0 +1,5 @@
+Registered 2026-09-24T09:41Z, before the delta = 3.4 run (K = 280, 1400 bits) finished.
+Model: g_a ~ Phi - kappa Phi'' (the z^2 term of round 40's moment identity), so sin(theta) ~ |kappa| ||(Phi'')_perp||/||Phi||,
+with ||(Phi'')_perp||/||Phi|| = 13.981 (phi_pp.py) and kappa e^(2a) -> 0.0200 (round 40's drift).
+Prediction at delta = 3.4 (a = 1.7): kappa = 6.6747e-04, sin(theta) = 9.3318e-03  (band 0.90e-2 to 0.97e-2).
+Strip quantity sin(theta) sqrt(a) e^(a/2) predicted 2.8467e-02.

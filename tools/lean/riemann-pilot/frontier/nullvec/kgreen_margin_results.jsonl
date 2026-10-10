@@ -1,0 +1,10 @@
+{"delta": 0.5, "K": 60, "lam1": "0.0333793", "lam_perp": "0.874986", "lam2(Q0)": "0.909823", "lam_perp/lam1": "26.2134", "pole overlap of phi2(Q0)": "0.135667"}
+{"delta": 0.5, "Rayleigh(Gw)": "0.141199", "Rayleigh(Gw)/lam1": "4.23012", "Rayleigh(Gw)/lam_perp": "0.161372", "cos(Gw, g)": "0.93920008", "cos(Gw, w)": "0.59703071"}
+{"delta": 1.0, "K": 60, "lam1": "9.4081e-7", "lam_perp": "0.0119007", "lam2(Q0)": "0.0119387", "lam_perp/lam1": "12649.4", "pole overlap of phi2(Q0)": "0.00430981"}
+{"delta": 1.0, "Rayleigh(Gw)": "1.80542e-5", "Rayleigh(Gw)/lam1": "19.1901", "Rayleigh(Gw)/lam_perp": "0.00151708", "cos(Gw, g)": "0.99972177", "cos(Gw, w)": "0.60350235"}
+{"delta": 1.5, "K": 60, "lam1": "4.14444e-15", "lam_perp": "7.89102e-10", "lam2(Q0)": "7.89102e-10", "lam_perp/lam1": "190400.0", "pole overlap of phi2(Q0)": "2.25454e-10"}
+{"delta": 1.5, "Rayleigh(Gw)": "3.63106e-14", "Rayleigh(Gw)/lam1": "8.76127", "Rayleigh(Gw)/lam_perp": "4.6015e-5", "cos(Gw, g)": "0.99998964", "cos(Gw, w)": "0.60344057"}
+{"delta": 2.0, "K": 60, "lam1": "7.31488e-30", "lam_perp": "1.75229e-23", "lam2(Q0)": "1.75229e-23", "lam_perp/lam1": "2.39552e+6", "pole overlap of phi2(Q0)": "4.1612e-24"}
+{"delta": 2.0, "Rayleigh(Gw)": "4.54001e-29", "Rayleigh(Gw)/lam1": "6.20654", "Rayleigh(Gw)/lam_perp": "2.5909e-6", "cos(Gw, g)": "0.99999948", "cos(Gw, w)": "0.60123279"}
+{"delta": 2.5, "K": 60, "lam1": "1.07382e-54", "lam_perp": "2.17532e-47", "lam2(Q0)": "2.17532e-47", "lam_perp/lam1": "2.02577e+7", "pole overlap of phi2(Q0)": "4.44927e-48"}
+{"delta": 2.5, "Rayleigh(Gw)": "7.06534e-54", "Rayleigh(Gw)/lam1": "6.5796", "Rayleigh(Gw)/lam_perp": "3.24795e-7", "cos(Gw, g)": "0.99999993", "cos(Gw, w)": "0.60019729"}

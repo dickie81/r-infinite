@@ -1,0 +1,4 @@
+zeta: #c<0 = 0, first negatives [], #support off prime powers = 0 (first [])
+Dedekind Q(sqrt-5): #c<0 = 0, first negatives [], #support off prime powers = 0 (first [])
+Epstein x^2+5y^2: #c<0 = 305, first negatives [(36, np.float64(-7.167)), (54, np.float64(-7.978)), (84, np.float64(-17.7233)), (126, np.float64(-38.6903)), (189, np.float64(-20.967)), (196, np.float64(-10.5562))], #support off prime powers = 1104 (first [6, 14, 21, 36, 46, 54])
+Davenport-Heilbronn: #c<0 = 3909, first negatives [(3, np.float64(-0.3121)), (4, np.float64(-1.4422)), (9, np.float64(-2.2859)), (12, np.float64(-0.7629)), (13, np.float64(-0.7286)), (14, np.float64(-2.852))], #support off prime powers = 5502 (first [6, 12, 14, 18, 21, 24])

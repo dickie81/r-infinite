@@ -1,0 +1,6 @@
+X = 100000: 563 census zeros with Re > 1/2 on (200, 10000]; Newton converged (step < 1e-10, |g| < 1e-9) from 563; distinct limits 563
+  Re rho >= 0.5: n = 563  |rho_X - rho|: median 1.32e-02  90% 4.86e-02  max 1.29e-01
+  Re rho >= 0.6: n = 455  |rho_X - rho|: median 1.04e-02  90% 2.81e-02  max 9.37e-02
+  Re rho >= 0.7: n = 236  |rho_X - rho|: median 4.91e-03  90% 1.26e-02  max 2.24e-02
+  Re rho >= 0.8: n = 61  |rho_X - rho|: median 1.66e-03  90% 3.85e-03  max 6.76e-03
+  largest moves: 0.5724+9133.167i: 0.129; 0.5386+8154.816i: 0.101; 0.5643+4301.365i: 0.097; 0.6252+3585.680i: 0.094; 0.5273+7182.699i: 0.091

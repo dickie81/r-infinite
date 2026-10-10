@@ -1,0 +1,28 @@
+delta 1.000  lam 9.35e-07  sqrt(lam/2) 6.84e-04
+   j  1  eps 5.62e-04   bound 5.61e-02   bound/eps 1.0e+02   ok
+delta 1.383  lam 8.84e-13  sqrt(lam/2) 6.65e-07
+   j  1  eps 1.52e-09   bound 9.71e-05   bound/eps 6.4e+04   ok
+   j  2  eps 4.25e-07   bound 1.96e-03   bound/eps 4.6e+03   ok
+   j  3  eps 9.05e-06   bound 9.59e-03   bound/eps 1.1e+03   ok
+   j  4  eps 6.60e-04   bound 8.50e-02   bound/eps 1.3e+02   ok
+   j  5  eps 3.26e-03   bound 1.89e-01   bound/eps 5.8e+01   ok
+delta 2.000  lam 6.32e-30  sqrt(lam/2) 1.78e-15
+   j  1  eps 2.80e-26   bound 4.27e-13   bound/eps 1.5e+13   ok
+   j  2  eps 2.83e-23   bound 1.68e-11   bound/eps 5.9e+11   ok
+   j  3  eps 1.66e-21   bound 1.40e-10   bound/eps 8.4e+10   ok
+   j  4  eps 6.84e-19   bound 3.10e-09   bound/eps 4.5e+09   ok
+   j  5  eps 8.89e-18   bound 1.16e-08   bound/eps 1.3e+09   ok
+   j  6  eps 5.70e-16   bound 9.78e-08   bound/eps 1.7e+08   ok
+   j  7  eps 2.73e-14   bound 6.99e-07   bound/eps 2.6e+07   ok
+   j  8  eps 1.89e-13   bound 1.88e-06   bound/eps 9.9e+06   ok
+   j  9  eps 2.09e-11   bound 2.04e-05   bound/eps 9.8e+05   ok
+   j 10  eps 1.26e-10   bound 5.05e-05   bound/eps 4.0e+05   ok
+   j 11  eps 7.02e-10   bound 1.21e-04   bound/eps 1.7e+05   ok
+   j 12  eps 1.33e-08   bound 5.33e-04   bound/eps 4.0e+04   ok
+   j 13  eps 3.82e-07   bound 2.87e-03   bound/eps 7.5e+03   ok
+   j 14  eps 8.36e-07   bound 4.25e-03   bound/eps 5.1e+03   ok
+   j 15  eps 9.47e-06   bound 1.43e-02   bound/eps 1.5e+03   ok
+   j 16  eps 5.83e-05   bound 3.52e-02   bound/eps 6.0e+02   ok
+   j 17  eps 1.85e-04   bound 6.20e-02   bound/eps 3.4e+02   ok
+   j 18  eps 4.45e-04   bound 9.45e-02   bound/eps 2.1e+02   ok
+   j 19  eps 8.33e-03   bound 3.90e-01   bound/eps 4.7e+01   ok
