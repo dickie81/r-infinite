@@ -21,9 +21,10 @@ the radii at `½ + w` and `½ − w`. This file supplies its two inputs on zeta2
   lie outside the shell of half-width `w` tends to `0`. **`ncard_outside_le_unconditional`**: their number is at most
   `C T^{4(1+δ)(½−w)}(log T)^{11}`.
 
-Not proved: the same for `w ≤ ¼`. Bohr and Landau (1914) proved it for every `w > 0`; the standard proof uses a
-mean-square bound for `ζ` on `Re s > ½`, and no such bound was found in the stack. The exponent `4(1+δ)` gives a
-vanishing proportion only for `w > ¼`. A proportion statement, for any `w`, allows a set of off-shell zeros of
+Not proved here: the same for `w ≤ ¼`. Bohr and Landau (1914) proved it for every `w > 0`; the standard proof uses a
+mean-square bound for `ζ` on `Re s > ½`. The exponent `4(1+δ)` gives a vanishing proportion only for `w > ¼`.
+(Round 401: `ShellSixth.lean` proves it for every `w > 1/6`, from a mean square of `ζ` on `Re s ≥ 2/3` and Jensen's
+formula.) A proportion statement, for any `w`, allows a set of off-shell zeros of
 smaller order than the set of all zeros, so it does not bear on RH.
 -/
 
