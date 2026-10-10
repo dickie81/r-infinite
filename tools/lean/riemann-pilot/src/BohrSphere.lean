@@ -21,6 +21,8 @@ nothing about where the zeros of `ζ` are.
   of primes, `v_F(s) = (p^{−s})_{p ∈ F}/√c_F` with `c_F = Σ_{p ∈ F} 1/p` is a vector of the Euclidean space `ℂ^F`
   (real dimension `2|F|`), `‖v_F(s)‖² = Σ_{p ∈ F} p^{−2 Re s}/c_F`, and `v_F(s)` lies on the unit sphere if and
   only if `Re s = ½`. The radius `‖v_F(s)‖` is strictly decreasing in `Re s` and does not depend on `Im s`.
+  Round 392 adds **`norm_vF_lt_one_iff`** and **`one_lt_norm_vF_iff`**: `v_F(s)` is strictly inside the ball if
+  and only if `Re s > ½`, and strictly outside if and only if `Re s < ½`.
 * **The polarity** (`zF`, a definition; **`inner_zF_lineRefl`**, **`inner_vF_lineRefl`** and
   **`inner_smul_zF_lineRefl_eq_one_iff`**, with `conj_bohr`, `bohr_conj_mul_bohr_lineRefl` and `zF_apply`):
   `⟨z_F(s), z_F(1 − s̄)⟩ = c_F` for every `s`, so `⟨v_F(s), v_F(1 − s̄)⟩ = 1`: a point and its mirror image are
@@ -215,6 +217,18 @@ theorem vF_mem_sphere_iff {F : Finset Nat.Primes} (hF : F.Nonempty) (s : ℂ) :
   rw [mem_sphere_zero_iff_norm, ← pow_eq_one_iff_of_nonneg (norm_nonneg _) two_ne_zero,
     norm_vF_sq, div_eq_one_iff_eq (cF_pos hF).ne', ← bohrSqSum_half,
     (strictAnti_bohrSqSum hF).injective.eq_iff]
+
+/-- `v_F(s)` lies strictly inside the unit ball if and only if `Re s > ½`. -/
+theorem norm_vF_lt_one_iff {F : Finset Nat.Primes} (hF : F.Nonempty) {s : ℂ} :
+    ‖vF F s‖ < 1 ↔ 1 / 2 < s.re := by
+  rw [← pow_lt_one_iff_of_nonneg (norm_nonneg _) two_ne_zero, norm_vF_sq, div_lt_one (cF_pos hF),
+    ← bohrSqSum_half, (strictAnti_bohrSqSum hF).lt_iff_gt]
+
+/-- `v_F(s)` lies strictly outside the unit ball if and only if `Re s < ½`. -/
+theorem one_lt_norm_vF_iff {F : Finset Nat.Primes} (hF : F.Nonempty) {s : ℂ} :
+    1 < ‖vF F s‖ ↔ s.re < 1 / 2 := by
+  rw [← one_lt_pow_iff_of_nonneg (norm_nonneg _) two_ne_zero, norm_vF_sq, one_lt_div (cF_pos hF),
+    ← bohrSqSum_half, (strictAnti_bohrSqSum hF).lt_iff_gt]
 
 /-- The radius is strictly decreasing in `Re s`. -/
 theorem norm_vF_lt_norm_vF {F : Finset Nat.Primes} (hF : F.Nonempty) {s s' : ℂ}
@@ -645,6 +659,8 @@ end BohrSphere
 #print axioms BohrSphere.norm_vF_sq
 #print axioms BohrSphere.norm_vF
 #print axioms BohrSphere.vF_mem_sphere_iff
+#print axioms BohrSphere.norm_vF_lt_one_iff
+#print axioms BohrSphere.one_lt_norm_vF_iff
 #print axioms BohrSphere.norm_vF_lt_norm_vF
 #print axioms BohrSphere.norm_vF_eq_of_re_eq
 #print axioms BohrSphere.conj_bohr
