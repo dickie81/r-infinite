@@ -2,7 +2,7 @@ import UpperHalfSpace
 import BesselK
 import EisensteinThetaRows
 
-/-! # The Kubota–Patterson theorem, displayed (round 361)
+/-! # The Kubota–Patterson theorem, displayed (round 361; the support clause at `∞`, round 363)
 
 S5f-1 of round 360's plan, part 3: the display `KubotaTheta`, the form of the Kubota–Patterson
 theorem that Appendix A.2 of the companion paper uses, and the absolute convergence of the series in it.
@@ -17,7 +17,8 @@ theorem that Appendix A.2 of the companion paper uses, and the absolute converge
   `c = 0`, with round 290's symbol `cub`. The cusps `γ_± = (1, 0; ω^{±1}, 1)` (`gamPlus`, `gamMinus`,
   Dunn and Radziwiłł's `γ_10` and `γ_19`).
 * **`KubotaTheta`**: there is a function `θ` on upper half-space whose expansions at `∞` and at `γ_±`
-  are theta-type series with coefficients satisfying the support and size condition, which is
+  are theta-type series with coefficients satisfying the support and size condition (at `∞`
+  supported on `λ𝒪`, Dunn and Radziwiłł's `μ ∈ λ^{−3}𝒪`; round 363), which is
   invariant under `SL_2(ℤ)` and automorphic on `Γ_1(3)` with Kubota's character, and whose coefficient
   at `±λnb³` (`n, b` primary, `n` squarefree, `N(nb)` prime to `6`) is `C·N(b)^{1/2}χ_n(λ)²·conj γ₂(n)`
   for a fixed `C ≠ 0`. The constant terms are left free.
@@ -74,13 +75,14 @@ def atG (θ : ℂ → ℝ → ℂ) (g : Matrix (Fin 2) (Fin 2) ℂ) (z : ℂ) (v
 
 /-- **The Kubota–Patterson theorem, displayed** (in the form Appendix A.2 of the companion paper uses
 it): a function `θ` on upper half-space whose expansions at `∞` and at `γ_±` are theta-type series with
-coefficients satisfying the support and size condition, which is invariant under `SL_2(ℤ)` and
+coefficients satisfying the support and size condition (at `∞` supported on `λ𝒪 = δ₃𝒪`, Dunn and
+Radziwiłł's `μ ∈ λ^{−3}𝒪` in the index `m = 9μ`; round 363), which is invariant under `SL_2(ℤ)` and
 automorphic on `Γ_1(3)` with Kubota's character, and whose coefficients at `±λn b³` (`n, b` primary,
 `n` squarefree, prime to `6`) are a fixed nonzero multiple of `N(b)^{1/2}·χ_n(λ)²·conj γ₂(n)`
 (Patterson's, as Dunn and Radziwiłł's (5.7)). The constant terms are left free. -/
 def KubotaTheta : Prop :=
   ∃ (θ : ℂ → ℝ → ℂ) (Kc : ℝ) (C c₀ cP cM : ℂ) (τ tP tM : 𝓞 K → ℂ), C ≠ 0 ∧
-    ThetaSupp Kc τ ∧ ThetaSupp Kc tP ∧ ThetaSupp Kc tM ∧
+    ThetaSupp Kc τ ∧ ThetaSupp Kc tP ∧ ThetaSupp Kc tM ∧ (∀ m, τ m ≠ 0 → δ3 ∣ m) ∧
     (∀ z v, 0 < v → θ z v = thSer c₀ τ z v) ∧
     (∀ z v, 0 < v → atG θ (gamPlus.map σO) z v = thSer cP tP z v) ∧
     (∀ z v, 0 < v → atG θ (gamMinus.map σO) z v = thSer cM tM z v) ∧
