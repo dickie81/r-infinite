@@ -31,11 +31,9 @@ noncomputable section
 
 namespace Eis
 
-theorem isCoprime_δ3_of_primary {a : 𝓞 K} (ha : Primary a) : IsCoprime a δ3 := by
-  obtain ⟨t, ht⟩ := ha
-  refine ⟨1, δ3 * t, ?_⟩
-  have h2 := δ3_sq
-  linear_combination ht + t * h2
+/-- The symmetric form of round 362's `isCoprime_δ3`. -/
+theorem isCoprime_δ3_of_primary {a : 𝓞 K} (ha : Primary a) : IsCoprime a δ3 :=
+  (isCoprime_δ3 ha).symm
 
 theorem kub_of_ne {γ : Matrix (Fin 2) (Fin 2) (𝓞 K)} (h : γ 1 0 ≠ 0) :
     kub γ = σO (cub (γ 1 0) (span {γ 0 0})) := by
