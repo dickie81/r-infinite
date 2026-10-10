@@ -3824,25 +3824,52 @@ first ~10¹³ zeros); F5 100% of zeros line-adherent in density
 (Ingham) and > 41% exactly (Conrey-class) — cited, primes-side
 technology. Littlewood's Ω±(√x log log log x) shows the floor is
 attained: RH pins amplitude AT the occupied floor. *(v) The
-congruence anatomy.* The critical line is exactly the
+congruence anatomy.* The critical line ~~is exactly~~ **lies in** the
 CONGRUENCE LOCUS of the two balls: with ζ(s) = χ(s)ζ(1−s),
 |χ(½+it)| = 1 exactly and |χ(σ+it)| = (t/2π)^(½−σ)(1+o(1))
 off it (both gated at t = 50) — the locus where the FE
 involution is an isometry, where the arithmetic read at s and
-read through the gamma mirror at 1−s carry equal weight. Zeros
+read through the gamma mirror at 1−s carry equal weight.
+*(round 403: "is exactly" was false when written and is
+retracted: the locus |χ| = 1 is larger than the line. In the
+strip 0 < Re s < 1, log|χ| is harmonic and vanishes on the
+line, where its σ-derivative is −2θ′(t), θ the Riemann–Siegel
+theta; at t₀ = 6.289835…, where θ′(t₀) = 0, a second branch of
+the locus crosses the line. Gate C1 of
+`tools/lean/riemann-pilot/frontier/concentration/chi_locus.py`
+certifies in Arb ball arithmetic, at each of Re s = 0.1, 0.3,
+0.7 and 0.9, a point of the locus with height between 6.27 and
+6.30 — a record beside the gates here, not a gate; Lean pilot
+README, round 391.)* Zeros
 are the interference nulls ON the stage: Z(t) ≈
 2Σn^(−½)cos(θ(t) − t log n), the gamma phase beating against
 the arithmetic phases (sign change bracketing γ₁ gated). Where
 incongruence is strong the contest is provably unfair — the
 Euler floor |ζ(σ+it)| ≥ ζ(2σ)/ζ(σ) for σ > 1 (gated at
 σ = 1.1) — and extending "incongruent ⇒ no zero" to every
-σ > ½ is verbatim RH: exact cancellation requires fairness.
+σ > ½ ~~is verbatim RH~~ **is RH, given that no zero of ζ lies on
+the locus off the line**: exact cancellation requires fairness.
+*(round 403: "verbatim" was false when written and is retracted;
+it rested on the identification of the locus with the line,
+struck above.)*
 *(vi) The insufficiency certificate (Davenport–Heilbronn 1936).*
 The congruence frame provably CANNOT decide RH: the function
 f = 1 + κ/2^s − κ/3^s − 1/4^s + ⋯ (period 5,
-κ = (√(10−2√5)−2)/(√5−1) = 0.28407…) has the identical two-ball
-geometry — Λ(s) = (5/π)^((s+1)/2)Γ((s+1)/2)f(s) satisfies
-Λ(s) = Λ(1−s) (gated to 10^(−28)) with the same congruence locus
+κ = (√(10−2√5)−2)/(√5−1) = 0.28407…) has ~~the identical two-ball
+geometry~~ **a functional equation under the same involution
+s ↦ 1−s** — Λ(s) = (5/π)^((s+1)/2)Γ((s+1)/2)f(s) satisfies
+Λ(s) = Λ(1−s) (gated to 10^(−28)) ~~with the same congruence locus~~
+*(round 403: both struck phrases were false when written and are
+retracted. The gamma factor differs from ζ's Γ_ℝ(s) = π^(−s/2)Γ(s/2), and
+so does the locus: f(s) = χ_DH(s)f(1−s) with
+χ_DH(s) = G(1−s)/G(s), G(s) = (5/π)^((s+1)/2)Γ((s+1)/2). On the
+line 1−s is the conjugate of s and G is real on the real axis, so
+the locus of |χ_DH| = 1 also contains the line; off the line the
+two loci differ. Gate C5 of `chi_locus.py` (see (v)) certifies in
+Arb, at each of Re s = 0.1, 0.3, 0.7 and 0.9, a point with height
+between 1.19 and 1.23 where |χ_DH| = 1, while |χ| ≠ 1 at every
+height in [1.19, 1.23] — a record beside the gates here, not a
+gate.)*
 — yet carries zeros OFF the line at 0.808517… + 85.699348…i and
 0.650830… + 114.163342…i (both gated to 10^(−25), FE partners
 included; the ordinate's sixth decimal was rounded rather than
@@ -3918,9 +3945,13 @@ points BETWEEN the superposed channels, on a curve wandering the
 strip. The structural law: zeros sit where two equal-weight
 channels interfere to cancellation; a superposition admits an
 internal decomposition and its zeros use it; a pure product
-state has only its own mirror, whose equal-weight locus is the
-line. RH restated: a pure product state over the primes admits
-no interference decomposition other than its own mirror. The
+state has only its own mirror, whose equal-weight locus ~~is~~
+**contains** the line. ~~RH restated~~ **A gloss on RH, not an
+equivalence**: a pure product state over the primes admits
+no interference decomposition other than its own mirror.
+*(round 403: "is" was false when written, and "RH restated",
+which drew on it, claimed an equivalence; both are retracted.
+The locus is larger than the line: see (v).)* The
 free-parameter reading (gloss, not theorem): the ratio −c₂/c₁
 recovers κ from either off-line zero alone — the free parameter
 spent in the coefficient channel is banked in the zeros'
@@ -3933,8 +3964,10 @@ potential: part0's decay rate *"p(d) = -\tfrac{1}{2}\ln\pi +
 d = 1…10), and (log Γ_ℝ)′ is the archimedean local term of the
 explicit formula. The cascade reads Γ_ℝ along the REAL AXIS
 (level sets of p at d = 7, 19, 217 → the 10^(−120) floor); RH
-lives on the same factor's CRITICAL-LINE slice (the unimodular
-locus). The CC is a pure gamma-channel quantity — no prime
+lives on the same factor's CRITICAL-LINE slice (~~the unimodular
+locus~~ **part of the unimodular locus |χ| = 1 of (v), not all of
+it** *(round 403: the struck appositive equated the line with
+that locus; false when written, and retracted)*). The CC is a pure gamma-channel quantity — no prime
 enters part0's invariant I₀ = Ω₁₉ × Ω₂₁₇ ≈ 1.2051×10⁻¹²⁰, a
 product of two sphere areas, pure Γ values (the symbol is
 part0's; defined here per the self-containment header, round
