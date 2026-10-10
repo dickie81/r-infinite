@@ -84,8 +84,9 @@ All axioms are clean. See the main README, round 234.
 - `DetectEM.detectHyp`: PNT+'s Euler–Maclaurin formula at a zero, together with the mollifier identity (`src/MollId.lean`), gives `|D(ρ)| ≥ ½`.
 - `DetectEM.density_unconditional`: `N(σ, T) ≪ T^{4(1+δ)(1−σ)}(log T)^{11}` for every `0 < δ ≤ 1/4`.
 - `DetectEM.short_primes`: for every `θ > 3/4`, every large `y` has a prime in `(y, y + y^θ]`.
+- Round 400: the detection argument moved to `src/DetectCore.lean`, with its one PNT+ input displayed as `DetectCore.EMBound`, the Euler–Maclaurin bound at a zero. `DetectEM.emBound` proves that input from `norm_partial_zeta_le`. `detectHyp`, `density_unconditional` and `short_primes` keep their names and statements; the helper lemmas `zeta_βsγs`, `aux_Z`, `aux_exp1` and `aux_exp2` are now in `DetectCore`. The zeta23 layer proves the same input from its own copy of PNT+'s `ZetaBounds` (`external/zeta23/ShellDensity.lean`).
 
-All axioms are clean. See the main README, round 235.
+All axioms are clean. See the main README, rounds 235 and 400.
 
 ## HalfPlanePNT.lean (rounds 337, 338)
 

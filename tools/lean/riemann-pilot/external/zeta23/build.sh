@@ -68,7 +68,7 @@ c() {
 }
 # zeta23's lakefile sets relaxedAutoImplicit = false for its own files.
 for m in $MODS; do c "$UP" "$m" -DrelaxedAutoImplicit=false; done
-for f in SlogZeta ZeroWindow Dictionary CountCompare HybridCertificate HybridExamples CoImportMV CoImportGamma; do
+for f in SlogZeta ZeroWindow Dictionary CountCompare HybridCertificate HybridExamples CoImportMV CoImportGamma ShellDensity; do
   c "$HERE" $f
 done
 # ax FILE: run FILE's #print axioms lines; fail unless each prints exactly [propext, Classical.choice, Quot.sound]
@@ -94,6 +94,7 @@ import ZeroWindow
 import Dictionary
 import CountCompare
 import HybridExamples
+import ShellDensity
 #print axioms ZeroWindow.zero_in_window
 #print axioms Dictionary.mu_eq_psiRe
 #print axioms CountCompare.local_count_le
@@ -119,6 +120,10 @@ import HybridExamples
 #print axioms HybridExamples.instance_tight
 #print axioms HybridExamples.last_term_needed
 #print axioms HybridExamples.with_last_term_value
+#print axioms ShellDensity.NX_zero_ge
+#print axioms ShellDensity.tendsto_NX_div_quarter
+#print axioms ShellDensity.tendsto_outside_div_quarter
+#print axioms ShellDensity.ncard_outside_le_unconditional
 EOT
 echo "== axioms"
 ax "$AX"

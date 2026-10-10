@@ -7,6 +7,7 @@ These files build on zeta23, the Lean formalisation that accompanies Alpöge–F
 | `SlogZeta.lean` | 228 | von Mangoldt's bound `\|S(t)\| ≤ C log t` for Mathlib's `riemannZeta`, in the pilot's terms; the 1ca wall law without `hSlog` |
 | `HybridCertificate.lean` | 276 | the rank–trace certificate on zeta23's zero side for coupled vectors `v = w + (ηg)u`, with no RH: one term is a sum over the off-line zeros alone, and it can be replaced by a displayed hypothesis |
 | `HybridExamples.lean` | 276 | concrete instances of five of the hybrid certificates, with every hypothesis discharged; an instance on which the off-line term cannot be dropped |
+| `ShellDensity.lean` | 400 | round 235's zero-density estimate and Riemann–von Mangoldt in one environment: for every `w > ¼` the proportion of the pilot's zero pairs up to height `T` that lie outside the Bohr shell of half-width `w` tends to `0` |
 
 ## What is used from zeta23
 
@@ -19,7 +20,7 @@ These files build on zeta23, the Lean formalisation that accompanies Alpöge–F
 | the Γ facts | `Zeta23.gammaFacts` | Stirling for `μ(τ) = (1/2π)Re ψ(¼ + iτ/2) − log π/2π` and its integrals |
 | the zero side | `ZeroBlockData`, `RHLinalg.rank_trace_ineq_two` | the abstract zero-block data on which zeta23 proves prop:block (`Zeta23.ZeroSide`), its split `Â = P_c + Q_c`, and the rank–trace inequality (`Zeta23.LinAlg.RankTrace`) |
 
-`SlogZeta.lean` uses the second and third, through their parts: the argument principle for `Λ = completedRiemannZeta` folded onto the right half-contour (`N_eq_halfContour_completedZeta`), the split `Λ'/Λ = ζ'/ζ + Γ_ℝ'/Γ_ℝ`, Backlund's bound on the horizontals (`backlund_horizontal`), the vertical side at `σ = 2` (`vertical_two`), the Γ side (`gamma_side`) and Stirling (`gammaFacts.stirling`). Montgomery–Vaughan is compiled but not yet used here.
+`SlogZeta.lean` uses the second and third, through their parts: the argument principle for `Λ = completedRiemannZeta` folded onto the right half-contour (`N_eq_halfContour_completedZeta`), the split `Λ'/Λ = ζ'/ζ + Γ_ℝ'/Γ_ℝ`, Backlund's bound on the horizontals (`backlund_horizontal`), the vertical side at `σ = 2` (`vertical_two`), the Γ side (`gamma_side`) and Stirling (`gammaFacts.stirling`). Montgomery–Vaughan is compiled but not yet used here. `ShellDensity.lean` uses the second and third through the main term of Riemann–von Mangoldt, and zeta23's copy of PNT+'s `ZetaBounds` (`Zeta0EqZeta`, `ZetaBnd_aux1`) for the Euler–Maclaurin bound at a zero.
 
 ## Building
 
@@ -64,3 +65,13 @@ The setting is zeta23's `ZeroBlockData`: distinct zeros `z` in a window, with mu
 On the line the proof uses only `Re(w·w) ≤ Σ_k |w_k|²`, which holds for every complex vector. So no symmetry of `w`, `u` or `g` is needed. The normalisation is imposed on `w` alone. If it were imposed on `v`, it would need a pointwise bound on `g` at each on-line zero.
 
 `HybridExamples.lean` instantiates `hybrid_cert`, `hybrid_cert_pairs`, `hybrid_cert_of_moments`, `hybrid_cert_of_no_offline` and `hybrid_cert_eta_zero` on small concrete data, with every hypothesis discharged. One of its instances uses a base family `w` that is not reflection-symmetric. On one off-line pair with no on-line zero, the bound of `hybrid_cert` without its off-line term is false (`last_term_needed`). With that term, the bound is attained (`with_last_term_value`). So for abstract data the off-line term cannot be dropped.
+
+## ShellDensity.lean (round 400)
+
+`src/ShellCount.lean` reads zero density as counts outside shells around round 391's Bohr sphere: `NX w T` counts the pairs up to height `T` with `β ≥ ½ + w`, and these are exactly the pairs whose Bohr vectors lie outside the shell between the radii at `½ + w` and `½ − w`. This file supplies the two inputs on zeta23's side of the layer boundary; `external/pnt/DetectEM.lean` cannot be imported here, because its PNT+ files and zeta23's copies declare the same names.
+
+- `emBound_zeta23`: the Euler–Maclaurin bound at a zero (`DetectCore.EMBound`), with the proof of `DetectEM.norm_partial_zeta_le`. Hence `density_zeta23`: `DensityXi (4(1+δ)) 11` for every `0 < δ ≤ ¼`, by round 235's detection argument (`src/DetectCore.lean`).
+- `Ncount_le_NX`: zeta23's zeros with `T < γ ≤ 2T`, counted with multiplicity, inject into the pilot's pairs up to height `2T`, by the construction of round 248's `CountCompare.local_count_le`. Hence `NX_zero_ge`: for large `X` at least `X log X/(8π)` pairs lie up to height `X`.
+- **`tendsto_NX_div_quarter`**, **`tendsto_outside_div_quarter`**: for every `w > ¼` the proportion of pairs up to height `T` that lie outside the shell of half-width `w` tends to `0`. `ncard_outside_le_unconditional`: their number is at most `C T^{4(1+δ)(½−w)}(log T)^{11}`.
+
+Not proved: the same for `w ≤ ¼`. Bohr and Landau (1914) proved it for every `w > 0`; the standard proof uses a mean-square bound for `ζ` on `Re s > ½`, and no such bound was found in the stack (main README, round 400). A proportion statement does not bear on RH. See the main README, round 400, for the build record.
