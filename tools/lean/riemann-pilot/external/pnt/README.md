@@ -12,6 +12,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LogDerivKV.lean`, `MediumPNTW.lean`, `PNTKV.lean` | 216 | the prime number theorem with the Korobov–Vinogradov error term |
 | `KaiserKV.lean` | 234 | the Korobov–Vinogradov region in the Kaiser prefactor: `λ₁(a) ≤ K(a+1)exp(10a − c·a^{1/3}/(log a)^{1/3} − 4πe^{2a})` |
 | `HalfPlanePNT.lean` | 337, 338 | a zero-free half-plane `Re s > θ` gives `ψ(x) − x = O(x^{θ+ε})` |
+| `BohrKV.lean` | 399 | the Korobov–Vinogradov region as a shell around round 391's Bohr sphere at each height |
 
 ## Building (round 217)
 
@@ -95,3 +96,7 @@ All axioms are clean. See the main README, round 235.
 - `psi_isBigO_of_zeroFree`: if `ζ(s) ≠ 0` on `Re s > θ` with `θ < 1`, then `ψ(x) − x = O(x^{θ+ε})` for every `ε > 0`, through `GenPNTWNoEps`. Its instances are `psi_isBigO_of_smoothBound` (round 278's `SmoothBound θ`) and `psi_isBigO_of_completed` (`O(x^{11/12+ε})` under round 326's completed mean square). Round 337 had the exponent `(1+θ)/2 + ε`, through `GenPNTW'`; see the main README, rounds 337 and 338.
 
 For the instances, the file imports `src/HalfPlaneS0.lean` and `src/EisensteinTransferEstimate.lean`. All axioms are clean.
+
+## BohrKV.lean (round 399)
+
+`shell_of_KV`: a nontrivial zero `ρ` with `|Im ρ| ≥ e³` has `‖v_F(1 − δ)‖ < ‖v_F(ρ)‖ < ‖v_F(δ)‖` for every nonempty finite set `F` of primes, where `δ = A/((log|Im ρ|)^{2/3}(log log|Im ρ|)^{1/3})` comes from `LandauKV.zeroFree_KV` and `v_F` is round 391's normalised Bohr vector (`src/BohrSphere.lean`). The bound `Re ρ > δ` uses the reflection `ρ ↦ 1 − ρ` (`PsiOmega.IsNontrivialZero.one_sub`). The file imports `src/BohrJoins.lean`; see the main README, round 399. All axioms are clean.
