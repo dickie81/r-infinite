@@ -6194,3 +6194,37 @@ Swept: 33361b9. Convergence round 391 is owed.
 - **Out-of-scope observations, held:** B2 = C9(ii) (the lost-trace probe needs a system sitecustomize; elsewhere it gives a false alarm), B3 = C10 (branches no precheck pins; the committed wiring is correct), C7(b), C8's mechanism.
 
 **Converged.** The round-401 sweep is stable, and with it the residual sweep that began at round 395.
+
+### Round 403 — the correction of 1as(v)–(vii): the locus |χ| = 1 is larger than the line
+
+**Scope.** Commit 1a9ee35, prose only. It corrects the finding of the Lean pilot's README round 391, as the owner commissioned on 2026-10-10.
+- **The change:** seven struck spans, all false when written. The first two are the commissioned ones: 1as(v)'s "is exactly" (now "lies in") and 1as(vi)'s "with the same congruence locus". The other five relied on the same identification: "is verbatim RH", "the identical two-ball geometry", the superposition paragraph's "is" and "RH restated", and (vii)'s "(the unimodular locus)".
+- **Battery** (prose-only class, run by the lead on 1a9ee35): 36 live PASS; TOWER PASS (36/36), rc 0.
+- **Review:** one fresh-context `hostile-reviewer`. Brief: `brief_round403.md`.
+
+**Findings.** 0 MAJOR, 5 minor and 1 cosmetic, plus one minor of the lead's own; all were verified by the lead and accepted (A575).
+- **F403-1:** the demotion of "RH restated" is retracted. The restatement is equivalent to RH, though not verbatim, because no zero of ζ lies on the locus off the line (fact B).
+- **F403-2:** "is RH, given that …" becomes "is RH, though not verbatim", with fact B stated. The new gate C6 of `chi_locus.py` certifies that the locus leaves the line, for 0 ≤ Re s ≤ 1, only below height 7.
+- **F403-3:** the barrier sentence of 1as(vi) and its two dependents are scoped to what f shares with ζ.
+- **F403-4:** "the Euler product alone" is struck.
+- **F403-5:** g8's label says "same FE involution", and the manifest is refreshed.
+- **F403-6:** "the stage" becomes "the line" (cosmetic).
+- **L403-1:** the footer census gains "audited not counted" clauses for `chi_locus.py` and `tau_closed_form.py`.
+- **Observations:** O-1, O-2 and O-4 are taken up in the pilot README and STRUCTURAL-REVIEW; O-3 is a record only.
+
+**Swept:** a78cf6a, in the full-tower class. Convergence round 404 is owed on the sweep diff.
+
+### Round 404 — the convergence test on the round-403 sweep
+
+**Scope.** Commit a78cf6a, the sweep diff and its immediate context.
+- **Battery** (full-tower class, run by the lead on a78cf6a): 35 live PASS and 1 cached; TOWER PASS (36/36), rc 0. The reviewer's run on f2b2516 gave 36 cached PASS, rc 0.
+- **Review:** one fresh-context `hostile-reviewer`. Brief: `brief_round404.md`.
+
+**Findings.** 0 MAJOR, 1 minor, 3 cosmetic; all verified by the lead (A576).
+- **F404-1 (minor):** the support for "no zero of ζ lies on the locus off the line" left t = 0 to F4, whose count covers 0 < t ≤ 100, and left the trivial zeros unaddressed. A round-404 annotation closes both.
+- **F404-2 (cosmetic):** the F403-1 annotation is scoped to the nontrivial zeros and the strip.
+- **F404-3 (cosmetic, held):** the scoped barrier is narrower than the certificate supports, but true as scoped.
+- **F404-4 (cosmetic):** a footer clause for `generate_predictions.py`.
+- **Observations:** O-1 taken up (C6 checks its covering and its formula; 19 gates), O-3 taken up, O-2 held.
+
+**Swept:** 52edcfc. Convergence round 405 is owed on the sweep diff.

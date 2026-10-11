@@ -20921,3 +20921,182 @@ Confirmed:
 - the short-write test is at `sitecustomize.py:77`.
 
 ---
+
+## Addendum 575 — round 403, the correction of 1as(v)–(vii): the locus |χ| = 1 is larger than the line (1a9ee35) (0 MAJOR, 5 minor, 1 cosmetic, and one of the lead's own; all accepted; swept a78cf6a)
+
+**The round.**
+- **Origin.** The Lean pilot's README round 391 recorded a finding ("The paper's version of "line = surface" is not exact (a finding)."): 1as(v)'s "The critical line is exactly the CONGRUENCE LOCUS" and 1as(vi)'s "with the same congruence locus" are false as written. The owner commissioned the correction on 2026-10-10 ("Do it then land the corrections").
+- **The change (1a9ee35, prose only, one file).** Seven struck spans under the false-when-written branch of the marking rule. The brief said six; that miscount is observation O-3.
+  1. 1as(v): "is exactly" became "lies in".
+  2. 1as(v): "is verbatim RH" became "is RH, given that no zero of ζ lies on the locus off the line".
+  3. 1as(vi): "the identical two-ball geometry" became "a functional equation under the same involution s ↦ 1−s".
+  4. 1as(vi): "with the same congruence locus" was struck.
+  5. 1as(vi), the superposition paragraph: "is" became "contains".
+  6. The same paragraph: "RH restated" became "A gloss on RH, not an equivalence".
+  7. 1as(vii): "(the unimodular locus)" became "part of the unimodular locus |χ| = 1 of (v), not all of it".
+- **Evidence,** cited as a record beside the gates: `tools/lean/riemann-pilot/frontier/concentration/chi_locus.py`.
+  - Gate C1 certifies, in Arb, points of |χ| = 1 off the line with heights in (6.27, 6.30).
+  - Gate C5 certifies that the Davenport–Heilbronn locus differs from ζ's off the line.
+  - The lead's run: 16/16 PASS, rc 0.
+- **Reviewer.** A fresh-context hostile reviewer (the repo agent `hostile-reviewer`: session model, max effort) on 1a9ee35, with brief `brief_round403.md`; report `scratchpad/r403/REVIEW_round403.md`.
+- **Findings:** 0 MAJOR; 4 minor; 1 minor for its label and cosmetic for its docstring; 1 cosmetic; 4 out-of-scope observations. The lead found one more during the sweep. All are accepted, so a convergence round is owed.
+
+**Fact B (the reviewer's, verified by the lead).** No zero of ζ lies on |χ| = 1 off the line.
+- For 0 ≤ Re s ≤ 1 and t ≠ 0, ∂σ log|χ(σ + it)| = −Re ψ_ℝ(σ + it) − Re ψ_ℝ(1 − σ + it). Here ψ_ℝ = Γ_ℝ′/Γ_ℝ = −½ log π + ½ψ(s/2).
+- Re ψ(x + iy) strictly increases in y > 0 for x ≥ 0, term by term in ψ(z) = −γ + Σ_{n≥0} (1/(n + 1) − 1/(n + z)). So the derivative strictly decreases in |t|.
+- The derivative is negative at t = 7 on all of [0, 1]. Hence for |t| ≥ 7, log|χ| is strictly monotone in σ there and vanishes only at σ = ½.
+- So the locus leaves the line, within that strip, only below height 7. Every zero below height 100 is on the line (the paper's F4), and ζ has no zero with Re s ≥ 1 (F2 and the Euler floor).
+- **Lead's verification:** `scratchpad/r403/lead/factB.py`.
+  - The derivative at t = 7 is negative on 1000 Arb balls covering [0, 1]; the largest upper bound is −0.0579866.
+  - It is not negative throughout at t = 6.5 (largest upper bound +0.01462) or at t = 6.30 (+0.04306).
+  - The formula matches a numerical σ-derivative of log|χ| to 1.97e-31 at 12 points.
+  - The monotonicity was sampled on x ∈ {0, ¼, ½}, y ∈ (0, 20).
+  - ζ's first zero ordinate is 14.1347251417.
+
+**F403-1 (minor; accepted).** Round 403 demoted "RH restated" to "A gloss on RH, not an equivalence", on the stated ground that it drew on the identification of the locus with the line. That ground does not defeat it. Read through the paper's structural law ("zeros sit where two equal-weight channels interfere to cancellation"), the sentence says that every zero lies on the mirror's equal-weight locus |χ| = 1. By fact B, that is equivalent to RH, though not verbatim. The demotion also conflicted with item 2, which kept a conditional equivalence.
+- **Lead:**
+  - re-read 3945–3954 of 1a9ee35 and the structural law;
+  - checked fact B as above;
+  - confirmed that `cascade_primes_side_ball.py`:61 files the needle as "product-state restatement".
+- **Disposition:**
+  - the replacement is struck, and "**RH restated, though not verbatim**" stands in its place;
+  - inside round 403's annotation, the clause retracting "RH restated" is struck;
+  - an annotation retracts the demotion as false when written.
+
+**F403-2 (minor; accepted).** "is RH, given that no zero of ζ lies on the locus off the line" reads either as an assertion without support on the surface ("since") or as a condition on a fact that holds ("assuming"), which understates the equivalence.
+- **Lead:** fact B, as above.
+- **Disposition:**
+  - struck for "**is RH, though not verbatim**";
+  - an annotation states the fact and its support;
+  - `chi_locus.py` gains gate C6, which certifies the derivative negative at t = 7 on 1000 Arb balls (2k + 1 ± 1)/2000 covering σ ∈ [0, 1]. Its docstring carries the monotonicity argument.
+  - The run passes 17/17 (C6's largest upper bound [−0.0579866 ± 1.40e-8]), rc 0.
+  - In a scratch copy with C6's height moved to 6.5, C6 fails (largest upper bound [0.0146228 ± 1.53e-8]), rc 1.
+
+**F403-3 (minor; accepted).** "The congruence frame provably CANNOT decide RH" is a Check-9 universal over ζ's own frame, which (v) builds from ζ's χ. The certificate reached that frame only through the two phrases struck in (vi). It now states that f's gamma factor and locus differ from ζ's.
+- Two dependents carry the same reach:
+  - (vii)'s "the insufficiency certificate proves that channel cannot reach the other";
+  - the honest scope's "the certificate (vi) is precisely the proof that the geometric channel cannot supply any".
+- **Lead:**
+  - read 3856, 3975–3977 and 4051–4054 of 1a9ee35 directly;
+  - checked what f shares with ζ: a functional equation under s ↦ 1−s, and a factor of modulus 1 on the line (Schwarz reflection, as round 403's annotation states).
+- **Disposition:** all three are scoped to that shared structure, with annotations.
+
+**F403-4 (minor; accepted).** "The differentiator is the Euler product alone." rested on f sharing everything else, the struck "identical two-ball geometry". The live annotation names two more differences: the gamma factor and the locus.
+- **Disposition:** struck for "**One differentiator is the Euler product, which f lacks; the gamma factor and the locus differ as well (above).**"
+
+**F403-5 (minor for the label, cosmetic for the docstring; the label accepted).** The g8 label of `cascade_primes_side_ball.py`:280, "same FE geometry", asserts a comparison with ζ that the gate does not make: g8 checks κ, D–H's own Λ(s) = Λ(1−s), its zeros and partners, and the component congruence.
+- **Lead:** read 248–280; grep shows the label occurs only there.
+- **Disposition:**
+  - the label is now "same FE involution";
+  - `tower_manifest.json` is refreshed;
+  - the docstring's "product-state restatement" stays, since F403-1 restores the restatement.
+
+**F403-6 (cosmetic; accepted).** Once the line and the locus differ, "Zeros are the interference nulls ON the stage" has two candidate referents for "the stage". It can also be read as saying that every zero lies on the line.
+- **Disposition:** struck for "**Zeros on the line are interference nulls**".
+
+**L403-1 (the lead's own, minor; found during the sweep).** The footer census of the "103 scripts cited in place" gives every body-cited script outside `tools/research/` an "audited not counted" clause. Round 403 cited `chi_locus.py` without one, and `tau_closed_form.py` has lacked one since the round-381 landing (502f996).
+- **Lead:** a census of the body's backticked `.py` names found 178, of which 174 are under `tools/research/`. One of those, `discrete_balayage.py`, sits in its subdirectory `slack_law/`; the sweep's commit message says 173 because it counted top-level files only (round 404's reviewer). Of the four names outside `tools/research/`, two have clauses (`cascade_greens_function.py`, `verify_selection_rule.py`); these two do not. The census covered backticked names only; round 404's F404-4 found an unbackticked one.
+- **Disposition:** two clauses are appended at the end of the exclusion list.
+
+**Out-of-scope observations.** The lead takes up O-1, O-2 and O-4 in the pilot docs, which are not paper surfaces.
+- **O-1.** Pilot README round 391 printed t₀ as "6.28984…", rounded, with an ellipsis. It is now "6.289835…", with a marker.
+- **O-2.** Pilot README round 390 said the Davenport–Heilbronn function "has the same Gamma structure and functional equation". It now carries a marker.
+- **O-3.** The brief said "six strikes"; the commit has seven struck spans. Record only.
+- **O-4.** STRUCTURAL-REVIEW §6 had no entry for the two restatements. A paper-side entry is added under Check 9(b).
+
+**Check-1 record (re-read this round):**
+- `riemann-indistinguishability.md`:
+  - 3737–3780 (1as(ii): the two balls);
+  - 3816–3823 (F2 and F4);
+  - 3826–4010 (1as(v)–(vii) as swept);
+  - 4076–4091 (the honest scope);
+  - line 9313 (the footer census);
+- `chi_locus.py` (all);
+- `cascade_primes_side_ball.py` 24–64 and 248–282;
+- pilot README round 391 (13516–13560) and lines 13480 and 13487 of round 390.
+
+**Battery.**
+- **Lead on 1a9ee35 (prose-only class).** `run_tower.py`: all prechecks as expected (render lint: 2 surfaces, 0 defects; paper readers 19 PASS); census 36 live PASS + 0 cached PASS + 0 FAIL of 36; TOWER PASS (36/36); rc 0; 23:00:05–23:20:57 UTC.
+  - Every member ran live, because the earlier cache keys differed.
+  - The cache was committed as checkpoint 4a1d3fa.
+- **Reviewer on 1a9ee35 and 4a1d3fa:**
+  - `chi_locus.py` 16/16 PASS, rc 0;
+  - `run_tower.py`: census 0 live + 36 cached PASS, TOWER PASS (36/36), rc 0;
+  - C1 and C5 sabotages fail 4 gates each.
+- **The sweep (a78cf6a)** is in the full-tower class: it changes an executable string in a tower member, and it refreshes the manifest. Its battery is recorded with round 404.
+
+**Standing state.** Round 404, the convergence test on the a78cf6a sweep, is owed. Its surfaces are 1as(v)–(vii) with the honest scope, the footer census line, `cascade_primes_side_ball.py`'s g8 label and `chi_locus.py`'s C6.
+
+---
+
+## Addendum 576 — round 404, the convergence test on the round-403 sweep (a78cf6a) (0 MAJOR, 1 minor, 3 cosmetic; all verified; the minor and two cosmetics swept, one cosmetic held; swept 52edcfc)
+
+**The round.**
+- **Reviewer:** a fresh-context hostile reviewer (the repo agent `hostile-reviewer`: session model, max effort) on a78cf6a. Brief: `brief_round404.md`. Report: `scratchpad/r404/REVIEW_round404.md`.
+- **Battery (full-tower class).** The sweep changed an executable string in a tower member, the g8 label, and refreshed the manifest.
+  - **Lead on a78cf6a** (`scratchpad/r404/battery/lead_tower.log`; HEAD a78cf6a, clean tree, 23:43:05–00:01:50 UTC):
+    - every precheck as expected (render lint: 2 surfaces, 0 defects; paper readers: 19 PASS);
+    - census: 35 live PASS + 1 cached PASS + 0 FAIL of 36. The cached member is `cascade_lattice_forcing.py`, which lies below the changed member;
+    - TOWER PASS (36/36), rc 0;
+    - the cache is committed as checkpoint f2b2516.
+  - **Reviewer on f2b2516:**
+    - `run_tower.py`: census 0 live + 36 cached PASS, TOWER PASS (36/36), rc 0, clean tree after;
+    - `chi_locus.py`: 17/17 PASS, rc 0;
+    - C6 sabotages: moving the height to 6.5 or to 6.30, or flipping the sign, each fail; dropping the 1 − σ term or cutting the covering to 999 balls each pass (O-1);
+    - the changed member run live under `CASCADE_CHAIN=manifest`: "PASS g8 Davenport-Heilbronn: same FE involution, off-line zeros, component congruence", ALL GATES PASS (15/15), rc 0.
+- **Findings:** 0 MAJOR, 1 minor, 3 cosmetic, 3 out-of-scope observations. The reviewer judged every swept finding of round 403 held. It found both marking branches right: the strike inside round 403's annotation, and the retraction of round 403's own replacement.
+
+**F404-1 (minor; accepted).** The F403-2 annotation's support for "no zero of ζ lies on the locus off the line" leaves two cases unaddressed:
+- **t = 0.** It hands everything below height 7 to F4. F4's count, g6 of `cascade_primes_side_ball.py` (219–223), counts sign changes of Z on (0, 100] against N(100), so it covers 0 < t ≤ 100 only. Nothing in the annotation covers a real point of (½, 1), and the equivalence quantifies over every σ > ½.
+- **The trivial zeros.** The argument does not address them.
+
+The conclusion is true in both cases.
+- **Lead:**
+  - re-read the annotation and g6;
+  - `scratchpad/r403/lead/t0check.py`. At t = 0 the σ-derivative is log π − ½ψ(σ/2) − ½ψ((1 − σ)/2). Since ψ increases on (0, ∞) and ψ(½) = −γ − 2 log 2, it exceeds log π + γ + 2 log 2 = [3.108239912 ± 1.30e-10] on (0, 1).
+  - In Arb on 998 balls covering [0.001, 0.999], its least lower bound is 5.34605. It matches mpmath's numerical derivative at σ = 0.1, 0.5 and 0.9 (12.5104217039, 5.37218341923, 12.5104217039).
+  - So the locus meets the real segment only at ½. At the trivial zeros χ(−2n) = 0, so they are not on the locus.
+- **Disposition:** a round-404 annotation after F403-2's adds the t = 0 clause and the trivial zeros.
+
+**F404-2 (cosmetic; accepted).** The F403-1 annotation said "that locus differs from the line only below height 7", without (v)'s "in that strip", although C6 covers σ ∈ [0, 1] only. It also said "every zero", although the trivial zeros are not on the locus.
+- **Disposition:** "every ~~zero~~ **nontrivial zero**", and "**in the strip 0 ≤ Re s ≤ 1 that locus differs from the line only at heights 0 < |t| < 7**", with an annotation.
+
+**F404-3 (cosmetic; held).** The scoped barrier ("at the level the function below shares with ζ — a functional equation under s ↦ 1−s whose factor has modulus 1 on the line") is narrower than the certificate supports. f is also a Dirichlet series with a degree-one gamma factor, and its off-line zero lies where its own |χ_DH| = 0.2718.
+- **Lead:** the sentence is true as scoped. Widening it would add claims, each owing support, so it is held.
+
+**F404-4 (cosmetic; accepted; predates the sweep).** `generate_predictions.py`, at `tools/build/`, is named without backticks in Theorem 1t's census correction (line 1126, since the round-91 sweep, 8eca4ef), and the footer had no clause for it. The lead's round-403 census covered backticked names only.
+- **Lead:** `find` puts it at `tools/build/`; `git log -S` gives 8eca4ef.
+- **Disposition:** a clause is appended, modelled on `cascade_constants.py`'s: "not a verifier, and not counted".
+
+**Out-of-scope observations.**
+- **O-1 (taken up).** C6 could not detect an error in its own derivative formula, or a cut in its covering. Dropping the 1 − σ term, or cutting to 999 balls, still passed 17/17.
+  - **Disposition:** two further C6 gates.
+    - "C6 the balls cover [0, 1]": the first ball's lower end is ≤ 0, the last ball's upper end is ≥ 1, and consecutive balls overlap or abut, all certified.
+    - "C6 the derivative formula": compared with −2θ′(t) at σ = ½ for t = 7, 10, 20, and with mpmath's σ-derivative of log|χ| at (0.2, 7) and (0.9, 12), to 10⁻²⁰.
+  - **Lead's run:** 19/19 PASS, rc 0.
+  - **Sabotage, each in a scratch copy:** cutting the covering to `range(999)` fails only the covering gate; dropping the 1 − σ term fails only the formula gate (error 0.579); moving the height to 6.5 fails only the negativity gate ([0.0146228 ± 1.53e-8]). Each copy reports 1 failed gate.
+- **O-2 (held; predates the sweep).** "Provably CANNOT decide RH" and "No RH leverage in either direction" claim two directions; the certificate shows one, that the shared level cannot prove RH.
+- **O-3 (taken up).** C6's docstring now says "t ≠ 0".
+
+**Record corrections.**
+- The round-404 brief's tag counts (25 `<del>`, 27 `<strong>`, 23 `<em>`) were for 1as(v) onward; the whole 1as block gave 25/29/28 at a78cf6a. After the round-404 sweep it renders 27/31/30, with no literal `~~` or `**`.
+- The round-403 census's "173 under `tools/research/`" counted top-level files only; it is 174. A575 states the corrected figure.
+
+**The sweep (52edcfc):**
+- the paper: the F404-1 annotation, the F404-2 strikes and the F404-4 clause;
+- `chi_locus.py`: C6's two self-checks and the docstring's "t ≠ 0".
+
+No tower member or manifest changed, so for the tower the sweep is prose-only. Render lint: 0 defects. All 746 declared needle strings keep their counts.
+
+**Check-1 record (re-read this round):**
+- `riemann-indistinguishability.md`:
+  - 3826–4115 (1as(v)–(vii) and the honest scope, as swept);
+  - 1109–1130 (Theorem 1t's census correction);
+  - 2700–2712 ("ζ has no real zeros in (0, 1)");
+  - the footer census line;
+- `cascade_primes_side_ball.py` 210–230 (g6) and 248–282 (g8);
+- `chi_locus.py` (all).
+
+**Standing state.** Round 405, the convergence test on the 52edcfc sweep, is owed.
+
+---
