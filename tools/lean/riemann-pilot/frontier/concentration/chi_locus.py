@@ -20,12 +20,15 @@
       Re s = σ ≠ ½ where |χ| ≠ 1: the two loci share the line and differ off it. With mpmath, the D–H branch
       crosses the line at t₁ = 1.2116358 (to 10⁻⁶), where ∂σ log|χ_DH| vanishes on the line.
   C6  (Arb, a proof, with the monotonicity below; added in the paper's review round 403) the locus leaves the line
-      only at low height. For σ in [0, 1], ∂σ log|χ(σ + it)| = −Re ψ_ℝ(σ + it) − Re ψ_ℝ(1 − σ + it), where
+      only at low height. For σ in [0, 1] and t ≠ 0, ∂σ log|χ(σ + it)| = −Re ψ_ℝ(σ + it) − Re ψ_ℝ(1 − σ + it), where
       ψ_ℝ = Γ_ℝ′/Γ_ℝ = −½ log π + ½ψ(s/2). By ψ(z) = −γ + Σ_{n≥0} (1/(n + 1) − 1/(n + z)), Re ψ(x + iy) strictly
       increases in y > 0 for x ≥ 0 (each Re 1/(n + x + iy) = (n + x)/((n + x)² + y²) decreases in y, and is 0 for
       n + x = 0), so the derivative strictly decreases in |t|. The gate certifies it negative at t = 7 on 1000 balls
       covering σ in [0, 1]. So for |t| ≥ 7, log|χ(σ + it)| is strictly decreasing in σ on [0, 1] and vanishes only
-      at σ = ½: the points of |χ| = 1 off the line with 0 ≤ Re s ≤ 1 lie below height 7."""
+      at σ = ½: the points of |χ| = 1 off the line with 0 ≤ Re s ≤ 1 lie below height 7. Two further C6 gates
+      (added in the paper's review round 404) make the certificate check itself: the balls' union is certified to
+      contain [0, 1], and the derivative formula is compared with −2θ′(t) at σ = ½ and with mpmath's numerical
+      σ-derivative of log|χ| off the line, each to 10⁻²⁰."""
 import sys
 from flint import acb, arb, ctx
 from mpmath import mp, mpf, mpc, gamma, pi, log, findroot, diff, siegeltheta, fabs
@@ -104,7 +107,16 @@ def dsig_arb(sg, t):
     psiR = lambda z: -acb.pi().log() / 2 + (z / 2).digamma() / 2
     return -psiR(acb(sg, t)).real - psiR(acb(1 - sg, t)).real
 # σ in [k/1000, (k+1)/1000] as the ball (2k + 1 ± 1)/2000; the union covers [0, 1]
-d7 = [dsig_arb((arb(2 * k + 1) + arb(0, 1)) / 2000, arb(7)) for k in range(1000)]
+sballs = [(arb(2 * k + 1) + arb(0, 1)) / 2000 for k in range(1000)]
+cover = (sballs[0].lower() <= 0 and sballs[-1].upper() >= 1
+         and all(a.upper() >= b.lower() for a, b in zip(sballs, sballs[1:])))
+gate("C6 the balls cover [0, 1]", cover, f"{len(sballs)} balls, consecutive balls overlapping or abutting")
+mp.dps = 30
+ferr = max([abs(mpf(dsig_arb(arb('0.5'), arb(t)).str(40, radius=False)) + 2 * diff(siegeltheta, t)) for t in (7, 10, 20)]
+           + [abs(mpf(dsig_arb(arb(sg), arb(t)).str(40, radius=False)) - diff(lambda x: L(x, mpf(t)), mpf(sg)))
+              for sg, t in (('0.2', 7), ('0.9', 12))])
+gate("C6 the derivative formula", ferr < mpf(10)**-20, f"max error {mp.nstr(ferr, 3)} against −2θ′ and mpmath's σ-derivative")
+d7 = [dsig_arb(b, arb(7)) for b in sballs]
 gate("C6 ∂σ log|χ| < 0 at t = 7 for σ in [0, 1]", all(b < 0 for b in d7),
      f"1000 balls; largest upper bound {max(b.upper() for b in d7).str(6)}")
 print("all gates pass" if fails == 0 else f"{fails} gate(s) failed")
