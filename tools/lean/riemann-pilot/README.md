@@ -316,6 +316,7 @@ Every file but 29 ends with `#print axioms` (corrected in round 327; the 29 are 
 | `EisensteinSupplement.lean` | 513 | **The supplementary laws of cubic reciprocity, as periodicity modulo `9`**: the cubic symbol multiplicative in both arguments (`cub_mul_left`, `cub_mul_right`); the comparison `(δ₃/p)₃²(u/p)₃ = (δ₃/q)₃²(u/q)₃` for `p − q = δ₃²ur` (**`cub_compare`**, after the release's `ramified_comparison`); `(ω/b)₃ = ω^{(N(b)−1)/3}` (**`cub_omega`**) and the unit symbols modulo `9` (`cub_omega_congr`, `cub_unit_congr`); **`cub_δ3_congr`**: `(δ₃/p)₃` depends only on `p mod 9` for primary `p`; the supplementary factors vanish at `x ≡ 1 (mod 9)` (`cub_δ3_of_nine`, `cub_unit_of_nine`); `(a/𝔫)₆² = σ((a/𝔫)₃)` (`sym6_sq_eq_cub`) and the periodicity of `χ_n(δ₃)²` and `χ_n(ω)²` (`sym6_sq_δ3_congr`, `sym6_sq_omega_congr`) (round 362) |
 | `EulerGammaBinet.lean` | 178 | **Euler's constant to seven digits**: `0.57721566 < γ < 0.57721580` (`eulerMascheroni_bounds`), from Binet's kernel `s/12 − s³/720 ≤ φ(s) ≤ s/12` (`le_phiB`, `phiB_le`) and `ψ(16) = H₁₅ − γ` (round 406) |
 | `CascadeLepton.lean` | 489 | **The cascade's charged-lepton mass ratios**: Part 0's and Part IVb's `R`, `N`, `α`, `p`, `Φ` and Dirac layers; `N(0) = π`, `N(1) = 2` (`Nc_zero`, `Nc_one`); `Φ` over a Bott period in closed form; `206.4957 < m_μ/m_e < 206.4959` and `16.52999 < m_τ/m_μ < 16.53001` at leading order; Part IVb's two closures with their inputs displayed (round 406) |
+| `ChargeLattice.lean` | 139 | **The electron's charge from the cascade's hypercharge rule**: the diagonal `ℤ₆` is trivial iff `q ≡ c₃ (mod 3)` and `q ≡ c₂ (mod 2)` (`z6Trivial_iff`); least nonzero `\|Y\| = 1/(dim V₁₂·dim V₁₃)` (`minimal_charge`); `Y_L = −½`, `Y_e = −1` from the lepton Yukawa singlet (`lepton_hypercharges`); `Q_e = −1` (`electron_charge`); anomaly and hydrogen-neutrality checks (round 407) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -13838,6 +13839,36 @@ Condition 3 does not follow from the Gamma factor, the functional equation and t
 **Builds.** `./build.sh` compiled the two new files (2 compiled, 284 up to date) with no warnings; their 9 axiom lines are each `[propext, Classical.choice, Quot.sound]`.
 
 **Check 4.** Acknowledged: round 155 (Binet's formula); the series' own values `206.50`, `16.53`, `206.4958` and `16.8173`. New: kernel-checked enclosures of the series' leading lepton ratios and of two closures with their inputs displayed; the closed form `√π·e^{q−4γ}/(8π⁴)` over a Bott period; `γ` to seven digits in the pilot; the `N(0)` label finding; the Jacobian-half status note.
+
+**Check 9.** No new equivalence and no barrier claim.
+
+**Bearing on RH:** none.
+
+## Round 407: the electron's charge from the cascade's hypercharge rule (`src/ChargeLattice.lean`)
+
+**The commission.** This continues round 406 on the owner's request, "Derive the electron and all its properties in lean", with the electric charge.
+
+**What is proved** (`src/ChargeLattice.lean`, 139 lines, 10 theorems; each depends only on `propext`, `Classical.choice` and `Quot.sound`). Part IVb's Theorem `thm:sector-fundamental-y` gives the action of the diagonal element `(ζ₃^a, ζ₂^b, e^{2πiη})` "by the scalar `$\exp\bigl(2\pi i(a\,c_3/3+b\,c_2/2+\eta\,Y)\bigr)$`", "with `$\eta(a,b)=-(a/3+b/2)\bmod 1$`". Write `q` for the integer `U(1)` charge in that phase and `Y = q/6` for the hypercharge (see the note below).
+
+- **The `ℤ₆` criterion** (`z6Trivial_iff`): the diagonal `ℤ₆` acts trivially exactly when `q ≡ c₃ (mod 3)` and `q ≡ c₂ (mod 2)`.
+- **The sector-fundamental rule** (`minimal_charge`): in each of the four sectors the least nonzero `|q|` is `6/(dim V₁₂·dim V₁₃)`, so the least nonzero `|Y|` is `1/(dim V₁₂·dim V₁₃)`: `1/6`, `1/3`, `1/2` and `1` in `(3,2)`, `(3,1)`, `(1,2)` and `(1,1)`. This is the theorem's claim (c).
+- **One generation** (`sm_z6Trivial`, `sm_hypercharges`): the six fields as the paper places them pass the test, at `Y = 1/6, 2/3, −1/3, −1/2, −1, 1/2` for `Q_L, u_R, d_R, L_L, e_R, H`.
+- **A fixed sign** (`quark_doublet_sign`): in `(3,2)`, `q = 1` passes and `q = −1` fails, so the paper's choice of `η` fixes the sign of `Y_Q`.
+- **The lepton hypercharges** (`lepton_hypercharges`): with the sector minima `Y_L = ±½`, the Higgs at `Y_H = ½`, and gauge invariance of `L̄He_R` (`Y_e = Y_L − Y_H`), a nonzero `Y_e` forces `Y_L = −½` and `Y_e = −1`.
+- **The charges** (`electron_charge`, `quark_charges`): with `Q = T₃ + Y`, `e_L` and `e_R` have charge `−1`, `ν_L` has `0`, `u` has `2/3` and `d` has `−1/3`.
+- **Checks**: `2Q_u + Q_d + Q_e = 0` (`hydrogen_neutral`), and the `U(1)³`, gravitational, `SU(3)²U(1)` and `SU(2)²U(1)` anomaly sums of one generation vanish (`anomaly_free`). Anomaly cancellation is a classical check here, not the series' route; Part IVa names it as "A candidate route (cascade-internal anomaly cancellation)".
+
+**A note on the normalization.** Step 3 states "Triviality of `$\Delta$` on `$\Psi$` requires `$a\,c_3/3+b\,c_2/2+\eta(a,b)\,Y\in\mathbb{Z}$`". With `Y` the hypercharge itself, `(a, b) = (1, 0)` gives `(c₃ − Y)/3 ∈ ℤ`, so `Y` would be an integer, and the least nonzero `|Y|` in `(3,2)` would be `1`, not claim (c)'s `1/6`. The claims hold when `Y` in Step 3 is the integer charge `q` and `Y = q/6` in the claims, which is the reading formalized here. Step 5's "equivalently, `$Y\in\frac{1}{n}\mathbb{Z}$` in cascade-native units" makes this rescaling without naming it.
+
+**What it does not do.**
+
+- **The inputs** are definitions and hypotheses here, not theorems: the gauge group `SU(3) × SU(2) × U(1)` (Part IVa, through Adams' theorem), the sector list, the requirement that the diagonal `ℤ₆` act trivially on every sector, the minimal-charge rule ("extended fund-or-trivial"), `Y_H = ½` (the paper's (R1c), with the overall sign "a basin-label convention"), the Yukawa singlets, and `Q = T₃ + Y`.
+- **The size of the charge**, `e` or `α_em`, is not derived; see round 406 on `1/137.028`.
+- **Spin and `g = 2`** are not in this round.
+
+**Builds.** `./build.sh` compiled the new file (1 compiled, 286 up to date) with no warnings; its 7 axiom lines are each `[propext, Classical.choice, Quot.sound]`.
+
+**Check 4.** Acknowledged: Part IVb's own classification of the theorem, "Y-spectrum chain complete at the magnitude `$+$` sign level modulo basin-label sign convention". New: the kernel-checked `ℤ₆` criterion, the minimal-charge table, the sign of `Y_Q` under the paper's `η`, the lepton sign argument, and the normalization note.
 
 **Check 9.** No new equivalence and no barrier claim.
 
