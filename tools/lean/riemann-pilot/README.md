@@ -317,6 +317,7 @@ Every file but 29 ends with `#print axioms` (corrected in round 327; the 29 are 
 | `EulerGammaBinet.lean` | 178 | **Euler's constant to seven digits**: `0.57721566 < γ < 0.57721580` (`eulerMascheroni_bounds`), from Binet's kernel `s/12 − s³/720 ≤ φ(s) ≤ s/12` (`le_phiB`, `phiB_le`) and `ψ(16) = H₁₅ − γ` (round 406) |
 | `CascadeLepton.lean` | 489 | **The cascade's charged-lepton mass ratios**: Part 0's and Part IVb's `R`, `N`, `α`, `p`, `Φ` and Dirac layers; `N(0) = π`, `N(1) = 2` (`Nc_zero`, `Nc_one`); `Φ` over a Bott period in closed form; `206.4957 < m_μ/m_e < 206.4959` and `16.52999 < m_τ/m_μ < 16.53001` at leading order; Part IVb's two closures with their inputs displayed (round 406) |
 | `ChargeLattice.lean` | 139 | **The electron's charge from the cascade's hypercharge rule**: the diagonal `ℤ₆` is trivial iff `q ≡ c₃ (mod 3)` and `q ≡ c₂ (mod 2)` (`z6Trivial_iff`); least nonzero `\|Y\| = 1/(dim V₁₂·dim V₁₃)` (`minimal_charge`); `Y_L = −½`, `Y_e = −1` from the lepton Yukawa singlet (`lepton_hypercharges`); `Q_e = −1` (`electron_charge`); anomaly and hydrogen-neutrality checks (round 407) |
+| `DiracSpin.lean` | 134 | **Spin ½ and `g = 2`, the algebra**: the Dirac square `4(Σγ_μD_μ)² = 4Σ η_{μν}D_μD_ν + Σ [γ_μ, γ_ν][D_μ, D_ν]` in any ring (`dirac_square`); the Pauli algebra and `S² = ½(½ + 1)` (`pauli_mul`, `spin_casimir`); `Σ ε_{ijk}ε_{ijl} = 2δ_{kl}` (`levi_civita_contract`); `g = 2` (`g_eq_two`) (round 408) |
 
 ## T1bt.lean: Theorem 1bt(i), "the pole-free form is indefinite for every a ≥ 0.2"
 
@@ -13869,6 +13870,33 @@ Condition 3 does not follow from the Gamma factor, the functional equation and t
 **Builds.** `./build.sh` compiled the new file (1 compiled, 286 up to date) with no warnings; its 7 axiom lines are each `[propext, Classical.choice, Quot.sound]`.
 
 **Check 4.** Acknowledged: Part IVb's own classification of the theorem, "Y-spectrum chain complete at the magnitude `$+$` sign level modulo basin-label sign convention". New: the kernel-checked `ℤ₆` criterion, the minimal-charge table, the sign of `Y_Q` under the paper's `η`, the lepton sign argument, and the normalization note.
+
+**Check 9.** No new equivalence and no barrier claim.
+
+**Bearing on RH:** none.
+
+## Round 408: spin ½ and `g = 2`, the algebra (`src/DiracSpin.lean`)
+
+**The commission.** This continues rounds 406 and 407 on the owner's request, "Derive the electron and all its properties in lean", with spin and the magnetic moment.
+
+**What is proved** (`src/DiracSpin.lean`, 134 lines, 7 theorems; each depends only on `propext`, `Classical.choice` and `Quot.sound`). Part IVb's Corollary `cor:g-equals-two` squares the Dirac operator "using the algebraic identity `$\gamma^\mu\gamma^\nu = \eta^{\mu\nu} + i\sigma^{\mu\nu}$` (forced by `$\{\gamma^\mu,\gamma^\nu\} = 2\eta^{\mu\nu}$` at every Dirac layer via Bott classification, no separate derivation required)".
+
+- **The Dirac square** (`dirac_square`): in any ring, if `γ_μγ_ν + γ_νγ_μ = 2η_{μν}` and every `D_ν` commutes with every `γ_μ`, then `4(Σγ_μD_μ)² = 4Σ η_{μν}D_μD_ν + Σ [γ_μ, γ_ν][D_μ, D_ν]`. With `[D_μ, D_ν]` proportional to `F_{μν}`, the second sum is the Pauli term.
+- **Spin ½** (`pauli_mul`, `spin_commutator`, `spin_casimir`, `spin_z`): the Pauli matrices satisfy `σ_iσ_j = δ_{ij} + iΣ_k ε_{ijk}σ_k`. The spin `S = σ/2` then has `[S_x, S_y] = iS_z`, `S² = ½(½ + 1)` and `S_z = diag(½, −½)`.
+- **The contraction** (`levi_civita_contract`): `Σ_{ij} ε_{ijk}ε_{ijl} = 2δ_{kl}`. This is where the `2` in `σ^{ij}F_{ij} = 2σ·B` comes from, when `σ^{ij} = ε^{ijk}σ_k` and `F_{ij} = ε_{ijl}B_l`.
+- **`g = 2`** (`g_eq_two`): matching `e/(2m)` with `(g/2)(e/m)(1/2)` gives `g = 2`. This is the corollary's `$\frac{e}{2m_f} \;=\; \frac{g}{2}\cdot\frac{e}{m_f}\cdot\frac{1}{2}$`.
+
+**What it does not do.**
+
+- **The Clifford algebra is a hypothesis.** That the cascade supplies `{γ^μ, γ^ν} = 2η^{μν}` at Dirac layers is the corollary's appeal to the Bott classification, which is not formalized.
+- **The physics steps are the corollary's.** The non-relativistic reduction and the identification `μ = (g/2)(e/m)S` are taken from the text; this file proves the algebra they use.
+- **The reading of the `2`.** The corollary calls the `2` "the chirality multiplicity `$\chi(S^{d_f - 1}) = 2$`". That is an identification in the text; `levi_civita_contract` gives the `2` as a property of `ε`.
+- **The anomalous moment is not formalized.** Part IVb's chirality selection rule places the 1-loop `α_em/(2π)`, and higher loops are Open Question `oq:higher-loop-qed-coefficients`.
+- **Not formalized:** Dirac matrices in a definite representation, Lorentz covariance, and the spin-statistics connection.
+
+**Builds.** `./build.sh` compiled the new file (1 compiled, 287 up to date) with no warnings; its 7 axiom lines are each `[propext, Classical.choice, Quot.sound]`. Rounds 406 and 407's three files also compile with no warnings.
+
+**Check 4.** Acknowledged: the corollary's own derivation, and Open Question `oq:higher-loop-qed-coefficients`. New: the kernel-checked algebraic identities.
 
 **Check 9.** No new equivalence and no barrier claim.
 
