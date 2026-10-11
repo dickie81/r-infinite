@@ -21100,3 +21100,47 @@ No tower member or manifest changed, so for the tower the sweep is prose-only. R
 **Standing state.** Round 405, the convergence test on the 52edcfc sweep, is owed.
 
 ---
+
+## Addendum 577 — round 405, the convergence test on the round-404 sweep (52edcfc) (0 MAJOR, 0 minor, 2 cosmetic held; converged; stable)
+
+**The round.**
+- **Reviewer:** a fresh-context hostile reviewer (the repo agent `hostile-reviewer`: session model, max effort) on 52edcfc, with HEAD at the records commit 58e2a98. Brief: `brief_round405.md`. Report: `scratchpad/r405/REVIEW_round405.md`.
+- **Battery** (prose-only class for the tower: no tower member, verifier under `tools/research/` or manifest changed; `chi_locus.py` lies outside the code roots):
+  - **Lead on 58e2a98** (`scratchpad/r405/battery/lead_tower.log`; clean tree; 00:42:09–00:42:47 UTC): every precheck as expected (render lint: 2 surfaces, 0 defects; paper readers: 19 PASS, all live); census 0 live PASS + 36 cached PASS + 0 FAIL of 36; TOWER PASS (36/36); rc 0.
+  - **Lead's run of `chi_locus.py`** on 52edcfc: 19/19 PASS, rc 0. In sabotage copies, each change fails exactly its gate: `range(999)` the covering gate, dropping the 1 − σ term the formula gate (error 0.579), height 6.5 the negativity gate.
+  - **Reviewer on 58e2a98:**
+    - `run_tower.py` 0 live + 36 cached PASS, TOWER PASS (36/36), rc 0; its precheck and member lines match the lead's;
+    - `chi_locus.py` 19/19 PASS, rc 0;
+    - eleven one-line sabotage copies of C6, beside the pristine copy (19/19). Each copy targeting the covering or the formula fails its gate, and the height change 6.5 fails the negativity gate. Two pass and are recorded as O-1: a negativity list cut to 500 balls, and the height moved to 8.
+- **Findings:** 0 MAJOR, 0 minor, 2 cosmetic, 3 out-of-scope observations. The reviewer held every swept item of round 404. It also held the census: all 180 body-named scripts appear in the footer, and the six outside `tools/research/` each have a matching clause.
+
+**F405-1 (cosmetic; held for the next substantive round).** The new footer clause calls `generate_predictions.py` "the ledger generator". In Theorem 1t "the ledger" is `PREDICTIONS.md`, and the script generates tables from it, not the ledger.
+- **Lead:** `PREDICTIONS.md`:3 reads "`tools/build/generate_predictions.py` parses the `## Predictions` section below to generate the LaTeX table …". The script's docstring reads "Generate the predictions table for index.html and the LaTeX cover sheet by reading the canonical source from PREDICTIONS.md."
+- **Disposition:** held. The descriptor carries no count or claim (F284-4 precedent). Repair when next touched: "the predictions-table generator at `tools/build/` (it renders the ledger's predictions section)".
+
+**F405-2 (cosmetic; held for the next substantive round; non-paper sibling fixed).** In (vi), "in the strip 0 ≤ Re s ≤ 1 that locus differs from the line only at heights 0 < |t| < 7" includes the corners s = 0 and s = 1. The cited support covers C6 (|t| ≥ 7) and the t = 0 clause on the open segment (0, 1), but neither corner. The claim is true at both, since χ(0) = 0 and χ has a pole at s = 1, and neither corner is a zero.
+- **Lead:** with mpmath at 30 digits, |χ(10⁻²⁰)| = 5.0e-21 and |χ(1 − 10⁻²⁰)| = 2.0e+20.
+- **Disposition:**
+  - Held on the paper. Repair when next touched: append "χ(0) = 0 and s = 1 is a pole of χ, so neither corner is on the locus" to the F404-1 annotation, or scope (vi) to 0 < Re s < 1.
+  - The STRUCTURAL-REVIEW §6 sibling, which is not a paper surface, now names the corners.
+- **Negative heights:** the reviewer noted, without grading, that 0 > t > −7 rests on conjugate symmetry, which the paper states at 4225 ("the zeros come in conjugate pairs") but not beside this clause.
+
+**Out-of-scope observations (held; each shown only on a sabotage copy; zero committed exposure):**
+- **O-1.** The negativity gate's ball count and height are not bound by the new gates. A copy that evaluates only `sballs[:500]` passes and still prints "1000 balls"; so does a copy with height 8 under the label "at t = 7". Candidate hardening: one `T = 7` for computation and label, and a gate on `len(d7) == len(sballs)`.
+- **O-2.** Two evidence strings are literals: the covering gate's "consecutive balls overlapping or abutting", and the negativity gate's "1000 balls".
+- **O-3.** The covering chain compares outward-rounded endpoints. `upper()` is inexact for 2 balls, by at most 6.2230e-61. On exact endpoints at 4000 bits the committed balls overlap by at least 2.9322e-12, so the committed claim holds. Candidate exact form: test that ball k contains both k/1000 and (k + 1)/1000.
+
+**Check-1 record (re-read this round):**
+- `riemann-indistinguishability.md` 3858–3876 (the F404-1 annotation) and 3984–3995 (the F403-1 annotation as swept);
+- the footer clause at 9359;
+- `PREDICTIONS.md`:3;
+- `tools/build/generate_predictions.py` 1–6.
+
+**Result: 0 MAJOR, 0 minor. Converged.** The round-403 correction of 1as(v)–(vii) (1a9ee35), with the sweeps a78cf6a and 52edcfc, is stable. Its standing state:
+- 1as(v): "The critical line ~~is exactly~~ **lies in** the CONGRUENCE LOCUS", and extending "incongruent ⇒ no zero" to every σ > ½ "**is RH, though not verbatim**", with the fact that no zero of ζ lies on the locus off the line, supported by `chi_locus.py` gate C6 and the round-404 annotation;
+- 1as(vi): the certificate is scoped to what f shares with ζ, and "**RH restated, though not verbatim**";
+- 1as(vii): the critical-line slice is "**part of the unimodular locus |χ| = 1 of (v), not all of it**".
+
+Held for the next substantive round on these surfaces: F405-1 and F405-2 (cosmetic), F404-3 (cosmetic), round 404's O-2, and this round's O-1 to O-3. The A574 cosmetics on the tower instruments also remain held.
+
+---

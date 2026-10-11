@@ -6228,3 +6228,17 @@ Swept: 33361b9. Convergence round 391 is owed.
 - **Observations:** O-1 taken up (C6 checks its covering and its formula; 19 gates), O-3 taken up, O-2 held.
 
 **Swept:** 52edcfc. Convergence round 405 is owed on the sweep diff.
+
+### Round 405 — the convergence test on the round-404 sweep
+
+**Scope.** Commit 52edcfc, the sweep diff and its immediate context. HEAD was the records commit 58e2a98.
+- **Battery** (prose-only class for the tower, run by the lead on 58e2a98): 36 cached PASS; TOWER PASS (36/36), rc 0. `chi_locus.py` passed 19/19, and its C6 sabotages fail.
+- **Review:** one fresh-context `hostile-reviewer`. Brief: `brief_round405.md`.
+
+**Findings.** 0 MAJOR, 0 minor (A577).
+- **Cosmetic, held for the next substantive round:**
+  - F405-1: the footer calls `generate_predictions.py` "the ledger generator"; it generates tables from the ledger.
+  - F405-2: (vi)'s "0 ≤ Re s ≤ 1 … only at heights 0 < |t| < 7" includes the corners s = 0 and s = 1, which the cited support does not name. The claim holds there, since χ(0) = 0 and s = 1 is a pole. The STRUCTURAL-REVIEW sibling is fixed.
+- **Out-of-scope observations, held:** O-1 (the negativity gate's count and height are not bound), O-2 (two literal evidence strings), O-3 (sub-ulp rounding in the covering chain). Each was shown only on a sabotage copy.
+
+**Converged.** The round-403 correction of 1as(v)–(vii) and its sweeps (a78cf6a, 52edcfc) are stable.
