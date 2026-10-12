@@ -1,4 +1,5 @@
 import Mathlib
+import BallTower
 
 /-! # Free radiation is the completed zeta function (round 409)
 
@@ -17,20 +18,24 @@ The mechanism is Mathlib's "Mellin transform = Dirichlet series" (`hasSum_mellin
 transforms `Γ(s)ζ(s)` and `Γ(s)ζ(s+1)` (`mellin_bose`, `mellin_boseLog`); in the second, the `k`-th term
 is the contribution of exchange cycles of length `k` (Feynman's cycle expansion). The fermion versions
 carry the sign `(−1)^{k−1}` of a `k`-cycle (`cycleSign`), and `Σ (−1)^{k−1} k^{−s} = (1 − 2^{1−s}) ζ(s)`
-(`tsum_alt_eq`). The momentum integral over `ℝ^d` reduces to the radial one with the sphere factor
-`2π^{d/2}/Γ(d/2)` (`integral_radial`), and Legendre duplication, in Mathlib's form
-`Γ_ℝ(s) Γ_ℝ(s+1) = Γ_ℂ(s)`, turns `(2π)^{−d} · 2π^{d/2}/Γ(d/2) · Γ(d)` into `Γ_ℝ(d+1)` (`gammaR_succ`).
+(`tsum_alt_eq`). The momentum integral over `ℝ^d` reduces to the radial one with the area `|S^{d−1}|` of
+the unit sphere (`integral_radial`, with BallTower's `sphereArea` and `ballVol_eq_volume`), and Legendre
+duplication, in Mathlib's form `Γ_ℝ(s) Γ_ℝ(s+1) = Γ_ℂ(s)`, turns `(2π)^{−d} |S^{d−1}| Γ(d)` into
+`Γ_ℝ(d+1)` (`gammaR_succ`, with BallTower's `Γ_ℝ(d) |S^{d−1}| = 2`).
 
 The sign of a `k`-cycle (`cycleSign_eq_sign`) is multiplicative on coprime lengths (`cycleSign_mul`), equal
 to `1` at every power of an odd prime and `−1` at every positive power of `2`; it is not completely
 multiplicative (`cycleSign_four`).
 
 `pressureBose_eulerProduct` and `densityBose_eulerProduct` write `ζ` as Mathlib's Euler product over the
-primes, and `gammaR_eq_two_div_sphereArea` gives `Γ_ℝ(n) = 2/Ω_{n−1}`. At `d = 3`: `Λ(4) = π²/90`, and per
+primes, and `gammaR_eq_two_div_sphereArea` gives `Γ_ℝ(n) = 2/|S^{n−1}|`. At `d = 3`: `Λ(4) = π²/90`, and per
 internal state `P = π²T⁴/90`, `ρ = π²T⁴/30`, `n = ζ(3)T³/π²`, with the fermion factors `7/8` and `3/4`
 (`completedRiemannZeta_four` and the `_three` theorems). The last section computes the first two eigenvalues
 of the Gaussian kernel of Part II=III's Open Question on the Hawking spectrum (`kern_ground`, `kern_first`,
 `kern_ratio_value`).
+
+Since round 410 the sphere area, the ball volume, `Γ_ℝ(n) |S^{n−1}| = 2` and `Λ = Γ_ℝ ζ` are BallTower's
+(round 184); round 409's own copies are removed. ThermalJoins.lean joins this file to the rest of the pilot.
 -/
 
 open Real MeasureTheory Set
@@ -253,41 +258,16 @@ section Space
 
 variable (d : ℕ)
 
-/-- `Ω_{d−1} = 2π^{d/2}/Γ(d/2)`, the area of the unit sphere in `ℝ^d`. -/
-def sphereArea : ℝ := 2 * π ^ ((d : ℝ) / 2) / Real.Gamma ((d : ℝ) / 2)
-
-lemma volume_unitBall (hd : 1 ≤ d) :
-    volume.real (Metric.ball (0 : EuclideanSpace ℝ (Fin d)) 1) =
-      π ^ ((d : ℝ) / 2) / Real.Gamma ((d : ℝ) / 2 + 1) := by
-  have : Nonempty (Fin d) := ⟨⟨0, hd⟩⟩
-  have hdpos : (0 : ℝ) < (d : ℝ) / 2 := by
-    have : (0 : ℝ) < d := Nat.cast_pos.mpr hd
-    positivity
-  have hG : 0 < Real.Gamma ((d : ℝ) / 2 + 1) := Real.Gamma_pos_of_pos (by linarith)
-  rw [measureReal_def, EuclideanSpace.volume_ball, Fintype.card_fin, ENNReal.ofReal_one, one_pow,
-    one_mul, ENNReal.toReal_ofReal (div_nonneg (by positivity) hG.le)]
-  congr 1
-  rw [Real.sqrt_eq_rpow, ← Real.rpow_natCast, ← Real.rpow_mul pi_pos.le]
-  ring_nf
-
-/-- The area of the unit sphere in `ℝ^d` is `d` times the volume of the unit ball. -/
-lemma sphereArea_eq (hd : 1 ≤ d) :
-    sphereArea d = d * volume.real (Metric.ball (0 : EuclideanSpace ℝ (Fin d)) 1) := by
-  have hdpos : (0 : ℝ) < (d : ℝ) / 2 := by
-    have : (0 : ℝ) < d := Nat.cast_pos.mpr hd
-    positivity
-  have hΓ : Real.Gamma ((d : ℝ) / 2) ≠ 0 := (Real.Gamma_pos_of_pos hdpos).ne'
-  rw [volume_unitBall d hd, Real.Gamma_add_one hdpos.ne', sphereArea]
-  field_simp
-
-/-- **The radial reduction.** `∫_{ℝ^d} f(|k|) dk = Ω_{d−1} ∫₀^∞ y^{d−1} f(y) dy`. -/
+/-- **The radial reduction.** `∫_{ℝ^d} f(|k|) dk = |S^{d−1}| ∫₀^∞ y^{d−1} f(y) dy`, with BallTower's
+`sphereArea d = d · ballVol d` and `ballVol_eq_volume`. -/
 lemma integral_radial (hd : 1 ≤ d) (f : ℝ → ℝ) :
     ∫ k : EuclideanSpace ℝ (Fin d), f ‖k‖ =
-      sphereArea d * ∫ y in Ioi (0 : ℝ), y ^ (d - 1) * f y := by
+      BallTower.sphereArea d * ∫ y in Ioi (0 : ℝ), y ^ (d - 1) * f y := by
   have : Nontrivial (EuclideanSpace ℝ (Fin d)) :=
     Module.nontrivial_of_finrank_pos (R := ℝ) (by rw [finrank_euclideanSpace_fin]; omega)
-  rw [integral_fun_norm_addHaar volume f, finrank_euclideanSpace_fin, sphereArea_eq d hd,
-    nsmul_eq_mul, smul_eq_mul]
+  have : NeZero d := ⟨by omega⟩
+  rw [integral_fun_norm_addHaar volume f, finrank_euclideanSpace_fin, measureReal_def,
+    BallTower.ballVol_eq_volume, BallTower.sphereArea, nsmul_eq_mul, smul_eq_mul]
   simp only [smul_eq_mul]
   ring
 
@@ -314,33 +294,18 @@ lemma mellin_natCast (hd : 1 ≤ d) (f : ℝ → ℝ) :
   push_cast
   ring
 
-/-- **Legendre duplication, phase-space form.** `(2π)^{−d} Ω_{d−1} Γ(d) = Γ_ℝ(d+1)`. -/
+/-- **Legendre duplication, phase-space form.** `(2π)^{−d} |S^{d−1}| Γ(d) = Γ_ℝ(d+1)`, from Mathlib's
+`Γ_ℝ(d) Γ_ℝ(d+1) = Γ_ℂ(d)` and BallTower's `Γ_ℝ(d) |S^{d−1}| = 2`. -/
 lemma gammaR_succ (hd : 1 ≤ d) :
-    ((((2 * π) ^ d)⁻¹ * sphereArea d : ℝ) : ℂ) * Complex.Gamma d = Complex.Gammaℝ ((d : ℂ) + 1) := by
+    ((((2 * π) ^ d)⁻¹ * BallTower.sphereArea d : ℝ) : ℂ) * Complex.Gamma d =
+      Complex.Gammaℝ ((d : ℂ) + 1) := by
   have hdpos : (0 : ℝ) < d := Nat.cast_pos.mpr hd
   have hR : Complex.Gammaℝ (d : ℂ) ≠ 0 := Complex.Gammaℝ_ne_zero_of_re_pos (by simpa using hdpos)
-  have hΓ2 : Complex.Gamma ((d : ℂ) / 2) ≠ 0 :=
-    Complex.Gamma_ne_zero_of_re_pos (by simp; positivity)
-  have hπ : (π : ℂ) ^ ((d : ℂ) / 2) ≠ 0 := by
-    rw [Ne, Complex.cpow_eq_zero_iff]; exact fun h => Complex.ofReal_ne_zero.mpr pi_ne_zero h.1
-  have key := Complex.Gammaℝ_mul_Gammaℝ_add_one (d : ℂ)
+  have hS := BallTower.Gammaℝ_mul_sphereArea d hd
   apply mul_left_cancel₀ hR
-  rw [key, Complex.Gammaℂ_def, Complex.Gammaℝ_def, sphereArea]
-  have hcast : ((π ^ ((d : ℝ) / 2) : ℝ) : ℂ) = (π : ℂ) ^ ((d : ℂ) / 2) := by
-    rw [Complex.ofReal_cpow pi_pos.le]; push_cast; ring_nf
-  have hGcast : ((Real.Gamma ((d : ℝ) / 2) : ℝ) : ℂ) = Complex.Gamma ((d : ℂ) / 2) := by
-    rw [← Complex.Gamma_ofReal]; push_cast; ring_nf
+  rw [Complex.Gammaℝ_mul_Gammaℝ_add_one, Complex.Gammaℂ_def, Complex.cpow_neg, Complex.cpow_natCast]
   push_cast
-  rw [hcast, hGcast, show -(d : ℂ) / 2 = -((d : ℂ) / 2) by ring, Complex.cpow_neg,
-    Complex.cpow_neg, Complex.cpow_natCast]
-  field_simp
-
-/-- `Λ(s) = Γ_ℝ(s) ζ(s)` for `Re s > 0`. -/
-lemma completed_eq {s : ℂ} (hs : 0 < s.re) :
-    completedRiemannZeta s = Complex.Gammaℝ s * riemannZeta s := by
-  have h0 : s ≠ 0 := by rintro rfl; simp at hs
-  rw [riemannZeta_def_of_ne_zero h0]
-  field_simp [Complex.Gammaℝ_ne_zero_of_re_pos hs]
+  linear_combination (((2 * (π : ℂ)) ^ d)⁻¹ * Complex.Gamma d) * hS
 
 /-! ### The thermodynamic quantities -/
 
@@ -368,12 +333,12 @@ def densityFermi (T : ℝ) : ℝ :=
 def energyBose (T : ℝ) : ℝ :=
   ((2 * π) ^ d)⁻¹ * ∫ k : EuclideanSpace ℝ (Fin d), ‖k‖ * bose (‖k‖ / T)
 
-/-- The common reduction: `T^a ((2π)^d)⁻¹ ∫ f(|k|/T) dk = T^{a+d} (2π)^{−d} Ω_{d−1} ∫₀^∞ y^{d−1} f(y) dy`,
+/-- The common reduction: `T^a ((2π)^d)⁻¹ ∫ f(|k|/T) dk = T^{a+d} (2π)^{−d} |S^{d−1}| ∫₀^∞ y^{d−1} f(y) dy`,
 cast to `ℂ` and evaluated by a Mellin transform at `s = d`. -/
 lemma reduce (hd : 1 ≤ d) {T : ℝ} (hT : 0 < T) (f : ℝ → ℝ) {M : ℂ}
     (hM : mellin (fun t => (f t : ℂ)) (d : ℂ) = M) :
     ((((2 * π) ^ d)⁻¹ * ∫ k : EuclideanSpace ℝ (Fin d), f (‖k‖ / T) : ℝ) : ℂ) =
-      (T : ℂ) ^ d * (((((2 * π) ^ d)⁻¹ * sphereArea d : ℝ) : ℂ) * M) := by
+      (T : ℂ) ^ d * (((((2 * π) ^ d)⁻¹ * BallTower.sphereArea d : ℝ) : ℂ) * M) := by
   rw [mellin_natCast d hd] at hM
   rw [integral_scale d hT, integral_radial d hd, ← hM]
   push_cast
@@ -384,9 +349,10 @@ theorem pressureBose_eq (hd : 1 ≤ d) {T : ℝ} (hT : 0 < T) :
     (pressureBose d T : ℂ) = (T : ℂ) ^ (d + 1) * completedRiemannZeta ((d : ℂ) + 1) := by
   have hdpos : (0 : ℝ) < d := Nat.cast_pos.mpr hd
   have hs : 0 < (d : ℂ).re := by simpa using hdpos
+  have hs1 : 1 < ((d : ℂ) + 1).re := by simp; linarith
   have h := reduce d hd hT boseLog (mellin_boseLog hs)
   rw [pressureBose, mul_assoc, Complex.ofReal_mul, h,
-    completed_eq (by simp; positivity), ← gammaR_succ d hd]
+    BallTower.completed_eq_Gammaℝ_mul hs1, ← gammaR_succ d hd]
   ring
 
 /-- **Fermi–Dirac pressure:** `P = T^{d+1} (1 − 2^{−d}) Λ(d+1)`. -/
@@ -395,9 +361,10 @@ theorem pressureFermi_eq (hd : 1 ≤ d) {T : ℝ} (hT : 0 < T) :
       (T : ℂ) ^ (d + 1) * ((1 - 2 ^ (-(d : ℂ))) * completedRiemannZeta ((d : ℂ) + 1)) := by
   have hdpos : (0 : ℝ) < d := Nat.cast_pos.mpr hd
   have hs : 0 < (d : ℂ).re := by simpa using hdpos
+  have hs1 : 1 < ((d : ℂ) + 1).re := by simp; linarith
   have h := reduce d hd hT fermiLog (mellin_fermiLog hs)
   rw [pressureFermi, mul_assoc, Complex.ofReal_mul, h,
-    completed_eq (by simp; positivity), ← gammaR_succ d hd]
+    BallTower.completed_eq_Gammaℝ_mul hs1, ← gammaR_succ d hd]
   ring
 
 /-- **Maxwell–Boltzmann pressure is the archimedean factor alone:** `P = T^{d+1} Γ_ℝ(d+1)`. -/
@@ -452,7 +419,7 @@ theorem energyBose_eq (hd : 1 ≤ d) {T : ℝ} (hT : 0 < T) :
       fun k => T * ((‖k‖ / T) * bose (‖k‖ / T)) := by
     funext k; field_simp
   rw [energyBose, hfun, integral_const_mul, mul_left_comm, Complex.ofReal_mul, h,
-    completed_eq (by simp; positivity), ← gammaR_succ d hd,
+    BallTower.completed_eq_Gammaℝ_mul hs, ← gammaR_succ d hd,
     Complex.Gamma_add_one _ (by exact_mod_cast hdpos.ne')]
   ring
 
@@ -471,27 +438,16 @@ theorem pressureBose_eulerProduct (hd : 1 ≤ d) {T : ℝ} (hT : 0 < T) :
       ∏' p : Nat.Primes, (1 - (p : ℂ) ^ (-((d : ℂ) + 1)))⁻¹) := by
   have hdpos : (0 : ℝ) < d := Nat.cast_pos.mpr hd
   have hs : 1 < ((d : ℂ) + 1).re := by simp; linarith
-  rw [pressureBose_eq d hd hT, completed_eq (by simp; positivity),
+  rw [pressureBose_eq d hd hT, BallTower.completed_eq_Gammaℝ_mul hs,
     riemannZeta_eulerProduct_tprod hs]
 
-/-- The real-place factor is twice the inverse area of the unit sphere: `Γ_ℝ(n) = 2/Ω_{n−1}`. -/
+/-- The real-place factor is twice the inverse area of the unit sphere: `Γ_ℝ(n) = 2/|S^{n−1}|`, BallTower's
+`Gammaℝ_mul_sphereArea` divided out. -/
 theorem gammaR_eq_two_div_sphereArea (n : ℕ) (hn : 1 ≤ n) :
-    Complex.Gammaℝ (n : ℂ) = 2 / (sphereArea n : ℂ) := by
-  have hnpos : (0 : ℝ) < (n : ℝ) / 2 := by
-    have : (0 : ℝ) < n := Nat.cast_pos.mpr hn
-    positivity
-  have hΓ : Complex.Gamma ((n : ℂ) / 2) ≠ 0 :=
-    Complex.Gamma_ne_zero_of_re_pos (by simpa using hnpos)
-  have hπ : (π : ℂ) ^ ((n : ℂ) / 2) ≠ 0 := by
-    rw [Ne, Complex.cpow_eq_zero_iff]; exact fun h => Complex.ofReal_ne_zero.mpr pi_ne_zero h.1
-  rw [Complex.Gammaℝ_def, sphereArea]
-  have hcast : ((π ^ ((n : ℝ) / 2) : ℝ) : ℂ) = (π : ℂ) ^ ((n : ℂ) / 2) := by
-    rw [Complex.ofReal_cpow pi_pos.le]; push_cast; ring_nf
-  have hGcast : ((Real.Gamma ((n : ℝ) / 2) : ℝ) : ℂ) = Complex.Gamma ((n : ℂ) / 2) := by
-    rw [← Complex.Gamma_ofReal]; push_cast; ring_nf
-  push_cast
-  rw [hcast, hGcast, show -(n : ℂ) / 2 = -((n : ℂ) / 2) by ring, Complex.cpow_neg]
-  field_simp
+    Complex.Gammaℝ (n : ℂ) = 2 / (BallTower.sphereArea n : ℂ) := by
+  have hS : (BallTower.sphereArea n : ℂ) ≠ 0 := by exact_mod_cast (BallTower.sphereArea_pos hn).ne'
+  rw [eq_div_iff hS]
+  exact BallTower.Gammaℝ_mul_sphereArea n hn
 
 end Space
 
@@ -505,7 +461,7 @@ lemma gammaR_four : Complex.Gammaℝ 4 = 1 / (π : ℂ) ^ 2 := by
 
 /-- `Λ(4) = π²/90`. -/
 theorem completedRiemannZeta_four : completedRiemannZeta 4 = (π : ℂ) ^ 2 / 90 := by
-  rw [completed_eq (by norm_num), gammaR_four, riemannZeta_four]
+  rw [BallTower.completed_eq_Gammaℝ_mul (by norm_num), gammaR_four, riemannZeta_four]
   have : (π : ℂ) ≠ 0 := Complex.ofReal_ne_zero.mpr pi_ne_zero
   field_simp
 
