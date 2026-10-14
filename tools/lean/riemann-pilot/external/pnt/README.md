@@ -15,6 +15,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `BohrKV.lean` | 399 | the Korobov–Vinogradov region as a shell around round 391's Bohr sphere at each height |
 | `HalfPlaneFinal.lean` | 467 | `ψ(x) − x = O(x^{11/12+ε})` with no hypothesis, from the pilot's half-plane `Re s > 11/12` (round 466) |
 | `PsiExponent.lean` | 469 | the exponent of the error: `limsup log\|ψ(x) − x\| / log x = Θ`, the supremum of the real parts of the zeros, with `½ ≤ Θ ≤ 11/12` |
+| `HalfPlaneLindelof.lean` | 470 | a zero-free half-plane `Re s > θ` gives `ζ(s)^{±1} = O(\|t\|^ε)` on `Re s ≥ σ₀ > θ`; with no hypothesis at `θ = 11/12`, and at `Θ` |
 
 ## Building (round 217)
 
@@ -111,3 +112,7 @@ For the instances, the file imports `src/HalfPlaneS0.lean` and `src/EisensteinTr
 ## PsiExponent.lean (round 469)
 
 `PsiExponent.Theta` is the supremum of the real parts of the nontrivial zeros of `ζ`. `half_le_Theta` and `Theta_le` give `½ ≤ Θ ≤ 11/12`, the upper bound from the pilot's `Eis.ne_zero_of_re_gt_eleven_twelfths` (round 466). `psi_isBigO_Theta` is `ψ(x) − x = O(x^{Θ+ε})`, `psi_isBigO_of_zeroFree` at `Θ`; `psi_omega_Theta` is `ψ(x) − x = Ω±(x^{Θ−ε})`, the pilot's `PsiOmega.psi_omega` (round 220) at a zero with `Re ρ > Θ − ε`; `limsup_expo` joins them: `limsup log|ψ(x) − x| / log x = Θ`. See the main README, round 469. All axioms are clean.
+
+## HalfPlaneLindelof.lean (round 470)
+
+`HalfPlaneLindelof.zeta_bound_of_zeroFree`: if `ζ(s) ≠ 0` on `Re s > θ`, `0 ≤ θ < 1`, then for every `σ₀ > θ` and `ε > 0` there are `T` and `C` with `|ζ(σ + it)| ≤ C|t|^ε` and `1/|ζ(σ + it)| ≤ C|t|^ε` for `σ ≥ σ₀` and `|t| ≥ T`. The proof interpolates round 337's `logDeriv_le_of_zeroFree` against PNT+'s `LogDerivZetaBdd_of_Re_ge_three_halves` by the maximum modulus principle on a rectangle (`norm_le_interp`, `logDeriv_le_interp`), and bounds `log|ζ|` by the mean value inequality, its derivative in `σ` being `Re ζ′/ζ` (`hasDerivAt_log_norm`). `zeta_bound_eleven_twelfths` is the case `θ = 11/12`, from the pilot's `Eis.ne_zero_of_re_gt_eleven_twelfths` (round 466); `zeta_bound_Theta` is the case `θ = Θ` (round 469). See the main README, round 470. All axioms are clean.

@@ -17388,7 +17388,7 @@ The first landed (`HalfPlaneJoins.smoothBound_eleven_twelfths`), by the route li
 - **The two halves.** `psi_isBigO_of_zeroFree` (round 337, with the exponent `θ + ε` since round 338) at `Θ < 1`; round 220's `PsiOmega.psi_omega` at a nontrivial zero with `Re ρ > Θ − ε`, which the supremum supplies (`exists_zero_re_gt`).
 - **The limit superior.** The upper half gives `expo x ≤ Θ + 2ε` eventually (`eventually_expo_le`), and the lower half with `c = 1` gives `Θ − ε ≤ expo x` frequently (`frequently_le_expo`). Mathlib's `limsup_le_of_le` and `le_limsup_of_frequently_le` close it, with the boundedness conditions from the same two facts.
 
-**The paper.** 1as(viii) states: "limsup of ln|ψ(x)−x|/ln x is the abscissa Θ = sup Re ρ ∈ [½, 1], and Θ = ½ ⟺ RH (equivalently Σ μ(n)n^(−s) has abscissa Θ)." The first clause is now a theorem of the stack, with the range `[½, 11/12]` inside the paper's `[½, 1]`. The equivalent form for `Σ μ(n)n^{−s}` is not proved here. The route planned for it uses bounds on `1/ζ` to the right of `Re s = Θ`, round 470's target. The paper is not edited; a change to it needs CLAUDE.md's hostile review.
+**The paper.** 1as(viii) states: "limsup of ln|ψ(x)−x|/ln x is the abscissa Θ = sup Re ρ ∈ [½, 1], and Θ = ½ ⟺ RH (equivalently Σ μ(n)n^(−s) has abscissa Θ)." The first clause is now a theorem of the stack, with the range `[½, 11/12]` inside the paper's `[½, 1]`. The equivalent form for `Σ μ(n)n^{−s}` is not proved here. The route planned for it uses bounds on `1/ζ` to the right of `Re s = Θ`, round 470's target. The paper is not edited; a change to it needs CLAUDE.md's hostile review. *(Round 470: the bounds on `1/ζ` are proved, `HalfPlaneLindelof.zeta_bound_Theta`; the form for `Σ μ(n)n^{−s}` is not. See round 470.)*
 
 **Register entries** (STRUCTURAL-REVIEW §6, "Doors after the half-plane"), as CLAUDE.md's Check 9(b) asks for new targets: half-planes for Dirichlet L-functions by twisting the family; mean values of cubic Gauss sums from the pole at `s = 4/3`; a certified zero of `dh` with `Re s > 11/12`. Each has its socket theorems, its missing Prop and an attack note. None is attempted here.
 
@@ -17415,5 +17415,60 @@ The first landed (`HalfPlaneJoins.smoothBound_eleven_twelfths`), by the route li
 
 **The next step.** Round 470, the second door: from a zero-free half-plane `Re s > θ` with `0 ≤ θ < 1`, `ζ(s)` and `1/ζ(s)` are `O(|t|^ε)` for every `ε > 0`, uniformly on `Re s ≥ σ₀` for each `σ₀ > θ`; at `θ = 11/12` with no hypothesis, and at `θ = Θ`. The plan:
 
-- interpolate round 337's `HalfPlanePNT.logDeriv_le_of_zeroFree`, `|ζ′/ζ(σ + it)| ≤ C log|t|` on `σ ≥ θ′`, against PNT+'s bound on `ζ′/ζ` on `Re s ≥ 3/2` (`LogDerivZetaBdd_of_Re_ge_three_halves`), by the maximum modulus principle on rectangles `[θ′, 3/2] × [t − W, t + W]` with a Gaussian factor, away from `s = 1`: `|ζ′/ζ(σ + it)| ≤ C(log|t|)^{1−λ(σ)}` with `λ(σ) > 0`;
-- bound `log|ζ(σ + it)| − log|ζ(3/2 + it)|` by the mean value inequality, the derivative of `u ↦ log|ζ(u + it)|` being `Re ζ′/ζ(u + it)`: `log|ζ(s)| = O((log|t|)^{1−λ})`, so `ζ(s)^{±1} = O(|t|^ε)`.
+- interpolate round 337's `HalfPlanePNT.logDeriv_le_of_zeroFree`, `|ζ′/ζ(σ + it)| ≤ C log|t|` on `σ ≥ θ′`, against PNT+'s bound on `ζ′/ζ` on `Re s ≥ 3/2` (`LogDerivZetaBdd_of_Re_ge_three_halves`), by the maximum modulus principle on rectangles `[θ′, 3/2] × [t − W, t + W]` with a Gaussian factor, away from `s = 1`: `|ζ′/ζ(σ + it)| ≤ C(log|t|)^{1−λ(σ)}` with `λ(σ) > 0`; *(Round 470: landed, `HalfPlaneLindelof.logDeriv_le_interp`, with the weight `exp((z − it)² − (3/2 − z)c₁ − (z − a)c₂)`. See round 470.)*
+- bound `log|ζ(σ + it)| − log|ζ(3/2 + it)|` by the mean value inequality, the derivative of `u ↦ log|ζ(u + it)|` being `Re ζ′/ζ(u + it)`: `log|ζ(s)| = O((log|t|)^{1−λ})`, so `ζ(s)^{±1} = O(|t|^ε)`. *(Round 470: landed, `HalfPlaneLindelof.zeta_bound_of_zeroFree`, with the instances `zeta_bound_eleven_twelfths` and `zeta_bound_Theta`. See round 470.)*
+
+## Round 470: a Lindelöf bound in a zero-free half-plane, `ζ(s)^{±1} = O(|t|^ε)` on `Re s ≥ σ₀ > 11/12` (`external/pnt/HalfPlaneLindelof.lean`)
+
+**What it is.** The second of the doors the owner asked for after round 468 ("Follow as suggested"), which round 469's next step planned. STRUCTURAL-REVIEW §6 records for Lindelöf: "Nothing: no subconvexity bound of any strength is in the three layers". This round proves:
+
+- from a zero-free half-plane `Re s > θ` with `0 ≤ θ < 1`: for every `σ₀ > θ` and every `ε > 0` there are `T` and `C` with `|ζ(σ + it)| ≤ C|t|^ε` and `1/|ζ(σ + it)| ≤ C|t|^ε` whenever `σ ≥ σ₀` and `|t| ≥ T` (`HalfPlaneLindelof.zeta_bound_of_zeroFree`);
+- the same with no hypothesis for every `σ₀ > 11/12` (`zeta_bound_eleven_twelfths`), and for every `σ₀ > Θ`, round 469's supremum of the real parts of the zeros (`zeta_bound_Theta`).
+
+**What is proved** (`external/pnt/HalfPlaneLindelof.lean`, 484 lines, 10 theorems; each of its 6 axiom lines in `build.sh`'s final check is `[propext, Classical.choice, Quot.sound]`).
+
+- **`norm_le_interp`**, with `norm_exp_weight`: let `F` be complex-differentiable on the closed rectangle `[a, b] × [t₀ − W, t₀ + W]`, with `0 ≤ a < b`, `W > 0`, `|F| ≤ A` on the rectangle, `|F| ≤ B` on its right edge, `0 < B ≤ A` and `log(A/B) ≤ W²`. Then `|F(σ + it₀)| ≤ e^{b² − σ²}A^{(b−σ)/(b−a)}B^{(σ−a)/(b−a)}` for `σ ∈ [a, b]`.
+- **`hasDerivAt_log_norm`**: for `f : ℝ → ℂ` with `f(u) ≠ 0`, `u ↦ log|f(u)|` has derivative `Re(f′(u)/f(u))` at `u`.
+- **`norm_zeta_le_three_halves`** and **`inv_norm_zeta_le_three_halves`**: `|ζ(s)| ≤ ζ(3/2)` and `1/|ζ(s)| ≤ ζ(3/2)` on `Re s ≥ 3/2`.
+- **`rpow_le_mul_self`**: for `κ < 1` and `δ > 0`, `y^κ ≤ δy` for all large `y`.
+- **`logDeriv_le_interp`**: suppose `ζ ≠ 0` on `Re s > θ`, `θ < a`, `0 ≤ a < 3/2`, `C₁ > 0`, `|ζ′/ζ(σ + it)| ≤ C₁ log|t|` for `|t| > 3` and `σ ≥ a`, and `|ζ′/ζ| ≤ B` on `Re s ≥ 3/2` with `B ≥ 1`. For `|t| > 6` with `B + (3/2)C₁|t| ≤ (|t|/2)²` and `u ∈ [a, 3/2]`: `|ζ′/ζ(u + it)| ≤ e^{9/4 − u²}A^{(3/2−u)/(3/2−a)}B^{(u−a)/(3/2−a)}`, `A = max(B, C₁ log(3|t|/2))`.
+- **`zeta_bound_of_zeroFree`**, **`zeta_bound_eleven_twelfths`** and **`zeta_bound_Theta`**: as above.
+
+**The proof.**
+
+- **The interpolation.** Let `H(z) = F(z)·exp((z − it₀)² − (b − z)c₁ − (z − a)c₂)`, `c₁ = log A/(b − a)` and `c₂ = log B/(b − a)`. On the top and bottom edges `|H| ≤ e^{b²}`, since `(Im z − t₀)² = W² ≥ log(A/B)`; on the left edge `|H| ≤ A·e^{a² − log A} ≤ e^{b²}`; on the right edge `|H| ≤ B·e^{b² − log B} = e^{b²}`. Mathlib's maximum modulus principle on the bounded rectangle (`Complex.norm_le_of_forall_mem_frontier_norm_le`) gives `|H(σ + it₀)| ≤ e^{b²}`, which is the bound.
+- **`ζ′/ζ`.** Take `b = 3/2`, `t₀ = t` and `W = |t|/2`. On the rectangle `|t|/2 ≤ |Im z| ≤ 3|t|/2`, so it does not contain `1`, `ζ ≠ 0` there (`Re z ≥ a > θ`), `ζ′/ζ` is complex-differentiable there (PNT+'s `LogDerivZetaHoloOn`) and at most `C₁ log(3|t|/2) ≤ A`; on the right edge it is at most `B`. Finally `log(A/B) ≤ A ≤ B + (3/2)C₁|t| ≤ (|t|/2)²`.
+- **`ζ`.** Let `σ₁ = min(σ₀, 5/4)` and `a = (θ + σ₁)/2`. Round 337's `HalfPlanePNT.logDeriv_le_of_zeroFree` at `θ < a < 3/2` gives `C₁`, and PNT+'s `LogDerivZetaBdd_of_Re_ge_three_halves` gives `B`. For `σ ≥ 3/2` both bounds are `ζ(3/2)`. For `σ₀ ≤ σ < 3/2` and `u ∈ [σ, 3/2]`, the exponent `(3/2 − u)/(3/2 − a)` is at most `κ = (3/2 − σ₁)/(3/2 − a) < 1`, so `|ζ′/ζ(u + it)| ≤ e^{9/4}A^κB`. The derivative of `u ↦ log|ζ(u + it)|` is `Re ζ′/ζ(u + it)` (`hasDerivAt_log_norm`), and Mathlib's mean value inequality (`Convex.norm_image_sub_le_of_norm_hasDerivWithin_le`) gives `|log|ζ(σ + it)|| ≤ log ζ(3/2) + (3/2)e^{9/4}B·A^κ`. Since `A ≤ B + C₁ log(3|t|/2)` and `y^κ ≤ δy` for large `y` (`rpow_le_mul_self`, from Mathlib's `tendsto_rpow_neg_atTop`), this is at most `M + ε log|t|` for `|t| ≥ T`. Exponentiating gives both bounds.
+- **The instances.** `θ = 11/12` from round 466's `Eis.ne_zero_of_re_gt_eleven_twelfths`; `θ = Θ` from round 469's `PsiExponent.zeta_ne_zero_of_Theta_lt`, `half_le_Theta` and `Theta_le`.
+
+**Against the plan.** Round 469's next step listed:
+
+- "interpolate round 337's `HalfPlanePNT.logDeriv_le_of_zeroFree`, `|ζ′/ζ(σ + it)| ≤ C log|t|` on `σ ≥ θ′`, against PNT+'s bound on `ζ′/ζ` on `Re s ≥ 3/2` (`LogDerivZetaBdd_of_Re_ge_three_halves`), by the maximum modulus principle on rectangles `[θ′, 3/2] × [t − W, t + W]` with a Gaussian factor, away from `s = 1`: `|ζ′/ζ(σ + it)| ≤ C(log|t|)^{1−λ(σ)}` with `λ(σ) > 0`;"
+- "bound `log|ζ(σ + it)| − log|ζ(3/2 + it)|` by the mean value inequality, the derivative of `u ↦ log|ζ(u + it)|` being `Re ζ′/ζ(u + it)`: `log|ζ(s)| = O((log|t|)^{1−λ})`, so `ζ(s)^{±1} = O(|t|^ε)`."
+
+Both landed by the route listed, with `θ′ = a = (θ + min(σ₀, 5/4))/2` and `W = |t|/2`. The weight is the Gaussian factor times `exp(−(3/2 − z)c₁ − (z − a)c₂)`, and `1 − λ(σ)` is `(3/2 − σ)/(3/2 − a)`.
+
+**The paper.** 1as(viii) states: "Θ = ½ ⟺ RH (equivalently Σ μ(n)n^(−s) has abscissa Θ)." The bounds on `1/ζ` to the right of `Re s = Θ` that round 469 named for the parenthetical are now in the stack (`zeta_bound_Theta`). The step from them to the parenthetical, through `M(x) = Σ_{n≤x} μ(n) = O(x^{Θ+ε})`, is not: the stack's theorems on `M(x)` are round 221's `zeta_ne_zero_of_mertens`, which runs from a bound on `M(x)` to a zero-free half-plane, and `mertens_omega`. The paper is not edited.
+
+**Records.**
+
+- `external/pnt/build.sh`: the new file in the compile list, and six of its theorems in the final check (36 to 42 `#print axioms` lines).
+- `external/pnt/README.md`: the file table (one row) and a section for `HalfPlaneLindelof.lean`.
+- Net-state markers on round 469's next step and on its paragraph "The paper".
+- STRUCTURAL-REVIEW §6: the entry "Lindelöf".
+
+**Build.** `external/pnt/build.sh` (901 s) compiled `Architect.lean`, the 19 PNT+ files and the 19 files here. Its final check printed 42 axiom lines, each `[propext, Classical.choice, Quot.sound]`. No file of `src/` changed.
+
+- The 10 theorems are in the namespace `HalfPlaneLindelof`, which is new: a grep of the pilot, of `external/` and of Mathlib finds it only in this file.
+
+**Check 4.** Classical: a zero-free half-plane gives bounds of Lindelöf strength for `ζ` and `1/ζ` to its right [recalled]. New against the pilot: the bounds machine-checked, with no hypothesis on `Re s > 11/12`; the localized three-lines lemma on a rectangle; and the interpolated bound on `ζ′/ζ` (`logDeriv_le_interp`), whose exponent `(3/2 − u)/(3/2 − a)` on `A = max(B, C₁ log(3|t|/2))` is below `1` for `u > a`, where round 337's bound is `C₁ log|t|`.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every `σ₀ > θ` and `ε > 0`; some `T` and `C`; every `σ ≥ σ₀` and `|t| ≥ T`.
+- (b) No barrier claim is made. The Lindelöf entry's Missing Prop, on `Re s = ½`, stands.
+- (c) No signal is fed to a criterion here.
+
+**Bearing on RH:** none. At `Θ = ½` (RH), `zeta_bound_Theta` would give the bound for every `σ₀ > ½`.
+
+**The next step.** None is planned in the half-plane strand. Of the doors listed after round 468, two remain, and they wait for the owner: sums of the Möbius function and of divisor functions (`M(x)`, the squarefree numbers, Piltz's problem), for which this round supplies the bounds on `ζ` and `1/ζ`; and the prime number theorem modulo 3.

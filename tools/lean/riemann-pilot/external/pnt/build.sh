@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -83,6 +83,7 @@ import HalfPlanePNT
 import BohrKV
 import HalfPlaneFinal
 import PsiExponent
+import HalfPlaneLindelof
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -119,6 +120,12 @@ import PsiExponent
 #print axioms PsiExponent.psi_isBigO_Theta
 #print axioms PsiExponent.psi_omega_Theta
 #print axioms PsiExponent.limsup_expo
+#print axioms HalfPlaneLindelof.norm_le_interp
+#print axioms HalfPlaneLindelof.hasDerivAt_log_norm
+#print axioms HalfPlaneLindelof.logDeriv_le_interp
+#print axioms HalfPlaneLindelof.zeta_bound_of_zeroFree
+#print axioms HalfPlaneLindelof.zeta_bound_eleven_twelfths
+#print axioms HalfPlaneLindelof.zeta_bound_Theta
 EOT
 echo "== axioms"
 # every #print axioms line must print an axiom list inside the three, and no axiom line may name another axiom
