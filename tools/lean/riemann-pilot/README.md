@@ -17471,4 +17471,74 @@ Both landed by the route listed, with `θ′ = a = (θ + min(σ₀, 5/4))/2` and
 
 **Bearing on RH:** none. At `Θ = ½` (RH), `zeta_bound_Theta` would give the bound for every `σ₀ > ½`.
 
-**The next step.** None is planned in the half-plane strand. Of the doors listed after round 468, two remain, and they wait for the owner: sums of the Möbius function and of divisor functions (`M(x)`, the squarefree numbers, Piltz's problem), for which this round supplies the bounds on `ζ` and `1/ζ`; and the prime number theorem modulo 3.
+**The next step.** None is planned in the half-plane strand. Of the doors listed after round 468, two remain, and they wait for the owner: sums of the Möbius function and of divisor functions (`M(x)`, the squarefree numbers, Piltz's problem), for which this round supplies the bounds on `ζ` and `1/ζ`; and the prime number theorem modulo 3. *(Round 471: the owner asked to proceed with the four steps proposed after round 470: a horizon scan and an audit of the character, the two near doors, the half-plane for every Dirichlet character, and its downstream consequences. See round 471.)*
+
+## Round 471: horizon scan of 2026-10-14, and an audit of the character in the half-plane chain (no new Lean)
+
+**What it is.** After round 470 the owner asked to "Proceed with all 4" of the steps proposed then:
+
+1. a horizon scan and an audit of where the chain fixes the trivial character (this round);
+2. the two near doors of rounds 469–470;
+3. the half-plane for every Dirichlet character, by twisting;
+4. the downstream consequences: the prime number theorem in progressions, and the class-number deduction.
+
+**The horizon scan.** CLAUDE.md's "Looking in the right places" asks for this scan at the start of each RH-strand round series: `github.com/openai/math`, arXiv math.NT and the Lean community, "for results that fill a socket on the open-targets register or contradict a barrier claim". Each item below was read at its source, a page or file fetched here. None of the mathematics was checked here.
+
+- **The release.** Since `fd4aeeb` (round 286) there are two commits, both of 12 October: `2710f99`, "Lock pull request conversations when opened", and its merge `1581d4c`. The only file changed is `.github/workflows/lock-prs.yml` (20 lines added). `history.md` has one dated section, "October 7, 2026", as in round 286. Family 003 is unchanged.
+- **arXiv:2610.12234**, Baiying Liu: v1 of 8 October, "Slightly improved zero-free half-planes for the quasi-Riemann hypothesis", and v2 of 12 October, "Improved zero-free half-planes for the quasi-Riemann hypothesis". It moves the release's `7/8` to about `0.874957` "via varying $b$, $\ell$, and $\kappa$", and states: "We also prove its optimality within the explicitly specified exponent comparison system." Its abstract says the result is formalized in Lean.
+- **S. Kintali, "A Short Proof of the Quasi-Riemann Hypothesis"**, a PDF dated 7 October 2026 on the author's homepage, not on arXiv. Its abstract, with spacing and ligatures normalized from the PDF's text layer: "We prove that the Riemann zeta function, all Dirichlet L-functions, and all finite-order Hecke L-functions over Q(√−3) are zero-free in Re s > 47/48." It adapts the release's `7/8` framework, and works with one zero supremum over all primitive finite-order Hecke characters of `ℚ(√−3)`: "Poisson summation introduces finite-order twists over F, so we work with one zero supremum for this family." The inputs it names are the companion's cubic theta formulas, a quadratic Hecke large sieve and a Hecke zero-density estimate.
+- **D. Cureton and J. Thorner, "A quasi-Riemann hypothesis for Dedekind zeta functions"** (hexagonmath.org 2610.00200; v1 12 October, v2 14 October). For every number field `K`, `ζ_K(s)` has no zero in `Re s > 31/32`. The same holds for every finite-order Hecke L-function over `K`, "wherever it is holomorphic". "These results were proved and formalized in Lean using AxiomProver." It names as the hardest part "the formalization of the work of Kazhdan and Patterson on metaplectic forms in order to accommodate all number fields." The page read gives no link to the formalization.
+- **arXiv:2610.18491**, C. Frei, E. Sofos and M. Widmer, "Some applications of the quasi-Riemann hypothesis to class groups and small generators of number fields" (13 October). It proves an effective Chebotarev theorem conditional on the quasi-Riemann hypothesis for Dedekind zeta functions, and: "Drawing on recent breakthroughs of OpenAI and Cureton--Thorner, we make unconditional the Ellenberg--Venkatesh bounds on $\ell$-torsion in class groups of number fields". This bears on step 4.
+- **The Lean community.** Nothing found. The search found no Zulip thread, and round 286 records that the Zulip archive needs a login.
+
+**Outcome of the scan.** Kintali (`47/48`) and Cureton–Thorner (`31/32`) claim, for every Dirichlet L-function, the register's target "Half-planes for Dirichlet L-functions by twisting the family", as the release does at `7/8` (round 277). None of them is derived here. Markers are on that register entry. Liu's optimality statement is that paper's claim, scoped to its own "exponent comparison system". It is not adopted here as a barrier.
+
+**The audit.**
+
+- **The companion handles a general character.** Its proof is written for a fixed finite-order Hecke character `ν` (paper2.tex, lines 665–667): "Fix a finite-order Hecke character $\nu$ of $K$ and a finite set $S$ of prime ideals that contains all prime ideals above $2$ or $3$, as well as all prime ideals dividing the conductor of $\nu$." Its family is `A_u(D) = Σ_{(n,S)=1} μ(n)ν(n)χ_n(u)W(N(n)/D)`.
+- **How `ν` is absorbed.** Under Poisson summation, `ν` is absorbed into ray class characters `ξ` of a fixed modulus. At lines 810–811: "The character $\xi$ accounts for the original twist $\nu$ and for the residue-class factors in the identities below." At lines 815–817: "Choose a fixed modulus, supported on $S$, divisible by the conductor of $\nu$ and sufficiently large that all reciprocity factors below depend only on the corresponding ray classes." The 43 lines of `paper2.tex` that contain `\nu` all lie in lines 195–1599. The proof of the completed mean square begins at line 1632, and the arithmetic and theta appendix at line 2687.
+- **Where the pilot fixes `ν = 1`.** In three places:
+
+  - `S` is the set of primes above 2 and 3, as in the family's weight, nonzero only for `(absNorm I).Coprime 6` (`Eis.wsym`);
+  - the fixed ray class group is `(𝒪/4)^×`, as in `ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ` in `Eis.CompletedMeanSquare` and `Eis.ThetaRows`;
+  - the reduction S0 (round 278's `HalfPlaneS0.ne_zero_of_smoothBound`) is for `r = 1 ⋆ χ₋₃`.
+
+  For a general `ν`, the companion's route enlarges `S` and the fixed modulus by the conductor of `ν`. On this stack the chain's displays would then be restated for a general modulus, the theta step included.
+- **A shorter route for the real characters.**
+
+  - The family's twists are among its own members. Round 288's `Eis.MeanSquare σ`, proved for every `σ > 0` in round 466 (`Eis.meanSquare`), bounds the sum over every finite set of nonzero `z ∈ 𝒪_K`. Its docstring: "For every weight `W` and `ε > 0`, the sum of `|A_Z(z)|²` over any finite set of nonzero `z` with `N(z) ≤ Z^{1+σ}` is `O(Z^{2+σ+ε})`."
+  - Round 281's `chi6` is defined by "`χ_P(x) = σ(u)`, where `u` is the unit of `ℤ[ω]` with `u ≡ x^{(N(P)−1)/6} (mod P)`". At `x = d³`, for `d ∈ ℤ` prime to `P`, the unit is `±1 ≡ d^{(N(P)−1)/2}`, the quadratic character of `d` in `𝒪/P`. At a prime `P` over a split `p` this is the Legendre symbol `(d/p)`. At an inert `p` it is `1`, since `d` lies in the prime field `𝔽_p` and every element of `𝔽_p` is a square in `𝔽_{p²}`. So `(d³/𝔞)₆` should be the Jacobi symbol `(d/N𝔞)` for every `𝔞` of norm prime to `6`.
+  - Then `A_{d³b⁶}` is the family's member twisted by `χ_d∘N`. Round 288's averaging over `b`, with `u₀ = d³` in front, should bound `Σ μ(𝔞)(d/N𝔞)W(N𝔞/D)` by `D^{11/12+ε}`, with no change to the theta chain. With S0 for the coefficients `(d/n)·r(n)`, this gives `L(s, χ)L(s, χχ₋₃) ≠ 0` on `Re s > 11/12` for `χ = (d/·)`.
+  - Every real primitive Dirichlet character is of that form [recalled: the real primitive characters are the Kronecker symbols of the fundamental discriminants; to be proved here].
+  - The route is planned for the real characters only. The family's twists have order dividing `6`, and the other characters are not examined here. The symbol identity, the twisted S0, the twisted extraction and the classification are the next steps; none is proved in this round.
+
+**The plan**, in the order the owner approved.
+
+- **The near doors.**
+
+  - The Möbius clause of 1as(viii): `M(x) = O(x^{Θ+ε})`, the abscissa of `Σ μ(n)n^{−s}`, and RH ⟺ `Θ = ½`.
+  - The divisor problems: `Δ_k(x) = O(x^{Θ+ε})` for every `k`.
+- **The real characters:**
+
+  1. the symbol identity `(d³/𝔞)₆ = (d/N𝔞)`;
+  2. S0 for the twisted coefficients;
+  3. the twisted extraction;
+  4. `L(s, χ)L(s, χχ₋₃) ≠ 0` on `Re s > 11/12` for `χ = (d/·)`, every `d ≠ 0`;
+  5. the classification of real characters. With it, every real Dirichlet L-function has no zero in `Re s > 11/12`, and the release's `SiegelZeros` statement follows with `c = (log 3)/12`.
+- **Downstream.**
+
+  - Bounds for `L(s, χ)` and `log L(s, χ)` uniform in the conductor, and Littlewood's argument for `L(1, χ)` at real `χ`.
+  - The prime number theorem in progressions modulo the `q` whose characters are all real.
+  - For general moduli this plan has only the general-`ν` route, which goes on the register.
+
+**Records.** Net-state markers on round 470's next step and on STRUCTURAL-REVIEW §6's entry "Half-planes for Dirichlet L-functions by twisting the family". A new register entry, "The half-plane for the non-real Dirichlet characters".
+
+**Check 4.** Nothing new in Lean. New against the pilot: the route for the real characters through the family's own members.
+
+**Check 9.**
+
+- (a) The scan's negatives are scoped to the sources it read.
+- (b) No barrier claim is made or adopted. The general-`ν` route goes on the register with an attack note.
+- (c) No signal is fed to a criterion here.
+
+**Bearing on RH:** none.
