@@ -23,6 +23,9 @@ left of which `L(f, ·)` continues holomorphically with at most linear growth
 * `mellin_le_geom`: on `Re s = σ ∈ (0, 1]`, `|𝓜(Smooth1)(s)| ≤ K ε^{−κ} (1 + |t|)^{−1−κ}` for `κ ∈ [0, 1]`,
   from the geometric mean `B^{1−κ}C^κ ε^{−κ} |s|^{−1−κ}` of round 338's `B/|s|` (`MediumPNTW.MellinOfSmooth1d`)
   and PNT+'s `C/(ε|s|²)` (`MellinOfSmooth1b`).
+* `verticalIntegral_integrand_shift` (round 473): the move of the line in
+  `smoothedSum_eq_verticalIntegral_left` for any `L` holomorphic on `Re s ≥ σ'` with at most linear growth and
+  bounded on `Re s = 2`, not only a Dirichlet series.
 -/
 import HalfPlaneLindelof
 
@@ -489,29 +492,19 @@ lemma continuous_integrand_line {L : ℂ → ℂ} {σ : ℝ} (hσ : 0 < σ)
   (hL.mul (continuous_mellin_line diffν νnonneg suppν mass_one εpos ε_lt_one hσ)).mul
     (Continuous.const_cpow (by fun_prop) (Or.inl (ofReal_ne_zero.2 Xpos.ne')))
 
-/-- **The smoothed sum as an integral on a line left of `1`.** Let `L(f, s) = L(s)` on `Re s > 1`, with
-`L(f, 2)` absolutely convergent and `L` holomorphic on `Re s ≥ σ'` (`0 < σ' ≤ 2`) of at most linear growth
-`|L(σ + it)| ≤ C|t|` on `σ' ≤ σ ≤ 2`, `|t| ≥ T`. Then for `0 < ε < 1`, `X ≥ 1`, and the integrand integrable
-on `Re s = σ'`: `Σ_n f(n) Smooth1(n/X) = (1/2πi) ∫_{(σ')} L(s) 𝓜(Smooth1)(s) X^s ds`. -/
-theorem smoothedSum_eq_verticalIntegral_left {f : ℕ → ℂ} (hf0 : f 0 = 0)
-    (hf : LSeriesSummable f ((2 : ℝ) : ℂ)) {L : ℂ → ℂ} (hL : ∀ s : ℂ, 1 < s.re → LSeries f s = L s)
-    {σ' : ℝ} (hσ'0 : 0 < σ') (hσ'2 : σ' ≤ 2) (hLd : ∀ s : ℂ, σ' ≤ s.re → DifferentiableAt ℂ L s)
+/-- **Moving the Perron integral from `Re s = 2` to `Re s = σ′`.** Let `L` be holomorphic on `Re s ≥ σ′`
+(`0 < σ′ ≤ 2`), bounded by `B` on `Re s = 2`, of at most linear growth `|L(σ + it)| ≤ C|t|` on `σ′ ≤ σ ≤ 2`,
+`|t| ≥ T`. Then for `0 < ε < 1`, `X ≥ 1`, and the integrand integrable on `Re s = σ′`:
+`∫_{(2)} L(s)𝓜(Smooth1)(s)X^s ds = ∫_{(σ′)} L(s)𝓜(Smooth1)(s)X^s ds`. -/
+theorem verticalIntegral_integrand_shift {L : ℂ → ℂ} {σ' : ℝ} (hσ'0 : 0 < σ') (hσ'2 : σ' ≤ 2)
+    (hLd : ∀ s : ℂ, σ' ≤ s.re → DifferentiableAt ℂ L s) {B : ℝ}
+    (hB : ∀ t : ℝ, ‖L ((2 : ℝ) + t * I)‖ ≤ B)
     {T C : ℝ} (hgrowth : ∀ σ t : ℝ, σ' ≤ σ → σ ≤ 2 → T ≤ |t| → ‖L (σ + t * I)‖ ≤ C * |t|)
     (diffν : ContDiff ℝ 1 ν) (νnonneg : ∀ x > 0, 0 ≤ ν x) (suppν : ν.support ⊆ Icc (1 / 2) 2)
     (mass_one : ∫ x in Ioi 0, ν x / x = 1) {ε : ℝ} (εpos : 0 < ε) (ε_lt_one : ε < 1)
     {X : ℝ} (hX : 1 ≤ X) (hint' : Integrable fun t : ℝ ↦ integrand ν ε X L (σ' + t * I)) :
-    smoothedSum ν ε X f = VerticalIntegral' (integrand ν ε X L) σ' := by
+    VerticalIntegral' (integrand ν ε X L) 2 = VerticalIntegral' (integrand ν ε X L) σ' := by
   have Xpos : 0 < X := by linarith
-  rw [← verticalIntegral_eq_smoothedSum hf0 diffν νnonneg suppν mass_one εpos ε_lt_one Xpos
-    (by norm_num : (1 : ℝ) < 2) le_rfl hf]
-  have hline : VerticalIntegral' (integrand ν ε X (LSeries f)) 2 =
-      VerticalIntegral' (integrand ν ε X L) 2 := by
-    simp only [VerticalIntegral', VerticalIntegral]
-    congr 3
-    funext t
-    simp only [integrand]
-    rw [hL _ (by simp)]
-  rw [hline]
   simp only [VerticalIntegral']
   congr 1
   have hcont2 : Continuous fun t : ℝ ↦ L ((2 : ℝ) + t * I) := by
@@ -537,16 +530,16 @@ theorem smoothedSum_eq_verticalIntegral_left {f : ℕ → ℂ} (hf0 : f 0 = 0)
     have hM2 : Integrable fun t : ℝ ↦ 𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) ((2 : ℝ) + t * I) :=
       SmoothedChebyshevDirichlet_aux_integrable diffν νnonneg suppν mass_one εpos ε_lt_one
         (by norm_num) le_rfl
-    refine Integrable.mono' (hM2.norm.const_mul ((∑' n, ‖LSeries.term f (2 : ℝ) n‖) * X ^ (2 : ℝ)))
+    refine Integrable.mono' (hM2.norm.const_mul (B * X ^ (2 : ℝ)))
       (continuous_integrand_line (by norm_num) hcont2 diffν νnonneg suppν mass_one εpos ε_lt_one
         Xpos).aestronglyMeasurable (Eventually.of_forall fun t ↦ ?_)
     rw [norm_integrand Xpos]
     have hre : ((2 : ℝ) + t * I : ℂ).re = 2 := by simp
-    rw [hre, ← hL _ (by rw [hre]; norm_num)]
-    have := norm_LSeries_le hf t
-    calc ‖LSeries f ((2 : ℝ) + t * I)‖ * ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) ((2 : ℝ) + t * I)‖ * X ^ (2 : ℝ)
-        ≤ (∑' n, ‖LSeries.term f (2 : ℝ) n‖) * ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) ((2 : ℝ) + t * I)‖ *
-          X ^ (2 : ℝ) := by gcongr
+    rw [hre]
+    calc ‖L ((2 : ℝ) + t * I)‖ * ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) ((2 : ℝ) + t * I)‖ * X ^ (2 : ℝ)
+        ≤ B * ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) ((2 : ℝ) + t * I)‖ * X ^ (2 : ℝ) := by
+          gcongr
+          exact hB t
       _ = _ := by ring
   · -- decay on horizontal segments
     intro η hη
@@ -579,10 +572,41 @@ theorem smoothedSum_eq_verticalIntegral_left {f : ℕ → ℂ} (hf0 : f 0 = 0)
         rw [div_le_iff₀ hη] at hyA
         linarith
 
+
+/-- **The smoothed sum as an integral on a line left of `1`.** Let `L(f, s) = L(s)` on `Re s > 1`, with
+`L(f, 2)` absolutely convergent and `L` holomorphic on `Re s ≥ σ'` (`0 < σ' ≤ 2`) of at most linear growth
+`|L(σ + it)| ≤ C|t|` on `σ' ≤ σ ≤ 2`, `|t| ≥ T`. Then for `0 < ε < 1`, `X ≥ 1`, and the integrand integrable
+on `Re s = σ'`: `Σ_n f(n) Smooth1(n/X) = (1/2πi) ∫_{(σ')} L(s) 𝓜(Smooth1)(s) X^s ds`. -/
+theorem smoothedSum_eq_verticalIntegral_left {f : ℕ → ℂ} (hf0 : f 0 = 0)
+    (hf : LSeriesSummable f ((2 : ℝ) : ℂ)) {L : ℂ → ℂ} (hL : ∀ s : ℂ, 1 < s.re → LSeries f s = L s)
+    {σ' : ℝ} (hσ'0 : 0 < σ') (hσ'2 : σ' ≤ 2) (hLd : ∀ s : ℂ, σ' ≤ s.re → DifferentiableAt ℂ L s)
+    {T C : ℝ} (hgrowth : ∀ σ t : ℝ, σ' ≤ σ → σ ≤ 2 → T ≤ |t| → ‖L (σ + t * I)‖ ≤ C * |t|)
+    (diffν : ContDiff ℝ 1 ν) (νnonneg : ∀ x > 0, 0 ≤ ν x) (suppν : ν.support ⊆ Icc (1 / 2) 2)
+    (mass_one : ∫ x in Ioi 0, ν x / x = 1) {ε : ℝ} (εpos : 0 < ε) (ε_lt_one : ε < 1)
+    {X : ℝ} (hX : 1 ≤ X) (hint' : Integrable fun t : ℝ ↦ integrand ν ε X L (σ' + t * I)) :
+    smoothedSum ν ε X f = VerticalIntegral' (integrand ν ε X L) σ' := by
+  have Xpos : 0 < X := by linarith
+  rw [← verticalIntegral_eq_smoothedSum hf0 diffν νnonneg suppν mass_one εpos ε_lt_one Xpos
+    (by norm_num : (1 : ℝ) < 2) le_rfl hf]
+  have hline : VerticalIntegral' (integrand ν ε X (LSeries f)) 2 =
+      VerticalIntegral' (integrand ν ε X L) 2 := by
+    simp only [VerticalIntegral', VerticalIntegral]
+    congr 3
+    funext t
+    simp only [integrand]
+    rw [hL _ (by simp)]
+  rw [hline]
+  refine verticalIntegral_integrand_shift hσ'0 hσ'2 hLd (B := ∑' n, ‖LSeries.term f (2 : ℝ) n‖)
+    (fun t ↦ ?_) hgrowth diffν νnonneg suppν mass_one εpos ε_lt_one hX hint'
+  have hre : ((2 : ℝ) + t * I : ℂ).re = 2 := by simp
+  rw [← hL _ (by rw [hre]; norm_num)]
+  exact norm_LSeries_le hf t
+
 end SmoothPerron
 
 #print axioms SmoothPerron.verticalIntegral_eq_smoothedSum
 #print axioms SmoothPerron.verticalIntegral_shift
 #print axioms SmoothPerron.mellin_le_geom
 #print axioms SmoothPerron.norm_smoothedSum_sub_le
+#print axioms SmoothPerron.verticalIntegral_integrand_shift
 #print axioms SmoothPerron.smoothedSum_eq_verticalIntegral_left

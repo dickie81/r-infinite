@@ -17471,7 +17471,7 @@ Both landed by the route listed, with `θ′ = a = (θ + min(σ₀, 5/4))/2` and
 
 **Bearing on RH:** none. At `Θ = ½` (RH), `zeta_bound_Theta` would give the bound for every `σ₀ > ½`.
 
-**The next step.** None is planned in the half-plane strand. Of the doors listed after round 468, two remain, and they wait for the owner: sums of the Möbius function and of divisor functions (`M(x)`, the squarefree numbers, Piltz's problem), for which this round supplies the bounds on `ζ` and `1/ζ`; and the prime number theorem modulo 3. *(Round 472: `M(x) = O(x^{θ+η})` from a zero-free half-plane landed, `MertensExponent.mertens_isBigO_of_zeroFree`.)* *(Round 471: the owner asked to proceed with the four steps proposed after round 470: a horizon scan and an audit of the character, the two near doors, the half-plane for every Dirichlet character, and its downstream consequences. See round 471.)*
+**The next step.** None is planned in the half-plane strand. Of the doors listed after round 468, two remain, and they wait for the owner: sums of the Möbius function and of divisor functions (`M(x)`, the squarefree numbers, Piltz's problem), for which this round supplies the bounds on `ζ` and `1/ζ`; and the prime number theorem modulo 3. *(Round 472: `M(x) = O(x^{θ+η})` from a zero-free half-plane landed, `MertensExponent.mertens_isBigO_of_zeroFree`.)* *(Round 473: Piltz's problem landed, `Σ_{n≤x} d_k(n) = xP_k(log x) + O(x^{θ+η})` from a zero-free half-plane, `DivisorExponent.divisor_isBigO_of_zeroFree`.)* *(Round 471: the owner asked to proceed with the four steps proposed after round 470: a horizon scan and an audit of the character, the two near doors, the half-plane for every Dirichlet character, and its downstream consequences. See round 471.)*
 
 ## Round 471: horizon scan of 2026-10-14, and an audit of the character in the half-plane chain (no new Lean)
 
@@ -17517,7 +17517,7 @@ Both landed by the route listed, with `θ′ = a = (θ + min(σ₀, 5/4))/2` and
 - **The near doors.**
 
   - The Möbius clause of 1as(viii): `M(x) = O(x^{Θ+ε})`, the abscissa of `Σ μ(n)n^{−s}`, and RH ⟺ `Θ = ½`. *(Round 472: landed. See round 472.)*
-  - The divisor problems: `Δ_k(x) = O(x^{Θ+ε})` for every `k`.
+  - The divisor problems: `Δ_k(x) = O(x^{Θ+ε})` for every `k`. *(Round 473: landed. See round 473.)*
 - **The real characters:**
 
   1. the symbol identity `(d³/𝔞)₆ = (d/N𝔞)`;
@@ -17602,9 +17602,78 @@ The smoothed Perron formula behind the first is a module of its own, `SmoothPerr
 
 **Bearing on RH:** none. `rh_iff_Theta_eq_half` and `rh_iff_mertens` are equivalences.
 
-**The next step.** Round 473, the second near door: the divisor problems, `Σ_{n≤x} d_k(n) = xP_k(log x) + O(x^{θ+η})` with `P_k` a polynomial, from a zero-free half-plane `Re s > θ`; with no hypothesis at `11/12` and at `Θ`. The plan:
+**The next step.** Round 473, the second near door: the divisor problems, `Σ_{n≤x} d_k(n) = xP_k(log x) + O(x^{θ+η})` with `P_k` a polynomial, from a zero-free half-plane `Re s > θ`; with no hypothesis at `11/12` and at `Θ`. *(Round 473: landed, with step 2 done by a Laplace transform in `u = log x`. See round 473.)* The plan:
 
 1. write `ζ(s)^k = Σ_{m=1}^{k} a_m(s − 1)^{−m} + g(s)` with `g` entire, from the iterated `dslope` of `Z(s)^k` at `1`;
 2. integrate each `(s − 1)^{−m}` against `𝓜(Smooth1)(s)X^s` exactly, by Mellin inversion of `(log x)^{m−1}`;
 3. move the line for `g` to `Re s = θ′` with round 470's bounds on `ζ` (`smoothedSum_eq_verticalIntegral_left`'s shift);
 4. unsmooth by comparing two smoothed sums, since `d_k ≥ 0`.
+
+## Round 473: the divisor problems in a zero-free half-plane, `Σ_{n≤x} d_k(n) = xP_k(log x) + O(x^{θ+η})` (`external/pnt/DivisorExponent.lean`)
+
+**What it is.** The second near door of round 471's plan, which the owner approved after round 470 ("Proceed with all 4"): "The divisor problems: `Δ_k(x) = O(x^{Θ+ε})` for every `k`." This round proves, with `d_k = 1 ⋆ ⋯ ⋆ 1` (`k` factors; `DivisorExponent.dk k`, the `k`-th Dirichlet power of `ArithmeticFunction.zeta`) and `Θ` round 469's supremum of the real parts of the nontrivial zeros:
+
+- from a zero-free half-plane `Re s > θ` with `0 ≤ θ < 1`: for every `k ≥ 1` and `η > 0`, `Σ_{1≤n≤x} d_k(n) = xP_k(log x) + O(x^{θ+η})` (`divisor_isBigO_of_zeroFree`); with no hypothesis at `θ = 11/12` (`divisor_isBigO_eleven_twelfths`) and at `θ = Θ` (`divisor_isBigO_Theta`);
+- `P_k` (`Pk k`) is an explicit real polynomial of degree `k − 1` with leading coefficient `1/(k − 1)!` (`natDegree_Pk_eq`, `coeff_Pk`).
+
+So `Δ_k(x) = Σ_{n≤x} d_k(n) − xP_k(log x)` is `O(x^{Θ+η})` for every `k ≥ 1` and `η > 0`. Round 472's `smoothedSum_eq_verticalIntegral_left` is stated for a function equal on `Re s > 1` to the L-series of a sequence; its shift of the line is now a theorem of its own, `SmoothPerron.verticalIntegral_integrand_shift`, with no L-series in its hypotheses.
+
+**What is proved.**
+
+- `external/pnt/DivisorExponent.lean` (1284 lines, 39 theorems and lemmas, 9 definitions; 12 axiom lines in `build.sh`'s final check, each `[propext, Classical.choice, Quot.sound]`):
+
+  - **`zeta_pow_eq`**: for `s ≠ 1`, `ζ(s)^k = Σ_{j<k} c_j(s − 1)^{−(k−j)} + g_k(s)`, where `c_j` (`ck k j`) is the value at `1` of the `j`-th iterated slope (`dslope`) at `1` of `Z(s)^k`, and `g_k` (`gk k`), the `k`-th iterated slope, is entire (`differentiable_gk`). `Z(s) = (s − 1)ζ(s)` is round 220's entire `PsiOmega.Zr`.
+  - **`integral_pow_mul_cexp`**: `∫_0^∞ u^m e^{−cu} du = m!/c^{m+1}` for complex `c` with `Re c > 0`; with it **`inv_sub_one_pow_eq_integral`**: `(s − 1)^{−m} = ∫_0^∞ (u^{m−1}/(m − 1)!) e^{−(s−1)u} du` for `m ≥ 1` and `Re s > 1`.
+  - **`LSeries_dk`**: `L(d_k, s) = ζ(s)^k` on `Re s > 1`, with absolute convergence.
+  - **`verticalIntegral_inv_sub_one_pow`**: for `m ≥ 1`, `0 < ε < 1` and `X > 0`, `(1/2πi) ∫_{(2)} (s − 1)^{−m}𝓜(Smooth1)(s)X^s ds = ∫_0^∞ (u^{m−1}/(m − 1)!) e^u Smooth1(e^u/X) du`.
+  - **`smoothedSum_dk_eq`**: `Σ_n d_k(n)Smooth1(n/Y) = Σ_{j<k} c_j J_{k−j}(Y) + G(Y)` for `Y > 0`, with `J_m(Y)` the right side above at `X = Y` and `G(Y) = (1/2πi) ∫_{(2)} g_k(s)𝓜(Smooth1)(s)Y^s ds`.
+  - **`norm_remainder_le`**: if `ζ ≠ 0` on `Re s > θ`, `0 ≤ θ < θ′ < 1` and `0 < κ ≤ 1`, there is `K ≥ 0` with `|G(Y)| ≤ Kε^{−κ}Y^{θ′}` for every `0 < ε < 1` and `Y ≥ 1`.
+  - **`abs_Jm_sub_Lm_le`** and **`Lm_eq`**: for `m ≥ 1` and `0 < ε < 1`, if `1 ≤ Y(1 − log 2 · ε) ≤ X ≤ Y(1 + 2 log 2 · ε) ≤ 3X`, then `|J_m(Y) − L_m(X)| ≤ 2 log((1 + 2 log 2 · ε)/(1 − log 2 · ε)) · 3X(log 3X)^{m−1}`, where `L_m(X) = ∫_0^{log X} e^u u^{m−1}/(m − 1)! du = Xp_m(log X) − p_m(0)` with `p_0 = 0` and `p_{m+1}(v) = v^m/m! − p_m(v)` (`pm`).
+  - **`tsum_smooth_le`**, **`le_tsum_smooth`**: for `f ≥ 0` with `f(0) = 0`, `0 < ε < 1` and `X > 0`, `Σ_n f(n)Smooth1(n/Y) ≤ Σ_{1≤n≤X} f(n)` at `Y = X/(1 + 2 log 2 · ε)`, and `≥` at `Y = X/(1 − log 2 · ε)`.
+  - **`divisor_bound_at`**: the bound at one `X`, with the constant explicit in `K`: if `X ≥ 4`, `X^{θ′−1} ≤ 1/2` and `(log 3X)^{k−1} ≤ 2^{k−1}X^κ`, then `|Σ_{n≤X} d_k(n) − XP_k(log X)| ≤ (30 · 2^{k−1}Σ_{j<k} |Re c_j| + 3K + |P_k(0)|)X^{θ′+κ}`.
+  - The theorems listed above.
+- `external/pnt/SmoothPerron.lean` (612 lines, 17 theorems and lemmas; 6 axiom lines in the final check): the new **`verticalIntegral_integrand_shift`**. If `L` is complex-differentiable on `Re s ≥ σ′` (`0 < σ′ ≤ 2`), bounded on `Re s = 2`, with `|L(σ + it)| ≤ C|t|` for `σ′ ≤ σ ≤ 2` and `|t| ≥ T`, and the integrand is integrable on `Re s = σ′`, then `∫_{(2)} L(s)𝓜(Smooth1)(s)X^s ds = ∫_{(σ′)} L(s)𝓜(Smooth1)(s)X^s ds` for `0 < ε < 1` and `X ≥ 1`. Round 472's `smoothedSum_eq_verticalIntegral_left` is now proved through it; its statement is unchanged.
+
+**The proof.**
+
+- **The principal part.** `Z^k` is entire with `Z(1) = 1`. Taylor's formula by iterated slopes, `f(s) = Σ_{j<k} c_j(s − 1)^j + (s − 1)^k g_k(s)` (`eq_sum_add_iterate_dslope`, from Mathlib's `sub_smul_dslope`), divided by `(s − 1)^k`, gives `zeta_pow_eq`. Then `|g_k(s)| ≤ |ζ(s)|^k + Σ_j |c_j|` where `|s − 1| ≥ 1` (`norm_gk_le`).
+- **The Laplace transform.** `integral_pow_mul_cexp` is by induction on `m`: Mathlib's `integral_exp_mul_complex_Ioi` at `m = 0`, and integration by parts on `(0, ∞)` (Mathlib's `integral_Ioi_mul_deriv_eq_deriv_mul`) for the step.
+- **The principal parts against the smoothing.** On `Re s = 2` the integrand of `verticalIntegral_inv_sub_one_pow` is the integral over `u > 0` of `(u^{m−1}/(m − 1)!)e^{−(s−1)u}𝓜(Smooth1)(s)X^s`, whose norm is `|𝓜(Smooth1)(2 + it)|X²u^{m−1}e^{−u}/(m − 1)!`, integrable on `ℝ × (0, ∞)`. Fubini (Mathlib's `integral_integral_swap`) exchanges the two integrals. Since `X^s e^{−(s−1)u} = e^u(e^u/X)^{−s}` (`cpow_mul_cexp_eq`), the integral over `t` at fixed `u` is Mathlib's Mellin inversion (`mellinInv_mellin_eq`) of `Smooth1` at `e^u/X`.
+- **The smoothed sum.** Round 472's `verticalIntegral_eq_smoothedSum` on `Re s = 2`, with `L(d_k, s) = ζ(s)^k` (`LSeries_dk`: Mathlib's `LSeries_convolution'`, by induction on `k`), then `zeta_pow_eq` on the line, term by term.
+- **The remainder.** Round 470's `zeta_bound_of_zeroFree` at `σ₀ = θ′` and `ε₁ = κ/(2k)` gives `|g_k(σ + it)| ≤ C^k|t|^{κ/2} + Σ_j |c_j|` for `σ ≥ θ′`, `|t| ≥ T`: at most linear growth on the horizontal segments, and with compactness for small `|t|`, `|g_k(θ′ + it)| ≤ K_g(1 + |t|)^{κ/2}`. On `Re s = 2`, `|g_k| ≤ |ζ(3/2)|^k + Σ_j |c_j|` (round 470's `norm_zeta_le_three_halves`). `verticalIntegral_integrand_shift` moves the line from `2` to `θ′`, where round 472's `mellin_le_geom` bounds the integrand by `K_gK_Mε^{−κ}Y^{θ′}(1 + |t|)^{−1−κ/2}`, integrable (Mathlib's `integrable_one_add_norm`).
+- **The main term.** `(e^v p_{m+1}(v))′ = e^v v^m/m!` (`hasDerivAt_exp_mul_pm`), so `L_m(X) = Xp_m(log X) − p_m(0)`. `J_m(Y)` and `L_m(X)` integrate the same increasing `f(u) = u^{m−1}e^u/(m − 1)!` against `Smooth1(e^u/Y)` and against the indicator of `[0, log X]`. The two weights agree outside `[a, b] = [log(Y(1 − log 2 · ε)), log(Y(1 + 2 log 2 · ε))]`, which contains `log X`, so the integrals differ by at most `2(b − a)f(b)` (`abs_integral_mul_sub_le`), with `b − a ≤ 5ε` for `ε ≤ 1/2` (`log_window_le`). Summed over `j`, `Σ_{j<k} Re(c_j)L_{k−j}(X) = XP_k(log X) − P_k(0)` with `P_k = Σ_{j<k} Re(c_j)p_{k−j}` (`sum_Lm_eq`).
+- **The degree.** `p_{m+1}` has degree at most `m` and coefficient `1/m!` at `v^m` (`natDegree_pm_succ`, `coeff_pm_succ`), and `c_0 = Z(1)^k = 1` (`ck_zero`), so the coefficient of `v^{k−1}` in `P_k` is `1/(k − 1)!`.
+- **Unsmoothing.** `d_k ≥ 0`, `0 ≤ Smooth1 ≤ 1`, and `Smooth1(x)` is `1` for `x ≤ 1 − (log 2)ε` and `0` for `x ≥ 1 + (2 log 2)ε`. So `Σ_{n≤X} d_k(n)` lies between the smoothed sums at `Y⁻ = X/(1 + 2 log 2 · ε)` and `Y⁺ = X/(1 − log 2 · ε)`, and each of these differs from `XP_k(log X) − P_k(0)` by at most `30εX(log 3X)^{k−1}Σ_j |Re c_j| + |G(Y)|` (`abs_tsum_sub_main_le`). With `ε = X^{θ′−1}`: `εX = X^{θ′}`, `ε^{−κ}Y^{θ′} ≤ 3X^{θ′+κ}` for `Y ≤ 3X`, and `(log 3X)^{k−1} ≤ 2^{k−1}X^κ` for large `X` (Mathlib's `isLittleO_log_rpow_rpow_atTop`). As in round 472, `η₀ = min(η, (1 − θ)/2)`, `θ′ = θ + η₀/4` and `κ = η₀/4`, so `θ′ + κ ≤ θ + η`.
+
+**Against the plan.** Round 472's four steps all landed.
+
+1. As planned: iterated `dslope` of `Z(s)^k` at `1`.
+2. Not by Mellin inversion of `(log x)^{m−1}`. `(s − 1)^{−m}` is written as a Laplace transform in `u = log x`, and the inversion used is Mathlib's, of `Smooth1`, at `e^u/X`.
+3. `smoothedSum_eq_verticalIntegral_left` asks for `L(f, s) = L(s)` on `Re s > 1` for a sequence `f`, and `g_k` is not given here as such an L-series. Its shift was split out as `verticalIntegral_integrand_shift` and applied to `g_k`.
+4. As planned: two smoothed sums, since `d_k ≥ 0`.
+
+Not in the plan: the degree and the leading coefficient of `P_k`. Not done: `xP_k(log x)` is not identified in Lean with the classical main term `Res_{s=1} ζ(s)^k x^s/s` [recalled]; there is no `Ω`-result for `Δ_k`, so no lower bound on its exponent.
+
+**The paper.** Neither paper surface mentions the divisor problems: a case-insensitive search for `divisor` and `piltz` in `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` finds no line. The paper is not edited.
+
+**Records.**
+
+- `external/pnt/build.sh`: `DivisorExponent` in the compile list, and 13 lines added to the final check (57 to 70 `#print axioms` lines): `SmoothPerron.verticalIntegral_integrand_shift` and 12 of `DivisorExponent`'s theorems.
+- `external/pnt/README.md`: a row and a section for `DivisorExponent.lean`; `SmoothPerron.lean`'s row and section record round 473.
+- Net-state markers on round 470's paragraph "The next step", on round 471's plan and on round 472's paragraph "The next step".
+
+**Build.** `external/pnt/build.sh` (883 s) compiled `Architect.lean`, the 19 PNT+ files and the 22 files here. Its final check printed 70 axiom lines, each `[propext, Classical.choice, Quot.sound]`. No file of `src/` changed.
+
+- The namespace `DivisorExponent` is new: a grep of the Lean files of the pilot (`external/` included) and of Mathlib finds it only in this file.
+
+**Check 4.** Classical [recalled]: a zero-free half-plane `Re s > θ` gives `ζ(σ + it) = O(|t|^ε)` for `σ > θ`, and with it `Δ_k(x) = O(x^{θ+ε})` for every `k`; the main term is `Res_{s=1} ζ(s)^k x^s/s`, which is `x` times a polynomial in `log x` of degree `k − 1` with leading coefficient `1/(k − 1)!`. For `k = 2`, Voronoi's classical exponent `1/3` [recalled] is smaller than `11/12`. The classical unconditional exponent recalled here for general `k`, Landau's `(k − 1)/(k + 1)` [recalled], tends to `1` as `k` grows; `11/12` is uniform in `k`. The half-planes claimed outside the stack, the release's `Re s > 7/8` (round 277) and Liu's `0.874957` (round 471), would give smaller exponents through `divisor_isBigO_of_zeroFree`; neither is derived here. New against the pilot: these machine-checked, with no hypothesis at `11/12` and at `Θ`; the Perron integral of `(s − 1)^{−m}` against `Smooth1` as an integral over `u = log x`; and the shift of the line for a function not given as an L-series.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every `k ≥ 1`, every `η > 0`, and every `θ` with `0 ≤ θ < 1` and `ζ ≠ 0` on `Re s > θ`. The classical comparisons in Check 4 are recalled, not checked here.
+- (b) No barrier claim is made.
+- (c) No signal is fed to a criterion: the theorem goes from a zero-free half-plane to a bound.
+
+**Bearing on RH:** none. The theorem consumes a zero-free half-plane and returns a bound.
+
+**The next step.** Round 474 begins the arc for the real characters, step 1 of round 471's plan for them: the symbol identity `(d³/𝔞)₆ = (d/N𝔞)` for `d ∈ ℤ` and the ideals `𝔞` of norm prime to `6`, from round 281's `chi6`. The steps after it, in that plan's order: S0 for the twisted coefficients; the twisted extraction at `u = d³b⁶`; `L(s, χ)L(s, χχ₋₃) ≠ 0` on `Re s > 11/12` for `χ = (d/·)`; and the classification of the real primitive characters, with the release's `SiegelZeros` statement at `c = (log 3)/12` as a corollary.
