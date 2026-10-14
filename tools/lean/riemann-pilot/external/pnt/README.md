@@ -14,6 +14,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `HalfPlanePNT.lean` | 337, 338 | a zero-free half-plane `Re s > θ` gives `ψ(x) − x = O(x^{θ+ε})` |
 | `BohrKV.lean` | 399 | the Korobov–Vinogradov region as a shell around round 391's Bohr sphere at each height |
 | `HalfPlaneFinal.lean` | 467 | `ψ(x) − x = O(x^{11/12+ε})` with no hypothesis, from the pilot's half-plane `Re s > 11/12` (round 466) |
+| `PsiExponent.lean` | 469 | the exponent of the error: `limsup log\|ψ(x) − x\| / log x = Θ`, the supremum of the real parts of the zeros, with `½ ≤ Θ ≤ 11/12` |
 
 ## Building (round 217)
 
@@ -106,3 +107,7 @@ For the instances, the file imports `src/HalfPlaneS0.lean` and `src/EisensteinTr
 ## HalfPlaneFinal.lean (round 467)
 
 `HalfPlanePNT.psi_isBigO_eleven_twelfths`: `ψ(x) − x = O(x^{11/12+ε})` for every `ε > 0`, with no hypothesis. It is `psi_isBigO_of_zeroFree` at `θ = 11/12`, with the half-plane from the pilot's `Eis.ne_zero_of_re_gt_eleven_twelfths` (`src/KubotaThetaProof.lean`, round 466). The file imports `HalfPlanePNT.lean` and `src/KubotaThetaProof.lean`; see the main README, round 467. All axioms are clean.
+
+## PsiExponent.lean (round 469)
+
+`PsiExponent.Theta` is the supremum of the real parts of the nontrivial zeros of `ζ`. `half_le_Theta` and `Theta_le` give `½ ≤ Θ ≤ 11/12`, the upper bound from the pilot's `Eis.ne_zero_of_re_gt_eleven_twelfths` (round 466). `psi_isBigO_Theta` is `ψ(x) − x = O(x^{Θ+ε})`, `psi_isBigO_of_zeroFree` at `Θ`; `psi_omega_Theta` is `ψ(x) − x = Ω±(x^{Θ−ε})`, the pilot's `PsiOmega.psi_omega` (round 220) at a zero with `Re ρ > Θ − ε`; `limsup_expo` joins them: `limsup log|ψ(x) − x| / log x = Θ`. See the main README, round 469. All axioms are clean.

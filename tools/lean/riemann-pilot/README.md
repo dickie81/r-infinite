@@ -11064,7 +11064,7 @@ The three theorems keep their names. In round 337 their exponents were `(1+θ)/2
 
 **Effect on the ladder.** Round 190's row `x^{1−δ}` holds with `δ = 1 − θ − ε` from `Re s > θ`. Under the completed mean square that is `x^{11/12+ε}`. From the external half-plane `Re s > 7/8`, if it holds, it is `x^{7/8+ε}`, round 277's `δ = 1/8 − ε`. *(Round 467: the completed mean square is proved (round 466), so the row holds with `δ = 1/12 − ε` and no hypothesis, `HalfPlanePNT.psi_isBigO_eleven_twelfths`. See round 467.)*
 
-**With round 220.** `PsiOmega.psi_omega` gives `ψ(x) − x = Ω±(x^θ)` for every `0 < θ < Re ρ`, `ρ` any zero. So for `Θ = sup Re ρ < 1` both halves of 1as(viii)'s statement are in the stack: `ψ(x) − x = O(x^{Θ+ε})` (this round) and `ψ(x) − x = Ω±(x^{Θ−ε})` (round 220). They are not joined as one theorem.
+**With round 220.** `PsiOmega.psi_omega` gives `ψ(x) − x = Ω±(x^θ)` for every `0 < θ < Re ρ`, `ρ` any zero. So for `Θ = sup Re ρ < 1` both halves of 1as(viii)'s statement are in the stack: `ψ(x) − x = O(x^{Θ+ε})` (this round) and `ψ(x) − x = Ω±(x^{Θ−ε})` (round 220). They are not joined as one theorem. *(Round 469: joined, `PsiExponent.limsup_expo`: the limit superior of `log|ψ(x) − x| / log x` is `Θ`, with `½ ≤ Θ ≤ 11/12`. See round 469.)*
 
 **Horizon scan.** Round 337 ran one earlier the same day, at the start of this series, and this round continues the series.
 
@@ -17363,4 +17363,57 @@ The first landed (`HalfPlaneJoins.smoothBound_eleven_twelfths`), by the route li
 
 **Bearing on RH:** none.
 
-**The next step.** None is planned in the half-plane strand. Of round 279's list of what the joins do not reach, round 467 reached the ladder row; `zeros_of_lam_ge`, which runs the other way, and the statements at the level of RH or GRH, for other characters, and on the real zeros of `L(s, χ₋₃)` remain as listed.
+**The next step.** None is planned in the half-plane strand. Of round 279's list of what the joins do not reach, round 467 reached the ladder row; `zeros_of_lam_ge`, which runs the other way, and the statements at the level of RH or GRH, for other characters, and on the real zeros of `L(s, χ₋₃)` remain as listed. *(Round 469: the owner asked for the doors listed after round 468; round 469 takes the first, and round 470 is planned for the second. See round 469.)*
+
+## Round 469: the exponent of the error in the prime number theorem, `limsup log|ψ(x) − x| / log x = Θ` with `½ ≤ Θ ≤ 11/12` (`external/pnt/PsiExponent.lean`)
+
+**What it is.** The owner asked, after round 468, to follow the doors listed then ("Follow as suggested"): the exact exponent of the error in the prime number theorem, then a Lindelöf bound on `Re s > 11/12`, and register entries for three research directions. This round is the first. Round 338 recorded that for `Θ = sup Re ρ < 1` both halves of 1as(viii)'s statement are in the stack, and that "They are not joined as one theorem." Round 466 gives `Θ ≤ 11/12`. This round joins them:
+
+- `PsiExponent.Theta`, the supremum of the real parts of the nontrivial zeros of `ζ`, with `½ ≤ Θ ≤ 11/12`;
+- `ψ(x) − x = O(x^{Θ+ε})` and `ψ(x) − x = Ω±(x^{Θ−ε})`;
+- `limsup_{x→∞} log|ψ(x) − x| / log x = Θ`.
+
+**What is proved** (`external/pnt/PsiExponent.lean`, 162 lines, 15 theorems and 3 definitions; each of its 6 axiom lines in `build.sh`'s final check is `[propext, Classical.choice, Quot.sound]`).
+
+- **`Theta`** (a definition): `sSup {σ | ∃ ρ, IsNontrivialZero ρ ∧ ρ.re = σ}`, with `Pilot1bt.IsNontrivialZero ρ` the predicate `riemannZeta ρ = 0 ∧ ¬∃ n : ℕ, ρ = −2(n + 1)` of `src/T1bt.lean`.
+- **`Theta_le`** (`Θ ≤ 11/12`), **`half_le_Theta`** (`½ ≤ Θ`) and **`zeta_ne_zero_of_Theta_lt`** (`Θ < Re s → ζ(s) ≠ 0`).
+- **`psi_isBigO_Theta`**: `(ψ - id) =O[atTop] fun x ↦ x ^ (Θ + ε)` for every `ε > 0`.
+- **`psi_omega_Theta`**: for `0 < ε < Θ` and all `c` and `X`, some `x > X` has `c·x^{Θ−ε} < ψ(x) − x` and some `x > X` has `ψ(x) − x < −c·x^{Θ−ε}`.
+- **`limsup_expo`**: `limsup expo atTop = Θ`, where `expo x = log|ψ(x) − x| / log x` with Mathlib's `Real.log` (so `expo x = 0` where `ψ(x) = x`).
+
+**The proof.**
+
+- **The range.** Every nontrivial zero has `Re ρ ≤ 11/12` by round 466's `Eis.ne_zero_of_re_gt_eleven_twelfths`, so `Θ ≤ 11/12`. Round 220's `PsiOmega.exists_zero_re_ge_half` gives a zero with `Re ρ ≥ ½`; it is nontrivial because the trivial zeros have negative real part (`re_trivial_neg`), so `½ ≤ Θ`.
+- **The half-plane at `Θ`.** A zero with `Re s > Θ` would be trivial, with `Re s < 0 < Θ`, or nontrivial, with `Re s ≤ Θ`.
+- **The two halves.** `psi_isBigO_of_zeroFree` (round 337, with the exponent `θ + ε` since round 338) at `Θ < 1`; round 220's `PsiOmega.psi_omega` at a nontrivial zero with `Re ρ > Θ − ε`, which the supremum supplies (`exists_zero_re_gt`).
+- **The limit superior.** The upper half gives `expo x ≤ Θ + 2ε` eventually (`eventually_expo_le`), and the lower half with `c = 1` gives `Θ − ε ≤ expo x` frequently (`frequently_le_expo`). Mathlib's `limsup_le_of_le` and `le_limsup_of_frequently_le` close it, with the boundedness conditions from the same two facts.
+
+**The paper.** 1as(viii) states: "limsup of ln|ψ(x)−x|/ln x is the abscissa Θ = sup Re ρ ∈ [½, 1], and Θ = ½ ⟺ RH (equivalently Σ μ(n)n^(−s) has abscissa Θ)." The first clause is now a theorem of the stack, with the range `[½, 11/12]` inside the paper's `[½, 1]`. The equivalent form for `Σ μ(n)n^{−s}` is not proved here. The route planned for it uses bounds on `1/ζ` to the right of `Re s = Θ`, round 470's target. The paper is not edited; a change to it needs CLAUDE.md's hostile review.
+
+**Register entries** (STRUCTURAL-REVIEW §6, "Doors after the half-plane"), as CLAUDE.md's Check 9(b) asks for new targets: half-planes for Dirichlet L-functions by twisting the family; mean values of cubic Gauss sums from the pole at `s = 4/3`; a certified zero of `dh` with `Re s > 11/12`. Each has its socket theorems, its missing Prop and an attack note. None is attempted here.
+
+**Records.**
+
+- `external/pnt/build.sh`: the new file in the compile list, and its six theorems in the final check (30 to 36 `#print axioms` lines).
+- `external/pnt/README.md`: the file table (one row) and a section for `PsiExponent.lean`.
+- Net-state markers on round 338's paragraph "With round 220" and on round 468's next step.
+- STRUCTURAL-REVIEW §6: the PNT error term, and the new paragraph of register entries.
+
+**Build.** `external/pnt/build.sh` (853 s, with Mathlib-only scratch compiles alongside) compiled `Architect.lean`, the 19 PNT+ files and the 18 files here. Its final check printed 36 axiom lines, each `[propext, Classical.choice, Quot.sound]`. No file of `src/` changed.
+
+- The 15 theorems and 3 definitions are in the namespace `PsiExponent`, which is new: a grep of the pilot, of `external/` and of Mathlib finds it only in this file.
+
+**Check 4.** Classical: the error exponent of the prime number theorem is the supremum of the real parts of the zeros. New against the pilot: the two halves joined as one theorem, with `Θ ≤ 11/12`, machine-checked.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every `ε > 0` in the upper half; every `0 < ε < Θ`, `c` and `X` in the lower half.
+- (b) No barrier claim is made. The register entries are targets, each with an attack note, and say nothing about their difficulty.
+- (c) No signal is fed to a criterion here.
+
+**Bearing on RH:** none. RH is `Θ = ½`; the theorem places `Θ` in `[½, 11/12]`.
+
+**The next step.** Round 470, the second door: from a zero-free half-plane `Re s > θ` with `0 ≤ θ < 1`, `ζ(s)` and `1/ζ(s)` are `O(|t|^ε)` for every `ε > 0`, uniformly on `Re s ≥ σ₀` for each `σ₀ > θ`; at `θ = 11/12` with no hypothesis, and at `θ = Θ`. The plan:
+
+- interpolate round 337's `HalfPlanePNT.logDeriv_le_of_zeroFree`, `|ζ′/ζ(σ + it)| ≤ C log|t|` on `σ ≥ θ′`, against PNT+'s bound on `ζ′/ζ` on `Re s ≥ 3/2` (`LogDerivZetaBdd_of_Re_ge_three_halves`), by the maximum modulus principle on rectangles `[θ′, 3/2] × [t − W, t + W]` with a Gaussian factor, away from `s = 1`: `|ζ′/ζ(σ + it)| ≤ C(log|t|)^{1−λ(σ)}` with `λ(σ) > 0`;
+- bound `log|ζ(σ + it)| − log|ζ(3/2 + it)|` by the mean value inequality, the derivative of `u ↦ log|ζ(u + it)|` being `Re ζ′/ζ(u + it)`: `log|ζ(s)| = O((log|t|)^{1−λ})`, so `ζ(s)^{±1} = O(|t|^ε)`.
