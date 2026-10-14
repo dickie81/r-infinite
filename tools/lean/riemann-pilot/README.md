@@ -2,7 +2,7 @@
 
 The toolchain is Lean 4.35.0-rc3 (`lean-toolchain`) with Mathlib at the commit in `MATHLIB_REV`. Point `MATHLIB` at a built Mathlib checkout (`lake exe cache get` then `lake build`), or place it at `./mathlib4`. The external layer (`external/pnt/`, rungs 1–3 of the wander ladder) uses the same toolchain: build it with `external/pnt/build.sh` after `./build.sh` (round 217). So does the zeta23 layer (`external/zeta23/`, round 228): `external/zeta23/build.sh`, after `./build.sh`. The Davenport–Heilbronn layer (`external/dh/`, rounds 253–273, split from `src/` in round 275) is built with `external/dh/build.sh`, after `./build.sh`: it is `./build.sh` run on that directory into the same `build/`, so it recompiles only what changed, including pilot modules it imports.
 
-Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all cores) and recompiles only files whose source or imports changed (`FORCE=1` rebuilds everything). A clean build takes about 12 minutes on 4 cores (round 217).
+Re-run with `./build.sh`. It compiles files in parallel (`JOBS`, default: all cores) and recompiles only files whose source or imports changed (`FORCE=1` rebuilds everything). A clean build takes about 12 minutes on 4 cores (round 217). *(Round 467: 3930 s (about 65.5 minutes) for round 466's 346 files, `FORCE=1 JOBS=4`, with `external/pnt/build.sh` running alongside for 18 of those minutes. See round 467.)*
 
 - `T1ca.lean` → `Osc.lean` → `Split.lean` import each other through oleans written to `build/`.
 - `Zeta.lean` imports `T1bt.lean`, `Split.lean` and `Exterior.lean`; `Roadmap.lean` imports `T1bt.lean` and `Exterior.lean`; `Limit.lean` imports `Roadmap.lean`; `RiemannKernel.lean` imports `Roadmap.lean`; `HadamardApply.lean` imports `Hadamard.lean` and `Limit.lean`; `XiBounds.lean` imports `HadamardApply.lean` and `RiemannKernel.lean`; `Curvature.lean` imports `XiBounds.lean`; `GroundState.lean` imports `Curvature.lean`; `Existence.lean` imports `GroundState.lean`; `Compactness.lean` imports `Existence.lean`; `GroundStateExists.lean` imports `Compactness.lean`; `Uniqueness.lean` imports `GroundStateExists.lean`; `Positivity.lean` imports `Uniqueness.lean`; `StrictPositivity.lean` imports `Positivity.lean`; `UniquenessQ.lean` imports `StrictPositivity.lean`; `FourierGap.lean` imports `UniquenessQ.lean`; `ParabolaGap.lean` imports `FourierGap.lean`; `Polya.lean` imports `Roadmap.lean`; `Concave.lean` imports `Polya.lean`; `PrimeSide.lean` imports `Positivity.lean` and `Concave.lean`; `Saturation.lean` imports only Mathlib; `Unconditional.lean` imports `Concave.lean` and `Saturation.lean`; `ZeroSwap.lean` imports `UniquenessQ.lean`; `HurwitzCross.lean` imports `PrimeSide.lean` and `ZeroSwap.lean`; `SwapRealize.lean` imports `HurwitzCross.lean`; `SimpleCover.lean` imports `SwapRealize.lean` and `ParabolaGap.lean`; `SimpleStructure.lean` imports `SimpleCover.lean`; `GapCriterion.lean` imports `SimpleStructure.lean`; `Commute.lean` imports `GapCriterion.lean`; `DegenerateFlat.lean` imports `Commute.lean`; `StructureD.lean` imports `DegenerateFlat.lean`; `Mollify.lean` imports `StructureD.lean`; `TheoremC.lean` imports `Mollify.lean`; `GapBound.lean` imports `TheoremC.lean`; `CosTrunc.lean` imports `GapBound.lean`; `StripConv.lean` imports `GapBound.lean`; `KernelChain.lean` imports `StripConv.lean`; `ZeroCount.lean` imports `StructureD.lean`; `SixteenPi.lean` imports `Curvature.lean`. The later files follow `build.sh`, which lists every import; the round-157 files are last: `WeilCriterion.lean` imports `WeilZeta.lean` and `Unconditional.lean`, `ZetaInputs.lean` imports `WeilCriterion.lean` and `Zeta.lean`, `ExteriorZeta.lean` imports `ZetaInputs.lean`, and `WeilRH.lean` imports `ExteriorZeta.lean`; `PhiDExp.lean` imports `WeilZeta.lean`; `FirstFailure.lean` imports `WeilRH.lean` and `SimpleCont.lean`. The round-163 Kaiser chain: `KaiserKernel.lean` imports only Mathlib, `KaiserPW.lean` imports `KaiserKernel.lean` and `StripShift.lean`, then `KaiserPoisson` → `KaiserMellin` → `KaiserZero` (which also imports `WeilZeta.lean`) → `KaiserDeriv` → `KaiserTail` → `KaiserIBP` → `KaiserWindow` (which also imports `WeilCriterion.lean`) → `KaiserMoment` → `KaiserBulk`. Round 164: `KaiserPoissonK.lean` imports `StripShift.lean`, `KaiserZeroWeight.lean` imports `KaiserPoissonK.lean` and `WeilAssemble.lean`, `KaiserPlanch.lean` imports `KaiserZeroWeight.lean`, and `KaiserPrefactor.lean` imports `KaiserBulk.lean` and `KaiserPlanch.lean`.
@@ -6589,7 +6589,7 @@ Compiles with no `sorry`; standard axioms only.
 | 1 | `o(x)` (PNT) | `ζ ≠ 0` on `Re s = 1`, from the 3-4-1 "gear" inequality, plus a Tauberian step | nonvanishing is in Mathlib; PNT itself is formalised outside Mathlib (PrimeNumberTheoremAnd project) [recalled] |
 | 2 | `x·e^{−c√log x}` | quantitative zero-free region `σ > 1 − c/log t` + truncated explicit formula | not formalised here; Borel–Carathéodory is now in Mathlib, and the pilot has the explicit formula |
 | 3 | `x·e^{−c(log x)^{3/5}(log log x)^{−1/5}}` | Vinogradov's exponential sums over primes | best known since 1958 [recalled] |
-| — | `x^{1−δ}` for some `δ > 0` | a zero-free strip | open; equivalent to a zero-free strip *(Round 277: claimed closed externally, with `δ = 1/8 − ε`, by OpenAI's zero-free half-plane `Re s > 7/8`, which is Lean-formalised in their release; not yet derived here. See round 277.)* *(Round 337: the stack proves the direction from a half-plane, with `δ = (1 − θ)/2 − ε` from `Re s > θ` (`HalfPlanePNT.psi_isBigO_of_zeroFree`); conditionally, `x^{23/24+ε}` under round 326's completed mean square. See round 337.)* *(Round 338: with the classical `δ = 1 − θ − ε`, `ψ(x) − x = O(x^{θ+ε})`; conditionally, `x^{11/12+ε}`. See round 338.)* |
+| — | `x^{1−δ}` for some `δ > 0` | a zero-free strip | open; equivalent to a zero-free strip *(Round 277: claimed closed externally, with `δ = 1/8 − ε`, by OpenAI's zero-free half-plane `Re s > 7/8`, which is Lean-formalised in their release; not yet derived here. See round 277.)* *(Round 337: the stack proves the direction from a half-plane, with `δ = (1 − θ)/2 − ε` from `Re s > θ` (`HalfPlanePNT.psi_isBigO_of_zeroFree`); conditionally, `x^{23/24+ε}` under round 326's completed mean square. See round 337.)* *(Round 338: with the classical `δ = 1 − θ − ε`, `ψ(x) − x = O(x^{θ+ε})`; conditionally, `x^{11/12+ε}`. See round 338.)* *(Round 467: filled, with `δ = 1/12 − ε` for every `0 < ε < 1/12` and no hypothesis: `HalfPlanePNT.psi_isBigO_eleven_twelfths`, through round 466's half-plane `Re s > 11/12`. See round 467.)* |
 | RH | `√x·log²x` | all zeros on `Re s = ½` | open |
 
 **Finite range** [recalled, not re-read]. Using RH verified to height `3·10¹²` (Platt–Trudgian), Büthe-type arguments give `|ψ(x) − x| < √x` for all `x` up to about `10¹⁹`.
@@ -6611,7 +6611,7 @@ The PrimeNumberTheoremAnd project already proves both rungs in Lean. We built it
 **Ladder status.**
 - Rungs 0, 1, 2 are machine-checked.
 - Rung 3 (Korobov–Vinogradov) is not formalised anywhere, as far as I know [unverified].
-- The gap `x^{1−δ}` and RH are open.
+- The gap `x^{1−δ}` and RH are open. *(Round 467: the row `x^{1−δ}` holds with `δ = 1/12 − ε`, `HalfPlanePNT.psi_isBigO_eleven_twelfths`. See round 467.)*
 
 **Check 4:** the mathematics is classical and the formalisation is the PNT+ project's. The pilot contributes only the restatement and the audit. **Bearing on RH:** none.
 
@@ -8771,7 +8771,7 @@ Their Comparator configuration permits `propext`, `Quot.sound` and `Classical.ch
 - Not checked here: the proofs themselves, read in full. As of the release, outside mathematicians had not confirmed them.
 
 **What it fills in the stack**, if it holds. Net-state markers sit on rounds 164, 167 and 190 and on STRUCTURAL-REVIEW §5b and §6. *(Round 279: under round 278's `SmoothBound θ`, the `weil_twins_rate` and round-164 items below are kernel-checked with `2θ − 1` and `e^{(2θ−1)a}` in place of `3/4` and `e^{3a/4}` (`HalfPlaneJoins`). The ladder row is not: the stack has no theorem from a zero-free half-plane to a bound on `ψ(x) − x`. See round 279.)*
-- Round 190's ladder: the row `x^{1−δ}` is filled with `δ = 1/8 − ε`, giving `ψ(x) − x = O(x^{7/8+ε})`. *(Round 337: `7/8 + ε` is the classical exponent. The stack's route from a half-plane `Re s > θ` gives `O(x^{(1+θ)/2+ε})`, so `O(x^{15/16+ε})` from `Re s > 7/8`. See round 337.)* *(Round 338: the route now gives the classical `O(x^{θ+ε})`, so `O(x^{7/8+ε})` from `Re s > 7/8` if that half-plane holds. See round 338.)*
+- Round 190's ladder: the row `x^{1−δ}` is filled with `δ = 1/8 − ε`, giving `ψ(x) − x = O(x^{7/8+ε})`. *(Round 337: `7/8 + ε` is the classical exponent. The stack's route from a half-plane `Re s > θ` gives `O(x^{(1+θ)/2+ε})`, so `O(x^{15/16+ε})` from `Re s > 7/8`. See round 337.)* *(Round 338: the route now gives the classical `O(x^{θ+ε})`, so `O(x^{7/8+ε})` from `Re s > 7/8` if that half-plane holds. See round 338.)* *(Round 467: the row is filled in the stack with `δ = 1/12 − ε`, from round 466's half-plane `Re s > 11/12`: `HalfPlanePNT.psi_isBigO_eleven_twelfths`. See round 467.)*
 - `weil_twins_rate`: the exponential rate of the twins' negative part is at most `3/4`, i.e. `−C exp((3/4) l) ≤ weilQ (l + 1) (twin (box 1) l)`.
 - `TwinLandau.Q_ge_of_rates`: the instance STRUCTURAL-REVIEW §5b listed as "a wider zero-free region, if one existed".
 - Round 164's off-line weight `e^{2aδ}`: `δ ≤ 3/8`, so the weight is at most `e^{3a/4}`.
@@ -8798,11 +8798,11 @@ Their Comparator configuration permits `propext`, `Quot.sound` and `Classical.ch
 Stages, each landing as its own round. Inputs not yet derived are stated as displayed hypotheses, in the manner of round 276.
 - **S0, the reduction.** Let `r(n) = Σ_{d∣n} χ₋₃(d)`, so that `Σ r(n)n^{−s} = ζ(s)L(s, χ₋₃)` on `Re s > 1`, and let `μ_K` be its Dirichlet inverse. Suppose that for every smooth `W` compactly supported in `(0, ∞)` and every `ε > 0`, `Σ_n μ_K(n)W(n/D) = O(D^{θ+ε})`. Then `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` on `Re s > θ`. This is built on round 222's Mellin machinery and Mathlib's `DirichletCharacter.LFunction`. It is small. *(Round 278: landed as `HalfPlaneS0.ne_zero_of_smoothBound`, with the bound as the displayed hypothesis `SmoothBound θ`. It uses round 222's `Zr`, not its Landau machinery: the bound is two-sided. See round 278.)*
 - **S1, arithmetic of `ℤ[ω]`.** A Euclidean domain, primary generators, the norm, and quadratic, cubic and sextic residue symbols with multiplicativity. Also a lower bound `≫ Y/log Y` for split primes of norm `≤ Y`. *(Round 281: part 1 landed in `EisensteinSymbol.lean`: the sextic, cubic and quadratic symbols with both multiplicativities, on Mathlib's principal ideal domain `𝓞 ℚ(ζ₃)` in place of a Euclidean domain. Primary generators, the ideal counts and the split-prime count remain.)* *(Round 284: the ideal counts are done, `mI_eq_muK`. Round 282 dropped the split-prime count.)*
-- **S2, family extraction.** `A_{p⁶}(D) = A_1(D) + O(D/Y)`, and the mean square over `u` gives `A_1 ≪ D^{11/12+ε}`. Here the mean square is a displayed hypothesis: the socket for S3–S6. *(Round 282: the release extracts by averaging `A_{b⁶}` over every `b` with `|b|² ≤ Y`, not over primes. The exponent from a mean square at `σ` is `(11 + 5σ)/12`, which is `23/24` at the release's `σ = 1/10`.)* *(Round 288: landed in this averaged form: `Eis.weightedBound_of_meanSquare` and `Eis.ne_zero_of_meanSquare`, with the mean square displayed as `Eis.MeanSquare σ`.)*
+- **S2, family extraction.** `A_{p⁶}(D) = A_1(D) + O(D/Y)`, and the mean square over `u` gives `A_1 ≪ D^{11/12+ε}`. Here the mean square is a displayed hypothesis: the socket for S3–S6. *(Round 282: the release extracts by averaging `A_{b⁶}` over every `b` with `|b|² ≤ Y`, not over primes. The exponent from a mean square at `σ` is `(11 + 5σ)/12`, which is `23/24` at the release's `σ = 1/10`.)* *(Round 288: landed in this averaged form: `Eis.weightedBound_of_meanSquare` and `Eis.ne_zero_of_meanSquare`, with the mean square displayed as `Eis.MeanSquare σ`.)* *(Round 466: the mean square is proved for every `σ > 0`, `Eis.meanSquare`. See round 466.)*
 - **S3, the transform.** Poisson summation over the lattice `ℤ[ω]` with smooth weights. The identity `μ(n)γ₋₁(n) = χ_n(−1)G(n)⁻¹ᾱ(n)γ₂(n)`, which needs cubic and sextic Gauss sums and reciprocity.
 - **S4, the quadratic large sieve over `ℤ[ω]`** (Heath-Brown; Goldmakher–Louvel).
-- **S5, Kubota's cubic theta function.** Patterson's coefficient formula and the transformation with cusp expansions. This is the critical-path risk. Until derived, it is a displayed hypothesis in the shape of the companion's reflection proposition.
-- **S6, assembly.** The completed mean square, removal of the cube factors, and the exponent `11/12`. *(Round 282: `23/24` in the release's Lean.)*
+- **S5, Kubota's cubic theta function.** Patterson's coefficient formula and the transformation with cusp expansions. This is the critical-path risk. Until derived, it is a displayed hypothesis in the shape of the companion's reflection proposition. *(Round 466: derived, in the companion paper's form: round 361's display `Eis.KubotaTheta` is proved, `Eis.kubotaTheta`, and with it the rows' transformation, `Eis.thetaRows`. See round 466.)*
+- **S6, assembly.** The completed mean square, removal of the cube factors, and the exponent `11/12`. *(Round 282: `23/24` in the release's Lean.)* *(Round 466: assembled at `11/12`, `Eis.ne_zero_of_re_gt_eleven_twelfths`, with the completed mean square `Eis.completedMeanSquare`. See round 466.)*
 
 **Check 4.** Nothing new in Lean this round. The result is external, and the plan is new to the pilot. **Bearing on RH:** a fixed half-plane is strictly weaker than RH. It fills the sockets listed above.
 
@@ -8853,7 +8853,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 **What the joins do not reach.**
 - `ShortPrimes.short_primes_of_density`. Its `ZeroFreeXi α` (`α < 1`) is already supplied unconditionally (`ShortKV.zeroFreeXi_KV`, `α = 3/4`), and its exponent depends on the density input alone.
-- Round 190's ladder row `x^{1−δ}`. The stack's one theorem from a zero-free region to a bound on `ψ(x) − x` is `rung3_of_region` (`external/pnt`). It needs a region of width `(log t)^{−n₁}` with `n₁ > 0` and a bound on `ζ′/ζ` inside it, and `SmoothBound θ` gives neither. The row needs a new theorem: a zero-free half-plane gives `ψ(x) − x = O(x^{θ+ε})`. *(Round 337: reached, with the exponent `(1+θ)/2 + ε` in place of `θ + ε`: `HalfPlanePNT` bounds `ζ′/ζ` in the half-plane through PNT+'s `FinalBound` and runs round 216's contour argument at a constant depth (`GenPNTW'`). See round 337.)* *(Round 338: with `θ + ε` (`GenPNTWNoEps`). See round 338.)*
+- Round 190's ladder row `x^{1−δ}`. The stack's one theorem from a zero-free region to a bound on `ψ(x) − x` is `rung3_of_region` (`external/pnt`). It needs a region of width `(log t)^{−n₁}` with `n₁ > 0` and a bound on `ζ′/ζ` inside it, and `SmoothBound θ` gives neither. The row needs a new theorem: a zero-free half-plane gives `ψ(x) − x = O(x^{θ+ε})`. *(Round 337: reached, with the exponent `(1+θ)/2 + ε` in place of `θ + ε`: `HalfPlanePNT` bounds `ζ′/ζ` in the half-plane through PNT+'s `FinalBound` and runs round 216's contour argument at a constant depth (`GenPNTW'`). See round 337.)* *(Round 338: with `θ + ε` (`GenPNTWNoEps`). See round 338.)* *(Round 467: with no hypothesis at `θ = 11/12`, `HalfPlanePNT.psi_isBigO_eleven_twelfths`. See round 467.)*
 - `zeros_of_lam_ge`, which runs the other way: a lower bound on `λ₁` gives the strip.
 - Statements at the level of RH or GRH, characters other than `χ₋₃`, and the real zeros of `L(s, χ₋₃)`, which `hS3` already excludes on `(0, 1)` unconditionally.
 
@@ -9063,7 +9063,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
 
 **Comparison with the release.** Its analogue is `corrected_weighted_mellin_identity` (`RowCompletion/ThetaNonvanishing.lean:85–92`). There the correction is an infinite product over prime ideals, `eulerCorrection` (`Hecke/MobiusEulerCorrection.lean:262`), proved analytic on `Re s > 0` (`eulerCorrection_analytic`, line 685), and it enters a Mellin identity. Here the correction is a multiplicative function on `ℕ`, and the transfer is made on the smoothed sums. The result is S0's own hypothesis, so round 278's Mellin argument is reused unchanged.
 
-**Not yet here.** `WeightedBound θ` is a displayed hypothesis. S2′ is to derive it from the family's mean square, at exponent `(11 + 5σ)/12`.
+**Not yet here.** `WeightedBound θ` is a displayed hypothesis. S2′ is to derive it from the family's mean square, at exponent `(11 + 5σ)/12`. *(Round 288: derived from the mean square, `Eis.weightedBound_of_meanSquare`. Round 466: the mean square is proved for every `σ > 0`, `Eis.meanSquare`. See rounds 288 and 466.)*
 
 **Build.** Incremental pilot build: 1 compiled, 176 up to date, 17 s, 0 warnings. The 22 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1033 in `src/`. No other file imports `HalfPlaneWeighted`.
 
@@ -9257,7 +9257,7 @@ Stages, each landing as its own round. Inputs not yet derived are stated as disp
   - The sextic factorization, and the twisted Gauss sums of products of sextic characters modulo squarefree moduli.
   - The cross phase, through round 290's law.
 - **S4: the mean-square half.** Poisson summation over `ℤ[ω]` for radial Schwartz weights, and the mean square from a child-energy bound displayed in the shape of `HasInitialCanonicalDensityAtRadius`. That is the second conditional milestone: the child-energy bound gives `MeanSquare σ` for `σ > 1/20`, hence, with round 288, `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5σ)/12`. *(Round 310: landed in the companion paper's form rather than the release's: from round 301 on, S4 follows the paper's Section 4, the displayed hypothesis is the paper's (4.12) as `Eis.DualMeanSquare ϑ` (round 305), and `Eis.meanSquare_of_dualMeanSquare` gives `MeanSquare ϑ` for every `ϑ > 0`; with round 288, `Eis.ne_zero_of_dualMeanSquare`.)*
-- **S5: the theta half.** The quadratic large sieve over `ℤ[ω]`, the cube removal and the rank induction, with Kubota's theta displayed in the shape of `HasCanonicalThetaModels` until it is derived.
+- **S5: the theta half.** The quadratic large sieve over `ℤ[ω]`, the cube removal and the rank induction, with Kubota's theta displayed in the shape of `HasCanonicalThetaModels` until it is derived. *(Round 466: complete in the companion paper's form; Kubota's theta is round 361's display `Eis.KubotaTheta`, proved as `Eis.kubotaTheta`. See round 466.)*
 - **Order.** S3 first: it is finite-field and algebraic content of the kind built in rounds 281–290. S4's lattice Poisson summation is next.
 
 **Check 9.**
@@ -9944,7 +9944,7 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 - **S5a.** `T(X;Ψ)` and its cube inversion (5.8); Lemma 5.3, with Proposition 5.2 as a displayed hypothesis (`CompletedMeanSquare`). *(Round 313: `T(X;Ψ)` and the cube inversion landed, `Eis.compT` and `Eis.cube_inversion`.)* *(Round 314: Lemma 5.3 landed, `Eis.cube_reduction`, with Proposition 5.2 displayed as `Eis.CompletedMeanSquare`; S5a is complete.)*
 - **S5b.** The induction of Proposition 5.1, with Proposition 5.4 also displayed (`TransferEstimate`). With rounds 310 and 288 this is the third conditional milestone: the two displayed estimates give `DualMeanSquare ϑ` for every `ϑ > 0`, hence `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > (11 + 5ϑ)/12` for every `ϑ > 0`, that is on `Re s > 11/12`. (Round 282: the release's Lean for this route reaches `23/24`.) *(Round 315: landed. `Eis.ne_zero_of_completed_transfer` derives `Re s > 11/12` from `Eis.CompletedMeanSquare` and `Eis.TransferEstimate`.)* *(Round 326: `Eis.TransferEstimate` is derived, `Eis.transferEstimate`, so `Eis.ne_zero_of_completed` has `Eis.CompletedMeanSquare` as its only hypothesis.)*
 - **S5c.** Proposition 5.4 derived (Section 7), reusing S4.
-- **S5d.** Proposition 5.2 derived from the theta transformation (Proposition 6.2 with Lemmas 6.3–6.4) and Lemma 6.5. Both stay displayed hypotheses for now; this round does Section 6.4's assembly. *(Round 339: S5d-1 landed first, the last step of Section 6.4: Proposition 5.2 from Lemma 6.6, `Eis.completedMeanSquare_of_squarefree`. Round 339 stages the rest of S5d as S5d-2 to S5d-5.)* *(Round 340: S5d-2 landed, the prepared sums' mean square from Lemma 6.5, displayed as `Eis.QuadLargeSieve` (`Eis.prepSum_meanSquare`); the rest is restaged as S5d-3 and S5d-4.)* *(Round 341: S5d-3 landed, the theta transformation for the rows displayed as `Eis.ThetaRows` and one transformed term's mean square, `Eis.dualTerm_meanSquare`; S5d-4 remains.)* *(Round 342: S5d-4 landed, the paper's Lemma 6.6 from the two displays, `Eis.squarefreeCompleted_of`, and the half-plane from them, `Eis.ne_zero_of_theta`; S5d is complete.)*
+- **S5d.** Proposition 5.2 derived from the theta transformation (Proposition 6.2 with Lemmas 6.3–6.4) and Lemma 6.5. Both stay displayed hypotheses for now; this round does Section 6.4's assembly. *(Round 339: S5d-1 landed first, the last step of Section 6.4: Proposition 5.2 from Lemma 6.6, `Eis.completedMeanSquare_of_squarefree`. Round 339 stages the rest of S5d as S5d-2 to S5d-5.)* *(Round 340: S5d-2 landed, the prepared sums' mean square from Lemma 6.5, displayed as `Eis.QuadLargeSieve` (`Eis.prepSum_meanSquare`); the rest is restaged as S5d-3 and S5d-4.)* *(Round 341: S5d-3 landed, the theta transformation for the rows displayed as `Eis.ThetaRows` and one transformed term's mean square, `Eis.dualTerm_meanSquare`; S5d-4 remains.)* *(Round 342: S5d-4 landed, the paper's Lemma 6.6 from the two displays, `Eis.squarefreeCompleted_of`, and the half-plane from them, `Eis.ne_zero_of_theta`; S5d is complete.)* *(Round 466: neither is displayed any more: `Eis.quadLargeSieve` (round 359) and `Eis.thetaRows`. See round 466.)*
 - **S5e.** The quadratic large sieve over `ℤ[ω]` (Lemma 6.5) derived. *(Round 343: mapped as S5e-1 to S5e-7, after Goldmakher and Louvel and Heath-Brown; the norm is to be taken over balls. See round 343.)* *(Round 344: S5e-1 landed; `Eis.quadLargeSieve_of_exp` reduces Lemma 6.5 to the exponent `1`, `Eis.QExp 1`.)* *(Round 345: S5e-2 landed; `Eis.qExp_two` is the base case `QExp 2`.)* *(Round 346: S5e-3 landed; `Eis.fBound_gcd` and `Eis.fBound_sep` are Heath-Brown's Lemmas 2 and 10.)* *(Round 347: S5e-4a landed; `Eis.integral_fourier_Phi_sq` is the planar Lemma 14 for the majorant.)* *(Round 348: S5e-4b landed; `Eis.excl_eq_main_add` is the sum over arguments prime to a set of primes, with its error as an Euler product under a Mellin integral, `Eis.latErr_moebius`. The rest of S5e is replanned in round 348.)* *(Round 349: S5e-4c landed; `Eis.sum_sqf_sq` sums over the square parts, `Eis.fBound_sqf_of_adm` bounds the squarefree rows by the admissible ones, and `Eis.fBound_admW_split` is Heath-Brown's (11) over balls.)* *(Round 350: S5e-4d, part 1 landed; `Eis.sig4_eq_main_add` is the explicit formula for `Σ_4` for a pair, and `Eis.bilin_disj_le_c` the bilinear bound over disjoint pairs of columns.)* *(Round 351: S5e-4d, part 2 landed; `Eis.sig3_eq_main_add` is the explicit formula for `Σ_3` for a pair, with the dual sum truncated at its support.)* *(Round 352: S5e-4e landed; `Eis.err4_bilin` and `Eis.err3_bilin` bound the error terms of `Σ_4` and `Σ_3` over the disjoint pairs of columns.)* *(Round 353: S5e-6, part 1 landed; the pairs with `ρ_D(−1) = −1` vanish (`Eis.sig3_eq_zero`, `Eis.sig4_eq_zero`) and `γ(D) = 1` on the others (`Eis.gamD_eq_one`).)* *(Round 354: S5e-6, part 2 landed; `Eis.main_cancel` is the cancellation of the main terms and `Eis.pair_eq` the pair identity for `Σ_3 − Σ_4`.)* *(Round 355: S5e-7, part 1 landed; `Eis.main_bilin` bounds the surviving main term over the disjoint pairs of columns.)* *(Round 356: S5e-7, part 2 landed; `Eis.gcdPart_bw_le` bounds one gcd part of the norm of `B(M, N, K)`.)* *(Round 357: S5e-7, part 3 landed; the shells (`Eis.fBound_of_shells`), the recursion (`Eis.fBound_rec`) and the norms of the rows from `(E_α)` (`Eis.fBound_wR_of_qExp`).)* *(Round 358: S5e-7, part 4 landed; `Eis.fBound_cor` is Goldmakher and Louvel's Theorem cor.)* *(Round 359: S5e complete. `Eis.qExp_one` is `(E_1)` and `Eis.quadLargeSieve` the companion paper's Lemma 6.5, so `Eis.QuadLargeSieve` is no longer a displayed input; see round 359.)*
 - **S5f.** Kubota's cubic theta, its coefficients and automorphy (Patterson; Dunn–Radziwiłł), and Appendix A.2's calculation, derived. This is the deepest step. Until it lands, the transformation is the strand's one displayed external input. *(Round 342: until S5e lands, `Eis.QuadLargeSieve` is displayed too; the half-plane rests on the two, `Eis.ne_zero_of_theta`.)* *(Round 359: S5e landed; `Eis.ne_zero_of_thetaRows` gives the half-plane from `Eis.ThetaRows` alone, which is again the strand's one displayed external input.)* *(Round 360: mapped in two parts. Part I derives `Eis.ThetaRows` from a display of the Kubota–Patterson theorem, `Eis.KubotaTheta`; Part II derives that theorem. See round 360.)* *(Round 361: S5f-1 landed, the display `Eis.KubotaTheta`.)* *(Round 381: Part I complete. `Eis.ne_zero_of_kubotaTheta` gives the half-plane from `Eis.KubotaTheta` alone, which is now the strand's one displayed external input. See round 381.)* *(Round 466: Part II complete. `Eis.KubotaTheta` is proved, `Eis.kubotaTheta`, and the half-plane has no displayed input, `Eis.ne_zero_of_re_gt_eleven_twelfths`. See round 466.)*
 - **Order.** S5a and S5b come first: they reach the third milestone and fix the interfaces. Then S5c, which reuses S4, then S5d, then S5e and S5f.
@@ -10069,7 +10069,7 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 
 The deviations from the paper are the displayed form of Proposition 5.4 (its consequence `E ≤ 𝒜(W)`) and round 314's real range of `L`.
 
-**Not yet here:** S5c (Proposition 5.4 derived, Section 7) and S5d–S5f (Proposition 5.2 derived, Section 6 and Appendix A.2). Until they land, the milestone is conditional on the two displayed estimates. *(Round 326: S5c landed, `Eis.transferEstimate`; the milestone is conditional on `CompletedMeanSquare` alone, `Eis.ne_zero_of_completed`.)*
+**Not yet here:** S5c (Proposition 5.4 derived, Section 7) and S5d–S5f (Proposition 5.2 derived, Section 6 and Appendix A.2). Until they land, the milestone is conditional on the two displayed estimates. *(Round 326: S5c landed, `Eis.transferEstimate`; the milestone is conditional on `CompletedMeanSquare` alone, `Eis.ne_zero_of_completed`.)* *(Round 466: S5d–S5f landed; the milestone has no displayed hypothesis, `Eis.ne_zero_of_re_gt_eleven_twelfths`. See round 466.)*
 
 **Check 9.**
 - (a) No barrier claim is made.
@@ -10521,7 +10521,7 @@ So `rowE ≤ (K₁ + K₂K₃c_I·9^e·c_I^e)·D^ε·Σ·N²·(1 + M)·LF`, whic
 - The paper's loss `D^{ε/4}` for each lemma is here four explicit factors of total exponent `ε`.
 - Section 7 of the paper is now machine-checked in the pilot's form (rounds 316–326). The deviations are recorded round by round. The main ones: characters modulo `4` in place of the ray class group (rounds 306–308); the expansion in pairs of characters (rounds 319, 321) and then in one character (round 322); the unsigned multiplicity count, with the counting bound for the short children, in place of the signed count of the preimages (rounds 323–324); and the losses `(3𝓗L)^σ` and `L^η` in place of `D^ε` until this round.
 
-**The state of S5.** The third conditional milestone has one displayed hypothesis left, `CompletedMeanSquare`: the paper's Proposition 5.2, from its Section 6 (Kubota's cubic theta and Goldmakher–Louvel's quadratic large sieve over `ℤ[ω]`) and Appendix A.2. That is S5d–S5f in round 312's plan, not attempted here. *(Round 339: S5d-1 landed. The displayed hypothesis is now the paper's Lemma 6.6, `Eis.SquarefreeCompleted`, through `Eis.ne_zero_of_squarefree`. See round 339.)*
+**The state of S5.** The third conditional milestone has one displayed hypothesis left, `CompletedMeanSquare`: the paper's Proposition 5.2, from its Section 6 (Kubota's cubic theta and Goldmakher–Louvel's quadratic large sieve over `ℤ[ω]`) and Appendix A.2. That is S5d–S5f in round 312's plan, not attempted here. *(Round 339: S5d-1 landed. The displayed hypothesis is now the paper's Lemma 6.6, `Eis.SquarefreeCompleted`, through `Eis.ne_zero_of_squarefree`. See round 339.)* *(Round 466: S5d–S5f are complete, and the milestone has no displayed hypothesis, `Eis.ne_zero_of_re_gt_eleven_twelfths`. See round 466.)*
 
 **Build.** Incremental pilot build: 1 compiled, 212 up to date, 16 s, 0 warnings. The 4 new `#print axioms` lines are each `[propext, Classical.choice, Quot.sound]`, making 1705 in `src/`. No other file imports `EisensteinTransferEstimate`. The 4 new named declarations were checked for clashes against the Lean files of `src/` and `external/` and against Mathlib's `theorem`, `lemma`, `def`, `abbrev`, `structure`, `class`, `inductive` and `instance` lines.
 
@@ -10976,7 +10976,7 @@ DHGround's form is the instance `dhU` (`c = constDH`, `q = ¾`, `f = fDH`): `dhU
 
 - **`psi_isBigO_of_zeroFree`.** If `ζ(s) ≠ 0` for `Re s > θ`, with `θ < 1`, then `ψ(x) − x = O(x^{(1+θ)/2+ε})` for every `ε > 0`. *(Round 338: the theorem now gives `O(x^{θ+ε})`.)*
 - **`psi_isBigO_of_smoothBound`.** The same bound under round 278's `SmoothBound θ`, `θ < 1`. *(Round 338: `O(x^{θ+ε})`.)*
-- **`psi_isBigO_of_completed`.** `ψ(x) − x = O(x^{23/24+ε})` under round 326's completed mean square, `Eis.CompletedMeanSquare` (the companion paper's Proposition 5.2), which gives `ζ(s) ≠ 0` on `Re s > 11/12`. *(Round 338: `O(x^{11/12+ε})`.)*
+- **`psi_isBigO_of_completed`.** `ψ(x) − x = O(x^{23/24+ε})` under round 326's completed mean square, `Eis.CompletedMeanSquare` (the companion paper's Proposition 5.2), which gives `ζ(s) ≠ 0` on `Re s > 11/12`. *(Round 338: `O(x^{11/12+ε})`.)* *(Round 467: the completed mean square is proved (round 466), and `HalfPlanePNT.psi_isBigO_eleven_twelfths` states `O(x^{11/12+ε})` with no hypothesis.)*
 
 It is one new file, `external/pnt/HalfPlanePNT.lean` (463 lines), and one change to `external/pnt/MediumPNTW.lean` (979 lines to 1,006). ~~The paper (`riemann-indistinguishability.md`) says nothing about the ladder row or the error term of the prime number theorem, so it is not edited.~~ *(Round 338: retracted, false when written. The paper states the classical facts in Theorem 1as(iv), "all zeros on the line ⟺ ψ(x) − x = O(x^(½+ε)) for every ε", and 1as(viii), "limsup of ln|ψ(x)−x|/ln x is the abscissa Θ = sup Re ρ ∈ [½, 1]". It says nothing about the stack's route to them, so it is still not edited.)*
 
@@ -10992,7 +10992,7 @@ It is one new file, `external/pnt/HalfPlanePNT.lean` (463 lines), and one change
 
 - In the contour argument, PNT+ bounds the segments `I₃`, `I₄`, `I₆` and `I₇`, which lie left of `Re s = 1`, by `C·x·x^{−D(T)}/ε` (`I3BoundW`, `I4BoundW` and their reflections). At depth `1 − θ'` that is `x^{θ'}/ε`. For `I₃` and `I₇`, the `1/ε` comes from `MellinOfSmooth1b`'s bound `|M(s)| ≤ C/(ε|s|²)` on the Mellin transform of the smoothing. The smoothing itself costs `εx`, and the two balance at `ε = x^{−(1−θ')/2}`.
 - A sharper bound would remove the loss. The smoothing is non-increasing from `1` to `0`, so `|M(s)| ≤ 2^{Re s}/|s|` as well. The integrals along the vertical segments would then cost a power of `log(1/ε)` in place of `1/ε`, and `ε = x^{θ'−1}` would give the classical `θ + ε`. This was checked by hand, not compiled, and is not attempted here. *(Round 338: done, by another route that does not use the monotonicity, `MediumPNTW.MellinOfSmooth1d`. See round 338.)*
-- So the row holds with `δ = (1 − θ)/2 − ε`: `x^{23/24+ε}` under the completed mean square, and `x^{15/16+ε}` from the external half-plane `Re s > 7/8`, if that holds. Round 277's `7/8 + ε` is the classical exponent. *(Round 338: `δ = 1 − θ − ε`, so `x^{11/12+ε}` and `x^{7/8+ε}`.)*
+- So the row holds with `δ = (1 − θ)/2 − ε`: `x^{23/24+ε}` under the completed mean square, and `x^{15/16+ε}` from the external half-plane `Re s > 7/8`, if that holds. Round 277's `7/8 + ε` is the classical exponent. *(Round 338: `δ = 1 − θ − ε`, so `x^{11/12+ε}` and `x^{7/8+ε}`.)* *(Round 467: `x^{11/12+ε}` with no hypothesis.)*
 
 **Horizon scan.** CLAUDE.md asks for one at the start of a series. It was a subagent survey, and the lead re-read only the hit.
 
@@ -11031,7 +11031,7 @@ It is one new file, `external/pnt/HalfPlanePNT.lean` (463 lines), and one change
 
 - **`psi_isBigO_of_zeroFree`.** If `ζ(s) ≠ 0` for `Re s > θ`, with `θ < 1`, then `ψ(x) − x = O(x^{θ+ε})` for every `ε > 0`.
 - **`psi_isBigO_of_smoothBound`.** The same bound under round 278's `SmoothBound θ`, `θ < 1`.
-- **`psi_isBigO_of_completed`.** `ψ(x) − x = O(x^{11/12+ε})` under round 326's completed mean square, `Eis.CompletedMeanSquare` (the companion paper's Proposition 5.2).
+- **`psi_isBigO_of_completed`.** `ψ(x) − x = O(x^{11/12+ε})` under round 326's completed mean square, `Eis.CompletedMeanSquare` (the companion paper's Proposition 5.2). *(Round 467: the completed mean square is proved, round 466's `Eis.completedMeanSquare`, and `HalfPlanePNT.psi_isBigO_eleven_twelfths` states the bound with no hypothesis. See round 467.)*
 
 The three theorems keep their names. In round 337 their exponents were `(1+θ)/2 + ε` and `23/24 + ε`, and no other file of the pilot uses them. `MediumPNTW.lean` goes from 1,006 lines to 1,365, and `HalfPlanePNT.lean` from 463 to 465. The paper (`riemann-indistinguishability.md`) states the classical fact of which this round proves one half when `Θ < 1`, in Theorem 1as(viii): "limsup of ln|ψ(x)−x|/ln x is the abscissa Θ = sup Re ρ ∈ [½, 1]". It says nothing about the stack's route to it, so it is not edited.
 
@@ -11061,7 +11061,7 @@ The three theorems keep their names. In round 337 their exponents were `(1+θ)/2
 - `x^{σ₂−1}` is at most `F(x)` because `σ₂ < θ'`.
 - So `ψ(x) − x = O(x^{θ'+ε/2})`, and `θ' + ε/2 ≤ θ + ε`.
 
-**Effect on the ladder.** Round 190's row `x^{1−δ}` holds with `δ = 1 − θ − ε` from `Re s > θ`. Under the completed mean square that is `x^{11/12+ε}`. From the external half-plane `Re s > 7/8`, if it holds, it is `x^{7/8+ε}`, round 277's `δ = 1/8 − ε`.
+**Effect on the ladder.** Round 190's row `x^{1−δ}` holds with `δ = 1 − θ − ε` from `Re s > θ`. Under the completed mean square that is `x^{11/12+ε}`. From the external half-plane `Re s > 7/8`, if it holds, it is `x^{7/8+ε}`, round 277's `δ = 1/8 − ε`. *(Round 467: the completed mean square is proved (round 466), so the row holds with `δ = 1/12 − ε` and no hypothesis, `HalfPlanePNT.psi_isBigO_eleven_twelfths`. See round 467.)*
 
 **With round 220.** `PsiOmega.psi_omega` gives `ψ(x) − x = Ω±(x^θ)` for every `0 < θ < Re ρ`, `ρ` any zero. So for `Θ = sup Re ρ < 1` both halves of 1as(viii)'s statement are in the stack: `ψ(x) − x = O(x^{Θ+ε})` (this round) and `ψ(x) − x = Ω±(x^{Θ−ε})` (round 220). They are not joined as one theorem.
 
@@ -11095,7 +11095,7 @@ The three theorems keep their names. In round 337 their exponents were `(1+θ)/2
 - **`completedMeanSquare_of_squarefree`**: `SquarefreeCompleted → CompletedMeanSquare`.
 - **`ne_zero_of_squarefree`**: `SquarefreeCompleted → 11/12 < Re s → ζ(s) ≠ 0 ∧ L(s, χ₋₃) ≠ 0`. It is round 326's `ne_zero_of_completed` composed with the first.
 
-So the half-plane `Re s > 11/12` now rests on the paper's Lemma 6.6 alone. With round 338's `psi_isBigO_of_zeroFree`, Lemma 6.6 would give `ψ(x) − x = O(x^{11/12+ε})`; that composition is not stated as a theorem here.
+So the half-plane `Re s > 11/12` now rests on the paper's Lemma 6.6 alone. With round 338's `psi_isBigO_of_zeroFree`, Lemma 6.6 would give `ψ(x) − x = O(x^{11/12+ε})`; that composition is not stated as a theorem here. *(Round 466: Lemma 6.6 is proved, `Eis.squarefreeCompleted`. Round 467: the composition is stated, `HalfPlanePNT.psi_isBigO_eleven_twelfths`. See rounds 466 and 467.)*
 
 **The displayed hypothesis** (`SquarefreeCompleted`). The paper's Lemma 6.6, with its LaTeX rendered as text: "For every ε>0 and C_0≥1 there is J=J(ε,C_0)≥1 such that Σ_{0<N(s)≤𝓗, s squarefree} |T(X;u_0s,g)|² ≪_{I,ξ,S,ε,C_0} D^ε‖W‖²_{C^J(I)}(𝓗+𝓗²N(g)/X) for 1≤𝓗,X,N(g)≤D^{C_0}, u_0∈𝒪^×, every compact interval I⊂(0,∞), and W∈C_c^∞(I)."
 
@@ -11389,7 +11389,7 @@ So S5d is complete, and the half-plane `Re s > 11/12` rests on two displayed inp
 - **`QBound.symm`**: `QBound N M Δ → QBound M N (N((4))·Δ)`.
 - **`sym2_recip_adm`**: for coprime admissible `k, n`, `(n/k)₂(k/n)₂·φ(k)φ(n) = 2φ(kn)`, where `φ(c) = G₂(P₂(c), 0)` depends only on `c` modulo `4`.
 
-So the companion paper's Lemma 6.5 now rests on `QExp 1`. The rest of S5e is to derive it by Heath-Brown's recursion: the base case `QExp 2` (S5e-2) and the step from `α` to `2 − 1/α` (S5e-3 to S5e-7).
+So the companion paper's Lemma 6.5 now rests on `QExp 1`. The rest of S5e is to derive it by Heath-Brown's recursion: the base case `QExp 2` (S5e-2) and the step from `α` to `2 − 1/α` (S5e-3 to S5e-7). *(Round 359: done, `Eis.qExp_one` and `Eis.quadLargeSieve`. See round 359.)*
 
 **The norm** (`QBound M N Δ`). For finite sets of admissible rows `k` with `N(k) ≤ M` and admissible columns `n` with `N(n) ≤ N`, `Σ_k |Σ_n a(n)(n/k)₂|² ≤ Δ Σ_n |a(n)|²`. Admissible (`QAdm`) means primary, squarefree and of norm prime to `6`. The rows are the moduli, as in Heath-Brown's `Σ_1`; `(n/k)₂` is `sym2 n (k)`, the cube of round 281's sextic symbol.
 
@@ -17214,9 +17214,9 @@ The first landed (`Eis.kubotaTheta`). The second landed: the clauses are the one
 
 **The next step.** The half-plane's first join. The plan:
 
-- round 338's `HalfPlanePNT.psi_isBigO_of_zeroFree` in `external/pnt` at `θ = 11/12`, which gives `ψ(x) − x = O(x^{11/12+ε})` for every `ε > 0`, round 190's ladder row `x^{1−δ}` with `δ = 1/12 − ε`.
+- round 338's `HalfPlanePNT.psi_isBigO_of_zeroFree` in `external/pnt` at `θ = 11/12`, which gives `ψ(x) − x = O(x^{11/12+ε})` for every `ε > 0`, round 190's ladder row `x^{1−δ}` with `δ = 1/12 − ε`. *(Round 467: landed, `HalfPlanePNT.psi_isBigO_eleven_twelfths`. See round 467.)*
 
-The strip sockets of STRUCTURAL-REVIEW §6 (`weil_twins_rate`, `TwinLandau.Q_ge_of_rates`, `zeros_of_lam_ge`) are not planned.
+The strip sockets of STRUCTURAL-REVIEW §6 (`weil_twins_rate`, `TwinLandau.Q_ge_of_rates`, `zeros_of_lam_ge`) are not planned. *(Round 467: round 279's joins, which reach `weil_twins_rate`, are planned for round 468. See round 467.)*
 
 **Records.**
 
@@ -17237,3 +17237,66 @@ The strip sockets of STRUCTURAL-REVIEW §6 (`weil_twins_rate`, `TwinLandau.Q_ge_
 - (c) The signal is the family mean square of round 282, with its second representation through Kubota's cubic theta; it is no longer displayed.
 
 **Bearing on RH:** none. The theorem is a zero-free half-plane `Re s > 11/12`; it says nothing about the critical line.
+
+## Round 467: `ψ(x) − x = O(x^{11/12+ε})` with no hypothesis (`external/pnt/HalfPlaneFinal.lean`), and the from-scratch build
+
+**What it is.** The half-plane's first join, which round 466's next step planned. Round 338's `HalfPlanePNT.psi_isBigO_of_zeroFree` turns a zero-free half-plane `Re s > θ`, with `θ < 1`, into `ψ(x) − x = O(x^{θ+ε})` for every `ε > 0`. Round 466 proved the half-plane `Re s > 11/12` with no displayed hypothesis (`Eis.ne_zero_of_re_gt_eleven_twelfths`). This round composes the two:
+
+- `HalfPlanePNT.psi_isBigO_eleven_twelfths`: for every `ε > 0`, `(ψ − id) =O[atTop] fun x ↦ x^{11/12+ε}`.
+
+So round 190's ladder row `x^{1−δ}` holds with `δ = 1/12 − ε` for every `0 < ε < 1/12`, with no hypothesis. The round also records the from-scratch build of round 466's `src/`, which round 466 started.
+
+**What is proved** (`external/pnt/HalfPlaneFinal.lean`, 24 lines, 1 theorem; its axiom line in `build.sh`'s final check is `[propext, Classical.choice, Quot.sound]`).
+
+- **`psi_isBigO_eleven_twelfths`**: `(ψ - id) =O[atTop] fun x : ℝ ↦ x ^ ((11 : ℝ) / 12 + ε)` for every `ε > 0`.
+
+`ψ` is the notation `open scoped Chebyshev` gives for Mathlib's `Chebyshev.psi` (`Mathlib/NumberTheory/Chebyshev.lean`), and `=O[atTop]` is Mathlib's `Asymptotics.IsBigO`. A check in this session printed the statement with `pp.fullNames` and `pp.notation false` as `Asymptotics.IsBigO Filter.atTop (HSub.hSub Chebyshev.psi id) fun x => HPow.hPow x (HAdd.hAdd (11 / 12) ε)`, and a grep of `src/` and `external/` finds no `psi` declared in a namespace `Chebyshev`.
+
+**The proof.** Round 338's `psi_isBigO_of_zeroFree` at `β = 11/12`, with its zero-free hypothesis from the first conjunct of round 466's `Eis.ne_zero_of_re_gt_eleven_twelfths`. Round 338's conditional instance `psi_isBigO_of_completed`, at round 466's `Eis.completedMeanSquare`, has the same statement: the same check elaborated `psi_isBigO_of_completed Eis.completedMeanSquare hε` against the statement above.
+
+**Against the plan.** Round 466's next step listed:
+
+- "round 338's `HalfPlanePNT.psi_isBigO_of_zeroFree` in `external/pnt` at `θ = 11/12`, which gives `ψ(x) − x = O(x^{11/12+ε})` for every `ε > 0`, round 190's ladder row `x^{1−δ}` with `δ = 1/12 − ε`."
+
+The plan landed as listed: `HalfPlaneFinal.lean` imports round 338's `HalfPlanePNT.lean` and round 466's `KubotaThetaProof.lean`.
+
+**Effect on the ladder.** Round 190's row `x^{1−δ}`, whose status read "open; equivalent to a zero-free strip", holds with `δ = 1/12 − ε` for every `0 < ε < 1/12`, through the half-plane `Re s > 11/12`. The row `RH` is unchanged.
+
+**The from-scratch build.** Round 466 started `FORCE=1 JOBS=4 ./build.sh` on a copy of `build.sh` and `src/` (346 files) with an empty `build/`, against the same Mathlib build. The copy was taken before round 466's commit. It is byte-identical to that commit, `d7826fb`: `diff -rq` against the working tree finds no difference, and `git diff d7826fb` finds none in `src/` or `build.sh`. The result:
+
+- all 346 files compiled, `rc=0`, in 3930 s (about 65.5 minutes) of wall time on 4 cores;
+- no line of the log reports a warning or a use of `sorry`;
+- the log has 4307 axiom lines, one for each `#print axioms` line of `src/`: 4303 are `[propext, Classical.choice, Quot.sound]`, three (`Eis.coprime6_left`, `Eis.coprime6_right`, `Eis.bottom_row_aux`) are `[propext, Quot.sound]` and one (`Eis.chiInt_three`) is `[propext]`.
+
+For 18 of those minutes (18:19 to 18:37 UTC) `external/pnt/build.sh` (below) ran on the same 4 cores, and five scratch compiles of under 20 s each ran during the build, so the figure includes that load. The header's "A clean build takes about 12 minutes on 4 cores (round 217)" is from round 217; it gets a net-state marker with this figure.
+
+**The paper.** In 1as(vi), `riemann-indistinguishability.md` says of the zero-free half-planes claimed by OpenAI, "Re s > 7/8 and, by a second route, Re s > 11/12, have not been checked", a statement round 390 scoped to the paper's gates, and it cites "the Lean pilot's README, round 277" for the second route. The sentence is not false: this pilot is not among the paper's gates. It is not edited here. CLAUDE.md lets "purely editorial commits (typo fixes, net-state markers)" be batched into the next substantive round, "but no new claim ships unreviewed", and a marker stating the pilot's derivation would be a new claim on a paper surface.
+
+**Records.**
+
+- `external/pnt/build.sh`: the new file in the compile list, and its theorem in the final check (29 to 30 `#print axioms` lines).
+- `external/pnt/README.md`: the file table (one row), a section for `HalfPlaneFinal.lean`, and a marker on the section for `HalfPlanePNT.lean`.
+- Net-state markers: round 466's next step; round 190's ladder row and round 191's ladder status; round 277's ladder item; round 279's ladder item under "What the joins do not reach"; rounds 337 and 338 on `psi_isBigO_of_completed` and the ladder; round 339's sentence that the composition "is not stated as a theorem here"; the header's clean-build time.
+- Net-state markers that round 466 should have placed and did not, on statements that its theorems supersede: round 277's plan items S2, S5 and S6; round 285's "Not yet here"; round 291's S5; round 312's S5d; round 315's "Not yet here"; round 326's "The state of S5".
+- STRUCTURAL-REVIEW §6: the socket "round 190's ladder row"; S0's signal, whose second representation the entry says "the stack has not built"; the ladder row under the joins' "Not reached"; the PNT error term.
+
+**Build.**
+
+- `external/pnt/build.sh` (1071 s, alongside the from-scratch build; earlier rounds record 547 to 664 s for it) compiled `Architect.lean`, the 19 PNT+ files and the 17 files here. Its final check printed 30 axiom lines, each `[propext, Classical.choice, Quot.sound]`.
+- No file of `src/` changed, so `./build.sh` has nothing to recompile.
+- The theorem's name is in the namespace `HalfPlanePNT`. A grep of the declaration lines of the pilot, of `external/` and of Mathlib finds no other declaration of it.
+
+**Check 4.** Classical: a zero-free half-plane `Re s > θ` gives `ψ(x) − x = O(x^{θ+ε})`. New against the pilot: the bound `O(x^{11/12+ε})` with no hypothesis, machine-checked.
+
+**Check 9.**
+
+- (a) The quantifier is the theorem's: every `ε > 0`.
+- (b) No barrier claim is made. The theorem states nothing about exponents below `11/12`.
+- (c) No signal is fed to a criterion here; the half-plane's signal is round 466's.
+
+**Bearing on RH:** none.
+
+**The next step.** Round 279's joins with no hypothesis. The plan:
+
+- round 278's `HalfPlaneS0.SmoothBound (11/12)` from round 466's `Eis.meanSquare`: for `ε > 0`, round 288's `Eis.weightedBound_of_meanSquare` at `σ = 6ε/5` and round 285's `Eis.smoothBound_of_weightedBound` give the bound with exponent `(11 + 6ε)/12 + ε/2 = 11/12 + ε`;
+- round 279's `HalfPlaneJoins.weil_rate_of_smoothBound`, `chi3_rate_of_smoothBound`, `QK3_rate_of_smoothBound` and `lam_prefactor_of_smoothBound` at `θ = 11/12`: the twin forms of `ζ`, `L(s, χ₋₃)` and `ζ·ζ_{ℚ(√−3)}` with rate at most `5/6`, and `λ₁(a) ≤ K(a + 1)e^{(59/6)a − 4πe^{2a}}` for `a ≥ 4`.

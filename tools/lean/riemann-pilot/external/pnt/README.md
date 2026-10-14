@@ -13,6 +13,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `KaiserKV.lean` | 234 | the Korobov–Vinogradov region in the Kaiser prefactor: `λ₁(a) ≤ K(a+1)exp(10a − c·a^{1/3}/(log a)^{1/3} − 4πe^{2a})` |
 | `HalfPlanePNT.lean` | 337, 338 | a zero-free half-plane `Re s > θ` gives `ψ(x) − x = O(x^{θ+ε})` |
 | `BohrKV.lean` | 399 | the Korobov–Vinogradov region as a shell around round 391's Bohr sphere at each height |
+| `HalfPlaneFinal.lean` | 467 | `ψ(x) − x = O(x^{11/12+ε})` with no hypothesis, from the pilot's half-plane `Re s > 11/12` (round 466) |
 
 ## Building (round 217)
 
@@ -94,10 +95,14 @@ All axioms are clean. See the main README, rounds 235 and 400.
 - `logDeriv_le_of_zeroFree`: if `ζ(s) ≠ 0` on `Re s > θ ≥ 0`, then `|ζ'/ζ(σ + it)| ≤ C log|t|` for `σ ≥ θ' > θ` and `|t| > 3`, through PNT+'s `FinalBound` on a disc that holds no zero.
 - `MediumPNTW.GenPNTW'`: `GenPNTW` with the abscissa `σ₂` of the small-height box as a parameter, and `σ₂ < 1 − D(T(x))` eventually in place of `D(T(x)) → 0`, so a constant depth is allowed. `GenPNTW` is its case with PNT+'s `σ₂`.
 - `MediumPNTW.MellinOfSmooth1d` (round 338): `|M(Smooth1 ν ε)(s)| ≤ B/|s|` for `0 < Re s ≤ 2` and `0 < ε < 1`, with `B` independent of `ε`, from PNT+'s `MellinOfSmooth1a`. With it the five segments left of `Re s = 1` are bounded without the factor `1/ε` (`I3NoEpsBoundW` to `I7NoEpsBoundW`, `I5NoEpsBound`). `GenPNTWOfLeft` is the contour argument with the bound on those five segments as a hypothesis. `GenPNTW'` is its case with PNT+'s bounds, and `GenPNTWNoEps` its case with these.
-- `psi_isBigO_of_zeroFree`: if `ζ(s) ≠ 0` on `Re s > θ` with `θ < 1`, then `ψ(x) − x = O(x^{θ+ε})` for every `ε > 0`, through `GenPNTWNoEps`. Its instances are `psi_isBigO_of_smoothBound` (round 278's `SmoothBound θ`) and `psi_isBigO_of_completed` (`O(x^{11/12+ε})` under round 326's completed mean square). Round 337 had the exponent `(1+θ)/2 + ε`, through `GenPNTW'`; see the main README, rounds 337 and 338.
+- `psi_isBigO_of_zeroFree`: if `ζ(s) ≠ 0` on `Re s > θ` with `θ < 1`, then `ψ(x) − x = O(x^{θ+ε})` for every `ε > 0`, through `GenPNTWNoEps`. Its instances are `psi_isBigO_of_smoothBound` (round 278's `SmoothBound θ`) and `psi_isBigO_of_completed` (`O(x^{11/12+ε})` under round 326's completed mean square). *(Round 467: the completed mean square is proved, the pilot's round 466 `Eis.completedMeanSquare`; `HalfPlaneFinal.lean` states the bound with no hypothesis.)* Round 337 had the exponent `(1+θ)/2 + ε`, through `GenPNTW'`; see the main README, rounds 337 and 338.
 
 For the instances, the file imports `src/HalfPlaneS0.lean` and `src/EisensteinTransferEstimate.lean`. All axioms are clean.
 
 ## BohrKV.lean (round 399)
 
 `shell_of_KV`: a nontrivial zero `ρ` with `|Im ρ| ≥ e³` has `‖v_F(1 − δ)‖ < ‖v_F(ρ)‖ < ‖v_F(δ)‖` for every nonempty finite set `F` of primes, where `δ = A/((log|Im ρ|)^{2/3}(log log|Im ρ|)^{1/3})` comes from `LandauKV.zeroFree_KV` and `v_F` is round 391's normalised Bohr vector (`src/BohrSphere.lean`). The bound `Re ρ > δ` uses the reflection `ρ ↦ 1 − ρ` (`PsiOmega.IsNontrivialZero.one_sub`). The file imports `src/BohrJoins.lean`; see the main README, round 399. All axioms are clean.
+
+## HalfPlaneFinal.lean (round 467)
+
+`HalfPlanePNT.psi_isBigO_eleven_twelfths`: `ψ(x) − x = O(x^{11/12+ε})` for every `ε > 0`, with no hypothesis. It is `psi_isBigO_of_zeroFree` at `θ = 11/12`, with the half-plane from the pilot's `Eis.ne_zero_of_re_gt_eleven_twelfths` (`src/KubotaThetaProof.lean`, round 466). The file imports `HalfPlanePNT.lean` and `src/KubotaThetaProof.lean`; see the main README, round 467. All axioms are clean.
