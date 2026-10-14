@@ -15,9 +15,10 @@ proves them, for `m = δ₃x`, `r > 0` and `Y > 0`:
   `γ` with the same bottom row and `γ·p` in one translate of `P` coincide; every orbit meets the Siegel set
   (round 385's `exists_mem_siegelK`).
 * **Local integrability** (the instance `isFiniteMeasure_muR_rhoG`; **`lintegral_boxZ_lt_top`** and
-  **`lintegral_boxZ_thetaF_lt_top`**, with `measurable_thetaF`, `memLp_thetaF` and `enorm_thetaF_slAct`): a
-  measurable function `u` with `|u|` invariant under `Γ_1(3)` and `∫|u| dν < ∞` is integrable on every such
-  box (round 386's `lintegral_unfold`); `ν` is finite, so this applies to `θ̃`.
+  **`lintegral_boxZ_thetaF_lt_top`**, with `lintegral_boxZ_le` (a theorem of its own since round 434),
+  `measurable_thetaF`, `memLp_thetaF` and `enorm_thetaF_slAct`): a measurable function `u` with `|u|`
+  invariant under `Γ_1(3)` and `∫|u| dν < ∞` is integrable on every such box (round 386's `lintegral_unfold`);
+  `ν` is finite, so this applies to `θ̃`.
 * **Unfolding** (**`inner_pmSer_thetaL_unfold`**, with `setLIntegral_volume_le` and
   `integral_fundP3_conj_mul_of_int`): for `ψ` measurable and bounded, vanishing outside `[α, β]` with `α > 0`,
   `⟨P_m(ψ), θ⟩ = ∫_0^∞ v^{−3}·conj ψ(v)·∫_{3P} ĕ(−mz/9)θ̃(z, v) dz dv`.
@@ -240,12 +241,12 @@ instance isFiniteMeasure_muR_rhoG : IsFiniteMeasure (muR rhoG) := by
     (fun _ => ⟨1, ENNReal.one_ne_top, fun _ _ => le_rfl⟩)
   simpa [rhoG] using h
 
-/-- **An automorphic function in `L¹(ν)` is integrable on every box** `{|z| ≤ Z, α ≤ v ≤ β}` with `α > 0`:
-unfolding with the partition of unity (round 386's `lintegral_unfold`) and `tsum_boxZ_le`. -/
-theorem lintegral_boxZ_lt_top {u : ℂ × ℝ → ℂ} (hum : Measurable u)
-    (hinv : ∀ γ ∈ Gam3, ∀ p ∈ UHS, ‖u (slAct γ p)‖ₑ = ‖u p‖ₑ)
-    (hu : ∫⁻ p, ‖u p‖ₑ ∂(muR rhoG) < ⊤) (Z : ℝ) {α : ℝ} (hα : 0 < α) (β : ℝ) :
-    ∫⁻ p in boxZ Z α β, ‖u p‖ₑ ∂uhsMeasure < ⊤ := by
+/-- **The integral of `|u|` over a box** `{|z| ≤ Z, α ≤ v ≤ β}` with `α > 0`, for `u` measurable with `|u|`
+invariant under `Γ_1(3)`: `∫_{box}|u| dz dv/v³ ≤ cTr(Z)·cBox(α)·∫|u| dν`, by unfolding with the partition of
+unity (round 386's `lintegral_unfold`) and `tsum_boxZ_le`. -/
+theorem lintegral_boxZ_le {u : ℂ × ℝ → ℂ} (hum : Measurable u)
+    (hinv : ∀ γ ∈ Gam3, ∀ p ∈ UHS, ‖u (slAct γ p)‖ₑ = ‖u p‖ₑ) (Z : ℝ) {α : ℝ} (hα : 0 < α) (β : ℝ) :
+    ∫⁻ p in boxZ Z α β, ‖u p‖ₑ ∂uhsMeasure ≤ cTr Z * cBox α * ∫⁻ p, ‖u p‖ₑ ∂(muR rhoG) := by
   set B := boxZ Z α β with hBdef
   have hB : MeasurableSet B := measurableSet_boxZ Z α β
   have hg : Measurable fun q : ℂ × ℝ => ‖u q‖ₑ := hum.enorm
@@ -282,7 +283,15 @@ theorem lintegral_boxZ_lt_top {u : ℂ × ℝ → ℂ} (hum : Measurable u)
         rw [lintegral_const_mul _ (show Measurable fun p => rhoG p * ‖u p‖ₑ from isPU_rhoG.1.mul hg), muR,
           lintegral_withDensity_eq_lintegral_mul _ isPU_rhoG.1 hg]
         rfl
-    _ < ⊤ := ENNReal.mul_lt_top (ENNReal.mul_lt_top (cTr_ne_top Z).lt_top (cBox_ne_top α).lt_top) hu
+
+/-- **An automorphic function in `L¹(ν)` is integrable on every box** `{|z| ≤ Z, α ≤ v ≤ β}` with `α > 0`
+(`lintegral_boxZ_le`). -/
+theorem lintegral_boxZ_lt_top {u : ℂ × ℝ → ℂ} (hum : Measurable u)
+    (hinv : ∀ γ ∈ Gam3, ∀ p ∈ UHS, ‖u (slAct γ p)‖ₑ = ‖u p‖ₑ)
+    (hu : ∫⁻ p, ‖u p‖ₑ ∂(muR rhoG) < ⊤) (Z : ℝ) {α : ℝ} (hα : 0 < α) (β : ℝ) :
+    ∫⁻ p in boxZ Z α β, ‖u p‖ₑ ∂uhsMeasure < ⊤ :=
+  (lintegral_boxZ_le hum hinv Z hα β).trans_lt
+    (ENNReal.mul_lt_top (ENNReal.mul_lt_top (cTr_ne_top Z).lt_top (cBox_ne_top α).lt_top) hu)
 
 /-! ### θ's representative -/
 
@@ -663,6 +672,7 @@ end
 #print axioms Eis.measurableSet_boxZ
 #print axioms Eis.cTr_ne_top
 #print axioms Eis.tsum_boxZ_le
+#print axioms Eis.lintegral_boxZ_le
 #print axioms Eis.lintegral_boxZ_lt_top
 #print axioms Eis.measurable_thetaF
 #print axioms Eis.memLp_thetaF
