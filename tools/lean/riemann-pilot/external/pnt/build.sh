@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -84,6 +84,8 @@ import BohrKV
 import HalfPlaneFinal
 import PsiExponent
 import HalfPlaneLindelof
+import SmoothPerron
+import MertensExponent
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -126,6 +128,21 @@ import HalfPlaneLindelof
 #print axioms HalfPlaneLindelof.zeta_bound_of_zeroFree
 #print axioms HalfPlaneLindelof.zeta_bound_eleven_twelfths
 #print axioms HalfPlaneLindelof.zeta_bound_Theta
+#print axioms SmoothPerron.verticalIntegral_eq_smoothedSum
+#print axioms SmoothPerron.verticalIntegral_shift
+#print axioms SmoothPerron.mellin_le_geom
+#print axioms SmoothPerron.norm_smoothedSum_sub_le
+#print axioms SmoothPerron.smoothedSum_eq_verticalIntegral_left
+#print axioms MertensExponent.mertens_isBigO_of_zeroFree
+#print axioms MertensExponent.mertens_isBigO_eleven_twelfths
+#print axioms MertensExponent.mertens_isBigO_Theta
+#print axioms MertensExponent.mertens_omega_Theta
+#print axioms MertensExponent.rh_iff_Theta_eq_half
+#print axioms MertensExponent.rh_iff_mertens
+#print axioms MertensExponent.limsup_mexpo
+#print axioms MertensExponent.moebius_tendsto_of_Theta_lt
+#print axioms MertensExponent.moebius_not_tendsto_of_lt_Theta
+#print axioms MertensExponent.moebiusAbscissa_eq_Theta
 EOT
 echo "== axioms"
 # every #print axioms line must print an axiom list inside the three, and no axiom line may name another axiom

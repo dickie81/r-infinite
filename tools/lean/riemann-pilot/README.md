@@ -17388,7 +17388,7 @@ The first landed (`HalfPlaneJoins.smoothBound_eleven_twelfths`), by the route li
 - **The two halves.** `psi_isBigO_of_zeroFree` (round 337, with the exponent `θ + ε` since round 338) at `Θ < 1`; round 220's `PsiOmega.psi_omega` at a nontrivial zero with `Re ρ > Θ − ε`, which the supremum supplies (`exists_zero_re_gt`).
 - **The limit superior.** The upper half gives `expo x ≤ Θ + 2ε` eventually (`eventually_expo_le`), and the lower half with `c = 1` gives `Θ − ε ≤ expo x` frequently (`frequently_le_expo`). Mathlib's `limsup_le_of_le` and `le_limsup_of_frequently_le` close it, with the boundedness conditions from the same two facts.
 
-**The paper.** 1as(viii) states: "limsup of ln|ψ(x)−x|/ln x is the abscissa Θ = sup Re ρ ∈ [½, 1], and Θ = ½ ⟺ RH (equivalently Σ μ(n)n^(−s) has abscissa Θ)." The first clause is now a theorem of the stack, with the range `[½, 11/12]` inside the paper's `[½, 1]`. The equivalent form for `Σ μ(n)n^{−s}` is not proved here. The route planned for it uses bounds on `1/ζ` to the right of `Re s = Θ`, round 470's target. The paper is not edited; a change to it needs CLAUDE.md's hostile review. *(Round 470: the bounds on `1/ζ` are proved, `HalfPlaneLindelof.zeta_bound_Theta`; the form for `Σ μ(n)n^{−s}` is not. See round 470.)*
+**The paper.** 1as(viii) states: "limsup of ln|ψ(x)−x|/ln x is the abscissa Θ = sup Re ρ ∈ [½, 1], and Θ = ½ ⟺ RH (equivalently Σ μ(n)n^(−s) has abscissa Θ)." The first clause is now a theorem of the stack, with the range `[½, 11/12]` inside the paper's `[½, 1]`. The equivalent form for `Σ μ(n)n^{−s}` is not proved here. The route planned for it uses bounds on `1/ζ` to the right of `Re s = Θ`, round 470's target. The paper is not edited; a change to it needs CLAUDE.md's hostile review. *(Round 470: the bounds on `1/ζ` are proved, `HalfPlaneLindelof.zeta_bound_Theta`; the form for `Σ μ(n)n^{−s}` is not. See round 470.)* *(Round 472: the form for `Σ μ(n)n^{−s}` is proved: its abscissa of convergence is `Θ` (`MertensExponent.moebiusAbscissa_eq_Theta`), and `RH ⟺ Θ = ½` (`rh_iff_Theta_eq_half`). See round 472.)*
 
 **Register entries** (STRUCTURAL-REVIEW §6, "Doors after the half-plane"), as CLAUDE.md's Check 9(b) asks for new targets: half-planes for Dirichlet L-functions by twisting the family; mean values of cubic Gauss sums from the pole at `s = 4/3`; a certified zero of `dh` with `Re s > 11/12`. Each has its socket theorems, its missing Prop and an attack note. None is attempted here.
 
@@ -17448,7 +17448,7 @@ The first landed (`HalfPlaneJoins.smoothBound_eleven_twelfths`), by the route li
 
 Both landed by the route listed, with `θ′ = a = (θ + min(σ₀, 5/4))/2` and `W = |t|/2`. The weight is the Gaussian factor times `exp(−(3/2 − z)c₁ − (z − a)c₂)`, and `1 − λ(σ)` is `(3/2 − σ)/(3/2 − a)`.
 
-**The paper.** 1as(viii) states: "Θ = ½ ⟺ RH (equivalently Σ μ(n)n^(−s) has abscissa Θ)." The bounds on `1/ζ` to the right of `Re s = Θ` that round 469 named for the parenthetical are now in the stack (`zeta_bound_Theta`). The step from them to the parenthetical, through `M(x) = Σ_{n≤x} μ(n) = O(x^{Θ+ε})`, is not: the stack's theorems on `M(x)` are round 221's `zeta_ne_zero_of_mertens`, which runs from a bound on `M(x)` to a zero-free half-plane, and `mertens_omega`. The paper is not edited.
+**The paper.** 1as(viii) states: "Θ = ½ ⟺ RH (equivalently Σ μ(n)n^(−s) has abscissa Θ)." The bounds on `1/ζ` to the right of `Re s = Θ` that round 469 named for the parenthetical are now in the stack (`zeta_bound_Theta`). The step from them to the parenthetical, through `M(x) = Σ_{n≤x} μ(n) = O(x^{Θ+ε})`, is not: the stack's theorems on `M(x)` are round 221's `zeta_ne_zero_of_mertens`, which runs from a bound on `M(x)` to a zero-free half-plane, and `mertens_omega`. The paper is not edited. *(Round 472: the step is proved, `MertensExponent.mertens_isBigO_Theta` and `moebiusAbscissa_eq_Theta`. See round 472.)*
 
 **Records.**
 
@@ -17471,7 +17471,7 @@ Both landed by the route listed, with `θ′ = a = (θ + min(σ₀, 5/4))/2` and
 
 **Bearing on RH:** none. At `Θ = ½` (RH), `zeta_bound_Theta` would give the bound for every `σ₀ > ½`.
 
-**The next step.** None is planned in the half-plane strand. Of the doors listed after round 468, two remain, and they wait for the owner: sums of the Möbius function and of divisor functions (`M(x)`, the squarefree numbers, Piltz's problem), for which this round supplies the bounds on `ζ` and `1/ζ`; and the prime number theorem modulo 3. *(Round 471: the owner asked to proceed with the four steps proposed after round 470: a horizon scan and an audit of the character, the two near doors, the half-plane for every Dirichlet character, and its downstream consequences. See round 471.)*
+**The next step.** None is planned in the half-plane strand. Of the doors listed after round 468, two remain, and they wait for the owner: sums of the Möbius function and of divisor functions (`M(x)`, the squarefree numbers, Piltz's problem), for which this round supplies the bounds on `ζ` and `1/ζ`; and the prime number theorem modulo 3. *(Round 472: `M(x) = O(x^{θ+η})` from a zero-free half-plane landed, `MertensExponent.mertens_isBigO_of_zeroFree`.)* *(Round 471: the owner asked to proceed with the four steps proposed after round 470: a horizon scan and an audit of the character, the two near doors, the half-plane for every Dirichlet character, and its downstream consequences. See round 471.)*
 
 ## Round 471: horizon scan of 2026-10-14, and an audit of the character in the half-plane chain (no new Lean)
 
@@ -17516,7 +17516,7 @@ Both landed by the route listed, with `θ′ = a = (θ + min(σ₀, 5/4))/2` and
 
 - **The near doors.**
 
-  - The Möbius clause of 1as(viii): `M(x) = O(x^{Θ+ε})`, the abscissa of `Σ μ(n)n^{−s}`, and RH ⟺ `Θ = ½`.
+  - The Möbius clause of 1as(viii): `M(x) = O(x^{Θ+ε})`, the abscissa of `Σ μ(n)n^{−s}`, and RH ⟺ `Θ = ½`. *(Round 472: landed. See round 472.)*
   - The divisor problems: `Δ_k(x) = O(x^{Θ+ε})` for every `k`.
 - **The real characters:**
 
@@ -17542,3 +17542,69 @@ Both landed by the route listed, with `θ′ = a = (θ + min(σ₀, 5/4))/2` and
 - (c) No signal is fed to a criterion here.
 
 **Bearing on RH:** none.
+
+## Round 472: Mertens' function in a zero-free half-plane, and the abscissa of `Σ μ(n)n^{−s}` is `Θ` (`external/pnt/SmoothPerron.lean`, `external/pnt/MertensExponent.lean`)
+
+**What it is.** The first near door of round 471's plan, which the owner approved after round 470 ("Proceed with all 4"): "The Möbius clause of 1as(viii): `M(x) = O(x^{Θ+ε})`, the abscissa of `Σ μ(n)n^{−s}`, and RH ⟺ `Θ = ½`." This round proves, with `M(x) = Σ_{1 ≤ n ≤ x} μ(n)` (round 221's `summ fμ`) and `Θ` round 469's supremum of the real parts of the nontrivial zeros:
+
+- from a zero-free half-plane `Re s > θ` with `0 ≤ θ < 1`: `M(x) = O(x^{θ+η})` for every `η > 0` (`MertensExponent.mertens_isBigO_of_zeroFree`); with no hypothesis at `θ = 11/12` (`mertens_isBigO_eleven_twelfths`) and at `θ = Θ` (`mertens_isBigO_Theta`);
+- `limsup_{x→∞} log|M(x)| / log x = Θ` (`limsup_mexpo`), the exponent round 469 found for `ψ(x) − x`;
+- `RH ⟺ Θ = ½` (`rh_iff_Theta_eq_half`), and Littlewood's criterion: `RH ⟺ M(x) = O(x^{½+η})` for every `η > 0` (`rh_iff_mertens`);
+- the partial sums of `Σ μ(n)n^{−s}` converge for `Re s > Θ` (`moebius_tendsto_of_Theta_lt`) and do not converge for `Re s < Θ` (`moebius_not_tendsto_of_lt_Theta`), so the infimum of the real `σ` at which they converge, the abscissa of convergence, is `Θ` (`moebiusAbscissa_eq_Theta`).
+
+The smoothed Perron formula behind the first is a module of its own, `SmoothPerron.lean`, stated for a general Dirichlet series.
+
+**What is proved.**
+
+- `external/pnt/SmoothPerron.lean` (588 lines, 16 theorems and lemmas, 2 definitions; 5 axiom lines in `build.sh`'s final check, each `[propext, Classical.choice, Quot.sound]`):
+
+  - **`verticalIntegral_eq_smoothedSum`**: for `f(0) = 0`, `1 < σ ≤ 2`, `L(f, σ)` absolutely convergent, PNT+'s smoothing `Smooth1 ν ε` with `0 < ε < 1`, and `X > 0`: `(1/2πi) ∫_{(σ)} L(f, s)𝓜(Smooth1)(s)X^s ds = Σ_n f(n)Smooth1(n/X)`.
+  - **`verticalIntegral_shift`**: if `G` is complex-differentiable on the closed strip `σ′ ≤ Re s ≤ σ`, integrable on both lines, and tends to `0` uniformly on the strip as `|Im s| → ∞`, then `∫_{(σ)} G = ∫_{(σ′)} G`.
+  - **`smoothedSum_eq_verticalIntegral_left`**: if `L(f, s) = L(s)` on `Re s > 1`, `L(f, 2)` converges absolutely, `L` is complex-differentiable on `Re s ≥ σ′` (`0 < σ′ ≤ 2`) with `|L(σ + it)| ≤ C|t|` on `σ′ ≤ σ ≤ 2`, `|t| ≥ T`, and the integrand is integrable on `Re s = σ′`, then `Σ_n f(n)Smooth1(n/X) = (1/2πi) ∫_{(σ′)} L(s)𝓜(Smooth1)(s)X^s ds` for `X ≥ 1`.
+  - **`mellin_le_geom`**: for `κ ∈ [0, 1]` and `0 < σ ≤ 1` there is `K` with `|𝓜(Smooth1 ν ε)(σ + it)| ≤ Kε^{−κ}(1 + |t|)^{−1−κ}` for every `0 < ε < 1`.
+  - **`norm_smoothedSum_sub_le`**: if `f(0) = 0` and `|f(n)| ≤ B` for `n ≤ 3X`, then `|Σ_n f(n)Smooth1(n/X) − Σ_{1≤n≤X} f(n)| ≤ B(3 log 2 · εX + 1)`.
+- `external/pnt/MertensExponent.lean` (589 lines, 23 theorems and lemmas, 4 definitions; 10 axiom lines in the final check, each `[propext, Classical.choice, Quot.sound]`): the theorems listed above, with `zeta_ne_zero_of_mertens_isBigO` (`M(x) = O(x^θ)`, `0 < θ ≤ 1`, makes `ζ ≠ 0` on `Re s > θ`), `mertens_omega_Theta` (`M(x) = Ω±(x^{Θ−η})` for `0 < η < Θ`), `tendsto_partialSum_of_isBigO` and `norm_sum_le_of_tendsto` (below).
+
+**The proof.**
+
+- **The Perron formula.** PNT+'s `SmoothedChebyshevDirichlet` with `Λ` replaced by `f`. The sum and the integral are exchanged by Mathlib's `integral_tsum_of_summable_integral_norm`, since `|f(n)n^{−s}| = |f(n)|n^{−σ}` on the line and `𝓜(Smooth1)` is integrable there (PNT+'s `SmoothedChebyshevDirichlet_aux_integrable`). Each term is Mathlib's Mellin inversion (`mellinInv_mellin_eq`) at `n/X`.
+- **The shift.** PNT+'s `DiffVertRect_eq_UpperLowerUs` writes `∫_{(σ)} G − ∫_{(σ′)} G − ∫_{∂R_T} G` as the difference of the two U-shaped integrals at height `T`; the rectangle integral is `0` (PNT+'s `HolomorphicOn.vanishesOnRectangle`). The tails `∫_{[T,∞)}` of the two vertical integrals tend to `0` by Mathlib's `tendsto_setIntegral_of_antitone`, and the horizontal segments by the decay.
+- **The Mellin bound.** `|𝓜(Smooth1)(s)|` is at most round 338's `B/|s|` (`MediumPNTW.MellinOfSmooth1d`) and PNT+'s `C/(ε|s|²)` (`MellinOfSmooth1b`), so at most `B^{1−κ}C^κε^{−κ}|s|^{−1−κ}`; on `Re s = σ ≤ 1`, `|s| ≥ (σ/2)(1 + |t|)`.
+- **Unsmoothing.** `Smooth1(x) = 1` for `x ≤ 1 − (log 2)ε` and `0` for `x ≥ 1 + (2 log 2)ε` (PNT+'s `Smooth1Properties_below`, `Smooth1Properties_above`), and `0 ≤ Smooth1 ≤ 1`. Only the `n` in an open window of length `3(log 2)εX` contribute, at most `B` each, and the window holds at most `3(log 2)εX + 1` integers.
+- **`1/ζ` across `s = 1`.** `invZeta(s) = (s − 1)/Z(s)` with round 220's entire `Z(s) = (s − 1)ζ(s)` (`PsiOmega.Zr`, with `Z(1) = 1`) is `1/ζ(s)` for `s ≠ 1` and complex-differentiable wherever `Z ≠ 0`, so on `Re s > θ`. On `Re s > 1` it is `L(μ, s)` (round 221's `LSeries_moebius_eq`).
+- **`M(x)`.** Let `η₀ = min(η, (1 − θ)/2)`, `θ′ = θ + η₀/4`, `κ = η₀/4`, `ε₁ = η₀/8` and `ε = X^{θ′−1}`. Round 470's `zeta_bound_of_zeroFree` at `σ₀ = θ′`, `ε = ε₁` bounds `1/ζ` by `C|t|^{ε₁} ≤ C|t|` on horizontal segments, and with compactness for small `|t|` gives `|1/ζ(θ′ + it)| ≤ K₁(1 + |t|)^{ε₁}` (`invZeta_line_bound`). On `Re s = θ′` the integrand is then at most `K₁Kε^{−κ}X^{θ′}(1 + |t|)^{−(1+κ−ε₁)}`, integrable since `κ > ε₁` (Mathlib's `integrable_one_add_norm`). So the smoothed sum is `O(ε^{−κ}X^{θ′}) = O(X^{θ′+κ})`, the unsmoothing costs `3 log 2 · X^{θ′} + 1`, and `θ′ + κ ≤ θ + η`.
+- **The equivalences.** `RH ⟹ Θ ≤ ½`: a nontrivial zero is not `1`, since `ζ(1) ≠ 0` (Mathlib's `riemannZeta_one_ne_zero`), so under Mathlib's `RiemannHypothesis` its real part is `½`. `Θ = ½ ⟹ RH` is round 335's `rh_of_zeroFree_half`. For Littlewood's criterion, `M(x) = O(x^{½+η′})` with `η′ = min(η, 1)/2` gives a bound on `(1, ∞)` through `|M(x)| ≤ x` (round 221's `linBound_moebius`), then `ζ ≠ 0` on `Re s > ½ + η′` (round 221's `zeta_ne_zero_of_mertens`), so `Θ ≤ ½ + η′ < ½ + η`.
+- **The limit superior.** Round 469's proof of `limsup_expo` with `ψ(x) − x` replaced by `M(x)`: the upper half from `mertens_isBigO_Theta`, the lower half from round 221's `mertens_omega` at a zero with `Re ρ > Θ − η`.
+- **Convergence for `Re s > Θ`.** `tendsto_partialSum_of_isBigO`: if `f(0) = 0` and `Σ_{k≤n} f(k) = O(n^r)` with `0 ≤ r < Re s`, the partial sums of `Σ f(k)k^{−s}` converge. Its proof is that of Mathlib's `LSeries_eq_mul_integral` (Abel summation, `tendsto_sum_mul_atTop_nhds_one_sub_integral₀`) without the hypothesis of absolute convergence, which Mathlib uses only to name the limit. Here `r = (Θ + Re s)/2`.
+- **Divergence for `Re s < Θ`.** `norm_sum_le_of_tendsto`: if the partial sums of `Σ f(k)k^{−s}` converge, they are bounded by some `B`, and Abel summation against `t^s` (Mathlib's `sum_mul_eq_sub_integral_mul₀'`) gives `|Σ_{1≤k≤m} f(k)| ≤ (B + |s|B/σ₁)m^{σ₁}` for every `σ₁ > 0` with `Re s ≤ σ₁`. At `σ₁ = (max(Re s, 0) + Θ)/2 < Θ` this contradicts `mertens_omega_Theta` at `η = Θ − σ₁`.
+
+**Against the plan.** The three items of round 471's plan landed. Littlewood's criterion and the limit superior were not in the plan. The limit of `Σ μ(n)n^{−s}` for `Θ < Re s ≤ 1` is not identified here: `moebius_tendsto_of_Theta_lt` gives convergence, not the value `1/ζ(s)`.
+
+**The paper.** 1as(viii) states: "limsup of ln|ψ(x)−x|/ln x is the abscissa Θ = sup Re ρ ∈ [½, 1], and Θ = ½ ⟺ RH (equivalently Σ μ(n)n^(−s) has abscissa Θ)." With rounds 469 and 472 each of the sentence's four clauses is a theorem of the stack: the limit superior (`PsiExponent.limsup_expo`), `Θ = sup Re ρ` with `½ ≤ Θ ≤ 11/12` (`Theta`, `half_le_Theta`, `Theta_le`), `Θ = ½ ⟺ RH` (`rh_iff_Theta_eq_half`) and the abscissa (`moebiusAbscissa_eq_Theta`), reading "abscissa" as the abscissa of convergence. The range `[½, 11/12]` lies inside the paper's `[½, 1]`. The paper is not edited; a change to it needs CLAUDE.md's hostile review.
+
+**Records.**
+
+- `external/pnt/build.sh`: the two files in the compile list, and 15 of their theorems in the final check (42 to 57 `#print axioms` lines).
+- `external/pnt/README.md`: the file table (two rows) and a section for each file.
+- Net-state markers on round 469's paragraph "The paper", on round 470's paragraphs "The paper" and "The next step", and on round 471's plan.
+
+**Build.** `external/pnt/build.sh` (939 s) compiled `Architect.lean`, the 19 PNT+ files and the 21 files here. Its final check printed 57 axiom lines, each `[propext, Classical.choice, Quot.sound]`. No file of `src/` changed.
+
+- The namespaces `SmoothPerron` and `MertensExponent` are new: a grep of the Lean files of the pilot (`external/` included) and of Mathlib finds them only in these two files.
+
+**Check 4.** Classical [recalled]: a zero-free half-plane `Re s > θ` gives `M(x) = O(x^{θ+ε})`; Littlewood's criterion (1912); the abscissa of convergence of `Σ μ(n)n^{−s}` is the supremum of the real parts of the zeros. New against the pilot: these machine-checked, with no hypothesis at `11/12` and at `Θ`, and the smoothed Perron formula for a general Dirichlet series, with the shift of the line and the unsmoothing.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every `η > 0`; every `s` with `Re s > Θ`, or `Re s < Θ`; the abscissa is an infimum over real `σ`.
+- (b) No barrier claim is made.
+- (c) `rh_iff_mertens` feeds `M` to round 221's criterion `zeta_ne_zero_of_mertens`. `M` is one of the circular signals that STRUCTURAL-REVIEW §6 lists: its bound is equivalent to the half-plane, which is what the equivalence states.
+
+**Bearing on RH:** none. `rh_iff_Theta_eq_half` and `rh_iff_mertens` are equivalences.
+
+**The next step.** Round 473, the second near door: the divisor problems, `Σ_{n≤x} d_k(n) = xP_k(log x) + O(x^{θ+η})` with `P_k` a polynomial, from a zero-free half-plane `Re s > θ`; with no hypothesis at `11/12` and at `Θ`. The plan:
+
+1. write `ζ(s)^k = Σ_{m=1}^{k} a_m(s − 1)^{−m} + g(s)` with `g` entire, from the iterated `dslope` of `Z(s)^k` at `1`;
+2. integrate each `(s − 1)^{−m}` against `𝓜(Smooth1)(s)X^s` exactly, by Mellin inversion of `(log x)^{m−1}`;
+3. move the line for `g` to `Re s = θ′` with round 470's bounds on `ζ` (`smoothedSum_eq_verticalIntegral_left`'s shift);
+4. unsmooth by comparing two smoothed sums, since `d_k ≥ 0`.

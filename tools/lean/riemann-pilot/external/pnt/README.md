@@ -16,6 +16,8 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `HalfPlaneFinal.lean` | 467 | `ψ(x) − x = O(x^{11/12+ε})` with no hypothesis, from the pilot's half-plane `Re s > 11/12` (round 466) |
 | `PsiExponent.lean` | 469 | the exponent of the error: `limsup log\|ψ(x) − x\| / log x = Θ`, the supremum of the real parts of the zeros, with `½ ≤ Θ ≤ 11/12` |
 | `HalfPlaneLindelof.lean` | 470 | a zero-free half-plane `Re s > θ` gives `ζ(s)^{±1} = O(\|t\|^ε)` on `Re s ≥ σ₀ > θ`; with no hypothesis at `θ = 11/12`, and at `Θ` |
+| `SmoothPerron.lean` | 472 | the smoothed Perron formula for a general Dirichlet series, the shift of the line of integration, and the unsmoothing |
+| `MertensExponent.lean` | 472 | `M(x) = O(x^{θ+η})` from a zero-free half-plane; `limsup log\|M(x)\| / log x = Θ`; `RH ⟺ Θ = ½`; Littlewood's criterion; the abscissa of convergence of `Σ μ(n)n^{−s}` is `Θ` |
 
 ## Building (round 217)
 
@@ -116,3 +118,11 @@ For the instances, the file imports `src/HalfPlaneS0.lean` and `src/EisensteinTr
 ## HalfPlaneLindelof.lean (round 470)
 
 `HalfPlaneLindelof.zeta_bound_of_zeroFree`: if `ζ(s) ≠ 0` on `Re s > θ`, `0 ≤ θ < 1`, then for every `σ₀ > θ` and `ε > 0` there are `T` and `C` with `|ζ(σ + it)| ≤ C|t|^ε` and `1/|ζ(σ + it)| ≤ C|t|^ε` for `σ ≥ σ₀` and `|t| ≥ T`. The proof interpolates round 337's `logDeriv_le_of_zeroFree` against PNT+'s `LogDerivZetaBdd_of_Re_ge_three_halves` by the maximum modulus principle on a rectangle (`norm_le_interp`, `logDeriv_le_interp`), and bounds `log|ζ|` by the mean value inequality, its derivative in `σ` being `Re ζ′/ζ` (`hasDerivAt_log_norm`). `zeta_bound_eleven_twelfths` is the case `θ = 11/12`, from the pilot's `Eis.ne_zero_of_re_gt_eleven_twelfths` (round 466); `zeta_bound_Theta` is the case `θ = Θ` (round 469). See the main README, round 470. All axioms are clean.
+
+## SmoothPerron.lean (round 472)
+
+`SmoothPerron.verticalIntegral_eq_smoothedSum` is PNT+'s `SmoothedChebyshevDirichlet` for any `f` with `f(0) = 0` and `L(f, σ)` absolutely convergent, `1 < σ ≤ 2`: `(1/2πi) ∫_{(σ)} L(f, s)𝓜(Smooth1)(s)X^s ds = Σ_n f(n)Smooth1(n/X)`. `verticalIntegral_shift` moves a vertical integral across a strip on which the integrand is complex-differentiable and tends to `0` uniformly as `|Im s| → ∞` (PNT+'s `DiffVertRect_eq_UpperLowerUs` and `HolomorphicOn.vanishesOnRectangle`). `smoothedSum_eq_verticalIntegral_left` combines the two for a function `L` equal to `L(f, s)` on `Re s > 1`, complex-differentiable on `Re s ≥ σ′` with at most linear growth there. `mellin_le_geom` bounds `𝓜(Smooth1)` on `Re s = σ ∈ (0, 1]` by `Kε^{−κ}(1 + |t|)^{−1−κ}`, the geometric mean of round 338's `MediumPNTW.MellinOfSmooth1d` and PNT+'s `MellinOfSmooth1b`, and `norm_smoothedSum_sub_le` bounds the cost of the smoothing by `B(3 log 2 · εX + 1)` when `|f(n)| ≤ B` for `n ≤ 3X`.
+
+## MertensExponent.lean (round 472)
+
+`MertensExponent.mertens_isBigO_of_zeroFree`: if `ζ(s) ≠ 0` on `Re s > θ`, `0 ≤ θ < 1`, then `M(x) = Σ_{n≤x} μ(n) = O(x^{θ+η})` for every `η > 0`. The proof moves the smoothed Perron integral of `1/ζ` to `Re s = θ + η₀/4`, with `1/ζ = (s − 1)/Z(s)` through the pilot's entire `PsiOmega.Zr` and the bounds of `HalfPlaneLindelof.zeta_bound_of_zeroFree`. At `θ = 11/12` and at `θ = Θ` it needs no hypothesis. With the pilot's `MertensOmega.mertens_omega`: `limsup log|M(x)| / log x = Θ` (`limsup_mexpo`), `RH ⟺ Θ = ½` (`rh_iff_Theta_eq_half`), `RH ⟺ M(x) = O(x^{½+η})` for every `η > 0` (`rh_iff_mertens`), and the partial sums of `Σ μ(n)n^{−s}` converge for `Re s > Θ` and diverge for `Re s < Θ` (`moebius_tendsto_of_Theta_lt`, `moebius_not_tendsto_of_lt_Theta`), so the abscissa of convergence is `Θ` (`moebiusAbscissa_eq_Theta`). The convergence is Abel summation as in Mathlib's `LSeries_eq_mul_integral`, without its hypothesis of absolute convergence (`tendsto_partialSum_of_isBigO`).
