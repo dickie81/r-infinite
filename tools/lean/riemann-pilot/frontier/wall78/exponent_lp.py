@@ -29,8 +29,9 @@ Row loss: the second branch of Lemma probe-row-norm's proof (line 8306), M' + (1
 with M' = M - 2d, ell' = ell - d, i.e. (1 + 3 ell - 2M + d)_+/4, worst at d = 0 after the -d of
 eq. old-eq:5.5 (line 8632). On the slice M + ell = 1 this is (5 ell + d - 1)_+/4, the L_ell(d) of Sang
 (arXiv 2610.15291, Proposition prop:low, 1/6 <= ell <= 1/5). Off the slice it is a reading of the same
-proof, which uses M' + ell' - 1 = -3d (line 8246) only through T_d <= H - 3d (so it holds for M + ell <= 1);
-the other lemmas of the low estimate were not re-read for general geometry.
+proof, which uses M' + ell' - 1 = -3d at line 8246, for T_d <= H - 3d (so it holds for M + ell <= 1), and at
+line 8308 only to rewrite the second branch in the release's geometry. README round 500 (crossing.py) derives
+both branches in any geometry from Lemmas reflected-energy and hybrid-energy.
 
 Gates (each can fail; exit status 1 if any does):
   W1  slice optimum at kappa = 3/4 equals Liu v1, (1507 - 2 sqrt 921)/1653, within 1e-9

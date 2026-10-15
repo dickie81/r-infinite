@@ -18979,7 +18979,7 @@ Here `MeanSquareC c σ` is round 288's display `MeanSquare σ` with round 288's 
 
 - **Variables:** the geometry `(l_x, l_y, ℓ)` of the release's Definition `def:stage-high-data`, and the boundary `s₀`.
 - **High side:** the exponent of Lemma `lem:bin-contour-accounting` (its `eq:stage-high-exponent`), at the longest rows `d = h`, with `g = qℓ`. The row counts are those of Proposition `prop:detector-counts`, balanced over `t`. The bin `a = 51/100` has the trivial count: "The bin `\(a=51/100\)` will be bounded by the trivial row count."
-- **Low side:** Proposition `prop:probe-low`, with Sang's row-norm loss. Off the slice `M + ℓ = 1`, the loss is the same proof's second branch, `(1 + 3ℓ − 2M + d)₊/4`, which needs `M + ℓ ≤ 1`. This is a reading of the release's proof of Lemma `lem:probe-row-norm`; the low estimate's other lemmas were not re-read for general geometry.
+- **Low side:** Proposition `prop:probe-low`, with Sang's row-norm loss. Off the slice `M + ℓ = 1`, the loss is the same proof's second branch, `(1 + 3ℓ − 2M + d)₊/4`, which needs `M + ℓ ≤ 1`. This is a reading of the release's proof of Lemma `lem:probe-row-norm`; the low estimate's other lemmas were not re-read for general geometry. *(Round 500: derived from Lemmas `lem:reflected-energy` and `lem:hybrid-energy`: the second branch's term holds in any geometry, and for `M + ℓ > 1` the first branch adds `(M + ℓ − 1 − 3d)₊`, the crossing cost. See round 500.)*
 - **Solving:** every constraint is linear in the variables for fixed `(δ, x)`, and the script solves the program by cutting planes.
 - **Not modelled:** the intermediate range, small and large rows, the frequency extension, and the prime supply against the capacities. Every boundary below is a lower bound for what the release's machinery gives with the stated inputs.
 
@@ -18989,7 +18989,7 @@ Here `MeanSquareC c σ` is round 288's display `MeanSquare σ` with round 288's 
 - **W3:** the release's own geometry `(b, ℓ) = (1/8, 1/6)` has slack `2.28·10⁻⁴` at `s₀ = 7/8`. Its Lemma `lem:balanced-endpoint` proves `49/440640 ≈ 1.11·10⁻⁴`.
 - **W4:** off the slice, the optimum returns to `M + ℓ = 1`, and the slice's shadow price is `1/16` per unit.
   - The low side carries `0.81` of the boundary's shadow price, and the bins at `δ ≈ 0.389`, `x = 1/2` carry the rest.
-  - Crossing the slice by `μ`, at a low-side cost `cμ/2`, pays only for `c` below `0.1539`. The first branch of the row-norm proof, as read, costs `c = 1`.
+  - Crossing the slice by `μ`, at a low-side cost `cμ/2`, pays only for `c` below `0.1539`. The first branch of the row-norm proof, as read, costs `c = 1`. *(Round 500: derived, and reached at an admissible dyad: the cost is the column term of the quadratic large sieve in `lem:hybrid-energy`. See round 500.)*
 - **W5** (levers, one at a time):
 
   | Lever | `s₀` |
@@ -19187,7 +19187,7 @@ In the walls column, `E` is the high side's endpoint on the bins with `δ ≥ 1/
 - **What the limits mean.** On Sang's slice no setting of these levers reaches `13/15`, or `31/36` without the Gram term. The levers are the moment, the counts, the amplifier, the Gram term, the floor's height and contour, the principal region, the technical conditions and the low rows' margin. Each limit is the point where the low side's boundary `B(ℓ) + t` meets the floor bin's `B(ℓ) + C_0`.
   - With the Gram term they meet at `b → 0`, `ℓ = 1/5`. There `13/15` is also `B(1/5)`, the end of Sang's range "`1/6\le\ell\le1/5`", and the low side's own minimum over the geometry (round 496): three walls at one point.
   - Without it they meet at `b = ℓ = 1/6`, on the absorption `3b ≤ 1 − 3ℓ`.
-  - Moving `31/36` needs a smaller exponent for the rows near `a = 1/2`, or a geometry off the slice. Moving `13/15` needs that and also a low estimate other than the release's, as the register's note on the caps already says. *(Round 499: under the rows every configuration keeps, neither limit moves off the slice, inside it or across it at round 496's crossing cost `c = 1`. Across, `31/36` gives way only below `c = 2/15`, and `13/15` not at all; see round 499.)*
+  - ~~Moving `31/36` needs a smaller exponent for the rows near `a = 1/2`, or a geometry off the slice. Moving `13/15` needs that and also a low estimate other than the release's, as the register's note on the caps already says.~~ *(Round 500: retracted, false when written. A lower low side alone moves both limits, on the slice and with the rows near `a = 1/2` unchanged: in the obstruction above, a saving `s` gives `13/15 − 4s/5` and `31/36 − 5s/6`. Corrected: a smaller exponent for the rows near `a = 1/2`, a geometry off the slice at a crossing cost below `2/15` (round 499) and a lower low side each move `31/36`; under Sang's range only a lower low side moves `13/15` (round 499, gate O3). See round 500.)* *(Round 499: under the rows every configuration keeps, neither limit moves off the slice, inside it or across it at round 496's crossing cost `c = 1`. Across, `31/36` gives way only below `c = 2/15`, and `13/15` not at all; see round 499.)*
 
 **Gates.** `python3 frontier/wall78/levers.py` runs in about 8 minutes on four processes. All 21 gates pass: L1 for each of the 15 configurations, C1 for each of round 497's two values, and S1, O1, A1 and W1. Any failure gives exit status 1. `rotated_contour.py` keeps 10 gates after R5's removal; all pass, in about 5 minutes.
 
@@ -19218,7 +19218,7 @@ In the walls column, `E` is the high side's endpoint on the bins with `δ ≥ 1/
   - The three terms are those of the Gram bound, "`(1+|\nu|)^{J_{\mathrm{Gr}}}\frac Q{Y'} \left(1+P_a^{1/6}+\frac{P_a^2}{Y'}\right)Z^\epsilon.`", with "`P_a=Y'^2/Q\ge1.`", so `P_a = Z^b` in any geometry.
   - They enter at tuple size `d = 0`: the release's tuple sum gains "`f(d)=d-3d/2-d/2=-d\le0.`", which outweighs their growth in `d`.
   - The last term is the row-norm loss.
-- **The slice.** Round 496 reads the release's row-norm proof as valid for `M + ℓ ≤ 1`. In that proof, "Since `$M'+\ell'-1=-3d$`, direct subtraction gives" the step `T_d ≤ H − 3d`, up to small terms; when `M' + ℓ' − 1` is below `−3d`, the same subtraction still gives it. Crossing the slice by `μ` costs `cμ/2` on the low side, and round 496 reads `c = 1` from that proof's first branch. That reading is not re-derived here.
+- **The slice.** Round 496 reads the release's row-norm proof as valid for `M + ℓ ≤ 1`. In that proof, "Since `$M'+\ell'-1=-3d$`, direct subtraction gives" the step `T_d ≤ H − 3d`, up to small terms; when `M' + ℓ' − 1` is below `−3d`, the same subtraction still gives it. Crossing the slice by `μ` costs `cμ/2` on the low side, and round 496 reads `c = 1` from that proof's first branch. That reading is not re-derived here. *(Round 500: derived, with the cost on the first branch only; see round 500.)*
 - **The rest.** Round 498's admissibility conditions carry over with `b = l_y − l_x` and `h = 1 − l_x + ℓ`, Sang's range `1/6 ≤ ℓ ≤ 1/5` included. Every row is linear in `(l_x, l_y, ℓ, s₀, μ)` except the small bins. So the script solves a linear program by cutting planes over the bins, and checks the small bins at the optimum; they are slack at every optimum computed (gate W2).
 - **On the slice it is round 498 again** (gate G1). All fifteen boundaries agree with `levers.py`'s recorded values to within `2·10⁻⁶`, with the same `κ`, attaining stage and status. The walls agree too, except in the three configurations at the principal edge `87/100`, which the gate exempts: there the edge sets the boundary. The two scripts share the configurations and the counts, not the solver: `levers.py` searches the slice's coordinates `(b, ℓ)` by scalar minimization, and this script solves a linear program in all five variables.
 
@@ -19261,7 +19261,7 @@ In the walls column, `E` is the high side's endpoint on the bins with `δ ≥ 1/
   | Without it | `31/36` | `31/36` | `103/120` | `c = 2/15` |
   | Without it, third Gram term soft | `31/36` | `31/36` | `103/120` | `c = 1/7` |
 
-  - With round 498's rows alone, `b ≥ 0` and the condition on the third term, the break-evens are `1/30` with the Gram term and `2/15` without it.
+  - With round 498's rows alone, `b ≥ 0` and the condition on the third term, the break-evens are `1/30` with the Gram term and `2/15` without it. *(Round 500: in round 496's model, which charges the crossing on every low row. With the crossing on the first branch only, as the proof gives, `1/30` becomes `1/18`; `2/15` and every number under Sang's range stay. See round 500.)*
 - **What the limits mean.** Under the rows every configuration keeps, round 498's two limits hold off the slice: inside it, and across it at round 496's `c = 1`.
   - `31/36` gives way only if crossing costs less than `2/15` per unit (`1/7` with the soft third term).
   - `13/15` does not give way. Put `m = M + ℓ − 1`. With the Gram term, `l_x/6 + max(0, b/6)/2 ≥ M/12` in either sign of `b`, so the low side is at least `11/12 − ℓ/4 + m/12 + (5ℓ − 1 − 2m)₊/8`. That is at least `11/12 − ℓ/4` on and across the slice, and at least `(21 − ℓ)/24` inside it, where the row-norm loss takes over. With `ℓ ≤ 1/5` both are at least `13/15 = B(1/5)`, whatever the crossing cost.
@@ -19272,11 +19272,11 @@ In the walls column, `E` is the high side's endpoint on the bins with `δ ≥ 1/
 
 **Check 9.**
 
-- (a) Every boundary here is a statement about this exponent system. The model off the slice rests on round 496's readings: the release's low estimate in general geometry for `M + ℓ ≤ 1`, and the crossing cost `c = 1`. The obstruction's limits are minima over the geometry for the rows listed, not statements about other probes.
+- (a) Every boundary here is a statement about this exponent system. The model off the slice rests on round 496's readings: the release's low estimate in general geometry for `M + ℓ ≤ 1`, and the crossing cost `c = 1`. *(Round 500: both derived; see round 500.)* The obstruction's limits are minima over the geometry for the rows listed, not statements about other probes.
 - (b) Register: the sub-entry "Below `7/8` in the release's exponent comparison" gets a bullet for this round, and its notes on the slice, on the rows near `a = 1/2` and on the caps get markers.
 - (c) The signal is unchanged: the release's probe.
 
-**The machinery checklist.** Surveyed: the release's Gram bound, low estimate and row-norm proof (the step `T_d ≤ H − 3d`), and round 496's model of them. Not surveyed: a low estimate other than the release's; a row-norm bound with a smaller crossing cost.
+**The machinery checklist.** Surveyed: the release's Gram bound, low estimate and row-norm proof (the step `T_d ≤ H − 3d`), and round 496's model of them. Not surveyed: a low estimate other than the release's; a row-norm bound with a smaller crossing cost. *(Round 500: the crossing cost placed at the quadratic large sieve's column term; see round 500.)*
 
 **Records.** README round 498: net-state markers where it names a geometry off the slice. STRUCTURAL-REVIEW §6: a bullet for this round, and markers on the notes on the slice, on the rows near `a = 1/2` and on the caps, and on round 498's bullet.
 
@@ -19285,3 +19285,61 @@ In the walls column, `E` is the high side's endpoint on the bins with `δ ≥ 1/
 **Bearing on RH:** none.
 
 **The next step.** None is planned here. At round 496's crossing cost the slice binds every configuration except two hypothetical ones. The register's note on the slice, the step `T_d ≤ H − 3d`, now carries the break-evens: `2/15` for `31/36`, and none for `13/15` under Sang's range.
+
+## Round 500: the crossing cost and the low side, from the release's proofs (`frontier/wall78/crossing.py`, no new Lean)
+
+**What it is.** The owner asked: "Keep digging". Round 499 left two doors: a crossing cost below `2/15` for `31/36`, and a low estimate other than the release's for `13/15`. Both rested on round 496's readings of the release's low estimate off the slice. This round derives the crossing cost from the release's lemmas instead, and checks round 498's account of what moves its two limits. No Lean file changes, and the paper is not edited.
+
+**The row-norm exponent in any geometry.**
+
+- For a tuple of size `d` the release sets "`M'=M-2d,\qquad \ell'=\ell-d,\qquad 0\le d\le\ell=1/6.`" The proof of Lemma `lem:probe-row-norm` bounds each dyad of the completed row by the energy of Lemma `lem:reflected-energy` (its eq. `old-eq:4.6`), under the proof's constraints "`2A_0\le O+\epsilon_Z,\qquad N_0\le A_0,\qquad z_a\le\ell'.`"
+- The proof's bound is the largest energy over the dyads. The script computes it as the largest of six linear programs, one for each piece of the energy's two maxima. In any geometry it is `M' + max(0, M' + ℓ' − 1, (1 + 3ℓ' − 2M')/4)` when `M' ≥ (1 − ℓ')/2`; below that no dual dyad is retained (gate X1, 400 random geometries).
+  - The last term is the second branch, the proof's "`M'+\frac{1+3\ell'-2M'-2\Delta_H+\theta_N}{4}`" at `Δ_H = θ_N = 0`. It holds in any geometry, and on the slice it is Sang's `L_ℓ(d)` (gate X2).
+  - The middle term is the first branch. On the slice the release has "Since `$M'+\ell'-1=-3d$`, direct subtraction gives" `T_d ≤ H − 3d`, so the dual is no longer than the rows. Off the slice the dual can be longer than the rows by `M' + ℓ' − 1 = M + ℓ − 1 − 3d`, and the bound grows by that much.
+  - The bound reaches both terms at admissible dyads (gate X3). The first branch's dyad has no powerful part, every slot active and the whole dual length in the squarefree dual ideal. The second's has a powerful part of length `M' − (1 − ℓ')/2` and a dual of length zero.
+- Proposition `prop:probe-low` takes half of the row exponent through Cauchy–Schwarz, and its tuple sum adds `−d`. Every piece then falls with `d`, so the low side is taken at `d = 0` (gate X5). There, crossing the slice costs `(M + ℓ − 1)₊/2` on the first branch and nothing on the second. That is round 496's `c = 1`, now derived.
+
+**Where the cost sits.**
+
+- At the first branch's dyad the energy splits into the factors of Lemma `lem:hybrid-energy`, "`(KNBL)^\epsilon(K+NB)B\{N+L+(NL)^{2/3}\}.`", with `K = Z^H` rows and `NB = Z^{v+ℓ_b}` columns. The whole excess is the column term: `log(K + NB) − log K = M + ℓ − 1` at `d = 0` (gate X4).
+- For arbitrary coefficients that factor cannot be lowered. Take one tuple (`L = 1`), and take `β(n, b)` to be the conjugate of `χ_{k₀}(nb)³` for one row `k₀`. That row alone contributes about `(NB)²`, which is the bound's size once `NB ≥ K`.
+- So, along the proof's route of reflection and then this lemma, a crossing cost below `1` needs a column bound that uses the structure of the reflection's dual coefficients, which carry "`\frac{d(\mu)\alpha(\mu)\vartheta(\lambda^4\mu)}{\sqrt{q_\mu}}`" from Corollary `cor:marked-reflection`. Undoing the reflection gives back the completed row, whose length `1 + ℓ` exceeds the dual's `M + μ` whenever `M < 1`.
+
+**What changes in round 496's model.**
+
+- Round 496's model adds `cμ/2` to all six low rows, the row-loss rows included. The proof charges the crossing on the first branch only.
+- Under Sang's range the two agree, since across the slice the row-norm loss is zero there. With the cost on the first branch only, gate X6 recomputes round 499's obstruction table, which is unchanged, and all fifteen configurations at `c = 1` and `c = 0`, which stay within `5·10⁻⁸` of round 499's recorded values. Round 496's break-even in the release's system stays in `(0.15, 0.16)`.
+- With round 498's rows alone, the break-even with the Gram term moves from `1/30` to `1/18`. Without it, `2/15` stays.
+
+**The low side as a lever.** Round 498 wrote that moving `31/36` needs a smaller exponent for the rows near `a = 1/2` or a geometry off the slice, and that moving `13/15` needs that and also a low estimate other than the release's. A lower low side alone moves both limits, on the slice and with the rows near `a = 1/2` unchanged (gate X7).
+
+- In round 498's own obstruction, lowering the low side by `s` gives `13/15 − 4s/5` and `31/36 − 5s/6` (at `s = 1/200`, `1/100` and `1/50`).
+- Under the rows every configuration keeps, on the slice, it gives `13/15 − 4s/5` and `31/36 − 2s/3` up to `s = 1/24`, where both are `5/6` (at `s = 1/200`, `1/100`, `1/50` and `1/24`).
+- A lower `C_0` wall alone also moves `31/36`, to `31/36 − t/6` (at `t = 1/200`, `1/100` and `1/50`). It leaves `13/15`, which under Sang's range only a lower low side can move (round 499, gate O3).
+- The configurations follow. Lindelöf + all readings, on the slice, goes from `0.8667866` to `0.8587858` at `s = 1/100`: below `31/36`, with the same walls (`b > 0`, the floor bin and the low side).
+- Sang's inputs do not. At `s = 1/200` and at `s = 10` alike their boundary is `0.8745077`, the value with the Gram term removed (round 498), and the high side's bins are among the walls while the low side is not. With his inputs a lower low side buys `3.8·10⁻⁴`.
+
+Round 498's two sentences are struck with this correction.
+
+**Gates.** `python3 frontier/wall78/crossing.py` runs in about 15 seconds on four processes. All seven gates, X1–X7, pass; any failure gives exit status 1.
+
+**Check 9.**
+
+- (a) The statement that a crossing cost below `1` needs the reflection's own coefficients is scoped to the proof's route: the reflection, then Lemma `lem:hybrid-energy`. No other route is surveyed. Every boundary here is a statement about this exponent system.
+- (b) Register: the slice note gets the derivation, with the scoped statement and an attack note; the caps note and round 498's and round 499's bullets get markers; and a bullet for this round.
+- (c) The signal is unchanged: the release's probe.
+
+**The machinery checklist.** Surveyed: the release's Lemmas `lem:reflected-energy`, `lem:hybrid-energy` (with Heath-Brown's cubic large sieve, eq. `eq:cubic-large-sieve`, and the quadratic reduction it cites) and `lem:probe-row-norm`, Proposition `prop:probe-low`, and Corollary `cor:marked-reflection`. Not surveyed: column bounds that use the structure of the reflected coefficients; low estimates other than the release's.
+
+**Records.**
+
+- README round 498: two sentences struck and annotated, false when written.
+- README rounds 496 and 499: net-state markers where they read the crossing cost or the low estimate off the slice, and on round 499's break-even with round 498's rows alone.
+- STRUCTURAL-REVIEW §6: markers on the notes on the slice and on the caps, and on round 498's and round 499's bullets; and a bullet for this round.
+- `exponent_lp.py`'s docstring: its reading of line 8246 corrected (docstring only; no executable line changes).
+
+**Check 4.** New against the pilot: the row-norm exponent in any geometry, with its attaining dyads; the crossing cost placed at the quadratic large sieve's column term; the first-branch model and its one changed break-even; the correction to round 498; and the low side's reach with Sang's inputs. Round 496's `c = 1` was a reading; it is now derived.
+
+**Bearing on RH:** none.
+
+**The next step.** None is planned here. The doors now read: a column bound for the reflected coefficients, below the large sieve's column term, for a crossing cost under `2/15`; or a lower low side, which with Sang's inputs buys only `3.8·10⁻⁴` unless the high side improves too.
