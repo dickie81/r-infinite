@@ -1,7 +1,12 @@
 import EisensteinDualExcl
 import EisensteinPoissonExcl
 
-/-! # The mean square after Poisson summation (round 307)
+/-! # The mean square after Poisson summation (round 307; round 494: the twisted family)
+
+Round 494 (step 3 of round 491's plan for door 5(b)) twists the family by a coefficient `c` on the ideals:
+`A^c_Z(u) = Σ_𝔞 c(𝔞)μ(𝔞)(u/𝔞)₆W(N𝔞/Z)` (`famSumC`; `famSum` is `c = 1`, `famSumC_one`), and states
+`famSumC_eq`, `norm_famSumC_le` and `famSumC_majorant_eq` for it; `famSum_eq`, `norm_famSum_le` and
+`famSum_majorant_eq` are their cases `c = 1`.
 
 S4 of round 291's plan, part 7: the first half of the assembly of the companion paper's
 Proposition 4.5, as exact identities.
@@ -149,18 +154,38 @@ theorem wsym_idl (u : 𝓞 K) (A : Finset Pr) : wsym u (idl A) = (-1 : ℂ) ^ A.
   unfold wsym
   rw [ite_eq_left (idl_coprime6 A), moebius_idl, sym6_idl]; push_cast; ring
 
+/-- **The family twisted by `c`**: `A^c_Z(u) = Σ_𝔞 c(𝔞)μ(𝔞)(u/𝔞)₆W(N𝔞/Z)`, over the ideals `𝔞` of norm
+prime to `6` (round 494). -/
+noncomputable def famSumC (c : Ideal (𝓞 K) → ℂ) (W : ℝ → ℝ) (Z : ℝ) (u : 𝓞 K) : ℂ :=
+  ∑' n : ℕ, normSum (fun I => c I * wsym u I) n * (W (n / Z) : ℂ)
+
+/-- `famSum` is the family twisted by `1`. -/
+theorem famSumC_one (W : ℝ → ℝ) (Z : ℝ) (u : 𝓞 K) : famSumC (fun _ => 1) W Z u = famSum W Z u := by
+  unfold famSumC famSum
+  simp only [one_mul]
+
+theorem normSum_wsymC_zero (c : Ideal (𝓞 K) → ℂ) (u : 𝓞 K) :
+    normSum (fun I => c I * wsym u I) 0 = 0 := by
+  classical
+  have h := normSum_wsym_zero u
+  have : ofNorm 0 = {(⊥ : Ideal (𝓞 K))} := by
+    ext I; simp [mem_ofNorm, Ideal.absNorm_eq_zero_iff]
+  rw [normSum, this, Finset.sum_singleton] at h ⊢
+  rw [h, mul_zero]
+
 open Classical in
-/-- **The family as a finite sum over sets of primes**: for `W` vanishing beyond `β` and `Z > 0`,
-`A_Z(u) = Σ_A (−1)^{|A|}·χ_A(u)·W(N(A)/Z)` over the sets of primes `A` with `N(A) ≤ ⌈βZ⌉`. -/
-theorem famSum_eq {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {Z : ℝ} (hZ : 0 < Z)
-    (u : 𝓞 K) :
-    famSum W Z u = ∑ A ∈ fsLe (⌈β * Z⌉₊ : ℝ), (-1 : ℂ) ^ A.card * chiS A u *
+/-- **The twisted family as a finite sum over sets of primes**: for `W` vanishing beyond `β` and `Z > 0`,
+`A^c_Z(u) = Σ_A c(𝔞_A)·(−1)^{|A|}·χ_A(u)·W(N(A)/Z)` over the sets of primes `A` with `N(A) ≤ ⌈βZ⌉`, where
+`𝔞_A = ∏_{P∈A}P` (round 494; `famSum_eq` is `c = 1`). -/
+theorem famSumC_eq (c : Ideal (𝓞 K) → ℂ) {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {Z : ℝ}
+    (hZ : 0 < Z) (u : 𝓞 K) :
+    famSumC c W Z u = ∑ A ∈ fsLe (⌈β * Z⌉₊ : ℝ), c (idl A) * ((-1 : ℂ) ^ A.card * chiS A u) *
       (W ((absNorm (idl A) : ℝ) / Z) : ℂ) := by
   set M := ⌈β * Z⌉₊ with hM
-  unfold famSum
-  rw [tsum_eq_Ioc (normSum_wsym_zero u) hW hZ (Nat.le_ceil _)]
-  have e1 : ∑ n ∈ Finset.Ioc 0 M, normSum (wsym u) n * (W (n / Z) : ℂ) =
-      ∑ I ∈ idealsLe (M : ℝ), wsym u I * (W ((absNorm I : ℝ) / Z) : ℂ) := by
+  unfold famSumC
+  rw [tsum_eq_Ioc (normSum_wsymC_zero c u) hW hZ (Nat.le_ceil _)]
+  have e1 : ∑ n ∈ Finset.Ioc 0 M, normSum (fun I => c I * wsym u I) n * (W (n / Z) : ℂ) =
+      ∑ I ∈ idealsLe (M : ℝ), c I * wsym u I * (W ((absNorm I : ℝ) / Z) : ℂ) := by
     rw [idealsLe, Nat.floor_natCast, Finset.sum_biUnion]
     · refine Finset.sum_congr rfl fun n _ => ?_
       rw [normSum, Finset.sum_mul]
@@ -171,9 +196,9 @@ theorem famSum_eq {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) 
       intro J hm hn
       exact hmn ((mem_ofNorm.1 hm).symm.trans (mem_ofNorm.1 hn))
   rw [e1]
-  have e2 : ∑ I ∈ idealsLe (M : ℝ), wsym u I * (W ((absNorm I : ℝ) / Z) : ℂ) =
+  have e2 : ∑ I ∈ idealsLe (M : ℝ), c I * wsym u I * (W ((absNorm I : ℝ) / Z) : ℂ) =
       ∑ I ∈ (idealsLe (M : ℝ)).filter (fun I => (absNorm I).Coprime 6 ∧ Squarefree I),
-        wsym u I * (W ((absNorm I : ℝ) / Z) : ℂ) := by
+        c I * wsym u I * (W ((absNorm I : ℝ) / Z) : ℂ) := by
     rw [Finset.sum_filter]
     refine Finset.sum_congr rfl fun I _ => ?_
     split_ifs with h
@@ -181,7 +206,7 @@ theorem famSum_eq {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) 
     · unfold wsym
       by_cases h6 : (absNorm I).Coprime 6
       · rw [ite_eq_left h6, moebius_of_not_squarefree (fun hs => h ⟨h6, hs⟩)]; simp
-      · rw [ite_eq_right h6, zero_mul]
+      · rw [ite_eq_right h6, mul_zero, zero_mul]
   rw [e2, fsLe, Finset.sum_image]
   · refine Finset.sum_congr rfl fun I hI => ?_
     obtain ⟨-, h6, hsq⟩ := Finset.mem_filter.1 hI
@@ -192,6 +217,16 @@ theorem famSum_eq {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) 
     obtain ⟨-, h6', hsq'⟩ := Finset.mem_filter.1 hJ
     rw [← idl_primeSet h6 hsq, ← idl_primeSet h6' hsq']
     exact congrArg idl hIJ
+
+open Classical in
+/-- **The family as a finite sum over sets of primes**: for `W` vanishing beyond `β` and `Z > 0`,
+`A_Z(u) = Σ_A (−1)^{|A|}·χ_A(u)·W(N(A)/Z)` over the sets of primes `A` with `N(A) ≤ ⌈βZ⌉`. -/
+theorem famSum_eq {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {Z : ℝ} (hZ : 0 < Z)
+    (u : 𝓞 K) :
+    famSum W Z u = ∑ A ∈ fsLe (⌈β * Z⌉₊ : ℝ), (-1 : ℂ) ^ A.card * chiS A u *
+      (W ((absNorm (idl A) : ℝ) / Z) : ℂ) := by
+  rw [← famSumC_one, famSumC_eq _ hW hZ]
+  exact Finset.sum_congr rfl fun A _ => by ring
 
 /-! ### One pair of columns -/
 
@@ -500,17 +535,27 @@ theorem sum_sq_le_majorant (H : ℝ) (hH : 0 < H) (g : 𝓞 K → ℂ) {B : ℝ}
     _ ≤ ∑' u : 𝓞 K, ‖g u‖ ^ 2 * (Majorant.Phi (σO u / (Real.sqrt H : ℂ))).re :=
         hsr.sum_le_tsum T (fun u _ => hnn u)
 
+/-- `|A^c_Z(u)| ≤ Σ_A |W(N(A)/Z)|` for `|c| ≤ 1`, uniformly in `u` (round 494). -/
+theorem norm_famSumC_le {c : Ideal (𝓞 K) → ℂ} (hc : ∀ I, ‖c I‖ ≤ 1) {W : ℝ → ℝ} {β : ℝ}
+    (hW : ∀ x, β < x → W x = 0) {Z : ℝ} (hZ : 0 < Z) (u : 𝓞 K) :
+    ‖famSumC c W Z u‖ ≤ ∑ A ∈ fsLe (⌈β * Z⌉₊ : ℝ), |W ((absNorm (idl A) : ℝ) / Z)| := by
+  rw [famSumC_eq c hW hZ u]
+  refine (norm_sum_le _ _).trans (Finset.sum_le_sum fun A _ => ?_)
+  rw [norm_mul, norm_mul, norm_mul, norm_pow, norm_neg, norm_one, one_pow, one_mul, Complex.norm_real,
+    Real.norm_eq_abs]
+  calc ‖c (idl A)‖ * ‖chiS A u‖ * |W ((absNorm (idl A) : ℝ) / Z)| ≤
+        1 * 1 * |W ((absNorm (idl A) : ℝ) / Z)| := by
+        gcongr
+        · exact hc _
+        · exact norm_chiS_le A u
+    _ = _ := by ring
+
 /-- `|A_Z(u)| ≤ Σ_A |W(N(A)/Z)|`, uniformly in `u`. -/
 theorem norm_famSum_le {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {Z : ℝ} (hZ : 0 < Z)
     (u : 𝓞 K) :
     ‖famSum W Z u‖ ≤ ∑ A ∈ fsLe (⌈β * Z⌉₊ : ℝ), |W ((absNorm (idl A) : ℝ) / Z)| := by
-  rw [famSum_eq hW hZ u]
-  refine (norm_sum_le _ _).trans (Finset.sum_le_sum fun A _ => ?_)
-  rw [norm_mul, norm_mul, norm_pow, norm_neg, norm_one, one_pow, one_mul, Complex.norm_real,
-    Real.norm_eq_abs]
-  calc ‖chiS A u‖ * |W ((absNorm (idl A) : ℝ) / Z)| ≤ 1 * |W ((absNorm (idl A) : ℝ) / Z)| :=
-        mul_le_mul_of_nonneg_right (norm_chiS_le A u) (abs_nonneg _)
-    _ = _ := one_mul _
+  rw [← famSumC_one]
+  exact norm_famSumC_le (fun _ => by simp) hW hZ u
 
 /-- **The smoothed mean square as a double sum over pairs**, for any column coefficients (round 318; in
 this file since round 332):
@@ -547,9 +592,30 @@ theorem majorant_expand (H : ℝ) (hH : 0 < H) (𝒜 : Finset (Finset Pr)) (α :
   refine Finset.sum_congr rfl fun A2 _ => ?_
   rw [tsum_mul_left]
 
+/-- **The twisted mean square as a double sum over pairs** (round 494): `Σ_u A^c_Z(u)·Ā^c_Z(u)·Φ(u/√H)` is
+`Σ_{A₁,A₂} c(𝔞_{A₁})c̄(𝔞_{A₂})·W(N(A₁)/Z)·W(N(A₂)/Z)·μ(A₁)μ(A₂)·Σ_u χ_{A₁}(u)χ̄_{A₂}(u)·Φ(u/√H)`;
+`majorant_expand` with the coefficients of `famSumC`. -/
+theorem famSumC_majorant_eq (c : Ideal (𝓞 K) → ℂ) {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x = 0)
+    {Z : ℝ} (hZ : 0 < Z) (H : ℝ) (hH : 0 < H) :
+    ∑' u : 𝓞 K, famSumC c W Z u * conj (famSumC c W Z u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ)) =
+      ∑ A1 ∈ fsLe (⌈β * Z⌉₊ : ℝ), ∑ A2 ∈ fsLe (⌈β * Z⌉₊ : ℝ),
+        c (idl A1) * conj (c (idl A2)) *
+        (((W ((absNorm (idl A1) : ℝ) / Z) * W ((absNorm (idl A2) : ℝ) / Z) : ℝ) : ℂ) *
+          ((-1 : ℂ) ^ A1.card * (-1) ^ A2.card *
+            ∑' u : 𝓞 K, chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ)))) := by
+  have e : ∀ u, famSumC c W Z u = ∑ A ∈ fsLe (⌈β * Z⌉₊ : ℝ),
+      (c (idl A) * (-1 : ℂ) ^ A.card * ((W ((absNorm (idl A) : ℝ) / Z) : ℝ) : ℂ)) * chiS A u :=
+    fun u => by
+      rw [famSumC_eq c hW hZ]; exact Finset.sum_congr rfl fun A _ => by ring
+  simp_rw [e]
+  rw [majorant_expand H hH]
+  refine Finset.sum_congr rfl fun A1 _ => Finset.sum_congr rfl fun A2 _ => ?_
+  simp only [map_mul, map_pow, map_neg, map_one, Complex.conj_ofReal]
+  push_cast; ring
+
 /-- **The mean square as a double sum over pairs**: `Σ_u A_Z(u)·Ā_Z(u)·Φ(u/√H)` is
 `Σ_{A₁,A₂} W(N(A₁)/Z)·W(N(A₂)/Z)·μ(A₁)μ(A₂)·Σ_u χ_{A₁}(u)χ̄_{A₂}(u)·Φ(u/√H)`; `majorant_expand` with
-the coefficients of `famSum` (round 332). -/
+the coefficients of `famSum` (round 332); since round 494 the case `c = 1` of `famSumC_majorant_eq`. -/
 theorem famSum_majorant_eq {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {Z : ℝ} (hZ : 0 < Z)
     (H : ℝ) (hH : 0 < H) :
     ∑' u : 𝓞 K, famSum W Z u * conj (famSum W Z u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ)) =
@@ -557,14 +623,10 @@ theorem famSum_majorant_eq {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → 
         ((W ((absNorm (idl A1) : ℝ) / Z) * W ((absNorm (idl A2) : ℝ) / Z) : ℝ) : ℂ) *
           ((-1 : ℂ) ^ A1.card * (-1) ^ A2.card *
             ∑' u : 𝓞 K, chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ))) := by
-  have e : ∀ u, famSum W Z u = ∑ A ∈ fsLe (⌈β * Z⌉₊ : ℝ),
-      ((-1 : ℂ) ^ A.card * ((W ((absNorm (idl A) : ℝ) / Z) : ℝ) : ℂ)) * chiS A u := fun u => by
-    rw [famSum_eq hW hZ]; exact Finset.sum_congr rfl fun A _ => by ring
-  simp_rw [e]
-  rw [majorant_expand H hH]
+  simp_rw [← famSumC_one]
+  rw [famSumC_majorant_eq _ hW hZ H hH]
   refine Finset.sum_congr rfl fun A1 _ => Finset.sum_congr rfl fun A2 _ => ?_
-  simp only [map_mul, map_pow, map_neg, map_one, Complex.conj_ofReal]
-  push_cast; ring
+  simp only [map_one, one_mul]
 
 
 /-- **The mean square after Poisson summation**: `famSum_majorant_eq` with `pairSum_poisson` in each
@@ -607,6 +669,9 @@ end
 #print axioms Eis.chiS_union
 #print axioms Eis.mem_fsLe
 #print axioms Eis.wsym_idl
+#print axioms Eis.famSumC_one
+#print axioms Eis.normSum_wsymC_zero
+#print axioms Eis.famSumC_eq
 #print axioms Eis.famSum_eq
 #print axioms Eis.conj_chi6
 #print axioms Eis.chi6_mul_conj
@@ -627,7 +692,9 @@ end
 #print axioms Eis.Phi_div_sqrt_eq
 #print axioms Eis.summable_mul_Phi
 #print axioms Eis.sum_sq_le_majorant
+#print axioms Eis.norm_famSumC_le
 #print axioms Eis.norm_famSum_le
 #print axioms Eis.majorant_expand
+#print axioms Eis.famSumC_majorant_eq
 #print axioms Eis.famSum_majorant_eq
 #print axioms Eis.majorant_poisson

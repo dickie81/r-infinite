@@ -1,6 +1,14 @@
 import EisensteinMeanSquarePoisson
 
-/-! # The mean square in row/column form (round 308; round 492: the classes modulo `m`)
+/-! # The mean square in row/column form (round 308; round 492: the classes modulo `m`; round 494: the twisted family)
+
+Round 494 (step 3 of round 491's plan for door 5(b)) carries round 307's family twisted by a character `ν`
+modulo `m`, `4 ∣ m`, to the row/column form: the twisted paired factor `ν(x)ν̄(y)Ψ(x, y)` on the classes
+modulo `m` (`pairPsiNu`) is expanded in characters modulo `m` (**`pairTerm_expandNu`**, for unit classes),
+one pair is put in characters (**`pair_char_formNu`**: the twist sees only `A₁∖A₂` and `A₂∖A₁`, since
+`|ν(A₁∩A₂)|² = 1`), and **`meanSquare_rowcolNu`** is round 308's identity for the twisted family, over a set
+`U` of primes with unit classes that contains every such prime of norm at most `⌈βZ⌉`. `xi_chain` takes
+characters modulo any `m`.
 
 Round 492 (step 1 of round 491's plan for door 5(b)) defines the class modulo any `m` of a set of primes (`cls`, with
 `cls_union`, `isUnit_cls_of_subset` and `isUnit_cls_of_forall`), and states the column factorization
@@ -966,7 +974,7 @@ theorem term_factor (W : ℝ → ℝ) {Z H : ℝ} (hZ : 0 < Z) (ξ1 ξ2 : MulCha
 row/column form. The family `𝒜` is extended to all subsets of `U` (the weights vanish outside it),
 and `sum_pair_chain` applies with the factorization `term_factor`. -/
 theorem xi_chain (W : ℝ → ℝ) {Z H : ℝ} (hZ : 0 < Z) (E : Finset (𝓞 K))
-    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U : Finset Pr) (𝒜 : Finset (Finset Pr))
+    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) (U : Finset Pr) (𝒜 : Finset (Finset Pr))
     (h𝒜 : ∀ A ∈ 𝒜, A ⊆ U) (hvan : ∀ A ⊆ U, A ∉ 𝒜 → W (nI A / Z) = 0) :
     ∑ A1 ∈ 𝒜, ∑ A2 ∈ 𝒜, (((W (nI A1 / Z) * W (nI A2 / Z)) : ℝ) : ℂ) *
         ∑ T ∈ (A1 ∩ A2).powerset, tauXi H E ξ1 ξ2 (A1 \ A2) (A2 \ A1) T =
@@ -1058,6 +1066,250 @@ theorem meanSquare_rowcol {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W
     exact xi_chain W hZ _ ξ1 ξ2 U 𝒜 (fun A hA => (subset_primesLe hA).trans hU)
       (fun A _ hA => W_nI_eq_zero hW hZ hA)
 
+/-! ### The family twisted by a character modulo `m` (round 494) -/
+
+/-- The paired factor twisted by a character `ν` modulo `m`: `ν(x)·ν̄(y)·Ψ(x, y)` on the classes
+modulo `m`. -/
+def pairPsiNu (ν : MulChar (𝓞 K ⧸ span {m}) ℂ) (x y : 𝓞 K ⧸ span {m}) : ℂ :=
+  ν x * conj (ν y) * pairPsiCls x y
+
+theorem norm_pairPsiNu_le [NeZero m] (ν : MulChar (𝓞 K ⧸ span {m}) ℂ) (x y : 𝓞 K ⧸ span {m}) :
+    ‖pairPsiNu ν x y‖ ≤ 1 := by
+  unfold pairPsiNu
+  rw [norm_mul, norm_mul, Complex.norm_conj]
+  calc ‖ν x‖ * ‖ν y‖ * ‖pairPsiCls x y‖ ≤ 1 * 1 * 1 := by
+        gcongr
+        · exact norm_xi_le ν x
+        · exact norm_xi_le ν y
+        · exact norm_pairPsiCls_le x y
+    _ = 1 := by norm_num
+
+/-- `ν(x)·ν̄(x) = 1` at a unit `x`. -/
+theorem mul_conj_mulChar_unit [NeZero m] (ν : MulChar (𝓞 K ⧸ span {m}) ℂ) {x : 𝓞 K ⧸ span {m}}
+    (hx : IsUnit x) : ν x * conj (ν x) = 1 := by
+  obtain ⟨u, rfl⟩ := hx
+  rw [Complex.mul_conj, Complex.normSq_eq_norm_sq, norm_mulChar_unit ν u]
+  norm_num
+
+theorem cls_empty' : cls m ∅ = 1 := by
+  unfold cls; rw [Finset.prod_empty, map_one]
+
+/-- **The twisted pair coefficients in characters modulo `m`**: for disjoint `C₁, C₂` with unit classes
+modulo `m`, `ν(C₁)ν̄(C₂)·ā(C₁)a(C₂)Ψ(C₁, C₂) = Σ_{ξ₁,ξ₂} ĉ_ν(ξ₁⁻¹, ξ₂)·ā_{ξ₁}(C₁)·a_{ξ₂}(C₂)`, with `ĉ_ν` the
+coefficients of `pairPsiNu ν`. -/
+theorem pairTerm_expandNu [NeZero m] [Fact ((4 : 𝓞 K) ∣ m)] (ν : MulChar (𝓞 K ⧸ span {m}) ℂ)
+    {C1 C2 : Finset Pr} (hd : Disjoint C1 C2) (h1 : IsUnit (cls m C1)) (h2 : IsUnit (cls m C2)) :
+    ν (cls m C1) * conj (ν (cls m C2)) * (conj (aF πP h6Pr C1) * aF πP h6Pr C2 * pairPsi C1 C2) =
+      ∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
+        pairCoeff (pairPsiNu ν) ξ1⁻¹ ξ2 * (conj (aXi ξ1 (idl C1)) * aXi ξ2 (idl C2)) := by
+  set x := h1.unit
+  set y := h2.unit
+  have hx : (x : 𝓞 K ⧸ span {m}) = cls m C1 := IsUnit.unit_spec _
+  have hy : (y : 𝓞 K ⧸ span {m}) = cls m C2 := IsUnit.unit_spec _
+  have hexp := pair_eq_sum_mulChar (pairPsiNu ν) x y
+  rw [hx, hy] at hexp
+  have e : ν (cls m C1) * conj (ν (cls m C2)) *
+      (conj (aF πP h6Pr C1) * aF πP h6Pr C2 * pairPsi C1 C2) =
+      conj (aF πP h6Pr C1) * aF πP h6Pr C2 * pairPsiNu ν (cls m C1) (cls m C2) := by
+    unfold pairPsiNu; rw [pairPsi_eq_cls (m := m) hd]; ring
+  rw [e, hexp, Finset.mul_sum]
+  -- reindex `ξ₁ ↦ ξ₁⁻¹`
+  rw [← Equiv.sum_comp (Equiv.inv (MulChar (𝓞 K ⧸ span {m}) ℂ))]
+  refine Finset.sum_congr rfl fun ξ1 _ => ?_
+  rw [Finset.mul_sum]
+  refine Finset.sum_congr rfl fun ξ2 _ => ?_
+  have hc : (ξ1⁻¹ : MulChar _ ℂ) (cls m C1) = conj (ξ1 (cls m C1)) := by
+    rw [← hx, MulChar.inv_apply_eq_inv', conj_eq_inv_of_norm]
+    exact norm_mulChar_unit ξ1 x
+  simp only [Equiv.inv_apply]
+  rw [aXi_idl, aXi_idl, map_mul, hc]
+  ring
+
+open Classical in
+/-- **One twisted pair after Poisson summation, in characters modulo `m`**: for `A₁, A₂` with unit classes
+modulo `m`, `N(A₁), N(A₂) ≤ M` and `3R²M² ≤ 4HY` (with `Φ̂` vanishing beyond `R`),
+`ν(A₁)ν̄(A₂)·μ(A₁)μ(A₂)·Σ_u χ_{A₁}χ̄_{A₂}·Φ(u/√H)` is the zero frequency, present only for `A₁ = A₂`, plus
+`Σ_{ξ₁,ξ₂} ĉ_ν(ξ₁⁻¹, ξ₂)·Σ_{T⊆A₁∩A₂} τ_{ξ₁ξ₂}(A₁∖A₂, A₂∖A₁, T)` over the nonzero frequencies of norm at most `Y`.
+The twist sees only `A₁∖A₂` and `A₂∖A₁`: `|ν(A₁∩A₂)|² = 1`. -/
+theorem pair_char_formNu [NeZero m] [Fact ((4 : 𝓞 K) ∣ m)] (ν : MulChar (𝓞 K ⧸ span {m}) ℂ)
+    (H : ℝ) (hH : 0 < H) {R : ℝ} (hR0 : 0 < R)
+    (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0) {M Y : ℝ} (hY : 3 * R ^ 2 * M ^ 2 ≤ 4 * H * Y)
+    {A1 A2 : Finset Pr} (h1 : nI A1 ≤ M) (h2 : nI A2 ≤ M) (hu1 : IsUnit (cls m A1))
+    (hu2 : IsUnit (cls m A2)) :
+    ν (cls m A1) * conj (ν (cls m A2)) * ((-1 : ℂ) ^ A1.card * (-1) ^ A2.card *
+      ∑' u : 𝓞 K, chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ))) =
+    (if A1 = A2 then ∑ T ∈ A1.powerset, (-1 : ℂ) ^ T.card * (kap H ∅ ∅ T : ℂ) * dualG 0 else 0) +
+      ∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
+        pairCoeff (pairPsiNu ν) ξ1⁻¹ ξ2 *
+          ∑ T ∈ (A1 ∩ A2).powerset, tauXi H ((eltsLe Y).erase 0) ξ1 ξ2 (A1 \ A2) (A2 \ A1) T := by
+  have hd : Disjoint (A1 \ A2) (A2 \ A1) := disjoint_sdiff_sdiff
+  have hC1 : IsUnit (cls m (A1 \ A2)) := isUnit_cls_of_subset Finset.sdiff_subset hu1
+  have hC2 : IsUnit (cls m (A2 \ A1)) := isUnit_cls_of_subset Finset.sdiff_subset hu2
+  have hνB : ν (cls m (A1 ∩ A2)) * conj (ν (cls m (A1 ∩ A2))) = 1 :=
+    mul_conj_mulChar_unit ν (isUnit_cls_of_subset Finset.inter_subset_left hu1)
+  have hA1 : cls m A1 = cls m (A1 \ A2) * cls m (A1 ∩ A2) := by
+    conv_lhs => rw [← Finset.sdiff_union_inter A1 A2]
+    exact cls_union (Finset.disjoint_sdiff_inter A1 A2)
+  have hA2 : cls m A2 = cls m (A2 \ A1) * cls m (A1 ∩ A2) := by
+    conv_lhs => rw [← Finset.sdiff_union_inter A2 A1]
+    rw [cls_union (Finset.disjoint_sdiff_inter A2 A1), Finset.inter_comm]
+  have hν : ν (cls m A1) * conj (ν (cls m A2)) =
+      ν (cls m (A1 \ A2)) * conj (ν (cls m (A2 \ A1))) := by
+    rw [hA1, hA2, map_mul, map_mul, map_mul]
+    linear_combination (ν (cls m (A1 \ A2)) * conj (ν (cls m (A2 \ A1)))) * hνB
+  rw [hν, pairSum_clean H hH A1 A2, Finset.mul_sum]
+  have hM0 : 0 ≤ M := le_trans zero_le_one ((one_le_nI A1).trans h1)
+  -- split the frequencies in each term
+  have hsplit : ∀ T ∈ (A1 ∩ A2).powerset,
+      ν (cls m (A1 \ A2)) * conj (ν (cls m (A2 \ A1))) *
+      ((-1 : ℂ) ^ T.card * (kap H (A1 \ A2) (A2 \ A1) T : ℂ) *
+        (conj (aF πP h6Pr (A1 \ A2)) * aF πP h6Pr (A2 \ A1) * pairPsi (A1 \ A2) (A2 \ A1)) *
+        (chiS (A1 \ A2) (∏ P ∈ T, πP P) * conj (chiS (A2 \ A1) (∏ P ∈ T, πP P))) *
+        ∑' μ : 𝓞 K, conj (chiS (A1 \ A2) μ * conj (chiS (A2 \ A1) μ)) *
+          dualW H (A1 \ A2) (A2 \ A1) T μ) =
+      (if A1 = A2 then (-1 : ℂ) ^ T.card * (kap H ∅ ∅ T : ℂ) * dualG 0 else 0) +
+        ∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
+          pairCoeff (pairPsiNu ν) ξ1⁻¹ ξ2 *
+            tauXi H ((eltsLe Y).erase 0) ξ1 ξ2 (A1 \ A2) (A2 \ A1) T := by
+    intro T hT
+    have hTs : T ⊆ A1 ∩ A2 := Finset.mem_powerset.1 hT
+    have hYT : 3 * R ^ 2 * (nI (A1 \ A2) * nI (A2 \ A1) * nI T) ≤ 4 * H * Y := by
+      have hle := nI_pair_le hTs
+      have hMM : nI A1 * nI A2 ≤ M ^ 2 := by
+        rw [sq]; exact mul_le_mul h1 h2 (le_trans zero_le_one (one_le_nI A2)) hM0
+      nlinarith [sq_nonneg R]
+    rw [tsum_mu_eq H hH hR0 hR _ _ _ hYT, mul_add, mul_add]
+    congr 1
+    · by_cases he : A1 = A2
+      · have he' := sdiff_eq_empty_both.2 he
+        rw [ite_eq_left he, ite_eq_left he', he'.1, he'.2, aF_empty, pairPsi_empty, chiS_empty,
+          cls_empty', MulChar.map_one, map_one]
+        ring
+      · have hn : ¬(A1 \ A2 = ∅ ∧ A2 \ A1 = ∅) := fun h => he (sdiff_eq_empty_both.1 h)
+        rw [ite_eq_right he, ite_eq_right hn, mul_zero, mul_zero]
+    · have e : ∀ (v c S d g : ℂ), v * (c * S * d * g) = v * S * (c * d * g) :=
+        fun v c S d g => by ring
+      rw [e, pairTerm_expandNu ν hd hC1 hC2, Finset.sum_mul]
+      refine Finset.sum_congr rfl fun ξ1 _ => ?_
+      rw [Finset.sum_mul]
+      refine Finset.sum_congr rfl fun ξ2 _ => ?_
+      unfold tauXi eS
+      ring
+  rw [Finset.sum_congr rfl hsplit, Finset.sum_add_distrib]
+  congr 1
+  · split_ifs with he
+    · subst he; rw [Finset.inter_self]
+    · exact Finset.sum_eq_zero fun T _ => rfl
+  · rw [Finset.sum_comm]
+    refine Finset.sum_congr rfl fun ξ1 _ => ?_
+    rw [Finset.sum_comm]
+    refine Finset.sum_congr rfl fun ξ2 _ => ?_
+    rw [Finset.mul_sum]
+
+open Classical in
+/-- **The twisted mean square in row/column form**: for `ν` a character modulo `m` with `4 ∣ m`, `M = ⌈βZ⌉`,
+`Φ̂` vanishing beyond `R`, `3R²M² ≤ 4HY`, and `U` a set of primes with unit classes modulo `m` that contains
+every such prime of norm at most `M`, the smoothed mean square of the family twisted by `ν(a mod m)` is the
+zero frequency `Σ_A W(N(A)/Z)²·Σ_{T⊆A} (−1)^{|T|}·2H/(√3·N(T))·Φ̂(0)` over the `A ⊆ U` plus
+`Σ_{ξ₁,ξ₂} ĉ_ν(ξ₁⁻¹, ξ₂)·Σ_{b, T, V, μ, M₁, M₂} rcTerm`, with the sums of round 308's `meanSquare_rowcol`. -/
+theorem meanSquare_rowcolNu [NeZero m] [Fact ((4 : 𝓞 K) ∣ m)] (ν : MulChar (𝓞 K ⧸ span {m}) ℂ)
+    {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {Z : ℝ} (hZ : 0 < Z)
+    {H : ℝ} (hH : 0 < H) {R : ℝ} (hR0 : 0 < R) (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0) {Y : ℝ}
+    (hY : 3 * R ^ 2 * (⌈β * Z⌉₊ : ℝ) ^ 2 ≤ 4 * H * Y) (U : Finset Pr)
+    (hU : ∀ P ∈ primesLe (⌈β * Z⌉₊ : ℝ), IsUnit (cls m {P}) → P ∈ U)
+    (hUu : ∀ P ∈ U, IsUnit (cls m {P})) :
+    ∑' u : 𝓞 K, famSumC (fun I => ν (Ideal.Quotient.mk _ (pgen I))) W Z u *
+        conj (famSumC (fun I => ν (Ideal.Quotient.mk _ (pgen I))) W Z u) *
+        Majorant.Phi (σO u / (Real.sqrt H : ℂ)) =
+      ∑ A ∈ (fsLe (⌈β * Z⌉₊ : ℝ)).filter (· ⊆ U), ((W (nI A / Z) ^ 2 : ℝ) : ℂ) *
+          ∑ T ∈ A.powerset, (-1 : ℂ) ^ T.card * (kap H ∅ ∅ T : ℂ) * dualG 0 +
+        ∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
+          pairCoeff (pairPsiNu ν) ξ1⁻¹ ξ2 *
+            ∑ b ∈ U.powerset, ∑ T ∈ (U \ b).powerset, ∑ V ∈ (U \ (b ∪ T)).powerset,
+              ∑ μ ∈ (eltsLe Y).erase 0,
+                ∑ M1 ∈ ((U \ (b ∪ T)) \ V).powerset, ∑ M2 ∈ ((U \ (b ∪ T)) \ V).powerset,
+                  rcTerm W Z H ξ1 ξ2 b T V μ M1 M2 := by
+  set 𝒜 := (fsLe (⌈β * Z⌉₊ : ℝ)).filter (· ⊆ U) with h𝒜def
+  have hcls : ∀ A : Finset Pr, (Ideal.Quotient.mk (span {m}) (pgen (idl A))) = cls m A := fun A => by
+    rw [pgen_idl]; rfl
+  -- a set of primes outside `U` has a non-unit class
+  have hout : ∀ A ∈ fsLe (⌈β * Z⌉₊ : ℝ), ¬ A ⊆ U → ν (cls m A) = 0 := by
+    intro A hA hAU
+    obtain ⟨P, hPA, hPU⟩ := Finset.not_subset.1 hAU
+    refine MulChar.map_nonunit ν fun hu => hPU (hU P (subset_primesLe hA hPA) ?_)
+    exact isUnit_cls_of_subset (Finset.singleton_subset_iff.2 hPA) hu
+  rw [famSumC_majorant_eq _ hW hZ H hH]
+  simp only [hcls]
+  -- restrict both sums to `𝒜`
+  have hrestrict : ∀ (F : Finset Pr → Finset Pr → ℂ),
+      ∑ A1 ∈ fsLe (⌈β * Z⌉₊ : ℝ), ∑ A2 ∈ fsLe (⌈β * Z⌉₊ : ℝ),
+        ν (cls m A1) * conj (ν (cls m A2)) * F A1 A2 =
+      ∑ A1 ∈ 𝒜, ∑ A2 ∈ 𝒜, ν (cls m A1) * conj (ν (cls m A2)) * F A1 A2 := by
+    intro F
+    rw [h𝒜def, Finset.sum_filter_of_ne]
+    · refine Finset.sum_congr rfl fun A1 _ => ?_
+      rw [Finset.sum_filter_of_ne]
+      intro A2 hA2 hne
+      by_contra hc
+      rw [hout A2 hA2 hc, map_zero, mul_zero, zero_mul] at hne
+      exact hne rfl
+    · intro A1 hA1 hne
+      by_contra hc
+      apply hne
+      refine Finset.sum_eq_zero fun A2 _ => ?_
+      rw [hout A1 hA1 hc, zero_mul, zero_mul]
+  rw [hrestrict]
+  have hpair : ∀ A1 ∈ 𝒜, ∀ A2 ∈ 𝒜,
+      ν (cls m A1) * conj (ν (cls m A2)) *
+        (((W ((absNorm (idl A1) : ℝ) / Z) * W ((absNorm (idl A2) : ℝ) / Z) : ℝ) : ℂ) *
+        ((-1 : ℂ) ^ A1.card * (-1) ^ A2.card *
+          ∑' u : 𝓞 K, chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ)))) =
+      (if A1 = A2 then ((W (nI A1 / Z) ^ 2 : ℝ) : ℂ) *
+          ∑ T ∈ A1.powerset, (-1 : ℂ) ^ T.card * (kap H ∅ ∅ T : ℂ) * dualG 0 else 0) +
+        ∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
+          pairCoeff (pairPsiNu ν) ξ1⁻¹ ξ2 *
+            ((((W (nI A1 / Z) * W (nI A2 / Z)) : ℝ) : ℂ) *
+              ∑ T ∈ (A1 ∩ A2).powerset,
+                tauXi H ((eltsLe Y).erase 0) ξ1 ξ2 (A1 \ A2) (A2 \ A1) T) := by
+    intro A1 hA1 A2 hA2
+    have hA1' := Finset.mem_filter.1 hA1
+    have hA2' := Finset.mem_filter.1 hA2
+    have hu1 : IsUnit (cls m A1) := isUnit_cls_of_forall fun P hP => hUu P (hA1'.2 hP)
+    have hu2 : IsUnit (cls m A2) := isUnit_cls_of_forall fun P hP => hUu P (hA2'.2 hP)
+    have e : ν (cls m A1) * conj (ν (cls m A2)) *
+        (((W ((absNorm (idl A1) : ℝ) / Z) * W ((absNorm (idl A2) : ℝ) / Z) : ℝ) : ℂ) *
+        ((-1 : ℂ) ^ A1.card * (-1) ^ A2.card *
+          ∑' u : 𝓞 K, chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ)))) =
+        (((W ((absNorm (idl A1) : ℝ) / Z) * W ((absNorm (idl A2) : ℝ) / Z) : ℝ) : ℂ) *
+        (ν (cls m A1) * conj (ν (cls m A2)) * ((-1 : ℂ) ^ A1.card * (-1) ^ A2.card *
+          ∑' u : 𝓞 K, chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ))))) := by
+      ring
+    rw [e, pair_char_formNu ν H hH hR0 hR hY (nI_le_of_mem_fsLe hA1'.1) (nI_le_of_mem_fsLe hA2'.1)
+      hu1 hu2, mul_add]
+    congr 1
+    · split_ifs with he
+      · subst he; unfold nI; push_cast; ring
+      · rw [mul_zero]
+    · rw [Finset.mul_sum]
+      refine Finset.sum_congr rfl fun ξ1 _ => ?_
+      rw [Finset.mul_sum]
+      refine Finset.sum_congr rfl fun ξ2 _ => ?_
+      unfold nI; ring
+  rw [Finset.sum_congr rfl fun A1 hA1 => Finset.sum_congr rfl fun A2 hA2 => hpair A1 hA1 A2 hA2]
+  simp only [Finset.sum_add_distrib]
+  congr 1
+  · refine Finset.sum_congr rfl fun A1 hA1 => ?_
+    rw [Finset.sum_ite_eq]
+    rw [ite_eq_left hA1]
+  · rw [Finset.sum_congr rfl fun A1 _ => Finset.sum_comm, Finset.sum_comm]
+    refine Finset.sum_congr rfl fun ξ1 _ => ?_
+    rw [Finset.sum_congr rfl fun A1 _ => Finset.sum_comm, Finset.sum_comm]
+    refine Finset.sum_congr rfl fun ξ2 _ => ?_
+    simp_rw [← Finset.mul_sum]
+    congr 1
+    exact xi_chain W hZ _ ξ1 ξ2 U 𝒜 (fun A hA => (Finset.mem_filter.1 hA).2)
+      (fun A hAU hA => W_nI_eq_zero hW hZ fun h => hA (Finset.mem_filter.2 ⟨h, hAU⟩))
+
 end Eis
 
 end
@@ -1123,3 +1375,9 @@ end
 #print axioms Eis.isUnit_cls_of_subset
 #print axioms Eis.isUnit_cls_of_forall
 #print axioms Eis.aXi_idl_eq_zero
+#print axioms Eis.norm_pairPsiNu_le
+#print axioms Eis.mul_conj_mulChar_unit
+#print axioms Eis.cls_empty'
+#print axioms Eis.pairTerm_expandNu
+#print axioms Eis.pair_char_formNu
+#print axioms Eis.meanSquare_rowcolNu

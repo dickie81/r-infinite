@@ -1,6 +1,15 @@
 import EisensteinMeanSquareBlock
 
-/-! # The mean square from the dual mean square (round 310)
+/-! # The mean square from the dual mean square (round 310; round 494: the twisted family)
+
+Round 494 (step 3 of round 491's plan for door 5(b)) states the rows and the bound of one `𝔟` (`rowTerm`,
+`rowTerm_eq_zero`, `bTerm_eq_good`, `bTerm_bound`) for the characters modulo any `m`, over a set `U` that contains
+the primes of norm at most `2βZ` whose class modulo `m` is a unit, and adds the family twisted by a character `ν`
+modulo `m`, `4 ∣ m`: the display **`MeanSquareC c σ`**, round 288's `MeanSquare σ` for the family with the
+coefficients `c(𝔞)` (`MeanSquare σ` is the case `c = 1`, `meanSquareC_one_iff`); **`famSumNu_meanSquare_le`**, the
+mean square at one scale for the twisted family, through `meanSquare_rowcolNu` (round 308's identity for the
+twisted family), with the sets of primes with a unit class; and **`meanSquareNu_of_dualMeanSquareM`**:
+`DualMeanSquareM m ϑ ⇒ MeanSquareC c_ν ϑ` for `ϑ > 0`, with `c_ν(𝔞) = ν(pgen 𝔞 mod m)`.
 
 S4 of round 291's plan, part 10, and the second conditional milestone: the companion paper's
 Proposition 4.5 with its choice of parameters. Round 308's row/column form and round 309's block
@@ -44,6 +53,8 @@ open scoped ComplexConjugate ContDiff
 noncomputable section
 
 namespace Eis
+
+variable {m : 𝓞 K}
 
 /-! ### The weights -/
 
@@ -426,7 +437,7 @@ theorem sum_rowsOf (U b : Finset Pr) (E : Finset (𝓞 K)) (g : Row → ℂ) :
 def lev (r : Row) : ℕ := Nat.log 2 (absNorm (idl (rowF r)))
 
 /-- A row's double sum over its columns. -/
-def rowTerm (W : ℝ → ℝ) (Z H : ℝ) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+def rowTerm (W : ℝ → ℝ) (Z H : ℝ) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ)
     (U b : Finset Pr) (r : Row) : ℂ :=
   ∑ M1 ∈ ((U \ (b ∪ r.1)) \ r.2.1).powerset, ∑ M2 ∈ ((U \ (b ∪ r.1)) \ r.2.1).powerset,
     rcTerm W Z H ξ1 ξ2 b r.1 r.2.1 r.2.2 M1 M2
@@ -447,7 +458,7 @@ theorem W0f_eq_zero_of_gt {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W
 
 section Vanish
 
-variable (W : ℝ → ℝ) (Z H : ℝ) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+variable (W : ℝ → ℝ) (Z H : ℝ) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ)
   (b T V : Finset Pr) (μ : 𝓞 K) (M1 M2 : Finset Pr)
 
 theorem rcTerm_eq_zero_of_dvd {P : Pr} (hP : P ∈ V) (h : πP P ∣ μ) :
@@ -497,7 +508,7 @@ theorem dualW_eq_zero_of_le {R : ℝ} (hR0 : 0 < R) (hR : ∀ ρ, R ≤ ρ → d
 dual weight `Φ̂` (`dualW_eq_zero_of_le` at `c = βZ`). -/
 theorem rcTerm_eq_zero_of_large {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {Z H : ℝ}
     (hZ : 0 < Z) (hH : 0 < H) {R : ℝ} (hR0 : 0 < R) (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0) {CI : ℝ}
-    (hCI : 3 * R ^ 2 * β ^ 2 ≤ 4 * CI) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+    (hCI : 3 * R ^ 2 * β ^ 2 ≤ 4 * CI) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ)
     (b T V : Finset Pr) (μ : 𝓞 K) {M1 M2 : Finset Pr} (hV1 : Disjoint V M1) (hV2 : Disjoint V M2)
     (hk : CI * Z ^ 2 / (H * nI b ^ 2) < nI T * (absNorm (span {μ}) : ℝ)) :
     rcTerm W Z H ξ1 ξ2 b T V μ M1 M2 = 0 := by
@@ -518,7 +529,7 @@ theorem rcTerm_eq_zero_of_large {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x
 column sum. -/
 theorem rowTerm_eq_zero {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {Z H : ℝ}
     (hZ : 0 < Z) (hH : 0 < H) {R : ℝ} (hR0 : 0 < R) (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0) {CI : ℝ}
-    (hCI : 3 * R ^ 2 * β ^ 2 ≤ 4 * CI) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+    (hCI : 3 * R ^ 2 * β ^ 2 ≤ 4 * CI) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ)
     {U b : Finset Pr} {r : Row} (hr : r.2.1 ⊆ U \ (b ∪ r.1))
     (hng : ¬ goodRow β Z (CI * Z ^ 2 / (H * nI b ^ 2)) b r) :
     rowTerm W Z H ξ1 ξ2 U b r = 0 := by
@@ -556,7 +567,7 @@ open Classical in
 rows that are not good contribute nothing (`rowTerm_eq_zero`). -/
 theorem bTerm_eq_good {W : ℝ → ℝ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {Z H : ℝ}
     (hZ : 0 < Z) (hH : 0 < H) {R : ℝ} (hR0 : 0 < R) (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0) {CI : ℝ}
-    (hCI : 3 * R ^ 2 * β ^ 2 ≤ 4 * CI) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+    (hCI : 3 * R ^ 2 * β ^ 2 ≤ 4 * CI) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ)
     (U b : Finset Pr) (E : Finset (𝓞 K)) :
     ∑ T ∈ (U \ b).powerset, ∑ V ∈ (U \ (b ∪ T)).powerset, ∑ μ ∈ E,
         ∑ M1 ∈ ((U \ (b ∪ T)) \ V).powerset, ∑ M2 ∈ ((U \ (b ∪ T)) \ V).powerset,
@@ -588,12 +599,13 @@ open Classical in
 range): the good rows of level `j = ⌊log₂ N(f)⌋ ≤ ⌊log₂⌊βZ⌋⌋` form one block of round 309's
 `rowBlock_bound` at `F = 2^j`, whose column mean squares come from the dual mean square (`hexcl`,
 through `rows_colMeanSquare`), so the sum is at most `(⌊log₂⌊βZ⌋⌋ + 1)` times the block bound
-`2HN(𝔟)/(√3Z)·K·A_min^{−σ}·4^{|𝔟|}K_c Z^{ε₁}(Z/N(𝔟))²` with `A_min = HN(𝔟)²/(3Z²)`. -/
-theorem bTerm_bound (W : ℝ → ℝ) {α β : ℝ} (hβ : 0 ≤ β) (hW : ∀ x, β < x → W x = 0)
+`2HN(𝔟)/(√3Z)·K·A_min^{−σ}·4^{|𝔟|}K_c Z^{ε₁}(Z/N(𝔟))²` with `A_min = HN(𝔟)²/(3Z²)`. For the characters modulo any
+`m` (round 494), with `U` containing the primes of norm at most `2βZ` whose class modulo `m` is a unit. -/
+theorem bTerm_bound [NeZero m] (W : ℝ → ℝ) {α β : ℝ} (hβ : 0 ≤ β) (hW : ∀ x, β < x → W x = 0)
     {Z H : ℝ} (hZ : 1 ≤ Z) (hH : 0 < H) {R : ℝ} (hR0 : 0 < R) (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0)
     {CI : ℝ} (hCI : 3 * R ^ 2 * β ^ 2 ≤ 4 * CI)
-    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U b : Finset Pr) (E : Finset (𝓞 K))
-    (hE : ∀ μ ∈ E, μ ≠ 0) (hU : primesLe (2 * β * Z) ⊆ U)
+    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) (U b : Finset Pr) (E : Finset (𝓞 K))
+    (hE : ∀ μ ∈ E, μ ≠ 0) (hU : ∀ P ∈ primesLe (2 * β * Z), IsUnit (cls m {P}) → P ∈ U)
     (V : ℝ → ℂ) (hVs : tsupport V ⊆ Set.Icc (α / 4) (2 * β)) (J : ℕ)
     {Kb σ Kc ε1 : ℝ} (hKc : 0 ≤ Kc)
     (hK : ∀ {ι κ : Type} (T : Finset ι) (C : Finset κ) (a b : ι → κ → ℂ) (x : κ → ℝ),
@@ -610,7 +622,7 @@ theorem bTerm_bound (W : ℝ → ℝ) {α β : ℝ} (hβ : 0 ≤ β) (hW : ∀ x
       ‖∑ r ∈ T, w r * ∑ n1 ∈ C, ∑ n2 ∈ C, a r n1 * conj (b r n2) *
           ((((W0f W (ρ r * x n1)) : ℝ) : ℂ) * conj (((W0f W (ρ r * x n2)) : ℝ) : ℂ) *
             dualG (Real.sqrt (Ar r / (x n1 * x n2))))‖ ≤ Kb * Amin ^ (-σ) * M)
-    (hexcl : ∀ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ F : ℝ, 1 ≤ F →
+    (hexcl : ∀ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ, ∀ F : ℝ, 1 ≤ F →
       ∀ W' : ℝ → ℂ, ContDiff ℝ ∞ W' → (∀ x, x < α / 4 ∨ 2 * β < x → W' x = 0) → ∀ N : ℝ,
       (∀ j ≤ J, ∀ x, ‖iteratedDeriv j W' x‖ ≤ N) →
       ∀ (Fs : Finset (Ideal (𝓞 K))) (Ks : Finset (𝓞 K)),
@@ -670,13 +682,13 @@ theorem bTerm_bound (W : ℝ → ℝ) {α β : ℝ} (hβ : 0 ≤ β) (hW : ∀ x
           rw [show Nat.log 2 (absNorm (idl (rowF r))) = j from hlev] at hb
           exact ⟨hV, hTV, hgood.1, hE _ hμ, hb.1, hb.2, hgood.2.1⟩
         have hX : 0 < Z / (nI b * 2 ^ j) := by positivity
-        have hUX : primesLe (2 * β * (Z / (nI b * 2 ^ j))) ⊆ U := by
-          refine (primesLe_mono ?_).trans hU
+        have hUX : ∀ P ∈ primesLe (2 * β * (Z / (nI b * 2 ^ j))), IsUnit (cls m {P}) → P ∈ U := by
+          refine fun P hP => hU P (primesLe_mono ?_ hP)
           have : Z / (nI b * 2 ^ j) ≤ Z :=
             div_le_self hZ0.le (one_le_mul_of_one_le_of_one_le (one_le_nI b) hF1)
           rw [mul_assoc, mul_assoc]
           exact mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left this hβ) (by norm_num)
-        have hcol : ∀ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+        have hcol : ∀ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ,
             ∀ U' : ℝ → ℂ, ContDiff ℝ ∞ U' → tsupport U' ⊆ tsupport V → ∀ N : ℝ,
             (∀ j' ≤ J, ∀ y, ‖iteratedDeriv j' U' y‖ ≤ N) →
             ∑ r ∈ G.filter (fun r => lev r = j),
@@ -784,7 +796,7 @@ theorem famSum_meanSquare_le (W : ℝ → ℝ) {α β : ℝ} (hβ : 0 ≤ β) (h
       unfold nI; exact Nat.lt_of_floor_lt hb
     rw [bTerm_eq_good hW hZ0 hH hR0 hR hCI ξ1 ξ2 U b _, good_eq_empty hlt, Finset.sum_empty]
   · exact bTerm_bound W hβ hW hZ hH hR0 hR hCI ξ1 ξ2 U b _
-      (fun μ hμ => (Finset.mem_erase.1 hμ).1) hU2 V hVs J hKc hK (hexcl b)
+      (fun μ hμ => (Finset.mem_erase.1 hμ).1) (fun P hP _ => hU2 hP) V hVs J hKc hK (hexcl b)
 
 /-! ### The choice of parameters -/
 
@@ -1000,6 +1012,242 @@ theorem ne_zero_of_dualMeanSquare {ϑ : ℝ} (hϑ : 0 < ϑ) (h : DualMeanSquare 
     riemannZeta s ≠ 0 ∧ DirichletCharacter.LFunction PsiOmega.chi3 s ≠ 0 :=
   ne_zero_of_meanSquare hϑ.le (meanSquare_of_dualMeanSquare hϑ h) hs
 
+/-! ### The family twisted by a character modulo `m` (round 494) -/
+
+/-- **The twisted S2′ hypothesis** (round 494): round 288's `MeanSquare σ` for the family with the coefficients
+`c(𝔞)`, `A_Z^c(u) = Σ_𝔞 c(𝔞)μ(𝔞)(u/𝔞)₆W(N𝔞/Z)` over the ideals of norm prime to `6`. -/
+def MeanSquareC (c : Ideal (𝓞 K) → ℂ) (σ : ℝ) : Prop :=
+  ∀ W : ℝ → ℝ, HalfPlaneS0.Weight W → ∀ ε : ℝ, 0 < ε → ∃ C : ℝ, ∀ Z : ℝ, 1 ≤ Z → ∀ T : Finset (𝓞 K),
+    (∀ z ∈ T, z ≠ 0 ∧ (absNorm (span {z}) : ℝ) ≤ Z ^ (1 + σ)) →
+      ∑ z ∈ T, ‖famSumC c W Z z‖ ^ 2 ≤ C * Z ^ (2 + σ + ε)
+
+/-- `MeanSquare σ` is the twisted display at `c = 1`. -/
+theorem meanSquareC_one_iff {σ : ℝ} : MeanSquareC (fun _ => 1) σ ↔ MeanSquare σ := by
+  unfold MeanSquareC MeanSquare
+  simp only [famSumC_one]
+
+open Classical in
+/-- **The twisted mean square at one scale** (round 494): `famSum_meanSquare_le` for the family twisted by a
+character `ν` modulo `m`, `4 ∣ m`. The sets of primes are those with a unit class modulo `m`
+(`meanSquare_rowcolNu`, round 308's identity for the twisted family), the excluded ideals `𝔟` run over the
+squarefree ideals of norm at most `βZ` whose primes have unit classes, and the characters over those modulo `m`. -/
+theorem famSumNu_meanSquare_le [NeZero m] [Fact ((4 : 𝓞 K) ∣ m)] (ν : MulChar (𝓞 K ⧸ span {m}) ℂ)
+    (W : ℝ → ℝ) {α β : ℝ} (hβ : 0 ≤ β) (hW : ∀ x, β < x → W x = 0)
+    {Bw : ℝ} (hBw : ∀ x, |W x| ≤ Bw)
+    {Z H : ℝ} (hZ : 1 ≤ Z) (hH : 0 < H) {R : ℝ} (hR0 : 0 < R) (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0)
+    {CI : ℝ} (hCI : 3 * R ^ 2 * β ^ 2 ≤ 4 * CI)
+    (V : ℝ → ℂ) (hVs : tsupport V ⊆ Set.Icc (α / 4) (2 * β)) (J : ℕ)
+    {Kb σ Kc ε1 : ℝ} (hKc : 0 ≤ Kc)
+    (hK : ∀ {ι κ : Type} (T : Finset ι) (C : Finset κ) (a b : ι → κ → ℂ) (x : κ → ℝ),
+      (∀ n ∈ C, 0 < x n) → ∀ M : ℝ, 0 ≤ M →
+      (∀ U : ℝ → ℂ, ContDiff ℝ ∞ U → tsupport U ⊆ tsupport V → ∀ N : ℝ,
+        (∀ j ≤ J, ∀ y, ‖iteratedDeriv j U y‖ ≤ N) →
+        ∑ r ∈ T, ‖∑ n ∈ C, a r n * U (x n)‖ ^ 2 ≤ M * N ^ 2) →
+      (∀ U : ℝ → ℂ, ContDiff ℝ ∞ U → tsupport U ⊆ tsupport V → ∀ N : ℝ,
+        (∀ j ≤ J, ∀ y, ‖iteratedDeriv j U y‖ ≤ N) →
+        ∑ r ∈ T, ‖∑ n ∈ C, b r n * U (x n)‖ ^ 2 ≤ M * N ^ 2) →
+      ∀ ρ : ι → ℝ, (∀ r ∈ T, 1 ≤ ρ r ∧ ρ r ≤ 2) →
+      ∀ w : ι → ℂ, (∀ r ∈ T, ‖w r‖ ≤ 1) → ∀ (Ar : ι → ℝ) (Amin : ℝ), 0 < Amin →
+      (∀ r ∈ T, Amin ≤ Ar r) →
+      ‖∑ r ∈ T, w r * ∑ n1 ∈ C, ∑ n2 ∈ C, a r n1 * conj (b r n2) *
+          ((((W0f W (ρ r * x n1)) : ℝ) : ℂ) * conj (((W0f W (ρ r * x n2)) : ℝ) : ℂ) *
+            dualG (Real.sqrt (Ar r / (x n1 * x n2))))‖ ≤ Kb * Amin ^ (-σ) * M)
+    (hexcl : ∀ b : Finset Pr, ∀ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ, ∀ F : ℝ, 1 ≤ F →
+      ∀ W' : ℝ → ℂ, ContDiff ℝ ∞ W' → (∀ x, x < α / 4 ∨ 2 * β < x → W' x = 0) → ∀ N : ℝ,
+      (∀ j ≤ J, ∀ x, ‖iteratedDeriv j W' x‖ ≤ N) →
+      ∀ (Fs : Finset (Ideal (𝓞 K))) (Ks : Finset (𝓞 K)),
+        (∀ f ∈ Fs, (absNorm f).Coprime 6 ∧ Squarefree f ∧ F ≤ (absNorm f : ℝ) ∧
+          (absNorm f : ℝ) < 2 * F) →
+        (∀ k ∈ Ks, k ≠ 0 ∧ (absNorm (span {k}) : ℝ) ≤ CI * Z ^ 2 / (H * nI b ^ 2)) →
+        ∑ f ∈ Fs, ∑ k ∈ Ks, ‖colSum ξ W' (Z / (nI b * F)) (idl b) k (pgen f)‖ ^ 2 ≤
+          4 ^ b.card * (Kc * N ^ 2 * Z ^ ε1 * (Z / nI b) ^ 2))
+    (T : Finset (𝓞 K)) (hT : ∀ z ∈ T, (absNorm (span {z}) : ℝ) ≤ H) :
+    ∑ z ∈ T, ‖famSumC (fun I => ν (Ideal.Quotient.mk _ (pgen I))) W Z z‖ ^ 2 ≤
+      (fsLe (⌈β * Z⌉₊ : ℝ)).card * (Bw ^ 2 * (2 * H / Real.sqrt 3 * ‖dualG 0‖)) +
+        (Fintype.card (MulChar (𝓞 K ⧸ span {m}) ℂ) : ℝ) ^ 2 *
+          ∑ b ∈ (fsLe (β * Z)).filter (fun b => ∀ P ∈ b, IsUnit (cls m {P})),
+            ((Nat.log 2 ⌊β * Z⌋₊ : ℕ) + 1 : ℝ) *
+            (2 * H * nI b / (Real.sqrt 3 * Z) * (Kb * (H * nI b ^ 2 / (3 * Z ^ 2)) ^ (-σ) *
+              (4 ^ b.card * (Kc * Z ^ ε1 * (Z / nI b) ^ 2)))) := by
+  have hZ0 : 0 < Z := by linarith
+  set Y : ℝ := 3 * R ^ 2 * (⌈β * Z⌉₊ : ℝ) ^ 2 / (4 * H) with hYdef
+  have hY : 3 * R ^ 2 * (⌈β * Z⌉₊ : ℝ) ^ 2 ≤ 4 * H * Y := by
+    have : 4 * H * Y = 3 * R ^ 2 * (⌈β * Z⌉₊ : ℝ) ^ 2 := by
+      rw [hYdef]; field_simp
+    rw [this]
+  set U := (primesLe (max (⌈β * Z⌉₊ : ℝ) (2 * β * Z))).filter fun P => IsUnit (cls m {P}) with hUdef
+  have hU1 : ∀ P ∈ primesLe (⌈β * Z⌉₊ : ℝ), IsUnit (cls m {P}) → P ∈ U := fun P hP hu =>
+    Finset.mem_filter.2 ⟨primesLe_mono (le_max_left _ _) hP, hu⟩
+  have hU2 : ∀ P ∈ primesLe (2 * β * Z), IsUnit (cls m {P}) → P ∈ U := fun P hP hu =>
+    Finset.mem_filter.2 ⟨primesLe_mono (le_max_right _ _) hP, hu⟩
+  have hUu : ∀ P ∈ U, IsUnit (cls m {P}) := fun P hP => (Finset.mem_filter.1 hP).2
+  have hfsU : (fsLe (β * Z)).filter (fun b => ∀ P ∈ b, IsUnit (cls m {P})) ⊆ U.powerset := by
+    intro b hb
+    rw [Finset.mem_filter] at hb
+    rw [Finset.mem_powerset]
+    intro P hP
+    exact hU1 P (primesLe_mono (Nat.le_ceil _) (subset_primesLe hb.1 hP)) (hb.2 P hP)
+  have hmaj := sum_sq_le_majorant H hH (famSumC (fun I => ν (Ideal.Quotient.mk _ (pgen I))) W Z)
+    (norm_famSumC_le (fun I => norm_xi_le ν _) hW hZ0) T hT
+  refine hmaj.trans ((Complex.re_le_norm _).trans ?_)
+  rw [meanSquare_rowcolNu ν hW hZ0 hH hR0 hR hY U hU1 hUu]
+  refine (norm_add_le _ _).trans (add_le_add ((zero_term_le hBw hH.le _).trans ?_) ?_)
+  · exact mul_le_mul_of_nonneg_right (by exact_mod_cast Finset.card_filter_le _ _) (by positivity)
+  refine norm_double_sum_le _ _ (fun ξ1 ξ2 => norm_pairCoeff_le (pairPsiNu ν)
+    (fun c1 c2 => norm_pairPsiNu_le ν _ _) ξ1⁻¹ ξ2) fun ξ1 ξ2 => ?_
+  refine norm_sum_le_of_subset hfsU _ _ (fun b hbU hb => ?_) (fun b _ => ?_)
+  · have hb' : b ∉ fsLe (β * Z) := fun h => hb (Finset.mem_filter.2 ⟨h, fun P hP =>
+      hUu P (Finset.mem_powerset.1 hbU hP)⟩)
+    have hlt : β * Z < nI b := by
+      rw [mem_fsLe, not_le] at hb'
+      unfold nI; exact Nat.lt_of_floor_lt hb'
+    rw [bTerm_eq_good hW hZ0 hH hR0 hR hCI ξ1 ξ2 U b _, good_eq_empty hlt, Finset.sum_empty]
+  · exact bTerm_bound W hβ hW hZ hH hR0 hR hCI ξ1 ξ2 U b _
+      (fun μ hμ => (Finset.mem_erase.1 hμ).1) hU2 V hVs J hKc hK (hexcl b)
+
+open Classical in
+/-- **The twisted mean square from the dual mean square** (round 494; the companion paper's Proposition 4.5 for
+the family twisted by `ν`): for a character `ν` modulo `m` with `4 ∣ m`, `DualMeanSquareM m ϑ ⇒ MeanSquareC c_ν ϑ`
+for `ϑ > 0`, with `c_ν(𝔞) = ν(pgen 𝔞 mod m)`. Round 310's choice of parameters, with the characters modulo `m`. -/
+theorem meanSquareNu_of_dualMeanSquareM [NeZero m] [Fact ((4 : 𝓞 K) ∣ m)] (ν : MulChar (𝓞 K ⧸ span {m}) ℂ)
+    {ϑ : ℝ} (hϑ : 0 < ϑ) (hDM : DualMeanSquareM m ϑ) :
+    MeanSquareC (fun I => ν (Ideal.Quotient.mk _ (pgen I))) ϑ := by
+  intro W hW ε hε
+  obtain ⟨α, β, hα, hαβ, hWs⟩ := weight_support hW
+  have hβ : 0 < β := lt_of_lt_of_le hα hαβ
+  have hWβ : ∀ x, β < x → W x = 0 := fun x hx => hWs x (Or.inr hx)
+  obtain ⟨Bw, hBw'⟩ := hW.smooth.continuous.bounded_above_of_compact_support hW.compact
+  have hBw : ∀ x, |W x| ≤ Bw := fun x => by have := hBw' x; rwa [Real.norm_eq_abs] at this
+  have hBw0 : 0 ≤ Bw := le_trans (abs_nonneg _) (hBw 0)
+  set e := ε / 5 with he_def
+  have he : 0 < e := by positivity
+  obtain ⟨V, hV, hVc, hVp, hVs, hV1⟩ := exists_bump hα hαβ
+  obtain ⟨R, hR0, hR⟩ := exists_dualG_eq_zero
+  obtain ⟨J, hJ⟩ := dualMeanSquare_excl hDM e he
+  set CI := max 1 (3 * R ^ 2 * β ^ 2 / 4) with hCI_def
+  have hCI1 : 1 ≤ CI := le_max_left _ _
+  have hCI : 3 * R ^ 2 * β ^ 2 ≤ 4 * CI := by
+    have := le_max_right 1 (3 * R ^ 2 * β ^ 2 / 4); linarith
+  obtain ⟨Kc, hKc⟩ := hJ (α / 4) (2 * β) (by positivity) CI hCI1
+  have hW0 : ContDiff ℝ ∞ (fun y => ((W0f W y : ℝ) : ℂ)) :=
+    ofRealCLM.contDiff.comp (W0f_contDiff hW.smooth hα hWs)
+  have hW0s : ∀ y, y < α ∨ β < y → (fun y => ((W0f W y : ℝ) : ℂ)) y = 0 := fun y hy => by
+    simp only [W0f_eq_zero hWs hy, ofReal_zero]
+  obtain ⟨Kb, hKb⟩ := MellinSep.bilinear_dual_bound₂ (fun y => ((W0f W y : ℝ) : ℂ)) hW0 hα hW0s
+    V hV hVc hVp (ρ0 := 1) (ρ1 := 2) one_pos (fun y h1 h2 => hV1 y h1 (by rwa [div_one] at h2))
+    J dualG dualG_contDiff dualG_bounded hR he
+  obtain ⟨Cδ, hCδ, h4⟩ := four_pow_card_le he
+  have hk := kappa_pos
+  set Kb' := max Kb 0 with hKb'
+  set Kc' := max Kc 0 with hKc'
+  have hKb'0 : 0 ≤ Kb' := le_max_right _ _
+  have hKc'0 : 0 ≤ Kc' := le_max_right _ _
+  set nξ : ℝ := (Fintype.card (MulChar (𝓞 K ⧸ span {m}) ℂ) : ℝ) with hnξ
+  set cL := (1 / (e * Real.log 2) + 1) * (β + 1) ^ e with hcL
+  set c2 := 2 / Real.sqrt 3 * Kb' * 3 ^ e * Kc' with hc2
+  have hc20 : 0 ≤ c2 := by positivity
+  set C0 := (2 * kappa + 5) * (β + 1) * (Bw ^ 2 * (2 / Real.sqrt 3 * ‖dualG 0‖)) with hC0
+  set C1 := nξ ^ 2 * (cL ^ 2 * c2 * Cδ * β ^ e * (2 * (2 * kappa + 5))) with hC1
+  refine ⟨C0 + C1, fun Z hZ T hT => ?_⟩
+  have hZ0 : 0 < Z := by linarith
+  set H := Z ^ (1 + ϑ) with hHdef
+  have hH : 0 < H := Real.rpow_pos_of_pos hZ0 _
+  have hZH : Z ≤ H := by
+    calc Z = Z ^ (1 : ℝ) := (Real.rpow_one Z).symm
+      _ ≤ Z ^ (1 + ϑ) := Real.rpow_le_rpow_of_exponent_le hZ (by linarith)
+  have hexcl : ∀ b : Finset Pr, ∀ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ, ∀ F : ℝ, 1 ≤ F →
+      ∀ W' : ℝ → ℂ, ContDiff ℝ ∞ W' → (∀ x, x < α / 4 ∨ 2 * β < x → W' x = 0) → ∀ N : ℝ,
+      (∀ j ≤ J, ∀ x, ‖iteratedDeriv j W' x‖ ≤ N) →
+      ∀ (Fs : Finset (Ideal (𝓞 K))) (Ks : Finset (𝓞 K)),
+        (∀ f ∈ Fs, (absNorm f).Coprime 6 ∧ Squarefree f ∧ F ≤ (absNorm f : ℝ) ∧
+          (absNorm f : ℝ) < 2 * F) →
+        (∀ k ∈ Ks, k ≠ 0 ∧ (absNorm (span {k}) : ℝ) ≤ CI * Z ^ 2 / (H * nI b ^ 2)) →
+        ∑ f ∈ Fs, ∑ k ∈ Ks, ‖colSum ξ W' (Z / (nI b * F)) (idl b) k (pgen f)‖ ^ 2 ≤
+          4 ^ b.card * (Kc' * N ^ 2 * Z ^ e * (Z / nI b) ^ 2) := by
+    intro b ξ F hF W' hW' hW's N hN Fs Ks hFs hKs
+    have hb := nI_pos b
+    have hHc : 0 < CI * Z ^ 2 / (H * nI b ^ 2) := by positivity
+    have h := hKc ξ W' hW' hW's N hN Z (nI b) F (CI * Z ^ 2 / (H * nI b ^ 2)) hZ (one_le_nI b) hF
+      hHc le_rfl (idl b) (idl_coprime6 b) (idl_squarefree b) Fs Ks hFs hKs
+    rw [primeSet_idl] at h
+    refine h.trans ?_
+    have hN2 : 0 ≤ N ^ 2 * Z ^ e * (Z / nI b) ^ 2 := by positivity
+    have : Kc * N ^ 2 * Z ^ e * (Z / nI b) ^ 2 ≤ Kc' * N ^ 2 * Z ^ e * (Z / nI b) ^ 2 := by
+      have := mul_le_mul_of_nonneg_right (le_max_left Kc 0) hN2
+      calc Kc * N ^ 2 * Z ^ e * (Z / nI b) ^ 2 = Kc * (N ^ 2 * Z ^ e * (Z / nI b) ^ 2) := by ring
+        _ ≤ Kc' * (N ^ 2 * Z ^ e * (Z / nI b) ^ 2) := this
+        _ = _ := by ring
+    exact mul_le_mul_of_nonneg_left this (by positivity)
+  have hmain := famSumNu_meanSquare_le ν W hβ.le hWβ hBw hZ hH hR0 hR hCI V hVs J hKc'0 hKb hexcl T
+    (fun z hz => (hT z hz).2)
+  refine hmain.trans ?_
+  -- the arithmetic of the exponents
+  set P := Z ^ e with hPdef
+  have hP1 : 1 ≤ P := Real.one_le_rpow hZ he.le
+  have hP0 : 0 ≤ P := by linarith
+  have hZpow : Z ^ (2 + ϑ + ε) = H * Z * P ^ 5 := by
+    rw [show 2 + ϑ + ε = (1 + ϑ) + 1 + e * ((5 : ℕ) : ℝ) by rw [he_def]; push_cast; ring,
+      Real.rpow_add hZ0, Real.rpow_add hZ0, Real.rpow_one, Real.rpow_mul_natCast hZ0.le]
+  rw [hZpow]
+  -- the zero frequency
+  have hM1 : (1 : ℝ) ≤ (⌈β * Z⌉₊ : ℝ) := by
+    have : 0 < ⌈β * Z⌉₊ := Nat.ceil_pos.2 (by positivity)
+    exact_mod_cast this
+  have hMle : (⌈β * Z⌉₊ : ℝ) ≤ (β + 1) * Z := by
+    have := Nat.ceil_lt_add_one (R := ℝ) (mul_nonneg hβ.le hZ0.le)
+    nlinarith
+  have hzero : ((fsLe (⌈β * Z⌉₊ : ℝ)).card : ℝ) * (Bw ^ 2 * (2 * H / Real.sqrt 3 * ‖dualG 0‖)) ≤
+      C0 * (H * Z * P ^ 5) := by
+    have hc := card_fsLe_le hM1
+    have hP5 : 1 ≤ P ^ 5 := one_le_pow₀ hP1
+    have hB : 0 ≤ Bw ^ 2 * (2 * H / Real.sqrt 3 * ‖dualG 0‖) := by positivity
+    calc ((fsLe (⌈β * Z⌉₊ : ℝ)).card : ℝ) * (Bw ^ 2 * (2 * H / Real.sqrt 3 * ‖dualG 0‖))
+        ≤ ((2 * kappa + 5) * ((β + 1) * Z)) * (Bw ^ 2 * (2 * H / Real.sqrt 3 * ‖dualG 0‖)) :=
+          mul_le_mul_of_nonneg_right (hc.trans (mul_le_mul_of_nonneg_left hMle (by positivity)))
+            hB
+      _ = C0 * (H * Z) := by rw [hC0]; ring
+      _ ≤ C0 * (H * Z * P ^ 5) :=
+          mul_le_mul_of_nonneg_left (le_mul_of_one_le_right (by positivity) hP5) (by positivity)
+  -- the dual sum
+  set Lp : ℝ := ((Nat.log 2 ⌊β * Z⌋₊ : ℕ) : ℝ) + 1 with hLp
+  have hLp0 : 0 ≤ Lp := by positivity
+  have hLle : Lp ≤ cL * P := log_floor_succ_le he hβ.le hZ
+  have hsum := sum_fsLe_four_pow_le he hCδ h4 (x := β * Z) (by positivity)
+  rw [Real.mul_rpow hβ.le hZ0.le] at hsum
+  have hoff : nξ ^ 2 * ∑ b ∈ (fsLe (β * Z)).filter (fun b => ∀ P ∈ b, IsUnit (cls m {P})), Lp *
+        (2 * H * nI b / (Real.sqrt 3 * Z) * (Kb * (H * nI b ^ 2 / (3 * Z ^ 2)) ^ (-e) *
+          (4 ^ b.card * (Kc' * P * (Z / nI b) ^ 2)))) ≤ C1 * (H * Z * P ^ 5) := by
+    calc nξ ^ 2 * ∑ b ∈ (fsLe (β * Z)).filter (fun b => ∀ P ∈ b, IsUnit (cls m {P})), Lp *
+          (2 * H * nI b / (Real.sqrt 3 * Z) * (Kb * (H * nI b ^ 2 / (3 * Z ^ 2)) ^ (-e) *
+            (4 ^ b.card * (Kc' * P * (Z / nI b) ^ 2))))
+        ≤ nξ ^ 2 * ∑ b ∈ (fsLe (β * Z)).filter (fun b => ∀ P ∈ b, IsUnit (cls m {P})), Lp *
+            (c2 * (H * Z * P ^ 2) * ((4 : ℝ) ^ b.card / nI b)) := by
+          refine mul_le_mul_of_nonneg_left (Finset.sum_le_sum fun b _ => ?_) (sq_nonneg _)
+          exact mul_le_mul_of_nonneg_left (blockBound_le he.le hZ hZH (le_max_left Kb 0)
+            hKb'0 hKc'0 b) hLp0
+      _ ≤ nξ ^ 2 * ∑ b ∈ fsLe (β * Z), Lp *
+            (c2 * (H * Z * P ^ 2) * ((4 : ℝ) ^ b.card / nI b)) := by
+          refine mul_le_mul_of_nonneg_left (Finset.sum_le_sum_of_subset_of_nonneg
+            (Finset.filter_subset _ _) fun b _ _ => ?_) (sq_nonneg _)
+          have := nI_pos b
+          positivity
+      _ = nξ ^ 2 * (Lp * (c2 * (H * Z * P ^ 2)) *
+            ∑ b ∈ fsLe (β * Z), (4 : ℝ) ^ b.card / nI b) := by
+          rw [Finset.mul_sum (s := fsLe (β * Z)) (a := Lp * (c2 * (H * Z * P ^ 2)))]
+          congr 1
+          exact Finset.sum_congr rfl fun b _ => by ring
+      _ ≤ nξ ^ 2 * (Lp * (c2 * (H * Z * P ^ 2)) *
+            (Cδ * (β ^ e * P) * (2 * (2 * kappa + 5) * Lp))) :=
+          mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left hsum (by positivity)) (sq_nonneg _)
+      _ = nξ ^ 2 * (Lp ^ 2 * (c2 * Cδ * β ^ e * (2 * (2 * kappa + 5)) * (H * Z * P ^ 3))) := by
+          ring
+      _ ≤ nξ ^ 2 * ((cL * P) ^ 2 * (c2 * Cδ * β ^ e * (2 * (2 * kappa + 5)) * (H * Z * P ^ 3))) :=
+          mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_right (pow_le_pow_left₀ hLp0 hLle 2)
+            (by positivity)) (sq_nonneg _)
+      _ = C1 * (H * Z * P ^ 5) := by rw [hC1]; ring
+  calc _ ≤ C0 * (H * Z * P ^ 5) + C1 * (H * Z * P ^ 5) := add_le_add hzero hoff
+    _ = (C0 + C1) * (H * Z * P ^ 5) := by ring
+
 end Eis
 
 end
@@ -1048,3 +1296,6 @@ end
 #print axioms Eis.blockBound_le
 #print axioms Eis.meanSquare_of_dualMeanSquare
 #print axioms Eis.ne_zero_of_dualMeanSquare
+#print axioms Eis.meanSquareC_one_iff
+#print axioms Eis.famSumNu_meanSquare_le
+#print axioms Eis.meanSquareNu_of_dualMeanSquareM

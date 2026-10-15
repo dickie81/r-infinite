@@ -1,10 +1,11 @@
 import EisensteinMeanSquareRowCol
 
-/-! # The bilinear bound for one block of rows (round 309; round 492: the characters modulo `m`)
+/-! # The bilinear bound for one block of rows (round 309; round 492: the characters modulo `m`; round 494)
 
 Round 492 (step 1 of round 491's plan for door 5(b)) states this file for the characters modulo any nonzero `m`. The set
 `U` of `colSum_eq_powerset` contains the primes of norm at most `β'X` whose class modulo `m` is a
-unit; the columns through the other primes vanish.
+unit; the columns through the other primes vanish. Round 494 (step 3 of the plan) asks the same of the `U` of
+`rows_colMeanSquare`.
 
 S4 of round 291's plan, part 9: the analytic step of the companion paper's proof of its
 Proposition 4.5 for one excluded ideal `b` and one dyadic range of `N(f)`. Round 308's row/column
@@ -210,7 +211,7 @@ open Classical in
 `Σ_r |Σ_{n⊆U∖b} conj(colA ξ k_r f_r n)·U'(N(n)/X)|² ≤ 4^{|b|}·K·Z^ε·(Z/B)²·N²`. -/
 theorem rows_colMeanSquare (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (J : ℕ) {αV βV : ℝ}
     (Kc ε1 Z B F Hc : ℝ) {b U : Finset Pr} {X : ℝ} (hX : X = Z / (B * F)) (hXpos : 0 < X)
-    (hU : primesLe (βV * X) ⊆ U)
+    (hU : ∀ P ∈ primesLe (βV * X), IsUnit (cls m {P}) → P ∈ U)
     (hexcl : ∀ W' : ℝ → ℂ, ContDiff ℝ ∞ W' → (∀ x, x < αV ∨ βV < x → W' x = 0) → ∀ N : ℝ,
       (∀ j ≤ J, ∀ x, ‖iteratedDeriv j W' x‖ ≤ N) →
       ∀ (Fs : Finset (Ideal (𝓞 K))) (Ks : Finset (𝓞 K)),
@@ -240,7 +241,7 @@ theorem rows_colMeanSquare (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (J : ℕ) {�
   have hrow : ∀ r ∈ rows, ‖∑ n ∈ (U \ b).powerset, conj (colA ξ (rowK r) (rowFe r) n) *
       U' (nI n / X)‖ = ‖colSum ξ W' X (idl b) (rowK r) (rowFe r)‖ := by
     intro r _
-    rw [colSum_eq_powerset ξ hW'β hXpos (fun P hP _ => hU hP), ← RCLike.norm_conj, map_sum]
+    rw [colSum_eq_powerset ξ hW'β hXpos hU, ← RCLike.norm_conj, map_sum]
     congr 1
     refine Finset.sum_congr rfl fun n _ => ?_
     simp only [hW'def, map_mul, Complex.conj_conj]

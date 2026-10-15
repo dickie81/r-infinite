@@ -4,7 +4,7 @@ import EisensteinRealTwist
 import KubotaThetaProof
 
 /-!
-# Round 476: the twisted extraction, and the half-plane for a twist by `J(d | ·)`; round 489: at every member
+# Round 476: the twisted extraction, and the half-plane for a twist by `J(d | ·)`; round 489: at every member; round 495: the twisted family
 
 Step 3 of round 471's plan for the real characters, with the assembly of step 4 for a given character. Round 489
 replaces the members `d³·gen(𝔟)⁶` by `u₀·gen(𝔟)⁶` for every `u₀ ≠ 0` whose sextic symbol is a function of the norm,
@@ -29,6 +29,13 @@ and keeps round 476's statements as the case `u₀ = d³`.
   `Re s > 11/12`. Round 466's mean square (`Eis.meanSquare`) at `σ = 6ε/5` gives the bound with exponent
   `11/12 + ε`, as round 468 did for `ζ`. **`ne_zero_of_jacobiTwist`** is the case `u₀ = d³`, for `χ` with
   `χ(n) = J(d | n)` on the `n` prime to `6`.
+* **The twisted family** (round 495, step 4 of round 491's plan for door 5(b)): the statements above for round 494's
+  family with coefficients, `A_Z^{c'}(u) = Σ_𝔞 c'(𝔞)μ(𝔞)(u/𝔞)₆W(N𝔞/Z)`, at the members `u₀·gen(𝔟)⁶` with
+  `c'(𝔞)(u₀/𝔞)₆ = c(N𝔞)` on the ideals of norm prime to `6` (**`wsymC_member_mul`**, **`sum_famSumC_member_gen`**,
+  **`norm_sum_famSumC_member_sub_le`**), against round 494's `MeanSquareC c' σ`
+  (**`fSmoothC_isBigO_of_meanSquareC`**), and **`ne_zero_of_famTwist`**: `L(s, χ) ≠ 0` and `L(s, χχ₋₃) ≠ 0` on
+  `Re s > 11/12` when `MeanSquareC c' σ` holds for every `σ > 0`. The statements of rounds 476 and 489 are the
+  case `c' = 1` (round 494's `famSumC_one` and `meanSquareC_one_iff`).
 -/
 
 open NumberField Ideal UniqueFactorizationMonoid
@@ -204,17 +211,27 @@ end Transfer
 section Average
 
 open Classical in
+/-- If `c'(𝔞)(u₀/𝔞)₆ = c(N𝔞)` on the ideals of norm prime to `6`, `c'(𝔞)` times the family's weight at `u₀u` is
+`c(N𝔞)` times its weight at `u` (round 495). -/
+theorem wsymC_member_mul {u₀ : 𝓞 K} {c' : Ideal (𝓞 K) → ℂ} {c : ℕ → ℂ}
+    (hu₀ : ∀ I : Ideal (𝓞 K), (absNorm I).Coprime 6 → c' I * sym6 u₀ I = c (absNorm I)) (u : 𝓞 K)
+    (I : Ideal (𝓞 K)) :
+    c' I * wsym (u₀ * u) I = c (absNorm I) * wsym u I := by
+  unfold wsym
+  split_ifs with hc
+  · rw [sym6_mul_left, ← hu₀ I hc]
+    ring
+  · simp
+
+open Classical in
 /-- If `(u₀/𝔞)₆ = c(N𝔞)` on the ideals of norm prime to `6`, the family's weight at `u₀u` is `c(N𝔞)` times its
 weight at `u`. -/
 theorem wsym_member_mul {u₀ : 𝓞 K} {c : ℕ → ℂ}
     (hu₀ : ∀ I : Ideal (𝓞 K), (absNorm I).Coprime 6 → sym6 u₀ I = c (absNorm I)) (u : 𝓞 K)
     (I : Ideal (𝓞 K)) :
     wsym (u₀ * u) I = c (absNorm I) * wsym u I := by
-  unfold wsym
-  split_ifs with hc
-  · rw [sym6_mul_left, hu₀ I hc]
-    ring
-  · simp
+  simpa only [one_mul] using
+    wsymC_member_mul (c' := fun _ => 1) (fun I hI => by simpa only [one_mul] using hu₀ I hI) u I
 
 /-- Round 474's identity `(d³/𝔞)₆ = J(d | N𝔞)`, in the form of `wsym_member_mul`'s hypothesis. -/
 theorem sym6_intCast_cube_member (d : ℤ) (I : Ideal (𝓞 K)) (hI : (absNorm I).Coprime 6) :
@@ -228,6 +245,33 @@ theorem wsym_intCast_cube_mul (d : ℤ) (u : 𝓞 K) (I : Ideal (𝓞 K)) :
   wsym_member_mul (u₀ := (d : 𝓞 K) ^ 3) (c := fun n : ℕ ↦ (jacobiSym d n : ℂ)) (sym6_intCast_cube_member d) u I
 
 open Classical in
+/-- **The average of the twisted family over `u₀·gen(𝔟)⁶`**, as a finite sum (round 495): if
+`c'(𝔞)(u₀/𝔞)₆ = c(N𝔞)` on the ideals of norm prime to `6`, round 288's `sum_famSum_gen` with the factor `c(n)`. -/
+theorem sum_famSumC_member_gen {u₀ : 𝓞 K} {c' : Ideal (𝓞 K) → ℂ} {c : ℕ → ℂ}
+    (hu₀ : ∀ I : Ideal (𝓞 K), (absNorm I).Coprime 6 → c' I * sym6 u₀ I = c (absNorm I)) {W : ℝ → ℝ} {R : ℝ}
+    (hR : ∀ x, R < x → W x = 0) {Z : ℝ} (hZ : 0 < Z) {M : ℕ} (hM : R * Z ≤ M) (Y : ℝ) :
+    ∑ J ∈ idealsLe Y, famSumC c' W Z (u₀ * gen J ^ 6) =
+      ∑ n ∈ Finset.Ioc 0 M, c n * (W (n / Z) : ℂ) * ∑ I ∈ ofNorm n,
+        (if (absNorm I).Coprime 6 then (moebius I : ℂ) *
+          (((idealsLe Y).filter fun J => ∀ P ∈ (normalizedFactors I).toFinset, ¬ P ∣ J).card : ℂ)
+        else 0) := by
+  simp only [famSumC]
+  rw [Finset.sum_congr rfl fun J _ => tsum_eq_Ioc (normSum_wsymC_zero c' _) hR hZ hM, Finset.sum_comm]
+  refine Finset.sum_congr rfl fun n _ => ?_
+  rw [← Finset.sum_mul]
+  simp only [normSum]
+  rw [Finset.sum_comm]
+  have hI : ∀ I ∈ ofNorm n, ∑ J ∈ idealsLe Y, c' I * wsym (u₀ * gen J ^ 6) I =
+      c n * (if (absNorm I).Coprime 6 then (moebius I : ℂ) *
+        (((idealsLe Y).filter fun J => ∀ P ∈ (normalizedFactors I).toFinset, ¬ P ∣ J).card : ℂ)
+      else 0) := by
+    intro I hI
+    rw [Finset.sum_congr rfl fun J _ => wsymC_member_mul hu₀ (gen J ^ 6) I, ← Finset.mul_sum,
+      sum_wsym_gen I Y, mem_ofNorm.1 hI]
+  rw [Finset.sum_congr rfl hI, ← Finset.mul_sum]
+  ring
+
+open Classical in
 /-- **The average over `u₀·gen(𝔟)⁶`**, as a finite sum: round 288's `sum_famSum_gen` with the factor
 `c(n)`. -/
 theorem sum_famSum_member_gen {u₀ : 𝓞 K} {c : ℕ → ℂ}
@@ -238,21 +282,8 @@ theorem sum_famSum_member_gen {u₀ : 𝓞 K} {c : ℕ → ℂ}
         (if (absNorm I).Coprime 6 then (moebius I : ℂ) *
           (((idealsLe Y).filter fun J => ∀ P ∈ (normalizedFactors I).toFinset, ¬ P ∣ J).card : ℂ)
         else 0) := by
-  simp only [famSum]
-  rw [Finset.sum_congr rfl fun J _ => tsum_eq_Ioc (normSum_wsym_zero _) hR hZ hM, Finset.sum_comm]
-  refine Finset.sum_congr rfl fun n _ => ?_
-  rw [← Finset.sum_mul]
-  simp only [normSum]
-  rw [Finset.sum_comm]
-  have hI : ∀ I ∈ ofNorm n, ∑ J ∈ idealsLe Y, wsym (u₀ * gen J ^ 6) I =
-      c n * (if (absNorm I).Coprime 6 then (moebius I : ℂ) *
-        (((idealsLe Y).filter fun J => ∀ P ∈ (normalizedFactors I).toFinset, ¬ P ∣ J).card : ℂ)
-      else 0) := by
-    intro I hI
-    rw [Finset.sum_congr rfl fun J _ => wsym_member_mul hu₀ (gen J ^ 6) I, ← Finset.mul_sum,
-      sum_wsym_gen I Y, mem_ofNorm.1 hI]
-  rw [Finset.sum_congr rfl hI, ← Finset.mul_sum]
-  ring
+  simpa only [famSumC_one] using
+    sum_famSumC_member_gen (c' := fun _ => 1) (fun I hI => by simpa only [one_mul] using hu₀ I hI) hR hZ hM Y
 
 open Classical in
 /-- **The average over `d³·gen(𝔟)⁶`**, as a finite sum: round 288's `sum_famSum_gen` with the factor
@@ -278,20 +309,20 @@ theorem norm_jacobiSym_le (d : ℤ) (n : ℕ) : ‖(jacobiSym d n : ℂ)‖ ≤ 
   rcases jacobiSym.trichotomy d n with h | h | h <;> rw [h] <;> simp
 
 open Classical in
-/-- **The averaged identity with its error, twisted**: for `W` vanishing beyond `R`, bounded by `B`, and
-`RZ ≤ M`, `|Σ_{N𝔟≤Y} A_Z(u₀gen(𝔟)⁶) − κY·Σ_n c(n)f(n)W(n/Z)| ≤ B(5√Y + κ)·Σ_{n≤M} Σ_{N𝔞=n} 2^{ω(𝔞)}` when
-`|c(n)| ≤ 1`. -/
-theorem norm_sum_famSum_member_sub_le {u₀ : 𝓞 K} {c : ℕ → ℂ}
-    (hu₀ : ∀ I : Ideal (𝓞 K), (absNorm I).Coprime 6 → sym6 u₀ I = c (absNorm I)) (hc1 : ∀ n, ‖c n‖ ≤ 1)
+/-- **The averaged identity with its error, for the twisted family** (round 495): if `c'(𝔞)(u₀/𝔞)₆ = c(N𝔞)` on the
+ideals of norm prime to `6` and `|c(n)| ≤ 1`, then for `W` vanishing beyond `R`, bounded by `B`, and `RZ ≤ M`,
+`|Σ_{N𝔟≤Y} A^{c'}_Z(u₀gen(𝔟)⁶) − κY·Σ_n c(n)f(n)W(n/Z)| ≤ B(5√Y + κ)·Σ_{n≤M} Σ_{N𝔞=n} 2^{ω(𝔞)}`. -/
+theorem norm_sum_famSumC_member_sub_le {u₀ : 𝓞 K} {c' : Ideal (𝓞 K) → ℂ} {c : ℕ → ℂ}
+    (hu₀ : ∀ I : Ideal (𝓞 K), (absNorm I).Coprime 6 → c' I * sym6 u₀ I = c (absNorm I)) (hc1 : ∀ n, ‖c n‖ ≤ 1)
     {W : ℝ → ℝ} {R B : ℝ} (hR : ∀ x, R < x → W x = 0)
     (hB : ∀ x, |W x| ≤ B) {Z : ℝ} (hZ : 0 < Z) {M : ℕ} (hM : R * Z ≤ M) {Y : ℝ} (hY : 0 ≤ Y) :
-    ‖∑ J ∈ idealsLe Y, famSum W Z (u₀ * gen J ^ 6) - ((kappa * Y : ℝ) : ℂ) * fSmoothC c W Z‖ ≤
+    ‖∑ J ∈ idealsLe Y, famSumC c' W Z (u₀ * gen J ^ 6) - ((kappa * Y : ℝ) : ℂ) * fSmoothC c W Z‖ ≤
       B * (5 * √Y + kappa) * ∑ n ∈ Finset.Ioc 0 M, ‖normSum w2 n‖ := by
   have hk := kappa_pos
   have hB0 : 0 ≤ B := le_trans (abs_nonneg _) (hB 0)
   have hfin := tsum_eq_Ioc (a := fun n : ℕ ↦ c n * normSum wf n)
     (by simp [normSum_wf_zero]) hR hZ hM
-  rw [sum_famSum_member_gen hu₀ hR hZ hM Y, fSmoothC, hfin, Finset.mul_sum,
+  rw [sum_famSumC_member_gen hu₀ hR hZ hM Y, fSmoothC, hfin, Finset.mul_sum,
     ← Finset.sum_sub_distrib]
   refine (norm_sum_le _ _).trans ?_
   rw [Finset.mul_sum]
@@ -324,6 +355,20 @@ theorem norm_sum_famSum_member_sub_le {u₀ : 𝓞 K} {c : ℕ → ℂ}
   · rw [ite_eq_right hc6, ite_eq_right hc6]
     simp only [mul_zero, zero_mul, sub_zero, norm_zero]
     positivity
+
+open Classical in
+/-- **The averaged identity with its error, twisted**: for `W` vanishing beyond `R`, bounded by `B`, and
+`RZ ≤ M`, `|Σ_{N𝔟≤Y} A_Z(u₀gen(𝔟)⁶) − κY·Σ_n c(n)f(n)W(n/Z)| ≤ B(5√Y + κ)·Σ_{n≤M} Σ_{N𝔞=n} 2^{ω(𝔞)}` when
+`|c(n)| ≤ 1`. -/
+theorem norm_sum_famSum_member_sub_le {u₀ : 𝓞 K} {c : ℕ → ℂ}
+    (hu₀ : ∀ I : Ideal (𝓞 K), (absNorm I).Coprime 6 → sym6 u₀ I = c (absNorm I)) (hc1 : ∀ n, ‖c n‖ ≤ 1)
+    {W : ℝ → ℝ} {R B : ℝ} (hR : ∀ x, R < x → W x = 0)
+    (hB : ∀ x, |W x| ≤ B) {Z : ℝ} (hZ : 0 < Z) {M : ℕ} (hM : R * Z ≤ M) {Y : ℝ} (hY : 0 ≤ Y) :
+    ‖∑ J ∈ idealsLe Y, famSum W Z (u₀ * gen J ^ 6) - ((kappa * Y : ℝ) : ℂ) * fSmoothC c W Z‖ ≤
+      B * (5 * √Y + kappa) * ∑ n ∈ Finset.Ioc 0 M, ‖normSum w2 n‖ := by
+  simpa only [famSumC_one] using
+    norm_sum_famSumC_member_sub_le (c' := fun _ => 1) (fun I hI => by simpa only [one_mul] using hu₀ I hI) hc1 hR
+      hB hZ hM hY
 
 open Classical in
 /-- **The averaged identity with its error, twisted by `J(d | ·)`**: for `W` vanishing beyond `R`, bounded by `B`,
@@ -374,11 +419,13 @@ theorem mem_memberSixthPowers_spec {u₀ : 𝓞 K} (hu₀ : u₀ ≠ 0) {Y : ℝ
   have h6 : (absNorm J : ℝ) ^ 6 ≤ Y ^ 6 := pow_le_pow_left₀ (Nat.cast_nonneg _) hJY 6
   exact mul_le_mul_of_nonneg_left h6 (by positivity)
 
-/-- **The twisted S2′ at a member**: if `(u₀/𝔞)₆ = c(N𝔞)` on the ideals of norm prime to `6`, `u₀ ≠ 0` and
-`|c| ≤ 1`, then `MeanSquare σ` with `σ ≥ 0` gives `Σ_n c(n)f(n)W(n/Z) = O(Z^{(11+5σ)/12+ε})` for every weight `W`
-and `ε > 0`. Round 476's proof, averaged over `u₀gen(𝔟)⁶` with `N𝔟 ≤ Y = Z^{(1+σ)/6}/N(u₀)^{1/6}`. -/
-theorem fSmoothC_isBigO_of_meanSquare {σ : ℝ} (hσ : 0 ≤ σ) (h : MeanSquare σ) {u₀ : 𝓞 K} (hu₀0 : u₀ ≠ 0)
-    {c : ℕ → ℂ} (hu₀ : ∀ I : Ideal (𝓞 K), (absNorm I).Coprime 6 → sym6 u₀ I = c (absNorm I))
+/-- **The twisted S2′ for the twisted family at a member** (round 495): if `c'(𝔞)(u₀/𝔞)₆ = c(N𝔞)` on the ideals of
+norm prime to `6`, `u₀ ≠ 0` and `|c| ≤ 1`, then round 494's `MeanSquareC c' σ` with `σ ≥ 0` gives
+`Σ_n c(n)f(n)W(n/Z) = O(Z^{(11+5σ)/12+ε})` for every weight `W` and `ε > 0`. Round 476's proof, averaged over
+`u₀gen(𝔟)⁶` with `N𝔟 ≤ Y = Z^{(1+σ)/6}/N(u₀)^{1/6}`. -/
+theorem fSmoothC_isBigO_of_meanSquareC {σ : ℝ} (hσ : 0 ≤ σ) {c' : Ideal (𝓞 K) → ℂ} (h : MeanSquareC c' σ)
+    {u₀ : 𝓞 K} (hu₀0 : u₀ ≠ 0)
+    {c : ℕ → ℂ} (hu₀ : ∀ I : Ideal (𝓞 K), (absNorm I).Coprime 6 → c' I * sym6 u₀ I = c (absNorm I))
     (hc1 : ∀ n, ‖c n‖ ≤ 1)
     (W : ℝ → ℝ) (hW : HalfPlaneS0.Weight W) {ε : ℝ} (hε : 0 < ε) :
     fSmoothC c W =O[atTop] fun Z => Z ^ ((11 + 5 * σ) / 12 + ε) := by
@@ -429,9 +476,9 @@ theorem fSmoothC_isBigO_of_meanSquare {σ : ℝ} (hσ : 0 ≤ σ) (h : MeanSquar
     have := Nat.ceil_lt_add_one (mul_nonneg hR0 hZ0.le)
     nlinarith
   -- the error of the average
-  have herr : ‖∑ J ∈ idealsLe Y, famSum W Z (u₀ * gen J ^ 6) -
+  have herr : ‖∑ J ∈ idealsLe Y, famSumC c' W Z (u₀ * gen J ^ 6) -
       ((kappa * Y : ℝ) : ℂ) * fSmoothC c W Z‖ ≤ A2 * s * Z ^ (1 + ε) := by
-    refine (norm_sum_famSum_member_sub_le hu₀ hc1 hR hB' hZ0 hM hY0).trans ?_
+    refine (norm_sum_famSumC_member_sub_le hu₀ hc1 hR hB' hZ0 hM hY0).trans ?_
     have h1 : 5 * √Y + kappa ≤ (5 + kappa) * s := by nlinarith
     have h2 : ∑ n ∈ Finset.Ioc 0 M, ‖normSum w2 n‖ ≤ C2 * ((R + 1) ^ (1 + ε) * Z ^ (1 + ε)) := by
       rw [← Real.mul_rpow (by linarith) hZ0.le]
@@ -449,8 +496,8 @@ theorem fSmoothC_isBigO_of_meanSquare {σ : ℝ} (hσ : 0 ≤ σ) (h : MeanSquar
     rw [← hNu, ← he6]
     exact hY6
   have hms := hCms Z hZ (memberSixthPowers u₀ Y) hT
-  have hcs := norm_sum_sq_le (memberSixthPowers u₀ Y) (famSum W Z)
-  rw [sum_memberSixthPowers hu₀0 (famSum W Z) Y, card_memberSixthPowers hu₀0] at hcs
+  have hcs := norm_sum_sq_le (memberSixthPowers u₀ Y) (famSumC c' W Z)
+  rw [sum_memberSixthPowers hu₀0 (famSumC c' W Z) Y, card_memberSixthPowers hu₀0] at hcs
   have hcount : (idealCount Y : ℝ) ≤ (2 * kappa + 5) * s ^ 2 := by
     have hic := abs_idealCount_sub_le hY0
     rw [abs_le] at hic
@@ -459,9 +506,9 @@ theorem fSmoothC_isBigO_of_meanSquare {σ : ℝ} (hσ : 0 ≤ σ) (h : MeanSquar
     have hq2 : √Y ≤ s ^ 2 := hsqrtY.trans (by nlinarith)
     have hq3 : kappa ≤ kappa * s ^ 2 := le_mul_of_one_le_right hk.le hs2
     linarith [hic.2]
-  have hsum0 : 0 ≤ ∑ z ∈ memberSixthPowers u₀ Y, ‖famSum W Z z‖ ^ 2 :=
+  have hsum0 : 0 ≤ ∑ z ∈ memberSixthPowers u₀ Y, ‖famSumC c' W Z z‖ ^ 2 :=
     Finset.sum_nonneg fun z _ => by positivity
-  have hsq : ‖∑ J ∈ idealsLe Y, famSum W Z (u₀ * gen J ^ 6)‖ ^ 2 ≤
+  have hsq : ‖∑ J ∈ idealsLe Y, famSumC c' W Z (u₀ * gen J ^ 6)‖ ^ 2 ≤
       (2 * kappa + 5) * s ^ 2 * (C1 * Z ^ (2 + σ + ε)) :=
     hcs.trans (mul_le_mul hcount (hms.trans (mul_le_mul_of_nonneg_right (le_max_left _ _)
       (by positivity))) hsum0 (by positivity))
@@ -473,8 +520,8 @@ theorem fSmoothC_isBigO_of_meanSquare {σ : ℝ} (hσ : 0 ≤ σ) (h : MeanSquar
       rw [norm_mul, Complex.norm_real, Real.norm_of_nonneg (by positivity), hY]
       ring
     rw [e1]
-    have htri := norm_sub_le (∑ J ∈ idealsLe Y, famSum W Z (u₀ * gen J ^ 6))
-      (∑ J ∈ idealsLe Y, famSum W Z (u₀ * gen J ^ 6) -
+    have htri := norm_sub_le (∑ J ∈ idealsLe Y, famSumC c' W Z (u₀ * gen J ^ 6))
+      (∑ J ∈ idealsLe Y, famSumC c' W Z (u₀ * gen J ^ 6) -
         ((kappa * Y : ℝ) : ℂ) * fSmoothC c W Z)
     rw [sub_sub_cancel] at htri
     exact htri.trans (add_le_add hmain herr)
@@ -488,6 +535,17 @@ theorem fSmoothC_isBigO_of_meanSquare {σ : ℝ} (hσ : 0 ≤ σ) (h : MeanSquar
   exact le_of_mul_le_aux (div_pos hk he0) hs0 hA10 hA20
     (Real.rpow_le_rpow_of_exponent_le hZ (by linarith))
     (Real.rpow_le_rpow_of_exponent_le hZ (by linarith)) hcomb
+
+/-- **The twisted S2′ at a member**: if `(u₀/𝔞)₆ = c(N𝔞)` on the ideals of norm prime to `6`, `u₀ ≠ 0` and
+`|c| ≤ 1`, then `MeanSquare σ` with `σ ≥ 0` gives `Σ_n c(n)f(n)W(n/Z) = O(Z^{(11+5σ)/12+ε})` for every weight `W`
+and `ε > 0`. Round 476's proof, averaged over `u₀gen(𝔟)⁶` with `N𝔟 ≤ Y = Z^{(1+σ)/6}/N(u₀)^{1/6}`. -/
+theorem fSmoothC_isBigO_of_meanSquare {σ : ℝ} (hσ : 0 ≤ σ) (h : MeanSquare σ) {u₀ : 𝓞 K} (hu₀0 : u₀ ≠ 0)
+    {c : ℕ → ℂ} (hu₀ : ∀ I : Ideal (𝓞 K), (absNorm I).Coprime 6 → sym6 u₀ I = c (absNorm I))
+    (hc1 : ∀ n, ‖c n‖ ≤ 1)
+    (W : ℝ → ℝ) (hW : HalfPlaneS0.Weight W) {ε : ℝ} (hε : 0 < ε) :
+    fSmoothC c W =O[atTop] fun Z => Z ^ ((11 + 5 * σ) / 12 + ε) :=
+  fSmoothC_isBigO_of_meanSquareC hσ (meanSquareC_one_iff.2 h) hu₀0 (c' := fun _ => 1)
+    (fun I hI => by simpa only [one_mul] using hu₀ I hI) hc1 W hW hε
 
 /-- **The twisted S2′ at `d³`**: `MeanSquare σ` with `σ ≥ 0` gives `Σ_n J(d | n)f(n)W(n/Z) = O(Z^{(11+5σ)/12+ε})`
 for every `d ≠ 0`, weight `W` and `ε > 0`: `fSmoothC_isBigO_of_meanSquare` at the member `d³`, whose norm is
@@ -513,21 +571,33 @@ theorem normSum_wf_eq_zero {n : ℕ} (hn : ¬ n.Coprime 6) : normSum wf n = 0 :=
   intro hc
   exact hn (by rw [← mem_ofNorm.1 hI]; exact hc)
 
+/-- **The half-plane `Re s > 11/12` for a twist through the twisted family** (round 495). For `3 ∣ N`, a Dirichlet
+character `χ` mod `N` with `χ ≠ 1` and `χχ₋₃ ≠ 1`, coefficients `c'` with `MeanSquareC c' σ` for every `σ > 0`, and
+`u₀ ≠ 0` with `c'(𝔞)(u₀/𝔞)₆ = χ(N𝔞)` on the ideals of norm prime to `6`: `L(s, χ) ≠ 0` and `L(s, χχ₋₃) ≠ 0` on
+`Re s > 11/12`. -/
+theorem ne_zero_of_famTwist {N : ℕ} [NeZero N] (h3 : 3 ∣ N) {χ : DirichletCharacter ℂ N}
+    {c' : Ideal (𝓞 K) → ℂ} (hms : ∀ σ : ℝ, 0 < σ → MeanSquareC c' σ) {u₀ : 𝓞 K} (hu₀0 : u₀ ≠ 0)
+    (hu₀ : ∀ I : Ideal (𝓞 K), (absNorm I).Coprime 6 → c' I * sym6 u₀ I = χ (absNorm I))
+    (hχ : χ ≠ 1) (hχ3 : mulChi3 h3 χ ≠ 1) {s : ℂ} (hs : 11 / 12 < s.re) :
+    LFunction χ s ≠ 0 ∧ LFunction (mulChi3 h3 χ) s ≠ 0 := by
+  refine ne_zero_of_twistBound h3 hχ hχ3 (θ := 11 / 12)
+    (twistBound_of_fSmoothTw χ (by norm_num) fun W hW ε hε => ?_) hs
+  have hσ : (0 : ℝ) < 6 * ε / 5 := by positivity
+  have hb := fSmoothC_isBigO_of_meanSquareC hσ.le (hms _ hσ) hu₀0 (c := fun n ↦ χ n) hu₀
+    (fun n ↦ DirichletCharacter.norm_le_one χ n) W hW (ε := ε / 2) (by positivity)
+  have e : (11 + 5 * (6 * ε / 5)) / 12 + ε / 2 = 11 / 12 + ε := by ring
+  rw [e] at hb
+  exact hb
+
 /-- **The half-plane `Re s > 11/12` for a twist through a member.** For `3 ∣ N`, a Dirichlet character `χ` mod
 `N` with `χ ≠ 1` and `χχ₋₃ ≠ 1`, and `u₀ ≠ 0` with `(u₀/𝔞)₆ = χ(N𝔞)` on the ideals of norm prime to `6`:
 `L(s, χ) ≠ 0` and `L(s, χχ₋₃) ≠ 0` on `Re s > 11/12`. -/
 theorem ne_zero_of_memberTwist {N : ℕ} [NeZero N] (h3 : 3 ∣ N) {χ : DirichletCharacter ℂ N} {u₀ : 𝓞 K}
     (hu₀0 : u₀ ≠ 0) (hu₀ : ∀ I : Ideal (𝓞 K), (absNorm I).Coprime 6 → sym6 u₀ I = χ (absNorm I))
     (hχ : χ ≠ 1) (hχ3 : mulChi3 h3 χ ≠ 1) {s : ℂ} (hs : 11 / 12 < s.re) :
-    LFunction χ s ≠ 0 ∧ LFunction (mulChi3 h3 χ) s ≠ 0 := by
-  refine ne_zero_of_twistBound h3 hχ hχ3 (θ := 11 / 12)
-    (twistBound_of_fSmoothTw χ (by norm_num) fun W hW ε hε => ?_) hs
-  have hσ : (0 : ℝ) < 6 * ε / 5 := by positivity
-  have hb := fSmoothC_isBigO_of_meanSquare hσ.le (meanSquare hσ) hu₀0 (c := fun n ↦ χ n) hu₀
-    (fun n ↦ DirichletCharacter.norm_le_one χ n) W hW (ε := ε / 2) (by positivity)
-  have e : (11 + 5 * (6 * ε / 5)) / 12 + ε / 2 = 11 / 12 + ε := by ring
-  rw [e] at hb
-  exact hb
+    LFunction χ s ≠ 0 ∧ LFunction (mulChi3 h3 χ) s ≠ 0 :=
+  ne_zero_of_famTwist h3 (fun _ hσ => meanSquareC_one_iff.2 (meanSquare hσ)) hu₀0
+    (fun I hI => by simpa only [one_mul] using hu₀ I hI) hχ hχ3 hs
 
 /-- **The half-plane `Re s > 11/12` for a twist by `J(d | ·)`.** For `d ≠ 0`, `3 ∣ N` and a Dirichlet
 character `χ` mod `N` with `χ(n) = J(d | n)` for every `n` prime to `6`, `χ ≠ 1` and `χχ₋₃ ≠ 1`:
@@ -554,3 +624,8 @@ end Eis
 #print axioms Eis.norm_sum_famSum_member_sub_le
 #print axioms Eis.fSmoothC_isBigO_of_meanSquare
 #print axioms Eis.ne_zero_of_memberTwist
+#print axioms Eis.wsymC_member_mul
+#print axioms Eis.sum_famSumC_member_gen
+#print axioms Eis.norm_sum_famSumC_member_sub_le
+#print axioms Eis.fSmoothC_isBigO_of_meanSquareC
+#print axioms Eis.ne_zero_of_famTwist

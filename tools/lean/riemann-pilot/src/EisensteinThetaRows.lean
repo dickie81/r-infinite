@@ -3,8 +3,8 @@ import EisensteinPrepared
 /-! # The theta transformation for the rows, and the transformed terms as prepared sums (round 341; round 492: the characters modulo `md`)
 
 Round 492 (step 1 of round 491's plan for door 5(b)) displays the transformation for the characters modulo any `md`
-(`ThetaRowsM md`; `ThetaRows` is `ThetaRowsM 4`). Round 493 (step 2) proves it at every `md ≠ 0` (round
-381's `thetaRowsM_of_kubota`) and changes the display in two places: the rows `k₀` are prime to `md`, and the
+(`ThetaRowsM md`; `ThetaRows` is `ThetaRowsM 4`). Round 493 (step 2) proves it at every `md ≠ 0`
+(`thetaRowsM_of_kubota`) and changes the display in two places: the rows `k₀` are prime to `md`, and the
 active sets run over the primes of `tg` that do not divide `md` (`tgPrimes`), since round 379's dual sums take
 only primes not dividing their modulus `72·md`. At `md = 4` the active sets are round 341's (`tgPrimes_four`).
 
