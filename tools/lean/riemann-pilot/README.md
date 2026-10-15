@@ -19011,7 +19011,7 @@ Here `MeanSquareC c σ` is round 288's display `MeanSquare σ` with round 288's 
 
 - **The low side.** It carries `0.81` of the price, and its largest lever is the Gram bound's exceptional term `P_a^{1/6}`. That term comes from the frequencies `(k) = a_1^6 e`, which the proof of `prop:probe-gram` bounds with "the trivial two-column point count". Removing it alone gives `0.86395`, the largest single lever found.
   - Xu–Sang's second moment makes the term the size of the sum, not a loss of the estimate, for a Gauss-sum column average over a fixed ray class. Their scale `A^{5/6}B^{−2/3}` is the release's `(Q/Y′)P_a^{1/6}` at `A = Q`, `B = Y′`.
-  - The release's polynomial is `A_m=Y'^{-3/2}\sum_s c_\sigma(s)W_1(r_s)r_s^{-1+i\nu} g_{\chi_s}(s,-m)`, with `c_\sigma(s)=1_{s\in\sigma}\chi_s(b_*)/(\tau\xi(s))` (the proof of `prop:probe-gram`): Gauss sums over the moduli of one ray class `σ`, with a smooth weight. Whether Xu–Sang's asymptotic, with `c_* > 0`, holds for it is not checked here. *(round 504: read through their computation, it holds at Sang's geometries for the release's `ξ`, given a kept class at `T`'s primes; README round 504.)*
+  - The release's polynomial is `A_m=Y'^{-3/2}\sum_s c_\sigma(s)W_1(r_s)r_s^{-1+i\nu} g_{\chi_s}(s,-m)`, with `c_\sigma(s)=1_{s\in\sigma}\chi_s(b_*)/(\tau\xi(s))` (the proof of `prop:probe-gram`): Gauss sums over the moduli of one ray class `σ`, with a smooth weight. Whether Xu–Sang's asymptotic, with `c_* > 0`, holds for it is not checked here. *(round 504: read through their computation, it holds at Sang's geometries for the release's `ξ`, given a kept class at `T`'s primes; README round 504.)* *(round 505: such a class exists for every `T` the release allows; README round 505.)*
   - If it holds, a better estimate of the Gram sum cannot remove the term. What remains is the next step, Cauchy–Schwarz against the completed rows `B_m`.
 - **The row counts.** At the binding bin they exceed the density hypothesis by `0.06`–`0.08`, but density-hypothesis counts in every bin give only `0.86979`. The floor bin and the bins just above it, whose counts are near `U^1` and are bounded row by row, then bind. A row-sum saving of `U^{1/4}` alone does not move the boundary, and `U^{1/2}` alone gives `0.87082`; with density-hypothesis counts, any saving stops at the low side's `13/15`.
 - **The slice.** The row-norm proof's step `T_d ≤ H − 3d` holds for `M + ℓ ≤ 1`, and the optimum sits on `M + ℓ = 1`. Leaving it costs more on the low side than it buys (W4).
@@ -19530,7 +19530,7 @@ Not surveyed: the release's proofs of those statements at `ℓ < 1/6`; low estim
 
 **Bearing on RH:** none.
 
-**The next step.** None is planned here. The open input this round isolates is the exceptional Gram term at short windows, or a pairing bound that saves `Z^{0.0064}` (`Z^{0.0023}` without the term). *(round 504: on Xu–Sang's reading the term stays for the release's `A_m`; a change of `ξ` at a prime of `S` outside `T`'s modulus removes it together with the principal residue. The pairing bound and the classes at `T`'s primes remain; README round 504.)*
+**The next step.** None is planned here. The open input this round isolates is the exceptional Gram term at short windows, or a pairing bound that saves `Z^{0.0064}` (`Z^{0.0023}` without the term). *(round 504: on Xu–Sang's reading the term stays for the release's `A_m`; a change of `ξ` at a prime of `S` outside `T`'s modulus removes it together with the principal residue. The pairing bound and the classes at `T`'s primes remain; README round 504.)* *(round 505: the classes at `T`'s primes keep the term; the pairing bound remains; README round 505.)*
 
 ## Round 504: Xu–Sang's main term against the release's `A_m`, and the principal residue (`frontier/wall78/xusang.py`, no new Lean)
 
@@ -19547,10 +19547,10 @@ Not surveyed: the release's proofs of those statements at `ℓ < 1/6`; low estim
 - **At a prime `p` of `S` not over `6` and outside `T`'s modulus.** The release chooses `T` to carry its fixed phases over `2` and `3`: "Choose a finite ray group `$T$`, independently of the target character, through which the functions `$\mathcal R$`, `$G$`, and the fixed primary and supplementary phases supported over `$2,3$`". And "Enlarging `$S$` will not change `$T$`." Since `S` contains "every prime of norm at most a fixed `$P_0$`" and `T` is fixed first, `S` has such primes for `P_0` large enough.
   - Sextic reciprocity gives `χ_n(π_p) = R(π_p, n)χ_{π_p}(n)`, with `R` periodic modulo `4`: the pilot's `Eis.sextic_recip_coords` and `quadPhi_add_four` (round 298). Units enter only over `2` and `3`: "For a global unit `$u$` and a good prime `$p$`, reduction modulo `$p$` gives `$\chi_p(u)=u^{(q_p-1)/6}$`.", which depends only on `q_p` modulo `36`. And "Let `$b_*$` generate the squarefree product of the primes in `$S$`." So the `p`-component of `ψ` is `χ_{π_p}^{r+1}\overline{ξ_p}`.
   - The release takes `ξ` "whose restriction to each prime factor is nonprincipal and whose order divides six". So `ξ_p = χ_{π_p}^a` with `1 ≤ a ≤ 5`, and the one class kept is `r ≡ a − 1`, at most `4`. The row condition keeps it, with factor `(1 − P^{−1})P^{−(a−1)/6} > 0` (gates X2 and X3).
-- **The rest of the constant.** At the primes of `T`'s modulus, which classes are kept depends on which phases over `2` and `3` `T` carries; this round does not compute them. If `T` carries every character there, as the full ray class group modulo a large enough power of `6` does, every class is kept and `r = 0` is among them. The release's wording permits that choice. The archimedean factor becomes `|Ŵ_1(1/6 + iν)|²` times Xu–Sang's Riesz integral, positive at `ν = 0`.
+- **The rest of the constant.** At the primes of `T`'s modulus, which classes are kept depends on which phases over `2` and `3` `T` carries; this round does not compute them. *(round 505: computed; README round 505.)* If `T` carries every character there, as the full ray class group modulo a large enough power of `6` does, every class is kept and `r = 0` is among them. The release's wording permits that choice. The archimedean factor becomes `|Ŵ_1(1/6 + iν)|²` times Xu–Sang's Riesz integral, positive at `ν = 0`.
 - **The range.** Xu–Sang: "The relevant column-Poisson error has scale `\((A/B)Y^2/B\)`", and "This explains the lower threshold `\(A>B^{16/11}\)`." For the release that threshold is its own absorption of the third Gram term. Its geometry has "`l_y-d-11b/6\ge1/12`", from which it concludes "and hence `$P_a^2/Y'\ll P_a^{1/6}$`." On Sang's slice the range is `b ≤ 3(1 − ℓ)/8`. The larger supply cap, `b < 7ℓ − 1`, stays inside it for `ℓ ≤ 11/59 ≈ 0.18644`, and round 503's `ℓ = 0.16091` is below that (gate X1).
 
-So, read with Xu–Sang's remaining steps, the release's Gram over rows prime to `S` has the main term `(Q/Y′)P_a^{1/6}` with a positive constant at Sang's geometries. This holds at heights `ν` with `Ŵ_1(1/6 + iν) ≠ 0`, `ν = 0` among them, given a kept class with `r ≤ 4` at `T`'s primes. Given that main term, no better estimate of this Gram sum removes the exceptional term there.
+So, read with Xu–Sang's remaining steps, the release's Gram over rows prime to `S` has the main term `(Q/Y′)P_a^{1/6}` with a positive constant at Sang's geometries. This holds at heights `ν` with `Ŵ_1(1/6 + iν) ≠ 0`, `ν = 0` among them, given a kept class with `r ≤ 4` at `T`'s primes. *(round 505: there is one for every `T` the release allows, `(r_2, r_3) = (1, 2)` and `(3, 2)`; README round 505.)* Given that main term, no better estimate of this Gram sum removes the exceptional term there.
 
 **What would remove it, and what that costs.** At a prime `p` of `S` outside `T`'s modulus, two kinds of `ξ_p` remove the main term from the Gram over rows prime to `S`. A principal `ξ_p` gives `a = 0` and the class `5`, which the row condition kills. A `ξ_p` of order not dividing six leaves no class. The release takes neither, and its high side shows the cost. The high side takes its signal from the principal row: "For `$u=1$`, Equation~\eqref{eq:probe-high} contains `$1/L^S(x,\eta)$`, and its numerator has the two principal factors `$\zeta_F^S(6z)$` and `$\zeta_F^S(w)$`. Their residues will produce the target Mellin signal." The factor `ζ_F^S(6z)` is the sum over the frequencies `H = a^6`, and at `p` the frequency passes through the Gauss sum of `ξ_p`:
 
@@ -19569,7 +19569,7 @@ What remains of round 503's input:
 
 - a bound for the pairing of `A_m` with `B_m` below Cauchy–Schwarz;
 - a probe built otherwise than by a choice of `ξ`;
-- the classes at `T`'s primes. The probe's definition, eq. `general-probe`, does not involve `T`. `T` enters the low side's separation: "For a ray class `$\sigma\in T$` choose a representative `$s_\sigma$`". There `T` has to carry `ℛ`: "Since `$\mathcal R(A,s)=\mathcal R(A,s_\sigma)$` for `$s\in\sigma$`, the displayed Mellin integral of the corrected row equals `$B_{m,\sigma}(Z)$` throughout that class." A coarser `T` that still carries `ℛ` and `G` keeps no more classes at its primes, possibly fewer. Whether one keeps no class with `r ≤ 4` is not computed here.
+- the classes at `T`'s primes. The probe's definition, eq. `general-probe`, does not involve `T`. `T` enters the low side's separation: "For a ray class `$\sigma\in T$` choose a representative `$s_\sigma$`". There `T` has to carry `ℛ`: "Since `$\mathcal R(A,s)=\mathcal R(A,s_\sigma)$` for `$s\in\sigma$`, the displayed Mellin integral of the corrected row equals `$B_{m,\sigma}(Z)$` throughout that class." A coarser `T` that still carries `ℛ` and `G` keeps no more classes at its primes, possibly fewer. Whether one keeps no class with `r ≤ 4` is not computed here. *(round 505: none does; the coarsest allowed `T`, the ray group modulo `12`, keeps `(r_2, r_3) = (1, 2)` and `(3, 2)`; README round 505.)*
 
 **Gates.** `python3 frontier/wall78/xusang.py` runs in about 7 seconds. All six gates, X1–X6, pass; any failure gives exit status 1. X6 checks the reciprocity step at `π = 1 + 3ω` against `412` primary primes of norm `13` to `3000`. In session runs four sabotages each fail their gates:
 
@@ -19595,7 +19595,7 @@ What remains of round 503's input:
   - the pilot's sextic reciprocity (round 298).
 - Not surveyed:
   - bounds for the pairing of `A_m` with `B_m` other than Cauchy–Schwarz;
-  - the classes at `T`'s primes;
+  - the classes at `T`'s primes; *(round 505: surveyed; README round 505.)*
   - probes outside the `ξ` family.
 
 **Records.** README round 496: a marker on its sentence on Xu–Sang's asymptotic for the release's polynomial. README round 503: markers on its unsurveyed item and on its next step. STRUCTURAL-REVIEW §6: a bullet for this round and a marker on the Gram-term note.
@@ -19609,4 +19609,76 @@ What remains of round 503's input:
 
 **Bearing on RH:** none.
 
-**The next step.** None is planned here. The open inputs are a bound for the pairing and the classes at `T`'s primes.
+**The next step.** None is planned here. The open inputs are a bound for the pairing and the classes at `T`'s primes. *(round 505: the classes at `T`'s primes are computed and keep the term; README round 505.)*
+
+## Round 505: the classes at the release's own ray-group primes, 2 and 3 (`frontier/wall78/rayclasses.py`, no new Lean)
+
+**What it is.** The owner asked: "Keep digging". Round 504 left two inputs open: a bound for the pairing of `A_m` with `B_m` below Cauchy–Schwarz, and the frequency classes kept at the primes of `T`'s modulus. This round computes the second. It finds the coarsest ray group `T` the release allows, and the classes its coefficient keeps at the primes over `2` and `3` for every allowed `T`. No Lean file changes, and the paper is not edited.
+
+**How coarse `T` can be.** The release chooses `T` so that `ℛ` and `G` factor through it (round 504's quote). Its proof for `G` reads: "This is a character of `$c\bmod2$`." (of `χ_c(4)`), and "Together with the dependence of `$\Gamma$` on `$c\bmod4$`, this proves that `$G$` is a function on a fixed ray group (for example the ray group modulo `$12$` suffices here)." The ray group modulo `12` is also the coarsest (gate K1). On `(O/4)^×`, with `Γ` from the release's four-term formula and `ℛ(a, b) = Γ(ab)/(Γ(a)Γ(b))`:
+
+- the largest subgroup that leaves every `ℛ(a, ·)` invariant is the square subgroup: "The units modulo `$4$` have square subgroup `$\{1,\omega,\omega^2\}$`";
+- with `G = \overline{χ_c(4)}Γ(c)` invariant as well, it is `{1}`.
+
+So every allowed `T` separates primary generators modulo `4`. The release's other uses of `T` read here hold for any such `T`: at the slot primes, "At an identity-ray prime every fixed phase from `$T$` is one".
+
+**The classes at 2 and 3.** Write `x = r_2 + 1` and `y = r_3 + 1` for the powers of `π_2 = 2` and `π_3 = λ = 1 − ω` in `εe_S(r)b_*`. The other factors of round 504's `ψ` are constant on each class modulo `4`:
+
+- the other primes' reciprocity factors `R(π_q, n)`, periodic modulo `4` (round 298);
+- `ξ_2`, a character modulo `2`;
+- `ξ_3`, which is `1` on primary `n`, since primary `n` are `1` modulo `3`.
+
+So at the coarsest `T` a class is kept exactly when `n ↦ χ_n(ε2^xλ^y)` is constant on the classes modulo `4`. Gate K2 computes the symbols on `6,054` primary primes of norm up to `60,000`:
+
+- `χ_n(4)` depends on `n` modulo `2`, and `χ_n(−1)` and `χ_n(λ)³` on `n` modulo `4`;
+- `χ_n(2)³` depends on `n` modulo `8`, not modulo `4`;
+- `χ_n(ω)` and `χ_n(λ)²` depend on `n` modulo `9`, not modulo `3`, and together they take all nine pairs.
+
+So the cubic `3`-adic parts force `y ≡ 0 (mod 3)` and `ε = ±1`, and the quadratic part of `χ_n(2)` forces `x` even. Of the `216` classes `(ε, x, y)`, the coarsest `T` keeps `12` (gate K3). Those with `r_2, r_3 ≤ 4` are `(r_2, r_3) = (1, 2)` and `(3, 2)`, each with `ε = ±1`. They are the same for all `36` choices of the generators' units, and a finer `T` keeps these and possibly more. Their factor at `2` and `3`, `Σ (1 − 1/4)4^{−r_2/6}(1 − 1/3)3^{−r_3/6}`, is `0.897` (gate K5).
+
+**A coarser partition, for contrast** (gate K4). A partition of the moduli by square classes modulo `4` alone carries `ℛ` but not `G`. The release does not allow it; a variant that expanded `G` on a ray group of its own would need only that. There `ξ_2 = χ_•(4)^{a_2}` pins the class at `2`, as at round 504's primes outside `T`:
+
+- `a_2 = 1` keeps `(1, 2)`, and `a_2 = 2` keeps `(3, 2)`;
+- a principal `ξ_2` keeps none. It also removes the principal residue's factor at `2`, by round 504's identity `(1 − V)Σ_t w_tV^t = PV − 1`, which holds for every `P`; here `P = 4`.
+
+**What it means.** With round 504, the arithmetic factor of the exceptional main term is positive at every prime of `S`, for every `T` the release allows and the release's `ξ`. On Xu–Sang's reading, the release's Gram over rows prime to `S` has the main term `(Q/Y′)P_a^{1/6}` for all of them. At `2` and `3` no choice of `ξ` or of an allowed `T` removes it. At the other primes of `S`, round 504's choices that remove it also remove the principal residue. Within the release's probe, what remains of round 503's input is a bound for the pairing of `A_m` with `B_m` below Cauchy–Schwarz.
+
+**Gates.** `python3 frontier/wall78/rayclasses.py` runs in about 6 seconds. All five gates, K1–K5, pass; any failure gives exit status 1. In session runs these perturbations fail their gates:
+
+- `G` without `χ_c(4)` fails K1;
+- fibers modulo `2` in place of `4` fail K3 and K5;
+- `3` in place of `λ` fails K2 (its norm);
+- `λ` times a power of `2` in the generator loop fails K3;
+- dropping `ξ_2` from the square-class partition fails K4.
+
+Two perturbations pass, as they should: `2 + ω`, an associate of `λ`, in place of `λ`, and a constant shift of `χ_n(λ)`'s exponent. Neither changes which functions are constant on the fibers.
+
+**Check 9.**
+
+- (a) Scope:
+  - The coarsest `T` is computed from the release's requirement that `ℛ` and `G` factor through `T`.
+  - The symbols are computed on the primary primes of norm up to `60,000`. A class counts as kept when the function takes one value on the primes of each fiber in that sample.
+  - The main term is round 504's reading, with this round's classes at `2` and `3`.
+- (b) Register: a bullet for this round in the sub-entry "Below `7/8` in the release's exponent comparison". Markers on round 504's bullet, whose open item this closes, and on the note on the Gram term.
+- (c) The signal is unchanged: the release's probe.
+
+**The machinery checklist.**
+
+- Surveyed:
+  - the release's choice of `T`;
+  - its Lemmas `lem:quadratic-four-term` and `lem:fixed-gauss-phase`, with the proof that `G` factors;
+  - its uses of `T` in the low separation, the slots and the dynamic local errors;
+  - the pilot's sextic reciprocity (round 298).
+- Not surveyed: bounds for the pairing of `A_m` with `B_m` other than Cauchy–Schwarz.
+
+**Records.** README round 496: a marker on its sentence on Xu–Sang's asymptotic. README round 503: a marker on its next step. README round 504: markers on its paragraph on the rest of the constant, its conclusion, its list of what remains, its unsurveyed item and its next step. STRUCTURAL-REVIEW §6: a bullet for this round, a marker on round 504's open item and a marker on the Gram-term note.
+
+**Check 4.** Already in the pilot: the classes at primes outside `T`'s modulus (round 504). New against the pilot:
+
+- the coarsest allowed `T` (the ray group modulo `12`);
+- the classes kept at `2` and `3`, and their independence from the generators;
+- the role of `ξ_2` for a partition that does not carry `G`.
+
+**Bearing on RH:** none.
+
+**The next step.** None is planned here. The open input is a bound for the pairing of `A_m` with `B_m` below Cauchy–Schwarz.
