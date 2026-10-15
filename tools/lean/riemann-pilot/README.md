@@ -19187,17 +19187,17 @@ In the walls column, `E` is the high side's endpoint on the bins with `δ ≥ 1/
 - **What the limits mean.** On Sang's slice no setting of these levers reaches `13/15`, or `31/36` without the Gram term. The levers are the moment, the counts, the amplifier, the Gram term, the floor's height and contour, the principal region, the technical conditions and the low rows' margin. Each limit is the point where the low side's boundary `B(ℓ) + t` meets the floor bin's `B(ℓ) + C_0`.
   - With the Gram term they meet at `b → 0`, `ℓ = 1/5`. There `13/15` is also `B(1/5)`, the end of Sang's range "`1/6\le\ell\le1/5`", and the low side's own minimum over the geometry (round 496): three walls at one point.
   - Without it they meet at `b = ℓ = 1/6`, on the absorption `3b ≤ 1 − 3ℓ`.
-  - Moving `31/36` needs a smaller exponent for the rows near `a = 1/2`, or a geometry off the slice. Moving `13/15` needs that and also a low estimate other than the release's, as the register's note on the caps already says.
+  - Moving `31/36` needs a smaller exponent for the rows near `a = 1/2`, or a geometry off the slice. Moving `13/15` needs that and also a low estimate other than the release's, as the register's note on the caps already says. *(Round 499: under the rows every configuration keeps, neither limit moves off the slice, inside it or across it at round 496's crossing cost `c = 1`. Across, `31/36` gives way only below `c = 2/15`, and `13/15` not at all; see round 499.)*
 
 **Gates.** `python3 frontier/wall78/levers.py` runs in about 8 minutes on four processes. All 21 gates pass: L1 for each of the 15 configurations, C1 for each of round 497's two values, and S1, O1, A1 and W1. Any failure gives exit status 1. `rotated_contour.py` keeps 10 gates after R5's removal; all pass, in about 5 minutes.
 
 **Check 9.**
 
-- (a) Every boundary above is a statement about this exponent system. The five constants are readings of the cited loci, not re-derivations; the hypothetical inputs are not available. The obstruction is a property of the system on Sang's slice, for the levers listed; it says nothing about other geometries or other probes.
+- (a) Every boundary above is a statement about this exponent system. The five constants are readings of the cited loci, not re-derivations; the hypothetical inputs are not available. The obstruction is a property of the system on Sang's slice, for the levers listed; it says nothing about other geometries or other probes. *(Round 499: it holds off the slice too, under the rows every configuration keeps, inside the slice and across it at round 496's `c = 1`; see round 499.)*
 - (b) Register: the sub-entry "Below `7/8` in the release's exponent comparison" gets the lever ladder, the obstruction with its attack note, and the correction to round 497's bullet.
 - (c) The signal is unchanged: the release's probe.
 
-**The machinery checklist.** Surveyed: the release's detector floor, local Euler regions and bin lemmas; Sang's sections 4–6, his principal region, his Lemma `closure` and his admissibility conditions. Not surveyed: large-value estimates for the sextic family of Guth–Maynard type (the count lever); amplifiers beyond Sang's prime amplitudes; geometries off Sang's slice.
+**The machinery checklist.** Surveyed: the release's detector floor, local Euler regions and bin lemmas; Sang's sections 4–6, his principal region, his Lemma `closure` and his admissibility conditions. Not surveyed: large-value estimates for the sextic family of Guth–Maynard type (the count lever); amplifiers beyond Sang's prime amplitudes; geometries off Sang's slice. *(Round 499: surveyed, under round 496's readings.)*
 
 **Records.** README round 497: R5 struck and annotated, with net-state markers on its gate count and on its floor-bin summary. STRUCTURAL-REVIEW §6: the same in round 497's bullet, and a bullet for this round.
 
@@ -19206,3 +19206,82 @@ In the walls column, `E` is the high side's endpoint on the bins with `δ ≥ 1/
 **Bearing on RH:** none.
 
 **The next step.** None is planned here. The register's attack note on the rows near `a = 1/2` now carries the limits `13/15` and `31/36`: on Sang's slice, a saving across those rows is what the high side needs.
+
+## Round 499: round 498's levers off Sang's slice (`frontier/wall78/offslice.py`, no new Lean)
+
+**What it is.** The owner asked: "Run the same levers off Sang's slice". Sang's slice is the release's geometry with `M + ℓ = 1`, where `M = l_x + l_y` (round 496). This round frees the geometry `(l_x, l_y, ℓ)` and runs round 498's fifteen configurations inside the slice (`M + ℓ < 1`) and across it (`M + ℓ > 1`). No Lean file changes, and the paper is not edited.
+
+**The model off the slice.**
+
+- **High side.** The release's bin exponent at `d = h` (round 496's high side, `h = 1 − l_x + ℓ`), with the numerator rotated as in round 497: `E = 1/2 + δ/2 − l_y(1/2 + ϑ) − s₀ − ℓ/2 + xδℓ + h(5/6 − w(1 − R) + ϑ/2)`, `w = 1 − 1/(2k)`. On the slice this is round 498's endpoint. Gate I1 checks it against `exponent_lp.py`'s release exponent plus the rotation, at random points off the slice.
+- **Low side.** Round 496's model of the release's Proposition `prop:probe-low` (gate I2: the same rows as `exponent_lp.py`): `s₀ ≥ 5/6 + l_x/6 − ℓ/6 + max(0, θb, 2b − l_y)/2 + (1 + 3ℓ − 2M)₊/8`, with `θ = 1/6` when the Gram bound keeps its exceptional term and `0` when it does not.
+  - The three terms are those of the Gram bound, "`(1+|\nu|)^{J_{\mathrm{Gr}}}\frac Q{Y'} \left(1+P_a^{1/6}+\frac{P_a^2}{Y'}\right)Z^\epsilon.`", with "`P_a=Y'^2/Q\ge1.`", so `P_a = Z^b` in any geometry.
+  - They enter at tuple size `d = 0`: the release's tuple sum gains "`f(d)=d-3d/2-d/2=-d\le0.`", which outweighs their growth in `d`.
+  - The last term is the row-norm loss.
+- **The slice.** Round 496 reads the release's row-norm proof as valid for `M + ℓ ≤ 1`. In that proof, "Since `$M'+\ell'-1=-3d$`, direct subtraction gives" the step `T_d ≤ H − 3d`, up to small terms; when `M' + ℓ' − 1` is below `−3d`, the same subtraction still gives it. Crossing the slice by `μ` costs `cμ/2` on the low side, and round 496 reads `c = 1` from that proof's first branch. That reading is not re-derived here.
+- **The rest.** Round 498's admissibility conditions carry over with `b = l_y − l_x` and `h = 1 − l_x + ℓ`, Sang's range `1/6 ≤ ℓ ≤ 1/5` included. Every row is linear in `(l_x, l_y, ℓ, s₀, μ)` except the small bins. So the script solves a linear program by cutting planes over the bins, and checks the small bins at the optimum; they are slack at every optimum computed (gate W2).
+- **On the slice it is round 498 again** (gate G1). All fifteen boundaries agree with `levers.py`'s recorded values to within `2·10⁻⁶`, with the same `κ`, attaining stage and status. The walls agree too, except in the three configurations at the principal edge `87/100`, which the gate exempts: there the edge sets the boundary. The two scripts share the configurations and the counts, not the solver: `levers.py` searches the slice's coordinates `(b, ℓ)` by scalar minimization, and this script solves a linear program in all five variables.
+
+**The configurations** (gates G1–G4).
+
+| Configuration | On the slice (round 498) | Inside it | Across at `c = 1` | Across at `c = 0` |
+|---|---|---|---|---|
+| Sang's inputs | `0.8748866` | same | same | `0.8713556` |
+| Sang's inputs + all five readings | `0.8748866` | same | same | `0.8713556` |
+| Sang's inputs + Gram term removed | `0.8745078` | same | `0.8709157` | `0.87` |
+| Sang's inputs + Gram term removed + all readings | `0.8745012` | same | `0.8694484` | `0.8621496` |
+| Sang's inputs + amplifier ×2 | `0.8741924` | same | same | `0.8709486` |
+| Sang's inputs + amplifier to the caps | `0.8741773` | same | same | `0.8709293` |
+| Sang's inputs + DH counts | `0.8701164` | same | same | `0.87` |
+| Sang's inputs + DH counts + all readings | `0.8667866` | same | same | `0.8667333` |
+| Lindelöf on average | `0.8701164` | same | same | `0.87` |
+| Lindelöf + the floor on the rotated line | `0.87` | same | same | `0.87` |
+| Lindelöf + the floor at `1/2 + 1/2000` | `0.87` | same | same | `0.87` |
+| Lindelöf + Gram term removed | `0.87` | same | same | `0.87` |
+| Lindelöf + all readings | `0.8667866` | same | same | `0.8667333` |
+| Lindelöf + all readings + Gram term removed | `0.8618569` | same | same | `0.8584333` |
+| Everything | `0.8613056` | same | same | `0.8584333` |
+
+**What it shows.**
+
+- **Inside the slice nothing moves** (gate G2). In every configuration off the principal edge the optimum stays on `M + ℓ = 1`. The three configurations at the edge `0.87` have optima inside the slice as well, at the same value.
+- **Across the slice at `c = 1`, two configurations move** (gate G3): Sang's inputs with the Gram term removed, to `0.8709157`, and with all five readings as well, to `0.8694484`.
+  - On the slice their low side has slack: the wall is the high side `E`, with `ℓ` at the bottom of Sang's range, `1/6`. Crossing lowers the high side and costs nothing until the low side meets it, so they cross at any cost (gate C2).
+  - The other ten configurations off the edge cross only below a break-even cost `c* = 2p_slice/p_low`, from the duals of the program inside the slice at the attaining stage. Gate C2 brackets it: solving at `0.95c*` crosses and lowers the boundary, and at `1.05c*` it does not. It is between `0.160` and `0.190` for the eight that keep the Gram term, `0.382` for Lindelöf + all readings + Gram term removed, and `0.500` for Everything.
+- **Free crossing** (`c = 0`, gate G4) bounds what leaving the slice could buy in this system.
+  - Sang's inputs reach `0.8713556`. With the Gram term, the DH and Lindelöf rows reach the principal edge `0.87`, or `0.8667333` with all readings.
+  - Lindelöf + all readings + Gram term removed and Everything reach `0.8584333`, below `31/36`, and there the bootstrap stops at its first stage: the next `κ = 2B − 1` falls below `13/18`, and `2(31/36) − 1 = 13/18` (gate K1) is the bottom of the range in Sang's Lemma `kappa-extension`, "`13/18\le\kappa\le1.`"
+- **The obstruction off the slice** (gates O2, O3).
+  - At `δ = 0` every configuration's bin row is round 498's `C_0` wall, now `s₀ ≥ 4/3 − 5l_x/6 − l_y/2 + ℓ/3`, and the floor bin lies above it.
+  - So every configuration's boundary is at least the least value of `max(low side, C_0 wall)` over the geometry, under the rows they all keep: `b ≥ 0`, the condition on the third Gram term (Sang's `l_y − ℓ > 11b/6`, or round 497's absorption without the Gram term), Sang's range, `l_x > ℓ`, `h/2 < l_y`, `l_y < 1/2`, `ℓ/h > 1/5` and the low rows' limit. That least value is:
+
+  | | Inside the slice | Across at `c = 1` | Across at `c = 0` | Crossing pays below |
+  |---|---|---|---|---|
+  | With the Gram term | `13/15` | `13/15` | `13/15` | never |
+  | Without it | `31/36` | `31/36` | `103/120` | `c = 2/15` |
+  | Without it, third Gram term soft | `31/36` | `31/36` | `103/120` | `c = 1/7` |
+
+  - With round 498's rows alone, `b ≥ 0` and the condition on the third term, the break-evens are `1/30` with the Gram term and `2/15` without it.
+- **What the limits mean.** Under the rows every configuration keeps, round 498's two limits hold off the slice: inside it, and across it at round 496's `c = 1`.
+  - `31/36` gives way only if crossing costs less than `2/15` per unit (`1/7` with the soft third term).
+  - `13/15` does not give way. Put `m = M + ℓ − 1`. With the Gram term, `l_x/6 + max(0, b/6)/2 ≥ M/12` in either sign of `b`, so the low side is at least `11/12 − ℓ/4 + m/12 + (5ℓ − 1 − 2m)₊/8`. That is at least `11/12 − ℓ/4` on and across the slice, and at least `(21 − ℓ)/24` inside it, where the row-norm loss takes over. With `ℓ ≤ 1/5` both are at least `13/15 = B(1/5)`, whatever the crossing cost.
+  - Gate O3 checks this by linear programming: the low side alone, under `ℓ ≤ 1/5` and no other row, has minimum `13/15` over every geometry with lengths in `[0, 1]`, at `c = 0`. Dropping `ℓ ≤ 1/5` or the row-norm loss lowers it, to `0.833333` and `0.8` within those bounds.
+- **The third Gram term.** Sang's condition `l_y − ℓ > 11b/6` keeps the third term `P_a²/Y'` below `P_a^{1/6}` in the low side's rows, and round 497's absorption keeps it below `1` without the Gram term. The release's version of the condition, "`l_y-d-11b/6\ge1/12.`", serves one step, which drops that term: "and hence `$P_a^2/Y'\ll P_a^{1/6}$`". Every occurrence of `11b` in the release is in that step. Carried as a soft term instead, it changes no boundary on the slice, inside it, or across it at `c = 1` (gate S3). In the obstruction it leaves the limits as they are and moves the break-even from `2/15` to `1/7` (gate O2).
+
+**Gates.** `python3 frontier/wall78/offslice.py` runs in about a minute on four processes. All 79 gates pass: I1, I2, W2, O2, O3, K1 and S3; C2 for each of the twelve configurations off the principal edge; and G1–G4 for each of the fifteen. Any failure gives exit status 1.
+
+**Check 9.**
+
+- (a) Every boundary here is a statement about this exponent system. The model off the slice rests on round 496's readings: the release's low estimate in general geometry for `M + ℓ ≤ 1`, and the crossing cost `c = 1`. The obstruction's limits are minima over the geometry for the rows listed, not statements about other probes.
+- (b) Register: the sub-entry "Below `7/8` in the release's exponent comparison" gets a bullet for this round, and its notes on the slice, on the rows near `a = 1/2` and on the caps get markers.
+- (c) The signal is unchanged: the release's probe.
+
+**The machinery checklist.** Surveyed: the release's Gram bound, low estimate and row-norm proof (the step `T_d ≤ H − 3d`), and round 496's model of them. Not surveyed: a low estimate other than the release's; a row-norm bound with a smaller crossing cost.
+
+**Records.** README round 498: net-state markers where it names a geometry off the slice. STRUCTURAL-REVIEW §6: a bullet for this round, and markers on the notes on the slice, on the rows near `a = 1/2` and on the caps, and on round 498's bullet.
+
+**Check 4.** New against the pilot: the levers off the slice, the break-even cost of each configuration, the obstruction over the geometry with its break-evens, the low side's minimum across the slice (gate O3), and the bootstrap's stop below `31/36`. Round 496's slice analysis was for the release's own system, and its low-side minimum `13/15` was for `M + ℓ ≤ 1`.
+
+**Bearing on RH:** none.
+
+**The next step.** None is planned here. At round 496's crossing cost the slice binds every configuration except two hypothetical ones. The register's note on the slice, the step `T_d ≤ H − 3d`, now carries the break-evens: `2/15` for `31/36`, and none for `13/15` under Sang's range.
