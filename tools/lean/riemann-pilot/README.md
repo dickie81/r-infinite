@@ -19681,4 +19681,82 @@ Two perturbations pass, as they should: `2 + ω`, an associate of `λ`, in place
 
 **Bearing on RH:** none.
 
-**The next step.** None is planned here. The open input is a bound for the pairing of `A_m` with `B_m` below Cauchy–Schwarz.
+**The next step.** None is planned here. The open input is a bound for the pairing of `A_m` with `B_m` below Cauchy–Schwarz. *(round 506: that is the low side's input. On the high side, with the floor bin on Sang's rotated line, `need(0.87)` changes sign near `w ≈ 0.8207` (`2k ≈ 5.578`) and near counts `0.599` of the way to the density hypothesis; README round 506.)*
+
+## Round 506: how far the high side's inputs move to reach `0.87`, with the low side pinned (`frontier/wall78/exchange.py`, no new Lean)
+
+**What it is.** The owner asked: "Keep digging". Rounds 503–505 pinned the release's low side at Sang's short prime windows. On his slice it is `11/12 − ℓ/4` whatever `b` is. On Xu–Sang's reading, the exceptional Gram term that makes it so is a main term for every `T` the release allows, and a choice of `ξ` that removes it removes the principal residue too. At Sang's principal edge `0.87` the low side therefore needs `ℓ ≥ 14/75`, while his high side admits `ℓ ≤ 0.16091` there. Round 503 priced closing that gap on the low side, as a pairing bound that saves `Z^{0.0064390}` over Cauchy–Schwarz. This round prices it on the high side: how far two of the high side's inputs move, in the exponent model, before the release's low side, exceptional term kept, reaches `0.87`. It also records a horizon scan. No Lean file changes, and the paper is not edited.
+
+**The horizon scan.**
+
+- Sang's arXiv 2610.15291 is at v1 (11 October), and Xu and Sang's arXiv 2610.17675 at v1 (13 October), by the arXiv API. Sang's abstract names the input this round varies: "The improvement combines a relaxed direct estimate with an amplified first moment of the reflected numerator, obtained from the existing fourth-moment estimate."
+- `github.com/openai/math` is at `1581d4c` (`git ls-remote`), as in rounds 471 and 496. Its two quasi-RH manuscripts, under `preprints/The-Quasi-Riemann-Hypothesis-September-30-2026` and `preprints/The-Quasi-Riemann-Hypothesis-October-5-2026`, are unchanged since the initial commit `adc7f12`: `git log` lists only that commit for each, and `git diff --stat adc7f1241 origin/main` lists no file under either.
+- de Faveri, Dunn and Hoffstein, arXiv 2607.07911 (v2, 13 July), which round 311 knew only as de Faveri's reference [9]. Its abstract, by the arXiv API: "We show unconditionally that the cubic and quartic large sieves are not perfectly orthogonal. The main obstruction to perfect orthogonality comes from the bias exhibited by Gauss sums. Our proof requires two main inputs: a Lindelöf-on-average upper bound for the second moment of Kubota's Dirichlet series, and a tight average lower bound for the Fourier coefficients of a certain Rankin-Selberg convolution of metaplectic theta functions." For other orders it gives a conjecture: "We provide a precise conjecture for the operator norm of these ensembles for each `$n$`." The paper itself was not read.
+- Two web searches, for moments of cubic and of sextic Hecke `L`-functions over `ℚ(√−3)`, found no sixth moment. Among their results:
+  - Gao and Zhao, arXiv 2201.01885 (v2), read in its LaTeX source. Its Theorem `firstmoment` is a first moment of `L(1/2, χ_c)` over the sextic family (squarefree `c ≡ 1 (mod 36)`), with error `O(y^{6/7+ε})`. For the second moment it cites a bound `≪ y^{1+ε}`: "It follows from \cite[Corollary 1.4]{BGL} that".
+  - Hamdar, arXiv 2509.06152 (v2), by its abstract: "We compute the first moment of cubic Hecke `$L$`-functions over `$\mathbb{Q}(\sqrt{-3})$` evaluated at any `$s$` inside the critical strip." At `s = 1/3` its computation "relies on a cancellation between two terms which are a priori not related: a main term of the principal sum which comes from cubes, and the contribution from infinitely many residues of Dirichlet series of cubic Gauss sums to the dual sum."
+  - Lin and Wong, arXiv 2511.08783, by its abstract: "we obtain a conditional lower bound towards Keating-Snaith's conjecture".
+
+**The two inputs.** Both are the model's (`levers.py`, `offslice.py`), and both are hypothetical.
+
+- The moment exponent `w`. Sang's Proposition `prop:numerator` bounds the numerator over a class `ℬ` of rows with `#ℬ ≪ U^{R+ε}`: "`\sum_{u\in\mathcal B} |L(1/2+\vartheta+it,\overline{\psi_u^*})| \ll U^{(3R+1)/4-\vartheta/2+\eps}(1+H)^{A'}.`" His proof takes it from the release's plain fourth moment (`[OAI26, Lemma 18.1]`, his eq. `plain-moment`) by Hölder: "Apply \eqref{eq:plain-moment} with two copies of `\(S_m\)`." Round 497's lever replaces the fourth moment by a `2k`-th, which gives `U^{R+(1−R)/(2k)−ϑ/2}`, Sang's amplifier saving `ϑ/2` kept as a modelling assumption. In the bin exponent this is `−hw(1 − R)` with `w = 1 − 1/(2k)` (round 499's formula). Sang's balance between amplifier and block length rests on "Two copies of this block use length `\(2m\)` in the plain fourth moment." A sixth moment would use three copies; how much room for primes it would leave is not known here, and the model keeps Sang's saving. Sang's fourth moment is `w = 3/4`, a sixth moment would be `5/6`, and Lindelöf on average (`k = 10^9` in the script) is `1`.
+- The row counts. Sang's count `R_κ(δ, x)` is moved toward the density-hypothesis count `1 − δ` by the fraction `t`; the floor bin keeps `R = 1`, as in `levers.py`.
+
+`need(0.87)` is round 503's: the low side's least excess over `0.87` among the geometries the high side admits at `0.87`, on Sang's slice, under round 501's reading, at `κ = 2·0.87 − 1 = 0.74`.
+
+**What it shows** (gates H1–H6).
+
+- **Sang's inputs** (gate H1): `need(0.87) = 0.0064390`, at `ℓ = 0.16091` and `b = 0.04975`. The bins `E`, the supply `ℓ/h > 21/100`, the low side's exceptional row and the principal edge are among the walls.
+- **The moment exponent** (gate H2). `need(0.87)` falls as `w` rises, with the bins binding: `0.0036990` at `w = 7/9` (`k = 9/4`) and `0.0016653` at `w = 4/5` (`k = 5/2`). The bins stop binding at `w* ≈ 0.8188` (`2k ≈ 5.518`). At `2k = 5.538`, just above it, and at the sixth moment, at `k = 6` and at Lindelöf on average, `need(0.87)` is `0.0001351`.
+- **The row counts** (gate H3). The same in `t`: `0.0036766` at `t = 1/4` and `0.0010813` at `t = 1/2`. The bins stop binding at `t* ≈ 0.602`; at `t = 0.612` and at the density-hypothesis counts `need(0.87)` is again `0.0001351`.
+- **What is left.** At `0.0001351` the walls are the floor bin (on the release's contour), Sang's low-rows condition, the low side's exceptional row and the principal edge; the bins are slack. With the floor bin on Sang's rotated line (round 498's reading of the floor's contour), `need(0.87)` is `−0.0004730` at `w = 5/6`, and also at Sang's `w` with the density-hypothesis counts (gate H4). Then `0.87` is reached with the release's low side, exceptional term kept. With the rotated floor, `need(0.87)` changes sign between `2k = 5.558` and `5.598` (bisection: `5.578`, `w ≈ 0.8207`) and between `t = 0.589` and `0.609` (bisection: `0.599`). At Sang's own `w = 3/4` the rotated floor changes nothing.
+- **`κ`** (gate H5). Over round 503's grid from `0.74` to `1`, `need(0.87)` rises with `κ` at Sang's `w`; at `w = 5/6` it does not depend on `κ`, with either floor.
+- **The binding bin** (gate H6). At Sang's inputs the bin where `E` is largest is `(δ, x) = (0.5132, 1/2)` on the model's grid, where `R_κ = 0.5472` against `1 − δ = 0.4868`. Round 498's gate W1 found `δ ≈ 0.47` at Sang's own boundary `0.8748866`; here the geometry is the one `need(0.87)` picks.
+
+**What it means.** In this model the `0.0064390` that separates Sang's inputs from his principal edge can be paid on either side. On the low side it is a pairing bound below Cauchy–Schwarz (rounds 503–505). On the high side, `w` past `0.8188` or `t` past `0.602` pays all but `0.0001351`. The rest is the floor bin's. With the floor bin on the rotated line, `need(0.87)` changes sign at `2k ≈ 5.578` (`w ≈ 0.8207`) or `t ≈ 0.599`, and is `−0.0004730` at `w = 5/6` and at `t = 1`. With the release's floor it is a low-side saving of `Z^{0.0001351}`. A sixth moment would give `w = 5/6`; through de Faveri's Theorem 1.1 alone it holds only for blocks of length `U^m` with `m ≤ 1/6` (round 497). Rounds 497 and 498 found the same walls in boundaries rather than in `need(0.87)`, and without these thresholds: beyond the fourth moment the moment lever saturates at the floor bin, and Lindelöf on average with the rotated floor reaches `0.87`. Every number here is a statement about this exponent system.
+
+**Gates.** `python3 frontier/wall78/exchange.py` runs in about 30 seconds. All six gates, H1–H6, pass; any failure gives exit status 1. In session runs:
+
+- the threshold `K_STAR` recorded as `2.70` fails H2;
+- the floor bin on the rotated line in every run fails H2 and H3;
+- counts moved toward `1 − δ/2` in place of `1 − δ` make the linear program infeasible, and the script stops there with exit status 1, before its gates.
+
+**Check 9.**
+
+- (a) Scope:
+  - The moment exponent and the interpolated counts are hypothetical inputs of the exponent model, not estimates proved for the release's family. The thresholds are this model's, under round 501's reading.
+  - Past each threshold, `need(0.87)` is checked at the gates' points: four values of `k` and two of `t`.
+  - That no sixth moment was found is scoped to two web searches and the sources read: three abstracts and Gao and Zhao's introduction.
+- (b) Register: the sub-entry "Below `7/8` in the release's exponent comparison" gets a bullet for this round. It has the plain sixth moment and the floor's contour as open items with attack notes, and a note on the pairing from Hamdar's abstract.
+- (c) The signal is unchanged: the release's probe.
+
+**The machinery checklist.**
+
+- Surveyed:
+  - the arXiv API for new versions of Sang and of Xu–Sang, and for the abstracts of de Faveri–Dunn–Hoffstein, Hamdar, and Lin–Wong;
+  - `openai/math`;
+  - Gao–Zhao's introduction;
+  - Sang's Section `sec:numerator`, his eq. `plain-moment` and his floor paragraph;
+  - two web searches for moments of the cubic and sextic families over `ℚ(√−3)`.
+- Not surveyed:
+  - the papers of de Faveri–Dunn–Hoffstein, Hamdar, and Lin–Wong beyond their abstracts;
+  - the release's proof of its Lemma 18.1;
+  - large-value estimates over sparse bins.
+
+**Records.** README round 505: a marker on its next step. STRUCTURAL-REVIEW §6: a bullet for this round, and markers on round 497's open item and on round 505's.
+
+**Check 4.** Already in the pilot:
+
+- the moment lever, its saturation beyond the fourth moment and the sixth moment through de Faveri's Theorem 1.1 (round 497);
+- the density-hypothesis counts and the rotated floor (round 498);
+- `need(B)` (round 503).
+
+New against the pilot:
+
+- `need(0.87)` along `w` and along `t`, with the thresholds where the bins stop binding;
+- the floor bin's residue `0.0001351` at `0.87`, and the sign change with the rotated floor;
+- the horizon scan of 15 October.
+
+**Bearing on RH:** none.
+
+**The next step.** None is planned here. The open inputs at `0.87` are a pairing bound below Cauchy–Schwarz, or on the high side a numerator average with `w` above about `0.8207` and the rotated floor, or with `w > 0.8188` and a low-side saving of `Z^{0.0001351}`. A plain sixth moment would give `w = 5/6`.
