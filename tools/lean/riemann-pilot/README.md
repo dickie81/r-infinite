@@ -17880,5 +17880,60 @@ The route is round 471's: the family's own members `u = d³·gen(𝔟)⁶`, with
 **The next step.** Round 471's downstream items, in its order:
 
 1. bounds for `L(s, χ)` and `log L(s, χ)` uniform in the conductor, for real `χ`, in the half-plane, and Littlewood's argument for `L(1, χ)`;
-2. the prime number theorem in progressions modulo the `q` whose characters are all real [recalled: these are the divisors of `24`], from the half-plane for each `L(s, χ)` mod `q`, along round 467's route for `ζ` in `external/pnt`;
+2. the prime number theorem in progressions modulo the `q` whose characters are all real [recalled: these are the divisors of `24`], from the half-plane for each `L(s, χ)` mod `q`, along round 467's route for `ζ` in `external/pnt`; *(Round 478: the nontrivial characters, `ψ(x, χ) = O(x^{11/12+η})` for every real `χ ≠ 1`, `ChiPNT.psiChi_isBigO_eleven_twelfths`, through round 472's smoothed Perron formula rather than round 467's route. See round 478.)*
 3. the general-`ν` route for the non-real characters, which stays on the register ("The half-plane for the non-real Dirichlet characters").
+
+## Round 478: `ψ(x, χ) = O(x^{11/12+η})` for every real Dirichlet character `χ ≠ 1` (`external/pnt/ChiPNT.lean`)
+
+**What it is.** Item 2 of round 477's next step, for the nontrivial characters: "the prime number theorem in progressions modulo the `q` whose characters are all real [recalled: these are the divisors of `24`], from the half-plane for each `L(s, χ)` mod `q`, along round 467's route for `ζ` in `external/pnt`". This round proves, with no hypothesis:
+
+- `ChiPNT.psiChi_isBigO_eleven_twelfths`: for every quadratic Dirichlet character `χ ≠ 1`, of any modulus, and every `η > 0`, `ψ(x, χ) = Σ_{1≤n≤x} χ(n)Λ(n) = O(x^{11/12+η})`.
+
+It comes from two statements for a general function:
+
+- `ChiPNT.logDeriv_le_of_zeroFree`: round 337's bound `|ζ′/ζ(σ + it)| ≤ C log|t|` in a zero-free half-plane, for an entire `F` in place of `ζ`;
+- `ChiPNT.sum_isBigO_of_zeroFree`: round 472's argument for `M(x)`, for the coefficients of `−F′/F`.
+
+**What is proved** (`external/pnt/ChiPNT.lean`, 504 lines, 10 theorems and lemmas, 2 definitions; 5 axiom lines in `build.sh`'s final check, each `[propext, Classical.choice, Quot.sound]`).
+
+- **`locG`** (a definition), **`differentiable_locG`**, **`locG_logDeriv`**: `F(3/2 + it + ρw)/F(3/2 + it)`, entire when `F` is, and its logarithmic derivative `ρ·F′/F(3/2 + it + ρw)`.
+- **`disc_point`**: let `F` be entire with no zero in `Re s > θ`, `ρ = 3/2 − θ`, `0 < r′ < r < R′ < R < 1`, and `σ + it` with `θ < σ < 3/2` and `3/2 − σ ≤ ρr′`. If `|F(3/2 + it + ρw)/F(3/2 + it)| ≤ B` on `|w| ≤ R`, `B > 1`, then `ρ|F′/F(σ + it)| ≤ K log B`, with `K` the constant of PNT+'s `FinalBound`.
+- **`logDeriv_le_of_zeroFree`**: let `F` be entire with no zero in `Re s > θ ≥ 0`, with `|F(s)| ≤ c_δ|Im s|` on `δ ≤ Re s ≤ 3`, `|Im s| ≥ 1`, for every `δ > 0`, with `1/|F(3/2 + it)| ≤ A` for every `t`, and `|F′/F| ≤ C₀` on `Re s ≥ 3/2`. Then for every `θ′ ∈ (θ, 3/2)` there is `C > 0` with `|F′/F(σ + it)| ≤ C log|t|` for `σ ≥ θ′` and `|t| > 3`.
+- **`LSeriesSummable_of_le_vonMangoldt`**: `L(f, s)` converges absolutely on `Re s > 1` when `|f(n)| ≤ Λ(n)`.
+- **`sum_isBigO_of_zeroFree`**: for `F` as above with `θ < 1`, and `f` with `f(0) = 0`, `|f(n)| ≤ Λ(n)` and `L(f, s) = −F′/F(s)` on `Re s > 1`: `Σ_{1≤n≤x} f(n) = O(x^{θ+η})` for every `η > 0`.
+- **`norm_LSeries_le_of_le_re`**: `|L(f, s)| ≤ Σ_n |f(n)|n^{−σ₀}` on `Re s ≥ σ₀` when the right side converges.
+- **`psiChi`** (a definition): `ψ(x, χ)`. **`LSeries_twist_vonMangoldt_eq_LFunction`**: `L(χΛ, s) = −L′/L(s, χ)` on `Re s > 1`, with Mathlib's `LFunction`.
+- **`psiChi_isBigO_of_zeroFree`**: for a quadratic `χ ≠ 1` with `L(s, χ) ≠ 0` on `Re s > θ`, `0 ≤ θ < 1`: `ψ(x, χ) = O(x^{θ+η})` for every `η > 0`.
+- **`psiChi_isBigO_eleven_twelfths`**: above.
+
+**The proof.**
+
+- **The log-derivative.** Round 337's proof for `ζ`, with `F` in place of `ζ`. The disc of radius `ρ = 3/2 − θ` around `3/2 + it` lies in `Re s > θ`, so `F(3/2 + it + ρw)/F(3/2 + it)` has no zero on it. PNT+'s `FinalBound` bounds its logarithmic derivative on the disc of radius `r′`, which reaches `σ + it`, by `K log B`, with `B = 2 + cA(|t| + ρ)` from the growth and the lower bound (round 337's `im_bounds` and `re_ge` place the disc's points). Round 337 also kept the disc away from the pole of `ζ` at `1`; an entire `F` has no pole. Right of `3/2`, `C₀`.
+- **The sum.** Round 472's proof of `MertensExponent.mertens_isBigO_of_zeroFree`, with `−F′/F` in place of `1/ζ`. With `η₀ = min(η, (1 − θ)/2)`, `θ′ = θ + η₀/4`, `κ = η₀/4` and `ε₁ = η₀/8`: on `Re s = θ′`, `|F′/F| ≤ C log|t| ≤ (C/ε₁)(1 + |t|)^{ε₁}` for `|t| > 4` (Mathlib's `Real.log_le_rpow_div`), and `F′/F` is bounded for `|t| ≤ 4` by compactness; on the horizontal segments, `|F′/F| ≤ C log|t| ≤ C|t|` for `|t| ≥ 4`. `F′` is entire (Mathlib's `AnalyticAt.deriv`), so `−F′/F` is holomorphic on `Re s > θ`. `SmoothPerron.smoothedSum_eq_verticalIntegral_left` moves the line to `Re s = θ′`, where `SmoothPerron.mellin_le_geom` bounds the integral by `O(ε^{−κ}X^{θ′})`. `SmoothPerron.norm_smoothedSum_sub_le`, at `B = log 3X` since `|f(n)| ≤ Λ(n) ≤ log n`, costs `log 3X·(3 log 2·εX + 1) ≤ (2 + 1/κ)X^κ·4X^{θ′}` with `ε = X^{θ′−1}`. The exponent is `θ′ + κ = θ + η₀/2 ≤ θ + η`.
+- **`F = L(·, χ)`.** It is entire for `χ ≠ 1` (Mathlib's `DirichletCharacter.differentiable_LFunction`). Growth: round 224's `PsiOmega.norm_LFunction_le`, `|L(s, χ)| ≤ (N + 1)|s|/Re s` for quadratic `χ ≠ 1` and `Re s > 0`, with `|s| ≤ 4|Im s|` when `Re s ≤ 3` and `|Im s| ≥ 1`. Lower bound: `L(s, χ)·L(χμ, s) = 1` on `Re s > 1` (Mathlib's `DirichletCharacter.LSeries.mul_mu_eq_one`), so `1/|L(3/2 + it, χ)| = |L(χμ, 3/2 + it)| ≤ Σ_n |χ(n)μ(n)|n^{−3/2}` (round 472's `SmoothPerron.norm_LSeries_le`). Right of `3/2`: `L′/L(s, χ) = −L(χΛ, s)` (Mathlib's `DirichletCharacter.LSeries_twist_vonMangoldt_eq`), at most `Σ_n |χ(n)Λ(n)|n^{−3/2}`. The coefficients have `|χ(n)Λ(n)| ≤ Λ(n)`. The half-plane `Re s > 11/12` is round 477's `Eis.RealChar.LFunction_ne_zero_of_isQuadratic`.
+
+**Against the plan.** Round 477's next step listed three items: (1) bounds uniform in the conductor, with Littlewood's argument for `L(1, χ)`; (2) the prime number theorem in progressions modulo the `q` whose characters are all real; (3) the general-`ν` route, on the register. This round takes item 2 before item 1, since item 2 needs bounds at a fixed modulus only. It does not follow "round 467's route for `ζ`", round 338's `MediumPNTW.GenPNTWNoEps`, which is written for `ζ`: it uses round 472's smoothed Perron formula for a general Dirichlet series, with round 337's log-derivative bound restated for an entire function. The trivial character and the assembly of item 2 are not in this round.
+
+**The paper.** `grep -n -i "siegel\|exceptional zero\|progression\|real character\|quadratic character\|L(s, *χ)\|dirichlet l-function"` on `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` finds ten lines: `riemann-indistinguishability.md` lines 155, 1147, 1148, 3836, 3952, 3956, 7326, 8704 and 8760, and `cascade-riemann-formulation.md` line 509. None states a zero-free region for `L(s, χ)` beyond `Re s > 1`, a Siegel-zero claim, or a statement about primes in progressions. Line 7326's Theorem 1bs takes, as a hypothesis on its real primitive character, "no real zero in (0, 1), as for q = 3, 4, 8"; round 477 excludes real zeros only in `(11/12, 1)`. The paper is not edited by this round or by round 477.
+
+**Records.**
+
+- `external/pnt/build.sh`: `ChiPNT` in the compile list, and 5 lines added to the final check (70 to 75 `#print axioms` lines).
+- `external/pnt/README.md`: a row and a section for `ChiPNT.lean`.
+- A net-state marker on round 477's paragraph "The next step".
+
+**Build.** `external/pnt/build.sh` (931 s) compiled `Architect.lean`, the 19 PNT+ files and the 23 files here, `ChiPNT.lean` with no warnings. Its final check printed 75 axiom lines, each `[propext, Classical.choice, Quot.sound]`. No file of `src/` changed.
+
+- The namespace `ChiPNT` is new: a grep of the Lean files of the pilot (`external/` included) and of Mathlib finds it only in this file.
+
+**Check 4.** Classical [recalled]: a zero-free half-plane `Re s > θ` for `L(s, χ)`, `χ ≠ 1`, gives `ψ(x, χ) = O(x^{θ+ε})`. New against the pilot: the log-derivative bound for an entire function in a zero-free half-plane, as a theorem with its hypotheses explicit, and `ψ(x, χ) = O(x^{11/12+η})` for every real `χ ≠ 1`, machine-checked with no hypothesis. Round 477's Check 4 quotes the release's claim of the half-plane `Re s > 7/8` for every Dirichlet L-function; through `psiChi_isBigO_of_zeroFree` it would give `O(x^{7/8+η})` for the real characters. It is not derived here.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every quadratic `χ ≠ 1` of every modulus, every `η > 0`, every `θ ∈ [0, 1)` with `L(s, χ) ≠ 0` on `Re s > θ`, and every entire `F` with the stated bounds.
+- (b) No barrier claim is made.
+- (c) No signal is fed to a criterion: the theorem goes from a zero-free half-plane to a bound.
+
+**Bearing on RH:** none. The theorem consumes a zero-free half-plane and returns a bound.
+
+**The next step.** Round 479: the trivial character and the assembly by orthogonality, `ψ(x; q, a) = x/φ(q) + O(x^{11/12+η})` for `q ∣ 24` and `a` prime to `q`. For the trivial character mod `q`, `ψ(x, 1) = ψ(x) − Σ_{n≤x, (n, q) > 1} Λ(n)`, with round 467's `ψ(x) − x = O(x^{11/12+ε})` and the prime powers sharing a factor with `q` at most `ω(q) log x`.
