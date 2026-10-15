@@ -17484,7 +17484,7 @@ Both landed by the route listed, with `θ′ = a = (θ + min(σ₀, 5/4))/2` and
 1. a horizon scan and an audit of where the chain fixes the trivial character (this round);
 2. the two near doors of rounds 469–470;
 3. the half-plane for every Dirichlet character, by twisting;
-4. the downstream consequences: the prime number theorem in progressions, and the class-number deduction.
+4. the downstream consequences: the prime number theorem in progressions, and the class-number deduction. *(Rounds 478–480: the prime number theorem in progressions modulo the `q` whose characters are all real, and Littlewood's bounds for `L(1, χ)` at the real characters; the class-number deduction is not done. See round 480.)*
 
 **The horizon scan.** CLAUDE.md's "Looking in the right places" asks for this scan at the start of each RH-strand round series: `github.com/openai/math`, arXiv math.NT and the Lean community, "for results that fill a socket on the open-targets register or contradict a barrier claim". Each item below was read at its source, a page or file fetched here. None of the mathematics was checked here.
 
@@ -17531,7 +17531,7 @@ Both landed by the route listed, with `θ′ = a = (θ + min(σ₀, 5/4))/2` and
   5. the classification of real characters. With it, every real Dirichlet L-function has no zero in `Re s > 11/12`, and the release's `SiegelZeros` statement follows with `c = (log 3)/12`. *(round 477: landed without the classification; `χ(n) = J(χ(−1)q | n)` for `n` prime to `2q` (`Eis.RealChar.apply_eq_jacobiSym`) is what the route needs. `Eis.RealChar.LFunction_ne_zero_of_isQuadratic` and `Eis.RealChar.dirichletRealZeroBound`. See round 477.)*
 - **Downstream.**
 
-  - Bounds for `L(s, χ)` and `log L(s, χ)` uniform in the conductor, and Littlewood's argument for `L(1, χ)` at real `χ`.
+  - Bounds for `L(s, χ)` and `log L(s, χ)` uniform in the conductor, and Littlewood's argument for `L(1, χ)` at real `χ`. *(Round 480: `ChiUniform.psiChi_le_uniform` and `Littlewood.abs_log_norm_LFunction_one_le`. See round 480.)*
   - The prime number theorem in progressions modulo the `q` whose characters are all real. *(Round 479: landed, `PNTProgressions.psiAP_isBigO`. See round 479.)*
   - For general moduli this plan has only the general-`ν` route, which goes on the register.
 
@@ -17879,7 +17879,7 @@ The route is round 471's: the family's own members `u = d³·gen(𝔟)⁶`, with
 
 **The next step.** Round 471's downstream items, in its order:
 
-1. bounds for `L(s, χ)` and `log L(s, χ)` uniform in the conductor, for real `χ`, in the half-plane, and Littlewood's argument for `L(1, χ)`;
+1. bounds for `L(s, χ)` and `log L(s, χ)` uniform in the conductor, for real `χ`, in the half-plane, and Littlewood's argument for `L(1, χ)`; *(Round 480: `ψ(x, χ)` uniformly in the modulus (`ChiUniform.psiChi_le_uniform`) and Littlewood's bounds `1/log log q ≪ |L(1, χ)| ≪ log log q` (`Littlewood.norm_LFunction_one_le`, `Littlewood.norm_LFunction_one_ge`); of `log L(s, χ)`, only the point `s = 1`. See round 480.)*
 2. the prime number theorem in progressions modulo the `q` whose characters are all real [recalled: these are the divisors of `24`], from the half-plane for each `L(s, χ)` mod `q`, along round 467's route for `ζ` in `external/pnt`; *(Round 478: the nontrivial characters, `ψ(x, χ) = O(x^{11/12+η})` for every real `χ ≠ 1`, `ChiPNT.psiChi_isBigO_eleven_twelfths`, through round 472's smoothed Perron formula rather than round 467's route. See round 478.)* *(Round 479: completed for every `q` whose characters are all quadratic, in particular every `q ∣ 24`: `ψ(x; q, a) = x/φ(q) + O(x^{11/12+η})`, `PNTProgressions.psiAP_isBigO`. See round 479.)*
 3. the general-`ν` route for the non-real characters, which stays on the register ("The half-plane for the non-real Dirichlet characters").
 
@@ -17992,4 +17992,82 @@ At `q = 3` this is the door "the prime number theorem modulo 3" of round 470's p
 
 1. **The log-derivative, uniformly.** Round 478's disc step with its constants kept: `|L(s, χ)| ≤ (q + 1)|s|/Re s` (round 224), `1/|L(3/2 + it, χ)| ≤ ζ(3/2)` and `|L′/L| ≤ |ζ′/ζ(3/2)|` on `Re s ≥ 3/2` are uniform in `q`, so `|L′/L(σ + it, χ)| ≤ C(log(q + 2) + log(|t| + 2))` on `σ ≥ θ′ > 11/12`, with `C` depending on `θ′` only.
 2. **`ψ(x, χ)`, uniformly.** Round 478's sum with that bound: `|ψ(x, χ)| ≤ C log(q + 2)·x^{11/12+η}` for `x ≥ 1`.
-3. **Littlewood.** For `1 < σ ≤ 2`, `L′/L(σ, χ) = −L(χΛ, σ)`, which partial summation (Mathlib's `LSeries_eq_mul_integral`) bounds through the partial sums `ψ(t, χ)`. Interpolating Chebyshev's `|ψ(t, χ)| ≤ ψ(t) ≤ ct` (Mathlib's `Chebyshev.psi_le_const_mul_self`) with step 2, at the exponent `1/log log q`, gives `|L′/L(σ, χ)| ≪ log log q` on `(1, 2]`. The mean value theorem for `log|L(σ, χ)|` on `[1, 1 + 1/log log q]`, with `|L(σ, χ)|^{±1} ≤ σ/(σ − 1)`, then gives `|log|L(1, χ)|| ≤ log log log q + O(1)`, that is `1/log log q ≪ |L(1, χ)| ≪ log log q`.
+3. **Littlewood.** For `1 < σ ≤ 2`, `L′/L(σ, χ) = −L(χΛ, σ)`, which partial summation (Mathlib's `LSeries_eq_mul_integral`) bounds through the partial sums `ψ(t, χ)`. Interpolating Chebyshev's `|ψ(t, χ)| ≤ ψ(t) ≤ ct` (Mathlib's `Chebyshev.psi_le_const_mul_self`) with step 2, at the exponent `1/log log q`, gives `|L′/L(σ, χ)| ≪ log log q` on `(1, 2]`. The mean value theorem for `log|L(σ, χ)|` on `[1, 1 + 1/log log q]`, with `|L(σ, χ)|^{±1} ≤ σ/(σ − 1)`, then gives `|log|L(1, χ)|| ≤ log log log q + O(1)`, that is `1/log log q ≪ |L(1, χ)| ≪ log log q`. *(Round 480: steps 1–3 landed: `ChiUniform.logDeriv_le_uniform`, `ChiUniform.psiChi_le_uniform` and `Littlewood.abs_log_norm_LFunction_one_le`. See round 480.)*
+
+## Round 480: Littlewood's bounds `1/log log q ≪ |L(1, χ)| ≪ log log q` for every real Dirichlet character, and bounds uniform in the modulus (`external/pnt/ChiUniform.lean`, `external/pnt/Littlewood.lean`)
+
+**What it is.** Item 1 of round 477's next step: "bounds for `L(s, χ)` and `log L(s, χ)` uniform in the conductor, for real `χ`, in the half-plane, and Littlewood's argument for `L(1, χ)`", along the three steps of round 479's paragraph "The next step". This round proves, with no hypothesis, for the quadratic Dirichlet characters `χ ≠ 1` of every modulus `N`:
+
+- `Littlewood.abs_log_norm_LFunction_one_le`: there is `C` with `|log|L(1, χ)|| ≤ log log log(N + 16) + C` for every such `χ`.
+- `Littlewood.norm_LFunction_one_le` and `Littlewood.norm_LFunction_one_ge`: there are `C, c > 0` with `c/log log(N + 16) ≤ |L(1, χ)| ≤ C log log(N + 16)` for every such `χ`.
+- `ChiUniform.psiChi_le_uniform`: for every `η > 0` there is `C` with `|ψ(x, χ)| ≤ C log(N + 2)·x^{11/12+η}` for every such `χ` and every `x > 1`.
+
+`N` is the modulus, so imprimitive characters are included. The `16` keeps `log log(N + 16) > 1` for every `N` (`Littlewood.one_lt_loglog`).
+
+**What is proved.**
+
+- `external/pnt/ChiUniform.lean` (449 lines, 5 theorems and lemmas, 2 definitions; 3 axiom lines in `build.sh`'s final check, each `[propext, Classical.choice, Quot.sound]`):
+
+  - **`logDeriv_le_uniform`**: for `0 < θ < θ′ < 3/2` there is `K > 0` such that every entire `F` with no zero in `Re s > θ`, with `|F(s)| ≤ c(|Im s| + 2)` on `θ ≤ Re s ≤ 3`, `1/|F(3/2 + it)| ≤ A` for every `t` and `|F′/F| ≤ C₀` on `Re s ≥ 3/2` (`c, A ≥ 0`), has `|F′/F(σ + it)| ≤ K(log(2 + 2cA) + log(|t| + 4)) + C₀` for every `σ ≥ θ′` and every `t`.
+  - **`sum_le_uniform`**: for `0 < θ < 1` and `η > 0` there are `C₁, C₂ ≥ 0` such that, for every `F` as above and every `f` with `f(0) = 0`, `|f(n)| ≤ Λ(n)` and `L(f, s) = −F′/F(s)` on `Re s > 1`, `|Σ_{1≤n≤X} f(n)| ≤ (C₁(log(2 + 2cA) + C₀) + C₂)X^{θ+η}` for every `X > 1`.
+  - **`zeta32`**, **`logDerivZeta32`** (definitions): `Σ_{n≥1} n^{−3/2}` and `Σ_{n≥1} Λ(n)n^{−3/2}`, as sums of the norms of the terms of the two Dirichlet series. **`tsum_norm_term_le`**: `Σ_n |f(n)|n^{−σ} ≤ Σ_n |g(n)|n^{−σ}` when `|f(n)| ≤ |g(n)|` and the right side converges. **`summable_one_32`**: `Σ n^{−3/2}` converges.
+  - **`psiChi_le_uniform`**: above.
+- `external/pnt/Littlewood.lean` (340 lines, 10 theorems and lemmas; 6 axiom lines in the final check, each `[propext, Classical.choice, Quot.sound]`):
+
+  - **`norm_LSeries_le_of_sum_le`** (partial summation): if `|Σ_{1≤k≤t} f(k)| ≤ Kt^α` for every `t ≥ 1`, with `0 ≤ α < σ`, and `L(f, σ)` converges absolutely, then `|L(f, σ)| ≤ σK/(σ − α)`.
+  - **`norm_psiChi_le`**: `|ψ(x, χ)| ≤ (log 4 + 4)x` for every Dirichlet character `χ` and `x ≥ 0`.
+  - **`le_rpow_mul_rpow`**: `a ≤ b₁^{1−l}b₂^l` when `0 ≤ a ≤ b₁`, `a ≤ b₂` and `0 ≤ l ≤ 1`.
+  - **`exp_one_lt_log`**, **`one_lt_loglog`**: `e < log(N + 16)`, so `log log(N + 16) > 1`, for every `N`.
+  - **`logDeriv_le_loglog`**: there is `M ≥ 0` with `|L′/L(σ, χ)| ≤ M log log(N + 16)` for every quadratic `χ ≠ 1` mod `N` and every `1 < σ ≤ 2`.
+  - **`norm_LFunction_le_real`**: `|L(σ, χ)| ≤ σ/(σ − 1)` and `1/|L(σ, χ)| ≤ σ/(σ − 1)` for every Dirichlet character `χ` and `σ > 1`.
+  - **`abs_log_norm_LFunction_one_le`**, **`norm_LFunction_one_le`**, **`norm_LFunction_one_ge`**: above.
+
+**The proof.**
+
+- **The constants of round 478.** `logDeriv_le_uniform` is round 478's `ChiPNT.logDeriv_le_of_zeroFree` with its constants written out. On the disc of radius `ρ = 3/2 − θ` around `3/2 + it`, `|F(3/2 + it + ρw)/F(3/2 + it)| ≤ B = 2 + 2cA(|t| + 4)`, and `log B ≤ log(2 + 2cA) + log(|t| + 4)`; PNT+'s `FinalBound` (through round 478's `ChiPNT.disc_point`) supplies a constant that depends on the radii, which depend on `θ` and `θ′` only. `sum_le_uniform` is round 478's `ChiPNT.sum_isBigO_of_zeroFree` with its constants written out: on the line `Re s = θ′`, `|F′/F(θ′ + it)| ≤ (K log(2 + 2cA) + C₀ + D)(1 + |t|)^{ε₁}` with `D = K·4^{ε₁}/ε₁`, linear in `log(2 + 2cA)` and `C₀`, and the rest of the argument (round 472's smoothed Perron formula and the unsmoothing at `B = log 3X`) multiplies it by constants that depend on `θ` and `η` only.
+- **`L(·, χ)`, uniformly.** For quadratic `χ ≠ 1` mod `N`: `|L(s, χ)| ≤ (N + 1)|s|/Re s ≤ c(|Im s| + 2)` on `11/12 ≤ Re s ≤ 3`, with `c = 18(N + 1)/11` (round 224's `PsiOmega.norm_LFunction_le` and `|s| ≤ 3 + |Im s|`). `1/|L(3/2 + it, χ)| = |L(χμ, 3/2 + it)| ≤ zeta32` and `|L′/L(s, χ)| = |L(χΛ, s)| ≤ logDerivZeta32` on `Re s ≥ 3/2`, since `|χ(n)μ(n)| ≤ 1` and `|χ(n)Λ(n)| ≤ Λ(n)`. Then `log(2 + 2c·zeta32) ≤ log(N + 2) + log(2 + 36·zeta32/11)`, and `log(N + 2) ≥ 1`. The half-plane `Re s > 11/12` is round 477's `Eis.RealChar.LFunction_ne_zero_of_isQuadratic`.
+- **Partial summation.** Mathlib's `LSeries_eq_mul_integral`: `L(f, σ) = σ∫_1^∞ S(t)t^{−σ−1} dt` with `S(t) = Σ_{1≤k≤t} f(k)`, when the series converges and `S(n) = O(n^α)`, `0 ≤ α < σ`. With `|S(t)| ≤ Kt^α`, the integral is at most `K∫_1^∞ t^{α−σ−1} dt = K/(σ − α)` (Mathlib's `integral_Ioi_rpow_of_lt`).
+- **The log-derivative on `(1, 2]`.** `−L′/L(σ, χ) = L(χΛ, σ)` for `σ > 1` (round 478's `ChiPNT.LSeries_twist_vonMangoldt_eq_LFunction`), and its partial sums are `ψ(t, χ)`. With `L = log(N + 16)` and `D = log 4 + 4 + C₁`, `C₁` the constant of `psiChi_le_uniform` at `η = 1/24`: `|ψ(t, χ)| ≤ ψ(t) ≤ Dt` (Mathlib's `Chebyshev.psi_le_const_mul_self`) and `|ψ(t, χ)| ≤ DLt^{23/24}`. At `l = 1/log L`, `le_rpow_mul_rpow` gives `|ψ(t, χ)| ≤ (Dt)^{1−l}(DLt^{23/24})^l = DL^l·t^{1−l/24} = eD·t^{1−l/24}`, since `L^l = e`. Partial summation at `α = 1 − l/24` gives `|L′/L(σ, χ)| ≤ σeD/(σ − α) ≤ 2eD·24/l = 48eD log log(N + 16)` for `1 < σ ≤ 2`.
+- **Littlewood's argument.** With `ℓ = log log(N + 16) > 1` and `σ₂ = 1 + 1/ℓ ≤ 2`: `L(u, χ) ≠ 0` for `u ≥ 1` (round 477), so `φ(u) = log|L(u, χ)|` is continuous on `[1, σ₂]` with derivative `Re L′/L(u, χ)` on `(1, σ₂)` (round 470's `HalfPlaneLindelof.hasDerivAt_log_norm`). The mean value theorem (Mathlib's `exists_hasDerivAt_eq_slope`) gives `|φ(σ₂) − φ(1)| ≤ (1/ℓ)·Mℓ = M`. The partial sums of `χ` and of `χμ` are at most `t`, so partial summation at `α = 1` gives `|L(σ₂, χ)|^{±1} ≤ σ₂/(σ₂ − 1) = ℓ + 1 ≤ 2ℓ`, and `|φ(σ₂)| ≤ log 2 + log ℓ`. So `|log|L(1, χ)|| ≤ log ℓ + log 2 + M`, and exponentiating gives the two bounds on `|L(1, χ)|`.
+
+**Against the plan.** Round 479's next step listed three steps.
+
+1. "The log-derivative, uniformly": landed for a general entire `F` as `logDeriv_le_uniform`, with the bound `K(log(2 + 2cA) + log(|t| + 4)) + C₀` for every `t`, rather than `C(log(q + 2) + log(|t| + 2))`. It is applied to `L(·, χ)` inside `psiChi_le_uniform`; no form for `L(·, χ)` alone is stated.
+2. "`ψ(x, χ)`, uniformly": landed as stated, for `x > 1`, as `psiChi_le_uniform`.
+3. "Littlewood": landed as stated, with the modulus `N` in place of `q`.
+
+Round 477's item 1 named bounds for `log L(s, χ)` in the half-plane: only the real point `s = 1` is treated (`abs_log_norm_LFunction_one_le`), and only `|L′/L(σ, χ)|` on `(1, 2]` in between.
+
+**The paper.** `grep -n -i "L(1, *χ)\|L(1,χ\|class number\|class-number\|littlewood\|log log q\|loglog"` on `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` finds 14 lines, all in `riemann-indistinguishability.md`:
+
+- Line 1019 reads the constant `L(1, χ₋₃) = π/(3√3)` as Dirichlet's class-number formula at `d = −3`.
+- Line 1075 cites the finiteness of `L(1, χ)` for every nontrivial `χ`.
+- Line 1147 lists `L(s,χ)/L(1,χ)` in a token census.
+- Line 3825 cites Littlewood's `Ω±` theorem for `ψ(x) − x`.
+- Line 5352 mentions prime pairs of Hardy–Littlewood strength.
+- Lines 7354, 7360, 7419, 8320, 8428, 8433, 8535 and 8550 cite Littlewood's bounds for `S(T)` and `S₁(T)`, or name them among a theorem's classical inputs.
+- Line 9359 lists Dirichlet's class-number formula and Littlewood's mean-value bound among the classical inputs.
+
+None states a bound on `L(1, χ)` uniform in the modulus. The paper is not edited.
+
+**Records.**
+
+- `external/pnt/build.sh`: `ChiUniform` and `Littlewood` in the compile list, and 9 lines added to the final check (83 to 92 `#print axioms` lines).
+- `external/pnt/README.md`: a row and a section for each file.
+- Net-state markers on round 479's paragraph "The next step", on item 1 of round 477's, and on round 471's plan (its item 4, and the downstream item for uniform bounds and Littlewood).
+
+**Build.** `external/pnt/build.sh` (991 s) compiled `Architect.lean`, the 19 PNT+ files and the 26 files here, `ChiUniform.lean` and `Littlewood.lean` with no warnings. Its final check printed 92 axiom lines, each `[propext, Classical.choice, Quot.sound]`. No file of `src/` changed.
+
+- The namespaces `ChiUniform` and `Littlewood` are new: a grep of the Lean files of the pilot (`external/` included) and of Mathlib for `namespace Littlewood`, for `Littlewood.` followed by a lower-case letter, and for `ChiUniform` finds them only in these two files.
+
+**Check 4.** Classical [recalled]: Littlewood (1928) proved `L(1, χ) ≪ log log q` and `L(1, χ) ≫ 1/log log q` for the real characters under GRH, and Siegel's `L(1, χ) ≫_ε q^{−ε}`, with an ineffective constant, is the classical lower bound with no hypothesis. This round runs Littlewood's argument from the zero-free half-plane `Re s > 11/12` of round 477 in place of GRH. New against the pilot: the bounds uniform in the modulus and Littlewood's bounds for every real character, machine-checked with no hypothesis, on round 477's half-plane. The constants `C` and `c` are not computed. The release's manuscript "Uniform exclusion of Landau–Siegel zeros" (its `build/paper.tex`, lines 76–80) mentions `L(1, χ)` only in its introduction, which reads, in its LaTeX source: `They also affect the study of quadratic class numbers through the values $L(1,\chi)$ in Dirichlet's class-number formula. Siegel's theorem of 1935 gives $L(1,\chi)\gg_\varepsilon q^{-\varepsilon}$ for every $\varepsilon>0$, with an ineffective constant`. It states no bound on `L(1, χ)` of its own.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every quadratic `χ ≠ 1` of every modulus `N`, every `x > 1`, every `1 < σ ≤ 2`, every `η > 0`; and, in `logDeriv_le_uniform` and `sum_le_uniform`, every entire `F` and every `f` with the stated bounds.
+- (b) No barrier claim is made.
+- (c) No signal is fed to a criterion: the theorems go from a zero-free half-plane to bounds.
+
+**Bearing on RH:** none.
+
+**The next step.** Round 471's downstream bullets have landed (rounds 478–480). Its plan's item 4 also named the class-number deduction. Mathlib proves Dirichlet's class number formula for a number field `K` as the residue of `ζ_K` at `1` (`NumberField.tendsto_sub_one_mul_dedekindZeta_nhdsGT`). With the factorization `ζ_K = ζ·L(·, χ_K)` for a quadratic field `K` [recalled], Littlewood's bounds would give `h(−d) ≫ √d/log log d` for the imaginary quadratic fields. A grep of Mathlib finds `dedekindZeta` only in `Mathlib/NumberTheory/NumberField/DedekindZeta.lean`, which states no such factorization. It is not planned; it waits for the owner.

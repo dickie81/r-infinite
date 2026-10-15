@@ -21,6 +21,8 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `DivisorExponent.lean` | 473 | the divisor problems: `Σ_{n≤x} d_k(n) = xP_k(log x) + O(x^{θ+η})` from a zero-free half-plane `Re s > θ`, with `P_k` of degree `k − 1`; with no hypothesis at `θ = 11/12`, and at `Θ` |
 | `ChiPNT.lean` | 478 | `ψ(x, χ) = Σ_{n≤x} χ(n)Λ(n) = O(x^{θ+η})` for a real `χ ≠ 1` with `L(s, χ) ≠ 0` on `Re s > θ`; with no hypothesis at `θ = 11/12`; the log-derivative of an entire function in a zero-free half-plane, `\|F′/F(σ + it)\| ≤ C log\|t\|` |
 | `PNTProgressions.lean` | 479 | `ψ(x; q, a) = x/φ(q) + O(x^{11/12+η})` for every `q` whose Dirichlet characters are all quadratic, in particular every `q ∣ 24`, and every `a < q` prime to `q`, with no hypothesis |
+| `ChiUniform.lean` | 480 | `\|ψ(x, χ)\| ≤ C log(N + 2)·x^{11/12+η}` for every real `χ ≠ 1` mod `N`, with `C` independent of `N` and `χ`; round 478's bounds for the log-derivative and for the sums, with their constants kept |
+| `Littlewood.lean` | 480 | Littlewood's bounds `c/log log(N + 16) ≤ \|L(1, χ)\| ≤ C log log(N + 16)` for every real `χ ≠ 1` mod `N`, with no hypothesis; partial summation for an L-series |
 
 ## Building (round 217)
 
@@ -141,3 +143,11 @@ For the instances, the file imports `src/HalfPlaneS0.lean` and `src/EisensteinTr
 ## PNTProgressions.lean (round 479)
 
 `PNTProgressions.psiAP_isBigO`: if every Dirichlet character mod `q` is quadratic, then `ψ(x; q, a) − x/φ(q) = O(x^{11/12+η})` for every `a < q` prime to `q` and every `η > 0`, with the pilot's `PsiOmega.psiAP` (round 222). The proof is orthogonality (`psiAP_eq_sum`, from Mathlib's `DirichletCharacter.sum_char_inv_mul_char_eq`), the trivial character as `ψ(x)` less the prime powers sharing a factor with `q` (`psiChi_one`, at most `ω(q) log x` by `sum_not_coprime_le`), round 467's `HalfPlanePNT.psi_isBigO_eleven_twelfths` for `ψ(x) − x`, and round 478's `ChiPNT.psiChi_isBigO_eleven_twelfths` for each `χ ≠ 1`. `psiAP_isBigO_of_dvd_24` is the case `q ∣ 24`: every unit of `ℤ/24` squares to `1` (`decide`), hence every unit of `ℤ/q` (`sq_eq_one_of_dvd_24`), hence every character mod `q` is quadratic (`isQuadratic_of_sq_eq_one`). See the main README, round 479. All axioms are clean.
+
+## ChiUniform.lean (round 480)
+
+`ChiUniform.logDeriv_le_uniform` and `ChiUniform.sum_le_uniform` are round 478's `ChiPNT.logDeriv_le_of_zeroFree` and `ChiPNT.sum_isBigO_of_zeroFree` with their constants written out. For an entire `F` with no zero in `Re s > θ`, `|F(s)| ≤ c(|Im s| + 2)` on `θ ≤ Re s ≤ 3`, `1/|F(3/2 + it)| ≤ A` and `|F′/F| ≤ C₀` on `Re s ≥ 3/2`: `|F′/F(σ + it)| ≤ K(log(2 + 2cA) + log(|t| + 4)) + C₀` on `σ ≥ θ′`, and `|Σ_{n≤X} f(n)| ≤ (C₁(log(2 + 2cA) + C₀) + C₂)X^{θ+η}` for the coefficients of `−F′/F`, with `K`, `C₁` and `C₂` depending on `θ`, `θ′` and `η` only. `ChiUniform.psiChi_le_uniform` applies them to `F = L(·, χ)`, with `c = 18(N + 1)/11`, `A = Σ n^{−3/2}` and `C₀ = Σ Λ(n)n^{−3/2}`: `|ψ(x, χ)| ≤ C log(N + 2)·x^{11/12+η}` for every quadratic `χ ≠ 1` mod `N` and `x > 1`. See the main README, round 480. All axioms are clean.
+
+## Littlewood.lean (round 480)
+
+`Littlewood.norm_LSeries_le_of_sum_le` is partial summation for an L-series (Mathlib's `LSeries_eq_mul_integral`): partial sums at most `Kt^α`, `0 ≤ α < σ`, give `|L(f, σ)| ≤ σK/(σ − α)`. `Littlewood.logDeriv_le_loglog` bounds `|L′/L(σ, χ)|` by `M log log(N + 16)` on `1 < σ ≤ 2`, interpolating Chebyshev's `ψ(t) ≤ (log 4 + 4)t` with `ChiUniform.psiChi_le_uniform` at the exponent `1/log log(N + 16)`. The mean value theorem for `log|L(σ, χ)|` on `[1, 1 + 1/log log(N + 16)]` gives `Littlewood.abs_log_norm_LFunction_one_le`, `|log|L(1, χ)|| ≤ log log log(N + 16) + C`, and so `c/log log(N + 16) ≤ |L(1, χ)| ≤ C′ log log(N + 16)` (`norm_LFunction_one_ge`, `norm_LFunction_one_le`), for every quadratic `χ ≠ 1` mod `N`. See the main README, round 480. All axioms are clean.
