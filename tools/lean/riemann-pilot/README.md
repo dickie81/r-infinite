@@ -18070,4 +18070,56 @@ None states a bound on `L(1, χ)` uniform in the modulus. The paper is not edite
 
 **Bearing on RH:** none.
 
-**The next step.** Round 471's downstream bullets have landed (rounds 478–480). Its plan's item 4 also named the class-number deduction. Mathlib proves Dirichlet's class number formula for a number field `K` as the residue of `ζ_K` at `1` (`NumberField.tendsto_sub_one_mul_dedekindZeta_nhdsGT`). With the factorization `ζ_K = ζ·L(·, χ_K)` for a quadratic field `K` [recalled], Littlewood's bounds would give `h(−d) ≫ √d/log log d` for the imaginary quadratic fields. A grep of Mathlib finds `dedekindZeta` only in `Mathlib/NumberTheory/NumberField/DedekindZeta.lean`, which states no such factorization. It is not planned; it waits for the owner.
+**The next step.** Round 471's downstream bullets have landed (rounds 478–480). Its plan's item 4 also named the class-number deduction. Mathlib proves Dirichlet's class number formula for a number field `K` as the residue of `ζ_K` at `1` (`NumberField.tendsto_sub_one_mul_dedekindZeta_nhdsGT`). With the factorization `ζ_K = ζ·L(·, χ_K)` for a quadratic field `K` [recalled], Littlewood's bounds would give `h(−d) ≫ √d/log log d` for the imaginary quadratic fields. A grep of Mathlib finds `dedekindZeta` only in `Mathlib/NumberTheory/NumberField/DedekindZeta.lean`, which states no such factorization. It is not planned; it waits for the owner. *(Round 481: the owner asked for five doors after round 480, this deduction among them as door 4(b). See round 481.)*
+
+## Round 481: the five doors after round 480, recorded (no new Lean)
+
+**What it is.** After round 480 the owner asked whether the arc's promised payoffs had landed, whether any of it is novel, and what doors it opens. The answer named six doors. The owner then asked: "Record the first 5 doors and deliver all of them in full in lean". This round records the five, each with its target, its socket in the stack and its route, as entries on STRUCTURAL-REVIEW §6's register, and fixes the order of delivery. No Lean file changes.
+
+**The five doors.**
+
+1. **The least quadratic nonresidue, and the least primes with `χ(p) = ±1`.**
+
+   - Targets: for every `A > 12` there is `C_A` such that every real Dirichlet character `χ ≠ 1` mod `q` has a prime `p ≤ C_A(log(q + 2))^A` with `χ(p) = −1`, and a prime `p ∤ q` below the same bound with `χ(p) = 1`; and every odd prime `p` has a quadratic nonresidue `n ≤ C_A(log p)^A`, so `n ≪_δ p^δ` for every `δ > 0`.
+   - The release states the last as a corollary of its half-plane. Its `build/paper.tex` (lines 325–333 of "The Quasi-Riemann Hypothesis") reads: `There are absolute constants $A,C>0$ such that, for every odd prime $p$, the least positive quadratic nonresidue $n(p)$ satisfies`, then `n(p)\le C(\log p)^A.`, then `In particular, $n(p)\ll_\delta p^\delta$ for every $\delta>0$, proving Vinogradov's least quadratic nonresidue conjecture`. It proves this from a cited theorem of Bhargava, Ivanyos, Mittal and Saxena (lines 343–347: `for example with $A=32$; no optimization is needed here`). Its Lean scope note, `lean/docs/003.md`, says: `The paper's later applications are not included.`
+   - Route, Ankeny's argument [recalled]. If `χ(ℓ) ≠ −1` for every prime `ℓ ≤ x`, then `χ(n)Λ(n) = Λ(n)` for every `n ≤ x` prime to `q`, so `ψ(x, χ) ≥ ψ(x) − ω(q) log x` (round 479's `PNTProgressions.sum_not_coprime_le`). Mathlib's `Chebyshev.psi_ge'` gives `ψ(x) ≥ (x − 1) log 2 − log(x + 2)`, and round 480's `ChiUniform.psiChi_le_uniform` gives `|ψ(x, χ)| ≤ C log(q + 2)·x^{11/12+η}`. Together they force `x^{1/12−η} ≪ log(q + 2)`. For `χ(ℓ) = 1` the even prime powers enter, at most `2ψ(√x)`. The quadratic nonresidues are the case of the Legendre character (Mathlib's `quadraticChar`).
+   - The least inert and split primes of a quadratic field follow once door 4(b) supplies the splitting law.
+2. **`L′/L(1, χ)` for the real characters.**
+
+   - Target: there is `M` with `|L′/L(1, χ)| ≤ M log log(N + 16)` for every real `χ ≠ 1` mod `N` [recalled: Ihara, Murty and Shimura proved `|L′/L(1, χ)| ≪ log log q` under GRH].
+   - Route: round 480's `Littlewood.logDeriv_le_loglog` on `(1, 2]`, and continuity of `L′/L` at `1`, where `L(1, χ) ≠ 0` (round 477).
+   - With door 4(b)'s factorization, the Euler–Kronecker constant of a quadratic field `K`, `γ_K = γ + L′/L(1, χ_K)` [recalled], satisfies `|γ_K| ≪ log log |D_K|`.
+3. **Squarefree numbers.**
+
+   - Target: from `ζ(s) ≠ 0` on `Re s > θ`, `0 ≤ θ < 1`: `#{n ≤ x : n squarefree} = 6x/π² + O(x^{1/(3−θ)+η})` for every `η > 0`. At `θ = 11/12` the exponent is `12/25 + η`, below `½` [recalled: the classical unconditional error term is `x^{1/2}` times a factor `exp(−c(log x)^{3/5}(log log x)^{−1/5})`, Walfisz]. At `θ = Θ` the exponent is `1/(3 − Θ) + η`.
+   - Route: `μ²(n) = Σ_{d²∣n} μ(d)`, and the hyperbola method at `y = x^{1/(3−θ)}`. The count is `xΣ_{d≤y} μ(d)/d² + O(y) + Σ_{m≤x/y²}(M(√(x/m)) − M(y))` with round 472's `M(x) = O(x^{θ+η})`; the tail `Σ_{d>y} μ(d)/d²` is `O(y^{θ+η−2})` by partial summation; and `Σ μ(d)/d² = 1/ζ(2) = 6/π²` (Mathlib's `riemannZeta_two`).
+   - Round 470's paragraph "The next step" listed this door ("the squarefree numbers"); rounds 472–473 did not take it.
+4. **Explicit constants, and the class numbers of quadratic fields.**
+
+   - (a) Target: round 480's bounds and door 1's with explicit numbers in place of existential constants: `c/log log(N + 16) ≤ |L(1, χ)| ≤ C log log(N + 16)` with `c` and `C` explicit, and an explicit `C_A`. The existential constants in the chain from round 477's half-plane to these bounds enter through the smoothing. PNT+'s `SmoothExistence` gives some `ν`, and the Mellin bounds of `Smooth1 ν ε` (PNT+'s `MellinOfSmooth1b`, round 338's `MediumPNTW.MellinOfSmooth1d`) are existential. The other constants are explicit formulas (round 478's `disc_point`, round 480's `logDeriv_le_uniform`). Route: an explicit `C¹` smoothing `ν₀(x) = c₀·max(0, (x − 1/2)(2 − x))²`, explicit Mellin bounds for `Smooth1 ν₀ ε`, the chain of rounds 472, 478 and 480 rerun with them, and the final constants bounded by rationals.
+   - (b) Target: for every imaginary quadratic field `K`, `h_K ≥ c√|D_K|/log log |D_K|` with `c` explicit, and the analogue `h_K R_K ≫ √D_K/log log D_K` for the real ones, through Mathlib's class number formula (`NumberField.tendsto_sub_one_mul_dedekindZeta_nhdsGT`). A grep of `Mathlib/` finds no Kronecker symbol, no ring of integers of a quadratic field and no use of `dedekindZeta` outside `NumberField/DedekindZeta.lean`; it has `QuadraticAlgebra` and `IsQuadraticExtension` (`Mathlib/Algebra/QuadraticAlgebra/`) and `KummerDedekind`. Route: the ring of integers `ℤ[(D + √D)/2]`, the splitting law by Dedekind–Kummer, the Kronecker character `χ_K` as a Dirichlet character mod `|D_K|`, the ideal count `#{𝔞 : N𝔞 = n} = Σ_{d∣n} χ_K(d)`, `ζ_K = ζ·L(·, χ_K)` on `Re s > 1`, and the residue at `1`, which gives `L(1, χ_K) = 2πh_K/(w_K√|D_K|)` for imaginary `K`.
+5. **The non-real characters.**
+
+   - Target: `L(s, χ) ≠ 0` on `Re s > 11/12` for every Dirichlet character, and with it rounds 478–480 for every character: the prime number theorem in every progression with error `O(x^{11/12+η})`, and Littlewood's bounds.
+   - (a) The characters of order dividing `6`, through the family's own members, as rounds 474–477 did for the real ones. For a cubic `χ` of prime conductor `p = ππ̄` with `χ(n) = (n/π)₃`, conjugation and cubic reciprocity (round 290's `cub_recip`) give, on paper here and to be checked in Lean, `χ(N𝔞) = (π²π̄⁴/𝔞)₆` on the ideals of norm prime to `6p`. The characters mod `9` should come through the supplementary laws (round 362), products through round 281's `sym6_mul_left`, and the real part through rounds 474–477. Round 476's extraction at the members `u·gen(𝔟)⁶` and round 475's S0 then give `L(s, χ)L(s, χχ₋₃) ≠ 0` on `Re s > 11/12`.
+   - (b) The other characters: the register's entry "The half-plane for the non-real Dirichlet characters", the companion's mean square for the family twisted by a finite-order Hecke character `ν`, with the theta step restated for a general modulus.
+   - The release's Lean already proves `Re s > 7/8` for every Dirichlet character (round 277's rebuild). Under CLAUDE.md's "Derive, don't vendor" this door derives the half-plane on the pilot's own stack, at `11/12`.
+
+**Order and size.** The order of delivery is 1, 2, 3, 4(a), 4(b), 5(a), 5(b). Doors 1–3 build on theorems already in the stack, about a round each. Door 4(a) reruns an analytic chain with explicit constants, several rounds. Door 4(b) builds arithmetic that Mathlib lacks, the largest algebraic piece. Door 5(a) reuses the reciprocity laws and round 476's extraction, several rounds. Door 5(b) restates the chain of rounds 278–466 for a general modulus and is the largest piece; these sizes are estimates.
+
+**Records.**
+
+- STRUCTURAL-REVIEW §6: four new entries, one for each of doors 1–4, and a marker on the entry "The half-plane for the non-real Dirichlet characters" for door 5.
+- A net-state marker on round 480's paragraph "The next step".
+
+**Check 4.** Classical [recalled]: Ankeny's bound `n(p) ≪ (log p)²` under GRH; Ihara, Murty and Shimura's `|L′/L(1, χ)| ≪ log log q` under GRH; the squarefree count from a bound on `M(x)`; Dirichlet's class number formula. Door 1 is the release's own corollary, which its Lean does not include. Door 5's target is proved at `7/8` in the release's Lean. None of the five is new mathematics; each would be new in the pilot.
+
+**Check 9.**
+
+- (a) The quantifiers above are the targets'. Nothing is claimed proved.
+- (b) No barrier claim is made. The sizes are estimates, and door 5(b) is entered on the register with its route.
+- (c) No signal is fed to a criterion in this round.
+
+**Bearing on RH:** none.
+
+**The next step.** Round 482: door 1, in a new file `external/pnt/LeastNonresidue.lean`, and door 2, `|L′/L(1, χ)| ≤ M log log(N + 16)`.
