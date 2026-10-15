@@ -18096,7 +18096,7 @@ None states a bound on `L(1, χ)` uniform in the modulus. The paper is not edite
    - Round 470's paragraph "The next step" listed this door ("the squarefree numbers"); rounds 472–473 did not take it.
 4. **Explicit constants, and the class numbers of quadratic fields.**
 
-   - (a) Target: round 480's bounds and door 1's with explicit numbers in place of existential constants: `c/log log(N + 16) ≤ |L(1, χ)| ≤ C log log(N + 16)` with `c` and `C` explicit, and an explicit `C_A`. The existential constants in the chain from round 477's half-plane to these bounds enter through the smoothing. PNT+'s `SmoothExistence` gives some `ν`, and the Mellin bounds of `Smooth1 ν ε` (PNT+'s `MellinOfSmooth1b`, round 338's `MediumPNTW.MellinOfSmooth1d`) are existential. The other constants are explicit formulas (round 478's `disc_point`, round 480's `logDeriv_le_uniform`). Route: an explicit `C¹` smoothing `ν₀(x) = c₀·max(0, (x − 1/2)(2 − x))²`, explicit Mellin bounds for `Smooth1 ν₀ ε`, the chain of rounds 472, 478 and 480 rerun with them, and the final constants bounded by rationals.
+   - (a) Target: round 480's bounds and door 1's with explicit numbers in place of existential constants: `c/log log(N + 16) ≤ |L(1, χ)| ≤ C log log(N + 16)` with `c` and `C` explicit, and an explicit `C_A`. The existential constants in the chain from round 477's half-plane to these bounds enter through the smoothing. PNT+'s `SmoothExistence` gives some `ν`, and the Mellin bounds of `Smooth1 ν ε` (PNT+'s `MellinOfSmooth1b`, round 338's `MediumPNTW.MellinOfSmooth1d`) are existential. The other constants are explicit formulas (round 478's `disc_point`, round 480's `logDeriv_le_uniform`). Route: an explicit `C¹` smoothing `ν₀(x) = c₀·max(0, (x − 1/2)(2 − x))²`, explicit Mellin bounds for `Smooth1 ν₀ ε`, the chain of rounds 472, 478 and 480 rerun with them, and the final constants bounded by rationals. *(Round 484: landed, as `ExplicitConstants.norm_LFunction_one_ge_explicit` and `ExplicitConstants.norm_LFunction_one_le_explicit` with `c = e^{−2·10²¹}` and `C = e^{2·10²¹}`, and `ExplicitConstants.exists_prime_eq_explicit` and `ExplicitConstants.exists_nonsquare_le_explicit` with `C_A` in closed form; the final constants are bounded by numerals, `c` and `C` are not rational. See round 484.)*
    - (b) Target: for every imaginary quadratic field `K`, `h_K ≥ c√|D_K|/log log |D_K|` with `c` explicit, and the analogue `h_K R_K ≫ √D_K/log log D_K` for the real ones, through Mathlib's class number formula (`NumberField.tendsto_sub_one_mul_dedekindZeta_nhdsGT`). A grep of `Mathlib/` finds no Kronecker symbol, no ring of integers of a quadratic field and no use of `dedekindZeta` outside `NumberField/DedekindZeta.lean`; it has `QuadraticAlgebra` and `IsQuadraticExtension` (`Mathlib/Algebra/QuadraticAlgebra/`) and `KummerDedekind`. Route: the ring of integers `ℤ[(D + √D)/2]`, the splitting law by Dedekind–Kummer, the Kronecker character `χ_K` as a Dirichlet character mod `|D_K|`, the ideal count `#{𝔞 : N𝔞 = n} = Σ_{d∣n} χ_K(d)`, `ζ_K = ζ·L(·, χ_K)` on `Re s > 1`, and the residue at `1`, which gives `L(1, χ_K) = 2πh_K/(w_K√|D_K|)` for imaginary `K`.
 5. **The non-real characters.**
 
@@ -18254,4 +18254,112 @@ Since `12/25 < 1/2`, the exponent `12/25 + η` is below `½` for `η < 1/50`.
 
 **Bearing on RH:** none.
 
-**The next step.** Round 484: door 4(a), explicit constants. Its first part replaces PNT+'s existential smoothing (`SmoothExistence`) by an explicit `C¹` function and bounds the Mellin transforms of `Smooth1` for it explicitly, as round 481 recorded.
+**The next step.** Round 484: door 4(a), explicit constants. Its first part replaces PNT+'s existential smoothing (`SmoothExistence`) by an explicit `C¹` function and bounds the Mellin transforms of `Smooth1` for it explicitly, as round 481 recorded. *(Round 484: landed, with the rest of door 4(a): `ExplicitSmooth.mellin_ν₀_le_geom`, and the constants of rounds 480 and 482 as numerals in `ExplicitConstants`. See round 484.)*
+
+## Round 484: explicit constants, `e^{−2·10²¹}/log log q ≤ |L(1, χ)| ≤ e^{2·10²¹} log log q`, `|L′/L(1, χ)| ≤ 10²¹ log log q` and `n(p) ≤ 10³⁰⁴(log p)¹³` (`external/pnt/ExplicitSmooth.lean`, `external/pnt/ExplicitConstants.lean`)
+
+**What it is.** Door 4(a) of round 481, whole. Round 483's paragraph "The next step" planned its first part: "Round 484: door 4(a), explicit constants. Its first part replaces PNT+'s existential smoothing (`SmoothExistence`) by an explicit `C¹` function and bounds the Mellin transforms of `Smooth1` for it explicitly, as round 481 recorded." This round lands that part and the rest of door 4(a): the chain from round 477's half-plane to the bounds of rounds 480 and 482, rerun with the explicit smoothing, with its final constants bounded by numerals. It proves, with no hypothesis, for every quadratic Dirichlet character `χ ≠ 1` mod `N`:
+
+- `ExplicitConstants.psiChi_le_explicit`: `|ψ(x, χ)| ≤ (2·10¹¹/e⁵) log(N + 2)·x^{11/12+η}` for every `η > 0` and `x > 1`, where `e = min(η, 1/24)`.
+- `ExplicitConstants.logDeriv_le_explicit`, `ExplicitConstants.norm_logDeriv_one_le_explicit`: `|L′/L(σ, χ)| ≤ 10²¹ log log(N + 16)` for `1 < σ ≤ 2`, and at `σ = 1`.
+- `ExplicitConstants.abs_log_norm_LFunction_one_le_explicit`: `|log |L(1, χ)|| ≤ log log log(N + 16) + 2·10²¹`.
+- `ExplicitConstants.norm_LFunction_one_le_explicit`, `ExplicitConstants.norm_LFunction_one_ge_explicit`: `e^{−2·10²¹}/log log(N + 16) ≤ |L(1, χ)| ≤ e^{2·10²¹} log log(N + 16)`.
+- `ExplicitConstants.exists_prime_eq_explicit`: for every `A > 12` and for `ε = 1` and `ε = −1`, a prime `p ∤ N` with `χ(p) = ε` and `p ≤ (101 + K^A)(log(N + 2))^A`, where `K = 4(2·10¹¹/e⁵ + 11)` and `e = min(1/12 − 1/A, 1/24)`. At `A = 13` the bound is `10²⁹⁸(log(N + 2))¹³` (`ExplicitConstants.exists_prime_eq_13`).
+
+And for every odd prime `p`:
+
+- `ExplicitConstants.exists_nonsquare_le_explicit`: for every `A > 12`, a quadratic nonresidue `n` with `0 < n ≤ (101 + K^A)2^A(log p)^A`, with `K` as above.
+- `ExplicitConstants.exists_nonsquare_le_13`: a quadratic nonresidue `n` with `0 < n ≤ 10³⁰⁴(log p)¹³`.
+- `ExplicitConstants.exists_nonsquare_le_rpow_explicit`: for every `δ > 0`, a quadratic nonresidue `n` with `0 < n ≤ 10³⁰⁴(13/δ)¹³p^δ`.
+
+The constants are explicit, and very large (Check 4).
+
+**What is proved.**
+
+- `external/pnt/ExplicitSmooth.lean` (377 lines, 28 lemmas, 5 definitions; 3 axiom lines in `build.sh`'s final check, each `[propext, Classical.choice, Quot.sound]`):
+
+  - **`hq`**, **`bump`**, **`bump'`** (definitions): `h(x) = (x − 1/2)(2 − x)`, `g = max(0, h)²` and `g′ = 2 max(0, h)(5/2 − 2x)`.
+  - **`hasDerivAt_bump`**, **`contDiff_bump`**: `g` has the derivative `g′` at every point, and is `C¹`.
+  - **`support_bump`**, **`bump_le`**, **`abs_bump'_le`**: `g` vanishes off `[1/2, 2]`, `g ≤ 81/256` and `|g′| ≤ 27/16`.
+  - **`integral_bump_div`**: `∫_0^∞ g(x)/x dx = 2 log 2 − 75/64`.
+  - **`c₀`**, **`ν₀`** (definitions), **`c₀_le`**, **`contDiff_ν₀`**, **`ν₀_nonneg`**, **`support_ν₀`**, **`mass_ν₀`**, **`norm_ν₀_le`**, **`norm_deriv_ν₀_le`**: `ν₀ = c₀g` with `c₀ = 1/(2 log 2 − 75/64) ≤ 5` is `C¹`, nonnegative and supported in `[1/2, 2]`, with `∫_0^∞ ν₀(x)/x dx = 1`, `|ν₀| ≤ 2` and `|ν₀′| ≤ 9`.
+  - **`norm_mellin_le_of_deriv`**, **`norm_mellin_le_of_norm`**: for `ν` supported in `[1/2, 2]`, `|𝓜ν(s)| ≤ 6S₁/|s|` on `0 < Re s ≤ 2` if `ν` is `C¹` with `|ν′| ≤ S₁`, and `|𝓜ν(w)| ≤ 12S₀ + 1` on `0 ≤ Re w ≤ 2` if `|ν| ≤ S₀`.
+  - **`norm_mellin_smooth1_le_d`**, **`norm_mellin_smooth1_le_b`**: for `0 < ε < 1`, `|𝓜(Smooth1 ν ε)(s)| ≤ (12S₀ + 1)/|s|` and `≤ 6S₁/(ε|s|²)`.
+  - **`mellin_ν₀_le_geom`**: `|𝓜(Smooth1 ν₀ ε)(σ + it)| ≤ 25^{1−κ}54^κ(σ/2)^{−1−κ}ε^{−κ}(1 + |t|)^{−1−κ}` for `κ ∈ [0, 1]`, `0 < σ ≤ 1`, `0 < ε < 1` and every `t`.
+  - The helper lemmas `continuous_hq`, `hasDerivAt_hq`, `hq_le`, `mem_Ioo_of_hq_pos`, `hq_nonneg`, `deriv_bump`, `continuous_bump'`, `bump_nonneg`, `log_two_bound` and `c₀_pos`.
+- `external/pnt/ExplicitConstants.lean` (461 lines, 11 theorems, 12 lemmas; 10 axiom lines in the final check, each `[propext, Classical.choice, Quot.sound]`):
+
+  - **`zeta32_le`**, **`logDerivZeta32_le`**, **`logDerivZeta32_le'`**, **`log_zeta32_le`**: `ζ(3/2) ≤ 3`, `−ζ′/ζ(3/2) ≤ 3(log 4 + 4) ≤ 17` and `log(2 + 36ζ(3/2)/11) ≤ 3`, for round 480's `ChiUniform.zeta32` and `ChiUniform.logDerivZeta32`; with the helper lemmas `term_ofReal`, `tsum_norm_term_eq`, `norm_sum_le_of_norm_le_one` and `log_four_lt` (`log 4 < 1.3863`).
+  - **`Kld_le`**: `ChiUniform.Kld (11/12) (11/12 + e/4) ≤ 23000/e³` for `0 < e ≤ 1/24`.
+  - **`KM_le`**: `25^{1−e/4}54^{e/4}((11/12 + e/4)/2)^{−1−e/4} ≤ 6750` for `0 < e ≤ 1/24`.
+  - **`eta0_eq`**, **`min_24`**: `ChiUniform.eta0 (11/12) η = min(η, 1/24)`, and `min(1/24, 1/24) = 1/24`.
+  - **`psiChi_le_explicit`**, **`logDeriv_le_explicit`**, **`abs_log_norm_LFunction_one_le_explicit`**, **`norm_LFunction_one_le_explicit`**, **`norm_LFunction_one_ge_explicit`**, **`norm_logDeriv_one_le_explicit`**, **`exists_prime_eq_explicit`**, **`exists_prime_eq_13`**, **`exists_nonsquare_le_explicit`**, **`exists_nonsquare_le_13`**, **`exists_nonsquare_le_rpow_explicit`**: above.
+- `external/pnt/SmoothPerron.lean` (630 lines, from 612; 1 lemma added; 1 axiom line added to the final check, `[propext, Classical.choice, Quot.sound]`):
+
+  - **`mellin_le_geom_of`**: round 472's `mellin_le_geom` from given bounds `|𝓜(Smooth1 ν ε)(s)| ≤ B/|s|` and `≤ C/(ε|s|²)`, `B, C > 0`, with the constant `B^{1−κ}C^κ(σ/2)^{−1−κ}`.
+- `external/pnt/ChiUniform.lean` (584 lines, from 449; 3 theorems, 1 lemma and 2 definitions added; 3 axiom lines added, each `[propext, Classical.choice, Quot.sound]`):
+
+  - **`Kld`** (definition), **`logDeriv_le_uniform_of`**: round 480's `logDeriv_le_uniform` with its constant as the formula `Kld θ θ′ = (16r²/(r − r′)³ + 1/((R²/R′ − R′) log(R/R′)))/ρ`, where `ρ = 3/2 − θ`, `r′ = (3/2 − θ′)/ρ`, `r = r′ + (1 − r′)/4`, `R′ = r′ + (1 − r′)/2` and `R = r′ + 3(1 − r′)/4`.
+  - **`integral_one_add_abs_rpow`**: `∫_ℝ (1 + |t|)^{−r} dt = 2/(r − 1)` for `r > 1`.
+  - **`eta0`** (definition), **`sum_le_uniform_of`**: round 480's `sum_le_uniform` for a given `C¹` smoothing `ν` (nonnegative, supported in `[1/2, 2]`, of mass `1`) with `|𝓜(Smooth1 ν ε)(θ′ + it)| ≤ K_M ε^{−κ}(1 + |t|)^{−1−κ}` on the line `θ′ = θ + η₀/4`, where `κ = η₀/4` and `η₀ = min(η, (1 − θ)/2)`. The constants are `C₁ = K_M(16/η₀)(K + 1)` and `C₂ = K_M(16/η₀)K·4^{η₀/8}/(η₀/8) + 4(2 + 4/η₀)`, with `K = Kld θ θ′`.
+  - **`psiChi_le_uniform_of`**: round 480's `psiChi_le_uniform` from given constants `C₁, C₂ ≥ 0` of `sum_le_uniform` at `θ = 11/12`: `|ψ(x, χ)| ≤ (C₁(1 + log(2 + 36ζ(3/2)/11) − ζ′/ζ(3/2)) + C₂) log(N + 2)·x^{11/12+η}`.
+- `external/pnt/Littlewood.lean` (428 lines, from 373; 5 theorems added; 2 axiom lines added, each `[propext, Classical.choice, Quot.sound]`):
+
+  - **`logDeriv_le_loglog_of`**: if `C₁ ≥ 0` and `|ψ(x, χ)| ≤ C₁ log(N + 2)·x^{23/24}` for every quadratic `χ ≠ 1` mod `N` and every `x > 1`, then `|L′/L(σ, χ)| ≤ 48(log 4 + 4 + C₁)e·log log(N + 16)` for every such `χ` and `1 < σ ≤ 2`.
+  - **`abs_log_norm_LFunction_one_le_of`**: from `|L′/L(σ, χ)| ≤ M log log(N + 16)` on `(1, 2]`, `|log |L(1, χ)|| ≤ log log log(N + 16) + M + log 2`.
+  - **`norm_LFunction_one_le_of`**, **`norm_LFunction_one_ge_of`**: from `|log |L(1, χ)|| ≤ log log log(N + 16) + C`, `e^{−C}/log log(N + 16) ≤ |L(1, χ)| ≤ e^C log log(N + 16)`.
+  - **`norm_logDeriv_one_le_of`**: the bound `M log log(N + 16)` on `(1, 2]` holds at `σ = 1`.
+- `external/pnt/LeastNonresidue.lean` (409 lines, from 355; 3 theorems and 1 lemma added; 2 axiom lines added, each `[propext, Classical.choice, Quot.sound]`):
+
+  - **`rpow_le_of_forall_eq_of`**: Ankeny's argument from `|ψ(x, χ)| ≤ C₁ log(N + 2)·x^{1−1/A}`, `A > 12`: if `χ(p) = ε` at every prime `p ≤ x` not dividing `q`, `x ≥ 100`, then `x^{1/A} ≤ 4(C₁ + 11) log(q + 2)`.
+  - **`exists_prime_eq_of`**: from that conclusion with a constant `K > 0` in place of `4(C₁ + 11)`, the prime of `exists_prime_eq` below `(101 + K^A)(log(q + 2))^A`.
+  - **`exists_nonsquare_le_of`**: from such primes below `C₀(log(q + 2))^A`, a quadratic nonresidue `n ≤ C₀2^A(log p)^A`.
+  - **`exists_nonsquare_le_rpow_of`**: from `n ≤ C₀(log p)^{13}`, `n ≤ C₀(13/δ)^{13}p^δ`.
+
+In the four files the round extends, each theorem whose constant was existential (`mellin_le_geom`; `logDeriv_le_uniform`, `sum_le_uniform`, `psiChi_le_uniform`; `logDeriv_le_loglog`, `abs_log_norm_LFunction_one_le`, `norm_LFunction_one_le`, `norm_LFunction_one_ge`, `norm_logDeriv_one_le`; `rpow_le_of_forall_eq`, `exists_prime_eq`, `exists_nonsquare_le`, `exists_nonsquare_le_rpow`) is now a corollary of its `_of` form. A comparison of the statement text of each of the 13 at commit 793d1f0 and here finds it unchanged, and no theorem or lemma of the four files is removed.
+
+**The proof.**
+
+- **The smoothing.** `h(x) = (x − 1/2)(2 − x)` is positive exactly on `(1/2, 2)` (`mem_Ioo_of_hq_pos`). Near a point where `h < 0`, `g = 0`; near a point where `h > 0`, `g = h²`; at a zero `x` of `h`, `0 ≤ g(y) ≤ h(y)²`, which is `o(y − x)` because `h(y) = O(y − x)` and `h(y) → 0`, so `g′(x) = 0` (Mathlib's `hasDerivAt_iff_isLittleO`). So `g′ = 2 max(0, h)h′` everywhere, which is continuous, and `g` is `C¹` (Mathlib's `contDiff_one_iff_deriv`). On `[1/2, 2]`, `g(x)/x = x³ − 5x² + 33x/4 − 5 + 1/x`, whose integral is `2 log 2 − 75/64`; with Mathlib's `Real.log_two_gt_d9` this is at least `1/5`, so `c₀ ≤ 5`. Since `0 ≤ h ≤ 9/16` and `|h′| = |5/2 − 2x| ≤ 3/2` on `[1/2, 2]`, `|ν₀| ≤ 5·81/256 ≤ 2` and `|ν₀′| ≤ 5·27/16 ≤ 9`.
+- **The Mellin bounds.** PNT+'s `MellinOfPsi_aux` integrates by parts: `𝓜ν(s) = −(1/s)∫_{1/2}^{2} ν′(x)x^s dx`. There `|x^s| ≤ 4` for `0 < Re s ≤ 2`, and the interval has length `3/2`, so `|𝓜ν(s)| ≤ 6S₁/|s|`. Directly, `|x^{w−1}| ≤ 8` there for `0 ≤ Re w ≤ 2`, so `|𝓜ν(w)| ≤ 12S₀`, which the lemma states as `≤ 12S₀ + 1`. PNT+'s `MellinOfSmooth1a`, `𝓜(Smooth1 ν ε)(s) = 𝓜ν(εs)/s`, carries both to `Smooth1`, which gives `(12·2 + 1)/|s| = 25/|s|` and `6·9/(ε|s|²) = 54/(ε|s|²)` for `ν₀`. `SmoothPerron.mellin_le_geom_of` is the proof of round 472's `mellin_le_geom` with `B` and `C` as parameters: the geometric mean `B^{1−κ}C^κε^{−κ}|s|^{−1−κ}` of the two bounds, with `|s| ≥ (σ/2)(1 + |t|)` on `Re s = σ ≤ 1`.
+- **The chain with its constants.** `ChiUniform.sum_le_uniform_of` is the proof of round 480's `sum_le_uniform` with the smoothing and its Mellin constant `K_M` as parameters, in place of PNT+'s `SmoothExistence` and round 472's existential `mellin_le_geom`. The integral `∫(1 + |t|)^{−r} dt` it carried as a number is now `2/(r − 1) = 16/η₀` at `r = 1 + η₀/8` (`integral_one_add_abs_rpow`). The `_of` forms of `Littlewood` and `LeastNonresidue` are the proofs of round 480 and 482 with the constant of each step's input as a parameter.
+- **The numerals.** At `θ = 11/12`, write `e = η₀ = min(η, 1/24)` (`eta0_eq`), so the line is `θ′ = 11/12 + e/4` and `κ = e/4`.
+
+  - `Kld_le`: here `ρ = 7/12`, `r′ = 1 − 3e/7` and `r − r′ = 3e/28`, so `16r²/(r − r′)³ ≤ 16(28/(3e))³`. Also `R − R′ = 3e/28`, and `log(R/R′) ≥ 1 − R′/R ≥ R − R′` (Mathlib's `Real.one_sub_inv_le_log_of_pos`, with `R ≤ 1`), so `(R²/R′ − R′) log(R/R′) ≥ (3e/28)²`. With `e ≤ 1` the two terms give `(351232/27 + 784/9)(12/7)/e³ ≤ 23000/e³`.
+  - `KM_le`: `25^{1−e/4} ≤ 25`, `54^{e/4} ≤ 54` and `((11/12 + e/4)/2)^{−1−e/4} ≤ (24/11)² ≤ 5`.
+  - `zeta32_le`, `logDerivZeta32_le`: round 480's partial summation `Littlewood.norm_LSeries_le_of_sum_le` at `σ = 3/2`, with partial sums `⌊t⌋ ≤ t` and Mathlib's `Chebyshev.psi_le_const_mul_self`, `ψ(t) ≤ (log 4 + 4)t`, gives `ζ(3/2) ≤ 3` and `−ζ′/ζ(3/2) ≤ 3(log 4 + 4)`; with Mathlib's `Real.log_two_lt_d9`, `log 4 < 1.3863`, so `−ζ′/ζ(3/2) ≤ 17`; with Mathlib's `Real.exp_one_gt_d9`, `log(2 + 36·3/11) ≤ 3`.
+
+  With `u = 1/e ≥ 24`, `psiChi_le_uniform_of` and `sum_le_uniform_of` give the constant `C₁·(1 + 3 + 17) + C₂` with `C₁ ≤ 6750·16·23001·u⁴` and `C₂ ≤ 6750·16·23000·4·8·u⁵ + 8 + 16u`, which is at most `2·10¹¹u⁵` (`psiChi_le_explicit`). At `η = 1/24` this is `C₁ = 2·10¹¹·24⁵` in `logDeriv_le_loglog_of`, whose constant `48(log 4 + 4 + C₁)e` is at most `10²¹` (with `log 4 < 2` and Mathlib's `Real.exp_one_lt_d9`), so `M + log 2 ≤ 2·10²¹`. At `A = 13`, `e = min(1/12 − 1/13, 1/24) = 1/156` and `K = 4(2·10¹¹·156⁵ + 11)`, and `norm_num` (with `exponentiation.threshold` raised to `400`) checks `101 + K¹³ ≤ 10²⁹⁸` and `(101 + K¹³)2¹³ ≤ 10³⁰⁴`. Evaluated in floating point here (not a Lean statement), `M ≈ 2.1·10²⁰`, `101 + K¹³ ≈ 2.0·10²⁹⁷` and `(101 + K¹³)2¹³ ≈ 1.6·10³⁰¹`.
+- **The `p^δ` form.** `exists_nonsquare_le_rpow_of` is the proof of round 482's `exists_nonsquare_le_rpow`, `log p ≤ p^{δ/13}/(δ/13)` (Mathlib's `Real.log_le_rpow_div`), with the constant of `exists_nonsquare_le` at `A = 13` as a parameter; `exists_nonsquare_le_rpow_explicit` applies it with `10³⁰⁴`.
+
+**Against the plan.** Round 481 recorded door 4(a)'s target, "round 480's bounds and door 1's with explicit numbers in place of existential constants: `c/log log(N + 16) ≤ |L(1, χ)| ≤ C log log(N + 16)` with `c` and `C` explicit, and an explicit `C_A`", and its route, "an explicit `C¹` smoothing `ν₀(x) = c₀·max(0, (x − 1/2)(2 − x))²`, explicit Mellin bounds for `Smooth1 ν₀ ε`, the chain of rounds 472, 478 and 480 rerun with them, and the final constants bounded by rationals".
+
+1. The target landed: `c = e^{−2·10²¹}` and `C = e^{2·10²¹}`, and door 1's `C_A`, `101 + K^A` for the least primes and `(101 + K^A)2^A` for the least nonresidue, with `K` a closed form in `A`. Beyond the target, the round also makes explicit door 2's `M`, `10²¹`, the constant of `ψ(x, χ)`, `2·10¹¹/e⁵`, and the `p^δ` form of door 1.
+2. The route was followed with the smoothing named in round 481. The chain was rerun by giving its theorems `_of` forms, not by copying their proofs. Round 478's chain enters through round 480's `ChiUniform`, which carries round 478's bounds with their constants written out, and round 482's `Littlewood.norm_logDeriv_one_le` and the four theorems of `LeastNonresidue` were rerun too.
+3. The final constants are bounded by numerals: `2·10¹¹`, `10²¹`, `2·10²¹`, `10²⁹⁸`, `10³⁰⁴`. `c` and `C` are `e^{∓2·10²¹}`, explicit but not rational; no rational bound for them is stated.
+4. Round 483 planned only the first part, the smoothing and its Mellin bounds, for round 484; the round lands the whole door.
+
+**The paper.** `grep -n -i "littlewood\|explicit constant\|effective constant\|ineffective\|siegel\|nonresidue\|ankeny"` on `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` finds 14 lines of the first file and none of the second, read here. They name Littlewood's `Ω±(√x log log log x)` for `ψ(x) − x` (line 3825), the Riemann–Siegel `θ` (line 3836), prime pairs of Hardy–Littlewood strength (line 5352), Littlewood's bounds for the argument `S(T)` and its integral `S₁(T)`, or Littlewood as their named classical source (lines 7354, 7360, 7419, 8320, 8428, 8433, 8535, 8550 and 9359), the observed constants of offsets `½ ± c/γ` (line 3090), and, in line 8545, `Not claimed: explicit constants for S and S₁`. No line states a constant for `L(1, χ)`, `L′/L(1, χ)`, `ψ(x, χ)` or the least nonresidue. The paper is not edited.
+
+**Records.**
+
+- `external/pnt/build.sh`: `ExplicitSmooth` and `ExplicitConstants` in the compile list, and 21 lines added to the final check (105 to 126 `#print axioms` lines).
+- `external/pnt/README.md`: rows and sections for `ExplicitSmooth.lean` and `ExplicitConstants.lean`; the rows and the sections of `SmoothPerron.lean`, `ChiUniform.lean`, `Littlewood.lean` and `LeastNonresidue.lean` extended.
+- STRUCTURAL-REVIEW §6: a marker on the entry for door 4.
+- Net-state markers on round 483's paragraph "The next step" and on door 4(a)'s target in round 481.
+
+**Build.** `external/pnt/build.sh` (1068 s) compiled `Architect.lean`, the 19 PNT+ files and the 30 files here, `SmoothPerron.lean`, `ChiUniform.lean`, `Littlewood.lean`, `LeastNonresidue.lean`, `ExplicitSmooth.lean` and `ExplicitConstants.lean` with no warnings. Its final check printed 126 axiom lines, each `[propext, Classical.choice, Quot.sound]`. No file of `src/` changed.
+
+- The namespaces `ExplicitSmooth` and `ExplicitConstants` are new: a grep of the Lean files of the pilot (`external/` included), of PNT+'s files in `external/pnt/upstream/` and of Mathlib for either name finds them only in their own files. The definitions `hq`, `bump`, `bump'`, `c₀` and `ν₀` live in `ExplicitSmooth`, and `Kld` and `eta0` in `ChiUniform`.
+
+**Check 4.** Classical [recalled]: under GRH, Littlewood's bounds hold with constants near `2e^γ` and `π²/(12e^γ)`, and Ankeny's `n(p) ≪ (log p)²` holds with an explicit constant (Bach); unconditionally, Siegel's lower bound `L(1, χ) ≫_ε q^{−ε}` is ineffective. The bounds here are effective: they come from round 477's half-plane `Re s > 11/12` for every real character, which leaves no exceptional zero, through a chain whose every constant is now a numeral. They are also very large. Evaluated in floating point here, `10³⁰⁴(log p)¹³ < p` holds only for `log₁₀ p > 341.6`, so the least-nonresidue bound improves on the trivial bound `n(p) < p` only past that size. The release states its bound with unnamed constants: its `build/paper.tex` ("The Quasi-Riemann Hypothesis", September 30 version), line 326, reads `There are absolute constants $A,C>0$ such that, for every odd prime $p$,`, and line 347 reads `inequality, for example with $A=32$; no optimization is needed here.` No value of `C` is given there, and no comparison between the release's constants and these is claimed. None of this is new mathematics given the half-plane: the constants are those of the chain of rounds 478–482, tracked. New against the pilot: every constant of rounds 480 and 482 as a numeral, machine-checked with no hypothesis.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every quadratic `χ ≠ 1` of every modulus `N`, every `η > 0`, every `x > 1`, every `1 < σ ≤ 2` and `σ = 1`, both signs `ε = ±1`, every `A > 12`, every odd prime `p` and every `δ > 0`.
+- (b) No barrier claim is made. The numerals are what this argument gives; no claim is made that they are optimal or near it.
+- (c) No signal is fed to a criterion: the theorems go from a zero-free half-plane to bounds.
+
+**Bearing on RH:** none.
+
+**The next step.** Round 485: door 4(b), the class numbers of quadratic fields, along the route round 481 recorded. Its first part is the arithmetic that round 481's grep of Mathlib did not find: the Kronecker character `χ_K` as a Dirichlet character mod `|D_K|` and the splitting law of the primes in the ring of integers of `K`.

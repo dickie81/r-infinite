@@ -23,6 +23,8 @@ left of which `L(f, ·)` continues holomorphically with at most linear growth
 * `mellin_le_geom`: on `Re s = σ ∈ (0, 1]`, `|𝓜(Smooth1)(s)| ≤ K ε^{−κ} (1 + |t|)^{−1−κ}` for `κ ∈ [0, 1]`,
   from the geometric mean `B^{1−κ}C^κ ε^{−κ} |s|^{−1−κ}` of round 338's `B/|s|` (`MediumPNTW.MellinOfSmooth1d`)
   and PNT+'s `C/(ε|s|²)` (`MellinOfSmooth1b`).
+* `mellin_le_geom_of` (round 484): `mellin_le_geom` from given bounds `B/|s|` and `C/(ε|s|²)`, with the constant
+  `B^{1−κ}C^κ(σ/2)^{−1−κ}`.
 * `verticalIntegral_integrand_shift` (round 473): the move of the line in
   `smoothedSum_eq_verticalIntegral_left` for any `L` holomorphic on `Re s ≥ σ'` with at most linear growth and
   bounded on `Re s = 2`, not only a Dirichlet series.
@@ -269,15 +271,19 @@ lemma le_geom {m A B κ : ℝ} (hm : 0 ≤ m) (hA : m ≤ A) (hB : m ≤ B) (hκ
       mul_le_mul (Real.rpow_le_rpow hm hA (by linarith)) (Real.rpow_le_rpow hm hB hκ0) (by positivity)
         (Real.rpow_nonneg (hm.trans hA) _)
 
-/-- **The Mellin transform of `Smooth1` on a line**: for `κ ∈ [0, 1]` and `0 < σ ≤ 1` there is `K` with
-`|𝓜(Smooth1 ν ε)(σ + it)| ≤ K ε^{−κ} (1 + |t|)^{−1−κ}` for every `0 < ε < 1`. -/
-lemma mellin_le_geom (diffν : ContDiff ℝ 1 ν) (suppν : ν.support ⊆ Icc (1 / 2) 2) {κ : ℝ}
-    (hκ0 : 0 ≤ κ) (hκ1 : κ ≤ 1) {σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) :
-    ∃ K : ℝ, 0 ≤ K ∧ ∀ ε : ℝ, 0 < ε → ε < 1 → ∀ t : ℝ,
-      ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) (σ + t * I)‖ ≤ K * ε ^ (-κ) * (1 + |t|) ^ (-(1 + κ)) := by
-  obtain ⟨B, Bpos, hB⟩ := MediumPNTW.MellinOfSmooth1d diffν suppν
-  obtain ⟨C, Cpos, hC⟩ := MellinOfSmooth1b diffν suppν
-  refine ⟨B ^ (1 - κ) * C ^ κ * (σ / 2) ^ (-(1 + κ)), by positivity, fun ε εpos ε_lt_one t ↦ ?_⟩
+/-- **The Mellin transform of `Smooth1` on a line, from two Mellin bounds.** If
+`|𝓜(Smooth1 ν ε)(s)| ≤ B/|s|` and `≤ C/(ε|s|²)` (`B, C > 0`), then for `κ ∈ [0, 1]` and `0 < σ ≤ 1`,
+`|𝓜(Smooth1 ν ε)(σ + it)| ≤ B^{1−κ}C^κ(σ/2)^{−1−κ} ε^{−κ} (1 + |t|)^{−1−κ}` for every `0 < ε < 1`. -/
+lemma mellin_le_geom_of {B C : ℝ} (Bpos : 0 < B) (Cpos : 0 < C)
+    (hB : ∀ s : ℂ, 0 < s.re → s.re ≤ 2 → ∀ ε : ℝ, 0 < ε → ε < 1 →
+      ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) s‖ ≤ B * ‖s‖⁻¹)
+    (hC : ∀ σ₁ : ℝ, 0 < σ₁ → ∀ s : ℂ, σ₁ ≤ s.re → s.re ≤ 2 → ∀ ε : ℝ, 0 < ε → ε < 1 →
+      ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) s‖ ≤ C * (ε * ‖s‖ ^ 2)⁻¹)
+    {κ : ℝ} (hκ0 : 0 ≤ κ) (hκ1 : κ ≤ 1) {σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) :
+    ∀ ε : ℝ, 0 < ε → ε < 1 → ∀ t : ℝ,
+      ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) (σ + t * I)‖ ≤
+        B ^ (1 - κ) * C ^ κ * (σ / 2) ^ (-(1 + κ)) * ε ^ (-κ) * (1 + |t|) ^ (-(1 + κ)) := by
+  intro ε εpos ε_lt_one t
   set s : ℂ := σ + t * I with hsdef
   have hsre : s.re = σ := by simp [hsdef]
   have hsim : s.im = t := by simp [hsdef]
@@ -318,6 +324,18 @@ lemma mellin_le_geom (diffν : ContDiff ℝ 1 ν) (suppν : ν.support ⊆ Icc (
     _ = B ^ (1 - κ) * C ^ κ * (σ / 2) ^ (-(1 + κ)) * ε ^ (-κ) * (1 + |t|) ^ (-(1 + κ)) := by
       rw [Real.mul_rpow (by positivity) (by positivity)]
       ring
+
+/-- **The Mellin transform of `Smooth1` on a line**: for `κ ∈ [0, 1]` and `0 < σ ≤ 1` there is `K` with
+`|𝓜(Smooth1 ν ε)(σ + it)| ≤ K ε^{−κ} (1 + |t|)^{−1−κ}` for every `0 < ε < 1`. -/
+lemma mellin_le_geom (diffν : ContDiff ℝ 1 ν) (suppν : ν.support ⊆ Icc (1 / 2) 2) {κ : ℝ}
+    (hκ0 : 0 ≤ κ) (hκ1 : κ ≤ 1) {σ : ℝ} (hσ0 : 0 < σ) (hσ1 : σ ≤ 1) :
+    ∃ K : ℝ, 0 ≤ K ∧ ∀ ε : ℝ, 0 < ε → ε < 1 → ∀ t : ℝ,
+      ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) (σ + t * I)‖ ≤ K * ε ^ (-κ) * (1 + |t|) ^ (-(1 + κ)) := by
+  obtain ⟨B, Bpos, hB⟩ := MediumPNTW.MellinOfSmooth1d diffν suppν
+  obtain ⟨C, Cpos, hC⟩ := MellinOfSmooth1b diffν suppν
+  exact ⟨B ^ (1 - κ) * C ^ κ * (σ / 2) ^ (-(1 + κ)), by positivity,
+    mellin_le_geom_of Bpos Cpos hB (fun σ₁ h₁ s h₂ h₃ ε h₄ h₅ ↦ hC σ₁ h₁ s h₂ h₃ ε h₄ h₅) hκ0 hκ1
+      hσ0 hσ1⟩
 
 /-! ### Unsmoothing -/
 

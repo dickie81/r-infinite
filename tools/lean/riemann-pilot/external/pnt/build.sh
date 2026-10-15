@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -93,6 +93,8 @@ import ChiUniform
 import Littlewood
 import LeastNonresidue
 import SquarefreeCount
+import ExplicitSmooth
+import ExplicitConstants
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -198,6 +200,27 @@ import SquarefreeCount
 #print axioms SquarefreeCount.squarefree_isBigO_of_zeroFree
 #print axioms SquarefreeCount.squarefree_isBigO_twelve_25ths
 #print axioms SquarefreeCount.squarefree_isBigO_Theta
+#print axioms SmoothPerron.mellin_le_geom_of
+#print axioms ExplicitSmooth.contDiff_ν₀
+#print axioms ExplicitSmooth.mass_ν₀
+#print axioms ExplicitSmooth.mellin_ν₀_le_geom
+#print axioms ChiUniform.logDeriv_le_uniform_of
+#print axioms ChiUniform.sum_le_uniform_of
+#print axioms ChiUniform.psiChi_le_uniform_of
+#print axioms Littlewood.logDeriv_le_loglog_of
+#print axioms Littlewood.abs_log_norm_LFunction_one_le_of
+#print axioms LeastNonresidue.exists_nonsquare_le_of
+#print axioms LeastNonresidue.exists_nonsquare_le_rpow_of
+#print axioms ExplicitConstants.psiChi_le_explicit
+#print axioms ExplicitConstants.logDeriv_le_explicit
+#print axioms ExplicitConstants.norm_LFunction_one_le_explicit
+#print axioms ExplicitConstants.norm_LFunction_one_ge_explicit
+#print axioms ExplicitConstants.norm_logDeriv_one_le_explicit
+#print axioms ExplicitConstants.exists_prime_eq_explicit
+#print axioms ExplicitConstants.exists_prime_eq_13
+#print axioms ExplicitConstants.exists_nonsquare_le_explicit
+#print axioms ExplicitConstants.exists_nonsquare_le_13
+#print axioms ExplicitConstants.exists_nonsquare_le_rpow_explicit
 EOT
 echo "== axioms"
 # every #print axioms line must print an axiom list inside the three, and no axiom line may name another axiom

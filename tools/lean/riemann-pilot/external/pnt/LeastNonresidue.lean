@@ -19,6 +19,9 @@ Vinogradov's least quadratic nonresidue conjecture. No hypothesis.
   `x^{1/A} ≤ 4(C₁ + 11) log(q + 2)`.
 * `exists_prime_eq`: `rpow_le_of_forall_eq` at `x = max(100, (K log(q + 2))^A) + 1`.
 * `legendreChar`: Mathlib's `quadraticChar (ZMod p)` as a Dirichlet character mod `p`.
+* `rpow_le_of_forall_eq_of`, `exists_prime_eq_of`, `exists_nonsquare_le_of`, `exists_nonsquare_le_rpow_of`
+  (round 484): the same from given constants: `K = 4(C₁ + 11)` from `|ψ(x, χ)| ≤ C₁ log(N + 2)·x^{1−1/A}`, then
+  `101 + K^A`, then `C₀2^A`, and `C₀(13/δ)^{13}` from `n ≤ C₀(log p)^{13}`.
 -/
 import Littlewood
 
@@ -143,21 +146,23 @@ lemma re_psiChi_ge {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) {ε : �
 
 /-! ### The least primes with `χ(p) = ±1` -/
 
-/-- If `χ(p) = ε` at every prime `p ≤ x` not dividing `q`, then `x^{1/A} ≤ K log(q + 2)`, for every
-`A > 12`, with `K` depending on `A` only. -/
-lemma rpow_le_of_forall_eq {A : ℝ} (hA : 12 < A) :
-    ∃ K : ℝ, 0 < K ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsQuadratic → χ ≠ 1 →
+/-- **Ankeny's argument, with its constant.** If `|ψ(x, χ)| ≤ C₁ log(N + 2)·x^{11/12+η}` with
+`η = 1/12 − 1/A`, `A > 12`, for every quadratic `χ ≠ 1` mod `N` and `x > 1`, and `χ(p) = ε` at every prime
+`p ≤ x` not dividing `q`, then `x^{1/A} ≤ 4(C₁ + 11) log(q + 2)`. -/
+lemma rpow_le_of_forall_eq_of {A C₁ : ℝ} (hA : 12 < A)
+    (hψ : ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      ∀ x : ℝ, 1 < x → ‖psiChi χ x‖ ≤ C₁ * Real.log (N + 2) * x ^ (11 / 12 + (1 / 12 - 1 / A))) :
+    ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsQuadratic → χ ≠ 1 →
       ∀ {ε : ℝ}, (ε = 1 ∨ ε = -1) → ∀ x : ℝ, 100 ≤ x →
         (∀ p : ℕ, p.Prime → p ≤ ⌊x⌋₊ → ¬ p ∣ q → χ p = ε) →
-          x ^ (1 / A) ≤ K * Real.log (q + 2) := by
+          x ^ (1 / A) ≤ 4 * (C₁ + 11) * Real.log (q + 2) := by
   have hA0 : 0 < A := by linarith
   have hiA : 1 / A < 1 / 12 := by
     rw [div_lt_div_iff₀ hA0 (by norm_num)]; linarith
   have hiA0 : 0 < 1 / A := by positivity
   set η : ℝ := 1 / 12 - 1 / A with hηdef
   have hη : 0 < η := by linarith
-  obtain ⟨C₁, hC₁, hψ⟩ := ChiUniform.psiChi_le_uniform hη
-  refine ⟨4 * (C₁ + 11), by positivity, fun q _ χ hq hχ ε hε x hx hall ↦ ?_⟩
+  intro q _ χ hq hχ ε hε x hx hall
   have hx0 : 0 < x := by linarith
   have hx1 : 1 ≤ x := by linarith
   set L : ℝ := Real.log (q + 2) with hLdef
@@ -213,16 +218,32 @@ lemma rpow_le_of_forall_eq {A : ℝ} (hA : 12 < A) :
     rw [← hsplit]; linarith
   exact le_of_mul_le_mul_right h5 hxe0
 
-/-- **The least primes with `χ(p) = ±1`.** For every `A > 12` there is `C` such that every real
-Dirichlet character `χ ≠ 1` mod `q` has, for `ε = 1` and for `ε = −1`, a prime `p ∤ q` with `χ(p) = ε`
-and `p ≤ C(log(q + 2))^A`. -/
-theorem exists_prime_eq {A : ℝ} (hA : 12 < A) :
-    ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsQuadratic → χ ≠ 1 →
-      ∀ {ε : ℝ}, (ε = 1 ∨ ε = -1) →
-        ∃ p : ℕ, p.Prime ∧ ¬ p ∣ q ∧ χ p = ε ∧ (p : ℝ) ≤ C * Real.log (q + 2) ^ A := by
+/-- If `χ(p) = ε` at every prime `p ≤ x` not dividing `q`, then `x^{1/A} ≤ K log(q + 2)`, for every
+`A > 12`, with `K` depending on `A` only (`rpow_le_of_forall_eq_of`, with
+`ChiUniform.psiChi_le_uniform`). -/
+lemma rpow_le_of_forall_eq {A : ℝ} (hA : 12 < A) :
+    ∃ K : ℝ, 0 < K ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsQuadratic → χ ≠ 1 →
+      ∀ {ε : ℝ}, (ε = 1 ∨ ε = -1) → ∀ x : ℝ, 100 ≤ x →
+        (∀ p : ℕ, p.Prime → p ≤ ⌊x⌋₊ → ¬ p ∣ q → χ p = ε) →
+          x ^ (1 / A) ≤ K * Real.log (q + 2) := by
   have hA0 : 0 < A := by linarith
-  obtain ⟨K, hK, hKb⟩ := rpow_le_of_forall_eq hA
-  refine ⟨101 + K ^ A, by positivity, fun q _ χ hq hχ ε hε ↦ ?_⟩
+  have hiA : 1 / A < 1 / 12 := by
+    rw [div_lt_div_iff₀ hA0 (by norm_num)]; linarith
+  obtain ⟨C₁, hC₁, hψ⟩ := ChiUniform.psiChi_le_uniform (η := 1 / 12 - 1 / A) (by linarith)
+  exact ⟨4 * (C₁ + 11), by positivity, rpow_le_of_forall_eq_of hA hψ⟩
+
+/-- **The least primes with `χ(p) = ±1`, with the constant.** If `x^{1/A} ≤ K log(q + 2)` whenever `χ(p) = ε`
+at every prime `p ≤ x`, `x ≥ 100`, not dividing `q` (`A > 0`, `K > 0`), then every real `χ ≠ 1` mod `q`
+has, for `ε = ±1`, a prime `p ∤ q` with `χ(p) = ε` and `p ≤ (101 + K^A)(log(q + 2))^A`. -/
+theorem exists_prime_eq_of {A K : ℝ} (hA0 : 0 < A) (hK : 0 < K)
+    (hKb : ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsQuadratic → χ ≠ 1 →
+      ∀ {ε : ℝ}, (ε = 1 ∨ ε = -1) → ∀ x : ℝ, 100 ≤ x →
+        (∀ p : ℕ, p.Prime → p ≤ ⌊x⌋₊ → ¬ p ∣ q → χ p = ε) →
+          x ^ (1 / A) ≤ K * Real.log (q + 2)) :
+    ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsQuadratic → χ ≠ 1 →
+      ∀ {ε : ℝ}, (ε = 1 ∨ ε = -1) →
+        ∃ p : ℕ, p.Prime ∧ ¬ p ∣ q ∧ χ p = ε ∧ (p : ℝ) ≤ (101 + K ^ A) * Real.log (q + 2) ^ A := by
+  intro q _ χ hq hχ ε hε
   set L : ℝ := Real.log (q + 2) with hLdef
   have hL : 1 ≤ L := by
     rw [hLdef, Real.le_log_iff_exp_le (by positivity)]
@@ -273,6 +294,17 @@ theorem exists_prime_eq {A : ℝ} (hA : 12 < A) :
     exact Real.rpow_lt_rpow (by positivity) h1 (by positivity)
   linarith
 
+/-- **The least primes with `χ(p) = ±1`.** For every `A > 12` there is `C` such that every real
+Dirichlet character `χ ≠ 1` mod `q` has, for `ε = 1` and for `ε = −1`, a prime `p ∤ q` with `χ(p) = ε`
+and `p ≤ C(log(q + 2))^A` (`exists_prime_eq_of`, with `rpow_le_of_forall_eq`). -/
+theorem exists_prime_eq {A : ℝ} (hA : 12 < A) :
+    ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsQuadratic → χ ≠ 1 →
+      ∀ {ε : ℝ}, (ε = 1 ∨ ε = -1) →
+        ∃ p : ℕ, p.Prime ∧ ¬ p ∣ q ∧ χ p = ε ∧ (p : ℝ) ≤ C * Real.log (q + 2) ^ A := by
+  have hA0 : 0 < A := by linarith
+  obtain ⟨K, hK, hKb⟩ := rpow_le_of_forall_eq hA
+  exact ⟨101 + K ^ A, by positivity, exists_prime_eq_of hA0 hK hKb⟩
+
 /-! ### The least quadratic nonresidue -/
 
 /-- The Legendre symbol mod an odd prime `p`, as a Dirichlet character. -/
@@ -295,14 +327,16 @@ lemma legendreChar_ne_one (p : ℕ) [Fact p.Prime] (hp : p ≠ 2) : legendreChar
   rw [legendreChar_apply, quadraticChar_neg_one_iff_not_isSquare.2 ha] at h1
   norm_num at h1
 
-/-- **Vinogradov's least quadratic nonresidue conjecture, in Ankeny's form.** For every `A > 12`
-there is `C` such that every odd prime `p` has a quadratic nonresidue `n ≤ C(log p)^A`. -/
-theorem exists_nonsquare_le {A : ℝ} (hA : 12 < A) :
-    ∃ C : ℝ, 0 < C ∧ ∀ p : ℕ, p.Prime → p ≠ 2 →
-      ∃ n : ℕ, 0 < n ∧ (n : ℝ) ≤ C * Real.log p ^ A ∧ ¬ IsSquare (n : ZMod p) := by
-  have hA0 : 0 < A := by linarith
-  obtain ⟨C₀, hC₀, h⟩ := exists_prime_eq hA
-  refine ⟨C₀ * 2 ^ A, by positivity, fun p hp hp2 ↦ ?_⟩
+/-- **The least quadratic nonresidue, with the constant.** If every real `χ ≠ 1` mod `q` has a prime
+`p ∤ q` with `χ(p) = −1` and `p ≤ C₀(log(q + 2))^A` (`A > 0`, `C₀ > 0`), then every odd prime `p` has a
+quadratic nonresidue `n ≤ C₀2^A(log p)^A`. -/
+theorem exists_nonsquare_le_of {A C₀ : ℝ} (hA0 : 0 < A) (hC₀ : 0 < C₀)
+    (h : ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsQuadratic → χ ≠ 1 →
+      ∀ {ε : ℝ}, (ε = 1 ∨ ε = -1) →
+        ∃ p : ℕ, p.Prime ∧ ¬ p ∣ q ∧ χ p = ε ∧ (p : ℝ) ≤ C₀ * Real.log (q + 2) ^ A) :
+    ∀ p : ℕ, p.Prime → p ≠ 2 →
+      ∃ n : ℕ, 0 < n ∧ (n : ℝ) ≤ C₀ * 2 ^ A * Real.log p ^ A ∧ ¬ IsSquare (n : ZMod p) := by
+  intro p hp hp2
   have : Fact p.Prime := ⟨hp⟩
   have : NeZero p := ⟨hp.ne_zero⟩
   obtain ⟨ℓ, hℓ, -, hχℓ, hℓle⟩ := h p (legendreChar p) (legendreChar_isQuadratic p)
@@ -329,13 +363,25 @@ theorem exists_nonsquare_le {A : ℝ} (hA : 12 < A) :
     have h1 : quadraticChar (ZMod p) (ℓ : ZMod p) = -1 := by exact_mod_cast hχℓ
     exact quadraticChar_neg_one_iff_not_isSquare.1 h1
 
-/-- **`n(p) ≪_δ p^δ`**: for every `δ > 0` there is `C` such that every odd prime `p` has a quadratic
-nonresidue `n ≤ Cp^δ`. -/
-theorem exists_nonsquare_le_rpow {δ : ℝ} (hδ : 0 < δ) :
+/-- **Vinogradov's least quadratic nonresidue conjecture, in Ankeny's form.** For every `A > 12`
+there is `C` such that every odd prime `p` has a quadratic nonresidue `n ≤ C(log p)^A`
+(`exists_nonsquare_le_of`, with `exists_prime_eq`). -/
+theorem exists_nonsquare_le {A : ℝ} (hA : 12 < A) :
     ∃ C : ℝ, 0 < C ∧ ∀ p : ℕ, p.Prime → p ≠ 2 →
-      ∃ n : ℕ, 0 < n ∧ (n : ℝ) ≤ C * (p : ℝ) ^ δ ∧ ¬ IsSquare (n : ZMod p) := by
-  obtain ⟨C₀, hC₀, h⟩ := exists_nonsquare_le (A := 13) (by norm_num)
-  refine ⟨C₀ * (13 / δ) ^ (13 : ℝ), by positivity, fun p hp hp2 ↦ ?_⟩
+      ∃ n : ℕ, 0 < n ∧ (n : ℝ) ≤ C * Real.log p ^ A ∧ ¬ IsSquare (n : ZMod p) := by
+  have hA0 : 0 < A := by linarith
+  obtain ⟨C₀, hC₀, h⟩ := exists_prime_eq hA
+  exact ⟨C₀ * 2 ^ A, by positivity, exists_nonsquare_le_of hA0 hC₀ h⟩
+
+/-- **`n(p) ≤ C₀(13/δ)^{13}p^δ` from `n(p) ≤ C₀(log p)^{13}`**, for every `δ > 0`, by
+`log p ≤ p^{δ/13}/(δ/13)`. -/
+theorem exists_nonsquare_le_rpow_of {C₀ : ℝ} (hC₀ : 0 < C₀)
+    (h : ∀ p : ℕ, p.Prime → p ≠ 2 →
+      ∃ n : ℕ, 0 < n ∧ (n : ℝ) ≤ C₀ * Real.log p ^ (13 : ℝ) ∧ ¬ IsSquare (n : ZMod p))
+    {δ : ℝ} (hδ : 0 < δ) :
+    ∀ p : ℕ, p.Prime → p ≠ 2 →
+      ∃ n : ℕ, 0 < n ∧ (n : ℝ) ≤ C₀ * (13 / δ) ^ (13 : ℝ) * (p : ℝ) ^ δ ∧ ¬ IsSquare (n : ZMod p) := by
+  intro p hp hp2
   obtain ⟨n, hn0, hnle, hns⟩ := h p hp hp2
   refine ⟨n, hn0, hnle.trans ?_, hns⟩
   have hp1 : (1 : ℝ) ≤ p := by exact_mod_cast hp.one_lt.le
@@ -351,5 +397,13 @@ theorem exists_nonsquare_le_rpow {δ : ℝ} (hδ : 0 < δ) :
   calc C₀ * Real.log p ^ (13 : ℝ) ≤ C₀ * ((13 / δ) ^ (13 : ℝ) * (p : ℝ) ^ δ) := by
         rw [← h3]; exact mul_le_mul_of_nonneg_left h2 hC₀.le
     _ = C₀ * (13 / δ) ^ (13 : ℝ) * (p : ℝ) ^ δ := by ring
+
+/-- **`n(p) ≪_δ p^δ`**: for every `δ > 0` there is `C` such that every odd prime `p` has a quadratic
+nonresidue `n ≤ Cp^δ` (`exists_nonsquare_le_rpow_of`, with `exists_nonsquare_le` at `A = 13`). -/
+theorem exists_nonsquare_le_rpow {δ : ℝ} (hδ : 0 < δ) :
+    ∃ C : ℝ, 0 < C ∧ ∀ p : ℕ, p.Prime → p ≠ 2 →
+      ∃ n : ℕ, 0 < n ∧ (n : ℝ) ≤ C * (p : ℝ) ^ δ ∧ ¬ IsSquare (n : ZMod p) := by
+  obtain ⟨C₀, hC₀, h⟩ := exists_nonsquare_le (A := 13) (by norm_num)
+  exact ⟨C₀ * (13 / δ) ^ (13 : ℝ), by positivity, exists_nonsquare_le_rpow_of hC₀ h hδ⟩
 
 end LeastNonresidue

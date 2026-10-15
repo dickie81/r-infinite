@@ -15,6 +15,12 @@ Dirichlet character `χ ≠ 1` mod `N` and every `x > 1` (`psiChi_le_uniform`). 
   `L(f, s) = −F′/F(s)` on `Re s > 1`, `|Σ_{n ≤ X} f(n)| ≤ (C₁(log(2 + 2cA) + C₀) + C₂)X^{θ+η}` for `X > 1`.
 * `psiChi_le_uniform`: `F = L(·, χ)`, with `c = 18(N + 1)/11` from round 224's `PsiOmega.norm_LFunction_le`,
   `A = ζ(3/2)` (`zeta32`) and `C₀ = −ζ′/ζ(3/2)` (`logDerivZeta32`), and round 477's half-plane `Re s > 11/12`.
+* `Kld`, `logDeriv_le_uniform_of` (round 484): the constant of `logDeriv_le_uniform` as a formula in `θ` and `θ′`.
+* `sum_le_uniform_of` (round 484): `sum_le_uniform` for a given smoothing `ν` whose Mellin transform is at most
+  `K_M ε^{−κ}(1 + |t|)^{−1−κ}` on the line `θ + η₀/4`, `η₀ = min(η, (1 − θ)/2)` (`eta0`), with
+  `C₁ = K_M(16/η₀)(K + 1)` and `C₂ = K_M(16/η₀)K·4^{η₀/8}/(η₀/8) + 4(2 + 4/η₀)`; `∫(1 + |t|)^{−r} dt = 2/(r − 1)`
+  (`integral_one_add_abs_rpow`).
+* `psiChi_le_uniform_of` (round 484): `psiChi_le_uniform` from given constants `C₁`, `C₂` of `sum_le_uniform`.
 -/
 import ChiPNT
 
@@ -30,20 +36,30 @@ open SmoothPerron HalfPlanePNT ChiPNT
 
 /-! ### The log-derivative with its constants -/
 
+/-- The constant of `logDeriv_le_uniform`. With `ρ = 3/2 − θ`, `r′ = (3/2 − θ′)/ρ`, `r = r′ + (1 − r′)/4`,
+`R′ = r′ + (1 − r′)/2` and `R = r′ + 3(1 − r′)/4`, it is `(16r²/(r − r′)³ + 1/((R²/R′ − R′) log(R/R′)))/ρ`. -/
+noncomputable def Kld (θ θ' : ℝ) : ℝ :=
+  let ρ := 3 / 2 - θ
+  let r' := (3 / 2 - θ') / ρ
+  let r := r' + (1 - r') / 4
+  let R' := r' + (1 - r') / 2
+  let R := r' + 3 * (1 - r') / 4
+  (16 * r ^ 2 / (r - r') ^ 3 + 1 / ((R ^ 2 / R' - R') * Real.log (R / R'))) / ρ
+
 /-- **The log-derivative of an entire function in a zero-free half-plane, with its constants.** Let `F`
 be entire with no zero in `Re s > θ`, `0 < θ < θ' < 3/2`, with `|F(s)| ≤ c(|Im s| + 2)` on
 `θ ≤ Re s ≤ 3`, `1/|F(3/2 + it)| ≤ A` for every `t`, and `|F′/F| ≤ C₀` on `Re s ≥ 3/2`. Then
 `|F′/F(σ + it)| ≤ K(log(2 + 2cA) + log(|t| + 4)) + C₀` for `σ ≥ θ'` and every `t`, with `K` depending on
 `θ` and `θ'` only. -/
-theorem logDeriv_le_uniform {θ θ' : ℝ} (hθ0 : 0 < θ) (hθθ' : θ < θ') (hθ'32 : θ' < 3 / 2) :
-    ∃ K : ℝ, 0 < K ∧ ∀ {F : ℂ → ℂ}, Differentiable ℂ F → (∀ s : ℂ, θ < s.re → F s ≠ 0) →
+theorem logDeriv_le_uniform_of {θ θ' : ℝ} (hθ0 : 0 < θ) (hθθ' : θ < θ') (hθ'32 : θ' < 3 / 2) :
+    0 < Kld θ θ' ∧ ∀ {F : ℂ → ℂ}, Differentiable ℂ F → (∀ s : ℂ, θ < s.re → F s ≠ 0) →
       ∀ {c A C₀ : ℝ}, 0 ≤ c → 0 ≤ A →
       (∀ s : ℂ, θ ≤ s.re → s.re ≤ 3 → ‖F s‖ ≤ c * (|s.im| + 2)) →
       (∀ t : ℝ, ‖F (ctr t)‖⁻¹ ≤ A) →
       (∀ s : ℂ, 3 / 2 ≤ s.re → ‖deriv F s / F s‖ ≤ C₀) →
       ∀ σ t : ℝ, θ' ≤ σ →
         ‖deriv F (σ + t * I) / F (σ + t * I)‖ ≤
-          K * (Real.log (2 + 2 * c * A) + Real.log (|t| + 4)) + C₀ := by
+          Kld θ θ' * (Real.log (2 + 2 * c * A) + Real.log (|t| + 4)) + C₀ := by
   set ρ : ℝ := 3 / 2 - θ with hρdef
   have hρ : 0 < ρ := by linarith
   have hρ32 : ρ ≤ 3 / 2 := by linarith
@@ -69,7 +85,9 @@ theorem logDeriv_le_uniform {θ θ' : ℝ} (hθ0 : 0 < θ) (hθθ' : θ < θ') (
       positivity
     have h4 : 0 < 1 / ((R ^ 2 / R' - R') * Real.log (R / R')) := by positivity
     linarith
-  refine ⟨K / ρ, div_pos hK hρ, fun {F} hF hzf {c A C₀} hc0 hA0 hgrowth hlow hright σ t hσ ↦ ?_⟩
+  have hKld : Kld θ θ' = K / ρ := rfl
+  rw [hKld]
+  refine ⟨div_pos hK hρ, fun {F} hF hzf {c A C₀} hc0 hA0 hgrowth hlow hright σ t hσ ↦ ?_⟩
   have hl4 : 0 ≤ Real.log (|t| + 4) := Real.log_nonneg (by linarith [abs_nonneg t])
   have h2cA : 0 ≤ 2 * c * A := by positivity
   have hl2 : 0 ≤ Real.log (2 + 2 * c * A) := Real.log_nonneg (by linarith)
@@ -132,14 +150,74 @@ theorem logDeriv_le_uniform {θ θ' : ℝ} (hθ0 : 0 < θ) (hθθ' : θ < θ') (
   have h1 := le_of_mul_le_mul_left hmain hρ
   linarith
 
+/-- **The log-derivative of an entire function in a zero-free half-plane, with its constants.** Let `F`
+be entire with no zero in `Re s > θ`, `0 < θ < θ' < 3/2`, with `|F(s)| ≤ c(|Im s| + 2)` on
+`θ ≤ Re s ≤ 3`, `1/|F(3/2 + it)| ≤ A` for every `t`, and `|F′/F| ≤ C₀` on `Re s ≥ 3/2`. Then
+`|F′/F(σ + it)| ≤ K(log(2 + 2cA) + log(|t| + 4)) + C₀` for `σ ≥ θ'` and every `t`, with `K` depending on
+`θ` and `θ'` only (`Kld θ θ'`, `logDeriv_le_uniform_of`). -/
+theorem logDeriv_le_uniform {θ θ' : ℝ} (hθ0 : 0 < θ) (hθθ' : θ < θ') (hθ'32 : θ' < 3 / 2) :
+    ∃ K : ℝ, 0 < K ∧ ∀ {F : ℂ → ℂ}, Differentiable ℂ F → (∀ s : ℂ, θ < s.re → F s ≠ 0) →
+      ∀ {c A C₀ : ℝ}, 0 ≤ c → 0 ≤ A →
+      (∀ s : ℂ, θ ≤ s.re → s.re ≤ 3 → ‖F s‖ ≤ c * (|s.im| + 2)) →
+      (∀ t : ℝ, ‖F (ctr t)‖⁻¹ ≤ A) →
+      (∀ s : ℂ, 3 / 2 ≤ s.re → ‖deriv F s / F s‖ ≤ C₀) →
+      ∀ σ t : ℝ, θ' ≤ σ →
+        ‖deriv F (σ + t * I) / F (σ + t * I)‖ ≤
+          K * (Real.log (2 + 2 * c * A) + Real.log (|t| + 4)) + C₀ :=
+  ⟨Kld θ θ', (logDeriv_le_uniform_of hθ0 hθθ' hθ'32).1, (logDeriv_le_uniform_of hθ0 hθθ' hθ'32).2⟩
+
 /-! ### Sums of the coefficients of `−F′/F`, with their constants -/
 
-/-- **Sums of the coefficients of `−F′/F`, with their constants.** For `0 < θ < 1` and `η > 0` there are
-`C₁, C₂` such that for every `F` as in `logDeriv_le_uniform` and every `f` with `f(0) = 0`,
-`|f(n)| ≤ Λ(n)` and `L(f, s) = −F′/F(s)` on `Re s > 1`:
-`|Σ_{n≤X} f(n)| ≤ (C₁(log(2 + 2cA) + C₀) + C₂)X^{θ+η}` for every `X > 1`. -/
-theorem sum_le_uniform {θ : ℝ} (hθ0 : 0 < θ) (hθ1 : θ < 1) {η : ℝ} (hη : 0 < η) :
-    ∃ C₁ C₂ : ℝ, 0 ≤ C₁ ∧ 0 ≤ C₂ ∧ ∀ {F : ℂ → ℂ}, Differentiable ℂ F →
+/-- `∫_ℝ (1 + |t|)^{−r} dt = 2/(r − 1)` for `r > 1`. -/
+lemma integral_one_add_abs_rpow {r : ℝ} (hr : 1 < r) :
+    ∫ t : ℝ, (1 + |t|) ^ (-r) = 2 / (r - 1) := by
+  rw [integral_comp_abs (f := fun t ↦ (1 + t) ^ (-r))]
+  have hderiv : ∀ x ∈ Ici (0 : ℝ), HasDerivAt (fun t : ℝ ↦ (1 + t) ^ (1 - r) / (1 - r))
+      ((1 + x) ^ (-r)) x := by
+    intro x hx
+    have hx1 : 0 < 1 + x := by linarith [mem_Ici.1 hx]
+    have h := ((hasDerivAt_id x).const_add 1).rpow_const (p := 1 - r) (Or.inl hx1.ne')
+    have h2 := h.div_const (1 - r)
+    have e1 : (1 : ℝ) - r - 1 = -r := by ring
+    simp only [id_eq, one_mul, e1] at h2
+    convert h2 using 1
+    have h1r : (1 : ℝ) - r ≠ 0 := by linarith
+    field_simp
+  have hint : IntegrableOn (fun t : ℝ ↦ (1 + t) ^ (-r)) (Ioi 0) := by
+    have h := (integrable_one_add_norm (E := ℝ) (μ := volume) (r := r) (by simp; linarith)).integrableOn
+      (s := Ioi (0 : ℝ))
+    refine h.congr_fun (fun t ht ↦ ?_) measurableSet_Ioi
+    simp only [Real.norm_eq_abs, abs_of_pos (mem_Ioi.1 ht)]
+  have htend : Tendsto (fun t : ℝ ↦ (1 + t) ^ (1 - r) / (1 - r)) atTop (𝓝 (0 / (1 - r))) := by
+    refine Tendsto.div_const ?_ _
+    have h := tendsto_rpow_neg_atTop (y := r - 1) (by linarith)
+    have h2 := h.comp (tendsto_atTop_add_const_left atTop 1 tendsto_id)
+    refine h2.congr' (Eventually.of_forall fun t ↦ ?_)
+    simp only [Function.comp, id]
+    congr 1
+    ring
+  rw [integral_Ioi_of_hasDerivAt_of_tendsto' hderiv hint htend]
+  have h1r : (1 : ℝ) - r ≠ 0 := by linarith
+  have hr1 : r - 1 ≠ 0 := by linarith
+  simp only [add_zero, Real.one_rpow, zero_div, zero_sub]
+  field_simp
+  ring
+
+/-- `η₀ = min(η, (1 − θ)/2)`, the exponent step of `sum_le_uniform`. -/
+noncomputable def eta0 (θ η : ℝ) : ℝ := min η ((1 - θ) / 2)
+
+/-- **Sums of the coefficients of `−F′/F`, with explicit constants.** `sum_le_uniform` for a given `C¹`
+smoothing `ν` whose `Smooth1` has `|𝓜(Smooth1 ν ε)(θ′ + it)| ≤ K_M ε^{−κ}(1 + |t|)^{−1−κ}` on the line
+`θ′ = θ + η₀/4`, `κ = η₀/4`, `η₀ = min(η, (1 − θ)/2)` (`eta0`). Then
+`C₁ = K_M(16/η₀)(K + 1)` and `C₂ = K_M(16/η₀)K·4^{η₀/8}/(η₀/8) + 4(2 + 4/η₀)`, with `K = Kld θ θ′`. -/
+theorem sum_le_uniform_of {θ : ℝ} (hθ0 : 0 < θ) (hθ1 : θ < 1) {η : ℝ} (hη : 0 < η)
+    {ν : ℝ → ℝ} (diffν : ContDiff ℝ 1 ν) (νnonneg : ∀ x > 0, 0 ≤ ν x)
+    (ν_supp : ν.support ⊆ Icc (1 / 2) 2) (mass_one : ∫ x in Ioi 0, ν x / x = 1)
+    {KM : ℝ} (hKM0 : 0 ≤ KM)
+    (hKM : ∀ ε : ℝ, 0 < ε → ε < 1 → ∀ t : ℝ,
+      ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) ((θ + eta0 θ η / 4 : ℝ) + t * I)‖ ≤
+        KM * ε ^ (-(eta0 θ η / 4)) * (1 + |t|) ^ (-(1 + eta0 θ η / 4))) :
+    ∀ {F : ℂ → ℂ}, Differentiable ℂ F →
       (∀ s : ℂ, θ < s.re → F s ≠ 0) →
       ∀ {c A C₀ : ℝ}, 0 ≤ c → 0 ≤ A →
       (∀ s : ℂ, θ ≤ s.re → s.re ≤ 3 → ‖F s‖ ≤ c * (|s.im| + 2)) →
@@ -148,8 +226,12 @@ theorem sum_le_uniform {θ : ℝ} (hθ0 : 0 < θ) (hθ1 : θ < 1) {η : ℝ} (h�
       ∀ {f : ℕ → ℂ}, f 0 = 0 → (∀ n, ‖f n‖ ≤ ArithmeticFunction.vonMangoldt n) →
       (∀ s : ℂ, 1 < s.re → LSeries f s = -(deriv F s / F s)) →
       ∀ X : ℝ, 1 < X → ‖∑ n ∈ Finset.Icc 1 ⌊X⌋₊, f n‖ ≤
-        (C₁ * (Real.log (2 + 2 * c * A) + C₀) + C₂) * X ^ (θ + η) := by
-  set η₀ : ℝ := min η ((1 - θ) / 2) with hη₀def
+        (KM * (16 / eta0 θ η) * (Kld θ (θ + eta0 θ η / 4) + 1) *
+            (Real.log (2 + 2 * c * A) + C₀) +
+          (KM * (16 / eta0 θ η) *
+              (Kld θ (θ + eta0 θ η / 4) * 4 ^ (eta0 θ η / 8) / (eta0 θ η / 8)) +
+            4 * (2 + 4 / eta0 θ η))) * X ^ (θ + η) := by
+  set η₀ : ℝ := eta0 θ η with hη₀def
   have hη₀ : 0 < η₀ := lt_min hη (by linarith)
   have hη₀η : η₀ ≤ η := min_le_left _ _
   have hη₀1 : η₀ ≤ (1 - θ) / 2 := min_le_right _ _
@@ -162,12 +244,8 @@ theorem sum_le_uniform {θ : ℝ} (hθ0 : 0 < θ) (hθ1 : θ < 1) {η : ℝ} (h�
   have hκ0 : 0 < κ := by linarith
   have hκ1 : κ ≤ 1 := by linarith
   have hε₁ : 0 < ε₁ := by linarith
-  obtain ⟨K, hK, hKb⟩ := logDeriv_le_uniform hθ0 hθθ' (by linarith)
-  obtain ⟨ν, ContDiffν, ν_nonneg', ν_supp, ν_massOne'⟩ := SmoothExistence
-  have diffν : ContDiff ℝ 1 ν := ContDiffν.of_le (by simp)
-  have νnonneg : ∀ x > 0, 0 ≤ ν x := fun x _ ↦ ν_nonneg' x
-  have mass_one : ∫ x in Ioi 0, ν x / x = 1 := by rwa [← integral_Ici_eq_integral_Ioi]
-  obtain ⟨KM, hKM0, hKM⟩ := mellin_le_geom diffν ν_supp hκ0.le hκ1 hθ'0 hθ'1.le
+  set K : ℝ := Kld θ θ' with hKdef
+  obtain ⟨hK, hKb⟩ := logDeriv_le_uniform_of hθ0 hθθ' (by linarith)
   set r : ℝ := 1 + κ - ε₁ with hrdef
   have hr : 1 < r := by linarith
   have hIr : Integrable fun t : ℝ ↦ (1 + |t|) ^ (-r) := by
@@ -175,10 +253,15 @@ theorem sum_le_uniform {θ : ℝ} (hθ0 : 0 < θ) (hθ1 : θ < 1) {η : ℝ} (h�
     simpa only [Real.norm_eq_abs] using this
   set Ir : ℝ := ∫ t : ℝ, (1 + |t|) ^ (-r) with hIrdef
   have hIr0 : 0 ≤ Ir := integral_nonneg fun t ↦ by positivity
+  have hIreq : Ir = 16 / η₀ := by
+    rw [hIrdef, integral_one_add_abs_rpow hr, hrdef, hκdef, hε₁def,
+      show (1 : ℝ) + η₀ / 4 - η₀ / 8 - 1 = η₀ / 8 by ring, div_div_eq_mul_div]
+    ring
   set D : ℝ := K * 4 ^ ε₁ / ε₁ with hDdef
   have hD : 0 ≤ D := by positivity
-  refine ⟨KM * Ir * (K + 1), KM * Ir * D + 4 * (2 + 1 / κ), by positivity, by positivity,
-    fun {F} hF hzf {c A C₀} hc0 hA0 hgrowth hlow hright {f} hf0 hfΛ hLS X hX ↦ ?_⟩
+  have hκinv : 1 / κ = 4 / η₀ := by rw [hκdef]; field_simp
+  rw [← hIreq, ← hκinv]
+  intro F hF hzf c A C₀ hc0 hA0 hgrowth hlow hright f hf0 hfΛ hLS X hX
   have hb := fun σ t hσ ↦ hKb hF hzf hc0 hA0 hgrowth hlow hright σ t hσ
   set L₀ : ℝ := Real.log (2 + 2 * c * A) with hL₀def
   have hL₀ : 0 ≤ L₀ := Real.log_nonneg (by nlinarith)
@@ -323,6 +406,34 @@ theorem sum_le_uniform {θ : ℝ} (hθ0 : 0 < θ) (hθ1 : θ < 1) {η : ℝ} (h�
           mul_le_mul_of_nonneg_right hK₁le (by positivity)
         linarith
 
+/-- **Sums of the coefficients of `−F′/F`, with their constants.** For `0 < θ < 1` and `η > 0` there are
+`C₁, C₂` such that for every `F` as in `logDeriv_le_uniform` and every `f` with `f(0) = 0`,
+`|f(n)| ≤ Λ(n)` and `L(f, s) = −F′/F(s)` on `Re s > 1`:
+`|Σ_{n≤X} f(n)| ≤ (C₁(log(2 + 2cA) + C₀) + C₂)X^{θ+η}` for every `X > 1` (`sum_le_uniform_of`, with PNT+'s
+`SmoothExistence`). -/
+theorem sum_le_uniform {θ : ℝ} (hθ0 : 0 < θ) (hθ1 : θ < 1) {η : ℝ} (hη : 0 < η) :
+    ∃ C₁ C₂ : ℝ, 0 ≤ C₁ ∧ 0 ≤ C₂ ∧ ∀ {F : ℂ → ℂ}, Differentiable ℂ F →
+      (∀ s : ℂ, θ < s.re → F s ≠ 0) →
+      ∀ {c A C₀ : ℝ}, 0 ≤ c → 0 ≤ A →
+      (∀ s : ℂ, θ ≤ s.re → s.re ≤ 3 → ‖F s‖ ≤ c * (|s.im| + 2)) →
+      (∀ t : ℝ, ‖F (ctr t)‖⁻¹ ≤ A) →
+      (∀ s : ℂ, 3 / 2 ≤ s.re → ‖deriv F s / F s‖ ≤ C₀) →
+      ∀ {f : ℕ → ℂ}, f 0 = 0 → (∀ n, ‖f n‖ ≤ ArithmeticFunction.vonMangoldt n) →
+      (∀ s : ℂ, 1 < s.re → LSeries f s = -(deriv F s / F s)) →
+      ∀ X : ℝ, 1 < X → ‖∑ n ∈ Finset.Icc 1 ⌊X⌋₊, f n‖ ≤
+        (C₁ * (Real.log (2 + 2 * c * A) + C₀) + C₂) * X ^ (θ + η) := by
+  have hη₀ : 0 < eta0 θ η := lt_min hη (by linarith)
+  have hη₀1 : eta0 θ η ≤ (1 - θ) / 2 := min_le_right _ _
+  obtain ⟨ν, ContDiffν, ν_nonneg', ν_supp, ν_massOne'⟩ := SmoothExistence
+  have diffν : ContDiff ℝ 1 ν := ContDiffν.of_le (by simp)
+  have νnonneg : ∀ x > 0, 0 ≤ ν x := fun x _ ↦ ν_nonneg' x
+  have mass_one : ∫ x in Ioi 0, ν x / x = 1 := by rwa [← integral_Ici_eq_integral_Ioi]
+  obtain ⟨KM, hKM0, hKM⟩ := mellin_le_geom diffν ν_supp (κ := eta0 θ η / 4) (by positivity)
+    (by linarith) (σ := θ + eta0 θ η / 4) (by positivity) (by linarith)
+  have hK := (logDeriv_le_uniform_of hθ0 (θ' := θ + eta0 θ η / 4) (by linarith) (by linarith)).1
+  exact ⟨_, _, by positivity, by positivity,
+    sum_le_uniform_of hθ0 hθ1 hη diffν νnonneg ν_supp mass_one hKM0 hKM⟩
+
 /-! ### Real characters, uniformly in the modulus -/
 
 /-- `ζ(3/2) = Σ_{n≥1} n^{−3/2}`, as the sum of the norms of the terms. -/
@@ -349,18 +460,29 @@ lemma summable_one_32 : LSeriesSummable (fun _ ↦ (1 : ℂ)) ((3 / 2 : ℝ) : �
   have := (LSeriesSummable_one_iff (s := ((3 / 2 : ℝ) : ℂ))).2 (by norm_num)
   exact this
 
-/-- **`ψ(x, χ)` uniformly in the modulus.** For every `η > 0` there is `C` with
-`|ψ(x, χ)| ≤ C log(N + 2)·x^{11/12+η}` for every quadratic Dirichlet character `χ ≠ 1` mod `N` and
-every `x > 1`. -/
-theorem psiChi_le_uniform {η : ℝ} (hη : 0 < η) :
-    ∃ C : ℝ, 0 ≤ C ∧ ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
-      ∀ x : ℝ, 1 < x → ‖psiChi χ x‖ ≤ C * Real.log (N + 2) * x ^ (11 / 12 + η) := by
-  obtain ⟨C₁, C₂, hC₁, hC₂, hb⟩ := sum_le_uniform (θ := 11 / 12) (by norm_num) (by norm_num) hη
+/-- **`ψ(x, χ)` uniformly in the modulus, from the constants of `sum_le_uniform`.** If `C₁, C₂ ≥ 0` satisfy
+the conclusion of `sum_le_uniform` at `θ = 11/12`, then
+`|ψ(x, χ)| ≤ (C₁(1 + log(2 + 36ζ(3/2)/11) − ζ′/ζ(3/2)) + C₂) log(N + 2)·x^{11/12+η}` for every quadratic
+Dirichlet character `χ ≠ 1` mod `N` and every `x > 1`. -/
+theorem psiChi_le_uniform_of {η C₁ C₂ : ℝ} (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
+    (hb : ∀ {F : ℂ → ℂ}, Differentiable ℂ F → (∀ s : ℂ, 11 / 12 < s.re → F s ≠ 0) →
+      ∀ {c A C₀ : ℝ}, 0 ≤ c → 0 ≤ A →
+      (∀ s : ℂ, 11 / 12 ≤ s.re → s.re ≤ 3 → ‖F s‖ ≤ c * (|s.im| + 2)) →
+      (∀ t : ℝ, ‖F (ctr t)‖⁻¹ ≤ A) →
+      (∀ s : ℂ, 3 / 2 ≤ s.re → ‖deriv F s / F s‖ ≤ C₀) →
+      ∀ {f : ℕ → ℂ}, f 0 = 0 → (∀ n, ‖f n‖ ≤ ArithmeticFunction.vonMangoldt n) →
+      (∀ s : ℂ, 1 < s.re → LSeries f s = -(deriv F s / F s)) →
+      ∀ X : ℝ, 1 < X → ‖∑ n ∈ Finset.Icc 1 ⌊X⌋₊, f n‖ ≤
+        (C₁ * (Real.log (2 + 2 * c * A) + C₀) + C₂) * X ^ (11 / 12 + η)) :
+    ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      ∀ x : ℝ, 1 < x → ‖psiChi χ x‖ ≤
+        (C₁ * (1 + Real.log (2 + 36 * zeta32 / 11) + logDerivZeta32) + C₂) * Real.log (N + 2) *
+          x ^ (11 / 12 + η) := by
   have hA₀ : 0 ≤ zeta32 := tsum_nonneg fun _ ↦ norm_nonneg _
   have hΛ₀ : 0 ≤ logDerivZeta32 := tsum_nonneg fun _ ↦ norm_nonneg _
   set c' : ℝ := Real.log (2 + 36 * zeta32 / 11) with hc'def
   have hc' : 0 ≤ c' := Real.log_nonneg (by linarith [show (0 : ℝ) ≤ 36 * zeta32 / 11 by positivity])
-  refine ⟨C₁ * (1 + c' + logDerivZeta32) + C₂, by positivity, fun N _ χ hq hχ x hx ↦ ?_⟩
+  intro N _ χ hq hχ x hx
   have hF := DirichletCharacter.differentiable_LFunction hχ
   have hzf : ∀ s : ℂ, 11 / 12 < s.re → DirichletCharacter.LFunction χ s ≠ 0 :=
     fun _ hs ↦ Eis.RealChar.LFunction_ne_zero_of_isQuadratic hq hs (Or.inl hχ)
@@ -445,5 +567,18 @@ theorem psiChi_le_uniform {η : ℝ} (hη : 0 < η) :
         have h3 : C₂ ≤ C₂ * Real.log (N + 2) := le_mul_of_one_le_right hC₂ hlogN
         linarith
     _ = (C₁ * (1 + c' + logDerivZeta32) + C₂) * Real.log (N + 2) * x ^ (11 / 12 + η) := by ring
+
+/-- **`ψ(x, χ)` uniformly in the modulus.** For every `η > 0` there is `C` with
+`|ψ(x, χ)| ≤ C log(N + 2)·x^{11/12+η}` for every quadratic Dirichlet character `χ ≠ 1` mod `N` and
+every `x > 1`. -/
+theorem psiChi_le_uniform {η : ℝ} (hη : 0 < η) :
+    ∃ C : ℝ, 0 ≤ C ∧ ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      ∀ x : ℝ, 1 < x → ‖psiChi χ x‖ ≤ C * Real.log (N + 2) * x ^ (11 / 12 + η) := by
+  obtain ⟨C₁, C₂, hC₁, hC₂, hb⟩ := sum_le_uniform (θ := 11 / 12) (by norm_num) (by norm_num) hη
+  have hA₀ : 0 ≤ zeta32 := tsum_nonneg fun _ ↦ norm_nonneg _
+  have hΛ₀ : 0 ≤ logDerivZeta32 := tsum_nonneg fun _ ↦ norm_nonneg _
+  have hc' : 0 ≤ Real.log (2 + 36 * zeta32 / 11) :=
+    Real.log_nonneg (by linarith [show (0 : ℝ) ≤ 36 * zeta32 / 11 by positivity])
+  exact ⟨_, by positivity, psiChi_le_uniform_of hC₁ hC₂ hb⟩
 
 end ChiUniform

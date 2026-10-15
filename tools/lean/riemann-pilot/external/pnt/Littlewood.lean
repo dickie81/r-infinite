@@ -20,6 +20,9 @@ character `χ ≠ 1` mod `N` (`abs_log_norm_LFunction_one_le`). So `|L(1, χ)| �
   `σ ≥ 1` by round 477's half-plane.
 * `norm_logDeriv_one_le` (round 482): `|L′/L(1, χ)| ≤ M log log(N + 16)`, the bound of `logDeriv_le_loglog` at
   `σ = 1` by continuity, since `L(1, χ) ≠ 0`.
+* `logDeriv_le_loglog_of`, `abs_log_norm_LFunction_one_le_of`, `norm_LFunction_one_le_of`,
+  `norm_LFunction_one_ge_of`, `norm_logDeriv_one_le_of` (round 484): the theorems above from a given constant:
+  `M = 48(log 4 + 4 + C₁)e` from `|ψ(x, χ)| ≤ C₁ log(N + 2)·x^{23/24}`, then `C = M + log 2`, and `e^{±C}`.
 -/
 import ChiUniform
 
@@ -119,19 +122,20 @@ lemma one_lt_loglog (N : ℕ) : 1 < Real.log (Real.log (N + 16)) := by
   rw [Real.lt_log_iff_exp_lt (by linarith [Real.exp_pos 1])]
   exact h
 
-/-- **The log-derivative on `(1, 2]`, uniformly in the modulus.** There is `M` with
-`|L′/L(σ, χ)| ≤ M log log(N + 16)` for every quadratic Dirichlet character `χ ≠ 1` mod `N` and every
-`1 < σ ≤ 2`. -/
-theorem logDeriv_le_loglog :
-    ∃ M : ℝ, 0 ≤ M ∧ ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+/-- **The log-derivative on `(1, 2]`, uniformly in the modulus, from a bound on `ψ(x, χ)`.** If
+`|ψ(x, χ)| ≤ C₁ log(N + 2)·x^{23/24}` for every quadratic `χ ≠ 1` mod `N` and every `x > 1`, then
+`|L′/L(σ, χ)| ≤ 48(log 4 + 4 + C₁)e·log log(N + 16)` for every such `χ` and every `1 < σ ≤ 2`. -/
+theorem logDeriv_le_loglog_of {C₁ : ℝ} (hC₁ : 0 ≤ C₁)
+    (hψ : ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      ∀ x : ℝ, 1 < x → ‖psiChi χ x‖ ≤ C₁ * Real.log (N + 2) * x ^ (11 / 12 + 1 / 24 : ℝ)) :
+    ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
       ∀ σ : ℝ, 1 < σ → σ ≤ 2 →
         ‖deriv (DirichletCharacter.LFunction χ) σ / DirichletCharacter.LFunction χ σ‖ ≤
-          M * Real.log (Real.log (N + 16)) := by
-  obtain ⟨C₁, hC₁, hψ⟩ := ChiUniform.psiChi_le_uniform (η := 1 / 24) (by norm_num)
+          48 * (Real.log 4 + 4 + C₁) * Real.exp 1 * Real.log (Real.log (N + 16)) := by
   have h4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
   set D : ℝ := Real.log 4 + 4 + C₁ with hDdef
   have hD : 0 < D := by linarith
-  refine ⟨48 * D * Real.exp 1, by positivity, fun N _ χ hq hχ σ hσ1 hσ2 ↦ ?_⟩
+  intro N _ χ hq hχ σ hσ1 hσ2
   set L : ℝ := Real.log (N + 16) with hLdef
   have hL : Real.exp 1 < L := exp_one_lt_log N
   have hL0 : 0 < L := by linarith [Real.exp_pos 1]
@@ -197,6 +201,18 @@ theorem logDeriv_le_loglog :
         field_simp
         ring
 
+/-- **`L′/L(σ, χ) ≪ log log q` on `(1, 2]`**: there is `M ≥ 0` with
+`|L′/L(σ, χ)| ≤ M log log(N + 16)` for every quadratic Dirichlet character `χ ≠ 1` mod `N` and `1 < σ ≤ 2`
+(`logDeriv_le_loglog_of`, with `ChiUniform.psiChi_le_uniform` at `η = 1/24`). -/
+theorem logDeriv_le_loglog :
+    ∃ M : ℝ, 0 ≤ M ∧ ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      ∀ σ : ℝ, 1 < σ → σ ≤ 2 →
+        ‖deriv (DirichletCharacter.LFunction χ) σ / DirichletCharacter.LFunction χ σ‖ ≤
+          M * Real.log (Real.log (N + 16)) := by
+  obtain ⟨C₁, hC₁, hψ⟩ := ChiUniform.psiChi_le_uniform (η := 1 / 24) (by norm_num)
+  have h4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
+  exact ⟨_, by positivity, logDeriv_le_loglog_of hC₁ hψ⟩
+
 /-! ### `L(σ, χ)` near `1` -/
 
 /-- `|L(σ, χ)| ≤ σ/(σ − 1)` and `1/|L(σ, χ)| ≤ σ/(σ − 1)` for `σ > 1`, from the partial sums of `χ` and
@@ -234,13 +250,17 @@ lemma norm_LFunction_le_real {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N
 
 /-! ### Littlewood's bounds for `L(1, χ)` -/
 
-/-- **Littlewood's bounds for `L(1, χ)`**: there is `C` with
-`|log |L(1, χ)|| ≤ log log log(N + 16) + C` for every quadratic Dirichlet character `χ ≠ 1` mod `N`. -/
-theorem abs_log_norm_LFunction_one_le :
-    ∃ C : ℝ, ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
-      |Real.log ‖DirichletCharacter.LFunction χ 1‖| ≤ Real.log (Real.log (Real.log (N + 16))) + C := by
-  obtain ⟨M, hM, hlog⟩ := logDeriv_le_loglog
-  refine ⟨M + Real.log 2, fun N _ χ hq hχ ↦ ?_⟩
+/-- **Littlewood's argument.** If `|L′/L(σ, χ)| ≤ M log log(N + 16)` on `(1, 2]` for every quadratic
+`χ ≠ 1` mod `N`, then `|log |L(1, χ)|| ≤ log log log(N + 16) + M + log 2` for every such `χ`. -/
+theorem abs_log_norm_LFunction_one_le_of {M : ℝ}
+    (hlog : ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      ∀ σ : ℝ, 1 < σ → σ ≤ 2 →
+        ‖deriv (DirichletCharacter.LFunction χ) σ / DirichletCharacter.LFunction χ σ‖ ≤
+          M * Real.log (Real.log (N + 16))) :
+    ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      |Real.log ‖DirichletCharacter.LFunction χ 1‖| ≤
+        Real.log (Real.log (Real.log (N + 16))) + (M + Real.log 2) := by
+  intro N _ χ hq hχ
   set ℓ : ℝ := Real.log (Real.log (N + 16)) with hℓdef
   have hℓ : 1 < ℓ := one_lt_loglog N
   have hℓ0 : ℓ ≠ 0 := by linarith
@@ -303,13 +323,22 @@ theorem abs_log_norm_LFunction_one_le :
   rw [abs_le]
   constructor <;> linarith
 
-/-- **`L(1, χ) ≪ log log q`**: there is `C > 0` with `|L(1, χ)| ≤ C log log(N + 16)` for every quadratic
-Dirichlet character `χ ≠ 1` mod `N`. -/
-theorem norm_LFunction_one_le :
-    ∃ C : ℝ, 0 < C ∧ ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
-      ‖DirichletCharacter.LFunction χ 1‖ ≤ C * Real.log (Real.log (N + 16)) := by
-  obtain ⟨C, hC⟩ := abs_log_norm_LFunction_one_le
-  refine ⟨Real.exp C, Real.exp_pos C, fun N _ χ hq hχ ↦ ?_⟩
+/-- **Littlewood's bounds for `L(1, χ)`**: there is `C` with
+`|log |L(1, χ)|| ≤ log log log(N + 16) + C` for every quadratic Dirichlet character `χ ≠ 1` mod `N`
+(`abs_log_norm_LFunction_one_le_of`, with `logDeriv_le_loglog`). -/
+theorem abs_log_norm_LFunction_one_le :
+    ∃ C : ℝ, ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      |Real.log ‖DirichletCharacter.LFunction χ 1‖| ≤ Real.log (Real.log (Real.log (N + 16))) + C := by
+  obtain ⟨M, -, hlog⟩ := logDeriv_le_loglog
+  exact ⟨_, abs_log_norm_LFunction_one_le_of hlog⟩
+
+/-- `|L(1, χ)| ≤ e^C log log(N + 16)` from `|log |L(1, χ)|| ≤ log log log(N + 16) + C`. -/
+theorem norm_LFunction_one_le_of {C : ℝ}
+    (hC : ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      |Real.log ‖DirichletCharacter.LFunction χ 1‖| ≤ Real.log (Real.log (Real.log (N + 16))) + C) :
+    ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      ‖DirichletCharacter.LFunction χ 1‖ ≤ Real.exp C * Real.log (Real.log (N + 16)) := by
+  intro N _ χ hq hχ
   have hpos : 0 < ‖DirichletCharacter.LFunction χ 1‖ :=
     norm_pos_iff.2 (Eis.RealChar.LFunction_ne_zero_of_isQuadratic hq (by norm_num) (Or.inl hχ))
   have hℓ : 0 < Real.log (Real.log (N + 16)) := by linarith [one_lt_loglog N]
@@ -321,13 +350,21 @@ theorem norm_LFunction_one_le :
         rw [Real.exp_add, Real.exp_log hℓ]
         ring
 
-/-- **`L(1, χ) ≫ 1/log log q`**: there is `c > 0` with `|L(1, χ)| ≥ c/log log(N + 16)` for every quadratic
+/-- **`L(1, χ) ≪ log log q`**: there is `C > 0` with `|L(1, χ)| ≤ C log log(N + 16)` for every quadratic
 Dirichlet character `χ ≠ 1` mod `N`. -/
-theorem norm_LFunction_one_ge :
-    ∃ c : ℝ, 0 < c ∧ ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
-      c / Real.log (Real.log (N + 16)) ≤ ‖DirichletCharacter.LFunction χ 1‖ := by
+theorem norm_LFunction_one_le :
+    ∃ C : ℝ, 0 < C ∧ ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      ‖DirichletCharacter.LFunction χ 1‖ ≤ C * Real.log (Real.log (N + 16)) := by
   obtain ⟨C, hC⟩ := abs_log_norm_LFunction_one_le
-  refine ⟨Real.exp (-C), Real.exp_pos _, fun N _ χ hq hχ ↦ ?_⟩
+  exact ⟨Real.exp C, Real.exp_pos C, norm_LFunction_one_le_of hC⟩
+
+/-- `|L(1, χ)| ≥ e^{−C}/log log(N + 16)` from `|log |L(1, χ)|| ≤ log log log(N + 16) + C`. -/
+theorem norm_LFunction_one_ge_of {C : ℝ}
+    (hC : ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      |Real.log ‖DirichletCharacter.LFunction χ 1‖| ≤ Real.log (Real.log (Real.log (N + 16))) + C) :
+    ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      Real.exp (-C) / Real.log (Real.log (N + 16)) ≤ ‖DirichletCharacter.LFunction χ 1‖ := by
+  intro N _ χ hq hχ
   have hpos : 0 < ‖DirichletCharacter.LFunction χ 1‖ :=
     norm_pos_iff.2 (Eis.RealChar.LFunction_ne_zero_of_isQuadratic hq (by norm_num) (Or.inl hχ))
   have hℓ : 0 < Real.log (Real.log (N + 16)) := by linarith [one_lt_loglog N]
@@ -339,18 +376,27 @@ theorem norm_LFunction_one_ge :
     _ ≤ Real.exp (Real.log ‖DirichletCharacter.LFunction χ 1‖) := Real.exp_le_exp.2 h1
     _ = ‖DirichletCharacter.LFunction χ 1‖ := Real.exp_log hpos
 
+/-- **`L(1, χ) ≫ 1/log log q`**: there is `c > 0` with `|L(1, χ)| ≥ c/log log(N + 16)` for every quadratic
+Dirichlet character `χ ≠ 1` mod `N`. -/
+theorem norm_LFunction_one_ge :
+    ∃ c : ℝ, 0 < c ∧ ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      c / Real.log (Real.log (N + 16)) ≤ ‖DirichletCharacter.LFunction χ 1‖ := by
+  obtain ⟨C, hC⟩ := abs_log_norm_LFunction_one_le
+  exact ⟨Real.exp (-C), Real.exp_pos _, norm_LFunction_one_ge_of hC⟩
 
 /-! ### `L′/L(1, χ)` -/
 
-/-- **`L′/L(1, χ) ≪ log log q`**: there is `M` with `|L′/L(1, χ)| ≤ M log log(N + 16)` for every
-quadratic Dirichlet character `χ ≠ 1` mod `N`. The bound of `logDeriv_le_loglog` on `(1, 2]`, at `σ = 1`
-by continuity, since `L(1, χ) ≠ 0`. -/
-theorem norm_logDeriv_one_le :
-    ∃ M : ℝ, 0 ≤ M ∧ ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+/-- **`L′/L(1, χ)` from the bound on `(1, 2]`.** If `|L′/L(σ, χ)| ≤ M log log(N + 16)` on `(1, 2]` for every
+quadratic `χ ≠ 1` mod `N`, then the same bound holds at `σ = 1`, by continuity, since `L(1, χ) ≠ 0`. -/
+theorem norm_logDeriv_one_le_of {M : ℝ}
+    (hb : ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      ∀ σ : ℝ, 1 < σ → σ ≤ 2 →
+        ‖deriv (DirichletCharacter.LFunction χ) σ / DirichletCharacter.LFunction χ σ‖ ≤
+          M * Real.log (Real.log (N + 16))) :
+    ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
       ‖deriv (DirichletCharacter.LFunction χ) 1 / DirichletCharacter.LFunction χ 1‖ ≤
         M * Real.log (Real.log (N + 16)) := by
-  obtain ⟨M, hM, hb⟩ := logDeriv_le_loglog
-  refine ⟨M, hM, fun N _ χ hq hχ ↦ ?_⟩
+  intro N _ χ hq hχ
   have hF := DirichletCharacter.differentiable_LFunction hχ
   have h1 : DirichletCharacter.LFunction χ ((1 : ℝ) : ℂ) ≠ 0 := by
     rw [Complex.ofReal_one]
@@ -369,5 +415,14 @@ theorem norm_logDeriv_one_le :
     exact hb N χ hq hχ σ hσ.1 hσ.2.le
   have h := le_of_tendsto (hcont.tendsto.mono_left nhdsWithin_le_nhds) hev
   simpa [hfdef] using h
+
+/-- **`L′/L(1, χ) ≪ log log q`**: there is `M` with `|L′/L(1, χ)| ≤ M log log(N + 16)` for every
+quadratic Dirichlet character `χ ≠ 1` mod `N` (`norm_logDeriv_one_le_of`, with `logDeriv_le_loglog`). -/
+theorem norm_logDeriv_one_le :
+    ∃ M : ℝ, 0 ≤ M ∧ ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      ‖deriv (DirichletCharacter.LFunction χ) 1 / DirichletCharacter.LFunction χ 1‖ ≤
+        M * Real.log (Real.log (N + 16)) := by
+  obtain ⟨M, hM, hb⟩ := logDeriv_le_loglog
+  exact ⟨M, hM, norm_logDeriv_one_le_of hb⟩
 
 end Littlewood
