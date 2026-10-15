@@ -19174,6 +19174,8 @@ In the walls column, `E` is the high side's endpoint on the bins with `δ ≥ 1/
 | Lindelöf + all readings + Gram term removed | `0.8618569` (stage 0, `κ = 3/4`) | floor bin, short gate, Gram saving |
 | Everything: Lindelöf, DH counts, amplifier to the caps, Gram term removed, all readings | `0.8613056` | floor bin, `ℓ ≥ 1/6`, Gram saving |
 
+*(Round 503: Lindelöf + all readings + Gram term removed sits at Sang's cap `κ = 3/4`. Read as his certificates' range, the cap gives way, and `κ = 0.77` gives `0.8613056`. See round 503.)*
+
 **What it shows.**
 
 - **Sang's inputs.** None of the five readings moves his `0.8748866`. The wall is the high side's endpoint on the bins with `δ ≥ 1/8`, together with the low side. That endpoint peaks at `δ ≈ 0.47`, `x = 1/2`, so `a ≈ 0.735` (gate W1). The readings act on the floor bin, the principal region, Sang's technical conditions and the low rows' margin, and none of these binds there.
@@ -19241,6 +19243,8 @@ In the walls column, `E` is the high side's endpoint on the bins with `δ ≥ 1/
 | Lindelöf + all readings | `0.8667866` | same | same | `0.8667333` |
 | Lindelöf + all readings + Gram term removed | `0.8618569` | same | same | `0.8584333` |
 | Everything | `0.8613056` | same | same | `0.8584333` |
+
+*(Round 503: on the slice, with Sang's cap `κ ≤ 3/4` read as his certificates' range, Lindelöf + all readings + Gram term removed gives `0.8613056` at `κ = 0.77`. The other columns were not recomputed. See round 503.)*
 
 **What it shows.**
 
@@ -19357,7 +19361,7 @@ Round 498's two sentences are struck with this correction.
 **What it shows** (gates L1–L3).
 
 - **With the release's low side and the Gram term, nothing moves.** The eight configurations that keep the Gram term are unchanged. Their low side `B(ℓ)` needs `ℓ > 1/6` to beat `7/8`, so the lower end never binds.
-- **Without the Gram term, the reading pays.** Sang's inputs with the Gram term removed go from `0.8745078` to `0.8710998`, at `ℓ = 0.16241`; with all readings, from `0.8745012` to `0.8694550`. The configuration Everything moves by `3·10⁻⁵`.
+- **Without the Gram term, the reading pays.** Sang's inputs with the Gram term removed go from `0.8745078` to `0.8710998`, at `ℓ = 0.16241`; with all readings, from `0.8745012` to `0.8694550`. *(Round 503: with `κ` above Sang's cap `3/4`, the second gives `0.8678790`; see round 503.)* The configuration Everything moves by `3·10⁻⁵`.
 - **The bins are not the wall.** With the low side removed, Sang's inputs reach his principal edge `0.87` under the reading, at `ℓ = 0.15328`, where the supply `ℓ/h > 21/100` binds. With all readings they reach `0.8612453`, where the short gate binds. With `ℓ ≥ 1/6` kept they stop at `0.8745077`. *(Round 502: at the edge `0.87` the optimum is not unique in `ℓ`; `0.15328` is the least `ℓ` among the optima. See round 502.)*
 - **What it takes.** Lower the release's low side by `s`. While `ℓ ≥ 1/6` holds, Sang's inputs stay at `0.8745077`. Under the reading they fall about `0.77` per unit: `0.8733461`, `0.8718248`, `0.8710723` and `0.8703257` at `s = 1/500`, `1/250`, `1/200` and `3/500`. They first reach the edge `0.87` at `s* = 0.00644`, with `ℓ = 0.16091`. With all readings they go on below it, to `0.8657514` at `s = 3/250`.
 
@@ -19447,3 +19451,83 @@ Not surveyed: the release's proofs of those statements at `ℓ < 1/6`; low estim
 **Bearing on RH:** none.
 
 **The next step.** None is planned here. The open target is unchanged: a low estimate below the release's for prime windows shorter than `1/6`. On Sang's slice the release's estimate is "`Z^{l_x/2+b/12+\eps}`"; the question for it is which step of the release's proof sets each term at short windows.
+
+## Round 503: the release's low estimate at short prime windows, step by step (`frontier/wall78/lowbudget.py`, no new Lean)
+
+**What it is.** The owner asked: "Keep digging". Round 502 left one door: a low estimate below the release's for prime windows shorter than `1/6`. It named the next question: which step of the release's proof sets each term of its low bound `Z^{l_x/2+b/12}` at short windows. This round reads the release's low estimate end to end and attributes each exponent to its step. It then computes what each step would have to give for Sang's inputs to reach `0.87`. No Lean file changes, and the paper is not edited.
+
+**The steps.**
+
+- The probe separates exactly, "`I_\eta(X,Y,Z)=\frac{Q^{-1/2}}{2\pi}`" times an integral of a row sum of `A_{m,σ,v}(Y)B_{m,σ}(Z)`. In the release's words: "Its original representation separates into an additive polynomial and a completed theta row." `A_m` sums normalized Gauss sums `g_{χ_s}(s, −m)` over `s` of norm about `Y`.
+- Proposition `prop:probe-low` bounds each rescaled tuple by "Cauchy--Schwarz in the row sum, Lemma~\ref{lem:probe-row-norm}, and the integrability of" the Mellin weight. The result is "`Q^{-1/2}\bigl[(Q/Y')P_a^{1/6}\bigr]^{1/2} \bigl[Z^{M'}\bigr]^{1/2}`". The tuple sum then gives "`f(d)=d-3d/2-d/2=-d\le0.`"
+- The row norm is "`\sum_{0<q_m\ll Q}|B^J_{m,\sigma}(Z)|^2 \ll Z^{M'+((d-1/6)/4)_++\epsilon}`", "with `$Q=q_{b_*}X'Y'\asymp Z^{M'}$`". Up to `Z^ε` and round 500's row loss, the bound is the number of rows.
+- The Gram bound has three terms:
+  - the diagonal: "The frequency `$k=0$` contributes only the diagonal", the factor `Q/Y'`;
+  - the exceptional frequencies: "This gives the term `$(Q/Y')P_a^{1/6}Z^\epsilon$`.";
+  - the rest: "Thus the nonexceptional frequencies contribute" `(Q/Y')P_a^2/Y'`.
+- In exponents at tuple size `0`, with `Q = Z^M`, `Y' = Z^{l_y}` and `P_a = Z^b`, the normalization gives `−M/2`, half the Gram diagonal `(M − l_y)/2` and half the row count `M/2`. These three sum to `l_x/2`. The exceptional term gives `θb/2`, which is `b/12` at the release's `θ = 1/6`. The high side's normalization "`C(s)=s+\frac{l_x}{2}-1+\frac h6`", with `h = 1 − l_x + ℓ`, turns the probe's exponent into the low side `s₀ = 5/6 + l_x/6 − ℓ/6 + θb/2`, plus the other Gram term and the row loss where they are positive. These pieces equal the model's low rows (round 496) at 2000 random geometries (gate B1).
+
+**What it shows** (gates B1–B5).
+
+- **With the exceptional term, `b` drops out.** On Sang's slice the low side is exactly `11/12 − ℓ/4 + (θ − 1/6)b/2` (gate B2). With `θ = 1/6` the exceptional term's `b/12` cancels what a longer `Y` gains through `l_x`, so the low side does not depend on `b`. Without the term it falls by `b/12`.
+  - Its slope `−1/4` in `ℓ` has two parts: `−1/12` through `l_x` on the slice, and `−1/6` through `C(s)`. The latter is the factor the slots put in the principal residue, "`\mathfrak H_{\eta,1,Z}(s,1,1/6) =H_\eta(s)Z^{\ell/6}A_\eta(Z)(1+\mathcal R_{\eta,Z}(s)).`"
+  - The low side reaches a boundary `B` at `ℓ = 4(11/12 − B)`: `1/6` at `7/8`, and `14/75 ≈ 0.18667` at `0.87`.
+- **The need.** Define `need(B)` as the low side's least excess over `B`, taken over the geometries the high side admits at `B`. For Sang's inputs under round 501's reading, at `κ = 2B − 1 = 0.74`, the high side admits `0.87` up to `ℓ = 0.16091`. There the bins `E`, the supply `ℓ/h > 21/100` and the principal edge bind. The excess there is `11/12 − ℓ/4 − 0.87 = 0.0064390`, round 501's `s*`. The same function reproduces round 501's whole curve, and it vanishes at Sang's `0.8748866` (gate B3).
+- **What the exceptional term is worth.** The table gives `need(0.87)`, least over `κ` from `0.74` to `1` (gate B4). The tech reading is round 498's: Sang's `21/100`, which serves his uniform short gate, read as his row count's supply `1/5`, with the gate checked directly.
+
+  | | exceptional term kept | removed |
+  |---|---|---|
+  | Sang's inputs | `0.0064390` | `0.0022930` |
+  | Sang's inputs + tech reading | `0.0063442` | `−0.0040493` (`κ = 0.77`) |
+
+  - Removing the term at Sang's inputs lowers the need by `b/12 = 0.0041460`, at the same `ℓ`. There `b = 0.04975` is capped by the supply: on his slice `ℓ/h > 21/100` is `b < 137ℓ/21 − 1`.
+  - With the tech reading the cap is `b < 7ℓ − 1`, and `b = 0.12601`. Only the last cell is below zero: there Sang's inputs reach `0.87` with no further saving.
+- **The rest.** Of the other steps:
+  - the normalization is an identity;
+  - the row norm's bound is the row count;
+  - the Gram bound's first term is its diagonal.
+
+  The remaining step is Cauchy–Schwarz. A bound for the row sum of `A_m B_m` smaller than `‖A‖‖B‖` by `Z^{−σ}`, in every tuple, lowers the low side by `σ`. At `0.87`, Sang's inputs need `σ = 0.0064390`, or `0.0022930` with the exceptional term removed.
+- **`κ` above `3/4`** (gate B5). `levers.py` starts its bootstrap at `κ = 3/4` and keeps Sang's cap there. His admissibility list has "`\(29991/40000\le\kappa\le3/4\)`", and his two certified stages are `3/4` and `29991/40000`. His row count and numerator propositions take "`\(13/18\le\kappa\le1\)`, with" the licensing condition. The release's moment asks "If `\(\kappa<1\)`, assume in addition that `\(\beta_*\le(1+\kappa)/2\)`.", which its `7/8` gives for every `κ ≥ 3/4`.
+  - Read as his certificates' range, the cap gives way. Under round 501's reading two configurations then fall below their bootstrap values, both at `κ = 0.77`: Sang's inputs + Gram removed + all readings, from `0.8694550` to `0.8678790`, and Lindelöf + all readings + Gram removed, from `0.8618569` to `0.8612731`.
+  - With `ℓ ≥ 1/6` kept, only the latter falls, to `0.8613056`. The other configurations are least at `κ = 3/4`.
+  - `κ` enters both the row count and the short gate `R ≤ (6κ − 2q)ℒ`. For Sang's own inputs the bootstrap's fixed point stays best: `need(0.87)` rises with `κ` from `0.74` to `1`.
+
+**What it means.** At short windows the release's low side on Sang's slice is `11/12 − ℓ/4` whatever `b` is, because the exceptional Gram term takes back exactly what `b` gives. The gap to `0.87` is therefore a gap in `ℓ`. The low side needs `ℓ ≥ 14/75`, Sang's high side admits `ℓ ≤ 0.16091`, and a quarter of the difference, `0.0064`, is the saving. Of the steps, the exceptional term is the one whose exponent rises with `b`; removed, it lets `b` lower the low side. Under Sang's `21/100` its removal buys `0.0041`. Under round 498's tech reading, with `κ` above `3/4`, it closes the whole gap. So in this exponent system, with those readings, removing the exceptional term is by itself enough to take Sang's own inputs to `0.87`; keeping it, the pairing must save about `Z^{0.0063}`. The register's note on that term lists what is open there: whether Xu–Sang's main term holds for the release's `A_m`, a probe without such a term, and a direct bound for the pairing of that term with the completed rows.
+
+**Gates.** `python3 frontier/wall78/lowbudget.py` runs in about 90 seconds on four processes. All five gates, B1–B5, pass; any failure gives exit status 1. In session runs, halving the exceptional exponent inside the step sum fails B1 and B2.
+
+**Check 9.**
+
+- (a) Scope:
+  - the release's low estimate as written: eq. `low-separated`, Lemma `lem:probe-row-norm`, Propositions `prop:probe-gram` and `prop:probe-low`, and Definition `def:stage-high-data`'s `C(s)`;
+  - Sang's `κ` ranges, read from his admissibility list, his propositions and his certificates.
+
+  What this round says of the row norm and of the Gram diagonal describes the bounds, the row count and the diagonal, not their sharpness. Every boundary here is a statement about this exponent system.
+- (b) Register: the sub-entry "Below `7/8` in the release's exponent comparison" gets a bullet for this round. Its note on the Gram term gets a marker.
+- (c) The signal is unchanged: the release's probe.
+
+**The machinery checklist.**
+
+- Surveyed:
+  - the release's Section 6.1 (eq. `general-probe`, eq. `low-separated`);
+  - its Section 15 (the statement of Lemma `lem:probe-row-norm`, and the proofs of Propositions `prop:probe-gram` and `prop:probe-low`);
+  - Definition `def:stage-high-data` and Lemma `lem:principal-residue-interface`'s residue identity;
+  - Sang's `κ` ranges.
+- Not surveyed:
+  - bounds for the row sum of `A_m B_m` other than Cauchy–Schwarz;
+  - Xu–Sang's second moment for the release's own `A_m`.
+
+**Records.** README rounds 498 and 499: a net-state marker after each table that lists Lindelöf + all readings + Gram removed. README round 501: a marker on its sentence giving `0.8694550`. STRUCTURAL-REVIEW §6: a bullet for this round and a marker on the Gram-term note.
+
+**Check 4.** Already in the pilot: the exceptional term and Cauchy–Schwarz as the low side's levers (round 496's map and the register's note on the Gram term). New against the pilot:
+
+- the step-by-step exponents and the cancellation of `b`;
+- `need(B)` and its reproduction of round 501's curve;
+- the exceptional term's worth at short windows, capped by the supply;
+- the one combination in the table that reaches `0.87`;
+- `κ` above `3/4`.
+
+**Bearing on RH:** none.
+
+**The next step.** None is planned here. The open input this round isolates is the exceptional Gram term at short windows, or a pairing bound that saves `Z^{0.0064}` (`Z^{0.0023}` without the term).
