@@ -18424,4 +18424,64 @@ The splitting law, which supplies `c` for a given `K`, is the next step.
 
 **Bearing on RH:** none.
 
-**The next step.** Round 486: door 4(b), the ring of integers of a quadratic field. For `K = ℚ(√d)`, `d` a squarefree integer other than `0` and `1`, `𝓞 K = ℤ[√d]` if `d ≡ 2, 3 (mod 4)` and `ℤ[(1 + √d)/2]` if `d ≡ 1 (mod 4)`, and the discriminant `D_K` is `4d` or `d`. A monogenic generator is what Mathlib's Kummer–Dedekind criterion (`NumberField.Ideal.primesOverSpanEquivMonicFactorsMod`) needs for the splitting law at every prime.
+**The next step.** Round 486: door 4(b), the ring of integers of a quadratic field. For `K = ℚ(√d)`, `d` a squarefree integer other than `0` and `1`, `𝓞 K = ℤ[√d]` if `d ≡ 2, 3 (mod 4)` and `ℤ[(1 + √d)/2]` if `d ≡ 1 (mod 4)`, and the discriminant `D_K` is `4d` or `d`. A monogenic generator is what Mathlib's Kummer–Dedekind criterion (`NumberField.Ideal.primesOverSpanEquivMonicFactorsMod`) needs for the splitting law at every prime. *(Round 486: landed, `QuadRing.adjoin_θ₁`, `QuadRing.discr_θ₁`, `QuadRing.adjoin_θ₂` and `QuadRing.discr_θ₂`, with `QuadRing.exists_sqrt` for the existence of `d`. See round 486.)*
+
+## Round 486: the ring of integers of a quadratic field, `𝓞 K = ℤ[√d]` or `ℤ[(1 + √d)/2]` and `D_K = 4d` or `d` (`external/pnt/QuadRing.lean`)
+
+**What it is.** Door 4(b) of round 481, second part, as round 485's paragraph "The next step" planned: "Round 486: door 4(b), the ring of integers of a quadratic field. For `K = ℚ(√d)`, `d` a squarefree integer other than `0` and `1`, `𝓞 K = ℤ[√d]` if `d ≡ 2, 3 (mod 4)` and `ℤ[(1 + √d)/2]` if `d ≡ 1 (mod 4)`, and the discriminant `D_K` is `4d` or `d`. A monogenic generator is what Mathlib's Kummer–Dedekind criterion (`NumberField.Ideal.primesOverSpanEquivMonicFactorsMod`) needs for the splitting law at every prime." Let `K` be a number field with `[K : ℚ] = 2`, `d` a squarefree integer other than `1` (a squarefree integer is not `0`) and `s ∈ K` with `s² = d`. The round proves, with no hypothesis beyond those stated:
+
+- `QuadRing.exists_sqrt`: every number field of degree `2` contains such a pair `d`, `s`.
+- `QuadRing.exists_eq`: every element of `K` is `a + bs` with `a, b ∈ ℚ`.
+- `QuadRing.isIntegral_iff`: `a + bs` is an algebraic integer exactly when `2a` and `2b` are integers `A`, `B` with `4 ∣ A² − dB²`.
+- `QuadRing.span_θ₁`, `QuadRing.adjoin_θ₁`, `QuadRing.discr_θ₁`, `QuadRing.minpoly_θ₁`: if `d ≡ 1 (mod 4)`, `θ = (1 + s)/2` is an algebraic integer, every element of `𝓞 K` is `u + vθ` with `u, v ∈ ℤ`, `𝓞 K = ℤ[θ]`, Mathlib's `discr K` is `d`, and the minimal polynomial of `θ` over `ℤ` is `X² − X − (d − 1)/4`.
+- `QuadRing.span_θ₂`, `QuadRing.adjoin_θ₂`, `QuadRing.discr_θ₂`, `QuadRing.minpoly_θ₂`: if `d ≡ 2, 3 (mod 4)`, every element of `𝓞 K` is `u + vs` with `u, v ∈ ℤ`, `𝓞 K = ℤ[s]`, `discr K = 4d`, and the minimal polynomial of `s` over `ℤ` is `X² − d`.
+
+**What is proved.** `external/pnt/QuadRing.lean` (631 lines, 37 theorems, 5 definitions; 14 axiom lines in `build.sh`'s final check, each `[propext, Classical.choice, Quot.sound]`):
+
+- **`int_of_mul_sq`**, **`not_sq`**: for `d` squarefree, `dr² ∈ ℤ` with `r ∈ ℚ` forces `r ∈ ℤ`, and `d ≠ 1` is not the square of a rational.
+- **`not_mem_range`**, **`linearIndependent`**, **`exists_eq`**: `s ∉ ℚ`, `1` and `s` are linearly independent over `ℚ`, and they span `K`.
+- **`quadPoly`** (definition), **`quadPoly_monic`**, **`quadPoly_natDegree`**, **`aeval_quadPoly`**, **`minpoly_eq`**: for `b ≠ 0`, the minimal polynomial of `a + bs` over `ℚ` is `X² − 2aX + (a² − db²)`.
+- **`zmod4_eq_zero`**, **`dvd_of_zmod4`**, **`zmod4_of_emod`**, **`two_dvd_sub`**, **`two_dvd_both`**: `4 ∣ A² − dB²` forces `A ≡ B (mod 2)` if `d ≡ 1 (mod 4)`, and `A`, `B` both even if `d ≡ 2, 3 (mod 4)`.
+- **`isIntegral_of`**, **`isIntegral_iff`**: above.
+- **`discr_eq_of_basis`**: if `(1, θ)` is a `ℤ`-basis of `𝓞 K` and `θ² = c + eθ` with `c, e ∈ ℤ`, then `discr K = 4c + e²`.
+- **`isIntegral_θ₁`**, **`θ₁`** (definition), **`coe_θ₁`**, **`algebraMap_θ₁`**, **`intCast_quarter`**, **`θ₁_sq`**, **`linearIndependent_θ₁`**, **`span_θ₁`**, **`basis₁`** (definition), **`adjoin_θ₁`**, **`discr_θ₁`**, **`minpoly_θ₁`**: the case `d ≡ 1 (mod 4)`, with `θ² = (d − 1)/4 + θ`.
+- **`isIntegral_θ₂`**, **`θ₂`** (definition), **`coe_θ₂`**, **`algebraMap_θ₂`**, **`θ₂_sq`**, **`linearIndependent_θ₂`**, **`span_θ₂`**, **`basis₂`** (definition), **`adjoin_θ₂`**, **`discr_θ₂`**, **`minpoly_θ₂`**: the case `d ≡ 2, 3 (mod 4)`, with `s² = d + 0·s`.
+- **`exists_sqrt`**: above.
+
+**The proof.**
+
+- **`K = ℚ + ℚs`.** If `r² = d` with `r ∈ ℚ`, `int_of_mul_sq` with `d = 1` makes `r` an integer `m`, and `m·m = d` with `d` squarefree makes `m` a unit, so `d = 1`. So `s ∉ ℚ`, `1` and `s` are linearly independent, and two independent vectors span a space of dimension `2` (Mathlib's `LinearIndependent.span_eq_top_of_card_eq_finrank'`).
+- **The minimal polynomial over `ℚ`.** `a + bs` is a root of `X² − 2aX + (a² − db²)`; for `b ≠ 0` it is not in `ℚ`, so its minimal polynomial has degree `2`, divides that polynomial, and both are monic (Mathlib's `Polynomial.eq_of_monic_of_dvd_of_natDegree_le`).
+- **Integrality.** `ℤ` is integrally closed, so the minimal polynomial over `ℚ` of an algebraic integer is the image of a polynomial over `ℤ` (Mathlib's `minpoly.isIntegrallyClosed_eq_field_fractions'`). So `A = 2a` and `c = a² − db²` are integers, `d(2b)² = A² − 4c` is an integer, `B = 2b` is an integer by `int_of_mul_sq`, and `A² − dB² = 4c`. Conversely `X² − AX + c` with `4c = A² − dB²` has root `a + bs`.
+- **The residues mod `4`.** `x² − y² ≡ 0`, `x² − 2y² ≡ 0` and `x² − 3y² ≡ 0` are checked for all `x, y ∈ ℤ/4` by `decide`.
+- **The bases.** For `d ≡ 1 (mod 4)`, `θ = (1 + s)/2` has `A = B = 1` and `c = (1 − d)/4`; an integer `a + bs` with `A ≡ B (mod 2)` is `(A − B)/2 + Bθ`. For `d ≡ 2, 3 (mod 4)`, `A` and `B` are even and the integer is `A/2 + (B/2)s`. Linear independence over `ℤ` comes from that over `ℚ`, and `Module.Basis.mk` makes the bases.
+- **The discriminant.** In the basis `(1, θ)` the traces are `Tr 1 = 2`, `Tr θ = e` and `Tr θ² = 2c + e²` (Mathlib's `Algebra.trace_eq_matrix_trace` and `Algebra.leftMulMatrix_eq_repr_mul`), so the determinant of the trace matrix is `2(2c + e²) − e² = 4c + e²`, and Mathlib's `NumberField.discr_eq_discr` makes it `discr K`. With `c = (d − 1)/4`, `e = 1` it is `d`; with `c = d`, `e = 0` it is `4d`.
+- **The minimal polynomial over `ℤ`.** Mathlib's `minpoly.algebraMap_eq` moves it from `𝓞 K` to `K`; its image in `ℚ[X]` is `minpoly_eq` at `(a, b) = (1/2, 1/2)` or `(0, 1)`, and the map `ℤ[X] → ℚ[X]` is injective.
+- **A square root.** An element `x ∉ ℚ` has minimal polynomial `X² + pX + q`; `y = x + p/2` has `y² = r = p²/4 − q ∈ ℚ` with `r ≠ 0` and `y ∉ ℚ`. For `r = m/n` in lowest terms, `(ny)² = nm`; Mathlib's `exists_sq_mul_squarefree` writes `nm = f²d` with `d` squarefree, and `s = ny/f` has `s² = d`. If `d = 1`, `ny = ±f` would put `y` in `ℚ`.
+
+**Against the plan.** The round lands what round 485 planned, with `𝓞 K = ℤ[θ]` stated as `Algebra.adjoin ℤ {θ} = ⊤`. Round 481's route wrote the ring of integers as `ℤ[(D + √D)/2]`; with `√D = s` for `D = d` and `√D = 2s` for `D = 4d`, `(D + √D)/2` is `θ + (d − 1)/2` or `s + 2d`, an integer translate of the generator here, so the rings are the same; the file states the generator as `θ`. The file does not state that `d` is determined by `K`. The splitting law and the Kronecker character remain for round 487.
+
+**The paper.** `grep -n -i "ring of integers\|integral basis\|monogenic\|minimal polynomial\|discriminant\|ℚ(√\|sqrt{d}\|√d"` on `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` finds 19 lines of the first file and 2 of the second, read here. Line 165 of the first file names "the generator of the **different ideal 𝔡 = (√−3)** of ℤ[ω] (disc = −3 verified from the embeddings; …)"; lines 387, 389, 393, 414, 418, 434, 456, 461, 463 and 469 concern the signed discriminant of quadratic forms over `ℚ₂` and the "colour discriminant" `−3`; lines 545, 994 and 1336 concern fundamental discriminants in the paper's census of imaginary quadratic fields; lines 550 and 552 name "the μ₄ field's discriminant character at the clock prime" and "the μ₆ field's discriminant"; line 3491 is the discriminant of a quadratic equation in a translate scan; line 3560 names the minimal polynomial `4γ⁴ + 103γ² − 24` of a number `γ_b`; line 3961, struck, names "Hecke L-functions over ℚ(√−3)". Line 52 of the second file reads "| cos(π/6) | weight–root angle of ℤ[ω] | ring of integers of ℚ(ζ₃) |", and line 229 "generators = the colour discriminant (unramified — ℚ₂(√−3) = ℚ₂(ζ₃);". No line derives the ring of integers or the discriminant of a general quadratic field. For `d = −3` (`−3 ≡ 1 (mod 4)`), `ω = θ − 1`, so `ℤ[ω] = ℤ[θ]` is `adjoin_θ₁`'s ring and `−3` is `discr_θ₁`'s value. The paper is not edited.
+
+**Records.**
+
+- `external/pnt/build.sh`: `QuadRing` in the compile list, and 14 lines added to the final check (137 to 151 `#print axioms` lines).
+- `external/pnt/README.md`: a row and a section for `QuadRing.lean`.
+- STRUCTURAL-REVIEW §6: a marker on the entry for door 4.
+- A net-state marker on round 485's paragraph "The next step".
+
+**Build.** `external/pnt/build.sh` (1092 s) compiled `Architect.lean`, the 19 PNT+ files and the 32 files here, `QuadRing.lean` with no warnings. Its final check printed 151 axiom lines, each `[propext, Classical.choice, Quot.sound]`. No file of `src/` changed.
+
+- The namespace `QuadRing` is new: a grep of the Lean files of the pilot (`external/` included) and of Mathlib for `QuadRing` finds it only in its own file. The file imports Mathlib only.
+
+**Check 4.** Classical [recalled]: the ring of integers and the discriminant of a quadratic field. A grep for `Squarefree` in Mathlib's `NumberTheory/NumberField`, `NumberTheory/Zsqrtd` and `Algebra/QuadraticAlgebra` finds nothing, and a grep for `RingOfIntegers`, `ringOfIntegers` or `integralClosure` in the last two finds nothing. Mathlib computes the discriminants of cyclotomic fields (`NumberTheory/NumberField/Cyclotomic/Basic.lean`) and classifies the quadratic algebras over `ℤ` by their discriminant (`QuadraticAlgebra.nonempty_algEquiv_int_iff_discr_eq`); it does not identify `𝓞 K` for a quadratic field. New against the pilot and against that grep: `𝓞 K`, its basis and `discr K` for every quadratic field. None of it is new mathematics.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every number field of degree `2`, every squarefree `d ≠ 1` and every `s` with `s² = d` in it, every `a, b ∈ ℚ`.
+- (b) No barrier claim is made.
+- (c) No signal is fed to a criterion.
+
+**Bearing on RH:** none.
+
+**The next step.** Round 487: door 4(b), the splitting law and the Kronecker character. With `θ` from this round, Mathlib's `NumberField.Ideal.primesOverSpanEquivMonicFactorsMod` matches the primes over `p` with the monic irreducible factors of the minimal polynomial of `θ` mod `p`, with their inertia degrees and ramification indices. The factorization of `X² − X − (d − 1)/4` or `X² − d` mod `p` gives the splitting type of `p`, and a Dirichlet character mod `|D_K|` with those values at the primes is the `χ` that round 485's `QuadIdeals.rA_eq` takes.
