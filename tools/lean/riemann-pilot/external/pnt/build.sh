@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadIdeals; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -95,6 +95,7 @@ import LeastNonresidue
 import SquarefreeCount
 import ExplicitSmooth
 import ExplicitConstants
+import QuadIdeals
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -221,6 +222,17 @@ import ExplicitConstants
 #print axioms ExplicitConstants.exists_nonsquare_le_explicit
 #print axioms ExplicitConstants.exists_nonsquare_le_13
 #print axioms ExplicitConstants.exists_nonsquare_le_rpow_explicit
+#print axioms QuadIdeals.card_ofNorm_mul
+#print axioms QuadIdeals.trichotomy
+#print axioms QuadIdeals.card_ofNorm_split
+#print axioms QuadIdeals.card_ofNorm_inert
+#print axioms QuadIdeals.card_ofNorm_ramified
+#print axioms QuadIdeals.rA_eq
+#print axioms QuadIdeals.dedekindZeta_eq
+#print axioms QuadIdeals.LFunction_one_eq_residue
+#print axioms QuadIdeals.regulator_eq_one
+#print axioms QuadIdeals.LFunction_one_eq_imag
+#print axioms QuadIdeals.residue_eq_real
 EOT
 echo "== axioms"
 # every #print axioms line must print an axiom list inside the three, and no axiom line may name another axiom

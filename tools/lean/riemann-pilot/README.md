@@ -18362,4 +18362,66 @@ In the four files the round extends, each theorem whose constant was existential
 
 **Bearing on RH:** none.
 
-**The next step.** Round 485: door 4(b), the class numbers of quadratic fields, along the route round 481 recorded. Its first part is the arithmetic that round 481's grep of Mathlib did not find: the Kronecker character `χ_K` as a Dirichlet character mod `|D_K|` and the splitting law of the primes in the ring of integers of `K`.
+**The next step.** Round 485: door 4(b), the class numbers of quadratic fields, along the route round 481 recorded. Its first part is the arithmetic that round 481's grep of Mathlib did not find: the Kronecker character `χ_K` as a Dirichlet character mod `|D_K|` and the splitting law of the primes in the ring of integers of `K`. *(Round 485: landed instead the steps of that route that do not depend on the Kronecker character, the ideal count from the splitting types, `ζ_K = ζ·L(·, χ)` and the class number formula: `QuadIdeals.rA_eq`, `QuadIdeals.dedekindZeta_eq` and `QuadIdeals.LFunction_one_eq_imag`. See round 485.)*
+
+## Round 485: the ideals of each norm in a quadratic field, `ζ_K = ζ·L(·, χ)` and `L(1, χ) = 2πh_K/(w_K√|D_K|)` from the splitting types (`external/pnt/QuadIdeals.lean`)
+
+**What it is.** Door 4(b) of round 481, first part. Round 484's paragraph "The next step" planned: "Round 485: door 4(b), the class numbers of quadratic fields, along the route round 481 recorded. Its first part is the arithmetic that round 481's grep of Mathlib did not find: the Kronecker character `χ_K` as a Dirichlet character mod `|D_K|` and the splitting law of the primes in the ring of integers of `K`." This round lands, instead, the steps of that route that do not depend on the Kronecker character, for every quadratic field and every character that gives its splitting types (Against the plan). Let `K` be a number field, `a_K(n)` the number of ideals of `𝓞 K` of norm `n` and `χ` a Dirichlet character. The round proves, with no hypothesis beyond those stated:
+
+- `QuadIdeals.card_ofNorm_mul`: `a_K(ab) = a_K(a)a_K(b)` for coprime `a, b ≥ 1`, in every number field.
+- `QuadIdeals.trichotomy`: if `[K : ℚ] = 2`, every prime `p` splits (`p𝓞 = PQ` with `P ≠ Q`, both of norm `p`), is inert (`p𝓞` prime, of norm `p²`) or ramifies (`p𝓞 = P²` with `P` of norm `p`).
+- `QuadIdeals.card_ofNorm_split`, `QuadIdeals.card_ofNorm_inert`, `QuadIdeals.card_ofNorm_ramified`: the number of ideals of norm `p^k` is `k + 1` if `p` splits; `1` or `0` as `k` is even or odd if `p` is inert; `1` if `p` ramifies.
+- `QuadIdeals.rA_eq`: if `c` is a multiplicative arithmetic function with `c(p^k) = c(p)^k`, and `c(p) = 1`, `−1` or `0` as `p` splits, is inert or ramifies, then `a_K = c * 1`, that is, `a_K(n) = Σ_{d∣n} c(d)`.
+- `QuadIdeals.dedekindZeta_eq`: if `a_K = c * 1` and `χ(n) = c(n)` for every `n`, then Mathlib's `ζ_K(s)` equals `ζ(s)L(s, χ)` for `Re s > 1`.
+- `QuadIdeals.LFunction_one_eq_residue`: if `ζ_K(s) = ζ(s)L(s, χ)` for `Re s > 1` and `χ ≠ 1`, then `L(1, χ)` equals Mathlib's `dedekindZeta_residue K`, the residue in its class number formula.
+- `QuadIdeals.LFunction_one_eq_imag`: for `[K : ℚ] = 2` with no real place, under the same hypothesis, `L(1, χ) = 2πh_K/(w_K√|D_K|)`, with Mathlib's `classNumber K`, `Units.torsionOrder K` and `discr K`.
+
+The splitting law, which supplies `c` for a given `K`, is the next step.
+
+**What is proved.** `external/pnt/QuadIdeals.lean` (599 lines, 38 theorems, 6 definitions; 11 axiom lines in `build.sh`'s final check, each `[propext, Classical.choice, Quot.sound]`):
+
+- **`ofNorm`** (definition), **`mem_ofNorm`**, **`natCast_span_le`**, **`span_sup_span_eq_top`**: the finite set of ideals of norm `n`, `N(I)𝓞 ⊆ I`, and coprime integers generate coprime ideals.
+- **`mul_sup_span_eq`**, **`norm_sup_span_dvd`**, **`sup_mul_sup_eq`**, **`ofNorm_mul`**, **`injOn_mul`**, **`card_ofNorm_mul`**, **`card_ofNorm_one`**: the bijection `I ↦ (I + a𝓞, I + b𝓞)` between the ideals of norm `ab` and the pairs of ideals of norms `a` and `b`, `a, b` coprime, and `a_K(1) = 1`.
+- **`finrank_O`**, **`absNorm_natCast_span_sq`**, **`pFactors`** (definition), **`span_natCast_ne_bot`**, **`mem_pFactors`**, **`pFactors_prime`**, **`prod_pFactors`**, **`prod_norm_pFactors`**, **`norm_of_mem_pFactors`**, **`pFactors_cases`**, **`mem_pFactors_of_mem`**: the prime factors of `p𝓞` (`normalizedFactors`); for `[K : ℚ] = 2` their norms multiply to `p²`, so there is one, of norm `p²`, or two with multiplicity, of norm `p`; the prime factors of an ideal of norm `p^k` are among them.
+- **`Split`**, **`Inert`**, **`Ramified`** (definitions), **`trichotomy`**: above.
+- **`eq_pow_of_factors`**, **`eq_pow_mul_pow_of_factors`**, **`ne_bot_of_norm`**, **`factors_pow_mul_pow`**, **`card_ofNorm_split`**, **`card_ofNorm_inert`**, **`card_ofNorm_ramified`**: the ideals of norm `p^k` are `P^aQ^{k−a}`, `P^{k/2}` or `P^k`.
+- **`rA`** (definition), **`rA_apply`**, **`rA_mult`**, **`sum_neg_one_pow`**, **`rA_eq`**: `a_K` as an arithmetic function, multiplicative, and `a_K = c * 1`.
+- **`dedekindZeta_eq`**, **`LFunction_one_eq_residue`**: above.
+- **`regulator_eq_one`**: the regulator of a number field of unit rank `0` is `1`.
+- **`residue_eq_imag`**, **`LFunction_one_eq_imag`**, **`residue_eq_real`**: for `[K : ℚ] = 2`, the residue is `2πh_K/(w_K√|D_K|)` if `K` has no real place and `4R_K h_K/(w_K√D_K)` if it has no complex place.
+
+**The proof.**
+
+- **Multiplicativity.** For coprime `a, b` and `N(I) = ab`, `J = I + a𝓞` and `L = I + b𝓞` satisfy `JL = I` (`JL ⊆ I` since `ab ∈ I`, and `I = I(a𝓞 + b𝓞) ⊆ JL`); `N(J)` divides `ab` and `a^{[K:ℚ]}`, so `N(J) ∣ a`, and likewise `N(L) ∣ b`, so `N(J) = a` and `N(L) = b`. Conversely `J = JL + a𝓞` for `N(J) = a`, `N(L) = b`, so the product is injective on the pairs. This is round 283's proof for `ℚ(ζ₃)` (`Eis.ofNorm_mul`, `Eis.injOn_mul`), which uses no property of that field, run for every number field.
+- **The three patterns.** For `[K : ℚ] = 2`, `N(p𝓞) = p²` (Mathlib's `Ideal.absNorm_span_natCast`), so the norms of the prime factors of `p𝓞` multiply to `p²`, and each is `p` or `p²`; a multiset of card `2` is `{P, Q}` (Mathlib's `Multiset.card_eq_two`), with `P = Q` (ramified) or `P ≠ Q` (split). This is round 283's `Eis.pFactors_cases` with `[K : ℚ] = 2` as a hypothesis.
+- **The counts at `p^k`.** The prime factors of an ideal of norm `p^k` lie over `p`, so the ideal is `P^aQ^b`, and its norm fixes `a + b`, `2a` or `a`; this is round 287's `Eis.card_ofNorm_split`, `Eis.card_ofNorm_inert` and `Eis.card_ofNorm_three`, from the pattern in place of `p mod 3`. Both sides of `rA_eq` are multiplicative and agree at `p^k`: `Σ_{j≤k} c(p)^j` is `k + 1`, `[2 ∣ k]` or `1` (Mathlib's `ArithmeticFunction.IsMultiplicative.eq_iff_eq_on_prime_powers`).
+- **The zeta function.** For `n ≠ 0`, the coefficient of Mathlib's `dedekindZeta K` is `a_K(n) = Σ_{d∣n} χ(d)`, the `n`-th coefficient of the convolution of `χ` with `1`; Mathlib's `LSeries_convolution'`, with both series summable on `Re s > 1`, `LSeries_one_eq_riemannZeta` and `DirichletCharacter.LFunction_eq_LSeries` give `ζ_K = ζ·L(·, χ)`.
+- **The residue.** As `s → 1⁺` along the reals, `(s − 1)ζ(s) → 1` (Mathlib's `riemannZeta_residue_one`) and `L(s, χ) → L(1, χ)` (`L(·, χ)` is entire for `χ ≠ 1`, Mathlib's `DirichletCharacter.differentiable_LFunction`), so `(s − 1)ζ_K(s) → L(1, χ)`; Mathlib's `tendsto_sub_one_mul_dedekindZeta_nhdsGT` gives the limit `dedekindZeta_residue K`, and limits are unique.
+- **The imaginary and real residues.** `r₁ + 2r₂ = 2` (Mathlib's `InfinitePlace.card_add_two_mul_card_eq_rank`). With no real place, `r₂ = 1` and the unit rank `r₁ + r₂ − 1` is `0`, so the regulator, the absolute value of the determinant of a matrix indexed by an empty type (Mathlib's `Units.regulator_eq_det'`), is `1`, and Mathlib's residue `2^{r₁}(2π)^{r₂}R_K h_K/(w_K√|D_K|)` is `2πh_K/(w_K√|D_K|)`. With no complex place, `r₁ = 2` and the residue is `4R_K h_K/(w_K√D_K)`.
+
+**Against the plan.** Round 481 recorded door 4(b)'s route: "the ring of integers `ℤ[(D + √D)/2]`, the splitting law by Dedekind–Kummer, the Kronecker character `χ_K` as a Dirichlet character mod `|D_K|`, the ideal count `#{𝔞 : N𝔞 = n} = Σ_{d∣n} χ_K(d)`, `ζ_K = ζ·L(·, χ_K)` on `Re s > 1`, and the residue at `1`, which gives `L(1, χ_K) = 2πh_K/(w_K√|D_K|)` for imaginary `K`". Round 484 planned the Kronecker character and the splitting law as this round's first part. This round lands the last three steps instead, for any character whose values at the primes are the splitting types, and the general machinery of rounds 283 and 287 for every quadratic field. The ring of integers, the splitting law and the Kronecker character remain; together with this round they give the ideal count for `χ_K`.
+
+**The paper.** `grep -n -i "class number\|dedekind\|quadratic field\|ζ_K\|zeta_K\|ideal count\|splitting law\|kronecker"` on `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` finds 11 lines of the first file and 3 of the second, read here. They concern the torsion of the units of the imaginary quadratic fields in the paper's census (lines 542, 1338, 1346 and 1347 of the first file); the Kronecker characters of negative fundamental discriminants as the partner family of the odd real primitive characters, cited (lines 994–995 of the first file, line 435 of the second); token censuses in which "Kronecker" occurs (lines 1148, 1150 and 1151 of the first, lines 508 and 511 of the second); Kronecker–Weyl equidistribution (line 6186); and the verification suite's list of classical inputs (line 9359), which names `Dirichlet, the units of imaginary quadratic fields and the class-number formula` and `Kronecker, the symbol (D/n)`. No line derives the ideal count of a quadratic field, the factorization of `ζ_K` or the class number formula; line 9359 lists the formula as a classical input. The paper is not edited.
+
+**Records.**
+
+- `external/pnt/build.sh`: `QuadIdeals` in the compile list, and 11 lines added to the final check (126 to 137 `#print axioms` lines).
+- `external/pnt/README.md`: a row and a section for `QuadIdeals.lean`.
+- STRUCTURAL-REVIEW §6: a marker on the entry for door 4.
+- A net-state marker on round 484's paragraph "The next step".
+
+**Build.** `external/pnt/build.sh` (1112 s) compiled `Architect.lean`, the 19 PNT+ files and the 31 files here, `QuadIdeals.lean` with no warnings. Its final check printed 137 axiom lines, each `[propext, Classical.choice, Quot.sound]`. No file of `src/` changed.
+
+- The namespace `QuadIdeals` is new: a grep of the Lean files of the pilot (`external/` included) and of Mathlib for `QuadIdeals` finds it only in its own file. The file imports Mathlib only; it does not import the pilot's `Eis` files, whose `ofNorm`, `pFactors` and `rA` are for `ℚ(ζ₃)`.
+
+**Check 4.** Classical [recalled]: the decomposition of primes in a quadratic field, the ideal count `Σ_{d∣n} χ_K(d)`, `ζ_K = ζ·L(·, χ_K)` and Dirichlet's class number formula. Mathlib supplies the class number formula for the residue of `ζ_K` in every number field (`tendsto_sub_one_mul_dedekindZeta_nhdsGT`); this round connects it to `L(1, χ)` for a quadratic field, given the splitting types. New against the pilot: rounds 283 and 287's ideal count for `ℚ(ζ₃)` for every quadratic field, and the class number formula in terms of `L(1, χ)`. None of it is new mathematics.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every number field (`card_ofNorm_mul`, `rA_eq`, `dedekindZeta_eq`, `LFunction_one_eq_residue`), every number field of degree `2` (`trichotomy`, `LFunction_one_eq_imag`, `residue_eq_real`), every prime `p` and `k ≥ 0`, every Dirichlet character of every modulus.
+- (b) No barrier claim is made.
+- (c) No signal is fed to a criterion.
+
+**Bearing on RH:** none.
+
+**The next step.** Round 486: door 4(b), the ring of integers of a quadratic field. For `K = ℚ(√d)`, `d` a squarefree integer other than `0` and `1`, `𝓞 K = ℤ[√d]` if `d ≡ 2, 3 (mod 4)` and `ℤ[(1 + √d)/2]` if `d ≡ 1 (mod 4)`, and the discriminant `D_K` is `4d` or `d`. A monogenic generator is what Mathlib's Kummer–Dedekind criterion (`NumberField.Ideal.primesOverSpanEquivMonicFactorsMod`) needs for the splitting law at every prime.
