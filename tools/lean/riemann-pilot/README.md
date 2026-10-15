@@ -19351,14 +19351,14 @@ Round 498's two sentences are struck with this correction.
 **The reading.**
 
 - Sang states his range "`\(1/6\le\ell\le1/5\)`" for the low estimate and in his admissibility list, with `6κℓ > 3/4` beside it. His introduction says of the low estimate: "This permits the total prime length `\(\ell\)` to exceed `\(1/6\)`". And "Longer prime windows improve the candidate boundary `\(B(\ell)=11/12-\ell/4\)`", which is at least `7/8` for `ℓ ≤ 1/6`. So the release's low side gains nothing below `1/6`.
-- A search of his source for inequalities on `ℓ` finds three other lower bounds. One is `6κℓ > 3/4`. The second is the supply of his row count, "`\(\mathscr L=\ell/d>1/5\)` by a fixed amount", with `ℒ > 21/100` for his short gate. The third is the short gate itself. `6κℓ > 3/4` has one use, "The second regime has `\(d\ge6\kappa\ell>3/4\)`", for a slope bound below `2`. That bound also holds for every `ℓ ≥ 1/8` (gate R1).
-- Read this way, the lower end is the low side's range, not the high side's. The reading drops `ℓ ≥ 1/6` and `6κℓ > 3/4`, and keeps the supply, the short gate and every other row. The release's lemmas that Sang cites are not re-read for `ℓ < 1/6`.
+- A search of his source for inequalities on `ℓ` finds three other lower bounds. One is `6κℓ > 3/4`. The second is the supply of his row count, "`\(\mathscr L=\ell/d>1/5\)` by a fixed amount", with `ℒ > 21/100` for his short gate. The third is the short gate itself. `6κℓ > 3/4` has one use, "The second regime has `\(d\ge6\kappa\ell>3/4\)`", for a slope bound below `2`. That bound also holds for every `ℓ ≥ 1/8` (gate R1). *(Round 502: on his geometry his `l_y < 1/2` is a fourth lower bound, `ℓ > b`, with the same single use; it binds nowhere in this model. See round 502.)*
+- Read this way, the lower end is the low side's range, not the high side's. The reading drops `ℓ ≥ 1/6` and `6κℓ > 3/4`, and keeps the supply, the short gate and every other row. The release's lemmas that Sang cites are not re-read for `ℓ < 1/6`. *(Round 502: their statements re-read; none of those Sang imports for his high side bounds the prime length below beyond `ℓ ≥ 0`. See round 502.)*
 
 **What it shows** (gates L1–L3).
 
 - **With the release's low side and the Gram term, nothing moves.** The eight configurations that keep the Gram term are unchanged. Their low side `B(ℓ)` needs `ℓ > 1/6` to beat `7/8`, so the lower end never binds.
 - **Without the Gram term, the reading pays.** Sang's inputs with the Gram term removed go from `0.8745078` to `0.8710998`, at `ℓ = 0.16241`; with all readings, from `0.8745012` to `0.8694550`. The configuration Everything moves by `3·10⁻⁵`.
-- **The bins are not the wall.** With the low side removed, Sang's inputs reach his principal edge `0.87` under the reading, at `ℓ = 0.15328`, where the supply `ℓ/h > 21/100` binds. With all readings they reach `0.8612453`, where the short gate binds. With `ℓ ≥ 1/6` kept they stop at `0.8745077`.
+- **The bins are not the wall.** With the low side removed, Sang's inputs reach his principal edge `0.87` under the reading, at `ℓ = 0.15328`, where the supply `ℓ/h > 21/100` binds. With all readings they reach `0.8612453`, where the short gate binds. With `ℓ ≥ 1/6` kept they stop at `0.8745077`. *(Round 502: at the edge `0.87` the optimum is not unique in `ℓ`; `0.15328` is the least `ℓ` among the optima. See round 502.)*
 - **What it takes.** Lower the release's low side by `s`. While `ℓ ≥ 1/6` holds, Sang's inputs stay at `0.8745077`. Under the reading they fall about `0.77` per unit: `0.8733461`, `0.8718248`, `0.8710723` and `0.8703257` at `s = 1/500`, `1/250`, `1/200` and `3/500`. They first reach the edge `0.87` at `s* = 0.00644`, with `ℓ = 0.16091`. With all readings they go on below it, to `0.8657514` at `s = 3/250`.
 
 **What it means.** With Sang's inputs, his `0.8748866` balances two sides. The low side wants a longer prime window, since `B(ℓ) = 11/12 − ℓ/4` falls with `ℓ`; the bins rise with it. The lower end `ℓ ≥ 1/6` is where the release's low side reaches `7/8`, and it is what stops a lower low side at `0.8745077`. Below it the bins alone allow Sang's principal edge. So the door is a low side below the release's at `ℓ < 1/6`: about `0.0064` of saving there takes Sang's own inputs to `0.87`. For scale, removing the Gram bound's exceptional term gives `0.8710998` under the reading, about what `s = 1/200` gives.
@@ -19367,11 +19367,11 @@ Round 498's two sentences are struck with this correction.
 
 **Check 9.**
 
-- (a) The reading rests on Sang's text and the search above; the release's lemmas he cites are not re-read for `ℓ < 1/6`. Every boundary here is a statement about this exponent system.
+- (a) The reading rests on Sang's text and the search above; the release's lemmas he cites are not re-read for `ℓ < 1/6`. Every boundary here is a statement about this exponent system. *(Round 502: their statements re-read; see round 502.)*
 - (b) Register: the sub-entry "Below `7/8` in the release's exponent comparison" gets a bullet for this round, and its notes on the Gram term and on the caps, and round 500's bullet, get markers.
 - (c) The signal is unchanged: the release's probe.
 
-**The machinery checklist.** Surveyed: Sang's range, admissibility list, row count, short gate and slope lemma. Not surveyed: the release's high-side lemmas for `ℓ < 1/6`; low estimates other than the release's at `ℓ < 1/6`.
+**The machinery checklist.** Surveyed: Sang's range, admissibility list, row count, short gate and slope lemma. Not surveyed: the release's high-side lemmas for `ℓ < 1/6`; low estimates other than the release's at `ℓ < 1/6`. *(Round 502: the first surveyed, by statement; see round 502.)*
 
 **Records.** README round 500: net-state markers on its sentences about Sang's inputs and on its next step. STRUCTURAL-REVIEW §6: a bullet for this round, and markers on the notes on the Gram term and on the caps and on round 500's bullet.
 
@@ -19380,3 +19380,70 @@ Round 498's two sentences are struck with this correction.
 **Bearing on RH:** none.
 
 **The next step.** None is planned here. The open target is a low estimate below the release's for prime windows shorter than `1/6`.
+
+## Round 502: the high side's lower end in `ℓ`, with the release's statements re-read (`frontier/wall78/highfloor.py`, no new Lean)
+
+**What it is.** The owner asked: "Proceed with next dig". Round 501 read Sang's lower end `ℓ ≥ 1/6` as the low side's range, and it did not re-read for `ℓ < 1/6` the release's lemmas that Sang cites. This round reads their statements and Sang's high side again, then computes where `ℓ` stops. No Lean file changes, and the paper is not edited.
+
+**The release's statements.** Sang's index of inputs fixes the version: "All statement numbers for `\cite{OAI26}` refer to its September~30, 2026 version." The numbers below are counted from the release's source at that version.
+
+- Section 8 (Lemmas `lem:buffered-bins` and `lem:detector-dyads`, Proposition `prop:detector-witness`) has no `\ell` token.
+- Definition `def:stage-high-data` (10.1) opens: "Fix real numbers `$l_x,l_y>0$` and `$\ell\ge0$` such that". Lemmas 10.3–10.6 (`lem:fixed-bin-contour`, `lem:bin-contour-accounting`, `lem:principal-residue-interface`, `lem:outer-row-tails`) assume it and add no condition on `ℓ`. Proposition `prop:hecke-dirichlet-transfer` (11.3) has none.
+- Lemma `lem:marked` (17.1) asks "`r+2z\le m-c_1,\qquad 2r+8z\le3m-c_2.`" of the slot length `z`, and adds: "There is no lower bound on the individual slot lengths other than the existence of their stated prime supports, and no mesh condition on those lengths."
+- Lemma `lem:inverse-amplification` (17.6) is stated "with no prime slots".
+- Lemma `lem:plain` (18.1) holds "if `\(z_i\le\eta\)` for every `\(i\)`, then", under "`n_1+n_2+6\kappa z=A+(6\kappa-1)z\le M.`" Both bound the lengths above.
+- Lemma `lem:bin-prime-bound` (19.1): "The implied `\(O(e)\)` is uniform for `\(51/100\le a\le1\)` and the fixed real ranges." The amplitude subdivision after it asks of the slot lengths that "`\(\log U/\log P_i=d/\ell_i\)` stays in a fixed bounded range for each fixed mesh."
+- The local identities. Sections 6, 7 and 13 have no `\ell` token. Section 14 has only the dual length `\ell_b`, and section 16 has one `\ell`, in "`\ll \prod_iP_i^{z_r}=Z^{\ell z_r}.`" Section 12 fixes "`\ell=\frac16`" in its geometry, but its slots take any total length: "Fix positive slot lengths `$\ell_1,\ldots,\ell_K$` of total length `$\ell$`". Sang says of his use of them: "The proof is coefficientwise in the scales and does not require the source numerical choice `\(b=1/8,\ell=1/6\)`."
+
+So none of the statements Sang imports for his high side bounds the prime length below, beyond `ℓ ≥ 0` and slots that contain primes. The low side's inputs differ: the release's row norm is stated at "`0\le d\le\ell=1/6`", and Sang re-derives it "Before its special substitution `\(\ell=1/6\)`". The reading leaves the low side aside.
+
+**Sang's high side.**
+
+- `1/6`, written `1/6` or `\frac16`, occurs on 18 lines of his source. Three make `ℓ ≥ 1/6` a condition: the geometry of his probe, "Choose `\(b>0\)` and `\(1/6\le\ell\le1/5\)`, and put", Proposition `prop:low` and the admissibility list. His introduction gives the reason, and his certificates take "`\(1/6<\ell_j<1/5\)`". The other thirteen are the Mellin variable at `1/6` (eight lines), the Gram term's `P_a^{1/6}` (two), the release's substitution `ℓ = 1/6` (two) and `R_κ ≥ 1/6` (one).
+- His section 2, which restates the release's moments, has no `\ell`. Their conditions, "`r+2z<1,\qquad 2r+8z<3.`" and "`m_1+m_2+6\kappa z\le1,\qquad`", bound the slot length `z` above.
+- His high side is lines 740–1405 and the appendices at 1649–2553. There 35 lines carry `\ell` or `\mathscr L` together with one of `<`, `>`, `\le`, `\ge`, `\min` and `\max`. The lower bounds among them are the admissibility list's `1/6 ≤ ℓ` and round 501's three: the supply "and `\(\mathscr L=\ell/d>1/5\)` by a fixed amount", the short gate with `ℒ > 21/100`, and `6κℓ > 3/4`.
+- A fourth acts through his geometry, "`l_x=\frac{1-b-\ell}{2},\qquad l_y=\frac{1+b-\ell}{2},\qquad h=\frac{1+b+3\ell}{2}.`" There his "and `\(h/2<l_y<1/2\)`." holds only when `ℓ > b` (gate F1).
+- Outside the admissibility list and his certificates, `6κℓ > 3/4` and `l_y < 1/2` appear only in his slope lemma, and for one use: "`\(\ell\le1/5\)`, and `\(l_y<1/2\)` bounds both" slopes "above by `\(2\)`". That bound covers "the small extension beyond `\(h\)`", charged in his proof as "`\(\mathcal E\le-g+2\zeta<-g_*\)`". Without either condition, both slopes stay below `2` at every stage of every run below; the largest is `0.7265`. With his `q ≤ 5/12` and `R_κ ≤ 1`, at `ℓ ≥ 1/8`, `κ ≥ 13/18` and `l_y < 1` they are below `0.84` (gate F3).
+- The supply belongs to his row count. Its proof selects slots "For `\(0\le z_p\le\mathscr L\)`, a subcollection", and "The inverse selection has length at most `\(1/5\)`."; a supply above `1/5` covers that length. The release's own row count assumes "the total available prime length exceeds `\(7/37\)` by a fixed positive amount". Sang uses his own count, not the release's.
+
+**What it shows** (gates F1–F4).
+
+- **The second slope-only floor binds at no computed point.** Dropping `l_y < 1/2` as well moves none of 41 boundaries (F2). They are the fifteen configurations with the release's low side and with it removed, Sang's inputs along round 501's curve, and Sang's inputs + all readings at six savings.
+- **In this model the supply is the high side's lower end.** On Sang's slice the supply `ℓ/h > 1/5` is `ℓ > (1+b)/7`, and his `21/100` is `ℓ > 21(1+b)/137` (F1). With the low side removed, the configuration Everything sits on it: `ℓ = 1/7` and `b = 0`, at `0.8100953`. No stage of any run goes below `ℓ = 1/7` (F4). In a session run with the supply dropped instead, Everything falls to the read principal edge `401/600` at `ℓ = 0`: for it, nothing else in this model bounds `ℓ` below.
+- **At the principal edge `ℓ` is not unique.** With the low side removed, Sang's inputs stop at `0.87` whether `l_y < 1/2` is kept or dropped. The solver returns `ℓ = 21/137` in one run and `0.1592` in the other, and the second point meets `l_y < 1/2` as well (`l_y = 0.4204`). Round 501's `ℓ = 0.15328` is the least `ℓ` among the optima, since every point meets the supply (F1).
+- **With all readings, round 501's curve continues.** It gives `0.8702645`, `0.8687363`, `0.8672309`, `0.8657514`, `0.8628871` and `0.8612453` at `s = 3/500`, `1/125`, `1/100`, `3/250`, `2/125` and `1/50`. The walls are `E`, the low side and the short gate until `s = 1/50`. There the boundary is the high side's own, `0.8612453`, its value with the low side removed.
+
+**What it means.** Round 501's reading now rests on the release's statements as well as on Sang's text. None of the statements Sang imports for his high side bounds the prime length below beyond `ℓ ≥ 0`, and Lemma `lem:marked` says so of its own slots. His own high side bounds it below in two ways. The supply and the short gate stay. Two conditions serve, in his text, one numerical slope bound, and that bound holds without them at every point computed here. So in this exponent system the high side reaches down to `ℓ = 1/7`, or `21/137` with his `21/100`. Read this way, the door round 501 found lies on the low side alone: a low estimate below the release's at `ℓ < 1/6`, by about `0.0064` near `ℓ = 0.161` for Sang's inputs.
+
+**Gates.** `python3 frontier/wall78/highfloor.py` runs in about 12 seconds on four processes. All four gates, F1–F4, pass; any failure gives exit status 1. In two session runs, dropping the short gate in place of `l_y < 1/2` fails F2, and dropping the supply fails F2 and F4.
+
+**Check 9.**
+
+- (a) Scope: the statements of the release's inputs that Sang's index lists, at the September 30 version, and Sang's high-side text. The release's proofs of those statements are not re-read for `ℓ < 1/6`. Every boundary here is a statement about this exponent system.
+- (b) Register: the sub-entry "Below `7/8` in the release's exponent comparison" gets a bullet for this round. Round 501's bullet gets one sentence struck and a marker on its open item.
+- (c) The signal is unchanged: the release's probe.
+
+**The machinery checklist.** Surveyed:
+
+- the statements of the release's Lemmas 8.1, 8.2, 10.3–10.6, 17.1, 17.6, 18.1 and 19.1, Definition 10.1 and Propositions 8.3 and 11.3;
+- the `\ell` tokens of the release's sections 6–8 and 12–16;
+- Sang's `1/6` lines, his high side's inequalities in `ℓ`, his row count's supply and his slope lemma.
+
+Not surveyed: the release's proofs of those statements at `ℓ < 1/6`; low estimates other than the release's at `ℓ < 1/6`.
+
+**Records.**
+
+- README round 501: net-state markers on its search sentence, on its `ℓ = 0.15328` sentence, on its sentence and Check 9(a) about the release's lemmas, and on its checklist.
+- STRUCTURAL-REVIEW §6: in round 501's bullet, one sentence struck as false when written, since its list of the other lower bounds on `ℓ` omits `l_y < 1/2`; a marker on its open item; and a bullet for this round.
+- `lowerend.py`'s docstring: the same sentence corrected (docstring only; no executable line changes).
+
+**Check 4.** New against the pilot:
+
+- the statements of the release's inputs read for `ℓ < 1/6`;
+- `l_y < 1/2` as a fourth lower bound, with the same slope-only role as `6κℓ > 3/4`;
+- the supply as the high side's lower end, `ℓ > (1+b)/7`;
+- the non-unique `ℓ` at the principal edge.
+
+**Bearing on RH:** none.
+
+**The next step.** None is planned here. The open target is unchanged: a low estimate below the release's for prime windows shorter than `1/6`. On Sang's slice the release's estimate is "`Z^{l_x/2+b/12+\eps}`"; the question for it is which step of the release's proof sets each term at short windows.

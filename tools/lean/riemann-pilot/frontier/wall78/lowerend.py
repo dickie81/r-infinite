@@ -7,12 +7,13 @@ The reading. Sang (arXiv 2610.15291, v5) states his range 1/6 <= ell <= 1/5 for 
 in his admissibility list (line 1144), with 6 kappa ell > 3/4 (line 1148). His introduction gives the reason for the
 lower end: the low estimate "permits the total prime length ell to exceed 1/6" (lines 182-183), and B(ell) =
 11/12 - ell/4, of which "Longer prime windows improve the candidate boundary" (line 559), is at least 7/8 for
-ell <= 1/6. In his source every
-other bound below on ell is the supply ell/d > 1/5 or 21/100 of his row count and short gate (lines 807, 1233); and
-6 kappa ell > 3/4 has one use, the slope bound "above by 2" (line 1314). Read this way, the lower end is the low side's
-range and not the high side's. The reading drops both rows; the slope bound then holds for every ell >= 1/8 (gate R1),
-and the supply, the short gate and every other row stay. The release's lemmas that Sang cites are not re-read for
-ell < 1/6.
+ell <= 1/6. In his source the
+other bounds below on ell are the supply ell/d > 1/5 or 21/100 of his row count and short gate (lines 807, 1233), and
+6 kappa ell > 3/4 and l_y < 1/2, which on his geometry is ell > b; these two have one use, the slope bound "above by 2"
+(lines 1314-1318). (README round 502 corrected this sentence, which omitted l_y < 1/2.) Read this way, the lower end is
+the low side's range and not the high side's. The reading drops ell >= 1/6 and 6 kappa ell > 3/4; the slope bound then
+holds for every ell >= 1/8 (gate R1), and the supply, the short gate and every other row stay. The release's lemmas
+that Sang cites are not re-read for ell < 1/6 here; README round 502 re-reads their statements.
 
 The model is offslice.py's on Sang's slice with the crossing cost on the first branch only (crossing.py), the low side
 lowered by s where stated, and the levers, bootstrap and least stage of levers.py. Every number here is a statement
