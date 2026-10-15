@@ -19051,7 +19051,7 @@ Here `MeanSquareC c σ` is round 288's display `MeanSquare σ` with round 288's 
 - **The identity (gate R1).** Take the release's bin exponent at `d = h` (round 496's high side) and move `w` from `1 − a` to `1/2 − ϑ`. The factor `Y^{w−1}` costs `l_y(δ/2 − ϑ)`. The bin's numerator `U^{R+δ/2}` is replaced by Sang's averaged reflected numerator `U^{(3R+1)/4−ϑ/2}` times the reflection cost `U^ϑ`. With `ϑ = xδ/(6κ)` the result is Sang's eq. `endpoint`, `E = C_0 + δ/2 + δx{ℓ + c(h/4 − l_y/2)} − (3h/4)(1 − R_κ)`, at 2000 random points to `4·10⁻¹⁶`. Dropping the reflection cost breaks it by `0.076` (sabotage S1). So Sang's record is the release's comparison with this one coordinate rotated. At the release's own line, `ϑ = δ/2`, the reflection cost `U^ϑ` is the release's reflected numerator factor.
 - **His optimum (gates R2, R3).** His certificate `(b_1, ℓ_1, κ_1) = (17307/200000, 1253399/7500000, 29991/40000)` (his eq. `stage-one`) is admissible in the script. At `κ = 3/4` the script's optimum is `0.87488699`, below his `B_0 = 69991/80000 = 0.8748875`. The κ-bootstrap's fixed point is `0.87488665`, against his `0.8748867`.
 
-**Levers of the rotated coordinate** (gates R3, R4, R5; within the exponent system).
+**Levers of the rotated coordinate** (gates R3, R4, R5; within the exponent system). *(Round 498: R5 is retracted; see below.)*
 
 - The new lever is the numerator's average over a sparse bin. Sang's average comes from the fourth moment and Hölder. In the endpoint, the factor `3/4` of `(3h/4)(1 − R_κ)` is `1 − 1/(2k)` at `k = 2` for a `2k`-th moment. For other `k` the script takes the numerator `U^{R+(1−R)/(2k)−ϑ/2}`: Hölder from a diagonal `2k`-th moment, with Sang's amplifier saving `ϑ/2` kept as a modelling assumption. Each entry below is a fixed point of his bootstrap (`|2B − 1 − κ| < 10⁻⁹`; gate R3 for his own entry, R4 for the rest).
 
@@ -19078,12 +19078,12 @@ Here `MeanSquareC c σ` is round 288's display `MeanSquare σ` with round 288's 
   - by `κ ≥ 13/18`: his Lemma `kappa-extension` says the plain moment "continues to hold for" `13/18\le\kappa\le1`.
 
   A per-bin choice between his two options is not modelled. The bootstrap is his, `κ ← 2B − 1` from `κ = 3/4`.
-- Round 496's map stopped at the floor bin too, in the release's endpoint model with density-hypothesis counts (`0.86979`). So both of these levers end at the floor bin: the count lever there, and the numerator lever here.
-- With the Gram bound's exceptional term removed as well (low side `B(ℓ) − b/12`, absorption `3b ≤ 1 − 3ℓ`), exact mode gives:
-  - `0.8673682` with Sang's fourth moment, at `κ = 3/4`. The bootstrap stops there. At `κ = 2B − 1 ≈ 0.7347` his condition `6κℓ > 3/4` needs `ℓ > 0.1701`, which excludes the optimum's `ℓ ≈ 0.1671`, and the script finds no admissible point.
-  - `0.8639728` with Lindelöf on average, at the bootstrap's fixed point `κ ≈ 0.72795`. The floor bin and the short gate are both active there.
+- Round 496's map stopped at the floor bin too, in the release's endpoint model with density-hypothesis counts (`0.86979`). So both of these levers end at the floor bin: the count lever there, and the numerator lever here. *(Round 498: the floor's readings take the Lindelöf row past the floor bin, to Sang's principal edge `0.87`. On Sang's slice every lever of round 498 stays above `13/15` with the Gram term, and above `31/36` without it.)*
+- ~~With the Gram bound's exceptional term removed as well (low side `B(ℓ) − b/12`, absorption `3b ≤ 1 − 3ℓ`), exact mode gives:~~ *(Round 498: retracted, false when written. R5 took the boundary `B(ℓ) − b/12` but asked the high side's endpoints only to be at most `0` relative to `B(ℓ)`, not at most `−b/12`, and it applied `87/100` to `B(ℓ)` instead of to the boundary. On the corrected boundary these rows give `0.8745078` and `0.87`; see round 498.)*
+  - ~~`0.8673682` with Sang's fourth moment, at `κ = 3/4`. The bootstrap stops there. At `κ = 2B − 1 ≈ 0.7347` his condition `6κℓ > 3/4` needs `ℓ > 0.1701`, which excludes the optimum's `ℓ ≈ 0.1671`, and the script finds no admissible point.~~
+  - ~~`0.8639728` with Lindelöf on average, at the bootstrap's fixed point `κ ≈ 0.72795`. The floor bin and the short gate are both active there.~~
 
-  These sit on Sang's slice under his admissibility conditions. Round 496's `0.86395` for the Gram term alone is in the release's endpoint model over the whole geometry, and the two are not compared here.
+  ~~These sit on Sang's slice under his admissibility conditions.~~ Round 496's `0.86395` for the Gram term alone is in the release's endpoint model over the whole geometry, and the two are not compared here. *(Round 498: round 496's model takes the boundary as a variable and asks every endpoint to be at most `0` relative to it, so R5's error does not reach `0.86395`.)*
 - All values are the script's optima over its grids: `ℓ` on 69 points, refined locally, and the bins on `1501 × 201` points for `δ ≥ 1/8` and `400 × 201` below.
 - The sixth-moment row is hypothetical. Through de Faveri's Theorem 1.1 alone (round 289), the sixth moment of a block of length `U^m` is the large sieve on its cube, of length `U^{3m}`. The terms `A^{5/6}B^{1/3}` and `A^{1/3}B^{5/6}` stay below `A = U` only for `m ≤ 1/6`, while the approximate functional equation needs blocks up to `m = 1/2`.
 
@@ -19094,7 +19094,7 @@ Here `MeanSquareC c σ` is round 288's display `MeanSquare σ` with round 288's 
 - Values: `1/2` at `θ = 1`, which is Polymath15's "de Bruijn showed that the zeroes of `$H_t$` are purely real for `$t \geq 1/2$`" and fixes the normalization; `9/32` at `7/8`; `0.28108` at Sang's boundary; `25/72` at the pilot's `11/12`. All lie above Polymath15's "`$\Lambda \leq 0.22$`".
 - Through de Bruijn's bound the implication runs one way. A strip for `H_0` bounds `Λ` from above; an upper bound on `Λ` gives no strip back through it (the contrapositive turns a lower bound on `Λ` into a lower bound on the strip). In this coordinate the half-plane yields a bound on `Λ` weaker than Polymath15's, and de Bruijn's bound supplies nothing in the other direction.
 
-**Gates.** `python3 frontier/wall78/rotated_contour.py` runs in about 9 minutes; all 12 gates pass, and any failure gives exit status 1.
+**Gates.** `python3 frontier/wall78/rotated_contour.py` runs in about 9 minutes; all 12 gates pass, and any failure gives exit status 1. *(Round 498: R5 is retracted and its two gates removed; the 10 that remain pass, in about 5 minutes.)*
 
 **Check 9.**
 
@@ -19110,4 +19110,99 @@ Here `MeanSquareC c σ` is round 288's display `MeanSquare σ` with round 288's 
 
 **Bearing on RH:** none.
 
-**The next step.** None is planned here. The contour coordinate ends at the floor bin, as round 496's count lever did; the register's attack note on the rows near `a = 1/2` lists that wall.
+**The next step.** None is planned here. The contour coordinate ends at the floor bin, as round 496's count lever did; the register's attack note on the rows near `a = 1/2` lists that wall. *(Round 498: the floor's readings pass the floor bin. On Sang's slice the levers then stop above `13/15`, or `31/36` without the Gram term, limits set by the rows near `a = 1/2`; see round 498.)*
+
+## Round 498: more levers on the rotated 7/8 comparison, and a correction to round 497 (`frontier/wall78/levers.py`, no new Lean)
+
+**What it is.** The owner asked: "Experiment with more levers?" Round 497 mapped one lever of the rotated comparison, the numerator's average over a bin, and named the floor bin as the common wall. This round looks for further levers and sorts them by what they need. It computes each in the same exponent system: Sang's slice, his rotated contour, exact mode and his bootstrap. It also corrects an error in round 497. No Lean file changes, and the paper is not edited.
+
+**The boundary.**
+
+- Sang records the high side's exponent "relative to the low bound `\(C_b(B(\ell))\)`". His Lemma `closure` compares "`|J_\eta(Z)|\ll_\eta Z^{C_b(B(\ell))+\Delta/4},\qquad |J_\eta(Z)-f_\eta(Z)|\ll_\eta Z^{C_b(\beta_*)-\rho}.`" and goes on: "Since `\(C_b\)` has slope one". So a zero at `β_*` is excluded once `C_b(β_*)` exceeds both the low side's exponent and the high side's.
+- Let `E_max` be the largest endpoint of the high side relative to `B(ℓ) = 11/12 − ℓ/4`, over the bins with `δ ≥ 1/8`, the small bins and the floor bin. The boundary is `max(87/100, B(ℓ) + max(t, E_max))`.
+  - `t = 0` when the low side carries the Gram bound's exceptional term. Sang's eq. `signal-low` reads "`C_b(B(\ell))=\frac{l_x}{2}+\frac b{12}.`"
+  - `t = −b/12` when it does not.
+  - The `87/100` is his principal region: his `H_η` is "holomorphic on `\(\Rea s>87/100\)`".
+- With the Gram term this returns Sang's value (gate L1).
+- Every stage of his bootstrap `κ ← 2B − 1` gives a boundary, so the bootstrap's boundary is its least stage. In two configurations below the later stages, at smaller `κ`, give larger `B` (his `6κℓ > 3/4` or the short gate binds at the first), and the least stage is the first, `κ = 3/4`. His admissibility caps `κ` there ("`\(29991/40000\le\kappa\le3/4\)`"), and the script keeps the cap.
+
+**The correction to round 497.**
+
+- Round 497's R5 took the boundary `B(ℓ) − b/12` but asked only that every endpoint be at most `0` relative to `B(ℓ)`. Relative to `B(ℓ)`, the high side's endpoints must also be at most `−b/12`. R5 also applied Sang's `87/100` to `B(ℓ)` rather than to the boundary, and both of its values lie below `87/100`.
+- On the corrected boundary, Sang's fourth moment gives `0.8745078` (round 497: `0.8673682`), at `κ = 3/4`. Lindelöf on average gives `0.87`, Sang's principal edge (round 497: `0.8639728`).
+- Gate C1 reproduces both of round 497's values on a legacy path, and checks that each corrected value lies above it by more than `10⁻⁴`.
+- Both values are retracted on README round 497 and on the register, and `rotated_contour.py` drops R5 (its docstring records the retraction).
+
+**Readings: five constants that set walls.** None is re-derived; each is a reading of the cited text.
+
+- **The detector floor.** The release puts the floor at `a = 51/100`: "The bin `\(a=51/100\)` will be bounded by the trivial row count." Its uses, every occurrence of `51/100` and `1/50` read in context, are strict inequalities with positive margins. The witness step is one: "Since `$\delta\ge1/50$`, these two bounds force `$m\le1/2+O(\epsilon)$`." The local Euler region is another: its margins "`3/2-3x_r\le-3/100,\qquad 2-3x_r-w_r\le-1/50-\epsilon_0`" stay negative for `x_r = 1/2 + η`. Read this way, any fixed floor above `1/2` serves. The script takes `1/2 + 1/2000`.
+- **The floor's contour.** At the floor Sang keeps the release's line: "At the detector floor the original pointwise contour has endpoint `\(C_0+(1/2+3\ell/2)/50\)` and slope less than `\(2\)`". His Proposition `prop:numerator` is stated for "a class of nonunit physical rows" with `#B ≪ U^{R+ε}`, not only for classes "above the detector floor" as his row count is. With `R = 1` and no prime gain it gives the floor class `U` on `Re w = 1/2`. That lowers the floor's endpoint by `ℓδ`.
+- **The principal row's region.** Sang's Lemma `principal-remainder` assumes "`\(\beta_*>B(\ell)>87/100\)`", and his region is "`\Rea s\ge87/100`". In the release's local formulas, "The closest good-prime term here is `$Q^{1-x_r-w_r-6z_r}$`". With the other term `Q^{4−6x_r−6z_r}`, at `z_r = 33/200` and `w_r = 19/20`, the two exponents are Sang's `−181/100` and `−221/100` at `x_r = 87/100`, and both stay below `−1` while `x_r > 401/600` (gate A1). Read this way, the product over primes not dividing `u` converges down to `401/600`.
+- **Two technical conditions.**
+  - Sang's `6κℓ > 3/4` has one use, "The second regime has `\(d\ge6\kappa\ell>3/4\)`". It serves a slope bound "above by `\(2\)`", which also holds from `ℓ ≥ 1/6` and `κ ≥ 13/18` (gate A1).
+  - His `ℓ/(h+ζ) > 21/100` serves the uniform short gate, which exact mode checks directly. It is weakened to the supply his row count assumes, "`\(\mathscr L=\ell/d>1/5\)` by a fixed amount".
+- **The low rows' margin.** His last scalar condition, "`h(z_0-1/6)-l_y/2+2d_{\min}<-1/20.`", "gives a saving of `\(1/20\)`". Only a fixed positive saving is used, and his choices use `d_min` only as a fixed positive scale (the slot mesh, and `τ ≤ d_min/100`). So its limit `h(z_0 − 1/6) − l_y/2 < 0` is taken.
+
+Exact mode also drops Sang's `C_0 < −1/250`. It is the `δ = 0` end of his coarse small-δ scalar ("`\max\{C_0,C_0+A_{\rm sm}/8\}<-1/250`"), which exact mode replaces by `E_small` from the floor up.
+
+**Hypothetical inputs.**
+
+- A `2k`-th moment over the bin (round 497).
+- The Gram exceptional term removed, with round 497's absorption `3b ≤ 1 − 3ℓ`.
+- A stronger amplifier, `ϑ = min(λxδ/(6κ), δ/2, 1/10)` up to the caps of Sang's raised lines "`0\le\vartheta\le\min\{a-1/2,1/10\}`", with no short gate for `λ > 1`.
+- Density-hypothesis counts `R = 1 − δ` above the floor.
+
+**The lever table** (gate L1). Each row adds its levers to a base: Sang's inputs (his fourth moment, his counts and the Gram term), or Lindelöf on average in place of his fourth moment.
+
+In the walls column, `E` is the high side's endpoint on the bins with `δ ≥ 1/8`. The low side means the boundary sits at `B(ℓ)`, the low side's own limit with the Gram term; the Gram saving means it sits at `B(ℓ) − b/12`. The low rows are Sang's condition on the rows below `Z^{d_min}`. The rest are his admissibility conditions and the principal edge `87/100`.
+
+| Configuration | Boundary | Walls at the optimum |
+|---|---|---|
+| Sang's inputs | `0.8748866` | `E`, low side |
+| Sang's inputs + all five readings | `0.8748866` | `E`, low side |
+| Sang's inputs + Gram term removed | `0.8745078` (stage 0, `κ = 3/4`) | `E`, `6κℓ > 3/4`, `ℓ ≥ 1/6` |
+| Sang's inputs + Gram term removed + all readings | `0.8745012` | `E`, `ℓ ≥ 1/6` |
+| Sang's inputs + amplifier ×2 | `0.8741924` | `E`, low side |
+| Sang's inputs + amplifier to the caps | `0.8741773` | `E`, `ℓ/(h+ζ) > 21/100`, low side |
+| Sang's inputs + DH counts | `0.8701164` | floor bin, low rows, low side |
+| Sang's inputs + DH counts + all readings | `0.8667866` | floor bin, `b > 0`, low side |
+| Lindelöf on average | `0.8701164` | floor bin, low rows, low side |
+| Lindelöf + the floor on the rotated line | `0.87` | principal edge, low rows |
+| Lindelöf + the floor at `1/2 + 1/2000` | `0.87` | principal edge, low rows |
+| Lindelöf + Gram term removed | `0.87` | principal edge, `6κℓ > 3/4` |
+| Lindelöf + all readings | `0.8667866` | floor bin, `b > 0`, low side |
+| Lindelöf + all readings + Gram term removed | `0.8618569` (stage 0, `κ = 3/4`) | floor bin, short gate, Gram saving |
+| Everything: Lindelöf, DH counts, amplifier to the caps, Gram term removed, all readings | `0.8613056` | floor bin, `ℓ ≥ 1/6`, Gram saving |
+
+**What it shows.**
+
+- **Sang's inputs.** None of the five readings moves his `0.8748866`. The wall is the high side's endpoint on the bins with `δ ≥ 1/8`, together with the low side. That endpoint peaks at `δ ≈ 0.47`, `x = 1/2`, so `a ≈ 0.735` (gate W1). The readings act on the floor bin, the principal region, Sang's technical conditions and the low rows' margin, and none of these binds there.
+- **The amplifier and the Gram term** move it in the fourth decimal. The amplifier to its caps gives `0.8741773`. Removing the Gram term gives `0.8745078`, or `0.8745012` with the readings.
+- **Counts and moments** move the wall to the floor bin. DH counts and Lindelöf on average give the same `0.8701164`, because the floor bin has the trivial count `R = 1` in both. Either floor reading then takes the Lindelöf row to Sang's principal edge, `0.87`. With all five readings the floor bin binds again, at `0.8667866` with `b → 0`, for DH counts and Lindelöf alike.
+- **The obstruction** (gate O1).
+  - As `δ → 0` every count tends to `1` and the amplifier to `0`, so every bin's endpoint tends to Sang's constant "`C_0={}&-\frac14+\frac b6+\frac{5\ell}{4}.`" That is his eq. `full-exponent` at `a = 1/2` and the critical scale `d = h`, with `R = 1` and `ϑ = q = 0`: the endpoint of the rows near `a = 1/2`.
+  - The floor bin's endpoint at `x = 0` is `C_0 + δ_f/2` on the rotated line, and `C_0 + δ_f(1/2 + ℓ)` on the release's. So `E_max > C_0` in every configuration here.
+  - The boundary therefore exceeds the least value of `B(ℓ) + max(t, C_0)` over `b ≥ 0`. With the Gram term that is `13/15 ≈ 0.86667`, at `b → 0`, `ℓ = 1/5`. Without it, it is `31/36 ≈ 0.86111`, at `b = ℓ = 1/6`, where the absorption `3b ≤ 1 − 3ℓ` binds.
+  - The table's `0.8667866` and `0.8613056` sit within `2·10⁻⁴` of these limits.
+- **What the limits mean.** On Sang's slice no setting of these levers reaches `13/15`, or `31/36` without the Gram term. The levers are the moment, the counts, the amplifier, the Gram term, the floor's height and contour, the principal region, the technical conditions and the low rows' margin. Each limit is the point where the low side's boundary `B(ℓ) + t` meets the floor bin's `B(ℓ) + C_0`.
+  - With the Gram term they meet at `b → 0`, `ℓ = 1/5`. There `13/15` is also `B(1/5)`, the end of Sang's range "`1/6\le\ell\le1/5`", and the low side's own minimum over the geometry (round 496): three walls at one point.
+  - Without it they meet at `b = ℓ = 1/6`, on the absorption `3b ≤ 1 − 3ℓ`.
+  - Moving `31/36` needs a smaller exponent for the rows near `a = 1/2`, or a geometry off the slice. Moving `13/15` needs that and also a low estimate other than the release's, as the register's note on the caps already says.
+
+**Gates.** `python3 frontier/wall78/levers.py` runs in about 8 minutes on four processes. All 21 gates pass: L1 for each of the 15 configurations, C1 for each of round 497's two values, and S1, O1, A1 and W1. Any failure gives exit status 1. `rotated_contour.py` keeps 10 gates after R5's removal; all pass, in about 5 minutes.
+
+**Check 9.**
+
+- (a) Every boundary above is a statement about this exponent system. The five constants are readings of the cited loci, not re-derivations; the hypothetical inputs are not available. The obstruction is a property of the system on Sang's slice, for the levers listed; it says nothing about other geometries or other probes.
+- (b) Register: the sub-entry "Below `7/8` in the release's exponent comparison" gets the lever ladder, the obstruction with its attack note, and the correction to round 497's bullet.
+- (c) The signal is unchanged: the release's probe.
+
+**The machinery checklist.** Surveyed: the release's detector floor, local Euler regions and bin lemmas; Sang's sections 4–6, his principal region, his Lemma `closure` and his admissibility conditions. Not surveyed: large-value estimates for the sextic family of Guth–Maynard type (the count lever); amplifiers beyond Sang's prime amplitudes; geometries off Sang's slice.
+
+**Records.** README round 497: R5 struck and annotated, with net-state markers on its gate count and on its floor-bin summary. STRUCTURAL-REVIEW §6: the same in round 497's bullet, and a bullet for this round.
+
+**Check 4.** New against the pilot: the five readings, the correction, the bootstrap's least stage and the obstruction. The hypothetical inputs extend round 497's list.
+
+**Bearing on RH:** none.
+
+**The next step.** None is planned here. The register's attack note on the rows near `a = 1/2` now carries the limits `13/15` and `31/36`: on Sang's slice, a saving across those rows is what the high side needs.

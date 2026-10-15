@@ -32,10 +32,11 @@ Gates (exit status 1 if any fails):
       exact mode gives his 0.8748867 to within 1e-6 (the high side's endpoint condition closes the b-interval from both
       ends, "E / E"); the 6th moment and Lindelof on average over bins give 0.8733860 under Sang's conditions (his
       coarse small-delta scalar binds) and 0.8701164 in exact mode (the floor bin binds)
-  R5  with the Gram bound's exceptional term removed as well (low side B(ell) - b/12, absorption 3b <= 1 - 3 ell), exact
-      mode: 0.8673682 with Sang's 4th moment, at kappa = 3/4, where the bootstrap stops (at kappa = 2B - 1 his
-      6 kappa ell > 3/4 excludes the optimum's ell and no point is admissible); 0.8639728 with Lindelof on average, at
-      its fixed point, where the floor bin and the short gate are both active
+  R5  RETRACTED in round 498, false when written. Its two values (0.8673682 with Sang's 4th moment, 0.8639728 with
+      Lindelof on average, the Gram bound's exceptional term removed) took the boundary B(ell) - b/12 with every
+      endpoint <= 0 relative to B(ell), and applied 87/100 to B(ell). The high side was never asked to carry the
+      saving b/12, and both values lie below Sang's principal region Re s >= 87/100. levers.py computes this lever on
+      the boundary max(87/100, B(ell) + max(-b/12, E_max)) and reproduces the two values on a legacy path (its gate C1).
   R6  strip coordinate z = -2i(s - 1/2): Polymath15's H_0(z) = xi(1/2 + iz/2)/8 has its zeros in |Im z| <= 2(theta - 1/2)
       when every zero has 1 - theta <= Re rho <= theta, and their Theorem debr-bound (t_0 = 0, y_0 = 2(theta - 1/2))
       gives Lambda <= 2(theta - 1/2)^2: 1/2 at theta = 1, 9/32 at 7/8, 25/72 at 11/12, all above Polymath15's 0.22
@@ -83,7 +84,8 @@ def endpoint_sang(b, ell, kappa, d, x):
 
 class System:
     """mode 'sang': Sang's admissibility as stated; mode 'exact': small delta, case split and floor done exactly.
-    gram: 'paper' (low side B(ell), absorption l_y - ell > 11b/6) or 'none' (B(ell) - b/12, 3b <= 1 - 3 ell)."""
+    gram: 'paper' (low side B(ell), absorption l_y - ell > 11b/6) or 'none' (absorption 3b <= 1 - 3 ell; best() takes
+    'paper' only, and levers.py computes the boundary without the exceptional term)."""
 
     def __init__(self, kappa, k=2, tau=None, mode='sang', gram='paper'):
         self.kappa, self.k, self.mode, self.gram = kappa, k, mode, gram
@@ -176,38 +178,27 @@ class System:
         return r.x, right
 
     def best(self):
-        """best boundary: max ell (gram 'paper'), or max ell/4 + b/12 (gram 'none')."""
+        """best boundary B(ell) = 11/12 - ell/4 at the largest admissible ell (gram 'paper'). Round 497's gram 'none'
+        objective (max ell/4 + b/12 with every endpoint <= 0) is retracted in round 498; see levers.py."""
+        if self.gram != 'paper':
+            raise ValueError("gram 'none' is computed by levers.py (round 498)")
         start = max(1 / 6, 1 / (8 * self.kappa)) + 1e-7          # Sang's 6 kappa ell > 3/4
         ells = np.unique(np.concatenate([[start], np.linspace(1 / 6, 1 / 5, 69)]))
         ells = ells[ells >= start]
-        if self.gram == 'paper':
-            ok = [e for e in ells if self.b_set(e)]
-            if not ok:
-                return None
-            above = ells[ells > max(ok)]
-            lo, hi = max(ok), (above[0] if len(above) else 1 / 5 + 1e-9)
-            for _ in range(32):
-                mid = (lo + hi) / 2
-                lo, hi = (mid, hi) if self.b_set(mid) else (lo, mid)
-            iv = self.interval(hi)
-            if iv is None or iv[0] > iv[1]:
-                wall = f'{iv[2]} / {iv[3]}' if iv else 'linear'
-            else:
-                wall = self.nonlinear(self.b_set(lo)[0], hi)[1]
-            return 11 / 12 - lo / 4, lo, self.b_set(lo)[0], wall
-        vals = []
-        for e in ells:
-            bs = self.b_set(e)
-            if bs:
-                vals.append((11 / 12 - e / 4 - bs[1] / 12, e, bs[1]))
-        if not vals:
+        ok = [e for e in ells if self.b_set(e)]
+        if not ok:
             return None
-        B, e0, _ = min(vals)
-        g = lambda e: (11 / 12 - e / 4 - self.b_set(e)[1] / 12) if self.b_set(e) else 1.0
-        r = minimize_scalar(g, bounds=(max(1 / 6, e0 - 1.1e-3), min(1 / 5, e0 + 1.1e-3)), method='bounded',
-                            options={'xatol': 1e-10})
-        e = r.x if r.fun < B else e0
-        return g(e), e, self.b_set(e)[1], 'objective'
+        above = ells[ells > max(ok)]
+        lo, hi = max(ok), (above[0] if len(above) else 1 / 5 + 1e-9)
+        for _ in range(32):
+            mid = (lo + hi) / 2
+            lo, hi = (mid, hi) if self.b_set(mid) else (lo, mid)
+        iv = self.interval(hi)
+        if iv is None or iv[0] > iv[1]:
+            wall = f'{iv[2]} / {iv[3]}' if iv else 'linear'
+        else:
+            wall = self.nonlinear(self.b_set(lo)[0], hi)[1]
+        return 11 / 12 - lo / 4, lo, self.b_set(lo)[0], wall
 
 
 def fixed_point(k=2, mode='sang', gram='paper', stages=12):
@@ -270,23 +261,6 @@ def main():
         gate('R4', abs(r[0] - want) < 1e-6 and r[3] == wall and gap < 1e-9,
              f'{nm:38s} B = {r[0]:.7f} (recorded {want:.7f}), next wall: {r[3]}; '
              f'kappa {kap:.7f}, |2B - 1 - kappa| = {gap:.0e} after {n} stage(s)')
-
-    for nm, k, want, kap_want, active in [('no Gram exceptional term, Sang inputs', 2, 0.8673682, 3 / 4, ()),
-                                          ('no Gram exceptional, Lindelof on average', 10 ** 9, 0.8639728, 0.7279456,
-                                           ('floor bin', 'short gate'))]:
-        fp = fixed_point(k=k, mode='exact', gram='none')
-        r, (kap, gap, n) = fp[-1][1], boot(fp)
-        act = tuple(sorted(p for v, p in System(kap, k=k, mode='exact', gram='none').parts(r[2], r[1]) if v > -1e-7))
-        ok = abs(r[0] - want) < 2e-6 and abs(kap - kap_want) < 1e-6 and act == active
-        if n == 1:      # the bootstrap stopped: Sang's 6 kappa ell > 3/4 at kappa = 2B - 1 excludes this ell, no point admissible
-            nxt = 2 * r[0] - 1
-            ok = ok and 1 / (8 * nxt) > r[1] and System(nxt, k=k, mode='exact', gram='none').best() is None
-            how = f'stopped: at kappa = 2B - 1 = {nxt:.5f}, 6 kappa ell > 3/4 needs ell > {1 / (8 * nxt):.5f}, none admissible'
-        else:
-            ok = ok and gap < 1e-9
-            how = f'fixed point, |2B - 1 - kappa| = {gap:.0e} after {n} stages'
-        gate('R5', ok, f'{nm:42s} B = {r[0]:.7f} (recorded {want:.7f}), kappa {kap:.7f}, ell {r[1]:.5f}, b {r[2]:.5f}; '
-                       f'active: {", ".join(act) or "none of the nonlinear conditions"}; {how}')
 
     lam = {th: 2 * (th - 0.5) ** 2 for th in (1.0, 7 / 8, 11 / 12, 0.8748867)}
     gate('R6', abs(lam[1.0] - 0.5) < 1e-15 and abs(lam[7 / 8] - 9 / 32) < 1e-15 and abs(lam[11 / 12] - 25 / 72) < 1e-15
