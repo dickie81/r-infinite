@@ -19317,7 +19317,7 @@ In the walls column, `E` is the high side's endpoint on the bins with `δ ≥ 1/
 - Under the rows every configuration keeps, on the slice, it gives `13/15 − 4s/5` and `31/36 − 2s/3` up to `s = 1/24`, where both are `5/6` (at `s = 1/200`, `1/100`, `1/50` and `1/24`).
 - A lower `C_0` wall alone also moves `31/36`, to `31/36 − t/6` (at `t = 1/200`, `1/100` and `1/50`). It leaves `13/15`, which under Sang's range only a lower low side can move (round 499, gate O3).
 - The configurations follow. Lindelöf + all readings, on the slice, goes from `0.8667866` to `0.8587858` at `s = 1/100`: below `31/36`, with the same walls (`b > 0`, the floor bin and the low side).
-- Sang's inputs do not. At `s = 1/200` and at `s = 10` alike their boundary is `0.8745077`, the value with the Gram term removed (round 498), and the high side's bins are among the walls while the low side is not. With his inputs a lower low side buys `3.8·10⁻⁴`.
+- Sang's inputs do not. At `s = 1/200` and at `s = 10` alike their boundary is `0.8745077`, the value with the Gram term removed (round 498), and the high side's bins are among the walls while the low side is not. With his inputs a lower low side buys `3.8·10⁻⁴`. *(Round 501: with Sang's lower end `ℓ ≥ 1/6` kept. Read as the low side's range, that end drops, and his inputs then fall to `0.87` at a saving of `0.00644`; see round 501.)*
 
 Round 498's two sentences are struck with this correction.
 
@@ -19342,4 +19342,41 @@ Round 498's two sentences are struck with this correction.
 
 **Bearing on RH:** none.
 
-**The next step.** None is planned here. The doors now read: a column bound for the reflected coefficients, below the large sieve's column term, for a crossing cost under `2/15`; or a lower low side, which with Sang's inputs buys only `3.8·10⁻⁴` unless the high side improves too.
+**The next step.** None is planned here. The doors now read: a column bound for the reflected coefficients, below the large sieve's column term, for a crossing cost under `2/15`; or a lower low side, which with Sang's inputs buys only `3.8·10⁻⁴` unless the high side improves too. *(Round 501: or unless `ℓ` may go below `1/6`, where the bins alone allow `0.87`; see round 501.)*
+
+## Round 501: what pins Sang's inputs, and the lower end of `ℓ` (`frontier/wall78/lowerend.py`, no new Lean)
+
+**What it is.** The owner asked: "Proceed with next dig". Round 500 found that with Sang's inputs a lower low side buys only `3.8·10⁻⁴`: the boundary stops at `0.8745077`, with the walls `E`, `6κℓ > 3/4` and `ℓ ≥ 1/6`. This round reads where Sang's lower end of `ℓ` comes from and computes what lies below it. No Lean file changes, and the paper is not edited.
+
+**The reading.**
+
+- Sang states his range "`\(1/6\le\ell\le1/5\)`" for the low estimate and in his admissibility list, with `6κℓ > 3/4` beside it. His introduction says of the low estimate: "This permits the total prime length `\(\ell\)` to exceed `\(1/6\)`". And "Longer prime windows improve the candidate boundary `\(B(\ell)=11/12-\ell/4\)`", which is at least `7/8` for `ℓ ≤ 1/6`. So the release's low side gains nothing below `1/6`.
+- A search of his source for inequalities on `ℓ` finds three other lower bounds. One is `6κℓ > 3/4`. The second is the supply of his row count, "`\(\mathscr L=\ell/d>1/5\)` by a fixed amount", with `ℒ > 21/100` for his short gate. The third is the short gate itself. `6κℓ > 3/4` has one use, "The second regime has `\(d\ge6\kappa\ell>3/4\)`", for a slope bound below `2`. That bound also holds for every `ℓ ≥ 1/8` (gate R1).
+- Read this way, the lower end is the low side's range, not the high side's. The reading drops `ℓ ≥ 1/6` and `6κℓ > 3/4`, and keeps the supply, the short gate and every other row. The release's lemmas that Sang cites are not re-read for `ℓ < 1/6`.
+
+**What it shows** (gates L1–L3).
+
+- **With the release's low side and the Gram term, nothing moves.** The eight configurations that keep the Gram term are unchanged. Their low side `B(ℓ)` needs `ℓ > 1/6` to beat `7/8`, so the lower end never binds.
+- **Without the Gram term, the reading pays.** Sang's inputs with the Gram term removed go from `0.8745078` to `0.8710998`, at `ℓ = 0.16241`; with all readings, from `0.8745012` to `0.8694550`. The configuration Everything moves by `3·10⁻⁵`.
+- **The bins are not the wall.** With the low side removed, Sang's inputs reach his principal edge `0.87` under the reading, at `ℓ = 0.15328`, where the supply `ℓ/h > 21/100` binds. With all readings they reach `0.8612453`, where the short gate binds. With `ℓ ≥ 1/6` kept they stop at `0.8745077`.
+- **What it takes.** Lower the release's low side by `s`. While `ℓ ≥ 1/6` holds, Sang's inputs stay at `0.8745077`. Under the reading they fall about `0.77` per unit: `0.8733461`, `0.8718248`, `0.8710723` and `0.8703257` at `s = 1/500`, `1/250`, `1/200` and `3/500`. They first reach the edge `0.87` at `s* = 0.00644`, with `ℓ = 0.16091`. With all readings they go on below it, to `0.8657514` at `s = 3/250`.
+
+**What it means.** With Sang's inputs, his `0.8748866` balances two sides. The low side wants a longer prime window, since `B(ℓ) = 11/12 − ℓ/4` falls with `ℓ`; the bins rise with it. The lower end `ℓ ≥ 1/6` is where the release's low side reaches `7/8`, and it is what stops a lower low side at `0.8745077`. Below it the bins alone allow Sang's principal edge. So the door is a low side below the release's at `ℓ < 1/6`: about `0.0064` of saving there takes Sang's own inputs to `0.87`. For scale, removing the Gram bound's exceptional term gives `0.8710998` under the reading, about what `s = 1/200` gives.
+
+**Gates.** `python3 frontier/wall78/lowerend.py` runs in about 10 seconds on four processes. All four gates, R1 and L1–L3, pass; any failure gives exit status 1.
+
+**Check 9.**
+
+- (a) The reading rests on Sang's text and the search above; the release's lemmas he cites are not re-read for `ℓ < 1/6`. Every boundary here is a statement about this exponent system.
+- (b) Register: the sub-entry "Below `7/8` in the release's exponent comparison" gets a bullet for this round, and its notes on the Gram term and on the caps, and round 500's bullet, get markers.
+- (c) The signal is unchanged: the release's probe.
+
+**The machinery checklist.** Surveyed: Sang's range, admissibility list, row count, short gate and slope lemma. Not surveyed: the release's high-side lemmas for `ℓ < 1/6`; low estimates other than the release's at `ℓ < 1/6`.
+
+**Records.** README round 500: net-state markers on its sentences about Sang's inputs and on its next step. STRUCTURAL-REVIEW §6: a bullet for this round, and markers on the notes on the Gram term and on the caps and on round 500's bullet.
+
+**Check 4.** New against the pilot: the reading of the lower end, the configurations under it, the high side's own floors, and the saving that takes Sang's inputs to `0.87`. Round 498's readings kept `ℓ ≥ 1/6`; its reading of the technical conditions replaced `6κℓ > 3/4` by `ℓ ≥ 1/6` and `κ ≥ 13/18`.
+
+**Bearing on RH:** none.
+
+**The next step.** None is planned here. The open target is a low estimate below the release's for prime windows shorter than `1/6`.
