@@ -19039,3 +19039,75 @@ Here `MeanSquareC c σ` is round 288's display `MeanSquare σ` with round 288's 
 **Bearing on RH:** none.
 
 **The next step.** None is planned here. The register's sub-entry lists the attacks; which one to take is the owner's decision.
+
+## Round 497: the 7/8 comparison in rotated coordinates, the numerator contour and the strip (`frontier/wall78/rotated_contour.py`, no new Lean)
+
+**What it is.** The owner asked: "Rotate the problem & change the coordinate system." Round 496 mapped the release's exponent comparison in the probe's geometry `(l_x, l_y, ℓ)` and the bin coordinates `(δ, x)`, with the contour of the high side held fixed. This round changes two coordinates. The first is the line `Re w` of the numerator on the high side. The second is `z = −2i(s − 1/2)`, in which the critical line is the real axis and a zero-free half-plane is a horizontal strip. No Lean file changes, and the paper is not edited.
+
+**The contour coordinate.**
+
+- **Where the release puts it.** Each bin is moved to "`\Re s=a+16e,\qquad \Re w=1-a-6e,\qquad \Re z=z_0`" (paper.tex line 5828), inside the region `\mathcal D_1(\epsilon_0)` of lines 5571–5572: `\Re s\ge51/100`, `\Re z\ge17/50`, `\Re w\ge-1/100`, `\Re(s+w)\ge1+\epsilon_0`. The region has no upper bound on `Re w`. The integrand of the high identity (eq. `stage-high-identity`) carries `Y^{w-1}` and the numerator `L^S(w,\chi_\bullet(u))`. On that line the release bounds each row's numerator by `U^{\delta/2+12e+\epsilon_n}(3+T_1)^C` (line 5931) and the bin's sum by `U^{R(\delta)+\delta/2+12e+\epsilon_r+\epsilon_n+\epsilon_H}` (line 5941). At line 6165 it says Lemma `lem:buffered-bins` "supplies the reflected numerator factor `$U^{\delta/2+12e+\epsilon}$` appearing in the central hypothesis".
+- **Where Sang puts it.** His section 6: "On a detected class take" `\Rea s=a+16e,\qquad \Rea w=1/2-\vartheta,\qquad \Rea z=z_0,`. His reason: "Moving the numerator variable left of `\(1/2\)` reflects its `\(L\)`-value to the line `\(1/2+\vartheta\)`, where the preceding estimate applies. Reflection costs a conductor power, so the numerator saving must be combined with this cost and the outside Mellin factors before deciding whether the new contour improves the bound." The preceding estimate is his eq. `numerator-moment`, `\sum_{u\in\mathcal B} |L(1/2+\vartheta+it,\overline{\psi_u^*})| \ll U^{(3R+1)/4-\vartheta/2+\eps}(1+H)^{A'}`. It rests on "The plain fourth moment `\cite[Lemma~18.1]{OAI26}`", after which "`H\"older gives`" his block first moment.
+- **The identity (gate R1).** Take the release's bin exponent at `d = h` (round 496's high side) and move `w` from `1 − a` to `1/2 − ϑ`. The factor `Y^{w−1}` costs `l_y(δ/2 − ϑ)`. The bin's numerator `U^{R+δ/2}` is replaced by Sang's averaged reflected numerator `U^{(3R+1)/4−ϑ/2}` times the reflection cost `U^ϑ`. With `ϑ = xδ/(6κ)` the result is Sang's eq. `endpoint`, `E = C_0 + δ/2 + δx{ℓ + c(h/4 − l_y/2)} − (3h/4)(1 − R_κ)`, at 2000 random points to `4·10⁻¹⁶`. Dropping the reflection cost breaks it by `0.076` (sabotage S1). So Sang's record is the release's comparison with this one coordinate rotated. At the release's own line, `ϑ = δ/2`, the reflection cost `U^ϑ` is the release's reflected numerator factor.
+- **His optimum (gates R2, R3).** His certificate `(b_1, ℓ_1, κ_1) = (17307/200000, 1253399/7500000, 29991/40000)` (his eq. `stage-one`) is admissible in the script. At `κ = 3/4` the script's optimum is `0.87488699`, below his `B_0 = 69991/80000 = 0.8748875`. The κ-bootstrap's fixed point is `0.87488665`, against his `0.8748867`.
+
+**Levers of the rotated coordinate** (gates R3, R4, R5; within the exponent system).
+
+- The new lever is the numerator's average over a sparse bin. Sang's average comes from the fourth moment and Hölder. In the endpoint, the factor `3/4` of `(3h/4)(1 − R_κ)` is `1 − 1/(2k)` at `k = 2` for a `2k`-th moment. For other `k` the script takes the numerator `U^{R+(1−R)/(2k)−ϑ/2}`: Hölder from a diagonal `2k`-th moment, with Sang's amplifier saving `ϑ/2` kept as a modelling assumption. Each entry below is a fixed point of his bootstrap (`|2B − 1 − κ| < 10⁻⁹`; gate R3 for his own entry, R4 for the rest).
+
+  | Numerator average over a bin | Sang's conditions | Exact mode |
+  |---|---|---|
+  | fourth moment (Sang) | `0.8748866` | `0.8748866` |
+  | sixth moment | `0.8733860` | `0.8701164` |
+  | Lindelöf on average over the bin | `0.8733860` | `0.8701164` |
+
+- His own boundary, `8748867/10000000 = 0.8748867`, is a rational just above the first row's `0.87488665`.
+- The next walls:
+  - Fourth moment, both columns: the high side's endpoint condition closes the `b`-interval from both ends.
+  - Sixth moment and Lindelöf on average, Sang's conditions: his coarse small-δ scalar, "For `\(0<\delta<1/8\)`, the coarse bound in Proposition~`\ref{prop:row-count}` gives `\(E_{\rm small}\le C_0+A_{\rm sm}\delta\)`."
+  - The same rows in exact mode: the floor bin (`a = 51/100`, trivial count `R = 1`).
+
+  So beyond the fourth moment the lever saturates: the sixth moment and Lindelöf on average give the same value in each column, and neither of those walls involves `k`.
+- "Sang's conditions" are his admissibility items as stated, except for his range of `κ` (below).
+- Exact mode replaces three of his bounds by what they bound:
+  - the coarse small-δ scalar, by his `E_small` with the full count;
+  - his case split "`\(\ell/h<1/(6\kappa)\)`", by `min(ℓ/h, 1/(6κ))` (his option 1, "`\(\vartheta=qv\)`, where `\(0\le v\le\min\{\mathscr L,1/(6\kappa)\}\)`");
+  - his floor scalar ("endpoint `\(C_0+(1/2+3\ell/2)/50\)` and slope less than `\(2\)`"), by the floor bin's exact endpoint on the release's contour.
+- His range of `κ`. On the bins with `δ ≥ 1/8` his `ϑ` is the full capacity `q/(6κ)`, which needs his short gate (eq. `short-gate`, "`R\le(6\kappa-2q)\mathscr L.`"). His admissibility item 1 asks `29991/40000\le\kappa\le3/4`, and from its lower end he gets the gate (eq. `uniform-short-gate`). Both columns replace that lower end in two ways:
+  - by the gate itself, checked with the full count at `d = h` on every such bin unless `ℓ/h ≥ 1/(6κ)`, where his option 1 already gives the full capacity;
+  - by `κ ≥ 13/18`: his Lemma `kappa-extension` says the plain moment "continues to hold for" `13/18\le\kappa\le1`.
+
+  A per-bin choice between his two options is not modelled. The bootstrap is his, `κ ← 2B − 1` from `κ = 3/4`.
+- Round 496's map stopped at the floor bin too, in the release's endpoint model with density-hypothesis counts (`0.86979`). So both of these levers end at the floor bin: the count lever there, and the numerator lever here.
+- With the Gram bound's exceptional term removed as well (low side `B(ℓ) − b/12`, absorption `3b ≤ 1 − 3ℓ`), exact mode gives:
+  - `0.8673682` with Sang's fourth moment, at `κ = 3/4`. The bootstrap stops there. At `κ = 2B − 1 ≈ 0.7347` his condition `6κℓ > 3/4` needs `ℓ > 0.1701`, which excludes the optimum's `ℓ ≈ 0.1671`, and the script finds no admissible point.
+  - `0.8639728` with Lindelöf on average, at the bootstrap's fixed point `κ ≈ 0.72795`. The floor bin and the short gate are both active there.
+
+  These sit on Sang's slice under his admissibility conditions. Round 496's `0.86395` for the Gram term alone is in the release's endpoint model over the whole geometry, and the two are not compared here.
+- All values are the script's optima over its grids: `ℓ` on 69 points, refined locally, and the bins on `1501 × 201` points for `δ ≥ 1/8` and `400 × 201` below.
+- The sixth-moment row is hypothetical. Through de Faveri's Theorem 1.1 alone (round 289), the sixth moment of a block of length `U^m` is the large sieve on its cube, of length `U^{3m}`. The terms `A^{5/6}B^{1/3}` and `A^{1/3}B^{5/6}` stay below `A = U` only for `m ≤ 1/6`, while the approximate functional equation needs blocks up to `m = 1/2`.
+
+**The strip coordinate.**
+
+- Polymath15 (arXiv 1904.12438) normalizes "`H_0(z) \coloneqq \frac{1}{8} \xi\left(\frac{1}{2} + \frac{iz}{2}\right)`" and "`H_t(z) \coloneqq \int_0^\infty e^{tu^2} \Phi(u) \cos(zu)\ du.`" So `z = −2i(s − 1/2)`, and a zero `ρ = β + iγ` of `ζ` gives a zero of `H_0` with `|Im z| = 2|β − 1/2|`. With the functional equation, a zero-free half-plane `Re s > θ` puts every zero of `H_0` in `|Im z| ≤ 2(θ − 1/2)`.
+- de Bruijn's bound in this normalization is Polymath15's Theorem `debr-bound`: "Suppose that `$t_0 \in \R$` and `$y_0 > 0$` is such that there are no zeroes `$H_{t_0}(x+iy)=0$` with `$x \in \R$` and `$y > y_0$`. Then for any `$t>t_0$`, there are no zeroes `$H_{t}(x+iy)=0$` with `$x \in \R$` and `$y > \max( y_0^2 - 2(t-t_0), 0)^{1/2}$`. In particular one has `$\Lambda \leq t_0 + \frac{1}{2} y_0^2$`." With `t_0 = 0` and `y_0 = 2(θ − 1/2)` this is `Λ ≤ 2(θ − 1/2)²` (gate R6, arithmetic only). The Newman–Wu survey (arXiv 1901.06596, Theorem `Gausssuf`) states the same bound for a general `F`, with `\Phi` in another normalization.
+- Values: `1/2` at `θ = 1`, which is Polymath15's "de Bruijn showed that the zeroes of `$H_t$` are purely real for `$t \geq 1/2$`" and fixes the normalization; `9/32` at `7/8`; `0.28108` at Sang's boundary; `25/72` at the pilot's `11/12`. All lie above Polymath15's "`$\Lambda \leq 0.22$`".
+- Through de Bruijn's bound the implication runs one way. A strip for `H_0` bounds `Λ` from above; an upper bound on `Λ` gives no strip back through it (the contrapositive turns a lower bound on `Λ` into a lower bound on the strip). In this coordinate the half-plane yields a bound on `Λ` weaker than Polymath15's, and de Bruijn's bound supplies nothing in the other direction.
+
+**Gates.** `python3 frontier/wall78/rotated_contour.py` runs in about 9 minutes; all 12 gates pass, and any failure gives exit status 1.
+
+**Check 9.**
+
+- (a) Every boundary above is a statement about the exponent system: either Sang's admissibility as implemented, or exact mode, whose replacements are readings of his text and of the release's Lemma `lem:bin-contour-accounting`, not re-derivations of his proofs. The sixth-moment and Lindelöf rows assume inputs that are not available; their scope is the arithmetic of the system. The strip statement is scoped to de Bruijn's bound as Polymath15's Theorem `debr-bound` states it; other routes between `Λ` and the strip are not surveyed.
+- (b) Register: the sub-entry "Below `7/8` in the release's exponent comparison" gets the rotated coordinate, its levers and its next wall, and the strip coordinate.
+- (c) The signal is unchanged: the release's probe. Sang's numerator average is an input to the high side, not a signal fed to a criterion.
+
+**The machinery checklist.** Surveyed: the release's contour lemma and high identity; Sang's sections 4–6; de Bruijn–Newman through Polymath15 and the Newman–Wu survey. Not surveyed: higher moments of the sextic family at `1/2 + ϑ` by routes other than the sieve norm; multiple Dirichlet series for the floor bin.
+
+**Records.** STRUCTURAL-REVIEW §6: the sub-entry "Below `7/8` in the release's exponent comparison" gains two attack notes.
+
+**Check 4.** Sang's contour move is his (round 496). New against the pilot: the identity that makes it a rotation of the release's comparison, the reproduction of his optimum, the levers of the rotated coordinate with their walls, and the strip computation.
+
+**Bearing on RH:** none.
+
+**The next step.** None is planned here. The contour coordinate ends at the floor bin, as round 496's count lever did; the register's attack note on the rows near `a = 1/2` lists that wall.
