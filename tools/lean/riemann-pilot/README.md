@@ -17475,7 +17475,7 @@ Both landed by the route listed, with `θ′ = a = (θ + min(σ₀, 5/4))/2` and
 
 **Bearing on RH:** none. At `Θ = ½` (RH), `zeta_bound_Theta` would give the bound for every `σ₀ > ½`.
 
-**The next step.** None is planned in the half-plane strand. Of the doors listed after round 468, two remain, and they wait for the owner: sums of the Möbius function and of divisor functions (`M(x)`, the squarefree numbers, Piltz's problem), for which this round supplies the bounds on `ζ` and `1/ζ`; and the prime number theorem modulo 3. *(Round 479: the prime number theorem modulo 3 landed, as the case `q = 3` of `PNTProgressions.psiAP_isBigO_of_dvd_24`. See round 479.)* *(Round 472: `M(x) = O(x^{θ+η})` from a zero-free half-plane landed, `MertensExponent.mertens_isBigO_of_zeroFree`.)* *(Round 473: Piltz's problem landed, `Σ_{n≤x} d_k(n) = xP_k(log x) + O(x^{θ+η})` from a zero-free half-plane, `DivisorExponent.divisor_isBigO_of_zeroFree`.)* *(Round 471: the owner asked to proceed with the four steps proposed after round 470: a horizon scan and an audit of the character, the two near doors, the half-plane for every Dirichlet character, and its downstream consequences. See round 471.)*
+**The next step.** None is planned in the half-plane strand. Of the doors listed after round 468, two remain, and they wait for the owner: sums of the Möbius function and of divisor functions (`M(x)`, the squarefree numbers, Piltz's problem), for which this round supplies the bounds on `ζ` and `1/ζ`; and the prime number theorem modulo 3. *(Round 479: the prime number theorem modulo 3 landed, as the case `q = 3` of `PNTProgressions.psiAP_isBigO_of_dvd_24`. See round 479.)* *(Round 472: `M(x) = O(x^{θ+η})` from a zero-free half-plane landed, `MertensExponent.mertens_isBigO_of_zeroFree`.)* *(Round 473: Piltz's problem landed, `Σ_{n≤x} d_k(n) = xP_k(log x) + O(x^{θ+η})` from a zero-free half-plane, `DivisorExponent.divisor_isBigO_of_zeroFree`.)* *(Round 471: the owner asked to proceed with the four steps proposed after round 470: a horizon scan and an audit of the character, the two near doors, the half-plane for every Dirichlet character, and its downstream consequences. See round 471.)* *(Round 483: the squarefree numbers landed, `#{n ≤ x : n squarefree} = 6x/π² + O(x^{1/(3−θ)+η})` from a zero-free half-plane, `SquarefreeCount.squarefree_isBigO_of_zeroFree`. See round 483.)*
 
 ## Round 471: horizon scan of 2026-10-14, and an audit of the character in the half-plane chain (no new Lean)
 
@@ -18091,7 +18091,7 @@ None states a bound on `L(1, χ)` uniform in the modulus. The paper is not edite
    - With door 4(b)'s factorization, the Euler–Kronecker constant of a quadratic field `K`, `γ_K = γ + L′/L(1, χ_K)` [recalled], satisfies `|γ_K| ≪ log log |D_K|`.
 3. **Squarefree numbers.**
 
-   - Target: from `ζ(s) ≠ 0` on `Re s > θ`, `0 ≤ θ < 1`: `#{n ≤ x : n squarefree} = 6x/π² + O(x^{1/(3−θ)+η})` for every `η > 0`. At `θ = 11/12` the exponent is `12/25 + η`, below `½` [recalled: the classical unconditional error term is `x^{1/2}` times a factor `exp(−c(log x)^{3/5}(log log x)^{−1/5})`, Walfisz]. At `θ = Θ` the exponent is `1/(3 − Θ) + η`.
+   - Target: from `ζ(s) ≠ 0` on `Re s > θ`, `0 ≤ θ < 1`: `#{n ≤ x : n squarefree} = 6x/π² + O(x^{1/(3−θ)+η})` for every `η > 0`. At `θ = 11/12` the exponent is `12/25 + η`, below `½` [recalled: the classical unconditional error term is `x^{1/2}` times a factor `exp(−c(log x)^{3/5}(log log x)^{−1/5})`, Walfisz]. At `θ = Θ` the exponent is `1/(3 − Θ) + η`. *(Round 483: landed as `SquarefreeCount.squarefree_isBigO_of_zeroFree`, `SquarefreeCount.squarefree_isBigO_twelve_25ths` and `SquarefreeCount.squarefree_isBigO_Theta`. See round 483.)*
    - Route: `μ²(n) = Σ_{d²∣n} μ(d)`, and the hyperbola method at `y = x^{1/(3−θ)}`. The count is `xΣ_{d≤y} μ(d)/d² + O(y) + Σ_{m≤x/y²}(M(√(x/m)) − M(y))` with round 472's `M(x) = O(x^{θ+η})`; the tail `Σ_{d>y} μ(d)/d²` is `O(y^{θ+η−2})` by partial summation; and `Σ μ(d)/d² = 1/ζ(2) = 6/π²` (Mathlib's `riemannZeta_two`).
    - Round 470's paragraph "The next step" listed this door ("the squarefree numbers"); rounds 472–473 did not take it.
 4. **Explicit constants, and the class numbers of quadratic fields.**
@@ -18185,4 +18185,73 @@ None states a bound on `L(1, χ)` uniform in the modulus. The paper is not edite
 
 **Bearing on RH:** none.
 
-**The next step.** Round 483: door 3, in a new file `external/pnt/SquarefreeCount.lean`: from `ζ(s) ≠ 0` on `Re s > θ`, `0 ≤ θ < 1`, `#{n ≤ x : n squarefree} = 6x/π² + O(x^{1/(3−θ)+η})` for every `η > 0`, and the exponent `12/25 + η` at `θ = 11/12`.
+**The next step.** Round 483: door 3, in a new file `external/pnt/SquarefreeCount.lean`: from `ζ(s) ≠ 0` on `Re s > θ`, `0 ≤ θ < 1`, `#{n ≤ x : n squarefree} = 6x/π² + O(x^{1/(3−θ)+η})` for every `η > 0`, and the exponent `12/25 + η` at `θ = 11/12`. *(Round 483: landed, as `SquarefreeCount.squarefree_isBigO_of_zeroFree` and `SquarefreeCount.squarefree_isBigO_twelve_25ths`. See round 483.)*
+
+## Round 483: squarefree numbers in a zero-free half-plane, `#{n ≤ x : n squarefree} = 6x/π² + O(x^{12/25+η})` (`external/pnt/SquarefreeCount.lean`)
+
+**What it is.** Door 3 of round 481, as round 482's paragraph "The next step" planned: "Round 483: door 3, in a new file `external/pnt/SquarefreeCount.lean`: from `ζ(s) ≠ 0` on `Re s > θ`, `0 ≤ θ < 1`, `#{n ≤ x : n squarefree} = 6x/π² + O(x^{1/(3−θ)+η})` for every `η > 0`, and the exponent `12/25 + η` at `θ = 11/12`." Write `Q(x)` for the number of squarefree `n` with `1 ≤ n ≤ x` (`summ sqf x`). This round proves:
+
+- `SquarefreeCount.squarefree_isBigO_of_zeroFree`: if `ζ(s) ≠ 0` for `Re s > θ`, `0 ≤ θ < 1`, then `Q(x) − 6x/π² = O(x^{1/(3−θ)+η})` for every `η > 0`.
+- `SquarefreeCount.squarefree_isBigO_twelve_25ths`: `Q(x) − 6x/π² = O(x^{12/25+η})` for every `η > 0`, with no hypothesis, from round 466's half-plane `Re s > 11/12`.
+- `SquarefreeCount.squarefree_isBigO_Theta`: `Q(x) − 6x/π² = O(x^{1/(3−Θ)+η})` for every `η > 0`, with round 469's `Θ`, the supremum of the real parts of the nontrivial zeros, with no hypothesis.
+
+Since `12/25 < 1/2`, the exponent `12/25 + η` is below `½` for `η < 1/50`.
+
+**What is proved.** `external/pnt/SquarefreeCount.lean` (669 lines, 3 theorems, 11 lemmas, 1 definition; 7 axiom lines in `build.sh`'s final check, each `[propext, Classical.choice, Quot.sound]`):
+
+- **`sqf`** (definition): `1` on the squarefree numbers, `0` elsewhere.
+- **`dvd_of_sq_dvd_sq_mul`**: `d² ∣ b²a` with `a` squarefree and `b, d ≠ 0` gives `d ∣ b`.
+- **`sum_sq_dvd_moebius`**: `Σ_{d≥1, d²∣n} μ(d) = 1` if `n ≥ 1` is squarefree, and `0` otherwise.
+- **`filter_mul_le`**: `{m ∈ (0, N] : mk ≤ N} = (0, ⌊N/k⌋]` for `k > 0`.
+- **`sum_sqf_eq`**: `Q(N) = Σ_{1≤d≤N} μ(d)⌊N/d²⌋`.
+- **`hasSum_moebius_div_sq`**: `Σ_{d≥1} μ(d)/d² = 6/π²`.
+- **`abs_sum_Ioc_div_sq_le`**: if `|Σ_{k≤t} c(k)| ≤ Ct^α` for `t ≥ 1`, with `C ≥ 0` and `α < 2`, then `|Σ_{D<k≤Z} c(k)/k²| ≤ C(2 + 2/(2 − α))D^{α−2}` for `1 ≤ D ≤ Z`.
+- **`abs_sub_sum_le`**: if `|M(t)| ≤ Ct^α` for `t ≥ 1`, with `C ≥ 0` and `α < 2`, then `|6/π² − Σ_{d≤D} μ(d)/d²| ≤ C(2 + 2/(2 − α))D^{α−2}` for `D ≥ 1`.
+- **`sum_rpow_neg_le`**: `Σ_{1≤m≤Z} m^{−β} ≤ Z^{1−β}/(1 − β)` for `0 ≤ β < 1`.
+- **`abs_sum_Ioc_le`**: if `|M(t)| ≤ Ct^α` for `t ≥ 1`, with `C, α ≥ 0`, then `|Σ_{D<d≤N} μ(d)⌊N/d²⌋| ≤ Σ_{1≤m≤N/(D+1)²} (C(N/m)^{α/2} + CD^α)` for `D ≥ 1`.
+- **`abs_sum_sqf_sub_le`**: if `|M(t)| ≤ Ct^α` for `t ≥ 1`, with `C ≥ 0` and `0 ≤ α < 1`, then `|Q(N) − 6N/π²| ≤ y + CKNy^{α−2}` for every `1 ≤ y ≤ N`, with `K = 4(2 + 2/(2 − α)) + 1/(1 − α/2) + 1`.
+- **`mertens_le_of_zeroFree`**: if `ζ(s) ≠ 0` for `Re s > θ`, `0 ≤ θ < 1`, then for every `η > 0` there is `C ≥ 0` with `|M(t)| ≤ Ct^{θ+η}` for every `t ≥ 1`.
+- **`squarefree_isBigO_of_zeroFree`**, **`squarefree_isBigO_twelve_25ths`**, **`squarefree_isBigO_Theta`**: above.
+
+**The proof.**
+
+- **The count.** Write `n = b²a` with `a` squarefree (Mathlib's `Nat.sq_mul_squarefree_of_pos`). A `d ≥ 1` has `d² ∣ n` exactly when `d ∣ b`: at each prime `p`, `2v_p(d) ≤ 2v_p(b) + v_p(a) ≤ 2v_p(b) + 1` gives `v_p(d) ≤ v_p(b)`. So `Σ_{d²∣n} μ(d) = Σ_{d∣b} μ(d) = [b = 1]` (Mathlib's `ArithmeticFunction.moebius_mul_coe_zeta`), and `b = 1` exactly when `n` is squarefree. Summed over `n ≤ N`, with Mathlib's `Nat.Ioc_filter_dvd_card_eq_div` for the number of multiples of `d²`, this gives `sum_sqf_eq`.
+- **The hyperbola method.** Split the sum of `sum_sqf_eq` at `D = ⌊y⌋`, `1 ≤ y ≤ N`.
+
+  - For `d ≤ D`: `⌊N/d²⌋ = N/d² − {N/d²}`, which costs at most `D ≤ y`, and `NΣ_{d≤D} μ(d)/d² = 6N/π² − N(6/π² − Σ_{d≤D} μ(d)/d²)`.
+  - For `d > D`: `⌊N/d²⌋` is the number of `m ≤ N` with `md² ≤ N` (`filter_mul_le`). Exchanging the sums, `Σ_{D<d≤N} μ(d)⌊N/d²⌋ = Σ_{m≤N} Σ_{D<d≤K_m} μ(d)` with `K_m = ⌊√⌊N/m⌋⌋` (Mathlib's `Nat.sqrt`). The inner sum is empty unless `D < K_m`, which forces `m(D + 1)² ≤ N`, and otherwise it is `M(K_m) − M(D)`, at most `C(N/m)^{α/2} + CD^α` in absolute value (`abs_sum_Ioc_le`).
+- **The bounds,** from `|M(t)| ≤ Ct^α` for `t ≥ 1` (`mertens_le_of_zeroFree`: round 472's `MertensExponent.mertens_isBigO_of_zeroFree` above a threshold `X`, and round 221's `|M(t)| ≤ t`, `PsiOmega.linBound_moebius`, below it):
+
+  - The tail. Abel summation (Mathlib's `sum_mul_eq_sub_sub_integral_mul'`) with `f(t) = t^{−2}` gives `Σ_{D<k≤Z} μ(k)/k² = M(Z)/Z² − M(D)/D² + 2∫_D^Z M(t)t^{−3} dt`, at most `C(2 + 2/(2 − α))D^{α−2}` in absolute value, since `∫_D^∞ t^{α−3} dt = D^{α−2}/(2 − α)` (Mathlib's `integral_Ioi_rpow_of_lt`). The limit `Z → ∞` gives the same bound for `6/π² − Σ_{d≤D} μ(d)/d²` (`abs_sub_sum_le`). Since `D ≥ y/2`, `D^{α−2} ≤ 4y^{α−2}`.
+  - The hyperbola terms. With `Z = ⌊N/(D + 1)²⌋ ≤ N/y²`, `Σ_{m≤Z} C(N/m)^{α/2} = CN^{α/2}Σ_{m≤Z} m^{−α/2} ≤ CN^{α/2}(N/y²)^{1−α/2}/(1 − α/2) = CNy^{α−2}/(1 − α/2)` (`sum_rpow_neg_le`, from Mathlib's `AntitoneOn.sum_le_integral_of_integrableOn`), and `Σ_{m≤Z} CD^α ≤ C(N/y²)y^α = CNy^{α−2}`.
+
+  Together, `|Q(N) − 6N/π²| ≤ y + CKNy^{α−2}` (`abs_sum_sqf_sub_le`).
+- **The choice of `y`.** At `y = N^{1/(3−θ)}` and `α = θ + η′`, `Ny^{α−2} = N^{(1+η′)/(3−θ)}`. With `η′ = min(η(3 − θ), (1 − θ)/2)`, `α < 1` and `(1 + η′)/(3 − θ) ≤ 1/(3 − θ) + η`, so both `y` and `Ny^{α−2}` are at most `x^{1/(3−θ)+η}` for `N = ⌊x⌋ ≥ 1`; passing from `6N/π²` to `6x/π²` costs at most `6/π²`.
+- **The constant.** `Σ μ(d)/d² = L(μ, 2) = 1/ζ(2) = 6/π²`: round 221's `PsiOmega.LSeries_moebius_eq` at `s = 2` and Mathlib's `riemannZeta_two`, `ζ(2) = π²/6`.
+
+**Against the plan.** Round 481's door 3 recorded the route: "`μ²(n) = Σ_{d²∣n} μ(d)`, and the hyperbola method at `y = x^{1/(3−θ)}`. The count is `xΣ_{d≤y} μ(d)/d² + O(y) + Σ_{m≤x/y²}(M(√(x/m)) − M(y))` with round 472's `M(x) = O(x^{θ+η})`; the tail `Σ_{d>y} μ(d)/d²` is `O(y^{θ+η−2})` by partial summation; and `Σ μ(d)/d² = 1/ζ(2) = 6/π²` (Mathlib's `riemannZeta_two`)." The round follows this route, at the integer `N = ⌊x⌋` with `y = N^{1/(3−θ)}`, and with `M(D)`, `D = ⌊y⌋`, which equals `M(y)`. The targets landed as stated: the exponent `1/(3 − θ) + η` in general, `12/25 + η` at `θ = 11/12` and `1/(3 − Θ) + η` at `Θ`. Round 470's paragraph "The next step" listed "the squarefree numbers" among the doors after round 468; with this round all three of its sums (`M(x)` in round 472, Piltz's problem in round 473, the squarefree numbers here) have landed.
+
+**The paper.** `grep -n -i "squarefree\|square-free\|6/π²\|6/pi\|walfisz\|μ²\|mu^2"` on `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` finds no line. The paper is not edited.
+
+**Records.**
+
+- `external/pnt/build.sh`: `SquarefreeCount` in the compile list, and 7 lines added to the final check (98 to 105 `#print axioms` lines).
+- `external/pnt/README.md`: a row and a section for `SquarefreeCount.lean`.
+- STRUCTURAL-REVIEW §6: a marker on the entry for door 3.
+- Net-state markers on round 482's paragraph "The next step", on door 3's target in round 481, and on round 470's paragraph "The next step".
+
+**Build.** `external/pnt/build.sh` (1026 s) compiled `Architect.lean`, the 19 PNT+ files and the 28 files here, `SquarefreeCount.lean` with no warnings. Its final check printed 105 axiom lines, each `[propext, Classical.choice, Quot.sound]`. No file of `src/` changed.
+
+- The namespace `SquarefreeCount` is new: a grep of the Lean files of the pilot (`external/` included) and of Mathlib for `SquarefreeCount` finds it only in its own file, and a grep for `def sqf` finds no other definition.
+
+**Check 4.** Classical [recalled]: the elementary bound `Q(x) = 6x/π² + O(√x)`, from the identity of `sum_sqf_eq` alone; Walfisz's unconditional error term, `√x` times a factor `exp(−c(log x)^{3/5}(log log x)^{−1/5})`; and, under RH, exponents below `½`. The hyperbola method of this round is classical [recalled]: from `M(x) = O(x^{θ+ε})` it gives the exponent `1/(3 − θ) + ε`, which is `2/5 + ε` at `θ = ½`, and any zero-free half-plane `Re s > θ` with `θ < 1` puts the exponent below `½`. The release's two quasi-RH manuscripts state no count of squarefree numbers: `grep -n -i squarefree` finds 148 lines of `build/paper.tex` and 64 of `build/paper2.tex`, read here; each concerns squarefree indices, moduli or ideals inside their arguments, and neither file contains `6/\pi`. At `θ = 7/8`, the release's half-plane, `squarefree_isBigO_of_zeroFree` would give the exponent `8/17 + η`; the pilot's own half-plane is round 466's `11/12`, and the release's Lean is not imported (CLAUDE.md, "Derive, don't vendor"). New against the pilot: the count with the exponent `12/25 + η`, machine-checked with no hypothesis, on round 466's half-plane, and the general form from any half-plane.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every `0 ≤ θ < 1` with `ζ(s) ≠ 0` on `Re s > θ`, every `η > 0`, every `1 ≤ y ≤ N` in `abs_sum_sqf_sub_le`, every `D ≥ 1`.
+- (b) No barrier claim is made.
+- (c) No signal is fed to a criterion: the theorems go from a zero-free half-plane to a count.
+
+**Bearing on RH:** none.
+
+**The next step.** Round 484: door 4(a), explicit constants. Its first part replaces PNT+'s existential smoothing (`SmoothExistence`) by an explicit `C¹` function and bounds the Mellin transforms of `Smooth1` for it explicitly, as round 481 recorded.
