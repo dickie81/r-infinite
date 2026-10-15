@@ -9904,7 +9904,7 @@ The proof uses round 300's `gamF_union` with the cross term from `chiF_mul_inv_p
 
 **Scope (Check 9).**
 - (a) The negatives are scoped to the reductions computed here. These are the block `B = F = 1` of the dual mean square, and round 289's primal sum, bounded through the operator norms of (1.4), (1.5) with Lemma 2.9, and Theorem 1.1, with the coefficients treated as an arbitrary sequence; and the class splitting for (1.4) and (1.5). Nothing is said about routes that use the coefficients' structure.
-- Whether a better operator-norm bound could exist at this block is a question about the norm itself. Conjecture (1.8) puts `Ξ₆` at the size of Theorem 1.1's bound; its lower bound is proved for `n = 3` and `n = 4`, not for `n = 6`. If it holds, a better bound at this block has to use more than the norm, for instance the Gauss-sum structure of `a_ξ`. De Faveri's lower bounds, for the cubic and quartic families, come from "biases coming from higher order Gauss sums"; `a_ξ` carries cubic Gauss sums against sextic twists. Whether `a_ξ` comes near the extremal sequences is not examined here.
+- Whether a better operator-norm bound could exist at this block is a question about the norm itself. Conjecture (1.8) puts `Ξ₆` at the size of Theorem 1.1's bound; its lower bound is proved for `n = 3` and `n = 4`, not for `n = 6`. *(round 496: Xu–Sang, arXiv 2610.17675 (13 October), prove `Ξ₆(A,B) ≫ (AB)^{−ε}A^{5/6}B^{1/3}` for `B^{16/11+δ} ≤ A ≤ B^{2−δ}`, where it matches Theorem 1.1's bound; at `A = B = X` they prove `X^{17/16−ε}`, below the expected exponent `7/6`. README round 496.)* If it holds, a better bound at this block has to use more than the norm, for instance the Gauss-sum structure of `a_ξ`. De Faveri's lower bounds, for the cubic and quartic families, come from "biases coming from higher order Gauss sums"; `a_ξ` carries cubic Gauss sums against sextic twists. Whether `a_ξ` comes near the extremal sequences is not examined here.
 - (b) Register: a sub-entry for the dual mean square under the fixed-strip entry of STRUCTURAL-REVIEW §6, with its socket and an attack note.
 - (c) The signal is unchanged. `DualMeanSquare ϑ` is the auxiliary signal fed to round 288's criterion through round 310; in the paper its independent bound is the theta route.
 
@@ -18960,3 +18960,82 @@ Here `MeanSquareC c σ` is round 288's display `MeanSquare σ` with round 288's 
 **Bearing on RH:** none. The half-plane is `Re s > 11/12`.
 
 **The next step.** None is planned here: the five doors that round 481 recorded are done.
+
+## Round 496: the horizon scan of 2026-10-15, and the release's exponent comparison as a linear program (`frontier/wall78/exponent_lp.py`, no new Lean)
+
+**What it is.** The owner asked: "Can you brainstorm ideas for surpassing 7/8 wall. Look for any crack however unlikely but not yet proven to be absolutely closed". The question opens a round series on the release's `7/8`, so CLAUDE.md's "Looking in the right places" asks for a horizon scan, recorded here. The answer's arithmetic is a linear program over the release's exponent comparison, committed with its gates as `frontier/wall78/exponent_lp.py`. No Lean file changes, and the paper is not edited.
+
+**The horizon scan.** Each item was read at its source: the arXiv API's abstracts, the papers' LaTeX sources (arXiv e-prints) and the release's repository. None of their mathematics was checked here.
+
+- **The release.** `github.com/openai/math` is at `1581d4c`, as in round 471. The 7/8 manuscript's `build/paper.tex` is unchanged since the initial commit `adc7f12`: `git diff --stat adc7f1241 origin/main` lists no file under its directory.
+- **arXiv:2610.15291**, Hejian Sang, "Refining the 7/8 zero-free half-plane for Hecke and Dirichlet $L$-functions" (v1, 11 October). Its abstract: "Assuming the analytic inputs of that work, we improve the boundary from $7/8=0.875$ to $8748867/10000000=0.8748867$ for the same families. The improvement combines a relaxed direct estimate with an amplified first moment of the reflected numerator, obtained from the existing fourth-moment estimate. A two-stage parameter argument yields the stated boundary without strengthening the inverse-moment estimate." Its Proposition `prop:low` takes `\(1/6\le\ell\le1/5\)` with the completed-row norm loss `L_\ell(d)=\frac{(5\ell+d-1)_+}{4}`, and states: "The structural relation used in the dual-length bound is still" `M'+\ell'-1=-3d`. It ends: "No claim is made that the resulting exponent is optimal among all variants of the method." Round 471's scan of 14 October did not find it.
+- **arXiv:2610.17675**, Yuanda Xu and Hejian Sang, "A sharp lower bound for the sextic large sieve" (v1, 13 October). Its abstract: "For every fixed `$0<δ<3/11$` and every `$\varepsilon>0$`, we prove `$Ξ_6(A,B)\gg_{δ,\varepsilon}(AB)^{-\varepsilon}A^{5/6}B^{1/3}$` for `$B^{16/11+δ}\le A\le B^{2-δ}$`. Consequently, the full-cutoff norm satisfies `$Ξ_6(X,X)\gg_\varepsilon X^{17/16-\varepsilon}$`." Its introduction: "The expected full-cutoff exponent is `\(7/6\)`, which is larger than `\(17/16\)`." It states: "We use the finite reciprocity and Gauss-correlation formulas recorded in `\cite[Lemmas 4.1, 4.3--4.4, 13.2--13.3]{qr}`, and develop the two-Poisson calculation in the proof of `\cite[Proposition 15.2]{qr}`." Here `qr` is the release ("OpenAI, *The Quasi-Riemann Hypothesis: A Zero-Free Half-Plane* `\(\Re s>7/8\)`, manuscript, September 30, 2026"), and its Proposition 15.2 is the Gram bound `prop:probe-gram` (page 104 of the release's `paper.pdf`: "Proposition 15.2 (A quantitative additive Gram bound)"). For "a column average `\(\mathcal A\)` with coefficients of size `\(B^{-1}\)`", formed "With fixed smooth weights and a fixed ray class", it states: "Two Poisson summations isolate frequencies with a sixth-power structure and give" `\|\mathcal A\|_2^2\sim c_*A^{5/6}B^{-2/3},\qquad c_*>0`; and: "The effective norm scale of the first Poisson frequencies is `\(Y=B^2/A\)`. Their sixth-power structure leaves a contribution of scale `\((A/B)Y^{1/6}=A^{5/6}B^{-2/3}\)`."
+- **arXiv:2610.04045**, de Faveri (rounds 286, 289, 311). Its Corollary `thm:zero_density`, read in its LaTeX source, bounds the zeros of `L(s, χ_𝔞)` with `σ ≤ Re ρ` and `|Im ρ| ≤ T`, summed over the `n`-th power free `𝔞` with `N(𝔞) ≤ N`, by `N^{1−δ_n(σ)+ε}T^{1+d(1−σ)/(3−2σ)+ε}`; at `n = 6` and the binding bin below, `1 − δ_6(σ) ≈ 0.803`.
+- **The Lean community.** Not searched in this round.
+
+**Outcome of the scan.** Sang's `0.8748867` lies below Liu's `0.874957…` (round 471), whose abstract claims optimality "within the explicitly specified exponent comparison system"; Sang changes the system (the averaged numerator). Neither is derived here. Xu–Sang prove, in their range, the `n = 6` lower bound that round 311 recorded as unproved. Markers are on round 311 and on STRUCTURAL-REVIEW §6.
+
+**The exponent comparison as a linear program.** The script's docstring cites the release's lines.
+
+- **Variables:** the geometry `(l_x, l_y, ℓ)` of the release's Definition `def:stage-high-data`, and the boundary `s₀`.
+- **High side:** the exponent of Lemma `lem:bin-contour-accounting` (its `eq:stage-high-exponent`), at the longest rows `d = h`, with `g = qℓ`. The row counts are those of Proposition `prop:detector-counts`, balanced over `t`. The bin `a = 51/100` has the trivial count: "The bin `\(a=51/100\)` will be bounded by the trivial row count."
+- **Low side:** Proposition `prop:probe-low`, with Sang's row-norm loss. Off the slice `M + ℓ = 1`, the loss is the same proof's second branch, `(1 + 3ℓ − 2M + d)₊/4`, which needs `M + ℓ ≤ 1`. This is a reading of the release's proof of Lemma `lem:probe-row-norm`; the low estimate's other lemmas were not re-read for general geometry.
+- **Solving:** every constraint is linear in the variables for fixed `(δ, x)`, and the script solves the program by cutting planes.
+- **Not modelled:** the intermediate range, small and large rows, the frequency extension, and the prime supply against the capacities. Every boundary below is a lower bound for what the release's machinery gives with the stated inputs.
+
+**Gates.** `python3 frontier/wall78/exponent_lp.py` runs in about 15 s; all 21 gates pass, and any failure gives exit status 1.
+
+- **W1, W2:** the optimum on the slice is Liu's. At `κ = 3/4` it is `0.874957069794`, against v1's `B_{\mathrm{new}}=\frac{1507-2\sqrt{921}}{1653} =0.874957069799\ldots`. With `κ = 2s₀ − 1` iterated it is `0.874957019416`, against v2's `0.874957019420098946\ldots`, and `ℓ` agrees to 8 digits. Liu's `ξ_new ≈ 0.38858` is the binding bin (his "For a critical class `$\delta=\xi$` and `$x=1/2$`"); the script's binding bin is `δ = 0.38859`, `x = 1/2`.
+- **W3:** the release's own geometry `(b, ℓ) = (1/8, 1/6)` has slack `2.28·10⁻⁴` at `s₀ = 7/8`. Its Lemma `lem:balanced-endpoint` proves `49/440640 ≈ 1.11·10⁻⁴`.
+- **W4:** off the slice, the optimum returns to `M + ℓ = 1`, and the slice's shadow price is `1/16` per unit.
+  - The low side carries `0.81` of the boundary's shadow price, and the bins at `δ ≈ 0.389`, `x = 1/2` carry the rest.
+  - Crossing the slice by `μ`, at a low-side cost `cμ/2`, pays only for `c` below `0.1539`. The first branch of the row-norm proof, as read, costs `c = 1`.
+- **W5** (levers, one at a time):
+
+  | Lever | `s₀` |
+  |---|---|
+  | density-hypothesis counts `R = 1 − δ` | `0.86979` |
+  | all counts lower by `0.03` | `0.87091` |
+  | sixth-power slope `α = 2/3` | `0.87392` |
+  | no amplitude cost `g` | `0.87255` |
+  | Gram exceptional term `P_a^{1/12}` for `P_a^{1/6}` | `0.86961` |
+  | Gram exceptional term removed | `0.86395` |
+  | row-sum saving `U^{1/4}` in every bin | no change |
+  | row-sum saving `U^{1/2}` in every bin | `0.87082` |
+
+- **W6** (caps): with density-hypothesis counts, any row-sum saving gives `13/15`. With the exceptional term removed as well and a saving `U^{1/2}`, the result is `38/45`. **W6b:** both are the low side's own minimum over the geometry (the low rows alone, with no high side), reached at `ℓ = 1/5`, `M = 4/5`.
+- **W7:** at the binding bin, de Faveri's `n = 6` count `0.803` exceeds the release's counts, which lie in `[0.667, 0.693]`.
+- **S1** (sabotage): with `cP = 1/4` in place of `1/(6κ)`, the optimum moves `5.7·10⁻⁵` off Liu's, so W1 can fail.
+
+**Reading the levers** (within the model).
+
+- **The low side.** It carries `0.81` of the price, and its largest lever is the Gram bound's exceptional term `P_a^{1/6}`. That term comes from the frequencies `(k) = a_1^6 e`, which the proof of `prop:probe-gram` bounds with "the trivial two-column point count". Removing it alone gives `0.86395`, the largest single lever found.
+  - Xu–Sang's second moment makes the term the size of the sum, not a loss of the estimate, for a Gauss-sum column average over a fixed ray class. Their scale `A^{5/6}B^{−2/3}` is the release's `(Q/Y′)P_a^{1/6}` at `A = Q`, `B = Y′`.
+  - The release's polynomial is `A_m=Y'^{-3/2}\sum_s c_\sigma(s)W_1(r_s)r_s^{-1+i\nu} g_{\chi_s}(s,-m)`, with `c_\sigma(s)=1_{s\in\sigma}\chi_s(b_*)/(\tau\xi(s))` (the proof of `prop:probe-gram`): Gauss sums over the moduli of one ray class `σ`, with a smooth weight. Whether Xu–Sang's asymptotic, with `c_* > 0`, holds for it is not checked here.
+  - If it holds, a better estimate of the Gram sum cannot remove the term. What remains is the next step, Cauchy–Schwarz against the completed rows `B_m`.
+- **The row counts.** At the binding bin they exceed the density hypothesis by `0.06`–`0.08`, but density-hypothesis counts in every bin give only `0.86979`. The floor bin and the bins just above it, whose counts are near `U^1` and are bounded row by row, then bind. A row-sum saving of `U^{1/4}` alone does not move the boundary, and `U^{1/2}` alone gives `0.87082`; with density-hypothesis counts, any saving stops at the low side's `13/15`.
+- **The slice.** The row-norm proof's step `T_d ≤ H − 3d` holds for `M + ℓ ≤ 1`, and the optimum sits on `M + ℓ = 1`. Leaving it costs more on the low side than it buys (W4).
+- **The caps.** `13/15` and `38/45` are the low side's own minimum over the geometry (W6b), set by the row-norm loss `(1 + 3ℓ − 2M + d)₊/4` with `M + ℓ ≤ 1`. Below them, the model needs a low estimate other than the release's.
+
+**Check 9.**
+
+- (a) Every boundary, price and cap above is a statement about the endpoint model with the stated inputs, computed by the committed script. None is a statement about the release's method in general, or about the half-plane problem. Liu's optimality claim is scoped to his own system, and Sang makes no optimality claim.
+- (b) Register: a sub-entry "Below `7/8` in the release's exponent comparison" under STRUCTURAL-REVIEW §6's fixed-strip entry, with its socket and attack notes, and a marker on that entry's "External status".
+- (c) The signal is the release's probe `𝓘_η(Z)`. Its direct estimate (the Gram bound and the completed-row norm) does not use the zeros, and its Poisson representation carries `1/L^S(s, η)` in the principal row. It is auxiliary, not circular. The row counts are fed by the witnesses of Proposition `prop:detector-witness`, through the marked inverse and plain moments.
+
+**The machinery checklist** (CLAUDE.md, "Looking in the right places").
+
+- **Surveyed:** the multiplicative large sieve for `n`-th order characters (de Faveri's Theorem 1.1 and Corollary `thm:zero_density`, and Xu–Sang's lower bound); the release's Gram bound and zero detector; and Sang's moment step.
+- **Not surveyed:** multiple Dirichlet series for the row sum; metaplectic Kuznetsov formulas; and large values of Guth–Maynard type for the family. On the last, the release's introduction says: "Guth and Maynard's large-value estimates improve zero-density bounds for $\zeta$ \cite[Theorem 1.2]{GM}, but these zero-density bounds do not exclude every zero."
+- All three are attack notes on the register.
+
+**Records.**
+
+- STRUCTURAL-REVIEW §6: a marker for Sang on the fixed strip's "External status", and the new sub-entry.
+- Round 311: a marker for Xu–Sang on its scope note about Conjecture (1.8).
+
+**Check 4.** Liu's boundary is acknowledged (round 471). Sang's boundary and Xu–Sang's lower bound are new hits, not derived here. The linear program, with its prices, levers and caps, is new against the pilot; Liu's abstract states the optimum of the same system, which the script reproduces.
+
+**Bearing on RH:** none.
+
+**The next step.** None is planned here. The register's sub-entry lists the attacks; which one to take is the owner's decision.
