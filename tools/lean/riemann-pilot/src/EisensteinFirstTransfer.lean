@@ -1,6 +1,10 @@
 import EisensteinTransferRowCol
 
-/-! # The companion paper's Lemma 7.1, the first transfer (round 320)
+/-! # The companion paper's Lemma 7.1, the first transfer (round 320; round 492: the characters modulo `m`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) states Lemma 7.1 for the characters modulo any `m` with `4 ∣ m`. The
+rows' set of primes is `unitPrimes m (2βL)`, and `Pcol_eq_powerset` needs only the primes whose
+class modulo `m` is a unit.
 
 S5c-3 in round 316's plan. The companion paper's Lemma 7.1, with its LaTeX rendered as text: "If
 `M≥0` satisfies `𝒬_{ξ_1}(U)≤M‖U‖²_{C^j(I_*)}` for every `U∈C_c^∞(I_*)` and every `ξ_1`, then
@@ -26,6 +30,8 @@ open scoped ComplexConjugate ContDiff
 noncomputable section
 
 namespace Eis
+
+variable {m : 𝓞 K}
 
 /-! ### The multiplicity of `y = μf²` -/
 
@@ -148,7 +154,7 @@ def Ycd (cI S L F H : ℝ) (b T : Finset Pr) : ℝ := cI * S * L * F / (H * nI b
 
 /-- **The Möbius column sum `P_{C,d,t}(y; U)`** of the companion paper's (7.1), with `C = b ∪ T`,
 `d = T`, `t = V` and `p_y = colP ξ₁ y (b⁴T⁵V⁶)`, over the columns of norm at most `2βℓ`. -/
-def Pcol (ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U : ℝ → ℂ) (β L : ℝ) (b T V : Finset Pr)
+def Pcol (ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ) (U : ℝ → ℂ) (β L : ℝ) (b T V : Finset Pr)
     (y : 𝓞 K) : ℂ :=
   ∑ M ∈ fsLe (2 * β * ellS L b T V),
     colP ξ1 y (eS b ^ 4 * eS T ^ 5 * eS V ^ 6) M * U (nI M / ellS L b T V)
@@ -165,7 +171,7 @@ def qTriples (Λ : ℝ) : Finset (Finset Pr × Finset Pr × Finset Pr) :=
 `(b, d, t)` of `qTriples (2βL)`, the weight `2H·N(b)/(√3·L)` times
 `Re Σ_y |P_{C,d,t}(y; U)|²·Φ(y/√Y_{C,d})`. The paper's weight is `w_{C,d} = 𝓗N(C)/(N(d)L²F)`, and
 `N(C)/N(d) = N(b)`. -/
-def Qform (ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U : ℝ → ℂ) (β H L S F cI : ℝ) : ℝ :=
+def Qform (ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ) (U : ℝ → ℂ) (β H L S F cI : ℝ) : ℝ :=
   ∑ t ∈ qTriples (2 * β * L),
     2 * H * nI t.1 / (Real.sqrt 3 * L) *
       (∑' y : 𝓞 K, Pcol ξ1 U β L t.1 t.2.1 t.2.2 y * conj (Pcol ξ1 U β L t.1 t.2.1 t.2.2 y) *
@@ -175,7 +181,7 @@ def Qform (ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U : ℝ → ℂ)
 
 section Vanish
 
-variable (W : ℝ → ℂ) (X H : ℝ) (f : 𝓞 K) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+variable (W : ℝ → ℂ) (X H : ℝ) (f : 𝓞 K) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ)
   (b T V : Finset Pr) (μ : 𝓞 K) (M1 M2 : Finset Pr)
 
 theorem rcDual_eq_zero_of_W1 (h : MellinSep.W0c W (nI b * nI T * nI V * nI M1 / X) = 0) :
@@ -220,7 +226,7 @@ theorem dvd_c_of_mem {b T V : Finset Pr} {P : Pr} (hP : P ∈ b ∪ T ∪ V) :
 /-- **The columns meeting `b ∪ T ∪ V` vanish** (the companion paper's "the other original zeros are
 supplied by `p_{hf^2}(x_i)`"). -/
 theorem rcDual_eq_zero_of_meet (W : ℝ → ℂ) (X H : ℝ) (f : 𝓞 K)
-    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (b T V : Finset Pr) (μ : 𝓞 K)
+    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) (b T V : Finset Pr) (μ : 𝓞 K)
     (M1 M2 : Finset Pr) (h : ¬ Disjoint (b ∪ T ∪ V) M1 ∨ ¬ Disjoint (b ∪ T ∪ V) M2) :
     rcDual W X H f ξ1 ξ2 b T V μ M1 M2 = 0 := by
   rcases h with h | h
@@ -235,7 +241,7 @@ theorem rcDual_eq_zero_of_meet (W : ℝ → ℂ) (X H : ℝ) (f : 𝓞 K)
 
 /-- **The rows of norm beyond `βX` vanish**: if `N(b)N(T)N(V) > βX`, every term vanishes. -/
 theorem rcDual_eq_zero_of_large_bTV {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {X : ℝ}
-    (hX : 0 < X) (H : ℝ) (f : 𝓞 K) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+    (hX : 0 < X) (H : ℝ) (f : 𝓞 K) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ)
     {b T V : Finset Pr} (μ : 𝓞 K) (M1 M2 : Finset Pr) (h : β * X < nI b * nI T * nI V) :
     rcDual W X H f ξ1 ξ2 b T V μ M1 M2 = 0 := by
   refine rcDual_eq_zero_of_W1 W X H f ξ1 ξ2 b T V μ M1 M2 (W0c_eq_zero_of_gt hW ?_)
@@ -251,7 +257,7 @@ satisfies `N(y)≤4C_Φv^2L^2F^2N(d)/(𝓗N(C)^2)≤Y_{C,d}`"): with `3β²R² �
 theorem rcDual_eq_zero_of_large_mu {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {L H S F cI : ℝ}
     (hL : 0 < L) (hH : 0 < H) (hF : 0 < F) (hS : L * F ≤ S) {R : ℝ} (hR0 : 0 < R)
     (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0) (hcI : 3 * β ^ 2 * R ^ 2 ≤ cI) (f : 𝓞 K)
-    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (b T V : Finset Pr) (μ : 𝓞 K)
+    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) (b T V : Finset Pr) (μ : 𝓞 K)
     {M1 M2 : Finset Pr} (hV1 : Disjoint V M1) (hV2 : Disjoint V M2)
     (hy : Ycd cI S L F H b T < (absNorm (span {μ}) : ℝ) * (4 * F ^ 2)) :
     rcDual W L H f ξ1 ξ2 b T V μ M1 M2 = 0 := by
@@ -325,14 +331,14 @@ abbrev RowD := (Finset Pr × Finset Pr × Finset Pr) × (Ideal (𝓞 K) × 𝓞 
 
 /-- The weight of a row: the sign `μ(T)μ(V)` and the factor
 `ξ₁(V)ξ̄₂(V)·|χ_V(f)⁴|²|χ_V(μ)|²|χ_{bT}(f)⁴|²` of `rcDual`, with `f = pgen 𝔣`. -/
-def wRowD (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (r : RowD) : ℂ :=
+def wRowD (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) (r : RowD) : ℂ :=
   ((-1 : ℂ) ^ r.1.2.1.card * (-1) ^ r.1.2.2.card) *
-    (ξ1 (cls4 r.1.2.2) * conj (ξ2 (cls4 r.1.2.2)) *
+    (ξ1 (cls m r.1.2.2) * conj (ξ2 (cls m r.1.2.2)) *
       (chiS r.1.2.2 (pgen r.2.1) ^ 4 * conj (chiS r.1.2.2 (pgen r.2.1) ^ 4)) *
       (chiS r.1.2.2 r.2.2 * conj (chiS r.1.2.2 r.2.2)) *
       (chiS (r.1.1 ∪ r.1.2.1) (pgen r.2.1) ^ 4 * conj (chiS (r.1.1 ∪ r.1.2.1) (pgen r.2.1) ^ 4)))
 
-theorem norm_wRowD_le (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (r : RowD) :
+theorem norm_wRowD_le [NeZero m] (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) (r : RowD) :
     ‖wRowD ξ1 ξ2 r‖ ≤ 1 := by
   unfold wRowD
   have hc : ∀ z : ℂ, ‖z‖ ≤ 1 → ‖z * conj z‖ ≤ 1 := fun z hz => by
@@ -349,9 +355,11 @@ theorem norm_wRowD_le (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (
   have hB1 : ‖B‖ ≤ 1 := hc _ (norm_chiS_le _ _)
   have hC1 : ‖Cc‖ ≤ 1 := hc _ (h4 _ _)
   rw [norm_mul, norm_mul, norm_mul, norm_mul, norm_mul, norm_mul, norm_pow, norm_pow, norm_neg,
-    norm_one, one_pow, one_pow, RCLike.norm_conj, norm_xi_cls4, norm_xi_cls4]
-  calc 1 * 1 * (1 * 1 * ‖A‖ * ‖B‖ * ‖Cc‖) = ‖A‖ * ‖B‖ * ‖Cc‖ := by ring
-    _ ≤ 1 * 1 * 1 := by gcongr
+    norm_one, one_pow, one_pow, RCLike.norm_conj]
+  have hx1 := norm_xi_le ξ1 (cls m r.1.2.2)
+  have hx2 := norm_xi_le ξ2 (cls m r.1.2.2)
+  calc 1 * 1 * (‖ξ1 (cls m r.1.2.2)‖ * ‖ξ2 (cls m r.1.2.2)‖ * ‖A‖ * ‖B‖ * ‖Cc‖)
+      ≤ 1 * 1 * (1 * 1 * 1 * 1 * 1) := by gcongr
     _ = 1 := by ring
 
 /-- The parameter `A_r = 4H·N(μ)·N(b)²N(T)/(3L²)` of a row's dual weight. -/
@@ -364,7 +372,7 @@ def wtD (H L : ℝ) (r : RowD) : ℝ := 2 * H * nI r.1.1 / (Real.sqrt 3 * L)
 open Classical in
 /-- The coefficients of the enlarged columns `(r', M)`: `√w_r·p_{μf²}(M)` on the row's own block
 `r' = r`, and `0` elsewhere. -/
-def colE (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (H L : ℝ) (r : RowD) (n : RowD × Finset Pr) : ℂ :=
+def colE (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (H L : ℝ) (r : RowD) (n : RowD × Finset Pr) : ℂ :=
   if n.1 = r then ((Real.sqrt (wtD H L r) : ℝ) : ℂ) *
     colP ξ (r.2.2 * pgen r.2.1 ^ 2) (eS r.1.1 ^ 4 * eS r.1.2.1 ^ 5 * eS r.1.2.2 ^ 6) n.2 else 0
 
@@ -381,7 +389,7 @@ theorem xE_pos {L : ℝ} (hL : 0 < L) (n : RowD × Finset Pr) : 0 < xE L n := by
 `rcDual = w̃_r·(√w_r p(M₁))·conj(√w_r p(M₂))·W₀(x₁)·conj(W₀(x₂))·Φ̂(√(A_r/(x₁x₂)))` with
 `x_i = N(M_i)/ℓ_r`. -/
 theorem rcDual_eq_bilin (W : ℝ → ℂ) {L H : ℝ} (hL : 0 < L) (hH : 0 ≤ H)
-    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (r : RowD) {M1 M2 : Finset Pr}
+    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) (r : RowD) {M1 M2 : Finset Pr}
     (hV1 : Disjoint r.1.2.2 M1) (hV2 : Disjoint r.1.2.2 M2) :
     rcDual W L H (pgen r.2.1) ξ1 ξ2 r.1.1 r.1.2.1 r.1.2.2 r.2.2 M1 M2 =
       wRowD ξ1 ξ2 r * (colE ξ1 H L r (r, M1) * conj (colE ξ2 H L r (r, M2)) *
@@ -420,7 +428,7 @@ theorem sum_enlarged {ι κ : Type*} (Rows : Finset ι) (Cs : Finset κ) {r : ι
   · intro r' _ hne; exact Finset.sum_eq_zero fun M _ => hg _ hne
   · intro h; exact absurd hr h
 
-theorem colE_eq_zero_of_ne (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (H L : ℝ) (r : RowD)
+theorem colE_eq_zero_of_ne (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (H L : ℝ) (r : RowD)
     {n : RowD × Finset Pr} (h : n.1 ≠ r) : colE ξ H L r n = 0 := by
   unfold colE; rw [ite_eq_right h]
 
@@ -428,7 +436,7 @@ theorem colE_eq_zero_of_ne (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (
 transfer): the columns `M ⊆ U₀∖(b∪T)∖V` of round 319 are completed to the enlarged columns
 `Rows ×ˢ 2^{U₀}`, whose extra coefficients vanish. -/
 theorem rowSumD_eq_bilinear (W : ℝ → ℂ) {L H : ℝ} (hL : 0 < L) (hH : 0 ≤ H)
-    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {U0 : Finset Pr} (Rows : Finset RowD) {r : RowD}
+    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) {U0 : Finset Pr} (Rows : Finset RowD) {r : RowD}
     (hr : r ∈ Rows) :
     ∑ M1 ∈ ((U0 \ (r.1.1 ∪ r.1.2.1)) \ r.1.2.2).powerset,
         ∑ M2 ∈ ((U0 \ (r.1.1 ∪ r.1.2.1)) \ r.1.2.2).powerset,
@@ -466,7 +474,7 @@ theorem rowSumD_eq_bilinear (W : ℝ → ℂ) {L H : ℝ} (hL : 0 < L) (hH : 0 �
     have hP' := Finset.disjoint_right.1 hd hP
     simp only [Finset.mem_union, not_or] at hP'
     exact ⟨⟨hM hP, by simp only [Finset.mem_union, not_or]; exact ⟨hP'.1.1, hP'.1.2⟩⟩, hP'.2⟩
-  have hcolP : ∀ (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (M : Finset Pr),
+  have hcolP : ∀ (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (M : Finset Pr),
       ¬ Disjoint (r.1.1 ∪ r.1.2.1 ∪ r.1.2.2) M → colE ξ H L r (r, M) = 0 := by
     intro ξ M h
     rw [Finset.not_disjoint_iff] at h
@@ -513,27 +521,40 @@ theorem lt_nI_of_not_mem_fsLe {Y : ℝ} {A : Finset Pr} (hA : A ∉ fsLe Y) : Y 
 theorem mem_fsLe_of_nI_le {Y : ℝ} {A : Finset Pr} (h : nI A ≤ Y) : A ∈ fsLe Y := by
   rw [mem_fsLe]; exact Nat.le_floor h
 
-/-- `Pcol` as a sum over the subsets of any `U₀` containing the primes of norm at most `2βL`. -/
-theorem Pcol_eq_powerset (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {U : ℝ → ℂ} {β L : ℝ}
+/-- `Pcol` as a sum over the subsets of any `U₀` containing the primes of norm at most `2βL` whose
+class modulo `m` is a unit (the columns through another prime vanish, since `ξ` vanishes off the
+units). -/
+theorem Pcol_eq_powerset (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {U : ℝ → ℂ} {β L : ℝ}
     (hU : ∀ x, 2 * β < x → U x = 0) (hβ : 0 ≤ β) (hL : 0 < L) {U0 : Finset Pr}
-    (hU0 : primesLe (2 * β * L) ⊆ U0) (b T V : Finset Pr) (y : 𝓞 K) :
+    (hU0 : ∀ P ∈ primesLe (2 * β * L), IsUnit (cls m {P}) → P ∈ U0) (b T V : Finset Pr)
+    (y : 𝓞 K) :
     Pcol ξ U β L b T V y = ∑ M ∈ U0.powerset,
       colP ξ y (eS b ^ 4 * eS T ^ 5 * eS V ^ 6) M * U (nI M / ellS L b T V) := by
+  classical
   have hℓ := ellS_pos hL b T V
   have hℓL : ellS L b T V ≤ L := by
     unfold ellS
     exact div_le_self hL.le (one_le_mul_of_one_le_of_one_le
       (one_le_mul_of_one_le_of_one_le (one_le_nI b) (one_le_nI T)) (one_le_nI V))
-  unfold Pcol
-  refine Finset.sum_subset (fun M hM => ?_) fun M _ hM => ?_
-  · rw [Finset.mem_powerset]
-    refine (subset_primesLe hM).trans ((primesLe_mono ?_).trans hU0)
+  have h2 : 2 * β * ellS L b T V ≤ 2 * β * L := by
     have : 0 ≤ 2 * β := by linarith
     exact mul_le_mul_of_nonneg_left hℓL this
-  · have h := lt_nI_of_not_mem_fsLe hM
-    rw [hU _ (by rw [lt_div_iff₀ hℓ]; linarith), mul_zero]
+  unfold Pcol
+  rw [← Finset.sum_filter_of_ne (p := fun M => M ⊆ U0) fun M hM hne => ?_]
+  · refine Finset.sum_subset (fun M hM => ?_) fun M hM0 hM => ?_
+    · exact Finset.mem_powerset.2 (Finset.mem_filter.1 hM).2
+    · have hM' : M ∉ fsLe (2 * β * ellS L b T V) := fun h =>
+        hM (Finset.mem_filter.2 ⟨h, Finset.mem_powerset.1 hM0⟩)
+      have h := lt_nI_of_not_mem_fsLe hM'
+      rw [hU _ (by rw [lt_div_iff₀ hℓ]; linarith), mul_zero]
+  · by_contra hsub
+    obtain ⟨P, hPM, hPU⟩ := Finset.not_subset.1 hsub
+    have hP : P ∈ primesLe (2 * β * L) := primesLe_mono h2 (subset_primesLe hM hPM)
+    have hnu : ¬IsUnit (cls m M) := fun h =>
+      hPU (hU0 P hP (isUnit_cls_of_subset (Finset.singleton_subset_iff.2 hPM) h))
+    exact hne (by rw [colP, MulChar.map_nonunit ξ hnu]; ring)
 
-theorem norm_Pcol_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {U : ℝ → ℂ} {NU : ℝ}
+theorem norm_Pcol_le [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {U : ℝ → ℂ} {NU : ℝ}
     (hNU : ∀ x, ‖U x‖ ≤ NU) (β L : ℝ) (b T V : Finset Pr) (y : 𝓞 K) :
     ‖Pcol ξ U β L b T V y‖ ≤ (fsLe (2 * β * ellS L b T V)).card * NU := by
   unfold Pcol
@@ -581,10 +602,10 @@ open Classical in
 vanishing beyond `2β`, the enlarged column sums of `rowsD` satisfy
 `Σ_r |Σ_n colE(r, n)·U(x_n)|² ≤ C·(c_I·SLF/H)^δ·𝒬_ξ(U)`, through the multiplicity of `y = μf²`
 (`sum_pairs_le_mult`) and the majorant (round 307's `sum_sq_le_majorant`). -/
-theorem rows_meanSquareD {δ : ℝ} (hδ : 0 < δ) :
-    ∃ C : ℝ, 0 < C ∧ ∀ (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {β H L S F cI : ℝ},
+theorem rows_meanSquareD [NeZero m] {δ : ℝ} (hδ : 0 < δ) :
+    ∃ C : ℝ, 0 < C ∧ ∀ (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {β H L S F cI : ℝ},
       0 ≤ β → 0 < H → 0 < L → 0 < S → 0 < F → 0 < cI →
-      ∀ {U0 : Finset Pr}, primesLe (2 * β * L) ⊆ U0 →
+      ∀ {U0 : Finset Pr}, (∀ P ∈ primesLe (2 * β * L), IsUnit (cls m {P}) → P ∈ U0) →
       ∀ (Fs : Finset (Ideal (𝓞 K))), (∀ f ∈ Fs, (absNorm f).Coprime 6 ∧ Squarefree f) →
       ∀ (E : Finset (𝓞 K)), (∀ μ ∈ E, μ ≠ 0) →
       ∀ (U : ℝ → ℂ), (∀ x, 2 * β < x → U x = 0) → ∀ NU : ℝ, (∀ x, ‖U x‖ ≤ NU) →
@@ -736,17 +757,17 @@ the proof of Lemma 7.1, through round 317's `bilinear_dual_bound_unif` with the 
 `rowSumD_eq_bilinear`): if `𝒬_ξ(U) ≤ M_Q·N_U²` for every test function `U` vanishing outside
 `[α/2, 2β]` (the paper's `I_*`) with its first `J` derivatives bounded by `N_U`, then the rows of `rowsD` contribute at
 most `K·N_W²·A_min^{−σ}·(c_I·SLF/H)^δ·M_Q`, with `A_min = 4H/(3L²)`. -/
-theorem blockD_bound {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (J : ℕ) {σ δ : ℝ} (hσ : 0 < σ)
+theorem blockD_bound [NeZero m] {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (J : ℕ) {σ δ : ℝ} (hσ : 0 < σ)
     (hδ : 0 < δ) :
-    ∃ Kt : ℝ, 0 ≤ Kt ∧ ∀ (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (W : ℝ → ℂ),
+    ∃ Kt : ℝ, 0 ≤ Kt ∧ ∀ (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) (W : ℝ → ℂ),
       ContDiff ℝ ∞ W → (∀ x, x < α ∨ β < x → W x = 0) → ∀ NW : ℝ,
       (∀ j ≤ 2 * J + 2, ∀ x, ‖iteratedDeriv j W x‖ ≤ NW) →
       ∀ {H L S F cI : ℝ}, 0 < H → 0 < L → 0 < S → 0 < F → 0 < cI →
-      ∀ {U0 : Finset Pr}, primesLe (2 * β * L) ⊆ U0 →
+      ∀ {U0 : Finset Pr}, (∀ P ∈ primesLe (2 * β * L), IsUnit (cls m {P}) → P ∈ U0) →
       ∀ (Fs : Finset (Ideal (𝓞 K))), (∀ f ∈ Fs, (absNorm f).Coprime 6 ∧ Squarefree f) →
       ∀ (E : Finset (𝓞 K)), (∀ μ ∈ E, μ ≠ 0) →
       ∀ MQ : ℝ, 0 ≤ MQ →
-      (∀ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ U : ℝ → ℂ, ContDiff ℝ ∞ U →
+      (∀ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ, ∀ U : ℝ → ℂ, ContDiff ℝ ∞ U →
         (∀ x, x < α / 2 ∨ 2 * β < x → U x = 0) → ∀ NU : ℝ,
         (∀ j ≤ J, ∀ x, ‖iteratedDeriv j U x‖ ≤ NU) → Qform ξ U β H L S F cI ≤ MQ * NU ^ 2) →
       ‖∑ r ∈ rowsD U0 Fs E β H L S F cI,
@@ -760,7 +781,7 @@ theorem blockD_bound {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (J : ℕ) 
     (ρ0 := 1) (ρ1 := 1) one_pos (fun y h1 h2 => hV1 y (by rwa [div_one] at h1)
       (by rwa [div_one] at h2)) J dualG dualG_contDiff dualG_bounded hR hσ
   obtain ⟨Cw, hCw0, hCw⟩ := MellinSep.W0c_unif hα hαβ (2 * J + 2)
-  obtain ⟨Cm, hCm0, hCm⟩ := rows_meanSquareD hδ
+  obtain ⟨Cm, hCm0, hCm⟩ := rows_meanSquareD (m := m) hδ
   have hβ : 0 ≤ β := le_trans hα.le hαβ
   refine ⟨Kb * Cw ^ 2 * Cm, by positivity, fun ξ1 ξ2 W hW hWs NW hNW H L S F cI hH hL hS hF hcI
     U0 hU0 Fs hFs E hE MQ hMQ hQ => ?_⟩
@@ -769,7 +790,7 @@ theorem blockD_bound {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (J : ℕ) 
   set Ym := cI * S * L * F / H with hYm
   have hYm0 : 0 < Ym := by positivity
   rw [Finset.sum_congr rfl fun r hr => rowSumD_eq_bilinear W hL hH.le ξ1 ξ2 Rows hr]
-  have hcol : ∀ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ U : ℝ → ℂ, ContDiff ℝ ∞ U →
+  have hcol : ∀ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ, ∀ U : ℝ → ℂ, ContDiff ℝ ∞ U →
       tsupport U ⊆ tsupport V → ∀ N : ℝ, (∀ j ≤ J, ∀ y, ‖iteratedDeriv j U y‖ ≤ N) →
       ∑ r ∈ Rows, ‖∑ n ∈ Rows ×ˢ U0.powerset, colE ξ H L r n * U (xE L n)‖ ^ 2 ≤
         (Cm * Ym ^ δ * MQ) * N ^ 2 := by
@@ -862,9 +883,9 @@ theorem zero_rowD_le {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 
 
 /-! ### The rows of all the `f` -/
 
-theorem norm_colSum_le_card (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : ℝ → ℂ} {β' : ℝ}
+theorem norm_colSum_le_card [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {W : ℝ → ℂ} {β' : ℝ}
     (hW : ∀ x, β' < x → W x = 0) {N : ℝ} (hN : ∀ x, ‖W x‖ ≤ N) {X : ℝ} (hX : 0 < X)
-    {U : Finset Pr} (hU : primesLe (β' * X) ⊆ U) (k f : 𝓞 K) :
+    {U : Finset Pr} (hU : ∀ P ∈ primesLe (β' * X), IsUnit (cls m {P}) → P ∈ U) (k f : 𝓞 K) :
     ‖colSum ξ W X 1 k f‖ ≤ U.powerset.card * N := by
   rw [colSum_eq_powerset_one ξ hW hX hU k f]
   refine (norm_sum_le _ _).trans ?_
@@ -888,7 +909,7 @@ vanish: those with `N(b)N(T)N(V) > βL` (`rcDual_eq_zero_of_large_bTV`) and thos
 (`rcDual_eq_zero_of_large_mu`). -/
 theorem sum_f_eq_rowsD {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {L H S F cI : ℝ}
     (hL : 0 < L) (hH : 0 < H) (hF : 0 < F) (hS : L * F ≤ S) (hcI : 3 * β ^ 2 * RΦ ^ 2 ≤ cI)
-    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U0 : Finset Pr) (Fs : Finset (Ideal (𝓞 K)))
+    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) (U0 : Finset Pr) (Fs : Finset (Ideal (𝓞 K)))
     (hFs : ∀ f ∈ Fs, (absNorm f).Coprime 6 ∧ (absNorm f : ℝ) < 2 * F) (E : Finset (𝓞 K)) :
     ∑ f ∈ Fs, ∑ b ∈ U0.powerset, ∑ T ∈ (U0 \ b).powerset, ∑ V ∈ (U0 \ (b ∪ T)).powerset,
         ∑ μ ∈ E, ∑ M1 ∈ ((U0 \ (b ∪ T)) \ V).powerset, ∑ M2 ∈ ((U0 \ (b ∪ T)) \ V).powerset,
@@ -942,7 +963,7 @@ theorem sum_f_eq_rowsD {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x 
     exact Finset.sum_eq_zero fun M1 _ => Finset.sum_eq_zero fun M2 _ =>
       rcDual_eq_zero_of_large_bTV hW hL H _ ξ1 ξ2 _ M1 M2 hbig
 
-theorem norm_pairCoeff_xi_le (ξ ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) :
+theorem norm_pairCoeff_xi_le [NeZero m] (ξ ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) :
     ‖pairCoeff (pairPsiXi ξ) ξ1 ξ2⁻¹‖ ≤ 1 :=
   norm_pairCoeff_le (pairPsiXi ξ) (fun c1 c2 => norm_pairPsiXi_le ξ _ _ c1.isUnit c2.isUnit) _ _
 
@@ -954,17 +975,17 @@ for `W` supported in `[α, β]` with its first `2J+2` derivatives bounded by `N_
 paper's `I_* = [u/2, 2v]`) with its first `J` derivatives bounded by `N_U`, then the row sum of round 314 satisfies
 `E ≤ K₁·N_W²·HLF + K₂·N_W²·(4H/(3L²))^{−σ}·(c_I·SLF/H)^δ·M_Q`. The first term is the zero frequency
 (the paper's `𝓗‖W‖²_∞`, times `LF`); the second is the bilinear bound of `blockD_bound` over the pairs
-of characters modulo `4`, with the losses `A_min^{−σ}` and `Y^δ` of the pilot's separation and
+of characters modulo `m`, with the losses `A_min^{−σ}` and `Y^δ` of the pilot's separation and
 multiplicity count in place of the paper's `D^{ε_0}`. -/
-theorem first_transfer {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (J : ℕ) {σ δ : ℝ} (hσ : 0 < σ)
+theorem first_transfer [NeZero m] [Fact ((4 : 𝓞 K) ∣ m)] {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (J : ℕ) {σ δ : ℝ} (hσ : 0 < σ)
     (hδ : 0 < δ) :
     ∃ K1 K2 : ℝ, 0 ≤ K1 ∧ 0 ≤ K2 ∧
-      ∀ (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (W : ℝ → ℂ), ContDiff ℝ ∞ W →
+      ∀ (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (W : ℝ → ℂ), ContDiff ℝ ∞ W →
       (∀ x, x < α ∨ β < x → W x = 0) → ∀ NW : ℝ,
       (∀ j ≤ 2 * J + 2, ∀ x, ‖iteratedDeriv j W x‖ ≤ NW) →
       ∀ {Hh L S F cI : ℝ}, 1 ≤ Hh → 1 ≤ L → 1 ≤ F → L * F ≤ S →
       3 * β ^ 2 * RΦ ^ 2 ≤ cI → 0 < cI → ∀ MQ : ℝ, 0 ≤ MQ →
-      (∀ ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ U : ℝ → ℂ, ContDiff ℝ ∞ U →
+      (∀ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ, ∀ U : ℝ → ℂ, ContDiff ℝ ∞ U →
         (∀ x, x < α / 2 ∨ 2 * β < x → U x = 0) → ∀ NU : ℝ,
         (∀ j ≤ J, ∀ x, ‖iteratedDeriv j U x‖ ≤ NU) → Qform ξ1 U β Hh L S F cI ≤ MQ * NU ^ 2) →
       ∀ (Fs : Finset (Ideal (𝓞 K))) (T : Finset (𝓞 K)),
@@ -973,8 +994,8 @@ theorem first_transfer {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (J : ℕ
         (∀ k ∈ T, k ≠ 0 ∧ (absNorm (span {k}) : ℝ) ≤ Hh) →
         rowE ξ W L Fs T ≤ K1 * NW ^ 2 * (Hh * L * F) +
           K2 * NW ^ 2 * (4 * Hh / (3 * L ^ 2)) ^ (-σ) * (cI * S * L * F / Hh) ^ δ * MQ := by
-  obtain ⟨Kt, hKt0, hKt⟩ := blockD_bound hα hαβ J hσ hδ
-  set nξ : ℝ := (Fintype.card (MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) : ℝ) with hnξ
+  obtain ⟨Kt, hKt0, hKt⟩ := blockD_bound (m := m) hα hαβ J hσ hδ
+  set nξ : ℝ := (Fintype.card (MulChar (𝓞 K ⧸ span {m}) ℂ) : ℝ) with hnξ
   have hk := kappa_pos
   refine ⟨2 * (2 * kappa + 5) * ((2 * kappa + 5) * max β 1) * (2 / Real.sqrt 3 * ‖dualG 0‖),
     nξ ^ 2 * Kt, by positivity, by positivity, fun ξ W hW hWs NW hNW Hh L S F cI hH hL hF hS hcI
@@ -988,8 +1009,10 @@ theorem first_transfer {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (J : ℕ
   have hH0 : 0 < Hh := by linarith
   have hF0 : 0 < F := by linarith
   have hS0 : 0 < S := lt_of_lt_of_le (mul_pos hL0 hF0) hS
-  set U0 := primesLe (2 * β * L) with hU0def
-  have hU : primesLe (β * L) ⊆ U0 := primesLe_mono (by nlinarith)
+  set U0 := unitPrimes m (2 * β * L) with hU0def
+  have hU : ∀ P ∈ primesLe (β * L), IsUnit (cls m {P}) → P ∈ U0 := fun P hP hu =>
+    mem_unitPrimes_of (by nlinarith) hP hu
+  have hUm : IsUnit (cls m U0) := isUnit_cls_unitPrimes m _
   set Y0 := 3 * RΦ ^ 2 * (β * L) ^ 2 / (4 * Hh) with hY0def
   have hY0 : 3 * RΦ ^ 2 * (β * L) ^ 2 ≤ 4 * Hh * Y0 := by
     rw [hY0def, mul_div_cancel₀ _ (by positivity)]
@@ -998,16 +1021,16 @@ theorem first_transfer {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (J : ℕ
   set Zf : Ideal (𝓞 K) → ℂ := fun f => ∑ A ∈ U0.powerset,
     (chiS A (pgen f) ^ 4 * conj (chiS A (pgen f) ^ 4)) * (W (nI A / L) * conj (W (nI A / L))) *
       ∑ T ∈ A.powerset, (-1 : ℂ) ^ T.card * (kap Hh ∅ ∅ T : ℂ) * dualG 0 with hZf
-  set Nf : Ideal (𝓞 K) → MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ →
-      MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ → ℂ := fun f ξ1 ξ2 =>
+  set Nf : Ideal (𝓞 K) → MulChar (𝓞 K ⧸ span {m}) ℂ →
+      MulChar (𝓞 K ⧸ span {m}) ℂ → ℂ := fun f ξ1 ξ2 =>
     ∑ b ∈ U0.powerset, ∑ T ∈ (U0 \ b).powerset, ∑ V ∈ (U0 \ (b ∪ T)).powerset, ∑ μ ∈ E,
       ∑ M1 ∈ ((U0 \ (b ∪ T)) \ V).powerset, ∑ M2 ∈ ((U0 \ (b ∪ T)) \ V).powerset,
         rcDual W L Hh (pgen f) ξ1 ξ2 b T V μ M1 M2 with hNf
   have hid : ∀ f : Ideal (𝓞 K), ∑' u : 𝓞 K, colSum ξ W L 1 u (pgen f) *
       conj (colSum ξ W L 1 u (pgen f)) * Majorant.Phi (σO u / (Real.sqrt Hh : ℂ)) =
-      Zf f + ∑ ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+      Zf f + ∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
         pairCoeff (pairPsiXi ξ) ξ1 ξ2⁻¹ * Nf f ξ1 ξ2 := fun f =>
-    dualMS_rowcol ξ hWβ hL0 hU (pgen f) hH0 RΦ_pos (fun _ h => dualG_eq_zero_of_ge h) hY0
+    dualMS_rowcol ξ hWβ hL0 hU hUm (pgen f) hH0 RΦ_pos (fun _ h => dualG_eq_zero_of_ge h) hY0
   -- the majorant, row by row
   have hstep1 : rowE ξ W L Fs T ≤ ∑ f ∈ Fs, (∑' u : 𝓞 K, colSum ξ W L 1 u (pgen f) *
       conj (colSum ξ W L 1 u (pgen f)) * Majorant.Phi (σO u / (Real.sqrt Hh : ℂ))).re := by
@@ -1016,9 +1039,9 @@ theorem first_transfer {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (J : ℕ
       (fun u => colSum ξ W L 1 u (pgen f)) (fun k => norm_colSum_le_card ξ hWβ hNW' hL0 hU k _) T
       (fun k hk => (hT k hk).2)
   -- the zero frequency and the nonzero frequencies
-  have hreorder : ∑ f ∈ Fs, ∑ ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
-      ∑ ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, pairCoeff (pairPsiXi ξ) ξ1 ξ2⁻¹ * Nf f ξ1 ξ2 =
-      ∑ ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+  have hreorder : ∑ f ∈ Fs, ∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ,
+      ∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ, pairCoeff (pairPsiXi ξ) ξ1 ξ2⁻¹ * Nf f ξ1 ξ2 =
+      ∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
         pairCoeff (pairPsiXi ξ) ξ1 ξ2⁻¹ * ∑ f ∈ Fs, Nf f ξ1 ξ2 := by
     rw [Finset.sum_comm]
     refine Finset.sum_congr rfl fun ξ1 _ => ?_
@@ -1026,8 +1049,8 @@ theorem first_transfer {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (J : ℕ
     exact Finset.sum_congr rfl fun ξ2 _ => (Finset.mul_sum _ _ _).symm
   have hstep2 : ∑ f ∈ Fs, (∑' u : 𝓞 K, colSum ξ W L 1 u (pgen f) *
       conj (colSum ξ W L 1 u (pgen f)) * Majorant.Phi (σO u / (Real.sqrt Hh : ℂ))).re ≤
-      ‖∑ f ∈ Fs, Zf f‖ + ‖∑ ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
-        ∑ ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+      ‖∑ f ∈ Fs, Zf f‖ + ‖∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ,
+        ∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
           pairCoeff (pairPsiXi ξ) ξ1 ξ2⁻¹ * ∑ f ∈ Fs, Nf f ξ1 ξ2‖ := by
     simp_rw [hid]
     rw [← Complex.re_sum, Finset.sum_add_distrib, hreorder]
@@ -1051,7 +1074,7 @@ theorem first_transfer {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (J : ℕ
       _ = 2 * (2 * kappa + 5) * ((2 * kappa + 5) * max β 1) *
             (2 / Real.sqrt 3 * ‖dualG 0‖) * NW ^ 2 * (Hh * L * F) := by ring
   -- the nonzero frequencies
-  have hblock : ∀ ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ‖∑ f ∈ Fs, Nf f ξ1 ξ2‖ ≤
+  have hblock : ∀ ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ, ‖∑ f ∈ Fs, Nf f ξ1 ξ2‖ ≤
       Kt * NW ^ 2 * (4 * Hh / (3 * L ^ 2)) ^ (-σ) * (cI * S * L * F / Hh) ^ δ * MQ := by
     intro ξ1 ξ2
     have heq : ∑ f ∈ Fs, Nf f ξ1 ξ2 = ∑ r ∈ rowsD U0 Fs E β Hh L S F cI,
@@ -1061,25 +1084,26 @@ theorem first_transfer {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (J : ℕ
       sum_f_eq_rowsD hWβ hL0 hH0 hF0 hS hcI ξ1 ξ2 U0 Fs
         (fun f hf => ⟨(hFs f hf).1, (hFs f hf).2.2.2⟩) E
     rw [heq]
-    exact hKt ξ1 ξ2 W hW hWs NW hNW hH0 hL0 hS0 hF0 hcI0 le_rfl Fs
+    exact hKt ξ1 ξ2 W hW hWs NW hNW hH0 hL0 hS0 hF0 hcI0
+      (fun P hP hu => mem_unitPrimes_of le_rfl hP hu) Fs
       (fun f hf => ⟨(hFs f hf).1, (hFs f hf).2.1⟩) E hE MQ hMQ hQ
-  have hnon : ‖∑ ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
-      ∑ ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+  have hnon : ‖∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ,
+      ∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
         pairCoeff (pairPsiXi ξ) ξ1 ξ2⁻¹ * ∑ f ∈ Fs, Nf f ξ1 ξ2‖ ≤
       nξ ^ 2 * Kt * NW ^ 2 * (4 * Hh / (3 * L ^ 2)) ^ (-σ) * (cI * S * L * F / Hh) ^ δ * MQ := by
     set Bk := Kt * NW ^ 2 * (4 * Hh / (3 * L ^ 2)) ^ (-σ) * (cI * S * L * F / Hh) ^ δ * MQ
       with hBk
-    have hterm : ∀ ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+    have hterm : ∀ ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
         ‖pairCoeff (pairPsiXi ξ) ξ1 ξ2⁻¹ * ∑ f ∈ Fs, Nf f ξ1 ξ2‖ ≤ Bk := fun ξ1 ξ2 => by
       rw [norm_mul]
       calc ‖pairCoeff (pairPsiXi ξ) ξ1 ξ2⁻¹‖ * ‖∑ f ∈ Fs, Nf f ξ1 ξ2‖ ≤ 1 * Bk :=
             mul_le_mul (norm_pairCoeff_xi_le ξ ξ1 ξ2) (hblock ξ1 ξ2) (norm_nonneg _) zero_le_one
         _ = Bk := one_mul _
-    calc _ ≤ ∑ ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
-          ‖∑ ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+    calc _ ≤ ∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ,
+          ‖∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
             pairCoeff (pairPsiXi ξ) ξ1 ξ2⁻¹ * ∑ f ∈ Fs, Nf f ξ1 ξ2‖ := norm_sum_le _ _
-      _ ≤ ∑ _ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
-          ∑ _ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, Bk :=
+      _ ≤ ∑ _ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ,
+          ∑ _ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ, Bk :=
           Finset.sum_le_sum fun ξ1 _ => (norm_sum_le _ _).trans
             (Finset.sum_le_sum fun ξ2 _ => hterm ξ1 ξ2)
       _ = nξ ^ 2 * Bk := by

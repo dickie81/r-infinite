@@ -1,7 +1,12 @@
 import EisensteinDescent
 import MellinUniform
 
-/-! # The first Poisson summation of the transfer estimate (round 318)
+/-! # The first Poisson summation of the transfer estimate (round 318; round 492: the characters modulo `m`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) states this file for the characters modulo any nonzero `m`. The set
+`U` contains the primes of norm at most `β'X` whose class modulo `m` is a unit, and has a unit class
+itself, so that the pair coefficient (`alpha_pair`) applies to every pair of its subsets. At `m = 4`
+every class is a unit.
 
 S5c-2 in round 316's plan, its first part: the companion paper's Lemma 7.1 begins "Expand the square
 defining `𝒜(W)`, and write `n_i=Cu_i`, where `C=(n_1,n_2)`", then applies Poisson summation in the rows
@@ -26,19 +31,22 @@ noncomputable section
 
 namespace Eis
 
+variable {m : 𝓞 K}
+
 /-! ### Unit factors -/
 
 theorem aF_mul_conj (C : Finset Pr) : aF πP h6Pr C * conj (aF πP h6Pr C) = 1 := by
   rw [Complex.mul_conj, Complex.normSq_eq_norm_sq, norm_aF πP h6Pr C (hcopPr _)]; simp
 
-theorem norm_xi_cls4 (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (C : Finset Pr) :
-    ‖ξ (cls4 C)‖ = 1 := by
-  rw [← (isUnit_cls4 C).unit_spec]; exact norm_mulChar_unit ξ _
+theorem norm_xi_cls [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {C : Finset Pr} (hC : IsUnit (cls m C)) :
+    ‖ξ (cls m C)‖ = 1 := by
+  rw [← hC.unit_spec]; exact norm_mulChar_unit ξ _
 
-theorem aXi_idl_mul_conj (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (C : Finset Pr) :
+theorem aXi_idl_mul_conj [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {C : Finset Pr}
+    (hC : IsUnit (cls m C)) :
     aXi ξ (idl C) * conj (aXi ξ (idl C)) = 1 := by
   rw [Complex.mul_conj, Complex.normSq_eq_norm_sq, aXi_idl, norm_mul,
-    norm_aF πP h6Pr C (hcopPr _), norm_xi_cls4, one_mul]; simp
+    norm_aF πP h6Pr C (hcopPr _), norm_xi_cls ξ hC, one_mul]; simp
 
 /-! ### The paired identity in the dual direction -/
 
@@ -108,9 +116,10 @@ theorem pairSum_poisson_dual (H : ℝ) (hH : 0 < H) (A1 A2 : Finset Pr) :
 `C₂ = A₂∖A₁`, `a_ξ(A₁)χ_{A₁}(f)⁴·conj(a_ξ(A₂)χ_{A₂}(f)⁴)` is `a(C₁)ā(C₂)` times
 `ξ(C₁)ξ̄(C₂)·χ_{C₁}(b)⁴·conj(χ_{C₂}(b)⁴)·χ_{A₁}(f)⁴·conj(χ_{A₂}(f)⁴)`, `b` the primary generator of `B`
 (the paper's `a_ξ(Cu) = a_ξ(C)a_ξ(u)χ_u(C)⁴`). -/
-theorem alpha_pair (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (f : 𝓞 K) (A1 A2 : Finset Pr) :
+theorem alpha_pair [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (f : 𝓞 K) (A1 A2 : Finset Pr)
+    (hB : IsUnit (cls m (A1 ∩ A2))) :
     aXi ξ (idl A1) * chiS A1 f ^ 4 * conj (aXi ξ (idl A2) * chiS A2 f ^ 4) =
-      (ξ (cls4 (A1 \ A2)) * conj (ξ (cls4 (A2 \ A1))) * chiS (A1 \ A2) (eS (A1 ∩ A2)) ^ 4 *
+      (ξ (cls m (A1 \ A2)) * conj (ξ (cls m (A2 \ A1))) * chiS (A1 \ A2) (eS (A1 ∩ A2)) ^ 4 *
         conj (chiS (A2 \ A1) (eS (A1 ∩ A2)) ^ 4) * chiS A1 f ^ 4 * conj (chiS A2 f ^ 4)) *
       (aF πP h6Pr (A1 \ A2) * conj (aF πP h6Pr (A2 \ A1))) := by
   have hd1 : Disjoint (A1 ∩ A2) (A1 \ A2) := Finset.disjoint_sdiff_inter A1 A2 |>.symm
@@ -119,14 +128,14 @@ theorem alpha_pair (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (f : 𝓞
   have e1 : A1 = (A1 ∩ A2) ∪ (A1 \ A2) := by rw [Finset.union_comm, Finset.sdiff_union_inter]
   have e2 : A2 = (A1 ∩ A2) ∪ (A2 \ A1) := by
     rw [Finset.inter_comm, Finset.union_comm, Finset.sdiff_union_inter]
-  have hB := aXi_idl_mul_conj ξ (A1 ∩ A2)
+  have hB := aXi_idl_mul_conj ξ hB
   have hpg : pgen (idl (A1 ∩ A2)) = eS (A1 ∩ A2) := pgen_idl _
-  have k1 : aXi ξ (idl A1) = aXi ξ (idl (A1 ∩ A2)) * (aF πP h6Pr (A1 \ A2) * ξ (cls4 (A1 \ A2))) *
+  have k1 : aXi ξ (idl A1) = aXi ξ (idl (A1 ∩ A2)) * (aF πP h6Pr (A1 \ A2) * ξ (cls m (A1 \ A2))) *
       chiS (A1 \ A2) (eS (A1 ∩ A2)) ^ 4 := by
     conv_lhs => rw [e1]
     rw [idl_union hd1, aXi_mul_left ξ (idl_coprime6 _) (idl_squarefree _), hpg, sym6_idl,
       aXi_idl ξ (A1 \ A2)]
-  have k2 : aXi ξ (idl A2) = aXi ξ (idl (A1 ∩ A2)) * (aF πP h6Pr (A2 \ A1) * ξ (cls4 (A2 \ A1))) *
+  have k2 : aXi ξ (idl A2) = aXi ξ (idl (A1 ∩ A2)) * (aF πP h6Pr (A2 \ A1) * ξ (cls m (A2 \ A1))) *
       chiS (A2 \ A1) (eS (A1 ∩ A2)) ^ 4 := by
     conv_lhs => rw [e2]
     rw [idl_union hd2, aXi_mul_left ξ (idl_coprime6 _) (idl_squarefree _), hpg, sym6_idl,
@@ -134,17 +143,17 @@ theorem alpha_pair (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (f : 𝓞
   rw [k1, k2]
   simp only [map_mul, map_pow]
   set b := aXi ξ (idl (A1 ∩ A2))
-  linear_combination (aF πP h6Pr (A1 \ A2) * ξ (cls4 (A1 \ A2)) *
+  linear_combination (aF πP h6Pr (A1 \ A2) * ξ (cls m (A1 \ A2)) *
       chiS (A1 \ A2) (eS (A1 ∩ A2)) ^ 4 * chiS A1 f ^ 4 * conj (aF πP h6Pr (A2 \ A1)) *
-      conj (ξ (cls4 (A2 \ A1))) * conj (chiS (A2 \ A1) (eS (A1 ∩ A2))) ^ 4 *
+      conj (ξ (cls m (A2 \ A1))) * conj (chiS (A2 \ A1) (eS (A1 ∩ A2))) ^ 4 *
       conj (chiS A2 f) ^ 4) * hB
 
 /-! ### The smoothed mean square of a column family -/
 
 /-- The column sum of the dual mean square over the subsets of `U`. -/
-theorem colSum_eq_powerset_one (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : ℝ → ℂ} {β' : ℝ}
+theorem colSum_eq_powerset_one (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {W : ℝ → ℂ} {β' : ℝ}
     (hW : ∀ x, β' < x → W x = 0) {X : ℝ} (hX : 0 < X) {U : Finset Pr}
-    (hU : primesLe (β' * X) ⊆ U) (k f : 𝓞 K) :
+    (hU : ∀ P ∈ primesLe (β' * X), IsUnit (cls m {P}) → P ∈ U) (k f : 𝓞 K) :
     colSum ξ W X 1 k f = ∑ M ∈ U.powerset, (aXi ξ (idl M) * chiS M f ^ 4 * W (nI M / X)) *
       chiS M k := by
   have h := colSum_eq_powerset ξ hW hX (b := ∅) hU k f
@@ -159,13 +168,14 @@ open Classical in
 companion paper's proof of its Lemma 7.1): `Σ_u |Σ_n a_ξ(n)(u/n)₆(f/n)₆⁴W(N(n)/X)|²·Φ(u/√H)` is
 `Σ_{A₁,A₂⊆U}` of the pair coefficient of `alpha_pair` times the dual Poisson identity
 `pairSum_poisson_dual`. -/
-theorem dualMS_poisson (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : ℝ → ℂ} {β' : ℝ}
+theorem dualMS_poisson [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {W : ℝ → ℂ} {β' : ℝ}
     (hW : ∀ x, β' < x → W x = 0) {X : ℝ} (hX : 0 < X) {U : Finset Pr}
-    (hU : primesLe (β' * X) ⊆ U) (f : 𝓞 K) (H : ℝ) (hH : 0 < H) :
+    (hU : ∀ P ∈ primesLe (β' * X), IsUnit (cls m {P}) → P ∈ U) (hUm : IsUnit (cls m U)) (f : 𝓞 K)
+    (H : ℝ) (hH : 0 < H) :
     ∑' u : 𝓞 K, colSum ξ W X 1 u f * conj (colSum ξ W X 1 u f) *
         Majorant.Phi (σO u / (Real.sqrt H : ℂ)) =
       ∑ A1 ∈ U.powerset, ∑ A2 ∈ U.powerset,
-        (ξ (cls4 (A1 \ A2)) * conj (ξ (cls4 (A2 \ A1))) * chiS (A1 \ A2) (eS (A1 ∩ A2)) ^ 4 *
+        (ξ (cls m (A1 \ A2)) * conj (ξ (cls m (A2 \ A1))) * chiS (A1 \ A2) (eS (A1 ∩ A2)) ^ 4 *
           conj (chiS (A2 \ A1) (eS (A1 ∩ A2)) ^ 4) * chiS A1 f ^ 4 * conj (chiS A2 f ^ 4) *
           (W (nI A1 / X) * conj (W (nI A2 / X)))) *
         ∑ T ∈ (A1 ∩ A2).powerset, (-1 : ℂ) ^ T.card *
@@ -182,9 +192,10 @@ theorem dualMS_poisson (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : 
     fun u => colSum_eq_powerset_one ξ hW hX hU u f
   simp_rw [hcol]
   rw [majorant_expand H hH U.powerset]
-  refine Finset.sum_congr rfl fun A1 _ => Finset.sum_congr rfl fun A2 _ => ?_
+  refine Finset.sum_congr rfl fun A1 hA1 => Finset.sum_congr rfl fun A2 _ => ?_
   rw [← pairSum_poisson_dual H hH A1 A2]
-  have hal := alpha_pair ξ f A1 A2
+  have hal := alpha_pair ξ f A1 A2 (isUnit_cls_of_subset
+    (Finset.inter_subset_left.trans (Finset.mem_powerset.1 hA1)) hUm)
   calc aXi ξ (idl A1) * chiS A1 f ^ 4 * W (nI A1 / X) *
         conj (aXi ξ (idl A2) * chiS A2 f ^ 4 * W (nI A2 / X)) *
         ∑' u : 𝓞 K, chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ))
@@ -199,7 +210,7 @@ end Eis
 end
 
 #print axioms Eis.aF_mul_conj
-#print axioms Eis.norm_xi_cls4
+#print axioms Eis.norm_xi_cls
 #print axioms Eis.aXi_idl_mul_conj
 #print axioms Eis.norm_pairPsiDual
 #print axioms Eis.pairSum_poisson_dual

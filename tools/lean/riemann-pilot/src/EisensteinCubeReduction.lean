@@ -1,6 +1,10 @@
 import EisensteinCompletedSums
 
-/-! # Lemma 5.3, the cube reduction (round 314)
+/-! # Lemma 5.3, the cube reduction (round 314; round 492: the characters modulo `m`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) states Lemma 5.3 for the characters modulo any nonzero `m`:
+`CompletedMeanSquareM m` is the displayed hypothesis at `m`, `CompletedMeanSquare` is
+`CompletedMeanSquareM 4`, and `cube_reduction` takes `CompletedMeanSquareM m`.
 
 The rest of S5a in round 312's plan: the companion paper's Lemma 5.3, with its Proposition 5.2 (the
 completed mean-square estimate) as a displayed hypothesis.
@@ -18,7 +22,7 @@ completed mean-square estimate) as a displayed hypothesis.
 * **The long part at one scale** (`inv_mul_rowE_le`): from the hypothesis when `L > 1`, and by counting
   when `L ≤ 1` (`card_rows_le`, `card_T_le`, `card_eltsLe_le`, and round 315's `rowE_le_count` and
   `rowE_eq_zero_of_lt`, in this file since round 332).
-* **`CompletedMeanSquare`** (the paper's Proposition 5.2, displayed) and **`cube_reduction`** (the
+* **`CompletedMeanSquareM`** (the paper's Proposition 5.2, displayed) and **`cube_reduction`** (the
   paper's Lemma 5.3): the row sum at `X` is at most `K·D^ε·(N²(XF)² + XF·E_sup)` when the row sums at
   the long scales `1 < L ≤ X`, `L·H_c³ < X`, are at most `E_sup·LF`.
 -/
@@ -30,9 +34,11 @@ noncomputable section
 
 namespace Eis
 
+variable {m : 𝓞 K}
+
 section Columns
 
-variable (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K)
+variable (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (k f : 𝓞 K)
 
 /-- For `0 < L ≤ Y`, the column sum at `L` is a sum over the ideals of norm at most `βY` (used at the
 long scales `L = X/N(𝔥𝔟)³ ≤ X` with `Y = X`). -/
@@ -72,7 +78,7 @@ theorem norm_alphaI_le (I : Ideal (𝓞 K)) : ‖alphaI I‖ ≤ 1 := by
   rw [norm_div, Complex.norm_real, Real.norm_of_nonneg (norm_nonneg _)]
   exact div_self_le_one _
 
-theorem norm_dCoef_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K) (J : Ideal (𝓞 K)) :
+theorem norm_dCoef_le [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (k f : 𝓞 K) (J : Ideal (𝓞 K)) :
     ‖dCoef ξ k f J‖ ≤ 1 := by
   unfold dCoef
   rw [norm_mul, norm_pow, norm_pow, RCLike.norm_conj]
@@ -82,7 +88,7 @@ theorem norm_dCoef_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f :
         · exact norm_twistPsi_le ξ k f J
     _ = 1 := by norm_num
 
-theorem norm_gCoef_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K) (I : Ideal (𝓞 K)) :
+theorem norm_gCoef_le [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (k f : 𝓞 K) (I : Ideal (𝓞 K)) :
     ‖gCoef ξ k f I‖ ≤ 1 := by
   rw [gCoef_eq_col, norm_mul, norm_mul, norm_pow]
   calc ‖aXi ξ I‖ * ‖sym6 k I‖ * ‖sym6 f I‖ ^ 4 ≤ 1 * 1 * 1 ^ 4 := by
@@ -146,7 +152,7 @@ theorem norm_add_sq_le_two (a b : ℂ) : ‖a + b‖ ^ 2 ≤ 2 * (‖a‖ ^ 2 + 
 
 section Expand
 
-variable (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K)
+variable (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (k f : 𝓞 K)
 
 /-- **The completed sum through the column sums**: `T(X/n³) = Σ_𝔟 ᾱ(𝔟)³Ψ(𝔟)³/N𝔟 ·
 L^{−1/2}·Σ_𝔫 a_ξ(𝔫)(k/𝔫)₆(f/𝔫)₆⁴W(N𝔫/L)` with `L = X/(N𝔟³n³)`. -/
@@ -202,7 +208,7 @@ end Expand
 /-- The dual mean square of a finite set of rows at column scale `L`, before its normalisation:
 `Σ_{𝔣 ∈ Fs} Σ_{k ∈ T} |Σ_𝔫 a_ξ(𝔫)(k/𝔫)₆(f/𝔫)₆⁴W(N𝔫/L)|²`, `f` the primary generator of `𝔣`. On the
 paper's rows it is `LF·E(𝓗, L, F; ξ, W)`. -/
-def rowE (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (W : ℝ → ℂ) (L : ℝ)
+def rowE (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (W : ℝ → ℂ) (L : ℝ)
     (Fs : Finset (Ideal (𝓞 K))) (T : Finset (𝓞 K)) : ℝ :=
   ∑ f ∈ Fs, ∑ k ∈ T, ‖colSum ξ W L 1 k (pgen f)‖ ^ 2
 
@@ -231,7 +237,7 @@ theorem pairScale_nonneg {X : ℝ} (hX : 0 ≤ X) (p : Ideal (𝓞 K) × Ideal (
 
 section Split
 
-variable (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K)
+variable (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (k f : 𝓞 K)
 
 /-- **The split of the cube inversion**: the terms `N(𝔥)³ ≤ H_c³` are kept as completed sums, and the
 completed sums of the others are expanded into column sums at the scales `L_{𝔥𝔟} = X/N(𝔥𝔟)³`. -/
@@ -289,11 +295,11 @@ theorem rows_cs {ι κ₁ κ₂ : Type*} (s : Finset ι) (A : Finset κ₁) (B :
 
 section Rows
 
-variable (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+variable (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ)
 
 /-- **The short part** (the paper's (5.9)): weighted Cauchy–Schwarz in `𝔥`, then a bound `B` for the
 completed sums at each `𝔥` and row `𝔣`. -/
-theorem rows_short_le {W : ℝ → ℂ} (X : ℝ) (S Fs : Finset (Ideal (𝓞 K))) (T : Finset (𝓞 K))
+theorem rows_short_le [NeZero m] {W : ℝ → ℂ} (X : ℝ) (S Fs : Finset (Ideal (𝓞 K))) (T : Finset (𝓞 K))
     {B : ℝ} (hB : ∀ H ∈ S, ∀ f ∈ Fs,
       ∑ k ∈ T, ‖compT ξ k (pgen f) W (X / (absNorm H : ℝ) ^ 3)‖ ^ 2 ≤ B) :
     ∑ f ∈ Fs, ∑ k ∈ T, ‖∑ H ∈ S, ((moebius H : ℂ) * dCoef ξ k (pgen f) H) *
@@ -320,7 +326,7 @@ theorem rows_short_le {W : ℝ → ℂ} (X : ℝ) (S Fs : Finset (Ideal (𝓞 K)
 
 /-- **The long part**: weighted Cauchy–Schwarz over the pairs `(𝔥, 𝔟)`, then a bound `M` for
 `L⁻¹·(the row sum at L)` at each pair's scale. -/
-theorem rows_long_le {W : ℝ → ℂ} {X : ℝ} (hX : 0 ≤ X) (P : Finset (Ideal (𝓞 K) × Ideal (𝓞 K)))
+theorem rows_long_le [NeZero m] {W : ℝ → ℂ} {X : ℝ} (hX : 0 ≤ X) (P : Finset (Ideal (𝓞 K) × Ideal (𝓞 K)))
     (Fs : Finset (Ideal (𝓞 K))) (T : Finset (𝓞 K)) {M : ℝ}
     (hM : ∀ p ∈ P, (pairScale X p)⁻¹ * rowE ξ W (pairScale X p) Fs T ≤ M) :
     ∑ f ∈ Fs, ∑ k ∈ T, ‖∑ p ∈ P,
@@ -383,13 +389,13 @@ theorem card_T_le {Hh : ℝ} (hH : 1 ≤ Hh) {T : Finset (𝓞 K)}
   calc (T.card : ℝ) ≤ (eltsLe Hh).card := by exact_mod_cast Finset.card_le_card hsub
     _ ≤ 49 * Hh := card_eltsLe_le hH
 
-theorem rowE_nonneg (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (W : ℝ → ℂ) (L : ℝ)
+theorem rowE_nonneg (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (W : ℝ → ℂ) (L : ℝ)
     (Fs : Finset (Ideal (𝓞 K))) (T : Finset (𝓞 K)) : 0 ≤ rowE ξ W L Fs T :=
   Finset.sum_nonneg fun _ _ => Finset.sum_nonneg fun _ _ => by positivity
 
 section Final
 
-variable (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+variable (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ)
 
 /-- A column sum at a scale `X` with `βX < 1` is empty. -/
 theorem colSum_eq_zero_of_lt {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {X : ℝ}
@@ -402,7 +408,7 @@ theorem colSum_eq_zero_of_lt {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x �
   omega
 
 /-- A column sum at a scale `X` with `βX ≥ 1` has at most `(2κ+5)βX` terms, each at most `N`. -/
-theorem norm_colSum_le {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {N : ℝ}
+theorem norm_colSum_le [NeZero m] {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {N : ℝ}
     (hN : ∀ x, ‖W x‖ ≤ N) {X : ℝ} (hX : 0 < X) (h1 : 1 ≤ β * X) (k f : 𝓞 K) :
     ‖colSum ξ W X 1 k f‖ ≤ (2 * kappa + 5) * (β * X) * N := by
   have hN0 : 0 ≤ N := (norm_nonneg _).trans (hN 0)
@@ -418,7 +424,7 @@ theorem norm_colSum_le {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x 
         exact mul_le_mul_of_nonneg_right (idealCount_le h1) hN0
 
 /-- **The row sum by counting**: `≤ 98(2κ+5)³(βX)²N²·F·𝓗` for `βX ≥ 1`. -/
-theorem rowE_le_count {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {N : ℝ}
+theorem rowE_le_count [NeZero m] {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → W x = 0) {N : ℝ}
     (hN : ∀ x, ‖W x‖ ≤ N) {Hh X F : ℝ} (hH : 1 ≤ Hh) (hF : 1 ≤ F) (hX : 0 < X)
     (h1 : 1 ≤ β * X) {Fs : Finset (Ideal (𝓞 K))} {T : Finset (𝓞 K)}
     (hFs : ∀ f ∈ Fs, (absNorm f).Coprime 6 ∧ Squarefree f ∧ F ≤ (absNorm f : ℝ) ∧
@@ -451,7 +457,7 @@ theorem rowE_eq_zero_of_lt {W : ℝ → ℂ} {β : ℝ} (hW : ∀ x, β < x → 
 /-- **The long part at one scale**: `L⁻¹·(the row sum at L) ≤ F·(E_sup + 98(2κ+5)³β³N²·XF)` for
 `0 < L ≤ X` with `L·H_c³ < X`: from the hypothesis when `L > 1`, and by counting when `L ≤ 1` (the
 paper's `E(𝓗, L_b, F) ≪ (𝓗/L_b)‖W‖²_∞`). -/
-theorem inv_mul_rowE_le {W : ℝ → ℂ} {β : ℝ} (hβ : 1 ≤ β) (hW : ∀ x, β < x → W x = 0)
+theorem inv_mul_rowE_le [NeZero m] {W : ℝ → ℂ} {β : ℝ} (hβ : 1 ≤ β) (hW : ∀ x, β < x → W x = 0)
     {N : ℝ} (hN : ∀ x, ‖W x‖ ≤ N) {Hh X F : ℝ} (hH : 1 ≤ Hh) (hF : 1 ≤ F)
     (hHXF : Hh ≤ X * F) {Fs : Finset (Ideal (𝓞 K))} {T : Finset (𝓞 K)}
     (hFs : ∀ f ∈ Fs, (absNorm f).Coprime 6 ∧ Squarefree f ∧ F ≤ (absNorm f : ℝ) ∧
@@ -485,7 +491,7 @@ theorem inv_mul_rowE_le {W : ℝ → ℂ} {β : ℝ} (hβ : 1 ≤ β) (hW : ∀ 
 /-- **The cube reduction with its explicit constants**: with `s₁ = Σ_{N𝔥 ≤ βX} 1/N𝔥`, a bound `B` for
 the completed sums at the short `𝔥` (`N𝔥³ ≤ H_c³`) and the hypothesis at the long scales,
 `(row sum at X) ≤ 2X·(s₁²·#Fs·B + s₁⁴·F·(E_sup + 98(2κ+5)³β³N²XF))`. -/
-theorem rowE_le_explicit {W : ℝ → ℂ} {β : ℝ} (hβ : 1 ≤ β) (hW : ∀ x, β < x → W x = 0)
+theorem rowE_le_explicit [NeZero m] {W : ℝ → ℂ} {β : ℝ} (hβ : 1 ≤ β) (hW : ∀ x, β < x → W x = 0)
     {N : ℝ} (hN : ∀ x, ‖W x‖ ≤ N) {Hh X F : ℝ} (hH : 1 ≤ Hh) (hX : 0 < X) (hF : 1 ≤ F)
     (hHXF : Hh ≤ X * F) {Fs : Finset (Ideal (𝓞 K))} {T : Finset (𝓞 K)}
     (hFs : ∀ f ∈ Fs, (absNorm f).Coprime 6 ∧ Squarefree f ∧ F ≤ (absNorm f : ℝ) ∧
@@ -590,15 +596,18 @@ squarefree row `𝔣` of norm prime to `6` and at most `D^{C₀}`, every finite 
 at most `𝓗` satisfies `Σ_k |T(X; k, f)|² ≤ K·N²·D^ε·(𝓗 + 𝓗²N𝔣/X)`, `f` the primary generator of `𝔣`.
 The paper lets the constant depend on `ξ`; there are finitely many `ξ`, so the uniform form is
 equivalent. -/
-def CompletedMeanSquare : Prop :=
+def CompletedMeanSquareM (m : 𝓞 K) : Prop :=
   ∀ ε : ℝ, 0 < ε → ∀ C₀ : ℝ, 1 ≤ C₀ → ∃ J : ℕ, ∀ α β : ℝ, 0 < α → ∃ Kc : ℝ,
-    ∀ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
+    ∀ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
       (∀ x, x < α ∨ β < x → W x = 0) → ∀ N : ℝ, (∀ j ≤ J, ∀ x, ‖iteratedDeriv j W x‖ ≤ N) →
       ∀ D Hh X : ℝ, 1 ≤ D → 1 ≤ Hh → 1 ≤ X → Hh ≤ D ^ C₀ → X ≤ D ^ C₀ →
       ∀ f : Ideal (𝓞 K), (absNorm f).Coprime 6 → Squarefree f → (absNorm f : ℝ) ≤ D ^ C₀ →
       ∀ T : Finset (𝓞 K), (∀ k ∈ T, k ≠ 0 ∧ (absNorm (span {k}) : ℝ) ≤ Hh) →
         ∑ k ∈ T, ‖compT ξ k (pgen f) W X‖ ^ 2 ≤
           Kc * N ^ 2 * D ^ ε * (Hh + Hh ^ 2 * (absNorm f : ℝ) / X)
+
+/-- The completed mean-square estimate with the characters modulo `4` (rounds 314–466). -/
+def CompletedMeanSquare : Prop := CompletedMeanSquareM 4
 
 end Final
 
@@ -611,9 +620,9 @@ scales `1 < L ≤ X` with `L·H_c³ < X`, `H_c³ = min(X, X²/𝓗²)`, are at m
 sum at `X` is at most `K·D^ε·(N²(XF)² + XF·E_sup)`. Normalised by `XF`, this is
 `E(𝓗, X, F) ≪ D^ε(XF‖W‖² + E_sup)`. The paper's supremum runs over `L_b = X/N(b)³` with
 `N(b) > H_c` and `L_b > 1`; the hypothesis here asks for the bound at every real `L` in that range. -/
-theorem cube_reduction (hC : CompletedMeanSquare) :
+theorem cube_reduction [NeZero m] (hC : CompletedMeanSquareM m) :
     ∀ ε : ℝ, 0 < ε → ∀ C₀ : ℝ, 1 ≤ C₀ → ∃ J : ℕ, ∀ α β : ℝ, 0 < α → ∃ Kc : ℝ,
-    ∀ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
+    ∀ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
       (∀ x, x < α ∨ β < x → W x = 0) → ∀ N : ℝ, (∀ j ≤ J, ∀ x, ‖iteratedDeriv j W x‖ ≤ N) →
       ∀ D Hh X F : ℝ, 1 ≤ D → 1 ≤ Hh → 1 ≤ X → 1 ≤ F → Hh ≤ D ^ C₀ → X ≤ D ^ C₀ →
         F ≤ D ^ C₀ → Hh ≤ X * F →

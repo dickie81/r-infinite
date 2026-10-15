@@ -18,6 +18,9 @@ display `Eis.KubotaTheta` (round 361), and combines them.
   `countable_ideal`): `T(X; Ψ) = (1/2π)∫V̂_*(s − 1/2)𝒯(s, Ψ)X^{s−1/2} du` along `s = 2 + iu`.
 * **Combined** (**`compT_theta`**, with `theta_scale_id` and `thetaK_mul_scale`): `T(X; Ψ)` is
   `(8π/27)/(C̄·2πiσ̄(δ₃)/9)` times the left side of round 376's `voronoi_FE` at `Z = 4π²X/27`.
+
+Round 493 (step 2 of round 491's plan for door 5(b)): the characters `ξ` are modulo any `md ≠ 0`; the
+statements at `md = 4` are round 378's.
 -/
 
 open Real Set Filter MeasureTheory Complex NumberField Ideal Asymptotics UniqueFactorizationMonoid
@@ -26,6 +29,8 @@ open scoped Topology ComplexConjugate
 noncomputable section
 
 namespace Eis
+
+variable {md : 𝓞 K}
 
 /-- **The cube part of an ideal is unique**: `D·E³ = D'·E'³` with `D, D'` squarefree and `E ≠ ⊥` gives
 `D = D'` and `E = E'`. -/
@@ -150,7 +155,7 @@ theorem twisted_support {Kc : ℝ} {τ : 𝓞 K → ℂ} (hτ : ThetaSupp Kc τ)
 
 /-- **The Dirichlet series of the completed sum**:
 `𝒯(s, Ψ) = Σ_{𝔫,𝔟} ᾱ(𝔫)γ₂(𝔫)Ψ(𝔫)·ᾱ(𝔟)³Ψ(𝔟)³·N𝔫^{−s}N𝔟^{−3s+1/2}`. -/
-def compD (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K) (s : ℂ) : ℂ :=
+def compD (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) (k f : 𝓞 K) (s : ℂ) : ℂ :=
   ∑' p : Ideal (𝓞 K) × Ideal (𝓞 K), gCoef ξ k f p.1 * dCoef ξ k f p.2 *
     (((absNorm p.1 : ℝ)) : ℂ) ^ (-s) * (((absNorm p.2 : ℝ)) : ℂ) ^ (-(3 * s) + 1 / 2)
 
@@ -159,7 +164,7 @@ def thetaK (C : ℂ) (s : ℂ) : ℂ :=
   conj C * (2 * Real.pi * I * conj (σO δ3) / 9) *
     (2 ^ (2 * s - 1) * (((4 * Real.pi * Real.sqrt 3 / 9 : ℝ)) : ℂ) ^ (-(2 * s + 1)))
 
-theorem norm_phiTw_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f x : 𝓞 K) :
+theorem norm_phiTw_le [NeZero md] (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) (k f x : 𝓞 K) :
     ‖phiTw (twistPsi ξ k f) x‖ ≤ 1 := by
   unfold phiTw
   split_ifs
@@ -185,8 +190,9 @@ theorem theta_pow_id {ρ rn rb : ℝ} (hρ : 0 < ρ) (hn : 0 < rn) (hb : 0 < rb)
   push_cast
   ring
 
-variable (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K)
+variable [NeZero md] (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) (k f : 𝓞 K)
 
+omit [NeZero md] in
 /-- **One term of (A.16)**: at `m = δ₃·nb³` with `n = pgen 𝔫`, `b = pgen 𝔟`, the term of the theta
 Dirichlet series is the constant of (A.16) times the term of `𝒯(s, Ψ)` at `(𝔫, 𝔟)`. -/
 theorem theta_term {τ : 𝓞 K → ℂ} {C : ℂ}
@@ -239,6 +245,7 @@ theorem theta_term {τ : 𝓞 K → ℂ} {C : ℂ}
   linear_combination (conj C * gamI 2 𝔫 * twistPsi ξ k f 𝔫 * twistPsi ξ k f 𝔟 ^ 3 *
     (2 * Real.pi * I * conj (σO δ3) / 9) * (conj (σO n) * conj (σO b) ^ 3) * 2 ^ (2 * s - 1)) * hpow
 
+omit [NeZero md] in
 theorem mem_S_of_term_ne_zero {𝔫 𝔟 : Ideal (𝓞 K)} {c : ℂ}
     (h : c * (gCoef ξ k f 𝔫 * dCoef ξ k f 𝔟 * (((absNorm 𝔫 : ℝ)) : ℂ) ^ (-(s : ℂ)) *
       (((absNorm 𝔟 : ℝ)) : ℂ) ^ (-(3 * s) + 1 / 2)) ≠ 0) :

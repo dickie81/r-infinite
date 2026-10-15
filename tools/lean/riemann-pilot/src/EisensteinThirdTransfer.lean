@@ -1,6 +1,9 @@
 import EisensteinTransferColumns
 
-/-! # Lemma 7.3 (round 325)
+/-! # Lemma 7.3 (round 325; round 492: the characters modulo `md`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) states Lemma 7.3 for the characters modulo any `md` with `4 ∣ md`,
+with the rows' set of primes `unitPrimes md (4βL)` and round 323's zero frequency `zeroQ md`.
 
 S5c-5, part 4, in round 316's plan: the companion paper's Lemma 7.3,
 "`\mathcal Q_{\xi_1}(U)\ll D^{\varepsilon_0}\Sigma(1+S_m) \|U\|_{C^{2m+4}(I_*)}^2`", in the pilot's form, from
@@ -27,6 +30,8 @@ noncomputable section
 
 namespace Eis
 
+variable {md : 𝓞 K}
+
 /-! ### The block quantities -/
 
 theorem norm_mul_conj_le_one {z : ℂ} (h : ‖z‖ ≤ 1) : ‖conj z * z‖ ≤ 1 := by
@@ -38,7 +43,7 @@ theorem norm_mul_conj_le_one' {z : ℂ} (h : ‖z‖ ≤ 1) : ‖z * conj z‖ �
   rw [mul_comm]; exact norm_mul_conj_le_one h
 
 /-- `|w_ρ| ≤ 1` when `N(V)N(b₂) ≤ 2R`. -/
-theorem norm_wQr_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {R : ℝ} (hR : 0 < R) (ρ : RowQ)
+theorem norm_wQr_le [NeZero md] (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) {R : ℝ} (hR : 0 < R) (ρ : RowQ)
     (h : nI ρ.1.2.2 * nI ρ.2.1.1 ≤ 2 * R) : ‖wQr ξ R ρ‖ ≤ 1 := by
   unfold wQr
   have hs : ‖(-1 : ℂ) ^ ρ.2.1.2.1.card * (-1) ^ ρ.2.1.2.2.card‖ = 1 := by
@@ -59,7 +64,7 @@ theorem norm_wQr_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {R : ℝ
 
 open Classical in
 /-- The row weights of a block: `|w_ρ| ≤ 1`. -/
-theorem norm_wQr_blk_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {U0 : Finset Pr}
+theorem norm_wQr_blk_le [NeZero md] (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) {U0 : Finset Pr}
     {β H L S F : ℝ} {p : ℕ × ℕ} {ρ : RowQ} (h : ρ ∈ blkQ U0 β H L S F p) :
     ‖wQr ξ ((2 : ℝ) ^ p.1) ρ‖ ≤ 1 := by
   obtain ⟨hρ, -, hr2, -, -⟩ := mem_blkQ h
@@ -147,13 +152,14 @@ Lemma 7.3, through round 317's `bilinear_dual_bound_unif` with dilations in `[1,
 function `U` supported in `[α/2, 2β]` with its first `2m+2` derivatives bounded by `N_U`, the rows of
 one block contribute at most `W_B·K·N_U²·A_min^{−σ}·B·Σ_r 4^{|r|}·(M + C_triv)·(L/R)²`, with
 `A_min = 1/(3𝓗L)`. -/
-theorem blockQ_bound {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (m : ℕ) {σ : ℝ} (hσ : 0 < σ) :
-    ∃ Kb : ℝ, 0 ≤ Kb ∧ ∀ (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U : ℝ → ℂ), ContDiff ℝ ∞ U →
+theorem blockQ_bound [NeZero md] {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (m : ℕ) {σ : ℝ} (hσ : 0 < σ) :
+    ∃ Kb : ℝ, 0 ≤ Kb ∧ ∀ (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) (U : ℝ → ℂ), ContDiff ℝ ∞ U →
       (∀ x, x < α / 2 ∨ 2 * β < x → U x = 0) → ∀ NU : ℝ,
       (∀ j ≤ 2 * m + 2, ∀ x, ‖iteratedDeriv j U x‖ ≤ NU) →
       ∀ {Hh L S F cI M : ℝ}, 1 ≤ Hh → 1 ≤ L → 1 ≤ F → Hh ≤ S → 1 ≤ cI → 0 ≤ M →
-      ChildBound α β m Hh L S F M →
-      ∀ {U0 : Finset Pr}, primesLe (4 * β * L) ⊆ U0 → ∀ (p : ℕ × ℕ) {Bm : ℝ}, 0 ≤ Bm →
+      ChildBound md α β m Hh L S F M →
+      ∀ {U0 : Finset Pr}, (∀ P ∈ primesLe (4 * β * L), IsUnit (cls md {P}) → P ∈ U0) →
+      ∀ (p : ℕ × ℕ) {Bm : ℝ}, 0 ≤ Bm →
       (∀ ρ ∈ blkQ U0 β Hh L S F p, (2 : ℝ) ^ (rQ ρ).card * 8 ^ (fQ ρ).card ≤ Bm) →
       ‖∑ ρ ∈ blkQ U0 β Hh L S F p, ∑ M1 ∈ colRange U0 ρ, ∑ M2 ∈ colRange U0 ρ,
           termQ U Hh L S F cI ξ ρ M1 M2‖ ≤
@@ -318,18 +324,18 @@ open Classical in
 /-- **The nonzero frequencies of `𝒬` in one character** (the blocks of the companion paper's proof of
 Lemma 7.3 summed): `‖Σ_t w_t·dualQ ξ t‖ ≤ (⌊log₂⌊2βL⌋⌋ + 1)²·K·c_IΣFL·(3𝓗L)^σ·((2βL)^δ)⁴·
 (M + C_triv)·N_U²`. -/
-theorem dualQ_sum_le {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (m : ℕ) {σ δ : ℝ} (hσ : 0 < σ)
+theorem dualQ_sum_le [NeZero md] {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (m : ℕ) {σ δ : ℝ} (hσ : 0 < σ)
     (hδ : 0 < δ) :
-    ∃ Kd : ℝ, 0 ≤ Kd ∧ ∀ (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U : ℝ → ℂ), ContDiff ℝ ∞ U →
+    ∃ Kd : ℝ, 0 ≤ Kd ∧ ∀ (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) (U : ℝ → ℂ), ContDiff ℝ ∞ U →
       (∀ x, x < α / 2 ∨ 2 * β < x → U x = 0) → ∀ NU : ℝ,
       (∀ j ≤ 2 * m + 2, ∀ x, ‖iteratedDeriv j U x‖ ≤ NU) →
       ∀ {Hh L S F cI M : ℝ}, 1 ≤ Hh → 1 ≤ L → 1 ≤ F → Hh ≤ S → 3 * β ^ 2 * RΦ ^ 2 ≤ cI →
-      1 ≤ cI → 0 ≤ M → ChildBound α β m Hh L S F M →
+      1 ≤ cI → 0 ≤ M → ChildBound md α β m Hh L S F M →
       ‖∑ t ∈ qTriples (2 * β * L),
-          (wtQ Hh L t : ℂ) * dualQ U Hh L S F cI (primesLe (4 * β * L)) ξ t‖ ≤
+          (wtQ Hh L t : ℂ) * dualQ U Hh L S F cI (unitPrimes md (4 * β * L)) ξ t‖ ≤
         ((Nat.log 2 ⌊2 * β * L⌋₊ : ℕ) + 1 : ℝ) ^ 2 * (Kd * (cI * S * F * L) *
           (3 * Hh * L) ^ σ * ((2 * β * L) ^ δ) ^ 4 * (M + Ctriv β) * NU ^ 2) := by
-  obtain ⟨Kb, hKb0, hKb⟩ := blockQ_bound hα hαβ m hσ
+  obtain ⟨Kb, hKb0, hKb⟩ := blockQ_bound (md := md) hα hαβ m hσ
   obtain ⟨C4, hC40, hC4⟩ := four_pow_card_le hδ
   have hk := kappa_pos
   refine ⟨16 / 3 * (2 * kappa + 5) * Kb * C4 ^ 4, by positivity,
@@ -340,7 +346,7 @@ theorem dualQ_sum_le {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (m : ℕ) 
   have hS0 : 0 < S := by linarith
   have hF0 : 0 < F := by linarith
   have hβL : 0 < 2 * β * L := by positivity
-  set U0 := primesLe (4 * β * L) with hU0def
+  set U0 := unitPrimes md (4 * β * L) with hU0def
   have hU2 : ∀ x, 2 * β < x → U x = 0 := fun x hx => hUs x (Or.inr hx)
   set NL := Nat.log 2 ⌊2 * β * L⌋₊ with hNL
   set Bblk := 16 / 3 * (2 * kappa + 5) * Kb * C4 ^ 4 * (cI * S * F * L) * (3 * Hh * L) ^ σ *
@@ -351,7 +357,8 @@ theorem dualQ_sum_le {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (m : ℕ) 
         termQ U Hh L S F cI ξ ρ M1 M2‖ ≤ Bblk := by
     intro p _
     have hBm0 : 0 ≤ C4 ^ 3 * ((2 * β * L) ^ δ) ^ 3 := by positivity
-    have hb := hKb ξ U hU hUs NU hNU hH hL hF hHS hcI1 hM0 hM (le_refl U0) p hBm0
+    have hb := hKb ξ U hU hUs NU hNU hH hL hF hHS hcI1 hM0 hM
+      (fun P hP hu => mem_unitPrimes_of le_rfl hP hu) p hBm0
       (fun ρ hρ => mult_le hδ hC4 (Finset.mem_filter.1 hρ).1)
     have hS4 := sum_four_pow_rQ_le hδ hC4 hβL (U0 := U0) (H := Hh) (S := S) (F := F) p
     have hR0 : (0 : ℝ) < (2 : ℝ) ^ p.1 := by positivity
@@ -410,14 +417,14 @@ open Classical in
 (7.2)): `‖Σ_t w_t·zeroQ t‖ ≤ (2κ+5)·(8/3)β|Φ̂(0)|·c_IΣFL·N_U²·(2(2κ+5)(⌊log₂⌊2βL⌋⌋ + 1))³`. -/
 theorem zeroQ_sum_le {U : ℝ → ℂ} {NU : ℝ} (hNU : ∀ x, ‖U x‖ ≤ NU) {β H L S F cI : ℝ}
     (hβ : 0 ≤ β) (hH : 0 < H) (hL : 0 < L) (hS : 0 < S) (hF : 0 < F) (hcI : 0 < cI) :
-    ‖∑ t ∈ qTriples (2 * β * L), (wtQ H L t : ℂ) * zeroQ U β H L S F cI t‖ ≤
+    ‖∑ t ∈ qTriples (2 * β * L), (wtQ H L t : ℂ) * zeroQ md U β H L S F cI t‖ ≤
       (2 * kappa + 5) * (8 / 3 * β) * ‖dualG 0‖ * (cI * S * F * L) * NU ^ 2 *
         (2 * (2 * kappa + 5) * ((Nat.log 2 ⌊2 * β * L⌋₊ : ℕ) + 1 : ℝ)) ^ 3 := by
   have hk := kappa_pos
   have hNU0 : 0 ≤ NU := (norm_nonneg _).trans (hNU 0)
   set Cz := (2 * kappa + 5) * (8 / 3 * β) * ‖dualG 0‖ * (cI * S * F * L) * NU ^ 2 with hCz
   have hCz0 : 0 ≤ Cz := by positivity
-  have hterm : ∀ t ∈ qTriples (2 * β * L), ‖(wtQ H L t : ℂ) * zeroQ U β H L S F cI t‖ ≤
+  have hterm : ∀ t ∈ qTriples (2 * β * L), ‖(wtQ H L t : ℂ) * zeroQ md U β H L S F cI t‖ ≤
       Cz * (1 / (nI t.1 * nI t.2.1 * nI t.2.2)) := by
     intro t ht
     obtain ⟨-, hprod⟩ := mem_qTriples ht
@@ -430,17 +437,22 @@ theorem zeroQ_sum_le {U : ℝ → ℂ} {NU : ℝ} (hNU : ∀ x, ‖U x‖ ≤ NU
     set Y := Ycd cI S L F H t.1 t.2.1 with hY
     have hY0 : 0 ≤ Y := (Ycd_pos hcI hS hL hF hH t.1 t.2.1).le
     have hz := zero_Mq_le hNU ℓ (eS t.1 ^ 4 * eS t.2.1 ^ 5 * eS t.2.2 ^ 6) hY0
-      (fsLe (2 * β * ℓ))
+      ((fsLe (2 * β * ℓ)).filter (fun A => IsUnit (cls md A)))
     have h1 : 1 ≤ 2 * β * ℓ := by
       rw [hℓ]; unfold ellS
       rw [← mul_div_assoc, le_div_iff₀ (by positivity), one_mul]
       exact hprod
     have hcard := card_fsLe_le h1
+    have hcard' : (((fsLe (2 * β * ℓ)).filter (fun A => IsUnit (cls md A))).card : ℝ) ≤
+        (2 * kappa + 5) * (2 * β * ℓ) :=
+      le_trans (by exact_mod_cast Finset.card_filter_le _ _) hcard
     have hw0 : 0 ≤ wtQ H L t := by unfold wtQ; positivity
     rw [norm_mul, Complex.norm_real, Real.norm_of_nonneg hw0]
-    have hz' : ‖zeroQ U β H L S F cI t‖ ≤
-        (2 * kappa + 5) * (2 * β * ℓ) * (NU ^ 2 * (2 * Y / Real.sqrt 3 * ‖dualG 0‖)) :=
-      hz.trans (mul_le_mul_of_nonneg_right hcard (by positivity))
+    have hz' : ‖zeroQ md U β H L S F cI t‖ ≤
+        (2 * kappa + 5) * (2 * β * ℓ) * (NU ^ 2 * (2 * Y / Real.sqrt 3 * ‖dualG 0‖)) := by
+      refine le_trans (le_of_eq ?_) (hz.trans (mul_le_mul_of_nonneg_right hcard' (by positivity)))
+      unfold zeroQ
+      congr
     have hs3 : Real.sqrt 3 * Real.sqrt 3 = 3 := Real.mul_self_sqrt (by norm_num)
     have hs30 : 0 < Real.sqrt 3 := Real.sqrt_pos.2 (by norm_num)
     have e : wtQ H L t * ((2 * kappa + 5) * (2 * β * ℓ) *
@@ -454,14 +466,14 @@ theorem zeroQ_sum_le {U : ℝ → ℂ} {NU : ℝ} (hNU : ∀ x, ‖U x‖ ≤ NU
     have hle : 1 / (nI t.1 * nI t.2.1) ≤ 1 := by
       rw [div_le_one (by positivity)]
       exact one_le_mul_of_one_le_of_one_le hb1 hT1
-    calc wtQ H L t * ‖zeroQ U β H L S F cI t‖
+    calc wtQ H L t * ‖zeroQ md U β H L S F cI t‖
         ≤ wtQ H L t * ((2 * kappa + 5) * (2 * β * ℓ) *
           (NU ^ 2 * (2 * Y / Real.sqrt 3 * ‖dualG 0‖))) := mul_le_mul_of_nonneg_left hz' hw0
       _ = Cz * (1 / (nI t.1 * nI t.2.1 * nI t.2.2)) * (1 / (nI t.1 * nI t.2.1)) := e
       _ ≤ Cz * (1 / (nI t.1 * nI t.2.1 * nI t.2.2)) * 1 :=
           mul_le_mul_of_nonneg_left hle (by positivity)
       _ = Cz * (1 / (nI t.1 * nI t.2.1 * nI t.2.2)) := mul_one _
-  calc _ ≤ ∑ t ∈ qTriples (2 * β * L), ‖(wtQ H L t : ℂ) * zeroQ U β H L S F cI t‖ :=
+  calc _ ≤ ∑ t ∈ qTriples (2 * β * L), ‖(wtQ H L t : ℂ) * zeroQ md U β H L S F cI t‖ :=
         norm_sum_le _ _
     _ ≤ ∑ t ∈ qTriples (2 * β * L), Cz * (1 / (nI t.1 * nI t.2.1 * nI t.2.2)) :=
         Finset.sum_le_sum hterm
@@ -494,23 +506,23 @@ estimate's hypothesis with constant `M` (`ChildBound`), then for every `ξ₁` a
 `𝒬_{ξ₁}(U) ≤ K·c_IΣFL·(3𝓗L)^σ·L^η·(1 + M)·N_U²`. The form `𝒬` of `Qform` is the paper's times
 `2LF/√3`; the losses `(3𝓗L)^σ` (the separation's `A_min^{−σ}`) and `L^η` (the multiplicity, the
 divisor bounds and the number of dyadic blocks) stand in for the paper's `D^{ε}`. -/
-theorem third_transfer {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (m : ℕ) {σ η : ℝ} (hσ : 0 < σ)
+theorem third_transfer [NeZero md] [Fact ((4 : 𝓞 K) ∣ md)] {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (m : ℕ) {σ η : ℝ} (hσ : 0 < σ)
     (hη : 0 < η) :
-    ∃ K3 : ℝ, 0 ≤ K3 ∧ ∀ (ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U : ℝ → ℂ),
+    ∃ K3 : ℝ, 0 ≤ K3 ∧ ∀ (ξ1 : MulChar (𝓞 K ⧸ span {md}) ℂ) (U : ℝ → ℂ),
       ContDiff ℝ ∞ U → (∀ x, x < α / 2 ∨ 2 * β < x → U x = 0) → ∀ NU : ℝ,
       (∀ j ≤ 2 * m + 2, ∀ x, ‖iteratedDeriv j U x‖ ≤ NU) →
       ∀ {Hh L S F cI M : ℝ}, 1 ≤ Hh → 1 ≤ L → 1 ≤ F → Hh ≤ S → 3 * β ^ 2 * RΦ ^ 2 ≤ cI →
-      1 ≤ cI → 0 ≤ M → ChildBound α β m Hh L S F M →
+      1 ≤ cI → 0 ≤ M → ChildBound md α β m Hh L S F M →
       Qform ξ1 U β Hh L S F cI ≤
         K3 * (cI * S * F * L) * (3 * Hh * L) ^ σ * L ^ η * (1 + M) * NU ^ 2 := by
   have hβ : 0 < β := lt_of_lt_of_le hα hαβ
   set δ := η / 8 with hδ
   have hδ0 : 0 < δ := by positivity
-  obtain ⟨Kd, hKd0, hKd⟩ := dualQ_sum_le hα hαβ m hσ hδ0
+  obtain ⟨Kd, hKd0, hKd⟩ := dualQ_sum_le (md := md) hα hαβ m hσ hδ0
   set Clog := (1 / (δ * Real.log 2) + 1) * (2 * β + 1) ^ δ with hClog
   have hl2 := Real.log_pos (by norm_num : (1 : ℝ) < 2)
   have hClog0 : 0 ≤ Clog := by positivity
-  set nξ : ℝ := (Fintype.card (MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) : ℝ) with hnξ
+  set nξ : ℝ := (Fintype.card (MulChar (𝓞 K ⧸ span {md}) ℂ) : ℝ) with hnξ
   have hk := kappa_pos
   set Kz := (2 * kappa + 5) * (8 / 3 * β) * ‖dualG 0‖ * (2 * (2 * kappa + 5) * Clog) ^ 3 with hKz
   set Kd' := Kd * Clog ^ 2 * (2 * β) ^ (4 * δ) * (1 + Ctriv β) with hKd'
@@ -529,7 +541,8 @@ theorem third_transfer {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (m : ℕ
     have := hNU 0 (Nat.zero_le _) x; rwa [iteratedDeriv_zero] at this
   have hNU0 : 0 ≤ NU := (norm_nonneg _).trans (hNU' 0)
   have hU2 : ∀ x, 2 * β < x → U x = 0 := fun x hx => hUs x (Or.inr hx)
-  have hU0 : primesLe (2 * β * L) ⊆ primesLe (4 * β * L) := primesLe_mono (by nlinarith)
+  have hU0 : ∀ P ∈ primesLe (2 * β * L), IsUnit (cls md {P}) → P ∈ unitPrimes md (4 * β * L) :=
+    fun P hP hu => mem_unitPrimes_of (by nlinarith) hP hu
   have hσ1 : 1 ≤ (3 * Hh * L) ^ σ :=
     Real.one_le_rpow (by nlinarith) hσ.le
   have hη1 : 1 ≤ L ^ η := Real.one_le_rpow hL hη.le
@@ -541,7 +554,7 @@ theorem third_transfer {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (m : ℕ
   -- the zero frequencies
   have hA0 : 0 ≤ (cI * S * F * L) * (3 * Hh * L) ^ σ := by positivity
   have hB0 : 0 ≤ (1 + M) * NU ^ 2 := by positivity
-  have hzero : ‖∑ t ∈ qTriples (2 * β * L), (wtQ Hh L t : ℂ) * zeroQ U β Hh L S F cI t‖ ≤
+  have hzero : ‖∑ t ∈ qTriples (2 * β * L), (wtQ Hh L t : ℂ) * zeroQ md U β Hh L S F cI t‖ ≤
       Kz * ((cI * S * F * L) * (3 * Hh * L) ^ σ * L ^ η * (1 + M) * NU ^ 2) := by
     refine (zeroQ_sum_le hNU' hβ.le hH0 hL0 hS0 hF0 hcI0).trans ?_
     have h3 : (2 * (2 * kappa + 5) * (((Nat.log 2 ⌊2 * β * L⌋₊ : ℕ) : ℝ) + 1)) ^ 3 ≤
@@ -564,9 +577,9 @@ theorem third_transfer {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (m : ℕ
           exact mul_le_mul_of_nonneg_right (by linarith) (by positivity)
       _ = _ := by ring
   -- the nonzero frequencies, one character at a time
-  have hdual : ∀ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+  have hdual : ∀ ξ : MulChar (𝓞 K ⧸ span {md}) ℂ,
       ‖∑ t ∈ qTriples (2 * β * L),
-        (wtQ Hh L t : ℂ) * dualQ U Hh L S F cI (primesLe (4 * β * L)) ξ t‖ ≤
+        (wtQ Hh L t : ℂ) * dualQ U Hh L S F cI (unitPrimes md (4 * β * L)) ξ t‖ ≤
         Kd' * ((cI * S * F * L) * (3 * Hh * L) ^ σ * L ^ η * (1 + M) * NU ^ 2) := by
     intro ξ
     refine (hKd ξ U hU hUs NU hNU hH hL hF hHS hcI hcI1 hM0 hM).trans ?_
@@ -592,9 +605,10 @@ theorem third_transfer {α β : ℝ} (hα : 0 < α) (hαβ : α ≤ β) (m : ℕ
             (mul_le_mul_of_nonneg_left hLL hA0) hB0) hKd'0
       _ = _ := by ring
   -- the split
-  refine (Qform_le_split ξ1 hβ.le hH0 hL0 hS0 hF0 hcI hcI0 hU2 hU0).trans ?_
+  refine (Qform_le_split ξ1 hβ.le hH0 hL0 hS0 hF0 hcI hcI0 hU2 hU0
+    (isUnit_cls_unitPrimes md _)).trans ?_
   calc _ ≤ Kz * ((cI * S * F * L) * (3 * Hh * L) ^ σ * L ^ η * (1 + M) * NU ^ 2) +
-        ∑ _ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+        ∑ _ξ : MulChar (𝓞 K ⧸ span {md}) ℂ,
           2 * (Kd' * ((cI * S * F * L) * (3 * Hh * L) ^ σ * L ^ η * (1 + M) * NU ^ 2)) := by
         refine add_le_add hzero (Finset.sum_le_sum fun ξ _ => ?_)
         exact mul_le_mul (norm_classCoeff_pairH_le ξ1 ξ) (hdual ξ) (norm_nonneg _) (by norm_num)

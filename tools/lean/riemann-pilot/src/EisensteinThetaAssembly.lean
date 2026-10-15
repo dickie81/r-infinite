@@ -1,6 +1,11 @@
 import EisensteinThetaMeanSquare
 
-/-! # Lemma 6.6 from the displayed transformation and the quadratic large sieve (round 342)
+/-! # Lemma 6.6 from the displayed transformation and the quadratic large sieve (round 342; round 492: the characters modulo `md`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) states the assembly at every modulus `md`: `rows_meanSquare` and
+`squarefreeCompletedM_of` take `ThetaRowsM md` and give `SquarefreeCompletedM md`;
+`squarefreeCompleted_of` is the case `md = 4`. Round 493 (step 2) splits the rows at `g·md`, so that the rows
+`k₀` are prime to `md` as round 493's `ThetaRowsM md` asks, for `md ≠ 0`.
 
 S5d of round 312's plan, part 4: the assembly in the companion paper's proof of its Lemma 6.6, and with
 round 339 the zero-free half-plane `Re s > 11/12` from the two displayed inputs.
@@ -10,13 +15,15 @@ round 339 the zero-free half-plane `Re s > 11/12` from the two displayed inputs.
   to `gen(𝔱)·g`, with `N(s) = N(𝔱)N(k₀)`. The ideal `𝔱` is a product of a subset of the primes of `(6)`
   and of `g` (`tIdeals`), so at most `6·2^{c₆+ω(g)}` keys `(u, 𝔱)` occur (`card_units_le`,
   `card_tIdeals_le`).
-* **The rows with one `t`** (`rows_meanSquare`): the displayed transformation (`ThetaRows`) writes each
+* **The rows with one `t`** (`rows_meanSquare`): the displayed transformation (`ThetaRowsM md`) writes each
   row's completed sum as `Σ_{i,𝒜} C·dualTerm`. Cauchy–Schwarz over `(i, 𝒜)`, the classes `k₀ mod M` (at
   most `N((M))` of them, `card_image_mk_le`), round 341's `dualTerm_meanSquare` and `cost_le` bound the
   mean square by `K₁64^{ω(tg)}N²·H₀^σ max(1, K_c²N(rad tg)²H₀²/X)^{2σ}(H₀ + K_c²(H₀²/X)N(t)²N(g))`.
-* **`squarefreeCompleted_of`**: `ThetaRows → QuadLargeSieve → SquarefreeCompleted`, the paper's Lemma 6.6,
+* **`squarefreeCompletedM_of`**: `ThetaRowsM md → QuadLargeSieve → SquarefreeCompletedM md`, the paper's
+  Lemma 6.6,
   with `H₀ = 𝓗/N(t)`, `σ = min(1/2, ε/(26C₀))` and the divisor bound of round 310's `four_pow_card_le`
-  at `δ = ε/(14C₀)`, so that `D^{7C₀δ + 13C₀σ} ≤ D^ε`.
+  at `δ = ε/(14C₀)`, so that `D^{7C₀δ + 13C₀σ} ≤ D^ε`. Since round 493 the rows are split at `g·md`, with at
+  most `6·2^{c₆+ω(g)+ω(md)}` keys (`primeSet_mul_subset`).
 * **`ne_zero_of_theta`**: `ThetaRows → QuadLargeSieve → 11/12 < Re s → ζ(s) ≠ 0 ∧ L(s, χ₋₃) ≠ 0`, through
   round 339's `ne_zero_of_squarefree`.
 -/
@@ -28,8 +35,10 @@ noncomputable section
 
 namespace Eis
 
+variable {md : 𝓞 K}
+
 /-- The completed sum of the zero weight vanishes. -/
-theorem compT_eq_zero_of_zero (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K) {W : ℝ → ℂ}
+theorem compT_eq_zero_of_zero (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) (k f : 𝓞 K) {W : ℝ → ℂ}
     (hW : ∀ x, W x = 0) (X : ℝ) : compT ξ k f W X = 0 := by
   unfold compT Vstar
   simp [hW]
@@ -181,13 +190,15 @@ theorem card_image_mk_le {M : 𝓞 K} (hM : M ≠ 0) (Ks : Finset (𝓞 K)) :
   exact_mod_cast h1
 
 theorem card_admissible_le (t g : 𝓞 K) :
-    (admissible t g).card ≤ 2 ^ (primeSet (span {t * g})).card := by
+    (admissible md t g).card ≤ 2 ^ (primeSet (span {t * g})).card := by
   unfold admissible
-  exact (Finset.card_filter_le _ _).trans (Finset.card_powerset _).le
+  refine (Finset.card_filter_le _ _).trans ?_
+  rw [Finset.card_powerset]
+  exact Nat.pow_le_pow_right (by norm_num) (Finset.card_le_card (tgPrimes_subset md t g))
 
-theorem subset_of_mem_admissible {t g : 𝓞 K} {A : Finset Pr} (hA : A ∈ admissible t g) :
+theorem subset_of_mem_admissible {t g : 𝓞 K} {A : Finset Pr} (hA : A ∈ admissible md t g) :
     A ⊆ primeSet (span {t * g}) :=
-  Finset.mem_powerset.1 (Finset.mem_filter.1 hA).1
+  (Finset.mem_powerset.1 (Finset.mem_filter.1 hA).1).trans (tgPrimes_subset md t g)
 
 /-- `‖Σ_x C_x D_x‖² ≤ |X|·Σ_x ‖D_x‖²` for `|C_x| ≤ 1`. -/
 theorem norm_sum_mul_sq_le_card {ι : Type*} (s : Finset ι) (C D : ι → ℂ) (hC : ∀ x, ‖C x‖ ≤ 1) :
@@ -201,7 +212,7 @@ theorem norm_sum_mul_sq_le_card {ι : Type*} (s : Finset ι) (C D : ι → ℂ) 
 `N(c₀) ≤ K_c`, `𝒜 ⊆ primeSet(tg)` and `cost_le`). -/
 theorem class_bound_le {Kσ Kd Nw σ H₀ X Kc : ℝ} (hKσ : 0 ≤ Kσ) (hσ : 0 ≤ σ) (hH : 1 ≤ H₀)
     (hX : 0 < X) {c₀ t g : 𝓞 K} (hc : (absNorm (span {c₀}) : ℝ) ≤ Kc) (ht : t ≠ 0) (hg : g ≠ 0)
-    (htsq : Squarefree (span {t})) {A : Finset Pr} (hA : A ∈ admissible t g) (j : Pr → ℕ)
+    (htsq : Squarefree (span {t})) {A : Finset Pr} (hA : A ∈ admissible md t g) (j : Pr → ℕ)
     (hj : j = jFix t g) :
     Kσ * (16 : ℝ) ^ A.card * Kd ^ 2 * Nw ^ 2 * (H₀ ^ σ * max 1 (dualY c₀ A H₀ X) ^ (2 * σ)) *
         (H₀ + (absNorm (span {c₀}) : ℝ) ^ 2 * (H₀ ^ 2 / X) *
@@ -271,16 +282,18 @@ open Classical in
 /-- **The rows with one `t`** (the companion paper's proof of Lemma 6.6, for fixed `t`): from the
 displayed transformation and the quadratic large sieve,
 `Σ_{k₀} |T(X; u₀tk₀, g)|² ≤ K₁ 64^{ω(tg)}N²·H₀^σ max(1, K_c²N(rad tg)²H₀²/X)^{2σ}·(H₀ + K_c²(H₀²/X)N(t)²N(g))`
-over the rows `k₀` primary, squarefree, of norm prime to `6`, prime to `tg`, with `N(k₀) ≤ H₀`. -/
-theorem rows_meanSquare (hθ : ThetaRows) (hLS : QuadLargeSieve) {σ : ℝ} (hσ : 0 < σ)
+over the rows `k₀` primary, squarefree, of norm prime to `6`, prime to `tg` and to `md`, with
+`N(k₀) ≤ H₀`. -/
+theorem rows_meanSquare (hθ : ThetaRowsM md) (hLS : QuadLargeSieve) {σ : ℝ} (hσ : 0 < σ)
     (hσ' : σ ≤ 1 / 2) :
     ∃ J : ℕ, ∀ α β : ℝ, 0 < α → α ≤ β → ∃ K₁ Kc : ℝ, 0 ≤ K₁ ∧ 0 ≤ Kc ∧
-    ∀ (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (W : ℝ → ℂ), ContDiff ℝ ∞ W →
+    ∀ (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) (W : ℝ → ℂ), ContDiff ℝ ∞ W →
       (∀ y, y < α ∨ β < y → W y = 0) → ∀ N : ℝ, (∀ i ≤ J, ∀ y, ‖iteratedDeriv i W y‖ ≤ N) →
       ∀ (u₀ : (𝓞 K)ˣ) (t g : 𝓞 K), t ≠ 0 → g ≠ 0 → Squarefree (span {t}) →
       ∀ (H₀ X : ℝ), 1 ≤ H₀ → 0 < X →
       ∀ Ks : Finset (𝓞 K), (∀ k₀ ∈ Ks, Primary k₀ ∧ Squarefree (span {k₀}) ∧
-        (absNorm (span {k₀})).Coprime 6 ∧ IsCoprime k₀ (t * g) ∧ (absNorm (span {k₀}) : ℝ) ≤ H₀) →
+        (absNorm (span {k₀})).Coprime 6 ∧ IsCoprime k₀ (t * g) ∧ IsCoprime k₀ md ∧
+        (absNorm (span {k₀}) : ℝ) ≤ H₀) →
       ∑ k₀ ∈ Ks, ‖compT ξ (u₀ * t * k₀) g W X‖ ^ 2 ≤
         K₁ * (64 : ℝ) ^ (primeSet (span {t * g})).card * N ^ 2 *
           (H₀ ^ σ * max 1 (Kc ^ 2 * nI (primeSet (span {t * g})) ^ 2 * H₀ ^ 2 / X) ^ (2 * σ)) *
@@ -295,19 +308,19 @@ theorem rows_meanSquare (hθ : ThetaRows) (hLS : QuadLargeSieve) {σ : ℝ} (hσ
   obtain ⟨h, hhs, hhb, hrep⟩ := hrest W hW hsupp N hN
   obtain ⟨d, c₀, hc₀, hds, hdb, hT⟩ := hrep ξ u₀ t g ht hg htsq
   have hrows : ∀ k₀ ∈ Ks, ∃ C : ℕ → Finset Pr → ℂ, (∀ i A, ‖C i A‖ ≤ 1) ∧
-      compT ξ (u₀ * t * k₀) g W X = ∑ i ∈ Finset.range KH, ∑ A ∈ admissible t g,
+      compT ξ (u₀ * t * k₀) g W X = ∑ i ∈ Finset.range KH, ∑ A ∈ admissible md t g,
         C i A * dualTerm h (d (Ideal.Quotient.mk _ k₀) i A) (c₀ (Ideal.Quotient.mk _ k₀) i A) A
           (jFix t g) k₀ X := fun k₀ hk =>
-    hT k₀ (hKs k₀ hk).1 (hKs k₀ hk).2.1 (hKs k₀ hk).2.2.1 (hKs k₀ hk).2.2.2.1 X hX
+    hT k₀ (hKs k₀ hk).1 (hKs k₀ hk).2.1 (hKs k₀ hk).2.2.1 (hKs k₀ hk).2.2.2.1 (hKs k₀ hk).2.2.2.2.1 X hX
   choose! C hC hCeq using hrows
   -- Cauchy–Schwarz over the transformed terms, for each row
   have hrow : ∀ k₀ ∈ Ks, ‖compT ξ (u₀ * t * k₀) g W X‖ ^ 2 ≤
-      ((Finset.range KH ×ˢ admissible t g).card : ℝ) * ∑ x ∈ Finset.range KH ×ˢ admissible t g,
+      ((Finset.range KH ×ˢ admissible md t g).card : ℝ) * ∑ x ∈ Finset.range KH ×ˢ admissible md t g,
         ‖dualTerm h (d (Ideal.Quotient.mk _ k₀) x.1 x.2) (c₀ (Ideal.Quotient.mk _ k₀) x.1 x.2) x.2
           (jFix t g) k₀ X‖ ^ 2 := by
     intro k₀ hk
     rw [hCeq k₀ hk, ← Finset.sum_product']
-    exact norm_sum_mul_sq_le_card (Finset.range KH ×ˢ admissible t g) (fun x => C k₀ x.1 x.2)
+    exact norm_sum_mul_sq_le_card (Finset.range KH ×ˢ admissible md t g) (fun x => C k₀ x.1 x.2)
       (fun x => dualTerm h (d (Ideal.Quotient.mk _ k₀) x.1 x.2) (c₀ (Ideal.Quotient.mk _ k₀) x.1 x.2)
         x.2 (jFix t g) k₀ X) fun x => hC k₀ hk x.1 x.2
   -- the bound of one class
@@ -334,11 +347,11 @@ theorem rows_meanSquare (hθ : ThetaRows) (hLS : QuadLargeSieve) {σ : ℝ} (hσ
     rw [hB]
     exact mul_nonneg (mul_nonneg (mul_nonneg (mul_nonneg (mul_nonneg hKσ0 (pow_nonneg (by norm_num) _))
       (sq_nonneg _)) (sq_nonneg _)) hX0) hL0
-  have hclass : ∀ x ∈ Finset.range KH ×ˢ admissible t g, ∑ k₀ ∈ Ks,
+  have hclass : ∀ x ∈ Finset.range KH ×ˢ admissible md t g, ∑ k₀ ∈ Ks,
       ‖dualTerm h (d (Ideal.Quotient.mk _ k₀) x.1 x.2) (c₀ (Ideal.Quotient.mk _ k₀) x.1 x.2) x.2
         (jFix t g) k₀ X‖ ^ 2 ≤ (absNorm (span {M}) : ℝ) * B := by
     intro x hx
-    have hxA : x.2 ∈ admissible t g := (Finset.mem_product.1 hx).2
+    have hxA : x.2 ∈ admissible md t g := (Finset.mem_product.1 hx).2
     have hfib : ∀ ρ ∈ Ks.image (Ideal.Quotient.mk (span {M})), ∑ k₀ ∈ Ks with
         Ideal.Quotient.mk (span {M}) k₀ = ρ,
         ‖dualTerm h (d (Ideal.Quotient.mk _ k₀) x.1 x.2) (c₀ (Ideal.Quotient.mk _ k₀) x.1 x.2) x.2
@@ -354,7 +367,7 @@ theorem rows_meanSquare (hθ : ThetaRows) (hLS : QuadLargeSieve) {σ : ℝ} (hσ
           Squarefree (span {k}) ∧ (absNorm (span {k})).Coprime 6 ∧ (absNorm (span {k}) : ℝ) ≤ H₀ :=
         fun k hk => by
           have hk' := hKs k (Finset.mem_filter.1 hk).1
-          exact ⟨hk'.1, hk'.2.1, hk'.2.2.1, hk'.2.2.2.2⟩
+          exact ⟨hk'.1, hk'.2.1, hk'.2.2.1, hk'.2.2.2.2.2⟩
       refine (hKσ h hhs (Cw * N) hhb (d ρ x.1 x.2) (max Kd 0) hKd (hds ρ x.1 x.2) (hdb' ρ x.1 x.2)
         (c₀ ρ x.1 x.2) (hc₀ ρ x.1 x.2).1 x.2 (jFix t g) H₀ X hH hX _ hrowsρ).trans ?_
       exact class_bound_le hKσ0 hσ.le hH hX ((hc₀ ρ x.1 x.2).2.trans (le_max_left _ _)) ht hg htsq
@@ -366,24 +379,24 @@ theorem rows_meanSquare (hθ : ThetaRows) (hLS : QuadLargeSieve) {σ : ℝ} (hσ
           rw [Finset.sum_const, nsmul_eq_mul]
       _ ≤ (absNorm (span {M}) : ℝ) * B := mul_le_mul_of_nonneg_right (card_image_mk_le hM Ks) hB0
   -- the sum over the rows and the classes
-  have hI : ((Finset.range KH ×ˢ admissible t g).card : ℝ) ≤
+  have hI : ((Finset.range KH ×ˢ admissible md t g).card : ℝ) ≤
       (KH : ℝ) * 2 ^ (primeSet (span {t * g})).card := by
     rw [Finset.card_product, Finset.card_range]
     exact_mod_cast Nat.mul_le_mul_left KH (card_admissible_le t g)
   have hNM : 0 ≤ (absNorm (span {M}) : ℝ) * B := mul_nonneg (Nat.cast_nonneg _) hB0
   calc ∑ k₀ ∈ Ks, ‖compT ξ (u₀ * t * k₀) g W X‖ ^ 2
-      ≤ ∑ k₀ ∈ Ks, ((Finset.range KH ×ˢ admissible t g).card : ℝ) *
-          ∑ x ∈ Finset.range KH ×ˢ admissible t g,
+      ≤ ∑ k₀ ∈ Ks, ((Finset.range KH ×ˢ admissible md t g).card : ℝ) *
+          ∑ x ∈ Finset.range KH ×ˢ admissible md t g,
             ‖dualTerm h (d (Ideal.Quotient.mk _ k₀) x.1 x.2) (c₀ (Ideal.Quotient.mk _ k₀) x.1 x.2) x.2
               (jFix t g) k₀ X‖ ^ 2 := Finset.sum_le_sum hrow
-    _ = ((Finset.range KH ×ˢ admissible t g).card : ℝ) *
-          ∑ x ∈ Finset.range KH ×ˢ admissible t g, ∑ k₀ ∈ Ks,
+    _ = ((Finset.range KH ×ˢ admissible md t g).card : ℝ) *
+          ∑ x ∈ Finset.range KH ×ˢ admissible md t g, ∑ k₀ ∈ Ks,
             ‖dualTerm h (d (Ideal.Quotient.mk _ k₀) x.1 x.2) (c₀ (Ideal.Quotient.mk _ k₀) x.1 x.2) x.2
               (jFix t g) k₀ X‖ ^ 2 := by rw [← Finset.mul_sum, Finset.sum_comm]
-    _ ≤ ((Finset.range KH ×ˢ admissible t g).card : ℝ) *
-          ∑ _x ∈ Finset.range KH ×ˢ admissible t g, (absNorm (span {M}) : ℝ) * B :=
+    _ ≤ ((Finset.range KH ×ˢ admissible md t g).card : ℝ) *
+          ∑ _x ∈ Finset.range KH ×ˢ admissible md t g, (absNorm (span {M}) : ℝ) * B :=
         mul_le_mul_of_nonneg_left (Finset.sum_le_sum hclass) (Nat.cast_nonneg _)
-    _ = ((Finset.range KH ×ˢ admissible t g).card : ℝ) ^ 2 * ((absNorm (span {M}) : ℝ) * B) := by
+    _ = ((Finset.range KH ×ˢ admissible md t g).card : ℝ) ^ 2 * ((absNorm (span {M}) : ℝ) * B) := by
         rw [Finset.sum_const, nsmul_eq_mul]; ring
     _ ≤ ((KH : ℝ) * 2 ^ (primeSet (span {t * g})).card) ^ 2 * ((absNorm (span {M}) : ℝ) * B) :=
         mul_le_mul_of_nonneg_right (pow_le_pow_left₀ (Nat.cast_nonneg _) hI 2) hNM
@@ -476,10 +489,23 @@ theorem mul5_le {K n a₁ b₁ a₂ b₂ a₃ b₃ a₄ b₄ : ℝ} (hK : 0 ≤ 
     (mul_le_mul h2 h3 h30 hb2) (mul_nonneg h20 h30) (mul_nonneg (mul_nonneg hK hb1) hn)) h4 h40
     (mul_nonneg (mul_nonneg (mul_nonneg hK hb1) hn) (mul_nonneg hb2 hb3))
 
+/-- The primes of `xy` are those of `x` and those of `y`. -/
+theorem primeSet_mul_subset {x y : 𝓞 K} (hx : x ≠ 0) (hy : y ≠ 0) :
+    primeSet (span {x * y}) ⊆ primeSet (span {x}) ∪ primeSet (span {y}) := by
+  intro P hP
+  rw [mem_primeSet, ← Ideal.span_singleton_mul_span_singleton,
+    normalizedFactors_mul (show span {x} ≠ ⊥ by rwa [Ne, Ideal.span_singleton_eq_bot])
+      (show span {y} ≠ ⊥ by rwa [Ne, Ideal.span_singleton_eq_bot]), Multiset.mem_add] at hP
+  rcases hP with h | h
+  · exact Finset.mem_union_left _ (mem_primeSet.2 h)
+  · exact Finset.mem_union_right _ (mem_primeSet.2 h)
+
 open Classical in
 /-- **Lemma 6.6 from the displayed transformation and the quadratic large sieve** (the companion
-paper's proof of its Lemma 6.6): `ThetaRows → QuadLargeSieve → SquarefreeCompleted`. -/
-theorem squarefreeCompleted_of (hθ : ThetaRows) (hLS : QuadLargeSieve) : SquarefreeCompleted := by
+paper's proof of its Lemma 6.6): `ThetaRowsM md → QuadLargeSieve → SquarefreeCompletedM md`, for `md ≠ 0`.
+The rows are split at `g·md` (round 493), so that every `k₀` is prime to `md`. -/
+theorem squarefreeCompletedM_of [NeZero md] (hθ : ThetaRowsM md) (hLS : QuadLargeSieve) :
+    SquarefreeCompletedM md := by
   intro ε hε C₀ hC₀
   have hC₀0 : 0 < C₀ := by linarith
   set σ : ℝ := min (1 / 2) (ε / (26 * C₀)) with hσdef
@@ -505,16 +531,16 @@ theorem squarefreeCompleted_of (hθ : ThetaRows) (hLS : QuadLargeSieve) : Square
       · exact Or.inr (lt_of_lt_of_le (lt_of_not_ge hαβ) h))
     simp [compT_eq_zero_of_zero ξ _ g hW0 X]
   obtain ⟨K₁, Kc, hK₁, hKc, hrows⟩ := hJ α β hα hαβ
-  refine ⟨6 * 2 ^ c6 * Cδ ^ 4 * K₁ * max 1 (Kc ^ 2) ^ 2, ?_⟩
+  refine ⟨6 * 2 ^ c6 * 2 ^ (primeSet (span {md})).card * Cδ ^ 4 * K₁ * max 1 (Kc ^ 2) ^ 2, ?_⟩
   intro ξ W hW hsupp N hN D Hh X hD hH hX hHD hXD g hg hgD Ss hSs
   have hD0 : 0 < D := by linarith
   have hX0 : 0 < X := by linarith
   have hnG : 1 ≤ (absNorm (span {g}) : ℝ) := one_le_absNorm_span hg
   have hsplit : ∀ s ∈ Ss, ∃ (u : (𝓞 K)ˣ) (T : Ideal (𝓞 K)) (k₀ : 𝓞 K), s = u * gen T * k₀ ∧
-      T ∈ tIdeals g ∧ T ≠ ⊥ ∧ Squarefree T ∧ Primary k₀ ∧ Squarefree (span {k₀}) ∧
-      (absNorm (span {k₀})).Coprime 6 ∧ IsCoprime k₀ (gen T * g) ∧
+      T ∈ tIdeals (g * md) ∧ T ≠ ⊥ ∧ Squarefree T ∧ Primary k₀ ∧ Squarefree (span {k₀}) ∧
+      (absNorm (span {k₀})).Coprime 6 ∧ IsCoprime k₀ (gen T * (g * md)) ∧
       absNorm (span {s}) = absNorm T * absNorm (span {k₀}) :=
-    fun s hs => exists_row_split (hSs s hs).1 (hSs s hs).2.1 hg
+    fun s hs => exists_row_split (hSs s hs).1 (hSs s hs).2.1 (mul_ne_zero hg (NeZero.ne md))
   choose! u T k₀ hsp using hsplit
   set G : ℝ := K₁ * Cδ ^ 3 * max 1 (Kc ^ 2) ^ 2 * N ^ 2 * D ^ (6 * C₀ * δ + 13 * C₀ * σ) *
       (Hh + Hh ^ 2 * (absNorm (span {g}) : ℝ) / X) with hGdef
@@ -551,13 +577,14 @@ theorem squarefreeCompleted_of (hθ : ThetaRows) (hLS : QuadLargeSieve) : Square
       rw [le_div_iff₀ (by linarith)]; nlinarith
     have hrowsP : ∀ k ∈ (Ss.filter (fun s => (u s, T s) = p)).image k₀, Primary k ∧
         Squarefree (span {k}) ∧ (absNorm (span {k})).Coprime 6 ∧ IsCoprime k (gen p.2 * g) ∧
-        (absNorm (span {k}) : ℝ) ≤ Hh / nT := by
+        IsCoprime k md ∧ (absNorm (span {k}) : ℝ) ≤ Hh / nT := by
       intro k hk
       obtain ⟨s, hs, rfl⟩ := Finset.mem_image.1 hk
       obtain ⟨h1, -, h3⟩ := hmemF s hs
       obtain ⟨-, -, -, -, hpr, hsq', h6, hcop, hNs⟩ := hsp s h1
       rw [h3] at hcop hNs
-      refine ⟨hpr, hsq', h6, hcop, ?_⟩
+      rw [← mul_assoc] at hcop
+      refine ⟨hpr, hsq', h6, hcop.of_mul_right_left, hcop.of_mul_right_right, ?_⟩
       rw [le_div_iff₀ (by linarith)]
       have hsN : (absNorm (span {s}) : ℝ) ≤ Hh := (hSs s h1).2.2
       rw [hNs] at hsN; push_cast at hsN
@@ -600,24 +627,29 @@ theorem squarefreeCompleted_of (hθ : ThetaRows) (hLS : QuadLargeSieve) : Square
   -- the sum over the groups
   have hXX : 0 ≤ Hh + Hh ^ 2 * (absNorm (span {g}) : ℝ) / X :=
     add_nonneg (by linarith) (div_nonneg (mul_nonneg (sq_nonneg _) (by linarith)) hX0.le)
-  have hK0 : 0 ≤ 6 * 2 ^ c6 * Cδ ^ 4 * K₁ * max 1 (Kc ^ 2) ^ 2 * N ^ 2 :=
+  have hK0 : 0 ≤ 6 * 2 ^ c6 * 2 ^ (primeSet (span {md})).card * Cδ ^ 4 * K₁ * max 1 (Kc ^ 2) ^ 2 * N ^ 2 :=
     mul_nonneg (mul_nonneg (mul_nonneg (mul_nonneg (by positivity) (pow_nonneg hCδ0.le 4)) hK₁)
       (sq_nonneg _)) (sq_nonneg _)
   have hG0 : 0 ≤ G := by
     rw [hGdef]
     exact mul_nonneg (mul_nonneg (mul_nonneg (mul_nonneg (mul_nonneg hK₁ (pow_nonneg hCδ0.le 3))
       (sq_nonneg _)) (sq_nonneg _)) (Real.rpow_nonneg hD0.le _)) hXX
-  have hcard : ((Ss.image (fun s => (u s, T s))).card : ℝ) ≤ 6 * 2 ^ c6 * (Cδ * D ^ (C₀ * δ)) := by
-    have hsub : Ss.image (fun s => (u s, T s)) ⊆ Finset.univ ×ˢ tIdeals g := by
+  have hcard : ((Ss.image (fun s => (u s, T s))).card : ℝ) ≤
+      6 * 2 ^ c6 * 2 ^ (primeSet (span {md})).card * (Cδ * D ^ (C₀ * δ)) := by
+    have hsub : Ss.image (fun s => (u s, T s)) ⊆ Finset.univ ×ˢ tIdeals (g * md) := by
       intro p hp
       obtain ⟨s, hs, rfl⟩ := Finset.mem_image.1 hp
       exact Finset.mem_product.2 ⟨Finset.mem_univ _, (hsp s hs).2.1⟩
-    have h1 : (Ss.image (fun s => (u s, T s))).card ≤ 6 * 2 ^ (c6 + (primeSet (span {g})).card) := by
-      calc (Ss.image (fun s => (u s, T s))).card ≤ (Finset.univ ×ˢ tIdeals g).card :=
+    have h1 : (Ss.image (fun s => (u s, T s))).card ≤
+        6 * 2 ^ (c6 + (primeSet (span {g * md})).card) := by
+      calc (Ss.image (fun s => (u s, T s))).card ≤ (Finset.univ ×ˢ tIdeals (g * md)).card :=
             Finset.card_le_card hsub
-        _ = Fintype.card (𝓞 K)ˣ * (tIdeals g).card := by rw [Finset.card_product, Finset.card_univ]
-        _ ≤ 6 * 2 ^ (c6 + (primeSet (span {g})).card) :=
-            Nat.mul_le_mul card_units_le (card_tIdeals_le g)
+        _ = Fintype.card (𝓞 K)ˣ * (tIdeals (g * md)).card := by rw [Finset.card_product, Finset.card_univ]
+        _ ≤ 6 * 2 ^ (c6 + (primeSet (span {g * md})).card) :=
+            Nat.mul_le_mul card_units_le (card_tIdeals_le (g * md))
+    have hgm : (primeSet (span {g * md})).card ≤
+        (primeSet (span {g})).card + (primeSet (span {md})).card :=
+      (Finset.card_le_card (primeSet_mul_subset hg (NeZero.ne md))).trans (Finset.card_union_le _ _)
     have hgne : span {g} ≠ ⊥ := by rwa [Ne, Ideal.span_singleton_eq_bot]
     have h2 : (2 : ℝ) ^ (primeSet (span {g})).card ≤ Cδ * D ^ (C₀ * δ) := by
       calc (2 : ℝ) ^ (primeSet (span {g})).card ≤ 4 ^ (primeSet (span {g})).card :=
@@ -627,10 +659,14 @@ theorem squarefreeCompleted_of (hθ : ThetaRows) (hLS : QuadLargeSieve) : Square
             mul_le_mul_of_nonneg_left
               (rpow_le_of_le_rpow (nI_pos _).le hD0 hδ.le ((nI_primeSet_le hgne).trans hgD))
               hCδ0.le
-    calc ((Ss.image (fun s => (u s, T s))).card : ℝ) ≤ 6 * 2 ^ (c6 + (primeSet (span {g})).card) := by
+    calc ((Ss.image (fun s => (u s, T s))).card : ℝ) ≤ 6 * 2 ^ (c6 + (primeSet (span {g * md})).card) := by
           exact_mod_cast h1
-      _ = 6 * 2 ^ c6 * 2 ^ (primeSet (span {g})).card := by rw [pow_add]; ring
-      _ ≤ 6 * 2 ^ c6 * (Cδ * D ^ (C₀ * δ)) := mul_le_mul_of_nonneg_left h2 (by positivity)
+      _ ≤ 6 * 2 ^ (c6 + ((primeSet (span {g})).card + (primeSet (span {md})).card)) :=
+          mul_le_mul_of_nonneg_left (pow_le_pow_right₀ (by norm_num) (by omega)) (by norm_num)
+      _ = 6 * 2 ^ c6 * 2 ^ (primeSet (span {md})).card * 2 ^ (primeSet (span {g})).card := by
+          rw [pow_add, pow_add]; ring
+      _ ≤ 6 * 2 ^ c6 * 2 ^ (primeSet (span {md})).card * (Cδ * D ^ (C₀ * δ)) :=
+          mul_le_mul_of_nonneg_left h2 (by positivity)
   have hDε : D ^ (C₀ * δ) * D ^ (6 * C₀ * δ + 13 * C₀ * σ) ≤ D ^ ε := by
     rw [← Real.rpow_add hD0]
     exact Real.rpow_le_rpow_of_exponent_le hD (by linarith)
@@ -640,13 +676,18 @@ theorem squarefreeCompleted_of (hθ : ThetaRows) (hLS : QuadLargeSieve) : Square
         (Finset.sum_fiberwise_of_maps_to (fun s hs => Finset.mem_image_of_mem _ hs) _).symm
     _ ≤ ∑ _p ∈ Ss.image (fun s => (u s, T s)), G := Finset.sum_le_sum hgroup
     _ = ((Ss.image (fun s => (u s, T s))).card : ℝ) * G := by rw [Finset.sum_const, nsmul_eq_mul]
-    _ ≤ 6 * 2 ^ c6 * (Cδ * D ^ (C₀ * δ)) * G := mul_le_mul_of_nonneg_right hcard hG0
-    _ = 6 * 2 ^ c6 * Cδ ^ 4 * K₁ * max 1 (Kc ^ 2) ^ 2 * N ^ 2 *
+    _ ≤ 6 * 2 ^ c6 * 2 ^ (primeSet (span {md})).card * (Cδ * D ^ (C₀ * δ)) * G :=
+        mul_le_mul_of_nonneg_right hcard hG0
+    _ = 6 * 2 ^ c6 * 2 ^ (primeSet (span {md})).card * Cδ ^ 4 * K₁ * max 1 (Kc ^ 2) ^ 2 * N ^ 2 *
           (D ^ (C₀ * δ) * D ^ (6 * C₀ * δ + 13 * C₀ * σ)) *
           (Hh + Hh ^ 2 * (absNorm (span {g}) : ℝ) / X) := by rw [hGdef]; ring
-    _ ≤ 6 * 2 ^ c6 * Cδ ^ 4 * K₁ * max 1 (Kc ^ 2) ^ 2 * N ^ 2 * D ^ ε *
+    _ ≤ 6 * 2 ^ c6 * 2 ^ (primeSet (span {md})).card * Cδ ^ 4 * K₁ * max 1 (Kc ^ 2) ^ 2 * N ^ 2 * D ^ ε *
           (Hh + Hh ^ 2 * (absNorm (span {g}) : ℝ) / X) :=
         mul_le_mul_of_nonneg_right (mul_le_mul_of_nonneg_left hDε hK0) hXX
+
+/-- Lemma 6.6 at the modulus `4` (round 342's statement). -/
+theorem squarefreeCompleted_of (hθ : ThetaRows) (hLS : QuadLargeSieve) : SquarefreeCompleted :=
+  squarefreeCompletedM_of hθ hLS
 
 /-- **The zero-free half-plane from the two displayed inputs**: the companion paper's theta
 transformation for the rows (`ThetaRows`) and its quadratic large sieve (`QuadLargeSieve`) give
@@ -666,5 +707,7 @@ end
 #print axioms Eis.card_image_mk_le
 #print axioms Eis.class_bound_le
 #print axioms Eis.rows_meanSquare
+#print axioms Eis.primeSet_mul_subset
+#print axioms Eis.squarefreeCompletedM_of
 #print axioms Eis.squarefreeCompleted_of
 #print axioms Eis.ne_zero_of_theta

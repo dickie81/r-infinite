@@ -1,6 +1,10 @@
 import EisensteinMeanSquareRowCol
 
-/-! # The bilinear bound for one block of rows (round 309)
+/-! # The bilinear bound for one block of rows (round 309; round 492: the characters modulo `m`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) states this file for the characters modulo any nonzero `m`. The set
+`U` of `colSum_eq_powerset` contains the primes of norm at most `β'X` whose class modulo `m` is a
+unit; the columns through the other primes vanish.
 
 S4 of round 291's plan, part 9: the analytic step of the companion paper's proof of its
 Proposition 4.5 for one excluded ideal `b` and one dyadic range of `N(f)`. Round 308's row/column
@@ -8,7 +12,8 @@ form meets round 306's two-family bilinear bound and its Lemma 4.4 under (4.12).
 
 * **The column sums over subsets** (`colSum_eq_powerset`): round 305's `colSum ξ W X (idl b) k f`, a
   sum over all ideals, is `Σ_{M⊆U∖b} colA ξ k f M · W(N(M)/X)` when `W` vanishes beyond `β'` and `U`
-  contains the primes of norm at most `β'X` (`dvd_idl_iff`, `isRelPrime_idl`).
+  contains the primes of norm at most `β'X` whose class modulo `m` is a unit (`dvd_idl_iff`,
+  `isRelPrime_idl`).
 * **Conjugated test functions** (`contDiff_conj_comp`, `norm_iteratedDeriv_conj_comp`):
   `x ↦ conj U(x)` is smooth with the same derivative norms (Mathlib's
   `LinearIsometryEquiv.norm_iteratedFDeriv_comp_left`).
@@ -37,6 +42,8 @@ noncomputable section
 
 namespace Eis
 
+variable {m : 𝓞 K}
+
 /-! ### The column sums over subsets -/
 
 theorem prime_Pr (P : Pr) : Prime P.1 := Ideal.prime_of_isPrime (Pr_ne_bot P) P.2.1.isPrime
@@ -61,7 +68,7 @@ theorem chiS_eq_zero_of_dvd {V : Finset Pr} {μ : 𝓞 K} {P : Pr} (hP : P ∈ V
   exact Finset.prod_eq_zero hP (by rw [(mk_πP_eq_zero_iff P μ).2 h, MulChar.map_zero])
 
 /-- A column coefficient vanishes when a prime of the column divides `f`. -/
-theorem colA_eq_zero (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K) {M : Finset Pr}
+theorem colA_eq_zero (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (k f : 𝓞 K) {M : Finset Pr}
     {P : Pr} (hP : P ∈ M) (hf : πP P ∣ f) : colA ξ k f M = 0 := by
   unfold colA; rw [chiS_eq_zero_of_dvd hP hf]; ring
 
@@ -69,11 +76,12 @@ theorem sym6_idl_eq (u : 𝓞 K) (M : Finset Pr) : sym6 u (idl M) = chiS M u := 
 
 open Classical in
 /-- **The column sum as a sum over subsets**: if `W` vanishes beyond `β'`, `X > 0`, and `U` contains the
-primes of norm at most `β'X`, then for `b ⊆ U`,
-`colSum ξ W X (idl b) k f = Σ_{M⊆U∖b} colA ξ k f M · W(N(M)/X)`. -/
-theorem colSum_eq_powerset (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : ℝ → ℂ} {β' : ℝ}
+primes of norm at most `β'X` whose classes modulo `m` are units, then
+`colSum ξ W X (idl b) k f = Σ_{M⊆U∖b} colA ξ k f M · W(N(M)/X)`. The ideals with a prime whose class is
+not a unit have `a_ξ = 0`. -/
+theorem colSum_eq_powerset (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {W : ℝ → ℂ} {β' : ℝ}
     (hW : ∀ x, β' < x → W x = 0) {X : ℝ} (hX : 0 < X) {U b : Finset Pr}
-    (hU : primesLe (β' * X) ⊆ U) (k f : 𝓞 K) :
+    (hU : ∀ P ∈ primesLe (β' * X), IsUnit (cls m {P}) → P ∈ U) (k f : 𝓞 K) :
     colSum ξ W X (idl b) k f = ∑ M ∈ (U \ b).powerset, colA ξ k f M * W (nI M / X) := by
   unfold colSum
   rw [tsum_eq_sum (s := (U \ b).powerset.image idl)]
@@ -85,7 +93,14 @@ theorem colSum_eq_powerset (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {
     unfold colA nI; ring
   · intro I hI
     by_cases ha : (absNorm I).Coprime 6 ∧ Squarefree I
-    · by_cases hrel : IsRelPrime I (idl b)
+    · by_cases hz : aXi ξ I = 0
+      · rw [hz]; split_ifs <;> ring
+      have hunit : IsUnit (cls m (primeSet I)) := by
+        by_contra hc
+        apply hz
+        rw [← idl_primeSet ha.1 ha.2]
+        exact aXi_idl_eq_zero ξ hc
+      by_cases hrel : IsRelPrime I (idl b)
       · by_cases hw : W ((absNorm I : ℝ) / X) = 0
         · rw [hw, mul_zero]
         · exfalso
@@ -97,7 +112,8 @@ theorem colSum_eq_powerset (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {
             idl_primeSet ha.1 ha.2⟩
           rw [Finset.mem_sdiff]
           constructor
-          · refine hU (mem_primesLe.2 ?_)
+          · refine hU P (mem_primesLe.2 ?_)
+                (isUnit_cls_of_subset (Finset.singleton_subset_iff.2 hP) hunit)
             have hPI : P.1 ∣ I := dvd_of_mem_normalizedFactors (mem_primeSet.1 hP)
             have h1 : absNorm P.1 ≤ absNorm I := Nat.le_of_dvd
               (Nat.pos_of_ne_zero (by rw [Ne, absNorm_eq_zero_iff]; exact ha.2.ne_zero))
@@ -192,7 +208,7 @@ open Classical in
 `dualMeanSquare_excl`, supplied as `hexcl`): for every test function `U'` supported in the support of
 `V ⊆ [α_V, β_V]` with its first `J` derivatives bounded by `N`,
 `Σ_r |Σ_{n⊆U∖b} conj(colA ξ k_r f_r n)·U'(N(n)/X)|² ≤ 4^{|b|}·K·Z^ε·(Z/B)²·N²`. -/
-theorem rows_colMeanSquare (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (J : ℕ) {αV βV : ℝ}
+theorem rows_colMeanSquare (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (J : ℕ) {αV βV : ℝ}
     (Kc ε1 Z B F Hc : ℝ) {b U : Finset Pr} {X : ℝ} (hX : X = Z / (B * F)) (hXpos : 0 < X)
     (hU : primesLe (βV * X) ⊆ U)
     (hexcl : ∀ W' : ℝ → ℂ, ContDiff ℝ ∞ W' → (∀ x, x < αV ∨ βV < x → W' x = 0) → ∀ N : ℝ,
@@ -224,7 +240,7 @@ theorem rows_colMeanSquare (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (
   have hrow : ∀ r ∈ rows, ‖∑ n ∈ (U \ b).powerset, conj (colA ξ (rowK r) (rowFe r) n) *
       U' (nI n / X)‖ = ‖colSum ξ W' X (idl b) (rowK r) (rowFe r)‖ := by
     intro r _
-    rw [colSum_eq_powerset ξ hW'β hXpos hU, ← RCLike.norm_conj, map_sum]
+    rw [colSum_eq_powerset ξ hW'β hXpos (fun P hP _ => hU hP), ← RCLike.norm_conj, map_sum]
     congr 1
     refine Finset.sum_congr rfl fun n _ => ?_
     simp only [hW'def, map_mul, Complex.conj_conj]
@@ -273,11 +289,11 @@ theorem rows_colMeanSquare (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (
 /-! ### The bilinear form of a block of rows -/
 
 /-- The weight of a row: the sign `(−1)^{|T|+|V|}` and the factor `ā_{ξ₁}(V)a_{ξ₂}(V)|χ_V(μ)|²`. -/
-def wRow (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (r : Row) : ℂ :=
+def wRow (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) (r : Row) : ℂ :=
   ((-1 : ℂ) ^ r.1.card * (-1) ^ r.2.1.card) *
     (conj (aXi ξ1 (idl r.2.1)) * aXi ξ2 (idl r.2.1) * (chiS r.2.1 r.2.2 * conj (chiS r.2.1 r.2.2)))
 
-theorem norm_wRow_le (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (r : Row) :
+theorem norm_wRow_le [NeZero m] (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) (r : Row) :
     ‖wRow ξ1 ξ2 r‖ ≤ 1 := by
   unfold wRow
   rw [norm_mul, norm_mul, norm_pow, norm_pow, norm_neg, norm_one, one_pow, one_pow, one_mul,
@@ -300,7 +316,7 @@ theorem dvd_rowFe_of_mem {r : Row} {P : Pr} (hP : P ∈ r.1 ∪ r.2.1) : πP P �
   · exact dvd_mul_of_dvd_right (Finset.dvd_prod_of_mem _ h) _
 
 /-- The columns of a row outside `U∖(b∪T)∖V` meet `T ∪ V`, so their coefficients vanish. -/
-theorem colA_eq_zero_of_not_good (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {U b : Finset Pr}
+theorem colA_eq_zero_of_not_good (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {U b : Finset Pr}
     (r : Row) {n : Finset Pr} (hn : n ∈ (U \ b).powerset)
     (hng : n ∉ ((U \ (b ∪ r.1)) \ r.2.1).powerset) : colA ξ (rowK r) (rowFe r) n = 0 := by
   rw [Finset.mem_powerset] at hn hng
@@ -320,7 +336,7 @@ theorem colA_eq_zero_of_not_good (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) 
 `x_n = N(n)/X`, `rcTerm = 2HN(b)/(√3Z)·w_r·ā_r(n₁)·conj(b̄_r(n₂))·W₀(ρx_{n₁})·conj W₀(ρx_{n₂})·Φ̂(√(A_r/(x_{n₁}x_{n₂})))`
 for columns disjoint from `V`. -/
 theorem rcTerm_eq_bilinear (W : ℝ → ℝ) {Z H F : ℝ} (hZ : 0 < Z) (hF : 0 < F)
-    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (b : Finset Pr) (r : Row) {M1 M2 : Finset Pr}
+    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) (b : Finset Pr) (r : Row) {M1 M2 : Finset Pr}
     (hTV : Disjoint r.1 r.2.1) (hV1 : Disjoint r.2.1 M1) (hV2 : Disjoint r.2.1 M2) :
     rcTerm W Z H ξ1 ξ2 b r.1 r.2.1 r.2.2 M1 M2 =
       ((2 * H * nI b / (Real.sqrt 3 * Z) : ℝ) : ℂ) *
@@ -357,7 +373,7 @@ theorem rcTerm_eq_bilinear (W : ℝ → ℝ) {Z H F : ℝ} (hZ : 0 < Z) (hF : 0 
 /-- **A row's double column sum as the bilinear form**: the columns `M ⊆ U∖(b∪T)∖V` of round 308 are
 completed to all `n ⊆ U∖b`, whose extra coefficients vanish (`colA_eq_zero_of_not_good`). -/
 theorem rowSum_eq_bilinear (W : ℝ → ℝ) {Z H F : ℝ} (hZ : 0 < Z) (hF : 0 < F)
-    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {U b : Finset Pr} (r : Row)
+    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) {U b : Finset Pr} (r : Row)
     (hV : r.2.1 ⊆ U \ (b ∪ r.1)) :
     ∑ M1 ∈ ((U \ (b ∪ r.1)) \ r.2.1).powerset, ∑ M2 ∈ ((U \ (b ∪ r.1)) \ r.2.1).powerset,
         rcTerm W Z H ξ1 ξ2 b r.1 r.2.1 r.2.2 M1 M2 =
@@ -419,8 +435,8 @@ dyadic range of `N(f)`): round 306's `bilinear_dual_bound₂` (its conclusion su
 the column mean squares `hcol1`, `hcol2` of the two families, gives
 `|Σ_{rows} Σ_{M₁,M₂} rcTerm| ≤ 2HN(b)/(√3Z)·K·A_min^{−σ}·M_b` when `1 ≤ N(f)/F ≤ 2` and
 `A_min ≤ A_r` on the rows. -/
-theorem rowBlock_bound (W : ℝ → ℝ) {Z H F : ℝ} (hZ : 0 < Z) (hF : 0 < F) (hH : 0 ≤ H)
-    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {U b : Finset Pr} (rows : Finset Row)
+theorem rowBlock_bound [NeZero m] (W : ℝ → ℝ) {Z H F : ℝ} (hZ : 0 < Z) (hF : 0 < F) (hH : 0 ≤ H)
+    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) {U b : Finset Pr} (rows : Finset Row)
     {K σ Amin Mb : ℝ} (hAmin : 0 < Amin) (hMb : 0 ≤ Mb)
     (hrows : ∀ r ∈ rows, r.2.1 ⊆ U \ (b ∪ r.1) ∧ 1 ≤ nI (rowF r) / F ∧ nI (rowF r) / F ≤ 2 ∧
       Amin ≤ ARow H (Z / (nI b * F)) r)

@@ -1,6 +1,12 @@
 import EisensteinPrepared
 
-/-! # The theta transformation for the rows, and the transformed terms as prepared sums (round 341)
+/-! # The theta transformation for the rows, and the transformed terms as prepared sums (round 341; round 492: the characters modulo `md`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) displays the transformation for the characters modulo any `md`
+(`ThetaRowsM md`; `ThetaRows` is `ThetaRowsM 4`). Round 493 (step 2) proves it at every `md ≠ 0` (round
+381's `thetaRowsM_of_kubota`) and changes the display in two places: the rows `k₀` are prime to `md`, and the
+active sets run over the primes of `tg` that do not divide `md` (`tgPrimes`), since round 379's dual sums take
+only primes not dividing their modulus `72·md`. At `md = 4` the active sets are round 341's (`tgPrimes_four`).
 
 S5d of round 312's plan, part 3: the representation in the companion paper's proof of its Lemma 6.6, with its
 Proposition 6.2 and Lemmas 6.3 and 6.4 (the theta transformation, its uniformity in the twist, and the support
@@ -12,8 +18,9 @@ and size of the cusp coefficients and of the transformed weight) displayed as on
 * **The dual parameters** `x = λ⁴ℓ = uλ^m n b³` (`DualIdx`, `dualPt`, `dualNorm`: the paper's Lemma 6.4, its
   `m ≥ −4` written as `m + 4 ∈ ℕ`) and **a transformed term** (`dualTerm`: the paper's (6.9) in these
   parameters, with `c = c₀∏_{P∈𝒜}P·k₀`).
-* **`ThetaRows`**: the theta transformation for the rows `u₀tk₀`, displayed. `T(X; u₀tk₀, g)` is a sum over
-  `i < K_H` and the admissible active sets `𝒜` of `C·dualTerm` with `|C| ≤ 1`; the data `(d, c₀)` depend on
+* **`ThetaRowsM`**: the theta transformation for the rows `u₀tk₀` (`k₀` prime to `tg` and to `md`), displayed.
+  `T(X; u₀tk₀, g)` is a sum over `i < K_H` and the admissible active sets `𝒜` (among the primes of `tg` not
+  dividing `md`) of `C·dualTerm` with `|C| ≤ 1`; the data `(d, c₀)` depend on
   `k₀` only through `k₀ mod M`; `|d| ≤ K_d 3^{m/6}N(𝔟)^{1/2}`, supported on squarefree `𝔫` with `N𝔫, N𝔟`
   prime to `3`; the first two derivatives of `h(w) = V^♯(e^w)` are at most `C_w N(1 + e^w)^{−1}`.
   The display also contains the paper's (6.17), which it derives from sextic reciprocity, and the
@@ -34,6 +41,8 @@ open scoped FourierTransform ContDiff SchwartzMap
 noncomputable section
 
 namespace Eis
+
+variable {md : 𝓞 K}
 
 /-! ### The local factors `B_{P,j}` -/
 
@@ -100,11 +109,38 @@ def jFix (t g : 𝓞 K) (P : Pr) : ℕ :=
   ((normalizedFactors (span {t})).count P.1 + 4 * (normalizedFactors (span {g})).count P.1) % 6
 
 open Classical in
-/-- The admissible active sets: `{P ∈ 𝒫_fix : j_P ≠ 0} ⊆ 𝒜 ⊆ 𝒫_fix`, where `𝒫_fix` is the set of
-primes prime to `6` dividing `tg`. -/
-def admissible (t g : 𝓞 K) : Finset (Finset Pr) :=
-  (primeSet (span {t * g})).powerset.filter fun A =>
-    ∀ P ∈ primeSet (span {t * g}), jFix t g P ≠ 0 → P ∈ A
+/-- The primes `𝒫_fix` of the twist's fixed part: the primes prime to `6` dividing `tg` and not dividing `md`
+(round 493). -/
+def tgPrimes (md t g : 𝓞 K) : Finset Pr := (primeSet (span {t * g})).filter fun P => md ∉ P.1
+
+open Classical in
+theorem tgPrimes_subset (md t g : 𝓞 K) : tgPrimes md t g ⊆ primeSet (span {t * g}) :=
+  fun _ hP => (Finset.mem_filter.1 hP).1
+
+/-- No prime prime to `6` contains `4`. -/
+theorem four_not_mem (P : Pr) : (4 : 𝓞 K) ∉ P.1 := by
+  intro h
+  have h2 : (2 : 𝓞 K) ∈ P.1 :=
+    P.2.1.isPrime.mem_of_pow_mem 2 (by rw [show (2 : 𝓞 K) ^ 2 = 4 by norm_num]; exact h)
+  have h6 : (2 : 𝓞 K) * 3 ∈ P.1 := P.1.mul_mem_right 3 h2
+  norm_num at h6
+  exact P.2.2 h6
+
+open Classical in
+/-- At `md = 4`, `𝒫_fix` is the set of all primes prime to `6` dividing `tg` (round 341's). -/
+theorem tgPrimes_four (t g : 𝓞 K) : tgPrimes 4 t g = primeSet (span {t * g}) := by
+  ext P
+  unfold tgPrimes
+  rw [Finset.mem_filter]
+  exact ⟨fun h => h.1, fun h => ⟨h, four_not_mem P⟩⟩
+
+open Classical in
+/-- The admissible active sets: `{P ∈ 𝒫_fix : j_P ≠ 0} ⊆ 𝒜 ⊆ 𝒫_fix`, where `𝒫_fix = tgPrimes md t g` is the
+set of primes prime to `6` dividing `tg` and not dividing `md` (round 493; round 341's sets are those at
+`md = 4`). -/
+def admissible (md t g : 𝓞 K) : Finset (Finset Pr) :=
+  (tgPrimes md t g).powerset.filter fun A =>
+    ∀ P ∈ tgPrimes md t g, jFix t g P ≠ 0 → P ∈ A
 
 /-- The parameters `(u, m, 𝔫, 𝔟)` of the dual sums. -/
 abbrev DualIdx : Type := (𝓞 K)ˣ × ℕ × Ideal (𝓞 K) × Ideal (𝓞 K)
@@ -128,15 +164,16 @@ def dualTerm (h : ℝ → ℂ) (d : DualIdx → ℂ) (c₀ : 𝓞 K) (A : Finset
       ((Real.sqrt (dualNorm q) : ℝ) : ℂ)
 
 /-- **The theta transformation for the rows `u₀tk₀`, displayed**: the companion paper's Proposition 6.2
-with its Lemmas 6.3 and 6.4, for the twists `Ψ_{u₀tk₀}` written as in its (6.17). -/
-def ThetaRows : Prop :=
+with its Lemmas 6.3 and 6.4, for the twists `Ψ_{u₀tk₀}` written as in its (6.17). Since round 493 the rows
+`k₀` are prime to `md` and the active sets avoid the primes dividing `md`. -/
+def ThetaRowsM (md : 𝓞 K) : Prop :=
   ∃ J : ℕ, ∀ α β : ℝ, 0 < α → α ≤ β →
   ∃ (Cw : ℝ) (M : 𝓞 K) (KH : ℕ) (Kd Kc : ℝ), M ≠ 0 ∧
   ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W → (∀ y, y < α ∨ β < y → W y = 0) →
   ∀ N : ℝ, (∀ i ≤ J, ∀ y, ‖iteratedDeriv i W y‖ ≤ N) →
   ∃ h : ℝ → ℂ, ContDiff ℝ ∞ h ∧
     (∀ i ≤ 2, ∀ w, ‖iteratedDeriv i h w‖ ≤ Cw * N * (1 + Real.exp w) ^ (-(1 : ℝ))) ∧
-  ∀ (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (u₀ : (𝓞 K)ˣ) (t g : 𝓞 K), t ≠ 0 → g ≠ 0 →
+  ∀ (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) (u₀ : (𝓞 K)ˣ) (t g : 𝓞 K), t ≠ 0 → g ≠ 0 →
     Squarefree (span {t}) →
   ∃ (d : (𝓞 K ⧸ span {M}) → ℕ → Finset Pr → DualIdx → ℂ)
     (c₀ : (𝓞 K ⧸ span {M}) → ℕ → Finset Pr → 𝓞 K),
@@ -145,11 +182,14 @@ def ThetaRows : Prop :=
       Squarefree q.2.2.1 ∧ (absNorm q.2.2.1).Coprime 3 ∧ (absNorm q.2.2.2).Coprime 3) ∧
     (∀ ρ i A q, ‖d ρ i A q‖ ≤ Kd * (3 : ℝ) ^ ((q.2.1 : ℝ) / 6) * Real.sqrt (absNorm q.2.2.2)) ∧
   ∀ k₀ : 𝓞 K, Primary k₀ → Squarefree (span {k₀}) → (absNorm (span {k₀})).Coprime 6 →
-    IsCoprime k₀ (t * g) →
+    IsCoprime k₀ (t * g) → IsCoprime k₀ md →
   ∀ X : ℝ, 0 < X → ∃ C : ℕ → Finset Pr → ℂ, (∀ i A, ‖C i A‖ ≤ 1) ∧
-    compT ξ (u₀ * t * k₀) g W X = ∑ i ∈ Finset.range KH, ∑ A ∈ admissible t g,
+    compT ξ (u₀ * t * k₀) g W X = ∑ i ∈ Finset.range KH, ∑ A ∈ admissible md t g,
       C i A * dualTerm h (d (Ideal.Quotient.mk _ k₀) i A) (c₀ (Ideal.Quotient.mk _ k₀) i A) A
         (jFix t g) k₀ X
+
+/-- The theta transformation for the rows at the modulus `4` (round 341's statement). -/
+def ThetaRows : Prop := ThetaRowsM 4
 
 /-! ### The dual points -/
 
@@ -800,6 +840,9 @@ end
 
 #print axioms Eis.Bloc_four
 #print axioms Eis.Bloc_one
+#print axioms Eis.tgPrimes_subset
+#print axioms Eis.four_not_mem
+#print axioms Eis.tgPrimes_four
 #print axioms Eis.dualPt_mem_iff
 #print axioms Eis.prod_Bloc_one
 #print axioms Eis.sym6_dualPt

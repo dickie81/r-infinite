@@ -1,6 +1,12 @@
 import EisensteinMeanSquarePoisson
 
-/-! # The mean square in row/column form (round 308)
+/-! # The mean square in row/column form (round 308; round 492: the classes modulo `m`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) defines the class modulo any `m` of a set of primes (`cls`, with
+`cls_union`, `isUnit_cls_of_subset` and `isUnit_cls_of_forall`), and states the column factorization
+(`aXi_idl`, `colA`, `col_factor`, `tauXi`, `rcTerm`, `term_factor`) for the characters modulo `m` and
+`pairPsi_eq_cls` for `4 ∣ m`. Round 308's expansion of the paired factor (`pairTerm_expand`,
+`pair_char_form`, `meanSquare_rowcol`) stays at `m = 4`, where every class is a unit (`isUnit_cls4`).
 
 S4 of round 291's plan, part 8: the second half of the algebra in the companion paper's proof of
 its Proposition 4.5. Round 307's identity is carried, as one exact identity (`meanSquare_rowcol`), to
@@ -16,9 +22,10 @@ paired factor expanded in characters modulo `4`.
 * **Bounded norms**: `N(a + bω) = (a − b/2)² + 3b²/4` (`absNorm_crd`); the finite set `eltsLe Y` of
   elements of norm at most `Y` (`mem_eltsLe`) and `primesLe Y` of primes (`mem_primesLe`).
 * **The paired factor in characters modulo `4`**: round 304's factor as a function of the two classes
-  (`pairPsiCls`, well defined by `pairFactor_eq_of_mod_four`: `pairPsi_eq_cls`), of norm at most `1`
+  (`pairPsiCls`, of classes modulo `m` since round 492, well defined for `4 ∣ m` by
+  `pairFactor_eq_of_mod_four`: `pairPsi_eq_cls`), of norm at most `1`
   (`norm_pairPsiCls_le`, so round 306's `norm_pairCoeff_le` bounds its coefficients);
-  `a_ξ(idl C) = a(C)·ξ(C mod 4)`
+  `a_ξ(idl C) = a(C)·ξ(C mod m)`
   (`aXi_idl`); and `ā(C₁)a(C₂)Ψ(C₁, C₂) = Σ_{ξ₁,ξ₂} ĉ(ξ₁⁻¹, ξ₂)·ā_{ξ₁}(C₁)a_{ξ₂}(C₂)` for disjoint
   `C₁, C₂` (`pairTerm_expand`), in place of the paper's (4.15).
 * **The zero frequency** (`tsum_mu_eq`): the dual sum is its `μ = 0` term, present only for
@@ -41,6 +48,8 @@ open scoped ComplexConjugate ContDiff
 noncomputable section
 
 namespace Eis
+
+variable {m : 𝓞 K}
 
 /-! ### Reindexing sums over subsets -/
 
@@ -438,41 +447,51 @@ theorem mem_primesLe {Y : ℝ} {P : Pr} : P ∈ primesLe Y ↔ absNorm P.1 ≤ �
 theorem subset_primesLe {Y : ℝ} {A : Finset Pr} (hA : A ∈ fsLe Y) : A ⊆ primesLe Y :=
   fun _ hP => Finset.mem_biUnion.2 ⟨A, hA, hP⟩
 
-/-! ### The paired factor through characters modulo `4` -/
+/-! ### The classes modulo `m`, and the paired factor through characters modulo `4` -/
 
-instance finite_quot4 : Finite (𝓞 K ⧸ span {(4 : 𝓞 K)}) :=
-  Ideal.finiteQuotientOfFreeOfNeBot _ (by rw [Ne, Ideal.span_singleton_eq_bot]; norm_num)
+/-- The class modulo `m` of the primary generator `∏_{P∈C} π_P`. -/
+def cls (m : 𝓞 K) (C : Finset Pr) : 𝓞 K ⧸ span {m} :=
+  Ideal.Quotient.mk (span {m}) (∏ P ∈ C, πP P)
 
-instance fintype_mulChar4 : Fintype (MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) := Fintype.ofFinite _
-
-instance fintype_units4 : Fintype (𝓞 K ⧸ span {(4 : 𝓞 K)})ˣ := Fintype.ofFinite _
-
-/-- The class modulo `4` of the primary generator `∏_{P∈C} π_P`. -/
-def cls4 (C : Finset Pr) : 𝓞 K ⧸ span {(4 : 𝓞 K)} :=
-  Ideal.Quotient.mk (span {(4 : 𝓞 K)}) (∏ P ∈ C, πP P)
-
-theorem isUnit_cls4 (C : Finset Pr) : IsUnit (cls4 C) :=
+theorem isUnit_cls4 (C : Finset Pr) : IsUnit (cls 4 C) :=
   isUnit_mk_four (IsCoprime.prod_left fun P _ => isCoprime_two (πP P) (h6Pr P))
 
+theorem cls_union {A B : Finset Pr} (h : Disjoint A B) : cls m (A ∪ B) = cls m A * cls m B := by
+  unfold cls; rw [Finset.prod_union h, map_mul]
+
+/-- A subset of a set of primes with a unit class modulo `m` has a unit class. -/
+theorem isUnit_cls_of_subset {A B : Finset Pr} (hAB : A ⊆ B) (hB : IsUnit (cls m B)) :
+    IsUnit (cls m A) := by
+  rw [← Finset.union_sdiff_of_subset hAB, cls_union Finset.disjoint_sdiff] at hB
+  exact isUnit_of_mul_isUnit_left hB
+
+/-- A set of primes each of which has a unit class modulo `m` has a unit class. -/
+theorem isUnit_cls_of_forall {A : Finset Pr} (h : ∀ P ∈ A, IsUnit (cls m {P})) :
+    IsUnit (cls m A) := by
+  unfold cls at h ⊢
+  rw [map_prod]
+  exact IsUnit.prod_iff.2 fun P hP => by simpa using h P hP
+
 open Classical in
-/-- Round 304's paired factor as a function of the two classes modulo `4`: by
+/-- Round 304's paired factor as a function of the two classes modulo `m`: for `4 ∣ m`, by
 `pairFactor_eq_of_mod_four` it is well defined on the pairs of classes of disjoint sets of primes,
 and it is `0` on the other pairs. -/
-def pairPsiCls (x y : 𝓞 K ⧸ span {(4 : 𝓞 K)}) : ℂ :=
-  if h : ∃ C : Finset Pr × Finset Pr, Disjoint C.1 C.2 ∧ cls4 C.1 = x ∧ cls4 C.2 = y then
+def pairPsiCls (x y : 𝓞 K ⧸ span {m}) : ℂ :=
+  if h : ∃ C : Finset Pr × Finset Pr, Disjoint C.1 C.2 ∧ cls m C.1 = x ∧ cls m C.2 = y then
     pairPsi h.choose.1 h.choose.2 else 0
 
-theorem pairPsi_eq_cls {C1 C2 : Finset Pr} (hd : Disjoint C1 C2) :
-    pairPsi C1 C2 = pairPsiCls (cls4 C1) (cls4 C2) := by
+theorem pairPsi_eq_cls [hm : Fact ((4 : 𝓞 K) ∣ m)] {C1 C2 : Finset Pr} (hd : Disjoint C1 C2) :
+    pairPsi C1 C2 = pairPsiCls (cls m C1) (cls m C2) := by
   classical
-  have h : ∃ C : Finset Pr × Finset Pr, Disjoint C.1 C.2 ∧ cls4 C.1 = cls4 C1 ∧
-      cls4 C.2 = cls4 C2 := ⟨(C1, C2), hd, rfl, rfl⟩
+  have h : ∃ C : Finset Pr × Finset Pr, Disjoint C.1 C.2 ∧ cls m C.1 = cls m C1 ∧
+      cls m C.2 = cls m C2 := ⟨(C1, C2), hd, rfl, rfl⟩
   rw [pairPsiCls, dite_eq_left h]
   obtain ⟨hd', h1, h2⟩ := h.choose_spec
   unfold pairPsi
   exact pairFactor_eq_of_mod_four πP h6Pr C1 C2 h.choose.1 h.choose.2 (hcopPr _) (hcopPr _) hd hd'
-    (fun P _ => (πP_spec P).1) (fun P _ => (πP_spec P).1) (Ideal.Quotient.eq.1 h1.symm)
-    (Ideal.Quotient.eq.1 h2.symm)
+    (fun P _ => (πP_spec P).1) (fun P _ => (πP_spec P).1)
+    (Ideal.span_singleton_le_span_singleton.2 hm.out (Ideal.Quotient.eq.1 h1.symm))
+    (Ideal.span_singleton_le_span_singleton.2 hm.out (Ideal.Quotient.eq.1 h2.symm))
 
 theorem norm_pairPsi (C1 C2 : Finset Pr) : ‖pairPsi C1 C2‖ = 1 := by
   unfold pairPsi
@@ -482,7 +501,7 @@ theorem norm_pairPsi (C1 C2 : Finset Pr) : ‖pairPsi C1 C2‖ = 1 := by
   exact norm_gamF πP _ (hcopPr _) _ (fun P _ => chi6_pow_ne_one _ (h6Pr P) (by simp))
     (fun P _ => chiF_pow_pow_six πP h6Pr P 3)
 
-theorem norm_pairPsiCls_le (x y : 𝓞 K ⧸ span {(4 : 𝓞 K)}) : ‖pairPsiCls x y‖ ≤ 1 := by
+theorem norm_pairPsiCls_le (x y : 𝓞 K ⧸ span {m}) : ‖pairPsiCls x y‖ ≤ 1 := by
   classical
   unfold pairPsiCls
   split_ifs with h
@@ -490,14 +509,19 @@ theorem norm_pairPsiCls_le (x y : 𝓞 K ⧸ span {(4 : 𝓞 K)}) : ‖pairPsiCl
   · rw [norm_zero]; exact zero_le_one
 
 open Classical in
-/-- `a_ξ(idl C) = a(C)·ξ(C mod 4)`. -/
-theorem aXi_idl (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (C : Finset Pr) :
-    aXi ξ (idl C) = aF πP h6Pr C * ξ (cls4 C) := by
+/-- `a_ξ(idl C) = a(C)·ξ(C mod m)`. -/
+theorem aXi_idl (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (C : Finset Pr) :
+    aXi ξ (idl C) = aF πP h6Pr C * ξ (cls m C) := by
   unfold aXi
   rw [ite_eq_left ⟨idl_coprime6 C, idl_squarefree C⟩, alphaI_eq_prod (idl_coprime6 C)
     (idl_squarefree C), gamI_eq_gamF two_ne_zero (idl_coprime6 C) (idl_squarefree C),
     primeSet_idl, pgen_idl, aF]
   rfl
+
+/-- `a_ξ(idl C) = 0` when the class of `C` modulo `m` is not a unit. -/
+theorem aXi_idl_eq_zero (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {C : Finset Pr} (hC : ¬IsUnit (cls m C)) :
+    aXi ξ (idl C) = 0 := by
+  rw [aXi_idl, MulChar.map_nonunit ξ hC, mul_zero]
 
 /-- **The pair coefficients in characters modulo `4`** (in place of the paper's (4.15)): for disjoint
 `C₁, C₂`, `ā(C₁)a(C₂)Ψ(C₁, C₂) = Σ_{ξ₁,ξ₂} ĉ(ξ₁⁻¹, ξ₂)·ā_{ξ₁}(C₁)·a_{ξ₂}(C₂)`. -/
@@ -507,17 +531,17 @@ theorem pairTerm_expand {C1 C2 : Finset Pr} (hd : Disjoint C1 C2) :
         pairCoeff pairPsiCls ξ1⁻¹ ξ2 * (conj (aXi ξ1 (idl C1)) * aXi ξ2 (idl C2)) := by
   set x := (isUnit_cls4 C1).unit
   set y := (isUnit_cls4 C2).unit
-  have hx : (x : 𝓞 K ⧸ span {(4 : 𝓞 K)}) = cls4 C1 := IsUnit.unit_spec _
-  have hy : (y : 𝓞 K ⧸ span {(4 : 𝓞 K)}) = cls4 C2 := IsUnit.unit_spec _
+  have hx : (x : 𝓞 K ⧸ span {(4 : 𝓞 K)}) = cls 4 C1 := IsUnit.unit_spec _
+  have hy : (y : 𝓞 K ⧸ span {(4 : 𝓞 K)}) = cls 4 C2 := IsUnit.unit_spec _
   have hexp := pair_eq_sum_mulChar pairPsiCls x y
   rw [hx, hy] at hexp
-  rw [pairPsi_eq_cls hd, hexp, Finset.mul_sum]
+  rw [pairPsi_eq_cls (m := 4) hd, hexp, Finset.mul_sum]
   -- reindex `ξ₁ ↦ ξ₁⁻¹`
   rw [← Equiv.sum_comp (Equiv.inv (MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ))]
   refine Finset.sum_congr rfl fun ξ1 _ => ?_
   rw [Finset.mul_sum]
   refine Finset.sum_congr rfl fun ξ2 _ => ?_
-  have hc : (ξ1⁻¹ : MulChar _ ℂ) (cls4 C1) = conj (ξ1 (cls4 C1)) := by
+  have hc : (ξ1⁻¹ : MulChar _ ℂ) (cls 4 C1) = conj (ξ1 (cls 4 C1)) := by
     rw [← hx, MulChar.inv_apply_eq_inv', conj_eq_inv_of_norm]
     exact norm_mulChar_unit ξ1 x
   simp only [Equiv.inv_apply]
@@ -706,14 +730,14 @@ theorem chiS_eS_pow_six {M T : Finset Pr} (h : Disjoint M T) : chiS M (eS T) ^ 6
   exact chi6_pow_six_of_ne_zero (span {πP P}) (h6Pr P) hx
 
 /-- The column coefficient `a_ξ(𝔪)·(k/𝔪)₆·(f/𝔪)₆⁴` of the dual mean square. -/
-def colA (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K) (M : Finset Pr) : ℂ :=
+def colA (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (k f : 𝓞 K) (M : Finset Pr) : ℂ :=
   aXi ξ (idl M) * chiS M k * chiS M f ^ 4
 
 /-- **Factoring the columns** (the paper's `a_ξ(vm) = a_ξ(v)a_ξ(m)χ_m(v)⁴` and
 `χ_m(h e⁵ v⁴) = χ_m(k f⁴)`): for `z_j = V ∪ M_j` with `T, V, M_j` pairwise disjoint, the coefficient
 of a pair splits into a row factor `ā_{ξ₁}(V)a_{ξ₂}(V)|χ_V(μ)|²` and the two column coefficients at
 `k = d_T μ`, `f = d_T·v`. -/
-theorem col_factor (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {T V M1 M2 : Finset Pr}
+theorem col_factor (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) {T V M1 M2 : Finset Pr}
     (hVT : Disjoint V T) (h1T : Disjoint M1 T) (h2T : Disjoint M2 T) (h1V : Disjoint V M1)
     (h2V : Disjoint V M2) (μ : 𝓞 K) :
     conj (aXi ξ1 (idl (V ∪ M1))) * aXi ξ2 (idl (V ∪ M2)) *
@@ -741,7 +765,7 @@ theorem col_factor (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {T V
 /-! ### One pair in characters, frequencies split -/
 
 /-- The term of `(C₁, C₂, T)` for the characters `ξ₁, ξ₂` and the frequencies in `E`. -/
-def tauXi (H : ℝ) (E : Finset (𝓞 K)) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+def tauXi (H : ℝ) (E : Finset (𝓞 K)) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ)
     (C1 C2 T : Finset Pr) : ℂ :=
   (-1 : ℂ) ^ T.card * (kap H C1 C2 T : ℂ) * (conj (aXi ξ1 (idl C1)) * aXi ξ2 (idl C2)) *
     (chiS C1 (eS T) * conj (chiS C2 (eS T))) *
@@ -872,7 +896,7 @@ theorem WW_kap (W : ℝ → ℝ) {Z H nb nT nV n1 n2 : ℝ} (hZ : 0 < Z) (hb : 0
 /-- The term of the dual sum at `(b, T, V, μ, M₁, M₂)`: the row factor, the normalization
 `2H·N(b)/(√3·Z)`, the two column coefficients at `k = d_T μ`, `f = d_T v`, the weights `W₀` and
 the dual weight. -/
-def rcTerm (W : ℝ → ℝ) (Z H : ℝ) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+def rcTerm (W : ℝ → ℝ) (Z H : ℝ) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ)
     (b T V : Finset Pr) (μ : 𝓞 K) (M1 M2 : Finset Pr) : ℂ :=
   ((-1 : ℂ) ^ T.card * (-1) ^ V.card) *
     (conj (aXi ξ1 (idl V)) * aXi ξ2 (idl V) * (chiS V μ * conj (chiS V μ))) *
@@ -886,7 +910,7 @@ def rcTerm (W : ℝ → ℝ) (Z H : ℝ) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4
 /-- **One term of the Möbius-expanded sum in row/column form**: for pairwise disjoint
 `b, T, V, M_j` (`M₁, M₂` may meet), `(−1)^{|V|}·W(N(b T V M₁)/Z)W(N(b T V M₂)/Z)·τ(V∪M₁, V∪M₂, T)` is
 `Σ_{μ∈E} rcTerm(b, T, V, μ, M₁, M₂)`. -/
-theorem term_factor (W : ℝ → ℝ) {Z H : ℝ} (hZ : 0 < Z) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+theorem term_factor (W : ℝ → ℝ) {Z H : ℝ} (hZ : 0 < Z) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ)
     (E : Finset (𝓞 K)) {b T V M1 M2 : Finset Pr} (hbT : Disjoint b T) (hbV : Disjoint b V)
     (hb1 : Disjoint b M1) (hb2 : Disjoint b M2) (hTV : Disjoint T V) (hT1 : Disjoint T M1)
     (hT2 : Disjoint T M2) (hV1 : Disjoint V M1) (hV2 : Disjoint V M2) :
@@ -1095,3 +1119,7 @@ end
 #print axioms Eis.nI_le_of_mem_fsLe
 #print axioms Eis.W_nI_eq_zero
 #print axioms Eis.meanSquare_rowcol
+#print axioms Eis.cls_union
+#print axioms Eis.isUnit_cls_of_subset
+#print axioms Eis.isUnit_cls_of_forall
+#print axioms Eis.aXi_idl_eq_zero

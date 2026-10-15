@@ -1,7 +1,11 @@
 import EisensteinDualMeanSquare
 import MellinSeparation
 
-/-! # Removing the exclusion, classes modulo `4`, and two coefficient families (round 306)
+/-! # Removing the exclusion, classes modulo `4`, and two coefficient families (round 306; round 492: the characters modulo `m`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) states Lemma 4.4 (`colSum_excl`, `colSum_excl_meanSquare_le`,
+`dualMeanSquare_excl`) for the characters modulo any nonzero `m`, under `DualMeanSquareM m ϑ`; the
+classes modulo `4` are unchanged.
 
 S4 of round 291's plan, part 6: three inputs of the companion paper's proof of its Proposition 4.5.
 
@@ -15,7 +19,7 @@ S4 of round 291's plan, part 6: three inputs of the companion paper's proof of i
   - `colSum_excl_meanSquare_le`: (4.10) multiplied by its normalisation `XF`. The exterior
     coefficients have modulus at most `1` (`norm_aXi_le`, `norm_sym6_le`), those with `(𝔡, 𝔣) ≠ 1`
     vanish, Cauchy–Schwarz runs over the `2^{ω(𝔯)}` divisors, and `𝔣 ↦ 𝔡𝔣` is injective.
-  - `dualMeanSquare_excl`: under `DualMeanSquare ϑ` the bound holds with an excluded `𝔯`, at the cost
+  - `dualMeanSquare_excl`: under `DualMeanSquareM m ϑ` the bound holds with an excluded `𝔯`, at the cost
     `4^{ω(𝔯)}`. The shifts `(X, F) ↦ (X/N𝔡, F·N𝔡)` keep `XF` and the range of `H`.
 * **Classes modulo `4` through characters.** For a finite commutative monoid `M`:
   `Σ_ξ ξ(a) = 0` for a unit `a ≠ 1` (`sum_mulChar_eq_zero`, from Mathlib's
@@ -40,6 +44,8 @@ open scoped ComplexConjugate ContDiff
 noncomputable section
 
 namespace Eis
+
+variable {m : 𝓞 K}
 
 /-- `(a/𝔪)₆ = 0` if a prime factor of `𝔪` contains `a`. -/
 theorem sym6_eq_zero_of_mem {a : 𝓞 K} {I P : Ideal (𝓞 K)} (hP : P ∈ normalizedFactors I)
@@ -69,7 +75,7 @@ open Classical in
 /-- **The paper's (4.6) for an arbitrary second factor**: for `𝔡` squarefree of norm prime to `6`
 and any ideal `𝔪`, `a_ξ(𝔡𝔪) = a_ξ(𝔡)·a_ξ(𝔪)·(d/𝔪)₆⁴`. Both sides vanish unless `𝔪` is
 squarefree, of norm prime to `6` and prime to `𝔡`. -/
-theorem aXi_mul_left (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {D M : Ideal (𝓞 K)}
+theorem aXi_mul_left (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {D M : Ideal (𝓞 K)}
     (hD : (absNorm D).Coprime 6) (hsD : Squarefree D) :
     aXi ξ (D * M) = aXi ξ D * aXi ξ M * sym6 (pgen D) M ^ 4 := by
   by_cases hM : (absNorm M).Coprime 6 ∧ Squarefree M
@@ -136,7 +142,7 @@ theorem tsum_ideal_dvd_eq (D : Ideal (𝓞 K)) (hD : D ≠ ⊥) (h : Ideal (𝓞
   convert tsum_ite_dvd_eq D (by simpa using hD) h
 
 open Classical in
-theorem aXi_bot (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) : aXi ξ ⊥ = 0 := by
+theorem aXi_bot (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) : aXi ξ ⊥ = 0 := by
   unfold aXi
   rw [ite_eq_right]
   intro h
@@ -145,7 +151,7 @@ theorem aXi_bot (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) : aXi ξ ⊥
   norm_num at h1
 
 /-- The column sums are finite: the summand vanishes outside `idealsLe (βX)`. -/
-theorem colSum_summand_eq_zero (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : ℝ → ℂ} {β : ℝ}
+theorem colSum_summand_eq_zero (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {W : ℝ → ℂ} {β : ℝ}
     (hW : ∀ x, β < x → W x = 0) {X : ℝ} (hX : 0 < X) (c : Ideal (𝓞 K) → ℂ)
     {I : Ideal (𝓞 K)} (hI : I ∉ idealsLe (β * X)) :
     aXi ξ I * c I * W ((absNorm I : ℝ) / X) = 0 := by
@@ -177,7 +183,7 @@ open Classical in
 the primes of a squarefree `𝔯` of norm prime to `6`, `𝔫 = 𝔡𝔪` and `a_ξ(𝔡𝔪) = a_ξ(𝔡)a_ξ(𝔪)χ_𝔪(d)⁴`
 give `colSum_𝔯(k, f) = Σ_{T⊆primes(𝔯)} (−1)^{|T|}·a_ξ(𝔡_T)(k/𝔡_T)₆(f/𝔡_T)₆⁴·colSum_1(k, d_T f)` at
 the scale `X/N𝔡_T`, for `𝔡_T = ∏_{P∈T} P` with primary generator `d_T`. -/
-theorem colSum_excl (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : ℝ → ℂ} {β : ℝ}
+theorem colSum_excl (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {W : ℝ → ℂ} {β : ℝ}
     (hW : ∀ x, β < x → W x = 0) {X : ℝ} (hX : 0 < X) {R : Ideal (𝓞 K)}
     (hR6 : (absNorm R).Coprime 6) (hsR : Squarefree R) (k f : 𝓞 K) :
     colSum ξ W X R k f = ∑ T ∈ (primeSet R).powerset, (-1 : ℂ) ^ T.card *
@@ -250,10 +256,8 @@ theorem norm_mulChar_unit {M : Type*} [CommMonoid M] [Finite Mˣ] (ξ : MulChar 
     Units.val_one, map_one]) (orderOf_pos u).ne'
 
 /-- A character of `ℤ[ω]/4` has values of norm at most `1`. -/
-theorem norm_xi_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (x : 𝓞 K ⧸ span {(4 : 𝓞 K)}) :
+theorem norm_xi_le [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (x : 𝓞 K ⧸ span {m}) :
     ‖ξ x‖ ≤ 1 := by
-  have : Finite (𝓞 K ⧸ span {(4 : 𝓞 K)}) :=
-    Ideal.finiteQuotientOfFreeOfNeBot _ (by rw [Ne, Ideal.span_singleton_eq_bot]; norm_num)
   by_cases hx : IsUnit x
   · obtain ⟨u, rfl⟩ := hx
     exact (norm_mulChar_unit ξ u).le
@@ -282,7 +286,7 @@ theorem norm_sym6_le (a : 𝓞 K) (I : Ideal (𝓞 K)) : ‖sym6 a I‖ ≤ 1 :=
       _ = 1 := one_mul 1
 
 open Classical in
-theorem norm_aXi_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (I : Ideal (𝓞 K)) :
+theorem norm_aXi_le [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (I : Ideal (𝓞 K)) :
     ‖aXi ξ I‖ ≤ 1 := by
   unfold aXi
   split_ifs with h
@@ -306,7 +310,7 @@ prime to `6`, `Σ_𝔣 Σ_k |C_𝔯(X; k, f)|² ≤ τ(𝔯)·Σ_{𝔡 ∣ 𝔯}
 |C_1(X/N𝔡; k, f')|²`, with `τ(𝔯) = 2^{ω(𝔯)}` and the divisors `𝔡 = ∏_{P∈S} P` for `S ⊆ primes(𝔯)`.
 The terms with `(𝔡, 𝔣) ≠ 1` vanish (their factor `(f/𝔡)₆⁴` is `0`), the rest have exterior coefficient
 of modulus at most `1`, and `f ↦ df` is injective. -/
-theorem colSum_excl_meanSquare_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : ℝ → ℂ} {β : ℝ}
+theorem colSum_excl_meanSquare_le [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {W : ℝ → ℂ} {β : ℝ}
     (hW : ∀ x, β < x → W x = 0) {X : ℝ} (hX : 0 < X) {R : Ideal (𝓞 K)}
     (hR6 : (absNorm R).Coprime 6) (hsR : Squarefree R) (Fs : Finset (Ideal (𝓞 K)))
     (hFs : ∀ f ∈ Fs, (absNorm f).Coprime 6 ∧ Squarefree f) (T : Finset (𝓞 K)) :
@@ -384,9 +388,9 @@ open Classical in
 /-- **Lemma 4.4 under the hypothesis (4.12)**: if the dual mean square holds without exclusion, it
 holds with an excluded squarefree `𝔯` of norm prime to `6`, at the cost `4^{ω(𝔯)}` (the paper's
 `τ(𝔯)·Σ_{𝔡∣𝔯}`). The shifts `(X, F) ↦ (X/N𝔡, F·N𝔡)` keep `XF = D/B` and the range of `H`. -/
-theorem dualMeanSquare_excl {ϑ : ℝ} (hDM : DualMeanSquare ϑ) :
+theorem dualMeanSquare_excl [NeZero m] {ϑ : ℝ} (hDM : DualMeanSquareM m ϑ) :
     ∀ ε : ℝ, 0 < ε → ∃ J : ℕ, ∀ α β : ℝ, 0 < α → ∀ C : ℝ, 1 ≤ C → ∃ Kc : ℝ,
-      ∀ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
+      ∀ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
         (∀ x, x < α ∨ β < x → W x = 0) → ∀ N : ℝ, (∀ j ≤ J, ∀ x, ‖iteratedDeriv j W x‖ ≤ N) →
         ∀ D B F Hc : ℝ, 1 ≤ D → 1 ≤ B → 1 ≤ F → 0 < Hc →
           Hc ≤ C * D ^ 2 / (D ^ (1 + ϑ) * B ^ 2) →

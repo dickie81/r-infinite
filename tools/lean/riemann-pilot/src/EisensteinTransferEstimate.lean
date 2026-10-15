@@ -1,6 +1,10 @@
 import EisensteinThirdTransfer
 
-/-! # The transfer estimate (round 326)
+/-! # The transfer estimate (round 326; round 492: at every modulus)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) derives the transfer estimate at every modulus `md` with `4 ∣ md`
+(**`transferEstimateM`**; `transferEstimate` is its case `md = 4`), and from it the dual mean square at
+every exponent under `CompletedMeanSquareM md` (**`dualMeanSquare_of_completed`**).
 
 S5c-6 in round 316's plan: the companion paper's Proposition 5.4, displayed in round 315 as
 `TransferEstimate`, derived from its Lemmas 7.1 and 7.3 as in its proof:
@@ -23,6 +27,8 @@ noncomputable section
 
 namespace Eis
 
+variable {md : 𝓞 K}
+
 /-! ### The losses as powers of `D` -/
 
 /-- `x^e ≤ c^e·(D^{C₀e})^k` for `0 ≤ x ≤ c·(D^{C₀})^k`. -/
@@ -40,7 +46,7 @@ theorem rpow_le_of_le_pow {D C₀ c x e : ℝ} (hD : 1 ≤ D) (hc : 0 ≤ c) (hx
         ring
 
 /-- A row sum with the zero weight vanishes. -/
-theorem rowE_eq_zero_of_zero (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : ℝ → ℂ}
+theorem rowE_eq_zero_of_zero (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) {W : ℝ → ℂ}
     (hW : ∀ x, W x = 0) (X : ℝ) (Fs : Finset (Ideal (𝓞 K))) (T : Finset (𝓞 K)) :
     rowE ξ W X Fs T = 0 := by
   have h : W = fun x => (0 : ℂ) * W x := by funext x; rw [hW x, mul_zero]
@@ -54,7 +60,7 @@ theorem rowE_eq_zero_of_zero (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
 to the form `𝒬`, and `third_transfer` bounds `𝒬` under the hypothesis on the child mean squares.
 The losses `(4𝓗/(3L²))^{−σ}`, `(c_IΣLF/𝓗)^δ`, `(3𝓗L)^σ` and `L^η` are powers of `D` of total
 exponent `ε` for `σ = δ = η = ε/(8C₀)`, and `c_I = 3β²R_Φ² + 1`. -/
-theorem transferEstimate : TransferEstimate := by
+theorem transferEstimateM [NeZero md] [Fact ((4 : 𝓞 K) ∣ md)] : TransferEstimateM md := by
   intro C₀ hC₀ m ε hε α β hα
   by_cases hαβ : α ≤ β
   swap
@@ -74,8 +80,8 @@ theorem transferEstimate : TransferEstimate := by
   have hcI : 3 * β ^ 2 * RΦ ^ 2 ≤ cI := by linarith
   have hcI1 : 1 ≤ cI := by have := RΦ_pos; nlinarith [sq_nonneg β, sq_nonneg RΦ]
   have hcI0 : 0 < cI := by linarith
-  obtain ⟨K1, K2, hK10, hK20, hK⟩ := first_transfer hα hαβ (2 * m + 2) he10 he10
-  obtain ⟨K3, hK30, hK3⟩ := third_transfer hα hαβ m he10 he10
+  obtain ⟨K1, K2, hK10, hK20, hK⟩ := first_transfer (m := md) hα hαβ (2 * m + 2) he10 he10
+  obtain ⟨K3, hK30, hK3⟩ := third_transfer (md := md) hα hαβ m he10 he10
   refine ⟨K1 + K2 * K3 * cI * (3 ^ e1 * cI ^ e1 * 3 ^ e1), fun ξ W hW hWs N hN D Hh L F S hD hH
     hL hF hS hHD hLD hFD hSD hHS hLFS M hM0 hM Fs T hFs hT => ?_⟩
   have hD0 : 0 < D := by linarith
@@ -89,7 +95,7 @@ theorem transferEstimate : TransferEstimate := by
   -- the form `𝒬` by Lemma 7.3
   set MQ := K3 * (cI * S * F * L) * (3 * Hh * L) ^ e1 * L ^ e1 * (1 + M) with hMQ
   have hMQ0 : 0 ≤ MQ := by positivity
-  have hQ : ∀ ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ U : ℝ → ℂ, ContDiff ℝ ∞ U →
+  have hQ : ∀ ξ1 : MulChar (𝓞 K ⧸ span {md}) ℂ, ∀ U : ℝ → ℂ, ContDiff ℝ ∞ U →
       (∀ x, x < α / 2 ∨ 2 * β < x → U x = 0) → ∀ NU : ℝ,
       (∀ j ≤ 2 * m + 2, ∀ x, ‖iteratedDeriv j U x‖ ≤ NU) →
       Qform ξ1 U β Hh L S F cI ≤ MQ * NU ^ 2 := by
@@ -167,6 +173,16 @@ theorem transferEstimate : TransferEstimate := by
     _ = (K1 + K2 * K3 * cI * (3 ^ e1 * cI ^ e1 * 3 ^ e1)) * D ^ ε * S * N ^ 2 * (1 + M) *
         (L * F) := by ring
 
+/-- The transfer estimate at the modulus `4` (round 326's statement). -/
+theorem transferEstimate : TransferEstimate := transferEstimateM (md := 4)
+
+/-- **The dual mean square at every modulus `md` with `4 ∣ md`**: `CompletedMeanSquareM md` gives
+`DualMeanSquareM md ϑ` for every `ϑ > 0`, through round 315's induction with the transfer estimate
+now derived (`transferEstimateM`). -/
+theorem dualMeanSquare_of_completed [NeZero md] [Fact ((4 : 𝓞 K) ∣ md)]
+    (hC : CompletedMeanSquareM md) {ϑ : ℝ} (hϑ : 0 < ϑ) : DualMeanSquareM md ϑ :=
+  dualMeanSquare_of_completed_transfer hC transferEstimateM hϑ
+
 /-- **The fourth conditional milestone**: the companion paper's Proposition 5.2, displayed as
 `CompletedMeanSquare`, gives `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` on `Re s > 11/12`; the transfer estimate
 is now derived (`transferEstimate`). -/
@@ -180,5 +196,7 @@ end
 
 #print axioms Eis.rpow_le_of_le_pow
 #print axioms Eis.rowE_eq_zero_of_zero
+#print axioms Eis.transferEstimateM
 #print axioms Eis.transferEstimate
+#print axioms Eis.dualMeanSquare_of_completed
 #print axioms Eis.ne_zero_of_completed

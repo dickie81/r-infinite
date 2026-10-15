@@ -539,12 +539,13 @@ theorem jCost_le (a c : ℕ) (ha : a ≤ 1) (hac : 1 ≤ a + c) : jCost ((a + 4 
 
 /-- **The cost of the active primes** (the companion paper's display after the local updates in its
 proof of Lemma 6.6): `∏_{P∈𝒜} N(P)^{c(j_P)} ≤ N(t)²N(g)` for `t` squarefree and `𝒜` admissible. -/
-theorem cost_le {t g : 𝓞 K} (ht : t ≠ 0) (hg : g ≠ 0) (htsq : Squarefree (span {t}))
-    {A : Finset Pr} (hA : A ∈ admissible t g) :
+theorem cost_le {md t g : 𝓞 K} (ht : t ≠ 0) (hg : g ≠ 0) (htsq : Squarefree (span {t}))
+    {A : Finset Pr} (hA : A ∈ admissible md t g) :
     ∏ P ∈ A, (absNorm P.1 : ℝ) ^ jCost (jFix t g P) ≤
       (absNorm (span {t}) : ℝ) ^ 2 * absNorm (span {g}) := by
   classical
-  have hAsub : A ⊆ primeSet (span {t * g}) := Finset.mem_powerset.1 (Finset.mem_filter.1 hA).1
+  have hAsub : A ⊆ primeSet (span {t * g}) :=
+    (Finset.mem_powerset.1 (Finset.mem_filter.1 hA).1).trans (tgPrimes_subset md t g)
   have htb : span {t} ≠ ⊥ := by rw [Ne, Ideal.span_singleton_eq_bot]; exact ht
   have hgb : span {g} ≠ ⊥ := by rw [Ne, Ideal.span_singleton_eq_bot]; exact hg
   have hnd := (squarefree_iff_nodup_normalizedFactors htb).1 htsq

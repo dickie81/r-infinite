@@ -1,6 +1,10 @@
 import EisensteinPairRatio
 
-/-! # Lemma 7.3, part 1: the regrouping (round 323)
+/-! # Lemma 7.3, part 1: the regrouping (round 323; round 492: the characters modulo `m`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) states the regrouping for the characters modulo any `m` with `4 ∣ m`:
+the zero frequency `zeroQ m` runs over the sets with a unit class modulo `m`, and `Qform_le_split`
+takes a set `U₀` of round 321's kind.
 
 S5c-5, part 2, in round 316's plan. Round 320's `Qform` (the companion paper's `𝒬` of (7.2), times
 `2LF/√3`) sums, over the triples `t = (b, T, V)` of `qTriples (2βL)`, the weight `2𝓗·N(b)/(√3·L)` times
@@ -34,11 +38,15 @@ noncomputable section
 
 namespace Eis
 
+variable {m : 𝓞 K}
+
 /-! ### The split of `𝒬` -/
 
-/-- The zero frequency of the second mean square at the triple `t = (b, T, V)`. -/
-def zeroQ (U : ℝ → ℂ) (β H L S F cI : ℝ) (t : Finset Pr × Finset Pr × Finset Pr) : ℂ :=
-  ∑ A ∈ fsLe (2 * β * ellS L t.1 t.2.1 t.2.2),
+open Classical in
+/-- The zero frequency of the second mean square at the triple `t = (b, T, V)`, over the `A` with a
+unit class modulo `m`. -/
+def zeroQ (m : 𝓞 K) (U : ℝ → ℂ) (β H L S F cI : ℝ) (t : Finset Pr × Finset Pr × Finset Pr) : ℂ :=
+  ∑ A ∈ (fsLe (2 * β * ellS L t.1 t.2.1 t.2.2)).filter (fun A => IsUnit (cls m A)),
     wQ U (ellS L t.1 t.2.1 t.2.2) (eS t.1 ^ 4 * eS t.2.1 ^ 5 * eS t.2.2 ^ 6) A A *
       ∑ T2 ∈ A.powerset, (-1 : ℂ) ^ T2.card * (kap (Ycd cI S L F H t.1 t.2.1) ∅ ∅ T2 : ℂ) *
         dualG 0
@@ -47,7 +55,7 @@ open Classical in
 /-- The nonzero frequencies of the second mean square at the triple `t = (b, T, V)` in the character
 `ξ`, over the subsets of `U₀` and the frequencies of norm at most `𝓗L/(ΣF)`. -/
 def dualQ (U : ℝ → ℂ) (H L S F cI : ℝ) (U0 : Finset Pr)
-    (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (t : Finset Pr × Finset Pr × Finset Pr) : ℂ :=
+    (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (t : Finset Pr × Finset Pr × Finset Pr) : ℂ :=
   ∑ b2 ∈ U0.powerset, ∑ T2 ∈ (U0 \ b2).powerset, ∑ V2 ∈ (U0 \ (b2 ∪ T2)).powerset,
     ∑ μ ∈ (eltsLe (H * L / (S * F))).erase 0,
       ∑ M1 ∈ ((U0 \ (b2 ∪ T2)) \ V2).powerset, ∑ M2 ∈ ((U0 \ (b2 ∪ T2)) \ V2).powerset,
@@ -94,44 +102,47 @@ def wtQ (H L : ℝ) (t : Finset Pr × Finset Pr × Finset Pr) : ℝ :=
 
 open Classical in
 /-- **The split of `𝒬`** (the companion paper's Lemma 7.2 inserted into (7.2)): with `c_I ≥ 3β²R_Φ²`
-and `U₀` containing the primes of norm at most `2βL`, `𝒬_{ξ₁}(U)` is at most the norm of the zero
+and `U₀` containing the primes of norm at most `2βL` whose class modulo `m` is a unit, with a unit
+class itself, `𝒬_{ξ₁}(U)` is at most the norm of the zero
 frequencies plus `Σ_ξ |ĉ(ξ)|·|Σ_t w_t·dualQ ξ t|`, at the common range `Y₂ = 𝓗L/(ΣF)`. -/
-theorem Qform_le_split (ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {U : ℝ → ℂ}
-    {β H L S F cI : ℝ} (hβ : 0 ≤ β) (hH : 0 < H) (hL : 0 < L) (hS : 0 < S) (hF : 0 < F)
-    (hcI : 3 * β ^ 2 * RΦ ^ 2 ≤ cI) (hcI0 : 0 < cI) (hU : ∀ x, 2 * β < x → U x = 0)
-    {U0 : Finset Pr} (hU0 : primesLe (2 * β * L) ⊆ U0) :
+theorem Qform_le_split [NeZero m] [Fact ((4 : 𝓞 K) ∣ m)] (ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ)
+    {U : ℝ → ℂ} {β H L S F cI : ℝ} (hβ : 0 ≤ β) (hH : 0 < H) (hL : 0 < L) (hS : 0 < S)
+    (hF : 0 < F) (hcI : 3 * β ^ 2 * RΦ ^ 2 ≤ cI) (hcI0 : 0 < cI) (hU : ∀ x, 2 * β < x → U x = 0)
+    {U0 : Finset Pr} (hU0 : ∀ P ∈ primesLe (2 * β * L), IsUnit (cls m {P}) → P ∈ U0)
+    (hUm : IsUnit (cls m U0)) :
     Qform ξ1 U β H L S F cI ≤
-      ‖∑ t ∈ qTriples (2 * β * L), (wtQ H L t : ℂ) * zeroQ U β H L S F cI t‖ +
-        ∑ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ‖classCoeff (pairH ξ1) ξ‖ *
+      ‖∑ t ∈ qTriples (2 * β * L), (wtQ H L t : ℂ) * zeroQ m U β H L S F cI t‖ +
+        ∑ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ, ‖classCoeff (pairH ξ1) ξ‖ *
           ‖∑ t ∈ qTriples (2 * β * L), (wtQ H L t : ℂ) * dualQ U H L S F cI U0 ξ t‖ := by
   have key : ∀ t : Finset Pr × Finset Pr × Finset Pr,
       ∑' y : 𝓞 K, Pcol ξ1 U β L t.1 t.2.1 t.2.2 y * conj (Pcol ξ1 U β L t.1 t.2.1 t.2.2 y) *
         Majorant.Phi (σO y / (Real.sqrt (Ycd cI S L F H t.1 t.2.1) : ℂ)) =
-      zeroQ U β H L S F cI t + ∑ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+      zeroQ m U β H L S F cI t + ∑ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ,
         classCoeff (pairH ξ1) ξ * dualQ U H L S F cI U0 ξ t := by
     intro t
     have hℓL := ellS_le hL.le t.1 t.2.1 t.2.2
     have h2β : 0 ≤ 2 * β := by positivity
-    have hsub : primesLe (2 * β * ellS L t.1 t.2.1 t.2.2) ⊆ U0 :=
-      (primesLe_mono (mul_le_mul_of_nonneg_left hℓL h2β)).trans hU0
+    have hsub : ∀ P ∈ primesLe (2 * β * ellS L t.1 t.2.1 t.2.2), IsUnit (cls m {P}) → P ∈ U0 :=
+      fun P hP hu => hU0 P (primesLe_mono (mul_le_mul_of_nonneg_left hℓL h2β) hP) hu
     have h := Mq_rowcolD ξ1 hβ hL hU t.1 t.2.1 t.2.2 (Ycd_pos hcI0 hS hL hF hH t.1 t.2.1) RΦ_pos
-      (fun _ h => dualG_eq_zero_of_ge h) (hY2_common hH hL hS hF hcI t.1 t.2.1 t.2.2) hsub
+      (fun _ h => dualG_eq_zero_of_ge h) (hY2_common hH hL hS hF hcI t.1 t.2.1 t.2.2) hsub hUm
     rw [h]
-    rfl
+    unfold zeroQ dualQ
+    congr
   have hQ : Qform ξ1 U β H L S F cI =
-      (∑ t ∈ qTriples (2 * β * L), (wtQ H L t : ℂ) * (zeroQ U β H L S F cI t +
-        ∑ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+      (∑ t ∈ qTriples (2 * β * L), (wtQ H L t : ℂ) * (zeroQ m U β H L S F cI t +
+        ∑ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ,
           classCoeff (pairH ξ1) ξ * dualQ U H L S F cI U0 ξ t)).re := by
     unfold Qform
     rw [Complex.re_sum]
     refine Finset.sum_congr rfl fun t _ => ?_
     rw [← key t, Complex.re_ofReal_mul]
     rfl
-  have hsplit : ∑ t ∈ qTriples (2 * β * L), (wtQ H L t : ℂ) * (zeroQ U β H L S F cI t +
-        ∑ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+  have hsplit : ∑ t ∈ qTriples (2 * β * L), (wtQ H L t : ℂ) * (zeroQ m U β H L S F cI t +
+        ∑ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ,
           classCoeff (pairH ξ1) ξ * dualQ U H L S F cI U0 ξ t) =
-      ∑ t ∈ qTriples (2 * β * L), (wtQ H L t : ℂ) * zeroQ U β H L S F cI t +
-        ∑ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, classCoeff (pairH ξ1) ξ *
+      ∑ t ∈ qTriples (2 * β * L), (wtQ H L t : ℂ) * zeroQ m U β H L S F cI t +
+        ∑ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ, classCoeff (pairH ξ1) ξ *
           ∑ t ∈ qTriples (2 * β * L), (wtQ H L t : ℂ) * dualQ U H L S F cI U0 ξ t := by
     simp only [mul_add, Finset.sum_add_distrib]
     congr 1
@@ -156,7 +167,7 @@ def colRange (U0 : Finset Pr) (ρ : RowQ) : Finset (Finset Pr) :=
   ((U0 \ (ρ.2.1.1 ∪ ρ.2.1.2.1)) \ ρ.2.1.2.2).powerset
 
 /-- The term `w_t·rcQ` of a row and two columns. -/
-def termQ (U : ℝ → ℂ) (H L S F cI : ℝ) (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (ρ : RowQ)
+def termQ (U : ℝ → ℂ) (H L S F cI : ℝ) (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (ρ : RowQ)
     (M1 M2 : Finset Pr) : ℂ :=
   (wtQ H L ρ.1 : ℂ) * rcQ U (ellS L ρ.1.1 ρ.1.2.1 ρ.1.2.2) (Ycd cI S L F H ρ.1.1 ρ.1.2.1)
     (eS ρ.1.1 ^ 4 * eS ρ.1.2.1 ^ 5 * eS ρ.1.2.2 ^ 6) ξ ξ ρ.2.1.1 ρ.2.1.2.1 ρ.2.1.2.2 ρ.2.2 M1 M2
@@ -165,7 +176,7 @@ open Classical in
 /-- **The weighted dual sums as one sum over rows**: `Σ_t w_t·dualQ ξ t` is the sum of `termQ` over
 the rows `(t, (b₂, T₂, V₂), μ)` and the columns of each row. -/
 theorem sum_wt_dualQ_eq (U : ℝ → ℂ) (H L S F cI : ℝ) (U0 : Finset Pr)
-    (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (Λ : ℝ) :
+    (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (Λ : ℝ) :
     ∑ t ∈ qTriples Λ, (wtQ H L t : ℂ) * dualQ U H L S F cI U0 ξ t =
       ∑ ρ ∈ qTriples Λ ×ˢ (triplesOf U0 ×ˢ (eltsLe (H * L / (S * F))).erase 0),
         ∑ M1 ∈ colRange U0 ρ, ∑ M2 ∈ colRange U0 ρ, termQ U H L S F cI ξ ρ M1 M2 := by
@@ -187,7 +198,7 @@ theorem sum_wt_dualQ_eq (U : ℝ → ℂ) (H L S F cI : ℝ) (U0 : Finset Pr)
 
 section VanishQ
 
-variable (U : ℝ → ℂ) (ℓ H : ℝ) (c : 𝓞 K) (ξa ξb : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+variable (U : ℝ → ℂ) (ℓ H : ℝ) (c : 𝓞 K) (ξa ξb : MulChar (𝓞 K ⧸ span {m}) ℂ)
   (b T V : Finset Pr) (μ : 𝓞 K) (M1 M2 : Finset Pr)
 
 theorem rcQ_eq_zero_of_bT (h : chiS (b ∪ T) c = 0) : rcQ U ℓ H c ξa ξb b T V μ M1 M2 = 0 := by
@@ -223,7 +234,7 @@ row factor; `N(b)⋯N(V₂) > 2βL` puts the first weight beyond `2β`; and
 `N(μ)N(T)N(T₂)(N(b₂)N(V))² > 𝓗L/(ΣF)` puts the dual weight beyond `R_Φ` (with `c_I ≥ 3β²R_Φ²`). -/
 theorem termQ_eq_zero_of_not_good {U : ℝ → ℂ} {β : ℝ} (hU : ∀ x, 2 * β < x → U x = 0)
     {H L S F cI : ℝ} (hH : 0 < H) (hL : 0 < L) (hS : 0 < S) (hF : 0 < F)
-    (hcI : 3 * β ^ 2 * RΦ ^ 2 ≤ cI) (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {U0 : Finset Pr}
+    (hcI : 3 * β ^ 2 * RΦ ^ 2 ≤ cI) (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {U0 : Finset Pr}
     {ρ : RowQ} (hρ : ¬ goodQ β H L S F ρ) {M1 M2 : Finset Pr} (hM1 : M1 ∈ colRange U0 ρ)
     (hM2 : M2 ∈ colRange U0 ρ) : termQ U H L S F cI ξ ρ M1 M2 = 0 := by
   obtain ⟨⟨b, T, V⟩, ⟨b2, T2, V2⟩, μ⟩ := ρ
@@ -324,7 +335,7 @@ open Classical in
 /-- **The sum over the good rows**: the other rows contribute `0`. -/
 theorem sum_rows_eq_rowsQ {U : ℝ → ℂ} {β : ℝ} (hU : ∀ x, 2 * β < x → U x = 0)
     {H L S F cI : ℝ} (hH : 0 < H) (hL : 0 < L) (hS : 0 < S) (hF : 0 < F)
-    (hcI : 3 * β ^ 2 * RΦ ^ 2 ≤ cI) (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U0 : Finset Pr) :
+    (hcI : 3 * β ^ 2 * RΦ ^ 2 ≤ cI) (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (U0 : Finset Pr) :
     ∑ ρ ∈ qTriples (2 * β * L) ×ˢ (triplesOf U0 ×ˢ (eltsLe (H * L / (S * F))).erase 0),
         ∑ M1 ∈ colRange U0 ρ, ∑ M2 ∈ colRange U0 ρ, termQ U H L S F cI ξ ρ M1 M2 =
       ∑ ρ ∈ rowsQ U0 β H L S F,
@@ -396,17 +407,17 @@ theorem nI_fQ {U0 : Finset Pr} {β H L S F : ℝ} {ρ : RowQ} (h : ρ ∈ rowsQ 
   rw [nI_union d2, nI_union d1, nI_union h1]
 
 /-- The column coefficient `colA ξ (d_{T₂}μ) (d_{T₂}w) M·χ_M(c)` of a row, `c = b⁴T⁵V⁶`. -/
-def colQ (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (ρ : RowQ) (M : Finset Pr) : ℂ :=
+def colQ (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (ρ : RowQ) (M : Finset Pr) : ℂ :=
   colA ξ (eS ρ.2.1.2.1 * ρ.2.2) (eS ρ.2.1.2.1 * eS ρ.2.1.2.2) M *
     chiS M (eS ρ.1.1 ^ 4 * eS ρ.1.2.1 ^ 5 * eS ρ.1.2.2 ^ 6)
 
 open Classical in
 /-- The bilinear form's coefficients: `conj(colQ)` on the columns of the row, `0` elsewhere. -/
-def aQ (U0 : Finset Pr) (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (ρ : RowQ) (M : Finset Pr) : ℂ :=
+def aQ (U0 : Finset Pr) (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (ρ : RowQ) (M : Finset Pr) : ℂ :=
   if M ∈ colRange U0 ρ then conj (colQ ξ ρ M) else 0
 
 /-- The row weight: the sign, the row factor of `rcQ` and `N(V)N(b₂)/(2R)`. -/
-def wQr (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (R : ℝ) (ρ : RowQ) : ℂ :=
+def wQr (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (R : ℝ) (ρ : RowQ) : ℂ :=
   ((-1 : ℂ) ^ ρ.2.1.2.1.card * (-1) ^ ρ.2.1.2.2.card) *
     (conj (aXi ξ (idl ρ.2.1.2.2)) * aXi ξ (idl ρ.2.1.2.2) *
       (chiS ρ.2.1.2.2 ρ.2.2 * conj (chiS ρ.2.1.2.2 ρ.2.2)) *
@@ -435,7 +446,7 @@ def WBQ (cI S F L R : ℝ) : ℝ := 8 * cI * S * F * R / (3 * L)
 one row): for columns of the row, `termQ = W_B·w_ρ·a(M₁)·conj(a(M₂))·W₀(ρ_ρx₁)·conj(W₀(ρ_ρx₂))·
 Φ̂(√(A_ρ/(x₁x₂)))` with `W₀ = conj ∘ W₀c U`. -/
 theorem termQ_eq_bilin (U : ℝ → ℂ) {H L S F cI R Fp : ℝ} (hH : 0 < H) (hL : 0 < L) (hR : 0 < R)
-    (hFp : 0 < Fp) (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U0 : Finset Pr) (ρ : RowQ)
+    (hFp : 0 < Fp) (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (U0 : Finset Pr) (ρ : RowQ)
     {M1 M2 : Finset Pr} (hM1 : M1 ∈ colRange U0 ρ) (hM2 : M2 ∈ colRange U0 ρ) :
     termQ U H L S F cI ξ ρ M1 M2 = (WBQ cI S F L R : ℂ) * (wQr ξ R ρ *
       (aQ U0 ξ ρ M1 * conj (aQ U0 ξ ρ M2) *
@@ -506,7 +517,7 @@ open Classical in
 /-- **A row's double column sum as the bilinear form**: the columns of the row are completed to all
 subsets of `U₀`, where the coefficients `aQ` vanish outside the row's columns. -/
 theorem rowSumQ_eq_bilinear (U : ℝ → ℂ) {H L S F cI R Fp : ℝ} (hH : 0 < H) (hL : 0 < L)
-    (hR : 0 < R) (hFp : 0 < Fp) (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U0 : Finset Pr)
+    (hR : 0 < R) (hFp : 0 < Fp) (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (U0 : Finset Pr)
     (ρ : RowQ) :
     ∑ M1 ∈ colRange U0 ρ, ∑ M2 ∈ colRange U0 ρ, termQ U H L S F cI ξ ρ M1 M2 =
       (WBQ cI S F L R : ℂ) * (wQr ξ R ρ * ∑ n1 ∈ U0.powerset, ∑ n2 ∈ U0.powerset,

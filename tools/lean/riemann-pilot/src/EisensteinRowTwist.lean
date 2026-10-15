@@ -9,6 +9,10 @@ proves it in the form round 363's translates use (**`twist_617`**): `φ(x) = χ_
 `phiTw`) is `φ₀(x)·∏_{P ∣ tg}χ_P^{j_P}(x)·∏_{P ∣ k₀}χ_P(x)` with round 341's `jFix` and `chiPow`, where `φ₀` is
 periodic modulo `72`, depends on `k₀` only modulo `4`, has modulus at most `1` and vanishes at `0`.
 
+Round 493 (step 2 of round 491's plan for door 5(b)): **`twist_617M`** is (6.17) for the characters `ξ`
+modulo any `md ≠ 0`, with `φ₀` periodic modulo every common multiple of `72` and `md`; `twist_617` is its
+case `md = 4`, `L = 72`.
+
 * **The part prime to `6`** (`absNorm_span_δ3`, **`exists_S_decomp`**): every `z ≠ 0` is `ε·δ₃^a·2^b·z'` with
   `ε` a unit and `z'` primary and odd, by induction on the norm.
 * **Sextic reciprocity for coprime primary elements** (**`sym6_recip_gen`**): `(a/b)₆ = (a/b)₂(b/a)₂·(b/a)₆`,
@@ -370,13 +374,14 @@ theorem key_617 {εt εg : (𝓞 K)ˣ} {at' bt ag bg : ℕ} {t' g' k₀ x : 𝓞
     · have hPk : P ∈ normalizedFactors (span {k₀}) := mem_nf_span_of_mem hk0 hk
       rw [sym6_eq_zero_of_mem hPnf hk, sym6_eq_zero_of_mem hPk hxP]; ring
 
-/-- **The companion paper's (6.17)**: for the twist `Ψ = Ψ_{u₀tk₀, g}` of the rows, `φ(x) = χ_x(λ)²Ψ(x)`
-is `φ₀(x)·∏_{P ∣ tg}χ_P^{j_P}(x)·∏_{P ∣ k₀}χ_P(x)` with `j_P = jFix`, where `φ₀` is periodic modulo `72`,
-depends on `k₀` only modulo `4`, has modulus at most `1`, and vanishes at `0`. -/
-theorem twist_617 (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (u₀ : (𝓞 K)ˣ) {t g : 𝓞 K}
+/-- **The companion paper's (6.17)**: for the twist `Ψ = Ψ_{u₀tk₀, g}` of the rows, with `ξ` a character
+modulo `md ≠ 0`, `φ(x) = χ_x(λ)²Ψ(x)` is `φ₀(x)·∏_{P ∣ tg}χ_P^{j_P}(x)·∏_{P ∣ k₀}χ_P(x)` with `j_P = jFix`,
+where `φ₀` is periodic modulo every common multiple of `72` and `md`, depends on `k₀` only modulo `4`, has
+modulus at most `1`, and vanishes at `0` (round 493; round 365's statement at `md = 4` is `twist_617`). -/
+theorem twist_617M {md : 𝓞 K} [NeZero md] (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) (u₀ : (𝓞 K)ˣ) {t g : 𝓞 K}
     (ht : t ≠ 0) (hg : g ≠ 0) :
     ∃ φ₀ : 𝓞 K → 𝓞 K → ℂ,
-      (∀ k x u, φ₀ k (x + 72 * u) = φ₀ k x) ∧
+      (∀ L : 𝓞 K, 72 ∣ L → md ∣ L → ∀ k x u, φ₀ k (x + L * u) = φ₀ k x) ∧
       (∀ k k' x, (4 : 𝓞 K) ∣ k - k' → φ₀ k x = φ₀ k' x) ∧
       (∀ k x, ‖φ₀ k x‖ ≤ 1) ∧
       (∀ k, φ₀ k 0 = 0) ∧
@@ -395,9 +400,15 @@ theorem twist_617 (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (u₀ : (�
   refine ⟨fun k x => if Primary x ∧ (absNorm (span {x})).Coprime 6 then
     sym6 δ3 (span {x}) ^ 2 * (ξ (Ideal.Quotient.mk _ x) * sym6 St (span {x}) *
       sym6 Sg (span {x}) ^ 4 * Rn (t' * k) x) else 0, ?_, ?_, ?_, ?_, ?_⟩
-  · -- periodic modulo 72
-    intro k x u
+  · -- periodic modulo every common multiple of `72` and `md`
+    intro L h72 hmdL k x u
+    obtain ⟨c, rfl⟩ := h72
     beta_reduce
+    have hmk : Ideal.Quotient.mk (span {md}) (x + 72 * c * u) = Ideal.Quotient.mk (span {md}) x := by
+      rw [Ideal.Quotient.eq, Ideal.mem_span_singleton, add_sub_cancel_left]
+      exact dvd_mul_of_dvd_left hmdL u
+    rw [show (72 : 𝓞 K) * c * u = 72 * (c * u) by ring] at hmk ⊢
+    generalize c * u = u at hmk ⊢
     have h3 : (3 : 𝓞 K) ∣ 72 * u := ⟨24 * u, by ring⟩
     have hP := primary_add_iff (x := x) h3
     by_cases hx : Primary x
@@ -413,7 +424,7 @@ theorem twist_617 (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (u₀ : (�
         have hd : (72 : 𝓞 K) ∣ x + 72 * u - x := ⟨u, by ring⟩
         have h9 : (9 : 𝓞 K) ∣ x + 72 * u - x := ⟨8 * u, by ring⟩
         have h4 : (4 : 𝓞 K) ∣ x + 72 * u - x := ⟨18 * u, by ring⟩
-        rw [sym6_sq_δ3_congr hx' hx hx6' hx6 h9, mk_four_eq h4,
+        rw [sym6_sq_δ3_congr hx' hx hx6' hx6 h9, hmk,
           hSt, sym6_S_congr (u₀ * εt) at' bt hx' hx hx6' hx6 hd,
           hSg, sym6_S_congr εg ag bg hx' hx hx6' hx6 hd, Rn_congr (by rw [sub_self]; exact dvd_zero _) h4]
       · have hx6' : ¬ (absNorm (span {x + 72 * u})).Coprime 6 := fun h =>
@@ -479,6 +490,23 @@ theorem twist_617 (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (u₀ : (�
     linear_combination (sym6 δ3 (span {x}) ^ 2 * ξ (Ideal.Quotient.mk _ x) * sym6 St (span {x}) *
       sym6 Sg (span {x}) ^ 4) * key
 
+/-- **The companion paper's (6.17)** at the modulus `4` (round 365's statement): `twist_617M` with
+`L = 72`. -/
+theorem twist_617 (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (u₀ : (𝓞 K)ˣ) {t g : 𝓞 K}
+    (ht : t ≠ 0) (hg : g ≠ 0) :
+    ∃ φ₀ : 𝓞 K → 𝓞 K → ℂ,
+      (∀ k x u, φ₀ k (x + 72 * u) = φ₀ k x) ∧
+      (∀ k k' x, (4 : 𝓞 K) ∣ k - k' → φ₀ k x = φ₀ k' x) ∧
+      (∀ k x, ‖φ₀ k x‖ ≤ 1) ∧
+      (∀ k, φ₀ k 0 = 0) ∧
+      ∀ k₀ : 𝓞 K, Primary k₀ → Squarefree (span {k₀}) → (absNorm (span {k₀})).Coprime 6 →
+        IsCoprime k₀ (t * g) → ∀ x : 𝓞 K,
+        phiTw (twistPsi ξ (u₀ * t * k₀) g) x =
+          φ₀ k₀ x * (∏ P ∈ primeSet (span {t * g}), chiPow P.1 (jFix t g P) x) *
+            ∏ P ∈ primeSet (span {k₀}), chiP P.1 x := by
+  obtain ⟨φ₀, hper, h4, hbd, h0, hid⟩ := twist_617M ξ u₀ ht hg
+  exact ⟨φ₀, hper 72 dvd_rfl ⟨18, by norm_num⟩, h4, hbd, h0, hid⟩
+
 end Eis
 
 end
@@ -509,4 +537,5 @@ end
 #print axioms Eis.isCoprime_S
 #print axioms Eis.mem_S_of_mem
 #print axioms Eis.key_617
+#print axioms Eis.twist_617M
 #print axioms Eis.twist_617

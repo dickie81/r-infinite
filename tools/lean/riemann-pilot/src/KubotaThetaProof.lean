@@ -20,6 +20,11 @@ rounds 436–465 prove for θ's Fourier series. This round assembles it, at `r =
   `CompletedMeanSquare`, round 339), its (4.12) at every `ϑ > 0` (round 305's `DualMeanSquare`, round 315 with
   round 326's `transferEstimate`), and the family's mean square at every `σ > 0` (round 288's `MeanSquare`,
   round 310).
+* **Every modulus** (round 493, step 2 of round 491's plan for door 5(b): **`thetaRowsM`**,
+  **`squarefreeCompletedM`**, **`completedMeanSquareM`** and **`dualMeanSquareM`**): the displays of round 492 at
+  every `md ≠ 0` (`ThetaRowsM md`, through round 493's `thetaRowsM_of_kubota`; `SquarefreeCompletedM md`;
+  `CompletedMeanSquareM md`), and the dual mean square `DualMeanSquareM md ϑ` for the characters modulo every
+  `md ≠ 0` with `4 ∣ md`, at every `ϑ > 0` (round 492's `dualMeanSquare_of_completed`).
 * **The half-plane** (**`ne_zero_of_re_gt_eleven_twelfths`** and **`exists_zeroFree_halfPlane`**): `ζ(s) ≠ 0`
   and `L(s, χ₋₃) ≠ 0` for every `s` with `Re s > 11/12` (round 381's `ne_zero_of_kubotaTheta`), so there is
   `θ < 1` with `ζ(s) ≠ 0` on `Re s > θ`.
@@ -65,6 +70,26 @@ theorem dualMeanSquare {ϑ : ℝ} (hϑ : 0 < ϑ) : DualMeanSquare ϑ :=
 `meanSquare_of_dualMeanSquare`. -/
 theorem meanSquare {σ : ℝ} (hσ : 0 < σ) : MeanSquare σ := meanSquare_of_dualMeanSquare hσ (dualMeanSquare hσ)
 
+/-- **Round 341's display at every modulus `md ≠ 0`** (`ThetaRowsM md`, round 493's
+`thetaRowsM_of_kubota`). -/
+theorem thetaRowsM {md : 𝓞 K} [NeZero md] : ThetaRowsM md := thetaRowsM_of_kubota kubotaTheta
+
+/-- **The companion paper's Lemma 6.6 at every modulus `md ≠ 0`** (`SquarefreeCompletedM md`): round 342's
+`squarefreeCompletedM_of` with `thetaRowsM` and round 359's `quadLargeSieve`. -/
+theorem squarefreeCompletedM {md : 𝓞 K} [NeZero md] : SquarefreeCompletedM md :=
+  squarefreeCompletedM_of thetaRowsM quadLargeSieve
+
+/-- **The companion paper's Proposition 5.2 at every modulus `md ≠ 0`** (`CompletedMeanSquareM md`): round
+339's `completedMeanSquareM_of_squarefree`. -/
+theorem completedMeanSquareM {md : 𝓞 K} [NeZero md] : CompletedMeanSquareM md :=
+  completedMeanSquareM_of_squarefree squarefreeCompletedM
+
+/-- **The dual mean square for the characters modulo every `md ≠ 0` with `4 ∣ md`, at every `ϑ > 0`**
+(`DualMeanSquareM md ϑ`, the companion paper's (4.12) at `md`): round 492's `dualMeanSquare_of_completed`. -/
+theorem dualMeanSquareM {md : 𝓞 K} [NeZero md] [Fact ((4 : 𝓞 K) ∣ md)] {ϑ : ℝ} (hϑ : 0 < ϑ) :
+    DualMeanSquareM md ϑ :=
+  dualMeanSquare_of_completed completedMeanSquareM hϑ
+
 /-- **The half-plane**: `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` for `Re s > 11/12` (round 381's
 `ne_zero_of_kubotaTheta`). -/
 theorem ne_zero_of_re_gt_eleven_twelfths {s : ℂ} (hs : 11 / 12 < s.re) :
@@ -87,5 +112,9 @@ end
 #print axioms Eis.completedMeanSquare
 #print axioms Eis.dualMeanSquare
 #print axioms Eis.meanSquare
+#print axioms Eis.thetaRowsM
+#print axioms Eis.squarefreeCompletedM
+#print axioms Eis.completedMeanSquareM
+#print axioms Eis.dualMeanSquareM
 #print axioms Eis.ne_zero_of_re_gt_eleven_twelfths
 #print axioms Eis.exists_zeroFree_halfPlane

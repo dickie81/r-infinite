@@ -1,6 +1,11 @@
 import EisensteinTransferPoisson
 
-/-! # The transfer's first Poisson summation in row/column form (round 319)
+/-! # The transfer's first Poisson summation in row/column form (round 319; round 492: the characters modulo `m`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) states this file for the characters modulo any `m` with `4 ∣ m`: the
+paired factor is read through the classes modulo `m` (`pairPsi_eq_cls`), and the set `U` is of round
+318's kind. `unitPrimes m Y` is the set of the primes of norm at most `Y` whose class modulo `m` is a
+unit; it has a unit class (`isUnit_cls_unitPrimes`).
 
 S5c-2 in round 316's plan, its second part. After round 318's `dualMS_poisson`, the companion paper's
 proof of its Lemma 7.1 continues, with its LaTeX rendered as text: "Expand
@@ -10,7 +15,7 @@ proof of its Lemma 7.1 continues, with its LaTeX rendered as text: "Expand
 
 * **The column coefficients** (`colP`): `μ(M)ξ(M)·χ_M(c)·conj(χ_M(y))`, the paper's `p_y` of (7.1)
   with `y = hf²` and `c = C⁴d·t⁶`; the factor `χ_M(t)⁶` is its indicator `1_{(n,t)=1}`.
-* **The paired factor in characters modulo `4`** (`dualPair_expand`):
+* **The paired factor in characters modulo `m`** (`dualPair_expand`):
   `ξ(C₁)ξ̄(C₂)·μ(C₁)μ(C₂)Ψ(C₁, C₂) = Σ_{ξ₁,ξ₂} ĉ(ξ₁, ξ₂⁻¹)·μ(C₁)ξ₁(C₁)·conj(μ(C₂)ξ₂(C₂))`, through round
   306's expansion of a function of two classes.
 * **The zero frequency and the nonzero frequencies** (`pair_char_form_dual`), through round 308's
@@ -28,6 +33,8 @@ noncomputable section
 
 namespace Eis
 
+variable {m : 𝓞 K}
+
 /-! ### Symbols -/
 
 /-- `χ_M(f)⁴ = conj(χ_M(f²))`: the paper's `χ_n(f)⁴` with the frequency `h` gives `conj(χ_n(hf²))`. -/
@@ -44,40 +51,37 @@ theorem chiS_pow_four (M : Finset Pr) (f : 𝓞 K) : chiS M f ^ 4 = conj (chiS M
     calc z ^ 4 = z ^ 4 * (z ^ 6) := by rw [hz6, mul_one]
       _ = z ^ (2 * 5) := by ring
 
-theorem cls4_union {V M : Finset Pr} (h : Disjoint V M) : cls4 (V ∪ M) = cls4 V * cls4 M := by
-  unfold cls4; rw [Finset.prod_union h, map_mul]
-
 /-! ### The column coefficients of the transfer -/
 
 /-- The column coefficient `μ(M)ξ(M)·χ_M(c)·conj(χ_M(y))`: the companion paper's `p_y` of (7.1) with
 `y` its `hf²` and `c` its `C⁴d·t⁶`, the factor `χ_M(t)⁶` giving its indicator `1_{(n,t)=1}`
 (`chiS_eS_pow_six_eq_one`, `colP_eq_zero_of_dvd`). -/
-def colP (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (y c : 𝓞 K) (M : Finset Pr) : ℂ :=
-  (-1 : ℂ) ^ M.card * ξ (cls4 M) * chiS M c * conj (chiS M y)
+def colP (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (y c : 𝓞 K) (M : Finset Pr) : ℂ :=
+  (-1 : ℂ) ^ M.card * ξ (cls m M) * chiS M c * conj (chiS M y)
 
-theorem colP_union (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (y c : 𝓞 K) {V M : Finset Pr}
+theorem colP_union (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (y c : 𝓞 K) {V M : Finset Pr}
     (h : Disjoint V M) : colP ξ y c (V ∪ M) = colP ξ y c V * colP ξ y c M := by
   unfold colP
-  rw [Finset.card_union_of_disjoint h, pow_add, cls4_union h, map_mul, chiS_union h,
+  rw [Finset.card_union_of_disjoint h, pow_add, cls_union h, map_mul, chiS_union h,
     chiS_union h, map_mul]
   ring
 
-theorem norm_colP_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (y c : 𝓞 K) (M : Finset Pr) :
+theorem norm_colP_le [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (y c : 𝓞 K) (M : Finset Pr) :
     ‖colP ξ y c M‖ ≤ 1 := by
   unfold colP
-  rw [norm_mul, norm_mul, norm_mul, norm_pow, norm_neg, norm_one, one_pow, one_mul,
-    norm_xi_cls4, one_mul, RCLike.norm_conj]
-  calc ‖chiS M c‖ * ‖chiS M y‖ ≤ 1 * 1 :=
-        mul_le_mul (norm_chiS_le M c) (norm_chiS_le M y) (norm_nonneg _) zero_le_one
-    _ = 1 := one_mul 1
+  rw [norm_mul, norm_mul, norm_mul, norm_pow, norm_neg, norm_one, one_pow, one_mul, RCLike.norm_conj]
+  calc ‖ξ (cls m M)‖ * ‖chiS M c‖ * ‖chiS M y‖ ≤ 1 * 1 * 1 :=
+        mul_le_mul (mul_le_mul (norm_xi_le ξ _) (norm_chiS_le M c) (norm_nonneg _) zero_le_one)
+          (norm_chiS_le M y) (norm_nonneg _) (by norm_num)
+    _ = 1 := by norm_num
 
-/-! ### The paired factor in characters modulo `4` -/
+/-! ### The paired factor in characters modulo `m` -/
 
-/-- `ξ(x)ξ̄(y)·Ψ(x, y)` on classes modulo `4`. -/
-def pairPsiXi (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (x y : 𝓞 K ⧸ span {(4 : 𝓞 K)}) : ℂ :=
+/-- `ξ(x)ξ̄(y)·Ψ(x, y)` on classes modulo `m`. -/
+def pairPsiXi (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (x y : 𝓞 K ⧸ span {m}) : ℂ :=
   ξ x * conj (ξ y) * pairPsiCls x y
 
-theorem norm_pairPsiXi_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (x y : 𝓞 K ⧸ span {(4 : 𝓞 K)})
+theorem norm_pairPsiXi_le [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (x y : 𝓞 K ⧸ span {m})
     (hx : IsUnit x) (hy : IsUnit y) : ‖pairPsiXi ξ x y‖ ≤ 1 := by
   unfold pairPsiXi
   have h1 : ‖ξ x‖ = 1 := by obtain ⟨u, rfl⟩ := hx; exact norm_mulChar_unit ξ u
@@ -85,38 +89,38 @@ theorem norm_pairPsiXi_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (x
   rw [norm_mul, norm_mul, RCLike.norm_conj, h1, h2, one_mul, one_mul]
   exact norm_pairPsiCls_le x y
 
-theorem conj_xi_cls4 (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (C : Finset Pr) :
-    conj (ξ (cls4 C)) = ξ⁻¹ (cls4 C) := MulChar.star_apply' ξ (cls4 C)
+theorem conj_xi_cls [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (C : Finset Pr) :
+    conj (ξ (cls m C)) = ξ⁻¹ (cls m C) := MulChar.star_apply' ξ (cls m C)
 
-/-- **The dual pair factor in characters modulo `4`**: for disjoint `C₁, C₂`,
+/-- **The dual pair factor in characters modulo `m`**: for disjoint `C₁, C₂` with unit classes,
 `ξ(C₁)ξ̄(C₂)·μ(C₁)μ(C₂)Ψ(C₁, C₂) = Σ_{ξ₁,ξ₂} ĉ(ξ₁, ξ₂⁻¹)·(μ(C₁)ξ₁(C₁))·conj(μ(C₂)ξ₂(C₂))`. -/
-theorem dualPair_expand (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {C1 C2 : Finset Pr}
-    (hd : Disjoint C1 C2) :
-    ξ (cls4 C1) * conj (ξ (cls4 C2)) * pairPsiDual C1 C2 =
-      ∑ ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+theorem dualPair_expand [NeZero m] [Fact ((4 : 𝓞 K) ∣ m)] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ)
+    {C1 C2 : Finset Pr} (hd : Disjoint C1 C2) (hu1 : IsUnit (cls m C1)) (hu2 : IsUnit (cls m C2)) :
+    ξ (cls m C1) * conj (ξ (cls m C2)) * pairPsiDual C1 C2 =
+      ∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
         pairCoeff (pairPsiXi ξ) ξ1 ξ2⁻¹ *
-          (((-1 : ℂ) ^ C1.card * ξ1 (cls4 C1)) * conj ((-1 : ℂ) ^ C2.card * ξ2 (cls4 C2))) := by
-  set x := (isUnit_cls4 C1).unit
-  set y := (isUnit_cls4 C2).unit
-  have hx : (x : 𝓞 K ⧸ span {(4 : 𝓞 K)}) = cls4 C1 := IsUnit.unit_spec _
-  have hy : (y : 𝓞 K ⧸ span {(4 : 𝓞 K)}) = cls4 C2 := IsUnit.unit_spec _
+          (((-1 : ℂ) ^ C1.card * ξ1 (cls m C1)) * conj ((-1 : ℂ) ^ C2.card * ξ2 (cls m C2))) := by
+  set x := hu1.unit
+  set y := hu2.unit
+  have hx : (x : 𝓞 K ⧸ span {m}) = cls m C1 := IsUnit.unit_spec _
+  have hy : (y : 𝓞 K ⧸ span {m}) = cls m C2 := IsUnit.unit_spec _
   have hexp := pair_eq_sum_mulChar (pairPsiXi ξ) x y
   rw [hx, hy] at hexp
-  have hP : ξ (cls4 C1) * conj (ξ (cls4 C2)) * pairPsiDual C1 C2 =
-      (-1 : ℂ) ^ C1.card * (-1) ^ C2.card * pairPsiXi ξ (cls4 C1) (cls4 C2) := by
-    unfold pairPsiDual pairPsiXi; rw [pairPsi_eq_cls hd]; ring
+  have hP : ξ (cls m C1) * conj (ξ (cls m C2)) * pairPsiDual C1 C2 =
+      (-1 : ℂ) ^ C1.card * (-1) ^ C2.card * pairPsiXi ξ (cls m C1) (cls m C2) := by
+    unfold pairPsiDual pairPsiXi; rw [pairPsi_eq_cls (m := m) hd]; ring
   rw [hP, hexp, Finset.mul_sum]
   refine Finset.sum_congr rfl fun ξ1 _ => ?_
-  rw [Finset.mul_sum, ← Equiv.sum_comp (Equiv.inv (MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ))]
+  rw [Finset.mul_sum, ← Equiv.sum_comp (Equiv.inv (MulChar (𝓞 K ⧸ span {m}) ℂ))]
   refine Finset.sum_congr rfl fun ξ2 _ => ?_
   simp only [Equiv.inv_apply]
-  rw [map_mul, map_pow, map_neg, map_one, conj_xi_cls4]
+  rw [map_mul, map_pow, map_neg, map_one, conj_xi_cls]
   ring
 
 /-! ### Small facts -/
 
-theorem cls4_empty : cls4 ∅ = 1 := by
-  unfold cls4; rw [Finset.prod_empty, map_one]
+theorem cls_empty : cls m ∅ = 1 := by
+  unfold cls; rw [Finset.prod_empty, map_one]
 
 theorem pairPsiDual_empty : pairPsiDual ∅ ∅ = 1 := by
   unfold pairPsiDual; rw [Finset.card_empty, pow_zero, pairPsi_empty]; ring
@@ -126,17 +130,17 @@ theorem chiS_eS_pow_six_eq_one {M V : Finset Pr} (h : Disjoint M V) : chiS M (eS
   rw [chiS_pow, chiS_eS_pow_six h]
 
 /-- A column coefficient vanishes on the columns containing a prime dividing `c`. -/
-theorem colP_eq_zero_of_dvd (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (y c : 𝓞 K) {M : Finset Pr}
+theorem colP_eq_zero_of_dvd (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (y c : 𝓞 K) {M : Finset Pr}
     {P : Pr} (hP : P ∈ M) (h : πP P ∣ c) : colP ξ y c M = 0 := by
   unfold colP; rw [chiS_eq_zero_of_dvd hP h]; ring
 
 /-- **The transfer's column coefficient in natural form**: for `b, T` disjoint and `M` prime to `V`,
 the coefficient at the frequency `μ` (the paper's `h`), `y = μf²` and `c = b⁴T⁵V⁶` is
 `(−1)^{|M|}ξ(M)·χ_M(bT)⁴χ_M(T)·χ_M(f)⁴·conj(χ_M(μ))`. -/
-theorem colP_natural (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {b T V M : Finset Pr}
+theorem colP_natural (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {b T V M : Finset Pr}
     (hbT : Disjoint b T) (hVM : Disjoint V M) (μ f : 𝓞 K) :
     colP ξ (μ * f ^ 2) (eS b ^ 4 * eS T ^ 5 * eS V ^ 6) M =
-      (-1 : ℂ) ^ M.card * ξ (cls4 M) * (chiS M (eS (b ∪ T)) ^ 4 * chiS M (eS T)) *
+      (-1 : ℂ) ^ M.card * ξ (cls m M) * (chiS M (eS (b ∪ T)) ^ 4 * chiS M (eS T)) *
         (chiS M f ^ 4 * conj (chiS M μ)) := by
   unfold colP
   rw [eS_union hbT, chiS_pow_four M f]
@@ -187,7 +191,7 @@ theorem WW_kapC (W : ℝ → ℂ) {X H nb nT nV n1 n2 : ℝ} (hX : 0 < X) (hb : 
 /-! ### The dual mean square in clean form -/
 
 /-- The weight of a pair of columns `(A₁, A₂)` in the dual mean square of a row `f`, apart from the
-characters modulo `4`: `χ_{C₁}(b)⁴conj(χ_{C₂}(b)⁴)·χ_{A₁}(f)⁴conj(χ_{A₂}(f)⁴)·W(N(A₁)/X)conj(W(N(A₂)/X))`,
+characters modulo `m`: `χ_{C₁}(b)⁴conj(χ_{C₂}(b)⁴)·χ_{A₁}(f)⁴conj(χ_{A₂}(f)⁴)·W(N(A₁)/X)conj(W(N(A₂)/X))`,
 with `b` the primary generator `eS(A₁∩A₂)`, `C₁ = A₁∖A₂` and `C₂ = A₂∖A₁`. -/
 def wPair (W : ℝ → ℂ) (X : ℝ) (f : 𝓞 K) (A1 A2 : Finset Pr) : ℂ :=
   chiS (A1 \ A2) (eS (A1 ∩ A2)) ^ 4 * conj (chiS (A2 \ A1) (eS (A1 ∩ A2)) ^ 4) * chiS A1 f ^ 4 *
@@ -198,20 +202,21 @@ theorem regroup7 (a b c d e g h S : ℂ) :
 
 open Classical in
 /-- `dualMS_poisson` with the norms written through `nI`, `kap` and `dualW`, and the characters of
-`C₁, C₂` modulo `4` moved next to the paired factor. -/
-theorem dualMS_clean (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : ℝ → ℂ} {β' : ℝ}
+`C₁, C₂` modulo `m` moved next to the paired factor. -/
+theorem dualMS_clean [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {W : ℝ → ℂ} {β' : ℝ}
     (hW : ∀ x, β' < x → W x = 0) {X : ℝ} (hX : 0 < X) {U : Finset Pr}
-    (hU : primesLe (β' * X) ⊆ U) (f : 𝓞 K) (H : ℝ) (hH : 0 < H) :
+    (hU : ∀ P ∈ primesLe (β' * X), IsUnit (cls m {P}) → P ∈ U) (hUm : IsUnit (cls m U)) (f : 𝓞 K)
+    (H : ℝ) (hH : 0 < H) :
     ∑' u : 𝓞 K, colSum ξ W X 1 u f * conj (colSum ξ W X 1 u f) *
         Majorant.Phi (σO u / (Real.sqrt H : ℂ)) =
       ∑ A1 ∈ U.powerset, ∑ A2 ∈ U.powerset, wPair W X f A1 A2 *
-        (ξ (cls4 (A1 \ A2)) * conj (ξ (cls4 (A2 \ A1))) *
+        (ξ (cls m (A1 \ A2)) * conj (ξ (cls m (A2 \ A1))) *
           ∑ T ∈ (A1 ∩ A2).powerset, (-1 : ℂ) ^ T.card * (kap H (A1 \ A2) (A2 \ A1) T : ℂ) *
             pairPsiDual (A1 \ A2) (A2 \ A1) *
             (chiS (A1 \ A2) (eS T) * conj (chiS (A2 \ A1) (eS T))) *
             ∑' μ : 𝓞 K, conj (chiS (A1 \ A2) μ * conj (chiS (A2 \ A1) μ)) *
               dualW H (A1 \ A2) (A2 \ A1) T μ) := by
-  rw [dualMS_poisson ξ hW hX hU f H hH]
+  rw [dualMS_poisson ξ hW hX hU hUm f H hH]
   refine Finset.sum_congr rfl fun A1 _ => Finset.sum_congr rfl fun A2 _ => ?_
   have hd : Disjoint (A1 \ A2) (A2 \ A1) := disjoint_sdiff_sdiff
   unfold wPair
@@ -226,43 +231,46 @@ theorem dualMS_clean (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : �
 /-- The term of `(C₁, C₂, T)` for the characters `ξ₁, ξ₂` and the frequencies in `E`, in the dual
 direction: the signs and characters `μ(C₁)ξ₁(C₁)·conj(μ(C₂)ξ₂(C₂))` in place of round 308's
 `ā_{ξ₁}(C₁)a_{ξ₂}(C₂)`. -/
-def tauDual (H : ℝ) (E : Finset (𝓞 K)) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+def tauDual (H : ℝ) (E : Finset (𝓞 K)) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ)
     (C1 C2 T : Finset Pr) : ℂ :=
   (-1 : ℂ) ^ T.card * (kap H C1 C2 T : ℂ) *
-    (((-1 : ℂ) ^ C1.card * ξ1 (cls4 C1)) * conj ((-1 : ℂ) ^ C2.card * ξ2 (cls4 C2))) *
+    (((-1 : ℂ) ^ C1.card * ξ1 (cls m C1)) * conj ((-1 : ℂ) ^ C2.card * ξ2 (cls m C2))) *
     (chiS C1 (eS T) * conj (chiS C2 (eS T))) *
     ∑ μ ∈ E, conj (chiS C1 μ * conj (chiS C2 μ)) * dualW H C1 C2 T μ
 
 open Classical in
-/-- **One pair after Poisson summation, in the dual direction, in characters modulo `4`**: for
-`N(A₁), N(A₂) ≤ M` and `3R²M² ≤ 4HY` (with `Φ̂` vanishing beyond `R`), `ξ(C₁)ξ̄(C₂)` times the pair's
+/-- **One pair after Poisson summation, in the dual direction, in characters modulo `m`**: for
+`A₁ ∪ A₂` with a unit class, `N(A₁), N(A₂) ≤ M` and `3R²M² ≤ 4HY` (with `Φ̂` vanishing beyond `R`), `ξ(C₁)ξ̄(C₂)` times the pair's
 sum after Poisson summation is the zero frequency, present only for `A₁ = A₂`, plus `Σ_{ξ₁,ξ₂} ĉ(ξ₁, ξ₂⁻¹)·Σ_{T⊆A₁∩A₂} τ_{ξ₁ξ₂}(A₁∖A₂, A₂∖A₁, T)`
 over the nonzero frequencies of norm at most `Y`. -/
-theorem pair_char_form_dual (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (H : ℝ) (hH : 0 < H)
-    {R : ℝ} (hR0 : 0 < R) (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0) {M Y : ℝ}
-    (hY : 3 * R ^ 2 * M ^ 2 ≤ 4 * H * Y) {A1 A2 : Finset Pr} (h1 : nI A1 ≤ M) (h2 : nI A2 ≤ M) :
-    ξ (cls4 (A1 \ A2)) * conj (ξ (cls4 (A2 \ A1))) *
+theorem pair_char_form_dual [NeZero m] [Fact ((4 : 𝓞 K) ∣ m)] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (H : ℝ)
+    (hH : 0 < H) {R : ℝ} (hR0 : 0 < R) (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0) {M Y : ℝ}
+    (hY : 3 * R ^ 2 * M ^ 2 ≤ 4 * H * Y) {A1 A2 : Finset Pr} (h1 : nI A1 ≤ M) (h2 : nI A2 ≤ M)
+    (hA : IsUnit (cls m (A1 ∪ A2))) :
+    ξ (cls m (A1 \ A2)) * conj (ξ (cls m (A2 \ A1))) *
       ∑ T ∈ (A1 ∩ A2).powerset, (-1 : ℂ) ^ T.card * (kap H (A1 \ A2) (A2 \ A1) T : ℂ) *
         pairPsiDual (A1 \ A2) (A2 \ A1) *
         (chiS (A1 \ A2) (eS T) * conj (chiS (A2 \ A1) (eS T))) *
         ∑' μ : 𝓞 K, conj (chiS (A1 \ A2) μ * conj (chiS (A2 \ A1) μ)) *
           dualW H (A1 \ A2) (A2 \ A1) T μ =
     (if A1 = A2 then ∑ T ∈ A1.powerset, (-1 : ℂ) ^ T.card * (kap H ∅ ∅ T : ℂ) * dualG 0 else 0) +
-      ∑ ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+      ∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
         pairCoeff (pairPsiXi ξ) ξ1 ξ2⁻¹ *
           ∑ T ∈ (A1 ∩ A2).powerset, tauDual H ((eltsLe Y).erase 0) ξ1 ξ2 (A1 \ A2) (A2 \ A1) T := by
   have hd : Disjoint (A1 \ A2) (A2 \ A1) := disjoint_sdiff_sdiff
   have hM0 : 0 ≤ M := le_trans zero_le_one ((one_le_nI A1).trans h1)
   have hexp := dualPair_expand ξ hd
+    (isUnit_cls_of_subset (Finset.sdiff_subset.trans Finset.subset_union_left) hA)
+    (isUnit_cls_of_subset (Finset.sdiff_subset.trans Finset.subset_union_right) hA)
   rw [Finset.mul_sum]
   have hsplit : ∀ T ∈ (A1 ∩ A2).powerset,
-      ξ (cls4 (A1 \ A2)) * conj (ξ (cls4 (A2 \ A1))) *
+      ξ (cls m (A1 \ A2)) * conj (ξ (cls m (A2 \ A1))) *
         ((-1 : ℂ) ^ T.card * (kap H (A1 \ A2) (A2 \ A1) T : ℂ) * pairPsiDual (A1 \ A2) (A2 \ A1) *
           (chiS (A1 \ A2) (eS T) * conj (chiS (A2 \ A1) (eS T))) *
           ∑' μ : 𝓞 K, conj (chiS (A1 \ A2) μ * conj (chiS (A2 \ A1) μ)) *
             dualW H (A1 \ A2) (A2 \ A1) T μ) =
       (if A1 = A2 then (-1 : ℂ) ^ T.card * (kap H ∅ ∅ T : ℂ) * dualG 0 else 0) +
-        ∑ ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+        ∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
           pairCoeff (pairPsiXi ξ) ξ1 ξ2⁻¹ *
             tauDual H ((eltsLe Y).erase 0) ξ1 ξ2 (A1 \ A2) (A2 \ A1) T := by
     intro T hT
@@ -277,7 +285,7 @@ theorem pair_char_form_dual (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) 
     · by_cases he : A1 = A2
       · have he' := sdiff_eq_empty_both.2 he
         rw [ite_eq_left he, ite_eq_left he', he'.1, he'.2]
-        simp only [cls4_empty, map_one, pairPsiDual_empty, chiS_empty]
+        simp only [cls_empty, map_one, pairPsiDual_empty, chiS_empty]
         ring
       · have hn : ¬(A1 \ A2 = ∅ ∧ A2 \ A1 = ∅) := fun h => he (sdiff_eq_empty_both.1 h)
         rw [ite_eq_right he, ite_eq_right hn, mul_zero, mul_zero]
@@ -319,10 +327,10 @@ theorem wPair_split (W : ℝ → ℂ) (X : ℝ) (f : 𝓞 K) {B C1 C2 : Finset P
 /-- The term of the dual sum at `(b, T, V, μ, M₁, M₂)`: the sign `μ(T)μ(V)`, the row factor
 `ξ₁(V)ξ̄₂(V)·|χ_V(f)⁴|²|χ_V(μ)|²|χ_{bT}(f)⁴|²`, the normalization `2H·N(b)/(√3·X)`, the two column
 coefficients `p_{μf²}` with `c = b⁴T⁵V⁶`, the weights `W₀` and the dual weight. -/
-def rcDual (W : ℝ → ℂ) (X H : ℝ) (f : 𝓞 K) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+def rcDual (W : ℝ → ℂ) (X H : ℝ) (f : 𝓞 K) (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ)
     (b T V : Finset Pr) (μ : 𝓞 K) (M1 M2 : Finset Pr) : ℂ :=
   ((-1 : ℂ) ^ T.card * (-1) ^ V.card) *
-    (ξ1 (cls4 V) * conj (ξ2 (cls4 V)) * (chiS V f ^ 4 * conj (chiS V f ^ 4)) *
+    (ξ1 (cls m V) * conj (ξ2 (cls m V)) * (chiS V f ^ 4 * conj (chiS V f ^ 4)) *
       (chiS V μ * conj (chiS V μ)) * (chiS (b ∪ T) f ^ 4 * conj (chiS (b ∪ T) f ^ 4))) *
     ((2 * H * nI b / (Real.sqrt 3 * X) : ℝ) : ℂ) *
     (colP ξ1 (μ * f ^ 2) (eS b ^ 4 * eS T ^ 5 * eS V ^ 6) M1 *
@@ -335,7 +343,7 @@ def rcDual (W : ℝ → ℂ) (X H : ℝ) (f : 𝓞 K) (ξ1 ξ2 : MulChar (𝓞 K
 `b, T, V, M_j` (`M₁, M₂` may meet), `(−1)^{|V|}·w(bT; V∪M₁, V∪M₂)·τ(V∪M₁, V∪M₂, T)` is
 `Σ_{μ∈E} rcDual(b, T, V, μ, M₁, M₂)`. -/
 theorem term_factor_dual (W : ℝ → ℂ) {X H : ℝ} (hX : 0 < X) (f : 𝓞 K)
-    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (E : Finset (𝓞 K)) {b T V M1 M2 : Finset Pr}
+    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) (E : Finset (𝓞 K)) {b T V M1 M2 : Finset Pr}
     (hbT : Disjoint b T) (hbV : Disjoint b V) (hb1 : Disjoint b M1) (hb2 : Disjoint b M2)
     (hTV : Disjoint T V) (hT1 : Disjoint T M1) (hT2 : Disjoint T M2) (hV1 : Disjoint V M1)
     (hV2 : Disjoint V M2) :
@@ -371,8 +379,8 @@ theorem term_factor_dual (W : ℝ → ℂ) {X H : ℝ} (hX : 0 < X) (f : 𝓞 K)
   refine Finset.sum_congr rfl fun μ _ => ?_
   unfold wNat rcDual
   rw [colP_natural ξ1 hbT hV1 μ f, colP_natural ξ2 hbT hV2 μ f]
-  simp only [chiS_union hd1, chiS_union hd2, chiS_union hV1, chiS_union hV2, cls4_union hV1,
-    cls4_union hV2, Finset.card_union_of_disjoint hV1, Finset.card_union_of_disjoint hV2, pow_add,
+  simp only [chiS_union hd1, chiS_union hd2, chiS_union hV1, chiS_union hV2, cls_union hV1,
+    cls_union hV2, Finset.card_union_of_disjoint hV1, Finset.card_union_of_disjoint hV2, pow_add,
     map_mul, map_pow, map_neg, map_one, Complex.conj_conj]
   set w1 := W (nI ((b ∪ T) ∪ (V ∪ M1)) / X)
   set w2 := W (nI ((b ∪ T) ∪ (V ∪ M2)) / X)
@@ -391,10 +399,10 @@ theorem term_factor_dual (W : ℝ → ℂ) {X H : ℝ} (hX : 0 < X) (f : 𝓞 K)
   set uV := chiS V μ
   set u1 := chiS M1 μ
   set u2 := chiS M2 μ
-  set x1V := ξ1 (cls4 V)
-  set x1M := ξ1 (cls4 M1)
-  set x2V := ξ2 (cls4 V)
-  set x2M := ξ2 (cls4 M2)
+  set x1V := ξ1 (cls m V)
+  set x1M := ξ1 (cls m M1)
+  set x2V := ξ2 (cls m V)
+  set x2M := ξ2 (cls m M2)
   set sV := (-1 : ℂ) ^ V.card
   set sT := (-1 : ℂ) ^ T.card
   set s1 := (-1 : ℂ) ^ M1.card
@@ -410,7 +418,7 @@ theorem term_factor_dual (W : ℝ → ℂ) {X H : ℝ} (hX : 0 < X) (f : 𝓞 K)
 row/column form, by `sum_pair_chain` with the natural form `wPair_split` and the factorization
 `term_factor_dual`. -/
 theorem xi_chain_dual (W : ℝ → ℂ) {X H : ℝ} (hX : 0 < X) (f : 𝓞 K) (E : Finset (𝓞 K))
-    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U : Finset Pr) :
+    (ξ1 ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ) (U : Finset Pr) :
     ∑ A1 ∈ U.powerset, ∑ A2 ∈ U.powerset, wPair W X f A1 A2 *
         ∑ T ∈ (A1 ∩ A2).powerset, tauDual H E ξ1 ξ2 (A1 \ A2) (A2 \ A1) T =
       ∑ b ∈ U.powerset, ∑ T ∈ (U \ b).powerset, ∑ V ∈ (U \ (b ∪ T)).powerset, ∑ μ ∈ E,
@@ -424,33 +432,34 @@ theorem xi_chain_dual (W : ℝ → ℂ) {X H : ℝ} (hX : 0 < X) (f : 𝓞 K) (E
 open Classical in
 /-- **The dual mean square of a row in row/column form** (the companion paper's display for
 `𝒜(W) − Z` in its proof of Lemma 7.1, for one row `f`, before the sum over `f` and the normalization
-`1/(LF)` of (5.10), with a pair of characters modulo `4` in place of its one `ξ_1`): with
-`W` vanishing beyond `β'`, `U` containing the primes of norm at most `β'X`, `Φ̂` vanishing beyond `R`
+`1/(LF)` of (5.10), with a pair of characters modulo `m` in place of its one `ξ_1`): with
+`W` vanishing beyond `β'`, `U` containing the primes of norm at most `β'X` whose class modulo `m` is
+a unit, with a unit class itself, `Φ̂` vanishing beyond `R`
 and `3R²(β'X)² ≤ 4HY`, the smoothed dual mean square of the row is the zero frequency
 `Σ_A |χ_A(f)⁴|²|W(N(A)/X)|²·Σ_{T⊆A} (−1)^{|T|}·2H/(√3·N(T))·Φ̂(0)` plus
 `Σ_{ξ₁,ξ₂} ĉ(ξ₁, ξ₂⁻¹)·Σ_{b, T, V, μ, M₁, M₂} rcDual`, over `b ⊆ U`, `T ⊆ U∖b`, `V ⊆ U∖(b∪T)`, the
 nonzero `μ` of norm at most `Y`, and `M₁, M₂ ⊆ U∖(b∪T)∖V`. -/
-theorem dualMS_rowcol (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : ℝ → ℂ} {β' : ℝ}
-    (hW : ∀ x, β' < x → W x = 0) {X : ℝ} (hX : 0 < X) {U : Finset Pr}
-    (hU : primesLe (β' * X) ⊆ U) (f : 𝓞 K) {H : ℝ} (hH : 0 < H) {R : ℝ} (hR0 : 0 < R)
+theorem dualMS_rowcol [NeZero m] [Fact ((4 : 𝓞 K) ∣ m)] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ)
+    {W : ℝ → ℂ} {β' : ℝ} (hW : ∀ x, β' < x → W x = 0) {X : ℝ} (hX : 0 < X) {U : Finset Pr}
+    (hU : ∀ P ∈ primesLe (β' * X), IsUnit (cls m {P}) → P ∈ U) (hUm : IsUnit (cls m U)) (f : 𝓞 K) {H : ℝ} (hH : 0 < H) {R : ℝ} (hR0 : 0 < R)
     (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0) {Y : ℝ} (hY : 3 * R ^ 2 * (β' * X) ^ 2 ≤ 4 * H * Y) :
     ∑' u : 𝓞 K, colSum ξ W X 1 u f * conj (colSum ξ W X 1 u f) *
         Majorant.Phi (σO u / (Real.sqrt H : ℂ)) =
       ∑ A ∈ U.powerset, (chiS A f ^ 4 * conj (chiS A f ^ 4)) * (W (nI A / X) * conj (W (nI A / X))) *
           ∑ T ∈ A.powerset, (-1 : ℂ) ^ T.card * (kap H ∅ ∅ T : ℂ) * dualG 0 +
-        ∑ ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+        ∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
           pairCoeff (pairPsiXi ξ) ξ1 ξ2⁻¹ *
             ∑ b ∈ U.powerset, ∑ T ∈ (U \ b).powerset, ∑ V ∈ (U \ (b ∪ T)).powerset,
               ∑ μ ∈ (eltsLe Y).erase 0,
                 ∑ M1 ∈ ((U \ (b ∪ T)) \ V).powerset, ∑ M2 ∈ ((U \ (b ∪ T)) \ V).powerset,
                   rcDual W X H f ξ1 ξ2 b T V μ M1 M2 := by
-  rw [dualMS_clean ξ hW hX hU f H hH]
+  rw [dualMS_clean ξ hW hX hU hUm f H hH]
   have hle : ∀ A : Finset Pr, W (nI A / X) ≠ 0 → nI A ≤ β' * X := fun A hA => by
     by_contra hc
     push Not at hc
     exact hA (hW _ (by rw [lt_div_iff₀ hX]; linarith))
   have hpair : ∀ A1 ∈ U.powerset, ∀ A2 ∈ U.powerset,
-      wPair W X f A1 A2 * (ξ (cls4 (A1 \ A2)) * conj (ξ (cls4 (A2 \ A1))) *
+      wPair W X f A1 A2 * (ξ (cls m (A1 \ A2)) * conj (ξ (cls m (A2 \ A1))) *
           ∑ T ∈ (A1 ∩ A2).powerset, (-1 : ℂ) ^ T.card * (kap H (A1 \ A2) (A2 \ A1) T : ℂ) *
             pairPsiDual (A1 \ A2) (A2 \ A1) *
             (chiS (A1 \ A2) (eS T) * conj (chiS (A2 \ A1) (eS T))) *
@@ -459,11 +468,11 @@ theorem dualMS_rowcol (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : �
       (if A1 = A2 then (chiS A1 f ^ 4 * conj (chiS A1 f ^ 4)) *
           (W (nI A1 / X) * conj (W (nI A1 / X))) *
           ∑ T ∈ A1.powerset, (-1 : ℂ) ^ T.card * (kap H ∅ ∅ T : ℂ) * dualG 0 else 0) +
-        ∑ ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+        ∑ ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ, ∑ ξ2 : MulChar (𝓞 K ⧸ span {m}) ℂ,
           pairCoeff (pairPsiXi ξ) ξ1 ξ2⁻¹ *
             (wPair W X f A1 A2 * ∑ T ∈ (A1 ∩ A2).powerset,
               tauDual H ((eltsLe Y).erase 0) ξ1 ξ2 (A1 \ A2) (A2 \ A1) T) := by
-    intro A1 _ A2 _
+    intro A1 hA1 A2 hA2
     by_cases hz : W (nI A1 / X) = 0 ∨ W (nI A2 / X) = 0
     · have h0 : wPair W X f A1 A2 = 0 := by
         unfold wPair; rcases hz with h | h <;> rw [h] <;> simp
@@ -473,7 +482,8 @@ theorem dualMS_rowcol (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : �
         rcases hz with h | h <;> rw [h] <;> simp
       · rfl
     · push Not at hz
-      rw [pair_char_form_dual ξ H hH hR0 hR hY (hle A1 hz.1) (hle A2 hz.2), mul_add]
+      rw [pair_char_form_dual ξ H hH hR0 hR hY (hle A1 hz.1) (hle A2 hz.2) (isUnit_cls_of_subset
+        (Finset.union_subset (Finset.mem_powerset.1 hA1) (Finset.mem_powerset.1 hA2)) hUm), mul_add]
       congr 1
       · split_ifs with he
         · subst he
@@ -498,18 +508,32 @@ theorem dualMS_rowcol (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {W : �
     congr 1
     exact xi_chain_dual W hX f _ ξ1 ξ2 U
 
+/-! ### The primes with a unit class -/
+
+open Classical in
+/-- The primes of norm at most `Y` whose class modulo `m` is a unit. -/
+def unitPrimes (m : 𝓞 K) (Y : ℝ) : Finset Pr := (primesLe Y).filter fun P => IsUnit (cls m {P})
+
+open Classical in
+theorem mem_unitPrimes_of {Y Y' : ℝ} (h : Y ≤ Y') {P : Pr} (hP : P ∈ primesLe Y)
+    (hu : IsUnit (cls m {P})) : P ∈ unitPrimes m Y' := by
+  unfold unitPrimes; exact Finset.mem_filter.2 ⟨primesLe_mono h hP, hu⟩
+
+open Classical in
+theorem isUnit_cls_unitPrimes (m : 𝓞 K) (Y : ℝ) : IsUnit (cls m (unitPrimes m Y)) :=
+  isUnit_cls_of_forall fun P hP => by unfold unitPrimes at hP; exact (Finset.mem_filter.1 hP).2
+
 end Eis
 
 end
 
 #print axioms Eis.chiS_pow_four
-#print axioms Eis.cls4_union
 #print axioms Eis.colP_union
 #print axioms Eis.norm_colP_le
 #print axioms Eis.norm_pairPsiXi_le
-#print axioms Eis.conj_xi_cls4
+#print axioms Eis.conj_xi_cls
 #print axioms Eis.dualPair_expand
-#print axioms Eis.cls4_empty
+#print axioms Eis.cls_empty
 #print axioms Eis.pairPsiDual_empty
 #print axioms Eis.chiS_eS_pow_six_eq_one
 #print axioms Eis.colP_eq_zero_of_dvd
@@ -522,3 +546,5 @@ end
 #print axioms Eis.term_factor_dual
 #print axioms Eis.xi_chain_dual
 #print axioms Eis.dualMS_rowcol
+#print axioms Eis.mem_unitPrimes_of
+#print axioms Eis.isUnit_cls_unitPrimes

@@ -1,7 +1,12 @@
 import EisensteinPairedGauss
 import HalfPlaneMeanSquare
 
-/-! # The dual mean square (round 305)
+/-! # The dual mean square (round 305; round 492: the characters modulo `m`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) states the coefficients and the hypothesis for the characters modulo any
+nonzero `m`: `aXi`, `aXi_mul` and `colSum` take a character modulo `m` (the quotient is finite,
+`finite_quot_of_neZero`), `DualMeanSquareM m ϑ` is the hypothesis at `m`, and `DualMeanSquare ϑ` is
+`DualMeanSquareM 4 ϑ`.
 
 S4 of round 291's plan, part 5: the objects of the companion paper's Definition 4.3 on ideals, and its
 hypothesis (4.12) as the displayed hypothesis `DualMeanSquare ϑ`.
@@ -15,12 +20,12 @@ hypothesis (4.12) as the displayed hypothesis `DualMeanSquare ϑ`.
   coprime ideals `primeSet (IJ)` is the disjoint union (`primeSet_mul`).
 * **The column coefficients on ideals**: `γ_j(𝔫) = Σ_{x mod n} (x/𝔫)₆^j·ψ_n(x)/|σn|` (`gamI`),
   `α(𝔫) = σn/|σn|` (`alphaI`) and the paper's `a_ξ(𝔫) = ᾱ(n)·γ₂(n)·ξ(n)` (`aXi`) for a character
-  `ξ` modulo `4`. Through `primeSet` these are round 300's `gamF` and `alphaN` products
+  `ξ` modulo `m`. Through `primeSet` these are round 300's `gamF` and `alphaN` products
   (`gamI_eq_gamF`, `alphaI_eq_prod`).
 * **The paper's (4.6)**, `a_ξ(𝔞𝔟) = a_ξ(𝔞)·a_ξ(𝔟)·χ_𝔟(a)⁴` (`aXi_mul`), from round 300's
   `gamF_two_union` (`gamI_two_mul`) and the multiplicativity of `α`, `ξ` and the primary generator.
 * **The dual mean square**: the column sum `colSum` with an excluded ideal, and the hypothesis
-  `DualMeanSquare ϑ`, the paper's (4.12) with the sum over rows written out.
+  `DualMeanSquareM m ϑ`, the paper's (4.12) with the sum over rows written out.
 -/
 
 open NumberField Complex Ideal UniqueFactorizationMonoid
@@ -29,6 +34,23 @@ open scoped ComplexConjugate ContDiff
 noncomputable section
 
 namespace Eis
+
+/-! ### Quotients modulo a nonzero element -/
+
+instance neZero_four : NeZero (4 : 𝓞 K) :=
+  ⟨fun h => by
+    have h' : ((4 : ℕ) : 𝓞 K) = 0 := by exact_mod_cast h
+    exact absurd (Nat.cast_eq_zero.1 h') (by norm_num)⟩
+
+instance finite_quot_of_neZero {m : 𝓞 K} [NeZero m] : Finite (𝓞 K ⧸ span {m}) :=
+  Ideal.finiteQuotientOfFreeOfNeBot _ (by rw [Ne, Ideal.span_singleton_eq_bot]; exact NeZero.ne m)
+
+noncomputable instance fintype_mulChar {m : 𝓞 K} [NeZero m] : Fintype (MulChar (𝓞 K ⧸ span {m}) ℂ) :=
+  Fintype.ofFinite _
+
+noncomputable instance fintype_units {m : 𝓞 K} [NeZero m] : Fintype (𝓞 K ⧸ span {m})ˣ := Fintype.ofFinite _
+
+instance fact_four_dvd_four : Fact ((4 : 𝓞 K) ∣ 4) := ⟨dvd_refl _⟩
 
 /-! ### The primes prime to `6` -/
 
@@ -167,8 +189,8 @@ theorem alphaI_eq_prod {I : Ideal (𝓞 K)} (hI : (absNorm I).Coprime 6) (hsq : 
 
 open Classical in
 /-- **The paper's column coefficient** `a_ξ(𝔫) = ᾱ(n)·γ₂(n)·ξ(n)` for a squarefree ideal `𝔫` of
-norm prime to `6` with primary generator `n`, and a character `ξ` modulo `4`; `0` otherwise. -/
-def aXi (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (I : Ideal (𝓞 K)) : ℂ :=
+norm prime to `6` with primary generator `n`, and a character `ξ` modulo `m`; `0` otherwise. -/
+def aXi {m : 𝓞 K} (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (I : Ideal (𝓞 K)) : ℂ :=
   if (absNorm I).Coprime 6 ∧ Squarefree I then
     conj (alphaI I) * gamI 2 I * ξ (Ideal.Quotient.mk _ (pgen I))
   else 0
@@ -212,7 +234,7 @@ theorem gamI_two_mul {I J : Ideal (𝓞 K)} (hI : (absNorm I).Coprime 6) (hsI : 
 open Classical in
 /-- **The paper's `a_ξ(𝔞𝔟) = a_ξ(𝔞)·a_ξ(𝔟)·χ_𝔟(a)⁴`** for coprime squarefree ideals of norm prime
 to `6`, with `χ_𝔟(a) = (a/𝔟)₆` for the primary generator `a` of `𝔞`. -/
-theorem aXi_mul (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {I J : Ideal (𝓞 K)}
+theorem aXi_mul {m : 𝓞 K} (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) {I J : Ideal (𝓞 K)}
     (hI : (absNorm I).Coprime 6) (hsI : Squarefree I) (hJ : (absNorm J).Coprime 6)
     (hsJ : Squarefree J) (h : IsRelPrime I J) :
     aXi ξ (I * J) = aXi ξ I * aXi ξ J * sym6 (pgen I) J ^ 4 := by
@@ -229,14 +251,14 @@ open Classical in
 /-- **The column sum of the dual mean square**, with an excluded ideal `𝔯`:
 `Σ_{𝔫 : (𝔫, 𝔯) = 1} a_ξ(𝔫)·(k/𝔫)₆·(f/𝔫)₆⁴·W(N𝔫/X)`, a finite sum since `W` will have compact
 support. `𝔯 = 1` gives the paper's sum without exclusion. -/
-def colSum (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (W : ℝ → ℂ) (X : ℝ) (R : Ideal (𝓞 K))
+def colSum {m : 𝓞 K} (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (W : ℝ → ℂ) (X : ℝ) (R : Ideal (𝓞 K))
     (k f : 𝓞 K) : ℂ :=
   ∑' I : Ideal (𝓞 K), (if IsRelPrime I R then aXi ξ I else 0) * sym6 k I * sym6 f I ^ 4 *
     W ((absNorm I : ℝ) / X)
 
 /-- **The dual mean-square bound** (the companion paper's hypothesis (4.12) of Proposition 4.5, in
 the ranges (4.11), for its dual mean square of Definition 4.3), with `S = {2, 3}`, `ν = 1` and
-characters `ξ` modulo `4`:
+characters `ξ` modulo `m`:
 for every `ε > 0` there is a derivative order `J` such that, for every interval `[α, β] ⊂ (0, ∞)` and
 `C ≥ 1`, uniformly in the character `ξ`, the smooth weight `W` supported in `[α, β]` with its first
 `J` derivatives bounded by `N`, the scales `D, B, F ≥ 1` with `X = D/(BF)`, and
@@ -244,9 +266,9 @@ for every `ε > 0` there is a derivative order `J` such that, for every interval
 to `6` in `[F, 2F)` and `0 < N(k) ≤ 𝓗` satisfies
 `Σ_{𝔣, k} |Σ_𝔫 a_ξ(𝔫)(k/𝔫)₆(f/𝔫)₆⁴W(N𝔫/X)|² ≤ K·N²·D^ε·(XF)²`, `f` the primary generator of `𝔣`.
 This is `E(𝓗, X, F; ξ, W) ≪ ‖W‖²_{C^J}·D^ε·XF` with the sum over rows written out. -/
-def DualMeanSquare (ϑ : ℝ) : Prop :=
+def DualMeanSquareM (m : 𝓞 K) (ϑ : ℝ) : Prop :=
   ∀ ε : ℝ, 0 < ε → ∃ J : ℕ, ∀ α β : ℝ, 0 < α → ∀ C : ℝ, 1 ≤ C → ∃ Kc : ℝ,
-    ∀ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
+    ∀ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
       (∀ x, x < α ∨ β < x → W x = 0) → ∀ N : ℝ, (∀ j ≤ J, ∀ x, ‖iteratedDeriv j W x‖ ≤ N) →
       ∀ D B F Hc : ℝ, 1 ≤ D → 1 ≤ B → 1 ≤ F → 0 < Hc →
         Hc ≤ C * D ^ 2 / (D ^ (1 + ϑ) * B ^ 2) →
@@ -256,6 +278,9 @@ def DualMeanSquare (ϑ : ℝ) : Prop :=
         (∀ k ∈ T, k ≠ 0 ∧ (absNorm (span {k}) : ℝ) ≤ Hc) →
         ∑ f ∈ Fs, ∑ k ∈ T, ‖colSum ξ W (D / (B * F)) 1 k (pgen f)‖ ^ 2 ≤
           Kc * N ^ 2 * D ^ ε * (D / B) ^ 2
+
+/-- The dual mean-square bound with the characters modulo `4` (rounds 305–466): `DualMeanSquareM` at `m = 4`. -/
+def DualMeanSquare (ϑ : ℝ) : Prop := DualMeanSquareM 4 ϑ
 
 end Eis
 

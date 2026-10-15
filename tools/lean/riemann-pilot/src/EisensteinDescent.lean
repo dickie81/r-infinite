@@ -1,6 +1,12 @@
 import EisensteinCubeReduction
 
-/-! # The descent: Proposition 5.1 and the third conditional milestone (round 315)
+/-! # The descent: Proposition 5.1 and the third conditional milestone (round 315; round 492: the characters modulo `md`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) runs the induction at every nonzero modulus, named `md` here because
+the displayed estimate binds `m : ℕ`: `TransferEstimateM md` is the displayed hypothesis at `md`,
+`TransferEstimate` is `TransferEstimateM 4`, and `dualMeanSquare_of_completed_transfer` gives
+`DualMeanSquareM md ϑ` from `CompletedMeanSquareM md` and `TransferEstimateM md`. The milestone
+`ne_zero_of_completed_transfer` is unchanged.
 
 S5b in round 312's plan: the companion paper's Proposition 5.1, by its induction on `j` under
 `𝓗 ≤ D^{jη}`, with its Proposition 5.4 (the transfer estimate) displayed as a hypothesis beside round
@@ -10,13 +16,13 @@ half-plane `Re s > 11/12`.
 * **Counting** (`colSum_eq_zero_of_lt`, `norm_colSum_le`, `rowE_le_count`, `rowE_eq_zero_of_lt`; in
   `EisensteinCubeReduction.lean` since round 332): a column sum at scale `X` is empty when `βX < 1`
   and has at most `(2κ+5)βX` terms otherwise.
-* **`TransferEstimate`**, the paper's Proposition 5.4, displayed in the form its proof of
+* **`TransferEstimateM`**, the paper's Proposition 5.4, displayed in the form its proof of
   Proposition 5.1 uses (`E(𝓗, L, F; ξ, W) ≤ 𝒜(W)`).
 * **The induction** (`CanonicalAt`, `canonicalAt_zero`, `canonicalAt_succ`): the base `j = 0` by
   counting; the step by `cube_reduction` (round 314), whose long scales go to the transfer estimate,
   whose transferred rows lie one level down (`transferred_level`, `transferred_gap`).
 * **`canonical_bound`** (the paper's Proposition 5.1); **`dualMeanSquare_of_completed_transfer`**
-  (`DualMeanSquare ϑ` for every `ϑ > 0`, as in the paper's proof of its Proposition 3.1, with the
+  (`DualMeanSquareM md ϑ` for every `ϑ > 0`, as in the paper's proof of its Proposition 3.1, with the
   scales `X < 1` and the bounded `D` by counting); **`ne_zero_of_completed_transfer`**:
   `ζ(s) ≠ 0` and `L(s, χ₋₃) ≠ 0` on `Re s > 11/12`.
 -/
@@ -27,6 +33,8 @@ open scoped ComplexConjugate ContDiff
 noncomputable section
 
 namespace Eis
+
+variable {md : 𝓞 K}
 
 /-! ### The displayed transfer estimate and the canonical bounds -/
 
@@ -39,9 +47,9 @@ sums of the dual mean squares at all `𝓗′, X′, F′ ≥ 1` with `𝓗′ �
 `Σ′ = X′F′ ≤ L`, for all characters `ξ′` and tests `U` supported in `[α/16, 4β]` with their first
 `m` derivatives bounded by `1`, are at most `M·Σ′²`, then every finite set of rows at `(𝓗, F)` has
 row sum at `L` at most `K·D^ε·Σ·N²·(1 + M)·LF`. -/
-def TransferEstimate : Prop :=
+def TransferEstimateM (md : 𝓞 K) : Prop :=
   ∀ C₀ : ℝ, 1 ≤ C₀ → ∀ m : ℕ, ∀ ε : ℝ, 0 < ε → ∀ α β : ℝ, 0 < α → ∃ Kt : ℝ,
-    ∀ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
+    ∀ ξ : MulChar (𝓞 K ⧸ span {md}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
       (∀ x, x < α ∨ β < x → W x = 0) → ∀ N : ℝ,
         (∀ i ≤ 4 * m + 12, ∀ x, ‖iteratedDeriv i W x‖ ≤ N) →
       ∀ D Hh L F S : ℝ, 1 ≤ D → 1 ≤ Hh → 1 ≤ L → 1 ≤ F → 1 ≤ S → Hh ≤ D ^ C₀ → L ≤ D ^ C₀ →
@@ -49,7 +57,7 @@ def TransferEstimate : Prop :=
       ∀ M : ℝ, 0 ≤ M →
         (∀ Hh' X' F' : ℝ, 1 ≤ Hh' → 1 ≤ X' → 1 ≤ F' → Hh' ≤ Hh * L / (S * F) →
           Hh' / (X' * F') ≤ Hh / S → X' * F' ≤ L →
-          ∀ ξ' : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ U : ℝ → ℂ, ContDiff ℝ ∞ U →
+          ∀ ξ' : MulChar (𝓞 K ⧸ span {md}) ℂ, ∀ U : ℝ → ℂ, ContDiff ℝ ∞ U →
             (∀ x, x < α / 16 ∨ 4 * β < x → U x = 0) →
             (∀ i ≤ m, ∀ x, ‖iteratedDeriv i U x‖ ≤ 1) →
           ∀ (Fs' : Finset (Ideal (𝓞 K))) (T' : Finset (𝓞 K)),
@@ -63,12 +71,15 @@ def TransferEstimate : Prop :=
         (∀ k ∈ T, k ≠ 0 ∧ (absNorm (span {k}) : ℝ) ≤ Hh) →
         rowE ξ W L Fs T ≤ Kt * D ^ ε * S * N ^ 2 * (1 + M) * (L * F)
 
+/-- The transfer estimate with the characters modulo `4` (rounds 315–466). -/
+def TransferEstimate : Prop := TransferEstimateM 4
+
 /-- **The canonical bound at level `j`** (the induction hypothesis in the proof of the companion
 paper's Proposition 5.1): at gap `η` and range `C₀`, under `𝓗 ≤ D^{jη}`, the row sum at `X` is
 at most `K·N²·D^ε·(XF)²`, that is `E(𝓗, X, F; ξ, W) ≪ ‖W‖²_{C^J}D^εΣ`. -/
-def CanonicalAt (η C₀ : ℝ) (j : ℕ) : Prop :=
+def CanonicalAt (md : 𝓞 K) (η C₀ : ℝ) (j : ℕ) : Prop :=
   ∀ ε : ℝ, 0 < ε → ∃ J : ℕ, ∀ α β : ℝ, 0 < α → ∃ Kc : ℝ,
-    ∀ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
+    ∀ ξ : MulChar (𝓞 K ⧸ span {md}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
       (∀ x, x < α ∨ β < x → W x = 0) → ∀ N : ℝ, (∀ i ≤ J, ∀ x, ‖iteratedDeriv i W x‖ ≤ N) →
       ∀ D Hh X F : ℝ, 1 ≤ D → 1 ≤ Hh → 1 ≤ X → 1 ≤ F → X * F ≤ D ^ C₀ →
         Hh * D ^ η ≤ X * F → Hh ≤ D ^ ((j : ℝ) * η) →
@@ -79,7 +90,7 @@ def CanonicalAt (η C₀ : ℝ) (j : ℕ) : Prop :=
         rowE ξ W X Fs T ≤ Kc * N ^ 2 * D ^ ε * (X * F) ^ 2
 
 /-- **The base of the induction**: at `j = 0`, `𝓗 ≤ 1`, and counting gives the bound. -/
-theorem canonicalAt_zero (η C₀ : ℝ) : CanonicalAt η C₀ 0 := by
+theorem canonicalAt_zero [NeZero md] (η C₀ : ℝ) : CanonicalAt md η C₀ 0 := by
   intro ε hε
   refine ⟨0, fun α β hα => ?_⟩
   set β₁ := max β 1 with hβ₁def
@@ -159,9 +170,9 @@ theorem transferred_gap {η D Hh S Hh' S' : ℝ} (hgap : Hh * D ^ η ≤ S) (hS 
 
 /-- **The induction step of the companion paper's Proposition 5.1**: Lemma 5.3 (`cube_reduction`),
 with the long scales bounded by the transfer estimate and the level-`j` bound. -/
-theorem canonicalAt_succ (hC : CompletedMeanSquare) (hT : TransferEstimate) {η C₀ : ℝ}
-    (hη : 0 < η) (hC₀ : 1 ≤ C₀) {j : ℕ} (h : CanonicalAt η C₀ j) :
-    CanonicalAt η C₀ (j + 1) := by
+theorem canonicalAt_succ [NeZero md] (hC : CompletedMeanSquareM md) (hT : TransferEstimateM md) {η C₀ : ℝ}
+    (hη : 0 < η) (hC₀ : 1 ≤ C₀) {j : ℕ} (h : CanonicalAt md η C₀ j) :
+    CanonicalAt md η C₀ (j + 1) := by
   intro ε hε
   have hε3 : 0 < ε / 3 := by positivity
   obtain ⟨m, hm⟩ := h (ε / 3) hε3
@@ -215,7 +226,7 @@ theorem canonicalAt_succ (hC : CompletedMeanSquare) (hT : TransferEstimate) {η 
       nlinarith
     have hM : ∀ Hh' X' F' : ℝ, 1 ≤ Hh' → 1 ≤ X' → 1 ≤ F' → Hh' ≤ Hh * L / ((X * F) * F) →
         Hh' / (X' * F') ≤ Hh / (X * F) → X' * F' ≤ L →
-        ∀ ξ' : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ U : ℝ → ℂ, ContDiff ℝ ∞ U →
+        ∀ ξ' : MulChar (𝓞 K ⧸ span {md}) ℂ, ∀ U : ℝ → ℂ, ContDiff ℝ ∞ U →
           (∀ x, x < α / 16 ∨ 4 * β < x → U x = 0) →
           (∀ i ≤ m, ∀ x, ‖iteratedDeriv i U x‖ ≤ 1) →
         ∀ (Fs' : Finset (Ideal (𝓞 K))) (T' : Finset (𝓞 K)),
@@ -273,10 +284,10 @@ theorem canonicalAt_succ (hC : CompletedMeanSquare) (hT : TransferEstimate) {η 
 /-- **The companion paper's Proposition 5.1** (the canonical bound), from the displayed completed
 mean-square and transfer estimates: for `η > 0` and `C₀ ≥ 1`, `E(𝓗, X, F; ξ, W) ≪ ‖W‖²_{C^J}D^εΣ`
 whenever `𝓗, X, F ≥ 1`, `Σ = XF ≤ D^{C₀}` and `𝓗·D^η ≤ Σ`. -/
-theorem canonical_bound (hC : CompletedMeanSquare) (hT : TransferEstimate) {η C₀ : ℝ}
+theorem canonical_bound [NeZero md] (hC : CompletedMeanSquareM md) (hT : TransferEstimateM md) {η C₀ : ℝ}
     (hη : 0 < η) (hC₀ : 1 ≤ C₀) :
     ∀ ε : ℝ, 0 < ε → ∃ J : ℕ, ∀ α β : ℝ, 0 < α → ∃ Kc : ℝ,
-      ∀ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
+      ∀ ξ : MulChar (𝓞 K ⧸ span {md}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
         (∀ x, x < α ∨ β < x → W x = 0) → ∀ N : ℝ, (∀ i ≤ J, ∀ x, ‖iteratedDeriv i W x‖ ≤ N) →
         ∀ D Hh X F : ℝ, 1 ≤ D → 1 ≤ Hh → 1 ≤ X → 1 ≤ F → X * F ≤ D ^ C₀ →
           Hh * D ^ η ≤ X * F →
@@ -285,7 +296,7 @@ theorem canonical_bound (hC : CompletedMeanSquare) (hT : TransferEstimate) {η C
             (absNorm f : ℝ) < 2 * F) →
           (∀ k ∈ T, k ≠ 0 ∧ (absNorm (span {k}) : ℝ) ≤ Hh) →
           rowE ξ W X Fs T ≤ Kc * N ^ 2 * D ^ ε * (X * F) ^ 2 := by
-  have hall : ∀ j, CanonicalAt η C₀ j := fun j =>
+  have hall : ∀ j, CanonicalAt md η C₀ j := fun j =>
     Nat.rec (canonicalAt_zero η C₀) (fun _ ih => canonicalAt_succ hC hT hη hC₀ ih) j
   intro ε hε
   obtain ⟨J, hJ⟩ := hall ⌈C₀ / η⌉₊ ε hε
@@ -304,8 +315,8 @@ theorem canonical_bound (hC : CompletedMeanSquare) (hT : TransferEstimate) {η C
 /-- **The dual mean square at every `ϑ > 0`** from the displayed estimates: the companion paper's
 proof of its Proposition 3.1 ("For large `D`, Proposition 5.1 applies with `κ=ϑ/2` and `C_0=2`"), here
 with `C₀ = 1` since `Σ = D/B ≤ D`; the scales `X < 1` and the bounded `D` go by counting. -/
-theorem dualMeanSquare_of_completed_transfer (hC : CompletedMeanSquare) (hT : TransferEstimate)
-    {ϑ : ℝ} (hϑ : 0 < ϑ) : DualMeanSquare ϑ := by
+theorem dualMeanSquare_of_completed_transfer [NeZero md] (hC : CompletedMeanSquareM md)
+    (hT : TransferEstimateM md) {ϑ : ℝ} (hϑ : 0 < ϑ) : DualMeanSquareM md ϑ := by
   intro ε hε
   obtain ⟨J, hJ⟩ := canonical_bound hC hT (η := ϑ / 2) (C₀ := 1) (by positivity) le_rfl ε hε
   refine ⟨J, fun α β hα C hC1 => ?_⟩

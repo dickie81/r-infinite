@@ -1,6 +1,10 @@
 import EisensteinTransferEstimate
 
-/-! # Proposition 5.2 from the squarefree rows (round 339)
+/-! # Proposition 5.2 from the squarefree rows (round 339; round 492: the characters modulo `md`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) states the display and the deduction at every nonzero modulus `md`:
+`SquarefreeCompletedM md` (`SquarefreeCompleted` is its case `md = 4`) and
+`completedMeanSquareM_of_squarefree`.
 
 S5d of round 312's plan, part 1: the companion paper's proof of its Proposition 5.2 (the completed mean
 square) from its Lemma 6.6 (the squarefree rows), with Lemma 6.6 displayed as a hypothesis.
@@ -11,8 +15,9 @@ square) from its Lemma 6.6 (the squarefree rows), with Lemma 6.6 displayed as a 
 * **`exists_sq_mul_sqfree`**: every nonzero `k` is `d·e²` with `(d)` squarefree and `e` the chosen generator of
   an ideal `𝔈` (Mathlib's `exists_sq_mul_squarefree` in the ideals of `ℤ[ω]`).
 * **`sum_idealsLe_inv_sq_le`**: `Σ_{N𝔞 ≤ x} 1/N𝔞² ≤ 4(2κ+5)`, by dyadic shells; the paper's `ζ_K(2)`.
-* **`SquarefreeCompleted`**: the paper's Lemma 6.6, displayed, for any auxiliary twist `g ≠ 0`.
-* **`completedMeanSquare_of_squarefree`**: `SquarefreeCompleted → CompletedMeanSquare`, and with round 326,
+* **`SquarefreeCompletedM`**: the paper's Lemma 6.6, displayed, for any auxiliary twist `g ≠ 0`.
+* **`completedMeanSquareM_of_squarefree`**: `SquarefreeCompletedM md → CompletedMeanSquareM md`
+  (`completedMeanSquare_of_squarefree` at `md = 4`), and with round 326,
   **`ne_zero_of_squarefree`**: `SquarefreeCompleted → 11/12 < Re s → ζ(s) ≠ 0 ∧ L(s, χ₋₃) ≠ 0`.
 -/
 
@@ -22,6 +27,8 @@ open scoped ComplexConjugate ContDiff
 noncomputable section
 
 namespace Eis
+
+variable {md : 𝓞 K}
 
 /-! ### A square in the row moves to the auxiliary twist -/
 
@@ -42,7 +49,7 @@ theorem sym6_sq_eq_pow_eight {I : Ideal (𝓞 K)} (hI : (absNorm I).Coprime 6) (
 
 section Squares
 
-variable (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ)
+variable (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ)
 
 /-- `Ψ_{s m², f} = Ψ_{s, f m²}`, since `(m/𝔫)₆² = (m/𝔫)₆⁸`. -/
 theorem twistPsi_mul_sq (s m f : 𝓞 K) (I : Ideal (𝓞 K)) :
@@ -164,9 +171,9 @@ set of nonzero `s` with `(s)` squarefree and `N(s) ≤ 𝓗` satisfies
 `Σ_s |T(X; s, g)|² ≤ K·N²·D^ε·(𝓗 + 𝓗²N(g)/X)`. The paper sums over one unit `u₀` times the chosen
 generators of the squarefree ideals; each `s` here is such a product for exactly one `u₀`, so the
 paper's lemma gives this one with `6K` in place of `K`. -/
-def SquarefreeCompleted : Prop :=
+def SquarefreeCompletedM (md : 𝓞 K) : Prop :=
   ∀ ε : ℝ, 0 < ε → ∀ C₀ : ℝ, 1 ≤ C₀ → ∃ J : ℕ, ∀ α β : ℝ, 0 < α → ∃ Kc : ℝ,
-    ∀ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
+    ∀ ξ : MulChar (𝓞 K ⧸ span {md}) ℂ, ∀ W : ℝ → ℂ, ContDiff ℝ ∞ W →
       (∀ x, x < α ∨ β < x → W x = 0) → ∀ N : ℝ, (∀ j ≤ J, ∀ x, ‖iteratedDeriv j W x‖ ≤ N) →
       ∀ D Hh X : ℝ, 1 ≤ D → 1 ≤ Hh → 1 ≤ X → Hh ≤ D ^ C₀ → X ≤ D ^ C₀ →
       ∀ g : 𝓞 K, g ≠ 0 → (absNorm (span {g}) : ℝ) ≤ D ^ C₀ →
@@ -175,12 +182,16 @@ def SquarefreeCompleted : Prop :=
         ∑ s ∈ Ss, ‖compT ξ s g W X‖ ^ 2 ≤
           Kc * N ^ 2 * D ^ ε * (Hh + Hh ^ 2 * (absNorm (span {g}) : ℝ) / X)
 
+/-- The squarefree rows at the modulus `4` (round 339's statement). -/
+def SquarefreeCompleted : Prop := SquarefreeCompletedM 4
+
 /-- **Proposition 5.2 from Lemma 6.6** (the companion paper's proof of Proposition 5.2): write each row
 as `k = s·e²` with `(s)` squarefree and `e` the chosen generator of `𝔈`, so that
 `T(X; k, f) = T(X; s, f e²)` (`compT_mul_sq`); apply Lemma 6.6 to the rows with the same `𝔈`, at the
 row bound `𝓗/N𝔈²` and the twist `f e²` of norm at most `D^{2C₀}`; and sum `1/N𝔈² ≤ 4(2κ+5)`
 (`sum_idealsLe_inv_sq_le`; the paper's `ζ_K(2)`). -/
-theorem completedMeanSquare_of_squarefree (h : SquarefreeCompleted) : CompletedMeanSquare := by
+theorem completedMeanSquareM_of_squarefree (h : SquarefreeCompletedM md) :
+    CompletedMeanSquareM md := by
   intro ε hε C₀ hC₀
   obtain ⟨J, hJ⟩ := h ε hε (2 * C₀) (by linarith)
   refine ⟨J, fun α β hα => ?_⟩
@@ -318,6 +329,10 @@ theorem completedMeanSquare_of_squarefree (h : SquarefreeCompleted) : CompletedM
     _ = max Kc 0 * (4 * (2 * kappa + 5)) * N ^ 2 * D ^ ε *
           (Hh + Hh ^ 2 * (absNorm f : ℝ) / X) := by rw [hB]; ring
 
+/-- Proposition 5.2 from Lemma 6.6 at the modulus `4` (round 339's statement). -/
+theorem completedMeanSquare_of_squarefree (h : SquarefreeCompleted) : CompletedMeanSquare :=
+  completedMeanSquareM_of_squarefree h
+
 /-- **The third conditional milestone with Lemma 6.6 displayed**:
 `SquarefreeCompleted → 11/12 < Re s → ζ(s) ≠ 0 ∧ L(s, χ₋₃) ≠ 0`. -/
 theorem ne_zero_of_squarefree (h : SquarefreeCompleted) {s : ℂ} (hs : 11 / 12 < s.re) :
@@ -330,5 +345,6 @@ end
 
 #print axioms Eis.compT_mul_sq
 #print axioms Eis.sum_idealsLe_inv_sq_le
+#print axioms Eis.completedMeanSquareM_of_squarefree
 #print axioms Eis.completedMeanSquare_of_squarefree
 #print axioms Eis.ne_zero_of_squarefree

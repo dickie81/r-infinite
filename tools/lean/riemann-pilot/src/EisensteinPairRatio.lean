@@ -1,9 +1,14 @@
 import EisensteinSecondPoisson
 
-/-! # The paired factor through the ratio class, and Lemma 7.2 in one character (round 322)
+/-! # The paired factor through the ratio class, and Lemma 7.2 in one character (round 322; round 492: the characters modulo `m`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) states the single expansion for the characters modulo any `m` with
+`4 ∣ m`: `pairH` reads `χ_z(4)Γ_quad(z)` through the class of `z` modulo `4` (`toFour`, `toFour_cls`),
+and `pairTerm_expandD`, `pair_char_formD` and `Mq_rowcolD` carry round 321's unit classes. `Γ_quad`,
+`lift4`, `chi4Cls`, `pairG` and `pairPsi_eq_pairG` stay modulo `4`.
 
 S5c-5, part 1, in round 316's plan. Round 321's `Mq_rowcol` expands the twisted paired factor in
-pairs `(ξ_a, ξ_b)` of characters modulo `4`, and its row factor `ā_{ξ_a}(w)a_{ξ_b}(w)` does not cancel
+pairs `(ξ_a, ξ_b)` of characters (modulo `m` since round 492), and its row factor `ā_{ξ_a}(w)a_{ξ_b}(w)` does not cancel
 when `ξ_a ≠ ξ_b`. The companion paper expands `ξ_1(z)G(z^{-1})` in single characters
 ("`\xi_1(z)G(z^{-1})=\sum_{\xi'}c_{\xi'}\xi'(z)`"), through its (4.7),
 "`\chi_a(-1)\overline{G(a)}G(b)\mathcal R(a,b)=G(ba^{-1})`". This file proves the pilot's form of (4.7)
@@ -17,7 +22,7 @@ and that expansion.
   `(𝒪/4𝒪)^×`".
 * `γ₃(n) = Γ_quad(n)` for `n = ∏_{P∈S} π_P` (`gamF_three_eq_gamQ`, from round 304's `gamF_three_eq`).
 * **The ratio class** (`lift4`, `chi4Cls`, `pairG`, **`pairPsi_eq_pairG`**): for disjoint `C₁, C₂` and
-  `w` with `cls4 C₁·w = cls4 C₂`, round 304's paired factor is `Ψ(C₁, C₂) = χ_w(4)·Γ_quad(w)`. Here
+  `w` with `cls 4 C₁·w = cls 4 C₂`, round 304's paired factor is `Ψ(C₁, C₂) = χ_w(4)·Γ_quad(w)`. Here
   `χ_w(4)` is `σ(u)` for the cube root of unity `u ≡ w (mod 2)` (round 304's `prod_chi6_four`), and
   `Γ_quad(c₁c₂) = Γ_quad(c₁²w) = Γ_quad(w)`.
 * **Functions of one class** (`classCoeff`, `fun_eq_sum_mulChar`, `norm_classCoeff_le`): a function
@@ -35,6 +40,8 @@ open scoped ComplexConjugate
 noncomputable section
 
 namespace Eis
+
+variable {m : 𝓞 K}
 
 /-! ### `Γ_quad` modulo `4` -/
 
@@ -136,11 +143,11 @@ theorem span_four_le_two {x : 𝓞 K} (hx : x ∈ span {(4 : 𝓞 K)}) : x ∈ s
 
 /-- **The paired factor through the ratio class** (the companion paper's (4.7),
 "`χ_a(-1)\overline{G(a)}G(b)\mathcal R(a,b)=G(ba^{-1})`", in round 304's form): for disjoint `C₁, C₂`
-and `w` with `cls4 C₁·w = cls4 C₂`, `Ψ(C₁, C₂) = χ_w(4)·Γ_quad(w)`. By round 304,
+and `w` with `cls 4 C₁·w = cls 4 C₂`, `Ψ(C₁, C₂) = χ_w(4)·Γ_quad(w)`. By round 304,
 `Ψ(C₁, C₂) = χ_{c₁}(4)⁻¹χ_{c₂}(4)·γ₃(c₁c₂)`; `χ_c(4)` is a character of `c mod 2`, and
 `γ₃(c₁c₂) = Γ_quad(c₁c₂) = Γ_quad(c₁²w) = Γ_quad(w)`. -/
 theorem pairPsi_eq_pairG {C1 C2 : Finset Pr} (hd : Disjoint C1 C2)
-    {w : 𝓞 K ⧸ span {(4 : 𝓞 K)}} (hw : cls4 C1 * w = cls4 C2) : pairPsi C1 C2 = pairG w := by
+    {w : 𝓞 K ⧸ span {(4 : 𝓞 K)}} (hw : cls 4 C1 * w = cls 4 C2) : pairPsi C1 C2 = pairG w := by
   set c1 := ∏ P ∈ C1, πP P with hc1
   set c2 := ∏ P ∈ C2, πP P with hc2
   set w' := lift4 w with hw'def
@@ -232,10 +239,18 @@ end UnitExpand
 
 /-! ### The diagonal expansion of the twisted pair -/
 
-/-- `ξ₁(z)·χ_z(4)Γ_quad(z)` on classes modulo `4`: the companion paper's `ξ_1(z)G(z^{-1})` of its
-Lemma 7.2, with its `G(c) = \overline{\chi_c(4)}\Gamma_{\rm quad}(c)` at `c = z⁻¹`. -/
-def pairH (ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (z : 𝓞 K ⧸ span {(4 : 𝓞 K)}) : ℂ :=
-  ξ1 z * pairG z
+/-- The class modulo `4` of a class modulo `m`, for `4 ∣ m`. -/
+def toFour [hm : Fact ((4 : 𝓞 K) ∣ m)] : 𝓞 K ⧸ span {m} →+* 𝓞 K ⧸ span {(4 : 𝓞 K)} :=
+  Ideal.Quotient.factor (Ideal.span_singleton_le_span_singleton.2 hm.out)
+
+theorem toFour_cls [Fact ((4 : 𝓞 K) ∣ m)] (C : Finset Pr) : toFour (cls m C) = cls 4 C :=
+  Ideal.Quotient.factor_mk _ _
+
+/-- `ξ₁(z)·χ_z(4)Γ_quad(z)` on classes modulo `m`, `4 ∣ m`, with `χ_z(4)Γ_quad(z)` read through the
+class of `z` modulo `4`: the companion paper's `ξ_1(z)G(z^{-1})` of its Lemma 7.2, with its
+`G(c) = \overline{\chi_c(4)}\Gamma_{\rm quad}(c)` at `c = z⁻¹`. -/
+def pairH [Fact ((4 : 𝓞 K) ∣ m)] (ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ) (z : 𝓞 K ⧸ span {m}) : ℂ :=
+  ξ1 z * pairG (toFour z)
 
 theorem norm_gamQ_le (c : 𝓞 K) : ‖gamQ c‖ ≤ 2 := by
   obtain ⟨a, b, rfl⟩ := exists_coords c
@@ -256,54 +271,57 @@ theorem norm_chi4Cls_le (z : 𝓞 K ⧸ span {(4 : 𝓞 K)}) : ‖chi4Cls z‖ �
     exact le_of_eq ((pow_eq_one_iff_of_nonneg (norm_nonneg _) (by norm_num)).1 h3)
   · rw [norm_zero]; exact zero_le_one
 
-theorem norm_pairH_le (ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (z : 𝓞 K ⧸ span {(4 : 𝓞 K)}) :
-    ‖pairH ξ1 z‖ ≤ 2 := by
+theorem norm_pairH_le [NeZero m] [Fact ((4 : 𝓞 K) ∣ m)] (ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ)
+    (z : 𝓞 K ⧸ span {m}) : ‖pairH ξ1 z‖ ≤ 2 := by
   unfold pairH pairG
   rw [norm_mul, norm_mul]
-  calc ‖ξ1 z‖ * (‖chi4Cls z‖ * ‖gamQ (lift4 z)‖) ≤ 1 * (1 * 2) :=
-        mul_le_mul (norm_xi_le ξ1 z) (mul_le_mul (norm_chi4Cls_le z) (norm_gamQ_le _)
+  calc ‖ξ1 z‖ * (‖chi4Cls (toFour z)‖ * ‖gamQ (lift4 (toFour z))‖) ≤ 1 * (1 * 2) :=
+        mul_le_mul (norm_xi_le ξ1 z) (mul_le_mul (norm_chi4Cls_le _) (norm_gamQ_le _)
           (norm_nonneg _) zero_le_one) (by positivity) zero_le_one
     _ = 2 := by ring
 
 /-- `|ĉ(ξ)| ≤ 2` for the coefficients of `pairH ξ₁`. -/
-theorem norm_classCoeff_pairH_le (ξ1 ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) :
+theorem norm_classCoeff_pairH_le [NeZero m] [Fact ((4 : 𝓞 K) ∣ m)]
+    (ξ1 ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) :
     ‖classCoeff (pairH ξ1) ξ‖ ≤ 2 :=
   norm_classCoeff_le _ (fun _ => norm_pairH_le ξ1 _) ξ
 
-theorem xi_units_inv (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (x : (𝓞 K ⧸ span {(4 : 𝓞 K)})ˣ) :
-    ξ ((x⁻¹ : (𝓞 K ⧸ span {(4 : 𝓞 K)})ˣ) : 𝓞 K ⧸ span {(4 : 𝓞 K)}) =
-      (ξ (x : 𝓞 K ⧸ span {(4 : 𝓞 K)}))⁻¹ := map_units_inv ξ x
+theorem xi_units_inv (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (x : (𝓞 K ⧸ span {m})ˣ) :
+    ξ ((x⁻¹ : (𝓞 K ⧸ span {m})ˣ) : 𝓞 K ⧸ span {m}) =
+      (ξ (x : 𝓞 K ⧸ span {m}))⁻¹ := map_units_inv ξ x
 
 /-- **The twisted pair coefficients in one character** (the companion paper's
 "`\mu(z_1)\mu(z_2)\xi_1(z_1)\overline{\xi_1(z_2)} \gamma(\overline{\chi_{z_1}}\chi_{z_2}) =\sum_{\xi'}c_{\xi'}a_{\xi'}(z_1)\overline{a_{\xi'}(z_2)}`",
 in round 308's orientation): for disjoint `C₁, C₂`,
 `ξ̄₁(C₁)ξ₁(C₂)·ā(C₁)a(C₂)Ψ(C₁, C₂) = Σ_ξ ĉ(ξ)·ā_ξ(C₁)a_ξ(C₂)`, with `ĉ` the coefficients of
 `pairH ξ₁`. -/
-theorem pairTerm_expandD (ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {C1 C2 : Finset Pr}
-    (hd : Disjoint C1 C2) :
-    conj (ξ1 (cls4 C1)) * ξ1 (cls4 C2) *
+theorem pairTerm_expandD [NeZero m] [Fact ((4 : 𝓞 K) ∣ m)] (ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ)
+    {C1 C2 : Finset Pr} (hd : Disjoint C1 C2) (hu1 : IsUnit (cls m C1)) (hu2 : IsUnit (cls m C2)) :
+    conj (ξ1 (cls m C1)) * ξ1 (cls m C2) *
         (conj (aF πP h6Pr C1) * aF πP h6Pr C2 * pairPsi C1 C2) =
-      ∑ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
+      ∑ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ,
         classCoeff (pairH ξ1) ξ * (conj (aXi ξ (idl C1)) * aXi ξ (idl C2)) := by
-  set x := (isUnit_cls4 C1).unit
-  set y := (isUnit_cls4 C2).unit
-  have hx : (x : 𝓞 K ⧸ span {(4 : 𝓞 K)}) = cls4 C1 := IsUnit.unit_spec _
-  have hy : (y : 𝓞 K ⧸ span {(4 : 𝓞 K)}) = cls4 C2 := IsUnit.unit_spec _
-  have hz : cls4 C1 * ((x⁻¹ * y : (𝓞 K ⧸ span {(4 : 𝓞 K)})ˣ) : 𝓞 K ⧸ span {(4 : 𝓞 K)}) =
-      cls4 C2 := by
+  set x := hu1.unit
+  set y := hu2.unit
+  have hx : (x : 𝓞 K ⧸ span {m}) = cls m C1 := IsUnit.unit_spec _
+  have hy : (y : 𝓞 K ⧸ span {m}) = cls m C2 := IsUnit.unit_spec _
+  have hz : cls m C1 * ((x⁻¹ * y : (𝓞 K ⧸ span {m})ˣ) : 𝓞 K ⧸ span {m}) =
+      cls m C2 := by
     rw [← hx, ← hy, ← Units.val_mul, ← mul_assoc, mul_inv_cancel, one_mul]
-  have hξ : ∀ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ,
-      ξ ((x⁻¹ * y : (𝓞 K ⧸ span {(4 : 𝓞 K)})ˣ) : 𝓞 K ⧸ span {(4 : 𝓞 K)}) =
-        conj (ξ (cls4 C1)) * ξ (cls4 C2) := by
+  have hξ : ∀ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ,
+      ξ ((x⁻¹ * y : (𝓞 K ⧸ span {m})ˣ) : 𝓞 K ⧸ span {m}) =
+        conj (ξ (cls m C1)) * ξ (cls m C2) := by
     intro ξ
-    rw [Units.val_mul, map_mul, xi_units_inv, hx, hy, conj_xi_cls4, MulChar.inv_apply_eq_inv']
-  rw [pairPsi_eq_pairG hd hz]
+    rw [Units.val_mul, map_mul, xi_units_inv, hx, hy, conj_xi_cls, MulChar.inv_apply_eq_inv']
+  have hz4 : cls 4 C1 * toFour ((x⁻¹ * y : (𝓞 K ⧸ span {m})ˣ) : 𝓞 K ⧸ span {m}) = cls 4 C2 := by
+    rw [← toFour_cls (m := m), ← toFour_cls (m := m), ← map_mul, hz]
+  rw [pairPsi_eq_pairG hd hz4]
   have hexp := fun_eq_sum_mulChar (pairH ξ1) (x⁻¹ * y)
-  have hP : conj (ξ1 (cls4 C1)) * ξ1 (cls4 C2) *
+  have hP : conj (ξ1 (cls m C1)) * ξ1 (cls m C2) *
       (conj (aF πP h6Pr C1) * aF πP h6Pr C2 *
-        pairG ((x⁻¹ * y : (𝓞 K ⧸ span {(4 : 𝓞 K)})ˣ) : 𝓞 K ⧸ span {(4 : 𝓞 K)})) =
+        pairG (toFour ((x⁻¹ * y : (𝓞 K ⧸ span {m})ˣ) : 𝓞 K ⧸ span {m}))) =
       conj (aF πP h6Pr C1) * aF πP h6Pr C2 *
-        pairH ξ1 ((x⁻¹ * y : (𝓞 K ⧸ span {(4 : 𝓞 K)})ˣ) : 𝓞 K ⧸ span {(4 : 𝓞 K)}) := by
+        pairH ξ1 ((x⁻¹ * y : (𝓞 K ⧸ span {m})ˣ) : 𝓞 K ⧸ span {m}) := by
     unfold pairH; rw [hξ]; ring
   rw [hP, hexp, Finset.mul_sum]
   refine Finset.sum_congr rfl fun ξ _ => ?_
@@ -311,29 +329,30 @@ theorem pairTerm_expandD (ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {C
   ring
 
 open Classical in
-/-- **One pair of twisted Möbius columns after Poisson summation, in one character modulo `4`**
+/-- **One pair of twisted Möbius columns after Poisson summation, in one character modulo `m`**
 (`pair_char_formTw` with `pairTerm_expandD` in place of the double expansion). -/
-theorem pair_char_formD (ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (H : ℝ) (hH : 0 < H)
-    {R : ℝ} (hR0 : 0 < R) (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0) {M Y : ℝ}
-    (hY : 3 * R ^ 2 * M ^ 2 ≤ 4 * H * Y) {A1 A2 : Finset Pr} (h1 : nI A1 ≤ M) (h2 : nI A2 ≤ M) :
-    conj (ξ1 (cls4 (A1 \ A2))) * ξ1 (cls4 (A2 \ A1)) *
+theorem pair_char_formD [NeZero m] [Fact ((4 : 𝓞 K) ∣ m)] (ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ)
+    (H : ℝ) (hH : 0 < H) {R : ℝ} (hR0 : 0 < R) (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0) {M Y : ℝ}
+    (hY : 3 * R ^ 2 * M ^ 2 ≤ 4 * H * Y) {A1 A2 : Finset Pr} (h1 : nI A1 ≤ M) (h2 : nI A2 ≤ M)
+    (hA : IsUnit (cls m (A1 ∪ A2))) :
+    conj (ξ1 (cls m (A1 \ A2))) * ξ1 (cls m (A2 \ A1)) *
       ((-1 : ℂ) ^ A1.card * (-1) ^ A2.card *
         ∑' u : 𝓞 K, chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt H : ℂ))) =
     (if A1 = A2 then ∑ T ∈ A1.powerset, (-1 : ℂ) ^ T.card * (kap H ∅ ∅ T : ℂ) * dualG 0 else 0) +
-      ∑ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, classCoeff (pairH ξ1) ξ *
+      ∑ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ, classCoeff (pairH ξ1) ξ *
         ∑ T ∈ (A1 ∩ A2).powerset, tauXi H ((eltsLe Y).erase 0) ξ ξ (A1 \ A2) (A2 \ A1) T := by
   rw [pairSum_clean H hH A1 A2, Finset.mul_sum]
   have hd : Disjoint (A1 \ A2) (A2 \ A1) := disjoint_sdiff_sdiff
   have hM0 : 0 ≤ M := le_trans zero_le_one ((one_le_nI A1).trans h1)
   have hsplit : ∀ T ∈ (A1 ∩ A2).powerset,
-      conj (ξ1 (cls4 (A1 \ A2))) * ξ1 (cls4 (A2 \ A1)) *
+      conj (ξ1 (cls m (A1 \ A2))) * ξ1 (cls m (A2 \ A1)) *
         ((-1 : ℂ) ^ T.card * (kap H (A1 \ A2) (A2 \ A1) T : ℂ) *
           (conj (aF πP h6Pr (A1 \ A2)) * aF πP h6Pr (A2 \ A1) * pairPsi (A1 \ A2) (A2 \ A1)) *
           (chiS (A1 \ A2) (∏ P ∈ T, πP P) * conj (chiS (A2 \ A1) (∏ P ∈ T, πP P))) *
           ∑' μ : 𝓞 K, conj (chiS (A1 \ A2) μ * conj (chiS (A2 \ A1) μ)) *
             dualW H (A1 \ A2) (A2 \ A1) T μ) =
       (if A1 = A2 then (-1 : ℂ) ^ T.card * (kap H ∅ ∅ T : ℂ) * dualG 0 else 0) +
-        ∑ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, classCoeff (pairH ξ1) ξ *
+        ∑ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ, classCoeff (pairH ξ1) ξ *
           tauXi H ((eltsLe Y).erase 0) ξ ξ (A1 \ A2) (A2 \ A1) T := by
     intro T hT
     have hTs : T ⊆ A1 ∩ A2 := Finset.mem_powerset.1 hT
@@ -347,13 +366,16 @@ theorem pair_char_formD (ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (H 
     · by_cases he : A1 = A2
       · have he' := sdiff_eq_empty_both.2 he
         rw [ite_eq_left he, ite_eq_left he', he'.1, he'.2]
-        simp only [cls4_empty, map_one, aF_empty, pairPsi_empty, chiS_empty]
+        simp only [cls_empty, map_one, aF_empty, pairPsi_empty, chiS_empty]
         ring
       · have hn : ¬(A1 \ A2 = ∅ ∧ A2 \ A1 = ∅) := fun h => he (sdiff_eq_empty_both.1 h)
         rw [ite_eq_right he, ite_eq_right hn, mul_zero, mul_zero]
     · have e : ∀ (x y s k P F S : ℂ), x * y * (s * k * P * F * S) = (x * y * P) * (s * k * F * S) :=
         fun x y s k P F S => by ring
-      rw [e, pairTerm_expandD ξ1 hd, Finset.sum_mul]
+      rw [e, pairTerm_expandD ξ1 hd
+        (isUnit_cls_of_subset (Finset.sdiff_subset.trans Finset.subset_union_left) hA)
+        (isUnit_cls_of_subset (Finset.sdiff_subset.trans Finset.subset_union_right) hA),
+        Finset.sum_mul]
       refine Finset.sum_congr rfl fun ξ _ => ?_
       unfold tauXi eS
       ring
@@ -367,44 +389,63 @@ theorem pair_char_formD (ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (H 
     rw [Finset.mul_sum]
 
 open Classical in
-/-- **The second mean square in row/column form, in one character modulo `4`** (the companion
+/-- **The second mean square in row/column form, in one character modulo `m`** (the companion
 paper's Lemma 7.2 before its regrouping, with its single expansion
 "`\xi_1(z)G(z^{-1})=\sum_{\xi'}c_{\xi'}\xi'(z)`"): `Mq_rowcol` with `Σ_ξ ĉ(ξ)·Σ rcQ(ξ, ξ)` in place of
 the sum over pairs of characters, `ĉ` the coefficients of `pairH ξ₁`. -/
-theorem Mq_rowcolD (ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {U : ℝ → ℂ} {β L : ℝ} (hβ : 0 ≤ β)
-    (hL : 0 < L) (hU : ∀ x, 2 * β < x → U x = 0) (b T V : Finset Pr) {Y : ℝ} (hY : 0 < Y)
-    {R : ℝ} (hR0 : 0 < R) (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0) {Y2 : ℝ}
+theorem Mq_rowcolD [NeZero m] [Fact ((4 : 𝓞 K) ∣ m)] (ξ1 : MulChar (𝓞 K ⧸ span {m}) ℂ)
+    {U : ℝ → ℂ} {β L : ℝ} (hβ : 0 ≤ β) (hL : 0 < L) (hU : ∀ x, 2 * β < x → U x = 0)
+    (b T V : Finset Pr) {Y : ℝ} (hY : 0 < Y) {R : ℝ} (hR0 : 0 < R)
+    (hR : ∀ ρ, R ≤ ρ → dualG ρ = 0) {Y2 : ℝ}
     (hY2 : 3 * R ^ 2 * (2 * β * ellS L b T V) ^ 2 ≤ 4 * Y * Y2) {U0 : Finset Pr}
-    (hU0 : primesLe (2 * β * ellS L b T V) ⊆ U0) :
+    (hU0 : ∀ P ∈ primesLe (2 * β * ellS L b T V), IsUnit (cls m {P}) → P ∈ U0)
+    (hUm : IsUnit (cls m U0)) :
     ∑' y : 𝓞 K, Pcol ξ1 U β L b T V y * conj (Pcol ξ1 U β L b T V y) *
         Majorant.Phi (σO y / (Real.sqrt Y : ℂ)) =
-      ∑ A ∈ fsLe (2 * β * ellS L b T V),
+      ∑ A ∈ (fsLe (2 * β * ellS L b T V)).filter (fun A => IsUnit (cls m A)),
           wQ U (ellS L b T V) (eS b ^ 4 * eS T ^ 5 * eS V ^ 6) A A *
             ∑ T2 ∈ A.powerset, (-1 : ℂ) ^ T2.card * (kap Y ∅ ∅ T2 : ℂ) * dualG 0 +
-        ∑ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, classCoeff (pairH ξ1) ξ *
+        ∑ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ, classCoeff (pairH ξ1) ξ *
           ∑ b2 ∈ U0.powerset, ∑ T2 ∈ (U0 \ b2).powerset, ∑ V2 ∈ (U0 \ (b2 ∪ T2)).powerset,
             ∑ μ ∈ (eltsLe Y2).erase 0,
               ∑ M1 ∈ ((U0 \ (b2 ∪ T2)) \ V2).powerset, ∑ M2 ∈ ((U0 \ (b2 ∪ T2)) \ V2).powerset,
                 rcQ U (ellS L b T V) Y (eS b ^ 4 * eS T ^ 5 * eS V ^ 6) ξ ξ b2 T2 V2 μ M1 M2 := by
   set ℓ := ellS L b T V with hℓdef
   set c := eS b ^ 4 * eS T ^ 5 * eS V ^ 6 with hcdef
-  set 𝒜 := fsLe (2 * β * ℓ) with h𝒜def
   have hℓ : 0 < ℓ := ellS_pos hL b T V
   have hΛ : 0 ≤ 2 * β * ℓ := by positivity
   rw [Mq_expand ξ1 U β L b T V hY]
+  have h1 : ∀ A1 A2 : Finset Pr, ¬IsUnit (cls m A1) →
+      alphaQ ξ1 U ℓ c A1 * conj (alphaQ ξ1 U ℓ c A2) *
+        ∑' u : 𝓞 K, chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt Y : ℂ)) = 0 :=
+    fun A1 A2 h => by rw [alphaQ_eq_zero ξ1 U ℓ c h]; simp
+  have h2 : ∀ A1 A2 : Finset Pr, ¬IsUnit (cls m A2) →
+      alphaQ ξ1 U ℓ c A1 * conj (alphaQ ξ1 U ℓ c A2) *
+        ∑' u : 𝓞 K, chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt Y : ℂ)) = 0 :=
+    fun A1 A2 h => by rw [alphaQ_eq_zero ξ1 U ℓ c h]; simp
+  rw [sum_sum_filter_eq h1 h2]
+  set 𝒜 := (fsLe (2 * β * ℓ)).filter (fun A => IsUnit (cls m A)) with h𝒜def
+  have h𝒜U : ∀ A ∈ 𝒜, A ⊆ U0 := fun A hA P hP => by
+    obtain ⟨hA1, hA2⟩ := Finset.mem_filter.1 hA
+    exact hU0 P (subset_primesLe hA1 hP)
+      (isUnit_cls_of_subset (Finset.singleton_subset_iff.2 hP) hA2)
   have hpair : ∀ A1 ∈ 𝒜, ∀ A2 ∈ 𝒜,
       alphaQ ξ1 U ℓ c A1 * conj (alphaQ ξ1 U ℓ c A2) *
         ∑' u : 𝓞 K, chiS A1 u * conj (chiS A2 u) * Majorant.Phi (σO u / (Real.sqrt Y : ℂ)) =
       (if A1 = A2 then wQ U ℓ c A1 A1 *
           ∑ T2 ∈ A1.powerset, (-1 : ℂ) ^ T2.card * (kap Y ∅ ∅ T2 : ℂ) * dualG 0 else 0) +
-        ∑ ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, classCoeff (pairH ξ1) ξ *
+        ∑ ξ : MulChar (𝓞 K ⧸ span {m}) ℂ, classCoeff (pairH ξ1) ξ *
           (wQ U ℓ c A1 A2 * ∑ T2 ∈ (A1 ∩ A2).powerset,
             tauXi Y ((eltsLe Y2).erase 0) ξ ξ (A1 \ A2) (A2 \ A1) T2) := by
     intro A1 hA1 A2 hA2
-    rw [alphaQ_pair]
+    have hun : IsUnit (cls m (A1 ∪ A2)) :=
+      isUnit_cls_of_subset (Finset.union_subset (h𝒜U A1 hA1) (h𝒜U A2 hA2)) hUm
+    rw [alphaQ_pair ξ1 U ℓ c A1 A2
+      (isUnit_cls_of_subset (Finset.inter_subset_left.trans Finset.subset_union_left) hun)]
     have e : ∀ (w x s S : ℂ), w * (x * s) * S = w * (x * (s * S)) := fun w x s S => by ring
-    rw [e, pair_char_formD ξ1 Y hY hR0 hR hY2 (nI_le_of_mem_fsLe_real hΛ hA1)
-      (nI_le_of_mem_fsLe_real hΛ hA2), mul_add]
+    rw [e, pair_char_formD ξ1 Y hY hR0 hR hY2
+      (nI_le_of_mem_fsLe_real hΛ (Finset.mem_filter.1 hA1).1)
+      (nI_le_of_mem_fsLe_real hΛ (Finset.mem_filter.1 hA2).1) hun, mul_add]
     congr 1
     · split_ifs with he
       · subst he; rfl
@@ -421,10 +462,12 @@ theorem Mq_rowcolD (ξ1 : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {U : ℝ
     refine Finset.sum_congr rfl fun ξ _ => ?_
     simp_rw [← Finset.mul_sum]
     congr 1
-    refine xi_chainQ U hℓ c _ ξ ξ U0 𝒜 (fun A hA => (subset_primesLe hA).trans hU0) ?_
-    intro A _ hA
+    refine xi_chainQ U hℓ c _ ξ ξ U0 𝒜 h𝒜U ?_
+    intro A hAU hA
     refine hU _ ?_
-    have := lt_nI_of_not_mem_fsLe hA
+    have hA' : A ∉ fsLe (2 * β * ℓ) := fun h =>
+      hA (Finset.mem_filter.2 ⟨h, isUnit_cls_of_subset hAU hUm⟩)
+    have := lt_nI_of_not_mem_fsLe hA'
     rw [lt_div_iff₀ hℓ]; linarith
 
 end Eis
@@ -445,6 +488,7 @@ end
 #print axioms Eis.norm_classCoeff_le
 #print axioms Eis.norm_gamQ_le
 #print axioms Eis.norm_chi4Cls_le
+#print axioms Eis.toFour_cls
 #print axioms Eis.norm_pairH_le
 #print axioms Eis.norm_classCoeff_pairH_le
 #print axioms Eis.xi_units_inv

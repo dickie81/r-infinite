@@ -1,6 +1,10 @@
 import EisensteinTransferRegroup
 
-/-! # Lemma 7.3, part 2: the column mean square of a block (round 324)
+/-! # Lemma 7.3, part 2: the column mean square of a block (round 324; round 492: the characters modulo `md`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) states this file for the characters modulo any nonzero `md` (named so
+because `ChildBound` binds `m : ℕ`): `ChildBound md` quantifies over the characters modulo `md`, and
+the sets `U₀` contain the primes whose class modulo `md` is a unit.
 
 S5c-5, part 3, in round 316's plan. In the companion paper's proof of Lemma 7.3 the columns are
 "`a^\sharp(n) =a_{\xi'}(n)\ind_{(n,r)=1}\chi_n(k')\chi_n(f')^4`", and for each dyadic block
@@ -30,6 +34,8 @@ noncomputable section
 
 namespace Eis
 
+variable {md : 𝓞 K}
+
 /-! ### The columns of a row as an excluded column sum -/
 
 /-- The element `f′ = d_b·d_T·d_{T₂}·d_{V₂}` of a row. -/
@@ -37,7 +43,7 @@ def fQe (ρ : RowQ) : 𝓞 K := eS ρ.1.1 * eS ρ.1.2.1 * eS ρ.2.1.2.1 * eS ρ.
 
 /-- **The column factor of a row** (the companion paper's regrouping
 `χ_n(d_{T₂}h·(d_{T₂}w)⁴·b⁴T⁵V⁶) = χ_n(k′f′⁴)·χ_n(V)⁶`): `colQ = colA ξ k′ f′·χ_M(d_V)⁶`. -/
-theorem colQ_eq (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (ρ : RowQ) (M : Finset Pr) :
+theorem colQ_eq (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) (ρ : RowQ) (M : Finset Pr) :
     colQ ξ ρ M = colA ξ (kQ ρ) (fQe ρ) M * chiS M (eS ρ.1.2.2) ^ 6 := by
   unfold colQ colA kQ fQe
   simp only [chiS_mul, chiS_pow]
@@ -82,7 +88,7 @@ theorem disjoint_V_of_mem_colB {U0 : Finset Pr} {ρ : RowQ} {n : Finset Pr} (h :
 
 open Classical in
 /-- The coefficients `aQ` live on `colB`, where they are `conj(colA ξ k′ f′)`. -/
-theorem sum_aQ_eq_colB (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U0 : Finset Pr) (ρ : RowQ)
+theorem sum_aQ_eq_colB (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) (U0 : Finset Pr) (ρ : RowQ)
     (g : Finset Pr → ℂ) :
     ∑ n ∈ U0.powerset, aQ U0 ξ ρ n * g n =
       ∑ n ∈ colB U0 ρ, conj (colA ξ (kQ ρ) (fQe ρ) n) * g n := by
@@ -117,7 +123,7 @@ theorem sum_aQ_eq_colB (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U0 :
 open Classical in
 /-- The excluded column sum lives on `colB`: its columns prime to `r = V ∪ b₂` that meet `T₂ ∪ V₂`
 have `colA ξ k′ f′ = 0`, since `T₂ ∪ V₂` divides `f′`. -/
-theorem sum_rQ_eq_colB (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U0 : Finset Pr) (ρ : RowQ)
+theorem sum_rQ_eq_colB (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) (U0 : Finset Pr) (ρ : RowQ)
     (g : Finset Pr → ℂ) :
     ∑ M ∈ (U0 \ rQ ρ).powerset, colA ξ (kQ ρ) (fQe ρ) M * g M =
       ∑ n ∈ colB U0 ρ, colA ξ (kQ ρ) (fQe ρ) n * g n := by
@@ -154,11 +160,12 @@ theorem sum_rQ_eq_colB (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (U0 :
 open Classical in
 /-- **A row's column sum is a column sum with exclusion** (the companion paper's columns
 `Σ_{(n, r) = 1} a_ξ(n)χ_n(k′f′⁴)W(N(n)/X)` of Lemma 7.3): for a test function `U` vanishing beyond `β'`
-and `U₀` containing the primes of norm at most `β'X`, `X = L/(RF′)`,
+and `U₀` containing the primes of norm at most `β'X` whose class modulo `md` is a unit, `X = L/(RF′)`,
 `Σ_{n ⊆ U₀} aQ(n)·U(x_n) = conj(C_r(X; k′, f′))` for the conjugated test function. -/
-theorem sum_aQ_eq_colSum (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {U : ℝ → ℂ} {β' : ℝ}
+theorem sum_aQ_eq_colSum (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) {U : ℝ → ℂ} {β' : ℝ}
     (hU : ∀ x, β' < x → U x = 0) {L R Fp : ℝ} (hL : 0 < L) (hR : 0 < R) (hFp : 0 < Fp)
-    {U0 : Finset Pr} (hU0 : primesLe (β' * (L / (R * Fp))) ⊆ U0) {β H S F : ℝ} {ρ : RowQ}
+    {U0 : Finset Pr} (hU0 : ∀ P ∈ primesLe (β' * (L / (R * Fp))), IsUnit (cls md {P}) → P ∈ U0)
+    {β H S F : ℝ} {ρ : RowQ}
     (hρ : ρ ∈ rowsQ U0 β H L S F) :
     ∑ n ∈ U0.powerset, aQ U0 ξ ρ n * U (xQ L R Fp n) =
       conj (colSum ξ (fun x => conj (U x)) (L / (R * Fp)) (idl (rQ ρ)) (kQ ρ)
@@ -300,10 +307,10 @@ theorem sum_phiQ_le {U0 : Finset Pr} {β H L S F : ℝ} {s : Finset RowQ}
 hypothesis, verbatim): the row sums at `𝓗′, X′, F′ ≥ 1` with `𝓗′ ≤ 𝓗L/(ΣF)`, `𝓗′/(X′F′) ≤ 𝓗/Σ` and
 `X′F′ ≤ L`, for test functions supported in `[α/16, 4β]` with their first `m` derivatives bounded by
 `1`, are at most `M·(X′F′)²`. -/
-def ChildBound (α β : ℝ) (m : ℕ) (Hh L S F M : ℝ) : Prop :=
+def ChildBound (md : 𝓞 K) (α β : ℝ) (m : ℕ) (Hh L S F M : ℝ) : Prop :=
   ∀ Hh' X' F' : ℝ, 1 ≤ Hh' → 1 ≤ X' → 1 ≤ F' → Hh' ≤ Hh * L / (S * F) →
     Hh' / (X' * F') ≤ Hh / S → X' * F' ≤ L →
-    ∀ ξ' : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ, ∀ U : ℝ → ℂ, ContDiff ℝ ∞ U →
+    ∀ ξ' : MulChar (𝓞 K ⧸ span {md}) ℂ, ∀ U : ℝ → ℂ, ContDiff ℝ ∞ U →
       (∀ x, x < α / 16 ∨ 4 * β < x → U x = 0) →
       (∀ i ≤ m, ∀ x, ‖iteratedDeriv i U x‖ ≤ 1) →
     ∀ (Fs' : Finset (Ideal (𝓞 K))) (T' : Finset (𝓞 K)),
@@ -312,7 +319,7 @@ def ChildBound (α β : ℝ) (m : ℕ) (Hh L S F M : ℝ) : Prop :=
       (∀ k ∈ T', k ≠ 0 ∧ (absNorm (span {k}) : ℝ) ≤ Hh') →
       rowE ξ' U X' Fs' T' ≤ M * (X' * F') ^ 2
 
-theorem colSum_const_mul (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (c : ℂ) (W : ℝ → ℂ)
+theorem colSum_const_mul (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) (c : ℂ) (W : ℝ → ℂ)
     (X : ℝ) (R : Ideal (𝓞 K)) (k f : 𝓞 K) :
     colSum ξ (fun x => c * W x) X R k f = c * colSum ξ W X R k f := by
   unfold colSum
@@ -321,7 +328,7 @@ theorem colSum_const_mul (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (c 
   funext I
   ring
 
-theorem rowE_const_mul (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (c : ℂ) (W : ℝ → ℂ) (X : ℝ)
+theorem rowE_const_mul (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) (c : ℂ) (W : ℝ → ℂ) (X : ℝ)
     (Fs : Finset (Ideal (𝓞 K))) (T : Finset (𝓞 K)) :
     rowE ξ (fun x => c * W x) X Fs T = ‖c‖ ^ 2 * rowE ξ W X Fs T := by
   unfold rowE
@@ -333,10 +340,10 @@ theorem rowE_const_mul (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (c : 
 
 /-- **The child hypothesis for test functions with derivatives bounded by `N`**: the row sums are at
 most `M·N²·(X′F′)²`. -/
-theorem ChildBound.scaled {α β : ℝ} {m : ℕ} {Hh L S F M : ℝ} (hM : ChildBound α β m Hh L S F M)
+theorem ChildBound.scaled {α β : ℝ} {m : ℕ} {Hh L S F M : ℝ} (hM : ChildBound md α β m Hh L S F M)
     {Hh' X' F' : ℝ} (h1 : 1 ≤ Hh') (h2 : 1 ≤ X') (h3 : 1 ≤ F') (h4 : Hh' ≤ Hh * L / (S * F))
     (h5 : Hh' / (X' * F') ≤ Hh / S) (h6 : X' * F' ≤ L)
-    (ξ' : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {U : ℝ → ℂ} (hU : ContDiff ℝ ∞ U)
+    (ξ' : MulChar (𝓞 K ⧸ span {md}) ℂ) {U : ℝ → ℂ} (hU : ContDiff ℝ ∞ U)
     (hUs : ∀ x, x < α / 16 ∨ 4 * β < x → U x = 0) {N : ℝ}
     (hN : ∀ i ≤ m, ∀ x, ‖iteratedDeriv i U x‖ ≤ N) (Fs' : Finset (Ideal (𝓞 K)))
     (T' : Finset (𝓞 K))
@@ -387,10 +394,10 @@ theorem Ctriv_nonneg {β : ℝ} (hβ : 0 ≤ β) : 0 ≤ Ctriv β := by
 hypothesis after Lemma 4.4): at the scale `X′ = L/(RF′N(S))` with rows of norm in
 `[N(S)F′, 2N(S)F′)` and `N(k) ≤ 𝓗L/(ΣFR²)`, the row sum is at most `(M + C_triv)·N²·(L/R)²`. Long
 children (`X′ ≥ 1`) go to the hypothesis; short ones are counted (`rowE_le_count`). -/
-theorem child_rowE_le {α β : ℝ} (hβ : 0 ≤ β) {m : ℕ} {Hh L S F M : ℝ}
-    (hM : ChildBound α β m Hh L S F M) (hM0 : 0 ≤ M) (hHS : Hh ≤ S) (hF : 1 ≤ F) (hL : 0 < L)
+theorem child_rowE_le [NeZero md] {α β : ℝ} (hβ : 0 ≤ β) {m : ℕ} {Hh L S F M : ℝ}
+    (hM : ChildBound md α β m Hh L S F M) (hM0 : 0 ≤ M) (hHS : Hh ≤ S) (hF : 1 ≤ F) (hL : 0 < L)
     (hH : 0 < Hh) {R Fp nS : ℝ} (hR : 1 ≤ R) (hFp : 1 ≤ Fp) (hRF : R * Fp ≤ 2 * β * L)
-    (hnS1 : 1 ≤ nS) (hnS : nS < 2 * R) (ξ' : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) {U : ℝ → ℂ}
+    (hnS1 : 1 ≤ nS) (hnS : nS < 2 * R) (ξ' : MulChar (𝓞 K ⧸ span {md}) ℂ) {U : ℝ → ℂ}
     (hU : ContDiff ℝ ∞ U) (hUs : ∀ x, x < α / 16 ∨ 4 * β < x → U x = 0) {N : ℝ}
     (hN : ∀ i ≤ m, ∀ x, ‖iteratedDeriv i U x‖ ≤ N) (Fs' : Finset (Ideal (𝓞 K)))
     (T' : Finset (𝓞 K))
@@ -537,10 +544,10 @@ bounded by `N`, the block's rows satisfy
 sum (`sum_aQ_eq_colSum`), the rows are counted by `(r, f′, k′)` with multiplicity at most
 `B ≥ 2^{|r|}8^{|f′|}` (`sum_phiQ_le`), the exclusion is removed by Lemma 4.4
 (`colSum_excl_meanSquare_le`) and each child is bounded by `child_rowE_le`. -/
-theorem blockQ_colMS {α β : ℝ} (hβ : 0 ≤ β) {m : ℕ} {Hh L S F M : ℝ}
-    (hM : ChildBound α β m Hh L S F M) (hM0 : 0 ≤ M) (hHS : Hh ≤ S) (hF : 1 ≤ F) (hL : 0 < L)
-    (hH : 0 < Hh) {U0 : Finset Pr} (hU0 : primesLe (4 * β * L) ⊆ U0)
-    (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (p : ℕ × ℕ) {Bm : ℝ}
+theorem blockQ_colMS [NeZero md] {α β : ℝ} (hβ : 0 ≤ β) {m : ℕ} {Hh L S F M : ℝ}
+    (hM : ChildBound md α β m Hh L S F M) (hM0 : 0 ≤ M) (hHS : Hh ≤ S) (hF : 1 ≤ F) (hL : 0 < L)
+    (hH : 0 < Hh) {U0 : Finset Pr} (hU0 : ∀ P ∈ primesLe (4 * β * L), IsUnit (cls md {P}) → P ∈ U0)
+    (ξ : MulChar (𝓞 K ⧸ span {md}) ℂ) (p : ℕ × ℕ) {Bm : ℝ}
     (hBm : ∀ ρ ∈ blkQ U0 β Hh L S F p, (2 : ℝ) ^ (rQ ρ).card * 8 ^ (fQ ρ).card ≤ Bm)
     {U : ℝ → ℂ} (hU : ContDiff ℝ ∞ U) (hUs : ∀ x, x < α / 16 ∨ 4 * β < x → U x = 0) {N : ℝ}
     (hN : ∀ i ≤ m, ∀ x, ‖iteratedDeriv i U x‖ ≤ N) :
@@ -560,8 +567,8 @@ theorem blockQ_colMS {α β : ℝ} (hβ : 0 ≤ β) {m : ℕ} {Hh L S F M : ℝ}
   set X := L / (R * Fp) with hXdef
   have hX0 : 0 < X := by positivity
   have hXL : X ≤ L := div_le_self hL.le (one_le_mul_of_one_le_of_one_le hR1 hFp1)
-  have hU0' : primesLe (4 * β * X) ⊆ U0 :=
-    (primesLe_mono (mul_le_mul_of_nonneg_left hXL (by positivity))).trans hU0
+  have hU0' : ∀ P ∈ primesLe (4 * β * X), IsUnit (cls md {P}) → P ∈ U0 := fun P hP hu =>
+    hU0 P (primesLe_mono (mul_le_mul_of_nonneg_left hXL (by positivity)) hP) hu
   set Ub : ℝ → ℂ := fun x => conj (U x) with hUb
   have hW : ∀ x, 4 * β < x → U x = 0 := fun x hx => hUs x (Or.inr hx)
   have hWb : ∀ x, 4 * β < x → Ub x = 0 := fun x hx => by simp only [hUb, hW x hx, map_zero]

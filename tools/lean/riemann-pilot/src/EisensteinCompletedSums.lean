@@ -1,6 +1,9 @@
 import EisensteinMeanSquareDual
 
-/-! # The completed sums and the cube inversion (round 313)
+/-! # The completed sums and the cube inversion (round 313; round 492: the characters modulo `m`)
+
+Round 492 (step 1 of round 491's plan for door 5(b)) states the twist, the completed sums and the cube inversion for the
+characters modulo any `m`, and the bound `norm_twistPsi_le` for `m ≠ 0`.
 
 S5 of round 312's plan, part 1 (S5a): the companion paper's completed sum (5.3) and its cube
 inversion (5.8), on the ideals of `ℤ[ω]`.
@@ -30,6 +33,8 @@ open scoped ComplexConjugate
 noncomputable section
 
 namespace Eis
+
+variable {m : 𝓞 K}
 
 /-! ### Primary generators of the ideals prime to `6` -/
 
@@ -83,11 +88,11 @@ theorem alphaI_one : alphaI (1 : Ideal (𝓞 K)) = 1 := by
 open Classical in
 /-- `Ψ(𝔫) = ξ(n)·(k/𝔫)₆·(f/𝔫)₆⁴` for an ideal `𝔫` of norm prime to `6` with primary generator `n`,
 and `0` otherwise: the twist `Ψ_k` of the companion paper's (5.4), extended to all ideals. -/
-def twistPsi (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K) (I : Ideal (𝓞 K)) : ℂ :=
+def twistPsi (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (k f : 𝓞 K) (I : Ideal (𝓞 K)) : ℂ :=
   if (absNorm I).Coprime 6 then ξ (Ideal.Quotient.mk _ (pgen I)) * sym6 k I * sym6 f I ^ 4 else 0
 
 /-- **`Ψ` is completely multiplicative.** -/
-theorem twistPsi_mul (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K) (I J : Ideal (𝓞 K)) :
+theorem twistPsi_mul (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (k f : 𝓞 K) (I J : Ideal (𝓞 K)) :
     twistPsi ξ k f (I * J) = twistPsi ξ k f I * twistPsi ξ k f J := by
   unfold twistPsi
   by_cases hI : (absNorm I).Coprime 6
@@ -103,14 +108,14 @@ theorem twistPsi_mul (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 
       rw [map_mul, Nat.coprime_mul_iff_left]; exact fun h => hI h.1
     rw [ite_eq_right this, ite_eq_right hI, zero_mul]
 
-theorem twistPsi_one (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K) :
+theorem twistPsi_one (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (k f : 𝓞 K) :
     twistPsi ξ k f 1 = 1 := by
   unfold twistPsi
   rw [ite_eq_left (by rw [map_one]; norm_num), pgen_one, map_one, map_one, sym6_one_right,
     sym6_one_right]
   ring
 
-theorem norm_twistPsi_le (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K) (I : Ideal (𝓞 K)) :
+theorem norm_twistPsi_le [NeZero m] (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (k f : 𝓞 K) (I : Ideal (𝓞 K)) :
     ‖twistPsi ξ k f I‖ ≤ 1 := by
   unfold twistPsi
   split_ifs
@@ -191,7 +196,7 @@ theorem tsum_moebius_dvd {C : Ideal (𝓞 K)} (hC : (absNorm C).Coprime 6) :
 
 section Completed
 
-variable (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K)
+variable (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (k f : 𝓞 K)
 
 /-- `V_*(y) = √y·W(y)`, the weight of the companion paper's (5.3). -/
 def Vstar (W : ℝ → ℂ) (y : ℝ) : ℂ := ((Real.sqrt y : ℝ) : ℂ) * W y
@@ -325,7 +330,7 @@ end Completed
 
 section Inversion
 
-variable (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K)
+variable (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (k f : 𝓞 K)
 
 /-- The cube term `F(𝔠) = ᾱ(𝔠)³Ψ(𝔠)³/N𝔠 · V_*(n·N𝔠³/X)`. -/
 def cubeF (W : ℝ → ℂ) (X n : ℝ) (C : Ideal (𝓞 K)) : ℂ :=
@@ -445,7 +450,7 @@ end Inversion
 
 section Inversion2
 
-variable (ξ : MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ) (k f : 𝓞 K)
+variable (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (k f : 𝓞 K)
 
 /-- The column sum of the dual mean square as a finite sum of the completed sums' column
 coefficients, over the ideals of norm at most `βX`. -/

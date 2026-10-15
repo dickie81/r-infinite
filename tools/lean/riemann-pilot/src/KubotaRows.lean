@@ -23,6 +23,12 @@ display `Eis.ThetaRows` (round 341), from the display `Eis.KubotaTheta` (round 3
   `J = 16`, `M = 9·72`, and the residues modulo `72` as the indices `i`.
 * **The half-plane** (**`ne_zero_of_kubotaTheta`**): `ζ(s)L(s, χ₋₃) ≠ 0` for `Re s > 11/12`, from
   `KubotaTheta`.
+
+Round 493 (step 2 of round 491's plan for door 5(b)): the assembly at every modulus `md ≠ 0`
+(**`thetaRowsM_of_kubota`**: `KubotaTheta → ThetaRowsM md`), with `M = 9·72·md` and the residues modulo `72·md`
+as the indices `i`; the active sets run over round 493's `admissible md t g` and the inactive primes over
+`tgPrimes md t g` (`sum_rowPs_admissible`). `thetaRows_of_kubota` is the case `md = 4`, and at `md = 4` the
+display's new hypothesis on the rows holds for every row of norm prime to `6` (`isCoprime_four_of_coprime6`).
 -/
 
 open Real Set Filter MeasureTheory Complex NumberField Ideal Asymptotics UniqueFactorizationMonoid
@@ -266,20 +272,21 @@ theorem dual_sum_eq {Kc : ℝ} {dH : 𝓞 K → ℂ} (hdH : ThetaSupp Kc dH) {D 
     rw [hval q (hgood q h1)]
 
 /-- **The active sets of the rows** (the companion paper's `𝒜 = 𝒜_fix ∪ {p : p ∣ k₀}`): in the sum over the
-subsets `𝒜` of the primes of `tg` and of `k₀`, the groups with an inactive prime of exponent `≢ 0` vanish.
-The others are `𝒜_fix ∪ {P ∣ k₀}` with `𝒜_fix` admissible, and their inactive primes are those of `tg`
-outside `𝒜_fix`. -/
-theorem sum_rowPs_admissible {t g k₀ : 𝓞 K} (hcop : IsCoprime k₀ (t * g)) (F : Finset Pr → ℂ) :
-    ∑ A ∈ (rowPs t g k₀).powerset, (∏ P ∈ rowPs t g k₀ \ A, locCoef P (rowJ t g k₀ P) 0) * F A =
-      ∑ A' ∈ admissible t g, (∏ P ∈ primeSet (span {t * g}) \ A', locCoef P (jFix t g P) 0) *
+subsets `𝒜` of `𝒫_fix = tgPrimes md t g` and of the primes of `k₀`, the groups with an inactive prime of
+exponent `≢ 0` vanish. The others are `𝒜_fix ∪ {P ∣ k₀}` with `𝒜_fix` admissible, and their inactive primes are
+those of `𝒫_fix` outside `𝒜_fix`. -/
+theorem sum_rowPs_admissible {md t g k₀ : 𝓞 K} (hcop : IsCoprime k₀ (t * g)) (F : Finset Pr → ℂ) :
+    ∑ A ∈ (rowPs md t g k₀).powerset, (∏ P ∈ rowPs md t g k₀ \ A, locCoef P (rowJ t g k₀ P) 0) * F A =
+      ∑ A' ∈ admissible md t g, (∏ P ∈ tgPrimes md t g \ A', locCoef P (jFix t g P) 0) *
         F (A' ∪ primeSet (span {k₀})) := by
   classical
-  have hdisj : Disjoint (primeSet (span {t * g})) (primeSet (span {k₀})) := disjoint_primeSet hcop
-  have hsub : ∀ A' ∈ admissible t g, A' ⊆ primeSet (span {t * g}) := fun A' h =>
+  have hdisj : Disjoint (tgPrimes md t g) (primeSet (span {k₀})) :=
+    Finset.disjoint_of_subset_left (tgPrimes_subset md t g) (disjoint_primeSet hcop)
+  have hsub : ∀ A' ∈ admissible md t g, A' ⊆ tgPrimes md t g := fun A' h =>
     Finset.mem_powerset.1 (Finset.mem_filter.1 h).1
   -- the inactive primes of `𝒜_fix ∪ {P ∣ k₀}`
-  have hsd : ∀ A' ∈ admissible t g, rowPs t g k₀ \ (A' ∪ primeSet (span {k₀})) =
-      primeSet (span {t * g}) \ A' := by
+  have hsd : ∀ A' ∈ admissible md t g, rowPs md t g k₀ \ (A' ∪ primeSet (span {k₀})) =
+      tgPrimes md t g \ A' := by
     intro A' hA'
     ext P
     simp only [rowPs, Finset.mem_sdiff, Finset.mem_union]
@@ -289,28 +296,28 @@ theorem sum_rowPs_admissible {t g k₀ : 𝓞 K} (hcop : IsCoprime k₀ (t * g))
       · exact absurd (Or.inr h1) h2
     · rintro ⟨h1, h2⟩
       exact ⟨Or.inl h1, fun h => h.elim h2 (Finset.disjoint_left.1 hdisj h1)⟩
-  have hloc : ∀ A' ∈ admissible t g,
-      ∏ P ∈ rowPs t g k₀ \ (A' ∪ primeSet (span {k₀})), locCoef P (rowJ t g k₀ P) 0 =
-        ∏ P ∈ primeSet (span {t * g}) \ A', locCoef P (jFix t g P) 0 := by
+  have hloc : ∀ A' ∈ admissible md t g,
+      ∏ P ∈ rowPs md t g k₀ \ (A' ∪ primeSet (span {k₀})), locCoef P (rowJ t g k₀ P) 0 =
+        ∏ P ∈ tgPrimes md t g \ A', locCoef P (jFix t g P) 0 := by
     intro A' hA'
     rw [hsd A' hA']
     refine Finset.prod_congr rfl fun P hP => ?_
     rw [rowJ, ite_eq_right (Finset.disjoint_left.1 hdisj (Finset.mem_sdiff.1 hP).1)]
-  have hinj : Set.InjOn (fun A' => A' ∪ primeSet (span {k₀})) (admissible t g : Set (Finset Pr)) := by
+  have hinj : Set.InjOn (fun A' => A' ∪ primeSet (span {k₀})) (admissible md t g : Set (Finset Pr)) := by
     intro A₁ h₁ A₂ h₂ he
-    have e : ∀ A' ∈ admissible t g, (A' ∪ primeSet (span {k₀})) \ primeSet (span {k₀}) = A' := by
+    have e : ∀ A' ∈ admissible md t g, (A' ∪ primeSet (span {k₀})) \ primeSet (span {k₀}) = A' := by
       intro A' hA'
       rw [Finset.union_sdiff_right, Finset.sdiff_eq_self_of_disjoint
         (Finset.disjoint_of_subset_left (hsub A' hA') hdisj)]
     rw [← e A₁ h₁, ← e A₂ h₂]
     exact congrArg (· \ primeSet (span {k₀})) he
   symm
-  rw [show (∑ A' ∈ admissible t g, (∏ P ∈ primeSet (span {t * g}) \ A', locCoef P (jFix t g P) 0) *
+  rw [show (∑ A' ∈ admissible md t g, (∏ P ∈ tgPrimes md t g \ A', locCoef P (jFix t g P) 0) *
         F (A' ∪ primeSet (span {k₀}))) =
-      ∑ A' ∈ admissible t g, (fun A => (∏ P ∈ rowPs t g k₀ \ A, locCoef P (rowJ t g k₀ P) 0) * F A)
+      ∑ A' ∈ admissible md t g, (fun A => (∏ P ∈ rowPs md t g k₀ \ A, locCoef P (rowJ t g k₀ P) 0) * F A)
         (A' ∪ primeSet (span {k₀})) from
       Finset.sum_congr rfl fun A' hA' => by simp only []; rw [hloc A' hA']]
-  refine (Finset.sum_image (f := fun A => (∏ P ∈ rowPs t g k₀ \ A, locCoef P (rowJ t g k₀ P) 0) * F A)
+  refine (Finset.sum_image (f := fun A => (∏ P ∈ rowPs md t g k₀ \ A, locCoef P (rowJ t g k₀ P) 0) * F A)
     hinj).symm.trans ?_
   refine Finset.sum_subset ?_ fun A hA hnot => ?_
   · intro A hA
@@ -319,15 +326,15 @@ theorem sum_rowPs_admissible {t g k₀ : 𝓞 K} (hcop : IsCoprime k₀ (t * g))
     exact Finset.union_subset_union (hsub A' hA') le_rfl
   · -- the groups outside the image vanish
     by_contra hne
-    have hprod : ∏ P ∈ rowPs t g k₀ \ A, locCoef P (rowJ t g k₀ P) 0 ≠ 0 := left_ne_zero_of_mul hne
-    have hact : ∀ P ∈ rowPs t g k₀, rowJ t g k₀ P % 6 ≠ 0 → P ∈ A := by
+    have hprod : ∏ P ∈ rowPs md t g k₀ \ A, locCoef P (rowJ t g k₀ P) 0 ≠ 0 := left_ne_zero_of_mul hne
+    have hact : ∀ P ∈ rowPs md t g k₀, rowJ t g k₀ P % 6 ≠ 0 → P ∈ A := by
       intro P hP hj
       by_contra hPA
       exact hprod (prod_locCoef_zero_eq_zero (Finset.mem_sdiff.2 ⟨hP, hPA⟩) hj)
     have hK : primeSet (span {k₀}) ⊆ A := fun P hP => hact P (Finset.mem_union_right _ hP)
       (by rw [rowJ, ite_eq_left hP]; norm_num)
     apply hnot
-    refine Finset.mem_image.2 ⟨A ∩ primeSet (span {t * g}), ?_, ?_⟩
+    refine Finset.mem_image.2 ⟨A ∩ tgPrimes md t g, ?_, ?_⟩
     · refine Finset.mem_filter.2 ⟨Finset.mem_powerset.2 Finset.inter_subset_right, fun P hP hj => ?_⟩
       refine Finset.mem_inter.2 ⟨hact P (Finset.mem_union_left _ hP) ?_, hP⟩
       rw [rowJ, ite_eq_right (Finset.disjoint_left.1 hdisj hP), jFix, Nat.mod_mod]
@@ -386,32 +393,34 @@ theorem rcls_rows {L k₀ : 𝓞 K} (hk : QAdm k₀) {A' : Finset Pr} (hdisj : D
   rw [rcls, Finset.prod_union hdisj, map_mul, ← (eq_prod_of_adm hk).1]
 
 open Classical in
-/-- **`ThetaRows` from the data of the display** (the companion paper's Proposition 6.2 with its Lemmas
+/-- **`ThetaRowsM md` from the data of the display** (the companion paper's Proposition 6.2 with its Lemmas
 6.3 and 6.4, for the rows): under the data and the value formula of `KubotaTheta`, the displayed theta
-transformation for the rows holds, with `J = 16`, `M = 9·72`, `KH` the number of residues modulo `72`,
-`h(w) = V^♯((2π)⁴e^w/27)` and the coefficients `cuspCoefQ`. -/
-theorem thetaRows_of_data {θ : ℂ → ℝ → ℂ} {Kc : ℝ} {c0 cP cM : ℂ} {τ tP tM : 𝓞 K → ℂ}
+transformation for the rows holds at every modulus `md ≠ 0`, with `J = 16`, `M = 9·72·md`, `KH` the number
+of residues modulo `72·md`, `h(w) = V^♯((2π)⁴e^w/27)` and the coefficients `cuspCoefQ` (round 493; round 381
+proved `ThetaRows` with `M = 9·72`). -/
+theorem thetaRows_of_data {md : 𝓞 K} [NeZero md] {θ : ℂ → ℝ → ℂ} {Kc : ℝ} {c0 cP cM : ℂ} {τ tP tM : 𝓞 K → ℂ}
     (hd : KubotaData θ Kc c0 cP cM τ tP tM) {C : ℂ} (hC : C ≠ 0)
     (hval : ∀ n b : 𝓞 K, Primary n → Primary b → Squarefree (span {n}) →
       (absNorm (span {n * b})).Coprime 6 →
       τ (-(δ3 * n * b ^ 3)) = C * (Real.sqrt (absNorm (span {b})) : ℂ) *
           sym6 δ3 (span {n}) ^ 2 * conj (gamI 2 (span {n}))) :
-    ThetaRows := by
-  obtain ⟨D, dH, y, hDATA, hrows⟩ := compT_rows_dual hd hC hval
+    ThetaRowsM md := by
+  obtain ⟨D, dH, y, hDATA, hrows⟩ := compT_rows_dual (md := md) hd hC hval
   set Kt : ℂ := (((8 * Real.pi / 27 : ℝ)) : ℂ) / (conj C * (2 * Real.pi * I * conj (σO δ3) / 9)) with hKt
   set K₀ : ℝ := ‖Kt‖ * (9 / 4) + 1 with hK₀
   have hK₀pos : 0 < K₀ := by positivity
   clear_value Kt K₀
-  have hfin := finite_quot (72 : 𝓞 K) (by norm_num)
-  let _ : Fintype (𝓞 K ⧸ span {(72 : 𝓞 K)}) := Fintype.ofFinite _
-  set KH : ℕ := Fintype.card (𝓞 K ⧸ span {(72 : 𝓞 K)}) with hKH
-  set e : (𝓞 K ⧸ span {(72 : 𝓞 K)}) ≃ Fin KH := Fintype.equivFin _ with he
-  set hz : ℕ → 𝓞 K ⧸ span {(72 : 𝓞 K)} := fun i => if hi : i < KH then e.symm ⟨i, hi⟩ else 0 with hhz
-  set ρA : (𝓞 K ⧸ span {9 * (72 : 𝓞 K)}) → Finset Pr → (𝓞 K ⧸ span {9 * (72 : 𝓞 K)}) :=
+  have hL : (72 : 𝓞 K) * md ≠ 0 := mul_ne_zero (by norm_num) (NeZero.ne md)
+  have hfin := finite_quot (72 * md) hL
+  let _ : Fintype (𝓞 K ⧸ span {72 * md}) := Fintype.ofFinite _
+  set KH : ℕ := Fintype.card (𝓞 K ⧸ span {72 * md}) with hKH
+  set e : (𝓞 K ⧸ span {72 * md}) ≃ Fin KH := Fintype.equivFin _ with he
+  set hz : ℕ → 𝓞 K ⧸ span {72 * md} := fun i => if hi : i < KH then e.symm ⟨i, hi⟩ else 0 with hhz
+  set ρA : (𝓞 K ⧸ span {9 * (72 * md)}) → Finset Pr → (𝓞 K ⧸ span {9 * (72 * md)}) :=
     fun ρ A => Ideal.Quotient.mk _ (∏ P ∈ A, πP P) * ρ with hρA
   refine ⟨16, fun α β hα hαβ => ?_⟩
   obtain ⟨Cw, -, hCw⟩ := Vsharp_decay hα hαβ (κ := (2 * Real.pi) ^ 4 / 27) (by positivity)
-  refine ⟨Cw, 9 * 72, KH, K₀ * Kc, (absNorm (span {(72 : 𝓞 K)}) : ℝ), by norm_num,
+  refine ⟨Cw, 9 * (72 * md), KH, K₀ * Kc, (absNorm (span {72 * md}) : ℝ), mul_ne_zero (by norm_num) hL,
     fun W hW hsupp N hN => ?_⟩
   obtain ⟨hsmooth, hbound⟩ := hCw W hW hsupp N hN
   refine ⟨fun w => Vsharp W ((2 * Real.pi) ^ 4 / 27 * Real.exp w), hsmooth, hbound,
@@ -421,40 +430,42 @@ theorem thetaRows_of_data {θ : ℂ → ℝ → ℂ} {Kc : ℝ} {c0 cP cM : ℂ}
     fun ρ i A => D (hz i) (ρA ρ A), fun ρ i A => ⟨(hDATA _ _).1, ?_⟩,
     fun ρ i A q hq => goodQ_of_cuspCoefQ_ne hq,
     fun ρ i A q => norm_cuspCoefQ_le hK₀pos.le (hDATA _ _).2.2 _ _ q,
-    fun k₀ hk1 hk2 hk3 hcop X hX => ?_⟩
-  · -- `N(c₀) ≤ N(72)`
+    fun k₀ hk1 hk2 hk3 hcop hmd X hX => ?_⟩
+  · -- `N(c₀) ≤ N(72·md)`
     have hdvd := absNorm_dvd_absNorm_of_le
       ((Ideal.span_singleton_le_span_singleton).2 (hDATA (hz i) (ρA ρ A)).2.1)
-    have h72 : absNorm (span {(72 : 𝓞 K)}) ≠ 0 := by
-      rw [Ne, absNorm_eq_zero_iff, Ideal.span_singleton_eq_bot]; norm_num
+    have h72 : absNorm (span {72 * md}) ≠ 0 := by
+      rw [Ne, absNorm_eq_zero_iff, Ideal.span_singleton_eq_bot]; exact hL
     exact_mod_cast Nat.le_of_dvd (Nat.pos_of_ne_zero h72) hdvd
   have hkA : QAdm k₀ := ⟨hk1, hk2, hk3⟩
-  obtain ⟨C₀, hC₀, hid⟩ := hk k₀ hk1 hk2 hk3 hcop
-  have hsubA : ∀ A ∈ admissible t g, A ⊆ primeSet (span {t * g}) := fun A hA =>
+  obtain ⟨C₀, hC₀, hid⟩ := hk k₀ hk1 hk2 hk3 hcop hmd
+  have hsubT : ∀ A ∈ admissible md t g, A ⊆ tgPrimes md t g := fun A hA =>
     Finset.mem_powerset.1 (Finset.mem_filter.1 hA).1
-  have hdisjA : ∀ A ∈ admissible t g, Disjoint A (primeSet (span {k₀})) := fun A hA =>
+  have hsubA : ∀ A ∈ admissible md t g, A ⊆ primeSet (span {t * g}) := fun A hA =>
+    (hsubT A hA).trans (tgPrimes_subset md t g)
+  have hdisjA : ∀ A ∈ admissible md t g, Disjoint A (primeSet (span {k₀})) := fun A hA =>
     Finset.disjoint_of_subset_left (hsubA A hA) (disjoint_primeSet hcop)
-  have hρ : ∀ A ∈ admissible t g,
-      ρA (Ideal.Quotient.mk (span {9 * 72}) k₀) A = rcls 72 (A ∪ primeSet (span {k₀})) := by
+  have hρ : ∀ A ∈ admissible md t g,
+      ρA (Ideal.Quotient.mk (span {9 * (72 * md)}) k₀) A = rcls (72 * md) (A ∪ primeSet (span {k₀})) := by
     intro A hA
     rw [rcls_rows hkA (hdisjA A hA)]
   have hcne : ∀ (i : ℕ) (A : Finset Pr),
-      σO (D (hz i) (rcls 72 (A ∪ primeSet (span {k₀}))) * ∏ P ∈ A ∪ primeSet (span {k₀}), πP P) ≠ 0 := by
+      σO (D (hz i) (rcls (72 * md) (A ∪ primeSet (span {k₀}))) * ∏ P ∈ A ∪ primeSet (span {k₀}), πP P) ≠ 0 := by
     intro i A h0
     exact mul_ne_zero (hDATA _ _).1 (prod_πP_ne_zero _) (σO_injective (h0.trans (map_zero σO).symm))
-  refine ⟨fun i A => if A ∈ admissible t g then Kt * (9 * I / 4) / (K₀ : ℂ) *
-      fCoef 72 (φ₀ k₀) (repQ 72 (hz i)) *
-      (∏ P ∈ primeSet (span {t * g}) \ A, locCoef P (jFix t g P) 0) * C₀ (hz i) (A ∪ primeSet (span {k₀})) *
-      (((Complex.normSq (σO (D (hz i) (rcls 72 (A ∪ primeSet (span {k₀}))) *
+  refine ⟨fun i A => if A ∈ admissible md t g then Kt * (9 * I / 4) / (K₀ : ℂ) *
+      fCoef (72 * md) (φ₀ k₀) (repQ (72 * md) (hz i)) *
+      (∏ P ∈ tgPrimes md t g \ A, locCoef P (jFix t g P) 0) * C₀ (hz i) (A ∪ primeSet (span {k₀})) *
+      (((Complex.normSq (σO (D (hz i) (rcls (72 * md) (A ∪ primeSet (span {k₀}))) *
           ∏ P ∈ A ∪ primeSet (span {k₀}), πP P)) : ℝ) : ℂ) *
-        (-(σO (D (hz i) (rcls 72 (A ∪ primeSet (span {k₀}))) * ∏ P ∈ A ∪ primeSet (span {k₀}), πP P) ^ 2))⁻¹)
+        (-(σO (D (hz i) (rcls (72 * md) (A ∪ primeSet (span {k₀}))) * ∏ P ∈ A ∪ primeSet (span {k₀}), πP P) ^ 2))⁻¹)
     else 0, fun i A => ?_, ?_⟩
   · -- the scalars have modulus at most `1`
     dsimp only
     split_ifs with hA
-    · have hmem : A ∪ primeSet (span {k₀}) ∈ (rowPs t g k₀).powerset := by
+    · have hmem : A ∪ primeSet (span {k₀}) ∈ (rowPs md t g k₀).powerset := by
         rw [Finset.mem_powerset, rowPs]
-        exact Finset.union_subset_union (hsubA A hA) le_rfl
+        exact Finset.union_subset_union (hsubT A hA) le_rfl
       have h1 : ‖Kt * (9 * I / 4) / (K₀ : ℂ)‖ ≤ 1 := by
         rw [norm_div, norm_mul, norm_div, norm_mul, Complex.norm_I, Complex.norm_real,
           Real.norm_of_nonneg hK₀pos.le, div_le_one hK₀pos]
@@ -462,20 +473,20 @@ theorem thetaRows_of_data {θ : ℂ → ℝ → ℂ} {Kc : ℝ} {c0 cP cM : ℂ}
         have h4 : ‖(4 : ℂ)‖ = 4 := by norm_num
         rw [h9, h4, hK₀]
         linarith
-      have h2 : ‖fCoef 72 (φ₀ k₀) (repQ 72 (hz i))‖ ≤ 1 :=
-        norm_fCoef_le 72 (by norm_num) (φ₀ k₀) (fun x => hbd k₀ x) _
-      have h3 := norm_prod_locCoef_zero_le (primeSet (span {t * g}) \ A) (jFix t g)
-      have h4 : ‖((Complex.normSq (σO (D (hz i) (rcls 72 (A ∪ primeSet (span {k₀}))) *
+      have h2 : ‖fCoef (72 * md) (φ₀ k₀) (repQ (72 * md) (hz i))‖ ≤ 1 :=
+        norm_fCoef_le (72 * md) hL (φ₀ k₀) (fun x => hbd k₀ x) _
+      have h3 := norm_prod_locCoef_zero_le (tgPrimes md t g \ A) (jFix t g)
+      have h4 : ‖((Complex.normSq (σO (D (hz i) (rcls (72 * md) (A ∪ primeSet (span {k₀}))) *
           ∏ P ∈ A ∪ primeSet (span {k₀}), πP P)) : ℝ) : ℂ) *
-          (-(σO (D (hz i) (rcls 72 (A ∪ primeSet (span {k₀}))) * ∏ P ∈ A ∪ primeSet (span {k₀}), πP P) ^ 2))⁻¹‖ =
+          (-(σO (D (hz i) (rcls (72 * md) (A ∪ primeSet (span {k₀}))) * ∏ P ∈ A ∪ primeSet (span {k₀}), πP P) ^ 2))⁻¹‖ =
           1 := by
         have hn := norm_pos_iff.2 (hcne i A)
         rw [norm_mul, norm_inv, norm_neg, norm_pow, Complex.norm_real,
           Real.norm_of_nonneg (Complex.normSq_nonneg _), Complex.normSq_eq_norm_sq]
         field_simp
       rw [norm_mul, norm_mul, norm_mul, norm_mul, hC₀ _ _ hmem, h4, mul_one, mul_one]
-      calc ‖Kt * (9 * I / 4) / (K₀ : ℂ)‖ * ‖fCoef 72 (φ₀ k₀) (repQ 72 (hz i))‖ *
-            ‖∏ P ∈ primeSet (span {t * g}) \ A, locCoef P (jFix t g P) 0‖ ≤ 1 * 1 * 1 := by
+      calc ‖Kt * (9 * I / 4) / (K₀ : ℂ)‖ * ‖fCoef (72 * md) (φ₀ k₀) (repQ (72 * md) (hz i))‖ *
+            ‖∏ P ∈ tgPrimes md t g \ A, locCoef P (jFix t g P) 0‖ ≤ 1 * 1 * 1 := by
             gcongr
         _ = 1 := by norm_num
     · rw [norm_zero]; exact zero_le_one
@@ -491,12 +502,24 @@ theorem thetaRows_of_data {θ : ℂ → ℝ → ℂ} {Kc : ℝ} {c0 cP cM : ℂ}
     push_cast
     field_simp
 
-/-- **The theta transformation for the rows, from the Kubota–Patterson theorem** (S5f-6, round 360's
-target): the display `KubotaTheta` (round 361) implies the display `ThetaRows` (round 341). -/
-theorem thetaRows_of_kubota (hK : KubotaTheta) : ThetaRows := by
+/-- A row of norm prime to `6` is prime to `4`: at `md = 4` the hypothesis `IsCoprime k₀ md` that round 493
+adds to `ThetaRowsM` holds for every row of round 341's display. -/
+theorem isCoprime_four_of_coprime6 {k : 𝓞 K} (h : (absNorm (span {k})).Coprime 6) : IsCoprime k 4 := by
+  have h2 := (isCoprime_two_of_odd (Nat.Coprime.coprime_dvd_right (by norm_num) h)).pow_right (n := 2)
+  rwa [show (2 : 𝓞 K) ^ 2 = 4 by norm_num] at h2
+
+/-- **The theta transformation for the rows, from the Kubota–Patterson theorem, at every modulus**
+(round 493, step 2 of round 491's plan): the display `KubotaTheta` (round 361) implies `ThetaRowsM md` for
+every `md ≠ 0`. -/
+theorem thetaRowsM_of_kubota {md : 𝓞 K} [NeZero md] (hK : KubotaTheta) : ThetaRowsM md := by
   obtain ⟨θ, Kc, C, c₀, cP, cM, τ, tP, tM, hC, h1, h2, h3, h4, h5, h6, h7, h8, h9, hv⟩ := hK
   exact thetaRows_of_data ⟨h1, h2, h3, h4, h5, h6, h7, h8, h9⟩ hC
     fun n b hn hb hsq h6' => (hv n b hn hb hsq h6').2
+
+/-- **The theta transformation for the rows, from the Kubota–Patterson theorem** (S5f-6, round 360's
+target): the display `KubotaTheta` (round 361) implies the display `ThetaRows` (round 341), the case `md = 4`
+of `thetaRowsM_of_kubota`. -/
+theorem thetaRows_of_kubota (hK : KubotaTheta) : ThetaRows := thetaRowsM_of_kubota (md := 4) hK
 
 /-- **The half-plane from the Kubota–Patterson theorem alone**: `ζ(s)L(s, χ₋₃) ≠ 0` on `Re s > 11/12`
 from the display `KubotaTheta`, through round 359's `ne_zero_of_thetaRows`. -/
@@ -522,5 +545,7 @@ end
 #print axioms Eis.finsum_eq_sum_range
 #print axioms Eis.rcls_rows
 #print axioms Eis.thetaRows_of_data
+#print axioms Eis.isCoprime_four_of_coprime6
+#print axioms Eis.thetaRowsM_of_kubota
 #print axioms Eis.thetaRows_of_kubota
 #print axioms Eis.ne_zero_of_kubotaTheta
