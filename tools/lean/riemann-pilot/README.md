@@ -18727,4 +18727,49 @@ In `HalfPlaneTwistMean`, round 476's sections on the family at `d³·gen(𝔟)�
 
 **Bearing on RH:** none.
 
-**The next step.** Door 5(b) of round 481 remains: the characters whose order does not divide `6`. Its route, recorded in STRUCTURAL-REVIEW §6, restates the chain of rounds 278–466 for the family twisted by a finite-order Hecke character `ν` of `ℚ(√−3)`, with the fixed modulus and the excluded primes enlarged by the conductor of `ν`, the theta step included. Round 491 maps that chain: which theorems of rounds 278–466 fix the modulus `(𝒪/4)^×` or the primes above `2` and `3`, and what each needs at a general modulus.
+**The next step.** Door 5(b) of round 481 remains: the characters whose order does not divide `6`. Its route, recorded in STRUCTURAL-REVIEW §6, restates the chain of rounds 278–466 for the family twisted by a finite-order Hecke character `ν` of `ℚ(√−3)`, with the fixed modulus and the excluded primes enlarged by the conductor of `ν`, the theta step included. Round 491 maps that chain: which theorems of rounds 278–466 fix the modulus `(𝒪/4)^×` or the primes above `2` and `3`, and what each needs at a general modulus. *(Round 491: the map, with the displays that carry the characters modulo `4`, round 379's theorem at every modulus, and a plan in four steps. See round 491.)*
+
+## Round 491: the map for door 5(b), the half-plane chain at a general modulus (no new Lean)
+
+**What it is.** Round 490's paragraph "The next step" planned: "Door 5(b) of round 481 remains: the characters whose order does not divide `6`. Its route, recorded in STRUCTURAL-REVIEW §6, restates the chain of rounds 278–466 for the family twisted by a finite-order Hecke character `ν` of `ℚ(√−3)`, with the fixed modulus and the excluded primes enlarged by the conductor of `ν`, the theta step included. Round 491 maps that chain: which theorems of rounds 278–466 fix the modulus `(𝒪/4)^×` or the primes above `2` and `3`, and what each needs at a general modulus." This round reads the chain's displays and the files between them, and records where they fix the modulus and the excluded primes, with a plan for door 5(b).
+
+**The chain.** Round 466's `KubotaThetaProof.lean` assembles the half-plane from these displays, each proved in the round named after the arrow:
+
+- `KubotaTheta` (round 361; proved in round 466), from which `ThetaRows` (round 341; round 381's `thetaRows_of_kubota`);
+- with `QuadLargeSieve` (round 340; proved in round 359), `SquarefreeCompleted` (round 339; round 342's `squarefreeCompleted_of`);
+- `CompletedMeanSquare` (round 314; round 339's `completedMeanSquare_of_squarefree`);
+- with `TransferEstimate` (round 315; proved in round 326), `DualMeanSquare ϑ` (round 305; round 315's `dualMeanSquare_of_completed_transfer`);
+- `MeanSquare σ` (round 288; round 310's `meanSquare_of_dualMeanSquare`);
+- the half-plane for `ζ(s)L(s, χ₋₃)` (round 381's `ne_zero_of_kubotaTheta`, through round 288's milestone).
+
+**Where the modulus is fixed.**
+
+- **The characters modulo `4`.** The type `MulChar (𝓞 K ⧸ span {(4 : 𝓞 K)}) ℂ` occurs 231 times in 23 files of rounds 305–380. In `DualMeanSquare`, `TransferEstimate`, `CompletedMeanSquare`, `SquarefreeCompleted` and `ThetaRows` it is the type of the quantified character `ξ`. `KubotaTheta`, `QuadLargeSieve` and `MeanSquare` have no character. The character enters in round 305's coefficients `a_ξ(𝔫) = ᾱ(n)γ₂(n)ξ(n)`, and round 308 expands round 304's paired factor, a function of two classes modulo `4`, in pairs of characters modulo `4`.
+- **The classes modulo `4`.** Round 308's `cls4` and `pairPsiCls`, round 322's `gamQ_congr`, `lift4`, `chi4Cls` and `pairG`, round 365's `Rn_congr`, and the congruences modulo `4` in rounds 299, 304, 306, 319, 321 and 364 carry the quadratic reciprocity factors and their supplements, which depend on residues modulo `4`. A function of a residue modulo `4` is also a function of the residue modulo any `m` with `4 ∣ m`. The quadratic large sieve (rounds 344, 345 and 359) and round 414's `KubotaCuspSums` use the ideal `(4)` with no character.
+- **The excluded primes.** Round 288's weight `wsym` is `μ(𝔞)(u/𝔞)₆` on the ideals of norm prime to `6` and `0` on the others, and the rows `𝔣` of `DualMeanSquare`, `TransferEstimate` and `CompletedMeanSquare` are ideals of norm prime to `6`.
+- **The theta step.** Round 379's `twisted_theta_voronoi_unif` holds for every modulus `L ≠ 0`, every `φ₀` periodic modulo `L` with `φ₀(0) = 0` and every finite set of primes none of which contains `L`. Round 380's `compT_rows_dual` applies it at `L = 72`, because round 365's `twist_617` makes the periodic part `φ₀` of the rows' twist periodic modulo `72`. Of the rounds from 339 on, only rounds 339, 341, 342, 365, 378 and 380 carry `ξ`: round 379's theorem and the construction of θ do not.
+
+**The plan.** For a Dirichlet character `χ` mod `q`, the twist `ν(𝔞) = χ(N𝔞)` is, at the primary generator `a` of `𝔞`, `χ(aā)`. This is a character of `(𝒪/q)ˣ`: `a ≡ a' (mod q)` gives `aā ≡ a'ā' (mod q)`. The companion's family twisted by `ν` is `A_Z^ν(u) = Σ_𝔞 μ(𝔞)ν(𝔞)(u/𝔞)₆W(N𝔞/Z)`.
+
+1. **The characters modulo `m`.** In `DualMeanSquare`, `TransferEstimate`, `CompletedMeanSquare`, `SquarefreeCompleted` and `ThetaRows` and the lemmas between them, the characters modulo `4` become characters modulo any `m` with `4 ∣ m`, generalized in place, so that the present displays are the case `m = 4`. The classes modulo `4` become classes modulo `m`, read through the reduction modulo `4`.
+2. **The theta step at `m`.** `twist_617` with `φ₀` periodic modulo a multiple of `72` and `m`, with the factors of the rows at the primes dividing `m` absorbed into `φ₀`, and `compT_rows_dual` at that modulus.
+3. **The twisted family.** `MeanSquare` for `A^ν` from `DualMeanSquare` at `m = 4q`: rounds 303–310 with `ν` in the coefficients, and the paired factor times `ν(z₁)ν̄(z₂)` expanded in characters modulo `4q`.
+4. **The extraction and the theorem.** Round 288's average over the sixth powers at the twisted family, round 475's S0 for the coefficients `χ(n)(1 ⋆ χ₋₃)(n)`, and `L(s, χ) ≠ 0` on `Re s > 11/12` for every Dirichlet character `χ`, the trivial one excepted at `s = 1`.
+
+Step 1 touches the 23 files with the character type, about 14,000 lines; step 2 four or five files; step 3 the files of rounds 288 and 303–310; step 4 one new file. These sizes are estimates.
+
+**The paper.** No new claim about the paper is made, and the paper is not edited.
+
+**Records.** Net-state markers on round 490's paragraph "The next step" and on STRUCTURAL-REVIEW §6's entry "The half-plane for the non-real Dirichlet characters".
+
+**Check 4.** Nothing new in Lean. The map is read from the pilot's own files and the companion's route as round 471 quotes it.
+
+**Check 9.**
+
+- (a) The counts and the lists are the greps and reads of this round, over `src/`. The sizes are estimates.
+- (b) No barrier claim is made.
+- (c) No signal is fed to a criterion.
+
+**Bearing on RH:** none.
+
+**The next step.** Round 492: step 1 of the plan, the characters modulo `m` in the dual mean square's side of the chain, rounds 304–326, with the displays `DualMeanSquare`, `TransferEstimate` and `CompletedMeanSquare` restated for every `m` with `4 ∣ m`.
