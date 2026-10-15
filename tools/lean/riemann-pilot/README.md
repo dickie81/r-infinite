@@ -18080,13 +18080,13 @@ None states a bound on `L(1, χ)` uniform in the modulus. The paper is not edite
 
 1. **The least quadratic nonresidue, and the least primes with `χ(p) = ±1`.**
 
-   - Targets: for every `A > 12` there is `C_A` such that every real Dirichlet character `χ ≠ 1` mod `q` has a prime `p ≤ C_A(log(q + 2))^A` with `χ(p) = −1`, and a prime `p ∤ q` below the same bound with `χ(p) = 1`; and every odd prime `p` has a quadratic nonresidue `n ≤ C_A(log p)^A`, so `n ≪_δ p^δ` for every `δ > 0`.
+   - Targets: for every `A > 12` there is `C_A` such that every real Dirichlet character `χ ≠ 1` mod `q` has a prime `p ≤ C_A(log(q + 2))^A` with `χ(p) = −1`, and a prime `p ∤ q` below the same bound with `χ(p) = 1`; and every odd prime `p` has a quadratic nonresidue `n ≤ C_A(log p)^A`, so `n ≪_δ p^δ` for every `δ > 0`. *(Round 482: landed as `LeastNonresidue.exists_prime_eq`, `LeastNonresidue.exists_nonsquare_le` and `LeastNonresidue.exists_nonsquare_le_rpow`, by a route that differs from the one below in two places. See round 482.)*
    - The release states the last as a corollary of its half-plane. Its `build/paper.tex` (lines 325–333 of "The Quasi-Riemann Hypothesis") reads: `There are absolute constants $A,C>0$ such that, for every odd prime $p$, the least positive quadratic nonresidue $n(p)$ satisfies`, then `n(p)\le C(\log p)^A.`, then `In particular, $n(p)\ll_\delta p^\delta$ for every $\delta>0$, proving Vinogradov's least quadratic nonresidue conjecture`. It proves this from a cited theorem of Bhargava, Ivanyos, Mittal and Saxena (lines 343–347: `for example with $A=32$; no optimization is needed here`). Its Lean scope note, `lean/docs/003.md`, says: `The paper's later applications are not included.`
    - Route, Ankeny's argument [recalled]. If `χ(ℓ) ≠ −1` for every prime `ℓ ≤ x`, then `χ(n)Λ(n) = Λ(n)` for every `n ≤ x` prime to `q`, so `ψ(x, χ) ≥ ψ(x) − ω(q) log x` (round 479's `PNTProgressions.sum_not_coprime_le`). Mathlib's `Chebyshev.psi_ge'` gives `ψ(x) ≥ (x − 1) log 2 − log(x + 2)`, and round 480's `ChiUniform.psiChi_le_uniform` gives `|ψ(x, χ)| ≤ C log(q + 2)·x^{11/12+η}`. Together they force `x^{1/12−η} ≪ log(q + 2)`. For `χ(ℓ) = 1` the even prime powers enter, at most `2ψ(√x)`. The quadratic nonresidues are the case of the Legendre character (Mathlib's `quadraticChar`).
    - The least inert and split primes of a quadratic field follow once door 4(b) supplies the splitting law.
 2. **`L′/L(1, χ)` for the real characters.**
 
-   - Target: there is `M` with `|L′/L(1, χ)| ≤ M log log(N + 16)` for every real `χ ≠ 1` mod `N` [recalled: Ihara, Murty and Shimura proved `|L′/L(1, χ)| ≪ log log q` under GRH].
+   - Target: there is `M` with `|L′/L(1, χ)| ≤ M log log(N + 16)` for every real `χ ≠ 1` mod `N` [recalled: Ihara, Murty and Shimura proved `|L′/L(1, χ)| ≪ log log q` under GRH]. *(Round 482: landed as `Littlewood.norm_logDeriv_one_le`. See round 482.)*
    - Route: round 480's `Littlewood.logDeriv_le_loglog` on `(1, 2]`, and continuity of `L′/L` at `1`, where `L(1, χ) ≠ 0` (round 477).
    - With door 4(b)'s factorization, the Euler–Kronecker constant of a quadratic field `K`, `γ_K = γ + L′/L(1, χ_K)` [recalled], satisfies `|γ_K| ≪ log log |D_K|`.
 3. **Squarefree numbers.**
@@ -18122,4 +18122,67 @@ None states a bound on `L(1, χ)` uniform in the modulus. The paper is not edite
 
 **Bearing on RH:** none.
 
-**The next step.** Round 482: door 1, in a new file `external/pnt/LeastNonresidue.lean`, and door 2, `|L′/L(1, χ)| ≤ M log log(N + 16)`.
+**The next step.** Round 482: door 1, in a new file `external/pnt/LeastNonresidue.lean`, and door 2, `|L′/L(1, χ)| ≤ M log log(N + 16)`. *(Round 482: both landed, as `LeastNonresidue.exists_prime_eq`, `LeastNonresidue.exists_nonsquare_le` and `Littlewood.norm_logDeriv_one_le`. See round 482.)*
+
+## Round 482: the least quadratic nonresidue `n(p) ≤ C(log p)^A` for every `A > 12`, the least primes with `χ(p) = ±1`, and `|L′/L(1, χ)| ≪ log log q`, for every real Dirichlet character (`external/pnt/LeastNonresidue.lean`, `external/pnt/Littlewood.lean`)
+
+**What it is.** Doors 1 and 2 of round 481, as its paragraph "The next step" planned: "Round 482: door 1, in a new file `external/pnt/LeastNonresidue.lean`, and door 2, `|L′/L(1, χ)| ≤ M log log(N + 16)`." This round proves, with no hypothesis:
+
+- `LeastNonresidue.exists_prime_eq`: for every `A > 12` there is `C` such that every quadratic Dirichlet character `χ ≠ 1` mod `q` has, for `ε = 1` and for `ε = −1`, a prime `p ∤ q` with `χ(p) = ε` and `p ≤ C(log(q + 2))^A`.
+- `LeastNonresidue.exists_nonsquare_le`: for every `A > 12` there is `C` such that every odd prime `p` has a quadratic nonresidue `n` with `0 < n ≤ C(log p)^A`.
+- `LeastNonresidue.exists_nonsquare_le_rpow`: for every `δ > 0` there is `C` such that every odd prime `p` has a quadratic nonresidue `n` with `0 < n ≤ Cp^δ`. The release calls this Vinogradov's least quadratic nonresidue conjecture (below).
+- `Littlewood.norm_logDeriv_one_le`: there is `M` with `|L′/L(1, χ)| ≤ M log log(N + 16)` for every quadratic Dirichlet character `χ ≠ 1` mod `N`.
+
+`q` and `N` are moduli, so imprimitive characters are included. A quadratic nonresidue is an `n` with `¬ IsSquare (n : ZMod p)`; since `0` is a square, `p ∤ n`.
+
+**What is proved.**
+
+- `external/pnt/LeastNonresidue.lean` (355 lines, 3 theorems, 7 lemmas, 1 definition; 5 axiom lines in `build.sh`'s final check, each `[propext, Classical.choice, Quot.sound]`):
+
+  - **`psi_ge_quarter`**: `ψ(x) ≥ x/4` for `x ≥ 100`.
+  - **`sum_log_prime_dvd_le`**: `Σ log p ≤ log q` over the primes `p ≤ N` that divide `q ≠ 0`.
+  - **`re_psiChi_ge`**: for a Dirichlet character `χ` mod `q`, `ε = ±1` and `x ≥ 1`: if `χ(p) = ε` at every prime `p ≤ x` with `p ∤ q`, then `ε·Re ψ(x, χ) ≥ ψ(x) − 4√x log x − log q`.
+  - **`rpow_le_of_forall_eq`**: for every `A > 12` there is `K > 0` such that, for every quadratic `χ ≠ 1` mod `q`, `ε = ±1` and `x ≥ 100`: if `χ(p) = ε` at every prime `p ≤ x` with `p ∤ q`, then `x^{1/A} ≤ K log(q + 2)`.
+  - **`exists_prime_eq`**: above.
+  - **`legendreChar`** (definition), **`legendreChar_apply`**, **`legendreChar_isQuadratic`**, **`legendreChar_ne_one`**: the Legendre symbol mod `p`, Mathlib's `quadraticChar (ZMod p)`, as a Dirichlet character mod `p`; it is quadratic, and not trivial for `p ≠ 2`.
+  - **`exists_nonsquare_le`**, **`exists_nonsquare_le_rpow`**: above.
+- `external/pnt/Littlewood.lean` (373 lines, from 340; 1 theorem added; 1 axiom line added to the final check, `[propext, Classical.choice, Quot.sound]`):
+
+  - **`norm_logDeriv_one_le`**: above.
+
+**The proof.**
+
+- **Ankeny's argument, the lower bound.** Fix `ε = ±1`, and suppose `χ(p) = ε` at every prime `p ≤ x` with `p ∤ q`. Split `ε·Re ψ(x, χ) = Σ_{n≤x} ε·Re χ(n)·Λ(n)` into the primes and the other `n`. At a prime `p ∤ q` the term is `ε²log p = log p`, and at a prime `p ∣ q` it is `0`. So the primes give `θ(x) − Σ_{p∣q, p≤x} log p ≥ θ(x) − log q`, by `sum_log_prime_dvd_le` (the product of the primes dividing `q` divides `q`, Mathlib's `Nat.prod_primeFactors_dvd`). Every other term has absolute value at most `Λ(n)`, so the others give at least `−(ψ(x) − θ(x))`. With Mathlib's `Chebyshev.psi_sub_theta_le`, `ψ(x) − θ(x) ≤ 2√x log x`, this is `re_psiChi_ge`.
+- **Ankeny's argument, the contradiction.** For `x ≥ 100`, `ψ(x) ≥ (x − 1)log 2 − log(x + 2) ≥ x/4` (Mathlib's `Chebyshev.psi_ge'`, with `log(x + 2) ≤ 2√(x + 2) ≤ (x + 2)/5`). Round 480's `ChiUniform.psiChi_le_uniform` at `η = 1/12 − 1/A` gives `ε·Re ψ(x, χ) ≤ |ψ(x, χ)| ≤ C₁L·x^e`, with `L = log(q + 2) ≥ 1` and `e = 11/12 + η = 1 − 1/A`. With `√x log x ≤ (12/5)x^{11/12} ≤ (12/5)x^e` and `log q ≤ L·x^e`, `x/4 ≤ (C₁ + 11)L·x^e`, so `x^{1/A} = x/x^e ≤ 4(C₁ + 11)L` (`rpow_le_of_forall_eq`). At `X = max(100, (KL)^A) + 1`, `X^{1/A} > KL`. So some prime `p ≤ X` with `p ∤ q` has `χ(p) ≠ −ε`; it is a unit mod `q`, so `χ(p) = ±1`, and so `χ(p) = ε`. Then `X ≤ (101 + K^A)L^A` gives `exists_prime_eq`.
+- **The least nonresidue.** For an odd prime `p`, the Legendre character is quadratic, and it is not trivial because `ZMod p` has a nonsquare (Mathlib's `FiniteField.exists_nonsquare`). `exists_prime_eq` at `ε = −1` gives a prime `ℓ ≤ C(log(p + 2))^A` with `quadraticChar (ZMod p) ℓ = −1`, so `ℓ` is not a square mod `p` (Mathlib's `quadraticChar_neg_one_iff_not_isSquare`). For `p ≥ 3`, `log(p + 2) ≤ 2 log p`, so `ℓ ≤ C·2^A(log p)^A` (`exists_nonsquare_le`). At `A = 13`, `log p ≤ p^{δ/13}/(δ/13)` (Mathlib's `Real.log_le_rpow_div`) gives `(log p)^{13} ≤ (13/δ)^{13}p^δ` (`exists_nonsquare_le_rpow`).
+- **`L′/L(1, χ)`.** `L(·, χ)` is entire for `χ ≠ 1` (Mathlib's `DirichletCharacter.differentiable_LFunction`), so `L′` is continuous, and `L(1, χ) ≠ 0` (round 477's `Eis.RealChar.LFunction_ne_zero_of_isQuadratic`). So `σ ↦ |L′/L(σ, χ)|` is continuous at `σ = 1`, and round 480's `Littlewood.logDeriv_le_loglog`, `|L′/L(σ, χ)| ≤ M log log(N + 16)` on `(1, 2]`, passes to the limit `σ → 1⁺` (Mathlib's `le_of_tendsto`).
+
+**Against the plan.** Round 481 recorded the targets and routes of doors 1 and 2.
+
+1. Door 1's targets landed as stated, with "real" read as Mathlib's `IsQuadratic`; the prime with `χ(p) = −1` also does not divide `q`, which `χ(p) ≠ 0` forces. The route differs in two places. Round 481 bounded the primes dividing `q` by `ω(q) log x` through round 479's `PNTProgressions.sum_not_coprime_le`; this round uses `Σ_{p∣q} log p ≤ log q` (`sum_log_prime_dvd_le`) instead, and round 479's lemma is not used. Round 481 treated the even prime powers separately, at most `2ψ(√x)`, for the sign `χ(ℓ) = 1`; this round bounds all the prime powers, for both signs, by `ψ(x) − θ(x) ≤ 2√x log x`. Door 1's last item, the least inert and split primes of a quadratic field, waits for door 4(b).
+2. Door 2's target landed as stated, along the planned route. Its second item, the Euler–Kronecker constants of the quadratic fields, waits for door 4(b).
+
+**The paper.** `grep -n -i "nonresidue\|non-residue\|ankeny\|least prime\|least quadratic\|euler.kronecker\|ihara\|L′/L(1\|L'/L(1\|vinogradov's least"` on `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` finds one line, line 4125 of `riemann-indistinguishability.md`, which names the Ihara zeta function of a graph. No line states a bound on the least nonresidue or on `L′/L(1, χ)`. The paper is not edited.
+
+**Records.**
+
+- `external/pnt/build.sh`: `LeastNonresidue` in the compile list, and 6 lines added to the final check (92 to 98 `#print axioms` lines).
+- `external/pnt/README.md`: a row and a section for `LeastNonresidue.lean`; the row and the section of `Littlewood.lean` extended.
+- STRUCTURAL-REVIEW §6: markers on the entries for doors 1 and 2.
+- A net-state marker on round 481's paragraph "The next step".
+
+**Build.** `external/pnt/build.sh` (1026 s) compiled `Architect.lean`, the 19 PNT+ files and the 27 files here, `LeastNonresidue.lean` and `Littlewood.lean` with no warnings. Its final check printed 98 axiom lines, each `[propext, Classical.choice, Quot.sound]`. No file of `src/` changed.
+
+- The namespace `LeastNonresidue` is new: a grep of the Lean files of the pilot (`external/` included) and of Mathlib for `LeastNonresidue` finds it only in its own file, and a grep for `legendreChar` followed by a word boundary finds it nowhere else.
+
+**Check 4.** Classical [recalled]: Ankeny (1952) proved `n(p) ≪ (log p)²` under GRH, and Ihara, Murty and Shimura proved `|L′/L(1, χ)| ≪ log log q` under GRH. This round runs Ankeny's argument and the limit at `σ = 1` from the zero-free half-plane `Re s > 11/12` of round 477, with round 480's bound uniform in the modulus, in place of GRH. The release states the nonresidue bound as a corollary of its half-plane. Its `build/paper.tex` (lines 325–333 of "The Quasi-Riemann Hypothesis") reads: `There are absolute constants $A,C>0$ such that, for every odd prime $p$, the least positive quadratic nonresidue $n(p)$ satisfies`, then `n(p)\le C(\log p)^A.`, then `In particular, $n(p)\ll_\delta p^\delta$ for every $\delta>0$, proving Vinogradov's least quadratic nonresidue conjecture`. Its proof cites a theorem of Bhargava, Ivanyos, Mittal and Saxena (lines 343–347: `for example with $A=32$; no optimization is needed here`). Its Lean scope note, `lean/docs/003.md` (line 12), says: `The paper's later applications are not included.` None of the four results is new mathematics given a zero-free half-plane for the real characters. New against the pilot: the four, machine-checked with no hypothesis, on round 477's half-plane. The constants `C` and `M` are not computed; the exponents `A > 12` here and `A = 32` in the release come from different arguments, and no comparison between them is claimed.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every `A > 12`, every quadratic `χ ≠ 1` of every modulus, both signs `ε = ±1`, every `x ≥ 100` (in `rpow_le_of_forall_eq`), every odd prime `p` and every `δ > 0`.
+- (b) No barrier claim is made.
+- (c) No signal is fed to a criterion: the theorems go from a zero-free half-plane to bounds.
+
+**Bearing on RH:** none.
+
+**The next step.** Round 483: door 3, in a new file `external/pnt/SquarefreeCount.lean`: from `ζ(s) ≠ 0` on `Re s > θ`, `0 ≤ θ < 1`, `#{n ≤ x : n squarefree} = 6x/π² + O(x^{1/(3−θ)+η})` for every `η > 0`, and the exponent `12/25 + η` at `θ = 11/12`.

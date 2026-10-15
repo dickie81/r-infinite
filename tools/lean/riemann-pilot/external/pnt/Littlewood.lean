@@ -18,6 +18,8 @@ character `χ ≠ 1` mod `N` (`abs_log_norm_LFunction_one_le`). So `|L(1, χ)| �
 * `abs_log_norm_LFunction_one_le`: the mean value theorem for `log|L(σ, χ)|` on `[1, 1 + 1/log log(N + 16)]`,
   whose derivative is `Re L′/L(σ, χ)` (round 470's `HalfPlaneLindelof.hasDerivAt_log_norm`); `L(σ, χ) ≠ 0` for
   `σ ≥ 1` by round 477's half-plane.
+* `norm_logDeriv_one_le` (round 482): `|L′/L(1, χ)| ≤ M log log(N + 16)`, the bound of `logDeriv_le_loglog` at
+  `σ = 1` by continuity, since `L(1, χ) ≠ 0`.
 -/
 import ChiUniform
 
@@ -336,5 +338,36 @@ theorem norm_LFunction_one_ge :
         field_simp
     _ ≤ Real.exp (Real.log ‖DirichletCharacter.LFunction χ 1‖) := Real.exp_le_exp.2 h1
     _ = ‖DirichletCharacter.LFunction χ 1‖ := Real.exp_log hpos
+
+
+/-! ### `L′/L(1, χ)` -/
+
+/-- **`L′/L(1, χ) ≪ log log q`**: there is `M` with `|L′/L(1, χ)| ≤ M log log(N + 16)` for every
+quadratic Dirichlet character `χ ≠ 1` mod `N`. The bound of `logDeriv_le_loglog` on `(1, 2]`, at `σ = 1`
+by continuity, since `L(1, χ) ≠ 0`. -/
+theorem norm_logDeriv_one_le :
+    ∃ M : ℝ, 0 ≤ M ∧ ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+      ‖deriv (DirichletCharacter.LFunction χ) 1 / DirichletCharacter.LFunction χ 1‖ ≤
+        M * Real.log (Real.log (N + 16)) := by
+  obtain ⟨M, hM, hb⟩ := logDeriv_le_loglog
+  refine ⟨M, hM, fun N _ χ hq hχ ↦ ?_⟩
+  have hF := DirichletCharacter.differentiable_LFunction hχ
+  have h1 : DirichletCharacter.LFunction χ ((1 : ℝ) : ℂ) ≠ 0 := by
+    rw [Complex.ofReal_one]
+    exact Eis.RealChar.LFunction_ne_zero_of_isQuadratic hq (by norm_num) (Or.inl hχ)
+  set f : ℝ → ℝ := fun σ ↦
+    ‖deriv (DirichletCharacter.LFunction χ) σ / DirichletCharacter.LFunction χ σ‖ with hfdef
+  have hcont : ContinuousAt f 1 := by
+    have hd : ContinuousAt (deriv (DirichletCharacter.LFunction χ)) ((1 : ℝ) : ℂ) :=
+      (hF.analyticAt _).deriv.differentiableAt.continuousAt
+    have hL : ContinuousAt (DirichletCharacter.LFunction χ) ((1 : ℝ) : ℂ) :=
+      (hF _).continuousAt
+    exact ((hd.comp Complex.continuous_ofReal.continuousAt).div
+      (hL.comp Complex.continuous_ofReal.continuousAt) h1).norm
+  have hev : ∀ᶠ σ in nhdsWithin (1 : ℝ) (Set.Ioi 1), f σ ≤ M * Real.log (Real.log (N + 16)) := by
+    filter_upwards [Ioo_mem_nhdsGT (by norm_num : (1 : ℝ) < 2)] with σ hσ
+    exact hb N χ hq hχ σ hσ.1 hσ.2.le
+  have h := le_of_tendsto (hcont.tendsto.mono_left nhdsWithin_le_nhds) hev
+  simpa [hfdef] using h
 
 end Littlewood

@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -91,6 +91,7 @@ import ChiPNT
 import PNTProgressions
 import ChiUniform
 import Littlewood
+import LeastNonresidue
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -183,6 +184,12 @@ import Littlewood
 #print axioms Littlewood.abs_log_norm_LFunction_one_le
 #print axioms Littlewood.norm_LFunction_one_le
 #print axioms Littlewood.norm_LFunction_one_ge
+#print axioms Littlewood.norm_logDeriv_one_le
+#print axioms LeastNonresidue.re_psiChi_ge
+#print axioms LeastNonresidue.rpow_le_of_forall_eq
+#print axioms LeastNonresidue.exists_prime_eq
+#print axioms LeastNonresidue.exists_nonsquare_le
+#print axioms LeastNonresidue.exists_nonsquare_le_rpow
 EOT
 echo "== axioms"
 # every #print axioms line must print an axiom list inside the three, and no axiom line may name another axiom
