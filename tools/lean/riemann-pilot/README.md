@@ -19053,7 +19053,7 @@ Here `MeanSquareC c σ` is round 288's display `MeanSquare σ` with round 288's 
 
 **Levers of the rotated coordinate** (gates R3, R4, R5; within the exponent system). *(Round 498: R5 is retracted; see below.)*
 
-- The new lever is the numerator's average over a sparse bin. Sang's average comes from the fourth moment and Hölder. In the endpoint, the factor `3/4` of `(3h/4)(1 − R_κ)` is `1 − 1/(2k)` at `k = 2` for a `2k`-th moment. For other `k` the script takes the numerator `U^{R+(1−R)/(2k)−ϑ/2}`: Hölder from a diagonal `2k`-th moment, with Sang's amplifier saving `ϑ/2` kept as a modelling assumption. Each entry below is a fixed point of his bootstrap (`|2B − 1 − κ| < 10⁻⁹`; gate R3 for his own entry, R4 for the rest).
+- The new lever is the numerator's average over a sparse bin. Sang's average comes from the fourth moment and Hölder. In the endpoint, the factor `3/4` of `(3h/4)(1 − R_κ)` is `1 − 1/(2k)` at `k = 2` for a `2k`-th moment. For other `k` the script takes the numerator `U^{R+(1−R)/(2k)−ϑ/2}`: Hölder from a diagonal `2k`-th moment, with Sang's amplifier saving `ϑ/2` kept as a modelling assumption. *(round 507: under a capacity of the release's form for `k` plain factors the saving is `ϑ/k`; every value below stands with it, reached with `ϑ = 0` beyond the fourth moment; README round 507.)* Each entry below is a fixed point of his bootstrap (`|2B − 1 − κ| < 10⁻⁹`; gate R3 for his own entry, R4 for the rest).
 
   | Numerator average over a bin | Sang's conditions | Exact mode |
   |---|---|---|
@@ -19699,7 +19699,7 @@ Two perturbations pass, as they should: `2 + ω`, an associate of `λ`, in place
 
 **The two inputs.** Both are the model's (`levers.py`, `offslice.py`), and both are hypothetical.
 
-- The moment exponent `w`. Sang's Proposition `prop:numerator` bounds the numerator over a class `ℬ` of rows with `#ℬ ≪ U^{R+ε}`: "`\sum_{u\in\mathcal B} |L(1/2+\vartheta+it,\overline{\psi_u^*})| \ll U^{(3R+1)/4-\vartheta/2+\eps}(1+H)^{A'}.`" His proof takes it from the release's plain fourth moment (`[OAI26, Lemma 18.1]`, his eq. `plain-moment`) by Hölder: "Apply \eqref{eq:plain-moment} with two copies of `\(S_m\)`." Round 497's lever replaces the fourth moment by a `2k`-th, which gives `U^{R+(1−R)/(2k)−ϑ/2}`, Sang's amplifier saving `ϑ/2` kept as a modelling assumption. In the bin exponent this is `−hw(1 − R)` with `w = 1 − 1/(2k)` (round 499's formula). Sang's balance between amplifier and block length rests on "Two copies of this block use length `\(2m\)` in the plain fourth moment." A sixth moment would use three copies; how much room for primes it would leave is not known here, and the model keeps Sang's saving. Sang's fourth moment is `w = 3/4`, a sixth moment would be `5/6`, and Lindelöf on average (`k = 10^9` in the script) is `1`.
+- The moment exponent `w`. Sang's Proposition `prop:numerator` bounds the numerator over a class `ℬ` of rows with `#ℬ ≪ U^{R+ε}`: "`\sum_{u\in\mathcal B} |L(1/2+\vartheta+it,\overline{\psi_u^*})| \ll U^{(3R+1)/4-\vartheta/2+\eps}(1+H)^{A'}.`" His proof takes it from the release's plain fourth moment (`[OAI26, Lemma 18.1]`, his eq. `plain-moment`) by Hölder: "Apply \eqref{eq:plain-moment} with two copies of `\(S_m\)`." Round 497's lever replaces the fourth moment by a `2k`-th, which gives `U^{R+(1−R)/(2k)−ϑ/2}`, Sang's amplifier saving `ϑ/2` kept as a modelling assumption. In the bin exponent this is `−hw(1 − R)` with `w = 1 − 1/(2k)` (round 499's formula). Sang's balance between amplifier and block length rests on "Two copies of this block use length `\(2m\)` in the plain fourth moment." A sixth moment would use three copies; how much room for primes it would leave is not known here, and the model keeps Sang's saving. *(round 507: under a capacity of the release's form, `km + 6κz ≤ 1`, Sang's balance leaves the amplifier `ϑ/k`; README round 507.)* Sang's fourth moment is `w = 3/4`, a sixth moment would be `5/6`, and Lindelöf on average (`k = 10^9` in the script) is `1`.
 - The row counts. Sang's count `R_κ(δ, x)` is moved toward the density-hypothesis count `1 − δ` by the fraction `t`; the floor bin keeps `R = 1`, as in `levers.py`.
 
 `need(0.87)` is round 503's: the low side's least excess over `0.87` among the geometries the high side admits at `0.87`, on Sang's slice, under round 501's reading, at `κ = 2·0.87 − 1 = 0.74`.
@@ -19707,13 +19707,13 @@ Two perturbations pass, as they should: `2 + ω`, an associate of `λ`, in place
 **What it shows** (gates H1–H6).
 
 - **Sang's inputs** (gate H1): `need(0.87) = 0.0064390`, at `ℓ = 0.16091` and `b = 0.04975`. The bins `E`, the supply `ℓ/h > 21/100`, the low side's exceptional row and the principal edge are among the walls.
-- **The moment exponent** (gate H2). `need(0.87)` falls as `w` rises, with the bins binding: `0.0036990` at `w = 7/9` (`k = 9/4`) and `0.0016653` at `w = 4/5` (`k = 5/2`). The bins stop binding at `w* ≈ 0.8188` (`2k ≈ 5.518`). At `2k = 5.538`, just above it, and at the sixth moment, at `k = 6` and at Lindelöf on average, `need(0.87)` is `0.0001351`.
+- **The moment exponent** (gate H2). `need(0.87)` falls as `w` rises, with the bins binding: `0.0036990` at `w = 7/9` (`k = 9/4`) and `0.0016653` at `w = 4/5` (`k = 5/2`). The bins stop binding at `w* ≈ 0.8188` (`2k ≈ 5.518`). At `2k = 5.538`, just above it, and at the sixth moment, at `k = 6` and at Lindelöf on average, `need(0.87)` is `0.0001351`. *(round 507: with the share `ϑ/k` these are `0.0043686`, `0.0020839` and `0.0003307`, the bins still binding at `2k = 5.538`; they stop binding at `2k ≈ 5.621` (`w ≈ 0.8221`), with the numerator on `Re w = 1/2`. The values at the sixth moment, at `k = 6` and at Lindelöf on average stand. README round 507.)*
 - **The row counts** (gate H3). The same in `t`: `0.0036766` at `t = 1/4` and `0.0010813` at `t = 1/2`. The bins stop binding at `t* ≈ 0.602`; at `t = 0.612` and at the density-hypothesis counts `need(0.87)` is again `0.0001351`.
-- **What is left.** At `0.0001351` the walls are the floor bin (on the release's contour), Sang's low-rows condition, the low side's exceptional row and the principal edge; the bins are slack. With the floor bin on Sang's rotated line (round 498's reading of the floor's contour), `need(0.87)` is `−0.0004730` at `w = 5/6`, and also at Sang's `w` with the density-hypothesis counts (gate H4). Then `0.87` is reached with the release's low side, exceptional term kept. With the rotated floor, `need(0.87)` changes sign between `2k = 5.558` and `5.598` (bisection: `5.578`, `w ≈ 0.8207`) and between `t = 0.589` and `0.609` (bisection: `0.599`). At Sang's own `w = 3/4` the rotated floor changes nothing.
+- **What is left.** At `0.0001351` the walls are the floor bin (on the release's contour), Sang's low-rows condition, the low side's exceptional row and the principal edge; the bins are slack. With the floor bin on Sang's rotated line (round 498's reading of the floor's contour), `need(0.87)` is `−0.0004730` at `w = 5/6`, and also at Sang's `w` with the density-hypothesis counts (gate H4). Then `0.87` is reached with the release's low side, exceptional term kept. With the rotated floor, `need(0.87)` changes sign between `2k = 5.558` and `5.598` (bisection: `5.578`, `w ≈ 0.8207`) and between `t = 0.589` and `0.609` (bisection: `0.599`). At Sang's own `w = 3/4` the rotated floor changes nothing. *(round 507: with the share `ϑ/k` the sign change in `2k` is at `5.682` (`w ≈ 0.8240`); the values at `w = 5/6` and along `t` stand; README round 507.)*
 - **`κ`** (gate H5). Over round 503's grid from `0.74` to `1`, `need(0.87)` rises with `κ` at Sang's `w`; at `w = 5/6` it does not depend on `κ`, with either floor.
 - **The binding bin** (gate H6). At Sang's inputs the bin where `E` is largest is `(δ, x) = (0.5132, 1/2)` on the model's grid, where `R_κ = 0.5472` against `1 − δ = 0.4868`. Round 498's gate W1 found `δ ≈ 0.47` at Sang's own boundary `0.8748866`; here the geometry is the one `need(0.87)` picks.
 
-**What it means.** In this model the `0.0064390` that separates Sang's inputs from his principal edge can be paid on either side. On the low side it is a pairing bound below Cauchy–Schwarz (rounds 503–505). On the high side, `w` past `0.8188` or `t` past `0.602` pays all but `0.0001351`. The rest is the floor bin's. With the floor bin on the rotated line, `need(0.87)` changes sign at `2k ≈ 5.578` (`w ≈ 0.8207`) or `t ≈ 0.599`, and is `−0.0004730` at `w = 5/6` and at `t = 1`. With the release's floor it is a low-side saving of `Z^{0.0001351}`. A sixth moment would give `w = 5/6`; through de Faveri's Theorem 1.1 alone it holds only for blocks of length `U^m` with `m ≤ 1/6` (round 497). Rounds 497 and 498 found the same walls in boundaries rather than in `need(0.87)`, and without these thresholds: beyond the fourth moment the moment lever saturates at the floor bin, and Lindelöf on average with the rotated floor reaches `0.87`. Every number here is a statement about this exponent system.
+**What it means.** In this model the `0.0064390` that separates Sang's inputs from his principal edge can be paid on either side. On the low side it is a pairing bound below Cauchy–Schwarz (rounds 503–505). On the high side, `w` past `0.8188` or `t` past `0.602` pays all but `0.0001351`. The rest is the floor bin's. With the floor bin on the rotated line, `need(0.87)` changes sign at `2k ≈ 5.578` (`w ≈ 0.8207`) or `t ≈ 0.599`, and is `−0.0004730` at `w = 5/6` and at `t = 1`. With the release's floor it is a low-side saving of `Z^{0.0001351}`. A sixth moment would give `w = 5/6`; through de Faveri's Theorem 1.1 alone it holds only for blocks of length `U^m` with `m ≤ 1/6` (round 497). Rounds 497 and 498 found the same walls in boundaries rather than in `need(0.87)`, and without these thresholds: beyond the fourth moment the moment lever saturates at the floor bin, and Lindelöf on average with the rotated floor reaches `0.87`. Every number here is a statement about this exponent system. *(round 507: with the amplifier's share `ϑ/k` the moment's thresholds are `w ≈ 0.8221` and `0.8240`, reached with the numerator on `Re w = 1/2`; README round 507.)*
 
 **Gates.** `python3 frontier/wall78/exchange.py` runs in about 30 seconds. All six gates, H1–H6, pass; any failure gives exit status 1. In session runs:
 
@@ -19759,4 +19759,66 @@ New against the pilot:
 
 **Bearing on RH:** none.
 
-**The next step.** None is planned here. The open inputs at `0.87` are a pairing bound below Cauchy–Schwarz, or on the high side a numerator average with `w` above about `0.8207` and the rotated floor, or with `w > 0.8188` and a low-side saving of `Z^{0.0001351}`. A plain sixth moment would give `w = 5/6`.
+**The next step.** None is planned here. The open inputs at `0.87` are a pairing bound below Cauchy–Schwarz, or on the high side a numerator average with `w` above about `0.8207` and the rotated floor, or with `w > 0.8188` and a low-side saving of `Z^{0.0001351}`. A plain sixth moment would give `w = 5/6`. *(round 507: `0.8240` and `0.8221` with the share `ϑ/k`; README round 507.)*
+
+## Round 507: the amplifier's share beyond the fourth moment, and what it moves (`frontier/wall78/capacity.py`, no new Lean)
+
+**What it is.** The owner asked: "Keep digging". Round 506 left the numerator's moment as the high side's open input at `0.87`, with a caveat on its model: "A sixth moment would use three copies; how much room for primes it would leave is not known here, and the model keeps Sang's saving." This round computes that room under a capacity of the release's own form. It then reruns every recorded configuration of the pilot's exponent model that uses a moment other than the fourth. No Lean file changes, and the paper is not edited.
+
+**The capacity and the balance.**
+
+- The release proves its plain fourth moment, Lemma `lem:plain`, for two plain factors. With prime factors of total length `z` the capacity is "`n_1+n_2+6\kappa z=A+(6\kappa-1)z\le M.`" Without them: "There is no restriction on the bounded nonnegative lengths `\(n_1,n_2\)`, and no lower bound on the conductor."
+- Sang fits his amplifier into that capacity: "Two copies of this block use length `\(2m\)` in the plain fourth moment. For `\(m\le1/2\)`, the remaining capacity can therefore accommodate prime length `\(z_p=v(1-2m)\)`, with `\(v\le1/(6\kappa)\)`." His eq. `numerator-balance`, "`-\vartheta m-\frac{qv(1-2m)}2 =-\frac{\vartheta}{2}.`", then gives every block the exponent `(3R+1)/4 − ϑ/2`.
+- Take `k` plain factors with a capacity of the same form, `km + 6κz ≤ 1` in Sang's units. This is hypothetical: no such moment is proved. The same steps give `z_p = v(1 − km)` and the block exponent `R + (1 − R)/(2k) − ϑ/k` (gate C1). Sang's second option, `ϑ = q/(6κ)`, keeps its short gate for every `k`. At the split, the absolute count exceeds the balanced value by `(R − (6κ − 2q)ℒ)/(2k)`, which at `k = 2` is his "`=\frac{R-(6\kappa-2q)\mathscr L}{4}\le0.`"
+- So the amplifier's share of `ϑ` is `ϑ/k`, not `ϑ/2`. Round 497's lever kept `ϑ/2` for every `k`, "with Sang's amplifier saving `ϑ/2` kept as a modelling assumption". Its Lindelöf rows (`k = 10^9`) kept it too. Under this capacity, Lindelöf on average carries no amplifier saving.
+
+**The rotation's coefficient** (gate C2). In each bin's exponent `ϑ` enters with the coefficient `h(1 − 1/k) − l_y`: the reflection cost, less the amplifier's share, less the row line. It is the same for every bin, so at a given geometry the best `ϑ` is Sang's in every bin or `0` in every bin.
+
+- On Sang's slice the coefficient is `(ℓ(4 − 3/k) − (1 + b)/k)/2`. The row count's supply `ℓ/h > 1/5` is `ℓ > (1 + b)/7` there (round 502), and it makes the coefficient positive for every `k ≥ 5/2`. From there on the rotation costs more than it saves, and the numerator is best left on `Re w = 1/2`, unamplified.
+- At `k = 2` the coefficient is negative exactly where Sang's `h/2 < l_y` holds, and every configuration keeps that row. So the model's bin exponent is at most the capacity-consistent one, with either `ϑ`. A recorded value that the capacity-consistent lever reproduces is therefore its value under that lever too.
+
+**At `0.87`** (gate C3, round 506's frame).
+
+- The fourth moment is unchanged: `need(0.87) = 0.0064390`.
+- The sixth moment gives `0.0006734` with Sang's `ϑ`, where the bins bind. With `ϑ = 0` it gives `0.0001351`, where the floor bin, Sang's low-rows condition, the low side's exceptional row and the principal edge bind. With the floor bin on `Re w = 1/2` as well, it gives `−0.0004730`.
+- The bins stop binding at `2k ≈ 5.621` (`w ≈ 0.8221`) with `ϑ = 0`, and at `2k ≈ 6.382` with Sang's `ϑ`; round 506 had `5.518`. With the rotated floor, `need(0.87)` changes sign at `2k ≈ 5.682`; round 506 had `5.578`.
+
+**What moves, and what does not** (gate C4). Each committed script whose configurations use a moment other than the fourth is rerun with the capacity-consistent lever, `ϑ = 0` beyond the fourth moment.
+
+- Rounds 497–503: every gate of `rotated_contour.py`, `levers.py`, `offslice.py`, `crossing.py`, `lowerend.py`, `highfloor.py` and `lowbudget.py` passes. The one exception is `offslice.py`'s I1, which checks the model's own formula, share `ϑ/2` included, against `exponent_lp.py`. So every value those gates record stands under the capacity-consistent lever. That includes round 497's sixth-moment and Lindelöf rows, in both columns, and the Lindelöf rows of rounds 498–503.
+- Round 506: `exchange.py` fails exactly three gates: H2 and H4, its moment gates, and H5. At `κ = 1`, H5's rotated floor at `k = 3` gives `−0.0004728` against `−0.0004730`, outside its tolerance of `10⁻⁹`. The count lever (H3) and the values at `k = 2` (H1, H6) stand. Of round 506's listed values, `k = 9/4` gives `0.0043686` (with Sang's `ϑ`, which still pays there), `k = 5/2` gives `0.0020839`, and `2k = 5.538` gives `0.0003307` with the bins still binding (gate C3).
+
+**What it means.** Sang's amplifier is a fourth-moment device. Under a capacity of the release's form, a higher moment leaves the amplifier `ϑ/k`. On Sang's slice, from `k = 5/2` on, the rotation then costs more than it saves, and the best numerator line is `Re w = 1/2`, unamplified. The pilot's sixth-moment and Lindelöf rows kept Sang's saving. They reach the same values without it, so no number of rounds 497–503 moves. At `0.87` the moment threshold moves from `2k ≈ 5.518` to `5.621` for a single order. The sign change with the rotated floor moves from `5.578` to `5.682`. A sixth moment still pays the bins' share. With different orders in different bins the threshold lies between `5.518` and `5.621`. The model's exponent is at most every such choice's, and a single order is one of them; the value itself is not computed. Every number here is a statement about this exponent system.
+
+**Gates.** `python3 frontier/wall78/capacity.py` runs in about 17 minutes, most of it in gate C4, which reruns eight committed scripts. All four gates, C1–C4, pass; any failure gives exit status 1. In session runs:
+
+- the share `ϑ/2` in place of `ϑ/k` in C1's balance fails C1;
+- `K_ZERO` recorded as `2.78` fails C3;
+- an empty set of expected failures for `exchange.py` fails C4.
+
+**Check 9.**
+
+- (a) Scope:
+  - The capacity `km + 6κz ≤ 1` for `k` plain factors is a hypothesis of the release's form; no moment beyond the fourth is proved. The share `ϑ/k` follows from Sang's balance under it (C1).
+  - The thresholds are for one moment order in every bin, with the better uniform `ϑ`, which is exact for one order (C2).
+  - That every value those gates record stands is scoped to the values the eight scripts' gates check (C4).
+- (b) Register: the sub-entry "Below `7/8` in the release's exponent comparison" gets a bullet for this round, with the plain sixth moment's capacity as an open item and an attack note. Round 497's and round 506's bullets get markers.
+- (c) The signal is unchanged: the release's probe.
+
+**The machinery checklist.**
+
+- Surveyed: the release's Lemma `lem:plain`, its statement and the remarks before its proof; Sang's Section `sec:numerator`, both options of his Proposition `prop:numerator`; the pilot's exponent model in rounds 497–506.
+- Not surveyed: the proof of `lem:plain`, so whether a version with three plain factors holds, and with what capacity.
+
+**Records.** README round 497: a marker on its modelling assumption. README round 506: markers on its two inputs, its moment exponent, its rotated floor, its conclusion and its next step. STRUCTURAL-REVIEW §6: a bullet for this round, and markers on round 497's and round 506's bullets.
+
+**Check 4.** Already in the pilot: the moment lever with the saving `ϑ/2` (round 497), and `need(0.87)` with its thresholds (round 506). New against the pilot:
+
+- the amplifier's share `ϑ/k` under a capacity of the release's form, with Sang's short gate unchanged;
+- the rotation's coefficient `h(1 − 1/k) − l_y`, the same for every bin, and its sign on Sang's slice;
+- the reruns: no recorded value of rounds 497–503 moves;
+- the thresholds at `0.87` with the share `ϑ/k`.
+
+**Bearing on RH:** none.
+
+**The next step.** None is planned here. The open inputs at `0.87` are a pairing bound below Cauchy–Schwarz, or on the high side a numerator average with `w` above about `0.8240` and the rotated floor, or above `0.8221` with a low-side saving of `Z^{0.0001351}`. A plain sixth moment would give it on `Re w = 1/2`; whether the release's method carries a third factor is the unread proof of `lem:plain`.
