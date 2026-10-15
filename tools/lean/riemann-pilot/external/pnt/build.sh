@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadIdeals QuadRing; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadIdeals QuadRing QuadSplit QuadKronecker; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -97,6 +97,8 @@ import ExplicitSmooth
 import ExplicitConstants
 import QuadIdeals
 import QuadRing
+import QuadSplit
+import QuadKronecker
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -248,6 +250,31 @@ import QuadRing
 #print axioms QuadRing.discr_θ₂
 #print axioms QuadRing.minpoly_θ₂
 #print axioms QuadRing.exists_sqrt
+#print axioms QuadSplit.split_of_factors
+#print axioms QuadSplit.ramified_of_factors
+#print axioms QuadSplit.inert_of_factors
+#print axioms QuadSplit.split_of_root
+#print axioms QuadSplit.ramified_of_root
+#print axioms QuadSplit.inert_of_no_root
+#print axioms QuadSplit.ramified_of_dvd₂
+#print axioms QuadSplit.ramified_two₂
+#print axioms QuadSplit.split₂
+#print axioms QuadSplit.inert₂
+#print axioms QuadSplit.ramified_of_dvd₁
+#print axioms QuadSplit.split₁
+#print axioms QuadSplit.inert₁
+#print axioms QuadSplit.split_two₁
+#print axioms QuadSplit.inert_two₁
+#print axioms QuadKronecker.jacBot_natCast
+#print axioms QuadKronecker.jacTop_natCast
+#print axioms QuadKronecker.jacobiSym_natAbs
+#print axioms QuadKronecker.jacobiSym_two_natAbs
+#print axioms QuadKronecker.type_one
+#print axioms QuadKronecker.type_two_three
+#print axioms QuadKronecker.dedekindZeta_eq
+#print axioms QuadKronecker.ne_one_of_eq
+#print axioms QuadKronecker.exists_kronecker
+#print axioms QuadKronecker.classNumber_formula
 EOT
 echo "== axioms"
 # every #print axioms line must print an axiom list inside the three, and no axiom line may name another axiom
