@@ -17475,7 +17475,7 @@ Both landed by the route listed, with `θ′ = a = (θ + min(σ₀, 5/4))/2` and
 
 **Bearing on RH:** none. At `Θ = ½` (RH), `zeta_bound_Theta` would give the bound for every `σ₀ > ½`.
 
-**The next step.** None is planned in the half-plane strand. Of the doors listed after round 468, two remain, and they wait for the owner: sums of the Möbius function and of divisor functions (`M(x)`, the squarefree numbers, Piltz's problem), for which this round supplies the bounds on `ζ` and `1/ζ`; and the prime number theorem modulo 3. *(Round 472: `M(x) = O(x^{θ+η})` from a zero-free half-plane landed, `MertensExponent.mertens_isBigO_of_zeroFree`.)* *(Round 473: Piltz's problem landed, `Σ_{n≤x} d_k(n) = xP_k(log x) + O(x^{θ+η})` from a zero-free half-plane, `DivisorExponent.divisor_isBigO_of_zeroFree`.)* *(Round 471: the owner asked to proceed with the four steps proposed after round 470: a horizon scan and an audit of the character, the two near doors, the half-plane for every Dirichlet character, and its downstream consequences. See round 471.)*
+**The next step.** None is planned in the half-plane strand. Of the doors listed after round 468, two remain, and they wait for the owner: sums of the Möbius function and of divisor functions (`M(x)`, the squarefree numbers, Piltz's problem), for which this round supplies the bounds on `ζ` and `1/ζ`; and the prime number theorem modulo 3. *(Round 479: the prime number theorem modulo 3 landed, as the case `q = 3` of `PNTProgressions.psiAP_isBigO_of_dvd_24`. See round 479.)* *(Round 472: `M(x) = O(x^{θ+η})` from a zero-free half-plane landed, `MertensExponent.mertens_isBigO_of_zeroFree`.)* *(Round 473: Piltz's problem landed, `Σ_{n≤x} d_k(n) = xP_k(log x) + O(x^{θ+η})` from a zero-free half-plane, `DivisorExponent.divisor_isBigO_of_zeroFree`.)* *(Round 471: the owner asked to proceed with the four steps proposed after round 470: a horizon scan and an audit of the character, the two near doors, the half-plane for every Dirichlet character, and its downstream consequences. See round 471.)*
 
 ## Round 471: horizon scan of 2026-10-14, and an audit of the character in the half-plane chain (no new Lean)
 
@@ -17532,7 +17532,7 @@ Both landed by the route listed, with `θ′ = a = (θ + min(σ₀, 5/4))/2` and
 - **Downstream.**
 
   - Bounds for `L(s, χ)` and `log L(s, χ)` uniform in the conductor, and Littlewood's argument for `L(1, χ)` at real `χ`.
-  - The prime number theorem in progressions modulo the `q` whose characters are all real.
+  - The prime number theorem in progressions modulo the `q` whose characters are all real. *(Round 479: landed, `PNTProgressions.psiAP_isBigO`. See round 479.)*
   - For general moduli this plan has only the general-`ν` route, which goes on the register.
 
 **Records.** Net-state markers on round 470's next step and on STRUCTURAL-REVIEW §6's entry "Half-planes for Dirichlet L-functions by twisting the family". A new register entry, "The half-plane for the non-real Dirichlet characters".
@@ -17880,7 +17880,7 @@ The route is round 471's: the family's own members `u = d³·gen(𝔟)⁶`, with
 **The next step.** Round 471's downstream items, in its order:
 
 1. bounds for `L(s, χ)` and `log L(s, χ)` uniform in the conductor, for real `χ`, in the half-plane, and Littlewood's argument for `L(1, χ)`;
-2. the prime number theorem in progressions modulo the `q` whose characters are all real [recalled: these are the divisors of `24`], from the half-plane for each `L(s, χ)` mod `q`, along round 467's route for `ζ` in `external/pnt`; *(Round 478: the nontrivial characters, `ψ(x, χ) = O(x^{11/12+η})` for every real `χ ≠ 1`, `ChiPNT.psiChi_isBigO_eleven_twelfths`, through round 472's smoothed Perron formula rather than round 467's route. See round 478.)*
+2. the prime number theorem in progressions modulo the `q` whose characters are all real [recalled: these are the divisors of `24`], from the half-plane for each `L(s, χ)` mod `q`, along round 467's route for `ζ` in `external/pnt`; *(Round 478: the nontrivial characters, `ψ(x, χ) = O(x^{11/12+η})` for every real `χ ≠ 1`, `ChiPNT.psiChi_isBigO_eleven_twelfths`, through round 472's smoothed Perron formula rather than round 467's route. See round 478.)* *(Round 479: completed for every `q` whose characters are all quadratic, in particular every `q ∣ 24`: `ψ(x; q, a) = x/φ(q) + O(x^{11/12+η})`, `PNTProgressions.psiAP_isBigO`. See round 479.)*
 3. the general-`ν` route for the non-real characters, which stays on the register ("The half-plane for the non-real Dirichlet characters").
 
 ## Round 478: `ψ(x, χ) = O(x^{11/12+η})` for every real Dirichlet character `χ ≠ 1` (`external/pnt/ChiPNT.lean`)
@@ -17936,4 +17936,60 @@ It comes from two statements for a general function:
 
 **Bearing on RH:** none. The theorem consumes a zero-free half-plane and returns a bound.
 
-**The next step.** Round 479: the trivial character and the assembly by orthogonality, `ψ(x; q, a) = x/φ(q) + O(x^{11/12+η})` for `q ∣ 24` and `a` prime to `q`. For the trivial character mod `q`, `ψ(x, 1) = ψ(x) − Σ_{n≤x, (n, q) > 1} Λ(n)`, with round 467's `ψ(x) − x = O(x^{11/12+ε})` and the prime powers sharing a factor with `q` at most `ω(q) log x`.
+**The next step.** Round 479: the trivial character and the assembly by orthogonality, `ψ(x; q, a) = x/φ(q) + O(x^{11/12+η})` for `q ∣ 24` and `a` prime to `q`. For the trivial character mod `q`, `ψ(x, 1) = ψ(x) − Σ_{n≤x, (n, q) > 1} Λ(n)`, with round 467's `ψ(x) − x = O(x^{11/12+ε})` and the prime powers sharing a factor with `q` at most `ω(q) log x`. *(Round 479: landed as planned, `PNTProgressions.psiAP_isBigO_of_dvd_24`. See round 479.)*
+
+## Round 479: the prime number theorem modulo the divisors of `24`, `ψ(x; q, a) = x/φ(q) + O(x^{11/12+η})` (`external/pnt/PNTProgressions.lean`)
+
+**What it is.** Item 2 of round 477's next step, completed: "the prime number theorem in progressions modulo the `q` whose characters are all real". With round 478's `ψ(x, χ)` and round 467's `ψ(x)`, this round proves, with no hypothesis:
+
+- `PNTProgressions.psiAP_isBigO_of_dvd_24`: for every `q ∣ 24`, every `a < q` prime to `q` and every `η > 0`, `ψ(x; q, a) − x/φ(q) = O(x^{11/12+η})`, with round 222's `ψ(x; q, a) = Σ_{1≤n≤x, n ≡ a (q)} Λ(n)` (`PsiOmega.psiAP`).
+- `PNTProgressions.psiAP_isBigO`: the same for every `q ≥ 1` whose Dirichlet characters are all quadratic.
+
+At `q = 3` this is the door "the prime number theorem modulo 3" of round 470's paragraph "The next step".
+
+**What is proved** (`external/pnt/PNTProgressions.lean`, 226 lines, 8 theorems and lemmas; 8 axiom lines in `build.sh`'s final check, each `[propext, Classical.choice, Quot.sound]`).
+
+- **`sum_dvd_le_log`**: `Σ_{1≤n≤N, p ∣ n} Λ(n) ≤ log N` for a prime `p`.
+- **`sum_not_coprime_le`**: `Σ_{1≤n≤N, (n, q) > 1} Λ(n) ≤ ω(q) log N` for `q ≠ 0`, with `ω(q)` the number of prime factors of `q`.
+- **`isQuadratic_of_sq_eq_one`**: if every unit of `ℤ/q` squares to `1`, every Dirichlet character mod `q` is quadratic.
+- **`sq_eq_one_of_dvd_24`**: every unit of `ℤ/q` squares to `1` when `q ∣ 24`.
+- **`psiChi_one`**: `ψ(x, 1) = ψ(x) − Σ_{1≤n≤x, (n, q) > 1} Λ(n)` for the trivial character mod `q`, with Mathlib's `Chebyshev.psi`.
+- **`psiAP_eq_sum`**: `ψ(x; q, a) = φ(q)⁻¹ Σ_χ χ(a⁻¹)ψ(x, χ)` for `a` prime to `q` and `a < q`, the sum over all Dirichlet characters mod `q`.
+- **`psiAP_isBigO`** and **`psiAP_isBigO_of_dvd_24`**: above.
+
+**The proof.**
+
+- **Orthogonality.** Mathlib's `DirichletCharacter.sum_char_inv_mul_char_eq`: `Σ_χ χ(a⁻¹)χ(n) = φ(q)` if `a = n` in `ℤ/q` and `0` otherwise, for `a` a unit. With `a < q`, `n % q = a` holds exactly when `a = n` in `ℤ/q` (Mathlib's `ZMod.natCast_eq_natCast_iff'`).
+- **The trivial character.** `1(n) = 1` if `(n, q) = 1` and `0` otherwise, so `ψ(x, 1) = ψ(x) − E(x)` with `E(x) = Σ_{n≤x, (n, q) > 1} Λ(n)`. Each `n` with `(n, q) > 1` is divisible by a prime `p ∣ q` (Mathlib's `Nat.Prime.not_coprime_iff_dvd`), so `E(x) ≤ Σ_{p ∣ q} Σ_{n≤x, p ∣ n} Λ(n)`. The `n ≤ N` with `p ∣ n` and `Λ(n) ≠ 0` are the powers `p^m ≤ N` with `m ≥ 1`, all divisors of `p^M` with `M = ⌊log_p N⌋` (Mathlib's `Nat.le_log_of_pow_le`), so their sum is at most `Σ_{d ∣ p^M} Λ(d) = log p^M ≤ log N` (Mathlib's `ArithmeticFunction.vonMangoldt_sum`). So `E(x) ≤ ω(q) log x ≤ ω(q)x^e/e` with `e = 11/12 + η` (Mathlib's `Real.log_le_rpow_div`).
+- **The assembly.** `1(a⁻¹) = 1`, since `a⁻¹` is a unit of `ℤ/q`, so `ψ(x; q, a) − x/φ(q) = φ(q)⁻¹[(ψ(x) − x) − E(x) + Σ_{χ ≠ 1} χ(a⁻¹)ψ(x, χ)]`. Round 467's `HalfPlanePNT.psi_isBigO_eleven_twelfths` bounds `ψ(x) − x`, and round 478's `ChiPNT.psiChi_isBigO_eleven_twelfths` each `ψ(x, χ)` with `χ ≠ 1`, every character mod `q` being quadratic.
+- **`q ∣ 24`.** Every `a ∈ ℤ/24` with `(a, 24) = 1` has `a² = 1` (Lean's `decide`). A unit of `ℤ/q` lifts to a unit of `ℤ/24` (Mathlib's `ZMod.unitsMap_surjective`), so it squares to `1`. Then `χ(u)² = χ(u²) = 1` at every unit `u`, so `χ² = 1`, and `χ` is quadratic (Mathlib's `MulChar.isQuadratic_iff_sq_eq_one`).
+
+**Against the plan.** Round 478's next step: "the trivial character and the assembly by orthogonality, `ψ(x; q, a) = x/φ(q) + O(x^{11/12+η})` for `q ∣ 24` and `a` prime to `q`", with "the prime powers sharing a factor with `q` at most `ω(q) log x`". It landed as stated. Not in the plan: the form `psiAP_isBigO` for every `q` whose characters are all quadratic. That these `q` are exactly the divisors of `24` is recalled in round 477's next step and not proved here; this round proves the direction it uses.
+
+**The paper.** Round 478's search covers this round's subject: the paper surfaces state nothing about primes in progressions. The paper is not edited.
+
+**Records.**
+
+- `external/pnt/build.sh`: `PNTProgressions` in the compile list, and 8 lines added to the final check (75 to 83 `#print axioms` lines).
+- `external/pnt/README.md`: a row and a section for `PNTProgressions.lean`.
+- Net-state markers on round 478's paragraph "The next step", on item 2 of round 477's, on round 471's plan (the downstream item for progressions), and on round 470's (the door "the prime number theorem modulo 3").
+
+**Build.** `external/pnt/build.sh` (984 s) compiled `Architect.lean`, the 19 PNT+ files and the 24 files here, `PNTProgressions.lean` with no warnings. Its final check printed 83 axiom lines, each `[propext, Classical.choice, Quot.sound]`. No file of `src/` changed.
+
+- The namespace `PNTProgressions` is new: a grep of the Lean files of the pilot (`external/` included) and of Mathlib finds it only in this file.
+
+**Check 4.** Classical [recalled]: a zero-free half-plane `Re s > θ` for every `L(s, χ)` mod `q` gives `ψ(x; q, a) = x/φ(q) + O(x^{θ+ε})`; Mathlib proves Dirichlet's theorem on primes in progressions with no error term (`Nat.infinite_setOfPred_prime_and_eq_mod`, in `Mathlib/NumberTheory/LSeries/PrimesInAP.lean`). New against the pilot: the prime number theorem with a power-saving error term in the progressions modulo `3`, `4`, `6`, `8`, `12` and `24`, machine-checked with no hypothesis (modulo `1` and `2` it is round 467's theorem, up to the powers of `2`); rounds 222–224's races mod 3, 4 and 8 gave `Ω±` results for the differences `ψ(x; q, a) − ψ(x; q, b)`, not an asymptotic.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every `q` whose characters are all quadratic (in particular every `q ∣ 24`), every `a < q` prime to `q`, every `η > 0`.
+- (b) No barrier claim is made.
+- (c) No signal is fed to a criterion.
+
+**Bearing on RH:** none.
+
+**The next step.** Item 1 of round 477's next step: bounds for `L(s, χ)`, `L′/L(s, χ)` and `log L(s, χ)` in the half-plane, uniform in the conductor, for the real characters, and Littlewood's argument for `L(1, χ)`. The plan, for a quadratic `χ ≠ 1` mod `q`:
+
+1. **The log-derivative, uniformly.** Round 478's disc step with its constants kept: `|L(s, χ)| ≤ (q + 1)|s|/Re s` (round 224), `1/|L(3/2 + it, χ)| ≤ ζ(3/2)` and `|L′/L| ≤ |ζ′/ζ(3/2)|` on `Re s ≥ 3/2` are uniform in `q`, so `|L′/L(σ + it, χ)| ≤ C(log(q + 2) + log(|t| + 2))` on `σ ≥ θ′ > 11/12`, with `C` depending on `θ′` only.
+2. **`ψ(x, χ)`, uniformly.** Round 478's sum with that bound: `|ψ(x, χ)| ≤ C log(q + 2)·x^{11/12+η}` for `x ≥ 1`.
+3. **Littlewood.** For `1 < σ ≤ 2`, `L′/L(σ, χ) = −L(χΛ, σ)`, which partial summation (Mathlib's `LSeries_eq_mul_integral`) bounds through the partial sums `ψ(t, χ)`. Interpolating Chebyshev's `|ψ(t, χ)| ≤ ψ(t) ≤ ct` (Mathlib's `Chebyshev.psi_le_const_mul_self`) with step 2, at the exponent `1/log log q`, gives `|L′/L(σ, χ)| ≪ log log q` on `(1, 2]`. The mean value theorem for `log|L(σ, χ)|` on `[1, 1 + 1/log log q]`, with `|L(σ, χ)|^{±1} ≤ σ/(σ − 1)`, then gives `|log|L(1, χ)|| ≤ log log log q + O(1)`, that is `1/log log q ≪ |L(1, χ)| ≪ log log q`.

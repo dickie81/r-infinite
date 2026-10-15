@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent DivisorExponent ChiPNT; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent DivisorExponent ChiPNT PNTProgressions; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -88,6 +88,7 @@ import SmoothPerron
 import MertensExponent
 import DivisorExponent
 import ChiPNT
+import PNTProgressions
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -163,6 +164,14 @@ import ChiPNT
 #print axioms ChiPNT.sum_isBigO_of_zeroFree
 #print axioms ChiPNT.psiChi_isBigO_of_zeroFree
 #print axioms ChiPNT.psiChi_isBigO_eleven_twelfths
+#print axioms PNTProgressions.sum_dvd_le_log
+#print axioms PNTProgressions.sum_not_coprime_le
+#print axioms PNTProgressions.isQuadratic_of_sq_eq_one
+#print axioms PNTProgressions.sq_eq_one_of_dvd_24
+#print axioms PNTProgressions.psiChi_one
+#print axioms PNTProgressions.psiAP_eq_sum
+#print axioms PNTProgressions.psiAP_isBigO
+#print axioms PNTProgressions.psiAP_isBigO_of_dvd_24
 EOT
 echo "== axioms"
 # every #print axioms line must print an axiom list inside the three, and no axiom line may name another axiom
