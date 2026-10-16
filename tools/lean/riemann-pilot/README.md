@@ -20146,3 +20146,61 @@ New against the pilot:
 **Bearing on RH:** none.
 
 **The next step.** None is planned. §9.3's U1–U5 are done (rounds 511, 513 and this round).
+
+## Round 515: STRUCTURAL-REVIEW.md reorganised, and the knock-ons of the resolved items (`STRUCTURAL-REVIEW.md`)
+
+**What it is.** The owner asked: "Can we tidy up the structural review md. Please remove discharged items, group by category. Order by interestingness. Also check for knock on theoretical work from what has been resolved." No Lean file changes.
+
+**What changed.**
+
+- **The file.** `STRUCTURAL-REVIEW.md` is rewritten, from 718 lines and 235,156 bytes to 599 lines and 120,584 bytes. Its sections, in order:
+  - the knock-ons, K1–K8 (new);
+  - §6, the open-targets register, under the label CLAUDE.md Check 9 cites;
+  - connections and joins, C1–C10;
+  - statements proved twice, S1–S7 (with stack review 3's patterns P1–P8);
+  - dead code and superseded branches, Z1–Z7;
+  - documentation mismatches, M1–M3;
+  - a reference section: §3's named inputs, the layer rules, §5b's substitution matrix (the rows with something open), and the tools and coverage;
+  - the ledger of discharged items, with a table from each old section to its new place.
+- **Discharged items** are removed, and the ledger lists each with the round that discharged it: §0–§2's history; F1–F37; the register's landed entries (the strip `Re s > 11/12` and its joins, the PNT error term, the `S(T)` comparison, the half-plane for every Dirichlet character, doors 1–4, round 509's consumers and rates); D1–D4 and D2′; U1–U5; the overrides; and the resolved candidates. Their text is at `git show cfa1d47:tools/lean/riemann-pilot/STRUCTURAL-REVIEW.md`.
+- **Open items** keep their text. Two struck passages are replaced by their corrections: round 497's values in the rotated-contour bullet (corrected in round 498) and round 501's sentence on Sang's lower bounds on `ℓ` (corrected in round 502). The two passages CLAUDE.md Check 9 quotes as precedents, "a wider zero-free region, if one existed" (§5b) and "(Siegel-zero exclusion), which the stack does not attempt" (§6), are kept verbatim.
+- **Order.** Within each group the items run from the most interesting to the least: in the register, RH, the strip below `7/8`, `Ω±(√x)`, Lindelöf, zero density, Siegel zeros, `λ₁`'s graded converse, the two side targets of round 469, explicit constants.
+
+**The knock-ons** (PAPER, none compiled; each input read in the source this round).
+
+- K1. `ψ(x) − x = Ω±(√x)` with no hypothesis. Round 509's J3 is the case `¬RH`. The case RH is Landau's comparison at a zero on the line [recalled], which `PoleAt` at a zero does not capture.
+- K2. Linnik's theorem with exponent `12 + ε` and an explicit `C_ε`, from round 484's explicit uniform bound on `ψ(x, χ)` (every `χ ≠ 1` since round 509), orthogonality and round 482's Ankeny argument.
+- K3. The prime ideal theorem for every quadratic field, with error `O(x^{11/12+η})`. Round 487's splitting types give `Σ_{N𝔞 = n} Λ_K(𝔞) = Λ(n)(1 + χ(n))`, so the sum is `ψ(x) + ψ(x, χ)`, and rounds 467 and 509 bound both.
+- K4. Lindelöf and the Möbius bound for every `L(s, χ)`, `χ ≠ 1`, on `Re s > 11/12`. Round 470's proof uses `ζ` through five inputs, and each has an `L(·, χ)` counterpart in the stack (rounds 478, 509 and 513) or in Mathlib.
+- K5. Littlewood's bounds for every `χ ≠ 1`. In `Littlewood.lean`, the uses of `IsQuadratic` read this round are the calls of the real-character half-plane and the hypotheses `hψ`, `hlog`, `hC` and `hb` it is passed to.
+- K6. The least `k`-th power nonresidue, from round 509's `LeastNonresidue.exists_prime_ne_one`.
+- K7. `CoImportMV.GaussIdealCount`, the ideal count of `ℚ(i)`, is in reach in `src/` since round 514 moved `QuadIdeals` there.
+- K8. Round 509's band for the complex characters has no consumer: every rate and criterion socket takes `ζ`, `dh` or a real character.
+
+**Other observations of this round** (read or census; NOVEL unless marked).
+
+- C1 (PAPER): `ShortPrimes.ZeroFreeXi α` holds for every `α ≥ 0` from round 468's `abs_im_tau_le_five_twelfths`, with `Az = 1/12` and `T₀ = e`. This supersedes the bridge `ZetaZeroFreeGenProp α → ZeroFreeXi α` that round 235 proposed.
+- C3 (PAPER): the hypotheses of `ZetaJoins.weil_rate_of_psi_bound` and `weil_rate_of_mertens_bound` are satisfiable for `θ ∈ (11/12, 1]`, by rounds 467 and 472. The conclusion, rate `2θ − 1`, is weaker than round 468's `5/6`.
+- §5b: per-pole rates gain nothing from the stack's regions. With J4's `A = 1/6` the Korobov–Vinogradov region lies inside `Re s > 11/12` at every height `≥ e³`, and `LandauKV.zeroFree_KV`'s constant is existential.
+- §6: the register now names round 246's missing Props in `CrossCriteria`. With round 468's band, `LamGradedConverse` would give `λ₁(a) ≥ −C e^{5a/6}` for `a ≥ 1` (an implication; no route is recorded).
+- C7 (CANDIDATE): round 245's Dedekind twin criterion and round 487's `ζ_K = ζ·L(·, χ_K)` would give a criterion for `dedekindZeta K` of every quadratic field whose character is good.
+- M1 and M2: two stale header lines, not edited (a header edit recompiles the file's dependents). `HalfPlaneJoins.lean:22` still says no instance of `SmoothBound θ` with `θ < 1` is proved, though round 468 proved `SmoothBound (11 / 12)`. `ChiUniform.lean:35`'s heading still says "Real characters", though the section's bound holds for every `χ ≠ 1` since round 509.
+- Census, declarations and code uses with comments and strings stripped:
+  - still declared and unused: round 235's dead code (Z3), the headlines of the superseded branches (Z2) and the conditional headlines (C2);
+  - resolved since recorded (the ledger): `Exterior.bose_le` is now a one-line restatement of `BinetProof.bose_le'`, and the `sum_chi3`, `sum_chi4` and `sum_chi8` that `PrimeRaces.lean`'s header cites exist.
+
+**Checks.**
+
+- A script compared the old and new files. Every backticked identifier of the old file that the new one lacks comes from a discharged section: §0–§2's history, F1–F37, the strip's derivation, the landed doors, and the items of §9.2–§9.3 that rounds 509–514 landed. Its list also showed names worth keeping in open entries, which were put back: the three "bound ⇒ zero-free" criteria of the strip's signals bullet, and the density route's two lemmas. One open pair, the oscillatory bound of §3.2, had been left out of the draft and was restored to S7 before the comparison.
+- Backticks balance on every line, and the rows of each of the three tables have the same number of cells.
+- `tools/research/render_lint.py`'s `lint`, run on the file, which is not a paper surface: 96 reports, all of the block-spacing classes L10 and L18 (a list after a paragraph with no blank line between them). The old file had 122, in L10, L16 and L18.
+
+**The paper.** No paper surface is edited: `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` are unchanged. CLAUDE.md is not edited. It cites the register as `STRUCTURAL-REVIEW.md` §6, which the file keeps, and quotes the two passages above, which are kept. Files that cite the old section numbers are not edited, and the ledger's table maps those sections: `src/QuadIdeals.lean`, `src/EisensteinCount.lean`, `src/EisensteinIdealCount.lean` and `src/LFunctionGrowth.lean` cite §9.3, `src/BohrJoins.lean` §6, and the scripts in `review/stack3/` §9 and §9.7.
+
+**Builds.** None: no Lean file changes.
+
+**Check 4.** K2, K4, K5 and K6 are consequences that stack review 3 recorded (D1, D3): ACKNOWLEDGED. K1, K3, K8, the route of K7 inside `src/`, and the observations above are NOVEL. **Check 9.** No barrier claim is made. The register's new entry, `λ₁`'s graded converse, names its socket and gives an attack note.
+
+**Bearing on RH:** none.
+
+**The next step.** None is planned. Among the knock-ons, K1 would close a register entry, and K3 and K6 are short paper proofs on landed theorems.
