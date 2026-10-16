@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadIdeals QuadRing QuadSplit QuadKronecker QuadClassNumber; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -97,7 +97,6 @@ import LeastNonresidue
 import SquarefreeCount
 import ExplicitSmooth
 import ExplicitConstants
-import QuadIdeals
 import QuadRing
 import QuadSplit
 import QuadKronecker
@@ -229,17 +228,6 @@ import QuadClassNumber
 #print axioms ExplicitConstants.exists_nonsquare_le_explicit
 #print axioms ExplicitConstants.exists_nonsquare_le_13
 #print axioms ExplicitConstants.exists_nonsquare_le_rpow_explicit
-#print axioms QuadIdeals.card_ofNorm_mul
-#print axioms QuadIdeals.trichotomy
-#print axioms QuadIdeals.card_ofNorm_split
-#print axioms QuadIdeals.card_ofNorm_inert
-#print axioms QuadIdeals.card_ofNorm_ramified
-#print axioms QuadIdeals.rA_eq
-#print axioms QuadIdeals.dedekindZeta_eq
-#print axioms QuadIdeals.LFunction_one_eq_residue
-#print axioms QuadIdeals.regulator_eq_one
-#print axioms QuadIdeals.LFunction_one_eq_imag
-#print axioms QuadIdeals.residue_eq_real
 #print axioms QuadRing.int_of_mul_sq
 #print axioms QuadRing.exists_eq
 #print axioms QuadRing.minpoly_eq

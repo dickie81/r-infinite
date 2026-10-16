@@ -7,7 +7,10 @@ S2′ averages the family over the ideals `𝔟` of norm at most `Y`, and needs 
 divisible by a fixed `𝔡` with an error `O(√Y)`. This file proves it.
 * **The count at each norm** (`rA_eq`): the number of ideals of norm `n ≥ 1` is `Σ_{d∣n} χ₋₃(d)`. The
   prime powers come from round 284's splitting law (`card_ofNorm_split`, `card_ofNorm_inert`,
-  `card_ofNorm_three`), and multiplicativity from round 283's `ofNorm_mul`.
+  `card_ofNorm_three`), and multiplicativity from round 283's `ofNorm_mul`. *(Round 514: `rA_eq` is round
+  485's `QuadIdeals.rA_eq` with the splitting law, and the three counts are `QuadIdeals.card_ofNorm_split`,
+  `card_ofNorm_inert` and `card_ofNorm_ramified` for `ℚ(ζ₃)`. The proofs here, which round 485 generalized,
+  are removed with the lemmas only they used: STRUCTURAL-REVIEW §9.3, U5.)*
 * **The constant** `κ = Σ_d χ₋₃(d)/d = L(1, χ₋₃)` (`kappa`), as the sum of the pairs
   `1/(3k+1) − 1/(3k+2)`. It is positive (`kappa_pos`), and `|Σ_{d≤U} χ₋₃(d)/d − κ| ≤ 3/(U+1)`
   (`abs_sum_chi_div_sub_kappa_le`).
@@ -35,142 +38,22 @@ theorem chiInt_eq (n : ℕ) : chiInt n = PsiOmega.χ₃ n := (PsiOmega.χ₃_nat
 theorem chiInt_mul (m n : ℕ) : chiInt (m * n) = chiInt m * chiInt n := by
   rw [chiInt_eq, chiInt_eq, chiInt_eq, Nat.cast_mul, map_mul]
 
-/-- An ideal all of whose prime factors equal `P` is a power of `P`. -/
-theorem eq_pow_of_factors {I P : Ideal (𝓞 K)} (hI : I ≠ ⊥) (h : ∀ Q ∈ normalizedFactors I, Q = P) :
-    I = P ^ (normalizedFactors I).card := by
-  have hrep : normalizedFactors I = Multiset.replicate (normalizedFactors I).card P :=
-    Multiset.eq_replicate.2 ⟨rfl, h⟩
-  conv_lhs => rw [← Ideal.prod_normalizedFactors_eq_self hI, hrep]
-  rw [Multiset.prod_replicate]
-
-/-- An ideal all of whose prime factors are `P` or `Q` is `P^a Q^b`. -/
-theorem eq_pow_mul_pow_of_factors {I P Q : Ideal (𝓞 K)} (hI : I ≠ ⊥) (hPQ : P ≠ Q)
-    (h : ∀ R ∈ normalizedFactors I, R = P ∨ R = Q) :
-    I = P ^ (normalizedFactors I).count P * Q ^ (normalizedFactors I).count Q := by
-  classical
-  have hsplit : normalizedFactors I = Multiset.replicate ((normalizedFactors I).count P) P +
-      Multiset.replicate ((normalizedFactors I).count Q) Q := by
-    ext R
-    rw [Multiset.count_add, Multiset.count_replicate, Multiset.count_replicate]
-    by_cases hRP : R = P
-    · subst hRP; rw [ite_eq_left rfl, ite_eq_right (Ne.symm hPQ), add_zero]
-    by_cases hRQ : R = Q
-    · subst hRQ; rw [ite_eq_right hPQ, ite_eq_left rfl, zero_add]
-    rw [ite_eq_right (Ne.symm hRP), ite_eq_right (Ne.symm hRQ), add_zero, Multiset.count_eq_zero]
-    intro hR
-    rcases h R hR with h' | h'
-    · exact hRP h'
-    · exact hRQ h'
-  conv_lhs => rw [← Ideal.prod_normalizedFactors_eq_self hI, hsplit]
-  rw [Multiset.prod_add, Multiset.prod_replicate, Multiset.prod_replicate]
-
-theorem ne_bot_of_norm {I : Ideal (𝓞 K)} {n : ℕ} (hn : n ≠ 0) (hI : absNorm I = n) : I ≠ ⊥ := by
-  rintro rfl; rw [Ideal.absNorm_bot] at hI; exact hn hI.symm
-
-theorem factors_pow_mul_pow {P Q : Ideal (𝓞 K)} (hP : P.IsPrime) (hQ : Q.IsPrime) (hP0 : P ≠ ⊥)
-    (hQ0 : Q ≠ ⊥) (a b : ℕ) :
-    normalizedFactors (P ^ a * Q ^ b) = Multiset.replicate a P + Multiset.replicate b Q := by
-  have hPi : Irreducible P := (Ideal.prime_of_isPrime hP0 hP).irreducible
-  have hQi : Irreducible Q := (Ideal.prime_of_isPrime hQ0 hQ).irreducible
-  rw [normalizedFactors_mul (pow_ne_zero _ (by simpa using hP0)) (pow_ne_zero _ (by simpa using hQ0)),
-    normalizedFactors_pow, normalizedFactors_pow, normalizedFactors_irreducible hPi,
-    normalizedFactors_irreducible hQi, normalize_eq, normalize_eq, Multiset.nsmul_singleton,
-    Multiset.nsmul_singleton]
-
+theorem ne_bot_of_norm {I : Ideal (𝓞 K)} {n : ℕ} (hn : n ≠ 0) (hI : absNorm I = n) : I ≠ ⊥ :=
+  QuadIdeals.ne_bot_of_norm hn hI
 
 /-- **Split**: `p ≡ 1 (mod 3)` has `k + 1` ideals of norm `p^k`, the `P^a Q^{k−a}`. -/
 theorem card_ofNorm_split {p : ℕ} (hp : p.Prime) (h1 : p % 3 = 1) (k : ℕ) :
-    (ofNorm (p ^ k)).card = k + 1 := by
-  classical
-  obtain ⟨P, Q, hPQ, hf, hPn, hQn⟩ := split_of_mod_one hp h1
-  have hPf : P ∈ pFactors p := by rw [hf]; simp
-  have hQf : Q ∈ pFactors p := by rw [hf]; simp
-  obtain ⟨hPp, hP0⟩ := pFactors_prime hp hPf
-  obtain ⟨hQp, hQ0⟩ := pFactors_prime hp hQf
-  have himg : ofNorm (p ^ k) = (Finset.range (k + 1)).image (fun a => P ^ a * Q ^ (k - a)) := by
-    ext I
-    rw [mem_ofNorm, Finset.mem_image]
-    constructor
-    · intro hI
-      have hI0 := ne_bot_of_norm (pow_ne_zero k hp.ne_zero) hI
-      have hfac : ∀ R ∈ normalizedFactors I, R = P ∨ R = Q := fun R hR => by
-        have := mem_pFactors_of_mem hp hI hR
-        rw [hf] at this; simpa using this
-      have hIe := eq_pow_mul_pow_of_factors hI0 hPQ hfac
-      have hab : (normalizedFactors I).count P + (normalizedFactors I).count Q = k := by
-        have h' := hI
-        rw [hIe, map_mul, map_pow, map_pow, hPn, hQn, ← pow_add] at h'
-        exact Nat.pow_right_injective hp.two_le h'
-      refine ⟨(normalizedFactors I).count P, Finset.mem_range.2 (by omega), ?_⟩
-      rw [show k - (normalizedFactors I).count P = (normalizedFactors I).count Q by omega]
-      exact hIe.symm
-    · rintro ⟨a, ha, rfl⟩
-      have hak : a ≤ k := Nat.lt_succ_iff.1 (Finset.mem_range.1 ha)
-      rw [map_mul, map_pow, map_pow, hPn, hQn, ← pow_add, Nat.add_sub_cancel' hak]
-  rw [himg, Finset.card_image_of_injOn, Finset.card_range]
-  intro a _ b _ hab
-  have h := congrArg (fun I => (normalizedFactors I).count P) hab
-  simp only [factors_pow_mul_pow hPp hQp hP0 hQ0, Multiset.count_add,
-    Multiset.count_replicate_self, Multiset.count_replicate, ite_eq_right (Ne.symm hPQ),
-    add_zero] at h
-  exact h
+    (ofNorm (p ^ k)).card = k + 1 :=
+  QuadIdeals.card_ofNorm_split hp (split_of_mod_one hp h1) k
 
 /-- **Inert**: `p ≡ 2 (mod 3)` has one ideal of norm `p^k` if `k` is even, none otherwise. -/
 theorem card_ofNorm_inert {p : ℕ} (hp : p.Prime) (h2 : p % 3 = 2) (k : ℕ) :
-    (ofNorm (p ^ k)).card = if 2 ∣ k then 1 else 0 := by
-  classical
-  obtain ⟨P, hf, hPn⟩ := inert_of_mod_two hp h2
-  have hfac : ∀ {I : Ideal (𝓞 K)}, absNorm I = p ^ k → ∀ R ∈ normalizedFactors I, R = P :=
-    fun {I} hI R hR => by
-      have := mem_pFactors_of_mem hp hI hR
-      rw [hf] at this; simpa using this
-  split_ifs with hk
-  · obtain ⟨j, rfl⟩ := hk
-    rw [Finset.card_eq_one]
-    refine ⟨P ^ j, ?_⟩
-    ext I
-    rw [mem_ofNorm, Finset.mem_singleton]
-    constructor
-    · intro hI
-      have hI0 := ne_bot_of_norm (pow_ne_zero _ hp.ne_zero) hI
-      have hIe := eq_pow_of_factors hI0 (hfac hI)
-      have h' := hI
-      rw [hIe, map_pow, hPn, ← pow_mul] at h'
-      have := Nat.pow_right_injective hp.two_le h'
-      rw [hIe, show (normalizedFactors I).card = j by omega]
-    · rintro rfl
-      rw [map_pow, hPn, ← pow_mul]
-  · rw [Finset.card_eq_zero, Finset.eq_empty_iff_forall_notMem]
-    intro I hI
-    rw [mem_ofNorm] at hI
-    have hI0 := ne_bot_of_norm (pow_ne_zero _ hp.ne_zero) hI
-    have hIe := eq_pow_of_factors hI0 (hfac hI)
-    have h' := hI
-    rw [hIe, map_pow, hPn, ← pow_mul] at h'
-    exact hk ⟨_, (Nat.pow_right_injective hp.two_le h').symm⟩
+    (ofNorm (p ^ k)).card = if 2 ∣ k then 1 else 0 :=
+  QuadIdeals.card_ofNorm_inert hp (inert_of_mod_two hp h2) k
 
 /-- **Ramified**: one ideal of norm `3^k`, `(ω − 1)^k`. -/
-theorem card_ofNorm_three (k : ℕ) : (ofNorm (3 ^ k)).card = 1 := by
-  classical
-  obtain ⟨hf, hn⟩ := ramified_three
-  rw [Finset.card_eq_one]
-  refine ⟨span {ω - 1} ^ k, ?_⟩
-  ext I
-  rw [mem_ofNorm, Finset.mem_singleton]
-  constructor
-  · intro hI
-    have hI0 := ne_bot_of_norm (pow_ne_zero _ (by norm_num)) hI
-    have hfac : ∀ R ∈ normalizedFactors I, R = span {ω - 1} := fun R hR => by
-      have := mem_pFactors_of_mem Nat.prime_three hI hR
-      rw [hf] at this; simpa using this
-    have hIe := eq_pow_of_factors hI0 hfac
-    have h' := hI
-    rw [hIe, map_pow, hn] at h'
-    have := Nat.pow_right_injective (by norm_num : 2 ≤ 3) h'
-    rw [hIe, this]
-  · rintro rfl
-    rw [map_pow, hn]
-
+theorem card_ofNorm_three (k : ℕ) : (ofNorm (3 ^ k)).card = 1 :=
+  QuadIdeals.card_ofNorm_ramified Nat.prime_three ⟨_, ramified_three.1, ramified_three.2⟩ k
 
 section CountMult
 
@@ -191,59 +74,23 @@ theorem chiInt_npow (p j : ℕ) : chiInt (p ^ j) = chiInt p ^ j := by
 theorem chiA_mult : chiA.IsMultiplicative :=
   ⟨by rw [chiA_apply, chiInt_one], fun {m n} _ => chiInt_mul m n⟩
 
-/-- The number of ideals of norm `n`, as an arithmetic function. -/
-noncomputable def rA : ArithmeticFunction ℤ := toArithmeticFunction fun n => ((ofNorm n).card : ℤ)
+/-- The number of ideals of norm `n`, as an arithmetic function: `QuadIdeals.rA` for `ℚ(ζ₃)`. -/
+noncomputable def rA : ArithmeticFunction ℤ := QuadIdeals.rA K
 
-theorem rA_apply {n : ℕ} (hn : n ≠ 0) : rA n = (ofNorm n).card := by
-  simp [rA, toArithmeticFunction, hn]
-
-theorem card_ofNorm_mul {a b : ℕ} (hab : a.Coprime b) (ha : 0 < a) (hb : 0 < b) :
-    (ofNorm (a * b)).card = (ofNorm a).card * (ofNorm b).card := by
-  rw [ofNorm_mul hab ha hb, Finset.card_image_of_injOn (injOn_mul hab), Finset.card_product]
-
-theorem card_ofNorm_one : (ofNorm 1).card = 1 := by
-  have := card_ofNorm_three 0
-  simpa using this
-
-theorem rA_mult : rA.IsMultiplicative := by
-  refine IsMultiplicative.iff_ne_zero.2 ⟨by rw [rA_apply one_ne_zero, card_ofNorm_one]; rfl,
-    fun {m n} hm hn hmn => ?_⟩
-  rw [rA_apply (mul_ne_zero hm hn), rA_apply hm, rA_apply hn,
-    card_ofNorm_mul hmn (Nat.pos_of_ne_zero hm) (Nat.pos_of_ne_zero hn)]
-  push_cast; ring
-
-theorem sum_neg_one_pow (k : ℕ) :
-    ∑ j ∈ Finset.range (k + 1), (-1 : ℤ) ^ j = if 2 ∣ k then 1 else 0 := by
-  induction k with
-  | zero => simp
-  | succ k ih =>
-    rw [Finset.sum_range_succ, ih]
-    rcases Nat.even_or_odd k with ⟨j, rfl⟩ | ⟨j, rfl⟩
-    · rw [ite_eq_left (by omega), ite_eq_right (by omega), show j + j + 1 = 2 * j + 1 by ring, pow_succ,
-        pow_mul]
-      norm_num
-    · rw [ite_eq_right (by omega), ite_eq_left (by omega), show 2 * j + 1 + 1 = 2 * (j + 1) by ring, pow_mul]
-      norm_num
+theorem rA_apply {n : ℕ} (hn : n ≠ 0) : rA n = (ofNorm n).card := QuadIdeals.rA_apply hn
 
 /-- **The ideal count**: the number of ideals of `ℤ[ω]` of norm `n` is `Σ_{d ∣ n} χ₋₃(d)`. -/
 theorem rA_eq : rA = chiA * (zeta : ArithmeticFunction ℤ) := by
-  rw [IsMultiplicative.eq_iff_eq_on_prime_powers _ rA_mult _
-    (chiA_mult.mul isMultiplicative_zeta.natCast)]
-  intro p k hp
-  rw [coe_mul_zeta_apply, Nat.sum_divisors_prime_pow hp, rA_apply (pow_ne_zero _ hp.ne_zero)]
-  simp only [chiA_apply, chiInt_npow]
+  refine QuadIdeals.rA_eq chiA_mult (fun p k _ => chiInt_npow p k) fun p hp => ?_
   have hmod : p % 3 = 0 ∨ p % 3 = 1 ∨ p % 3 = 2 := by omega
   rcases hmod with h0 | h1 | h2
   · have hp3 : p = 3 := by
       have : 3 ∣ p := Nat.dvd_of_mod_eq_zero h0
       exact ((Nat.prime_dvd_prime_iff_eq Nat.prime_three hp).1 this).symm
     subst hp3
-    rw [card_ofNorm_three, show chiInt 3 = 0 by simp [chiInt], Finset.sum_range_succ']
-    simp
-  · rw [card_ofNorm_split hp h1, show chiInt p = 1 by simp [chiInt, h1]]
-    simp
-  · rw [card_ofNorm_inert hp h2, show chiInt p = -1 by simp [chiInt, h2], sum_neg_one_pow]
-    split_ifs <;> simp
+    exact Or.inr (Or.inr ⟨by simp [chiA_apply, chiInt], _, ramified_three.1, ramified_three.2⟩)
+  · exact Or.inl ⟨by simp [chiA_apply, chiInt, h1], split_of_mod_one hp h1⟩
+  · exact Or.inr (Or.inl ⟨by simp [chiA_apply, chiInt, h2], inert_of_mod_two hp h2⟩)
 
 end CountMult
 

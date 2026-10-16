@@ -139,13 +139,10 @@ theorem wf_finset_prod {T : Finset (Ideal (𝓞 K))} (hT : ∀ P ∈ T, P.IsPrim
   · rfl
 
 
-/-- The prime factors of `p𝓞` are nonzero primes. -/
+/-- The prime factors of `p𝓞` are nonzero primes. (Round 514: round 485's `QuadIdeals.pFactors_prime` for
+`ℚ(ζ₃)`.) -/
 theorem pFactors_prime {p : ℕ} (hp : p.Prime) {P : Ideal (𝓞 K)} (hP : P ∈ pFactors p) :
-    P.IsPrime ∧ P ≠ ⊥ := by
-  refine ⟨((mem_pFactors hp.ne_zero).1 hP).1, fun h => ?_⟩
-  have := ((mem_pFactors hp.ne_zero).1 hP).2
-  rw [h, Ideal.mem_bot] at this
-  exact hp.ne_zero (by exact_mod_cast this)
+    P.IsPrime ∧ P ≠ ⊥ := QuadIdeals.pFactors_prime hp hP
 
 /-- If every prime factor of `p𝓞` in `S` has norm `p^f`, a sum over subsets of `S` of total norm
 `p^k` of a function of the subset's size is a binomial count. -/

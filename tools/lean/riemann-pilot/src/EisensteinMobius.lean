@@ -147,7 +147,7 @@ theorem ramified_three :
   have hirr : Irreducible (span {ω - 1} : Ideal (𝓞 K)) :=
     (Ideal.prime_of_isPrime hΛ0 hΛ).irreducible
   refine ⟨?_, ?_⟩
-  · rw [pFactors, h3, UniqueFactorizationMonoid.normalizedFactors_pow,
+  · rw [pFactors, QuadIdeals.pFactors, h3, UniqueFactorizationMonoid.normalizedFactors_pow,
       UniqueFactorizationMonoid.normalizedFactors_irreducible hirr, normalize_eq]
     rfl
   · have h9 := absNorm_natCast_span_sq 3

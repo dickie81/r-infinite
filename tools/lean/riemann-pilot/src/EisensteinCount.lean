@@ -1,4 +1,5 @@
 import EisensteinSymbol
+import QuadIdeals
 
 /-! # S1, part 2a: the ideal Möbius sums `m(n) = Σ_{N𝔞=n} μ(𝔞)` on `ℤ[ω]` (round 283)
 
@@ -19,18 +20,27 @@ structural halves:
 
 Not yet here: which pattern occurs for each `p` (split for `p ≡ 1`, inert for `p ≡ 2 (mod 3)`,
 ramified at `3`), the values of `μ_K(p^k)`, and the assembled identity `mI n = μ_K(n)`.
+
+Round 514 (STRUCTURAL-REVIEW §9.3, U5): round 485's `QuadIdeals` proves the ideals of each norm, their
+multiplicativity, the prime factors of `p·𝓞` and their three patterns for every quadratic field, with
+round 283's proofs. They are now its instances at `K = ℚ(ζ₃)` (`finrank_K`), and the proofs here are removed
+with the three lemmas only they used (`mul_sup_span_eq`, `norm_sup_span_dvd`, `sup_mul_sup_eq`). The ideal
+Möbius function `mI` and its lemmas stay: `QuadIdeals` has none.
 -/
 
 open NumberField Ideal UniqueFactorizationMonoid
 
 namespace Eis
 
-/-- The ideals of norm `n` (finitely many for `n ≥ 1`). -/
-noncomputable def ofNorm (n : ℕ) : Finset (Ideal (𝓞 K)) :=
-  (Ideal.finite_setOfPred_absNorm_eq (S := 𝓞 K) n).toFinset
+/-- `ℚ(ζ₃)` has degree `2`. -/
+theorem finrank_K : Module.finrank ℚ K = 2 := by
+  rw [IsCyclotomicExtension.Rat.finrank (k := 3) K]
+  rfl
 
-theorem mem_ofNorm {n : ℕ} {I : Ideal (𝓞 K)} : I ∈ ofNorm n ↔ absNorm I = n := by
-  simp [ofNorm]
+/-- The ideals of norm `n` (finitely many for `n ≥ 1`): `QuadIdeals.ofNorm` for `ℚ(ζ₃)`. -/
+noncomputable def ofNorm (n : ℕ) : Finset (Ideal (𝓞 K)) := QuadIdeals.ofNorm n
+
+theorem mem_ofNorm {n : ℕ} {I : Ideal (𝓞 K)} : I ∈ ofNorm n ↔ absNorm I = n := QuadIdeals.mem_ofNorm
 
 /-- `m(n) = Σ_{N𝔞 = n} μ(𝔞)`. -/
 noncomputable def mI (n : ℕ) : ℤ := ∑ I ∈ ofNorm n, moebius I
@@ -40,37 +50,16 @@ theorem absNorm_natCast_span (a : ℕ) :
     absNorm (span {(a : 𝓞 K)}) = a ^ Module.finrank ℤ (𝓞 K) := Ideal.absNorm_span_natCast a
 
 theorem natCast_span_le (I : Ideal (𝓞 K)) : span {((absNorm I : ℕ) : 𝓞 K)} ≤ I :=
-  Ideal.span_singleton_absNorm_le I
+  QuadIdeals.natCast_span_le I
 
 /-- Coprime rational integers generate coprime ideals. -/
 theorem span_sup_span_eq_top {a b : ℕ} (hab : a.Coprime b) :
-    span {(a : 𝓞 K)} ⊔ span {(b : 𝓞 K)} = ⊤ := by
-  rw [eq_top_iff_one]
-  obtain ⟨x, y, hxy⟩ : ∃ x y : ℤ, x * a + y * b = 1 := by
-    have := Nat.gcd_eq_gcd_ab a b
-    rw [hab.gcd_eq_one] at this
-    exact ⟨a.gcdA b, a.gcdB b, by rw [mul_comm _ (a : ℤ), mul_comm _ (b : ℤ)]; exact_mod_cast this.symm⟩
-  have : (1 : 𝓞 K) = (x : 𝓞 K) * a + (y : 𝓞 K) * b := by exact_mod_cast congrArg (Int.cast : ℤ → 𝓞 K) hxy.symm
-  rw [this]
-  exact Ideal.add_mem _ (Ideal.mem_sup_left (Ideal.mul_mem_left _ _ (Ideal.mem_span_singleton_self _)))
-    (Ideal.mem_sup_right (Ideal.mul_mem_left _ _ (Ideal.mem_span_singleton_self _)))
+    span {(a : 𝓞 K)} ⊔ span {(b : 𝓞 K)} = ⊤ :=
+  QuadIdeals.span_sup_span_eq_top hab
 
 section Mult
 
 variable {a b : ℕ}
-
-theorem mul_sup_span_eq {J L : Ideal (𝓞 K)} (hab : a.Coprime b) (hJ : absNorm J = a)
-    (hL : absNorm L = b) : J * L ⊔ span {(a : 𝓞 K)} = J := by
-  have haJ : span {(a : 𝓞 K)} ≤ J := hJ ▸ natCast_span_le J
-  have hbL : span {(b : 𝓞 K)} ≤ L := hL ▸ natCast_span_le L
-  have hLa : L ⊔ span {(a : 𝓞 K)} = ⊤ := by
-    rw [eq_top_iff, ← span_sup_span_eq_top hab.symm]
-    exact sup_le_sup_right hbL _
-  apply le_antisymm (sup_le Ideal.mul_le_left haJ)
-  calc J = J * ⊤ := (Ideal.mul_top J).symm
-    _ = J * (L ⊔ span {(a : 𝓞 K)}) := by rw [hLa]
-    _ = J * L ⊔ J * span {(a : 𝓞 K)} := Ideal.mul_sup J L _
-    _ ≤ J * L ⊔ span {(a : 𝓞 K)} := sup_le_sup_left Ideal.mul_le_right _
 
 theorem isRelPrime_of_norm {J L : Ideal (𝓞 K)} (hab : a.Coprime b) (hJ : absNorm J = a)
     (hL : absNorm L = b) : IsRelPrime J L := by
@@ -78,70 +67,13 @@ theorem isRelPrime_of_norm {J L : Ideal (𝓞 K)} (hab : a.Coprime b) (hJ : absN
   rw [Ideal.isCoprime_iff_sup_eq, eq_top_iff, ← span_sup_span_eq_top hab]
   exact sup_le_sup (hJ ▸ natCast_span_le J) (hL ▸ natCast_span_le L)
 
-theorem norm_sup_span_dvd {I : Ideal (𝓞 K)} (hab : a.Coprime b) (hI : absNorm I = a * b) :
-    absNorm (I ⊔ span {(a : 𝓞 K)}) ∣ a := by
-  have h1 : absNorm (I ⊔ span {(a : 𝓞 K)}) ∣ a * b := hI ▸ absNorm_dvd_absNorm_of_le le_sup_left
-  have h2 : absNorm (I ⊔ span {(a : 𝓞 K)}) ∣ a ^ Module.finrank ℤ (𝓞 K) :=
-    absNorm_natCast_span a ▸ absNorm_dvd_absNorm_of_le le_sup_right
-  have hc : (absNorm (I ⊔ span {(a : 𝓞 K)})).Coprime b :=
-    Nat.Coprime.coprime_dvd_left h2 (Nat.Coprime.pow_left _ hab)
-  exact hc.dvd_of_dvd_mul_right h1
-
-theorem sup_mul_sup_eq {I : Ideal (𝓞 K)} (hab : a.Coprime b) (hI : absNorm I = a * b) :
-    (I ⊔ span {(a : 𝓞 K)}) * (I ⊔ span {(b : 𝓞 K)}) = I := by
-  apply le_antisymm
-  · rw [Ideal.sup_mul, Ideal.mul_sup, Ideal.mul_sup]
-    refine sup_le (sup_le Ideal.mul_le_left Ideal.mul_le_left) (sup_le Ideal.mul_le_right ?_)
-    rw [Ideal.span_singleton_mul_span_singleton, ← Nat.cast_mul, ← hI]
-    exact natCast_span_le I
-  · calc I = I * ⊤ := (Ideal.mul_top I).symm
-      _ = I * (span {(a : 𝓞 K)} ⊔ span {(b : 𝓞 K)}) := by rw [span_sup_span_eq_top hab]
-      _ = I * span {(a : 𝓞 K)} ⊔ I * span {(b : 𝓞 K)} := Ideal.mul_sup _ _ _
-      _ ≤ _ := sup_le
-          (by rw [mul_comm]; exact Ideal.mul_mono le_sup_right le_sup_left)
-          (Ideal.mul_mono le_sup_left le_sup_right)
-
 theorem ofNorm_mul (hab : a.Coprime b) (ha : 0 < a) (hb : 0 < b) :
-    ofNorm (a * b) = (ofNorm a ×ˢ ofNorm b).image fun p => p.1 * p.2 := by
-  ext I
-  simp only [mem_ofNorm, Finset.mem_image, Finset.mem_product, Prod.exists]
-  constructor
-  · intro hI
-    set J := I ⊔ span {(a : 𝓞 K)}
-    set L := I ⊔ span {(b : 𝓞 K)}
-    have hJL : J * L = I := sup_mul_sup_eq hab hI
-    have hJ : absNorm J ∣ a := norm_sup_span_dvd hab hI
-    have hL : absNorm L ∣ b := by
-      have := norm_sup_span_dvd hab.symm (I := I) (by rw [hI, mul_comm])
-      exact this
-    have hprod : absNorm J * absNorm L = a * b := by rw [← map_mul, hJL, hI]
-    obtain ⟨x, hx⟩ := hJ
-    obtain ⟨y, hy⟩ := hL
-    have hJ0 : absNorm J ≠ 0 := by rintro h; rw [h, zero_mul] at hx; omega
-    have hL0 : absNorm L ≠ 0 := by rintro h; rw [h, zero_mul] at hy; omega
-    have hxy : x * y = 1 := by
-      have : absNorm J * absNorm L * (x * y) = absNorm J * absNorm L * 1 := by
-        calc absNorm J * absNorm L * (x * y) = (absNorm J * x) * (absNorm L * y) := by ring
-          _ = a * b := by rw [← hx, ← hy]
-          _ = absNorm J * absNorm L * 1 := by rw [mul_one, hprod]
-      exact Nat.eq_of_mul_eq_mul_left (Nat.pos_of_ne_zero (mul_ne_zero hJ0 hL0)) this
-    have hx1 : x = 1 := Nat.eq_one_of_mul_eq_one_right hxy
-    have hy1 : y = 1 := Nat.eq_one_of_mul_eq_one_left hxy
-    exact ⟨J, L, ⟨by rw [hx, hx1, mul_one], by rw [hy, hy1, mul_one]⟩, hJL⟩
-  · rintro ⟨J, L, ⟨hJ, hL⟩, rfl⟩
-    rw [map_mul, hJ, hL]
+    ofNorm (a * b) = (ofNorm a ×ˢ ofNorm b).image fun p => p.1 * p.2 :=
+  QuadIdeals.ofNorm_mul hab ha hb
 
 theorem injOn_mul (hab : a.Coprime b) :
-    Set.InjOn (fun p : Ideal (𝓞 K) × Ideal (𝓞 K) => p.1 * p.2) ↑(ofNorm a ×ˢ ofNorm b) := by
-  rintro ⟨J, L⟩ h ⟨J', L'⟩ h' heq
-  simp only [Finset.coe_product, Set.mem_prod, Finset.mem_coe, mem_ofNorm] at h h'
-  simp only at heq
-  have e1 : J = J' := by
-    rw [← mul_sup_span_eq hab h.1 h.2, ← mul_sup_span_eq hab h'.1 h'.2, heq]
-  have e2 : L = L' := by
-    rw [← mul_sup_span_eq hab.symm h.2 h.1, ← mul_sup_span_eq hab.symm h'.2 h'.1,
-      mul_comm L, mul_comm L', heq]
-  rw [e1, e2]
+    Set.InjOn (fun p : Ideal (𝓞 K) × Ideal (𝓞 K) => p.1 * p.2) ↑(ofNorm a ×ˢ ofNorm b) :=
+  QuadIdeals.injOn_mul hab
 
 /-- **`m(n) = Σ_{N𝔞=n} μ(𝔞)` is multiplicative.** -/
 theorem mI_mul (hab : a.Coprime b) (ha : 0 < a) (hb : 0 < b) : mI (a * b) = mI a * mI b := by
@@ -154,43 +86,30 @@ end Mult
 
 section PrimePowers
 
-theorem finrank_O : Module.finrank ℤ (𝓞 K) = 2 := by
-  rw [RingOfIntegers.rank, IsCyclotomicExtension.Rat.finrank (k := 3) K]
-  rfl
+theorem finrank_O : Module.finrank ℤ (𝓞 K) = 2 := QuadIdeals.finrank_O finrank_K
 
-theorem absNorm_natCast_span_sq (a : ℕ) : absNorm (span {(a : 𝓞 K)}) = a ^ 2 := by
-  rw [absNorm_natCast_span, finrank_O]
+theorem absNorm_natCast_span_sq (a : ℕ) : absNorm (span {(a : 𝓞 K)}) = a ^ 2 :=
+  QuadIdeals.absNorm_natCast_span_sq finrank_K a
 
-/-- The prime factors of `p·𝓞 K`. -/
-noncomputable def pFactors (p : ℕ) : Multiset (Ideal (𝓞 K)) :=
-  normalizedFactors (span {(p : 𝓞 K)})
+/-- The prime factors of `p·𝓞 K`: `QuadIdeals.pFactors` for `ℚ(ζ₃)`. -/
+noncomputable def pFactors (p : ℕ) : Multiset (Ideal (𝓞 K)) := QuadIdeals.pFactors p
 
-theorem span_natCast_ne_bot {p : ℕ} (hp : p ≠ 0) : span {(p : 𝓞 K)} ≠ ⊥ := by
-  rw [Ne, Ideal.span_singleton_eq_bot]; exact_mod_cast hp
+theorem span_natCast_ne_bot {p : ℕ} (hp : p ≠ 0) : span {(p : 𝓞 K)} ≠ ⊥ :=
+  QuadIdeals.span_natCast_ne_bot hp
 
 theorem mem_pFactors {p : ℕ} (hp : p ≠ 0) {P : Ideal (𝓞 K)} :
-    P ∈ pFactors p ↔ P.IsPrime ∧ (p : 𝓞 K) ∈ P := by
-  rw [pFactors, Ideal.mem_normalizedFactors_iff (span_natCast_ne_bot hp), Ideal.span_singleton_le_iff_mem]
+    P ∈ pFactors p ↔ P.IsPrime ∧ (p : 𝓞 K) ∈ P := QuadIdeals.mem_pFactors hp
 
 theorem prod_pFactors {p : ℕ} (hp : p ≠ 0) : (pFactors p).prod = span {(p : 𝓞 K)} :=
-  Ideal.prod_normalizedFactors_eq_self (span_natCast_ne_bot hp)
+  QuadIdeals.prod_pFactors hp
 
 /-- The norms of the prime factors of `p·𝓞 K` multiply to `p²`. -/
-theorem prod_norm_pFactors {p : ℕ} (hp : p ≠ 0) : ((pFactors p).map absNorm).prod = p ^ 2 := by
-  rw [← map_multiset_prod, prod_pFactors hp, absNorm_natCast_span_sq]
+theorem prod_norm_pFactors {p : ℕ} (hp : p ≠ 0) : ((pFactors p).map absNorm).prod = p ^ 2 :=
+  QuadIdeals.prod_norm_pFactors finrank_K hp
 
 /-- A prime factor of `p·𝓞 K` has norm `p` or `p²`. -/
 theorem norm_of_mem_pFactors {p : ℕ} (hp : p.Prime) {P : Ideal (𝓞 K)} (hP : P ∈ pFactors p) :
-    absNorm P = p ∨ absNorm P = p ^ 2 := by
-  obtain ⟨hPp, hpP⟩ := (mem_pFactors hp.ne_zero).1 hP
-  have hd : absNorm P ∣ p ^ 2 := by
-    rw [← absNorm_natCast_span_sq]
-    exact absNorm_dvd_absNorm_of_le ((Ideal.span_singleton_le_iff_mem _).2 hpP)
-  rcases (Nat.dvd_prime_pow hp).1 hd with ⟨i, hi, he⟩
-  interval_cases i
-  · exact absurd (Ideal.absNorm_eq_one_iff.1 (by simpa using he)) hPp.ne_top
-  · left; simpa using he
-  · right; exact he
+    absNorm P = p ∨ absNorm P = p ^ 2 := QuadIdeals.norm_of_mem_pFactors finrank_K hp hP
 
 /-- The Möbius function of a product of distinct nonzero primes. -/
 theorem moebius_finset_prod {T : Finset (Ideal (𝓞 K))} (hT : ∀ P ∈ T, P.IsPrime ∧ P ≠ ⊥) :
@@ -208,38 +127,8 @@ theorem moebius_finset_prod {T : Finset (Ideal (𝓞 K))} (hT : ∀ P ∈ T, P.I
 /-- The prime factors of `p·𝓞 K`: one of norm `p²`, or two (with multiplicity) of norm `p`. -/
 theorem pFactors_cases {p : ℕ} (hp : p.Prime) :
     (∃ P, pFactors p = {P} ∧ absNorm P = p ^ 2) ∨
-      (Multiset.card (pFactors p) = 2 ∧ ∀ P ∈ pFactors p, absNorm P = p) := by
-  have hp2 := hp.two_le
-  have hprod := prod_norm_pFactors hp.ne_zero
-  by_cases hbig : ∃ P ∈ pFactors p, absNorm P = p ^ 2
-  · obtain ⟨P, hP, hPn⟩ := hbig
-    left
-    refine ⟨P, ?_, hPn⟩
-    obtain ⟨t, ht⟩ := Multiset.exists_cons_of_mem hP
-    rw [ht, Multiset.map_cons, Multiset.prod_cons, hPn] at hprod
-    have h1 : (t.map absNorm).prod = 1 := by
-      have hp0 : 0 < p ^ 2 := by positivity
-      nlinarith [Nat.eq_of_mul_eq_mul_left hp0 (hprod.trans (mul_one _).symm)]
-    have ht0 : t = 0 := by
-      by_contra hne
-      obtain ⟨Q, hQ⟩ := Multiset.exists_mem_of_ne_zero hne
-      have hQf : Q ∈ pFactors p := by rw [ht]; exact Multiset.mem_cons_of_mem hQ
-      have hQ1 : absNorm Q ∣ 1 := h1 ▸ Multiset.dvd_prod (Multiset.mem_map_of_mem _ hQ)
-      rcases norm_of_mem_pFactors hp hQf with h | h <;> rw [h] at hQ1
-      · exact absurd (Nat.eq_one_of_dvd_one hQ1) hp.one_lt.ne'
-      · have := Nat.eq_one_of_dvd_one hQ1; nlinarith
-    rw [ht, ht0]; rfl
-  · right
-    push Not at hbig
-    have hall : ∀ P ∈ pFactors p, absNorm P = p := fun P hP =>
-      (norm_of_mem_pFactors hp hP).resolve_right (hbig P hP)
-    refine ⟨?_, hall⟩
-    have hrep : (pFactors p).map absNorm = Multiset.replicate (Multiset.card (pFactors p)) p := by
-      rw [Multiset.eq_replicate]
-      exact ⟨Multiset.card_map _ _, fun b hb => by
-        obtain ⟨P, hP, rfl⟩ := Multiset.mem_map.1 hb; exact hall P hP⟩
-    rw [hrep, Multiset.prod_replicate] at hprod
-    exact Nat.pow_right_injective hp2 hprod
+      (Multiset.card (pFactors p) = 2 ∧ ∀ P ∈ pFactors p, absNorm P = p) :=
+  QuadIdeals.pFactors_cases finrank_K hp
 
 end PrimePowers
 
@@ -257,14 +146,8 @@ theorem finset_prod_spec {T : Finset (Ideal (𝓞 K))} (hT : ∀ P ∈ T, P.IsPr
 
 /-- The prime factors of an ideal of norm `p^k` divide `p·𝓞 K`. -/
 theorem mem_pFactors_of_mem {p k : ℕ} (hp : p.Prime) {I P : Ideal (𝓞 K)} (hI : absNorm I = p ^ k)
-    (hP : P ∈ normalizedFactors I) : P ∈ pFactors p := by
-  have hI0 : I ≠ ⊥ := fun h => by
-    rw [h, Ideal.absNorm_bot] at hI; exact pow_ne_zero k hp.ne_zero hI.symm
-  obtain ⟨hPp, hIP⟩ := (Ideal.mem_normalizedFactors_iff hI0).1 hP
-  refine (mem_pFactors hp.ne_zero).2 ⟨hPp, ?_⟩
-  have hk : ((p ^ k : ℕ) : 𝓞 K) ∈ P := hIP (hI ▸ natCast_span_le I (Ideal.mem_span_singleton_self _))
-  push_cast at hk
-  exact hPp.mem_of_pow_mem k hk
+    (hP : P ∈ normalizedFactors I) : P ∈ pFactors p :=
+  QuadIdeals.mem_pFactors_of_mem hp hI hP
 
 /-- **`m(p^k)` as a signed count of sets of prime factors of `p`.** -/
 theorem mI_prime_pow {p : ℕ} (hp : p.Prime) (k : ℕ) :
@@ -315,6 +198,7 @@ theorem mI_prime_pow {p : ℕ} (hp : p.Prime) (k : ℕ) :
 
 end Eis
 
+#print axioms Eis.finrank_K
 #print axioms Eis.absNorm_natCast_span
 #print axioms Eis.span_sup_span_eq_top
 #print axioms Eis.ofNorm_mul

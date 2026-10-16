@@ -25,6 +25,10 @@ number formula (`LFunction_one_eq_residue`): `L(1, χ) = 2πh_K/(w_K√|D_K|)` f
   (`riemannZeta_residue_one`) and `L(·, χ)` is continuous at `1` (`χ ≠ 1`), against Mathlib's
   `tendsto_sub_one_mul_dedekindZeta_nhdsGT`.
 * `regulator_eq_one`: unit rank `0` gives regulator `1`, the determinant of an empty matrix.
+
+Round 514 (STRUCTURAL-REVIEW §9.3, U5): moved from `external/pnt/` to `src/`. Round 283's and round 287's ideal
+counts for `ℚ(ζ₃)` (`EisensteinCount.lean`, `EisensteinIdealCount.lean`) are now its instances, and the eleven
+theorems the pnt layer's final check printed are printed here.
 -/
 import Mathlib
 
@@ -597,3 +601,15 @@ theorem residue_eq_real (hK : Module.finrank ℚ K = 2) (hc : InfinitePlace.nrCo
 end Zeta
 
 end QuadIdeals
+
+#print axioms QuadIdeals.card_ofNorm_mul
+#print axioms QuadIdeals.trichotomy
+#print axioms QuadIdeals.card_ofNorm_split
+#print axioms QuadIdeals.card_ofNorm_inert
+#print axioms QuadIdeals.card_ofNorm_ramified
+#print axioms QuadIdeals.rA_eq
+#print axioms QuadIdeals.dedekindZeta_eq
+#print axioms QuadIdeals.LFunction_one_eq_residue
+#print axioms QuadIdeals.regulator_eq_one
+#print axioms QuadIdeals.LFunction_one_eq_imag
+#print axioms QuadIdeals.residue_eq_real
