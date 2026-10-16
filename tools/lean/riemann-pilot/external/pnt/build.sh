@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -102,6 +102,8 @@ import QuadSplit
 import QuadKronecker
 import QuadClassNumber
 import Subconvexity
+import InghamDetect
+import InghamDensity
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -288,6 +290,15 @@ import Subconvexity
 #print axioms Subconvexity.convexityBound
 #print axioms Subconvexity.zetaCritBound_Theta
 #print axioms Subconvexity.lindelof_of_RH
+#print axioms InghamDensity.detect_identity
+#print axioms InghamDensity.trichotomy
+#print axioms InghamDensity.densityXi_of_zetaCrit
+#print axioms InghamDensity.inghamFromC
+#print axioms InghamDensity.densityXi_17_6
+#print axioms InghamDensity.densityXi_Theta
+#print axioms InghamDensity.densityHypothesis_of_lindelof
+#print axioms InghamDensity.short_primes_11_17
+#print axioms InghamDensity.short_primes_Theta
 EOT
 echo "== axioms"
 # every #print axioms line must print an axiom list inside the three, and no axiom line may name another axiom
