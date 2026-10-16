@@ -341,7 +341,6 @@ theorem cascadeInv_lattice_closed : Part0.cascadeInv 6 20 218
   field_simp
   ring
 
-set_option maxRecDepth 4000 in
 /-- **The invariant at the lattice labels** `(6, 20, 218)`: `1.0216 × 10⁻¹²¹ < (Ω₅/Ω₆)²Ω₂₀Ω₂₁₈ < 1.0218 × 10⁻¹²¹`. -/
 theorem cascadeInv_lattice_bounds :
     (1.0216e-121 : ℝ) < Part0.cascadeInv 6 20 218 ∧ Part0.cascadeInv 6 20 218 < 1.0218e-121 := by
@@ -356,13 +355,13 @@ theorem cascadeInv_lattice_bounds :
   · rw [lt_div_iff₀ hF]
     have : (1.0216e-121 : ℝ) * ((Nat.factorial 20 : ℝ) * (Nat.factorial 218 : ℝ))
         < (225 * 2 ^ 232 * (Nat.factorial 10 : ℝ) * (Nat.factorial 109 : ℝ)) * 3.141592 ^ 119 := by
-      simp only [Nat.factorial]; norm_num
+      norm_num
     have := mul_lt_mul_of_pos_left hl hK
     linarith
   · rw [div_lt_iff₀ hF]
     have : (225 * 2 ^ 232 * (Nat.factorial 10 : ℝ) * (Nat.factorial 109 : ℝ)) * 3.141593 ^ 119
         < (1.0218e-121 : ℝ) * ((Nat.factorial 20 : ℝ) * (Nat.factorial 218 : ℝ)) := by
-      simp only [Nat.factorial]; norm_num
+      norm_num
     have := mul_lt_mul_of_pos_left hu hK
     linarith
 

@@ -470,7 +470,7 @@ Unreachable from every `#print axioms` target, with notation, `congr_simp`, `mat
   
   Moving these imports to the modules that use them states the dependencies; it does not shorten a rebuild cascade, since the users still depend on the moved module.
 
-**Heartbeat overrides.** 29 `set_option maxHeartbeats`/`maxRecDepth`/`synthInstance` lines in 21 own files (the largest `maxHeartbeats 3200000`). New since round 336: `maxHeartbeats 800000` twice in `EisensteinQuadSieveCor` (lines 254, 534) and once in `EisensteinQuadSieveGcdPart` (line 296), and `maxRecDepth 4000` in `BoundaryLabels` (line 344). Each of the 29 was tested by compiling without it: 12 are not needed (§9.7). *(round 509: the 12 are removed. README round 509)*
+**Heartbeat overrides.** 29 `set_option maxHeartbeats`/`maxRecDepth`/`synthInstance` lines in 21 own files (the largest `maxHeartbeats 3200000`). New since round 336: `maxHeartbeats 800000` twice in `EisensteinQuadSieveCor` (lines 254, 534) and once in `EisensteinQuadSieveGcdPart` (line 296), and `maxRecDepth 4000` in `BoundaryLabels` (line 344). Each of the 29 was tested by compiling without it: 12 are not needed (§9.7). *(round 509: the 12 are removed. README round 509)* *(round 510: `BoundaryLabels:344` is removed with its proof change; the 16 needed lines remain. README round 510)*
 
 ### 9.5 Patterns (CANDIDATES, from reading)
 
@@ -673,7 +673,7 @@ The eight readers of §9.7 covered, end to end, the files new or changed since r
     - `EisensteinQuadSieveGcdPart:296` (17 s either way) and `EisensteinQuadSieveCor:254`;
     - `VinoRec2:23`, `229` and `330` (the file compiles in 14 s without all three);
     - `MediumPNTW:206`, `ExpSum:150`, `ExpSum7:38`, `ExpSum8:102`, `VinoConst:107`, `VinoFam:103` and `Landau:1215`.
-  - **1 goes with a proof change**: `BoundaryLabels:344`. Plain `norm_num` in place of `simp only [Nat.factorial]; norm_num` (twice) compiles without `maxRecDepth 4000`, in 14 s against 17 s. Mathlib's `Nat.factorial` extension evaluates the factorials without unfolding `218!`.
+  - **1 goes with a proof change**: `BoundaryLabels:344`. Plain `norm_num` in place of `simp only [Nat.factorial]; norm_num` (twice) compiles without `maxRecDepth 4000`, in 14 s against 17 s. Mathlib's `Nat.factorial` extension evaluates the factorials without unfolding `218!`. *(round 510: done. In round 510's back-to-back compiles the two versions took about 18 s each, so the change removes the override without a measured speed-up. README round 510)*
   - **16 are needed**:
     - `EisensteinQuadSieveCor:534`;
     - `DHLocate2Base:1282`, `DHLocate3Base:1802` and `DHLocate4Base:1802` (`maxRecDepth 20000`);
