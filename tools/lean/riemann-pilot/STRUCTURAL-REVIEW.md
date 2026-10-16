@@ -424,26 +424,21 @@ Unreachable from every `#print axioms` target, with notation, `congr_simp`, `mat
   
   Several read as results, not scaffolding. Their axioms are seen by no check (README line 10's caveat), so either print them or drop them.
 
-**Imports that bring only unused modules (CANDIDATES).** For each own module `M` and each import `I` of `M`, the census (`review/stack3/census.py`, its last section) asks whether `M` uses any constant from the modules that only `I` brings, those in `I`'s import closure and in no other import's. The dump sees only constants in terms, so an import that a `notation`, an `open` or a tactic needs is reported too; each removal needs a compile. 134 imports bring nothing used, and 116 of them bring no module of their own (redundant, harmless). The other 18 cut whole subtrees from their importer's dependencies, so an edit below them would stop rebuilding it:
+**Imports that bring only unused modules.**
 
-| import | modules only it brings |
-|---|---|
-| `KaiserPlanch` → `KaiserZeroWeight` | 16 |
-| `EisensteinPrepared` → `EisensteinSquarefreeRows` | 13 |
-| `ExpSum5` → `ExpSum4` | 9 |
-| `DHExplicit` → `WeilChiCriterion` | 9 |
-| `ExpSum6` → `ExpSum5` | 5 |
-| `Polya` → `Roadmap` | 5 |
-| `ZetaInputs` → `Zeta` | 4 |
-| `CountCompare` → `DensityAsym` | 4 |
-| `EisensteinTransferPoisson` → `EisensteinDescent` | 3 |
-| `PrimeSide` → `Concave` | 2 |
-| `WeilRH` → `ExteriorZeta` | 2 |
-| `DHColumn` → `StripConv` | 1 |
-| `EisensteinTransferPoisson` → `MellinUniform` | 1 |
-| `KubotaBallOp` → `HilbertResolvent` | 1 |
-
-The remaining four are deliberate: the co-import files `CoImportGamma` and `CoImportMV`, and `CountCompare`'s `Zeta23.MV.Final`, load modules to show that they load together.
+- **The census.** For each own module `M` and each import `I` of `M`, the census (`review/stack3/census.py`, its last section) asks whether `M` uses any constant from the modules that only `I` brings: those in `I`'s import closure and in no other import's. The dump sees only constants in terms, so an import that a `notation`, an `open`, a tactic or a `#check` needs is reported too.
+- **The counts.** 134 imports bring nothing used; 116 of them bring no module of their own (redundant, harmless). The other 18 cut whole subtrees: 14 are listed below, and 4 are deliberate (the co-import files `CoImportGamma` and `CoImportMV`, and `CountCompare`'s `Zeta23.MV.Final`, which load modules to show that they load together).
+- **Each of the 14 compiled with the import deleted** (KERNEL-CHECKED by compile, `review/stack3/import_removal_test.sh`; scratch copies outside `build/`, no olean written):
+  - 12 compile.
+  - `ExpSum5` compiles with `import Mathlib` in place of `import ExpSum4` once its `open Vinogradov VinoHolder` is dropped: it is a Mathlib-only file.
+  - `CountCompare`'s import of `DensityAsym` is needed by `#check @DirMean.mean_value` under the docstring "The two mean-value inputs side by side (import check only)", so it is deliberate.
+- **Downstream.** A module can rely on an import transitively, so the census then checks, with the import removed, whether every own module still reaches every module whose constants it uses. Three removals pass: `DHColumn → StripConv`, `WeilRH → ExteriorZeta` and `DHExplicit → WeilChiCriterion` (9 modules exclusive to it). The other ten carry imports that their importers use transitively. Examples:
+  - `KubotaBallOp → HilbertResolvent`, for `KubotaCTPrinciple`, `KubotaGHolo` and `KubotaResidue`;
+  - `KaiserPlanch → KaiserZeroWeight`, for `KaiserPrefactor` and `KaiserSplit`;
+  - `ZetaInputs → Zeta`, for `BohrLandauCore`, `PsiOmega`, `ShellSixthCore`, `ZetaDiscs` and `ZetaDiscsR`;
+  - `EisensteinPrepared → EisensteinSquarefreeRows`, for 21 modules.
+  
+  Moving these imports to the modules that use them states the dependencies; it does not shorten a rebuild cascade, since the users still depend on the moved module.
 
 **Heartbeat overrides.** 29 `set_option maxHeartbeats`/`maxRecDepth`/`synthInstance` lines in 21 own files (the largest `maxHeartbeats 3200000`). New since round 336: `maxHeartbeats 800000` twice in `EisensteinQuadSieveCor` (lines 254, 534) and once in `EisensteinQuadSieveGcdPart` (line 296), and `maxRecDepth 4000` in `BoundaryLabels` (line 344).
 

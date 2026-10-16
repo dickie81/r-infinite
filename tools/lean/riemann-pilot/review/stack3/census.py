@@ -155,6 +155,28 @@ def main(path):
     for m, i, n in sorted(unused, key=lambda x: -x[2]):
         if n:
             print(f'  {m} -> {i}: {n}')
+    # downstream: with the import removed, does every own module still reach every module whose constants it uses?
+    used_in = collections.defaultdict(set)
+    for o in rows:
+        for d in set(o['tdeps']) | set(o['vdeps']):
+            ms = defmods.get(d, set())
+            ins = [dm for dm in ms if dm in closure(o['module'])]
+            used_in[o['module']] |= set(ins if ins else ms)
+    print('removals whose downstream uses all stay reachable:')
+    for m, i, n in sorted(unused, key=lambda x: -x[2]):
+        if not n:
+            continue
+        graph = {k: [j for j in v if not (k == m and j == i)] for k, v in mods.items()}
+
+        @functools.lru_cache(None)
+        def cl2(x, graph=graph):
+            out = {x}
+            for j in graph.get(x, []):
+                if j in graph:
+                    out |= cl2(j)
+            return frozenset(out)
+        broken = sorted(d for d in own if used_in[d] - cl2(d))
+        print(f'  {m} -> {i}: ' + ('ok' if not broken else f'{len(broken)} downstream lose a used module ({", ".join(broken[:4])}...)'))
     groups = []
     for g in dups:
         items = [tuple(x.rsplit(' @ ', 1)) for x in g]
