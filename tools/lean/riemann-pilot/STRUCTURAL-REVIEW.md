@@ -481,12 +481,12 @@ Unreachable from every `#print axioms` target, with notation, `congr_simp`, `mat
 
 `external/pnt/`: `SmoothPerron` (1–631), `HalfPlanePNT` (1–466), `HalfPlaneLindelof` (1–485), `PsiExponent` (1–163), `MertensExponent` (1–590), `DivisorExponent` (1–1284), `ChiPNT` (1–504), `PNTProgressions` (1–226), `ChiUniform` (1–585), `Littlewood` (1–429), `LeastNonresidue` (1–410), `SquarefreeCount` (1–670), `QuadRing` (1–632), `QuadIdeals` (1–599), `QuadSplit` (1–419), `QuadKronecker` (1–389), `QuadClassNumber` (1–397), `HalfPlaneFinal` (1–24), `BohrKV` (1–43); `ExplicitSmooth` (1–80 and its declarations).
 
-The nine readers of §9.7 covered, end to end, the files new or changed since round 336 that the lead did not read: the `Kubota*` files (78), `EisensteinQuadSieve*` (16), the other new and changed `Eisenstein*` files (27), the geometric and Bohr strand with its zeta23 and dh joins (17), the electron and thermal files (12), and the diffs of `DetectEM` and `MediumPNTW`. Their coverage lines are in their reports, which are not committed.
+The eight readers of §9.7 covered, end to end, the files new or changed since round 336 that the lead did not read: the `Kubota*` files (78), `EisensteinQuadSieve*` (16), the other new and changed `Eisenstein*` files (27), the geometric and Bohr strand with its zeta23 and dh joins (17), the electron and thermal files (12), and the diffs of `DetectEM` and `MediumPNTW`. Their reports, with coverage lines and every candidate, are in `review/stack3/readers/` (model output: candidates, not findings).
 
 ### 9.7 The reading pass (every item verified by the lead)
 
 **Method.**
-- Nine readers read the files above under `review/stack3/reader_brief.md`, and a tenth (the joins lens) read the stack's sockets against rounds 337–495. They returned about 300 candidates.
+- Eight readers read the files above under `review/stack3/reader_brief.md`, and a ninth agent (the joins lens) read the stack's sockets against rounds 337–495. They returned 272 candidates.
 - Check 3 applies: nothing below rests on a reader's word. Each item names how the lead verified it:
   - **compile**: an `example` that restates the stack's lemma by `type_of%` and proves it in one step from the more general lemma. 69 examples are in `review/stack3/VerifyDups1.lean` (19), `VerifyDups2.lean` (28), `VerifyDups3.lean` (17), `VerifyRound401.lean` (4) and `VerifyLam.lean` (1), all compiled against the built stack. `VerifyDups2.lean` also holds two theorems, with clean axioms.
   - **census**: `review/stack3/printed_unused.py` lists the 604 printed constants that no own constant uses, from the olean dump. `exclusive_reach.py` on `branches.json` gives what a set of roots reaches that no other printed target reaches, with a line estimate.
@@ -708,4 +708,6 @@ The nine readers of §9.7 covered, end to end, the files new or changed since ro
     - `BesselK.lean:26` ("the Bessel function of the second kind" for the modified one);
     - `λ` stands for `δ₃` in `KubotaCusps.lean:21` and for `ω − 1` in `KubotaCuspIdent.lean:7–8`;
     - `EisensteinQuadSieveGamma.lean:200` credits `quad_gauss_coords` to round 344, where its own header (lines 18–19) says round 297;
-    - prose corollaries stated but not formalized: `KubotaCoefScalar.lean:404–405` and `KubotaCharacter.lean:513`.
+    - prose corollaries stated but not formalized: `KubotaCoefScalar.lean:404–405` and `KubotaCharacter.lean:513`;
+    - `EisensteinQuadSupplement.lean:287`'s docstring ("The quadratic symbols of the units depend only on the class modulo `4`") sits on `sym6_one_left`, but describes `sym2_unit_congr` (line 300), which has none;
+    - `EisensteinDualExcl.lean:258` still says "A character of `ℤ[ω]/4`" over `norm_xi_le`, which round 492 made general in `m`.
