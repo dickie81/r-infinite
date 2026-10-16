@@ -234,15 +234,6 @@ theorem differentiable_LamG (hχ1 : χ ≠ 1) : Differentiable ℂ (LamG χ) :=
   ((differentiable_id.div_const 2).const_cpow (Or.inl natCast_ne_zero')).mul
     (differentiable_completedLFunction hχ1)
 
-/-- **`Λ*(1 − s) = εΛ*(s)`** for primitive real `χ`. -/
-theorem LamG_one_sub (hq : χ.IsQuadratic) (hprim : χ.IsPrimitive) (s : ℂ) :
-    LamG χ (1 - s) = rootNumber χ * LamG χ s := by
-  unfold LamG
-  rw [hprim.completedLFunction_one_sub, hq.inv]
-  have e : (N : ℂ) ^ ((1 - s) / 2) * (N : ℂ) ^ (s - 1 / 2) = (N : ℂ) ^ (s / 2) := by
-    rw [← cpow_add _ _ natCast_ne_zero']; congr 1; ring
-  linear_combination (rootNumber χ * completedLFunction χ s) * e
-
 omit [NeZero N] in
 /-- `χ⁻¹` is primitive when `χ` is. -/
 theorem isPrimitive_inv (χ : DirichletCharacter ℂ N) (hprim : χ.IsPrimitive) : χ⁻¹.IsPrimitive := by
@@ -256,6 +247,11 @@ theorem LamG_one_sub' (hprim : χ.IsPrimitive) (s : ℂ) :
   have e : (N : ℂ) ^ ((1 - s) / 2) * (N : ℂ) ^ (s - 1 / 2) = (N : ℂ) ^ (s / 2) := by
     rw [← cpow_add _ _ natCast_ne_zero']; congr 1; ring
   linear_combination (rootNumber χ * completedLFunction χ⁻¹ s) * e
+
+/-- **`Λ*(1 − s) = εΛ*(s)`** for primitive real `χ`: `LamG_one_sub'` with `χ⁻¹ = χ`. -/
+theorem LamG_one_sub (hq : χ.IsQuadratic) (hprim : χ.IsPrimitive) (s : ℂ) :
+    LamG χ (1 - s) = rootNumber χ * LamG χ s := by
+  rw [LamG_one_sub' hprim, hq.inv]
 
 omit [NeZero N] in
 theorem norm_cGamma_le' {w : ℂ} (hw : 0 < w.re) : ‖Complex.Gamma w‖ ≤ Real.Gamma w.re := by

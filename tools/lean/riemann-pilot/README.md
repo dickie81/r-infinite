@@ -115,7 +115,7 @@ Every file but 29 ends with `#print axioms` (corrected in round 327; the 29 are 
 | `PsiOmega.lean` | 742 | **one-sided bounds on summatory functions are zero-free half-planes** (generic Mellin theorem, for any entire `Z` with no zero on `Re s ≥ 1`, round 222); **`ψ(x) − x = Ω±(x^θ)`** below the real part of any zero, and for every `θ < ½` unconditionally (rounds 220–221); a zero-free half-plane `Re s > θ` puts the nontrivial zeros in `\|2 Re ρ − 1\| ≤ 2θ − 1`, and at `θ = ½` is RH (`band_of_zeroFree`, `rh_of_zeroFree_half`, round 335) |
 | `MertensOmega.lean` | 309 | **Mertens and Liouville**: `M(x) = Ω±(x^θ)` for every `θ < ½`; `L(λ, s)ζ(s) = ζ(2s)`; a one-sided bound `εL(x) ≤ c√x` gives RH, in particular **Pólya's conjecture ⟹ RH** (round 221) |
 | `DirichletOmega.lean` | 168 | **prime races**: for real `χ ≠ 1`, `ψ(x, χ) = Ω±(x^θ)` below any zero of `L(s, χ)` if there is no real zero in `(θ, 1)`; the race between primes `≡ 1` and `≡ 3` (mod 4) changes lead infinitely often, under those two hypotheses (round 222) |
-| `RealDirichlet.lean` | 576 | **every primitive real Dirichlet character `χ ≠ 1`**: partial sums `≤ N`; `L(s, χ) = s∫S(x)x^{−s−1}` on `Re s > 0`; `L(s, χ)` has a zero with `½ ≤ Re ρ < 1` (Hadamard, via the functional equation); `ψ(x, χ) = Ω±(x^θ)` for `θ < ½` given no real zero in `(θ, 1)`; nonnegative partial sums ⟹ `L(σ, χ) > 0` on `(0, ∞)` and the Ω± unconditionally (rounds 223–224); a nontrivial character of prime level is primitive (`isPrimitive_of_prime_level`, round 335). Since round 511 it imports `LFunctionGrowth.lean`: the partial sums and `L(s, χ) = s∫S(x)x^{−s−1}` are its case `Iχ = IχC` for quadratic `χ`, `‖Λ*(w)‖ ≤ n^{3n}` (`norm_LamG_le`) holds for every `χ ≠ 1`, and it holds the reflection `Λ*(1 − s, χ) = ε_χ Λ*(s, χ⁻¹)` for primitive `χ` (`LamG_one_sub'`) and `isPrimitive_inv` |
+| `RealDirichlet.lean` | 572 | **every primitive real Dirichlet character `χ ≠ 1`**: partial sums `≤ N`; `L(s, χ) = s∫S(x)x^{−s−1}` on `Re s > 0`; `L(s, χ)` has a zero with `½ ≤ Re ρ < 1` (Hadamard, via the functional equation); `ψ(x, χ) = Ω±(x^θ)` for `θ < ½` given no real zero in `(θ, 1)`; nonnegative partial sums ⟹ `L(σ, χ) > 0` on `(0, ∞)` and the Ω± unconditionally (rounds 223–224); a nontrivial character of prime level is primitive (`isPrimitive_of_prime_level`, round 335). Since round 511 it imports `LFunctionGrowth.lean`: the partial sums and `L(s, χ) = s∫S(x)x^{−s−1}` are its case `Iχ = IχC` for quadratic `χ`, `‖Λ*(w)‖ ≤ n^{3n}` (`norm_LamG_le`) holds for every `χ ≠ 1`, and it holds the reflection `Λ*(1 − s, χ) = ε_χ Λ*(s, χ⁻¹)` for primitive `χ` (`LamG_one_sub'`) and `isPrimitive_inv`. Since round 512 `LamG_one_sub` is the case `χ⁻¹ = χ` of `LamG_one_sub'` |
 | `PrimeRaces.lean` | 226 | **the `log p`-weighted prime races mod 3, 4 and 8 change lead infinitely often**, by more than `c·x^θ` for every `θ < ½`, unconditionally; the Hadamard product for `L(s, χ₄)` (rounds 223–224) |
 | `WeilChi.lean` | 651 | **Weil's explicit formula for every primitive real `χ` with `L(½, χ) ≠ 0`**: `Ξ_χ(t) = Λ*(½ + it)` is even (`ε = 1`), of order `≤ 3/2`, with a Hadamard product and zeros in `\|Im t\| < ½`; `Σ_u 2h(τ_u) = g_h(0)log(N/π) + (1/2π)∫h Re ψ((½ + δ)/2 + ir/2) − 2Σ Λ(n)χ(n)n^{−1/2}g_h(log n)` (round 225) |
 | `WeilChiCriterion.lean` | 390 | **Weil's criterion for `L(s, χ)`**: GRH(χ) ⟺ `Q_χ(twin (box 1) λ) ≥ 0`; the graded rate; GRH(χ) ⟺ `Q_χ/‖g‖²` has no negative part of exponential rate; an off-line zero forces failure at rate `\|2β − 1\|`; instances `χ₋₃`, `χ₋₄`, `χ₋₈` (round 225) |
@@ -20020,4 +20020,28 @@ New against the pilot:
 
 **Bearing on RH:** none.
 
-**The next step.** None is planned. The two items round 509 left open are done (round 510 and this round). §9.3's U2–U5 stay open. One candidate from §9.7's pattern list is now cheap: `LamG_one_sub` is `LamG_one_sub'` at a real `χ` with the same proof text, and the two now stand next to each other in `RealDirichlet.lean`.
+**The next step.** None is planned. The two items round 509 left open are done (round 510 and this round). §9.3's U2–U5 stay open. One candidate from §9.7's pattern list is now cheap: `LamG_one_sub` is `LamG_one_sub'` at a real `χ` with the same proof text, and the two now stand next to each other in `RealDirichlet.lean`. *(Round 512: done. See round 512.)*
+
+## Round 512: `LamG_one_sub` as the case `χ⁻¹ = χ` of `LamG_one_sub'` (`src/RealDirichlet.lean`)
+
+**What it is.** The owner asked: "Do the cheap candidate", the one named in round 511's "The next step": "`LamG_one_sub` is `LamG_one_sub'` at a real `χ` with the same proof text, and the two now stand next to each other in `RealDirichlet.lean`." STRUCTURAL-REVIEW §9.7 lists it as "`PsiOmega.LamG_one_sub` is `LamG_one_sub'` at a real `χ` (the same proof text with `hq.inv`; §9.2 D2′)".
+
+**What changed.** In `RealDirichlet.lean`, `LamG_one_sub` moves below `isPrimitive_inv` and `LamG_one_sub'`, which are unchanged. Its proof is now `rw [LamG_one_sub' hprim, hq.inv]`. Before, it was a copy of `LamG_one_sub'`'s proof with `hq.inv` added to the first rewrite and `χ` in place of `χ⁻¹` in the last line. Its docstring gains ": `LamG_one_sub'` with `χ⁻¹ = χ`". Its statement is unchanged, so its five uses are too: `fG_eq` and `exists_zero_of_primitive` in `RealDirichlet.lean`, and `rootNumber_eq_one`, `XiC_even` and `XiC_zero_im` in `WeilChi.lean`. The file goes from 576 to 572 lines.
+
+**The paper.** No file outside `tools/lean/riemann-pilot/` names `LamG_one_sub` or `LamG_one_sub'` (`grep -rnw` over the repository's `.md`, `.tex`, `.py`, `.sh` and `.json` files, less the lines under `tools/lean/riemann-pilot/`, prints nothing). `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` are not edited.
+
+**Builds.** The four layers ran in order on the files of this commit.
+
+- `./build.sh` compiled `RealDirichlet.lean` and the 164 files that import it, directly or through others (165 compiled, 191 up to date, 2267 s), with no warnings. These are round 511's 166 files less `LFunctionGrowth.lean`, which `RealDirichlet.lean` imports. Of the 3102 axiom lines, 3098 are `[propext, Classical.choice, Quot.sound]`; the other four name a subset of the three and are round 495's (`Eis.coprime6_left`, `Eis.coprime6_right`, `Eis.bottom_row_aux`, `Eis.chiInt_three`). The 3102 are round 511's 3105 less the three of `LFunctionGrowth.lean`.
+- `external/dh/build.sh` compiled the 53 files of `external/dh/` (53 compiled, 0 up to date, 4716 s) and exited with code 0. Its 444 axiom lines are each `[propext, Classical.choice, Quot.sound]`, and Lean printed nothing else.
+- `external/pnt/build.sh` (1635 s, alongside the dh build) compiled `Architect.lean`, the 19 PNT+ files and the layer's 36 files. The 36 compiled with no warnings, and the final check printed 190 axiom lines, each `[propext, Classical.choice, Quot.sound]`. The vendored files' 18 warnings are those of round 509's run.
+- `external/zeta23/build.sh` (1113 s, after the pnt build and alongside the dh build) exited with code 0: 69 axiom lines, each `[propext, Classical.choice, Quot.sound]`, no use of `sorry`, and the vendored files' 54 warnings.
+- With the timings removed, the dh, pnt and zeta23 logs are those of round 511 (`diff` prints nothing).
+
+**Records.** The file table (`RealDirichlet.lean`, 576 to 572 lines, with a note); a marker on round 511's "The next step"; STRUCTURAL-REVIEW markers on §9.2's D2′ and on §9.7's pattern list.
+
+**Check 4.** Nothing new is claimed: the candidate is stack review 3's (§9.7), and no statement changes. **Check 9.** No barrier claim is made.
+
+**Bearing on RH:** none.
+
+**The next step.** §9.3's U2–U5. The owner asked for them while this round's builds ran: "Can we get on with U2-5 whilst this builds?"
