@@ -9,7 +9,8 @@ Prints: the module and constant counts; the reachability census (own constants, 
 their parents, reachable from a `#print axioms` target: the in-file lines of every own module plus the final
 checks of external/pnt/build.sh and external/zeta23/build.sh); the unreachable constants per module, with
 notation, `congr_simp`, `match_` and private auxiliaries filtered out; and the groups of own declarations with
-alpha-equivalent statements (and equal values, for definitions) under two or more names.
+alpha-equivalent statements (and equal values, for definitions) under two or more names; and the imports of own
+modules from whose exclusive closure (the modules no other import of the module brings) nothing is used.
 """
 import collections
 import functools
@@ -135,6 +136,25 @@ def main(path):
     print('unreachable by module (* = has users, all of them unreachable too):')
     for m in sorted(by, key=lambda m: (-len(by[m]), m)):
         print(f'  {m} ({len(by[m])}): ' + ', '.join(by[m]))
+    imports = collections.defaultdict(set)
+    for o in rows:
+        for d in set(o['tdeps']) | set(o['vdeps']):
+            imports[o['module']] |= defmods.get(d, set())
+    unused = []
+    for m in sorted(own):
+        imps = [i for i in mods[m] if i in mods]
+        for i in imps:
+            others = set()
+            for j in imps:
+                if j != i:
+                    others |= closure(j)
+            only = closure(i) - others
+            if not imports[m] & only:
+                unused.append((m, i, len(only)))
+    print(f'imports that bring nothing used: {len(unused)}; of them bringing modules of their own:')
+    for m, i, n in sorted(unused, key=lambda x: -x[2]):
+        if n:
+            print(f'  {m} -> {i}: {n}')
     groups = []
     for g in dups:
         items = [tuple(x.rsplit(' @ ', 1)) for x in g]

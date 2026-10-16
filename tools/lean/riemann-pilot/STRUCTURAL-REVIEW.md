@@ -286,6 +286,7 @@ All statements below are quoted from the compiled sources, except entries marked
 - **Squarefree numbers in a zero-free half-plane** *(added round 481, door 3; README round 481)*. Socket: round 472's `MertensExponent.mertens_isBigO_of_zeroFree`. Missing Prop: from `ζ ≠ 0` on `Re s > θ`, `0 ≤ θ < 1`, `#{n ≤ x : n squarefree} − 6x/π² = O(x^{1/(3−θ)+η})` for every `η > 0`; exponent `12/25 + η` at `θ = 11/12`. Attack note: `μ² = Σ_{d²∣n} μ(d)` and the hyperbola method at `y = x^{1/(3−θ)}`. *(round 483: the missing Prop landed, `SquarefreeCount.squarefree_isBigO_of_zeroFree`, with the exponent `12/25 + η` at `θ = 11/12` with no hypothesis, `SquarefreeCount.squarefree_isBigO_twelve_25ths`. README round 483)*
 - **Explicit constants, and the class numbers of quadratic fields** *(added round 481, door 4; README round 481)*. Sockets: round 480's `Littlewood.norm_LFunction_one_le` and `Littlewood.norm_LFunction_one_ge`, whose constants are existential; Mathlib's `NumberField.tendsto_sub_one_mul_dedekindZeta_nhdsGT`. Missing Props: (a) those bounds, and door 1's, with explicit numerical constants; (b) `h_K ≥ c√|D_K|/log log |D_K|` for every imaginary quadratic field `K`, with `c` explicit. Attack note: (a) an explicit `C¹` smoothing in place of PNT+'s `SmoothExistence`, and explicit Mellin bounds for it; (b) a grep of `Mathlib/` finds no ring of integers of a quadratic field, no Kronecker symbol and no factorization `ζ_K = ζ·L(·, χ_K)`; the route is the ring of integers `ℤ[(D + √D)/2]`, the splitting law by Dedekind–Kummer, and the ideal count `Σ_{d∣n} χ_K(d)`. *(round 484: (a) landed, `ExplicitConstants.norm_LFunction_one_ge_explicit` and `ExplicitConstants.norm_LFunction_one_le_explicit` with `c = e^{−2·10²¹}` and `C = e^{2·10²¹}`, and door 1's constants in closed form, `ExplicitConstants.exists_prime_eq_explicit` and `ExplicitConstants.exists_nonsquare_le_explicit`, through the explicit smoothing `ExplicitSmooth.ν₀`; (b) is open. README round 484)* *(round 485: (b), first part: the ideal count, the factorization of `ζ_K` and the class number formula from the splitting types, `QuadIdeals.rA_eq`, `QuadIdeals.dedekindZeta_eq` and `QuadIdeals.LFunction_one_eq_imag`; the ring of integers, the splitting law and the Kronecker character remain. README round 485)* *(round 486: (b), second part: the ring of integers and the discriminant, `QuadRing.adjoin_θ₁`, `QuadRing.discr_θ₁`, `QuadRing.adjoin_θ₂`, `QuadRing.discr_θ₂` and `QuadRing.exists_sqrt`; the splitting law and the Kronecker character remain. README round 486)* *(round 487: (b), third part: the splitting law and the Kronecker character, `QuadSplit` and `QuadKronecker.exists_kronecker`, with `ζ_K = ζ·L(·, χ_K)` and `χ_K ≠ 1`, and `L(1, χ_K) = 2πh_K/(w_K√|D_K|)` for imaginary `K`, `QuadKronecker.classNumber_formula`; the bound for `h_K` remains. README round 487)* *(round 488: (b) landed, `QuadClassNumber.classNumber_ge_loglog`, `h_K ≥ e^{−2·10²¹}√|D_K|/(80π log log |D_K|)` for every imaginary quadratic field, and `QuadClassNumber.regulator_mul_classNumber_ge_loglog` for the real ones; both missing Props of this entry have landed. README round 488)*
 - **The every-character consumers in the pnt layer** *(added in stack review 3, §9.2 D1)*. Sockets: round 495's `Eis.LFunction_ne_zero_of_re_gt` (every Dirichlet character, `Re s > 11/12`) and round 254's `PsiOmega.norm_LFunction_leC` (every `χ ≠ 1`); the consumers `ChiPNT`, `ChiUniform`, `PNTProgressions`, `Littlewood`, `LeastNonresidue` and `ExplicitConstants`, which take `χ.IsQuadratic`. Missing Props: `ψ(x; q, a) − x/φ(q) = O(x^{11/12+η})` for every modulus `q` and every `a` prime to `q`; `‖ψ(x, χ)‖ ≤ C log(N + 2)·x^{11/12+η}` for every `χ ≠ 1` mod `N`, uniformly in `N`; the least prime `≡ a (mod q)` at most `C_ε q^{12+ε}`; Littlewood's bounds on `L(1, χ)` and `L′/L(1, χ)` for every `χ ≠ 1`. The first two are kernel-checked in scratch (`review/stack3/DoorAP.lean`, `review/stack3/DoorUnif.lean`), not landed. Attack note: move `DHHadamard.lean` lines 36–197 to `src/` (§9.2, landing route), then make the two substitutions in each consumer.
+- **The twin-form rates at `11/12` for the real characters** *(added in stack review 3, §9.2 D2)*. Sockets: `PsiOmega.twins_rate`, `twins_rate_chi4`, `Dedekind4.QK_twins_rate`, `WeilTwinGeneral.QKχ_twins_rate`; round 468's `HalfPlaneJoinsFinal` fills them for `ζ`, `χ₋₃` and `ζ·ζ_{ℚ(√−3)}` only. Missing Props: `Q_χ(twin (box 1) λ) ≥ −C e^{5λ/6}` for `χ₋₄`, `χ₋₈` and every `GoodChar χ` with no real zero in `(0, 1)`, and the same for `2Q_ζ + Q_χ`. Kernel-checked in scratch (`review/stack3/DoorRate.lean`), not landed. Attack note: the band `1/12 ≤ Re ρ ≤ 11/12` from round 477's or round 495's half-plane and `PsiOmega.LamG_one_sub`; the file can land as it stands next to `HalfPlaneJoinsFinal`.
 
 ## 7. Candidates from the reading cards still to be verified by direct reading
 (Each is a sub-agent claim; none is a finding until re-read. Listed so a successor can pick them up.)
@@ -353,6 +354,26 @@ The owner asked: "Launch a review of the entire lean stack looking for missed co
 - **Landing route.** The pnt layer imports no dh module. `norm_LFunction_leC` uses 16 `DHHadamard` constants (lines 36–197: `cC`, the partial-sum bounds, `IχC`, `LFunction_eq_IχC`), two of `RealDirichlet` and one of `LandauLaplace`, all in `src/`: the census's dependency walk. So the block moves to `src/`, where `RealDirichlet.norm_LFunction_le` becomes its instance (U1 below). Then each consumer drops `IsQuadratic` or gains an every-`χ` form. No `PsiOmega.cC` clash remains in `src/`: round 275 renamed `WeilChiDensity`'s to `cChi`.
 - Bearing on RH: none.
 
+**D2. The twin-form rates at `11/12` for `χ₋₄`, `χ₋₈` and `ζ_{ℚ(i)}` — KERNEL-CHECKED (scratch), NOVEL.**
+
+- Round 468 (`HalfPlaneJoinsFinal.lean`) states the rate `−C e^{5λ/6}` for three twin forms only. Its README entry lists them: "the twin forms of `ζ`, of `L(s, χ₋₃)` and of `ζ·ζ_{ℚ(√−3)}` are at least `−C e^{5λ/6}` at `λ ≥ 0`".
+- The graded criteria for the other characters were already in place:
+  - `PsiOmega.twins_rate` (`src/WeilChiCriterion.lean:195`, every `GoodChar χ` with no real zero in `(0, 1)`);
+  - `twins_rate_chi4` (line 365);
+  - `Dedekind4.QK_twins_rate` (`src/WeilDedekind.lean:116`);
+  - `WeilTwinGeneral.QKχ_twins_rate` (`src/WeilTwinGeneral.lean:315`).
+  
+  Each needs the band `|2 Re ρ − 1| ≤ σ` for the zeros of `L(s, χ)` in the strip.
+- The band at `σ = 5/6` holds for every primitive real `χ ≠ 1`:
+  - the half-plane (round 477's for real characters, or round 495's) gives `Re ρ ≤ 11/12`;
+  - the reflection `ρ ↦ 1 − ρ` gives `Re ρ ≥ 1/12`. It comes from round 224's `PsiOmega.LamG_one_sub` with `completed_eq_mul` and `LamG_ne_zero` (`src/RealDirichlet.lean:352`, `367` and `644`).
+- Kernel-checked in `review/stack3/DoorRate.lean` (7 s against the built stack; six printed axiom lists, each `[propext, Classical.choice, Quot.sound]`):
+  - `band_eleven_twelfths`;
+  - `chi4_rate_eleven_twelfths` and `chi8_rate_eleven_twelfths`: `Q_χ(twin (box 1) λ) ≥ −C e^{5λ/6}`;
+  - `QK_rate_eleven_twelfths`: Dedekind4's `2Q_ζ + Q_{χ₋₄}`, the form of `ζ·ζ_{ℚ(i)}`;
+  - `QC_rate_eleven_twelfths` and `QKχ_rate_eleven_twelfths`: the same for every `GoodChar χ` with no real zero in `(0, 1)`.
+- This join was open from round 477 on. Bearing on RH: none.
+
 ### 9.3 Duplicates
 
 The census lists 243 groups of own declarations under two or more names with equal statements (types equal up to binder names; for definitions, equal values too).
@@ -381,6 +402,9 @@ The census lists 243 groups of own declarations under two or more names with equ
   - U4: `HalfPlanePNT.disc_point` and `logDeriv_le_of_zeroFree` (lines 176–334, for `ζ`) are the entire-function versions of `ChiPNT` at `F = (s − 1)ζ(s)`, once the generic lemma sits upstream of `HalfPlanePNT`.
   - U5: `QuadIdeals` (round 485, every quadratic field, Mathlib only) proves round 283's and round 287's results for `ℚ(ζ₃)` in general. `QuadIdeals`' module docstring says so ("Multiplicativity is round 283's `Eis.ofNorm_mul` for `ℚ(ζ₃)`, here for every number field"). The `ℚ(ζ₃)` copies stay: in `src/EisensteinCount.lean`, `ofNorm` through `mem_pFactors_of_mem` (lines 29–270, less the ideal Möbius function `mI` and its lemmas, which `QuadIdeals` lacks), and in `src/EisensteinIdealCount.lean`, `eq_pow_of_factors` through `rA_eq` (lines 39–250). `QuadIdeals` imports only Mathlib, so it could move to `src/` and make them instances: a few hundred lines, not counted.
 
+- **A superseded side branch (NOVEL).** Rounds 489–490 (`src/CubicCharHalfPlane.lean`, 381 lines; `src/SexticCharHalfPlane.lean`, 511 lines) prove the half-plane for the characters with `χ³ = 1` and `χ⁶ = 1` through the family's members (`LFunction_ne_zero_of_cube`, `LFunction_ne_zero_of_pow_six`). These are special cases of round 495's `Eis.LFunction_ne_zero_of_re_gt`, whose proof uses no constant of either file: the census's dependency walk from it reaches 23 constants of `RealCharHalfPlane` and none of `CubicCharHalfPlane` or `SexticCharHalfPlane`. No other module uses `SexticCharHalfPlane`, and only `SexticCharHalfPlane` uses `CubicCharHalfPlane`. `DirichletCharHalfPlane` imports `SexticCharHalfPlane` and uses none of its constants: it needs only what that import brings in (`RealCharHalfPlane`, `EisensteinQuadSupplement`). README round 495 puts no marker on rounds 489–490. The two files hold reusable general lemmas, among them `unitsCRT`, `charFst`/`charSnd`, `factorsThrough_nine_of_cube` and `exists_member_cube`.
+- **P8. `HalfPlaneS0`'s machinery is the case `c = μ_K` of round 475's (ACKNOWLEDGED in a docstring, not removed).** `src/HalfPlaneTwist.lean`'s header says: "The lemmas of round 278's `Weight` namespace are restated here for a general `c` (`smoothSumOf`, `mellin_smoothSumOf`, `differentiableAt_mellin_smoothSumOf`)". `HalfPlaneS0.smoothSum W D` is `smoothSumOf muK W D` by definition. So `smoothSum_eq_sum`, `smoothSum_eventually_zero`, `continuousOn_smoothSum`, `differentiableAt_mellin_smoothSum`, `mellin_smoothSum` and `ne_zero_of_smoothBound` (`src/HalfPlaneS0.lean` lines 144–325) become instances of `HalfPlaneTwist`'s `ne_zero_of_smoothSumOf` and its lemmas, once those move into `HalfPlaneS0`.
+
 ### 9.4 Dead code
 
 Unreachable from every `#print axioms` target, with notation, `congr_simp`, `match_` and private auxiliaries filtered out: 207 own constants, against round 272's 218 of 15,828 by the older method (§2.4), not comparable term by term. Most were there at round 336: `DHCoeffs` 60 (§2.4), `Architect` 18 (the blueprint stand-in), `CrossCriteria` 11, `LocalTeeth` 9. New since round 336:
@@ -389,6 +413,29 @@ Unreachable from every `#print axioms` target, with notation, `congr_simp`, `mat
 - `src/KubotaCharacter.lean:506`: `kubHom`, "Kubota's character as a homomorphism `Γ_2 → ℂ`", has no users.
 - `src/MellinRowDep.lean:235`: `abs_dyadicBump_le` has no users.
 - Statements with no `#print axioms` line and no users: `CascadeLepton` (13, among them `Electron.fermion_scalar_ratio`, `sqrt_alphaC`, `diracLayers_29`, `dirac_sphere_even`) and `ChargeLattice` (4: `hydrogen_neutral`, `quark_charges`, `sm_hypercharges`, `hyper`). These read as results, not scaffolding. Their axioms are seen by no check (README line 10's caveat), so either print them or drop them.
+
+**Imports that bring only unused modules (CANDIDATES).** For each own module `M` and each import `I` of `M`, the census (`review/stack3/census.py`, its last section) asks whether `M` uses any constant from the modules that only `I` brings, those in `I`'s import closure and in no other import's. The dump sees only constants in terms, so an import that a `notation`, an `open` or a tactic needs is reported too; each removal needs a compile. 134 imports bring nothing used, and 116 of them bring no module of their own (redundant, harmless). The other 18 cut whole subtrees from their importer's dependencies, so an edit below them would stop rebuilding it:
+
+| import | modules only it brings |
+|---|---|
+| `KaiserPlanch` → `KaiserZeroWeight` | 16 |
+| `EisensteinPrepared` → `EisensteinSquarefreeRows` | 13 |
+| `ExpSum5` → `ExpSum4` | 9 |
+| `DHExplicit` → `WeilChiCriterion` | 9 |
+| `ExpSum6` → `ExpSum5` | 5 |
+| `Polya` → `Roadmap` | 5 |
+| `ZetaInputs` → `Zeta` | 4 |
+| `CountCompare` → `DensityAsym` | 4 |
+| `EisensteinTransferPoisson` → `EisensteinDescent` | 3 |
+| `PrimeSide` → `Concave` | 2 |
+| `WeilRH` → `ExteriorZeta` | 2 |
+| `DHColumn` → `StripConv` | 1 |
+| `EisensteinTransferPoisson` → `MellinUniform` | 1 |
+| `KubotaBallOp` → `HilbertResolvent` | 1 |
+
+The remaining four are deliberate: the co-import files `CoImportGamma` and `CoImportMV`, and `CountCompare`'s `Zeta23.MV.Final`, load modules to show that they load together.
+
+**Heartbeat overrides.** 29 `set_option maxHeartbeats`/`maxRecDepth`/`synthInstance` lines in 21 own files (the largest `maxHeartbeats 3200000`). New since round 336: `maxHeartbeats 800000` twice in `EisensteinQuadSieveCor` (lines 254, 534) and once in `EisensteinQuadSieveGcdPart` (line 296), and `maxRecDepth 4000` in `BoundaryLabels` (line 344).
 
 ### 9.5 Patterns (CANDIDATES, from reading)
 
