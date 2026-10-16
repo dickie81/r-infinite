@@ -210,7 +210,7 @@ All statements below are quoted from the compiled sources, except entries marked
 - `Pilot1ca.rh_iff_twins_subexp : RiemannHypothesis ↔ ∀ σ > 0, ∃ C, ∀ l ≥ 0, −(C·exp(σl)) ≤ weilQ (l + 1) (twin (box 1) l)` (WeilLandau.lean:173); `rh_of_weil_twins` (positivity of the twin form on one-parameter family suffices); `weil_criterion_zeta` (both directions, all probes).
 - Graded: `weil_twins_rate` — the exponential rate of the negative part is `2Θ − 1`. *(stack review 3: as a Lean statement with `PsiExponent.Theta`, `StackReview3.weil_twins_rate_Theta`, §9.2 D4, scratch)*
 - What is proved unconditionally about the rate: `TwinLandau.twin_Q_littleO` (round 242): every twin form is `≥ −ε e^λ` eventually (`Θ ≤ 1`); `TwinKV.twins_lower_KV_sharp` (round 242): `≥ −C exp(λ − c λ^{3/5}(log λ)^{−1/5})`, the KV region in the positivity language with the PNT's exponent. The exact missing Prop for RH in this language is `∃ C, ∀ l ≥ 0, −C ≤ weilQ (l + 1) (twin (box 1) l)` (the case `σ = 0`), and for any zero-free strip `Re ρ ≤ 1 − η`: `∃ C, ∀ l ≥ 0, −C exp((1 − 2η) l) ≤ …`. No narrowing of the *exponential* rate beyond `σ = 1` is available without a strip (`weil_twins_rate`); the subexponential correction is not pinned by the region (round 242). *(net state: round 468 proved the strip, and `HalfPlaneJoins.weil_rate_eleven_twelfths` gives the rate `5/6` with no hypothesis; stack review 3's `weil_twins_rate_Theta` gives it as exactly `2Θ − 1`, §9.2 D4)*
-- Other RH-equivalents in the stack: `rh_of_dodging` (Curvature.lean:86, needs `DFamW`/dodging D + real-rootedness — the roadmap's open items), `rh_of_liouville_bound` (`εL(x) ≤ c√x`), `rh_of_polya` (now non-vacuous, round 238), `rh_of_member_zero`.
+- Other RH-equivalents in the stack: `rh_of_dodging` (Curvature.lean:86, needs `DFamW`/dodging D + real-rootedness — the roadmap's open items), `rh_of_liouville_bound` (`εL(x) ≤ c√x`), `rh_of_polya` (now non-vacuous, round 238), `rh_of_member_zero`. *(stack review 3: also `MertensExponent.rh_iff_Theta_eq_half` and `rh_iff_mertens`, round 472)*
 - Paper-side, not in the stack *(added round 390, CLAUDE.md Check 9)*: Li's criterion, RH ⟺ λₙ ≥ 0 for all n (`riemann-indistinguishability.md` 1av(vi)). The Li ledger's own bound is a circular signal. Socket: none in the stack. Attack note: the auxiliary-signal question of Check 9(c) is open, and no candidate has been proposed. The companion preprint's twisted Möbius sums are the nearest model, for a strip rather than for RH.
 - Paper-side, not in the stack *(added round 395, CLAUDE.md Check 9)*: the n = 0 Jensen line, RH ⟺ every J^(d,0) hyperbolic (`riemann-indistinguishability.md` 1au(viii), quoting Griffin–Ono–Rolen–Zagier; 1at(iii) states the all-(d, n) form). 1au's T1, the first-stage floor, would reduce all-n hyperbolicity at each degree to this line; over all d the line alone already gives RH, so it is the RH-strength remainder. Socket: `rh_of_realRooted_limit` (`Roadmap.lean`, Hurwitz: real-rooted entire `F n` with nonzero scalars `c n` and `c n · F n → Ξ` locally uniformly give Mathlib's `RiemannHypothesis`), fed by `F_d(t) = J^(d,0)(−t²/d)`; two unconditional classical inputs are missing from the stack: the locally uniform convergence `F_d → Ξ` and the positivity of every γ(j), which puts a hyperbolic `J^(d,0)`'s roots on the negative axis and so `F_d`'s zeros on the real line *(socket corrected at the round-395 sweep, F395-C2: the entry had said "none in the stack"; `rh_of_polya` is Pólya's Liouville conjecture, not Jensen–Pólya)*. Survey (round-395 sweep, F395-C3; extended round 396): the line is proven far out — Chasse, every J^(d,0) for d ≤ 2·10¹⁷ (cited in GORZ's footnote to the quoted sentence); Griffin–Ono–Rolen–Thorner–Tripp–Wagner (arXiv 1910.01227), Theorem 1.2: if RH holds to height T, every J^(d,n) with d ≤ ⌊T⌋² is hyperbolic — their corollary takes Platt's 3.06×10¹⁰ (d ≤ 9.36×10²⁰), and Platt–Trudgian's verification to 3×10¹² (arXiv 2004.09765, the height the paper's Theorem 1b uses) gives d ≤ 9×10²⁴; GORZ prove each fixed degree for all sufficiently large n. Farmer's note on this route (arXiv 2008.07206) is titled "Jensen polynomials are not a plausible route to proving the Riemann Hypothesis" (title only read here). Attack note: the n = 0 line is the corner of fixed n and every d; beyond the sources surveyed here its open part is d > 9×10²⁴ *(the round-395 entry's "d > 9.36×10²⁰" understated the proven range, round 396 F396-A1/C1)*. The paper's own census of it is at sampled degrees (1at(iii) d = 2…5; 1au(iii) d = 9, 12, 16, 20, 25; 1aw(ii) d = 45, 55, 65, 80, 100), inside the proven range, and no auxiliary signal for the open part has been proposed.
 - Paper-side, not in the stack *(added in the paper's review round 403, CLAUDE.md Check 9)*: two restatements in `riemann-indistinguishability.md` 1as. In (v), extending "incongruent ⇒ no zero" (no zero where `|χ| ≠ 1`) to every `σ > ½` is RH; in (vi), read through its structural law, "a pure product state over the primes admits no interference decomposition other than its own mirror" is RH. Neither is verbatim: both pass through the fact that no zero of ζ lies on `|χ| = 1` off the line: for `0 ≤ Re s ≤ 1` the locus leaves the line only at heights `0 < |t| < 7` (`frontier/concentration/chi_locus.py`, gate C6; at `t = 0` the σ-derivative of `log|χ|` is positive on `(0, 1)`, the paper's round-404 annotation; at the corners `s = 0` and `s = 1`, `χ` vanishes or has a pole), every zero at heights `0 < t ≤ 100` is on the line (the paper's F4), and `χ` vanishes at the trivial zeros. The equivalences move the difficulty and do not reduce it. Signals (Check 9(c)): the zero set, circular. Socket: none in the stack. Attack note: none proposed. The paper's insufficiency certificate (1as(vi)) shows that the congruence frame, at the level the Davenport–Heilbronn function shares with ζ, cannot decide RH.
@@ -221,9 +221,9 @@ All statements below are quoted from the compiled sources, except entries marked
 **GRH for real characters.** `PsiOmega.grh_iff_twins (hS : ∀ σ ∈ (0,1), L(χ,σ) ≠ 0) : GRH χ ↔ ∀ l ≥ 0, 0 ≤ QC χ (l + 1) (twin (box 1) l)` for every `GoodChar χ`; instances `χ₋₃, χ₋₄, χ₋₈` with `hS` discharged from nonnegative partial sums. The hypothesis `hS` (no real zero in `(0,1)`, i.e. no Siegel zero for that `χ`) is the only extra input, and it is proved for the three instances and, since round 245, for `χ₋₇` (`WeilTwinGeneral.hS7`) only. Missing Prop for a general primitive real `χ`: `∀ σ, 0 < σ → σ < 1 → LFunction χ σ ≠ 0` (Siegel-zero exclusion), which the stack does not attempt *(round 277: the claimed half-plane `Re s > 7/8` excludes real zeros in `(7/8, 1)` for every Dirichlet character. It does not give `hS` on all of `(0, 1)`.)* *(round 286: the release's third family-003 manuscript claims `(1 − β) log q ≥ c` for real zeros of primitive real characters. With the half-plane, it still does not give `hS` on all of `(0, 1)`.)* *(round 477: for every real `χ`, primitive or not, no zero in `Re s > 11/12` is now proved here with no hypothesis (`Eis.RealChar.LFunction_ne_zero_of_isQuadratic`), and the release's two `SiegelZeros` statements with `c = (log 3)/12` (`Eis.RealChar.dirichletRealZeroBound`, `Eis.RealChar.exists_absolute_real_zero_gap`). `hS` on all of `(0, 1)` is still not given: real zeros in `(0, 11/12]` are not excluded here. README round 477)*; `LFunction_ne_zero_of_sums_nonneg` proves it from `∀ x, 0 ≤ Σ_{n≤x} χ(n)`, which holds for the three characters and fails in general.
 - New (round 236): `RH ∧ GRH(χ₋₄) ↔ ∀ l ≥ 0, 0 ≤ 2·weilQ … + QC chi4 …`.
 
-**Zero density.** `DetectEM.density_unconditional (hδ0 : 0 < δ) (hδ1 : δ ≤ 1/4) : DensityXi (4(1 + δ)) 11` with `DensityXi A B := ∃ C, ∀ σ T, ½ ≤ σ → σ ≤ 1 → 2 ≤ T → NX σ T ≤ C T^{A(1−σ)} (log T)^B` (ShortPrimes.lean:28; `NX` counts zeros of `Ξ` with `|Re τ| ≤ T`, `|Im τ| ≥ σ − ½`). This is Carlson/Chudakov level (`sup A = 4`). Density hypothesis `A = 2`: missing. Ingham's `A(σ) = 3/(2−σ)`: missing; the exact missing ingredient is a mean-value/large-values input with a power saving in the detection step: `∃ c < ½, ζ(½ + it) = O(|t|^c)` (van der Corput `c = 1/4`, Weyl `c = 1/6`), which no layer has — every pointwise bound on `ζ` in the stack is Euler–Maclaurin (`PNT+ ZetaBnd_aux1`, exponent ½) or the Vinogradov region near `σ = 1`.
+**Zero density.** `DetectEM.density_unconditional (hδ0 : 0 < δ) (hδ1 : δ ≤ 1/4) : DensityXi (4(1 + δ)) 11` with `DensityXi A B := ∃ C, ∀ σ T, ½ ≤ σ → σ ≤ 1 → 2 ≤ T → NX σ T ≤ C T^{A(1−σ)} (log T)^B` (ShortPrimes.lean:28; `NX` counts zeros of `Ξ` with `|Re τ| ≤ T`, `|Im τ| ≥ σ − ½`). This is Carlson/Chudakov level (`sup A = 4`). Density hypothesis `A = 2`: missing. Ingham's `A(σ) = 3/(2−σ)`: missing; the exact missing ingredient is a mean-value/large-values input with a power saving in the detection step: `∃ c < ½, ζ(½ + it) = O(|t|^c)` (van der Corput `c = 1/4`, Weyl `c = 1/6`), which no layer has — every pointwise bound on `ζ` in the stack is Euler–Maclaurin (`PNT+ ZetaBnd_aux1`, exponent ½) or the Vinogradov region near `σ = 1`. *(net state, round 470: `HalfPlaneLindelof.zeta_bound_eleven_twelfths` bounds `ζ^{±1}` by `O(|t|^ε)` on `Re s ≥ σ₀` for each `σ₀ > 11/12`; stack review 3, §9.7, records a paper route from it to `μ(1/2) ≤ 5/24`)*
 
-**Lindelöf.** Nothing: no subconvexity bound of any strength is in the three layers (checked by grepping for `riemannZeta` growth theorems: only `ZetaBnd_aux1`-type `|t|^{1−σ}` bounds and the KV-region bounds near `σ = 1`). Missing Prop: `∀ ε > 0, (fun t => riemannZeta (1/2 + t I)) =O[atTop] fun t => |t|^ε`. *(round 470: in the half-plane, `ζ(σ + it)^{±1} = O(|t|^ε)` uniformly on `σ ≥ σ₀` for each `σ₀ > 11/12`, `HalfPlaneLindelof.zeta_bound_eleven_twelfths`; on `Re s = ½` the Missing Prop stands; README round 470)*
+**Lindelöf.** Nothing: no subconvexity bound of any strength is in the three layers (checked by grepping for `riemannZeta` growth theorems: only `ZetaBnd_aux1`-type `|t|^{1−σ}` bounds and the KV-region bounds near `σ = 1`). Missing Prop: `∀ ε > 0, (fun t => riemannZeta (1/2 + t I)) =O[atTop] fun t => |t|^ε`. *(round 470: in the half-plane, `ζ(σ + it)^{±1} = O(|t|^ε)` uniformly on `σ ≥ σ₀` for each `σ₀ > 11/12`, `HalfPlaneLindelof.zeta_bound_eleven_twelfths`; on `Re s = ½` the Missing Prop stands; README round 470)* *(stack review 3, PAPER: round 470's bound, the functional equation and the convexity of `μ` give `μ(1/2) ≤ 5/24`, which would fill `CrossCriteria.ConvexityBound`; the Lean inputs it lacks are a bound for the Γ-factor on vertical lines and Phragmén–Lindelöf with interpolated exponents, §9.7)*
 
 **Zero-free regions.** `LandauKV.zeroFree_KV : ∃ A > 0, ∀ σ t, e³ ≤ |t| → 1 − A/((log|t|)^{2/3}(log log|t|)^{1/3}) ≤ σ → ζ(σ + it) ≠ 0` — Korobov–Vinogradov, unconditional, non-explicit `A`. Explicit `A` (Ford's `1/57.54`): missing, and the README (round 234) records the decision not to pursue it. *(stack review 3: `A = 1/6` follows from round 466's half-plane at every height `≥ e³`, `StackReview3.zeroFree_KV_explicit`, §9.2 D4, scratch)*
 
@@ -465,7 +465,7 @@ Unreachable from every `#print axioms` target, with notation, `congr_simp`, `mat
   
   Moving these imports to the modules that use them states the dependencies; it does not shorten a rebuild cascade, since the users still depend on the moved module.
 
-**Heartbeat overrides.** 29 `set_option maxHeartbeats`/`maxRecDepth`/`synthInstance` lines in 21 own files (the largest `maxHeartbeats 3200000`). New since round 336: `maxHeartbeats 800000` twice in `EisensteinQuadSieveCor` (lines 254, 534) and once in `EisensteinQuadSieveGcdPart` (line 296), and `maxRecDepth 4000` in `BoundaryLabels` (line 344).
+**Heartbeat overrides.** 29 `set_option maxHeartbeats`/`maxRecDepth`/`synthInstance` lines in 21 own files (the largest `maxHeartbeats 3200000`). New since round 336: `maxHeartbeats 800000` twice in `EisensteinQuadSieveCor` (lines 254, 534) and once in `EisensteinQuadSieveGcdPart` (line 296), and `maxRecDepth 4000` in `BoundaryLabels` (line 344). Each of the 29 was tested by compiling without it: 12 are not needed (§9.7).
 
 ### 9.5 Patterns (CANDIDATES, from reading)
 
@@ -480,3 +480,232 @@ Unreachable from every `#print axioms` target, with notation, `congr_simp`, `mat
 ### 9.6 Reading coverage (the lead, this review, end to end)
 
 `external/pnt/`: `SmoothPerron` (1–631), `HalfPlanePNT` (1–466), `HalfPlaneLindelof` (1–485), `PsiExponent` (1–163), `MertensExponent` (1–590), `DivisorExponent` (1–1284), `ChiPNT` (1–504), `PNTProgressions` (1–226), `ChiUniform` (1–585), `Littlewood` (1–429), `LeastNonresidue` (1–410), `SquarefreeCount` (1–670), `QuadRing` (1–632), `QuadIdeals` (1–599), `QuadSplit` (1–419), `QuadKronecker` (1–389), `QuadClassNumber` (1–397), `HalfPlaneFinal` (1–24), `BohrKV` (1–43); `ExplicitSmooth` (1–80 and its declarations).
+
+The nine readers of §9.7 covered, end to end, the files new or changed since round 336 that the lead did not read: the `Kubota*` files (78), `EisensteinQuadSieve*` (16), the other new and changed `Eisenstein*` files (27), the geometric and Bohr strand with its zeta23 and dh joins (17), the electron and thermal files (12), and the diffs of `DetectEM` and `MediumPNTW`. Their coverage lines are in their reports, which are not committed.
+
+### 9.7 The reading pass (every item verified by the lead)
+
+**Method.**
+- Nine readers read the files above under `review/stack3/reader_brief.md`, and a tenth (the joins lens) read the stack's sockets against rounds 337–495. They returned about 300 candidates.
+- Check 3 applies: nothing below rests on a reader's word. Each item names how the lead verified it:
+  - **compile**: an `example` that restates the stack's lemma by `type_of%` and proves it in one step from the more general lemma. 69 examples are in `review/stack3/VerifyDups1.lean` (19), `VerifyDups2.lean` (28), `VerifyDups3.lean` (17), `VerifyRound401.lean` (4) and `VerifyLam.lean` (1), all compiled against the built stack. `VerifyDups2.lean` also holds two theorems, with clean axioms.
+  - **census**: `review/stack3/printed_unused.py` lists the 604 printed constants that no own constant uses, from the olean dump. `exclusive_reach.py` on `branches.json` gives what a set of roots reaches that no other printed target reaches, with a line estimate.
+  - **diff**: `review/stack3/pairdiff.py` on `pairs.txt` counts the nonblank lines that match after whitespace normalization, and after the renamings listed in the file where given.
+  - **read**: the lead read the lines cited.
+- Everything is NOVEL (not in §9 above, the register or a README marker) unless marked otherwise. Items not verified are marked CANDIDATE.
+
+**Joins and doors.**
+- (compile) `StackReview3.emBound_of_emApprox`: `MeanSquareZeta.EMApprox → DetectCore.EMBound`, since `β + |γ| ≤ 2|γ|` at a zero with `β ≤ 2 ≤ |γ|`.
+- (compile) `NX_eq_zero_of_five_twelfths_lt`: `5/12 < w → NX w T = 0`, from round 468's `|Im τ| ≤ 5/12`. `ShellCount.NX_eq_zero` takes `1/2 ≤ w`.
+- (compile) The λ₁ prefactor.
+  - Round 468's `HalfPlaneJoins.lam_prefactor_eleven_twelfths`, `λ₁(a) ≤ K(a + 1)e^{(59/6)a − 4πe^{2a}}`, follows in four lines from round 220's `Kaiser.lam_nine` (`9a`) (`VerifyLam.lean`).
+  - `HalfPlaneJoins.lean`'s header (lines 18–19) says "Unconditionally the exponent is `10a` (`lam_prefactor`)". README round 468 (line 17349) calls `(59/6)a` "a saving of `e^{a/6}`". Against `lam_nine` it is a loss of `e^{5a/6}`.
+  - Round 234's correction (README line 7868) said the same of its own bound; rounds 279 and 468 did not carry it over.
+- (census and read) Conditional headlines whose hypotheses are now theorems, with no user and no unconditional form:
+  - `twisted_theta_mellin` (`src/KubotaMellin.lean:694`, `KubotaData`);
+  - `twisted_theta_poly` (`src/KubotaStrip.lean:672`, `KubotaData`);
+  - `lemma61_of_kubotaTheta` (`src/KubotaTranslates.lean:434`, `KubotaTheta`);
+  - `fSmoothJ_isBigO_of_meanSquare` (`src/HalfPlaneTwistMean.lean:553`, `MeanSquare σ`, which `Eis.meanSquare` proves for every `σ > 0`).
+
+  `kubotaData_of` (`src/KubotaCusps.lean:94`), which turns `KubotaTheta` into `KubotaData`, has no user either. `HalfPlanePNT.psi_isBigO_of_completed` (from `CompletedMeanSquare`) has round 467's `psi_isBigO_eleven_twelfths` as its conclusion and no user (ACKNOWLEDGED: README line 17263, "has the same statement").
+- PAPER (read): the pinning radius.
+  - `Unconditional.pinned_unconditional` uses its `hstrip : ∀ i, |(t i).im| ≤ 1/2` once (line 283), for `cosh(a|Im t_i|) ≤ cosh(a/2)`.
+  - With `abs_im_tau_le_five_twelfths`, `ZetaInputs.pinned_zeta` could take `B = 2g(0)cosh(5a/12)`. At `a = 10` that is `cosh(25/6) ≈ 32.3` in place of `cosh 5 ≈ 74.2`.
+- PAPER (read): the strip width.
+  - `StripConv.stripSet` is `|Im z| < 1/2`, and enters through `ordinate_mem_strip` and `zero_mem_stripSet`.
+  - Every ordinate of `Ξ` lies in `|Im z| ≤ 5/12`. So the strip criteria (`rh_of_strip_cross`, `hypConvStrip_of_close` with its `∀ b < 1/2`, `rh_of_relgap`, `KernelChain.rh_of_close_RPhi`) should hold at any width `c > 5/12`, with closeness needed only for `b < c`.
+  - CANDIDATE: the proofs past `ordinate_mem_strip` were not read.
+- PAPER (the arithmetic checked): a subconvexity exponent on the line.
+  - Round 470 gives `μ(σ) = 0` for `σ > 11/12`. The functional equation gives `μ(1 − σ) = μ(σ) + σ − 1/2`, so `μ(1/12) ≤ 5/12`. Convexity then gives `μ(1/2) ≤ 5/24 < 1/4`.
+  - That would fill `CrossCriteria.ConvexityBound`, and it is the "subconvexity input" that §5b names.
+  - The stack lacks the two Lean inputs: a bound on vertical lines for the factor `2(2π)^{−s}Γ(s)cos(πs/2)`, and a Phragmén–Lindelöf lemma with interpolated exponents (`HalfPlaneLindelof.norm_le_interp` takes one bound on the rectangle).
+- CANDIDATE (read): `CoImportMV.GaussIdealCount` (`external/zeta23/CoImportMV.lean:98`), a "missing Prop" for the ideal count of `ℚ(i)`.
+  - It could come from `QuadIdeals.rA_eq` (round 485) and `QuadKronecker.type_two_three` (`−1 ≡ 3 mod 4`) at `K = CyclotomicField 4 ℚ`, `d = −1`.
+  - It would make `dedekindZeta_eq_angularL` and `dedekindZeta_eq_zeta_mul_L` unconditional. Not compiled.
+
+**Superseded and unconsumed branches** (census; lines as estimated by `exclusive_reach.py`).
+- **Round 401's chain, about 900 lines (compile and census).**
+  - `VerifyRound401.lean` proves round 401's four headlines in one line each from round 402's `BohrLandau.tendsto_NX_div_pos` and `tendsto_outside_div_pos` (`w > 0`), whose conclusions are the same:
+    - `ShellSixth.tendsto_NX_div_sixth` and `tendsto_outside_div_sixth` (`w > 1/6`);
+    - `ShellDensity.tendsto_NX_div_quarter` and `tendsto_outside_div_quarter` (`w > 1/4`).
+  - What only these four reach: 28 declarations, about 908 lines (`ShellSixthCore` 352, `MeanSquareZeta` 285, `ZetaDiscs` 178, `ShellSixth` 65, `ShellDensity` 28).
+  - ACKNOWLEDGED for the result: round 401's README entry carries round 402's marker, "*(round 402: every `w > 0`, `BohrLandau.tendsto_NX_div_pos`.)*".
+  - NOVEL: the code is now reached by nothing else, and `ShellCount.lean`'s header (lines 21–22) has no marker. It still says "Not proved: that proportion for every `w > 0`".
+- `KubotaThetaPair`'s round-427 chain: 14 declarations, about 446 lines (410 of them in `KubotaThetaPair`).
+  - Its headline `thetaL_ne_zero` (θ ≠ 0) has no user.
+  - The display's `C ≠ 0` comes from round 457's `tauTh_δ3_ne_zero` (`src/KubotaCoefScalar.lean:393`).
+- Heath-Brown's Lemma 10 in `EisensteinQuadSieveSep`:
+  - `fBound_sep` has no user. With its helpers it is 8 declarations, about 380 lines.
+  - `fBound_gcd` (line 419, 89 lines) has no user and repeats the body of `EisensteinQuadSieveRecursion.fBoundP_gcd` (diff: 78 of 81 lines).
+- `KubotaEnergy`: no constant of the file is used outside it (68 constants, 28 after folding auxiliary names, about 207 lines).
+  - Its header gives the purpose: "Round 360's S5f-10 plans Lax–Milgram for this energy form." Round 418 replanned that step (README line 12133).
+  - `KubotaSiegel` imports the file and uses none of it.
+- `KubotaUnfold`'s coset and `B_∞` branch: 11 declarations, about 186 lines.
+  - `lintegral_puLe_top_lt_top`, `lintegral_unfold_cosets` and `lintegral_rhoInf` have no user.
+  - The first is the `F = 1` case of `lintegral_puLe_top_mul_lt_top` (compile).
+- `EisensteinSecondPoisson.Mq_rowcol` (round 321) and its two helpers, about 184 lines: no user (`EisensteinTransferRegroup` uses `Mq_rowcolD`, `EisensteinPairRatio:396`), and still generalized to modulus `m` in round 492.
+- Smaller headlines with no user:
+  - `twisted_theta_voronoi` (27 lines; `KubotaUniform`'s `twisted_theta_voronoi_unif` is the one used);
+  - `memLp_gfun` (29 lines; an instance of `memLp_gfun_all`, compile);
+  - `exists_theta_series`, `exists_theta_series_inv`, `isAut_thS_Gam2` and `integral_thS_affine` (40 lines in all);
+  - `norm_eis1_slAct_sub_le` (57 lines);
+  - `integral_fourier_Phi_sq` and `integral_dualG_sq` (24 lines).
+
+**Statements proved twice** (compile, the general lemma after the arrow).
+- Mathlib or core at the pin:
+  - `KubotaPhi:99` `span_unit_mul` ← `Ideal.span_singleton_mul_left_unit`; `KubotaPhi:400` `cpow_ne_zero_of_ne` ← `Complex.cpow_ne_zero_iff`;
+  - `KubotaLocalFactors:289` `mul_mem_iff_right` ← `Ideal.IsPrime.mul_mem_left_iff`; `KubotaLocalFactors:244` `mulChar_inv` ← `MulChar.inv_apply'` and `inv_apply_eq_inv'` (no `h ≠ 0` needed); `KubotaLocalFactors:258` `pow_eq_pow_of_six` ← `pow_eq_pow_mod`;
+  - `KubotaCharacter:411` `conj_mem_Gam3` ← `Subgroup.Normal.conj_mem'`;
+  - `KubotaCubeSum:183` `span_isMaximal_of_prime` ← `PrincipalIdealRing.isMaximal_of_irreducible`; `KubotaCubeSum:191` `isCoprime_of_not_dvd` ← `Prime.coprime_iff_not_dvd`;
+  - `KubotaTranslates:381/384` `coprime6_left`/`_right` ← `Nat.Coprime.coprime_mul_right`/`_left`;
+  - `KubotaThetaInv:46` `subsingleton_quot_gam3` ← `Subgroup.subgroupOf_self` and `QuotientGroup.subsingleton_quotient_top`;
+  - `KubotaVsharp:59` `norm_cexp_I_mul` ← `Complex.norm_exp_I_mul_ofReal`;
+  - `EisensteinQuadSieveLattice:541` `sum_powerset_neg_prod` ← `Finset.prod_sub`;
+  - `EisensteinQuadSieveGamma:174` `I_zpow_four_mul_add` ← `Complex.I_zpow_eq_zpow_mod`;
+  - `EisensteinQuadSieveErrors:36` `integrable_mul_bdd` ← `Integrable.mul_bdd`;
+  - `EisensteinQuadSieveLemma14:168` `ae_ne_zero_complex` ← `Measure.ae_ne`;
+  - `EisensteinQuadSieveRecursion:545` `rpow_le_rpow_Q` ← `Real.rpow_le_rpow_of_exponent_le`;
+  - `EisensteinQuadSupplement:494` `dvd_of_dvd_mul_left'` ← `dvd_of_mul_right_dvd`;
+  - `EisensteinPrepared:934` `pow_rpow_comm` ← `Real.rpow_pow_comm`;
+  - `EisensteinRowTwist:174` `count_nf_pow` ← `normalizedFactors_pow` and `Multiset.count_nsmul` (no `I ≠ ⊥` needed);
+  - `EisensteinThetaAssembly:78` `mem_nf_of_dvd` ← `Ideal.mem_normalizedFactors_iff`;
+  - `HilbertResolvent:38` `im_inner_apply_self` ← `LinearMap.IsSymmetric.im_inner_apply_self`;
+  - `ThermalZeta:249` `mellin_boltz` ← `Complex.GammaIntegral_eq_mellin`;
+  - `CascadeLepton:69` `Gamma_three_halves` ← `Real.Gamma_nat_add_one_add_half 0`; `CascadeLepton:257` `exp_nat` ← `Real.exp_one_pow`;
+  - `SphereDimensions:35` `orthonormal_singleton_of_norm` ← `orthonormal_subsingleton_iff`.
+- Special cases of a stack lemma:
+  - Kubota and QuadSieve:
+    - `KubotaPhi:475` `one_sub_three_cpow_ne_zero` ← `RealChar.one_sub_mul_cpow_ne_zero`;
+    - `KubotaEisenstein:152` `kub_inv_Gam3` ← `IsUChar.map_inv`;
+    - `KubotaCuspPoincare:55` `kubT_mul_conj` and `KubotaPoincare:73` `kub_mul_conj_kub` ← `conj_mul_self_of_uchar`;
+    - `KubotaCTPrinciple:254` `enorm_slAct_of_isAut` ← `IsAut.enorm`;
+    - `KubotaCoefSupp:266` ← `KubotaCuspSums:174` (`coprime_three_*`);
+    - `KubotaRowsDual:53` ← `EisensteinQuadSieveNorm:246` (`primeSet` disjointness);
+    - `KubotaThetaPair:151` ← `KubotaPmPair:322`;
+    - `KubotaThetaEq:210` `continuousOn_slAct` ← `KubotaCubeEigen:356` `continuousOn_actP`;
+    - `KubotaCTCover:43` `actP_one` ← `KubotaCusps:162` `uhsAct_one`;
+    - `KubotaMeasure:229` `uhsAct_diag` ← `KubotaCubeDecomp:51` `uhsAct_upper_inv`;
+    - `KubotaEisenstein:355` `eis1_slAct` ← `KubotaEisTrunc:142` `isAut_pseis`;
+    - `KubotaConstTerm:346` `finite_quot_three_mul` ← `KubotaTranslates:85` `finite_quot`, and ← `EisensteinDualMeanSquare:45`'s instance `finite_quot_of_neZero`;
+    - `EisensteinCompletedSums:235` ← `KubotaTheta:203` (`one_le_absNorm_of_coprime*`);
+    - `EisensteinQuadSieveRecursion:380` `card_fsLe_mono` ← `EisensteinFirstTransfer:833` `fsLe_mono`.
+  - The rest of the Eisenstein strand:
+    - `EisensteinQuadSieveNorm:343`: `coprime6_of_primary`'s `n ≠ 0` follows from `Primary n`;
+    - `EisensteinCompletedSums`' coprime-6 primary-generator block (`exists_primary_gen`, `pgen_spec6`, `ne_bot_of_coprime6`, `pgen_mul6`) ← `EisensteinPrepared`'s and `EisensteinThetaRows`' coprime-3 block;
+    - `EisensteinSquarefreeRows:36` `sym6_sq_eq_pow_eight` and `EisensteinThetaRows:250` `sym6_pow_nine` ← `EisensteinQuadSupplement:482` `sym6_pow_seven`, with no coprimality;
+    - `EisensteinSupplement:231` ← `EisensteinQuadSupplement:244` (`absNorm_congr` at `9`);
+    - `EisensteinSupplement:192` ← `EisensteinQuadSupplement:216` (`absNorm_eq_prod_nf`);
+    - `HalfPlaneMeanSquare:558` `norm_sum_sq_le` ← `EisensteinThetaMeanSquare:28` `norm_sum_sq_le_card`;
+    - `EisensteinThetaMeanSquare:33` `card_units_le` ← `KubotaPhi:43` `card_units_O`;
+    - `EisensteinSquarefreeRows:108` ← `EisensteinPrepared:68` (at `s = 2`);
+    - `MellinRowDep:469` ← `EisensteinCubeReduction:125` (at `c = 1`).
+  - Electron and Bohr:
+    - `BinetEnvelope:289` `phiB_order_one` ← `EulerGammaBinet`'s `le_phiB` and `phiB_le`;
+    - `BinetEnvelope:362`'s first conjunct ← `EulerGammaBinet:125` `le_lapR`;
+    - `BinetEnvelope:57` ← `ThermalZeta:120`;
+    - `DigammaGauss:290` ← `EulerGammaBinet:92` (at `k = 1`);
+    - `BohrJoins:49` ← `ShellCount:40`;
+    - `VolumeShell:30` ← `EuclideanForcing:291`.
+  - In several pairs the general lemma sits downstream of the special one, so replacing the special one means moving the general one up.
+- `(3 : 𝓞 K) ≠ 0`, proved inline nine times, closes by `norm_num`. The readers' suggested `three_ne_zero` does not, since no `NeZero (3 : 𝓞 K)` instance fires (compile).
+- CANDIDATE (read, not compiled):
+  - `PsiOmega.LamG_one_sub` is `LamG_one_sub'` at a real `χ` (the same proof text with `hq.inv`; §9.2 D2′).
+  - Round 364's `sym2_neg_one` and `sym2_two`, and `chiP_cube_neg_one` and `chiP_cube_two`, are the cases `d = −1, 2` of round 474's `sym6_intCast_cube` and `chiP_intCast_cube` with Mathlib's `jacobiSym.at_neg_one` and `at_two`.
+  - The untwisted modulus-4 chain (`meanSquare_of_dualMeanSquare`, `famSum_meanSquare_le`, `meanSquare_rowcol`, `pair_char_form`, `pairTerm_expand`, about 323 lines) is round 494's twisted chain at `m = 4`, `ν = 1` (diff: 123 of 131 lines for the top pair). `EisensteinMeanSquareRowCol`'s header (lines 16–17) records the choice ("stays at `m = 4`, where every class is a unit") but not the instance relation: ACKNOWLEDGED in part.
+
+**Helpers with no user** (census: printed, and used by no constant):
+- Kubota files:
+  - `KubotaGrowth.cuspA_one`; `KubotaRows.isCoprime_four_of_coprime6`;
+  - `KubotaCharacter.modThree_mul`, `kub2_Gam3`, `mul_inv_mem_Gam3_of_cong`, `Gam3_le_Gam2`;
+  - `KubotaCuspTrans.lowT_ω`, `lowT_ω_sq`; `KubotaCuspPoincare.exists_cuspClass'`; `KubotaCuspCoef.isAut_pmSerS`;
+  - `KubotaEisenstein.eis1_transl`, the only user of `eis1_slAct`;
+  - `KubotaEisTrunc.eisTerm_eq_psTerm`, `measurable_highF`; `KubotaThetaCoef.measurableSet_boxT`;
+  - `KubotaThetaZero.isAut_thetaFS`, `measurable_thetaFS`, `memLp_thetaFS`, `isAut_pseisS`;
+  - `KubotaTorus.frq_injective`; `KubotaUnfold.outMul_apply`.
+- Eisenstein files:
+  - `EisensteinQuadSieveNorm.QExp.reverse`, `qBound_trivial`;
+  - `EisensteinTransferRowCol.colP_union`; `EisensteinCubeReduction.rowE_nonneg`.
+- Other files:
+  - `BohrSphere.lineRefl_lineRefl`, `lineRefl_eq_self_iff`; `Orthogonality.continuous_trig`;
+  - `BoundaryLabels.tilt_lattice_max_down`; `ThermalZeta.cycleSign_succ`.
+
+**Patterns** (diff: matching nonblank lines):
+- The SL₂(ℂ) decomposition is proved three times, and three readers found it independently:
+  - `KubotaMeasure:316–337` (`uinv_actP`);
+  - `KubotaEnergy:213–234` (`conf_actP`, 22 of 22 lines after renaming);
+  - `KubotaBall:107–128` (`pinv_actP`, 20 of 22).
+- The identity theorem plus the residue limit along `4/3 + iε`, five copies:
+  - `KubotaThetaConst:188–286` against `KubotaThetaZero:407–503`: 91 of 99;
+  - `KubotaThetaPair:413–493` against `KubotaThetaConst`: 69 of 81;
+  - `KubotaPmTheta:357–405` against `KubotaCuspTheta:141–185`: 44 of 49.
+- Two proofs repeated almost in full:
+  - `const_thetaF_ae` against `const_thetaFS_ae` (`KubotaThetaConst:339–422`, `KubotaThetaZero:526–610`): 81 of 85;
+  - `coef_lowT_ae` against `coef_thetaF_ae` (`KubotaCuspTheta:357–470`, `KubotaThetaCoef:547–660`): 101 of 114.
+- Fubini on `3P × (0, ∞)`: `KubotaThetaPair:205–262`, `KubotaPmPair:378–436` (44 of 58), `KubotaThetaCoef:363–418` (51 of 59 against `KubotaPmPair`).
+- Integrability against the integral: `integrable_cubeDiff_inv_slAct` (`KubotaCubeEigen:127–145`) against `integral_cubeDiff_inv_slAct` (`KubotaCubeDecomp:484–502`): 19 of 19.
+- Smaller exact copies:
+  - `sqfree_cube_unique` against `sqfree_sq_unique` (`KubotaCompleted:37–66`, `EisensteinQuadSieveSquares:37–66`): 24 of 30 after partial renaming;
+  - the primary-prime-factor block, `KubotaCoefScalar:145–182` against `KubotaCoefSupp:161–198`: 26 of 38;
+  - zeta23's `ShellDensity:93–143` against `CountCompare:25–82`: 36 of 51;
+  - `BohrJoins:236–242` against `DirMean:202–208`: 7 of 7;
+  - `EisensteinQuadSieveGcdPart:74–80` against `187–193`: 7 of 7.
+- The pair expansions: `pair_char_formD` against `pair_char_formTw` (`EisensteinPairRatio:334–389`, `EisensteinSecondPoisson:77–138`): 48 of 56. Each of the pair-expansion families has five copies.
+- Skeletons, with constants, numerals or names differing:
+  - the `K_ν` decay block (four copies, 6 of 10 a pair);
+  - `lintegral_tile` and `lintegral_tile3` (15 of 22 after renaming);
+  - the cusp-0 and cusp-∞ counting tails (15 of 29);
+  - the Poincaré lemmas at `γ_t` and at `∞` (13 of 25, 14 of 30);
+  - `GenPNTW'` and `GenPNTWNoEps` (18 of 34);
+  - `Lemma14`'s `hint1` and `hint2` (12 of 21);
+  - `MainBound`'s `hsa` and `hsb` (9 of 13);
+  - `CascadeLepton`'s `PhiC` differences (7 of 19) and `leadRatio` enclosures (22 of 42);
+  - `BoundaryLabels`' `lattice_one` and `lattice_two` (5 of 13);
+  - the three log-derivative proofs (4 of 24: the same steps in different text).
+
+**Efficiencies** (compile; `review/stack3/override_test.sh` compiles a copy without the named lines).
+- Each of the 29 override lines of §9.4 was tested:
+  - **12 are not needed**:
+    - `EisensteinQuadSieveGcdPart:296` (17 s either way) and `EisensteinQuadSieveCor:254`;
+    - `VinoRec2:23`, `229` and `330` (the file compiles in 14 s without all three);
+    - `MediumPNTW:206`, `ExpSum:150`, `ExpSum7:38`, `ExpSum8:102`, `VinoConst:107`, `VinoFam:103` and `Landau:1215`.
+  - **1 goes with a proof change**: `BoundaryLabels:344`. Plain `norm_num` in place of `simp only [Nat.factorial]; norm_num` (twice) compiles without `maxRecDepth 4000`, in 14 s against 17 s. Mathlib's `Nat.factorial` extension evaluates the factorials without unfolding `218!`.
+  - **16 are needed**:
+    - `EisensteinQuadSieveCor:534`;
+    - `DHLocate2Base:1282`, `DHLocate3Base:1802` and `DHLocate4Base:1802` (`maxRecDepth 20000`);
+    - `DHLocate3Num:4113`, `4165` and `DHLocate4Num:4113`, `4165`;
+    - `Landau:580`, `1335`; `LogDerivKV:239`; `ExpSum9:237`; `ExpSum10:34`; `ShortPrimes:281`; `VinoKV:40`, `193`.
+- Heartbeat counts are deterministic, so this holds at the pinned Mathlib.
+
+**Mismatches** (read).
+- Minor:
+  - `HalfPlaneJoins.lean:18–19` and README line 17349: the λ₁ exponent, above.
+  - Stale status lines, with no marker:
+    - `ShellCount.lean:21–22` ("Not proved: that proportion for every `w > 0`"; round 402 proved it);
+    - `EisensteinQuadSieveFinal.lean:7–8` ("then rests on the displayed theta transformation alone"; round 466 proved the display);
+    - `KubotaRows.lean:21–23` ("`M = 9·72`"; round 493's witness is `9·(72·md)` at `md = 4`).
+  - `DetectCore.lean:16–17`, "The two layers cannot be imported together (their PNT+ declarations clash)". `CoImportMV.lean:7` loads `DetectEM` with `Zeta23.MV.Final`; the clash is with zeta23's `FromPNTPlus` copies, as `ShellDensity.lean:13` says.
+  - Docstrings that say more than the statement:
+    - `EisensteinQuadSieveBase.lean:236–237` gives the first term as `2H/(√3·N(c)·N(d_T))·|G_c(ρ_D, 0)|·B`, where the statement (line 246) proves `2H·‖G‖·B`;
+    - `EisensteinQuadSieveBase.lean:127–128` describes the bound and the zero value (`norm_gaussTr_q2_le`, `gaussTr_q2_zero`) on the exact evaluation `gaussTr_q2_eq`;
+    - `EisensteinQuadSieveSep.lean:591` says "lies in `[n, 2n)`", where the statement proves the upper end;
+    - `KubotaTranslates.lean:431–433` says "with `C = 3^{5/2}`", where the statement has `∃ C, C ≠ 0`;
+    - `KubotaBall.lean:9` says "`Im ĥ(s) > 0` just above the real axis", where `im_hhat_pos` assumes `1 < Re s`;
+    - `ThermalJoins.lean:11` says "Every statement is an identity", while `pressureBoltz_six_lt` and `bose_highT_bounds` are inequalities;
+    - `ChargeLattice.lean:78–79` lists the hypercharges, which `sm_z6Trivial`'s statement does not contain.
+  - `EisensteinQuadSieveLemma14.lean:20–22` calls `integral_dualG_sq` "the form used for the main terms"; it has no user.
+- Cosmetic:
+  - Docstrings that say less than the statement:
+    - `KubotaBesselMellin.lean:50–51` ("for `Re p, Re q > 0`", while the statement and the header, lines 11–12, need no condition);
+    - `VolumeShell.lean:9` ("`r ∈ (0, 1]`", where the statement has `0 < r`);
+    - `KubotaThetaPair.lean:150` ("`α > 1`", where the statement has `1 ≤ α`);
+    - `MediumPNTW.lean:821` ("continuous", while the statement takes `C¹` and the proof uses continuity).
+  - Conditions left out:
+    - `KubotaConstTerm.lean:6–7` writes `S(c)` without the bottom-row restriction that `cuspS`'s own docstring (lines 357–358) has;
+    - `KubotaCuspSums.lean:5–7` omits `m ≠ 0`;
+    - `Orthogonality.lean:21–23` and `253–254` omit `0 < p`.
+  - Wording:
+    - `EulerGammaBinet.lean:4` and `166` ("seven digits"; the interval fixes six);
+    - `BesselK.lean:26` ("the Bessel function of the second kind" for the modified one);
+    - `λ` stands for `δ₃` in `KubotaCusps.lean:21` and for `ω − 1` in `KubotaCuspIdent.lean:7–8`;
+    - `EisensteinQuadSieveGamma.lean:200` credits `quad_gauss_coords` to round 344, where its own header (lines 18–19) says round 297;
+    - prose corollaries stated but not formalized: `KubotaCoefScalar.lean:404–405` and `KubotaCharacter.lean:513`.
