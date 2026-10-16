@@ -4,7 +4,9 @@
 Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
 Plain statement. For every `η > 0` there is `C` with `|ψ(x, χ)| ≤ C log(N + 2)·x^{11/12+η}` for every quadratic
-Dirichlet character `χ ≠ 1` mod `N` and every `x > 1` (`psiChi_le_uniform`). No hypothesis.
+Dirichlet character `χ ≠ 1` mod `N` and every `x > 1` (`psiChi_le_uniform`). No hypothesis. *(Round 509: for every
+Dirichlet character `χ ≠ 1` mod `N`, with round 254's `PsiOmega.norm_LFunction_leC` and round 495's half-plane
+`Eis.LFunction_ne_zero_of_re_gt`; the same for `psiChi_le_uniform_of`.)*
 
 * `logDeriv_le_uniform`: round 478's `ChiPNT.logDeriv_le_of_zeroFree` with its constants kept. For
   `0 < θ < θ' < 3/2` there is `K` such that every entire `F` with no zero in `Re s > θ`, `|F(s)| ≤ c(|Im s| + 2)`
@@ -15,6 +17,7 @@ Dirichlet character `χ ≠ 1` mod `N` and every `x > 1` (`psiChi_le_uniform`). 
   `L(f, s) = −F′/F(s)` on `Re s > 1`, `|Σ_{n ≤ X} f(n)| ≤ (C₁(log(2 + 2cA) + C₀) + C₂)X^{θ+η}` for `X > 1`.
 * `psiChi_le_uniform`: `F = L(·, χ)`, with `c = 18(N + 1)/11` from round 224's `PsiOmega.norm_LFunction_le`,
   `A = ζ(3/2)` (`zeta32`) and `C₀ = −ζ′/ζ(3/2)` (`logDerivZeta32`), and round 477's half-plane `Re s > 11/12`.
+  *(Round 509: round 254's `PsiOmega.norm_LFunction_leC` and round 495's half-plane, for every `χ ≠ 1`.)*
 * `Kld`, `logDeriv_le_uniform_of` (round 484): the constant of `logDeriv_le_uniform` as a formula in `θ` and `θ′`.
 * `sum_le_uniform_of` (round 484): `sum_le_uniform` for a given smoothing `ν` whose Mellin transform is at most
   `K_M ε^{−κ}(1 + |t|)^{−1−κ}` on the line `θ + η₀/4`, `η₀ = min(η, (1 − θ)/2)` (`eta0`), with
@@ -462,7 +465,7 @@ lemma summable_one_32 : LSeriesSummable (fun _ ↦ (1 : ℂ)) ((3 / 2 : ℝ) : �
 
 /-- **`ψ(x, χ)` uniformly in the modulus, from the constants of `sum_le_uniform`.** If `C₁, C₂ ≥ 0` satisfy
 the conclusion of `sum_le_uniform` at `θ = 11/12`, then
-`|ψ(x, χ)| ≤ (C₁(1 + log(2 + 36ζ(3/2)/11) − ζ′/ζ(3/2)) + C₂) log(N + 2)·x^{11/12+η}` for every quadratic
+`|ψ(x, χ)| ≤ (C₁(1 + log(2 + 36ζ(3/2)/11) − ζ′/ζ(3/2)) + C₂) log(N + 2)·x^{11/12+η}` for every
 Dirichlet character `χ ≠ 1` mod `N` and every `x > 1`. -/
 theorem psiChi_le_uniform_of {η C₁ C₂ : ℝ} (hC₁ : 0 ≤ C₁) (hC₂ : 0 ≤ C₂)
     (hb : ∀ {F : ℂ → ℂ}, Differentiable ℂ F → (∀ s : ℂ, 11 / 12 < s.re → F s ≠ 0) →
@@ -474,7 +477,7 @@ theorem psiChi_le_uniform_of {η C₁ C₂ : ℝ} (hC₁ : 0 ≤ C₁) (hC₂ : 
       (∀ s : ℂ, 1 < s.re → LSeries f s = -(deriv F s / F s)) →
       ∀ X : ℝ, 1 < X → ‖∑ n ∈ Finset.Icc 1 ⌊X⌋₊, f n‖ ≤
         (C₁ * (Real.log (2 + 2 * c * A) + C₀) + C₂) * X ^ (11 / 12 + η)) :
-    ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+    ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ ≠ 1 →
       ∀ x : ℝ, 1 < x → ‖psiChi χ x‖ ≤
         (C₁ * (1 + Real.log (2 + 36 * zeta32 / 11) + logDerivZeta32) + C₂) * Real.log (N + 2) *
           x ^ (11 / 12 + η) := by
@@ -482,10 +485,10 @@ theorem psiChi_le_uniform_of {η C₁ C₂ : ℝ} (hC₁ : 0 ≤ C₁) (hC₂ : 
   have hΛ₀ : 0 ≤ logDerivZeta32 := tsum_nonneg fun _ ↦ norm_nonneg _
   set c' : ℝ := Real.log (2 + 36 * zeta32 / 11) with hc'def
   have hc' : 0 ≤ c' := Real.log_nonneg (by linarith [show (0 : ℝ) ≤ 36 * zeta32 / 11 by positivity])
-  intro N _ χ hq hχ x hx
+  intro N _ χ hχ x hx
   have hF := DirichletCharacter.differentiable_LFunction hχ
   have hzf : ∀ s : ℂ, 11 / 12 < s.re → DirichletCharacter.LFunction χ s ≠ 0 :=
-    fun _ hs ↦ Eis.RealChar.LFunction_ne_zero_of_isQuadratic hq hs (Or.inl hχ)
+    fun _ hs ↦ Eis.LFunction_ne_zero_of_re_gt χ hs (Or.inl hχ)
   set c : ℝ := 18 * (N + 1) / 11 with hcdef
   have hc0 : 0 ≤ c := by positivity
   have hgrowth : ∀ s : ℂ, 11 / 12 ≤ s.re → s.re ≤ 3 →
@@ -496,7 +499,7 @@ theorem psiChi_le_uniform_of {η C₁ C₂ : ℝ} (hC₁ : 0 ≤ C₁) (hC₂ : 
       calc ‖s‖ ≤ |s.re| + |s.im| := Complex.norm_le_abs_re_add_abs_im s
         _ ≤ 3 + |s.im| := by rw [abs_of_pos hre]; linarith
     calc ‖DirichletCharacter.LFunction χ s‖ ≤ (N + 1) * ‖s‖ / s.re :=
-          PsiOmega.norm_LFunction_le hχ hq hre
+          PsiOmega.norm_LFunction_leC hχ hre
       _ ≤ (N + 1) * (3 + |s.im|) / (11 / 12) := by
           gcongr
       _ ≤ c * (|s.im| + 2) := by
@@ -569,10 +572,10 @@ theorem psiChi_le_uniform_of {η C₁ C₂ : ℝ} (hC₁ : 0 ≤ C₁) (hC₂ : 
     _ = (C₁ * (1 + c' + logDerivZeta32) + C₂) * Real.log (N + 2) * x ^ (11 / 12 + η) := by ring
 
 /-- **`ψ(x, χ)` uniformly in the modulus.** For every `η > 0` there is `C` with
-`|ψ(x, χ)| ≤ C log(N + 2)·x^{11/12+η}` for every quadratic Dirichlet character `χ ≠ 1` mod `N` and
+`|ψ(x, χ)| ≤ C log(N + 2)·x^{11/12+η}` for every Dirichlet character `χ ≠ 1` mod `N` and
 every `x > 1`. -/
 theorem psiChi_le_uniform {η : ℝ} (hη : 0 < η) :
-    ∃ C : ℝ, 0 ≤ C ∧ ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+    ∃ C : ℝ, 0 ≤ C ∧ ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ ≠ 1 →
       ∀ x : ℝ, 1 < x → ‖psiChi χ x‖ ≤ C * Real.log (N + 2) * x ^ (11 / 12 + η) := by
   obtain ⟨C₁, C₂, hC₁, hC₂, hb⟩ := sum_le_uniform (θ := 11 / 12) (by norm_num) (by norm_num) hη
   have hA₀ : 0 ≤ zeta32 := tsum_nonneg fun _ ↦ norm_nonneg _

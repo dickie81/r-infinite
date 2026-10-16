@@ -1,32 +1,36 @@
-import WeilTwinGeneral
-import HalfPlaneJoinsFinal
-import CrossCriteria
+/-
+# Round 509: joins from the exponent `Θ` and the half-plane into older sockets
+
+Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
+
+Plain statement. For `σ ≥ 0`, `ζ`'s twin form is at least `−C e^{σλ}` at `λ ≥ 0` if and only if `2Θ − 1 ≤ σ`
+(`weil_twins_rate_Theta`); if RH fails, `ψ(x) − x = Ω±(√x)` (`psiOmegaSqrt_of_not_RH`); and the Korobov–Vinogradov
+region of round 215's `LandauKV.zeroFree_KV` holds with the constant `A = 1/6` (`zeroFree_KV_explicit`). No
+hypothesis.
+
+* `weil_twins_rate_Theta`: round 221's `Pilot1ca.weil_twins_rate` (the rate condition iff `|2 Re ρ − 1| ≤ σ` at
+  every nontrivial zero) with round 469's `PsiExponent.Theta`: zeros with `Re ρ > Θ − ε` for every `ε > 0`
+  (`exists_zero_re_gt`) and none with `Re ρ > Θ` (`zeta_ne_zero_of_Theta_lt`, through `PsiOmega.band_of_zeroFree`).
+  `weil_twins_rate`'s docstring says this in prose.
+* `psiOmegaSqrt_of_not_RH`: `CrossCriteria.PsiOmegaSqrt` when RH fails. Then `Θ > 1/2`
+  (round 472's `MertensExponent.rh_iff_Theta_eq_half`), and round 469's `psi_omega_Theta` at `ε = (Θ − 1/2)/2`
+  gives `ψ(x) − x` beyond `±x^{Θ−ε} ≥ ±√x` for arbitrarily large `x`.
+* `zeroFree_KV_explicit`: for `|t| ≥ e³` the denominator `(log|t|)^{2/3}(log log|t|)^{1/3}` exceeds
+  `3^{2/3} > 2`, so the region lies in `Re s > 11/12`, where round 466's half-plane
+  (`Eis.ne_zero_of_re_gt_eleven_twelfths`) applies.
+-/
 import MertensExponent
-import LandauKV
-
-/-! # Stack review 3: joins from the half-plane and from `Θ` into older sockets
-
-* (J1) Every real-rooted monotone base probe has twin rate `5/6` (round 468 states the rate for `box 1` only).
-* (J2) The graded Weil criterion with `Θ`: the twin form `Q(twin (box 1) λ) ≥ −C e^{σλ}` iff `2Θ − 1 ≤ σ`
-  (`weil_twins_rate`'s docstring says this in prose).
-* (J3) `¬RH → PsiOmegaSqrt`: half of `CrossCriteria.PsiOmegaSqrt`, from round 469's `psi_omega_Theta` and
-  round 472's `rh_iff_Theta_eq_half`.
-* (J4) `zeroFree_KV` with the explicit constant `A = 1/6`, from round 466's half-plane. -/
+import CrossCriteria
+import WeilLandau
 
 open Complex Filter
 open scoped Chebyshev
-open Pilot1ca Pilot1bt PilotWeil PsiOmega HalfPlaneS0 PsiExponent
 
-namespace StackReview3
+namespace HalfPlaneJoinsPNT
 
-/-- **(J1)** Every real-rooted monotone base probe: `Q(twin g₀ λ) ≥ −C e^{5λ/6}`. -/
-theorem realRooted_rate_eleven_twelfths {b : ℝ} (hb : 0 < b) {g₀ : ℝ → ℝ} (hp : Probe b g₀)
-    (hmono : AntitoneOn g₀ (Set.Icc 0 b)) (hnn : ∀ u ∈ Set.Icc 0 b, 0 ≤ g₀ u) (hRR : RealRooted b g₀) :
-    ∃ C, ∀ l : ℝ, 0 ≤ l → -(C * Real.exp (5 / 6 * l)) ≤ weilQ (l + b) (twin g₀ l) :=
-  (WeilTwinGeneral.twins_rate_realRooted hb hp hmono hnn hRR (by norm_num)).2
-    fun _ hs => HalfPlaneJoins.zeta_band_eleven_twelfths hs
+open Pilot1ca Pilot1bt PilotWeil PsiOmega PsiExponent
 
-/-- **(J2)** The exponential rate of the negative part of `ζ`'s twin form is exactly `2Θ − 1`. -/
+/-- **The exponential rate of the negative part of `ζ`'s twin form is exactly `2Θ − 1`.** -/
 theorem weil_twins_rate_Theta {σ : ℝ} (hσ : 0 ≤ σ) :
     (∃ C, ∀ l : ℝ, 0 ≤ l → -(C * Real.exp (σ * l)) ≤ weilQ (l + 1) (twin (box 1) l)) ↔
       2 * Theta - 1 ≤ σ := by
@@ -40,7 +44,7 @@ theorem weil_twins_rate_Theta {σ : ℝ} (hσ : 0 ≤ σ) :
   · intro h s hs
     exact (band_of_zeroFree (fun _ hρ => zeta_ne_zero_of_Theta_lt hρ) hs).trans h
 
-/-- **(J3)** If RH fails, `ψ(x) − x = Ω±(√x)`. -/
+/-- **If RH fails, `ψ(x) − x = Ω±(√x)`.** -/
 theorem psiOmegaSqrt_of_not_RH (h : ¬ RiemannHypothesis) : CrossCriteria.PsiOmegaSqrt := by
   have hΘ : 1 / 2 < Theta := by
     rcases half_le_Theta.lt_or_eq with h' | h'
@@ -60,7 +64,7 @@ theorem psiOmegaSqrt_of_not_RH (h : ¬ RiemannHypothesis) : CrossCriteria.PsiOme
   · linarith
   · linarith
 
-/-- **(J4)** `zeroFree_KV` with `A = 1/6`: for `|t| ≥ e³` the region lies in `Re s > 11/12`. -/
+/-- **`LandauKV.zeroFree_KV` with `A = 1/6`**: for `|t| ≥ e³` the region lies in `Re s > 11/12`. -/
 theorem zeroFree_KV_explicit : ∀ σ t : ℝ, Real.exp 3 ≤ |t| →
     1 - (1 / 6) / (Real.log |t| ^ ((2 : ℝ) / 3) * Real.log (Real.log |t|) ^ ((1 : ℝ) / 3)) ≤ σ →
     riemannZeta (σ + t * I) ≠ 0 := by
@@ -87,9 +91,4 @@ theorem zeroFree_KV_explicit : ∀ σ t : ℝ, Real.exp 3 ≤ |t| →
   simp only [add_re, ofReal_re, mul_re, ofReal_im, I_re, I_im, mul_zero, mul_one, sub_zero]
   linarith
 
-end StackReview3
-
-#print axioms StackReview3.realRooted_rate_eleven_twelfths
-#print axioms StackReview3.weil_twins_rate_Theta
-#print axioms StackReview3.psiOmegaSqrt_of_not_RH
-#print axioms StackReview3.zeroFree_KV_explicit
+end HalfPlaneJoinsPNT

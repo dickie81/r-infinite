@@ -35,7 +35,6 @@ lemma cpow_phase (n : ℕ) (hn : 1 ≤ n) (σ t : ℝ) :
 lemma exp_pow' (ν : ℝ) (k : ℕ) : Real.exp (ν / 20) ^ k = Real.exp (k * ν / 20) := by
   rw [← Real.exp_nat_mul]; ring_nf
 
-set_option maxHeartbeats 800000 in
 /-- **Dyadic decomposition.** -/
 theorem dyadic (f : ℕ → ℂ) (N0 X : ℕ) (B : ℝ) (hB0 : 0 ≤ B)
     (hB : ∀ N N', N0 ≤ N → N ≤ N' → N' ≤ 2 * N → N' ≤ X → ‖∑ n ∈ Ioc N N', f n‖ ≤ B) :

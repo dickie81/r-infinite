@@ -6,7 +6,9 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 Plain statement. For every `q ∣ 24`, every `a < q` prime to `q` and every `η > 0`,
 `ψ(x; q, a) − x/φ(q) = O(x^{11/12+η})`, with round 222's `ψ(x; q, a) = Σ_{1 ≤ n ≤ x, n ≡ a (q)} Λ(n)`
 (`PsiOmega.psiAP`) (`psiAP_isBigO_of_dvd_24`); the same for every `q ≥ 1` whose Dirichlet characters are all
-quadratic (`psiAP_isBigO`). No hypothesis.
+quadratic (`psiAP_isBigO`). No hypothesis. *(Round 509: `psiAP_isBigO` holds for every `q ≥ 1`, through round 478's
+`ChiPNT.psiChi_isBigO_eleven_twelfths` for every `χ ≠ 1`. `psiAP_isBigO_of_dvd_24`, `isQuadratic_of_sq_eq_one`
+and `sq_eq_one_of_dvd_24`, the route through `q ∣ 24`, are removed.)*
 
 * `psiAP_eq_sum`: orthogonality, `ψ(x; q, a) = φ(q)⁻¹ Σ_χ χ(a⁻¹)ψ(x, χ)` (Mathlib's
   `DirichletCharacter.sum_char_inv_mul_char_eq`).
@@ -17,7 +19,7 @@ quadratic (`psiAP_isBigO`). No hypothesis.
   `ChiPNT.psiChi_isBigO_eleven_twelfths` for each `ψ(x, χ)` with `χ ≠ 1`, and `log x ≤ x^e/e`.
 * `isQuadratic_of_sq_eq_one`, `sq_eq_one_of_dvd_24`: every unit of `ℤ/24` squares to `1` (`decide`), so every
   unit of `ℤ/q` does for `q ∣ 24` (Mathlib's `ZMod.unitsMap_surjective`), and then every character mod `q` is
-  quadratic.
+  quadratic. *(Removed in round 509.)*
 -/
 import ChiPNT
 
@@ -85,25 +87,6 @@ lemma sum_not_coprime_le {q : ℕ} (hq : q ≠ 0) (N : ℕ) :
         exact sum_dvd_le_log (Nat.prime_of_mem_primeFactors hp) N
     _ = q.primeFactors.card * Real.log N := by simp
 
-/-! ### Characters whose values are all real -/
-
-/-- If every unit of `ℤ/q` squares to `1`, every Dirichlet character mod `q` is quadratic. -/
-theorem isQuadratic_of_sq_eq_one {q : ℕ} (h : ∀ u : (ZMod q)ˣ, u ^ 2 = 1)
-    (χ : DirichletCharacter ℂ q) : χ.IsQuadratic := by
-  rw [MulChar.isQuadratic_iff_sq_eq_one]
-  refine MulChar.ext fun u ↦ ?_
-  rw [MulChar.pow_apply_coe, MulChar.one_apply_coe, ← map_pow, ← Units.val_pow_eq_pow_val, h u,
-    Units.val_one, map_one]
-
-/-- Every unit of `ℤ/q` squares to `1` when `q ∣ 24`. -/
-theorem sq_eq_one_of_dvd_24 {q : ℕ} (hq : q ∣ 24) (u : (ZMod q)ˣ) : u ^ 2 = 1 := by
-  have h24 : ∀ a : ZMod 24, a.val.Coprime 24 → a ^ 2 = 1 := by decide
-  obtain ⟨v, rfl⟩ := ZMod.unitsMap_surjective hq u
-  have hv : v ^ 2 = 1 := Units.ext (by
-    rw [Units.val_pow_eq_pow_val, Units.val_one]
-    exact h24 _ (ZMod.val_coe_unit_coprime v))
-  rw [← map_pow, hv, map_one]
-
 /-! ### The prime number theorem in progressions -/
 
 /-- `ψ(x, χ)` for the trivial character mod `q`: `ψ(x)` less the prime powers sharing a factor
@@ -150,11 +133,9 @@ lemma psiAP_eq_sum (q : ℕ) [NeZero q] {a : ℕ} (ha : a.Coprime q) (haq : a < 
   · have h' : ¬ (a : ZMod q) = k := fun h' ↦ h (hiff.2 h')
     simp [h, h']
 
-/-- **The prime number theorem in progressions modulo `q` with every character real**: if every
-Dirichlet character mod `q` is quadratic, then for `a` prime to `q`, `a < q`,
+/-- **The prime number theorem in progressions modulo every `q`**: for `a` prime to `q`, `a < q`,
 `ψ(x; q, a) − x/φ(q) = O(x^{11/12+η})` for every `η > 0`. -/
-theorem psiAP_isBigO {q : ℕ} [NeZero q] (hreal : ∀ χ : DirichletCharacter ℂ q, χ.IsQuadratic)
-    {a : ℕ} (ha : a.Coprime q) (haq : a < q) {η : ℝ} (hη : 0 < η) :
+theorem psiAP_isBigO {q : ℕ} [NeZero q] {a : ℕ} (ha : a.Coprime q) (haq : a < q) {η : ℝ} (hη : 0 < η) :
     (fun x ↦ PsiOmega.psiAP q a x - x / q.totient) =O[atTop] fun x ↦ x ^ (11 / 12 + η) := by
   have hau : IsUnit (a : ZMod q) := (ZMod.isUnit_iff_coprime a q).2 ha
   have hainv : IsUnit ((a : ZMod q)⁻¹) :=
@@ -207,7 +188,7 @@ theorem psiAP_isBigO {q : ℕ} [NeZero q] (hreal : ∀ χ : DirichletCharacter �
     have h := IsBigO.sum (A := fun χ x ↦ χ ((a : ZMod q)⁻¹) * ChiPNT.psiChi χ x)
       (s := Finset.univ.erase (1 : DirichletCharacter ℂ q)) (l := atTop)
       (g := fun x : ℝ ↦ x ^ e) fun χ hχ ↦
-        (ChiPNT.psiChi_isBigO_eleven_twelfths (hreal χ) (Finset.ne_of_mem_erase hχ) hη).const_mul_left _
+        (ChiPNT.psiChi_isBigO_eleven_twelfths (Finset.ne_of_mem_erase hχ) hη).const_mul_left _
     rwa [Finset.sum_fn] at h
   have hC : (fun x : ℝ ↦ (((PsiOmega.psiAP q a x - x / q.totient : ℝ)) : ℂ)) =O[atTop]
       fun x ↦ x ^ e := by
@@ -215,12 +196,5 @@ theorem psiAP_isBigO {q : ℕ} [NeZero q] (hreal : ∀ χ : DirichletCharacter �
     exact ((hψ.sub hE).add hχ).const_mul_left _
   rw [← isBigO_norm_left] at hC ⊢
   exact hC.congr_left fun x ↦ Complex.norm_real _
-
-/-- **The prime number theorem modulo the divisors of `24`**: for `q ∣ 24` and `a` prime to `q`,
-`a < q`, `ψ(x; q, a) = x/φ(q) + O(x^{11/12+η})` for every `η > 0`. -/
-theorem psiAP_isBigO_of_dvd_24 {q : ℕ} [NeZero q] (hq : q ∣ 24) {a : ℕ} (ha : a.Coprime q)
-    (haq : a < q) {η : ℝ} (hη : 0 < η) :
-    (fun x ↦ PsiOmega.psiAP q a x - x / q.totient) =O[atTop] fun x ↦ x ^ (11 / 12 + η) :=
-  psiAP_isBigO (isQuadratic_of_sq_eq_one (sq_eq_one_of_dvd_24 hq)) ha haq hη
 
 end PNTProgressions

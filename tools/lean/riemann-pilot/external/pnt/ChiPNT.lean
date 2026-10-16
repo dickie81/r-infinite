@@ -5,7 +5,9 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
 Plain statement. For a quadratic Dirichlet character `χ ≠ 1` with `L(s, χ) ≠ 0` on `Re s > θ` (`0 ≤ θ < 1`),
 `ψ(x, χ) = Σ_{n ≤ x} χ(n)Λ(n) = O(x^{θ+η})` for every `η > 0` (`psiChi_isBigO_of_zeroFree`); with round 477's
-half-plane, `ψ(x, χ) = O(x^{11/12+η})` with no hypothesis (`psiChi_isBigO_eleven_twelfths`).
+half-plane, `ψ(x, χ) = O(x^{11/12+η})` with no hypothesis (`psiChi_isBigO_eleven_twelfths`). *(Round 509: both
+hold for every Dirichlet character `χ ≠ 1`, with round 254's growth bound `PsiOmega.norm_LFunction_leC`, moved to
+src/LFunctionGrowth.lean, and round 495's half-plane `Eis.LFunction_ne_zero_of_re_gt`.)*
 
 * `logDeriv_le_of_zeroFree`: round 337's log-derivative bound (`HalfPlanePNT.logDeriv_le_of_zeroFree`) for an
   entire `F` in place of `ζ`. If `F` has no zero in `Re s > θ ≥ 0`, grows at most linearly on
@@ -21,12 +23,14 @@ half-plane, `ψ(x, χ) = O(x^{11/12+η})` with no hypothesis (`psiChi_isBigO_ele
   the unsmoothing at `B = log 3X` (`SmoothPerron.norm_smoothedSum_sub_le`), with `ε = X^{θ'−1}`.
 * `psiChi_isBigO_of_zeroFree`: `F = L(·, χ)`, entire for `χ ≠ 1` (Mathlib's
   `DirichletCharacter.differentiable_LFunction`), with linear growth from round 224's
-  `PsiOmega.norm_LFunction_le` (`|L(s, χ)| ≤ (N + 1)|s|/Re s`), `1/|L(3/2 + it, χ)| = |L(χμ, 3/2 + it)|`
+  `PsiOmega.norm_LFunction_le` (`|L(s, χ)| ≤ (N + 1)|s|/Re s`; since round 509, round 254's
+  `PsiOmega.norm_LFunction_leC`, the same bound for every `χ ≠ 1`), `1/|L(3/2 + it, χ)| = |L(χμ, 3/2 + it)|`
   (Mathlib's `DirichletCharacter.LSeries.mul_mu_eq_one`) and `|L′/L| = |L(χΛ, s)| ≤ Σ Λ(n)n^{−3/2}` on
   `Re s ≥ 3/2` (Mathlib's `DirichletCharacter.LSeries_twist_vonMangoldt_eq`).
 -/
 import SmoothPerron
-import RealCharHalfPlane
+import LFunctionGrowth
+import DirichletCharHalfPlane
 
 set_option lang.lemmaCmd true
 
@@ -441,9 +445,9 @@ lemma LSeries_twist_vonMangoldt_eq_LFunction (χ : DirichletCharacter ℂ N) {s 
     DirichletCharacter.LFunction_eq_LSeries χ hs, ← neg_div]
   exact h
 
-/-- **`ψ(x, χ)` in a zero-free half-plane**: for a quadratic Dirichlet character `χ ≠ 1` with
+/-- **`ψ(x, χ)` in a zero-free half-plane**: for a Dirichlet character `χ ≠ 1` with
 `L(s, χ) ≠ 0` on `Re s > θ` (`0 ≤ θ < 1`), `ψ(x, χ) = O(x^{θ+η})` for every `η > 0`. -/
-theorem psiChi_isBigO_of_zeroFree (hq : χ.IsQuadratic) (hχ : χ ≠ 1) {θ : ℝ} (hθ0 : 0 ≤ θ)
+theorem psiChi_isBigO_of_zeroFree (hχ : χ ≠ 1) {θ : ℝ} (hθ0 : 0 ≤ θ)
     (hθ1 : θ < 1) (hzf : ∀ s : ℂ, θ < s.re → DirichletCharacter.LFunction χ s ≠ 0) {η : ℝ}
     (hη : 0 < η) : psiChi χ =O[atTop] fun x ↦ x ^ (θ + η) := by
   have hF := DirichletCharacter.differentiable_LFunction hχ
@@ -458,7 +462,7 @@ theorem psiChi_isBigO_of_zeroFree (hq : χ.IsQuadratic) (hχ : χ ≠ 1) {θ : �
         _ ≤ 3 + |s.im| := by rw [abs_of_pos hre]; linarith
         _ ≤ 4 * |s.im| := by linarith
     calc ‖DirichletCharacter.LFunction χ s‖ ≤ (N + 1) * ‖s‖ / s.re :=
-          PsiOmega.norm_LFunction_le hχ hq hre
+          PsiOmega.norm_LFunction_leC hχ hre
       _ ≤ (N + 1) * (4 * |s.im|) / δ := by
           gcongr
       _ = (N + 1) * 4 / δ * |s.im| := by ring
@@ -494,11 +498,11 @@ theorem psiChi_isBigO_of_zeroFree (hq : χ.IsQuadratic) (hχ : χ ≠ 1) {θ : �
   exact sum_isBigO_of_zeroFree hF hθ0 hθ1 hzf hgrowth hlow hright (by simp) hfΛ
     (fun s hs ↦ LSeries_twist_vonMangoldt_eq_LFunction χ hs) hη
 
-/-- **`ψ(x, χ) = O(x^{11/12+η})`** for every quadratic Dirichlet character `χ ≠ 1` and every `η > 0`,
-from round 477's half-plane. -/
-theorem psiChi_isBigO_eleven_twelfths (hq : χ.IsQuadratic) (hχ : χ ≠ 1) {η : ℝ} (hη : 0 < η) :
+/-- **`ψ(x, χ) = O(x^{11/12+η})`** for every Dirichlet character `χ ≠ 1` and every `η > 0`,
+from round 495's half-plane. -/
+theorem psiChi_isBigO_eleven_twelfths (hχ : χ ≠ 1) {η : ℝ} (hη : 0 < η) :
     psiChi χ =O[atTop] fun x ↦ x ^ (11 / 12 + η) :=
-  psiChi_isBigO_of_zeroFree hq hχ (by norm_num) (by norm_num)
-    (fun _ hs ↦ Eis.RealChar.LFunction_ne_zero_of_isQuadratic hq hs (Or.inl hχ)) hη
+  psiChi_isBigO_of_zeroFree hχ (by norm_num) (by norm_num)
+    (fun _ hs ↦ Eis.LFunction_ne_zero_of_re_gt χ hs (Or.inl hχ)) hη
 
 end ChiPNT

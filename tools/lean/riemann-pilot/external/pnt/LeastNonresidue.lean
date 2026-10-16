@@ -7,7 +7,8 @@ Plain statement. For every `A > 12` there is `C` such that every quadratic Diric
 has, for `ε = 1` and for `ε = −1`, a prime `p ∤ q` with `χ(p) = ε` and `p ≤ C(log(q + 2))^A`
 (`exists_prime_eq`). With the Legendre symbol, every odd prime `p` has a quadratic nonresidue
 `n ≤ C(log p)^A` (`exists_nonsquare_le`), so `n ≤ C_δ p^δ` for every `δ > 0` (`exists_nonsquare_le_rpow`),
-Vinogradov's least quadratic nonresidue conjecture. No hypothesis.
+Vinogradov's least quadratic nonresidue conjecture. No hypothesis. *(Round 509: every Dirichlet character `χ ≠ 1`
+mod `q` has a prime `p ∤ q` with `χ(p) ≠ 1` and `p ≤ C(log(q + 2))^A` (`exists_prime_ne_one`).)*
 
 * `re_psiChi_ge`: if `χ(p) = ε` at every prime `p ≤ x` that does not divide `q`, then
   `ε·Re ψ(x, χ) ≥ ψ(x) − 4√x log x − log q`. The primes give `θ(x) − Σ_{p ∣ q} log p ≥ θ(x) − log q`
@@ -16,8 +17,11 @@ Vinogradov's least quadratic nonresidue conjecture. No hypothesis.
 * `rpow_le_of_forall_eq`: Ankeny's argument. With `ψ(x) ≥ x/4` for `x ≥ 100` (`psi_ge_quarter`, from Mathlib's
   `Chebyshev.psi_ge'`) and round 480's `ChiUniform.psiChi_le_uniform` at `η = 1/12 − 1/A`,
   `|ψ(x, χ)| ≤ C₁ log(q + 2)·x^{1−1/A}`, the hypothesis of `re_psiChi_ge` forces
-  `x^{1/A} ≤ 4(C₁ + 11) log(q + 2)`.
+  `x^{1/A} ≤ 4(C₁ + 11) log(q + 2)`. *(Round 509: for every `χ ≠ 1`, with `psiChi_le_uniform` for every `χ ≠ 1`;
+  the same for `rpow_le_of_forall_eq_of`.)*
 * `exists_prime_eq`: `rpow_le_of_forall_eq` at `x = max(100, (K log(q + 2))^A) + 1`.
+* `exists_prime_ne_one` (round 509): the same at `ε = 1` for every `χ ≠ 1`: if `χ(p) = 1` at every prime
+  `p ≤ x` not dividing `q`, then `x^{1/A} ≤ K log(q + 2)`.
 * `legendreChar`: Mathlib's `quadraticChar (ZMod p)` as a Dirichlet character mod `p`.
 * `rpow_le_of_forall_eq_of`, `exists_prime_eq_of`, `exists_nonsquare_le_of`, `exists_nonsquare_le_rpow_of`
   (round 484): the same from given constants: `K = 4(C₁ + 11)` from `|ψ(x, χ)| ≤ C₁ log(N + 2)·x^{1−1/A}`, then
@@ -147,12 +151,12 @@ lemma re_psiChi_ge {q : ℕ} [NeZero q] (χ : DirichletCharacter ℂ q) {ε : �
 /-! ### The least primes with `χ(p) = ±1` -/
 
 /-- **Ankeny's argument, with its constant.** If `|ψ(x, χ)| ≤ C₁ log(N + 2)·x^{11/12+η}` with
-`η = 1/12 − 1/A`, `A > 12`, for every quadratic `χ ≠ 1` mod `N` and `x > 1`, and `χ(p) = ε` at every prime
+`η = 1/12 − 1/A`, `A > 12`, for every `χ ≠ 1` mod `N` and `x > 1`, and `χ(p) = ε` at every prime
 `p ≤ x` not dividing `q`, then `x^{1/A} ≤ 4(C₁ + 11) log(q + 2)`. -/
 lemma rpow_le_of_forall_eq_of {A C₁ : ℝ} (hA : 12 < A)
-    (hψ : ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+    (hψ : ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ ≠ 1 →
       ∀ x : ℝ, 1 < x → ‖psiChi χ x‖ ≤ C₁ * Real.log (N + 2) * x ^ (11 / 12 + (1 / 12 - 1 / A))) :
-    ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsQuadratic → χ ≠ 1 →
+    ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
       ∀ {ε : ℝ}, (ε = 1 ∨ ε = -1) → ∀ x : ℝ, 100 ≤ x →
         (∀ p : ℕ, p.Prime → p ≤ ⌊x⌋₊ → ¬ p ∣ q → χ p = ε) →
           x ^ (1 / A) ≤ 4 * (C₁ + 11) * Real.log (q + 2) := by
@@ -162,7 +166,7 @@ lemma rpow_le_of_forall_eq_of {A C₁ : ℝ} (hA : 12 < A)
   have hiA0 : 0 < 1 / A := by positivity
   set η : ℝ := 1 / 12 - 1 / A with hηdef
   have hη : 0 < η := by linarith
-  intro q _ χ hq hχ ε hε x hx hall
+  intro q _ χ hχ ε hε x hx hall
   have hx0 : 0 < x := by linarith
   have hx1 : 1 ≤ x := by linarith
   set L : ℝ := Real.log (q + 2) with hLdef
@@ -181,7 +185,7 @@ lemma rpow_le_of_forall_eq_of {A C₁ : ℝ} (hA : 12 < A)
         _ = |(psiChi χ x).re| := by
             rw [abs_mul]; rcases hε with rfl | rfl <;> norm_num
         _ ≤ ‖psiChi χ x‖ := Complex.abs_re_le_norm _
-    exact h1.trans (hψ q χ hq hχ x (by linarith))
+    exact h1.trans (hψ q χ hχ x (by linarith))
   -- the lower bound
   have hlow := re_psiChi_ge χ hε hx1 hall
   have hψx := psi_ge_quarter hx
@@ -222,7 +226,7 @@ lemma rpow_le_of_forall_eq_of {A C₁ : ℝ} (hA : 12 < A)
 `A > 12`, with `K` depending on `A` only (`rpow_le_of_forall_eq_of`, with
 `ChiUniform.psiChi_le_uniform`). -/
 lemma rpow_le_of_forall_eq {A : ℝ} (hA : 12 < A) :
-    ∃ K : ℝ, 0 < K ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ.IsQuadratic → χ ≠ 1 →
+    ∃ K : ℝ, 0 < K ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
       ∀ {ε : ℝ}, (ε = 1 ∨ ε = -1) → ∀ x : ℝ, 100 ≤ x →
         (∀ p : ℕ, p.Prime → p ≤ ⌊x⌋₊ → ¬ p ∣ q → χ p = ε) →
           x ^ (1 / A) ≤ K * Real.log (q + 2) := by
@@ -303,7 +307,55 @@ theorem exists_prime_eq {A : ℝ} (hA : 12 < A) :
         ∃ p : ℕ, p.Prime ∧ ¬ p ∣ q ∧ χ p = ε ∧ (p : ℝ) ≤ C * Real.log (q + 2) ^ A := by
   have hA0 : 0 < A := by linarith
   obtain ⟨K, hK, hKb⟩ := rpow_le_of_forall_eq hA
-  exact ⟨101 + K ^ A, by positivity, exists_prime_eq_of hA0 hK hKb⟩
+  exact ⟨101 + K ^ A, by positivity, exists_prime_eq_of hA0 hK fun q _ χ _ hχ ↦ hKb q χ hχ⟩
+
+/-- **A prime with `χ(p) ≠ 1`, for every Dirichlet character `χ ≠ 1`.** For every `A > 12` there is `C` such that
+every Dirichlet character `χ ≠ 1` mod `q` has a prime `p ∤ q` with `χ(p) ≠ 1` and `p ≤ C(log(q + 2))^A`
+(`rpow_le_of_forall_eq` at `ε = 1`, `x = max(100, (K log(q + 2))^A) + 1`). -/
+theorem exists_prime_ne_one {A : ℝ} (hA : 12 < A) :
+    ∃ C : ℝ, 0 < C ∧ ∀ (q : ℕ) [NeZero q] (χ : DirichletCharacter ℂ q), χ ≠ 1 →
+      ∃ p : ℕ, p.Prime ∧ ¬ p ∣ q ∧ χ p ≠ 1 ∧ (p : ℝ) ≤ C * Real.log (q + 2) ^ A := by
+  have hA0 : 0 < A := by linarith
+  obtain ⟨K, hK, hKb⟩ := rpow_le_of_forall_eq hA
+  refine ⟨101 + K ^ A, by positivity, fun q _ χ hχ ↦ ?_⟩
+  set L : ℝ := Real.log (q + 2) with hLdef
+  have hL : 1 ≤ L := by
+    rw [hLdef, Real.le_log_iff_exp_le (by positivity)]
+    have := Real.exp_one_lt_d9
+    have : (1 : ℝ) ≤ q := by exact_mod_cast Nat.one_le_iff_ne_zero.2 (NeZero.ne q)
+    linarith
+  have hLA : 1 ≤ L ^ A := Real.one_le_rpow hL hA0.le
+  set X : ℝ := max 100 ((K * L) ^ A) + 1 with hXdef
+  have hX100 : 100 ≤ X := by
+    have := le_max_left (100 : ℝ) ((K * L) ^ A); linarith
+  have hXC : X ≤ (101 + K ^ A) * L ^ A := by
+    have h1 : max 100 ((K * L) ^ A) ≤ 100 + K ^ A * L ^ A := by
+      rw [Real.mul_rpow hK.le (by linarith)]
+      have : 0 ≤ K ^ A * L ^ A := by positivity
+      exact max_le (by linarith) (by linarith)
+    have h2 : 101 + K ^ A * L ^ A ≤ (101 + K ^ A) * L ^ A := by nlinarith
+    linarith
+  by_contra hcon
+  push Not at hcon
+  -- every prime `p ≤ X` not dividing `q` has `χ(p) = 1`
+  have hall : ∀ p : ℕ, p.Prime → p ≤ ⌊X⌋₊ → ¬ p ∣ q → χ p = ((1 : ℝ) : ℂ) := by
+    intro p hp hpX hpq
+    have hpX' : (p : ℝ) ≤ X := by
+      have := Nat.floor_le (by linarith : (0 : ℝ) ≤ X)
+      have h' : (p : ℝ) ≤ ⌊X⌋₊ := by exact_mod_cast hpX
+      linarith
+    by_contra hne
+    exact (hcon p hp hpq (by simpa using hne)).not_ge (hpX'.trans hXC)
+  have hb := hKb q χ hχ (Or.inl rfl) X hX100 hall
+  -- but `X^{1/A} > K L`
+  have hgt : K * L < X ^ (1 / A) := by
+    have h1 : (K * L) ^ A < X := by
+      have := le_max_right (100 : ℝ) ((K * L) ^ A); linarith
+    have h2 : ((K * L) ^ A) ^ (1 / A) = K * L := by
+      rw [← Real.rpow_mul (by positivity), mul_one_div_cancel hA0.ne', Real.rpow_one]
+    rw [← h2]
+    exact Real.rpow_lt_rpow (by positivity) h1 (by positivity)
+  linarith
 
 /-! ### The least quadratic nonresidue -/
 

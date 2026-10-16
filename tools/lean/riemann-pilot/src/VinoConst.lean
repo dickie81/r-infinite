@@ -104,7 +104,6 @@ lemma Cvm_ge_one {k : ℕ} (hk : 2 ≤ k) (m : ℕ) : 1 ≤ Cvm k m := by
         _ ≤ _ := by gcongr
     linarith
 
-set_option maxHeartbeats 1600000 in
 /-- **Explicit growth of the VMVT constant.** `C_m ≤ (8(k+2))^{g(m)}`. -/
 theorem Cvm_le {k : ℕ} (hk : 2 ≤ k) (m : ℕ) :
     Cvm k m ≤ (8 * ((k : ℝ) + 2)) ^ gexp k m := by

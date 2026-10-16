@@ -1,5 +1,6 @@
 import Mathlib
 import WeilChi
+import LFunctionGrowth
 
 /-! # Davenport–Heilbronn in Lean, stage 1 (round 253)
 
@@ -210,10 +211,6 @@ theorem one_add_rootNumber_chi5_ne_zero : 1 + rootNumber chi5 ≠ 0 := by
 /-! ## The Davenport–Heilbronn combination of a primitive character -/
 
 variable {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N)
-
-omit [NeZero N] in
-theorem isPrimitive_inv (hprim : χ.IsPrimitive) : χ⁻¹.IsPrimitive := by
-  unfold IsPrimitive at *; rw [conductor_inv]; exact hprim
 
 omit [NeZero N] in
 theorem odd_inv (hodd : χ.Odd) : χ⁻¹.Odd := by

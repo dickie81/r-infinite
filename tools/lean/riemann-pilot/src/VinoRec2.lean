@@ -20,7 +20,6 @@ namespace VinoRec2
 
 open Vinogradov VinoIter VinoHolder VinoSplit VinoRec VinoBad
 
-set_option maxHeartbeats 3200000 in
 /-- **One step with the bad part fed back.** -/
 theorem step_real2 {k s : ℕ} (hk : 2 ≤ k) (hs : 1 ≤ s) {C E T0 : ℝ} (hC : 0 < C) (hE : 0 ≤ E)
     (hJ : ∀ Q : ℕ, 1 ≤ Q → (J s k Q : ℝ) ≤ C * (Q : ℝ) ^ E)
@@ -226,7 +225,6 @@ lemma expo2_nonneg {k : ℕ} (hk : 2 ≤ k) (m : ℕ) : 0 ≤ expo2 k m := by
   have hm : (0 : ℝ) ≤ m := by positivity
   nlinarith
 
-set_option maxHeartbeats 1600000 in
 /-- **VMVT with geometric decay from the start.** -/
 theorem vmvt2 {k : ℕ} (hk : 2 ≤ k) (m : ℕ) :
     0 < Cv2 k m ∧ ∀ P : ℕ, 1 ≤ P → (J (k + m * k) k P : ℝ) ≤ Cv2 k m * (P : ℝ) ^ (expo2 k m) := by
@@ -327,7 +325,6 @@ lemma expo2_le {k : ℕ} (hk : 2 ≤ k) (m : ℕ) : expo2 k m ≤ 2 * ((k + m * 
   unfold expo2
   nlinarith
 
-set_option maxHeartbeats 1600000 in
 /-- **Explicit constants.** `C_m ≤ (8(k+2))^{40k²(m+1) + g(m)}`. -/
 theorem Cv2_le {k : ℕ} (hk : 2 ≤ k) (m : ℕ) :
     Cv2 k m ≤ (8 * ((k : ℝ) + 2)) ^ (40 * k ^ 2 * (m + 1) + gexp k m) := by

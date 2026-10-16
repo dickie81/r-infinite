@@ -1212,7 +1212,6 @@ lemma dltW_pos {w : ℝ → ℝ} {Cw : ℝ} (hw : WidthOK w Cw) {N : ℝ} (hN : 
   have := Real.log_nonneg (Lg_gt_one hT2).le
   positivity
 
-set_option maxHeartbeats 1600000 in
 /-- **The local bound inside the disc**, for any admissible width. -/
 theorem near_boundW {w : ℝ → ℝ} {Cw K N t σ Q1 Q2 E : ℝ} (hw : WidthOK w Cw) (hK : 0 < K)
     (hG : GrowthW w K) (hN : 4 ≤ N)

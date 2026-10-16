@@ -5,7 +5,7 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
 Plain statement. For every quadratic Dirichlet character `χ ≠ 1` mod `N`:
 `|ψ(x, χ)| ≤ (2·10¹¹/e⁵) log(N + 2)·x^{11/12+η}` for every `x > 1` and `η > 0`, with `e = min(η, 1/24)`
-(`psiChi_le_explicit`); `|L′/L(σ, χ)| ≤ 10²¹ log log(N + 16)` for `1 ≤ σ ≤ 2` (`logDeriv_le_explicit`,
+(`psiChi_le_explicit`; round 509: for every Dirichlet character `χ ≠ 1` mod `N`); `|L′/L(σ, χ)| ≤ 10²¹ log log(N + 16)` for `1 ≤ σ ≤ 2` (`logDeriv_le_explicit`,
 `norm_logDeriv_one_le_explicit`); `|log |L(1, χ)|| ≤ log log log(N + 16) + 2·10²¹`, so
 `e^{−2·10²¹}/log log(N + 16) ≤ |L(1, χ)| ≤ e^{2·10²¹} log log(N + 16)` (`norm_LFunction_one_ge_explicit`,
 `norm_LFunction_one_le_explicit`). For every `A > 12`, with `e = min(1/12 − 1/A, 1/24)` and
@@ -225,10 +225,10 @@ lemma eta0_eq (η : ℝ) : eta0 (11 / 12) η = min η (1 / 24) := by
 /-! ### `ψ(x, χ)` with an explicit constant -/
 
 /-- **`ψ(x, χ)` uniformly in the modulus, with an explicit constant.** For every `η > 0`, with
-`e = min(η, 1/24)`: `|ψ(x, χ)| ≤ (2·10¹¹/e⁵) log(N + 2)·x^{11/12+η}` for every quadratic Dirichlet
+`e = min(η, 1/24)`: `|ψ(x, χ)| ≤ (2·10¹¹/e⁵) log(N + 2)·x^{11/12+η}` for every Dirichlet
 character `χ ≠ 1` mod `N` and every `x > 1`. -/
 theorem psiChi_le_explicit {η : ℝ} (hη : 0 < η) :
-    ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ.IsQuadratic → χ ≠ 1 →
+    ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ ≠ 1 →
       ∀ x : ℝ, 1 < x → ‖psiChi χ x‖ ≤
         2 * 10 ^ 11 / (min η (1 / 24)) ^ 5 * Real.log (N + 2) * x ^ (11 / 12 + η) := by
   have he : eta0 (11 / 12) η = min η (1 / 24) := eta0_eq η
@@ -248,8 +248,8 @@ theorem psiChi_le_explicit {η : ℝ} (hη : 0 < η) :
   have hC₂ : 0 ≤ KM * (16 / e) * (K * 4 ^ (e / 8) / (e / 8)) + 4 * (2 + 4 / e) := by positivity
   have hpsi := psiChi_le_uniform_of hC₁ hC₂ (sum_le_uniform_of (θ := 11 / 12) (by norm_num)
     (by norm_num) hη contDiff_ν₀ (fun x _ ↦ ν₀_nonneg x) support_ν₀ mass_ν₀ hKM0 hKM)
-  intro N _ χ hq hχ x hx
-  refine (hpsi N χ hq hχ x hx).trans ?_
+  intro N _ χ hχ x hx
+  refine (hpsi N χ hχ x hx).trans ?_
   have hlog : 0 ≤ Real.log (N + 2) := Real.log_nonneg (by linarith [Nat.cast_nonneg (α := ℝ) N])
   have hxp : 0 ≤ x ^ (11 / 12 + η) := by positivity
   apply mul_le_mul_of_nonneg_right _ hxp
@@ -326,7 +326,7 @@ theorem logDeriv_le_explicit :
   have hψ := psiChi_le_explicit (η := 1 / 24) (by norm_num)
   rw [min_24] at hψ
   have hC : (0 : ℝ) ≤ 2 * 10 ^ 11 / (1 / 24) ^ 5 := by positivity
-  have hb := logDeriv_le_loglog_of hC hψ
+  have hb := logDeriv_le_loglog_of hC fun N _ χ _ hχ ↦ hψ N χ hχ
   intro N _ χ hq hχ σ hσ1 hσ2
   refine (hb N χ hq hχ σ hσ1 hσ2).trans ?_
   have hℓ : 0 ≤ Real.log (Real.log (N + 16)) := by linarith [one_lt_loglog N]
@@ -393,7 +393,7 @@ theorem exists_prime_eq_explicit {A : ℝ} (hA : 12 < A) :
   have hψ := psiChi_le_explicit (η := 1 / 12 - 1 / A) (by linarith)
   have hm : 0 < min (1 / 12 - 1 / A) (1 / 24 : ℝ) := lt_min (by linarith) (by norm_num)
   have hK : 0 < 4 * (2 * 10 ^ 11 / (min (1 / 12 - 1 / A) (1 / 24 : ℝ)) ^ 5 + 11) := by positivity
-  exact exists_prime_eq_of hA0 hK (rpow_le_of_forall_eq_of hA hψ)
+  exact exists_prime_eq_of hA0 hK fun q _ χ _ hχ ↦ rpow_le_of_forall_eq_of hA hψ q χ hχ
 
 set_option exponentiation.threshold 400 in
 /-- **The least primes with `χ(p) = ±1`, at `A = 13`**: every quadratic Dirichlet character `χ ≠ 1` mod `q`

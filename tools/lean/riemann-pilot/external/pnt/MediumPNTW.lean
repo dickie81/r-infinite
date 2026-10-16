@@ -203,9 +203,6 @@ def I3BoundW (D : ℝ → ℝ) (SmoothingF : ℝ → ℝ) : Prop := ∃ (C : ℝ
       let σ₁ : ℝ := 1 - D T
       ‖I₃ SmoothingF ε T X σ₁‖ ≤ C * X * X ^ (-D T) / ε
 
-set_option maxHeartbeats 400000 in
--- Slow
-
 theorem I3GenBoundW {SmoothingF : ℝ → ℝ}
     (suppSmoothingF : Function.support SmoothingF ⊆ Icc (1 / 2) 2)
     (ContDiffSmoothingF : ContDiff ℝ 1 SmoothingF)

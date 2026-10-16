@@ -293,7 +293,6 @@ theorem bilin_pairX {ε : ℝ} (hε : 0 < ε) :
 theorem one_le_eulB (ε : ℝ) (B : Finset Pr) : 1 ≤ ∏ Q ∈ B, (1 + (absNorm Q.1 : ℝ) ^ ε) :=
   Finset.one_le_prod₀ fun _ _ => le_add_of_nonneg_right (Real.rpow_nonneg (Nat.cast_nonneg _) _)
 
-set_option maxHeartbeats 800000 in
 /-- **The bound for one gcd part** (Goldmakher and Louvel's Proposition, for one `𝔤`): for the rows
 of `B(M, N, K)`, columns `G ∪ B` with `X_lo ≤ N(B) ≤ X`, `3R²X²N(G) ≤ 4MK₁`, `K₁ ≤ K ≤ M` and the
 three norms `Δ_m` (rows `N(d)^{−1/2}` on `(K₁/N(G), K]`), `Δ₃` (squarefree rows up to `K₁`) and

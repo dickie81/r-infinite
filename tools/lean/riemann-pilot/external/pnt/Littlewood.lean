@@ -211,7 +211,7 @@ theorem logDeriv_le_loglog :
           M * Real.log (Real.log (N + 16)) := by
   obtain ⟨C₁, hC₁, hψ⟩ := ChiUniform.psiChi_le_uniform (η := 1 / 24) (by norm_num)
   have h4 : 0 < Real.log 4 := Real.log_pos (by norm_num)
-  exact ⟨_, by positivity, logDeriv_le_loglog_of hC₁ hψ⟩
+  exact ⟨_, by positivity, logDeriv_le_loglog_of hC₁ fun N _ χ _ hχ ↦ hψ N χ hχ⟩
 
 /-! ### `L(σ, χ)` near `1` -/
 

@@ -100,7 +100,6 @@ lemma ℓf_le {ε : ℝ} (hε : 0 < ε) {K : ℕ} (hK : 2 ≤ K) :
     _ = (6 + 3 / ε) * (K : ℝ) ^ (2 + ε) := by
         rw [Real.rpow_add hK0, Real.rpow_two]; ring
 
-set_option maxHeartbeats 1600000 in
 /-- The weak-VMVT constant absorbs the block-bound constants, for any `m ≥ K`. -/
 lemma const_bound_m {K m : ℕ} (hK : 10 ≤ K) (hmK : K ≤ m) :
     (Cv2 K m) ^ 2 * 3 ^ K * ((K + m * K : ℕ) : ℝ) ^ (2 * K) * 2 ^ (K * (5 * K + 8)) ≤

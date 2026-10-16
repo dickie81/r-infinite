@@ -251,7 +251,6 @@ theorem bracket_le {c t4 J Cw xk sb t2 C3 Cs e3 C4 pg e4 P C₄ Q δ ε α g0 E 
     _ = _ := by
         rw [pw, show 3 * δ + 2 * ε + ε * α + (2 * δ + 2 * ε) = θ by rw [hθ]; ring]
 
-set_option maxHeartbeats 800000 in
 /-- **The shell bound for one gcd part**: for `(E_α)` with `α ≥ 1`, rows of `B(M, N, K)` with
 `K = C_K N²(MN)^ε/M ≤ M`, a shell `N'/2 < N(A) ≤ N'` with `2g₀ < N' ≤ N`, and `N(G) ≤ g₀`,
 `Re gcdPart ≤ A·(MN)^{5δ+4ε+εα}·g₀·E·Σ|α(A)|²`. -/

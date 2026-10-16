@@ -99,7 +99,6 @@ lemma WG_nonneg (t : ℝ) (N : ℕ) {M K ℓ : ℕ} (hM : 1 ≤ M) (hℓ : 1 ≤
     0 ≤ WG t N M K ℓ G :=
   Finset.prod_nonneg fun _ _ => wsave_nonneg t N hM hℓ _
 
-set_option maxHeartbeats 1600000 in
 /-- **Per-`n` bound, many good coordinates.** -/
 theorem Bn_bound_multi {t : ℝ} (ht : t ≠ 0) {N n M K ℓ : ℕ} {C η : ℝ} (hC : 0 < C)
     (hM : 1 ≤ M) (hℓ : 1 ≤ ℓ) (G : Finset (Fin K))

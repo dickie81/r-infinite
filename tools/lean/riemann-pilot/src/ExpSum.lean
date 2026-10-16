@@ -147,7 +147,6 @@ lemma sum_normSq_le {X Ys : Finset (Fin K → ℤ)} (α : Fin K → ℝ) (μ : (
         exact mul_le_mul_of_nonneg_left (hZ x hx) (sq_nonneg _)
     _ = (∑ x ∈ X, ν x ^ 2) * Zb := by rw [Finset.sum_mul]
 
-set_option maxHeartbeats 1600000 in
 /-- **Step (D), double Hölder.** `|Σ(α)|^{2ℓ²} ≤ M^{4ℓ(ℓ−1)} J_{ℓ,K}(M)² Z`. -/
 theorem double_holder (α : Fin K → ℝ) {M ℓ : ℕ} (hℓ : 1 ≤ ℓ) (Zb : ℝ)
     (Ys : Finset (Fin K → ℤ)) (hYs : (Vinogradov.box ℓ M).image (pv K) ⊆ Ys)

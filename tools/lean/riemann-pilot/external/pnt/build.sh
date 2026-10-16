@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadIdeals QuadRing QuadSplit QuadKronecker QuadClassNumber; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadIdeals QuadRing QuadSplit QuadKronecker QuadClassNumber; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -86,6 +86,7 @@ import PsiExponent
 import HalfPlaneLindelof
 import SmoothPerron
 import MertensExponent
+import HalfPlaneJoinsPNT
 import DivisorExponent
 import ChiPNT
 import PNTProgressions
@@ -158,6 +159,9 @@ import QuadClassNumber
 #print axioms MertensExponent.moebius_tendsto_of_Theta_lt
 #print axioms MertensExponent.moebius_not_tendsto_of_lt_Theta
 #print axioms MertensExponent.moebiusAbscissa_eq_Theta
+#print axioms HalfPlaneJoinsPNT.weil_twins_rate_Theta
+#print axioms HalfPlaneJoinsPNT.psiOmegaSqrt_of_not_RH
+#print axioms HalfPlaneJoinsPNT.zeroFree_KV_explicit
 #print axioms DivisorExponent.integral_pow_mul_cexp
 #print axioms DivisorExponent.inv_sub_one_pow_eq_integral
 #print axioms DivisorExponent.LSeries_dk
@@ -177,12 +181,9 @@ import QuadClassNumber
 #print axioms ChiPNT.psiChi_isBigO_eleven_twelfths
 #print axioms PNTProgressions.sum_dvd_le_log
 #print axioms PNTProgressions.sum_not_coprime_le
-#print axioms PNTProgressions.isQuadratic_of_sq_eq_one
-#print axioms PNTProgressions.sq_eq_one_of_dvd_24
 #print axioms PNTProgressions.psiChi_one
 #print axioms PNTProgressions.psiAP_eq_sum
 #print axioms PNTProgressions.psiAP_isBigO
-#print axioms PNTProgressions.psiAP_isBigO_of_dvd_24
 #print axioms ChiUniform.logDeriv_le_uniform
 #print axioms ChiUniform.sum_le_uniform
 #print axioms ChiUniform.psiChi_le_uniform
@@ -196,6 +197,7 @@ import QuadClassNumber
 #print axioms LeastNonresidue.re_psiChi_ge
 #print axioms LeastNonresidue.rpow_le_of_forall_eq
 #print axioms LeastNonresidue.exists_prime_eq
+#print axioms LeastNonresidue.exists_prime_ne_one
 #print axioms LeastNonresidue.exists_nonsquare_le
 #print axioms LeastNonresidue.exists_nonsquare_le_rpow
 #print axioms SquarefreeCount.sum_sqf_eq
