@@ -19740,7 +19740,7 @@ Two perturbations pass, as they should: `2 + ω`, an associate of `λ`, in place
   - two web searches for moments of the cubic and sextic families over `ℚ(√−3)`.
 - Not surveyed:
   - the papers of de Faveri–Dunn–Hoffstein, Hamdar, and Lin–Wong beyond their abstracts;
-  - the release's proof of its Lemma 18.1;
+  - the release's proof of its Lemma 18.1; *(round 508: read through its second transform; README round 508.)*
   - large-value estimates over sparse bins.
 
 **Records.** README round 505: a marker on its next step. STRUCTURAL-REVIEW §6: a bullet for this round, and markers on round 497's open item and on round 505's.
@@ -19759,7 +19759,7 @@ New against the pilot:
 
 **Bearing on RH:** none.
 
-**The next step.** None is planned here. The open inputs at `0.87` are a pairing bound below Cauchy–Schwarz, or on the high side a numerator average with `w` above about `0.8207` and the rotated floor, or with `w > 0.8188` and a low-side saving of `Z^{0.0001351}`. A plain sixth moment would give `w = 5/6`. *(round 507: `0.8240` and `0.8221` with the share `ϑ/k`; README round 507.)*
+**The next step.** None is planned here. The open inputs at `0.87` are a pairing bound below Cauchy–Schwarz, or on the high side a numerator average with `w` above about `0.8207` and the rotated floor, or with `w > 0.8188` and a low-side saving of `Z^{0.0001351}`. A plain sixth moment would give `w = 5/6`. *(round 507: `0.8240` and `0.8221` with the share `ϑ/k`; README round 507.)* *(round 508: the release's method, as written, does not give one at Sang's longest blocks; README round 508.)*
 
 ## Round 507: the amplifier's share beyond the fourth moment, and what it moves (`frontier/wall78/capacity.py`, no new Lean)
 
@@ -19769,7 +19769,7 @@ New against the pilot:
 
 - The release proves its plain fourth moment, Lemma `lem:plain`, for two plain factors. With prime factors of total length `z` the capacity is "`n_1+n_2+6\kappa z=A+(6\kappa-1)z\le M.`" Without them: "There is no restriction on the bounded nonnegative lengths `\(n_1,n_2\)`, and no lower bound on the conductor."
 - Sang fits his amplifier into that capacity: "Two copies of this block use length `\(2m\)` in the plain fourth moment. For `\(m\le1/2\)`, the remaining capacity can therefore accommodate prime length `\(z_p=v(1-2m)\)`, with `\(v\le1/(6\kappa)\)`." His eq. `numerator-balance`, "`-\vartheta m-\frac{qv(1-2m)}2 =-\frac{\vartheta}{2}.`", then gives every block the exponent `(3R+1)/4 − ϑ/2`.
-- Take `k` plain factors with a capacity of the same form, `km + 6κz ≤ 1` in Sang's units. This is hypothetical: no such moment is proved. The same steps give `z_p = v(1 − km)` and the block exponent `R + (1 − R)/(2k) − ϑ/k` (gate C1). Sang's second option, `ϑ = q/(6κ)`, keeps its short gate for every `k`. At the split, the absolute count exceeds the balanced value by `(R − (6κ − 2q)ℒ)/(2k)`, which at `k = 2` is his "`=\frac{R-(6\kappa-2q)\mathscr L}{4}\le0.`"
+- Take `k` plain factors with a capacity of the same form, `km + 6κz ≤ 1` in Sang's units. This is hypothetical: no such moment is proved. *(round 508: the release's proof reaches its two-factor case by reflection, to `A ≤ M + δ`, and its second transform's diagonal leaves the excess `A − M`; three factors at Sang's longest blocks have `A = 3M/2`. README round 508.)* The same steps give `z_p = v(1 − km)` and the block exponent `R + (1 − R)/(2k) − ϑ/k` (gate C1). Sang's second option, `ϑ = q/(6κ)`, keeps its short gate for every `k`. At the split, the absolute count exceeds the balanced value by `(R − (6κ − 2q)ℒ)/(2k)`, which at `k = 2` is his "`=\frac{R-(6\kappa-2q)\mathscr L}{4}\le0.`"
 - So the amplifier's share of `ϑ` is `ϑ/k`, not `ϑ/2`. Round 497's lever kept `ϑ/2` for every `k`, "with Sang's amplifier saving `ϑ/2` kept as a modelling assumption". Its Lindelöf rows (`k = 10^9`) kept it too. Under this capacity, Lindelöf on average carries no amplifier saving.
 
 **The rotation's coefficient** (gate C2). In each bin's exponent `ϑ` enters with the coefficient `h(1 − 1/k) − l_y`: the reflection cost, less the amplifier's share, less the row line. It is the same for every bin, so at a given geometry the best `ϑ` is Sang's in every bin or `0` in every bin.
@@ -19788,7 +19788,7 @@ New against the pilot:
 - Rounds 497–503: every gate of `rotated_contour.py`, `levers.py`, `offslice.py`, `crossing.py`, `lowerend.py`, `highfloor.py` and `lowbudget.py` passes. The one exception is `offslice.py`'s I1, which checks the model's own formula, share `ϑ/2` included, against `exponent_lp.py`. So every value those gates record stands under the capacity-consistent lever. That includes round 497's sixth-moment and Lindelöf rows, in both columns, and the Lindelöf rows of rounds 498–503.
 - Round 506: `exchange.py` fails exactly three gates: H2 and H4, its moment gates, and H5. At `κ = 1`, H5's rotated floor at `k = 3` gives `−0.0004728` against `−0.0004730`, outside its tolerance of `10⁻⁹`. The count lever (H3) and the values at `k = 2` (H1, H6) stand. Of round 506's listed values, `k = 9/4` gives `0.0043686` (with Sang's `ϑ`, which still pays there), `k = 5/2` gives `0.0020839`, and `2k = 5.538` gives `0.0003307` with the bins still binding (gate C3).
 
-**What it means.** Sang's amplifier is a fourth-moment device. Under a capacity of the release's form, a higher moment leaves the amplifier `ϑ/k`. On Sang's slice, from `k = 5/2` on, the rotation then costs more than it saves, and the best numerator line is `Re w = 1/2`, unamplified. The pilot's sixth-moment and Lindelöf rows kept Sang's saving. They reach the same values without it, so no number of rounds 497–503 moves. At `0.87` the moment threshold moves from `2k ≈ 5.518` to `5.621` for a single order. The sign change with the rotated floor moves from `5.578` to `5.682`. A sixth moment still pays the bins' share. With different orders in different bins the threshold lies between `5.518` and `5.621`. The model's exponent is at most every such choice's, and a single order is one of them; the value itself is not computed. Every number here is a statement about this exponent system.
+**What it means.** Sang's amplifier is a fourth-moment device. Under a capacity of the release's form, a higher moment leaves the amplifier `ϑ/k`. On Sang's slice, from `k = 5/2` on, the rotation then costs more than it saves, and the best numerator line is `Re w = 1/2`, unamplified. The pilot's sixth-moment and Lindelöf rows kept Sang's saving. They reach the same values without it, so no number of rounds 497–503 moves. At `0.87` the moment threshold moves from `2k ≈ 5.518` to `5.621` for a single order. The sign change with the rotated floor moves from `5.578` to `5.682`. A sixth moment still pays the bins' share. *(round 508: a hypothetical one, if it loses at most about `U^{0.025}` at its longest blocks; the release's method leaves `U^{1/2}` there. README round 508.)* With different orders in different bins the threshold lies between `5.518` and `5.621`. The model's exponent is at most every such choice's, and a single order is one of them; the value itself is not computed. Every number here is a statement about this exponent system.
 
 **Gates.** `python3 frontier/wall78/capacity.py` runs in about 17 minutes, most of it in gate C4, which reruns eight committed scripts. All four gates, C1–C4, pass; any failure gives exit status 1. In session runs:
 
@@ -19808,7 +19808,7 @@ New against the pilot:
 **The machinery checklist.**
 
 - Surveyed: the release's Lemma `lem:plain`, its statement and the remarks before its proof; Sang's Section `sec:numerator`, both options of his Proposition `prop:numerator`; the pilot's exponent model in rounds 497–506.
-- Not surveyed: the proof of `lem:plain`, so whether a version with three plain factors holds, and with what capacity.
+- Not surveyed: the proof of `lem:plain`, so whether a version with three plain factors holds, and with what capacity. *(round 508: read through its second transform; README round 508.)*
 
 **Records.** README round 497: a marker on its modelling assumption. README round 506: markers on its two inputs, its moment exponent, its rotated floor, its conclusion and its next step. STRUCTURAL-REVIEW §6: a bullet for this round, and markers on round 497's and round 506's bullets.
 
@@ -19821,4 +19821,86 @@ New against the pilot:
 
 **Bearing on RH:** none.
 
-**The next step.** None is planned here. The open inputs at `0.87` are a pairing bound below Cauchy–Schwarz, or on the high side a numerator average with `w` above about `0.8240` and the rotated floor, or above `0.8221` with a low-side saving of `Z^{0.0001351}`. A plain sixth moment would give it on `Re w = 1/2`; whether the release's method carries a third factor is the unread proof of `lem:plain`.
+**The next step.** None is planned here. The open inputs at `0.87` are a pairing bound below Cauchy–Schwarz, or on the high side a numerator average with `w` above about `0.8240` and the rotated floor, or above `0.8221` with a low-side saving of `Z^{0.0001351}`. A plain sixth moment would give it on `Re w = 1/2`; whether the release's method carries a third factor is the unread proof of `lem:plain`. *(round 508: read; as written it does not carry three factors at Sang's longest blocks, and a sixth moment that pays at `0.87` there loses at most about `U^{0.025}`. README round 508.)*
+
+## Round 508: the second transform's diagonal and a third plain factor (`frontier/wall78/diagonal.py`, no new Lean)
+
+**What it is.** The owner asked: "Keep digging". Round 507 ended on the release's proof of its plain fourth moment, Lemma `lem:plain` (Lemma 18.1 in Sang's citations): whether the release's method carries a third plain factor was "the unread proof of `lem:plain`". This round reads that proof for the steps that use two factors. The reading covers lines 12477–13995 and 14700–14780 of the September 30 version's `paper.tex`. The round then computes what a third factor would have to give at `0.87`. No Lean file changes, and the paper is not edited.
+
+**Where the proof uses two factors.** The section's plan: "Two finite Fourier transforms return products of the same kind at a smaller effective width." The induction runs over the width `M`, and within each band "the range `\(A\le5M/6\)` is proved first".
+
+- Reflection. "For `\(z=0\)`, reflect each original factor whose length exceeds `\(M/2\)` once, and leave the other factor unchanged." This gives the padded zero-slot core, eq. `old-eq:2.1h`: "`n_i^*\le M/2+\xi,\qquad A^*=n_1^*+n_2^*\le M+2\xi\le M+\delta,`". Also, "There is no repeated reflection at the boundary `\(M/2\)`." In the induction, "Within a zero-slot band, first prove the uncentered assertion for `\(A\le5M/6\)`, and then the padded core in Equation~\eqref{old-eq:2.1h}. Reflection then supplies all zero-slot lengths in that band."
+- The second transform's diagonal (Section `sec:plain-second-transform`). The release bounds it by counting moduli: "The number of supported moduli divisible by `\(s\)`, on a nonempty shell, is at most". Its excess over the allowance, eq. `old-eq:2.12`, ends "`\le A-M+5\sigma/3+\delta_{{\rm fr},1}.`", and: "Thus the diagonal requires only the displayed terminal loss `\(5\sigma/3\)`, plus the already reserved frequency perturbation `\(\delta_{{\rm fr},1}\)` and numerical support correction `\(\theta_N\)`, when `\(A\le M\)`, and an additional `\(\delta\)` in the padded zero-slot core."
+- The centred exceptional terms. Eq. `old-eq:2.19` bounds their deficit by "`A-\tfrac56M-\tfrac23v-(L-v)_+ \le (A-M)_+.`", and the text goes on: "For positive slots, Equation~\eqref{old-eq:3.9} implies `\(A\le M\)`. For the zero-slot core, Equation~\eqref{old-eq:2.1h} gives `\(A-M\le\delta\)`."
+
+So the induction closes at `A ≤ M`, with `δ` more in the core. Two plain factors of any lengths reach that by reflection, which is how the lemma's first case has "no restriction on the bounded nonnegative lengths `\(n_1,n_2\)`".
+
+**A third factor at the longest blocks** (gate D2).
+
+- Sang's approximate functional equation, his eq. `afe`, cuts both sums at `√Q`: the first carries "`V_w(\N\mathfrak n/\sqrt{\mathcal Q})`" and the second "`V_{1-w}(\N\mathfrak n/\sqrt{\mathcal Q})`". So its longest blocks have `m = 1/2` in the units of his capacity ("Two copies of this block use length `\(2m\)` in the plain fourth moment."). Any cut `x` would leave a longest block of length `max(x, 1 − x) ≥ 1/2`.
+- Reflection replaces the plain sum at `X` by "the conjugate character sum at `\(C_k/X\)`", where "`C_kq_{\mathfrak R_{0,k}}\le C_{\mathcal A}Z^M,\qquad Y\le C_{\mathcal A}Z^{M-\log_ZX}.`" For a row whose conductor is of size `Z^M`, a factor of length `n` therefore has a dual of length `M − n`, and the retained scales stop at `M − n + ξ`. A block of length `M/2` is then its own dual, and `k` copies of a longest block have `A = kM/2` for each of the `2^k` choices of reflections: `3M/2` for a sixth moment. The diagonal and the centred terms then carry the excess `M/2`.
+- For two factors, reflecting as the release reflects gives `n_i* ≤ M/2 + ξ` and `A* ≤ M + 2ξ` for all lengths in `[0, 2M]` (exact, on a grid).
+
+**If the diagonal were the only loss** (gate D1).
+
+- Then the `2k`-th moment of a block of length `U^m` (`k` plain factors) over the family would be `U^{max(1, km)}`, and Hölder over a class of `U^R` rows the block exponent `R(1 − 1/(2k)) + max(1, km)/(2k) − ϑm`. The rotation saves `U^{ϑm}` on a block of length `U^m`, and no prime slot fits at `m = 1/2` for `k ≥ 2`.
+- At `m = 1/2` this exceeds Sang's `(3R + 1)/4 − ϑ/2` by `R(k − 2)/(4k)` for `k ≥ 2` and by `(1 − R)(2 − k)/(4k)` for `k ≤ 2`, whatever `ϑ` is. It equals Sang's value only at `k = 2`, at `R = 0` with `k ≥ 2`, or at `R = 1` with `k ≤ 2`. On `[1/k, 1/2]` it rises with `m`, so the longest blocks bind. The gate checks these identities exactly for `k` from `1` to `12` in steps of `1/4`.
+- So within the method as written, no order of moment improves on Sang's fourth moment at the longest blocks, in any bin and with any `ϑ`. The same holds for orders chosen bin by bin.
+- The excess is what the trivial bound `U^{1/4}` on the `k − 2` extra factors costs. Bounding `|S|^{2k}` by `sup|S|^{2k−4}` times the fourth moment gives `U^{1+(2k−4)α}` when `|S| ≤ U^α`, which is `U^{k/2}` at `α = 1/4`.
+- A moment `U^{1+η}` at `m = 1/2` in place of `U^{k/2}` gives an exponent below Sang's exactly when `η < (1 − R)(k/2 − 1)`. The method's `η = k/2 − 1` is not below that for any `R`.
+
+**A sixth moment that would pay at `0.87`** (gate D3, round 506's frame).
+
+- The hypothesis: a sixth moment that loses only `U^η` at `A = 3M/2`, Lindelöf on average at `A ≤ M` under round 507's capacity, and a loss linear in `A − M` in between. The floor bin keeps the fourth moment, since every order gives `U` there at `R = 1`. The sources read here prove no such moment.
+- With `ϑ = 0` in every bin, the bins are slack for `η` below about `0.0211`. With the rotated floor (round 498's reading), `need(0.87)` is negative for `η` below about `0.0172`.
+- With Sang's `ϑ` capped at `η/(k − 2)` bin by bin, the thresholds are `0.0249` and `0.0202`. At that cap the longest blocks' saving `ϑ/2` meets the short blocks' `ϑ/k`, and below it the longest blocks bind.
+- For an eighth moment the thresholds are `0.1112` and `0.1048` with `ϑ = 0`, and `0.1164` and `0.1098` capped.
+- These are sufficient values for one order in every bin. Orders mixed bin by bin can only raise them; that is not computed.
+- The method's `η` is `1/2` for three factors and `1` for four. With it the numerator's exponent in every bin of Sang's model rises by `R(k − 2)/(4k)`, and no geometry admits `0.87` at all.
+- In pointwise terms, a sixth moment through `sup|S|` and the fourth moment pays the bins' share if `|S| ≤ U^α` on the longest blocks with `α` below about `0.0124` (with the capped `ϑ`), against the trivial `1/4`.
+
+**What it means.** The release's fourth moment closes its induction at `A ≤ M`. Two factors get there by reflection; the second transform's diagonal and the centred exceptional terms are where `A ≤ M` is used. Sang's longest blocks are their own reflections, so three of them sit at `A = 3M/2`, `M/2` past what the diagonal allows. If that excess were the method's only loss, its sixth moment would cost what the trivial bound on the third factor costs, and no order of moment would improve on Sang's numerator. Round 507's hypothetical sixth moment is therefore not supplied by this method as written. A sixth moment pays the bins' share at `0.87` if it loses at most about `U^{0.025}` at `A = 3M/2`, against the method's `U^{1/2}`; mixing orders bin by bin can only raise that figure. Every number in gate D3 is a statement about this exponent system.
+
+**Gates.** `python3 frontier/wall78/diagonal.py` runs in about a minute, and `--bisect` recomputes the thresholds in about two minutes. All three gates, D1–D3, pass; any failure gives exit status 1. In session runs:
+
+- the moment `U^1` at `m = 1/2` in place of `U^{max(1, km)}` fails D1;
+- a reflected factor shortened by `M/10` fails D2;
+- the threshold with `ϑ = 0` at `k = 3` recorded as `0.0195` fails D3, and so do the capped crossing recorded as `0.0225` and the method's `η` taken as `k/2 − 1.1`.
+
+**Check 9.**
+
+- (a) Scope:
+  - *Within the method as written* means the induction of `lem:plain` at the September 30 version: each factor reflected once, the diagonal bound of eq. `old-eq:2.12` and the centred bound of eq. `old-eq:2.19`. Its zero-slot case goes through the core `A ≤ M + δ`, and its positive-slot case through eq. `old-eq:3.9`, which gives `A ≤ M`; it does not treat a product with `A > M + δ` after reflection. The exponent `U^{max(1, km)}` is what those bounds would leave if the excess `A − M` were the only loss there; it is not a lower bound for the moment.
+  - The self-dual longest block is for a row whose conductor is of size `Z^M`; a row of smaller conductor has shorter blocks in Sang's units.
+  - A reflection of a product as a whole is not a step of the method and is not considered.
+  - Other routes to a sixth moment are not excluded (see the checklist).
+  - The thresholds are sufficient values for one order in every bin above the floor, under the stated hypotheses, for two strategies; neither is shown optimal.
+- (b) Register: the sub-entry "Below `7/8` in the release's exponent comparison" gets a bullet for this round, with the open item and an attack note. Round 506's and round 507's bullets get markers.
+- (c) The signal is unchanged: the release's probe.
+
+**The machinery checklist.**
+
+- Surveyed: the release's Section `sec:plain`, the statement of `lem:plain` and its proof through the second transform, and the centred exceptional terms (the lines above); Sang's Appendix `app:afe` (his lines 1756–1830). A search of Sang's source for `sixth`, `higher moment`, `three copies` and `moment of order`, and of the release's for `sixth moment`, `higher moment` and `three plain`, finds no higher plain moment: Sang's hits are sixth-power-free rows and the sixth-power amplification.
+- Not surveyed:
+  - lines 13996–14699 of the proof, the rows whose inducing characters lie in `Θ` up to line 14700;
+  - the completion of the induction, from line 14779;
+  - other routes to a sixth moment of the family: cubic and sextic large sieves beyond de Faveri's Theorem 1.1 (round 497), metaplectic theta functions, and moments with further averaging.
+
+**Records.** README round 506: markers on its unread proof and its next step. README round 507: markers on its capacity, its conclusion, its checklist and its next step. STRUCTURAL-REVIEW §6: a bullet for this round, and markers on round 506's and round 507's bullets.
+
+**Check 4.** Already in the pilot:
+
+- the moment lever (round 497) and its thresholds at `0.87` (round 506);
+- the capacity and the share `ϑ/k` (round 507);
+- the sixth moment through de Faveri's Theorem 1.1 for blocks with `m ≤ 1/6` (round 497).
+
+New against the pilot:
+
+- where the proof of `lem:plain` uses two factors (eqs. `old-eq:2.1h`, `old-eq:2.12` and `old-eq:2.19`);
+- the self-dual longest block and `A = kM/2`;
+- the comparison of gate D1;
+- the thresholds `η` at `0.87`.
+
+**Bearing on RH:** none.
+
+**The next step.** None is planned here. At `0.87` the open input on the low side is a pairing bound below Cauchy–Schwarz. On the high side it is a sixth moment beyond this method's diagonal that loses at most about `U^{0.025}` at `A = 3M/2`, or a mixture of orders bin by bin (not computed).
