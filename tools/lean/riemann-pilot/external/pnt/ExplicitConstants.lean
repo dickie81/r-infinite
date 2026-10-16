@@ -17,11 +17,12 @@ Plain statement. For every quadratic Dirichlet character `χ ≠ 1` mod `N`:
 
 * `zeta32_le`, `logDerivZeta32_le`: `ζ(3/2) ≤ 3` and `−ζ′/ζ(3/2) ≤ 3(log 4 + 4)`, by round 480's partial summation
   (`Littlewood.norm_LSeries_le_of_sum_le`) with `⌊t⌋ ≤ t` and with Mathlib's `Chebyshev.psi_le_const_mul_self`.
-* `Kld_le`: the constant `ChiUniform.Kld (11/12) (11/12 + e/4)` is at most `23000/e³` for `0 < e ≤ 1/24`:
-  `16r²/(r − r′)³ ≤ 16(28/(3e))³`, and `(R²/R′ − R′) log(R/R′) ≥ (3e/28)²` from `log y ≥ 1 − 1/y`.
+* `Kld_le`: the constant `LogDerivDisc.Kld (11/12) (11/12 + e/4)` (`ChiUniform.Kld` before round 513) is at most
+  `23000/e³` for `0 < e ≤ 1/24`: `16r²/(r − r′)³ ≤ 16(28/(3e))³`, and `(R²/R′ − R′) log(R/R′) ≥ (3e/28)²` from
+  `log y ≥ 1 − 1/y`.
 * `KM_le`: the constant of `ExplicitSmooth.mellin_ν₀_le_geom` on the line `11/12 + e/4` is at most `6750`.
-* `psiChi_le_explicit`: `ChiUniform.sum_le_uniform_of` with `ν₀`, then `ChiUniform.psiChi_le_uniform_of`, with
-  `log(2 + 36ζ(3/2)/11) ≤ 3` and `−ζ′/ζ(3/2) ≤ 17`.
+* `psiChi_le_explicit`: `ChiPNT.sum_le_uniform_of` (`ChiUniform.sum_le_uniform_of` before round 513) with `ν₀`,
+  then `ChiUniform.psiChi_le_uniform_of`, with `log(2 + 36ζ(3/2)/11) ≤ 3` and `−ζ′/ζ(3/2) ≤ 17`.
 * The rest: the `_of` theorems of `Littlewood` and `LeastNonresidue` with these constants.
 -/
 import ExplicitSmooth
@@ -35,7 +36,7 @@ local notation (name := mellintransform8) "𝓜" => mellin
 
 namespace ExplicitConstants
 
-open ChiUniform Littlewood LeastNonresidue ExplicitSmooth ChiPNT
+open ChiUniform Littlewood LeastNonresidue ExplicitSmooth ChiPNT LogDerivDisc
 
 /-! ### `ζ(3/2)` and `−ζ′/ζ(3/2)` -/
 

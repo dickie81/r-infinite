@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadIdeals QuadRing QuadSplit QuadKronecker QuadClassNumber; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadIdeals QuadRing QuadSplit QuadKronecker QuadClassNumber; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -79,6 +79,7 @@ import TwinKV
 import DetectEM
 import KVSubsumes
 import Domination
+import LogDerivDisc
 import HalfPlanePNT
 import BohrKV
 import HalfPlaneFinal
@@ -174,7 +175,7 @@ import QuadClassNumber
 #print axioms DivisorExponent.divisor_isBigO_of_zeroFree
 #print axioms DivisorExponent.divisor_isBigO_eleven_twelfths
 #print axioms DivisorExponent.divisor_isBigO_Theta
-#print axioms ChiPNT.disc_point
+#print axioms LogDerivDisc.disc_point
 #print axioms ChiPNT.logDeriv_le_of_zeroFree
 #print axioms ChiPNT.sum_isBigO_of_zeroFree
 #print axioms ChiPNT.psiChi_isBigO_of_zeroFree
@@ -184,8 +185,8 @@ import QuadClassNumber
 #print axioms PNTProgressions.psiChi_one
 #print axioms PNTProgressions.psiAP_eq_sum
 #print axioms PNTProgressions.psiAP_isBigO
-#print axioms ChiUniform.logDeriv_le_uniform
-#print axioms ChiUniform.sum_le_uniform
+#print axioms LogDerivDisc.logDeriv_le_uniform
+#print axioms ChiPNT.sum_le_uniform
 #print axioms ChiUniform.psiChi_le_uniform
 #print axioms Littlewood.norm_LSeries_le_of_sum_le
 #print axioms Littlewood.logDeriv_le_loglog
@@ -211,8 +212,8 @@ import QuadClassNumber
 #print axioms ExplicitSmooth.contDiff_ν₀
 #print axioms ExplicitSmooth.mass_ν₀
 #print axioms ExplicitSmooth.mellin_ν₀_le_geom
-#print axioms ChiUniform.logDeriv_le_uniform_of
-#print axioms ChiUniform.sum_le_uniform_of
+#print axioms LogDerivDisc.logDeriv_le_uniform_of
+#print axioms ChiPNT.sum_le_uniform_of
 #print axioms ChiUniform.psiChi_le_uniform_of
 #print axioms Littlewood.logDeriv_le_loglog_of
 #print axioms Littlewood.abs_log_norm_LFunction_one_le_of

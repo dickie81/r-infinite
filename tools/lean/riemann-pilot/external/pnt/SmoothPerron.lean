@@ -486,17 +486,15 @@ theorem norm_smoothedSum_sub_le {f : ℕ → ℂ} (hf0 : f 0 = 0) {X : ℝ} (Xpo
 
 /-! ### The identity on a line left of `1` -/
 
-/-- `‖L(f, σ + it)‖ ≤ Σ ‖f(n) n^{−σ}‖`. -/
-lemma norm_LSeries_le {f : ℕ → ℂ} {σ : ℝ} (hf : LSeriesSummable f σ) (t : ℝ) :
-    ‖LSeries f (σ + t * I)‖ ≤ ∑' n, ‖LSeries.term f σ n‖ := by
-  have he : ∀ n, ‖LSeries.term f (σ + t * I) n‖ = ‖LSeries.term f σ n‖ := by
-    intro n
-    simp only [LSeries.norm_term_eq, add_re, ofReal_re, mul_re, I_re, mul_zero, ofReal_im, I_im,
-      mul_one, sub_self, add_zero]
-  have hs : Summable fun n ↦ ‖LSeries.term f (σ + t * I) n‖ := by
-    simpa only [he] using hf.norm
-  calc ‖LSeries f (σ + t * I)‖ ≤ ∑' n, ‖LSeries.term f (σ + t * I) n‖ := norm_tsum_le_tsum_norm hs
-    _ = ∑' n, ‖LSeries.term f σ n‖ := by simp_rw [he]
+/-- `‖L(f, s)‖ ≤ Σ ‖f(n) n^{−σ₀}‖` on `Re s ≥ σ₀`. (Round 513: round 478's `ChiPNT.norm_LSeries_le_of_le_re`,
+moved here; it replaces round 472's `norm_LSeries_le`, its case `s = σ + it`.) -/
+lemma norm_LSeries_le_of_le_re {f : ℕ → ℂ} {σ₀ : ℝ} (hf : LSeriesSummable f σ₀) {s : ℂ}
+    (hs : σ₀ ≤ s.re) : ‖LSeries f s‖ ≤ ∑' n, ‖LSeries.term f σ₀ n‖ := by
+  have hle : (σ₀ : ℂ).re ≤ s.re := by simpa using hs
+  have hsum := (hf.of_re_le_re hle).norm
+  calc ‖LSeries f s‖ ≤ ∑' n, ‖LSeries.term f s n‖ := norm_tsum_le_tsum_norm hsum
+    _ ≤ ∑' n, ‖LSeries.term f σ₀ n‖ :=
+        Summable.tsum_le_tsum (fun n ↦ LSeries.norm_term_le_of_re_le_re f hle n) hsum hf.norm
 
 lemma norm_integrand {L : ℂ → ℂ} {ε X : ℝ} (Xpos : 0 < X) (s : ℂ) :
     ‖integrand ν ε X L s‖ = ‖L s‖ * ‖𝓜 (fun x ↦ (Smooth1 ν ε x : ℂ)) s‖ * X ^ s.re := by
@@ -618,7 +616,7 @@ theorem smoothedSum_eq_verticalIntegral_left {f : ℕ → ℂ} (hf0 : f 0 = 0)
     (fun t ↦ ?_) hgrowth diffν νnonneg suppν mass_one εpos ε_lt_one hX hint'
   have hre : ((2 : ℝ) + t * I : ℂ).re = 2 := by simp
   rw [← hL _ (by rw [hre]; norm_num)]
-  exact norm_LSeries_le hf t
+  exact norm_LSeries_le_of_le_re hf (by rw [hre])
 
 end SmoothPerron
 
