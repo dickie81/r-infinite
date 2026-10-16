@@ -24,7 +24,8 @@ src/LFunctionGrowth.lean, and round 495's half-plane `Eis.LFunction_ne_zero_of_r
 * `psiChi_isBigO_of_zeroFree`: `F = L(·, χ)`, entire for `χ ≠ 1` (Mathlib's
   `DirichletCharacter.differentiable_LFunction`), with linear growth from round 224's
   `PsiOmega.norm_LFunction_le` (`|L(s, χ)| ≤ (N + 1)|s|/Re s`; since round 509, round 254's
-  `PsiOmega.norm_LFunction_leC`, the same bound for every `χ ≠ 1`), `1/|L(3/2 + it, χ)| = |L(χμ, 3/2 + it)|`
+  `PsiOmega.norm_LFunction_leC`, the same bound for every `χ ≠ 1`, which since round 511 replaces it),
+  `1/|L(3/2 + it, χ)| = |L(χμ, 3/2 + it)|`
   (Mathlib's `DirichletCharacter.LSeries.mul_mu_eq_one`) and `|L′/L| = |L(χΛ, s)| ≤ Σ Λ(n)n^{−3/2}` on
   `Re s ≥ 3/2` (Mathlib's `DirichletCharacter.LSeries_twist_vonMangoldt_eq`).
 -/

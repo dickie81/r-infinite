@@ -1,6 +1,5 @@
 import Mathlib
 import WeilChi
-import LFunctionGrowth
 
 /-! # Davenport–Heilbronn in Lean, stage 1 (round 253)
 

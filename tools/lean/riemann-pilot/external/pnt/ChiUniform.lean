@@ -18,6 +18,7 @@ Dirichlet character `χ ≠ 1` mod `N`, with round 254's `PsiOmega.norm_LFunctio
 * `psiChi_le_uniform`: `F = L(·, χ)`, with `c = 18(N + 1)/11` from round 224's `PsiOmega.norm_LFunction_le`,
   `A = ζ(3/2)` (`zeta32`) and `C₀ = −ζ′/ζ(3/2)` (`logDerivZeta32`), and round 477's half-plane `Re s > 11/12`.
   *(Round 509: round 254's `PsiOmega.norm_LFunction_leC` and round 495's half-plane, for every `χ ≠ 1`.)*
+  *(Round 511: `norm_LFunction_le` is removed; `norm_LFunction_leC` replaces it.)*
 * `Kld`, `logDeriv_le_uniform_of` (round 484): the constant of `logDeriv_le_uniform` as a formula in `θ` and `θ′`.
 * `sum_le_uniform_of` (round 484): `sum_le_uniform` for a given smoothing `ν` whose Mellin transform is at most
   `K_M ε^{−κ}(1 + |t|)^{−1−κ}` on the line `θ + η₀/4`, `η₀ = min(η, (1 − θ)/2)` (`eta0`), with

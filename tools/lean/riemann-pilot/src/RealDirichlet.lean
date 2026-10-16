@@ -1,6 +1,7 @@
 import Mathlib
 import DirichletOmega
 import XiBounds
+import LFunctionGrowth
 
 /-! # Real primitive Dirichlet characters: a zero, and a positivity criterion (round 224)
 
@@ -13,6 +14,11 @@ Partial summation then gives `L(s, χ) = s∫_1^∞ S(x)x^{−s−1}dx` on `Re s
 * `|L(σ, χ) − 1| ≤ (N + 2)/(σ − 1)` for `σ > 1` (`abs_LFunction_sub_one_le`);
 * if every partial sum is `≥ 0`, `L(σ, χ) ≥ 1 − 2^{−σ} > 0` on `(0, ∞)` (`LFunction_real_ge`): no
   real zero, in particular no Siegel zero.
+
+*(Round 511: the partial-sum bound, the integral representation and the growth bound are LFunctionGrowth.lean's,
+for every `χ ≠ 1` (`norm_sum_cC_le`, `LFunction_eq_IχC`, `norm_LFunction_leC`). Here `abs_summ_cR_le` is the real
+part of `norm_summC_le`, `LFunction_eq_Iχ` is `LFunction_eq_IχC` through `Iχ = IχC` for quadratic `χ`
+(`Iχ_eq_IχC`), `norm_LamG_le` holds for every `χ ≠ 1`, and `abs_sum_cR_le` and `norm_LFunction_le` are removed.)*
 
 **A zero** (`exists_zero_of_primitive`). With `Λ*(s) = N^{s/2}Λ(s, χ)`, Mathlib's functional
 equation gives `Λ*(1 − s) = εΛ*(s)` (`LamG_one_sub`). `f(z) = Λ*(½ + iz)Λ*(½ − iz)` is even and entire of
@@ -60,67 +66,19 @@ omit [NeZero N] in
 theorem isReal_of_isQuadratic (hq : χ.IsQuadratic) : IsReal χ := cR_ofReal hq
 
 omit [NeZero N] in
-theorem abs_cR_le (n : ℕ) : |cR χ n| ≤ 1 :=
-  (Complex.abs_re_le_norm _).trans (norm_le_one χ _)
+/-- `Σ_{n ≤ x} Re χ(n)` is the real part of LFunctionGrowth.lean's `summC χ x = Σ_{n ≤ x} χ(n)`. -/
+theorem summ_cR_eq_re (x : ℝ) : summ (cR χ) x = (summC χ x).re := by
+  simp only [summ, summC, cC, cR, Complex.re_sum]
 
 omit [NeZero N] in
-theorem sum_range_shift (g : ℕ → ℝ) (hper : ∀ k, g (k + N) = g k) (m : ℕ) :
-    ∑ k ∈ Finset.range N, g (m + k) = ∑ k ∈ Finset.range N, g k := by
-  induction m with
-  | zero => simp
-  | succ m ih =>
-    rw [← ih]
-    have h1 := Finset.sum_range_succ' (fun k => g (m + k)) N
-    have h2 := Finset.sum_range_succ (fun k => g (m + k)) N
-    have e : ∑ k ∈ Finset.range N, g (m + 1 + k) = ∑ k ∈ Finset.range N, g (m + (k + 1)) :=
-      Finset.sum_congr rfl fun k _ => by congr 1; ring
-    have hN : g (m + N) = g (m + 0) := by rw [add_zero, hper]
-    linarith
+/-- For quadratic `χ`, `summ (cR χ)` is `summC χ`. -/
+theorem summ_cR_ofReal (hq : χ.IsQuadratic) (x : ℝ) : (summ (cR χ) x : ℂ) = summC χ x := by
+  simp only [summ, summC, cC, Complex.ofReal_sum, cR_ofReal hq]
 
-theorem sum_range_mod (g : ℕ → ℝ) (hper : ∀ k, g (k + N) = g k)
-    (h0 : ∑ k ∈ Finset.range N, g k = 0) (n : ℕ) :
-    ∑ k ∈ Finset.range n, g k = ∑ k ∈ Finset.range (n % N), g k := by
-  induction n using Nat.strong_induction_on with
-  | _ n ih =>
-    rcases lt_or_ge n N with h | h
-    · rw [Nat.mod_eq_of_lt h]
-    · obtain ⟨m, rfl⟩ := Nat.exists_eq_add_of_le h
-      rw [add_comm N m, Finset.sum_range_add, sum_range_shift g hper, h0, add_zero,
-        Nat.add_mod_right]
-      exact ih m (by have := NeZero.pos N; omega)
-
-theorem sum_range_eq_univ (f : ZMod N → ℂ) :
-    ∑ k ∈ Finset.range N, f k = ∑ a, f a := by
-  refine Finset.sum_nbij' (fun k => (k : ZMod N)) (fun a => a.val) (fun _ _ => Finset.mem_univ _)
-    (fun a _ => Finset.mem_range.2 (ZMod.val_lt a)) (fun k hk => ZMod.val_cast_of_lt
-      (Finset.mem_range.1 hk)) (fun a _ => ZMod.natCast_zmod_val a) (fun _ _ => rfl)
-
-/-- **The partial sums of a nontrivial `χ` are bounded by its modulus.** -/
-theorem abs_sum_cR_le (hχ1 : χ ≠ 1) (n : ℕ) : |∑ k ∈ Finset.range n, cR χ k| ≤ N := by
-  have hper : ∀ k, cR χ (k + N) = cR χ k := fun k => by simp [cR]
-  have h0 : ∑ k ∈ Finset.range N, cR χ k = 0 := by
-    have := congrArg Complex.re ((sum_range_eq_univ (fun a => χ a)).trans
-      (MulChar.sum_eq_zero_of_ne_one hχ1))
-    simpa [cR, Complex.re_sum] using this
-  rw [sum_range_mod _ hper h0]
-  calc |∑ k ∈ Finset.range (n % N), cR χ k| ≤ ∑ k ∈ Finset.range (n % N), |cR χ k| :=
-        Finset.abs_sum_le_sum_abs _ _
-    _ ≤ ∑ k ∈ Finset.range (n % N), (1 : ℝ) := Finset.sum_le_sum fun k _ => abs_cR_le k
-    _ = (n % N : ℕ) := by simp
-    _ ≤ N := by exact_mod_cast (Nat.mod_lt n (NeZero.pos N)).le
-
-omit [NeZero N] in
-theorem sum_Icc_eq (g : ℕ → ℝ) (n : ℕ) :
-    ∑ k ∈ Finset.Icc 1 n, g k = ∑ k ∈ Finset.range (n + 1), g k - g 0 := by
-  induction n with
-  | zero => simp
-  | succ n ih => rw [Finset.sum_Icc_succ_top (by omega), ih, Finset.sum_range_succ _ (n + 1)]; ring
-
+/-- **The partial sums of a nontrivial `χ` are bounded by its modulus**: the real part of `norm_summC_le`. -/
 theorem abs_summ_cR_le (hχ1 : χ ≠ 1) (x : ℝ) : |summ (cR χ) x| ≤ N + 1 := by
-  unfold summ
-  rw [sum_Icc_eq]
-  refine (abs_sub _ _).trans ?_
-  linarith [abs_sum_cR_le hχ1 (⌊x⌋₊ + 1), abs_cR_le (χ := χ) 0]
+  rw [summ_cR_eq_re]
+  exact (Complex.abs_re_le_norm _).trans (norm_summC_le hχ1 x)
 
 omit [NeZero N] in
 theorem summ_cR_eq_one {x : ℝ} (h1 : 1 ≤ x) (h2 : x < 2) : summ (cR χ) x = 1 := by
@@ -129,15 +87,6 @@ theorem summ_cR_eq_one {x : ℝ} (h1 : 1 ≤ x) (h2 : x < 2) : summ (cR χ) x = 
     rw [Nat.floor_eq_iff (by linarith)]; norm_num; exact ⟨h1, h2⟩
   rw [this]; simp [cR]
 
-omit [NeZero N] in
-theorem summ_cR_zero {x : ℝ} (h : x < 1) : summ (cR χ) x = 0 := by
-  unfold summ; rw [Nat.floor_eq_zero.2 h]; simp
-
-theorem linBound_cR (hχ1 : χ ≠ 1) : LinBound (cR χ) (N + 1) := fun x hx => by
-  rcases lt_or_ge x 1 with h | h
-  · rw [summ_cR_zero h, abs_zero]; positivity
-  · exact (abs_summ_cR_le hχ1 x).trans (le_mul_of_one_le_right (by positivity) h)
-
 /-! ## `L(s, χ)` on `Re s > 0` by partial summation -/
 
 /-- `I(s) = ∫_1^∞ S(x)x^{−s−1}dx`. -/
@@ -145,93 +94,14 @@ def Iχ (χ : DirichletCharacter ℂ N) (s : ℂ) : ℂ :=
   ∫ x in Ioi (1 : ℝ), (summ (cR χ) x : ℂ) * (x : ℂ) ^ (-(s + 1))
 
 omit [NeZero N] in
-theorem Iχ_eq_mellin (s : ℂ) :
-    Iχ χ s = mellin (fun x : ℝ => (Ioi (1 : ℝ)).indicator (fun x => (summ (cR χ) x : ℂ)) x) (-s) := by
-  unfold Iχ mellin
-  rw [← integral_indicator measurableSet_Ioi,
-    ← integral_indicator (s := Ioi 0) measurableSet_Ioi]
-  refine integral_congr_ae (Eventually.of_forall fun x => ?_)
-  by_cases h1 : x ∈ Ioi (1 : ℝ)
-  · have h0 : x ∈ Ioi (0 : ℝ) := show (0 : ℝ) < x from lt_trans one_pos h1
-    simp only [indicator_of_mem h1, indicator_of_mem h0, smul_eq_mul]
-    rw [mul_comm]; congr 2; ring
-  · simp only [indicator_of_notMem h1]
-    by_cases h0 : x ∈ Ioi (0 : ℝ)
-    · simp [indicator_of_mem h0, indicator_of_notMem h1]
-    · simp [indicator_of_notMem h0]
+/-- For quadratic `χ`, `Iχ` is LFunctionGrowth.lean's `IχC`. -/
+theorem Iχ_eq_IχC (hq : χ.IsQuadratic) (s : ℂ) : Iχ χ s = IχC χ s := by
+  simp only [Iχ, IχC, summ_cR_ofReal hq]
 
-theorem Iχ_differentiableAt (hχ1 : χ ≠ 1) {s : ℂ} (hs : 0 < s.re) :
-    DifferentiableAt ℂ (Iχ χ) s := by
-  set g : ℝ → ℂ := fun x => (Ioi (1 : ℝ)).indicator (fun x => (summ (cR χ) x : ℂ)) x
-  have hgm : Measurable g :=
-    (Complex.continuous_ofReal.measurable.comp (measurable_summ _)).indicator measurableSet_Ioi
-  have hgb : ∀ x, ‖g x‖ ≤ N + 1 := fun x => by
-    by_cases h : x ∈ Ioi (1 : ℝ)
-    · simp only [g, indicator_of_mem h, Complex.norm_real, Real.norm_eq_abs]
-      exact abs_summ_cR_le hχ1 x
-    · simp only [g, indicator_of_notMem h, norm_zero]; positivity
-  have hloc : LocallyIntegrableOn g (Ioi 0) :=
-    ((locallyIntegrable_const ((N + 1 : ℝ) : ℂ)).mono hgm.aestronglyMeasurable
-      (Eventually.of_forall fun x => by
-        rw [Complex.norm_real, Real.norm_of_nonneg (by positivity)]; exact hgb x)).locallyIntegrableOn _
-  have htop : g =O[atTop] (· ^ (-(0 : ℝ))) :=
-    Asymptotics.IsBigO.of_bound (N + 1) (Eventually.of_forall fun x => by
-      simpa [Real.rpow_zero] using hgb x)
-  have hbot : g =O[𝓝[>] 0] (· ^ (-((-s).re - 1))) := by
-    refine Asymptotics.IsBigO.of_bound 0 ?_
-    filter_upwards [Ioo_mem_nhdsGT (show (0 : ℝ) < 1 by norm_num)] with x hx
-    have : x ∉ Ioi (1 : ℝ) := fun h => by linarith [hx.2, show 1 < x from h]
-    simp [g, indicator_of_notMem this]
-  have hd : DifferentiableAt ℂ (mellin g) (-s) :=
-    mellin_differentiableAt_of_isBigO_rpow hloc htop (by simp; linarith) hbot (by linarith)
-  have e : Iχ χ = fun s => mellin g (-s) := funext Iχ_eq_mellin
-  rw [e]
-  exact hd.comp s differentiableAt_id.neg
-
-omit [NeZero N] in
-theorem LSeriesSummable_cR (hq : χ.IsQuadratic) {s : ℂ} (hs : 1 < s.re) :
-    LSeriesSummable (fun n => (cR χ n : ℂ)) s :=
-  LSeriesSummable_of_le_const_mul_rpow (x := 1) hs ⟨1, fun n _ => by
-    rw [cR_ofReal hq, sub_self, Real.rpow_zero, mul_one]; exact norm_le_one χ _⟩
-
-/-- **`L(s, χ) = s·∫_1^∞ S(x)x^{−s−1}dx` for `Re s > 0`.** -/
+/-- **`L(s, χ) = s·∫_1^∞ S(x)x^{−s−1}dx` for `Re s > 0`**: `LFunction_eq_IχC` for quadratic `χ`. -/
 theorem LFunction_eq_Iχ (hχ1 : χ ≠ 1) (hq : χ.IsQuadratic) {s : ℂ} (hs : 0 < s.re) :
     LFunction χ s = s * Iχ χ s := by
-  set U : Set ℂ := {s | 0 < s.re}
-  have hUo : IsOpen U := isOpen_lt continuous_const Complex.continuous_re
-  have hL : DifferentiableOn ℂ (LFunction χ) U := (differentiable_LFunction hχ1).differentiableOn
-  have hR : DifferentiableOn ℂ (fun s => s * Iχ χ s) U := fun z hz =>
-    (differentiableAt_id.mul (Iχ_differentiableAt hχ1 hz)).differentiableWithinAt
-  refine eqOn_convex hUo (convex_halfSpace_re_gt 0) hL hR (z0 := 2)
-    (show (0 : ℝ) < (2 : ℂ).re by norm_num) ?_ hs
-  filter_upwards [(isOpen_lt continuous_const Complex.continuous_re).mem_nhds
-    (show (1 : ℝ) < (2 : ℂ).re by norm_num)] with z hz
-  have hz0 : z ≠ 0 := fun h => by rw [h, zero_re] at hz; linarith
-  have h := integral_summ (linBound_cR hχ1) hz (LSeriesSummable_cR hq hz)
-  rw [show (fun n => (cR χ n : ℂ)) = fun n : ℕ => χ n from funext (cR_ofReal hq)] at h
-  rw [LFunction_eq_LSeries χ hz]
-  unfold Iχ; rw [h]; field_simp
-
-theorem integral_rpow_Ioi_one' {σ : ℝ} (hσ : 0 < σ) :
-    ∫ x in Ioi (1 : ℝ), x ^ (-σ - 1) = 1 / σ := by
-  rw [integral_Ioi_rpow_of_lt (by linarith) one_pos, Real.one_rpow, show -σ - 1 + 1 = -σ by ring]
-  field_simp
-
-/-- **`‖L(s, χ)‖ ≤ (N + 1)‖s‖/Re s`** on `Re s > 0`. -/
-theorem norm_LFunction_le (hχ1 : χ ≠ 1) (hq : χ.IsQuadratic) {s : ℂ} (hs : 0 < s.re) :
-    ‖LFunction χ s‖ ≤ (N + 1) * ‖s‖ / s.re := by
-  rw [LFunction_eq_Iχ hχ1 hq hs, norm_mul]
-  suffices hI : ‖Iχ χ s‖ ≤ (N + 1) * (1 / s.re) by
-    calc ‖s‖ * ‖Iχ χ s‖ ≤ ‖s‖ * ((N + 1) * (1 / s.re)) := by gcongr
-      _ = _ := by ring
-  rw [← integral_rpow_Ioi_one' hs, ← integral_const_mul]
-  refine norm_integral_le_of_norm_le (((integrableOn_Ioi_rpow_of_lt (by linarith) one_pos)).const_mul _)
-    ((ae_restrict_iff' measurableSet_Ioi).2 (Eventually.of_forall fun x (hx : 1 < x) => ?_))
-  have hx0 : 0 < x := by linarith
-  rw [norm_mul, Complex.norm_real, Real.norm_eq_abs, Complex.norm_cpow_eq_rpow_re_of_pos hx0]
-  have : (-(s + 1)).re = -s.re - 1 := by simp; ring
-  rw [this]
-  exact mul_le_mul_of_nonneg_right (abs_summ_cR_le hχ1 x) (by positivity)
+  rw [Iχ_eq_IχC hq, LFunction_eq_IχC hχ1 hs]
 
 omit [NeZero N] in
 /-- The real integrand, for real `σ`. -/
@@ -374,6 +244,20 @@ theorem LamG_one_sub (hq : χ.IsQuadratic) (hprim : χ.IsPrimitive) (s : ℂ) :
   linear_combination (rootNumber χ * completedLFunction χ s) * e
 
 omit [NeZero N] in
+/-- `χ⁻¹` is primitive when `χ` is. -/
+theorem isPrimitive_inv (χ : DirichletCharacter ℂ N) (hprim : χ.IsPrimitive) : χ⁻¹.IsPrimitive := by
+  unfold IsPrimitive at *; rw [conductor_inv]; exact hprim
+
+/-- **`Λ*(1 − s, χ) = ε_χ Λ*(s, χ⁻¹)`** for primitive `χ`. -/
+theorem LamG_one_sub' (hprim : χ.IsPrimitive) (s : ℂ) :
+    LamG χ (1 - s) = rootNumber χ * LamG χ⁻¹ s := by
+  unfold LamG
+  rw [hprim.completedLFunction_one_sub]
+  have e : (N : ℂ) ^ ((1 - s) / 2) * (N : ℂ) ^ (s - 1 / 2) = (N : ℂ) ^ (s / 2) := by
+    rw [← cpow_add _ _ natCast_ne_zero']; congr 1; ring
+  linear_combination (rootNumber χ * completedLFunction χ⁻¹ s) * e
+
+omit [NeZero N] in
 theorem norm_cGamma_le' {w : ℂ} (hw : 0 < w.re) : ‖Complex.Gamma w‖ ≤ Real.Gamma w.re := by
   rw [Complex.Gamma_eq_integral hw, Real.Gamma_eq_integral hw, Complex.GammaIntegral]
   refine (norm_integral_le_integral_norm _).trans (le_of_eq
@@ -409,8 +293,9 @@ theorem norm_Gammaℝ_le' {w : ℂ} (hw : 0 < w.re) : ‖Gammaℝ w‖ ≤ Real.
         mul_le_mul h1 h2 (norm_nonneg _) zero_le_one
     _ = _ := one_mul _
 
-/-- **`‖Λ*(w)‖ ≤ n^{3n}`** on `Re w ≥ ½`, for `n ≥ ‖w‖ + 3`, `n ≥ N + 1`, `n ≥ 4`. -/
-theorem norm_LamG_le (hχ1 : χ ≠ 1) (hq : χ.IsQuadratic) {w : ℂ} (hw : 1 / 2 ≤ w.re) {n : ℕ}
+/-- **`‖Λ*(w)‖ ≤ n^{3n}`** on `Re w ≥ ½`, for every `χ ≠ 1`, for `n ≥ ‖w‖ + 3`, `n ≥ N + 1`,
+`n ≥ 4`. -/
+theorem norm_LamG_le (hχ1 : χ ≠ 1) {w : ℂ} (hw : 1 / 2 ≤ w.re) {n : ℕ}
     (hn : ‖w‖ + 3 ≤ n) (hnN : (N : ℝ) + 1 ≤ n) (hn4 : 4 ≤ n) :
     ‖LamG χ w‖ ≤ (n : ℝ) ^ (3 * n) := by
   have hre := Complex.re_le_norm w
@@ -437,7 +322,7 @@ theorem norm_LamG_le (hχ1 : χ ≠ 1) (hq : χ.IsQuadratic) {w : ℂ} (hw : 1 /
     have : (n.factorial : ℝ) ≤ (n : ℝ) ^ n := by exact_mod_cast Nat.factorial_le_pow n
     linarith
   have hL : ‖LFunction χ w‖ ≤ 2 * (n : ℝ) ^ 2 := by
-    refine (norm_LFunction_le hχ1 hq (by linarith)).trans ?_
+    refine (norm_LFunction_leC hχ1 (by linarith)).trans ?_
     rw [div_le_iff₀ (by linarith)]
     have : ((N : ℝ) + 1) * ‖w‖ ≤ n * n := mul_le_mul hnN (by linarith) (norm_nonneg _) (by linarith)
     nlinarith
@@ -510,7 +395,7 @@ theorem norm_fG_le (hχ1 : χ ≠ 1) (hq : χ.IsQuadratic) (hprim : χ.IsPrimiti
   have hxn : x + N + 4 ≤ (n : ℝ) := by
     have := Nat.le_ceil x; simp only [n]; push_cast; linarith
   have hn0 : (0 : ℝ) < n := by linarith
-  have hL := norm_LamG_le hχ1 hq hw (n := n) (by linarith) (by linarith) (by simp only [n]; omega)
+  have hL := norm_LamG_le hχ1 hw (n := n) (by linarith) (by linarith) (by simp only [n]; omega)
   have hL2 : ‖LamG χ w‖ ^ 2 ≤ Real.exp (12 * ((n : ℝ) * Real.sqrt n)) := by
     calc ‖LamG χ w‖ ^ 2 ≤ ((n : ℝ) ^ (3 * n)) ^ 2 := pow_le_pow_left₀ (norm_nonneg _) hL 2
       _ = Real.exp ((6 * n : ℝ) * Real.log n) := by
@@ -688,3 +573,4 @@ end PsiOmega
 #print axioms PsiOmega.psiChi_omega_of_sums_nonneg
 #print axioms PsiOmega.hadamard_fG
 #print axioms PsiOmega.isPrimitive_of_prime_level
+#print axioms PsiOmega.LamG_one_sub'

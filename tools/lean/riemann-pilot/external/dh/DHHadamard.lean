@@ -27,7 +27,9 @@ formula (the prime side of `−dh′/dh`) and the certificate arithmetic; see th
 (Superseded: `DHHalf` is proved in round 255, `dhHalf` in DHZeros.lean, so `hadamard_dh'` is
 unconditional; the explicit formula landed in rounds 256–257 and the certificate in round 261,
 `dh_offline_zero` in DHCertificate.lean.) (Round 509: the first two items and `LamG_one_sub'` moved,
-unchanged, to src/LFunctionGrowth.lean, so that the pnt layer can use them.)
+unchanged, to src/LFunctionGrowth.lean, so that the pnt layer can use them.) (Round 511: `norm_LamG_leC`
+is removed: round 224's `norm_LamG_le` (RealDirichlet.lean) now holds for every `χ ≠ 1`, and
+`LamG_one_sub'` moved on to RealDirichlet.lean.)
 -/
 
 open Real Complex DirichletCharacter Filter Topology MeasureTheory Set Asymptotics
@@ -39,51 +41,6 @@ namespace PsiOmega
 open LandauLaplace Pilot1ca Pilot1bt
 
 variable {N : ℕ} [NeZero N] {χ : DirichletCharacter ℂ N}
-
-/-! ## `‖Λ*(w)‖ ≤ n^{3n}` on `Re w ≥ ½`, for every `χ ≠ 1` -/
-
-theorem norm_LamG_leC (hχ1 : χ ≠ 1) {w : ℂ} (hw : 1 / 2 ≤ w.re) {n : ℕ}
-    (hn : ‖w‖ + 3 ≤ n) (hnN : (N : ℝ) + 1 ≤ n) (hn4 : 4 ≤ n) :
-    ‖LamG χ w‖ ≤ (n : ℝ) ^ (3 * n) := by
-  have hre := Complex.re_le_norm w
-  have hn4' : (4 : ℝ) ≤ n := by exact_mod_cast hn4
-  have hN1 : (1 : ℝ) ≤ N := by exact_mod_cast Nat.one_le_iff_ne_zero.2 (NeZero.ne N)
-  rw [LamG, completed_eq_mul (by linarith), norm_mul, norm_mul]
-  have hc : ‖(N : ℂ) ^ (w / 2)‖ ≤ (n : ℝ) ^ n := by
-    rw [show (N : ℂ) = ((N : ℝ) : ℂ) by norm_num, Complex.norm_cpow_eq_rpow_re_of_pos (by linarith)]
-    have e : (w / 2).re = w.re / 2 := by simp
-    rw [e]
-    calc (N : ℝ) ^ (w.re / 2) ≤ (N : ℝ) ^ (n : ℝ) :=
-          Real.rpow_le_rpow_of_exponent_le hN1 (by linarith)
-      _ ≤ (n : ℝ) ^ (n : ℝ) := Real.rpow_le_rpow (by linarith) (by linarith) (by positivity)
-      _ = (n : ℝ) ^ n := Real.rpow_natCast _ _
-  have hΓ : ‖gammaFactor χ w‖ ≤ 4 * (n : ℝ) ^ n := by
-    obtain ⟨δ, hδ1, hδ⟩ := gammaFactor_shift χ
-    have hδ1' : (δ : ℝ) ≤ 1 := by exact_mod_cast hδ1
-    have hδ0 : (0 : ℝ) ≤ δ := Nat.cast_nonneg δ
-    rw [hδ]
-    refine (norm_Gammaℝ_le' (by simp; linarith)).trans ?_
-    have e : (w + δ).re = w.re + δ := by simp
-    rw [e]
-    refine (rGamma_le' (n := n) (by linarith) (by linarith)).trans ?_
-    have : (n.factorial : ℝ) ≤ (n : ℝ) ^ n := by exact_mod_cast Nat.factorial_le_pow n
-    linarith
-  have hL : ‖LFunction χ w‖ ≤ 2 * (n : ℝ) ^ 2 := by
-    refine (norm_LFunction_leC hχ1 (by linarith)).trans ?_
-    rw [div_le_iff₀ (by linarith)]
-    have : ((N : ℝ) + 1) * ‖w‖ ≤ n * n := mul_le_mul hnN (by linarith) (norm_nonneg _) (by linarith)
-    nlinarith
-  have hpow : 8 * (n : ℝ) ^ (2 * n + 2) ≤ (n : ℝ) ^ (3 * n) := by
-    have h8 : (8 : ℝ) ≤ (n : ℝ) ^ (n - 2) := by
-      calc (8 : ℝ) ≤ (n : ℝ) ^ 2 := by nlinarith
-        _ ≤ (n : ℝ) ^ (n - 2) := pow_le_pow_right₀ (by linarith) (by omega)
-    calc 8 * (n : ℝ) ^ (2 * n + 2) ≤ (n : ℝ) ^ (n - 2) * (n : ℝ) ^ (2 * n + 2) :=
-          mul_le_mul_of_nonneg_right h8 (by positivity)
-      _ = (n : ℝ) ^ (3 * n) := by rw [← pow_add]; congr 1; omega
-  calc ‖(N : ℂ) ^ (w / 2)‖ * (‖gammaFactor χ w‖ * ‖LFunction χ w‖)
-      ≤ (n : ℝ) ^ n * (4 * (n : ℝ) ^ n * (2 * (n : ℝ) ^ 2)) := by gcongr
-    _ = 8 * (n : ℝ) ^ (2 * n + 2) := by ring
-    _ ≤ _ := hpow
 
 /-! ## The growth of `Ξ_χ`, `Ξ_{DH}` -/
 
@@ -117,14 +74,14 @@ theorem norm_XiC_le' (hχ1 : χ ≠ 1) (hprim : χ.IsPrimitive) (t : ℂ) :
   -- `‖Ξ_χ(t)‖ ≤ (‖ε‖ + 1) n^{3n}` in both cases
   have hmain : ‖XiC χ t‖ ≤ (‖rootNumber χ‖ + 1) * (n : ℝ) ^ (3 * n) := by
     rcases le_total (1 / 2) (1 / 2 + I * t).re with h | h
-    · have hL := norm_LamG_leC hχ1 h (n := n) (by linarith) (by linarith) hn4
+    · have hL := norm_LamG_le hχ1 h (n := n) (by linarith) (by linarith) hn4
       have hp : (0 : ℝ) ≤ (n : ℝ) ^ (3 * n) := by positivity
       calc ‖XiC χ t‖ = ‖LamG χ (1 / 2 + I * t)‖ := rfl
         _ ≤ (n : ℝ) ^ (3 * n) := hL
         _ ≤ (‖rootNumber χ‖ + 1) * (n : ℝ) ^ (3 * n) := by nlinarith [norm_nonneg (rootNumber χ)]
     · have hre : 1 / 2 ≤ (1 / 2 + I * -t).re := by
         simp only [add_re, mul_re, I_re, I_im, neg_re, neg_im] at h ⊢; norm_num at h ⊢; linarith
-      have hL := norm_LamG_leC (inv_ne_one.2 hχ1) hre (n := n) (by linarith) (by linarith) hn4
+      have hL := norm_LamG_le (inv_ne_one.2 hχ1) hre (n := n) (by linarith) (by linarith) hn4
       have e : LamG χ (1 / 2 + I * t) = rootNumber χ * LamG χ⁻¹ (1 / 2 + I * -t) := by
         rw [← LamG_one_sub' hprim]; congr 1; ring
       calc ‖XiC χ t‖ = ‖rootNumber χ * LamG χ⁻¹ (1 / 2 + I * -t)‖ := by rw [XiC, e]
@@ -224,7 +181,6 @@ theorem hadamard_dh (h : DHHalf) :
 
 end PsiOmega
 
-#print axioms PsiOmega.norm_LamG_leC
 #print axioms PsiOmega.norm_XiC_le'
 #print axioms PsiOmega.norm_XiDH_le
 #print axioms PsiOmega.XiDH_zero_eq

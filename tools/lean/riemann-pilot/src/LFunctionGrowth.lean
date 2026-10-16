@@ -1,18 +1,17 @@
 import Mathlib
-import RealDirichlet
+import LandauLaplace
 
-/-! # The growth of `L(s, χ)` for every `χ ≠ 1`, and the reflection of `Λ*` for every primitive `χ` (round 509)
+/-! # The growth of `L(s, χ)` for every `χ ≠ 1` (rounds 509 and 511)
 
-Moved unchanged from the dh layer so that the pnt layer, which imports no dh module, can use them:
-* from DHHadamard.lean (round 254): the partial sums of `χ ≠ 1` are bounded by its modulus
-  (`norm_sum_cC_le`), `L(s, χ) = s∫_1^∞ S(x)x^{−s−1}dx` on `Re s > 0` from Mathlib's `LSeries_eq_mul_integral`
-  (`LFunction_eq_IχC`), hence `‖L(s, χ)‖ ≤ (N + 1)‖s‖/Re s` (`norm_LFunction_leC`), and the reflection
-  `Λ*(1 − s, χ) = ε_χ Λ*(s, χ⁻¹)` for primitive `χ` (`LamG_one_sub'`);
-* from DavenportHeilbronn.lean (round 253): `χ⁻¹` is primitive when `χ` is (`isPrimitive_inv`).
+* `norm_sum_cC_le`: the partial sums of `χ ≠ 1` are bounded by its modulus;
+* `LFunction_eq_IχC`: `L(s, χ) = s∫_1^∞ S(x)x^{−s−1}dx` on `Re s > 0`, from Mathlib's `LSeries_eq_mul_integral`;
+* `norm_LFunction_leC`: `‖L(s, χ)‖ ≤ (N + 1)‖s‖/Re s` on `Re s > 0`.
 
-Round 224's `norm_LFunction_le` (RealDirichlet.lean) is the growth bound for quadratic `χ`; its integral
-representation is for the L-series of `Re χ`. Round 509 uses `norm_LFunction_leC` in its place in the pnt layer's
-ChiPNT.lean and ChiUniform.lean, and `LamG_one_sub'` for the band of every `L(s, χ)` (HalfPlaneJoinsChar.lean).
+Round 509 moved these, unchanged, from DHHadamard.lean (round 254) so that the pnt layer, which imports no dh
+module, can use them; the file then imported RealDirichlet.lean and also held the reflection `LamG_one_sub'` and
+`isPrimitive_inv`. Since round 511 RealDirichlet.lean imports this file (STRUCTURAL-REVIEW §9.3's U1):
+`sum_range_eq_univ` and `integral_rpow_Ioi_one'` moved here from it, the reflection moved there, and round 224's
+`norm_LFunction_le`, the same bound for quadratic `χ`, is removed.
 -/
 
 open Real Complex DirichletCharacter Filter Topology MeasureTheory Set Asymptotics
@@ -21,7 +20,7 @@ noncomputable section
 
 namespace PsiOmega
 
-open LandauLaplace Pilot1ca Pilot1bt
+open LandauLaplace
 
 variable {N : ℕ} [NeZero N] {χ : DirichletCharacter ℂ N}
 
@@ -58,6 +57,12 @@ theorem sum_range_modC (g : ℕ → ℂ) (hper : ∀ k, g (k + N) = g k)
       rw [add_comm N m, Finset.sum_range_add, sum_range_shiftC g hper, h0, add_zero,
         Nat.add_mod_right]
       exact ih m (by have := NeZero.pos N; omega)
+
+theorem sum_range_eq_univ (f : ZMod N → ℂ) :
+    ∑ k ∈ Finset.range N, f k = ∑ a, f a := by
+  refine Finset.sum_nbij' (fun k => (k : ZMod N)) (fun a => a.val) (fun _ _ => Finset.mem_univ _)
+    (fun a _ => Finset.mem_range.2 (ZMod.val_lt a)) (fun k hk => ZMod.val_cast_of_lt
+      (Finset.mem_range.1 hk)) (fun a _ => ZMod.natCast_zmod_val a) (fun _ _ => rfl)
 
 /-- **The partial sums of a nontrivial `χ` are bounded by its modulus.** -/
 theorem norm_sum_cC_le (hχ1 : χ ≠ 1) (n : ℕ) : ‖∑ k ∈ Finset.range n, cC χ k‖ ≤ N := by
@@ -163,6 +168,11 @@ theorem LFunction_eq_IχC (hχ1 : χ ≠ 1) {s : ℂ} (hs : 0 < s.re) :
   rw [LFunction_eq_LSeries χ hz]
   exact h
 
+theorem integral_rpow_Ioi_one' {σ : ℝ} (hσ : 0 < σ) :
+    ∫ x in Ioi (1 : ℝ), x ^ (-σ - 1) = 1 / σ := by
+  rw [integral_Ioi_rpow_of_lt (by linarith) one_pos, Real.one_rpow, show -σ - 1 + 1 = -σ by ring]
+  field_simp
+
 /-- **`‖L(s, χ)‖ ≤ (N + 1)‖s‖/Re s`** on `Re s > 0`, for every `χ ≠ 1`. -/
 theorem norm_LFunction_leC (hχ1 : χ ≠ 1) {s : ℂ} (hs : 0 < s.re) :
     ‖LFunction χ s‖ ≤ (N + 1) * ‖s‖ / s.re := by
@@ -179,25 +189,8 @@ theorem norm_LFunction_leC (hχ1 : χ ≠ 1) {s : ℂ} (hs : 0 < s.re) :
   rw [this]
   exact mul_le_mul_of_nonneg_right (norm_summC_le hχ1 x) (by positivity)
 
-/-! ## The reflection -/
-
-omit [NeZero N] in
-/-- `χ⁻¹` is primitive when `χ` is. -/
-theorem isPrimitive_inv (χ : DirichletCharacter ℂ N) (hprim : χ.IsPrimitive) : χ⁻¹.IsPrimitive := by
-  unfold IsPrimitive at *; rw [conductor_inv]; exact hprim
-
-/-- **`Λ*(1 − s, χ) = ε_χ Λ*(s, χ⁻¹)`** for primitive `χ`. -/
-theorem LamG_one_sub' (hprim : χ.IsPrimitive) (s : ℂ) :
-    LamG χ (1 - s) = rootNumber χ * LamG χ⁻¹ s := by
-  unfold LamG
-  rw [hprim.completedLFunction_one_sub]
-  have e : (N : ℂ) ^ ((1 - s) / 2) * (N : ℂ) ^ (s - 1 / 2) = (N : ℂ) ^ (s / 2) := by
-    rw [← cpow_add _ _ natCast_ne_zero']; congr 1; ring
-  linear_combination (rootNumber χ * completedLFunction χ⁻¹ s) * e
-
 end PsiOmega
 
 #print axioms PsiOmega.norm_sum_cC_le
 #print axioms PsiOmega.LFunction_eq_IχC
 #print axioms PsiOmega.norm_LFunction_leC
-#print axioms PsiOmega.LamG_one_sub'
