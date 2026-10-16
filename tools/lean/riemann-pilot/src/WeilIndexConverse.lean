@@ -15,7 +15,8 @@ The construction (`negDirections_of_quadruples`):
   for a real polynomial `q` (`ghatC_polyProbe_box`), and it is a strip-test probe.
 * **The frequency** (D). With `t_r = (ρ_r − ½)/i` for one representative per quadruple, `Λ` avoids a
   countable set so that the nodes `x_r = 2 cos(Λ t_r)` are non-real and separated from each other and
-  from each other's conjugates, and `|x_r| > 2` (from `|2 cos w| ≥ e^{|Im w|} − e^{−|Im w|}`).
+  from each other's conjugates (`exists_good_Λ`), and `Λ` lies above a bound that makes `|x_r| > 2`
+  (`two_exp_lt_norm_two_cos` at `c = 0`, from `|2 cos w| ≥ e^{|Im w|} − e^{−|Im w|}`).
 * **Interpolation** (C). Real polynomials `B_r = Π_{s≠r}(X − x_s)(X − x̄_s)·(αX + β)` take any prescribed
   complex value at `x_r` and vanish at the other nodes (`basisP`).
 * **The space.** `q_s = X^N Σ_r s_r B_r` with `q_s(x_r) = s_r·i/ĝ₀(t_r)`. On the orbit of `t_r` the
@@ -168,17 +169,6 @@ theorem norm_two_cos_ge (w : ℂ) :
   rcases le_total 0 w.im with h | h
   · rw [abs_of_nonneg h]; exact t2
   · rw [abs_of_nonpos h, neg_neg]; exact t1
-
-/-- `|2 cos w| > 2` once `|Im w| ≥ 1`. -/
-theorem two_lt_norm_two_cos {w : ℂ} (hw : 1 ≤ |w.im|) : 2 < ‖2 * Complex.cos w‖ := by
-  refine lt_of_lt_of_le ?_ (norm_two_cos_ge w)
-  have h1 : Real.exp 1 ≤ Real.exp |w.im| := Real.exp_le_exp.2 hw
-  have h2 : Real.exp (-|w.im|) ≤ Real.exp (-1) := Real.exp_le_exp.2 (by linarith)
-  have h3 : Real.exp (-1) < 1 / 2 := by
-    rw [Real.exp_neg, inv_lt_comm₀ (Real.exp_pos 1) (by norm_num)]
-    have := Real.exp_one_gt_d9; norm_num at this ⊢; linarith
-  have h4 : (5 / 2 : ℝ) < Real.exp 1 := by have := Real.exp_one_gt_d9; norm_num at this ⊢; linarith
-  linarith
 
 /-- `|2 cos w| > 2e^c` once `|Im w| ≥ c + 3` with `c ≥ 0`. -/
 theorem two_exp_lt_norm_two_cos {w : ℂ} {c : ℝ} (hc : 0 ≤ c) (hw : c + 3 ≤ |w.im|) :
@@ -350,12 +340,10 @@ def Orb (t w : ℂ) : Prop :=
   t = w ∨ t = -w ∨ t = (starRingEnd ℂ) w ∨ t = -(starRingEnd ℂ) w
 
 /-- **A good frequency.** For finitely many points `t_r` with `Re t_r ≠ 0 ≠ Im t_r`, pairwise in
-different orbits, there is `Λ` above any given bound `L` making `x_r = 2 cos(Λ t_r)` a node set with
-`|x_r| > 2`. -/
+different orbits, there is `Λ` above any given bound `L` making `x_r = 2 cos(Λ t_r)` a node set. -/
 theorem exists_good_Λ {κ : Type*} [Fintype κ] (t : κ → ℂ) (hre : ∀ r, (t r).re ≠ 0)
     (him : ∀ r, (t r).im ≠ 0) (hdist : ∀ r s, r ≠ s → ¬Orb (t s) (t r)) (L : ℝ) :
-    ∃ Λ : ℝ, L < Λ ∧ 0 < Λ ∧ Nodes (fun r => 2 * Complex.cos (Λ * t r)) ∧
-      ∀ r, 2 < ‖2 * Complex.cos (Λ * t r)‖ := by
+    ∃ Λ : ℝ, L < Λ ∧ 0 < Λ ∧ Nodes (fun r => 2 * Complex.cos (Λ * t r)) := by
   classical
   set conj := starRingEnd ℂ
   set B1 : κ → Set ℝ := fun r => badSet (conj (t r) - t r) ∪ badSet (conj (t r) + t r)
@@ -384,17 +372,12 @@ theorem exists_good_Λ {κ : Type*} [Fintype κ] (t : κ → ℂ) (hre : ∀ r, 
   set Bad : Set ℝ := (⋃ r, B1 r) ∪ ⋃ r, ⋃ s, B2 r s
   have hBad : Bad.Countable :=
     (Set.countable_iUnion hB1).union (Set.countable_iUnion fun r => Set.countable_iUnion (hB2 r))
-  set Λ₀ : ℝ := max L 0 + 1 + ∑ r, 1 / |(t r).im|
-  obtain ⟨Λ, hΛB, hΛ₀⟩ := (hBad.dense_compl ℝ).exists_mem_open isOpen_Ioi (Set.nonempty_Ioi (a := Λ₀))
-  have hΛ₀1 : 1 ≤ Λ₀ := by
-    have : 0 ≤ ∑ r, 1 / |(t r).im| := Finset.sum_nonneg fun _ _ => by positivity
-    linarith [le_max_right L 0]
-  have hΛpos : 0 < Λ := by have : Λ₀ < Λ := hΛ₀; linarith
-  have hLΛ : L < Λ := by
-    have : Λ₀ < Λ := hΛ₀
-    have : 0 ≤ ∑ r, 1 / |(t r).im| := Finset.sum_nonneg fun _ _ => by positivity
-    linarith [le_max_left L 0]
-  refine ⟨Λ, hLΛ, hΛpos, ⟨fun r => ?_, fun r s hrs => ⟨fun h => ?_, fun h => ?_⟩⟩, fun r => ?_⟩
+  obtain ⟨Λ, hΛB, hΛ₀⟩ := (hBad.dense_compl ℝ).exists_mem_open isOpen_Ioi
+    (Set.nonempty_Ioi (a := max L 0 + 1))
+  have hΛ₀' : max L 0 + 1 < Λ := hΛ₀
+  have hΛpos : 0 < Λ := by linarith [le_max_right L 0]
+  have hLΛ : L < Λ := by linarith [le_max_left L 0]
+  refine ⟨Λ, hLΛ, hΛpos, ⟨fun r => ?_, fun r s hrs => ⟨fun h => ?_, fun h => ?_⟩⟩⟩
   · -- non-real
     intro h
     have hc : Complex.cos (Λ * t r) = Complex.cos (Λ * conj (t r)) := by
@@ -416,16 +399,6 @@ theorem exists_good_Λ {κ : Type*} [Fintype κ] (t : κ → ℂ) (hre : ∀ r, 
     refine hΛB (Or.inr (Set.mem_iUnion.2 ⟨r, Set.mem_iUnion.2 ⟨s, ?_⟩⟩))
     rw [show B2 r s = _ from ite_eq_right hrs]
     exact Or.inr (mem_bad_of_cos_eq hc)
-  · -- size
-    refine two_lt_norm_two_cos ?_
-    have e : ((Λ : ℂ) * t r).im = Λ * (t r).im := by simp
-    rw [e, abs_mul, abs_of_pos hΛpos]
-    have hti : 0 < |(t r).im| := abs_pos.2 (him r)
-    have h1 : 1 / |(t r).im| ≤ ∑ r, 1 / |(t r).im| :=
-      Finset.single_le_sum (f := fun r => 1 / |(t r).im|) (fun _ _ => by positivity)
-        (Finset.mem_univ r)
-    have h2 : 1 / |(t r).im| ≤ Λ := by have : Λ₀ < Λ := hΛ₀; linarith [le_max_right L 0]
-    rw [div_le_iff₀ hti] at h2; linarith
 
 /-! ## E. The transform `M(z) = q(2 cos Λz)·ĝ₀(z)` on orbits and on the line -/
 
@@ -520,7 +493,7 @@ theorem negDirections_above (v₀ : ℝ) (hv₀ : 0 ≤ v₀)
   have hd : ∀ r s : R, r ≠ s → ¬Orb (tt s) (tt r) := fun r s hrs =>
     hdist r.1 r.2 s.1 s.2 (fun h => hrs (Subtype.ext h))
   have hgap : ∀ r, 0 < |(tt r).im| - v₀ := fun r => sub_pos.2 (htop r)
-  obtain ⟨Λ, hLΛ, hΛ, hN, -⟩ := exists_good_Λ tt hre him hd (∑ r, 3 / (|(tt r).im| - v₀))
+  obtain ⟨Λ, hLΛ, hΛ, hN⟩ := exists_good_Λ tt hre him hd (∑ r, 3 / (|(tt r).im| - v₀))
   set x : R → ℂ := fun r => 2 * Complex.cos (Λ * tt r) with hx
   set X0 : ℝ := 2 * Real.exp (Λ * v₀)
   have hX0 : 0 ≤ X0 := by positivity
@@ -790,7 +763,6 @@ end Pilot1ca
 
 #print axioms Pilot1ca.ghatC_polyProbe
 #print axioms Pilot1ca.striptest_polyProbe
-#print axioms Pilot1ca.two_lt_norm_two_cos
 #print axioms Pilot1ca.aeval_basisP_self
 #print axioms Pilot1ca.abs_basisP_le
 #print axioms Pilot1ca.exists_good_Λ

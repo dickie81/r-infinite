@@ -16,7 +16,8 @@ of it: the data of a group depend on its active set `A` only through `r = ∏_{P
 * **The expansion** (`rcls`, a definition; **`twisted_theta_expansion_unif`**): round 371's expansion of the
   twisted `θ̄`, with `D`, `c_H`, `d_H` and `y` functions of `h₀` and of the class of `∏_{P∈A}π_P` modulo
   `9L`, chosen before the twist, the primes and the exponents.
-* **The dual sums** (**`twisted_theta_voronoi_unif`**): round 376's `twisted_theta_voronoi` with these data.
+* **The dual sums** (**`twisted_theta_voronoi_unif`**): round 376's identity for the twisted `θ̄`
+  (`twisted_theta_voronoi_of`) with these data.
 -/
 
 open Real Set Filter MeasureTheory Complex NumberField Ideal Asymptotics UniqueFactorizationMonoid
@@ -220,7 +221,7 @@ open scoped ContDiff
 
 open Classical in
 /-- **The dual sums with uniform data** (the companion paper's (6.9) with its Lemma 6.3): round 376's
-`twisted_theta_voronoi`, with the data `D`, `d_H` and `y` of each group functions of the residue `h₀` and
+identity for the twisted `θ̄` (`twisted_theta_voronoi_of`), with the data `D`, `d_H` and `y` of each group functions of the residue `h₀` and
 of the class of `∏_{P∈A}π_P` modulo `9L` alone, chosen before the twist, the primes and the exponents. -/
 theorem twisted_theta_voronoi_unif {θ : ℂ → ℝ → ℂ} {Kc : ℝ} {c0 cP cM : ℂ} {τ tP tM : 𝓞 K → ℂ}
     (hd : KubotaData θ Kc c0 cP cM τ tP tM) {L : 𝓞 K} (hL : L ≠ 0) :

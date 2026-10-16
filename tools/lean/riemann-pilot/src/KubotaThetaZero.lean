@@ -15,7 +15,7 @@ measurable and bounded, vanishing outside `[α, β]` with `0 < α ≤ β`:
   and `|u|` is invariant; and `∫conj u(S⁻¹·p)·w(p) dν = ∫conj u(p)·w(S·p) dν` for `u` and `w` automorphic, by
   round 439's change of variables and independence of the partition of unity.
 * **θ at `S·p`** (`thetaFS`, a definition; **`setLIntegral_sS_lt_top`** and **`integrableOn_sS`**, with
-  `isAut_thetaFS`, `measurable_thetaFS` and `memLp_thetaFS`): `θ̃∘S` is automorphic and in `L²(ν)`, and an
+  `isAut_thetaFS` and `memLp_thetaFS`): `θ̃∘S` is automorphic and in `L²(ν)`, and an
   automorphic `u` in `L²(ν)`, moved by `S`, is integrable on `3P × [α, β]` (round 432's
   `lintegral_boxZ_lt_top`).
 * **The band at `S·p`** (**`eisLow_sS_eq_band`**, with `height_sS_le` and `eisHigh_sS_eq_band`): every height
@@ -23,7 +23,7 @@ measurable and bounded, vanishing outside `[α, β]` with `0 < α ≤ β`:
   `E_s − h_s = E_s − E(1[Y ≤ v ≤ Y + β + 1/α]v^s)` at `S·p` for `v ≥ α`, as round 430's `eisLow_eq_band` on
   `3P × [α, β]`.
 * **The pairing at the cusp `0`** (`pseisS`, a definition; **`inner_toLp_pseisS`** and
-  **`inner_pseisS_uL_band`**, with `isAut_pseisS`, `memLp_pseisS` and `integrableOn_fundP3_of_lintegral`):
+  **`inner_pseisS_uL_band`**, with `memLp_pseisS` and `integrableOn_fundP3_of_lintegral`):
   `⟨E(ψ)∘S⁻¹, w⟩ = ∫_{3P×(0,∞)} conj ψ(v)·w(S·(z, v)) dz dv/v³` for `w` automorphic in `L²(ν)` (round 426's
   `integral_conj_pseis_mul`), and for `Re s > 2` with `Im ĥ(s) ≠ 0`,
   `⟨E(ψ)∘S⁻¹, ũ_s⟩ = (9√3/2)·φ₀(s)M_ψ(s) − ⟨E(ψ)∘S⁻¹, E(1[Y ≤ v ≤ H]v^s)⟩` with `H = Y + β + 1/α`, by round
@@ -175,9 +175,6 @@ def thetaFS (r Y : ℝ) (hY : 0 < Y) (p : ℂ × ℝ) : ℂ := thetaF r Y hY (sl
 theorem isAut_thetaFS (r Y : ℝ) (hY : 0 < Y) : IsAut Gam3 (fun g => kub ↑g) (thetaFS r Y hY) :=
   isAut_comp_sS (isAut_thetaF r Y hY)
 
-theorem measurable_thetaFS (r Y : ℝ) (hY : 0 < Y) : Measurable (thetaFS r Y hY) :=
-  (measurable_thetaF r Y hY).comp (measurable_slAct _)
-
 theorem memLp_thetaFS {r : ℝ} (hr : 0 < r) {Y : ℝ} (hY : 0 < Y) :
     MemLp (thetaFS r Y hY) 2 (muR rhoG) :=
   memLp_comp sS (measurable_thetaF r Y hY) (enorm_thetaF_slAct r Y hY) (memLp_thetaF hr hY)
@@ -255,9 +252,6 @@ theorem eisLow_sS_eq_band {s : ℂ} (hs : 2 < s.re) {Y α β : ℝ} (hY : 0 < Y)
 
 /-- **`E(ψ)∘S⁻¹`, the pseudo-Eisenstein series of `ψ` at the cusp `0`.** -/
 def pseisS (ψ : ℝ → ℂ) (p : ℂ × ℝ) : ℂ := pseis ψ (slAct sS⁻¹ p)
-
-theorem isAut_pseisS (ψ : ℝ → ℂ) : IsAut Gam3 (fun g => kub ↑g) (pseisS ψ) :=
-  isAut_comp_sS_inv (isAut_pseis ψ)
 
 theorem memLp_pseisS {ψ : ℝ → ℂ} (hψ : Measurable ψ) (hψ2 : MemLp (pseis ψ) 2 (muR rhoG)) :
     MemLp (pseisS ψ) 2 (muR rhoG) :=
@@ -624,14 +618,12 @@ end
 #print axioms Eis.lintegral_enorm_comp_lt_top
 #print axioms Eis.integral_conj_sS_inv_mul
 #print axioms Eis.isAut_thetaFS
-#print axioms Eis.measurable_thetaFS
 #print axioms Eis.memLp_thetaFS
 #print axioms Eis.setLIntegral_sS_lt_top
 #print axioms Eis.integrableOn_sS
 #print axioms Eis.height_sS_le
 #print axioms Eis.eisHigh_sS_eq_band
 #print axioms Eis.eisLow_sS_eq_band
-#print axioms Eis.isAut_pseisS
 #print axioms Eis.memLp_pseisS
 #print axioms Eis.integrableOn_fundP3_of_lintegral
 #print axioms Eis.inner_toLp_pseisS

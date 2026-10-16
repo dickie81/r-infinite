@@ -1,6 +1,5 @@
 import Mathlib
 import HurwitzCross
-import StripConv
 import Curvature
 import Limit
 import HadamardApply

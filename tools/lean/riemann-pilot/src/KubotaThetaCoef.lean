@@ -8,7 +8,7 @@ coefficients of θ's automorphic representative `θ̃` (round 425's `thetaF`): `
 proves them, for `m = δ₃x`, `r > 0` and `Y > 0`:
 
 * **Counting** (`rowBd`, `boxT`, `cBox`, `boxZ` and `cTr`, definitions; **`tsum_boxT_le`** and
-  **`tsum_boxZ_le`**, with `rowBd_finite`, `row_mem_rowBd`, `measurableSet_boxT`, `cBox_ne_top`,
+  **`tsum_boxZ_le`**, with `rowBd_finite`, `row_mem_rowBd`, `cBox_ne_top`,
   `tsum_boxT_le_of_siegel`, `measurableSet_boxZ` and `cTr_ne_top`): for `α > 0`, the number of
   `γ ∈ SL_2(ℤ[ω])` with `γ·p` in the box `{|z| ≤ Z, α ≤ v ≤ β}` is bounded independently of `p`. For `p` in
   round 385's Siegel set the bottom rows of such `γ` lie in a finite set depending only on `α`, and two such
@@ -103,11 +103,6 @@ theorem row_mem_rowBd {α : ℝ} (hα : 0 < α) {s : ℂ × ℝ} (hs : s ∈ sie
 
 /-- The box `{(z, v) : z − σ(t) ∈ P, α ≤ v ≤ β}`. -/
 def boxT (t : 𝓞 K) (α β : ℝ) : Set (ℂ × ℝ) := {p | p.1 - σO t ∈ fundP ∧ α ≤ p.2 ∧ p.2 ≤ β}
-
-theorem measurableSet_boxT (t : 𝓞 K) (α β : ℝ) : MeasurableSet (boxT t α β) :=
-  ((measurable_fst.sub measurable_const) measurableSet_fundP).inter
-    ((measurableSet_le measurable_const measurable_snd).inter
-      (measurableSet_le measurable_snd measurable_const))
 
 /-- The bound `#rowBd(α)`. -/
 def cBox (α : ℝ) : ℝ≥0∞ := ∑' cd : 𝓞 K × 𝓞 K, (rowBd α).indicator 1 cd
@@ -665,7 +660,6 @@ end
 
 #print axioms Eis.rowBd_finite
 #print axioms Eis.row_mem_rowBd
-#print axioms Eis.measurableSet_boxT
 #print axioms Eis.cBox_ne_top
 #print axioms Eis.tsum_boxT_le_of_siegel
 #print axioms Eis.tsum_boxT_le

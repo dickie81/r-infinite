@@ -357,15 +357,16 @@ Duplicates and repeated proofs, the most structural first. Removing a copy chang
 
 ## Dead code and superseded branches (Z)
 
-Code that nothing reaches, branches superseded by later rounds, and hypotheses or conjuncts that no caller needs. Removal changes no printed statement unless an item says so. Census: `review/stack3/census.py` and `exclusive_reach.py` on the olean dump of round 508; round 515 re-ran a grep census (declarations and code uses, comments and strings stripped; a script in the session's scratch) on the names in items marked "515".
+Code that nothing reaches, branches superseded by later rounds, and hypotheses or conjuncts that no caller needs. Removal changes no printed statement unless an item says so. Census: `review/stack3/census.py` and `exclusive_reach.py` on the olean dump of round 508; round 515 re-ran a grep census (declarations and code uses, comments and strings stripped; a script in the session's scratch) on the names in items marked "515", and round 516 on every name of Z1–Z7 (attributes, `#print axioms` lines and every mention in the repository's other text files added).
 
-**Z1. Results whose axioms no check sees** (stack review 3; 515: the ten named below as having no users still have none).
-- `CascadeLepton`, 13. Seven have no users: `Electron.Nc_one_eq_integral`, `Nc_two_eq_integral`, `diracLayers_29`, `dirac_sphere_even`, `fermion_scalar_ratio`, `sqrt_alphaC`, `two_sqrt_pi_eq`. The other six (`Gamma_three_halves`, `Nc_one`, `Nc_two`, `Rc_one`, `Rc_pos`, `Rc_two`) are used only by these.
-- `ChargeLattice`, 4. Three have no users: `Electron.hydrogen_neutral`, `quark_charges`, `sm_hypercharges`. `hyper` is used only by them.
+**Round 516.** The owner asked: "Let's discharge the dead code items as long as we are sure they serve no purpose whatsoever." A declaration was removed only if nothing relies on it:
+- no Lean code uses it, by name or through an attribute;
+- no sentence of the README, of a file header or of another document states its content (a list of a round's declarations is not such a sentence);
+- it formalizes no lemma or equation of a cited paper.
 
-Several read as results, not scaffolding. Their axioms are seen by no check (README line 10's caveat), so either print them or drop them.
+A special case of a lemma that stays was removed when one compiled step derives it from that lemma, and the sentences that cite it now cite the general lemma. Z1, Z3, Z5, Z7 and the first item of Z6 are discharged: the ledger lists what was removed and what was kept, with the reason for each. Still open: the branches of Z2 (the owner's decision), the older unreachable constants of Z4, and the candidates of Z6.
 
-**Z2. Superseded and unconsumed branches** (census; lines as estimated by `exclusive_reach.py`; 515: each headline named below is still declared and has no use outside its own chain; `KubotaEnergy`, the side branch and the growth chain were not re-checked).
+**Z2. Superseded and unconsumed branches** (census; lines as estimated by `exclusive_reach.py`; 515: each headline named below is still declared and has no use outside its own chain; `KubotaEnergy`, the side branch and the growth chain were not re-checked). Round 516 kept every branch: each holds results that README entries state. It removed only the three special cases marked 516.
 - **Round 401's chain, about 900 lines (compile and census).**
   - `VerifyRound401.lean` proves round 401's four headlines in one line each from round 402's `BohrLandau.tendsto_NX_div_pos` and `tendsto_outside_div_pos` (`w > 0`), whose conclusions are the same:
     - `ShellSixth.tendsto_NX_div_sixth` and `tendsto_outside_div_sixth` (`w > 1/6`);
@@ -383,62 +384,23 @@ Several read as results, not scaffolding. Their axioms are seen by no check (REA
   - Its header gives the purpose: "Round 360's S5f-10 plans Lax–Milgram for this energy form." Round 418 replanned that step (README line 12133).
   - `KubotaSiegel` imports the file and uses none of it.
 - `KubotaUnfold`'s coset and `B_∞` branch: 11 declarations, about 186 lines.
-  - `lintegral_puLe_top_lt_top`, `lintegral_unfold_cosets` and `lintegral_rhoInf` have no user.
-  - The first is the `F = 1` case of `lintegral_puLe_top_mul_lt_top` (compile).
+  - `lintegral_unfold_cosets` and `lintegral_rhoInf` have no user.
+  - (516) The third headline, `lintegral_puLe_top_lt_top`, the `F = 1` case of `lintegral_puLe_top_mul_lt_top`, is removed.
 - `EisensteinSecondPoisson.Mq_rowcol` (round 321) and its two helpers, about 184 lines: no user (`EisensteinTransferRegroup` uses `Mq_rowcolD`, `EisensteinPairRatio:396`), and still generalized to modulus `m` in round 492.
 - Smaller headlines with no user:
-  - `twisted_theta_voronoi` (27 lines; `KubotaUniform`'s `twisted_theta_voronoi_unif` is the one used);
-  - `memLp_gfun` (29 lines; an instance of `memLp_gfun_all`, compile);
   - `exists_theta_series`, `exists_theta_series_inv`, `isAut_thS_Gam2` and `integral_thS_affine` (40 lines in all);
   - `norm_eis1_slAct_sub_le` (57 lines);
-  - `integral_fourier_Phi_sq` and `integral_dualG_sq` (24 lines).
+  - `integral_fourier_Phi_sq` and `integral_dualG_sq` (24 lines);
+  - (516) removed: `twisted_theta_voronoi` and `memLp_gfun`, special cases of `twisted_theta_voronoi_unif` and `memLp_gfun_all`.
 - A superseded side branch (stack review 3, NOVEL). Rounds 489–490 (`src/CubicCharHalfPlane.lean`, 381 lines; `src/SexticCharHalfPlane.lean`, 511 lines) prove the half-plane for the characters with `χ³ = 1` and `χ⁶ = 1` through the family's members (`LFunction_ne_zero_of_cube`, `LFunction_ne_zero_of_pow_six`). These are special cases of round 495's `Eis.LFunction_ne_zero_of_re_gt`, whose proof uses no constant of either file: the census's dependency walk from it reaches 23 constants of `RealCharHalfPlane` and none of `CubicCharHalfPlane` or `SexticCharHalfPlane`. No other module uses `SexticCharHalfPlane`, and only `SexticCharHalfPlane` uses `CubicCharHalfPlane`. `DirichletCharHalfPlane` imports `SexticCharHalfPlane` and uses none of its constants: it needs only what that import brings in (`RealCharHalfPlane`, `EisensteinQuadSupplement`). README round 495 puts no marker on rounds 489–490. The two files hold reusable general lemmas, among them `unitsCRT`, `charFst`/`charSnd`, `factorsThrough_nine_of_cube` and `exists_member_cube`.
 - The superseded growth chain (round 249, F13: `KVSubsumes` shows `growthW_kv` suffices for rounds 212–214's growth route). Retiring it is about 700–850 lines by two censuses that disagree on the root set; left to the owner.
 
-**Z3. Dead code found in round 235** (from the compiled dependency graph; 515: each declared, with no use outside the listed chain). `Commute.bilQ_deriv2` and the chain `xcorr_deriv2 → bil0_deriv2 → poleR_deriv2 → bilQ_deriv2`, whose only users are each other (about 100 lines; `Commute.lean` lines 14–15 say Theorem C is proved by the H² route); `Uniqueness.groundState_unique_of_gap` with `lamPerp` (used only by it), and `Uniqueness.lam_bdd`; `BallTower.zeta_from_primes`, `completing_factor_unique`; `TwinLandau.summable_hk`; `ToneHyperbola.hasDerivAt_Kq` (a card: unused because `ToneCalc.hasDerivAt_gamma` demands global differentiability), `boost_mul`, `multiplier_deriv`. Headline results may be tips; these are scaffolding that the file headers call superseded. Effort: trivial.
-
 **Z4. Unreachable constants** (stack review 3).
-Unreachable from every `#print axioms` target, with notation, `congr_simp`, `match_` and private auxiliaries filtered out: 207 own constants, against round 272's 218 of 15,828 by the older method, not comparable term by term. Most were there at round 336: `DHCoeffs` 60, `Architect` 18 (the blueprint stand-in), `CrossCriteria` 11, `LocalTeeth` 9. New since round 336:
-
-- `src/HalfPlaneTwistMean.lean`: `Eis.normSum_wf_eq_zero` (line 567) and `Eis.sum_famSum_intCast_cube_gen` (line 291) have no users. `Eis.sum_famSum_member_gen` (line 277) is used only by the second.
-- `src/KubotaCharacter.lean:506`: `kubHom`, "Kubota's character as a homomorphism `Γ_2 → ℂ`", has no users.
-- `src/MellinRowDep.lean:235`: `abs_dyadicBump_le` has no users.
-
-**Z5. Helpers with no user** (census: printed, and used by no constant).
-- Kubota files:
-  - `KubotaGrowth.cuspA_one`; `KubotaRows.isCoprime_four_of_coprime6`;
-  - `KubotaCharacter.modThree_mul`, `kub2_Gam3`, `mul_inv_mem_Gam3_of_cong`, `Gam3_le_Gam2`;
-  - `KubotaCuspTrans.lowT_ω`, `lowT_ω_sq`; `KubotaCuspPoincare.exists_cuspClass'`; `KubotaCuspCoef.isAut_pmSerS`;
-  - `KubotaEisenstein.eis1_transl`, the only user of `eis1_slAct`;
-  - `KubotaEisTrunc.eisTerm_eq_psTerm`, `measurable_highF`; `KubotaThetaCoef.measurableSet_boxT`;
-  - `KubotaThetaZero.isAut_thetaFS`, `measurable_thetaFS`, `memLp_thetaFS`, `isAut_pseisS`;
-  - `KubotaTorus.frq_injective`; `KubotaUnfold.outMul_apply`.
-- Eisenstein files:
-  - `EisensteinQuadSieveNorm.QExp.reverse`, `qBound_trivial`;
-  - `EisensteinTransferRowCol.colP_union`; `EisensteinCubeReduction.rowE_nonneg`.
-- Other files:
-  - `BohrSphere.lineRefl_lineRefl`, `lineRefl_eq_self_iff`; `Orthogonality.continuous_trig`;
-  - `BoundaryLabels.tilt_lattice_max_down`; `ThermalZeta.cycleSign_succ`.
+Unreachable from every `#print axioms` target, with notation, `congr_simp`, `match_` and private auxiliaries filtered out: 207 own constants, against round 272's 218 of 15,828 by the older method, not comparable term by term. Most were there at round 336: `DHCoeffs` 60, `Architect` 18 (the blueprint stand-in), `CrossCriteria` 11, `LocalTeeth` 9. Round 516 decided the five new since round 336 (the ledger) and did not re-census the older ones.
 
 **Z6. Conjuncts and hypotheses that no caller needs.**
-- (verified before round 515; 515: unchanged) `WeilIndexConverse.exists_good_Λ` (line 355) proves a fourth conjunct `∀ r, 2 < ‖2·cos(Λ t_r)‖` that its only caller discards (`obtain ⟨Λ, hLΛ, hΛ, hN, -⟩`, line 523); with it, `two_lt_norm_two_cos` is dead. About 22 lines.
 - CANDIDATES (reading cards, not re-read): `[Countable ι]` on eight `TwinLandau` theorems is derivable from `TwinPoles.finite`; `Osc.lean`'s `OscInf`/`hInf` are redundant (existence is already proved inside `oscInf_eq`); `riemannZeta_ne_zero_of_mem_Ioo` never uses `σ < 1`; `Positivity.weilQ0_abs_le` is an unused headline (515: no use); `LandauLaplace.landau` uses convergence at one point (`Conv … σ₁` on a half-line could be weakened to convergence at a single point; the abscissa is never defined, only the contrapositive is stated).
 - Round 271's cards: of their 96 defined dead-code suspects, 41 had no consumer in `src/` outside their definition and `#print axioms` line (the lead's grep census then); several are deliberate end results (`dh_zeros_located_four_box`, `exists_lamDH_neg`). Not re-run.
-
-**Z7. Imports that bring only unused modules** (stack review 3).
-- **The census.** For each own module `M` and each import `I` of `M`, the census (`review/stack3/census.py`, its last section) asks whether `M` uses any constant from the modules that only `I` brings: those in `I`'s import closure and in no other import's. The dump sees only constants in terms, so an import that a `notation`, an `open`, a tactic or a `#check` needs is reported too.
-- **The counts.** 134 imports bring nothing used; 116 of them bring no module of their own (redundant, harmless). The other 18 cut whole subtrees: 14 were compiled without the import (next bullet), and 4 are deliberate (the co-import files `CoImportGamma` and `CoImportMV`, and `CountCompare`'s `Zeta23.MV.Final`, which load modules to show that they load together).
-- **Each of the 14 compiled with the import deleted** (KERNEL-CHECKED by compile, `review/stack3/import_removal_test.sh`; scratch copies outside `build/`, no olean written):
-  - 12 compile.
-  - `ExpSum5` compiles with `import Mathlib` in place of `import ExpSum4` once its `open Vinogradov VinoHolder` is dropped: it is a Mathlib-only file.
-  - `CountCompare`'s import of `DensityAsym` is needed by `#check @DirMean.mean_value` under the docstring "The two mean-value inputs side by side (import check only)", so it is deliberate.
-- **Downstream.** A module can rely on an import transitively, so the census then checks, with the import removed, whether every own module still reaches every module whose constants it uses. Three removals pass: `DHColumn → StripConv`, `WeilRH → ExteriorZeta` and `DHExplicit → WeilChiCriterion` (9 modules exclusive to it). The other ten carry imports that their importers use transitively. Examples:
-  - `KubotaBallOp → HilbertResolvent`, for `KubotaCTPrinciple`, `KubotaGHolo` and `KubotaResidue`;
-  - `KaiserPlanch → KaiserZeroWeight`, for `KaiserPrefactor` and `KaiserSplit`;
-  - `ZetaInputs → Zeta`, for `BohrLandauCore`, `PsiOmega`, `ShellSixthCore`, `ZetaDiscs` and `ZetaDiscsR`;
-  - `EisensteinPrepared → EisensteinSquarefreeRows`, for 21 modules.
-
-  Moving these imports to the modules that use them states the dependencies; it does not shorten a rebuild cascade, since the users still depend on the moved module.
 
 ## Documentation mismatches (M)
 
@@ -525,7 +487,7 @@ The rows with nothing open (`LandauLaplace.landau_abscissa`, `HadamardW`, `weilE
 
 ### Tools, scratch files and coverage
 
-- **Stack review 3's tools** (`review/stack3/`, none compiled by a build script): `OleanDeps.lean` (the olean dump), `census.py` (its usage line gives the commands), `exclusive_reach.py` with `branches.json`, `printed_unused.py`, `pairdiff.py` with `pairs.txt`, `import_removal_test.sh`, `override_test.sh`; the verification files `VerifyDups1.lean`, `VerifyDups2.lean`, `VerifyDups3.lean`, `VerifyLam.lean`, `VerifyRound401.lean`; the readers' reports in `readers/` (model output: candidates, not findings) and their brief `reader_brief.md`.
+- **Stack review 3's tools** (`review/stack3/`, none compiled by a build script): `OleanDeps.lean` (the olean dump), `census.py` (its usage line gives the commands), `exclusive_reach.py` with `branches.json`, `printed_unused.py`, `pairdiff.py` with `pairs.txt`, `import_removal_test.sh`, `override_test.sh`; the verification files `VerifyDups1.lean`, `VerifyDups2.lean`, `VerifyDups3.lean`, `VerifyLam.lean`, `VerifyRound401.lean` and `VerifyRound516.lean` (round 516; two examples of `VerifyDups1.lean` restate, by `type_of%`, declarations that round 516 removed, and `VerifyRound516.lean` restates them in full); the readers' reports in `readers/` (model output: candidates, not findings) and their brief `reader_brief.md`.
 - **Earlier reviews' artefacts** (round 235's lens reports, reading cards and dependency dumps, round 271's cards and triage, stack review 2's notes) were in session scratch and are not in the repository; this file records what was verified from them.
 - **Compiling a scratch file against the built stack:** the built Mathlib is at `$SCRATCH/mathlib4` (commit in `MATHLIB_REV`) and the pilot oleans are in `build/`: `cd $SCRATCH/mathlib4 && LEAN_PATH="$(lake env printenv LEAN_PATH):<pilot>/build" lean <file>`.
 - **Reading coverage:** round 235's cards covered 69 of 147 chunks, with the files cited in its findings read by the reviewer; round 271's cards covered the 63 modules added since round 235; stack review 3 read every file new or changed since round 336 end to end, by the lead or by eight readers whose candidates the lead verified. The full logs are §8 and §9.6 of the round-514 file.
@@ -540,7 +502,7 @@ Round 515 removed these from the body. The text of each is in the round-514 file
 |---|---|
 | §0 handoff state, §1 baseline, §2 dependency map | this ledger (history); the layer rules in the reference section |
 | §3 named inputs | reference, §3 |
-| §3.1 dead code | Z3 |
+| §3.1 dead code | Z3 (round 516: this ledger) |
 | §3.2 duplicate definitions | S1 (explicit formulas), C6 (zero families), S7 (the oscillatory bound, name-level pairs), this ledger (the rest) |
 | §4 F1–F37 | this ledger (landed results) |
 | §4 F5 observations | C4 (`PhiNull`), C6 (three copies), Z6 (`LandauLaplace`), M3 (Kaiser header drift) |
@@ -553,9 +515,9 @@ Round 515 removed these from the body. The text of each is in the round-514 file
 | §9.1 inventory | this ledger (history) |
 | §9.2 doors D1–D4, D2′ | this ledger (round 509); their open consequences are K2, K4, K5 and K6 |
 | §9.3 duplicates | this ledger (U1–U5, landed); S3, S4 and S7 (open) |
-| §9.4 dead code | Z1, Z4 and Z7; the heartbeat overrides in this ledger |
+| §9.4 dead code | Z4; Z1 and Z7 (round 516: this ledger); the heartbeat overrides in this ledger |
 | §9.5 patterns P1–P7 | S6 |
-| §9.7 reading pass | C1, C2, C10, §6 (Lindelöf), K7, S2, S5, S7, Z2, Z5, M1, M2; the efficiencies in this ledger |
+| §9.7 reading pass | C1, C2, C10, §6 (Lindelöf), K7, S2, S5, S7, Z2, Z5 (round 516: this ledger), M1, M2; the efficiencies in this ledger |
 
 ### Results and history
 
@@ -590,6 +552,40 @@ Round 515 removed these from the body. The text of each is in the round-514 file
 - `TwinLandau.Rp_eq_zero_of_Wsum_const` has a consumer, `WeilIndexInfinite.lean:460` (round 274; round 515's census).
 - Round 271's cards: `DHGround`'s stage 4 against `StructureD`, `DHNegIndex` against `WeilIndexInfinite`, and the generic `hasSum_logDeriv_of_hadamardW`, factored in round 274 (`GroundChain`, `NegData`); `dhRH_of_cross`'s `hreal`, `QCu_form` and `lamC`, and the two-packet negative plane, round 328 (`DHJoins`).
 - `PrimeRaces.lean:6–8`'s citation of `sum_chi3`, `sum_chi4` and `sum_chi8`: the three exist (round 515's census: `PrimeRaces.lean:120`, `54`, `189`).
+
+### Round 516: dead code
+
+The owner's request and the standard are in the Z section's introduction; README round 516 has the builds. Z1, Z3, Z5 and Z7, and Z6's first item, are discharged here. The text of each before round 516 is at `git show 6ff3413:tools/lean/riemann-pilot/STRUCTURAL-REVIEW.md`.
+
+Removed or changed:
+- Z1, printed: the ten electron results with no user now have `#print axioms` lines. They are `CascadeLepton`'s `diracLayers_29`, `dirac_sphere_even`, `Nc_one_eq_integral`, `Nc_two_eq_integral`, `two_sqrt_pi_eq`, `fermion_scalar_ratio` and `sqrt_alphaC`, and `ChargeLattice`'s `sm_hypercharges`, `quark_charges` and `hydrogen_neutral`. The seven helpers that stack review 3 found used only by them (`Gamma_three_halves`, `Nc_one`, `Nc_two`, `Rc_one`, `Rc_pos`, `Rc_two`, `hyper`) are seen through them.
+- Z3: `TwinLandau.summable_hk`. Its proof is written out again where `TwinLandau` needs it (`TwinLandau.lean:217–219` at round 515).
+- Z4: `MellinRowDep.abs_dyadicBump_le`.
+- Z5 (15): `KubotaCharacter.modThree_mul`; `KubotaCuspTrans.lowT_ω` and `lowT_ω_sq` (`lowT`'s docstring now says that `γ_ω` and `γ_{ω²}` are `gamPlus` and `gamMinus` by definition); `KubotaCuspPoincare.exists_cuspClass'` (round 460's `exists_cuspClass` states the same); `KubotaCuspCoef.isAut_pmSerS`; `KubotaEisTrunc.eisTerm_eq_psTerm` and `measurable_highF`; `KubotaThetaCoef.measurableSet_boxT`; `KubotaThetaZero.measurable_thetaFS` and `isAut_pseisS`; `KubotaUnfold.outMul_apply`; `EisensteinCubeReduction.rowE_nonneg`; `BohrSphere.lineRefl_lineRefl` and `lineRefl_eq_self_iff`; `Orthogonality.continuous_trig`.
+- Z6: `WeilIndexConverse.exists_good_Λ` no longer states the fourth conjunct `∀ r, 2 < ‖2·cos(Λ t_r)‖`, which its only caller discarded, and `two_lt_norm_two_cos` is removed. The choice of `Λ` is simpler: above `max L 0 + 1`, not `max L 0 + 1 + Σ_r 1/|Im t_r|`.
+- Z2, three special cases of a lemma that stays. Each is restated in full and proved in one step from that lemma in `review/stack3/VerifyRound516.lean`:
+  - `KubotaContour.twisted_theta_voronoi`, from `KubotaUniform.twisted_theta_voronoi_unif` with the data of the group `(h₀, A)` taken at the class `rcls L A`;
+  - `KubotaEisTrunc.memLp_gfun`, from `KubotaGHolo.memLp_gfun_all`;
+  - `KubotaUnfold.lintegral_puLe_top_lt_top`, from `KubotaEisTrunc.lintegral_puLe_top_mul_lt_top` at `F = 1`.
+- Z7: the three imports whose removal passed stack review 3's downstream check, `WeilRH → ExteriorZeta`, `external/dh/DHColumn → StripConv` and `external/dh/DHExplicit → WeilChiCriterion`. Of the other eleven of the fourteen tested, `CountCompare`'s is deliberate, and ten are not dead: the modules that import the file use, through it, what the import brings. Moving those ten would state the dependencies without shortening a rebuild, so they stay. Of the census's other imports, the 116 that bring no module of their own are redundant and harmless, and the 4 co-import lines are deliberate.
+
+Kept, because something relies on them:
+- Z3. `Commute`'s chain `xcorr_deriv2 → bil0_deriv2 → poleR_deriv2 → bilQ_deriv2` is round 48's Theorem B (the file's title: "Weil's form commutes with `∂²` (round 48, Theorem B, formal)"), with a README row for each in round 52's entry. `Uniqueness.lam_bdd`: `frontier/lambda2/LAMBDA2.md` cites it ("already in Lean (`weilQg_odd_ge`, `lam_bdd`)"). `Uniqueness.groundState_unique_of_gap` has a README row in round 15's entry, and `lamPerp` is the `λ_⊥` of its statement. `BallTower.zeta_from_primes` and `completing_factor_unique` have README rows in round 184's entry. `ToneHyperbola.hasDerivAt_Kq`, `boost_mul` and `multiplier_deriv` are stated in round 117's entry.
+- Z3's closing sentence before round 516, "Headline results may be tips; these are scaffolding that the file headers call superseded", was wrong. No file header calls them superseded: `Commute.lean`'s lines 14–15 are about Theorem C, not this chain. All but `summable_hk` are results that a README entry or another document states.
+- Z4. `HalfPlaneTwistMean.normSum_wf_eq_zero` (README round 476: "`f(n) = 0` unless `(n, 6) = 1` (`normSum_wf_eq_zero`)"); `sum_famSum_member_gen`, a headline of round 489, and `sum_famSum_intCast_cube_gen`, of which round 489 says "Round 476's recorded theorems keep their statements"; `KubotaCharacter.kubHom` (README round 382: "`kubHom : Γ_2 →* ℂ`").
+- Z5. Each is stated in the README or in a file header:
+  - `KubotaGrowth.cuspA_one` (round 388: "At `g = 1`, `a_g = 1`.");
+  - `KubotaRows.isCoprime_four_of_coprime6` (round 493: "every row of norm prime to `6` is prime to `4`");
+  - `KubotaCharacter.kub2_Gam3` (round 382: "`κ` on `Γ_1(3)`"), `mul_inv_mem_Gam3_of_cong` (round 382, Dunn and Radziwiłł's (5.3)) and `Gam3_le_Gam2` (the step `Γ_1(3) ⊆ Γ_2` in the docstring of the (5.3) lemma);
+  - `KubotaEisenstein.eis1_transl` (round 387: "`E` has period `3ℤ[ω]` in `z`"), the only user of `eis1_slAct`;
+  - `KubotaThetaZero.isAut_thetaFS` and `memLp_thetaFS` (the file's header: "`θ̃∘S` is automorphic and in `L²(ν)`");
+  - `KubotaTorus.frq_injective` (round 435: "`frq` is a bijection of `ℤ[ω]` onto `ℤ²`");
+  - `EisensteinQuadSieveNorm.QExp.reverse` and `qBound_trivial` (the file's row in the README's table);
+  - `EisensteinTransferRowCol.colP_union` (round 319: "multiplicative over disjoint unions");
+  - `BoundaryLabels.tilt_lattice_max_down` (round 413: "Only the two neighbours of a crossing can compete");
+  - `ThermalZeta.cycleSign_succ` (round 409: it "equals `(−1)^{k−1}`, the coefficient of the Fermi–Dirac series").
+
+Not decided in round 516: the branches of Z2 (the owner's decision); Z4's constants that were there at round 336; Z6's candidates; the 41 suspects of round 271's cards. Their text is in the body.
 
 ### Stack review 3, landed
 

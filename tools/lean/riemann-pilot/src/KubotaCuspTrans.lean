@@ -6,8 +6,8 @@ S5f-15 of round 360's plan, part 1. Round 361's display asks for θ's expansions
 `γ_± = (1, 0; ω^{±1}, 1)`. This round proves how θ∘γ_t transforms under the translations by `3ℤ[ω]`, for
 `t = ω` and `t = ω²`, and what that says about its Fourier modes:
 
-* **The conjugated translations** (`lowT`, `cuspPar`, definitions; `lowT_coe`, `lowT_ω`, `lowT_ω_sq`,
-  `cuspPar_coe`, `cuspPar_mem`, `lowT_mul_slT`, `primary_one_sub` and **`kub_cuspPar`**):
+* **The conjugated translations** (`lowT`, `cuspPar`, definitions; `lowT_coe`, `cuspPar_coe`, `cuspPar_mem`,
+  `lowT_mul_slT`, `primary_one_sub` and **`kub_cuspPar`**):
   `γ_t·T_{3x}·γ_t⁻¹ = (1 − 3tx, 3x; −3t²x, 1 + 3tx)` lies in `Γ_1(3)`, and its lower left entry is `t·(a − 1)`
   for `a = 1 − 3tx`, so Kubota's character takes the value `(t/a)₃` there.
 * **The character** (`chiT`, a definition; `chiT_eq_kub`, `cuspPar_add`, `chiT_add`, `chiT_zero`, `norm_chiT`,
@@ -36,17 +36,12 @@ namespace Eis
 
 /-! ### The cusp matrices and the conjugated translations -/
 
-/-- The cusp matrix `γ_t = (1, 0; t, 1)`. -/
+/-- The cusp matrix `γ_t = (1, 0; t, 1)`. As matrices, `γ_ω` and `γ_{ω²}` are round 361's `gamPlus` and
+`gamMinus` by definition. -/
 def lowT (t : 𝓞 K) : SL(2, 𝓞 K) := ⟨!![1, 0; t, 1], by simp [Matrix.det_fin_two]⟩
 
 /-- `γ_t` as a matrix. -/
 theorem lowT_coe (t : 𝓞 K) : (lowT t : Matrix (Fin 2) (Fin 2) (𝓞 K)) = !![1, 0; t, 1] := rfl
-
-/-- `γ_ω` is round 361's `γ_+`. -/
-theorem lowT_ω : (lowT ω : Matrix (Fin 2) (Fin 2) (𝓞 K)) = gamPlus := rfl
-
-/-- `γ_{ω²}` is round 361's `γ_−`. -/
-theorem lowT_ω_sq : (lowT (ω ^ 2) : Matrix (Fin 2) (Fin 2) (𝓞 K)) = gamMinus := rfl
 
 /-- The conjugated translation `γ_t·T_{3x}·γ_t⁻¹`. -/
 def cuspPar (t x : 𝓞 K) : SL(2, 𝓞 K) := lowT t * slT (3 * x) * (lowT t)⁻¹
@@ -435,8 +430,6 @@ end Eis
 end
 
 #print axioms Eis.lowT_coe
-#print axioms Eis.lowT_ω
-#print axioms Eis.lowT_ω_sq
 #print axioms Eis.cuspPar_coe
 #print axioms Eis.cuspPar_mem
 #print axioms Eis.lowT_mul_slT

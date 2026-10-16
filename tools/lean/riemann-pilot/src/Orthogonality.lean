@@ -7,7 +7,7 @@ The owner wrote: "Orthogonality forces it". This file proves it in two forms, an
 Bohr ball.
 
 * **Parseval: distinct frequencies are orthogonal** (`trig` and `freqGapBound`, definitions;
-  **`tendsto_mean_sq_norm_trig`**, with `integral_exp_mul_I`, `norm_integral_exp_mul_I_le`, `continuous_trig`,
+  **`tendsto_mean_sq_norm_trig`**, with `integral_exp_mul_I`, `norm_integral_exp_mul_I_le`,
   `sq_norm_trig`, `integral_sq_norm_trig`, `norm_integral_sub_le` and `abs_integral_sub_le`): for distinct real
   frequencies `λ_j` and complex coefficients `c_j`, the mean of `|Σ_j c_j e^{iλ_j t}|²` over `[0, T]` tends to
   `Σ_j |c_j|²`. The integral differs from `T·Σ_j |c_j|²` by at most `Σ_{j≠k} 2|c_j||c_k|/|λ_j − λ_k|`, uniformly
@@ -64,10 +64,6 @@ variable {ι : Type*} (s : Finset ι) (c : ι → ℂ) (lam : ι → ℝ)
 
 /-- The trigonometric polynomial `Σ_{j∈s} c_j e^{iλ_j t}`. -/
 noncomputable def trig (t : ℝ) : ℂ := ∑ j ∈ s, c j * exp (lam j * t * I)
-
-lemma continuous_trig : Continuous (trig s c lam) := by
-  unfold trig
-  fun_prop
 
 /-- `|Σ c_j e^{iλ_j t}|² = Σ_j Σ_k c_j c̄_k e^{i(λ_j − λ_k)t}`. -/
 lemma sq_norm_trig (t : ℝ) :
@@ -292,7 +288,6 @@ end Orthogonality
 
 #print axioms Orthogonality.integral_exp_mul_I
 #print axioms Orthogonality.norm_integral_exp_mul_I_le
-#print axioms Orthogonality.continuous_trig
 #print axioms Orthogonality.sq_norm_trig
 #print axioms Orthogonality.integral_sq_norm_trig
 #print axioms Orthogonality.norm_integral_sub_le

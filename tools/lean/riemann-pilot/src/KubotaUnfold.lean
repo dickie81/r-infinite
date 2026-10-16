@@ -15,9 +15,9 @@ an explicit partition of unity for the stabilizer `B_∞` of the cusp `∞`.
 * **Independence** (**`lintegral_isPU_eq`**): `∫ρF = ∫ρ′F` for partitions of unity `ρ, ρ′` for `Γ` and `F`
   invariant under `Γ`.
 * **Subgroups** (`outMul` and `puLe`, definitions, and the instance `countable_quot`; **`isPU_puLe`**, with
-  `outMul_apply` and `isPU_puLe_top`; **`lintegral_puLe`**; **`lintegral_puLe_top_lt_top`**): for `Γ′ ≤ Γ`,
-  `Σ_{q∈Γ/Γ′} ρ(q·p)` is a partition of unity for `Γ′`, and with it `∫ρ′F = #(Γ/Γ′)·∫ρF`. For `Γ` of finite
-  index in `SL_2(ℤ[ω])`, `∫ρ_Γ dz dv/v³ < ∞`.
+  `isPU_puLe_top`; **`lintegral_puLe`**): for `Γ′ ≤ Γ`, `Σ_{q∈Γ/Γ′} ρ(q·p)` is a partition of unity for `Γ′`,
+  and with it `∫ρ′F = #(Γ/Γ′)·∫ρF`. For `Γ` of finite index in `SL_2(ℤ[ω])`, `∫ρ_Γ dz dv/v³ < ∞` is the case
+  `F = 1` of `KubotaEisTrunc`'s `lintegral_puLe_top_mul_lt_top`.
 * **Folding** (**`tsum_fold`**): for `f` invariant under `H ≤ Γ` and a partition of unity `ρ_H` for `H`,
   `Σ_{γ∈Γ} ρ_H(γ·p)f(γ·p) = Σ_{q∈Γ/H} f(q⁻¹·p)`, a sum over the cosets `Hq⁻¹` of `H\Γ`.
 * **Unfolding over `H\Γ`** (**`lintegral_unfold_cosets`**): `∫ρ·F·Σ_{q∈Γ/H} f(q⁻¹·) = ∫ρ_H·F·f`.
@@ -121,9 +121,6 @@ def outMul {α : Type*} [Group α] (s : Subgroup α) : (α ⧸ s) × s ≃ α :=
 
 instance countable_quot (Γ : Subgroup SL(2, 𝓞 K)) (H : Subgroup Γ) : Countable (Γ ⧸ H) :=
   QuotientGroup.mk_surjective.countable
-
-theorem outMul_apply {α : Type*} [Group α] (s : Subgroup α) (x : (α ⧸ s) × s) :
-    outMul s x = x.1.out * x.2 := rfl
 
 /-- **A partition of unity for a subgroup** `Γ′ ≤ Γ`: `Σ_{q∈Γ/Γ′} ρ(q·p)`. -/
 def puLe (Γ Γ' : Subgroup SL(2, 𝓞 K)) (ρ : ℂ × ℝ → ℝ≥0∞) (p : ℂ × ℝ) : ℝ≥0∞ :=
@@ -369,18 +366,6 @@ theorem lintegral_rhoInf {G : ℂ × ℝ → ℝ≥0∞} (hG : Measurable G) :
   rw [lintegral_indicator hP, Measure.restrict_restrict hP]
   congr 2
 
-/-- **Finite volume for finite index**: `∫ρ_Γ dz dv/v³ < ∞` when `SL_2(ℤ[ω])/Γ` is finite, for
-`ρ_Γ = Σ_{q∈SL_2(ℤ[ω])/Γ} ρ(q·)`. -/
-theorem lintegral_puLe_top_lt_top (Γ : Subgroup SL(2, 𝓞 K))
-    [Finite ((⊤ : Subgroup SL(2, 𝓞 K)) ⧸ Γ.subgroupOf ⊤)] :
-    ∫⁻ p, puLe ⊤ Γ rhoK p ∂uhsMeasure < ⊤ := by
-  have h := lintegral_puLe (Γ' := Γ) isPU_top (F := fun _ => 1) measurable_const
-    fun _ _ _ _ => rfl
-  simp only [mul_one] at h
-  rw [h]
-  exact ENNReal.mul_lt_top (ENat.toENNReal_lt_top.2 ENat.card_lt_top_of_finite)
-    lintegral_rhoK_lt_top
-
 end Eis
 
 end
@@ -393,7 +378,6 @@ end
 #print axioms Eis.IsPU.tsum_inv
 #print axioms Eis.lintegral_unfold
 #print axioms Eis.lintegral_isPU_eq
-#print axioms Eis.outMul_apply
 #print axioms Eis.isPU_puLe
 #print axioms Eis.isPU_puLe_top
 #print axioms Eis.tsum_fold
@@ -405,4 +389,3 @@ end
 #print axioms Eis.isPU_rhoInf
 #print axioms Eis.lintegral_unfold_cosets
 #print axioms Eis.lintegral_rhoInf
-#print axioms Eis.lintegral_puLe_top_lt_top

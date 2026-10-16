@@ -133,12 +133,6 @@ theorem summable_cw_mul {k : ι → ℂ} {B : ℝ} (hk : ∀ q, ‖k q‖ ≤ B)
   (D.summ.mul_right B).of_norm_bounded fun q => by
     rw [norm_mul]; exact mul_le_mul_of_nonneg_left (hk q) (norm_nonneg _)
 
-theorem summable_hk (z : ℂ) : Summable fun q => c q * hk (P q) z := by
-  obtain ⟨B, hB⟩ := hk_bound D z
-  refine summable_cw_mul D (B := ‖2 / z‖ + B + B) fun q => ?_
-  unfold hk
-  exact (norm_add₃_le).trans (by linarith [(hB q).1, (hB q).2])
-
 /-- **`F` is holomorphic off its poles.** -/
 theorem Fw_differentiableAt {z0 : ℂ} (h0 : z0 ≠ 0) (hP : ∀ q, z0 ≠ P q ∧ z0 ≠ -P q) :
     DifferentiableAt ℂ (Fw P c) z0 := by

@@ -35,7 +35,7 @@ round 460's `lowT t`, `S = (0, −1; 1, 0)`, `3P` round 389's period parallelogr
   `eisLow_sS_eq_band`.
 * **The pairings for `Re s > 2`** (`pmSerS`, a definition; **`inner_pmSerC_uL`**, **`inner_toLp_pmSerS`** and
   **`inner_pmSerS_uL`**, with `enorm_comp_lowT`, `setLIntegral_lowT_lt_top`, `lintegral_rhoT3_pmC_ne_top`,
-  `setLIntegral_conj_ebr_mul`, `isAut_pmSerS` and `memLp_pmSerS`): for `ψ` measurable and bounded, vanishing
+  `setLIntegral_conj_ebr_mul` and `memLp_pmSerS`): for `ψ` measurable and bounded, vanishing
   outside `[α, β]` with `0 < α ≤ β`, and `Im ĥ(s) ≠ 0`,
   `⟨Q_t(ψ), ũ_s⟩ = (2π/Γ(s))(2π|m|/9)^{s−1}·(Σ_c S^t_m(c)N(c)^{−s})·J_ψ(s) − ⟨Q_t(ψ), E(1[Y ≤ v ≤ H]v^s)⟩`
   (round 461's `inner_toLp_pmSerC`), and the same at the cusp `0` for `P_m(ψ)∘S⁻¹` with `S⁰_m` (round 429's
@@ -587,9 +587,6 @@ theorem inner_pmSerC_uL {t m : 𝓞 K} (ht : IsUnit t) (hm : CuspClass t m) (hm0
 /-- **`P_m(ψ)∘S⁻¹`, the twisted Poincaré series at the cusp `0`.** -/
 def pmSerS (m : 𝓞 K) (ψ : ℝ → ℂ) (p : ℂ × ℝ) : ℂ := pmSer m ψ (slAct sS⁻¹ p)
 
-theorem isAut_pmSerS (x : 𝓞 K) (ψ : ℝ → ℂ) : IsAut Gam3 (fun g => kub ↑g) (pmSerS (δ3 * x) ψ) :=
-  isAut_comp_sS_inv (isAut_pmSer x ψ)
-
 theorem memLp_pmSerS {x : 𝓞 K} {ψ : ℝ → ℂ} (hψ : Measurable ψ)
     (hψ2 : MemLp (pmSer (δ3 * x) ψ) 2 (muR rhoG)) : MemLp (pmSerS (δ3 * x) ψ) 2 (muR rhoG) :=
   memLp_comp sS⁻¹ (measurable_pmSer _ hψ) (enorm_slAct_of_isAut (isAut_pmSer x ψ)) hψ2
@@ -758,7 +755,6 @@ end
 #print axioms Eis.lintegral_rhoT3_pmC_ne_top
 #print axioms Eis.setLIntegral_conj_ebr_mul
 #print axioms Eis.inner_pmSerC_uL
-#print axioms Eis.isAut_pmSerS
 #print axioms Eis.memLp_pmSerS
 #print axioms Eis.inner_toLp_pmSerS
 #print axioms Eis.inner_pmSerS_uL

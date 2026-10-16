@@ -487,3 +487,10 @@ end Electron
 #print axioms Electron.tauMuShifted_bounds
 #print axioms Electron.leadRatio_13_21_vs_codata
 #print axioms Electron.muECorrected_vs_codata
+#print axioms Electron.diracLayers_29
+#print axioms Electron.dirac_sphere_even
+#print axioms Electron.Nc_one_eq_integral
+#print axioms Electron.Nc_two_eq_integral
+#print axioms Electron.two_sqrt_pi_eq
+#print axioms Electron.fermion_scalar_ratio
+#print axioms Electron.sqrt_alphaC

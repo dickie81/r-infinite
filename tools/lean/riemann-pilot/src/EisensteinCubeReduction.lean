@@ -389,10 +389,6 @@ theorem card_T_le {Hh : ℝ} (hH : 1 ≤ Hh) {T : Finset (𝓞 K)}
   calc (T.card : ℝ) ≤ (eltsLe Hh).card := by exact_mod_cast Finset.card_le_card hsub
     _ ≤ 49 * Hh := card_eltsLe_le hH
 
-theorem rowE_nonneg (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ) (W : ℝ → ℂ) (L : ℝ)
-    (Fs : Finset (Ideal (𝓞 K))) (T : Finset (𝓞 K)) : 0 ≤ rowE ξ W L Fs T :=
-  Finset.sum_nonneg fun _ _ => Finset.sum_nonneg fun _ _ => by positivity
-
 section Final
 
 variable (ξ : MulChar (𝓞 K ⧸ span {m}) ℂ)
@@ -793,7 +789,6 @@ end
 #print axioms Eis.rows_long_le
 #print axioms Eis.card_rows_le
 #print axioms Eis.card_T_le
-#print axioms Eis.rowE_nonneg
 #print axioms Eis.colSum_eq_zero_of_lt
 #print axioms Eis.norm_colSum_le
 #print axioms Eis.rowE_le_count

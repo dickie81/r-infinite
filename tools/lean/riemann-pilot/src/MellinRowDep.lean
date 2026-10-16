@@ -232,14 +232,6 @@ theorem dyadicBump_eq_zero {y : ℝ} (hy : y ≤ 1 / 2 ∨ 2 ≤ y) : dyadicBump
   · rw [cutoff_of_le_one (by linarith), cutoff_of_le_one (by linarith)]; ring
   · rw [cutoff_of_two_le hy, cutoff_of_two_le (by linarith)]; ring
 
-theorem abs_dyadicBump_le (y : ℝ) : |dyadicBump y| ≤ 1 := by
-  unfold dyadicBump cutoff
-  have h1 := Real.smoothTransition.nonneg (2 - y)
-  have h2 := Real.smoothTransition.le_one (2 - y)
-  have h3 := Real.smoothTransition.nonneg (2 - 2 * y)
-  have h4 := Real.smoothTransition.le_one (2 - 2 * y)
-  rw [abs_le]; constructor <;> linarith
-
 theorem cutoff_antitone : Antitone cutoff := fun x y hxy =>
   Real.smoothTransition.monotone (by linarith : 2 - y ≤ 2 - x)
 

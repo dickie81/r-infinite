@@ -13,7 +13,7 @@ resolvent is planned to act on.
   `Γ_1(3)` (round 382's `kub_mul_Gam3`, round 387's `norm_kub`), `Γ_1(3)` has finite index in `SL_2(ℤ[ω])`,
   and `ρ_G = Σ_{q∈SL_2(ℤ[ω])/Γ_1(3)} ρ(q·)` is a partition of unity for it (round 386's `isPU_puLe_top`).
 * **Pseudo-Eisenstein series** (`psTerm` and `pseis`, definitions; **`isAut_pseis`**, **`measurable_pseis`**
-  and **`summable_psTerm`**, with `eisTerm_eq_psTerm`, `eis1_eq_pseis`, `psTerm_of_not_bRow`, `psTerm_add`,
+  and **`summable_psTerm`**, with `eis1_eq_pseis`, `psTerm_of_not_bRow`, `psTerm_add`,
   `psTerm_const_mul`, `psTerm_congr`, `pseis_congr`, `psTerm_rowMul`, `measurable_height`,
   `measurable_psTerm`, `norm_psTerm_le`, `pseis_add`, `pseis_const_mul` and `pseis_sub`):
   `E(f)(w) = Σ_{(c, d)} (c/d)₃·f(v(γw))` over the bottom rows of `Γ_1(3)`, for any `f : ℝ → ℂ`. Round 387's
@@ -31,18 +31,18 @@ resolvent is planned to act on.
   `f` measurable under that bound, `T_R E(f) = E(Bf)` with `Bf(v) = ∫_{B_R(0, v)} f(v') dμ` (Mathlib's
   `integral_tsum`). For `f = v^s`, round 418's `bavg_cpow` gives `T_R E_s = ĥ(s)·E_s` for `Re s > 2`.
 * **The truncation** (`lowF`, `highF`, `eisLow` and `eisHigh`, definitions; **`eis1_eq_eisLow_add_eisHigh`**
-  and **`memLp_eisLow`**, with `measurable_lowF`, `measurable_highF`, `norm_lowF_le`, `norm_lowF_le_Y`,
+  and **`memLp_eisLow`**, with `measurable_lowF`, `norm_lowF_le`, `norm_lowF_le_Y`,
   `norm_highF_le`, `isAut_eisLow` and `measurable_eisLow`): `h_s = E(1[v ≥ Y]v^s)` and
   `E_s − h_s = E(1[v < Y]v^s)`, so `E_s = (E_s − h_s) + h_s` for `Re s > 2`, and `E_s − h_s` is in `L²(ν)` for
   `Re s > 2` and `Y ≥ 0`.
 * **`g_s`** (`gProf` and `gfun`, definitions, and the instance `sFinite_uhsMeasure`; **`ballOp_eisLow_sub`**,
-  **`gProf_eq_zero_of_lt`**, **`gProf_eq_zero_of_ge`** and **`memLp_gfun`**, with
+  **`gProf_eq_zero_of_lt`** and **`gProf_eq_zero_of_ge`**, with
   `uhsMeasure_hball_lt_top_of_mem`, `norm_bTrans_le_const`, `norm_bTrans_le`, `bavg_eisLow_sub`,
   `measurable_bTrans`, `measurable_gProf`, `norm_gProf_le` and `norm_gProf_le_pow`): `g_s = E(G_s)` with
   `G_s(v) = B(1[v′ < Y]v′^s)(v) − ĥ(s)·1[v < Y]v^s`. Then `(K − ĥ(s))(E_s − h_s) = g_s` in `L²(ν)` for
   `Re s > 2`, `R ≥ 0` and `Y ≥ 0` (round 422's `ballOp_toLp_ae_eq_bavg`). For `R ≥ 0` and `v > 0`,
-  `G_s(v) = 0` unless `Y/(R + 2) ≤ v < (R + 2)Y`, and for `R ≥ 0` and `Y > 0`, `g_s` is in `L²(ν)` for every
-  `s` with `Re s ≥ 0`.
+  `G_s(v) = 0` unless `Y/(R + 2) ≤ v < (R + 2)Y`. For `R ≥ 0` and `Y > 0`, `g_s` is in `L²(ν)` for every `s`
+  (`KubotaGHolo`'s `memLp_gfun_all`).
 -/
 
 open MeasureTheory Set Filter NumberField Ideal
@@ -90,9 +90,6 @@ def psTerm (f : ℝ → ℂ) (p : ℂ × ℝ) (cd : 𝓞 K × 𝓞 K) : ℂ :=
 /-- **The pseudo-Eisenstein series** of `f`: `E(f)(w) = Σ_{(c, d)} (c/d)₃·f(v(γw))` over the bottom rows
 `(c, d)` of the elements `γ` of `Γ_1(3)`. Round 387's series is `E(v^s)`. -/
 def pseis (f : ℝ → ℂ) (p : ℂ × ℝ) : ℂ := ∑' cd, psTerm f p cd
-
-theorem eisTerm_eq_psTerm (s : ℂ) (p : ℂ × ℝ) (cd : 𝓞 K × 𝓞 K) :
-    eisTerm s p cd = psTerm (fun v => ((v : ℝ) : ℂ) ^ s) p cd := rfl
 
 theorem eis1_eq_pseis (s : ℂ) : eis1 s = pseis (fun v => ((v : ℝ) : ℂ) ^ s) := rfl
 
@@ -481,10 +478,6 @@ theorem measurable_lowF (s : ℂ) (Y : ℝ) : Measurable (lowF s Y) :=
   Measurable.ite (measurableSet_lt measurable_id measurable_const)
     (Complex.measurable_ofReal.pow_const s) measurable_const
 
-theorem measurable_highF (s : ℂ) (Y : ℝ) : Measurable (highF s Y) :=
-  Measurable.ite (measurableSet_lt measurable_id measurable_const) measurable_const
-    (Complex.measurable_ofReal.pow_const s)
-
 theorem norm_lowF_le (s : ℂ) (Y : ℝ) {v : ℝ} (hv : 0 < v) : ‖lowF s Y v‖ ≤ 1 * v ^ s.re := by
   unfold lowF
   split_ifs
@@ -718,20 +711,12 @@ theorem norm_gProf_le_pow {R : ℝ} (hR : 0 ≤ R) {s : ℂ} (hs : 0 ≤ s.re) {
       _ ≤ M * (((R + 2) / Y) ^ (3 : ℝ) * v ^ (3 : ℝ)) := mul_le_mul_of_nonneg_left h1 hM0
       _ = _ := by ring
 
-/-- **`g_s` is in `L²(ν)` for every `s` with `Re s ≥ 0`**, `R ≥ 0` and `Y > 0`. -/
-theorem memLp_gfun {R : ℝ} (hR : 0 ≤ R) {s : ℂ} (hs : 0 ≤ s.re) {Y : ℝ} (hY : 0 < Y) :
-    MemLp (gfun R s Y) 2 (muR rhoG) := by
-  have hV : 0 ≤ uhsMeasure.real (hball R (0, 1)) := measureReal_nonneg
-  exact memLp_pseis (measurable_gProf R s Y) (by positivity) (by norm_num : (2 : ℝ) < 3)
-    (fun v hv => norm_gProf_le_pow hR hs hY hv) (fun v hv => norm_gProf_le hR hs hY.le hv)
-
 end Eis
 
 end
 
 #print axioms Eis.isUChar_kub
 #print axioms Eis.isPU_rhoG
-#print axioms Eis.eisTerm_eq_psTerm
 #print axioms Eis.eis1_eq_pseis
 #print axioms Eis.psTerm_of_not_bRow
 #print axioms Eis.psTerm_add
@@ -762,7 +747,6 @@ end
 #print axioms Eis.bavg_pseis
 #print axioms Eis.bavg_eis1
 #print axioms Eis.measurable_lowF
-#print axioms Eis.measurable_highF
 #print axioms Eis.norm_lowF_le
 #print axioms Eis.norm_lowF_le_Y
 #print axioms Eis.norm_highF_le
@@ -781,4 +765,3 @@ end
 #print axioms Eis.measurable_gProf
 #print axioms Eis.norm_gProf_le
 #print axioms Eis.norm_gProf_le_pow
-#print axioms Eis.memLp_gfun

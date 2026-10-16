@@ -1,5 +1,4 @@
 import Mathlib
-import ExteriorZeta
 import WeilLandau
 
 /-! # RH gives `Q ≥ 0` on every probe, and Weil's criterion for `ζ` (round 157)

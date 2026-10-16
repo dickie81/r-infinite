@@ -137,3 +137,6 @@ end Electron
 #print axioms Electron.lepton_hypercharges
 #print axioms Electron.electron_charge
 #print axioms Electron.anomaly_free
+#print axioms Electron.sm_hypercharges
+#print axioms Electron.quark_charges
+#print axioms Electron.hydrogen_neutral

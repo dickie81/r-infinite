@@ -7,7 +7,7 @@ the frequencies `m` in the class of round 460's `exists_cuspClass`, and its unfo
 with `γ_{(c, d)}` round 426's element of `Γ_1(3)` with bottom row `(c, d)` and `ν = ρ_G dμ`:
 
 * **The series with the character `κ_t`** (`CuspClass`, `pmTermT` and `pmSerT`, definitions;
-  `exists_cuspClass'`, `kubT_mul_conj`, `pmTermT_slAct`, **`isAut_pmSerT`**, `measurable_pmTermT`,
+  `kubT_mul_conj`, `pmTermT_slAct`, **`isAut_pmSerT`**, `measurable_pmTermT`,
   `measurable_pmSerT` and `norm_pmTermT`): for `m` with `ĕ(m·3x/9) = χ_t(x)` for every `x`,
   `P^{(t)}_m(ψ)(w) = Σ_{(c, d)} conj κ_t(γ_{(c, d)})·ψ(v(γ_{(c, d)}w))·ĕ(m·z(γ_{(c, d)}w)/9)` is automorphic
   with `κ_t`.
@@ -36,11 +36,6 @@ namespace Eis
 
 /-- **The class of the frequencies at `γ_t`**: `ĕ(m·3x/9) = χ_t(x)` for every `x`. -/
 def CuspClass (t m : 𝓞 K) : Prop := ∀ x : 𝓞 K, ebr (σO m * σO (3 * x) / 9) = chiT t x
-
-/-- Round 460's `exists_cuspClass` in terms of `CuspClass`. -/
-theorem exists_cuspClass' (t : 𝓞 K) (ht : t = ω ∨ t = ω ^ 2) :
-    ∃ m₀ : 𝓞 K, (m₀ = 1 ∨ m₀ = -1) ∧ CuspClass t m₀ :=
-  exists_cuspClass t ht
 
 /-- The term of `P^{(t)}_m(ψ)` at a bottom row `(c, d)`: `conj κ_t(γ)·ψ(v(γw))·ĕ(m·z(γw)/9)` with
 `γ = γ_{(c, d)}`. -/
@@ -385,7 +380,6 @@ end Eis
 
 end
 
-#print axioms Eis.exists_cuspClass'
 #print axioms Eis.kubT_mul_conj
 #print axioms Eis.pmTermT_slAct
 #print axioms Eis.isAut_pmSerT

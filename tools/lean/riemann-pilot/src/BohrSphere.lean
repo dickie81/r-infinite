@@ -11,8 +11,8 @@ nothing about where the zeros of `ζ` are.
   domain is the half-plane `Re s > ½`, whose boundary is the critical line.
 * **The reflection in the line is Hölder conjugation** (`lineRefl`, a definition, `s ↦ 1 − s̄`;
   **`not_summable_and_summable_lineRefl`**, **`holderConjugate_critExp`**, **`critExp_eq_iff`** and
-  **`holderConjugate_self_iff`**, with `lineRefl_re`, `lineRefl_im`, `lineRefl_lineRefl` and
-  `lineRefl_eq_self_iff`): for `0 < σ < 1` the critical exponents `1/σ` of `s` and `1/(1 − σ)` of its mirror image
+  **`holderConjugate_self_iff`**, with `lineRefl_re` and `lineRefl_im`): for `0 < σ < 1` the critical exponents
+  `1/σ` of `s` and `1/(1 − σ)` of its mirror image
   are Hölder conjugate, and they coincide only at `σ = ½`, where both are `2`, the only self-conjugate exponent. No
   Hölder pair `(q, q′)` has both `z(s) ∈ ℓ^q` and `z(1 − s̄) ∈ ℓ^{q′}`.
 * **The unit sphere in every finite dimension** (`cF`, `bohrSqSum` and `vF`, definitions; **`vF_mem_sphere_iff`**,
@@ -98,19 +98,6 @@ noncomputable def lineRefl (s : ℂ) : ℂ := 1 - (starRingEnd ℂ) s
 @[simp] lemma lineRefl_re (s : ℂ) : (lineRefl s).re = 1 - s.re := by simp [lineRefl]
 
 @[simp] lemma lineRefl_im (s : ℂ) : (lineRefl s).im = s.im := by simp [lineRefl]
-
-lemma lineRefl_lineRefl (s : ℂ) : lineRefl (lineRefl s) = s := by simp [lineRefl]
-
-lemma lineRefl_eq_self_iff (s : ℂ) : lineRefl s = s ↔ s.re = 1 / 2 := by
-  constructor
-  · intro h
-    have := congrArg Complex.re h
-    rw [lineRefl_re] at this
-    linarith
-  · intro h
-    apply Complex.ext
-    · rw [lineRefl_re, h]; norm_num
-    · rw [lineRefl_im]
 
 /-- No pair of Hölder conjugate exponents holds a point and its mirror image together. -/
 theorem not_summable_and_summable_lineRefl {q q' : ℝ} (h : q.HolderConjugate q') (s : ℂ) :
@@ -644,8 +631,6 @@ end BohrSphere
 #print axioms BohrSphere.memℓp_two_bohr_iff
 #print axioms BohrSphere.lineRefl_re
 #print axioms BohrSphere.lineRefl_im
-#print axioms BohrSphere.lineRefl_lineRefl
-#print axioms BohrSphere.lineRefl_eq_self_iff
 #print axioms BohrSphere.not_summable_and_summable_lineRefl
 #print axioms BohrSphere.holderConjugate_critExp
 #print axioms BohrSphere.critExp_eq_iff

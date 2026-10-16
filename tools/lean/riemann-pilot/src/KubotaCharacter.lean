@@ -19,7 +19,7 @@ $\chi \lvert_{\operatorname{SL}_2(\mathbb{Z})} \equiv 1$`". This file proves bot
   modulo `A = aa′ + bc′` gives `(a/A)₃(C/A)₃ = (c′/A)₃`; reciprocity gives `(a/A)₃ = (b/a)₃(c′/a)₃`, the
   periodicity modulo `9` and `c′` gives `(c′/A)₃ = (c′/a)₃(c′/a′)₃`, and `(b/a)₃(c/a)₃ = (−1/a)₃ = 1`. The
   general case moves `a` to `a + 3cx`, prime to `c′`, which changes neither side.
-* **The homomorphism** (**`kub_mul`**, with `modThree_mul`): `κ(γγ′) = κ(γ)κ(γ′)` on `Γ_1(3)`.
+* **The homomorphism** (**`kub_mul`**): `κ(γγ′) = κ(γ)κ(γ′)` on `Γ_1(3)`.
 * **Conjugation by `SL_2(ℤ)`** (`cub_bd_eq_ca`, `kub_conj_S_raw`, `kub_conj_T_raw`, **`kub_conj_toSL`**):
   `κ(S⁻¹γS) = κ(γ)` is `(b/d)₃ = (c/a)₃`, Dunn and Radziwiłł's (5.5); `κ(T⁻¹γT) = κ(γ)` is the comparison
   identity at `p = a`, `q = a − c`; Mathlib's `SL2Z_generators` gives every `h ∈ SL_2(ℤ)`.
@@ -206,21 +206,6 @@ theorem cub_col_mul {a b c d a' b' c' d' : 𝓞 K} (hdet : a * d - b * c = 1) (h
 
 theorem det_mul_eq_one {γ γ' : Matrix (Fin 2) (Fin 2) (𝓞 K)} (h : γ.det = 1) (h' : γ'.det = 1) :
     (γ * γ').det = 1 := by rw [Matrix.det_mul, h, h', mul_one]
-
-theorem modThree_mul {γ γ' : Matrix (Fin 2) (Fin 2) (𝓞 K)} (h : ModThree γ) (h' : ModThree γ') :
-    ModThree (γ * γ') := by
-  obtain ⟨a, b, c, d, rfl⟩ := exists_fin_two_eq γ
-  obtain ⟨a', b', c', d', rfl⟩ := exists_fin_two_eq γ'
-  rw [modThree_iff] at h h'
-  obtain ⟨⟨t, ht⟩, ⟨k, hk⟩, ⟨l, hl⟩, ⟨s, hs⟩⟩ := h
-  obtain ⟨⟨t', ht'⟩, ⟨k', hk'⟩, ⟨l', hl'⟩, ⟨s', hs'⟩⟩ := h'
-  rw [Matrix.mul_fin_two, modThree_iff]
-  refine ⟨⟨t * a' + t' + k * c', ?_⟩, ⟨a * k' + k * d', ?_⟩, ⟨l * a' + d * l', ?_⟩,
-    ⟨l * b' + s * d' + s', ?_⟩⟩
-  · linear_combination a' * ht + ht' + c' * hk
-  · linear_combination a * hk' + d' * hk
-  · linear_combination a' * hl + d * hl'
-  · linear_combination b' * hl + d' * hs + hs'
 
 /-- **Kubota's character is a homomorphism on `Γ_1(3)`**: `κ(γγ′) = κ(γ)κ(γ′)` for round 361's `kub`,
 Dunn and Radziwiłł's (5.4). -/
@@ -594,7 +579,6 @@ end Eis
 #print axioms Eis.exists_fin_two_eq
 #print axioms Eis.cub_col_mul
 #print axioms Eis.det_mul_eq_one
-#print axioms Eis.modThree_mul
 #print axioms Eis.kub_mul
 #print axioms Eis.cub_bd_eq_ca
 #print axioms Eis.kub_conj_S_raw

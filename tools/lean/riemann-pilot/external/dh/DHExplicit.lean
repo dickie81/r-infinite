@@ -1,5 +1,4 @@
 import Mathlib
-import WeilChiCriterion
 import DHPrime
 
 /-! # The explicit formula for the Davenport–Heilbronn function (round 257)
