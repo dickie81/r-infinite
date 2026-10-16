@@ -138,7 +138,7 @@ Every file but 29 ends with `#print axioms` (corrected in round 327; the 29 are 
 | `ChiHalfSharp.lean` | 227 | `GoodChar.half` is `hS(½)` (`goodChar_of_hS`, `grh_iff_twins'`, `weil_criterion_chi'`); `GRH'` and `grh_half_iff`; `Q_χ ≥ 0` under `GRH'`; kernel identities `kerK = archKer ¼`, `archKer ¼ + archKer ¾ = 1/sinh(u/2)`; the local zero count with `5/2` in place of `13/2` (`card_local_le_sharp`); `lam_nine` in `fBalExp` form (round 246) |
 | `WeilChiRoots.lean` | 193 | the root locus of `Ξ_χ`: `GRH' χ` ⟺ every root `τ_i²` real; `hS` ⟺ no root `≤ 0`; GRH ⟺ every root real and positive (`grh_iff_roots_pos`); the duplication `archKer q + archKer (q + ½) = archKer (2q)(u/2)` (round 246) |
 | `OddProbe.lean` | 110 | odd probes: `ĝ` odd and purely imaginary on `ℝ`, the sign of each zero term on the axes; `IsReal χ ↔ χ.IsQuadratic` (round 246) |
-| `CrossCriteria.lean` | 147 | **`Q_χ ≥ 0` from GRH off the real axis** (`QC_nonneg_of_cross`); `grh_of_cross`; one-sided Liouville bounds at every `θ > ½` give RH; the open inputs stated as named `Prop`s (`ZetaCritBound`, `ConvexityBound`, `WeylBound`, `Lindelof`, `DensityHypothesis`, `NoRealZero`, `GRHCross`, `PsiOmegaSqrt`, `LittlewoodS1`, `FirstZeroAbove14`, `LamGradedConverse`) (round 246) |
+| `CrossCriteria.lean` | 147 | **`Q_χ ≥ 0` from GRH off the real axis** (`QC_nonneg_of_cross`); `grh_of_cross`; one-sided Liouville bounds at every `θ > ½` give RH; the open inputs stated as named `Prop`s (`ZetaCritBound`, `ConvexityBound`, `WeylBound`, `Lindelof`, `DensityHypothesis`, `NoRealZero`, `GRHCross`, `PsiOmegaSqrt`, `LittlewoodS1`, `FirstZeroAbove14`, `LamGradedConverse`) (round 246; `ConvexityBound`, `ZetaCritBound (5/24 + ε)` and, under RH, `Lindelof` are proved in round 517's `external/pnt/Subconvexity.lean`) |
 | `ParityGapLower.lean` | 121 | a parity gap from a one-sector odd lower bound at the prefactor scale (`parityGap_of_lamO_lower`), and RH along a ground-state sequence from it under `HypConv` (`rh_of_lamO_lower`) (round 246) |
 | `WallKernel.lean` | 86 | `fBalExp X = 8π·w(4/X)`: `SixteenPi`'s reduced exponent is the wall law under `X ↦ 4/X`, maximal exactly at `X = 2`; `archKer ¼ − archKer ¾ = 1/cosh(u/2)`; `kerK` as the `Γ_ℂ` kernel plus a `cosh` term (round 247) |
 | `GhatSamples.lean` | 42 | the Fourier coefficients of a probe are samples of `ĝ`; Parseval as the sampled Plancherel identity (round 247) |
@@ -7929,7 +7929,7 @@ This is job 2 of the Lean-review report: a zero-density theorem, and from it pri
 **Novelty.** I know of no Lean formalisation of primes in short intervals `(y, y + y^θ]` with `θ < 1`, or of a zero-density theorem, in Mathlib or PNT+. The unreviewed repository smccolm/Lean claims stronger results; I have not checked them. As mathematics, this round is 1936-level.
 
 **Not done.**
-- `θ > 2/3`: this needs a bound `ζ(½ + it) ≪ t^{c}` with a power saving (van der Corput, `c = 1/4`) in the detection step, in place of Euler–Maclaurin's `c = 1/2`.
+- `θ > 2/3`: this needs a bound `ζ(½ + it) ≪ t^{c}` with a power saving (van der Corput, `c = 1/4`) in the detection step, in place of Euler–Maclaurin's `c = 1/2`. *(Round 517: a bound with `c = 5/24 + ε` is proved, `Subconvexity.zetaCritBound_five_24`; it is not fed to the detection step.)*
 - `θ > 5/8`: this needs Weyl's `c = 1/6`, or an Ingham-type mean value.
 
 Every new theorem depends only on `propext`, `Classical.choice` and `Quot.sound`: 829 checked theorems in `src/`, and `zeroFreeXi_KV`, `density_unconditional` and `short_primes` in `external/pnt`. Neither build prints warnings from these files.
@@ -17430,7 +17430,7 @@ The first landed (`HalfPlaneJoins.smoothBound_eleven_twelfths`), by the route li
 
 ## Round 470: a Lindelöf bound in a zero-free half-plane, `ζ(s)^{±1} = O(|t|^ε)` on `Re s ≥ σ₀ > 11/12` (`external/pnt/HalfPlaneLindelof.lean`)
 
-**What it is.** The second of the doors the owner asked for after round 468 ("Follow as suggested"), which round 469's next step planned. STRUCTURAL-REVIEW §6 records for Lindelöf: "Nothing: no subconvexity bound of any strength is in the three layers". This round proves:
+**What it is.** The second of the doors the owner asked for after round 468 ("Follow as suggested"), which round 469's next step planned. STRUCTURAL-REVIEW §6 records for Lindelöf: "Nothing: no subconvexity bound of any strength is in the three layers". *(Round 517: `ZetaCritBound (5/24 + ε)` and `ConvexityBound` are proved, `external/pnt/Subconvexity.lean`.)* This round proves:
 
 - from a zero-free half-plane `Re s > θ` with `0 ≤ θ < 1`: for every `σ₀ > θ` and every `ε > 0` there are `T` and `C` with `|ζ(σ + it)| ≤ C|t|^ε` and `1/|ζ(σ + it)| ≤ C|t|^ε` whenever `σ ≥ σ₀` and `|t| ≥ T` (`HalfPlaneLindelof.zeta_bound_of_zeroFree`);
 - the same with no hypothesis for every `σ₀ > 11/12` (`zeta_bound_eleven_twelfths`), and for every `σ₀ > Θ`, round 469's supremum of the real parts of the zeros (`zeta_bound_Theta`).
@@ -20247,6 +20247,8 @@ Each removed name had no use. Its mentions were in STRUCTURAL-REVIEW, in files o
   - two pnt files lose modules from their import closure, through `WeilRH`: `Domination` loses `ExteriorZeta` and `ZetaInputs`, and `HalfPlaneJoinsPNT` loses `ExteriorZeta`. Those two modules declare no instance, notation or attribute, their namespace `Pilot1ca` stays available through other modules, and neither file names any of their 32 declarations;
   - no zeta23 file loses a module.
 
+  *(Round 517: `external/pnt/build.sh` compiled the whole layer against this round's `src/` and round 517's docstring change to `CrossCriteria`, with every gated axiom line clean. See round 517.)*
+
 **Records.**
 
 - The header's count of checked theorems in `src/`: 4458 to 4449 (19 lines removed, 10 added).
@@ -20260,3 +20262,62 @@ Each removed name had no use. Its mentions were in STRUCTURAL-REVIEW, in files o
 **Bearing on RH:** none.
 
 **The next step.** The owner's decisions left open: the branches of Z2 (round 401's chain, `KubotaThetaPair`'s θ ≠ 0, Heath-Brown's Lemma 10 in `EisensteinQuadSieveSep`, `KubotaEnergy`, `KubotaUnfold`'s coset branch, `Mq_rowcol`, the smaller headlines, the cubic and sextic side branch, and the growth chain).
+
+## Round 517: subconvexity from a zero-free half-plane, `|ζ(1/2 + it)| = O(|t|^{5/24 + ε})` (`external/pnt/Subconvexity.lean`)
+
+**What it is.** After round 516 the owner asked: "what is the most impactful item to tackle in the structural review?" The answer was the attack note of STRUCTURAL-REVIEW §6's entry "Lindelöf and subconvexity", and the owner said: "hit it". The note (stack review 3, PAPER) read: "round 470 gives `μ(σ) = 0` for `σ > 11/12`. The functional equation gives `μ(1 − σ) = μ(σ) + σ − 1/2`, so `μ(1/12) ≤ 5/12`, and convexity gives `μ(1/2) ≤ 5/24 < 1/4`: a subconvexity exponent, which would fill `ConvexityBound` and `ZetaCritBound (5/24 + ε)`. The Lean inputs it lacks: a bound on vertical lines for the factor `2(2π)^{−s}Γ(s)cos(πs/2)`, and a Phragmén–Lindelöf lemma with interpolated exponents". This round proves the two inputs and the note's conclusion, for any zero-free half-plane:
+
+- from a zero-free half-plane `Re s > θ` with `1/2 ≤ θ < 1`: for `1 − θ ≤ σ ≤ θ` and `ε > 0` there is `C` with `|ζ(σ + it)| ≤ C|t|^{(θ − σ)/2 + ε}` for `|t| ≥ 2` (`Subconvexity.zeta_strip_of_zeroFree`); on the critical line this is `CrossCriteria.ZetaCritBound ((2θ − 1)/4 + ε)` (`zetaCritBound_of_zeroFree`);
+- with no hypothesis, from round 466's half-plane: `|ζ(σ + it)| = O(|t|^{(11/12 − σ)/2 + ε})` on `1/12 ≤ σ ≤ 11/12` (`zeta_strip_eleven_twelfths`), `ZetaCritBound (5/24 + ε)` for every `ε > 0` (`zetaCritBound_five_24`), and so `CrossCriteria.ConvexityBound` (`convexityBound`);
+- at round 469's `Θ`, the supremum of the real parts of the zeros: `ZetaCritBound ((2Θ − 1)/4 + ε)` (`zetaCritBound_Theta`);
+- at `θ = 1/2`: Mathlib's `RiemannHypothesis` implies `CrossCriteria.Lindelof` (`lindelof_of_RH`).
+
+**What is proved** (`external/pnt/Subconvexity.lean`, 592 lines, 16 theorems; each of its 7 axiom lines in `build.sh`'s final check is `[propext, Classical.choice, Quot.sound]`).
+
+- **`norm_le_interp_strip`**, with `rpow_mul_gauss_le` and `norm_exp_gauss`: let `f` be complex-differentiable on the closed strip `l ≤ Re z ≤ u`, `l < u`, with `|f(z)| ≤ K(1 + |Im z|)^N` there (`N ≥ 0`), `|f(l + it)| ≤ A(1 + |t|)^α` and `|f(u + it)| ≤ B(1 + |t|)^β` for every `t` (`α, β ≥ 0`). Then for `σ ∈ [l, u]`, `λ = (σ − l)/(u − l)` and every `t₀`: `|f(σ + it₀)| ≤ (Ae^{l² + α²/4})^{1−λ}(Be^{u² + β²/4})^λ(1 + |t₀|)^{(1−λ)α + λβ}`.
+- **`norm_Gamma_le_half`**: `|Γ(σ + it)| ≤ |Γ(1/2 + it)|(e⁴|σ + it|)^{σ − 1/2}` for `σ ≥ 1/2` and every `t`.
+- **`norm_Gamma_half_sq`**: `|Γ(1/2 + it)|² = π/cosh(πt)`.
+- **`norm_cos_le_exp`**: `|cos z| ≤ e^{|Im z|}`.
+- **`norm_Gamma_mul_cos_le`**: `|Γ(σ + it)cos(π(σ + it)/2)| ≤ 3(e⁴|σ + it|)^{σ − 1/2}` for `σ ≥ 1/2`.
+- **`norm_zeta_one_sub_le`**: `|ζ(1 − (σ + it))| ≤ 6(e⁴|σ + it|)^{σ − 1/2}|ζ(σ + it)|` for `1/2 ≤ σ < 1`.
+- **`zeta_strip_of_zeroFree`**, **`zeta_strip_eleven_twelfths`**, **`zetaCritBound_of_zeroFree`**, **`zetaCritBound_five_24`**, **`convexityBound`**, **`zetaCritBound_Theta`** and **`lindelof_of_RH`**: as above. **`zetaCritBound_mono`**: `ZetaCritBound c` implies `ZetaCritBound c′` for `c ≤ c′`.
+
+**The proof.**
+
+- **The interpolation.** `g(z) = f(z)exp((z − it₀)²)` has `|g(x + iy)| = |f(x + iy)|e^{x² − (y − t₀)²}`. Since `1 + |y| ≤ (1 + |t₀|)(1 + |y − t₀|)` and `(1 + |v|)^α e^{−v²} ≤ e^{α|v| − v²} ≤ e^{α²/4}`, `|g| ≤ Ae^{l² + α²/4}(1 + |t₀|)^α` on the left edge and `|g| ≤ Be^{u² + β²/4}(1 + |t₀|)^β` on the right edge, and the growth bound makes `g` bounded on the strip. Mathlib's Hadamard three-lines theorem (`Complex.HadamardThreeLines.norm_le_interp_of_mem_verticalClosedStrip'`) bounds `|g(σ + it₀)|` by the edge bounds raised to `1 − λ` and `λ`, and `|f(σ + it₀)| ≤ |g(σ + it₀)|`.
+- **`Γ` along a horizontal segment.** On `x > 0`, `x ↦ log|Γ(x + it)|` has derivative `Re ψ(x + it)` (round 470's `HalfPlaneLindelof.hasDerivAt_log_norm`; Mathlib's `Complex.digamma` is `logDeriv Gamma`). For `1/2 < x < σ`, `Re ψ(x + it) ≤ log|x + it| + 4 ≤ log|σ + it| + 4` (`Kaiser.digamma_re_le` in `src/KaiserZeroWeight.lean`, from Binet's formula `PilotDigamma.digamma_eq_lap`). Mathlib's mean value inequality (`Convex.image_sub_le_mul_sub_of_deriv_le`) on `[1/2, σ]` gives `norm_Gamma_le_half`.
+- **`Γ(1/2 + it)`.** Mathlib's `Complex.Gamma_mul_Gamma_one_sub` at `s = 1/2 + it`, with `1 − s = s̄`, `Γ(s̄) = conj Γ(s)` (`Complex.Gamma_conj`) and `sin(π/2 + iπt) = cosh(πt)`. With `cosh(πt) ≥ e^{π|t|}/2` and `|cos(π(σ + it)/2)| ≤ e^{π|t|/2}`, the square of `|Γ(1/2 + it)cos(π(σ + it)/2)|` is at most `2π < 9`.
+- **The left line.** Mathlib's `riemannZeta_one_sub`: `ζ(1 − s) = 2(2π)^{−s}Γ(s)cos(πs/2)ζ(s)` for `s ≠ 1` not a nonpositive integer, with `|(2π)^{−s}| = (2π)^{−σ} ≤ 1`.
+- **The assembly.** Take `δ = min(ε, (1 − θ)/2)`, `u = θ + δ < 1` and `l = 1 − u`. Round 470's `zeta_bound_of_zeroFree` at `σ₀ = u` and `ε/2` gives `|ζ(u + it)| ≤ C₀|t|^{ε/2}` for `|t| ≥ T`. On the strip `l ≤ Re s ≤ u`, `HalfPlanePNT.norm_riemannZeta_le_of_re_pos` (`|ζ(s)| ≤ 1/2 + 1/|1 − s| + |s|/Re s`) gives `|ζ(s)| ≤ K(1 + |Im s|)` with `K = 1/2 + 1/(1 − u) + 1/l`, which covers `|t| < T`. So `|ζ(u + it)| ≤ B(1 + |t|)^{ε/2}` for every `t`, and `norm_zeta_one_sub_le` at `u − it` gives `|ζ(l + it)| ≤ 6e^{4(u − 1/2)}B(1 + |t|)^{u − 1/2 + ε/2}`. At `σ` the interpolated exponent is `(1 − λ)(u − 1/2 + ε/2) + λε/2 = (u − σ)/2 + ε/2 ≤ (θ − σ)/2 + ε`, and `1 + |t| ≤ 2|t|` for `|t| ≥ 2`.
+- **The instances.** `θ = 11/12` from round 466's `Eis.ne_zero_of_re_gt_eleven_twelfths`, with `(2·11/12 − 1)/4 = 5/24`; `ConvexityBound` from `5/24 + ε ≤ 1/4 + ε`; `θ = Θ` from round 469's `PsiExponent.zeta_ne_zero_of_Theta_lt`, `half_le_Theta` and `Theta_le`; `θ = 1/2` under `RiemannHypothesis`, since a zero with `Re s > 1/2` is neither a trivial zero nor `1`, and Mathlib's `riemannZeta_ne_zero_of_one_le_re` covers `Re s ≥ 1`.
+
+**Where it stands.** `5/24` lies between `1/6` (`CrossCriteria.WeylBound`) and the convexity exponent `1/4`, so `WeylBound` and `Lindelof` stay missing. By this route the exponent on the line is `(2θ − 1)/4` for a half-plane `Re s > θ`: `WeylBound` would need `θ ≤ 5/6`, and `Lindelof` needs `θ = 1/2`, which is `lindelof_of_RH`. At `θ = 7/8`, the claimed half-plane that round 277 records, the exponent would be `3/16`.
+
+**The paper.** No paper surface is edited. `grep -n -i -E 'convexity|lindel|ZetaCritBound|5/24|subconvex'` over `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` finds only `Γ`'s log-convexity (lines 8713 and 8795 of the first, line 639 of the second).
+
+**Records.**
+
+- `src/CrossCriteria.lean`, the header of section (C) (line 90): it said "none is proved in the three layers, except `NoRealZero` at `chi3`, `chi4`, `chi7`, `chi8`"; it now says that this was the state in round 246, and that this round's file proves `ConvexityBound`, `ZetaCritBound (5/24 + ε)` for every `ε > 0`, and `Lindelof` under `RiemannHypothesis`. One line changed, and the file keeps its 147 lines.
+- `external/pnt/build.sh`: the new file in the compile list, and seven of its theorems in the final check (179 to 186 `#print axioms` lines).
+- `external/pnt/README.md`: the file table (one row) and a section for `Subconvexity.lean`.
+- This file: the file table's row for `CrossCriteria.lean`; net-state markers on round 235's "Not done" (the bound with a power saving) and on round 470's quotation of §6 ("no subconvexity bound of any strength").
+- STRUCTURAL-REVIEW: §6's introduction (the quoted header, and who uses the Props); the entry "Lindelöf and subconvexity", whose attack note moves to the ledger and whose open Props get a new note; the zero-density entry; K4; the §5b row of `DensityAsym.density_of_detect`; the ledger's landed entries.
+
+**Builds.**
+
+- `./build.sh` compiled `CrossCriteria.lean`, whose change is its docstring (1 compiled, 356 up to date, 13 s); its 5 axiom lines are `[propext, Classical.choice, Quot.sound]`.
+- `external/pnt/build.sh` (1221 s) compiled `Architect.lean`, the 19 PNT+ files and the 37 files here. The 37 print 104 axiom lines and the final check prints 186, each `[propext, Classical.choice, Quot.sound]`. None of the 37 prints a warning; the build's warnings, and the two uses of `sorry` in `Wiener.lean`, are in the vendored PNT+ files, which the build does not gate. This is also the pnt build that round 516 did not run: every file of the layer compiled against round 516's `src/`.
+- The dh layer imports `CrossCriteria` in `ChiGround`, which `ChiFirstFailure` imports. It was not rebuilt: the change is a docstring, which does not change what those two files elaborate against. No zeta23 file imports `CrossCriteria`.
+- The 16 theorems are in the namespace `Subconvexity`, which is new: before the file was added, a grep of `src/`, `external/` (less the vendored `upstream/` trees) and Mathlib found no `namespace Subconvexity` and no `Subconvexity.`.
+
+**Check 4.** Classical [recalled]: the convexity bound (Lindelöf, 1908, as `CrossCriteria`'s docstring of `ConvexityBound` says), the convexity argument from a zero-free half-plane, and RH implying Lindelöf. ACKNOWLEDGED: the target and its route are stack review 3's attack note. NOVEL against the pilot: the bounds machine-checked, with no hypothesis on the critical line at `5/24 + ε`; the interpolation lemma with separate exponents on the two edges; the bound on vertical lines for `Γ(s)cos(πs/2)`, from Binet's formula through the digamma bound.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every `θ ∈ [1/2, 1)`, `σ ∈ [1 − θ, θ]` and `ε > 0`; some `C`; every `|t| ≥ 2`.
+- (b) "By this route `WeylBound` would need `θ ≤ 5/6`" is the arithmetic of the exponent `(2θ − 1)/4` of this round's theorem, scoped to this route; no claim is made about other routes. The register keeps `WeylBound` and `Lindelof` as missing, with this as their note.
+- (c) No signal is fed to a criterion here. `ZetaCritBound c` is the input of `CrossCriteria.InghamFromC` (zero density), which is missing; the bound is not fed to the detection step of `DensityAsym.density_of_detect`.
+
+**Bearing on RH:** none. The theorems bound `ζ` given a zero-free half-plane, and `lindelof_of_RH` is a consequence of RH.
+
+**The next step.** The register's zero-density entry is where this exponent would enter: through `InghamFromC`, which needs Littlewood's lemma, or through the detection step, whose two models round 235 left unreconciled. Neither is started.

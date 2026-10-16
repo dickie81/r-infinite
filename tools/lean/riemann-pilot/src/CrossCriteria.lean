@@ -87,7 +87,7 @@ theorem rh_of_liouville_theta {ε : ℝ} (hε : ε ≠ 0)
   · obtain ⟨c, hc⟩ := h ((1 / 2 + ρ.re) / 2) (by linarith) (by linarith)
     exact zeta_ne_zero_of_liouville (by linarith) (by linarith) hε hc (by linarith)
 
-/-! ### (C) The exact missing Props (well-typed; none is proved in the three layers, except `NoRealZero` at `chi3`, `chi4`, `chi7`, `chi8`, whose bodies are `WeilTwinGeneral.hS3`, `Dedekind4.hS4`, `WeilTwinGeneral.hS7`, `WeilTwinGeneral.hS8`) -/
+/-! ### (C) The exact missing Props (well-typed; in round 246 none was proved in the three layers, except `NoRealZero` at `chi3`, `chi4`, `chi7`, `chi8`, whose bodies are `WeilTwinGeneral.hS3`, `Dedekind4.hS4`, `WeilTwinGeneral.hS7`, `WeilTwinGeneral.hS8`; round 517's `external/pnt/Subconvexity.lean` proves `ConvexityBound`, `ZetaCritBound (5/24 + ε)` for every `ε > 0`, and `Lindelof` under `RiemannHypothesis`) -/
 
 /-- Pointwise growth exponent `c` for `ζ` on the critical line. -/
 def ZetaCritBound (c : ℝ) : Prop :=
