@@ -288,4 +288,4 @@ The owner asked to attack the inverse theorem and to push toward a formalisation
   2. Chen–Gupta–Li's Proposition 3.1 (their §§4–11), with Heath-Brown's Theorem 10.1 on double zeta sums as a displayed hypothesis at first. Its parts are the Guth–Maynard moment inequality, the line-sum identity for prime `q`, Propositions 7.1–7.2 and 8.1, Lemma 9.1, Proposition 10.2 and Proposition 11.1. This layer gives `7/3 + ε`, the record, and is not started.
   3. The new step as a displayed hypothesis, the low-energy third-moment bound, which gives the socket at the critical point.
 
-  Round 536 starts layer 2 with the moment inequality.
+  Round 536 starts layer 2 with the moment inequality. *(Round 536: done. `LinnikMoment.moment_three` and `LinnikMoment.moment_three_chars` in `external/pnt/LinnikMoment.lean`, kernel-checked with the standard axioms; `(Σ_{χ∈W}|D(χ)|²)³ ≤ ‖b‖⁶ Re tr(G³)` for the Gram matrix `G` of `W`. README round 536.)*

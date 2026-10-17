@@ -21429,4 +21429,33 @@ Nothing is started.
 
 **Bearing on RH:** none.
 
-**The next step.** Round 536 starts the formalisation of Chen–Gupta–Li's Proposition 3.1 with the Guth–Maynard moment inequality. The mathematical step stays open: incoherence of the `m`-sums at near-minimal energy.
+**The next step.** Round 536 starts the formalisation of Chen–Gupta–Li's Proposition 3.1 with the Guth–Maynard moment inequality. The mathematical step stays open: incoherence of the `m`-sums at near-minimal energy. *(Round 536: the moment inequality is in Lean. README round 536.)*
+
+## Round 536: the Guth–Maynard moment inequality in Lean (`external/pnt/LinnikMoment.lean`)
+
+**What it is.** The owner asked to push toward a formalisation of an exponent below `7/3`. Round 535's route needs Chen–Gupta–Li's Proposition 3.1 in Lean (layer 2 of SEVEN-THIRDS.md §15). This round lands its first step, the inequality that turns a large-values set into a bound on the third moment of its Gram matrix.
+
+- **`LinnikMoment.moment_three`.** For every complex matrix `A` with finite row and column index types and every vector `b`: `‖Ab‖⁶ ≤ ‖b‖⁶·Re tr((AAᴴ)³)`, with `‖·‖` the `ℓ²` norm.
+- **`LinnikMoment.moment_three_chars`.** Over a finite set `W` of Dirichlet characters mod `q` and a finite set `S` of integers, with weights `c`: `(Σ_{χ∈W}|Σ_{n∈S} c_nχ(n)b_n|²)³ ≤ (Σ_{n∈S}|b_n|²)³ · Re Σ_{χ₁,χ₂,χ₃∈W} G(χ₁,χ₂)G(χ₂,χ₃)G(χ₃,χ₁)`, where `G(χ, χ′) = Σ_{n∈S} c_nχ(n)·conj(c_nχ′(n))`. A large value `|D(χ)| ≥ V` on all of `W` then gives `(|W|V²)³ ≤ ‖b‖⁶·tr(G³)`, the inequality that Chen–Gupta–Li's §§7–11 bound from the right.
+- **The proof** uses no eigenvalues. With `y = Ab`, `u = Aᴴy`, `z = Au` and `v = Aᴴz`, Cauchy–Schwarz gives `‖y‖⁴ ≤ ‖b‖²‖u‖²`, `‖u‖⁴ ≤ ‖z‖²‖y‖²` and `‖z‖⁴ ≤ ‖v‖²‖u‖²`. Since `v = Cy` with `C = Aᴴ(AAᴴ)`, the row-by-row bound gives `‖v‖² ≤ ‖C‖_F²‖y‖²`, and `‖C‖_F² = Re tr(CCᴴ) = Re tr((AAᴴ)³)` by cyclicity of the trace. Eliminating `u`, `z` and `v` gives the inequality.
+
+**What is checked.** `LinnikMoment.lean` compiles into the pilot's `build/` with the pilot's toolchain (Lean v4.35.0-rc3, Mathlib at `MATHLIB_REV`) with no warning and no `sorry`. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for both theorems. The file imports Mathlib only. It was compiled alone, with `external/pnt/build.sh`'s gate commands, rather than through a full run of that script: no file it depends on changed. `build.sh` now compiles it and checks its two theorems in the final axiom list.
+
+**Records.**
+
+- `external/pnt/README.md`: a table row and a section.
+- `external/pnt/build.sh`: the module and its two theorems added.
+- SEVEN-THIRDS.md §15: a marker on layer 2.
+- README round 535: a marker on its next step.
+
+**Check 4.** NOVEL against the pilot: the moment inequality in Lean.
+
+**Check 9.**
+
+- (a) The theorems are as stated, for every finite matrix and every finite set of characters. They give the record exponent `7/3` only with the rest of Chen–Gupta–Li's argument, which is not formalised.
+- (b) No register entry changes.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Layer 2 continues with the line-sum identity for prime `q`: `tr(G³) = q^{−2}Σ_k ŵ(k₁)ŵ(k₂)ŵ(k₃)L(k)` over the lines `k₁ + k₂b₁ + k₃b₂ ≡ 0`, with `L(k)` the line sums of `R` (SEVEN-THIRDS.md §6). It is finite Fourier analysis, and it is the identity on which §15's coherence measurement rests. The mathematical step stays open.

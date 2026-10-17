@@ -62,6 +62,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikTwelveBins.lean` | 527 | one dyadic block and one bin of the detecting polynomial counted by round 526's large-values estimate for its `m`-th power; Ingham's count at `c = 1/10` on `7/12 ≤ σ ≤ 3/4` |
 | `LinnikTwelveSizes.lean` | 527 | the two terms of that count as powers of `Q` on `3/4 ≤ σ ≤ 11/12`, at most `B₁Q^{(12/5+53ε)(1−σ)}` and `B₂Q^{(12/5+53ε)(1−σ)}`, for `Q^{4/5+ε} ≤ (2P)^m ≤ Q^{6/5+3ε/2}` |
 | `LinnikTwelve.lean` | 527 | `CharDensity (12/5 + 54ε) 10 C` for every `0 < ε ≤ 1/200`; Linnik's exponent `12/5 + η` with no hypothesis |
+| `LinnikMoment.lean` | 536 | the Guth–Maynard moment inequality: `‖Ab‖⁶ ≤ ‖b‖⁶·Re tr((AAᴴ)³)` for every complex matrix, and its form over a finite set of Dirichlet characters with the Gram matrix on a finite set of integers; Mathlib only |
 
 ## Building (round 217)
 
@@ -320,3 +321,7 @@ The three files of round 527 share the namespace `LinnikTwelve`. `LinnikTwelve.b
 ## LinnikTwelve.lean (round 527)
 
 `LinnikTwelve.charDensity_twelve_fifths`: `CharDensity (12/5 + 54ε) 10 C` for every `0 < ε ≤ 1/200`; `LinnikTwelve.linnik_twelve_fifths`: for every `η > 0` every reduced class mod `q` has a prime `p ≤ K q^{12/5+η}`, with no hypothesis. On `3/4 ≤ σ ≤ 11/12` (`count_twelve_fifths`), round 521's detector runs at `X = ⌊Q^{1/25}⌋` and `Y = Q^{3/5}`. Its integral class is counted as in round 525 (`class2_bound_twelve`). Its polynomial class is cut into dyadic blocks and bins of width `ε/200` in `β`, and each piece is counted by `block_bin_hux` for the least power `(2P)^m ≥ Q^{4/5+ε}` of the block (`class1_twelve`), with the large sieve at `J = 16⌈log₂(4MQ)⌉`, `M = max(ζ(9/8), 1)`, `X_l = ⌈Q²(4Q² + 1)2^J⌉` and `τ = C(ε/200)X_l^{ε/200}` (`far_cut`, `sieve_range`). On `7/12 ≤ σ ≤ 3/4` the count is `count_middle_c10`. `12/5 = 3/(2 − 3/4)`. The file imports `LinnikTwelveSizes.lean`. See the main README, round 527. All axioms are clean.
+
+## LinnikMoment.lean (round 536)
+
+`LinnikMoment.moment_three`: for a complex matrix `A` (rows `ι`, columns `κ`, both finite) and `b : κ → ℂ`, `nsq (A *ᵥ b) ^ 3 ≤ nsq b ^ 3 * (A * Aᴴ * (A * Aᴴ) * (A * Aᴴ)).trace.re`, with `nsq v = Σ_i ‖v i‖²`. `LinnikMoment.moment_three_chars`: for a finite set `W` of Dirichlet characters mod `q`, a finite set `S` of naturals and `b, c : ℕ → ℂ`, `(Σ_{χ∈W} ‖Σ_{n∈S} c n·χ n·b n‖²)³ ≤ (Σ_{n∈S} ‖b n‖²)³ · Re Σ_{χ₁,χ₂,χ₃∈W} gram χ₁ χ₂·gram χ₂ χ₃·gram χ₃ χ₁`, where `gram χ χ′ = Σ_{n∈S} (c n·χ n)·conj(c n·χ′ n)`. The proof has no spectral theory: three Cauchy–Schwarz steps (`nsq_sq_le`) and the row-by-row bound `nsq (C *ᵥ y) ≤ frob C · nsq y` (`nsq_mulVec_le`) for `C = Aᴴ(AAᴴ)`, whose squared Frobenius norm is `Re tr((AAᴴ)³)` by cyclicity of the trace (`frob_eq_trace`, `frob_cube`). The file imports Mathlib only. It is the first step of Chen–Gupta–Li's Proposition 3.1 in Lean (`frontier/linnik/SEVEN-THIRDS.md` §15). See the main README, round 536. All axioms are clean.
