@@ -20533,4 +20533,85 @@ No Lean file changes, so no build is run. No paper surface is edited: `riemann-i
 
 **Bearing on RH:** none. The argument uses a zero-free half-plane and a density estimate, and says nothing about the critical line.
 
-**The next step.** Phase A, the deduction with (H2) displayed, which the owner asked for.
+**The next step.** Phase A, the deduction with (H2) displayed, which the owner asked for. *(Round 520: landed, `Linnik.linnik_of_charDensity`, with Linnik's exponent `12 + η` from the half-plane alone as a corollary; see round 520.)*
+
+## Round 520: Linnik's theorem from a density estimate over the characters mod `q`, and with exponent `12 + η` from the half-plane alone (`external/pnt/LinnikChar.lean`, `external/pnt/LinnikDeduction.lean`; `LogDerivDisc.lean`, `InghamDetect.lean` and `ChiUniform.lean` changed)
+
+**What it is.** Round 519's next step read: "Phase A, the deduction with (H2) displayed, which the owner asked for." The owner had written: "Proceed with the full lean formalisation for 17/6". This round lands Phase A, and one corollary that the plan did not list:
+
+- `Linnik.linnik_of_charDensity`: let `A ≥ 2`, `B ≥ 0` and `C ≥ 0`, and assume `CharDensity A B C`: for every modulus `q ≥ 1`, every `1/2 ≤ σ ≤ 1` and every `T ≥ 2`, at most `C(qT)^{A(1−σ)}(log qT)^B` Dirichlet characters mod `q` have a zero of `L(·, χ)` in `Re s ≥ σ`, `|Im s| ≤ T`. Then for every `η > 0` there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K q^{A+η}`.
+- `Linnik.charDensity_twelve` and `Linnik.linnik_twelve`: the half-plane alone gives `CharDensity 12 0 1`, so the same holds with exponent `12 + η` and no hypothesis.
+
+`CharDensity` is the one displayed hypothesis. The zero-free region the proof uses beyond it is the stack's half-plane `Eis.LFunction_ne_zero_of_re_gt` (rounds 492–495). Phases B and C, which would prove `CharDensity (17/6 + ε)`, are not started, so the `17/6 + η` row is not proved.
+
+**What is proved** (`external/pnt/LinnikChar.lean`, 551 lines, 20 theorems and 4 definitions; `external/pnt/LinnikDeduction.lean`, 1148 lines, 45 theorems and 12 definitions; each of their 15 axiom lines, and each of the 17 lines this round adds to `build.sh`'s final check, is `[propext, Classical.choice, Quot.sound]`).
+
+Part 1, `LinnikChar.lean`. Let `χ ≠ 1` be a Dirichlet character mod `q` and `S_χ(x) = Σ_n χ(n)Λ(n)e^{−n/x}` (`Sx`).
+
+- **`perron_exp`**: for `a_0 = 0`, `1/2 ≤ c ≤ 3`, `x > 0` and `L(a, c)` absolutely convergent, `Σ_n a_n e^{−n/x} = (1/2π) ∫ L(a, c + it)Γ(c + it)x^{c+it} dt`.
+- **`logDeriv_LFunction_le`**: for `1/2 ≤ θ < θ′ < 3/2` and `σ ≥ θ′`, if `L(·, χ)` has no zero in the disc of radius `3/2 − θ` about `3/2 + it`, then `|L′/L(σ + it, χ)| ≤ KL θ θ′(log(q + 2) + log(|t| + 4))`, with `KL θ θ′ = Kld θ θ′(1 + log(2 + 6ζ(3/2))) − ζ′/ζ(3/2)`.
+- **`norm_pf_le`**: there, on `θ′ ≤ σ ≤ 3`, `|L′/L(s, χ)Γ(s)x^s| ≤ Mc θ θ′ log(q + 2)x^σ e^{−|t|/2}/(1 + t²)`, with `Mc θ θ′ = 192e^{1/2}·KE·KL θ θ′`.
+- **`Sx_eq_integral`**, **`integral_pf_shift`**: `S_χ(x)` is `1/2π` times the integral of `−L′/L(s, χ)Γ(s)x^s` on `Re s = 2`, and for `x ≥ 1` and `0 < δ ≤ 1/24` the line moves to `Re s = 11/12 + δ`.
+- **`norm_Sx_le`**: for `1/2 ≤ θ ≤ 11/12`, `0 < δ ≤ 1/24`, `T ≥ 0` and `x ≥ 1`, if `L(·, χ)` has no zero in `Re s > θ`, `|Im s| < T + 1`, then `|S_χ(x)| ≤ M log(q + 2)(x^{θ+δ} + 2x^{11/12+δ}e^{−T/2})`, with `M = Mc(θ, θ + δ) + Mc(11/12, 11/12 + δ)`.
+
+Part 2, `LinnikDeduction.lean`.
+
+- **`CharDensity A B C`** (a definition), as above. It counts characters, not zeros, so the usual bound on `Σ_χ N(σ, T, χ)` implies it.
+- **`totient_mul_SAP`**: `φ(q)S(x; q, a) = Σ_χ χ(a⁻¹)S_χ(x)` for `a` a unit mod `q`, where `S(x; q, a) = Σ_{n ≡ a} Λ(n)e^{−n/x}` (`SAP`).
+- **`re_Sx_one_ge`**: `Re S_1(x) ≥ e^{−1}(ψ(x) − ω(q) log x)` for `x ≥ 1`.
+- **`SAP_le_of_noPrime`**: if no prime `p ≤ Y` lies in the class of `a`, then `S(x; q, a) ≤ 2√Y log Y + 96x³e^{−Y/(2x)}`, for `x > 0` and `Y ≥ 1`.
+- **`error_le`**: under `CharDensity A B C`, for `0 < δ ≤ 1/24`, `T ≥ 1` and `x ≥ 1`, `Σ_{χ≠1} |S_χ(x)| ≤ M* log(q + 2)(q x^{1/2+δ} + Σ_{j<J} C(q(T + 1))^{A(1−θ_j)}(log q(T + 1))^B x^{θ_{j+1}+δ} + 2q x^{11/12+δ}e^{−T/2})`, with the levels `θ_j = min(1/2 + jδ/2, 11/12)`, `J = ⌈5/(3δ)⌉` and `M*` depending on `δ` only.
+- **`total_le`**, **`prime_in_class`**: under `CharDensity A B C` with `A ≥ 2`, `B ≥ 0` and `C ≥ 0`, for `a` prime to `q`, `0 < η₀ ≤ 1/2`, `x ≥ 100`, `q^{A+η₀} ≤ x` and `x^{c₀} ≥ 4e·Ktot + 1`, with `c₀ = η₀/(48(A + 1))` and `Ktot` depending on `A`, `B`, `C` and `η₀` only, the class of `a` holds a prime `p ≤ 10x log x`.
+- **`linnik_of_charDensity`**, **`charDensity_twelve`**, **`linnik_twelve`**: as above.
+
+The changed files.
+
+- `LogDerivDisc.lean` (312 to 369 lines): `disc_point_ball`, `logDeriv_le_Kld_ball` and `logDeriv_le_ball` state the disc step with no zero of `F` in the disc of radius `3/2 − θ` about `3/2 + it`, rather than in `Re s > θ`. Round 519 noted (A3) that the proofs use the hypothesis only at points of that disc. `disc_point`, `logDeriv_le_Kld` and `logDeriv_le_uniform_of` now follow from the new forms (`re_gt_of_mem_ball`), with their statements unchanged.
+- `InghamDetect.lean` (937 to 976 lines): `norm_Gamma_poly_le`, `|Γ(x + it)| ≤ 81e^{12}(1 + |t|)³e^{−π|t|/2}` on `1/2 ≤ x ≤ 3`, which `norm_Gamma_strip_le` proved inline; `norm_Gamma_strip_le` from it; and `norm_Gamma_exp_le`, `|Γ(x + it)| ≤ KE e^{−|t|}`, from `y³e^{−y} ≤ 3!` and `π/2 > 3/2`.
+- `ChiUniform.lean` (183 to 193 lines): `LFunction_ctr_inv_le` (`1/|L(3/2 + it, χ)| ≤ ζ(3/2)`), `logDeriv_LFunction_right` (`|L′/L(s, χ)| ≤ −ζ′/ζ(3/2)` on `Re s ≥ 3/2`), `zeta32_nonneg` and `logDerivZeta32_nonneg`, four steps that `psiChi_le_uniform_of` proved inline. Its statement is unchanged.
+
+**The proof.**
+
+- **The weight.** `e^{−y}` has Mellin transform `Γ`, and round 518's `integral_Gamma_line` inverts it on `Re s = c`; summed over `y = n/x` with `integral_tsum_of_summable_integral_norm`, this is `perron_exp`. Since `|Γ(x + it)| ≤ KE e^{−|t|}`, the integrand above height `T` costs `e^{−T/2}`, and `T = 2 log x + 2` makes that at most `1/x`. So the height is `O(log x)`, not a power of `q`.
+- **One character.** For `χ ≠ 1`, `−L′/L(s, χ)Γ(s)x^s` is holomorphic on `Re s > 11/12` (the half-plane), and `SmoothPerron.verticalIntegral_shift` moves the line from `Re s = 2` to `11/12 + δ`. Below height `T` the integral moves on across the rectangle `[θ + δ, 11/12 + δ] × [−T, T]` (PNT+'s `HolomorphicOn.vanishesOnRectangle`), on which `L(·, χ)` has no zero by hypothesis. On the rectangle and on the line `Re s = 11/12 + δ`, `L′/L` is bounded by the disc step at each point's height: for `|t| ≤ T` the disc of radius `3/2 − θ` about `3/2 + it` lies in `Re s > θ`, `|Im s| < T + 1` (`zeroFree_ball_local`), and for every `t` the disc of radius `3/2 − 11/12` lies in the half-plane (`zeroFree_ball_global`). The growth input is `|L(s, χ)| ≤ 3(q + 1)(|Im s| + 2)` on `1/2 ≤ Re s ≤ 3` (`LFunction_growth`, from round 254's `PsiOmega.norm_LFunction_leC`).
+- **The levels.** Each `χ ≠ 1` has a least `j` with no zero in `Re s > θ_j`, `|Im s| < T + 1` (`level`, by `Nat.find`; `j = J`, where `θ_J = 11/12`, always qualifies). A character of level `j + 1` has a zero in `Re s > θ_j`, `|Im s| < T + 1`, so `CharDensity` at `σ = θ_j` and height `T + 1` counts it. With `θ_{j+1} ≤ θ_j + δ/2`, each level costs `C(q(T + 1))^{A(1−θ_j)}(log)^B x^{θ_j+3δ/2}`, and `A(1 − θ)/(A + η₀) + θ + 3δ/2 ≤ 1 − 2c₀` for `θ ≤ 11/12` and `δ = η₀/(36(A + 1))` (`exp_three`). The levels are finitely many, so `CharDensity` is used at finitely many `σ`.
+- **The trivial character.** `Re S_1(x) ≥ e^{−1} Σ_{n≤x, (n,q)=1} Λ(n) ≥ e^{−1}(ψ(x) − ω(q) log x)` (round 479's `PNTProgressions.sum_not_coprime_le`), and `ψ(x) ≥ x/4` for `x ≥ 100` (round 482's `LeastNonresidue.psi_ge_quarter`). No residue is computed.
+- **A class with no small prime.** Up to `Y` the class holds no prime, so its terms there sit at prime powers `p^k`, `k ≥ 2`, and sum to at most `ψ(Y) − θ(Y) ≤ 2√Y log Y` (Mathlib's `Chebyshev.psi_sub_theta_le`). Beyond `Y`, `Λ(n)e^{−n/x} ≤ 48x³e^{−Y/(2x)}/n²`, and `Σ 1/n² ≤ 2`. At `Y = 10x log x`, `e^{−Y/(2x)} = x^{−5}`.
+- **The sizes.** The logarithms in the error terms are at most `2P`, `P = 6x^ε/ε` with `ε = c₀/(2 + A/2 + B)` (Mathlib's `Real.log_le_rpow_div`), so `P^{2+A/2+B} = (6/ε)^{2+A/2+B}x^{c₀}` and every error term is at most a constant times `x^{1−c₀}` (`size_final`, `total_le`). If the class held no prime up to `Y`, orthogonality would give `e^{−1}x/4 ≤ Ktot x^{1−c₀}`, false once `x^{c₀} > 4e·Ktot`.
+- **The constant.** `linnik_of_charDensity` takes `η₀ = min(η, 1)/2`, `X₀ = max(100, (4e·Ktot + 1)^{1/c₀})` and `x = X₀q^{A+η₀}`. Then `p ≤ 10x log x ≤ K q^{A+2η₀} ≤ K q^{A+η}` with `K = 10X₀(log X₀ + (A + η₀)/η₀)`, by `log q ≤ q^{η₀}/η₀`.
+- **The trivial density.** Below `σ = 11/12` at most `φ(q) ≤ q ≤ qT ≤ (qT)^{12(1−σ)}` characters are counted (Mathlib's `card_eq_totient_of_hasEnoughRootsOfUnity`). Above it, the half-plane leaves only the trivial character, and `1 ≤ (qT)^{12(1−σ)}`.
+
+**Where it stands.** The deduction "a density estimate over the characters mod `q`, with the half-plane, gives Linnik's exponent `A + η`" is kernel-checked, with the density estimate displayed. Its one landed instance is `A = 12`. Round 519's instances `12/5` (Huxley) and `7/3` (Chen–Gupta–Li, whose own Corollary 1.4 already gives `7/3 + ε` from the half-plane) would enter as displayed hypotheses; neither is formalized. Round 519's Phase B (`CharDensity (2 + 4c + ε)` from `|L(1/2 + it, χ)| ≪ (q(|t| + 2))^c`, uniformly in `q`) and Phase C (`c = 5/24 + ε`) would give `17/6 + η`; neither is started. `linnik_twelve` is K2's Missing Prop, with `K` given in the proof, not stated as a numeral.
+
+**The paper.** No paper surface is edited. `grep -n -i -E 'linnik|least prime|arithmetic progression'` over `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` finds no line. No file outside `tools/lean/riemann-pilot/` names a declaration this round adds (`grep -rnw` over the repository's `.md`, `.tex`, `.py`, `.sh` and `.json` files, less the lines under `tools/lean/riemann-pilot/`, prints nothing).
+
+**Records.**
+
+- `external/pnt/build.sh`: the two files in the compile list, and 17 lines in the final check (195 to 212 `#print axioms` lines): the five new lemmas of the changed files and twelve theorems of the new files.
+- `external/pnt/README.md`: two new rows and a section; round 520 in the rows of `LogDerivDisc`, `InghamDetect` and `ChiUniform`, and markers in their sections.
+- STRUCTURAL-REVIEW: K2 (its Missing Prop is `linnik_twelve`); K2′ (the deduction is landed, `CharDensity` above `A = 12` is missing); the zero-density entry's paragraph on the characters mod `q`.
+- `frontier/linnik/ARGUMENT.md` §7: a marker.
+- This file: a marker on round 519's next step.
+
+**Builds.**
+
+- `external/pnt/build.sh` (805 s) compiled `Architect.lean`, the 19 PNT+ files and the 41 files here, and exited with code 0. The 41 print 145 axiom lines and the final check prints 212, each `[propext, Classical.choice, Quot.sound]`. None of the 41 prints a warning; the build's warnings, and the two uses of `sorry` in `Wiener.lean`, are in the vendored PNT+ files, which the build does not gate.
+- `src/`, the dh layer and zeta23 were not rebuilt: no file in them changed, and none imports a changed file. zeta23's `CoImportGamma.lean` and `CoImportMV.lean` import the pnt layer's `DetectEM`, whose import cone (120 modules within `src/` and `external/pnt/`) contains none of the five changed or new files.
+- The new declarations are in the namespaces `Linnik`, which is new, `LogDerivDisc`, `InghamDensity` and `ChiUniform`. A grep of the `.lean` files of `src/`, `external/` (less the vendored `upstream/` trees) and Mathlib finds `namespace Linnik` only in the two new files, and each of the 13 names the round adds to the three older namespaces only in its own file and the two new files.
+
+**Check 4.**
+
+- **Classical [recalled]:** Linnik's theorem (1944); Gallagher's deduction of primes in progressions from a zero-free region and a density estimate (1970, not read); that a zero-free half-plane `Re s > θ₀` alone gives Linnik's exponent `1/(1 − θ₀) + ε` (round 519's "Without (H2)", which is K2).
+- **ACKNOWLEDGED in the literature** (round 519's search): the deduction (Chen–Gupta–Li's Corollary 1.4; Banks–Shparlinski's Theorem 3.5; Bruna's Theorem 1.1 at `A = 2`).
+- **ACKNOWLEDGED in the pilot:** K2 (stack review 3's D1), K2′ and round 519's plan.
+- **NOVEL against the pilot:** the deduction kernel-checked, with `CharDensity` displayed and a `K` for every `q ≥ 1`; the disc step with a zero-free disc; K2's Prop proved.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every `η > 0`, every `q ≥ 1` (`[NeZero q]`) and every `a` prime to `q`; in `CharDensity`, every `q ≥ 1`, `σ ∈ [1/2, 1]` and `T ≥ 2`.
+- (b) No barrier claim is made.
+- (c) The criterion `linnik_of_charDensity` is fed two signals: the half-plane (kernel-checked, from the cubic theta route) and `CharDensity` (displayed; proved at `A = 12` from the half-plane, not proved below it). Neither is equivalent to the conclusion.
+
+**Bearing on RH:** none. The argument uses a zero-free half-plane and a count of characters with zeros to the right of `σ`, and says nothing about the critical line.
+
+**The next step.** Phase B: `CharDensity (2 + 4c + ε)` from a bound `|L(1/2 + it, χ)| ≪ (q(|t| + 2))^c` uniform in `q`, by round 518's detection and large-values route run over the characters mod `q` (round 519's plan).

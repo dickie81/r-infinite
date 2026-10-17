@@ -58,6 +58,39 @@ lemma summable_one_32 : LSeriesSummable (fun _ ↦ (1 : ℂ)) ((3 / 2 : ℝ) : �
   have := (LSeriesSummable_one_iff (s := ((3 / 2 : ℝ) : ℂ))).2 (by norm_num)
   exact this
 
+lemma zeta32_nonneg : 0 ≤ zeta32 := tsum_nonneg fun _ ↦ norm_nonneg _
+
+lemma logDerivZeta32_nonneg : 0 ≤ logDerivZeta32 := tsum_nonneg fun _ ↦ norm_nonneg _
+
+/-- `‖L(3/2 + it, χ)‖⁻¹ ≤ ζ(3/2)`, from `1/L(s, χ) = Σ χ(n)μ(n)n^{−s}` (round 520 names the step of
+`psiChi_le_uniform_of`). -/
+theorem LFunction_ctr_inv_le {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) (t : ℝ) :
+    ‖DirichletCharacter.LFunction χ (ctr t)‖⁻¹ ≤ zeta32 := by
+  have hs : 1 < (ctr t).re := by rw [ctr_re]; norm_num
+  have hm := DirichletCharacter.LSeries.mul_mu_eq_one χ hs
+  rw [DirichletCharacter.LFunction_eq_LSeries χ hs]
+  rw [← norm_inv, inv_eq_of_mul_eq_one_right hm]
+  have hμ : LSeriesSummable (fun n ↦ χ n * (ArithmeticFunction.moebius n : ℂ)) ((3 / 2 : ℝ) : ℂ) :=
+    DirichletCharacter.LSeriesSummable_mul χ
+      (ArithmeticFunction.LSeriesSummable_moebius_iff.2 (by norm_num))
+  refine (norm_LSeries_le_of_le_re hμ (s := ctr t) (by rw [ctr_re])).trans
+    (tsum_norm_term_le (fun n ↦ ?_) summable_one_32)
+  rw [norm_mul, norm_one]
+  refine (mul_le_of_le_one_left (norm_nonneg _) (DirichletCharacter.norm_le_one _ _)).trans ?_
+  rw [Complex.norm_intCast]
+  exact_mod_cast ArithmeticFunction.abs_moebius_le_one
+
+/-- `‖L′/L(s, χ)‖ ≤ −ζ′/ζ(3/2)` on `Re s ≥ 3/2` (round 520 names the step of `psiChi_le_uniform_of`). -/
+theorem logDeriv_LFunction_right {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) {s : ℂ} (hs : 3 / 2 ≤ s.re) :
+    ‖deriv (DirichletCharacter.LFunction χ) s / DirichletCharacter.LFunction χ s‖ ≤ logDerivZeta32 := by
+  rw [← norm_neg, ← LSeries_twist_vonMangoldt_eq_LFunction χ (by linarith)]
+  have hΛ : LSeriesSummable (fun n ↦ χ n * (ArithmeticFunction.vonMangoldt n : ℂ)) ((3 / 2 : ℝ) : ℂ) :=
+    DirichletCharacter.LSeriesSummable_twist_vonMangoldt χ (by norm_num)
+  refine (norm_LSeries_le_of_le_re hΛ hs).trans (tsum_norm_term_le (fun n ↦ ?_)
+    (ArithmeticFunction.LSeriesSummable_vonMangoldt (by norm_num)))
+  rw [norm_mul]
+  exact mul_le_of_le_one_left (norm_nonneg _) (DirichletCharacter.norm_le_one _ _)
+
 /-- **`ψ(x, χ)` uniformly in the modulus, from the constants of `sum_le_uniform`.** If `C₁, C₂ ≥ 0` satisfy
 the conclusion of `sum_le_uniform` at `θ = 11/12`, then
 `|ψ(x, χ)| ≤ (C₁(1 + log(2 + 36ζ(3/2)/11) − ζ′/ζ(3/2)) + C₂) log(N + 2)·x^{11/12+η}` for every
@@ -76,8 +109,8 @@ theorem psiChi_le_uniform_of {η C₁ C₂ : ℝ} (hC₁ : 0 ≤ C₁) (hC₂ : 
       ∀ x : ℝ, 1 < x → ‖psiChi χ x‖ ≤
         (C₁ * (1 + Real.log (2 + 36 * zeta32 / 11) + logDerivZeta32) + C₂) * Real.log (N + 2) *
           x ^ (11 / 12 + η) := by
-  have hA₀ : 0 ≤ zeta32 := tsum_nonneg fun _ ↦ norm_nonneg _
-  have hΛ₀ : 0 ≤ logDerivZeta32 := tsum_nonneg fun _ ↦ norm_nonneg _
+  have hA₀ := zeta32_nonneg
+  have hΛ₀ := logDerivZeta32_nonneg
   set c' : ℝ := Real.log (2 + 36 * zeta32 / 11) with hc'def
   have hc' : 0 ≤ c' := Real.log_nonneg (by linarith [show (0 : ℝ) ≤ 36 * zeta32 / 11 by positivity])
   intro N _ χ hχ x hx
@@ -104,32 +137,9 @@ theorem psiChi_le_uniform_of {η C₁ C₂ : ℝ} (hC₁ : 0 ≤ C₁) (hC₂ : 
           rw [div_le_iff₀ (by norm_num)]
           have := mul_nonneg (by positivity : (0 : ℝ) ≤ N + 1) (abs_nonneg s.im)
           linarith
-  have hlow : ∀ t : ℝ, ‖DirichletCharacter.LFunction χ (ctr t)‖⁻¹ ≤ zeta32 := by
-    intro t
-    have hs : 1 < (ctr t).re := by rw [ctr_re]; norm_num
-    have hm := DirichletCharacter.LSeries.mul_mu_eq_one χ hs
-    rw [DirichletCharacter.LFunction_eq_LSeries χ hs]
-    rw [← norm_inv, inv_eq_of_mul_eq_one_right hm]
-    have hμ : LSeriesSummable (fun n ↦ χ n * (ArithmeticFunction.moebius n : ℂ)) ((3 / 2 : ℝ) : ℂ) :=
-      DirichletCharacter.LSeriesSummable_mul χ
-        (ArithmeticFunction.LSeriesSummable_moebius_iff.2 (by norm_num))
-    refine (norm_LSeries_le_of_le_re hμ (s := ctr t) (by rw [ctr_re])).trans
-      (tsum_norm_term_le (fun n ↦ ?_) summable_one_32)
-    rw [norm_mul, norm_one]
-    refine (mul_le_of_le_one_left (norm_nonneg _) (DirichletCharacter.norm_le_one _ _)).trans ?_
-    rw [Complex.norm_intCast]
-    exact_mod_cast ArithmeticFunction.abs_moebius_le_one
+  have hlow : ∀ t : ℝ, ‖DirichletCharacter.LFunction χ (ctr t)‖⁻¹ ≤ zeta32 := LFunction_ctr_inv_le χ
   have hright : ∀ s : ℂ, 3 / 2 ≤ s.re → ‖deriv (DirichletCharacter.LFunction χ) s /
-      DirichletCharacter.LFunction χ s‖ ≤ logDerivZeta32 := by
-    intro s hs
-    rw [← norm_neg, ← LSeries_twist_vonMangoldt_eq_LFunction χ (by linarith)]
-    have hΛ : LSeriesSummable (fun n ↦ χ n * (ArithmeticFunction.vonMangoldt n : ℂ))
-        ((3 / 2 : ℝ) : ℂ) :=
-      DirichletCharacter.LSeriesSummable_twist_vonMangoldt χ (by norm_num)
-    refine (norm_LSeries_le_of_le_re hΛ hs).trans (tsum_norm_term_le (fun n ↦ ?_)
-      (ArithmeticFunction.LSeriesSummable_vonMangoldt (by norm_num)))
-    rw [norm_mul]
-    exact mul_le_of_le_one_left (norm_nonneg _) (DirichletCharacter.norm_le_one _ _)
+      DirichletCharacter.LFunction χ s‖ ≤ logDerivZeta32 := fun _ hs ↦ logDeriv_LFunction_right χ hs
   have hfΛ : ∀ n : ℕ,
       ‖χ n * (ArithmeticFunction.vonMangoldt n : ℂ)‖ ≤ ArithmeticFunction.vonMangoldt n := by
     intro n
@@ -174,8 +184,8 @@ theorem psiChi_le_uniform {η : ℝ} (hη : 0 < η) :
     ∃ C : ℝ, 0 ≤ C ∧ ∀ (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N), χ ≠ 1 →
       ∀ x : ℝ, 1 < x → ‖psiChi χ x‖ ≤ C * Real.log (N + 2) * x ^ (11 / 12 + η) := by
   obtain ⟨C₁, C₂, hC₁, hC₂, hb⟩ := sum_le_uniform (θ := 11 / 12) (by norm_num) (by norm_num) hη
-  have hA₀ : 0 ≤ zeta32 := tsum_nonneg fun _ ↦ norm_nonneg _
-  have hΛ₀ : 0 ≤ logDerivZeta32 := tsum_nonneg fun _ ↦ norm_nonneg _
+  have hA₀ := zeta32_nonneg
+  have hΛ₀ := logDerivZeta32_nonneg
   have hc' : 0 ≤ Real.log (2 + 36 * zeta32 / 11) :=
     Real.log_nonneg (by linarith [show (0 : ℝ) ≤ 36 * zeta32 / 11 by positivity])
   exact ⟨_, by positivity, psiChi_le_uniform_of hC₁ hC₂ hb⟩

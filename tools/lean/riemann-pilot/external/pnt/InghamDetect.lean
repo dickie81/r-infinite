@@ -13,8 +13,10 @@ with `G(w) = M_X(ρ + w)·(Z(ρ + w)/w)·Γ(w + 1)·Y^w` and `Z(s) = (s − 1)ζ
 polynomials `Σ_{X < j ≤ XN} a_j e^{−j/Y} j^{−ρ}` and `Σ_{X < j ≤ XN} a_j (j/Y)e^{−j/Y} j^{−ρ}` (`Pv`, `b1`, `b2`)
 and `I` is the right side of the identity (`Iv`).
 
-* `norm_Gamma_strip_le`: `|Γ(x + it)|(1 + |t|)⁵ ≤ KG` on `1/2 ≤ x ≤ 3`, from round 517's
-  `Subconvexity.norm_Gamma_le_half` and `|Γ(1/2 + it)| ≤ 3e^{−π|t|/2}` (`norm_Gamma_half_le`).
+* `norm_Gamma_poly_le`, `norm_Gamma_strip_le`: `|Γ(x + it)| ≤ 81e^{12}(1 + |t|)³e^{−π|t|/2}` and
+  `|Γ(x + it)|(1 + |t|)⁵ ≤ KG` on `1/2 ≤ x ≤ 3`, from round 517's `Subconvexity.norm_Gamma_le_half` and
+  `|Γ(1/2 + it)| ≤ 3e^{−π|t|/2}` (`norm_Gamma_half_le`). Round 520 adds `|Γ(x + it)| ≤ KE e^{−|t|}`
+  (`norm_Gamma_exp_le`), the kernel bound of the Linnik contour (`Linnik.norm_pf_le`).
 * `integral_kernel_line`: `(1/2π) ∫ x^{−(c+iy)}(Γ(c + iy + 1) + aΓ(c + iy)) dy = (x + a)e^{−x}` for
   `1/2 ≤ c ≤ 2` and `x > 0` (Mathlib's `mellinInv_mellin_eq`, with `Γ` the Mellin transform of `e^{−x}`).
 * `LSeries_aX`: `Σ_n a_n n^{−s} = M_X(s)ζ(s)` on `Re s > 1` (Mathlib's `LSeries_convolution'`).
@@ -78,15 +80,10 @@ theorem pow_mul_exp_neg_le (n : ℕ) {y : ℝ} (hy : 0 ≤ y) : y ^ n * Real.exp
     _ = n.factorial * (Real.exp y * Real.exp (-y)) := by ring
     _ = n.factorial := by rw [← Real.exp_add]; simp
 
-/-- The constant of `norm_Gamma_strip_le`. -/
-def KG : ℝ := 81 * Real.exp 12 * (2 ^ 8 * 40320 * Real.exp (1 / 2))
-
-theorem KG_pos : 0 < KG := by unfold KG; positivity
-
-/-- **`|Γ(x + it)|(1 + |t|)⁵ ≤ KG` on `½ ≤ x ≤ 3`**: Stirling's `|Γ(x + it)| ≤ |Γ(½ + it)|(e⁴|x + it|)^{x−½}`
-(round 517's `norm_Gamma_le_half`) and `|Γ(½ + it)| ≤ 3e^{−π|t|/2}`. -/
-theorem norm_Gamma_strip_le {x : ℝ} (hx : 1 / 2 ≤ x) (hx3 : x ≤ 3) (t : ℝ) :
-    ‖Complex.Gamma (x + t * I)‖ * (1 + |t|) ^ 5 ≤ KG := by
+/-- `|Γ(x + it)| ≤ 81 e^{12} (1 + |t|)³ e^{−π|t|/2}` on `½ ≤ x ≤ 3`: Stirling's
+`|Γ(x + it)| ≤ |Γ(½ + it)|(e⁴|x + it|)^{x−½}` (round 517's `norm_Gamma_le_half`) and `|Γ(½ + it)| ≤ 3e^{−π|t|/2}`. -/
+theorem norm_Gamma_poly_le {x : ℝ} (hx : 1 / 2 ≤ x) (hx3 : x ≤ 3) (t : ℝ) :
+    ‖Complex.Gamma (x + t * I)‖ ≤ 81 * Real.exp 12 * ((1 + |t|) ^ 3 * Real.exp (-(π * |t|) / 2)) := by
   have h1 := Subconvexity.norm_Gamma_le_half hx t
   have hn1 : ‖(x : ℂ) + t * I‖ ≤ 3 + |t| := by
     refine (norm_add_le _ _).trans ?_
@@ -111,6 +108,21 @@ theorem norm_Gamma_strip_le {x : ℝ} (hx : 1 / 2 ≤ x) (hx3 : x ≤ 3) (t : �
       _ = Real.exp 12 * (3 * (1 + |t|)) ^ 3 := by
           rw [mul_pow, ← Real.exp_nat_mul]; norm_num
   have hG := norm_Gamma_half_le t
+  calc ‖Complex.Gamma (x + t * I)‖ ≤ ‖Complex.Gamma (1 / 2 + t * I)‖ * b ^ (x - 1 / 2) := h1
+    _ ≤ 3 * Real.exp (-(π * |t|) / 2) * (Real.exp 12 * (3 * (1 + |t|)) ^ 3) := by
+        gcongr
+        exact hb2.trans hb3
+    _ = 81 * Real.exp 12 * ((1 + |t|) ^ 3 * Real.exp (-(π * |t|) / 2)) := by ring
+
+/-- The constant of `norm_Gamma_strip_le`. -/
+def KG : ℝ := 81 * Real.exp 12 * (2 ^ 8 * 40320 * Real.exp (1 / 2))
+
+theorem KG_pos : 0 < KG := by unfold KG; positivity
+
+/-- **`|Γ(x + it)|(1 + |t|)⁵ ≤ KG` on `½ ≤ x ≤ 3`**, from `norm_Gamma_poly_le` and `y⁸e^{−y} ≤ 8!` at
+`y = (1 + |t|)/2`. -/
+theorem norm_Gamma_strip_le {x : ℝ} (hx : 1 / 2 ≤ x) (hx3 : x ≤ 3) (t : ℝ) :
+    ‖Complex.Gamma (x + t * I)‖ * (1 + |t|) ^ 5 ≤ KG := by
   have hpow : (1 + |t|) ^ 8 * Real.exp (-(π * |t|) / 2) ≤ 2 ^ 8 * 40320 * Real.exp (1 / 2) := by
     have hy : 0 ≤ (1 + |t|) / 2 := by positivity
     have h8 := pow_mul_exp_neg_le 8 hy
@@ -125,18 +137,43 @@ theorem norm_Gamma_strip_le {x : ℝ} (hx : 1 / 2 ≤ x) (hx3 : x ≤ 3) (t : �
         ≤ (1 + |t|) ^ 8 * (Real.exp (-((1 + |t|) / 2)) * Real.exp (1 / 2)) := by gcongr
       _ = 2 ^ 8 * (((1 + |t|) / 2) ^ 8 * Real.exp (-((1 + |t|) / 2))) * Real.exp (1 / 2) := by ring
       _ ≤ 2 ^ 8 * 40320 * Real.exp (1 / 2) := by gcongr
-  have hge : ‖Complex.Gamma (x + t * I)‖ ≤
-      3 * Real.exp (-(π * |t|) / 2) * (Real.exp 12 * (3 * (1 + |t|)) ^ 3) := by
-    calc ‖Complex.Gamma (x + t * I)‖ ≤ ‖Complex.Gamma (1 / 2 + t * I)‖ * b ^ (x - 1 / 2) := h1
-      _ ≤ 3 * Real.exp (-(π * |t|) / 2) * (Real.exp 12 * (3 * (1 + |t|)) ^ 3) := by
-          gcongr
-          exact hb2.trans hb3
   calc ‖Complex.Gamma (x + t * I)‖ * (1 + |t|) ^ 5
-      ≤ 3 * Real.exp (-(π * |t|) / 2) * (Real.exp 12 * (3 * (1 + |t|)) ^ 3) * (1 + |t|) ^ 5 := by
-        gcongr
+      ≤ 81 * Real.exp 12 * ((1 + |t|) ^ 3 * Real.exp (-(π * |t|) / 2)) * (1 + |t|) ^ 5 := by
+        gcongr; exact norm_Gamma_poly_le hx hx3 t
     _ = 81 * Real.exp 12 * ((1 + |t|) ^ 8 * Real.exp (-(π * |t|) / 2)) := by ring
     _ ≤ 81 * Real.exp 12 * (2 ^ 8 * 40320 * Real.exp (1 / 2)) := by gcongr
     _ = KG := rfl
+
+/-- The constant of `norm_Gamma_exp_le`. -/
+def KE : ℝ := 81 * Real.exp 12 * (48 * Real.exp (1 / 2))
+
+theorem KE_pos : 0 < KE := by unfold KE; positivity
+
+/-- **`|Γ(x + it)| ≤ KE e^{−|t|}` on `½ ≤ x ≤ 3`**, from `norm_Gamma_poly_le` and `y³e^{−y} ≤ 3!` at
+`y = (1 + |t|)/2`, as `π/2 > 3/2`. -/
+theorem norm_Gamma_exp_le {x : ℝ} (hx : 1 / 2 ≤ x) (hx3 : x ≤ 3) (t : ℝ) :
+    ‖Complex.Gamma (x + t * I)‖ ≤ KE * Real.exp (-|t|) := by
+  have h := norm_Gamma_poly_le hx hx3 t
+  have hy : 0 ≤ (1 + |t|) / 2 := by positivity
+  have h3 := pow_mul_exp_neg_le 3 hy
+  have hf : ((Nat.factorial 3 : ℕ) : ℝ) = 6 := by norm_num [Nat.factorial]
+  rw [hf] at h3
+  have hexp : Real.exp (-(π * |t|) / 2) ≤
+      Real.exp (-((1 + |t|) / 2)) * Real.exp (1 / 2) * Real.exp (-|t|) := by
+    rw [← Real.exp_add, ← Real.exp_add]
+    apply Real.exp_le_exp.2
+    have := Real.pi_gt_three
+    nlinarith [abs_nonneg t]
+  have hpow : (1 + |t|) ^ 3 * Real.exp (-(π * |t|) / 2) ≤ 48 * Real.exp (1 / 2) * Real.exp (-|t|) := by
+    calc (1 + |t|) ^ 3 * Real.exp (-(π * |t|) / 2)
+        ≤ (1 + |t|) ^ 3 * (Real.exp (-((1 + |t|) / 2)) * Real.exp (1 / 2) * Real.exp (-|t|)) := by gcongr
+      _ = 8 * (((1 + |t|) / 2) ^ 3 * Real.exp (-((1 + |t|) / 2))) * Real.exp (1 / 2) * Real.exp (-|t|) := by
+          ring
+      _ ≤ 8 * 6 * Real.exp (1 / 2) * Real.exp (-|t|) := by gcongr
+      _ = 48 * Real.exp (1 / 2) * Real.exp (-|t|) := by ring
+  calc ‖Complex.Gamma (x + t * I)‖ ≤ 81 * Real.exp 12 * ((1 + |t|) ^ 3 * Real.exp (-(π * |t|) / 2)) := h
+    _ ≤ 81 * Real.exp 12 * (48 * Real.exp (1 / 2) * Real.exp (-|t|)) := by gcongr
+    _ = KE * Real.exp (-|t|) := by unfold KE; ring
 
 /-- `Γ` is continuous along a vertical line `Re s = x > 0`. -/
 theorem continuous_Gamma_line {x : ℝ} (hx : 0 < x) : Continuous fun t : ℝ => Complex.Gamma (x + t * I) := by
@@ -927,7 +964,9 @@ theorem trichotomy {X N : ℕ} (hX : 1 ≤ X) (hN : 1 ≤ N) {Y U : ℝ} (hY : 8
 
 end InghamDensity
 
+#print axioms InghamDensity.norm_Gamma_poly_le
 #print axioms InghamDensity.norm_Gamma_strip_le
+#print axioms InghamDensity.norm_Gamma_exp_le
 #print axioms InghamDensity.integral_kernel_line
 #print axioms InghamDensity.LSeries_aX
 #print axioms InghamDensity.sum_side
