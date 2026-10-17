@@ -217,3 +217,16 @@ Their Proposition 11.1 bounds `S₃` by `(qT)²|W|^{3/2}` plus three terms that 
 - The socket's saving `κ ≤ 1/39` lowers `q^{−κ}` only to `0.66` there.
 - So at these sizes the magnitude of `S₃` separates the first term from the energy term by at most that factor, and cannot show the saving. The findings are structural: which arcs, which energies, which supports. The conjecture is consistent with them and is not proved.
 - Alternating projections find local maxima. The pool makes `W` random-like, so structured sets of low energy are untested.
+
+## 12. Round 532: concentration at bounded energy
+
+The owner asked to keep researching. `energy_frontier.py` asks how much concentration and third moment a set of size `q^{2/3}` can carry when its additive energy is held near the minimum.
+
+- **The minimum.** Every `W ⊂ Z/L` of size `R` has `E(W) ≥ R⁴/L`, by Cauchy–Schwarz over the sums `k₁ + k₂`. So Chen–Gupta–Li's energy term `qN|W|^{1/2}E(W)^{1/2}` is at least `qNR^{5/2}L^{−1/2}`. Their first term `q²|W|^{3/2}` exceeds that by the factor `q√L/(NR)`, which is `q^{1/18}` at the critical proportions up to `(L/q)^{1/2}`; numerically `1.67`, `1.90` and `2.15` at the three gated `q`. So for every `W` at the critical point, the weaker conjecture of §11 asks for a saving of at most `q^{1/18}` in `S₃` over their (2.3).
+- **The dynamic.** Start from §11's concentrated set. At each step, score every character by `|Gv|²` minus a growing multiple of the energy it would add, and exchange at most 3% of `W`. For each energy level `κ = E(W)/(R⁴/L) ≥ 1`, keep the set with the largest concentration.
+- **Results** (the gate, `q = 10007`, `100003` and `1000003`):
+  - The dynamic reaches `κ = 1.10`, `1.08` and `1.05`.
+  - The best concentration is `0.438`, `0.300` and `0.210` at `κ ≤ 1.25`, and `0.533`, `0.372` and `0.257` at `κ ≤ 2`. So low energy does not force small concentration at these `q`: §11's random pools reached only `0.221`, `0.122` and `0.066` at `κ ≈ 1.1`. At each fixed energy level, though, the concentration falls with `q`, by a factor of about `0.7` per decade. §11's unconstrained sets level off near `1/3` only as their energy grows, `E ≈ 2|W|^{8/3}`, that is `κ ≈ 2q^{1/9}`.
+  - At `κ ≤ 1.25`, `S₃` is `0.095q³`, `0.048q³` and `0.024q³`, which is `3.0`, `2.3` and `1.8` times its mean over random `W`.
+  - The ratio of `S₃` to the energy term is `0.143`, `0.082` and `0.047` at `κ ≤ 1.25`, and `0.236`, `0.129` and `0.066` at `κ ≤ 2`. It falls by a factor of `0.51` to `0.57` per decade. The weaker conjecture needs it to stay below `q^ε`.
+- **Reading.** In this search a large third moment comes with energy near `|W|^{8/3}`. At bounded energy, both the concentration and the third moment fade with `q`. That is the inverse form of §11's conjecture, seen at three values of `q` for one search method; it is not a proof. §11's caveat stands: at these `q`, magnitudes cannot separate factors of `q^{1/18}`.

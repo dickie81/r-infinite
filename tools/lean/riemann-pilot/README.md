@@ -21300,4 +21300,35 @@ Nothing is started.
 
 **Bearing on RH:** none.
 
-**The next step.** Either prove the weaker conjecture or refute it. In inverse form it says that a third moment near `q³` forces energy near `|W|^{8/3}`. A structured set of low energy with a large third moment would refute it. Nothing is started.
+**The next step.** Either prove the weaker conjecture or refute it. In inverse form it says that a third moment near `q³` forces energy near `|W|^{8/3}`. A structured set of low energy with a large third moment would refute it. Nothing is started. *(Round 532: a search for such sets at bounded energy finds concentration and third moment that fade with `q`. README round 532.)*
+
+## Round 532: concentration at bounded energy (`frontier/linnik/energy_frontier.py`; SEVEN-THIRDS.md §12)
+
+**What it is.** The owner asked to keep researching. Round 531's next step asked for a structured set of low energy with a large third moment, which would refute its weaker conjecture. `energy_frontier.py` is new. It searches for such sets at the critical case's proportions, with energy held near its minimum. SEVEN-THIRDS.md §12 records it. No Lean changed, and no paper surface is edited.
+
+- **The minimum.** Every `W` of size `R` in `Z/L` has `E(W) ≥ R⁴/L`, by Cauchy–Schwarz. So Chen–Gupta–Li's first term exceeds their energy term by at most `q√L/(NR)`, which is `q^{1/18}` at the critical proportions up to `(L/q)^{1/2}`. For every `W` at the critical point, the weaker conjecture asks for a saving of at most that factor in `S₃`.
+- **The search.** Start from round 531's concentrated set and exchange at most 3% of `W` per step. Score each character by its value minus a growing multiple of the energy it would add.
+- **Results.** At `q = 10007`, `100003` and `1000003`, with `κ = E(W)/(R⁴/L)`:
+  - At `κ ≤ 1.25` the best concentration is `0.438`, `0.300` and `0.210`; at `κ ≤ 2` it is `0.533`, `0.372` and `0.257`. At each energy level it falls by a factor of about `0.7` per decade. Round 531's sets level off near `1/3` only because their energy grows like `2|W|^{8/3}`.
+  - The ratio of `S₃` to the energy term is `0.143`, `0.082` and `0.047` at `κ ≤ 1.25`, and `0.236`, `0.129` and `0.066` at `κ ≤ 2`. It falls by a factor of `0.51` to `0.57` per decade; the conjecture needs it below `q^ε`.
+- **Reading.** In this search, a large third moment comes with energy near `|W|^{8/3}`, and at bounded energy the concentration and the third moment fade with `q`. That is the conjecture's inverse form at three values of `q` for one search method. It is not a proof, and magnitudes at these `q` cannot separate factors of `q^{1/18}`.
+
+**What is checked.** `python3 frontier/linnik/energy_frontier.py` exits 0 in about 7 minutes. (F1)–(F3) pass, and the mutation (no energy penalty, under which `κ` stays at `6.13`) is caught. The Cauchy–Schwarz bound is a one-line computation written out in §12; the factor `q√L/(NR)` was evaluated at the three `q`.
+
+**Records.**
+
+- SEVEN-THIRDS.md §12.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+- README round 531: a marker on its next step.
+
+**Check 4.** NOVEL against the pilot: the bound on the gap between the two terms, the search at bounded energy, and its results.
+
+**Check 9.**
+
+- (a) Every measurement is at the listed `q`, with one weight and one search method; the dynamic finds local maxima. "At most `q^{1/18}`" is the Cauchy–Schwarz computation and holds for every `W` at the critical proportions.
+- (b) The register entry gets a marker; its target is unchanged.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** A proof of the inverse form: a set of size `q^{2/3}` whose Gram matrix has a third moment near `q³` has additive energy near `|W|^{8/3}`. Nothing is started.
