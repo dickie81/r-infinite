@@ -20875,7 +20875,7 @@ Part 3, `LinnikSubconvex.lean` (322 lines).
 
 **Builds.**
 
-- At this commit the full `external/pnt/build.sh` run is in progress; its result is recorded in the next commit.
+- `external/pnt/build.sh` (2030 s; a Python computation ran beside it for its last two minutes) compiled `Architect.lean`, the 19 PNT+ files and the 52 files here, and exited with code 0. The 52 print 193 axiom lines and the final check prints 259, each `[propext, Classical.choice, Quot.sound]`. None of the 52 prints a warning; the build's warnings, and the two uses of `sorry` in `Wiener.lean`, are in the vendored PNT+ files, which the build does not gate. (This bullet is recorded in the commit after the round's commit; at that commit the run was in progress.)
 - Each of the three files compiles as a module, with `-DautoImplicit=false -DrelaxedAutoImplicit=false`, against round 523's build of the files it imports, with no error or warning; their 3, 6 and 4 axiom lines are `[propext, Classical.choice, Quot.sound]`.
 - `src/`, the dh layer and zeta23 were not rebuilt: no file in them changed, and no file in them imports the new files.
 - The new namespaces are `LinnikGamma`, `LinnikFourth` and `LinnikIngham`. A grep of the `.lean` files of `src/`, `external/` (less the vendored `upstream/` trees) and Mathlib finds each only in its new file.
