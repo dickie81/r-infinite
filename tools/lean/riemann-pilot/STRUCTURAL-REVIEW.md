@@ -44,9 +44,9 @@ Each entry names the landed theorems it rests on, read in the source in round 51
 - Route (PAPER, `frontier/linnik/ARGUMENT.md` §3): for each character the line moves to `σ_χ + δ` below height `T = q^{ε/(2A)}` and to `11/12 + δ` above it, where `σ_χ` is the largest real part of a zero of height at most `2T`. The half-plane gives `1 − σ_χ ≥ 1/12`, so the zeros of real part about `σ` contribute at most `q^{−(L−A)(1−σ)}` in total, which tends to `0` for `L > A`. No explicit formula over zeros is used. README round 519 has the Lean plan (L1–L9).
 - Instances:
   - Huxley's `A = 12/5` (Acta Arith. 26 (1974/75), read as quoted by Banks–Shparlinski, arXiv:1605.07553 §3) gives `12/5 + ε`;
-  - Chen–Gupta–Li's `A = 7/3` (arXiv:2507.08296, a preprint) gives `7/3 + ε`;
+  - Chen–Gupta–Li's `A = 7/3` (arXiv:2507.08296, a preprint) gives `7/3 + ε`, as their own Corollary 1.4 already states under a zero-free hypothesis the half-plane implies;
   - round 518's route over the characters mod `q`, with `|L(1/2 + it, χ)| ≪ (q(|t| + 2))^c`, gives `A = 2 + 4c`: `4` at `c = 1/2` (partial summation), `3` at `c = 1/4` (convexity) and `17/6` at `c = 5/24` (the half-plane).
-- Against the literature (round 519's search): Xylouris `5` (2011); Naslund `3.99` (2026, a preprint); `2 + ε` under GRH. NOVEL as a target. Whether the deduction appears in the literature is unconfirmed.
+- Against the literature (round 519's search): Xylouris `5` (2011) and `5 − ε` (2018); Naslund `3.99` (2026, a preprint); `2 + ε` under GRH. ~~Whether the deduction appears in the literature is unconfirmed.~~ *(Round 519's review: false when written. The deduction is in the literature: Chen–Gupta–Li's Corollary 1.4 (arXiv:2507.08296v2, all `q`, under a zero-free hypothesis the stack's half-plane implies) gives `7/3 + ε` from the half-plane, and Banks–Shparlinski's Theorem 3.5 (arXiv:1605.07553v2) is the same deduction for prime-power moduli, both by Gallagher's method; `frontier/linnik/ARGUMENT.md` §6.)* ACKNOWLEDGED as mathematics; NOVEL only as a kernel-checked target, whose `17/6 + ε` row needs no input from outside the stack.
 
 **K3. The prime ideal theorem for every quadratic field, with error `O(x^{11/12+η})`.**
 - Landed:

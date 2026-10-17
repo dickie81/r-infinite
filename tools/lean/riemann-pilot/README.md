@@ -20391,3 +20391,146 @@ Part 2, `InghamDensity.lean`.
 **Bearing on RH:** none. A density bound with exponent above `2` allows zeros off the line, and `densityHypothesis_of_lindelof` is a consequence of Lindelöf, which RH implies (`lindelof_of_RH`).
 
 **The next step.** None is planned here. Open, with their register notes: `WeylBound` (`c = 1/6 + ε`, which would give `8/3` and `θ > 5/8`); Ingham's `3/(2 − σ)`; and merging `DensityCore`'s chain into the general one (S3, a `src/` rebuild).
+
+## Round 519: Linnik's constant from the half-plane and a zero-density estimate: the argument, its check, and a Lean plan (`frontier/linnik/ARGUMENT.md`, `frontier/linnik/params.py`; no new Lean)
+
+**What it is.** After round 518 the owner asked: "So this is a new way of getting to an existing bound? Can it be combined with the other methods to get a better result?" Round 518's exponent is above the best known density bounds at every `σ`, so for `ζ` the combination gives nothing. In Linnik's problem, though, the classical difficulty is the zeros near `Re s = 1`, which a zero-free half-plane removes. A zero-density estimate over the characters mod `q` then sets the exponent directly. The answer offered three steps, and the owner said "Do all 3 pls":
+
+1. write the Linnik argument out in full and check it, with a proper literature search;
+2. record it as an upgrade to the register's K2 (`12 + ε` → `12/5 + ε`);
+3. plan the Lean route, starting from the `17/6` version, which reuses round 518's machinery.
+
+**1. The argument** (`frontier/linnik/ARGUMENT.md`, a paper argument; nothing in this round is machine-checked).
+
+- **The statement.** Assume (H1): for some `θ₀ < 1`, no `L(s, χ)` of any modulus vanishes on `Re s > θ₀` (except `ζ` at `s = 1`). Assume (H2): `Σ_{χ mod q} N(σ, T, χ) ≤ C(qT)^{A(1−σ)}(log qT)^B` for every `q ≥ 1`, `T ≥ 2` and `1/2 ≤ σ ≤ 1`, with `A ≥ 2`. Then for every `η ∈ (0, 1]` and every large `q`, every class `a` prime to `q` has a prime in `[q^{A+η}, 2q^{A+η}]`. So Linnik's exponent is at most `A + η`.
+- **The instances.**
+
+  - (H1) at `11/12` is the stack's `Eis.LFunction_ne_zero_of_re_gt` (rounds 492–495).
+  - With Huxley's `A = 12/5` (Acta Arith. 26 (1974/75), read here as quoted by Banks and Shparlinski) the exponent is `12/5 + η`.
+  - With Chen, Gupta and Li's `A = 7/3` (arXiv:2507.08296, a preprint) it is `7/3 + η`. Their own Corollary 1.4 already states this consequence (see the review below).
+  - With the analogue of round 518 over the characters mod `q`, `A = 2 + 4c` for a bound `|L(1/2 + it, χ)| ≪ (q(|t| + 2))^c`. Partial summation gives `c = 1/2`, the convexity bound `c = 1/4`, and the half-plane `c = (2θ₀ − 1)/4 = 5/24`. So `A` is `4`, `3` and `17/6`.
+  - For comparison: Xylouris `5` (2011) and `5 − ε` (2018), Naslund `3.99` (2026, a preprint), and `2 + η` under GRH.
+- **The proof** (§3 of the file).
+
+  - *The zero-free region.* For each character `χ ≠ χ₀`, `σ_χ` is the largest real part of a zero of height at most `2T = 2q^{η/(2A)}` (`1/2` if there is none). The line of the smoothed Perron integral moves to `Re s = σ_χ + δ` below height `T` and to `θ₀ + δ` above it, where `L(·, χ)` has no zero.
+  - *The log-derivative.* On that path `|L′/L| ≤ 48δ^{−2} log(10q(|t| + 5))`, by Borel–Carathéodory in discs centred on `Re s = 2`.
+  - *The count.* The number of characters with `σ_χ > σ` is at most `N(σ, 2T; q)`. So, by (H2), the zeros of real part about `σ` contribute at most `((2qT)^A/x)^{1−σ} ≤ (2^A q^{−η/2})^{1−θ₀}` relative to the main term at `x = q^{A+η}`. Here `1 − σ ≥ 1 − θ₀` is where the half-plane enters.
+  - *No explicit formula.* The proof uses no explicit formula over zeros, no zero counting beyond (H2), and no Deuring–Heilbronn.
+- **Without (H2)** the same proof gives `1/(1 − θ₀) + η`, which is K2's `12 + η`.
+
+**The check.**
+
+- The lead's derivation, step by step with constants (§3).
+- `frontier/linnik/params.py` checks in exact rationals the exponent inequalities of §3.1, §3.10 and §3.11, in the forms the text uses. It covers five instances, at `η = 1, 1/10, 1/100, 1/1000`. Every row follows from the formulas of §3.1 for every admissible `(A, θ₀, η)`, so the census checks only that the formulas were transcribed correctly. Four mutations (three mis-transcribed parameter choices and an instance with `A < 2`) must each fail a case. Output: `20 cases, 0 failures` and `4 mutations, 4 caught`, `rc=0`.
+- A fresh-context review at maximum effort (the repository's `hostile-reviewer` agent) of the argument, the script and every quoted source. It found no MAJOR, 7 minor and 8 cosmetic issues. Each was verified by the lead against the lead's own downloads (Chen–Gupta–Li v2, Bruna v1, Frei–Sofos–Widmer, the Naslund README and the raw Wikipedia text) and an earlier copy of Banks–Shparlinski, then fixed.
+
+  1. *(minor)* Chen–Gupta–Li's Corollary 1.4 already gives the `7/3` row from a zero-free hypothesis that (H1) implies. With `η(q, T) = (1 − θ₀)/2` and `h = x`, its proviso `h/ϕ(q) ≥ x^{1/2+ϵ}q^{1/6} + x^{17/30+ϵ}` holds once `x ≥ q^{7/3+O(ϵ)}`. Fixed: the table, §5 and §6.
+  2. *(minor)* Banks–Shparlinski's Theorem 3.5 is the same deduction for the moduli `p^γ`, following Gallagher. §6 quoted the paragraph just before it and missed the theorem. Fixed: §6.
+  3. *(minor)* `params.py` could not fail on any input it accepted, and two rows tested weaker forms than the text uses. Fixed: the rows now take the text's forms, `A ≥ 2` is a counted row, and the mutations above are added.
+  4. *(minor)* The Wikipedia "quote" was not in the source, which is a table row. Fixed: described, not quoted.
+  5. *(minor)* The Naslund README was misdescribed: its hypotheses include a derived one, and the registration does not cover `3.99`. Fixed: verbatim quotes.
+  6. *(minor)* The preprint census was wrong. `grep -rl "Linnik"` hits 9 directories. The `11` was case-insensitive, and its two extra hits are "Malinnikova" in two papers on nodal sets. Fixed.
+  7. *(minor, Check 9)* "The unconditional proofs … reach exponents of about `5`" was unscoped; the sieve proofs Bruna cites reach far larger exponents. Fixed: scoped to the record proofs.
+  8. *(cosmetic)* "(H1) forces `θ₀ ≥ 1/2`" used only symmetry. Fixed: `θ₀ ≥ 1/2` is assumed, as (H1) at `θ₀` gives (H1) at `max(θ₀, 1/2)`.
+  9. *(cosmetic)* §3.3's step for `ζ` did not state its inputs, and the bound (∗) does not apply to `ζ`. Fixed: it cites round 467 at `11/12` and the classical route in general.
+  10. *(cosmetic)* The references to this entry predated it. Resolved by this entry.
+  11. *(cosmetic)* The table pointed to §7, which did not discuss the `17/6` route. Fixed: §7 now does.
+  12. *(cosmetic)* Frei–Sofos–Widmer do cite Linnik's constant, and their Corollary 1.2 at `ℚ(ζ_q)` is the "Without (H2)" bound. Fixed: added to §6.
+  13. *(cosmetic)* The hedge on Bruna's method. Fixed: replaced by Bruna's own sentence.
+  14. *(cosmetic)* Xylouris's `5 − ε` (2018) was missing from §1. Fixed.
+  15. *(cosmetic)* The quoted docstring omitted its second sentence, "The real characters are round 477's." Fixed.
+- The review's checked-and-held list covers:
+
+  - §3 line by line, including the disc radii, the partial-summation bound, Borel–Carathéodory with Cauchy, the path, orthogonality, the count and every exponent of §3.10;
+  - the statement and axioms of `Eis.LFunction_ne_zero_of_re_gt` (recompiled, rc 0, standard axioms only);
+  - the Banks–Shparlinski and Chen–Gupta–Li quotes, which are verbatim.
+
+**The literature** (2026-10-16 and 2026-10-17; §6 of the file).
+
+- The unconditional record is Xylouris's `5` (2011; `5 − ε` in 2018). Naslund's `3.99` (registered 2026-10-01) is conditional on printed lemmas of Xylouris, Heath-Brown and Graham, and its registration does not cover the bound.
+- **The deduction is in the literature.**
+
+  - Chen–Gupta–Li's Corollary 1.4 ("Primes in arithmetic progressions under a good zero-free region") covers all `q`.
+  - Banks–Shparlinski's Theorem 3.5 covers prime-power moduli with any density exponent `b`. Their published version claims `L < 2.1115` for those moduli.
+  - Bruna (arXiv:2603.25612) is the case `A = 2` under the generalized Lindelöf hypothesis. He uses "A zero-free region, log-free zero-density estimates, and a zero-repulsion theorem".
+  - The first two follow Gallagher, through the explicit formula. §3 differs only in moving each character's line to its own zero-free region.
+- So with the stack's half-plane, Chen–Gupta–Li's Corollary 1.4 already gives `7/3 + ε`, better than the `17/6 + η` row. Round 519's withdrawn sentence "No source read states the deduction" was false when written.
+- Frei, Sofos and Widmer (arXiv:2610.18491) bound the least split prime from a zero-free half-plane for `ζ_L`, without a density estimate. That is the "Without (H2)" bound.
+- The release's preprints cite Linnik but state no Linnik exponent.
+- Not read: Huxley's paper, Iwaniec–Kowalski chapter 18, Gallagher (1970), Heath-Brown (1992), and the full texts of the other half-plane papers.
+
+**2. The register.**
+
+- K2 has a marker.
+- A new knock-on, K2′, records the route: the inputs landed, the two Missing Props (`CharDensity A B` and the deduction), the instances and the comparison. Its comparison line originally said "Whether the deduction appears in the literature is unconfirmed". That is struck and annotated with the review's sources. K2′ is now ACKNOWLEDGED as mathematics and NOVEL only as a kernel-checked target.
+- §6's zero-density entry points to it.
+
+**3. The Lean plan** (§7 of the file; the owner then asked: "Proceed with the full lean formalisation for 17/6").
+
+The route keeps §3's shape and changes three things:
+
+- the weight is `e^{−n/x}`, whose Mellin transform `Γ(s)` decays like `e^{−|t|}`, so the height is `T = O(log q)` rather than `q^{δ₁}`;
+- the principal character needs only `Σ_n Λ(n)e^{−n/x} ≥ ψ(x)/e ≥ x/(4e)` (`LeastNonresidue.psi_ge_quarter`), so no residue is computed;
+- `σ_χ` is replaced by the least level `θ_j = 1/2 + jδ/2` above which `χ` has no zero of height below `T + 1`, so the density bound is applied at finitely many `σ`.
+
+- **Phase A, the deduction, with (H2) displayed.** `CharDensity A B` counts the characters mod `q` with a zero in `Re s ≥ σ`, `|Im s| ≤ T`. The proof needs only this count, not zeros with multiplicity.
+
+  - A1. `|Γ(x + it)| ≤ K e^{−|t|}` on `1/2 ≤ x ≤ 3`, from round 517's Stirling bound as in `InghamDetect.norm_Gamma_strip_le`.
+  - A2. Perron for the weight: `Σ_n a_n e^{−n/x} = (1/2π) ∫ L(a, c + it)Γ(c + it)x^{c+it} dt`. This uses `InghamDetect.integral_Gamma_line` and `sum_side`'s interchange.
+  - A3. The log-derivative in a local zero-free disc. `LogDerivDisc.disc_point` and `logDeriv_le_Kld` use their zero-free hypothesis only inside the disc (lines 106, 127 and 142), so the hypothesis can be restricted to the disc. The growth input is `norm_LFunction_leC`, and the lower bound at `3/2 + it` is `ChiUniform`'s `zeta32`.
+  - A4. Per character `χ ≠ 1`:
+
+    - the line moves to `11/12 + δ` by `SmoothPerron.verticalIntegral_shift`;
+    - then one rectangle, `[θ_j + δ, 11/12 + δ] × [−T, T]`, by PNT+'s `HolomorphicOn.vanishesOnRectangle`;
+    - so `|S_χ(x)| ≤ K log(q + 2)(x^{θ_j+δ} + x^{11/12+δ}e^{−T/2})`.
+  - A5–A8. These cover the principal character; orthogonality, as in `PNTProgressions.psiAP_eq_sum`; the count by levels; and the prime powers, the tail and the parameters.
+- **Phase B, `CharDensity (2 + 4c + ε)` from a bound `|L(1/2 + it, χ)| ≪ (q(|t| + 2))^c`.** This is round 518's route over the characters mod `q`, simplified:
+
+  - one zero per bad character, in one window `|Im| ≤ T`;
+  - the plain `Γ(w)` kernel, since `L(·, χ)` has no pole for `χ ≠ 1`;
+  - a dichotomy in place of the trichotomy;
+  - a hybrid large-values inequality: Gallagher's lemma per character (`DirMean.gallagher_one`), orthogonality, and a mean value per residue class with spacing `q`.
+  At `c = 1/2`, which partial summation gives, Phases A and B give Linnik's exponent `4 + η` from the stack's half-plane alone.
+- **Phase C, `c = 5/24 + ε` uniformly in `q`.**
+
+  - Round 470's Lindelöf bound in the half-plane, made uniform over the characters.
+  - The functional equation for primitive characters (`DirichletCharacter.IsPrimitive.completedLFunction_one_sub`), with round 517's `Γ` bounds and interpolation (`Subconvexity.norm_le_interp_strip`).
+  - The imprimitive characters, through their primitive ones.
+  This gives `17/6 + η`.
+
+**Records.**
+
+- `frontier/linnik/` (new): `ARGUMENT.md` and `params.py`, revised after the review.
+- STRUCTURAL-REVIEW: K2's marker; the knock-on K2′, with its literature line struck and corrected; and a marker on §6's zero-density entry.
+- This entry.
+
+No Lean file changes, so no build is run. No paper surface is edited: `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` are unchanged.
+
+**Check 4.**
+
+- **Classical [recalled]:**
+
+  - Linnik's theorem (1944);
+  - Huxley's estimate over the characters mod `q` (1974/75, read through Banks–Shparlinski);
+  - Gallagher's deduction of primes in progressions from density estimates and a zero-free region (1970, not read).
+- **ACKNOWLEDGED in the literature:**
+
+  - the deduction "(H1) and (H2) give `L ≤ A + η`" (Chen–Gupta–Li's Corollary 1.4; Banks–Shparlinski's Theorem 3.5; Bruna's Theorem 1.1 at `A = 2`);
+  - its `7/3 + ε` instance from the half-plane.
+- **ACKNOWLEDGED in the pilot:** K2, Linnik with `12 + ε` from the half-plane alone (stack review 3's D1).
+- **NOVEL against the pilot:** the density route as a register target (K2′), and the plan to kernel-check its `17/6 + η` row with no input from outside the stack.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorem's: every `η ∈ (0, 1]`, every `q ≥ q₀(η)`, every `a` prime to `q`. The literature statements are scoped to the sources listed.
+- (b) No barrier claim is made.
+- (c) The criterion "(H1) and (H2) give Linnik's exponent `A + η`" is fed two signals:
+
+  - the half-plane (kernel-checked, from the cubic theta route);
+  - a density estimate (Huxley's, published; Chen–Gupta–Li's, a preprint; or the analogue of round 518, not proved).
+
+  Neither is equivalent to the conclusion.
+
+**Bearing on RH:** none. The argument uses a zero-free half-plane and a density estimate, and says nothing about the critical line.
+
+**The next step.** Phase A, the deduction with (H2) displayed, which the owner asked for.
