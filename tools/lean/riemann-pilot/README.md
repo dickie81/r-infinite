@@ -20697,4 +20697,81 @@ Part 4, `LinnikHalf.lean` (331 lines).
 
 **Bearing on RH:** none. The route bounds `L(s, χ)` on the critical line and counts characters with zeros to the right of `σ`; it says nothing about zeros on the line.
 
-**The next step.** Phase C: `|L(1/2 + it, χ)| ≪ (q(|t| + 2))^{5/24+ε}` uniformly in `q`, from the half-plane, and with `linnik_of_critBound` the exponent `17/6 + η` (round 519's plan).
+**The next step.** Phase C: `|L(1/2 + it, χ)| ≪ (q(|t| + 2))^{5/24+ε}` uniformly in `q`, from the half-plane, and with `linnik_of_critBound` the exponent `17/6 + η` (round 519's plan). *(Round 522: landed, `LinnikSubconvex.critBoundχ` and `linnik_seventeen_sixths`; see round 522.)*
+
+## Round 522: `|L(1/2 + it, χ)| ≪ (q(|t| + 2))^{5/24+ε}` uniformly in `q`, and Linnik's exponent `17/6 + η` with no hypothesis (`external/pnt/LinnikFE.lean`, `external/pnt/LinnikLindelof.lean`, `external/pnt/LinnikSubconvex.lean`; `Subconvexity.lean` changed)
+
+**What it is.** Round 521's next step read: "Phase C: `|L(1/2 + it, χ)| ≪ (q(|t| + 2))^{5/24+ε}` uniformly in `q`, from the half-plane, and with `linnik_of_critBound` the exponent `17/6 + η` (round 519's plan)." The owner's request is unchanged: "Proceed with the full lean formalisation for 17/6". This round lands Phase C, and with it the last row of round 519's plan:
+
+- `LinnikSubconvex.critBoundχ`: for every `ε > 0` there is `C` such that `|L(1/2 + it, χ)| ≤ C(q(|t| + 2))^{5/24+ε}` for every modulus `q ≥ 1`, every Dirichlet character `χ ≠ 1` mod `q` and every real `t`. This is round 521's `CritBoundχ (5/24 + ε)`.
+- `LinnikSubconvex.linnik_seventeen_sixths`: for every `η > 0` there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K q^{17/6+η}`. There is no hypothesis.
+- On the way, `LinnikLindelof.lindelof`: for every `σ₀ > 11/12` and `ε > 0` there is `C` such that `|L(σ + it, χ)| ≤ C((q + 2)(|t| + 4))^ε` and `1/|L(σ + it, χ)| ≤ C((q + 2)(|t| + 4))^ε` for every `q ≥ 1`, every `χ ≠ 1` mod `q`, every `σ ≥ σ₀` and every real `t`. This is the Lindelöf bound of STRUCTURAL-REVIEW's K4, uniform in `q`.
+
+**What is proved** (three new files, 901 lines, 24 theorems and 4 definitions; each of their 13 axiom lines, the new axiom line of `Subconvexity.lean`, and each of the 13 lines this round adds to `build.sh`'s final check, is `[propext, Classical.choice, Quot.sound]`).
+
+Part 1, `LinnikFE.lean` (234 lines). Let `χ` be a Dirichlet character mod `N ≥ 1`, `τ(χ)` its Gauss sum and `ε(χ) = τ(χ)/(i^a N^{1/2})` Mathlib's root number, with `a = 0` for even `χ` and `a = 1` for odd `χ`.
+
+- **`rootNumber_inv`**: `ε(χ⁻¹) = conj ε(χ)`, from `τ(χ⁻¹) = conj(χ(−1))conj(τ(χ))` (`gaussSum_inv`).
+- **`rootNumber_mul_inv`**, **`norm_rootNumber`**: for primitive `χ`, `ε(χ)ε(χ⁻¹) = 1` and `|ε(χ)| = 1`.
+- **`norm_Gamma_mul_sin_le`**: `|Γ(σ + it)sin(π(σ + it)/2)| ≤ 3(e⁴|σ + it|)^{σ−1/2}` for `σ ≥ 1/2`.
+- **`norm_LFunction_one_sub_le`**: for primitive `χ` and `1/2 ≤ σ < 1`, `|L(1 − σ − it, χ)| ≤ 6N^{σ−1/2}(e⁴|σ + it|)^{σ−1/2}|L(σ + it, χ⁻¹)|`.
+
+Part 2, `LinnikLindelof.lean` (345 lines). Let `χ ≠ 1` be a Dirichlet character mod `q ≥ 1`.
+
+- **`norm_LFunction_le_zeta32`**, **`inv_norm_LFunction_le_zeta32`**: `|L(s, χ)| ≤ ζ(3/2)` and `1/|L(s, χ)| ≤ ζ(3/2)` on `Re s ≥ 3/2`, for every `χ`.
+- **`logDeriv_le_interp`**: for `11/12 < a < 3/2` and `u ∈ [a, 3/2]`, `|L′/L(u + it, χ)| ≤ e^{9/4−u²}A^{(3/2−u)/(3/2−a)}B^{(u−a)/(3/2−a)}`, with `B = max(−ζ′/ζ(3/2), 1)` and `A = c₁log((q + 2)(|t| + 4)) + c₂`, where `c₁` and `c₂` depend on `a` only.
+- **`lindelof`**: as above.
+
+Part 3, `LinnikSubconvex.lean` (322 lines).
+
+- **`primitive_bound`**: for every `ε > 0` there is `C` with `|L(1/2 + it, χ)| ≤ C(N(|t| + 2))^{5/24+ε}` for every primitive `χ ≠ 1` modulo every `N ≥ 1` and every real `t`.
+- **`prod_primeFactors_le`**: `∏_{p | q}(1 + p^{−1/2}) ≤ 2^{⌈e^{1/ε}⌉}q^ε` for `q ≥ 1` and `ε > 0`.
+- **`critBoundχ`**, **`linnik_seventeen_sixths`**: as above.
+
+`Subconvexity.lean` (round 517) changed. `norm_Gamma_mul_le_of` states round 517's bound `|Γ(σ + it)w| ≤ 3(e⁴|σ + it|)^{σ−1/2}` for every `w` with `|w| ≤ e^{π|t|/2}`. `norm_Gamma_mul_cos_le` keeps its statement and is now the case `w = cos(π(σ + it)/2)`; part 1's `norm_Gamma_mul_sin_le` is the case `w = sin(π(σ + it)/2)`.
+
+**The proof.**
+
+- **The root number.** Mathlib's functional equation for primitive `χ` is `Λ(1 − s, χ) = N^{s−1/2}ε(χ)Λ(s, χ⁻¹)` (`IsPrimitive.completedLFunction_one_sub`). It is applied to `χ` at `s = −1` and to `χ⁻¹` at `s = 2`; `χ⁻¹` is primitive by Mathlib's `conductor_inv`. The two give `Λ(2, χ) = ε(χ)ε(χ⁻¹)Λ(2, χ)`, and `Λ(2, χ) ≠ 0` because `L(2, χ) ≠ 0` (Mathlib's `LFunction_ne_zero_of_one_le_re`). With `ε(χ⁻¹) = conj ε(χ)`, which follows from the Gauss sum and the parity, `|ε(χ)|² = 1`.
+- **The functional equation on vertical lines.** Mathlib's `LFunction_eq_completed_div_gammaFactor` gives `L(s, χ) = Λ(s, χ)/Γ_ℝ(s + a)`, and `χ⁻¹` has the parity of `χ`. So `L(1 − s, χ) = N^{s−1/2}ε(χ)(Γ_ℝ(s + a)/Γ_ℝ(1 − s + a))L(s, χ⁻¹)`. The ratio is `Γ_ℂ(s)cos(πs/2)` for even `χ` (Mathlib's `inv_Gammaℝ_one_sub`) and `Γ_ℂ(s)sin(πs/2)` for odd `χ` (`inv_Gammaℝ_two_sub`). With `Γ_ℂ(s) = 2(2π)^{−s}Γ(s)` and `|(2π)^{−s}| ≤ 1` on `Re s ≥ 0`, round 517's bound makes it at most `6(e⁴|s|)^{σ−1/2}`.
+- **Lindelöf, uniformly in `q`.** This is round 470's proof for `ζ` with the constants tracked. Round 520's `Linnik.logDeriv_LFunction_le` at `θ = 11/12` gives `|L′/L(σ + it, χ)| ≤ KL(11/12, a)·log((q + 2)(|t| + 4))` for `σ ≥ a > 11/12`, because its disc about `3/2 + it`, of radius `7/12`, lies in round 495's half-plane (`logDeriv_le`). On `Re s ≥ 3/2`, `|L′/L| ≤ −ζ′/ζ(3/2)` (`ChiUniform.logDeriv_LFunction_right`). `HalfPlaneLindelof.norm_le_interp` interpolates the two on `[a, 3/2] × [t − W, t + W]`. For `χ ≠ 1`, `L(·, χ)` has no pole, so the rectangle need not avoid `s = 1`. Round 470's half-height `|t|/2` is replaced by `W = B + KL·log((q + 2)(|t| + 4)) + KL + 1`, which makes `log(A/B) ≤ W²` hold for every `t`, with `A` linear in `log((q + 2)(|t| + 4))`. On `[σ, 3/2]` the bound is `e^{9/4}A^κB`, with `κ < 1` depending on `σ₀` only, and `A^κ ≤ δA + Y` for every `δ > 0` (`rpow_le_mul_add`). The mean value inequality for `log|L(u + it, χ)|`, whose derivative is `Re L′/L` (round 470's `hasDerivAt_log_norm`), then gives `|log|L(σ + it, χ)|| ≤ M + ε log((q + 2)(|t| + 4))`, with `M` independent of `q`, `χ` and `t`.
+- **Primitive characters.** Let `u = 11/12 + δ` with `δ = min(ε, 1/24)`. On `Re s = u` the Lindelöf bound gives `|L(u + it, ψ)| ≤ C₂(4(N + 2))^{ε/2}(1 + |t|)^{ε/2}` for `ψ = χ, χ⁻¹`. On `Re s = 1 − u`, part 1 gives `|L(1 − u + it, χ)| ≤ 6e^{4(u−1/2)}N^{u−1/2}(1 + |t|)^{u−1/2}|L(u − it, χ⁻¹)|`. In the strip, `|L(z, χ)| ≤ ((N + 1)/(1 − u))(1 + |Im z|)` (round 254's `PsiOmega.norm_LFunction_leC`, `norm_LFunction_strip_le`). Round 517's `Subconvexity.norm_le_interp_strip` at `σ = 1/2`, the midpoint, gives each line the weight `1/2`. The constants multiply under a square root, which turns `N^{u−1/2}` times the square of `(N + 2)^{ε/2}` into at most a constant times `N^{(u−1/2)/2+ε/2}`, and the exponent of `1 + |t|` is `(u − 1/2)/2 + ε/2`. Both exponents are `5/24 + δ/2 + ε/2 ≤ 5/24 + ε`.
+- **Imprimitive characters.** A character `χ ≠ 1` mod `q` is induced by its primitive character `χ*` mod the conductor `f | q` (Mathlib's `changeLevel_primitiveCharacter`), and `χ* ≠ 1`. Mathlib's `LFunction_changeLevel` gives `L(s, χ) = L(s, χ*)∏_{p | q}(1 − χ*(p)p^{−s})`. On `Re s = 1/2` each factor is at most `1 + p^{−1/2}`. That is at most `p^{ε/2}` when `(ε/2)log p ≥ 1`, and at most `2p^{ε/2}` otherwise; and `∏_{p | q} p ≤ q`. So the product is at most `2^{⌈e^{2/ε}⌉}q^{ε/2}`, and `f ≤ q`.
+- **The exponent.** `linnik_of_critBound` at `c = 5/24 + min(η, 1)/8 ≤ 1` and `η/2` gives `2 + 4c + η/2 ≤ 17/6 + η`.
+
+**Where it stands.** Round 519's plan is complete. Linnik's theorem with exponent `17/6 + η` is kernel-checked from the stack's half-plane `Eis.LFunction_ne_zero_of_re_gt` (round 495) and Mathlib, with no hypothesis and no input from outside the stack. Rounds 520, 521 and 522 give the exponents `12 + η`, `4 + η` and `17/6 + η`. Against the literature: `17/6 ≈ 2.83` is below Xylouris's `5 − ε` (2018) and Naslund's `3.99` (a preprint) because it uses the half-plane `Re s > 11/12`, which those results do not assume. From the same half-plane, Chen–Gupta–Li's Corollary 1.4 gives `7/3 + ε` (round 519), through a zero-density estimate that is not in the stack. What rounds 520–522 add is the kernel check. K4's Lindelöf bound for `L(s, χ)` is landed, uniformly in `q`; K4's Möbius bound is not.
+
+**The paper.** No paper surface is edited. `grep -n -i -E 'linnik|least prime|arithmetic progression'` over `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` finds no line. No file outside `tools/lean/riemann-pilot/` names the three files or their namespaces (`grep -rn -E 'LinnikFE|LinnikLindelof|LinnikSubconvex'` over the repository's `.md`, `.tex`, `.py`, `.sh` and `.json` files, less the lines under `tools/lean/riemann-pilot/`, prints nothing).
+
+**Records.**
+
+- `external/pnt/build.sh`: the three files in the compile list, and 13 lines in the final check (230 to 243 `#print axioms` lines).
+- `external/pnt/Subconvexity.lean`: `norm_Gamma_mul_le_of`, above, and its `#print axioms` line.
+- `external/pnt/README.md`: three new rows, a section, and a marker on the section of `Subconvexity.lean`.
+- STRUCTURAL-REVIEW: K2 (the exponent is `17/6 + η`); K2′ (`CharDensity (17/6 + 4ε) 10 C`, the instances, the literature bullet); K4 (the Lindelöf bound, and round 517's note on `L(1/2 + it, χ)`); the Lindelöf entry; the zero-density entry's paragraph on the characters mod `q`.
+- `frontier/linnik/ARGUMENT.md` §7: a marker.
+- This file: a marker on round 521's next step.
+
+**Builds.**
+
+- `external/pnt/build.sh` (949 s) compiled `Architect.lean`, the 19 PNT+ files and the 48 files here, and exited with code 0. The 48 print 177 axiom lines and the final check prints 243, each `[propext, Classical.choice, Quot.sound]`. None of the 48 prints a warning; the build's warnings, and the two uses of `sorry` in `Wiener.lean`, are in the vendored PNT+ files, which the build does not gate.
+- The four changed files also compile with `-DautoImplicit=false`, with no error or warning, so no name in their statements is an auto-bound variable.
+- `src/`, the dh layer and zeta23 were not rebuilt: no file in them changed, and no file in them imports the changed files.
+- The new namespaces are `LinnikFE`, `LinnikLindelof` and `LinnikSubconvex`. A grep of the `.lean` files of `src/`, `external/` (less the vendored `upstream/` trees) and Mathlib finds `namespace LinnikFE`, `namespace LinnikLindelof` and `namespace LinnikSubconvex` only in the three new files.
+
+**Check 4.**
+
+- **Classical [recalled, not read]:** the functional equation of a primitive Dirichlet `L`-function and `|ε(χ)| = 1`; Lindelöf-type bounds from a zero-free half-plane; convexity in the conductor and the height by Hadamard's three lines; the reduction of an imprimitive character to its primitive character through the Euler factors at the primes dividing `q`.
+- **ACKNOWLEDGED in the literature** (round 519's search): Linnik's exponent from the half-plane and a density estimate (Chen–Gupta–Li's Corollary 1.4, `7/3 + ε`); exponents without the half-plane (Xylouris `5 − ε`; Naslund `3.99`, a preprint).
+- **ACKNOWLEDGED in the pilot:** K2′ and round 519's plan (Phase C, and the instance `17/6`); K4 (the Lindelöf bound for every `L(s, χ)`, and round 517's note on `L(1/2 + it, χ)` for primitive `χ`).
+- **NOVEL against the pilot:** `|ε(χ)| = 1` and the functional equation of `L(s, χ)` on vertical lines; the Lindelöf bound for `L(s, χ)` uniform in `q`; `|L(1/2 + it, χ)| ≪ (q(|t| + 2))^{5/24+ε}` uniform in `q`; Linnik's exponent `17/6 + η` kernel-checked.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every `q ≥ 1` (`[NeZero q]`), every `χ ≠ 1` mod `q` and every real `t` in `critBoundχ`, and also every `σ ≥ σ₀` in `lindelof`; every `η > 0`, every `q ≥ 1` and every `a` prime to `q` in `linnik_seventeen_sixths`.
+- (b) No barrier claim is made.
+- (c) The criterion `linnik_of_critBound` is fed one signal, the bound on the critical line, now proved at `c = 5/24 + ε` from the half-plane. The bound is not equivalent to the conclusion.
+
+**Bearing on RH:** none. The route bounds `L(s, χ)` on the critical line from a zero-free half-plane and counts characters with zeros to the right of `σ`; it says nothing about zeros on the line.
+
+**The next step.** Round 519's plan is complete, and with it the owner's request; no next step is set. The register keeps K4's Möbius bound `Σ_{n≤x} μ(n)χ(n) = O(x^{11/12+η})`, whose Lindelöf input is now landed, and `CharDensity A` with `A < 17/6` (K2′), which would lower the exponent through `linnik_of_charDensity`.

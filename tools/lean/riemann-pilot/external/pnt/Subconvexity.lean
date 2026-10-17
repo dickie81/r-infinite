@@ -18,7 +18,8 @@ from round 466's half-plane: `|ζ(σ + it)| = O(|t|^{(11/12 − σ)/2 + ε})` on
   inequality for `log|Γ(x + it)|`, whose derivative `Re ψ(x + it)` is at most `log|x + it| + 4`
   (`Kaiser.digamma_re_le`, from Binet's formula).
 * `norm_Gamma_half_sq`: `|Γ(1/2 + it)|² = π/cosh(πt)`.
-* `norm_Gamma_mul_cos_le`: `|Γ(s)cos(πs/2)| ≤ 3(e⁴|s|)^{σ − 1/2}` on `Re s = σ ≥ 1/2`.
+* `norm_Gamma_mul_le_of`, `norm_Gamma_mul_cos_le`: `|Γ(s)w| ≤ 3(e⁴|s|)^{σ − 1/2}` on `Re s = σ ≥ 1/2` for every
+  `w` with `|w| ≤ e^{π|Im s|/2}`, such as `cos(πs/2)`.
 * `norm_zeta_one_sub_le`: `|ζ(1 − s)| ≤ 6(e⁴|s|)^{σ − 1/2}|ζ(s)|` for `1/2 ≤ σ < 1` (Mathlib's
   `riemannZeta_one_sub`).
 * `zeta_strip_of_zeroFree`: round 470's Lindelöf bound on `Re s = θ + δ`, carried to `Re s = 1 − θ − δ` by
@@ -270,18 +271,13 @@ theorem norm_cos_le_exp (z : ℂ) : ‖Complex.cos z‖ ≤ Real.exp |z.im| := b
       ≤ (‖Complex.exp (z * I)‖ + ‖Complex.exp (-z * I)‖) / 2 := by gcongr; exact norm_add_le _ _
     _ ≤ Real.exp |z.im| := by rw [e1, e2]; linarith
 
-/-- **The factor of the functional equation on a vertical line**:
-`|Γ(σ + it)cos(π(σ + it)/2)| ≤ 3(e⁴|σ + it|)^{σ − 1/2}` for `σ ≥ 1/2`. -/
-theorem norm_Gamma_mul_cos_le {σ : ℝ} (hσ : 1 / 2 ≤ σ) (t : ℝ) :
-    ‖Complex.Gamma (σ + t * I) * Complex.cos (Real.pi * (σ + t * I) / 2)‖ ≤
-      3 * (Real.exp 4 * ‖(σ : ℂ) + t * I‖) ^ (σ - 1 / 2) := by
+/-- **`Γ` times a factor of size at most `e^{π|t|/2}`**: for `σ ≥ 1/2` and `|w| ≤ e^{π|t|/2}`,
+`|Γ(σ + it)w| ≤ 3(e⁴|σ + it|)^{σ − 1/2}`, from `norm_Gamma_le_half` and `|Γ(1/2 + it)|² = π/cosh(πt)`. -/
+theorem norm_Gamma_mul_le_of {σ : ℝ} (hσ : 1 / 2 ≤ σ) (t : ℝ) {w : ℂ}
+    (hc : ‖w‖ ≤ Real.exp (Real.pi * |t| / 2)) :
+    ‖Complex.Gamma (σ + t * I) * w‖ ≤ 3 * (Real.exp 4 * ‖(σ : ℂ) + t * I‖) ^ (σ - 1 / 2) := by
   have hR : 0 ≤ (Real.exp 4 * ‖(σ : ℂ) + t * I‖) ^ (σ - 1 / 2) := Real.rpow_nonneg (by positivity) _
-  -- `|Γ(1/2 + it)| |cos(π(σ + it)/2)| ≤ 3`
-  have hc : ‖Complex.cos (Real.pi * (σ + t * I) / 2)‖ ≤ Real.exp (Real.pi * |t| / 2) := by
-    refine (norm_cos_le_exp _).trans (le_of_eq ?_)
-    congr 1
-    have : ((Real.pi : ℂ) * (σ + t * I) / 2).im = Real.pi * t / 2 := by simp
-    rw [this, abs_div, abs_mul, abs_of_pos Real.pi_pos, abs_two]
+  -- `|Γ(1/2 + it)| |w| ≤ 3`
   have hcosh : Real.exp (Real.pi * |t|) / 2 ≤ Real.cosh (Real.pi * t) := by
     rw [Real.cosh_eq]
     rcases le_total 0 t with ht | ht
@@ -301,33 +297,40 @@ theorem norm_Gamma_mul_cos_le {σ : ℝ} (hσ : 1 / 2 ≤ σ) (t : ℝ) :
       rw [show 2 * Real.pi * Real.exp (-(Real.pi * |t|)) * (Real.exp (Real.pi * |t|) / 2)
         = Real.pi * (Real.exp (Real.pi * |t|) * Real.exp (-(Real.pi * |t|))) by ring, he, mul_one]
     linarith
-  have hprod : ‖Complex.Gamma (1 / 2 + t * I)‖ * ‖Complex.cos (Real.pi * (σ + t * I) / 2)‖ ≤ 3 := by
-    have h0 : 0 ≤ ‖Complex.Gamma (1 / 2 + t * I)‖ * ‖Complex.cos (Real.pi * (σ + t * I) / 2)‖ :=
-      by positivity
-    have hsq2 : (‖Complex.Gamma (1 / 2 + t * I)‖ * ‖Complex.cos (Real.pi * (σ + t * I) / 2)‖) ^ 2 ≤ 9 := by
-      have hc2 : ‖Complex.cos (Real.pi * (σ + t * I) / 2)‖ ^ 2 ≤ Real.exp (Real.pi * |t|) := by
+  have hprod : ‖Complex.Gamma (1 / 2 + t * I)‖ * ‖w‖ ≤ 3 := by
+    have h0 : 0 ≤ ‖Complex.Gamma (1 / 2 + t * I)‖ * ‖w‖ := by positivity
+    have hsq2 : (‖Complex.Gamma (1 / 2 + t * I)‖ * ‖w‖) ^ 2 ≤ 9 := by
+      have hc2 : ‖w‖ ^ 2 ≤ Real.exp (Real.pi * |t|) := by
         have : Real.exp (Real.pi * |t| / 2) ^ 2 = Real.exp (Real.pi * |t|) := by
           rw [← Real.exp_nat_mul]; congr 1; push_cast; ring
         rw [← this]
         exact pow_le_pow_left₀ (norm_nonneg _) hc 2
       have he : Real.exp (-(Real.pi * |t|)) * Real.exp (Real.pi * |t|) = 1 := by
         rw [← Real.exp_add]; simp
-      calc (‖Complex.Gamma (1 / 2 + t * I)‖ * ‖Complex.cos (Real.pi * (σ + t * I) / 2)‖) ^ 2
-          = ‖Complex.Gamma (1 / 2 + t * I)‖ ^ 2 * ‖Complex.cos (Real.pi * (σ + t * I) / 2)‖ ^ 2 := by
-            ring
+      calc (‖Complex.Gamma (1 / 2 + t * I)‖ * ‖w‖) ^ 2
+          = ‖Complex.Gamma (1 / 2 + t * I)‖ ^ 2 * ‖w‖ ^ 2 := by ring
         _ ≤ 2 * Real.pi * Real.exp (-(Real.pi * |t|)) * Real.exp (Real.pi * |t|) := by
             gcongr
         _ = 2 * Real.pi := by rw [mul_assoc, he, mul_one]
         _ ≤ 9 := by linarith [Real.pi_lt_d2]
     nlinarith
   rw [norm_mul]
-  calc ‖Complex.Gamma (σ + t * I)‖ * ‖Complex.cos (Real.pi * (σ + t * I) / 2)‖
-      ≤ ‖Complex.Gamma (1 / 2 + t * I)‖ * (Real.exp 4 * ‖(σ : ℂ) + t * I‖) ^ (σ - 1 / 2) *
-          ‖Complex.cos (Real.pi * (σ + t * I) / 2)‖ := by
+  calc ‖Complex.Gamma (σ + t * I)‖ * ‖w‖
+      ≤ ‖Complex.Gamma (1 / 2 + t * I)‖ * (Real.exp 4 * ‖(σ : ℂ) + t * I‖) ^ (σ - 1 / 2) * ‖w‖ := by
         gcongr; exact norm_Gamma_le_half hσ t
-    _ = (‖Complex.Gamma (1 / 2 + t * I)‖ * ‖Complex.cos (Real.pi * (σ + t * I) / 2)‖) *
-          (Real.exp 4 * ‖(σ : ℂ) + t * I‖) ^ (σ - 1 / 2) := by ring
+    _ = (‖Complex.Gamma (1 / 2 + t * I)‖ * ‖w‖) * (Real.exp 4 * ‖(σ : ℂ) + t * I‖) ^ (σ - 1 / 2) := by
+        ring
     _ ≤ 3 * (Real.exp 4 * ‖(σ : ℂ) + t * I‖) ^ (σ - 1 / 2) := by gcongr
+
+/-- **The factor of the functional equation on a vertical line**:
+`|Γ(σ + it)cos(π(σ + it)/2)| ≤ 3(e⁴|σ + it|)^{σ − 1/2}` for `σ ≥ 1/2`. -/
+theorem norm_Gamma_mul_cos_le {σ : ℝ} (hσ : 1 / 2 ≤ σ) (t : ℝ) :
+    ‖Complex.Gamma (σ + t * I) * Complex.cos (Real.pi * (σ + t * I) / 2)‖ ≤
+      3 * (Real.exp 4 * ‖(σ : ℂ) + t * I‖) ^ (σ - 1 / 2) := by
+  refine norm_Gamma_mul_le_of hσ t ((norm_cos_le_exp _).trans (le_of_eq ?_))
+  congr 1
+  have : ((Real.pi : ℂ) * (σ + t * I) / 2).im = Real.pi * t / 2 := by simp
+  rw [this, abs_div, abs_mul, abs_of_pos Real.pi_pos, abs_two]
 
 /-- **The left line from the right one**: for `1/2 ≤ σ < 1`,
 `|ζ(1 − σ − it)| ≤ 6(e⁴|σ + it|)^{σ − 1/2}|ζ(σ + it)|` (Mathlib's functional equation `riemannZeta_one_sub`,
@@ -581,6 +584,7 @@ end Subconvexity
 #print axioms Subconvexity.norm_le_interp_strip
 #print axioms Subconvexity.norm_Gamma_le_half
 #print axioms Subconvexity.norm_Gamma_half_sq
+#print axioms Subconvexity.norm_Gamma_mul_le_of
 #print axioms Subconvexity.norm_Gamma_mul_cos_le
 #print axioms Subconvexity.norm_zeta_one_sub_le
 #print axioms Subconvexity.zeta_strip_of_zeroFree
