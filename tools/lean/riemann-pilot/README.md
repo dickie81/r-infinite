@@ -21361,4 +21361,36 @@ Nothing is started.
 
 **Bearing on RH:** none.
 
-**The next step.** The inverse form, now aimed at the observed mechanism: show that a large third moment forces `|R|` to be large on many small-height rationals. Nothing is started.
+**The next step.** The inverse form, now aimed at the observed mechanism: show that a large third moment forces `|R|` to be large on many small-height rationals. Nothing is started. *(Round 534: the mechanism is identified: smooth numbers at a Farey point `q/d`, and a character set graded by the characters of `(Z/d)^*` that behaves as a multiplicative Bohr set. README round 534.)*
+
+## Round 534: smooth numbers at a Farey point (`frontier/linnik/farey_probe.py`; SEVEN-THIRDS.md §14)
+
+**What it is.** The owner asked to keep researching. `farey_probe.py` is new. It identifies round 533's configurations at `q = 10007`, `100003` and `1000003`. SEVEN-THIRDS.md §14 records it. No Lean changed, and no paper surface is edited.
+
+- **A Farey point.** The leading rationals `m/m′` of round 533 all have `m ≡ m′ (mod d)`, with `d = 5`, `9` and `14`. The point `q/d` is the point `q/d′` nearest the centre `3N/2` of the weight.
+- **Smooth numbers.** Put `r = dn − q`, so that `n ≡ r/d (mod q)`. At least `90%` of the singular vector's mass lies on the `n` whose `r` is `11`-, `17`- and `29`-smooth. Those are `6.7%`, `2.8%` and `1.0%` of `[N, 2N]`, and on the main support the vector has one phase. At `q = 10007` the eight heaviest points have `r = −72, 168, −252, 48, −42, 288, 108, −112`.
+- **A grading.** Label each character of `W` by the character of `(Z/d)^*` it most resembles on the integers up to `M`. The labels split `W` evenly, match `χ(−1)` on all of `W`, and add on at least `99.989%` of the additive quadruples of `W`; a random `W` gives `24%` to `48%`. Primes between `M` and the smoothness bound, which the labels do not use, agree with them (mean `Re χ(p)ψ(p)` of `0.20` to `0.39`, against `0.03` or less for a random `W`).
+- **An explicit set.** The indicator of the smooth `r`, with no search, gives a character set with `0.97` of the search's concentration at all three `q`.
+- **Why.** If `dn = q + r`, then `χ(n) = χ̄(d)χ(r)`. So on smooth `r` the transform depends on `χ` only through `θ(χ) = (χ(−1); χ(p) : p ≤ y, p ∤ d)`, a point of a torus of dimension `k`. Its largest values sit at the points `θ(ψ)` of the characters `ψ` mod `d`, because `ψ(r) = ψ(−q)` on the support. These points form a group, and `k ↦ θ(χ_k)` is a homomorphism, which gives the grading.
+- **Energy.** Every `W` inside `W_U = {k : θ(χ_k) ∈ Θ_d + U}` has `E(W) ≥ |W|⁴/|W_{U+U}|`, by Cauchy–Schwarz and `W_U + W_U ⊂ W_{U+U}`. So doubling `K ≤ q^{2/9}` gives `E(W) ≥ |W|^{8/3}`. The sets found have `k = 4`, `6` and `8` and `(E(W)/|W|³)^{1/k} = 0.730`, `0.728` and `0.735`.
+- **Reading.** `E(W)/|W|³ = c^γ` with `γ = 2.67`, `2.37` and `2.22`. If `γ ≤ 3` held at large `q`, a concentration `q^{−η}` with `η < 2/9` would give energy above the inverse form's level. That is a heuristic for this family. It does not link concentration to `S₃`, and it proves nothing about other sets.
+
+**What is checked.** `python3 frontier/linnik/farey_probe.py` exits 0 in about a minute. (P1)–(P6) pass, and the mutation (the labels permuted at random over `W`, giving shares of `0.17` to `0.26`) is caught. The identity `χ(n) = χ̄(d)χ(r)` and the energy bound are written out in §14: the first is `χ(dn) = χ(q + r)`, the second is Cauchy–Schwarz. The count of `28,401,984` additive quadruples at `q = 10007`, all labelled additively, is a scratch run and is not in the gate.
+
+**Records.**
+
+- SEVEN-THIRDS.md §14.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+- README round 533: a marker on its next step.
+
+**Check 4.** NOVEL against the pilot: the Farey point, the smooth support, the grading, the explicit set, and the energy bound for sets in a multiplicative Bohr set.
+
+**Check 9.**
+
+- (a) The measurements are of the sets one search method finds, and of one explicit family, at three values of `q`. The energy bound holds for every `W ⊂ W_U`. The reading is a heuristic for this family.
+- (b) The register entry gets a marker; its target is unchanged.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Test the explicit family at larger `q`. It needs no search, only one transform and a power iteration, so `q` near `10⁷` is within reach. Measure how the rank `k`, the concentration, `γ` and `S₃` move with `q`. Then attempt the inverse theorem: a large third moment forces correlation with a multiplicative Bohr set of doubling at most `q^{2/9}`. Nothing is started.
