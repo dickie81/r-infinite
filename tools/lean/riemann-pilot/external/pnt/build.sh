@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity LinnikChar LinnikDeduction; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity LinnikChar LinnikDeduction LinnikHybrid LinnikDetect LinnikDensity LinnikHalf; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -106,6 +106,10 @@ import InghamDetect
 import InghamDensity
 import LinnikChar
 import LinnikDeduction
+import LinnikHybrid
+import LinnikDetect
+import LinnikDensity
+import LinnikHalf
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -318,6 +322,24 @@ import LinnikDeduction
 #print axioms Linnik.linnik_of_charDensity
 #print axioms Linnik.charDensity_twelve
 #print axioms Linnik.linnik_twelve
+#print axioms LinnikHybrid.mean_value_row
+#print axioms LinnikHybrid.sum_chars_norm_sq_le
+#print axioms LinnikHybrid.mean_value_chars
+#print axioms LinnikHybrid.large_values_chars
+#print axioms LinnikHybrid.large_values_chars_off
+#print axioms LinnikDetect.LSeries_aXχ
+#print axioms LinnikDetect.detect_identityχ
+#print axioms LinnikDetect.dichotomy
+#print axioms LinnikDensity.class1_count
+#print axioms LinnikDensity.class2_count
+#print axioms LinnikDensity.count_nontrivial
+#print axioms LinnikDensity.charDensity_of_LBound
+#print axioms LinnikDensity.charDensity_of_critBound
+#print axioms LinnikDensity.linnik_of_critBound
+#print axioms LinnikDensity.LFunction_split
+#print axioms LinnikDensity.norm_LFunction_half_le
+#print axioms LinnikDensity.critBoundχ_half
+#print axioms LinnikDensity.linnik_four
 EOT
 echo "== axioms"
 # every #print axioms line must print an axiom list inside the three, and no axiom line may name another axiom

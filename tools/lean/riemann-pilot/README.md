@@ -20614,4 +20614,87 @@ The changed files.
 
 **Bearing on RH:** none. The argument uses a zero-free half-plane and a count of characters with zeros to the right of `σ`, and says nothing about the critical line.
 
-**The next step.** Phase B: `CharDensity (2 + 4c + ε)` from a bound `|L(1/2 + it, χ)| ≪ (q(|t| + 2))^c` uniform in `q`, by round 518's detection and large-values route run over the characters mod `q` (round 519's plan).
+**The next step.** Phase B: `CharDensity (2 + 4c + ε)` from a bound `|L(1/2 + it, χ)| ≪ (q(|t| + 2))^c` uniform in `q`, by round 518's detection and large-values route run over the characters mod `q` (round 519's plan). *(Round 521: landed, `LinnikDensity.charDensity_of_LBound`, with no `ε` in the exponent, and its instance `c = 1/2`, Linnik's exponent `4 + η`; see round 521.)*
+
+## Round 521: density over the characters mod `q` from a bound on the critical line, and Linnik's exponent `4 + η` with no hypothesis (`external/pnt/LinnikHybrid.lean`, `external/pnt/LinnikDetect.lean`, `external/pnt/LinnikDensity.lean`, `external/pnt/LinnikHalf.lean`)
+
+**What it is.** Round 520's next step read: "Phase B: `CharDensity (2 + 4c + ε)` from a bound `|L(1/2 + it, χ)| ≪ (q(|t| + 2))^c` uniform in `q`, by round 518's detection and large-values route run over the characters mod `q` (round 519's plan)." The owner's request is unchanged: "Proceed with the full lean formalisation for 17/6". This round lands Phase B, with no `ε` in the exponent, and its instance at `c = 1/2`:
+
+- `LinnikDensity.charDensity_of_LBound`: let `0 < c ≤ 1` and `C_L` be such that `|L(1/2 + it, χ)| ≤ C_L(q(|t| + 2))^c` for every modulus `q ≥ 1`, every Dirichlet character `χ ≠ 1` mod `q` and every real `t`. Then `CharDensity (2 + 4c) 10 C` (round 520's definition) with `C = CD(max(C_L, 1), c/(1 + 2c))`, a closed form.
+- `LinnikDensity.linnik_of_critBound`: under the same hypothesis (`CritBoundχ c`), for every `η > 0` there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K q^{2+4c+η}`.
+- `LinnikDensity.norm_LFunction_half_le`: `|L(1/2 + it, χ)| ≤ 11(q(|t| + 2))^{1/2}` for every `χ ≠ 1` mod `q ≥ 1` and every real `t`, by partial summation. So `CritBoundχ (1/2)` holds (`critBoundχ_half`), and `LinnikDensity.linnik_four` is Linnik's theorem with exponent `4 + η` and no hypothesis.
+
+Phase C, the bound at `c = 5/24 + ε` uniformly in `q`, is not landed, so the `17/6 + η` row is not proved.
+
+**What is proved** (four files, 2213 lines, 69 theorems and 13 definitions; each of their 18 axiom lines, and each of the 18 lines this round adds to `build.sh`'s final check, is `[propext, Classical.choice, Quot.sound]`).
+
+Part 1, `LinnikHybrid.lean` (529 lines). For `S ⊆ (P, 2P]`, `c_j ∈ ℂ` and `q ≥ 1`, write `D_χ(t) = Σ_{j∈S} c_jχ(j)j^{−it}`.
+
+- **`mean_value_row`**: if `Σ_{j′∈S, j′≠j} 1/|j − j′| ≤ K` for every `j ∈ S`, then `∫_a^b |Σ_{j∈S} c_j j^{−it}|² dt ≤ (b − a + 4PK)Σ|c_j|²` for `a ≤ b`.
+- **`row_sum_class`**: within one residue class mod `q`, the row sums are at most `(2/q)(1 + log P)`.
+- **`sum_chars_norm_sq_le`**: `Σ_χ |Σ_a χ(a)D_a|² ≤ φ(q)Σ_a |D_a|²`, the sum over all Dirichlet characters mod `q`.
+- **`mean_value_chars`**: `Σ_χ ∫_a^b |D_χ(t)|² dt ≤ (q(b − a) + 8P(1 + log P))Σ|c_j|²`.
+- **`large_values_chars`**: for a set `R` of characters and one point `x_χ ∈ [lo + 1/2, hi − 1/2]` for each, `Σ_{χ∈R} |D_χ(x_χ)|² ≤ (q(hi − lo) + 8P(1 + log P))(2 + log²(2P))Σ|c_j|²`. No condition relates the points of different characters.
+- **`large_values_chars_off`**: with coefficients `a_jχ(j)j^{−β_χ}` and `σ ≤ β_χ ≤ σ + 1/2`, the same bound with a factor `e` and `Σ|a_j|²j^{−2σ}` on the right.
+
+Part 2, `LinnikDetect.lean` (553 lines). Let `χ ≠ 1` be a Dirichlet character mod `q`, `ρ = β + iγ` a zero of `L(·, χ)` with `1/2 < β < 1`, `M_X(s, χ) = Σ_{m≤X} μ(m)χ(m)m^{−s}` and `a_n = Σ_{d | n, d ≤ X} μ(d)`.
+
+- **`LSeries_aXχ`**: `M_X(s, χ)L(s, χ) = Σ_n a_nχ(n)n^{−s}` on `Re s > 1`.
+- **`detect_identityχ`**: for `Y ≥ 1`, `Σ_n a_nχ(n)n^{−ρ}e^{−n/Y} = (1/2π) ∫ G_χ(1/2 − β + iv) dv`, with `G_χ(w) = M_X(ρ + w, χ)(L(ρ + w, χ)/w)Γ(w + 1)Y^w`.
+- **`dichotomy`**: for `X, N ≥ 1`, `Y ≥ 8` and `XN ≥ 22Y log Y`, either `|P_χ(ρ)| ≥ 1/4`, where `P_χ(ρ) = Σ_{X<j≤XN} a_j e^{−j/Y}χ(j)j^{−ρ}`, or the right side `I_χ(ρ)` of the identity has `|I_χ(ρ)| ≥ 1/4`.
+
+Part 3, `LinnikDensity.lean` (800 lines).
+
+- **`class1_count`**: let `1/2 ≤ σ ≤ 1`, `T ≥ 0`, `q(2T + 1) ≤ 2Q`, `X, N ≥ 1`, `Y > 0` and `c₁ > 0`, and let each character `χ` of a set `R` have a point `|x_χ| ≤ T` and a weight `σ ≤ β_χ ≤ σ + 1/2` with `|P_χ(β_χ + ix_χ)| ≥ c₁`. Then `|R| ≤ K³/c₁²·32e(1 + log 2XN)⁶(Q X^{1−2σ} + (XN)^{2−2σ})`, `K = ⌊log₂ N⌋ + 1`.
+- **`class2_count`**: let `0 ≤ c ≤ 1`, `C_L ≥ 1` with the bound on the critical line for the characters `χ ≠ 1` mod `q`, `σ ≥ 1/2 + δ`, `T ≥ 0`, `q(T + 2) ≤ Q` and `Y ≥ 1`, and let each `χ` of a set `R` be nontrivial with a zero `β_χ + iγ_χ`, `σ ≤ β_χ < 1`, `|γ_χ| ≤ T`, at which `|I_χ| ≥ 1/4`. Then `|R| ≤ 4A²MV(X)(q(T + 1) + X)`, with `A = KG C_L Q^c Y^{1/2−σ}/δ` and round 518's `MV`.
+- **`count_nontrivial`**: for `σ ≥ 1/2 + δ`, `T ≥ 2` and `Q ≥ q(T + 6)`, the characters `χ ≠ 1` mod `q` with a zero of `L(·, χ)` in `Re s ≥ σ`, `|Im s| ≤ T` number at most the sum of the two bounds at `X = ⌊Q⌋`, `Y = Q^{1+2c}`, `N = ⌊22Y log Y/X⌋ + 1`.
+- **`charDensity_of_LBound`**, **`charDensity_of_critBound`**, **`linnik_of_critBound`**: as above. `CritBoundχ c` is the definition `∃ C, ∀ q ≥ 1, ∀ χ ≠ 1 mod q, ∀ t, |L(1/2 + it, χ)| ≤ C(q(|t| + 2))^c`.
+
+Part 4, `LinnikHalf.lean` (331 lines).
+
+- **`LFunction_split`**: for `χ ≠ 1`, `M ≥ 0` and `Re s > 0`, `L(s, χ) = Σ_{n≤M} χ(n)n^{−s} + s J_M(s)`, with `J_M(s) = ∫_1^∞ (Σ_{M<k≤t} χ(k))t^{−s−1} dt`; for `M ≥ 1`, `|J_M(s)| ≤ 2(q + 1)M^{−Re s}/Re s` (`norm_Jf_le` with `norm_sum_cT_le`).
+- **`norm_LFunction_half_le`**, **`critBoundχ_half`**, **`linnik_four`**: as above.
+
+**The proof.**
+
+- **The family.** Round 518's count for `ζ` takes representatives in unit windows of ordinates two apart, so that the points are `1` apart, and bounds the zeros in one window (`ZeroLocal.card_local_le`). Over the characters mod `q` the count takes one zero for each character, and the points of different characters need no separation. Orthogonality splits `Σ_χ |D_χ|²` over the residue classes mod `q` (`sum_chars_norm_sq_le`, `dp_twist_eq`), and within one class the frequencies `log j` are at least `q/(2P)` apart (`row_sum_class`), so the mean value over the family is `(q(b − a) + 8P(1 + log P))Σ|c_j|²` (`mean_value_chars`). Gallagher's inequality on the unit interval about each point (`DirMean.gallagher_one`) gives the large values at one point per character, and the Taylor bound `DirMean.dp_off_le` the weights `j^{−β_χ}`.
+- **Detection.** As for `ζ`, with the twist: Perron's formula for `e^{−n/Y}` (round 520's `Linnik.perron_exp`) gives the series as an integral on `Re w = 2`, and the line moves to `Re(ρ + w) = 1/2` (`SmoothPerron.verticalIntegral_shift`). At the zero `ρ`, `L(ρ + w, χ)/w` is entire, and `L(·, χ)` has no pole for `χ ≠ 1`, so no residue arises and round 518's third class does not occur. The series is `e^{−1/Y} + P_χ(ρ)` plus its terms beyond `XN`, which are at most `1/16` (`tailχ_le`).
+- **The two classes.** The polynomial class costs `(log Q)¹⁰Q^{(2+4c)(1−σ)}`, through the dyadic blocks of `P_χ`, `large_values_chars_off` at `lo, hi = ∓(T + 1/2)` and round 518's `block_mass_le_b` (`bound_class1`). The integral class costs `6400(KG C_L/δ)²(log Q)⁵Q^{(2+4c)(1−σ)}` (`bound_class2`): on the line, `|G_χ(w)|(1 + |v|)³ ≤ A|M_X(1/2 + i(γ + v), χ)|` (`Gχ_left_le`); `m ≤ λ/2 + m²/(2λ)` at `λ = 1/(2A)`; the mean value of `M_X` at one point per character (`mean_value_mollχ`, with at most `φ(q) ≤ q` characters, `card_chars_le`, for the term `m = 1`); and `A² = (KG C_L/δ)²Q^{(2+4c)(1−σ)−1}` exactly at `Y = Q^{1+2c}` (`sq_Aχ`).
+- **Small `σ` and the trivial character.** Below `σ = 1/2 + c/(1 + 2c)` the exponent `(2 + 4c)(1 − σ)` is at least `1`, and at most `q ≤ qT` characters are counted. Above it the trivial character adds `1`, and `Q = q(T + 6) ≤ 4qT` with `log Q ≤ 3 log qT`.
+- **The bound on the critical line.** Mathlib's `LSeries_eq_mul_integral`, applied to the tail `χ(n)1_{n>M}` (`cT`), gives `L(s, χ) − Σ_{n≤M} χ(n)n^{−s} = s J_M(s)` on `Re s > 1` (`LSeries_cT`, `LSeries_eq_Jf`). The right side is a Mellin transform, holomorphic on `Re s > 0` (`Jf_differentiableAt`, as round 254's `PsiOmega.IχC_differentiableAt`), and `LandauLaplace.eqOn_convex` continues the identity. The tail's partial sums are at most `2(q + 1)` (round 254's `PsiOmega.norm_summC_le`, twice) and vanish up to `M`, so `|J_M(s)| ≤ 2(q + 1)M^{−Re s}/Re s`. At `Re s = 1/2` and `M = ⌈q(|t| + 2)⌉`, `|Σ_{n≤M} χ(n)n^{−s}| ≤ 2√M ≤ 3(q(|t| + 2))^{1/2}` (`sum_rpow_neg_half_le`) and `|s J_M(s)| ≤ 8(q(|t| + 2))^{1/2}`.
+
+**Where it stands.** Phase B is kernel-checked: a critical-line bound `|L(1/2 + it, χ)| ≤ C_L(q(|t| + 2))^c` uniform in `q` gives `CharDensity (2 + 4c) 10 C` and Linnik's exponent `2 + 4c + η`. The landed instance is `c = 1/2`, with exponent `4 + η` and no hypothesis; round 520's was `12 + η`. Phase C would give `c = 5/24 + ε` uniformly in `q` and so `17/6 + η`: a Lindelöf bound for `L(s, χ)` on `Re s > 11/12` uniform in `q`, the functional equation for primitive characters, interpolation between the two half-planes, and the imprimitive characters through their primitive ones. It is not landed. Against the literature: `4 + η` is below Xylouris's `5 − ε` (2018) because it uses the stack's half-plane `Eis.LFunction_ne_zero_of_re_gt` (rounds 492–495), from which Chen–Gupta–Li's Corollary 1.4 already gives `7/3 + ε` (round 519). What this round adds is the kernel check, with no input from outside the stack.
+
+**The paper.** No paper surface is edited. `grep -n -i -E 'linnik|least prime|arithmetic progression'` over `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` finds no line. No file outside `tools/lean/riemann-pilot/` names the four files or their namespaces (`grep -rn -E 'LinnikHybrid|LinnikDetect|LinnikDensity|LinnikHalf'` over the repository's `.md`, `.tex`, `.py`, `.sh` and `.json` files, less the lines under `tools/lean/riemann-pilot/`, prints nothing).
+
+**Records.**
+
+- `external/pnt/build.sh`: the four files in the compile list, and 18 lines in the final check (212 to 230 `#print axioms` lines).
+- `external/pnt/README.md`: four new rows and a section.
+- STRUCTURAL-REVIEW: K2 (the exponent is `4 + η`); K2′ (`CharDensity` at `A = 2 + 4c` from the critical-line bound, landed at `c = 1/2`; the instances; the literature bullet); the zero-density entry's paragraph on the characters mod `q`.
+- `frontier/linnik/ARGUMENT.md` §7: a marker.
+- This file: a marker on round 520's next step.
+
+**Builds.**
+
+- `external/pnt/build.sh` (887 s) compiled `Architect.lean`, the 19 PNT+ files and the 45 files here, and exited with code 0. The 45 print 163 axiom lines and the final check prints 230, each `[propext, Classical.choice, Quot.sound]`. None of the 45 prints a warning; the build's warnings, and the two uses of `sorry` in `Wiener.lean`, are in the vendored PNT+ files, which the build does not gate.
+- The six files of rounds 520 and 521 (`LinnikChar.lean`, `LinnikDeduction.lean` and the four new files) also compile with `-DautoImplicit=false`, with no error or warning, so no name in their statements is an auto-bound variable.
+- `src/`, the dh layer and zeta23 were not rebuilt: no file in them changed, and no file imports the new files.
+- The new namespaces are `LinnikHybrid`, `LinnikDetect` and `LinnikDensity`. A grep of the `.lean` files of `src/`, `external/` (less the vendored `upstream/` trees) and Mathlib finds `namespace LinnikHybrid`, `namespace LinnikDetect` and `namespace LinnikDensity` only in the four new files.
+
+**Check 4.**
+
+- **Classical [recalled, not read]:** the hybrid large sieve over the characters mod `q` and `t` (Gallagher, 1970); detection of zeros by a mollified Dirichlet polynomial (Montgomery, 1969); the bound `L(1/2 + it, χ) ≪ (q(|t| + 2))^{1/2}` by partial summation; round 518's route, which is Ingham's `A = 2 + 4c` by large values in place of Littlewood's lemma.
+- **ACKNOWLEDGED in the literature** (round 519's search): Linnik's exponent from the half-plane and a density estimate (Chen–Gupta–Li's Corollary 1.4, `7/3 + ε`); exponents without the half-plane (Xylouris `5 − ε`; Naslund `3.99`, a preprint).
+- **ACKNOWLEDGED in the pilot:** K2′ and round 519's plan (Phase B, and the instance `4` at `c = 1/2`).
+- **NOVEL against the pilot:** the hybrid mean value and large values over the characters mod `q`; zero detection for `L(s, χ)`; `CharDensity (2 + 4c) 10 C` from the critical-line bound, kernel-checked with an explicit `C`; Linnik's exponent `4 + η` kernel-checked.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every `q ≥ 1` (`[NeZero q]`), every `χ ≠ 1` mod `q` and every real `t` in `CritBoundχ c`; every `η > 0`, every `q ≥ 1` and every `a` prime to `q` in `linnik_four`.
+- (b) No barrier claim is made.
+- (c) The criterion `charDensity_of_LBound` is fed one signal, the bound on the critical line, proved at `c = 1/2` by partial summation and not proved below it; `linnik_of_charDensity` is fed `CharDensity` and the half-plane. None is equivalent to its conclusion.
+
+**Bearing on RH:** none. The route bounds `L(s, χ)` on the critical line and counts characters with zeros to the right of `σ`; it says nothing about zeros on the line.
+
+**The next step.** Phase C: `|L(1/2 + it, χ)| ≪ (q(|t| + 2))^{5/24+ε}` uniformly in `q`, from the half-plane, and with `linnik_of_critBound` the exponent `17/6 + η` (round 519's plan).
