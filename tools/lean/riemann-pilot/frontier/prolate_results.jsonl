@@ -1,0 +1,32 @@
+{"symbol": "prolate", "delta": 0.6, "q": [0.0, 143.8, 16.15, -374.2, 2536.0], "rel_residual": 0.004090533794716252, "offdiag": 0.0005074908950738808, "overlap": 0.9999999823727472, "with_L_eigenvector": 0}
+{"symbol": "prolate", "delta": 1.0, "q": [0.0, 143.9, 4.041, -32.35, 76.53], "rel_residual": 0.002741882988569256, "offdiag": 0.0006454325336957611, "overlap": 0.9999999969885005, "with_L_eigenvector": 0}
+{"symbol": "prolate", "delta": 1.6, "q": [0.0, 143.9, 0.9307, -2.674, 2.31], "rel_residual": 0.0020822278964592244, "offdiag": 0.0009314831376281896, "overlap": 0.9999999995075484, "with_L_eigenvector": 0}
+{"symbol": "prolate", "delta": 2.0, "q": [0.0, 143.9, 0.8133, -1.508, 0.843], "rel_residual": 0.0018028604851850136, "offdiag": 0.001231007789612205, "overlap": 0.9999999975967035, "with_L_eigenvector": 0}
+{"symbol": "log", "delta": 0.6, "q": [0.0, -964.0, 105800.0, -2295000.0, 16430000.0], "rel_residual": 0.9616685216085302, "offdiag": 0.4299262043940412, "overlap": 0.8948870400547779, "with_L_eigenvector": 0}
+{"symbol": "log", "delta": 1.0, "q": [0.0, -333.6, 14520.0, -112000.0, 287100.0], "rel_residual": 0.9578271423317465, "offdiag": 0.4330840738561089, "overlap": 0.8853223060848725, "with_L_eigenvector": 0}
+{"symbol": "log", "delta": 1.6, "q": [0.0, -120.3, 2375.0, -7046.0, 7006.0], "rel_residual": 0.9528643741975819, "offdiag": 0.4366025844211746, "overlap": 0.8737764297947035, "with_L_eigenvector": 0}
+{"symbol": "log", "delta": 2.0, "q": [0.0, -72.01, 1012.0, -1905.0, 1207.0], "rel_residual": 0.9498892066344482, "offdiag": 0.438557162595031, "overlap": 0.8672415478038499, "with_L_eigenvector": 0}
+{"symbol": "abs", "delta": 0.6, "q": [0.0, 71.19, 1982000.0, -40020000.0, 249600000.0], "rel_residual": 0.612524069164087, "offdiag": 0.8495609476233574, "overlap": 0.697153867923785, "with_L_eigenvector": 0}
+{"symbol": "abs", "delta": 1.0, "q": [0.0, -371.6, 266200.0, -1934000.0, 4344000.0], "rel_residual": 0.610639672595772, "offdiag": 0.8518962519777591, "overlap": 0.6999628509820285, "with_L_eigenvector": 0}
+{"symbol": "abs", "delta": 1.6, "q": [0.0, -289.0, 41920.0, -119000.0, 104400.0], "rel_residual": 0.6089012137095626, "offdiag": 0.8538303890835073, "overlap": 0.702599255680767, "with_L_eigenvector": 0}
+{"symbol": "abs", "delta": 2.0, "q": [0.0, -228.7, 17420.0, -31660.0, 17780.0], "rel_residual": 0.6080720866668228, "offdiag": 0.8546869096529741, "overlap": 0.7038626369726451, "with_L_eigenvector": 0}
+{"symbol": "arch_nopole", "delta": 0.6, "q": [0.0, -988.2, 88480.0, -1986000.0, 14320000.0], "rel_residual": 0.9726682269801512, "offdiag": 0.4211324973649242, "overlap": 0.9247169674858253, "with_L_eigenvector": 0}
+{"symbol": "arch_nopole", "delta": 1.0, "q": [0.0, -353.6, 11190.0, -90720.0, 235400.0], "rel_residual": 0.9739714912389938, "offdiag": 0.41995994592843283, "overlap": 0.9290057809145429, "with_L_eigenvector": 0}
+{"symbol": "arch_nopole", "delta": 1.6, "q": [0.0, -136.5, 1652.0, -5257.0, 5331.0], "rel_residual": 0.9754583643075359, "offdiag": 0.41762952707765827, "overlap": 0.9349918347677137, "with_L_eigenvector": 0}
+{"symbol": "arch_nopole", "delta": 2.0, "q": [0.0, -86.48, 664.1, -1356.0, 880.2], "rel_residual": 0.9761778418789434, "offdiag": 0.415863711590431, "overlap": 0.938564417897866, "with_L_eigenvector": 0}
+{"symbol": "arch", "delta": 0.6, "q": [0.0, -433.5, 145200.0, -2833000.0, 19050000.0], "rel_residual": 0.9330510769208302, "offdiag": 0.4226865290104203, "overlap": 0.8994566035550227, "with_L_eigenvector": 0}
+{"symbol": "arch", "delta": 1.0, "q": [0.0, -582.7, 23780.0, -153300.0, 358600.0], "rel_residual": 0.9274943204112541, "offdiag": 0.42214667501606173, "overlap": 0.9800197321217109, "with_L_eigenvector": 0}
+{"symbol": "arch", "delta": 1.6, "q": [0.0, -254.9, 2342.0, -7683.0, 8142.0], "rel_residual": 0.9685509580336134, "offdiag": 0.5223714262995665, "overlap": 0.908136020458521, "with_L_eigenvector": 1}
+{"symbol": "arch", "delta": 2.0, "q": [0.0, -149.6, 994.0, -2078.0, 1323.0], "rel_residual": 0.9827226587017407, "offdiag": 0.5769075162504491, "overlap": 0.9388605562882238, "with_L_eigenvector": 1}
+{"symbol": "zeta", "delta": 0.6, "q": [0.0, -433.5, 145200.0, -2833000.0, 19050000.0], "rel_residual": 0.9330510769208302, "offdiag": 0.4226865290104203, "overlap": 0.8994566035550227, "with_L_eigenvector": 0}
+{"symbol": "zeta", "delta": 1.0, "q": [0.0, -11670.0, 230500.0, -1045000.0, 1750000.0], "rel_residual": 0.6879241290113038, "offdiag": 0.5650904643863627, "overlap": 0.8132174650922315, "with_L_eigenvector": 0}
+{"symbol": "zeta", "delta": 1.6, "q": [0.0, 2360.0, 19290.0, -51670.0, 42110.0], "rel_residual": 0.6399723549083306, "offdiag": 0.6963227131326454, "overlap": 0.9312774139320411, "with_L_eigenvector": 0}
+{"symbol": "zeta", "delta": 2.0, "q": [0.0, -34.37, 12350.0, -17530.0, 8289.0], "rel_residual": 0.6212289611909887, "offdiag": 0.7587867263756151, "overlap": 0.653727790316571, "with_L_eigenvector": 0}
+{"symbol": "prolate", "delta": 1.0, "rel_residual": 0.0024246819783649743, "offdiag": 0.0006134229836806398, "overlap": 0.9999999896715006}
+{"symbol": "prolate", "delta": 2.0, "rel_residual": 0.001529805920694067, "offdiag": 0.0011709926462440533, "overlap": 0.999999947316566}
+{"symbol": "log", "delta": 1.0, "rel_residual": 0.88083013043558, "offdiag": 0.42126259191949555, "overlap": 0.8102160296007849}
+{"symbol": "log", "delta": 2.0, "rel_residual": 0.8741447726025089, "offdiag": 0.4240118174997275, "overlap": 0.7898406973789788}
+{"symbol": "arch_nopole", "delta": 1.0, "rel_residual": 0.8939386470027213, "offdiag": 0.4219527979059285, "overlap": 0.8645123284710722}
+{"symbol": "arch_nopole", "delta": 2.0, "rel_residual": 0.8957217211916924, "offdiag": 0.4219083042457224, "overlap": 0.8793313159165663}
+{"symbol": "zeta", "delta": 1.0, "rel_residual": 0.15336691910076578, "offdiag": 0.4628727919440443, "overlap": 0.8326935378379995}
+{"symbol": "zeta", "delta": 2.0, "rel_residual": 0.3079075307503316, "offdiag": 0.6433220407073064, "overlap": 0.7829884877958523}

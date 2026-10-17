@@ -1,0 +1,27 @@
+{
+"script_sha256": "bc8f7b9c9fe45b3174d59902e3311900410c03599bfa6e7e7c38fa90b91aee77",
+"key": "fdcab4b6a5ab4827ac12413f4465764f7a58a81c12428a1193fe6520b4f5a143",
+"params": {
+"deps": {
+"fold_D.py": "1465e472eb763254ecd6bd17a314be6fcc624a9a8ff5a8c84a10b43fc4ad219e",
+"fold_surrogate.py": "d697aaf49537ccab7a052c88a53e967bda646eaab41f1f43749cb366965e1c50",
+"height_uniformity.py": "50b76fdc7604c204bb0087316ad01d07b1e4d7492e753576cce61e5e4b404490",
+"height_anomaly.py": "c3ce446e097b488809a1b713de4d67a3ae31b8da42753a422d5a1b60b613f044",
+"height_arith.py": "cd723ad5ac3c8355dec8f4e2e78a959a0e0c41466962d3bd4934205220a0b5f0",
+"height_residue.py": "42c8bc04cae1d228b842f174bc93ef71662168efbc951374ee86ed8149433a43",
+"height_landing.py": "dd53bc96d0457529525415ff0aa422bec230043cc78fc99b1611c0318230b9a5"
+},
+"A": 3.0,
+"t0": 2340.0,
+"Tz": 2796.53,
+"s_cut": 2000.0,
+"s_step": 0.03,
+"z_sha": "2cd286e66257db92"
+},
+"state": {
+"A": 3.0,
+"t0": 2340.0,
+"norm_u": 1.4765361981708187,
+"rel_withpole": 0.01843262017147685
+}
+}

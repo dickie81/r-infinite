@@ -1,0 +1,23 @@
+c(2..8) = [0.196909, -0.312093, -1.442232, 0.0, 1.936356, 0.552792, 0.015891]
+validation against frontier/dh/cert_results.jsonl (delta = 2a, K = 80): lowest eigenvalue
+  delta=3.45: lowest = -6.682761e-13 (cert.py: -7.800e-30), negative count (< -1e-6) = 0, |ghat| peaks of the ground state at t = [0.0, 2.0, 4.0]
+  delta=3.6: lowest = -2.423414e-07 (cert.py: -2.240e-07), negative count (< -1e-6) = 0, |ghat| peaks of the ground state at t = [20.7, 24.75, 3.95]
+  delta=4.0: lowest = -7.093061e-01 (cert.py: -7.028e-01), negative count (< -1e-6) = 1, |ghat| peaks of the ground state at t = [84.55, 86.65, 88.65]
+
+scan: a, K, number of eigenvalues below -1e-6, lowest four eigenvalues (Rayleigh quotients Q/||g||^2), ordinates where |ghat| of the ground state peaks
+(off-line zeros of dh below height 180, from README: 85.70, 114.16, 166.48, 176.70)
+  a= 1.50 K= 130  neg= 0  lowest=['-4.5480e-13', '+1.3715e-11', '+1.3271e-06', '+1.5074e-02']  peaks=[0.0, 2.0, 4.0]
+  a= 1.75 K= 145  neg= 0  lowest=['-6.9110e-13', '+2.5776e-13', '+1.0969e-12', '+1.6565e-12']  peaks=[0.0, 2.0, 4.0]
+  a= 2.00 K= 160  neg= 1  lowest=['-7.1794e-01', '-7.6344e-13', '+7.7388e-14', '+6.1921e-13']  peaks=[84.55, 86.65, 88.65]
+  a= 2.25 K= 175  neg= 4  lowest=['-1.3284e+00', '-2.8253e-01', '-2.6196e-01', '-9.2666e-02']  peaks=[84.7, 86.7, 88.7]
+  a= 2.50 K= 190  neg= 4  lowest=['-1.8583e+00', '-8.7220e-01', '-3.8142e-01', '-8.8286e-02']  peaks=[86.6, 84.55, 88.6]
+  a= 2.75 K= 205  neg= 4  lowest=['-2.7341e+00', '-1.1388e+00', '-5.3842e-01', '-1.1689e-01']  peaks=[86.5, 84.45, 81.2]
+  a= 3.00 K= 220  neg= 4  lowest=['-3.6974e+00', '-1.6406e+00', '-7.4328e-01', '-1.5387e-01']  peaks=[86.4, 83.7, 88.7]
+  a= 3.25 K= 235  neg= 4  lowest=['-4.7982e+00', '-2.3340e+00', '-9.4273e-01', '-2.0728e-01']  peaks=[85.05, 88.5, 82.75]
+  a= 3.50 K= 250  neg= 4  lowest=['-6.2934e+00', '-2.9853e+00', '-1.1783e+00', '-2.6624e-01']  peaks=[85.1, 88.3, 81.25]
+  a= 3.75 K= 265  neg= 4  lowest=['-8.3585e+00', '-3.6439e+00', '-1.4372e+00', '-3.5053e-01']  peaks=[85.15, 87.25, 82.45]
+  a= 4.00 K= 280  neg= 4  lowest=['-1.0660e+01', '-4.4873e+00', '-1.9560e+00', '-4.3166e-01']  peaks=[86.2, 84.15, 88.85]
+  a= 4.25 K= 295  neg= 4  lowest=['-1.3360e+01', '-5.5849e+00', '-2.4490e+00', '-5.2779e-01']  peaks=[86.2, 84.15, 88.65]
+  a= 4.50 K= 310  neg= 4  lowest=['-1.6537e+01', '-6.7823e+00', '-2.8956e+00', '-6.3374e-01']  peaks=[85.25, 87.25, 82.95]
+  a= 4.75 K= 325  neg= 4  lowest=['-2.0153e+01', '-8.4381e+00', '-3.4118e+00', '-7.5247e-01']  peaks=[86.15, 83.75, 88.3]
+  a= 5.00 K= 340  neg= 4  lowest=['-2.4593e+01', '-1.0397e+01', '-4.0033e+00', '-8.7346e-01']  peaks=[86.1, 83.85, 88.15]

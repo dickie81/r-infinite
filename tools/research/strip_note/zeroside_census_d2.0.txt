@@ -1,0 +1,15 @@
+Phi tabulated at 360000 nodes
+validate gamma=14.13472514: Eref=-1.766625e-09 E600=-1.766625e-9 E5=-1.766625e-9
+validate gamma=3534.062588: Eref=-1.860686e-11 E600=-1.860686e-11 E5=-1.860686e-11
+validate gamma=6996.886976: Eref=2.072462e-11 E600=2.072462e-11 E5=1.974671e-11
+zeros above 4500: 2707  sampled (stride 8): 339
+  0/339 gamma=4500.16 E5=-6.0284e-11 Eref=-6.0284e-11 rel=0.000
+  40/339 gamma=4805.07 E5=5.7347e-11 Eref=5.7346e-11 rel=0.000
+  80/339 gamma=5106.05 E5=4.4012e-11 Eref=4.4084e-11 rel=0.002
+  120/339 gamma=5405.35 E5=-4.9765e-11 Eref=-4.9558e-11 rel=0.004
+  160/339 gamma=5700.98 E5=-4.1339e-11 Eref=-4.1037e-11 rel=0.007
+  200/339 gamma=5995.41 E5=-4.2540e-11 Eref=-4.3526e-11 rel=0.023
+  240/339 gamma=6287.43 E5=3.9080e-11 Eref=3.8907e-11 rel=0.004
+  280/339 gamma=6577.84 E5=2.7169e-11 Eref=2.5649e-11 rel=0.059
+  320/339 gamma=6865.95 E5=3.8246e-11 Eref=4.0132e-11 rel=0.047
+RESULT: 42 of 339 sampled zeros above 4500 exceed 6.5% relative error; median rel error in (5000,7000] = 0.022 over 273 zeros; sign flips: 4; max rel = 3.23

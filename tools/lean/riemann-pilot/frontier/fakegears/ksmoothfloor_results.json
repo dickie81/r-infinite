@@ -1,0 +1,99 @@
+[
+ {
+  "sys": "A=0.9",
+  "ngears": 664760,
+  "gear_mass": 664760,
+  "max_mult": 1,
+  "overshoot_steps": 8131681,
+  "theta_F": 0.32060801763975705,
+  "theta_D": 0.662791785497034,
+  "maxabsF_last_block": 72.5
+ },
+ {
+  "sys": "A=1.1",
+  "ngears": 609348,
+  "gear_mass": 665052,
+  "max_mult": 2,
+  "overshoot_steps": 8749454,
+  "theta_F": 0.33857129666948393,
+  "theta_D": 0.732973350342119,
+  "maxabsF_last_block": 209.09999999962747
+ },
+ {
+  "sys": "A=2",
+  "ngears": 385576,
+  "gear_mass": 768297,
+  "max_mult": 2,
+  "overshoot_steps": 9544375,
+  "theta_F": 0.9188266997470915,
+  "theta_D": 0.9627996286911892,
+  "maxabsF_last_block": 122231.0
+ },
+ {
+  "sys": "A=e",
+  "ngears": 109875,
+  "gear_mass": 293456,
+  "max_mult": 3,
+  "overshoot_steps": 9888248,
+  "theta_F": 0.9185775705466933,
+  "theta_D": 1.041386522186448,
+  "maxabsF_last_block": 5495687.101277139
+ },
+ {
+  "sys": "A=pi/4",
+  "ngears": 662357,
+  "gear_mass": 662357,
+  "max_mult": 1,
+  "overshoot_steps": 8149866,
+  "theta_F": 0.27100844896152093,
+  "theta_D": 0.7918441732089893,
+  "maxabsF_last_block": 64.09358606487513
+ },
+ {
+  "sys": "A=sqrt(2)",
+  "ngears": 414701,
+  "gear_mass": 567247,
+  "max_mult": 2,
+  "overshoot_steps": 9524590,
+  "theta_F": 1.0384605361138042,
+  "theta_D": 1.0281885081406557,
+  "maxabsF_last_block": 295299.19585603103
+ },
+ {
+  "sys": "S1",
+  "ngears": 664579,
+  "gear_mass": 664579,
+  "max_mult": 1,
+  "overshoot_steps": 0,
+  "theta_F": -3.1182500299343125e-14,
+  "theta_D": 0.47646243600235355,
+  "maxabsF_last_block": 0.0,
+  "gears_equal_primes": true
+ },
+ {
+  "sys": "W25",
+  "ngears": 664628,
+  "gear_mass": 664642,
+  "max_mult": 2,
+  "overshoot_steps": 2894660,
+  "theta_F": 0.2855487932711827,
+  "theta_D": 0.4563846072501718,
+  "maxabsF_last_block": 9.711276972666383,
+  "tone_amp_floor": 0.0005677891279698692,
+  "tone_amp_drift": 9.089515722390988,
+  "drift_over_floor_tone": 16008.611779677016
+ },
+ {
+  "sys": "W40",
+  "ngears": 664052,
+  "gear_mass": 664162,
+  "max_mult": 2,
+  "overshoot_steps": 4978662,
+  "theta_F": 0.244375022735126,
+  "theta_D": 0.5380584139837251,
+  "maxabsF_last_block": 14.978254394605756,
+  "tone_amp_floor": 0.00029731059853113596,
+  "tone_amp_drift": 8.74328693064444,
+  "drift_over_floor_tone": 29407.922132075608
+ }
+]

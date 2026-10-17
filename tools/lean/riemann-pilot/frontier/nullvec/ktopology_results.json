@@ -1,0 +1,32 @@
+{
+ "H2_period2": {
+  "target": 39.478,
+  "peak_at": 39.752,
+  "power_over_q95": 0.228,
+  "flank_rank": 0.788,
+  "passes": false
+ },
+ "H3_period8": {
+  "target": 9.87,
+  "peak_at": 9.856,
+  "power_over_q95": 0.076,
+  "flank_rank": 0.597,
+  "passes": false
+ },
+ "H4_period4": {
+  "target": 19.739,
+  "peak_at": 19.712,
+  "power_over_q95": 0.035,
+  "flank_rank": 0.567,
+  "passes": false
+ },
+ "H1_d2_217": {
+  "x": 17.2285,
+  "J_rank": 0.4187,
+  "R_rank": 0.145,
+  "J_argmax_x": 8.521,
+  "R_argmax_x": 3.965,
+  "passes": false
+ },
+ "T_supported": false
+}

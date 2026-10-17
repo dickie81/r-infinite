@@ -1,0 +1,33 @@
+SL2 Ball vs Measure|src/KubotaBall.lean:107-128|src/KubotaMeasure.lean:316-337|hmul=>MUL;pinv_=>X_;PInv=>P|UInv.mul=>MUL;uinv_actP_=>X_;uinv_=>X_;UInv=>P
+SL2 Energy vs Measure|src/KubotaEnergy.lean:213-234|src/KubotaMeasure.lean:316-337|Conf.mul=>MUL;conf_actP_=>X_;conf_=>X_;Conf=>P|UInv.mul=>MUL;uinv_actP_=>X_;uinv_=>X_;UInv=>P
+residue ThetaPair vs ThetaConst|src/KubotaThetaPair.lean:413-493|src/KubotaThetaConst.lean:188-286||
+residue ThetaConst vs ThetaZero|src/KubotaThetaConst.lean:188-286|src/KubotaThetaZero.lean:407-503||
+residue PmTheta vs CuspTheta|src/KubotaPmTheta.lean:357-405|src/KubotaCuspTheta.lean:141-185||
+const_thetaF_ae vs const_thetaFS_ae|src/KubotaThetaConst.lean:339-422|src/KubotaThetaZero.lean:526-610|thetaF =>A ;thetaF=>A|thetaFS =>A ;thetaFS=>A
+Fubini ThetaPair vs PmPair|src/KubotaThetaPair.lean:205-262|src/KubotaPmPair.lean:378-436||
+Fubini PmPair vs ThetaCoef|src/KubotaPmPair.lean:378-436|src/KubotaThetaCoef.lean:363-418||
+Bessel block Derivative vs ThetaSeries|src/KubotaDerivative.lean:119-128|src/KubotaThetaSeries.lean:92-101||
+Bessel block Theta vs Mellin|src/KubotaTheta.lean:281-289|src/KubotaMellin.lean:139-148||
+tiling Growth vs ConstTerm|src/KubotaGrowth.lean:81-102|src/KubotaConstTerm.lean:119-142|fundP=>F;σO t=>σO X|fundP3=>F;σO (3 * t)=>σO X
+coef_lowT_ae vs coef_thetaF_ae|src/KubotaCuspTheta.lean:357-470|src/KubotaThetaCoef.lean:547-660||
+count_three_mem tail vs count_primary_mem tail|src/KubotaCuspZeroPhi.lean:94-122|src/KubotaCuspSums.lean:561-589||
+memLp_pmSerC vs memLp_pmSer|src/KubotaCuspPoincare.lean:145-172|src/KubotaPoincare.lean:226-250||
+integral_conj_pmSerT_mul vs integral_conj_pmSer_mul|src/KubotaCuspPoincare.lean:247-276|src/KubotaPoincare.lean:289-318||
+sqfree_cube_unique vs sqfree_sq_unique|src/KubotaCompleted.lean:37-66|src/EisensteinQuadSieveSquares.lean:37-66|^ 3=>^ N;hE3=>hEN;cube=>X|^ 2=>^ N;hE2=>hEN;sq=>X
+integral_cubeDiff_inv vs integrable_cubeDiff_inv|src/KubotaCubeDecomp.lean:484-502|src/KubotaCubeEigen.lean:127-145||
+CoefScalar vs CoefSupp primary block|src/KubotaCoefScalar.lean:145-182|src/KubotaCoefSupp.lean:161-198||
+gap_sum_le vs mean_value K block|src/BohrJoins.lean:236-242|src/DirMean.lean:202-208|DirMean.=>|
+ShellDensity vs CountCompare|external/zeta23/ShellDensity.lean:93-143|external/zeta23/CountCompare.lean:25-82||
+GenPNTW' vs GenPNTWNoEps|external/pnt/MediumPNTW.lean:1247-1281|external/pnt/MediumPNTW.lean:1301-1341||
+Lemma14 hint1 vs hint2|src/EisensteinQuadSieveLemma14.lean:211-231|src/EisensteinQuadSieveLemma14.lean:232-252|G w=>F x;k w=>k' x;(w : ℂ)=>(x : ℂ)|
+MainBound hsa vs hsb|src/EisensteinQuadSieveMainBound.lean:295-307|src/EisensteinQuadSieveMainBound.lean:308-320|α=>β;hα=>hβ|
+GcdPart injOn twice|src/EisensteinQuadSieveGcdPart.lean:74-80|src/EisensteinQuadSieveGcdPart.lean:187-193||
+fBound_gcd vs fBoundP_gcd|src/EisensteinQuadSieveSep.lean:425-505|src/EisensteinQuadSieveRecursion.lean:52-132||
+PhiC_21_sub_13 vs PhiC_13_sub_5|src/CascadeLepton.lean:188-206|src/CascadeLepton.lean:209-227||
+leadRatio_13_21 vs leadRatio_5_13|src/CascadeLepton.lean:285-326|src/CascadeLepton.lean:329-370||
+lattice_one vs lattice_two|src/BoundaryLabels.lean:213-226|src/BoundaryLabels.lean:229-241||
+hasDerivAt_log_OmR vs log_ballV|src/DistinguishedDims.lean:126-152|src/BinetEnvelope.lean:583-606||
+m=4 chain: meanSquare_of_dualMeanSquare vs meanSquareNu|src/EisensteinMeanSquareDual.lean:874-1004|src/EisensteinMeanSquareDual.lean:1112-1249||
+m=4 chain: famSum_meanSquare_le vs famSumNu|src/EisensteinMeanSquareDual.lean:738-799|src/EisensteinMeanSquareDual.lean:1034-1106||
+pair_char_formD vs pair_char_formTw|src/EisensteinPairRatio.lean:334-389|src/EisensteinSecondPoisson.lean:77-138||
+sum_idealsLe_inv_sq_le vs rpow_le|src/EisensteinSquarefreeRows.lean:108-162|src/EisensteinPrepared.lean:68-129||

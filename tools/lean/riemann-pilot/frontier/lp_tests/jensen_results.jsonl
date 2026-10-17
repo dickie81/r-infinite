@@ -1,0 +1,9 @@
+{"label": "control box+2*box(a/3), non-real zeros", "n_polys": 364, "n_fail": 11, "first_fails": [[4, 0, 0.20723666266732652], [5, 0, 0.2974188611630301], [6, 0, 0.3478715537284524], [7, 0, 0.38137136647362163], [8, 0, 0.4055059636499912], [9, 0, 0.42380481930424113]], "worst_rel_imag": 0.47428328363597044}
+{"label": "Xi (Riemann Phi)", "n_polys": 364, "n_fail": 0, "first_fails": [], "worst_rel_imag": 0.0}
+{"label": "ground state delta=0.6 K=40", "n_polys": 364, "n_fail": 0, "first_fails": [], "worst_rel_imag": 0.0}
+{"label": "ground state delta=1.0 K=60", "n_polys": 364, "n_fail": 0, "first_fails": [], "worst_rel_imag": 0.0}
+{"label": "ground state delta=1.4 K=90", "n_polys": 364, "n_fail": 0, "first_fails": [], "worst_rel_imag": 0.0}
+{"label": "ground state delta=2.2 K=160", "n_polys": 364, "n_fail": 0, "first_fails": [], "worst_rel_imag": 0.0}
+{"label": "ground state delta=3.0 K=240", "n_polys": 364, "n_fail": 0, "first_fails": [], "worst_rel_imag": 0.0}
+{"label": "ground state delta=1.8 K=120", "n_polys": 364, "n_fail": 0, "first_fails": [], "worst_rel_imag": 0.0}
+{"label": "ground state delta=2.6 K=200", "n_polys": 364, "n_fail": 0, "first_fails": [], "worst_rel_imag": 0.0}

@@ -1,0 +1,23 @@
+{
+ "2": {
+  "resid_exponent": 0.313,
+  "resid_exponent_in_x_over_d_half": 0.313,
+  "multiplicative": "27019/27019",
+  "abel_check": 2.364187316122959e-16,
+  "closed_form_check": 1.8554490565693264e-07
+ },
+ "3": {
+  "resid_exponent": 0.6,
+  "resid_exponent_in_x_over_d_half": 0.4,
+  "multiplicative": "4054/27019",
+  "abel_check": 7.730565591705863e-16,
+  "closed_form_check": null
+ },
+ "4": {
+  "resid_exponent": 1.029,
+  "resid_exponent_in_x_over_d_half": 0.514,
+  "multiplicative": "27019/27019",
+  "abel_check": 4.573506731674635e-16,
+  "closed_form_check": 2.910039419786757e-07
+ }
+}
