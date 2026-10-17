@@ -21393,4 +21393,40 @@ Nothing is started.
 
 **Bearing on RH:** none.
 
-**The next step.** Test the explicit family at larger `q`. It needs no search, only one transform and a power iteration, so `q` near `10⁷` is within reach. Measure how the rank `k`, the concentration, `γ` and `S₃` move with `q`. Then attempt the inverse theorem: a large third moment forces correlation with a multiplicative Bohr set of doubling at most `q^{2/9}`. Nothing is started.
+**The next step.** Test the explicit family at larger `q`. It needs no search, only one transform and a power iteration, so `q` near `10⁷` is within reach. Measure how the rank `k`, the concentration, `γ` and `S₃` move with `q`. Then attempt the inverse theorem: a large third moment forces correlation with a multiplicative Bohr set of doubling at most `q^{2/9}`. Nothing is started. *(Round 535: Chen–Gupta–Li's Proposition 10.2 already forces near-minimal energy on the large-values sets at the critical point, so the Bohr sets of this round are not large-values sets there for large `q`; the target becomes the low-energy third moment. README round 535.)*
+
+## Round 535: at the critical point the large-values sets have minimal energy (`frontier/linnik/low_energy_probe.py`; SEVEN-THIRDS.md §15)
+
+**What it is.** The owner asked to attack the inverse theorem and to push toward a formalisation of an exponent below `7/3`. `low_energy_probe.py` is new. SEVEN-THIRDS.md §15 records the round. No Lean changed, and no paper surface is edited.
+
+- **The reduction.** Chen–Gupta–Li's Proposition 10.2, read directly, bounds the energy of a large-values set by "|W|N^{4−4σ} + |W|^{21/8}(qT)^{1/4}N^{1−2σ} + |W|³N^{1−2σ}". At `σ = 5/7`, `N = q^{7/9}`, `|W| = q^{2/3}` those terms are `q^{14/9}`, `q^{5/3}` and `q^{5/3}`. The least energy of any set of that size is about `q^{5/3}`. So at the critical point the large-values sets have energy within `q^ε` of the minimum, and the proposition's hypotheses hold there for large `q`.
+- **Consequences.**
+  - For large `q`, the concentrated sets of rounds 531–534, with energy about `2|W|^{8/3}`, are excluded as large-values sets at the critical point by Proposition 10.2 itself. Their smooth-number and Bohr structure describes the extreme Gram matrices of arbitrary sets.
+  - The needed inverse statement is weaker than round 531's: `S₃ ≥ q^{3−δ}` forces energy `q^{δ′}|W|⁴/q`, a power above the minimum. At that energy Chen–Gupta–Li's energy term is `q^{3−1/18}` and their first term is `q³`.
+  - `S₃ ≤ q^{3−δ}` at the critical point gives `|W| ≤ q^{2/3−δ/3}`, round 528's socket at `κ = δ/3` there.
+- **The small lines, measured exactly.** Over the whole box of lines `|m₁|, |m₃| ≤ M`, `1 ≤ m₂ ≤ M` (equal weights, `R(1)` set to `0`), Cauchy–Schwarz bounds the sum of the line sums by `θ^{1/2}` times the first term's level. Here `θ` is the coherence of the `m`-sums.
+  - The bound is tight to within a factor `2`.
+  - `θ` is `0.46` and `0.15` for the concentrated sets at `q = 10007` and `100003`, `0.026` and `0.0081` for round 532's sets with `κ ≤ 1.25`, and `0.0025` and `0.0007` for random sets.
+  - The four-point correlations of a generic pair of lines are of random size in median for every set; `θ` lives in a heavy tail of pairs.
+- **Reading.** The open step for prime `q` is now: at near-minimal energy the `m`-sums over the small lines are incoherent, `θ ≤ q^{−2δ}`. In the sets found, `θ` falls about like `q^{−1/2}` for the low-energy sets, at two values of `q`. That is not a proof.
+- **Toward a formalisation.** §15 lists three layers: the socket (`Linnik.CharDensity`, round 520), Chen–Gupta–Li's Proposition 3.1 in Lean (which gives the record `7/3 + ε` and is not started), and the new step as a displayed hypothesis.
+
+**What is checked.** `python3 frontier/linnik/low_energy_probe.py` exits 0 in about two minutes. (L1)–(L3) pass, and the mutation (the concentrated set in place of the low-energy set, `θ = 0.46` and `0.15` against the bound `0.03`) is caught. (L1) is exact rational arithmetic on the exponents. The quoted hypotheses and conclusion of Proposition 10.2 were checked against the PDF's text layer. The median four-point correlations come from scratch runs, not the gate.
+
+**Records.**
+
+- SEVEN-THIRDS.md §15.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli", with the sharpened target.
+- README round 534: a marker on its next step.
+
+**Check 4.** NOVEL against the pilot: the reading of Proposition 10.2 at the critical point and its consequences, the exact coherence measurement, and the three-layer route.
+
+**Check 9.**
+
+- (a) (L1) is arithmetic on the cited bound. The coherence values are measurements of the sets two search methods find, at two values of `q`, with equal weights on the box. The reduction to `θ` is Cauchy–Schwarz.
+- (b) The register entry gets a marker and a sharpened target: the low-energy third moment, with its socket.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Round 536 starts the formalisation of Chen–Gupta–Li's Proposition 3.1 with the Guth–Maynard moment inequality. The mathematical step stays open: incoherence of the `m`-sums at near-minimal energy.
