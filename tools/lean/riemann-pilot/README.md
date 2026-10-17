@@ -21193,3 +21193,47 @@ No Lean file changed, so no build was run.
 - Going below `7/3` needs the open step of SEVEN-THIRDS.md §6.
 
 Nothing is started.
+
+## Round 529: a numerical probe of the line sums behind `7/3`, and a conjecture worth `30/13` (`frontier/linnik/line_sums.py`; SEVEN-THIRDS.md §9)
+
+**What it is.** The owner asked to keep researching round 528's open step. `frontier/linnik/line_sums.py` (132 lines) computes the line sums `L(m)` of SEVEN-THIRDS.md §6 at `q = 10007` and `10009`, with `|W| = q^{2/3}`, `N = q^{7/9}` and `M = 8`. These are the proportions of Chen–Gupta–Li's critical case. `frontier/linnik/seven_thirds.py` gains check (E). No Lean changed, and no paper surface is edited.
+
+**What the probe shows** (its gates; one size of `q`; families of `W` that are not large-values sets).
+
+- (P1) The largest small lines are those with `m₁ + m₂ + m₃ = 0`, which pass through `(b₁, b₂) = (1, 1)`, where `R(1)³ = |W|³ = q|W|^{3/2}`. In `S₃` they give `N|W|³`, which at the critical case is `q^{2/9}` below `q²|W|^{3/2}`.
+- (P2) On generic lines random `W` has median `|L| = 1.04·√q|W|^{3/2}`, `√q` below the bound per line. An interval of exponents and a progression of exponents reach `0.93` and `1.21` times `q|W|^{3/2}` on some lines.
+- (P3) For random subsets of subgroups of order `556` to `q − 1`, `E(W)/|W|²` runs from `23` to `387`. Across that range the mean `|L|` divided by `√q|W|^{1/2}E(W)^{1/2}` stays between `0.096` and `0.371`.
+
+**The conjecture and its payoff.** The conjecture: on average over the small lines, `|L(m)| ≲ q^ε√q|W|^{1/2}E(W)^{1/2}`. Under it:
+
+- `S₃`'s first term falls below Chen–Gupta–Li's energy term;
+- their Proposition 3.1 loses `(qT)^{4/3}N^{2−4σ}`;
+- the model certifies `30/13` on the whole `σ` grid (check (E)), and about `2.2235` at `σ = 5/7`.
+
+`30/13` is Ingham's count at `σ = 7/10`, the left end of Proposition 3.1's range. Linnik's exponent would be `30/13 + η`. Not proved: Cauchy–Schwarz over `X(q)²` with the triangle counts gives `qN^{3/2}(Σ r³)^{1/2}`, a factor `q^{1/6}` above the critical size (§9).
+
+**What is checked.**
+
+- `python3 frontier/linnik/line_sums.py` exits 0 in about 18 s. It prints the numbers above, then "gates pass; mutation (R not from a set) caught".
+- `python3 frontier/linnik/seven_thirds.py` exits 0: (T), (B), (S), (P), (C) and (E) pass, and the seven mutations are all caught.
+
+**Records.**
+
+- SEVEN-THIRDS.md §9.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli" with the sharpened target.
+- `line_sums.py` (new) and `seven_thirds.py` (check (E) and a seventh mutation).
+
+**Check 4.** The probe and the conjecture are NOVEL against the pilot. The Weil bound for points of a line in a product of multiplicative subgroups is classical [recalled, not read].
+
+**Check 9.**
+
+- (a) The probe's statements are about its families at one `q`. The conjecture is stated as a conjecture.
+- (b) The register entry's target is sharpened.
+- (c) The probe feeds no criterion.
+
+**Bearing on RH:** none.
+
+**The next step.** The research continues on the conjecture. Two candidates:
+
+- a proof for `W` with small triangle counts, through the Weil bound on each Jacobi sum and a large sieve over the triangles;
+- a probe of actual large-values sets, from polynomials supported on `[N, 2N]`, to test whether they behave like the families here.

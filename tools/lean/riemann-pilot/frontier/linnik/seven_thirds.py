@@ -41,13 +41,16 @@ Checks.
       certifies 36/13 with MVT alone (round 524), 87/35 with MVT and HM (round 525), 12/5 with MVT
       and HUX (round 527), and 7/3 with all four families.  With (B), 7/3 is the least exponent this
       family certifies at s = 5/7.
+  (E) The payoff of the line-sum conjecture of README round 529: with S3's first term replaced by the
+      energy-controlled terms of CGL's own |W| bound (their Proposition 3.1 proof without the term
+      (qT)^{4/3}N^{2-4s}), one detector certifies 30/13 on the grid, and 2.23 < 7/3 at s = 5/7.
   (P) The exponents compared at CGL's critical case (|W| = q^{2/3}, N = q^{7/9}): their term
       q^2 |W|^{3/2} = q^3; the Gauss-sum form with |F| <= M^{11/12} pointwise (the half-plane) is
       q^{31/9}; with |F| = M^{1/2} on average it is q^{19/6}.
 
 Scope.  This checks arithmetic in a model, not the analysis.  The model's families are the ones the
 stack has (rounds 520-527) plus CGL Proposition 3.1; (B) is a statement about this family only.  To
-show the checks can fail, the script runs six mutations and requires each to fail at least one check.
+show the checks can fail, the script runs seven mutations and requires each to fail at least one check.
 """
 from fractions import Fraction as F
 from math import ceil
@@ -310,6 +313,29 @@ def check_C(cal=CALIBRATION):
     return fails
 
 
+def check_E(A=F(30, 13)):
+    """The payoff of the line-sum conjecture (README round 529): P31 with S3's first term replaced by
+    the energy-controlled terms of CGL's proof certifies A on the grid, and below 7/3 at 5/7."""
+    def terms_E(m, s, c=F(4, 3)):
+        if m == "P31E":
+            if not (F(7, 10) <= s <= F(4, 5)):
+                return None
+            return F(2, 3), [(F(0), 2 * (1 - s)), (F(1, 2), 3 - 4 * s), (F(1), F(9, 2) - 7 * s),
+                             (F(18, 19), (72 - 112 * s) / 19)]
+        return terms0(m, s, c)
+    global terms
+    terms0, terms = terms, terms_E
+    try:
+        methods = ("MVT", "HUX", "HM", "P31E")
+        fails = [f"E no detector certifies {A} at s = {s}" for s in GRID + [F(7, 10), F(5, 7)]
+                 if certify(s, A, methods=methods) is None][:1]
+        if certify(F(5, 7), F(223, 100), methods=methods) is None:
+            fails.append("E 2.23 not certified at s = 5/7")
+    finally:
+        terms = terms0
+    return fails
+
+
 def check_P():
     W, N, M = F(2, 3), F(7, 9), F(2, 9)
     return [2 + F(3, 2) * W == 3,
@@ -347,6 +373,12 @@ def main(mut=None):
     else:
         out["S"] = []
     out["P"] = [] if all(check_P()) else ["P"]
+    if mut == "payoff at 30/13 - 1/100":
+        out["E"] = check_E(A=F(30, 13) - F(1, 100))
+    elif mut is None:
+        out["E"] = check_E()
+    else:
+        out["E"] = []
     if mut == "calibration at 12/5 - 1/100 for MVT and HUX":
         out["C"] = check_C(cal=[(("MVT", "HUX"), F(12, 5) - F(1, 100), "527-")])
     elif mut is None:
@@ -358,12 +390,12 @@ def main(mut=None):
 
 MUTATIONS = ["c below 4/3 in P31", "MVT without the density term", "a better half-plane, mu(1/12) = 5/24",
              "class II at p = 4 with X = Q^(1/2) free", "socket with kappa = 1/20 in place of 1/39",
-             "calibration at 12/5 - 1/100 for MVT and HUX"]
+             "calibration at 12/5 - 1/100 for MVT and HUX", "payoff at 30/13 - 1/100"]
 
 if __name__ == "__main__":
     res = main()
     nfail = 0
-    for key in "TBSPC":
+    for key in "TBSPCE":
         print(f"({key}) {'pass' if not res[key] else 'FAIL'}")
         for f in res[key]:
             print("    ", f)

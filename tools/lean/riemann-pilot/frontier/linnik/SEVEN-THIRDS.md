@@ -149,3 +149,31 @@ Nothing found improves `7/3` for prime moduli or contradicts section 4. The sear
   - the socket at `κ = 1/20`;
   - the calibration at `12/5 − 1/100`.
 - Section 3's claims about the stack's inputs are instances of the model's formulas, checked by (B). The Gauss-sum identity and the exact `C_q` split of section 6 are short computations written out in the round, not checked in code.
+
+## 9. Round 529: a numerical probe of the line sums, and a conjecture
+
+The owner asked to keep researching. `line_sums.py` computes the line sums `L(m)` of section 6 at `q = 10007` and `10009`. It uses `|W| = q^{2/3}`, `N = q^{7/9}` and `M = q/N = 8`, the critical case's proportions. It is a probe at one size of `q`, for families of `W` that are not large-values sets.
+
+- **Lines through `(1, 1)`** (P1). The lines with `m₁ + m₂ + m₃ = 0` pass through `(b₁, b₂) = (1, 1)`, where `R(1)³ = |W|³`. That is `q|W|^{3/2}` exactly when `|W| = q^{2/3}`. About `M²` of the `M³` small lines are of this kind. In `S₃` they give `N|W|³`, which at the critical case is `q^{2/9}` below `q²|W|^{3/2}`.
+- **Generic lines** (P2). Remove the points where `b₁`, `b₂` or `b₂/b₁` equals `1`, and the diagonal triple.
+  - For random `W` the median `|L|` is `1.04·√q|W|^{3/2}`, the random-phase size. That is `√q` below the bound per line behind Chen–Gupta–Li's first term.
+  - For an interval of exponents (consecutive powers of a generator), the largest line reaches `0.93·q|W|^{3/2}`.
+  - For a progression of exponents with difference `⌊(q − 1)/|W|⌋`, the largest line reaches `1.21·q|W|^{3/2}`.
+- **Energy** (P3). Take `W` a random subset of a subgroup of order `h`, with `h` from `556` to `q − 1`. Across this range `E(W)/|W|²` runs from `23` to `387`, and the mean `|L|` divided by `√q|W|^{1/2}E(W)^{1/2}` stays between `0.096` and `0.371`. At `|W| = q^{2/3}` even random `W` has `E(W) ≈ |W|⁴/q`.
+
+**The conjecture.** For prime `q` and every `W`, the line sums on the small lines satisfy `|L(m)| ≲ q^ε√q|W|^{1/2}E(W)^{1/2}` on average. This is over the generic points; the lines through `(1, 1)` and the points where an argument is `1` are separate. Under the conjecture:
+
+- the first term of `S₃` is at most `(N³/q²)M³√q|W|^{1/2}E^{1/2} = q^{3/2}|W|^{1/2}E^{1/2}`;
+- that is below their energy term `qN|W|^{1/2}E^{1/2}`, since `N ≥ q^{1/2}`;
+- their Proposition 3.1 loses the term `(qT)^{4/3}N^{2−4σ}` and keeps the other terms of their proof: `N^{2−2σ} + (qT)^{1/2}N^{3−4σ} + qTN^{9/2−7σ} + (qT)^{18/19}N^{(72−112σ)/19}`.
+
+**The payoff** (check (E) of `seven_thirds.py`). In the model, one detector then certifies `30/13` on the whole grid, and about `2.2235` at `σ = 5/7`. The limit `30/13` is Ingham's count at `σ = 7/10`, the left end of Proposition 3.1's range.
+
+**Why it is not proved here.**
+
+- **Cauchy–Schwarz loses `q^{1/6}`.** Grouping by `(ψ₁, ψ₂)` gives, up to signs, `S₃ = (N³/q²)Σ_{ψ₁,ψ₂} J(ψ₁, ψ₂)τ_W(ψ₁, ψ₂)F(ψ̄₁)F(ψ̄₂)F(ψ₁ψ₂)`, where `τ_W(ψ₁, ψ₂) = #{χ ∈ W : χψ₁, χψ̄₂ ∈ W}`. Apply Cauchy–Schwarz over all of `X(q)²`, with
+  - `Σ τ_W² = Σ_ψ r(ψ)³`, where `r(ψ) = #{χ ∈ W : χψ ∈ W}`;
+  - `Σ |F(ψ̄₁)F(ψ̄₂)F(ψ₁ψ₂)|² ≈ q²M³`.
+
+  The result is `qN^{3/2}(Σ_ψ r(ψ)³)^{1/2}`. Since `Σ r³ ≥ |W|³ = q²` at the critical case, this is at least `q²N^{3/2}`, a factor `q^{1/6}` above the critical `q³`.
+- **The conjecture's cancellation is across the Jacobi sums.** For `W = H` a subgroup of order `h`, `L(m)` is `h³` times the number of points of the line in `(H^⊥)²`, which is `q/h² + O(√q)` by the Weil bound. Square-root cancellation among the `h²` Jacobi sums in that count gives `h²√q = √q|W|^{1/2}E(W)^{1/2}`. The Weil bound alone gives `h³√q`. For a general `W`, no route to the cancellation over triangles was found here.
