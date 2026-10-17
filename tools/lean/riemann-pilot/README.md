@@ -21522,4 +21522,40 @@ This is an exact finite form of Chen–Gupta–Li's Lemma 4.5 at `t = 0` for pri
 
 **Bearing on RH:** none.
 
-**The next step.** The zero frequency and the degenerate lines, exactly. At `k = 0` the line is the whole plane and `L(0) = (q − 1)²|W|` by orthogonality. That term is `q⁻²ŵ(0)³(q − 1)²|W|`, which equals `|W|N_c³` up to a factor `(1 − 1/q)²`, so it nearly cancels the `−|W|N_c³` of the bound. On the lines with exactly one of `k₁`, `k₂`, `k₃` zero and the other two nonzero, the line sum collapses to `(q − 1)|R(c)|²` at one point `c`. Those lines carry the analogue of Chen–Gupta–Li's `S₂`, and the lines with all `kᵢ ≠ 0` carry `S₃`. With that split in Lean, the open step of §15 can be stated as a displayed hypothesis on the generic line sums. The mathematical step stays open.
+**The next step.** The zero frequency and the degenerate lines, exactly. At `k = 0` the line is the whole plane and `L(0) = (q − 1)²|W|` by orthogonality. That term is `q⁻²ŵ(0)³(q − 1)²|W|`, which equals `|W|N_c³` up to a factor `(1 − 1/q)²`, so it nearly cancels the `−|W|N_c³` of the bound. On the lines with exactly one of `k₁`, `k₂`, `k₃` zero and the other two nonzero, the line sum collapses to `(q − 1)|R(c)|²` at one point `c`. Those lines carry the analogue of Chen–Gupta–Li's `S₂`, and the lines with all `kᵢ ≠ 0` carry `S₃`. With that split in Lean, the open step of §15 can be stated as a displayed hypothesis on the generic line sums. The mathematical step stays open. *(Round 539: the split is in Lean, `LinnikSplit.large_values_split`. README round 539.)*
+
+## Round 539: the zero frequency and the degenerate lines in Lean (`external/pnt/LinnikSplit.lean`)
+
+**What it is.** Round 538 bounds a large-values set through `q⁻²Σ_k ŵ(k₁)ŵ(k₂)ŵ(k₃)L(k)` over all `k ∈ (ZMod q)³`. Chen–Gupta–Li split their frequencies in §5: "S1 consists of terms with exactly one nonzero mi, S2 consists of terms with exactly two nonzero mi and S3 consists of terms with all three mi being nonzero" (PDF text layer, spaces restored). This round makes that split exact in the folded form, for prime `q`.
+
+- **The zero frequency** (`LinnikSplit.lineSum_zero`). `L(0) = (q − 1)²|W|`, by orthogonality of the characters mod `q` (`sum_mul_star`). Its term is `q⁻²N_c³(q − 1)²|W|`, at most the `|W|N_c³` that Lemma 4.2 removes.
+- **Exactly one nonzero coordinate** (`lineSum_only_k₁`, `_k₂`, `_k₃`). The line is empty, or every point has `u = 0` or `v = 0`, where `R` vanishes. So `L = 0`. Chen–Gupta–Li's `S₁` is negligible; here it is zero.
+- **Exactly two nonzero coordinates** (`lineSum_k₁_zero`, `lineSum_k₂_zero`, `lineSum_k₃_zero`). The line sum collapses to `(q − 1)|R(c)|²` at one point: `c = −k₂/k₃`, `−k₁/k₃` or `−k₁/k₂`. This uses the convolution identities `Σ_u R(u)R(c/u) = (q − 1)R(c)` and their two variants.
+- **`LinnikSplit.sum_lines_split`** puts these together: `Σ_k ŵ(k₁)ŵ(k₂)ŵ(k₃)L(k) = ŵ(0)³(q − 1)²|W| + S₂ + S₃`. Here `S₂` (`S2part`) is the three families of degenerate lines in closed form, and `S₃` (`S3part`) is the sum over the `k` with all three coordinates nonzero.
+- **`LinnikSplit.large_values_split`.** Under round 538's hypotheses, `(|W|V² − N_cβ)³ ≤ β³·Re q⁻²(S₂ + S₃)`, because `ŵ(0) = N_c`.
+
+**What is checked.** `LinnikSplit.lean` compiles into the pilot's `build/` with the pilot's toolchain, with no warning and no `sorry`, by `external/pnt/build.sh`'s gate command for this one file. It imports Mathlib, `LinnikMoment` and `LinnikLines`, both unchanged since round 538. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for `lineSum_zero`, `sum_lines_split` and `large_values_split`. `build.sh` compiles the file and checks those three theorems in its final axiom list. The full `build.sh` was not run: no other file changed.
+
+**Records.**
+
+- `external/pnt/README.md`: a row and a section.
+- `external/pnt/build.sh`: the module and three theorems added.
+- SEVEN-THIRDS.md §15: a marker on layer 2.
+- README round 538: a marker on its next step.
+
+**Check 4.** NOVEL against the pilot: the folded `S₁`/`S₂`/`S₃` split with exact degenerate line sums, in Lean.
+
+**Check 9.**
+
+- (a) The theorems are as stated, for every prime `q`, every finite set of characters and every function `ŵ` (`sum_lines_split`), or the residue weights of `c` on `S` prime to `q` (`large_values_split`). The bounds for `S₂` and `S₃` (Chen–Gupta–Li's Proposition 6.1 and §§7–11) are not formalised.
+- (b) No register entry changes.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Two pieces close the exact reduction for prime `q` at `t = 0`.
+
+- (1) The closed form of `S₂`. Substitute `k₂ = −ck₃` in each family and use Parseval, `Σ_k ŵ(−ck)ŵ(k) = q·Σ_a w(a)w(ac)`. That gives `q⁻²S₂ = 3N_c(1 − 1/q)(‖E‖_F² + |W|N_c²/q)`, with `E` the off-diagonal part of the Gram matrix. This matches the term `3N_c‖E‖_F²` of `tr(G³) = |W|N_c³ + 3N_c‖E‖_F² + tr(E³)` up to `O(1/q)`. The closed form was checked numerically in scratch at `q = 31` with random `W` and weights: relative error `1.5·10⁻¹⁶`.
+- (2) The socket at the critical point, with the `‖E‖_F²` bound (Chen–Gupta–Li's Proposition 6.1) and the `S₃` bound (the open step of §15) as displayed hypotheses, concluding the large-values count.
+
+The mathematical step stays open.
