@@ -20829,4 +20829,69 @@ Part 3, `LinnikSubconvex.lean` (322 lines).
 
 **Bearing on RH:** none. The bound follows from the half-plane `Re s > 11/12` and says nothing about zeros to its left.
 
-**The next step.** The owner's second target: `CharDensity A` with `A < 17/6`. The route is Ingham's. A hybrid fourth moment, `Σ_χ |L(1/2 + it_χ, χ)|⁴ ≤ C_ε(q(T + 2))^{1+ε}` for any one point `|t_χ| ≤ T` per character `χ ≠ 1` mod `q`, would replace round 521's pointwise bound in the integral class. There Cauchy–Schwarz twice gives `Σ_χ |L||M_X| ≤ (Σ|L|⁴)^{1/4}(Σ|M_X|²)^{1/2}R^{1/4}`. That gives `CharDensity (3/(2 − σ) + ε)` on `σ ≤ 11/12`, so `36/13 + ε` everywhere, and Linnik's exponent `36/13 + η ≈ 2.77`. The fourth moment comes from the approximate functional equation for `L(s, χ)²` (primitive `χ`), the large values of round 521 (`LinnikHybrid.large_values_chars_off`) on the dyadic blocks of a Dirichlet polynomial of length `(q(T + 2))^{1+δ}`, and the reduction of each character to its primitive one.
+**The next step.** The owner's second target: `CharDensity A` with `A < 17/6`. The route is Ingham's. A hybrid fourth moment, `Σ_χ |L(1/2 + it_χ, χ)|⁴ ≤ C_ε(q(T + 2))^{1+ε}` for any one point `|t_χ| ≤ T` per character `χ ≠ 1` mod `q`, would replace round 521's pointwise bound in the integral class. There Cauchy–Schwarz twice gives `Σ_χ |L||M_X| ≤ (Σ|L|⁴)^{1/4}(Σ|M_X|²)^{1/2}R^{1/4}`. That gives `CharDensity (3/(2 − σ) + ε)` on `σ ≤ 11/12`, so `36/13 + ε` everywhere, and Linnik's exponent `36/13 + η ≈ 2.77`. The fourth moment comes from the approximate functional equation for `L(s, χ)²` (primitive `χ`), the large values of round 521 (`LinnikHybrid.large_values_chars_off`) on the dyadic blocks of a Dirichlet polynomial of length `(q(T + 2))^{1+δ}`, and the reduction of each character to its primitive one. *(Round 524: landed by this route, with `Y = Q^{18/13}` fixed, which gives `CharDensity (36/13 + 4ε) 10 C` directly (`LinnikIngham.charDensity_ingham`), and Linnik's exponent `36/13 + η` (`linnik_thirtysix_thirteenths`); see round 524.)*
+
+## Round 524: the hybrid fourth moment over the characters mod `q`, Ingham's density estimate, and Linnik's exponent `36/13 + η` (`external/pnt/LinnikAFE.lean`, `LinnikFourth.lean`, `LinnikIngham.lean`)
+
+**What it is.** Round 523's next step read: "The owner's second target: `CharDensity A` with `A < 17/6`. The route is Ingham's." The owner's request: "Hit both pls". This round lands the second target, by that route:
+
+- `LinnikIngham.linnik_thirtysix_thirteenths`: for every `η > 0` there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K q^{36/13+η}`. Round 522's exponent was `17/6 + η`; `36/13 = 2.769…` and `17/6 = 2.833…`.
+- `LinnikIngham.charDensity_ingham`: `CharDensity (36/13 + 4ε) 10 C` for every `0 < ε ≤ 1`, with some `C ≥ 0`.
+- `LinnikFourth.fourth_moment`: for every `0 < ε ≤ 1` there is `C` with `Σ_{χ∈R} |L(1/2 + it_χ, χ)|⁴ ≤ C(q(T + 2))^{1+ε}` for every `q ≥ 1`, every set `R` of characters `χ ≠ 1` mod `q` and every choice of one point `|t_χ| ≤ T` per character.
+- `LinnikGamma.afe`: for a primitive character `χ ≠ 1` mod `N` and `0 ≤ Re s ≤ 1`, `Λ(s, χ)² = J(s, χ) + ε(χ)²N^{1−2s}J(1 − s, χ⁻¹)` with `J(s, χ) = (1/2πi)∫_{(2)} Λ(s + w, χ)²N^w e^{w²} dw/w`.
+
+**What is proved** (three new files, 2889 lines in all; each of their 13 axiom lines, and each of the 13 lines this round adds to `build.sh`'s final check, is `[propext, Classical.choice, Quot.sound]`).
+
+- `LinnikAFE.lean` (812 lines; 10 theorems, 15 lemmas, 3 definitions; namespace `LinnikGamma`): the ratio `|γ_χ(1/2 + it + c + iv)| ≤ e^{KR(c)}(1 + |t|)^{c/2}(1 + |v|)^{c/2+1/4}e^{π|v|/4}|γ_χ(1/2 + it)|` for every character `χ` and `c ≥ 0` (`norm_gammaFactor_ratio_le`); the shift of a vertical integral across a simple pole at `0` (`verticalIntegral_sub_eq`); `afe`.
+- `LinnikFourth.lean` (1444 lines; 11 theorems, 58 lemmas, 12 definitions): `norm_LFunction_four_le`, `sum_norm_Pd_sq_le`, `afeJ_split`, `sum_norm_afeD_sq_le`, `fourth_moment_primitive`, `fourth_moment`.
+- `LinnikIngham.lean` (633 lines; 12 theorems, 2 definitions): `class2_count_ingham`, `count_nontrivial_ingham`, `bound_class2_ingham`, `count_middle`, `charDensity_ingham`, `linnik_thirtysix_thirteenths`.
+
+**The proof.**
+
+- **The Archimedean factor.** `x ↦ log|Γ(x + it)|` has derivative `Re ψ(x + it)`, which lies between `log|x + it| − 4` and `log|x + it| + 4` on `x ≥ 1/4` (`digamma_re_ge`, and round 164's `Kaiser.digamma_re_le`). The mean value theorem along the horizontal segment then compares `|Γ(x + it)|` with `|Γ(1/2 + it)|` (`log_norm_Gamma_le`, `log_norm_Gamma_ge`). `|Γ(1/2 + it)|² = π/cosh(πt)` compares two ordinates (`log_norm_Gamma_half_sub`). Together these give the ratio bound for `Γ` (`norm_Gamma_ratio_le`) and for `γ_χ`, even or odd.
+- **The approximate functional equation.** `verticalIntegral_sub_eq` (PNT+'s `ResidueTheoremOnRectangleWithSimplePole'` on rectangles, and round 472's limits) moves `w ↦ Λ(s + w, χ)²N^w e^{w²}/w` from `Re w = 2` to `Re w = −2` across the pole at `0`, whose residue is `Λ(s, χ)²`. On `Re w = −2`, Mathlib's functional equation (`IsPrimitive.completedLFunction_one_sub`) gives the integrand at `−u` as `−ε(χ)²N^{1−2s}` times the integrand of `J(1 − s, χ⁻¹)` at `u`, and `t ↦ −t` on the line gives the second term. The integrands are bounded on the strip `−2 ≤ Re w ≤ 2` by `|Λ(z, χ)| ≤ 16(N + 1)N^{5/2}(3 + |Im z|)` (`norm_completed_le`: round 254's `PsiOmega.norm_LFunction_leC` right of `Re z = 1/2`, the functional equation left of it) and `|e^{w²}| = e^{(Re w)² − (Im w)²}`.
+- **From `J` to `|L|⁴`.** With `D = J/γ_χ²` (`afeD`), `|ε(χ)| = 1`, `|N^{1−2s}| = 1` and `|γ_χ(1/2 − it)| = |γ_χ(1/2 + it)|` on the critical line, `|L(1/2 + it, χ)|² ≤ |D(1/2 + it, χ)| + |D(1/2 − it, χ⁻¹)|` (`norm_LFunction_sq_le`), so `|L|⁴ ≤ 2|D|² + 2|D′|²` (`norm_LFunction_four_le`).
+- **The split.** `L(z, χ)² = P(z) + T(z)`, with `P(z) = Σ_{n≤N₀} d(n)χ(n)n^{−z}` (`Pd`) and `T` the tail of the Dirichlet series of `χ ⍟ χ` past `N₀` on `Re z > 1` (`Tl_eq_tsum`). `|T(z)| ≤ 2N₀^{3−Re z}` on `Re z ≥ 3` (`norm_Tl_le`), since `d(n) ≤ n`. With `0 < c₀ ≤ 2 ≤ c₁`, `afeJ_split` writes `J` as an integral of `γ_χ(s + w)²P(s + w)N^w e^{w²}/w` on `Re w = c₀` plus one of the same with `T` on `Re w = c₁`. No pole is crossed: `SmoothPerron.verticalIntegral_shift` (round 472) for each piece, with integrability and uniform decay from the bound below.
+- **The integrand on a line.** On `Re w = c > 0`, the ratio bound gives `|γ_χ(s + w)²M(s + w)N^w e^{w²}/w| ≤ KG2(c, t)|M(s + w)|W_{c+1/2}(Im w)` (`norm_GG_le`), with `W_a(v) = (1 + |v|)^a e^{π|v|/2}e^{−v²} ≤ e^{a²+π²/4}e^{−v²/2}` (`Wf_le`).
+- **The polynomial part** (`sum_norm_DP_sq_le`). Cauchy–Schwarz in `v` against `W` (`sq_integral_mul_le`), then for each `v` the large-values bound `sum_norm_Pd_sq_le` at the points `t_χ + v`. That bound comes from the dyadic blocks of `P`, round 521's `LinnikHybrid.large_values_chars_off` and round 518's `InghamDensity.block_mass_le_b`, and is affine in `T + |v|`, so the factor `1 + |v|` is absorbed by `W_{c₀+3/2}`. The result is `≪ (N(T + 2))^{2c₀}(N(T + 2) + N₀)(1 + log 2N₀)⁸`.
+- **The tail part** (`norm_DT_le`). `norm_Tl_le` on `Re z = 1/2 + c₁` gives `|D_T| ≪ (N(T + 2))^{c₁}N₀^{5/2−c₁}`.
+- **One modulus** (`sum_norm_afeD_sq_le`). Take `δ = ε/8`, `c₀ = δ`, `c₁ = 5/δ` and `N₀ = ⌈Q^{1+δ}⌉` with `Q = N(T + 2)`. The polynomial part is `≪ Q^{1+ε/2}`, with `(1 + log 2N₀)⁸ ≪ Q^δ` (`one_add_log_pow_le`). The tail part is `≪ Q^{c₁ + (1+δ)(5/2−c₁)} = Q^{5δ/2−5/2} ≤ 1`, so its sum over `R` is `≪ N ≤ Q`. `fourth_moment_primitive` adds the inverse characters at `−t_χ` for the second term of `norm_LFunction_four_le`.
+- **Every character.** Each `χ ≠ 1` mod `q` is `χ*` changed in level from its conductor `N | q`. `|L(1/2 + it, χ)| ≤ ∏_{p|q}(1 + p^{−1/2})|L(1/2 + it, χ*)|` (`norm_LFunction_le_toPrim`, Mathlib's `LFunction_changeLevel`), and the product is `≪ q^{ε/8}` (round 522's `LinnikSubconvex.prod_primeFactors_le`). On each conductor class `χ ↦ χ*` is injective (`changeLevel_toPrim`), so `fourth_moment_primitive` at modulus `N` applies to it. `Σ_{N|q} N^{1+ε} ≤ ζ(1 + ε)q^{1+ε}` (`sum_divisors_rpow_le`) sums the classes.
+- **The integral class, Ingham's way** (`class2_count_ingham`). On the line `Re w = 1/2 − β` of round 521's detector, `|G_χ(w)|(1 + |v|)⁵ ≤ A|M_X(1/2 + i(γ + v), χ)||L(1/2 + i(γ + v), χ)|` with `A = KG Y^{1/2−σ}/δ` (`Gχ_left_le'`, round 521's `Gχ_left_le` with `L` kept). For `λ > 0` and `μ = A/λ`, `ml ≤ (λ/2)m² + μl⁴/(4λ) + 1/(4λμ)`. The mean value of the mollifier (round 521's `mean_value_mollχ`) and `fourth_moment` at the points `γ_χ + v` then bound the class by `2AλM₁ + A²M₂/λ²`, with `M₁ = MV(X)(q(T + 1) + X)` and `M₂ = C₄(q(T + 2))^{1+ε}`. The weight `(1 + |v|)^{−5}` absorbs `(1 + |v|)²`, and `|L(1/2 + it, χ)| ≤ 11(q(|t| + 2))^{1/2}` (round 521's `norm_LFunction_half_le`) gives integrability.
+- **The exponents** (`bound_class2_ingham`, `charDensity_ingham`). At `X = ⌊Q⌋`, `Y = Q^{18/13}` (round 518's `Yw` at `c = 5/26`) and `λ = Q^{(6/13)(1/2−σ)+ε/3}`, both terms of the integral class are `≪ (log Q)⁵Q^{(24/13)(1/2−σ)+1+ε/3}`. Here `(24/13)(1/2 − σ) + 1 ≤ (36/13)(1 − σ)` exactly when `σ ≤ 11/12`, and `ε/3 ≤ 4ε(1 − σ)` there. The polynomial class at `c = 5/26` is round 521's `bound_class1`: `Q^{(2+4c)(1−σ)} = Q^{(36/13)(1−σ)}`. Below `σ = 23/36`, where `(36/13)(1 − σ) ≥ 1`, at most `q ≤ qT` characters are counted. Above `11/12` only the trivial character can be (round 495's half-plane, through round 522's `LinnikLindelof.LFunction_ne_zero`). Between, `count_middle` at `Q = q(T + 6) ≤ 4qT`, with `δ = 5/36`.
+- **Linnik.** Round 520's `linnik_of_charDensity` at `A = 36/13 + 4ε`, `ε = min(η, 1)/8`, with `η/2` for its own `η`.
+
+**Where it stands.** The owner's request "Hit both pls" is complete: K4's Möbius bound (round 523) and `CharDensity A` with `A < 17/6` (this round, `A = 36/13 + 4ε`). Linnik's exponent in the stack is `36/13 + η` with no hypothesis. The stack's own half-plane `Re s > 11/12` (round 495) is an input. The instances of `frontier/linnik/ARGUMENT.md` with Huxley's `12/5` and Chen–Gupta–Li's `7/3` need density estimates that are not formalized here. `36/13` is Ingham's `3/(2 − σ)` at `σ = 11/12`.
+
+**The paper.** No paper surface is edited. `grep -n -E "36/13|Linnik|fourth moment|LinnikIngham|LinnikFourth"` over `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` finds no line. No file outside `tools/lean/riemann-pilot/` names the files or their namespaces: `grep -rn -E "LinnikGamma|LinnikFourth|LinnikIngham|LinnikAFE"` over the repository's `.md`, `.tex`, `.py`, `.sh` and `.json` files, less the lines under `tools/lean/riemann-pilot/`, prints nothing.
+
+**Records.**
+
+- `external/pnt/build.sh`: the three files in the compile list, and 13 lines in the final check (246 to 259 `#print axioms` lines).
+- `external/pnt/README.md`: three rows and three sections.
+- STRUCTURAL-REVIEW: K2 and K2′ (Linnik's exponent `36/13 + η`; `CharDensity (36/13 + 4ε)`).
+- `frontier/linnik/ARGUMENT.md`: a marker on the instance table and on the plan's record.
+- This file: a marker on round 523's next step.
+
+**Builds.**
+
+- At this commit the full `external/pnt/build.sh` run is in progress; its result is recorded in the next commit.
+- Each of the three files compiles as a module, with `-DautoImplicit=false -DrelaxedAutoImplicit=false`, against round 523's build of the files it imports, with no error or warning; their 3, 6 and 4 axiom lines are `[propext, Classical.choice, Quot.sound]`.
+- `src/`, the dh layer and zeta23 were not rebuilt: no file in them changed, and no file in them imports the new files.
+- The new namespaces are `LinnikGamma`, `LinnikFourth` and `LinnikIngham`. A grep of the `.lean` files of `src/`, `external/` (less the vendored `upstream/` trees) and Mathlib finds each only in its new file.
+
+**Check 4.**
+
+- **Classical [recalled, not read]:** Ingham's density estimate `N(σ, T) ≪ T^{3(1−σ)/(2−σ)}(log T)^5` (1940) and its form over the characters mod `q` (Montgomery, *Topics in Multiplicative Number Theory*, 1971), from the fourth moment of `L(1/2 + it)` and a mollified detector; the approximate functional equation; the hybrid fourth moment `Σ_χ ∫_{−T}^{T} |L(1/2 + it, χ)|⁴ dt ≪ φ(q)T(log qT)⁴`, of which the bound here at one point per character is a form, from the approximate functional equation and the hybrid large sieve.
+- **ACKNOWLEDGED in the pilot:** K2′ (`CharDensity A` with `A < 17/6`); round 523's next step, which named this route.
+- **NOVEL against the pilot:** the fourth moment, Ingham's count and Linnik's exponent `36/13 + η`, kernel-checked, uniformly in `q`.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorems': every `0 < ε ≤ 1`, every `q ≥ 1` (`[NeZero q]`), every set of characters `χ ≠ 1` and every choice of points `|t_χ| ≤ T` in `fourth_moment`; every `q ≥ 1`, `1/2 ≤ σ ≤ 1` and `T ≥ 2` in `CharDensity`; every `η > 0`, `q ≥ 1` and `a` prime to `q` in `linnik_thirtysix_thirteenths`.
+- (b) No barrier claim is made.
+- (c) No criterion is fed a signal in this round.
+
+**Bearing on RH:** none. The route bounds a fourth moment on the critical line and counts characters with zeros to the right of `σ`; it says nothing about zeros on the line.
+
+**The next step.** The owner's request is complete; no next step is set. The register keeps `CharDensity A` with `A < 36/13` (K2′). Huxley's `12/5` (K2′'s first instance) combines a fourth moment with the Halász–Montgomery inequality for large values of Dirichlet polynomials [recalled, not read]; that inequality over the characters mod `q` is not landed.

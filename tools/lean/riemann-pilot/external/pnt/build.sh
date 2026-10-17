@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity LinnikChar LinnikDeduction LinnikHybrid LinnikDetect LinnikDensity LinnikHalf LinnikFE LinnikLindelof LinnikSubconvex MertensChi; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity LinnikChar LinnikDeduction LinnikHybrid LinnikDetect LinnikDensity LinnikHalf LinnikFE LinnikLindelof LinnikSubconvex MertensChi LinnikAFE LinnikFourth LinnikIngham; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -114,6 +114,9 @@ import LinnikFE
 import LinnikLindelof
 import LinnikSubconvex
 import MertensChi
+import LinnikAFE
+import LinnikFourth
+import LinnikIngham
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -360,6 +363,19 @@ import MertensChi
 #print axioms MertensChi.LSeries_fχμ
 #print axioms MertensChi.norm_sum_le
 #print axioms MertensChi.isBigO
+#print axioms LinnikGamma.norm_gammaFactor_ratio_le
+#print axioms LinnikGamma.verticalIntegral_sub_eq
+#print axioms LinnikGamma.afe
+#print axioms LinnikFourth.norm_LFunction_four_le
+#print axioms LinnikFourth.sum_norm_Pd_sq_le
+#print axioms LinnikFourth.afeJ_split
+#print axioms LinnikFourth.sum_norm_afeD_sq_le
+#print axioms LinnikFourth.fourth_moment_primitive
+#print axioms LinnikFourth.fourth_moment
+#print axioms LinnikIngham.class2_count_ingham
+#print axioms LinnikIngham.count_nontrivial_ingham
+#print axioms LinnikIngham.charDensity_ingham
+#print axioms LinnikIngham.linnik_thirtysix_thirteenths
 EOT
 echo "== axioms"
 # every #print axioms line must print an axiom list inside the three, and no axiom line may name another axiom
