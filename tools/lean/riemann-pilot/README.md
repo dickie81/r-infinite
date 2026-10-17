@@ -21097,4 +21097,99 @@ As an exponent, `12/5` is that of Huxley's (1.1), quoted in round 525 from Acta 
 
 **Bearing on RH:** none. The route counts characters with zeros to the right of `σ`; it says nothing about zeros on the line.
 
-**The next step.** The owner's request "Push to Huxley when you’re ready" is complete: Linnik's exponent in the stack is Huxley's `12/5`, plus `η`. Below it is Chen–Gupta–Li's `7/3` (a preprint), whose abstract says its key bound "arises from our adaptation of the Guth--Maynard method". Round 524's Ingham count with `c` tuned to `σ` gives `3/(2 − σ)` (arithmetic on its two exponents, not checked in Lean), which is at most `7/3` exactly when `σ ≤ 5/7`; this round's count on `[3/4, 11/12]` carries `12/5`. So the stack has no count at or below `7/3` on `(5/7, 11/12]`. Nothing is started.
+**The next step.** The owner's request "Push to Huxley when you’re ready" is complete: Linnik's exponent in the stack is Huxley's `12/5`, plus `η`. Below it is Chen–Gupta–Li's `7/3` (a preprint), whose abstract says its key bound "arises from our adaptation of the Guth--Maynard method". Round 524's Ingham count with `c` tuned to `σ` gives `3/(2 − σ)` (arithmetic on its two exponents, not checked in Lean), which is at most `7/3` exactly when `σ ≤ 5/7`; this round's count on `[3/4, 11/12]` carries `12/5`. So the stack has no count at or below `7/3` on `(5/7, 11/12]`. Nothing is started. *(Round 528: the owner asked to push past `7/3`; the attempt on paper is recorded, and no proof emerged. README round 528.)*
+
+## Round 528: past `7/3` for prime moduli: where Chen–Gupta–Li's exponent sits, what the stack's inputs do there, and the open step (`frontier/linnik/SEVEN-THIRDS.md`, `frontier/linnik/seven_thirds.py`)
+
+**What it is.** The owner asked "Push past 7/3". Of the options offered, the owner chose "Attack the open step (Recommended)", whose text read: "Try on paper to replace subdivision in the Guth–Maynard argument with a Huxley-style reflection. The stack already has that reflection in Lean (round 526), and it is the argument CGL say is missing. This is research: it may not close. Lean comes only if a proof emerges; I'd timebox the attempt and report either way." No proof emerged, and no Lean is landed. This round records the attempt:
+
+- `frontier/linnik/SEVEN-THIRDS.md` (151 lines);
+- `frontier/linnik/seven_thirds.py` (378 lines), which checks the arithmetic of the note's model in exact rationals.
+
+**What was found.**
+
+- **Where `7/3` sits.** Chen–Gupta–Li (arXiv:2507.08296v2, read §§1–12 from the PDF's text layer) improve their Proposition 3.1 by splitting the characters into cosets of the characters mod a divisor of `q`. For prime `q` the only divisors are `1` and `q`, and neither helps. Their Remark 12.3: "Notably, this happens for prime moduli q. In this case, the critical situation is at σ = 5/7 with N = q^{7/9} and |W| = q^{2/3}." At `σ = 5/7` three constraints meet: Ingham's `3/(2 − σ)`, their term `q^{4/3}N^{2−4σ}`, and the fourth moment's count of the integral class (SEVEN-THIRDS.md §2; check (T)).
+- **The stack's inputs there.** None of them moves that point (§3). The half-plane `Re s > 11/12` was tried three ways: as a class-II eliminator, in round 525's off-diagonal on `Re s = 1/12`, and through higher moments. Round 526's Huxley estimate does not move it either.
+- **A barrier within one family** (§4; check (B)). Let `B = {7/18, 7/9} ∪ [7/6, ∞)`. Every sum of elements of `B` is a block length at which each estimate of the family gives at least `Q^{2/3}`. Every zero detector of the family whose integral class is at most `Q^{2/3}` has a block range that meets `B`. So no argument in that family gives an exponent below `7/3` at `σ = 5/7`. The family is the one in `seven_thirds.py`'s docstring, and the statement says nothing about other arguments.
+- **The socket** (§5; check (S)). In the model, Proposition 3.1's third term at `q^{4/3−κ}` gives `7/3 − κ` for `0 < κ ≤ 1/39`. Past `1/39` the crossing leaves the proposition's range `[7/10, 4/5]`.
+- **The open step** (§6).
+  - For prime `q`, `S₃` reduces exactly, up to a negligible term, to line sums `L(m) = Σ R(b₁)R(b₂/b₁)R̄(b₂)` on the `q^{2/3}` lines `b₁m₁ + b₂m₂ + m₃ ≡ 0` with `|m_i| ≤ q/N`. Chen–Gupta–Li bound them with absolute values, through `|C_q(m)| ≤ (m, q)`.
+  - In Gauss-sum form, the part with distinct characters is `(N³/q²)Σ ψ₃(−1)J(ψ₁, ψ₂)F(ψ̄₁)F(ψ̄₂)F(ψ̄₃)`, with dual sums `F` of length `q/N`.
+  - The half-plane bounds every `F` pointwise by `M^{11/12+ε}q^ε`, through the stack's Lindelöf bound on `Re s > 11/12`, uniform in `q` (round 522). That is a saving of `q^{1/54}` at the critical case. Used that way it discards the Jacobi phases and gives `q^{31/9}`, against the needed `q^{3−κ}`.
+  - Huxley's product trick cannot act after the triangle inequality, where the critical term is an exactly evaluated mean. Before it, it cannot act without discarding the phases.
+  - Three attack notes are entered in the register.
+
+**What is checked.** `python3 frontier/linnik/seven_thirds.py` exits 0 in about 1 s and prints:
+
+```
+(T) pass
+(B) pass
+(S) pass
+(P) pass
+(C) pass
+mutation 'c below 4/3 in P31': 1 failing checks, caught
+mutation 'MVT without the density term': 1 failing checks, caught
+mutation 'a better half-plane, mu(1/12) = 5/24': 2 failing checks, caught
+mutation 'class II at p = 4 with X = Q^(1/2) free': 1 failing checks, caught
+mutation 'socket with kappa = 1/20 in place of 1/39': 2 failing checks, caught
+mutation 'calibration at 12/5 - 1/100 for MVT and HUX': 1 failing checks, caught
+6 mutations, 6 caught
+```
+
+Check (C) certifies, inside the model, the exponents the stack has landed: `36/13` (round 524), `87/35` (round 525) and `12/5` (round 527). The script checks arithmetic in the model, not the analysis. Section 6's identities are stated in the note and not checked in code.
+
+**The literature and horizon scan** (§7). Searched on 2026-10-17:
+
+- arXiv, by web search;
+- `openai/math`: the local clone at `adc7f12` (2026-10-06), and the first 100 000 characters of the served `CONTENTS.md`;
+- the Lean community.
+
+No result found improves `7/3` for prime moduli or contradicts §4. The nearest are:
+
+- Darbar–Kerr–Munsch–Shparlinski (arXiv:2604.02960): zero density on average over sets of characters with a small product set;
+- Runbo Li (arXiv:2610.18923): the `t` aspect.
+
+The searches are not exhaustive.
+
+**The paper.** No paper surface is edited. `grep -c -E "SEVEN-THIRDS|seven_thirds|Gupta|Linnik"` counts `0` in `riemann-indistinguishability.md` and `0` in `cascade-riemann-formulation.md`. Outside `tools/lean/riemann-pilot/`, no `.md`, `.tex`, `.py`, `.sh` or `.json` file names `SEVEN-THIRDS` or `seven_thirds`.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` and `frontier/linnik/seven_thirds.py` (new).
+- STRUCTURAL-REVIEW §6: a marker on the zero-density entry over the characters, and a new entry, "Below `7/3` for prime moduli", with its scope, socket, signals and attack notes.
+- `frontier/linnik/ARGUMENT.md`: a marker on the instance table's record.
+- This file: a marker on round 527's next step.
+
+No Lean file changed, so no build was run.
+
+**Check 4.**
+
+- **Classical:**
+  - [read] Chen–Gupta–Li v2, §§1–12, as quoted in SEVEN-THIRDS.md.
+  - [recalled, not read] Jacobi sums and `τ(ψ₁)τ(ψ₂) = J(ψ₁, ψ₂)τ(ψ₁ψ₂)`; Plancherel for line sums over `F_q`; Stevens–de Zeeuw's incidence bound, named only as a tool to try.
+- **ACKNOWLEDGED:**
+  - the obstacle itself. Chen–Gupta–Li's Remark 12.3 states it: "To improve this term, we would need to find some joint cancellation in R and the m sums, which seems quite difficult". Their §2 says "It appears to be difficult to find an analogous argument to Huxley's in this setting to improve the estimate when there is no subdivision available";
+  - round 527's next step.
+- **NOVEL against the pilot:**
+  - the barrier within the stated family at `σ = 5/7`;
+  - the socket's conversion `κ ↦ 7/3 − κ`;
+  - the exact line-sum form of `S₃` for prime `q`;
+  - the observation that the half-plane gives a pointwise saving in the dual sums, which no route tried here keeps together with the Jacobi phases.
+
+  As mathematics, these are exponent arithmetic and short computations around Chen–Gupta–Li's argument.
+
+**Check 9.**
+
+- (a) The barrier is scoped to the family in `seven_thirds.py`'s docstring and to `σ = 5/7`; nothing is claimed about other arguments. The socket's `7/3 − κ` is the model's, checked at `κ = 1/100`, `1/50` and `1/39`.
+- (b) STRUCTURAL-REVIEW §6 enters the target "Below `7/3` for prime moduli" with its socket (`Linnik.CharDensity (7/3 − κ + ε)` through `Linnik.linnik_of_charDensity`) and three attack notes.
+- (c) The half-plane is fed four ways: class-II elimination, the Halász–Montgomery off-diagonal, higher moments, and the dual sums pointwise. None is circular. At `σ = 5/7` none of them moves the exponent. The auxiliary question is entered as well: a bound for the line sums on the small lines that uses both of their representations.
+- The machinery checklist of CLAUDE.md's "Looking in the right places" is recorded in SEVEN-THIRDS.md §7, with the items not surveyed.
+
+**Bearing on RH:** none. The question is the density of zeros of Dirichlet L-functions near `σ = 5/7`. It says nothing about zeros on the line.
+
+**The next step.** The owner's request "Push past 7/3" is not met. Linnik's exponent in the stack is `12/5 + η`, and `7/3 + ε` is Chen–Gupta–Li's Corollary 1.4 (a preprint). Two continuations are open:
+
+- Landing `7/3` in Lean means formalizing their Proposition 3.1 for prime moduli, §§4–11 of their preprint: the Guth–Maynard matrix, Poisson summation, the affine-transformation bound of their Proposition 8.1 with its induction, the moments of `R`, and the energy bound through Heath-Brown's Theorem 10.1.
+- Going below `7/3` needs the open step of SEVEN-THIRDS.md §6.
+
+Nothing is started.
