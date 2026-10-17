@@ -420,6 +420,9 @@ import LinnikMoment
 #print axioms LinnikTwelve.linnik_twelve_fifths
 #print axioms LinnikMoment.moment_three
 #print axioms LinnikMoment.moment_three_chars
+#print axioms LinnikMoment.refined_moment
+#print axioms LinnikMoment.refined_moment_cube
+#print axioms LinnikMoment.refined_moment_chars
 EOT
 echo "== axioms"
 # every #print axioms line must print an axiom list inside the three, and no axiom line may name another axiom

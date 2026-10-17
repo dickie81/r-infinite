@@ -21429,14 +21429,14 @@ Nothing is started.
 
 **Bearing on RH:** none.
 
-**The next step.** Round 536 starts the formalisation of Chen–Gupta–Li's Proposition 3.1 with the Guth–Maynard moment inequality. The mathematical step stays open: incoherence of the `m`-sums at near-minimal energy. *(Round 536: the moment inequality is in Lean. README round 536.)*
+**The next step.** Round 536 starts the formalisation of Chen–Gupta–Li's Proposition 3.1 with the Guth–Maynard moment inequality. The mathematical step stays open: incoherence of the `m`-sums at near-minimal energy. ~~*(Round 536: the moment inequality is in Lean. README round 536.)*~~ *(Round 537: retracted, false when written. Round 536 put in Lean Chen–Gupta–Li's "simple bound" at `r = 3`, which they set aside. The moment inequality they use, their Lemma 4.2, which they cite as Guth–Maynard's, is in Lean from round 537. README round 537.)*
 
 ## Round 536: the Guth–Maynard moment inequality in Lean (`external/pnt/LinnikMoment.lean`)
 
-**What it is.** The owner asked to push toward a formalisation of an exponent below `7/3`. Round 535's route needs Chen–Gupta–Li's Proposition 3.1 in Lean (layer 2 of SEVEN-THIRDS.md §15). This round lands its first step, the inequality that turns a large-values set into a bound on the third moment of its Gram matrix.
+**What it is.** The owner asked to push toward a formalisation of an exponent below `7/3`. Round 535's route needs Chen–Gupta–Li's Proposition 3.1 in Lean (layer 2 of SEVEN-THIRDS.md §15). ~~This round lands its first step, the inequality that turns a large-values set into a bound on the third moment of its Gram matrix.~~ *(Round 537: retracted, false when written. Their first step is their Lemma 4.2, which they cite as Guth–Maynard's Lemma 4.2: "s₁(M) ≤ 2(tr((MM∗)³) − tr(MM∗)³/|W|²)^{1/6} + 2(tr(MM∗)/|W|)^{1/2}". This round's inequality is their "simple bound s₁(M) ≤ tr((MM∗)^r)^{1/2r}" at `r = 3`, of which they write "this bound can be quite lossy". So the heading's name for it is wrong too. Round 537 lands Lemma 4.2.)*
 
 - **`LinnikMoment.moment_three`.** For every complex matrix `A` with finite row and column index types and every vector `b`: `‖Ab‖⁶ ≤ ‖b‖⁶·Re tr((AAᴴ)³)`, with `‖·‖` the `ℓ²` norm.
-- **`LinnikMoment.moment_three_chars`.** Over a finite set `W` of Dirichlet characters mod `q` and a finite set `S` of integers, with weights `c`: `(Σ_{χ∈W}|Σ_{n∈S} c_nχ(n)b_n|²)³ ≤ (Σ_{n∈S}|b_n|²)³ · Re Σ_{χ₁,χ₂,χ₃∈W} G(χ₁,χ₂)G(χ₂,χ₃)G(χ₃,χ₁)`, where `G(χ, χ′) = Σ_{n∈S} c_nχ(n)·conj(c_nχ′(n))`. A large value `|D(χ)| ≥ V` on all of `W` then gives `(|W|V²)³ ≤ ‖b‖⁶·tr(G³)`, the inequality that Chen–Gupta–Li's §§7–11 bound from the right.
+- **`LinnikMoment.moment_three_chars`.** Over a finite set `W` of Dirichlet characters mod `q` and a finite set `S` of integers, with weights `c`: `(Σ_{χ∈W}|Σ_{n∈S} c_nχ(n)b_n|²)³ ≤ (Σ_{n∈S}|b_n|²)³ · Re Σ_{χ₁,χ₂,χ₃∈W} G(χ₁,χ₂)G(χ₂,χ₃)G(χ₃,χ₁)`, where `G(χ, χ′) = Σ_{n∈S} c_nχ(n)·conj(c_nχ′(n))`. A large value `|D(χ)| ≥ V` on all of `W` then gives `(|W|V²)³ ≤ ‖b‖⁶·tr(G³)`~~, the inequality that Chen–Gupta–Li's §§7–11 bound from the right~~. *(Round 537: retracted, false when written. Their argument bounds the sum of their Lemma 4.5 over the triples that are not all equal, which is `tr((MM∗)³) − tr(MM∗)³/|W|²`, not `tr(G³)`. With diagonal `N_c`, `tr(G³) ≥ |W|N_c³` by the power mean. So with `‖b‖² ≤ N` this inequality gives at best `|W|² ≤ N³N_c³/V⁶`. At their critical point for prime moduli (`σ = 5/7`, `N = q^{7/9}`, `N_c ≍ N`) that is `|W| ≲ q^{2/3}`, the size to be beaten.)*
 - **The proof** uses no eigenvalues. With `y = Ab`, `u = Aᴴy`, `z = Au` and `v = Aᴴz`, Cauchy–Schwarz gives `‖y‖⁴ ≤ ‖b‖²‖u‖²`, `‖u‖⁴ ≤ ‖z‖²‖y‖²` and `‖z‖⁴ ≤ ‖v‖²‖u‖²`. Since `v = Cy` with `C = Aᴴ(AAᴴ)`, the row-by-row bound gives `‖v‖² ≤ ‖C‖_F²‖y‖²`, and `‖C‖_F² = Re tr(CCᴴ) = Re tr((AAᴴ)³)` by cyclicity of the trace. Eliminating `u`, `z` and `v` gives the inequality.
 
 **What is checked.** `LinnikMoment.lean` compiles into the pilot's `build/` with the pilot's toolchain (Lean v4.35.0-rc3, Mathlib at `MATHLIB_REV`) with no warning and no `sorry`. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for both theorems. The file imports Mathlib only. It was compiled alone, with `external/pnt/build.sh`'s gate commands, rather than through a full run of that script: no file it depends on changed. `build.sh` now compiles it and checks its two theorems in the final axiom list.
@@ -21452,10 +21452,42 @@ Nothing is started.
 
 **Check 9.**
 
-- (a) The theorems are as stated, for every finite matrix and every finite set of characters. They give the record exponent `7/3` only with the rest of Chen–Gupta–Li's argument, which is not formalised.
+- (a) The theorems are as stated, for every finite matrix and every finite set of characters. ~~They give the record exponent `7/3` only with the rest of Chen–Gupta–Li's argument, which is not formalised.~~ *(Round 537: retracted, false when written. Chen–Gupta–Li's argument runs through their Lemma 4.2, not through this inequality. Run through this inequality, it has `N^{3−3σ}` where their Lemma 4.2 gives their density term `N^{2−2σ}`; whether it would still give `7/3` was not checked. Round 537 lands Lemma 4.2.)*
 - (b) No register entry changes.
 - (c) No criterion is fed a signal.
 
 **Bearing on RH:** none.
 
-**The next step.** Layer 2 continues with the line-sum identity for prime `q`: `tr(G³) = q^{−2}Σ_k ŵ(k₁)ŵ(k₂)ŵ(k₃)L(k)` over the lines `k₁ + k₂b₁ + k₃b₂ ≡ 0`, with `L(k)` the line sums of `R` (SEVEN-THIRDS.md §6). It is finite Fourier analysis, and it is the identity on which §15's coherence measurement rests. The mathematical step stays open.
+**The next step.** Layer 2 continues with the line-sum identity for prime `q`: `tr(G³) = q^{−2}Σ_k ŵ(k₁)ŵ(k₂)ŵ(k₃)L(k)` over the lines `k₁ + k₂b₁ + k₃b₂ ≡ 0`, with `L(k)` the line sums of `R` (SEVEN-THIRDS.md §6). It is finite Fourier analysis, and it is the identity on which §15's coherence measurement rests. The mathematical step stays open. *(Round 537: Lemma 4.2 came first, `LinnikMoment.refined_moment_chars`. README round 537.)*
+
+## Round 537: Chen–Gupta–Li's Lemma 4.2 in Lean, and a correction to round 536 (`external/pnt/LinnikMoment.lean`)
+
+**What it is.** The owner asked to push toward a formalisation of an exponent below `7/3`. Re-reading Chen–Gupta–Li's §§2 and 4 for the next step showed that round 536 formalised the wrong inequality. Their sketch says: "A possible starting point is the simple bound s₁(M) ≤ tr((MM∗)^r)^{1/2r}" and "this bound can be quite lossy, especially when the eigenvalues of MM∗ are all of comparable size. We therefore take r = 3, but use instead the refined bound". In §4 that refined bound is their Lemma 4.2, which they cite as Guth–Maynard's Lemma 4.2: "s₁(M) ≤ 2(tr((MM∗)³) − tr(MM∗)³/|W|²)^{1/6} + 2(tr(MM∗)/|W|)^{1/2}" (quotes from the PDF's text layer, spaces and exponents restored). Round 536's `moment_three` is the simple bound at `r = 3`. This round lands Lemma 4.2 and corrects round 536's records.
+
+- **Why the simple bound is not enough.** When the Gram matrix `G` has constant diagonal `N_c`, `tr(G³) ≥ |W|N_c³` by the power mean. With `|D| ≥ V` on `W` and `‖b‖² ≤ N`, the simple bound therefore gives at best `|W|² ≤ N³N_c³/V⁶`. At their critical point for prime moduli (`σ = 5/7`, `N = q^{7/9}`, `N_c ≍ N`) that is `|W| ≲ q^{2/3}`, the size to be beaten, whatever the rest of `tr(G³)` is. In general it puts `N^{3−3σ}` where Lemma 4.2 gives their density term `N^{2−2σ}`. Lemma 4.2 removes the all-equal triples, the source of that term.
+- **`LinnikMoment.refined_moment`.** For every complex matrix `A` with `n` rows, every `b`, and `μ ≥ 0` with `Re tr(AAᴴ) = nμ`: if `‖Ab‖² ≥ μ‖b‖²`, then `(‖Ab‖² − μ‖b‖²)²(‖Ab‖² + 2μ‖b‖²) ≤ ‖b‖⁶(Re tr((AAᴴ)³) − nμ³)`.
+- **`LinnikMoment.refined_moment_cube`.** The same with left side `(‖Ab‖² − μ‖b‖²)³`. So `‖Ab‖² ≤ ‖b‖²(μ + X^{1/3})` with `X = Re tr((AAᴴ)³) − nμ³`. Taking the supremum over `b` gives Lemma 4.2 with constant `1` in place of their `2`: `s₁² ≤ μ + X^{1/3}`, so `s₁ ≤ μ^{1/2} + X^{1/6}`.
+- **`LinnikMoment.refined_moment_chars`.** Over a finite set `W` of Dirichlet characters mod `q` and a finite set `S` of integers prime to `q`, with weights `c`, `N_c = Σ_{n∈S}|c_n|²`, `β = Σ_{n∈S}|b_n|²` and `D(χ) = Σ_{n∈S} c_nχ(n)b_n`: if `Σ_{χ∈W}|D(χ)|² ≥ N_cβ`, then `(Σ_{χ∈W}|D(χ)|² − N_cβ)³ ≤ β³ · Re Σ G(χ₁,χ₂)G(χ₂,χ₃)G(χ₃,χ₁)`. The sum runs over the triples of `W` that are not all equal, and `G(χ, χ′) = Σ_{n∈S} c_nχ(n)·conj(c_nχ′(n))`. That sum is the one their Lemma 4.5 expands, "(t1,χ1),(t2,χ2),(t3,χ3)∈W not all equal", at `t = 0`.
+- **The proof** uses no eigenvalues. Write `G = AAᴴ`, `y = Ab`, `r = ‖Aᴴy‖²`, `t = ‖AᴴGy‖²` and `s = ‖y‖²`. Two Cauchy–Schwarz steps give `r³ ≤ ts²`. The cubic `p(x) = (x − μ)²(x + 2μ)` has `p(G) = (BA)(BA)ᴴ + 2μ·BBᴴ` with `B = G − μ` (`cube_decomp`, by Mathlib's `module` tactic). So the row-by-row bound gives `t − 3μ²r + 2μ³s ≤ Re tr(p(G))·s`, with `Re tr(p(G)) = X` (`qf_le_trace`). Together these give `s³p(r/s) ≤ Xs³`. A third Cauchy–Schwarz step gives `r/s ≥ ‖Ab‖²/‖b‖² ≥ μ`, and `p` increases on `[μ, ∞)`. Over the characters, the diagonal of `G` is `N_c` because `|χ(n)| = 1` for `n` prime to `q` (Mathlib's `DirichletCharacter.unit_norm_eq_one`), and `sum_triples_split` separates the triples that are all equal.
+
+**What is checked.** `LinnikMoment.lean` compiles into the pilot's `build/` with the pilot's toolchain (Lean v4.35.0-rc3, Mathlib at `MATHLIB_REV`), with no warning and no `sorry`, by `external/pnt/build.sh`'s gate command for this one file. No other file imports it, and it imports Mathlib only. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for `moment_three`, `moment_three_chars`, `refined_moment`, `refined_moment_cube` and `refined_moment_chars`. `build.sh` now checks the three new theorems in its final axiom list. The full `build.sh` was not run: no file other than this one changed.
+
+**Records.**
+
+- README round 536: three claims struck as false when written, with annotations (its first step, the inequality their §§7–11 bound, and Check 9 (a)), and a marker on its next step.
+- README round 535: its next step's round-536 marker struck as false when written.
+- `external/pnt/README.md`: the row and the round-536 section corrected, and a round-537 section added.
+- SEVEN-THIRDS.md §15: layer 2's list of parts struck as incomplete, and the round-536 marker struck as false when written, both annotated.
+- The file's module docstring and the two round-536 docstrings now name the simple bound.
+
+**Check 4.** NOVEL against the pilot: Lemma 4.2 in Lean, and the finding that round 536's inequality gives at best `|W| ≲ q^{2/3}` at the critical point. Constant `1` in place of their `2` changes no exponent.
+
+**Check 9.**
+
+- (a) The theorems are as stated, for every finite complex matrix and every finite set of characters with `S` prime to `q`. They are one step of Chen–Gupta–Li's proof of their Proposition 3.1. The other steps are not formalised. Among them are Lemmas 4.1 and 4.3–4.5, Proposition 4.6, Propositions 5.1 and 6.1 (the bounds for `S₁` and `S₂`), Propositions 7.1–7.2, Proposition 8.1, Lemmas 9.1–9.2, Proposition 10.2 with Heath-Brown's Theorem 10.1, and Proposition 11.1.
+- (b) No register entry changes.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Layer 2 continues with the line-sum identity for prime `q`, which is finite Fourier analysis over `ZMod q`. With the weight's residue sums `Ŵ(k) = Σ_n w(n/N)² e(−nk/q)`, `tr(G³)` at `t = 0` equals `q^{−3} Σ_k Ŵ(k₁)Ŵ(k₂)Ŵ(k₃)` times line sums of `R(b) = Σ_{χ∈W} χ(b)`. Each line sum carries the factor `q·[k₁ + k₂b₂ + k₃b₁⁻¹ ≡ 0] − 1` (SEVEN-THIRDS.md §6). Poisson summation is needed only to bound `Ŵ(k)` beyond `|k| ≈ q/N`, not for the identity. The mathematical step stays open: the low-energy third-moment bound of §15.
