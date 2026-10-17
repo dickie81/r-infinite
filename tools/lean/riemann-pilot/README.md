@@ -21556,6 +21556,47 @@ This is an exact finite form of Chen–Gupta–Li's Lemma 4.5 at `t = 0` for pri
 **The next step.** Two pieces close the exact reduction for prime `q` at `t = 0`.
 
 - (1) The closed form of `S₂`. Substitute `k₂ = −ck₃` in each family and use Parseval, `Σ_k ŵ(−ck)ŵ(k) = q·Σ_a w(a)w(ac)`. That gives `q⁻²S₂ = 3N_c(1 − 1/q)(‖E‖_F² + |W|N_c²/q)`, with `E` the off-diagonal part of the Gram matrix. This matches the term `3N_c‖E‖_F²` of `tr(G³) = |W|N_c³ + 3N_c‖E‖_F² + tr(E³)` up to `O(1/q)`. The closed form was checked numerically in scratch at `q = 31` with random `W` and weights: relative error `1.5·10⁻¹⁶`.
-- (2) The socket at the critical point, with the `‖E‖_F²` bound (Chen–Gupta–Li's Proposition 6.1) and the `S₃` bound (the open step of §15) as displayed hypotheses, concluding the large-values count.
+- (2) The socket at the critical point, with the `‖E‖_F²` bound (Chen–Gupta–Li's Proposition 6.1) and the `S₃` bound (the open step of §15) as displayed hypotheses, concluding the large-values count. *(Round 540: (1) and (2) are done, `LinnikS2.S2_closed` and `LinnikS2.large_values_socket`. README round 540.)*
 
 The mathematical step stays open.
+
+## Round 540: the closed form of `S₂` and the socket for prime moduli in Lean (`external/pnt/LinnikS2.lean`)
+
+**What it is.** This round completes the exact reduction that rounds 537–539 began, for a prime modulus and one point per character.
+
+- **`LinnikS2.S2_closed`.** In each family of degenerate lines, substitute `k₂ = −ck₃` (`sum_xy_eq`). Then use Parseval, `Σ_k ŵ(−ck)ŵ(k) = qΣ_a w(a)w(ac)` (`sum_what_mul`), and the identity `Σ_{a,c} w(a)w(ac)|R(c)|² = Σ_{χ,χ′∈W}|G(χ,χ′)|²` for real weights with `w(0) = 0` (`sum_w_RR`). The result is `S₂ = 3(q − 1)ŵ(0)(qΣ_{χ,χ′}|G(χ,χ′)|² − ŵ(0)²(q − 1)|W|)`. With the diagonal `N_c` that is `q⁻²S₂ = 3N_c(1 − 1/q)(‖E‖_F² + |W|N_c²/q)`, the term `3N_c‖E‖_F²` of `tr(G³) = |W|N_c³ + 3N_c‖E‖_F² + tr(E³)` up to factors `1 + O(1/q)`. Round 539's scratch check of this form, at `q = 31`, gave relative error `1.5·10⁻¹⁶`.
+- **`LinnikS2.large_values_socket`.** Suppose `|D(χ)| ≥ V` on `W`, with `D(χ) = Σ_{n∈S} c_nχ(n)b_n` and `S` prime to `q`, and `N_cβ ≤ |W|V²`. If the off-diagonal Frobenius norm satisfies `‖E‖_F² ≤ A` and the generic lines satisfy `Re q⁻²S₃ ≤ B`, then `(|W|V² − N_cβ)³ ≤ β³(3N_c(A + |W|N_c²/q) + B)`.
+
+**What the reduction says at the critical point.** Take `N = q^{7/9}`, `|W| = q^{2/3}`, `V = N^{5/7}`, `|b_n| ≤ 1` and weights of size about `1` on `[N, 2N]`, so `N_c ≍ N` and `β ≤ N`. The left side is about `(qN)³` and the factor `β³` about `N³`. The socket therefore needs `3N_c‖E‖_F² + q⁻²S₃ ≳ q³`; the term `3|W|N_c³/q ≍ q²` is negligible. So below `7/3` at the critical point, with one point per character, needs exactly two inputs:
+
+- an `‖E‖_F²` bound below `q³/N`;
+- a bound `Re q⁻²S₃ ≤ q^{3−δ}` on the generic line sums.
+
+The second is the open step of SEVEN-THIRDS.md §15. Chen–Gupta–Li's first term corresponds to `q⁻²S₃ ⪅ q³`.
+
+**What is checked.** `LinnikS2.lean` compiles into the pilot's `build/` with the pilot's toolchain, with no warning and no `sorry`, by `external/pnt/build.sh`'s gate command for this one file. It imports Mathlib and the three files of rounds 537–539, unchanged since round 539. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for `S2_closed` and `large_values_socket`, and `build.sh` checks both in its final axiom list. The full `build.sh` was not run: no other file changed.
+
+**Records.**
+
+- `external/pnt/README.md`: a row and a section.
+- `external/pnt/build.sh`: the module and two theorems added.
+- SEVEN-THIRDS.md §15: a marker on layer 2.
+- README round 539: a marker on its next step.
+
+**Check 4.** NOVEL against the pilot: the closed form of `S₂` and the socket theorem, in Lean.
+
+**Check 9.**
+
+- (a) The theorems are as stated, for every prime `q`, every finite set of characters and every finite `S` prime to `q`. The socket's hypotheses `A` and `B` are not proved here. The model is one point per character (`t = 0`); Chen–Gupta–Li's setting has points `(t, χ)` with `|t| ≤ T`, and the pilot's Linnik route uses `T = O(log q)`.
+- (b) No register entry changes.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** The `‖E‖_F²` input at low energy, by elementary means. Write `‖E‖_F² = Σ_{ψ≠1} r(ψ)|κ(ψ)|²`, with `r(ψ) = #{(χ, χ′) ∈ W²: χχ̄′ = ψ}` and `κ(ψ) = Σ_n w(n/N)²ψ(n)`. By Cauchy–Schwarz, `‖E‖_F² ≤ E(W)^{1/2}(Σ_{ψ≠1}|κ(ψ)|⁴)^{1/2}`. Poisson summation gives `κ(ψ) = (N/q)τ(ψ)F(ψ̄)`, with a dual sum `F` of length `M = q/N` up to `q^ε`. The mean value theorem for `F²`, of length `M² < q`, then gives `Σ_{ψ≠1}|κ(ψ)|⁴ ≪ q^{1+ε}N²`. At the near-minimal energy that Chen–Gupta–Li's Proposition 10.2 gives at the critical point (round 535), `E(W) ≈ |W|⁴/q`, so `3N_c‖E‖_F² ≪ q^εN²|W|² = q^{3−1/9+ε}`, below `q³`. In Lean this needs:
+
+- Poisson summation for a smooth weight (the decay of `ŵ`);
+- the pilot's mean value theorem over the characters (round 521's `LinnikHybrid`) for `F²`;
+- the energy bound as a displayed hypothesis.
+
+The mathematical step, the `S₃` bound, stays open.
