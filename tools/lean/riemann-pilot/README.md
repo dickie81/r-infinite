@@ -21264,4 +21264,40 @@ Nothing is started.
 
 **Bearing on RH:** none.
 
-**The next step.** The minor-part third moment, or a proof that sets of size `q^{2/3}` cannot keep their differences on major arcs once `π(M)` is large. Nothing is started.
+**The next step.** The minor-part third moment, or a proof that sets of size `q^{2/3}` cannot keep their differences on major arcs once `π(M)` is large. Nothing is started. *(Round 531: taken up. With a smooth weight the major part is empty at the tested `q`, and for `δ < 1/12` at large `q`, so the step is the third moment of `E` itself; the target is refined to an energy form. README round 531.)*
+
+## Round 531: a large-`q` probe of the Gram matrix; round 530's split is empty, and a weaker conjecture (`frontier/linnik/gram_probe.py`; SEVEN-THIRDS.md §11)
+
+**What it is.** The owner asked to keep researching. `gram_probe.py` is new. It computes the Gram matrix of SEVEN-THIRDS.md §10 by FFT at the critical case's proportions, with the smooth weight `sin²` on `[N, 2N]`. The gate runs `q = 10007`, `100003` and `1000003`, and scratch runs reach `q ≈ 10⁷`. SEVEN-THIRDS.md §11 records it. No Lean changed, and no paper surface is edited.
+
+- **Round 530's split is empty.** With the smooth weight no character has `|F| > M^{0.7}` at the gated `q`: the smallest `δ` is `0.359` to `0.376`, and `0.334` to `0.355` in the scratch runs. So the major part (`δ < 3/32`) is empty there. For large `q` it is empty for `δ < 1/12` by the half-plane bound of SEVEN-THIRDS.md §6. The open step stays where round 528 put it. A weight symmetric about `0`, or round 530's sharp cutoff, does have characters with `|F|` near `M`.
+- **Concentrated sets.** Alternating projections reach concentration `0.625`, `0.449` and `0.330` at the gated `q`, and `0.309` to `0.350` at `q = 3025261`, `10000223` and `10001881`. In this search the fall levels off.
+  - These sets have additive energy `(1.8 to 2.6)·|W|^{8/3}`, which is where Chen–Gupta–Li's energy term reaches `q³`.
+  - Their `S₃` is at most `0.31` of that term.
+  - Their top singular vectors live on about `2q^{1/3}` points. As `1`-bounded polynomials they are far from large-values sets.
+- **Low energy.** Confine `W` to a random pool, so that `E(W)` is near `|W|⁴/q`. Then the search reaches `c = 0.221`, `0.122` and `0.066`, and `S₃` stays within `25%` of its mean over random `W`, `(5/16)N|W|³` up to lower order.
+- **A weaker conjecture.** `S₃ ≲ q^ε(N|W|³ + qN|W|^{1/2}E(W)^{1/2})`, for prime `q`, `T = O(1)` and `W` in the range of Chen–Gupta–Li's Proposition 11.1. It keeps the energy term of their sketch bound (2.3), "s₁(M)⁶ ⪅ (qT)²|W|^{3/2} + qTN|W|^{1/2}E(W)^{1/2}" (their §2, from the PDF's text layer), and drops the first term, which their Remark 11.2 counts among "the terms that set the limitations on our bounds".
+  - It is weaker than round 529's conjecture by `N/√q` per line.
+  - Round 530's counterexample meets it, at `0.52`, `0.42` and `0.39` of its allowance.
+  - Its payoff in the model is round 529's `30/13` (check (E)).
+- **What magnitudes cannot show.** For `q ≤ 10⁷` the energy term at random-level energy is within `q^{1/18} ≤ 2.45` of `q³`. Over the same range the socket's `κ ≤ 1/39` lowers `q^{−κ}` only to `0.66`. So the size of `S₃` at these `q` cannot settle the step.
+
+**What is checked.** `python3 frontier/linnik/gram_probe.py` exits 0 in about 2 minutes on an idle machine. (G1)–(G6) pass, and the mutation (the symmetric weight in (G2)) is caught. The scratch runs at `q = 3025261`, `10000223` and `10001881`, and the pair at `1000667` and `1008001`, are not in the gate. The conjecture's inverse form and its payoff are short computations written out in §11; the payoff rests on check (E) of `seven_thirds.py`.
+
+**Records.**
+
+- SEVEN-THIRDS.md §11, and markers on three sentences of §10.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli", which enters the weaker conjecture as its target.
+- README round 530: a marker on its next step.
+
+**Check 4.** NOVEL against the pilot: the probe, the empty major part, the energy of the concentrated sets, and the weaker conjecture. Chen–Gupta–Li's (2.3), (2.4), Proposition 11.1 and Remark 11.2 are quoted from their PDF's text layer, re-read this round.
+
+**Check 9.**
+
+- (a) Every measurement is at the listed `q`, with one smooth weight and one search method. "No character has `|F| > M^{0.7}`" holds at those `q`; the emptiness for `δ < 1/12` at large `q` comes from the half-plane bound. "Cannot settle" is about magnitudes at `q ≤ 10⁷`, and the two factors are computed. The conjecture is not proved.
+- (b) The register entry's target is refined to the weaker conjecture.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Either prove the weaker conjecture or refute it. In inverse form it says that a third moment near `q³` forces energy near `|W|^{8/3}`. A structured set of low energy with a large third moment would refute it. Nothing is started.
