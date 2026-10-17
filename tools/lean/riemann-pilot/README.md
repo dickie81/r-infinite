@@ -20774,4 +20774,59 @@ Part 3, `LinnikSubconvex.lean` (322 lines).
 
 **Bearing on RH:** none. The route bounds `L(s, χ)` on the critical line from a zero-free half-plane and counts characters with zeros to the right of `σ`; it says nothing about zeros on the line.
 
-**The next step.** Round 519's plan is complete, and with it the owner's request; no next step is set. The register keeps K4's Möbius bound `Σ_{n≤x} μ(n)χ(n) = O(x^{11/12+η})`, whose Lindelöf input is now landed, and `CharDensity A` with `A < 17/6` (K2′), which would lower the exponent through `linnik_of_charDensity`.
+**The next step.** Round 519's plan is complete, and with it the owner's request; no next step is set. The register keeps K4's Möbius bound `Σ_{n≤x} μ(n)χ(n) = O(x^{11/12+η})`, whose Lindelöf input is now landed, and `CharDensity A` with `A < 17/6` (K2′), which would lower the exponent through `linnik_of_charDensity`. *(Round 523: K4's Möbius bound is landed, `MertensChi.norm_sum_le`, uniformly in `q`; see round 523.)*
+
+## Round 523: Mertens' function twisted by a character, `|Σ_{n≤X} χ(n)μ(n)| ≤ C(q + 2)^η X^{11/12+η}` uniformly in `q` (`external/pnt/MertensChi.lean`)
+
+**What it is.** Round 522's next step read: "Round 519's plan is complete, and with it the owner's request; no next step is set. The register keeps K4's Möbius bound `Σ_{n≤x} μ(n)χ(n) = O(x^{11/12+η})`, whose Lindelöf input is now landed, and `CharDensity A` with `A < 17/6` (K2′), which would lower the exponent through `linnik_of_charDensity`." The owner's request: "Hit both pls". This round lands the first of the two:
+
+- `MertensChi.norm_sum_le`: for every `η > 0` there is `C` such that `|Σ_{n≤X} χ(n)μ(n)| ≤ C(q + 2)^η X^{11/12+η}` for every modulus `q ≥ 1`, every Dirichlet character `χ ≠ 1` mod `q` and every `X ≥ 1`.
+- `MertensChi.isBigO`: for one `χ ≠ 1`, `Σ_{n≤X} χ(n)μ(n) = O(X^{11/12+η})` for every `η > 0`. This is K4's Möbius bound, with no hypothesis.
+
+**What is proved** (one new file, 231 lines, 6 theorems and 1 definition; each of its 3 axiom lines, and each of the 3 lines this round adds to `build.sh`'s final check, is `[propext, Classical.choice, Quot.sound]`).
+
+- **`fχμ`**: the coefficients `χ(n)μ(n)`, with `fχμ_zero` and `norm_fχμ_le` (`|χ(n)μ(n)| ≤ 1`).
+- **`LSeries_fχμ`**: `Σ χ(n)μ(n)n^{−s} = 1/L(s, χ)` on `Re s > 1`, from Mathlib's `DirichletCharacter.LSeries.mul_mu_eq_one`.
+- **`LSeriesSummable_fχμ`**: the series converges absolutely at `s = 2` (Mathlib's `DirichletCharacter.LSeriesSummable_mul`).
+- **`norm_sum_le`**, **`isBigO`**: as above.
+
+**The proof.** It is round 472's proof of `MertensExponent.mertens_isBigO_of_zeroFree`, with `1/L(·, χ)` in place of `1/ζ` and the dependence on `q` tracked.
+
+- **The function.** `F = 1/L(·, χ)` is holomorphic on `Re s > 11/12`. `L(·, χ)` is entire for `χ ≠ 1` (Mathlib's `differentiable_LFunction`), and it has no zero there (round 495's half-plane, through round 522's `LinnikLindelof.LFunction_ne_zero`). Unlike `1/ζ`, it needs no care at `s = 1`.
+- **The line.** Let `η₀ = min(η, 1/24)`, `θ' = 11/12 + η₀/4`, `κ = η₀/4` and `ε₁ = η₀/8`. The inverse half of round 522's `LinnikLindelof.lindelof`, at `σ₀ = θ'` and `ε₁`, gives `|F(θ' + it)| ≤ C₀((q + 2)(|t| + 4))^{ε₁} ≤ C₀(4(q + 2))^{ε₁}(1 + |t|)^{ε₁}`, with `C₀` independent of `q`, `χ` and `t`. The same bound on `θ' ≤ σ ≤ 2`, with `ε₁ ≤ 1` and `|t| + 4 ≤ 5|t|`, is the growth `|F(σ + it)| ≤ 5C₀(q + 2)|t|` for `|t| ≥ 1`. `SmoothPerron.smoothedSum_eq_verticalIntegral_left` needs that growth to move the smoothed Perron integral from `Re s = 2` to `Re s = θ'`.
+- **The integral.** With `SmoothPerron.mellin_le_geom`, the Mellin transform of the smoothing `Smooth1 ν ε` is at most `K_M ε^{−κ}(1 + |t|)^{−1−κ}` on the line. So the integrand is at most `C₀(4(q + 2))^{ε₁}K_M ε^{−κ}X^{θ'}(1 + |t|)^{−r}` with `r = 1 + κ − ε₁ > 1`. The smoothed sum is then at most `C₀(4(q + 2))^{ε₁}K_M I_r ε^{−κ}X^{θ'}`, with `I_r = ∫(1 + |t|)^{−r} dt`.
+- **The smoothing.** `SmoothPerron.norm_smoothedSum_sub_le` with `|χ(n)μ(n)| ≤ 1` costs `3 log 2 · εX + 1`. With `ε = X^{θ'−1}` (`X > 1`): `ε^{−κ}X^{θ'} ≤ X^{θ'+κ}`, `εX = X^{θ'}`, and `θ' + κ = 11/12 + η₀/2 ≤ 11/12 + η`; also `(4(q + 2))^{ε₁} ≤ 4^{ε₁}(q + 2)^η`. At `X = 1` the sum is `χ(1)μ(1) = 1`. The constant is `C = C₀4^{ε₁}K_M I_r + 4`.
+
+**Where it stands.** K4 is complete. Round 522 landed its Lindelöf bound and this round its Möbius bound, both uniform in `q`. The owner's second target, `CharDensity A` with `A < 17/6`, is not landed; the next step below records the route.
+
+**The paper.** No paper surface is edited. `grep -n -E 'μ\(n\)χ\(n\)|χ\(n\)μ\(n\)|MertensChi'` over `riemann-indistinguishability.md` and `cascade-riemann-formulation.md` finds no line. No file outside `tools/lean/riemann-pilot/` names the file or its namespace: `grep -rn MertensChi` over the repository's `.md`, `.tex`, `.py`, `.sh` and `.json` files, less the lines under `tools/lean/riemann-pilot/`, prints nothing.
+
+**Records.**
+
+- `external/pnt/build.sh`: the file in the compile list, and 3 lines in the final check (243 to 246 `#print axioms` lines).
+- `external/pnt/README.md`: a new row and a section.
+- STRUCTURAL-REVIEW: K4 (the Möbius bound is landed; K4 is complete).
+- This file: a marker on round 522's next step.
+
+**Builds.**
+
+- `external/pnt/build.sh` (1739 s; scratch compiles ran beside it) compiled `Architect.lean`, the 19 PNT+ files and the 49 files here, and exited with code 0. The 49 print 180 axiom lines and the final check prints 246, each `[propext, Classical.choice, Quot.sound]`. None of the 49 prints a warning; the build's warnings, and the two uses of `sorry` in `Wiener.lean`, are in the vendored PNT+ files, which the build does not gate.
+- The new file also compiles with `-DautoImplicit=false`, with no error or warning.
+- `src/`, the dh layer and zeta23 were not rebuilt: no file in them changed, and no file in them imports the new file.
+- The new namespace is `MertensChi`. A grep of the `.lean` files of `src/`, `external/` (less the vendored `upstream/` trees) and Mathlib finds `namespace MertensChi` only in the new file.
+
+**Check 4.**
+
+- **Classical [recalled, not read]:** `Σ_{n≤x} μ(n)χ(n) = O(x^{θ+ε})` when `L(s, χ)` has no zero in `Re s > θ`, by Perron's formula.
+- **ACKNOWLEDGED in the pilot:** K4 (the Möbius bound, and its route through `MertensExponent.mertens_isBigO_of_zeroFree`); stack review 3's D1.
+- **NOVEL against the pilot:** the bound kernel-checked, uniformly in `q`.
+
+**Check 9.**
+
+- (a) The quantifiers are the theorem's: every `η > 0`, every `q ≥ 1` (`[NeZero q]`), every `χ ≠ 1` mod `q` and every `X ≥ 1` in `norm_sum_le`.
+- (b) No barrier claim is made.
+- (c) No criterion is fed a signal in this round.
+
+**Bearing on RH:** none. The bound follows from the half-plane `Re s > 11/12` and says nothing about zeros to its left.
+
+**The next step.** The owner's second target: `CharDensity A` with `A < 17/6`. The route is Ingham's. A hybrid fourth moment, `Σ_χ |L(1/2 + it_χ, χ)|⁴ ≤ C_ε(q(T + 2))^{1+ε}` for any one point `|t_χ| ≤ T` per character `χ ≠ 1` mod `q`, would replace round 521's pointwise bound in the integral class. There Cauchy–Schwarz twice gives `Σ_χ |L||M_X| ≤ (Σ|L|⁴)^{1/4}(Σ|M_X|²)^{1/2}R^{1/4}`. That gives `CharDensity (3/(2 − σ) + ε)` on `σ ≤ 11/12`, so `36/13 + ε` everywhere, and Linnik's exponent `36/13 + η ≈ 2.77`. The fourth moment comes from the approximate functional equation for `L(s, χ)²` (primitive `χ`), the large values of round 521 (`LinnikHybrid.large_values_chars_off`) on the dyadic blocks of a Dirichlet polynomial of length `(q(T + 2))^{1+δ}`, and the reduction of each character to its primitive one.
