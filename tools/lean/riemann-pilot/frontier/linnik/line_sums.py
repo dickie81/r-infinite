@@ -17,6 +17,13 @@ M = q/N.  The probe takes |W| = q^{2/3}, N = q^{7/9} (their critical case) at q 
   (P3) W a random subset of a subgroup of X(q) of order h | q - 1, h from |W| to q - 1: the mean |L|
        over generic lines divided by sqrt(q)|W|^{1/2}E(W)^{1/2}, E(W) = sum_b |R(b)|^4/(q - 1), stays
        in [0.05, 0.5] while E(W)/|W|^2 ranges from about 23 to about 390.
+  (P4) Round 530: the interval polynomial's large-values set (b_n = 1 on [N, 2N], W the top |W|
+       characters) at q = 10007 and 100003 (sampled lines): the ratio of (P3) exceeds 3 and grows with
+       q, so the conjecture of README round 529, stated for every W, fails for this set.
+  (P5) Round 530: alternating projections (b restricted to [N, 2N]; W the top |W| characters of D;
+       b the restriction of sum_W D(chi) conj(chi)) from b = 1 reach concentration
+       sum_W |D|^2 / ((q - 1)||b||^2) >= 0.6, with a tenth of the generic small lines at least
+       0.5 q|W|^{3/2}; from a random start the lines stay below 0.1 q|W|^{3/2} at the 90th percentile.
 Mutation: R replaced by random complex values of the same mean square (not the transform of a set),
 for which (P1) must fail.
 
@@ -121,8 +128,81 @@ def p3(q=10009, seed=7):
     return ok
 
 
+def interval_set(q, Wn, dl, N):
+    n = np.arange(N, 2 * N + 1)
+    f = np.zeros(q - 1, complex)
+    np.add.at(f, dl[n], 1.0)
+    D = np.fft.fft(f)
+    D[0] = 0
+    return np.argsort(-np.abs(D))[:Wn], D
+
+
+def sampled(R, dl, q, M, W, nl, rng):
+    b2, out = np.arange(1, q, dtype=np.int64), []
+    while len(out) < nl:
+        m1, m2, m3 = (int(v) for v in rng.integers(-M, M + 1, 3))
+        if 0 in (m1, m2, m3):
+            continue
+        b1 = (-(m2 * b2 + m3) * pow(m1 % q, q - 2, q)) % q
+        ok = (b1 != 0) & (b1 != 1) & (b2 != 1) & (b1 != b2)
+        l1, l2 = dl[b1[ok]], dl[b2[ok]]
+        out.append((R[l1] * R[(l2 - l1) % (q - 1)] * np.conj(R[l2]) - W).sum())
+    return np.array(out)
+
+
+def p4(qs=(10007, 100003), nl=150, seed=11):
+    """The interval polynomial's large-values set: the conjecture's ratio grows with q."""
+    rng, ratios = np.random.default_rng(seed), []
+    for q in qs:
+        M, Wn = sizes(q)
+        N, dl = round(q ** (7 / 9)), dlog_table(q)
+        K, D = interval_set(q, Wn, dl, N)
+        R = R_of(K, q)
+        E = (np.abs(R) ** 4).sum() / (q - 1)
+        L = sampled(R, dl, q, M, Wn, nl, rng)
+        ratios.append(np.mean(np.abs(L)) / (np.sqrt(q) * Wn ** 0.5 * E ** 0.5))
+        sig = np.log(np.abs(D[K]).min()) / np.log(N)
+        print(f"(P4) q={q}: interval set at V = N^{sig:.3f}, E/|W|^2 = {E / Wn ** 2:.1f}, "
+              f"median |L|/(q|W|^1.5) = {np.median(np.abs(L)) / (q * Wn ** 1.5):.3f}, "
+              f"mean|L|/(sqrt(q)|W|^.5 E^.5) = {ratios[-1]:.2f}")
+    return ratios[0] > 3 and ratios[1] > ratios[0]
+
+
+def p5(q=10007, iters=60, seed=2):
+    """Alternating projections for a concentrated pair (b on [N, 2N], W)."""
+    M, Wn = sizes(q)
+    N, dl = round(q ** (7 / 9)), dlog_table(q)
+    n = np.arange(N, 2 * N + 1)
+    idx, rng, res = dl[n], np.random.default_rng(seed), {}
+    for name, b in (("interval", np.ones(len(n), complex)),
+                    ("random", rng.normal(size=len(n)) + 1j * rng.normal(size=len(n)))):
+        for _ in range(iters):
+            f = np.zeros(q - 1, complex)
+            np.add.at(f, idx, b)
+            D = np.fft.fft(f)
+            D0 = D.copy()
+            D0[0] = 0
+            K = np.argsort(-np.abs(D0))[:Wn]
+            g = np.zeros(q - 1, complex)
+            g[K] = D[K]
+            b = np.fft.ifft(g)[idx]
+            b *= np.sqrt(len(n)) / np.linalg.norm(b)
+        f = np.zeros(q - 1, complex)
+        np.add.at(f, idx, b)
+        D = np.fft.fft(f)
+        D[0] = 0
+        K = np.argsort(-np.abs(D))[:Wn]
+        c = (np.abs(D[K]) ** 2).sum() / ((q - 1) * len(n))
+        R = R_of(K, q)
+        L = np.array([v for _, v in sums(R, dl, q, M, Wn, generic=True)])
+        res[name] = (c, np.quantile(np.abs(L), 0.9) / (q * Wn ** 1.5))
+        print(f"(P5) start {name:8s}: concentration {c:.3f}, V = N^{np.log(np.abs(D[K]).min()) / np.log(N):.3f}, "
+              f"90th percentile |L|/(q|W|^1.5) = {res[name][1]:.3f}")
+    return res["interval"][0] >= 0.6 and res["interval"][1] >= 0.5 and res["random"][1] <= 0.1
+
+
 if __name__ == "__main__":
-    oks = [p1(), p2(), p3()]
+    oks = [p1(), p2(), p3(), p4(), p5()]
     q = 10007
     M, Wn = sizes(q)
     rng = np.random.default_rng(3)

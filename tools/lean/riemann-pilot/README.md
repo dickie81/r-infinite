@@ -21237,3 +21237,31 @@ Nothing is started.
 
 - a proof for `W` with small triangle counts, through the Weil bound on each Jacobi sum and a large sieve over the triangles;
 - a probe of actual large-values sets, from polynomials supported on `[N, 2N]`, to test whether they behave like the families here.
+
+## Round 530: round 529's conjecture fails as stated; large-values sets and a major/minor split (`frontier/linnik/line_sums.py` P4–P5; SEVEN-THIRDS.md §10)
+
+**What it is.** The owner asked to keep researching. `line_sums.py` gains two probes, and SEVEN-THIRDS.md §10 records them. No Lean changed, and no paper surface is edited.
+
+- **(P4) The conjecture fails as stated.** The interval polynomial's large-values set (`b_n = 1` on `[N, 2N]`, `V ≈ N^{0.56}`) keeps its generic small lines near `0.4·q|W|^{3/2}`: `0.44` at `q = 10007` and `0.37` at `q = 100003`. The ratio of round 529's conjecture grows from `6.7` to `10.2` between those two `q`. A scratch run at `q = 400009`, not in the gate, gave `0.27` and `13.9`. So the conjecture, stated for every `W`, fails for this set. Its characters are those whose dual sums `F` of length `M` are large: Chen–Gupta–Li's "no cancellation in the sums over m".
+- **(P5) Concentrated pairs.** Alternating projections reach a concentration of `0.71` at `V ≈ N^{0.61}` from `b = 1`; that set has the same structure, and a tenth of its small lines exceed `q|W|^{3/2}`. From a random start they reach `0.43`, with random-size lines. The critical case needs concentration `1` at `V = N^{5/7}`.
+- **A major/minor split (paper).** The mean value theorem for `F⁴` (length `q^{8/9} ≤ q`) gives `#{ψ : |F(ψ)| ≥ M^{1−δ}} ≪ q^{1/9+16δ/9+ε}`. So the major part of the Gram matrix has norm `≪ q^{1/9+16δ/9+1/2+ε}`, which is below `N` for `δ < 3/32`. Only the minor part can carry the critical eigenvalue `≈ q`. Open: a third-moment bound for the minor part that keeps the Jacobi phases.
+
+**What is checked.** `python3 frontier/linnik/line_sums.py` exits 0 in about 20 s. P1–P5 pass, and the mutation is caught. The split's two inequalities are written out in SEVEN-THIRDS.md §10, not checked in code.
+
+**Records.**
+
+- SEVEN-THIRDS.md §10.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli", which revises its target.
+- `line_sums.py`: P4 and P5.
+
+**Check 4.** NOVEL against the pilot: the probes, and the split with its bound for the major part. The mean value theorem for short character sums and Schur's test are classical [recalled, not read].
+
+**Check 9.**
+
+- (a) The counterexample is numerical: two values of `q` in the gate and one scratch run. "Fails as stated" means the stated form for every `W`. The split is a reformulation.
+- (b) The register entry's target is revised.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** The minor-part third moment, or a proof that sets of size `q^{2/3}` cannot keep their differences on major arcs once `π(M)` is large. Nothing is started.
