@@ -21331,4 +21331,34 @@ Nothing is started.
 
 **Bearing on RH:** none.
 
-**The next step.** A proof of the inverse form: a set of size `q^{2/3}` whose Gram matrix has a third moment near `q³` has additive energy near `|W|^{8/3}`. Nothing is started.
+**The next step.** A proof of the inverse form: a set of size `q^{2/3}` whose Gram matrix has a third moment near `q³` has additive energy near `|W|^{8/3}`. Nothing is started. *(Round 533: the concentrated sets are described: near-annihilators of a few small-height rationals, with the polynomial on an approximate orbit of them. README round 533.)*
+
+## Round 533: what the concentrated sets are (`frontier/linnik/structure_probe.py`; SEVEN-THIRDS.md §13)
+
+**What it is.** The owner asked to keep researching. `structure_probe.py` is new. It looks inside round 531's unconstrained concentrated sets at `q = 10007`, `100003` and `1000003`, through `R(b) = Σ_{χ∈W} χ(b)`. SEVEN-THIRDS.md §13 records it. No Lean changed, and no paper surface is edited.
+
+- **Small-height rationals.** The 24 largest `|R(b)|`, `b ≠ 1`, lie between `0.43|W|` and `0.89|W|`. They are real and positive, at `b` of height at most `16`, `35` and `45`; a random `b` has height about `0.65√q`. At `q = 10⁶` they start `−5/9`, `−11/3`, `15`, `−13/15`, `33/5`, `−1/13`. So the characters of `W` nearly satisfy `χ(β) = 1` for a small set of rationals. A random `W` stays below `0.14|W|`.
+- **Wraps.** At least 22 of the 24 are negative or outside `[1/2, 2]`, so they act on `[N, 2N]` only through relations `mn − m′n′ = kq` with `k ≠ 0`.
+- **An approximate orbit.** Each of the 12 leading `β` maps at least `30%` of the polynomial's main support back into it. The median over random `b` is none of it. The interval itself is not special.
+- **Energy.** Exactly, `E(W)/(|W|⁴/L) = 1 + Σ_{b≠1}(|R(b)|/|W|)⁴`, so round 531's energy law counts these alignments.
+- **One elementary step toward the inverse form.** If a polynomial on `s` points has concentration `c` with `cL ≥ |W|`, then `(cL − |W|)² ≤ Σ_{i≠j}|R(n_i/n_j)|²`. Whether a large third moment forces alignment on small-height rationals in general is open.
+
+**What is checked.** `python3 frontier/linnik/structure_probe.py` exits 0 in about 20 seconds. (S1)–(S5) pass, and the mutation (a random `W` in (S1)) is caught. The energy identity and the elementary step are written out in §13. The identity is Parseval; the step is the bound of the top eigenvalue by the diagonal plus the Frobenius norm of the off-diagonal.
+
+**Records.**
+
+- SEVEN-THIRDS.md §13.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+- README round 532: a marker on its next step.
+
+**Check 4.** NOVEL against the pilot: the description of the concentrated sets.
+
+**Check 9.**
+
+- (a) The description is of the sets one search method finds, at three values of `q`; it proves nothing about other sets.
+- (b) The register entry gets a marker; its target is unchanged.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** The inverse form, now aimed at the observed mechanism: show that a large third moment forces `|R|` to be large on many small-height rationals. Nothing is started.
