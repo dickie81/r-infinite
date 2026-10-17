@@ -21490,4 +21490,36 @@ Nothing is started.
 
 **Bearing on RH:** none.
 
-**The next step.** Layer 2 continues with the line-sum identity for prime `q`, which is finite Fourier analysis over `ZMod q`. With the weight's residue sums `Ŵ(k) = Σ_n w(n/N)² e(−nk/q)`, `tr(G³)` at `t = 0` equals `q^{−3} Σ_k Ŵ(k₁)Ŵ(k₂)Ŵ(k₃)` times line sums of `R(b) = Σ_{χ∈W} χ(b)`. Each line sum carries the factor `q·[k₁ + k₂b₂ + k₃b₁⁻¹ ≡ 0] − 1` (SEVEN-THIRDS.md §6). Poisson summation is needed only to bound `Ŵ(k)` beyond `|k| ≈ q/N`, not for the identity. The mathematical step stays open: the low-energy third-moment bound of §15.
+**The next step.** Layer 2 continues with the line-sum identity for prime `q`, which is finite Fourier analysis over `ZMod q`. With the weight's residue sums `Ŵ(k) = Σ_n w(n/N)² e(−nk/q)`, `tr(G³)` at `t = 0` equals `q^{−3} Σ_k Ŵ(k₁)Ŵ(k₂)Ŵ(k₃)` times line sums of `R(b) = Σ_{χ∈W} χ(b)`. Each line sum carries the factor `q·[k₁ + k₂b₂ + k₃b₁⁻¹ ≡ 0] − 1` (SEVEN-THIRDS.md §6). Poisson summation is needed only to bound `Ŵ(k)` beyond `|k| ≈ q/N`, not for the identity. The mathematical step stays open: the low-energy third-moment bound of §15. *(Round 538: done, `LinnikLines.line_sum_identity`. README round 538.)*
+
+## Round 538: the line-sum identity for prime moduli in Lean (`external/pnt/LinnikLines.lean`)
+
+**What it is.** Layer 2 of SEVEN-THIRDS.md §15 continues with the identity on which §§6 and 15 rest. Round 537's Lemma 4.2 bounds a large-values set by the sum of `G(χ₁,χ₂)G(χ₂,χ₃)G(χ₃,χ₁)` over the triples of `W` that are not all equal. This round writes that sum through the line sums of `R(b) = Σ_{χ∈W} χ(b)`, for a prime modulus and one point per character.
+
+- **`LinnikLines.triple_eq`.** For residue weights `w : ZMod q → ℂ` and `G(χ, χ′) = Σ_a w(a)χ(a)conj(χ′(a))`: `Σ_{χ₁,χ₂,χ₃∈W} G₁₂G₂₃G₃₁ = Σ_{a₁,a₂,a₃} w(a₁)w(a₂)w(a₃)R(a₂/a₁)R(a₃/a₂)R(a₁/a₃)`. The proof is cyclicity of the trace for `G = A·diag(w)·Aᴴ`, `A_{χ,a} = χ(a)`. Here `(AᴴA)_{a,a′} = R(a′/a)`, because `conj χ(a) = χ(a⁻¹)` on the whole field `ZMod q` (`0⁻¹ = 0` and `χ(0) = 0`).
+- **`LinnikLines.line_sum_identity`.** With `ŵ(k) = Σ_a w(a)e(−ak/q)`, the same sum is `q⁻³Σ_{k∈(ZMod q)³} ŵ(k₁)ŵ(k₂)ŵ(k₃)Σ_{u,v} R(u)R(v/u)conj(R(v))·(q·[k₁ + k₂u + k₃v = 0] − 1)`. The steps are Fourier inversion on `ZMod q`, the substitution `a₂ = a₁u`, `a₃ = a₁v`, and `Σ_{a₁≠0} e(a₁c/q) = q·[c = 0] − 1` (`sum_a_eq_lines`).
+- **`LinnikLines.line_sum_identity_of_zero`.** If `w(0) = 0`, the `−1` terms cancel, since `Σ_k ŵ(k) = q·w(0)`. The sum is then `q⁻²Σ_k ŵ(k₁)ŵ(k₂)ŵ(k₃)L(k)`, with `L(k) = Σ_{k₁ + k₂u + k₃v = 0} R(u)R(v/u)conj(R(v))`. These are §6's line sums `L(m)` with `(m₁, m₂, m₃) = (k₂, k₃, k₁)`.
+- **`LinnikLines.large_values_lines`.** With `gram_eq_gramZ` (round 536's `gram S c` is `gramZ` with the residue weights `Σ_{n∈S, n≡a}|c_n|²`) and round 537's `refined_moment_chars`. If `|D(χ)| ≥ V` on `W`, with `D(χ) = Σ_{n∈S} c_nχ(n)b_n` and `S` prime to `q`, and `N_cβ ≤ |W|V²`, then `(|W|V² − N_cβ)³ ≤ β³(Re q⁻²Σ_k ŵ(k₁)ŵ(k₂)ŵ(k₃)L(k) − |W|N_c³)`.
+
+This is an exact finite form of Chen–Gupta–Li's Lemma 4.5 at `t = 0` for prime `q`, with their frequencies `m ∈ ℤ³` folded modulo `q`. For the weight `w(n/N)²` on `[N, 2N]`, Poisson summation gives `ŵ(k) = Σ_{m≡k} Nĥ(Nm/q)`. The identity itself uses no Poisson summation. Poisson summation will be needed to show that `ŵ(k)` is small unless `k` is within about `q/N` of `0`. The identity was also checked numerically, in scratch, at `q = 31` with random `W` and weights: relative error `7·10⁻¹⁵`.
+
+**What is checked.** `LinnikLines.lean` compiles into the pilot's `build/` with the pilot's toolchain, with no warning and no `sorry`, by `external/pnt/build.sh`'s gate command for this one file. It imports Mathlib and `LinnikMoment`, which is unchanged since round 537. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for `triple_eq`, `line_sum_identity`, `line_sum_identity_of_zero`, `gram_eq_gramZ` and `large_values_lines`. `build.sh` compiles the file and checks those five theorems in its final axiom list. The full `build.sh` was not run: no other file changed.
+
+**Records.**
+
+- `external/pnt/README.md`: a row and a section.
+- `external/pnt/build.sh`: the module and its five theorems added.
+- SEVEN-THIRDS.md §15: a marker on layer 2.
+- README round 537: a marker on its next step.
+
+**Check 4.** NOVEL against the pilot: the line-sum identity and the large-values bound through the line sums, in Lean.
+
+**Check 9.**
+
+- (a) The theorems are as stated, for every prime `q`, every finite set of characters and all residue weights. They are a step of Chen–Gupta–Li's proof of their Proposition 3.1 in the case `t = 0`, `q` prime. The parameter `t`, the decay of `ŵ`, and the bounds for the line sums (their §§5–11) are not formalised.
+- (b) No register entry changes.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** The zero frequency and the degenerate lines, exactly. At `k = 0` the line is the whole plane and `L(0) = (q − 1)²|W|` by orthogonality. That term is `q⁻²ŵ(0)³(q − 1)²|W|`, which equals `|W|N_c³` up to a factor `(1 − 1/q)²`, so it nearly cancels the `−|W|N_c³` of the bound. On the lines with exactly one of `k₁`, `k₂`, `k₃` zero and the other two nonzero, the line sum collapses to `(q − 1)|R(c)|²` at one point `c`. Those lines carry the analogue of Chen–Gupta–Li's `S₂`, and the lines with all `kᵢ ≠ 0` carry `S₃`. With that split in Lean, the open step of §15 can be stated as a displayed hypothesis on the generic line sums. The mathematical step stays open.
