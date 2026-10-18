@@ -21956,3 +21956,40 @@ What remains of core 2 is the variance over all classes at once, which is C8.
 **Bearing on RH:** none.
 
 **The next step.** Unchanged. The register lists 44 entries: 29 CLOSED, 5 REDUCED, 5 SURVEYED and 5 CORE (the four cores, with B12 as core 1's contrapositive). Every remaining route passes through a core.
+
+## Round 550: the common target H* (`frontier/linnik/sixth_moment.py` check (W); SEVEN-THIRDS.md §21; IDEAS.md)
+
+**What it is.** The owner's request: "Keep probing". This round finds one statement that every route on the register implies, and that suffices in round 528's model: H\*. No Lean changed, and no paper surface is edited.
+
+- **H\*(δ, w).** Among the detector's blocks of length `Q^ν` with `|ν − ν_c(σ)| ≤ w`, where `ν_c(σ) = 1/(2(2 − σ))` (`7/18` at `σ = 5/7`), those large at `N^σ` number at most `Q^{6ν(1−σ)−δ}`. This is `SIX(δ)`'s large-values consequence, kept only near the critical block.
+- **It suffices.** Check (X) of round 541 uses `SIX(δ)` only through that consequence. With all four families, `δ = 1/100` and the window `w = 1/1000`, the maximum over (X)'s grid is `2.33010`, at `σ = 43/60`, below `7/3`. At `σ = 5/7` the window `1/100` certifies `2.31583`, as the unrestricted socket does, and `1/1000` certifies `2.32733`.
+- **Every route on the register gives it, near `σ = 5/7`.**
+  - `SIX(δ)` (core 2), by Chebyshev.
+  - The band hypothesis (core 4). At `ν = ν_c(σ)` the band's count `1 − 4a`, with `a = ν_c(σ)(σ − ½)`, equals the socket's `6ν_c(σ)(1 − σ)` for every `σ`. This identity is checked exactly; `a = 1/12` at `5/7`.
+  - The sixth moment with loss `θ < 1/6` (core 3) and the uniform bound `c < 1/12`, through the band.
+  - The `S₃` step (core 1), through the squares of these blocks. The squares sit at the window's left end, where a saving in Chen–Gupta–Li's third term acts (round 528's socket).
+- **What H\* does not need.** It does not need the band's hard range (round 547's C9): no piece longer than `Q^{ν_c+w}` enters. The band gives H\*, but H\* does not give the band.
+- **Its simplest instance.** The number of `χ mod q` with `|Σ_{n∼N} χ(n)| ≥ N^{5/7}` at `N = q^{7/18}` is below `q^{2/3−δ}`. The fourth moment and the cube's mean value each give exactly `q^{2/3}` there, up to logarithms. In the multiplicative group, this is the large spectrum of an interval of length `q^{7/18}` at level `N^{−2/7}`.
+- **One more closure (C13).** Halász's theorem bounds `Σ_{n≤N} f(n)` by `N(1 + M)e^{−M}` plus a small term, with `M` the pretentious distance squared. Since `M ≤ 2 log log N + O(1)`, it saves at most a power of `log N`, against the `N^{2/7}` that H\* needs.
+- **Why no new numerics.** At `N = q^{7/18}` the threshold `N^{5/7} = q^{1/12}√N` is more than five root-mean-square widths out at `q = 10⁶`, with `rms(S) ≈ (3N/8)^{1/2}` for round 541's weight. The expected count is below `1` at every computable `q`, so a probe cannot test the exponent. Round 541's sixth-moment probe already showed the same limit for core 2.
+
+**What is checked.** `python3 frontier/linnik/sixth_moment.py` exits 0 in 3m07s. (K), (X), (Y), (Z), (U), (V), (W) and (M) pass, and its eleven mutations are caught. The new mutation centres the H\* window at `11ν_c/10`. That certifies nothing below `7/3 − 1/200` at `σ = 5/7`, so (W2) fails. `python3 frontier/linnik/idea_register.py` was not re-run: its file is unchanged. The scratch run that first tested the restricted socket at `w = 1/6`, `1/20`, `1/100`, `1/300` and `1/1000` is not committed; (W) commits the cases it records.
+
+**Records.**
+
+- `frontier/linnik/sixth_moment.py`: check (W), its mutation, and the docstring's mutation count corrected from six to eleven.
+- SEVEN-THIRDS.md §21.
+- IDEAS.md: H\* above the cores, and C13.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: H\* and its sufficiency at a window of `1/1000`; the identity between the band's count and the socket at `ν_c`; and C13. ACKNOWLEDGED: round 541's reading that both routes go through the blocks near `q^{7/18}`, which H\* makes precise. Halász's theorem is [recalled, not read].
+
+**Check 9.**
+
+- (a) "Every route on the register" means the four cores and the uniform bound `c < 1/12`. The register is not shown to be exhaustive. "Suffices" is a statement in round 528's model, over (X)'s grid. Core 1 gives H\*'s saving only where it is needed, for `σ` near `5/7` and above Ingham's crossing; this is said where core 1 is listed.
+- (b) The register marker records H\* as the common target.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** One open statement now carries every route on the register: H\*, the large spectrum of the critical blocks. A kernel-checked conditional theorem from H\* would be the narrowest Lean target the strand has. It is round 527's argument, with H\* as a displayed hypothesis for the blocks near `Q^{ν_c(σ)}` and a detector whose smoothing tracks `σ`. It is a multi-round build.

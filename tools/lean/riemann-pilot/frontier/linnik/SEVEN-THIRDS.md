@@ -409,3 +409,17 @@ and keep the fourth moment the stack proves (round 524). In the model, the integ
   - arXiv:2607.04632 (Turnage-Butterbaugh) is an expository account. Its abstract says the Guth–Maynard theorem, "for a key location in the critical strip, strengthens previous work of Ingham and is the first such improvement in over 80 years".
 
   None of the three treats the characters mod a prime `q` at `σ = 5/7`. None fills a socket of the register entry or contradicts its barrier statements. At `σ = 5/7` the prime-modulus exponent `7/3` is Ingham's `3/(2 − σ)`, §2's triple point.
+
+## 21. Round 550: the common target H*
+
+Check (W) of `sixth_moment.py` is new. Check (X) of §16 uses `SIX(δ)` only through its large-values consequence: the blocks `Q^ν` with `max(1 + 3ν(1 − 2σ), 6ν(1 − σ) − δ) ≤ t` are counted. (W) keeps that consequence only for the blocks within `w` of `ν_c(σ) = 1/(2(2 − σ))`. Call the restricted hypothesis H\*(δ, w).
+
+- **It suffices** (W1, W2). With all four families and `δ = 1/100`, `w = 1/1000` gives a maximum of `2.33010` over (X)'s grid, at `σ = 43/60`, below `7/3`. At `σ = 5/7`, `w = 1/100` certifies `2.31583`, the same as the unrestricted socket, and `w = 1/1000` certifies `2.32733`.
+- **Every route on the register gives it, near `σ = 5/7`** (W3 for the identities).
+  - `SIX(δ)` by Chebyshev.
+  - The band hypothesis of §20. At `ν = ν_c(σ)` a large block forces `|L(½ + it, χ)M_X| ≥ Q^{a}` with `a = ν_c(σ)(σ − ½)`, which is `1/12` at `5/7`. The band's count `1 − 4a` equals the socket's `6ν_c(σ)(1 − σ)` for every `σ`.
+  - The sixth moment with loss `θ < 1/6` (§19) and the uniform bound `c < 1/12`, through the band.
+  - The `S₃` step, through the squares of these blocks. A square sits at the window's left end `1/(2 − σ)`, where a saving in Chen–Gupta–Li's third term acts (§5's socket).
+- **What it does not need.** No piece longer than `Q^{ν_c+w}`. The band gives H\*, but H\* does not give the band. The band's hard range of approximate-functional-equation pieces up to `q^{1/2}` (the register's C9) is not on H\*'s path.
+- **Its simplest instance.** The number of `χ mod q` with `|Σ_{n∼N} χ(n)| ≥ N^{5/7}` at `N = q^{7/18}` is below `q^{2/3−δ}`. The fourth moment gives `q^{2/3}` up to logarithms, and so does the cube's mean value, since `N³ = q^{7/6} > q`. In the multiplicative group, this is the large spectrum of an interval of length `q^{7/18}` at level `N^{−2/7}`.
+- **What numerics can show.** At `N = q^{7/18}` the threshold `N^{5/7}` is `q^{1/12}·√N`. The root mean square of `S` is about `(3N/8)^{1/2}` for this weight. So the threshold is more than five standard deviations out at `q = 10⁶`, and the expected count is below `1` at every computable `q`. A probe there cannot test the exponent.

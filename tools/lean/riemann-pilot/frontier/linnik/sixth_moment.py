@@ -74,6 +74,15 @@ Checks.
            and delta = 35/1000 one below 7/3 (over X_GRID with 3/4 added).
       The sixth moment with loss theta gives the count Q^{1+theta-6a} = Q^{1-4a-(2a-theta)}, a saving 1/6 - theta at
       a = 1/12; a uniform bound |L(1/2 + it, chi)| <= Q^c makes the count vanish for a > c.
+  (W) The common target H* (README round 550).  (X) uses SIX(delta) only through its large-values consequence: the
+      blocks nu with max(1 + 3 nu (1 - 2s), 6 nu (1 - s) - delta) <= t are counted.  H*(delta, w) is that consequence
+      for the blocks within w of nu_c(s) = 1/(2(2 - s)) only.
+      (W1) With delta = 1/100 and w = 1/1000 the maximum over X_GRID is below 7/3 (recorded in the output).
+      (W2) At s = 5/7 and delta = 1/100: w = 1/100 certifies what the unrestricted socket does, and w = 1/1000 still
+           certifies an exponent below 7/3 - 1/200.
+      (W3) The band hypothesis gives H*: at nu = nu_c(s) the block is large at height a(s) = nu_c(s)(s - 1/2) on the
+           critical line, and the band's count 1 - 4a(s) equals the socket's 6 nu_c(s)(1 - s), for s on (K)'s grid;
+           a(5/7) = 1/12.  The square 2 nu_c(s) is the window's left end, where Chen-Gupta-Li's third term sits.
   (M) The sixth moment of smooth character sums S_N(chi) = sum_n phi(n/N) chi(n), phi = sin^2(pi(x - 1))
       on [1, 2], at N = round(q^{7/18}) for primes q from 10^4 to 10^7.  For each q:
       (M1) Parseval: sum over chi of |S_N|^2 = (q - 1) sum phi(n/N)^2;
@@ -91,7 +100,7 @@ delta > 0 it is a power saving in the off-diagonal (wrap-around) count of x1 x2 
 with N^3 = q^{7/6} > q, which this round does not find in the literature.  Part II measures one
 polynomial at t = 0 for a handful of primes; it is not evidence about the worst case over all
 coefficient sequences, and it cannot see factors of q^{1/6} <= 15 at these sizes.  The script runs
-six mutations and requires each to fail at least one check.
+eleven mutations and requires each to fail at least one check.
 """
 from fractions import Fraction as F
 import sys
@@ -483,6 +492,77 @@ BAND = (F(1, 12) - F(1, 100), F(1, 12) + F(1, 100))
 BAND_STACK = (F(1, 24), F(1, 8))
 
 
+def certify_hstar(s, A, delta, w, methods=st.METHODS, mut=None):
+    """(X)'s certificate with the SIX piece cut to the blocks within w of nu_c(s)."""
+    t = A * (1 - s)
+    G = [iv for m in methods if (iv := st.good_interval(m, s, t)) is not None]
+    if st.certify(s, A, methods=methods) is not None:
+        return "base"
+    six = six_piece(s, t, delta)
+    if six is None or delta <= 0:
+        return None
+    nc = 1 / (2 * (2 - s))
+    if mut == "the H* window centred one tenth off":
+        nc = nc * F(11, 10)
+    a, b = max(six[0], nc - w), min(six[1], nc + w)
+    if a > b:
+        return None
+    f0 = st.tiny_floor(G)
+    if f0 <= 0:
+        return None
+    for lo, hi, y0, y1, tag in st.detectors(s, t):
+        if lo != 0:
+            continue
+        if y0 <= f0 or covered_extra(G, [(a, b)], f0, y0):
+            return tag + "+H*"
+    return None
+
+
+def best_hstar(s, delta, w, tol=F(1, 10**5), mut=None):
+    lo, hi = F(2), F(7, 3) + F(1, 100)
+    if certify_hstar(s, hi, delta, w, mut=mut) is None:
+        return None
+    while hi - lo > tol:
+        mid = (lo + hi) / 2
+        if certify_hstar(s, mid, delta, w, mut=mut) is not None:
+            hi = mid
+        else:
+            lo = mid
+    return hi
+
+
+def check_W(mut=None):
+    """(W) The large-values consequence of SIX(delta), near the critical block only."""
+    fails, rows = [], []
+    tol, d = F(1, 10**5), F(1, 100)
+    if mut is None:
+        worst, arg = F(0), None
+        for s in X_GRID:
+            a = best_hstar(s, d, F(1, 1000), tol=tol)
+            if a is None:
+                worst, arg = F(3), s
+                break
+            if a > worst:
+                worst, arg = a, s
+        rows.append((d, F(1, 1000), worst, arg))
+        if not worst < F(7, 3):
+            fails.append(f"W1: {float(worst)} at s = {arg}")
+    full = best_exponent(S57, d, tol=tol)
+    for w, bound in ((F(1, 100), None), (F(1, 1000), F(7, 3) - F(1, 200))):
+        a = best_hstar(S57, d, w, tol=tol, mut=mut)
+        rows.append((d, w, a, S57))
+        if a is None or (bound is None and abs(a - full) > 2 * tol) or (bound is not None and not a < bound):
+            fails.append(f"W2 at w = {w}: {a} (unrestricted {full})")
+    for s in K_GRID:
+        nc = 1 / (2 * (2 - s))
+        a = nc * (s - F(1, 2))
+        if 1 - 4 * a != 6 * nc * (1 - s) or 2 * nc != window(s)[1]:
+            fails.append(f"W3 at s = {s}")
+    if F(7, 18) * (S57 - F(1, 2)) != F(1, 12):
+        fails.append("W3: the height at 5/7")
+    return fails, rows
+
+
 def check_V(mut=None):
     """(V) A power saving in the count of large central values, in a band of heights only."""
     fails, rows = [], []
@@ -631,6 +711,8 @@ def main(mut=None, qs=QS_GATE, verbose=False):
     vf, vrows = check_V(mut) if mut in (None, "the band's saving enters with the wrong sign",
                                         "the band centred at 1/10") else ([], [])
     res["V"] = vf
+    wf, wrows = check_W(mut) if mut in (None, "the H* window centred one tenth off") else ([], [])
+    res["W"] = wf
     mf, rows = check_M(qs if mut in (None, "drop one residue class") else [], mut)
     res["M"] = mf
     if verbose:
@@ -644,6 +726,8 @@ def main(mut=None, qs=QS_GATE, verbose=False):
             print(f"    sixth moment with loss theta = {str(th):>7}: model exponent {float(w):.5f} (max over the grid, at s = {a})")
         for fam, d, w, a in vrows:
             print(f"    band saving delta = {float(d):.3f}, {fam}: model exponent {float(w):.5f} (max over the grid, at s = {a})")
+        for d, w, v, a in wrows:
+            print(f"    H* with delta = {float(d):.3f}, window {float(w):.4f}: model exponent {float(v):.5f} (at s = {a})")
         for q, N, rho, scale, dt in rows:
             print(f"    q = {q:>9}, N = {N:>4}: rho = {rho:.4f}, W^6/((q-1)D3) = {scale:.3f}  [{dt:.1f}s]")
     return res
@@ -652,7 +736,8 @@ def main(mut=None, qs=QS_GATE, verbose=False):
 MUTATIONS = ["critical block one tenth off", "socket delta enters with the wrong sign",
              "drop one residue class", "fourth moment with N^2 > q", "Huxley dropped from the stack's families",
              "the sixth moment read as the fourth", "the loss counted twice", "the gap's top read as hi/2",
-             "the band's saving enters with the wrong sign", "the band centred at 1/10"]
+             "the band's saving enters with the wrong sign", "the band centred at 1/10",
+             "the H* window centred one tenth off"]
 
 
 def mutation_fourth_wrap():
@@ -667,7 +752,7 @@ if __name__ == "__main__":
     qs = QS_GATE + (QS_EXTRA if "--extra" in sys.argv else [])
     res = main(qs=qs, verbose=True)
     nfail = 0
-    for key in "KXYZUVM":
+    for key in "KXYZUVWM":
         print(f"({key}) {'pass' if not res[key] else 'FAIL'}")
         for f in res[key]:
             print("    ", f)

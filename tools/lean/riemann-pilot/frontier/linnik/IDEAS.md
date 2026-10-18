@@ -26,6 +26,17 @@ Each core gives an exponent below `7/3` in round 528's model, or kernel-checked 
 3. **A fixed-modulus sixth moment** `Σ_χ |L(½ + it, χ)|⁶ ≪ q^{1+θ}` with `θ < 1/6` (round 544). Known: `θ = 1/3`. For `ζ` the analogue would be `M(1/2, 6) < 7/6`. The bound the exponent database's chapter 9 gives, by interpolating the fourth and twelfth moments, is `5/4` [R12].
 4. **Large central values at `q^{1/12}`** (round 545). A power saving in the fourth moment's count of `|L(½ + it, χ)| ≥ q^{a}` for `a` near `1/12` suffices with Proposition 3.1. Core 3 and the uniform bound `c < 1/12` each give it. For `ζ`, the count of `1`-spaced `t ∈ [T, 2T]` with `|ζ(½ + it)| ≥ T^{1/12}` is `T^{2/3+o(1)}` by the fourth moment. None of the bounds evaluated from the database's chapters 8–9 improves it [R12].
 
+**The common target, H\*** (README round 550; `sixth_moment.py` check (W)). Let `ν_c(σ) = 1/(2(2 − σ))`, the critical block's exponent (`7/18` at `σ = 5/7`). H\*(δ, w) says: among the detector's blocks of length `Q^ν` with `|ν − ν_c(σ)| ≤ w`, those large at `N^σ` number at most `Q^{6ν(1−σ)−δ}`.
+
+- This is `SIX(δ)`'s large-values consequence, near the critical block only. In round 528's model with all four families, `δ = 1/100` and `w = 1/1000` give a maximum of `2.33010 < 7/3` over the grid.
+- Each core gives it, near `σ = 5/7`, where it is needed:
+  - core 2 by Chebyshev;
+  - core 4 because at `ν = ν_c(σ)` the band's count `1 − 4a` equals `6ν_c(σ)(1 − σ)`, where `a = ν_c(σ)(σ − ½)` (`1/12` at `σ = 5/7`);
+  - core 3 and the uniform bound `c < 1/12` through core 4;
+  - core 1 through the squares of these blocks, which sit at the window's left end, where Chen–Gupta–Li's third term acts (round 528's socket (S)).
+- H\* needs no piece longer than `Q^{ν_c+w}`. Core 4 gives it, but not conversely, and C9's hard range is not on its path.
+- Its simplest instance: the number of `χ mod q` with `|Σ_{n∼N} χ(n)| ≥ N^{5/7}` at `N = q^{7/18}` is below `q^{2/3−δ}`. The fourth moment and the cube's mean value each give exactly `q^{2/3}` there, up to logarithms.
+
 The kernel-checked conditional route is round 521's `LinnikDensity.linnik_of_critBound`. A uniform `|L(½ + it, χ)| ≪ (q(|t| + 2))^c` with `c < 1/12` gives `2 + 4c + η`. Known: `c = 1/6` (Petrow–Young), not in the stack; the stack proves `5/24 + ε`.
 
 ## A. Zero detection
@@ -84,6 +95,7 @@ The kernel-checked conditional route is round 521's `LinnikDensity.linnik_of_cri
 - **C10. `SIX(δ)` from equidistribution of `d₃` in every class.** CLOSED [R14b]. A saving `q^{−δ′}` in every class mod `q` gives `SIX(2δ′)`. At `X = N³ = q^{7/6}` that is level of distribution `6/7`. Fouvry–Kowalski–Michel (arXiv:1304.3199): "the exponent of distribution of the ternary divisor function d_3 in arithmetic progressions to prime moduli is at least 1/2+1/46"; and "when averaging over a fixed residue class", `1/2 + 1/34`.
 - **C11. Upper bounds for product congruences in short intervals.** CLOSED [R15a]. Bourgain–Garaev–Konyagin–Shparlinski (arXiv:1203.0017, Theorem 19) bound the number `K_ν(p, h, s)` of solutions of `(x₁ + s)⋯(x_ν + s) ≡ (y₁ + s)⋯(y_ν + s) ≢ 0 (mod p)`, `1 ≤ x_i, y_i ≤ h`, by `(h^ν/p^{ν/e_ν} + 1)h^ν exp(c(ν) log h/log log h)`, with `e_ν = max{ν² − 2ν − 2, ν² − 3ν + 4}`. For `ν = 3`, `e₃ = 4`, and at `h = q^{7/18}` the bound is `q^{19/12+o(1)}`, above the expected `q^{4/3}`. `SIX(δ)` needs more than an upper bound. `χ₀` removes `N⁶/(q − 1)`, so a bound `C·N⁶/q` with `C > 1` leaves `(C − 1)N⁶`. What is needed is an asymptotic with a power-saving error.
 - **C12. Moments averaged over the moduli.** CLOSED [R15b]. Chandee–Li–Matomäki–Radziwiłł (arXiv:2409.01457) recall that "In 1970, Huxley obtained a sharp upper bound for the sixth moment of Dirichlet L-functions at the central point, averaged over primitive characters χ modulo q and all moduli q ≤ Q". For one modulus, an average bound `Q^{2+o(1)}` gives at most `q^{2+o(1)}`: loss `1`, against the Weyl bound's `1/3` and core 3's `1/6`.
+- **C13. Halász's mean-value theorem (pretentious distance) for the critical sums.** CLOSED. Halász bounds `Σ_{n≤N} f(n)` by `N(1 + M)e^{−M}` plus a small term, where `M` is the pretentious distance `D(f, n^{it}; N)²` minimized over `t`. Since `D² ≤ Σ_{p≤N} 2/p = 2 log log N + O(1)`, the bound saves at most a power of `log N`. `|Σ_{n∼N} χ(n)| ≥ N^{5/7}` needs a saving `N^{2/7}`.
 - **C8. Variance of `d₃` in progressions to a single modulus.** SURVEYED [R8]. Nguyen (arXiv:2205.02354, Corollary 1) treats `X = d^c` with `c ∈ (k − 1, k)`. For `k = 3` that is `X ∈ (d², d³)`. It records Kowalski–Ricotta's prime-modulus range as `c ∈ (k − ½, k)`. `SIX(δ)` sits at `X = q^{7/6}`.
 
 ## D. Restructuring the argument
