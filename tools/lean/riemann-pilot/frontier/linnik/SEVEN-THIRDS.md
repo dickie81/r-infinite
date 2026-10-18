@@ -676,3 +676,23 @@ The owner's goal stands: "keep pushing until exponent is below 7/3". The registe
   - The unconditional range of the Farey points is now every height below `q^{1/6}`, up from `q^{10/63}`.
 - **Why the route stops at `q^{1/6}`.** The binding abscissa is `σ₁ = 5/6` at every height. Beyond `q^{1/6}`, the count at `λ = q^{1/9}` sits at `σ₁ = 1/2 + 1/(18η) < 5/6`. There this route needs a zero density `A(σ₁) < 1/(3(1 − σ₁))`, below the density hypothesis's `2`: `4/3` at height `2M`, where `σ₁ = 3/4`. The twelfth moment of the short sums also stops at `q^{1/6}` (§35).
 - **Reading.** Core 1's Farey part is now unconditional below height `q^{1/6}`, through the density hypothesis for `σ ≥ 5/6`. From `q^{1/6}` to `2M` this route asks for a zero density below the density hypothesis on `[3/4, 5/6)`. The points of large height are untouched. No exponent below `7/3` follows.
+
+## 39. Round 571: the diagonal in ψ, and the literature on cores 2 and 3
+
+The owner's goal stands: "keep pushing until exponent is below 7/3". The register's B32 carries a marker, G14 records a scan, and `idea_register.py` (R36) checks the exponents and, at a small prime, the identity behind the lemma. No probe.
+
+- **The split.** By B33, `X′(x) + e(x) = Σ_{ψ≠1}c_x(ψ)T_ψ(x)`. Square this and sum over every `x`. The terms with `ψ = ψ′` give `D`, and the rest give `O`. The term `e(x)` is negligible: it carries at most `q^{−4/3+o(1)}` and `q^{−13/9+o(1)}` of `θ′`.
+- **The diagonal is small at every height.** At every `x`, `T_ψ(x) = F̄(ψ)U_ψ(x)`, with `F(ψ) = Σ_{m₂≤M}ψ(m₂)` and `U_ψ(x) = Σ_{|a|,|b|≤M}ψ(ax + b)`. Summing `ψ(ax + b)ψ̄(a′x + b′)` over every `x`:
+  - a proportional pair `(a′, b′) = λ(a, b)` gives `ψ̄(λ)` times `q − 1` or `q`;
+  - a pair that is not proportional, with `a, a′ ≠ 0`, gives `−ψ(a/a′)`, by the Möbius substitution `y = (ax + b)/(a′x + b′)`;
+  - every other pair gives `0`.
+
+  There are at most `16M²(1 + log M)` proportional pairs, so `Σ_x|U_ψ(x)|² ≤ 17qM²(1 + log M)` for large `q`. With `|c_x(ψ)| ≤ r(ψ) + 3|W|²/L` (B32's lemma), `|F(ψ)| ≤ M` and `E(W) = κ|W|⁴/L`, the terms `ψ = ψ′` carry at most `(17/8)(κ + 9)(1 + log M)q^{−1/9}(1 + o(1))` of `θ′`, for every `W`. That is the value of B32's heuristic, `q^{−1/9}`, now a bound for these terms.
+- **So core 1 is the off-diagonal.** When `κ ≤ q^{o(1)}` and `2δ < 1/9`, round 535's form of core 1 holds, up to constant factors, exactly when `O ≤ q^{−2δ}|box|²q|W|²`. That is a statement about the phases of `c_x(ψ)T_ψ(x)` across different `ψ`.
+- **Why the off-diagonal resists.** Summing over `x` first leaves, for each choice of characters, `K = Σ_x λ(x)U_ψ(x)Ū_{ψ′}(x)` with `λ = χ̄χ′`. Suppose every such sum had square-root cancellation, `|K| ≤ q^{1/2+o(1)}M²`. Bounding the rest with absolute values over `ψ, ψ′, χ, χ′` still leaves `(κ + 9)q^{1/6+o(1)}/8` of `θ′`. Cauchy–Schwarz over `ψ` at each `x` leaves `q^{1/3}` (B32). So the off-diagonal needs cancellation among the characters themselves, in the weights `w` and in the sums `F`.
+- **Measured** at `q = 211` and `M = 4`, for four even characters [R36]. `Σ_x|U_ψ(x)|²` agrees with the pair formula to rounding error, and it is between `0.29` and `0.84` times `qP + Q`. Here `P` and `Q` count the proportional pairs and the others. The odd characters give `U_ψ ≡ 0`, since the box is symmetric.
+- **The literature on cores 2 and 3** (G14).
+  - Core 2's mean-square form is the variance of the balanced `τ₃` in the residue classes mod `q` at length `q^{7/6}`. That is `X = q^c` with `c = 7/6` and `k = 3`.
+  - Nguyen (arXiv:2205.02354) proves the variance asymptotic for the full `τ_k`, with smooth weights, "in arithmetic progressions to any composite modulus d, for c ∈ (k − 1, k)" (PDF text layer, spaces restored). He describes Kowalski and Ricotta's result for prime moduli as holding for `c ∈ (k − 1/2, k)`. At `k = 3` these ranges are `(2, 3)` and `(5/2, 3)`. Petrow–Young's Weyl bound reaches `c > 4/3` (B29).
+  - Chandee, Li, Matomäki and Radziwiłł (arXiv:2409.01457) obtain the sixth moment "averaged over primitive characters χ modulo q and all moduli q ≤ Q", not over the characters of one modulus.
+- **Reading.** This round localizes core 1. It adds no route, and no exponent below `7/3` follows.

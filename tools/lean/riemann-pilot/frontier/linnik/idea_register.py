@@ -266,11 +266,20 @@ Checks.
        is [a, 1] with a = (2 sigma - 1)/(6 sigma - 4) <= 2/3 = a(5/6), and copies of [2/3, 1] cover (0, 1/2] while
        those of [2/3 + 1/1000, 1] do not; at 5/6 - 1/100 and 5/6 - 1/1000, FMx certifies Huxley's 3/(3 sigma - 1),
        whose count exponent is at most 1/3 + 3 eps there.
+  (R36) Round 571's marker on B32 (the diagonal in psi), at |W| = q^{2/3}, M = q^{2/9}: with sum_x |U_psi(x)|^2 of
+       size q M^2, the terms psi = psi' carry q^{-1/9} of theta' at every height ((17/8)(kappa + 9) = 17(2 kappa +
+       18)/16 for the constant), e(x) carries q^{-4/3} and q^{-13/9}, and with |K| <= q^{1/2} M^2 in every x-sum the
+       off-diagonal bounded with absolute values is q^{1/6}, against Cauchy-Schwarz's q^{1/3}; the proportional pairs
+       of [-M, M]^2 number at most 16 M^2 (1 + log M) for M <= 30; at q = 211, M = 4 and four even characters,
+       sum_x |U_psi(x)|^2 agrees with the pair formula (q - 1 or q times psi-bar(lambda) on proportional pairs,
+       -psi(a/a') on the others with a, a' nonzero, 0 on the rest) and is at most qP + Q; core 2's length q^{7/6}
+       has c = 7/6, outside (2, 3) and (5/2, 3) and below 4/3.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs sixty-four mutations,
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs sixty-seven mutations,
 at least one aimed at each check, and requires each mutation to fail at least one check.
 """
+import cmath
 import math
 from fractions import Fraction as F
 
@@ -1325,6 +1334,74 @@ def check_R35(mut=None):
     return fails
 
 
+_U_CACHE = {}
+
+
+def _u_mean_square(q, M, js):
+    """For even characters psi_j mod q: sum_x |U_psi(x)|^2 directly, the same through the pair formula, P, Q."""
+    key = (q, M, tuple(js))
+    if key not in _U_CACHE:
+        g = next(g for g in range(2, q) if all(pow(g, (q - 1) // p, q) != 1 for p in (2, 3, 5, 7) if (q - 1) % p == 0))
+        ind, v = [0] * q, 1
+        for k in range(q - 1):
+            ind[v] = k
+            v = v * g % q
+        pts = [(a, b) for a in range(-M, M + 1) for b in range(-M, M + 1) if (a, b) != (0, 0)]
+        P = sum(1 for p in pts for r in pts if p[0] * r[1] == p[1] * r[0])
+        rows = []
+        for j in js:
+            chi = [0j] + [cmath.exp(2j * math.pi * j * ind[n] / (q - 1)) for n in range(1, q)]
+            direct = sum(abs(sum(chi[(a * x + b) % q] for a, b in pts)) ** 2 for x in range(q))
+            pairs = 0j
+            for a, b in pts:
+                for c, d in pts:
+                    if a * d == b * c:
+                        lam = c * pow(a, -1, q) % q if a else d * pow(b, -1, q) % q
+                        pairs += chi[lam].conjugate() * ((q - 1) if a else q)
+                    elif a and c:
+                        pairs -= chi[a * pow(c, -1, q) % q]
+            rows.append((direct, pairs))
+        _U_CACHE[key] = (P, len(pts) ** 2 - P, rows)
+    return _U_CACHE[key]
+
+
+def _p_count(M):
+    cnt = {}
+    for a in range(-M, M + 1):
+        for b in range(-M, M + 1):
+            if (a, b) != (0, 0):
+                g = math.gcd(a, b)
+                d = (a // g, b // g)
+                d = d if d > (0, 0) else (-d[0], -d[1])
+                cnt[d] = cnt.get(d, 0) + 1
+    return sum(c * c for c in cnt.values())
+
+
+def check_R36(mut=None):
+    fails = []
+    W, M = F(2, 3), F(2, 9)
+    u = 1 + 2 * M if mut != "the U mean square read as qM^4" else 1 + 4 * M
+    norm = 6 * M + 1 + 2 * W
+    diag = u + 2 * M + 4 * W - 1 - norm
+    k_off = F(1, 2) + 2 * M if mut != "the off-diagonal's K bound without its square root" else 1 + 2 * M
+    off = k_off + M + 4 * W - norm
+    if not (diag == 2 * W - 2 * M - 1 == F(-1, 9) and off == F(1, 6) and 1 - 3 * M == F(1, 3)
+            and W - 2 == F(-4, 3) and -2 * M - 1 == F(-13, 9)
+            and all(F(17 * (2 * k + 18), 16) == F(17, 8) * (k + 9) for k in range(1, 5))):
+        fails.append("R36: the diagonal -1/9, the off-diagonal 1/6 with K square-root, CS 1/3, e(x) -4/3 and -13/9")
+    if not all(_p_count(m) <= 16 * m * m * (1 + math.log(m)) + 1e-9 for m in range(1, 31)):
+        fails.append("R36: the proportional pairs P <= 16 M^2 (1 + log M)")
+    q, m = 211, 4
+    P, Qn, rows = _u_mean_square(q, m, (2, 6, 10, 42))
+    if not (P == _p_count(m) and Qn <= (2 * m + 1) ** 4
+            and all(abs(d - p) < 1e-6 * (1 + d) and d <= q * P + Qn for d, p in rows)):
+        fails.append("R36: sum_x |U_psi|^2 by the pair formula, and <= qP + Q, at q = 211, M = 4")
+    c = F(7, 6) if mut != "the critical length read as q^{13/6}" else F(13, 6)
+    if not (not (2 < c < 3) and not (F(5, 2) < c < 3) and c < F(4, 3) and 3 * F(7, 18) == c):
+        fails.append("R36: c = 7/6 outside Nguyen's (2, 3), Kowalski-Ricotta's (5/2, 3) and Petrow-Young's c >= 4/3")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
@@ -1332,7 +1409,7 @@ CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": 
           "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22, "R23": check_R23,
           "R24": check_R24, "R25": check_R25, "R26": check_R26, "R27": check_R27, "R28": check_R28,
           "R29": check_R29, "R30": check_R30, "R31": check_R31,
-          "R32": check_R32, "R33": check_R33, "R34": check_R34, "R35": check_R35}
+          "R32": check_R32, "R33": check_R33, "R34": check_R34, "R35": check_R35, "R36": check_R36}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -1370,7 +1447,9 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the barrier's ratio read as 3/2", "Jensen's centre read as 1",
              "the fourth moment's count read as q^{1 - 2 theta}",
              "the zero-free bound read as H^{sigma_1}", "the density at 5/6 read as 7/3",
-             "the density hypothesis claimed from 4/5"]
+             "the density hypothesis claimed from 4/5",
+             "the U mean square read as qM^4", "the off-diagonal's K bound without its square root",
+             "the critical length read as q^{13/6}"]
 
 
 def main(mut=None):

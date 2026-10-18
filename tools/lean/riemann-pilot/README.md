@@ -23013,3 +23013,51 @@ Three abstracts were read through the arXiv API (2608.27732, 2609.16700, and 260
 **Bearing on RH:** none.
 
 **The next step.** The open targets: from height `q^{1/6}` to `2M`, a count of the large Farey sums below what the density hypothesis gives at `σ₁ ∈ [3/4, 5/6)`, or a count that does not go through zeros; the random level at the points of large height; and core 2.
+
+## Round 571: the diagonal in `ψ`, and the literature on cores 2 and 3 (`frontier/linnik/SEVEN-THIRDS.md` §39; `IDEAS.md` B32 marker and G14; `idea_register.py` check (R36))
+
+**What it is.** Working toward the owner's goal "keep pushing until exponent is below 7/3". Round 570 left core 1's Farey part open from height `q^{1/6}` to `2M`, and its points of large height open throughout. This round splits round 535's coherence `θ′` by the characters `ψ` of B33's expansion, at every height at once, and scans the literature on the mean-square forms of cores 2 and 3. No exponent below `7/3` follows. No Lean changed, no probe is new, and no paper surface is edited.
+
+- **The diagonal in `ψ` is small at every height.** In `X′(x) + e(x) = Σ_{ψ≠1}c_x(ψ)T_ψ(x)` (B33), `T_ψ(x) = F̄(ψ)U_ψ(x)` at every `x`, with `F(ψ) = Σ_{m₂≤M}ψ(m₂)` and `U_ψ(x) = Σ_{|a|,|b|≤M}ψ(ax + b)`.
+  - Summed over every `x`, a proportional pair of points of the box gives `ψ̄(λ)` times `q − 1` or `q`, and a pair that is not proportional gives `−ψ(a/a′)` or `0`, by the Möbius substitution `y = (ax + b)/(a′x + b′)`. With at most `16M²(1 + log M)` proportional pairs, `Σ_x|U_ψ(x)|² ≤ 17qM²(1 + log M)`.
+  - With B32's `|c_x(ψ)| ≤ r(ψ) + 3|W|²/L`, `|F(ψ)| ≤ M` and `E(W) = κ|W|⁴/L`, the terms `ψ = ψ′` of `‖X′ + e‖²` carry at most `(17/8)(κ + 9)(1 + log M)q^{−1/9}(1 + o(1))` of `θ′`, for every `W`. That is the value of B32's heuristic, `q^{−1/9}`, now a bound for these terms. The term `e(x)` carries at most `q^{−4/3+o(1)}` and `q^{−13/9+o(1)}`.
+- **So core 1 is the off-diagonal.** When `κ ≤ q^{o(1)}` and `2δ < 1/9`, round 535's form of core 1 holds, up to constant factors, exactly when the terms `ψ ≠ ψ′` total at most `q^{−2δ}|box|²q|W|²`.
+- **Why that resists.** Summing over `x` first leaves `K = Σ_x λ(x)U_ψ(x)Ū_{ψ′}(x)` for each choice of characters. Square-root cancellation in every `K`, with the characters bounded in absolute value, still leaves `(κ + 9)q^{1/6+o(1)}/8` of `θ′`. Cauchy–Schwarz over `ψ` leaves `q^{1/3}` (B32). The cancellation has to come from the characters themselves.
+- **The literature on cores 2 and 3.** Core 2's mean-square form is the variance of the balanced `τ₃` in the residue classes mod `q` at length `q^{7/6}`, so `c = 7/6` and `k = 3` in `X = q^c`.
+  - Nguyen (arXiv:2205.02354) proves the variance asymptotic for `τ_k` to composite moduli for `c ∈ (k − 1, k)`, and describes Kowalski and Ricotta's prime-modulus result as holding for `c ∈ (k − 1/2, k)`. At `k = 3` these are `(2, 3)` and `(5/2, 3)`.
+  - Chandee, Li, Matomäki and Radziwiłł (arXiv:2409.01457) average the sixth moment over all moduli up to `Q`.
+  - Neither reaches one prime modulus at `c = 7/6`, and Petrow–Young's Weyl bound reaches `c > 4/3` (B29).
+
+**Sources.** Five web searches: the sixth moment of short character sums at a prime modulus; the variance of `d₃` to one prime modulus; large values of short character sums beyond the fourth moment; the exact title of Nguyen's paper; and zero density for Dirichlet `L`-functions in the `q`-aspect. The results used are Nguyen (arXiv:2205.02354 and arXiv:2308.06839), Chandee–Li–Matomäki–Radziwiłł (arXiv:2409.01457), three Omega results for quadratic character sums under GRH (arXiv:2512.24147, 2608.15773, 2509.07651), and the zero-density papers on file (arXiv:2507.08296, 2609.27715). The abstracts of the first six were read through the arXiv API, and Nguyen's arXiv:2205.02354 through its PDF's text layer with `pypdf`, from its own directory.
+
+**What is checked.**
+
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R36) pass, and its sixty-seven mutations are caught.
+  - (R36) checks the exponents: the diagonal's `−1/9`, `e(x)`'s `−4/3` and `−13/9`, the off-diagonal's `1/6` with square-root cancellation in every `K`, and Cauchy–Schwarz's `1/3`. It checks the constant `(17/8)(κ + 9) = 17(2κ + 18)/16`.
+  - It counts the proportional pairs of `[−M, M]²` exactly and checks the bound `16M²(1 + log M)` for `M ≤ 30`.
+  - At `q = 211` and `M = 4`, for four even characters, it checks that `Σ_x|U_ψ(x)|²` computed directly equals the pair formula, and that it is at most `qP + Q`. It checks that `c = 7/6` lies outside `(2, 3)` and `(5/2, 3)` and below `4/3`.
+  - The three new mutations: the mean square of `U` read as `qM⁴`, the off-diagonal's `K` bound without its square root, and the critical length read as `q^{13/6}`.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 4 new reports here, 1 in IDEAS.md (41) and 2 in SEVEN-THIRDS.md (42), all of class L10 (a nested list directly after its item's text), the style of the entries around them. The count for STRUCTURAL-REVIEW.md (100) is unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §39.
+- `frontier/linnik/IDEAS.md`: a marker on B32, and G14. The register now lists 79 entries: 46 CLOSED, 11 REDUCED, 1 OPEN, 16 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R36) and three mutations.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the bound on the terms `ψ = ψ′` at every height, its identification with B32's heuristic, the off-diagonal form of core 1, the square-root benchmark `q^{1/6}`, and the ranges of the variance results against core 2's `c = 7/6`. ACKNOWLEDGED: B29, B32, B33, G11 and G13, and rounds 535 and 563–570.
+
+**Check 9.**
+
+- (a) Scope.
+  - The diagonal bound is proved above, asymptotically, for every `W`. Its exponents are checked by (R36), and its identity at one small prime.
+  - "Core 1 is the off-diagonal" is about round 535's form of core 1, with `κ ≤ q^{o(1)}` and `2δ < 1/9`.
+  - "Still leaves `q^{1/6}`" is about bounding the characters in absolute value after square-root cancellation in each `K`. Nothing is claimed about arguments that keep the characters' phases.
+  - The literature lines concern the papers read. Nothing is claimed about results the searches did not return.
+- (b) The open targets stay core 1 (now in its off-diagonal form, B32's marker) and core 2. No new target is named.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Core 1 now asks for cancellation across the characters `ψ ≠ ψ′` in `Σ_x c_x(ψ)c̄_x(ψ′)T_ψ(x)T̄_{ψ′}(x)`, and core 2 for the variance of `τ₃` at `c = 7/6` to one prime modulus. Neither is in reach of what this round surveyed.
