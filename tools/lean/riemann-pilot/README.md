@@ -22245,3 +22245,57 @@ ACKNOWLEDGED: core 1 and round 535's sharpened target, B10 (round 546; round 554
 **Bearing on RH:** none.
 
 **The next step.** Core 1 at the critical point, where the alignment must be weak (`κ ≤ q^{o(1)}`) and sit on ratios of height between `q^{1/3−ε}` and `2q^{7/18}`. The kernel-checked conditional theorem from H\* remains the narrowest Lean target.
+
+## Round 556: six more routes on core 1, and where they stop (`frontier/linnik/SEVEN-THIRDS.md` §24; `IDEAS.md` B20–B24, E8; `idea_register.py` check (R21))
+
+**What it is.** The owner's request: "Keep attacking", continuing core 1 (the first term of Chen–Gupta–Li's `S₃` for prime `q`). No proof emerged. The round records six routes tried and why each stops. No Lean changed, no probe was run, and no paper surface is edited.
+
+- **B20, the Hadamard square.** With the convolved weight, the square's Gram matrix is the entrywise square of the block's. Schur's product theorem then asks `λ_max ≥ q^{11/18}` of the block's matrix, less than the `q^{5/6}` its own large values already need.
+- **B21, the large-spectrum energy bound.** Hölder gives `κ ≥ δ⁴N₀ = q^{−1/18}` at the critical block, below the trivial `κ ≥ 1`. B18 (round 555) is its effective form.
+- **B22, Lemma 10.5 at the block.** Chen–Gupta–Li's energy lemma, applied to the block instead of the square, has diagonal `q^{11/6}`, a factor `q^{1/6}` above the least energy `q^{5/3}`. At the square the diagonal is exactly `q^{5/3}`.
+- **B23, the energy squeeze.** At the square the same lemma bounds the excess energy by Proposition 10.2's first term `q^{14/9}` when the set sits exactly at the mean value bound and the off-diagonal pairs spread uniformly, a heuristic. That is B18's floor, so such a set would have its excess pinned at `q^{14/9}`. The density argument must exclude sets a power or a constant factor below the bound, and there the slack term exceeds the floor.
+- **B24, the convolution form.** For fixed `χ₂` the Gauss-sum form of `S₃` is a convolution against `F/τ`. Its kernel is the additive transform of the dual weights, which is the weight again: double Poisson summation returns the Gram matrix of the interval.
+- **E8, the polynomial method.** Each line sum is an additive correlation of two functions with flat multiplicative spectra. Stepanov's method, the standard tool for additive shifts of a multiplicative subgroup, uses that a subgroup of order `d` is the zero set of `x^d − 1`, a description a minimal-energy set lacks.
+
+**What is checked.** `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R21) pass, and its thirty mutations are caught. (R21) checks the exponents of B20–B23:
+
+- `11/18 < 5/6 < 1` for B20;
+- `−1/18 < 0` for B21;
+- the diagonals `11/6` and `5/3` for B22;
+- for B23, the pinned excess `14/9` and the comparison of slack and floor on a grid of `|W| = q^{2/3−d}`.
+
+The four new mutations read:
+
+- the block's large-values need without `|W|`;
+- the large-spectrum bound with `δ²` in place of `δ⁴`;
+- the block's diagonal without its factor `N₀`;
+- the uniform-spread bound with `|W|` in place of `|W|^{1/2}`.
+
+The quotations from Chen–Gupta–Li in B22 and B23 were checked against the PDF's text layer (spaces and exponents restored).
+
+`tools/research/render_lint.py`'s `lint` was run on the four changed markdown files (none is a paper surface) and compared with HEAD. It finds 7 new reports, all of class L10 (a nested list directly after its item's text), the style of the entries around them: 6 in IDEAS.md and 1 here. The counts for SEVEN-THIRDS.md (33) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §24.
+- `frontier/linnik/IDEAS.md`: B20–B24 and E8. The register now lists 62 entries: 42 CLOSED, 6 REDUCED, 9 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R21) and four mutations.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the six closures. ACKNOWLEDGED: core 1 and round 535's sharpened target, B18 (round 555), whose floor B21 and B23 compare against, and E2 (round 553).
+
+**Check 9.**
+
+- (a) Scope.
+  - Each closure is of the route as described.
+  - B23's upper bound uses a heuristic, the uniform spread of the off-diagonal pairs. The closure does not depend on it: the slack term alone exceeds the floor.
+  - "None of the routes in §§22–24 reaches core 1" is scoped to those sections.
+  - "No method for that is on the register" is scoped to the register.
+- (b) B20–B24 and E8 are on the register. The open target stays core 1.
+- (c) No criterion is fed a signal.
+
+**Horizon scan.** None this round: round 555's (G7) is from the same day.
+
+**Bearing on RH:** none.
+
+**The next step.** None of the routes in §§22–24 reaches core 1. What they lack is cancellation along the small lines in the additive correlations of functions with flat multiplicative spectra, for sets without multiplicative structure. The kernel-checked conditional theorem from H\* remains the narrowest Lean target.

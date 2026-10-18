@@ -148,9 +148,20 @@ Checks.
               q^{2/3 - delta} at l = 1 - delta.  A random set has ||T'_W||/L about 2 alpha^{1/2}, alpha = |W|/L, which
               is q^{-1/6} at |W| = q^{2/3}; the annihilator of a subgroup of order q^{1/3} has |W| = q^{2/3} and the
               largest energy, kappa = |H| = q^{1/3}.
+  (R21) Round 556's entries, at the critical block N0 = q^{7/18}, |W| = q^{2/3}, V0 = N0^{5/7}, and its square.
+       (R21a) B20.  A large-values set of the square needs the top eigenvalue |W| V0^4/N0^2 = q of the Hadamard square
+              G o G of the block's Gram matrix; Schur's bound N0 lambda(G) then needs lambda(G) >= q^{11/18}.  The block's
+              own large values need |W| V0^2/N0 = q^{5/6}, and 11/18 < 5/6 < 1.
+       (R21b) B21.  The large-spectrum bound kappa >= delta^4 N0, with delta = V0/N0 = q^{-1/9}, has exponent -1/18 < 0.
+       (R21c) B22.  Lemma 10.5 at the block: its diagonal N0 |W|^3/V0^2 has exponent 11/6, a factor q^{1/6} above the
+              least energy |W|^4/L at 5/3.  At the square the diagonal |W|^3 N^{1 - 2 sigma} is exactly 5/3.
+       (R21d) B23.  Without slack the self-consistent bound X <= (N^{2 - 2 sigma}|W|^{1/2})^2 gives the excess exponent
+              14/9, B18's floor.  With |W| = q^{2/3 - d} on a grid of d in [0, 1/3]: the slack exponent 5/3 - 3d exceeds
+              the floor 14/9 - 4d (the constant-factor slack at d = 0 included), and the off-diagonal term 14/9 - d
+              meets the floor only at d = 0.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs twenty-six mutations, at
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs thirty mutations, at
 least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -802,11 +813,42 @@ def check_R20(mut=None):
     return fails
 
 
+def check_R21(mut=None):
+    fails = []
+    nu, w = F(7, 18), T23
+    v0 = S57 * nu
+    sq_need = w + 4 * v0 - 2 * nu
+    schur = sq_need - nu
+    block_need = w + 2 * v0 - nu if mut != "the block's large-values need read without |W|" else 2 * v0 - nu
+    if not (sq_need == 1 and schur == F(11, 18) and block_need == F(5, 6) and schur < block_need < 1):
+        fails.append("R21a: Schur's requirement against the block's own")
+    dexp = (S57 - 1) * nu
+    bourgain = (4 if mut != "the large-spectrum bound's delta^4 read as delta^2" else 2) * dexp + nu
+    if not (dexp == F(-1, 9) and bourgain == F(-1, 18) and bourgain < 0):
+        fails.append("R21b: the large-spectrum bound at the critical block")
+    least = 4 * w - 1
+    bdiag = nu + 3 * w - 2 * v0 if mut != "the block's diagonal read without its factor N0" else 3 * w - 2 * v0
+    sdiag = 3 * w + 2 * nu * (1 - 2 * S57)
+    if not (least == F(5, 3) and bdiag == F(11, 6) and bdiag - least == F(1, 6) and sdiag == least):
+        fails.append("R21c: Lemma 10.5's diagonal at the block and at the square")
+    n, floor = 2 * nu, least + nu * (8 * S57 - 6)
+    wexp = F(1, 2) if mut != "the uniform-spread bound read with |W| in place of |W|^{1/2}" else 1
+    pinned = 2 * (n * (2 - 2 * S57) + wexp * w)
+    if not (floor == F(14, 9) and floor - least == F(-1, 9) and pinned == floor):
+        fails.append("R21d: the excess pinned at Proposition 10.2's first term")
+    for d in [F(k, 90) for k in range(0, 31)]:
+        slack, fl, off = least + d - 4 * d, floor - 4 * d, n * (4 - 4 * S57) + w - d
+        if not (slack > fl and off >= fl and (off == fl) == (d == 0)):
+            fails.append(f"R21d: the slack and the floor at |W| = q^(2/3 - {d})")
+            break
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
           "R16": check_R16, "R17": check_R17,
-          "R18": check_R18, "R19": check_R19, "R20": check_R20}
+          "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -820,7 +862,10 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the twist's length read as q^{7/18}", "the outer sums read as one term",
              "the construction's length read as N/V", "the integer-relation bound's h^{1/2} read as h",
              "the excess-energy exponent read as 8 sigma - 7", "the critical threshold read as V^2 = q^{1/2} N",
-             "the Hoelder height threshold read without its square"]
+             "the Hoelder height threshold read without its square",
+             "the block's large-values need read without |W|", "the large-spectrum bound's delta^4 read as delta^2",
+             "the block's diagonal read without its factor N0",
+             "the uniform-spread bound read with |W| in place of |W|^{1/2}"]
 
 
 def main(mut=None):
