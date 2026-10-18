@@ -21712,3 +21712,32 @@ It would add one class-I estimate, from `SIX(δ)` as a displayed hypothesis. It 
 - the `S₃` step.
 
 The cheapest Lean route is the first, through round 527's argument.
+
+## Round 544: a sixth moment with a loss, and the threshold `1/6` (`frontier/linnik/sixth_moment.py` check (U); SEVEN-THIRDS.md §19)
+
+**What it is.** Round 543's sixth moment, now allowed to lose a power: `Σ_χ |L(½ + it_χ, χ)|⁶ ≤ Q^{1+θ+o(1)}` at one point per character, beside the fourth moment the stack proves, on the stack's large-values families (the mean value theorem and Huxley's estimate). No Lean changed, and no paper surface is edited.
+
+- At eleven values of `θ` from `0` to `1/3`, the model's exponent is `max(16/7, min(2 + 2θ, 12/5))`. It is below `7/3` exactly at the values below `1/6`.
+- The reason is exact algebra. Below Ingham's level the blocks between `hi/3` and `lo/2` have no power in the mean value theorem's window, so in the model the moment's reach has to stop at `hi/3`. For the sixth moment that is `A ≥ 2 + 2θ`, whatever `σ`. For the fourth it is Ingham's `3/(2 − σ)`, and Huxley's window fills the gap from Huxley's `3/(3σ − 1)` on. So the sixth moment caps the Ingham–Huxley envelope at `2 + 2θ`.
+- The cap binds on `[σ₀(θ), σ_H(θ)]`, with `σ₀ = (1 + 4θ)/(2 + 2θ)` and `σ_H = (5 + 2θ)/(6 + 6θ)`. `σ₀(1/6) = 5/7`.
+- At `σ = 5/7` and `A = 7/3` the integral class detects `|L(½ + it, χ)| ≥ Q^{1/12}`. The fourth moment counts these characters by `Q^{2/3} = Q^t`; the sixth by `Q^{1/2+θ}`.
+- The best single-modulus `θ` this round knows is `1/3`: the Weyl bound (Petrow–Young), squared, times the fourth moment. In the model it gives `12/5`, and an exponent below `7/3` by this route needs `θ < 1/6`, a saving of more than `q^{1/6}` on that bound.
+
+**What is checked.** `python3 frontier/linnik/sixth_moment.py` exits 0 in about 80 seconds: (K), (X), (Y), (Z), (U) and (M) pass, and its eight mutations are caught. The two new ones count the loss twice, which fails (U2) and (U3), and read the gap's top as `hi/2`, which fails (U1). (U) is exact rational arithmetic in round 528's model. The Petrow–Young citation was checked against the arXiv abstract of 1811.02452 and the Annals listing.
+
+**Records.**
+
+- SEVEN-THIRDS.md §19.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the closed form, the threshold `θ < 1/6`, the interval `[σ₀, σ_H]` and the critical event. The comparison of a moment's reach with Ingham's and Huxley's exponents is classical in shape; the numbers are statements in round 528's model.
+
+**Check 9.**
+
+- (a) "The best this round knows" reports what this round knows and found; it does not claim that nothing better exists. The closed form is checked at eleven values of `θ`, and the identities behind it on a rational grid.
+- (b) The register marker records the threshold `θ < 1/6`.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** In the model, the sixth-moment route needs one count at the critical point: the characters mod `q` with `|L(½ + it, χ)| ≥ q^{1/12}`, below the fourth moment's `q^{2/3}` by a power. The conditional Lean route of round 543 would take `θ` as a parameter, with target `Linnik.CharDensity (max(16/7, 2 + 2θ) + ε)`.

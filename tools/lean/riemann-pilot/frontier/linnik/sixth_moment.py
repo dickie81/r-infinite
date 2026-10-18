@@ -45,6 +45,24 @@ Checks.
       estimate.  (Z1) For k = 2, 3, 4 the model certifies 2 + 2/(2k + 1) at s = 3/4 and nothing below it by 10^-4;
       (Z2) the maximum over the grid with 3/4 added is that number (within 2 * 10^-5), at s = 3/4.  For k = 2 it is
       12/5, the stack's exponent from the fourth moment it has (round 527); for k = 3 it is 16/7.
+  (U) A sixth moment with a loss (README round 544).  Keep the proved fourth moment and suppose the sixth moment is at
+      most Q^{1+theta+o(1)}, one point per character.  The integral class and the blocks of length at least Q^y go
+      through the critical line, y = min(nu4, nu6), nu4 = (1 - t)/(4h), nu6 = (1 + theta - t)/(6h), h = s - 1/2; the
+      other blocks go by powers into the windows of the mean value theorem and Huxley's estimate, as in (Z).
+      (U1) Exact identities, for every s, theta and A on a rational grid.  Let [lo, hi] be the mean value theorem's
+           window, hi = t/(2(1 - s)).  Below Ingham's level (A < 3/(2 - s)) hi/3 < lo/2, and the blocks in
+           (hi/3, lo/2) have no power in [lo, hi] (checked at the midpoint).  The reach (1 + theta - t)/(2kh) of a
+           2k-th moment with loss theta is at most hi/3 iff A (3 - k/2 + (k - 3)s) >= 3(1 + theta), for k = 2, 3, 4;
+           so nu6 <= hi/3 iff A >= 2 + 2 theta, for every s, and nu4 <= hi/3 iff A >= 3/(2 - s) (Ingham).  For s > 2/3
+           Huxley's window, halved, reaches hi/3 iff A >= 3/(3s - 1) (Huxley).  At s = 5/7 and A = 7/3: nu4 = 7/18,
+           the integral class detects |L(1/2 + it, chi)| >= Q^{1/12}, the fourth moment counts it by Q^{2/3} = Q^t and
+           the sixth by Q^{1/2 + theta}, and nu6 - nu4 = 7(theta - 1/6)/9.
+      (U2) For each theta tested, the maximum over the grid of (Z), with 3/4 and sigma_0(theta) added, is
+           max(16/7, min(2 + 2 theta, 12/5)) (within 2 * 10^-5), and it is below 7/3 exactly for the theta below 1/6.
+      (U3) For 1/7 < theta < 1/5 the model certifies 2 + 2 theta, and nothing below it by 10^-4, at both ends of
+           [sigma_0, sigma_H]: sigma_0(theta) = (1 + 4 theta)/(2 + 2 theta), where Ingham's 3/(2 - s) equals
+           2 + 2 theta, and sigma_H(theta) = (5 + 2 theta)/(6 + 6 theta), where Huxley's 3/(3s - 1) does.  At
+           sigma_0 - 1/100 and sigma_H + 1/100 it certifies 2 + 2 theta - 10^-4.  sigma_0(1/6) = 5/7.
   (M) The sixth moment of smooth character sums S_N(chi) = sum_n phi(n/N) chi(n), phi = sin^2(pi(x - 1))
       on [1, 2], at N = round(q^{7/18}) for primes q from 10^4 to 10^7.  For each q:
       (M1) Parseval: sum over chi of |S_N|^2 = (q - 1) sum phi(n/N)^2;
@@ -302,6 +320,116 @@ def check_Z(mut=None):
     return fails, rows
 
 
+def certify_loss(s, A, theta, methods=STACK, mut=None):
+    """The proved fourth moment beside a sixth moment at most Q^{1 + theta + o(1)}: the integral class and the blocks of
+    length Q^nu >= Q^{min(nu4, nu6)} through the critical line; the other blocks by powers in the windows of `methods`."""
+    t = A * (1 - s)
+    if t >= 1:
+        return "trivial"
+    G = [iv for m in methods if (iv := st.good_interval(m, s, t)) is not None]
+    h = s - F(1, 2)
+    loss = 2 * theta if mut == "the loss counted twice" else theta
+    nu4, nu6 = (1 - t) / (4 * h), (1 + loss - t) / (6 * h)
+    y = min(nu4, nu6)
+    f0 = st.tiny_floor(G)
+    if f0 <= 0:
+        return None
+    return ("L6" if nu6 < nu4 else "L4") if covered_extra(G, [(y, F(10))], f0, y) else None
+
+
+def best_loss(s, theta, tol=F(1, 10**5), mut=None):
+    lo, hi = F(2), F(3)
+    if certify_loss(s, hi, theta, mut=mut) is None:
+        return None
+    while hi - lo > tol:
+        mid = (lo + hi) / 2
+        if certify_loss(s, mid, theta, mut=mut) is not None:
+            hi = mid
+        else:
+            lo = mid
+    return hi
+
+
+def loss_exponent(theta):
+    """The closed form of (U2): the sixth moment caps the Ingham-Huxley envelope at 2 + 2 theta, above the floor 16/7."""
+    return max(F(16, 7), min(2 + 2 * theta, F(12, 5)))
+
+
+def loss_point(theta):
+    """sigma_0(theta), where Ingham's 3/(2 - s) equals 2 + 2 theta."""
+    return (1 + 4 * theta) / (2 + 2 * theta)
+
+
+def loss_point_hux(theta):
+    """sigma_H(theta), where Huxley's 3/(3s - 1) equals 2 + 2 theta."""
+    return (5 + 2 * theta) / (6 + 6 * theta)
+
+
+THETAS = [F(0), F(1, 12), F(1, 7), F(3, 20), F(4, 25), F(1, 6) - F(1, 100), F(1, 6), F(9, 50), F(1, 5), F(1, 4),
+          F(1, 3)]
+
+
+def check_U(mut=None):
+    """(U) A sixth moment with a loss theta beside the proved fourth moment, on the stack's families."""
+    fails, rows = [], []
+    # (U1) the identities behind the closed form, and the arithmetic at the critical point
+    for s in sorted(set(K_GRID + [F(5, 8), F(3, 4), F(7, 8)])):
+        h = s - F(1, 2)
+        for th in THETAS:
+            for A in (2 + 2 * th - F(1, 1000), 2 + 2 * th, 2 + 2 * th + F(1, 1000),
+                      3 / (2 - s) - F(1, 1000), 3 / (2 - s), 3 / (3 * s - 1) - F(1, 1000), 3 / (3 * s - 1)):
+                t = A * (1 - s)
+                lo, hi = (1 - t) / (2 * s - 1), t / (2 * (1 - s))
+                top = hi / 2 if mut == "the gap's top read as hi/2" else hi / 3
+                nu4, nu6 = (1 - t) / (4 * h), (1 + th - t) / (6 * h)
+                ok = (nu6 <= top) == (A >= 2 + 2 * th) and (nu4 <= top) == (A >= 3 / (2 - s))
+                for k in (2, 3, 4):
+                    ok = ok and ((1 + th - t) / (2 * k * h) <= top) == (A * (3 - F(k, 2) + (k - 3) * s) >= 3 * (1 + th))
+                if A < 3 / (2 - s):
+                    mid = (hi / 3 + lo / 2) / 2
+                    ok = ok and hi / 3 < lo / 2 and not any(lo <= k * mid <= hi for k in range(1, 8))
+                if s > F(2, 3):
+                    lo_h = (1 - t) / (6 * s - 4)
+                    ok = ok and (lo_h / 2 <= top) == (A >= 3 / (3 * s - 1))
+                if not ok:
+                    fails.append(f"U1 at s = {s}, theta = {th}, A = {A}")
+                    break
+    s, A = S57, F(7, 3)
+    t, h = A * (1 - s), s - F(1, 2)
+    nu4 = (1 - t) / (4 * h)
+    if not (t == F(2, 3) and nu4 == F(7, 18) == 1 / (2 * (2 - s)) and nu4 * h == F(1, 12) and 1 - 4 * nu4 * h == t):
+        fails.append("U1 the fourth moment at the critical point")
+    for th in THETAS:
+        nu6 = (1 + th - t) / (6 * h)
+        if (1 + th - 6 * nu4 * h < t) != (th < F(1, 6)) or nu6 - nu4 != F(7, 9) * (th - F(1, 6)):
+            fails.append(f"U1 the sixth moment at the critical point, theta = {th}")
+    # (U2) the closed form over the grid, and the threshold 1/6
+    for th in THETAS:
+        grid = sorted(set(X_GRID + [F(3, 4)] + ([loss_point(th)] if loss_point(th) > F(1, 2) else [])))
+        worst, arg = F(0), None
+        for s in grid:
+            a = best_loss(s, th, mut=mut)
+            if a is not None and a > worst:
+                worst, arg = a, s
+        rows.append((th, worst, arg))
+        E = loss_exponent(th)
+        if not (E <= worst <= E + F(2, 10**5)) or (worst < F(7, 3)) != (th < F(1, 6)):
+            fails.append(f"U2 theta = {th}: maximum {float(worst)} at s = {arg}, closed form {float(E)}")
+    # (U3) the two ends of the interval [sigma_0(theta), sigma_H(theta)] on which the cap 2 + 2 theta binds
+    for th in THETAS:
+        if F(1, 7) < th < F(1, 5):
+            s0, sH, A0 = loss_point(th), loss_point_hux(th), 2 + 2 * th
+            if not (3 / (2 - s0) == A0 == 3 / (3 * sH - 1)
+                    and all(certify_loss(s, A0, th, mut=mut) is not None
+                            and certify_loss(s, A0 - F(1, 10**4), th, mut=mut) is None for s in (s0, sH))
+                    and all(certify_loss(s, A0 - F(1, 10**4), th, mut=mut) is not None
+                            for s in (s0 - F(1, 100), sH + F(1, 100)))):
+                fails.append(f"U3 at theta = {th}, [sigma_0, sigma_H] = [{s0}, {sH}]")
+    if loss_point(F(1, 6)) != S57:
+        fails.append("U3 sigma_0(1/6) is not 5/7")
+    return fails, rows
+
+
 # ---------------------------------------------------------------- Part II: the sixth moment
 
 def primes_near(xs):
@@ -407,6 +535,8 @@ def main(mut=None, qs=QS_GATE, verbose=False):
     res["Y"] = yf
     zf, zrows = check_Z(mut) if mut in (None, "the sixth moment read as the fourth") else ([], [])
     res["Z"] = zf
+    uf, urows = check_U(mut) if mut in (None, "the loss counted twice", "the gap's top read as hi/2") else ([], [])
+    res["U"] = uf
     mf, rows = check_M(qs if mut in (None, "drop one residue class") else [], mut)
     res["M"] = mf
     if verbose:
@@ -416,6 +546,8 @@ def main(mut=None, qs=QS_GATE, verbose=False):
             print(f"    stack only, delta = {float(d):.5f}: model exponent {float(w):.5f} (max over the grid, at s = {a})")
         for k2, w, a in zrows:
             print(f"    moment 2k = {k2}: model exponent {float(w):.5f} (max over the grid, at s = {a})")
+        for th, w, a in urows:
+            print(f"    sixth moment with loss theta = {str(th):>7}: model exponent {float(w):.5f} (max over the grid, at s = {a})")
         for q, N, rho, scale, dt in rows:
             print(f"    q = {q:>9}, N = {N:>4}: rho = {rho:.4f}, W^6/((q-1)D3) = {scale:.3f}  [{dt:.1f}s]")
     return res
@@ -423,7 +555,7 @@ def main(mut=None, qs=QS_GATE, verbose=False):
 
 MUTATIONS = ["critical block one tenth off", "socket delta enters with the wrong sign",
              "drop one residue class", "fourth moment with N^2 > q", "Huxley dropped from the stack's families",
-             "the sixth moment read as the fourth"]
+             "the sixth moment read as the fourth", "the loss counted twice", "the gap's top read as hi/2"]
 
 
 def mutation_fourth_wrap():
@@ -438,7 +570,7 @@ if __name__ == "__main__":
     qs = QS_GATE + (QS_EXTRA if "--extra" in sys.argv else [])
     res = main(qs=qs, verbose=True)
     nfail = 0
-    for key in "KXYZM":
+    for key in "KXYZUM":
         print(f"({key}) {'pass' if not res[key] else 'FAIL'}")
         for f in res[key]:
             print("    ", f)

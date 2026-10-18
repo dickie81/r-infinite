@@ -359,3 +359,33 @@ The owner asked to keep attacking the step below `7/3`. `sixth_moment.py` is new
 - **What this says.** In the model, a sixth moment of Dirichlet `L`-functions at one point per character, at Lindelöf strength, gives `16/7` with the stack's own large-values families. It needs no part of Chen–Gupta–Li. The sixth moment of `L(½ + it, χ)` over a single prime modulus at that strength is not known: this round knows of no such result, and its searches found none. It is a cleaner hypothesis than §16's `SIX(δ)`. It implies `SIX(δ)` for every block, through the same Mellin step.
 - **A conditional Lean route, not started.** Take round 527's argument (Huxley's power trick, the detector of `LinnikDetect`), with the integral class counted by the sixth moment in place of the fourth, and a mollifier of length `Q^{o(1)}`. A conclusion `Linnik.CharDensity (16/7 + ε)` would follow under the displayed hypothesis, which would sit beside the proved fourth moment.
 - **Attack note (i) of §6 is out of range.** Stevens–de Zeeuw's abstract (arXiv:1609.06284v4) states that "m points and n lines in F², with m^{7/8} < n < m^{8/7}, determine at most O(m^{11/15}n^{11/15}) incidences". The line sums of §6 pair about `q²` points, or level sets of comparable size, with `q^{2/3}` lines, so `n ≈ m^{1/3}`, outside that range. The line sums also need cancellation of complex weights, which incidence counts do not see.
+
+## 19. Round 544: a sixth moment with a loss, and the threshold `1/6`
+
+`sixth_moment.py` gains check (U). §18 assumed the sixth moment at Lindelöf strength. Here it may lose a power. Suppose that, at one point per character,
+
+```
+Σ_χ |L(½ + it_χ, χ)|⁶  ≤  Q^{1+θ+o(1)},
+```
+
+and keep the fourth moment the stack proves (round 524). In the model, the integral class and every block of length at least `Q^y` go through the critical line, with `y = min(ν₄, ν₆)`, `ν₄ = (1 − t)/(4h)`, `ν₆ = (1 + θ − t)/(6h)` and `h = σ − ½`. The other blocks go by powers into the windows of the mean value theorem and Huxley's estimate, as in §18.
+
+- **The closed form** (U2). At each of eleven values of `θ` from `0` to `1/3`, the maximum over the grid, with `3/4` and the point `σ₀(θ)` below added, is
+
+  ```
+  max(16/7, min(2 + 2θ, 12/5)),
+  ```
+
+  within `2·10⁻⁵`. It is below `7/3` exactly at the values of `θ` below `1/6`.
+  - `θ = 0`, `1/12` and `1/7` give the floor `16/7` of §§17–18.
+  - For `1/7 < θ < 1/5` the value is `2 + 2θ`: `θ = 1/6 − 1/100` gives `2.31334`, and `θ = 1/6` gives `7/3`, at `σ = 5/7`.
+  - `θ = 1/5`, `1/4` and `1/3` give `12/5`, the exponent without the sixth moment (round 527).
+- **Why `2 + 2θ`** (U1). Let `[lo, hi]` be the mean value theorem's window, with `hi = t/(2(1 − σ))`. Below Ingham's level, `hi/3 < lo/2`, and a block with exponent in `(hi/3, lo/2)` has no power in the window: its square falls short of `lo`, and its cube passes `hi`. So, in the model, the moment's reach `y` has to stop at `hi/3`, unless Huxley's window covers the gap. Exact algebra gives the conditions, each checked on a rational grid of `σ`, `θ` and `A`:
+  - the reach `(1 + θ − t)/(2kh)` of a `2k`-th moment with loss `θ` is at most `hi/3` if and only if `A(3 − k/2 + (k − 3)σ) ≥ 3(1 + θ)`, for `k = 2`, `3` and `4`;
+  - so `ν₆ ≤ hi/3` if and only if `A ≥ 2 + 2θ`, for every `σ`, and `ν₄ ≤ hi/3` if and only if `A ≥ 3/(2 − σ)`, Ingham's exponent;
+  - for `σ > 2/3`, Huxley's window, halved, reaches `hi/3` if and only if `A ≥ 3/(3σ − 1)`, Huxley's exponent.
+
+  The sixth moment is the one, among `k = 2`, `3` and `4`, whose condition does not depend on `σ`. It caps the Ingham–Huxley envelope `min(3/(2 − σ), 3/(3σ − 1))`, whose maximum is `12/5` at `σ = 3/4`, at the constant `2 + 2θ`. The cap binds on `[σ₀(θ), σ_H(θ)]`, with `σ₀(θ) = (1 + 4θ)/(2 + 2θ)`, where Ingham's exponent equals `2 + 2θ`, and `σ_H(θ) = (5 + 2θ)/(6 + 6θ)`, where Huxley's does (U3). The check certifies `2 + 2θ` at both ends and nothing below it by `10⁻⁴`, and it certifies `2 + 2θ − 10⁻⁴` at `σ₀ − 1/100` and at `σ_H + 1/100`. `σ₀(1/6) = 5/7` and `σ_H(1/6) = 16/21`.
+- **The critical event.** At `σ = 5/7` and `A = 7/3`, `t = 2/3` and `ν₄ = 7/18`, the critical block of §16. There the integral class detects `|L(½ + it, χ)| ≥ Q^{1/12}`, since `(7/18)(5/7 − ½) = 1/12`. The fourth moment counts these characters by `Q^{1−4/12} = Q^{2/3}`, which is exactly `Q^t`. The sixth moment counts them by `Q^{1/2+θ}`, which is smaller exactly when `θ < 1/6`. There `ν₆ − ν₄ = 7(θ − 1/6)/9`.
+- **What is known.** The best single-modulus value of `θ` this round knows is `1/3`. It is the Weyl bound `L(½, χ) ≪ q^{1/6+ε}`, squared, times the fourth moment. The Weyl bound for Dirichlet `L`-functions of cube-free conductor, which includes the primes, is Petrow–Young (Ann. of Math. 192 (2020); arXiv:1811.02452). Their arXiv:1908.10346 removes the cube-free condition. This round takes the bound at the heights the model uses as given; it did not check the paper's dependence on `t`. The sixth-moment results its searches found average over the moduli (Huxley 1970, as cited in arXiv:2409.01457; arXiv:2409.01457 itself). In the model, `θ = 1/3` gives `12/5`, nothing beyond round 527, and an exponent below `7/3` by this route needs `θ < 1/6`, a saving of more than `q^{1/6}` on that bound.
+- **Reading.** In this model, the sixth-moment route to an exponent below `7/3` comes down to one count at the critical point: the characters with `|L(½ + it, χ)| ≥ q^{1/12}`, with a power saving over the fourth moment's `q^{2/3}`. At this height the Weyl bound gives nothing, since `q^{1/12} < q^{1/6}`. The sixth moment it gives, `θ = 1/3`, counts these characters by `q^{5/6}`. The truth is expected to be far smaller: for random-model reasons `log|L(½, χ)|` has variance about `½ log log q`. That heuristic is not an estimate. At accessible `q` the logarithms dominate the powers. The leading term of the fourth moment for prime `q` is `(q/(2π²))(log q)⁴` (Heath-Brown, 1981). At `q = 10⁶`, divided by `q^{1/3}`, it is about `1.8·10⁷`, more than `q`. So at that size the fourth moment's count is trivial, and numerics there do not test the exponent of this count.
