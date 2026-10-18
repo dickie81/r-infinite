@@ -21674,3 +21674,41 @@ It would add one class-I estimate, from `SIX(δ)` as a displayed hypothesis. It 
 **Bearing on RH:** none.
 
 **The next step.** The mathematical input `SIX(δ)` is open. The conditional Lean route of §17 is the shortest path in the pilot to a kernel-checked Linnik exponent below `7/3` under a displayed hypothesis.
+
+## Round 543: moment hypotheses on the stack's families (`frontier/linnik/sixth_moment.py` check (Z); SEVEN-THIRDS.md §18)
+
+**What it is.** In round 528's model, a `2k`-th moment of `L(½ + it, χ)` at Lindelöf strength, one point per character, used with the stack's large-values families (the mean value theorem and Huxley's estimate). No Lean changed, and no paper surface is edited.
+
+- The model certifies `2 + 2/(2k + 1)`, at `σ = 3/4`.
+  - `k = 2` gives `12/5`, the exponent the stack proves from the fourth moment it has (round 527).
+  - `k = 3`, a sixth moment, gives `16/7`, below `7/3`.
+  - `k = 4` gives `20/9`.
+- In these certificates the higher moment acts only through the integral class. It allows a shorter smoothing, and the blocks then fit the windows.
+- A sixth moment at that strength over a single prime modulus is not known to this round. It implies round 541's `SIX(δ)` for every block, and it is the cleaner hypothesis.
+- A conditional Lean route follows round 527's argument, with the integral class counted by the sixth moment as a displayed hypothesis. Its target is `Linnik.CharDensity (16/7 + ε)`. It is not started.
+- Attack note (i) of SEVEN-THIRDS.md §6 is out of range. Stevens–de Zeeuw's bound is stated for `m^{7/8} < n < m^{8/7}`. The line sums pair about `q²` points with `q^{2/3}` lines, so `n ≈ m^{1/3}`.
+
+**What is checked.** `python3 frontier/linnik/sixth_moment.py` exits 0 in about a minute: (K), (X), (Y), (Z) and (M) pass, and its six mutations are caught. The new mutation reads the sixth moment as the fourth, and (Z1) and (Z2) then fail. (Z) is exact rational arithmetic in round 528's model. The Stevens–de Zeeuw range was checked against the arXiv abstract of version 4.
+
+**Records.**
+
+- SEVEN-THIRDS.md §18.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the moment-hypothesis certificates in the model, the conditional route through the integral class, and the closing of attack note (i). The implication from moments of `L` to density exponents is classical in shape; the specific numbers are statements in round 528's model.
+
+**Check 9.**
+
+- (a) The exponents are statements in round 528's model.
+- (b) The phrase "not known to this round" reports what this round knows and found; it does not claim the result is unknown.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** There are three hypotheses, each below `7/3` in the model:
+
+- the sixth moment of `L` at one point per character, giving `16/7`;
+- `SIX(δ)` for `δ > 1/24`;
+- the `S₃` step.
+
+The cheapest Lean route is the first, through round 527's argument.

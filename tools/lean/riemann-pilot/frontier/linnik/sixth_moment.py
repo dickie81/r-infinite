@@ -38,6 +38,13 @@ Checks.
       (Y3) the floor: at s = 3/4 the model certifies 16/7 with delta = 1/14 and nothing below
            16/7 - 1/10^4 even with delta = 1/2; there t = 4/7, the window is [6/7, 8/7], and the
            block 2/7 has 3(2/7) and 4(2/7) at its two ends, with 3(2/7) < 1 < 4(2/7).
+  (Z) Moment hypotheses on the stack's families (README round 543).  Suppose the 2k-th moment of L(1/2 + it, chi)
+      over the characters mod q, at one point per character, is at most Q^{1+o(1)}.  In the model it counts the
+      integral class at mollifier exponent 0 with smoothing Q^y, y = (1 - t)/(2k(s - 1/2)), and every block of
+      length at least Q^y; the other blocks go by powers into the windows of the mean value theorem and Huxley's
+      estimate.  (Z1) For k = 2, 3, 4 the model certifies 2 + 2/(2k + 1) at s = 3/4 and nothing below it by 10^-4;
+      (Z2) the maximum over the grid with 3/4 added is that number (within 2 * 10^-5), at s = 3/4.  For k = 2 it is
+      12/5, the stack's exponent from the fourth moment it has (round 527); for k = 3 it is 16/7.
   (M) The sixth moment of smooth character sums S_N(chi) = sum_n phi(n/N) chi(n), phi = sin^2(pi(x - 1))
       on [1, 2], at N = round(q^{7/18}) for primes q from 10^4 to 10^7.  For each q:
       (M1) Parseval: sum over chi of |S_N|^2 = (q - 1) sum phi(n/N)^2;
@@ -55,7 +62,7 @@ delta > 0 it is a power saving in the off-diagonal (wrap-around) count of x1 x2 
 with N^3 = q^{7/6} > q, which this round does not find in the literature.  Part II measures one
 polynomial at t = 0 for a handful of primes; it is not evidence about the worst case over all
 coefficient sequences, and it cannot see factors of q^{1/6} <= 15 at these sizes.  The script runs
-five mutations and requires each to fail at least one check.
+six mutations and requires each to fail at least one check.
 """
 from fractions import Fraction as F
 import sys
@@ -248,6 +255,53 @@ def check_Y(mut=None):
     return fails, rows
 
 
+def certify_moment(s, A, k, methods=STACK):
+    """Class II by a 2k-th moment of L on the critical line at mollifier exponent 0, which also counts the blocks of
+    length Q^nu >= Q^{(1 - t)/(2k(s - 1/2))}; the other blocks by powers in the windows of `methods`."""
+    t = A * (1 - s)
+    if t >= 1:
+        return "trivial"
+    G = [iv for m in methods if (iv := st.good_interval(m, s, t)) is not None]
+    y = (1 - t) / (2 * k * (s - F(1, 2)))
+    f0 = st.tiny_floor(G)
+    if f0 <= 0:
+        return None
+    return "L%d" % (2 * k) if covered_extra(G, [(y, F(10))], f0, y) else None
+
+
+def best_moment(s, k, methods=STACK, tol=F(1, 10**5)):
+    lo, hi = F(2), F(3)
+    if certify_moment(s, hi, k, methods) is None:
+        return None
+    while hi - lo > tol:
+        mid = (lo + hi) / 2
+        if certify_moment(s, mid, k, methods) is not None:
+            hi = mid
+        else:
+            lo = mid
+    return hi
+
+
+def check_Z(mut=None):
+    """(Z) Moment hypotheses on the stack's families: the 2k-th moment gives 2 + 2/(2k + 1), at s = 3/4."""
+    fails, rows = [], []
+    grid = sorted(set(X_GRID + [F(3, 4)]))
+    for k in (2, 3, 4):
+        Ak = 2 + F(2, 2 * k + 1)
+        kk = k - 1 if mut == "the sixth moment read as the fourth" and k == 3 else k
+        if not (certify_moment(F(3, 4), Ak, kk) is not None and certify_moment(F(3, 4), Ak - F(1, 10**4), kk) is None):
+            fails.append(f"Z1 2k = {2 * k} at s = 3/4")
+        worst, arg = F(0), None
+        for s in grid:
+            a = best_moment(s, kk)
+            if a is not None and a > worst:
+                worst, arg = a, s
+        rows.append((2 * k, worst, arg))
+        if not (Ak <= worst <= Ak + F(2, 10**5) and arg == F(3, 4)):
+            fails.append(f"Z2 2k = {2 * k}: maximum {float(worst)} at s = {arg}")
+    return fails, rows
+
+
 # ---------------------------------------------------------------- Part II: the sixth moment
 
 def primes_near(xs):
@@ -351,6 +405,8 @@ def main(mut=None, qs=QS_GATE, verbose=False):
     res["X"] = xf
     yf, yrows = check_Y(mut) if mut in (None, "Huxley dropped from the stack's families") else ([], [])
     res["Y"] = yf
+    zf, zrows = check_Z(mut) if mut in (None, "the sixth moment read as the fourth") else ([], [])
+    res["Z"] = zf
     mf, rows = check_M(qs if mut in (None, "drop one residue class") else [], mut)
     res["M"] = mf
     if verbose:
@@ -358,13 +414,16 @@ def main(mut=None, qs=QS_GATE, verbose=False):
             print(f"    delta = {str(d):>5}: model exponent {float(w):.4f} (max over the grid, at s = {a})")
         for d, w, a in yrows:
             print(f"    stack only, delta = {float(d):.5f}: model exponent {float(w):.5f} (max over the grid, at s = {a})")
+        for k2, w, a in zrows:
+            print(f"    moment 2k = {k2}: model exponent {float(w):.5f} (max over the grid, at s = {a})")
         for q, N, rho, scale, dt in rows:
             print(f"    q = {q:>9}, N = {N:>4}: rho = {rho:.4f}, W^6/((q-1)D3) = {scale:.3f}  [{dt:.1f}s]")
     return res
 
 
 MUTATIONS = ["critical block one tenth off", "socket delta enters with the wrong sign",
-             "drop one residue class", "fourth moment with N^2 > q", "Huxley dropped from the stack's families"]
+             "drop one residue class", "fourth moment with N^2 > q", "Huxley dropped from the stack's families",
+             "the sixth moment read as the fourth"]
 
 
 def mutation_fourth_wrap():
@@ -379,7 +438,7 @@ if __name__ == "__main__":
     qs = QS_GATE + (QS_EXTRA if "--extra" in sys.argv else [])
     res = main(qs=qs, verbose=True)
     nfail = 0
-    for key in "KXYM":
+    for key in "KXYZM":
         print(f"({key}) {'pass' if not res[key] else 'FAIL'}")
         for f in res[key]:
             print("    ", f)

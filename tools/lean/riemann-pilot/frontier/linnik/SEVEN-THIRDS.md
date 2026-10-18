@@ -340,3 +340,22 @@ The owner asked to keep attacking the step below `7/3`. `sixth_moment.py` is new
 - **The floor** (Y3). At `σ = 3/4` the model certifies `16/7` with `δ = 1/14`, and nothing below `16/7 − 10⁻⁴` even with `δ = 1/2`. There the window is `[6/7, 8/7]`, of ratio `4/3`. The block `2/7` has its cube at the left end and its fourth power at the right end, so its eighth moment wraps, as the block `5/18` does at §16's floor `20/9`.
 - **What this means.** In the model, `SIX(δ)` with `δ > 1/24` gives an exponent below `7/3` without any part of Chen–Gupta–Li's Proposition 3.1. With the proposition, any `δ > 0` does (§16).
 - **A conditional Lean route, not started.** It would reuse the stack's detection identity and dyadic blocks (`LinnikDetect`), its power trick and block bins (`LinnikPower`, `LinnikTwelveBins`), Huxley's estimate (round 526) and the fourth moment for the integral class (round 524). It would add one class-I estimate, from `SIX(δ)` as a displayed hypothesis for the blocks with `Q^{1/3} ≤ N ≤ Q^{1/2}`, and the detector with a mollifier of length `Q^{o(1)}`. Its conclusion would be `Linnik.CharDensity (7/3 − κ + ε)` for some `κ > 0`, fed to `Linnik.linnik_of_charDensity`.
+
+## 18. Round 543: moment hypotheses on the stack's families, and one attack note closed
+
+`sixth_moment.py` gains check (Z).
+
+- **The model of a moment hypothesis.** Suppose the `2k`-th moment of `L(½ + it, χ)` over the characters mod `q`, at one point per character, is at most `Q^{1+o(1)}`. That is the form in which the stack has the fourth moment (round 524, `LinnikFourth.fourth_moment`). In the model it does two things:
+  - it counts the integral class, at mollifier exponent `0` and smoothing `Q^y` with `y = (1 − t)/(2k(σ − ½))`;
+  - it counts every block of length at least `Q^y`. Through the Mellin integral of the block, a block of length `N` that detects a zero forces `|L(½ + it, χ)| ≥ N^{σ−½}Q^{−o(1)}` at a nearby `t`.
+
+  The other blocks go by powers into the windows of the mean value theorem and Huxley's estimate.
+- **The result** (Z1, Z2). For `k = 2`, `3` and `4` the model certifies `2 + 2/(2k + 1)` at `σ = 3/4`, and nothing below it by `10⁻⁴`. Over the grid, with `3/4` added, the maximum is that number, at `σ = 3/4`.
+  - `k = 2` gives `12/5`, the stack's exponent from the fourth moment it has (round 527).
+  - `k = 3` gives `16/7`, below `7/3`.
+  - `k = 4` gives `20/9`.
+
+  In the certificates for these values, every block is shorter than the integral class's `Q^y`. So the higher moment acts only through the integral class: it allows a shorter smoothing, and the blocks then fit the windows.
+- **What this says.** In the model, a sixth moment of Dirichlet `L`-functions at one point per character, at Lindelöf strength, gives `16/7` with the stack's own large-values families. It needs no part of Chen–Gupta–Li. The sixth moment of `L(½ + it, χ)` over a single prime modulus at that strength is not known: this round knows of no such result, and its searches found none. It is a cleaner hypothesis than §16's `SIX(δ)`. It implies `SIX(δ)` for every block, through the same Mellin step.
+- **A conditional Lean route, not started.** Take round 527's argument (Huxley's power trick, the detector of `LinnikDetect`), with the integral class counted by the sixth moment in place of the fourth, and a mollifier of length `Q^{o(1)}`. A conclusion `Linnik.CharDensity (16/7 + ε)` would follow under the displayed hypothesis, which would sit beside the proved fourth moment.
+- **Attack note (i) of §6 is out of range.** Stevens–de Zeeuw's abstract (arXiv:1609.06284v4) states that "m points and n lines in F², with m^{7/8} < n < m^{8/7}, determine at most O(m^{11/15}n^{11/15}) incidences". The line sums of §6 pair about `q²` points, or level sets of comparable size, with `q^{2/3}` lines, so `n ≈ m^{1/3}`, outside that range. The line sums also need cancellation of complex weights, which incidence counts do not see.
