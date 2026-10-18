@@ -247,11 +247,20 @@ Checks.
        q^{1/8} and q^{1/7} and improves it to q^{eta - 11/72} on (1/8, 23/168); for B32's major arcs the fifth moment
        past the wrap leaves q^{20 eta/9} characters, fewer than the fourth moment's q^{1/9 + 16 eta/9} exactly when
        eta < 1/4, and reaches height q^{1/3 - 10 eta/9}, at least 4M for eta <= 1/10 (the fourth's for eta <= 1/16).
+  (R34) Round 569's markers on A2 and B5, at sigma = 5/7: 7/9 = 2(7/18), so a detection range of exponent ratio at
+       least 2 meets the barrier (ratios 2 and 5/2 fit nowhere in (7/18, 7/9), 19/10 fits); Turan's range with
+       m = n - 1 has ratio (2n - 1)/n < 2; Jensen from the centre 11/12 to the zero 5/7 inside the radius 5/12 gains
+       log(35/17) per zero; the fourth moment counts |L| >= q^theta below q^{2/3} only for theta > 1/12 (first grid
+       point 101/1200); the loss (16e)^{-n} at n = (1/12) log q/log(35/17) is q^{-0.435...}, and the best count at a
+       scale of the good window with the level so reduced is q^{4/7 + 0.87...} > q^{2/3}; Huxley's second term
+       q N^{4 - 6 sigma} is q^{7/9} at N = q^{7/9} and q^{8/9} at N = q^{7/18}, and with the half-plane's gain in the
+       Gram entries (q^{1/54} and q^{11/216} there) taken squared off the factor q it is q^{20/27} and q^{85/108}.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs fifty-eight mutations,
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs sixty-one mutations,
 at least one aimed at each check, and requires each mutation to fail at least one check.
 """
+import math
 from fractions import Fraction as F
 
 import seven_thirds as st
@@ -1240,6 +1249,34 @@ def check_R33(mut=None):
     return fails
 
 
+def check_R34(mut=None):
+    fails = []
+    lo, hi = F(7, 18), F(7, 9) if mut != "the barrier's ratio read as 3/2" else F(7, 12)
+    fits = lambda rho: any(lo < l and rho * l < hi for l in grid(lo, hi, 400))
+    if not (hi / lo == 2 and not fits(F(2)) and not fits(F(5, 2)) and fits(F(19, 10))):
+        fails.append("R34: a detection range of exponent ratio at least 2 meets the barrier")
+    if not all(F(2 * n - 1, n) < 2 for n in range(1, 50)):
+        fails.append("R34: Turan's range with m = n - 1")
+    c0 = F(11, 12) if mut != "Jensen's centre read as 1" else F(1)
+    r, big = c0 - F(5, 7), c0 - F(1, 2)
+    per = math.log(big / r)
+    four = (lambda th: 1 - 4 * th) if mut != "the fourth moment's count read as q^{1 - 2 theta}" else (lambda th: 1 - 2 * th)
+    theta = next(F(j, 1200) for j in range(1, 1200) if four(F(j, 1200)) < F(2, 3))
+    loss = float(F(1, 12)) * math.log(16 * math.e) / per
+    best = min(max(1.0, y) + y * (1 - 10 / 7) + 2 * k * loss
+               for k in range(1, 11) for y in [1.0] + [7 / 9 + i * (7 / 6 - 7 / 9) / 100 for i in range(101)])
+    if not (r == F(17, 84) and big == F(5, 12) and theta == F(101, 1200) and 0.43 < loss < 0.44
+            and abs(best - (4 / 7 + 2 * loss)) < 1e-12 and best > float(F(2, 3))):
+        fails.append("R34: Jensen's count, the fourth moment's threshold and Turan's loss")
+    hux = lambda ell, c=F(1): c + ell * (4 - 6 * F(5, 7))
+    gain = lambda ell: F(1, 2) - (ell / 12 + F(5, 12))
+    if not (hux(F(7, 9)) == F(7, 9) and hux(F(7, 18)) == F(8, 9) and gain(F(7, 9)) == F(1, 54)
+            and gain(F(7, 18)) == F(11, 216) and hux(F(7, 9), 1 - 2 * gain(F(7, 9))) == F(20, 27)
+            and hux(F(7, 18), 1 - 2 * gain(F(7, 18))) == F(85, 108) and F(85, 108) > F(20, 27) > F(2, 3)):
+        fails.append("R34: Huxley's second term at the barrier lengths, with the half-plane's gain squared")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
@@ -1247,7 +1284,7 @@ CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": 
           "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22, "R23": check_R23,
           "R24": check_R24, "R25": check_R25, "R26": check_R26, "R27": check_R27, "R28": check_R28,
           "R29": check_R29, "R30": check_R30, "R31": check_R31,
-          "R32": check_R32, "R33": check_R33}
+          "R32": check_R32, "R33": check_R33, "R34": check_R34}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -1281,7 +1318,9 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "Wright's A^{1/2} term with N^{1/2} for N^{3/8}",
              "the block moment's integer range read as (2H)^{2k} < q", "the worst level read as q^{2/k}",
              "the large sieve's length (2H)^k read as (2H)^{2k}", "the large sieve without its q",
-             "the major-arc moment past the wrap without the large sieve's M^5"]
+             "the major-arc moment past the wrap without the large sieve's M^5",
+             "the barrier's ratio read as 3/2", "Jensen's centre read as 1",
+             "the fourth moment's count read as q^{1 - 2 theta}"]
 
 
 def main(mut=None):

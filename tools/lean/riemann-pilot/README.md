@@ -22926,3 +22926,43 @@ Three abstracts were read through the arXiv API (2608.27732, 2609.16700, and 260
 **Bearing on RH:** none.
 
 **The next step.** For the Farey points between `q^{10/63}` and `q^{1/6}`, a power below `q^{1/3}` in the count of large short sums at level `q^{1/18}√y` would extend the range again. The points of large height need an argument that keeps the phases of `c_x(ψ)` against `T_ψ(x)`.
+
+## Round 569: Turán's power sums at `σ = 5/7`, the half-plane form of the reflection route, and the unsurveyed machinery (`frontier/linnik/SEVEN-THIRDS.md` §37; `IDEAS.md` A2, A3 and B5 markers; `idea_register.py` check (R34))
+
+**What it is.** Working toward the owner's goal "keep pushing until exponent is below 7/3". This round derives, at `σ = 5/7`, the routes the register had left underived. They are Turán's power-sum method (A2, A3), the half-plane form of round 526's reflection route (B5), and two items of SEVEN-THIRDS §7's "Not surveyed" list. All stay closed. No exponent below `7/3` follows. No Lean changed, no probe is new, and no paper surface is edited.
+
+- **Turán's method, and why it looked promising.** The barrier `B = {7/18, 7/9} ∪ [7/6, ∞)` has its two points a factor `2` apart, and a mollifier detector's blocks always meet it. Turán's second main theorem detects a zero through derivatives of `L′/L` of orders in `[m + 1, m + n]`. With `m = n − 1` the range of detection lengths has ratio below `2`, so it can avoid `B`.
+- **What it costs.** The factor `(16e)^{−n}`, with `n` the zeros in the disc around a detecting point in `Re s ≥ 11/12`. Jensen's formula from there, in a disc of radius `5/12`, gains only `log(35/17)` per zero at `β = 5/7`. So the fourth moment absorbs only the characters with `n ≥ (1/12)log q/log(35/17)`. For the rest the loss is `q^{−0.435}`, and the mean value theorem's count at the reduced level is at least `q^{4/7+0.87}` at every scale of the good window. The lower bound `|L| ≥ q^{−o(1)}` at `Re s = 11/12` used here is our derivation from the half-plane, not a Lean theorem.
+- **The reflection route with the half-plane.** In this round's reading of round 526's proof, the factor `qT` in the second term of `GN/V² + G³NqT/V⁶` is the large sieve's at the length of the product of the polynomial with its dual. At `σ = 5/7` that term is `q^{7/9}` and `q^{8/9}` at the barrier lengths `q^{7/9}` and `q^{7/18}`. The half-plane's gain in the Gram entries, taken squared off the factor `q`, leaves `q^{20/27}` and `q^{85/108}`.
+- **The unsurveyed machinery.** Additive, planar and higher-order large sieves concern families that meet the characters mod `q` only through base change (E7) or the two cubic characters. The stack's own cubic-theta family bounds each Möbius signal `Σ_𝔞 μ(𝔞)χ(N𝔞)W(N𝔞/Z)` by `Z^{(11+5σ)/12+ε}`. The large sieve over `χ` gives that size on average and no less, so it yields no count at `β = 5/7`.
+
+**Sources.** Four web searches (zero density for prime moduli, Linnik's constant, the sixth moment for one modulus, large values of short character sums). Every arXiv paper they returned that bears on these targets is already in the register's scans (G11, G12) or in round 565's entry. None improves `7/3` for prime moduli.
+
+**What is checked.**
+
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R34) pass, and its sixty-one mutations are caught.
+  - (R34) checks that ranges of exponent ratio `2` and `5/2` fit nowhere in `(7/18, 7/9)` while `19/10` fits, and that Turán's range with `m = n − 1` has ratio below `2`. It checks the Jensen radii `17/84` and `5/12`, the fourth moment's threshold (first grid point `101/1200` above `1/12`), the loss `q^{−0.435…}` and the best count `q^{4/7+0.87…} > q^{2/3}`. It checks Huxley's second term at the barrier lengths (`7/9`, `8/9`), the half-plane's gains (`1/54`, `11/216`) and the terms with them (`20/27`, `85/108`).
+  - The three new mutations: the barrier's ratio read as `3/2`, Jensen's centre read as `1`, and the fourth moment's count read as `q^{1−2θ}`.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 2 new reports here and 3 in SEVEN-THIRDS.md (37), all of class L10 (a nested list directly after its item's text), the style of the entries around them. The counts for IDEAS.md (40) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §37, and a marker on §7's "Not surveyed" list.
+- `frontier/linnik/IDEAS.md`: markers on A2, A3 and B5. The register still lists 78 entries: 46 CLOSED, 11 REDUCED, 1 OPEN, 15 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R34) and three mutations.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the reconstruction of Turán's method at `σ = 5/7` (scale control against the Jensen count), the half-plane form of the reflection route, and the survey of the large sieves and cubic theta for this family. ACKNOWLEDGED: A2, A3, B5, B8, B14, E7 and rounds 466 and 526.
+
+**Check 9.**
+
+- (a) Scope.
+  - The Turán closure concerns Turán's second main theorem as the lemma, with the detecting point in the half-plane and the fourth moment absorbing the rest. Nothing is claimed about other power-sum lemmas.
+  - The reflection closure rests on this round's reading of round 526's proof and on the half-plane's gain entering at most squared.
+  - The cubic-theta closure concerns the stack's family with the large sieve applied member by member.
+- (b) The open targets stay core 1 and core 2 (B1, B7, B12, B30).
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Every closure here ends at core 1 or at the barrier. The open targets are unchanged: a power below `q^{1/3}` in the count of large short sums between heights `q^{10/63}` and `q^{1/6}` (round 568), the random level at the points of large height, and core 2.
