@@ -22639,7 +22639,7 @@ Abstracts read through the arXiv API: arXiv:2609.27715, arXiv:2609.17875, arXiv:
 - **A common component.** In `R(B/x)R̄(B)` the terms `χ = χ′` sum to `R̄(x)` on every line: they are the triples that are not distinct. They add about `1/|W|` to round 535's coherence `θ`, most of what round 535 called the diagonal's level for random sets. That clause is struck in SEVEN-THIRDS §15.
 - **On the Farey points (B32).** With that component removed and only the lines with no zero coordinate kept, the low-energy sets of `energy_frontier.py` have their coherence on the points of small height. Height at most `30` carries `91%` and `72%` of it at `q = 10007` and `100003`, though those points are `11%` and `1.1%` of `F_q^*`. Random sets show no such concentration and stay at `1.2/|box|` and `1.5/|box|`. At `x = a/b` every line's argument is a rational of small height, and the sums `T_ψ(a/b)` over the box are products of short character sums.
 - **Not the scalings.** The largest single entries pair lines related by a diagonal scaling with ratios `−2/3` and `−3/2`, where `R` is large. But such pairs carry only `7%` of the total.
-- **A lemma.** The centred sum is `Σ_{ψ≠1}c_x(ψ)T_ψ(x)` with `|c_x(ψ)| ≤ |W ∩ ψW|`. So, through the energy, a set `A` of characters carries at most `|S||A|κq^{−2/3}` of the coherence on a set `S` of points.
+- **A lemma.** ~~The centred sum is `Σ_{ψ≠1}c_x(ψ)T_ψ(x)` with `|c_x(ψ)| ≤ |W ∩ ψW|`.~~ *(Round 564: retracted, false when written. That expansion holds for the sums built from `R`, not `R₀`, and only up to `Z(x)R̄(x)`, where `Z(x)` counts the lines with `B_m(x) = 0`. The exact form uses the centred indicator `1_W − |W|/L` and an explicit term, and the bound that follows holds with a factor `16`; round 564.)* So, through the energy, a set `A` of characters carries at most `|S||A|κq^{−2/3}` of the coherence on a set `S` of points.
   - The characters with `|Σ_{m≤M}ψ(m)| ≥ M^{1−η}` number at most `q^{1/9+16η/9+ε}`. Under minimal energy they carry at most `q^{−δ}` on the points of height up to `q^{5/18−8η/9−δ}`.
   - Coherence on the points of height at most `H` needs at least about `q^{2/3}/(κH²)` characters acting in phase.
 - **A heuristic, not a bound.** If `R`'s large values were spread evenly within the energy budget, the Farey points would carry about `q^{−1/9}`. Through round 535's Cauchy–Schwarz and the socket of SEVEN-THIRDS §5, that would give `κ = 1/54` at the critical point.
@@ -22683,3 +22683,64 @@ Abstracts read through the arXiv API: arXiv:2609.27715, arXiv:2609.17875, arXiv:
 **Bearing on RH:** none.
 
 **The next step.** Core 1 now asks two things of a minimal-energy `W`. The characters off the major arcs must not act in phase at the points of small height, and the points of large height must stay at the random level. The first concerns sums of products of short character sums over `W`'s difference set, and is where the measured coherence lives.
+
+## Round 564: twisted energies on the Farey points (`frontier/linnik/SEVEN-THIRDS.md` §32; `IDEAS.md` B33; `twisted_energy_probe.py`; `idea_register.py` check (R29))
+
+**What it is.** The owner wrote: "Keep digging". This round bounds round 563's coherence on the points of small height by twisted energies of `W`. On the points of height up to `q^{1/8}` the bound proves, with no hypothesis, the incoherence that round 535's form of core 1 asks for. It also corrects round 563's lemma. No exponent below `7/3` follows, since the measured coherence lives mostly above that height. No Lean changed and no paper surface is edited.
+
+- **A correction.** Round 563's expansion `X′(x) = Σ_{ψ≠1}c_x(ψ)T_ψ(x)` holds for the sums built from `R`, not `R₀`, and only up to `Z(x)R̄(x)`, where `Z(x)` counts the lines with `B_m(x) = 0`. For the `κ ≤ 1.25` set at `q = 10007` it misses `X′(x)` by `5.7` and `0.69` times `|X′(x)|` at `x = 1` and `2`.
+  - The exact form uses the centred indicator `w = 1_W − |W|/L`, with `c_x(ψ) = Σ_χ w(χ)w(ψ̄χ)χ̄(x)` and an explicit term `e(x)`.
+  - The lemma's bound then holds with a factor `16`.
+  - The claim is struck in round 563's entry above, in SEVEN-THIRDS §31 and in B32.
+- **Twisted energies (B33).** `Σ_ψ|c_x(ψ)|² = E_x = L^{−1}Σ_z|R₀(z)|²|R₀(x/z)|²`, with `E_1 = (κ − 1)|W|⁴/L` and `|E_x| ≤ E_1`. Cauchy–Schwarz over `ψ` gives `|X′(x) + e(x)|² ≤ (E_x − |c_x(1)|²)ω(x)` with `ω(x) = Σ_{ψ≠1}|T_ψ(x)|²`. At height `h ≤ 2M` the lines collide at most `128M⁴(1 + log M)/h` times.
+- **The bound.** Over the Farey points of height at most `H = q^η`, the bound sums to `Σ_φ r_w(φ)²S(φ)`, with `S(φ) = Σ_x ω(x)φ(x)`.
+  - The trivial estimate gives `(κ − 1)q^{η−1/9+o(1)}` of `θ′`.
+  - Hölder with the `2k`-th moment of `S`, an integer count while `2H^{2k} < q`, gives `q^{η−4/9+o(1)} + (κ − 1)^{1−1/(2k)}q^{−(k−3)/(9k)+o(1)}`.
+  - So the Farey points of height up to `(q/2)^{1/8}` carry at most `q^{−1/36+o(1)}` of `θ′` when `κ ≤ q^{o(1)}`. The `o(1)` hides a large power of `log q`, so this is asymptotic only.
+- **Measured** at `q = 10007` and `100003`, for the `κ ≤ 1.25` sets of `energy_frontier.py`:
+  - Cauchy–Schwarz holds at all points of height `≤ 30` but loses factors of `135` and `238` there.
+  - The terms `φ ≠ 1` sit on the characters near `1` at small rationals. The 1% of characters with the largest `|S(φ)|` carry `86%` and `97%` of them and hold `8.1%` and `6.2%` of `Σ_{φ≠1}r_w(φ)²`. For random sets these terms cancel.
+  - The points of height `≤ q^{1/8}` carry `20%` and `7%` of `‖X′‖²`, and those of height `≤ 4M` carry `91%` and `84%`.
+- **Where the method stops.** With the methods tried (Cauchy–Schwarz over `ψ`, Hölder with integer moments, Burgess), the argument stops at height `q^{1/8}`. Above it the eighth moment leaves its integer range, and `S(φ)` is a bilinear sum of `φ` over integers below `q^{1/4}`, where Burgess gives nothing. By our computation (R29), an eighth moment at its diagonal size beyond that range would carry the bound to height `q^{1/4}`, past `4M`.
+
+**Sources.** No web search and no new paper this round.
+
+**What is checked.**
+
+- `python3 frontier/linnik/twisted_energy_probe.py` exits 0 in about 80 seconds, and its four mutations are caught. Its gates:
+  - (E1) at `q = 10007`, the exact expansion at six points for the three sets, round 563's form for the sums built from `R`, and round 563's miss of `X′`;
+  - (E2) the twisted energy against its definition, and `E_1 = (κ − 1)|W|⁴/L`;
+  - (E3) the Cauchy–Schwarz inequality at all 1110 points of height `≤ 30`, for the three sets at both `q`;
+  - (E4) the collision count, at most `128M⁴(1 + log M)/h` at height `h ≤ 2M` (the measured maxima are `4.64` and `5.45` in units of `M⁴(1 + log M)/h`);
+  - (E5) the split of the summed bound over the characters;
+  - (E6) the terms `φ ≠ 1` on the top 1% of characters for the G1 and `κ ≤ 1.25` sets, and their cancellation for random sets;
+  - (E7) the height profile of the `κ ≤ 1.25` sets.
+  - The mutations: round 563's form in (E1), `κ` in place of `κ − 1` in (E2), the bound of (E3) with `E_x` replaced by its term `φ = 1`, and the random set in place of the low-energy set in (E6).
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R29) pass, and its forty-eight mutations are caught.
+  - (R29) checks the collision count's `q^{17/9}`, the normalisation `q^{11/3}`, `E_1`'s `q^{5/3}`, and Hölder's `q^{(3−k)/(9k)}` for `k = 3` to `8` (`q^{−1/36}` at `k = 4`) with heights up to `q^{1/(2k)}`. It also checks the terms `q^{−23/72}` and `q^{1/72}` at height `q^{1/8}`, that `1/8 < 2/9`, and the height `q^{1/4}` of the eighth-moment attack note.
+  - The three new mutations: the collision count with `M³` in place of `M⁴`, `|r_w| ≤ |W|²` in place of `|W|`, and the eighth moment taken past its integer range.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 9 new reports. All are of class L10 (a nested list directly after its item's text), the style of the entries around them: 3 in IDEAS.md and 6 here. No report of another class is new, and the counts for SEVEN-THIRDS.md (33) and STRUCTURAL-REVIEW.md (100) are unchanged, so the three new strikes render.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §32, and the strike in §31.
+- `frontier/linnik/IDEAS.md`: B33, and in B32 a strike and a marker. The register now lists 76 entries: 46 CLOSED, 11 REDUCED, 1 OPEN, 13 SURVEYED, 5 CORE.
+- `frontier/linnik/twisted_energy_probe.py`, new.
+- `frontier/linnik/idea_register.py`: check (R29) and three mutations.
+- This README: the strike in round 563's entry.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the correction of round 563's expansion, the exact expansion with the centred indicator, the twisted-energy bound with `E_1 = (κ − 1)|W|⁴/L`, the collision count, the bound on the Farey points up to height `q^{1/8}`, and the measurements. ACKNOWLEDGED: core 1 (B1, B12) and B32, which this round extends.
+
+**Check 9.**
+
+- (a) Scope.
+  - The bound up to height `q^{1/8}` is proved above and is asymptotic. The probe checks the identities and (R29) the exponents.
+  - "Where the method stops" is scoped to the methods it names.
+  - The measurements describe the sets two search methods find, at two values of `q`.
+- (b) The open target is on the register: B33's "What is owed", with the eighth-moment attack note. The open targets stay core 1 and core 2.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** In round 535's form, core 1 now asks that the points of height above `q^{1/8}` carry at most `q^{−2δ}` of `θ′`. Between `q^{1/8}` and `q^{1/4}`, an eighth moment of the Farey sums beyond their integer range would suffice. That is a moment bound for character sums over integers below `q^{1/4}`.

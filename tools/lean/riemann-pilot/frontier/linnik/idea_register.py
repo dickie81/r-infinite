@@ -219,9 +219,15 @@ Checks.
        |D_M| >= M^{1 - eta} (k = 4, the largest k with M^k <= q); the Farey heights H <= q^{5/18 - 8 eta/9} on which the
        major arcs carry at most q^{-delta}; the q^{2/3}/H^2 characters needed on F_H (q^{1/6} at H = q^{1/4}); and the
        uniform-bias heuristic q^{-1/9}.
+  (R29) Round 564's entry, B33 (twisted energies on the Farey points), at |W| = q^{2/3}, M = q^{2/9}: the collision
+       count's L M^4 = q^{17/9}, the normalisation |box|^2 q |W|^2 = q^{11/3} and E_1 = q^{5/3} up to kappa - 1;
+       Hoelder with the 2k-th moment of the Farey sums, valid for heights up to q^{1/(2k)}, gives q^{(3 - k)/(9k)}
+       (k = 3, ..., 8; q^{-1/36} at k = 4); at height q^{1/8} the phi = 1 term is q^{-23/72} and the trivial bound
+       q^{1/72}, which is q^0 at height q^{1/9}; the range stops below M (1/8 < 2/9), and an eighth moment at its
+       diagonal size beyond the integer range would carry it to height q^{1/4}.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs forty-five mutations,
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs forty-eight mutations,
 at least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -1085,12 +1091,37 @@ def check_R28(mut=None):
     return fails
 
 
+def check_R29(mut=None):
+    fails = []
+    w, m = F(2, 3), F(2, 9)
+    om = 1 + 4 * m if mut != "the collision count with M^3 in place of M^4" else 1 + 3 * m
+    nrm, en = 6 * m + 1 + 2 * w, 4 * w - 1
+    rmax = w if mut != "the bound |r_w| <= |W|^2 in place of |W|" else 2 * w
+    if not (om == F(17, 9) and nrm == F(11, 3) and en == F(5, 3)):
+        fails.append("R29: the collision count, the normalisation and the energy")
+    for k in range(3, 9):
+        hol = (rmax * F(2, 2 * k - 1) + en) * F(2 * k - 1, 2 * k) + F(1, 2 * k) + om - nrm
+        eta = F(1, 2 * k) if mut != "the eighth moment taken past its integer range" else F(1, 2 * k - 2)
+        if not (hol == F(3 - k, 9 * k) and 2 * k * eta <= 1):
+            fails.append(f"R29: Hoelder with the {2 * k}-th moment")
+            break
+    one = lambda eta: 2 * w + om + eta - nrm
+    triv = lambda eta: en + om + eta - nrm
+    if not (one(F(1, 8)) == F(-23, 72) and triv(F(1, 8)) == F(1, 72) and triv(F(1, 9)) == 0 and F(1, 8) < m):
+        fails.append("R29: the terms at heights q^{1/8} and q^{1/9}")
+    far = m - F(3 - 4, 9 * 4)
+    if not (far == F(1, 4) and 2 * w + 1 + 3 * m + 2 * far - nrm < 0):
+        fails.append("R29: the range an eighth moment at its diagonal size would reach")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
           "R16": check_R16, "R17": check_R17,
           "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22, "R23": check_R23,
-          "R24": check_R24, "R25": check_R25, "R26": check_R26, "R27": check_R27, "R28": check_R28}
+          "R24": check_R24, "R25": check_R25, "R26": check_R26, "R27": check_R27, "R28": check_R28,
+          "R29": check_R29}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -1116,7 +1147,9 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the coefficient norms without the divisor-type alpha, beta",
              "Bettin-Chandee's second term without its (AN + AM)^{1/8}",
              "Theorem 12's first term without its factor (RS + N)", "the norm of b counted over every n up to N",
-             "the lemma with |A| in place of |A|^{1/2}", "the major-arc moment taken past the wrap"]
+             "the lemma with |A| in place of |A|^{1/2}", "the major-arc moment taken past the wrap",
+             "the collision count with M^3 in place of M^4", "the bound |r_w| <= |W|^2 in place of |W|",
+             "the eighth moment taken past its integer range"]
 
 
 def main(mut=None):
