@@ -191,9 +191,17 @@ Checks.
        (R24b) At |W| = q^{2/3} the large-gcd part's share of |W| V0^2 is at most q^{-1/18} + q^{-d}.
        (R24c) The pairs with gcd <= q^d have the fourth moment of the block itself, exponent
               1 + 2 nu - 4 sigma nu = 2/3 for the count, with a factor log q^d in place of log N0.
+  (R25) Round 560's entry, B29 (the sixth moment by the dispersion method), at nu = 7/18.
+       (R25a) Main term 6 nu - 1 = 4/3, diagonal 3 nu = 7/6, shifts l up to q^{3 nu - 1} = q^{1/6}; the trivial
+              dispersion error (3 nu - 1) + nu - nu + 4 nu = 31/18 exceeds the main term by nu = 7/18.
+       (R25b) The bilinear forms must be at most q^{3 nu - delta} = N0^3 q^{-delta} on average, and N0^3 is
+              ||alpha|| ||beta|| M^{1/2} with M = N0^2, the sharp single-frequency bound for arbitrary
+              coefficients; the balanced savings M^{1/48} and M^{1/12} leave exponents 47/48 and 11/12 above 1/2.
+       (R25c) Exponents of distribution: 1/(1 + 1/3) = 3/4 from theta = 1/3, 1/(1 + 1/6) = 6/7 needed, and the
+              balanced box side q^{1/(3 theta)}: 7/18 at 6/7, 4/9 at 3/4, 11/24 at 8/11.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs thirty-seven mutations, at
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs thirty-nine mutations, at
 least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -951,12 +959,35 @@ def check_R24(mut=None):
     return fails
 
 
+def check_R25(mut=None):
+    fails = []
+    nu = F(7, 18)
+    main, diag, shifts = 6 * nu - 1, 3 * nu, 3 * nu - 1
+    freq = nu if mut != "the dispersion error without its frequency count" else F(0)
+    err = shifts + freq - nu + 4 * nu
+    if not (main == F(4, 3) and diag == F(7, 6) and shifts == F(1, 6) and err == F(31, 18) and err - main == nu):
+        fails.append("R25a: the dispersion route's main term, diagonal and trivial error")
+    need = main - (shifts + nu - nu)
+    sharp = 2 * nu + nu
+    if not (need == 3 * nu == sharp and 1 - F(1, 48) > F(1, 2) and 1 - F(1, 12) > F(1, 2)):
+        fails.append("R25b: the needed bilinear bound against the sharp single-frequency bound")
+    if mut != "the exponent of distribution read as 1/(1 - theta)":
+        dist = lambda t: 1 / (1 + t)
+    else:
+        dist = lambda t: 1 / (1 - t)
+    side = lambda th: 1 / (3 * th)
+    if not (dist(F(1, 3)) == F(3, 4) and dist(F(1, 6)) == F(6, 7) and side(F(6, 7)) == nu
+            and side(F(3, 4)) == F(4, 9) and side(F(8, 11)) == F(11, 24) and F(8, 11) < F(6, 7)):
+        fails.append("R25c: the exponents of distribution and their box sides")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
           "R16": check_R16, "R17": check_R17,
           "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22, "R23": check_R23,
-          "R24": check_R24}
+          "R24": check_R24, "R25": check_R25}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -977,7 +1008,8 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the tree part's exponent read as (k + 1)/k", "the interval's k-energy without its wrap",
              "the critical zeros counted at q^{1/2}",
              "the flat walk sum without its factor q", "the bilinear large sieve's L^2 read as L",
-             "the gcd dichotomy's Hoelder read with the square", "the large-gcd share without |W|^{-1/3}"]
+             "the gcd dichotomy's Hoelder read with the square", "the large-gcd share without |W|^{-1/3}",
+             "the dispersion error without its frequency count", "the exponent of distribution read as 1/(1 - theta)"]
 
 
 def main(mut=None):

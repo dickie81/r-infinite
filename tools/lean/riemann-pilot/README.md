@@ -22480,3 +22480,61 @@ Read: the arXiv API abstract of arXiv:2608.15458; the text layers of Castro–Ch
 **Bearing on RH:** none.
 
 **The next step.** Count, with a power saving over `q^{2/3}`, the characters `χ` with `|Σ_{x∈F*}χ(x)| ≥ c|F*|^{5/7}` for the Farey set `F*` of the critical block. Or, as before, count the large values of the block in a way that can ignore a few exceptional characters.
+
+## Round 560: the sixth moment by the dispersion method (`frontier/linnik/SEVEN-THIRDS.md` §28; `IDEAS.md` B29, G11; `idea_register.py` check (R25))
+
+**What it is.** The owner's request: "Keep hunting". No unconditional route emerged. The round assesses one route to core 2 (the sixth moment at the critical block) and records a literature check. No Lean changed, no probe was run, and no paper surface is edited.
+
+- **B29, the dispersion route.** Count `x₁x₂x₃ − y₁y₂y₃ = ℓq` as `Ax₃ − By₃ = ℓq` with `A = x₁x₂`, `B = y₁y₂`, and detect the solution `x₃ ≡ ℓqĀ (mod B)` with additive characters mod `B`. What remains are bilinear forms with Kloosterman fractions at the frequencies `a = hℓq`.
+  - Bounded trivially, the forms give an error `q^{31/18}` against the main term `q^{4/3}`.
+  - A power saving needs each form below `N₀³q^{−δ}`. Up to logarithms, `N₀³` is the sharp single-frequency bound for arbitrary coefficients, so no such bound gives the saving. The best balanced savings found are `M^{1/48}` and `M^{1/12}`.
+  - Summed over the frequencies, the forms give back the original count, so a trilinear bound would need the structure of the frequencies. This round did not test one.
+  - As an exponent of distribution, the sixth moment at the critical block is a mean-square statement for the balanced ternary divisor function at modulus `x^{6/7}`. Petrow–Young's Weyl bound gives `x^{3/4}` for `d₃` with smooth weights, which is round 544's `θ = 1/3`.
+- **G11, literature.** Eleven abstracts on zero density, divisor functions in progressions and Kloosterman fractions; none applies at the critical ranges for one prime modulus.
+
+**Horizon scan.** Web searches:
+
+- `Guth Maynard large values method Dirichlet characters single prime modulus zero density improvement 2026 arXiv` (extended);
+- `zero density estimate Dirichlet L-functions fixed modulus q exponent below 7/3 near sigma 5/7 new result` (extended);
+- `large value estimates character sums prime modulus additive energy of large values set multiplicative characters Fourier analysis new bound` (extended);
+- `Kowalski Ricotta Fourier coefficients of GL(N) automorphic forms in arithmetic progressions divisor function d_3 residue classes prime modulus distribution range` (extended);
+- `variance of the ternary divisor function d_3 in arithmetic progressions to a single prime modulus q asymptotic X between q and q^{3/2}` (extended);
+- `Bettin Chandee trilinear forms with Kloosterman fractions bound bilinear sum alpha_m beta_n e(a \bar m / n) Duke Friedlander Iwaniec exponent arXiv` (standard).
+
+Abstracts read through the arXiv API: arXiv:2609.27715, arXiv:2609.17875, arXiv:2607.04632, arXiv:2310.16518, arXiv:2211.00260, arXiv:2601.12601, arXiv:1310.5223, arXiv:2603.15197, arXiv:2601.00292, arXiv:1502.00769 and arXiv:2604.25177 (G11).
+
+**What is checked.**
+
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R25) pass, and its thirty-nine mutations are caught.
+  - (R25) checks:
+    - the dispersion route's main term `4/3`, diagonal `7/6`, shift range `1/6` and trivial error `31/18`, larger by `7/18`;
+    - the needed bilinear bound `3ν = 7/6`, equal to the sharp single-frequency bound, and the known balanced exponents `47/48` and `11/12`, both above `1/2`;
+    - the exponents of distribution `3/4` (from `θ = 1/3`) and `6/7` (needed), and the balanced box sides `7/18`, `4/9` and `11/24`.
+  - The two new mutations:
+    - the dispersion error without its frequency count;
+    - the exponent of distribution read as `1/(1 − θ)`.
+- G11's two quotations were checked against the arXiv API's abstracts, and its descriptions against the abstracts.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 7 new reports. All are of class L10 (a nested list directly after its item's text), the style of the entries around them: 2 in IDEAS.md and 5 here. The counts for SEVEN-THIRDS.md (33) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §28.
+- `frontier/linnik/IDEAS.md`: B29 and G11. The register now lists 72 entries: 45 CLOSED, 9 REDUCED, 13 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R25) and two mutations.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the dispersion route's bookkeeping and the sharpness argument that closes its bilinear form, the exponent-of-distribution form of core 2, and G11's survey. ACKNOWLEDGED: core 2 (B7) and round 544's `θ < 1/6`, which B29 restates.
+
+**Check 9.**
+
+- (a) Scope.
+  - "No such bound gives the saving" concerns bounds for arbitrary coefficients at one frequency, which the extremal example in B29 shows are at best `N₀³`.
+  - The trilinear form is not assessed; B29 says so.
+  - The exponent `3/4` is our computation for `d₃` with smooth weights, not a statement from the literature.
+  - "None applies" is scoped to the eleven abstracts read.
+- (b) B29 and G11 are on the register. The open targets stay core 1 and core 2.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** For core 2, a trilinear bound with Kloosterman fractions that uses the frequencies `a = hℓq` and the divisor-type coefficients, or a fixed-modulus sixth moment with `θ < 1/6`. For core 1, the large spectrum of the critical Farey set (round 559).
