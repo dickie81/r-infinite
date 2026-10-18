@@ -696,3 +696,16 @@ The owner's goal stands: "keep pushing until exponent is below 7/3". The registe
   - Nguyen (arXiv:2205.02354) proves the variance asymptotic for the full `τ_k`, with smooth weights, "in arithmetic progressions to any composite modulus d, for c ∈ (k − 1, k)" (PDF text layer, spaces restored). He describes Kowalski and Ricotta's result for prime moduli as holding for `c ∈ (k − 1/2, k)`. At `k = 3` these ranges are `(2, 3)` and `(5/2, 3)`. Petrow–Young's Weyl bound reaches `c > 4/3` (B29).
   - Chandee, Li, Matomäki and Radziwiłł (arXiv:2409.01457) obtain the sixth moment "averaged over primitive characters χ modulo q and all moduli q ≤ Q", not over the characters of one modulus.
 - **Reading.** This round localizes core 1. It adds no route, and no exponent below `7/3` follows.
+
+## 40. Round 572: a better zero-free half-plane does not move 7/3 unless it passes 5/7
+
+The owner's goal stands: "keep pushing until exponent is below 7/3". The register's F5 is new, and `idea_register.py` (R37) checks it in `seven_thirds.py`'s model. No probe.
+
+- **The question.** The stack proves `L(s, χ) ≠ 0` on `Re s > 11/12` (round 466 and the door 5 rounds), and its other strand studies a half-plane past `7/8` (rounds 496–508). Would a better half-plane lower the exponent at `σ = 5/7`?
+- **How it enters the model.** A half-plane `Re s > θ₀`, uniform in `q`, gives Lindelöf beyond `θ₀`, and convexity gives `μ(a) = (θ₀ − a)/2` on `[1 − θ₀, θ₀]` and `μ(a) = 1/2 − a` below. At `θ₀ = 11/12` this is `seven_thirds.py`'s `mu`. The half-plane enters through the class-II lines, through the moments `MOM(k, a)`, and through Halász–Montgomery's off-diagonal line.
+- **No help above `5/7`.** With class-II lines at `1 − θ₀` and at every `a/48`, no detector certifies `7/3 − 1/1000` at `σ = 5/7` for `θ₀ = 11/12, 7/8, 5/6, 3/4` or `5/7`, and every detector of §4's family, the moments `MOM(k, a)` included, still meets the barrier `B` [R37]. (`seven_thirds.py`'s own test that no class-II line beats `a → 0` and `a = 1/12` is specific to `θ₀ = 11/12`. For general `θ₀` the best lines are `a → 0` and `a = 1 − θ₀`, both in the set.) The reasons:
+  - The class-II line at `a` with no mollifier needs blocks up to `μ(a)/(5/7 − a)`, smallest at `a = 1 − θ₀`. Keeping that below `7/18` needs `(θ₀ − 1/2)/(θ₀ − 2/7) < 7/18`, that is `θ₀ < 7/11`.
+  - The sixth moment through the half-plane needs `μ(1/2) < 1/12` (core 3's uniform form), that is `θ₀ < 2/3`.
+  - Halász–Montgomery's half-plane line needs `N > Q^{(θ₀−1/2)/(θ₀−4/7)}`: `3/2` at `θ₀ = 5/7` and `35/29` at `11/12`, always above Pólya–Vinogradov's `7/6`, which lies in §4's barrier.
+- **Below `5/7`.** A half-plane at `θ₀ < 5/7` removes the critical abscissa itself. At `θ₀ = 7/10` every `σ ≤ 7/10` on a grid certifies `30/13 + 1/100` [R37], Ingham's value `3/(2 − σ)` at `7/10`.
+- **Reading.** Improving the half-plane, even to OpenAI's claimed `7/8`, does not bear on `7/3` through the routes in this model. Only a half-plane past `5/7` does, and it does so by removing the zeros at the critical abscissa. No exponent below `7/3` follows.

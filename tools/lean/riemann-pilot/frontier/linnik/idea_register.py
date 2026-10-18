@@ -274,9 +274,16 @@ Checks.
        sum_x |U_psi(x)|^2 agrees with the pair formula (q - 1 or q times psi-bar(lambda) on proportional pairs,
        -psi(a/a') on the others with a, a' nonzero, 0 on the rest) and is at most qP + Q; core 2's length q^{7/6}
        has c = 7/6, outside (2, 3) and (5/2, 3) and below 4/3.
+  (R37) Round 572's entry F5 (a better zero-free half-plane), in seven_thirds.py's model with mu(a) = (theta0 - a)/2
+       on [1 - theta0, theta0] and class-II lines at 1 - theta0 and a/48: for theta0 = 11/12, 7/8, 5/6, 3/4 and 5/7
+       no detector certifies 7/3 - 1/1000 at sigma = 5/7, while 7/3 is certified, and every detector (the moments
+       MOM(k, a) included) meets the barrier B at level 2/3; for theta0 = 7/10 every sigma <= 7/10
+       on a grid certifies 30/13 + 1/100; the class-II line at x = 0 avoids 7/18 only for theta0 < 7/11, the sixth
+       moment needs mu(1/2) < 1/12, so theta0 < 2/3, and Halasz-Montgomery's half-plane line
+       (theta0 - 1/2)/(theta0 - 4/7) stays above Polya-Vinogradov's 7/6 on [5/7, 11/12] (3/2 and 35/29 at the ends).
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs sixty-seven mutations,
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs sixty-nine mutations,
 at least one aimed at each check, and requires each mutation to fail at least one check.
 """
 import cmath
@@ -1402,6 +1409,58 @@ def check_R36(mut=None):
     return fails
 
 
+def check_R37(mut=None):
+    fails = []
+    S = F(5, 7)
+
+    def mu_of(th):
+        def mu(a):
+            if a <= 1 - th:
+                v = F(1, 2) - a
+            elif a <= th:
+                v = (th - a) / 2
+            else:
+                v = F(0)
+            return v / 2 if mut == "the half-plane's mu halved at Re s = 0" else v
+        return mu
+
+    base_det, base_mu = st.detectors, st.mu
+
+    def det_of(th):
+        def det(s, t, js=range(1, 13), x_grid=None):
+            for d in base_det(s, t, js, x_grid):
+                if not d[4].startswith("HPE"):
+                    yield d
+            for a in sorted({F(1, 10**9), 1 - th} | {F(i, 48) for i in range(1, 48)}):
+                if 0 < a < s:
+                    yield F(0), None, st.mu(a) / (s - a), (1 - a) / (s - a), f"HPE({a})"
+        return det
+
+    try:
+        for th in (F(11, 12), F(7, 8), F(5, 6), F(3, 4), F(5, 7)):
+            st.mu, st.detectors = mu_of(th), det_of(th)
+            if not (st.certify(S, F(7, 3) - F(1, 1000)) is None and st.certify(S, F(7, 3)) is not None):
+                fails.append(f"R37: a half-plane at {th} leaves 7/3 at sigma = 5/7")
+            dets = list(st.detectors(S, F(2, 3))) + list(st.mom_detectors(S, F(2, 3)))
+            if any(st.avoid_points(d) for d in dets):
+                fails.append(f"R37: every detector meets the barrier with a half-plane at {th}")
+        th = F(7, 10) if mut != "the half-plane read as 5/7 + 1/100 for the transition" else F(5, 7) + F(1, 100)
+        st.mu, st.detectors = mu_of(th), det_of(th)
+        pts = [F(1, 2) + (th - F(1, 2)) * F(i, 20) for i in range(1, 21)]
+        if not all(st.certify(s, F(30, 13) + F(1, 100)) for s in pts):
+            fails.append("R37: a half-plane at 7/10 gives 30/13 + 1/100 on sigma <= 7/10")
+    finally:
+        st.mu, st.detectors = base_mu, base_det
+    hpe = lambda t: (t - F(1, 2)) / (t - F(2, 7))
+    hm = lambda t: (t - F(1, 2)) / (t - F(4, 7))
+    ths = [S + (F(11, 12) - S) * F(i, 40) for i in range(41)]
+    if not (hpe(F(7, 11)) == F(7, 18) and all(hpe(t) > F(7, 18) for t in ths)
+            and (F(2, 3) - F(1, 2)) / 2 == F(1, 12) and all((t - F(1, 2)) / 2 > F(1, 12) for t in ths)
+            and hm(S) == F(3, 2) and hm(F(11, 12)) == F(35, 29) and all(hm(t) > F(7, 6) for t in ths)):
+        fails.append("R37: the class-II line needs 7/11, the sixth moment 2/3, and HM's line stays above 7/6")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
@@ -1409,7 +1468,7 @@ CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": 
           "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22, "R23": check_R23,
           "R24": check_R24, "R25": check_R25, "R26": check_R26, "R27": check_R27, "R28": check_R28,
           "R29": check_R29, "R30": check_R30, "R31": check_R31,
-          "R32": check_R32, "R33": check_R33, "R34": check_R34, "R35": check_R35, "R36": check_R36}
+          "R32": check_R32, "R33": check_R33, "R34": check_R34, "R35": check_R35, "R36": check_R36, "R37": check_R37}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -1449,7 +1508,8 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the zero-free bound read as H^{sigma_1}", "the density at 5/6 read as 7/3",
              "the density hypothesis claimed from 4/5",
              "the U mean square read as qM^4", "the off-diagonal's K bound without its square root",
-             "the critical length read as q^{13/6}"]
+             "the critical length read as q^{13/6}",
+             "the half-plane's mu halved at Re s = 0", "the half-plane read as 5/7 + 1/100 for the transition"]
 
 
 def main(mut=None):

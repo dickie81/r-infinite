@@ -229,6 +229,9 @@ The kernel-checked conditional route is round 521's `LinnikDensity.linnik_of_cri
 ## F. The half-plane `Re s > 11/12`
 
 - **F1–F4.** CLOSED in SEVEN-THIRDS §3 and §6: class-II elimination, the off-diagonal on `Re s = 1/12`, higher moments with `μ(a)`, and the dual sums. In this register: C6, and B5 with the Gram entries `|M(η)| ≤ N^{1/12}q^{5/12+ε}`.
+- **F5. A better zero-free half-plane (round 572).** CLOSED above `5/7` [R37]. Suppose `L(s, χ) ≠ 0` on `Re s > θ₀` for every `χ mod q`, with the convexity bound `μ(a) = (θ₀ − a)/2` on `[1 − θ₀, θ₀]` that such a half-plane gives (round 517's graded subconvexity at `a = 1/2`). In `seven_thirds.py`'s model, with class-II lines at `1 − θ₀` and at every `a/48`, no detector certifies below `7/3` at `σ = 5/7` for `θ₀ = 11/12, 7/8, 5/6, 3/4` or `5/7`, and every detector of the family, the moments `MOM(k, a)` included, meets §4's barrier. So OpenAI's claimed `7/8` would not move `7/3` along these routes.
+  - Why. The class-II line with no mollifier keeps the blocks below `7/18` only when `(θ₀ − 1/2)/(θ₀ − 2/7) < 7/18`, that is `θ₀ < 7/11`. A sixth moment through the half-plane needs `μ(1/2) < 1/12`, so `θ₀ < 2/3`. Halász–Montgomery's half-plane line needs `N > Q^{(θ₀−1/2)/(θ₀−4/7)}`, which stays above Pólya–Vinogradov's `7/6` on `[5/7, 11/12]`.
+  - Below `5/7` the half-plane removes the critical abscissa. At `θ₀ = 7/10` every `σ ≤ 7/10` on a grid certifies `30/13 + 1/100`, which is Ingham's value at `7/10`.
 
 ## G. Literature and horizon
 

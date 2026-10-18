@@ -23061,3 +23061,43 @@ Three abstracts were read through the arXiv API (2608.27732, 2609.16700, and 260
 **Bearing on RH:** none.
 
 **The next step.** Core 1 now asks for cancellation across the characters `ψ ≠ ψ′` in `Σ_x c_x(ψ)c̄_x(ψ′)T_ψ(x)T̄_{ψ′}(x)`, and core 2 for the variance of `τ₃` at `c = 7/6` to one prime modulus. Neither is in reach of what this round surveyed.
+
+## Round 572: a better zero-free half-plane does not move `7/3` unless it passes `5/7` (`frontier/linnik/SEVEN-THIRDS.md` §40; `IDEAS.md` F5; `idea_register.py` check (R37))
+
+**What it is.** Working toward the owner's goal "keep pushing until exponent is below 7/3". The stack proves `L(s, χ) ≠ 0` on `Re s > 11/12`, and its half-plane strand studies `7/8` (rounds 496–508). This round asks whether any better half-plane would lower the exponent at `σ = 5/7` along the routes of `seven_thirds.py`'s model. It would not, unless it passes `5/7`. No exponent below `7/3` follows. No Lean changed, no probe is new, and no paper surface is edited.
+
+- **How a half-plane enters.** A half-plane `Re s > θ₀`, uniform in `q`, gives Lindelöf beyond `θ₀`. Convexity then gives `μ(a) = (θ₀ − a)/2` on `[1 − θ₀, θ₀]`, which is the model's `mu` at `θ₀ = 11/12`. It enters through the class-II lines, the moments `MOM(k, a)` and Halász–Montgomery's off-diagonal line.
+- **No help above `5/7`.** For `θ₀ = 11/12, 7/8, 5/6, 3/4` and `5/7`, with class-II lines at `1 − θ₀` and every `a/48`, no detector certifies `7/3 − 1/1000` at `σ = 5/7`, and every detector, the moments included, meets the barrier `B` of SEVEN-THIRDS §4.
+  - The class-II line with no mollifier keeps the blocks below `7/18` only when `θ₀ < 7/11`.
+  - The sixth moment needs `μ(1/2) < 1/12`, that is `θ₀ < 2/3`.
+  - Halász–Montgomery's half-plane line needs `N > Q^{(θ₀−1/2)/(θ₀−4/7)}`, which runs from `3/2` to `35/29` and stays above Pólya–Vinogradov's `7/6`.
+- **Below `5/7`** the half-plane removes the critical abscissa. At `θ₀ = 7/10` every `σ ≤ 7/10` on a grid certifies `30/13 + 1/100`, Ingham's value at `7/10`.
+
+**Sources.** Three web searches, made after round 571's commit: a sixth moment for one prime modulus better than Petrow–Young; trilinear Kloosterman fractions after Bettin–Chandee; and counts of large central values for one modulus. They returned papers on file (arXiv:2409.01457, 2604.25177, 2608.27732, 1502.00769) and fourth-moment work (arXiv:2008.13407, math/0610335), with Gao's upper bounds for moments to a fixed modulus for `k ∈ [0, 2]` (Mathematika, 2025; the register's C1 cites Gao–Zhao, arXiv:2504.17905). None bears on cores 2 to 4 beyond what is on file.
+
+**What is checked.**
+
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R37) pass, and its sixty-nine mutations are caught.
+  - (R37) patches `seven_thirds.py`'s `mu` and class-II lines for each `θ₀` and restores them afterwards. At each of the five values it checks that `certify` fails at `7/3 − 1/1000` and succeeds at `7/3` for `σ = 5/7`, and that `avoid_points` finds no detector avoiding `B`, the moments included.
+  - At `θ₀ = 7/10` it checks `30/13 + 1/100` on twenty points of `[1/2, 7/10]`. It checks the thresholds exactly: `(θ₀ − 1/2)/(θ₀ − 2/7) = 7/18` at `7/11` and above it on `[5/7, 11/12]`, `μ(1/2) = 1/12` at `2/3`, and Halász–Montgomery's `3/2` and `35/29`, above `7/6` throughout.
+  - The two new mutations: the half-plane's `μ` halved at `Re s = 0` (which the functional equation forbids, and which breaks the barrier), and the transition read at `5/7 + 1/100`.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 2 new reports here, 1 in IDEAS.md (42) and 1 in SEVEN-THIRDS.md (43), all of class L10 (a nested list directly after its item's text), the style of the entries around them. The count for STRUCTURAL-REVIEW.md (100) is unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §40.
+- `frontier/linnik/IDEAS.md`: F5. The register now lists 80 entries: 47 CLOSED, 11 REDUCED, 1 OPEN, 16 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R37) and two mutations.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: F5 (the model's response to a half-plane at any `θ₀` in `[5/7, 11/12]`, the thresholds `7/11` and `2/3`, and the transition below `5/7`). ACKNOWLEDGED: F1–F4, B8, C6, SEVEN-THIRDS §§3–4, and rounds 496–508 and 517.
+
+**Check 9.**
+
+- (a) Scope. "Would not move `7/3`" is about the detectors and large-values families of `seven_thirds.py`'s model, with the half-plane entering through `μ`, at the five values of `θ₀` checked and by the exact thresholds. Nothing is claimed about other uses of a half-plane.
+- (b) The open targets stay core 1 and core 2.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** The half-plane strand and this goal do not meet above `5/7`. The open targets are unchanged: core 1 in its off-diagonal form (round 571) and core 2.
