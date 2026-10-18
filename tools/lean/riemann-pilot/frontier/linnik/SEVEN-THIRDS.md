@@ -727,3 +727,18 @@ The owner's goal stands: "keep pushing until exponent is below 7/3". The registe
 - **The bulk of the fourth moment (C15).** Young's asymptotic for the fourth moment at prime moduli has a power-saving error. If the characters with `|L(½, χ)| ≤ q^ε` carried its main term up to `O(q^{1−δ})`, at most `q^{2/3−δ′}` characters would have `|L(½, χ)| ≥ q^{1/12}`. That premise is a tail bound, which at the level `q^{1/12}` contains core 4. At the level `q^ε` it is a deviation proportional to `log q`, where C4's moments save only powers of `log q`.
 - **Scan (G15).** Seven abstracts not on file, none bearing on cores 1 to 4.
 - **Reading.** This round locates the measured coherence, closes F6 and reduces C15 to core 4. It adds no route, and no exponent below `7/3` follows.
+
+## 42. Round 574: how far the coherence exceeds the diagonal, and the authors' view of the obstruction
+
+The owner's goal stands: "keep pushing until exponent is below 7/3". The register's B32 carries a marker and G16 records a scan. `cs_loss_probe.py` is new.
+
+- **A sufficient condition.** Round 571's diagonal carries at most `(17/8)(κ + 9)(1 + log M)q^{−1/9}(1 + o(1))` of `θ′`'s normalisation. So core 1's `θ′ ≤ q^{−2δ}` follows whenever `‖X′ + e‖²` exceeds the diagonal by a factor at most `q^{1/9−2δ}` divided by that constant: the coherence may exceed its diagonal by about `q^{1/9}`, and core 1 asks for no more.
+- **Measured** (`cs_loss_probe.py`, printed, not gated) at `q = 10007`, `20011` and `40009`, for the sets of `energy_frontier.py` with `κ ≤ 1.25`:
+  - the factor is `13.1`, `6.3` and `25.4` over all points;
+  - on the points of height at most `q^{1/6}` it is `66.1`, `38.4` and `131.3`; above `q^{1/6}` and at most `4M`, `39.3`, `29.6` and `110.8`; above `4M`, `1.6`, `1.4` and `3.3`;
+  - B33's Cauchy–Schwarz exceeds the diagonal by about `0.65L`, `0.88L` and `0.49L` on the middle band, so it exceeds the coherence there by `165`, `598` and `178`.
+
+  For random sets the factor is `1.0` over all points and between `0.9` and `1.3` in every band.
+- **What it says.** For the sets found, the excess over the diagonal is tens to about a hundred at these `q`, and it does not move monotonically: the search finds stronger sets at some `q` than at others, so no exponent can be read. Cauchy–Schwarz over `ψ` gives away nearly the whole factor `L` between the diagonal and its bound. That is why §33's route asks for a count beyond the density hypothesis, and why a route that keeps the phases across `ψ` would need to capture a factor of order `L/q^{1/9}`.
+- **The authors' view (G16).** Gupta's notes on the method behind `7/3` say that "prime moduli q are the worst case for our estimates", and that "It appears to be difficult to find an analogous argument to Huxley’s in this setting to improve the estimates when there is no subdivision available" (text layer, spaces restored). The term in question, `q²|W|^{3/2}` in their bound for `‖M‖⁶`, is the one core 1 asks to beat. The register's attempts at a Huxley-type step there are §6 (the product trick in `S₃`) and B19, B25 and B27.
+- **Reading.** No route is added, and no exponent below `7/3` follows.

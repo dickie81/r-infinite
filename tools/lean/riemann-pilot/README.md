@@ -23145,3 +23145,38 @@ Three abstracts were read through the arXiv API (2608.27732, 2609.16700, and 260
 **Bearing on RH:** none.
 
 **The next step.** Core 1's open range `(q^{1/6}, 2M]` holds the measured coherence. What is owed there is unchanged: a large-values count for the Farey sums beyond the density hypothesis (round 570), or a bound for the excess of the unit shift that keeps the phases across `ψ`.
+
+## Round 574: how far the coherence exceeds the diagonal, and the authors' view of the obstruction (`frontier/linnik/SEVEN-THIRDS.md` §42; `IDEAS.md` B32 marker and G16; `frontier/linnik/cs_loss_probe.py`)
+
+**What it is.** Working toward the owner's goal "keep pushing until exponent is below 7/3". Round 573 located the adversarial sets' coherence off the diagonal in `ψ` and above round 570's range. This round measures how far that coherence exceeds round 571's diagonal, states the resulting sufficient condition for core 1, measures how much B33's Cauchy–Schwarz gives away, and reads the method's own author on the obstruction. No exponent below `7/3` follows. No Lean changed, no paper surface is edited, and one measurement script is new.
+
+- **A sufficient condition.** Round 571's diagonal carries at most `(17/8)(κ + 9)(1 + log M)q^{−1/9}(1 + o(1))` of `θ′`'s normalisation. So core 1 follows whenever `‖X′ + e‖²` exceeds the diagonal by a factor at most `q^{1/9−2δ}` divided by that constant.
+- **Measured** at `q = 10007`, `20011` and `40009`, for the sets of `energy_frontier.py` with `κ ≤ 1.25`: the factor is `13.1`, `6.3` and `25.4` over all points, and `39.3`, `29.6` and `110.8` on the points of height above `q^{1/6}` and at most `4M`. For random sets it is `1.0`. B33's Cauchy–Schwarz exceeds the diagonal by `0.49L` to `0.88L` on that band. The factors do not move monotonically with `q`, because the search finds stronger sets at some `q` than at others, so no exponent can be read.
+- **The authors' view.** Vishal Gupta's notes on the method behind `7/3`, from a 2026 Warwick seminar talk, say that "prime moduli q are the worst case for our estimates" and that "It appears to be difficult to find an analogous argument to Huxley’s in this setting to improve the estimates when there is no subdivision available" (PDF text layer, spaces restored). The term in question is the one core 1 asks to beat. The register's attempts at a Huxley-type step there, SEVEN-THIRDS §6 and B19, B25 and B27, all reduce to core 1.
+
+**Sources.** Gupta's notes, "Large values of Dirichlet polynomials with characters" (eight pages, from the author's web page, found by round 573's first web search), downloaded into their own directory and read through `pypdf` with `python3 -I`.
+
+**What is checked.**
+
+- `python3 cs_loss_probe.py 10007 20011 40009`, run from `frontier/linnik`, exits 0 in about forty minutes and prints the factors above. It is printed, not gated: the numbers are not monotone in `q`, and they bound nothing over all sets. A scratch run of the same computation gave the same numbers.
+- `idea_register.py` and its inputs are unchanged, so it was not re-run.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 2 new reports, 1 in IDEAS.md (46) and 1 in SEVEN-THIRDS.md (46), both of class L10 (a nested list directly after its item's text), the style of the entries around them. The counts for this file (1798) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §42.
+- `frontier/linnik/IDEAS.md`: the B32 marker and G16. The register now lists 84 entries: 48 CLOSED, 12 REDUCED, 1 OPEN, 18 SURVEYED, 5 CORE.
+- `frontier/linnik/cs_loss_probe.py`, new.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the sufficient condition in terms of the excess over the diagonal, the measured excess by height band, and G16. ACKNOWLEDGED: B19, B25, B27, B32, B33 and SEVEN-THIRDS §6 and §§33–41.
+
+**Check 9.**
+
+- (a) Scope. The factors are measurements at three values of `q` of the sets that `energy_frontier.py` finds. The sufficient condition is a consequence of round 571's lemma, not a claim about what core 1 needs.
+- (b) The open targets stay core 1, core 2 and core 4.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** A route that keeps the phases across `ψ` would have to bound the coherence by about `q^{1/9}` times the diagonal, where Cauchy–Schwarz gives about `L` times it.
