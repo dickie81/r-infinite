@@ -709,3 +709,21 @@ The owner's goal stands: "keep pushing until exponent is below 7/3". The registe
   - Halász–Montgomery's half-plane line needs `N > Q^{(θ₀−1/2)/(θ₀−4/7)}`: `3/2` at `θ₀ = 5/7` and `35/29` at `11/12`, always above Pólya–Vinogradov's `7/6`, which lies in §4's barrier.
 - **Below `5/7`.** A half-plane at `θ₀ < 5/7` removes the critical abscissa itself. At `θ₀ = 7/10` every `σ ≤ 7/10` on a grid certifies `30/13 + 1/100` [R37], Ingham's value `3/(2 − σ)` at `7/10`.
 - **Reading.** Improving the half-plane, even to OpenAI's claimed `7/8`, does not bear on `7/3` through the routes in this model. Only a half-plane past `5/7` does, and it does so by removing the zeros at the critical abscissa. No exponent below `7/3` follows.
+
+## 41. Round 573: where the coherence sits against round 570's range
+
+The owner's goal stands: "keep pushing until exponent is below 7/3". The register's B32 carries a marker, C15 and F6 are new, and G15 records a scan. `coherence_bands_probe.py` is new.
+
+- **The off-diagonal as an excess over shifts.** For `u ∈ F_q^*` put `Ỹ_u(x) = Σ_m R₀(uB_m(x)/x)R̄₀(uB_m(x)) − c_x(1)(|box| − Z(x))`. Then `Ỹ_1(x) = X′(x) + e(x)`, and by Parseval over `ψ` the terms `ψ = ψ′` of `|X′(x) + e(x)|²` sum to the mean of `|Ỹ_u(x)|²` over `u`. So round 571's off-diagonal is `Σ_x (|Ỹ_1(x)|² − mean_u |Ỹ_u(x)|²)`, the excess of the unit shift over its multiplicative translates. The probe checks both identities at six points, along with B33's expansion.
+- **Measured** at `q = 10007` and `20011` (`coherence_bands_probe.py`).
+  - For random sets the off-diagonal is `0.9%` and `−2.4%` of `‖X′ + e‖²`, and the mass sits with the points by count, mostly above height `4M`.
+  - For the sets of `energy_frontier.py` with `κ ≤ 1.25` the off-diagonal carries `92%` and `84%`. The points of height at most `q^{1/6}`, round 570's proven range, carry `28%` and `15%`. Those above `q^{1/6}` and at most `4M` carry `63%` and `67%`, and on the points of height at most `4M` the diagonal is under `4%` of the total.
+  - These are two values of `q` and the sets one search finds. They bound nothing over all sets of size `q^{2/3}`.
+- **What it says.** The adversarial sets found so far put their coherence off the diagonal in `ψ` and above round 570's range, at the Farey points up to `4M`. For them the unit shift is special; for random sets it is not. That is where core 1 is owed.
+- **The half-plane's mechanism (F6).** The stack's half-plane proof bounds the Möbius signal through its family's sixth-power members, which repeat it (§37). A family in which each `χ ∈ W` recurred could count W's large values with multiplicity.
+  - Copies such as `χ·χ₀^{(p)}` have Gram entries of about `L(1 − 1/p)(1 − 1/p′)` with one another at length `L`, so `k` of them add an eigenvalue of about `kL` to every large sieve's norm.
+  - Twists by primitive cubic characters mod primes `p ≤ C` are orthogonal at length `L` when `qC² < L^{1−ε}`, but they differ from `χ` on the support, so a large value does not recur among them.
+  - The half-plane's gain comes from the cubic theta function's evaluation of the family's mean square, which exists for the Möbius signal over `ℤ[ω]` and gives only the pointwise size on average over `χ mod q` (§37). For the critical cube, the family's mean square over `χ mod q` is the sixth moment, core 2.
+- **The bulk of the fourth moment (C15).** Young's asymptotic for the fourth moment at prime moduli has a power-saving error. If the characters with `|L(½, χ)| ≤ q^ε` carried its main term up to `O(q^{1−δ})`, at most `q^{2/3−δ′}` characters would have `|L(½, χ)| ≥ q^{1/12}`. That premise is a tail bound, which at the level `q^{1/12}` contains core 4. At the level `q^ε` it is a deviation proportional to `log q`, where C4's moments save only powers of `log q`.
+- **Scan (G15).** Seven abstracts not on file, none bearing on cores 1 to 4.
+- **Reading.** This round locates the measured coherence, closes F6 and reduces C15 to core 4. It adds no route, and no exponent below `7/3` follows.

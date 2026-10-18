@@ -23101,3 +23101,47 @@ Three abstracts were read through the arXiv API (2608.27732, 2609.16700, and 260
 **Bearing on RH:** none.
 
 **The next step.** The half-plane strand and this goal do not meet above `5/7`. The open targets are unchanged: core 1 in its off-diagonal form (round 571) and core 2.
+
+## Round 573: where the coherence sits against round 570's range (`frontier/linnik/SEVEN-THIRDS.md` §41; `IDEAS.md` B32 marker, C15, F6 and G15; `frontier/linnik/coherence_bands_probe.py`)
+
+**What it is.** Working toward the owner's goal "keep pushing until exponent is below 7/3". Round 570 proved core 1's incoherence on the Farey points below height `q^{1/6}`, and round 571 put what is owed in the off-diagonal of B33's expansion in `ψ`. This round measures where the adversarial sets' coherence sits against both, writes the off-diagonal as an excess over multiplicative shifts, closes one route and reduces another, and scans the literature. No exponent below `7/3` follows. No Lean changed, no paper surface is edited, and one probe is new.
+
+- **The off-diagonal as an excess over shifts.** With `Ỹ_u(x) = Σ_m R₀(uB_m(x)/x)R̄₀(uB_m(x)) − c_x(1)(|box| − Z(x))` for `u ∈ F_q^*`, `Ỹ_1(x) = X′(x) + e(x)`, and by Parseval over `ψ` the terms `ψ = ψ′` sum to the mean of `|Ỹ_u(x)|²` over `u`. So the off-diagonal at `x` is the excess of the unit shift over its multiplicative translates.
+- **Measured** at `q = 10007` and `20011`, for the sets of `energy_frontier.py` with `κ ≤ 1.25`:
+  - the off-diagonal carries `92%` and `84%` of `‖X′ + e‖²`;
+  - the points of height at most `q^{1/6}`, round 570's proven range, carry `28%` and `15%`, and those above `q^{1/6}` and at most `4M` carry `63%` and `67%`;
+  - for random sets the off-diagonal is `0.9%` and `−2.4%` of the total.
+
+  So the adversarial sets found so far put their coherence off the diagonal and above round 570's range. These are measurements of the sets one search finds, and they bound nothing over all sets.
+- **F6, closed.** The stack's half-plane proof gains because its target recurs in its family (the sixth-power members). Copies of a character such as `χ·χ₀^{(p)}` have Gram entries of about `L(1 − 1/p)(1 − 1/p′)` with one another, so `k` copies add about `kL` to every large sieve's norm. Twists by primitive cubic characters are orthogonal at length `L` when `qC² < L^{1−ε}`, but a large value at `χ` does not recur among them. For the critical cube the family's mean square over `χ mod q` is the sixth moment, core 2.
+- **C15, reduced to core 4.** Young's fourth moment at prime moduli (arXiv:math/0610335) has a power-saving error. If the characters with `|L(½, χ)| ≤ q^ε` carried its main term up to `O(q^{1−δ})`, the large values at `q^{1/12}` would number at most `q^{2/3−δ′}`. That premise is a tail bound containing core 4.
+
+**Sources.** Four web searches: large-value estimates for Dirichlet polynomials with characters to a prime modulus after Guth–Maynard; improvements to Linnik's constant for prime moduli; asymptotics for `x₁x₂x₃ ≡ y₁y₂y₃ (mod p)` in short intervals; and zero density for one prime modulus at bounded height below `7/3`. Six arXiv API queries sorted by submission date: "zero density" with Dirichlet; "large values" with characters; "character sums" with "short intervals" in math.NT; "multiplicative energy" with interval; "least prime" with progression; and "sixth moment" with Dirichlet. Seven abstracts not on file were read through the arXiv API: arXiv:2608.31060, 2505.19654, 2507.15334, 2508.14888, 0710.5176, 2505.23573 and 2606.09818 (IDEAS.md G15). The abstracts of arXiv:math/0610335 and 2008.13407, on file since round 572, were re-read for C15. The other hits were on file (among them arXiv:2507.08296, 2610.18923, 2608.16034, 2609.17875, 2608.15458) or, by title, off this goal. None states a large-values bound for one prime modulus beyond what is on file.
+
+**What is checked.**
+
+- `python3 coherence_bands_probe.py`, run from `frontier/linnik`, exits 0 in about four and a half minutes: "gates pass; mutations: m1 caught, m2 caught, m3 caught".
+  - (P1) B33's expansion, computed by FFT, matches `X′(x) + e(x)` at six points for both sets at both `q` (largest relative error `4.6e-13`). The shift form of the diagonal matches to `1.9e-14`.
+  - (P2) and (P3) gate the shares above: for the `κ ≤ 1.25` sets an off-diagonal share of at least `3/4`, at most `1/3` below `q^{1/6}` and at least `1/2` in `(q^{1/6}, 4M]`; for random sets an off-diagonal within `5%`.
+  - The mutations: the trivial character kept in the expansion, the random set in place of the `κ ≤ 1.25` set, and the cut `q^{1/4}` in place of `q^{1/6}`.
+- `idea_register.py` and its inputs are unchanged, so it was not re-run.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 7 new reports, 2 here (1798), 3 in IDEAS.md (45) and 2 in SEVEN-THIRDS.md (45), all of class L10 (a nested list directly after its item's text), the style of the entries around them. The count for STRUCTURAL-REVIEW.md (100) is unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §41.
+- `frontier/linnik/IDEAS.md`: the B32 marker, C15, F6 and G15. The register now lists 83 entries: 48 CLOSED, 12 REDUCED, 1 OPEN, 17 SURVEYED, 5 CORE.
+- `frontier/linnik/coherence_bands_probe.py`, new.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the shift form of the off-diagonal, the measured shares against round 570's range, F6 and C15. ACKNOWLEDGED: B32, B33, C4, C12 and SEVEN-THIRDS §§37–39.
+
+**Check 9.**
+
+- (a) Scope. The shares are measurements at two values of `q` of the sets that `energy_frontier.py` finds. F6 is closed for families whose extra members are copies of `χ` or twists by primitive cubic characters, through large sieves and through the cubic theta function's evaluation as round 569 records it. C15's reduction is about the tail bound stated.
+- (b) The open targets stay core 1 in its off-diagonal form on round 570's open range, core 2 and core 4.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Core 1's open range `(q^{1/6}, 2M]` holds the measured coherence. What is owed there is unchanged: a large-values count for the Farey sums beyond the density hypothesis (round 570), or a bound for the excess of the unit shift that keeps the phases across `ψ`.
