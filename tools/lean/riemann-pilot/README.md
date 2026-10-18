@@ -22419,3 +22419,64 @@ Abstracts read through the arXiv API: arXiv:2604.23661, arXiv:2405.00544, arXiv:
 **Bearing on RH:** none.
 
 **The next step.** One of two inputs would close core 1. The first is a restricted large sieve on `W × W`, for B27's `G`, that saves a little more than one density factor. The second, as before, is a count of large values of the block that can ignore a few exceptional characters.
+
+## Round 559: the gcd dichotomy for the critical block (`frontier/linnik/SEVEN-THIRDS.md` §27; `IDEAS.md` B28, G10; `idea_register.py` check (R24); `frontier/linnik/gcd_probe.py`)
+
+**What it is.** The owner's requests stand: "Keep hunting. I’m not interested in conditional results" and "Good hunting 🫡". No unconditional route emerged. The round proves a structural lemma on where the critical large values can come from, and records a literature check. No Lean changed, and no paper surface is edited.
+
+- **B28, the gcd dichotomy.** In `|D_I(χ)|²`, the pairs `(n, n′)` with gcd above `G` contribute `Σ_{f>G}c_f|D_{I/f}(χ)|²`, squared sums over shorter intervals with `|c_f| ≤ d(f)`.
+  - The cube's mean value theorem at those lengths, with Hölder over `W`, gives `Σ_{χ∈W}|P_{>G}| ≤ q^{o(1)}|W|^{2/3}(q^{1/3}N₀ + N₀²/G)`.
+  - So at most `q^{1/2+o(1)} + q^{2/3−3d+o(1)}` characters take half of a large value from the pairs with gcd above `q^d`.
+  - The rest has the block's fourth moment with `log G` for `log N₀`. That lowers the critical count to `q^{2/3}·O(log log q)`, not by a power.
+  - What remains is the large spectrum of the Farey set `{a/b : a, b ∈ I coprime}` at level `|F*|^{5/7}`, which is core 1 again.
+- **G10, literature.** Three sources; none states a sixth moment or a large-values count for short character sums at `N = q^{7/18}` for one prime modulus.
+
+**Horizon scan.** Web searches:
+
+- `multiplicative energy of an interval modulo a prime products of three intervals x1x2x3 = x4x5x6 mod p asymptotic power saving` (extended);
+- `sixth moment of character sums over short intervals fixed prime modulus N^3 greater than p unconditional asymptotic` (extended);
+- `large spectrum of an interval in the multiplicative group of a prime field count of characters with large character sum Bourgain Chang` (extended).
+
+Read: the arXiv API abstract of arXiv:2608.15458; the text layers of Castro–Chang's "Multiplicative Energy of Polynomial Images of Intervals Modulo q" and of Shparlinski's "Open Problems on Exponential and Character Sums" (G10).
+
+**What is checked.**
+
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R24) pass, and its thirty-seven mutations are caught.
+  - (R24) checks:
+    - the large-gcd count's exponents `1/2` and `2/3 − 3d`, for `d = 0, 1/36, 1/18`;
+    - the large-gcd share's exponents `−1/18` and `−d` at `|W| = q^{2/3}`;
+    - the small-gcd fourth moment's exponent `2/3`, with `(2N₀)² < q`.
+  - The two new mutations:
+    - the gcd dichotomy's Hölder read with the square;
+    - the large-gcd share without `|W|^{−1/3}`.
+- `python3 frontier/linnik/gcd_probe.py` exits 0 in about 8 s, at `q = 10007` and `100003` (`N₀ = 36` and `88`) and `G = 1, 2, 4, 8`. Its gates pass, and its four mutations are caught.
+  - (P1) the identity `P_{>G} = Σ_{f>G}c_f|D_{I/f}|²` against the direct sum over the pairs, for every `χ`, to relative tolerance `1e-9`;
+  - (P2) the fourth-moment identity for the pairs with gcd at most `G`, as an exact integer count;
+  - (P3) the Hölder bound with the sixth moments computed, for `W` the `round(q^{2/3})` characters with the largest `|D_I|`, and the mean value bound for each cube.
+  - The mutations: `c_f` read as `μ(f)`; gcd at least `G` in place of above `G`; Hölder with `|W|^{1/2}`; the mean value bound without its length term.
+  - Printed, not gated: `Σ_W|P_{>1}|/Σ_W|D_I|²` is `0.69` and `0.77`, and the lemma's bound exceeds the mass at these sizes.
+- G10's quotation was checked against the PDF's text layer, and its descriptions against the abstract and the survey's text.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 8 new reports. All are of class L10 (a nested list directly after its item's text), the style of the entries around them: 2 in IDEAS.md and 6 here. The counts for SEVEN-THIRDS.md (33) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §27.
+- `frontier/linnik/IDEAS.md`: B28 and G10. The register now lists 70 entries: 45 CLOSED, 8 REDUCED, 12 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R24) and two mutations.
+- `frontier/linnik/gcd_probe.py`: new.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the gcd dichotomy and its lemma, the logarithmic gain, the Farey-set form with its Kloosterman-fraction transform, and G10's survey. ACKNOWLEDGED: core 1; B18 (round 555), whose localization B28 sharpens; B19 and E4, the transfers that the Kloosterman form repeats for the Farey set.
+
+**Check 9.**
+
+- (a) Scope.
+  - The counts in B28 are the lemma's bounds; the `q^{o(1)}` are logarithmic factors from divisor bounds.
+  - "Core 1 again" refers to Parseval's bound `q^{2/3}` for the Farey set, which no estimate on the register improves.
+  - "None states" is scoped to the three sources read.
+- (b) B28 and G10 are on the register. The open target stays core 1.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Count, with a power saving over `q^{2/3}`, the characters `χ` with `|Σ_{x∈F*}χ(x)| ≥ c|F*|^{5/7}` for the Farey set `F*` of the critical block. Or, as before, count the large values of the block in a way that can ignore a few exceptional characters.

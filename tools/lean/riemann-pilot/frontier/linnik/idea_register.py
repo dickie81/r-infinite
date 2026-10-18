@@ -184,9 +184,16 @@ Checks.
               L/|W| = q^{1/3}.  With a factor |W|/L in each variable it would be q^{14/3}, the free value.  Times
               the factor q in front, the full sieve's q^{19/3} is above q^6.  (sixcycle_probe.py checks the
               identity and the bounds.)
+  (R24) Round 559's entry, B28 (the gcd dichotomy), at nu = 7/18, sigma = 5/7, |W| = q^{2/3} and gcd cut q^d.
+       (R24a) The characters whose large value comes mostly from pairs with gcd > q^d number at most the cube of
+              (q^{1/3} N0 + N0^2 q^{-d})/V0^2: exponents 3(1/3 + nu - 2 sigma nu) = 1/2 and
+              3(2 nu - 2 sigma nu - d) = 2/3 - 3d, checked for d = 0, 1/36, 1/18.
+       (R24b) At |W| = q^{2/3} the large-gcd part's share of |W| V0^2 is at most q^{-1/18} + q^{-d}.
+       (R24c) The pairs with gcd <= q^d have the fourth moment of the block itself, exponent
+              1 + 2 nu - 4 sigma nu = 2/3 for the count, with a factor log q^d in place of log N0.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs thirty-five mutations, at
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs thirty-seven mutations, at
 least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -922,11 +929,34 @@ def check_R23(mut=None):
     return fails
 
 
+def check_R24(mut=None):
+    fails = []
+    nu, sig, w = F(7, 18), S57, T23
+    power = 3 if mut != "the gcd dichotomy's Hoelder read with the square" else 2
+    for d in (F(0), F(1, 36), F(1, 18)):
+        small = power * (F(1, 3) + nu - 2 * sig * nu)
+        large = power * (2 * nu - 2 * sig * nu - d)
+        if not (small == F(1, 2) and large == w - 3 * d and (d == 0 or large < w)):
+            fails.append(f"R24a: the large-gcd count at d = {d}")
+            break
+    third = w / 3 if mut != "the large-gcd share without |W|^{-1/3}" else F(0)
+    for d in (F(1, 36), F(1, 18)):
+        s1 = F(1, 3) + nu - 2 * sig * nu - third
+        s2 = 2 * nu - 2 * sig * nu - d - third
+        if not (s1 == F(-1, 18) and s2 == -d):
+            fails.append(f"R24b: the large-gcd share at d = {d}")
+            break
+    if not (1 + 2 * nu - 4 * sig * nu == w and (2 * nu) < 1):
+        fails.append("R24c: the fourth moment of the pairs with small gcd")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
           "R16": check_R16, "R17": check_R17,
-          "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22, "R23": check_R23}
+          "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22, "R23": check_R23,
+          "R24": check_R24}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -946,7 +976,8 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the uniform-spread bound read with |W| in place of |W|^{1/2}",
              "the tree part's exponent read as (k + 1)/k", "the interval's k-energy without its wrap",
              "the critical zeros counted at q^{1/2}",
-             "the flat walk sum without its factor q", "the bilinear large sieve's L^2 read as L"]
+             "the flat walk sum without its factor q", "the bilinear large sieve's L^2 read as L",
+             "the gcd dichotomy's Hoelder read with the square", "the large-gcd share without |W|^{-1/3}"]
 
 
 def main(mut=None):
