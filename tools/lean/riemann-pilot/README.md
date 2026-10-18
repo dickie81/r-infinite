@@ -22304,7 +22304,7 @@ The quotations from Chen–Gupta–Li in B22 and B23 were checked against the PD
 
 **What it is.** The owner's request: "Keep hunting. I’m not interested in conditional results". No unconditional route emerged. The round records three attempts and a literature check. No Lean changed, no probe was run, and no paper surface is edited.
 
-- **B25, the Gauss-sum matrix by its moments.** B19 reduces core 1 to a norm bound for the Gauss-sum matrix `T′_W`, with no dual sums. Its sixth moment's tree part gives `q^{17/18}`, which would leave at most `q^{1/2}` characters in a large-values set at the critical point. The remaining walks need about two-thirds of square-root cancellation in a four-dimensional sum of six values of `R`, and energy bounds give none.
+- **B25, the Gauss-sum matrix by its moments.** B19 reduces core 1 to a norm bound for the Gauss-sum matrix `T′_W`, with no dual sums. Its sixth moment's tree part gives `q^{17/18}`, which would leave at most `q^{1/2}` characters in a large-values set at the critical point. The remaining walks need about two-thirds of square-root cancellation in a four-dimensional sum of six values of `R`, and energy bounds give none. *(Round 558: two-thirds is what matching the free value needs. For a power saving the route needs a little more than half, at `k = 3`; see round 558.)*
 - **B26, multiplicative energies.** The energy condition that concentration forces is already met by the interval, because products of its elements wrap modulo `q`.
 - **D4, Linnik's deduction with phases.** Keeping `χ̄(a)` saves for most residues but not for every one, which Linnik's problem needs.
 - **G8, literature.** Unconditional sharp bounds for high moments of short character sums are described as out of reach (Szabó, arXiv:2409.13436); the upper bound cited for `k > 2` assumes GRH. That obstruction (one bad character can dominate a moment) bears on core 2 and not on the count H\*.
@@ -22356,3 +22356,66 @@ New abstracts, read through the arXiv API: arXiv:2603.25612 (conditional on the 
 **Bearing on RH:** none.
 
 **The next step.** Two kinds of input would close core 1. One is cancellation in mixed additive-multiplicative sums over arbitrary sets of minimal energy. The other is a count of large values of the block that can ignore a few exceptional characters. Neither is on the register.
+
+## Round 558: the six-cycle as a bilinear form (`frontier/linnik/SEVEN-THIRDS.md` §26; `IDEAS.md` B25 marker, B27, G9; `idea_register.py` check (R23); `frontier/linnik/sixcycle_probe.py`)
+
+**What it is.** The owner's requests: "Keep hunting. I’m not interested in conditional results" and "Good hunting 🫡". No unconditional route emerged. The round sharpens round 557's B25, writes its six-cycle as a bilinear form, and records a literature check. No Lean changed, and no paper surface is edited.
+
+- **B25's requirement, rescoped.** Round 557 said the remaining walks need about two-thirds of square-root cancellation. That is what matching the free value needs. To save any power in `‖T′_W‖`, the route needs a little more than half, at `k = 3`. For `k ≥ 3` the share is `(2k − 3)/(3k − 3)`, least at `k = 3`.
+- **B27, the six-cycle as a bilinear form.** With `T_W = [τ(χχ̄′)]` (diagonal `−1`) and `D = diag(χ(−1))`, `tr((T_WT_W^*)³) = ‖(T_WD)³‖_F² = q·Σ_{χ₁≠χ₄}|S(χ₁, χ₄)|² + Σ_χ|Z(χ) − S(χ, χ)|²`. Here `S` is the two-dimensional multiplicative Fourier transform of `G(x, z) = R(−y/x)R(−z/y)`, with `y = 1 − x − z`.
+  - The diagonal part is at most about `κq^{17/3}`.
+  - Orthogonality over all pairs of characters gives `q^{16/3}` for the off-diagonal sum, against the `q^{5−δ}` the sixth moment needs for a power saving: a gap of one density factor `L/|W| = q^{1/3}`.
+  - Saving the density in both variables would give the free value `q^{14/3}`.
+- **G9, literature.** Six abstracts. None states a norm or large-values bound for an arbitrary set of characters of one prime modulus.
+
+**Horizon scan.** Web searches:
+
+- `number of Dirichlet characters with large short character sums power saving beyond fourth moment prime modulus count upper bound` (extended);
+- `uncertainty principle multiplicative characters short interval concentration finite field sum-product Bourgain functions supported on interval sparse multiplicative Fourier` (extended);
+- `large deviations of character sums over short intervals distribution tail prime modulus unconditional Harper Lamzouri 2025 2026` (extended).
+
+Abstracts read through the arXiv API: arXiv:2604.23661, arXiv:2405.00544, arXiv:2604.02306, arXiv:2512.02915, arXiv:2401.04756 and arXiv:2310.09992 (G9).
+
+**What is checked.**
+
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R23) pass, and its thirty-five mutations are caught.
+  - (R23) checks:
+    - the marker's exponents for `k = 3, …, 12`: the tree part `(5k + 2)/3`, the flat walk sum `(8k − 3)/3` and the need `(2k − 3)/3`;
+    - the share `(2k − 3)/(3k − 3)`: least, `1/2`, at `k = 3`, and below `2/3`; the free value needs `2/3` at `k = 3`;
+    - B27's exponents: `16/3` against `5`, the gap `1/3`, the free value `14/3`, and `19/3` above `6`.
+  - The two new mutations:
+    - the flat walk sum without its factor `q`;
+    - the bilinear large sieve's `L²` read as `L`.
+- `python3 frontier/linnik/sixcycle_probe.py` exits 0 in about 11 s. Its gates pass for fourteen sets at `q = 101, 499, 1009` and `2003`, and its seven mutations are caught.
+  - (S1) the entrywise identity for `(T_WD)³`, the trace identity and `T_W^* = DT_WD`, to relative tolerance `1e-9`;
+  - (S2) orthogonality over all pairs of characters, `Σ|G|² ≤ L²|W|²`, and `Σ_{W×W}|S|² ≤ L⁴|W|²`;
+  - (S3) `Σ_{χ∈W}|Z|² ≤ L³Σ_u|R(1 + u)R(u/(1 + u))|² ≤ L³Σ_x|R(x)|⁴`;
+  - (S4) for the random sets at `q ≥ 499`, the trace within 6% of the free value `(5 − 6α + 2α²)L³|W|⁴`, `α = |W|/L` (measured: within 4%).
+  - The mutations: the signs in `S` dropped; the trace identity without its factor `q`; `Z` without its factor `L`; orthogonality with `L` for `L²`; the bound on `Σ|G|²` with `L|W|²` for `L²|W|²`; (S3) with `L²` for `L³`; (S4)'s free value read as its limit `5`.
+  - Printed, not gated: the diagonal part is at most 1.2% of the trace; the sets with the largest block sums exceed the free value by 14%, 26% and 32% at `q = 499, 1009, 2003`, and two subgroup annihilators by 122% and 58%.
+- G9's descriptions were checked against the arXiv API's abstracts, and its one quotation is verbatim.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 8 new reports. All are of class L10 (a nested list directly after its item's text), the style of the entries around them: 2 in IDEAS.md and 6 here. The counts for SEVEN-THIRDS.md (33) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §26, and a marker on §25.
+- `frontier/linnik/IDEAS.md`: a marker on B25, and B27 and G9. The register now lists 68 entries: 44 CLOSED, 8 REDUCED, 11 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R23) and two mutations.
+- `frontier/linnik/sixcycle_probe.py`: new.
+- A marker on round 557's entry above.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the marker's share computation, B27's identity and its gap, the probe's free-value calibration, and G9's survey. ACKNOWLEDGED: core 1, B10, B19 (round 555) and B25 (round 557), which B27 builds on.
+
+**Check 9.**
+
+- (a) Scope.
+  - "Needs" in the marker and in B27 refers to this route: the sixth moment, measured against the flat bound.
+  - The probe's printed numbers, and its comparison (S4) with the free value, are calibrations at four small `q`, not theorems about these sets.
+  - "None of the six abstracts" is scoped to the six abstracts read.
+- (b) B27 and G9 are on the register. The open target stays core 1.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** One of two inputs would close core 1. The first is a restricted large sieve on `W × W`, for B27's `G`, that saves a little more than one density factor. The second, as before, is a count of large values of the block that can ignore a few exceptional characters.

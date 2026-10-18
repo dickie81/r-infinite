@@ -173,9 +173,20 @@ Checks.
        (R22c) D4.  The critical zeros, q^{2/3} of them at beta = 5/7, contribute q^{2/3} x^{5/7}, which is x at
               x = q^{7/3}; at x = q^{7/3 - delta} the twisted sum needs a saving q^{2 delta/7} (checked at
               delta = 1/10).
+  (R23) Round 558's entries.
+       (R23a) B25's marker.  For k = 3, ..., 12 the tree part q^k|W|^{k+1} has exponent (5k + 2)/3, below 2k by
+              (k - 2)/3; the flat walk sum has exponent (8k - 3)/3; for a power saving the route needs more than
+              (2k - 3)/3 of saving there, against the k - 1 of square-root cancellation.  The share
+              (2k - 3)/(3k - 3) is least, 1/2, at k = 3, and below 2/3 throughout; matching the free value at k = 3
+              needs 2/3 (the tree part's 14/3 against the flat 6).
+       (R23b) B27.  Orthogonality over all pairs of characters (the full bilinear large sieve) gives L^4|W|^2 =
+              q^{16/3} for the six-cycle's inner sum, against the q^5 the route needs for a power saving: a gap
+              L/|W| = q^{1/3}.  With a factor |W|/L in each variable it would be q^{14/3}, the free value.  Times
+              the factor q in front, the full sieve's q^{19/3} is above q^6.  (sixcycle_probe.py checks the
+              identity and the bounds.)
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs thirty-three mutations, at
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs thirty-five mutations, at
 least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -888,11 +899,34 @@ def check_R22(mut=None):
     return fails
 
 
+def check_R23(mut=None):
+    fails = []
+    w = T23
+    for k in range(3, 13):
+        tree = k + w * (k + 1)
+        flat = 1 + (2 * k - 2) + w * k if mut != "the flat walk sum without its factor q" else (2 * k - 2) + w * k
+        need = flat - 2 * k
+        if not (tree == F(5 * k + 2, 3) and 2 * k - tree == F(k - 2, 3) and flat == F(8 * k - 3, 3)
+                and need == F(2 * k - 3, 3)):
+            fails.append(f"R23a: the k = {k} exponents")
+            break
+    ratios = {k: F(2 * k - 3, 3 * k - 3) for k in range(3, 13)}
+    if not (min(ratios.values()) == F(1, 2) == ratios[3] and ratios[4] == F(5, 9)
+            and all(ratios[k] < F(2, 3) for k in ratios)):
+        fails.append("R23a: the share of square-root cancellation, least at k = 3")
+    if not (F(4, 3) / 2 == F(2, 3) and 2 + w * 4 == F(14, 3)):
+        fails.append("R23a: the share the free value needs at k = 3")
+    full = 4 + 2 * w if mut != "the bilinear large sieve's L^2 read as L" else 3 + 2 * w
+    if not (full == F(16, 3) and full - 5 == 1 - w and full - 2 * (1 - w) == F(14, 3) and 1 + full > 6):
+        fails.append("R23b: the bilinear large sieve against the six-cycle's need")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
           "R16": check_R16, "R17": check_R17,
-          "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22}
+          "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22, "R23": check_R23}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -911,7 +945,8 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the block's diagonal read without its factor N0",
              "the uniform-spread bound read with |W| in place of |W|^{1/2}",
              "the tree part's exponent read as (k + 1)/k", "the interval's k-energy without its wrap",
-             "the critical zeros counted at q^{1/2}"]
+             "the critical zeros counted at q^{1/2}",
+             "the flat walk sum without its factor q", "the bilinear large sieve's L^2 read as L"]
 
 
 def main(mut=None):
