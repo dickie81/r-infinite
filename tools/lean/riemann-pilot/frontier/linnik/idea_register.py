@@ -159,9 +159,23 @@ Checks.
               14/9, B18's floor.  With |W| = q^{2/3 - d} on a grid of d in [0, 1/3]: the slack exponent 5/3 - 3d exceeds
               the floor 14/9 - 4d (the constant-factor slack at d = 0 included), and the off-diagonal term 14/9 - d
               meets the floor only at d = 0.
+  (R22) Round 557's entries.
+       (R22a) B25.  The free-probability (tree) part of the 2k-th moment of the Gauss-sum matrix gives
+              ||T'_W|| <= q^{1/2}|W|^{(k+1)/(2k)}: exponent 1 at k = 2, 17/18 at k = 3, and 5/6 in the limit.  At
+              k = 3 a large-values set at the critical point has |W| <= q^{11/18}, and the self-consistent bound is
+              q^{1/2}.  The six-cycle's tree part q^3|W|^4 has exponent 17/3; the flat bound q q^4 |W|^3 exceeds it
+              by q^{4/3}, and square-root cancellation (exponent 5) would suffice.  On the four-cycle, Cauchy-Schwarz
+              and Hoelder both give exponent 10/3, above the tree part's 3.
+       (R22b) B26.  The interval's multiplicative k-energy N^k/q (normalized) has exponent 7k/9 - 1, at least the
+              (k - 1)/3 that spectral concentration on |W| = q^{2/3} forces, for k = 2, ..., 12; they meet at
+              k = 3/2.  A support of size s needs structure beyond wrapping only for s < q^{(k+2)/(3k)}, which is
+              q^{2/3} at k = 2.
+       (R22c) D4.  The critical zeros, q^{2/3} of them at beta = 5/7, contribute q^{2/3} x^{5/7}, which is x at
+              x = q^{7/3}; at x = q^{7/3 - delta} the twisted sum needs a saving q^{2 delta/7} (checked at
+              delta = 1/10).
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs thirty mutations, at
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs thirty-three mutations, at
 least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -844,11 +858,41 @@ def check_R21(mut=None):
     return fails
 
 
+def check_R22(mut=None):
+    fails = []
+    w, n, v = T23, F(7, 9), F(5, 9)
+    if mut != "the tree part's exponent read as (k + 1)/k":
+        tree = lambda k: F(1, 2) + w * F(k + 1, 2 * k)
+    else:
+        tree = lambda k: F(1, 2) + w * F(k + 1, k)
+    if not (tree(2) == 1 and tree(3) == F(17, 18) and F(1, 2) + w / 2 == F(5, 6)):
+        fails.append("R22a: the free-probability norms q^{1/2}|W|^{(k+1)/(2k)}")
+    if not (tree(3) + n - 2 * v == F(11, 18) and 3 * (F(1, 2) + n - 2 * v) == F(1, 2)):
+        fails.append("R22a: the critical counts q^{11/18} and q^{1/2}")
+    tr3, flat, sqrt = 3 + 4 * w, 1 + 4 + 3 * w, 1 + 2 + 3 * w
+    if not (tr3 == F(17, 3) and flat - tr3 == F(4, 3) and sqrt < tr3):
+        fails.append("R22a: the six-cycle's tree part, flat bound and square-root bound")
+    cs, hoelder, tree4 = 2 + 2 * w, 1 + 1 + 2 * w, 1 + 3 * w
+    if not (cs == hoelder == F(10, 3) and tree4 == 3 and cs > tree4):
+        fails.append("R22a: Cauchy-Schwarz and Hoelder on the four-cycle")
+    for k in range(2, 13):
+        wrapped = n * k - 1 if mut != "the interval's k-energy without its wrap" else F(0)
+        if not (wrapped >= F(k - 1, 3) and F(k + 2, 3 * k) <= F(2, 3)):
+            fails.append(f"R22b: the interval's k-energy at k = {k}")
+            break
+    if not (n * F(3, 2) - 1 == F(1, 6) == (F(3, 2) - 1) / 3 and F(2 + 2, 3 * 2) == F(2, 3)):
+        fails.append("R22b: the crossover k = 3/2 and the sparse threshold at k = 2")
+    L0, cnt = F(7, 3), (w if mut != "the critical zeros counted at q^{1/2}" else F(1, 2))
+    if not (cnt + S57 * L0 == L0 and cnt + S57 * (L0 - F(1, 10)) - (L0 - F(1, 10)) == F(2, 70)):
+        fails.append("R22c: the critical zeros at the Linnik exponent and the saving 2 delta/7")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
           "R16": check_R16, "R17": check_R17,
-          "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21}
+          "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -865,7 +909,9 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the Hoelder height threshold read without its square",
              "the block's large-values need read without |W|", "the large-spectrum bound's delta^4 read as delta^2",
              "the block's diagonal read without its factor N0",
-             "the uniform-spread bound read with |W| in place of |W|^{1/2}"]
+             "the uniform-spread bound read with |W| in place of |W|^{1/2}",
+             "the tree part's exponent read as (k + 1)/k", "the interval's k-energy without its wrap",
+             "the critical zeros counted at q^{1/2}"]
 
 
 def main(mut=None):

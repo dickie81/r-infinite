@@ -22299,3 +22299,60 @@ The quotations from Chen–Gupta–Li in B22 and B23 were checked against the PD
 **Bearing on RH:** none.
 
 **The next step.** None of the routes in §§22–24 reaches core 1. What they lack is cancellation along the small lines in the additive correlations of functions with flat multiplicative spectra, for sets without multiplicative structure. The kernel-checked conditional theorem from H\* remains the narrowest Lean target.
+
+## Round 557: the Gauss-sum matrix by its moments, energies, and Linnik's deduction (`frontier/linnik/SEVEN-THIRDS.md` §25; `IDEAS.md` B25, B26, D4, G8; `idea_register.py` check (R22))
+
+**What it is.** The owner's request: "Keep hunting. I’m not interested in conditional results". No unconditional route emerged. The round records three attempts and a literature check. No Lean changed, no probe was run, and no paper surface is edited.
+
+- **B25, the Gauss-sum matrix by its moments.** B19 reduces core 1 to a norm bound for the Gauss-sum matrix `T′_W`, with no dual sums. Its sixth moment's tree part gives `q^{17/18}`, which would leave at most `q^{1/2}` characters in a large-values set at the critical point. The remaining walks need about two-thirds of square-root cancellation in a four-dimensional sum of six values of `R`, and energy bounds give none.
+- **B26, multiplicative energies.** The energy condition that concentration forces is already met by the interval, because products of its elements wrap modulo `q`.
+- **D4, Linnik's deduction with phases.** Keeping `χ̄(a)` saves for most residues but not for every one, which Linnik's problem needs.
+- **G8, literature.** Unconditional sharp bounds for high moments of short character sums are described as out of reach (Szabó, arXiv:2409.13436); the upper bound cited for `k > 2` assumes GRH. That obstruction (one bad character can dominate a moment) bears on core 2 and not on the count H\*.
+
+**Horizon scan.** Web searches:
+
+- `Montgomery Vaughan "Mean values of character sums" 1979 2k-th moment q N^k short character sums range` (extended);
+- `high moments of short character sums beyond q^{1/k} prime modulus upper bound sixth moment arXiv` (extended);
+- `zero density estimate Dirichlet L-functions prime modulus improves Ingham 7/3 Chen Gupta Li 2026` (extended);
+- `large value estimates character-twisted Dirichlet polynomials prime modulus no subdivision new bound 2026 arXiv` (extended);
+- `restricted operator norm Gauss sum matrix subsets of multiplicative characters additive character compression sum-product` (extended).
+
+New abstracts, read through the arXiv API: arXiv:2603.25612 (conditional on the generalized Lindelöf hypothesis), arXiv:2507.15184 (explicit Ingham for `ζ`), arXiv:2608.14777 (exponential sums over primes). None states an unconditional large-values or moment bound for one prime modulus.
+
+**What is checked.**
+
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R22) pass, and its thirty-three mutations are caught.
+  - (R22) checks:
+    - the free-probability norms (`1`, `17/18`, `5/6`) and the critical counts (`11/18`, `1/2`) of B25;
+    - its six-cycle exponents (`17/3`, the gap `4/3`, square-root `5`) and its four-cycle bounds (`10/3` against `3`);
+    - B26's energy comparison for `k = 2, …, 12` and its crossover `3/2`;
+    - D4's saving `2δ/7`.
+  - The three new mutations:
+    - the tree exponent read as `(k + 1)/k`;
+    - the interval's energy without its wrap;
+    - the critical zeros counted at `q^{1/2}`.
+- The quotations in G8 were checked against the arXiv API's abstracts and, for Szabó's introduction, the paper's HTML text.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD, finds 8 new reports, all of class L10 (a nested list directly after its item's text), the style of the entries around them: 4 in IDEAS.md and 4 here. The counts for SEVEN-THIRDS.md (33) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §25.
+- `frontier/linnik/IDEAS.md`: B25, B26, D4 and G8. The register now lists 66 entries: 44 CLOSED, 7 REDUCED, 10 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R22) and three mutations.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: B25's moment analysis, B26, D4, and G8's survey. ACKNOWLEDGED: core 1, core 2, B10 and B19 (round 555), which B25 builds on.
+
+**Check 9.**
+
+- (a) Scope.
+  - B25's bound is stated for the case where the walks other than the trees are no larger than the trees; it is not proved.
+  - "Energy bounds give none" refers to Cauchy–Schwarz and Hölder with the restricted fourth moments, as computed.
+  - Szabó's "hopeless" concerns large `k`, as his sentence says.
+  - "The register holds neither" is scoped to the register.
+- (b) B25, B26, D4 and G8 are on the register. The open target stays core 1.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Two kinds of input would close core 1. One is cancellation in mixed additive-multiplicative sums over arbitrary sets of minimal energy. The other is a count of large values of the block that can ignore a few exceptional characters. Neither is on the register.
