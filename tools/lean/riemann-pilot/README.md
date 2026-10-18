@@ -22744,3 +22744,60 @@ Abstracts read through the arXiv API: arXiv:2609.27715, arXiv:2609.17875, arXiv:
 **Bearing on RH:** none.
 
 **The next step.** In round 535's form, core 1 now asks that the points of height above `q^{1/8}` carry at most `q^{−2δ}` of `θ′`. Between `q^{1/8}` and `q^{1/4}`, an eighth moment of the Farey sums beyond their integer range would suffice. That is a moment bound for character sums over integers below `q^{1/4}`.
+
+## Round 565: the open range as a large-values count (`frontier/linnik/SEVEN-THIRDS.md` §33; `IDEAS.md` B33 marker and G12; `idea_register.py` check (R30))
+
+**What it is.** The owner wrote: "Continue pls". This round restates the open range of round 564 as a large-values count and scans the literature for it. No unconditional route emerged. No Lean changed, no probe is new, and no paper surface is edited.
+
+- **A cleaner form.** Every twisted energy `E_x` is a sum of squares, and `ω(x) ≤ Ω/ht(x)`. So round 564's bound over the Farey points of height up to `H ≤ 2M` is at most `Ω·Σ_φ r_w(φ)²S̃(φ)`, with the Farey sum `S̃(φ) = Σ_{x∈F_H}φ(x)/ht(x)`. Group the characters by `λ = |S̃(φ)|` and let `N(λ)` count the characters `φ ≠ 1` with `|S̃(φ)| ≥ λ`. When `κ ≤ q^{o(1)}`, those points carry at most `q^{−2δ+o(1)}` of `θ′` if `N(λ) ≤ q^{4/9−2δ}/λ` for `q^{1/9−2δ} < λ ≤ 4H`.
+- **The moments.** While `2H^{2k} < q`, the `2k`-th moment of `S̃` is an integer count and `N(λ) ≤ q^{1+o(1)}λ^{−2k}`, whatever `H`.
+  - With `k = 2`, below height `q^{1/4}` (so on all of `F_{2M}`), this meets the condition for `λ ≥ q^{5/27}`.
+  - With `k = 3`, below height `q^{1/6}`, it meets it for `λ` above `q^{1/9}` by any power.
+  - With `k = 4`, below height `q^{1/8}`, it meets it for every `λ`, which is round 564's bound.
+- **What is left.** Between heights `q^{1/8}` and `q^{1/6}`, a count of the characters with `|S̃(φ)|` near `q^{1/9}` a power below the sixth moment. From `q^{1/6}` to `2M`, `N(λ) ≤ q^{4/9−δ}/λ` for `q^{1/9} < λ < q^{5/27}`, where the fourth moment gives `q^{5/9}` against the condition's `q^{1/3}` at `λ = q^{1/9}`. At length `T = q^{2/9}` that asks, roughly, that the characters with `|Σ_{n≤T}φ(n)| ≥ T^{3/4}` number below `q^{1/3−δ}`. These are large-values counts for short character sums below the Burgess range, of the kind H\* asks for (SEVEN-THIRDS §21).
+- **The eighth-moment note.** Round 564's attack note, an eighth moment at its diagonal size above height `q^{1/8}`, taken for `S̃`, bounds every `|S̃(φ)|`, `φ ≠ 1`, by `q^{1/8+o(1)}`. An even character with `φ(n) = 1` for every `n ≤ H` has `S̃(φ) = S̃(1) ≫ H`. So at height `q^{1/8+ε}` it would give every even nonprincipal character, and the square of every odd one of order above `2`, a value other than `1` below `q^{1/8+ε}`. Burgess's bound with Vinogradov's trick gives `q^{1/(4√e)+ε}`, and `1/8 < 1/(4√e) < 1/6`. The count above has no such consequence.
+- **The scan (G12).** No bound below `7/3` for prime moduli and no new Linnik exponent turned up. None of the eight abstracts read states a count of the characters with large short sums at these lengths.
+
+**Sources.** Nine web searches:
+
+1. "zero density estimate Dirichlet L-functions prime modulus below 7/3 Chen Gupta Li improvement 2026 arXiv" (extended);
+2. "least prime in arithmetic progression Linnik constant new bound 2026 arXiv" (extended);
+3. "number of characters with large short character sums below Burgess range moment bound count";
+4. "multiplicative energy Farey fractions modulo a prime products congruence x1x2 equiv x3x4 asymptotic";
+5. "high moments short character sums beyond diagonal range prime modulus sixth eighth moment arXiv";
+6. "Bourgain Garaev Konyagin Shparlinski multiplicative congruences with variables from short intervals number of solutions x1...xk ≡ y1...yk";
+7. "count of Dirichlet characters modulo q with |sum_{n≤x} χ(n)| ≥ εx pretentious characters Granville Soundararajan few characters large sums";
+8. "least character non-residue improvement beyond 1/(4 sqrt e) Burgess Vinogradov 2025 2026 arXiv" (extended);
+9. "large values of Dirichlet polynomials over characters modulo q short polynomial length q^{1/4} count beyond moment method".
+
+The eight abstracts not on file were read through the arXiv API: arXiv:1410.8189, 1412.3062, 2509.09649, 1210.6429, 1706.03002, 2510.09005, 1311.7556 and 2509.07651. Bober–Goldmakher (arXiv:1311.7556): "Scant progress has been made on short character sums since Burgess' work, so it is desirable to find a new approach to nonresidues."
+
+**What is checked.**
+
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R30) pass, and its fifty-one mutations are caught.
+  - (R30) checks the condition `N ≤ q^{4/9}/λ` from `λ = q^{1/9}`, and where the moments meet it: `q^{5/27}` (`k = 2`), `q^{1/9}` (`k = 3`) and `q^{5/63}` (`k = 4`).
+  - It also checks that the fourth moment is an integer count up to height `2M` and the sixth is not, the fourth moment's `q^{5/9}` against `q^{1/3}` at `λ = q^{1/9}`, the levels `σ = 3/4` and `11/12` at length `q^{2/9}`, and `1/8 < 1/(4√e) < 1/6`.
+  - The three new mutations: the condition without its factor `1/λ`, the fourth moment of `S̃` read as the fourth moment of the short sums, and a Farey fraction counted as one integer.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 4 new reports. All are of class L10 (a nested list directly after its item's text), the style of the entries around them: 1 in IDEAS.md and 3 here. The counts for SEVEN-THIRDS.md (33) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §33.
+- `frontier/linnik/IDEAS.md`: a marker on B33, and G12. The register now lists 77 entries: 46 CLOSED, 11 REDUCED, 1 OPEN, 14 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R30) and three mutations.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the large-values form of B33's open range, the moments' thresholds in it, and the least-non-residue consequence of round 564's attack note. ACKNOWLEDGED: core 1 (B1, B12), B32 and B33, and H\* with G4, whose kind of count this is.
+
+**Check 9.**
+
+- (a) Scope.
+  - The condition is sufficient for this route's bound, not shown necessary for core 1. The route loses a factor above `100` at `q ≤ 10⁵` (round 564).
+  - "None of the eight abstracts states" is scoped to the abstracts read.
+  - The consequence of the attack note is proved above. The comparison is with what Burgess's bound and Vinogradov's trick give, not with every known result.
+- (b) The open target is on the register: the marker on B33 states the count, and B33's "What is owed" stands. The open targets stay core 1 and core 2.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** The large-values count for the Farey sums is a short-sum problem of H\*'s kind. A route that keeps the phases of `c_x(ψ)` against `T_ψ(x)`, which Cauchy–Schwarz over `ψ` discards, may ask for less.

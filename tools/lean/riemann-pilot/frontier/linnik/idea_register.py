@@ -225,9 +225,15 @@ Checks.
        (k = 3, ..., 8; q^{-1/36} at k = 4); at height q^{1/8} the phi = 1 term is q^{-23/72} and the trivial bound
        q^{1/72}, which is q^0 at height q^{1/9}; the range stops below M (1/8 < 2/9), and an eighth moment at its
        diagonal size beyond the integer range would carry it to height q^{1/4}.
+  (R30) Round 565's marker on B33 (the open range as a large-values count), at |W| = q^{2/3}, M = q^{2/9}: with
+       N(lambda) the number of characters phi != 1 with |S~(phi)| >= q^lambda, the condition N <= q^{4/9 - lambda}
+       from lambda = 1/9; the 2k-th moment's N <= q^{1 - 2k lambda}, an integer count for heights below q^{1/(2k)},
+       meets it from lambda = 5/27 (k = 2), 1/9 (k = 3) and 5/63 < 1/9 (k = 4); the fourth moment is an integer count
+       up to height 2M and the sixth is not; at lambda = 1/9 the fourth moment's count q^{5/9} against the needed
+       q^{1/3}; the short-sum levels sigma = 3/4 and 11/12 at length q^{2/9}; and 1/8 < 1/(4 sqrt e) < 1/6.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs forty-eight mutations,
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs fifty-one mutations,
 at least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -1115,13 +1121,37 @@ def check_R29(mut=None):
     return fails
 
 
+def check_R30(mut=None):
+    fails = []
+    m, start = F(2, 9), F(1, 9)
+    need = lambda lam: F(4, 9) - lam if mut != "the needed count without its factor 1/lambda" else F(4, 9)
+    per_fraction = 2 if mut != "a Farey fraction counted as one integer" else 1
+    valid = lambda k, eta: per_fraction * k * eta < 1
+    meet = {}
+    for k in (2, 3, 4):
+        e = 2 * k if mut != "the fourth moment of S read as the fourth moment of the short sums" else k
+        meet[k] = next(F(j, 945) for j in range(1, 946) if 1 - e * F(j, 945) <= need(F(j, 945)))
+    if not (meet[2] == F(5, 27) and meet[3] == start and meet[4] == F(5, 63) and meet[4] < start):
+        fails.append("R30: where the moments meet the condition")
+    if not (valid(2, m) and not valid(3, m) and valid(3, F(1, 6) - F(1, 100)) and valid(4, F(1, 8) - F(1, 100))
+            and not valid(4, F(1, 8))):
+        fails.append("R30: the integer ranges of the moments")
+    if not (1 - 4 * start == F(5, 9) and need(start) == F(1, 3) and (2 * F(3, 4) - 1) * m == start
+            and (2 * F(11, 12) - 1) * m == F(5, 27)):
+        fails.append("R30: the fourth moment's count at q^{1/9} and the short-sum levels")
+    e_lo, e_hi = F(2718, 1000), F(2719, 1000)
+    if not (e_lo < 4 and e_hi < 4 and e_lo > F(9, 4)):
+        fails.append("R30: 1/8 < 1/(4 sqrt e) < 1/6")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
           "R16": check_R16, "R17": check_R17,
           "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22, "R23": check_R23,
           "R24": check_R24, "R25": check_R25, "R26": check_R26, "R27": check_R27, "R28": check_R28,
-          "R29": check_R29}
+          "R29": check_R29, "R30": check_R30}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -1149,7 +1179,9 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "Theorem 12's first term without its factor (RS + N)", "the norm of b counted over every n up to N",
              "the lemma with |A| in place of |A|^{1/2}", "the major-arc moment taken past the wrap",
              "the collision count with M^3 in place of M^4", "the bound |r_w| <= |W|^2 in place of |W|",
-             "the eighth moment taken past its integer range"]
+             "the eighth moment taken past its integer range", "the needed count without its factor 1/lambda",
+             "the fourth moment of S read as the fourth moment of the short sums",
+             "a Farey fraction counted as one integer"]
 
 
 def main(mut=None):
