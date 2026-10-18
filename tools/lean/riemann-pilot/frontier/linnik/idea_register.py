@@ -102,9 +102,23 @@ Checks.
        length q^{7/18} and above it for the length q^{7/9}: the bound gives ||E||_F^2 <~ N R^2 only when R >= N.
        Halasz-Montgomery with ||E||_op <= ||E||_F then gives R V^2 <= N^2 + N^{3/2} R, so R <= 2 N^2/V^2 once
        V^2 > 2 N^{3/2}: sigma > 3/4, and 10/7 < 3/2 at sigma = 5/7.
+  (R17) Round 552's entries.
+       (R17a) A1 at theta = 51/101, the twist length of Bui-Pratt-Robles-Zaharescu's asymptotic: Selberg's exponent
+              is 277/101 > 7/3.  At theta = 7/9 it is exactly 7/3.
+       (R17b) C14.  With the twist S(chi)^2 of length q^{2 nu}, nu = 7/18, a twisted second moment
+              sum_chi |L(1/2 + it, chi)|^2 |S(chi)|^4 << q^{1 + eta} N^2 counts |S| >= N^{5/7} (so |L| >= q^{1/12},
+              and N^{5/7 - 1/2} = q^{1/12}) by q^{1/2 + eta}: below q^{2/3} iff eta < 1/6.  The large sieve gives
+              eta = 1/2 + 2 nu - 1 = 5/18, a gap of 1/9; the twist length 7/9 exceeds 51/101.  Through Mellin the same
+              bound gives sum |S|^6 << q^{1 + eta} N^3, which at eta = 1/6 is q^{7/3} = N^6: SIX's threshold.
+       (R17c) E2's levels for S_3 at the critical point (|W| = q^{2/3}, N = q^{7/9}): discarding the Jacobi phases,
+              N^{3/2} q^2 = q^{19/6} (seven_thirds.py (P)); Chen-Gupta-Li's q^2 |W|^{3/2} = q^3; independent random
+              phases on the q^2 pairs, N^{3/2} q = q^{13/6}.
+       (R17d) E4.  The dual of the smooth sum at N = q^{7/18} has length M = q^{11/18} and threshold
+              q^{1/2} N^{-2/7} = q^{7/18}.  The mean value theorem for its fourth power, (q + M^2) M^2, gives q^{8/9};
+              Poisson's isometry, sum_{chi != chi_0} |D|^4 = (q/N^2)^2 sum |S|^4 = q^{3 - 2 nu}, gives q^{2/3}.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs eighteen mutations, at
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs twenty mutations, at
 least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -645,10 +659,35 @@ def check_R16(mut=None):
     return fails
 
 
+# (R17) Round 552: A1 at Bui-Pratt-Robles-Zaharescu's length, C14, E2's levels, E4.
+def check_R17(mut=None):
+    fails = []
+    bprz = F(51, 101) if mut != "BPRZ's length read as q^{7/9}" else F(7, 9)
+    if not (selberg(S57, bprz, mut) == F(277, 101) and F(277, 101) > F(7, 3) and selberg(S57, F(7, 9)) == F(7, 3)):
+        fails.append("R17a: A1 at theta = 51/101")
+    nu = F(7, 18)
+    twist = 2 * nu if mut != "the twist's length read as q^{7/18}" else nu
+    a = nu * (S57 - F(1, 2))
+    count = lambda eta: 1 + eta - 2 * a + nu * (2 - 4 * S57)
+    eta_ls = F(1, 2) + twist - 1
+    if not (a == F(1, 12) and count(F(1, 6)) == T23 and count(eta_ls) > T23 and eta_ls - F(1, 6) == F(1, 9)
+            and twist > F(51, 101) and 1 + F(1, 6) + 3 * nu == 6 * nu):
+        fails.append("R17b: the twisted second moment with the twist S^2")
+    n2, w = 2 * nu, T23
+    trivial, cgl, random = F(3, 2) * n2 + 2, 2 + F(3, 2) * w, F(3, 2) * n2 + 1
+    if not (trivial == F(19, 6) and cgl == 3 and random == F(13, 6) and random < cgl < trivial
+            and all(st.check_P())):
+        fails.append("R17c: the levels of S_3")
+    mu, h = 1 - nu, F(1, 2) + nu * (S57 - 1)
+    if not (h == F(7, 18) and 2 * mu > 1 and 4 * mu - 4 * h == F(8, 9) and (3 - 2 * nu) - 4 * h == T23):
+        fails.append("R17d: the dual's fourth moment")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
-          "R16": check_R16}
+          "R16": check_R16, "R17": check_R17}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -658,7 +697,8 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "Guth-Maynard's third term loses its tau", "Ford's constant read as 4.05",
              "the twelfth moment read as T^{5/2}", "the twisted class-II line keeps FMx's 2x",
              "Burgess's q-exponent halved", "BGKS's e_3 read as 1", "Heath-Brown's R^{5/4} read as R^{3/2}",
-             "the diagonal term read as N R"]
+             "the diagonal term read as N R", "BPRZ's length read as q^{7/9}",
+             "the twist's length read as q^{7/18}"]
 
 
 def main(mut=None):

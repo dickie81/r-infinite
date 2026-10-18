@@ -22030,3 +22030,50 @@ The two new mutations read `R^{5/4}` as `R^{3/2}` (31 failing checks) and the di
 **Bearing on RH:** none.
 
 **The next step.** Unchanged from round 550: H\* carries every route on the register. The register lists 46 entries: 30 CLOSED, 5 REDUCED, 6 SURVEYED and 5 CORE (round 550 added C13, this round G4).
+
+## Round 552: where the critical term sits, four more entries, and a horizon scan (`frontier/linnik/IDEAS.md` A1, C14, E2, E4, E6, E7, G5; `idea_register.py` check (R17))
+
+**What it is.** The owner's request: "Keep probing". This round reads where Chen–Gupta–Li's critical term comes from, scans the horizon, and works four more ideas to their thresholds. No Lean changed, and no paper surface is edited.
+
+- **Where the critical term sits.** Read in the extracted text of Chen–Gupta–Li's arXiv PDF (v2).
+  - Their Theorem 1.1 holds for every divisor `q₁` of `q`. For prime `q` with `q₁ = q`, at length `q^{7/9}` and `σ = 5/7`, its Guth–Maynard term `qTN^{12/5}V^{−4}` gives `29/45`. Its term `qq₁^{1/3}TN²V^{−4}` gives exactly `2/3`.
+  - That term comes from their bound (11.2), `S₃ ⪅ (qT)²|W|^{3/2} + qTN|W|^{1/2}E(W)^{1/2}`. In the proof of their Proposition 11.1, the first term is reached after the triangle inequality, two Cauchy–Schwarz steps, their Lemma 9.1 (the second moment of `R`, `≪ φ(q)|W|`) and the first term of their Proposition 8.1.
+  - For prime `q` their gcd twist is `(x, q) = 1 + (q − 1)·1[q | x]`. The part `1` alone reproduces Proposition 8.1's first term, the mean of a positive sum. On this round's reading, when `|R|` and its smoothing are flat, each step after the triangle inequality is an equality up to constants. So a saving has to come from the signs of the line sums, which is core 1 as recorded (rounds 528–540).
+- **Horizon (G5).** Six arXiv queries, sorted by submission date: `abs:"zero density" AND abs:Dirichlet` (the latest 15 of 29), `abs:"large value" AND abs:characters AND abs:Dirichlet` (15), `abs:Guth AND abs:Maynard` (9), `abs:Linnik AND abs:"least prime"` (12), `abs:"zero-density" AND abs:"L-functions"` (the latest 15 of 45) and `abs:"character sums" AND abs:"large values" AND abs:count` (1). Five abstracts were not on file. None describes a large-values bound for one prime modulus. Pliego–Wang (arXiv:2610.11487) would use one: "any improvement in large value estimates for character-twisted Dirichlet polynomials would lead to a corresponding improvement in the lower bound for H".
+- **E6, the `q`-analogue of van der Corput and Postnikov–Korobov.** Closed for prime `q`. Irving, Banks–Shparlinski and Chang, as their abstracts describe them, need smooth moduli, a small core, or composite moduli with small prime factors.
+- **E7, base change to an imaginary quadratic field.** Closed. For `q` unramified in `K`, the base change `χ ∘ N_{K/ℚ}` has conductor of norm `q²`. The Gram entries of the base-change family are smooth sums of `(χχ̄′)·r_K`, with dual length about `q²/N` against `q/N`. All base changes have angular type `0`, so angular subdivision does not split them.
+- **C14, a twisted second moment with a long twist.** Reduced to core 2.
+  - A large `|S_χ(N)| ≥ N^{5/7}` at `N = q^{7/18}` makes `|L(½ + it, χ)| ≥ q^{1/12−ε}` for some `|t| ≤ q^ε`, by Mellin. So H\*'s simplest instance follows from `Σ_χ |L(½ + it, χ)|²|S_χ(N)|⁴ ≪ q^{1+η+ε}N²`, averaged over `|t| ≤ q^ε` (with the derivative a Sobolev step needs), whenever `η < 1/6`.
+  - The large sieve gives `η = 5/18`. Bui–Pratt–Robles–Zaharescu (arXiv:1808.10803) reach an asymptotic for twists of length below `q^{51/101}`. This twist has length `q^{7/9}`.
+  - Through Mellin, `|S_χ(N)|² ≪ N∫|L(½ + it, χ)|²|ŵ| dt`, so the same bound gives `SIX(1/6 − η)`.
+- **Three refinements.**
+  - A1: even at `θ = 51/101`, Selberg's formula gives `277/101 ≈ 2.743`.
+  - E2: for scale, at the critical point. Discarding the Jacobi phases gives `q^{19/6}` (round 528's check (P)), and Chen–Gupta–Li's bound is `q³`. If the phases on the `q²` pairs behaved like independent random signs, `S₃` would be about `q^{13/6}`; this is a heuristic.
+  - E4: its `q^{8/9}` is the mean value theorem's bound for the dual's fourth power, whose term `M⁴` is the principal character's. Poisson summation is an isometry here, so the exact dual fourth moment gives back `q^{2/3}`. A net-state marker records this at E4.
+- **Not entered.** No entry was made for the cubic moments behind the Weyl bound. The three Petrow–Young abstracts read (arXiv:1811.02452, 1908.10346, 1608.06854) do not describe how the bound counts, and the papers were not read.
+
+**What is checked.** `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R17) pass, and its twenty mutations are caught.
+
+- One new mutation reads Bui–Pratt–Robles–Zaharescu's length as `q^{7/9}`. A1's exponent is then exactly `7/3`, and (R17a) fails.
+- The other reads the twist's length as `q^{7/18}`. The large sieve then seems to suffice, and (R17b) fails.
+- (R17c) also requires `seven_thirds.py`'s check (P) to hold.
+
+The quotations were checked against the arXiv API's abstracts. The account of Chen–Gupta–Li follows the extracted text of their arXiv PDF (v2): Theorem 1.1, Proposition 3.1, §10 (Theorem 10.1, Proposition 10.2, Remark 10.3), Proposition 11.1 and (11.1)–(11.2).
+
+**Records.**
+
+- `frontier/linnik/IDEAS.md`: A1 and E2 extended; a net-state marker at E4; C14, E6, E7 and G5 new.
+- `frontier/linnik/idea_register.py`: check (R17) and its two mutations.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: E6, E7 and C14, the five new abstracts, E4's refinement, and the heuristic level `q^{13/6}`. ACKNOWLEDGED: the anatomy of the `S₃` step (core 1, rounds 528–540), the sixth moment's `θ = 1/3` (C1) and the level `q^{19/6}` (round 528).
+
+**Check 9.**
+
+- (a) "None describes" is scoped to the five abstracts not on file. E6's closure is scoped to the three methods as their abstracts describe them. The saving of `q^{1/9}` in C14 is measured against the large sieve, not against every method. The level `q^{13/6}` is a heuristic.
+- (b) The register marker records the round.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Unchanged: H\* carries every route on the register. The register lists 50 entries: 32 CLOSED, 6 REDUCED, 7 SURVEYED and 5 CORE.
