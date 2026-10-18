@@ -61,6 +61,7 @@ The kernel-checked conditional route is round 521's `LinnikDensity.linnik_of_cri
   - Heath-Brown's second theorem (7.15) and Kerr's Theorems 2–4 need `σ > 3/4` or `σ > 25/32`.
   - Guth–Maynard's Theorem 1.1 (10.27) gives `29/45 < 2/3` at `7/9`. Its proof subdivides to `τ = 6/5`, and for prime `q` there is no subdivision (C5, E5).
   - The unsubdivided bound (10.28) gives exactly `2/3` at `7/9`, from its term `2 − 4σ + (4/3)τ`. In the model that term is Chen–Gupta–Li's `(qT)^{4/3}N^{2−4σ}`, the contribution of the `S₃` step. The other seven terms are below `2/3` there for `k ≤ 5`.
+- **B15. `SIX(δ)` from the fourth moment and a pointwise bound.** CLOSED [R14a]. `Σ|D_N|⁶ ≤ max|D_N|²·(q + N²)N²` is below `q^{−δ}N⁶` at `N = q^{7/18}` only if `max_{χ≠χ₀}|D_N(χ)| < q^{5/18−δ/2}`. Burgess's best exponent there, at `r = 4`, is `71/192 ≈ 0.370`. Pólya–Vinogradov gives `1/2` and the trivial bound `7/18`. A Lindelöf-type bound `q^{7/36}` would suffice.
 
 ## C. The integral class and central values
 
@@ -80,6 +81,7 @@ The kernel-checked conditional route is round 521's `LinnikDensity.linnik_of_cri
   - A large `|L(½ + it, χ)| ≥ q^{1/12}` makes one dyadic piece `Σ_{n∼M} χ(n)n^{−1/2−it}`, `M ≤ q^{1/2}`, large.
   - Pieces with `M < q^{7/18}` are counted below `q^{2/3}` by the mean value of their cubes. The twisted bound of C7 reaches only `M ≤ q^{1/4}`.
   - At `M = q^{1/2}` the square has length `q` and value `q^{2/3}`, where the density term is exactly `2/3`. So powers of the piece cannot help there, and an unsquared count needs `LV(2/3, 2) < 4/3`. The mean value theorem gives `5/3`, Huxley `2` and Guth–Maynard's Theorem 1.1 `26/15`. For `ζ`, R12(d) records the database's exponent-pair bound above `2/3` in the count.
+- **C10. `SIX(δ)` from equidistribution of `d₃` in every class.** CLOSED [R14b]. A saving `q^{−δ′}` in every class mod `q` gives `SIX(2δ′)`. At `X = N³ = q^{7/6}` that is level of distribution `6/7`. Fouvry–Kowalski–Michel (arXiv:1304.3199): "the exponent of distribution of the ternary divisor function d_3 in arithmetic progressions to prime moduli is at least 1/2+1/46"; and "when averaging over a fixed residue class", `1/2 + 1/34`.
 - **C8. Variance of `d₃` in progressions to a single modulus.** SURVEYED [R8]. Nguyen (arXiv:2205.02354, Corollary 1) treats `X = d^c` with `c ∈ (k − 1, k)`. For `k = 3` that is `X ∈ (d², d³)`. It records Kowalski–Ricotta's prime-modulus range as `c ∈ (k − ½, k)`. `SIX(δ)` sits at `X = q^{7/6}`.
 
 ## D. Restructuring the argument

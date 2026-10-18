@@ -81,9 +81,16 @@ Checks.
        (R13c) At M = q^{1/2} and a = 1/12 the square has length q and value q^{2/3}: there the density term and the
               mean value theorem's second term both equal 2/3.  Unsquared (tau = 2, sigma = 2/3) a count below q^{2/3}
               needs LV < 4/3; the mean value theorem gives 5/3, Huxley 2 and Guth-Maynard's Theorem 1.1 26/15.
+  (R14) B15 and C10, two routes to SIX(delta) at N = q^{7/18} (README round 548).
+       (R14a) Sum |D|^6 <= max |D|^2 Sum |D|^4 <= max |D|^2 (q + N^2) N^2 is below q^{-delta} N^6 exactly when
+              max |D| < q^{5/18 - delta/2}.  Burgess's exponent (1 - 1/r)(7/18) + (r + 1)/(4r^2) is least at r = 4,
+              71/192, above 5/18 for r = 1, ..., 12; Polya-Vinogradov's is 1/2.  The Lindelof exponent 7/36 is below 5/18.
+       (R14b) Equidistribution in every class mod q with a saving q^{-delta'} gives Sum_{chi != chi_0} |D|^6
+              <= q^2 (X/q)^2 q^{-2 delta'} = N^6 q^{-2 delta'}, X = N^3 = q^{7/6}: level of distribution 6/7.
+              Fouvry-Kowalski-Michel's levels for d_3, 1/2 + 1/46 (prime moduli) and 1/2 + 1/34 (averaged), are below.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs fourteen mutations, at
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs fifteen mutations, at
 least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -558,9 +565,36 @@ def check_R13(mut=None):
     return fails
 
 
+# (R14) SIX(delta) by a pointwise bound, and by equidistribution in every class.
+def check_R14(mut=None):
+    fails = []
+    n = F(7, 18)
+    need = 2 * n - F(1, 2)                                # max |D| <= q^need: N^2 q^{2 need} q = N^6
+    if need != F(5, 18) or not need > n / 2:
+        fails.append(f"R14a: needed exponent {need}")
+    burg = {r: (1 - F(1, r)) * n + F(r + 1, 4 * r * r) for r in range(1, 13)}
+    if mut == "Burgess's q-exponent halved":
+        burg = {r: (1 - F(1, r)) * n + F(r + 1, 8 * r * r) for r in range(1, 13)}
+    best = min(burg.values())
+    if best != F(71, 192) or min(burg, key=burg.get) != 4 or not all(v > need for v in burg.values()):
+        fails.append(f"R14a: Burgess {best} at r = {min(burg, key=burg.get)}")
+    if not (F(1, 2) > need and n / 2 == F(7, 36) and F(7, 36) < need):
+        fails.append("R14a: Polya-Vinogradov or Lindelof")
+    X = 3 * n
+    level = 1 / X
+    if X != F(7, 6) or level != F(6, 7):
+        fails.append(f"R14b: X = q^{X}, level {level}")
+    if not (level > F(1, 2) + F(1, 46) and level > F(1, 2) + F(1, 34)):
+        fails.append("R14b: known levels")
+    d = F(1, 100)                                         # q^2 (X/q)^2 q^{-2 delta'} in powers of q
+    if 2 + 2 * (X - 1) - 2 * d != 6 * n - 2 * d:
+        fails.append("R14b: the variance bound")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
-          "R13": check_R13}
+          "R13": check_R13, "R14": check_R14}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -568,7 +602,8 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the critical block read as q^{7/20}", "X counted with two factors",
              "Huxley's slope read as the mean value theorem's", "the transplant drops the factor l",
              "Guth-Maynard's third term loses its tau", "Ford's constant read as 4.05",
-             "the twelfth moment read as T^{5/2}", "the twisted class-II line keeps FMx's 2x"]
+             "the twelfth moment read as T^{5/2}", "the twisted class-II line keeps FMx's 2x",
+             "Burgess's q-exponent halved"]
 
 
 def main(mut=None):

@@ -21894,3 +21894,35 @@ New ideas go on the register with a status.
 **Bearing on RH:** none.
 
 **The next step.** Unchanged: every route on the register passes through a core. Core 4's hard range is now explicit. It needs a large-values estimate for smooth character sums of length `q^{l}`, `7/18 ≤ l ≤ 1/2`, at height `q^{l/2 + 1/12}`. At the top of the range, powers do not help.
+
+## Round 548: two routes to `SIX(δ)` closed (`frontier/linnik/IDEAS.md` B15, C10; `idea_register.py` check (R14))
+
+**What it is.** Two direct attacks on core 2, `SIX(δ)` at the critical length `N = q^{7/18}`, worked to their thresholds. Both close. No Lean changed, and no paper surface is edited.
+
+- **B15, the fourth moment times a pointwise bound.** `Σ_{χ≠χ₀}|D_N|⁶ ≤ max|D_N|²·(q + N²)N²` is below `q^{−δ}N⁶` only if `max_{χ≠χ₀}|D_N(χ)| < q^{5/18−δ/2}`.
+  - Burgess's bound `N^{1−1/r}q^{(r+1)/(4r²)+ε}` has exponent `(1 − 1/r)(7/18) + (r + 1)/(4r²)` there. That is least at `r = 4`, `71/192 ≈ 0.370`, and above `5/18` for every `r` from `1` to `12`.
+  - Pólya–Vinogradov gives `1/2`, and the trivial bound `7/18`.
+  - A Lindelöf-type bound `q^{7/36}` would suffice. The route needs a pointwise saving of about `q^{0.09}` over Burgess.
+- **C10, equidistribution in every class.** If `d₃`, restricted to products of three numbers of size `N`, is equidistributed in every class mod `q` with a saving `q^{−δ′}`, then `Σ_{χ≠χ₀}|D_N|⁶ ≤ q²(X/q)²q^{−2δ′} = N⁶q^{−2δ′}`, with `X = N³ = q^{7/6}`. That is `SIX(2δ′)`, at level of distribution `6/7`. Fouvry–Kowalski–Michel (arXiv:1304.3199) state "the exponent of distribution of the ternary divisor function d_3 in arithmetic progressions to prime moduli is at least 1/2+1/46". Their averaged level, "when averaging over a fixed residue class", is `1/2 + 1/34`. Both are far below `6/7`.
+
+What remains of core 2 is the variance over all classes at once, which is C8.
+
+**What is checked.** `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R14) pass, and its fifteen mutations are caught. The new mutation halves Burgess's `q`-exponent; the minimum then moves and (R14a) fails. The quotations were checked against the arXiv API's abstract.
+
+**Records.**
+
+- `frontier/linnik/IDEAS.md`: B15 and C10.
+- `frontier/linnik/idea_register.py`: check (R14).
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the two thresholds. ACKNOWLEDGED: core 2 (rounds 541–542) and C8 (round 546).
+
+**Check 9.**
+
+- (a) "Least at `r = 4`" is checked for `r` from `1` to `12`. For `r ≥ 5` the exponent is at least `(4/5)(7/18) = 14/45 > 5/18`, so no larger `r` reaches the threshold.
+- (b) The register marker records the two thresholds.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Unchanged: core 2 comes down to the variance of `d₃` over all classes mod `q` at `X = q^{7/6}` (C8). The register lists no remaining non-core route.
