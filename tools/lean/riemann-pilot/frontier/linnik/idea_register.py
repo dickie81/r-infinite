@@ -235,9 +235,14 @@ Checks.
        q^v (v = 1/3, 7/18, 4/9, 1/2) with A = q^{4v - 1} and M = N = q^{2v}: its A^{1/2} term has Bettin-Chandee's
        second exponent A/2 + 7M/8, and its A^{7/20} term is Bettin-Chandee's first less 2 eta/5; the second binds for
        every eta >= 0 (tying the first at v = 1/3, eta = 0), so the saving stays q^{v/4} (q^{7/72} at v = 7/18).
+  (R32) Round 567's marker on B33 (block moments of the short sums), at |W| = q^{2/3}: with k the largest integer
+       with (2H)^k < q, N(lambda) <= q^{1 - k lambda}; the worst lambda q^{2/(3k)}, where q^{1 - k lambda + lambda}
+       meets q^{lambda + 1/3}, gives q^{-1/9 + 2/(3k)} = q^{-(k - 6)/(9k)} of theta' (k = 6, ..., 12; q^{-1/63} at k = 7
+       up to height q^{1/7}, q^{-1/36} at k = 8, R29's Hoelder at even k); the half-plane's |S~| <= H^{2 sigma_1 - 1}
+       reaches height q^{1/(9(2 sigma_1 - 1))}: q^{2/15} < q^{1/7} at sigma_1 = 11/12, and q^{2/9} at sigma_1 = 3/4.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs fifty-three mutations,
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs fifty-five mutations,
 at least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -1171,13 +1176,35 @@ def check_R31(mut=None):
     return fails
 
 
+def check_R32(mut=None):
+    fails = []
+    for k in range(6, 13):
+        reach = F(1, k) if mut != "the block moment's integer range read as (2H)^{2k} < q" else F(1, 2 * k)
+        lam = F(2, 3 * k)
+        theta = lam + F(1, 3) - F(4, 9) if mut != "the worst level read as q^{2/k}" else F(2, k) + F(1, 3) - F(4, 9)
+        if not (1 - k * lam + lam == lam + F(1, 3) and theta == F(-1, 9) + F(2, 3 * k) == F(6 - k, 9 * k)
+                and reach == F(1, k)):
+            fails.append(f"R32: the block moments at k = {k}")
+            break
+        if k % 2 == 0 and not (F(3 - k // 2, 9 * (k // 2)) == theta):
+            fails.append(f"R32: R29's Hoelder at k = {k}")
+            break
+    if not (F(6 - 7, 63) == F(-1, 63) and F(6 - 8, 72) == F(-1, 36) and F(1, 8) < F(1, 7) < F(1, 6)):
+        fails.append("R32: the new range q^{1/7} and its saving")
+    hp = lambda s1: F(1, 9) / (2 * s1 - 1)
+    if not (hp(F(11, 12)) == F(2, 15) < F(1, 7) and hp(F(3, 4)) == F(2, 9) and F(5, 6) * F(2, 15) == F(1, 9)):
+        fails.append("R32: the half-plane's range")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
           "R16": check_R16, "R17": check_R17,
           "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22, "R23": check_R23,
           "R24": check_R24, "R25": check_R25, "R26": check_R26, "R27": check_R27, "R28": check_R28,
-          "R29": check_R29, "R30": check_R30, "R31": check_R31}
+          "R29": check_R29, "R30": check_R30, "R31": check_R31,
+          "R32": check_R32}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -1208,7 +1235,8 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the eighth moment taken past its integer range", "the needed count without its factor 1/lambda",
              "the fourth moment of S read as the fourth moment of the short sums",
              "a Farey fraction counted as one integer", "Wright's saving X^{-2 eta/5} on the A^{1/2} terms too",
-             "Wright's A^{1/2} term with N^{1/2} for N^{3/8}"]
+             "Wright's A^{1/2} term with N^{1/2} for N^{3/8}",
+             "the block moment's integer range read as (2H)^{2k} < q", "the worst level read as q^{2/k}"]
 
 
 def main(mut=None):

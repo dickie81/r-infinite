@@ -22755,7 +22755,7 @@ Abstracts read through the arXiv API: arXiv:2609.27715, arXiv:2609.17875, arXiv:
   - With `k = 3`, below height `q^{1/6}`, it meets it for `λ` above `q^{1/9}` by any power.
   - With `k = 4`, below height `q^{1/8}`, it meets it for every `λ`, which is round 564's bound.
 - **What is left.** Between heights `q^{1/8}` and `q^{1/6}`, a count of the characters with `|S̃(φ)|` near `q^{1/9}` a power below the sixth moment. From `q^{1/6}` to `2M`, `N(λ) ≤ q^{4/9−δ}/λ` for `q^{1/9} < λ < q^{5/27}`, where the fourth moment gives `q^{5/9}` against the condition's `q^{1/3}` at `λ = q^{1/9}`. At length `T = q^{2/9}` that asks, roughly, that the characters with `|Σ_{n≤T}φ(n)| ≥ T^{3/4}` number below `q^{1/3−δ}`. These are large-values counts for short character sums below the Burgess range, of the kind H\* asks for (SEVEN-THIRDS §21).
-- **The eighth-moment note.** Round 564's attack note, an eighth moment at its diagonal size above height `q^{1/8}`, taken for `S̃`, bounds every `|S̃(φ)|`, `φ ≠ 1`, by `q^{1/8+o(1)}`. An even character with `φ(n) = 1` for every `n ≤ H` has `S̃(φ) = S̃(1) ≫ H`. So at height `q^{1/8+ε}` it would give every even nonprincipal character, and the square of every odd one of order above `2`, a value other than `1` below `q^{1/8+ε}`. Burgess's bound with Vinogradov's trick gives `q^{1/(4√e)+ε}`, and `1/8 < 1/(4√e) < 1/6`. The count above has no such consequence.
+- **The eighth-moment note.** Round 564's attack note, an eighth moment at its diagonal size above height `q^{1/8}`, taken for `S̃`, bounds every `|S̃(φ)|`, `φ ≠ 1`, by `q^{1/8+o(1)}`. An even character with `φ(n) = 1` for every `n ≤ H` has `S̃(φ) = S̃(1) ≫ H`. So at height `q^{1/8+ε}` it would give every even nonprincipal character, and the square of every odd one of order above `2`, a value other than `1` below `q^{1/8+ε}`. Burgess's bound with Vinogradov's trick gives `q^{1/(4√e)+ε}`, and `1/8 < 1/(4√e) < 1/6`. The count above has no such consequence. *(Round 567: in this stack that consequence is no obstruction. The half-plane's Lindelöf bound (round 522), through Perron's formula, gives every nonprincipal character a value other than `1` below `q^{o(1)}`, and round 482 proves `n(p) ≤ C(log p)^A` for the quadratic ones; round 567.)*
 - **The scan (G12).** No bound below `7/3` for prime moduli and no new Linnik exponent turned up. None of the eight abstracts read states a count of the characters with large short sums at these lengths.
 
 **Sources.** Nine web searches:
@@ -22843,3 +22843,45 @@ Three abstracts were read through the arXiv API (2608.27732, 2609.16700, and 260
 **Bearing on RH:** none.
 
 **The next step.** For B30, a trilinear bound that saves more in its `A^{1/2}`-type term, or one that uses the frequencies `hℓq` and the divisor structure of the coefficients.
+
+## Round 567: block moments extend the Farey range to `q^{1/7}`, and the half-plane's pointwise bound (`frontier/linnik/SEVEN-THIRDS.md` §35; `IDEAS.md` B33 marker; `idea_register.py` check (R32))
+
+**What it is.** Continuing on the owner's "Continue pls". Round 564 proved, with no hypothesis, that the Farey points of height up to `q^{1/8}` carry at most `q^{−1/36+o(1)}` of the coherence `θ′`, and round 565 put the rest as a count of large Farey sums. This round counts block by block with the moments of the short character sums themselves. That extends the unconditional range to `q^{1/7}`. It also notes what the stack's half-plane gives, which corrects the framing of round 565's eighth-moment note. No exponent below `7/3` follows. No Lean changed, no probe is new, and no paper surface is edited.
+
+- **Block moments.** A large Farey sum `|S̃(φ)| ≥ λ` forces a short sum `A_y(φ) = Σ_{n≤y}φ(n)`, `y ≤ H`, with `|A_y(φ)|² ≥ λy/(2(1 + log H)²)`. Counting these block by block, with maximal partial sums over dyadic subintervals, uses the moments `Σ_φ|Σ_{n∈I}φ(n)|^{2k}`. These are integer counts while `(2H)^k < q`, so `N(λ) ≤ q^{1+o(1)}λ^{−k}`.
+- **What it gives.** The points of height up to `H` carry at most `q^{−(k−6)/(9k)+o(1)}` of `θ′` when `κ ≤ q^{o(1)}`, with `k` the largest integer with `(2H)^k < q`. Even `k` gives back round 564's Hölder bounds. `k = 7` is new: at most `q^{−1/63+o(1)}` up to height `(q/2)^{1/7}/2`. A moment of `S̃` counts products of Farey fractions, two integers each, so the block moments stay integer counts twice as long in `k`.
+- **What is left.** From `q^{1/7}` to `q^{1/6}`, `k = 6`, exactly borderline. Beyond, round 565's window stands.
+- **The half-plane.** The stack's Lindelöf bound on `Re s ≥ σ₀ > 11/12` (`LinnikLindelof.lindelof`, round 522), through Perron's formula, gives `|A_y(χ)| ≪ y^{σ₀}(qy)^ε` for every `χ ≠ 1` mod `q`. So every `|S̃(φ)|`, `φ ≠ 1`, is `≪ H^{5/6+ε}`. That alone reaches height `q^{2/15}`, below `q^{1/7}`. A half-plane at `σ₁` with Lindelöf would reach `q^{1/(9(2σ₁−1))}`.
+- **A framing corrected.** The same bound gives every nonprincipal character mod `q` a value other than `1` below `q^{o(1)}`, and round 482 proves `n(p) ≤ C(log p)^A` for the quadratic characters. So the consequence that round 565 drew from round 564's eighth-moment note is already a theorem of the stack, not an obstruction. Round 565's sentences were true as written, so they get net-state markers (in B33, SEVEN-THIRDS §33 and round 565's entry above), not strikes.
+
+**Sources.** No web search and no new paper this round.
+
+**What is checked.**
+
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R32) pass, and its fifty-five mutations are caught.
+  - (R32) checks, for `k = 6` to `12`, the worst level `q^{2/(3k)}`, the exponent `−1/9 + 2/(3k) = −(k−6)/(9k)`, and the range `q^{1/k}`. It also checks agreement with R29's Hölder exponent at even `k`, the values `−1/63` and `−1/36`, `1/8 < 1/7 < 1/6`, and the half-plane's `2/15 < 1/7` at `σ₁ = 11/12` and `2/9` at `σ₁ = 3/4`.
+  - The two new mutations: the block moment's integer range read as `(2H)^{2k} < q`, and the worst level read as `q^{2/k}`.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 2 new reports here, both of class L10 (a nested list directly after its item's text), the style of the entries around them. The counts for IDEAS.md (40), SEVEN-THIRDS.md (33) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §35, and a net-state marker in §33.
+- `frontier/linnik/IDEAS.md`: two markers on B33. The register still lists 78 entries: 46 CLOSED, 11 REDUCED, 1 OPEN, 15 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R32) and two mutations.
+- This README: a net-state marker in round 565's entry.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the block-moment count and the range `q^{1/7}`, the half-plane's bound on the Farey sums and its range, and the note that the stack's half-plane gives every nonprincipal character a value other than `1` below `q^{o(1)}`. ACKNOWLEDGED: rounds 482 (`n(p)`), 522 (Lindelöf), 564 and 565.
+
+**Check 9.**
+
+- (a) Scope.
+  - The range `q^{1/7}` is proved above, asymptotically. Its exponents are checked by (R32).
+  - "Exactly borderline" refers to the twelfth moment of the short sums at `λ = q^{1/9}`. Nothing is claimed about other methods.
+  - The least-value bound below `q^{o(1)}` is our derivation from round 522's theorem and Perron's formula. It is not a Lean theorem.
+- (b) The open target is on the register: B33's markers state the count from height `q^{1/7}` on. The open targets stay core 1 and core 2.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** For the Farey points between `q^{1/7}` and `q^{1/6}`, a power below the twelfth moment's count of large short sums at level `q^{1/18}√y` would extend the range again.
