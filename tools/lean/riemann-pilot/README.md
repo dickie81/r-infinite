@@ -21741,3 +21741,48 @@ The cheapest Lean route is the first, through round 527's argument.
 **Bearing on RH:** none.
 
 **The next step.** In the model, the sixth-moment route needs one count at the critical point: the characters mod `q` with `|L(½ + it, χ)| ≥ q^{1/12}`, below the fourth moment's `q^{2/3}` by a power. The conditional Lean route of round 543 would take `θ` as a parameter, with target `Linnik.CharDensity (max(16/7, 2 + 2θ) + ε)`.
+
+## Round 545: large central values at height `q^{1/12}`, and the conditional ladder (`frontier/linnik/sixth_moment.py` check (V); SEVEN-THIRDS.md §20)
+
+**What it is.** The weakest class-II input this strand has found for an exponent below `7/3` for prime moduli, the record of which inputs suffice, and a horizon scan. No Lean changed, and no paper surface is edited.
+
+- **The band hypothesis.** At one point per character, the fourth moment bounds by `Q^{1−4a}` the number of characters with `|L(½ + it, χ)| ≥ Q^a`. Suppose that count drops to `Q^{1−4a−δ}` only for `a` near `1/12`.
+  - With Chen–Gupta–Li's Proposition 3.1 in round 528's model and the band `1/12 ∓ 1/100`, the maximum is `7/3` at `δ = 0`.
+  - It is `2.33198`, `2.32317` and `2.31326` at `δ = 1/1000`, `1/100` and `1/50`.
+  - So any power saving at that height suffices in the model.
+- **Without Proposition 3.1.** On the stack's own families the binding point is just above `σ = 3/4`, at height near `1/10`. With the band `[1/24, 1/8]` the model needs a saving of about `0.0343`: `δ = 34/1000` leaves the maximum at `2.33396`, and `δ = 35/1000` gives `2.33155`.
+- **The ladder.** Each of these gives an exponent below `7/3`. None is known at the strength it needs.
+  - A uniform bound `|L(½ + it, χ)| ≪ (q(|t| + 2))^c` with `c < 1/12`. This one is already kernel-checked: `LinnikDensity.linnik_of_critBound` gives Linnik's exponent `2 + 4c + η` from it. Known: `1/6` (Petrow–Young), not in the stack; the stack proves `5/24 + ε`.
+  - The sixth moment with loss `θ < 1/6` (round 544). Known: `θ = 1/3`.
+  - The band hypothesis at height `q^{1/12}`, with Proposition 3.1 (this round).
+  - `SIX(δ)` (rounds 541–542).
+  - The first term of `S₃` at `q^{3−κ}` (round 528).
+
+  The first two each give the third, for a band reaching below `1/12`.
+- **Horizon scan (2026-10-18).** arXiv:2609.27715 (Guth–Maynard for `GL₂`, exponent `5/2`), arXiv:2609.17875 (zero-density concentration for finite Dirichlet sums) and arXiv:2607.04632 (an expository account of Guth–Maynard). None treats characters mod a prime at `σ = 5/7`, and none fills a socket. At `σ = 5/7` the prime-modulus exponent `7/3` is Ingham's `3/(2 − σ)`. The survey's abstract says that Guth–Maynard, "for a key location in the critical strip, strengthens previous work of Ingham and is the first such improvement in over 80 years".
+
+**What is checked.** `python3 frontier/linnik/sixth_moment.py` exits 0 in under three minutes: (K), (X), (Y), (Z), (U), (V) and (M) pass, and its ten mutations are caught. The two new mutations flip the sign of the band's saving, and centre the band at `1/10`, which leaves the maximum at `7/3`. Both fail (V1). (V) is exact rational arithmetic in round 528's model. The quotations were checked against the arXiv API's abstracts.
+
+**Records.**
+
+- SEVEN-THIRDS.md §20.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the band hypothesis and its thresholds, and the ladder with its kernel-checked first rung. The kernel-checked theorem itself is round 521's.
+
+**Check 9.**
+
+- (a) "Weakest the strand has found" and "none is known" report what this strand found. The thresholds are statements in round 528's model, over the grids named in the docstring.
+- (b) The register marker records the band hypothesis as a target.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Each input on the ladder is an open problem. The ladder lists the inputs this strand has found; it is not shown to be exhaustive. The inputs:
+
+- large central values at `q^{1/12}`;
+- a fixed-modulus sixth moment;
+- `SIX(δ)`;
+- the `S₃` step.
+
+The cheapest kernel-checked progress this round sees is a conditional theorem from the band hypothesis or the sixth moment, through round 527's argument with a detector that varies with `σ`. It is a multi-round build.

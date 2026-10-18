@@ -63,6 +63,17 @@ Checks.
            [sigma_0, sigma_H]: sigma_0(theta) = (1 + 4 theta)/(2 + 2 theta), where Ingham's 3/(2 - s) equals
            2 + 2 theta, and sigma_H(theta) = (5 + 2 theta)/(6 + 6 theta), where Huxley's 3/(3s - 1) does.  At
            sigma_0 - 1/100 and sigma_H + 1/100 it certifies 2 + 2 theta - 10^-4.  sigma_0(1/6) = 5/7.
+  (V) Large central values in a band of heights (README round 545).  The fourth moment counts the characters with
+      |L(1/2 + it, chi)| >= Q^a, one point per character, by Q^{1-4a}.  Suppose that count is Q^{1-4a-delta} for a in
+      a band [a_lo, a_hi] only.  As in (U), the integral class and every block whose height a = nu h has count at most
+      Q^t go through the critical line; the other blocks go by powers.
+      (V1) With all four families of `seven_thirds.py` (Chen-Gupta-Li's Proposition 3.1 included) and the band
+           1/12 -+ 1/100, the maximum over V_GRID is 7/3, at s = 5/7, for delta = 0, and below 7/3 - 10^-3 for
+           delta = 1/1000, 1/100 and 1/50, decreasing in delta.
+      (V2) With the stack's families only and the band [1/24, 1/8], delta = 34/1000 gives a maximum of at least 7/3
+           and delta = 35/1000 one below 7/3 (over X_GRID with 3/4 added).
+      The sixth moment with loss theta gives the count Q^{1+theta-6a} = Q^{1-4a-(2a-theta)}, a saving 1/6 - theta at
+      a = 1/12; a uniform bound |L(1/2 + it, chi)| <= Q^c makes the count vanish for a > c.
   (M) The sixth moment of smooth character sums S_N(chi) = sum_n phi(n/N) chi(n), phi = sin^2(pi(x - 1))
       on [1, 2], at N = round(q^{7/18}) for primes q from 10^4 to 10^7.  For each q:
       (M1) Parseval: sum over chi of |S_N|^2 = (q - 1) sum phi(n/N)^2;
@@ -430,6 +441,86 @@ def check_U(mut=None):
     return fails, rows
 
 
+def certify_band(s, A, delta, a_lo, a_hi, methods=STACK, mut=None):
+    """The fourth moment's count Q^{1-4a} of the characters with |L(1/2 + it, chi)| >= Q^a, lowered to
+    Q^{1-4a-delta} for a_lo <= a <= a_hi: the integral class and the blocks whose height a = nu h has count at most
+    Q^t through the critical line; the other blocks by powers in the windows of `methods`."""
+    t = A * (1 - s)
+    if t >= 1:
+        return "trivial"
+    if st.certify(s, A, methods=methods) is not None:
+        return "base"
+    G = [iv for m in methods if (iv := st.good_interval(m, s, t)) is not None]
+    h = s - F(1, 2)
+    f0 = st.tiny_floor(G)
+    if f0 <= 0:
+        return None
+    d = -delta if mut == "the band's saving enters with the wrong sign" else delta
+    nu4 = (1 - t) / (4 * h)
+    lo_b, hi_b = max((1 - t - d) / (4 * h), a_lo / h), a_hi / h
+    band = [(lo_b, hi_b)] if lo_b <= hi_b else []
+    for y in [nu4] + [lo_b] * len(band):
+        if covered_extra(G, [(nu4, F(10))] + band, f0, y):
+            return "band"
+    return None
+
+
+def best_band(s, delta, a_lo, a_hi, methods=STACK, tol=F(1, 10**5), mut=None):
+    lo, hi = F(2), F(3)
+    if certify_band(s, hi, delta, a_lo, a_hi, methods, mut) is None:
+        return None
+    while hi - lo > tol:
+        mid = (lo + hi) / 2
+        if certify_band(s, mid, delta, a_lo, a_hi, methods, mut) is not None:
+            hi = mid
+        else:
+            lo = mid
+    return hi
+
+
+V_GRID = sorted(set(X_GRID + [F(3, 4)] + [S57 + F(i, 2000) for i in range(-20, 21)]))
+BAND = (F(1, 12) - F(1, 100), F(1, 12) + F(1, 100))
+BAND_STACK = (F(1, 24), F(1, 8))
+
+
+def check_V(mut=None):
+    """(V) A power saving in the count of large central values, in a band of heights only."""
+    fails, rows = [], []
+    tol = F(1, 10**5)
+    band = (F(1, 10) - F(1, 100), F(1, 10) + F(1, 100)) if mut == "the band centred at 1/10" else BAND
+    ws = []
+    for d in (F(0), F(1, 1000), F(1, 100), F(1, 50)):
+        worst, arg = F(0), None
+        for s in V_GRID:
+            a = best_band(s, d, *band, methods=st.METHODS, tol=tol, mut=mut)
+            if a is None:
+                worst, arg = F(3), s
+                break
+            if a > worst:
+                worst, arg = a, s
+        rows.append(("all four families", d, worst, arg))
+        ws.append(worst)
+        if d == 0 and not (F(7, 3) <= worst <= F(7, 3) + 2 * tol and arg == S57):
+            fails.append(f"V1 delta = 0: {float(worst)} at s = {arg}")
+        if d > 0 and not worst < F(7, 3) - F(1, 1000):
+            fails.append(f"V1 delta = {d}: {float(worst)} at s = {arg}")
+    if any(w2 >= w1 for w1, w2 in zip(ws, ws[1:])):
+        fails.append("V1 the maximum does not decrease with delta")
+    for d, below in ((F(34, 1000), False), (F(35, 1000), True)):
+        worst, arg = F(0), None
+        for s in sorted(set(X_GRID + [F(3, 4)])):
+            a = best_band(s, d, *BAND_STACK, methods=STACK, tol=tol, mut=mut)
+            if a is None:
+                worst, arg = F(3), s
+                break
+            if a > worst:
+                worst, arg = a, s
+        rows.append(("stack's families", d, worst, arg))
+        if (worst < F(7, 3)) != below:
+            fails.append(f"V2 delta = {d}: {float(worst)} at s = {arg}")
+    return fails, rows
+
+
 # ---------------------------------------------------------------- Part II: the sixth moment
 
 def primes_near(xs):
@@ -537,6 +628,9 @@ def main(mut=None, qs=QS_GATE, verbose=False):
     res["Z"] = zf
     uf, urows = check_U(mut) if mut in (None, "the loss counted twice", "the gap's top read as hi/2") else ([], [])
     res["U"] = uf
+    vf, vrows = check_V(mut) if mut in (None, "the band's saving enters with the wrong sign",
+                                        "the band centred at 1/10") else ([], [])
+    res["V"] = vf
     mf, rows = check_M(qs if mut in (None, "drop one residue class") else [], mut)
     res["M"] = mf
     if verbose:
@@ -548,6 +642,8 @@ def main(mut=None, qs=QS_GATE, verbose=False):
             print(f"    moment 2k = {k2}: model exponent {float(w):.5f} (max over the grid, at s = {a})")
         for th, w, a in urows:
             print(f"    sixth moment with loss theta = {str(th):>7}: model exponent {float(w):.5f} (max over the grid, at s = {a})")
+        for fam, d, w, a in vrows:
+            print(f"    band saving delta = {float(d):.3f}, {fam}: model exponent {float(w):.5f} (max over the grid, at s = {a})")
         for q, N, rho, scale, dt in rows:
             print(f"    q = {q:>9}, N = {N:>4}: rho = {rho:.4f}, W^6/((q-1)D3) = {scale:.3f}  [{dt:.1f}s]")
     return res
@@ -555,7 +651,8 @@ def main(mut=None, qs=QS_GATE, verbose=False):
 
 MUTATIONS = ["critical block one tenth off", "socket delta enters with the wrong sign",
              "drop one residue class", "fourth moment with N^2 > q", "Huxley dropped from the stack's families",
-             "the sixth moment read as the fourth", "the loss counted twice", "the gap's top read as hi/2"]
+             "the sixth moment read as the fourth", "the loss counted twice", "the gap's top read as hi/2",
+             "the band's saving enters with the wrong sign", "the band centred at 1/10"]
 
 
 def mutation_fourth_wrap():
@@ -570,7 +667,7 @@ if __name__ == "__main__":
     qs = QS_GATE + (QS_EXTRA if "--extra" in sys.argv else [])
     res = main(qs=qs, verbose=True)
     nfail = 0
-    for key in "KXYZUM":
+    for key in "KXYZUVM":
         print(f"({key}) {'pass' if not res[key] else 'FAIL'}")
         for f in res[key]:
             print("    ", f)
