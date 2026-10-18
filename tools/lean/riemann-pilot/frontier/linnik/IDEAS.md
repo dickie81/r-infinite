@@ -70,10 +70,16 @@ The kernel-checked conditional route is round 521's `LinnikDensity.linnik_of_cri
 - **C4. One-sided distribution of `log|L|` (Radziwiłł–Soundararajan style).** CLOSED at this height. The deviation `log V = (log q)/12` is proportional to `log q`. With `P(χ) = Σ_{p≤x} χ(p)/√p`, moments of order `k < (log q)/(log x)` give savings of a power of `log q`, not of `q`.
 - **C5. Fourth moments along cosets (Petrow–Young).** CLOSED for prime `q`: no coset of the characters mod `q` lowers the conductor.
 - **C6. The half-plane together with subharmonicity of `log|L|`.** CLOSED. A zero at `β ≥ 5/7`, a large value at `½` and `|L| ≤ q^ε` on `Re s ≥ 11/12 + ε` are mutually compatible.
-- **C7. Twisted fourth moments.** SURVEYED [R7].
+- **C7. Twisted fourth moments.** SURVEYED [R7, R13]. Core 2's Mellin form needs a twist of length `q^{7/18}`, with loss below `q^{1/6}`.
+  - Blomer–Humphries–Khan–Milinovich (arXiv:1902.07042): "As an application, we obtain sharp upper bounds for the fourth moment twisted by the square of a Dirichlet polynomial of length q^{1/4}." In round 528's model, a bound of this shape at the detector's points gives the class-II line `1 − 4y(σ − ½)` for mollifiers up to `q^{1/8}`, without `FMx`'s `2x`. At `σ = 5/7` it still needs `y ≥ 7/18`, so the blocks contain `7/18`, a point of the barrier [R13a].
   - Zacharias (arXiv:1611.09582), prime `q`: error `(ℓ₁ℓ₂)^{3/2}L⁵q^{−η}` with `η = 1/14 − 3θ/7 = 11/448` at `θ = 7/64`.
-  - Hughes–Young (arXiv:0709.2345), the `t`-aspect: twists of length `T^{1/11−ε}`.
+  - Gao–Wu–Zhao (arXiv:2509.24690): an asymptotic for the fourth moment "mollified by a Dirichlet polynomial of length q^{1/22−ε}", for all moduli `q ≢ 2 (mod 4)`.
+  - The `t`-aspect: Hughes–Young (arXiv:0709.2345), twists of length `T^{1/11−ε}`; Bettin–Bui–Li–Radziwiłł (arXiv:1609.02539), `T^{1/4−ε}`.
   - Gao–Zhao (arXiv:2507.18186): prime-power moduli.
+- **C9. Core 4 through the approximate functional equation.** REDUCED to core 4 [R13]. It locates core 4's hard range.
+  - A large `|L(½ + it, χ)| ≥ q^{1/12}` makes one dyadic piece `Σ_{n∼M} χ(n)n^{−1/2−it}`, `M ≤ q^{1/2}`, large.
+  - Pieces with `M < q^{7/18}` are counted below `q^{2/3}` by the mean value of their cubes. The twisted bound of C7 reaches only `M ≤ q^{1/4}`.
+  - At `M = q^{1/2}` the square has length `q` and value `q^{2/3}`, where the density term is exactly `2/3`. So powers of the piece cannot help there, and an unsquared count needs `LV(2/3, 2) < 4/3`. The mean value theorem gives `5/3`, Huxley `2` and Guth–Maynard's Theorem 1.1 `26/15`. For `ζ`, R12(d) records the database's exponent-pair bound above `2/3` in the count.
 - **C8. Variance of `d₃` in progressions to a single modulus.** SURVEYED [R8]. Nguyen (arXiv:2205.02354, Corollary 1) treats `X = d^c` with `c ∈ (k − 1, k)`. For `k = 3` that is `X ∈ (d², d³)`. It records Kowalski–Ricotta's prime-modulus range as `c ∈ (k − ½, k)`. `SIX(δ)` sits at `X = q^{7/6}`.
 
 ## D. Restructuring the argument
@@ -100,4 +106,4 @@ The kernel-checked conditional route is round 521's `LinnikDensity.linnik_of_cri
 
 - **G1.** The Analytic Number Theory Exponent Database (Tao–Trudgian–Yang): its blueprint lists zero density for `L`-functions as a topic in progress, so no `q`-aspect bound was found there. SURVEYED.
 - **G2.** Chen–Gupta–Li's front matter: "After the preprint [2] by the first author was released, the other authors informed BC that they had independently obtained the exponent 7/3 in the zero density estimate." The two efforts are one paper; there is no separate method. SURVEYED.
-- **G3.** Horizon scans of rounds 541–545: no improvement for prime moduli. SURVEYED.
+- **G3.** Horizon scans of rounds 541–545 and 547: no improvement for prime moduli. SURVEYED.

@@ -71,9 +71,19 @@ Checks.
        (R12d) A dyadic piece of length N = T^{1/tau} (tau >= 2) is large at sigma = 1/2 + tau/12.  Lemma 8.11 with an
               exponent pair (k, ell), k > 0, gives LV_zeta/tau = max(1/2, (4k + 4 ell - 1)/(6k)), which exceeds 2/3 by
               (4 ell - 1)/(6k) > 0; checked at the seven exponent pairs of (R10) and tau = 2, ..., 12.
+  (R13) C7 and C9 (README round 547).
+       (R13a) A fourth moment twisted by |M_X|^4, sharp for X^2 <= q^{1/4} (x <= 1/8), gives the class-II line
+              1 - 4y(sigma - 1/2), without FMx's 2x.  At sigma = 5/7 it is at most 2/3 exactly when y >= 7/18, and for
+              x <= 1/8 the blocks [x, y] then contain 7/18, a point of the barrier.
+       (R13b) Core 4 through the approximate functional equation.  A piece of length M = q^m is large at
+              M^{1/2} q^a.  Its cube's mean value counts such characters by (q + M^3) q^{-6a}, below q^{1 - 4a} exactly
+              when m < (1 + 2a)/3; that is 7/18 at a = 1/12, above 1/4.
+       (R13c) At M = q^{1/2} and a = 1/12 the square has length q and value q^{2/3}: there the density term and the
+              mean value theorem's second term both equal 2/3.  Unsquared (tau = 2, sigma = 2/3) a count below q^{2/3}
+              needs LV < 4/3; the mean value theorem gives 5/3, Huxley 2 and Guth-Maynard's Theorem 1.1 26/15.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs thirteen mutations, at
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs fourteen mutations, at
 least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -516,8 +526,41 @@ def check_R12(mut=None):
     return fails
 
 
+# (R13) Twisted fourth moments as class II, and core 4 through the approximate functional equation.
+def check_R13(mut=None):
+    fails = []
+    s, a = S57, F(1, 12)
+    slope = 4 * (s - F(1, 2))
+    if mut == "the twisted class-II line keeps FMx's 2x":
+        line = lambda x, y: 1 + 2 * x - slope * y
+    else:
+        line = lambda x, y: 1 - slope * y
+    for x in grid(F(0), F(1, 8), 16):
+        for y in grid(F(0), F(1, 2), 72):
+            if (line(x, y) <= T23) != (y >= F(7, 18)):
+                fails.append(f"R13a: x = {x}, y = {y}")
+            if line(x, y) <= T23 and not (x <= F(7, 18) <= y):
+                fails.append(f"R13a: [x, y] misses 7/18 at x = {x}, y = {y}")
+    for m in grid(F(0), F(1, 2), 90):
+        cube = max(F(1), 3 * m) - 6 * a
+        if (cube < 1 - 4 * a) != (m < (1 + 2 * a) / 3):
+            fails.append(f"R13b: m = {m}")
+    if (1 + 2 * a) / 3 != F(7, 18) or not F(7, 18) > F(1, 4):
+        fails.append("R13b: threshold")
+    l, sq = F(1, 2), F(1, 2) + 2 * a                     # the square: length q, value q^{1/2 + 2a}
+    if sq != T23 or 2 * 1 * (1 - sq) != T23 or 1 + (1 - 2 * sq) != T23:
+        fails.append("R13c: the square at length q")
+    sig, tau = F(1, 2) + a / l, 1 / l
+    if (sig, tau) != (T23, F(2)) or tau * T23 != F(4, 3):
+        fails.append("R13c: the unsquared point")
+    if (lv_mvt(sig, tau), lv_hux(sig, tau), lv_gm(sig, tau)) != (F(5, 3), F(2), F(26, 15)):
+        fails.append(f"R13c: {lv_mvt(sig, tau)}, {lv_hux(sig, tau)}, {lv_gm(sig, tau)}")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
-          "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12}
+          "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
+          "R13": check_R13}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -525,7 +568,7 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the critical block read as q^{7/20}", "X counted with two factors",
              "Huxley's slope read as the mean value theorem's", "the transplant drops the factor l",
              "Guth-Maynard's third term loses its tau", "Ford's constant read as 4.05",
-             "the twelfth moment read as T^{5/2}"]
+             "the twelfth moment read as T^{5/2}", "the twisted class-II line keeps FMx's 2x"]
 
 
 def main(mut=None):

@@ -21855,3 +21855,42 @@ ACKNOWLEDGED: the four cores (rounds 528–545).
 - Core 2 is a `d₃` variance in progressions at `X = q^{7/6}`, outside the ranges surveyed (C8).
 
 New ideas go on the register with a status.
+
+## Round 547: twisted fourth moments in the register, and core 4's hard range (`frontier/linnik/IDEAS.md` C7, C9; `idea_register.py` check (R13))
+
+**What it is.** A horizon scan (arXiv API, 2026-10-18) for twisted fourth moments, single-modulus sixth moments, large values of `L(½, χ)` and fixed-modulus zero density. Two register entries come out of it. No Lean changed, and no paper surface is edited.
+
+- **C7, twisted fourth moments.** The scan found a longer twist than the register had. Blomer–Humphries–Khan–Milinovich (arXiv:1902.07042): "As an application, we obtain sharp upper bounds for the fourth moment twisted by the square of a Dirichlet polynomial of length q^{1/4}."
+  - In round 528's model, a bound of this shape at the detector's points gives the class-II line `1 − 4y(σ − ½)` for mollifiers up to `q^{1/8}`, without `FMx`'s loss `2x`.
+  - At `σ = 5/7` the line is at most `2/3` exactly when `y ≥ 7/18`. So the blocks still contain `7/18`, a point of the barrier.
+  - Core 2's Mellin form needs a twist of length `q^{7/18}` with loss below `q^{1/6}`.
+  - Also entered: Gao–Wu–Zhao (arXiv:2509.24690), a mollifier "of length q^{1/22−ε}" for all `q ≢ 2 (mod 4)`. In the `t`-aspect, Bettin–Bui–Li–Radziwiłł (arXiv:1609.02539) reach `T^{1/4−ε}`.
+- **C9, core 4 through the approximate functional equation.** This entry locates core 4's hard range. A value `|L(½ + it, χ)| ≥ q^{1/12}` makes one dyadic piece of length `M ≤ q^{1/2}` large, at `M^{1/2}q^{1/12}`.
+  - The cube's mean value counts the pieces with `M < q^{7/18}` below `q^{2/3}`. In general the threshold is `M < q^{(1+2a)/3}` at height `q^a`.
+  - The twisted bound reaches only `M ≤ q^{1/4}`, which is already inside that range.
+  - At `M = q^{1/2}` the square has length `q` and value `q^{2/3}`, and there the density term is exactly `2/3`. So no power of the piece helps.
+  - An unsquared count there needs `LV(2/3, 2) < 4/3`. The mean value theorem gives `5/3`, Huxley `2` and Guth–Maynard's Theorem 1.1 `26/15`. For `ζ`, round 546's R12(d) found the database's exponent-pair bound above the fourth moment's count at this height.
+- **The rest of the scan.** None of these fills a socket on the register:
+  - arXiv:2409.01457 (a sixth moment averaged over the moduli);
+  - arXiv:2610.15559 and arXiv:2610.21655 (Goldbach and prime-plus-square under half-plane hypotheses);
+  - the resonance-method papers on large values (lower bounds).
+
+**What is checked.** `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R13) pass, and its fourteen mutations are caught. The new mutation keeps `FMx`'s `2x` in the twisted class-II line and fails (R13a). The quotations were checked against the arXiv API's abstracts.
+
+**Records.**
+
+- `frontier/linnik/IDEAS.md`: C7 rewritten, C9 new, G3 extended.
+- `frontier/linnik/idea_register.py`: check (R13).
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the twisted class-II line in the model and its barrier point, and core 4's hard range. ACKNOWLEDGED: the cores (rounds 528–546).
+
+**Check 9.**
+
+- (a) The scan's scope is its stated queries. "Reaches only" and "no power of the piece helps" are statements in round 528's model and the mean value theorem, checked in (R13). The class-II line is conditional on a bound of that shape at the detector's points, which this round did not check against the paper.
+- (b) The register marker records core 4's hard range: pieces of length `M` in `[q^{7/18}, q^{1/2}]`.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Unchanged: every route on the register passes through a core. Core 4's hard range is now explicit. It needs a large-values estimate for smooth character sums of length `q^{l}`, `7/18 ≤ l ≤ 1/2`, at height `q^{l/2 + 1/12}`. At the top of the range, powers do not help.
