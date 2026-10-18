@@ -131,9 +131,26 @@ Checks.
               of even length l <= 60 have E(A, B) = l(l^2 + 2)/12, by brute force.
        (R19c) B17.  The integer-relation bound |W| (kappa - 1)^{1/4} h^{1/2} at h = q^{1/2} is q^{11/12} < q, and q
               exactly at the largest energy kappa = L/|W| = q^{1/3}.
+  (R20) Round 555's entries.
+       (R20a) B18, the excess-energy lemma, at the critical block N0 = q^{7/18} with |W| = q^{2/3} and V0 = N0^{5/7}.
+              (2 N0)^2 < q, since 7/9 < 1.  The floor N0^{8 sigma - 6} has exponent -1/9, against the least value
+              q^{-1/3} that kappa - 1 takes for any W of size q^{2/3}: a factor q^{2/9}.  The excess
+              (kappa - 1)|W|^4/L then has exponent 14/9, which is Proposition 10.2's first term |W| N^{4 - 4 sigma} at
+              N = N0^2.  On a grid of (sigma, nu, w) the two exponents 4w - 1 + nu(8 sigma - 6) and
+              w + 2 nu(4 - 4 sigma) agree exactly when 3w = 1 + nu(14 - 16 sigma).  The Cauchy-Schwarz form
+              |W|^2 V0^4/N0^2 has exponent 5/3, against the random level N0^2 |W| at 13/9.  The height thresholds:
+              V0^2/N0 = N0^{3/7} is q^{1/6}; the Hoelder form's (V0^2/N0)^2 at kappa = q^{o(1)} is q^{1/3}, below
+              the block's largest height exponent 7/18.
+       (R20b) B19, the Gauss-sum transfer.  At length N = q^l, the threshold V^2 = q^{1/3} N, i.e.
+              sigma(l) = 1/2 + 1/(6l), makes the mean value theorem's (q + N)N/V^2 exactly q^{2/3} for every l < 1, and
+              sigma(7/9) = 5/7.  A bound ||T'_W|| <= q^{1 - delta} gives |W| <= (N + q^{1 - delta})/q^{1/3}, below
+              q^{2/3 - delta/2} for l <= 1 - delta; the density hypothesis value N^{2 - 2 sigma(l)} = q^{l - 1/3} reaches
+              q^{2/3 - delta} at l = 1 - delta.  A random set has ||T'_W||/L about 2 alpha^{1/2}, alpha = |W|/L, which
+              is q^{-1/6} at |W| = q^{2/3}; the annihilator of a subgroup of order q^{1/3} has |W| = q^{2/3} and the
+              largest energy, kappa = |H| = q^{1/3}.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs twenty-three mutations, at
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs twenty-six mutations, at
 least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -740,11 +757,56 @@ def check_R19(mut=None):
     return fails
 
 
+def check_R20(mut=None):
+    fails = []
+    nu, w = F(7, 18), T23
+    v0 = S57 * nu
+    if not (2 * nu < 1):
+        fails.append("R20a: the block's ratios do not wrap")
+    floor = nu * (8 * S57 - 6) if mut != "the excess-energy exponent read as 8 sigma - 7" else nu * (8 * S57 - 7)
+    least = 1 - 2 * w
+    excess = 4 * w - 1 + floor
+    prop = w + 2 * nu * (4 - 4 * S57)
+    if not (floor == F(-1, 9) and least == F(-1, 3) and floor - least == F(2, 9) and excess == F(14, 9) == prop):
+        fails.append("R20a: the floor, the least energy and Proposition 10.2's first term")
+    for s7 in [F(k, 70) for k in range(36, 70)]:
+        for nn in [F(k, 36) for k in range(4, 18)]:
+            for ww in [F(k, 12) for k in range(4, 12)]:
+                lhs = (4 * ww - 1 + nn * (8 * s7 - 6)) == (ww + 2 * nn * (4 - 4 * s7))
+                if lhs != (3 * ww == 1 + nn * (14 - 16 * s7)):
+                    fails.append(f"R20a: the agreement criterion at ({s7}, {nn}, {ww})")
+    cs, rnd = 2 * w + 4 * v0 - 2 * nu, 2 * nu + w
+    if not (cs == F(5, 3) and rnd == F(13, 9) and cs - rnd == F(2, 9)):
+        fails.append("R20a: the Cauchy-Schwarz form")
+    h1 = 2 * v0 - nu
+    h2 = 2 * h1 if mut != "the Hoelder height threshold read without its square" else h1
+    if not (h1 == F(1, 6) and h2 == F(1, 3) and h2 < nu):
+        fails.append("R20a: the height thresholds")
+    third = F(1, 3) if mut != "the critical threshold read as V^2 = q^{1/2} N" else F(1, 2)
+    for ell in [F(k, 90) for k in range(10, 90)]:
+        sig = F(1, 2) + third / (2 * ell)
+        if 1 + ell - 2 * ell * sig != T23:
+            fails.append(f"R20b: the mean value theorem at l = {ell}")
+            break
+        if ell * (2 - 2 * sig) != ell - F(1, 3):
+            fails.append(f"R20b: the density hypothesis value at l = {ell}")
+            break
+    if not (F(1, 2) + third / (2 * F(7, 9)) == S57):
+        fails.append("R20b: sigma(7/9)")
+    for d in [F(k, 100) for k in range(1, 30)]:
+        ell = 1 - d
+        if not (max(ell, 1 - d) - F(1, 3) <= T23 - d / 2 and ell - F(1, 3) == T23 - d):
+            fails.append(f"R20b: the transfer's consequence at delta = {d}")
+    if not (F(1, 2) * (w - 1) == F(-1, 6) and 1 - w == F(1, 3)):
+        fails.append("R20b: the random calibration and the annihilator")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
           "R16": check_R16, "R17": check_R17,
-          "R18": check_R18, "R19": check_R19}
+          "R18": check_R18, "R19": check_R19, "R20": check_R20}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -756,7 +818,9 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "Burgess's q-exponent halved", "BGKS's e_3 read as 1", "Heath-Brown's R^{5/4} read as R^{3/2}",
              "the diagonal term read as N R", "BPRZ's length read as q^{7/9}",
              "the twist's length read as q^{7/18}", "the outer sums read as one term",
-             "the construction's length read as N/V", "the integer-relation bound's h^{1/2} read as h"]
+             "the construction's length read as N/V", "the integer-relation bound's h^{1/2} read as h",
+             "the excess-energy exponent read as 8 sigma - 7", "the critical threshold read as V^2 = q^{1/2} N",
+             "the Hoelder height threshold read without its square"]
 
 
 def main(mut=None):

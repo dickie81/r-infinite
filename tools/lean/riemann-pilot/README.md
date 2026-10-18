@@ -22178,3 +22178,70 @@ ACKNOWLEDGED: B10's concentration question (round 546), core 1 and its sharpened
 **Bearing on RH:** none.
 
 **The next step.** Core 1, in the form §22 leaves it: cancellation in the wrapped part `Σ R(b)ρ(b)` over the heights between `M` and `√q`, for the sets of minimal energy. The kernel-checked conditional theorem from H\* remains the narrowest Lean target.
+
+## Round 555: an energy floor for large-values sets, and the Gauss-sum transfer (`frontier/linnik/transfer_probe.py`; SEVEN-THIRDS.md §23; `IDEAS.md` B18, B19, G7; `idea_register.py` check (R20))
+
+**What it is.** The owner's request: "Keep attacking", continuing core 1 (the first term of Chen–Gupta–Li's `S₃` for prime `q`). No proof of core 1 emerged. The round proves two elementary lemmas, records why neither is a route, and measures the large spectrum of the interval sum. No Lean changed, and no paper surface is edited.
+
+- **An energy floor (B18).** Let `b` be supported on the integers of `[N₀, 2N₀)` with `(2N₀)² < q`, and let `|S_b(χ)| ≥ V₀` on a set `W` of characters. Hölder with exponents `4` and `4/3` on `Σ_{n≠n′}b_n conj(b_{n′})R(n/n′)` gives `κ − 1 ≥ ((V₀² − ‖b‖²)/‖ρ‖_{4/3})⁴`. Since no ratio wraps, the right side is about `N₀^{8σ−6}` for `|b_n| ≤ 1` and `V₀ = N₀^σ`.
+  - At the critical block (`N₀ = q^{7/18}`, `|W| = q^{2/3}`, `σ = 5/7`) this is `κ − 1 ≥ q^{−1/9−o(1)}`, a factor `q^{2/9}` above the least value for sets of that size.
+  - The excess energy is then at least `q^{14/9−o(1)}`, which is Proposition 10.2's first term at the critical point. So `q^{14/9−o(1)} ≤ E(W) − |W|⁴/L ≤ q^{5/3+o(1)}` there.
+  - For `b = 1`, the ratios `n/n′` of height at most `q^{1/6}/4` carry at most half of the large-values mass `Σ_{n≠n′}R(n/n′)`. With Proposition 10.2's `κ ≤ q^{o(1)}`, Hölder shows that the heights up to `q^{1/3−ε}` carry a proportion `o(1)`. So at the critical point the mass sits on the ratios of height between `q^{1/3−ε}` and `2q^{7/18}`.
+  - It is not a route: an energy route needs an upper bound on `κ`, or a lower bound of power size (B12).
+- **The Gauss-sum transfer (B19).** Writing the weight through its additive Fourier coefficients `c_ξ` gives `E_W = Σ_{ξ≠0}c_ξD_ξ^*T′_WD_ξ`, with `T′_W` the matrix of Gauss sums `τ(χχ̄′)` off the diagonal. Hence `‖E_W‖ ≤ C‖T′_W‖`, `C = Σ_{ξ≠0}|c_ξ| ≈ 1`.
+  - `T′_W − I` is `L` times the compression of multiplication by `e(y/q)` to `span(W)`. It does not depend on `N` or on the weight.
+  - At the critical point the inequality loses at most `C`, so a bound on `‖T′_W‖` for the large-values sets is at least B10, and it can be much more. For the annihilator of a subgroup of order `24` mod `10009`, `‖T′_W − I‖/L = 0.633` (exactly `max_{c≠0}|Σ_{h∈H}e(ch/q)|/|H|`) while `‖E_W‖/L = 0.130`.
+- **Measurements.**
+  - Random sets have `‖T′_W‖/L` within `2.1%` of `2(α(1 − α))^{1/2}`, the free-probability value for compressing a unitary with uniform spectrum.
+  - On the frontier and concentrated sets of rounds 531–532 the transfer loses at most a factor `1/0.6`: `‖E_W‖/(C‖T′_W‖) ≥ 0.6` at `q = 10⁴`, `10⁵` and `10⁶`.
+  - For the interval sum `b = 1` and `W` its `q^{2/3}` largest values (`σ` near `0.67`), `κ − 1` is `0.654`, `1.723` and `3.246` at those `q`, and in a scratch run `5.47` at `q = 10000019`. Between `0.648` and `0.740` of it comes from ratios `s/t` with `|s|, t ≤ 10`. That is strong alignment on small primes, a different regime from the critical one.
+  - At the critical threshold itself (scratch), H\*'s simplest instance with the sharp interval has `q^{0.548}`, `q^{0.568}`, `q^{0.571}` and `q^{0.572}` characters with `|S| ≥ N₀^{5/7}` at `q = 10⁴` to `10⁷`; with the weight `sin²` it has none.
+- **Horizon scan (G7).** Two web searches:
+  - `arXiv 2026 zero density estimate Dirichlet L-functions prime modulus large values Guth-Maynard character sums` (extended);
+  - `arXiv October 2026 Linnik constant least prime arithmetic progression zero density improvement`.
+
+  They found four abstracts not on file (arXiv:2608.16034, 2607.14515, 2511.05631, 2512.14907). None states a large-values bound for one prime modulus.
+
+**What is checked.**
+
+- `python3 frontier/linnik/transfer_probe.py` exits 0 (20 min 58 s wall clock here). Its gates (T1)–(T5) pass at `q = 10007`, `100003` and `1000003`, and (T2)'s at `(10009, 24)` and `(100003, 42)`. Its six mutations are caught.
+  - (T1) checks `|τ| = √q`, the Hermitian form of `D T_W`, the transfer inequality on five sets per `q`, and Lanczos against dense eigenvalues at `q = 10007` (to `10^{−8}`).
+  - (T2) checks the annihilator identity to `10^{−9}`.
+  - (T3) checks the random calibration to `5%`.
+  - (T4) checks the floor, its cruder form and the Cauchy–Schwarz form on the interval's top sets.
+  - (T5) checks that `κ − 1` grows with `q` and exceeds five times the least value, and that at least half of it comes from `|s|, t ≤ 10`.
+
+  The mutations: `C` replaced by `max|c_ξ|`; the calibration without its factor `2`; the annihilator's maximum over `c` replaced by the value at `c = 1`; `‖ρ‖_{4/3}` replaced by `‖ρ‖₂` (Hölder with exponents that are not conjugate); `‖b‖⁴` replaced by `‖b‖²` in the Cauchy–Schwarz form; and (T5)'s small ratios restricted to `x = −1`.
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R20) pass, and its twenty-six mutations are caught. The three new mutations read the floor's exponent as `8σ − 7`, the critical threshold as `V² = q^{1/2}N`, and the Hölder height threshold without its square.
+- The abstracts were read through the arXiv API, and the quotations in G7 checked against them.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD: 15 new reports, all of class L10 (a nested list directly after its item's text), the style of the entries around them: 6 in SEVEN-THIRDS.md, 3 in IDEAS.md and 6 here. STRUCTURAL-REVIEW.md's count is unchanged at 100.
+
+**Records.**
+
+- `frontier/linnik/transfer_probe.py` (new).
+- `frontier/linnik/SEVEN-THIRDS.md` §23.
+- `frontier/linnik/IDEAS.md`: the entries B18, B19 and G7. The register now lists 56 entries: 36 CLOSED, 6 REDUCED, 9 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R20) and three mutations.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot:
+
+- the energy floor, its match with Proposition 10.2's first term, and the height bound for the large-values mass;
+- the Gauss-sum transfer, its annihilator identity and its calibration;
+- the measurements of the interval's large spectrum.
+
+ACKNOWLEDGED: core 1 and round 535's sharpened target, B10 (round 546; round 554's reading), B12 (round 546), and §22's integer-relation lemma, whose Hölder step the floor reuses.
+
+**Check 9.**
+
+- (a) Scope.
+  - The floor is proved for every `b` supported on a block with `(2N₀)² < q`. Its use at the critical point needs a large-values set of the square to be one of the block, which holds.
+  - "It can be much more" is shown by one family, the subgroup annihilators. The upper bound `q^{5/3+o(1)}` and the height bound up to `q^{1/3−ε}` use Proposition 10.2; the floor's `o(1)` is a logarithm.
+  - The measurements are of the sets the stated constructions give, at three `q` (four in the scratch run).
+  - "None states" is scoped to the four abstracts.
+- (b) B18, B19 and G7 are on the register. The open target stays core 1.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Core 1 at the critical point, where the alignment must be weak (`κ ≤ q^{o(1)}`) and sit on ratios of height between `q^{1/3−ε}` and `2q^{7/18}`. The kernel-checked conditional theorem from H\* remains the narrowest Lean target.
