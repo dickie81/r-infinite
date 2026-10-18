@@ -21993,3 +21993,40 @@ What remains of core 2 is the variance over all classes at once, which is C8.
 **Bearing on RH:** none.
 
 **The next step.** One open statement now carries every route on the register: H\*, the large spectrum of the critical blocks. A kernel-checked conditional theorem from H\* would be the narrowest Lean target the strand has. It is round 527's argument, with H\* as a displayed hypothesis for the blocks near `Q^{ν_c(σ)}` and a detector whose smoothing tracks `σ`. It is a multi-round build.
+
+## Round 551: Heath-Brown's double-sum bound in B13, and a survey of large short sums (`frontier/linnik/IDEAS.md` B13, E1, G4; `idea_register.py` check (R16))
+
+**What it is.** The owner's request: "Keep probing". This round reads one new source and runs one survey. No Lean changed, and no paper surface is edited.
+
+- **B13's premise is a theorem at the critical length.** Darbar–Kerr–Munsch–Shparlinski (arXiv:2604.02960 v2, Lemma 3.1, read in the arXiv PDF) record a simplified version of Heath-Brown's 1979 large-values theorem (J. London Math. Soc. 20, Theorem 1). For `R` distinct characters of `F_q`, `N ≤ q` and `|α_n| ≤ 1`, it reads `Σ_{r,s=1}^{R} |Σ_{n=1}^{N} α_n χ_r(n)χ̄_s(n)|² ≤ (N²R + NR² + NR^{5/4}q^{1/2})q^{o(1)}`.
+  - Its last two terms are equal exactly at `R = q^{2/3}`, the critical count. Its first term, the diagonal's, is at most `NR²` when `R ≥ N`.
+  - So B13's premise, the flat bound `‖E‖²_F ≤ K²N·q^{o(1)}` on the off-diagonal Gram matrix, holds for `K ≥ q^{2/3}` at length `q^{7/18}`. At length `q^{7/9}` the first term `N²K` exceeds `K²N`, and the bound does not give the premise.
+  - The route stays closed. Where the premise holds, `‖E‖_op ≤ ‖E‖_F` and Halász–Montgomery give `RV² ≤ N² + N^{3/2}R`. That bounds `R` by `2N²/V²` only when `V > N^{3/4}`, i.e. `σ > 3/4`, as in B3.
+- **A note on E1.** DKMS's abstract: "Some of these bounds are based on new zero-density estimates on average over sets of characters with a small product set." A set with a small product set has large energy. The critical set `W` has minimal energy (Proposition 10.2), so these estimates do not reach it.
+- **G4, a survey of large short sums.** Three arXiv abstract searches: `abs:"character sums" AND abs:"large values"` (13 hits), `abs:"short character sums"` (23 hits) and `abs:"multiplicative energy" AND abs:interval AND abs:character` (1 hit). The 37 abstracts include lower bounds for maximal sums, the Gaussian limit of a short sum as its interval moves, equivalences among conjectures, and DKMS. None describes a count, for one prime modulus, of the characters with `|Σ_{n∼N} χ(n)| ≥ N^{σ}` at `N` a power of `q` below the fourth moment's bound. That count is H\*'s simplest instance.
+
+**What is checked.** `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R16) pass, and its eighteen mutations are caught. Check (R16) has three parts.
+
+- The last two terms agree at `R = q^{2/3}`, with exponent `7/18 + 4/3` for both, and the third is below the second on a grid of `R` above `q^{2/3}`.
+- The diagonal term is below `NR²` at `R = q^{2/3}` for the length `q^{7/18}`, and above it for `q^{7/9}`.
+- `2σ < 3/2` at `σ = 5/7`.
+
+The two new mutations read `R^{5/4}` as `R^{3/2}` (31 failing checks) and the diagonal term as `NR` (one failing check). Lemma 3.1 and its attribution to reference [24] were checked against the extracted text of the arXiv PDF (v2), and the quotation against the arXiv API's abstract.
+
+**Records.**
+
+- `frontier/linnik/IDEAS.md`: B13 rewritten with two sub-items; E1 extended; G4 new.
+- `frontier/linnik/idea_register.py`: check (R16) and its two mutations.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: B13's premise as a theorem at length `q^{7/18}`, and its failure at `q^{7/9}`; the G4 survey. ACKNOWLEDGED: B13's closure (round 546) and B3's threshold `σ > 3/4`.
+
+**Check 9.**
+
+- (a) "None describes a count" is scoped to the 37 abstracts the three searches returned. It is not a claim about the literature. "Only when `V > N^{3/4}`" is a statement about Halász–Montgomery with this Frobenius bound, not about every method.
+- (b) The register marker records B13's upgrade and the survey.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Unchanged from round 550: H\* carries every route on the register. The register lists 46 entries: 30 CLOSED, 5 REDUCED, 6 SURVEYED and 5 CORE (round 550 added C13, this round G4).

@@ -95,9 +95,16 @@ Checks.
               q^{2+o(1)}: loss 1, against the Weyl bound's 1/3 and the needed 1/6.
        (R15c) The explicit formula with support s, if every zero off the line contributed positively, would give
               A1's exponent at theta = s/2: (1 - (2 sigma - 1) s/2)/(1 - sigma), which is 2 at s = 2 for every sigma.
+  (R16) B13 with Heath-Brown's double-sum bound (README round 551).  The bound
+       sum_{r,s <= R} |sum_{n <= N} alpha_n chi_r(n) conj(chi_s(n))|^2 <= (N^2 R + N R^2 + N R^{5/4} q^{1/2}) q^{o(1)}
+       has its last two terms equal exactly at R = q^{2/3} (exponents n + 4/3 both), and the third below the second
+       for R above q^{2/3} on a grid.  The first term, the diagonal's N^2 R, is below N R^2 at R = q^{2/3} for the
+       length q^{7/18} and above it for the length q^{7/9}: the bound gives ||E||_F^2 <~ N R^2 only when R >= N.
+       Halasz-Montgomery with ||E||_op <= ||E||_F then gives R V^2 <= N^2 + N^{3/2} R, so R <= 2 N^2/V^2 once
+       V^2 > 2 N^{3/2}: sigma > 3/4, and 10/7 < 3/2 at sigma = 5/7.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs sixteen mutations, at
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs eighteen mutations, at
 least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -618,9 +625,30 @@ def check_R15(mut=None):
     return fails
 
 
+# (R16) Heath-Brown's double-sum bound in B13.
+def check_R16(mut=None):
+    fails = []
+    n = F(7, 18)
+    third = (lambda r: n + F(5, 4) * r + F(1, 2)) if mut != "Heath-Brown's R^{5/4} read as R^{3/2}" else \
+        (lambda r: n + F(3, 2) * r + F(1, 2))
+    second = lambda r: n + 2 * r
+    if third(T23) != second(T23) or second(T23) != n + F(4, 3):
+        fails.append("R16: the two terms at R = q^{2/3}")
+    for r in grid(T23, F(1), 30)[1:]:
+        if not third(r) < second(r):
+            fails.append(f"R16: third term at R = q^{r}")
+    first = (lambda m, r: 2 * m + r) if mut != "the diagonal term read as N R" else (lambda m, r: m + r)
+    if not (first(n, T23) < n + 2 * T23 and first(2 * n, T23) > 2 * n + 2 * T23):
+        fails.append("R16: the diagonal term against N R^2 at R = q^{2/3}")
+    if not (2 * S57 < F(3, 2) and F(3, 4) > S57):
+        fails.append("R16: the sigma threshold")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
-          "R13": check_R13, "R14": check_R14, "R15": check_R15}
+          "R13": check_R13, "R14": check_R14, "R15": check_R15,
+          "R16": check_R16}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -629,7 +657,8 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "Huxley's slope read as the mean value theorem's", "the transplant drops the factor l",
              "Guth-Maynard's third term loses its tau", "Ford's constant read as 4.05",
              "the twelfth moment read as T^{5/2}", "the twisted class-II line keeps FMx's 2x",
-             "Burgess's q-exponent halved", "BGKS's e_3 read as 1"]
+             "Burgess's q-exponent halved", "BGKS's e_3 read as 1", "Heath-Brown's R^{5/4} read as R^{3/2}",
+             "the diagonal term read as N R"]
 
 
 def main(mut=None):
