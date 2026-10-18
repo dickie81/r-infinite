@@ -255,9 +255,20 @@ Checks.
        scale of the good window with the level so reduced is q^{4/7 + 0.87...} > q^{2/3}; Huxley's second term
        q N^{4 - 6 sigma} is q^{7/9} at N = q^{7/9} and q^{8/9} at N = q^{7/18}, and with the half-plane's gain in the
        Gram entries (q^{1/54} and q^{11/216} there) taken squared off the factor q it is q^{20/27} and q^{85/108}.
+  (R35) Round 570's marker on B33 (zero density counts the large Farey sums), at |W| = q^{2/3}: a character with
+       no zero in Re s >= sigma_1 - eps, |Im s| <= q^eps has |S~_G| <= H^{2 sigma_1 - 1 + o(1)}, so at height q^eta
+       the count at q^l is at most q^{2(1 - sigma_1)}, sigma_1 = 1/2 + l/(2 eta), where the density hypothesis
+       holds, and q^{1/6} for sigma_1 > 11/12; the share max_l (l - 4/9 + min(that, 1/3)) is 2 eta/3 - 1/9 < 0 on
+       a grid of (0, 1/6); it equals R32's (6 - k)/(9k) at eta = 1/k (k = 6, ..., 12), is -1/90 at 3/20 (R33:
+       3/20 - 10/63), and binds at sigma_1 = 5/6; seven_thirds.py's detectors certify the density hypothesis on a
+       grid of [5/6, 11/12] with the mean value theorem and Huxley's estimate alone, by the detector FMx (the
+       fourth moment, no half-plane input), and not at 5/6 - 1/100; there FMx's reach is 1/2, Huxley's good range
+       is [a, 1] with a = (2 sigma - 1)/(6 sigma - 4) <= 2/3 = a(5/6), and copies of [2/3, 1] cover (0, 1/2] while
+       those of [2/3 + 1/1000, 1] do not; at 5/6 - 1/100 and 5/6 - 1/1000, FMx certifies Huxley's 3/(3 sigma - 1),
+       whose count exponent is at most 1/3 + 3 eps there.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs sixty-one mutations,
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs sixty-four mutations,
 at least one aimed at each check, and requires each mutation to fail at least one check.
 """
 import math
@@ -1277,6 +1288,43 @@ def check_R34(mut=None):
     return fails
 
 
+def check_R35(mut=None):
+    fails = []
+
+    def count(l, eta):
+        s1 = F(1, 2) + l / (2 * eta) if mut != "the zero-free bound read as H^{sigma_1}" else l / eta
+        dens = F(2) if mut != "the density at 5/6 read as 7/3" else F(7, 3)
+        return dens * (1 - min(s1, F(11, 12)))
+
+    def share(eta, n=360):
+        return max(F(j, n) * eta - F(4, 9) + min(count(F(j, n) * eta, eta), F(1, 3)) for j in range(n + 1))
+
+    for eta in grid(F(1, 60), F(1, 6) - F(1, 600), 24):
+        if not (share(eta) == 2 * eta / 3 - F(1, 9) < 0):
+            fails.append(f"R35: the share at height q^{eta}")
+            break
+    if not (all(share(F(1, k)) == F(6 - k, 9 * k) for k in range(6, 13)) and share(F(3, 20)) == F(-1, 90)
+            and F(-1, 90) < F(3, 20) - F(10, 63) and F(1, 2) + (F(2, 3) * F(1, 7)) / (2 * F(1, 7)) == F(5, 6)):
+        fails.append("R35: agreement with R32 at 1/k, the gain over R33, and the crossing at 5/6")
+    low = F(5, 6) if mut != "the density hypothesis claimed from 4/5" else F(4, 5)
+    pts = [low + (F(11, 12) - low) * F(i, 12) for i in range(13)]
+    if not (all(st.certify(s1, F(2), methods=("MVT", "HUX")) == "FMx" for s1 in pts)
+            and st.certify(F(5, 6) - F(1, 100), F(2), methods=("MVT", "HUX")) is None):
+        fails.append("R35: the density hypothesis on [5/6, 11/12] from the mean value theorem and Huxley")
+    a = lambda s: (2 * s - 1) / (6 * s - 4)
+    if not (all(st.good_interval("HUX", s1, 2 * (1 - s1)) == (a(s1), F(1)) and a(s1) <= F(2, 3) for s1 in pts)
+            and all(d[2] == F(1, 2) for s1 in pts for d in st.detectors(s1, 2 * (1 - s1)) if d[4] == "FMx")
+            and a(F(5, 6)) == F(2, 3) and st.covered([(F(2, 3), F(1))], F(1, 1000), F(1, 2))
+            and not st.covered([(F(2, 3) + F(1, 1000), F(1))], F(1, 1000), F(1, 2))):
+        fails.append("R35: FMx's reach 1/2 and Huxley's range [a, 1], a <= 2/3")
+    for e in (F(1, 100), F(1, 1000)):
+        s1 = F(5, 6) - e
+        hux = 3 / (3 * s1 - 1)
+        if not (st.certify(s1, hux, methods=("MVT", "HUX")) == "FMx" and hux * (1 - s1) <= F(1, 3) + 3 * e):
+            fails.append(f"R35: Huxley's exponent at 5/6 - {e}")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
@@ -1284,7 +1332,7 @@ CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": 
           "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22, "R23": check_R23,
           "R24": check_R24, "R25": check_R25, "R26": check_R26, "R27": check_R27, "R28": check_R28,
           "R29": check_R29, "R30": check_R30, "R31": check_R31,
-          "R32": check_R32, "R33": check_R33, "R34": check_R34}
+          "R32": check_R32, "R33": check_R33, "R34": check_R34, "R35": check_R35}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -1320,7 +1368,9 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the large sieve's length (2H)^k read as (2H)^{2k}", "the large sieve without its q",
              "the major-arc moment past the wrap without the large sieve's M^5",
              "the barrier's ratio read as 3/2", "Jensen's centre read as 1",
-             "the fourth moment's count read as q^{1 - 2 theta}"]
+             "the fourth moment's count read as q^{1 - 2 theta}",
+             "the zero-free bound read as H^{sigma_1}", "the density at 5/6 read as 7/3",
+             "the density hypothesis claimed from 4/5"]
 
 
 def main(mut=None):

@@ -22893,7 +22893,7 @@ Three abstracts were read through the arXiv API (2608.27732, 2609.16700, and 260
 - **The large sieve.** The `k`-th power of `Σ_{n∈I}φ(n)`, `I ⊂ [1, 2H]`, is `Σ_m c(m)φ(m)`, where `m` runs over an interval of length at most `(2H)^k`, `c(m) ≤ d_k(m) = q^{o(1)}` and `Σ_m c(m)² ≤ q^{o(1)}|I|^k`. Cauchy–Schwarz in each residue class mod `q` gives `Σ_φ|Σ_m c(m)φ(m)|² ≤ (q + (2H)^k)Σ_m c(m)²`. With round 567's chaining, `N(λ) ≤ q^{o(1)}(q + (2H)^k)λ^{−k}` for every fixed `k`.
 - **What it gives.** When `κ ≤ q^{o(1)}`, the Farey points of height up to `q^η` carry at most `q^{e(η)+o(1)}` of `θ′`, with `e(η) = min_k (max(1, kη) − 1/3)/k − 1/9`. With `k = 7` past its integer range this is at most `q^{η−10/63}`, so the range reaches `q^{10/63}`. On `[10/63, 1/6]`, `e = 0`. Below `q^{1/7}` it agrees with round 567 at `q^{1/7}` and `q^{1/8}`, and `k = 8` improves `q^{−1/63}` to `q^{η−11/72}` between `q^{1/8}` and `q^{23/168}`.
 - **B32's major arcs.** The fifth moment of `Σ_{m≤M}ψ(m)` past the wrap leaves at most `q^{20η/9+o(1)}` characters with `|Σ_{m≤M}ψ(m)| ≥ M^{1−η}`. That is fewer than the fourth moment's `q^{1/9+16η/9}` when `η < 1/4`. Under minimal energy these carry at most `q^{−δ}` of `θ′` up to height `q^{1/3−10η/9−δ}`, which covers `F_{4M}` for `η < 1/10`, against `η < 1/16` before.
-- **What is left.** From `q^{10/63}` to `q^{1/6}`, a count of large short sums a power below `q^{1/3}` at `λ = q^{1/9}`; beyond, round 565's window. Off the Farey points, the random-level statement of B32 is still owed. The twisted-energy bound does not give it: at the points of large height `ω(x)` is about `L|box|` and `E_x` averages about `|W|²`, so the summed bound is about `q^{1/3}` times the target.
+- **What is left.** From `q^{10/63}` to `q^{1/6}`, a count of large short sums a power below `q^{1/3}` at `λ = q^{1/9}`; beyond, round 565's window. *(Round 570: up to `q^{1/6}`, zero density supplies that count.)* Off the Farey points, the random-level statement of B32 is still owed. The twisted-energy bound does not give it: at the points of large height `ω(x)` is about `L|box|` and `E_x` averages about `|W|²`, so the summed bound is about `q^{1/3}` times the target.
 
 **Sources.** No web search and no new paper this round. The large sieve inequality for one modulus is the classical one.
 
@@ -22925,7 +22925,7 @@ Three abstracts were read through the arXiv API (2608.27732, 2609.16700, and 260
 
 **Bearing on RH:** none.
 
-**The next step.** For the Farey points between `q^{10/63}` and `q^{1/6}`, a power below `q^{1/3}` in the count of large short sums at level `q^{1/18}√y` would extend the range again. The points of large height need an argument that keeps the phases of `c_x(ψ)` against `T_ψ(x)`.
+**The next step.** For the Farey points between `q^{10/63}` and `q^{1/6}`, a power below `q^{1/3}` in the count of large short sums at level `q^{1/18}√y` would extend the range again. *(Round 570: zero density supplies that count, and the range reaches `q^{1/6}`.)* The points of large height need an argument that keeps the phases of `c_x(ψ)` against `T_ψ(x)`.
 
 ## Round 569: Turán's power sums at `σ = 5/7`, the half-plane form of the reflection route, and the unsurveyed machinery (`frontier/linnik/SEVEN-THIRDS.md` §37; `IDEAS.md` A2, A3 and B5 markers; `idea_register.py` check (R34))
 
@@ -22965,4 +22965,51 @@ Three abstracts were read through the arXiv API (2608.27732, 2609.16700, and 260
 
 **Bearing on RH:** none.
 
-**The next step.** Every closure here ends at core 1 or at the barrier. The open targets are unchanged: a power below `q^{1/3}` in the count of large short sums between heights `q^{10/63}` and `q^{1/6}` (round 568), the random level at the points of large height, and core 2.
+**The next step.** Every closure here ends at core 1 or at the barrier. The open targets are unchanged: a power below `q^{1/3}` in the count of large short sums between heights `q^{10/63}` and `q^{1/6}` (round 568), the random level at the points of large height, and core 2. *(Round 570: zero density supplies the first.)*
+
+## Round 570: zero density counts the large Farey sums (`frontier/linnik/SEVEN-THIRDS.md` §38; `IDEAS.md` B33 marker; `idea_register.py` check (R35))
+
+**What it is.** Working toward the owner's goal "keep pushing until exponent is below 7/3". Round 565 reduced core 1's Farey part to a count of the characters with a large Farey sum. A zero-free region makes a character's short sums small, so a large Farey sum forces a zero of `L(s, φ)` near the real axis, and zeros can be counted. The density hypothesis for `σ ≥ 5/6` extends core 1's unconditional Farey range from `q^{10/63}` to every height below `q^{1/6}`. No exponent below `7/3` follows. No Lean changed, no probe is new, and no paper surface is edited.
+
+- **Smooth heights.** Round 565's bound weights the Farey points by `1/ht(x)`, and every `E_x ≥ 0`. So the weight can be replaced by a smooth majorant, `G(a, b) = √2(a² + b²)^{−1/2}Φ((a² + b²)/(2H²))`, which is at least `1/ht` on the points of height up to `H` and nonnegative everywhere. The class bound then holds with `S̃_G(φ) = Σ_x G(x)φ(x)`.
+- **Zero-free means small.** If `L(s, φ)` has no zero in `Re s ≥ σ₁ − ε`, `|Im s| ≤ q^ε + 1`, the Borel–Carathéodory and three-circles argument gives `|L(s, φ)| ≤ q^{o(1)}` on `Re s ≥ σ₁`, `|Im s| ≤ q^ε`. Möbius inversion for the coprimality and the two-variable Mellin transform of `G` then give `|S̃_G(φ)| ≤ H^{2σ₁−1+o(1)}`. The transform is a radial factor times `B(s₁/2, s₂/2)/2`, and it decreases rapidly in every direction.
+- **The count.** At height `q^η`, a character with `|S̃_G(φ)| ≥ q^l` has a zero with `β ≥ σ₁ − ε` and `|γ| ≤ q^ε + 1`, where `σ₁ = 1/2 + l/(2η)`. Where the density hypothesis holds there are at most `q^{1−l/η+o(1)}` such characters.
+- **What it gives.** Round 565's share at `λ = q^l`, `q^{l−4/9}·min(q^{1−l/η}, q^{1/3})`, is largest at `l = 2η/3`, where `σ₁ = 5/6` at every height. So, when `κ ≤ q^{o(1)}`, the Farey points of height up to `q^η` carry at most `q^{2η/3−1/9+o(1)}` of `θ′`, for every `η < 1/6`. This equals round 567's bound at `η = 1/k`, and it beats rounds 567 and 568 between those heights: `−1/90` at `η = 3/20`, against round 568's `3/20 − 10/63`.
+- **The density input.** `seven_thirds.py`'s detectors certify the density hypothesis on a grid of `[5/6, 11/12]` from the mean value theorem and Huxley's large values, and not at `5/6 − 1/100`.
+  - The certifying detector is the fourth moment with no mollifier (FMx), so no half-plane input enters. Huxley's good range `[a, 1]`, `a = (2σ − 1)/(6σ − 4)`, holds a multiple of every block length up to `1/2` exactly when `a ≤ 2/3`, that is `σ ≥ 5/6`.
+  - Just below `5/6` the same detector certifies Huxley's `3/(3σ − 1)`, so the shift by `ε` costs `q^{O(ε)}`. Above `11/12` the count at `11/12` suffices.
+  - The inputs are the stack's rounds 524 (the fourth moment over the characters mod `q`) and 526 (Huxley's large values). The assembly is a paper argument in the model, as round 527's `12/5` was before its Lean proof.
+- **Why the route stops at `q^{1/6}`.** Beyond `q^{1/6}` the count at `λ = q^{1/9}` sits at `σ₁ = 1/2 + 1/(18η) < 5/6`. There this route needs a zero density `A(σ₁) < 1/(3(1 − σ₁))`, below the density hypothesis's `2`: `A(3/4) < 4/3` at height `2M`.
+
+**Sources.** No web search and no new paper this round. The density hypothesis for `σ ≥ 5/6` follows from Huxley's large values estimate, as for `ζ`; here its single-modulus form is assembled in the stack's model from rounds 524 and 526.
+
+**What is checked.**
+
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R35) pass, and its sixty-four mutations are caught.
+  - (R35) checks the share `2η/3 − 1/9 < 0` on a grid of `(0, 1/6)`, with the density hypothesis's count up to `11/12` and the count `q^{1/6}` beyond. It checks the share against round 567's `(6 − k)/(9k)` at `η = 1/k` (`k = 6, …, 12`), the value `−1/90` at `3/20` against round 568's `3/20 − 10/63`, and the binding abscissa `5/6`.
+  - For the density input, (R35) checks that the detector FMx certifies the density hypothesis at thirteen points of `[5/6, 11/12]`, and that no detector certifies it at `5/6 − 1/100`. It checks FMx's reach `1/2`, Huxley's range `[(2σ − 1)/(6σ − 4), 1]` with `a ≤ 2/3 = a(5/6)` at those points, and that the multiples of `[2/3, 1]` cover `(0, 1/2]` while those of `[2/3 + 1/1000, 1]` do not. It checks that FMx certifies Huxley's `3/(3σ − 1)` at `5/6 − 1/100` and `5/6 − 1/1000`, with count exponent at most `1/3 + 3ε`.
+  - The three new mutations: the zero-free bound read as `H^{σ₁}`, the density at `5/6` read as `7/3`, and the density hypothesis claimed from `4/5`.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 3 new reports here and 3 in SEVEN-THIRDS.md (40), all of class L10 (a nested list directly after its item's text), the style of the entries around them. The counts for IDEAS.md (40) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §38, and net-state markers in §35 and §36.
+- `frontier/linnik/IDEAS.md`: a marker on B33. The register still lists 78 entries: 46 CLOSED, 11 REDUCED, 1 OPEN, 15 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R35) and three mutations.
+- This README: net-state markers in the entries for rounds 568 and 569.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the zero-density count of large Farey sums (the local Lindelöf bound from a zero-free rectangle, fed through the smooth majorant), the range `q^{1/6}`, the certification of the density hypothesis on `[5/6, 11/12]` with no half-plane input, and the requirement of a density below the density hypothesis's beyond `q^{1/6}`. ACKNOWLEDGED: rounds 524, 526, 527 and 564–568, and SEVEN-THIRDS §35's twelfth moment, which also stops at `q^{1/6}`.
+
+**Check 9.**
+
+- (a) Scope.
+  - The range below `q^{1/6}` is proved above, asymptotically, from the density hypothesis for `σ ≥ 5/6`. The local Lindelöf step is our derivation, not a Lean theorem, and the density input is the model's certification. (R35) checks the exponents.
+  - "Exactly when `a ≤ 2/3`" is about the detector FMx with Huxley's range in the model.
+  - "Stops at `q^{1/6}`" is about this route, which counts large Farey sums by zeros.
+- (b) The open target is on the register: B33's marker, and the marker on STRUCTURAL-REVIEW §6's "Below `7/3` for prime moduli", state that from `q^{1/6}` to `2M` this route needs a density below the density hypothesis's on `[3/4, 5/6)`.
+- (c) No criterion "bound ⇒ zero-free" is fed a signal. The implication used runs from zero-free regions to small sums, and the zeros are counted by density estimates that do not depend on the Farey sums.
+
+**Bearing on RH:** none.
+
+**The next step.** The open targets: from height `q^{1/6}` to `2M`, a count of the large Farey sums below what the density hypothesis gives at `σ₁ ∈ [3/4, 5/6)`, or a count that does not go through zeros; the random level at the points of large height; and core 2.
