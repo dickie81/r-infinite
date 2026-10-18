@@ -116,9 +116,14 @@ Checks.
        (R17d) E4.  The dual of the smooth sum at N = q^{7/18} has length M = q^{11/18} and threshold
               q^{1/2} N^{-2/7} = q^{7/18}.  The mean value theorem for its fourth power, (q + M^2) M^2, gives q^{8/9};
               Poisson's isometry, sum_{chi != chi_0} |D|^4 = (q/N^2)^2 sum |S|^4 = q^{3 - 2 nu}, gives q^{2/3}.
+  (R18) E2's net-state note (README round 553).  For fixed chi_2 and m, the Jacobi sums in S_3 form a weighted bilinear
+       sum over the product set (W conj chi_2) x (chi_2 conj W), with |W| = q^{2/3} on each side, inside the range
+       |X| > q^{1/2 + eps} of Xi's equidistribution theorem.  Parseval saves (|X||Y|/q)^{1/2} = q^{1/6} over the
+       trivial bound.  Summed over chi_2 in W and the M = q/N values of m with that bound, S_3 << N q |W|^2,
+       which at N = q^{7/9} is q^{28/9} > q^3.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs twenty mutations, at
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs twenty-one mutations, at
 least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -684,10 +689,25 @@ def check_R17(mut=None):
     return fails
 
 
+# (R18) Round 553: the bilinear Jacobi sums inside S_3.
+def check_R18(mut=None):
+    fails = []
+    w, n2 = T23, F(7, 9)
+    if not (w > F(1, 2) and (w + w - 1) / 2 == F(1, 6)):
+        fails.append("R18: Parseval's saving on the product set")
+    outer = w + (1 - n2) if mut != "the outer sums read as one term" else F(0)
+    per = 1 + w + (1 - n2)
+    total = 3 * n2 - 2 + outer + per
+    if not (total == F(28, 9) and total > 3 and total == n2 + 1 + 2 * w):
+        fails.append("R18: the per-(chi_2, m) bound summed over chi_2 and m")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
-          "R16": check_R16, "R17": check_R17}
+          "R16": check_R16, "R17": check_R17,
+          "R18": check_R18}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -698,7 +718,7 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the twelfth moment read as T^{5/2}", "the twisted class-II line keeps FMx's 2x",
              "Burgess's q-exponent halved", "BGKS's e_3 read as 1", "Heath-Brown's R^{5/4} read as R^{3/2}",
              "the diagonal term read as N R", "BPRZ's length read as q^{7/9}",
-             "the twist's length read as q^{7/18}"]
+             "the twist's length read as q^{7/18}", "the outer sums read as one term"]
 
 
 def main(mut=None):

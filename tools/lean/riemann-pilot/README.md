@@ -22077,3 +22077,32 @@ The quotations were checked against the arXiv API's abstracts. The account of Ch
 **Bearing on RH:** none.
 
 **The next step.** Unchanged: H\* carries every route on the register. The register lists 50 entries: 32 CLOSED, 6 REDUCED, 7 SURVEYED and 5 CORE.
+
+## Round 553: Jacobi sums over arbitrary sets of characters (`frontier/linnik/IDEAS.md` E2; `idea_register.py` check (R18))
+
+**What it is.** The owner's request: "Keep probing". A literature check on bilinear and multilinear Jacobi sums found that the survey behind the register's E2 was incomplete. No Lean changed, and no paper surface is edited.
+
+- **What E2 said.** "These results concern sums over all characters, or over algebraic families", of Stickelberger, Gross–Koblitz and Katz's equidistribution. That is true of the three results it names. The survey missed results over arbitrary sets.
+- **What was missed.** Lu–Zheng (arXiv:2005.14358) prove equidistribution of normalized Jacobi sums when the characters "run through arbitrary sets of nontrivial multiplicative characters". Their conditions are `#A₁ ≥ q^{1/2+ε}` and `#A₂ ≥ (log q)^{1/δ−1}`, or `#A₁#A₂/q → ∞`. Lu–Zheng–Zheng (arXiv:1305.3405) and Xi (arXiv:1809.04286) prove earlier forms; Xi's range is `|X| > q^{1/2+ε}`, `|Y| > q^ε`.
+- **Why the reduction stands.** In the Gauss-sum form of `S₃`, fix `χ₂ ∈ W` and the dual variable `m`. The Jacobi sums then form a weighted bilinear sum over the product set `(Wχ̄₂) × (χ₂W̄)`, of size `q^{2/3}` on each side. Parseval already saves `(|X||Y|/q)^{1/2} = q^{1/6}` there, which at these sizes is what equidistribution asks. Summed over `χ₂ ∈ W` and the `q/N` values of `m`, that bound gives `S₃ ≪ Nq|W|²`, or `q^{28/9} > q³` at `N = q^{7/9}`. So the shortfall is in the outer sums, which is core 1. E2 gets a net-state marker, not a strike, because its sentence is true of the results it names.
+- **Also read.** Shkredov–Shparlinski (arXiv:1803.08699) bound double character sums with intervals and arbitrary sets "from new bounds on the number of collinear triples in finite fields". That is B11's incidence route; this round did not re-derive its range.
+
+**What is checked.** `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R18) pass, and its twenty-one mutations are caught. The new mutation drops the outer sums over `χ₂` and `m`. The total then falls to `q^{20/9}`, below `q³`, and (R18) fails. The quotations were checked against the arXiv API's abstracts.
+
+**Records.**
+
+- `frontier/linnik/IDEAS.md`: a net-state marker at E2.
+- `frontier/linnik/idea_register.py`: check (R18) and its mutation.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the arbitrary-set Jacobi results, and the cost `q^{28/9}` of the per-`(χ₂, m)` route. ACKNOWLEDGED: E2's reduction (round 546) and B11 (round 543).
+
+**Check 9.**
+
+- (a) E2's sentence is now read as scoped to the three results it names. The cost `q^{28/9}` is that of the Parseval bound summed with no cancellation over `χ₂` and `m`, not of every method.
+- (b) The register marker records the round.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Unchanged: H\* carries every route on the register, which still lists 50 entries.
