@@ -22538,3 +22538,51 @@ Abstracts read through the arXiv API: arXiv:2609.27715, arXiv:2609.17875, arXiv:
 **Bearing on RH:** none.
 
 **The next step.** For core 2, a trilinear bound with Kloosterman fractions that uses the frequencies `a = hℓq` and the divisor-type coefficients, or a fixed-modulus sixth moment with `θ < 1/6`. For core 1, the large spectrum of the critical Farey set (round 559).
+
+## Round 561: the trilinear form against Bettin–Chandee (`frontier/linnik/SEVEN-THIRDS.md` §29; `IDEAS.md` B30; `idea_register.py` check (R26))
+
+**What it is.** The owner's request: "Keep hunting". No unconditional route emerged. The round tests the item round 560 left open, the trilinear form of the dispersion route, against Bettin–Chandee's trilinear bound. It also corrects one sentence of round 560. No Lean changed, no probe was run, and no paper surface is edited.
+
+- **B30, the trilinear form.** Summed over the frequencies, B29's error is `Σ ν_aα_mβ_n e(ϑaḿ/n)` with `ϑ = q`, `A = q^{5/9}` and `M = N = q^{7/9}`, so `ϑA = MN`. Write the bound as `‖α‖‖β‖‖ν‖·Y`.
+  - The trivial `Y` is `q^{19/18}`, and the main term needs `Y < q^{2/3}`.
+  - A frequency set concentrated at one point forces only `Y ≥ q^{7/18}`, so B29's extremal example does not close this form.
+  - Bettin–Chandee's Theorem 1 gives `Y = q^{23/24}`, a saving of `q^{7/72}` against the needed `q^{28/72}`. At a block `q^v` with `1/3 ≤ v ≤ 1/2` the needed saving is `q^v`, and their bound gives at most `q^{1/8}`.
+  - The reduction's routine steps are not written out: the terms with `gcd(A, B) > 1`, separating the weights, and matching the main term.
+- **A correction to round 560.** SEVEN-THIRDS §28's reading said that SIX(δ) is "equivalent to a fixed-modulus sixth moment with `θ < 1/6` in round 544's terms". No equivalence was shown, and the register keeps the two as cores 2 and 3. The sentence is struck at its source, the one surface that carries it.
+
+**Sources.** No web search this round. Bettin–Chandee's paper (arXiv:1502.00769; round 560 read its abstract) was read from its PDF's text layer, extracted with `pypdf` by a `python3 -I` script kept outside the download's directory. B30's transcription of Theorem 1 and its quotation of the saving, "roughly min(A^{3/20}N^{1/20}, N^{1/8})" (exponents restored), were checked against that text.
+
+**What is checked.**
+
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R26) pass, and its forty-one mutations are caught.
+  - (R26) checks:
+    - the ranges `A = q^{5/9}` and `M = N = q^{7/9}`, `ϑA = MN`, `AMN = q^{19/9}`, and the norms `‖α‖‖β‖ = q^{7/9}` and `‖ν‖ = q^{−1/9}`;
+    - the trivial exponent `19/18` of `Y` (the error `31/18`) and the needed `2/3`;
+    - Bettin–Chandee's two terms `14/15` and `23/24`, the saving `7/72` against the needed `28/72 = 7/18`, and the single-frequency limit `7/18`;
+    - at the blocks `v = 1/3`, `7/18`, `4/9` and `1/2`: `ϑA = MN`, the needed saving `v`, Bettin–Chandee's saving at most `1/8`, and the single-frequency limit `v` below the needed `3v − 1/2`.
+  - The two new mutations:
+    - the coefficient norms without the divisor-type `α, β`;
+    - Bettin–Chandee's second term without its `(AN + AM)^{1/8}`.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 6 new reports. All are of class L10 (a nested list directly after its item's text), the style of the entries around them: 1 in IDEAS.md and 5 here. The counts for SEVEN-THIRDS.md (33) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §29, and the strike in §28's reading.
+- `frontier/linnik/IDEAS.md`: B30 and a marker on B29. The register now lists 73 entries: 45 CLOSED, 9 REDUCED, 1 OPEN, 13 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R26) and two mutations.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the trilinear bookkeeping, its comparison with Bettin–Chandee's Theorem 1, and the correction to §28. ACKNOWLEDGED: core 2 (B7) and round 560's B29, which B30 continues.
+
+**Check 9.**
+
+- (a) Scope.
+  - "Does not close this form" concerns B29's extremal example only. No bound of the needed strength is claimed to exist.
+  - The one trilinear bound read is Bettin–Chandee's Theorem 1. Nothing is said about bounds not read.
+  - "At most `q^{1/8}`" holds for `1/3 ≤ v ≤ 1/2`, the blocks of §16's hypothesis.
+- (b) B30 is on the register as OPEN, and the STRUCTURAL-REVIEW marker names its target. The open targets stay core 1 and core 2.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** For core 2, a trilinear bound with Kloosterman fractions that saves more than `N^{1/2}` in B30's ranges, or one that uses the structure of the frequencies `a = hℓ` and of the convolution coefficients. Bypassing core 2, a fixed-modulus sixth moment with `θ < 1/6` (core 3). For core 1, the large spectrum of the critical Farey set (round 559).

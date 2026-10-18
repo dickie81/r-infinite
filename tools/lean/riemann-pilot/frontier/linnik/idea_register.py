@@ -199,9 +199,17 @@ Checks.
               coefficients; the balanced savings M^{1/48} and M^{1/12} leave exponents 47/48 and 11/12 above 1/2.
        (R25c) Exponents of distribution: 1/(1 + 1/3) = 3/4 from theta = 1/3, 1/(1 + 1/6) = 6/7 needed, and the
               balanced box side q^{1/(3 theta)}: 7/18 at 6/7, 4/9 at 3/4, 11/24 at 8/11.
+  (R26) Round 561's entry, B30 (the trilinear form against Bettin-Chandee's Theorem 1), at nu = 7/18: frequencies
+       A = q^{nu + 1/6} = q^{5/9}, M = N = q^{2 nu} = q^{7/9}, theta = q, so theta A = MN and AMN = q^{19/9};
+       ||alpha|| ||beta|| = q^{7/9} and ||nu|| = q^{-1/9}.  In the shape ||alpha|| ||beta|| ||nu|| Y: the trivial
+       Y = q^{19/18} (the error q^{31/18}), the needed Y < q^{2/3} (the error below q^{4/3}), the single-frequency
+       limit Y = q^{7/18}, and Bettin-Chandee's two terms q^{14/15} and q^{23/24}: a saving q^{7/72} against the
+       needed q^{7/18} = q^{28/72}.  At a block q^v (v = 1/3, 7/18, 4/9, 1/2): A = q^{4v - 1}, theta A = MN, the
+       needed saving q^v, Bettin-Chandee's min(q^{(14v - 3)/20}, q^{v/4}) at most q^{1/8}, and the single-frequency
+       limit q^v below the needed q^{3v - 1/2}.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs thirty-nine mutations, at
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs forty-one mutations, at
 least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -982,12 +990,42 @@ def check_R25(mut=None):
     return fails
 
 
+def check_R26(mut=None):
+    fails = []
+    nu = F(7, 18)
+    A, M = nu + F(1, 6), 2 * nu
+    amn = A + 2 * M
+    ab = 2 * nu if mut != "the coefficient norms without the divisor-type alpha, beta" else F(0)
+    nrm = (A - 2 * nu) / 2
+    if not (A == F(5, 9) and M == F(7, 9) and 1 + A == 2 * M and amn == F(19, 9) and nrm == F(-1, 9)):
+        fails.append("R26: the ranges of the trilinear form")
+    triv = amn / 2
+    if not (ab + nrm + triv == F(31, 18) and F(4, 3) - ab - nrm == F(2, 3)):
+        fails.append("R26: the trivial and needed exponents of Y")
+    t1 = amn * F(7, 20) + M / 4
+    t2 = amn * F(3, 8) + (A + M) / 8
+    if mut == "Bettin-Chandee's second term without its (AN + AM)^{1/8}":
+        t2 = amn * F(3, 8)
+    bc = max(t1, t2)
+    if not (t1 == F(14, 15) and t2 == F(23, 24) and bc == F(23, 24) and triv - bc == F(7, 72)
+            and triv - F(2, 3) == F(28, 72) == nu and M / 2 == nu and nu < F(2, 3) < bc):
+        fails.append("R26: Bettin-Chandee against the needed saving and the single-frequency limit")
+    for v in (F(1, 3), F(7, 18), F(4, 9), F(1, 2)):
+        Av, Mv = 4 * v - 1, 2 * v
+        need, trivv = 3 * v - F(1, 2), 4 * v - F(1, 2)
+        save = min((14 * v - 3) / 20, v / 4)
+        if not (1 + Av == 2 * Mv and trivv - need == v and save <= F(1, 8) < v and Mv / 2 == v < need):
+            fails.append(f"R26: the block q^{v}")
+            break
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
           "R16": check_R16, "R17": check_R17,
           "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22, "R23": check_R23,
-          "R24": check_R24, "R25": check_R25}
+          "R24": check_R24, "R25": check_R25, "R26": check_R26}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -1009,7 +1047,9 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the critical zeros counted at q^{1/2}",
              "the flat walk sum without its factor q", "the bilinear large sieve's L^2 read as L",
              "the gcd dichotomy's Hoelder read with the square", "the large-gcd share without |W|^{-1/3}",
-             "the dispersion error without its frequency count", "the exponent of distribution read as 1/(1 - theta)"]
+             "the dispersion error without its frequency count", "the exponent of distribution read as 1/(1 - theta)",
+             "the coefficient norms without the divisor-type alpha, beta",
+             "Bettin-Chandee's second term without its (AN + AM)^{1/8}"]
 
 
 def main(mut=None):
