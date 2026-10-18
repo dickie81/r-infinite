@@ -240,9 +240,16 @@ Checks.
        meets q^{lambda + 1/3}, gives q^{-1/9 + 2/(3k)} = q^{-(k - 6)/(9k)} of theta' (k = 6, ..., 12; q^{-1/63} at k = 7
        up to height q^{1/7}, q^{-1/36} at k = 8, R29's Hoelder at even k); the half-plane's |S~| <= H^{2 sigma_1 - 1}
        reaches height q^{1/(9(2 sigma_1 - 1))}: q^{2/15} < q^{1/7} at sigma_1 = 11/12, and q^{2/9} at sigma_1 = 3/4.
+  (R33) Round 568's marker on B33 (block moments past their integer range), at |W| = q^{2/3}: the large sieve for
+       one modulus gives N(lambda) <= q^{max(1, k eta) - k lambda} at height q^eta for every k, so the share of
+       theta' is at most q^{min_k (max(1, k eta) - 1/3)/k - 1/9}; at k = 7 past its integer range this is
+       q^{eta - 10/63}, below 1 exactly up to height q^{10/63} (a grid on [1/7, 1/6]); it agrees with R32 at heights
+       q^{1/8} and q^{1/7} and improves it to q^{eta - 11/72} on (1/8, 23/168); for B32's major arcs the fifth moment
+       past the wrap leaves q^{20 eta/9} characters, fewer than the fourth moment's q^{1/9 + 16 eta/9} exactly when
+       eta < 1/4, and reaches height q^{1/3 - 10 eta/9}, at least 4M for eta <= 1/10 (the fourth's for eta <= 1/16).
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs fifty-five mutations,
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs fifty-eight mutations,
 at least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -1197,6 +1204,42 @@ def check_R32(mut=None):
     return fails
 
 
+def check_R33(mut=None):
+    fails = []
+
+    def share(eta, k):
+        span = k * eta if mut != "the large sieve's length (2H)^k read as (2H)^{2k}" else 2 * k * eta
+        top = max(F(1), span) if mut != "the large sieve without its q" else span
+        return (top - F(1, 3)) / k - F(1, 9)
+
+    best = lambda eta: min(share(eta, k) for k in range(1, 41))
+    for eta in (F(1, 7), F(3, 20), F(10, 63)):
+        if not (share(eta, 7) == eta - F(10, 63)):
+            fails.append(f"R33: the seventh block moment at height q^{eta}")
+            break
+    lo = [F(1, 7) + (F(10, 63) - F(1, 7)) * F(i, 20) for i in range(20)]
+    hi = [F(10, 63) + (F(1, 6) - F(10, 63)) * F(i, 20) for i in range(21)]
+    if not (all(best(e) < 0 for e in lo) and all(best(e) == 0 for e in hi)):
+        fails.append("R33: the range q^{10/63}")
+    if not (best(F(1, 7)) == F(-1, 63) and best(F(1, 8)) == F(-1, 36)
+            and best(F(13, 100)) == F(13, 100) - F(11, 72) < F(-1, 63) and F(11, 72) - F(1, 63) == F(23, 168)):
+        fails.append("R33: the savings from height q^{1/8} to q^{1/7}")
+    m = F(2, 9)
+    if mut != "the major-arc moment past the wrap without the large sieve's M^5":
+        k5 = lambda eta: max(F(1), 5 * m) - 5 * m + 10 * m * eta
+    else:
+        k5 = lambda eta: 1 - 5 * m + 10 * m * eta
+    k4 = lambda eta: 1 - 4 * m + 8 * m * eta
+    reach = lambda arcs: (F(2, 3) - arcs) / 2
+    for eta in grid(F(0), F(1, 2), 40):
+        if not (k5(eta) == 20 * eta / 9 and reach(k5(eta)) == F(1, 3) - 10 * eta / 9
+                and (k5(eta) < k4(eta)) == (eta < F(1, 4)) and (reach(k5(eta)) >= F(2, 9)) == (eta <= F(1, 10))
+                and (reach(k4(eta)) >= F(2, 9)) == (eta <= F(1, 16))):
+            fails.append(f"R33: B32's major arcs at eta = {eta}")
+            break
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
@@ -1204,7 +1247,7 @@ CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": 
           "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22, "R23": check_R23,
           "R24": check_R24, "R25": check_R25, "R26": check_R26, "R27": check_R27, "R28": check_R28,
           "R29": check_R29, "R30": check_R30, "R31": check_R31,
-          "R32": check_R32}
+          "R32": check_R32, "R33": check_R33}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -1236,7 +1279,9 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the fourth moment of S read as the fourth moment of the short sums",
              "a Farey fraction counted as one integer", "Wright's saving X^{-2 eta/5} on the A^{1/2} terms too",
              "Wright's A^{1/2} term with N^{1/2} for N^{3/8}",
-             "the block moment's integer range read as (2H)^{2k} < q", "the worst level read as q^{2/k}"]
+             "the block moment's integer range read as (2H)^{2k} < q", "the worst level read as q^{2/k}",
+             "the large sieve's length (2H)^k read as (2H)^{2k}", "the large sieve without its q",
+             "the major-arc moment past the wrap without the large sieve's M^5"]
 
 
 def main(mut=None):

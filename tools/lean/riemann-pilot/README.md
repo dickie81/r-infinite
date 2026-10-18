@@ -22850,7 +22850,7 @@ Three abstracts were read through the arXiv API (2608.27732, 2609.16700, and 260
 
 - **Block moments.** A large Farey sum `|S̃(φ)| ≥ λ` forces a short sum `A_y(φ) = Σ_{n≤y}φ(n)`, `y ≤ H`, with `|A_y(φ)|² ≥ λy/(2(1 + log H)²)`. Counting these block by block, with maximal partial sums over dyadic subintervals, uses the moments `Σ_φ|Σ_{n∈I}φ(n)|^{2k}`. These are integer counts while `(2H)^k < q`, so `N(λ) ≤ q^{1+o(1)}λ^{−k}`.
 - **What it gives.** The points of height up to `H` carry at most `q^{−(k−6)/(9k)+o(1)}` of `θ′` when `κ ≤ q^{o(1)}`, with `k` the largest integer with `(2H)^k < q`. Even `k` gives back round 564's Hölder bounds. `k = 7` is new: at most `q^{−1/63+o(1)}` up to height `(q/2)^{1/7}/2`. A moment of `S̃` counts products of Farey fractions, two integers each, so the block moments stay integer counts twice as long in `k`.
-- **What is left.** From `q^{1/7}` to `q^{1/6}`, `k = 6`, exactly borderline. Beyond, round 565's window stands.
+- **What is left.** From `q^{1/7}` to `q^{1/6}`, `k = 6`, exactly borderline. Beyond, round 565's window stands. *(Round 568: the block moments need not stop at their integer range; with the large sieve's factor `q + (2H)^k` and `k = 7` the range reaches `q^{10/63}`; round 568.)*
 - **The half-plane.** The stack's Lindelöf bound on `Re s ≥ σ₀ > 11/12` (`LinnikLindelof.lindelof`, round 522), through Perron's formula, gives `|A_y(χ)| ≪ y^{σ₀}(qy)^ε` for every `χ ≠ 1` mod `q`. So every `|S̃(φ)|`, `φ ≠ 1`, is `≪ H^{5/6+ε}`. That alone reaches height `q^{2/15}`, below `q^{1/7}`. A half-plane at `σ₁` with Lindelöf would reach `q^{1/(9(2σ₁−1))}`.
 - **A framing corrected.** The same bound gives every nonprincipal character mod `q` a value other than `1` below `q^{o(1)}`, and round 482 proves `n(p) ≤ C(log p)^A` for the quadratic characters. So the consequence that round 565 drew from round 564's eighth-moment note is already a theorem of the stack, not an obstruction. Round 565's sentences were true as written, so they get net-state markers (in B33, SEVEN-THIRDS §33 and round 565's entry above), not strikes.
 
@@ -22885,3 +22885,44 @@ Three abstracts were read through the arXiv API (2608.27732, 2609.16700, and 260
 **Bearing on RH:** none.
 
 **The next step.** For the Farey points between `q^{1/7}` and `q^{1/6}`, a power below the twelfth moment's count of large short sums at level `q^{1/18}√y` would extend the range again.
+
+## Round 568: the block moments past their integer range (`frontier/linnik/SEVEN-THIRDS.md` §36; `IDEAS.md` B33 and B32 markers; `idea_register.py` check (R33))
+
+**What it is.** Working toward the owner's goal "keep pushing until exponent is below 7/3". Round 567 counted large Farey sums block by block with the moments of the short character sums, but only while those moments are integer counts. The large sieve for one modulus lets them run past that range at the cost of a factor `q + (2H)^k`. That extends core 1's unconditional Farey range from `q^{1/7}` to `q^{10/63}`. No exponent below `7/3` follows. No Lean changed, no probe is new, and no paper surface is edited.
+
+- **The large sieve.** The `k`-th power of `Σ_{n∈I}φ(n)`, `I ⊂ [1, 2H]`, is `Σ_m c(m)φ(m)`, where `m` runs over an interval of length at most `(2H)^k`, `c(m) ≤ d_k(m) = q^{o(1)}` and `Σ_m c(m)² ≤ q^{o(1)}|I|^k`. Cauchy–Schwarz in each residue class mod `q` gives `Σ_φ|Σ_m c(m)φ(m)|² ≤ (q + (2H)^k)Σ_m c(m)²`. With round 567's chaining, `N(λ) ≤ q^{o(1)}(q + (2H)^k)λ^{−k}` for every fixed `k`.
+- **What it gives.** When `κ ≤ q^{o(1)}`, the Farey points of height up to `q^η` carry at most `q^{e(η)+o(1)}` of `θ′`, with `e(η) = min_k (max(1, kη) − 1/3)/k − 1/9`. With `k = 7` past its integer range this is at most `q^{η−10/63}`, so the range reaches `q^{10/63}`. On `[10/63, 1/6]`, `e = 0`. Below `q^{1/7}` it agrees with round 567 at `q^{1/7}` and `q^{1/8}`, and `k = 8` improves `q^{−1/63}` to `q^{η−11/72}` between `q^{1/8}` and `q^{23/168}`.
+- **B32's major arcs.** The fifth moment of `Σ_{m≤M}ψ(m)` past the wrap leaves at most `q^{20η/9+o(1)}` characters with `|Σ_{m≤M}ψ(m)| ≥ M^{1−η}`. That is fewer than the fourth moment's `q^{1/9+16η/9}` when `η < 1/4`. Under minimal energy these carry at most `q^{−δ}` of `θ′` up to height `q^{1/3−10η/9−δ}`, which covers `F_{4M}` for `η < 1/10`, against `η < 1/16` before.
+- **What is left.** From `q^{10/63}` to `q^{1/6}`, a count of large short sums a power below `q^{1/3}` at `λ = q^{1/9}`; beyond, round 565's window. Off the Farey points, the random-level statement of B32 is still owed. The twisted-energy bound does not give it: at the points of large height `ω(x)` is about `L|box|` and `E_x` averages about `|W|²`, so the summed bound is about `q^{1/3}` times the target.
+
+**Sources.** No web search and no new paper this round. The large sieve inequality for one modulus is the classical one.
+
+**What is checked.**
+
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R33) pass, and its fifty-eight mutations are caught.
+  - (R33) checks that the seventh block moment gives `η − 10/63` at heights `q^{1/7}`, `q^{3/20}` and `q^{10/63}`. It checks that `e < 0` on a grid of `[1/7, 10/63)` and `e = 0` on a grid of `[10/63, 1/6]`. It checks the values `−1/63` at `1/7`, `−1/36` at `1/8` and `13/100 − 11/72` at `13/100`, and the breakpoint `23/168`. For the major arcs, on a grid of `η ∈ [0, 1/2]`, it checks the count `20η/9`, the reach `1/3 − 10η/9`, the comparison with the fourth moment (fewer exactly when `η < 1/4`) and the coverage of `F_{4M}` (`η ≤ 1/10`, against `η ≤ 1/16`).
+  - The three new mutations: the large sieve's length `(2H)^k` read as `(2H)^{2k}`, the large sieve without its `q`, and the major-arc moment past the wrap without the large sieve's `M⁵`.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 2 new reports here and 1 in SEVEN-THIRDS.md (34), all of class L10 (a nested list directly after its item's text), the style of the entries around them. The counts for IDEAS.md (40) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §36, and net-state markers in §35.
+- `frontier/linnik/IDEAS.md`: markers on B33 and B32. The register still lists 78 entries: 46 CLOSED, 11 REDUCED, 1 OPEN, 15 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R33) and three mutations.
+- This README: a net-state marker in round 567's entry.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the block moments past their integer range, the range `q^{10/63}`, the improved savings below `q^{23/168}`, the fifth major-arc moment, and the note on the twisted-energy bound at large height. ACKNOWLEDGED: rounds 563–567.
+
+**Check 9.**
+
+- (a) Scope.
+  - The range `q^{10/63}` is proved above, asymptotically. Its exponents are checked by (R33).
+  - "`e = 0` on `[10/63, 1/6]`" is about the block moments with the large sieve, over every fixed `k`. Nothing is claimed about other methods.
+  - "The twisted-energy bound does not give it" is about that one bound.
+- (b) The open targets are on the register: B33's marker states the count from height `q^{10/63}` on, and B32's the random level at large height. The open targets stay core 1 and core 2.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** For the Farey points between `q^{10/63}` and `q^{1/6}`, a power below `q^{1/3}` in the count of large short sums at level `q^{1/18}√y` would extend the range again. The points of large height need an argument that keeps the phases of `c_x(ψ)` against `T_ψ(x)`.
