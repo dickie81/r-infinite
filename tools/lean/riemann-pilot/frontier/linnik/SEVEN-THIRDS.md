@@ -330,3 +330,13 @@ The owner asked to keep attacking the step below `7/3`. `sixth_moment.py` is new
   - (b) `SIX(δ)`, the sixth moment of the block itself, past the `q`-threshold by up to `q^{1/6}`.
 
   In the model, route (b) lowers the exponent to `20/9` at best. To go further the model needs the eighth moment of the blocks of length `q^{5/18}` at `σ = 7/10`. Neither input is proved.
+
+## 17. Round 542: the sixth-moment socket on the stack's own families
+
+`sixth_moment.py` gains check (Y). It drops Chen–Gupta–Li's Proposition 3.1 from §16's model. What remains is the mean value theorem and Huxley's estimate, the two large-values families the stack has in Lean (rounds 524–527), with detectors whose mollifier exponent is `0` and with `SIX(δ)`.
+
+- **The exponent at `σ = 3/4`** (Y1). It is `12/5 − 8δ/5` for `δ = 0`, `1/40`, `1/24` and `1/20`, to the bisection's tolerance `10⁻⁵`. That is `12/5` at `δ = 0`, the stack's landed exponent (round 527), and `7/3` at `δ = 1/24`.
+- **Over the grid** (Y2), with `3/4` added: `δ = 1/24 − 1/1000` gives a maximum of `2.3349`, above `7/3`, and `δ = 1/24 + 1/1000` gives `2.3317`, below it. Both maxima are at `σ = 3/4`, where the mean value theorem and Huxley's estimate have the same window.
+- **The floor** (Y3). At `σ = 3/4` the model certifies `16/7` with `δ = 1/14`, and nothing below `16/7 − 10⁻⁴` even with `δ = 1/2`. There the window is `[6/7, 8/7]`, of ratio `4/3`. The block `2/7` has its cube at the left end and its fourth power at the right end, so its eighth moment wraps, as the block `5/18` does at §16's floor `20/9`.
+- **What this means.** In the model, `SIX(δ)` with `δ > 1/24` gives an exponent below `7/3` without any part of Chen–Gupta–Li's Proposition 3.1. With the proposition, any `δ > 0` does (§16).
+- **A conditional Lean route, not started.** It would reuse the stack's detection identity and dyadic blocks (`LinnikDetect`), its power trick and block bins (`LinnikPower`, `LinnikTwelveBins`), Huxley's estimate (round 526) and the fourth moment for the integral class (round 524). It would add one class-I estimate, from `SIX(δ)` as a displayed hypothesis for the blocks with `Q^{1/3} ≤ N ≤ Q^{1/2}`, and the detector with a mollifier of length `Q^{o(1)}`. Its conclusion would be `Linnik.CharDensity (7/3 − κ + ε)` for some `κ > 0`, fed to `Linnik.linnik_of_charDensity`.

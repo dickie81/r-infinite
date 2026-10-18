@@ -21638,3 +21638,39 @@ The mathematical step, the `S₃` bound, stays open.
 **Bearing on RH:** none.
 
 **The next step.** Route (a) stays the `S₃` step of §15. Route (b) is the sixth moment of the blocks of length near `q^{7/18}`. Round 540's next step, the `‖E‖_F²` input in Lean, is unchanged.
+
+## Round 542: the sixth-moment socket on the stack's own families (`frontier/linnik/sixth_moment.py` check (Y); SEVEN-THIRDS.md §17)
+
+**What it is.** Round 541's socket `SIX(δ)`, tested on the large-values families the stack already has in Lean, the mean value theorem and Huxley's estimate (rounds 524–527), with Chen–Gupta–Li's Proposition 3.1 removed from round 528's model. No Lean changed, and no paper surface is edited.
+
+- At `σ = 3/4` the model's exponent is `12/5 − 8δ/5`: `12/5` at `δ = 0` (round 527's exponent) and `7/3` at `δ = 1/24`.
+- Over the grid, `δ = 1/24 − 1/1000` gives `2.3349` and `δ = 1/24 + 1/1000` gives `2.3317`, both at `σ = 3/4`.
+- The floor is `16/7` at `σ = 3/4`, reached from `δ = 1/14`. There the block `2/7` is doubly critical, and its eighth moment wraps.
+
+So, in the model, `SIX(δ)` with `δ > 1/24` gives an exponent below `7/3` without any part of Chen–Gupta–Li's Proposition 3.1. A conditional Lean route along it (§17) would reuse:
+
+- the stack's detection identity and dyadic blocks;
+- the power trick and block bins;
+- Huxley's estimate;
+- the fourth moment for the integral class.
+
+It would add one class-I estimate, from `SIX(δ)` as a displayed hypothesis. It is not started.
+
+**What is checked.** `python3 frontier/linnik/sixth_moment.py` exits 0 in about a minute: (K), (X), (Y) and (M) pass, and its five mutations are caught. The new one drops Huxley's estimate from the stack's families, and (Y1) and (Y2) then fail. (Y) is exact rational arithmetic in round 528's model.
+
+**Records.**
+
+- SEVEN-THIRDS.md §17.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the threshold `δ > 1/24` on the stack's families, the floor `16/7` and the conditional Lean route.
+
+**Check 9.**
+
+- (a) Every exponent here is a statement in round 528's model with the named families. "Without any part of Chen–Gupta–Li's Proposition 3.1" means that the family `P31` is absent from the model's methods.
+- (b) The register marker records the threshold.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** The mathematical input `SIX(δ)` is open. The conditional Lean route of §17 is the shortest path in the pilot to a kernel-checked Linnik exponent below `7/3` under a displayed hypothesis.

@@ -29,6 +29,15 @@ Checks.
            20/9 - 1/10^4 even with delta = 1/2.  There t = 2/3, the window is [5/6, 10/9] (ratio 4/3),
            and the block 5/18 has 3(5/18) at its left end and 4(5/18) at its right end, with
            (5/18) * 3 < 1 < (5/18) * 4: the next doubly-critical block, whose eighth moment wraps.
+  (Y) The socket on the stack's own families (README round 542): the mean value theorem and Huxley's
+      estimate (rounds 524-527), with no part of Chen-Gupta-Li's Proposition 3.1, plus SIX(delta):
+      (Y1) at s = 3/4 the model's exponent is 12/5 - 8 delta/5 for delta in {0, 1/40, 1/24, 1/20}
+           (to the bisection's tolerance 10^-5), so 12/5 at delta = 0 (round 527) and 7/3 at 1/24;
+      (Y2) over the grid with 3/4 added, delta = 1/24 - 1/1000 gives a maximum above 7/3 and
+           delta = 1/24 + 1/1000 one below 7/3, both at s = 3/4;
+      (Y3) the floor: at s = 3/4 the model certifies 16/7 with delta = 1/14 and nothing below
+           16/7 - 1/10^4 even with delta = 1/2; there t = 4/7, the window is [6/7, 8/7], and the
+           block 2/7 has 3(2/7) and 4(2/7) at its two ends, with 3(2/7) < 1 < 4(2/7).
   (M) The sixth moment of smooth character sums S_N(chi) = sum_n phi(n/N) chi(n), phi = sin^2(pi(x - 1))
       on [1, 2], at N = round(q^{7/18}) for primes q from 10^4 to 10^7.  For each q:
       (M1) Parseval: sum over chi of |S_N|^2 = (q - 1) sum phi(n/N)^2;
@@ -46,7 +55,7 @@ delta > 0 it is a power saving in the off-diagonal (wrap-around) count of x1 x2 
 with N^3 = q^{7/6} > q, which this round does not find in the literature.  Part II measures one
 polynomial at t = 0 for a handful of primes; it is not evidence about the worst case over all
 coefficient sequences, and it cannot see factors of q^{1/6} <= 15 at these sizes.  The script runs
-four mutations and requires each to fail at least one check.
+five mutations and requires each to fail at least one check.
 """
 from fractions import Fraction as F
 import sys
@@ -125,10 +134,10 @@ def covered_extra(G, extra, lo, hi):
     return reach >= hi
 
 
-def certify_six(s, A, delta):
+def certify_six(s, A, delta, methods=st.METHODS):
     t = A * (1 - s)
-    G = [iv for m in st.METHODS if (iv := st.good_interval(m, s, t)) is not None]
-    if st.certify(s, A) is not None:
+    G = [iv for m in methods if (iv := st.good_interval(m, s, t)) is not None]
+    if st.certify(s, A, methods=methods) is not None:
         return "base"
     six = six_piece(s, t, delta)
     if six is None or delta <= 0:
@@ -145,12 +154,12 @@ def certify_six(s, A, delta):
     return None
 
 
-def best_exponent(s, delta, lo=F(2), hi=F(7, 3) + F(1, 100), tol=F(1, 10**4)):
-    if certify_six(s, hi, delta) is None:
+def best_exponent(s, delta, lo=F(2), hi=F(7, 3) + F(1, 100), tol=F(1, 10**4), methods=st.METHODS):
+    if certify_six(s, hi, delta, methods) is None:
         return None
     while hi - lo > tol:
         mid = (lo + hi) / 2
-        if certify_six(s, mid, delta) is not None:
+        if certify_six(s, mid, delta, methods) is not None:
             hi = mid
         else:
             lo = mid
@@ -198,6 +207,45 @@ def check_X(deltas=DELTAS, mut=None):
             and 3 * F(5, 18) == lo7 and 4 * F(5, 18) == hi7 and 4 * F(5, 18) > 1 > 3 * F(5, 18)):
         fails.append("X4 the floor at s = 7/10")
     return fails, table
+
+
+STACK = ("MVT", "HUX")              # the large-values families landed in Lean, rounds 524-527
+
+
+def check_Y(mut=None):
+    """(Y) The socket on the stack's own families, without Chen-Gupta-Li's Proposition 3.1."""
+    methods = ("MVT",) if mut == "Huxley dropped from the stack's families" else STACK
+    fails, rows = [], []
+    s34 = F(3, 4)
+    tol = F(1, 10**5)
+    # (Y1) at s = 3/4 the exponent is 12/5 - 8 delta/5 (to the tolerance), 12/5 at delta = 0
+    for d in (F(0), F(1, 40), F(1, 24), F(1, 20)):
+        a = best_exponent(s34, d, hi=F(3), tol=tol, methods=methods)
+        if a is None or not (F(12, 5) - F(8, 5) * d <= a <= F(12, 5) - F(8, 5) * d + 2 * tol):
+            fails.append(f"Y1 at delta = {d}: {None if a is None else float(a)}")
+    # (Y2) over the grid with 3/4: delta = 1/24 -+ 1/1000 straddles 7/3, the maximum at s = 3/4
+    grid = sorted(set(X_GRID + [s34]))
+    for d, below in ((F(1, 24) - F(1, 1000), False), (F(1, 24) + F(1, 1000), True)):
+        worst, arg = F(0), None
+        for s in grid:
+            a = best_exponent(s, d, hi=F(3), tol=tol, methods=methods)
+            if a is None:
+                worst, arg = F(3), s
+                break
+            if a > worst:
+                worst, arg = a, s
+        rows.append((d, worst, arg))
+        if (worst < F(7, 3)) != below or arg != s34:
+            fails.append(f"Y2 at delta = {d}: {float(worst)} at s = {arg}")
+    # (Y3) the floor 16/7 at s = 3/4 and its doubly-critical block 2/7
+    t = F(16, 7) * (1 - s34)
+    lo, hi = (1 - t) / (2 * s34 - 1), t / (2 * (1 - s34))
+    if not (certify_six(s34, F(16, 7), F(1, 14), methods) is not None
+            and certify_six(s34, F(16, 7) - F(1, 10**4), F(1, 2), methods) is None
+            and (t, lo, hi) == (F(4, 7), F(6, 7), F(8, 7))
+            and 3 * F(2, 7) == lo and 4 * F(2, 7) == hi and 4 * F(2, 7) > 1 > 3 * F(2, 7)):
+        fails.append("Y3 the floor at s = 3/4")
+    return fails, rows
 
 
 # ---------------------------------------------------------------- Part II: the sixth moment
@@ -301,18 +349,22 @@ def main(mut=None, qs=QS_GATE, verbose=False):
     res["K"] = check_K(mut)
     xf, table = check_X(mut=mut) if mut in (None, "socket delta enters with the wrong sign") else ([], [])
     res["X"] = xf
+    yf, yrows = check_Y(mut) if mut in (None, "Huxley dropped from the stack's families") else ([], [])
+    res["Y"] = yf
     mf, rows = check_M(qs if mut in (None, "drop one residue class") else [], mut)
     res["M"] = mf
     if verbose:
         for d, w, a in table:
             print(f"    delta = {str(d):>5}: model exponent {float(w):.4f} (max over the grid, at s = {a})")
+        for d, w, a in yrows:
+            print(f"    stack only, delta = {float(d):.5f}: model exponent {float(w):.5f} (max over the grid, at s = {a})")
         for q, N, rho, scale, dt in rows:
             print(f"    q = {q:>9}, N = {N:>4}: rho = {rho:.4f}, W^6/((q-1)D3) = {scale:.3f}  [{dt:.1f}s]")
     return res
 
 
 MUTATIONS = ["critical block one tenth off", "socket delta enters with the wrong sign",
-             "drop one residue class", "fourth moment with N^2 > q"]
+             "drop one residue class", "fourth moment with N^2 > q", "Huxley dropped from the stack's families"]
 
 
 def mutation_fourth_wrap():
@@ -327,7 +379,7 @@ if __name__ == "__main__":
     qs = QS_GATE + (QS_EXTRA if "--extra" in sys.argv else [])
     res = main(qs=qs, verbose=True)
     nfail = 0
-    for key in "KXM":
+    for key in "KXYM":
         print(f"({key}) {'pass' if not res[key] else 'FAIL'}")
         for f in res[key]:
             print("    ", f)
