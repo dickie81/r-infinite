@@ -22801,3 +22801,45 @@ The eight abstracts not on file were read through the arXiv API: arXiv:1410.8189
 **Bearing on RH:** none.
 
 **The next step.** The large-values count for the Farey sums is a short-sum problem of H\*'s kind. A route that keeps the phases of `c_x(ψ)` against `T_ψ(x)`, which Cauchy–Schwarz over `ψ` discards, may ask for less.
+
+## Round 566: a sharper trilinear bound, tested against B30 (`frontier/linnik/SEVEN-THIRDS.md` §34; `IDEAS.md` B30 marker and G13; `idea_register.py` check (R31))
+
+**What it is.** Continuing on the owner's "Continue pls". B30 is the register's one OPEN entry: the trilinear form with Kloosterman fractions that the dispersion route to core 2 leaves (round 561). A scan found Wright's "Trilinear Kloosterman fractions II" (arXiv:2608.27732, August 2026), which sharpens Bettin–Chandee for subdyadic intervals. This round tests it against B30. It gives B30 nothing, and B30 stays OPEN. No Lean changed, no probe is new, and no paper surface is edited.
+
+- **The bound.** Wright's Theorem 2.1, for inner variables over intervals or progressions of relative length `X^{−η}`, lowers Bettin–Chandee's `A^{7/20}` terms by `X^{−2η/5}`. Its `A^{1/2}` terms are Bettin–Chandee's second term, unchanged. IDEAS.md G13 quotes the statement from the PDF's text layer.
+- **Against B30.** At a block `q^v` with `1/3 ≤ v ≤ 1/2`, B30's form has `A = q^{4v−1}` and `M = N = q^{2v}`. There the `A^{1/2}` term binds for every `η ≥ 0`; it ties the other only at `v = 1/3` and `η = 0`. So the saving stays `q^{v/4}`, a quarter of the needed `q^v`: `q^{7/72}` at the critical block, as in round 561. B30's variables also run over full dyadic ranges. By our count, splitting them into subdyadic pieces costs `X^{2η}` in the `A^{1/2}` terms.
+- **Other hits.** Wang–Zhu (arXiv:2609.16700) treat moduli that are powers of a fixed odd prime, which leaves a prime modulus out. The searches on `d₃` in progressions and on sixth moments returned papers already on file.
+
+**Sources.** Three web searches:
+
+1. "trilinear forms with Kloosterman fractions improvement over Bettin Chandee 2025 2026 arXiv" (extended);
+2. "ternary divisor function d_3 in arithmetic progressions to a single prime modulus beyond x^{1/2} level of distribution 2025 2026" (extended);
+3. "sixth moment of character sums over short intervals modulo a prime x1x2x3 ≡ y1y2y3 asymptotic beyond integer range".
+
+Three abstracts were read through the arXiv API (2608.27732, 2609.16700, and 2604.25177, on file since round 560), and arXiv:2608.27732's PDF through its text layer. Wright's abstract: "we sharpen Bettin and Chandee's famous result on trilinear forms with Kloosterman fractions in the case where some of the sums are over subdyadic intervals."
+
+**What is checked.**
+
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R31) pass, and its fifty-three mutations are caught.
+  - (R31) checks, at the blocks `v = 1/3, 7/18, 4/9, 1/2` and `η = 0, 1/100, 1/10`, that Wright's `A^{1/2}` term has Bettin–Chandee's second exponent `A/2 + 7M/8`, and that the `A^{7/20}` term is Bettin–Chandee's first less `2η/5`. It also checks that the second binds, with the tie only at `v = 1/3`, `η = 0`, and that the saving is `v/4` (`7/72` at `v = 7/18`).
+  - The two new mutations: Wright's saving applied to the `A^{1/2}` terms too, and the `A^{1/2}` term with `N^{1/2}` for `N^{3/8}`.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 2 new reports. Both are of class L10 (a nested list directly after its item's text), the style of the entries around them: 1 in IDEAS.md and 1 here. The counts for SEVEN-THIRDS.md (33) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §34.
+- `frontier/linnik/IDEAS.md`: a marker on B30, and G13. The register now lists 78 entries: 46 CLOSED, 11 REDUCED, 1 OPEN, 15 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R31) and two mutations.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the test of Wright's Theorem 2.1 at B30's blocks. ACKNOWLEDGED: B30 and its Bettin–Chandee test (round 561), and B31.
+
+**Check 9.**
+
+- (a) Scope. "Gives B30 nothing" concerns Theorem 2.1's bound as transcribed, at B30's ranges, and the subdyadic splitting counted above. Nothing is claimed about Wright's methods beyond that theorem.
+- (b) B30 stays on the register as OPEN, and the open targets stay core 1 and core 2.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** For B30, a trilinear bound that saves more in its `A^{1/2}`-type term, or one that uses the frequencies `hℓq` and the divisor structure of the coefficients.

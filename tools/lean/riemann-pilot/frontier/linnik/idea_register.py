@@ -231,9 +231,13 @@ Checks.
        meets it from lambda = 5/27 (k = 2), 1/9 (k = 3) and 5/63 < 1/9 (k = 4); the fourth moment is an integer count
        up to height 2M and the sixth is not; at lambda = 1/9 the fourth moment's count q^{5/9} against the needed
        q^{1/3}; the short-sum levels sigma = 3/4 and 11/12 at length q^{2/9}; and 1/8 < 1/(4 sqrt e) < 1/6.
+  (R31) Round 566's marker on B30 (Wright's Theorem 2.1 for subdyadic intervals, arXiv:2608.27732), at the blocks
+       q^v (v = 1/3, 7/18, 4/9, 1/2) with A = q^{4v - 1} and M = N = q^{2v}: its A^{1/2} term has Bettin-Chandee's
+       second exponent A/2 + 7M/8, and its A^{7/20} term is Bettin-Chandee's first less 2 eta/5; the second binds for
+       every eta >= 0 (tying the first at v = 1/3, eta = 0), so the saving stays q^{v/4} (q^{7/72} at v = 7/18).
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs fifty-one mutations,
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs fifty-three mutations,
 at least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -1145,13 +1149,35 @@ def check_R30(mut=None):
     return fails
 
 
+def check_R31(mut=None):
+    fails = []
+    for v in (F(1, 3), F(7, 18), F(4, 9), F(1, 2)):
+        A, M = 4 * v - 1, 2 * v
+        bc1, bc2 = (A + 2 * M) * F(7, 20) + M / 4, (A + 2 * M) * F(3, 8) + (A + M) / 8
+        w2 = A / 2 + M / 2 + 3 * M / 8 if mut != "Wright's A^{1/2} term with N^{1/2} for N^{3/8}" else A / 2 + M
+        for eta in (F(0), F(1, 100), F(1, 10)):
+            w1 = A * F(7, 20) + 3 * M / 5 + 7 * M / 20 - 2 * eta / 5
+            w2e = w2 - 2 * eta / 5 if mut == "Wright's saving X^{-2 eta/5} on the A^{1/2} terms too" else w2
+            save = (A + 2 * M) / 2 - max(w1, w2e)
+            if not (w2 == bc2 == A / 2 + 7 * M / 8 and w1 == bc1 - 2 * eta / 5 and max(w1, w2e) == w2e
+                    and save == v / 4 < v and (w1 == w2e) == (v == F(1, 3) and eta == 0)):
+                fails.append(f"R31: Wright's terms at the block q^{v}, eta = {eta}")
+                break
+        else:
+            continue
+        break
+    if not (F(7, 18) / 4 == F(7, 72)):
+        fails.append("R31: the critical block's saving")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
           "R16": check_R16, "R17": check_R17,
           "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22, "R23": check_R23,
           "R24": check_R24, "R25": check_R25, "R26": check_R26, "R27": check_R27, "R28": check_R28,
-          "R29": check_R29, "R30": check_R30}
+          "R29": check_R29, "R30": check_R30, "R31": check_R31}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -1181,7 +1207,8 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the collision count with M^3 in place of M^4", "the bound |r_w| <= |W|^2 in place of |W|",
              "the eighth moment taken past its integer range", "the needed count without its factor 1/lambda",
              "the fourth moment of S read as the fourth moment of the short sums",
-             "a Farey fraction counted as one integer"]
+             "a Farey fraction counted as one integer", "Wright's saving X^{-2 eta/5} on the A^{1/2} terms too",
+             "Wright's A^{1/2} term with N^{1/2} for N^{3/8}"]
 
 
 def main(mut=None):
