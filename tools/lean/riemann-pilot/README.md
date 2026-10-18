@@ -22631,3 +22631,55 @@ Abstracts read through the arXiv API: arXiv:2609.27715, arXiv:2609.17875, arXiv:
 **Bearing on RH:** none.
 
 **The next step.** For core 2, a bound that sees both the sparsity of the frequencies `hℓq` and the structure of the coefficients, beyond the shape tested here. For core 1, the large spectrum of the critical Farey set (round 559).
+
+## Round 563: where the coherence of the small-line sums lives (`frontier/linnik/SEVEN-THIRDS.md` §31; `IDEAS.md` B32; `farey_coherence_probe.py`; `idea_register.py` check (R28))
+
+**What it is.** The owner wrote: "When you have eliminated the impossible, whatever remains, however improbable, must be the truth." and then "Keep going". No unconditional route emerged. Every route on the register except B30, which is open, closes or reduces to a core. Core 1's sharpest form is round 535's, that for sets of minimal energy the sums over the small lines are incoherent. This round finds where the measured coherence lives, proves a lemma that limits which characters can carry it, and corrects one clause of round 535. No Lean changed and no paper surface is edited.
+
+- **A common component.** In `R(B/x)R̄(B)` the terms `χ = χ′` sum to `R̄(x)` on every line: they are the triples that are not distinct. They add about `1/|W|` to round 535's coherence `θ`, most of what round 535 called the diagonal's level for random sets. That clause is struck in SEVEN-THIRDS §15.
+- **On the Farey points (B32).** With that component removed and only the lines with no zero coordinate kept, the low-energy sets of `energy_frontier.py` have their coherence on the points of small height. Height at most `30` carries `91%` and `72%` of it at `q = 10007` and `100003`, though those points are `11%` and `1.1%` of `F_q^*`. Random sets show no such concentration and stay at `1.2/|box|` and `1.5/|box|`. At `x = a/b` every line's argument is a rational of small height, and the sums `T_ψ(a/b)` over the box are products of short character sums.
+- **Not the scalings.** The largest single entries pair lines related by a diagonal scaling with ratios `−2/3` and `−3/2`, where `R` is large. But such pairs carry only `7%` of the total.
+- **A lemma.** The centred sum is `Σ_{ψ≠1}c_x(ψ)T_ψ(x)` with `|c_x(ψ)| ≤ |W ∩ ψW|`. So, through the energy, a set `A` of characters carries at most `|S||A|κq^{−2/3}` of the coherence on a set `S` of points.
+  - The characters with `|Σ_{m≤M}ψ(m)| ≥ M^{1−η}` number at most `q^{1/9+16η/9+ε}`. Under minimal energy they carry at most `q^{−δ}` on the points of height up to `q^{5/18−8η/9−δ}`.
+  - Coherence on the points of height at most `H` needs at least about `q^{2/3}/(κH²)` characters acting in phase.
+- **A heuristic, not a bound.** If `R`'s large values were spread evenly within the energy budget, the Farey points would carry about `q^{−1/9}`. Through round 535's Cauchy–Schwarz and the socket of SEVEN-THIRDS §5, that would give `κ = 1/54` at the critical point.
+
+**Sources.** No web search and no new paper this round.
+
+**What is checked.**
+
+- `python3 frontier/linnik/farey_coherence_probe.py` exits 0 in about six minutes, and its three mutations are caught. Its gates:
+  - (F1) the orthogonality identity behind the centring, at five points;
+  - (F2) random sets below `3/|box|`, with less than a quarter at height `≤ 30`;
+  - (F3) the low-energy sets above half at height `≤ 30`;
+  - (F4) the low-energy coherence falling by at least a factor `2` between the two `q`;
+  - (F5) the scaling-related pairs below a tenth of the total at `q = 10007`, though they hold the twelve largest generic entries.
+  - The mutations are the uncentred sum, the centring with the wrong sign, and the random set in place of the low-energy set.
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R28) pass, and its forty-five mutations are caught.
+  - (R28) checks the lemma's factor `q^{−2/3}`, the major-arc count `1/9 + 16η/9` with `k = 4`, the heights `5/18 − 8η/9`, the count `q^{2/3}/H²` (`q^{1/6}` at `H = q^{1/4}`) and the heuristic's `−1/9`.
+  - The two new mutations: the lemma with `|A|` in place of `|A|^{1/2}`, and the major-arc moment taken past the wrap.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 5 new reports. All are of class L10 (a nested list directly after its item's text), the style of the entries around them: 1 in IDEAS.md and 4 here. The counts for SEVEN-THIRDS.md (33) and STRUCTURAL-REVIEW.md (100) are unchanged, so §15's new strike renders.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §31, and the strike in §15.
+- `frontier/linnik/IDEAS.md`: B32 and a marker on B12. The register now lists 75 entries: 46 CLOSED, 10 REDUCED, 1 OPEN, 13 SURVEYED, 5 CORE.
+- `frontier/linnik/farey_coherence_probe.py`, new.
+- `frontier/linnik/idea_register.py`: check (R28) and two mutations.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the common component and its share of round 535's `θ`, the localization on the Farey points, the scaling test, the lemma with its major-arc range, and the heuristic. ACKNOWLEDGED: core 1 (B1, B12) and round 535's measurements, which this round re-reads.
+
+**Check 9.**
+
+- (a) Scope.
+  - "The coherence lives on the Farey points" describes the sets two search methods find, at two values of `q`. It bounds nothing over all sets.
+  - The lemma is proved above by Cauchy–Schwarz. The major-arc count is our computation from the fourth-power moment of sums of length `M`.
+  - "Would have to come from characters whose sum over `m₂` cancels" follows from the lemma on the stated range of heights only.
+  - The heuristic is labelled as one.
+- (b) B32 is on the register, reduced to core 1. The open targets stay core 1 and core 2.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Core 1 now asks two things of a minimal-energy `W`. The characters off the major arcs must not act in phase at the points of small height, and the points of large height must stay at the random level. The first concerns sums of products of short character sums over `W`'s difference set, and is where the measured coherence lives.
