@@ -21786,3 +21786,72 @@ The cheapest Lean route is the first, through round 527's argument.
 - the `S₃` step.
 
 The cheapest kernel-checked progress this round sees is a conditional theorem from the band hypothesis or the sixth moment, through round 527's argument with a detector that varies with `σ`. It is a multi-round build.
+
+## Round 546: the ideas register for an exponent below `7/3` (`frontier/linnik/IDEAS.md`, `frontier/linnik/idea_register.py`)
+
+**What it is.** The owner's instruction: "Keep searching, do not give up until every idea is exhausted". This round makes "every idea" checkable. It writes a register of the ideas this strand has considered for an exponent below `7/3` for prime moduli. Each entry has one status (CORE, OPEN, REDUCED, CLOSED or SURVEYED) and a reason. The register's quantitative closures are gated in exact arithmetic. No Lean changed, and no paper surface is edited.
+
+- **The register.** It has 39 entries in seven groups: zero detection, large values, central values, restructuring, prime structure, the half-plane, and literature. After this round, 25 are CLOSED in a stated scope, 4 REDUCED to a core, 5 SURVEYED and 5 CORE; none is OPEN. The four cores:
+  - the `S₃` step (core 1; B12, the inverse theorem, is its contrapositive form);
+  - `SIX(δ)` (core 2);
+  - a fixed-modulus sixth moment with loss `θ < 1/6` (core 3);
+  - large central values at `q^{1/12}` (core 4).
+- **The published large-values theorems (B14).** Source: the Analytic Number Theory Exponent Database's chapters 7 and 10 (teorth.github.io/expdb, read 2026-10-18). Each theorem is transplanted into round 528's model with `T` replaced by the conductor, `F(l) = l·LV(σ, 1/l)`.
+  - These give `F ≥ 2/3` at `l = 7/18`, at `7/9` and on `[7/6, ∞)` wherever they apply: Heath-Brown's (7.13, 7.14), Jutila's (7.16), the exponent-pair bound (7.11), Bourgain's (10.30, 10.31), Kerr's Theorem 5 (10.32) and Guth–Maynard's (10.28). That set of lengths is round 528's barrier. Kerr's theorem is used only where its condition forces `α > 0`. As the database transcribes it, it admits `α < 0` for `τ < 8σ − 5`, and there its bound would fall below the database's own lower bound `min(2 − 2σ, τ)` (Lemma 7.5).
+  - Guth–Maynard's Theorem 1.1 (10.27) gives `29/45 < 2/3` at `7/9`. Its proof reads "By subdivision (Lemma 7.7) it then suffices to treat the case τ = 6/5". Prime moduli have no subdivision (C5, E5).
+  - The unsubdivided companion (10.28) gives exactly `2/3` at `7/9`, from its term `2 − 4σ + (4/3)τ`. In the model that term is Chen–Gupta–Li's `(qT)^{4/3}N^{2−4σ}`, the contribution of the `S₃` step. Its other seven terms are below `2/3` there for `k ≤ 5`.
+- **Power sums (A2).** The database's §11.2 records Turán's `A(1 − η) ≤ 2 + η^{0.14}` "for η small enough", and Halász–Turán bounds `A(1 − η) ≤ Cη^{1/2}` for sufficiently small `η`. Its Table 11.2 gives three such bounds with a range. Ford's `58.05(1 − σ)^{1/2}` is stated for `1/2 ≤ σ ≤ 1` and exceeds `31` at `σ = 5/7`. Heath-Brown's `6.42(1 − σ)^{1/2}` and Pintz's `3√2(1 − σ)^{1/2} + 18(1 − σ)` are stated for `σ ≥ 9/10` and `σ ≥ 17/18`.
+- **Other closures with exact arithmetic.**
+  - Selberg's method (A1). The exponent is below `7/3` only for a mollifier `q^θ` with `θ > 7/9`, and it is `11/4` at `θ = 1/2`.
+  - An auxiliary composite modulus (D2). For `χ ≠ ψ` mod `q`, `χψ̄` has conductor `q` in any lift, so no coset subdivision lowers it.
+  - Burgess summed over the characters (B6). The exponent `(2r − 6)/9 + 1 + 1/r` exceeds `1` for every `r ≥ 1`.
+  - Amplification (C3), which needs an amplifier longer than `q^{2/3}`.
+  - Huxley at `σ = 5/7` (B5). Its good set lies inside the mean value theorem's.
+  - The Frobenius heuristic (B13).
+  - The `SIX(δ)` and `d₃` ranges (C7, C8).
+- **Cores 3 and 4 against `ζ` (R12).** Core 3's `t`-aspect analogue is `M(1/2, 6) < 7/6`. The database's Lemma 9.4 (`M(1/2, A) = 1` for `A ≤ 4`) and Theorem 9.7 (`M(1/2, 12) ≤ 2`) give `M(1/2, 6) ≤ 5/4`, interpolated by its Lemma 9.2(ii). Core 4's analogue is a power saving below `T^{2/3}` in the number of `1`-spaced `t ∈ [T, 2T]` with `|ζ(½ + it)| ≥ T^{1/12}`. Each bound evaluated gives at least `2/3`:
+  - the interpolated moments give `1/2 + A/24` on `4 ≤ A ≤ 12`, least at the fourth moment, which gives exactly `2/3`;
+  - Theorem 9.10's thirteen pieces, from `A = 866/65` on, give more than `2/3`;
+  - the bound `T^{o(1)}(TV^{−6} + T⁵V^{−32})` in Theorem 9.8's proof has second term `T^{7/3}` at this height;
+  - Lemma 8.11 with an exponent pair `(k, ℓ)`, `k > 0`, exceeds `2/3` by `(4ℓ − 1)/(6k)` at every block length. That is positive, since exponent pairs have `ℓ ≥ 1/2`.
+
+  So none of the `ζ` bounds this round evaluated settles either core's analogue.
+
+**What is checked.** `python3 frontier/linnik/idea_register.py` exits 0 in under a second. Its checks (R1) to (R12) pass, and its thirteen mutations are caught, with at least one aimed at each check. Every check is exact rational arithmetic. (R10) reproduces the model's MVT and HUX from the database's Theorems 7.9 and 7.12 on a grid, before it evaluates the other theorems. The quotations were checked against the database pages downloaded on 2026-10-18 (`largevalue-chapter`, `energy-chapter`, `zero-density-chapter`, `zeta-moment-chapter`, `largevalue-zeta-chapter`).
+
+**Records.**
+
+- `frontier/linnik/IDEAS.md` (new).
+- `frontier/linnik/idea_register.py` (new).
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot:
+
+- the register;
+- the transplanted evaluation of the database's large-values theorems at the barrier, with the reduction of Guth–Maynard's unsubdivided bound to the `S₃` term;
+- the power-sum closure;
+- the `ζ` calibration of cores 3 and 4.
+
+ACKNOWLEDGED: the four cores (rounds 528–545).
+
+**Check 9.**
+
+- (a) Universal words are scoped:
+  - "none is OPEN" is a census of the register's statuses;
+  - "wherever they apply" is checked at `7/18`, `7/9` and a grid of `l ≥ 7/6`. On the rest of `[7/6, ∞)`, each of those theorems that applies there has a term at least `2 − 2σ`;
+  - "every `r ≥ 1`" is checked for `r ≤ 10`, and for `r ≥ 3` both terms of `(2r − 6)/9 + 1/r` are nonnegative;
+  - "none of the `ζ` bounds this round evaluated" names the bounds.
+
+  The register's closures are statements about each idea as described. It records the ideas this strand has considered; it is not shown to be exhaustive.
+- (b) The four cores stay on the register under "Below `7/3` for prime moduli". Its marker records that the `t`-aspect analogues of cores 3 and 4 are not settled by any bound evaluated here.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Every remaining route this register knows passes through a core.
+
+- Core 1 is the step where `ζ` has an answer: Guth–Maynard's subdivision. The prime-modulus question is a replacement for that subdivision.
+- Cores 3 and 4 have `t`-aspect analogues for `ζ` that the bounds evaluated here do not settle.
+- Core 2 is a `d₃` variance in progressions at `X = q^{7/6}`, outside the ranges surveyed (C8).
+
+New ideas go on the register with a status.
