@@ -21600,3 +21600,41 @@ The second is the open step of SEVEN-THIRDS.md §15. Chen–Gupta–Li's first t
 - the energy bound as a displayed hypothesis.
 
 The mathematical step, the `S₃` bound, stays open.
+
+## Round 541: the critical block of Chen–Gupta–Li's detector, and a second socket through the sixth moment (`frontier/linnik/sixth_moment.py`; SEVEN-THIRDS.md §16)
+
+**What it is.** The owner asked to keep attacking the step below `7/3`. `sixth_moment.py` is new. SEVEN-THIRDS.md §16 records the round. No Lean changed, and no paper surface is edited.
+
+- **The critical block.** Chen–Gupta–Li's §12, read directly, fixes the detector: a mollifier of length `(qT)^ε`, smoothing `Y = (qT)^{1/2}`, class-I blocks of length at most about `(qT)^{1/2}`, each raised to a power. For the mean value theorem at Ingham's level `3(1 − σ)/(2 − σ)`, the window of lengths is `[1/(2 − σ), 3/(2(2 − σ))]`, of ratio exactly `3/2`. The block exponent `ν_c(σ) = 1/(2(2 − σ))` is the one in `(0, 1/2]` whose square sits at the window's left end and whose cube sits at its right end. Every other exponent in `(0, 1/2]` has a power strictly inside the window (check (K), exact, with the three-line proof in §16). At `σ = 5/7` the block has length `Q^{7/18}`. That is the point of round 528's barrier set in `(0, 1/2]`.
+- **What the block is.** Up to partial summation it is `Σ_{N<n≤2N} c_nχ(n)n^{−it}`, `c_n = Σ_{d|n, d≤(qT)^ε} μ(d)`: a short combination of smooth sums. Round 528's family treats it as a general polynomial. So an estimate that uses its structure is outside the barrier's scope.
+- **The sixth-moment socket.** `SIX(δ)`: for these blocks with `Q^{1/3} ≤ N ≤ Q^{1/2}`, `Σ_{χ≠χ₀}∫_{−2T}^{2T}|D_N(t, χ)|⁶dt ≤ Q^{o(1)}(QN³ + Q^{−δ}N⁶)`. `SIX(0)` is the mean value theorem for `D_N³`; its term `N⁶` has the size of the principal character's contribution. Added to round 528's model for detectors whose mollifier exponent is `0`, the best exponent over the grid is:
+  - `7/3` at `δ = 0` (at `σ = 5/7`);
+  - `2.3185`, `2.3013` and `2.2619` at `δ = 1/100`, `1/50` and `1/20`;
+  - `20/9` (to `10⁻⁴`) at `δ = 1/12` and `1/6`.
+
+  The floor `20/9` sits at `σ = 7/10`. There the window has ratio `4/3`, and the block `Q^{5/18}` is doubly critical, its cube and its fourth power at the two ends. Its eighth moment wraps modulo `q`.
+- **What `SIX(δ)` asks.** At `N = q^{7/18}` the wrap-around solutions of `x₁x₂x₃ ≡ y₁y₂y₃ (mod q)` come from `x₁x₂x₃ − y₁y₂y₃ = ℓq` with `0 < |ℓ| ≪ q^{1/6}`. The divisor bound puts their count, times `q − 1`, at `q^ε` times the principal character's term, and that is `SIX(0)`. `SIX(δ)` asks that count to match the principal character to within a power. That is a power-saving `L²`-equidistribution of the products of three short intervals mod `q`, a ternary additive-divisor problem with shifts in `0 (mod q)`. This round's two web searches found no such saving.
+- **The probe.** Take smooth sums of length `round(q^{7/18})` at `t = 0`, with `φ = sin²(π(x − 1))` on `[1, 2]`.
+  - The non-principal sixth moment is `0.884` to `0.911` times the Steinhaus value `(q − 1)D₃`, for `q` from `10⁴` to `10⁷`; the gate runs three primes, a run with `--extra` four more.
+  - The principal-size term `W⁶` is `0.21` to `0.31` times `(q − 1)D₃`, growing by about `1.15` per decade.
+
+  So the probe cannot see `SIX(δ)`. It checks the computation (Parseval, the fourth moment against the integer count, the FFT against a direct residue-class count).
+
+**What is checked.** `python3 frontier/linnik/sixth_moment.py` exits 0 in about a minute: (K), (X1)–(X4) and (M1)–(M3) pass, and its four mutations are caught (the critical block moved by a tenth, the socket's monotonicity reversed, a residue class dropped, the fourth moment at `N = q^{1/2}`, where it wraps). (K) and (X) are exact rational arithmetic in round 528's model. The four sentences quoted from Chen–Gupta–Li's §12 were checked against the PDF's text layer (lines 5999, 6011, 6038 and 6088–6090 of the extracted text).
+
+**Records.**
+
+- SEVEN-THIRDS.md §16.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli", with the second socket and its target.
+
+**Check 4.** NOVEL against the pilot: the doubly-critical block for every `σ` in `[7/10, 4/5]`, the identification of that block in Chen–Gupta–Li's own detector as a lightly mollified smooth sum, the socket `SIX(δ)` with its payoff and floor in the model, and the probe.
+
+**Check 9.**
+
+- (a) (K) is a statement about the mean value theorem with powers in round 528's model; (X) adds one hypothesis to that model; neither is a statement about all arguments. "This round's two web searches found no such saving" reports two searches, which are not exhaustive.
+- (b) The register entry gets a marker: `SIX(δ)` as a second target, with its socket and the attack note that it is a ternary additive-divisor problem with shifts in `0 (mod q)`.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Route (a) stays the `S₃` step of §15. Route (b) is the sixth moment of the blocks of length near `q^{7/18}`. Round 540's next step, the `‖E‖_F²` input in Lean, is unchanged.

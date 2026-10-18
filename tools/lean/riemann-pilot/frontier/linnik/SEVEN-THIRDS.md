@@ -289,3 +289,44 @@ The owner asked to attack the inverse theorem and to push toward a formalisation
   3. The new step as a displayed hypothesis, the low-energy third-moment bound, which gives the socket at the critical point.
 
   Round 536 starts layer 2 with the moment inequality. ~~*(Round 536: done. `LinnikMoment.moment_three` and `LinnikMoment.moment_three_chars` in `external/pnt/LinnikMoment.lean`, kernel-checked with the standard axioms; `(Σ_{χ∈W}|D(χ)|²)³ ≤ ‖b‖⁶ Re tr(G³)` for the Gram matrix `G` of `W`. README round 536.)*~~ *(Round 537: retracted, false when written. Round 536 proved Chen–Gupta–Li's "simple bound" at `r = 3`, which they set aside as "quite lossy"; at the critical point it gives at best `|W| ≲ q^{2/3}`, because `tr(G³)` contains the all-equal triples `|W|N_c³`. The moment inequality of layer 2 is their Lemma 4.2, which they cite as Guth–Maynard's. It is `LinnikMoment.refined_moment_chars`, kernel-checked with the standard axioms: `(Σ_{χ∈W}|D(χ)|² − N_cβ)³ ≤ β³ Re Σ G(χ₁,χ₂)G(χ₂,χ₃)G(χ₃,χ₁)` over the triples of `W` that are not all equal, with `N_c` the diagonal of `G` and `β = ‖b‖²`. README round 537.)*
+
+## 16. Round 541: the critical block, and a second socket through the sixth moment
+
+The owner asked to keep attacking the step below `7/3`. `sixth_moment.py` is new.
+
+- **Where the critical case sits in Chen–Gupta–Li's own argument.** Their §12 was read directly from the PDF's text layer (spaces and exponents restored below).
+  - The class-II zeros: "where we have set X = (qT)^ϵ", and "upon choosing Y = (qT)^{1/2}, we obtain |R̃₂| ⪅ (qT)^{2(1−σ)}".
+  - The class-I zeros: "Thus it suffices to bound |W| in the range (qT)^ϵ ≤ N ⪅ (qT)^{1/2}".
+  - Each block is raised to a power: "we can choose k ≪_ϵ 1 so that (qT)^a ≤ N^k ≤ (qT)^{3a/2}".
+
+  So the polynomial of length `q^{7/9}` at their critical point is a power of a block of length at most `q^{1/2}`. In the mean-value count it is the square of a block of length `q^{7/18}`.
+- **The critical block** (check (K)). For the mean value theorem at Ingham's level `3(1 − σ)/(2 − σ)`, the window of lengths is exactly `[1/(2 − σ), 3/(2(2 − σ))]`, of ratio `3/2`. Let `ν_c(σ) = 1/(2(2 − σ))`. Its square is at the left end of the window and its cube at the right end, so no power of `ν_c` lies strictly inside. Every other `ν` in `(0, 1/2]` has a power strictly inside. If `kν` is the left end with `k ≥ 3`, then `(k + 1)ν` is at most `4/3` times the left end, so it is inside. Otherwise take `k = ⌈(left end)/ν⌉`. For `ν < ν_c` that gives `k ≥ 3`, and `kν` is inside because the ratio is `3/2`. For `ν > ν_c` it gives `k = 2`, and `2ν ≤ 1 <` (right end). The check verifies this exactly at `ν_c` and at 399 other exponents, for 41 values of `σ` in `[7/10, 4/5]` and at `5/7`. At `σ = 5/7`, `ν_c = 7/18`, the point of §4's set `B` in `(0, 1/2]`. So, for the mean value theorem with powers, Ingham's `3/(2 − σ)` is set by the blocks of length near `Q^{ν_c(σ)}`, and §4's barrier at `5/7` is about the block of length `Q^{7/18}`.
+- **What these blocks are.** With the mollifier of length `(qT)^ε`, a block is, up to partial summation, `Σ_{N<n≤2N} c_nχ(n)n^{−it}` with `c_n = Σ_{d|n, d≤X} μ(d)` and `X = (qT)^ε`. That is a short combination of the sums `Σ_m χ(m)m^{−it}` over `m` of length `N/d`. §4's family treats the block as a general polynomial. An estimate that uses this structure lies outside the family, and §4's barrier says nothing about it.
+- **The sixth-moment socket** (check (X)). The hypothesis `SIX(δ)`: for these blocks with `Q^{1/3} ≤ N ≤ Q^{1/2}`,
+
+  ```
+  Σ_{χ≠χ₀} ∫_{−2T}^{2T} |D_N(t, χ)|⁶ dt  ≤  Q^{o(1)} (Q N³ + Q^{−δ} N⁶).
+  ```
+
+  `SIX(0)` is the mean value theorem for `D_N³`, a polynomial of length about `N³ > Q` with divisor-bounded coefficients. Its term `N⁶` is the size of the principal character's contribution, which the divisor bound cannot separate from the rest. The model adds `SIX(δ)` for detectors whose mollifier exponent is `x = 0`, as Chen–Gupta–Li's is. Maximised over the grid of `seven_thirds.py` (with `5/7` and `7/10` added), the exponent it certifies is:
+  - `δ = 0`: `7/3`, at `σ = 5/7`, with nothing below `7/3 − 10⁻⁴` there;
+  - `δ = 1/100`, `1/50`, `1/20`: `2.3185`, `2.3013` and `2.2619`;
+  - `δ = 1/12` and `1/6`: `2.2223`, within the bisection's tolerance `10⁻⁴` of `20/9`.
+
+  The floor is at `σ = 7/10`. There the model certifies `20/9` with `δ = 1/6`, and nothing below `20/9 − 10⁻⁴` even with `δ = 1/2`. At that point the window is `[5/6, 10/9]`, of ratio `4/3`, and the block `5/18` has its cube at the left end and its fourth power at the right end: it is the next doubly-critical block. Its eighth moment wraps, since `(Q^{5/18})⁴ = Q^{10/9} > Q`.
+- **What `SIX(δ)` asks.** For a smooth sum `S` of length `N` at `t = 0`, `Σ_{χ≠χ₀}|S|⁶ = (q − 1)(D₃ + O) − W⁶`. Here:
+  - `D₃` counts the integer solutions of `x₁x₂x₃ = y₁y₂y₃`; it is the sixth moment of a Steinhaus random multiplicative function;
+  - `O` counts the solutions of `x₁x₂x₃ ≡ y₁y₂y₃ (mod q)` that are not integer solutions;
+  - `W = S(χ₀)`.
+
+  At `N = q^{7/18}` the products reach `N³ = q^{7/6}`, so `O` comes from `x₁x₂x₃ − y₁y₂y₃ = ℓq` with `0 < |ℓ| ≪ q^{1/6}`. The divisor bound gives `(q − 1)O ≤ q^εW⁶`, which is `SIX(0)`. For `δ > 0`, `SIX(δ)` asks `(q − 1)O − W⁶ ≤ q^{o(1)}(q^{−δ}W⁶ + qN³)`: the off-diagonal count must match the principal character to within a power. Equivalently, the products of three short intervals are equidistributed in `L²` among the residue classes mod `q`, with a power saving. That is a ternary additive-divisor problem whose shifts lie in the progression `0 (mod q)`. This round's two web searches found no such saving. The searches are not exhaustive.
+- **The probe** (check (M)). Take `φ = sin²(π(x − 1))` on `[1, 2]` and `N = round(q^{7/18})`. The gate checks Parseval, the fourth moment against `D₂` (no wrap, `4N² < q`), and the sixth moment from the FFT against a direct count over the residue classes. It records `ρ = Σ_{χ≠χ₀}|S|⁶/((q − 1)D₃)`:
+  - `0.884`, `0.899` and `0.905` at the gated `q = 10007`, `100003` and `1000003`;
+  - `0.898`, `0.901`, `0.908` and `0.911` at `q = 30011`, `300007`, `3000017` and `10000019`, in a run with `--extra`.
+
+  The scale `W⁶/((q − 1)D₃)` is `0.208`, `0.235` and `0.266` at the gated `q`, and `0.305` at `q = 10000019`. It grows by a factor of about `1.15` per decade of `q`. So at these `q` the principal-size term is about a quarter of the diagonal. The probe cannot see `SIX(δ)`; it checks the pipeline and finds the sixth moment within `12%` of the random model.
+- **Reading.** For prime `q` there are now two routes below `7/3`. Both go through the blocks of length near `q^{7/18}`; for `σ` near `5/7`, near `q^{ν_c(σ)}`.
+  - (a) `S₃` for the square of the block, as a general polynomial of length `q^{7/9}` (§§6–15).
+  - (b) `SIX(δ)`, the sixth moment of the block itself, past the `q`-threshold by up to `q^{1/6}`.
+
+  In the model, route (b) lowers the exponent to `20/9` at best. To go further the model needs the eighth moment of the blocks of length `q^{5/18}` at `σ = 7/10`. Neither input is proved.
