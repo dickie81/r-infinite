@@ -21926,3 +21926,33 @@ What remains of core 2 is the variance over all classes at once, which is C8.
 **Bearing on RH:** none.
 
 **The next step.** Unchanged: core 2 comes down to the variance of `d₃` over all classes mod `q` at `X = q^{7/6}` (C8). The register lists no remaining non-core route.
+
+## Round 549: product congruences, averages over moduli, and the explicit formula (`frontier/linnik/IDEAS.md` A1, C11, C12; `idea_register.py` check (R15))
+
+**What it is.** Three more ideas worked to their thresholds. All close. No Lean changed, and no paper surface is edited.
+
+- **C11, upper bounds for product congruences in short intervals.** Core 2 counts `x₁x₂x₃ ≡ y₁y₂y₃ (mod q)` with variables in `[N, 2N]`. Bourgain–Garaev–Konyagin–Shparlinski (arXiv:1203.0017, Theorem 19, read in the arXiv PDF) bound the number of solutions of the shifted congruence `(x₁ + s)⋯(x_ν + s) ≡ (y₁ + s)⋯(y_ν + s) ≢ 0 (mod p)`, `1 ≤ x_i, y_i ≤ h`. The bound is `(h^ν/p^{ν/e_ν} + 1)h^ν exp(c(ν) log h/log log h)`, with `e_ν = max{ν² − 2ν − 2, ν² − 3ν + 4}`.
+  - For `ν = 3`, `e₃ = 4`. At `h = q^{7/18}` the bound is `q^{19/12+o(1)}`, above the expected `q^{4/3}`.
+  - `SIX(δ)` needs an asymptotic, not an upper bound. `χ₀` removes `N⁶/(q − 1)`, so a bound `C·N⁶/q` with `C > 1` still leaves `(C − 1)N⁶`.
+- **C12, moments averaged over the moduli.** Chandee–Li–Matomäki–Radziwiłł (arXiv:2409.01457) open with "In 1970, Huxley obtained a sharp upper bound for the sixth moment of Dirichlet L-functions at the central point, averaged over primitive characters χ modulo q and all moduli q ≤ Q". For a single modulus, an average bound `Q^{2+o(1)}` gives `q^{2+o(1)}`. That is a loss of `1`, against the Weyl bound's `1/3` and core 3's `1/6`.
+- **A1, the explicit formula.** With test functions of Fourier support `s`, the explicit formula would give Selberg's exponent at `θ = s/2` if every zero off the line contributed positively. At `s = 2` that is the density hypothesis, `A = 2`, for every `σ`. They need not contribute positively. For the Fejér kernel `φ(x) = (sin πsx/πx)²`, the weight `2 Re φ(x + iy)` of an off-line zero changes sign as `x`, its scaled ordinate, varies, once `|y|` is large.
+
+**What is checked.** `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R15) pass, and its sixteen mutations are caught. The new mutation reads `e₃` as `1` and fails (R15a). The Fejér kernel's sign change was checked numerically in a scratch run at `s = 2`, `y = 3/2`: the real part ranges from about `−1.6·10⁶` to `1.5·10⁶`. That check is not committed. The quotation was checked against the arXiv API's abstract, and Theorem 19 against the extracted text of the arXiv PDF (v1).
+
+**Records.**
+
+- `frontier/linnik/IDEAS.md`: A1 extended; C11 and C12 new.
+- `frontier/linnik/idea_register.py`: check (R15).
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the three thresholds. ACKNOWLEDGED: the cores (rounds 528–548).
+
+**Check 9.**
+
+- (a) "They need not contribute positively" is shown for one kernel, the Fejér kernel. It is not a claim about every test function.
+- (b) The register marker records the closures.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Unchanged. The register lists 44 entries: 29 CLOSED, 5 REDUCED, 5 SURVEYED and 5 CORE (the four cores, with B12 as core 1's contrapositive). Every remaining route passes through a core.

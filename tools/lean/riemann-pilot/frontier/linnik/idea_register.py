@@ -88,9 +88,16 @@ Checks.
        (R14b) Equidistribution in every class mod q with a saving q^{-delta'} gives Sum_{chi != chi_0} |D|^6
               <= q^2 (X/q)^2 q^{-2 delta'} = N^6 q^{-2 delta'}, X = N^3 = q^{7/6}: level of distribution 6/7.
               Fouvry-Kowalski-Michel's levels for d_3, 1/2 + 1/46 (prime moduli) and 1/2 + 1/34 (averaged), are below.
+  (R15) A1, C11 and C12 (README round 549).
+       (R15a) Bourgain-Garaev-Konyagin-Shparlinski's Theorem 19 has e_3 = max(3^2 - 2*3 - 2, 3^2 - 3*3 + 4) = 4 and
+              bounds K_3 by (h^3/p^{3/4} + 1) h^{3+o(1)}; at h = q^{7/18} that is q^{19/12}, above the expected q^{4/3}.
+       (R15b) A sixth moment averaged over the moduli q <= Q, at most Q^{2+o(1)}, bounds one modulus's sixth moment by
+              q^{2+o(1)}: loss 1, against the Weyl bound's 1/3 and the needed 1/6.
+       (R15c) The explicit formula with support s, if every zero off the line contributed positively, would give
+              A1's exponent at theta = s/2: (1 - (2 sigma - 1) s/2)/(1 - sigma), which is 2 at s = 2 for every sigma.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs fifteen mutations, at
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs sixteen mutations, at
 least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -592,9 +599,28 @@ def check_R14(mut=None):
     return fails
 
 
+# (R15) Product congruences, averages over moduli, and the explicit formula.
+def check_R15(mut=None):
+    fails = []
+    nu, n = 3, F(7, 18)
+    e3 = max(nu * nu - 2 * nu - 2, nu * nu - 3 * nu + 4)
+    if mut == "BGKS's e_3 read as 1":
+        e3 = 1
+    bound = 2 * nu * n - F(nu, e3)
+    if e3 != 4 or bound != F(19, 12) or not bound > 6 * n - 1 or 6 * n - 1 != F(4, 3):
+        fails.append(f"R15a: e_3 = {e3}, bound q^{bound}")
+    loss = F(2) - 1
+    if not (loss == 1 and loss > F(1, 3) > F(1, 6)):
+        fails.append("R15b")
+    for sg in grid(F(1, 2), F(11, 12), 50)[1:]:
+        if selberg(sg, F(1), mut) != 2:
+            fails.append(f"R15c: sigma = {sg}")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
-          "R13": check_R13, "R14": check_R14}
+          "R13": check_R13, "R14": check_R14, "R15": check_R15}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -603,7 +629,7 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "Huxley's slope read as the mean value theorem's", "the transplant drops the factor l",
              "Guth-Maynard's third term loses its tau", "Ford's constant read as 4.05",
              "the twelfth moment read as T^{5/2}", "the twisted class-II line keeps FMx's 2x",
-             "Burgess's q-exponent halved"]
+             "Burgess's q-exponent halved", "BGKS's e_3 read as 1"]
 
 
 def main(mut=None):
