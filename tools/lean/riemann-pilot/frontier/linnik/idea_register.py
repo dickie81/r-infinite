@@ -207,10 +207,16 @@ Checks.
        needed q^{7/18} = q^{28/72}.  At a block q^v (v = 1/3, 7/18, 4/9, 1/2): A = q^{4v - 1}, theta A = MN, the
        needed saving q^v, Bettin-Chandee's min(q^{(14v - 3)/20}, q^{v/4}) at most q^{1/8}, and the single-frequency
        limit q^v below the needed q^{3v - 1/2}.
+  (R27) Round 562's entry, B31 (Deshouillers-Iwaniec's Theorem 12, as extended by Drappeau's Theorem 2.1, on
+       B30's form), at the blocks q^v (v = 1/3, 7/18, 4/9, 1/2): C = D = R = S = q^v, frequencies n = h l q up to
+       N = q^{4v} of which q^{4v - 1} occur, and ||b|| = q^{(4v - 1)/2}.  K^2 = max of CS(RS + N)(C + RD),
+       C^2 DS ((RS + N)R)^{1/2} and D^2 N R/S is the first, q^{8v}; the bound q^{6v - 1/2} exceeds the trivial
+       q^{7v - 1} by q^{1/2 - v}, and with N replaced by the count q^{4v - 1} it is q^{5v - 1/2}, above the main term
+       q^{6v - 1} by q^{1/2 - v}.  At v = 7/18: q^{11/6}, q^{31/18}, q^{13/9} and q^{4/3}.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs forty-one mutations, at
-least one aimed at each check, and requires each mutation to fail at least one check.
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs forty-three mutations,
+at least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
 
@@ -1020,12 +1026,43 @@ def check_R26(mut=None):
     return fails
 
 
+def check_R27(mut=None):
+    fails = []
+
+    def k2(C, D, N, R, S):
+        t1 = C + S + max(R + S, N) + max(C, R + D)
+        if mut == "Theorem 12's first term without its factor (RS + N)":
+            t1 = C + S + max(C, R + D)
+        t2 = 2 * C + D + S + (max(N, R + S) + R) / 2
+        t3 = 2 * D + N + R - S
+        return max(t1, t2, t3), t1
+    for v in (F(1, 3), F(7, 18), F(4, 9), F(1, 2)):
+        C = D = R = S = v
+        shifts = 3 * v - 1
+        N, supp = v + shifts + 1, v + shifts
+        b = supp / 2 if mut != "the norm of b counted over every n up to N" else N / 2
+        big, t1 = k2(C, D, N, R, S)
+        bound, trivial, main = big / 2 + b, 4 * v + shifts, 6 * v - 1
+        big_s, t1_s = k2(C, D, supp, R, S)
+        bound_s = big_s / 2 + b
+        if not (big == t1 == 8 * v and bound == 6 * v - F(1, 2) and trivial == 7 * v - 1
+                and bound - trivial == F(1, 2) - v and big_s == t1_s == 6 * v and bound_s == 5 * v - F(1, 2)
+                and bound_s - main == F(1, 2) - v >= 0):
+            fails.append(f"R27: the block q^{v}")
+            break
+    nu = F(7, 18)
+    if not (6 * nu - F(1, 2) == F(11, 6) and 7 * nu - 1 == F(31, 18) and 5 * nu - F(1, 2) == F(13, 9)
+            and 6 * nu - 1 == F(4, 3)):
+        fails.append("R27: the exponents at the critical block")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
           "R16": check_R16, "R17": check_R17,
           "R18": check_R18, "R19": check_R19, "R20": check_R20, "R21": check_R21, "R22": check_R22, "R23": check_R23,
-          "R24": check_R24, "R25": check_R25, "R26": check_R26}
+          "R24": check_R24, "R25": check_R25, "R26": check_R26, "R27": check_R27}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -1049,7 +1086,8 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the gcd dichotomy's Hoelder read with the square", "the large-gcd share without |W|^{-1/3}",
              "the dispersion error without its frequency count", "the exponent of distribution read as 1/(1 - theta)",
              "the coefficient norms without the divisor-type alpha, beta",
-             "Bettin-Chandee's second term without its (AN + AM)^{1/8}"]
+             "Bettin-Chandee's second term without its (AN + AM)^{1/8}",
+             "Theorem 12's first term without its factor (RS + N)", "the norm of b counted over every n up to N"]
 
 
 def main(mut=None):

@@ -22586,3 +22586,48 @@ Abstracts read through the arXiv API: arXiv:2609.27715, arXiv:2609.17875, arXiv:
 **Bearing on RH:** none.
 
 **The next step.** For core 2, a trilinear bound with Kloosterman fractions that saves more than `N^{1/2}` in B30's ranges, or one that uses the structure of the frequencies `a = hℓ` and of the convolution coefficients. Bypassing core 2, a fixed-modulus sixth moment with `θ < 1/6` (core 3). For core 1, the large spectrum of the critical Farey set (round 559).
+
+## Round 562: spectral bounds for the trilinear form (`frontier/linnik/SEVEN-THIRDS.md` §30; `IDEAS.md` B31; `idea_register.py` check (R27))
+
+**What it is.** The owner's request: "Keep hunting". No unconditional route emerged. The round tests round 561's open item, B30, with the spectral bounds of Deshouillers–Iwaniec, which apply when the modulus and the inverted argument carry smooth variables, as B30's do. No Lean changed, no probe was run, and no paper surface is edited.
+
+- **B31.** Drappeau's Theorem 2.1 (arXiv:1504.05549), which extends Deshouillers–Iwaniec's Theorem 12, bounds `Σ b_{n,r,s}g(c, d, n, r, s)e(n·\overline{rd}/(sc))` with `c, d` smooth. B30's sum takes that shape with `c = y₁`, `d = x₁`, `r = x₂`, `s = y₂` and frequencies `n = hℓq`.
+  - At a block `q^v` with `1/3 ≤ v ≤ 1/2` the bound is `q^{6v−1/2}`, against the trivial `q^{7v−1}` and the main term `q^{6v−1}`. At `v = 7/18`: `q^{11/6}`, `q^{31/18}` and `q^{4/3}`.
+  - It is worse than trivial by `q^{1/2−v}`. The first term of `K²` is linear in the frequencies' range `N = q^{4v}`, and only `q^{4v−1}` of those frequencies occur.
+  - With `N` replaced by that count (our computation; the theorem does not state it) the bound is `q^{5v−1/2}`, still above the main term by `q^{1/2−v}`.
+
+**Sources.** No web search this round. Drappeau's paper was read from its PDF's text layer, extracted with `pypdf` by a `python3 -I` script kept outside the download's directory. B31's quotations and its transcription of Theorem 2.1 were checked against that text, and the grouping of the square root in `K²` against his (4.39) and his `K_exc`. Fouvry–Radziwiłł (arXiv:1811.08672) was searched for a statement of Theorem 12; its text layer does not mention Deshouillers.
+
+**What is checked.**
+
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R27) pass, and its forty-three mutations are caught.
+  - (R27) checks, at the blocks `v = 1/3`, `7/18`, `4/9` and `1/2`:
+    - that the first term of `K²` dominates, with `K² = q^{8v}`;
+    - the bound `6v − 1/2`, the trivial `7v − 1` and their difference `1/2 − v`;
+    - with `N` replaced by the count, `K² = q^{6v}`, the bound `5v − 1/2` and its excess `1/2 − v ≥ 0` over the main term `6v − 1`;
+    - the values `11/6`, `31/18`, `13/9` and `4/3` at `v = 7/18`.
+  - The two new mutations:
+    - Theorem 12's first term without its factor `(RS + N)`;
+    - the norm of `b` counted over every `n` up to `N`.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 6 new reports. All are of class L10 (a nested list directly after its item's text), the style of the entries around them: 1 in IDEAS.md and 5 here. The counts for SEVEN-THIRDS.md (33) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §30.
+- `frontier/linnik/IDEAS.md`: B31 and a marker on B30. The register now lists 74 entries: 46 CLOSED, 9 REDUCED, 1 OPEN, 13 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R27) and two mutations.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the spectral test of B30 and the computation with the frequencies' count. ACKNOWLEDGED: core 2 (B7) and B30, which stays OPEN.
+
+**Check 9.**
+
+- (a) Scope.
+  - The closure concerns bounds of Theorem 12's shape, as Drappeau states it, with this assignment of variables. Other assignments were considered: the reciprocal form swaps `A` and `B`, and a smooth variable cannot carry the divisor weight of `A` or `B` whole. No claim is made about spectral methods in general.
+  - The version with the count in place of `N` is our computation. Nothing is claimed about whether a proof would give it.
+- (b) B31 is on the register. B30 stays OPEN, and the open targets stay core 1 and core 2.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** For core 2, a bound that sees both the sparsity of the frequencies `hℓq` and the structure of the coefficients, beyond the shape tested here. For core 1, the large spectrum of the critical Farey set (round 559).

@@ -563,3 +563,12 @@ The owner asked to keep hunting. No unconditional route emerged. The register's 
 - **Bettin–Chandee's Theorem 1.** Here its two terms are `q^{14/15}` and `q^{23/24}`. That saves `q^{7/72}`, against the needed `q^{28/72}`: a quarter of the exponent. At a block `q^v` with `1/3 ≤ v ≤ 1/2` the same bookkeeping needs a saving `q^v`, and their bound gives at most `q^{1/8}`.
 - **A correction.** §28's reading called SIX(δ) equivalent to a fixed-modulus sixth moment with `θ < 1/6`. No such equivalence was shown, and the sentence is struck there.
 - **Reading.** The trilinear form of core 2 is OPEN on the register (B30). In this form it needs a trilinear bound with Kloosterman fractions saving more than `N^{1/2}` in these ranges. That is four times the exponent Bettin–Chandee save. Alternatively, a bound could use the structure of the frequencies `a = hℓ` and of the convolution coefficients. The reduction also owes routine steps this round did not write out: the terms with `gcd(A, B) > 1`, separating the weights, and matching the main term.
+
+## 30. Round 562: spectral bounds for the trilinear form
+
+The owner asked to keep hunting. No unconditional route emerged. The register's B31 records the round, with a marker on B30, and `idea_register.py` (R27) checks the exponents. No probe was run and no search was made. The round read Drappeau's statement of the Deshouillers–Iwaniec bound (arXiv:1504.05549) from its PDF's text layer.
+
+- **Why it was tried.** In B30's form every coefficient is a sum over smooth variables. Deshouillers–Iwaniec's Theorem 12 bounds sums of Kloosterman fractions whose modulus and inverted argument each carry a smooth variable.
+- **What it gives (B31).** At a block `q^v` with `1/3 ≤ v ≤ 1/2` the bound is `q^{6v−1/2}`, against the trivial `q^{7v−1}` and the main term `q^{6v−1}`. It is worse than trivial by `q^{1/2−v}`. Its first term is linear in the frequencies' range `N = q^{4v}`, which the factor `q` in `n = hℓq` makes large.
+- **Sparsity.** Only `q^{4v−1}` of the frequencies occur. With `N` replaced by that count, the same shape gives `q^{5v−1/2}`, above the main term by `q^{1/2−v}`. The theorem does not state that version.
+- **Reading.** Bounds of this shape do not reach B30's target at any block below `q^{1/2}`. B30 stays OPEN.
