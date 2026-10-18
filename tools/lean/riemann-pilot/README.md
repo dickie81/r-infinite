@@ -22106,3 +22106,75 @@ The quotations were checked against the arXiv API's abstracts. The account of Ch
 **Bearing on RH:** none.
 
 **The next step.** Unchanged: H\* carries every route on the register, which still lists 50 entries.
+
+## Round 554: the restricted large sieve; the flat route and integer relations closed (`frontier/linnik/anatomy_probe.py`; SEVEN-THIRDS.md §22; `IDEAS.md` B16, B17, G6; `idea_register.py` check (R19))
+
+**What it is.** The owner's request: "New mathematics", choosing the three-way sign cancellation in Chen–Gupta–Li's `S₃` for sets of minimal energy (core 1). No proof of core 1 emerged. The round records a reformulation, two closed routes with their lemmas, a survey, and measurements of where the critical eigenvalue sits. No Lean changed, and no paper surface is edited.
+
+- **The restricted large sieve.** Let `Δ(W)` be the top eigenvalue of the Gram matrix of a set `W` of characters on `[N, 2N]`. At the critical point (`|W| = q^{2/3}`, `N = q^{7/9}`, `V = N^{5/7}`), the large sieve's `Δ ≤ N + q` gives exactly `|W| ≤ q^{2/3}`. Chen–Gupta–Li's first term, read through their refined moment inequality (round 537), bounds the effective `Δ − N` by `q^{2/3}|W|^{1/2}`, which is `q` again. In compressed-sensing terms the question is an upper restricted-isometry bound `M^{1−δ}` at order `q^{2/3}`, far beyond the square-root bottleneck `q^{5/18}` (B10's marker).
+- **The flat route closed (B16).** Bourgain–Dilworth–Ford–Konyagin–Kutzarova's Lemma 3 reduces isometry bounds to flat sums, and Cauchy–Schwarz against the mean bounds a flat sum through the additive energy `E(A, B)` of subsets of `W`. That route needs `W` to hold no arithmetic progression longer than about `q^{2/9}`. Large-values sets can hold longer ones.
+  - A chirp `b_n = φ(ind n/L)e(−l(ind n/L)²/2)` is large on a progression of length about `q^{5/18}/log q`. The proof is stationary phase plus Pólya–Vinogradov.
+  - Conversely, a progression in a large-values set has length `≪ N²/V² = q^{4/9}` once `V² ≥ Cq log³q`. The proof uses Fejér weights and a pair count.
+  - Adding a small multiple of a chirp to a set of critical size keeps it of critical size. So the large-values property does not imply the condition.
+  - The progressions themselves have restricted large-sieve constant `O(N)` up to logarithms, so what closes is the direct route, not a variant that treats structured parts separately.
+  - `anatomy_probe.py` (A3) exhibits the construction. From `q = 10⁵` on, its windows violate the flat condition at `Θ = q^{1/9}`: `Θ² = 17.66` and `54.99`, against `q^{2/9} = 12.92` and `21.54`.
+- **Integer relations closed (B17).** In `λ² = Σ_b R(b)ρ(b)` for the top eigenvector, the pairs with `n/n′ = s/t` in `ℚ`, `s, t ≤ h < √q`, contribute at most `|W|(κ − 1)^{1/4}h^{1/2}D_h‖a‖²`. The proof is Hölder with `4` and `4/3`, using the injectivity of `(s, t) ↦ s/t mod q`. That is a share `q^{11/12+o(1)}(κ − 1)^{1/4}` of `λ`, below the critical `q` for every `W` of size `q^{2/3}` with `κ ≤ q^{1/3−ε}`. So the critical mass, if any, sits on wrapped relations `tn − sn′ = jq`, `j ≠ 0`, at heights between `M/2` and `√q`.
+- **Where the eigenvalue sits** (A4). For energy_frontier.py's best sets with `κ ≤ 1.25` at `q = 10⁴`, `10⁵` and `10⁶`:
+  - `λ/L = 0.436`, `0.308`, `0.213`;
+  - the integer share of `λ²` is at most `0.0005`;
+  - the share from heights at most `q^{0.4}` is `0.716`, `0.590`, `0.463`;
+  - the share from ratios with `|R(b)| ≥ 0.3|W|` is `0.037`, `0`, `0`, and from `|R(b)| ≥ 0.1|W|` it is `0.634`, `0.495`, `0.314`.
+
+  In the sets found, the eigenvalue spreads over many weakly aligned ratios on wrapped relations, moving to larger heights and weaker alignment as `q` grows.
+- **The survey (G6).** Six arXiv queries:
+  - `abs:"restricted isometry" AND abs:"square-root bottleneck"` (4 hits);
+  - `abs:"restricted isometry" AND abs:Paley` (5);
+  - `abs:"restricted isometry" AND abs:"character" AND abs:deterministic` (2);
+  - `abs:"large sieve" AND abs:"subset of characters"` (0);
+  - `abs:"large sieve" AND abs:"sparse" AND abs:characters` (1);
+  - `abs:"uncertainty principle" AND abs:"multiplicative characters"` (0).
+
+  Together they returned ten distinct abstracts. None states an isometry bound of the kind B10 needs.
+
+**What is checked.**
+
+- `python3 frontier/linnik/anatomy_probe.py` exits 0 (8 min 18 s wall clock here): its gates (A1)–(A4) pass at `q = 10007`, `100003` and `1000003`, and its four mutations are caught.
+  - (A1) checks the exponents in exact arithmetic.
+  - (A2) checks the integer-relation bound on every set. The largest ratio of `|I_h|` to the bound is `4.1·10^{−4}`.
+  - (A3) checks the chirp's window.
+  - (A4) checks the decomposition, with measured error at most `7·10^{−15}` against a gate of `10^{−6}`, and the shares.
+
+  The mutations: the construction's length read as `N/V`; the pairs without coprimality (injectivity fails); the chirp removed (no window on the grid is large); and the (G1) set in place of the `κ ≤ 1.25` set (the alignment gate fails).
+- `python3 frontier/linnik/idea_register.py` exits 0. Its checks (R1) to (R19) pass, and its twenty-three mutations are caught. The two new mutations read the construction's length as `N/V` and the integer-relation bound's `h^{1/2}` as `h`.
+- Bourgain et al.'s Lemma 3 and Theorem 1 were checked against the arXiv TeX source, including the hypothesis `k ≥ 2^{10}`, whose exponent the PDF text layer drops. The other quotations were checked against the arXiv API's abstracts.
+
+**Records.**
+
+- `frontier/linnik/anatomy_probe.py` (new).
+- `frontier/linnik/SEVEN-THIRDS.md` §22.
+- `frontier/linnik/IDEAS.md`: a net-state marker at B10, and the entries B16, B17 and G6. The register now lists 53 entries: 34 CLOSED, 6 REDUCED, 8 SURVEYED, 5 CORE.
+- `frontier/linnik/idea_register.py`: check (R19) and two mutations.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot:
+
+- the compressed-sensing reading of B10;
+- the flat route and its closure, with the two-sided progression bound for large-values sets;
+- the integer-relation bound;
+- the measurements of where the eigenvalue sits.
+
+ACKNOWLEDGED: B10's concentration question (round 546), core 1 and its sharpened target (rounds 528–540), and §12's decay of the concentration (round 532).
+
+**Check 9.**
+
+- (a) Scope.
+  - "Closed in its direct form": B16 closes routes that derive the energy condition from the large-values property and the size. It does not close variants that treat structured parts of `W` separately.
+  - B17's bound is proved for every `W`; its subcriticality needs `κ ≤ q^{1/3−ε}`.
+  - The measurements are of the sets two search methods find, at three `q`.
+  - "None states" is scoped to the ten abstracts.
+- (b) B16, B17 and G6 are on the register. The open target stays core 1, now located in the wrapped part.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Core 1, in the form §22 leaves it: cancellation in the wrapped part `Σ R(b)ρ(b)` over the heights between `M` and `√q`, for the sets of minimal energy. The kernel-checked conditional theorem from H\* remains the narrowest Lean target.

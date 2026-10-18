@@ -121,9 +121,19 @@ Checks.
        |X| > q^{1/2 + eps} of Xi's equidistribution theorem.  Parseval saves (|X||Y|/q)^{1/2} = q^{1/6} over the
        trivial bound.  Summed over chi_2 in W and the M = q/N values of m with that bound, S_3 << N q |W|^2,
        which at N = q^{7/9} is q^{28/9} > q^3.
+  (R19) Round 554's entries, at sigma = 5/7, N = q^{7/9}, |W| = q^{2/3}, V = N^{5/7} and M = q/N.
+       (R19a) B10.  The large sieve gives |W| <= q N/V^2 = q^{2/3}; Chen-Gupta-Li's S_3 bound, read as
+              Delta - N <~ q^{2/3}|W|^{1/2}, is q at |W| = q^{2/3}.  Gershgorin with the coherence sqrt(q)/N gives
+              |W| sqrt(q)/N = q^{7/18} > M = q^{2/9}, and |W| exceeds the square-root bottleneck N/sqrt(q) = q^{5/18}.
+       (R19b) B16.  The flat route needs Theta <= q^{1 - 7/9 - 1/9} = q^{1/9}, hence no progression longer than q^{2/9}.
+              The chirp's progression has length N/(sqrt(q) log q), exponent 5/18 > 2/9, and l sqrt(q) = N there; the
+              Fejer bound's limit is N^2/V^2 = q^{4/9}, valid since V^2 = q^{10/9} exceeds q.  The halves of a progression
+              of even length l <= 60 have E(A, B) = l(l^2 + 2)/12, by brute force.
+       (R19c) B17.  The integer-relation bound |W| (kappa - 1)^{1/4} h^{1/2} at h = q^{1/2} is q^{11/12} < q, and q
+              exactly at the largest energy kappa = L/|W| = q^{1/3}.
 
 Scope.  This checks arithmetic only.  It does not check the analysis behind any closure, nor that a transplanted
-t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs twenty-one mutations, at
+t-aspect theorem holds over the characters mod q.  To show the checks can fail, the script runs twenty-three mutations, at
 least one aimed at each check, and requires each mutation to fail at least one check.
 """
 from fractions import Fraction as F
@@ -703,11 +713,38 @@ def check_R18(mut=None):
     return fails
 
 
+# (R19) Round 554: B10 in compressed-sensing terms, the flat route (B16) and integer relations (B17).
+def check_R19(mut=None):
+    fails = []
+    n, w = F(7, 9), T23
+    v, m = S57 * n, 1 - n
+    if not (1 + n - 2 * v == w and T23 + w / 2 == 1):
+        fails.append("R19a: the large sieve and Chen-Gupta-Li's bound at |W| = q^{2/3}")
+    if not (w + F(1, 2) - n == F(7, 18) > m and n - F(1, 2) == F(5, 18) < w):
+        fails.append("R19a: Gershgorin and the square-root bottleneck")
+    theta = 1 - n - m / 2
+    ap = n - F(1, 2) if mut != "the construction's length read as N/V" else n - v
+    if not (theta == F(1, 9) and ap > 2 * theta and ap + F(1, 2) == n and 2 * n - 2 * v == F(4, 9) > ap
+            and 2 * v > 1):
+        fails.append("R19b: the flat threshold against the progressions of large-values sets")
+    for ell in range(2, 61, 2):
+        r = [0] * ell
+        for x in range(ell // 2):
+            for y in range(ell // 2, ell):
+                r[y - x] += 1
+        if sum(c * c for c in r) != F(ell * (ell * ell + 2), 12):
+            fails.append(f"R19b: E(A, B) at l = {ell}")
+    lemma = w + F(1, 4) if mut != "the integer-relation bound's h^{1/2} read as h" else w + F(1, 2)
+    if not (lemma == F(11, 12) and lemma < 1 and lemma + (1 - w) / 4 == 1):
+        fails.append("R19c: the integer-relation bound")
+    return fails
+
+
 CHECKS = {"R1": check_R1, "R2": check_R2, "R3": check_R3, "R4": check_R4, "R5": check_R5, "R6": check_R6,
           "R7": check_R7, "R8": check_R8, "R9": check_R9, "R11": check_R11, "R12": check_R12,
           "R13": check_R13, "R14": check_R14, "R15": check_R15,
           "R16": check_R16, "R17": check_R17,
-          "R18": check_R18}
+          "R18": check_R18, "R19": check_R19}
 
 MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1 read as r",
              "the Burgess form loses its q^{1/r}", "the amplifier's off-diagonal without the square root on R",
@@ -718,7 +755,8 @@ MUTATIONS = ["Selberg's mollifier exponent doubled", "the subdivision modulus q1
              "the twelfth moment read as T^{5/2}", "the twisted class-II line keeps FMx's 2x",
              "Burgess's q-exponent halved", "BGKS's e_3 read as 1", "Heath-Brown's R^{5/4} read as R^{3/2}",
              "the diagonal term read as N R", "BPRZ's length read as q^{7/9}",
-             "the twist's length read as q^{7/18}", "the outer sums read as one term"]
+             "the twist's length read as q^{7/18}", "the outer sums read as one term",
+             "the construction's length read as N/V", "the integer-relation bound's h^{1/2} read as h"]
 
 
 def main(mut=None):
