@@ -23379,7 +23379,7 @@ The reviewer found no MAJOR. In its words: "Read as written, the conclusion hold
 
 ## Round 578: a certificate for the sieve's loss, and the exponents `2.28` and `2.25` (`frontier/linnik/sieve_route_certificate.py`; `frontier/linnik/SEVEN-THIRDS.md` §§44–45)
 
-**What it is.** After round 577 the lead proposed hardening the sieve route before building on it, starting with its numerics, and the owner replied "Start as suggested". `sieve_route_certificate.py` is new. It proves upper bounds for the loss of SEVEN-THIRDS §44's decomposition: every decision in a bound is exact, every floating-point operation on a bound is rounded outward, Buchstab's `ω` is enclosed and the Type II windows are proved. On the way it found that round 576's rule for decomposition is not sharp. With the sharp rule the loss is certified below `1` at `L = 2.28` from the stack's half-plane and the classical density bounds, and at `L = 2.25` with Chen–Gupta–Li's `7/3`. The analysis of §44 is unchanged, at paper level and unrefereed. No Lean changed, and no paper surface is edited.
+**What it is.** After round 577 the lead proposed hardening the sieve route before building on it, starting with its numerics, and the owner replied "Start as suggested". `sieve_route_certificate.py` is new. It proves upper bounds for the loss of SEVEN-THIRDS §44's decomposition: ~~every decision in a bound is exact,~~ *(Round 579: retracted, false when written. Every test of the region, of evaluability and of decomposition is exact. The comparisons in floating point that feed a bound, `ω`'s zero tests, its table indices and the choice between two bounds, each err on the safe side. Review F2.)* every floating-point operation on a bound is rounded outward, Buchstab's `ω` is enclosed and the Type II windows are proved. On the way it found that round 576's rule for decomposition is not sharp. With the sharp rule the loss is certified below `1` at `L = 2.28` from the stack's half-plane and the classical density bounds, and at `L = 2.25` with Chen–Gupta–Li's `7/3`. The analysis of §44 is unchanged, at paper level and unrefereed. No Lean changed, and no paper surface is edited.
 
 **What is certified** (`sieve_route_certificate.py`, gate C5): a number below `1` that is at least the loss of §44's decomposition run with a window proved to lie inside the Type II window.
 
@@ -23408,7 +23408,7 @@ The reviewer found no MAJOR. In its words: "Read as written, the conclusion hold
 - So SEVEN-THIRDS §44's "The bound converges slowly from above" was false when written. It is struck at source.
 - This resolves round 577's next step: its reviewer's variant m6 (the rule tested at the lower corner) gave `0.7838`, and its decisions held at every point tested.
 
-**The thresholds.** The certificate prints the probe's midpoint estimates near the thresholds: hux at `2.275` is `1.0279` and at `2.28` is `0.9007`; cons at `2.24` is `1.1692` and at `2.245` is `0.9851`. At `n = 600` it prints hux at `2.27` (`1.2845`) and cons at `2.24` (`1.2545`), both above `1`.
+**The thresholds.** ~~The certificate prints the probe's midpoint estimates near the thresholds: hux at `2.275` is `1.0279` and at `2.28` is `0.9007`; cons at `2.24` is `1.1692` and at `2.245` is `0.9851`.~~ *(Round 579: retracted, false when written. The certificate prints the probe's midpoint estimates for hux at `2.275` (`1.0279`) and cons at `2.245` (`0.9851`). Those for hux at `2.28` (`0.9007`) and cons at `2.24` (`1.1692`) are printed by `sieve_route_probe.py`. Review F1.)* At `n = 600` the certificate prints hux at `2.27` (`1.2845`) and cons at `2.24` (`1.2545`), both above `1`.
 
 **A correction.** SEVEN-THIRDS §44's Scope said that the stack's `CharDensity` statements "are for heights `O(log q)`". `Linnik.CharDensity A B C` (`external/pnt/LinnikDeduction.lean`) holds for every `T ≥ 2`, so the sentence was false when written; it is struck at source. What separates it from §44's input is a uniform exponent, and a count of characters rather than of zeros. §44's separation of variables counts zeros.
 
@@ -23432,7 +23432,7 @@ The reviewer found no MAJOR. In its words: "Read as written, the conclusion hold
 - `frontier/linnik/IDEAS.md`: a marker in D5. The register is unchanged at 88 entries.
 - STRUCTURAL-REVIEW §6: a marker on the line for exponents below `7/3`.
 
-**Check 4.** The non-sharp rule and the false sentences are novel: §44's Scope and round 577's review did not record them.
+**Check 4.** ~~The non-sharp rule and the false sentences are novel: §44's Scope and round 577's review did not record them.~~ *(Round 579: retracted, false when written. Round 577's next step already said that a sharper rule for decomposition on boundary cells could tighten the upper bounds, and §45 says so. What was novel is that the rules differ on a region of positive area, so the old bound does not tend to the loss, and the two false sentences. Review F5.)*
 
 **Check 9.** (a) The two strikes and the scoped claims: the exponents are for this decomposition, with no optimality claimed, and the certificate checks the integral, not §44's analysis. (b) No change to the register's targets. (c) No criterion is fed a signal.
 
@@ -23444,4 +23444,71 @@ The reviewer found no MAJOR. In its words: "Read as written, the conclusion hold
 - the literature check;
 - an independent review of this round.
 
-The coarse certificate at `L = 2.32` uses 434 cells of depth 2, of which 187 are decomposed, and 473 cells of depth 4.
+The coarse certificate at `L = 2.32` uses 434 cells of depth 2, of which 187 are decomposed, and 473 cells of depth 4. *(Round 579: each of these bounds also rests on the enclosure of `ω`, which a count of cells leaves out. Review F6.)*
+
+## Round 579: the independent review of round 578 (`frontier/linnik/sieve_route_certificate.py`; `frontier/linnik/SEVEN-THIRDS.md` §§44–45)
+
+**What it is.** A fresh-context reviewer, the repository's `hostile-reviewer` agent, reviewed round 578 at b57fc67. It reran the certificate: exit 0 in 403 seconds, with output identical to the recorded run line for line, timing aside. It found no MAJOR, one minor and five cosmetic defects, and recorded one observation outside its brief. Under Check 3 the lead verified each finding directly. All six are accepted and swept. No certified number changes, no Lean changed, and no paper surface is edited.
+
+**Findings and dispositions.**
+
+- **F1 (minor).** §45 said the four midpoint values near the thresholds were "printed by the certificate". README round 578 said the same. The certificate prints only two of them: hux at `2.275` (`1.0279`) and cons at `2.245` (`0.9851`). `sieve_route_probe.py` prints the other two: hux at `2.28` (`0.9007`) and cons at `2.24` (`1.1692`).
+  - The lead searched the recorded certificate output for each value and found 1, 0, 0 and 1 hits.
+  - The claim is struck at source on both surfaces. The values themselves are right.
+  - The strike in README round 578 left "it prints" without its antecedent, so that sentence now names the certificate.
+- **F2 (cosmetic).** "every decision in a bound is exact" was wider than what holds. It appeared in the certificate's docstring, in §45 and in README round 578.
+  - Some comparisons that feed a bound are in floating point: `ω`'s zero tests, its table indices and the choice between two bounds. Each errs on the safe side.
+  - The lead read the certificate's lines 190–211 and 404–416 and took a census of its comparisons. The zero tests and table indices occur in both `sup` and `inf`, so the sweep names these kinds and gives no count.
+  - The universal is struck on the two markdown surfaces and rewritten in the docstring.
+  - "exact decisions" appeared in four markers: two in §44, D5's, and STRUCTURAL-REVIEW §6's. It is now "exact tests of the region, of evaluability and of decomposition".
+- **F3 (cosmetic).** Two exponent claims were loosely scoped, and both are now scoped.
+  - §44's statement marker said "certified" without an object. It now says the loss bounds are certified, and that the certificate checks the loss integral, not §44's analysis.
+  - §45 said "Linnik's exponent at paper level is `2.28`". It now says that `x = q^{2.28}` suffices for this decomposition.
+- **F4 (cosmetic).** §45's "With the sharp rule the certified bounds approach them as the cells shrink" was general. The round printed the bounds over grid sizes only for hux at `2.29`. The sentence is struck as unscoped.
+  - The reviewer's scratch runs show the same pattern at the certified exponents. Hux at `2.28` gives `1.1010`, `1.0012` and `0.9520` at `n = 150`, `300` and `600`; cons at `2.25` gives `1.0790`, `0.9638` and `0.9117`.
+  - These runs are not committed.
+- **F5 (cosmetic).** README round 578's Check 4 called the non-sharp rule novel. But round 577's next step already expected a sharper rule, and §45 says so. The claim is struck.
+  - What was novel is that the two rules differ on a region of positive area, so the old bound does not tend to the loss.
+  - The two false sentences were novel too.
+- **F6 (cosmetic).** The coarse certificate's size at `L = 2.32` was given in cells only. Every one of its bounds also rests on the enclosure of `ω`.
+  - A marker now says so in §45 and in README round 578, and the docstring says so too.
+  - The reviewer's scratch count is 518650 intervals of width `2^{−16}`, up to the largest argument `8.914`. A coarser table was not tried.
+- **O1 (observation, outside the brief; held).** The reviewer wrote a scratch Monte Carlo of §44's pointwise rule. It puts the loss about `0.01` above the midpoint estimates near the thresholds:
+
+  | case | Monte Carlo | midpoint at `(400, 200)` |
+  |---|---|---|
+  | hux `2.275` | `1.0382 ± 0.0022` | `1.0279` |
+  | hux `2.28` | `0.9096 ± 0.0020` | `0.9007` |
+  | cons `2.245` | `0.9953 ± 0.0022` | `0.9851` |
+  | cons `2.25` | `0.8576 ± 0.0020` | `0.8561` |
+
+  - The cause is the quadrature: the midpoint estimate rises as the grid in `(α₁, α₂)` is refined. The lead reran the probe's `midpoint` for hux at `2.28` and got `0.9007` at `(400, 200)` and `0.9041` at `(800, 200)`, as the reviewer reported.
+  - Every sentence of round 578 speaks of midpoint estimates, so each stays true, and the certified exponents are unaffected.
+  - At the upper end of the cons bracket, `2.245`, the Monte Carlo puts the loss about two standard errors below `1`.
+
+**The lead's verification.**
+
+- `grep -c` for `1.0279`, `0.9007`, `1.1692` and `0.9851` in the recorded certificate output gave 1, 0, 0 and 1. The probe's `main` prints its midpoint row for hux at `2.26`, `2.28`, `2.29` and `2.32`, and for cons at `2.24`, `2.26` and `2.27`.
+- The certificate's docstring change is docstring-only. With docstrings stripped, its syntax tree equals HEAD's, so its run is not owed again.
+- The probe's `midpoint` was rerun for hux at `2.28` and cons at `2.24`, at `(400, 200)` and `(800, 200)`: hux `0.9007` and `0.9041`, cons `1.1692` and `1.1745`, so the estimate rises with the finer grid in both cases (scratch, `scratchpad/r579/o1_check.py`).
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class: README.md goes from 1810 to 1816 reports, six new ones, all of class L10 (a nested list directly after its item's text), the style of the entries around them; STRUCTURAL-REVIEW.md (100), IDEAS.md (50) and SEVEN-THIRDS.md (60) are unchanged. None of these files is a paper surface.
+
+**Checked and held** (the reviewer's list, with its evidence in its report).
+
+- The sharp rule is valid. Every non-evaluable point of a decomposed cell meets the condition, and nothing else in §44 conditions the decomposition.
+- An independent reimplementation agrees with all five certificates to within `5·10⁻¹⁶`, and every allowed cell is decomposed.
+- The outward rounding holds at every step, and `inflate`'s bound holds.
+- The enclosure of `ω` and C2's tolerance are sound, and the windows are proved.
+- No filter in the regions removes positive mass.
+- Each of the ten sabotage cases fails its gate.
+- The convergence strike in §44 holds, including at hux `2.30`, the case the struck sentence was about. The set where the two rules differ was characterised exactly, with area `0.00185` at hux `2.29`.
+- The `CharDensity` strike holds.
+- Every other number matches, as does the quote "Start as suggested".
+
+**Check 4.** The reviewer classed all six findings as novel, and the lead agrees: none is in §44's Scope or in round 577's records.
+
+**Check 9.** (a) The sweep scopes the universals of F2, F3 and F4. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Round 580 lands the lemma-by-lemma write-up of §44's argument and the literature check. The review was run although these files are outside CLAUDE.md's trigger list. A review of the write-up can cover this sweep as well.

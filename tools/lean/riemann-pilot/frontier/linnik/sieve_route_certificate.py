@@ -2,10 +2,11 @@
 section 44; sieve_route_probe.py).
 
 sieve_route_probe.py estimates the loss of section 44's decomposition and bounds it from above in double precision,
-without directed rounding.  This file proves upper bounds.  Every decision in a bound is exact, every floating-point
-operation on a bound is rounded outward, Buchstab's omega is enclosed, and the windows are proved.  Its rule for
-decomposition is sharper than the probe's (below), and it certifies the exponents 2.28 (hux) and 2.25 (cons) as well as
-section 44's 2.29 and 2.27.
+without directed rounding.  This file proves upper bounds.  Every test of the region, of evaluability and of
+decomposition is exact (the comparisons in floating point that feed a bound, omega's zero tests, its table indices and
+the choice between two bounds, err on the safe side), every floating-point operation on a bound is rounded outward,
+Buchstab's omega is enclosed, and the windows are proved.  Its rule for decomposition is sharper than the probe's
+(below), and it certifies the exponents 2.28 (hux) and 2.25 (cons) as well as section 44's 2.29 and 2.27.
 
 What is certified.  For (hux, 2.28), (cons, 2.25), (hux, 2.29) and (cons, 2.27) with n = 600 cells a side, and for
 (hux, 2.32) with n = 50: a number below 1 that is at least the loss of section 44's decomposition (the probe's
@@ -77,10 +78,11 @@ at step 2.5e-5, whose error is far below 1e-8; the probe's midpoint estimate).
        their alpha3 cell inside the depth-3 region, h^4 times the infimum of the integrand: omega from the lower
        enclosure, the prefactor at the upper corner, rounded inward.  The lower bound must be positive for at least
        100 of the sampled cells.
-Printed, not gated: the size of the coarse certificate (hux 2.32, n = 50); hux at 2.29 with n = 150, 300 and 600 under
-the probe's rule and under the sharp rule, against the midpoint estimate at (400, 200), with the number and area of the
-cells that the sharp rule may decompose and the probe's rule refuses; hux at 2.27 and cons at 2.24 with n = 600, both
-above 1; the probe's midpoint estimates at (400, 200) for hux at 2.275 and cons at 2.245.
+Printed, not gated: the size of the coarse certificate in cells (hux 2.32, n = 50; its bounds also use the enclosure of
+omega, which the count leaves out); hux at 2.29 with n = 150, 300 and 600 under the probe's rule and under the sharp
+rule, against the midpoint estimate at (400, 200), with the number and area of the cells that the sharp rule may
+decompose and the probe's rule refuses; hux at 2.27 and cons at 2.24 with n = 600, both above 1; the probe's midpoint
+estimates at (400, 200) for hux at 2.275 and cons at 2.245.
 Sabotage cases, each of which must fail its gate: (k0) no outward rounding (C0); (k1) u1' from the pieces' right ends
 without the last one, 11/12 (C1); (k2) omega's upper bound without the growth of F within an interval (C2); (k3) the
 prefactors rounded to nearest (C3); (k4) the conditions for decomposition tested at the lower corner (C4); (k5) a
