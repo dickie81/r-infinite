@@ -7,12 +7,14 @@ decomposition is exact (the comparisons in floating point that feed a bound, ome
 the choice between two bounds, err on the safe side), every floating-point operation on a bound is rounded outward,
 Buchstab's omega is enclosed, and the windows are proved.  Its rule for decomposition is sharper than the probe's
 (below), and it certifies the exponents 2.28 (hux) and 2.25 (cons) as well as section 44's 2.29 and 2.27.  With the
-uniform curve unif, A = 12/5 + 1/2000 (README round 582), it certifies 2.333, below 7/3.
+uniform curve unif, A = 12/5 + 1/2000 (README round 582), it certifies 2.333, below 7/3.  With the curve step, unif
+below 5/6 and 101/50 on [5/6, 11/12] (README round 589; SIEVE-ROUTE.md section 12), it certifies 2.333 at n = 70, also
+with omega replaced by a crude upper bound (check C7).
 
 What is certified.  For (hux, 2.28), (cons, 2.25), (hux, 2.29), (cons, 2.27) and (unif, 2.333) with n = 600 cells a
-side, and for (hux, 2.32) with n = 50: a number below 1 that is at least the loss of section 44's decomposition (the
-probe's docstring states it), run with a window (u1', u2') proved to lie inside the window of section 44's Type II
-lemma.
+side, for (step, 2.333) with n = 70, and for (hux, 2.32) with n = 50: a number below 1 that is at least the loss of
+section 44's decomposition (the probe's docstring states it), run with a window (u1', u2') proved to lie inside the
+window of section 44's Type II lemma.
 The loss is an integral of Buchstab's omega over regions of [v, 1/2]^2 and [v, 1/2]^4.  The bound is a sum over the
 cells of a grid of side h: h^2 (or h^4) times an upper bound for the integrand on the cell.  The gates check
 arithmetic and implementation, not analysis.  Section 44 gives the argument (the Type II lemma, Harman's fundamental
@@ -45,13 +47,14 @@ How.
     on an interval of arguments is at most the largest hi_i over the table intervals that meet it (a sparse table),
     and the infimum is at least the least lo_i (or 0 if the interval reaches below 1).
   Windows.  On each piece of a curve, A(beta)(1 - beta) does not increase: its derivative is -3/(2 - beta)^2 for
-    Ingham's 3/(2 - beta), -6/(3 beta - 1)^2 for Huxley's 3/(3 beta - 1), -7/3 for the constant 7/3 and -A for unif's
-    constant A; on unif's first piece, where (H2) is the trivial bound, A(beta)(1 - beta) = 1.  So on [b0, b1] the
+    Ingham's 3/(2 - beta), -6/(3 beta - 1)^2 for Huxley's 3/(3 beta - 1), -7/3 for the constant 7/3 and -A for the
+    constants A of unif and step; on the first piece of unif and of step, where (H2) is the trivial bound,
+    A(beta)(1 - beta) = 1.  So on [b0, b1] the
     numerator of lower(beta) is at most A(b0)(1 - b0)/2 + 1/2 - L(1 - b1).  u1' is the largest value of lower at the
     pieces' right ends, divided by L, plus 2^-30, rounded up to a multiple of 1/DEN.  Branch and bound in exact
     rational arithmetic proves lower(beta) <= u1' L on (1/2, 11/12].  At beta = 1/2 the bin's bound holds for every
     length when L > 2.  A is monotone on each piece, so its maximum Amax (12/5 for hux, 7/3 for cons, 12/5 + 1/2000
-    for unif) is at the pieces' ends.  u2' is min((L - Amax/2)/L, 1/2) minus 2^-30, rounded down.
+    for unif and step) is at the pieces' ends.  u2' is min((L - Amax/2)/L, 1/2) minus 2^-30, rounded down.
 
 Checks (references: the closed forms of omega on [1, 4) at 40 digits; above 4, sieve_route_probe.py's trapezoid table
 at step 2.5e-5, whose error is far below 1e-8; the probe's midpoint estimate).
@@ -73,8 +76,8 @@ at step 2.5e-5, whose error is far below 1e-8; the probe's midpoint estimate).
        its depth-4 region that is not evaluable lies in a counted depth-4 cell.  (iv) An independent implementation of
        the sharp rule passes every decomposed cell.  (v) At 1500 random points of random candidate cells and 750 of
        random counted depth-4 cells, the cell bound is at least h^2 (or h^4) times the integrand at the point.
-  (C5) The certificates: hux 2.28, cons 2.25, hux 2.29, cons 2.27 and unif 2.333 at n = 600 below 1; hux 2.32 at
-       n = 50 below 1;
+  (C5) The certificates: hux 2.28, cons 2.25, hux 2.29, cons 2.27 and unif 2.333 at n = 600 below 1; step 2.333 at
+       n = 70 below 1; hux 2.32 at n = 50 below 1;
        and hux 2.30 at n = 150 at least the probe's midpoint estimate at (200, 100).
   (C6) Decomposition costs from below (hux, 2.29, n = 200).  For 600 random decomposed cells that lie inside the
        depth-2 region (surely in the region and surely not evaluable), the certified cost is at least a lower bound
@@ -82,8 +85,12 @@ at step 2.5e-5, whose error is far below 1e-8; the probe's midpoint estimate).
        their alpha3 cell inside the depth-3 region, h^4 times the infimum of the integrand: omega from the lower
        enclosure, the prefactor at the upper corner, rounded inward.  The lower bound must be positive for at least
        100 of the sampled cells.
+  (C7) A crude bound for omega (README round 589).  It is 0 below 1, 1/t on [1, 2), where omega(t) = 1/t, and
+       OMEGA_TOP = 0.5672 on [2, 16), rounded outward like the rest.  The gate: the enclosure's upper bound hi is at
+       most OMEGA_TOP on every table interval in [2, 16), so omega is too, given C2; and the certificate for step at
+       2.333 with n = 70 is below 1 with the crude bound in place of the enclosure.
 Printed, not gated: the size of the coarse certificate in cells (hux 2.32, n = 50; its bounds also use the enclosure of
-omega, which the count leaves out); hux at 2.29 with n = 150, 300 and 600 under the probe's rule and under the sharp
+omega, which the count leaves out), and that of step's at 2.333 (n = 70); hux at 2.29 with n = 150, 300 and 600 under the probe's rule and under the sharp
 rule, against the midpoint estimate at (400, 200), with the number and area of the cells that the sharp rule may
 decompose and the probe's rule refuses; hux at 2.27 and cons at 2.24 with n = 600, both above 1; the probe's midpoint
 estimates at (400, 200) for hux at 2.275 and cons at 2.245.
@@ -92,7 +99,7 @@ without the last one, 11/12 (C1); (k2) omega's upper bound without the growth of
 prefactors rounded to nearest (C3); (k4) the conditions for decomposition tested at the lower corner (C4); (k5) a
 depth-2 cell dropped when its centre is evaluable (C4); (k6) the condition on alpha3 left out (C4); (k7) the
 prefactors taken at the upper corner (C4); (k8) decomposition costs set to 0 (C6); (k9) sums neither inflated nor
-rounded (C0).  The rounding of the cell computations is below what the point tests (C4) can see; C0 and C3 test it
+rounded (C0); (k10) the crude bound's top value set to 0.56, below the maximum of omega (C7).  The rounding of the cell computations is below what the point tests (C4) can see; C0 and C3 test it
 against exact arithmetic.
 
 Scope.  The certificate bounds the integral that defines the loss of this decomposition; it does not check that the
@@ -116,10 +123,12 @@ NW = 1 << 16
 UMAX = 16
 EPS53 = 2.0 ** -53
 MARGIN = Fr(1, 1 << 30)
+STEP_CASE = ("step", Fr(2333, 1000), 70)
 CASES = (("hux", Fr(228, 100), 600), ("cons", Fr(225, 100), 600), ("hux", Fr(229, 100), 600),
-         ("cons", Fr(227, 100), 600), ("unif", Fr(2333, 1000), 600), ("hux", Fr(232, 100), 50))
+         ("cons", Fr(227, 100), 600), ("unif", Fr(2333, 1000), 600), STEP_CASE, ("hux", Fr(232, 100), 50))
+OMEGA_TOP = 0.5672
 SABOTAGE = {"k0": "C0", "k1": "C1", "k2": "C2", "k3": "C3", "k4": "C4", "k5": "C4", "k6": "C4", "k7": "C4",
-            "k8": "C6", "k9": "C0"}
+            "k8": "C6", "k9": "C0", "k10": "C7"}
 
 
 # ------------------------------------------------------------------------------------------------------- rounding
@@ -215,6 +224,22 @@ class OmegaBounds:
         return np.where(zero, 0.0, _query(self.st_lo, np.minimum, l, r))
 
 
+class CrudeOmega:
+    """An upper bound for the supremum of omega on intervals of arguments, without the table: 0 below 1, 1/t on
+    [1, 2) (decreasing, so 1/lo on [lo, hi]), and top on [2, 16).  C7 checks top against the enclosure."""
+
+    def __init__(self, top=OMEGA_TOP):
+        self.top = top
+
+    def sup(self, lo_arg, hi_arg):
+        lo_arg, hi_arg = np.asarray(lo_arg, dtype=float), np.asarray(hi_arg, dtype=float)
+        if np.any(hi_arg >= UMAX):
+            raise ValueError("omega argument beyond the table")
+        inv = up(1.0 / np.maximum(lo_arg, 1.0))
+        out = np.where(lo_arg >= 2.0, self.top, np.where(hi_arg < 2.0, inv, np.maximum(inv, self.top)))
+        return np.where(hi_arg < 1.0, 0.0, out)
+
+
 def omega_ref(u, fine):
     """omega at the rational point u: closed forms at 40 digits on [1, 4), the probe's fine table above 4."""
     mpmath.mp.dps = 40
@@ -236,8 +261,9 @@ def omega_ref(u, fine):
 A_U = Fr(12, 5) + Fr(1, 2000)
 PIECES = {"hux": ((Fr(1, 2), Fr(3, 4), "ing"), (Fr(3, 4), Fr(11, 12), "hux")),
           "cons": ((Fr(1, 2), Fr(5, 7), "ing"), (Fr(5, 7), Fr(16, 21), "c73"), (Fr(16, 21), Fr(11, 12), "hux")),
-          "unif": ((Fr(1, 2), 1 - 1 / A_U, "cap"), (1 - 1 / A_U, Fr(11, 12), "uni"))}
-AMAX = {"hux": Fr(12, 5), "cons": Fr(7, 3), "unif": A_U}
+          "unif": ((Fr(1, 2), 1 - 1 / A_U, "cap"), (1 - 1 / A_U, Fr(11, 12), "uni")),
+          "step": ((Fr(1, 2), 1 - 1 / A_U, "cap"), (1 - 1 / A_U, Fr(5, 6), "uni"), (Fr(5, 6), Fr(11, 12), "stp"))}
+AMAX = {"hux": Fr(12, 5), "cons": Fr(7, 3), "unif": A_U, "step": A_U}
 
 
 def A_of(kind, b):
@@ -249,6 +275,8 @@ def A_of(kind, b):
         return 1 / (1 - b)
     if kind == "uni":
         return A_U
+    if kind == "stp":
+        return Fr(101, 50)
     return Fr(7, 3)
 
 
@@ -672,10 +700,18 @@ def c6(om, mut=None, cells=600, seed=5786):
                 "below_lower": low}
 
 
+def c7(om, mut=None):
+    top = 0.56 if mut == "k10" else OMEGA_TOP
+    hi_max = float(np.max(om.hi[2 * NW:]))
+    bound = Cert(STEP_CASE[1], STEP_CASE[0], STEP_CASE[2], CrudeOmega(top), mut).outer()
+    return hi_max <= top and bound < 1, {"hi_max_2_16": hi_max, "top": top, "step2333_n70_crude": bound}
+
+
 def run(fine, mid, mut=None, full=False):
     om = OmegaBounds(mut)
     gates = {"C0": lambda: c0(mut), "C1": lambda: c1(mut), "C2": lambda: c2(om, fine), "C3": lambda: c3(om, mut),
-             "C4": lambda: c4(om, fine, mut), "C5": lambda: c5(om, mid, mut, full), "C6": lambda: c6(om, mut)}
+             "C4": lambda: c4(om, fine, mut), "C5": lambda: c5(om, mid, mut, full), "C6": lambda: c6(om, mut),
+             "C7": lambda: c7(om, mut)}
     return {k: f() for k, f in gates.items()}
 
 
@@ -691,6 +727,11 @@ def main():
     tot, rec = c.outer(record=True)
     terms = sum(int(c.inner(i, j)[1].sum()) for i, j in np.argwhere(rec["use_ref"]))
     print(f"  coarse certificate hux 2.32, n = 50: bound {tot:.6f}; {int(rec['cand'].sum())} depth-2 cells, "
+          f"{int(rec['use_ref'].sum())} decomposed, {terms} depth-4 cells", flush=True)
+    c = Cert(STEP_CASE[1], STEP_CASE[0], STEP_CASE[2], om)
+    tot, rec = c.outer(record=True)
+    terms = sum(int(c.inner(i, j)[1].sum()) for i, j in np.argwhere(rec["use_ref"]))
+    print(f"  certificate step 2.333, n = 70: bound {tot:.6f}; {int(rec['cand'].sum())} depth-2 cells, "
           f"{int(rec['use_ref'].sum())} decomposed, {terms} depth-4 cells", flush=True)
     rows, gaps = [], []
     for n in (150, 300, 600):

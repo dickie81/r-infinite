@@ -12,7 +12,7 @@ Round 580. This is SEVEN-THIRDS.md §44's argument, with §45's rule for decompo
 
 - (H1) is a theorem of the stack. (H2) with hux is the pair of classical density bounds in Chen–Gupta–Li's statement; cons adds their `7/3`, from a preprint.
 - No step uses that `q` is prime.
-- With the curve unif of §2 the same holds with `x = q^{2.333}`, below `q^{7/3}` (round 582; SEVEN-THIRDS §47). The curves that depend on `σ` matter only for the lower exponents.
+- With the curve unif of §2 the same holds with `x = q^{2.333}`, below `q^{7/3}` (round 582; SEVEN-THIRDS §47). The curves that depend on `σ` matter only for the lower exponents. *(Round 589: the same holds with the curve step of §12, whose certificate at `2.333` is much smaller; there a curve that depends on `σ` matters for the size of the certificate.)*
 - More generally, the argument gives the theorem at every `L > 2` for which some window strictly inside the Type II window of §3 makes the loss of §6 less than `1`. The certificate proves this at the stated values.
 
 The plan: the Type II estimate (§3) with the separation of variables (§4), then Type I and Harman's fundamental theorem (§5), then the decomposition and the final count (§6).
@@ -34,10 +34,10 @@ The plan: the Type II estimate (§3) with the separation of variables (§4), the
 - **(H2)** For every `q ≥ 1`, `1/2 ≤ σ ≤ 1` and `T ≥ 2`, `Σ_{χ mod q} N(σ, T, χ) ≤ (qT)^{A(σ)(1−σ)+η(qT)}` with `η(Q) → 0` as `Q → ∞`. Here `N(σ, T, χ)` counts the zeros `ρ = β + iγ` of `L(s, χ)` with `β ≥ σ` and `|γ| ≤ T`, and `A` is one of three curves *(round 584: the count read "two"; review C1)*:
   - hux: `A(σ) = 3/(2 − σ)` for `σ ≤ 3/4` and `3/(3σ − 1)` for `σ ≥ 3/4`;
   - cons: `A(σ) = 3/(2 − σ)` for `σ ≤ 5/7` and `min(7/3, 3/(3σ − 1))` for `σ ≥ 5/7`;
-  - unif (round 582): `A(σ) = min(12/5 + 1/2000, 1/(1 − σ))`, Huxley's uniform exponent with a slack of `1/2000`, capped by the trivial count. hux implies it, since `A_hux(σ)(1 − σ) ≤ min(12/5 · (1 − σ), 1)`.
+  - unif (round 582): `A(σ) = min(12/5 + 1/2000, 1/(1 − σ))`, Huxley's uniform exponent with a slack of `1/2000`, capped by the trivial count. hux implies it, since `A_hux(σ)(1 − σ) ≤ min(12/5 · (1 − σ), 1)`. *(Round 589: a fourth curve, step, is defined in §12.)*
 
   Chen–Gupta–Li (arXiv:2507.08296v2, p. 2) state the two classical bounds as (1.4) and (1.5); SEVEN-THIRDS §44 quotes them. The `7/3` is their main theorem.
-- Used properties of the curves: `A(σ)(1 − σ) ≤ 1` on `[1/2, 1]`. For hux and cons equality holds only at `σ = 1/2`, where `A = 2`; for unif it holds on `[1/2, 1 − 1/(12/5 + 1/2000)]`, and Lemma 2's sum over the dyadic ranges then costs a power of `log x`. The largest value of `A` is `12/5` (hux), `7/3` (cons) or `12/5 + 1/2000` (unif).
+- Used properties of the curves: `A(σ)(1 − σ) ≤ 1` on `[1/2, 1]`. For hux and cons equality holds only at `σ = 1/2`, where `A = 2`; for unif it holds on `[1/2, 1 − 1/(12/5 + 1/2000)]`, and Lemma 2's sum over the dyadic ranges then costs a power of `log x`. The largest value of `A` is `12/5` (hux), `7/3` (cons) or `12/5 + 1/2000` (unif). *(Round 589: step, §12, has unif's equality interval and largest value.)*
 - **(T1) Orthogonality.** `Σ_{χ mod q} |Σ_{m≤P} a_mχ(m)|² ≤ (P + q)Σ|a_m|²`. Proof: the left side is `φ(q)Σ_{(r,q)=1}|Σ_{m≡r} a_m|²`, and Cauchy–Schwarz in each class gives at most `φ(q)(P/q + 1)Σ|a_m|²`. Lean: `LinnikHybrid.sum_chars_norm_sq_le` is the first step.
 - **(T2) Zeros and `L′/L`** (standard). For `χ ≠ χ₀` mod `q` and `s = σ + iτ` with `1/2 ≤ σ ≤ 2`, `L′/L(s, χ) = Σ_{|γ−τ|≤1} 1/(s − ρ) + O(log(q(|τ| + 2)))`. At most `O(log(q(|τ| + 2)))` zeros have `|γ − τ| ≤ 1`. For an imprimitive `χ` the Euler factors at the primes dividing `q` add `O(log q)` on `σ ≥ 1/2`.
 - **(T3) The fundamental lemma** (standard, dimension 1). If `|C_d| = Xg(d) + r_d` for `d | P(z)`, with `g` multiplicative and `0 ≤ g(p) < 1`, then `S(C, z) = X∏_{p<z}(1 − g(p))(1 + O(e^{−s})) + O(Σ_{d≤D, d|P(z)}|r_d|)`, where `s = log D/log z ≥ 1`.
@@ -162,6 +162,7 @@ With `loss(L) < 1` and `ε₁` small, the right side is positive for large `q`, 
 
 - windows `(u₁′, u₂′)` inside `(u₁, u₂)`, by exact branch and bound;
 - `loss(L) ≤ 0.9757` for unif at `L = 2.333` (round 582) *(round 584: it read `0.9756`, rounded down from the printed `0.9756129805606728`; review F1)*;
+- `loss(L) ≤ 0.8579` for step at `L = 2.333` with `n = 70`, and `≤ 0.8660` with check C7's crude bound for `ω` (round 589, §12);
 - `loss(L) ≤ 0.9521` for hux at `L = 2.28`, and `≤ 0.9117` for cons at `L = 2.25`, with the decomposition of §6 run on those windows, and the bounds `0.7822`, `0.6231` and `0.8293` at hux `2.29`, cons `2.27` and hux `2.32` *(round 584: rounded up. Four of them read `0.9520`, `0.7821`, `0.6230` and `0.8292`, rounded down from the printed `0.95201853…`, `0.78213773…`, `0.62302589…` and `0.82922167…`; review F1)*.
 
 Midpoint estimates put the thresholds of this decomposition between `2.275` and `2.28` (hux) and between `2.24` and `2.245` (cons). They are estimates: they rise as the grid is refined, and the scratch Monte Carlo of round 579's review puts the loss about `0.01` above them near the thresholds (README round 579, O1).
@@ -188,9 +189,9 @@ Midpoint estimates put the thresholds of this decomposition between `2.275` and 
   - Lemma 2 (it needs zero counts, or a smoothing that keeps the heights below `x^ε`, where a count of characters suffices; that smoothing is not worked out here, round 581) *(round 586: §10 works it out)*;
   - Proposition 3, the Type II estimate with its bins and the measure `∏ k(τ_i)` *(added in round 581; review F4)*;
   - Lemma 4: Perron's formula truncated at a sharp cut-off, for several conditions at once, each with its own height *(added in round 581; review F4)* *(round 586: §10 replaces it by Lemmas 4′ and 4″)*;
-  - Huxley's bound `3(1 − σ)/(3σ − 1)` for each `σ` in `[3/4, 11/12]`. Round 527 proves the uniform `12/5` on that range with one choice of its parameters; Huxley's curve needs a choice that depends on `σ`;
+  - Huxley's bound `3(1 − σ)/(3σ − 1)` for each `σ` in `[3/4, 11/12]`. Round 527 proves the uniform `12/5` on that range with one choice of its parameters; Huxley's curve needs a choice that depends on `σ` *(round 589: for `x = q^{2.333}` the curve step needs one constant beyond `12/5`, `101/50` on `[5/6, 11/12]`, and `LinnikStep.charDensity_step` proves it; §12)*;
   - Buchstab's identity, the fundamental lemma, Harman's fundamental theorem, and the asymptotics of rough numbers;
-  - a kernel-checked bound for the loss. At `L = 2.32` the certificate needs 434 cells of depth 2 and 473 of depth 4, and every bound rests on an enclosure of `ω` on intervals of width `2^{−16}`. Round 579's review counted 518650 of them in a scratch run, up to the argument `8.914`.
+  - a kernel-checked bound for the loss. At `L = 2.32` the certificate needs 434 cells of depth 2 and 473 of depth 4, and every bound rests on an enclosure of `ω` on intervals of width `2^{−16}`. Round 579's review counted 518650 of them in a scratch run, up to the argument `8.914`. *(Round 589: with step at `L = 2.333`, 916 cells of depth 2 and 1568 of depth 4 at `n = 70`, and a crude bound for `ω` suffices; §12.)*
 
 **Literature.** IDEAS.md G19 records the literature check of round 580.
 
@@ -219,11 +220,11 @@ Midpoint estimates put the thresholds of this decomposition between `2.275` and 
   - It follows from the stack's prime number theorem (`psi_isBigO_eleven_twelfths`), by partial summation and induction on the number of prime factors.
   - Mertens' theorem is in PNT+ at 650d312 (`IEANTN/Mertens.lean`, `sum_prime_div_eq`; checked), but not among the vendored files.
 - **M7. The loss in Lean.** An enclosure of `ω`, and a bound for the loss integral.
-  - ~~With the uniform curve at `L = 2.333` the certificate needs `n = 600`.~~ *(Round 584: retracted, false when written: smaller grids certify too; review F2.)* With the uniform curve at `L = 2.333` the committed certificate runs at `n = 600`, where a scratch count gives 73877 cells of depth 2, 37512 of them decomposed, and about `9.0` million cells of depth 4. ~~The coarser grids tried also certify.~~ *(Round 585: retracted, false when written: `n = 400` was tried and does not certify; review F2.)* Of the coarser grids tried, those from `n = 410` up certify. Round 582's review ran `n = 410` to `450` in steps of 10, and `500` and `550`, all below `1`. At `n = 410` the bound is `0.996775`, with 34634 cells of depth 2 and 2132774 of depth 4, and at `n = 400` it is `1.004279` (scratch, round 584) *(round 587: rounded down from `1.00427943…`; as a bound, `1.004280`; review F5)*. Either grid is too large to replay one by one. A rule of higher order, or exact integration over the polyhedral regions, should shrink it.
+  - ~~With the uniform curve at `L = 2.333` the certificate needs `n = 600`.~~ *(Round 584: retracted, false when written: smaller grids certify too; review F2.)* With the uniform curve at `L = 2.333` the committed certificate runs at `n = 600`, where a scratch count gives 73877 cells of depth 2, 37512 of them decomposed, and about `9.0` million cells of depth 4. ~~The coarser grids tried also certify.~~ *(Round 585: retracted, false when written: `n = 400` was tried and does not certify; review F2.)* Of the coarser grids tried, those from `n = 410` up certify. Round 582's review ran `n = 410` to `450` in steps of 10, and `500` and `550`, all below `1`. At `n = 410` the bound is `0.996775`, with 34634 cells of depth 2 and 2132774 of depth 4, and at `n = 400` it is `1.004279` (scratch, round 584) *(round 587: rounded down from `1.00427943…`; as a bound, `1.004280`; review F5)*. Either grid is too large to replay one by one. A rule of higher order, or exact integration over the polyhedral regions, should shrink it. *(Round 589: with the curve step of §12 the certificate at `L = 2.333` runs at `n = 70`, with 916 cells of depth 2 and 1568 of depth 4.)*
   - With hux at `L = 2.32`, 434 cells of depth 2 and 473 of depth 4 suffice, and every bound also rests on the enclosure of `ω`. But hux needs density curves that depend on `σ`, so M1 would have to supply those too. *(Round 586: with §10, as counts of characters.)*
 - **M8. Assembly.** Proposition 7, plus the small `q` handled as `linnik_of_charDensity` handles them.
 
-**Order.** ~~M5 and M6 do not depend on the analytic side.~~ *(Round 584: retracted, false when written; review F3.)* M5's combinatorics (sifted sets, Buchstab's identity, the decomposition identity, Lemma 5 and the fundamental lemma) and M6 do not depend on the analytic side. Proposition 6 does, through Proposition 3 and Lemma 4, unless it is stated with the Type II bound as a hypothesis, as Harman's theorem usually is. M1–M4 are the analytic core and carry the most risk, M1 above all, since it reworks rounds 524–527 over points `(χ, t)`. M7 is numerics. The choice between the uniform curve (M1 as stated, a large M7) and hux (M1 with curves in `σ`, a small M7) is open. *(Round 586: with §10 there is no M1 for unif. For hux it becomes hux's curves in `σ` as counts of characters; §8 lists Huxley's as missing. The analytic core is then M2–M4, and the choice turns on M7 against those curves.)*
+**Order.** ~~M5 and M6 do not depend on the analytic side.~~ *(Round 584: retracted, false when written; review F3.)* M5's combinatorics (sifted sets, Buchstab's identity, the decomposition identity, Lemma 5 and the fundamental lemma) and M6 do not depend on the analytic side. Proposition 6 does, through Proposition 3 and Lemma 4, unless it is stated with the Type II bound as a hypothesis, as Harman's theorem usually is. M1–M4 are the analytic core and carry the most risk, M1 above all, since it reworks rounds 524–527 over points `(χ, t)`. M7 is numerics. The choice between the uniform curve (M1 as stated, a large M7) and hux (M1 with curves in `σ`, a small M7) is open. *(Round 586: with §10 there is no M1 for unif. For hux it becomes hux's curves in `σ` as counts of characters; §8 lists Huxley's as missing. The analytic core is then M2–M4, and the choice turns on M7 against those curves.)* *(Round 589: the curve step of §12 needs one constant beyond `12/5`, proved in Lean, and a small M7.)*
 
 ## 10. Smoothing in place of Perron at height `x²` (round 586)
 
@@ -295,7 +296,7 @@ At paper level and unrefereed, like the rest of this file.
 
 **For Lean** (this revises §9).
 
-- ~~M1 is not needed: (H2′) is `Linnik.CharDensity`.~~ *(Round 587: retracted, false when written: unscoped, and (H2′) is not itself a `Linnik.CharDensity`; review F1.)* M1 is not needed for unif: (H2′) follows from `LinnikTwelve.charDensity_twelve_fifths` with the trivial count. For hux, M1 becomes hux's curves in `σ` as counts of characters (§9, Order).
+- ~~M1 is not needed: (H2′) is `Linnik.CharDensity`.~~ *(Round 587: retracted, false when written: unscoped, and (H2′) is not itself a `Linnik.CharDensity`; review F1.)* M1 is not needed for unif: (H2′) follows from `LinnikTwelve.charDensity_twelve_fifths` with the trivial count. For hux, M1 becomes hux's curves in `σ` as counts of characters (§9, Order). *(Round 589: nor for step; §12.)*
 - M2 is Lemma 1 at heights `|y| ≤ 2x^ε` only. ~~The contour of its proof stays in the rectangle `|Im s − y| ≤ x^ε`, `Re s > β(χ, y)`, which holds no zero by the definition of `β(χ, y)`. So `L′/L` can be bounded on it by `Linnik.logDeriv_LFunction_le` (`LinnikChar.lean`), in place of (T2): for `σ ≥ θ′ > θ ≥ 1/2` it bounds~~ *(Round 587: retracted, false when written: the contour's tails on `Re s = 2` leave the rectangle, and the hypothesis `θ′ < 3/2` was left out; review F2.)* The part of its contour off the line `Re s = 2` stays in the rectangle `|Im s − y| ≤ x^ε`, `Re s > β(χ, y)`, which holds no zero by the definition of `β(χ, y)`. There `L′/L` can be bounded by `Linnik.logDeriv_LFunction_le` (`LinnikChar.lean`), in place of (T2); on the tails at `Re s = 2`, `ChiUniform.logDeriv_LFunction_right` gives `‖L′/L‖ ≤ −ζ′/ζ(3/2)`. For `1/2 ≤ θ < θ′ < 3/2` and `σ ≥ θ′`, `logDeriv_LFunction_le` bounds `‖L′/L(σ + it, χ)‖` by `KL θ θ′(log(q + 2) + log(|t| + 4))` when `L(·, χ)` has no zero in the open disc of radius `3/2 − θ` about `3/2 + it`. With `θ = β(χ, y) + ε/2` and `θ′ = β(χ, y) + ε`, that disc lies in the rectangle when `|t − y| ≤ x^ε − 1`.
 - M3 is Proposition 3′: bins by `b(χ)`, (T1) and Cauchy–Schwarz, with no Lemma 2.
 - M4 is Lemmas 4′ and 4″ in place of the sharp truncated Perron formula: Fourier inversion of a smooth function of compact support (Mathlib), its decay from its derivatives, and the majorants. *(Round 588: `external/pnt/SieveSmooth.lean` proves the cut-off's properties, its Fourier decay and the separation identity, for `G(u) = g(u/θ) − g((u − 2Λ)/θ)`.)*
@@ -305,9 +306,9 @@ At paper level and unrefereed, like the rest of this file.
 
 The owner's words: "Keep on the lean work but note this as a follow on goal. My immediate goal is to formalise 2.333 then to push on using the 7/3 result then to abstract all that is relevant to a clean gh repo & publish".
 
-1. **Formalize `x = q^{2.333}` in Lean**, by the route of §10 with the curve unif, through milestones M2–M8 of §§9–10.
+1. **Formalize `x = q^{2.333}` in Lean**, by the route of §10 with the curve unif, through milestones M2–M8 of §§9–10. *(Round 589: with the curve step of §12 in place of unif.)*
    - The main risk is M7. At `L = 2.333` the committed certificate runs at `n = 600`, with about `9.0` million cells of depth 4 (2132774 at `n = 410`, scratch, §9). That is too many to replay in Lean.
-   - A smaller certificate is needed. One candidate integrates the last variable of each dropped family in closed form: with `u = (1 − s − α)/α`, the integral `∫ ω((1 − s − α)/α) dα/α²` over an interval of `α` is `(1/(1 − s))∫ ω(u) du`. That turns the cells of depth 4 into cells in three variables and those of depth 2 into one.
+   - A smaller certificate is needed. One candidate integrates the last variable of each dropped family in closed form: with `u = (1 − s − α)/α`, the integral `∫ ω((1 − s − α)/α) dα/α²` over an interval of `α` is `(1/(1 − s))∫ ω(u) du`. That turns the cells of depth 4 into cells in three variables and those of depth 2 into one. *(Round 589: with step the certificate at `n = 70` has 916 cells of depth 2 and 1568 of depth 4 without it; §12.)*
 2. **Then the `7/3` result.** Chen–Gupta–Li's density exponent `7/3`, with the curve cons, certified on paper at `L = 2.25` (§7). In Lean it needs their bound, and the curves in `σ`, as counts of characters.
 3. **Then a clean repository.** Extract what the formalization uses into a clean repository on GitHub, and publish it.
 
@@ -320,3 +321,44 @@ The owner's words: "Keep on the lean work but note this as a follow on goal. My 
 - **Two routes are on record.**
   - Refinements of the decomposition. A scratch Monte Carlo of round 577 put keeping the evaluable parts of dropped terms at about `0.01` (README round 577).
   - Type I₂ information from Weil's bound for Kloosterman sums: products of two long smooth variables are equidistributed modulo a single `q`, as in the classical range `q < x^{2/3}` for the divisor function. The sieve does not use it yet, and its effect is unknown.
+
+## 12. The step curve (round 589)
+
+At paper level and unrefereed, like the rest of this file, except for the Lean theorem named below.
+
+**What it changes.** §11 names M7 as the main risk of the first goal: with unif at `L = 2.333` the committed certificate needs about `9.0` million cells of depth 4. This section replaces unif by a curve whose density input is also a theorem of the stack, and whose certificate at `L = 2.333` has 916 cells of depth 2 and 1568 of depth 4.
+
+**The curve step.** `A(σ) = min(12/5 + 1/2000, 1/(1 − σ))` for `σ < 5/6`, as for unif, and `A(σ) = 101/50` for `σ ≥ 5/6`.
+
+- hux implies it, as it implies unif: `3/(3σ − 1) ≤ 2` for `σ ≥ 5/6`.
+- (H2′) with step follows from two theorems of the stack and the trivial count. Below `5/6` it is as for unif (§10). On `[5/6, 1]`, `LinnikStep.charDensity_step` (`external/pnt/LinnikStep.lean`, round 589) gives `C ≥ 0` such that for every `q ≥ 1`, `5/6 ≤ σ ≤ 1` and `T ≥ 2`, at most `C(qT)^{(101/50)(1−σ)}(log qT)^{10}` characters mod `q` have a zero of `L(s, χ)` with `Re s ≥ σ` and `|Im s| ≤ T`. Take `η` as in §10.
+
+**The window and the loss.**
+
+- The loss of §6 and the certificate's bound for it depend on the curve only through the window of §3: `u₂` through the largest value `A_max`, which step shares with unif, and `u₁` through the largest value of `lower`.
+- With either curve that largest value is at `β = 11/12`, where the numerator of `lower` is `A(11/12)/24 + 1/2 − L/12`. Step's `101/50` replaces unif's `12/5 + 1/2000` there. At `L = 2.333` the proved window is `(0.400943, 0.485533)` with step, against `(0.417253, 0.485533)` with unif (rounded inward).
+- `sieve_route_certificate.py` bounds the loss with step at `L = 2.333` by `0.8579` at `n = 70` (rounded up), against unif's `0.9757` at `n = 600`. At `n = 70` the certificate has 916 cells of depth 2, 423 of them decomposed, and 1568 of depth 4 (printed by the certificate).
+- A crude upper bound for `ω` also suffices: `0` below `1`, `1/t` on `[1, 2)` and `0.5672` on `[2, 16)`. With it in place of the enclosure the bound at `n = 70` is `0.8660` (rounded up). Check C7 gates both parts: the enclosure's upper values on `[2, 16)` are at most `0.5672`, and the certificate with the crude bound is below `1`.
+
+**The proof of `charDensity_step`.** It is round 527's proof on `[3/4, 11/12]` (`LinnikTwelve.count_twelve_fifths`) with three parameters changed. Put `Q = q(T + 6)`.
+
+- In round 527 a character with a zero `ρ` in the region has a large Dirichlet polynomial on `(X, XN]` at `ρ` (the polynomial class) or a large mollified integral of `L(1/2 + it, χ)` (the integral class), where `22Y log Y ≤ XN` (`LinnikDetect.dichotomy`).
+- By the fourth moment, the integral class has at most `27(4KG)⁴C₄X⁴Y^{4(1/2−σ)}Q^{1+ε}` members (`LinnikHuxley.class2_count_small`).
+- The polynomial class is cut into dyadic blocks `(P, 2P]` and bins of width `ε/200` in `β`. Each block is raised to the least power `m` with `Λ = (2P)^m ≥ Q^{a+ε}`, so `Λ ≤ max((2XN)², Q^{3(a+ε)/2})`. Huxley's estimate then counts each block and bin by `≪ Q^{O(ε)}(Λ^{2−2σ} + Λ^{4−6σ}Q)` (`block_bin_hux`, `term1_le`, `term2_le`).
+- Round 527 takes `X = ⌊Q^{1/25}⌋`, `Y = Q^{3/5}` and `a = 4/5`. Round 589 takes `X = ⌊Q^{1/2000}⌋`, `Y = Q^{201/400}` and `a = 2/3`, with `ε = 1/100000`. Then `m ≤ 1334` in place of `22`, and for `5/6 ≤ σ ≤ 11/12`, up to powers of `Q^ε`:
+  - `Λ ≤ Q^{201/200}`, so `Λ^{2−2σ} ≤ Q^{(201/100)(1−σ)}`, below `Q^{(101/50)(1−σ)}` by `Q^{(1/100)(1−σ)}`;
+  - `Λ ≥ Q^{2/3}` and `4 − 6σ < 0`, so `Λ^{4−6σ}Q ≤ Q^{(2/3)(4−6σ)+1}`, and `(101/50)(1 − σ) − ((2/3)(4 − 6σ) + 1) = (297σ − 247)/150 ≥ 1/300`;
+  - the integral class carries `Q^{(201/100)(1/2−σ)+1/500+1}`, and `(101/50)(1 − σ)` exceeds that exponent by `13/1000 − σ/100 ≥ 3/1000`.
+- In general, take `X = Q^x`, `Y = Q^y`, the target `Q^a` and a constant `A` on `[σ₁, 11/12]` with `σ₁ ≥ 3/4`. The exponents close when `2y < A/2`, `3a/2 < A/2`, and, for every `σ` in the range, `a(4 − 6σ) + 1 < A(1 − σ)` and `4y(1/2 − σ) + 4x + 1 < A(1 − σ)`.
+  - Some `a` meets its two conditions exactly when `A > 3/(3σ₁ − 1)`; the binding `σ` is `σ₁`.
+  - Some `y` meets its two conditions exactly when `A > 2 + 8x`; the binding `σ` is `11/12`.
+  - So this argument, with the fourth moment as its input for the integral class, gives constants above `max(2, 3/(3σ₁ − 1))` and no constant at or below `2`. Huxley's curve `3/(3σ − 1)` equals `2` at `σ = 5/6`, which places the step there. `101/50` leaves the margins above for the losses in `ε`.
+
+**For Lean** (this revises §§9–11).
+
+- M1 is not needed for step either: (H2′) follows from `LinnikTwelve.charDensity_twelve_fifths`, `LinnikStep.charDensity_step` and the trivial count, all counts of characters.
+- M7 becomes a certificate of 2484 cells at `n = 70`. Each cell's bound is `h²` or `h⁴` times an upper bound for `ω` on the cell and the prefactor at its lower corner.
+- With the crude bound, what M7 needs of `ω` is `ω = 0` below `1`, `ω(t) = 1/t` on `[1, 2]` and `ω(t) ≤ 0.5672` on `[2, 16)`.
+  - On `[2, 3]`, `ω(t) = (1 + log(t − 1))/t`, whose maximum is `W(1) = 0.567143…`, at `t = 1 + 1/W(1)`, where `W` is Lambert's function.
+  - Above `3`, `tω(t) = 1 + log 2 + ∫_2^{t−1} ω`. So if `ω ≤ M` on `[2, t − 1]` with `M ≥ (1 + log 2)/3 = 0.564382…`, then `ω(t) ≤ M`, and induction over unit intervals gives `ω ≤ 0.5672` on `[2, ∞)`.
+  - These follow from the delay equation for `ω`, which M6 needs anyway.

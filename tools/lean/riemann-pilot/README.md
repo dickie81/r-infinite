@@ -24067,3 +24067,46 @@ Lower exponents are a follow-on goal. §11 records the floor of this framework, 
 
 - M7's feasibility: a certificate for unif at `2.333` that integrates the last variable of each family in closed form, and its size.
 - Then M2: Lemma 1 at a height `y`, generalizing `Linnik.norm_Sx_le`.
+
+## Round 589: the step curve for `x = q^{2.333}`, and its density in Lean (`external/pnt/LinnikStep.lean`; `frontier/linnik/SIEVE-ROUTE.md` §12)
+
+**The problem.** Round 588 named the main risk of the first goal (SIEVE-ROUTE.md §11). With the curve unif at `L = 2.333` the loss certificate needs about `9.0` million cells of depth 4, too many to replay in Lean.
+
+**The curve step.** It is unif below `σ = 5/6` and `101/50` from `5/6` on.
+
+- The certificate's bound depends on the curve only through the window of SIEVE-ROUTE.md §3. Its left end `u₁` is set at `β = 11/12`, where step's `101/50` replaces unif's `12/5 + 1/2000`. At `L = 2.333` the proved window is `(0.400943, 0.485533)`, against unif's `(0.417253, 0.485533)` (rounded inward).
+- The certificate then bounds the loss by `0.8579` at `n = 70` (rounded up from the printed `0.857896…`), with 916 cells of depth 2 and 1568 of depth 4.
+- With a crude upper bound for `ω`, `0` below `1`, `1/t` on `[1, 2)` and `0.5672` on `[2, 16)`, the bound at `n = 70` is `0.8660` (rounded up from `0.865918…`).
+
+**The Lean file.** `external/pnt/LinnikStep.lean` proves step's density on `[5/6, 1]`. `LinnikStep.charDensity_step` gives `C ≥ 0` such that for every `q ≥ 1`, `5/6 ≤ σ ≤ 1` and `T ≥ 2`, at most `C(qT)^{(101/50)(1−σ)}(log qT)^{10}` characters mod `q` have a zero of `L(s, χ)` with `Re s ≥ σ` and `|Im s| ≤ T`.
+
+- The proof is round 527's on `[3/4, 11/12]`, with three parameters changed: `X = ⌊Q^{1/2000}⌋`, `Y = Q^{201/400}` and the power trick's target `Q^{2/3+ε}`, in place of `⌊Q^{1/25}⌋`, `Q^{3/5}` and `Q^{4/5+ε}`. The power is then at most `1334` in place of `22`.
+- Up to powers of `Q^ε`, the first term of Huxley's estimate carries `Q^{(201/100)(1−σ)}`. The second carries `Q^{(2/3)(4−6σ)+1}`, below `Q^{(101/50)(1−σ)}` by at least `Q^{1/300}`. The integral class carries `Q^{(201/100)(1/2−σ)+1/500+1}`, below it by `Q^{13/1000−σ/100}`.
+- With the fourth moment as its input for the integral class, this argument gives a constant `A` on `[σ₁, 11/12]` when `A > 3/(3σ₁ − 1)` and `A > 2 + 8x`, `X = Q^x`, and no constant at or below `2` (SIEVE-ROUTE.md §12). Huxley's curve `3/(3σ − 1)` is `2` at `5/6`.
+
+So with step, at paper level, the density input (H2′) of SIEVE-ROUTE.md §10 follows from `LinnikTwelve.charDensity_twelve_fifths`, `LinnikStep.charDensity_step` and the trivial count. M7 becomes a certificate of 2484 cells at `n = 70`. Of `ω` it needs only facts that follow from its delay equation (SIEVE-ROUTE.md §12).
+
+**What is checked.**
+
+- `lean` was run on `LinnikStep.lean` alone, with the build's `LEAN_PATH` (Mathlib at `MATHLIB_REV`): no errors and no warnings. The file is in `build/`.
+- `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for the eight theorems the file prints, `charDensity_step` among them.
+- `external/pnt/build.sh` lists the file, imports it in the final check and prints three of its axioms; `bash -n` passes. The rest of the layer was not rebuilt, since none of its sources changed.
+- `sieve_route_certificate.py` was run in full: gates C0–C7 pass, and 11 of 11 sabotage cases are caught (438 s). C1 proves step's window. C5 gives `0.857896…` for step at `n = 70`, and C7 gives `0.865918…` with the crude bound, whose top value `0.5672` is at least the enclosure's largest upper value on `[2, 16)`, `0.567147…`. The run used a copy whose sha256 matches the committed file.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class: SIEVE-ROUTE.md goes from 15 to 18 reports, three new ones of class L10 (a nested list directly after its item's text), all in §12; README.md (1842), IDEAS.md (51) and `external/pnt/README.md` (10) gain none. None of these files is a paper surface.
+
+**Records.**
+
+- `external/pnt/LinnikStep.lean`: new.
+- `external/pnt/build.sh`: the file, and three of its axioms.
+- `external/pnt/README.md`: a row in the table, and a section.
+- `frontier/linnik/sieve_route_certificate.py`: the curve step, the case `(step, 2.333, 70)`, check C7 with sabotage case k10, and a printed line with the size of step's certificate.
+- `frontier/linnik/SIEVE-ROUTE.md`: §12 (new), and markers in §§0, 2, 7, 8, 9, 10 and 11.
+- `frontier/linnik/IDEAS.md`: a D5 marker.
+
+**Check 4.** New: the curve step, its density in Lean, and the certificate's case and check.
+
+**Check 9.** (a) The claim about this argument's reach is scoped to its conditions, with the fourth moment as its input for the integral class. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** M2: Lemma 1 at a height `y`, generalizing `Linnik.norm_Sx_le`. A voluntary review of rounds 588 and 589.
