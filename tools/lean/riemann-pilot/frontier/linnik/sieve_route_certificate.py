@@ -625,7 +625,7 @@ def c5(om, mid, mut=None, full=True):
     rec = {"mid": float(mid), "hux230_n150": Cert(Fr(230, 100), "hux", 150, om, mut).outer()}
     ok = rec["hux230_n150"] >= mid
     for curve, L, n in CASES if full else CASES[-1:]:
-        key = f"{curve}{int(L * 100)}_n{n}"
+        key = f"{curve}{str(float(L)).replace('.', '')}_n{n}"
         rec[key] = Cert(L, curve, n, om, mut).outer()
         ok &= rec[key] < 1
     return ok, rec
