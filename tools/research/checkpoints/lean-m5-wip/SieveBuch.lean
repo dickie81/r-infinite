@@ -195,13 +195,13 @@ theorem I_S4 (G : P.Good) (g : ℕ → ℝ) (i j k : ℕ) :
 
 /-! ### What the families say of their primes -/
 
-theorem facts_S2c {i j : ℕ} {rt : Fin 2 → ℕ} (hrt : rt ∈ famSet 2 P.N₂ (P.S2c i j)) :
+theorem facts_S2c {Y : ℕ} {i j : ℕ} {rt : Fin 2 → ℕ} (hrt : rt ∈ famSet 2 Y (P.S2c i j)) :
     Chain P.z₀ P.ztop rt ∧ InC P.x i (rt 0) ∧ InC P.x j (rt 1) := by
-  have h1 : Fin.init rt ∈ famSet 1 P.N₂ (P.S1c i) := init_mem hrt fun A hA => List.mem_append_left _ hA
+  have h1 : Fin.init rt ∈ famSet 1 Y (P.S1c i) := init_mem hrt fun A hA => List.mem_append_left _ hA
   exact ⟨P.chain_S2c i j rt hrt, inC_of_mem h1 (t := 0) fun A hA => List.mem_append_right _ hA,
     inC_of_mem hrt (t := 1) fun A hA => List.mem_append_right _ hA⟩
 
-theorem facts_S2le {i j : ℕ} {rt : Fin 2 → ℕ} (hrt : rt ∈ famSet 2 P.N₂ (P.S2le i j)) :
+theorem facts_S2le {Y : ℕ} {i j : ℕ} {rt : Fin 2 → ℕ} (hrt : rt ∈ famSet 2 Y (P.S2le i j)) :
     Chain P.z₀ P.ztop rt ∧ InC P.x i (rt 0) ∧ InC P.x j (rt 1) ∧ (rt 0 : ℝ) * rt 1 ≤ P.Xp := by
   obtain ⟨h1, h2, h3⟩ := facts_S2c (famSet_mono (fun A hA => List.mem_append_left _ hA) hrt)
   have h4 : ∏ t ∈ Finset.univ, (rt t : ℝ) ≤ P.Xp :=
@@ -209,14 +209,14 @@ theorem facts_S2le {i j : ℕ} {rt : Fin 2 → ℕ} (hrt : rt ∈ famSet 2 P.N�
   rw [Fin.prod_univ_two] at h4
   exact ⟨h1, h2, h3, h4⟩
 
-theorem facts_S3c {i j k : ℕ} {rt : Fin 3 → ℕ} (hrt : rt ∈ famSet 3 P.N₂ (P.S3c i j k)) :
+theorem facts_S3c {Y : ℕ} {i j k : ℕ} {rt : Fin 3 → ℕ} (hrt : rt ∈ famSet 3 Y (P.S3c i j k)) :
     Chain P.z₀ P.ztop rt ∧ InC P.x i (rt 0) ∧ InC P.x j (rt 1) ∧ InC P.x k (rt 2) ∧
       (rt 0 : ℝ) * rt 1 ≤ P.Xp := by
-  have h2 : Fin.init rt ∈ famSet 2 P.N₂ (P.S2le i j) := init_mem hrt fun A hA => List.mem_append_left _ hA
+  have h2 : Fin.init rt ∈ famSet 2 Y (P.S2le i j) := init_mem hrt fun A hA => List.mem_append_left _ hA
   obtain ⟨-, h3, h4, h5⟩ := facts_S2le h2
   exact ⟨P.chain_S3c i j k rt hrt, h3, h4, inC_of_mem hrt (t := 2) fun A hA => List.mem_append_right _ hA, h5⟩
 
-theorem facts_S3le {i j k : ℕ} {rt : Fin 3 → ℕ} (hrt : rt ∈ famSet 3 P.N₂ (P.S3le i j k)) :
+theorem facts_S3le {Y : ℕ} {i j k : ℕ} {rt : Fin 3 → ℕ} (hrt : rt ∈ famSet 3 Y (P.S3le i j k)) :
     Chain P.z₀ P.ztop rt ∧ InC P.x i (rt 0) ∧ InC P.x j (rt 1) ∧ InC P.x k (rt 2) ∧
       (rt 0 : ℝ) * rt 1 ≤ P.Xp ∧ (rt 0 : ℝ) * rt 1 * rt 2 ≤ P.Xp := by
   obtain ⟨h1, h2, h3, h4, h5⟩ := facts_S3c (famSet_mono (fun A hA => List.mem_append_left _ hA) hrt)
@@ -225,10 +225,10 @@ theorem facts_S3le {i j k : ℕ} {rt : Fin 3 → ℕ} (hrt : rt ∈ famSet 3 P.N
   rw [Fin.prod_univ_three] at h6
   exact ⟨h1, h2, h3, h4, h5, h6⟩
 
-theorem facts_S4c {i j k l : ℕ} {rt : Fin 4 → ℕ} (hrt : rt ∈ famSet 4 P.N₂ (P.S4c i j k l)) :
+theorem facts_S4c {Y : ℕ} {i j k l : ℕ} {rt : Fin 4 → ℕ} (hrt : rt ∈ famSet 4 Y (P.S4c i j k l)) :
     Chain P.z₀ P.ztop rt ∧ InC P.x i (rt 0) ∧ InC P.x j (rt 1) ∧ InC P.x k (rt 2) ∧ InC P.x l (rt 3) ∧
       (rt 0 : ℝ) * rt 1 ≤ P.Xp ∧ (rt 0 : ℝ) * rt 1 * rt 2 ≤ P.Xp := by
-  have h3 : Fin.init rt ∈ famSet 3 P.N₂ (P.S3le i j k) := init_mem hrt fun A hA => List.mem_append_left _ hA
+  have h3 : Fin.init rt ∈ famSet 3 Y (P.S3le i j k) := init_mem hrt fun A hA => List.mem_append_left _ hA
   obtain ⟨-, h4, h5, h6, h7, h8⟩ := facts_S3le h3
   exact ⟨P.chain_S4c i j k l rt hrt, h4, h5, h6, inC_of_mem hrt (t := 3) fun A hA => List.mem_append_right _ hA,
     h7, h8⟩
