@@ -14,17 +14,17 @@ by `decide +kernel`, and `total_le` depends on `propext` alone.
   `allowed` (the sharp rule for decomposition), `inKK` and `ne3` (the cells of `α₃`), and `counted4` (the cells of
   depth 4). Evaluability is a subset sum of the cell's corners inside `U = (u₁, u₂) ∪ (1 − u₂, 1 − u₁)`
   (`surelyEval`).
-* The bounds: `h²` (or `h⁴`) times the crude `ω`'s supremum on the cell's arguments (`omK`) times the prefactor
-  `1/(ab²)` (or `1/(abcd²)`) at the lower corner, rounded up to a multiple of `2^{−60}` (`bound2`, `bound4`). A cell
-  of depth 2 costs the smaller of its own bound and the sum of its cells of depth 4 when it may be decomposed (`dec`,
-  `cost`).
+* The bounds: `h²` (or `h⁴`) times an upper bound for the crude `ω` on the cell's arguments, rounded up to a multiple
+  of `2^{−60}` (`omK`), times the prefactor `1/(ab²)` (or `1/(abcd²)`) at the lower corner, rounded up again to a
+  multiple of `2^{−60}` (`bound2`, `bound4`). A cell of depth 2 costs the smaller of its own bound and the sum of its
+  cells of depth 4 when it may be decomposed (`dec`, `cost`).
 
 What the tests say about points (the semantic lemmas):
 
 * `eval_of_surelyEval`: if `surelyEval` holds on a box, every point of the box is evaluable (`Eval`).
 * `cover2`: a point of the region of depth 2 that is not evaluable lies in a candidate cell.
 * `sum_le_of_allowed`, `cover3`: on a cell that may be decomposed, a non-evaluable point keeps `α₁ + α₂ ≤ 1 − u₂`,
-  and each non-evaluable `α₃` keeps `α₁ + α₂ + α₃ ≤ 1 − u₂` and lies in a counted row.
+  and each non-evaluable `α₃` of the region of depth 3 keeps `α₁ + α₂ + α₃ ≤ 1 − u₂` and lies in a counted row.
 * `cover4`: a point of depth 4 that is not evaluable lies in a counted cell.
 * `omegaC_le`: the crude `ω` (`omegaC`) on the cell's arguments, widened by `τ < 1/DEN`, is at most `omK/K`.
 * `bound2_ge`, `bound4_ge`: each bound is at least `h²` (or `h⁴`) times `omK/K` times the prefactor.

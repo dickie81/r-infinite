@@ -24449,14 +24449,14 @@ with `N = ⌊2P⌋`, `M = KL(θ, θ + δ) + KL(11/12, 11/12 + δ)` and `A = log(
 - The definitions follow `frontier/linnik/sieve_route_certificate.py` at `n = 70`, with the crude bound for `ω`.
   - The grid: coordinates in units of `1/DEN`, `DEN = 2^40`, with `U1 = ⌈(401/1000)DEN⌉` and `U2 = ⌊(485/1000)DEN⌋`.
   - The tests: the region, evaluability (`surelyEval`, a subset sum of a cell's corners inside `U`), and decomposition by the sharp rule (`allowed`).
-  - The bounds: each is computed exactly from the cell's corners and rounded up to a multiple of `2^{−60}` (`omK`, `bound2`, `bound4`). *(Round 596: the value of `ω` is rounded up too, before the bound; both roundings are on the safe side; review F6.)* The certificate's floating-point arithmetic with outward rounding is not used.
+  - The bounds: ~~each is computed exactly from the cell's corners and rounded up to a multiple of `2^{−60}`~~ *(Round 597: retracted, false when written: the value of `ω` is an upper bound, rounded up before the bound is; review of round 596, finding 2.)* each is computed from the cell's corners, rounding up twice (the value of `ω`, then the bound), and is a multiple of `2^{−60}` (`omK`, `bound2`, `bound4`). *(Round 596: the value of `ω` is rounded up too, before the bound; both roundings are on the safe side; review F6.)* The certificate's floating-point arithmetic with outward rounding is not used.
 - The total is `1013488703434062770·2^{−60} = 0.879061…` (`#eval` on the built file). A scratch replay in Python's integer arithmetic (`m7_replay.py`) gives the same integer, with 916 candidates and 423 decomposed cells. The float certificate on this window gives `0.8790613232425407` (rounds 593 and 594).
 
 **What the tests say about points.** M8 will need these, so the file proves them for points of the exponent space:
 
 - if a box passes `surelyEval`, every point of it is evaluable, that is, has a sub-sum of its exponents in `U` (`eval_of_surelyEval`);
 - a non-evaluable point of the region of depth 2 lies in a candidate cell (`cover2`);
-- on a cell that may be decomposed, `α₁ + α₂` and `α₁ + α₂ + α₃` stay at most `1 − u₂` at non-evaluable points, and each non-evaluable `α₃` lies in a counted row (`sum_le_of_allowed`, `cover3`);
+- ~~on a cell that may be decomposed, `α₁ + α₂` and `α₁ + α₂ + α₃` stay at most `1 − u₂` at non-evaluable points, and each non-evaluable `α₃` lies in a counted row~~ *(Round 597: retracted, false when written: `cover3` takes `α₃` in the region of depth 3, and outside it both conclusions fail; review of round 596, finding 1.)* on a cell that may be decomposed, `α₁ + α₂` stays at most `1 − u₂` at non-evaluable points, and each non-evaluable `α₃` of the region of depth 3 keeps `α₁ + α₂ + α₃ ≤ 1 − u₂` and lies in a counted row (`sum_le_of_allowed`, `cover3`);
 - a non-evaluable point of depth 4 lies in a counted cell (`cover4`);
 - the crude `ω` (`omegaC`), on a cell's arguments widened by `τ < 1/DEN`, is at most the cell's value `omK/2^{60}` (`omegaC_le`). The widening covers the shift `log 2/log x` of M6's argument `log 2y/log z` for large `x`;
 - each bound is at least its real counterpart, `h²` (or `h⁴`) times the cell's value of `ω` times `1/(ab²)` (or `1/(abcd²)`) (`bound2_ge`, `bound4_ge`);
@@ -24503,12 +24503,12 @@ The region's conditions enter as hypotheses in units of `1/DEN`. For example, `c
   - a truncation at `k + 2j` gives one parity in every range, so the upper and lower sieves take `k + 2j` and `k + 2j + 1` (`k` even);
   - the level `w^{2k+4}` is the upper sieve's, and the lower sieve's terms reach `w^{2k+5}`.
 - **F2** (minor). §13's M5 read "each term classified by its cell as evaluable, decomposed or dropped (M7)". Evaluability belongs to the point. Over a decomposed cell, a term of depth 3 whose sum lies in `(R, 1 − u₁)` is evaluable, and Proposition 6 cannot decompose it, so it must be evaluated. M7's lemmas are pointwise: a term is evaluable by its point, and otherwise decomposed or dropped by its cell. The clause was false when written; it is struck and annotated.
-- **F3** (cosmetic). §13 and README round 594 placed Brun's sieve "in place of §9's route through Selberg's sieve". §9 names Brun's sieve or the β-sieve (SIEVE-ROUTE.md 217) and says that "Mathlib has the Selberg upper-bound sieve only" (218); the Selberg route was the lead's scratch plan. Struck at both sites.
+- **F3** (cosmetic). §13 placed Brun's sieve "in place of §9's route through Selberg's sieve", and README round 594 "in place of §9's Selberg route" *(round 597: it attributed §13's wording to both; review of round 596, finding 7)*. §9 names Brun's sieve or the β-sieve (SIEVE-ROUTE.md 217) and says that "Mathlib has the Selberg upper-bound sieve only" (218); the Selberg route was the lead's scratch plan. Struck at both sites.
 - **F4** (cosmetic). §13's statement of M6 left out `y ≥ 1`. For `1/2 ≤ y < 1`, `n = 1` lies in `(y, 2y]`, so `Ψ = 1` while the bound is below `1`. The hypothesis is added. No application is affected.
 - **F5** (cosmetic). §13's M4 cited `SieveSmooth.indicator_sub_G` without its hypothesis `u ≤ Λ`, and its count over the model left out §10's case of a product of primes near a threshold. Both are added.
 - **F6** (cosmetic). Four docstrings of `SieveCert.lean` did not match what they describe. `K` is the scale, not the unit. `counted4` does not test `l ≤ k`; `row` does. Each bound is rounded up twice, once for `ω` and once at the end. And `sum_le_of_allowed` needs the point itself to be non-evaluable. All four are corrected, as are the same sentence in `external/pnt/README.md` and README round 595.
 - **F7** (cosmetic). Round 595 left status lines unswept: §9's M7 bullet (line 222), §10's "the committed certificate does not run it yet" (301) and SEVEN-THIRDS §46 (881). §12's last bullet (364) had no forward marker for §13's revision of M6, and round 595's marker in §0 (5) said "that window" without an antecedent. Markers are added.
-- **O-1** (out-of-scope observation). The scratch kernel loop that §13 and README round 595 time was a false theorem: with `H > 2^40` every test fails, so the kernel evaluated the loop and rejected it. The time measures the evaluation; the certificate's own check takes 64 s. Markers are added at both sites.
+- **O-1** (out-of-scope observation). The scratch kernel loop that §13 and README round 594 time *(round 597: it read "round 595"; review of round 596, finding 3)* was a false theorem: with `H > 2^40` every test fails, so the kernel evaluated the loop and rejected it. The time measures the evaluation; ~~the certificate's own check takes 64 s~~ *(Round 597: retracted, false when written: `64 s` is round 595's compile of the whole file, the import and the definitions included; review of round 596, finding 5.)* the whole file, the certificate's check included, compiles in 64 s (round 595). Markers are added at both sites.
 
 **The lead's verification.**
 
@@ -24516,7 +24516,7 @@ The region's conditions enter as hypotheses in units of `1/DEN`. For example, `c
 - F1's counterexample was checked by hand, and so was the telescoping step that needs `ρ_j ≥ 0`.
 - F2's census reproduces from `m7_replay.py`'s definitions (scratch `f2check.py`): 1570 counted rows, 274 of them with the upper corner's `α₁ + α₂ + α₃` above `R`.
 - `SieveCert.lean`'s change is docstring-only: with its comments stripped the file is identical to HEAD's (scratch check). It was recompiled with the build's `LEAN_PATH` in 65 s, with no errors or warnings. Of its twelve axiom lines, `total_le`'s is `[propext]` and the rest are `[propext, Classical.choice, Quot.sound]`. The olean is in `build/`.
-- This round's operative theorem, `SieveCert.total_le`, was re-read at `SieveCert.lean` 135–136.
+- This round's operative theorem, `SieveCert.total_le`, was re-read at `SieveCert.lean` 138–139 *(round 597: it read "135–136"; `total_le` is at line 137 at 21958ab and 139 at 02859af; review of round 596, finding 4)*.
 - `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. SIEVE-ROUTE.md (25), SEVEN-THIRDS.md (63) and `external/pnt/README.md` (10) gain no reports, and README.md (1870) gains only one of class L10, in this entry. Each strike starts at a word, so that it renders, and the live texts were read with the strikes removed. None of these files is a paper surface.
 
 **Checked and held** (the reviewer's list, with its evidence in its report).
@@ -24535,3 +24535,77 @@ The region's conditions enter as hypotheses in units of `1/DEN`. For example, `c
 **Bearing on RH:** none.
 
 **The next step.** A convergence review of this sweep. Meanwhile M6 continues in scratch: the Abel summation over the primes, the three prime sums, `Ψ` with Buchstab's inequality, and the supersolution compile; the induction step is close.
+
+## Round 597: rough numbers from above and the shares of the certificate's cells (`external/pnt/SieveRough.lean`; `frontier/linnik/SIEVE-ROUTE.md` §13, M6), and the convergence review of round 596
+
+**What it is.** Two parts.
+
+- Milestone M6 of the first goal (SIEVE-ROUTE.md §13) is proved: rough numbers from above with the crude `ω*`, and the shares of the loss certificate's cells.
+- A fresh-context reviewer, the repository's `hostile-reviewer` agent, ran the convergence review of round 596's sweep at 02859af. It found no MAJOR and no minor finding, so that sweep is converged. Its eight cosmetic findings and one observation are swept here.
+
+**The theorems.**
+
+- `SieveRough.psi_le`: for every `U` and `ε > 0` there is `z₀` such that `Ψ(y, z) ≤ (ω*(u) + ε)y/log z` for all `z ≥ z₀`, `y ≥ 1` and `u = log 2y/log z ≤ U`. Here `Ψ(y, z) = #{m ∈ (y, 2y] : p | m ⇒ p ≥ z}`, and `ω*` is `SieveCert.omegaC`: `0` below `1`, `1/u` on `[1, 2)` and `0.5672` from `2` on.
+- `SieveRough.share2`: let `cellP x k` be the primes `p` whose exponent `log p/log x` lies in the cell `k` of the certificate's grid (`mem_cellP`, in the terms of `SieveCert.InCell`). For a cell `(i, j)` with `e_i + 2e_j ≤ DEN` and every `δ > 0`, eventually in `x`, `Σ_{p₁ ∈ cellP x i} Σ_{p₂ ∈ cellP x j} Ψ(x/(p₁p₂), p₂) ≤ (bound2(e_i, e_j)/K + δ)x/log x`.
+- `SieveRough.share4`: the same at depth 4 with `bound4`, for `e_i + e_j + e_k + 2e_l ≤ DEN`.
+- `share2_of_cand` and `share4_of_counted4`: the two on the cells that pass `cand` and `counted4`, whose tests include those inequalities.
+
+`Ψ(x/d, p)` counts the `m` with `dm ∈ (x, 2x]` and no prime factor below `p`. Summed over a cell's primes it is the model's count of the cell's terms, which M8 will drop, and the shares bound it by the certificate's own bounds.
+
+**The proof.**
+
+- `theta_near`: `|θ(t) − t| ≤ εt/log t` for all large `t`, from the stack's `ψ(t) − t = O(t^{23/24})` (`HalfPlanePNT.psi_isBigO_eleven_twelfths` at `ε = 1/24`) and Mathlib's `ψ − θ ≤ 2√t log t`.
+- Abel summation against `θ`, from above (`abel_le`, on Mathlib's `sum_mul_eq_sub_sub_integral_mul`), gives three prime sums over `(a, b]` (`sum_inv_mul_log_le`, `sum_inv_le`, `sum_inv_mul_sub_log_le`). `card_primes_dyadic` gives `π(2y) − π(y) ≤ (1 + ε)y/log 2y` for large `y`.
+- Buchstab's inequality by the least prime factor (`Psi_le_buchstab`): `Ψ(y, z) ≤ #{p : y < p ≤ 2y} + Σ_{z ≤ p ≤ √(2y)} Ψ(y/p, p)` for `y ≥ 2`.
+- The induction is on an integer bound `K ≥ u` (`Claim`, `claim_step`, `claim_nat`). Below `u = 1` nothing is counted, and below `u = 2` only primes. Above, the step bounds each `Ψ(y/p, p)` by the hypothesis and sums `ω*((L − log p)/log p)/(p log p)`, `L = log 2y`, over two ranges (`rangeA_le`, `rangeB_le`). On `log p ≤ L/3` it has `ω* = 0.5672`, and on `L/3 < log p ≤ L/2` it has `ω* = log p/(L − log p)`. The sum is `M(u)/L` up to `O(ε)`, with `M(u) = ∫_1^{u−1} ω*`, and `ω*` is a supersolution of the delay equation: `1 + M(u) ≤ 0.5672u` for `u ≥ 2` (`super_M`, from `1 + log(u − 1) ≤ 0.5672u` and `1 + log 2 ≤ 3·0.5672`).
+- The shares. At a point of a cell, `psi_le` and `SieveCert.omegaC_le` give `Ψ(x/(dp), p) ≤ (omK/K + ε)x/(dp log p)` (`psi_point`). The widening `log 2/log x` of `omegaC_le` is below `1/DEN` for large `x`. The cells lie below `α₁ + α₂ = 1` and `α₁ + ⋯ + α₄ = 1`, since `e_j ≥ V ≥ 4H` (`four_H_le_V`, by `decide`). Summed over a cell, the bound is a product of the cells' prime sums. For large `x` these are at most `h/a + δ` for `Σ 1/p` and `h/a² + δ` for `log x · Σ 1/(p log p)`, with `h` the side and `a` the lower corner (`evLe_cell_inv`, `evLe_cell_inv_log`). `SieveCert.bound2_ge` and `bound4_ge` then close the bound (`evLe_finish`).
+
+**The convergence review of round 596.** In the reviewer's words: "no MAJOR and no minor findings. There are 8 cosmetic findings and 1 out-of-scope observation." It classed all nine as novel. Under Check 3 the lead verified each against the cited lines; all are accepted and swept.
+
+- **1** (cosmetic). `SieveCert.lean`'s header bullet for `cover3` left out its hypotheses on `α₃`, the region of depth 3. Outside that region the statement fails. The reviewer's point on the cell `(1, 0)` has `α₃ = 0.514 > α₂`; it is non-evaluable, and its sum `0.6914` exceeds `1 − u₂`. The same omission stood in README round 595, `external/pnt/README.md` and §13's plan for M7. The docstring and the external README are corrected, and README round 595 and §13 are struck and annotated.
+- **2** (cosmetic). Round 596's F6 left siblings. `SieveCert.lean`'s header bullet called `omK` the crude `ω`'s supremum, and README round 595's "computed exactly" was marked, not struck. The docstring is corrected, the README clause is struck and annotated, and §13's plan is marked.
+- **3** (cosmetic). Round 596's O-1 placed the timed scratch loop in README round 595; it is in round 594's entry. Corrected.
+- **4** (cosmetic). Round 596 cited `SieveCert.lean` 135–136 for `total_le`, which is at line 137 at 21958ab and 139 at 02859af. Corrected.
+- **5** (cosmetic). §13 and README round 596 said the certificate's own check takes 64 s, but 64 s is round 595's compile of the whole file. This round's timing is 8 s for the import and the definitions, 47 s with `total_le`, and 57 s in all. Struck and annotated at both sites.
+- **6** (cosmetic). Round 596's markers in §9 and SEVEN-THIRDS §46 named `L = 2.333` but not the window. On the committed window §7 gives `0.8660`. Markers add the window.
+- **7** (cosmetic). Round 596's F3 gave §13's wording as README round 594's too; that entry read "in place of §9's Selberg route". Corrected.
+- **8** (cosmetic). §12's "what M7 needs of `ω`" read as an open need, but under §13 no property of `ω` itself is used. A marker says so and cites `SieveRough.psi_le`.
+- **9** (out-of-scope observation). §13's M4 admits comparisons between two products of variables, which Lemma 4″'s counts do not cover. §4 generates only two kinds: two primes against each other, and a product of primes against a threshold. A marker scopes the family.
+
+**The lead's verification.**
+
+- Each cited line was read:
+  - `SieveCert.lean` 17–18, 26–27, 81 and 353–357;
+  - README.md 24409, 24452, 24459, 24506, 24511 and 24519;
+  - SIEVE-ROUTE.md 103–104, 165, 222, 361, 384, 385, 388 and 407;
+  - SEVEN-THIRDS.md 881 and `external/pnt/README.md` 381.
+- `git show <commit>:…/SieveCert.lean | grep -n "theorem total_le"` gives line 137 at 21958ab and 139 at 02859af.
+- Finding 1's point was checked by hand: no sub-sum of `(0.0919, 0.0855, 0.514)` lies in `U`.
+- Finding 5's split was timed on truncated copies of the file, with the build's `LEAN_PATH` (scratch).
+- This round's operative theorems, `SieveRough.psi_le`, `share2` and `share4`, were re-read at `SieveRough.lean` 1201–1203, 1540–1542 and 1612–1617.
+
+**What is checked.**
+
+- `lean` was run on `SieveRough.lean` with the build's `LEAN_PATH` (Mathlib at `MATHLIB_REV`) in 64 s, with no errors and no warnings. Its 18 axiom lines are all `[propext, Classical.choice, Quot.sound]`. The olean is in `build/`.
+- `SieveCert.lean` changed in docstrings only: with comments stripped, both versions have 4972 tokens and are identical (scratch check). It was recompiled in 63 s with no errors or warnings. Its twelve axiom lines are as before, `[propext]` for `total_le`. The olean is in `build/`.
+- `external/pnt/build.sh` lists the new file after `SieveCert`, imports it in the final check and prints the axioms of five of its theorems; `bash -n` passes. The final check, run alone against `build/`, prints 331 axiom lines, all inside the three (9 s). The rest of the layer was not rebuilt.
+- Before landing, each docstring and the header were read against their statements.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. None of these files is a paper surface.
+
+**Records.**
+
+- `external/pnt/SieveRough.lean`: new.
+- `external/pnt/SieveCert.lean`: two docstring bullets (findings 1 and 2).
+- `external/pnt/build.sh`: the new file, imported in the final check, and the axioms of five of its theorems.
+- `external/pnt/README.md`: a row in the table, a section, and finding 1's sentence.
+- `frontier/linnik/SIEVE-ROUTE.md`: M6's markers in §0, §8, §9 and §13, and the sweep's strikes and markers in §9, §12 and §13.
+- `frontier/linnik/SEVEN-THIRDS.md`: two markers in §46.
+- README.md: rounds 595 and 596 swept as above.
+
+**Check 4.** New against the pilot: rough numbers from above with a crude supersolution, and the shares of the certificate's cells. Classical [recalled]: Buchstab's identity, Abel summation over the primes, and upper bounds for `Ψ` from a supersolution of the delay equation.
+
+**Check 9.** (a) The theorems are scoped: `z ≥ z₀(U, ε)`, `y ≥ 1` and `u ≤ U` for `psi_le`, and eventually in `x` for the shares. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** A voluntary review of this round, covering `SieveRough.lean` and the sweep. Meanwhile M4, the Type II families (Lemmas 4′ and 4″), in scratch.
