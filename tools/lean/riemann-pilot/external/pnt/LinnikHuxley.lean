@@ -20,8 +20,9 @@ off-diagonal bound of part 2, with a short mollifier. Ingham's exponent `3/(2 �
   `l ≤ l⁴/(4λ³) + 3λ/4` at `λ = 1/(3AX)`.
 * `block_bin_count`: one dyadic block and one bin `σ_b ≤ β_χ < σ_b + 1/96` of the polynomial class, by `power_count`
   with `LinnikOffDiag.norm_offK_le` at `T′ = 2T` (inside a bin `Re z < 1/48 ≤ (1/12 − δ)/2`).
-* `class1_huxley`: the polynomial class for `Q^{1/25} ≤ 2X` and `(2XN)² ≤ Q^{87/70}`: in each block the least `m` with
-  `(2P)^m ≥ Q^{29/35+10ε}` (`choose_m`) has `m ≤ 22` and `(2P)^m ≤ Q^{87/70+15ε}`; then `feas_huxley` and the count
+* `class1_huxley`: the polynomial class for `Q^{1/25} ≤ 2X` and `(2XN)² ≤ Q^{87/70}`: in each block some `m` with
+  `(2P)^m ≥ Q^{29/35+10ε}` has `m ≤ 22` and `(2P)^m ≤ Q^{87/70+15ε}` (`choose_m`, whose proof takes the least `m`);
+  then `feas_huxley` and the count
   `Q^{(87/35+54ε)(1−σ)}` per block and bin (`count_bound_huxley`).
 * `count_huxley`: `LinnikDetect.dichotomy` at `X = ⌊Q^{1/25}⌋`, `Y = Q^{3/5}` (round 518's `Xw`, `Yw`, `Nw` at
   `U = Q^{1/25}`, `c = 7`), `Q = q(T + 6)`, for all large `Q` (`eventually_huxley`); below that at most `q` characters.
@@ -644,7 +645,8 @@ lemma class2_bound_huxley {ε C₄ : ℝ} (hε : 0 < ε) (hε1 : ε ≤ 1 / 200)
 /-- **The polynomial class with powers.** Characters with one point `β_χ + iγ_χ` each, `σ ≤ β_χ < 1`, `|γ_χ| ≤ T`,
 and `|P_χ(β_χ + iγ_χ)| ≥ ¼` number at most `20K·2e(4C⁴)^{22}Q^{(87/35+54ε)(1−σ)}`, `K = ⌊log₂ N⌋ + 1`, `C = C(ε/88)`,
 for `23/29 ≤ σ ≤ 11/12`: some dyadic block is at least `1/(4K)` (`Pvχ_eq_blocks`); bins of width `1/96` in `β`; in
-each block and bin the least power `m` with `(2P)^m ≥ Q^{29/35+10ε}` (`choose_m`), at most `Q^{87/70+15ε}` long, and
+each block and bin a power `m` with `(2P)^m ≥ Q^{29/35+10ε}` (`choose_m`, whose proof takes the least), at most
+`Q^{87/70+15ε}` long, and
 `block_bin_count` with `feas_huxley` and `count_bound_huxley`. -/
 theorem class1_huxley {ε : ℝ} (hε : 0 < ε) (hε1 : ε ≤ 1 / 200) {C₁ : ℝ} (hC₁0 : 0 ≤ C₁)
     (hC₁ : ∀ ψ : DirichletCharacter ℂ q, ψ ≠ 1 → ∀ Λ : ℝ, 1 ≤ Λ → ∀ z : ℂ, 0 ≤ z.re → z.re ≤ (1 / 12 - ε) / 2 →

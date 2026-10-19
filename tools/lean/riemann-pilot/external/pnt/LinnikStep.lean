@@ -278,8 +278,8 @@ lemma term2_step [NeZero q] {ε : ℝ} (hε : 0 < ε) (hε1 : ε ≤ 1 / 100000)
 each, `σ ≤ β_χ < 1`, `|γ_χ| ≤ T`, and `|P_χ(β_χ + iγ_χ)| ≥ ¼` number at most
 `(⌊50/ε⌋ + 1)K(B₁ + B₂)Q^{(2019/1000)(1−σ)}`, `K = ⌊log₂ N⌋ + 1`, for `Q^{1/2000} ≤ 2X` and
 `(2XN)² ≤ Q^{201/200+ε}` (`LinnikTwelve.class1_twelve` with these sizes): some dyadic block is at least `1/(4K)`;
-bins of width `ε/200` in `β`; in each block and bin the least power `m` with `(2P)^m ≥ Q^{2/3+ε}`
-(`choose_m_step`), at most `Q^{201/200+3ε/2}` long, and `block_bin_hux` with `term1_step` and `term2_step`. -/
+bins of width `ε/200` in `β`; in each block and bin a power `m` with `(2P)^m ≥ Q^{2/3+ε}` (`choose_m_step`, whose
+proof takes the least), at most `Q^{201/200+3ε/2}` long, and `block_bin_hux` with `term1_step` and `term2_step`. -/
 theorem class1_step [NeZero q] {ε : ℝ} (hε : 0 < ε) (hε1 : ε ≤ 1 / 100000)
     {σ T Q : ℝ} (hσ : 5 / 6 ≤ σ) (hσ1 : σ ≤ 11 / 12) (hT : 0 ≤ T) (hQ1 : 1 < Q)
     (hqT : (q : ℝ) * (T + 2) ≤ Q)

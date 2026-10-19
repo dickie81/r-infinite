@@ -13,8 +13,8 @@ power trick, with round 526's large-values estimate (part 1's `block_bin_hux`) i
 Halász–Montgomery count (`LinnikHuxley.power_count`). Ingham's exponent `3/(2 − σ)` equals `12/5` at `σ = 3/4`.
 
 * `class1_twelve`: the polynomial class for `Q^{1/25} ≤ 2X` and `(2XN)² ≤ Q^{6/5+ε}`: some dyadic block is at least
-  `1/(4K)`; in bins of width `ε/200` in `β` and in each block, the least `m` with `(2P)^m ≥ Q^{4/5+ε}` (`choose_m`),
-  then part 1's `block_bin_hux` with part 2's `term1_le` and `term2_le`.
+  `1/(4K)`; in bins of width `ε/200` in `β` and in each block, a power `m` with `(2P)^m ≥ Q^{4/5+ε}` (`choose_m`,
+  whose proof takes the least), then part 1's `block_bin_hux` with part 2's `term1_le` and `term2_le`.
 * `class2_bound_twelve`: round 525's integral class (`class2_count_small`) at `Y = Q^{3/5}`, `X ≤ Q^{1/25}` and
   `δ = 1/4` has at most `27(4KG)⁴C₄Q^{(12/5)(1−σ)}` members.
 * `far_cut`, `sieve_range`, `EQ_le_Q`, `powerset_le_Q`, `bkt_le_Q`: at `J = 16⌈log₂(4MQ)⌉`, `M = max(ζ(9/8), 1)`,
@@ -56,8 +56,8 @@ lemma B2_nonneg (ε : ℝ) : 0 ≤ B2 ε := by unfold B2; positivity
 /-- **The polynomial class with Huxley's estimate.** Characters with one point `β_χ + iγ_χ` each, `σ ≤ β_χ < 1`,
 `|γ_χ| ≤ T`, and `|P_χ(β_χ + iγ_χ)| ≥ ¼` number at most `(⌊50/ε⌋ + 1)K(B₁ + B₂)Q^{(12/5+53ε)(1−σ)}`,
 `K = ⌊log₂ N⌋ + 1`, for `3/4 ≤ σ ≤ 11/12`: some dyadic block is at least `1/(4K)` (`Pvχ_eq_blocks`); bins of width
-`ε/200` in `β`; in each block and bin the least power `m` with `(2P)^m ≥ Q^{4/5+ε}` (`choose_m`), at most
-`Q^{6/5+3ε/2}` long, and `block_bin_hux` with `term1_le` and `term2_le`. -/
+`ε/200` in `β`; in each block and bin a power `m` with `(2P)^m ≥ Q^{4/5+ε}` (`choose_m`, whose proof takes the
+least), at most `Q^{6/5+3ε/2}` long, and `block_bin_hux` with `term1_le` and `term2_le`. -/
 theorem class1_twelve [NeZero q] {ε : ℝ} (hε : 0 < ε) (hε1 : ε ≤ 1 / 200)
     {σ T Q : ℝ} (hσ : 3 / 4 ≤ σ) (hσ1 : σ ≤ 11 / 12) (hT : 0 ≤ T) (hQ1 : 1 < Q)
     (hqT : (q : ℝ) * (T + 2) ≤ Q)

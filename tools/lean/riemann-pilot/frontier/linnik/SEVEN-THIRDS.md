@@ -878,7 +878,7 @@ After round 577 the lead proposed hardening the result before building on it, st
 - Type I and Harman's fundamental theorem in the form used;
 - the decomposition and the final count.
 
-It also lists what a referee should check first and what Lean is missing. It is at paper level, unrefereed and not machine-checked.
+It also lists what a referee should check first and what Lean is missing. It is at paper level, unrefereed and not machine-checked. *(Rounds 589 and 591: two of its inputs are now proved in Lean; SIEVE-ROUTE.md §§9–12.)*
 
 - Writing it out corrected two points of §44. Neither moves a number. *(Round 581: and it made a third precise, the measure of the Perron variables, now marked in §44; review F8.)*
   - The bound for the integers near a threshold is struck in §44. The floor `x^{ε₁}` of Buchstab's iteration is a threshold, and an integer near it divides about `x^{1−ε₁}/q` elements of the progression, not `O(x^{1−v}/q + 1)`. The error is still `o(x/(q log x))`.

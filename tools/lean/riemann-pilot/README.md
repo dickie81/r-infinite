@@ -24254,3 +24254,67 @@ with `N = ⌊2P⌋`, `M = KL(θ, θ + δ) + KL(11/12, 11/12 + δ)` and `A = log(
 **Bearing on RH:** none.
 
 **The next step.** A voluntary review of rounds 590 and 591, then M3: Proposition 3′, with characters binned by `b(χ)`, Cauchy–Schwarz, and `LinnikHybrid.sum_chars_norm_sq_le`.
+
+## Round 592: the independent review of rounds 590 and 591 (`frontier/linnik/SIEVE-ROUTE.md` §§0, 8 and 10; docstrings in `external/pnt/`)
+
+**What it is.** A fresh-context reviewer, the repository's `hostile-reviewer` agent, reviewed rounds 590 and 591 at 826da37. Its main target was round 591, Lemma 1 in Lean (`SieveLemma1.norm_Sw_le`, `SieveWeight.norm_Sp_le`). Round 590's sweep was its convergence test.
+
+- It found no MAJOR: two minor findings, three cosmetic ones and one observation, all novel.
+- In its words, "Everything compiles cleanly with only the three standard axioms, the statements match their descriptions, and Lemma 1 as §10 uses it follows from norm_Sp_le on paper."
+- Round 590's sweep holds. C7's new conjuncts gate what its docstring says, each branch of the crude bound has a sabotage case that fails C7, and every quoted "it read" is verbatim. One cosmetic finding (F3) is on round 590's own rewording.
+- Under Check 3 the lead verified each finding against the cited lines and the Lean sources. All five are accepted and swept.
+- F1 and F2 are minors, so this sweep is owed a further review. It goes into the next round's review.
+- No proved statement and no certified number changes.
+
+**Findings and dispositions.**
+
+- **F1** (minor). Round 591's marker on §10's plan for M2 said that the proof moves the whole line to `Re s = 11/12 + δ`, "and `logDeriv_LFunction_right` is not used". `Linnik.logDeriv_LFunction_le` passes `ChiUniform.logDeriv_LFunction_right` to `LogDerivDisc.logDeriv_le_ball` (`LinnikChar.lean` 156–158), and `SieveLemma1.norm_pw_le` calls it, on the rectangle and on the tails at `Re s = 11/12 + δ` alike. The reviewer's walk of the dependency graph reaches it from `norm_Sp_le`. The clause was false when written; it is struck and annotated. What the proof avoids is tails on `Re s = 2`. README round 591's comparison with the plan did not make the claim.
+- **F2** (minor). SIEVE-ROUTE.md §8's Lean map still listed Lemma 1 as missing, unmarked, while round 591's markers in §§9 and 10 say it is proved. A net-state marker is added. Two siblings are marked too: §0's "nothing in it is machine-checked" and SEVEN-THIRDS §46's "not machine-checked", which round 589's density of step and round 591's Lemma 1 supersede.
+- **F3** (cosmetic). Round 590's rewording of §0 read "No curve that depends on `σ` is needed for `2.333`". But unif, the curve that certifies `2.333`, depends on `σ` through its cap. It now reads "Neither hux nor cons is needed for `2.333`", the definite form that SEVEN-THIRDS §47 keeps.
+- **F4** (cosmetic). Round 590 corrected the docstrings of `choose_m` and `choose_m_step`, which described "the least `m`" while they export only some `m`. It kept the proof descriptions that cite them. The reviewer showed that those descriptions attribute the least `m`'s properties to the lemmas as well:
+  - `LinnikHuxley.lean` 23–24 ("the least `m` … (`choose_m`) has `m ≤ 22` and …") and 647;
+  - `LinnikTwelve.lean` 16 and 59;
+  - `LinnikStep.lean` 281.
+
+  All five now say "a power `m` … (`choose_m`, whose proof takes the least)". So do the two rows of `external/pnt/README.md` that cited "the least power", for `LinnikHuxley.lean` and `LinnikTwelve.lean`.
+- **F5** (cosmetic). The section on `SieveWeight.lean` in `external/pnt/README.md` credited to `Sw_wy_eq`, an identity, the bound `max |f0|` for each proper prime power. That bound is proved inside `norm_Sp_le`. Corrected.
+- **O1** (the brief). The brief told the reviewer to put its scratch directory on `LEAN_PATH` after `build/`, so that `SieveWeight.lean` would find its own `SieveLemma1.olean`. Lean takes the first match, so `build/`'s copy is used. The reviewer showed this with a decoy, and compiled with its own directory first. The two oleans are byte-identical, so nothing turns on it. Later briefs put the scratch directory first.
+
+**The lead's verification.**
+
+- Each cited line was read with `sed -n`:
+  - SIEVE-ROUTE.md 1–8, 15, 180–196 and 300;
+  - SEVEN-THIRDS.md 878–883;
+  - `LinnikChar.lean` 144–160;
+  - `LinnikHuxley.lean` 23–25 and 645–648, `LinnikTwelve.lean` 15–17 and 57–60, and `LinnikStep.lean` 278–282;
+  - `external/pnt/README.md` 295, 331 and 371.
+- A census of "least `m`", "least power" and "the least m" with `grep` over `external/pnt/*.lean` and `external/pnt/README.md` found the five lines of F4 and the two rows. The round-590 marker in the section on `LinnikStep.lean` quotes the old wording.
+- This round's operative theorem, `SieveWeight.norm_Sp_le`, was re-read at `SieveWeight.lean` 549–556.
+- **Lean.** `LinnikHuxley.lean`, `LinnikTwelve.lean` and `LinnikStep.lean` recompile with `lean`, in parallel (102 s, 85 s and 81 s), with no errors and no warnings. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for the eight, nine and eight theorems they print. The changes are to docstrings only (`git diff`), and the new oleans are in `build/`.
+- **Render lint.** `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. The sweep adds no reports to SIEVE-ROUTE.md (18), SEVEN-THIRDS.md (63) or `external/pnt/README.md` (10), and this entry adds to README.md (1855) only five reports of class L10 (a nested list directly after its item's text). A first draft of F1's strike began `~~` after a letter and before a comma, which does not open a strike; the lint caught it, and the strike now begins at a word. None of these files is a paper surface.
+
+**Checked and held** (the reviewer's list, with its evidence in its report).
+
+- **The statements against their descriptions.**
+  - Every hypothesis of `norm_Sw_le` and `norm_Sp_le`, the absent factor `2`, the floors, `P ≥ 4`, and the order of the quantifiers: `B` and `C` come before `q`, `χ`, `θ`, `δ`, `H`, `P` and `y`.
+  - Recompiled with `autoImplicit` off, both oleans are byte-identical.
+  - Neither file has `sorry`, `admit`, `native_decide`, `axiom`, `implemented_by`, `extern`, `unsafe`, `opaque` or `set_option`.
+- **The deduction of §3's Lemma 1 as §10 uses it.** The choices of `θ`, `H`, `δ` and `K`; the zero-free hypothesis with its strict and non-strict inequalities; the tail term; `A ≪ log x`; the prime powers; and `KL(θ, θ + δ)` bounded at fixed `δ`. Proposition 3′ uses Lemma 1 pointwise in `τ` and needs no measurability.
+- **Perron's formula with a weight, the contour and the weights.**
+  - The contour: the decay uniform in `σ`, the rectangle, the split and the final chain.
+  - The weights: `gw`, `contDiff_gw`, the Leibniz bound, the step to `2^{K+3}`, the sign of `mellin_cpow_smul`, `Sw_wy_eq` and the count of prime powers.
+  - The Mathlib names at `MATHLIB_REV`.
+- **`build/` is current.** Seven upstream files, and the four of the battery, recompile byte-identical.
+- **Round 590's sweep.**
+  - C7's conjuncts and floors hold, and each of the four branches' sabotage cases fails C7. Two further mutants are caught as well.
+  - The lead's census reproduces from the committed code. The committed C7 gives 136 and 40 points for k11 and k13, against 139 and 41 in the lead's scratch test, which differs in its random point.
+  - C7 does not crash under k0–k9, and every "it read" quote is verbatim against 5fa4405.
+- **The numbers in the records.** The certificate's census is verbatim, the axiom-line counts hold, the final check gives 317 of 317, and the render-lint counts hold.
+
+**Check 4.** The reviewer classed the five findings as novel; the lead agrees. O1 concerns the brief.
+
+**Check 9.** (a) F3 scopes a universal ("No curve that depends on `σ`"). (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** M3, Proposition 3′ for the curve step at `L = 2.333`, in scratch (`SieveTypeII.lean`). A voluntary review follows, and it also covers this round's sweep.
