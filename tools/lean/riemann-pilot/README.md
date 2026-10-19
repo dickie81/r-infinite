@@ -24710,7 +24710,7 @@ The region's conditions enter as hypotheses in units of `1/DEN`. For example, `c
 - `SieveSep.sum_sep`: for continuous integrable `g_j` with integrable `𝓕g_j`, a finite sum `Σ_i w_i ∏_j g_j(ℓ_j(i))` is the integral over `ℝ^J` of `∏_j 𝓕g_j(ξ_j)` times `Σ_i w_i e^{2πiΣ_j ξ_jℓ_j(i)}`. `SieveSep.sep_bound` bounds such integrals, for integrable `h_j` (here the `𝓕g_j`) and integrands `F_x(ξ)` continuous in `ξ`, with `Σ_x |F_x| ≤ B₁` on the box `|ξ_j| ≤ T₀` and `≤ B₂` everywhere, `B₁, B₂ ≥ 0`: by `B₁∏_j ‖h_j‖₁`, plus `B₂` times the tails `Σ_j (∫_{|t|>T₀} |h_j|) ∏_{i≠j} ‖h_i‖₁`.
 - `SieveFamily.family_bound` (Lemma 4′ with Proposition 3′). Let `f0` be smooth with support in `[1/2, 2]`, `e₁ > 0` and `0 < η ≤ 10⁻⁵`. A family has `m` over `S ⊆ (P, 2P]` with coefficients `a_m`, where `q^{0.401L} ≤ P ≤ q^{0.485L}`, the window of `SieveTypeII.typeII_step`; `K ≤ K₀` primes `x_i ≤ 2Q_i` with the weights `f0(x_i/Q_i)`, `Q_i ≥ q^{e₁}` and `∏_i Q_i ≤ 2^{K₀}q^L/P`; and `J` continuous integrable `g_j` with integrable `𝓕g_j`, applied to the forms `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i`. There is `q₀` such that for `q ≥ q₀`, if `2π(Σ_j |e_{ji}|)T₀ ≤ q^η` for each `i`, the sum over `χ ≠ 1` of the family's twisted sums is at most `q^{L−1/50000}(Σ|a_m|²/P)^{1/2} ∏_j ‖𝓕g_j‖₁`, plus the number of characters `χ ≠ 1` times `Σ_m |a_m| ∏_i Σ_p |f0(p/Q_i)|` times `Σ_j (∫_{|t|>T₀} |𝓕g_j|) ∏_{i≠j} ‖𝓕g_i‖₁`.
 - `SieveFamily.typeII_sharp_explicit` (Lemma 4″). Let also `0 ≤ f0 ≤ F₀`. Cut a family with `n + 1 ≤ K₀` primes by `J` sharp comparisons `P_j` in place of the `g_j`, where `P_j` holds when `ℓ_j > 0` and implies `ℓ_j ≥ 0`, each with a pivot prime of coefficient `±1`. There is `q₀` such that for `q ≥ q₀`, a unit `a` mod `q`, `0 < θ ≤ 1 ≤ Λ` with `ℓ_j ≤ Λ` on the family, `T₀ ≥ 1`, `k ≥ 2` and `2π(Σ_j |e_{ji}|)T₀ ≤ q^{1/100000}` for each `i`, `|A − B/φ(q)|` is at most an explicit bound in the cut-off's masses and tail (`massB`, `tailB`) and the pivots' counts.
-- `SieveFamily.typeII_sharp`. Fix `f0` as above, `K₀`, `J₀`, `e₁ > 0`, `E₀ ≥ 0`, `Λ₀ ≥ 0` and `A₀`. There are `δ > 0` and `q₀` such that, for `q ≥ q₀` and a unit `a` mod `q`, every sharp family with `|a_m| ≤ A₀` for every `m`, `J ≤ J₀`, `|e_{ji}| ≤ E₀` and `ℓ_j ≤ Λ₀ log q` on the family has `|A − B/φ(q)| ≤ A₀q^{L−δ}/φ(q)`.
+- `SieveFamily.typeII_sharp`. Fix `f0` as above, `K₀`, `J₀`, `e₁ > 0`, `E₀ ≥ 0`, `Λ₀ ≥ 0` and `A₀ ≥ 0`. There are `δ > 0` and `q₀` such that, for `q ≥ q₀` and a unit `a` mod `q`, every sharp family with `|a_m| ≤ A₀` for every `m`, `J ≤ J₀`, `|e_{ji}| ≤ E₀` and `ℓ_j ≤ Λ₀ log q` on the family has `|A − B/φ(q)| ≤ A₀q^{L−δ}/φ(q)`.
 
 The coefficients are bounded by a constant fixed before `q₀`, in place of §13's `τ(m)^C`. M5's families are to have `|a_m| ≤ 1`: in Buchstab's tree the primes of a term are distinct and decreasing, so `m` determines its tuple. §13's marker of this round says so.
 
@@ -24825,7 +24825,7 @@ The coefficients are bounded by a constant fixed before `q₀`, in place of §13
 
 - The reviewer found no MAJOR. It proposed one minor finding and five cosmetic ones, all novel, and one out-of-scope observation.
 - In its words, "The Lean holds up: the changes are docstring-only, both files recompile to the `build/` bytes, and the final check is clean."
-- Under Check 3 the lead verified each finding against the cited lines. All are accepted and swept, with siblings of finding 1, and the observation is acted on.
+- Under Check 3 the lead verified each finding against the cited lines. All are accepted and swept, with siblings of finding 1, except a point of finding 4 about an earlier text, which is held; the observation is acted on.
 - No proved statement changes. Finding 1 is a minor, so round 601's sweep is not converged, and this sweep is owed a convergence review.
 
 **Findings and dispositions.**
@@ -24833,7 +24833,7 @@ The coefficients are bounded by a constant fixed before `q₀`, in place of §13
 - **1** (minor). `typeII_sharp`'s docstring bounded the coefficients `a_m` of the `m` of `S` only, while the Lean takes `|a_m| ≤ A₀` for every `m` and its proof uses the bound at `m = 0` to get `A₀ ≥ 0` (`SieveFamily.lean` 1446). With `S` empty and `A₀ < 0` the docstring's statement is false: the family's `A − B/φ(q)` is `0` and the bound is negative. So round 601's "Round 601 completes them" and "the two docstrings are completed" were false when written; both are struck and annotated. The docstring now reads "`|a_m| ≤ A₀` for every `m`". Siblings: the header of `SieveFamily.lean`, the docstrings of `sum_norm_le`, `sqrt_sum_sq_le`, `box_le` and `pivot_le`, round 600's summary of `typeII_sharp` in this README, and the section on `SieveFamily.lean` in `external/pnt/README.md`, annotated.
 - **2** (cosmetic). Round 601 counted 36 docstrings in `SieveFamily.lean`. There are 38: two of the scratch script's 36 entries held two docstrings each. Corrected in place.
 - **3** (cosmetic). Round 601's marker at SIEVE-ROUTE.md 375 compared the built `ε₂ = 1/(400000(J₀ + 1))`, an exponent of `q`, with `η/(2L)`, a bound on §10's `ε₂`, an exponent of `x`. As an exponent of `x` the built `θ`'s is at most `1/(400000L) = 1.07·10⁻⁶ < η/(2L) = 2.14·10⁻⁶`, and the built `T₀ = q^{1/200000}` is `x^{2e}` with `e = 1/(400000L)`. The marker now says so, annotated, and round 601's entry is corrected in place. The comparison was round 600's review's finding 3, which round 601 accepted without checking the bases.
-- **4** (cosmetic). The marker at SIEVE-ROUTE.md 402 wrote the form with `φ_j(m)`, which the file does not define and which §3 (85) uses for the primes' smooth weights. It now reads `c_j(m)`, a function of `m` alone, annotated.
+- **4** (cosmetic). The marker at SIEVE-ROUTE.md 402 wrote the form with `φ_j(m)`, which the file does not define and which §3 (85) uses for the primes' smooth weights. It now reads `c_j(m)`, a function of `m` alone, annotated. Held: the finding's point that §13's family bullet (406), written in round 594, indexes the primes' scales by `j` (`f0(p/Q_j)`); that bullet, like §3 (85), uses `j` for the primes and names no comparison.
 - **5** (cosmetic). SIEVE-ROUTE.md 190, Proposition 3 in §8's list of what is missing, still read as proved pointwise in the heights only. It now carries a marker for `family_bound`'s integral over the heights.
 - **6** (cosmetic). The docstrings of `typeII_sharp_explicit` and `typeII_sharp` bounded "the `A − B/φ(q)`", where the Lean bounds its absolute value. Both now read `|A − B/φ(q)|`.
 - **O1** (observation; record prose). Round 601 said that "the cut-off's tails" left `c₂` unbound, but `c₂` is the mass bound's constant. Corrected in place.
@@ -24846,7 +24846,7 @@ The coefficients are bounded by a constant fixed before `q₀`, in place of §13
 
 **What is checked.**
 
-- The change to `SieveFamily.lean` is in docstrings only: with comments stripped it has 19296 tokens before and after, identical (scratch check), and it keeps its 1601 lines. It was recompiled with the build's `LEAN_PATH` into `build/` in 42 s, with no errors and no warnings.
+- The change to `SieveFamily.lean` is in docstrings and the header comment only: with comments stripped it has 19296 tokens before and after, identical (scratch check), and it keeps its 1601 lines. It was recompiled with the build's `LEAN_PATH` into `build/` in 42 s, with no errors and no warnings.
 - The final check, run alone against `build/`, prints 337 axiom lines: 336 `[propext, Classical.choice, Quot.sound]` and 1 `[propext]` (9 s).
 - `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class: README.md (1872), SIEVE-ROUTE.md (25) and `external/pnt/README.md` (5) gain no reports. The two new strikes start at a word, each renders as one `<del>` holding its text verbatim, and the live text was read with the strikes removed. None of these files is a paper surface.
 
@@ -24871,3 +24871,45 @@ The coefficients are bounded by a constant fixed before `q₀`, in place of §13
 **Bearing on RH:** none.
 
 **The next step.** A convergence review of this sweep. Meanwhile M5 continues in scratch: Buchstab's tree as an exact identity (`tree_pt`, `tree_sum`) and a smooth dyadic partition of unity compile, and the reduction of families with sharp prime ranges to `typeII_sharp` is in progress.
+
+## Round 603: the convergence review of round 602 (`external/pnt/SieveFamily.lean` docstring and header; `frontier/linnik/SIEVE-ROUTE.md` §13; `external/pnt/README.md`)
+
+**What it is.** A fresh-context reviewer, the repository's `hostile-reviewer` agent, ran the convergence review of round 602's sweep at e47b05c.
+
+- The reviewer found no MAJOR and no minor finding, so round 602's sweep is converged. It proposed four cosmetic findings, all novel.
+- In its words, "The Lean change is comment- and docstring-only. `SieveFamily.lean` recompiles to oleans and ileans byte-identical to `build/`'s, and the final check is clean."
+- Under Check 3 the lead verified each finding against the cited lines; all are accepted and swept here. No proved statement changes. This cosmetic sweep rides with the next substantive round's review.
+
+**Findings and dispositions.**
+
+- **1** (cosmetic). `typeII_sharp`'s docstring introduces `m` as running over `S`, so its "`|a_m| ≤ A₀` for every `m`" can be read as bounding the `m` of `S` only, and on that reading round 601's counterexample (`S` empty, `A₀ < 0`) stands. The fixed shape now has `A₀ ≥ 0`, which the Lean implies (`SieveFamily.lean` 1446), so the statement is true on either reading. Siblings: the header of `SieveFamily.lean`, round 600's summary of `typeII_sharp` in this README, and the section on `SieveFamily.lean` in `external/pnt/README.md`, annotated.
+- **2** (cosmetic). The marker at SIEVE-ROUTE.md 375 gave `ε′/L ≤ 1/(400000L) < η/(2L)` without fixing `η`, while the bullet allows any `η ≤ 10⁻⁵` and the inequality needs `η > 5·10⁻⁶`. It now reads "at the built `η = 10⁻⁵` (`SieveFamily.lean` 958)", annotated.
+- **3** (cosmetic). Round 602 said that all of round 601's findings were "accepted and swept", but finding 4 also noted that §13's family bullet (406) indexes the primes' scales by `j`, and that point was neither swept nor held. It is held: that bullet, written in round 594, uses `j` for the primes as §3 (85) does, and names no comparison. Round 602's entry now says so, in place.
+- **4** (cosmetic). Round 602 called its change to `SieveFamily.lean` "in docstrings only", but it also edited the header, a plain comment. Corrected in place to "in docstrings and the header comment only".
+
+**The lead's verification.**
+
+- Each cited line was read: `SieveFamily.lean` 20–23, 958 and 1371–1374; SIEVE-ROUTE.md 375 and 406; README.md 24828, 24836 and 24849.
+- The change to `SieveFamily.lean` is in its header comment and one docstring only: with comments stripped it has 19296 tokens before and after, identical (scratch check), and it keeps its 1601 lines. It was recompiled with the build's `LEAN_PATH` into `build/` in 44 s, with no errors and no warnings. The final check, run alone against `build/`, prints 337 axiom lines: 336 `[propext, Classical.choice, Quot.sound]` and 1 `[propext]` (7 s).
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class: README.md (1872), SIEVE-ROUTE.md (25) and `external/pnt/README.md` (5) gain no reports. None of these files is a paper surface.
+
+**Checked and held** (the reviewer's list, with its evidence in its report).
+
+- **Docstring-only.** `SieveFamily.lean` at e47b05c recompiles to an olean and an ilean byte-identical to `build/`'s, and the final check is clean.
+- **The strikes of round 602.** Each renders as one `<del>` holding its text verbatim, and the live text reads cleanly.
+- **The other universally quantified hypotheses.** Every proof that uses one at a single point, `hA 0` and `hf0 0` or `hF₀ 0`, has a docstring that states it unscoped.
+
+**Records.**
+
+- `external/pnt/SieveFamily.lean`: `A₀ ≥ 0` in the header and in `typeII_sharp`'s docstring.
+- `external/pnt/README.md`: the section on `SieveFamily.lean` (finding 1), annotated.
+- `frontier/linnik/SIEVE-ROUTE.md`: the marker at 375 (finding 2), annotated.
+- README.md: rounds 600 and 602 corrected in place.
+
+**Check 4.** The reviewer classed the findings as novel; the lead agrees.
+
+**Check 9.** (a) "on either reading" rests on `A₀ ≥ 0`: extending `a` by `0` off `S` makes the reading on `S` the Lean's. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** M5 continues in scratch. Beyond round 602's report, families with sharp prime ranges now reduce to `typeII_sharp` over dyadic scales and dyadic blocks of `m` (`SieveTypeIIU.typeII_unw`), and so does a variable times a rough cofactor, written as non-increasing tuples of primes (`SieveRoughTuple.sum_rough_eq`, `SieveTypeIIR.typeII_rough`); both compile. Proposition 6's assembly is next.

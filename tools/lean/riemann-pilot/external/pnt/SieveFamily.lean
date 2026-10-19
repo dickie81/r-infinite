@@ -19,7 +19,7 @@ unit `a` mod `q`, its `A − B/φ(q)` is `Dsum`: the sum of its weights times `1
   family, each comparison has a pivot prime with coefficient `±1`, `T₀ ≥ 1`, `k ≥ 2` and
   `2π(Σ_j |e_{ji}|)T₀ ≤ q^{1/100000}` for each `i`, then `|A − B/φ(q)|` is at most an explicit bound in the cut-off's
   masses and tails (`massB`, `tailB`) and the pivots' counts.
-* `typeII_sharp`: fix also `J₀`, `E₀ ≥ 0`, `Λ₀ ≥ 0` and `A₀`. There are `δ > 0` and `q₀` such that for `q ≥ q₀`,
+* `typeII_sharp`: fix also `J₀`, `E₀ ≥ 0`, `Λ₀ ≥ 0` and `A₀ ≥ 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀`,
   every such family with `|a_m| ≤ A₀` for every `m`, `J ≤ J₀`, `|e_{ji}| ≤ E₀`, `ℓ_j ≤ Λ₀ log q` on the family and
   pivots as above has `|A − B/φ(q)| ≤ A₀q^{L−δ}/φ(q)`.
 
@@ -1370,7 +1370,7 @@ open scoped ContDiff
 
 /-- **The Type II estimate for a sharp family (Lemmas 4′ and 4″), asymptotic form.** Let `L = 2.333`, `f0` smooth
 with support in `[1/2, 2]` and `0 ≤ f0 ≤ F₀`, and fix the family's shape: `K₀`, `J₀`, `e₁ > 0`, `E₀ ≥ 0`, `Λ₀ ≥ 0`
-and `A₀`. There are `δ > 0` and `q₀` with the following property. Let `q ≥ q₀`, let `a` be a unit mod `q`, let `m`
+and `A₀ ≥ 0`. There are `δ > 0` and `q₀` with the following property. Let `q ≥ q₀`, let `a` be a unit mod `q`, let `m`
 run over `S ⊆ (P, 2P]`, `q^{0.401L} ≤ P ≤ q^{0.485L}`, with coefficients `a_m`, `|a_m| ≤ A₀` for every `m`, and let
 `n + 1 ≤ K₀` primes `x_i` run over `Sp`'s ranges at the scales `Q_i ≥ q^{e₁}`, `∏_i Q_i ≤ 2^{K₀}q^L/P`, with the
 weights `f0(x_i/Q_i)`. Let `J ≤ J₀` sharp comparisons `P_j` hold when `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i > 0` and
