@@ -440,8 +440,8 @@ theorem block_bin_count {R : Finset (DirichletCharacter ℂ q)} {S : Finset ℕ}
 
 /-! ### The exponent bookkeeping in the range `23/29 ≤ σ ≤ 11/12` -/
 
-/-- **The power of a block**: for `x ≥ Q^{1/25}` and `0 < a ≤ 22/25` the least `m` with `Q^a ≤ x^m` has `1 ≤ m ≤ 22`
-and `x^m ≤ max(x², Q^{3a/2})` (for `m ≥ 3`, `x² ≤ x^{m−1} < Q^a`). -/
+/-- **The power of a block**: for `x ≥ Q^{1/25}` and `0 < a ≤ 22/25` some `m` with `Q^a ≤ x^m` has `1 ≤ m ≤ 22`
+and `x^m ≤ max(x², Q^{3a/2})`; the proof takes the least such `m` (for `m ≥ 3`, `x² ≤ x^{m−1} < Q^a`). -/
 lemma choose_m {Q a x : ℝ} (hQ : 1 < Q) (ha : 0 < a) (ha22 : a ≤ 22 / 25) (hx : Q ^ (1 / 25 : ℝ) ≤ x) :
     ∃ m : ℕ, 1 ≤ m ∧ m ≤ 22 ∧ Q ^ a ≤ x ^ m ∧ x ^ m ≤ max (x ^ 2) (Q ^ (3 * a / 2)) := by
   classical

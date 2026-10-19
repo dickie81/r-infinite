@@ -85,22 +85,31 @@ at step 2.5e-5, whose error is far below 1e-8; the probe's midpoint estimate).
        their alpha3 cell inside the depth-3 region, h^4 times the infimum of the integrand: omega from the lower
        enclosure, the prefactor at the upper corner, rounded inward.  The lower bound must be positive for at least
        100 of the sampled cells.
-  (C7) A crude bound for omega (README round 589).  It is 0 below 1, 1/t on [1, 2), where omega(t) = 1/t, and
-       OMEGA_TOP = 0.5672 on [2, 16), rounded outward like the rest.  The gate: the enclosure's upper bound hi is at
-       most OMEGA_TOP on every table interval in [2, 16), so omega is too, given C2; and the certificate for step at
-       2.333 with n = 70 is below 1 with the crude bound in place of the enclosure.
+  (C7) A crude bound for omega (README rounds 589 and 590).  It is 0 below 1, 1/t on [1, 2), where omega(t) = 1/t,
+       and OMEGA_TOP = 0.5672 on [2, 16), rounded outward like the rest.  The gate: (i) the enclosure's upper bound hi
+       is at most OMEGA_TOP on every table interval in [2, 16), so omega is too, by the enclosure's construction (How,
+       Omega; C2 tests it at points); (ii) the certificate for step at 2.333 with n = 70 is below 1 with the crude
+       bound in place of the enclosure; (iii) in that certificate, for every candidate cell of depth 2 and every
+       counted cell of depth 4 (at least 500 and 1000 of them), at the upper corner and the lower corner, each moved
+       inward by one unit, and at one random point, the cell bound is at least h^2 (or h^4) times the integrand at the
+       point; (iv) on the intervals of arguments in CRUDE_EDGES and on 2000 random intervals in [1/2, 3), at least
+       100 of them across 1 and 100 across 2, the crude bound is at least omega at both ends, at two random points,
+       and at 1, 2 and T_STAR, the double nearest 1 + 1/W(1), where omega is largest on [2, 3], when they lie in the
+       interval.
 Printed, not gated: the size of the coarse certificate in cells (hux 2.32, n = 50; its bounds also use the enclosure of
-omega, which the count leaves out), and that of step's at 2.333 (n = 70); hux at 2.29 with n = 150, 300 and 600 under the probe's rule and under the sharp
-rule, against the midpoint estimate at (400, 200), with the number and area of the cells that the sharp rule may
-decompose and the probe's rule refuses; hux at 2.27 and cons at 2.24 with n = 600, both above 1; the probe's midpoint
-estimates at (400, 200) for hux at 2.275 and cons at 2.245.
+omega, which the count leaves out), and that of step's at 2.333 (n = 70); hux at 2.29 with n = 150, 300 and 600 under
+the probe's rule and under the sharp rule, against the midpoint estimate at (400, 200), with the number and area of the
+cells that the sharp rule may decompose and the probe's rule refuses; hux at 2.27 and cons at 2.24 with n = 600, both
+above 1; the probe's midpoint estimates at (400, 200) for hux at 2.275 and cons at 2.245.
 Sabotage cases, each of which must fail its gate: (k0) no outward rounding (C0); (k1) u1' from the pieces' right ends
 without the last one, 11/12 (C1); (k2) omega's upper bound without the growth of F within an interval (C2); (k3) the
 prefactors rounded to nearest (C3); (k4) the conditions for decomposition tested at the lower corner (C4); (k5) a
 depth-2 cell dropped when its centre is evaluable (C4); (k6) the condition on alpha3 left out (C4); (k7) the
 prefactors taken at the upper corner (C4); (k8) decomposition costs set to 0 (C6); (k9) sums neither inflated nor
-rounded (C0); (k10) the crude bound's top value set to 0.56, below the maximum of omega (C7).  The rounding of the cell computations is below what the point tests (C4) can see; C0 and C3 test it
-against exact arithmetic.
+rounded (C0); (k10) the crude bound's top value set to 0.56, below the maximum of omega (C7); (k11) the crude bound
+1/hi in place of 1/lo on [1, 2) (C7); (k12) the crude bound across 2 without 1/lo (C7); (k13) the crude bound's zero
+test made on the interval's left end, as for an infimum (C7).  The rounding of the cell computations is below what the
+point tests (C4) can see; C0 and C3 test it against exact arithmetic.
 
 Scope.  The certificate bounds the integral that defines the loss of this decomposition; it does not check that the
 integral is the loss (section 44's analysis).  The bounds depend on the grid, and n is a choice.
@@ -127,8 +136,11 @@ STEP_CASE = ("step", Fr(2333, 1000), 70)
 CASES = (("hux", Fr(228, 100), 600), ("cons", Fr(225, 100), 600), ("hux", Fr(229, 100), 600),
          ("cons", Fr(227, 100), 600), ("unif", Fr(2333, 1000), 600), STEP_CASE, ("hux", Fr(232, 100), 50))
 OMEGA_TOP = 0.5672
+CRUDE_EDGES = ((0.5, 0.999), (0.5, 1.0), (1.0, 1.0), (0.9, 1.1), (1.0, 1.5), (1.25, 1.999), (1.5, 2.0), (1.7, 2.3),
+               (1.95, 2.05), (2.0, 2.0), (2.0, 2.999), (1.0, 2.999), (0.5, 2.999))
+T_STAR = Fr(2.7632228343518968)
 SABOTAGE = {"k0": "C0", "k1": "C1", "k2": "C2", "k3": "C3", "k4": "C4", "k5": "C4", "k6": "C4", "k7": "C4",
-            "k8": "C6", "k9": "C0", "k10": "C7"}
+            "k8": "C6", "k9": "C0", "k10": "C7", "k11": "C7", "k12": "C7", "k13": "C7"}
 
 
 # ------------------------------------------------------------------------------------------------------- rounding
@@ -226,18 +238,20 @@ class OmegaBounds:
 
 class CrudeOmega:
     """An upper bound for the supremum of omega on intervals of arguments, without the table: 0 below 1, 1/t on
-    [1, 2) (decreasing, so 1/lo on [lo, hi]), and top on [2, 16).  C7 checks top against the enclosure."""
+    [1, 2) (decreasing, so 1/lo on [lo, hi]), and top on [2, 16).  C7 checks top against the enclosure, and the bound
+    against omega at points."""
 
-    def __init__(self, top=OMEGA_TOP):
-        self.top = top
+    def __init__(self, top=OMEGA_TOP, mut=None):
+        self.top, self.mut = top, mut
 
     def sup(self, lo_arg, hi_arg):
         lo_arg, hi_arg = np.asarray(lo_arg, dtype=float), np.asarray(hi_arg, dtype=float)
         if np.any(hi_arg >= UMAX):
             raise ValueError("omega argument beyond the table")
-        inv = up(1.0 / np.maximum(lo_arg, 1.0))
-        out = np.where(lo_arg >= 2.0, self.top, np.where(hi_arg < 2.0, inv, np.maximum(inv, self.top)))
-        return np.where(hi_arg < 1.0, 0.0, out)
+        inv = up(1.0 / np.maximum(hi_arg if self.mut == "k11" else lo_arg, 1.0))
+        across = self.top if self.mut == "k12" else np.maximum(inv, self.top)
+        out = np.where(lo_arg >= 2.0, self.top, np.where(hi_arg < 2.0, inv, across))
+        return np.where((lo_arg if self.mut == "k13" else hi_arg) < 1.0, 0.0, out)
 
 
 def omega_ref(u, fine):
@@ -700,18 +714,59 @@ def c6(om, mut=None, cells=600, seed=5786):
                 "below_lower": low}
 
 
-def c7(om, mut=None):
+def c7(om, fine, mut=None, ivs=2000, seed=5787):
     top = 0.56 if mut == "k10" else OMEGA_TOP
+    crude = CrudeOmega(top, mut)
     hi_max = float(np.max(om.hi[2 * NW:]))
-    bound = Cert(STEP_CASE[1], STEP_CASE[0], STEP_CASE[2], CrudeOmega(top), mut).outer()
-    return hi_max <= top and bound < 1, {"hi_max_2_16": hi_max, "top": top, "step2333_n70_crude": bound}
+    c = Cert(STEP_CASE[1], STEP_CASE[0], STEP_CASE[2], crude, mut)
+    bound, rec = c.outer(record=True)
+    rng = np.random.default_rng(seed)
+    mpmath.mp.dps = 40
+    H, e = c.H, c.e
+    hx = mpmath.mpf(H) / DEN
+    ii, jj = np.nonzero(rec["cand"])
+    low2 = low4 = cells4 = 0
+    for i, j in zip(ii, jj):
+        a, b = int(e[i]), int(e[j])
+        bnd = mpmath.mpf(float(c.bound2(np.array([a]), np.array([b]))[0]))
+        for p1, p2 in ((a + H - 1, b + H - 1), (a + 1, b + 1),
+                       (a + int(rng.integers(0, H)), b + int(rng.integers(0, H)))):
+            val = omega_ref(Fr(DEN - p1 - p2, p2), fine) * mpmath.mpf(DEN) ** 3 / (mpmath.mpf(p1) * p2 * p2)
+            low2 += bnd < hx ** 2 * val
+    for i, j in np.argwhere(rec["use_ref"]):
+        k3, ok = c.inner(i, j)
+        for r, col in zip(*np.nonzero(ok)):
+            cells4 += 1
+            cs = [int(e[i]), int(e[j]), int(e[k3[r]]), int(e[col])]
+            bnd = mpmath.mpf(float(c.bound4(*[np.array([v]) for v in cs])[0]))
+            for p in ([v + H - 1 for v in cs], [v + 1 for v in cs], [v + int(rng.integers(0, H)) for v in cs]):
+                val = omega_ref(Fr(DEN - sum(p), p[3]), fine) * mpmath.mpf(DEN) ** 5 / (
+                    mpmath.mpf(p[0]) * p[1] * p[2] * p[3] * p[3])
+                low4 += bnd < hx ** 4 * val
+    los = rng.uniform(0.5, 2.5, ivs)
+    lo = np.concatenate([[x for x, _ in CRUDE_EDGES], los])
+    hi = np.concatenate([[y for _, y in CRUDE_EDGES], np.minimum(los + rng.uniform(0.0, 1.5, ivs), 2.999)])
+    low_iv = across1 = across2 = points = 0
+    for l, h, s in zip(lo.tolist(), hi.tolist(), crude.sup(lo, hi).tolist()):
+        lf, hf = Fr(l), Fr(h)
+        across1 += lf < 1 <= hf
+        across2 += lf < 2 <= hf
+        pts = [lf, hf] + [Fr(min(max(t, l), h)) for t in rng.uniform(l, h, 2).tolist()]
+        pts += [t for t in (Fr(1), Fr(2), T_STAR) if lf <= t <= hf]
+        points += len(pts)
+        low_iv += sum(mpmath.mpf(s) < omega_ref(t, fine) for t in pts)
+    ok = (hi_max <= top and bound < 1 and low2 == 0 and low4 == 0 and low_iv == 0 and len(ii) >= 500
+          and cells4 >= 1000 and across1 >= 100 and across2 >= 100)
+    return ok, {"hi_max_2_16": hi_max, "top": top, "step2333_n70_crude": bound, "cells2": int(len(ii)), "low2": low2,
+                "cells4": cells4, "low4": low4, "intervals": int(lo.size), "across1": across1, "across2": across2,
+                "interval_points": points, "low_intervals": low_iv}
 
 
 def run(fine, mid, mut=None, full=False):
     om = OmegaBounds(mut)
     gates = {"C0": lambda: c0(mut), "C1": lambda: c1(mut), "C2": lambda: c2(om, fine), "C3": lambda: c3(om, mut),
              "C4": lambda: c4(om, fine, mut), "C5": lambda: c5(om, mid, mut, full), "C6": lambda: c6(om, mut),
-             "C7": lambda: c7(om, mut)}
+             "C7": lambda: c7(om, fine, mut)}
     return {k: f() for k, f in gates.items()}
 
 

@@ -18,7 +18,8 @@ The power `m` is then at most `1334` in place of `22`. Up to powers of `Q^ε`, f
   `Q^{13/1000−σ/100}`.
 The internal `ε` is fixed at `1/100000`. Huxley's curve `3/(3σ − 1)` equals `2` at `σ = 5/6`.
 
-* `choose_m_step`: the least `m` with `Q^a ≤ x^m`, for `x ≥ Q^{1/2000}` and `0 < a ≤ 667/1000`, has `m ≤ 1334`.
+* `choose_m_step`: for `x ≥ Q^{1/2000}` and `0 < a ≤ 667/1000`, some `m ≤ 1334` has `Q^a ≤ x^m` (the proof takes the
+  least).
 * `term1_step`, `exp2_step`, `Gm3_step`, `final2_step`, `term2_step`: the two terms of `block_bin_hux`, each at most a
   constant times `Q^{(2019/1000)(1−σ)}`.
 * `class1_step`, `class2_bound_step`: the polynomial class and the integral class.
@@ -44,8 +45,9 @@ variable {q : ℕ}
 
 /-! ### The power of a block -/
 
-/-- **The power of a block**: for `x ≥ Q^{1/2000}` and `0 < a ≤ 667/1000` the least `m` with `Q^a ≤ x^m` has
-`1 ≤ m ≤ 1334` and `x^m ≤ max(x², Q^{3a/2})` (`LinnikHuxley.choose_m` with `1/2000` in place of `1/25`). -/
+/-- **The power of a block**: for `x ≥ Q^{1/2000}` and `0 < a ≤ 667/1000` some `m` with `Q^a ≤ x^m` has
+`1 ≤ m ≤ 1334` and `x^m ≤ max(x², Q^{3a/2})`; the proof takes the least such `m` (`LinnikHuxley.choose_m` with
+`1/2000` in place of `1/25`). -/
 lemma choose_m_step {Q a x : ℝ} (hQ : 1 < Q) (ha : 0 < a) (ha1 : a ≤ 667 / 1000) (hx : Q ^ (1 / 2000 : ℝ) ≤ x) :
     ∃ m : ℕ, 1 ≤ m ∧ m ≤ 1334 ∧ Q ^ a ≤ x ^ m ∧ x ^ m ≤ max (x ^ 2) (Q ^ (3 * a / 2)) := by
   classical

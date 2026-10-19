@@ -12,7 +12,7 @@ Round 580. This is SEVEN-THIRDS.md §44's argument, with §45's rule for decompo
 
 - (H1) is a theorem of the stack. (H2) with hux is the pair of classical density bounds in Chen–Gupta–Li's statement; cons adds their `7/3`, from a preprint.
 - No step uses that `q` is prime.
-- With the curve unif of §2 the same holds with `x = q^{2.333}`, below `q^{7/3}` (round 582; SEVEN-THIRDS §47). The curves that depend on `σ` matter only for the lower exponents. *(Round 589: the same holds with the curve step of §12, whose certificate at `2.333` is much smaller; there a curve that depends on `σ` matters for the size of the certificate.)*
+- With the curve unif of §2 the same holds with `x = q^{2.333}`, below `q^{7/3}` (round 582; SEVEN-THIRDS §47). No curve that depends on `σ` is needed for `2.333`; hux and cons give the lower exponents *(round 590: it read "The curves that depend on `σ` matter only for the lower exponents"; review F4)*. *(Round 589: the same holds with the curve step of §12, whose certificate at `2.333` is much smaller; there a curve that depends on `σ` matters for the size of the certificate.)*
 - More generally, the argument gives the theorem at every `L > 2` for which some window strictly inside the Type II window of §3 makes the loss of §6 less than `1`. The certificate proves this at the stated values.
 
 The plan: the Type II estimate (§3) with the separation of variables (§4), then Type I and Harman's fundamental theorem (§5), then the decomposition and the final count (§6).
@@ -162,7 +162,7 @@ With `loss(L) < 1` and `ε₁` small, the right side is positive for large `q`, 
 
 - windows `(u₁′, u₂′)` inside `(u₁, u₂)`, by exact branch and bound;
 - `loss(L) ≤ 0.9757` for unif at `L = 2.333` (round 582) *(round 584: it read `0.9756`, rounded down from the printed `0.9756129805606728`; review F1)*;
-- `loss(L) ≤ 0.8579` for step at `L = 2.333` with `n = 70`, and `≤ 0.8660` with check C7's crude bound for `ω` (round 589, §12);
+- `loss(L) ≤ 0.8579` for step at `L = 2.333` with `n = 70`, and `≤ 0.8660` with check C7's crude bound for `ω` (round 589, §12) *(round 590: C7 now also tests the crude bound against `ω` at points; review F1)*;
 - `loss(L) ≤ 0.9521` for hux at `L = 2.28`, and `≤ 0.9117` for cons at `L = 2.25`, with the decomposition of §6 run on those windows, and the bounds `0.7822`, `0.6231` and `0.8293` at hux `2.29`, cons `2.27` and hux `2.32` *(round 584: rounded up. Four of them read `0.9520`, `0.7821`, `0.6230` and `0.8292`, rounded down from the printed `0.95201853…`, `0.78213773…`, `0.62302589…` and `0.82922167…`; review F1)*.
 
 Midpoint estimates put the thresholds of this decomposition between `2.275` and `2.28` (hux) and between `2.24` and `2.245` (cons). They are estimates: they rise as the grid is refined, and the scratch Monte Carlo of round 579's review puts the loss about `0.01` above them near the thresholds (README round 579, O1).
@@ -326,7 +326,7 @@ The owner's words: "Keep on the lean work but note this as a follow on goal. My 
 
 At paper level and unrefereed, like the rest of this file, except for the Lean theorem named below.
 
-**What it changes.** §11 names M7 as the main risk of the first goal: with unif at `L = 2.333` the committed certificate needs about `9.0` million cells of depth 4. This section replaces unif by a curve whose density input is also a theorem of the stack, and whose certificate at `L = 2.333` has 916 cells of depth 2 and 1568 of depth 4.
+**What it changes.** §11 names M7 as the main risk of the first goal: with unif at `L = 2.333` the committed certificate uses about `9.0` million cells of depth 4, and the coarsest grid tried that certifies, `n = 410`, about `2.1` million (§9) *(round 590: it read "needs about `9.0` million cells of depth 4"; review F3)*. This section replaces unif by a curve whose density input also follows from theorems of the stack and the trivial count *(round 590: it read "is also a theorem of the stack"; review F2)*, and whose certificate at `L = 2.333` has 916 cells of depth 2 and 1568 of depth 4.
 
 **The curve step.** `A(σ) = min(12/5 + 1/2000, 1/(1 − σ))` for `σ < 5/6`, as for unif, and `A(σ) = 101/50` for `σ ≥ 5/6`.
 
@@ -337,8 +337,8 @@ At paper level and unrefereed, like the rest of this file, except for the Lean t
 
 - The loss of §6 and the certificate's bound for it depend on the curve only through the window of §3: `u₂` through the largest value `A_max`, which step shares with unif, and `u₁` through the largest value of `lower`.
 - With either curve that largest value is at `β = 11/12`, where the numerator of `lower` is `A(11/12)/24 + 1/2 − L/12`. Step's `101/50` replaces unif's `12/5 + 1/2000` there. At `L = 2.333` the proved window is `(0.400943, 0.485533)` with step, against `(0.417253, 0.485533)` with unif (rounded inward).
-- `sieve_route_certificate.py` bounds the loss with step at `L = 2.333` by `0.8579` at `n = 70` (rounded up), against unif's `0.9757` at `n = 600`. At `n = 70` the certificate has 916 cells of depth 2, 423 of them decomposed, and 1568 of depth 4 (printed by the certificate).
-- A crude upper bound for `ω` also suffices: `0` below `1`, `1/t` on `[1, 2)` and `0.5672` on `[2, 16)`. With it in place of the enclosure the bound at `n = 70` is `0.8660` (rounded up). Check C7 gates both parts: the enclosure's upper values on `[2, 16)` are at most `0.5672`, and the certificate with the crude bound is below `1`.
+- `sieve_route_certificate.py` bounds the loss with step at `L = 2.333` by `0.8579` at `n = 70` (rounded up), with the decomposition run on the printed window `(0.4009429927873498, 0.4855336467326197)` *(round 590: the clause on the window added; review F5)*, against unif's `0.9757` at `n = 600`. At `n = 70` the certificate has 916 cells of depth 2, 423 of them decomposed, and 1568 of depth 4 (printed by the certificate).
+- A crude upper bound for `ω` also suffices: `0` below `1`, `1/t` on `[1, 2)` and `0.5672` on `[2, 16)`. With it in place of the enclosure the bound at `n = 70` is `0.8660` (rounded up). Check C7 gates both parts: the enclosure's upper values on `[2, 16)` are at most `0.5672`, and the certificate with the crude bound is below `1`. *(Round 590: C7 also tests the crude bound against `ω` at three points of every cell of that certificate, and on 2013 intervals of arguments, those across `1` and `2` among them, with a sabotage case for each branch of the bound; review F1.)*
 
 **The proof of `charDensity_step`.** It is round 527's proof on `[3/4, 11/12]` (`LinnikTwelve.count_twelve_fifths`) with three parameters changed. Put `Q = q(T + 6)`.
 

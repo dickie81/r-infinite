@@ -24070,12 +24070,12 @@ Lower exponents are a follow-on goal. §11 records the floor of this framework, 
 
 ## Round 589: the step curve for `x = q^{2.333}`, and its density in Lean (`external/pnt/LinnikStep.lean`; `frontier/linnik/SIEVE-ROUTE.md` §12)
 
-**The problem.** Round 588 named the main risk of the first goal (SIEVE-ROUTE.md §11). With the curve unif at `L = 2.333` the loss certificate needs about `9.0` million cells of depth 4, too many to replay in Lean.
+**The problem.** Round 588 named the main risk of the first goal (SIEVE-ROUTE.md §11). ~~With the curve unif at `L = 2.333` the loss certificate needs about `9.0` million cells of depth 4, too many to replay in Lean.~~ *(Round 590: retracted, false when written: `n = 410` certifies with about `2.1` million; review F3.)* With the curve unif at `L = 2.333` the committed loss certificate uses about `9.0` million cells of depth 4, and the coarsest grid tried that certifies, `n = 410`, about `2.1` million (SIEVE-ROUTE.md §9). Either is too many to replay in Lean.
 
 **The curve step.** It is unif below `σ = 5/6` and `101/50` from `5/6` on.
 
 - The certificate's bound depends on the curve only through the window of SIEVE-ROUTE.md §3. Its left end `u₁` is set at `β = 11/12`, where step's `101/50` replaces unif's `12/5 + 1/2000`. At `L = 2.333` the proved window is `(0.400943, 0.485533)`, against unif's `(0.417253, 0.485533)` (rounded inward).
-- The certificate then bounds the loss by `0.8579` at `n = 70` (rounded up from the printed `0.857896…`), with 916 cells of depth 2 and 1568 of depth 4.
+- The certificate then bounds the loss by `0.8579` at `n = 70` (rounded up from the printed `0.857896…`), with 916 cells of depth 2 and 1568 of depth 4. The decomposition runs on the printed window, `(0.4009429927873498, 0.4855336467326197)` *(round 590: this sentence added; review F5)*.
 - With a crude upper bound for `ω`, `0` below `1`, `1/t` on `[1, 2)` and `0.5672` on `[2, 16)`, the bound at `n = 70` is `0.8660` (rounded up from `0.865918…`).
 
 **The Lean file.** `external/pnt/LinnikStep.lean` proves step's density on `[5/6, 1]`. `LinnikStep.charDensity_step` gives `C ≥ 0` such that for every `q ≥ 1`, `5/6 ≤ σ ≤ 1` and `T ≥ 2`, at most `C(qT)^{(101/50)(1−σ)}(log qT)^{10}` characters mod `q` have a zero of `L(s, χ)` with `Re s ≥ σ` and `|Im s| ≤ T`.
@@ -24110,3 +24110,85 @@ So with step, at paper level, the density input (H2′) of SIEVE-ROUTE.md §10 f
 **Bearing on RH:** none.
 
 **The next step.** M2: Lemma 1 at a height `y`, generalizing `Linnik.norm_Sx_le`. A voluntary review of rounds 588 and 589.
+
+## Round 590: the independent review of rounds 588 and 589 (`frontier/linnik/sieve_route_certificate.py` check C7; `frontier/linnik/SIEVE-ROUTE.md` §§0, 7 and 12; `external/pnt/LinnikStep.lean`)
+
+**What it is.** A fresh-context reviewer, the repository's `hostile-reviewer` agent, reviewed rounds 588 and 589 at 5fa4405. Its main target was round 589: the curve step, `LinnikStep.charDensity_step`, and the certificate's case for step with its check C7.
+
+- It found no MAJOR: one minor finding, six cosmetic ones and two observations.
+- In its words, "The step curve's route to `x = q^{2.333}` holds at paper level, and its density input on `[5/6, 1]` is proved in Lean."
+- Under Check 3 the lead verified each finding against the cited lines, ran F1's evidence again with mutants of the lead's own, and recompiled the two Lean files whose docstrings changed. All seven findings are accepted and swept.
+- F1 is a minor, so its sweep is owed a further review. It goes into the next round's review.
+- No proved statement and no certified number changes.
+
+**Findings and dispositions.**
+
+- **F1** (minor). C7 gated the crude bound for `ω` only through its top value and the certificate's total. Its other branches were read by no gate: `0` below `1`, `1/lo` on `[1, 2)`, and the larger of `1/lo` and the top value across `2`. A mutant of each branch passed every gate, since no gate but C7 reads the crude bound. The code was right, but the gate was missing. C7 now also tests the crude bound against `ω`, from its closed forms at 40 digits:
+  - (iii) in step's certificate at `n = 70`, on every candidate cell of depth 2 (916) and every counted cell of depth 4 (1568), at the upper and the lower corner, each moved inward by one unit, and at one random point: the cell's bound is at least `h²` (or `h⁴`) times the integrand there;
+  - (iv) on 13 fixed intervals of arguments and 2000 random ones in `[1/2, 3)`, 410 of them across `1` and 770 across `2`: the bound is at least `ω` at both ends, at two random points, and at `1`, `2` and the double nearest `1 + 1/W(1)` when they lie in the interval.
+
+  Three sabotage cases, one for each branch, must fail C7: (k11) `1/hi` in place of `1/lo` on `[1, 2)`; (k12) the top value alone across `2`; (k13) the zero test made on the interval's left end, as for an infimum. Markers are in SIEVE-ROUTE.md §§7 and 12.
+- **F2.** SIEVE-ROUTE.md §12 said that step's density input "is also a theorem of the stack". It follows from two theorems of the stack and the trivial count, as §12 says five lines later. Round 587's F1 corrected the same phrase for unif. Reworded, with a marker.
+- **F3.** README round 589 said that with unif "the loss certificate needs about `9.0` million cells of depth 4". SIEVE-ROUTE.md §9 records that `n = 410` certifies, with 2132774 cells of depth 4. Struck and rewritten. In §12, "the committed certificate needs about `9.0` million" now says "uses", and gives the figure for `n = 410`.
+- **F4.** SIEVE-ROUTE.md §0 said "The curves that depend on `σ` matter only for the lower exponents". Round 589's marker after it says that at `2.333` such a curve matters for the size of the certificate. Read as "needed", the sentence holds, since unif certifies `2.333`. It is scoped to "No curve that depends on `σ` is needed for `2.333`". SEVEN-THIRDS.md §47 has the same wording ("matter only for the exponents below `2.333`") and is scoped the same way.
+- **F5.** SIEVE-ROUTE.md §12 and README round 589 placed the window, rounded inward, next to the loss bound. The certificate computes the bound on the printed window. Round 585's F8 added a clause saying so to SEVEN-THIRDS §47; it is now added in both places.
+- **F6.** C7's docstring said that `ω` is at most the top value on `[2, 16)` "given C2". C2 tests the enclosure at sampled points. The inequality comes from the enclosure's construction, which is rounded outward. The docstring now cites the construction.
+- **F7.** The docstring of `choose_m_step` and the file's header described "the least `m`", while the lemma states only that some `m` exists. Both now say "some `m` … the proof takes the least". The docstring of round 525's `LinnikHuxley.choose_m`, from which the wording was copied, and the section on `LinnikStep.lean` in `external/pnt/README.md` are reworded the same way. The proof descriptions of `class1_huxley`, `class1_twelve` and `class1_step`, which say how the argument chooses `m`, are kept.
+- **O1** (the brief). The brief said that each Lean file prints its axioms at the end; `SieveSmooth.lean` does not. `build.sh`'s final check prints the axioms of four of its theorems, and the reviewer's scratch file printed all twelve, all clean. No record claims otherwise.
+- **O2.** Re-pointed at step at `n = 70`, C4 and C6 fail only their floors on sample sizes, with no misses, and at `n = 200` they pass. No record claims that these gates run on step. Held.
+
+**The lead's verification.**
+
+- Each cited line was read with `sed -n`:
+  - SIEVE-ROUTE.md 1–30, 155–174 and 215–364;
+  - README.md 24060–24112;
+  - the certificate in full, 1–765 at HEAD;
+  - `LinnikStep.lean` 15–60 and 713–725 (`charDensity_step`, this round's operative theorem, re-read against `Linnik.CharDensity` at `LinnikDeduction.lean` 286–290);
+  - `LinnikHuxley.lean` 20–26, 436–452 and 644–650;
+  - `LinnikTwelve.lean` 14–18 and 57–61;
+  - SEVEN-THIRDS.md 888–894.
+- **F1, before the fix.** `verify_f1.py` (scratch) ran on a copy of HEAD's certificate (sha256 `7455…a37b`), with three mutants of `CrudeOmega`, one for each branch.
+  - C7's two conjuncts pass all three, with bounds `0.849941…`, `0.865918…` and `0.841302…`.
+  - A point test at three points of every cell catches two of them (139 and 41 of 2748 points of depth 2).
+  - The third, the top value alone across `2`, leaves step's bound at `0.8659185522211814`, the committed value. It differs from the committed bound only on intervals that cross `2` from below `1/0.5672 = 1.763…`. Step's certificate queries 2484 intervals of arguments; 43 of them cross `2`, all from `1.822` or above (`queried.py`, scratch).
+  - The committed bound has no point below `ω`.
+- **The new C7, alone** (`try_c7.py`, scratch). It passes unmutated with no point below `ω`, and fails under k10, k11, k12 and k13. k12 fails it only through the intervals (914 points).
+- **The full certificate** was run on a copy whose sha256 matches the committed file (`ba0c…3393`).
+  - Gates C0–C7 pass, and 14 of 14 sabotage cases are caught (518 s).
+  - C0–C6 print the values of round 589's run.
+  - C7 prints `cells2 916, low2 0, cells4 1568, low4 0, intervals 2013, across1 410, across2 770, interval_points 9751, low_intervals 0`, with the bound `0.8659185522211814` as before.
+  - k7, the prefactors taken at the upper corner, now fails C7 as well as C3 and C4.
+- **Lean.** `LinnikHuxley.lean` (65 s) and `LinnikStep.lean` (38 s) recompile with `lean`, with no errors and no warnings. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for the eight theorems each prints. The source changes are to docstrings and the header comment only (`git diff`), so the oleans differ from `build/`'s through those and the positions they move. The new ones are in `build/`.
+- **Render lint.** `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. The sweep and this entry add no reports to SIEVE-ROUTE.md (18), SEVEN-THIRDS.md (63) or `external/pnt/README.md` (10), and to README.md (1842) only eight of class L10 (a nested list directly after its item's text), all in this entry. None of these files is a paper surface.
+
+**Checked and held** (the reviewer's list, with its evidence in its report).
+
+- **`charDensity_step`.**
+  - It compiles with clean axioms; recompiled with `autoImplicit` off, its olean is byte-identical.
+  - Its statement is exactly the plain one: the trivial character is counted, `q ≥ 1` as `[NeZero q]`, `5/6 ≤ σ ≤ 1`, `T ≥ 2`, the exponent `(101/50)(1 − σ)`, and `log^{10}` as a real power.
+  - On that range it is `Linnik.CharDensity (101/50) 10 C` by `Iff.rfl`.
+  - `exponentiation.threshold` is read only at the Meta level (`checkExponent`), so it cannot change what the kernel checks. `maxHeartbeats` is not raised. There is no `sorry`, `admit`, `native_decide`, `axiom` or `implemented_by`.
+- **The arithmetic**, in exact rationals:
+  - the margins `(297σ − 247)/150` and `13/1000 − σ/100`;
+  - `(8·2^{1334})² = 2^{2674}`, `4·1334/5336 = 1` and `2/3 + ε ≤ 667/1000`;
+  - the detector's sizes, `Yw 502 (Q^{1/2000}) = Q^{201/400}`.
+- **`SieveSmooth.lean`.** The axioms of its twelve theorems are clean. Checked: the hypotheses of `indicator_sub_G`, the constant `2θ^{1−K}‖g^{(K)}‖₁`, and the signs of `GC_sub_eq_integral` against Mathlib's `𝓕`.
+- **§11.** The identity `lower(β) − 1 = −(1 − β)(upper(β) − 1)/(β − 1/2)`, the floors `11/5`, `2.1667` and `2.1538`, and the substitution.
+- **§12.**
+  - `lower` increases on every piece, so its largest value is at `11/12` for both curves. The loss depends on the curve only through the window.
+  - The general conditions and their two "exactly when" claims hold. In this argument, constants at or below `2` are not reached by a `y` or an `a` that depends on `σ`, by bins in `σ`, or by a power chosen for each block.
+  - (H2′) holds with step, and hux implies step.
+- **`ω`.** `W(1)`, the maximum on `[2, 3]`, `(1 + log 2)/3`, and the induction.
+- **The certificate.**
+  - Its full run was reproduced, with the same numbers. The rounding directions hold, and `top ≥ hi_max ≥ W(1)`.
+  - The placement of `STEP_CASE` leaves the sabotage runs' case for C5 unchanged. k10 is caught by C7.
+  - C1's row for step has 437 boxes, and the window's proof is valid on step's pieces.
+- **The markers** in §§2, 7, 8, 9, 10 and 11.
+
+**Check 4.** The reviewer classed F1–F6 as novel and F7 as inherited from round 525; the lead agrees. O1 concerns the brief.
+
+**Check 9.** (a) F3 and F4 scope a "needs" and an "only". (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** M2's landing: Lemma 1 for a smooth weight at a height `y`, proved in scratch (`SieveLemma1.lean`, `SieveWeight.lean`), with a voluntary review that also covers this round's sweep.
