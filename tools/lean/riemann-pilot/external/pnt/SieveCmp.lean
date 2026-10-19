@@ -1,3 +1,18 @@
+/-
+# Round 604: comparisons of a family's primes (milestone M5)
+
+Plain statements. A comparison `Cmp K` is `0 ≤ c(m) + Σ_i e_i log x_i`, or `0 <` when it is strict, with
+coefficients at most `1` in absolute value and a pivot `i` with `e_i = ±1`. Each kind below comes with a lemma that
+says what it means for `x_i ≥ 1` (the `_holds` lemmas):
+
+* `gt`: `x_i > x_{i'}`; `ge`, `lt`: `x_i ≥ b` and `x_i < b`, for `b > 0`;
+* `prodLe`, `prodGt`: `∏_{i∈s} x_i ≤ b` and `> b`, for `b > 0`, pivoted at `i₀ ∈ s`;
+* `rough`: `x_i ≤ minFac m`, for `m ≥ 2`; `rangeLo`, `rangeHi`: `b < m∏_i x_i` and `m∏_i x_i ≤ b`, for `b > 0`, `m ≥ 1`;
+* `lift`: a comparison of the first `j` coordinates, as one of `K ≥ j`.
+
+These are the comparisons of `SieveFamily.typeII_sharp`'s families, `frontier/linnik/SIEVE-ROUTE.md` §13's M4, in
+the kinds that Proposition 6's stops need. The file imports only Mathlib.
+-/
 import Mathlib
 
 open Real Finset

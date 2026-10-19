@@ -1,3 +1,16 @@
+/-
+# Round 604: a dyadic partition of unity (milestone M5)
+
+Plain statements. `psi1 t = g(2t − 1)`, with `g` Mathlib's `Real.smoothTransition`, is `0` for `t ≤ 1/2` and `1` for
+`t ≥ 1`, and `bump t = psi1 t − psi1 (t/2)`.
+
+* `contDiff_bump`, `bump_support`, `bump_nonneg`, `bump_le_one`: `bump` is smooth, supported in `[1/2, 2]`, and
+  takes values in `[0, 1]`.
+* `sum_bump`: for `1 ≤ t ≤ 2^M`, `Σ_{k ≤ M} bump(t/2^k) = 1`.
+
+`bump` is the weight `f0` of `SieveFamily`'s families. With it `SieveTypeIIU` cuts a prime variable's sharp range
+into dyadic pieces. The file imports only Mathlib.
+-/
 import Mathlib
 
 open Real

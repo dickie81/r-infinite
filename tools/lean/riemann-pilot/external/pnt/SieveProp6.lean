@@ -1,3 +1,35 @@
+/-
+# Round 604: Proposition 6, Harman's fundamental theorem in the form used (milestone M5)
+
+Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
+
+Plain statement (`prop6`). Fix `j`, `J₀`, `Λ₁ ≥ 0`, exponents `a₀ > 0` and `b₀` with `a₀ + b₀ < 0.599L` and
+`0.515L < b₀ < L − 1` (`L = 2.333`), and `η > 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a`
+mod `q`: let `rt` run over the `j`-tuples of primes up to `⌊2q^L⌋` that satisfy at most `J₀` comparisons `Ω` (taken
+at `m = 0`, with `m`-parts `c(0)` at most `Λ₁ log q`) forcing every `rt_i ≥ z₀ = ⌈q^{a₀}⌉` and `∏rt ≤ X' = ⌊q^{b₀}⌋`.
+Then `Σ_{rt}(S(A_r, z₀) − S(B_r, z₀)/φ(q))`, `r = ∏rt`, is at most `ηq^L/(φ(q) log q) + q^{L−δ}/φ(q)` in absolute
+value, where `A` is the `n ∈ (⌊q^L⌋, ⌊2q^L⌋]` with `n ≡ a` and `B` those prime to `q`.
+
+This is Proposition 6 of `frontier/linnik/SIEVE-ROUTE.md` §5, the last part of §13's M5, built with one tree at the
+threshold `X'` for every `r ≤ X'` in place of §5's two cases. The conditions on `a₀` and `b₀` say that the stops fall
+in the lower window (`a₀ + b₀ < 0.599L`, `0.515L < b₀`) and that the leaves' remainder is small (`b₀ < L − 1`).
+
+The proof:
+
+* The tree (`SieveDiff.tree_weighted`) runs from `z₀` down to `w = ⌈q^{ε_w}⌉`, `ε_w = c/(2k + 4)`,
+  `c = (L − 1 − b₀)/4`, at the threshold `X'`. `SieveStops2.stops2_bound` bounds its stops (`window_lo`,
+  `window_hi`).
+* `leaf_bound`: at a leaf `d = r∏P ≤ X'`, `SieveDiff.leaf_diff` with the ranges' levels `k + 2j` (`Jw_spec`,
+  `SieveLeaf.leaf_gap`) gives `4ζ(k)·#{n : d ∣ n, w-rough}/φ(q) + 4·rem`, and the count is at most `Ψ(X/d, w)`
+  (`count_le_psi`).
+* `leaves_sum_le`: with `Ψ(X/d, w) ≤ 2X/(d log w)` from `SieveRough.psi_le`, the leaves total at most
+  `(4ζ(k)·2X/(φ(q) log w) + 4·rem·X')·Σ_{rt} Σ_P 1/(r∏P)`, and the double sum is `Σ_{rt} 1/r ∏_{w ≤ p < z₀} (1 + 1/p)`
+  (`sum_leaves_inv`), bounded by `sum_RT_inv_le` and `SieveRough.evLe_sum_inv`.
+* `exists_k`, `main_coef`, `main_term`: an even `k` with `(2k + 4)²ζ(k)` small puts the main terms below
+  `ηq^L/(φ(q) log q)`; `rem_le`, `rem_term`: the remainders total at most `q^{L−c}/φ(q)`.
+
+The file imports `SieveStops2.lean`.
+-/
 import SieveStops2
 
 open Real Finset SieveFamily SieveTree SieveCmp SieveBrun SieveLeaf SieveRanges
@@ -461,7 +493,8 @@ theorem exists_k {C₀ : ℝ} (hC₀ : 0 ≤ C₀) {ε c a₀ : ℝ} (hε : 0 < 
     rw [mul_one_div_cancel (by positivity)] at this
     linarith
   have hfac : (0 : ℝ) < ((2 * m).factorial : ℝ) := by exact_mod_cast Nat.factorial_pos _
-  have hz : (((2 * (2 * m) + 4 : ℕ) : ℝ)) ^ 2 * zeta C₀ (2 * m) ≤ M * ((4 * C₀) ^ (2 * m) / ((2 * m).factorial : ℝ)) := by
+  have hz : (((2 * (2 * m) + 4 : ℕ) : ℝ)) ^ 2 * zeta C₀ (2 * m) ≤
+      M * ((4 * C₀) ^ (2 * m) / ((2 * m).factorial : ℝ)) := by
     unfold zeta
     have h1 := sq_le_four_pow (2 * m)
     have h2 : (0 : ℝ) ≤ Real.exp (2 * C₀) * (2 * (C₀ ^ (2 * m) / ((2 * m).factorial : ℝ))) := by positivity
@@ -564,7 +597,10 @@ theorem window_hi {Q : ℝ} (hQ : 1 ≤ Q) {b₀ : ℝ} (h2 : 2 ≤ Q ^ (485 / 1
 
 /-! ### Arithmetic of the error terms -/
 
-theorem main_coef {E K₁ a₀ Z εw c η : ℝ} {k : ℕ} (hE : 0 < E) (hK₁ : 0 ≤ K₁) (ha₀ : 0 < a₀) (hc : 0 < c) (hη : 0 < η) (hεw : εw = c / ((2 * k + 4 : ℕ) : ℝ))
+/-- The main term's coefficient: with `ε_w = c/(2k + 4)` and `(2k + 4)²Z ≤ ηc²/(8E(K₁ + 1)a₀)`, the coefficient
+`8EK₁a₀Z/ε_w²` is at most `η`. -/
+theorem main_coef {E K₁ a₀ Z εw c η : ℝ} {k : ℕ} (hE : 0 < E) (hK₁ : 0 ≤ K₁) (ha₀ : 0 < a₀) (hc : 0 < c)
+    (hη : 0 < η) (hεw : εw = c / ((2 * k + 4 : ℕ) : ℝ))
     (hζε : ((2 * k + 4 : ℕ) : ℝ) ^ 2 * Z ≤ η * c ^ 2 / (8 * E * (K₁ + 1) * a₀)) :
     8 * E * K₁ * a₀ * Z / εw ^ 2 ≤ η := by
   have hk4 : (0 : ℝ) < ((2 * k + 4 : ℕ) : ℝ) := by positivity
@@ -580,6 +616,8 @@ theorem main_coef {E K₁ a₀ Z εw c η : ℝ} {k : ℕ} (hE : 0 < E) (hK₁ :
     nlinarith
   linarith
 
+/-- The leaves' main term: for `L_w ≥ ε_w L_Q` (in use `L_w = log w`, `L_Q = log q`) and the coefficient
+`8EK₁a₀Z/ε_w²` at most `η`, `4Z(2X/L_w)/φ · K₁(Ea₀/ε_w) ≤ ηX/(φL_Q)`. -/
 theorem main_term {Z X Lw LQ φ K₁ E a₀ εw η : ℝ} (hZ : 0 ≤ Z) (hX : 0 ≤ X) (hφ : 0 < φ) (hK₁ : 0 ≤ K₁)
     (hE : 0 < E) (ha₀ : 0 < a₀) (hεw : 0 < εw) (hLQ : 0 < LQ) (hlw : εw * LQ ≤ Lw)
     (hcoef : 8 * E * K₁ * a₀ * Z / εw ^ 2 ≤ η) :
@@ -602,6 +640,9 @@ theorem main_term {Z X Lw LQ φ K₁ E a₀ εw η : ℝ} (hZ : 0 ≤ Z) (hX : 0
     _ ≤ η * (X / (φ * LQ)) := mul_le_mul_of_nonneg_right hcoef hpos2
     _ = η * X / (φ * LQ) := by ring
 
+/-- The leaves' remainder: for `1 ≤ w ≤ 2Q^{ε_w}`, `ε_w(2k + 7) ≤ 2c`, `0 ≤ X' ≤ Q^{b₀}`, `2^J ≤ 4w²`,
+`J + 1 ≤ 3w`, `48·2^{2k+7}K ≤ Q^c`, `0 < φ ≤ Q`, `L − 1 − c = c + (b₀ + 2c)` and `R ≤ (J + 1)2^J w^{2k+4}`:
+`4RX'K ≤ φ⁻¹Q^{L−c}`. -/
 theorem rem_term {Q w X' φ K εw c b₀ Mrem R : ℝ} {k J : ℕ} (hQ1 : 1 ≤ Q) (hw1 : 1 ≤ w)
     (hwle : w ≤ 2 * Q ^ εw) (hεw7 : εw * ((2 * k + 7 : ℕ) : ℝ) ≤ 2 * c) (hX' : X' ≤ Q ^ b₀) (hX'0 : 0 ≤ X')
     (hK : 0 ≤ K) (hJ2 : (2 : ℝ) ^ J ≤ 4 * w ^ 2) (hJ3 : (J : ℝ) + 1 ≤ 3 * w)
@@ -649,7 +690,7 @@ set_option maxHeartbeats 1600000 in
 /-- **Proposition 6** (Harman's fundamental theorem, in the form used). Fix `j`, `J₀`, `Λ₁ ≥ 0`, exponents `a₀ > 0`
 and `b₀` with `a₀ + b₀ < 0.599L` and `0.515L < b₀ < L − 1` (`L = 2.333`), and `η > 0`. There are `δ > 0` and `q₀`
 such that for `q ≥ q₀` and a unit `a` mod `q`: let `rt` run over the `j`-tuples of primes up to `⌊2q^L⌋` that satisfy
-at most `J₀` comparisons `Ω` (forms not depending on `m`, with `m`-parts at most `Λ₁ log q`) forcing every
+at most `J₀` comparisons `Ω` (taken at `m = 0`, with `m`-parts `c(0)` at most `Λ₁ log q`) forcing every
 `rt_i ≥ z₀ = ⌈q^{a₀}⌉` and `∏rt ≤ ⌊q^{b₀}⌋`. Then `Σ_{rt}(S(A_r, z₀) − S(B_r, z₀)/φ(q))`, `r = ∏rt`, is at most
 `η q^L/(φ(q) log q) + q^{L−δ}/φ(q)` in absolute value. -/
 theorem prop6 (j J₀ : ℕ) {Λ₁ a₀ b₀ : ℝ} (hΛ₁ : 0 ≤ Λ₁) (ha₀ : 0 < a₀)

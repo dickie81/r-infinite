@@ -1,3 +1,40 @@
+/-
+# Round 604: the decomposition to depth 4, with the certificate's classification (milestone M8)
+
+Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
+
+Plain statements. `Par` holds `x`, the sieve's floor `z₀`, its top `z_top`, Proposition 6's `X'` and the range
+`(N₁, N₂]`; `Good` is what the decomposition needs of them (`SieveQ.good_of_large` proves it at `x = q^L` for large
+`q`). For weights `g`, `T g = S_g(z_top)` and `J0 g = S_g(z₀)` count the `n ∈ (N₁, N₂]` with no prime factor below
+`z_top` and `z₀`, weighted by `g`. The families of the tree are lists of `SieveDecomp` atoms: `S1` (`p₁ ∈ [z₀, z_top)`),
+its cells `S1c i`, the extensions `S2 i`, `S3 i j`, `S4 i j k` (one more prime in `[z₀, rt_last)`), their cells
+`S2c`, `S3c`, `S4c`, and the splits `S2le`/`S2gt`, `S3le`/`S3gt` at the product `X'`.
+
+* `T_eq`, `I_S1` … `I_S4`: the exact identities of the decomposition, `S(A, z_top) = S(A, z₀) − Σ_{p₁} S(A_{p₁}, p₁)`
+  and so on to depth 4: the cells of each new prime, Buchstab's identity on the cells that are decomposed, and the
+  splits at `X'`.
+* `I_S3c_vanish`, `I_S4c_vanish_lt`, `I_S4c_vanish_reg`: the cells outside `SieveCert.inKK` at depth 3, and at depth
+  4 the cells `l > k` and those outside the region, contribute `0`.
+* `D1`: the dropped terms, as the certificate drops them. At depth 2 the candidate cells that are not decomposed
+  (`cand ∧ ¬dec`) and the corner cells (`¬cand ∧ ¬surelyEval`), below a cell `i` of `p₁` outside the window
+  (`inW`); at depth 4 the counted cells (`counted4`, `l ≤ k`) below the cells of depth 3 that are split.
+* `Leaves`: the estimates the leaves need, each `|A − B| ≤ Err`: the evaluated families (`e1`, `e2`, `e2'`, `e3`,
+  `e3'`, `e4`) and the families of Proposition 6 (`j0` for `S(z₀)`, `p1`, `p2`, `p3`).
+* `decomp`: for weights `g_A ≥ 0` and `g_B`, and leaves within `Err`,
+  `S_{g_A}(z_top) ≥ S_{g_B}(z_top) − D1(g_B) − (1 + n(1 + n(n(n + 2) + 2)))·Err`.
+
+This is the decomposition of `frontier/linnik/SIEVE-ROUTE.md` §6, M8 of §13, with M7's classification by cells
+(`SieveCert`'s grid of `n = 70` cells of side `H/DEN`, starting at `V/DEN = u₂ − u₁`). At depth 1 a cell inside the
+window is evaluated, the others decomposed. At depth 2 a candidate cell that `dec` allows is split at `X'` (above
+evaluated, below decomposed), a candidate cell not allowed is dropped, and a non-candidate cell is evaluated when
+surely evaluable and dropped otherwise (the corner). At depth 3 a cell of `inKK` is split at `X'` when not surely
+evaluable and evaluated otherwise. At depth 4 a counted cell is dropped, and the rest are evaluated or vanish.
+
+The proof of `decomp`: `lvl4`, `lvl3`, `lvl2`, `lvl1`, one level at a time. A dropped term has `A ≥ 0` and costs its
+`B`-version; a term with sign `−` is bounded above, so it is evaluated or decomposed, never dropped.
+
+The file imports `SieveDecomp.lean`.
+-/
 import SieveDecomp
 
 open Real Finset SieveFamily SieveChain SieveDecomp
@@ -62,7 +99,8 @@ noncomputable def T (g : ℕ → ℝ) : ℝ := ∑ m ∈ Ioc P.N₁ P.N₂, g m 
 /-- `S(A, z₀)`. -/
 noncomputable def J0 (g : ℕ → ℝ) : ℝ := ∑ m ∈ Ioc P.N₁ P.N₂, g m * (if SieveTree.rough P.z₀ m then 1 else 0)
 
-/-- What the decomposition needs of the parameters (each holds for large `x`). -/
+/-- What the decomposition needs of the parameters (they hold at `SieveQ.parQ q` for large `q`,
+`SieveQ.good_of_large`). -/
 structure Good : Prop where
   hx : 1 < P.x
   hz₀ : P.x ^ ((V : ℝ) / DEN) ≤ P.z₀
@@ -326,7 +364,8 @@ theorem I_S4c_vanish_lt (G : P.Good) (g : ℕ → ℝ) {i j k l : ℕ} (h : k < 
   exact absurd h32 (not_lt.2 (by exact_mod_cast this.le))
 
 /-- **Depth 4, outside the region**: `p₁p₂p₃p₄² > N₂` while `p₁p₂p₃p₄ ≤ N₁`. -/
-theorem I_S4c_vanish_reg (G : P.Good) (g : ℕ → ℝ) {i j k l : ℕ} (h : DEN < SieveCert.e i + SieveCert.e j + SieveCert.e k + 2 * SieveCert.e l) :
+theorem I_S4c_vanish_reg (G : P.Good) (g : ℕ → ℝ) {i j k l : ℕ}
+    (h : DEN < SieveCert.e i + SieveCert.e j + SieveCert.e k + 2 * SieveCert.e l) :
     P.I g (P.S4c i j k l) = 0 := by
   have hx0 : 0 < P.x := by linarith [G.hx]
   have hx1 : 1 ≤ P.x := G.hx.le
@@ -533,7 +572,7 @@ theorem lvl2 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err :
       unfold I at hA0 ⊢
       linarith
 
-/-- **Level 1** (terms with sign `−`). -/
+/-- **Level 1** (terms with sign `−`): `A ≤ B + (dropped) + n(1 + n(n(n + 2) + 2))Err`. -/
 theorem lvl1 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err)
     (Lv : P.Leaves gA gB Err) :
     P.I gA P.S1 ≤ P.I gB P.S1 + P.D1 gB +

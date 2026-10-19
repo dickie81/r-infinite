@@ -1,3 +1,40 @@
+/-
+# Round 604: Type II for chains of primes (milestone M8)
+
+Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
+
+Plain statements. A `GCmp` is a comparison `0 ≤ c(m) + Σ_i e_i log x_i` (or `0 <`) with coefficients in `{−1, 0, 1}`
+and no designated pivot. `RTg k Y Ω` is the set of `k`-tuples of primes up to `Y` that satisfy the comparisons `Ω` at
+`m = 0`. `L = 2.333`, `N₁ = ⌊q^L⌋` and `N₂ = ⌊2q^L⌋`.
+
+* `typeII_gcmp`, `typeII_gcmp'`: `SieveStops2.typeII_cmp` for `GCmp`s: those with a nonzero coefficient are pivoted,
+  and those without one become conditions on `m`.
+* `chainTU_bound` (the upper window): fix `e₀ > 0`, `k′`, `J₀` and `Λ₁ ≥ 0`. There are `δ > 0` and `q₀` such that for
+  `q ≥ q₀` and a unit `a` mod `q`: let `rt` run over `RTg (k′ + 1) N₂ Ω` with at most `J₀` comparisons, whose
+  `m`-parts at `m = 0` are at most `Λ₁ log q`, each such tuple having its entries at least `q^{e₀}`, its last entry
+  least, and `W₀ < ∏rt ≤ W₁`. Let `W₁ ≤ N₁`, `q^{0.401L} ≤ ⌊N₁/W₁⌋` and `⌊N₂/(W₀ + 1)⌋ ≤ q^{0.485L}`. Then the
+  multiples `n ∈ (N₁, N₂]` of `∏rt` with no prime factor below `rt`'s last entry, summed over `rt`, have
+  `|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`.
+* `chainTL_bound` (the lower window): the same for `rt` strictly decreasing, with entries at least `q^{e₀}` and
+  `P₁ < ∏_{i∈S} rt_i ≤ P₂` for a set `S` of indices, where `q^{0.401L} ≤ P₁` and `P₂ ≤ q^{0.485L}`.
+
+These evaluate the terms of `frontier/linnik/SIEVE-ROUTE.md` §6 that are evaluable: a chain `p₁ > ⋯ > p_k` of
+primes, and the rough rest of `n`. In the upper window the chain's product is the Type II variable's partner and
+the rest of `n` is the variable; in the lower window `m = ∏_S rt` is the variable, and the rest of `n` with the
+primes off `S` are the family's primes.
+
+The proof:
+
+* Upper window: `sum_cofactor_range` puts the rest of `n` in `(N₁/W₁, N₂/(W₀ + 1)]`, the comparisons `cmpsTU` (the
+  region, the rest's roughness against the last prime, the range) cut out the family, and `typeII_gcmp'` bounds it.
+* Lower window: the rest of `n` is the product of a non-increasing tuple `y` of primes at least `rt`'s last entry
+  (`sum_mult_eq`, `sum_rough_tuples`). `sum_TL_eq` regroups the pairs `(rt, y)` by `m = ∏_S rt`, a squarefree `m`
+  of `Mset S P₁ P₂`, with the prime variables `x = (y, rt on Sᶜ)` and the comparisons `cmpsTL`, whose `m`-parts
+  read `m`'s factors in decreasing order (`factS`). Their `m`-parts are at most `B + log m` (`cmpsTL_c_le`), and
+  `typeII_gcmp'` bounds each length of `y`.
+
+The file imports `SieveProp6.lean`.
+-/
 import SieveProp6
 
 open Real Finset SieveFamily SieveTree SieveCmp
@@ -826,7 +863,6 @@ theorem typeII_gcmp' (K₀ J₀ : ℕ) {e₁ Λ₁ : ℝ} (he₁ : 0 < e₁) (h�
   obtain ⟨n, rfl⟩ : ∃ n, K = n + 1 := ⟨K - 1, by omega⟩
   exact hq₀ q hq a ha P₁ P₂ S hS hP₁ hP₂ acoef hacoef n hK l hl hc hsupp
 
-
 /-- The comparisons of the upper window: the region, the cofactor's roughness and the range. -/
 noncomputable def cmpsTU (k' : ℕ) (Ω : List (GCmp (k' + 1))) (N₁ N₂ : ℝ) : List (GCmp (k' + 1)) :=
   Ω.map GCmp.const ++ [grough (Fin.last k'), grangeLo N₁, grangeHi N₂]
@@ -1009,7 +1045,7 @@ set_option maxHeartbeats 1600000 in
 /-- **Chains with a product of some of their primes in the window.** Fix `e₀ > 0`, `k′`, `J₀` and `Λ₁ ≥ 0`. There
 are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`: let `rt` run over the `(k′ + 1)`-tuples of primes
 up to `N₂ = ⌊2q^L⌋` that satisfy at most `J₀` comparisons `Ω` (with `m`-parts at most `Λ₁ log q` at `m = 0`), each
-such tuple decreasing, with entries at least `q^{e₀}` and `P₁ < ∏_{i∈S} rt_i ≤ P₂`, where `q^{0.401L} ≤ P₁` and
+such tuple strictly decreasing, with entries at least `q^{e₀}` and `P₁ < ∏_{i∈S} rt_i ≤ P₂`, where `q^{0.401L} ≤ P₁` and
 `P₂ ≤ q^{0.485L}`. Then the multiples `n ∈ (N₁, N₂]` of `∏rt` with no prime factor below `rt`'s last entry, summed
 over `rt`, have `|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`. -/
 theorem chainTL_bound {e₀ : ℝ} (he₀ : 0 < e₀) (k' J₀ : ℕ) {Λ₁ : ℝ} (hΛ₁ : 0 ≤ Λ₁) :
@@ -1028,8 +1064,8 @@ theorem chainTL_bound {e₀ : ℝ} (he₀ : 0 < e₀) (k' J₀ : ℕ) {Λ₁ : �
     (show (0 : ℝ) ≤ Λ₁ + 2 * (2333 / 1000) + 2 by positivity)
   have hev1 := (tendsto_rpow_atTop (half_pos he₀)).eventually_ge_atTop (2 : ℝ)
   have hev2 := (tendsto_rpow_atTop (half_pos hδ)).eventually_ge_atTop ((Kmax : ℝ) + 1)
-  have hev3 := (tendsto_rpow_atTop (show (0 : ℝ) < 2333 / 1000 - 485 / 1000 * (2333 / 1000) by norm_num)).eventually_ge_atTop
-    (2 : ℝ)
+  have hev3 := (tendsto_rpow_atTop
+    (show (0 : ℝ) < 2333 / 1000 - 485 / 1000 * (2333 / 1000) by norm_num)).eventually_ge_atTop (2 : ℝ)
   obtain ⟨q₂, hq₂⟩ := Filter.eventually_atTop.1
     (tendsto_natCast_atTop_atTop.eventually (hev1.and (hev2.and hev3)))
   refine ⟨δ / 2, half_pos hδ, max (max q₁ q₂) 3, ?_⟩

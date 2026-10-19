@@ -1,3 +1,34 @@
+/-
+# Round 604: Brun's sieve in product form, abstractly (milestone M5)
+
+Plain statements. For a finite set `T` and weights `x`, `esym T x m` is the elementary symmetric sum
+`e_m(T, x) = Σ_{s ⊆ T, |s| = m} ∏_{p∈s} x_p`, and `trunc T x k` is the truncated alternating sum
+`F_k(T, x) = Σ_{i ≤ k} (−1)^i e_i(T, x)`.
+
+* `bonferroni`: for `0 ≤ x_p ≤ 1` on `T`, `F_k` lies on the side `(−1)^k` of `∏_{p∈T} (1 − x_p)`, within `e_{k+1}`.
+* `fundamental`: the fundamental lemma in product form. Sift a finite set `C` by finite families `T_j` of moduli,
+  `j` in a finite type `ι`, truncating the inclusion–exclusion of `T_j` at the even level `k_j ≥ 1` for the upper
+  sieve and at `k_j − 1` for the lower. If every count `#{n ∈ C : p ∣ n for p ∈ s_j}` with `s_j ⊆ T_j` is
+  `X ∏_j ∏_{p∈s_j} g(p)` within `R`, where `X ≥ 0` and `0 ≤ g ≤ 1` on each `T_j`, then the sifted count is
+  `X ∏_j ∏_{p∈T_j} (1 − g(p))` within `X Σ_j e_{k_j}(T_j, g) ∏_{i≠j} F_{k_i}(T_i, g)` plus
+  `(#ι + 1)R ∏_j Σ_{i≤k_j} C(#T_j, i)`.
+* `gap_le`: with `Σ_{T_j} g ≤ C₀` and `∏_{T_j} (1 − g) ≥ c₀ > 0`, that gap is at most `V` times
+  `c₀⁻¹ Σ_j C₀^{k_j}/k_j!` times `∏_i (1 + C₀^{k_i+1}/((k_i + 1)! c₀))`, where `V = ∏_j ∏_{T_j} (1 − g)`.
+* `sum_levels_le`: for `C ≥ 0` and `2C² ≤ (k + 1)(k + 2)`, `Σ_{j<J} C^{k+2j}/(k + 2j)! ≤ 2C^k/k!`, uniformly in `J`.
+
+This is the fundamental lemma (T3) of `frontier/linnik/SIEVE-ROUTE.md` §13's M5, by Brun's sieve in product form.
+
+The proof:
+
+* `esym_insert`, `trunc_insert`, `bonferroni`: induction on `T`.
+* `prod_lower`: if `lo_j ≤ ρ_j ≤ hi_j` and `ρ_j ≥ 0`, then `∏ hi − Σ_j (hi_j − lo_j) ∏_{i≠j} hi_i ≤ ∏ ρ`. The sifted
+  indicator is `∏_j ρ_j`, with the upper truncation as `hi_j` and the lower as `lo_j`.
+* `sum_prod_weights`, `sum_prod_weights_sub`: a product of weights `Σ_b c(b) ∏_{p∈S(b)} 1[p ∣ n]`, summed over `C`, is
+  a sum of counts, and against the model `X ∏ g` its error is at most `R` times the sum of the `|c|`.
+* `factorial_mul_esym_le`: `m!·e_m(T, x) ≤ (Σ_{p∈T} x_p)^m` for `x ≥ 0`, for `gap_le`.
+
+The file imports only Mathlib.
+-/
 import Mathlib
 
 open Finset
@@ -65,7 +96,8 @@ theorem trunc_insert [DecidableEq α] {T : Finset α} {a : α} (ha : a ∉ T) (x
 
 /-- **Bonferroni's inequalities** for `0 ≤ x_p ≤ 1`: the truncation `F_k` lies on the side `(−1)^k` of
 `∏_{p∈T} (1 − x_p)`, within `e_{k+1}`. -/
-theorem bonferroni [DecidableEq α] (T : Finset α) {x : α → ℝ} (hx0 : ∀ p ∈ T, 0 ≤ x p) (hx1 : ∀ p ∈ T, x p ≤ 1) (k : ℕ) :
+theorem bonferroni [DecidableEq α] (T : Finset α) {x : α → ℝ} (hx0 : ∀ p ∈ T, 0 ≤ x p) (hx1 : ∀ p ∈ T, x p ≤ 1)
+    (k : ℕ) :
     0 ≤ (-1) ^ k * (trunc T x k - ∏ p ∈ T, (1 - x p)) ∧
       (-1) ^ k * (trunc T x k - ∏ p ∈ T, (1 - x p)) ≤ esym T x (k + 1) := by
   induction T using Finset.induction_on generalizing k with
@@ -290,10 +322,10 @@ theorem choose_le_sum_choose (n k : ℕ) :
   Finset.single_le_sum (f := fun i => (n.choose i : ℝ)) (fun _ _ => Nat.cast_nonneg _)
     (Finset.mem_range.2 (Nat.lt_succ_self k))
 
-/-- **The fundamental lemma in product form, abstractly.** Sift a finite set `C` by disjoint-free families
+/-- **The fundamental lemma in product form, abstractly.** Sift a finite set `C` by finite families
 `T_j` of moduli, truncating the inclusion–exclusion of `T_j` at the even level `k_j` for the upper sieve and at
 `k_j − 1` for the lower. If every count `#{n ∈ C : p ∣ n for p ∈ s_j}` with `s_j ⊆ T_j` is `X ∏_j ∏_{p∈s_j} g(p)`
-within `R`, where `0 ≤ g ≤ 1`, then the sifted count is `X ∏_j ∏_{p∈T_j} (1 − g(p))` within
+within `R`, where `X ≥ 0` and `0 ≤ g ≤ 1` on each `T_j`, then the sifted count is `X ∏_j ∏_{p∈T_j} (1 − g(p))` within
 `X Σ_j e_{k_j}(T_j, g) ∏_{i≠j} F_{k_i}(T_i, g)` plus `(#ι + 1)R ∏_j Σ_{i≤k_j} C(#T_j, i)`. -/
 theorem fundamental {ι : Type*} [Fintype ι] [DecidableEq ι] (C : Finset ℕ) (T : ι → Finset ℕ) (k : ι → ℕ)
     (hk : ∀ j, Even (k j)) (hk1 : ∀ j, 1 ≤ k j) {X : ℝ} (hX : 0 ≤ X) {g : ℕ → ℝ}

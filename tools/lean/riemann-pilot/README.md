@@ -24913,3 +24913,48 @@ The coefficients are bounded by a constant fixed before `q₀`, in place of §13
 **Bearing on RH:** none.
 
 **The next step.** M5 continues in scratch. Beyond round 602's report, families with sharp prime ranges now reduce to `typeII_sharp` over dyadic scales and dyadic blocks of `m` (`SieveTypeIIU.typeII_unw`), and so does a variable times a rough cofactor, written as non-increasing tuples of primes (`SieveRoughTuple.sum_rough_eq`, `SieveTypeIIR.typeII_rough`); both compile. Proposition 6's assembly is next.
+
+## Round 604: Linnik's theorem with exponent `2333/1000` in Lean (`external/pnt/SieveBrun.lean` … `SieveMain.lean`, 21 files; `frontier/linnik/SIEVE-ROUTE.md` §13, M5 and M8)
+
+**What it is.** Milestones M5 (the sieve) and M8 (the assembly) of the first goal (SIEVE-ROUTE.md §13) are proved, in 21 new files of `external/pnt`. With the milestones that rounds 588–600 landed (§13's Done: M1s, M2, M3, M4, M6, M7 and the cut-off of Lemma 4′) they prove the theorem of SIEVE-ROUTE.md §0 at `x = q^{2.333}`. That completes the first goal of SIEVE-ROUTE.md §11, the owner's "formalise 2.333". Round 603's cosmetic sweep rides with this round's review.
+
+**The theorem.** `SieveMain.linnik_2333`: there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{2333/1000}`. `#print axioms` gives `[propext, Classical.choice, Quot.sound]`. For `q ≥ q₀` the prime lies in `(⌊q^L⌋, ⌊2q^L⌋]`, `L = 2333/1000` (`SieveMain.linnik_large`).
+
+It rests on the stack's own inputs, which earlier rounds proved: the zero-free half-plane `Re s > 11/12` for Dirichlet `L`-functions (`Eis.LFunction_ne_zero_of_re_gt`, `src/DirichletCharHalfPlane.lean`) and the density estimates `LinnikTwelve.charDensity_twelve_fifths` and `LinnikStep.charDensity_step`, through `SieveTypeII.typeII_step` (round 593); the prime number theorem with error `O(x^{11/12+ε})` (`HalfPlaneFinal`), through `SieveRough`; and the certificate `SieveCert.total_le` (round 595).
+
+**The proof.** Each file's header states its main theorems, and most headers give the steps of their proofs; `external/pnt/README.md` has a row for each file and two sections.
+
+- *The sieve (M5).* Brun's sieve in product form (`SieveBrun.fundamental`) at the ranges `[w^{2^{−j−1}}, w^{2^{−j}})` (`SieveRanges`), with Type I's counts (`SieveCount`), gives each leaf of Buchstab's tree (`SieveLeaf`, `SieveDiff.leaf_diff`). Type II with sharp prime ranges removes `SieveFamily.typeII_sharp`'s dyadic weights (`SieveTypeIIU`, `SieveTypeIIR`). Buchstab's tree over finite sets (`SieveTree`) gives Proposition 6 (`SieveProp6.prop6`): one tree at the threshold `X' = ⌊q^{b₀}⌋` for every `r ≤ X'`, whose stops have their cofactors in the lower window (`SieveStops2.stops2_bound`) and whose leaves take the fundamental lemma.
+- *The assembly (M8).* Type II for a chain of primes and the rough rest of `n`, in either window (`SieveChain`). Families of prime tuples cut out by atoms, with Buchstab's identity, cells, splits and vanishing (`SieveDecomp`). §6's decomposition to depth 4 as exact identities, each family classified by its cells as `SieveCert` classifies them, gives `S(A, z_top) ≥ S(B, z_top) − (dropped) − C·Err` (`SieveBuch.Par.decomp`). At `x = q^L` every leaf is within `ηq^L/(φ(q) log q) + q^{L−δ}/φ(q)` (`SieveLeaves`, `SieveQ.leaves_ev`). The dropped terms' `B`-count is at most `φ(q)⁻¹(0.88 + ε)x/log x`, by M6's shares and M7's total, with the corner `o(x/log x)` (`SieveDrop.drop_ev`). With `S(B, z_top) ≥ φ(q)⁻¹((1 − ε)x/log x − q)` (`SieveMain.TB_ev`), `S(A, z_top) ≥ 0.07x/(φ(q) log x) > 0` for large `q`, and a `z_top`-rough `n ∈ (N₁, N₂]`, `z_top = ⌊√N₂⌋ + 1`, is prime. The smaller `q` take a prime from Mathlib's `Nat.forall_exists_prime_gt_and_modEq`.
+
+**As built, against the plan** (SIEVE-ROUTE.md §13's markers of this round).
+
+- Proposition 6 runs one tree at `X'` in place of §5's two cases. §5's first case is proved (`SieveStops1.stops1_bound`, `window_bound`) and not used.
+- Lemma 5 is not stated on its own: Type I enters through the leaves' counts.
+- Each term is classified by its cell, not by its point: evaluated when its cell is inside the window (depth 1), surely evaluable, or split at `X'` with the term above it; otherwise decomposed, dropped or zero by its cell. The evaluable points of a dropped cell are dropped with it, as the certificate's costs count them.
+- The corner: the cells that are neither candidates nor surely evaluable, below a cell of `p₁` outside the window, count only `n = p₁p₂` with both primes in `(z_top/4, z_top]`.
+- The small `q` take a prime from Mathlib's Dirichlet theorem, not as `linnik_of_charDensity` handles them.
+
+**What is checked.**
+
+- `lean` was run on the 21 files in order with the build's `LEAN_PATH` (Mathlib at `MATHLIB_REV`), into `build/`: `SieveBrun` 11 s, `SieveCount` 7, `SieveRanges` 10, `SieveLeaf` 11, `SieveTree` 8, `SieveDyadic` 7, `SieveTypeIIU` 35, `SieveRoughTuple` 6, `SieveTypeIIR` 18, `SieveDiff` 9, `SieveStops1` 9, `SieveCmp` 7, `SieveStops2` 38, `SieveProp6` 59, `SieveChain` 38, `SieveDecomp` 10, `SieveBuch` 10, `SieveLeaves` 9, `SieveQ` 19, `SieveDrop` 13 and `SieveMain` 14, 348 s in all. The files have 9718 lines. No file reported an error or a warning; `SieveMain.lean` prints its own `#print axioms` line, `[propext, Classical.choice, Quot.sound]`. No file has a `sorry`, `native_decide` or `axiom`. Two declarations carry `set_option maxHeartbeats 1600000 in`: `SieveProp6.prop6` and `SieveChain.chainTL_bound`.
+- `external/pnt/build.sh` compiles the 21 files after `SieveFamily`, imports them in the final check and prints the axioms of 36 of their theorems; `bash -n` passes. The final check, run alone against `build/`, prints 373 axiom lines: 372 `[propext, Classical.choice, Quot.sound]` and 1 `[propext]` (`SieveCert.total_le`), all inside the three (7 s). The rest of the layer was not rebuilt.
+- Before landing, the lead read each docstring of the 21 files against its statement and corrected or completed the ones that differed, and wrote each file's header. This is a reading, not a check: round 601 found such a claim false in round 600, and the review below is asked to attack the docstrings and headers.
+- Against the scratch save point (`tools/research/checkpoints/lean-m5-wip/` at 3c17b42), the 21 files differ in comments, docstrings and line breaks only: with comments and docstrings stripped, their token streams are identical, 94041 tokens in all (scratch check).
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class: README.md (1872), SIEVE-ROUTE.md (25) and `external/pnt/README.md` (5) gain no reports. None of these files is a paper surface.
+
+**Records.**
+
+- `external/pnt/`: 21 new files, `SieveBrun.lean` … `SieveMain.lean`.
+- `external/pnt/build.sh`: the 21 files, imported in the final check, and the axioms of 36 of their theorems.
+- `external/pnt/README.md`: 21 rows and two sections.
+- `frontier/linnik/SIEVE-ROUTE.md`: round 604's markers in the preamble, §9 (M5, M8), §10, §11 (goal 1) and §13 (Done, M5, M8).
+- `tools/research/checkpoints/lean-m5-wip/`: removed, the scratch save point of rounds 603–604.
+
+**Check 4.** New against the pilot: the sieve route in Lean, from Brun's sieve in product form and Buchstab's tree over finite sets to Harman's fundamental theorem and the assembly with a kernel-checked loss certificate, and with it Linnik's exponent `2333/1000`. The stack's previous Linnik exponent was `12/5 + η` (`LinnikTwelve.linnik_twelve_fifths`, round 527). Classical [recalled]: Brun's sieve, Buchstab's identity and Harman's sieve. Against the literature, as recorded in round 519's search: Chen–Gupta–Li's Corollary 1.4 gives `7/3 + ε` from a zero-free half-plane and a density estimate, and `2333/1000 < 7/3`; the published exponents without a half-plane are larger (Xylouris `5 − ε`).
+
+**Check 9.** (a) `linnik_2333` is a theorem of this stack: checked by Lean's kernel against Mathlib at `MATHLIB_REV` and the ported PNT+ files at 650d312, with the three axioms; its inputs are the stack's theorems named above. "Completes the first goal" is scoped to SIEVE-ROUTE.md §11's goal 1. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** The voluntary review of this round and of round 603's sweep. Then the second goal of SIEVE-ROUTE.md §11, the `7/3` result.

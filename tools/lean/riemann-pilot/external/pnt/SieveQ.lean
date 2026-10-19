@@ -1,3 +1,29 @@
+/-
+# Round 604: the decomposition at `x = q^L`, and its leaves for large `q` (milestone M8)
+
+Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
+
+Plain statements. `L = 2333/1000`. `parQ q` is the decomposition's parameters at `x = q^L`: `z₀ = ⌈q^{a₀}⌉` with
+`a₀ = L·V/DEN`, `z_top = ⌊√N₂⌋ + 1`, `X' = ⌊q^{b₀}⌋` with `b₀ = L(DEN − U2)/DEN`, `N₁ = ⌊q^L⌋` and `N₂ = ⌊2q^L⌋`.
+`LargeQ q` lists the facts about `q` that the proofs use, as powers of `q`.
+
+* `a0_b0`, `b0_gt`, `b0_lt`: `a₀ + b₀ < 0.599L`, `0.515L < b₀ < L − 1`, Proposition 6's conditions. They come from
+  `u₁ = U1/DEN > 0.401`, `u₂ = U2/DEN < 0.485` and `u₂ > 1/L`.
+* `largeQ_ev`, `good_of_large`: eventually `LargeQ q`, and then `(parQ q).Good`.
+* `box_leaf`: a box of cells that is surely evaluable is estimated by the lower window, or by the upper window when
+  its set is all the primes; a proper set in the upper window is impossible, since the product of all but the last
+  prime is at most `X'`.
+* `leaves_ev`: for `η > 0` there are `δ > 0` and `q₀` such that for `q ≥ q₀` and `a` a unit mod `q`, `LargeQ q` holds
+  and every leaf of `(parQ q).Leaves` is within `Err η δ q = ηq^L/(φ(q) log q) + q^{L−δ}/φ(q)`.
+
+The proof of `leaves_ev`: for the tuple lengths of the tree, `SieveLeaves.TL_spec` (one to four primes), `TU_spec` (two
+to four) and `P6_spec` (none to three) give `δ` and `q₀`; `δ` is their minimum and `q₀` their maximum. Each leaf is then
+one of those estimates (`lf_j0` … `lf_e4`): its family has at most `18` atoms with thresholds in `[1, q^{L+1}]`
+(`len_*`, `thrOK_*`), and its windows are the integer ranges `P₁ = ⌊x^{u₁}⌋`, `P₂ = ⌊x^{u₂}⌋`, `W₀ = X'` and
+`W₁ = ⌊x^{1−u₁}⌋` (`P1_ok`, `P2_ok`, `W1_div`, `W0_div`).
+
+The file imports `SieveLeaves.lean`.
+-/
 import SieveLeaves
 
 open Real Finset Filter SieveFamily SieveChain SieveDecomp SieveBuch SieveLeaves
@@ -325,9 +351,11 @@ theorem thr_bounds {q : ℕ} (hL : LargeQ q) :
 /-- `x = q^L`. -/
 noncomputable abbrev xq (q : ℕ) : ℝ := (q : ℝ) ^ (2333 / 1000 : ℝ)
 
-/-- The lower window's ends `P₁ = ⌊x^{u₁}⌋`, `P₂ = ⌊x^{u₂}⌋`, and the upper window's `W₁ = ⌊x^{1−u₁}⌋`. -/
+/-- The lower window's lower end `P₁ = ⌊x^{u₁}⌋`. -/
 noncomputable abbrev P1 (q : ℕ) : ℕ := ⌊xq q ^ ((U1 : ℝ) / DEN)⌋₊
+/-- The lower window's upper end `P₂ = ⌊x^{u₂}⌋`. -/
 noncomputable abbrev P2 (q : ℕ) : ℕ := ⌊xq q ^ ((U2 : ℝ) / DEN)⌋₊
+/-- The upper window's upper end `W₁ = ⌊x^{1−u₁}⌋`. -/
 noncomputable abbrev W1 (q : ℕ) : ℕ := ⌊xq q ^ (((DEN - U1 : ℕ) : ℝ) / DEN)⌋₊
 
 theorem Xp_eq (q : ℕ) : (parQ q).Xp = ⌊xq q ^ (((DEN - U2 : ℕ) : ℝ) / DEN)⌋₊ := by

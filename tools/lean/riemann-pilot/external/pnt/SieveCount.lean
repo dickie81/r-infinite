@@ -1,3 +1,17 @@
+/-
+# Round 604: Type I counts in a residue class (milestone M5)
+
+Plain statements, for `N₁ ≤ N₂`.
+
+* `card_Ioc_modEq`: the integers of `(N₁, N₂]` in a residue class mod `r > 0` number `(N₂ − N₁)/r` within `1`.
+* `card_A`: for `M > 0` prime to `q > 0`, the `n ∈ (N₁, N₂]` with `n ≡ a (mod q)` and `M ∣ n` number
+  `(N₂ − N₁)/(Mq)` within `1`.
+* `card_B`: for `M > 0` prime to `q > 0`, the `n ∈ (N₁, N₂]` prime to `q` with `M ∣ n` number
+  `φ(q)(N₂ − N₁)/(Mq)` within `φ(q)`.
+
+These are the counts `|A_d|` and `|B_d|` of `frontier/linnik/SIEVE-ROUTE.md` §1 that Lemma 5 (§5) and the leaves of
+§13's M5 use. The file imports only Mathlib.
+-/
 import Mathlib
 
 open Finset

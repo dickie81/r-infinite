@@ -1,3 +1,29 @@
+/-
+# Round 604: Type II families with sharp prime ranges (milestone M5)
+
+Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
+
+Plain statement (`typeII_unw`). Fix `K₀`, `J₀`, `e₁ > 0`, `E₀ ≥ 0` and `Λ₁ ≥ 0`. There are `δ > 0` and `q₀` such
+that for `q ≥ q₀` and a unit `a` mod `q`: let `m` run over `S ⊆ (P₁, P₂]` with `q^{0.401L} ≤ P₁` and
+`P₂ ≤ q^{0.485L}` (`L = 2.333`), with coefficients `|a_m| ≤ 1`, and let `n + 1 ≤ K₀` primes `x_i` run over all the
+primes up to `⌊2q^L⌋`. Let `J ≤ J₀` sharp comparisons `P_j` hold when `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i > 0` and
+imply `ℓ_j ≥ 0`, with `|e_{ji}| ≤ E₀`, `φ_j(m) ≤ Λ₁ log q` on `S`, and for each `j` a pivot `i` with `e_{ji} = ±1`.
+If wherever all the comparisons hold each `x_i ≥ 2q^{e₁}` and `m∏_i x_i ≤ 2q^L`, then the family's `A − B/φ(q)`
+(`SieveFamily.Dsum`) is at most `q^{L−δ}/φ(q)`.
+
+This removes the dyadic weights from `SieveFamily.typeII_sharp`, whose primes carry `f0(x_i/Q_i)` at fixed scales
+and whose `m` lies in a dyadic block, so that §13's M5 can use families with sharp ranges.
+
+The proof:
+
+* `blk_spec`: `m ∈ (P₁, P₂]` lies in the dyadic block `(P₁2^b, 2P₁2^b]` with `b = log₂((m − 1)/P₁)`.
+* `SieveDyadic.sum_bump`: each prime's range is covered by `Σ_k bump(x/2^k) = 1`, so the family is a sum of families
+  with weights `bump(x_i/Q_i)` at the scales `Q_i = 2^{k_i}`, and `box_change` puts each one in `Sp`'s ranges.
+* `SieveFamily.typeII_sharp` bounds each piece by `q^{L−δ}/φ(q)` (with `f0 = bump`, `F₀ = 1`, `A₀ = 1`). The pieces
+  number at most `(3 + 4 log q)^{K₀+1}`, which `ev_log_pow_le` puts below `q^{δ/2}`.
+
+The file imports `SieveFamily.lean` and `SieveDyadic.lean`.
+-/
 import SieveFamily
 import SieveDyadic
 

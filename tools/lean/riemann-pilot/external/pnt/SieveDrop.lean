@@ -1,3 +1,27 @@
+/-
+# Round 604: the dropped terms' `B`-count (milestone M8)
+
+Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
+
+Plain statements. `xq q = q^L`, `L = 2333/1000`, and `cornerP z` is the set of primes of `(⌊z/4⌋, z]`.
+
+* `card_le_Psi`, `famI_gB_le`: a family's `B`-count is at most `φ(q)⁻¹ Σ_rt Ψ(x/∏rt, rt_last)`, since the `n = Wc ∈
+  (x, 2x]` with no prime factor below `z` inject into `Ψ(x/W, z)`.
+* `drop2_le`, `drop4_le`: a dropped cell's `B`-count is at most `φ(q)⁻¹` times its sum over the primes of its cells
+  (`SieveRough.cellP`), `Σ Ψ(x/(p₁p₂), p₂)` or `Σ Ψ(x/(p₁p₂p₃p₄), p₄)`.
+* `corner_le`, `corner_ev`: a corner cell (not a candidate, not surely evaluable, `p₁`'s cell not inside the window)
+  counts only the `n = p₁p₂`, both primes in `cornerP z_top`, so it is at most `φ(q)⁻¹|cornerP|²`; for large `q`,
+  `n²|cornerP|² ≤ εx/log x` (`n = 70` cells), by `cornerP_card_ev`.
+* `D1_le`, `dropS_le_cost`, `shares_ev`, `sum_cost_div`: the dropped cells' sums are at most their certificate costs
+  `cost/K` times `x/log x`, plus `δ′`, by `SieveRough.share2_of_cand` and `share4_of_counted4` simultaneously for the
+  finitely many cells, and the costs total at most `0.88` (`SieveCert.total_div_le`).
+* `drop_ev`: for `ε > 0`, eventually `D1(g_B) ≤ φ(q)⁻¹(0.88 + ε)x/log x`.
+
+This is the loss of `frontier/linnik/SIEVE-ROUTE.md` §6, M8 of §13: M6's shares and M7's total bound the dropped
+families' `B`-counts, and the corner near `(1/2, 1/2)` is `o(x/log x)`.
+
+The file imports `SieveQ.lean`.
+-/
 import SieveQ
 
 open Real Finset Filter SieveFamily SieveChain SieveDecomp SieveBuch SieveLeaves SieveQ SieveRough
@@ -170,8 +194,8 @@ theorem drop4_le {q : ℕ} (hq : 1 ≤ q) (i j k l : ℕ) :
 /-- The primes of `(⌊z/4⌋, z]`, where the corner's primes lie. -/
 noncomputable def cornerP (z : ℕ) : Finset ℕ := (Ioc ⌊(z : ℝ) / 4⌋₊ z).filter Nat.Prime
 
-/-- **A corner cell** (not a candidate, not surely evaluable, below the window's cells): its `n` are the products
-`p₁p₂` of its pairs, so its `B`-count is at most `φ(q)⁻¹ |cornerP|²` when `z_top² ≤ 4N₁`. -/
+/-- **A corner cell** (not a candidate, not surely evaluable, `p₁`'s cell not inside the window): its `n` are the
+products `p₁p₂` of its pairs, so its `B`-count is at most `φ(q)⁻¹ |cornerP|²` when `z_top² ≤ 4N₁`. -/
 theorem corner_le {q : ℕ} (G : (parQ q).Good) (hsq : (((parQ q).ztop : ℝ)) ^ 2 ≤ 4 * N1 q) {i j : ℕ}
     (hi : i < SieveCert.n) (hW : ¬ Par.inW i) (hc : cand i j = false) (hs : Par.sE2 i j = false) :
     (parQ q).I (gB q) ((parQ q).S2c i j) ≤ (q.totient : ℝ)⁻¹ * ((cornerP (parQ q).ztop).card : ℝ) ^ 2 := by
@@ -361,9 +385,11 @@ theorem cornerP_card_ev : ∃ X₀ : ℝ, ∀ x ≥ X₀, ∀ z : ℕ, Real.sqrt
     · exact Or.inr ⟨⟨by omega, hp.1.2⟩, hp.2⟩
   have hc1 := hy₀ A hy
   have hc2 := hy₀ (2 * A) (by linarith)
-  have hcard : ((cornerP z).card : ℝ) ≤ (1 + 1) * A / Real.log (2 * A) + (1 + 1) * (2 * A) / Real.log (2 * (2 * A)) := by
+  have hcard : ((cornerP z).card : ℝ) ≤
+      (1 + 1) * A / Real.log (2 * A) + (1 + 1) * (2 * A) / Real.log (2 * (2 * A)) := by
     have := Finset.card_le_card hsplit
-    have h2 := Finset.card_union_le ((Ioc ⌊A⌋₊ ⌊2 * A⌋₊).filter Nat.Prime) ((Ioc ⌊2 * A⌋₊ ⌊2 * (2 * A)⌋₊).filter Nat.Prime)
+    have h2 := Finset.card_union_le ((Ioc ⌊A⌋₊ ⌊2 * A⌋₊).filter Nat.Prime)
+      ((Ioc ⌊2 * A⌋₊ ⌊2 * (2 * A)⌋₊).filter Nat.Prime)
     have h3 : ((cornerP z).card : ℝ) ≤ (((Ioc ⌊A⌋₊ ⌊2 * A⌋₊).filter Nat.Prime).card : ℝ) +
         (((Ioc ⌊2 * A⌋₊ ⌊2 * (2 * A)⌋₊).filter Nat.Prime).card : ℝ) := by exact_mod_cast this.trans h2
     linarith

@@ -1,3 +1,30 @@
+/-
+# Round 604: families of prime tuples, and Buchstab's identity on them (milestone M8)
+
+Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
+
+Plain statements. An `Atom k` is one condition on a `k`-tuple `x` of primes: `b ≤ x_t`, `x_t < b`, `x_t < x_s`,
+`∏_{i∈T} x_i ≤ b` or `b < ∏_{i∈T} x_i` (`Atom.sem`). The family `famSet k Y spec` is the set of `k`-tuples of primes
+up to `Y` that satisfy every atom of `spec`. For weights `g` on `(N₁, N₂]`, `famI` sums the terms
+`S_g(∏rt, rt_last) = Σ_n g(n)[∏rt ∣ n, no prime factor of n below rt_last]` over a family, and `famJ` the terms
+`S_g(∏rt, z)`.
+
+* `RTg_eq`: with positive thresholds, a family is `SieveChain.RTg` of its atoms' comparisons (`Atom.toG`).
+* `buchstab_pt`, `buchstab_fam`: Buchstab's identity. For a family whose tuples have their last prime least and at
+  least `z`, `famI = famJ(z) − famI` of the extended family (`extS`: one more prime `p ∈ [z, rt_last)`).
+* `famI_cells`: if every tuple has its prime `t` in `[x^{V/DEN}, x^{(V + nH)/DEN})`, `x > 1`, the family is the sum
+  over the cells `c < n` of `SieveCert`'s grid of its subfamilies with `x^{e_c/DEN} ≤ rt_t < x^{(e_c + H)/DEN}`
+  (`cellA`).
+* `famI_split`: a family is the sum of its subfamilies under an atom and under its complement.
+* `famI_eq_zero`, `famI_vanish`: a family contributes `0` when no `n ∈ (N₁, N₂]` is counted, in particular when every
+  `∏rt ≤ N₁` while `∏rt·rt_last > N₂`.
+
+These are the operations of the decomposition of `frontier/linnik/SIEVE-ROUTE.md` §6 (§13's M8), on families
+described by finitely many atoms: extension by one prime (Buchstab), the cells of the newest prime, splits by a
+product against a threshold, and families that vanish.
+
+The file imports `SieveChain.lean`.
+-/
 import SieveChain
 
 open Real Finset SieveFamily SieveChain
@@ -55,6 +82,7 @@ noncomputable def toG : Atom k → GCmp k
       fun i => by split_ifs <;> simp⟩
   | prodGt T b => ⟨fun _ => -Real.log b, fun i => if i ∈ T then 1 else 0, true, fun i => by split_ifs <;> simp⟩
 
+/-- With a positive threshold, on entries at least `1`, the comparison holds exactly when the atom does. -/
 theorem toG_holds (A : Atom k) (hA : 0 < A.thr) (m : ℕ) {x : Fin k → ℕ} (hx : ∀ i, 1 ≤ x i) :
     A.toG.holds m x ↔ A.sem x := by
   have hpos : ∀ i, (0 : ℝ) < x i := fun i => by exact_mod_cast hx i
@@ -141,7 +169,7 @@ theorem famI_nonneg {g : ℕ → ℝ} (hg : ∀ n, 0 ≤ g n) (N₁ N₂ : ℕ) 
 
 /-! ### Buchstab's identity on a family -/
 
-/-- `p ∣ n` with `n` free of primes below `p` means `p = minFac n`, for `n ≠ 1`. -/
+/-- `p ∣ n` with `n` free of primes below `p` means `p = minFac n`, for `n ≥ 2`. -/
 theorem dvd_rough_iff {p n : ℕ} (hp : p.Prime) (hn : 2 ≤ n) :
     p ∣ n ∧ SieveTree.rough p n ↔ p = Nat.minFac n := by
   constructor
@@ -308,7 +336,7 @@ theorem cell_iff {x : ℝ} (hx : 1 < x) {p : ℕ} (hp : p.Prime) (c : ℕ) :
   rw [SieveRough.cellP, SieveRough.mem_primesIn] at h
   simpa [hp] using h
 
-/-- Each prime of `[x^v, x^{(V + nH)/DEN})` lies in exactly one cell. -/
+/-- For `x > 1`, each prime of `[x^{V/DEN}, x^{(V + nH)/DEN})` lies in exactly one cell `c < n`. -/
 theorem exists_unique_cell {x : ℝ} (hx : 1 < x) {p : ℕ} (hp : p.Prime)
     (h0 : x ^ ((SieveCert.V : ℝ) / SieveCert.DEN) ≤ p)
     (h1 : (p : ℝ) < x ^ (((SieveCert.V : ℝ) + SieveCert.n * SieveCert.H) / SieveCert.DEN)) :
@@ -356,8 +384,9 @@ theorem famSet_append {k Y : ℕ} (spec spec' : List (Atom k)) :
   ext x
   simp only [Finset.mem_filter, mem_famSet, List.forall_mem_append, and_assoc]
 
-/-- **The cells of the prime `t`.** If every tuple of the family has its prime `t` in `[x^v, x^{(V + nH)/DEN})`,
-the family's terms are the sum over the cells `c < n` of those with `rt_t` in the cell `c`. -/
+/-- **The cells of the prime `t`.** If `x > 1` and every tuple of the family has its prime `t` in
+`[x^{V/DEN}, x^{(V + nH)/DEN})`, the family's terms are the sum over the cells `c < n` of those with `rt_t` in the
+cell `c`. -/
 theorem famI_cells (g : ℕ → ℝ) (N₁ N₂ : ℕ) {x : ℝ} (hx : 1 < x) {k' Y : ℕ} (spec : List (Atom (k' + 1)))
     (t : Fin (k' + 1))
     (hrange : ∀ rt ∈ famSet (k' + 1) Y spec, x ^ ((SieveCert.V : ℝ) / SieveCert.DEN) ≤ rt t ∧

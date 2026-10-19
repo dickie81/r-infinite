@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity LinnikChar LinnikDeduction LinnikHybrid LinnikDetect LinnikDensity LinnikHalf LinnikFE LinnikLindelof LinnikSubconvex MertensChi LinnikAFE LinnikFourth LinnikIngham LinnikPower LinnikOffDiag LinnikHuxley LinnikGammaRatio LinnikReflect LinnikWeighted LinnikDual LinnikBuckets LinnikLargeValues LinnikTwelveBins LinnikTwelveSizes LinnikTwelve LinnikMoment LinnikLines LinnikSplit LinnikS2 LinnikPoints SieveSmooth LinnikStep SieveLemma1 SieveWeight SieveTypeII SieveCert SieveRough SieveSep SieveFamily; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity LinnikChar LinnikDeduction LinnikHybrid LinnikDetect LinnikDensity LinnikHalf LinnikFE LinnikLindelof LinnikSubconvex MertensChi LinnikAFE LinnikFourth LinnikIngham LinnikPower LinnikOffDiag LinnikHuxley LinnikGammaRatio LinnikReflect LinnikWeighted LinnikDual LinnikBuckets LinnikLargeValues LinnikTwelveBins LinnikTwelveSizes LinnikTwelve LinnikMoment LinnikLines LinnikSplit LinnikS2 LinnikPoints SieveSmooth LinnikStep SieveLemma1 SieveWeight SieveTypeII SieveCert SieveRough SieveSep SieveFamily SieveBrun SieveCount SieveRanges SieveLeaf SieveTree SieveDyadic SieveTypeIIU SieveRoughTuple SieveTypeIIR SieveDiff SieveStops1 SieveCmp SieveStops2 SieveProp6 SieveChain SieveDecomp SieveBuch SieveLeaves SieveQ SieveDrop SieveMain; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -143,6 +143,27 @@ import SieveCert
 import SieveRough
 import SieveSep
 import SieveFamily
+import SieveBrun
+import SieveCount
+import SieveRanges
+import SieveLeaf
+import SieveTree
+import SieveDyadic
+import SieveTypeIIU
+import SieveRoughTuple
+import SieveTypeIIR
+import SieveDiff
+import SieveStops1
+import SieveCmp
+import SieveStops2
+import SieveProp6
+import SieveChain
+import SieveDecomp
+import SieveBuch
+import SieveLeaves
+import SieveQ
+import SieveDrop
+import SieveMain
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -394,6 +415,42 @@ import SieveFamily
 #print axioms SieveFamily.Dsum_sharp_le
 #print axioms SieveFamily.typeII_sharp_explicit
 #print axioms SieveFamily.typeII_sharp
+#print axioms SieveBrun.bonferroni
+#print axioms SieveBrun.fundamental
+#print axioms SieveBrun.gap_le
+#print axioms SieveCount.card_A
+#print axioms SieveCount.card_B
+#print axioms SieveRanges.rng_sum_le
+#print axioms SieveLeaf.leaf_A
+#print axioms SieveLeaf.leaf_B
+#print axioms SieveLeaf.leaf_gap
+#print axioms SieveTree.tree_sum
+#print axioms SieveDyadic.sum_bump
+#print axioms SieveTypeIIU.typeII_unw
+#print axioms SieveRoughTuple.sum_rough_eq
+#print axioms SieveTypeIIR.typeII_rough
+#print axioms SieveDiff.leaf_diff
+#print axioms SieveStops1.stops1_bound
+#print axioms SieveStops1.window_bound
+#print axioms SieveStops2.typeII_cmp
+#print axioms SieveStops2.stops2_bound
+#print axioms SieveProp6.prop6
+#print axioms SieveChain.typeII_gcmp'
+#print axioms SieveChain.chainTU_bound
+#print axioms SieveChain.chainTL_bound
+#print axioms SieveDecomp.buchstab_fam
+#print axioms SieveDecomp.famI_cells
+#print axioms SieveDecomp.famI_vanish
+#print axioms SieveBuch.Par.decomp
+#print axioms SieveLeaves.TL_spec
+#print axioms SieveLeaves.TU_spec
+#print axioms SieveLeaves.P6_spec
+#print axioms SieveQ.good_of_large
+#print axioms SieveQ.leaves_ev
+#print axioms SieveDrop.drop_ev
+#print axioms SieveMain.TB_ev
+#print axioms SieveMain.linnik_large
+#print axioms SieveMain.linnik_2333
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy

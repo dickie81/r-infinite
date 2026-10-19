@@ -1,3 +1,34 @@
+/-
+# Round 604: the leaves of Buchstab's tree, by the fundamental lemma (milestone M5)
+
+Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
+
+Plain statements. For `w ≥ 1` and `J`, `T w J j` (`j < J`) is the set of primes of the range
+`[w^{2^{−j−1}}, w^{2^{−j}})`, and `g q p` is the sieve's density, `1/p`, or `0` for `p ∣ q`.
+
+* `leaf_A`: let `q > 0`, `a` and `m > 0` prime to `q`, every prime factor of `m` at least `w ≥ 1`, `w^{2^{−J}} ≤ 2`,
+  `N₁ ≤ N₂`, and levels `k_j ≥ 1` even. The `n ∈ (N₁, N₂]` with `n ≡ a (mod q)`, `m ∣ n` and no prime factor below
+  `w` number `X ∏_j ∏_{T_j} (1 − g)`, `X = (N₂ − N₁)/(mq)`, within the error of `SieveBrun.fundamental` with `R = 1`.
+* `leaf_B`: the same, with `m` prime to `q` and no `a`, for the `n` prime to `q`, divided by `φ(q)`.
+* `leaf_gap`: let `C₀ ≥ 0` bound `Σ_{p ∈ rng A} 1/p` for `A ≥ 1`, and `k` be even with `2C₀² ≤ (k + 1)(k + 2)`. At the
+  levels `k_j = k + 2j` that error's gap term is at most `V·ζ(k)`, where `V = ∏_j ∏_{T_j} (1 − g)` and
+  `ζ(k) = e^{2C₀}(2C₀^k/k!)·exp(e^{2C₀}·2C₀^{k+1}/(k + 1)!)`.
+
+This is the fundamental lemma at a leaf of the tree, `frontier/linnik/SIEVE-ROUTE.md` §13's M5.
+
+The proof:
+
+* `sifted_iff`, `dvd_iff`, `coprime_m`: by `SieveRanges.cover` and `rng_disjoint`, sifting by the ranges is sifting by
+  the primes below `w`, and divisibility by a set of the ranges' primes is divisibility by its product, which is
+  prime to `m`.
+* `hR_A`, `hR_B`: `SieveCount.card_A` and `card_B` give the counts as `X ∏ g` within `1`, and `φ(q)X ∏ g` within
+  `φ(q)`.
+* `leaf_A`, `leaf_B`: `SieveBrun.fundamental` with these counts.
+* `leaf_gap`: `SieveBrun.gap_le` with `c₀ = e^{−2C₀}`, since `e^{−2g} ≤ 1 − g` for `0 ≤ g ≤ 1/2`, and
+  `SieveBrun.sum_levels_le`.
+
+The file imports `SieveRanges.lean` and `SieveCount.lean`.
+-/
 import SieveRanges
 import SieveCount
 
@@ -187,8 +218,10 @@ theorem div_bound {S φ X V G N c : ℝ} (hφ : 0 < φ) (h : |S - φ * X * V| �
   calc |S - φ * X * V| ≤ φ * X * G + c * φ * N := h
     _ = (X * G + c * 1 * N) * φ := by ring
 
-/-- **A leaf, for `A`.** The `n ∈ (N₁, N₂]` with `n ≡ a (mod q)`, `m ∣ n` and no prime factor below `w` number
-`X ∏_j ∏_{T_j} (1 − g)`, `X = (N₂ − N₁)/(mq)`, within the fundamental lemma's error. -/
+/-- **A leaf, for `A`.** Let `q > 0`, `a` and `m > 0` prime to `q`, every prime factor of `m` at least `w ≥ 1`,
+`w^{2^{−J}} ≤ 2`, `N₁ ≤ N₂`, and levels `k_j ≥ 1` even. The `n ∈ (N₁, N₂]` with `n ≡ a (mod q)`, `m ∣ n` and no prime
+factor below `w` number `X ∏_j ∏_{T_j} (1 − g)`, `X = (N₂ − N₁)/(mq)`, within the fundamental lemma's error with
+`R = 1`. -/
 theorem leaf_A {q a m N₁ N₂ : ℕ} (hq : 0 < q) (ha : Nat.Coprime a q) (hm : 0 < m) (hmq : Nat.Coprime m q)
     {w : ℝ} (hw : 1 ≤ w) (hmw : ∀ p : ℕ, p.Prime → p ∣ m → w ≤ p) {J : ℕ} (hJ : w ^ ((1 / 2 : ℝ) ^ J) ≤ 2)
     (hN : N₁ ≤ N₂) (k : Fin J → ℕ) (hk : ∀ j, Even (k j)) (hk1 : ∀ j, 1 ≤ k j) :
@@ -213,7 +246,8 @@ theorem leaf_A {q a m N₁ N₂ : ℕ} (hq : 0 < q) (ha : Nat.Coprime a q) (hm :
   · congr
   · simp
 
-/-- **A leaf, for `B/φ(q)`.** The same for the `n` prime to `q`, divided by `φ(q)`. -/
+/-- **A leaf, for `B/φ(q)`.** The same, with `m` prime to `q` and no `a`, for the `n` prime to `q`, divided by
+`φ(q)`. -/
 theorem leaf_B {q m N₁ N₂ : ℕ} (hq : 0 < q) (hm : 0 < m) (hmq : Nat.Coprime m q)
     {w : ℝ} (hw : 1 ≤ w) (hmw : ∀ p : ℕ, p.Prime → p ∣ m → w ≤ p) {J : ℕ} (hJ : w ^ ((1 / 2 : ℝ) ^ J) ≤ 2)
     (hN : N₁ ≤ N₂) (k : Fin J → ℕ) (hk : ∀ j, Even (k j)) (hk1 : ∀ j, 1 ≤ k j) :
@@ -253,8 +287,9 @@ theorem g_le_inv (q p : ℕ) : g q p ≤ 1 / p := by
   · positivity
   · exact le_rfl
 
-/-- The relative error of a leaf: with the levels `k_j = k + 2j` and `C₀` bounding the ranges' prime sums, the gap
-is at most `V·ζ(k)`, `ζ(k) = e^{2C₀}(2C₀^k/k!)·exp(e^{2C₀}·2C₀^{k+1}/(k + 1)!)`. -/
+/-- The relative error of a leaf: let `w ≥ 1`, `C₀ ≥ 0` bound the sums `Σ 1/p` over the ranges `rng A` (`A ≥ 1`), and
+`k` be even with `2C₀² ≤ (k + 1)(k + 2)`. With the levels `k_j = k + 2j`, the gap is at most `V·ζ(k)`, where
+`V = ∏_j ∏_{T_j} (1 − g)` and `ζ(k) = e^{2C₀}(2C₀^k/k!)·exp(e^{2C₀}·2C₀^{k+1}/(k + 1)!)`. -/
 theorem leaf_gap {w : ℝ} (hw : 1 ≤ w) (J q : ℕ) {C₀ : ℝ} (hC₀ : 0 ≤ C₀)
     (hC : ∀ A : ℝ, 1 ≤ A → ∑ p ∈ rng A, 1 / (p : ℝ) ≤ C₀) {k : ℕ} (hk : Even k)
     (hkC : 2 * C₀ ^ 2 ≤ ((k : ℝ) + 1) * (k + 2)) :

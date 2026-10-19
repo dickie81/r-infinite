@@ -1,3 +1,27 @@
+/-
+# Round 604: the leaves' estimates on families of atoms (milestone M8)
+
+Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
+
+Plain statements. `gA q a m = 1[m ≡ a]` and `gB q m = 1[(m, q) = 1]/φ(q)`; `N1 q = ⌊q^L⌋`, `N2 q = ⌊2q^L⌋`;
+`ThrOK q spec` says that the atoms' thresholds lie in `[1, q^{L+1}]`.
+
+* `exists_inside`: a box of cells that `SieveCert.surelyEval` passes has a set `T` of its primes whose subset sums
+  over the box stay inside `U = (u₁, u₂) ∪ (1 − u₂, 1 − u₁)`.
+* `window_lo`, `window_hi`: for primes in their cells, `⌊x^{B/DEN}⌋ < ∏_T rt` when `B` is below the box's lower sum
+  over `T`, and `∏_T rt ≤ ⌊x^{B/DEN}⌋` when `B` is above its upper sum.
+* `prod_proper_le`: a proper subset of a decreasing tuple has product at most that of all but the last entry.
+* `TL_spec`, `TU_spec`: `SieveChain.chainTL_bound` and `chainTU_bound` on a family of at most `18` atoms with
+  `ThrOK`, as bounds on `|famI(g_A) − famI(g_B)|`.
+* `P6_spec`: `SieveProp6.prop6` on a family of at most `18` atoms with `ThrOK` and nonzero coefficients (`NZ`), as a
+  bound on `|famJ(g_A, z₀) − famJ(g_B, z₀)|`.
+
+These connect M8's families (`SieveDecomp`) with the Type II bounds and Proposition 6. `dw_eq`, `sum_dw_famI` and
+`sum_dw_famJ` write `SieveFamily.dw = gA − gB` on the families, and `RTg_eq_of_thrOK` and `RT_pivoted` identify a
+family with the comparisons of its atoms.
+
+The file imports `SieveBuch.lean`.
+-/
 import SieveBuch
 
 open Real Finset SieveFamily SieveChain SieveDecomp SieveBuch

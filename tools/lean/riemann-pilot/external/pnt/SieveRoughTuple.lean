@@ -1,3 +1,16 @@
+/-
+# Round 604: rough numbers as tuples of primes (milestone M5)
+
+Plain statements. `tuples z Y n` is the set of non-increasing `n`-tuples of primes at least `z` with product at most
+`Y`.
+
+* `ofFn_eq`: a non-increasing tuple of primes is its product's prime factors in decreasing order.
+* `sum_rough_eq`: for `z ≥ 2` and `Y < z^{K+1}`, a sum over the `k ∈ [2, Y]` with no prime factor below `z` is the
+  sum over the tuples `tuples z Y n`, `1 ≤ n ≤ K`, of its value at the tuple's product.
+
+This turns a rough cofactor into a family of primes for the Type II estimate (`SieveTypeIIR`). The file imports only
+Mathlib.
+-/
 import Mathlib
 
 open Finset
@@ -22,8 +35,8 @@ theorem ofFn_eq {n : ℕ} {x : Fin n → ℕ} (hx : Antitone x) (hp : ∀ i, (x 
   exact hp i
 
 /-- **Rough numbers as tuples of primes.** For `z ≥ 2` and `Y < z^{K+1}`, a sum over the `k ∈ [2, Y]` with no prime
-factor below `z` is the
-sum over the non-increasing tuples of at most `K` primes, each at least `z`, of product at most `Y`. -/
+factor below `z` is the sum over the non-increasing tuples of at most `K` primes, each at least `z`, of product at
+most `Y`. -/
 theorem sum_rough_eq {z Y : ℕ} (hz : 2 ≤ z) {M : Type*} [AddCommMonoid M] (F : ℕ → M) (K : ℕ)
     (hK : Y < z ^ (K + 1)) :
     ∑ k ∈ (Finset.Icc 2 Y).filter (fun k => ∀ p < z, p.Prime → ¬ p ∣ k), F k =

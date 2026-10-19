@@ -1,3 +1,28 @@
+/-
+# Round 604: a stop's cofactor, and the stops below the window (milestone M5)
+
+Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
+
+Plain statements.
+
+* `sum_cofactor`: for a `p`-rough `W ≤ N₁` with `0 < W`, the multiples `n ∈ (N₁, N₂]` of `W` that are `p`-rough are
+  the `Wk` with `k ≥ 2` `p`-rough and `N₁ < Wk ≤ N₂`.
+* `stops1_bound`: fix `e₀ > 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`: let `r`
+  run over `R`, each `r > 0` with every prime factor at least `z₀` and coefficients `|c_r| ≤ 1`, let `w ≥ q^{e₀}`,
+  and let `q^{0.401L} ≤ X` and `Xz₀ ≤ q^{0.485L}`. Then the stops of Buchstab's tree at the threshold `X`
+  (`SieveDiff.tree_weighted`), weighted by `c_r` and summed over `r`, have `|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`.
+* `window_bound`: the same with `r` itself in the window, `R ⊆ (P₁, P₂]`, for `S(A_r, z₀) − S(B_r, z₀)/φ(q)`.
+
+`stops1_bound` and `window_bound` were the first case of Proposition 6's proof in `frontier/linnik/SIEVE-ROUTE.md`
+§5 (`r ≤ x^{u₁}`). The proof of `linnik_2333` does not use them: `SieveProp6.prop6` runs one tree, at the threshold
+`X'` (`SieveStops2`). `sum_cofactor` is used by `SieveStops2` and `SieveChain`.
+
+The proof of the bounds: a stop `W = r∏P·p` lies in `(X, Xz₀]`, inside the lower window; its least prime is `p`
+(`minFac_W`), so `W` determines `(r, P, p)` (`filter_W`, `div_W`), and the stop's cofactor is a `p`-rough `k ≥ 2`
+(`sum_cofactor`). `SieveTypeIIR.typeII_rough` with `m = W` and `z(m) = minFac m` bounds the sum.
+
+The file imports `SieveDiff.lean` and `SieveTypeIIR.lean`.
+-/
 import SieveDiff
 import SieveTypeIIR
 
@@ -95,7 +120,7 @@ section Bound
 open Classical
 
 /-- **The stops below the window.** Fix `e₀ > 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a`
-mod `q`: let `r` run over `R`, with every prime factor of each `r` at least `z₀` and coefficients `|c_r| ≤ 1`, let
+mod `q`: let `r` run over `R`, each `r > 0` with every prime factor at least `z₀` and coefficients `|c_r| ≤ 1`, let
 `w ≥ q^{e₀}`, and let `q^{0.401L} ≤ X` and `Xz₀ ≤ q^{0.485L}`. Then the stops of Buchstab's tree at the threshold `X`
 (`SieveDiff.tree_weighted`), weighted by `c_r` and summed over `r`, have `|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`. -/
 theorem stops1_bound {e₀ : ℝ} (he₀ : 0 < e₀) :

@@ -1,3 +1,31 @@
+/-
+# Round 604: Linnik's theorem with exponent `2333/1000` (milestones M8 and §0)
+
+Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
+
+Plain statements.
+
+* `primes_dyadic_ge`: for `ε > 0`, the primes of `(⌊x⌋, ⌊2x⌋]` number at least `(1 − ε)x/log x` for large `x`.
+* `TB_ev`: `S(B, z_top) ≥ φ(q)⁻¹((1 − ε)x/log x − q)` for large `q`, at `x = q^L`.
+* `linnik_large`: there is `q₀` such that for `q ≥ q₀` and `a` a unit mod `q` there is a prime `p ≡ a (mod q)` with
+  `p ≤ 2q^{2333/1000}`.
+* `linnik_2333`: there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)`
+  with `p ≤ K·q^{2333/1000}`.
+
+This is the theorem of `frontier/linnik/SIEVE-ROUTE.md` §0 at `x = q^{2.333}`, assembled as §13's M8 plans.
+
+The proof:
+
+* `primes_dyadic_ge`: `SieveRough.theta_near` at `x` and `2x`. `TB_ev`: `z_top = ⌊√N₂⌋ + 1`, so the `z_top`-rough
+  `n ∈ (N₁, N₂]` are the primes there, and at most `ω(q) ≤ q` of them divide `q`.
+* `linnik_large`: `SieveBuch.Par.decomp` with `SieveQ.leaves_ev`, `SieveDrop.drop_ev` and `TB_ev`, with
+  `η = 1/(100·Cdec·L)` and `ε = 1/100`. For large `q` the leaves' error `Cdec·Err` is at most `0.02x/(φ(q) log x)` and
+  `q ≤ 0.01x/log x`, so `S(A, z_top) ≥ 0.07x/(φ(q) log x) > 0`. A `z_top`-rough `n ∈ (N₁, N₂]` is prime.
+* `linnik_2333`: for `q < q₀`, Mathlib's `Nat.forall_exists_prime_gt_and_modEq` (Dirichlet's theorem) gives a prime
+  for each of the finitely many `q` and residues, and `K` is the larger of `2` and their maximum.
+
+The file imports `SieveDrop.lean`.
+-/
 import SieveDrop
 
 open Real Finset Filter SieveFamily SieveChain SieveDecomp SieveBuch SieveLeaves SieveQ SieveRough SieveDrop

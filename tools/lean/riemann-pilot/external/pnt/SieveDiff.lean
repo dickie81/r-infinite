@@ -1,3 +1,23 @@
+/-
+# Round 604: the tree's weights, and a leaf's difference (milestone M5)
+
+Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
+
+Plain statements. `SieveFamily.dw q a n = 1[n ≡ a] − 1[(n, q) = 1]/φ(q)`.
+
+* `tree_weighted`: for any weights `f`, `SieveTree.tree_pt` summed over a finite set.
+* `sum_dw_eq`: a sum of `dw` over a set is the count of its `n ≡ a` minus the count of its `n` prime to `q`, divided
+  by `φ(q)`.
+* `leaf_diff`: for `a` a unit, `d > 0` with every prime factor at least `w ≥ 1`, and the ranges of `SieveLeaf.T`
+  with `w^{2^{−J}} ≤ 2`: the `n ∈ (N₁, N₂]` with `d ∣ n` and no prime factor below `w` have `|A − B/φ(q)|` at most
+  twice the fundamental lemma's error, `X·Σ_j e_{k_j}(T_j) ∏_{i≠j} trunc_{k_i}(T_i) + (J + 1)∏_j Σ_{i ≤ k_j}
+  C(|T_j|, i)`, `X = (N₂ − N₁)/(dq)`, for even `k_j ≥ 1`.
+
+`leaf_diff` is `SieveLeaf.leaf_A` minus `SieveLeaf.leaf_B`: the main terms `X ∏_j ∏_{T_j} (1 − g)` cancel. When `d`
+shares a prime with `q`, both counts vanish.
+
+The file imports `SieveTree.lean`, `SieveLeaf.lean` and `SieveFamily.lean`.
+-/
 import SieveTree
 import SieveLeaf
 import SieveFamily

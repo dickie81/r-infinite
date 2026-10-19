@@ -1,3 +1,23 @@
+/-
+# Round 604: Buchstab's tree over a finite set (milestone M5)
+
+Plain statements. `rough z n` says that `n` has no prime factor below `z`; `S C m z` is `S(C_m, z)`, the number of
+`n ∈ C` with `m ∣ n` and `rough z n`; `primesIco w z` is the set of primes of `[w, z)`.
+
+* `tree_pt`: Buchstab's tree at one `n`. For `w ≤ z₀` and `r ≤ X` with every prime factor of `r` at least `z₀`,
+  `[r ∣ n, rough z₀ n]` is the leaves' sum `Σ_{P ⊆ [w, z₀), r∏P ≤ X} (−1)^{|P|} [r∏P ∣ n, rough w n]` plus the stops'
+  sum `Σ_{w ≤ p < z₀} Σ_{P ⊆ (p, z₀), r∏P ≤ X < r∏P·p} (−1)^{|P|+1} [r∏P·p ∣ n, rough p n]`, over sets `P` of primes.
+* `tree_sum`: the same summed over a finite set `C`, as an identity of the counts `S`.
+
+This is Buchstab's identity iterated from `z₀` down to `w`, each branch stopped once its product would pass the
+threshold `X`: the tree of Proposition 6 in `frontier/linnik/SIEVE-ROUTE.md` §5, for §13's M5.
+
+The proof: for `n` with `r ∣ n` and `rough w n`, let `Q` be the primes of `[w, z₀)` that divide `n`. The leaves that
+count `n` are the `P ⊆ Q`, and the stops those with `p = min Q`. `alt_cancel`,
+`Σ_{P⊆Q} (−1)^{|P|}[a∏P ≤ X] + Σ_{P'⊆Q∖{q}} (−1)^{|P'|+1}[a∏P' ≤ X < a∏P'q] = 0` with `q = min Q`, leaves `[Q = ∅]`.
+
+The file imports only Mathlib.
+-/
 import Mathlib
 
 open Finset
@@ -62,7 +82,7 @@ theorem alt_cancel (a X q : ℕ) (hq : 1 ≤ q) (Q' : Finset ℕ) (hqQ : q ∉ Q
 theorem mem_primesIco {w z p : ℕ} : p ∈ primesIco w z ↔ w ≤ p ∧ p < z ∧ p.Prime := by
   rw [primesIco, Finset.mem_filter, Finset.mem_Ico, and_assoc]
 
-/-- **The Buchstab tree at one `n`.** For `r ≤ X` with all primes of `r` at least `z₀`, the indicator of
+/-- **The Buchstab tree at one `n`.** For `w ≤ z₀` and `r ≤ X` with all primes of `r` at least `z₀`, the indicator of
 `r ∣ n` with no prime factor of `n` below `z₀` is the leaves' alternating sum plus the stops'. -/
 theorem tree_pt (n : ℕ) {r X w z₀ : ℕ} (hwz : w ≤ z₀) (hr : ∀ p : ℕ, p.Prime → p ∣ r → z₀ ≤ p) (hrX : r ≤ X) :
     (if r ∣ n ∧ rough z₀ n then (1 : ℤ) else 0) =

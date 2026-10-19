@@ -1,3 +1,34 @@
+/-
+# Round 604: the stops of Buchstab's tree above the threshold (milestone M5)
+
+Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
+
+Plain statements. `RT j Y Ω` is the set of `j`-tuples of primes up to `Y` that satisfy the comparisons `Ω` at
+`m = 0`.
+
+* `typeII_cmp`: `SieveTypeIIU.typeII_unw` with the comparisons given as a list of `SieveCmp.Cmp`s.
+* `sum_stops_eq`: the stops `W = r_1⋯r_j·∏P·p` of the tree at the threshold `X'` (`r` over `RT`, `p ∈ [w, z₀)`, `P` an
+  `s`-set of primes of `(p, z₀)`), with `p ≤ minFac k` and `N₁ < Wk ≤ N₂`, are the tuples `(r, P in decreasing order,
+  p)` of primes up to `Y` that satisfy the comparisons `cmps` at `k`.
+* `stops2_bound`: fix `e₀ > 0`, `j`, `J₀` and `Λ₁ ≥ 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit
+  `a` mod `q`: let `rt` run over the `j`-tuples of primes up to `N₂ = ⌊2q^L⌋` satisfying at most `J₀` comparisons `Ω`
+  (taken at `m = 0`, with `m`-parts `c(0)` at most `Λ₁ log q`) that force every `rt_i ≥ z₀`, and let
+  `q^{e₀} ≤ w ≤ z₀`, `1 ≤ X'`, `X'z₀ ≤ N₁ = ⌊q^L⌋`, `q^{0.401L} ≤ ⌊N₁/(X'z₀)⌋` and `⌊N₂/(X' + 1)⌋ ≤ q^{0.485L}`. Then
+  the stops of Buchstab's tree at the threshold `X'` (`SieveDiff.tree_weighted` with `r = ∏rt`), summed over `rt`,
+  have `|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`, `L = 2.333`.
+
+This is the evaluation of the stops in Proposition 6 (`frontier/linnik/SIEVE-ROUTE.md` §5, §13's M5) for one tree
+at the threshold `X'`. A stop `W` lies in `(X', X'z₀)`, so its cofactor `k` lies in `(N₁/(X'z₀), N₂/(X' + 1)]`, inside
+the lower window. The roles swap: `k` is the Type II variable and the stop's primes are the family's.
+
+The proof: `sum_cofactor_window` writes a stop's multiples as `Wk` with `k` in that range and `p ≤ minFac k`
+(`rough_iff_le_minFac`). For each size `s ≤ ⌈L/e₀⌉` of `P` (a larger `P` has `∏P > X'`), `sum_stops_eq` turns the stops
+into a family of `(j + s + 1)`-tuples with the comparisons `cmps`: the region `Ω`, the order `y_1 > ⋯ > y_s > p`,
+`y_1 < z₀` (or `p < z₀`), `p ≥ w`, the threshold, the cofactor's roughness and the range (`cmps_iff`). Their
+`m`-parts are at most `(Λ₁ + L + 1) log q` (`cmps_c_le`), and `typeII_cmp` bounds each size.
+
+The file imports `SieveCmp.lean` and `SieveStops1.lean`.
+-/
 import SieveCmp
 import SieveStops1
 
@@ -549,7 +580,7 @@ theorem typeII_cmp (K₀ J₀ : ℕ) {e₁ Λ₁ : ℝ} (he₁ : 0 < e₁) (hΛ�
 
 /-- **The stops above the threshold.** Fix `e₀ > 0`, `j`, `J₀` and `Λ₁ ≥ 0`. There are `δ > 0` and `q₀` such that for
 `q ≥ q₀` and a unit `a` mod `q`: let `rt` run over the `j`-tuples of primes up to `N₂ = ⌊2q^L⌋` satisfying at most `J₀`
-comparisons `Ω` (forms not depending on `m`, with `m`-parts at most `Λ₁ log q`) that force every `rt_i ≥ z₀`, and let
+comparisons `Ω` (taken at `m = 0`, with `m`-parts `c(0)` at most `Λ₁ log q`) that force every `rt_i ≥ z₀`, and let
 `q^{e₀} ≤ w ≤ z₀`, `1 ≤ X'`, `X'z₀ ≤ N₁ = ⌊q^L⌋`, `q^{0.401L} ≤ ⌊N₁/(X'z₀)⌋` and `⌊N₂/(X' + 1)⌋ ≤ q^{0.485L}`.
 Then the stops of Buchstab's tree at the threshold `X'` (`SieveDiff.tree_weighted` with `r = ∏rt`), summed over
 `rt`, have `|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`, `L = 2.333`. -/

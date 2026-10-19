@@ -1,3 +1,27 @@
+/-
+# Round 604: Type II for a variable times a rough cofactor (milestone M5)
+
+Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
+
+Plain statement (`typeII_rough`). Fix `e₀ > 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a`
+mod `q`: let `m` run over `S ⊆ (P₁, P₂]` with `q^{0.401L} ≤ P₁` and `P₂ ≤ q^{0.485L}` (`L = 2.333`), with
+coefficients `|a_m| ≤ 1`, and let `z(m) ≥ q^{e₀}` on `S`. Then the sum over `m ∈ S` of `a_m` times the sum, over the
+`k ≥ 2` with no prime factor below `z(m)` and `⌊q^L⌋ < mk ≤ ⌊2q^L⌋`, of `1[mk ≡ a] − 1[(mk, q) = 1]/φ(q)` is at most
+`q^{L−δ}/φ(q)` in absolute value.
+
+This is the stop of a branch of Buchstab's tree inside the lower window: `m` is the branch's product and the rest
+of `n` is rough (`frontier/linnik/SIEVE-ROUTE.md` §5).
+
+The proof:
+
+* `rough_sum_eq_box`: by `SieveRoughTuple.sum_rough_eq`, with `K = ⌈(L + 1)/e₀⌉`, the rough `k` are the products of
+  the non-increasing tuples of at most `K` primes, each at least `z(m)`. These are cut out of the box of all the
+  primes up to `⌊2q^L⌋` by the sharp comparisons `PrR` (`PrR_all_iff`): the order of the tuple, its last entry at
+  least `z(m)`, and the range `⌊q^L⌋ < m∏x_i ≤ ⌊2q^L⌋`.
+* `SieveTypeIIU.typeII_unw` for each length, with `E₀ = 1`, `Λ₁ = L + 1` and `e₁ = e₀/2`.
+
+The file imports `SieveTypeIIU.lean` and `SieveRoughTuple.lean`.
+-/
 import SieveTypeIIU
 import SieveRoughTuple
 
