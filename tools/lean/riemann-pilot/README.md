@@ -23915,3 +23915,58 @@ The survey's estimates, which are estimates and not checked:
 **Bearing on RH:** none.
 
 **The next step.** SIEVE-ROUTE.md §10: a smoothing in place of Perron at height `x²`, under which the sieve route needs counts of characters only, at heights up to `2x^ε`.
+
+## Round 586: smoothing in place of Perron at height `x²`, so that the sieve route needs counts of characters only (`frontier/linnik/SIEVE-ROUTE.md` §10)
+
+**What it is.** SIEVE-ROUTE.md §8 named a way around Lemma 2's counts of zeros: "a smoothing that keeps the heights below `x^ε`, where a count of characters suffices; that smoothing is not worked out here". The new §10 works it out, at paper level and unrefereed.
+
+If it holds, the density input of the sieve route at `x = q^{2.333}` is a theorem of the stack, `LinnikTwelve.charDensity_twelve_fifths`, which counts characters. Milestone M1 of the Lean plan (counts of zeros over points `(χ, t)`, which round 583's survey put at roughly 500 to 1000 lines in the Huxley range) is then not needed.
+
+No Lean changed, no number changed, and no paper surface is edited.
+
+**The argument.**
+
+- **Lemma 4′.** Each sharp comparison of Lemma 4 is replaced by `G(log Z − log Y)`, where `G(u) = g(u/θ)c(u/Λ)` and `θ = x^{−ε₂}`.
+  - Fourier inversion separates the variables. `Ĝ` decays like `θ^{1−K}|τ|^{−K}`, so the heights can be cut at `T₀ = x^{2ε₂}` at a cost of `O(1/x)`.
+  - Each comparison then errs only on the event `Y ≤ Z < e^θY`.
+- **Lemma 4″.** Those events are bounded by smooth majorants that keep the term's variables.
+  - Their count over the model is `≪ x^{1−ε₂/2}`: two primes within `3θp` of each other, or a product within `3θz` of a threshold.
+  - Their count over `A` differs from the model by the Type II estimate itself.
+- **Proposition 3′.** With every height below `x^ε`, each character is binned once, by `b(χ)`, the largest real part of its zeros up to height `2x^ε`. The bins are then counted by (H2′), a count of characters, and Lemma 2 is not used.
+- **(H2′).** (H2) implies it. With unif it follows from `charDensity_twelve_fifths` with `ε = 1/108000`, and from the trivial count `φ(q) ≤ qT` where `A(σ)(1 − σ) = 1`.
+- **The rest.** Proposition 6, §6 and Proposition 7 use Lemma 4 and Proposition 3 only through the bound `x^{1−δ}/φ(q)` for each difference, so they are unchanged.
+
+**The Lean plan, revised** (§10's "For Lean").
+
+- M1 is not needed.
+- M2 is Lemma 1 at heights up to `2x^ε`. The bound for `L′/L` can come from `Linnik.logDeriv_LFunction_le` in zero-free discs, in place of (T2).
+- M3 is Proposition 3′.
+- M4 is Lemmas 4′ and 4″.
+- M5–M8 are unchanged.
+- For hux, M1 becomes hux's curves in `σ` as counts of characters. The choice between unif and hux now turns on M7 against those curves.
+
+**Markers** (net-state, since the earlier statements were true of Lemma 4's sharp cut-offs):
+
+- SIEVE-ROUTE.md §8: the items for Lemma 2 and Lemma 4.
+- SIEVE-ROUTE.md §9: M1, "Why counts of zeros", M2, M3, M4, M7 and "Order".
+- SEVEN-THIRDS §47: the two statements about counts of zeros.
+- IDEAS.md D5.
+
+**What is checked.**
+
+- Each Lean name cited was read in its file:
+  - `Linnik.logDeriv_LFunction_le` (`LinnikChar.lean:147`, statement and docstring);
+  - `LinnikTwelve.charDensity_twelve_fifths` (statement: `∃ C, 0 ≤ C ∧ CharDensity (12/5 + 54ε) 10 C` for `0 < ε ≤ 1/200`);
+  - `Linnik.CharDensity` (`LinnikDeduction.lean`), which counts all characters mod `q` with a zero in `Re s ≥ σ`, `|Im s| ≤ T`.
+- In Mathlib at the pinned commit, `Real.fourier_iteratedDeriv`, `Continuous.fourierInv_fourier_eq` and `Real.smoothTransition` exist (`grep`). They are the analytic pieces M4 would use.
+- §§5–7 were read where they use Lemma 4 and Proposition 3: SIEVE-ROUTE.md lines 131, 145 and 155.
+- The lead's self-review of the draft scoped two sentences that said the theorem rests on the stack's inputs alone. The standard inputs (T1)–(T4) of §2 remain at paper level.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class: SIEVE-ROUTE.md goes from 9 to 12 reports, three new ones of class L10 (a nested list directly after its item's text), all in §10; the sweep adds none to SEVEN-THIRDS.md (63), IDEAS.md (51), STRUCTURAL-REVIEW.md (100) or README.md's earlier rounds. This entry takes README.md from 1839 to 1842 reports, three new ones of class L10, the style of the entries around them. None of these files is a paper surface.
+
+**Check 4.** Novel. §8 named the smoothing and said it was not worked out. §9's "Why counts of zeros" concerned the large sieve with Lemma 4's sharp cut-offs.
+
+**Check 9.** (a) "M1 is not needed" and "counts of characters suffice" are scoped to this route with §10, at paper level. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** A hostile review of §10. Then M2: Lemma 1 at a height `y`, generalizing the stack's `Linnik.norm_Sx_le` at height `0`.
