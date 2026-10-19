@@ -23671,3 +23671,72 @@ It found no MAJOR, four minor and six cosmetic defects. None moves the theorem o
 **Bearing on RH:** none.
 
 **The next step.** Round 582: the uniform density curve, and the plan for the Lean route.
+
+## Round 582: a uniform exponent `12/5` suffices for an exponent below `7/3`, and the Lean route planned (`frontier/linnik/sieve_route_certificate.py`; `frontier/linnik/SEVEN-THIRDS.md` §47; `frontier/linnik/SIEVE-ROUTE.md` §9)
+
+**What it is.** The first step toward the goal the lead proposed after round 577, which the owner took up with "Start as suggested": a kernel-checked exponent below `7/3`. Planning it raised a question: does the sieve need density curves that depend on `σ`?
+
+It does not, for an exponent below `7/3`. Take the uniform curve "unif", `A(σ) = min(12/5 + 1/2000, 1/(1 − σ))`: Huxley's uniform exponent with a slack of `1/2000`, capped by the trivial count. With it the certificate bounds the loss at `L = 2.333` by `0.9756` at `n = 600`. SIEVE-ROUTE.md §9 then plans the Lean route in eight milestones. No Lean changed, and no paper surface is edited.
+
+**The uniform curve** (SEVEN-THIRDS §47).
+
+- At `L = 2.333` the window is `(0.417252, 0.485534)`, proved by branch and bound in 730 boxes.
+- The certified bound is `0.9756129805606728` at `n = 600`.
+- So under (H1) and `Σ_{χ mod q} N(σ, T, χ) ≤ (qT)^{(12/5 + 1/2000)(1 − σ) + o(1)}` for every `σ` and `T ≥ 2`, §44's decomposition gives `x = q^{2.333}`, below `q^{7/3}`.
+- The uniform bound is implied by (1.4) and (1.5), whose largest exponent is `12/5`, so it is a weaker hypothesis.
+- Scratch runs show the margin:
+  - at `L = 2.333` the bound is `1.0367` at `n = 300` and `0.9510` at `n = 900`;
+  - with `A = 12/5` exactly it is `0.9637` at `n = 600`;
+  - at `L = 2.33` with `A = 12/5` it is `1.0285` at `n = 600`;
+  - at `L = 2.33` the probe's midpoint estimate is `0.9652` with `A = 12/5`, and `1.8399` with `A = 12/5 + 0.054`.
+- For Lean, the stack's `LinnikTwelve.charDensity_twelve_fifths` has the exponent `12/5 + 54ε` for every `ε ≤ 1/200`. That reaches the slack `1/2000`, but it counts characters, and Lemma 2 counts zeros.
+
+**The certificate.** `sieve_route_certificate.py` gains the curve unif and the case `(unif, 2.333, 600)`.
+
+- On unif's first piece, where (H2) is the trivial bound, `A(β)(1 − β) = 1`. On the second piece `A` is the constant `12/5 + 1/2000`. So the window's proof by monotonicity carries over, and the docstring says so.
+- The case sits before the coarse case, so the sabotage runs, which check only the last case in C5, are unchanged.
+- `python3 sieve_route_certificate.py`, run from `frontier/linnik`, exits 0 in 405 seconds. Its lines C0, C2, C3, C4 and C6 are unchanged from round 578.
+  - C1 adds `('unif', 2.333, 0.4172524655696179, 0.4855336467326197, 730, True)`.
+  - C5 adds `'unif233_n600': 0.9756129805606728`.
+  - Ten sabotage cases are caught, each by its gate.
+
+**The Lean plan** (SIEVE-ROUTE.md §9). The eight milestones are:
+
+- M1, counts of zeros;
+- M2–M4, Lemmas 1, 2 and 4 and Proposition 3;
+- M5, the sieve;
+- M6, rough numbers;
+- M7, the loss in Lean;
+- M8, the assembly.
+
+Each lists what the stack has and what it lacks, from a survey of the pilot, Mathlib and PNT+ at the pinned commit 650d312, made for this round by a subagent and spot-checked by the lead.
+
+- M1 is the main risk. The large sieve alone does not bound the Type II sums at large heights: §9 gives the computation, and it fails when a Perron variable couples `W` with a short factor of `B`. So the argument needs the zeros at every height. The stack's density estimates take one point per character, and they would have to be reworked over points `(χ, t)`.
+- M5 needs a genuine fundamental lemma. Brun's pure sieve fails at a fixed sieve parameter `s`.
+- M7 is large for unif. A scratch count gives 73877 cells of depth 2 and about `9.0` million of depth 4 at `n = 600`. It is small for hux, which needs the curves in `σ`.
+- The choice between unif and hux is open.
+
+**What is checked.**
+
+- The certificate's full run (above).
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class: README.md goes from 1830 to 1832 reports, two new; SEVEN-THIRDS.md from 61 to 63, two new; SIEVE-ROUTE.md from 3 to 9, six new. All are of class L10 (a nested list directly after its item's text), the style of the entries around them. IDEAS.md (51) and STRUCTURAL-REVIEW.md (100) are unchanged. None of these files is a paper surface.
+
+**Records.**
+
+- `frontier/linnik/sieve_route_certificate.py`: the curve unif and its case.
+- `frontier/linnik/SEVEN-THIRDS.md`: §47.
+- `frontier/linnik/SIEVE-ROUTE.md`: the curve unif in §2, a remark in §0, its bound in §7, and §9.
+- `frontier/linnik/IDEAS.md`: a marker in D5. The register is unchanged at 89 entries.
+- STRUCTURAL-REVIEW §6: a marker on the line for exponents below `7/3`.
+
+**Check 4.** The uniform result is novel. No earlier round ran the sieve with a uniform curve.
+
+**Check 9.**
+
+- (a) The exponent is for §44's decomposition with this curve, and it is not optimized. §9 scopes its claim about large heights to this argument with the large sieve alone, and the choice of route is left open.
+- (b) No change to the register's targets.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** The first Lean milestone. M1's feasibility should come first, as a survey of how rounds 524–527 depend on one point per character, together with the local count of zeros for `L(s, χ)`, which every route needs.

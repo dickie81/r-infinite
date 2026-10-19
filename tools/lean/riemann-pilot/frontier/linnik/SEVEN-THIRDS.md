@@ -880,3 +880,20 @@ It also lists what a referee should check first and what Lean is missing. It is 
   - The bound for the integers near a threshold is struck in §44. The floor `x^{ε₁}` of Buchstab's iteration is a threshold, and an integer near it divides about `x^{1−ε₁}/q` elements of the progression, not `O(x^{1−v}/q + 1)`. The error is still `o(x/(q log x))`.
   - The form of the fundamental theorem is marked in §44. The argument evaluates the sum over `r` with the decomposition's coefficients, not each `S(A_r, x^v)` alone. In the second case `r` sits in the factor bounded through the zeros, so its coefficients ~~must be those of a region~~ cannot be arbitrary. *(Round 581: the sentence in §44 is struck, as false when written, rather than marked; regions are one choice of coefficients, smooth weights another; review F3 and F5.)*
 - IDEAS.md G19 records a literature check. No source it found applies Harman's sieve, with density bounds as Type II information, to the least prime in a progression to one modulus.
+
+## 47. Round 582: a uniform exponent `12/5` suffices for an exponent below `7/3`
+
+§44's argument uses the density bound only through the Type II window. Run it with the uniform curve "unif", `A(σ) = min(12/5 + 1/2000, 1/(1 − σ))`. This is Huxley's uniform exponent with a slack of `1/2000`, capped by the trivial count.
+
+At `L = 2.333` the window is `(0.417252, 0.485534)` (proved), and `sieve_route_certificate.py` bounds the loss by `0.9756` at `n = 600`. So assume (H1) and `Σ_{χ mod q} N(σ, T, χ) ≤ (qT)^{(12/5 + 1/2000)(1 − σ) + o(1)}` for every `σ` and every `T ≥ 2`. Then §44's decomposition finds a prime `p ≡ a (mod q)` in `[x, 2x]` with `x = q^{2.333}`, below `q^{7/3}`.
+
+- **What it changes.** The curves of (1.4) and (1.5) that depend on `σ` are needed only for the lower exponents `2.28` and `2.25`. In this argument an exponent below `7/3` needs only the uniform exponent `12/5` with a slack of `1/2000`, as a count of zeros at every height. Those counts enter through SIEVE-ROUTE.md's Lemma 2, which weights each zero by `1/(1 + |γ|)`.
+- **For Lean.** The stack's `LinnikTwelve.charDensity_twelve_fifths` proves the exponent `12/5 + 54ε` for every `ε ≤ 1/200`, so the slack `1/2000` is within its reach. But it counts characters, not zeros. So on the density side the Lean route needs zero counts with that exponent, and no curves that depend on `σ` (SIEVE-ROUTE.md §9).
+- **The margin is thin.**
+  - At `L = 2.333` a scratch run gives bounds `1.0367` and `0.9510` at `n = 300` and `900`.
+  - With `A = 12/5` exactly, it gives `0.9637` at `n = 600`.
+  - The loss moves fast with `A`. At `L = 2.33` the probe's midpoint estimate is `0.9652` with `A = 12/5` and `1.8399` with `A = 12/5 + 0.054` (scratch).
+- **Scope (Check 9).**
+  - The exponent is for §44's decomposition with this curve, and it is not optimized.
+  - The analysis of §44 is unchanged and at paper level, and the certificate checks the loss integral, not that analysis.
+  - The uniform bound follows from (1.4) and (1.5), whose largest exponent is `12/5`. So it is a weaker hypothesis, not a new input.

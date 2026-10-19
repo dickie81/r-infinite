@@ -6,11 +6,13 @@ without directed rounding.  This file proves upper bounds.  Every test of the re
 decomposition is exact (the comparisons in floating point that feed a bound, omega's zero tests, its table indices and
 the choice between two bounds, err on the safe side), every floating-point operation on a bound is rounded outward,
 Buchstab's omega is enclosed, and the windows are proved.  Its rule for decomposition is sharper than the probe's
-(below), and it certifies the exponents 2.28 (hux) and 2.25 (cons) as well as section 44's 2.29 and 2.27.
+(below), and it certifies the exponents 2.28 (hux) and 2.25 (cons) as well as section 44's 2.29 and 2.27.  With the
+uniform curve unif, A = 12/5 + 1/2000 (README round 582), it certifies 2.333, below 7/3.
 
-What is certified.  For (hux, 2.28), (cons, 2.25), (hux, 2.29) and (cons, 2.27) with n = 600 cells a side, and for
-(hux, 2.32) with n = 50: a number below 1 that is at least the loss of section 44's decomposition (the probe's
-docstring states it), run with a window (u1', u2') proved to lie inside the window of section 44's Type II lemma.
+What is certified.  For (hux, 2.28), (cons, 2.25), (hux, 2.29), (cons, 2.27) and (unif, 2.333) with n = 600 cells a
+side, and for (hux, 2.32) with n = 50: a number below 1 that is at least the loss of section 44's decomposition (the
+probe's docstring states it), run with a window (u1', u2') proved to lie inside the window of section 44's Type II
+lemma.
 The loss is an integral of Buchstab's omega over regions of [v, 1/2]^2 and [v, 1/2]^4.  The bound is a sum over the
 cells of a grid of side h: h^2 (or h^4) times an upper bound for the integrand on the cell.  The gates check
 arithmetic and implementation, not analysis.  Section 44 gives the argument (the Type II lemma, Harman's fundamental
@@ -42,13 +44,14 @@ How.
     lo_i = F_lo(t_i)/t_{i+1} and hi_i = (F_hi(t_i) + d hi_{i - 1/d})/t_i, all rounded outward.  The supremum of omega
     on an interval of arguments is at most the largest hi_i over the table intervals that meet it (a sparse table),
     and the infimum is at least the least lo_i (or 0 if the interval reaches below 1).
-  Windows.  On each piece of a curve, A(beta)(1 - beta) is decreasing: its derivative is -3/(2 - beta)^2 for Ingham's
-    3/(2 - beta), -6/(3 beta - 1)^2 for Huxley's 3/(3 beta - 1), and -7/3 for the constant 7/3.  So on [b0, b1] the
+  Windows.  On each piece of a curve, A(beta)(1 - beta) does not increase: its derivative is -3/(2 - beta)^2 for
+    Ingham's 3/(2 - beta), -6/(3 beta - 1)^2 for Huxley's 3/(3 beta - 1), -7/3 for the constant 7/3 and -A for unif's
+    constant A; on unif's first piece, where (H2) is the trivial bound, A(beta)(1 - beta) = 1.  So on [b0, b1] the
     numerator of lower(beta) is at most A(b0)(1 - b0)/2 + 1/2 - L(1 - b1).  u1' is the largest value of lower at the
     pieces' right ends, divided by L, plus 2^-30, rounded up to a multiple of 1/DEN.  Branch and bound in exact
     rational arithmetic proves lower(beta) <= u1' L on (1/2, 11/12].  At beta = 1/2 the bin's bound holds for every
-    length when L > 2.  A is monotone on each piece, so its maximum Amax (12/5 for hux, 7/3 for cons) is at the
-    pieces' ends.  u2' is min((L - Amax/2)/L, 1/2) minus 2^-30, rounded down.
+    length when L > 2.  A is monotone on each piece, so its maximum Amax (12/5 for hux, 7/3 for cons, 12/5 + 1/2000
+    for unif) is at the pieces' ends.  u2' is min((L - Amax/2)/L, 1/2) minus 2^-30, rounded down.
 
 Checks (references: the closed forms of omega on [1, 4) at 40 digits; above 4, sieve_route_probe.py's trapezoid table
 at step 2.5e-5, whose error is far below 1e-8; the probe's midpoint estimate).
@@ -70,7 +73,8 @@ at step 2.5e-5, whose error is far below 1e-8; the probe's midpoint estimate).
        its depth-4 region that is not evaluable lies in a counted depth-4 cell.  (iv) An independent implementation of
        the sharp rule passes every decomposed cell.  (v) At 1500 random points of random candidate cells and 750 of
        random counted depth-4 cells, the cell bound is at least h^2 (or h^4) times the integrand at the point.
-  (C5) The certificates: hux 2.28, cons 2.25, hux 2.29 and cons 2.27 at n = 600 below 1; hux 2.32 at n = 50 below 1;
+  (C5) The certificates: hux 2.28, cons 2.25, hux 2.29, cons 2.27 and unif 2.333 at n = 600 below 1; hux 2.32 at
+       n = 50 below 1;
        and hux 2.30 at n = 150 at least the probe's midpoint estimate at (200, 100).
   (C6) Decomposition costs from below (hux, 2.29, n = 200).  For 600 random decomposed cells that lie inside the
        depth-2 region (surely in the region and surely not evaluable), the certified cost is at least a lower bound
@@ -113,7 +117,7 @@ UMAX = 16
 EPS53 = 2.0 ** -53
 MARGIN = Fr(1, 1 << 30)
 CASES = (("hux", Fr(228, 100), 600), ("cons", Fr(225, 100), 600), ("hux", Fr(229, 100), 600),
-         ("cons", Fr(227, 100), 600), ("hux", Fr(232, 100), 50))
+         ("cons", Fr(227, 100), 600), ("unif", Fr(2333, 1000), 600), ("hux", Fr(232, 100), 50))
 SABOTAGE = {"k0": "C0", "k1": "C1", "k2": "C2", "k3": "C3", "k4": "C4", "k5": "C4", "k6": "C4", "k7": "C4",
             "k8": "C6", "k9": "C0"}
 
@@ -229,9 +233,11 @@ def omega_ref(u, fine):
 
 # -------------------------------------------------------------------------------------------------------- windows
 
+A_U = Fr(12, 5) + Fr(1, 2000)
 PIECES = {"hux": ((Fr(1, 2), Fr(3, 4), "ing"), (Fr(3, 4), Fr(11, 12), "hux")),
-          "cons": ((Fr(1, 2), Fr(5, 7), "ing"), (Fr(5, 7), Fr(16, 21), "c73"), (Fr(16, 21), Fr(11, 12), "hux"))}
-AMAX = {"hux": Fr(12, 5), "cons": Fr(7, 3)}
+          "cons": ((Fr(1, 2), Fr(5, 7), "ing"), (Fr(5, 7), Fr(16, 21), "c73"), (Fr(16, 21), Fr(11, 12), "hux")),
+          "unif": ((Fr(1, 2), 1 - 1 / A_U, "cap"), (1 - 1 / A_U, Fr(11, 12), "uni"))}
+AMAX = {"hux": Fr(12, 5), "cons": Fr(7, 3), "unif": A_U}
 
 
 def A_of(kind, b):
@@ -239,6 +245,10 @@ def A_of(kind, b):
         return 3 / (2 - b)
     if kind == "hux":
         return 3 / (3 * b - 1)
+    if kind == "cap":
+        return 1 / (1 - b)
+    if kind == "uni":
+        return A_U
     return Fr(7, 3)
 
 

@@ -12,6 +12,7 @@ Round 580. This is SEVEN-THIRDS.md §44's argument, with §45's rule for decompo
 
 - (H1) is a theorem of the stack. (H2) with hux is the pair of classical density bounds in Chen–Gupta–Li's statement; cons adds their `7/3`, from a preprint.
 - No step uses that `q` is prime.
+- With the curve unif of §2 the same holds with `x = q^{2.333}`, below `q^{7/3}` (round 582; SEVEN-THIRDS §47). The curves that depend on `σ` matter only for the lower exponents.
 - More generally, the argument gives the theorem at every `L > 2` for which some window strictly inside the Type II window of §3 makes the loss of §6 less than `1`. The certificate proves this at the stated values.
 
 The plan: the Type II estimate (§3) with the separation of variables (§4), then Type I and Harman's fundamental theorem (§5), then the decomposition and the final count (§6).
@@ -32,10 +33,11 @@ The plan: the Type II estimate (§3) with the separation of variables (§4), the
 - **(H1)** For every `q ≥ 1`, every Dirichlet character `χ` mod `q` and every `s` with `Re s > 11/12`, `L(s, χ) ≠ 0`, except at `s = 1` for the trivial character. Lean: `Eis.LFunction_ne_zero_of_re_gt` (`src/DirichletCharHalfPlane.lean`).
 - **(H2)** For every `q ≥ 1`, `1/2 ≤ σ ≤ 1` and `T ≥ 2`, `Σ_{χ mod q} N(σ, T, χ) ≤ (qT)^{A(σ)(1−σ)+η(qT)}` with `η(Q) → 0` as `Q → ∞`. Here `N(σ, T, χ)` counts the zeros `ρ = β + iγ` of `L(s, χ)` with `β ≥ σ` and `|γ| ≤ T`, and `A` is one of two curves:
   - hux: `A(σ) = 3/(2 − σ)` for `σ ≤ 3/4` and `3/(3σ − 1)` for `σ ≥ 3/4`;
-  - cons: `A(σ) = 3/(2 − σ)` for `σ ≤ 5/7` and `min(7/3, 3/(3σ − 1))` for `σ ≥ 5/7`.
+  - cons: `A(σ) = 3/(2 − σ)` for `σ ≤ 5/7` and `min(7/3, 3/(3σ − 1))` for `σ ≥ 5/7`;
+  - unif (round 582): `A(σ) = min(12/5 + 1/2000, 1/(1 − σ))`, Huxley's uniform exponent with a slack of `1/2000`, capped by the trivial count. hux implies it, since `A_hux(σ)(1 − σ) ≤ min(12/5 · (1 − σ), 1)`.
 
   Chen–Gupta–Li (arXiv:2507.08296v2, p. 2) state the two classical bounds as (1.4) and (1.5); SEVEN-THIRDS §44 quotes them. The `7/3` is their main theorem.
-- Used properties of the curves: `A(σ)(1 − σ) ≤ 1` on `[1/2, 1]`, with equality only at `σ = 1/2`, where `A = 2`; the largest value of `A` is `12/5` (hux) or `7/3` (cons).
+- Used properties of the curves: `A(σ)(1 − σ) ≤ 1` on `[1/2, 1]`. For hux and cons equality holds only at `σ = 1/2`, where `A = 2`; for unif it holds on `[1/2, 1 − 1/(12/5 + 1/2000)]`, and Lemma 2's sum over the dyadic ranges then costs a power of `log x`. The largest value of `A` is `12/5` (hux), `7/3` (cons) or `12/5 + 1/2000` (unif).
 - **(T1) Orthogonality.** `Σ_{χ mod q} |Σ_{m≤P} a_mχ(m)|² ≤ (P + q)Σ|a_m|²`. Proof: the left side is `φ(q)Σ_{(r,q)=1}|Σ_{m≡r} a_m|²`, and Cauchy–Schwarz in each class gives at most `φ(q)(P/q + 1)Σ|a_m|²`. Lean: `LinnikHybrid.sum_chars_norm_sq_le` is the first step.
 - **(T2) Zeros and `L′/L`** (standard). For `χ ≠ χ₀` mod `q` and `s = σ + iτ` with `1/2 ≤ σ ≤ 2`, `L′/L(s, χ) = Σ_{|γ−τ|≤1} 1/(s − ρ) + O(log(q(|τ| + 2)))`. At most `O(log(q(|τ| + 2)))` zeros have `|γ − τ| ≤ 1`. For an imprimitive `χ` the Euler factors at the primes dividing `q` add `O(log q)` on `σ ≥ 1/2`.
 - **(T3) The fundamental lemma** (standard, dimension 1). If `|C_d| = Xg(d) + r_d` for `d | P(z)`, with `g` multiplicative and `0 ≤ g(p) < 1`, then `S(C, z) = X∏_{p<z}(1 − g(p))(1 + O(e^{−s})) + O(Σ_{d≤D, d|P(z)}|r_d|)`, where `s = log D/log z ≥ 1`.
@@ -159,6 +161,7 @@ With `loss(L) < 1` and `ε₁` small, the right side is positive for large `q`, 
 `sieve_route_certificate.py` proves, with exact tests of the region, of evaluability and of decomposition, and with outward rounding (SEVEN-THIRDS §45):
 
 - windows `(u₁′, u₂′)` inside `(u₁, u₂)`, by exact branch and bound;
+- `loss(L) ≤ 0.9756` for unif at `L = 2.333` (round 582);
 - `loss(L) ≤ 0.9520` for hux at `L = 2.28`, and `≤ 0.9117` for cons at `L = 2.25`, with the decomposition of §6 run on those windows, and the bounds `0.7821`, `0.6230` and `0.8292` at hux `2.29`, cons `2.27` and hux `2.32`.
 
 Midpoint estimates put the thresholds of this decomposition between `2.275` and `2.28` (hux) and between `2.24` and `2.245` (cons). They are estimates: they rise as the grid is refined, and the scratch Monte Carlo of round 579's review puts the loss about `0.01` above them near the thresholds (README round 579, O1).
@@ -190,3 +193,33 @@ Midpoint estimates put the thresholds of this decomposition between `2.275` and 
   - a kernel-checked bound for the loss. At `L = 2.32` the certificate needs 434 cells of depth 2 and 473 of depth 4, and every bound rests on an enclosure of `ω` on intervals of width `2^{−16}`. Round 579's review counted 518650 of them in a scratch run, up to the argument `8.914`.
 
 **Literature.** IDEAS.md G19 records the literature check of round 580.
+
+## 9. The Lean route (round 582)
+
+**Target.** A theorem with the conclusion of `Linnik.linnik_of_charDensity` (`external/pnt/LinnikDeduction.lean`) and an exponent below `7/3`. For example: for every `q` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K q^{2.333}`. The route is §§3–6 with the uniform curve of SEVEN-THIRDS §47, where the loss at `L = 2.333` is certified below `1`.
+
+**Milestones.** Each is a run of rounds. The stack's holdings come from a survey of the pilot, Mathlib and PNT+ at the pinned commit 650d312, made for this round by a subagent (a survey, under Check 3) and spot-checked where stated.
+
+- **M1. Zero counts.** The goal is `Σ_χ N(σ, T, χ) ≤ C(qT)^{(12/5 + 54ε)(1 − σ)}(log qT)^B` for every `T ≥ 2`, counting zeros, since Lemma 2 weights each zero by `1/(1 + |γ|)`.
+  - The stack counts characters: rounds 524–527 detect one zero per character, and `large_values_chars`, `huxley_large_values` and `fourth_moment` each take one point per character.
+  - Needed: the same estimates over points `(χ, t)`, with several `1`-spaced `t` for each character. Also a local count `#{ρ : |γ − t| ≤ 1} ≪ log q(|t| + 2)` for `L(s, χ)`. The stack has the latter for `ζ` only; for `L(s, χ)` it would follow from Jensen's formula as in PNT+'s `ZerosBound`, with `LFunction_growth`.
+  - Why counts of zeros, and not the stack's counts of characters at small heights only: above some height, try the large sieve alone. Take a Perron variable `τ_i` that shifts `W` and a factor `D` of `B = DE`. On `|τ_i| ∼ T`, Cauchy–Schwarz and the hybrid mean value give at most `(X_E/T)((qT + P)P)^{1/2}((qT + X_D)X_D)^{1/2} x^{o(1)}`. When `qT ≥ max(P, X_D)` this is `qx(P X_D)^{−1/2} x^{o(1)}`, which is below `x^{1−δ}` only when `P X_D ≥ q²x^{2δ}`. Among the couplings is the least prime of a rough part against the last sifted prime. There `D` can be as short as `x^{ε₁}`, and `P` can be shorter than `q`, since `u₁L < 1` whenever the window is not empty (`lower(β) < 1` exactly when `upper(β) > 1`). So the large sieve alone does not close this argument at large heights, and it needs the zeros at every height.
+- **M2. Lemma 1.**
+  - The stack has `Linnik.norm_Sx_le` (a `Γ` weight at height `0`, with a zero-free rectangle from height `0`) and `SmoothPerron` (compactly supported smoothing).
+  - Needed: a height `y` with a zero-free rectangle around it, and weights of compact support.
+- **M3. Lemma 2 and Proposition 3.**
+  - The stack has orthogonality: `LinnikHybrid.sum_chars_norm_sq_le`.
+  - Needed: the bins by zeros near heights, and the measure `∏ k(τ_i)`.
+- **M4. Lemma 4.** Truncated Perron with a sharp cut-off. The survey found none in the pilot, Mathlib or PNT+. Then the separation of the conditions.
+- **M5. The sieve.** Sifted sets in a progression, Buchstab's identity, and the decomposition to depth 4 as an exact identity. Then Lemma 5, a fundamental lemma of dimension 1, and Proposition 6.
+  - Brun's pure sieve does not suffice here. With `w = x^{ε₁}` and level `x^κ`, the sieve parameter `s = κ/ε₁` stays fixed as `x` grows. Truncating inclusion–exclusion at that level leaves an error of about `X(log log w)^s/s!`, which outgrows the main term `≍ X/log w`. So the fundamental lemma proper is needed, from Brun's sieve or the β-sieve.
+  - Mathlib has the Selberg upper-bound sieve only.
+- **M6. Rough numbers.** `#{n ≤ y : p | n ⇒ p ≥ y^{1/u}} ∼ ω(u) y/log y^{1/u}`, uniformly for `u` in compact ranges, with `ω` defined by its delay equation.
+  - It follows from the stack's prime number theorem (`psi_isBigO_eleven_twelfths`), by partial summation and induction on the number of prime factors.
+  - Mertens' theorem is in PNT+ at 650d312 (`IEANTN/Mertens.lean`, `sum_prime_div_eq`; checked), but not among the vendored files.
+- **M7. The loss in Lean.** An enclosure of `ω`, and a bound for the loss integral.
+  - With the uniform curve at `L = 2.333` the certificate needs `n = 600`. A scratch count gives 73877 cells of depth 2, 37512 of them decomposed, and about `9.0` million cells of depth 4, too many to replay one by one. A rule of higher order, or exact integration over the polyhedral regions, should shrink it.
+  - With hux at `L = 2.32`, 434 cells of depth 2 and 473 of depth 4 suffice, and every bound also rests on the enclosure of `ω`. But hux needs density curves that depend on `σ`, so M1 would have to supply those too.
+- **M8. Assembly.** Proposition 7, plus the small `q` handled as `linnik_of_charDensity` handles them.
+
+**Order.** M5 and M6 do not depend on the analytic side. M1–M4 are the analytic core and carry the most risk, M1 above all, since it reworks rounds 524–527 over points `(χ, t)`. M7 is numerics. The choice between the uniform curve (M1 as stated, a large M7) and hux (M1 with curves in `σ`, a small M7) is open.
