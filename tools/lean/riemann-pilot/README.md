@@ -23745,7 +23745,7 @@ Each lists what the stack has and what it lacks, from a survey of the pilot, Mat
 
 ## Round 583: the first Lean step of milestone M1, large values at several points per character, and a survey of M1 (`external/pnt/LinnikPoints.lean`)
 
-**What it is.** The first Lean step on SIEVE-ROUTE.md §9's route. A count of zeros (milestone M1) detects several zeros of one character, at ordinates at least `1` apart, but the stack's estimates for large values take one point per character. ~~`LinnikPoints.large_values_points` lifts that restriction for the large sieve.~~ *(Round 585: retracted, false when written. It extends `large_values_chars` only; the counting lemmas use the off-line form `large_values_chars_off` (`LinnikHybrid.lean:479`), which is not yet extended; review F6.)* `LinnikPoints.large_values_points` lifts that restriction for round 521's `large_values_chars`. A survey of rounds 524–527 places the rest of M1. It was made for this round by a subagent, and its main claims were spot-checked by the lead.
+**What it is.** The first Lean step on SIEVE-ROUTE.md §9's route. A count of zeros (milestone M1) detects several zeros of one character, at ordinates at least `1` apart, but the stack's estimates for large values take one point per character. ~~`LinnikPoints.large_values_points` lifts that restriction for the large sieve.~~ *(Round 585: retracted, false when written. It extends `large_values_chars` only; the counting lemmas use the off-line form `large_values_chars_off` (`LinnikHybrid.lean:460`; it read `:479`, the line of its call to `large_values_chars`, corrected in round 587, review F6), which is not yet extended; review F6.)* `LinnikPoints.large_values_points` lifts that restriction for round 521's `large_values_chars`. A survey of rounds 524–527 places the rest of M1. It was made for this round by a subagent, and its main claims were spot-checked by the lead.
 
 **The theorem.** `LinnikPoints.large_values_points`:
 
@@ -23822,7 +23822,7 @@ The survey's estimates, which are estimates and not checked:
   - STRUCTURAL-REVIEW.md line 210's "certified at `0.9756`" had no object, and its "suffices" dropped "at paper level and unrefereed", which the markers of rounds 576 and 578 on that line carry.
   - IDEAS.md D5's "with the uniform exponent `12/5 + 1/2000` alone" left out (H1) and the cap by the trivial count.
   - Both are reworded.
-- **C5 (cosmetic).** `sieve_route_certificate.py` labelled the new case `'unif233_n600'`, with the key `int(L * 100)`. That reads as `L = 2.33`, where the bound with `A = 12/5` is `1.0285` (README round 582, scratch). The key is now the digits of `L`, `'unif2333_n600'`, and the other keys are unchanged.
+- **C5 (cosmetic).** `sieve_route_certificate.py` labelled the new case `'unif233_n600'`, with the key `int(L * 100)`. That reads as `L = 2.33`, where the bound with `A = 12/5` is `1.0285` (README round 582, scratch) *(round 587: as a bound `1.0286`, from `1.02852061…`; review F5)*. The key is now the digits of `L`, `'unif2333_n600'`, and the other keys are unchanged.
 
 **Round 583's survey, marked.**
 
@@ -23970,3 +23970,53 @@ No Lean changed, no number changed, and no paper surface is edited.
 **Bearing on RH:** none.
 
 **The next step.** A hostile review of §10. Then M2: Lemma 1 at a height `y`, generalizing the stack's `Linnik.norm_Sx_le` at height `0`.
+
+## Round 587: the independent review of rounds 585 and 586, SIEVE-ROUTE.md §10 included (`frontier/linnik/SIEVE-ROUTE.md` §§3, 4, 8, 9 and 10)
+
+**What it is.** A fresh-context reviewer, the repository's `hostile-reviewer` agent, reviewed rounds 585 and 586 at 9b1e7dd. Its main target was §10, the smoothing in place of Perron at height `x²`.
+
+- It found no MAJOR and no minor defect: seven cosmetic findings and two observations about older text.
+- In its words, "The conclusion holds at paper level: the theorem of §0 holds with (H2′) in place of (H2), and the Lean route needs no counts of zeros."
+- Under Check 3 the lead verified each finding against the cited lines and the Lean sources, and recomputed the one new number. All nine are accepted and swept.
+- By the standard the repository uses for its papers, zero MAJOR and zero minor, §10 is converged. A further round is not owed for this cosmetic sweep.
+- No proved statement and no certified number changes.
+
+**Findings and dispositions** (all cosmetic).
+
+- **F1.** §10 said that (H2′) "is" a theorem of the stack, and its Lean plan said "M1 is not needed: (H2′) is `Linnik.CharDensity`", unscoped. (H2′) follows on paper from `charDensity_twelve_fifths` above `2801/4801` and from the trivial count below; it is not itself a Lean statement, and for hux M1 becomes hux's curves in `σ`. Reworded in four places, and the Lean plan's line is struck and scoped to unif.
+- **F2.** §10's Lean plan said that Lemma 1's contour stays in the zero-free rectangle. Its tails on `Re s = 2` leave it; there the stack's `ChiUniform.logDeriv_LFunction_right` gives `‖L′/L‖ ≤ −ζ′/ζ(3/2)`. The paraphrase of `logDeriv_LFunction_le` also left out `θ′ < 3/2` and that the disc is open. Struck and rewritten.
+- **F3.** "Every comparison of Lemma 4 is `1[Y < Z]` or `1[Y ≤ Z]` for numbers `Y, Z ∈ [1, 8x]`" is false on the supports of the variables, where `n` can exceed `8x`. The conclusion `|log(Z/Y)| ≤ Λ` holds for large `x`, since every ratio is at most `2^{O(1/ε₁)}x^{1−ε₁}`. Struck and rewritten. Lemma 4″'s `M̃_j ≥ M_j` now says "on `[x, 2x]`", the only place where it is used.
+- **F4.** "Proposition 3′ … needs only a count of characters" also uses (H1), (T1) and Lemma 1. Scoped to "on the density side", there and in IDEAS.md D5.
+- **F5.** Two more bounds were stated rounded down, outside round 585's census of seven values: `1.004279` at `n = 400` (computed `1.00427943…`; as a bound `1.004280`) and `1.0285` in README round 584 (as a bound `1.0286`). Marked.
+- **F6.** Round 585's markers placed `large_values_chars_off` at `LinnikHybrid.lean:479`. It is declared at line 460, and line 479 is its call to `large_values_chars`. Corrected in SIEVE-ROUTE.md and README round 583.
+- **F7.** Three places still pointed to M1 or to Lemma 4 without §10: SIEVE-ROUTE.md §8's list for a referee, `external/pnt/README.md`'s row for `LinnikPoints.lean`, and that file's header comment. Net-state markers added; the change to the Lean file is to a comment only.
+- **O1** (older text, held by the reviewer, swept by the lead). Lemma 1 and Proposition 3 took `φ` supported in `[1, 2]`, while §4 asks for a partition of unity `Σ_k φ(n/2^k) = 1`. No smooth `φ` supported in `[1, 2]` gives one: at `n = 2^k` only `φ(1) + φ(2) = 0` would contribute. The supports are now `[1/2, 2]`, with `x^{ε₁}/2 ≤ Q ≤ 4x` and `Q_j ≥ x^{ε₁}/2`. Lemma 1's proof uses only compact support in `(0, ∞)`.
+- **O2** (older text). STRUCTURAL-REVIEW.md line 48 described `CharDensity A B` as counting zeros in `σ ≤ Re s < 1`. The Lean definition has `σ ≤ Re s` with no upper bound, and the two counts differ by at most the trivial character. Marked.
+
+**The lead's verification.**
+
+- Each cited line was read with `sed -n`: SIEVE-ROUTE.md 54, 58, 85, 105, 173–175, 203, 205, 222, 236, 237, 242, 253, 275, 294, 298 and 299; README.md 23748 and 23825; `external/pnt/README.md` 69; `LinnikPoints.lean` 1–20; STRUCTURAL-REVIEW.md 48.
+- Lean sources: `ChiUniform.lean` 80–90 (`logDeriv_LFunction_right`: `‖L′/L(s, χ)‖ ≤ logDerivZeta32` on `3/2 ≤ Re s`, any `χ`); `LinnikHybrid.lean` 456–462 and 479; `LinnikDeduction.lean`'s `CharDensity`, read in round 586.
+- F5: the committed certificate's `Cert` at `n = 400`, re-run on a copy whose sha256 matches HEAD, prints `1.0042794338007408`. Round 585's re-run gave `1.028520617629912`.
+- `LinnikPoints.lean` recompiles with `lean` into a scratch directory, with no output; `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for both theorems. The olean differs from `build/`'s only because the comment gained a line, which moves the declarations' recorded positions.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class: the sweep and this entry add no reports to README.md (1842), SIEVE-ROUTE.md (12), SEVEN-THIRDS.md (63), IDEAS.md (51), STRUCTURAL-REVIEW.md (100) or `external/pnt/README.md` (10). None of these files is a paper surface.
+
+**Checked and held** (the reviewer's list, with its evidence in its report).
+
+- The cut-off `G`: support, values, the bounds `‖G^{(K)}‖₁ ≪_K θ^{1−K}`, the tail beyond `T₀` and the inversion.
+- The telescoping bound for `<` and `≤` alike, and the truncation's cost.
+- The separated main term has Proposition 3′'s shape: twists on the primes, functions of `W` in its coefficients, unimodular constants from thresholds.
+- Lemma 4″: the majorant keeps the shape of every term of §6 and of both cases of Proposition 6, and the census of comparisons has exactly the two kinds that "The model" counts. The model counts and the identity over `Ã` hold.
+- Proposition 3′: binning by `b(χ)` is valid, the count is `≪ x^{2ε}q^{A(β)(1−β)}`, and no other step uses large heights or Lemma 2.
+- The order of the parameters: `ε₁`, then `ε`, then `ε₂ ≤ ε/4`, then `K ≥ 4/ε₂`, with `δ` depending only on the margins and `ε`.
+- (H2′) against `CharDensity` and `charDensity_twelve_fifths` (`54/108000 = 1/2000`, `1 − 2000/4801 = 2801/4801`), and the choice of `η`.
+- The consequence; the disc geometry of "For Lean"; the Mathlib names at the pinned commit; every marker of round 586.
+- Round 585's sweep, re-run and reproduced, including the two Lean recompiles, byte-identical to `build/`.
+
+**Check 4.** The reviewer classed the seven findings as novel, and the lead agrees. O1 and O2 predate rounds 585–586.
+
+**Check 9.** (a) F1 and F4 scope three claims ("is a theorem of the stack", "M1 is not needed", "needs only"). (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** The Lean route of §10: the smooth cut-off of Lemma 4′ and its Fourier separation, prototyped in scratch during round 586's review, then M2 (Lemma 1 at a height `y`).

@@ -51,11 +51,11 @@ Fix the small parameters. For `χ ≠ χ₀` and `y ∈ ℝ` let
 
 By (H1), `β(χ, y) ≤ 11/12`.
 
-**Lemma 1 (smooth prime sums).** Let `φ` be a fixed smooth function supported in `[1, 2]`, `x^{ε₁} ≤ Q ≤ 2x`, `|y| ≤ 2x³` and `χ ≠ χ₀`. Then
+**Lemma 1 (smooth prime sums).** Let `φ` be a fixed smooth function supported in `[1/2, 2]`, `x^{ε₁}/2 ≤ Q ≤ 4x` *(round 587: it read `[1, 2]` and `x^{ε₁} ≤ Q ≤ 2x`, but no smooth `φ` supported in `[1, 2]` gives the partition of unity of §4, since at `n = 2^k` only `φ(1) + φ(2) = 0` would contribute; the proof uses only compact support in `(0, ∞)`; review O1)*, `|y| ≤ 2x³` and `χ ≠ χ₀`. Then
 
 `|Σ_p φ(p/Q)χ(p)p^{−iy}| ≪ Q^{β(χ,y)+ε} log² x`.
 
-*Proof.* Put `ψ(u) = φ(u)/log(Qu)`. It is smooth with support in `[1, 2]`, with derivatives bounded uniformly in `Q ≥ 2`. So its Mellin transform `ψ̃` is entire and `|ψ̃(σ + iτ)| ≪_{K} (1 + |τ|)^{−K}` for every `K`, uniformly for `σ ∈ [0, 3]`.
+*Proof.* Put `ψ(u) = φ(u)/log(Qu)`. It is smooth with support in `[1/2, 2]`, with derivatives bounded uniformly in `Q ≥ 4` *(round 587: it read `[1, 2]` and `Q ≥ 2`; review O1)*. So its Mellin transform `ψ̃` is entire and `|ψ̃(σ + iτ)| ≪_{K} (1 + |τ|)^{−K}` for every `K`, uniformly for `σ ∈ [0, 3]`.
 
 - `Σ_n Λ(n)χ(n)n^{−iy}ψ(n/Q)` equals the prime sum plus the prime powers, which contribute `O(Q^{1/2})`. Since `β ≥ 1/2`, that is within the bound.
 - By Mellin inversion, `Σ_n Λ(n)χ(n)n^{−iy}ψ(n/Q) = (1/2πi)∫_{(2)} (−L′/L)(s + iy, χ)Q^sψ̃(s) ds`.
@@ -82,7 +82,7 @@ and `u₁ = sup_β lower(β)/L`, `u₂ = min(inf_β upper(β)/L, 1/2)`. They sat
 **Proposition 3 (Type II).** Let `u ∈ [u₁′, u₂′]`, `P = x^u`, `X = x/P`, with `x` large enough that the range `(P, 2P]` of `W` stays inside the margins of `(u₁′, u₂′)` in `(u₁, u₂)` *(round 581; review F10)*. Let `τ ∈ ℝ^J`, `J ≤ 8/ε₁`, carry the measure `μ` with density `∏ k(τ_i)`, `k(τ) = min(log x, 1/|τ|)` on `|τ| ≤ x²` and `0` outside. Let `h₀(τ), h₁(τ), …, h_K(τ)` be heights of the form `Σ c_iτ_i`, `c_i ∈ {−1, 0, 1}`, `K ≤ 2/ε₁`. Let
 
 - `W(χ, τ) = Σ_{P<m≤2P} a_m(τ)χ(m)m^{−ih₀(τ)}` with `|a_m(τ)| ≤ τ(m)^C`, measurable in `τ`;
-- `B(χ, τ) = ∏_{j≤K} Σ_p φ_j(p/Q_j)χ(p)p^{−ih_j(τ)}`, with fixed smooth `φ_j` supported in `[1, 2]`, `Q_j ≥ x^{ε₁}` and `∏Q_j ≍ X`.
+- `B(χ, τ) = ∏_{j≤K} Σ_p φ_j(p/Q_j)χ(p)p^{−ih_j(τ)}`, with fixed smooth `φ_j` supported in `[1/2, 2]`, `Q_j ≥ x^{ε₁}/2` and `∏Q_j ≍ X` *(round 587: it read `[1, 2]` and `Q_j ≥ x^{ε₁}`; review O1)*.
 
 Then `∫ Σ_{χ≠χ₀} |W(χ, τ)B(χ, τ)| dμ(τ) ≪ x^{1−δ}` for some `δ > 0` depending on the margins of `(u₁′, u₂′)` inside `(u₁, u₂)`.
 
@@ -102,7 +102,7 @@ By §1, each difference that §5 and §6 need, a count over `A` minus the same c
 
 - comparisons between two primes (`p₂ < p₁`, or the least prime factor of the rough part at least the last sifted prime);
 - comparisons of a product of primes with a fixed threshold `z ≤ 2x` (a power of `x`, `(2x)^{1/2}`, or the ends of `[x, 2x]`);
-- the dyadic ranges of the single primes, smoothed by a fixed partition of unity `Σ_k φ(n/2^k) = 1`.
+- the dyadic ranges of the single primes, smoothed by a fixed partition of unity `Σ_k φ(n/2^k) = 1` with `φ` smooth and supported in `[1/2, 2]` *(round 587: the support added; review O1)*.
 
 **Lemma 4.** Each such difference equals `(1/φ(q)) ∫ Σ_{χ≠χ₀} χ̄(a)W(χ, τ)B(χ, τ)K(τ) dτ` plus `E` *(round 581: stated for the difference, in the units of counts; review F1)*, with `W`, `B` and the heights as in Proposition 3, `|K(τ)| ≪ ∏ k(τ_i)`, and `E ≪ x^{1−ε₁+2ε}/q + x^{1/2+2ε}`, which is `o(x/(q log x))` since `ε < ε₁/2` and `L > 2`. Coefficients are bounded by `1` or by divisor functions.
 
@@ -170,9 +170,9 @@ Midpoint estimates put the thresholds of this decomposition between `2.275` and 
 
 **What a referee should check first.**
 
-- Lemma 1 at heights up to `2x³`, with the window `x^ε` and the choice of `Y`.
-- Proposition 3's binning when the factors sit at different heights: the bin is taken by the maximum over the heights, and Lemma 2 is applied to each image measure.
-- Lemma 4's error terms, in particular the thresholds and the separation of the least prime factor.
+- Lemma 1 at heights up to `2x³`, with the window `x^ε` and the choice of `Y`. *(Round 587: with §10, at heights up to `2x^ε` only; review F7.)*
+- Proposition 3's binning when the factors sit at different heights: the bin is taken by the maximum over the heights, and Lemma 2 is applied to each image measure. *(Round 587: with §10, Proposition 3′ bins by `b(χ)` and uses no Lemma 2; review F7.)*
+- Lemma 4's error terms, in particular the thresholds and the separation of the least prime factor. *(Round 587: with §10, Lemmas 4′ and 4″ take Lemma 4's place, and Lemma 4″, the smooth majorants evaluated by Proposition 3′, is the step to check first; review F7.)*
 - Proposition 6's stepping argument, the range `m < x^{1−u₂}` of its fundamental-lemma terms, and its coefficients: in the second case `r` sits in the factor bounded through the zeros, so ~~`c_r` must be the indicator of a region~~ `c_r` cannot be arbitrary: the indicator of a region keeps Lemma 1's bound, as do smooth weights in the primes of `r` *(round 581: "must" was too strong; review F5)*.
 - §6's signs, and the sharp rule.
 
@@ -200,9 +200,9 @@ Midpoint estimates put the thresholds of this decomposition between `2.275` and 
 
 **Milestones.** Each is a run of rounds. The stack's holdings come from a survey of the pilot, Mathlib and PNT+ at the pinned commit 650d312, made for this round by a subagent (a survey, under Check 3) and spot-checked where stated.
 
-- **M1. Zero counts.** The goal is `Σ_χ N(σ, T, χ) ≤ C(qT)^{(12/5 + 54ε)(1 − σ)}(log qT)^B` for every `T ≥ 2`, counting zeros, since Lemma 2 weights each zero by `1/(1 + |γ|)`. *(Round 586: with §10's smoothing, M1 is not needed for unif: (H2′) is the stack's `Linnik.CharDensity`.)*
+- **M1. Zero counts.** The goal is `Σ_χ N(σ, T, χ) ≤ C(qT)^{(12/5 + 54ε)(1 − σ)}(log qT)^B` for every `T ≥ 2`, counting zeros, since Lemma 2 weights each zero by `1/(1 + |γ|)`. *(Round 586: with §10's smoothing, M1 is not needed for unif: (H2′) follows from the stack's `LinnikTwelve.charDensity_twelve_fifths` with the trivial count. Wording corrected in round 587, review F1.)*
   - The stack counts characters: rounds 524–527 detect one zero per character, and `large_values_chars`, `huxley_large_values` and `fourth_moment` each take one point per character.
-  - *(Round 583: `LinnikPoints.large_values_points` (`external/pnt/LinnikPoints.lean`) extends round 521's `large_values_chars` to points `(χ, t)`, any two points of one character at distance at least `1`. A survey made for round 583 by a subagent, and spot-checked by the lead, names four other places where the stack's proofs of the uniform `12/5` take one point per character: the count `|R| ≤ q` (`card_chars_le`); `choose!` in the counting lemmas; the Halász–Montgomery kernel, whose off-diagonal pairs have `χ ≠ χ′` (`LinnikReflect.pair_reflect`, in `LinnikLargeValues.lean`), so that pairs of points of one character bring in the principal character and the pole of `ζ`; and the trivial character, counted as `+1`, which can be left out, since §3 counts only `χ ≠ χ₀`. Its estimates, which are not checked: the range `σ ≤ 3/4` needs re-indexing only, about one round; the Huxley range needs the principal character's kernel, the main risk, roughly 500 to 1000 lines; and a local count of the zeros of `L(s, χ)` by Jensen's formula takes roughly 150 to 300 lines. README round 583. The counting lemmas use the off-line form `large_values_chars_off` (`LinnikHybrid.lean:479`), which is not yet extended; round 585, review F6.)*
+  - *(Round 583: `LinnikPoints.large_values_points` (`external/pnt/LinnikPoints.lean`) extends round 521's `large_values_chars` to points `(χ, t)`, any two points of one character at distance at least `1`. A survey made for round 583 by a subagent, and spot-checked by the lead, names four other places where the stack's proofs of the uniform `12/5` take one point per character: the count `|R| ≤ q` (`card_chars_le`); `choose!` in the counting lemmas; the Halász–Montgomery kernel, whose off-diagonal pairs have `χ ≠ χ′` (`LinnikReflect.pair_reflect`, in `LinnikLargeValues.lean`), so that pairs of points of one character bring in the principal character and the pole of `ζ`; and the trivial character, counted as `+1`, which can be left out, since §3 counts only `χ ≠ χ₀`. Its estimates, which are not checked: the range `σ ≤ 3/4` needs re-indexing only, about one round; the Huxley range needs the principal character's kernel, the main risk, roughly 500 to 1000 lines; and a local count of the zeros of `L(s, χ)` by Jensen's formula takes roughly 150 to 300 lines. README round 583. The counting lemmas use the off-line form `large_values_chars_off` (`LinnikHybrid.lean:460`; it read `:479`, the line of its call to `large_values_chars`, corrected in round 587, review F6), which is not yet extended; round 585, review F6.)*
   - Needed: the same estimates over points `(χ, t)`, with several `1`-spaced `t` for each character. Also a local count `#{ρ : |γ − t| ≤ 1} ≪ log q(|t| + 2)` for `L(s, χ)`. The stack has the latter for `ζ` only; for `L(s, χ)` it would follow from Jensen's formula as in PNT+'s `ZerosBound`, with `LFunction_growth`.
   - Why counts of zeros, and not the stack's counts of characters at small heights only: above some height, try the large sieve alone. Take a Perron variable `τ_i` that shifts `W` and a factor `D` of `B = DE`. On `|τ_i| ∼ T`, Cauchy–Schwarz and the hybrid mean value give at most `(X_E/T)((qT + P)P)^{1/2}((qT + X_D)X_D)^{1/2} x^{o(1)}`. When `qT ≥ max(P, X_D)` this is `qx(P X_D)^{−1/2} x^{o(1)}`, which is below `x^{1−δ}` only when `P X_D ≥ q²x^{2δ}`. Among the couplings is the least prime of a rough part against the last sifted prime. There `D` can be as short as `x^{ε₁}`, and `P` can be shorter than `q`, since `u₁L < 1` whenever the window is not empty (`lower(β) < 1` exactly when `upper(β) > 1`). So the large sieve alone does not close this argument at large heights, and it needs the zeros at every height. *(Round 586: that holds with Lemma 4's sharp cut-offs. With §10's smoothing every height is below `x^ε`, and counts of characters suffice.)*
 - **M2. Lemma 1.**
@@ -219,7 +219,7 @@ Midpoint estimates put the thresholds of this decomposition between `2.275` and 
   - It follows from the stack's prime number theorem (`psi_isBigO_eleven_twelfths`), by partial summation and induction on the number of prime factors.
   - Mertens' theorem is in PNT+ at 650d312 (`IEANTN/Mertens.lean`, `sum_prime_div_eq`; checked), but not among the vendored files.
 - **M7. The loss in Lean.** An enclosure of `ω`, and a bound for the loss integral.
-  - ~~With the uniform curve at `L = 2.333` the certificate needs `n = 600`.~~ *(Round 584: retracted, false when written: smaller grids certify too; review F2.)* With the uniform curve at `L = 2.333` the committed certificate runs at `n = 600`, where a scratch count gives 73877 cells of depth 2, 37512 of them decomposed, and about `9.0` million cells of depth 4. ~~The coarser grids tried also certify.~~ *(Round 585: retracted, false when written: `n = 400` was tried and does not certify; review F2.)* Of the coarser grids tried, those from `n = 410` up certify. Round 582's review ran `n = 410` to `450` in steps of 10, and `500` and `550`, all below `1`. At `n = 410` the bound is `0.996775`, with 34634 cells of depth 2 and 2132774 of depth 4, and at `n = 400` it is `1.004279` (scratch, round 584). Either grid is too large to replay one by one. A rule of higher order, or exact integration over the polyhedral regions, should shrink it.
+  - ~~With the uniform curve at `L = 2.333` the certificate needs `n = 600`.~~ *(Round 584: retracted, false when written: smaller grids certify too; review F2.)* With the uniform curve at `L = 2.333` the committed certificate runs at `n = 600`, where a scratch count gives 73877 cells of depth 2, 37512 of them decomposed, and about `9.0` million cells of depth 4. ~~The coarser grids tried also certify.~~ *(Round 585: retracted, false when written: `n = 400` was tried and does not certify; review F2.)* Of the coarser grids tried, those from `n = 410` up certify. Round 582's review ran `n = 410` to `450` in steps of 10, and `500` and `550`, all below `1`. At `n = 410` the bound is `0.996775`, with 34634 cells of depth 2 and 2132774 of depth 4, and at `n = 400` it is `1.004279` (scratch, round 584) *(round 587: rounded down from `1.00427943…`; as a bound, `1.004280`; review F5)*. Either grid is too large to replay one by one. A rule of higher order, or exact integration over the polyhedral regions, should shrink it.
   - With hux at `L = 2.32`, 434 cells of depth 2 and 473 of depth 4 suffice, and every bound also rests on the enclosure of `ω`. But hux needs density curves that depend on `σ`, so M1 would have to supply those too. *(Round 586: with §10, as counts of characters.)*
 - **M8. Assembly.** Proposition 7, plus the small `q` handled as `linnik_of_charDensity` handles them.
 
@@ -233,13 +233,13 @@ At paper level and unrefereed, like the rest of this file.
 
 - Lemma 4′ replaces Lemma 4's sharp cut-offs by smooth ones of width `θ = x^{−ε₂}` in the logarithm. Fourier inversion separates them, and every height is then at most `JT₀ ≤ x^ε`.
 - What the smoothing changes is bounded by smooth majorants, which the Type II estimate itself evaluates (Lemma 4″).
-- Proposition 3′, the Type II estimate at these heights, needs only a count of characters, (H2′).
-- With unif, (H2′) is a theorem of the stack. So at paper level the density input of the theorem of §0 with `x = q^{2.333}` is `LinnikTwelve.charDensity_twelve_fifths`, and the Lean route of §9 needs no counts of zeros.
+- Proposition 3′, the Type II estimate at these heights, needs on the density side only a count of characters, (H2′) *(round 587: "on the density side" added; it also uses (H1), (T1) and Lemma 1; review F4)*.
+- With unif, (H2′) follows from a theorem of the stack *(round 587: it read "is a theorem of the stack"; review F1)*. So at paper level the density input of the theorem of §0 with `x = q^{2.333}` is `LinnikTwelve.charDensity_twelve_fifths`, and the Lean route of §9 needs no counts of zeros.
 
 **(H2′)** For every `q ≥ 1`, `1/2 ≤ σ ≤ 1` and `T ≥ 2`, at most `(qT)^{A(σ)(1−σ)+η(qT)}` characters `χ mod q` have a zero of `L(s, χ)` with `Re s ≥ σ` and `|Im s| ≤ T`, where `η(Q) → 0` as `Q → ∞`.
 
 - (H2) implies (H2′), since each character counted has a zero counted in `Σ_χ N(σ, T, χ)`.
-- With unif, (H2′) is a theorem of the stack. Put `A_U = 12/5 + 1/2000`.
+- With unif, (H2′) follows from a theorem of the stack and the trivial count *(round 587: it read "is a theorem of the stack"; review F1)*. Put `A_U = 12/5 + 1/2000`.
   - For `σ ≤ 1 − 1/A_U = 2801/4801`, `A(σ)(1 − σ) = 1`, and at most `φ(q) ≤ qT` characters are counted.
   - For `σ > 2801/4801`, `A(σ) = A_U`. `LinnikTwelve.charDensity_twelve_fifths` with `ε = 1/108000` gives `C ≥ 0` with `Linnik.CharDensity A_U 10 C`: at most `C(qT)^{A_U(1−σ)}(log qT)^{10}` characters have such a zero. Take `η(Q) = max(0, log(C(log Q)^{10})/log Q)`.
 
@@ -250,7 +250,7 @@ At paper level and unrefereed, like the rest of this file.
 - `Ĝ(τ) = ∫ G(u)e^{−iuτ} du` satisfies `|Ĝ(τ)| ≤ 2Λ` and `|Ĝ(τ)| ≤ ‖G^{(K)}‖₁|τ|^{−K}` for `K ≥ 1`. By Leibniz's rule, `‖G′‖₁ ≤ ‖g′‖₁ + ‖c′‖₁` and `‖G^{(K)}‖₁ ≪_K θ^{1−K}`. So `|Ĝ(τ)| ≪ k′(τ) = min(Λ, 1/|τ|)`, and `∫_{|τ|>T₀} |Ĝ| ≪_K (θT₀)^{1−K} = x^{−(K−1)ε₂}`.
 - By Fourier inversion, `G(log Z − log Y) = (1/2π)∫ Ĝ(τ)Z^{iτ}Y^{−iτ} dτ` for `Y, Z > 0`.
 
-Every comparison of Lemma 4 is `1[Y < Z]` or `1[Y ≤ Z]` for numbers `Y, Z ∈ [1, 8x]`, so `|log(Z/Y)| ≤ Λ`.
+~~Every comparison of Lemma 4 is `1[Y < Z]` or `1[Y ≤ Z]` for numbers `Y, Z ∈ [1, 8x]`, so `|log(Z/Y)| ≤ Λ`.~~ *(Round 587: retracted, false when written: on the supports of the variables `n` can exceed `8x`; review F3.)* Every comparison of Lemma 4 is `1[Y < Z]` or `1[Y ≤ Z]`, and on the term's support `|log(Z/Y)| ≤ Λ` once `x` is large. Primes and thresholds lie in `[x^{ε₁}, 2x]`, a product of the term's primes lies in `[x^{ε₁}, 2^{O(1/ε₁)}x]`, and `n ≥ x^{u₁}`. So every such ratio is at most `2^{O(1/ε₁)}x^{1−ε₁}`.
 
 **Lemma 4′ (smooth separation).** In the setting of Lemma 4, each difference equals `(1/φ(q)) ∫ Σ_{χ≠χ₀} χ̄(a)W(χ, τ)B(χ, τ)K(τ) dτ + E′`, with `τ ∈ [−T₀, T₀]^J`, `W`, `B` and the heights as in Proposition 3, `|K(τ)| ≪ ∏ k′(τ_i)`, and `E′ ≪ x^{1−ε₂/2}/φ(q) + x^{1−δ}/φ(q)`, where `δ` is Proposition 3′'s. That is `o(x/(q log x))`.
 
@@ -272,7 +272,7 @@ Every comparison of Lemma 4 is `1[Y < Z]` or `1[Y ≤ Z]` for numbers `Y, Z ∈ 
 - **A smooth majorant.** Conditions on `W` alone are part of its coefficients and are kept. Every other condition except `N_j` and `n ∈ [x, 2x]` is dropped, since each indicator is at most `1`.
   - `1[N_j]` is replaced by `H(log(Z_j/Y_j)/θ)`, where `H ≥ 0` is a fixed smooth function, at least `1` on `[0, 1]` and `0` outside `[−1, 2]`.
   - `1[x ≤ n ≤ 2x]` is replaced by `F(log n)`, where `F` is smooth, `1` on `[log x, log 2x]`, `0` outside `[log x − θ, log 2x + θ]`, with values in `[0, 1]` and the derivative bounds of `G`.
-  - The result `M̃_j ≥ M_j` has the shape of the term, with `W`'s range and the primes' smooth dyadic weights unchanged and with no sharp condition that couples variables.
+  - The result `M̃_j` is at least `M_j` on `[x, 2x]`, the only place where `M_j` is used *(round 587: the range added; review F3)*. It has the shape of the term, with `W`'s range and the primes' smooth dyadic weights unchanged and with no sharp condition that couples variables.
 - **The model.** Let `B̃` be the set of `n ∈ [xe^{−θ}, 2xe^θ]` prime to `q`. Each `n` has at most `τ(n)^{O(1)} = x^{o(1)}` representations.
   - If `N_j` compares two primes `p ≤ p′`, both at least `x^{ε₁}` (one of them may be the least prime factor of `W`), then `p′` lies within `3θp` of `p`. Such `n` number `≪ Σ_{p≥x^{ε₁}} (θp + 1)x/p² ≪ x(θ log log x + x^{−ε₁})`.
   - If `N_j` compares a product `Y` of primes with a threshold `z ≥ x^{ε₁}`, then `Y` lies within `3θz` of `z`. Such `n` number `≪ (θz + 1)x/z ≪ x(θ + x^{−ε₁})`.
@@ -291,12 +291,12 @@ Every comparison of Lemma 4 is `1[Y < Z]` or `1[Y ≤ Z]` for numbers `Y, Z ∈ 
 
 - Proposition 6, §6 and Proposition 7 use Lemma 4 and Proposition 3 only through the bound `x^{1−δ}/φ(q)` for each difference. Lemma 4′ with Proposition 3′ gives `x^{1−δ}/φ(q) + x^{1−ε₂/2}/φ(q)`.
 - So the theorem of §0 holds with (H2′) in place of (H2), for each curve, at the exponents certified in §7.
-- With unif, (H1) and (H2′) are theorems of the stack: `Eis.LFunction_ne_zero_of_re_gt`, and `LinnikTwelve.charDensity_twelve_fifths` with the trivial count. So at paper level, with (H1) and (H2′) from the stack and the standard inputs (T1)–(T4) of §2, the theorem holds with `x = q^{2.333}`, below `q^{7/3}`.
+- With unif, (H1) is a theorem of the stack, `Eis.LFunction_ne_zero_of_re_gt`, and (H2′) follows from one, `LinnikTwelve.charDensity_twelve_fifths`, with the trivial count *(round 587: it read "(H1) and (H2′) are theorems of the stack"; review F1)*. So at paper level, with (H1) and (H2′) from the stack and the standard inputs (T1)–(T4) of §2, the theorem holds with `x = q^{2.333}`, below `q^{7/3}`.
 
 **For Lean** (this revises §9).
 
-- M1 is not needed: (H2′) is `Linnik.CharDensity`.
-- M2 is Lemma 1 at heights `|y| ≤ 2x^ε` only. The contour of its proof stays in the rectangle `|Im s − y| ≤ x^ε`, `Re s > β(χ, y)`, which holds no zero by the definition of `β(χ, y)`. So `L′/L` can be bounded on it by `Linnik.logDeriv_LFunction_le` (`LinnikChar.lean`), in place of (T2): for `σ ≥ θ′ > θ ≥ 1/2` it bounds `‖L′/L(σ + it, χ)‖` by `KL θ θ′(log(q + 2) + log(|t| + 4))` when `L(·, χ)` has no zero in the disc of radius `3/2 − θ` about `3/2 + it`. With `θ = β(χ, y) + ε/2` and `θ′ = β(χ, y) + ε`, that disc lies in the rectangle when `|t − y| ≤ x^ε − 1`.
+- ~~M1 is not needed: (H2′) is `Linnik.CharDensity`.~~ *(Round 587: retracted, false when written: unscoped, and (H2′) is not itself a `Linnik.CharDensity`; review F1.)* M1 is not needed for unif: (H2′) follows from `LinnikTwelve.charDensity_twelve_fifths` with the trivial count. For hux, M1 becomes hux's curves in `σ` as counts of characters (§9, Order).
+- M2 is Lemma 1 at heights `|y| ≤ 2x^ε` only. ~~The contour of its proof stays in the rectangle `|Im s − y| ≤ x^ε`, `Re s > β(χ, y)`, which holds no zero by the definition of `β(χ, y)`. So `L′/L` can be bounded on it by `Linnik.logDeriv_LFunction_le` (`LinnikChar.lean`), in place of (T2): for `σ ≥ θ′ > θ ≥ 1/2` it bounds~~ *(Round 587: retracted, false when written: the contour's tails on `Re s = 2` leave the rectangle, and the hypothesis `θ′ < 3/2` was left out; review F2.)* The part of its contour off the line `Re s = 2` stays in the rectangle `|Im s − y| ≤ x^ε`, `Re s > β(χ, y)`, which holds no zero by the definition of `β(χ, y)`. There `L′/L` can be bounded by `Linnik.logDeriv_LFunction_le` (`LinnikChar.lean`), in place of (T2); on the tails at `Re s = 2`, `ChiUniform.logDeriv_LFunction_right` gives `‖L′/L‖ ≤ −ζ′/ζ(3/2)`. For `1/2 ≤ θ < θ′ < 3/2` and `σ ≥ θ′`, `logDeriv_LFunction_le` bounds `‖L′/L(σ + it, χ)‖` by `KL θ θ′(log(q + 2) + log(|t| + 4))` when `L(·, χ)` has no zero in the open disc of radius `3/2 − θ` about `3/2 + it`. With `θ = β(χ, y) + ε/2` and `θ′ = β(χ, y) + ε`, that disc lies in the rectangle when `|t − y| ≤ x^ε − 1`.
 - M3 is Proposition 3′: bins by `b(χ)`, (T1) and Cauchy–Schwarz, with no Lemma 2.
 - M4 is Lemmas 4′ and 4″ in place of the sharp truncated Perron formula: Fourier inversion of a smooth function of compact support (Mathlib), its decay from its derivatives, and the majorants.
 - M5–M8 are unchanged.

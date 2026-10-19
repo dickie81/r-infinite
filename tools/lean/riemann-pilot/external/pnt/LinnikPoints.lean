@@ -8,7 +8,8 @@ Take finitely many points `(χ_i, x_i)` with `x_i ∈ [lo + ½, hi − ½]`, whe
 at distance at least `1`. Then `Σ_i |D_{χ_i}(x_i)|² ≤ (q(hi − lo) + 8P(1 + log P))(2 + log²(2P))Σ|c_j|²`
 (`large_values_points`). That is the bound of `LinnikHybrid.large_values_chars`, which is the case of one point per
 character (`large_values_chars_of_points`). A count of zeros detects several zeros of one character, at ordinates
-at least `1` apart (`frontier/linnik/SIEVE-ROUTE.md` §9, milestone M1).
+at least `1` apart (`frontier/linnik/SIEVE-ROUTE.md` §9, milestone M1). With SIEVE-ROUTE.md §10 (round 586),
+M1 is not needed for the uniform curve (round 587).
 
 * `large_values_points`: group the points by their character. For each character, `DirMean.gallagher` (Gallagher's
   lemma for a `1`-separated set) bounds the sum over its points by the integral of `|D_χ|² + 2|D_χ||D_χ′|` over
