@@ -23248,7 +23248,7 @@ That is a Linnik exponent below `7/3`. The density exponent is not lowered. No L
   - Cauchy–Schwarz over those characters gives a window `(u₁, u₂)`: for lengths `x^u` inside it, the Type II sum is `o(x)` at every `β ∈ [1/2, 11/12]`.
 - **Separating the variables.** Perron's formula at height `x²` removes the sharp conditions ~~with no truncation error~~ *(Round 577: retracted, false when written. The truncation error is negligible, not absent; review F1)*. The heights it introduces cost nothing, because `A(β)(1 − β) < 1`. But they use (H2) for every `T` and (H1) at every height, and both are stated that way.
 - **The sieve.** Type I information holds up to `x^{1−1/L}`. ~~Harman's fundamental theorem then evaluates `S(A_r, x^v)` for `r ≤ x^{1−u₂}`.~~ *(Round 581: retracted, false when written. It evaluates the sum over `r` with the decomposition's coefficients, not each `r` alone; SEVEN-THIRDS §44, SIEVE-ROUTE.md Proposition 6. Review F3.)* A depth-4 Buchstab decomposition does the rest, and its dropped terms are the loss.
-- **Numbers.** The windows are `(0.398877, 0.475983)` at `L = 2.29` with the classical bounds and `(0.404154, 0.486050)` at `L = 2.27` with the `7/3`. The upper bounds on the loss are `0.9722` and `0.9193`, and the midpoint estimates `0.7435` and `0.5783`. Midpoint thresholds are near `2.28` and `2.245`.
+- **Numbers.** The windows are `(0.398877, 0.475983)` at `L = 2.29` with the classical bounds and `(0.404154, 0.486050)` at `L = 2.27` with the `7/3`. The upper bounds on the loss are `0.9722` and `0.9193` *(round 585: rounded to nearest; as bounds `0.9723` and `0.9193`, not certified; review F3)*, and the midpoint estimates `0.7435` and `0.5783`. Midpoint thresholds are near `2.28` and `2.245`.
 - **Strikes.** SEVEN-THIRDS §1's "Going below `7/3` needs a density exponent …" and round 528's "Going below `7/3` needs the open step of SEVEN-THIRDS.md §6" quantified over every proof (Check 9(a)), and both are struck at source.
 - **Scan (G18).** Two arXiv API searches and six queries on arXiv's search page returned entries, and four abstracts were read. None of the sieve proofs of Linnik's theorem among them uses a zero-free half-plane with density bounds as Type II information. The nearest relative is Heath-Brown and Iwaniec's short-interval method for `ζ`, which uses weighted zero-density estimates for a lower bound on primes.
 
@@ -23273,7 +23273,7 @@ That is a Linnik exponent below `7/3`. The density exponent is not lowered. No L
   - S1: the four windows equal their breakpoint values to `10⁻⁷`, with `u₂L` between `1.083` and `1.104`.
   - S2: the `ω` table is within `2.1·10⁻¹⁰` of `(1 + log(u − 1))/u` on `[2, 3]`, and within `2.0·10⁻¹⁰` of a table of a quarter the step on `[3, 15]`. Buchstab's identity holds to six decimals at three values of `v`.
   - S3: the midpoint losses at the coarse grid are `0.6460` (classical, `2.30`) and `0.8504` (`7/3`, `2.25`). The first moves to `0.6599` at the fine grid.
-  - S4: the upper bounds at cell side `(1/2 − v)/600` are `0.9722` (classical, `2.29`) and `0.9193` (`7/3`, `2.27`). The cell bounds dominate their integrands at about 13000 random points each, with least ratios `1.0006` and `1.0042`.
+  - S4: the upper bounds at cell side `(1/2 − v)/600` are `0.9722` (classical, `2.29`) and `0.9193` (`7/3`, `2.27`) *(round 585: rounded to nearest; as bounds `0.9723` and `0.9193`; review F3)*. The cell bounds dominate their integrands at about 13000 random points each, with least ratios `1.0006` and `1.0042`.
   - Printed: the classical upper bound at `2.30` is `0.8709` at side `(1/2 − v)/600` and `1.0255` at `(1/2 − v)/150`. The midpoint losses exceed `1` at `2.26` (classical, `1.8086`) and at `2.24` (`7/3`, `1.1692`).
 - `idea_register.py` and its inputs are unchanged, so it was not re-run.
 - `tools/research/render_lint.py`'s `lint` was run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class. It finds 12 new reports: 4 in this file (1804), 2 in IDEAS.md (50) and 6 in SEVEN-THIRDS.md (55). All are of class L10 (a nested list directly after its item's text), the style of the entries around them. The count for STRUCTURAL-REVIEW.md (100) is unchanged.
@@ -23338,7 +23338,7 @@ The reviewer found no MAJOR. In its words: "Read as written, the conclusion hold
 - **Cosmetic, C1–C11.**
   - C1: the table entry for cons at `2.25` is now printed by the verifier (`1.2258`).
   - C2: round 576's two strikes now read "retracted, false when written".
-  - C3: the STRUCTURAL-REVIEW marker now gives the upper bounds on the loss (`0.9722`, `0.9193`) rather than calling the exponents bounds.
+  - C3: the STRUCTURAL-REVIEW marker now gives the upper bounds on the loss (`0.9722`, `0.9193`) rather than calling the exponents bounds *(round 585: rounded to nearest; as bounds `0.9723` and `0.9193`; review F3)*.
   - C4: D5 gives the breakpoints for both curves.
   - C5: "would lower" is now "could lower" in §44, D5 and round 576's Check 9.
   - C6: §44 names the deduction of ARGUMENT.md §3.
@@ -23682,14 +23682,14 @@ It does not, for an exponent below `7/3`. Take the uniform curve "unif", `A(σ) 
 
 **The uniform curve** (SEVEN-THIRDS §47).
 
-- At `L = 2.333` the window ~~is `(0.417252, 0.485534)`,~~ *(round 584: that is the proved window rounded outward; rounded inward it is `(0.417253, 0.485533)`; review F1)* is proved by branch and bound in 730 boxes.
+- At `L = 2.333` the window ~~is `(0.417252, 0.485534)`,~~ *(round 584: the struck values are the proved window rounded outward; rounded inward it is `(0.417253, 0.485533)`; review F1. Reworded in round 585, review F7.)* is proved by branch and bound in 730 boxes.
 - The certified bound is `0.9756129805606728` at `n = 600`.
 - So under (H1) and `Σ_{χ mod q} N(σ, T, χ) ≤ (qT)^{(12/5 + 1/2000)(1 − σ) + o(1)}` for every `σ` and `T ≥ 2`, §44's decomposition gives `x = q^{2.333}`, below `q^{7/3}`.
 - The uniform bound is implied by (1.4) and (1.5), whose largest exponent is `12/5`, so it is a weaker hypothesis.
 - Scratch runs show the margin:
-  - at `L = 2.333` the bound is `1.0367` at `n = 300` and `0.9510` at `n = 900`;
-  - with `A = 12/5` exactly it is `0.9637` at `n = 600`;
-  - at `L = 2.33` with `A = 12/5` it is `1.0285` at `n = 600`;
+  - at `L = 2.333` the bound is `1.0367` at `n = 300` and `0.9510` at `n = 900` *(round 585: rounded to nearest; as bounds `1.0368` and `0.9511`; review F3)*;
+  - with `A = 12/5` exactly it is `0.9637` at `n = 600` *(round 585: as a bound `0.9638`; review F3)*;
+  - at `L = 2.33` with `A = 12/5` it is `1.0285` at `n = 600` *(round 585: as a bound `1.0286`, from `1.02852061…`; review F3)*;
   - at `L = 2.33` the probe's midpoint estimate is `0.9652` with `A = 12/5`, and `1.8399` with `A = 12/5 + 0.054`.
 - For Lean, the stack's `LinnikTwelve.charDensity_twelve_fifths` has the exponent `12/5 + 54ε` for every `ε ≤ 1/200`. That reaches the slack `1/2000`, but it counts characters, and Lemma 2 counts zeros.
 
@@ -23745,7 +23745,7 @@ Each lists what the stack has and what it lacks, from a survey of the pilot, Mat
 
 ## Round 583: the first Lean step of milestone M1, large values at several points per character, and a survey of M1 (`external/pnt/LinnikPoints.lean`)
 
-**What it is.** The first Lean step on SIEVE-ROUTE.md §9's route. A count of zeros (milestone M1) detects several zeros of one character, at ordinates at least `1` apart, but the stack's estimates for large values take one point per character. `LinnikPoints.large_values_points` lifts that restriction for the large sieve. A survey of rounds 524–527 places the rest of M1. It was made for this round by a subagent, and its main claims were spot-checked by the lead.
+**What it is.** The first Lean step on SIEVE-ROUTE.md §9's route. A count of zeros (milestone M1) detects several zeros of one character, at ordinates at least `1` apart, but the stack's estimates for large values take one point per character. ~~`LinnikPoints.large_values_points` lifts that restriction for the large sieve.~~ *(Round 585: retracted, false when written. It extends `large_values_chars` only; the counting lemmas use the off-line form `large_values_chars_off` (`LinnikHybrid.lean:479`), which is not yet extended; review F6.)* `LinnikPoints.large_values_points` lifts that restriction for round 521's `large_values_chars`. A survey of rounds 524–527 places the rest of M1. It was made for this round by a subagent, and its main claims were spot-checked by the lead.
 
 **The theorem.** `LinnikPoints.large_values_points`:
 
@@ -23759,7 +23759,7 @@ This is the bound of round 521's `large_values_chars`, and that theorem is the c
 
 - (i) the Gallagher step of `large_values_chars` (`LinnikHybrid.lean` lines 403–409, checked), which this round generalizes;
 - (ii) the count `|R| ≤ q` (`card_chars_le`), used as a count of points;
-- (iii) `choose!`, which picks one zero per character in the counting lemmas (`LinnikDensity.lean:560` and `LinnikTwelve.lean:416` checked; the survey also names `LinnikIngham.lean:339` and `LinnikHuxley.lean:843`);
+- (iii) `choose!`, which picks one zero per character in the counting lemmas (~~`LinnikDensity.lean:560` and `LinnikTwelve.lean:416` checked; the survey also names `LinnikIngham.lean:339` and `LinnikHuxley.lean:843`~~ *(round 585: retracted, false when written: two of the four sites are outside the proof of the `12/5`; review F1)* `LinnikTwelve.lean:416`, in `count_twelve_at`, and `LinnikIngham.lean:339`, in `count_nontrivial_ingham`, both in the dependency closure of `charDensity_twelve_fifths` (checked in round 585). `LinnikDensity.lean:560` and `LinnikHuxley.lean:843` are outside it);
 - (iv) the Halász–Montgomery kernel. Its off-diagonal pairs have `χ ≠ χ′` (~~`LinnikLargeValues.pair_reflect`~~ `LinnikReflect.pair_reflect`, in `LinnikLargeValues.lean`, takes `hne : χ ≠ χ'`, checked) *(round 584: the theorem's namespace is `LinnikReflect`, not the file's name)*. Pairs of points of one character would bring in the principal character, with the pole of `ζ`;
 - (v) the trivial character, which is counted as `+1`.
 
@@ -23807,7 +23807,7 @@ The survey's estimates, which are estimates and not checked:
   - The reviewer found the same pattern in round 580's line of §7: of its five bounds, only `0.9117` was rounded up.
   - The lead's census found more carriers: `0.9756` in the round 582 markers of IDEAS.md D5 and STRUCTURAL-REVIEW.md line 210, which C4 rewords, and the values of round 578 in SEVEN-THIRDS §45's table, README round 578's table and the round 578 markers on those two lines.
   - Swept on every carrier in that census: the bounds are rounded up (`0.9757`; `0.9521`, `0.7822`, `0.6231` and `0.8293`) and the window inward (`(0.417253, 0.485533)`), with the old values struck or quoted in a marker. Every bound is still below `1`.
-- **F2 (minor).** SIEVE-ROUTE.md §9, M7: "With the uniform curve at `L = 2.333` the certificate needs `n = 600`." Smaller grids certify too.
+- **F2 (minor).** SIEVE-ROUTE.md §9, M7: "With the uniform curve at `L = 2.333` the certificate needs `n = 600`." ~~Smaller grids certify too.~~ *(Round 585: retracted, false when written: `n = 400` does not; review F2.)* Some smaller grids certify too: in the runs made, those from `n = 410` up.
   - The reviewer's runs of the committed `Cert` give `1.0043` at `n = 400`, and values below `1` at `n = 410` to `450` in steps of 10, and at `500`, `550` and `600`.
   - At `n = 410` there are 2132774 cells of depth 4, against 9045914 at `n = 600`, a factor of about `4.2`.
   - The sentence is struck and rewritten with the counts at `n = 410`, labelled scratch.
@@ -23845,7 +23845,7 @@ The survey's estimates, which are estimates and not checked:
 
 - The window proof on both pieces of unif. `nhi` bounds the numerator, `AMAX` is the true maximum, and both margins are `2^{−30}`.
 - The branch and bound's bound is strict, and in scratch it also closes with a smaller target, in all six cases.
-- C1 and C5 gate the new case in every run. C3, C4 and C6 are fixed to hux at `2.29`; run on unif's window in scratch, all three pass.
+- ~~C1 and C5 gate the new case in every run.~~ *(Round 585: retracted, false when written. The report says C5 does so in the main run; the sabotage runs evaluate C5 on the last case only; review F5.)* C1 gates the new case in every run, and C5 in the main run. C3, C4 and C6 are fixed to hux at `2.29`; run on unif's window in scratch, all three pass.
 - hux implies unif, including near `σ = 1/2`.
 - Lemma 2 with `A(β)(1 − β) = 1` on an interval costs a power of `log x`, which `x^{3ε}` absorbs.
 - The scratch numbers of §47 and README round 582 reproduce exactly, and so do M7's counts at `n = 600`.
@@ -23865,3 +23865,53 @@ The survey's estimates, which are estimates and not checked:
 
 - A review of rounds 583 and 584.
 - M1 over the range `σ ≤ 3/4`: the counting lemmas over points, and a local count of zeros for `L(s, χ)`.
+
+## Round 585: the independent review of rounds 583 and 584 (`external/pnt/LinnikPoints.lean`; `frontier/linnik/SIEVE-ROUTE.md` §9; `frontier/linnik/SEVEN-THIRDS.md` §§44 and 47)
+
+**What it is.** A fresh-context reviewer, the repository's `hostile-reviewer` agent, reviewed rounds 583 and 584 at b778480. It found no MAJOR, one minor and seven cosmetic defects. It reports that `LinnikPoints.lean` compiles with no errors or warnings, with the axioms `[propext, Classical.choice, Quot.sound]`; that its two theorems state what the records say; that the certificate passes as recorded; and that every carrier in round 584's census is now on the safe side. Under Check 3 the lead verified each finding against the cited lines, by re-running the reviewer's programs and by recompiling. All eight are accepted and swept. No proved statement and no certified number changes.
+
+**Findings and dispositions.**
+
+- **F1 (minor).** Round 583's survey cited four `choose!` sites as places where the proofs of the uniform `12/5` take one point per character. Two of them are not in those proofs.
+  - `LinnikDensity.lean:560` is in `count_nontrivial` (line 530), round 521's lemma. `LinnikHuxley.lean:843` is in `count_huxley_at` (line 810), round 525's `87/35`.
+  - The sites in the `12/5` are `LinnikTwelve.lean:416` (`count_twelve_at`) and `LinnikIngham.lean:339` (`count_nontrivial_ingham`).
+  - The reviewer's evidence is a Lean program that walks every constant used in the types and values of the declarations reachable from `LinnikTwelve.charDensity_twelve_fifths`, with controls: `linnik_four` reaches `count_nontrivial`, and `charDensity_huxley` reaches `count_huxley_at`.
+  - README round 583's item (iii) is struck and corrected. SIEVE-ROUTE.md's marker gives no line numbers and stands.
+- **F2 (cosmetic).** Round 584's sweep wrote "The coarser grids tried also certify" (SIEVE-ROUTE.md M7) and "Smaller grids certify too" (README round 584). `n = 400` was tried, and its bound is `1.004279`. Both are struck and scoped to the grids from `n = 410` up.
+- **F3 (cosmetic).** Upper bounds outside the certified set were also stated rounded down:
+  - the probe's double-precision bounds `0.9722` (computed `0.97224185…`), `0.8709` (`0.87093329…`) and `1.2258` (`1.22583024…`);
+  - the scratch runs' `0.9510` (`0.95102556…`) and `0.9637` (`0.96372489…`).
+  - The lead's re-run found two more of the same kind: `1.0367` (`1.03674168…`) and `1.0285` (`1.02852061…`).
+  - None is certified. All seven are now marked with the values rounded up: SEVEN-THIRDS §44's table and §47; IDEAS.md D5; STRUCTURAL-REVIEW.md line 210; README rounds 576 and 582, and round 577's record of the STRUCTURAL-REVIEW marker.
+  - Lines that quote the probe's printed output are left: it prints with `:.4f`.
+- **F4 (cosmetic).** The docstrings of `LinnikPoints.lean` and `LinnikHybrid.lean` gave the derivative's coefficients as `−c_j log j`. They are `−i c_j log j` (`DirMean.hasDerivAt_dp`). Both are corrected. The change is to docstrings only, and both files recompile.
+- **F5 (cosmetic).** Round 584's held list said "C1 and C5 gate the new case in every run". The sabotage runs call `run(fine, mid, m)` with `full=False`, and C5 then evaluates only the last case (`CASES[-1:]`). The report had said "C5 gates unif < 1 in the main run". Struck and corrected.
+- **F6 (cosmetic).** Round 583 said that `large_values_points` "lifts that restriction for the large sieve". The stack uses `large_values_chars` only inside `large_values_chars_off` (`LinnikHybrid.lean:479`), and the counting lemmas call the latter, which has no version over points yet. The sentence is struck and scoped to `large_values_chars`, and SIEVE-ROUTE.md's M1 marker now names the off-line form.
+- **F7 (cosmetic).** Two of round 584's markers lost their antecedents when the strikes are removed: README round 582's "that is the proved window rounded outward", and SEVEN-THIRDS §47's "it also enters". Reworded.
+- **F8 (cosmetic).** SEVEN-THIRDS §47 put the inward-rounded window next to the loss bound, but the bound was computed with the decomposition run on the printed window (`Cert.__init__`, through `window_ends`). The sentence now says so.
+
+**The lead's verification.**
+
+- F1: the reviewer's `Reach3.lean`, re-run against the pilot's `build/`, exits 0 and prints the same 28 lines as the reviewer's run. Its walk follows every constant used in each declaration's type and value. `sed -n` puts lines 560, 843, 416 and 339 inside the theorems named above.
+- F3: the reviewer's three scripts, re-run on copies of the probe and the certificate whose sha256 matches HEAD, reproduce every value to the last digit. `sieve_route_probe.py` lines 490 and 504 print with `:.4f`.
+- F2, F4–F8: each cited line was read with `sed -n`, and `sieve_route_certificate.py` lines 627, 675 and 713 for F5.
+- `LinnikHybrid.lean` and then `LinnikPoints.lean`, recompiled with `lean` into a scratch directory, exit 0 with no warnings; `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for `large_values_points`, `large_values_chars_of_points` and `large_values_chars`.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class: the sweep adds no reports to SIEVE-ROUTE.md (9), SEVEN-THIRDS.md (63), IDEAS.md (51), STRUCTURAL-REVIEW.md (100) or README.md's earlier rounds. This entry takes README.md from 1837 to 1839 reports, two new ones of class L10 (a nested list directly after its item's text), the style of the entries around them. None of these files is a paper surface.
+
+**Checked and held** (the reviewer's list, with its evidence in its report).
+
+- The Lean compiles from source in a fresh chain (`DirMean`, `LinnikHybrid`, `LinnikPoints`) to an olean byte-identical to `build/`'s, with no `sorry`, `admit`, `axiom`, `native_decide` or `implemented_by`.
+- `large_values_chars_of_points` is `large_values_chars` itself: an `example` stating their equality by `rfl` type-checks. The hypotheses of `large_values_points` are not vacuous: two points of one character at `1/2` and `3/2` satisfy them.
+- The plain statements omit `lo ≤ hi`, which matters only for an empty family, as in round 521.
+- `build.sh` lists the file after its dependencies, prints its two axioms, and passes `bash -n`.
+- Every quotation in README round 584 is verbatim, and every disposition is as stated. The new key is safe: no gate reads its text, and no two keys collide.
+- Round 584's census reproduces: 23 lines, four of them in round 584's own entry. Every rounded value is on the safe side.
+- The scratch counts at `n = 400`, `410` and `450` reproduce.
+
+**Check 4.** The reviewer classed all eight findings as novel, and the lead agrees.
+
+**Check 9.** (a) F2's strikes scope two universal claims about the grids, and F6's strike scopes a claim about the large sieve. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** SIEVE-ROUTE.md §10: a smoothing in place of Perron at height `x²`, under which the sieve route needs counts of characters only, at heights up to `2x^ε`.

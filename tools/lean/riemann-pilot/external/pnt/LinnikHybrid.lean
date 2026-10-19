@@ -19,7 +19,7 @@ relating the points of different characters,
 * `mean_value_chars`: `D_χ` splits over the classes mod `q` (`dp_twist_eq`); orthogonality, then `mean_value_row` in
   each class with `row_sum_class`, and `φ(q) ≤ q`.
 * `large_values_chars`, `large_values_chars_off`: `DirMean.gallagher_one` on the unit interval about each `x_χ` (the
-  derivative of `D_χ` is a polynomial of the same kind, with coefficients `−c_j log j`), then `mean_value_chars` on
+  derivative of `D_χ` is a polynomial of the same kind, with coefficients `−i c_j log j`), then `mean_value_chars` on
   `[lo, hi]`; the weights by the Taylor bound `DirMean.dp_off_le`.
 -/
 import DirMean

@@ -13,7 +13,7 @@ at least `1` apart (`frontier/linnik/SIEVE-ROUTE.md` §9, milestone M1).
 * `large_values_points`: group the points by their character. For each character, `DirMean.gallagher` (Gallagher's
   lemma for a `1`-separated set) bounds the sum over its points by the integral of `|D_χ|² + 2|D_χ||D_χ′|` over
   `[lo, hi]`. Then, as in `large_values_chars`, `mean_value_chars` for `D` and for its derivative, whose
-  coefficients are `−c_j log j`.
+  coefficients are `−i c_j log j`.
 -/
 import LinnikHybrid
 
