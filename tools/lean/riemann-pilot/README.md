@@ -24550,7 +24550,7 @@ The region's conditions enter as hypotheses in units of `1/DEN`. For example, `c
 - `SieveRough.share4`: the same at depth 4 with `bound4`, for `e_i + e_j + e_k + 2e_l ≤ DEN`.
 - `share2_of_cand` and `share4_of_counted4`: the two on the cells that pass `cand` and `counted4`, whose tests include those inequalities.
 
-`Ψ(x/d, p)` counts the `m` with `dm ∈ (x, 2x]` and no prime factor below `p`. ~~Summed over a cell's primes it is the model's count of the cell's terms, which M8 will drop, and the shares bound it by the certificate's own bounds.~~ *(Round 598: retracted, false when written: the model is `B/φ(q)`, with `B` the `n` prime to `q`, and the sum counts every `n` once for each of its forms `p₁p₂m`; review of round 597, finding 1.)* Summed over all pairs of primes of a cell, it is at least `φ(q)` times the model's count of the cell's terms. So for a cell whose terms M8 drops, the shares bound the model's count by the certificate's own bounds, divided by `φ(q)`.
+`Ψ(x/d, p)` counts the `m` with `dm ∈ (x, 2x]` and no prime factor below `p`. ~~Summed over a cell's primes it is the model's count of the cell's terms, which M8 will drop, and the shares bound it by the certificate's own bounds.~~ *(Round 598: retracted, false when written: the model is `B/φ(q)`, with `B` the `n` prime to `q`, and the sum counts every `n` once for each of its forms `p₁p₂m`; review of round 597, finding 1.)* Summed over all pairs of primes of a cell (at depth 4, all quadruples), it is at least `φ(q)` times the model's count of the cell's terms, by a step of the paper that M8 is to state. So for a cell whose terms M8 drops, the shares bound the model's count by the certificate's own bounds, divided by `φ(q)`.
 
 **The proof.**
 
@@ -24621,23 +24621,23 @@ The region's conditions enter as hypotheses in units of `1/DEN`. For example, `c
 
 **Findings and dispositions.**
 
-- **1** (minor). README round 597 said that the sum of `Ψ(x/d, p)` over a cell's primes "is the model's count of the cell's terms". The model is `B/φ(q)`, with `B` the `n` prime to `q` (SIEVE-ROUTE.md 24–25). The sum runs over all pairs of the cell's primes, so it counts each `n` once for each of its forms `p₁p₂m`, with no `1/φ(q)`. It is an upper bound for `φ(q)` times that count, as §13's marker of round 597 states. The sentence was false when written; it is struck and replaced by the inequality.
+- **1** (minor). README round 597 said that the sum of `Ψ(x/d, p)` over a cell's primes "is the model's count of the cell's terms". The model is `B/φ(q)`, with `B` the `n` prime to `q` (SIEVE-ROUTE.md 24–25). The sum runs over all pairs of the cell's primes (at depth 4, all quadruples), so, as §13's marker of round 597 states, it counts each `n` once for each of its forms `p₁p₂m` (`p₁p₂p₃p₄m`). It counts every `n`, not only those prime to `q`, and has no `1/φ(q)`, so it is an upper bound for `φ(q)` times that count. The sentence was false when written; it is struck and replaced by the inequality.
 - **2** (cosmetic). Round 597's restructured strike in §13's M7 left the live text "…the evaluation. ; review O-1". The semicolon moves inside the strike.
 - **3** (cosmetic). `external/pnt/README.md`'s section on `SieveRough.lean` called both bounds "the cell's prime sums". The second bounds `log x · Σ 1/(p log p)`. Corrected.
 - **4** (cosmetic). Three docstrings of `SieveRough.lean` left out a sign hypothesis that their theorems carry: `evLe_finish` (`W, P ≥ 0`), `sum_Icc_filter_le` (`F ≥ 0`) and `sum_primesIn_le` (`f ≥ 0`). Without it each inequality fails; the reviewer gives counterexamples. The hypotheses are added to the docstrings.
 - **5** (cosmetic). README round 597 recorded the lint run without its outcome. A marker adds the counts.
-- **Observation** (held). The reviewer's timing of the truncated `SieveCert.lean` gave 7.9 s, 56.5 s and 60.0 s, where round 597 recorded 8 s, 47 s and 57 s. The times depend on the machine's load. The point stands: the certificate's check alone takes well under the 64 s of round 595's whole-file compile.
+- **Observation** (held). The reviewer's timings of `SieveCert.lean` gave 7.9 s and 56.5 s on the truncated copies and 60.0 s on the whole file, where round 597 recorded 8 s, 47 s and 57 s. The times depend on the machine's load. The point stands: the certificate's check alone takes well under the 64 s of round 595's whole-file compile.
 
 **The lead's verification.**
 
 - Each cited line was read: README.md 24553 and 24593; SIEVE-ROUTE.md 24–25, 277 and 385; `external/pnt/README.md` 386; `SieveRough.lean` 803, 1223 and 1502–1504.
 - `SieveRough.lean`'s change is docstring-only: with comments stripped, both versions have 18304 tokens and are identical (scratch check). It was recompiled with the build's `LEAN_PATH` in 63 s, with no errors or warnings, and its 18 axiom lines are all `[propext, Classical.choice, Quot.sound]`. The olean is in `build/`.
-- This round's operative theorems, `SieveRough.share2` and `share4`, were re-read at `SieveRough.lean` 1540–1542 and 1612–1617.
+- This round's operative theorems, `SieveRough.share2` and `share4`, were re-read at `SieveRough.lean` 1541–1543 and 1613–1618.
 - `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. SIEVE-ROUTE.md (25) and `external/pnt/README.md` (10) gain no reports. README.md (1872) gains one report, of class L10, in this entry. The strike starts at a word, and the live texts were read with the strikes removed. None of these files is a paper surface.
 
 **Checked and held** (the reviewer's list, with its evidence in its report).
 
-- **The compiles.** `SieveRough.lean` and `SieveCert.lean` recompile to oleans byte-identical to `build/`'s, also with `autoImplicit` off. The two direct imports, `HalfPlaneFinal` and `LinnikTwelveSizes`, reproduce byte-identically. The final check prints 331 axiom lines, all inside the three.
+- **The compiles.** `SieveRough.lean` and `SieveCert.lean` recompile to oleans byte-identical to `build/`'s, `SieveRough.lean` also with `autoImplicit` off. The two direct imports, `HalfPlaneFinal` and `LinnikTwelveSizes`, reproduce byte-identically. The final check prints 331 axiom lines, all inside the three.
 - **The statements.**
   - `psi_le`'s `z₀` is uniform in `y`.
   - `cellP`'s cell is half-open at the same end as `SieveCert.InCell`.
@@ -24645,12 +24645,55 @@ The region's conditions enter as hypotheses in units of `1/DEN`. For example, `c
   - `cand` and `counted4` contain exactly the shares' hypotheses.
 - **What M8 needs.** The `B`-side terms are at most the `Ψ` counts. The corner terms `n = p₁p₂` number `O(x/log² x)`.
 - **The seams.** `theta_near`'s exponent `23/24`; `psi_point`'s hypotheses at the share points; `evLe_finish`'s constants.
-- **Round 597's dispositions.** All nine. The certificate's replay gives `omK = ⌈K·sup ω*⌉` on all 916 candidate cells and all 1881 counted cells of depth 4.
+- **Round 597's dispositions.** All nine. The certificate's replay gives `omK = ⌈K·sup ω*⌉` on all 916 candidate cells and on the 1881 counted cells of depth 4 in the rows of the decomposed cells.
 
 **Check 4.** The reviewer classed the findings as novel; the lead agrees.
 
-**Check 9.** (a) Finding 1 replaces an identity by the inequality the Lean gives; finding 4 restores hypotheses. (b) No change to the register's targets. (c) No criterion is fed a signal.
+**Check 9.** (a) ~~Finding 1 replaces an identity by the inequality the Lean gives; finding 4 restores hypotheses.~~ *(Round 599: retracted, false when written: the Lean bounds the sums of `Ψ` from above (`share2`, `share4`) and does not give the inequality, which rests on `S(B_{p₁p₂}, p₂) ≤ Ψ(x/(p₁p₂), p₂)`, a step of the paper that M8 is to state; the docstrings of finding 4 were new in round 597, so nothing was restored; review of round 598, finding 1.)* Finding 1 replaces an identity by an inequality, which rests on a step of the paper; finding 4 adds hypotheses to three docstrings. (b) No change to the register's targets. (c) No criterion is fed a signal.
 
 **Bearing on RH:** none.
 
 **The next step.** A convergence review of this sweep. Meanwhile M4 continues in scratch. The separation of `J` smooth comparisons by Fourier inversion over `ℝ^J` compiles, as do its bound by M3 on a box of heights, the cut-off's Fourier mass and tails, orthogonality for weighted families, and the sharp-against-smooth inequality of Lemma 4″.
+
+## Round 599: the convergence review of round 598 (`external/pnt/SieveRough.lean` docstrings; `external/pnt/README.md`; `frontier/linnik/SIEVE-ROUTE.md` §13)
+
+**What it is.** A fresh-context reviewer, the repository's `hostile-reviewer` agent, ran the convergence review of round 598's sweep at 628adc9.
+
+- The reviewer found no MAJOR. It proposed one minor finding and six cosmetic ones, all novel.
+- In its words, "Finding 1's replacement inequality is true. The proposed minor is a different sentence: the round's Check 9 record says the Lean gives that inequality, and it does not."
+- Under Check 3 the lead verified each finding against the cited lines. All are accepted and swept, with siblings of findings 1 and 4.
+- No proved statement changes. Finding 1 is a minor, so round 598's sweep is not converged, and this sweep is owed a convergence review.
+
+**Findings and dispositions.**
+
+- **1** (minor). Round 598's Check 9 record said that finding 1 "replaces an identity by the inequality the Lean gives". The Lean does not give it. `SieveRough.lean` bounds the sums of `Ψ` from above (`share2`, `share4`), and neither `φ(q)` nor coprimality appears in it. The inequality rests on `S(B_{p₁p₂}, p₂) ≤ Ψ(x/(p₁p₂), p₂)`, a step of the paper. The same sentence said that finding 4 "restores hypotheses", but those docstrings were new in round 597. The sentence was false when written; it is struck and annotated. Siblings: round 597's entry now says that the step is the paper's, for M8 to state, and §13's plan for M8 carries a marker that states the step, its map `n ↦ n/(p₁p₂)` and why the endpoint `n = x` is not in `B`.
+- **2** (cosmetic). Round 598's disposition of finding 1 cited §13's marker of round 597 for the bound by `φ(q)` times the model's count, but the marker states only the over-count. The citation now attaches to the over-count.
+- **3** (cosmetic). Round 598's replacement sentence in round 597's entry, and its disposition of finding 1, said "all pairs" of a cell's primes, while the conclusion covers the cells of depth 4 as well. Both now add the quadruples of depth 4.
+- **4** (cosmetic). Seven more docstrings of `SieveRough.lean` left out a hypothesis that their theorems carry: `a ≤ b` (`sum_inv_mul_log_le`, `sum_inv_le`, `sum_inv_mul_sub_log_le`), `0 < a ≤ c` (`evLe_sum_inv`, `evLe_sum_inv_log`) and `ε > 0` (`theta_near`, `card_primes_dyadic`). Without `a ≤ b` or `a ≤ c` the range can be empty while the right side is negative; the reviewer gives counterexamples. The hypotheses are added. Siblings: the file's header left out `0 < a ≤ c` for the same pair, and SIEVE-ROUTE.md 397 left out `b ≥ a` and, for the count of primes, `y ≥ y₀(ε)`; at `y = 3/2` the count is `2` and the bound `1.37(1 + ε)`. Both are added, with annotations in SIEVE-ROUTE.md. Held: the `ε` of the summaries, in round 597's entry, `external/pnt/README.md` and the file's header, is conventionally positive.
+- **5** (cosmetic). Round 598 cited `share2` and `share4` at round 597's lines, but its own docstring edit had moved them down by one. Corrected to 1541–1543 and 1613–1618. This round's docstring edits keep every line count.
+- **6** (cosmetic). Round 598's account of round 597's review drifted in three places. The compile with `autoImplicit` off was of `SieveRough.lean` only. The 1881 counted cells of depth 4 are those in the rows of the decomposed cells. And of the timings, 60.0 s was the whole file, not a truncated copy. Corrected.
+- **7** (cosmetic). The section on `SieveRough.lean` in `external/pnt/README.md` bounded the cell's sums by `h/a + δ` and `h/a² + δ` without naming `h`, and `a` had named the end of `(a, b]` earlier in the paragraph. The sentence now names `h` the cell's side and `a` its lower corner.
+
+**The lead's verification.**
+
+- Each cited line was read: README.md 24553, 24624, 24629, 24635, 24640, 24648 and 24652; SIEVE-ROUTE.md 24–25, 397, 400 and 424–429; `external/pnt/README.md` 386; `SieveRough.lean` 40–42, 61, 224–225, 313–314, 377–378, 568, 1266 and 1312, and the statements of `Claim`, `claim_step` and `psi_point`; and the round-597 reviewer's report, lines 75–77, 88, 93 and 127, as this round's reviewer extracted it.
+- `grep -c 'totient\|Coprime\|coprime\|φ\|gcd\|ZMod\|ModEq' SieveRough.lean` gives `0`, and no other Lean file names `SieveRough.`.
+- The counterexamples' right sides were recomputed: `−0.2171`, `−0.6931` and `−0.0416` for the three sums of Abel summation at `a = 100` and `b = 10` (`L = 20` for the third), and `−0.6931` and `−0.5` for `evLe_sum_inv` and `evLe_sum_inv_log` at `a = 2` and `c = 1`. Also `1.5/log 3 = 1.365`.
+- `SieveRough.lean`'s change is docstring-only: with comments stripped, both versions have 18304 tokens and are identical (scratch check), and the file keeps its 1749 lines. It was recompiled with the build's `LEAN_PATH` in 63 s, with no errors or warnings, and its 18 axiom lines are all `[propext, Classical.choice, Quot.sound]`. The olean is in `build/`.
+- This round's operative theorems, `SieveRough.share2` and `share4`, were re-read at `SieveRough.lean` 1541–1543 and 1613–1618, and the seven theorems of finding 4 at their statements.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. README.md (1872), SIEVE-ROUTE.md (25) and `external/pnt/README.md` (10) gain no reports. The strike starts at a word, renders as one `<del>` and holds its text verbatim, and the live text was read with the strike removed. None of these files is a paper surface.
+
+**Checked and held** (the reviewer's list, with its evidence in its report).
+
+- **Finding 1's replacement inequality is true.** `n ↦ n/(p₁p₂)` injects the `n` that `S(B_{p₁p₂}, p₂)` counts into the `m` that `Ψ(x/(p₁p₂), p₂)` counts. The endpoint `n = x` is not in `B`, and the pairs with `p₂ ≥ p₁` add nonnegative terms. A toy brute force gives `123 ≥ 68`, `107 ≥ 100` and `11 ≥ 5` for `q = 7`, `30` and `11`.
+- **The compile.** `SieveRough.lean` at 628adc9 differs from c61e2a5 in docstrings only, and its olean is byte-identical to `build/`'s.
+- **Round 598's findings 2–5** as swept. The certificate's replay reproduces 4900, 916, 423 and 7835, and the total `0.879061 ≤ 0.88`.
+- **Three omissions that bear on nothing.** `sum_Icc_filter_le`'s `z ≤ n`, `claim_step`'s `0 ≤ K` and `psi_point`'s `0 < t`. The lead checked them: with `z > n` both sums are empty; for `K < 0`, `Claim (K + 1)` is vacuous or `Ψ = 0` by `Psi_eq_zero`; and `U = 2DEN/t` presupposes `t > 0`.
+
+**Check 4.** The reviewer classed the findings as novel; the lead agrees.
+
+**Check 9.** (a) Finding 1's strike withdraws a claim about what the Lean gives, and the new marker assigns the step to M8; the additions to SIEVE-ROUTE.md 397 scope two statements. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** A convergence review of this sweep. Meanwhile M4 continues in scratch.

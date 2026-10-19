@@ -37,9 +37,9 @@ The proof:
   `ω*((L − log p)/log p)/(p log p)` over the primes of `(z, √(2y)]`, where `ω* = 0.5672` for `log p ≤ L/3` and
   `ω* = log p/(L − log p)` above.
 * `Claim`, `claim_step`, `claim_nat`, `psi_le`: the induction on the level `K` in `log 2y ≤ K log z`.
-* `evLe_sum_inv`, `evLe_sum_inv_log`, `evLe_cell_inv`, `evLe_cell_inv_log`: for large `x`, the primes of
-  `[x^a, x^c)` have `Σ 1/p ≤ log c − log a + δ` and `log x · Σ 1/(p log p) ≤ 1/a − 1/c + δ`; on the cell `k`, whose
-  side is `h = H/DEN` and whose lower corner is `a = e_k/DEN`, these are at most `h/a + δ` and `h/a² + δ`.
+* `evLe_sum_inv`, `evLe_sum_inv_log`, `evLe_cell_inv`, `evLe_cell_inv_log`: for `0 < a ≤ c` and large `x`, the
+  primes of `[x^a, x^c)` have `Σ 1/p ≤ log c − log a + δ` and `log x · Σ 1/(p log p) ≤ 1/a − 1/c + δ`; on the cell
+  `k`, whose side is `h = H/DEN` and whose lower corner is `a = e_k/DEN`, these are at most `h/a + δ` and `h/a² + δ`.
 * `psi_point`: at a point of a cell, `psi_le` and `SieveCert.omegaC_le` give
   `Ψ(x/(dp), p) ≤ (omK/K + ε)x/(dp log p)`.
 * `evLe_finish`, `share2`, `share4`: each share is at most `(omK/K + ε)x/log x` times the product of the cells'
@@ -58,7 +58,7 @@ namespace SieveRough
 
 /-! ### `θ(t) = t + o(t/log t)` -/
 
-/-- From the stack's prime number theorem, `|θ(t) − t| ≤ εt/log t` for all large `t`. -/
+/-- From the stack's prime number theorem, for `ε > 0`, `|θ(t) − t| ≤ εt/log t` for all large `t`. -/
 theorem theta_near {ε : ℝ} (hε : 0 < ε) : ∀ᶠ t : ℝ in atTop, |θ t - t| ≤ ε * t / Real.log t := by
   obtain ⟨C, hC⟩ := (HalfPlanePNT.psi_isBigO_eleven_twelfths (ε := 1 / 24) (by norm_num)).bound
   set C' := max C 0 with hC'
@@ -221,8 +221,8 @@ theorem abel_le {a b ε : ℝ} (ha : 1 < a) (hab : a ≤ b) {g g' G : ℝ → �
 theorem continuousOn_log_Icc {a b : ℝ} (ha : 0 < a) : ContinuousOn Real.log (Set.Icc a b) :=
   Real.continuousOn_log.mono fun t ht => by simp only [Set.mem_compl_iff, Set.mem_singleton_iff]; linarith [ht.1]
 
-/-- `Σ_{a<p≤b} 1/(p log p) ≤ 1/log a − 1/log b + 4ε/log² a`, when `log a ≥ 1` and `|θ(t) − t| ≤ εt/log t` on
-`[a, b]`. -/
+/-- `Σ_{a<p≤b} 1/(p log p) ≤ 1/log a − 1/log b + 4ε/log² a`, when `log a ≥ 1`, `a ≤ b` and
+`|θ(t) − t| ≤ εt/log t` on `[a, b]`. -/
 theorem sum_inv_mul_log_le {a b ε : ℝ} (ha : Real.exp 1 ≤ a) (hab : a ≤ b) (hε : 0 ≤ ε)
     (hθ : ∀ t ∈ Set.Icc a b, |θ t - t| ≤ ε * t / Real.log t) :
     ∑ p ∈ (Ioc ⌊a⌋₊ ⌊b⌋₊).filter Nat.Prime, 1 / ((p : ℝ) * Real.log p) ≤
@@ -310,7 +310,7 @@ theorem sum_inv_mul_log_le {a b ε : ℝ} (ha : Real.exp 1 ≤ a) (hab : a ≤ b
   have : 4 * ε / Real.log a ^ 2 = ε / Real.log a ^ 2 + 2 * ε / Real.log a ^ 2 + ε / Real.log a ^ 2 := by ring
   linarith
 
-/-- `Σ_{a<p≤b} 1/p ≤ (log log b − log log a)(1 + ε/log a) + 3ε/log² a`, when `log a ≥ 1` and
+/-- `Σ_{a<p≤b} 1/p ≤ (log log b − log log a)(1 + ε/log a) + 3ε/log² a`, when `log a ≥ 1`, `a ≤ b` and
 `|θ(t) − t| ≤ εt/log t` on `[a, b]`. -/
 theorem sum_inv_le {a b ε : ℝ} (ha : Real.exp 1 ≤ a) (hab : a ≤ b) (hε : 0 ≤ ε)
     (hθ : ∀ t ∈ Set.Icc a b, |θ t - t| ≤ ε * t / Real.log t) :
@@ -374,8 +374,8 @@ theorem sum_inv_le {a b ε : ℝ} (ha : Real.exp 1 ≤ a) (hab : a ≤ b) (hε :
   have : 3 * ε / Real.log a ^ 2 = 2 * ε / Real.log a ^ 2 + ε / Real.log a ^ 2 := by ring
   linarith
 
-/-- `Σ_{a<p≤b} 1/(p(L − log p)) ≤ (G(b) − G(a))(1 + ε/log a) + 6ε/(L log² a)`, where
-`G(t) = (log log t − log(L − log t))/L`, when `log a ≥ 1`, `2 log b ≤ L` and `|θ(t) − t| ≤ εt/log t` on `[a, b]`. -/
+/-- `Σ_{a<p≤b} 1/(p(L − log p)) ≤ (G(b) − G(a))(1 + ε/log a) + 6ε/(L log² a)`, when `log a ≥ 1`, `a ≤ b`,
+`2 log b ≤ L` and `|θ(t) − t| ≤ εt/log t` on `[a, b]`, where `G(t) = (log log t − log(L − log t))/L`. -/
 theorem sum_inv_mul_sub_log_le {L a b ε : ℝ} (ha : Real.exp 1 ≤ a) (hab : a ≤ b) (hbL : 2 * Real.log b ≤ L)
     (hε : 0 ≤ ε) (hθ : ∀ t ∈ Set.Icc a b, |θ t - t| ≤ ε * t / Real.log t) :
     ∑ p ∈ (Ioc ⌊a⌋₊ ⌊b⌋₊).filter Nat.Prime, 1 / ((p : ℝ) * (L - Real.log p)) ≤
@@ -565,7 +565,7 @@ theorem sum_log_primes_dyadic {y : ℝ} (hy : 0 ≤ y) :
     ← Finset.sum_Ioc_consecutive _ (Nat.zero_le _) hle]
   ring
 
-/-- `#{p : y < p ≤ 2y} ≤ (1 + ε)y/log 2y` for all large `y`. -/
+/-- For `ε > 0`, `#{p : y < p ≤ 2y} ≤ (1 + ε)y/log 2y` for all large `y`. -/
 theorem card_primes_dyadic {ε : ℝ} (hε : 0 < ε) :
     ∃ y₀ : ℝ, ∀ y ≥ y₀, (((Ioc ⌊y⌋₊ ⌊2 * y⌋₊).filter Nat.Prime).card : ℝ) ≤ (1 + ε) * y / Real.log (2 * y) := by
   set ε' := min ε 1 with hε'
@@ -1263,7 +1263,7 @@ theorem EvLe.mul {S T : ℝ → ℝ} {P Q : ℝ} (hP : 0 ≤ P) (hQ : 0 ≤ Q) (
     _ = P * Q + d * (P + Q + d) := by ring
     _ ≤ P * Q + δ := by nlinarith [mul_nonneg hd0.le (sub_nonneg.2 hd1)]
 
-/-- `Σ_{x^a ≤ p < x^c} 1/p ≤ log c − log a + o(1)`. -/
+/-- For `0 < a ≤ c`, `Σ_{x^a ≤ p < x^c} 1/p ≤ log c − log a + o(1)`. -/
 theorem evLe_sum_inv {a c : ℝ} (ha : 0 < a) (hac : a ≤ c) :
     EvLe (fun x => ∑ p ∈ primesIn (x ^ a) (x ^ c), 1 / (p : ℝ)) (Real.log c - Real.log a) := by
   intro δ hδ
@@ -1309,7 +1309,7 @@ theorem evLe_sum_inv {a c : ℝ} (ha : 0 < a) (hac : a ≤ c) :
   have h6 := h2.trans (add_le_add h5 h1)
   nlinarith
 
-/-- `log x · Σ_{x^a ≤ p < x^c} 1/(p log p) ≤ 1/a − 1/c + o(1)`. -/
+/-- For `0 < a ≤ c`, `log x · Σ_{x^a ≤ p < x^c} 1/(p log p) ≤ 1/a − 1/c + o(1)`. -/
 theorem evLe_sum_inv_log {a c : ℝ} (ha : 0 < a) (hac : a ≤ c) :
     EvLe (fun x => Real.log x * ∑ p ∈ primesIn (x ^ a) (x ^ c), 1 / ((p : ℝ) * Real.log p)) (1 / a - 1 / c) := by
   intro δ hδ
