@@ -298,5 +298,25 @@ At paper level and unrefereed, like the rest of this file.
 - ~~M1 is not needed: (H2′) is `Linnik.CharDensity`.~~ *(Round 587: retracted, false when written: unscoped, and (H2′) is not itself a `Linnik.CharDensity`; review F1.)* M1 is not needed for unif: (H2′) follows from `LinnikTwelve.charDensity_twelve_fifths` with the trivial count. For hux, M1 becomes hux's curves in `σ` as counts of characters (§9, Order).
 - M2 is Lemma 1 at heights `|y| ≤ 2x^ε` only. ~~The contour of its proof stays in the rectangle `|Im s − y| ≤ x^ε`, `Re s > β(χ, y)`, which holds no zero by the definition of `β(χ, y)`. So `L′/L` can be bounded on it by `Linnik.logDeriv_LFunction_le` (`LinnikChar.lean`), in place of (T2): for `σ ≥ θ′ > θ ≥ 1/2` it bounds~~ *(Round 587: retracted, false when written: the contour's tails on `Re s = 2` leave the rectangle, and the hypothesis `θ′ < 3/2` was left out; review F2.)* The part of its contour off the line `Re s = 2` stays in the rectangle `|Im s − y| ≤ x^ε`, `Re s > β(χ, y)`, which holds no zero by the definition of `β(χ, y)`. There `L′/L` can be bounded by `Linnik.logDeriv_LFunction_le` (`LinnikChar.lean`), in place of (T2); on the tails at `Re s = 2`, `ChiUniform.logDeriv_LFunction_right` gives `‖L′/L‖ ≤ −ζ′/ζ(3/2)`. For `1/2 ≤ θ < θ′ < 3/2` and `σ ≥ θ′`, `logDeriv_LFunction_le` bounds `‖L′/L(σ + it, χ)‖` by `KL θ θ′(log(q + 2) + log(|t| + 4))` when `L(·, χ)` has no zero in the open disc of radius `3/2 − θ` about `3/2 + it`. With `θ = β(χ, y) + ε/2` and `θ′ = β(χ, y) + ε`, that disc lies in the rectangle when `|t − y| ≤ x^ε − 1`.
 - M3 is Proposition 3′: bins by `b(χ)`, (T1) and Cauchy–Schwarz, with no Lemma 2.
-- M4 is Lemmas 4′ and 4″ in place of the sharp truncated Perron formula: Fourier inversion of a smooth function of compact support (Mathlib), its decay from its derivatives, and the majorants.
+- M4 is Lemmas 4′ and 4″ in place of the sharp truncated Perron formula: Fourier inversion of a smooth function of compact support (Mathlib), its decay from its derivatives, and the majorants. *(Round 588: `external/pnt/SieveSmooth.lean` proves the cut-off's properties, its Fourier decay and the separation identity, for `G(u) = g(u/θ) − g((u − 2Λ)/θ)`.)*
 - M5–M8 are unchanged.
+
+## 11. Goals (round 588, the owner's decision)
+
+The owner's words: "Keep on the lean work but note this as a follow on goal. My immediate goal is to formalise 2.333 then to push on using the 7/3 result then to abstract all that is relevant to a clean gh repo & publish".
+
+1. **Formalize `x = q^{2.333}` in Lean**, by the route of §10 with the curve unif, through milestones M2–M8 of §§9–10.
+   - The main risk is M7. At `L = 2.333` the committed certificate runs at `n = 600`, with about `9.0` million cells of depth 4 (2132774 at `n = 410`, scratch, §9). That is too many to replay in Lean.
+   - A smaller certificate is needed. One candidate integrates the last variable of each dropped family in closed form: with `u = (1 − s − α)/α`, the integral `∫ ω((1 − s − α)/α) dα/α²` over an interval of `α` is `(1/(1 − s))∫ ω(u) du`. That turns the cells of depth 4 into cells in three variables and those of depth 2 into one.
+2. **Then the `7/3` result.** Chen–Gupta–Li's density exponent `7/3`, with the curve cons, certified on paper at `L = 2.25` (§7). In Lean it needs their bound, and the curves in `σ`, as counts of characters.
+3. **Then a clean repository.** Extract what the formalization uses into a clean repository on GitHub, and publish it.
+
+**Follow-on goal: lower exponents.** Noted, not started.
+
+- **A floor for this framework.** In the framework of §3, the Type II window is nonempty exactly when `L > 1 + A_max/2`. Here `A_max` is the largest value of the capped curve on `[1/2, 11/12]`.
+  - By the identity `lower(β) − 1 = −(1 − β)(upper(β) − 1)/(β − 1/2)`, the window is nonempty exactly when `upper(β) = L − A(β)/2 > 1` for every `β`.
+  - That gives `2.2` with `12/5`, about `2.167` with `7/3`, and about `2.154` with `30/13`, Guth and Maynard's density exponent for `ζ`.
+  - The loss of §6 puts the certified exponents above these floors.
+- **Two routes are on record.**
+  - Refinements of the decomposition. A scratch Monte Carlo of round 577 put keeping the evaluable parts of dropped terms at about `0.01` (README round 577).
+  - Type I₂ information from Weil's bound for Kloosterman sums: products of two long smooth variables are equidistributed modulo a single `q`, as in the classical range `q < x^{2/3}` for the divisor function. The sieve does not use it yet, and its effect is unknown.

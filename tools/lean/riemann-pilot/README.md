@@ -24020,3 +24020,50 @@ No Lean changed, no number changed, and no paper surface is edited.
 **Bearing on RH:** none.
 
 **The next step.** The Lean route of §10: the smooth cut-off of Lemma 4′ and its Fourier separation, prototyped in scratch during round 586's review, then M2 (Lemma 1 at a height `y`).
+
+## Round 588: the owner's goals, and the smooth cut-off of Lemma 4′ in Lean (`external/pnt/SieveSmooth.lean`; `frontier/linnik/SIEVE-ROUTE.md` §11)
+
+**The owner's decision.** "Keep on the lean work but note this as a follow on goal. My immediate goal is to formalise 2.333 then to push on using the 7/3 result then to abstract all that is relevant to a clean gh repo & publish". SIEVE-ROUTE.md §11 records it:
+
+1. a Lean formalization of `x = q^{2.333}` by §10's route with the curve unif;
+2. then the `7/3` result, with the curve cons;
+3. then a clean repository on GitHub, published.
+
+Lower exponents are a follow-on goal. §11 records the floor of this framework, `L > 1 + A_max/2` for a nonempty Type II window, and the two routes on record. It also records the main risk of the first goal, the size of M7's certificate, with a candidate remedy.
+
+**The Lean file.** `external/pnt/SieveSmooth.lean` is the first step of M4: the analytic part of Lemma 4′. It imports only Mathlib. With `g = Real.smoothTransition`, `θ > 0`, `Λ ≥ 0` and `G(u) = g(u/θ) − g((u − 2Λ)/θ)`:
+
+- `G` is smooth, vanishes outside `[0, 2Λ + θ]`, and takes values in `[0, 1]` when `θ ≤ 2Λ`.
+- For `u ≤ Λ`, `1[u > 0] − G(u)` and `1[u ≥ 0] − G(u)` lie in `[0, 1]` and vanish unless `0 ≤ u < θ` (`indicator_sub_G`).
+- `‖G^{(K)}‖₁ ≤ 2θ^{1−K}‖g^{(K)}‖₁` for `K ≥ 1` (`integral_norm_iteratedDeriv_GC_le`), from `G^{(K)}(u) = θ^{−K}(g^{(K)}(u/θ) − g^{(K)}((u − 2Λ)/θ))` and the vanishing of `g^{(K)}` outside `[0, 1]`.
+- `(2π|ξ|)^K‖𝓕G(ξ)‖ ≤ 2θ^{1−K}‖g^{(K)}‖₁` (`pow_mul_norm_fourier_GC_le`), by Mathlib's `Real.fourier_iteratedDeriv`.
+- `𝓕G` is integrable (`integrable_fourier_GC`).
+- **Separation:** `G(a − b) = ∫ e^{2πiξa}e^{−2πiξb}𝓕G(ξ) dξ` for real `a` and `b` (`GC_sub_eq_integral`), by Mathlib's `Continuous.fourierInv_fourier_eq`.
+
+§10 writes the cut-off as `g(u/θ)c(u/Λ)`. The two forms agree on `u ≤ Λ`, and every property §10 uses holds for this one, with support `[0, 2Λ + θ]` in place of `[0, 2Λ]`. The file was prototyped in scratch during the review of round 586.
+
+**What is checked.**
+
+- `lean` was run on `SieveSmooth.lean` alone, with the build's `LEAN_PATH` (Mathlib at `MATHLIB_REV`): no errors and no warnings.
+- `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for `indicator_sub_G`, `pow_mul_norm_fourier_GC_le`, `integrable_fourier_GC` and `GC_sub_eq_integral`.
+- `external/pnt/build.sh` now lists the file, imports it in the final check and prints those four axioms; `bash -n` passes. The rest of the layer was not rebuilt, since none of its sources changed.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class: SIEVE-ROUTE.md goes from 12 to 15 reports, three new ones of class L10 (a nested list directly after its item's text), all in §11; README.md (1842), IDEAS.md (51), SEVEN-THIRDS.md (63), STRUCTURAL-REVIEW.md (100) and `external/pnt/README.md` (10) gain none. None of these files is a paper surface.
+
+**Records.**
+
+- `external/pnt/SieveSmooth.lean`: new.
+- `external/pnt/build.sh`: the file, and its four axioms.
+- `external/pnt/README.md`: a row in the table, and a section.
+- `frontier/linnik/SIEVE-ROUTE.md`: §11 (new), and a marker on §10's M4.
+- `frontier/linnik/IDEAS.md`: a D5 marker.
+
+**Check 4.** The Lean file is new. The goals are the owner's.
+
+**Check 9.** (a) The floor `L > 1 + A_max/2` is scoped to the framework of §3, and the effect of the Weil-bound input is stated as unknown. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.**
+
+- M7's feasibility: a certificate for unif at `2.333` that integrates the last variable of each family in closed form, and its size.
+- Then M2: Lemma 1 at a height `y`, generalizing `Linnik.norm_Sx_le`.
