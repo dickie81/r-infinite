@@ -4,7 +4,8 @@
 Plain statement (`total_le`, `total_div_le`). The loss certificate of `frontier/linnik/sieve_route_certificate.py`
 for the curve step at `L = 2333/1000`, run on the window `[401/1000, 485/1000]` of `SieveTypeII.typeII_step` at
 `n = 70` with the crude bound for Buchstab's `ω`, is redone here in natural numbers. Each cell's bound is computed
-exactly from its corners and rounded up to a multiple of `2^{−60}`. The total is at most `0.88`. The kernel checks it
+from its corners, rounding up twice (the value of `ω`, then the bound), and is a multiple of `2^{−60}`. The total is at
+most `0.88`. The kernel checks it
 by `decide +kernel`, and `total_le` depends on `propext` alone.
 
 * The grid. Coordinates are multiples of `1/DEN`, `DEN = 2^40`. The window's ends are `U1 = ⌈(401/1000)DEN⌉` and
@@ -22,8 +23,8 @@ What the tests say about points (the semantic lemmas):
 
 * `eval_of_surelyEval`: if `surelyEval` holds on a box, every point of the box is evaluable (`Eval`).
 * `cover2`: a point of the region of depth 2 that is not evaluable lies in a candidate cell.
-* `sum_le_of_allowed`, `cover3`: on a cell that may be decomposed, the point and each non-evaluable `α₃` keep their
-  sums at most `1 − u₂`, and that `α₃` lies in a counted row.
+* `sum_le_of_allowed`, `cover3`: on a cell that may be decomposed, a non-evaluable point keeps `α₁ + α₂ ≤ 1 − u₂`,
+  and each non-evaluable `α₃` keeps `α₁ + α₂ + α₃ ≤ 1 − u₂` and lies in a counted row.
 * `cover4`: a point of depth 4 that is not evaluable lies in a counted cell.
 * `omegaC_le`: the crude `ω` (`omegaC`) on the cell's arguments, widened by `τ < 1/DEN`, is at most `omK/K`.
 * `bound2_ge`, `bound4_ge`: each bound is at least `h²` (or `h⁴`) times `omK/K` times the prefactor.
@@ -51,7 +52,7 @@ def n : ℕ := 70
 def H : ℕ := (DEN / 2 - V + n - 1) / n
 /-- The lower end of cell `k`. -/
 def e (k : ℕ) : ℕ := V + H * k
-/-- The fixed point's unit, `2^{−60}`. -/
+/-- The fixed point's scale: bounds are in units of `1/K = 2^{−60}`. -/
 def K : ℕ := 2 ^ 60
 /-- `⌈0.5672 K⌉`. -/
 def topK : ℕ := (K * 5672 + 9999) / 10000
@@ -110,7 +111,8 @@ def allowed (i j : ℕ) : Bool :=
   decide (e i + H + (e j + H) < lim) &&
     (List.range n).all (fun k => !(inKK i j k && ne3 i j k) || decide (e i + H + (e j + H) + (e k + H) < lim))
 
-/-- The cell `(i, j, k, l)` may meet the region of depth 4 and may be non-evaluable. -/
+/-- The cell `(i, j, k, l)` may be non-evaluable, and for `l ≤ k`, which `row` imposes, it may meet the region of
+depth 4. -/
 def counted4 (i j k l : ℕ) : Bool :=
   decide (e i + e j + e k + 2 * e l ≤ DEN) && !surelyEval [cell i, cell j, cell k, cell l]
 

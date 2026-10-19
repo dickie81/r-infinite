@@ -24406,9 +24406,9 @@ with `N = ⌊2P⌋`, `M = KL(θ, θ + δ) + KL(11/12, 11/12 + δ)` and `A = log(
 
 - M7 comes first. The certificate becomes integer definitions on `typeII_step`'s window, and the kernel checks the total by `decide +kernel`.
   - A scratch replay in integer arithmetic (`m7_replay.py`) gives `0.87907` (rounded up), with 916 candidates, 423 decomposed and 1881 cells of depth 4.
-  - Its scan is 4900 pairs `(i, j)`, the cells of `α₃` for each candidate, and 7835 pairs `(α₃, α₄)`. A scratch kernel loop of `3·10⁵` integer tests ran in about 70 s.
+  - Its scan is 4900 pairs `(i, j)`, the cells of `α₃` for each candidate, and 7835 pairs `(α₃, α₄)`. A scratch kernel loop of `3·10⁵` integer tests ran in about 70 s. *(Round 596: the scratch theorem was false, so the kernel evaluated the loop and rejected it; review O-1.)*
 - M6 uses the crude `ω*` as a supersolution of the delay equation, so it needs neither `ω` nor that equation. This revises §12's last bullet.
-- M5's fundamental lemma comes from Brun's sieve in product form, over the ranges `[w^{2^{−j−1}}, w^{2^{−j}})`, in place of §9's Selberg route. Mathlib's `SelbergSieve.lean` sets up upper-bound sieves and the `Λ²` weights, but does not choose the weights.
+- ~~M5's fundamental lemma comes from Brun's sieve in product form, over the ranges `[w^{2^{−j−1}}, w^{2^{−j}})`, in place of §9's Selberg route.~~ *(Round 596: retracted, false when written: §9 names Brun's sieve or the β-sieve, and the Selberg route was the lead's scratch plan; review F3.)* M5's fundamental lemma comes from Brun's sieve in product form, over the ranges `[w^{2^{−j−1}}, w^{2^{−j}})`. Mathlib's `SelbergSieve.lean` sets up upper-bound sieves and the `Λ²` weights, but does not choose the weights.
 
 **The lead's verification.**
 
@@ -24449,7 +24449,7 @@ with `N = ⌊2P⌋`, `M = KL(θ, θ + δ) + KL(11/12, 11/12 + δ)` and `A = log(
 - The definitions follow `frontier/linnik/sieve_route_certificate.py` at `n = 70`, with the crude bound for `ω`.
   - The grid: coordinates in units of `1/DEN`, `DEN = 2^40`, with `U1 = ⌈(401/1000)DEN⌉` and `U2 = ⌊(485/1000)DEN⌋`.
   - The tests: the region, evaluability (`surelyEval`, a subset sum of a cell's corners inside `U`), and decomposition by the sharp rule (`allowed`).
-  - The bounds: each is computed exactly from the cell's corners and rounded up to a multiple of `2^{−60}` (`omK`, `bound2`, `bound4`). The certificate's floating-point arithmetic with outward rounding is not used.
+  - The bounds: each is computed exactly from the cell's corners and rounded up to a multiple of `2^{−60}` (`omK`, `bound2`, `bound4`). *(Round 596: the value of `ω` is rounded up too, before the bound; both roundings are on the safe side; review F6.)* The certificate's floating-point arithmetic with outward rounding is not used.
 - The total is `1013488703434062770·2^{−60} = 0.879061…` (`#eval` on the built file). A scratch replay in Python's integer arithmetic (`m7_replay.py`) gives the same integer, with 916 candidates and 423 decomposed cells. The float certificate on this window gives `0.8790613232425407` (rounds 593 and 594).
 
 **What the tests say about points.** M8 will need these, so the file proves them for points of the exponent space:
@@ -24486,3 +24486,52 @@ The region's conditions enter as hypotheses in units of `1/DEN`. For example, `c
 **Bearing on RH:** none.
 
 **The next step.** A voluntary review of rounds 594 and 595. It covers §13, the plan that round 594 added, and `SieveCert.lean`. Meanwhile M6, rough numbers from above (§13), in scratch.
+
+## Round 596: the independent review of rounds 594 and 595 (`frontier/linnik/SIEVE-ROUTE.md` §§0, 9, 10, 12 and 13; `SEVEN-THIRDS.md`; docstrings of `external/pnt/SieveCert.lean`)
+
+**What it is.** A fresh-context reviewer, the repository's `hostile-reviewer` agent, reviewed rounds 594 and 595 at 21958ab. Its main target was round 595, the loss certificate in the kernel (`SieveCert.lean`); it also covered §13, the plan that round 594 added, and round 594's sweep.
+
+- It found no MAJOR: two minor findings, five cosmetic ones and one out-of-scope observation, all novel.
+- In its words, "No MAJOR. `total` computes the certificate exactly as the Python does. The kernel check is sound. The semantic lemmas are true and serve M8. The findings are in the §13 plan, the docstrings and the markers."
+- Under Check 3 the lead verified each finding against the cited lines. All are accepted and swept.
+- No proved statement and no certified number changes.
+- F1 and F2 are minors, so this sweep is owed a further review.
+
+**Findings and dispositions.**
+
+- **F1** (minor). §13's plan for the fundamental lemma combined the upper and lower sieves by `∏_j ρ_j ≥ ∏_j λ_j^+ − Σ_j (λ_j^+ − λ_j^−)∏_{i≠j} λ_i^+` under `λ_j^− ≤ ρ_j ≤ λ_j^+` and `λ_j^+ ≥ 0`. For three or more factors that is false without `ρ_j ≥ 0`: `ρ = (−10, −10, −1)`, `λ^− = ρ`, `λ^+ = 0` gives `−100 ≥ 0`. The telescoping proof needs `∏_{i<j} ρ_i ≤ ∏_{i<j} λ_i^+`. The sieve's `ρ_j` are indicators, so the route is unaffected. The hypothesis was false when written; it is struck and `ρ_j ≥ 0` added. Two siblings in the same bullet are marked:
+  - a truncation at `k + 2j` gives one parity in every range, so the upper and lower sieves take `k + 2j` and `k + 2j + 1` (`k` even);
+  - the level `w^{2k+4}` is the upper sieve's, and the lower sieve's terms reach `w^{2k+5}`.
+- **F2** (minor). §13's M5 read "each term classified by its cell as evaluable, decomposed or dropped (M7)". Evaluability belongs to the point. Over a decomposed cell, a term of depth 3 whose sum lies in `(R, 1 − u₁)` is evaluable, and Proposition 6 cannot decompose it, so it must be evaluated. M7's lemmas are pointwise: a term is evaluable by its point, and otherwise decomposed or dropped by its cell. The clause was false when written; it is struck and annotated.
+- **F3** (cosmetic). §13 and README round 594 placed Brun's sieve "in place of §9's route through Selberg's sieve". §9 names Brun's sieve or the β-sieve (SIEVE-ROUTE.md 217) and says that "Mathlib has the Selberg upper-bound sieve only" (218); the Selberg route was the lead's scratch plan. Struck at both sites.
+- **F4** (cosmetic). §13's statement of M6 left out `y ≥ 1`. For `1/2 ≤ y < 1`, `n = 1` lies in `(y, 2y]`, so `Ψ = 1` while the bound is below `1`. The hypothesis is added. No application is affected.
+- **F5** (cosmetic). §13's M4 cited `SieveSmooth.indicator_sub_G` without its hypothesis `u ≤ Λ`, and its count over the model left out §10's case of a product of primes near a threshold. Both are added.
+- **F6** (cosmetic). Four docstrings of `SieveCert.lean` did not match what they describe. `K` is the scale, not the unit. `counted4` does not test `l ≤ k`; `row` does. Each bound is rounded up twice, once for `ω` and once at the end. And `sum_le_of_allowed` needs the point itself to be non-evaluable. All four are corrected, as are the same sentence in `external/pnt/README.md` and README round 595.
+- **F7** (cosmetic). Round 595 left status lines unswept: §9's M7 bullet (line 222), §10's "the committed certificate does not run it yet" (301) and SEVEN-THIRDS §46 (881). §12's last bullet (364) had no forward marker for §13's revision of M6, and round 595's marker in §0 (5) said "that window" without an antecedent. Markers are added.
+- **O-1** (out-of-scope observation). The scratch kernel loop that §13 and README round 595 time was a false theorem: with `H > 2^40` every test fails, so the kernel evaluated the loop and rejected it. The time measures the evaluation; the certificate's own check takes 64 s. Markers are added at both sites.
+
+**The lead's verification.**
+
+- Each cited line was read: SIEVE-ROUTE.md 5, 217–218, 222, 301, 364, 385, 394, 410–412 and 417–421; SEVEN-THIRDS.md 881; `SieveCert.lean` 7, 25–26, 54 and 113; `external/pnt/README.md` 381; README.md 24409, 24411 and 24452.
+- F1's counterexample was checked by hand, and so was the telescoping step that needs `ρ_j ≥ 0`.
+- F2's census reproduces from `m7_replay.py`'s definitions (scratch `f2check.py`): 1570 counted rows, 274 of them with the upper corner's `α₁ + α₂ + α₃` above `R`.
+- `SieveCert.lean`'s change is docstring-only: with its comments stripped the file is identical to HEAD's (scratch check). It was recompiled with the build's `LEAN_PATH` in 65 s, with no errors or warnings. Of its twelve axiom lines, `total_le`'s is `[propext]` and the rest are `[propext, Classical.choice, Quot.sound]`. The olean is in `build/`.
+- This round's operative theorem, `SieveCert.total_le`, was re-read at `SieveCert.lean` 135–136.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. SIEVE-ROUTE.md (25), SEVEN-THIRDS.md (63) and `external/pnt/README.md` (10) gain no reports, and README.md (1870) gains only one of class L10, in this entry. Each strike starts at a word, so that it renders, and the live texts were read with the strikes removed. None of these files is a paper surface.
+
+**Checked and held** (the reviewer's list, with its evidence in its report).
+
+- **The definitions follow `sieve_route_certificate.py` line by line**: the grid, `inside`, `subsetSums`, `cand`, `inKK`, `ne3`, `allowed`, `counted4` with `row`, `refcost`, and `omK` with `invK` against `CrudeOmega.sup`, including the order of the cases and negative `lo`. `dec` takes `≤` where the certificate takes `<`; there are no ties.
+- **The kernel's check** is `of_decide_eq_true (id (Eq.refl true))`, with `[propext]`. `88·K/100 = ⌊0.88·2^{60}⌋`.
+- **An independent recomputation in exact rationals**: the unrounded sum is `0.879061323242181`, and Lean's total exceeds it by `1.03·10⁻¹⁵`.
+- **The semantic lemmas are true and serve M8**, including the region's edges at `1/DEN` and the widening of `omegaC_le` by `log 2/log x`.
+- **§13's numbers**: `u₂′ − 1/L = 0.0563673`, `s = 56.07`, the supersolution's margins `1.567·10⁻⁴` and `8.45·10⁻³`, and the level `w^{2k+4}` of the upper sieve.
+- **The build**: the compiles, byte-identical oleans (also with `autoImplicit` off), and the final check's 326 lines.
+
+**Check 4.** The reviewer classed the findings as novel; the lead agrees. O-1 concerns a scratch timing.
+
+**Check 9.** (a) F2 scopes a classification to what M7's lemmas state, and F4 and F5 restore hypotheses. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** A convergence review of this sweep. Meanwhile M6 continues in scratch: the Abel summation over the primes, the three prime sums, `Ψ` with Buchstab's inequality, and the supersolution compile; the induction step is close.
