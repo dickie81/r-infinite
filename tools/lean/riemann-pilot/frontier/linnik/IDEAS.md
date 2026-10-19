@@ -223,7 +223,7 @@ The kernel-checked conditional route is round 521's `LinnikDensity.linnik_of_cri
 - **D5. Harman's sieve with the density bound as Type II information (round 576).** PAPER [SEVEN-THIRDS §44; `sieve_route_probe.py`]. Consider the characters whose zeros near the relevant height have real part about `β`. On them a product of prime sums of length `X` is at most `X^{β+ε}` pointwise, and a polynomial with arbitrary coefficients is averaged by the large sieve over those characters. So a factor of length `x^u` with `u` in a window `(u₁, u₂)` is a Type II factor. Harman's sieve, with Type I information up to `x^{1−1/L}`, then finds primes in the progression.
   - With the half-plane and the classical bounds (Chen–Gupta–Li's (1.4) and (1.5)), the loss of a depth-4 decomposition is below `1` at `L = 2.29`, with an upper bound of `0.9722`. With their `7/3` as well it is below `1` at `L = 2.27` (`0.9193`). Midpoint estimates put the thresholds near `2.28` and `2.245`.
   - That is a Linnik exponent below `7/3`. The density exponent is unchanged, so the cores and B34 still bear on the density goal.
-  - The window's lower end is set at `β = 3/4` or `11/12`, and its upper end by the largest density exponent. Deeper decompositions and role reversals would lower the exponents.
+  - The window's lower end is set at `β = 3/4` or `11/12` with the classical bounds, and at `16/21` or `11/12` with the `7/3`; its upper end by the largest density exponent. Deeper decompositions, role reversals, or keeping the evaluable parts of dropped terms could lower the exponents.
   - Paper level, unrefereed; not formalized.
 
 ## E. Structure particular to prime moduli

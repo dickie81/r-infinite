@@ -21189,8 +21189,8 @@ No Lean file changed, so no build was run.
 
 **The next step.** The owner's request "Push past 7/3" is not met. Linnik's exponent in the stack is `12/5 + η`, and `7/3 + ε` is Chen–Gupta–Li's Corollary 1.4 (a preprint). Two continuations are open:
 
-- Landing `7/3` in Lean means formalizing their Proposition 3.1 for prime moduli, §§4–11 of their preprint: the Guth–Maynard matrix, Poisson summation, the affine-transformation bound of their Proposition 8.1 with its induction, the moments of `R`, and the energy bound through Heath-Brown's Theorem 10.1.
-- ~~Going below `7/3` needs the open step of SEVEN-THIRDS.md §6.~~ *(Round 576: retracted. It quantified over every route, against CLAUDE.md Check 9(a). SEVEN-THIRDS.md §44 records a sieve argument, at paper level and unrefereed, that reaches Linnik's exponent `2.29` without that step. The step is still open as a route to the density exponent.)*
+- ~~Landing `7/3` in Lean means formalizing their Proposition 3.1 for prime moduli, §§4–11 of their preprint: the Guth–Maynard matrix, Poisson summation, the affine-transformation bound of their Proposition 8.1 with its induction, the moments of `R`, and the energy bound through Heath-Brown's Theorem 10.1.~~ *(Round 577: retracted, false when written. It quantified over every route to Linnik's exponent `7/3`, against CLAUDE.md Check 9(a). SEVEN-THIRDS.md §44 records a sieve argument, at paper level, whose formalization would need Harman's sieve and per-`σ` density bounds for every `T` instead. Scoped: landing Chen–Gupta–Li's own proof means formalizing their Proposition 3.1 for prime moduli, §§4–11 of their preprint, with the parts listed; review F4.)*
+- ~~Going below `7/3` needs the open step of SEVEN-THIRDS.md §6.~~ *(Round 576: retracted, false when written. It quantified over every route, against CLAUDE.md Check 9(a), and SEVEN-THIRDS.md §44 records a sieve argument, at paper level and unrefereed, that reaches Linnik's exponent `2.29` without that step. The step is still open as a route to the density exponent.)*
 
 Nothing is started.
 
@@ -23246,7 +23246,7 @@ That is a Linnik exponent below `7/3`. The density exponent is not lowered. No L
   - On them, a product of smooth prime sums of length `X` is at most `X^{β+ε}`, by the zero-free region and Mellin inversion.
   - A polynomial `W` of length `P` with arbitrary coefficients has `Σ_χ |W|² ≤ (q + P)‖w‖²`.
   - Cauchy–Schwarz over those characters gives a window `(u₁, u₂)`: for lengths `x^u` inside it, the Type II sum is `o(x)` at every `β ∈ [1/2, 11/12]`.
-- **Separating the variables.** Perron's formula at height `x²` removes the sharp conditions with no truncation error. The heights it introduces cost nothing, because `A(β)(1 − β) < 1`. But they use (H2) for every `T` and (H1) at every height, and both are stated that way.
+- **Separating the variables.** Perron's formula at height `x²` removes the sharp conditions ~~with no truncation error~~ *(Round 577: retracted, false when written. The truncation error is negligible, not absent; review F1)*. The heights it introduces cost nothing, because `A(β)(1 − β) < 1`. But they use (H2) for every `T` and (H1) at every height, and both are stated that way.
 - **The sieve.** Type I information holds up to `x^{1−1/L}`. Harman's fundamental theorem then evaluates `S(A_r, x^v)` for `r ≤ x^{1−u₂}`. A depth-4 Buchstab decomposition does the rest, and its dropped terms are the loss.
 - **Numbers.** The windows are `(0.398877, 0.475983)` at `L = 2.29` with the classical bounds and `(0.404154, 0.486050)` at `L = 2.27` with the `7/3`. The upper bounds on the loss are `0.9722` and `0.9193`, and the midpoint estimates `0.7435` and `0.5783`. Midpoint thresholds are near `2.28` and `2.245`.
 - **Strikes.** SEVEN-THIRDS §1's "Going below `7/3` needs a density exponent …" and round 528's "Going below `7/3` needs the open step of SEVEN-THIRDS.md §6" quantified over every proof (Check 9(a)), and both are struck at source.
@@ -23298,7 +23298,7 @@ ACKNOWLEDGED: the density barrier of SEVEN-THIRDS §4 and the cores, which this 
 **Check 9.**
 
 - (a) Scope.
-  - The exponents are for one decomposition: depth 4, two windows, no role reversals. A deeper decomposition would lower them.
+  - The exponents are for one decomposition: depth 4, two windows, no role reversals. A deeper decomposition could lower them.
   - The analysis is at paper level. The numerics are double precision with cell suprema, not interval arithmetic.
   - The per-`σ` Huxley bound is taken from Chen–Gupta–Li's (1.5) and was not re-derived.
   - Two necessity claims are struck (above).
@@ -23311,3 +23311,68 @@ ACKNOWLEDGED: the density barrier of SEVEN-THIRDS §4 and the cores, which this 
 
 - lower the sieve's exponent, by a deeper decomposition, role reversals, or a wider window from better density bounds near `β = 3/4` and `11/12`, where its lower end is set;
 - check §44's analysis independently.
+
+## Round 577: the independent review of round 576 (`frontier/linnik/SEVEN-THIRDS.md` §44; `frontier/linnik/sieve_route_probe.py`)
+
+**What it is.** A fresh-context hostile review of round 576 (commit b9ba48c), run as the repo-level agent `hostile-reviewer`. These are frontier and record files, so CLAUDE.md does not require the review; it was run because the claim is a Linnik exponent below `7/3`.
+
+The reviewer found no MAJOR. In its words: "Read as written, the conclusion holds: §44's argument gives Linnik's exponent ≤ 2.29 from (H1) and CGL's (1.4)–(1.5), and 2.27 with their 7/3." It re-derived the analytic steps and reproduced the numbers with an implementation of its own. It reported 4 minor and 11 cosmetic findings. The lead verified each one directly, and all are accepted and fixed here. No Lean changed, and no paper surface is edited.
+
+**Findings and dispositions.**
+
+- **F1 (minor).** The reason given for the truncation error covered only comparisons between primes up to `x`. It left out comparisons with fixed thresholds, and primes up to `2x`, and this file's "no truncation error" was false.
+  - Verified: at most `O(1)` integers lie within a factor `1 + 1/x²` of a threshold `z ≤ 2x`, so the error is negligible, not zero.
+  - §44 now covers both cases, and the README phrase is struck.
+- **F2 (minor).** §44's "the midpoint thresholds fall a little" with the window over the critical `β` was false.
+  - At both thresholds the binding `β` is critical: `3/4` for hux when `L ≤ 16/7`, and `16/21` for cons below about `2.254`.
+  - The printed losses agree there: `0.9007` and `1.1692`, both ways.
+  - Struck at source.
+- **F3 (minor).** No gate tested the logic that makes the outer bound an upper bound. Two unsound variants written by the reviewer passed every gate. The verifier gains S5, which checks:
+  - random points of the region lie in counted cells;
+  - at three corners and a random point of every cell that uses decomposition, decomposition is allowed;
+  - depth-4 points lie in counted cells;
+  - an independent implementation of the whole-cell rule agrees on every decomposed cell.
+
+  Three new mutations each fail S5: m6 tests the rule at the lower corner, m7 counts a cell by evaluability at its centre, and m8 leaves out the condition on `α₃`. In the 483 cells that only m6 decomposes (side `(1/2 − v)/200`), the condition held at every one of 89636 random points tested (a scratch run, not committed). So a test at points cannot tell m6 from the rule; the audit can.
+- **F4 (minor, Check 9).** Round 528's "Landing `7/3` in Lean means formalizing their Proposition 3.1" quantified over every route. It is struck. SEVEN-THIRDS §5's "Reaching `7/3` itself in Lean" is scoped to Chen–Gupta–Li's proof of the density bound.
+- **Cosmetic, C1–C11.**
+  - C1: the table entry for cons at `2.25` is now printed by the verifier (`1.2258`).
+  - C2: round 576's two strikes now read "retracted, false when written".
+  - C3: the STRUCTURAL-REVIEW marker now gives the upper bounds on the loss (`0.9722`, `0.9193`) rather than calling the exponents bounds.
+  - C4: D5 gives the breakpoints for both curves.
+  - C5: "would lower" is now "could lower" in §44, D5 and round 576's Check 9.
+  - C6: §44 names the deduction of ARGUMENT.md §3.
+  - C7: the cell test is described as interval reasoning in double precision without directed rounding.
+  - C8: §44's table sits inside its list item.
+  - C9: S2's comparison of `ω` with `1/u` on `[1, 2]` could not fail; it is replaced by a check of the evaluation wrapper.
+  - C10: "the four integrals" is now "the loss integrals of depths 2 to 4".
+  - C11: §44's Type II lemma states the prime-power step and the case of several heights.
+
+**What is checked.**
+
+- `python3 sieve_route_probe.py`, run from `frontier/linnik`, exits 0 in 511 seconds. Gates S1–S5 pass, and its eight mutations are caught. The gated numbers are unchanged. S5 reports:
+  - 3556 region points, none outside counted cells;
+  - 11972 decomposition tests, none infeasible;
+  - 547 depth-4 points, none outside counted cells;
+  - 3072 decomposed cells, none breaking the rule.
+- The reviewer's run of the verifier on b9ba48c exited 0 in 422 seconds, with the output recorded for round 576.
+- `tools/research/render_lint.py`'s `lint` was run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class. It finds 5 new reports in this file (1809), all of class L10 (a nested list directly after its item's text), the style of the entries around them. The counts for IDEAS.md (50), SEVEN-THIRDS.md (55) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md`: §44 as above, and a scope marker in §5.
+- `frontier/linnik/IDEAS.md`: D5's breakpoints and attack note. The register is unchanged at 88 entries.
+- `frontier/linnik/sieve_route_probe.py`: S5, mutations m6–m8, S2's new check, and the printed cons bound.
+- STRUCTURAL-REVIEW §6: the marker's wording.
+- This file: the strike in round 528's next step, and round 576's strikes and wording.
+
+**Check 4.** The fifteen findings were novel, outside §44's Scope bullets, as the reviewer classified them and the lead agrees.
+
+**Check 9.** (a) F4's strike and scope marker. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Round 576's continuations stand, with two more:
+
+- A sharper rule for decomposition on boundary cells could tighten the upper bounds. The reviewer's variant m6 gave `0.7838` for hux at `2.29`, and its decisions held at every point tested.
+- A scratch Monte Carlo (not committed) suggests that keeping the evaluable parts of dropped terms lowers the midpoint thresholds by about `0.01`.

@@ -1,4 +1,4 @@
-"""A sieve route to Linnik's exponent below 7/3 (README round 576; SEVEN-THIRDS.md section 44).
+"""A sieve route to Linnik's exponent below 7/3 (README rounds 576 and 577; SEVEN-THIRDS.md section 44).
 
 Setting.  q prime, a prime to q, x = q^L.  A is the set of n in [x, 2x] with n = a (mod q), weighted smoothly; B is
 the integers of [x, 2x] prime to q with weight 1/phi(q).  A prime factor p of n is recorded by alpha = log p / log x.
@@ -51,36 +51,48 @@ is the sum over the dropped terms of their shares; a loss below 1 gives S(A, (2x
 
 Two computations of the loss.
   midpoint: midpoint sums on grids (n2 cells in alpha1 and alpha2, n3 in alpha3 and in alpha4); an estimate.
-  outer:    an upper bound.  Cells of side h = (1/2 - v)/n in each of the four variables; a cell counts when it can
-            meet the region (interval arithmetic for every subset sum and every inequality), with the integrand at
-            its supremum on the cell (prefactor at the lower corner, omega at its range maximum plus a Lipschitz
-            allowance); decomposition is used for a cell of (alpha1, alpha2) only when its conditions hold on the
-            whole cell; the window is shrunk by MARGIN on each side.
+  outer:    an upper bound.  Cells of side h = (1/2 - v)/n in each of the four variables; a cell counts unless
+            interval reasoning on its corners (for every subset sum and every inequality, in double precision
+            without directed rounding) shows that it misses the region, with the integrand at its supremum on the
+            cell (prefactor at the lower corner, omega at its range maximum plus a Lipschitz allowance);
+            decomposition is used for a cell of (alpha1, alpha2) only when its conditions hold on the whole cell;
+            the window is shrunk by MARGIN on each side.
 
 Checks.
   (S1) The window over every beta, for (hux, 2.29), (hux, 2.30), (cons, 2.25), (cons, 2.27): u2 = (L - Amax/2)/L to
        1e-9 (Amax = 12/5 or 7/3); u1 equals the largest of lower at the breakpoints (3/4, 11/12 for hux; 5/7, 16/21,
        11/12 for cons), divided by L, to 1e-7 against a grid of 2 * 10^6 points; u1 < u2 and u2 L > 1.
-  (S2) omega: 1/u on [1, 2]; within 1e-7 of (1 + log(u - 1))/u on [2, 3]; within 1e-7 of a table of step H/4 on
-       [3, 15]; and Buchstab's identity in shares, omega(1/v)/v - int_v^(1/2) omega((1 - a)/a)/a^2 da = 1, to 1e-4
-       at v = 0.08, 0.1, 0.2.
+  (S2) omega: the evaluation is 0 just below 1 and 2/3 at 1.5; within 1e-7 of (1 + log(u - 1))/u on [2, 3];
+       within 1e-7 of a table of step H/4 on [3, 15]; and Buchstab's identity in shares,
+       omega(1/v)/v - int_v^(1/2) omega((1 - a)/a)/a^2 da = 1, to 1e-4 at v = 0.08, 0.1, 0.2.
   (S3) midpoint losses at (n2, n3) = (200, 100): hux at 2.30 in [0.60, 0.70] and cons at 2.25 in [0.80, 0.90]; and
        hux at 2.30 moves by less than 0.03 at (400, 200).
   (S4) outer bounds at n = 600: hux at L = 2.29 and cons at L = 2.27 are below 1; the outer bound for hux at 2.30 with
        n = 150 is at least the midpoint estimate of (S3); and at 20000 random points of random cells (side
        (1/2 - 0.08)/150), each of the two cell bounds is at least its integrand wherever the integrand is positive
        (more than half the depth-2 points and a tenth of the depth-4 points must be such).
+  (S5) the outer bound's cell decisions, for hux at 2.29 with n = 200 (function soundness): every one of 20000
+       random points of the depth-2 region lies in a counted cell; in every cell that uses decomposition, at three
+       corners (moved inward by 1e-9) and a random point, wherever the point is in the region and not evaluable,
+       decomposition is allowed (alpha1 + alpha2 <= R, and alpha1 + alpha2 + alpha3 <= R for every non-evaluable
+       alpha3 on a grid of step 1e-4); at that random point, a random point of the depth-4 region lies in a counted
+       depth-4 cell; and every decomposed cell satisfies the whole-cell rule as recomputed by an independent
+       implementation (function rule_audit).  The point tests check outcomes, which a weakened rule can leave
+       intact on a given grid; the audit checks the rule itself.
   Printed, not gated: midpoint losses at other L for both curves (hux at 2.29 among them), the window over the critical
-  beta only and its losses, and the outer bound for hux at 2.30 with n = 600.
-Mutations, each of which must fail a gate (run on S1-S3 and S4's last two checks): (m1) the large sieve's (q + P) read
-as q for P > q, which removes the upper end of the window (fails S1); (m2) the terms of depth 3 dropped as if they
-had sign + (fails S3); (m3) omega(u) = 1/u for every u >= 1 (fails S2); (m4) the complement window (1 - u2, 1 - u1)
-left out of U (fails S3); (m5) the cell bounds with the integrand at the upper corner of each cell (fails S4).
+  beta only and its losses, and the outer bounds for hux at 2.30 and cons at 2.25 with n = 600.
+Mutations, each of which must fail a gate (run on S1-S3, S4's last two checks and S5): (m1) the large sieve's (q + P)
+read as q for P > q, which removes the upper end of the window (fails S1); (m2) the terms of depth 3 dropped as if
+they had sign + (fails S3); (m3) omega(u) = 1/u for every u >= 1 (fails S2); (m4) the complement window
+(1 - u2, 1 - u1) left out of U (fails S3); (m5) the cell bounds with the integrand at the upper corner of each cell
+(fails S4); (m6) the conditions for decomposition tested at the cell's lower corner (fails S5's audit); (m7) a
+depth-2 cell counted by evaluability at its centre (fails S5's region test); (m8) the condition on alpha3 for
+decomposition left out (fails S5's decomposition test and audit).
 
 Scope.  The gates check arithmetic: the windows, omega, and the two loss computations for the decomposition above.
 They do not check the analysis (the Type II lemma, Harman's fundamental theorem, the separation of variables, the
 inputs (H1) and (H2)); section 44 gives that argument at paper level, unrefereed.  The outer bound is an upper bound
-for the integral as computed in double precision; it is not interval arithmetic.
+for the integral as computed in double precision; it is not interval arithmetic with directed rounding.
 """
 import itertools
 import sys
@@ -92,7 +104,7 @@ H = 1e-4
 UMAX = 40.0
 MARGIN = 1e-5
 NBETA = 2_000_001
-MUTS = ("m1", "m2", "m3", "m4", "m5")
+MUTS = ("m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8")
 
 
 def omega_table(h=H, mut=None):
@@ -240,7 +252,30 @@ def midpoint(L, curve, n2, n3, om, mut=None, crit_only=False):
     return total
 
 
-def outer(L, curve, n, om, mut=None):
+def inner_cells(ai, bj, h, e, u1, u2, R, mut=None):
+    """Depth-3 and depth-4 cells of the depth-2 cell [ai, ai + h] x [bj, bj + h].  None when decomposition is not
+    allowed on the whole cell; otherwise the indices (into e) of the possibly non-evaluable alpha3 cells and the
+    matrix over (those cells, e) of the alpha4 cells that can meet the region."""
+    Ai, Bj = ai + h, bj + h
+    if (ai + bj if mut == "m6" else Ai + Bj) > R:
+        return None
+    kk = np.nonzero((e < Bj) & (ai + bj + 2 * e <= 1))[0]
+    c = e[kk]
+    ne3 = ~surely_evaluable([ai, bj, c], [Ai, Bj, c + h], u1, u2, mut) if c.size else np.zeros(0, bool)
+    if not ne3.any():
+        return kk[ne3], np.zeros((0, len(e)), dtype=bool)
+    top3 = ai + bj + c[ne3] if mut == "m6" else Ai + Bj + c[ne3] + h
+    if mut != "m8" and not np.all(top3 <= R):
+        return None
+    c3 = c[ne3][:, None]
+    C3 = c3 + h
+    d = e[None, :]
+    D = d + h
+    ok = (d < C3) & (ai + bj + c3 + 2 * d <= 1) & ~surely_evaluable([ai, bj, c3, d], [Ai, Bj, C3, D], u1, u2, mut)
+    return kk[ne3], ok
+
+
+def outer(L, curve, n, om, mut=None, record=False):
     u1, u2 = window(L, curve, mut)
     u1, u2 = u1 + MARGIN, u2 - MARGIN
     v, R = u2 - u1, 1 - u2
@@ -248,28 +283,108 @@ def outer(L, curve, n, om, mut=None):
     e = v + h * np.arange(n)
     a, b = e[:, None], e[None, :]
     A, B = a + h, b + h
-    cand = (b < A) & (a + 2 * b <= 1) & ~((a > u1) & (A < u2)) & ~surely_evaluable([a, b], [A, B], u1, u2, mut)
+    if mut == "m7":
+        maybe_ne = ~evaluable([a + h / 2, b + h / 2], u1, u2, mut)
+    else:
+        maybe_ne = ~surely_evaluable([a, b], [A, B], u1, u2, mut)
+    cand = (b < A) & (a + 2 * b <= 1) & ~((a > u1) & (A < u2)) & maybe_ne
     drop = np.where(cand, h * h * drop_cell(a, b, h, om, mut), 0.0)
+    use_ref = np.zeros_like(cand)
     total = 0.0
     for i, j in np.argwhere(cand):
-        ai, bj = e[i], e[j]
-        Ai, Bj = ai + h, bj + h
         best = drop[i, j]
-        if Ai + Bj <= R:
-            c = e[(e < Bj) & (ai + bj + 2 * e <= 1)]
-            ne3 = ~surely_evaluable([ai, bj, c], [Ai, Bj, c + h], u1, u2, mut) if c.size else np.zeros(0, bool)
-            if not ne3.any():
-                best = 0.0
-            elif np.all(Ai + Bj + c[ne3] + h <= R):
-                c3 = c[ne3][:, None]
-                C3 = c3 + h
-                d = e[None, :]
-                D = d + h
-                ok = (d < C3) & (ai + bj + c3 + 2 * d <= 1) & ~surely_evaluable([ai, bj, c3, d], [Ai, Bj, C3, D], u1, u2, mut)
-                f = depth4_cell(ai, bj, c3, d, h, om, mut)
-                best = min(best, float(np.where(ok, f, 0.0).sum()) * h ** 4)
+        cells = inner_cells(e[i], e[j], h, e, u1, u2, R, mut)
+        if cells is not None:
+            k3, ok = cells
+            ref = 0.0
+            if k3.size:
+                f = depth4_cell(e[i], e[j], e[k3][:, None], e[None, :], h, om, mut)
+                ref = float(np.where(ok, f, 0.0).sum()) * h ** 4
+            if ref < best:
+                best = ref
+                use_ref[i, j] = True
         total += best
+    if record:
+        return total, {"u1": u1, "u2": u2, "v": v, "R": R, "h": h, "e": e, "cand": cand, "use_ref": use_ref}
     return total
+
+
+def soundness(om, mut=None, L=2.29, curve="hux", n=200, draws=20000, seed=577):
+    """The outer bound's cell decisions against exact tests at points: (i) every one of `draws` random points of the
+    depth-2 region lies in a counted cell; (ii) in every cell that uses decomposition, at three corners (moved inward
+    by 1e-9) and one random point, wherever the point is in the region and not evaluable, decomposition is allowed:
+    alpha1 + alpha2 <= R, and alpha1 + alpha2 + alpha3 <= R for every non-evaluable alpha3 of a grid of step 1e-4;
+    (iii) at the random point of each such cell, a random point of its depth-4 region lies in a counted depth-4 cell.
+    Returns the miss counts and the numbers of points tested."""
+    rng = np.random.default_rng(seed)
+    _, rec = outer(L, curve, n, om, mut, record=True)
+    u1, u2, v, R, h, e = rec["u1"], rec["u2"], rec["v"], rec["R"], rec["h"], rec["e"]
+    cand, use_ref = rec["cand"], rec["use_ref"]
+    idx = lambda x: np.clip(np.floor((x - v) / h).astype(np.int64), 0, n - 1)
+    x1, x2 = rng.uniform(v, 0.5, draws), rng.uniform(v, 0.5, draws)
+    reg = (x2 < x1) & (x1 + 2 * x2 <= 1) & ~((x1 > u1) & (x1 < u2)) & ~evaluable([x1, x2], u1, u2)
+    miss1 = int(np.sum(reg & ~cand[idx(x1), idx(x2)]))
+    miss2 = miss3 = tested2 = tested3 = 0
+    d0 = 1e-9
+    for i, j in np.argwhere(use_ref):
+        k3, ok = inner_cells(e[i], e[j], h, e, u1, u2, R, mut)
+        lo1, lo2 = e[i], e[j]
+        pts = [(lo1 + h - d0, lo2 + h - d0), (lo1 + h - d0, lo2 + d0), (lo1 + d0, lo2 + h - d0),
+               (lo1 + h * rng.random(), lo2 + h * rng.random())]
+        for t, (p1, p2) in enumerate(pts):
+            if not (p2 < p1 and p1 + 2 * p2 <= 1) or (u1 < p1 < u2) or evaluable([p1, p2], u1, u2):
+                continue
+            grid = np.arange(v, min(p2, (1 - p1 - p2) / 2), 1e-4)
+            ne = grid[~evaluable([p1, p2, grid], u1, u2)] if grid.size else grid
+            tested2 += 1
+            if p1 + p2 > R or (ne.size and p1 + p2 + ne.max() > R):
+                miss2 += 1
+            if t < 3 or not ne.size:
+                continue
+            p3 = rng.choice(ne)
+            hi4 = min(p3, (1 - p1 - p2 - p3) / 2)
+            if hi4 <= v:
+                continue
+            p4 = rng.uniform(v, hi4)
+            if evaluable([p1, p2, p3, p4], u1, u2):
+                continue
+            tested3 += 1
+            k, l = idx(p3), idx(p4)
+            row = np.searchsorted(k3, k)
+            if row >= len(k3) or k3[row] != k or not ok[row, l]:
+                miss3 += 1
+    audit = rule_audit(rec)
+    return {"miss1": miss1, "region1": int(reg.sum()), "miss2": miss2, "tested2": tested2, "miss3": miss3,
+            "tested3": tested3, "audit": audit, "refined": int(use_ref.sum())}
+
+
+def rule_audit(rec):
+    """An independent implementation of the whole-cell rule for decomposition, applied to every cell that uses it:
+    alpha1 + alpha2 <= R at the cell's upper corner, and the same with alpha3 at the upper end of every alpha3 cell
+    that interval reasoning cannot show evaluable.  Returns the number of cells that break the rule."""
+    u1, u2, R, h, e = rec["u1"], rec["u2"], rec["R"], rec["h"], rec["e"]
+    wins = ((u1, u2), (1 - u2, 1 - u1))
+    bad = 0
+    for i, j in np.argwhere(rec["use_ref"]):
+        lo = (e[i], e[j])
+        if lo[0] + lo[1] + 2 * h > R:
+            bad += 1
+            continue
+        for c in e:
+            if not (c < lo[1] + h and lo[0] + lo[1] + 2 * c <= 1):
+                continue
+            ivs = (lo[0], lo[1], c)
+            sure = False
+            for mask in range(1, 8):
+                sl = sum(ivs[k] for k in range(3) if mask >> k & 1)
+                width = h * bin(mask).count("1")
+                if any(w0 < sl and sl + width < w1 for w0, w1 in wins):
+                    sure = True
+                    break
+            if not sure and lo[0] + lo[1] + 2 * h + c + h > R:
+                bad += 1
+                break
+    return bad
 
 
 def s1(mut=None):
@@ -299,8 +414,9 @@ def s2(om, mut=None):
         x = np.linspace(v, 0.5, 400001)
         f = om((1 - x) / x) / x ** 2
         ids.append(float(om(1 / v)) / v - float(np.trapezoid(f, x)))
-    ok = e12 < 1e-12 and e23 < 1e-7 and e3 < 1e-7 and all(abs(t - 1) < 1e-4 for t in ids)
-    return ok, {"e12": e12, "e23": e23, "e3": e3, "ids": ids}
+    wrap = (float(om(1 - 1e-9)), float(om(1.5)))
+    ok = wrap[0] == 0 and abs(wrap[1] - 2 / 3) < 1e-8 and e23 < 1e-7 and e3 < 1e-7 and all(abs(t - 1) < 1e-4 for t in ids)
+    return ok, {"e12": e12, "wrap": wrap, "e23": e23, "e3": e3, "ids": ids}
 
 
 def s3(om, mut=None, full=True):
@@ -343,29 +459,40 @@ def s4(om, rec3, mut=None, full=True):
     return ok, rec
 
 
+def s5(om, mut=None):
+    r = soundness(om, mut)
+    ok = (r["miss1"] == 0 and r["miss2"] == 0 and r["miss3"] == 0 and r["audit"] == 0 and r["region1"] > 1000
+          and r["tested2"] > 1000 and r["tested3"] > 100)
+    return ok, r
+
+
 def run(mut=None, full=False):
     om = Omega(mut)
     g1, r1 = s1(mut)
     g2, r2 = s2(om, mut)
     g3, r3 = s3(om, mut, full)
     g4, r4 = s4(om, r3, mut, full)
-    return (g1, g2, g3, g4), (r1, r2, r3, r4), om
+    g5, r5 = s5(om, mut)
+    return (g1, g2, g3, g4, g5), (r1, r2, r3, r4, r5), om
 
 
 def main():
     t0 = time.time()
-    gates, (r1, r2, r3, r4), om = run(full=True)
+    gates, (r1, r2, r3, r4, r5), om = run(full=True)
     for curve, L, u1, u2, u1x, u2x in r1:
         print(f"S1: {curve} L = {L}: window ({u1:.6f}, {u2:.6f}); breakpoint values ({u1x:.6f}, {u2x:.6f}); "
               f"u2 L = {u2 * L:.4f}", flush=True)
-    print(f"S2: omega errors {r2['e12']:.1e} on [1,2], {r2['e23']:.1e} on [2,3], {r2['e3']:.1e} against step H/4 on "
-          f"[3,15]; Buchstab identity {', '.join(f'{t:.6f}' for t in r2['ids'])}", flush=True)
+    print(f"S2: omega(1 - 1e-9) = {r2['wrap'][0]:g}, omega(1.5) = {r2['wrap'][1]:.10f}; errors {r2['e23']:.1e} on [2,3] and "
+          f"{r2['e3']:.1e} against step H/4 on [3,15]; Buchstab identity {', '.join(f'{t:.6f}' for t in r2['ids'])}", flush=True)
     print(f"S3: midpoint losses at (200,100): hux 2.30 {r3['hux']:.4f}, cons 2.25 {r3['cons']:.4f}; hux 2.30 at "
           f"(400,200) {r3['hux_fine']:.4f}", flush=True)
     print(f"S4: outer bounds at n = 600: hux 2.29 {r4['hux229']:.4f}, cons 2.27 {r4['cons227']:.4f}; hux 2.30 at "
           f"n = 150 {r4['sanity']:.4f} >= {r3['hux']:.4f}; least ratio of cell bound to integrand at random points "
           f"{r4['gaps'][0]:.4f} (depth 2, {r4['gaps'][2]} points) and {r4['gaps'][1]:.4f} (depth 4, {r4['gaps'][3]} points)",
           flush=True)
+    print(f"S5: hux 2.29 at n = 200: {r5['region1']} region points, {r5['miss1']} outside counted cells; {r5['tested2']} "
+          f"decomposition tests, {r5['miss2']} infeasible; {r5['tested3']} depth-4 points, {r5['miss3']} outside counted "
+          f"cells; whole-cell rule audit over {r5['refined']} decomposed cells, {r5['audit']} breaking it", flush=True)
     for curve, Ls in (("hux", (2.26, 2.28, 2.29, 2.32)), ("cons", (2.24, 2.26, 2.27))):
         vals = ", ".join(f"{L}: {midpoint(L, curve, 400, 200, om):.4f}" for L in Ls)
         print(f"  midpoint at (400,200), {curve}: {vals}", flush=True)
@@ -373,7 +500,8 @@ def main():
         u1, u2 = window(L, curve, crit_only=True)
         print(f"  critical beta only, {curve} L = {L}: window ({u1:.4f}, {u2:.4f}), midpoint loss at (400,200) "
               f"{midpoint(L, curve, 400, 200, om, crit_only=True):.4f}", flush=True)
-    print(f"  outer bound, hux 2.30, n = 600: {outer(2.30, 'hux', 600, om):.4f}", flush=True)
+    print(f"  outer bound, hux 2.30, n = 600: {outer(2.30, 'hux', 600, om):.4f}; cons 2.25, n = 600: "
+          f"{outer(2.25, 'cons', 600, om):.4f}", flush=True)
     ok = all(gates)
     caught = {}
     for m in MUTS:
