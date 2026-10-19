@@ -23180,3 +23180,56 @@ Three abstracts were read through the arXiv API (2608.27732, 2609.16700, and 260
 **Bearing on RH:** none.
 
 **The next step.** A route that keeps the phases across `ψ` would have to bound the coherence by about `q^{1/9}` times the diagonal, where Cauchy–Schwarz gives about `L` times it.
+
+## Round 575: a barrier for arguments built from polynomials shorter than `q` (`frontier/linnik/SEVEN-THIRDS.md` §43; `IDEAS.md` B34 and G17; `frontier/linnik/design_barrier_probe.py`)
+
+**What it is.** Working toward the owner's goal "keep pushing until exponent is below 7/3". Rounds 573 and 574 located and measured core 1's coherence. This round asks which arguments could beat the critical count at all, and proves that one broad class cannot. The class bounds the count by the character sum of a sum of squares of Dirichlet polynomials shorter than `q`, with the needed inequality proved at every completely multiplicative function of modulus one. No exponent below `7/3` follows. No Lean changed, no paper surface is edited, and one script is new.
+
+- **The class.** For `P = Σ_j |G_j|²` with each `G_j` of length below `q`, `Σ_χ P(χ) = (q − 1)Σ_j ‖g_j‖²` exactly, since distinct integers below `q` are distinct mod `q`. The fourth moment, the `2k`-th moments with `N^k < q`, twisted moments whose amplifiers are proved large at every such function, and finite sums of these are in the class.
+- **The barrier.** Let `L` be the primes in `[N, 2N]`. Under a law `Ω` on such functions, `f(p) = 1` with probability `ρ = 2V/Σ_{p∈L} w(p/N)` for `p ∈ L`, and `f(p)` is uniform otherwise.
+  - The block is then at least `V` with probability at least `1 − (N + 1)/V²`.
+  - When `q ≤ N³`, the Gram matrix of `Ω` on the polynomials of length below `q` has top eigenvalue at most `λ = x²/2 + O(x)`, with `x = ρ²|L|`.
+  - So every bound in the class is at least `(q − 1)(1 − (N + 1)/V²)/λ`. At the critical block that is about `q^{2/3}/(8 log² N)`, against the fourth moment's `q^{2/3}` times a constant times `log N`.
+- **What it says.** A route to H\* must use something outside the class. That is a majorant that is not a sum of squares of polynomials shorter than `q`, the periodicity of the characters (Poisson summation, Gauss and Jacobi sums, Burgess's shifts), the functional equation, or congruences of height at least `q`. Cores 1–4 are stated in the last three of these terms.
+- **Scan (G17).** Six web searches and seven abstracts found nothing bearing on cores 1–4.
+
+**Sources.** Six web searches:
+
+- "arXiv 2026 zero density estimate Dirichlet L-functions prime modulus large values Dirichlet polynomials characters";
+- "multiplicative energy of intervals modulo prime x1x2x3 = y1y2y3 asymptotic sixth moment short character sums";
+- "large values of short character sums count of characters |sum chi(n)| large power saving fourth moment improvement";
+- a search for Chen–Gupta–Li's title with "improvement prime moduli 7/3 Linnik constant 2026";
+- "sixth moment Dirichlet L-functions single prime modulus new bound 2026 arXiv";
+- "ternary divisor function d_3 arithmetic progressions prime modulus variance mean square beyond 2/3 2026".
+
+Seven abstracts were read through the arXiv API: 2509.09771, 2607.01184, 2405.20552, 1909.09497, 2608.05961, 2508.13301 and 2609.27808.
+
+**What is checked.**
+
+- `python3 design_barrier_probe.py`, run from `frontier/linnik`, exits 0 in about fifteen seconds, with gates D1–D6 passing and its four mutations caught.
+  - The 4 × 4 reduction matches the full kernel to relative error `1.5·10⁻¹⁵`.
+  - At `N = 10⁶`, each of 40 draws from `Ω` has its block at least `N^{5/7}`.
+  - The Gram formula is within `0.0022` of Monte Carlo, and the premise holds at `q = 211` to `2.2·10⁻¹⁶`.
+  - At `N = 2000` the floor lies below the fourth moment's exact count, as weak duality requires.
+  - At `N = 10⁶` the floor is `0.767` times `q^{2/3}/(8 log² N)`.
+- `idea_register.py` and its inputs are unchanged, so it was not re-run.
+- `tools/research/render_lint.py`'s `lint`, run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class, finds 7 new reports: 2 in this file (1800), 2 in IDEAS.md (48) and 3 in SEVEN-THIRDS.md (49). All are of class L10 (a nested list directly after its item's text), the style of the entries around them. The count for STRUCTURAL-REVIEW.md (100) is unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md` §43.
+- `frontier/linnik/IDEAS.md`: B34 and G17. The register now lists 86 entries: 49 CLOSED, 12 REDUCED, 1 OPEN, 19 SURVEYED, 5 CORE.
+- `frontier/linnik/design_barrier_probe.py`, new.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot: the class's identity and floor, the law `Ω`, and G17. ACKNOWLEDGED: §4's barrier within its family of estimates, E4 (Poisson summation as an isometry), C11 (SIX(δ) needs more than an upper bound) and cores 1–4.
+
+**Check 9.**
+
+- (a) Scope. The barrier is a theorem about the class as defined: `P` a sum of squares of polynomials of length below `q`, with the inequality `P ≥ 1` proved at every completely multiplicative function of modulus one. It says nothing about other nonnegative majorants, or about arguments that use the periodicity of the characters, the functional equation, or congruences of height at least `q`.
+- (b) The open targets stay core 1, core 2 and core 4.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Routes outside the class: a bound for the sixth moment's wrapped congruences (core 2), or joint cancellation in the Gauss and Jacobi sums of `S₃` (core 1).

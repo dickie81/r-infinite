@@ -742,3 +742,28 @@ The owner's goal stands: "keep pushing until exponent is below 7/3". The registe
 - **What it says.** For the sets found, the excess over the diagonal is tens to about a hundred at these `q`, and it does not move monotonically: the search finds stronger sets at some `q` than at others, so no exponent can be read. Cauchy–Schwarz over `ψ` gives away nearly the whole factor `L` between the diagonal and its bound. That is why §33's route asks for a count beyond the density hypothesis, and why a route that keeps the phases across `ψ` would need to capture a factor of order `L/q^{1/9}`.
 - **The authors' view (G16).** Gupta's notes on the method behind `7/3` say that "prime moduli q are the worst case for our estimates", and that "It appears to be difficult to find an analogous argument to Huxley’s in this setting to improve the estimates when there is no subdivision available" (text layer, spaces restored). The term in question, `q²|W|^{3/2}` in their bound for `‖M‖⁶`, is the one core 1 asks to beat. The register's attempts at a Huxley-type step there are §6 (the product trick in `S₃`) and B19, B25 and B27.
 - **Reading.** No route is added, and no exponent below `7/3` follows.
+
+## 43. Round 575: a barrier for arguments built from polynomials shorter than q
+
+The owner's goal stands: "keep pushing until exponent is below 7/3". The register's B34 and G17 are new. `design_barrier_probe.py` is new.
+
+- **The class.** Bound the number of characters with `|S(χ)| ≥ V` at a block `S(χ) = Σ_n w(n/N)χ(n)`, `0 ≤ w ≤ 1` on `[1, 2]`, by `Σ_χ P(χ)`, where `P = Σ_j |G_j|²` and each `G_j` is a Dirichlet polynomial of length below `q`. Distinct integers below `q` are distinct mod `q`, so `Σ_χ P(χ) = (q − 1)Σ_j ‖g_j‖²` exactly. Suppose that `P ≥ 1` is proved at every completely multiplicative `f` with `|f(p)| = 1` for all `p` at which `|Σ_n w(n/N)f(n)| ≥ V`, and not only at characters. The class contains the fourth moment `|S|⁴/V⁴`, the `2k`-th moments with `N^k < q`, and moments twisted by amplifiers whose size on the large values is proved at every such `f`. It also contains finite sums of these.
+- **The construction.** Let `L` be the primes in `[N, 2N]`, `K = |L|`, `K_w = Σ_{p∈L} w(p/N)` and `ρ = 2V/K_w`. Under the law `Ω`, `f(p)` is `1` with probability `ρ` and uniform on the circle otherwise for `p ∈ L`, and uniform for every other prime, all independently.
+  - The block then has mean `2V` and variance at most `N + 1`, so by Chebyshev it is at least `V` with probability at least `1 − (N + 1)/V²`.
+  - The Gram matrix of `Ω` on the polynomials of length below `q` has the entry `ρ^d` where the two integers have the same part outside `L`, with `d` the number of primes of `L` at which their exponents differ. It is `0` elsewhere.
+  - When `q ≤ N³`, an integer below `q` has at most two primes of `L`. So the top eigenvalue is at most that of the kernel `ρ^d` on the multisets of at most two primes of `L`. An equitable partition reduces that kernel to a 4 × 4 matrix, and its top eigenvalue is `λ = x²/2 + O(x)` with `x = ρ²K`.
+- **The bound.** Divide `Ω`, restricted to the large values, by `λ`. The result is a measure `ν` with `∫|G|²dν ≤ ‖g‖²` for every `G` of length below `q`. So every `P` in the class has `Σ_j ‖g_j‖² ≥ ∫P dν ≥ (1 − (N + 1)/V²)/λ`, and its count is at least `(q − 1)(1 − (N + 1)/V²)/λ`.
+- **At the critical block** (`N = q^{7/18}`, `V = N^{5/7}`), `x` is about `4N^{3/7} log N` and the floor about `q^{2/3}/(8 log² N)`. The fourth moment counts `q^{2/3}` times a constant times `log N`. At `N = 10⁶`, with `K` from a sieve, the floor is `0.77` times `q^{2/3}/(8 log² N)`.
+- **Checked** (`design_barrier_probe.py`).
+  - The 4 × 4 reduction against the full kernel, and the kernel's eigenvalue against `x²/2`.
+  - At `N = 10⁶`, each of 40 draws from `Ω` has its block at least `N^{5/7}`.
+  - The Gram formula by Monte Carlo, and the premise at `q = 211`.
+  - At `N = 2000`, the floor lies below the fourth moment's exact count, as weak duality requires.
+  - Each of four mutations fails a gate.
+- **What it says.** No argument in the class gives a power saving at the critical block. A route there must use something the class leaves out. That is a majorant that is not a sum of squares of polynomials shorter than `q` (the bound above covers only sums of squares), the periodicity of the characters (Poisson summation, Gauss and Jacobi sums, Burgess's shifts), the functional equation, or congruences of height at least `q`. The four cores are stated in the last three of these terms:
+  - core 1 through the Gauss and Jacobi sums of `S₃`;
+  - core 2 through the wrap-around of the sixth moment;
+  - cores 3 and 4 through `L(½, χ)`, which needs the functional equation.
+
+  The construction's points are not characters, so arguments that use these properties can tell them apart from characters. Arguments in the class cannot.
+- **Reading.** This closes a class of routes and adds none. No exponent below `7/3` follows.
