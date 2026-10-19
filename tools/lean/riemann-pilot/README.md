@@ -23740,3 +23740,56 @@ Each lists what the stack has and what it lacks, from a survey of the pilot, Mat
 **Bearing on RH:** none.
 
 **The next step.** The first Lean milestone. M1's feasibility should come first, as a survey of how rounds 524–527 depend on one point per character, together with the local count of zeros for `L(s, χ)`, which every route needs.
+
+## Round 583: the first Lean step of milestone M1, large values at several points per character, and a survey of M1 (`external/pnt/LinnikPoints.lean`)
+
+**What it is.** The first Lean step on SIEVE-ROUTE.md §9's route. A count of zeros (milestone M1) detects several zeros of one character, at ordinates at least `1` apart, but the stack's estimates for large values take one point per character. `LinnikPoints.large_values_points` lifts that restriction for the large sieve. A survey of rounds 524–527 places the rest of M1. It was made for this round by a subagent, and its main claims were spot-checked by the lead.
+
+**The theorem.** `LinnikPoints.large_values_points`:
+
+- Take `S ⊆ (P, 2P]`, `c_j ∈ ℂ` and `q ≥ 1`.
+- Take points `(χ_i, x_i)`, `i ∈ Rs`, with `x_i ∈ [lo + ½, hi − ½]`, any two points of one character being at distance at least `1`.
+- Then `Σ_i |Σ_{j∈S} c_jχ_i(j)j^{−ix_i}|² ≤ (q(hi − lo) + 8P(1 + log P))(2 + log²(2P))Σ|c_j|²`.
+
+This is the bound of round 521's `large_values_chars`, and that theorem is the case of one point per character (`large_values_chars_of_points`). The proof groups the points by character. For each group, `DirMean.gallagher`, which is Gallagher's lemma for a `1`-separated set, bounds the group by the integral over `[lo, hi]`. Then `mean_value_chars` finishes, as in round 521.
+
+**The survey of M1.** One point per character enters the proofs of the uniform `12/5` in five ways:
+
+- (i) the Gallagher step of `large_values_chars` (`LinnikHybrid.lean` lines 403–409, checked), which this round generalizes;
+- (ii) the count `|R| ≤ q` (`card_chars_le`), used as a count of points;
+- (iii) `choose!`, which picks one zero per character in the counting lemmas (`LinnikDensity.lean:560` and `LinnikTwelve.lean:416` checked; the survey also names `LinnikIngham.lean:339` and `LinnikHuxley.lean:843`);
+- (iv) the Halász–Montgomery kernel. Its off-diagonal pairs have `χ ≠ χ′` (`LinnikLargeValues.pair_reflect` takes `hne : χ ≠ χ'`, checked). Pairs of points of one character would bring in the principal character, with the pole of `ζ`;
+- (v) the trivial character, which is counted as `+1`.
+
+The survey's estimates, which are estimates and not checked:
+
+- The range `σ ≤ 3/4` needs re-indexing over points only, about one round.
+- The Huxley range `3/4 ≤ σ ≤ 11/12` needs the principal character's kernel, with its residue and `ζ`'s functional equation in the stack's form. That is the main risk, roughly 500 to 1000 lines.
+- The stack has no local count of the zeros of `L(s, χ)`. Jensen's formula, with the stack's bounds for `L(s, χ)`, would give one in roughly 150 to 300 lines.
+- The trivial character can be left out, since SIEVE-ROUTE.md §3 uses only `χ ≠ χ₀`.
+- The survey also notes a way through with no new estimate. Multiplying the stack's count of characters by `2T + 1` bounds the number of points. That is not enough here: Lemma 2 sums over heights up to `x³`, and the factor `T` cancels its weight `1/(1 + |γ|)`.
+
+**What is checked.**
+
+- `lean` was run on `LinnikPoints.lean` alone, with the build's `LEAN_PATH` (Mathlib at `MATHLIB_REV`, the pilot's `build/`): no errors and no warnings.
+- `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for both theorems.
+- `external/pnt/build.sh` now lists the file and prints its two axioms, and `bash -n` passes. The rest of the layer was not rebuilt, since none of its sources changed.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class: no new reports in README.md (1832) or external/pnt/README.md (10). Neither is a paper surface.
+
+**Records.**
+
+- `external/pnt/LinnikPoints.lean`: new.
+- `external/pnt/build.sh`: the file, and its two axioms.
+- `external/pnt/README.md`: a row in the table, and a section.
+- SIEVE-ROUTE.md §9 is not changed in this round, because round 582's review is running on it. The survey's findings will be marked there with that review's sweep.
+
+**Check 4.** The theorem and the survey's map are new.
+
+**Check 9.** (a) The survey's sizes are estimates and are labelled as such. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.**
+
+- The sweep of round 582's review.
+- Then M1 over the range `σ ≤ 3/4`, with the counting lemmas taken over points, and the local count of zeros for `L(s, χ)`.
