@@ -20,8 +20,8 @@ unit `a` mod `q`, its `A − B/φ(q)` is `Dsum`: the sum of its weights times `1
   `2π(Σ_j |e_{ji}|)T₀ ≤ q^{1/100000}` for each `i`, then `|A − B/φ(q)|` is at most an explicit bound in the cut-off's
   masses and tails (`massB`, `tailB`) and the pivots' counts.
 * `typeII_sharp`: fix also `J₀`, `E₀ ≥ 0`, `Λ₀ ≥ 0` and `A₀`. There are `δ > 0` and `q₀` such that for `q ≥ q₀`,
-  every such family with `|a_m| ≤ A₀`, `J ≤ J₀`, `|e_{ji}| ≤ E₀`, `ℓ_j ≤ Λ₀ log q` on the family and pivots as above has
-  `|A − B/φ(q)| ≤ A₀q^{L−δ}/φ(q)`.
+  every such family with `|a_m| ≤ A₀` for every `m`, `J ≤ J₀`, `|e_{ji}| ≤ E₀`, `ℓ_j ≤ Λ₀ log q` on the family and
+  pivots as above has `|A − B/φ(q)| ≤ A₀q^{L−δ}/φ(q)`.
 
 The proof:
 
@@ -923,7 +923,7 @@ noncomputable def tailB (θ T₀ : ℝ) (k : ℕ) : ℝ :=
 /-- **A sharp family, with the Type II estimate.** Let `f0` be smooth with support in `[1/2, 2]`, `0 ≤ f0 ≤ F₀` and
 `e₁ > 0`. There is `q₀` such that for `q ≥ q₀`, a unit `a`, a family as in `family_bound` with `n + 1 ≤ K₀` primes,
 and `J` sharp comparisons as in `Dsum_sharp_le`, with `0 < θ ≤ 1 ≤ Λ`, `ℓ_j ≤ Λ` on the family, pivots with
-coefficients `±1`, `T₀ ≥ 1`, `k ≥ 2` and `2π(Σ_j |e_{ji}|)T₀ ≤ q^{1/100000}` for each `i`: the `A − B/φ(q)` of the
+coefficients `±1`, `T₀ ≥ 1`, `k ≥ 2` and `2π(Σ_j |e_{ji}|)T₀ ≤ q^{1/100000}` for each `i`: the `|A − B/φ(q)|` of the
 sharp family is at most
 `φ(q)⁻¹(q^{L−1/50000}(Σ|a_m|²/P)^{1/2}(M^J + J·M̃) + φ(q)·Box·Jτ(M^J + 1))` plus twice `φ(q)⁻¹` times the pivots'
 counts. Here `M = massB θ Λ`, `M̃ = massB θ θ`, `τ = tailB θ T₀ k`, and `Box = Σ|a_m| ∏_i Σ_p |f0(p/Q_i)|`. -/
@@ -1110,7 +1110,7 @@ theorem sum_f0_le {f0 : ℝ → ℝ} {F₀ : ℝ} (hf0 : ∀ u, 0 ≤ f0 u) (hF�
     _ ≤ 3 * Q * F₀ := mul_le_mul_of_nonneg_right (card_primesTo_le hQ) hF0
     _ = 3 * F₀ * Q := by ring
 
-/-- For `S ⊆ (P, 2P]` and `|a_m| ≤ A₀`, `Σ_{m∈S} |a_m| ≤ PA₀`. -/
+/-- For `S ⊆ (P, 2P]` and `|a_m| ≤ A₀` for every `m`, `Σ_{m∈S} |a_m| ≤ PA₀`. -/
 theorem sum_norm_le {S : Finset ℕ} {P : ℕ} (hS : S ⊆ Finset.Ioc P (2 * P)) {acoef : ℕ → ℂ} {A₀ : ℝ}
     (hA : ∀ m, ‖acoef m‖ ≤ A₀) : ∑ m ∈ S, ‖acoef m‖ ≤ P * A₀ := by
   have hA0 : 0 ≤ A₀ := le_trans (norm_nonneg _) (hA 0)
@@ -1124,7 +1124,7 @@ theorem sum_norm_le {S : Finset ℕ} {P : ℕ} (hS : S ⊆ Finset.Ioc P (2 * P))
     _ = S.card * A₀ := by rw [Finset.sum_const, nsmul_eq_mul]
     _ ≤ P * A₀ := mul_le_mul_of_nonneg_right hcard hA0
 
-/-- For `P > 0`, `S ⊆ (P, 2P]` and `|a_m| ≤ A₀`, `(Σ_{m∈S} |a_m|²/P)^{1/2} ≤ A₀`. -/
+/-- For `P > 0`, `S ⊆ (P, 2P]` and `|a_m| ≤ A₀` for every `m`, `(Σ_{m∈S} |a_m|²/P)^{1/2} ≤ A₀`. -/
 theorem sqrt_sum_sq_le {S : Finset ℕ} {P : ℕ} (hP : 0 < P) (hS : S ⊆ Finset.Ioc P (2 * P)) {acoef : ℕ → ℂ}
     {A₀ : ℝ} (hA : ∀ m, ‖acoef m‖ ≤ A₀) : Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) ≤ A₀ := by
   have hA0 : 0 ≤ A₀ := le_trans (norm_nonneg _) (hA 0)
@@ -1231,7 +1231,7 @@ theorem tailB_le {x ε : ℝ} {k : ℕ} (hx : 1 ≤ x) (hk : 2 ≤ k)
     _ ≤ _ := mul_le_mul_of_nonneg_left h3 (by positivity)
 
 /-- The box: `Σ|a_m| ∏_i Σ_p |f0(p/Q_i)| ≤ A₀(3F₀ + 1)^{K₀}X`, for `0 ≤ f0 ≤ F₀`, `P > 0`, `S ⊆ (P, 2P]`,
-`|a_m| ≤ A₀`, `n + 1 ≤ K₀`, `Q_i ≥ 1` and `∏ Q_i ≤ X/P`. -/
+`|a_m| ≤ A₀` for every `m`, `n + 1 ≤ K₀`, `Q_i ≥ 1` and `∏ Q_i ≤ X/P`. -/
 theorem box_le {f0 : ℝ → ℝ} {F₀ : ℝ} (hf0 : ∀ u, 0 ≤ f0 u) (hF₀ : ∀ u, f0 u ≤ F₀) {S : Finset ℕ} {P : ℕ}
     (hP : 0 < P) (hS : S ⊆ Finset.Ioc P (2 * P)) {acoef : ℕ → ℂ} {A₀ : ℝ} (hA : ∀ m, ‖acoef m‖ ≤ A₀)
     {n K₀ : ℕ} (hK : n + 1 ≤ K₀) {Q : ℕ → ℝ} (hQ : ∀ i : Fin (n + 1), 1 ≤ Q i) {X : ℝ}
@@ -1266,8 +1266,8 @@ theorem box_le {f0 : ℝ → ℝ} {F₀ : ℝ} (hf0 : ∀ u, 0 ≤ f0 u) (hF₀ 
     _ ≤ A₀ * (3 * F₀ + 1) ^ K₀ * X := by gcongr
 
 /-- A pivot's count: `F₀((e^{3θ} − 1)2Q_p + 1)·Σ|a_m|·∏_{i ≠ p} Σ_y f0(y/Q_i) ≤ F₀A₀(3F₀ + 1)^{K₀}(12θ + 1/Q_min)X`,
-for `0 ≤ f0 ≤ F₀`, `P > 0`, `S ⊆ (P, 2P]`, `|a_m| ≤ A₀`, `n + 1 ≤ K₀`, `Q_i ≥ Q_min ≥ 1`, `∏ Q_i ≤ X/P` and
-`0 ≤ θ ≤ 1/3`. -/
+for `0 ≤ f0 ≤ F₀`, `P > 0`, `S ⊆ (P, 2P]`, `|a_m| ≤ A₀` for every `m`, `n + 1 ≤ K₀`, `Q_i ≥ Q_min ≥ 1`,
+`∏ Q_i ≤ X/P` and `0 ≤ θ ≤ 1/3`. -/
 theorem pivot_le {f0 : ℝ → ℝ} {F₀ : ℝ} (hf0 : ∀ u, 0 ≤ f0 u) (hF₀ : ∀ u, f0 u ≤ F₀) {S : Finset ℕ} {P : ℕ}
     (hP : 0 < P) (hS : S ⊆ Finset.Ioc P (2 * P)) {acoef : ℕ → ℂ} {A₀ : ℝ} (hA : ∀ m, ‖acoef m‖ ≤ A₀)
     {n K₀ : ℕ} (hK : n + 1 ≤ K₀) {Q : ℕ → ℝ} {Qmin : ℝ} (hQmin : 1 ≤ Qmin) (hQ : ∀ i : Fin (n + 1), Qmin ≤ Q i)
@@ -1371,11 +1371,11 @@ open scoped ContDiff
 /-- **The Type II estimate for a sharp family (Lemmas 4′ and 4″), asymptotic form.** Let `L = 2.333`, `f0` smooth
 with support in `[1/2, 2]` and `0 ≤ f0 ≤ F₀`, and fix the family's shape: `K₀`, `J₀`, `e₁ > 0`, `E₀ ≥ 0`, `Λ₀ ≥ 0`
 and `A₀`. There are `δ > 0` and `q₀` with the following property. Let `q ≥ q₀`, let `a` be a unit mod `q`, let `m`
-run over `S ⊆ (P, 2P]`, `q^{0.401L} ≤ P ≤ q^{0.485L}`, with coefficients `|a_m| ≤ A₀`, and let `n + 1 ≤ K₀` primes
-`x_i` run over `Sp`'s ranges at the scales `Q_i ≥ q^{e₁}`, `∏_i Q_i ≤ 2^{K₀}q^L/P`, with the weights `f0(x_i/Q_i)`.
-Let `J ≤ J₀` sharp comparisons `P_j` hold when `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i > 0` and imply `ℓ_j ≥ 0`, with
-`|e_{ji}| ≤ E₀`, `ℓ_j ≤ Λ₀ log q` on the family, and for each `j` a pivot `i` with `e_{ji} = ±1`. Then the family's
-`A − B/φ(q)` is at most `A₀q^{L−δ}/φ(q)`. -/
+run over `S ⊆ (P, 2P]`, `q^{0.401L} ≤ P ≤ q^{0.485L}`, with coefficients `a_m`, `|a_m| ≤ A₀` for every `m`, and let
+`n + 1 ≤ K₀` primes `x_i` run over `Sp`'s ranges at the scales `Q_i ≥ q^{e₁}`, `∏_i Q_i ≤ 2^{K₀}q^L/P`, with the
+weights `f0(x_i/Q_i)`. Let `J ≤ J₀` sharp comparisons `P_j` hold when `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i > 0` and
+imply `ℓ_j ≥ 0`, with `|e_{ji}| ≤ E₀`, `ℓ_j ≤ Λ₀ log q` on the family, and for each `j` a pivot `i` with
+`e_{ji} = ±1`. Then the family's `|A − B/φ(q)|` is at most `A₀q^{L−δ}/φ(q)`. -/
 theorem typeII_sharp {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hsupp : Function.support f0 ⊆ Set.Icc (1 / 2) 2)
     (hf0nn : ∀ u, 0 ≤ f0 u) {F₀ : ℝ} (hF₀ : ∀ u, f0 u ≤ F₀) (K₀ J₀ : ℕ) {e₁ E₀ Λ₀ A₀ : ℝ} (he₁ : 0 < e₁)
     (hE₀ : 0 ≤ E₀) (hΛ₀ : 0 ≤ Λ₀) :
