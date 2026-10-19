@@ -783,10 +783,10 @@ The owner's goal stands: "keep pushing until exponent is below 7/3". Round 575's
   - So `W` of length `x^u` with `u` in the window `(u₁, u₂) = (max lower/L, min upper/L)`, the extremes over `β ∈ [1/2, 11/12]`, is a Type II factor.
 - **Separating the variables.** The sieve's terms couple `W` and `B` through sharp conditions: `p₂ < p₁`, the least prime of the remaining factor at least the last sifted prime, and the ranges of single primes. Perron's formula at height `x²` removes each one.
   - The truncation error is negligible here. Two distinct integers up to `2x` differ in ratio by more than `1 + 1/(2x)`. So a comparison between two products of primes errs only when they are equal. The `n` divisible by `p²` with `p ≥ x^{ε₁}` number `O(x^{1−ε₁}/q + x^{1/2})`, which is `o(x/q)` because `L > 2`.
-  - A comparison of a product of primes with a fixed threshold `z ≤ 2x` (a power of `x`, or `(2x)^{1/2}`) errs, beyond a negligible tail, only on the `O(1)` integers within a factor `1 + 1/x²` of `z`. Each of them divides `O(x^{1−v}/q + 1)` elements of the progression. *(Round 577: the thresholds and the range up to `2x` added; review F1.)*
+  - A comparison of a product of primes with a fixed threshold `z ≤ 2x` (a power of `x`, or `(2x)^{1/2}`) errs, beyond a negligible tail, only on the `O(1)` integers within a factor `1 + 1/x²` of `z`. ~~Each of them divides `O(x^{1−v}/q + 1)` elements of the progression.~~ *(Round 580: retracted, false when written. The floor `x^{ε₁}` of Buchstab's iteration is a threshold too, for the primes of the fundamental theorem's iteration, and an integer near it divides about `x^{1−ε₁}/q` elements. Every threshold is at least `x^{ε₁}`, so each such integer divides `O(x^{1−ε₁}/q + 1)` elements, and the error is still `o(x/(q log x))`; SIEVE-ROUTE.md Lemma 4.)* *(Round 577: the thresholds and the range up to `2x` added; review F1.)*
   - The factors are then taken at heights `t + ℓ(τ)` with `|τ_j| ≤ x²`, against the measure `∏ dτ_j/(1 + |τ_j|)`. Its image at height `y` has density `≪ (log x)^{O(1)}/(1 + |y − t|)`, a convolution of kernels `1/(1 + |τ|)`. A bin's count therefore enters as `Σ_ρ 1/(1 + |γ − t|) ≪ Σ_U U^{−1}N(β, U, q) ≪ q^{A(β)(1−β)+o(1)}`, summed over dyadic `U`. The sum converges because `A(β)(1 − β) < 1` where the curves are used: Ingham's `3(1 − β)/(2 − β) < 1` for `β > 1/2`, Huxley's `3(1 − β)/(3β − 1) < 1` for `β > 2/3`, and `(7/3)(1 − β) < 1` for `β > 4/7`. The bin `β = 1/2` costs a power of `log x`.
   - So large heights cost nothing. They do use (H2) for every `T` and (H1) at every height, and both are stated that way.
-- **Type I and the fundamental theorem.** Counting in the progression gives Type I information up to `x^{1−1/L−ε}`. Since `u₂L > 1`, that covers `x^{1−u₂+ε}`. Harman's fundamental theorem then evaluates `S(A_r, x^v)` for every product of primes `r ≤ x^{1−u₂}`, with `v = u₂ − u₁`. Buchstab's identity runs down to `x^{ε₁}`, and the fundamental lemma takes over below.
+- **Type I and the fundamental theorem.** Counting in the progression gives Type I information up to `x^{1−1/L−ε}`. Since `u₂L > 1`, that covers `x^{1−u₂+ε}`. Harman's fundamental theorem then evaluates `S(A_r, x^v)` for every product of primes `r ≤ x^{1−u₂}`, with `v = u₂ − u₁`. *(Round 580: as a sum over `r` with the decomposition's coefficients, not for each `r` alone. In the second case below `r` sits in the factor bounded through the zeros, so its coefficients must be those of a region; SIEVE-ROUTE.md Proposition 6.)* Buchstab's identity runs down to `x^{ε₁}`, and the fundamental lemma takes over below.
   - Each step multiplies the partial product by less than `x^v`. So the partial products enter `(x^{u₁}, x^{u₂})` when `r ≤ x^{u₁}`, and enter `(x^{1−u₂}, x^{1−u₁})` when `x^{u₂} ≤ r ≤ x^{1−u₂}`.
   - There the term is a Type II sum. The window factor is the partial product in the first case and the rest of `n` in the second. The other factor is a product of primes of size at least `x^{ε₁}`.
 - **The decomposition.** Put `U = (u₁, u₂) ∪ (1 − u₂, 1 − u₁)`. A term whose prime factors have exponents `α_i` (in units of `log x`) is evaluable when some subset sum of the `α_i` lies in `U`.
@@ -864,3 +864,19 @@ After round 577 the lead proposed hardening the result before building on it, st
   - The certificate bounds the integral that defines the loss of this decomposition. Section 44's analysis, which makes that integral the loss, is not checked by it.
   - The exponents are for this decomposition (depth 4, the two windows, the sharp rule). No optimality is claimed.
   - The density inputs are as in §44: Huxley's per-`σ` bound is quoted from Chen–Gupta–Li's (1.5), and the `7/3` is their preprint's.
+
+## 46. Round 580: the argument written out
+
+`SIEVE-ROUTE.md` is new. It writes out §44's argument, with §45's rule for decomposition, as lemmas with proofs:
+
+- the Type II estimate, from the zeros' pointwise bound on smooth prime sums and a count of the characters with a zero near a height;
+- the separation of variables;
+- Type I and Harman's fundamental theorem in the form used;
+- the decomposition and the final count.
+
+It also lists what a referee should check first and what Lean is missing. It is at paper level, unrefereed and not machine-checked.
+
+- Writing it out corrected two points of §44. Neither moves a number.
+  - The bound for the integers near a threshold is struck in §44. The floor `x^{ε₁}` of Buchstab's iteration is a threshold, and an integer near it divides about `x^{1−ε₁}/q` elements of the progression, not `O(x^{1−v}/q + 1)`. The error is still `o(x/(q log x))`.
+  - The form of the fundamental theorem is marked in §44. The argument evaluates the sum over `r` with the decomposition's coefficients, not each `S(A_r, x^v)` alone. In the second case `r` sits in the factor bounded through the zeros, so its coefficients must be those of a region.
+- IDEAS.md G19 records a literature check. No source it found applies Harman's sieve, with density bounds as Type II information, to the least prime in a progression to one modulus.

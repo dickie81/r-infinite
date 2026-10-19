@@ -23512,3 +23512,84 @@ The coarse certificate at `L = 2.32` uses 434 cells of depth 2, of which 187 are
 **Bearing on RH:** none.
 
 **The next step.** Round 580 lands the lemma-by-lemma write-up of §44's argument and the literature check. The review was run although these files are outside CLAUDE.md's trigger list. A review of the write-up can cover this sweep as well.
+
+## Round 580: the sieve route written out, and a literature check (`frontier/linnik/SIEVE-ROUTE.md`; `frontier/linnik/SEVEN-THIRDS.md` §§44 and 46; `frontier/linnik/IDEAS.md` D5 and G19)
+
+**What it is.** The next two steps of the hardening that the owner asked for after round 577 ("Start as suggested"). `SIEVE-ROUTE.md` is new. It writes out SEVEN-THIRDS §44's argument, with §45's rule for decomposition, lemma by lemma, for a referee and as a blueprint for Lean. G19 records a literature check. Writing the argument out corrected two points of §44; neither moves a number. Nothing new is certified, no Lean changed, and no paper surface is edited.
+
+**The write-up** (`SIEVE-ROUTE.md`).
+
+- §0 states the theorem. Assume the stack's half-plane (H1) and the density bounds (H2). Then for every large `q` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` in `[x, 2x]`, with `x = q^{2.28}` on the curve hux and `x = q^{2.25}` on the curve cons. No step uses that `q` is prime.
+- §1 fixes the notation. §2 lists the inputs:
+  - (H1) and (H2);
+  - orthogonality over the characters (T1);
+  - the zeros and `L′/L` (T2);
+  - the fundamental lemma (T3);
+  - the rough numbers (T4).
+
+  The standard results are marked as such, and their sources were not re-read.
+- §3 gives the Type II estimate:
+  - Lemma 1 bounds smooth prime sums at heights up to `2x³` through the zeros within `x^ε` of the height;
+  - Lemma 2 bounds the number of characters with a zero near a height, integrated over the heights;
+  - the window `(u₁, u₂)` is defined;
+  - Proposition 3 is the Type II bound, with the characters binned by the real parts of their zeros.
+- §4 is Lemma 4, the separation of variables, with its error terms.
+- §5 gives Type I (Lemma 5) and Harman's fundamental theorem in the form used (Proposition 6).
+- §6 gives the decomposition, the sharp rule, the shares as integrals of `ω`, and the final count (Proposition 7).
+- §7 cites the numerics from `sieve_route_certificate.py`.
+- §8 lists what a referee should check first, and maps what Lean has and lacks.
+
+**Two corrections to §44**, both found while writing it out. Check 4: both novel. Neither is in §44's Scope, nor in round 577's or round 579's review.
+
+- §44 bounded the integers near a threshold: "Each of them divides `O(x^{1−v}/q + 1)` elements of the progression."
+  - The floor `x^{ε₁}` of Buchstab's iteration is a threshold for the primes of the fundamental theorem's iteration. An integer near it divides about `x^{1−ε₁}/q` elements, more than `x^{1−v}/q`.
+  - The error is still `o(x/(q log x))`, so the conclusion stands.
+  - The sentence was false when written, and it is struck at source.
+- §44 says that Harman's fundamental theorem "evaluates `S(A_r, x^v)` for every product of primes `r ≤ x^{1−u₂}`". What the argument gives is the sum over `r` with the decomposition's coefficients, not each `r` alone.
+  - In the theorem's second case, `r` sits in the factor that is bounded through the zeros. So its coefficients must be those of a region, like the indicators §6 uses. Arbitrary coefficients would not do.
+  - The sentence gets a scope marker, and Proposition 6 states the form used.
+- The write-up's own first draft had two errors, both corrected before landing:
+  - Proposition 6 allowed arbitrary coefficients on `r`;
+  - its error term was given as `e^{−1/ε₁}`. It is now `η(ε₁) ≪ ε₁^{−2}e^{−κ/ε₁}` with `κ = u₂ − 1/L − ε`.
+
+**The literature check** (G19). No source the check found applies Harman's sieve, with density bounds as Type II information, to the least prime in a progression to one modulus. The nearest template is still Heath-Brown and Iwaniec's method for short intervals (G18). Two pages were read through a fetch tool that returns summaries, so G19 quotes nothing from them:
+
+- Bruna (arXiv:2603.25612) shows that under the generalized Lindelöf hypothesis the least prime `p ≡ a (mod q)` is `≪ q^{2+ε}`;
+- the unrefereed teal-sea/zeta-lab pull request 277 gets Linnik's exponent `7/3 + ε` from OpenAI's claimed half-plane and Chen–Gupta–Li's density bound, through a smoothed explicit formula. That is ARGUMENT.md §6's deduction.
+
+**Sources.** Six web searches, run on 2026-10-19:
+
+- "Harman sieve least prime in arithmetic progression Linnik constant zero density Type II";
+- "least prime in an arithmetic progression assuming zero-free half-plane quasi-Riemann hypothesis Linnik exponent";
+- "Baker Harman Pintz difference between consecutive primes 0.525 sieve Type II zero density";
+- "Harman "Prime-Detecting Sieves" Linnik's constant "almost all" moduli chapter arithmetic progressions techniques";
+- "Heath-Brown Iwaniec "difference between consecutive primes" 11/20 sieve zero density estimates Dirichlet polynomial Type II";
+- ""least prime" arithmetic progression sieve "Type II" "large sieve" zero-free region exponent below 12/5 OR "below 7/3"".
+
+The two pages read were `arxiv.org/abs/2603.25612` and `github.com/teal-sea/zeta-lab/pull/277`. The other works that G19 names are listed from the search results only.
+
+**What is checked.**
+
+- The numbers in `SIEVE-ROUTE.md` §7 match the certificate's printed output, as recorded in rounds 578 and 579.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class: README.md goes from 1816 to 1823 reports, seven new ones; IDEAS.md from 50 to 51 and SEVEN-THIRDS.md from 60 to 61, one new each; the new SIEVE-ROUTE.md has three. All are of class L10 (a nested list directly after its item's text), the style of the entries around them. STRUCTURAL-REVIEW.md is unchanged (100). None of these files is a paper surface.
+
+**Records.**
+
+- `frontier/linnik/SIEVE-ROUTE.md`: new.
+- `frontier/linnik/SEVEN-THIRDS.md`:
+  - §46 is new;
+  - in §44, a strike on the sentence about thresholds and a scope marker on the fundamental theorem.
+- `frontier/linnik/IDEAS.md`: G19, and a marker in D5 that points to the write-up. The register now lists 89 entries: 49 CLOSED, 12 REDUCED, 1 OPEN, 21 SURVEYED, 5 CORE, 1 PAPER.
+
+**Check 9.** (a) The literature claim is scoped to the sources these searches and pages found. The write-up's §0 claims the theorem for this decomposition and these inputs only. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.**
+
+- An independent review of the write-up and of round 579's sweep.
+- Then the wall named after round 577: a kernel-checked exponent below `7/3`. §8's map lists what Lean lacks:
+  - Lemmas 1 and 2;
+  - density exponents that depend on `σ`;
+  - Harman's sieve and its fundamental theorem;
+  - a kernel-checked bound for the loss.
