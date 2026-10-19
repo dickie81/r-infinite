@@ -32,8 +32,9 @@ use the window over every beta in [1/2, 11/12].  Section 44 also states the wind
 The decomposition.  U = (u1, u2) u (1 - u2, 1 - u1), v = u2 - u1, R = 1 - u2.  A term with prime factors of exponents
 alpha_i is evaluable when some subset sum of the alpha_i lies in U (the other factor, the rest of n, is then the
 complement).  Type I information holds up to x^(1 - 1/L) (counting in a progression), which covers x^(R + eps) since
-u2 L > 1, so S(A_r, x^v) is evaluable for every product of primes r <= x^R (Harman's fundamental theorem, with the
-fundamental lemma below x^eps).  Buchstab's identity gives
+u2 L > 1, so the sum over products of primes r <= x^R of S(A_r, x^v), with the decomposition's coefficients, is
+evaluable (Harman's fundamental theorem, with the fundamental lemma below x^eps; the theorem does not give each r
+alone, README round 581).  Buchstab's identity gives
 
     S(A, (2x)^(1/2)) = S(A, x^v) - sum_{v <= alpha1 < 1/2} S(A_p1, p1),
     S(A_p1, p1) = S(A_p1, x^v) - sum_{v <= alpha2 < alpha1} S(A_p1p2, p2)   (alpha1 outside (u1, u2)).

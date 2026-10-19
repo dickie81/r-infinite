@@ -23247,7 +23247,7 @@ That is a Linnik exponent below `7/3`. The density exponent is not lowered. No L
   - A polynomial `W` of length `P` with arbitrary coefficients has `Σ_χ |W|² ≤ (q + P)‖w‖²`.
   - Cauchy–Schwarz over those characters gives a window `(u₁, u₂)`: for lengths `x^u` inside it, the Type II sum is `o(x)` at every `β ∈ [1/2, 11/12]`.
 - **Separating the variables.** Perron's formula at height `x²` removes the sharp conditions ~~with no truncation error~~ *(Round 577: retracted, false when written. The truncation error is negligible, not absent; review F1)*. The heights it introduces cost nothing, because `A(β)(1 − β) < 1`. But they use (H2) for every `T` and (H1) at every height, and both are stated that way.
-- **The sieve.** Type I information holds up to `x^{1−1/L}`. Harman's fundamental theorem then evaluates `S(A_r, x^v)` for `r ≤ x^{1−u₂}`. A depth-4 Buchstab decomposition does the rest, and its dropped terms are the loss.
+- **The sieve.** Type I information holds up to `x^{1−1/L}`. ~~Harman's fundamental theorem then evaluates `S(A_r, x^v)` for `r ≤ x^{1−u₂}`.~~ *(Round 581: retracted, false when written. It evaluates the sum over `r` with the decomposition's coefficients, not each `r` alone; SEVEN-THIRDS §44, SIEVE-ROUTE.md Proposition 6. Review F3.)* A depth-4 Buchstab decomposition does the rest, and its dropped terms are the loss.
 - **Numbers.** The windows are `(0.398877, 0.475983)` at `L = 2.29` with the classical bounds and `(0.404154, 0.486050)` at `L = 2.27` with the `7/3`. The upper bounds on the loss are `0.9722` and `0.9193`, and the midpoint estimates `0.7435` and `0.5783`. Midpoint thresholds are near `2.28` and `2.245`.
 - **Strikes.** SEVEN-THIRDS §1's "Going below `7/3` needs a density exponent …" and round 528's "Going below `7/3` needs the open step of SEVEN-THIRDS.md §6" quantified over every proof (Check 9(a)), and both are struck at source.
 - **Scan (G18).** Two arXiv API searches and six queries on arXiv's search page returned entries, and four abstracts were read. None of the sieve proofs of Linnik's theorem among them uses a zero-free half-plane with density bounds as Type II information. The nearest relative is Heath-Brown and Iwaniec's short-interval method for `ζ`, which uses weighted zero-density estimates for a lower bound on primes.
@@ -23546,8 +23546,8 @@ The coarse certificate at `L = 2.32` uses 434 cells of depth 2, of which 187 are
   - The error is still `o(x/(q log x))`, so the conclusion stands.
   - The sentence was false when written, and it is struck at source.
 - §44 says that Harman's fundamental theorem "evaluates `S(A_r, x^v)` for every product of primes `r ≤ x^{1−u₂}`". What the argument gives is the sum over `r` with the decomposition's coefficients, not each `r` alone.
-  - In the theorem's second case, `r` sits in the factor that is bounded through the zeros. So its coefficients must be those of a region, like the indicators §6 uses. Arbitrary coefficients would not do.
-  - The sentence gets a scope marker, and Proposition 6 states the form used.
+  - In the theorem's second case, `r` sits in the factor that is bounded through the zeros. So ~~its coefficients must be those of a region, like the indicators §6 uses.~~ its coefficients cannot be arbitrary; the indicators of regions that §6 uses keep Lemma 1's bound, and so would smooth weights. *(Round 581: "must" was too strong; review F5.)* Arbitrary coefficients would not do.
+  - The sentence gets a scope marker, and Proposition 6 states the form used. *(Round 581: struck instead, as false when written; review F3.)*
 - The write-up's own first draft had two errors, both corrected before landing:
   - Proposition 6 allowed arbitrary coefficients on `r`;
   - its error term was given as `e^{−1/ε₁}`. It is now `η(ε₁) ≪ ε₁^{−2}e^{−κ/ε₁}` with `κ = u₂ − 1/L − ε`.
@@ -23570,7 +23570,7 @@ The two pages read were `arxiv.org/abs/2603.25612` and `github.com/teal-sea/zeta
 
 **What is checked.**
 
-- The numbers in `SIEVE-ROUTE.md` §7 match the certificate's printed output, as recorded in rounds 578 and 579.
+- ~~The numbers in `SIEVE-ROUTE.md` §7 match the certificate's printed output, as recorded in rounds 578 and 579.~~ *(Round 581: retracted, false when written. The certified bounds are the certificate's output. The brackets of the thresholds rest also on the probe's midpoints at `2.28` and `2.24`, and the `0.01` is the scratch Monte Carlo of round 579's O1. Review F9.)*
 - `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class: README.md goes from 1816 to 1823 reports, seven new ones; IDEAS.md from 50 to 51 and SEVEN-THIRDS.md from 60 to 61, one new each; the new SIEVE-ROUTE.md has three. All are of class L10 (a nested list directly after its item's text), the style of the entries around them. STRUCTURAL-REVIEW.md is unchanged (100). None of these files is a paper surface.
 
 **Records.**
@@ -23588,8 +23588,86 @@ The two pages read were `arxiv.org/abs/2603.25612` and `github.com/teal-sea/zeta
 **The next step.**
 
 - An independent review of the write-up and of round 579's sweep.
-- Then the wall named after round 577: a kernel-checked exponent below `7/3`. §8's map lists what Lean lacks:
+- Then ~~the wall named after round 577~~ the goal the lead proposed after round 577, which the owner took up with "Start as suggested" *(round 581: no record named a wall; review F9)*: a kernel-checked exponent below `7/3`. §8's map lists what Lean lacks *(round 581: and Lemma 4 and Proposition 3, which it omitted; review F4)*:
   - Lemmas 1 and 2;
   - density exponents that depend on `σ`;
   - Harman's sieve and its fundamental theorem;
   - a kernel-checked bound for the loss.
+
+## Round 581: the independent review of rounds 579 and 580 (`frontier/linnik/SIEVE-ROUTE.md`; `frontier/linnik/SEVEN-THIRDS.md` §§44 and 46; `frontier/linnik/IDEAS.md` G19)
+
+**What it is.** A fresh-context reviewer, the repository's `hostile-reviewer` agent, reviewed rounds 579 and 580 at d46901c. It checked:
+
+- SIEVE-ROUTE.md's mathematics step by step;
+- round 580's two corrections to §44;
+- round 579's sweep, as a convergence test;
+- the citations, against the Lean sources and against the transcript of round 580's eight web calls.
+
+It found no MAJOR, four minor and six cosmetic defects. None moves the theorem or a number. Under Check 3 the lead verified each finding against the cited lines, the transcript and a derivation. All ten are accepted and swept. No Lean changed, no number changed, and no paper surface is edited.
+
+**Findings and dispositions.**
+
+- **F1 (minor).** In SIEVE-ROUTE.md the Type II bound lost its factor `1/φ(q)` between Proposition 3 and its uses.
+  - Proposition 3 bounds `∫ Σ_{χ≠χ₀} |WB| dμ` by `x^{1−δ}`. By §1 the difference between the `A`-count and the `B/φ(q)`-count is `1/φ(q)` times that.
+  - Proposition 6's proof and the evaluable terms of §6 said only "by `x^{1−δ}`", and Lemma 4 mixed the two units. Propositions 6 and 7 used `x^{1−δ}/q` without deriving it.
+  - Now §4 and Lemma 4 speak of the difference in the units of counts, and the three bounds carry `1/φ(q)`.
+- **F2 (minor).** Proposition 6 normalized its main terms by `q`.
+  - Since `|A_{md}| = 0` when `(md, q) > 1`, a leaf's main term is `(x/(mq))∏_{p<w, p∤q}(1 − 1/p)`. That exceeds `x/(mq log w)` by up to `q/φ(q)`, which is unbounded for composite `q`, and §0 includes composite `q`.
+  - The lead derived this, and the reviewer's numbers agree: the ratio is `2.46` to `9.22` for primorials, against `0.56` for prime `q`.
+  - The sum over the leaves is struck and rewritten with `φ(q)`, and Proposition 6's error terms are corrected. Proposition 7 already used `φ(q)`, so the theorem is unaffected.
+- **F3 (minor).** The claim that the fundamental theorem evaluates "`S(A_r, x^v)` for every product of primes" had two more carriers: README round 576's summary and `sieve_route_probe.py`'s docstring. And the marking was too weak.
+  - For one `r` alone the error bound does not fall below the main term once `r` is large. With `r` in `W` it is `≪ x^{1−δ}/(φ(q)√r)` against `≍ x/(rq log x)`. With `r` in `B` the factor `χ(r)` gives up the saving `r^{1−β}`.
+  - So the sentence was false when written. §44's sentence is struck, keeping round 580's marker, and README round 576's is struck. The probe's docstring is corrected; the change is docstring-only, and its syntax tree without docstrings equals HEAD's.
+  - Round 580's entry and §46 note the change.
+- **F4 (minor).** SIEVE-ROUTE.md §8's list of what Lean lacks omitted Lemma 4 (a sharp truncated Perron formula, for several conditions at once) and Proposition 3.
+  - Both are added.
+  - The list's mention of a smoothing that keeps the heights below `x^ε` now says that the smoothing is not worked out.
+  - README round 580's next step notes the omission.
+- **F5 (cosmetic).** "must be the indicator of a region", and "must be those of a region", stated a sufficient condition as a necessary one: smooth weights in the primes of `r` also keep Lemma 1's bound. Scoped in SIEVE-ROUTE.md (twice), §44's annotation, §46 and README round 580.
+- **F6 (cosmetic).** §8 dated `Linnik.CharDensity` to rounds 524–527, but it is from round 520. It also called `Linnik.linnik_of_charDensity` an "explicit-formula deduction", though ARGUMENT.md §7 says the proof "avoids the explicit formula over zeros". Both labels are corrected.
+- **F7 (cosmetic).** G19's "That is ARGUMENT.md §6's deduction (round 528)" was wrong twice. The reviewer found the round; the lead found the section.
+  - ARGUMENT.md §6 lists literature. The deduction is its §3, which dates from round 519.
+  - The sentence is struck and rewritten.
+  - G19 now also gives a search result's summary of Harman's monograph: it "discusses Linnik's constant, noting that the techniques used in this monograph do not appear capable of improving the best known value" (the summary's words, not the book's). That concerns the unconditional constant, not D5, which uses the stack's half-plane.
+  - G19 now points to ARGUMENT.md §6's earlier record of Bruna.
+- **F8 (cosmetic).** §44 integrates against `∏ dτ_j/(1 + |τ_j|)`. With `c = 1/log x` the Perron kernels are `min(log x, 1/|τ|)`, so near `0` they are larger by up to `log x`. §44's next sentence already allows `(log x)^{O(1)}`. §44 gets a marker, and §46 now counts this precision as a third point.
+- **F9 (cosmetic).** Two record sentences in README round 580.
+  - It said the numbers in SIEVE-ROUTE.md §7 "match the certificate's printed output". But the brackets of the thresholds rest also on the probe, and the `0.01` on round 579's scratch Monte Carlo. Struck.
+  - "the wall named after round 577" had no antecedent in the records. It now reads "the goal the lead proposed after round 577", which the owner took up with "Start as suggested".
+- **F10 (cosmetic).** Exposition in SIEVE-ROUTE.md, each corrected with a marker:
+  - (T4) now needs `u > 1`, since the count is `O(1)` at `u = 1`;
+  - the choice of `Y` also avoids the ordinates near `y − Y`;
+  - the last bin is closed at `11/12`;
+  - the point mass at height `0` is covered by Lemma 2's proof, not its statement;
+  - Proposition 3 now says that the dyadic range of `W` stays inside the margins;
+  - §6 now says that `S(A, x^v)` is Proposition 6 with `r = 1`;
+  - "certified" is scoped to the windows and the loss integral;
+  - the list of what `q₀` and the constants depend on now includes (H2)'s `η` and the decomposition's data.
+
+**The lead's verification.**
+
+- `sed -n` on every cited line of SIEVE-ROUTE.md, SEVEN-THIRDS.md, README.md and IDEAS.md; each quote is verbatim.
+- `external/pnt/LinnikDeduction.lean` line 2 reads "Round 520, part 2". ARGUMENT.md's headers put "## 6. Literature searched" at line 157. `git log` on ARGUMENT.md gives rounds 519 (parts 1 and 2) and 520.
+- The transcript's line 171635 holds the summary of the monograph quoted in F7.
+- `sieve_route_probe.py` without docstrings has the same syntax tree as at HEAD.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. The sweep adds no reports to SIEVE-ROUTE.md (3), IDEAS.md (51), SEVEN-THIRDS.md (61), STRUCTURAL-REVIEW.md (100) or README.md's earlier rounds. This entry takes README.md from 1823 to 1830 reports, seven new ones of class L10 (a nested list directly after its item's text), the style of the entries around them. None of these files is a paper surface.
+
+**Checked and held** (the reviewer's list, with its evidence in its report).
+
+- Lemma 1 holds: the weight, the contour, (T2), imprimitive `χ` and the heights. So does Lemma 2: its dyadic sum, and `A(β)(1 − β) < 1` on `(1/2, 11/12]`, checked in exact rationals for all five cases.
+- Proposition 3 holds, including its algebra for the two cases and bin `0`. The windows' figures reproduce.
+- Lemma 4's truncation errors and thresholds hold, and every threshold is at least `x^{ε₁}`.
+- No condition on squared primes is needed. Outside F2, Proposition 6's structure holds, and so do §6, Proposition 7 and the sharp rule.
+- Round 580's struck sentence was false when written.
+- Round 579's sweeps hold. For F1 and F2 the reviewer took a census of carriers. Its census of comparisons in floating point is complete, and every antecedent resolves with the strikes removed.
+- Every Lean name exists and states what is claimed.
+- The six web searches and two page reads match README round 580 verbatim.
+- The register holds 89 entries: 49 CLOSED, 12 REDUCED, 1 OPEN, 21 SURVEYED, 5 CORE, 1 PAPER.
+
+**Check 4.** The reviewer classed all ten findings as novel, and the lead agrees. SIEVE-ROUTE.md §8 had listed Lemma 4's error terms and Proposition 6's coefficients as things to check, not as known defects.
+
+**Check 9.** (a) F5 scopes two necessity words, and F3's strike replaces a universal over every `r`. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Round 582: the uniform density curve, and the plan for the Lean route.
