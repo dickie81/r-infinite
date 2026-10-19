@@ -23376,3 +23376,72 @@ The reviewer found no MAJOR. In its words: "Read as written, the conclusion hold
 
 - A sharper rule for decomposition on boundary cells could tighten the upper bounds. The reviewer's variant m6 gave `0.7838` for hux at `2.29`, and its decisions held at every point tested.
 - A scratch Monte Carlo (not committed) suggests that keeping the evaluable parts of dropped terms lowers the midpoint thresholds by about `0.01`.
+
+## Round 578: a certificate for the sieve's loss, and the exponents `2.28` and `2.25` (`frontier/linnik/sieve_route_certificate.py`; `frontier/linnik/SEVEN-THIRDS.md` §§44–45)
+
+**What it is.** After round 577 the lead proposed hardening the sieve route before building on it, starting with its numerics, and the owner replied "Start as suggested". `sieve_route_certificate.py` is new. It proves upper bounds for the loss of SEVEN-THIRDS §44's decomposition: every decision in a bound is exact, every floating-point operation on a bound is rounded outward, Buchstab's `ω` is enclosed and the Type II windows are proved. On the way it found that round 576's rule for decomposition is not sharp. With the sharp rule the loss is certified below `1` at `L = 2.28` from the stack's half-plane and the classical density bounds, and at `L = 2.25` with Chen–Gupta–Li's `7/3`. The analysis of §44 is unchanged, at paper level and unrefereed. No Lean changed, and no paper surface is edited.
+
+**What is certified** (`sieve_route_certificate.py`, gate C5): a number below `1` that is at least the loss of §44's decomposition run with a window proved to lie inside the Type II window.
+
+| curve | `L` | cells a side | certified bound |
+|---|---|---|---|
+| hux | 2.28 | 600 | 0.9520 |
+| cons | 2.25 | 600 | 0.9117 |
+| hux | 2.29 | 600 | 0.7821 |
+| cons | 2.27 | 600 | 0.6230 |
+| hux | 2.32 | 50 | 0.8292 |
+
+"hux" is the curve of Chen–Gupta–Li's (1.4) and (1.5); "cons" adds their `7/3`.
+
+**How.**
+
+- Every coordinate is an integer multiple of `2^{−40}`, so every test of the region, of evaluability and of the conditions for decomposition compares integers.
+- Each floating-point operation on a bound is followed by one step of `nextafter` outward, and each sum of `n` nonnegative terms is multiplied by `1 + 4n·2^{−53}`.
+- `ω` is enclosed on intervals of length `2^{−16}` up to `16`, from `ω(t) = 1/t` on `[1, 2)` and `(tω(t))′ = ω(t − 1)`. The enclosure's width is at most `1.53·10⁻⁵`.
+- The windows are proved by branch and bound in exact rational arithmetic, using that `A(β)(1 − β)` decreases on each piece of a curve.
+
+**The sharp rule.** A non-evaluable term of depth 2 can be decomposed when `α₁ + α₂ ≤ R`, and its non-evaluable terms of depth 3 then need `α₁ + α₂ + α₃ ≤ R`, where `R = 1 − u₂`. The complement window is `(R, 1 − u₁)`, so a sum in it makes the term evaluable. So a cell whose sums stay below `1 − u₁` can be decomposed: every non-evaluable point in it meets the condition.
+
+- Round 576's rule asks for the sums to be at most `R` on the whole cell. For `(α₁, α₂)` in a region of positive area the non-evaluable `α₃` reach `R − α₁ − α₂`, so that rule refuses the `α₃` cell across that value at every grid size.
+- For hux at `2.29` the certificate prints `1.1223`, `1.0198` and `0.9705` under round 576's rule at `n = 150`, `300` and `600`, and `0.8964`, `0.8191` and `0.7821` under the sharp rule, against the midpoint estimate `0.7435`. Both sequences halve their steps as `n` doubles; extrapolated that way, the first tends to about `0.921` and the second to about `0.745`.
+- The certificate also prints the cells that the sharp rule may decompose and round 576's rule refuses: `289`, `1045` and `3960` cells, of area `0.00230`, `0.00208` and `0.00197`. The area stays near `0.002`, where a boundary layer's would halve with each doubling.
+- So SEVEN-THIRDS §44's "The bound converges slowly from above" was false when written. It is struck at source.
+- This resolves round 577's next step: its reviewer's variant m6 (the rule tested at the lower corner) gave `0.7838`, and its decisions held at every point tested.
+
+**The thresholds.** The certificate prints the probe's midpoint estimates near the thresholds: hux at `2.275` is `1.0279` and at `2.28` is `0.9007`; cons at `2.24` is `1.1692` and at `2.245` is `0.9851`. At `n = 600` it prints hux at `2.27` (`1.2845`) and cons at `2.24` (`1.2545`), both above `1`.
+
+**A correction.** SEVEN-THIRDS §44's Scope said that the stack's `CharDensity` statements "are for heights `O(log q)`". `Linnik.CharDensity A B C` (`external/pnt/LinnikDeduction.lean`) holds for every `T ≥ 2`, so the sentence was false when written; it is struck at source. What separates it from §44's input is a uniform exponent, and a count of characters rather than of zeros. §44's separation of variables counts zeros.
+
+**What is checked.**
+
+- `python3 sieve_route_certificate.py`, run from `frontier/linnik`, exits 0 in 412 seconds. Its gates:
+  - C0: the rounding steps and the inflation of sums against exact rational arithmetic (60000 operations, 200 sums; none wrong).
+  - C1: the five windows (branch and bound with 590, 1023, 386, 417 and 330 boxes).
+  - C2: the enclosure of `ω` against closed forms at 40 digits on `[1, 4)` (1500 points) and the probe's fine table on `[4, 16)` (3000 points); no misses.
+  - C3: an exact replay of 1500 cell bounds of depth 2 and 1500 of depth 4; none below its exact value.
+  - C4, the decisions at points: 3646 region points, none outside counted cells; 13705 decomposition tests, none infeasible; 574 depth-4 points, none outside counted cells; an independent implementation of the sharp rule over 3552 decomposed cells, none breaking it; 1496 and 750 points where the cell bounds exceed the integrand.
+  - C5: the five certificates.
+  - C6: 600 decomposition costs against independent lower bounds, of which 183 are positive; none below.
+- Ten sabotage cases each fail their gate: k0 (no outward rounding) C0 and C3; k1 (the window without its last breakpoint) C1; k2 (`ω`'s bound without the growth within an interval) C2; k3 (prefactors rounded to nearest) C3; k4 (the rule at the lower corner) C4; k5 (a cell dropped when its centre is evaluable) C4; k6 (the condition on `α₃` left out) C4 and C5; k7 (prefactors at the upper corner) C3 and C4; k8 (decomposition costs set to 0) C6; k9 (sums not inflated) C0.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files (none is a paper surface) and compared with HEAD by defect class. It finds 1 new report in this file (1810) and 5 in SEVEN-THIRDS.md (60), all of class L10 (a nested list directly after its item's text), the style of the entries around them. The counts for IDEAS.md (50) and STRUCTURAL-REVIEW.md (100) are unchanged.
+
+**Records.**
+
+- `frontier/linnik/sieve_route_certificate.py`: new.
+- `frontier/linnik/SEVEN-THIRDS.md`: §45 new; in §44 two strikes (the convergence sentence and the `CharDensity` sentence) and markers on the statement, the numbers and the scope.
+- `frontier/linnik/IDEAS.md`: a marker in D5. The register is unchanged at 88 entries.
+- STRUCTURAL-REVIEW §6: a marker on the line for exponents below `7/3`.
+
+**Check 4.** The non-sharp rule and the false sentences are novel: §44's Scope and round 577's review did not record them.
+
+**Check 9.** (a) The two strikes and the scoped claims: the exponents are for this decomposition, with no optimality claimed, and the certificate checks the integral, not §44's analysis. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** The hardening continues:
+
+- the lemma-by-lemma write-up of §44's argument, the blueprint for a referee and for Lean;
+- the literature check;
+- an independent review of this round.
+
+The coarse certificate at `L = 2.32` uses 434 cells of depth 2, of which 187 are decomposed, and 473 cells of depth 4.
