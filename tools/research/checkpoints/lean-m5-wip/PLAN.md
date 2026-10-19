@@ -6,7 +6,7 @@ Prop 6's conditions a₀ + b₀ < 0.599L ⟺ u1 > 0.401; b₀ > 0.515L ⟺ u2 < 
 
 ## Done in scratch (r600/m5), all sorry-free, no warnings, axioms standard
 Compile: `bash $S/r597/lc.sh $S/r600/m5 <Mod>` (order: SieveBrun SieveCount SieveRanges SieveLeaf SieveTree SieveDyadic
-SieveTypeIIU SieveRoughTuple SieveTypeIIR SieveDiff SieveStops1 SieveCmp SieveStops2 SieveProp6).
+SieveTypeIIU SieveRoughTuple SieveTypeIIR SieveDiff SieveStops1 SieveCmp SieveStops2 SieveProp6 SieveChain).
 - SieveBrun, SieveCount, SieveRanges, SieveLeaf: Brun's fundamental lemma in product form; leaf_A, leaf_B, leaf_gap.
 - SieveTree: rough, S, primesIco, tree_pt, tree_sum. SieveDiff: tree_weighted, sum_dw_eq, leaf_diff.
 - SieveDyadic, SieveTypeIIU (typeII_unw), SieveRoughTuple, SieveTypeIIR (typeII_rough).
@@ -23,6 +23,14 @@ SieveTypeIIU SieveRoughTuple SieveTypeIIR SieveDiff SieveStops1 SieveCmp SieveSt
 prop6 (j J₀) (Λ₁ a₀ b₀) (hab : a₀ + b₀ < 0.599L) (hb₁ : 0.515L < b₀) (hb₂ : b₀ < L − 1) (η > 0):
   ∃ δ q₀, ∀ q ≥ q₀, a unit, Ω : List (Cmp j) (len ≤ J₀, C.c 0 ≤ Λ₁ log q, prime tuples in Ω have rt_i ≥ ⌈q^{a₀}⌉ and
   ∏ ≤ ⌊q^{b₀}⌋): ‖Σ_{rt ∈ RT j N₂ Ω} Σ_n dw(n)[∏rt ∣ n ∧ rough ⌈q^{a₀}⌉ n]‖ ≤ η q^L/(φ log q) + φ⁻¹q^{L−δ}.
+
+## M8a done (SieveChain, scratch; axioms standard)
+- GCmp (coefficients in {−1,0,1}, no pivot), typeII_gcmp / typeII_gcmp' (all-zero comparisons move into m's filter).
+- RTg k Y Ω (prime k-tuples ≤ Y satisfying Ω at m = 0); Split (eS, merge, factS); Transform (fullOf, splitS, liftChain);
+  TLcmps (yPairs, yLast, fullTL, cmpsTL, Mset); sum_TL_eq; cmpsTL_c_le; sum_mult_eq; sum_rough_tuples.
+- chainTU_bound: chains rt (entries ≥ q^{e₀}, last least, W₀ < ∏rt ≤ W₁), cofactor in the upper window.
+- chainTL_bound: decreasing chains with P₁ < ∏_{i∈S} rt_i ≤ P₂ in the lower window (q^{0.401L} ≤ P₁, P₂ ≤ q^{0.485L}).
+  Both: ‖Σ_rt Σ_{n∈(N₁,N₂]} dw(n)[∏rt ∣ n ∧ rough(rt last) n]‖ ≤ φ⁻¹ q^{L−δ}.
 
 ## M8 design (tasks #411–#413)
 Decomposition (per n, weights f): S(A,z_top) = S(A,z₀) − Σ_{p₁} S(A_{p₁},p₁); depth 1 non-evaluable → decomposed;
