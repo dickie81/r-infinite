@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity LinnikChar LinnikDeduction LinnikHybrid LinnikDetect LinnikDensity LinnikHalf LinnikFE LinnikLindelof LinnikSubconvex MertensChi LinnikAFE LinnikFourth LinnikIngham LinnikPower LinnikOffDiag LinnikHuxley LinnikGammaRatio LinnikReflect LinnikWeighted LinnikDual LinnikBuckets LinnikLargeValues LinnikTwelveBins LinnikTwelveSizes LinnikTwelve LinnikMoment LinnikLines LinnikSplit LinnikS2 LinnikPoints SieveSmooth LinnikStep SieveLemma1 SieveWeight SieveTypeII SieveCert SieveRough; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity LinnikChar LinnikDeduction LinnikHybrid LinnikDetect LinnikDensity LinnikHalf LinnikFE LinnikLindelof LinnikSubconvex MertensChi LinnikAFE LinnikFourth LinnikIngham LinnikPower LinnikOffDiag LinnikHuxley LinnikGammaRatio LinnikReflect LinnikWeighted LinnikDual LinnikBuckets LinnikLargeValues LinnikTwelveBins LinnikTwelveSizes LinnikTwelve LinnikMoment LinnikLines LinnikSplit LinnikS2 LinnikPoints SieveSmooth LinnikStep SieveLemma1 SieveWeight SieveTypeII SieveCert SieveRough SieveSep SieveFamily; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -141,6 +141,8 @@ import SieveWeight
 import SieveTypeII
 import SieveCert
 import SieveRough
+import SieveSep
+import SieveFamily
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -386,6 +388,12 @@ import SieveRough
 #print axioms SieveRough.share4
 #print axioms SieveRough.share2_of_cand
 #print axioms SieveRough.share4_of_counted4
+#print axioms SieveSep.sum_sep
+#print axioms SieveSep.sep_bound
+#print axioms SieveFamily.family_bound
+#print axioms SieveFamily.Dsum_sharp_le
+#print axioms SieveFamily.typeII_sharp_explicit
+#print axioms SieveFamily.typeII_sharp
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy
