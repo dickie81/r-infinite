@@ -122,12 +122,13 @@ theorem inner_factor (χ : DirichletCharacter ℂ q) (f0 : ℝ → ℝ) (S : Fin
 
 open scoped ContDiff in
 /-- **The bound for a smooth family** (SIEVE-ROUTE.md §10's Lemma 4′ with Proposition 3′, before the near-boundary
-terms). Let `f0` be smooth with support in `[1/2, 2]`, `e₁ > 0` and `0 < η ≤ 10⁻⁵`. For large `q`: let `m` run over
-`S ⊆ (P, 2P]`, `P` in the window, with coefficients `a_m`, and `K ≤ K₀` primes over `Sp`'s ranges at the scales
-`Q_i ≥ q^{e₁}`, `∏_i Q_i ≤ 2^{K₀}q^L/P`, with the weights `f0(p_i/Q_i)`; and let `J` continuous integrable `g_j` with
-integrable `𝓕g_j` be applied to the forms `ℓ_j(m, p) = φ_j(m) + Σ_i e_{ji} log p_i`. If `2π(Σ_j |e_{ji}|)T₀ ≤ q^η`
-for each `i`, the sum over `χ ≠ 1` of the family's twisted sums is at most
-`q^{L−1/50000}(Σ|a_m|²/P)^{1/2} ∏_j ‖𝓕g_j‖₁` plus the trivial bound times the tails of the `𝓕g_j` beyond `T₀`. -/
+terms). Let `f0` be smooth with support in `[1/2, 2]`, `e₁ > 0` and `0 < η ≤ 10⁻⁵`. There is `q₀` such that for
+`q ≥ q₀`: let `m` run over `S ⊆ (P, 2P]`, `q^{0.401L} ≤ P ≤ q^{0.485L}`, with coefficients `a_m`, and `K ≤ K₀` primes
+over `Sp`'s ranges at the scales `Q_i ≥ q^{e₁}`, `∏_i Q_i ≤ 2^{K₀}q^L/P`, with the weights `f0(p_i/Q_i)`; and let `J`
+continuous integrable `g_j` with integrable `𝓕g_j` be applied to the forms `ℓ_j(m, p) = φ_j(m) + Σ_i e_{ji} log p_i`.
+If `2π(Σ_j |e_{ji}|)T₀ ≤ q^η` for each `i`, the sum over `χ ≠ 1` of the family's twisted sums is at most
+`q^{L−1/50000}(Σ|a_m|²/P)^{1/2} ∏_j ‖𝓕g_j‖₁`, plus the number of characters `χ ≠ 1` times
+`Σ_m |a_m| ∏_i Σ_p |f0(p/Q_i)|` times `Σ_j (∫_{|t|>T₀} |𝓕g_j(t)| dt) ∏_{i≠j} ‖𝓕g_i‖₁`. -/
 theorem family_bound {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hsupp : Function.support f0 ⊆ Set.Icc (1 / 2) 2)
     (K₀ : ℕ) {e₁ η : ℝ} (he₁ : 0 < e₁) (hη : 0 < η) (hη1 : η ≤ 1 / 100000) :
     ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q →
@@ -920,9 +921,10 @@ noncomputable def tailB (θ T₀ : ℝ) (k : ℕ) : ℝ :=
   2 * π * ((2 * (θ⁻¹ ^ k * θ) * ∫ v, ‖iteratedDeriv k gc v‖) / (2 * π) ^ k) * (T₀ ^ (k - 2))⁻¹
 
 /-- **A sharp family, with the Type II estimate.** Let `f0` be smooth with support in `[1/2, 2]`, `0 ≤ f0 ≤ F₀` and
-`e₁ > 0`. For `q ≥ q₀`, a unit `a`, a family as in `family_bound` with `n + 1 ≤ K₀` primes, and `J` sharp comparisons
-as in `Dsum_sharp_le`, with `0 < θ ≤ 1 ≤ Λ`, `ℓ_j ≤ Λ` on the family, pivots with coefficients `±1`, `T₀ ≥ 1`, `k ≥ 2`
-and `2π(Σ_j |e_{ji}|)T₀ ≤ q^{1/100000}` for each `i`: the `A − B/φ(q)` of the sharp family is at most
+`e₁ > 0`. There is `q₀` such that for `q ≥ q₀`, a unit `a`, a family as in `family_bound` with `n + 1 ≤ K₀` primes,
+and `J` sharp comparisons as in `Dsum_sharp_le`, with `0 < θ ≤ 1 ≤ Λ`, `ℓ_j ≤ Λ` on the family, pivots with
+coefficients `±1`, `T₀ ≥ 1`, `k ≥ 2` and `2π(Σ_j |e_{ji}|)T₀ ≤ q^{1/100000}` for each `i`: the `A − B/φ(q)` of the
+sharp family is at most
 `φ(q)⁻¹(q^{L−1/50000}(Σ|a_m|²/P)^{1/2}(M^J + J·M̃) + φ(q)·Box·Jτ(M^J + 1))` plus twice `φ(q)⁻¹` times the pivots'
 counts. Here `M = massB θ Λ`, `M̃ = massB θ θ`, `τ = tailB θ T₀ k`, and `Box = Σ|a_m| ∏_i Σ_p |f0(p/Q_i)|`. -/
 theorem typeII_sharp_explicit {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hsupp : Function.support f0 ⊆ Set.Icc (1 / 2) 2)
@@ -1366,10 +1368,14 @@ section Asym
 open SieveSmooth Classical Filter Asymptotics
 open scoped ContDiff
 
-/-- **The Type II estimate for a sharp family (Lemmas 4′ and 4″), asymptotic form.** Fix the family's shape: at
-most `K₀` primes, at most `J₀` comparisons with coefficients `|e_{ji}| ≤ E₀`, forms at most `Λ₀ log q` on the
-family and coefficients `|a_m| ≤ A₀`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` the `A − B/φ(q)` of the
-sharp family is at most `A₀q^{L−δ}/φ(q)`, `L = 2.333`. -/
+/-- **The Type II estimate for a sharp family (Lemmas 4′ and 4″), asymptotic form.** Let `L = 2.333`, `f0` smooth
+with support in `[1/2, 2]` and `0 ≤ f0 ≤ F₀`, and fix the family's shape: `K₀`, `J₀`, `e₁ > 0`, `E₀ ≥ 0`, `Λ₀ ≥ 0`
+and `A₀`. There are `δ > 0` and `q₀` with the following property. Let `q ≥ q₀`, let `a` be a unit mod `q`, let `m`
+run over `S ⊆ (P, 2P]`, `q^{0.401L} ≤ P ≤ q^{0.485L}`, with coefficients `|a_m| ≤ A₀`, and let `n + 1 ≤ K₀` primes
+`x_i` run over `Sp`'s ranges at the scales `Q_i ≥ q^{e₁}`, `∏_i Q_i ≤ 2^{K₀}q^L/P`, with the weights `f0(x_i/Q_i)`.
+Let `J ≤ J₀` sharp comparisons `P_j` hold when `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i > 0` and imply `ℓ_j ≥ 0`, with
+`|e_{ji}| ≤ E₀`, `ℓ_j ≤ Λ₀ log q` on the family, and for each `j` a pivot `i` with `e_{ji} = ±1`. Then the family's
+`A − B/φ(q)` is at most `A₀q^{L−δ}/φ(q)`. -/
 theorem typeII_sharp {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hsupp : Function.support f0 ⊆ Set.Icc (1 / 2) 2)
     (hf0nn : ∀ u, 0 ≤ f0 u) {F₀ : ℝ} (hF₀ : ∀ u, f0 u ≤ F₀) (K₀ J₀ : ℕ) {e₁ E₀ Λ₀ A₀ : ℝ} (he₁ : 0 < e₁)
     (hE₀ : 0 ≤ E₀) (hΛ₀ : 0 ≤ Λ₀) :

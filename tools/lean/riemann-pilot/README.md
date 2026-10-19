@@ -24707,10 +24707,10 @@ The region's conditions enter as hypotheses in units of `1/DEN`. For example, `c
 
 **The theorems.**
 
-- `SieveSep.sum_sep`: for continuous integrable `g_j` with integrable `𝓕g_j`, a finite sum `Σ_i w_i ∏_j g_j(ℓ_j(i))` is the integral over `ℝ^J` of `∏_j 𝓕g_j(ξ_j)` times `Σ_i w_i e^{2πiΣ_j ξ_jℓ_j(i)}`. `SieveSep.sep_bound` bounds such integrals: a bound on the box `|ξ_j| ≤ T₀` times `∏_j ‖𝓕g_j‖₁`, plus a global bound times the tails beyond `T₀`.
-- `SieveFamily.family_bound` (Lemma 4′ with Proposition 3′). A family has `m` over `S ⊆ (P, 2P]` with coefficients `a_m`, `P` in the window `[0.401L, 0.485L]` of `SieveTypeII.typeII_step`; `K ≤ K₀` primes `x_i ≤ 2Q_i` with the weights `f0(x_i/Q_i)`, `Q_i ≥ q^{e₁}` and `∏_i Q_i ≤ 2^{K₀}q^L/P`; and `J` smooth `g_j` of the forms `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i`. If `2π(Σ_j |e_{ji}|)T₀ ≤ q^η`, the sum over `χ ≠ 1` of its twisted sums is at most `q^{L−1/50000}(Σ|a_m|²/P)^{1/2} ∏_j ‖𝓕g_j‖₁`, plus the trivial bound times the tails.
-- `SieveFamily.typeII_sharp_explicit` (Lemma 4″). Let sharp comparisons `P_j` replace the `g_j`, where `P_j` holds when `ℓ_j > 0` and implies `ℓ_j ≥ 0`, and let each have a pivot prime with coefficient `±1`. Then `|A − B/φ(q)|` is at most an explicit bound in the cut-off's mass (`massB`) and tail (`tailB`) and the pivots' counts.
-- `SieveFamily.typeII_sharp`. Fix `K₀`, `J₀`, `e₁ > 0`, `E₀ ≥ 0`, `Λ₀ ≥ 0` and `A₀`. There are `δ > 0` and `q₀` such that, for `q ≥ q₀`, every sharp family with `|a_m| ≤ A₀`, `J ≤ J₀`, `|e_{ji}| ≤ E₀` and `ℓ_j ≤ Λ₀ log q` on the family has `|A − B/φ(q)| ≤ A₀q^{L−δ}/φ(q)`.
+- `SieveSep.sum_sep`: for continuous integrable `g_j` with integrable `𝓕g_j`, a finite sum `Σ_i w_i ∏_j g_j(ℓ_j(i))` is the integral over `ℝ^J` of `∏_j 𝓕g_j(ξ_j)` times `Σ_i w_i e^{2πiΣ_j ξ_jℓ_j(i)}`. `SieveSep.sep_bound` bounds such integrals, for integrable `h_j` (here the `𝓕g_j`) and integrands `F_x(ξ)` continuous in `ξ`, with `Σ_x |F_x| ≤ B₁` on the box `|ξ_j| ≤ T₀` and `≤ B₂` everywhere, `B₁, B₂ ≥ 0`: by `B₁∏_j ‖h_j‖₁`, plus `B₂` times the tails `Σ_j (∫_{|t|>T₀} |h_j|) ∏_{i≠j} ‖h_i‖₁`.
+- `SieveFamily.family_bound` (Lemma 4′ with Proposition 3′). Let `f0` be smooth with support in `[1/2, 2]`, `e₁ > 0` and `0 < η ≤ 10⁻⁵`. A family has `m` over `S ⊆ (P, 2P]` with coefficients `a_m`, where `q^{0.401L} ≤ P ≤ q^{0.485L}`, the window of `SieveTypeII.typeII_step`; `K ≤ K₀` primes `x_i ≤ 2Q_i` with the weights `f0(x_i/Q_i)`, `Q_i ≥ q^{e₁}` and `∏_i Q_i ≤ 2^{K₀}q^L/P`; and `J` continuous integrable `g_j` with integrable `𝓕g_j`, applied to the forms `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i`. There is `q₀` such that for `q ≥ q₀`, if `2π(Σ_j |e_{ji}|)T₀ ≤ q^η` for each `i`, the sum over `χ ≠ 1` of the family's twisted sums is at most `q^{L−1/50000}(Σ|a_m|²/P)^{1/2} ∏_j ‖𝓕g_j‖₁`, plus the number of characters `χ ≠ 1` times `Σ_m |a_m| ∏_i Σ_p |f0(p/Q_i)|` times `Σ_j (∫_{|t|>T₀} |𝓕g_j|) ∏_{i≠j} ‖𝓕g_i‖₁`.
+- `SieveFamily.typeII_sharp_explicit` (Lemma 4″). Let also `0 ≤ f0 ≤ F₀`. Cut a family with `n + 1 ≤ K₀` primes by `J` sharp comparisons `P_j` in place of the `g_j`, where `P_j` holds when `ℓ_j > 0` and implies `ℓ_j ≥ 0`, each with a pivot prime of coefficient `±1`. There is `q₀` such that for `q ≥ q₀`, a unit `a` mod `q`, `0 < θ ≤ 1 ≤ Λ` with `ℓ_j ≤ Λ` on the family, `T₀ ≥ 1`, `k ≥ 2` and `2π(Σ_j |e_{ji}|)T₀ ≤ q^{1/100000}` for each `i`, `|A − B/φ(q)|` is at most an explicit bound in the cut-off's masses and tail (`massB`, `tailB`) and the pivots' counts.
+- `SieveFamily.typeII_sharp`. Fix `f0` as above, `K₀`, `J₀`, `e₁ > 0`, `E₀ ≥ 0`, `Λ₀ ≥ 0` and `A₀`. There are `δ > 0` and `q₀` such that, for `q ≥ q₀` and a unit `a` mod `q`, every sharp family with `|a_m| ≤ A₀`, `J ≤ J₀`, `|e_{ji}| ≤ E₀` and `ℓ_j ≤ Λ₀ log q` on the family has `|A − B/φ(q)| ≤ A₀q^{L−δ}/φ(q)`.
 
 The coefficients are bounded by a constant fixed before `q₀`, in place of §13's `τ(m)^C`. M5's families are to have `|a_m| ≤ 1`: in Buchstab's tree the primes of a term are distinct and decreasing, so `m` determines its tuple. §13's marker of this round says so.
 
@@ -24718,14 +24718,14 @@ The coefficients are bounded by a constant fixed before `q₀`, in place of §13
 
 - *Separation* (`SieveSep`). Fourier inversion at a point (Mathlib's `Continuous.fourierInv_fourier_eq`) and over `ℝ^J` (Mathlib's `integral_fintype_prod_volume_eq_prod`). `sep_bound` integrates the pointwise bound `H(ξ)Σ_x |F_x(ξ)| ≤ B₁H(ξ) + B₂Σ_j E_j(ξ)`. Here `H = ∏_j |h_j(ξ_j)|`, and `E_j` is `H` with its `j`-th factor cut to `|ξ_j| > T₀`.
 - *`family_bound`.* The separated sum factors into the twisted `m`-sum and the twisted prime sums, which are `SieveWeight.Sp` at the heights `−2πΣ_j ξ_je_{ji}` (`sum_twist_eq`, `inner_factor`). On the box the heights are at most `q^η`, and `typeII_step` bounds the sum over `χ ≠ 1`.
-- *The cut-off's mass and tails.* `‖𝓕G‖₁ ≤ π(2Λ + θ) + c₂/(2πθ)` and `∫_{|ξ|>T₀} |𝓕G| ≤ 2π·2θ^{1−k}c_k(2π)^{−k}T₀^{2−k}` (`mass_GC_le`, `tail_GC_le`), from `SieveSmooth`'s decay bounds.
+- *The cut-off's mass and tails.* For `SieveSmooth`'s cut-off `G` with `0 < θ ≤ 2Λ`, `‖𝓕G‖₁ ≤ π(2Λ + θ) + c₂/(2πθ)`; for `θ > 0`, `Λ ≥ 0`, `k ≥ 2` and `T₀ ≥ 1`, `∫_{|ξ|>T₀} |𝓕G| ≤ 2π·2θ^{1−k}c_k(2π)^{−k}T₀^{2−k}`. Here `c_k = ‖g^{(k)}‖₁` for Mathlib's `Real.smoothTransition` `g` (`mass_GC_le`, `tail_GC_le`), from `SieveSmooth`'s decay bounds.
 - *Orthogonality.* `1[n ≡ a] − 1[(n, q) = 1]/φ(q) = φ(q)⁻¹Σ_{χ≠1} χ(a⁻¹)χ(n)` for a unit `a` (`dw_eq`).
 - *Sharp against smooth.* `|∏_j I_j − ∏_j G_j| ≤ Σ_j |I_j − G_j|` for values in `[0, 1]`, and `|1[P_j] − G(ℓ_j)| ≤ G̃(ℓ_j)` with the narrow cut-off `G̃(u) = G_{θ,θ}(u + θ)` (`norm_Dsum_sharp_le`, `abs_ind_sub_G_le`). The near-boundary families are families again. Their sizes are bounded through the pivot: `G̃` confines the pivot prime to a short interval `[Y, e^{3θ}Y]`, which holds at most `(e^{3θ} − 1)R + 1` integers up to `R` (`card_short_le`, `pivot_term_le`, `pivot_sum_le`).
 - *`typeII_sharp`.* Take `θ = q^{−ε₂}` with `ε₂ = 1/(400000(J₀ + 1))`, `Λ = Λ₀ log q + 1`, `T₀ = q^{1/200000}` and `k = 1200003`. The masses are at most `Cq^{ε₂}`, the tails at most `c′q^{−3}`, and the box and the pivots' counts at most constants times `A₀q^L`. So the three terms are at most `A₀q^L/φ(q)` times `a₁q^{−7/400000} + a₂q^{−1} + a₃(12q^{−ε₂} + q^{−e₁})`. That is at most `q^{−δ}` with `δ = min(ε₂, e₁)/2` once `q^δ ≥ a₁ + a₂ + 13a₃` (`bracket_le`).
 
 **The convergence review of round 599.** In the reviewer's words: "The sweep's substance holds." It classed its four findings, "wording or scope defects in prose", as novel. Under Check 3 the lead verified each against the cited lines; all are accepted and swept.
 
-- **1** (cosmetic). Rounds 597–599 assigned the step `S(B_{p₁p₂}, p₂) ≤ Ψ(x/(p₁p₂), p₂)` to "the paper", at five places written in round 599. In this README "the paper" is `riemann-indistinguishability.md` (10745), but the step is stated only in SIEVE-ROUTE.md's plan for M8 (428), which is not a paper surface. Corrected to "a paper-level step".
+- **1** (cosmetic). Rounds 597–599 assigned the step `S(B_{p₁p₂}, p₂) ≤ Ψ(x/(p₁p₂), p₂)` to "the paper", at five places written in round 599. In this README "the paper" is `riemann-indistinguishability.md` (10745), but the step is stated in SIEVE-ROUTE.md's plan for M8 (428) and in round 599's list of what is checked and held (24688), neither of them a paper surface. Corrected to "a paper-level step".
 - **2** (cosmetic). Round 599's annotation at SIEVE-ROUTE.md 397 said that for `b < a` the right side is negative for small `ε`. For `b < 1` it is positive. Corrected to `1 < b < a`, annotated.
 - **3** (cosmetic). Round 599's fix of `external/pnt/README.md`'s section named `h` and `a` for "the cell" of "At a point of a cell", whose cells have two or four coordinates. The bounds `h/a + δ` and `h/a² + δ` are for a grid cell `k`: `evLe_cell_inv` and `evLe_cell_inv_log` take `k : ℕ`. Corrected, annotated.
 - **4** (cosmetic). `external/pnt/README.md`'s row for `SieveRough.lean` stated `psi_le`'s bound without its scope. The row now gives `y ≥ 1`, `u = log 2y/log z ≤ U` and `z ≥ z₀(U, ε)`, annotated.
@@ -24740,7 +24740,7 @@ The coefficients are bounded by a constant fixed before `q₀`, in place of §13
 
 - `lean` was run on `SieveSep.lean` and `SieveFamily.lean` with the build's `LEAN_PATH` (Mathlib at `MATHLIB_REV`), into `build/`, in 10 s and 44 s, with no errors and no warnings. Neither file has a `sorry`, `native_decide`, `axiom` or `set_option`.
 - `external/pnt/build.sh` compiles the two after `SieveRough`, imports them in the final check and prints the axioms of six of their theorems; `bash -n` passes. The final check, run alone against `build/`, prints 337 axiom lines, all inside the three (11 s). The rest of the layer was not rebuilt.
-- Before landing, each docstring and the header were read against their statements, and the docstrings of the scratch files were completed with the hypotheses their theorems carry, the class of rounds 598 and 599's findings.
+- ~~Before landing, each docstring and the header were read against their statements, and the docstrings of the scratch files were completed with the hypotheses their theorems carry, the class of rounds 598 and 599's findings.~~ *(Round 601: retracted, false when written: the docstrings of `typeII_sharp` and `sep_bound` left out hypotheses that their theorems carry and need, the pivots and the unit `a`, and `B₁ ≥ 0` and the integrability of the `h_j`; three more docstrings of `SieveSep.lean` left out the `g_j`'s hypotheses. Round 601 completes them; review of round 600, finding 1.)*
 - `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. None of these files is a paper surface.
 
 **Records.**
@@ -24758,3 +24758,63 @@ The coefficients are bounded by a constant fixed before `q₀`, in place of §13
 **Bearing on RH:** none.
 
 **The next step.** A voluntary review of this round, covering `SieveSep.lean`, `SieveFamily.lean` and the sweep. Meanwhile M5, the sieve, in scratch: Buchstab's identity over finite sets, §6's decomposition as an exact identity, and the fundamental lemma by Brun's sieve in product form.
+
+## Round 601: the review of round 600 (`external/pnt/SieveSep.lean` and `SieveFamily.lean` docstrings; `frontier/linnik/SIEVE-ROUTE.md` §§8, 9 and 13; `external/pnt/README.md`)
+
+**What it is.** A fresh-context reviewer, the repository's `hostile-reviewer` agent, ran the voluntary review of round 600 at 5418248: M4's landing (`SieveSep.lean`, `SieveFamily.lean` and `build.sh`) and the sweep of round 599's convergence review.
+
+- The reviewer found no MAJOR. It proposed one minor finding and four cosmetic ones, all novel, and two out-of-scope observations.
+- In its words, "The Lean holds up." Both files compile with no output, with `autoImplicit` on and off, and their oleans are byte-identical to `build/`'s.
+- Under Check 3 the lead verified each finding against the cited lines. All are accepted and swept, with siblings of findings 1 and 2, and both observations are acted on.
+- No proved statement changes. Finding 1 is a minor, so this sweep is owed a convergence review.
+
+**Findings and dispositions.**
+
+- **1** (minor). Round 600's record said that "the docstrings of the scratch files were completed with the hypotheses their theorems carry". Two were not. `typeII_sharp`'s docstring left out the pivots, the unit `a`, the comparisons' property, the window, `S ⊆ (P, 2P]`, the scales and `f0`'s hypotheses, and `sep_bound`'s left out `B₁, B₂ ≥ 0` and the integrability of the `h_j`. Without the pivots, the unit `a` or `B₁ ≥ 0` the statements are false; the reviewer gives counterexamples. For the pivots: one comparison with `e = 0`, `φ = 0` and `P_1` the condition `n ≡ a` passes every other hypothesis, and the family's `A − B/φ(q)` is then `(1 − 1/φ(q))` times the weights of the `n ≡ a`, about `A₀q^{L−1}/log q`, against the bound `A₀q^{L−δ}/φ(q)`. The sentence was false when written; it is struck and annotated, and the two docstrings are completed. Siblings: the docstrings of `prod_eq_integral`, `integrable_prod_fourier` and `sum_sep` now carry the `g_j`'s hypotheses, those of `family_bound` and `typeII_sharp_explicit` state their `q₀`, and `family_bound`'s states its window and its tail term in full.
+- **2** (cosmetic). Round 600's summaries dropped scope. `family_bound`'s put `P` in the window where `log P/log q` is, had "smooth" `g_j` where the theorem takes continuous integrable `g_j` with integrable `𝓕g_j`, and left `η` and `q₀` unbound. `typeII_sharp_explicit`'s left out `θ`, `Λ`, `T₀`, `k`, the unit `a` and `q₀`, and the cut-off's tails left `c₂` and `c_k` unbound. Corrected in place, with two siblings: `sep_bound`'s summary now gives its hypotheses, and `typeII_sharp`'s gives the unit `a`.
+- **3** (cosmetic). M4's landing left four sites of SIEVE-ROUTE.md unmarked: §8's list of what is missing still had Lemma 4; §9's M3 said "the integral over the heights remains", which `family_bound` performs; §13's list of what is done had no M4; and §13's parameter `ε₂ < η/(2L)` is not what the Lean uses. `typeII_sharp` takes `T₀ = q^{1/200000}` and `ε₂ = 1/(400000(J₀ + 1))`, and at `J₀ = 0`, `ε₂ = 2.5·10⁻⁶ > η/(2L) = 2.14·10⁻⁶`. Each site now carries a marker, and §13's marker of round 600 adds `T₀`.
+- **4** (cosmetic). That marker's `ℓ_j` and "coefficient" had no antecedent in SIEVE-ROUTE.md. It now defines the form `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i`, annotated.
+- **5** (cosmetic). `SieveSep.lean`'s header said that it was built against PrimeNumberTheoremAnd, but it imports only Mathlib. The line is removed, as `SieveSmooth.lean` and `SieveCert.lean` have none.
+- **O1** (observation; record prose). Round 600 said that the step `S(B_{p₁p₂}, p₂) ≤ Ψ(x/(p₁p₂), p₂)` is stated "only" in SIEVE-ROUTE.md (428), but round 599's list of what is checked and held (24688) states it too. Corrected in place.
+- **O2** (observation; before round 600). `external/pnt/README.md`'s rows for `LinnikSplit.lean` and `LinnikS2.lean` had unescaped `|` inside code spans, which split their cells. They are escaped, and the rows render whole.
+
+**The lead's verification.**
+
+- Each cited line was read: `SieveFamily.lean` 1–60, and `typeII_sharp` at 1369–1393 (1371–1399 after the sweep); `SieveSep.lean` 1–30, 44–68 and 85–95; README.md 24640–24760; SIEVE-ROUTE.md 1–10, 180–220 and 365–432; `external/pnt/README.md` 67–68; and the first lines and imports of `SieveSmooth.lean`, `SieveCert.lean`, `SieveRough.lean`, `SieveTypeII.lean` and `SieveWeight.lean`.
+- Every docstring of the two files was read against its statement: a scratch script printed the 5 of `SieveSep.lean` and the 36 of `SieveFamily.lean` with their statements. Besides finding 1's, `family_bound`'s and `typeII_sharp_explicit`'s left their `q₀` implicit, and `family_bound`'s gave the window by name and the tail term as "the trivial bound times the tails".
+- The counterexamples were checked. For `sep_bound`, with `T₀ = −1` the box is empty, and `B₁ = −100`, `B₂ = 1`, `F = 1` and `h(t) = e^{−t²}` give `√π = 1.772454` on the left and `−99√π = −175.4729` on the right (scratch). For the pivots, as in finding 1; for the unit `a`, `a = 0` and `a_m = A₀` on the multiples of `q` give `A₀⌊P/q⌋` times the primes' weights, of the same size.
+- At `J₀ = 0`, `ε₂ = 2.5·10⁻⁶` and `10⁻⁵/(2·2.333) = 2.143·10⁻⁶` (scratch). `SieveFamily.lean` 1437 takes `2πJ₀E₀ ≤ q^{1/200000}`, so the heights are at most `q^{10⁻⁵}`.
+- `grep -n 'ℓ' SIEVE-ROUTE.md` hit 115 and 402 only, before the sweep.
+- This round's operative theorem, `SieveFamily.typeII_sharp`, was re-read at its statement, and its docstring was rewritten against it.
+
+**What is checked.**
+
+- The changes to `SieveSep.lean` and `SieveFamily.lean` are in comments and docstrings only. With comments stripped, the two files have 1665 and 19296 tokens before and after, identical (scratch check).
+- Both were recompiled with the build's `LEAN_PATH` into `build/`, in 11 s and 42 s, with no errors and no warnings.
+- The final check, run alone against `build/`, prints 337 axiom lines: 336 `[propext, Classical.choice, Quot.sound]` and 1 `[propext]` (10 s).
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. README.md (1872) and SIEVE-ROUTE.md (25) gain no reports. `external/pnt/README.md` falls from 10 to 5: the two rows' L8, L16 and L17 are gone, and the five left are lists after a paragraph with no blank line, as at HEAD.
+- The strike starts at a word, renders as one `<del>` and holds its text verbatim, and the live text was read with the strike removed. None of these files is a paper surface.
+
+**Checked and held** (the reviewer's list, with its evidence in its report).
+
+- **The final check.** 337 axiom lines, all inside the three; the six new ones are clean.
+- **`typeII_sharp`'s quantifiers.** `δ = min(ε₂, e₁)/2` depends only on `J₀` and `e₁`, and `q₀` does not depend on `A₀`. The bound is uniform in the family, which is what M5 and M8 need for families of fixed shape.
+- **M5's `|a_m| ≤ 1`.** In §6 and in Proposition 6 the primes of a term are distinct and decreasing, so `m` determines its tuple.
+- **The one-sided bound `ℓ_j ≤ Λ₀ log q`.** No lower bound is needed: for `u ≤ Λ`, `u < 0` makes the comparison false and the cut-off `0`, and `u ≥ θ` makes it true and the cut-off `1`.
+- **Comparisons and pivots.** Every comparison that §4 generates has this form, with coefficients `0` or `±1`, and any prime that occurs serves as its pivot.
+
+**Records.**
+
+- `external/pnt/SieveSep.lean`: the header line and four docstrings.
+- `external/pnt/SieveFamily.lean`: three docstrings.
+- `external/pnt/README.md`: two rows escaped.
+- `frontier/linnik/SIEVE-ROUTE.md`: markers at 191, 214, 375, 377 and 402.
+- README.md: round 600 swept as above.
+
+**Check 4.** The reviewer classed the findings as novel; the lead agrees.
+
+**Check 9.** (a) Finding 1's strike withdraws a claim about the docstrings. "Is not used" at SIEVE-ROUTE.md 375 rests on `SieveFamily.lean` 1437. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** A convergence review of this sweep. Meanwhile M5 continues in scratch. The fundamental lemma by Brun's sieve in product form and the Type I counts compile; Buchstab's tree as an exact identity is in progress.

@@ -1,8 +1,6 @@
 /-
 # Round 600: separation of smooth comparisons by Fourier inversion over `ℝ^J` (milestone M4)
 
-Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
-
 Plain statements. Mathlib's `𝓕` is `ξ ↦ ∫ e^{−2πixξ}f(x) dx`. Let the `g_j`, for `j` in a finite type, be continuous
 and integrable with integrable `𝓕g_j`.
 
@@ -41,7 +39,8 @@ theorem inv_eq {g : ℝ → ℂ} (hc : Continuous g) (hi : Integrable g) (hf : I
 
 variable {ι : Type*} [Fintype ι]
 
-/-- **Fourier inversion of a product**: `∏_j g_j(u_j) = ∫_{ℝ^J} ∏_j 𝓕g_j(ξ_j)e^{2πiξ_ju_j} dξ`. -/
+/-- **Fourier inversion of a product**: for `g_j` continuous and integrable with integrable `𝓕g_j`,
+`∏_j g_j(u_j) = ∫_{ℝ^J} ∏_j 𝓕g_j(ξ_j)e^{2πiξ_ju_j} dξ`. -/
 theorem prod_eq_integral {g : ι → ℝ → ℂ} (hc : ∀ j, Continuous (g j)) (hi : ∀ j, Integrable (g j))
     (hf : ∀ j, Integrable (𝓕 (g j))) (u : ι → ℝ) :
     ∏ j, g j (u j) = ∫ ξ : ι → ℝ, ∏ j, (𝓕 (g j) (ξ j) * Complex.exp (2 * π * I * ξ j * u j)) := by
@@ -49,7 +48,7 @@ theorem prod_eq_integral {g : ι → ℝ → ℂ} (hc : ∀ j, Continuous (g j))
     (f := fun j (t : ℝ) => 𝓕 (g j) t * Complex.exp (2 * π * I * t * u j))]
   exact Finset.prod_congr rfl fun j _ => inv_eq (hc j) (hi j) (hf j) (u j)
 
-/-- The integrand of `prod_eq_integral` is integrable. -/
+/-- The integrand of `prod_eq_integral` is integrable, for integrable `𝓕g_j`. -/
 theorem integrable_prod_fourier {g : ι → ℝ → ℂ} (hf : ∀ j, Integrable (𝓕 (g j))) (u : ι → ℝ) :
     Integrable (fun ξ : ι → ℝ => ∏ j, (𝓕 (g j) (ξ j) * Complex.exp (2 * π * I * ξ j * u j))) := by
   refine Integrable.fintype_prod (f := fun j (t : ℝ) => 𝓕 (g j) t * Complex.exp (2 * π * I * t * u j))
@@ -59,8 +58,9 @@ theorem integrable_prod_fourier {g : ι → ℝ → ℂ} (hf : ∀ j, Integrable
   rw [Complex.norm_exp]
   simp
 
-/-- **Separation of a finite sum.** `Σ_{i∈N} w_i ∏_j g_j(ℓ_j(i))` is the integral over `ℝ^J` of
-`∏_j 𝓕g_j(ξ_j)` times `Σ_{i∈N} w_i e^{2πi Σ_j ξ_jℓ_j(i)}`. -/
+/-- **Separation of a finite sum.** For `g_j` continuous and integrable with integrable `𝓕g_j`,
+`Σ_{i∈N} w_i ∏_j g_j(ℓ_j(i))` is the integral over `ℝ^J` of `∏_j 𝓕g_j(ξ_j)` times
+`Σ_{i∈N} w_i e^{2πi Σ_j ξ_jℓ_j(i)}`. -/
 theorem sum_sep {X : Type*} (N : Finset X) (w : X → ℂ) (ℓ : ι → X → ℝ) {g : ι → ℝ → ℂ}
     (hc : ∀ j, Continuous (g j)) (hi : ∀ j, Integrable (g j)) (hf : ∀ j, Integrable (𝓕 (g j))) :
     ∑ i ∈ N, w i * ∏ j, g j (ℓ j i) =
@@ -83,7 +83,8 @@ theorem sum_sep {X : Type*} (N : Finset X) (w : X → ℂ) (ℓ : ι → X → �
     exact (integrable_prod_fourier hf (fun j => ℓ j i)).const_mul (w i)
 
 /-- **The bound after separation.** Let `F_x(ξ)` be continuous in `ξ` for each `x` of a finite set `s`, with
-`Σ_x ‖F_x(ξ)‖ ≤ B₁` on the box `|ξ_j| ≤ T₀` and `≤ B₂` everywhere. Then
+`Σ_x ‖F_x(ξ)‖ ≤ B₁` on the box `|ξ_j| ≤ T₀` and `≤ B₂` everywhere, `B₁, B₂ ≥ 0`, and let the `h_j` be integrable.
+Then
 `Σ_x ‖∫ ∏_j h_j(ξ_j) F_x(ξ) dξ‖ ≤ B₁ ∏_j ‖h_j‖₁ + B₂ Σ_j (∫_{|t|>T₀} ‖h_j‖) ∏_{i≠j} ‖h_i‖₁`. -/
 theorem sep_bound {X : Type*} [DecidableEq ι] (s : Finset X) (F : X → (ι → ℝ) → ℂ) (hF : ∀ x, Continuous (F x))
     {h : ι → ℝ → ℂ} (hh : ∀ j, Integrable (h j)) {T₀ B₁ B₂ : ℝ} (hB₁0 : 0 ≤ B₁) (hB₂0 : 0 ≤ B₂)
