@@ -24439,3 +24439,50 @@ with `N = ⌊2P⌋`, `M = KL(θ, θ + δ) + KL(11/12, 11/12 + δ)` and `A = log(
 **Bearing on RH:** none.
 
 **The next step.** M7 in Lean (§13), in scratch: the certificate's integer definitions on `typeII_step`'s window, and the kernel's check of the total. A voluntary review follows. Round 593's next step named M4; §13 puts M7 first.
+
+## Round 595: the loss certificate in the kernel (`external/pnt/SieveCert.lean`; `frontier/linnik/SIEVE-ROUTE.md` §13, M7)
+
+**What it is.** Milestone M7 of the first goal (SIEVE-ROUTE.md §13). The loss certificate for the curve step at `L = 2333/1000`, on the window `[401/1000, 485/1000]` of `SieveTypeII.typeII_step`, is checked by Lean's kernel.
+
+**The theorem.** `SieveCert.total_le`: `total ≤ 88·2^{60}/100`, where `total` is the certificate's bound for the loss in units of `2^{−60}`. `decide +kernel` proves it, and `#print axioms` gives `[propext]`. In the reals, `total/2^{60} ≤ 0.88` (`total_div_le`).
+
+- The definitions follow `frontier/linnik/sieve_route_certificate.py` at `n = 70`, with the crude bound for `ω`.
+  - The grid: coordinates in units of `1/DEN`, `DEN = 2^40`, with `U1 = ⌈(401/1000)DEN⌉` and `U2 = ⌊(485/1000)DEN⌋`.
+  - The tests: the region, evaluability (`surelyEval`, a subset sum of a cell's corners inside `U`), and decomposition by the sharp rule (`allowed`).
+  - The bounds: each is computed exactly from the cell's corners and rounded up to a multiple of `2^{−60}` (`omK`, `bound2`, `bound4`). The certificate's floating-point arithmetic with outward rounding is not used.
+- The total is `1013488703434062770·2^{−60} = 0.879061…` (`#eval` on the built file). A scratch replay in Python's integer arithmetic (`m7_replay.py`) gives the same integer, with 916 candidates and 423 decomposed cells. The float certificate on this window gives `0.8790613232425407` (rounds 593 and 594).
+
+**What the tests say about points.** M8 will need these, so the file proves them for points of the exponent space:
+
+- if a box passes `surelyEval`, every point of it is evaluable, that is, has a sub-sum of its exponents in `U` (`eval_of_surelyEval`);
+- a non-evaluable point of the region of depth 2 lies in a candidate cell (`cover2`);
+- on a cell that may be decomposed, `α₁ + α₂` and `α₁ + α₂ + α₃` stay at most `1 − u₂` at non-evaluable points, and each non-evaluable `α₃` lies in a counted row (`sum_le_of_allowed`, `cover3`);
+- a non-evaluable point of depth 4 lies in a counted cell (`cover4`);
+- the crude `ω` (`omegaC`), on a cell's arguments widened by `τ < 1/DEN`, is at most the cell's value `omK/2^{60}` (`omegaC_le`). The widening covers the shift `log 2/log x` of M6's argument `log 2y/log z` for large `x`;
+- each bound is at least its real counterpart, `h²` (or `h⁴`) times the cell's value of `ω` times `1/(ab²)` (or `1/(abcd²)`) (`bound2_ge`, `bound4_ge`);
+- the total is the double sum of the cells' costs (`total_eq`), and a decomposed cell's cost is the sum over its counted cells of depth 4 (`refcost_eq`).
+
+The region's conditions enter as hypotheses in units of `1/DEN`. For example, `cover2` takes `α₁ + 2α₂ < 1 + 1/DEN` and `α₁ < (V + nH)/DEN = 1/2 + 14/DEN`, which the primes' exponents meet for large `x`.
+
+**What is checked.**
+
+- `lean` was run on `SieveCert.lean` with the build's `LEAN_PATH` (Mathlib at `MATHLIB_REV`) in 64 s, the kernel's check included, with no errors and no warnings. The file is in `build/`.
+- `#print axioms` gives `[propext]` for `total_le`, and `[propext, Classical.choice, Quot.sound]` for the other eleven theorems the file prints.
+- `external/pnt/build.sh` lists the file after `SieveTypeII`, imports it in the final check and prints the axioms of five of its theorems; `bash -n` passes. The final check, run alone against `build/`, prints 326 axiom lines, all inside the three (10 s). The rest of the layer was not rebuilt.
+- Before landing, each docstring and the header were read against their statements.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. SIEVE-ROUTE.md (25) and `external/pnt/README.md` (10) gain no reports, and README.md (1869) gains only one of class L10 (a nested list directly after its item's text), in this entry. None of these files is a paper surface.
+
+**Records.**
+
+- `external/pnt/SieveCert.lean`: new.
+- `external/pnt/build.sh`: the file, imported in the final check, and the axioms of five of its theorems.
+- `external/pnt/README.md`: a row in the table, and a section.
+- `frontier/linnik/SIEVE-ROUTE.md`: markers in §0, §8's Lean map, §11, §12 and §13.
+
+**Check 4.** New against the pilot: the loss certificate in the kernel, and the semantic lemmas that tie its tests to points. Classical [recalled]: subset sums of intervals, and rounding up in fixed point.
+
+**Check 9.** (a) The statements about points are scoped to the hypotheses they take, such as the region's conditions in units of `1/DEN`, and "for large `x`" marks the steps M8 owes. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** A voluntary review of rounds 594 and 595. It covers §13, the plan that round 594 added, and `SieveCert.lean`. Meanwhile M6, rough numbers from above (§13), in scratch.

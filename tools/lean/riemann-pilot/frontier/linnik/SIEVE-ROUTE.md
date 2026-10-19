@@ -2,7 +2,7 @@
 
 Round 580. This is SEVEN-THIRDS.md §44's argument, with §45's rule for decomposition, written lemma by lemma. It is meant as a blueprint for a referee and for a Lean formalization.
 
-- The analysis here is at paper level. It is unrefereed, and nothing in it is machine-checked. *(Rounds 589 and 591: two of its inputs are now proved in Lean, the density of the curve step (`LinnikStep.charDensity_step`, §12) and Lemma 1 (`SieveWeight.norm_Sp_le`, §§9–10).)* *(Round 594: `charDensity_step` is step's density on `[5/6, 1]`. The whole of it follows with `LinnikTwelve.charDensity_twelve_fifths` and the trivial count (§12), and `SieveTypeII.card_zero_step` (round 593) states it as one theorem. Round 593 also proved Proposition 3′ for the curve step at `L = 2.333`, pointwise in the heights (`SieveTypeII.typeII_step`, §10); review F-2.)*
+- The analysis here is at paper level. It is unrefereed, and nothing in it is machine-checked. *(Rounds 589 and 591: two of its inputs are now proved in Lean, the density of the curve step (`LinnikStep.charDensity_step`, §12) and Lemma 1 (`SieveWeight.norm_Sp_le`, §§9–10).)* *(Round 594: `charDensity_step` is step's density on `[5/6, 1]`. The whole of it follows with `LinnikTwelve.charDensity_twelve_fifths` and the trivial count (§12), and `SieveTypeII.card_zero_step` (round 593) states it as one theorem. Round 593 also proved Proposition 3′ for the curve step at `L = 2.333`, pointwise in the heights (`SieveTypeII.typeII_step`, §10); review F-2.)* *(Round 595: and the kernel checks the loss certificate for that window, `SieveCert.total_le`; §13.)*
 - `sieve_route_certificate.py` proves the windows and bounds the loss integral from above (§7). *(Wording scoped in round 581; review F10.)*
 - Standard results are stated in the form used and marked as such; their proofs are not repeated, and their sources were not re-read for this file.
 
@@ -191,7 +191,7 @@ Midpoint estimates put the thresholds of this decomposition between `2.275` and 
   - Lemma 4: Perron's formula truncated at a sharp cut-off, for several conditions at once, each with its own height *(added in round 581; review F4)* *(round 586: §10 replaces it by Lemmas 4′ and 4″)*;
   - Huxley's bound `3(1 − σ)/(3σ − 1)` for each `σ` in `[3/4, 11/12]`. Round 527 proves the uniform `12/5` on that range with one choice of its parameters; Huxley's curve needs a choice that depends on `σ` *(round 589: for `x = q^{2.333}` the curve step needs one constant beyond `12/5`, `101/50` on `[5/6, 11/12]`, and `LinnikStep.charDensity_step` proves it; §12)*;
   - Buchstab's identity, the fundamental lemma, Harman's fundamental theorem, and the asymptotics of rough numbers;
-  - a kernel-checked bound for the loss. At `L = 2.32` the certificate needs 434 cells of depth 2 and 473 of depth 4, and every bound rests on an enclosure of `ω` on intervals of width `2^{−16}`. Round 579's review counted 518650 of them in a scratch run, up to the argument `8.914`. *(Round 589: with step at `L = 2.333`, 916 cells of depth 2 and 1568 of depth 4 at `n = 70`, and a crude bound for `ω` suffices; §12.)* *(Round 594: those counts are for the committed window. On the window of `typeII_step`, `[401/1000, 485/1000]`, a scratch run at `n = 70` has 916 cells of depth 2 and 1881 of depth 4; review F-2.)*
+  - a kernel-checked bound for the loss. At `L = 2.32` the certificate needs 434 cells of depth 2 and 473 of depth 4, and every bound rests on an enclosure of `ω` on intervals of width `2^{−16}`. Round 579's review counted 518650 of them in a scratch run, up to the argument `8.914`. *(Round 589: with step at `L = 2.333`, 916 cells of depth 2 and 1568 of depth 4 at `n = 70`, and a crude bound for `ω` suffices; §12.)* *(Round 594: those counts are for the committed window. On the window of `typeII_step`, `[401/1000, 485/1000]`, a scratch run at `n = 70` has 916 cells of depth 2 and 1881 of depth 4; review F-2.)* *(Round 595: on that window `SieveCert.total_le` (`external/pnt/SieveCert.lean`) checks the bound `0.88` in the kernel; §13.)*
 
 **Literature.** IDEAS.md G19 records the literature check of round 580.
 
@@ -307,7 +307,7 @@ At paper level and unrefereed, like the rest of this file.
 The owner's words: "Keep on the lean work but note this as a follow on goal. My immediate goal is to formalise 2.333 then to push on using the 7/3 result then to abstract all that is relevant to a clean gh repo & publish".
 
 1. **Formalize `x = q^{2.333}` in Lean**, by the route of §10 with the curve unif, through milestones M2–M8 of §§9–10. *(Round 589: with the curve step of §12 in place of unif.)*
-   - The main risk is M7. At `L = 2.333` the committed certificate runs at `n = 600`, with about `9.0` million cells of depth 4 (2132774 at `n = 410`, scratch, §9). That is too many to replay in Lean.
+   - The main risk is M7. *(Round 595: M7 is done for the curve step, `SieveCert.total_le`; §13.)* At `L = 2.333` the committed certificate runs at `n = 600`, with about `9.0` million cells of depth 4 (2132774 at `n = 410`, scratch, §9). That is too many to replay in Lean.
    - A smaller certificate is needed. One candidate integrates the last variable of each dropped family in closed form: with `u = (1 − s − α)/α`, the integral `∫ ω((1 − s − α)/α) dα/α²` over an interval of `α` is `(1/(1 − s))∫ ω(u) du`. That turns the cells of depth 4 into cells in three variables and those of depth 2 into one. *(Round 589: with step the certificate at `n = 70` has 916 cells of depth 2 and 1568 of depth 4 without it; §12.)*
 2. **Then the `7/3` result.** Chen–Gupta–Li's density exponent `7/3`, with the curve cons, certified on paper at `L = 2.25` (§7). In Lean it needs their bound, and the curves in `σ`, as counts of characters.
 3. **Then a clean repository.** Extract what the formalization uses into a clean repository on GitHub, and publish it.
@@ -357,7 +357,7 @@ At paper level and unrefereed, like the rest of this file, except for the Lean t
 **For Lean** (this revises §§9–11).
 
 - M1 is not needed for step either: (H2′) follows from `LinnikTwelve.charDensity_twelve_fifths`, `LinnikStep.charDensity_step` and the trivial count, all counts of characters.
-- M7 becomes a certificate of 2484 cells at `n = 70`. *(Round 594: on the window of `typeII_step`, `[401/1000, 485/1000]`, which M7 uses, a scratch run at `n = 70` has 2797 cells, 916 of depth 2 and 1881 of depth 4; review F-2.)* Each cell's bound is `h²` or `h⁴` times an upper bound for `ω` on the cell and the prefactor at its lower corner.
+- M7 becomes a certificate of 2484 cells at `n = 70`. *(Round 594: on the window of `typeII_step`, `[401/1000, 485/1000]`, which M7 uses, a scratch run at `n = 70` has 2797 cells, 916 of depth 2 and 1881 of depth 4; review F-2.)* *(Round 595: `SieveCert.total_le` checks them in the kernel; §13.)* Each cell's bound is `h²` or `h⁴` times an upper bound for `ω` on the cell and the prefactor at its lower corner.
 - With the crude bound, what M7 needs of `ω` is `ω = 0` below `1`, `ω(t) = 1/t` on `[1, 2]` and `ω(t) ≤ 0.5672` on `[2, 16)`.
   - On `[2, 3]`, `ω(t) = (1 + log(t − 1))/t`, whose maximum is `W(1) = 0.567143…`, at `t = 1 + 1/W(1)`, where `W` is Lambert's function.
   - Above `3`, `tω(t) = 1 + log 2 + ∫_2^{t−1} ω`. So if `ω ≤ M` on `[2, t − 1]` with `M ≥ (1 + log 2)/3 = 0.564382…`, then `ω(t) ≤ M`, and induction over unit intervals gives `ω ≤ 0.5672` on `[2, ∞)`.
@@ -370,13 +370,13 @@ The first goal's remaining milestones, M4–M8, as Lean statements. This is a pl
 **Parameters.**
 
 - `L = 2333/1000`, the curve step (§12), and the window `[401/1000, 485/1000]` of `SieveTypeII.typeII_step`.
-- The certificate's grid: `n = 70`, with the crude bound for `ω`. On this window a scratch run of the certificate bounds the loss by `0.8791` (rounded up). A scratch replay in integer arithmetic, with each cell's bound rounded up to a multiple of `2^{−60}`, gives `0.87907` (rounded up). The committed certificate does not run this window yet.
+- The certificate's grid: `n = 70`, with the crude bound for `ω`. On this window a scratch run of the certificate bounds the loss by `0.8791` (rounded up). A scratch replay in integer arithmetic, with each cell's bound rounded up to a multiple of `2^{−60}`, gives `0.87907` (rounded up). The committed certificate does not run this window yet. *(Round 595: `SieveCert.total_le` runs it in the kernel, and its total is the replay's.)*
 - `ε₁`, the floor of the sifting, small. Proposition 6's sieve parameter is `s ≥ (u₂′ − 1/L − ε)/ε₁`, and `u₂′ − 1/L > 0.056` here, so `ε₁ = 1/1000` gives `s ≥ 56` once `ε ≤ 3·10⁻⁴`.
 - `ε₂ < η/(2L)` with `η ≤ 10⁻⁵`, so that Lemma 4′'s heights `JT₀` stay below M3's `q^η` (README round 594, F-1).
 
-**Done.** M1s (`LinnikStep.charDensity_step`, round 589), M2 (`SieveWeight.norm_Sp_le`, round 591), M3 pointwise in the heights (`SieveTypeII.typeII_step`, round 593), and the cut-off of Lemma 4′ (`SieveSmooth`, round 588).
+**Done.** M1s (`LinnikStep.charDensity_step`, round 589), M2 (`SieveWeight.norm_Sp_le`, round 591), M3 pointwise in the heights (`SieveTypeII.typeII_step`, round 593), and the cut-off of Lemma 4′ (`SieveSmooth`, round 588). *(Round 595: and M7.)*
 
-**M7. The certificate in Lean.**
+**M7. The certificate in Lean.** *(Round 595: done, `external/pnt/SieveCert.lean`: `total_le`, with the semantic lemmas `cover2`, `sum_le_of_allowed`, `cover3`, `cover4`, `omegaC_le`, `bound2_ge` and `bound4_ge`.)*
 
 - Integer definitions that follow `sieve_route_certificate.py` on the grid:
   - `DEN = 2^40`, `U1 = ⌈(401/1000)DEN⌉`, `U2 = ⌊(485/1000)DEN⌋` and the cells;
