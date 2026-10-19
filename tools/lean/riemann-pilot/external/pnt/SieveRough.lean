@@ -800,7 +800,7 @@ theorem omegaC_of_lt_two {u : ℝ} (hu1 : 1 ≤ u) (hu : u < 2) : SieveCert.omeg
   have h1 : ¬ u < 1 := by linarith
   simp only [SieveCert.omegaC, h1, hu, ite_false, ite_true]
 
-/-- The sum over the primes of `[z, n]` is at most the term at `z` plus the sum over `(z, n]`. -/
+/-- For `F ≥ 0`, the sum over the primes of `[z, n]` is at most the term at `z` plus the sum over `(z, n]`. -/
 theorem sum_Icc_filter_le {z n : ℕ} {F : ℕ → ℝ} (hF : ∀ p, 0 ≤ F p) (hzn : z ≤ n) :
     ∑ p ∈ (Icc z n).filter Nat.Prime, F p ≤ F z + ∑ p ∈ (Ioc z n).filter Nat.Prime, F p := by
   rw [Finset.sum_filter, Finset.sum_filter, ← Finset.sum_Ioc_add_eq_sum_Icc hzn]
@@ -1220,7 +1220,8 @@ theorem mem_primesIn {A B : ℝ} {p : ℕ} : p ∈ primesIn A B ↔ p.Prime ∧ 
   rw [primesIn, Finset.mem_filter, Finset.mem_Ico, Nat.ceil_le, Nat.lt_ceil]
   tauto
 
-/-- A sum over `primesIn A B` is at most its term at `⌈A⌉₊` plus the sum over the primes of `(⌊A⌋₊, ⌊B⌋₊]`. -/
+/-- For `f ≥ 0`, a sum over `primesIn A B` is at most its term at `⌈A⌉₊` plus the sum over the primes of
+`(⌊A⌋₊, ⌊B⌋₊]`. -/
 theorem sum_primesIn_le {A B : ℝ} {f : ℕ → ℝ} (hf : ∀ p, 0 ≤ f p) :
     ∑ p ∈ primesIn A B, f p ≤ f ⌈A⌉₊ + ∑ p ∈ (Ioc ⌊A⌋₊ ⌊B⌋₊).filter Nat.Prime, f p := by
   set s := (Ioc ⌊A⌋₊ ⌊B⌋₊).filter Nat.Prime with hs
@@ -1499,8 +1500,8 @@ theorem psi_point {s t m z₀ p : ℕ} {ε x d : ℝ} (ht : 0 < t)
     _ ≤ ((omK s t m : ℝ) / K + ε) * (x / (d * p * Real.log p)) :=
         mul_le_mul_of_nonneg_right (by linarith) (div_nonneg hx0.le (by positivity))
 
-/-- **The finish.** If `F ≤ (W + ε)(x/log x)R` eventually for every `ε > 0`, `limsup R ≤ P` and `WP ≤ B`, then
-`F ≤ (B + δ)x/log x` eventually, for every `δ > 0`. -/
+/-- **The finish.** Let `W, P ≥ 0`. If `F ≤ (W + ε)(x/log x)R` eventually for every `ε > 0`, `limsup R ≤ P` and
+`WP ≤ B`, then `F ≤ (B + δ)x/log x` eventually, for every `δ > 0`. -/
 theorem evLe_finish {F R : ℝ → ℝ} {W P B : ℝ} (hW : 0 ≤ W) (hP : 0 ≤ P) (hWP : W * P ≤ B) (hR : EvLe R P)
     (hF : ∀ ε : ℝ, 0 < ε → ∀ᶠ x : ℝ in atTop, F x ≤ (W + ε) * (x / Real.log x) * R x) {δ : ℝ} (hδ : 0 < δ) :
     ∀ᶠ x : ℝ in atTop, F x ≤ (B + δ) * (x / Real.log x) := by

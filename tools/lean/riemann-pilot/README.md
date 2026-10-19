@@ -24550,7 +24550,7 @@ The region's conditions enter as hypotheses in units of `1/DEN`. For example, `c
 - `SieveRough.share4`: the same at depth 4 with `bound4`, for `e_i + e_j + e_k + 2e_l ≤ DEN`.
 - `share2_of_cand` and `share4_of_counted4`: the two on the cells that pass `cand` and `counted4`, whose tests include those inequalities.
 
-`Ψ(x/d, p)` counts the `m` with `dm ∈ (x, 2x]` and no prime factor below `p`. Summed over a cell's primes it is the model's count of the cell's terms, which M8 will drop, and the shares bound it by the certificate's own bounds.
+`Ψ(x/d, p)` counts the `m` with `dm ∈ (x, 2x]` and no prime factor below `p`. ~~Summed over a cell's primes it is the model's count of the cell's terms, which M8 will drop, and the shares bound it by the certificate's own bounds.~~ *(Round 598: retracted, false when written: the model is `B/φ(q)`, with `B` the `n` prime to `q`, and the sum counts every `n` once for each of its forms `p₁p₂m`; review of round 597, finding 1.)* Summed over all pairs of primes of a cell, it is at least `φ(q)` times the model's count of the cell's terms. So for a cell whose terms M8 drops, the shares bound the model's count by the certificate's own bounds, divided by `φ(q)`.
 
 **The proof.**
 
@@ -24590,7 +24590,7 @@ The region's conditions enter as hypotheses in units of `1/DEN`. For example, `c
 - `SieveCert.lean` changed in docstrings only: with comments stripped, both versions have 4972 tokens and are identical (scratch check). It was recompiled in 63 s with no errors or warnings. Its twelve axiom lines are as before, `[propext]` for `total_le`. The olean is in `build/`.
 - `external/pnt/build.sh` lists the new file after `SieveCert`, imports it in the final check and prints the axioms of five of its theorems; `bash -n` passes. The final check, run alone against `build/`, prints 331 axiom lines, all inside the three (9 s). The rest of the layer was not rebuilt.
 - Before landing, each docstring and the header were read against their statements.
-- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. None of these files is a paper surface.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. None of these files is a paper surface. *(Round 598: the outcome was not recorded. SIEVE-ROUTE.md (25), SEVEN-THIRDS.md (63) and `external/pnt/README.md` (10) gained no reports, and README.md (1871) gained one of class L10, in this entry; review of round 597, finding 5.)*
 
 **Records.**
 
@@ -24609,3 +24609,48 @@ The region's conditions enter as hypotheses in units of `1/DEN`. For example, `c
 **Bearing on RH:** none.
 
 **The next step.** A voluntary review of this round, covering `SieveRough.lean` and the sweep. Meanwhile M4, the Type II families (Lemmas 4′ and 4″), in scratch.
+
+## Round 598: the independent review of round 597 (`external/pnt/SieveRough.lean` docstrings; `external/pnt/README.md`; `frontier/linnik/SIEVE-ROUTE.md` §13)
+
+**What it is.** A fresh-context reviewer, the repository's `hostile-reviewer` agent, reviewed round 597 at c61e2a5. That covered M6 in Lean, `SieveRough.lean`, and the sweep of round 596's convergence review.
+
+- The reviewer found no MAJOR. It proposed one minor finding, four cosmetic ones and one observation, all novel.
+- In its words, "The Lean is sound and its statements are what M8 needs. Every defect I found is in prose: the README, the markdown and three docstrings."
+- Under Check 3 the lead verified each finding against the cited lines. All are accepted and swept.
+- No proved statement changes. Finding 1 is a minor, so this sweep is owed a convergence review.
+
+**Findings and dispositions.**
+
+- **1** (minor). README round 597 said that the sum of `Ψ(x/d, p)` over a cell's primes "is the model's count of the cell's terms". The model is `B/φ(q)`, with `B` the `n` prime to `q` (SIEVE-ROUTE.md 24–25). The sum runs over all pairs of the cell's primes, so it counts each `n` once for each of its forms `p₁p₂m`, with no `1/φ(q)`. It is an upper bound for `φ(q)` times that count, as §13's marker of round 597 states. The sentence was false when written; it is struck and replaced by the inequality.
+- **2** (cosmetic). Round 597's restructured strike in §13's M7 left the live text "…the evaluation. ; review O-1". The semicolon moves inside the strike.
+- **3** (cosmetic). `external/pnt/README.md`'s section on `SieveRough.lean` called both bounds "the cell's prime sums". The second bounds `log x · Σ 1/(p log p)`. Corrected.
+- **4** (cosmetic). Three docstrings of `SieveRough.lean` left out a sign hypothesis that their theorems carry: `evLe_finish` (`W, P ≥ 0`), `sum_Icc_filter_le` (`F ≥ 0`) and `sum_primesIn_le` (`f ≥ 0`). Without it each inequality fails; the reviewer gives counterexamples. The hypotheses are added to the docstrings.
+- **5** (cosmetic). README round 597 recorded the lint run without its outcome. A marker adds the counts.
+- **Observation** (held). The reviewer's timing of the truncated `SieveCert.lean` gave 7.9 s, 56.5 s and 60.0 s, where round 597 recorded 8 s, 47 s and 57 s. The times depend on the machine's load. The point stands: the certificate's check alone takes well under the 64 s of round 595's whole-file compile.
+
+**The lead's verification.**
+
+- Each cited line was read: README.md 24553 and 24593; SIEVE-ROUTE.md 24–25, 277 and 385; `external/pnt/README.md` 386; `SieveRough.lean` 803, 1223 and 1502–1504.
+- `SieveRough.lean`'s change is docstring-only: with comments stripped, both versions have 18304 tokens and are identical (scratch check). It was recompiled with the build's `LEAN_PATH` in 63 s, with no errors or warnings, and its 18 axiom lines are all `[propext, Classical.choice, Quot.sound]`. The olean is in `build/`.
+- This round's operative theorems, `SieveRough.share2` and `share4`, were re-read at `SieveRough.lean` 1540–1542 and 1612–1617.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. SIEVE-ROUTE.md (25) and `external/pnt/README.md` (10) gain no reports. README.md (1872) gains one report, of class L10, in this entry. The strike starts at a word, and the live texts were read with the strikes removed. None of these files is a paper surface.
+
+**Checked and held** (the reviewer's list, with its evidence in its report).
+
+- **The compiles.** `SieveRough.lean` and `SieveCert.lean` recompile to oleans byte-identical to `build/`'s, also with `autoImplicit` off. The two direct imports, `HalfPlaneFinal` and `LinnikTwelveSizes`, reproduce byte-identically. The final check prints 331 axiom lines, all inside the three.
+- **The statements.**
+  - `psi_le`'s `z₀` is uniform in `y`.
+  - `cellP`'s cell is half-open at the same end as `SieveCert.InCell`.
+  - The shares sum over the right family, with the last prime as the sifting limit.
+  - `cand` and `counted4` contain exactly the shares' hypotheses.
+- **What M8 needs.** The `B`-side terms are at most the `Ψ` counts. The corner terms `n = p₁p₂` number `O(x/log² x)`.
+- **The seams.** `theta_near`'s exponent `23/24`; `psi_point`'s hypotheses at the share points; `evLe_finish`'s constants.
+- **Round 597's dispositions.** All nine. The certificate's replay gives `omK = ⌈K·sup ω*⌉` on all 916 candidate cells and all 1881 counted cells of depth 4.
+
+**Check 4.** The reviewer classed the findings as novel; the lead agrees.
+
+**Check 9.** (a) Finding 1 replaces an identity by the inequality the Lean gives; finding 4 restores hypotheses. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** A convergence review of this sweep. Meanwhile M4 continues in scratch. The separation of `J` smooth comparisons by Fourier inversion over `ℝ^J` compiles, as do its bound by M3 on a box of heights, the cut-off's Fourier mass and tails, orthogonality for weighted families, and the sharp-against-smooth inequality of Lemma 4″.
