@@ -24276,7 +24276,7 @@ with `N = ⌊2P⌋`, `M = KL(θ, θ + δ) + KL(11/12, 11/12 + δ)` and `A = log(
   - `LinnikTwelve.lean` 16 and 59;
   - `LinnikStep.lean` 281.
 
-  All five now say "a power `m` … (`choose_m`, whose proof takes the least)". So do the two rows of `external/pnt/README.md` that cited "the least power", for `LinnikHuxley.lean` and `LinnikTwelve.lean`.
+  All five now say "a power `m` … (`choose_m`, whose proof takes the least)". *(Round 594: four of them. `LinnikHuxley.lean` 23–24 reads "some `m` … (`choose_m`, whose proof takes the least `m`)"; review O-1.)* So do the two rows of `external/pnt/README.md` that cited "the least power", for `LinnikHuxley.lean` and `LinnikTwelve.lean`.
 - **F5** (cosmetic). The section on `SieveWeight.lean` in `external/pnt/README.md` credited to `Sw_wy_eq`, an identity, the bound `max |f0|` for each proper prime power. That bound is proved inside `norm_Sp_le`. Corrected.
 - **O1** (the brief). The brief told the reviewer to put its scratch directory on `LEAN_PATH` after `build/`, so that `SieveWeight.lean` would find its own `SieveLemma1.olean`. Lean takes the first match, so `build/`'s copy is used. The reviewer showed this with a decoy, and compiled with its own directory first. The two oleans are byte-identical, so nothing turns on it. Later briefs put the scratch directory first.
 
@@ -24331,7 +24331,7 @@ with `N = ⌊2P⌋`, `M = KL(θ, θ + δ) + KL(11/12, 11/12 + δ)` and `A = log(
 - The window `[401/1000, 485/1000]` is rational. It lies inside step's proved window `(0.400943, 0.485533)` (rounded inward; §12), so the margins are fixed numbers.
   - The least margin, `5.5·10⁻⁵` in the exponent of `q`, is at `β = 11/12` and the left end of the window.
   - A scratch run of the certificate on this window bounds the loss by `0.871` at `n = 70`, and by `0.8791` with the crude bound for `ω` (both rounded up). The committed certificate does not run this window yet; that is M7's.
-- What remains of Proposition 3′ is the integral over the heights against `∏ k′(τ_i)`. A bound that holds at every point of the support needs only the measure's total mass, `≪ (log x)^J`.
+- ~~What remains of Proposition 3′ is the integral over the heights against `∏ k′(τ_i)`.~~ *(Round 594: retracted, false when written: more remains. Proposition 3′ as stated takes coefficients bounded by `τ(m)^C`, which needs a divisor-moment bound for `Σ_m |a_m|²/P`, and heights up to `JT₀`, which needs `JT₀ ≤ q^η`, that is `ε₂ < η/(2L)` in §10's parameters. One weight `f0` for all the prime sums suffices for §10's use; review F-1.)* What remains of Proposition 3′ includes the integral over the heights against `∏ k′(τ_i)`. A bound that holds at every point of the support needs only the measure's total mass, `≪ (log x)^J`.
 
 **The proof.** It follows §10.
 
@@ -24342,13 +24342,13 @@ with `N = ⌊2P⌋`, `M = KL(θ, θ + δ) + KL(11/12, 11/12 + δ)` and `A = log(
   - In a bin `i > 0` a character has a zero with `Re s ≥ β_i` and `|Im s| ≤ T` (`card_bin_le`).
 - **In each bin.**
   - Lemma 1 (`SieveWeight.norm_Sp_le`) at `θ = β_{i+1}`, `δ = 10⁻⁶` and `H = q^η` bounds each prime sum by `2Q_j^{θ+2δ}` for large `q` (`MB_le`).
-    - The decay is chosen with `η·K ≥ (5/12)(L + 1)`.
+    - The decay is chosen with `η·K ≥ (5/12)(L + 1)`. *(Round 594: here `K` is Lemma 1's decay, `Kd` in the file, not the number of prime sums; review F-4.)*
     - The logarithms are absorbed by `Q_j^δ ≥ q^{e₁δ}`.
     - `KL(θ, θ + δ)` is bounded by its sum over the grid.
   - The counts are those of step (`card_zero_step`): `LinnikTwelve.charDensity_twelve_fifths` at `ε = 1/108000` on `[2801/4801, 5/6)`, `LinnikStep.charDensity_step` from `5/6` on, and at most `q` characters below `2801/4801`.
   - Cauchy–Schwarz over the bin with (T1) (`sum_bins_le`, `typeII_pointwise`) then gives a constant times `q^{E + η/2}`, times powers of `log q` and `(Σ|a_m|²/P)^{1/2}` (`bin_bound`).
 - **The exponents.** With `P = q^m`, `E = (L − m)(β_i + w) + A(β_i)(1 − β_i)/2 + t`, where `t = (1 + m)/2` when `P ≤ q` and `t = m` when `P ≥ q`.
-  - On the window, `E ≤ L − 1/25000` for every bin width `w ≤ 4·10⁻⁶` (`exponent_le`).
+  - On the window, `E ≤ L − 1/25000` for every bin width `w ≤ 4·10⁻⁶` (`exponent_le`). *(Round 594: `w` is the bin width plus `2δ`, `17/6000000` in use; review F-4.)*
   - On each piece of step `E` is linear in `β` (`nlinarith` with the products of the bounds).
 - **The sum.** Over the 500000 bins the constants and the logarithms are absorbed by `q^{3/200000}`, which leaves `q^{L−1/50000}` (`typeII_step`).
 
@@ -24375,3 +24375,67 @@ with `N = ⌊2P⌋`, `M = KL(θ, θ + δ) + KL(11/12, 11/12 + δ)` and `A = log(
 **Bearing on RH:** none.
 
 **The next step.** A voluntary review of rounds 592 and 593. Then M4: Lemmas 4′ and 4″, the smooth separation and the near-boundary terms, on round 588's cut-off.
+
+## Round 594: the independent review of rounds 592 and 593, and the plan for M4–M8 (`frontier/linnik/SIEVE-ROUTE.md` §§0, 8, 10, 12 and 13; `SEVEN-THIRDS.md`, `IDEAS.md`; docstrings of `external/pnt/SieveTypeII.lean`)
+
+**What it is.** A fresh-context reviewer, the repository's `hostile-reviewer` agent, reviewed rounds 592 and 593 at 2ee2194. Its main target was round 593, Proposition 3′ for the curve step in Lean (`SieveTypeII.typeII_step`). Round 592's sweep was its convergence test.
+
+- It found no MAJOR and no minor: six cosmetic findings and one out-of-scope observation, all novel.
+- In its words, "No MAJOR and no minor. Six cosmetic findings, one out-of-scope observation. Round 592's sweep converges: F-3 and F-6 below are its only leftovers, both cosmetic."
+- So rounds 592 and 593 have converged: no MAJOR and no minor, with cosmetic findings permitted.
+- Under Check 3 the lead verified each finding against the cited lines. All are accepted and swept.
+- No proved statement and no certified number changes.
+- The round also adds SIEVE-ROUTE.md §13, the plan for M4–M8, drafted while the review ran.
+
+**Findings and dispositions.**
+
+- **F-1** (cosmetic). Round 593's entry read "What remains of Proposition 3′ is the integral over the heights against `∏ k′(τ_i)`". More remains. Proposition 3′ as stated takes coefficients bounded by `τ(m)^C` (SIEVE-ROUTE.md 84), so `typeII_step`'s factor `(Σ|a_m|²/P)^{1/2}` needs a divisor-moment bound. Its heights reach `JT₀`, which needs `JT₀ ≤ q^η`, that is `ε₂ < η/(2L)` in §10's parameters. One weight `f0` for every prime sum suffices for §10's use, which keeps the primes' dyadic weights. The sentence was false when written; it is struck and annotated.
+- **F-2** (cosmetic). Round 593 left three status lines stale.
+  - SIEVE-ROUTE.md §0's marker (line 5). It also called `charDensity_step` "the density of the curve step", but that theorem is step's density on `[5/6, 1]`; `card_zero_step` states the whole.
+  - SEVEN-THIRDS §46's marker (line 881).
+  - §12's "M7 becomes a certificate of 2484 cells" (line 360), and §8's counts (line 194). Those are the committed window's counts. On `typeII_step`'s window the certificate at `n = 70` has 916 cells of depth 2 and 1881 of depth 4.
+
+  Net-state markers are added.
+- **F-3** (cosmetic; the convergence test of round 592's F2). Four more siblings of "not machine-checked" are marked: SEVEN-THIRDS.md's header (line 3), §44 (line 773) and §45 (line 830), and IDEAS.md's D5 (line 227).
+- **F-4** (cosmetic). `SieveTypeII.lean` (lines 28 and 530–532) and `external/pnt/README.md` gave `exponent_le`'s "least margin" as `5.5·10⁻⁵`, just after its right side `L − 1/25000`. That figure is the distance below `L` at width `0`. Below `L − 1/25000` the least distance is `1.54·10⁻⁵` at width `0` and `9.83·10⁻⁶` at width `4·10⁻⁶`. The docstrings and the row now state both, rounded down. Round 593's entry also called `w` a "bin width", though it is the bin width plus `2δ` (`17/6000000` in use), and wrote `K` for Lemma 1's decay `Kd`; markers are added.
+- **F-5** (cosmetic). SIEVE-ROUTE.md §8's round-593 marker named neither `L = 2.333` nor the window. A marker adds them.
+- **F-6** (cosmetic; the convergence test of round 592's F1). With the strike removed, §10's round-591 marker read "bounds them, .)". The comma is removed, and the strike now begins right after the period, so the live text reads "bounds them.)".
+- **O-1** (record prose). Round 592's entry quoted the five docstrings as "a power `m` … (`choose_m`, whose proof takes the least)". `LinnikHuxley.lean` 23–24 reads "some `m` … (`choose_m`, whose proof takes the least `m`)". A marker in that entry records it.
+
+**SIEVE-ROUTE.md §13** (new) is a plan. Three points differ from §§9–12.
+
+- M7 comes first. The certificate becomes integer definitions on `typeII_step`'s window, and the kernel checks the total by `decide +kernel`.
+  - A scratch replay in integer arithmetic (`m7_replay.py`) gives `0.87907` (rounded up), with 916 candidates, 423 decomposed and 1881 cells of depth 4.
+  - Its scan is 4900 pairs `(i, j)`, the cells of `α₃` for each candidate, and 7835 pairs `(α₃, α₄)`. A scratch kernel loop of `3·10⁵` integer tests ran in about 70 s.
+- M6 uses the crude `ω*` as a supersolution of the delay equation, so it needs neither `ω` nor that equation. This revises §12's last bullet.
+- M5's fundamental lemma comes from Brun's sieve in product form, over the ranges `[w^{2^{−j−1}}, w^{2^{−j}})`, in place of §9's Selberg route. Mathlib's `SelbergSieve.lean` sets up upper-bound sieves and the `Λ²` weights, but does not choose the weights.
+
+**The lead's verification.**
+
+- Each cited line was read: SIEVE-ROUTE.md 5, 84–85, 190, 194, 247, 300 and 360; SEVEN-THIRDS.md 3, 773, 830 and 881; IDEAS.md 227; `SieveTypeII.lean` 26–29 and 526–533; `external/pnt/README.md` 376; README.md 24276–24279 and 24333–24352; `LinnikHuxley.lean` 23–24 and 647, `LinnikTwelve.lean` 16 and 59, and `LinnikStep.lean` 281.
+- F-4's margins were recomputed in exact rationals (scratch `margins.py`), at the ends of step's pieces, just below `2801/4801` and `5/6`, and at the window's ends. The least distances, all at `β = 11/12` and `m = (401/1000)L`:
+  - below `L`: `5.541667·10⁻⁵` at `w = 0`;
+  - below `L − 1/25000`: `1.541667·10⁻⁵` at `w = 0`, `1.401920·10⁻⁵` at `w = 10⁻⁶` and `9.826799·10⁻⁶` at `w = 4·10⁻⁶`.
+- F-2's counts: a scratch run of the certificate at `n = 70` on the window (`nsweep.py`) gives 916 candidates, 423 decomposed and 1881 cells of depth 4, and the bound `0.879061` with the crude `ω`. The integer replay gives the same counts and total.
+- F-6: with the strikes removed, by `sed`, the line reads `bounds them.)*`. `cmarkgfm` renders the strike as one `<del>`.
+- `SieveTypeII.lean`'s change is docstring-only: with its comments stripped the file is identical to HEAD's (scratch check). It was recompiled with the build's `LEAN_PATH` in 39 s, with no errors or warnings and thirteen axiom lines, all `[propext, Classical.choice, Quot.sound]`. The olean is in `build/`.
+- This round's operative theorem, `typeII_step`, was re-read at `SieveTypeII.lean` 804–816.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. IDEAS.md (51), SEVEN-THIRDS.md (63) and `external/pnt/README.md` (10) are unchanged. SIEVE-ROUTE.md (25) gains only seven reports of class L10 (a nested list directly after its item's text), all in §13, and README.md (1868) only three, all in this entry. None of these files is a paper surface.
+
+**Checked and held** (the reviewer's list, with its evidence in its report).
+
+- **The build.** `SieveTypeII.lean` and the three files whose docstrings round 592 changed compile cleanly. All 38 of their axiom lines are inside the three, and the oleans are byte-identical to `build/`'s, also with `autoImplicit` off for `SieveTypeII.lean`. `SieveTypeII.lean` contains no `sorry`, `admit`, `native_decide`, `axiom`, `set_option` or `decide`. The final check of `build.sh` gives 321 of 321 lines inside the three.
+- **`typeII_step` against its descriptions.** Every hypothesis, the conclusion and the order of the quantifiers match. The hypotheses can hold together, so the theorem is not vacuous.
+- **Pointwise adequacy for §10.** The factor `p^{−ih}` against `(p/Q)^{−ih}`, one `f0`, the heights, `K₀ = K_max + 2`, the measure's mass, and a natural `P`.
+- **The bins, (T1), the counts, `MB_le`, the exponents and the assembly.** At the 18 corners, at `w = 4·10⁻⁶`, every margin against `L − 1/25000` is positive. On pieces 2 and 3, `E` increases with `β`.
+- **The certificate.** On the window, `0.870997920811562` and `0.8790613232425407`; on the committed window, `0.8578969123389321`.
+- **Round 592's sweep.** F1–F5 hold.
+- **The numbers in the records.** The axiom-line counts, 321 and 317, and the render-lint counts.
+
+**Check 4.** The reviewer classed the six findings as novel, and the lead agrees. O-1 concerns record prose.
+
+**Check 9.** (a) F-1 scopes an exhaustive "What remains … is". §13's necessity and universal words were scanned and scoped, for example "for large `x`" and "this proof of M6". (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** M7 in Lean (§13), in scratch: the certificate's integer definitions on `typeII_step`'s window, and the kernel's check of the total. A voluntary review follows. Round 593's next step named M4; §13 puts M7 first.

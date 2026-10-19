@@ -2,7 +2,7 @@
 
 Round 580. This is SEVEN-THIRDS.md §44's argument, with §45's rule for decomposition, written lemma by lemma. It is meant as a blueprint for a referee and for a Lean formalization.
 
-- The analysis here is at paper level. It is unrefereed, and nothing in it is machine-checked. *(Rounds 589 and 591: two of its inputs are now proved in Lean, the density of the curve step (`LinnikStep.charDensity_step`, §12) and Lemma 1 (`SieveWeight.norm_Sp_le`, §§9–10).)*
+- The analysis here is at paper level. It is unrefereed, and nothing in it is machine-checked. *(Rounds 589 and 591: two of its inputs are now proved in Lean, the density of the curve step (`LinnikStep.charDensity_step`, §12) and Lemma 1 (`SieveWeight.norm_Sp_le`, §§9–10).)* *(Round 594: `charDensity_step` is step's density on `[5/6, 1]`. The whole of it follows with `LinnikTwelve.charDensity_twelve_fifths` and the trivial count (§12), and `SieveTypeII.card_zero_step` (round 593) states it as one theorem. Round 593 also proved Proposition 3′ for the curve step at `L = 2.333`, pointwise in the heights (`SieveTypeII.typeII_step`, §10); review F-2.)*
 - `sieve_route_certificate.py` proves the windows and bounds the loss integral from above (§7). *(Wording scoped in round 581; review F10.)*
 - Standard results are stated in the form used and marked as such; their proofs are not repeated, and their sources were not re-read for this file.
 
@@ -187,11 +187,11 @@ Midpoint estimates put the thresholds of this decomposition between `2.275` and 
 - Missing:
   - Lemma 1 (contour shifts for smooth prime sums inside zero-free rectangles of height `x^ε`) *(round 591: proved for a smooth weight at a height `y`, as `SieveWeight.norm_Sp_le`; §§9 and 10)*;
   - Lemma 2 (it needs zero counts, or a smoothing that keeps the heights below `x^ε`, where a count of characters suffices; that smoothing is not worked out here, round 581) *(round 586: §10 works it out)*;
-  - Proposition 3, the Type II estimate with its bins and the measure `∏ k(τ_i)` *(added in round 581; review F4)* *(round 593: Proposition 3′ for the curve step, pointwise in the heights, as `SieveTypeII.typeII_step`; §10)*;
+  - Proposition 3, the Type II estimate with its bins and the measure `∏ k(τ_i)` *(added in round 581; review F4)* *(round 593: Proposition 3′ for the curve step, pointwise in the heights, as `SieveTypeII.typeII_step`; §10)* *(round 594: proved at `L = 2.333` on the window `[401/1000, 485/1000]`; review F-5)*;
   - Lemma 4: Perron's formula truncated at a sharp cut-off, for several conditions at once, each with its own height *(added in round 581; review F4)* *(round 586: §10 replaces it by Lemmas 4′ and 4″)*;
   - Huxley's bound `3(1 − σ)/(3σ − 1)` for each `σ` in `[3/4, 11/12]`. Round 527 proves the uniform `12/5` on that range with one choice of its parameters; Huxley's curve needs a choice that depends on `σ` *(round 589: for `x = q^{2.333}` the curve step needs one constant beyond `12/5`, `101/50` on `[5/6, 11/12]`, and `LinnikStep.charDensity_step` proves it; §12)*;
   - Buchstab's identity, the fundamental lemma, Harman's fundamental theorem, and the asymptotics of rough numbers;
-  - a kernel-checked bound for the loss. At `L = 2.32` the certificate needs 434 cells of depth 2 and 473 of depth 4, and every bound rests on an enclosure of `ω` on intervals of width `2^{−16}`. Round 579's review counted 518650 of them in a scratch run, up to the argument `8.914`. *(Round 589: with step at `L = 2.333`, 916 cells of depth 2 and 1568 of depth 4 at `n = 70`, and a crude bound for `ω` suffices; §12.)*
+  - a kernel-checked bound for the loss. At `L = 2.32` the certificate needs 434 cells of depth 2 and 473 of depth 4, and every bound rests on an enclosure of `ω` on intervals of width `2^{−16}`. Round 579's review counted 518650 of them in a scratch run, up to the argument `8.914`. *(Round 589: with step at `L = 2.333`, 916 cells of depth 2 and 1568 of depth 4 at `n = 70`, and a crude bound for `ω` suffices; §12.)* *(Round 594: those counts are for the committed window. On the window of `typeII_step`, `[401/1000, 485/1000]`, a scratch run at `n = 70` has 916 cells of depth 2 and 1881 of depth 4; review F-2.)*
 
 **Literature.** IDEAS.md G19 records the literature check of round 580.
 
@@ -297,7 +297,7 @@ At paper level and unrefereed, like the rest of this file.
 **For Lean** (this revises §9).
 
 - ~~M1 is not needed: (H2′) is `Linnik.CharDensity`.~~ *(Round 587: retracted, false when written: unscoped, and (H2′) is not itself a `Linnik.CharDensity`; review F1.)* M1 is not needed for unif: (H2′) follows from `LinnikTwelve.charDensity_twelve_fifths` with the trivial count. For hux, M1 becomes hux's curves in `σ` as counts of characters (§9, Order). *(Round 589: nor for step; §12.)*
-- M2 is Lemma 1 at heights `|y| ≤ 2x^ε` only. ~~The contour of its proof stays in the rectangle `|Im s − y| ≤ x^ε`, `Re s > β(χ, y)`, which holds no zero by the definition of `β(χ, y)`. So `L′/L` can be bounded on it by `Linnik.logDeriv_LFunction_le` (`LinnikChar.lean`), in place of (T2): for `σ ≥ θ′ > θ ≥ 1/2` it bounds~~ *(Round 587: retracted, false when written: the contour's tails on `Re s = 2` leave the rectangle, and the hypothesis `θ′ < 3/2` was left out; review F2.)* The part of its contour off the line `Re s = 2` stays in the rectangle `|Im s − y| ≤ x^ε`, `Re s > β(χ, y)`, which holds no zero by the definition of `β(χ, y)`. There `L′/L` can be bounded by `Linnik.logDeriv_LFunction_le` (`LinnikChar.lean`), in place of (T2); on the tails at `Re s = 2`, `ChiUniform.logDeriv_LFunction_right` gives `‖L′/L‖ ≤ −ζ′/ζ(3/2)`. For `1/2 ≤ θ < θ′ < 3/2` and `σ ≥ θ′`, `logDeriv_LFunction_le` bounds `‖L′/L(σ + it, χ)‖` by `KL θ θ′(log(q + 2) + log(|t| + 4))` when `L(·, χ)` has no zero in the open disc of radius `3/2 − θ` about `3/2 + it`. With `θ = β(χ, y) + ε/2` and `θ′ = β(χ, y) + ε`, that disc lies in the rectangle when `|t − y| ≤ x^ε − 1`. *(Round 591: proved, `SieveWeight.norm_Sp_le` (`external/pnt/SieveWeight.lean`), by another contour. The whole line moves first to `Re s = 11/12 + δ`, inside the stack's zero-free half-plane `Re s > 11/12`, so the tails lie on that line, where the decay of the weight's Mellin transform bounds them, ~~and `logDeriv_LFunction_right` is not used~~.)* *(Round 592: retracted, false when written. `Linnik.logDeriv_LFunction_le`, which bounds `L′/L` on the rectangle and on those tails, uses `ChiUniform.logDeriv_LFunction_right` at the centres `3/2 + it` of its discs. What the proof avoids is tails on `Re s = 2`; review F1.)*
+- M2 is Lemma 1 at heights `|y| ≤ 2x^ε` only. ~~The contour of its proof stays in the rectangle `|Im s − y| ≤ x^ε`, `Re s > β(χ, y)`, which holds no zero by the definition of `β(χ, y)`. So `L′/L` can be bounded on it by `Linnik.logDeriv_LFunction_le` (`LinnikChar.lean`), in place of (T2): for `σ ≥ θ′ > θ ≥ 1/2` it bounds~~ *(Round 587: retracted, false when written: the contour's tails on `Re s = 2` leave the rectangle, and the hypothesis `θ′ < 3/2` was left out; review F2.)* The part of its contour off the line `Re s = 2` stays in the rectangle `|Im s − y| ≤ x^ε`, `Re s > β(χ, y)`, which holds no zero by the definition of `β(χ, y)`. There `L′/L` can be bounded by `Linnik.logDeriv_LFunction_le` (`LinnikChar.lean`), in place of (T2); on the tails at `Re s = 2`, `ChiUniform.logDeriv_LFunction_right` gives `‖L′/L‖ ≤ −ζ′/ζ(3/2)`. For `1/2 ≤ θ < θ′ < 3/2` and `σ ≥ θ′`, `logDeriv_LFunction_le` bounds `‖L′/L(σ + it, χ)‖` by `KL θ θ′(log(q + 2) + log(|t| + 4))` when `L(·, χ)` has no zero in the open disc of radius `3/2 − θ` about `3/2 + it`. With `θ = β(χ, y) + ε/2` and `θ′ = β(χ, y) + ε`, that disc lies in the rectangle when `|t − y| ≤ x^ε − 1`. *(Round 591: proved, `SieveWeight.norm_Sp_le` (`external/pnt/SieveWeight.lean`), by another contour. The whole line moves first to `Re s = 11/12 + δ`, inside the stack's zero-free half-plane `Re s > 11/12`, so the tails lie on that line, where the decay of the weight's Mellin transform bounds them.~~and `logDeriv_LFunction_right` is not used~~)* *(Round 592: retracted, false when written. `Linnik.logDeriv_LFunction_le`, which bounds `L′/L` on the rectangle and on those tails, uses `ChiUniform.logDeriv_LFunction_right` at the centres `3/2 + it` of its discs. What the proof avoids is tails on `Re s = 2`; review F1.)* *(Round 594: the comma before the strike, which the live text kept, is removed; review F-6.)*
 - M3 is Proposition 3′: bins by `b(χ)`, (T1) and Cauchy–Schwarz, with no Lemma 2. *(Round 593: proved for the curve step at `L = 2.333`, pointwise in the heights, as `SieveTypeII.typeII_step`, on the window `[401/1000, 485/1000]` inside step's proved window. A scratch run of the certificate on that window bounds the loss by `0.871` at `n = 70`, and by `0.8791` with the crude bound for `ω` (both rounded up); the committed certificate does not run it yet.)*
 - M4 is Lemmas 4′ and 4″ in place of the sharp truncated Perron formula: Fourier inversion of a smooth function of compact support (Mathlib), its decay from its derivatives, and the majorants. *(Round 588: `external/pnt/SieveSmooth.lean` proves the cut-off's properties, its Fourier decay and the separation identity, for `G(u) = g(u/θ) − g((u − 2Λ)/θ)`.)*
 - M5–M8 are unchanged.
@@ -357,8 +357,76 @@ At paper level and unrefereed, like the rest of this file, except for the Lean t
 **For Lean** (this revises §§9–11).
 
 - M1 is not needed for step either: (H2′) follows from `LinnikTwelve.charDensity_twelve_fifths`, `LinnikStep.charDensity_step` and the trivial count, all counts of characters.
-- M7 becomes a certificate of 2484 cells at `n = 70`. Each cell's bound is `h²` or `h⁴` times an upper bound for `ω` on the cell and the prefactor at its lower corner.
+- M7 becomes a certificate of 2484 cells at `n = 70`. *(Round 594: on the window of `typeII_step`, `[401/1000, 485/1000]`, which M7 uses, a scratch run at `n = 70` has 2797 cells, 916 of depth 2 and 1881 of depth 4; review F-2.)* Each cell's bound is `h²` or `h⁴` times an upper bound for `ω` on the cell and the prefactor at its lower corner.
 - With the crude bound, what M7 needs of `ω` is `ω = 0` below `1`, `ω(t) = 1/t` on `[1, 2]` and `ω(t) ≤ 0.5672` on `[2, 16)`.
   - On `[2, 3]`, `ω(t) = (1 + log(t − 1))/t`, whose maximum is `W(1) = 0.567143…`, at `t = 1 + 1/W(1)`, where `W` is Lambert's function.
   - Above `3`, `tω(t) = 1 + log 2 + ∫_2^{t−1} ω`. So if `ω ≤ M` on `[2, t − 1]` with `M ≥ (1 + log 2)/3 = 0.564382…`, then `ω(t) ≤ M`, and induction over unit intervals gives `ω ≤ 0.5672` on `[2, ∞)`.
   - These follow from the delay equation for `ω`, which M6 needs anyway.
+
+## 13. The Lean blueprint for `x = q^{2.333}` (round 594, a plan)
+
+The first goal's remaining milestones, M4–M8, as Lean statements. This is a plan. It fixes the parameters and the interfaces so that each milestone can land on its own, and it revises §§9–12 where it differs.
+
+**Parameters.**
+
+- `L = 2333/1000`, the curve step (§12), and the window `[401/1000, 485/1000]` of `SieveTypeII.typeII_step`.
+- The certificate's grid: `n = 70`, with the crude bound for `ω`. On this window a scratch run of the certificate bounds the loss by `0.8791` (rounded up). A scratch replay in integer arithmetic, with each cell's bound rounded up to a multiple of `2^{−60}`, gives `0.87907` (rounded up). The committed certificate does not run this window yet.
+- `ε₁`, the floor of the sifting, small. Proposition 6's sieve parameter is `s ≥ (u₂′ − 1/L − ε)/ε₁`, and `u₂′ − 1/L > 0.056` here, so `ε₁ = 1/1000` gives `s ≥ 56` once `ε ≤ 3·10⁻⁴`.
+- `ε₂ < η/(2L)` with `η ≤ 10⁻⁵`, so that Lemma 4′'s heights `JT₀` stay below M3's `q^η` (README round 594, F-1).
+
+**Done.** M1s (`LinnikStep.charDensity_step`, round 589), M2 (`SieveWeight.norm_Sp_le`, round 591), M3 pointwise in the heights (`SieveTypeII.typeII_step`, round 593), and the cut-off of Lemma 4′ (`SieveSmooth`, round 588).
+
+**M7. The certificate in Lean.**
+
+- Integer definitions that follow `sieve_route_certificate.py` on the grid:
+  - `DEN = 2^40`, `U1 = ⌈(401/1000)DEN⌉`, `U2 = ⌊(485/1000)DEN⌋` and the cells;
+  - the tests of the region, of evaluability (a subset sum of the cell's corners inside `U`) and of decomposition (the sharp rule of §6);
+  - each cell's bound: `h²` or `h⁴`, times the crude `ω`'s supremum over the cell's arguments, times the prefactor at its lower corner, rounded up to a multiple of `2^{−60}`.
+- The total is compared with `0.88` by `decide +kernel`, the kernel's arithmetic on natural numbers (`native_decide` would add an axiom). A scratch count of the work: 4900 pairs `(i, j)`, 916 of them candidates; for each candidate the cells of `α₃`; and 7835 pairs `(α₃, α₄)` over the 423 decomposed cells. The kernel evaluated a scratch loop of `3·10⁵` integer tests in about 70 s.
+- The semantic lemmas turn each test on the grid into a statement at every point of the cell:
+  - for large `x`, a point of the region of depth 2 that is not evaluable lies in a candidate cell, or near the corner `(1/2, 1/2)`;
+  - on a decomposed cell every `α₃` that is not evaluable has `α₁ + α₂ + α₃ ≤ R`;
+  - every point of depth 4 that is not evaluable lies in a counted cell;
+  - the crude `ω`'s value on a cell bounds `ω*` on the cell's arguments, widened by `log 2/log x`.
+
+**M6. Rough numbers, from above.**
+
+- The statement: `Ψ(y, z) = #{n ∈ (y, 2y] : p | n ⇒ p ≥ z} ≤ (ω*(u) + ε)y/log z` with `u = log 2y/log z`, for `z ≥ z₀(ε, U)` and `u ≤ U`. Here `ω*` is the crude bound: `0` below `1`, `1/u` on `[1, 2)` and `0.5672` from `2` on. With `u` taken at `2y` and `y ≥ 1`, `Ψ = 0` below `u = 1`, and below `u = 2` only primes are counted.
+- The proof:
+  - Buchstab's identity gives `Ψ(y, z) ≤ #{p prime : y < p ≤ 2y} + Σ_{z ≤ p ≤ (2y)^{1/2}} Ψ(y/p, p)`, and the proof inducts on `⌊u⌋`.
+  - Two consequences of the stack's prime number theorem (`psi_isBigO_eleven_twelfths`, with Mathlib's bound for `ψ − θ` and its Abel summation) are used. First, `π(2y) − π(y) ≤ (1 + ε)y/log 2y`. Second, `Σ_{a<p≤b} 1/(p log p) ≤ 1/log a − 1/log b + ε/log a`, uniformly for `a ≥ a₀(ε)`.
+  - The step uses that `ω*` is a supersolution of the delay equation: `(1 + ∫_1^{u−1} ω*)/u ≤ ω*(u)`. On `[2, 3]` that is `0.5672u ≥ 1 + log(u − 1)`, and above `3` it is `3·0.5672 ≥ 1 + log 2`.
+  - So this proof of M6 uses neither `ω` nor its delay equation. This revises §12's last bullet.
+- The shares of the cells. Take a cell of `(α₁, α₂)` with lower corner `(a, b)` and side `h`. For large `x`, at most `(h²ω_c/(ab²) + ε)x/log x` integers `n ∈ (x, 2x]` lie in the cell's dropped family, where `ω_c` is the certificate's value of `ω*` on the cell. The sums used are `Σ_{x^a ≤ p < x^{a+h}} 1/p ≤ h/a + ε` and the sum above. Depth 4 is alike.
+
+**M4. Type II families (Lemmas 4′ and 4″).**
+
+- *A family.* It has four parts:
+  - a variable `m` on `(P, 2P]`, `P` in the window, with coefficients bounded by `τ(m)^C`;
+  - `K` primes with the smooth dyadic weights `f0(p/Q_j)`;
+  - `J` comparisons of products of the variables with each other or with thresholds;
+  - the range `(x, 2x]` of their product `n`.
+- *Separation.* Replace each comparison by the cut-off `G` of round 588. Fourier inversion of `∏_j G(…)` over `ℝ^J` (`SieveSmooth.GC_sub_eq_integral`), with Fubini over the finite sums, writes the family's character sum as an integral of `W·∏ Sp` at the heights `h(τ)`. M3 bounds the integrand at each point of `[−T₀, T₀]^J`. The decay of `𝓕G` (`SieveSmooth.pow_mul_norm_fourier_GC_le`) bounds the rest.
+- *Near-boundary terms.* For comparisons `1_j ∈ {0, 1}` and `G_j ∈ [0, 1]`, `|∏ 1_j − ∏ G_j| ≤ Σ_j |1_j − G_j|`, and `1_j − G_j` vanishes outside `Y_j ≤ Z_j < e^θY_j` (`SieveSmooth.indicator_sub_G`).
+  - Over `A`, a smooth majorant is a family as above.
+  - Over the model, elementary counts bound the `n` with two variables close (§10, Lemma 4″).
+- *Coefficients.* `Σ_{m∈S} |a_m|² ≤ P x^{o(1)}` for `|a_m| ≤ τ(m)^C`, by `LinnikPower.card_divisors_le` (README round 594, F-1).
+
+**M5. The sieve.**
+
+- *Buchstab's identity* `S(C_m, z) = S(C_m, w) − Σ_{w≤p<z} S(C_{mp}, p)` over finite sets. Then §6's decomposition to depth 4 as an exact identity, each term classified by its cell as evaluable, decomposed or dropped (M7).
+- *The fundamental lemma* (T3) of dimension 1, by Brun's sieve in product form, in place of §9's route through Selberg's sieve. Mathlib's `SelbergSieve.lean` sets up upper-bound sieves and the `Λ²` weights, but does not choose the weights.
+  - Cut the primes below `w` into the ranges `[w^{2^{−j−1}}, w^{2^{−j}})`. In range `j`, truncate inclusion–exclusion at `k + 2j` prime factors (Bonferroni's inequalities).
+  - Combine the upper and lower sieves `λ_j^±` by `∏_j ρ_j ≥ ∏_j λ_j^+ − Σ_j (λ_j^+ − λ_j^−)∏_{i≠j} λ_i^+`, where `λ_j^− ≤ ρ_j ≤ λ_j^+` and `λ_j^+ ≥ 0`.
+  - Each range has `Σ_p 1/p ≤ C` (Chebyshev's bound), so the main term's relative error is `O(Σ_j C^{k+2j+1}/(k + 2j + 1)!)` uniformly in `w`, at the level `w^{2k+4}`.
+- *Lemma 5 and Proposition 6* (Harman's fundamental theorem). The Buchstab tree runs from `x^v` down to `w = x^{ε₁}`. M4 evaluates its stops in the windows. At its leaves the fundamental lemma applies, with `|A_d| − |B_d|/φ(q) = O(1)` for `(d, q) = 1`.
+
+**M8. Assembly.**
+
+- Proposition 7: `S(A, (2x)^{1/2}) ≥ (1 − 0.88 − O(η(ε₁)) − o(1))x/(φ(q) log x)`. Its inputs:
+  - `S(B, (2x)^{1/2})/φ(q)` from the prime number theorem;
+  - the dropped families' shares from M6 and M7;
+  - the terms near the corner (`n = p₁p₂` with both primes near `x^{1/2}`), and those at the region's edges, which move by `log 2/log x`, as `o(x/log x)`.
+- Then the theorem of §0 with `x = q^{2333/1000}`, with the small `q` handled as `linnik_of_charDensity` handles them.
+
+**Order.** M7 first, since it is small and settles the kernel's part. Then M6, M4, M5 and M8. M6 and M7 do not depend on the analytic side.

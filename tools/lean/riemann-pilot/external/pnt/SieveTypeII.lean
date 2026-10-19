@@ -25,7 +25,8 @@ Cauchy–Schwarz with orthogonality (T1) bounds the sum.
 * `typeII_pointwise`: the bound by bins, with Lemma 1 and (T1).
 * `card_zero_step`: the counts of the curve step, `C(qT)^{g(σ)}(1 + log qT)^{10}`.
 * `MB_le`: for all large `q`, Lemma 1's bound is at most `2Q^{θ+2δ}`.
-* `exponent_le`: the exponents on the window; the least margin, `5.5·10⁻⁵`, is at `β = 11/12`.
+* `exponent_le`: the exponents on the window, at most `L − 1/25000`. Before the width they lie at least `5.5·10⁻⁵`
+  below `L` and `1.5·10⁻⁵` below `L − 1/25000`, least at `β = 11/12`.
 * `qpow_combine`, `bin_bound`, `prod_MB_le`, `card_bin_step`: one bin.
 * `typeII_step`: the sum over the 500000 bins of width `1/1200000`.
 -/
@@ -527,8 +528,9 @@ lemma MB_le {Bc Cc KLmax δ e₁ η U : ℝ} {Kd : ℕ} (hBc : 0 ≤ Bc) (hCc : 
 /-- **The window's exponents** for the curve step at `L = 2333/1000` on `m ∈ [401/1000, 485/1000]·L`: for
 `1/2 ≤ β ≤ 11/12` and `0 ≤ w ≤ 4·10⁻⁶`,
 `(L − m)(β + w) + g(β)/2 + (1 + m)/2 ≤ L − 1/25000` when `m ≤ 1`, and with `m` in place of `(1 + m)/2` when `m ≥ 1`.
-The left sides are linear in `β` on each piece of `g`, so their largest values lie at the pieces' ends; the least
-margin, `5.5·10⁻⁵` before the width, is at `β = 11/12` and `m = (401/1000)L`. -/
+The left sides are linear in `β` on each piece of `g`, so their largest values lie at the pieces' ends. Before the
+width they lie at least `5.5·10⁻⁵` below `L` and `1.5·10⁻⁵` below `L − 1/25000`, least at `β = 11/12` and
+`m = (401/1000)L`; at `w = 4·10⁻⁶`, at least `9.8·10⁻⁶` below `L − 1/25000`. -/
 theorem exponent_le {β m w : ℝ} (hβ : 1 / 2 ≤ β) (hβ1 : β ≤ 11 / 12) (hm : 401 / 1000 * (2333 / 1000) ≤ m)
     (hm1 : m ≤ 485 / 1000 * (2333 / 1000)) (hw : 0 ≤ w) (hw1 : w ≤ 4 / 10 ^ 6) :
     (m ≤ 1 → (2333 / 1000 - m) * (β + w) + gStep β / 2 + (1 + m) / 2 ≤ 2333 / 1000 - 1 / 25000) ∧
