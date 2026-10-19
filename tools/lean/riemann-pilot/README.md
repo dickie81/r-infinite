@@ -24192,3 +24192,65 @@ So with step, at paper level, the density input (H2′) of SIEVE-ROUTE.md §10 f
 **Bearing on RH:** none.
 
 **The next step.** M2's landing: Lemma 1 for a smooth weight at a height `y`, proved in scratch (`SieveLemma1.lean`, `SieveWeight.lean`), with a voluntary review that also covers this round's sweep.
+
+## Round 591: Lemma 1 of the sieve route in Lean, at a height `y` (`external/pnt/SieveLemma1.lean`, `external/pnt/SieveWeight.lean`; `frontier/linnik/SIEVE-ROUTE.md` §§9 and 10, M2)
+
+**What it is.** Milestone M2 of the first goal (SIEVE-ROUTE.md §§9–11). It is Lemma 1 of §3, the bound for a smooth prime sum at a height `y` through a zero-free rectangle about `y`, at the heights §10 needs.
+
+**The theorem.** `SieveWeight.norm_Sp_le`: let `f0` be smooth and real with support in `[1/2, 2]`, and `K ≥ 0` an integer. There are `B, C ≥ 0` such that for every `q ≥ 1`, `χ ≠ 1` mod `q`, `½ ≤ θ ≤ 11/12`, `0 < δ ≤ 1/24`, `H ≥ 0`, `P ≥ 4` and real `y`: if `L(·, χ)` has no zero in `Re s > θ`, `|Im s − y| < H + 1`, then
+
+`|Σ_{p ≤ 2P} χ(p)(p/P)^{−iy}f0(p/P)| ≤ M A B(P^{θ+δ} + P^{11/12+δ}(1 + H)^{−K})/log P + C(⌊√N⌋ + 1)(⌊log₂ N⌋ + 1)`,
+
+with `N = ⌊2P⌋`, `M = KL(θ, θ + δ) + KL(11/12, 11/12 + δ)` and `A = log(q + 2) + log(|y| + 4) + 1`.
+
+- `B` and `C` depend only on `f0` and `K`. The bound is therefore uniform in the scale `P`, the modulus and the height.
+- §3's Lemma 1 at heights `|y| ≤ 2x^ε` follows on paper. Take `θ = β(χ, y)`, which is at least `1/2` by its definition and at most `11/12` by the stack's zero-free half-plane. Take `H = x^ε − 1`, `δ = ε` and `K ≥ 2/ε`.
+  - For fixed `δ`, `KL(θ, θ + δ)` is a continuous function of `θ` on `[1/2, 11/12]` (`LogDerivDisc.Kld`), so it is bounded there.
+  - Then `|Σ_p φ(p/Q)χ(p)p^{−iy}| ≪_ε Q^{β(χ,y)+ε} log x`, against §3's `log² x`.
+  - That deduction belongs to M3, which uses it.
+
+**The proof.**
+
+- `SieveLemma1.lean` proves the bound for `Σ_n χ(n)Λ(n)w(n/X)` with a general weight `w` (`norm_Sw_le`). Its hypotheses are that `w` is continuous on `(0, ∞)`, that `𝓜w` converges at `2` and is differentiable on `Re s ≥ θ + δ`, and that `(1 + |t − y|)^{K+3}|𝓜w(σ + it)| ≤ B` for `θ + δ ≤ σ ≤ 2`. The proof has four steps.
+  - Perron's formula with the weight (`perron_weight`, from Mathlib's `mellinInv_mellin_eq`) writes the sum as an integral on `Re s = 2`.
+  - The whole line moves to `Re s = 11/12 + δ` (`integral_pw_shift`, by `SmoothPerron.verticalIntegral_shift`), through the stack's zero-free half-plane `Re s > 11/12`.
+  - For `|t − y| ≤ H` it then moves across the rectangle `[θ + δ, 11/12 + δ] × [y − H, y + H]` to `θ + δ`, inside the zero-free rectangle of the hypothesis.
+  - There `Linnik.logDeriv_LFunction_le` bounds `L′/L` (`norm_pw_le`). Beyond height `H`, the decay of `𝓜w` gives the factor `(1 + H)^{−K}`.
+
+  This is round 520's `Linnik.norm_Sx_le` with the weight `w` in place of `e^{−u}`, and with the rectangle centred at height `y`.
+- `SieveWeight.lean` applies it to primes, with §3's weight. Put `ψ_P(u) = f0(u)(1 + log u/log P)⁻¹`. Then `f0(n/P)/log n = ψ_P(n/P)/log P`. This is §3's `ψ = φ/log(Qu)` times `log P`.
+  - In the variable `v = −log u`, `𝓜ψ_P(σ + it)` is the Fourier transform of `e^{−σv}f0(e^{−v})(1 − av)⁻¹`, with `a = 1/log P` (Mathlib's `mellin_eq_fourier`).
+  - Leibniz's rule bounds that function's derivatives uniformly in `0 ≤ σ ≤ 2` and `P ≥ 4` (`exists_bound_iteratedDeriv_gw`), with Mathlib's `iter_deriv_inv_linear` for `(1 − av)⁻¹`.
+  - So round 588's `SieveSmooth.pow_mul_norm_fourier_le` gives `(1 + |t|)^{K+3}|𝓜ψ_P(σ + it)| ≤ B` (`exists_mellin_bound`).
+  - `norm_Sw_le` with `w(u) = u^{−iy}ψ_P(u)`, whose Mellin transform is `𝓜ψ_P(s − iy)` (Mathlib's `mellin_cpow_smul`), bounds the sum over `Λ` (`norm_Sw_wy_le`).
+  - The sum over `Λ` is `log P` times the prime sum plus the proper prime powers' share (`Sw_wy_eq`). There are at most `(⌊√N⌋ + 1)(⌊log₂ N⌋ + 1)` proper prime powers up to `N` (`card_properPrimePow_le`), and each contributes at most `max |f0|`.
+
+**Against the plan.** SIEVE-ROUTE.md §10's plan for M2 moved only the segment `|Im s − y| ≤ x^ε` and bounded the tails on `Re s = 2` by `ChiUniform.logDeriv_LFunction_right`. The proof here moves the whole line to `11/12 + δ` first, since the stack has no zero in `Re s > 11/12`. So its tails lie on `Re s = 11/12 + δ`, where the decay of `𝓜w` controls them. §3's choice of `Y` to avoid ordinates, and (T2), are not used.
+
+**What is checked.**
+
+- `lean` was run on `SieveLemma1.lean` (38 s) and then on `SieveWeight.lean` (15 s), each alone, with the build's `LEAN_PATH` (Mathlib at `MATHLIB_REV`): no errors and no warnings. Both are in `build/`.
+- `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for the five theorems that `SieveLemma1.lean` prints and the seven that `SieveWeight.lean` prints, `norm_Sw_le` and `norm_Sp_le` among them.
+- `external/pnt/build.sh` lists both files after `LinnikStep`, imports them in the final check and prints the axioms of five of their theorems. `bash -n` passes.
+  - The final check, run alone against `build/`, prints 317 axiom lines, all inside the three (16 s).
+  - The rest of the layer was not rebuilt.
+- Before landing, each docstring and each header was read against its statement. Corrected then:
+  - a factor `2` in the plain statement of `SieveLemma1.lean`, copied from `norm_Sx_le`, which `norm_Sw_le` does not have;
+  - the floors in `⌊√N⌋` and `⌊log₂ N⌋`;
+  - the range `P ≥ 4` of `mellinConvergent_psiw` and `differentiableAt_mellin_psiw`.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. SIEVE-ROUTE.md (18) and `external/pnt/README.md` (10) gain no reports, and README.md (1850) gains only five reports of class L10 (a nested list directly after its item's text), all in this entry. None of these files is a paper surface.
+
+**Records.**
+
+- `external/pnt/SieveLemma1.lean`, `external/pnt/SieveWeight.lean`: new.
+- `external/pnt/build.sh`: the two files, imported in the final check, and the axioms of five of their theorems.
+- `external/pnt/README.md`: two rows in the table, and two sections.
+- `frontier/linnik/SIEVE-ROUTE.md`: markers on M2 in §9 and in §10's plan for Lean.
+
+**Check 4.** New against the pilot: Lemma 1 at a height `y` for a smooth weight, in Lean, and the Mellin bounds uniform in the scale. Classical [recalled]: Perron's formula with a smooth weight and a contour shift in a zero-free region.
+
+**Check 9.** (a) The comparison with §10's plan is scoped to that plan. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** A voluntary review of rounds 590 and 591, then M3: Proposition 3′, with characters binned by `b(χ)`, Cauchy–Schwarz, and `LinnikHybrid.sum_chars_norm_sq_le`.
