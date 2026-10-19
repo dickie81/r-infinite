@@ -24318,3 +24318,60 @@ with `N = ⌊2P⌋`, `M = KL(θ, θ + δ) + KL(11/12, 11/12 + δ)` and `A = log(
 **Bearing on RH:** none.
 
 **The next step.** M3, Proposition 3′ for the curve step at `L = 2.333`, in scratch (`SieveTypeII.lean`). A voluntary review follows, and it also covers this round's sweep.
+
+## Round 593: Proposition 3′ for the curve step in Lean, pointwise in the heights (`external/pnt/SieveTypeII.lean`; `frontier/linnik/SIEVE-ROUTE.md` §§8–10, M3)
+
+**What it is.** Milestone M3 of the first goal (SIEVE-ROUTE.md §§9–11): Proposition 3′ of §10, the Type II estimate at small heights, for the curve step of §12 at `L = 2333/1000`, pointwise in the heights.
+
+**The theorem.** `SieveTypeII.typeII_step`: let `L = 2333/1000`, let `f0` be smooth and real with support in `[1/2, 2]`, and take `K₀ ≥ 0`, `e₁ > 0` and `0 < η ≤ 10⁻⁵`. For every large `q`, every `P` with `q^{(401/1000)L} ≤ P ≤ q^{(485/1000)L}`, every `S ⊆ (P, 2P]`, `a_m` and `h₀`, every `K ≤ K₀`, and every `Q_j ≥ q^{e₁}` and `|h_j| ≤ q^η` (`j < K`) with `∏_j Q_j ≤ 2^{K₀}q^L/P`:
+
+`Σ_{χ≠1} |Σ_{m∈S} a_mχ(m)m^{−ih₀}| · |∏_{j<K} Σ_{p≤2Q_j} χ(p)(p/Q_j)^{−ih_j}f0(p/Q_j)| ≤ q^{L−1/50000}(Σ_m |a_m|²/P)^{1/2}`.
+
+- With `|a_m| ≤ 1` the right side is at most `x^{1−1/(50000L)}`, `x = q^L`: a power saving.
+- The window `[401/1000, 485/1000]` is rational. It lies inside step's proved window `(0.400943, 0.485533)` (rounded inward; §12), so the margins are fixed numbers.
+  - The least margin, `5.5·10⁻⁵` in the exponent of `q`, is at `β = 11/12` and the left end of the window.
+  - A scratch run of the certificate on this window bounds the loss by `0.871` at `n = 70`, and by `0.8791` with the crude bound for `ω` (both rounded up). The committed certificate does not run this window yet; that is M7's.
+- What remains of Proposition 3′ is the integral over the heights against `∏ k′(τ_i)`. A bound that holds at every point of the support needs only the measure's total mass, `≪ (log x)^J`.
+
+**The proof.** It follows §10.
+
+- **(T1).** `Σ_χ |Σ_{j∈S} c_jχ(j)j^{−it}|² ≤ (P + q)Σ_{j∈S} |c_j|²` for `S ⊆ (P, 2P]` (`sum_chars_dp_sq_le`). The sum over `χ` is at most `φ(q)Σ_a |D_a|²` over the classes mod `q` (`LinnikHybrid.sum_chars_norm_sq_le` with `dp_twist_eq`). Each class meets `(P, 2P]` in at most `P/q + 1` integers (`card_class_le`), and Cauchy–Schwarz in each class finishes.
+- **The bins.** The bin of `χ` is the largest `i < N` such that `L(·, χ)` has a zero with `Re s > β_i` and `|Im s| ≤ T`, or `0` (`bin`). The grid is `β_i = 1/2 + (5/12)(i/500000)`, of width `1/1200000`, and `T = 2q^η + 1`.
+  - The bins do not depend on the heights.
+  - Above its bin a character has no zero with `Re s > β_{i+1}` and `|Im s − h_j| < q^η + 1`. In the last bin the stack's half-plane `Re s > 11/12` takes the place of the bin (`bin_rect`). This is Lemma 1's rectangle.
+  - In a bin `i > 0` a character has a zero with `Re s ≥ β_i` and `|Im s| ≤ T` (`card_bin_le`).
+- **In each bin.**
+  - Lemma 1 (`SieveWeight.norm_Sp_le`) at `θ = β_{i+1}`, `δ = 10⁻⁶` and `H = q^η` bounds each prime sum by `2Q_j^{θ+2δ}` for large `q` (`MB_le`).
+    - The decay is chosen with `η·K ≥ (5/12)(L + 1)`.
+    - The logarithms are absorbed by `Q_j^δ ≥ q^{e₁δ}`.
+    - `KL(θ, θ + δ)` is bounded by its sum over the grid.
+  - The counts are those of step (`card_zero_step`): `LinnikTwelve.charDensity_twelve_fifths` at `ε = 1/108000` on `[2801/4801, 5/6)`, `LinnikStep.charDensity_step` from `5/6` on, and at most `q` characters below `2801/4801`.
+  - Cauchy–Schwarz over the bin with (T1) (`sum_bins_le`, `typeII_pointwise`) then gives a constant times `q^{E + η/2}`, times powers of `log q` and `(Σ|a_m|²/P)^{1/2}` (`bin_bound`).
+- **The exponents.** With `P = q^m`, `E = (L − m)(β_i + w) + A(β_i)(1 − β_i)/2 + t`, where `t = (1 + m)/2` when `P ≤ q` and `t = m` when `P ≥ q`.
+  - On the window, `E ≤ L − 1/25000` for every bin width `w ≤ 4·10⁻⁶` (`exponent_le`).
+  - On each piece of step `E` is linear in `β` (`nlinarith` with the products of the bounds).
+- **The sum.** Over the 500000 bins the constants and the logarithms are absorbed by `q^{3/200000}`, which leaves `q^{L−1/50000}` (`typeII_step`).
+
+**What is checked.**
+
+- `lean` was run on `SieveTypeII.lean` alone, with the build's `LEAN_PATH` (Mathlib at `MATHLIB_REV`), in 37 s: no errors and no warnings. The file is in `build/`.
+- `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for the thirteen theorems the file prints, `typeII_step` among them.
+- `external/pnt/build.sh` lists the file after `SieveWeight`, imports it in the final check and prints the axioms of four of its theorems; `bash -n` passes. The final check, run alone against `build/`, prints 321 axiom lines, all inside the three (12 s). The rest of the layer was not rebuilt.
+- Before landing, each docstring and the header were read against their statements. The header, which described only the first three lemmas, was rewritten.
+- The exponents were checked first in exact rationals, at the ends of the pieces of step and of the window (scratch). The least margin there is `5.40·10⁻⁵` at width `10⁻⁶`.
+- `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class. SIEVE-ROUTE.md (18) and `external/pnt/README.md` (10) gain no reports, and README.md (1860) gains only five reports of class L10 (a nested list directly after its item's text), all in this entry. None of these files is a paper surface.
+
+**Records.**
+
+- `external/pnt/SieveTypeII.lean`: new.
+- `external/pnt/build.sh`: the file, imported in the final check, and the axioms of four of its theorems.
+- `external/pnt/README.md`: a row in the table, and a section.
+- `frontier/linnik/SIEVE-ROUTE.md`: markers on Proposition 3 in §8's Lean map, on M3 in §9 and in §10's plan for Lean.
+
+**Check 4.** New against the pilot: Proposition 3′ for the curve step in Lean, pointwise in the heights, with its bins, Lemma 1 in each bin, the counts of step and (T1). Classical [recalled]: orthogonality of characters, Cauchy–Schwarz, and binning by zeros.
+
+**Check 9.** (a) "the integral over the heights remains" scopes what is proved to the pointwise bound. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** A voluntary review of rounds 592 and 593. Then M4: Lemmas 4′ and 4″, the smooth separation and the near-boundary terms, on round 588's cut-off.
