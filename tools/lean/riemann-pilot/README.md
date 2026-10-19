@@ -21190,7 +21190,7 @@ No Lean file changed, so no build was run.
 **The next step.** The owner's request "Push past 7/3" is not met. Linnik's exponent in the stack is `12/5 + η`, and `7/3 + ε` is Chen–Gupta–Li's Corollary 1.4 (a preprint). Two continuations are open:
 
 - Landing `7/3` in Lean means formalizing their Proposition 3.1 for prime moduli, §§4–11 of their preprint: the Guth–Maynard matrix, Poisson summation, the affine-transformation bound of their Proposition 8.1 with its induction, the moments of `R`, and the energy bound through Heath-Brown's Theorem 10.1.
-- Going below `7/3` needs the open step of SEVEN-THIRDS.md §6.
+- ~~Going below `7/3` needs the open step of SEVEN-THIRDS.md §6.~~ *(Round 576: retracted. It quantified over every route, against CLAUDE.md Check 9(a). SEVEN-THIRDS.md §44 records a sieve argument, at paper level and unrefereed, that reaches Linnik's exponent `2.29` without that step. The step is still open as a route to the density exponent.)*
 
 Nothing is started.
 
@@ -23233,3 +23233,81 @@ Seven abstracts were read through the arXiv API: 2509.09771, 2607.01184, 2405.20
 **Bearing on RH:** none.
 
 **The next step.** Routes outside the class: a bound for the sixth moment's wrapped congruences (core 2), or joint cancellation in the Gauss and Jacobi sums of `S₃` (core 1).
+
+## Round 576: a sieve route to Linnik's exponent below `7/3` (`frontier/linnik/SEVEN-THIRDS.md` §44; `IDEAS.md` D5 and G18; `frontier/linnik/sieve_route_probe.py`)
+
+**What it is.** Working toward the owner's goal "keep pushing until exponent is below 7/3". Round 575's brainstorm subagent proposed Harman's sieve with the density bounds feeding its Type II sums. This round re-derived the argument and computed the sieve's losses.
+
+The result is at paper level and unrefereed. Assume the stack's half-plane (H1) and the classical density bounds (1.4)–(1.5) as Chen–Gupta–Li state them. Then every large prime `q` and every `a` prime to `q` have a prime `p ≡ a (mod q)` in `[x, 2x]` at `x = q^{2.29}`. With their `7/3` as well, `x = q^{2.27}` suffices.
+
+That is a Linnik exponent below `7/3`. The density exponent is not lowered. No Lean changed, no paper surface is edited, and one script is new.
+
+- **The Type II lemma.** Take the characters whose zeros near the relevant height have real part about `β`; (H2) bounds their number by `q^{A(β)(1−β)}`.
+  - On them, a product of smooth prime sums of length `X` is at most `X^{β+ε}`, by the zero-free region and Mellin inversion.
+  - A polynomial `W` of length `P` with arbitrary coefficients has `Σ_χ |W|² ≤ (q + P)‖w‖²`.
+  - Cauchy–Schwarz over those characters gives a window `(u₁, u₂)`: for lengths `x^u` inside it, the Type II sum is `o(x)` at every `β ∈ [1/2, 11/12]`.
+- **Separating the variables.** Perron's formula at height `x²` removes the sharp conditions with no truncation error. The heights it introduces cost nothing, because `A(β)(1 − β) < 1`. But they use (H2) for every `T` and (H1) at every height, and both are stated that way.
+- **The sieve.** Type I information holds up to `x^{1−1/L}`. Harman's fundamental theorem then evaluates `S(A_r, x^v)` for `r ≤ x^{1−u₂}`. A depth-4 Buchstab decomposition does the rest, and its dropped terms are the loss.
+- **Numbers.** The windows are `(0.398877, 0.475983)` at `L = 2.29` with the classical bounds and `(0.404154, 0.486050)` at `L = 2.27` with the `7/3`. The upper bounds on the loss are `0.9722` and `0.9193`, and the midpoint estimates `0.7435` and `0.5783`. Midpoint thresholds are near `2.28` and `2.245`.
+- **Strikes.** SEVEN-THIRDS §1's "Going below `7/3` needs a density exponent …" and round 528's "Going below `7/3` needs the open step of SEVEN-THIRDS.md §6" quantified over every proof (Check 9(a)), and both are struck at source.
+- **Scan (G18).** Two arXiv API searches and six queries on arXiv's search page returned entries, and four abstracts were read. None of the sieve proofs of Linnik's theorem among them uses a zero-free half-plane with density bounds as Type II information. The nearest relative is Heath-Brown and Iwaniec's short-interval method for `ζ`, which uses weighted zero-density estimates for a lower bound on primes.
+
+**Sources.**
+
+- Chen, Gupta and Li, arXiv:2507.08296v2, p. 2, read from the PDF's text layer (the copy round 528 used), with spaces and exponents restored. §44 quotes in full the sentence "Then (1.2) yields (1.4) … whereas (1.3) gives the estimate (1.5) … that performs better than (1.4) when σ > 3/4." Their (1.2) is from "the qT-analogue of the classical mean value theorem [11, Thm 9.12]", and (1.3) from "the Halász-Montgomery-Huxley method [8]".
+- arXiv API searches on 2026-10-19 that returned entries: `abs:Linnik AND abs:sieve` (12 entries) and `abs:"Harman" AND abs:sieve AND abs:progressions` (3 entries). Seven other API requests, for four queries, were refused with "Rate exceeded." or returned an error page.
+- Queries on arXiv's search page (abstracts, 2026-10-19):
+  - "least prime arithmetic progression sieve zero density": 1 result, 2303.06122;
+  - "Linnik constant zero-free half-plane": none;
+  - "Linnik exponent sieve Type II zero density": none;
+  - "Linnik half-plane": 2 results, 2605.28614 and 2604.11205, on CM points and on the hyperbolic circle problem;
+  - "Harman sieve arithmetic progressions": 3 results, 2602.20917, 2107.04348 and 2009.13119;
+  - "least prime progression zero-free region sieve": none.
+- Two web searches: "least prime in arithmetic progression Harman sieve zero density Type II zero-free region Linnik exponent below 12/5" and "Heath-Brown Iwaniec "difference between consecutive primes" 11/20 zero density sieve method analogue arithmetic progressions". The second found Heath-Brown and Iwaniec's announcement in Bull. Amer. Math. Soc. 1 (1979). Its AMS and Project Euclid pages were behind robot checks and it was not read.
+- Abstracts read: 2401.17570, 2303.06122 and 2602.20917v6 through the API, and 2411.01845 from its arXiv page.
+- `src/DirichletCharHalfPlane.lean`, the docstring of `Eis.LFunction_ne_zero_of_re_gt` (line 204): "for every modulus `q ≥ 1`, every Dirichlet character `χ` mod `q` and every `s` with `Re s > 11/12`, `L(s, χ) ≠ 0`, the trivial character excepted at `s = 1`."
+
+**What is checked.**
+
+- `python3 sieve_route_probe.py`, run from `frontier/linnik`, exits 0 in about seven minutes (405 seconds). Gates S1–S4 pass, and its five mutations are caught.
+  - S1: the four windows equal their breakpoint values to `10⁻⁷`, with `u₂L` between `1.083` and `1.104`.
+  - S2: the `ω` table is within `2.1·10⁻¹⁰` of `(1 + log(u − 1))/u` on `[2, 3]`, and within `2.0·10⁻¹⁰` of a table of a quarter the step on `[3, 15]`. Buchstab's identity holds to six decimals at three values of `v`.
+  - S3: the midpoint losses at the coarse grid are `0.6460` (classical, `2.30`) and `0.8504` (`7/3`, `2.25`). The first moves to `0.6599` at the fine grid.
+  - S4: the upper bounds at cell side `(1/2 − v)/600` are `0.9722` (classical, `2.29`) and `0.9193` (`7/3`, `2.27`). The cell bounds dominate their integrands at about 13000 random points each, with least ratios `1.0006` and `1.0042`.
+  - Printed: the classical upper bound at `2.30` is `0.8709` at side `(1/2 − v)/600` and `1.0255` at `(1/2 − v)/150`. The midpoint losses exceed `1` at `2.26` (classical, `1.8086`) and at `2.24` (`7/3`, `1.1692`).
+- `idea_register.py` and its inputs are unchanged, so it was not re-run.
+- `tools/research/render_lint.py`'s `lint` was run on the four changed markdown files (none is a paper surface) and compared with HEAD by defect class. It finds 12 new reports: 4 in this file (1804), 2 in IDEAS.md (50) and 6 in SEVEN-THIRDS.md (55). All are of class L10 (a nested list directly after its item's text), the style of the entries around them. The count for STRUCTURAL-REVIEW.md (100) is unchanged.
+
+**Records.**
+
+- `frontier/linnik/SEVEN-THIRDS.md`: §44, and the strike in §1.
+- `frontier/linnik/IDEAS.md`: the status PAPER, D5, G18, and markers on the goal statement and on D1. The register now lists 88 entries: 49 CLOSED, 12 REDUCED, 1 OPEN, 20 SURVEYED, 5 CORE, 1 PAPER.
+- `frontier/linnik/sieve_route_probe.py`, new.
+- This file: the strike in round 528's next step.
+- STRUCTURAL-REVIEW §6: a marker on "Below `7/3` for prime moduli".
+
+**Check 4.** NOVEL against the pilot:
+
+- the Type II lemma with the density bound;
+- the window;
+- the decomposition and its losses;
+- the Linnik exponents `2.29` and `2.27`.
+
+ACKNOWLEDGED: the density barrier of SEVEN-THIRDS §4 and the cores, which this round leaves as they were, and D1's closure within the density framework.
+
+**Check 9.**
+
+- (a) Scope.
+  - The exponents are for one decomposition: depth 4, two windows, no role reversals. A deeper decomposition would lower them.
+  - The analysis is at paper level. The numerics are double precision with cell suprema, not interval arithmetic.
+  - The per-`σ` Huxley bound is taken from Chen–Gupta–Li's (1.5) and was not re-derived.
+  - Two necessity claims are struck (above).
+- (b) STRUCTURAL-REVIEW §6's entry gets a marker; its density target stays open.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** Two continuations, and the density goal (cores 1–4) is unchanged:
+
+- lower the sieve's exponent, by a deeper decomposition, role reversals, or a wider window from better density bounds near `β = 3/4` and `11/12`, where its lower end is set;
+- check §44's analysis independently.

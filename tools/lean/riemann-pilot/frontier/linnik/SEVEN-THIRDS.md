@@ -6,7 +6,7 @@ Notation as in `ARGUMENT.md`. `Q = qT`; for Linnik's exponent `T = O(log q)` (ro
 
 ## 1. The question
 
-The stack proves Linnik's exponent `12/5 + η` (round 527, `LinnikTwelve.linnik_twelve_fifths`). Chen, Gupta and Li (arXiv:2507.08296v2, a preprint) prove the density exponent `7/3`, and with the stack's half-plane their Corollary 1.4 gives `7/3 + ε` (`ARGUMENT.md` §6). Going below `7/3` needs a density exponent `A(σ) ≤ 7/3 − δ` on all of `1/2 ≤ σ ≤ 11/12` for every modulus, prime moduli included.
+The stack proves Linnik's exponent `12/5 + η` (round 527, `LinnikTwelve.linnik_twelve_fifths`). Chen, Gupta and Li (arXiv:2507.08296v2, a preprint) prove the density exponent `7/3`, and with the stack's half-plane their Corollary 1.4 gives `7/3 + ε` (`ARGUMENT.md` §6). ~~Going below `7/3` needs a density exponent `A(σ) ≤ 7/3 − δ` on all of `1/2 ≤ σ ≤ 11/12` for every modulus, prime moduli included.~~ *(Round 576: retracted. It quantified over every proof, against CLAUDE.md Check 9(a). §44 records an argument that reaches Linnik's exponent `2.29` without such a density exponent, from the half-plane and the classical density bounds. That argument is at paper level and unrefereed. The scoped form holds: the deduction of ARGUMENT.md §3 gives `A + η`, so through it an exponent below `7/3` needs `A < 7/3`.)*
 
 ## 2. Where 7/3 comes from
 
@@ -767,3 +767,55 @@ The owner's goal stands: "keep pushing until exponent is below 7/3". The registe
 
   The construction's points are not characters, so arguments that use these properties can tell them apart from characters. Arguments in the class cannot.
 - **Reading.** This closes a class of routes and adds none. No exponent below `7/3` follows.
+
+## 44. Round 576: a sieve route to Linnik's exponent below 7/3
+
+The owner's goal stands: "keep pushing until exponent is below 7/3". Round 575's brainstorm subagent proposed this route; under Check 3 its report was a suggestion, and every step below was re-derived here. `sieve_route_probe.py` is new and gates the numerics. The analysis is a paper argument: it has not been refereed, and nothing in it is machine-checked in Lean. The register's D5 and G18 are new.
+
+- **Statement.** Assume (H1) at `11/12` (`Eis.LFunction_ne_zero_of_re_gt`, every `s` with `Re s > 11/12`, so every height) and the two classical density bounds in the form Chen–Gupta–Li give them (arXiv:2507.08296v2, p. 2, read from the PDF's text layer with spaces and exponents restored): "Then (1.2) yields (1.4) Σ_{χ mod q} N(σ,T,χ) ≤ (qT)^{3(1−σ)/(2−σ)+o(1)}, whereas (1.3) gives the estimate (1.5) Σ_{χ mod q} N(σ,T,χ) ≤ (qT)^{3(1−σ)/(3σ−1)+o(1)} that performs better than (1.4) when σ > 3/4." Their (1.2) comes from "the qT-analogue of the classical mean value theorem [11, Thm 9.12]", and (1.3) from "the Halász-Montgomery-Huxley method [8]", where [8] is Huxley, Acta Arith. 26 (1975). Then for every large prime `q` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` in `[x, 2x]` with `x = q^{2.29}`. With Chen–Gupta–Li's `7/3` as well (their abstract's bound, a preprint), `x = q^{2.27}` suffices. Both exponents come from the upper bounds below. Midpoint estimates put the thresholds of this decomposition near `2.28` and `2.245`. No step uses that `q` is prime.
+- **What it does not do.** The density exponent is not lowered. §4's barrier and the four cores are statements about density, and they stand. What changes is the deduction. ARGUMENT.md §3 bounds the characters with a zero near `β` all at once, by `N(β)x^β`, which is `o(x)` only when `L > A(β)`. Here the density bound enters only through Type II sums `Σ W(χ)B(χ)`. There the long factor `B` is bounded pointwise by the zeros and the short factor `W` is averaged by the large sieve, and that is the saving: the large sieve beats the pointwise bound on `W` exactly when the bin of characters is large.
+- **The Type II lemma.** Let `x^ε` be a small power. For `χ ≠ χ₀` and a height `t`, let `β(χ, t)` be the largest real part of a zero of `L(s, χ)` with `|Im ρ − t| ≤ x^ε`. By (H1) it is at most `11/12`. Let `B(χ, t)` be a product of at most `1/ε₁` prime sums `Σ_p φ(p/Q)χ(p)p^{−it}`, with `φ` a fixed smooth bump, `Q ≥ x^{ε₁}`, and total length `X`. Let `W(χ, t) = Σ_{m∼P} a_m χ(m)m^{−it}` with `|a_m| ≤ τ(m)^C`.
+  - Each prime sum is at most `Q^{β(χ,t)+ε}`. This follows from Mellin inversion against `−L′/L` and a shift of the contour to `Re s = β(χ, t) + ε` inside `|Im s| ≤ x^ε/2`, where `|L′/L| ≪ ε^{−1} log qx` because no zero lies within `ε`. Outside that range the Mellin transform of `φ` decays.
+  - At each `t`, orthogonality gives `Σ_χ |W(χ, t)|² ≤ (q + P)‖a‖²`.
+  - (H2) bounds the number of `χ` with `β(χ, t) ≥ β` by `(q(|t| + x^ε))^{A(β)(1−β)+o(1)}`.
+  - Cauchy–Schwarz over those characters gives `Σ |W B| ≤ q^{A(β)(1−β)/2}((q + P)P)^{1/2}X^β x^{O(ε)}`. With `P = q^m`, `X = q^{L−m}` and `x = q^L`, this is `x^{1−ε}` when `m > lower(β) = (A(β)(1 − β)/2 + 1/2 − L(1 − β))/(β − 1/2)` (the case `P < q`) or `m < upper(β) = L − A(β)/2` (the case `P > q`).
+  - So `W` of length `x^u` with `u` in the window `(u₁, u₂) = (max lower/L, min upper/L)`, the extremes over `β ∈ [1/2, 11/12]`, is a Type II factor.
+- **Separating the variables.** The sieve's terms couple `W` and `B` through sharp conditions: `p₂ < p₁`, the least prime of the remaining factor at least the last sifted prime, and the ranges of single primes. Perron's formula at height `x²` removes each one.
+  - The truncation error is negligible here. Two distinct primes up to `x` differ in ratio by more than `1 + 1/x`. The `n` divisible by `p²` with `p ≥ x^{ε₁}` number `O(x^{1−ε₁}/q + x^{1/2})`, which is `o(x/q)` because `L > 2`.
+  - The factors are then taken at heights `t + ℓ(τ)` with `|τ_j| ≤ x²`, against the measure `∏ dτ_j/(1 + |τ_j|)`. Its image at height `y` has density `≪ (log x)^{O(1)}/(1 + |y − t|)`, a convolution of kernels `1/(1 + |τ|)`. A bin's count therefore enters as `Σ_ρ 1/(1 + |γ − t|) ≪ Σ_U U^{−1}N(β, U, q) ≪ q^{A(β)(1−β)+o(1)}`, summed over dyadic `U`. The sum converges because `A(β)(1 − β) < 1` where the curves are used: Ingham's `3(1 − β)/(2 − β) < 1` for `β > 1/2`, Huxley's `3(1 − β)/(3β − 1) < 1` for `β > 2/3`, and `(7/3)(1 − β) < 1` for `β > 4/7`. The bin `β = 1/2` costs a power of `log x`.
+  - So large heights cost nothing. They do use (H2) for every `T` and (H1) at every height, and both are stated that way.
+- **Type I and the fundamental theorem.** Counting in the progression gives Type I information up to `x^{1−1/L−ε}`. Since `u₂L > 1`, that covers `x^{1−u₂+ε}`. Harman's fundamental theorem then evaluates `S(A_r, x^v)` for every product of primes `r ≤ x^{1−u₂}`, with `v = u₂ − u₁`. Buchstab's identity runs down to `x^{ε₁}`, and the fundamental lemma takes over below.
+  - Each step multiplies the partial product by less than `x^v`. So the partial products enter `(x^{u₁}, x^{u₂})` when `r ≤ x^{u₁}`, and enter `(x^{1−u₂}, x^{1−u₁})` when `x^{u₂} ≤ r ≤ x^{1−u₂}`.
+  - There the term is a Type II sum. The window factor is the partial product in the first case and the rest of `n` in the second. The other factor is a product of primes of size at least `x^{ε₁}`.
+- **The decomposition.** Put `U = (u₁, u₂) ∪ (1 − u₂, 1 − u₁)`. A term whose prime factors have exponents `α_i` (in units of `log x`) is evaluable when some subset sum of the `α_i` lies in `U`.
+  - Buchstab's identity gives `S(A, (2x)^{1/2}) = S(A, x^v) − Σ_{p₁} S(A_{p₁}, p₁)`, and for `α₁ ∉ (u₁, u₂)` it gives `S(A_{p₁}, p₁) = S(A_{p₁}, x^v) − Σ_{p₂<p₁} S(A_{p₁p₂}, p₂)`.
+  - The terms `S(A_{p₁p₂}, p₂)` enter with sign `+`. One that is not evaluable is either dropped, at the cost of its share `ω((1 − α₁ − α₂)/α₂)/(α₁α₂²)`, or, when `α₁ + α₂ ≤ 1 − u₂`, decomposed once more.
+  - The terms of depth 3 enter with sign `−`. Each must be evaluable or decomposed in turn, which needs `α₁ + α₂ + α₃ ≤ 1 − u₂`.
+  - The terms of depth 4 enter with sign `+`, and those that are not evaluable are dropped.
+  - Each `(α₁, α₂)` takes the cheaper option. The loss is the total share of the dropped terms, and a loss below `1` gives `S(A, (2x)^{1/2}) ≫ x/(q log x)`.
+- **Numbers** (`sieve_route_probe.py`; window over every `β ∈ [1/2, 11/12]`; "hux" is the curve of (1.4) and (1.5), "cons" adds the `7/3`):
+
+| curve | `L` | window `(u₁, u₂)` | midpoint loss | upper bound |
+|---|---|---|---|---|
+| hux | 2.29 | (0.398877, 0.475983) | 0.7435 | 0.9722 |
+| hux | 2.30 | (0.396273, 0.478261) | 0.6599 | 0.8709 |
+| cons | 2.25 | (0.410774, 0.481481) | 0.8504 (coarse grid) | not below 1 at this side |
+| cons | 2.27 | (0.404154, 0.486050) | 0.5783 | 0.9193 |
+
+  - The midpoint losses are midpoint sums at the grid `(400, 200)` unless marked. For hux at `2.30` the value moves by `0.014` from the grid `(200, 100)`. Hux at `2.26` (`1.8086`) and cons at `2.24` (`1.1692`) exceed `1` (printed).
+  - The upper bound covers the region by cells of side `(1/2 − v)/600` in all four variables. A cell counts whenever interval arithmetic cannot exclude it. The integrand is taken at its supremum on the cell, decomposition is used only where its conditions hold on the whole cell, and the window is shrunk by `10⁻⁵` at each end. The bound converges slowly from above: for hux at `2.30` it is `1.0255` at side `(1/2 − v)/150` and `0.8709` at `(1/2 − v)/600`, against the midpoint `0.66`. So the gated exponents sit above the midpoint thresholds.
+  - Away from the critical `β` (where `A(β) < L`), every kept term is a product of prime sums. There `|W B| ≤ x^{β+ε}` and the bin's count times `x^β` is `o(x)`, so those bins need no window. With the window over the critical `β` alone the midpoint thresholds fall a little (printed, not gated). The gated numbers do not use this.
+- **Checked** (`sieve_route_probe.py`).
+  - The windows against their breakpoint values: for hux the largest `lower` is at `3/4` or `11/12`, and for cons at `16/21` or `11/12`.
+  - `ω` against `(1 + log(u − 1))/u` on `[2, 3]`, against a finer table, and through Buchstab's identity.
+  - The midpoint losses and their movement between two grids.
+  - The two upper bounds, and that the upper bound exceeds the midpoint estimate.
+  - Each of five mutations fails a gate.
+- **Scope (Check 9).**
+  - The exponents are for this decomposition: depth 4, the two windows, no role reversals, and no further Buchstab steps on the dropped terms. A deeper decomposition would lower them. No optimality is claimed.
+  - The numerics are double precision. The upper bound takes suprema on cells, which is not interval arithmetic.
+  - Huxley's per-`σ` bound is quoted from Chen–Gupta–Li's (1.5). Round 525 read Huxley's paper for its (1.1), the uniform `12/5`, and its Theorem 1. The per-`σ` statement in the `qT`-aspect was not re-derived here.
+  - The stack's kernel-checked density statements (`CharDensity`) are for heights `O(log q)` and a uniform exponent. They are not the per-`σ`, all-`T` bounds this argument uses.
+- **What it changes.** §1's "Going below `7/3` needs a density exponent" and README round 528's "Going below `7/3` needs the open step of SEVEN-THIRDS.md §6" quantified over every proof (Check 9(a)), and they are struck at source. Their scoped forms hold for the deduction through the explicit formula. The register's D1 ("CLOSED within the density framework") stands as scoped.
+- **Lean.** Formalizing this would need Harman's sieve with the fundamental lemma, the Type II lemma with the separation of variables, and the four integrals. None of it is started.
+- **Reading.** Linnik's exponent below `7/3` follows at paper level, from (H1) and the classical density bounds. The density exponent below `7/3`, the register's goal in its density form, is still open.

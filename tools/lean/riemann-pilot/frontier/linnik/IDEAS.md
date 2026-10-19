@@ -2,7 +2,7 @@
 
 README round 546 opens this register. The owner's instruction (2026-10-18) was: "Keep searching, do not give up until every idea is exhausted".
 
-The goal is a density exponent below `7/3` near `σ = 5/7` for the characters mod a prime `q`, with `T = q^{o(1)}`. Through the stack's half-plane and round 520's `Linnik.linnik_of_charDensity`, that is a Linnik exponent below `7/3`.
+The goal is a density exponent below `7/3` near `σ = 5/7` for the characters mod a prime `q`, with `T = q^{o(1)}`. Through the stack's half-plane and round 520's `Linnik.linnik_of_charDensity`, that is a Linnik exponent below `7/3`. *(Round 576: D5 reaches a Linnik exponent below `7/3` at paper level by Harman's sieve, without a density exponent below `7/3`. The density goal stays open.)*
 
 Each idea carries one status:
 
@@ -11,6 +11,7 @@ Each idea carries one status:
 - **REDUCED**: shown to come down to a core.
 - **CLOSED**: a recorded argument shows the idea cannot reach the goal alone, in the scope stated.
 - **SURVEYED**: the literature was checked and nothing usable was found.
+- **PAPER**: reaches a Linnik exponent below `7/3` in a paper argument recorded in SEVEN-THIRDS.md, unrefereed and not machine-checked, without reaching the density goal.
 
 A closure is a statement about the idea as described, in the scope stated. It is not a claim that no variant can work. `idea_register.py` checks every quantitative closure marked [R*] in exact arithmetic.
 
@@ -210,7 +211,7 @@ The kernel-checked conditional route is round 521's `LinnikDensity.linnik_of_cri
 
 ## D. Restructuring the argument
 
-- **D1. Another Linnik deduction.** CLOSED within the density framework. Zeros at `σ` contribute `q^{(A(σ)−L)(1−σ)}`, so the deduction needs `L > A(5/7)`.
+- **D1. Another Linnik deduction.** CLOSED within the density framework. Zeros at `σ` contribute `q^{(A(σ)−L)(1−σ)}`, so the deduction needs `L > A(5/7)`. *(Round 576: outside that framework, D5.)*
 - **D2. An auxiliary composite modulus `qr` (`r` prime to `q`), to borrow Chen–Gupta–Li's subdivision.** CLOSED [R2].
   - The characters mod `q` form the subgroup `X(q)` of `X(qr)`, and each coset of `X(r)` holds one of them. For `χ ≠ ψ` mod `q`, `χψ̄` has conductor `q` in any lift. So no subdivision of `X(qr)` into cosets lowers the conductor of the off-diagonal.
   - For the subdivided case, SEVEN-THIRDS §2 quotes "|W| ⪅ (qT)^ϵ q q₁^{1/3} T N^{2−4σ}". With modulus `qr = q^{1+η}` and `q₁ = q` that term is `q^{4/3+η}N^{2−4σ}`, or `q^{2/3+η}` at the critical point. `W` lies in one of the `r` cosets of `X(q)`, and there the term is `q^{4/3}N^{2−4σ}`, as it is mod `q` directly.
@@ -219,6 +220,11 @@ The kernel-checked conditional route is round 521's `LinnikDensity.linnik_of_cri
   - Parseval over `a` gives that saving for all but about `q^{1/3+4δ/7}` residues. Linnik's problem needs every one.
   - Averaging over `x` damps the zeros with `|γ| ≫ 1/(η log x)`, but not those near the real axis.
   - For the worst `a` the near-real zeros give a weighted `R(a)` over the critical set, and the energy bound gives only `max_{a≠1}|R(a)| ≤ (κ − 1)^{1/4}|W|`, no saving when `κ ≤ q^{o(1)}`.
+- **D5. Harman's sieve with the density bound as Type II information (round 576).** PAPER [SEVEN-THIRDS §44; `sieve_route_probe.py`]. Consider the characters whose zeros near the relevant height have real part about `β`. On them a product of prime sums of length `X` is at most `X^{β+ε}` pointwise, and a polynomial with arbitrary coefficients is averaged by the large sieve over those characters. So a factor of length `x^u` with `u` in a window `(u₁, u₂)` is a Type II factor. Harman's sieve, with Type I information up to `x^{1−1/L}`, then finds primes in the progression.
+  - With the half-plane and the classical bounds (Chen–Gupta–Li's (1.4) and (1.5)), the loss of a depth-4 decomposition is below `1` at `L = 2.29`, with an upper bound of `0.9722`. With their `7/3` as well it is below `1` at `L = 2.27` (`0.9193`). Midpoint estimates put the thresholds near `2.28` and `2.245`.
+  - That is a Linnik exponent below `7/3`. The density exponent is unchanged, so the cores and B34 still bear on the density goal.
+  - The window's lower end is set at `β = 3/4` or `11/12`, and its upper end by the largest density exponent. Deeper decompositions and role reversals would lower the exponents.
+  - Paper level, unrefereed; not formalized.
 
 ## E. Structure particular to prime moduli
 
@@ -316,3 +322,8 @@ The kernel-checked conditional route is round 521's `LinnikDensity.linnik_of_cri
   - Harper (arXiv:2607.01184) proves "sharp lower bounds for the Dirichlet character moments" of order at most `2` of short sums: typical sizes, not large values.
   - Guth and Maynard (arXiv:2405.20552) is the `t`-aspect estimate that Chen–Gupta–Li adapt (B14).
   - Gao and Zhao (arXiv:2608.05961) and Zhao (arXiv:2508.13301) work under GRH. Hua and Yang (arXiv:2609.27808) bound proportions of simple and distinct zeros. Ernvall-Hytönen and Vesalainen (arXiv:1909.09497) bound moments of short sums of cusp-form coefficients.
+- **G18. Horizon scan of round 576: sieve proofs of Linnik's theorem.** SURVEYED. Two arXiv API searches and six queries on arXiv's search page returned the entries listed in README round 576, and four abstracts were read. None of the four uses a zero-free half-plane with density bounds as Type II information for one modulus.
+  - Matomäki, Merikoski and Teräväinen (arXiv:2401.17570) give a sieve proof without `L`-functions: "free proof of Linnik's problem of bounding the least prime", with the bound `p ≪ q^{350}`.
+  - Friedlander and Iwaniec (arXiv:2303.06122) give "a new proof of the famous Linnik theorem": "Using sieve machinery in both papers, we are able to dipense with the log-free zero density bounds and the repulsion property of exceptional zeros" (sic).
+  - Runbo Li (arXiv:2602.20917v6) uses "different variants of the original Harman's sieve" for primes in progressions to moduli beyond `x^{1/2}`. The results are on average over the moduli: bounds "that hold for almost all moduli".
+  - Starichkova (arXiv:2411.01845) generalises Heath-Brown and Iwaniec's short-interval result, which "derives the weighted zero-density estimates used for obtaining the lower bound for the number of primes in short intervals". That is the `ζ` counterpart of D5's route. Heath-Brown and Iwaniec's own announcement (Bull. Amer. Math. Soc. 1 (1979)) was behind a robot check and was not read.
