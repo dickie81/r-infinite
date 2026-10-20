@@ -7,9 +7,10 @@ Plain statements. `RT j Y Ω` is the set of `j`-tuples of primes up to `Y` that 
 `m = 0`.
 
 * `typeII_cmp`: `SieveTypeIIU.typeII_unw` with the comparisons given as a list of `SieveCmp.Cmp`s.
-* `sum_stops_eq`: the stops `W = r_1⋯r_j·∏P·p` of the tree at the threshold `X'` (`r` over `RT`, `p ∈ [w, z₀)`, `P` an
-  `s`-set of primes of `(p, z₀)`), with `p ≤ minFac k` and `N₁ < Wk ≤ N₂`, are the tuples `(r, P in decreasing order,
-  p)` of primes up to `Y` that satisfy the comparisons `cmps` at `k`.
+* `sum_stops_eq`: for `1 ≤ w ≤ z₀ ≤ Y`, `X' ≥ 1`, `N₁, N₂ ≥ 1` and `k ≥ 1`, the stops `W = r_1⋯r_j·∏P·p` of the tree
+  at the threshold `X'` (`r` over `RT`, `p ∈ [w, z₀)`, `P` an `s`-set of primes of `(p, z₀)`), with `p ≤ minFac k`
+  and `N₁ < Wk ≤ N₂`, are the tuples `(r, P in decreasing order, p)` of primes up to `Y` that satisfy the
+  comparisons `cmps` at `k`.
 * `stops2_bound`: fix `e₀ > 0`, `j`, `J₀` and `Λ₁ ≥ 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit
   `a` mod `q`: let `rt` run over the `j`-tuples of primes up to `N₂ = ⌊2q^L⌋` satisfying at most `J₀` comparisons `Ω`
   (taken at `m = 0`, with `m`-parts `c(0)` at most `Λ₁ log q`) that force every `rt_i ≥ z₀`, and let
@@ -230,9 +231,10 @@ open Classical
 noncomputable def RT (j Y : ℕ) (Ω : List (Cmp j)) : Finset (Fin j → ℕ) :=
   (Fintype.piFinset (fun _ : Fin j => SieveTypeIIU.primesLe Y)).filter (fun rt => ∀ C ∈ Ω, C.holds 0 rt)
 
-/-- **The stops of size `s`, as tuples of primes.** The stops `W = r_1⋯r_j·∏P·p` of the tree at the threshold `X'`
-(`r` over `RT`, `p ∈ [w, z₀)`, `P` an `s`-set of primes of `(p, z₀)`) with `p ≤ minFac k` and `N₁ < Wk ≤ N₂` are the
-tuples `(r, P in decreasing order, p)` of primes up to `Y` that satisfy the comparisons `cmps`. -/
+/-- **The stops of size `s`, as tuples of primes.** For `1 ≤ w ≤ z₀ ≤ Y`, `X' ≥ 1`, `N₁, N₂ ≥ 1` and `k ≥ 1`: the
+stops `W = r_1⋯r_j·∏P·p` of the tree at the threshold `X'` (`r` over `RT`, `p ∈ [w, z₀)`, `P` an `s`-set of primes of
+`(p, z₀)`) with `p ≤ minFac k` and `N₁ < Wk ≤ N₂` are the tuples `(r, P in decreasing order, p)` of primes up to `Y`
+that satisfy the comparisons `cmps`. -/
 theorem sum_stops_eq {M : Type*} [AddCommMonoid M] (Ω : List (Cmp j)) {Y w z₀ X' N₁ N₂ k : ℕ}
     (hw : 1 ≤ w) (hwz : w ≤ z₀) (hz₀Y : z₀ ≤ Y) (hX' : 1 ≤ X') (hN₁ : 1 ≤ N₁) (hN₂ : 1 ≤ N₂) (hk : 1 ≤ k)
     (F : ℕ → M) :
@@ -455,7 +457,8 @@ theorem rough_iff_le_minFac {p k : ℕ} (hk : 2 ≤ k) : (∀ p' < p, p'.Prime �
     have := Nat.minFac_le_of_dvd hpp.two_le hd
     omega
 
-/-- A stop `W ∈ (X', X'z₀]` below `N₁`: its multiples in `(N₁, N₂]` are `Wk` with `k ∈ (N₁/(X'z₀), N₂/(X' + 1)]`. -/
+/-- A `p`-rough stop `W ∈ (X', X'z₀]` with `W ≤ N₁` and `N₁/(X'z₀) ≥ 1`: its `p`-rough multiples in `(N₁, N₂]` are
+`Wk` with `k ∈ (N₁/(X'z₀), N₂/(X' + 1)]` and `p ≤ minFac k`. -/
 theorem sum_cofactor_window (f : ℕ → ℂ) {W p X' z₀ N₁ N₂ : ℕ} (hW0 : 0 < W) (hWN : W ≤ N₁) (hWp : rough p W)
     (hXW : X' < W) (hWX : W ≤ X' * z₀) (hP₁ : 1 ≤ N₁ / (X' * z₀)) :
     ∑ n ∈ Finset.Ioc N₁ N₂, f n * (if W ∣ n ∧ rough p n then 1 else 0) =
@@ -487,7 +490,8 @@ theorem cmps_length (Ω : List (Cmp j)) (z₀ w X' N₁ N₂ : ℝ) :
   simp only [List.length_append, List.length_map, List.length_finRange, List.length_cons, List.length_nil]
   split_ifs <;> simp only [List.length_cons, List.length_nil] <;> omega
 
-/-- The forms' `m`-parts are at most `B` at `m`, given bounds on the thresholds. -/
+/-- The forms' `m`-parts are at most `B` at `m`, for `B ≥ 0` with `C.c 0 ≤ B` for `C ∈ Ω`, `log z₀`, `log X'`,
+`log m` and `log N₂` at most `B`, and `w`, `X'`, `m` and `N₁` at least `1`. -/
 theorem cmps_c_le (Ω : List (Cmp j)) {z₀ w X' N₁ N₂ B : ℝ} {m : ℕ} (hB : 0 ≤ B) (hΩ : ∀ C ∈ Ω, C.c 0 ≤ B)
     (hz₀B : Real.log z₀ ≤ B) (hw : 1 ≤ w) (hX' : 1 ≤ X') (hX'B : Real.log X' ≤ B) (hm : 1 ≤ m)
     (hmB : Real.log m ≤ B) (hN₁ : 1 ≤ N₁) (hN₂B : Real.log N₂ ≤ B) :

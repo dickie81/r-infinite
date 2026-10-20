@@ -20,7 +20,7 @@ its cells `S1c i`, the extensions `S2 i`, `S3 i j`, `S4 i j k` (one more prime i
   (`inW`); at depth 4 the counted cells (`counted4`, `l ≤ k`) below the cells of depth 3 that are split.
 * `Leaves`: the estimates the leaves need, each `|A − B| ≤ Err`: the evaluated families (`e1`, `e2`, `e2'`, `e3`,
   `e3'`, `e4`) and the families of Proposition 6 (`j0` for `S(z₀)`, `p1`, `p2`, `p3`).
-* `decomp`: for weights `g_A ≥ 0` and `g_B`, and leaves within `Err`,
+* `decomp`: for `P.Good`, weights `g_A ≥ 0` and `g_B`, and leaves within `Err ≥ 0`,
   `S_{g_A}(z_top) ≥ S_{g_B}(z_top) − D1(g_B) − (1 + n(1 + n(n(n + 2) + 2)))·Err`.
 
 This is the decomposition of `frontier/linnik/SIEVE-ROUTE.md` §6, M8 of §13, with M7's classification by cells
@@ -145,7 +145,7 @@ theorem chain_S4c {Y : ℕ} (i j k l : ℕ) : ∀ rt ∈ famSet 4 Y (P.S4c i j k
 
 variable {P}
 
-/-- A chain's primes lie in the grid. -/
+/-- For `P.Good`, a chain's primes lie in the grid. -/
 theorem range_of_chain (G : P.Good) {k : ℕ} {rt : Fin k → ℕ} (h : Chain P.z₀ P.ztop rt) (t : Fin k) :
     P.x ^ ((V : ℝ) / DEN) ≤ rt t ∧ (rt t : ℝ) < P.x ^ (((V : ℝ) + SieveCert.n * H) / DEN) := by
   refine ⟨G.hz₀.trans (by exact_mod_cast h.2.1 t), lt_of_lt_of_le (by exact_mod_cast h.2.2 t) G.hztop⟩
@@ -156,7 +156,7 @@ theorem last_le_of_chain {k' : ℕ} {rt : Fin (k' + 1) → ℕ} (h : Chain P.z�
 
 /-! ### The identities of the tree, depth by depth -/
 
-/-- **Depth 0.** `S(A, z_top) = S(A, z₀) − Σ_{z₀ ≤ p₁ < z_top} S(A_{p₁}, p₁)`. -/
+/-- **Depth 0.** For `P.Good`, `S(A, z_top) = S(A, z₀) − Σ_{z₀ ≤ p₁ < z_top} S(A_{p₁}, p₁)`. -/
 theorem T_eq (G : P.Good) (g : ℕ → ℝ) : P.T g = P.J0 g - P.I g P.S1 := by
   have hpt : ∀ m ∈ Ioc P.N₁ P.N₂, g m * (if SieveTree.rough P.ztop m then 1 else 0) =
       g m * (if SieveTree.rough P.z₀ m then 1 else 0) -
@@ -190,7 +190,7 @@ theorem T_eq (G : P.Good) (g : ℕ → ℝ) : P.T g = P.J0 g - P.I g P.S1 := by
   · intro p _
     simp only [Finset.prod_const, Finset.card_univ, Fintype.card_fin, zero_add, pow_one]
 
-/-- **Depth 1**: the cells of `p₁`. -/
+/-- **Depth 1**, for `P.Good`: the cells of `p₁`. -/
 theorem I_S1 (G : P.Good) (g : ℕ → ℝ) : P.I g P.S1 = ∑ i ∈ range SieveCert.n, P.I g (P.S1c i) :=
   famI_cells g P.N₁ P.N₂ G.hx P.S1 0 fun rt hrt => range_of_chain G (P.chain_S1 rt hrt) 0
 
@@ -198,7 +198,7 @@ theorem I_S1 (G : P.Good) (g : ℕ → ℝ) : P.I g P.S1 = ∑ i ∈ range Sieve
 theorem I_S1c (g : ℕ → ℝ) (i : ℕ) : P.I g (P.S1c i) = P.J g (P.S1c i) - P.I g (P.S2 i) :=
   buchstab_fam g P.N₁ P.N₂ (P.S1c i) fun rt hrt => last_le_of_chain (P.chain_S1c i rt hrt)
 
-/-- **Depth 2**: the cells of `p₂`. -/
+/-- **Depth 2**, for `P.Good`: the cells of `p₂`. -/
 theorem I_S2 (G : P.Good) (g : ℕ → ℝ) (i : ℕ) :
     P.I g (P.S2 i) = ∑ j ∈ range SieveCert.n, P.I g (P.S2c i j) :=
   famI_cells g P.N₁ P.N₂ G.hx (P.S2 i) 1 fun rt hrt => range_of_chain G (P.chain_S2 i rt hrt) 1
@@ -211,7 +211,7 @@ theorem I_S2c (g : ℕ → ℝ) (i j : ℕ) : P.I g (P.S2c i j) = P.I g (P.S2le 
 theorem I_S2le (g : ℕ → ℝ) (i j : ℕ) : P.I g (P.S2le i j) = P.J g (P.S2le i j) - P.I g (P.S3 i j) :=
   buchstab_fam g P.N₁ P.N₂ (P.S2le i j) fun rt hrt => last_le_of_chain (P.chain_S2le i j rt hrt)
 
-/-- **Depth 3**: the cells of `p₃`. -/
+/-- **Depth 3**, for `P.Good`: the cells of `p₃`. -/
 theorem I_S3 (G : P.Good) (g : ℕ → ℝ) (i j : ℕ) :
     P.I g (P.S3 i j) = ∑ k ∈ range SieveCert.n, P.I g (P.S3c i j k) :=
   famI_cells g P.N₁ P.N₂ G.hx (P.S3 i j) 2 fun rt hrt => range_of_chain G (P.chain_S3 i j rt hrt) 2
@@ -226,7 +226,7 @@ theorem I_S3le (g : ℕ → ℝ) (i j k : ℕ) :
     P.I g (P.S3le i j k) = P.J g (P.S3le i j k) - P.I g (P.S4 i j k) :=
   buchstab_fam g P.N₁ P.N₂ (P.S3le i j k) fun rt hrt => last_le_of_chain (P.chain_S3le i j k rt hrt)
 
-/-- **Depth 4**: the cells of `p₄`. -/
+/-- **Depth 4**, for `P.Good`: the cells of `p₄`. -/
 theorem I_S4 (G : P.Good) (g : ℕ → ℝ) (i j k : ℕ) :
     P.I g (P.S4 i j k) = ∑ l ∈ range SieveCert.n, P.I g (P.S4c i j k l) :=
   famI_cells g P.N₁ P.N₂ G.hx (P.S4 i j k) 3 fun rt hrt => range_of_chain G (P.chain_S4 i j k rt hrt) 3
@@ -279,7 +279,7 @@ theorem rpow_div_add {x : ℝ} (hx : 0 < x) (a b : ℝ) :
   congr 1
   ring
 
-/-- Four primes at least `x^{a/DEN}`, …, `x^{d/DEN}` have product at least `x^{(a + b + c + d)/DEN}`. -/
+/-- For `x > 0`, four reals at least `x^{a/DEN}`, …, `x^{d/DEN}` have product at least `x^{(a + b + c + d)/DEN}`. -/
 theorem prod4_ge {x : ℝ} (hx : 0 < x) {a b c d : ℝ} {p₁ p₂ p₃ p₄ : ℝ} (h1 : x ^ (a / DEN) ≤ p₁)
     (h2 : x ^ (b / DEN) ≤ p₂) (h3 : x ^ (c / DEN) ≤ p₃) (h4 : x ^ (d / DEN) ≤ p₄) :
     x ^ ((a + b + c + d) / DEN) ≤ p₁ * p₂ * p₃ * p₄ := by
@@ -291,7 +291,7 @@ theorem prod4_ge {x : ℝ} (hx : 0 < x) {a b c d : ℝ} {p₁ p₂ p₃ p₄ : �
   exact mul_le_mul (mul_le_mul (mul_le_mul h1 h2 (h0 _) hp1) h3 (h0 _) (mul_nonneg hp1 hp2)) h4 (h0 _)
     (mul_nonneg (mul_nonneg hp1 hp2) hp3)
 
-/-- `x^{(DEN + 1)/DEN} ≤ x^{s/DEN}` for `s > DEN`. -/
+/-- For `x ≥ 1` and `s > DEN`, `x^{(DEN + 1)/DEN} ≤ x^{s/DEN}`. -/
 theorem rpow_region {x : ℝ} (hx : 1 ≤ x) {s : ℕ} (hs : DEN < s) :
     x ^ (((DEN : ℝ) + 1) / DEN) ≤ x ^ ((s : ℝ) / DEN) := by
   have hD := SieveCert.DEN_pos'
@@ -299,7 +299,7 @@ theorem rpow_region {x : ℝ} (hx : 1 ≤ x) {s : ℕ} (hs : DEN < s) :
   have : DEN + 1 ≤ s := hs
   exact_mod_cast this
 
-/-- `x^{(e_j + H)/DEN} ≤ x^{e_k/DEN}` for `e_j + H ≤ e_k`. -/
+/-- For `x ≥ 1` and `e_j + H ≤ e_k`, `x^{(e_j + H)/DEN} ≤ x^{e_k/DEN}`. -/
 theorem rpow_cell_le {x : ℝ} (hx : 1 ≤ x) {j k : ℕ} (h : SieveCert.e j + H ≤ SieveCert.e k) :
     x ^ (((SieveCert.e j : ℝ) + H) / DEN) ≤ x ^ ((SieveCert.e k : ℝ) / DEN) := by
   have hD := SieveCert.DEN_pos'
@@ -319,7 +319,7 @@ theorem third_lt_sqrt {p₁ p₂ p₃ : ℕ} {X : ℝ} (h21 : p₂ < p₁) (h32 
   have : (p₃ : ℝ) * p₃ < p₁ * p₂ := by exact_mod_cast this
   nlinarith
 
-/-- **Depth 3, outside `inKK`.** Either `p₃` would exceed `p₂`, or `p₁p₂p₃² > N₂` while `p₁p₂p₃ ≤ N₁`. -/
+/-- **Depth 3, outside `inKK`**, for `P.Good`: either `p₃` would exceed `p₂`, or `p₁p₂p₃² > N₂` while `p₁p₂p₃ ≤ N₁`. -/
 theorem I_S3c_vanish (G : P.Good) (g : ℕ → ℝ) {i j k : ℕ} (h : inKK i j k = false) : P.I g (P.S3c i j k) = 0 := by
   have hx0 : 0 < P.x := by linarith [G.hx]
   have hx1 : 1 ≤ P.x := G.hx.le
@@ -354,7 +354,7 @@ theorem I_S3c_vanish (G : P.Good) (g : ℕ → ℝ) {i j k : ℕ} (h : inKK i j 
         ring
       exact_mod_cast this
 
-/-- **Depth 4, `l > k`**: `p₄` would exceed `p₃`. -/
+/-- **Depth 4, `l > k`**, for `P.Good`: `p₄` would exceed `p₃`. -/
 theorem I_S4c_vanish_lt (G : P.Good) (g : ℕ → ℝ) {i j k l : ℕ} (h : k < l) : P.I g (P.S4c i j k l) = 0 := by
   have hx1 : 1 ≤ P.x := G.hx.le
   refine famI_eq_zero g _ _ _ fun rt hrt => False.elim ?_
@@ -363,7 +363,7 @@ theorem I_S4c_vanish_lt (G : P.Good) (g : ℕ → ℝ) {i j k l : ℕ} (h : k < 
   have : (rt 2 : ℝ) < rt 3 := lt_of_lt_of_le hk.2 ((rpow_cell_le hx1 (e_add_H_le_of_lt h)).trans hl.1)
   exact absurd h32 (not_lt.2 (by exact_mod_cast this.le))
 
-/-- **Depth 4, outside the region**: `p₁p₂p₃p₄² > N₂` while `p₁p₂p₃p₄ ≤ N₁`. -/
+/-- **Depth 4, outside the region**, for `P.Good`: `p₁p₂p₃p₄² > N₂` while `p₁p₂p₃p₄ ≤ N₁`. -/
 theorem I_S4c_vanish_reg (G : P.Good) (g : ℕ → ℝ) {i j k l : ℕ}
     (h : DEN < SieveCert.e i + SieveCert.e j + SieveCert.e k + 2 * SieveCert.e l) :
     P.I g (P.S4c i j k l) = 0 := by
@@ -454,7 +454,8 @@ structure Leaves (gA gB : ℕ → ℝ) (Err : ℝ) : Prop where
 
 variable {P}
 
-/-- **Level 4** (terms with sign `+`): `A ≥ B − (dropped) − (k + 1)Err`. -/
+/-- **Level 4** (terms with sign `+`), for `P.Good`, weights `g_A ≥ 0` and `g_B`, `k < n`, and the row's surely
+evaluable cells of depth 4 that are not counted within `Err ≥ 0`: `A ≥ B − (dropped) − (k + 1)Err`. -/
 theorem lvl4 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err) {i j k : ℕ}
     (hE : ∀ l < k + 1, counted4 i j k l = false → sE4 i j k l = true →
       |P.I gA (P.S4c i j k l) - P.I gB (P.S4c i j k l)| ≤ Err) (hk : k < SieveCert.n) :
@@ -490,7 +491,8 @@ theorem lvl4 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err :
       rw [P.I_S4c_vanish_reg G gA hreg, P.I_S4c_vanish_reg G gB hreg]
       linarith
 
-/-- **Level 3** (terms with sign `−`): `A ≤ B + (dropped below) + n(n + 2)Err`. -/
+/-- **Level 3** (terms with sign `−`), for `P.Good`, weights `g_A ≥ 0` and `g_B`, leaves within `Err ≥ 0`, and a
+candidate cell `(i, j)` that is decomposed: `A ≤ B + (dropped below) + n(n + 2)Err`. -/
 theorem lvl3 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err)
     (Lv : P.Leaves gA gB Err) {i j : ℕ} (hi : i < SieveCert.n) (hj : j < SieveCert.n)
     (hcd : cand i j = true ∧ dec i j = true) :
@@ -526,7 +528,8 @@ theorem lvl3 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err :
     have : 0 ≤ ((SieveCert.n : ℝ) + 2) * Err := by positivity
     linarith
 
-/-- **Level 2** (terms with sign `+`): `A ≥ B − (dropped) − n(n(n + 2) + 2)Err`. -/
+/-- **Level 2** (terms with sign `+`), for `P.Good`, weights `g_A ≥ 0` and `g_B`, leaves within `Err ≥ 0`, and a cell
+`i < n` of `p₁` not inside the window: `A ≥ B − (dropped) − n(n(n + 2) + 2)Err`. -/
 theorem lvl2 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err)
     (Lv : P.Leaves gA gB Err) {i : ℕ} (hi : i < SieveCert.n) (hW : ¬ inW i) :
     P.I gB (P.S2 i) - P.D2 gB i - SieveCert.n * (SieveCert.n * (SieveCert.n + 2) + 2) * Err ≤
@@ -572,7 +575,8 @@ theorem lvl2 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err :
       unfold I at hA0 ⊢
       linarith
 
-/-- **Level 1** (terms with sign `−`): `A ≤ B + (dropped) + n(1 + n(n(n + 2) + 2))Err`. -/
+/-- **Level 1** (terms with sign `−`), for `P.Good`, weights `g_A ≥ 0` and `g_B`, and leaves within `Err ≥ 0`:
+`A ≤ B + (dropped) + n(1 + n(n(n + 2) + 2))Err`. -/
 theorem lvl1 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err)
     (Lv : P.Leaves gA gB Err) :
     P.I gA P.S1 ≤ P.I gB P.S1 + P.D1 gB +
@@ -599,7 +603,7 @@ theorem lvl1 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err :
     have : (1 + c2) * Err = Err + c2 * Err := by ring
     linarith [hJ.2]
 
-/-- **The decomposition's inequality.** For weights `g_A ≥ 0` and `g_B`, and leaves within `Err`:
+/-- **The decomposition's inequality.** For `P.Good`, weights `g_A ≥ 0` and `g_B`, and leaves within `Err ≥ 0`:
 `S(A, z_top) ≥ S(B, z_top) − (the dropped B-terms) − C·Err`, `C = 1 + n(1 + n(n(n + 2) + 2))`. -/
 theorem decomp (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err)
     (Lv : P.Leaves gA gB Err) :

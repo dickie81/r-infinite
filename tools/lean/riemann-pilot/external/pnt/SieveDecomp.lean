@@ -169,7 +169,7 @@ theorem famI_nonneg {g : ℕ → ℝ} (hg : ∀ n, 0 ≤ g n) (N₁ N₂ : ℕ) 
 
 /-! ### Buchstab's identity on a family -/
 
-/-- `p ∣ n` with `n` free of primes below `p` means `p = minFac n`, for `n ≥ 2`. -/
+/-- For a prime `p` and `n ≥ 2`, `p ∣ n` with `n` free of primes below `p` means `p = minFac n`. -/
 theorem dvd_rough_iff {p n : ℕ} (hp : p.Prime) (hn : 2 ≤ n) :
     p ∣ n ∧ SieveTree.rough p n ↔ p = Nat.minFac n := by
   constructor
@@ -327,7 +327,7 @@ theorem cellA_sem {k : ℕ} (t : Fin k) (x : ℝ) (c : ℕ) (rt : Fin k → ℕ)
         (rt t : ℝ) < x ^ (((SieveCert.e c : ℝ) + SieveCert.H) / SieveCert.DEN) := by
   simp [cellA, Atom.sem]
 
-/-- A prime is in the cell `c` exactly when its exponent `log p/log x` is. -/
+/-- For `x > 1`, a prime is in the cell `c` exactly when its exponent `log p/log x` is. -/
 theorem cell_iff {x : ℝ} (hx : 1 < x) {p : ℕ} (hp : p.Prime) (c : ℕ) :
     (x ^ ((SieveCert.e c : ℝ) / SieveCert.DEN) ≤ p ∧
       (p : ℝ) < x ^ (((SieveCert.e c : ℝ) + SieveCert.H) / SieveCert.DEN)) ↔

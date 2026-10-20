@@ -55,7 +55,7 @@ theorem coprime_r {r z : ℕ} (hr : ∀ p : ℕ, p.Prime → p ∣ r → z ≤ p
   have := hPz p hp
   omega
 
-/-- The per-`n` alternating identity: with `q = min Q` and `Q' = Q ∖ {q}`,
+/-- The per-`n` alternating identity: for `q ≥ 1` not in `Q'` and `Q = Q' ∪ {q}`,
 `Σ_{P⊆Q} (−1)^{|P|}[a∏P ≤ X] + Σ_{P'⊆Q'} (−1)^{|P'|+1}[a∏P' ≤ X < a∏P'q] = 0`. -/
 theorem alt_cancel (a X q : ℕ) (hq : 1 ≤ q) (Q' : Finset ℕ) (hqQ : q ∉ Q') :
     ∑ P ∈ (insert q Q').powerset, (-1 : ℤ) ^ P.card * (if a * ∏ p ∈ P, p ≤ X then 1 else 0) +

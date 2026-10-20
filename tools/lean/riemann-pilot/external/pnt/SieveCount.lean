@@ -18,7 +18,7 @@ open Finset
 
 namespace SieveCount
 
-/-- The integers of `(N₁, N₂]` in a residue class mod `r > 0` number `(N₂ − N₁)/r` within `1`. -/
+/-- For `N₁ ≤ N₂`, the integers of `(N₁, N₂]` in a residue class mod `r > 0` number `(N₂ − N₁)/r` within `1`. -/
 theorem card_Ioc_modEq {N₁ N₂ r : ℕ} (hr : 0 < r) (hN : N₁ ≤ N₂) (v : ℕ) :
     |((#{x ∈ Ioc N₁ N₂ | x ≡ v [MOD r]} : ℕ) : ℝ) - ((N₂ : ℝ) - N₁) / r| ≤ 1 := by
   have h := Nat.Ioc_filter_modEq_card N₁ N₂ hr v
@@ -46,8 +46,8 @@ theorem card_Ioc_modEq {N₁ N₂ r : ℕ} (hr : 0 < r) (hN : N₁ ≤ N₂) (v 
   rw [← this]
   exact_mod_cast key
 
-/-- **Type I for `A`.** For `M` coprime to `q > 0`, the `n ∈ (N₁, N₂]` with `n ≡ a (mod q)` and `M ∣ n` number
-`(N₂ − N₁)/(Mq)` within `1`. -/
+/-- **Type I for `A`.** For `N₁ ≤ N₂` and `M > 0` coprime to `q > 0`, the `n ∈ (N₁, N₂]` with `n ≡ a (mod q)` and
+`M ∣ n` number `(N₂ − N₁)/(Mq)` within `1`. -/
 theorem card_A {N₁ N₂ q M : ℕ} (hq : 0 < q) (hM : 0 < M) (hcop : Nat.Coprime M q) (hN : N₁ ≤ N₂) (a : ℕ) :
     |((#{n ∈ Ioc N₁ N₂ | n ≡ a [MOD q] ∧ M ∣ n} : ℕ) : ℝ) - ((N₂ : ℝ) - N₁) / (M * q)| ≤ 1 := by
   -- the class `c ≡ 0 (mod M)`, `c ≡ a (mod q)`
@@ -65,8 +65,8 @@ theorem card_A {N₁ N₂ q M : ℕ} (hq : 0 < q) (hM : 0 < M) (hcop : Nat.Copri
   push_cast at h
   exact h
 
-/-- **Type I for `B`.** For `M` coprime to `q > 0`, the `n ∈ (N₁, N₂]` prime to `q` with `M ∣ n` number
-`φ(q)(N₂ − N₁)/(Mq)` within `φ(q)`. -/
+/-- **Type I for `B`.** For `N₁ ≤ N₂` and `M > 0` coprime to `q > 0`, the `n ∈ (N₁, N₂]` prime to `q` with `M ∣ n`
+number `φ(q)(N₂ − N₁)/(Mq)` within `φ(q)`. -/
 theorem card_B {N₁ N₂ q M : ℕ} (hq : 0 < q) (hM : 0 < M) (hcop : Nat.Coprime M q) (hN : N₁ ≤ N₂) :
     |((#{n ∈ Ioc N₁ N₂ | Nat.Coprime n q ∧ M ∣ n} : ℕ) : ℝ) - q.totient * (((N₂ : ℝ) - N₁) / (M * q))| ≤
       q.totient := by

@@ -24916,16 +24916,16 @@ The coefficients are bounded by a constant fixed before `q₀`, in place of §13
 
 ## Round 604: Linnik's theorem with exponent `2333/1000` in Lean (`external/pnt/SieveBrun.lean` … `SieveMain.lean`, 21 files; `frontier/linnik/SIEVE-ROUTE.md` §13, M5 and M8)
 
-**What it is.** Milestones M5 (the sieve) and M8 (the assembly) of the first goal (SIEVE-ROUTE.md §13) are proved, in 21 new files of `external/pnt`. With the milestones that rounds 588–600 landed (§13's Done: M1s, M2, M3, M4, M6, M7 and the cut-off of Lemma 4′) they prove the theorem of SIEVE-ROUTE.md §0 at `x = q^{2.333}`. That completes the first goal of SIEVE-ROUTE.md §11, the owner's "formalise 2.333". Round 603's cosmetic sweep rides with this round's review.
+**What it is.** Milestones M5 (the sieve) and M8 (the assembly) of the first goal (SIEVE-ROUTE.md §13) are proved, in 21 new files of `external/pnt`. With the milestones that rounds 588–600 landed (§13's Done: M1s, M2, M3, M4, M6, M7 and the cut-off of Lemma 4′) ~~they prove the theorem of SIEVE-ROUTE.md §0 at `x = q^{2.333}`~~ *(Round 605: retracted, false when written: `SieveMain.linnik_large` stated `p ≤ 2x` only, without the lower end of §0's theorem; round 605 states `x < p ≤ 2x`, so they now prove it; review of round 604, finding 1.)* they prove Linnik's theorem with exponent `2333/1000`. That completes the first goal of SIEVE-ROUTE.md §11, the owner's "formalise 2.333". Round 603's cosmetic sweep rides with this round's review.
 
-**The theorem.** `SieveMain.linnik_2333`: there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{2333/1000}`. `#print axioms` gives `[propext, Classical.choice, Quot.sound]`. For `q ≥ q₀` the prime lies in `(⌊q^L⌋, ⌊2q^L⌋]`, `L = 2333/1000` (`SieveMain.linnik_large`).
+**The theorem.** `SieveMain.linnik_2333`: there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{2333/1000}`. `#print axioms` gives `[propext, Classical.choice, Quot.sound]`. ~~For `q ≥ q₀` the prime lies in `(⌊q^L⌋, ⌊2q^L⌋]`, `L = 2333/1000` (`SieveMain.linnik_large`).~~ *(Round 605: retracted, false when written: `linnik_large` stated `p ≤ 2q^L` only; its proof had the lower end and dropped it. Round 605 states it, so `linnik_large` now gives, for `q ≥ q₀`, a prime in `(q^L, 2q^L]`; review of round 604, finding 1.)*
 
-It rests on the stack's own inputs, which earlier rounds proved: the zero-free half-plane `Re s > 11/12` for Dirichlet `L`-functions (`Eis.LFunction_ne_zero_of_re_gt`, `src/DirichletCharHalfPlane.lean`) and the density estimates `LinnikTwelve.charDensity_twelve_fifths` and `LinnikStep.charDensity_step`, through `SieveTypeII.typeII_step` (round 593); the prime number theorem with error `O(x^{11/12+ε})` (`HalfPlaneFinal`), through `SieveRough`; and the certificate `SieveCert.total_le` (round 595).
+It rests on the stack's own inputs, which earlier rounds proved: the zero-free half-plane `Re s > 11/12` for Dirichlet `L`-functions (`Eis.LFunction_ne_zero_of_re_gt`, `src/DirichletCharHalfPlane.lean`) and the density estimates `LinnikTwelve.charDensity_twelve_fifths` and `LinnikStep.charDensity_step`, through `SieveTypeII.typeII_step` (round 593); the prime number theorem with error `O(x^{11/12+ε})` (`HalfPlaneFinal`), through `SieveRough`; and the certificate `SieveCert.total_le` (round 595). For the finitely many `q` below `q₀` it also uses Mathlib's Dirichlet theorem, `Nat.forall_exists_prime_gt_and_modEq`.
 
 **The proof.** Each file's header states its main theorems, and most headers give the steps of their proofs; `external/pnt/README.md` has a row for each file and two sections.
 
-- *The sieve (M5).* Brun's sieve in product form (`SieveBrun.fundamental`) at the ranges `[w^{2^{−j−1}}, w^{2^{−j}})` (`SieveRanges`), with Type I's counts (`SieveCount`), gives each leaf of Buchstab's tree (`SieveLeaf`, `SieveDiff.leaf_diff`). Type II with sharp prime ranges removes `SieveFamily.typeII_sharp`'s dyadic weights (`SieveTypeIIU`, `SieveTypeIIR`). Buchstab's tree over finite sets (`SieveTree`) gives Proposition 6 (`SieveProp6.prop6`): one tree at the threshold `X' = ⌊q^{b₀}⌋` for every `r ≤ X'`, whose stops have their cofactors in the lower window (`SieveStops2.stops2_bound`) and whose leaves take the fundamental lemma.
-- *The assembly (M8).* Type II for a chain of primes and the rough rest of `n`, in either window (`SieveChain`). Families of prime tuples cut out by atoms, with Buchstab's identity, cells, splits and vanishing (`SieveDecomp`). §6's decomposition to depth 4 as exact identities, each family classified by its cells as `SieveCert` classifies them, gives `S(A, z_top) ≥ S(B, z_top) − (dropped) − C·Err` (`SieveBuch.Par.decomp`). At `x = q^L` every leaf is within `ηq^L/(φ(q) log q) + q^{L−δ}/φ(q)` (`SieveLeaves`, `SieveQ.leaves_ev`). The dropped terms' `B`-count is at most `φ(q)⁻¹(0.88 + ε)x/log x`, by M6's shares and M7's total, with the corner `o(x/log x)` (`SieveDrop.drop_ev`). With `S(B, z_top) ≥ φ(q)⁻¹((1 − ε)x/log x − q)` (`SieveMain.TB_ev`), `S(A, z_top) ≥ 0.07x/(φ(q) log x) > 0` for large `q`, and a `z_top`-rough `n ∈ (N₁, N₂]`, `z_top = ⌊√N₂⌋ + 1`, is prime. The smaller `q` take a prime from Mathlib's `Nat.forall_exists_prime_gt_and_modEq`.
+- *The sieve (M5).* Brun's sieve in product form (`SieveBrun.fundamental`) at the ranges `[w^{2^{−j−1}}, w^{2^{−j}})` (`SieveRanges`), with Type I's counts (`SieveCount`), gives each leaf of Buchstab's tree (`SieveLeaf.leaf_A` and `leaf_B`, in `SieveProp6.leaf_bound`). Type II with sharp prime ranges removes `SieveFamily.typeII_sharp`'s dyadic weights (`SieveTypeIIU`, `SieveTypeIIR`). Buchstab's tree over finite sets (`SieveTree`) gives Proposition 6 (`SieveProp6.prop6`): one tree at the threshold `X' = ⌊q^{b₀}⌋` for every `r ≤ X'`, whose stops have their cofactors in the lower window (`SieveStops2.stops2_bound`) and whose leaves take the fundamental lemma.
+- *The assembly (M8).* Type II for a chain of primes and the rough rest of `n`, in either window (`SieveChain`). Families of prime tuples cut out by atoms, with Buchstab's identity, cells, splits and vanishing (`SieveDecomp`). §6's decomposition to depth 4 as exact identities, each family classified by its cells as `SieveCert` classifies them, gives `S(A, z_top) ≥ S(B, z_top) − (dropped) − C·Err` (`SieveBuch.Par.decomp`). At `x = q^L`, for `η > 0` there are `δ > 0` and `q₀` such that every leaf is within `ηq^L/(φ(q) log q) + q^{L−δ}/φ(q)` for `q ≥ q₀` (`SieveLeaves`, `SieveQ.leaves_ev`). For `ε > 0` and large `q` the dropped terms' `B`-count is at most `φ(q)⁻¹(0.88 + ε)x/log x`, by M6's shares and M7's total, with the corner `o(x/log x)` (`SieveDrop.drop_ev`), and `S(B, z_top) ≥ φ(q)⁻¹((1 − ε)x/log x − q)` (`SieveMain.TB_ev`). So `S(A, z_top) ≥ 0.07x/(φ(q) log x) > 0` for large `q`, and a `z_top`-rough `n ∈ (N₁, N₂]`, `z_top = ⌊√N₂⌋ + 1`, is prime. The smaller `q` take a prime from Mathlib's `Nat.forall_exists_prime_gt_and_modEq`.
 
 **As built, against the plan** (SIEVE-ROUTE.md §13's markers of this round).
 
@@ -24939,7 +24939,7 @@ It rests on the stack's own inputs, which earlier rounds proved: the zero-free h
 
 - `lean` was run on the 21 files in order with the build's `LEAN_PATH` (Mathlib at `MATHLIB_REV`), into `build/`: `SieveBrun` 11 s, `SieveCount` 7, `SieveRanges` 10, `SieveLeaf` 11, `SieveTree` 8, `SieveDyadic` 7, `SieveTypeIIU` 35, `SieveRoughTuple` 6, `SieveTypeIIR` 18, `SieveDiff` 9, `SieveStops1` 9, `SieveCmp` 7, `SieveStops2` 38, `SieveProp6` 59, `SieveChain` 38, `SieveDecomp` 10, `SieveBuch` 10, `SieveLeaves` 9, `SieveQ` 19, `SieveDrop` 13 and `SieveMain` 14, 348 s in all. The files have 9718 lines. No file reported an error or a warning; `SieveMain.lean` prints its own `#print axioms` line, `[propext, Classical.choice, Quot.sound]`. No file has a `sorry`, `native_decide` or `axiom`. Two declarations carry `set_option maxHeartbeats 1600000 in`: `SieveProp6.prop6` and `SieveChain.chainTL_bound`.
 - `external/pnt/build.sh` compiles the 21 files after `SieveFamily`, imports them in the final check and prints the axioms of 36 of their theorems; `bash -n` passes. The final check, run alone against `build/`, prints 373 axiom lines: 372 `[propext, Classical.choice, Quot.sound]` and 1 `[propext]` (`SieveCert.total_le`), all inside the three (7 s). The rest of the layer was not rebuilt.
-- Before landing, the lead read each docstring of the 21 files against its statement and corrected or completed the ones that differed, and wrote each file's header. This is a reading, not a check: round 601 found such a claim false in round 600, and the review below is asked to attack the docstrings and headers.
+- Before landing, the lead ~~read each docstring of the 21 files against its statement and corrected or completed the ones that differed, and~~ wrote each file's header. ~~This is a reading, not a check: round 601 found such a claim false in round 600, and the review below is asked to attack the docstrings and headers.~~ *(Round 605: retracted, false when written: twenty docstrings still omitted hypotheses without which their statements are false (review of round 604, findings 2–4), and the lead's pass of round 605 over all 164 docstrings found more. Round 605 completes them.)*
 - Against the scratch save point (`tools/research/checkpoints/lean-m5-wip/` at 3c17b42), the 21 files differ in comments, docstrings and line breaks only: with comments and docstrings stripped, their token streams are identical, 94041 tokens in all (scratch check).
 - `tools/research/render_lint.py`'s `lint` was run on the changed markdown files and compared with HEAD by defect class: README.md (1872), SIEVE-ROUTE.md (25) and `external/pnt/README.md` (5) gain no reports. None of these files is a paper surface.
 
@@ -24953,8 +24953,159 @@ It rests on the stack's own inputs, which earlier rounds proved: the zero-free h
 
 **Check 4.** New against the pilot: the sieve route in Lean, from Brun's sieve in product form and Buchstab's tree over finite sets to Harman's fundamental theorem and the assembly with a kernel-checked loss certificate, and with it Linnik's exponent `2333/1000`. The stack's previous Linnik exponent was `12/5 + η` (`LinnikTwelve.linnik_twelve_fifths`, round 527). Classical [recalled]: Brun's sieve, Buchstab's identity and Harman's sieve. Against the literature, as recorded in round 519's search: Chen–Gupta–Li's Corollary 1.4 gives `7/3 + ε` from a zero-free half-plane and a density estimate, and `2333/1000 < 7/3`; the published exponents without a half-plane are larger (Xylouris `5 − ε`).
 
-**Check 9.** (a) `linnik_2333` is a theorem of this stack: checked by Lean's kernel against Mathlib at `MATHLIB_REV` and the ported PNT+ files at 650d312, with the three axioms; its inputs are the stack's theorems named above. "Completes the first goal" is scoped to SIEVE-ROUTE.md §11's goal 1. (b) No change to the register's targets. (c) No criterion is fed a signal.
+**Check 9.** (a) `linnik_2333` is a theorem of this stack: checked by Lean's kernel against Mathlib at `MATHLIB_REV` and the ported PNT+ files at 650d312, with the three axioms; its inputs are the stack's theorems named above, and Mathlib's Dirichlet theorem for the small `q`. "Completes the first goal" is scoped to SIEVE-ROUTE.md §11's goal 1. (b) No change to the register's targets. (c) No criterion is fed a signal.
 
 **Bearing on RH:** none.
 
 **The next step.** The voluntary review of this round and of round 603's sweep. Then the second goal of SIEVE-ROUTE.md §11, the `7/3` result.
+
+## Round 605: the review of round 604 (`external/pnt/Sieve*.lean` docstrings and headers, and `SieveMain.linnik_large`; `frontier/linnik/SIEVE-ROUTE.md`; `external/pnt/README.md`)
+
+**What it is.** A fresh-context reviewer, the repository's `hostile-reviewer` agent, reviewed round 604 at 6157efd and round 603's sweep (f61aaa6).
+
+- The reviewer found no MAJOR. It proposed four minor findings and seven cosmetic ones, all novel. In its words, "The kernel results hold" and "The defects are on the prose side": `linnik_2333` compiled from HEAD with the three axioms, its 21 oleans were byte-identical to `build/`, and twenty docstrings omitted hypotheses without which their statements are false.
+- Under Check 3 the lead verified each finding against the cited lines, compiled the reviewer's four Lean counterexample files in its own directory, re-ran its two scripts, and re-derived the `leaf_diff` instance by hand. All eleven findings are accepted and swept.
+- Finding 4 showed that round 604's reading of the docstrings was incomplete, so the lead read all 164 docstrings of the 21 files against their theorems' hypotheses. It completed 59 more; thirteen of these are false without the hypothesis they omitted.
+- One proved statement changes: `SieveMain.linnik_large` now states the lower end, `q^{2333/1000} < p` (finding 1).
+- The minor findings mean round 604 has not converged, and this sweep is owed a convergence review.
+
+**Findings and dispositions.**
+
+- **1** (minor). Round 604 attributed to `SieveMain.linnik_large` a prime in `(⌊q^L⌋, ⌊2q^L⌋]`, and said that the files prove the theorem of SIEVE-ROUTE.md §0, whose prime has `x ≤ p ≤ 2x`. `linnik_large` stated `p ≤ 2q^L` only: its proof had the lower end (`hm.1`) and dropped it. Both claims were false when written.
+
+  - This round adds the lower end to `linnik_large`, as the reviewer proposed: the conjunct `(q : ℝ) ^ (2333 / 1000 : ℝ) < p` and the proof term `Nat.lt_of_floor_lt hm.1`. `linnik_2333` destructures one more conjunct.
+  - Struck and annotated: README round 604 (two places), the round-604 marker in SIEVE-ROUTE.md's preamble, and the M8 section of `external/pnt/README.md`.
+  - The header and docstring of `SieveMain.lean` now state the lower end, and the header's "This is the theorem of `frontier/linnik/SIEVE-ROUTE.md` §0" now holds.
+- **2** (minor). Docstrings omitted hypotheses:
+
+  - `ε > 0` in `TB_ev` and `drop_ev`;
+  - `P.Good` in `Par.decomp`;
+  - `N₁ ≤ N₂` in `card_Ioc_modEq`, `card_A`, `card_B`, `leaf_diff` and `leaf_bound`.
+
+  All but `leaf_bound` are false without them:
+
+  - `TB_ev` at `ε = 0`, since `π(2x) − π(x) = x/log x − (2 log 2 − 1 + o(1))x/log² x` while `q = x^{1/L}`. The reviewer's counts at `q = 380` and `1000` agree.
+  - `drop_ev` at `ε = −1` and `decomp` at the reviewer's `P = ⟨2, 10, 5, 1, 6, 7⟩`, both kernel-checked.
+  - The counts at `N₁ > N₂`.
+
+  `leaf_bound` holds without `N₁ ≤ N₂`: its sum is then empty and its bound is nonnegative. All of these docstrings are completed, and `card_A` and `card_B` also gain `M > 0`. Siblings:
+
+  - the headers of `SieveMain`, `SieveBuch` and `SieveDiff`;
+  - in `external/pnt/README.md`, the rows of `SieveCount`, `SieveLeaf`, `SieveTree`, `SieveDiff`, `SieveBuch` and `SieveDrop` and five places in the round-604 sections, annotated;
+  - SIEVE-ROUTE.md's M8 marker, annotated;
+  - README round 604's account of M8, corrected in place.
+- **3** (minor, by the brief's grading). Twelve helper docstrings omitted hypotheses without which they are false:
+
+  - `SieveProp6.exists_k`, `window_lo`, `main_coef`, `main_term`, `rem_term` and `rem_le`;
+  - `SieveBrun.prod_one_add_le_exp`;
+  - `SieveQ.thr_bounds`;
+  - `SieveChain.sum_rough_tuples`;
+  - `SieveStops2.sum_stops_eq` and its header;
+  - `SieveLeaf.sifted_iff`;
+  - `SieveDrop.dropS_le_cost`.
+
+  All are completed.
+- **4** (minor). README round 604's statement that the lead "read each docstring of the 21 files against its statement and corrected or completed the ones that differed" was false when written. Struck and annotated, together with the sentence that depended on it.
+- **5** (cosmetic). `SieveDiff.leaf_diff` was cited as the leaves' route, but `SieveProp6.leaf_bound` uses `SieveLeaf.leaf_A` and `leaf_B` directly, and the final theorem does not use `leaf_diff`.
+
+  - Corrected: the header of `SieveProp6.lean`, SIEVE-ROUTE.md's M5 marker and `external/pnt/README.md`, annotated.
+  - README round 604 is corrected in place.
+- **6** (cosmetic). The header of `SieveChain.lean` named `typeII_gcmp'` for the upper window; `chainTU_bound` uses `typeII_gcmp`. Corrected.
+- **7** (cosmetic). SIEVE-ROUTE.md's preamble marker left `K` unbound, and README round 604's account of M8 left `η` and `δ` unbound.
+
+  - Corrected, annotated in SIEVE-ROUTE.md.
+  - Siblings: the rows of `SieveProp6` and `SieveQ` in `external/pnt/README.md`, annotated.
+- **8** (cosmetic). `typeII_unw`'s docstring and its file's header bounded `A − B/φ(q)`, where the Lean bounds its absolute value. Corrected.
+- **9** (cosmetic). The header of `SieveDrop.lean` gave the additive term as `δ′`; it is `δ′(1 + n²)x/log x`. Corrected.
+- **10** (cosmetic). The docstrings of `leaf_bound` and `leaves_sum_le` used `C₀` without defining it. Both now define it, and `leaves_sum_le`'s now lists all its hypotheses.
+- **11** (cosmetic). README round 604's inputs and its Check 9 omitted Mathlib's Dirichlet theorem, which the small `q` use. Corrected in place.
+
+**The lead's pass over the docstrings.** A scratch script listed each of the 164 docstrings of the 21 files with its theorem's hypothesis binders, and the lead read each pair. Besides the reviewer's twenty-three, 59 docstrings omitted hypotheses of their statements. All are completed, and so is `SieveBrun.fundamental`'s `k_j ≥ 1`.
+
+Thirteen of the 59 are false without the omitted hypothesis, by these instances (the lead's scratch reasoning):
+
+- `SieveLeaf.hR_A` and `hR_B`: `N₁ = 10 > N₂ = 0`, `q = m = 1`, no ranges.
+- `SieveTypeIIU.blk_spec`: `P₁ = 0`.
+- `SieveTree.alt_cancel`: `q = 0`, `Q' = ∅`, `a > X`.
+- `SieveProp6.Jw_spec`: `w = 0`.
+- `SieveBuch.rpow_region` and `rpow_cell_le`: `x = 1/2`.
+- `SieveDecomp.dvd_rough_iff`: `p = 1`.
+- `SieveBuch.T_eq`: the reviewer's `P`, where `z_top < z₀`.
+- `SieveLeaves.window_hi`: no primes, `T = ∅` and `x = 1/2`.
+- `SieveQ.rpow_split`: `q = 0`, `a = 0`, `b = 1`.
+- `SieveDrop.sum_le_box2`: `g = −1` on an empty family.
+- `SieveStops2.sum_cofactor_window`: `p = 3`, `W = 2`, `X' = 1`, `z₀ = 2`, `N₁ = 2` and `N₂ = 10`, where `k = 3` and `5` count on the right and nothing counts on the left.
+
+For the other 46 the lead did not show the added hypotheses necessary; they are completed for fidelity. Among them:
+
+- twelve more lemmas of `SieveBuch`, which now name `P.Good`;
+- the three spec lemmas of `SieveLeaves`, whose docstrings were titles and now state them, and `SieveQ.box_leaf`, whose docstring now states its hypotheses.
+
+**The lead's verification.**
+
+- Each cited line was read:
+
+  - `SieveMain.lean` 1–30, 114–116 and 192–354;
+  - the docstring and signature of each cited theorem;
+  - README.md 24917–24960;
+  - SIEVE-ROUTE.md 5, 11, 216, 225, 303, 309, 377, 415 and 424;
+  - `external/pnt/README.md` 79–99 and 418–449.
+- The reviewer's counterexamples were compiled by the lead in its own directory against `build/`: `DecompCex.lean` (`CE.decomp_needs_good`), `DropCex.lean` (`CE2.drop_ev_needs_pos`), `ThrCex.lean` (`CE4.thr_bounds_needs`) and `HelperCex.lean` (seven `CE3` theorems).
+
+  - Each has rc 0 and `[propext, Classical.choice, Quot.sound]`.
+  - `DecompCex.lean` also prints two unused-`simp`-argument warnings.
+- Its scripts `cex.py` and `tb.py`, copied and run with `python3 -I`, print `False` for each docstring's conclusion. At `q = 380` and `1000` they count 73285 and 604672 primes against `x/log x − q` = 74942 and 618082.
+- `leaf_diff`'s instance was re-derived by hand: `q = 5`, `a = d = 1`, `w = 4`, `J = 1`, `k = (2)`, `N₁ = 241` and `N₂ = 0`. Then `T₀ = {2, 3}`, `e₂ = 1/6`, and the bound is `2(−48.2/6 + 8) = −0.067 < 0`.
+- This round's operative theorem, `SieveMain.linnik_large`, was re-read at its statement and proof (198–306), and its new statement was written against them.
+
+**What is checked.**
+
+- **Code against comments.** With comments and docstrings stripped (round 604's scratch script), the token streams of 20 of the 21 files are unchanged against HEAD. `SieveMain.lean` gains 15 tokens: the new conjunct, `Nat.lt_of_floor_lt hm.1` and the `-` of the destructuring. The files hold 94056 tokens, against 94041 before, and 9764 lines, against 9718. No line exceeds 120 characters.
+- **The compile.** `lean` was run on the 21 files in order with the build's `LEAN_PATH`, into `build/`: `SieveBrun` 12 s, `SieveCount` 8, `SieveRanges` 10, `SieveLeaf` 10, `SieveTree` 8, `SieveDyadic` 6, `SieveTypeIIU` 36, `SieveRoughTuple` 7, `SieveTypeIIR` 19, `SieveDiff` 9, `SieveStops1` 9, `SieveCmp` 7, `SieveStops2` 39, `SieveProp6` 60, `SieveChain` 39, `SieveDecomp` 11, `SieveBuch` 11, `SieveLeaves` 8, `SieveQ` 18, `SieveDrop` 15 and `SieveMain` 16, 358 s in all.
+
+  - No file reported an error or a warning.
+  - `SieveMain.lean` prints its `#print axioms` line, `[propext, Classical.choice, Quot.sound]`.
+- **The final check.** Run alone against `build/`, it prints 373 axiom lines: 372 `[propext, Classical.choice, Quot.sound]` and 1 `[propext]` (`SieveCert.total_le`), all inside the three (7.5 s). `build.sh` is unchanged, since the theorems it names keep their names.
+- **The render lint.** `tools/research/render_lint.py`'s `lint` was run on the three changed markdown files and compared with HEAD by defect class: README.md (1872), SIEVE-ROUTE.md (25) and `external/pnt/README.md` (5) gain no reports.
+
+  - The six new strikes each render as one `<del>` holding their text verbatim (cmark-gfm, scratch check).
+  - The live text was read with the strikes removed.
+  - None of these files is a paper surface.
+
+**Checked and held** (the reviewer's list, with its evidence in its report):
+
+- the final theorem's uniform `K`, its congruence and its small-`q` branch;
+- the header constants;
+- "not used" for `stops1_bound` and `window_bound` (its closure of `linnik_2333`, 16558 constants);
+- the README numbers;
+- the SIEVE-ROUTE markers;
+- `build.sh`;
+- the landing's fidelity to the save point;
+- round 603's sweep.
+
+**Records.**
+
+- `external/pnt/`:
+
+  - docstrings in 17 of the 21 files;
+  - the headers of `SieveTypeIIU`, `SieveDiff`, `SieveStops2`, `SieveProp6`, `SieveChain`, `SieveBuch`, `SieveDrop` and `SieveMain`;
+  - `SieveMain.linnik_large`'s statement and proof.
+- `external/pnt/README.md`: eight rows and eight places in the two round-604 sections, annotated.
+- `frontier/linnik/SIEVE-ROUTE.md`: the preamble's round-604 marker and §13's M5 and M8 markers, annotated.
+- README.md: round 604's entry, struck and annotated (findings 1 and 4) and corrected in place (findings 2, 5, 7 and 11).
+
+**Check 4.** The reviewer classed its findings as novel, and the lead agrees. The siblings the lead's pass found are novel too.
+
+**Check 9.**
+
+- (a) `linnik_large` now states `q^{2333/1000} < p ≤ 2q^{2333/1000}` for `q ≥ q₀`, the theorem of SIEVE-ROUTE.md §0 at `x = q^{2.333}`. "59" counts the docstrings that the lead's pass completed, and "thirteen" those for which an instance is recorded above.
+- (b) No change to the register's targets.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** A convergence review of this sweep. Meanwhile the second goal continues in scratch:
+
+- **The Type II estimate.** For the `7/3` curve at `L = 229/100`, under a displayed hypothesis: Chen–Gupta–Li's count of characters on `[5/7, 16/21]`. It compiles.
+- **The certificate.** At `n = 100` the kernel checks `total ≤ 0.88K` in scratch; a scratch replay of the same integer arithmetic gives the total `0.876969`.
+- **The route.** M4–M8 with `L`, the window and the grid as parameters is in progress.

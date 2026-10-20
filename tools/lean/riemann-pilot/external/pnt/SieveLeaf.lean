@@ -55,7 +55,7 @@ theorem T_disjoint {w : ℝ} (hw : 1 ≤ w) (J : ℕ) :
   intro i _ j _ hij
   exact rng_disjoint hw (fun h => hij (Fin.ext h))
 
-/-- The sifted condition by the ranges is the condition by the primes below `w`. -/
+/-- For `w ≥ 1` with `w^{2^{−J}} ≤ 2`, the sifted condition by the ranges is the condition by the primes below `w`. -/
 theorem sifted_iff {w : ℝ} (hw : 1 ≤ w) {J : ℕ} (hJ : w ^ ((1 / 2 : ℝ) ^ J) ≤ 2) (n : ℕ) :
     (∀ j, ∀ p ∈ T w J j, ¬ p ∣ n) ↔ ∀ p < ⌈w⌉₊, p.Prime → ¬ p ∣ n := by
   constructor
@@ -94,7 +94,9 @@ theorem coprime_m {w : ℝ} (hw : 1 ≤ w) {J : ℕ} (s : Fin J → Finset ℕ) 
   refine (Nat.Coprime.symm ((Nat.Prime.coprime_iff_not_dvd hpp).2 fun hdvd => ?_))
   linarith [hmw p hpp hdvd]
 
-/-- **The model for `A`.** For `s_j ⊆ T_j`, `#{n ∈ A_m : p ∣ n for p ∈ s_j}` is `X ∏ g` within `1`. -/
+/-- **The model for `A`.** Let `q > 0`, `a` and `m > 0` prime to `q`, every prime factor of `m` at least `w ≥ 1`, and
+`N₁ ≤ N₂`. For `s_j ⊆ T_j`, `#{n ∈ A_m : p ∣ n for p ∈ s_j}` is `X ∏ g` within `1`, where `A_m` is the `n ∈ (N₁, N₂]`
+with `n ≡ a (mod q)` and `m ∣ n`, and `X = (N₂ − N₁)/(mq)`. -/
 theorem hR_A {q a m N₁ N₂ : ℕ} (hq : 0 < q) (ha : Nat.Coprime a q) (hm : 0 < m) (hmq : Nat.Coprime m q)
     {w : ℝ} (hw : 1 ≤ w) (hmw : ∀ p : ℕ, p.Prime → p ∣ m → w ≤ p) {J : ℕ} (hN : N₁ ≤ N₂)
     (s : Fin J → Finset ℕ) (hs : ∀ j, s j ⊆ T w J j) :
@@ -149,7 +151,9 @@ theorem hR_A {q a m N₁ N₂ : ℕ} (hq : 0 < q) (ha : Nat.Coprime a q) (hm : 0
     rw [heq]
     exact h
 
-/-- **The model for `B`.** For `s_j ⊆ T_j`, `#{n ∈ B_m : p ∣ n for p ∈ s_j}` is `φ(q)X ∏ g` within `φ(q)`. -/
+/-- **The model for `B`.** Let `q > 0`, `m > 0` prime to `q`, every prime factor of `m` at least `w ≥ 1`, and
+`N₁ ≤ N₂`. For `s_j ⊆ T_j`, `#{n ∈ B_m : p ∣ n for p ∈ s_j}` is `φ(q)X ∏ g` within `φ(q)`, where `B_m` is the
+`n ∈ (N₁, N₂]` prime to `q` with `m ∣ n`, and `X = (N₂ − N₁)/(mq)`. -/
 theorem hR_B {q m N₁ N₂ : ℕ} (hq : 0 < q) (hm : 0 < m) (hmq : Nat.Coprime m q)
     {w : ℝ} (hw : 1 ≤ w) (hmw : ∀ p : ℕ, p.Prime → p ∣ m → w ≤ p) {J : ℕ} (hN : N₁ ≤ N₂)
     (s : Fin J → Finset ℕ) (hs : ∀ j, s j ⊆ T w J j) :

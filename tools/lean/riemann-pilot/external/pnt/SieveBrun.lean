@@ -323,7 +323,7 @@ theorem choose_le_sum_choose (n k : ℕ) :
     (Finset.mem_range.2 (Nat.lt_succ_self k))
 
 /-- **The fundamental lemma in product form, abstractly.** Sift a finite set `C` by finite families
-`T_j` of moduli, truncating the inclusion–exclusion of `T_j` at the even level `k_j` for the upper sieve and at
+`T_j` of moduli, truncating the inclusion–exclusion of `T_j` at the even level `k_j ≥ 1` for the upper sieve and at
 `k_j − 1` for the lower. If every count `#{n ∈ C : p ∣ n for p ∈ s_j}` with `s_j ⊆ T_j` is `X ∏_j ∏_{p∈s_j} g(p)`
 within `R`, where `X ≥ 0` and `0 ≤ g ≤ 1` on each `T_j`, then the sifted count is `X ∏_j ∏_{p∈T_j} (1 − g(p))` within
 `X Σ_j e_{k_j}(T_j, g) ∏_{i≠j} F_{k_i}(T_i, g)` plus `(#ι + 1)R ∏_j Σ_{i≤k_j} C(#T_j, i)`. -/
@@ -454,8 +454,9 @@ theorem fundamental {ι : Type*} [Fintype ι] [DecidableEq ι] (C : Finset ℕ) 
 
 /-! ### The relative error -/
 
-/-- With `Σ_{T_j} g ≤ C₀` and `∏_{T_j} (1 − g) ≥ c₀ > 0`, the fundamental lemma's gap is at most `V` times
-`c₀⁻¹ Σ_j C₀^{k_j}/k_j!` times `∏_i (1 + C₀^{k_i+1}/((k_i + 1)! c₀))`, where `V = ∏_j ∏_{T_j} (1 − g)`. -/
+/-- For even `k_j`, `0 ≤ g ≤ 1` on each `T_j`, `C₀ ≥ 0` with `Σ_{T_j} g ≤ C₀`, and `∏_{T_j} (1 − g) ≥ c₀ > 0`: the
+fundamental lemma's gap is at most `V` times `c₀⁻¹ Σ_j C₀^{k_j}/k_j!` times `∏_i (1 + C₀^{k_i+1}/((k_i + 1)! c₀))`,
+where `V = ∏_j ∏_{T_j} (1 − g)`. -/
 theorem gap_le {ι : Type*} [Fintype ι] [DecidableEq ι] (T : ι → Finset ℕ) (k : ι → ℕ) (hk : ∀ j, Even (k j))
     {g : ℕ → ℝ} (hg0 : ∀ j, ∀ p ∈ T j, 0 ≤ g p) (hg1 : ∀ j, ∀ p ∈ T j, g p ≤ 1) {C₀ c₀ : ℝ} (hC₀ : 0 ≤ C₀)
     (hc₀ : 0 < c₀) (hC : ∀ j, ∑ p ∈ T j, g p ≤ C₀) (hV : ∀ j, c₀ ≤ ∏ p ∈ T j, (1 - g p)) :
@@ -552,7 +553,7 @@ theorem sum_levels_le {C : ℝ} (hC : 0 ≤ C) {k : ℕ} (hk : 2 * C ^ 2 ≤ ((k
     _ ≤ a 0 * 2 := mul_le_mul_of_nonneg_left (sum_geometric_two_le J) (ha0 0)
     _ = 2 * (C ^ k / k.factorial) := by rw [ha]; simp; ring
 
-/-- `∏ (1 + b_j) ≤ exp(Σ b_j)`. -/
+/-- For `b_j ≥ 0`, `∏ (1 + b_j) ≤ exp(Σ b_j)`. -/
 theorem prod_one_add_le_exp {ι : Type*} (s : Finset ι) (b : ι → ℝ) (hb : ∀ j ∈ s, 0 ≤ b j) :
     ∏ j ∈ s, (1 + b j) ≤ Real.exp (∑ j ∈ s, b j) := by
   rw [Real.exp_sum]

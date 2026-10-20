@@ -30,7 +30,7 @@ open Real Finset SieveFamily SieveTree
 
 namespace SieveStops1
 
-/-- A multiple of a `p`-rough `W ≤ N₁` in `(N₁, N₂]` is `Wk` with `k ≥ 2`; `n` is `p`-rough iff `k` is. -/
+/-- A multiple in `(N₁, N₂]` of a `p`-rough `W` with `0 < W ≤ N₁` is `Wk` with `k ≥ 2`; `n` is `p`-rough iff `k` is. -/
 theorem sum_cofactor (f : ℕ → ℂ) {W p N₁ N₂ : ℕ} (hW : 0 < W) (hWN : W ≤ N₁) (hWp : rough p W) :
     ∑ n ∈ Finset.Ioc N₁ N₂, f n * (if W ∣ n ∧ rough p n then 1 else 0) =
       ∑ k ∈ (Finset.Icc 2 N₂).filter (fun k => (∀ p' < p, p'.Prime → ¬ p' ∣ k) ∧ N₁ < W * k ∧ W * k ≤ N₂),

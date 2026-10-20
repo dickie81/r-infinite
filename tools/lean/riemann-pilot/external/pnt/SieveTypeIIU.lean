@@ -8,7 +8,7 @@ that for `q ≥ q₀` and a unit `a` mod `q`: let `m` run over `S ⊆ (P₁, P�
 `P₂ ≤ q^{0.485L}` (`L = 2.333`), with coefficients `|a_m| ≤ 1`, and let `n + 1 ≤ K₀` primes `x_i` run over all the
 primes up to `⌊2q^L⌋`. Let `J ≤ J₀` sharp comparisons `P_j` hold when `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i > 0` and
 imply `ℓ_j ≥ 0`, with `|e_{ji}| ≤ E₀`, `φ_j(m) ≤ Λ₁ log q` on `S`, and for each `j` a pivot `i` with `e_{ji} = ±1`.
-If wherever all the comparisons hold each `x_i ≥ 2q^{e₁}` and `m∏_i x_i ≤ 2q^L`, then the family's `A − B/φ(q)`
+If wherever all the comparisons hold each `x_i ≥ 2q^{e₁}` and `m∏_i x_i ≤ 2q^L`, then the family's `|A − B/φ(q)|`
 (`SieveFamily.Dsum`) is at most `q^{L−δ}/φ(q)`.
 
 This removes the dyadic weights from `SieveFamily.typeII_sharp`, whose primes carry `f0(x_i/Q_i)` at fixed scales
@@ -37,7 +37,7 @@ def primesLe (Y : ℕ) : Finset ℕ := (Finset.range (Y + 1)).filter Nat.Prime
 theorem mem_primesLe {Y p : ℕ} : p ∈ primesLe Y ↔ p ≤ Y ∧ p.Prime := by
   rw [primesLe, Finset.mem_filter, Finset.mem_range, Nat.lt_succ_iff]
 
-/-- The dyadic block of `m > P₁`: `b = log₂((m − 1)/P₁)` has `P₁2^b < m ≤ 2P₁2^b`. -/
+/-- The dyadic block of `m > P₁ ≥ 1`: `b = log₂((m − 1)/P₁)` has `P₁2^b < m ≤ 2P₁2^b`. -/
 theorem blk_spec {P₁ m : ℕ} (hP : 1 ≤ P₁) (hm : P₁ < m) :
     P₁ * 2 ^ Nat.log 2 ((m - 1) / P₁) < m ∧ m ≤ 2 * (P₁ * 2 ^ Nat.log 2 ((m - 1) / P₁)) := by
   set t := (m - 1) / P₁ with ht
@@ -104,8 +104,8 @@ theorem ev_log_pow_le (K : ℕ) {r : ℝ} (hr : 0 < r) :
 theorem mem_primesTo {Q : ℝ} (hQ : 0 ≤ Q) {p : ℕ} : p ∈ primesTo Q ↔ (p : ℝ) ≤ 2 * Q ∧ p.Prime := by
   rw [primesTo, Finset.mem_filter, Finset.mem_range, Nat.lt_succ_iff, Nat.le_floor_iff (by positivity)]
 
-/-- **Changing the box.** With dyadic weights `f0(x_i/Q_i)`, the primes up to `Y` may be replaced by `Sp`'s ranges
-`primesTo Q_i`, when the weight vanishes unless every `x_i ≤ Y`. -/
+/-- **Changing the box.** With dyadic weights `f0(x_i/Q_i)`, `Q_i > 0`, the primes up to `Y` may be replaced by
+`Sp`'s ranges `primesTo Q_i`, when the weight vanishes unless every `x_i ≤ Y`. -/
 theorem box_change {q : ℕ} (a : ZMod q) (Sb : Finset ℕ) {n : ℕ} (Y : ℕ) (Q : Fin (n + 1) → ℝ)
     (hQ : ∀ i, 0 < Q i) (F : ℕ → (Fin (n + 1) → ℕ) → ℂ)
     (hF : ∀ m ∈ Sb, ∀ x : Fin (n + 1) → ℕ, (∀ i, (x i).Prime) → F m x ≠ 0 → ∀ i, x i ≤ Y) :
@@ -170,10 +170,10 @@ open scoped ContDiff
 
 /-- **Type II for families with sharp prime ranges.** Fix `K₀`, `J₀`, `e₁ > 0`, `E₀ ≥ 0` and `Λ₁ ≥ 0`. There are
 `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`: let `m` run over `S ⊆ (P₁, P₂]` with
-`q^{0.401L} ≤ P₁` and `P₂ ≤ q^{0.485L}`, with coefficients `|a_m| ≤ 1`, and let `n + 1 ≤ K₀` primes `x_i` run over the
-primes up to `⌊2q^L⌋`. Let `J ≤ J₀` sharp comparisons `P_j` hold when `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i > 0` and
+`q^{0.401L} ≤ P₁` and `P₂ ≤ q^{0.485L}`, with coefficients `|a_m| ≤ 1`, and let `n + 1 ≤ K₀` primes `x_i` run over
+the primes up to `⌊2q^L⌋`. Let `J ≤ J₀` sharp comparisons `P_j` hold when `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i > 0` and
 imply `ℓ_j ≥ 0`, with `|e_{ji}| ≤ E₀`, `φ_j(m) ≤ Λ₁ log q` on `S` and for each `j` a pivot `i` with `e_{ji} = ±1`. If
-wherever all the comparisons hold each `x_i ≥ 2q^{e₁}` and `m∏_i x_i ≤ 2q^L`, then the family's `A − B/φ(q)` is at
+wherever all the comparisons hold each `x_i ≥ 2q^{e₁}` and `m∏_i x_i ≤ 2q^L`, then the family's `|A − B/φ(q)|` is at
 most `q^{L−δ}/φ(q)`. -/
 theorem typeII_unw (K₀ J₀ : ℕ) {e₁ E₀ Λ₁ : ℝ} (he₁ : 0 < e₁) (hE₀ : 0 ≤ E₀) (hΛ₁ : 0 ≤ Λ₁) :
     ∃ δ : ℝ, 0 < δ ∧ ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →

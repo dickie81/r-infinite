@@ -144,7 +144,7 @@ theorem cover {w : ℝ} {J : ℕ} (hJ : w ^ ((1 / 2 : ℝ) ^ J) ≤ 2) {p : ℕ}
     push Not at hmin
     rw [hj']; exact hmin
 
-/-- The ranges are disjoint. -/
+/-- For `w ≥ 1`, distinct ranges are disjoint. -/
 theorem rng_disjoint {w : ℝ} (hw : 1 ≤ w) {i j : ℕ} (hij : i ≠ j) :
     Disjoint (rng (w ^ ((1 / 2 : ℝ) ^ (i + 1)))) (rng (w ^ ((1 / 2 : ℝ) ^ (j + 1)))) := by
   rw [Finset.disjoint_left]

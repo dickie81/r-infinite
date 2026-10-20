@@ -8,10 +8,11 @@ Plain statements. `SieveFamily.dw q a n = 1[n ≡ a] − 1[(n, q) = 1]/φ(q)`.
 * `tree_weighted`: for any weights `f`, `SieveTree.tree_pt` summed over a finite set.
 * `sum_dw_eq`: a sum of `dw` over a set is the count of its `n ≡ a` minus the count of its `n` prime to `q`, divided
   by `φ(q)`.
-* `leaf_diff`: for `a` a unit, `d > 0` with every prime factor at least `w ≥ 1`, and the ranges of `SieveLeaf.T`
-  with `w^{2^{−J}} ≤ 2`: the `n ∈ (N₁, N₂]` with `d ∣ n` and no prime factor below `w` have `|A − B/φ(q)|` at most
-  twice the fundamental lemma's error, `X·Σ_j e_{k_j}(T_j) ∏_{i≠j} trunc_{k_i}(T_i) + (J + 1)∏_j Σ_{i ≤ k_j}
-  C(|T_j|, i)`, `X = (N₂ − N₁)/(dq)`, for even `k_j ≥ 1`.
+* `leaf_diff`: for `a` a unit, `d > 0` with every prime factor at least `w ≥ 1`, `N₁ ≤ N₂`, and the ranges of
+  `SieveLeaf.T` with `w^{2^{−J}} ≤ 2`: the `n ∈ (N₁, N₂]` with `d ∣ n` and no prime factor below `w` have
+  `|A − B/φ(q)|` at most twice the fundamental lemma's error,
+  `X·Σ_j e_{k_j}(T_j) ∏_{i≠j} trunc_{k_i}(T_i) + (J + 1)∏_j Σ_{i ≤ k_j} C(|T_j|, i)`, `X = (N₂ − N₁)/(dq)`, for
+  even `k_j ≥ 1`.
 
 `leaf_diff` is `SieveLeaf.leaf_A` minus `SieveLeaf.leaf_B`: the main terms `X ∏_j ∏_{T_j} (1 − g)` cancel. When `d`
 shares a prime with `q`, both counts vanish.
@@ -26,7 +27,8 @@ open Real Finset SieveFamily SieveTree
 
 namespace SieveDiff
 
-/-- **The Buchstab tree, weighted.** For any weights `f`, the tree identity `tree_pt` summed over a finite set. -/
+/-- **The Buchstab tree, weighted.** For `w ≤ z₀`, `r ≤ X` with every prime factor of `r` at least `z₀`, and any
+weights `f`: the tree identity `tree_pt` summed over a finite set. -/
 theorem tree_weighted (C : Finset ℕ) (f : ℕ → ℂ) {r X w z₀ : ℕ} (hwz : w ≤ z₀)
     (hr : ∀ p : ℕ, p.Prime → p ∣ r → z₀ ≤ p) (hrX : r ≤ X) :
     ∑ n ∈ C, f n * (if r ∣ n ∧ rough z₀ n then 1 else 0) =
@@ -80,7 +82,7 @@ theorem sum_dw_eq {q : ℕ} [NeZero q] (a : ZMod q) (s : Finset ℕ) (c : ℕ �
   by_cases hc : c n <;> by_cases ha : n ≡ a.val [MOD q] <;> by_cases hu : n.Coprime q <;> simp [hc, ha, hu]
 
 open SieveBrun SieveLeaf in
-/-- The fundamental lemma's relative error is nonnegative. -/
+/-- For even levels `k_j ≥ 1`, the fundamental lemma's relative error is nonnegative. -/
 theorem gapsum_nonneg (w : ℝ) (J q : ℕ) (k : Fin J → ℕ) (hk : ∀ j, Even (k j)) (hk1 : ∀ j, 1 ≤ k j) :
     0 ≤ ∑ j, esym (T w J j) (g q) (k j) * ∏ i ∈ Finset.univ.erase j, trunc (T w J i) (g q) (k i) := by
   have hg0 : ∀ i, ∀ p ∈ T w J i, 0 ≤ g q p := fun i p _ => g_nonneg q p
@@ -90,10 +92,11 @@ theorem gapsum_nonneg (w : ℝ) (J q : ℕ) (k : Fin J → ℕ) (hk : ∀ j, Eve
     (trunc_bounds (hg0 i) (hg1 i) (hk i) (hk1 i)).2
 
 open SieveBrun SieveLeaf in
-/-- **A leaf's difference.** For `a` a unit, `d > 0` with every prime factor at least `w ≥ 1`, and the ranges of
-`SieveLeaf.T` with `w^{2^{−J}} ≤ 2`: the `n ∈ (N₁, N₂]` with `d ∣ n` and no prime factor below `w` have
-`|A − B/φ(q)|` at most twice the fundamental lemma's error, `X·Σ_j e_{k_j}(T_j) ∏_{i≠j} trunc_{k_i}(T_i) +
-(J + 1)∏_j Σ_{i ≤ k_j} C(|T_j|, i)`, `X = (N₂ − N₁)/(dq)`, for even `k_j ≥ 1`. -/
+/-- **A leaf's difference.** For `a` a unit, `d > 0` with every prime factor at least `w ≥ 1`, `N₁ ≤ N₂`, and the
+ranges of `SieveLeaf.T` with `w^{2^{−J}} ≤ 2`: the `n ∈ (N₁, N₂]` with `d ∣ n` and no prime factor below `w` have
+`|A − B/φ(q)|` at most twice the fundamental lemma's error,
+`X·Σ_j e_{k_j}(T_j) ∏_{i≠j} trunc_{k_i}(T_i) + (J + 1)∏_j Σ_{i ≤ k_j} C(|T_j|, i)`, `X = (N₂ − N₁)/(dq)`, for even
+`k_j ≥ 1`. -/
 theorem leaf_diff {q : ℕ} [NeZero q] {a : ZMod q} (ha : IsUnit a) {d N₁ N₂ w : ℕ} (hd : 0 < d) (hw : 1 ≤ w)
     (hdw : ∀ p : ℕ, p.Prime → p ∣ d → w ≤ p) {J : ℕ} (hJ : (w : ℝ) ^ ((1 / 2 : ℝ) ^ J) ≤ 2) (hN : N₁ ≤ N₂)
     (k : Fin J → ℕ) (hk : ∀ j, Even (k j)) (hk1 : ∀ j, 1 ≤ k j) :

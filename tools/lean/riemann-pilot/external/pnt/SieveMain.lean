@@ -6,9 +6,9 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 Plain statements.
 
 * `primes_dyadic_ge`: for `ε > 0`, the primes of `(⌊x⌋, ⌊2x⌋]` number at least `(1 − ε)x/log x` for large `x`.
-* `TB_ev`: `S(B, z_top) ≥ φ(q)⁻¹((1 − ε)x/log x − q)` for large `q`, at `x = q^L`.
+* `TB_ev`: for `ε > 0`, `S(B, z_top) ≥ φ(q)⁻¹((1 − ε)x/log x − q)` for large `q`, at `x = q^L`.
 * `linnik_large`: there is `q₀` such that for `q ≥ q₀` and `a` a unit mod `q` there is a prime `p ≡ a (mod q)` with
-  `p ≤ 2q^{2333/1000}`.
+  `q^{2333/1000} < p ≤ 2q^{2333/1000}`.
 * `linnik_2333`: there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)`
   with `p ≤ K·q^{2333/1000}`.
 
@@ -111,7 +111,7 @@ theorem primes_dyadic_ge {ε : ℝ} (hε : 0 < ε) : ∀ᶠ x : ℝ in atTop,
     exact hkey
   linarith [this, (div_le_div_of_nonneg_right hθ h2x0.le)]
 
-/-- `S(B, z_top) ≥ φ(q)⁻¹((1 − ε)x/log x − q)` for large `q`. -/
+/-- For `ε > 0`, `S(B, z_top) ≥ φ(q)⁻¹((1 − ε)x/log x − q)` for large `q`. -/
 theorem TB_ev {ε : ℝ} (hε : 0 < ε) : ∀ᶠ q : ℕ in atTop, LargeQ q →
     (q.totient : ℝ)⁻¹ * ((1 - ε) * (xq q / Real.log (xq q)) - q) ≤ (parQ q).T (gB q) := by
   filter_upwards [tendsto_xq.eventually (primes_dyadic_ge hε)] with q hq hL
@@ -194,9 +194,10 @@ theorem ev_log_le {c r : ℝ} (hc : 0 < c) (hr : 0 < r) : ∀ᶠ q : ℕ in atTo
   exact hq
 
 /-- **Linnik's theorem with `x = q^{2.333}`, for large `q`.** For `q ≥ q₀` and `a` a unit mod `q`, there is a prime
-`p ≡ a (mod q)` with `p ≤ 2q^{2333/1000}`. -/
+`p ≡ a (mod q)` with `q^{2333/1000} < p ≤ 2q^{2333/1000}`. -/
 theorem linnik_large : ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
-    ∃ p : ℕ, p.Prime ∧ (p : ZMod q) = a ∧ (p : ℝ) ≤ 2 * (q : ℝ) ^ (2333 / 1000 : ℝ) := by
+    ∃ p : ℕ, p.Prime ∧ (p : ZMod q) = a ∧ (q : ℝ) ^ (2333 / 1000 : ℝ) < p ∧
+      (p : ℝ) ≤ 2 * (q : ℝ) ^ (2333 / 1000 : ℝ) := by
   have hC := Cdec_pos
   set L : ℝ := 2333 / 1000 with hLdef
   have hL0 : 0 < L := by norm_num
@@ -290,7 +291,7 @@ theorem linnik_large : ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → 
   rw [Finset.mem_Ioc] at hm
   have hN1 : 1 ≤ N1 q := Nat.le_floor (by simpa using (Real.one_le_rpow hq1.le (by norm_num) : (1 : ℝ) ≤ xq q))
   have hm2 : 2 ≤ m := by have := hm.1; change N1 q < m at this; omega
-  refine ⟨m, ?_, hmA, ?_⟩
+  refine ⟨m, ?_, hmA, Nat.lt_of_floor_lt hm.1, ?_⟩
   · by_contra hnp
     have hsq := Nat.minFac_sq_le_self (by omega) hnp
     have hmin := (SieveStops2.rough_iff_le_minFac hm2).1 hmr
@@ -324,7 +325,7 @@ theorem linnik_2333 : ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (a : ℕ), a.Coprime
   have hqL : (1 : ℝ) ≤ (q : ℝ) ^ (2333 / 1000 : ℝ) := Real.one_le_rpow hq1 (by norm_num)
   by_cases hq : q₀ ≤ q
   · have hu : IsUnit (a : ZMod q) := (ZMod.isUnit_iff_coprime a q).2 ha
-    obtain ⟨p, hp, hpa, hpx⟩ := hq₀ q hq (a : ZMod q) hu
+    obtain ⟨p, hp, hpa, -, hpx⟩ := hq₀ q hq (a : ZMod q) hu
     refine ⟨p, hp, (ZMod.natCast_eq_natCast_iff p a q).1 hpa, hpx.trans ?_⟩
     exact mul_le_mul_of_nonneg_right (le_max_left _ _) (by positivity)
   · push Not at hq

@@ -19,9 +19,9 @@ The proof:
 * The tree (`SieveDiff.tree_weighted`) runs from `z₀` down to `w = ⌈q^{ε_w}⌉`, `ε_w = c/(2k + 4)`,
   `c = (L − 1 − b₀)/4`, at the threshold `X'`. `SieveStops2.stops2_bound` bounds its stops (`window_lo`,
   `window_hi`).
-* `leaf_bound`: at a leaf `d = r∏P ≤ X'`, `SieveDiff.leaf_diff` with the ranges' levels `k + 2j` (`Jw_spec`,
-  `SieveLeaf.leaf_gap`) gives `4ζ(k)·#{n : d ∣ n, w-rough}/φ(q) + 4·rem`, and the count is at most `Ψ(X/d, w)`
-  (`count_le_psi`).
+* `leaf_bound`: at a leaf `d = r∏P ≤ X'`, `SieveLeaf.leaf_A` and `leaf_B` (as in `SieveDiff.leaf_diff`) with the
+  ranges' levels `k + 2j` (`Jw_spec`, `SieveLeaf.leaf_gap`) give `4ζ(k)·#{n : d ∣ n, w-rough}/φ(q) + 4·rem`, and the
+  count is at most `Ψ(X/d, w)` (`count_le_psi`).
 * `leaves_sum_le`: with `Ψ(X/d, w) ≤ 2X/(d log w)` from `SieveRough.psi_le`, the leaves total at most
   `(4ζ(k)·2X/(φ(q) log w) + 4·rem·X')·Σ_{rt} Σ_P 1/(r∏P)`, and the double sum is `Σ_{rt} 1/r ∏_{w ≤ p < z₀} (1 + 1/p)`
   (`sum_leaves_inv`), bounded by `sum_RT_inv_le` and `SieveRough.evLe_sum_inv`.
@@ -68,7 +68,7 @@ theorem sum_choose_le (n m : ℕ) : ∑ i ∈ Finset.range (m + 1), n.choose i �
           Finset.sum_le_sum fun i _ => Nat.choose_le_pow n i
       _ ≤ 2 * n ^ m := geom_nat_le (by omega) m
 
-/-- A range has at most `w^{2^{−j}}` primes. -/
+/-- For `w ≥ 1`, a range has at most `w^{2^{−j}}` primes. -/
 theorem card_T_le {w : ℝ} (hw : 1 ≤ w) (J : ℕ) (j : Fin J) :
     ((max 1 (T w J j).card : ℕ) : ℝ) ≤ w ^ ((1 / 2 : ℝ) ^ (j : ℕ)) := by
   set A := w ^ ((1 / 2 : ℝ) ^ ((j : ℕ) + 1)) with hA
@@ -136,7 +136,7 @@ theorem rem_nonneg (w : ℝ) (J k : ℕ) : 0 ≤ rem w J k := by
   unfold rem
   positivity
 
-/-- The remainder is at most `(J + 1)2^J w^{2k+4}`. -/
+/-- For `w ≥ 1`, the remainder is at most `(J + 1)2^J w^{2k+4}`. -/
 theorem rem_le {w : ℝ} (hw : 1 ≤ w) (J k : ℕ) :
     rem w J k ≤ (J + 1) * 2 ^ J * w ^ ((2 * k + 4 : ℕ) : ℝ) := by
   unfold rem
@@ -174,7 +174,7 @@ theorem rem_le {w : ℝ} (hw : 1 ≤ w) (J k : ℕ) :
 /-- The number of ranges, `J = 2⌊log₂ w⌋ + 2`. -/
 def Jw (w : ℕ) : ℕ := 2 * Nat.log 2 w + 2
 
-/-- `J = Jw w` covers the primes below `w` (`w^{2^{−J}} ≤ 2`), with `2^J ≤ 4w²` and `J + 1 ≤ 3w`. -/
+/-- For `w ≥ 2`, `J = Jw w` covers the primes below `w` (`w^{2^{−J}} ≤ 2`), with `2^J ≤ 4w²` and `J + 1 ≤ 3w`. -/
 theorem Jw_spec {w : ℕ} (hw : 2 ≤ w) :
     (w : ℝ) ^ ((1 / 2 : ℝ) ^ Jw w) ≤ 2 ∧ (2 : ℝ) ^ Jw w ≤ 4 * (w : ℝ) ^ 2 ∧ (Jw w : ℝ) + 1 ≤ 3 * w := by
   have hl1 : w < 2 ^ (Nat.log 2 w + 1) := Nat.lt_pow_succ_log_self (by norm_num) w
@@ -222,7 +222,8 @@ theorem zeta_nonneg {C₀ : ℝ} (hC₀ : 0 ≤ C₀) (k : ℕ) : 0 ≤ zeta C�
   unfold zeta
   positivity
 
-/-- The multiples of `d` in `(⌊X⌋, ⌊2X⌋]` with no prime factor below `w` are at most `Ψ(X/d, w)`. -/
+/-- For `X ≥ 0` and `d > 0`, the multiples of `d` in `(⌊X⌋, ⌊2X⌋]` with no prime factor below `w` are at most
+`Ψ(X/d, w)`. -/
 theorem count_le_psi {X : ℝ} (hX : 0 ≤ X) {d w : ℕ} (hd : 0 < d) :
     ((Finset.Ioc ⌊X⌋₊ ⌊2 * X⌋₊).filter (fun n => d ∣ n ∧ rough w n)).card ≤ SieveRough.Psi (X / d) w := by
   unfold SieveRough.Psi SieveRough.roughSet
@@ -253,9 +254,11 @@ theorem count_le_psi {X : ℝ} (hX : 0 ≤ X) {d w : ℕ} (hd : 0 < d) :
     simp only at this
     rwa [Nat.div_mul_cancel hn.2.1, Nat.div_mul_cancel hn'.2.1] at this
 
-/-- **A leaf.** For `a` a unit, `d > 0` with every prime factor at least `w ≥ 1`, the ranges with
-`w^{2^{−J}} ≤ 2`, and levels `k + 2j` with `k ≥ 1` even, `2C₀² ≤ (k + 1)(k + 2)` and `ζ(k) ≤ 1/2`: the `n ∈ (N₁, N₂]`
-with `d ∣ n` and no prime factor below `w` have `|A − B/φ(q)| ≤ 4ζ(k)·#{n : d ∣ n, w-rough}/φ(q) + 4·rem`. -/
+/-- **A leaf.** For `a` a unit, `d > 0` with every prime factor at least `w ≥ 1`, `N₁ ≤ N₂`, the ranges with
+`w^{2^{−J}} ≤ 2`, `C₀ ≥ 0` bounding the sums `Σ 1/p` over the ranges `rng A` (`A ≥ 1`), and levels `k + 2j` with
+`k ≥ 1` even, `2C₀² ≤ (k + 1)(k + 2)` and `ζ(k) ≤ 1/2`: the `n ∈ (N₁, N₂]` with `d ∣ n` and no prime factor below `w`
+have `|A − B/φ(q)| ≤ 4ζ(k)·#{n : d ∣ n, w-rough}/φ(q) + 4·rem`. Here
+`ζ(k) = e^{2C₀}(2C₀^k/k!)·exp(e^{2C₀}·2C₀^{k+1}/(k + 1)!)`, as in `SieveLeaf.leaf_gap`. -/
 theorem leaf_bound {q : ℕ} [NeZero q] {a : ZMod q} (ha : IsUnit a) {d N₁ N₂ w : ℕ} (hd : 0 < d) (hw : 1 ≤ w)
     (hdw : ∀ p : ℕ, p.Prime → p ∣ d → w ≤ p) {J : ℕ} (hJ : (w : ℝ) ^ ((1 / 2 : ℝ) ^ J) ≤ 2) (hN : N₁ ≤ N₂)
     {C₀ : ℝ} (hC₀ : 0 ≤ C₀) (hC : ∀ A : ℝ, 1 ≤ A → ∑ p ∈ rng A, 1 / (p : ℝ) ≤ C₀) {k : ℕ} (hk : Even k)
@@ -375,9 +378,11 @@ theorem sum_RT_inv_le {j : ℕ} {RT : Finset (Fin j → ℕ)} {s : Finset ℕ}
 
 /-! ### The leaves of the tree -/
 
-/-- **The leaves.** The leaves of Buchstab's tree at the threshold `X'` (`SieveDiff.tree_weighted` with `r = ∏rt`),
-summed over `rt`, are at most `(4ζ(k)B_ψ/φ(q) + 4·rem·X')·Σ_{rt}Σ_{P}1/(r∏P)`, given `Ψ(X/d, w) ≤ B_ψ/d` for
-`d ≤ X'`. -/
+/-- **The leaves.** For `a` a unit, `X ≥ 0`, `1 ≤ w ≤ z₀`, the ranges with `w^{2^{−J}} ≤ 2`, `C₀ ≥ 0` bounding the
+sums `Σ 1/p` over the ranges `rng A` (`A ≥ 1`), `k ≥ 1` even with `2C₀² ≤ (k + 1)(k + 2)` and `ζ(k) ≤ 1/2`, `B_ψ ≥ 0`
+with `Ψ(X/d, w) ≤ B_ψ/d` for `0 < d ≤ X'`, and `rt` over a set of tuples of primes at least `z₀`: the leaves of
+Buchstab's tree at the threshold `X'` (`SieveDiff.tree_weighted` with `r = ∏rt`), summed over `rt`, are at most
+`(4ζ(k)B_ψ/φ(q) + 4·rem·X')·Σ_{rt}Σ_{P}1/(r∏P)`. -/
 theorem leaves_sum_le {q : ℕ} [NeZero q] {a : ZMod q} (ha : IsUnit a) {X : ℝ} (hX : 0 ≤ X) {w z₀ X' J k : ℕ}
     {C₀ : ℝ} (hw : 1 ≤ w) (hwz : w ≤ z₀) (hJ : (w : ℝ) ^ ((1 / 2 : ℝ) ^ J) ≤ 2) (hC₀ : 0 ≤ C₀)
     (hC : ∀ A : ℝ, 1 ≤ A → ∑ p ∈ rng A, 1 / (p : ℝ) ≤ C₀) (hk : Even k) (hk1 : 1 ≤ k)
@@ -456,8 +461,8 @@ theorem sq_le_four_pow (k : ℕ) : (((2 * k + 4 : ℕ) : ℝ)) ^ 2 ≤ 16 * 4 ^ 
     rw [← pow_mul, show (4 : ℝ) = 2 ^ 2 by norm_num, ← pow_mul]; ring_nf]
   exact mul_le_mul_of_nonneg_left (pow_le_pow_left₀ (by positivity) h2 2) (by norm_num)
 
-/-- There is an even `k ≥ 2` with `2C₀² ≤ (k + 1)(k + 2)`, `ζ(k) ≤ 1/2`, `(2k + 4)²ζ(k) ≤ ε` and
-`c < (2k + 4)a₀`. -/
+/-- For `C₀ ≥ 0`, `ε > 0` and `a₀ > 0` there is an even `k ≥ 2` with `2C₀² ≤ (k + 1)(k + 2)`, `ζ(k) ≤ 1/2`,
+`(2k + 4)²ζ(k) ≤ ε` and `c < (2k + 4)a₀`. -/
 theorem exists_k {C₀ : ℝ} (hC₀ : 0 ≤ C₀) {ε c a₀ : ℝ} (hε : 0 < ε) (ha₀ : 0 < a₀) :
     ∃ k : ℕ, Even k ∧ 2 ≤ k ∧ 2 * C₀ ^ 2 ≤ ((k : ℝ) + 1) * (k + 2) ∧ zeta C₀ k ≤ 1 / 2 ∧
       (((2 * k + 4 : ℕ) : ℝ)) ^ 2 * zeta C₀ k ≤ ε ∧ c < ((2 * k + 4 : ℕ) : ℝ) * a₀ := by
@@ -524,7 +529,8 @@ theorem exists_k {C₀ : ℝ} (hC₀ : 0 ≤ C₀) {ε c a₀ : ℝ} (hε : 0 < 
 
 /-! ### The windows of the stops -/
 
-/-- With `q^{L−(0.401L+a₀+b₀)} ≥ 5`: `X'z₀ ≤ N₁` and `q^{0.401L} ≤ ⌊N₁/(X'z₀)⌋`, `z₀ = ⌈q^{a₀}⌉`, `X' = ⌊q^{b₀}⌋`. -/
+/-- For `Q ≥ 1`, `a₀ ≥ 0`, `b₀ ≥ 0` and `Q^{L−(0.401L+a₀+b₀)} ≥ 5`: `X'z₀ ≤ N₁` and `Q^{0.401L} ≤ ⌊N₁/(X'z₀)⌋`, where
+`z₀ = ⌈Q^{a₀}⌉`, `X' = ⌊Q^{b₀}⌋` and `N₁ = ⌊Q^L⌋`. -/
 theorem window_lo {Q : ℝ} (hQ : 1 ≤ Q) {a₀ b₀ : ℝ} (ha₀ : 0 ≤ a₀) (hb₀ : 0 ≤ b₀)
     (h5 : 5 ≤ Q ^ (2333 / 1000 - (401 / 1000 * (2333 / 1000) + a₀ + b₀))) :
     ⌊Q ^ b₀⌋₊ * ⌈Q ^ a₀⌉₊ ≤ ⌊Q ^ (2333 / 1000 : ℝ)⌋₊ ∧
@@ -570,7 +576,7 @@ theorem window_lo {Q : ℝ} (hQ : 1 ≤ Q) {a₀ b₀ : ℝ} (ha₀ : 0 ≤ a₀
     (Nat.le_div_iff_mul_le hD0).2 hkey
   exact le_trans (Nat.le_ceil _) (by exact_mod_cast h3)
 
-/-- With `q^{0.485L−(L−b₀)} ≥ 2`: `⌊N₂/(X' + 1)⌋ ≤ q^{0.485L}`, `X' = ⌊q^{b₀}⌋`, `N₂ = ⌊2q^L⌋`. -/
+/-- For `Q ≥ 1` and `Q^{0.485L−(L−b₀)} ≥ 2`: `⌊N₂/(X' + 1)⌋ ≤ Q^{0.485L}`, where `X' = ⌊Q^{b₀}⌋` and `N₂ = ⌊2Q^L⌋`. -/
 theorem window_hi {Q : ℝ} (hQ : 1 ≤ Q) {b₀ : ℝ} (h2 : 2 ≤ Q ^ (485 / 1000 * (2333 / 1000) - (2333 / 1000 - b₀))) :
     ((⌊2 * Q ^ (2333 / 1000 : ℝ)⌋₊ / (⌊Q ^ b₀⌋₊ + 1) : ℕ) : ℝ) ≤ Q ^ (485 / 1000 * (2333 / 1000) : ℝ) := by
   have hQ0 : 0 < Q := by linarith
@@ -597,8 +603,8 @@ theorem window_hi {Q : ℝ} (hQ : 1 ≤ Q) {b₀ : ℝ} (h2 : 2 ≤ Q ^ (485 / 1
 
 /-! ### Arithmetic of the error terms -/
 
-/-- The main term's coefficient: with `ε_w = c/(2k + 4)` and `(2k + 4)²Z ≤ ηc²/(8E(K₁ + 1)a₀)`, the coefficient
-`8EK₁a₀Z/ε_w²` is at most `η`. -/
+/-- The main term's coefficient: for `E > 0`, `K₁ ≥ 0`, `a₀ > 0`, `c > 0` and `η > 0`, with `ε_w = c/(2k + 4)` and
+`(2k + 4)²Z ≤ ηc²/(8E(K₁ + 1)a₀)`, the coefficient `8EK₁a₀Z/ε_w²` is at most `η`. -/
 theorem main_coef {E K₁ a₀ Z εw c η : ℝ} {k : ℕ} (hE : 0 < E) (hK₁ : 0 ≤ K₁) (ha₀ : 0 < a₀) (hc : 0 < c)
     (hη : 0 < η) (hεw : εw = c / ((2 * k + 4 : ℕ) : ℝ))
     (hζε : ((2 * k + 4 : ℕ) : ℝ) ^ 2 * Z ≤ η * c ^ 2 / (8 * E * (K₁ + 1) * a₀)) :
@@ -616,8 +622,9 @@ theorem main_coef {E K₁ a₀ Z εw c η : ℝ} {k : ℕ} (hE : 0 < E) (hK₁ :
     nlinarith
   linarith
 
-/-- The leaves' main term: for `L_w ≥ ε_w L_Q` (in use `L_w = log w`, `L_Q = log q`) and the coefficient
-`8EK₁a₀Z/ε_w²` at most `η`, `4Z(2X/L_w)/φ · K₁(Ea₀/ε_w) ≤ ηX/(φL_Q)`. -/
+/-- The leaves' main term: for `Z ≥ 0`, `X ≥ 0`, `φ > 0`, `K₁ ≥ 0`, `E > 0`, `a₀ > 0`, `ε_w > 0`, `L_Q > 0` and
+`L_w ≥ ε_w L_Q` (in use `L_w = log w`, `L_Q = log q`), with the coefficient `8EK₁a₀Z/ε_w²` at most `η`:
+`4Z(2X/L_w)/φ · K₁(Ea₀/ε_w) ≤ ηX/(φL_Q)`. -/
 theorem main_term {Z X Lw LQ φ K₁ E a₀ εw η : ℝ} (hZ : 0 ≤ Z) (hX : 0 ≤ X) (hφ : 0 < φ) (hK₁ : 0 ≤ K₁)
     (hE : 0 < E) (ha₀ : 0 < a₀) (hεw : 0 < εw) (hLQ : 0 < LQ) (hlw : εw * LQ ≤ Lw)
     (hcoef : 8 * E * K₁ * a₀ * Z / εw ^ 2 ≤ η) :
@@ -640,9 +647,9 @@ theorem main_term {Z X Lw LQ φ K₁ E a₀ εw η : ℝ} (hZ : 0 ≤ Z) (hX : 0
     _ ≤ η * (X / (φ * LQ)) := mul_le_mul_of_nonneg_right hcoef hpos2
     _ = η * X / (φ * LQ) := by ring
 
-/-- The leaves' remainder: for `1 ≤ w ≤ 2Q^{ε_w}`, `ε_w(2k + 7) ≤ 2c`, `0 ≤ X' ≤ Q^{b₀}`, `2^J ≤ 4w²`,
-`J + 1 ≤ 3w`, `48·2^{2k+7}K ≤ Q^c`, `0 < φ ≤ Q`, `L − 1 − c = c + (b₀ + 2c)` and `R ≤ (J + 1)2^J w^{2k+4}`:
-`4RX'K ≤ φ⁻¹Q^{L−c}`. -/
+/-- The leaves' remainder: for `Q ≥ 1`, `K ≥ 0`, `1 ≤ w ≤ 2Q^{ε_w}`, `ε_w(2k + 7) ≤ 2c`, `0 ≤ X' ≤ Q^{b₀}`,
+`2^J ≤ 4w²`, `J + 1 ≤ 3w`, `48·2^{2k+7}K ≤ Q^c`, `0 < φ ≤ Q`, `L − 1 − c = c + (b₀ + 2c)` and
+`R ≤ (J + 1)2^J w^{2k+4}`: `4RX'K ≤ φ⁻¹Q^{L−c}`. -/
 theorem rem_term {Q w X' φ K εw c b₀ Mrem R : ℝ} {k J : ℕ} (hQ1 : 1 ≤ Q) (hw1 : 1 ≤ w)
     (hwle : w ≤ 2 * Q ^ εw) (hεw7 : εw * ((2 * k + 7 : ℕ) : ℝ) ≤ 2 * c) (hX' : X' ≤ Q ^ b₀) (hX'0 : 0 ≤ X')
     (hK : 0 ≤ K) (hJ2 : (2 : ℝ) ^ J ≤ 4 * w ^ 2) (hJ3 : (J : ℝ) + 1 ≤ 3 * w)

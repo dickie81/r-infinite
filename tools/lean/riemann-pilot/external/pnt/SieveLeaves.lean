@@ -61,14 +61,14 @@ theorem exists_inside {k : ℕ} (f : Fin k → ℕ × ℕ) (h : surelyEval (List
   obtain ⟨T, rfl⟩ := subsetSums_ofFn f s hs
   exact ⟨T, hin⟩
 
-/-- `∏_T rt ≥ x^{Σ_T e_{c_t}/DEN}` for primes in the cells `c`. -/
+/-- For `x > 0` and primes in the cells `c`, `∏_T rt ≥ x^{Σ_T e_{c_t}/DEN}`. -/
 theorem box_lo {x : ℝ} (hx : 0 < x) {k : ℕ} {c rt : Fin k → ℕ} (h : ∀ t, InC x (c t) (rt t))
     (T : Finset (Fin k)) :
     x ^ (((∑ t ∈ T, SieveCert.e (c t) : ℕ) : ℝ) / DEN) ≤ ∏ t ∈ T, (rt t : ℝ) := by
   rw [Nat.cast_sum, Finset.sum_div, Real.rpow_sum_of_pos hx]
   exact Finset.prod_le_prod₀ (fun t _ => Real.rpow_nonneg hx.le _) fun t _ => (h t).1
 
-/-- `∏_T rt ≤ x^{Σ_T (e_{c_t} + H)/DEN}` for primes in the cells `c`. -/
+/-- For `x > 0` and primes in the cells `c`, `∏_T rt ≤ x^{Σ_T (e_{c_t} + H)/DEN}`. -/
 theorem box_hi {x : ℝ} (hx : 0 < x) {k : ℕ} {c rt : Fin k → ℕ} (h : ∀ t, InC x (c t) (rt t))
     (T : Finset (Fin k)) :
     ∏ t ∈ T, (rt t : ℝ) ≤ x ^ (((∑ t ∈ T, (SieveCert.e (c t) + H) : ℕ) : ℝ) / DEN) := by
@@ -77,7 +77,7 @@ theorem box_hi {x : ℝ} (hx : 0 < x) {k : ℕ} {c rt : Fin k → ℕ} (h : ∀ 
   push_cast
   exact (h t).2.le
 
-/-- Below the box: `⌊x^{B/DEN}⌋ < ∏_T rt` when `B < Σ_T e_{c_t}`. -/
+/-- Below the box: for `x > 1`, primes in the cells `c` and `B < Σ_T e_{c_t}`, `⌊x^{B/DEN}⌋ < ∏_T rt`. -/
 theorem window_lo {x : ℝ} (hx : 1 < x) {k : ℕ} {c rt : Fin k → ℕ} (h : ∀ t, InC x (c t) (rt t))
     {T : Finset (Fin k)} {B : ℕ} (hB : B < ∑ t ∈ T, SieveCert.e (c t)) :
     ⌊x ^ ((B : ℝ) / DEN)⌋₊ < ∏ t ∈ T, rt t := by
@@ -89,7 +89,7 @@ theorem window_lo {x : ℝ} (hx : 1 < x) {k : ℕ} {c rt : Fin k → ℕ} (h : �
     lt_of_le_of_lt (Nat.floor_le (Real.rpow_nonneg (by linarith) _)) (lt_of_lt_of_le h1 h2)
   exact_mod_cast h3
 
-/-- Above the box: `∏_T rt ≤ ⌊x^{B/DEN}⌋` when `Σ_T (e_{c_t} + H) < B`. -/
+/-- Above the box: for `x > 1`, primes in the cells `c` and `Σ_T (e_{c_t} + H) < B`, `∏_T rt ≤ ⌊x^{B/DEN}⌋`. -/
 theorem window_hi {x : ℝ} (hx : 1 < x) {k : ℕ} {c rt : Fin k → ℕ} (h : ∀ t, InC x (c t) (rt t))
     {T : Finset (Fin k)} {B : ℕ} (hB : ∑ t ∈ T, (SieveCert.e (c t) + H) < B) :
     ∏ t ∈ T, rt t ≤ ⌊x ^ ((B : ℝ) / DEN)⌋₊ := by
@@ -197,7 +197,10 @@ theorem RTg_eq_of_thrOK {q : ℕ} {k Y : ℕ} {spec : List (Atom k)} (h : ThrOK 
 
 variable (a₀ : ℝ)
 
-/-- **The lower window, on a family of atoms** (`SieveChain.chainTL_bound`). -/
+/-- **The lower window, on a family of atoms** (`SieveChain.chainTL_bound`). For `a₀ > 0` and `k'` there are `δ > 0`
+and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`: a family of `(k' + 1)`-tuples of primes cut out by at most
+`18` atoms with thresholds as in `ThrOK`, each tuple strictly decreasing, with entries at least `q^{a₀}` and
+`P₁ < ∏_{i∈S} rt_i ≤ P₂`, where `q^{0.401L} ≤ P₁` and `P₂ ≤ q^{0.485L}`, has `|A − B/φ(q)| ≤ q^{L−δ}/φ(q)`. -/
 theorem TL_spec (ha₀ : 0 < a₀) (k' : ℕ) :
     ∃ δ : ℝ, 0 < δ ∧ ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∀ (spec : List (Atom (k' + 1))) (S : Finset (Fin (k' + 1))) (P₁ P₂ : ℕ), spec.length ≤ 18 → ThrOK q spec →
@@ -214,7 +217,11 @@ theorem TL_spec (ha₀ : 0 < a₀) (k' : ℕ) :
     fun rt hp hΩ => hreg rt hp ((holds_iff_sem hthr hp).1 hΩ)
   rwa [RTg_eq_of_thrOK hthr, sum_dw_famI, Complex.norm_real, Real.norm_eq_abs] at h
 
-/-- **The upper window, on a family of atoms** (`SieveChain.chainTU_bound`). -/
+/-- **The upper window, on a family of atoms** (`SieveChain.chainTU_bound`). For `a₀ > 0` and `k'` there are `δ > 0`
+and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`: a family of `(k' + 1)`-tuples of primes cut out by at most
+`18` atoms with thresholds as in `ThrOK`, each tuple strictly decreasing, with entries at least `q^{a₀}` and
+`W₀ < ∏rt ≤ W₁`, where `W₁ ≤ N₁`, `q^{0.401L} ≤ ⌊N₁/W₁⌋` and `⌊N₂/(W₀ + 1)⌋ ≤ q^{0.485L}`, has
+`|A − B/φ(q)| ≤ q^{L−δ}/φ(q)`. -/
 theorem TU_spec (ha₀ : 0 < a₀) (k' : ℕ) :
     ∃ δ : ℝ, 0 < δ ∧ ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∀ (spec : List (Atom (k' + 1))) (W₀ W₁ : ℕ), spec.length ≤ 18 → ThrOK q spec →
@@ -254,7 +261,7 @@ theorem toG_nz {k : ℕ} (A : Atom k) (h : NZ A) : ∃ i, A.toG.e i ≠ 0 := by
     obtain ⟨i, hi⟩ := (show T.Nonempty from h)
     exact ⟨i, by simp [Atom.toG, hi]⟩
 
-/-- With nonzero coefficients, the pivoted comparisons cut out the same family. -/
+/-- With thresholds as in `ThrOK` and nonzero coefficients, the pivoted comparisons cut out the same family. -/
 theorem RT_pivoted {q : ℕ} {k Y : ℕ} {spec : List (Atom k)} (h : ThrOK q spec) (hnz : ∀ A ∈ spec, NZ A) :
     SieveStops2.RT k Y (pivoted (spec.map Atom.toG)) = famSet k Y spec := by
   rw [← RTg_eq_of_thrOK h]
@@ -271,7 +278,11 @@ theorem RT_pivoted {q : ℕ} {k Y : ℕ} {spec : List (Atom k)} (h : ThrOK q spe
 
 variable (b₀ : ℝ)
 
-/-- **Proposition 6, on a family of atoms.** -/
+/-- **Proposition 6, on a family of atoms.** For `a₀ > 0`, `b₀` with `a₀ + b₀ < 0.599L` and `0.515L < b₀ < L − 1`,
+`j`, and `η > 0` there are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`: for a family of `j`-tuples
+of primes cut out by at most `18` atoms with nonzero coefficients and thresholds as in `ThrOK`, each tuple with
+entries at least `z₀ = ⌈q^{a₀}⌉` and product `r` at most `⌊q^{b₀}⌋`, `Σ_{rt}(S(A_r, z₀) − S(B_r, z₀)/φ(q))` is at
+most `ηq^L/(φ(q) log q) + q^{L−δ}/φ(q)` in absolute value. -/
 theorem P6_spec (ha₀ : 0 < a₀) (hab : a₀ + b₀ < 599 / 1000 * (2333 / 1000))
     (hb₁ : 515 / 1000 * (2333 / 1000) < b₀) (hb₂ : b₀ < 2333 / 1000 - 1) (j : ℕ) {η : ℝ} (hη : 0 < η) :
     ∃ δ : ℝ, 0 < δ ∧ ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →

@@ -13,8 +13,8 @@ Plain statements. `xq q = q^L`, `L = 2333/1000`, and `cornerP z` is the set of p
   counts only the `n = p₁p₂`, both primes in `cornerP z_top`, so it is at most `φ(q)⁻¹|cornerP|²`; for large `q`,
   `n²|cornerP|² ≤ εx/log x` (`n = 70` cells), by `cornerP_card_ev`.
 * `D1_le`, `dropS_le_cost`, `shares_ev`, `sum_cost_div`: the dropped cells' sums are at most their certificate costs
-  `cost/K` times `x/log x`, plus `δ′`, by `SieveRough.share2_of_cand` and `share4_of_counted4` simultaneously for the
-  finitely many cells, and the costs total at most `0.88` (`SieveCert.total_div_le`).
+  `cost/K` times `x/log x`, plus `δ′(1 + n²)x/log x`, by `SieveRough.share2_of_cand` and `share4_of_counted4`
+  simultaneously for the finitely many cells, and the costs total at most `0.88` (`SieveCert.total_div_le`).
 * `drop_ev`: for `ε > 0`, eventually `D1(g_B) ≤ φ(q)⁻¹(0.88 + ε)x/log x`.
 
 This is the loss of `frontier/linnik/SIEVE-ROUTE.md` §6, M8 of §13: M6's shares and M7's total bound the dropped
@@ -33,8 +33,8 @@ open Classical
 
 /-! ### A dropped family's `B`-count, by rough numbers -/
 
-/-- The multiples `n = Wc ∈ (x, 2x]` of `W` with no prime factor below `z` inject into `Ψ(x/W, z)` by
-`n ↦ n/W`. -/
+/-- For `x > 0` and `W > 0`, the multiples `n = Wc ∈ (x, 2x]` of `W` with no prime factor below `z` inject into
+`Ψ(x/W, z)` by `n ↦ n/W`. -/
 theorem card_le_Psi {x : ℝ} (hx : 0 < x) {W z : ℕ} (hW : 0 < W) :
     ((Ioc ⌊x⌋₊ ⌊2 * x⌋₊).filter (fun n => W ∣ n ∧ SieveTree.rough z n)).card ≤ Psi (x / W) z := by
   unfold Psi roughSet
@@ -75,7 +75,8 @@ theorem gB_nonneg (q m : ℕ) : 0 ≤ gB q m := by
   unfold gB
   split_ifs <;> positivity
 
-/-- **A family's `B`-count** is at most `φ(q)⁻¹ Σ_rt Ψ(x/∏rt, rt_last)`. -/
+/-- **A family's `B`-count.** For `q ≥ 1` and a family of tuples of primes, it is at most
+`φ(q)⁻¹ Σ_rt Ψ(x/∏rt, rt_last)`. -/
 theorem famI_gB_le (q : ℕ) {k' : ℕ} (F : Finset (Fin (k' + 1) → ℕ)) (hF : ∀ rt ∈ F, ∀ i, (rt i).Prime)
     (hq : 1 ≤ q) :
     famI (gB q) (N1 q) (N2 q) F ≤
@@ -101,7 +102,8 @@ theorem famI_gB_le (q : ℕ) {k' : ℕ} (F : Finset (Fin (k' + 1) → ℕ)) (hF 
         refine mul_le_mul_of_nonneg_left ?_ (by positivity)
         exact_mod_cast card_le_Psi hx hW
 
-/-- A sum over pairs of a family whose entries lie in `s₀`, `s₁` is at most the sum over `s₀ × s₁`. -/
+/-- A sum of a nonnegative `g` over the pairs of a family whose entries lie in `s₀`, `s₁` is at most the sum over
+`s₀ × s₁`. -/
 theorem sum_le_box2 {s₀ s₁ : Finset ℕ} (F : Finset (Fin 2 → ℕ)) (hF : ∀ rt ∈ F, rt 0 ∈ s₀ ∧ rt 1 ∈ s₁)
     (g : ℕ → ℕ → ℝ) (hg : ∀ a b, 0 ≤ g a b) :
     ∑ rt ∈ F, g (rt 0) (rt 1) ≤ ∑ a ∈ s₀, ∑ b ∈ s₁, g a b := by
@@ -154,7 +156,8 @@ theorem sum_le_box4 {s₀ s₁ s₂ s₃ : Finset ℕ} (F : Finset (Fin 4 → �
 theorem mem_cellP_of {q : ℕ} {c p : ℕ} (hp : p.Prime) (h : InC (xq q) c p) : p ∈ cellP (xq q) c :=
   mem_primesIn.2 ⟨hp, h.1, h.2⟩
 
-/-- **A dropped cell of depth 2**: its `B`-count is at most `φ(q)⁻¹ Σ_{p₁, p₂} Ψ(x/(p₁p₂), p₂)` over the cell. -/
+/-- **A dropped cell of depth 2**, for `q ≥ 1`: its `B`-count is at most `φ(q)⁻¹ Σ_{p₁, p₂} Ψ(x/(p₁p₂), p₂)` over the
+cell. -/
 theorem drop2_le {q : ℕ} (hq : 1 ≤ q) (i j : ℕ) :
     (parQ q).I (gB q) ((parQ q).S2c i j) ≤
       (q.totient : ℝ)⁻¹ * ∑ p₁ ∈ cellP (xq q) i, ∑ p₂ ∈ cellP (xq q) j, (Psi (xq q / (p₁ * p₂)) p₂ : ℝ) := by
@@ -171,7 +174,8 @@ theorem drop2_le {q : ℕ} (hq : 1 ≤ q) (i j : ℕ) :
   push_cast
   rfl
 
-/-- **A dropped cell of depth 4**: its `B`-count is at most `φ(q)⁻¹ Σ Ψ(x/(p₁p₂p₃p₄), p₄)` over the cell. -/
+/-- **A dropped cell of depth 4**, for `q ≥ 1`: its `B`-count is at most `φ(q)⁻¹ Σ Ψ(x/(p₁p₂p₃p₄), p₄)` over the
+cell. -/
 theorem drop4_le {q : ℕ} (hq : 1 ≤ q) (i j k l : ℕ) :
     (parQ q).I (gB q) ((parQ q).S4c i j k l) ≤
       (q.totient : ℝ)⁻¹ * ∑ p₁ ∈ cellP (xq q) i, ∑ p₂ ∈ cellP (xq q) j, ∑ p₃ ∈ cellP (xq q) k,
@@ -194,8 +198,9 @@ theorem drop4_le {q : ℕ} (hq : 1 ≤ q) (i j k l : ℕ) :
 /-- The primes of `(⌊z/4⌋, z]`, where the corner's primes lie. -/
 noncomputable def cornerP (z : ℕ) : Finset ℕ := (Ioc ⌊(z : ℝ) / 4⌋₊ z).filter Nat.Prime
 
-/-- **A corner cell** (not a candidate, not surely evaluable, `p₁`'s cell not inside the window): its `n` are the
-products `p₁p₂` of its pairs, so its `B`-count is at most `φ(q)⁻¹ |cornerP|²` when `z_top² ≤ 4N₁`. -/
+/-- **A corner cell** (not a candidate, not surely evaluable, `p₁`'s cell `i < n` not inside the window), for
+`(parQ q).Good` and `z_top² ≤ 4N₁`: its `n` are the products `p₁p₂` of its pairs, so its `B`-count is at most
+`φ(q)⁻¹ |cornerP|²`. -/
 theorem corner_le {q : ℕ} (G : (parQ q).Good) (hsq : (((parQ q).ztop : ℝ)) ^ 2 ≤ 4 * N1 q) {i j : ℕ}
     (hi : i < SieveCert.n) (hW : ¬ Par.inW i) (hc : cand i j = false) (hs : Par.sE2 i j = false) :
     (parQ q).I (gB q) ((parQ q).S2c i j) ≤ (q.totient : ℝ)⁻¹ * ((cornerP (parQ q).ztop).card : ℝ) ^ 2 := by
@@ -336,7 +341,7 @@ theorem corner_le {q : ℕ} (G : (parQ q).Good) (hsq : (((parQ q).ztop : ℝ)) ^
 theorem tendsto_xq : Tendsto xq atTop atTop :=
   (tendsto_rpow_atTop (by norm_num : (0 : ℝ) < 2333 / 1000)).comp tendsto_natCast_atTop_atTop
 
-/-- `√x ≤ z_top ≤ √(2x) + 1`. -/
+/-- For `q ≥ 1`, `√x ≤ z_top ≤ √(2x) + 1`. -/
 theorem ztop_bounds (q : ℕ) (hq : 1 ≤ q) :
     Real.sqrt (xq q) ≤ ((parQ q).ztop : ℝ) ∧ ((parQ q).ztop : ℝ) ≤ Real.sqrt (2 * xq q) + 1 := by
   show Real.sqrt (xq q) ≤ ((Nat.sqrt (N2 q) + 1 : ℕ) : ℝ) ∧ ((Nat.sqrt (N2 q) + 1 : ℕ) : ℝ) ≤ _
@@ -417,7 +422,7 @@ theorem cornerP_card_ev : ∃ X₀ : ℝ, ∀ x ≥ X₀, ∀ z : ℕ, Real.sqrt
     div_le_div_of_nonneg_right (by linarith) hlx.le
   linarith
 
-/-- **The corner is `o(x/log x)`**, and `z_top² ≤ 4N₁`, for large `q`. -/
+/-- **The corner is `o(x/log x)`.** For `ε > 0` and large `q`: `z_top² ≤ 4N₁` and `n²|cornerP(z_top)|² ≤ εx/log x`. -/
 theorem corner_ev {ε : ℝ} (hε : 0 < ε) : ∀ᶠ q : ℕ in atTop,
     (((parQ q).ztop : ℝ)) ^ 2 ≤ 4 * N1 q ∧
       (SieveCert.n : ℝ) ^ 2 * ((cornerP (parQ q).ztop).card : ℝ) ^ 2 ≤ ε * (xq q / Real.log (xq q)) := by
@@ -497,7 +502,8 @@ theorem dropS_nonneg (x : ℝ) (i j : ℕ) : 0 ≤ dropS x i j := by
     · exact le_rfl
   · exact le_rfl
 
-/-- **The dropped terms' `B`-count** is at most `φ(q)⁻¹(Σ_{i,j} dropS + n²|cornerP|²)`. -/
+/-- **The dropped terms' `B`-count**, for `(parQ q).Good`, `z_top² ≤ 4N₁` and `q ≥ 1`: it is at most
+`φ(q)⁻¹(Σ_{i,j} dropS + n²|cornerP|²)`. -/
 theorem D1_le {q : ℕ} (G : (parQ q).Good) (hsq : (((parQ q).ztop : ℝ)) ^ 2 ≤ 4 * N1 q) (hq : 1 ≤ q) :
     (parQ q).D1 (gB q) ≤ (q.totient : ℝ)⁻¹ * (∑ i ∈ range SieveCert.n, ∑ j ∈ range SieveCert.n,
       dropS (xq q) i j + (SieveCert.n : ℝ) ^ 2 * ((cornerP (parQ q).ztop).card : ℝ) ^ 2) := by
@@ -556,7 +562,8 @@ theorem D1_le {q : ℕ} (G : (parQ q).Good) (hsq : (((parQ q).ztop : ℝ)) ^ 2 �
         add_le_add hA hB
     _ = _ := by ring
 
-/-- **A cell's dropped sums against its cost**, given the shares at `x`: `dropS ≤ (cost/K)X + δ'(1 + n²)X`. -/
+/-- **A cell's dropped sums against its cost**, given the shares at `x`, for `δ' ≥ 0` and `X ≥ 0`:
+`dropS ≤ (cost/K)X + δ'(1 + n²)X`. -/
 theorem dropS_le_cost {x δ' X : ℝ} (hδ' : 0 ≤ δ') (hX : 0 ≤ X) {i j : ℕ}
     (h2 : cand i j = true → S2 x i j ≤ ((bound2 (SieveCert.e i) (SieveCert.e j) : ℝ) / K + δ') * X)
     (h4 : ∀ k < SieveCert.n, ∀ l < SieveCert.n, counted4 i j k l = true →
@@ -634,7 +641,7 @@ theorem dropS_le_cost {x δ' X : ℝ} (hδ' : 0 ≤ δ') (hX : 0 ≤ X) {i j : �
     rw [hcost, Nat.cast_zero, zero_div, zero_mul, zero_add]
     positivity
 
-/-- The certificate's total, summed from the costs, in the reals. -/
+/-- The certificate's total in the reals: for `X ≥ 0`, `Σ_{i,j} (cost/K)X ≤ 0.88X`. -/
 theorem sum_cost_div (X : ℝ) (hX : 0 ≤ X) :
     ∑ i ∈ range SieveCert.n, ∑ j ∈ range SieveCert.n, (cost i j : ℝ) / K * X ≤ 88 / 100 * X := by
   have h := SieveCert.total_div_le
@@ -647,8 +654,8 @@ theorem sum_cost_div (X : ℝ) (hX : 0 ≤ X) :
   rw [hsum]
   exact mul_le_mul_of_nonneg_right h hX
 
-/-- **The shares, eventually**: every candidate cell's `S2` and every counted cell's `S4` within `δ'` of the
-certificate's bounds, simultaneously, for large `x`. -/
+/-- **The shares, eventually**: for `δ' > 0` and large `x`, simultaneously, every candidate cell's `S2` and every
+counted cell's `S4` are at most the certificate's bound plus `δ'`, times `x/log x`. -/
 theorem shares_ev {δ' : ℝ} (hδ' : 0 < δ') : ∀ᶠ x : ℝ in atTop, ∀ i ∈ range SieveCert.n, ∀ j ∈ range SieveCert.n,
     (cand i j = true → S2 x i j ≤ ((bound2 (SieveCert.e i) (SieveCert.e j) : ℝ) / K + δ') * (x / Real.log x)) ∧
     ∀ k ∈ range SieveCert.n, ∀ l ∈ range SieveCert.n, counted4 i j k l = true →
@@ -672,7 +679,7 @@ theorem shares_ev {δ' : ℝ} (hδ' : 0 < δ') : ∀ᶠ x : ℝ in atTop, ∀ i 
       exact hx
     · exact Filter.Eventually.of_forall fun x h => absurd h hc
 
-/-- **The dropped terms, for large `q`**: `D1(g_B) ≤ φ(q)⁻¹(0.88 + ε)x/log x`. -/
+/-- **The dropped terms, for large `q`**: for `ε > 0`, `D1(g_B) ≤ φ(q)⁻¹(0.88 + ε)x/log x`. -/
 theorem drop_ev {ε : ℝ} (hε : 0 < ε) : ∀ᶠ q : ℕ in atTop, LargeQ q →
     (parQ q).D1 (gB q) ≤ (q.totient : ℝ)⁻¹ * ((88 / 100 + ε) * (xq q / Real.log (xq q))) := by
   have hn : (0 : ℝ) < SieveCert.n := by norm_num [SieveCert.n]

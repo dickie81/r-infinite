@@ -26,7 +26,7 @@ primes off `S` are the family's primes.
 The proof:
 
 * Upper window: `sum_cofactor_range` puts the rest of `n` in `(N₁/W₁, N₂/(W₀ + 1)]`, the comparisons `cmpsTU` (the
-  region, the rest's roughness against the last prime, the range) cut out the family, and `typeII_gcmp'` bounds it.
+  region, the rest's roughness against the last prime, the range) cut out the family, and `typeII_gcmp` bounds it.
 * Lower window: the rest of `n` is the product of a non-increasing tuple `y` of primes at least `rt`'s last entry
   (`sum_mult_eq`, `sum_rough_tuples`). `sum_TL_eq` regroups the pairs `(rt, y)` by `m = ∏_S rt`, a squarefree `m`
   of `Mset S P₁ P₂`, with the prime variables `x = (y, rt on Sᶜ)` and the comparisons `cmpsTL`, whose `m`-parts
@@ -494,8 +494,8 @@ theorem prod_append_nat {a b : ℕ} (u : Fin a → ℕ) (v : Fin b → ℕ) :
   rw [Fin.prod_univ_add]
   simp only [Fin.append_left, Fin.append_right]
 
-/-- What the comparisons of the lower window say at `(m, x)`, through the chain `rt` with `m`'s factors on `S` and
-`x`'s last part on `Sᶜ`, and `y`, `x`'s first part. -/
+/-- For `N₁, N₂ > 0`, `x_i ≥ 1` and `m`'s factors on `S` at least `1`: what the comparisons of the lower window say
+at `(m, x)`, through the chain `rt` with `m`'s factors on `S` and `x`'s last part on `Sᶜ`, and `y`, `x`'s first part. -/
 theorem cmpsTL_holds {k' : ℕ} {S : Finset (Fin (k' + 1))} {t : ℕ} (Ω : List (GCmp (k' + 1))) {N₁ N₂ : ℝ}
     (hN₁0 : 0 < N₁) (hN₂0 : 0 < N₂) (m : ℕ) (x : Fin (t + Sᶜ.card) → ℕ) (hx : ∀ i, 1 ≤ x i)
     (hf : ∀ u, 1 ≤ factS (S := S) m u) :
@@ -519,9 +519,9 @@ theorem cmpsTL_holds {k' : ℕ} {S : Finset (Fin (k' + 1))} {t : ℕ} (Ω : List
       (∀ C ∈ fullTL k' t Ω N₁ N₂, C.holds 1 (fullOf S m x)) from forall₂_congr fun C _ => splitS_holds C m x]
   exact fullTL_holds Ω hN₁0 hN₂0 _ _ hrt (fun a => hx _)
 
-/-- **The lower window's bijection.** The chains `rt` of the region `Ω` (prime, decreasing, with
-`P₁ < ∏_S rt ≤ P₂`) times the non-increasing `t`-tuples `y` of primes at least `rt`'s last entry, with
-`N₁ < ∏rt·∏y ≤ N₂`, are the `m ∈ Mset S P₁ P₂` times the tuples `x = (y, rt on Sᶜ)` that satisfy `cmpsTL`. -/
+/-- **The lower window's bijection.** For `1 ≤ N₁ ≤ N₂ ≤ Y` and `P₂ ≤ Y`: the chains `rt` of the region `Ω` (prime,
+decreasing, with `P₁ < ∏_S rt ≤ P₂`) times the non-increasing `t`-tuples `y` of primes at least `rt`'s last entry,
+with `N₁ < ∏rt·∏y ≤ N₂`, are the `m ∈ Mset S P₁ P₂` times the tuples `x = (y, rt on Sᶜ)` that satisfy `cmpsTL`. -/
 theorem sum_TL_eq {M : Type*} [AddCommMonoid M] {k' : ℕ} (S : Finset (Fin (k' + 1)))
     (Ω : List (GCmp (k' + 1))) {Y N₁ N₂ P₁ P₂ : ℕ} (t : ℕ)
     (hreg : ∀ rt : Fin (k' + 1) → ℕ, (∀ i, (rt i).Prime) → (∀ C ∈ Ω, C.holds 0 rt) →
@@ -723,7 +723,7 @@ end TLsum
 
 /-! ### Multiples of a number as cofactor tuples -/
 
-/-- The `p`-rough multiples of a `p`-rough `W` in `(N₁, N₂]` are `Wk` with `k ∈ [1, N₂]` `p`-rough. -/
+/-- The `p`-rough multiples in `(N₁, N₂]` of a `p`-rough `W > 0` are `Wk` with `k ∈ [1, N₂]` `p`-rough. -/
 theorem sum_mult_eq (f : ℕ → ℂ) {W p N₁ N₂ : ℕ} (hW : 0 < W) (hWp : rough p W) :
     ∑ n ∈ Finset.Ioc N₁ N₂, f n * (if W ∣ n ∧ rough p n then 1 else 0) =
       ∑ k ∈ (Finset.Icc 1 N₂).filter (fun k => ∀ p' < p, p'.Prime → ¬ p' ∣ k),
@@ -759,8 +759,8 @@ theorem sum_mult_eq (f : ℕ → ℂ) {W p N₁ N₂ : ℕ} (hW : 0 < W) (hWp : 
     simp only [Finset.mem_filter] at hn
     rw [Nat.mul_div_cancel' hn.2.1]
 
-/-- The `z`-rough `k ∈ [1, Y]` are the products of the non-increasing tuples of at most `K` primes at least `z`,
-the empty tuple included. -/
+/-- For `z ≥ 2`, `Y ≥ 1` and `Y < z^{K+1}`, the `z`-rough `k ∈ [1, Y]` are the products of the non-increasing tuples
+of at most `K` primes at least `z`, the empty tuple included. -/
 theorem sum_rough_tuples {z Y : ℕ} (hz : 2 ≤ z) (hY : 1 ≤ Y) {M : Type*} [AddCommMonoid M] (G : ℕ → M) (K : ℕ)
     (hK : Y < z ^ (K + 1)) :
     ∑ k ∈ (Finset.Icc 1 Y).filter (fun k => ∀ p < z, p.Prime → ¬ p ∣ k), G k =

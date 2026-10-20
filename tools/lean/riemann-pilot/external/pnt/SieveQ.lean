@@ -96,13 +96,13 @@ theorem xpow (q : ℕ) (s : ℝ) : ((q : ℝ) ^ (2333 / 1000 : ℝ)) ^ s = (q : 
 theorem ev_rpow {c : ℝ} (hc : 0 < c) (B : ℝ) : ∀ᶠ q : ℕ in atTop, B ≤ (q : ℝ) ^ c :=
   ((tendsto_rpow_atTop hc).comp tendsto_natCast_atTop_atTop).eventually_ge_atTop B
 
-/-- `q^a = q^b · q^{a − b}`. -/
+/-- For `q > 0`, `q^a = q^b · q^{a − b}`. -/
 theorem rpow_split {q : ℝ} (hq : 0 < q) (a b : ℝ) : q ^ a = q ^ b * q ^ (a - b) := by
   rw [← Real.rpow_add hq]
   congr 1
   ring
 
-/-- If `q^{a−b} ≥ 3` and `q^b ≥ 1`, then `q^a ≥ q^b + 2`. -/
+/-- For `q > 0`: if `q^{a−b} ≥ 3` and `q^b ≥ 1`, then `q^a ≥ q^b + 2`. -/
 theorem rpow_gap {q : ℝ} (hq : 0 < q) {a b : ℝ} (h3 : 3 ≤ q ^ (a - b)) (h1 : 1 ≤ q ^ b) : q ^ b + 2 ≤ q ^ a := by
   rw [rpow_split hq a b]
   nlinarith
@@ -301,7 +301,7 @@ theorem thrOK_single {q k : ℕ} {A : Atom k} (h1 : 1 ≤ A.thr) (h2 : A.thr ≤
   subst hA'
   exact ⟨h1, h2⟩
 
-/-- The thresholds `z₀`, `z_top` and `X'` lie in `[1, q^{L+1}]`. -/
+/-- For `LargeQ q`, the thresholds `z₀`, `z_top` and `X'` lie in `[1, q^{L+1}]`. -/
 theorem thr_bounds {q : ℕ} (hL : LargeQ q) :
     (1 ≤ ((parQ q).z₀ : ℝ) ∧ ((parQ q).z₀ : ℝ) ≤ (q : ℝ) ^ (2333 / 1000 + 1 : ℝ)) ∧
     (1 ≤ ((parQ q).ztop : ℝ) ∧ ((parQ q).ztop : ℝ) ≤ (q : ℝ) ^ (2333 / 1000 + 1 : ℝ)) ∧
@@ -634,8 +634,12 @@ theorem TUat.mono {q : ℕ} {a : ZMod q} {k' : ℕ} {E E' : ℝ} (h : TUat q a k
 theorem P6at.mono {q : ℕ} {a : ZMod q} {j : ℕ} {E E' : ℝ} (h : P6at q a j E) (hE : E ≤ E') : P6at q a j E' :=
   fun spec h1 h2 h3 h4 => (h spec h1 h2 h3 h4).trans hE
 
-/-- **A box surely evaluable** is estimated by the lower window, or by the upper window when its set is all the
-primes; a proper set in the upper window is impossible below `X'`. -/
+/-- **A box surely evaluable.** Let `LargeQ q`, `E ≥ 0`, and the windows' estimates at `E` (`TLat`, `TUat`). Let a
+family of `(k' + 1)`-tuples of primes be cut out by at most `18` atoms with thresholds as in `ThrOK`, each tuple
+strictly decreasing, with entries at least `z₀` in the cells `c`, and the product of all but the last entry at most
+`X'`. If the box of the cells `c` is surely evaluable, the family's `|A − B/φ(q)|` is at most `E`: it is estimated by
+the lower window, or by the upper window when its set is all the primes; a proper set in the upper window is
+impossible below `X'`. -/
 theorem box_leaf {q : ℕ} (hL : LargeQ q) {a : ZMod q} {k' : ℕ} {E : ℝ} (hE : 0 ≤ E) (hTL : TLat q a k' E)
     (hTU : TUat q a k' E) {spec : List (Atom (k' + 1))} (hlen : spec.length ≤ 18) (hthr : ThrOK q spec)
     (c : Fin (k' + 1) → ℕ)
