@@ -25448,3 +25448,30 @@ For the other 47 the lead recorded no instance. The review of round 605 showed e
 **Bearing on RH:** none.
 
 **The next step.** The lower exponents: the scoping workflow's ranking of avenues (scratch), to be verified before any of it is recorded as SIEVE-ROUTE.md §16; then the Weyl-conditional route (Huxley's uncapped curve above `5/6` from Petrow–Young's bound as a displayed hypothesis, ≈ `2.26` at `n = 100` under `CGLDensity` and that bound), unless the owner prefers otherwise.
+
+## Round 611: the avenues below `232/100`, scoped (`frontier/linnik/SIEVE-ROUTE.md` §16)
+
+**What it is.** A record of the next steps toward lower exponents, under the owner's instruction of 2026-10-20, from a scratch workflow (three surveys, two numerical reports, a judge's ranking; scratch and unrefereed) and the lead's recomputation of what the record uses. No Lean file changes.
+
+- The floor: without a pointwise bound on `L(1/2 + it, χ)`, the stack's step argument gives no density exponent below `2` above `5/6` (`A ≥ 2 + 8x`, from `Par.Good`'s `h1` and `h3`).
+- Petrow–Young's Weyl bound (Theorem 1.1, quoted from the text layer) empties the detector's integral class and gives Huxley's uncapped curve `3/(3σ − 1)` on `(5/6, 11/12]`; not below it, since the power classes leave a gap for any `A` below `3/(3σ − 1)` (at `11/12`: `A = 1.6` leaves the lengths `Q^{0.267}` to `Q^{0.289}` uncovered; `A = 12/7` is where the classes touch).
+- With that bound and `CGLDensity` as displayed hypotheses, an 80-step staircase passes the route's threshold `0.88K` at `2.27` (`n = 100`, `0.8147`) and `2.26` (`n = 150`, `0.8722`); a 10-step staircase fails at `2.26` even against `1`. The judge's `2.26`/`2.255`/`2.25` were against `1`, with a continuous curve.
+- The unconditional line from round 609's inputs stays at `232/100` short of a large grid (round 610); phase 2 of goal 2 would move it to the conditional one.
+
+**The lead's verification.** Petrow–Young's Theorem 1.1 was read in the downloaded text layer (`S1/dl_py/py.txt` line 17–18). The class-overlap condition and the two values at `11/12` were computed by hand. The staircase certificate was run by the lead (scratch `r611/g7h.py`, `sieve_route_certificate.py`'s `Cert` with the curve as 161 pieces and `CrudeOmega`) at `L ∈ {2.25, 2.255, 2.26, 2.265, 2.27, 2.275, 2.28}` and `n ∈ {100, 150, 200, 300, 400}` as §16 reports. The constraints `h1`, `h3` were read in `LinnikHuxStep.lean` 76–79; the detector's `Ivχ` and `Gχ` in `LinnikDetect.lean` 150–151 and 345–346. Figures marked "workflow, not re-run" are the workflow's.
+
+**What is checked.** `tools/research/render_lint.py`'s `lint` was run on the two changed markdown files and compared with HEAD by defect class: README.md (1872 at HEAD) gains none from this entry; SIEVE-ROUTE.md (25) gains none; no strike is added. Neither is a paper surface.
+
+**Records.** `frontier/linnik/SIEVE-ROUTE.md`: §16 and a marker in the preamble. README.md: this entry.
+
+**Check 4.** New against the pilot: §16's account. Against the literature: Petrow–Young's bound is a published theorem; its use for a density exponent on `(5/6, 11/12]` in the `qT`-aspect is the lead's and the workflow's bookkeeping, unrefereed.
+
+**Check 9.**
+
+- (a) "No density exponent below `2`" is scoped to the stack's step argument; "no source" for a `qT`-aspect twelfth moment is scoped to the methods surveyed; the thresholds are the certificate's bounds at the stated `n` and step counts.
+- (b) No change to the register's targets.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** The Weyl-conditional route in Lean (§16), unless the owner prefers otherwise: the displayed bound, the emptiness lemma, the step with `y` as a parameter, the staircase to `11/12`, and the certificate at `n = 100` for `227/100`.
