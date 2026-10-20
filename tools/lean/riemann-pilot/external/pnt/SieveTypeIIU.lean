@@ -3,13 +3,14 @@
 
 Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
-Plain statement (`typeII_unw`). Fix `K₀`, `J₀`, `e₁ > 0`, `E₀ ≥ 0` and `Λ₁ ≥ 0`. There are `δ > 0` and `q₀` such
-that for `q ≥ q₀` and a unit `a` mod `q`: let `m` run over `S ⊆ (P₁, P₂]` with `q^{0.401L} ≤ P₁` and
-`P₂ ≤ q^{0.485L}` (`L = 2.333`), with coefficients `|a_m| ≤ 1`, and let `n + 1 ≤ K₀` primes `x_i` run over all the
-primes up to `⌊2q^L⌋`. Let `J ≤ J₀` sharp comparisons `P_j` hold when `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i > 0` and
-imply `ℓ_j ≥ 0`, with `|e_{ji}| ≤ E₀`, `φ_j(m) ≤ Λ₁ log q` on `S`, and for each `j` a pivot `i` with `e_{ji} = ±1`.
-If wherever all the comparisons hold each `x_i ≥ 2q^{e₁}` and `m∏_i x_i ≤ 2q^L`, then the family's `|A − B/φ(q)|`
-(`SieveFamily.Dsum`) is at most `q^{L−δ}/φ(q)`.
+Plain statement (`typeII_unw`). Let `L`, `w₁` and `w₂` be a route's parameters (`SieveRoute.Route`) with `RouteOK`, and
+assume its Type II estimate (`hII : SieveRoute.TypeIIAt`). Fix `K₀`, `J₀`, `e₁ > 0`, `E₀ ≥ 0` and `Λ₁ ≥ 0`. There are
+`δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`: let `m` run over `S ⊆ (P₁, P₂]` with `q^{w₁L} ≤ P₁` and
+`P₂ ≤ q^{w₂L}`, with coefficients `|a_m| ≤ 1`, and let `n + 1 ≤ K₀` primes `x_i` run over all the primes up to `⌊2q^L⌋`.
+Let `J ≤ J₀` sharp comparisons `P_j` hold when `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i > 0` and imply `ℓ_j ≥ 0`, with
+`|e_{ji}| ≤ E₀`, `φ_j(m) ≤ Λ₁ log q` on `S`, and for each `j` a pivot `i` with `e_{ji} = ±1`. If wherever all the
+comparisons hold each `x_i ≥ 2q^{e₁}` and `m∏_i x_i ≤ 2q^L`, then the family's `|A − B/φ(q)|` (`SieveFamily.Dsum`) is at
+most `q^{L−δ}/φ(q)`.
 
 This removes the dyadic weights from `SieveFamily.typeII_sharp`, whose primes carry `f0(x_i/Q_i)` at fixed scales
 and whose `m` lies in a dyadic block, so that §13's M5 can use families with sharp ranges.
@@ -22,12 +23,16 @@ The proof:
 * `SieveFamily.typeII_sharp` bounds each piece by `q^{L−δ}/φ(q)` (with `f0 = bump`, `F₀ = 1`, `A₀ = 1`). The pieces
   number at most `(3 + 4 log q)^{K₀+1}`, which `ev_log_pow_le` puts below `q^{δ/2}`.
 
+Round 607 made `L`, `w₁` and `w₂` a route's parameters and the Type II estimate a hypothesis (`hII`); the
+statements of earlier rounds are the case `SieveRoute.route2333`, with `SieveRoute.typeII2333` for `hII`.
+
+
 The file imports `SieveFamily.lean` and `SieveDyadic.lean`.
 -/
 import SieveFamily
 import SieveDyadic
 
-open Real Finset Filter Asymptotics SieveFamily
+open Real Finset Filter Asymptotics SieveFamily SieveRoute
 
 namespace SieveTypeIIU
 
@@ -168,17 +173,18 @@ section Main
 open Classical
 open scoped ContDiff
 
-/-- **Type II for families with sharp prime ranges.** Fix `K₀`, `J₀`, `e₁ > 0`, `E₀ ≥ 0` and `Λ₁ ≥ 0`. There are
-`δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`: let `m` run over `S ⊆ (P₁, P₂]` with
-`q^{0.401L} ≤ P₁` and `P₂ ≤ q^{0.485L}`, with coefficients `|a_m| ≤ 1`, and let `n + 1 ≤ K₀` primes `x_i` run over
-the primes up to `⌊2q^L⌋`. Let `J ≤ J₀` sharp comparisons `P_j` hold when `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i > 0` and
-imply `ℓ_j ≥ 0`, with `|e_{ji}| ≤ E₀`, `φ_j(m) ≤ Λ₁ log q` on `S` and for each `j` a pivot `i` with `e_{ji} = ±1`. If
-wherever all the comparisons hold each `x_i ≥ 2q^{e₁}` and `m∏_i x_i ≤ 2q^L`, then the family's `|A − B/φ(q)|` is at
-most `q^{L−δ}/φ(q)`. -/
-theorem typeII_unw (K₀ J₀ : ℕ) {e₁ E₀ Λ₁ : ℝ} (he₁ : 0 < e₁) (hE₀ : 0 ≤ E₀) (hΛ₁ : 0 ≤ Λ₁) :
+/-- **Type II for families with sharp prime ranges.** Assume `RouteOK` and the route's Type II estimate (`hII`). Fix
+`K₀`, `J₀`, `e₁ > 0`, `E₀ ≥ 0` and `Λ₁ ≥ 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`:
+let `m` run over `S ⊆ (P₁, P₂]` with `q^{w₁L} ≤ P₁` and `P₂ ≤ q^{w₂L}`, with coefficients `|a_m| ≤ 1`, and let
+`n + 1 ≤ K₀` primes `x_i` run over the primes up to `⌊2q^L⌋`. Let `J ≤ J₀` sharp comparisons `P_j` hold when
+`ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i > 0` and imply `ℓ_j ≥ 0`, with `|e_{ji}| ≤ E₀`, `φ_j(m) ≤ Λ₁ log q` on `S` and for
+each `j` a pivot `i` with `e_{ji} = ±1`. If wherever all the comparisons hold each `x_i ≥ 2q^{e₁}` and
+`m∏_i x_i ≤ 2q^L`, then the family's `|A − B/φ(q)|` is at most `q^{L−δ}/φ(q)`. -/
+theorem typeII_unw [Route] [RouteOK] (hII : TypeIIAt) (K₀ J₀ : ℕ) {e₁ E₀ Λ₁ : ℝ} (he₁ : 0 < e₁) (hE₀ : 0 ≤ E₀)
+    (hΛ₁ : 0 ≤ Λ₁) :
     ∃ δ : ℝ, 0 < δ ∧ ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∀ (P₁ P₂ : ℕ) (S : Finset ℕ), S ⊆ Finset.Ioc P₁ P₂ →
-      (q : ℝ) ^ (401 / 1000 * (2333 / 1000) : ℝ) ≤ P₁ → (P₂ : ℝ) ≤ (q : ℝ) ^ (485 / 1000 * (2333 / 1000) : ℝ) →
+      (q : ℝ) ^ (w₁ * L) ≤ P₁ → (P₂ : ℝ) ≤ (q : ℝ) ^ (w₂ * L) →
       ∀ (acoef : ℕ → ℂ), (∀ m, ‖acoef m‖ ≤ 1) →
       ∀ (n : ℕ), n + 1 ≤ K₀ →
       ∀ {J : ℕ}, J ≤ J₀ → ∀ (φ : Fin J → ℕ → ℝ) (e : Fin J → Fin (n + 1) → ℝ)
@@ -188,13 +194,14 @@ theorem typeII_unw (K₀ J₀ : ℕ) {e₁ E₀ Λ₁ : ℝ} (he₁ : 0 < e₁) 
       (∀ j, ∀ m ∈ S, φ j m ≤ Λ₁ * Real.log q) →
       ∀ piv : Fin J → Fin (n + 1), (∀ j, e j (piv j) = 1 ∨ e j (piv j) = -1) →
       (∀ m ∈ S, ∀ x : Fin (n + 1) → ℕ, (∀ i, (x i).Prime) → (∀ j, Pr j m x) →
-        (∀ i, 2 * (q : ℝ) ^ e₁ ≤ x i) ∧ (m : ℝ) * ∏ i, (x i : ℝ) ≤ 2 * (q : ℝ) ^ (2333 / 1000 : ℝ)) →
-      ‖Dsum q a (S ×ˢ Fintype.piFinset (fun _ : Fin (n + 1) => primesLe ⌊2 * (q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊))
+        (∀ i, 2 * (q : ℝ) ^ e₁ ≤ x i) ∧ (m : ℝ) * ∏ i, (x i : ℝ) ≤ 2 * (q : ℝ) ^ L) →
+      ‖Dsum q a (S ×ˢ Fintype.piFinset (fun _ : Fin (n + 1) => primesLe ⌊2 * (q : ℝ) ^ L⌋₊))
           (fun mx => mx.1 * ∏ i, mx.2 i)
           (fun mx => acoef mx.1 * ∏ j, ((if Pr j mx.1 mx.2 then 1 else 0 : ℝ) : ℂ))‖ ≤
-        (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ) := by
-  have hΛ₀0 : 0 ≤ Λ₁ + K₀ * E₀ * (2333 / 1000 + 3) := by positivity
-  obtain ⟨δ, hδ, q₁, hq₁⟩ := typeII_sharp (f0 := SieveDyadic.bump) (SieveDyadic.contDiff_bump (n := ⊤))
+        (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ) := by
+  have hL0 := (L_pos : (0 : ℝ) < L)
+  have hΛ₀0 : 0 ≤ Λ₁ + K₀ * E₀ * (L + 3) := by positivity
+  obtain ⟨δ, hδ, q₁, hq₁⟩ := typeII_sharp hII (f0 := SieveDyadic.bump) (SieveDyadic.contDiff_bump (n := ⊤))
     SieveDyadic.bump_support SieveDyadic.bump_nonneg (F₀ := 1) SieveDyadic.bump_le_one (K₀ + 1) J₀
     (A₀ := 1) he₁ hE₀ hΛ₀0
   obtain ⟨q₂, hq₂⟩ := Filter.eventually_atTop.1
@@ -208,16 +215,16 @@ theorem typeII_unw (K₀ J₀ : ℕ) {e₁ E₀ Λ₁ : ℝ} (he₁ : 0 < e₁) 
   have hq0 : (0 : ℝ) < q := by linarith
   have hlog2 : 0 < Real.log 2 := Real.log_pos (by norm_num)
   have hlogq : Real.log 2 ≤ Real.log q := Real.log_le_log (by norm_num) hqR
-  have hqL0 : 0 < (q : ℝ) ^ (2333 / 1000 : ℝ) := Real.rpow_pos_of_pos hq0 _
-  have hqL1 : (1 : ℝ) ≤ (q : ℝ) ^ (2333 / 1000 : ℝ) := Real.one_le_rpow (by linarith) (by norm_num)
-  set Y : ℕ := ⌊2 * (q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ with hY
+  have hqL0 : 0 < (q : ℝ) ^ L := Real.rpow_pos_of_pos hq0 _
+  have hqL1 : (1 : ℝ) ≤ (q : ℝ) ^ L := Real.one_le_rpow (by linarith) L_pos.le
+  set Y : ℕ := ⌊2 * (q : ℝ) ^ L⌋₊ with hY
   have hY0 : Y ≠ 0 := by
     have : 1 ≤ Y := Nat.le_floor (by push_cast; linarith)
     omega
-  have hYle : (Y : ℝ) ≤ 2 * (q : ℝ) ^ (2333 / 1000 : ℝ) := Nat.floor_le (by positivity)
+  have hYle : (Y : ℝ) ≤ 2 * (q : ℝ) ^ L := Nat.floor_le (by positivity)
   set M : ℕ := Nat.log 2 Y + 1 with hM
   have hP₁1 : 1 ≤ P₁ := by
-    have : (1 : ℝ) ≤ (q : ℝ) ^ (401 / 1000 * (2333 / 1000) : ℝ) := Real.one_le_rpow (by linarith) (by norm_num)
+    have : (1 : ℝ) ≤ (q : ℝ) ^ (w₁ * L) := Real.one_le_rpow (by linarith) w₁L_pos.le
     exact_mod_cast this.trans hP₁
   -- a nonzero weight has every `x_i ≤ Y`
   have hFY : ∀ m ∈ S, ∀ x : Fin (n + 1) → ℕ, (∀ i, (x i).Prime) →
@@ -240,9 +247,9 @@ theorem typeII_unw (K₀ J₀ : ℕ) {e₁ E₀ Λ₁ : ℝ} (he₁ : 0 < e₁) 
   -- the blocks of `m`
   have hP₂Y : P₂ ≤ Y := by
     apply Nat.le_floor
-    calc (P₂ : ℝ) ≤ (q : ℝ) ^ (485 / 1000 * (2333 / 1000) : ℝ) := hP₂
-      _ ≤ (q : ℝ) ^ (2333 / 1000 : ℝ) := Real.rpow_le_rpow_of_exponent_le (by linarith) (by norm_num)
-      _ ≤ 2 * (q : ℝ) ^ (2333 / 1000 : ℝ) := by linarith
+    calc (P₂ : ℝ) ≤ (q : ℝ) ^ (w₂ * L) := hP₂
+      _ ≤ (q : ℝ) ^ L := Real.rpow_le_rpow_of_exponent_le (by linarith) w₂L_lt_L.le
+      _ ≤ 2 * (q : ℝ) ^ L := by linarith
   have hblkS : ∀ m ∈ S, Nat.log 2 ((m - 1) / P₁) ∈ Finset.range M := by
     intro m hm
     have hmI := Finset.mem_Ioc.1 (hS hm)
@@ -257,7 +264,7 @@ theorem typeII_unw (K₀ J₀ : ℕ) {e₁ E₀ Λ₁ : ℝ} (he₁ : 0 < e₁) 
       ‖Dsum q a ((S ×ˢ Fintype.piFinset (fun _ : Fin (n + 1) => primesLe Y)).filter
           (fun mx => Nat.log 2 ((mx.1 - 1) / P₁) = b)) (fun mx => mx.1 * ∏ i, mx.2 i)
           (fun mx => acoef mx.1 * ∏ j, ((if Pr j mx.1 mx.2 then 1 else 0 : ℝ) : ℂ))‖ ≤
-        ((M + 1 : ℕ) : ℝ) ^ (n + 1) * ((q.totient : ℝ)⁻¹ * (1 * (q : ℝ) ^ (2333 / 1000 - δ : ℝ))) := by
+        ((M + 1 : ℕ) : ℝ) ^ (n + 1) * ((q.totient : ℝ)⁻¹ * (1 * (q : ℝ) ^ (L - δ))) := by
     intro b _
     set Sb := S.filter (fun m => Nat.log 2 ((m - 1) / P₁) = b) with hSb
     have hfilt : (S ×ˢ Fintype.piFinset (fun _ : Fin (n + 1) => primesLe Y)).filter
@@ -268,7 +275,7 @@ theorem typeII_unw (K₀ J₀ : ℕ) {e₁ E₀ Λ₁ : ℝ} (he₁ : 0 < e₁) 
       tauto
     rw [hfilt]
     have hbound0 : (0 : ℝ) ≤ ((M + 1 : ℕ) : ℝ) ^ (n + 1) *
-        ((q.totient : ℝ)⁻¹ * (1 * (q : ℝ) ^ (2333 / 1000 - δ : ℝ))) := by positivity
+        ((q.totient : ℝ)⁻¹ * (1 * (q : ℝ) ^ (L - δ))) := by positivity
     rcases Sb.eq_empty_or_nonempty with hSb0 | ⟨m₀, hm₀⟩
     · rw [hSb0, Finset.empty_product]
       simp only [Dsum, Finset.sum_empty, norm_zero]
@@ -282,10 +289,10 @@ theorem typeII_unw (K₀ J₀ : ℕ) {e₁ E₀ Λ₁ : ℝ} (he₁ : 0 < e₁) 
       exact Finset.mem_Ioc.2 ⟨h1, h2⟩
     have hm₀S := (Finset.mem_filter.1 hm₀).1
     have hP'm₀ : P' < m₀ := (Finset.mem_Ioc.1 (hSbI hm₀)).1
-    have hP'lo : (q : ℝ) ^ (401 / 1000 * (2333 / 1000) : ℝ) ≤ P' := by
+    have hP'lo : (q : ℝ) ^ (w₁ * L) ≤ P' := by
       have : P₁ ≤ P' := Nat.le_mul_of_pos_right _ (by positivity)
       exact hP₁.trans (by exact_mod_cast this)
-    have hP'hi : (P' : ℝ) ≤ (q : ℝ) ^ (485 / 1000 * (2333 / 1000) : ℝ) := by
+    have hP'hi : (P' : ℝ) ≤ (q : ℝ) ^ (w₂ * L) := by
       have : P' ≤ P₂ := le_trans hP'm₀.le (Finset.mem_Ioc.1 (hS hm₀S)).2
       exact (by exact_mod_cast this : (P' : ℝ) ≤ P₂).trans hP₂
     have hP'pos : (0 : ℝ) < P' := by
@@ -346,31 +353,31 @@ theorem typeII_unw (K₀ J₀ : ℕ) {e₁ E₀ Λ₁ : ℝ} (he₁ : 0 < e₁) 
     rw [hfam]
     -- the comparisons' forms on the box
     have hℓ : ∀ j, ∀ m ∈ Sb, ∀ x ∈ Fintype.piFinset (fun i : Fin (n + 1) => primesTo (Q i)),
-        φ j m + ∑ i, e j i * Real.log (x i) ≤ (Λ₁ + K₀ * E₀ * (2333 / 1000 + 3)) * Real.log q := by
+        φ j m + ∑ i, e j i * Real.log (x i) ≤ (Λ₁ + K₀ * E₀ * (L + 3)) * Real.log q := by
       intro j m hm x hx
       rw [Fintype.mem_piFinset] at hx
-      have hlogx : ∀ i, 0 ≤ Real.log (x i) ∧ Real.log (x i) ≤ (2333 / 1000 + 3) * Real.log q := by
+      have hlogx : ∀ i, 0 ≤ Real.log (x i) ∧ Real.log (x i) ≤ (L + 3) * Real.log q := by
         intro i
         obtain ⟨hxle, hxp⟩ := (mem_primesTo (hQpos i).le).1 (hx i)
         have hx1 : (1 : ℝ) ≤ x i := by exact_mod_cast hxp.one_lt.le
         refine ⟨Real.log_nonneg hx1, ?_⟩
-        have h2M : (2 : ℝ) ^ M ≤ 4 * (q : ℝ) ^ (2333 / 1000 : ℝ) := by
+        have h2M : (2 : ℝ) ^ M ≤ 4 * (q : ℝ) ^ L := by
           have h1 : ((2 ^ Nat.log 2 Y : ℕ) : ℝ) ≤ Y := by exact_mod_cast Nat.pow_log_le_self 2 hY0
           push_cast at h1
           rw [hM, pow_succ]
           linarith
-        have hxi : (x i : ℝ) ≤ 8 * (q : ℝ) ^ (2333 / 1000 : ℝ) := by
+        have hxi : (x i : ℝ) ≤ 8 * (q : ℝ) ^ L := by
           have : (2 : ℝ) ^ (k i) ≤ 2 ^ M := pow_le_pow_right₀ (by norm_num) (hkM i)
           rw [hQi] at hxle
           linarith
-        calc Real.log (x i) ≤ Real.log (8 * (q : ℝ) ^ (2333 / 1000 : ℝ)) := Real.log_le_log (by linarith) hxi
-          _ = Real.log 8 + 2333 / 1000 * Real.log q := by
+        calc Real.log (x i) ≤ Real.log (8 * (q : ℝ) ^ L) := Real.log_le_log (by linarith) hxi
+          _ = Real.log 8 + L * Real.log q := by
               rw [Real.log_mul (by norm_num) hqL0.ne', Real.log_rpow hq0]
-          _ ≤ (2333 / 1000 + 3) * Real.log q := by
+          _ ≤ (L + 3) * Real.log q := by
               have : Real.log 8 = 3 * Real.log 2 := by
                 rw [show (8 : ℝ) = 2 ^ 3 by norm_num, Real.log_pow]; norm_num
               nlinarith
-      have hsum : ∑ i, e j i * Real.log (x i) ≤ ∑ _i : Fin (n + 1), E₀ * ((2333 / 1000 + 3) * Real.log q) := by
+      have hsum : ∑ i, e j i * Real.log (x i) ≤ ∑ _i : Fin (n + 1), E₀ * ((L + 3) * Real.log q) := by
         refine Finset.sum_le_sum fun i _ => ?_
         have h1 := hlogx i
         have h2 : e j i ≤ E₀ := le_trans (le_abs_self _) (he j i)
@@ -381,12 +388,12 @@ theorem typeII_unw (K₀ J₀ : ℕ) {e₁ E₀ Λ₁ : ℝ} (he₁ : 0 < e₁) 
       have hlq0 : 0 ≤ Real.log q := by linarith
       have hn' : ((n + 1 : ℕ) : ℝ) ≤ K₀ := by exact_mod_cast hn
       push_cast at hn'
-      have h3 : ((n : ℝ) + 1) * (E₀ * ((2333 / 1000 + 3) * Real.log q)) ≤
-          (K₀ : ℝ) * (E₀ * ((2333 / 1000 + 3) * Real.log q)) :=
+      have h3 : ((n : ℝ) + 1) * (E₀ * ((L + 3) * Real.log q)) ≤
+          (K₀ : ℝ) * (E₀ * ((L + 3) * Real.log q)) :=
         mul_le_mul_of_nonneg_right hn' (by positivity)
       linarith
     by_cases hgood : (∀ j < n + 1, (q : ℝ) ^ e₁ ≤ Q j) ∧
-        ∏ j ∈ Finset.range (n + 1), Q j ≤ 2 ^ (K₀ + 1) * (q : ℝ) ^ (2333 / 1000 : ℝ) / P'
+        ∏ j ∈ Finset.range (n + 1), Q j ≤ 2 ^ (K₀ + 1) * (q : ℝ) ^ L / P'
     · exact hq₁ q hq1 a ha P' Sb hSbI hP'lo hP'hi acoef hacoef n (by omega) Q hgood.1 hgood.2 hJ φ e Pr he hP
         hℓ piv hpiv
     · have hz : ∀ mx ∈ Sb ×ˢ Fintype.piFinset (fun i : Fin (n + 1) => primesTo (Q i)),
@@ -425,16 +432,16 @@ theorem typeII_unw (K₀ J₀ : ℕ) {e₁ E₀ Λ₁ : ℝ} (he₁ : 0 < e₁) 
           rw [Finset.prod_mul_distrib, Finset.prod_const, Finset.card_univ, Fintype.card_fin] at hprodQ
           have hmP : (P' : ℝ) < mx.1 := by exact_mod_cast (Finset.mem_Ioc.1 (hSbI hm)).1
           have hprod0 : (0 : ℝ) ≤ ∏ i, (mx.2 i : ℝ) := Finset.prod_nonneg fun i _ => Nat.cast_nonneg _
-          have hprodx : ∏ i, (mx.2 i : ℝ) ≤ 2 * (q : ℝ) ^ (2333 / 1000 : ℝ) / P' := by
+          have hprodx : ∏ i, (mx.2 i : ℝ) ≤ 2 * (q : ℝ) ^ L / P' := by
             rw [le_div_iff₀ hP'pos]
             nlinarith
           have h2pow : (2 : ℝ) ^ (n + 2) ≤ 2 ^ (K₀ + 1) := pow_le_pow_right₀ (by norm_num) (by omega)
           calc ∏ i : Fin (n + 1), Q ↑i ≤ 2 ^ (n + 1) * ∏ i, (mx.2 i : ℝ) := hprodQ
-            _ ≤ 2 ^ (n + 1) * (2 * (q : ℝ) ^ (2333 / 1000 : ℝ) / P') := by gcongr
-            _ = 2 ^ (n + 2) * ((q : ℝ) ^ (2333 / 1000 : ℝ) / P') := by ring
-            _ ≤ 2 ^ (K₀ + 1) * ((q : ℝ) ^ (2333 / 1000 : ℝ) / P') :=
+            _ ≤ 2 ^ (n + 1) * (2 * (q : ℝ) ^ L / P') := by gcongr
+            _ = 2 ^ (n + 2) * ((q : ℝ) ^ L / P') := by ring
+            _ ≤ 2 ^ (K₀ + 1) * ((q : ℝ) ^ L / P') :=
                 mul_le_mul_of_nonneg_right h2pow (by positivity)
-            _ = 2 ^ (K₀ + 1) * (q : ℝ) ^ (2333 / 1000 : ℝ) / P' := by ring
+            _ = 2 ^ (K₀ + 1) * (q : ℝ) ^ L / P' := by ring
       have hz' : Dsum q a (Sb ×ˢ Fintype.piFinset (fun i : Fin (n + 1) => primesTo (Q i)))
           (fun mx => mx.1 * ∏ i, mx.2 i)
           (fun mx => (acoef mx.1 * ∏ i, ((SieveDyadic.bump ((mx.2 i : ℝ) / Q i) : ℝ) : ℂ)) *
@@ -447,13 +454,13 @@ theorem typeII_unw (K₀ J₀ : ℕ) {e₁ E₀ Λ₁ : ℝ} (he₁ : 0 < e₁) 
   have hNlog : (Nat.log 2 Y : ℝ) ≤ 1 + 4 * Real.log q := by
     have h1 : ((2 ^ Nat.log 2 Y : ℕ) : ℝ) ≤ Y := by exact_mod_cast Nat.pow_log_le_self 2 hY0
     push_cast at h1
-    have h3 : Real.log ((2 : ℝ) ^ Nat.log 2 Y) ≤ Real.log (2 * (q : ℝ) ^ (2333 / 1000 : ℝ)) :=
+    have h3 : Real.log ((2 : ℝ) ^ Nat.log 2 Y) ≤ Real.log (2 * (q : ℝ) ^ L) :=
       Real.log_le_log (by positivity) (h1.trans hYle)
     rw [Real.log_pow, Real.log_mul (by norm_num) hqL0.ne', Real.log_rpow hq0] at h3
     have hl2 : (0.6931471803 : ℝ) < Real.log 2 := Real.log_two_gt_d9
     have hlq0 : 0 ≤ Real.log q := by linarith
     refine le_of_mul_le_mul_right ?_ hlog2
-    nlinarith
+    nlinarith [L_le, L_pos]
   have hcount : (M : ℝ) * ((M + 1 : ℕ) : ℝ) ^ (n + 1) ≤ (q : ℝ) ^ (δ / 2) := by
     have hM1 : ((M + 1 : ℕ) : ℝ) ≤ 3 + 4 * Real.log q := by
       rw [hM]; push_cast; linarith
@@ -465,12 +472,12 @@ theorem typeII_unw (K₀ J₀ : ℕ) {e₁ E₀ Λ₁ : ℝ} (he₁ : 0 < e₁) 
       _ ≤ (3 + 4 * Real.log q) ^ (K₀ + 1) := pow_le_pow_left₀ (by linarith) hM1 _
       _ ≤ (q : ℝ) ^ (δ / 2) := hq₂ q hq2
   calc (M : ℝ) * (((M + 1 : ℕ) : ℝ) ^ (n + 1) *
-        ((q.totient : ℝ)⁻¹ * (1 * (q : ℝ) ^ (2333 / 1000 - δ : ℝ))))
+        ((q.totient : ℝ)⁻¹ * (1 * (q : ℝ) ^ (L - δ))))
       = ((M : ℝ) * ((M + 1 : ℕ) : ℝ) ^ (n + 1)) *
-          ((q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ)) := by ring
-    _ ≤ (q : ℝ) ^ (δ / 2) * ((q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ)) :=
+          ((q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ)) := by ring
+    _ ≤ (q : ℝ) ^ (δ / 2) * ((q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ)) :=
         mul_le_mul_of_nonneg_right hcount (by positivity)
-    _ = (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ / 2 : ℝ) := by
+    _ = (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ / 2) := by
         rw [mul_left_comm, ← Real.rpow_add hq0]
         congr 2
         ring

@@ -25221,3 +25221,60 @@ For the other 47 the lead recorded no instance. The review of round 605 showed e
 
 - `Linnik229.linnik_229`: Linnik's theorem with exponent `229/100`, under `LinnikCGL.CGLDensity`. It compiles in scratch, and depends on `propext`, `Classical.choice` and `Quot.sound` only.
 - It needed the route with parameters: M4–M8 take a route, a grid of the certificate and the fit between them. `linnik_2333` is re-derived as that theorem's instance.
+
+## Round 607: the second goal's phase 1 in Lean, Linnik's exponent `229/100` with Chen–Gupta–Li's estimate as a hypothesis (`external/pnt`, eight new files and fifteen changed; `frontier/linnik/SIEVE-ROUTE.md` §14)
+
+**What it is.** The second goal of SIEVE-ROUTE.md §11, the owner's "push on using the 7/3 result", has its phase 1 in Lean.
+
+- `Linnik229.linnik_229` gives Linnik's theorem with exponent `229/100`. Its one hypothesis is Chen–Gupta–Li's zero-density estimate on `[5/7, 16/21]`, stated as `LinnikCGL.CGLDensity`.
+- For it the sieve route of round 604 takes its numbers as parameters, and `SieveMain.linnik_2333` is re-derived as an instance.
+- Phase 2 is to prove `CGLDensity`.
+
+**The theorem.** `Linnik229.linnik_229`: if `CGLDensity` holds, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{229/100}`. `#print axioms` gives `[propext, Classical.choice, Quot.sound]`.
+
+- `CGLDensity` says: for every `ε > 0` there is `C` such that for every `q ≥ 1`, `5/7 ≤ σ ≤ 16/21` and `T ≥ 2`, at most `C(qT)^{(7/3)(1−σ)+ε}` characters mod `q` have a zero of `L(·, χ)` in `Re s ≥ σ`, `|Im s| ≤ T`.
+- It is a definition, and the theorems that use it take it as an argument; it is not an axiom.
+- `LinnikCGL.lean`'s header quotes the first sentence of Chen, Gupta and Li's abstract (arXiv:2507.08296v2) and says how their bound gives `CGLDensity`. The quotation was checked against the abstract returned by arXiv's API for 2507.08296v2, in its LaTeX source.
+
+**The proof.** SIEVE-ROUTE.md §14 gives it in full; each file's header states its main theorems.
+
+- *The route with parameters.* M4–M8 take a route (`SieveRoute.Route`: `L`, `w₁`, `w₂`, with `RouteOK`), its Type II estimate (`SieveRoute.TypeIIAt`), a grid of the certificate (`SieveCert.Grid`, with `GridOK`) and the fit between them (`SieveQ.Fits`). `SieveMain.linnik_route` gives Linnik's theorem with exponent `L` from these and a certificate's total at most `0.88K`. `linnik_2333` is its case at `route2333` and `grid2333`; its statement is unchanged.
+- *The density inputs.* `LinnikIngham73.charDensity_ingham73` (D1), `7/3 + 4ε` on `1/2 ≤ σ ≤ 5/7`, is round 524's Ingham argument at `c = 1/12`. `LinnikHuxStep.charDensity_hux73` (D3), `7/3 + 1/2000` on `16/21 ≤ σ ≤ 5/6`, is round 589's step with parameters (`LinnikHuxStep.charDensity_gen`), which also re-derives round 589's `101/50` below `11/12` (`charDensity_step'`). `CGLDensity` (D2) covers `5/7 ≤ σ ≤ 16/21`, and `LinnikStep.charDensity_step` covers `5/6` on.
+- *Type II for the curve.* `SieveTypeIIGen.typeII_gen` is Proposition 3′ for a curve whose counts hold and a window whose exponents stay at most `L − 1/25000`. `SieveTypeII73.typeII_73` is its case for the curve `g73` at `L = 229/100` on `[4123/10000, 4902/10000]·L`, under `CGLDensity` (`counts_73`, `window_73`).
+- *The certificate.* `SieveCert229.total_le_229`: on the grid of that window with `n = 100` cells a side, the certificate's total is at most `0.88K`, by `decide +kernel`.
+- `linnik_229` is `linnik_route` at `route229` and `grid229` (`fits229`), with `typeII229` and `total_le_229`.
+
+**What is checked.**
+
+- `lean` was run on the 33 files from `SieveRoute` to `Linnik229` in `build.sh`'s order, with the build's `LEAN_PATH` (Mathlib at `MATHLIB_REV`) and `build.sh`'s own `lean` options, into `build/`: `SieveRoute` 810 s, `SieveCert` 112, `SieveCert229` 300, `SieveRough` 135, `SieveSep` 17, `SieveFamily` 61, `SieveBrun` 21, `SieveCount` 15, `SieveRanges` 21, `SieveLeaf` 23, `SieveTree` 14, `SieveDyadic` 15, `SieveTypeIIU` 52, `SieveRoughTuple` 21, `SieveTypeIIR` 31, `SieveDiff` 18, `SieveStops1` 17, `SieveCmp` 16, `SieveStops2` 65, `SieveProp6` 77, `SieveChain` 71, `SieveDecomp` 19, `SieveBuch` 19, `SieveLeaves` 15, `SieveQ` 31, `SieveDrop` 25, `SieveMain` 27, `LinnikCGL` 6, `LinnikIngham73` 35, `LinnikHuxStep` 57, `SieveTypeIIGen` 33, `SieveTypeII73` 20, `Linnik229` 16; 2215 s in all. No file reported an error, a warning or a use of `sorry`. The files' own `#print axioms` lines print `[propext]` for `SieveCert.gridOK2333`, `total_le_2333`, `gridOK229` and `total_le_229`, and `[propext, Classical.choice, Quot.sound]` for the rest. (A container restart interrupted the first runs; this run was resumable and completed every module. Its times include a cold disk after the restart, which `SieveRoute`'s 810 s is almost all of, and concurrent scratch work, so they are not comparable with round 604's; an earlier run of the same files before the restart, interrupted after 18 modules, took `SieveRoute` 7 s, `SieveCert` 56 and `SieveCert229` 135.)
+- The eight new files have 1976 lines. None has a `sorry`, `native_decide`, `axiom` or `maxHeartbeats` option, and no line exceeds 120 characters. The three `maxHeartbeats` options in the changed files (`SieveRough.claim_step`, `SieveProp6.prop6`, `SieveChain.chainTL_bound`) are unchanged.
+- `external/pnt/build.sh` compiles the eight files after `SieveMain` (`SieveRoute` and `SieveCert229` in their places), imports them in the final check and prints 400 axiom lines; `bash -n` passes. Its final check, run alone against `build/`, prints 400 clean lines of 400: 396 `[propext, Classical.choice, Quot.sound]` and 4 `[propext]` (the four certificate facts above), all inside the three (15.3 s). The modules before `SieveRoute` were not rebuilt; their sources are unchanged.
+- `linnik_2333`'s statement is textually HEAD's.
+- `tools/research/render_lint.py`'s `lint` was run on the three changed markdown files and compared with HEAD by defect class: `external/pnt/README.md` (5) and SIEVE-ROUTE.md (25) gain no reports, and README.md (1872 at HEAD) gains none from this entry. No strike is added; the `<del>` counts are unchanged (53, 3 and 21). None of these files is a paper surface.
+
+**The lead's pass before landing.**
+
+- The lead read the new files' docstrings against their theorems' binders and completed those that omitted a hypothesis, the defect class of rounds 598–606.
+- The changed files' headers and the external README's rows name the classes each theorem takes. A Lean query listed, for each declaration of the fifteen changed files, which of `Route`, `RouteOK`, `Grid`, `GridOK`, `Fits` and `TypeIIAt` its type mentions (scratch); the external README's rows and the context sentences of the `SieveQ` and `SieveDrop` headers were scoped by it. A scratch census against it found 26 docstrings of the changed files whose theorems take `RouteOK`, `GridOK` or `Fits` without naming them, among them `linnik_route`, `linnik_large`, `leaves_ev`, `drop_ev` and the shares; they are completed. Lemmas without a docstring, which the census also listed, rely on their file's header.
+- `window_73`'s margins were recomputed in exact rational arithmetic at the corners of the pieces (scratch): `6.958·10⁻⁵` below `L` before the width, at `β = 11/12` and `m = (4123/10000)L`, and `2.420·10⁻⁵` below `L − 1/25000` after it.
+- A scratch replay of the certificate at `L = 229/100` in Python gives the total `1011076593855335922`, that is `0.876969…K`, with 1905 candidate cells of depth 2, 929 of them decomposed, and 7150 cells of depth 4.
+- This round's operative theorem, `SieveMain.linnik_route`, was re-read at its statement, with `Linnik229.linnik_229`.
+
+**Records.**
+
+- `external/pnt/`: eight new files, `SieveRoute.lean`, `SieveCert229.lean`, `LinnikCGL.lean`, `LinnikIngham73.lean`, `LinnikHuxStep.lean`, `SieveTypeIIGen.lean`, `SieveTypeII73.lean` and `Linnik229.lean`; fifteen changed, `SieveCert` … `SieveMain`, with a round-607 note in each header.
+- `external/pnt/build.sh`: the eight files in the module order, imported in the final check, and 27 more axiom lines; `SieveCert.total_le` is now `total_le_2333`.
+- `external/pnt/README.md`: eight rows, fifteen rows marked "since round 607", five section markers, and a round-607 section.
+- `frontier/linnik/SIEVE-ROUTE.md`: §14, and round-607 markers in the preamble, §11 (goal 2) and §13 (M7, M5).
+
+**Check 4.** New against the pilot: the sieve route with its numbers as parameters; the density exponents `7/3 + 4ε` on `[1/2, 5/7]`, for `0 < ε ≤ 1`, and `7/3 + 1/2000` on `[16/21, 5/6]`; and Linnik's exponent `229/100` with Chen–Gupta–Li's estimate on `[5/7, 16/21]` as a hypothesis. The stack's unconditional exponent stays `2333/1000` (round 604). Classical [recalled]: Ingham's and Huxley's density arguments. Against the literature, as recorded in round 519's search and round 604's entry: Chen–Gupta–Li's Corollary 1.4 gives `7/3 + ε` from a zero-free half-plane and a density estimate, and `229/100 < 7/3`.
+
+**Check 9.**
+
+- (a) `linnik_229` is a theorem of this stack with one hypothesis, `CGLDensity`, which its statement displays; Lean's kernel checked it against Mathlib at `MATHLIB_REV` and the ported PNT+ files at 650d312, with the three axioms. "Phase 1 is in Lean" is scoped to SIEVE-ROUTE.md §14's phase 1. "The one hypothesis" counts `linnik_229`'s hypotheses. "Its statement is unchanged" compares `linnik_2333`'s statement with HEAD's, textually.
+- (b) No change to the register's targets.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** One voluntary review of rounds 606 and 607: the convergence review of round 606's sweep, and the review of this landing. Then the owner's next goal, a clean repository, whose name and visibility the owner sets, or phase 2.

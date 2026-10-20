@@ -1,18 +1,21 @@
 /-
-# Round 604: Linnik's theorem with exponent `2333/1000` (milestones M8 and §0)
+# Round 604: Linnik's theorem by the sieve route, and with exponent `2333/1000` (milestones M8 and §0)
 
 Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
-Plain statements.
+Plain statements. The route and the grid are as in `SieveQ` (`RouteOK`, `GridOK` and `Fits`).
 
 * `primes_dyadic_ge`: for `ε > 0`, the primes of `(⌊x⌋, ⌊2x⌋]` number at least `(1 − ε)x/log x` for large `x`.
 * `TB_ev`: for `ε > 0`, `S(B, z_top) ≥ φ(q)⁻¹((1 − ε)x/log x − q)` for large `q`, at `x = q^L`.
-* `linnik_large`: there is `q₀` such that for `q ≥ q₀` and `a` a unit mod `q` there is a prime `p ≡ a (mod q)` with
-  `q^{2333/1000} < p ≤ 2q^{2333/1000}`.
-* `linnik_2333`: there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)`
-  with `p ≤ K·q^{2333/1000}`.
+* `linnik_large`: given the route's Type II estimate (`hII`) and the certificate's total at most `0.88K` (`htot`), there
+  is `q₀` such that for `q ≥ q₀` and `a` a unit mod `q` there is a prime `p ≡ a (mod q)` with `q^L < p ≤ 2q^L`.
+* `linnik_route`: given `hII` and `htot`, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a
+  prime `p ≡ a (mod q)` with `p ≤ K·q^L`.
+* `linnik_2333`: `linnik_route` at `SieveRoute.route2333` and `SieveCert.grid2333`, which fit (`fits2333`), with
+  `SieveRoute.typeII2333` and `SieveCert.total_le_2333`: there is `K` such that for every `q ≥ 1` and every `a` prime to
+  `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{2333/1000}`.
 
-This is the theorem of `frontier/linnik/SIEVE-ROUTE.md` §0 at `x = q^{2.333}`, assembled as §13's M8 plans.
+This is the theorem of `frontier/linnik/SIEVE-ROUTE.md` §0 at `x = q^L`, assembled as §13's M8 plans.
 
 The proof:
 
@@ -21,22 +24,29 @@ The proof:
 * `linnik_large`: `SieveBuch.Par.decomp` with `SieveQ.leaves_ev`, `SieveDrop.drop_ev` and `TB_ev`, with
   `η = 1/(100·Cdec·L)` and `ε = 1/100`. For large `q` the leaves' error `Cdec·Err` is at most `0.02x/(φ(q) log x)` and
   `q ≤ 0.01x/log x`, so `S(A, z_top) ≥ 0.07x/(φ(q) log x) > 0`. A `z_top`-rough `n ∈ (N₁, N₂]` is prime.
-* `linnik_2333`: for `q < q₀`, Mathlib's `Nat.forall_exists_prime_gt_and_modEq` (Dirichlet's theorem) gives a prime
-  for each of the finitely many `q` and residues, and `K` is the larger of `2` and their maximum.
+* `linnik_route`: for `q < q₀`, Mathlib's `Nat.forall_exists_prime_gt_and_modEq` (Dirichlet's theorem) gives a prime for
+  each of the finitely many `q` and residues, and `K` is the larger of `2` and their maximum.
+
+Round 607 made the route's numbers and the certificate's grid parameters, and the Type II estimate and the
+certificate's total hypotheses; round 604's theorem is their case `linnik_2333`.
+
 
 The file imports `SieveDrop.lean`.
 -/
 import SieveDrop
 
-open Real Finset Filter SieveFamily SieveChain SieveDecomp SieveBuch SieveLeaves SieveQ SieveRough SieveDrop
+open Real Finset Filter SieveFamily SieveChain SieveDecomp SieveBuch SieveLeaves SieveQ SieveRough SieveDrop SieveRoute
 open scoped Chebyshev
 
 namespace SieveMain
 
 open Classical
 
+variable [Route] [RouteOK] [SieveCert.Grid] [SieveCert.GridOK] [Fits]
+
 /-! ### `S(B, z_top)`: the primes of `(x, 2x]` prime to `q` -/
 
+omit [Route] [RouteOK] [SieveCert.Grid] [SieveCert.GridOK] [Fits] in
 /-- For `ε > 0`, the primes of `(⌊x⌋, ⌊2x⌋]` number at least `(1 − ε)x/log x` for large `x`. -/
 theorem primes_dyadic_ge {ε : ℝ} (hε : 0 < ε) : ∀ᶠ x : ℝ in atTop,
     (1 - ε) * (x / Real.log x) ≤ (((Ioc ⌊x⌋₊ ⌊2 * x⌋₊).filter Nat.Prime).card : ℝ) := by
@@ -111,7 +121,8 @@ theorem primes_dyadic_ge {ε : ℝ} (hε : 0 < ε) : ∀ᶠ x : ℝ in atTop,
     exact hkey
   linarith [this, (div_le_div_of_nonneg_right hθ h2x0.le)]
 
-/-- For `ε > 0`, `S(B, z_top) ≥ φ(q)⁻¹((1 − ε)x/log x − q)` for large `q`. -/
+/-- For a route with `RouteOK` and a grid with `GridOK` that fit (`Fits`), and `ε > 0`:
+`S(B, z_top) ≥ φ(q)⁻¹((1 − ε)x/log x − q)` for large `q`. -/
 theorem TB_ev {ε : ℝ} (hε : 0 < ε) : ∀ᶠ q : ℕ in atTop, LargeQ q →
     (q.totient : ℝ)⁻¹ * ((1 - ε) * (xq q / Real.log (xq q)) - q) ≤ (parQ q).T (gB q) := by
   filter_upwards [tendsto_xq.eventually (primes_dyadic_ge hε)] with q hq hL
@@ -127,10 +138,11 @@ theorem TB_ev {ε : ℝ} (hε : 0 < ε) : ∀ᶠ q : ℕ in atTop, LargeQ q →
   have hztopN : (parQ q).ztop ≤ N1 q + 1 := by
     have h1 : ((parQ q).ztop : ℝ) ≤ Real.sqrt (2 * xq q) + 1 := (ztop_bounds q (by omega)).2
     have hx16 : (16 : ℝ) ≤ xq q := by
-      have h4 : (4 : ℝ) ≤ (q : ℝ) ^ (2333 / 1000 / 2 : ℝ) := hL.hhalf
-      have : xq q = ((q : ℝ) ^ (2333 / 1000 / 2 : ℝ)) ^ 2 := by
+      have h4 : (4 : ℝ) ≤ (q : ℝ) ^ (L / 2 : ℝ) := hL.hhalf
+      have : xq q = ((q : ℝ) ^ (L / 2 : ℝ)) ^ 2 := by
         rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity)]
-        norm_num
+        push_cast
+        ring
       rw [this]
       nlinarith
     have h2 : Real.sqrt (2 * xq q) ≤ xq q - 2 := by
@@ -183,8 +195,10 @@ theorem TB_ev {ε : ℝ} (hε : 0 < ε) : ∀ᶠ q : ℕ in atTop, LargeQ q →
 /-- The decomposition's constant `1 + n(1 + n(n(n + 2) + 2))`. -/
 noncomputable def Cdec : ℝ := 1 + SieveCert.n * (1 + SieveCert.n * (SieveCert.n * (SieveCert.n + 2) + 2))
 
+omit [Route] [RouteOK] [SieveCert.GridOK] [Fits] in
 theorem Cdec_pos : 0 < Cdec := by unfold Cdec; positivity
 
+omit [Route] [RouteOK] [SieveCert.Grid] [SieveCert.GridOK] [Fits] in
 /-- `log q ≤ c q^r` for large `q`, any `c > 0`, `r > 0`. -/
 theorem ev_log_le {c r : ℝ} (hc : 0 < c) (hr : 0 < r) : ∀ᶠ q : ℕ in atTop, Real.log q ≤ c * (q : ℝ) ^ r := by
   have h := (isLittleO_log_rpow_atTop hr).bound hc
@@ -193,21 +207,21 @@ theorem ev_log_le {c r : ℝ} (hc : 0 < c) (hr : 0 < r) : ∀ᶠ q : ℕ in atTo
   rw [Real.norm_of_nonneg (Real.log_nonneg hq0), Real.norm_of_nonneg (by positivity)] at hq
   exact hq
 
-/-- **Linnik's theorem with `x = q^{2.333}`, for large `q`.** For `q ≥ q₀` and `a` a unit mod `q`, there is a prime
-`p ≡ a (mod q)` with `q^{2333/1000} < p ≤ 2q^{2333/1000}`. -/
-theorem linnik_large : ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
-    ∃ p : ℕ, p.Prime ∧ (p : ZMod q) = a ∧ (q : ℝ) ^ (2333 / 1000 : ℝ) < p ∧
-      (p : ℝ) ≤ 2 * (q : ℝ) ^ (2333 / 1000 : ℝ) := by
+/-- **Linnik's theorem at `x = q^L`, for large `q`.** For a route with `RouteOK` and a grid with `GridOK` that fit
+(`Fits`), given the route's Type II estimate (`hII`) and the certificate's total at most `0.88K` (`htot`), there is `q₀`
+such that for `q ≥ q₀` and `a` a unit mod `q` there is a prime `p ≡ a (mod q)` with `q^L < p ≤ 2q^L`. -/
+theorem linnik_large (hII : TypeIIAt) (htot : SieveCert.total ≤ 88 * SieveCert.K / 100) :
+    ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
+      ∃ p : ℕ, p.Prime ∧ (p : ZMod q) = a ∧ (q : ℝ) ^ L < p ∧ (p : ℝ) ≤ 2 * (q : ℝ) ^ L := by
   have hC := Cdec_pos
-  set L : ℝ := 2333 / 1000 with hLdef
-  have hL0 : 0 < L := by norm_num
+  have hL0 : 0 < L := L_pos
   set η : ℝ := 1 / (100 * Cdec * L) with hη
   have hη0 : 0 < η := by positivity
-  obtain ⟨δ, hδ, q₁, hlv⟩ := SieveQ.leaves_ev hη0
+  obtain ⟨δ, hδ, q₁, hlv⟩ := SieveQ.leaves_ev hII hη0
   have hev1 := ev_log_le (c := 1 / (100 * Cdec * L)) (by positivity) hδ
-  have hev2 := ev_log_le (c := 1 / (100 * L)) (by positivity) (show (0 : ℝ) < L - 1 by norm_num)
+  have hev2 := ev_log_le (c := 1 / (100 * L)) (by positivity) (show (0 : ℝ) < L - 1 by linarith [two_lt_L])
   obtain ⟨q₂, hq₂⟩ := Filter.eventually_atTop.1 ((TB_ev (ε := 1 / 100) (by norm_num)).and
-    ((drop_ev (ε := 1 / 100) (by norm_num)).and (hev1.and (hev2.and (eventually_ge_atTop 3)))))
+    ((drop_ev htot (ε := 1 / 100) (by norm_num)).and (hev1.and (hev2.and (eventually_ge_atTop 3)))))
   refine ⟨q₁ + q₂, fun q _ hq a ha => ?_⟩
   obtain ⟨hTB, hD, h1, h2, hq3⟩ := hq₂ q (by omega)
   obtain ⟨hL, Lv⟩ := hlv q (by omega) a ha
@@ -260,7 +274,7 @@ theorem linnik_large : ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → 
       rw [div_mul_eq_mul_div, one_mul, le_div_iff₀ (by positivity)] at this
       linarith
     have hsplit : (q : ℝ) * (q : ℝ) ^ (L - 1) = Q := by
-      rw [← Real.rpow_one_add' hq0.le (by norm_num), add_sub_cancel]
+      rw [← Real.rpow_one_add' hq0.le (by rw [add_sub_cancel]; exact hL0.ne'), add_sub_cancel]
     calc (q : ℝ) * (L * Real.log q * 100) = (q : ℝ) * (100 * L * Real.log q) := by ring
       _ ≤ (q : ℝ) * (q : ℝ) ^ (L - 1) := mul_le_mul_of_nonneg_left h2' hq0.le
       _ = Q := hsplit
@@ -289,7 +303,7 @@ theorem linnik_large : ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → 
     by_contra h
     simp [h] at hm0
   rw [Finset.mem_Ioc] at hm
-  have hN1 : 1 ≤ N1 q := Nat.le_floor (by simpa using (Real.one_le_rpow hq1.le (by norm_num) : (1 : ℝ) ≤ xq q))
+  have hN1 : 1 ≤ N1 q := Nat.le_floor (by simpa using (Real.one_le_rpow hq1.le hL0.le : (1 : ℝ) ≤ xq q))
   have hm2 : 2 ≤ m := by have := hm.1; change N1 q < m at this; omega
   refine ⟨m, ?_, hmA, Nat.lt_of_floor_lt hm.1, ?_⟩
   · by_contra hnp
@@ -305,11 +319,13 @@ theorem linnik_large : ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → 
   · have : (m : ℝ) ≤ N2 q := by exact_mod_cast hm.2
     exact this.trans (N2_le q)
 
-/-- **Linnik's theorem with exponent `2333/1000`.** There is `K` such that for every `q ≥ 1` and every `a` prime to
-`q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{2333/1000}`. -/
-theorem linnik_2333 : ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (a : ℕ), a.Coprime q →
-    ∃ p : ℕ, p.Prime ∧ p ≡ a [MOD q] ∧ (p : ℝ) ≤ K * (q : ℝ) ^ (2333 / 1000 : ℝ) := by
-  obtain ⟨q₀, hq₀⟩ := linnik_large
+/-- **Linnik's theorem with exponent `L`.** For a route with `RouteOK` and a grid with `GridOK` that fit (`Fits`), given
+the route's Type II estimate (`hII`) and the certificate's total at most `0.88K` (`htot`), there is `K` such that for
+every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^L`. -/
+theorem linnik_route (hII : TypeIIAt) (htot : SieveCert.total ≤ 88 * SieveCert.K / 100) :
+    ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (a : ℕ), a.Coprime q →
+    ∃ p : ℕ, p.Prime ∧ p ≡ a [MOD q] ∧ (p : ℝ) ≤ K * (q : ℝ) ^ L := by
+  obtain ⟨q₀, hq₀⟩ := linnik_large hII htot
   -- small moduli: one prime per residue, by Dirichlet's theorem
   let f : ℕ × ℕ → ℕ := fun x =>
     if h : x.1 ≠ 0 ∧ x.2.Coprime x.1 then Classical.choose (Nat.forall_exists_prime_gt_and_modEq 0 h.1 h.2)
@@ -322,7 +338,7 @@ theorem linnik_2333 : ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (a : ℕ), a.Coprime
   set M : ℕ := (Finset.range q₀ ×ˢ Finset.range q₀).sup f with hM
   refine ⟨max 2 (M : ℝ), fun q _ a ha => ?_⟩
   have hq1 : (1 : ℝ) ≤ q := by exact_mod_cast Nat.one_le_iff_ne_zero.2 (NeZero.ne q)
-  have hqL : (1 : ℝ) ≤ (q : ℝ) ^ (2333 / 1000 : ℝ) := Real.one_le_rpow hq1 (by norm_num)
+  have hqL : (1 : ℝ) ≤ (q : ℝ) ^ L := Real.one_le_rpow hq1 L_pos.le
   by_cases hq : q₀ ≤ q
   · have hu : IsUnit (a : ZMod q) := (ZMod.isUnit_iff_coprime a q).2 ha
     obtain ⟨p, hp, hpa, -, hpx⟩ := hq₀ q hq (a : ZMod q) hu
@@ -347,8 +363,36 @@ theorem linnik_2333 : ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (a : ℕ), a.Coprime
       exact this.trans (le_max_right _ _)
     calc (f (q, r) : ℝ) ≤ max 2 (M : ℝ) := hle'
       _ = max 2 (M : ℝ) * 1 := (mul_one _).symm
-      _ ≤ max 2 (M : ℝ) * (q : ℝ) ^ (2333 / 1000 : ℝ) :=
+      _ ≤ max 2 (M : ℝ) * (q : ℝ) ^ L :=
           mul_le_mul_of_nonneg_left hqL (le_trans (by norm_num) (le_max_left _ _))
+
+end SieveMain
+
+namespace SieveMain
+
+open SieveCert SieveRoute SieveQ
+
+/-- `grid2333` fits `route2333`: `0.401·DEN < U1`, `U2 < 0.485·DEN` and `DEN < 2.333·U2`. -/
+theorem fits2333 : @Fits route2333 grid2333 := by
+  refine @Fits.mk route2333 grid2333 ?_ ?_ ?_
+  · have h : (401 * DEN : ℕ) < 1000 * ((401 * DEN + 999) / 1000) := by decide
+    have h' : (401 : ℝ) * DEN < 1000 * (((401 * DEN + 999) / 1000 : ℕ) : ℝ) := by exact_mod_cast h
+    show (401 / 1000 : ℝ) * DEN < (((401 * DEN + 999) / 1000 : ℕ) : ℝ)
+    linarith
+  · have h : 1000 * (485 * DEN / 1000) < 485 * DEN := by decide
+    have h' : (1000 : ℝ) * ((485 * DEN / 1000 : ℕ) : ℝ) < 485 * DEN := by exact_mod_cast h
+    show ((485 * DEN / 1000 : ℕ) : ℝ) < 485 / 1000 * DEN
+    linarith
+  · have h : 1000 * DEN < 2333 * (485 * DEN / 1000) := by decide
+    have h' : (1000 : ℝ) * DEN < 2333 * ((485 * DEN / 1000 : ℕ) : ℝ) := by exact_mod_cast h
+    show (DEN : ℝ) < 2333 / 1000 * ((485 * DEN / 1000 : ℕ) : ℝ)
+    linarith
+
+/-- **Linnik's theorem with exponent `2333/1000`.** There is `K` such that for every `q ≥ 1` and every `a` prime to
+`q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{2333/1000}`. -/
+theorem linnik_2333 : ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (a : ℕ), a.Coprime q →
+    ∃ p : ℕ, p.Prime ∧ p ≡ a [MOD q] ∧ (p : ℝ) ≤ K * (q : ℝ) ^ (2333 / 1000 : ℝ) :=
+  @linnik_route route2333 routeOK2333 grid2333 gridOK2333 fits2333 typeII2333 total_le_2333
 
 end SieveMain
 

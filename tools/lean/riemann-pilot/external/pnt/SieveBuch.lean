@@ -20,18 +20,23 @@ its cells `S1c i`, the extensions `S2 i`, `S3 i j`, `S4 i j k` (one more prime i
   (`inW`); at depth 4 the counted cells (`counted4`, `l ≤ k`) below the cells of depth 3 that are split.
 * `Leaves`: the estimates the leaves need, each `|A − B| ≤ Err`: the evaluated families (`e1`, `e2`, `e2'`, `e3`,
   `e3'`, `e4`) and the families of Proposition 6 (`j0` for `S(z₀)`, `p1`, `p2`, `p3`).
-* `decomp`: for `P.Good`, weights `g_A ≥ 0` and `g_B`, and leaves within `Err ≥ 0`,
+* `decomp`: for a grid with `GridOK`, `P.Good`, weights `g_A ≥ 0` and `g_B`, and leaves within `Err ≥ 0`,
   `S_{g_A}(z_top) ≥ S_{g_B}(z_top) − D1(g_B) − (1 + n(1 + n(n(n + 2) + 2)))·Err`.
 
-This is the decomposition of `frontier/linnik/SIEVE-ROUTE.md` §6, M8 of §13, with M7's classification by cells
-(`SieveCert`'s grid of `n = 70` cells of side `H/DEN`, starting at `V/DEN = u₂ − u₁`). At depth 1 a cell inside the
-window is evaluated, the others decomposed. At depth 2 a candidate cell that `dec` allows is split at `X'` (above
-evaluated, below decomposed), a candidate cell not allowed is dropped, and a non-candidate cell is evaluated when
-surely evaluable and dropped otherwise (the corner). At depth 3 a cell of `inKK` is split at `X'` when not surely
-evaluable and evaluated otherwise. At depth 4 a counted cell is dropped, and the rest are evaluated or vanish.
+This is the decomposition of `frontier/linnik/SIEVE-ROUTE.md` §6, M8 of §13, with M7's classification by cells (the grid
+of `SieveCert.Grid`: `n` cells a side, of side `H/DEN`, starting at `V/DEN = u₂ − u₁`; the identities `I_S1` … `I_S4`,
+the levels and `decomp` take `GridOK`). At depth 1 a cell inside the window is evaluated, the others decomposed. At
+depth 2 a candidate cell that `dec` allows is split at `X'` (above evaluated, below decomposed), a candidate cell not
+allowed is dropped, and a non-candidate cell is evaluated when surely evaluable and dropped otherwise (the corner). At
+depth 3 a cell of `inKK` is split at `X'` when not surely evaluable and evaluated otherwise. At depth 4 a counted cell
+is dropped, and the rest are evaluated or vanish.
 
 The proof of `decomp`: `lvl4`, `lvl3`, `lvl2`, `lvl1`, one level at a time. A dropped term has `A ≥ 0` and costs its
 `B`-version; a term with sign `−` is bounded above, so it is evaluated or decomposed, never dropped.
+
+Round 607 made the certificate's grid a parameter (`SieveCert.Grid`, with `GridOK` where the Lean takes it); the
+statements of earlier rounds are the case `SieveCert.grid2333`.
+
 
 The file imports `SieveDecomp.lean`.
 -/
@@ -56,7 +61,7 @@ structure Par where
 
 namespace Par
 
-variable (P : Par)
+variable (P : Par) [SieveCert.Grid]
 
 /-! ### The families of the tree -/
 
@@ -112,6 +117,7 @@ structure Good : Prop where
 
 /-! ### Chains -/
 
+omit [SieveCert.Grid] in
 theorem chain_S1 {Y : ℕ} : ∀ rt ∈ famSet 1 Y P.S1, Chain P.z₀ P.ztop rt := by
   intro rt hrt
   have h0 : ((P.z₀ : ℕ) : ℝ) ≤ rt 0 := sem_of_mem hrt (A := Atom.ge 0 P.z₀) (by simp [S1])
@@ -150,6 +156,7 @@ theorem range_of_chain (G : P.Good) {k : ℕ} {rt : Fin k → ℕ} (h : Chain P.
     P.x ^ ((V : ℝ) / DEN) ≤ rt t ∧ (rt t : ℝ) < P.x ^ (((V : ℝ) + SieveCert.n * H) / DEN) := by
   refine ⟨G.hz₀.trans (by exact_mod_cast h.2.1 t), lt_of_lt_of_le (by exact_mod_cast h.2.2 t) G.hztop⟩
 
+omit [SieveCert.Grid] in
 theorem last_le_of_chain {k' : ℕ} {rt : Fin (k' + 1) → ℕ} (h : Chain P.z₀ P.ztop rt) :
     (∀ i, rt (Fin.last k') ≤ rt i) ∧ P.z₀ ≤ rt (Fin.last k') :=
   ⟨fun i => h.1.antitone (Fin.le_last i), h.2.1 _⟩
@@ -190,16 +197,16 @@ theorem T_eq (G : P.Good) (g : ℕ → ℝ) : P.T g = P.J0 g - P.I g P.S1 := by
   · intro p _
     simp only [Finset.prod_const, Finset.card_univ, Fintype.card_fin, zero_add, pow_one]
 
-/-- **Depth 1**, for `P.Good`: the cells of `p₁`. -/
-theorem I_S1 (G : P.Good) (g : ℕ → ℝ) : P.I g P.S1 = ∑ i ∈ range SieveCert.n, P.I g (P.S1c i) :=
+/-- **Depth 1**, for a grid with `GridOK` and `P.Good`: the cells of `p₁`. -/
+theorem I_S1 [SieveCert.GridOK] (G : P.Good) (g : ℕ → ℝ) : P.I g P.S1 = ∑ i ∈ range SieveCert.n, P.I g (P.S1c i) :=
   famI_cells g P.N₁ P.N₂ G.hx P.S1 0 fun rt hrt => range_of_chain G (P.chain_S1 rt hrt) 0
 
 /-- Depth 1: a cell decomposed. -/
 theorem I_S1c (g : ℕ → ℝ) (i : ℕ) : P.I g (P.S1c i) = P.J g (P.S1c i) - P.I g (P.S2 i) :=
   buchstab_fam g P.N₁ P.N₂ (P.S1c i) fun rt hrt => last_le_of_chain (P.chain_S1c i rt hrt)
 
-/-- **Depth 2**, for `P.Good`: the cells of `p₂`. -/
-theorem I_S2 (G : P.Good) (g : ℕ → ℝ) (i : ℕ) :
+/-- **Depth 2**, for a grid with `GridOK` and `P.Good`: the cells of `p₂`. -/
+theorem I_S2 [SieveCert.GridOK] (G : P.Good) (g : ℕ → ℝ) (i : ℕ) :
     P.I g (P.S2 i) = ∑ j ∈ range SieveCert.n, P.I g (P.S2c i j) :=
   famI_cells g P.N₁ P.N₂ G.hx (P.S2 i) 1 fun rt hrt => range_of_chain G (P.chain_S2 i rt hrt) 1
 
@@ -211,8 +218,8 @@ theorem I_S2c (g : ℕ → ℝ) (i j : ℕ) : P.I g (P.S2c i j) = P.I g (P.S2le 
 theorem I_S2le (g : ℕ → ℝ) (i j : ℕ) : P.I g (P.S2le i j) = P.J g (P.S2le i j) - P.I g (P.S3 i j) :=
   buchstab_fam g P.N₁ P.N₂ (P.S2le i j) fun rt hrt => last_le_of_chain (P.chain_S2le i j rt hrt)
 
-/-- **Depth 3**, for `P.Good`: the cells of `p₃`. -/
-theorem I_S3 (G : P.Good) (g : ℕ → ℝ) (i j : ℕ) :
+/-- **Depth 3**, for a grid with `GridOK` and `P.Good`: the cells of `p₃`. -/
+theorem I_S3 [SieveCert.GridOK] (G : P.Good) (g : ℕ → ℝ) (i j : ℕ) :
     P.I g (P.S3 i j) = ∑ k ∈ range SieveCert.n, P.I g (P.S3c i j k) :=
   famI_cells g P.N₁ P.N₂ G.hx (P.S3 i j) 2 fun rt hrt => range_of_chain G (P.chain_S3 i j rt hrt) 2
 
@@ -226,8 +233,8 @@ theorem I_S3le (g : ℕ → ℝ) (i j k : ℕ) :
     P.I g (P.S3le i j k) = P.J g (P.S3le i j k) - P.I g (P.S4 i j k) :=
   buchstab_fam g P.N₁ P.N₂ (P.S3le i j k) fun rt hrt => last_le_of_chain (P.chain_S3le i j k rt hrt)
 
-/-- **Depth 4**, for `P.Good`: the cells of `p₄`. -/
-theorem I_S4 (G : P.Good) (g : ℕ → ℝ) (i j k : ℕ) :
+/-- **Depth 4**, for a grid with `GridOK` and `P.Good`: the cells of `p₄`. -/
+theorem I_S4 [SieveCert.GridOK] (G : P.Good) (g : ℕ → ℝ) (i j k : ℕ) :
     P.I g (P.S4 i j k) = ∑ l ∈ range SieveCert.n, P.I g (P.S4c i j k l) :=
   famI_cells g P.N₁ P.N₂ G.hx (P.S4 i j k) 3 fun rt hrt => range_of_chain G (P.chain_S4 i j k rt hrt) 3
 
@@ -273,12 +280,14 @@ theorem facts_S4c {Y : ℕ} {i j k l : ℕ} {rt : Fin 4 → ℕ} (hrt : rt ∈ f
 
 /-! ### Cells that contribute nothing -/
 
+omit [SieveCert.Grid] in
 theorem rpow_div_add {x : ℝ} (hx : 0 < x) (a b : ℝ) :
     x ^ (a / DEN) * x ^ (b / DEN) = x ^ ((a + b) / DEN) := by
   rw [← Real.rpow_add hx]
   congr 1
   ring
 
+omit [SieveCert.Grid] in
 /-- For `x > 0`, four reals at least `x^{a/DEN}`, …, `x^{d/DEN}` have product at least `x^{(a + b + c + d)/DEN}`. -/
 theorem prod4_ge {x : ℝ} (hx : 0 < x) {a b c d : ℝ} {p₁ p₂ p₃ p₄ : ℝ} (h1 : x ^ (a / DEN) ≤ p₁)
     (h2 : x ^ (b / DEN) ≤ p₂) (h3 : x ^ (c / DEN) ≤ p₃) (h4 : x ^ (d / DEN) ≤ p₄) :
@@ -291,6 +300,7 @@ theorem prod4_ge {x : ℝ} (hx : 0 < x) {a b c d : ℝ} {p₁ p₂ p₃ p₄ : �
   exact mul_le_mul (mul_le_mul (mul_le_mul h1 h2 (h0 _) hp1) h3 (h0 _) (mul_nonneg hp1 hp2)) h4 (h0 _)
     (mul_nonneg (mul_nonneg hp1 hp2) hp3)
 
+omit [SieveCert.Grid] in
 /-- For `x ≥ 1` and `s > DEN`, `x^{(DEN + 1)/DEN} ≤ x^{s/DEN}`. -/
 theorem rpow_region {x : ℝ} (hx : 1 ≤ x) {s : ℕ} (hs : DEN < s) :
     x ^ (((DEN : ℝ) + 1) / DEN) ≤ x ^ ((s : ℝ) / DEN) := by
@@ -311,6 +321,7 @@ theorem e_add_H_le_of_lt {k l : ℕ} (h : k < l) : SieveCert.e k + H ≤ SieveCe
   have : H * k + H ≤ H * l := by rw [← Nat.mul_succ]; exact Nat.mul_le_mul_left H h
   omega
 
+omit [SieveCert.Grid] in
 /-- The smallest prime of three below `√X'` when the two largest have product at most `X'`. -/
 theorem third_lt_sqrt {p₁ p₂ p₃ : ℕ} {X : ℝ} (h21 : p₂ < p₁) (h32 : p₃ < p₂) (h : (p₁ : ℝ) * p₂ ≤ X) :
     (p₃ : ℝ) < Real.sqrt X := by
@@ -454,10 +465,10 @@ structure Leaves (gA gB : ℕ → ℝ) (Err : ℝ) : Prop where
 
 variable {P}
 
-/-- **Level 4** (terms with sign `+`), for `P.Good`, weights `g_A ≥ 0` and `g_B`, `k < n`, and the row's surely
-evaluable cells of depth 4 that are not counted within `Err ≥ 0`: `A ≥ B − (dropped) − (k + 1)Err`. -/
-theorem lvl4 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err) {i j k : ℕ}
-    (hE : ∀ l < k + 1, counted4 i j k l = false → sE4 i j k l = true →
+/-- **Level 4** (terms with sign `+`), for a grid with `GridOK`, `P.Good`, weights `g_A ≥ 0` and `g_B`, `k < n`, and the
+row's surely evaluable cells of depth 4 that are not counted within `Err ≥ 0`: `A ≥ B − (dropped) − (k + 1)Err`. -/
+theorem lvl4 [SieveCert.GridOK] (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err)
+    {i j k : ℕ} (hE : ∀ l < k + 1, counted4 i j k l = false → sE4 i j k l = true →
       |P.I gA (P.S4c i j k l) - P.I gB (P.S4c i j k l)| ≤ Err) (hk : k < SieveCert.n) :
     P.I gB (P.S4 i j k) - P.D4 gB i j k - (k + 1) * Err ≤ P.I gA (P.S4 i j k) := by
   have hsub : ∀ g, ∑ l ∈ range SieveCert.n, P.I g (P.S4c i j k l) = ∑ l ∈ range (k + 1), P.I g (P.S4c i j k l) := by
@@ -491,9 +502,9 @@ theorem lvl4 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err :
       rw [P.I_S4c_vanish_reg G gA hreg, P.I_S4c_vanish_reg G gB hreg]
       linarith
 
-/-- **Level 3** (terms with sign `−`), for `P.Good`, weights `g_A ≥ 0` and `g_B`, leaves within `Err ≥ 0`, and a
-candidate cell `(i, j)` that is decomposed: `A ≤ B + (dropped below) + n(n + 2)Err`. -/
-theorem lvl3 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err)
+/-- **Level 3** (terms with sign `−`), for a grid with `GridOK`, `P.Good`, weights `g_A ≥ 0` and `g_B`, leaves within
+`Err ≥ 0`, and a candidate cell `(i, j)` that is decomposed: `A ≤ B + (dropped below) + n(n + 2)Err`. -/
+theorem lvl3 [SieveCert.GridOK] (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err)
     (Lv : P.Leaves gA gB Err) {i j : ℕ} (hi : i < SieveCert.n) (hj : j < SieveCert.n)
     (hcd : cand i j = true ∧ dec i j = true) :
     P.I gA (P.S3 i j) ≤ P.I gB (P.S3 i j) + P.D3 gB i j + SieveCert.n * (SieveCert.n + 2) * Err := by
@@ -528,9 +539,9 @@ theorem lvl3 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err :
     have : 0 ≤ ((SieveCert.n : ℝ) + 2) * Err := by positivity
     linarith
 
-/-- **Level 2** (terms with sign `+`), for `P.Good`, weights `g_A ≥ 0` and `g_B`, leaves within `Err ≥ 0`, and a cell
-`i < n` of `p₁` not inside the window: `A ≥ B − (dropped) − n(n(n + 2) + 2)Err`. -/
-theorem lvl2 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err)
+/-- **Level 2** (terms with sign `+`), for a grid with `GridOK`, `P.Good`, weights `g_A ≥ 0` and `g_B`, leaves within
+`Err ≥ 0`, and a cell `i < n` of `p₁` not inside the window: `A ≥ B − (dropped) − n(n(n + 2) + 2)Err`. -/
+theorem lvl2 [SieveCert.GridOK] (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err)
     (Lv : P.Leaves gA gB Err) {i : ℕ} (hi : i < SieveCert.n) (hW : ¬ inW i) :
     P.I gB (P.S2 i) - P.D2 gB i - SieveCert.n * (SieveCert.n * (SieveCert.n + 2) + 2) * Err ≤
       P.I gA (P.S2 i) := by
@@ -575,9 +586,9 @@ theorem lvl2 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err :
       unfold I at hA0 ⊢
       linarith
 
-/-- **Level 1** (terms with sign `−`), for `P.Good`, weights `g_A ≥ 0` and `g_B`, and leaves within `Err ≥ 0`:
-`A ≤ B + (dropped) + n(1 + n(n(n + 2) + 2))Err`. -/
-theorem lvl1 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err)
+/-- **Level 1** (terms with sign `−`), for a grid with `GridOK`, `P.Good`, weights `g_A ≥ 0` and `g_B`, and leaves
+within `Err ≥ 0`: `A ≤ B + (dropped) + n(1 + n(n(n + 2) + 2))Err`. -/
+theorem lvl1 [SieveCert.GridOK] (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err)
     (Lv : P.Leaves gA gB Err) :
     P.I gA P.S1 ≤ P.I gB P.S1 + P.D1 gB +
       SieveCert.n * (1 + SieveCert.n * (SieveCert.n * (SieveCert.n + 2) + 2)) * Err := by
@@ -603,9 +614,9 @@ theorem lvl1 (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err :
     have : (1 + c2) * Err = Err + c2 * Err := by ring
     linarith [hJ.2]
 
-/-- **The decomposition's inequality.** For `P.Good`, weights `g_A ≥ 0` and `g_B`, and leaves within `Err ≥ 0`:
-`S(A, z_top) ≥ S(B, z_top) − (the dropped B-terms) − C·Err`, `C = 1 + n(1 + n(n(n + 2) + 2))`. -/
-theorem decomp (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err)
+/-- **The decomposition's inequality.** For a grid with `GridOK`, `P.Good`, weights `g_A ≥ 0` and `g_B`, and leaves
+within `Err ≥ 0`: `S(A, z_top) ≥ S(B, z_top) − (the dropped B-terms) − C·Err`, `C = 1 + n(1 + n(n(n + 2) + 2))`. -/
+theorem decomp [SieveCert.GridOK] (G : P.Good) {gA gB : ℕ → ℝ} (hgA : ∀ m, 0 ≤ gA m) {Err : ℝ} (hErr : 0 ≤ Err)
     (Lv : P.Leaves gA gB Err) :
     P.T gB - P.D1 gB - (1 + SieveCert.n * (1 + SieveCert.n * (SieveCert.n * (SieveCert.n + 2) + 2))) * Err ≤
       P.T gA := by

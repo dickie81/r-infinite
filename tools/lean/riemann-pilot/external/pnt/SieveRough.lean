@@ -8,12 +8,13 @@ Plain statements.
 * `psi_le`: for every `U` and `ε > 0` there is `z₀` such that `Ψ(y, z) ≤ (ω*(u) + ε)y/log z` for `z ≥ z₀`, `y ≥ 1`
   and `u = log 2y/log z ≤ U`. Here `Ψ(y, z) = #{m ∈ (y, 2y] : p | m ⇒ p ≥ z}` (`Psi`), and `ω*` is the crude bound
   for Buchstab's `ω` (`SieveCert.omegaC`: `0` below `1`, `1/u` on `[1, 2)` and `0.5672` from `2` on).
-* `share2`: let `cellP x k` be the primes whose exponent `log p/log x` lies in the cell `k` of `SieveCert`'s grid
-  (`mem_cellP`). For a cell `(i, j)` with `e_i + 2e_j ≤ DEN`, as for a candidate cell, and every `δ > 0`, eventually
-  in `x`: `Σ_{p₁ ∈ cellP x i} Σ_{p₂ ∈ cellP x j} Ψ(x/(p₁p₂), p₂) ≤ (bound2(e_i, e_j)/K + δ)x/log x`.
-* `share4`: for a cell `(i, j, k, l)` with `e_i + e_j + e_k + 2e_l ≤ DEN`, as for a counted cell, and every `δ > 0`,
-  eventually in `x`: the sum of `Ψ(x/(p₁p₂p₃p₄), p₄)` over the primes of the four cells is at most
-  `(bound4(e_i, e_j, e_k, e_l)/K + δ)x/log x`.
+* `share2`: let `cellP x k` be the primes whose exponent `log p/log x` lies in the cell `k` of a grid of the certificate
+  (`SieveCert.Grid`, `mem_cellP`). On a grid with `GridOK`, for a cell `(i, j)` with `e_i + 2e_j ≤ DEN`, as for a
+  candidate cell, and every `δ > 0`, eventually in `x`:
+  `Σ_{p₁ ∈ cellP x i} Σ_{p₂ ∈ cellP x j} Ψ(x/(p₁p₂), p₂) ≤ (bound2(e_i, e_j)/K + δ)x/log x`.
+* `share4`: on a grid with `GridOK`, for a cell `(i, j, k, l)` with `e_i + e_j + e_k + 2e_l ≤ DEN`, as for a counted
+  cell, and every `δ > 0`, eventually in `x`: the sum of `Ψ(x/(p₁p₂p₃p₄), p₄)` over the primes of the four cells is at
+  most `(bound4(e_i, e_j, e_k, e_l)/K + δ)x/log x`.
 * `share2_of_cand`, `share4_of_counted4`: the two on the cells that pass `SieveCert.cand` and `SieveCert.counted4`.
 
 This is milestone M6 of `frontier/linnik/SIEVE-ROUTE.md` §13. `Ψ(x/d, p)` counts the integers `n = dm ∈ (x, 2x]`
@@ -37,15 +38,19 @@ The proof:
   `ω*((L − log p)/log p)/(p log p)` over the primes of `(z, √(2y)]`, where `ω* = 0.5672` for `log p ≤ L/3` and
   `ω* = log p/(L − log p)` above.
 * `Claim`, `claim_step`, `claim_nat`, `psi_le`: the induction on the level `K` in `log 2y ≤ K log z`.
-* `evLe_sum_inv`, `evLe_sum_inv_log`, `evLe_cell_inv`, `evLe_cell_inv_log`: for `0 < a ≤ c` and large `x`, the
-  primes of `[x^a, x^c)` have `Σ 1/p ≤ log c − log a + δ` and `log x · Σ 1/(p log p) ≤ 1/a − 1/c + δ`; on the cell
-  `k`, whose side is `h = H/DEN` and whose lower corner is `a = e_k/DEN`, these are at most `h/a + δ` and `h/a² + δ`.
+* `evLe_sum_inv`, `evLe_sum_inv_log`, `evLe_cell_inv`, `evLe_cell_inv_log`: for `0 < a ≤ c` and large `x`, the primes of
+  `[x^a, x^c)` have `Σ 1/p ≤ log c − log a + δ` and `log x · Σ 1/(p log p) ≤ 1/a − 1/c + δ`; on the cell `k` of a grid
+  with `GridOK`, whose side is `h = H/DEN` and whose lower corner is `a = e_k/DEN`, these are at most `h/a + δ` and
+  `h/a² + δ`.
 * `psi_point`: at a point of a cell, `psi_le` and `SieveCert.omegaC_le` give
   `Ψ(x/(dp), p) ≤ (omK/K + ε)x/(dp log p)`.
 * `evLe_finish`, `share2`, `share4`: each share is at most `(omK/K + ε)x/log x` times the product of the cells'
   prime sums (`Σ 1/p`, and `log x · Σ 1/(p log p)` for the last cell). For large `x` that product is at most the
   product of the cells' `h/a` and `h/a²`, plus `δ`, and `SieveCert.bound2_ge` and `SieveCert.bound4_ge` bound
   `omK/K` times the product by `bound2/K` and `bound4/K`.
+
+Round 607 made the certificate's grid a parameter (`SieveCert.Grid`, with `GridOK` where the Lean takes it); the
+statements of earlier rounds are the case `SieveCert.grid2333`.
 -/
 import HalfPlaneFinal
 import LinnikTwelveSizes
@@ -1367,10 +1372,13 @@ theorem evLe_sum_inv_log {a c : ℝ} (ha : 0 < a) (hac : a ≤ c) :
 
 /-! ### The cells -/
 
+variable [Grid] [GridOK]
+
 /-- The primes of the cell `k` at `x`: `x^{e_k/DEN} ≤ p < x^{(e_k + H)/DEN}`. -/
 noncomputable def cellP (x : ℝ) (k : ℕ) : Finset ℕ :=
   primesIn (x ^ ((SieveCert.e k : ℝ) / DEN)) (x ^ (((SieveCert.e k : ℝ) + H) / DEN))
 
+omit [GridOK] in
 /-- A prime lies in `cellP x k` exactly when its exponent `log p/log x` lies in the cell `k`. -/
 theorem mem_cellP {x : ℝ} (hx : 1 < x) {k p : ℕ} :
     p ∈ cellP x k ↔ p.Prime ∧ InCell k (Real.log p / Real.log x) := by
@@ -1389,7 +1397,7 @@ theorem mem_cellP {x : ℝ} (hx : 1 < x) {k p : ℕ} :
     rw [← not_le, key, not_le]
   rw [key, key', div_mul_cancel₀ _ hD.ne', div_mul_cancel₀ _ hD.ne']
 
-/-- The cell's `Σ 1/p` is at most `h/a = H/e_k`, up to `o(1)`. -/
+/-- On a grid with `GridOK`, the cell's `Σ 1/p` is at most `h/a = H/e_k`, up to `o(1)`. -/
 theorem evLe_cell_inv (k : ℕ) : EvLe (fun x => ∑ p ∈ cellP x k, 1 / (p : ℝ)) ((H : ℝ) / SieveCert.e k) := by
   have hek : (0 : ℝ) < SieveCert.e k := by exact_mod_cast e_pos k
   have hH : (0 : ℝ) < H := by exact_mod_cast H_pos
@@ -1406,7 +1414,7 @@ theorem evLe_cell_inv (k : ℕ) : EvLe (fun x => ∑ p ∈ cellP x k, 1 / (p : �
   filter_upwards [evLe_sum_inv ha hac δ hδ] with x hx
   exact le_trans hx (by linarith)
 
-/-- The cell's `log x · Σ 1/(p log p)` is at most `h/a² = H·DEN/e_k²`, up to `o(1)`. -/
+/-- On a grid with `GridOK`, the cell's `log x · Σ 1/(p log p)` is at most `h/a² = H·DEN/e_k²`, up to `o(1)`. -/
 theorem evLe_cell_inv_log (k : ℕ) :
     EvLe (fun x => Real.log x * ∑ p ∈ cellP x k, 1 / ((p : ℝ) * Real.log p)) ((H : ℝ) * DEN / (SieveCert.e k : ℝ) ^ 2) := by
   have hek : (0 : ℝ) < SieveCert.e k := by exact_mod_cast e_pos k
@@ -1426,8 +1434,9 @@ theorem evLe_cell_inv_log (k : ℕ) :
 
 /-! ### A point of a cell -/
 
-theorem four_H_le_V : 4 * H ≤ V := by decide
+theorem four_H_le_V : 4 * H ≤ V := GridOK.four_H_le_V
 
+omit [GridOK] in
 /-- **A point of a cell.** Let `x > 1` with `(log 2/log x)·DEN < 1`, let `d ≥ 1` be the product of the other primes
 and `p ≥ 2` the last, with `s ≤ (log d/log x)DEN`, `t ≤ (log p/log x)DEN ≤ t + H` and
 `((log d + log p)/log x)DEN ≤ s + t + mH ≤ DEN`. If `z₀` is `psi_le`'s for `U = 2DEN/t` and `ε`, and `p ≥ z₀`, then
@@ -1500,6 +1509,7 @@ theorem psi_point {s t m z₀ p : ℕ} {ε x d : ℝ} (ht : 0 < t)
     _ ≤ ((omK s t m : ℝ) / K + ε) * (x / (d * p * Real.log p)) :=
         mul_le_mul_of_nonneg_right (by linarith) (div_nonneg hx0.le (by positivity))
 
+omit [Grid] [GridOK] in
 /-- **The finish.** Let `W, P ≥ 0`. If `F ≤ (W + ε)(x/log x)R` eventually for every `ε > 0`, `limsup R ≤ P` and
 `WP ≤ B`, then `F ≤ (B + δ)x/log x` eventually, for every `δ > 0`. -/
 theorem evLe_finish {F R : ℝ → ℝ} {W P B : ℝ} (hW : 0 ≤ W) (hP : 0 ≤ P) (hWP : W * P ≤ B) (hR : EvLe R P)
@@ -1527,17 +1537,19 @@ theorem evLe_finish {F R : ℝ → ℝ} {W P B : ℝ} (hW : 0 ≤ W) (hP : 0 ≤
 
 /-! ### The shares -/
 
+omit [Grid] [GridOK] in
 theorem sum_inv_nonneg (s : Finset ℕ) : 0 ≤ ∑ p ∈ s, 1 / (p : ℝ) :=
   Finset.sum_nonneg fun p _ => by positivity
 
+omit [Grid] [GridOK] in
 theorem ev_log_mul_nonneg (f : ℝ → Finset ℕ) :
     ∀ᶠ x : ℝ in atTop, 0 ≤ Real.log x * ∑ p ∈ f x, 1 / ((p : ℝ) * Real.log p) := by
   filter_upwards [eventually_ge_atTop (1 : ℝ)] with x hx
   exact mul_nonneg (Real.log_nonneg hx)
     (Finset.sum_nonneg fun p _ => one_div_nonneg.2 (mul_nonneg (Nat.cast_nonneg p) (Real.log_natCast_nonneg p)))
 
-/-- **The share of a cell of depth 2.** For a cell `(i, j)` with `e_i + 2e_j ≤ DEN`, as for a candidate, and every
-`δ > 0`: eventually `Σ_{p₁ ∈ cell i} Σ_{p₂ ∈ cell j} Ψ(x/(p₁p₂), p₂) ≤ (bound2/K + δ)·x/log x`. -/
+/-- **The share of a cell of depth 2.** On a grid with `GridOK`, for a cell `(i, j)` with `e_i + 2e_j ≤ DEN`, as for a
+candidate, and every `δ > 0`: eventually `Σ_{p₁ ∈ cell i} Σ_{p₂ ∈ cell j} Ψ(x/(p₁p₂), p₂) ≤ (bound2/K + δ)·x/log x`. -/
 theorem share2 {i j : ℕ} (hij : SieveCert.e i + 2 * SieveCert.e j ≤ DEN) {δ : ℝ} (hδ : 0 < δ) :
     ∀ᶠ x : ℝ in atTop, ∑ p₁ ∈ cellP x i, ∑ p₂ ∈ cellP x j, (Psi (x / (p₁ * p₂)) p₂ : ℝ) ≤
       ((bound2 (SieveCert.e i) (SieveCert.e j) : ℝ) / K + δ) * (x / Real.log x) := by
@@ -1601,14 +1613,15 @@ theorem share2 {i j : ℕ} (hij : SieveCert.e i + 2 * SieveCert.e j ≤ DEN) {δ
         Finset.sum_le_sum fun p₁ hp₁ => Finset.sum_le_sum fun p₂ hp₂ => hterm p₁ hp₁ p₂ hp₂
     _ = _ := hsum_eq
 
+omit [Grid] [GridOK] in
 /-- A four-fold sum of a product is the product of the sums. -/
 theorem sum4_mul (s₁ s₂ s₃ s₄ : Finset ℕ) (f₁ f₂ f₃ f₄ : ℕ → ℝ) :
     ∑ p₁ ∈ s₁, ∑ p₂ ∈ s₂, ∑ p₃ ∈ s₃, ∑ p₄ ∈ s₄, f₁ p₁ * f₂ p₂ * f₃ p₃ * f₄ p₄ =
       (∑ p ∈ s₁, f₁ p) * (∑ p ∈ s₂, f₂ p) * (∑ p ∈ s₃, f₃ p) * (∑ p ∈ s₄, f₄ p) := by
   simp only [← Finset.mul_sum, ← Finset.sum_mul]
 
-/-- **The share of a cell of depth 4.** For a cell `(i, j, k, l)` with `e_i + e_j + e_k + 2e_l ≤ DEN`, as for a
-counted cell, and every `δ > 0`: eventually
+/-- **The share of a cell of depth 4.** On a grid with `GridOK`, for a cell `(i, j, k, l)` with
+`e_i + e_j + e_k + 2e_l ≤ DEN`, as for a counted cell, and every `δ > 0`: eventually
 `Σ_{p₁ ∈ cell i} Σ_{p₂ ∈ cell j} Σ_{p₃ ∈ cell k} Σ_{p₄ ∈ cell l} Ψ(x/(p₁p₂p₃p₄), p₄) ≤ (bound4/K + δ)·x/log x`. -/
 theorem share4 {i j k l : ℕ}
     (hijkl : SieveCert.e i + SieveCert.e j + SieveCert.e k + 2 * SieveCert.e l ≤ DEN) {δ : ℝ} (hδ : 0 < δ) :
@@ -1709,14 +1722,14 @@ theorem share4 {i j k l : ℕ}
           Finset.sum_le_sum fun p₄ hp₄ => hterm p₁ hp₁ p₂ hp₂ p₃ hp₃ p₄ hp₄
     _ = _ := hsum_eq
 
-/-- `share2` on a candidate cell. -/
+/-- `share2` on a candidate cell, on a grid with `GridOK`. -/
 theorem share2_of_cand {i j : ℕ} (h : cand i j = true) {δ : ℝ} (hδ : 0 < δ) :
     ∀ᶠ x : ℝ in atTop, ∑ p₁ ∈ cellP x i, ∑ p₂ ∈ cellP x j, (Psi (x / (p₁ * p₂)) p₂ : ℝ) ≤
       ((bound2 (SieveCert.e i) (SieveCert.e j) : ℝ) / K + δ) * (x / Real.log x) := by
   simp only [cand, Bool.and_eq_true, decide_eq_true_eq] at h
   exact share2 h.1.1.2 hδ
 
-/-- `share4` on a counted cell. -/
+/-- `share4` on a counted cell, on a grid with `GridOK`. -/
 theorem share4_of_counted4 {i j k l : ℕ} (h : counted4 i j k l = true) {δ : ℝ} (hδ : 0 < δ) :
     ∀ᶠ x : ℝ in atTop, ∑ p₁ ∈ cellP x i, ∑ p₂ ∈ cellP x j, ∑ p₃ ∈ cellP x k, ∑ p₄ ∈ cellP x l,
         (Psi (x / (p₁ * p₂ * p₃ * p₄)) p₄ : ℝ) ≤

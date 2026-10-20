@@ -6,17 +6,19 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 Plain statements. `RT j Y Ω` is the set of `j`-tuples of primes up to `Y` that satisfy the comparisons `Ω` at
 `m = 0`.
 
-* `typeII_cmp`: `SieveTypeIIU.typeII_unw` with the comparisons given as a list of `SieveCmp.Cmp`s.
+* `typeII_cmp`: `SieveTypeIIU.typeII_unw` (with its hypotheses `RouteOK` and `hII`) with the comparisons given as a list
+  of `SieveCmp.Cmp`s.
 * `sum_stops_eq`: for `1 ≤ w ≤ z₀ ≤ Y`, `X' ≥ 1`, `N₁, N₂ ≥ 1` and `k ≥ 1`, the stops `W = r_1⋯r_j·∏P·p` of the tree
   at the threshold `X'` (`r` over `RT`, `p ∈ [w, z₀)`, `P` an `s`-set of primes of `(p, z₀)`), with `p ≤ minFac k`
   and `N₁ < Wk ≤ N₂`, are the tuples `(r, P in decreasing order, p)` of primes up to `Y` that satisfy the
   comparisons `cmps` at `k`.
-* `stops2_bound`: fix `e₀ > 0`, `j`, `J₀` and `Λ₁ ≥ 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit
-  `a` mod `q`: let `rt` run over the `j`-tuples of primes up to `N₂ = ⌊2q^L⌋` satisfying at most `J₀` comparisons `Ω`
-  (taken at `m = 0`, with `m`-parts `c(0)` at most `Λ₁ log q`) that force every `rt_i ≥ z₀`, and let
-  `q^{e₀} ≤ w ≤ z₀`, `1 ≤ X'`, `X'z₀ ≤ N₁ = ⌊q^L⌋`, `q^{0.401L} ≤ ⌊N₁/(X'z₀)⌋` and `⌊N₂/(X' + 1)⌋ ≤ q^{0.485L}`. Then
-  the stops of Buchstab's tree at the threshold `X'` (`SieveDiff.tree_weighted` with `r = ∏rt`), summed over `rt`,
-  have `|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`, `L = 2.333`.
+* `stops2_bound`: let `L`, `w₁` and `w₂` be a route's parameters with `RouteOK`, assume its Type II estimate
+  (`hII : SieveRoute.TypeIIAt`), and fix `e₀ > 0`, `j`, `J₀` and `Λ₁ ≥ 0`. There are `δ > 0` and `q₀` such that for
+  `q ≥ q₀` and a unit `a` mod `q`: let `rt` run over the `j`-tuples of primes up to `N₂ = ⌊2q^L⌋` satisfying at most
+  `J₀` comparisons `Ω` (taken at `m = 0`, with `m`-parts `c(0)` at most `Λ₁ log q`) that force every `rt_i ≥ z₀`, and
+  let `q^{e₀} ≤ w ≤ z₀`, `1 ≤ X'`, `X'z₀ ≤ N₁ = ⌊q^L⌋`, `q^{w₁L} ≤ ⌊N₁/(X'z₀)⌋` and `⌊N₂/(X' + 1)⌋ ≤ q^{w₂L}`. Then the
+  stops of Buchstab's tree at the threshold `X'` (`SieveDiff.tree_weighted` with `r = ∏rt`), summed over `rt`, have
+  `|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`.
 
 This is the evaluation of the stops in Proposition 6 (`frontier/linnik/SIEVE-ROUTE.md` §5, §13's M5) for one tree
 at the threshold `X'`. A stop `W` lies in `(X', X'z₀)`, so its cofactor `k` lies in `(N₁/(X'z₀), N₂/(X' + 1)]`, inside
@@ -28,12 +30,16 @@ into a family of `(j + s + 1)`-tuples with the comparisons `cmps`: the region `�
 `y_1 < z₀` (or `p < z₀`), `p ≥ w`, the threshold, the cofactor's roughness and the range (`cmps_iff`). Their
 `m`-parts are at most `(Λ₁ + L + 1) log q` (`cmps_c_le`), and `typeII_cmp` bounds each size.
 
+Round 607 made `L`, `w₁` and `w₂` a route's parameters and the Type II estimate a hypothesis (`hII`); the
+statements of earlier rounds are the case `SieveRoute.route2333`, with `SieveRoute.typeII2333` for `hII`.
+
+
 The file imports `SieveCmp.lean` and `SieveStops1.lean`.
 -/
 import SieveCmp
 import SieveStops1
 
-open Real Finset SieveFamily SieveTree SieveCmp
+open Real Finset SieveFamily SieveTree SieveCmp SieveRoute
 
 namespace SieveStops2
 
@@ -539,21 +545,22 @@ section Bound
 
 open Classical
 
-/-- **Type II with a list of comparisons.** `SieveTypeIIU.typeII_unw` with the comparisons given as a list of
-`Cmp`s, whose coefficients are at most `1` in absolute value. -/
-theorem typeII_cmp (K₀ J₀ : ℕ) {e₁ Λ₁ : ℝ} (he₁ : 0 < e₁) (hΛ₁ : 0 ≤ Λ₁) :
+/-- **Type II with a list of comparisons.** Assume `RouteOK` and the route's Type II estimate (`hII`).
+`SieveTypeIIU.typeII_unw` with the comparisons given as a list of `Cmp`s, whose coefficients are at most `1` in absolute
+value. -/
+theorem typeII_cmp [Route] [RouteOK] (hII : TypeIIAt) (K₀ J₀ : ℕ) {e₁ Λ₁ : ℝ} (he₁ : 0 < e₁) (hΛ₁ : 0 ≤ Λ₁) :
     ∃ δ : ℝ, 0 < δ ∧ ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∀ (P₁ P₂ : ℕ) (S : Finset ℕ), S ⊆ Finset.Ioc P₁ P₂ →
-      (q : ℝ) ^ (401 / 1000 * (2333 / 1000) : ℝ) ≤ P₁ → (P₂ : ℝ) ≤ (q : ℝ) ^ (485 / 1000 * (2333 / 1000) : ℝ) →
+      (q : ℝ) ^ (w₁ * L) ≤ P₁ → (P₂ : ℝ) ≤ (q : ℝ) ^ (w₂ * L) →
       ∀ (acoef : ℕ → ℂ), (∀ m, ‖acoef m‖ ≤ 1) → ∀ (n : ℕ), n + 1 ≤ K₀ →
       ∀ (l : List (Cmp (n + 1))), l.length ≤ J₀ → (∀ C ∈ l, ∀ m ∈ S, C.c m ≤ Λ₁ * Real.log q) →
       (∀ m ∈ S, ∀ x : Fin (n + 1) → ℕ, (∀ i, (x i).Prime) → (∀ C ∈ l, C.holds m x) →
-        (∀ i, 2 * (q : ℝ) ^ e₁ ≤ x i) ∧ (m : ℝ) * ∏ i, (x i : ℝ) ≤ 2 * (q : ℝ) ^ (2333 / 1000 : ℝ)) →
+        (∀ i, 2 * (q : ℝ) ^ e₁ ≤ x i) ∧ (m : ℝ) * ∏ i, (x i : ℝ) ≤ 2 * (q : ℝ) ^ L) →
       ‖∑ m ∈ S, ∑ x ∈ Fintype.piFinset (fun _ : Fin (n + 1) =>
-          SieveTypeIIU.primesLe ⌊2 * (q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊),
+          SieveTypeIIU.primesLe ⌊2 * (q : ℝ) ^ L⌋₊),
           (if ∀ C ∈ l, C.holds m x then acoef m * dw q a (m * ∏ i, x i) else 0)‖ ≤
-        (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ) := by
-  obtain ⟨δ, hδ, q₀, hq₀⟩ := SieveTypeIIU.typeII_unw K₀ J₀ he₁ zero_le_one hΛ₁
+        (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ) := by
+  obtain ⟨δ, hδ, q₀, hq₀⟩ := SieveTypeIIU.typeII_unw hII K₀ J₀ he₁ zero_le_one hΛ₁
   refine ⟨δ, hδ, q₀, ?_⟩
   intro q _ hq a ha P₁ P₂ S hS hP₁ hP₂ acoef hacoef n hn l hl hc hsupp
   have hget : ∀ (m : ℕ) (x : Fin (n + 1) → ℕ), (∀ C ∈ l, C.holds m x) ↔ ∀ t, (l.get t).holds m x := by
@@ -582,28 +589,28 @@ theorem typeII_cmp (K₀ J₀ : ℕ) {e₁ Λ₁ : ℝ} (he₁ : 0 < e₁) (hΛ�
   · rw [ite_eq_right hall, ite_eq_right (fun h' => hall ((hget m x).2 fun t => h' t (Finset.mem_univ _))),
       mul_zero, zero_mul]
 
-/-- **The stops above the threshold.** Fix `e₀ > 0`, `j`, `J₀` and `Λ₁ ≥ 0`. There are `δ > 0` and `q₀` such that for
-`q ≥ q₀` and a unit `a` mod `q`: let `rt` run over the `j`-tuples of primes up to `N₂ = ⌊2q^L⌋` satisfying at most `J₀`
-comparisons `Ω` (taken at `m = 0`, with `m`-parts `c(0)` at most `Λ₁ log q`) that force every `rt_i ≥ z₀`, and let
-`q^{e₀} ≤ w ≤ z₀`, `1 ≤ X'`, `X'z₀ ≤ N₁ = ⌊q^L⌋`, `q^{0.401L} ≤ ⌊N₁/(X'z₀)⌋` and `⌊N₂/(X' + 1)⌋ ≤ q^{0.485L}`.
-Then the stops of Buchstab's tree at the threshold `X'` (`SieveDiff.tree_weighted` with `r = ∏rt`), summed over
-`rt`, have `|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`, `L = 2.333`. -/
-theorem stops2_bound {e₀ : ℝ} (he₀ : 0 < e₀) (j J₀ : ℕ) {Λ₁ : ℝ} (hΛ₁ : 0 ≤ Λ₁) :
+/-- **The stops above the threshold.** Assume `RouteOK` and the route's Type II estimate (`hII`). Fix `e₀ > 0`, `j`,
+`J₀` and `Λ₁ ≥ 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`: let `rt` run over the
+`j`-tuples of primes up to `N₂ = ⌊2q^L⌋` satisfying at most `J₀` comparisons `Ω` (taken at `m = 0`, with `m`-parts
+`c(0)` at most `Λ₁ log q`) that force every `rt_i ≥ z₀`, and let `q^{e₀} ≤ w ≤ z₀`, `1 ≤ X'`, `X'z₀ ≤ N₁ = ⌊q^L⌋`,
+`q^{w₁L} ≤ ⌊N₁/(X'z₀)⌋` and `⌊N₂/(X' + 1)⌋ ≤ q^{w₂L}`. Then the stops of Buchstab's tree at the threshold `X'`
+(`SieveDiff.tree_weighted` with `r = ∏rt`), summed over `rt`, have `|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`. -/
+theorem stops2_bound [Route] [RouteOK] (hII : TypeIIAt) {e₀ : ℝ} (he₀ : 0 < e₀) (j J₀ : ℕ) {Λ₁ : ℝ} (hΛ₁ : 0 ≤ Λ₁) :
     ∃ δ : ℝ, 0 < δ ∧ ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∀ (X' w z₀ : ℕ) (Ω : List (Cmp j)), Ω.length ≤ J₀ → (∀ C ∈ Ω, C.c 0 ≤ Λ₁ * Real.log q) →
       (∀ rt : Fin j → ℕ, (∀ i, (rt i).Prime) → (∀ C ∈ Ω, C.holds 0 rt) → ∀ i, z₀ ≤ rt i) →
-      (q : ℝ) ^ e₀ ≤ w → w ≤ z₀ → 1 ≤ X' → X' * z₀ ≤ ⌊(q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ →
-      (q : ℝ) ^ (401 / 1000 * (2333 / 1000) : ℝ) ≤ ((⌊(q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ / (X' * z₀) : ℕ) : ℝ) →
-      ((⌊2 * (q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ / (X' + 1) : ℕ) : ℝ) ≤ (q : ℝ) ^ (485 / 1000 * (2333 / 1000) : ℝ) →
-      ‖∑ rt ∈ RT j ⌊2 * (q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ Ω, ∑ p ∈ primesIco w z₀,
+      (q : ℝ) ^ e₀ ≤ w → w ≤ z₀ → 1 ≤ X' → X' * z₀ ≤ ⌊(q : ℝ) ^ L⌋₊ →
+      (q : ℝ) ^ (w₁ * L) ≤ ((⌊(q : ℝ) ^ L⌋₊ / (X' * z₀) : ℕ) : ℝ) →
+      ((⌊2 * (q : ℝ) ^ L⌋₊ / (X' + 1) : ℕ) : ℝ) ≤ (q : ℝ) ^ (w₂ * L) →
+      ‖∑ rt ∈ RT j ⌊2 * (q : ℝ) ^ L⌋₊ Ω, ∑ p ∈ primesIco w z₀,
           ∑ P ∈ (primesIco (p + 1) z₀).powerset, (-1 : ℂ) ^ (P.card + 1) *
           (if (∏ i, rt i) * ∏ p' ∈ P, p' ≤ X' ∧ X' < (∏ i, rt i) * (∏ p' ∈ P, p') * p then
-            ∑ n ∈ Finset.Ioc ⌊(q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ ⌊2 * (q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊, dw q a n *
+            ∑ n ∈ Finset.Ioc ⌊(q : ℝ) ^ L⌋₊ ⌊2 * (q : ℝ) ^ L⌋₊, dw q a n *
               (if (∏ i, rt i) * (∏ p' ∈ P, p') * p ∣ n ∧ rough p n then 1 else 0) else 0)‖ ≤
-        (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ) := by
-  set S₀ : ℕ := ⌈(2333 / 1000 : ℝ) / e₀⌉₊ with hS₀
-  obtain ⟨δ, hδ, q₁, hq₁⟩ := typeII_cmp (j + S₀ + 2) (J₀ + S₀ + 7) (half_pos he₀)
-    (show (0 : ℝ) ≤ Λ₁ + 2333 / 1000 + 1 by positivity)
+        (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ) := by
+  set S₀ : ℕ := ⌈L / e₀⌉₊ with hS₀
+  obtain ⟨δ, hδ, q₁, hq₁⟩ := typeII_cmp hII (j + S₀ + 2) (J₀ + S₀ + 7) (half_pos he₀)
+    (show (0 : ℝ) ≤ Λ₁ + L + 1 by linarith [L_pos])
   have hev1 := (tendsto_rpow_atTop (half_pos he₀)).eventually_ge_atTop (2 : ℝ)
   have hev2 := (tendsto_rpow_atTop (half_pos hδ)).eventually_ge_atTop ((S₀ : ℝ) + 1)
   obtain ⟨q₂, hq₂⟩ := Filter.eventually_atTop.1 (tendsto_natCast_atTop_atTop.eventually (hev1.and hev2))
@@ -616,16 +623,16 @@ theorem stops2_bound {e₀ : ℝ} (he₀ : 0 < e₀) (j J₀ : ℕ) {Λ₁ : ℝ
   have hqR : (3 : ℝ) ≤ q := by exact_mod_cast hq3
   have hq0 : (0 : ℝ) < q := by linarith
   have hlogq : 0 < Real.log q := Real.log_pos (by linarith)
-  set N₁ := ⌊(q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ with hN₁
-  set N₂ := ⌊2 * (q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ with hN₂
+  set N₁ := ⌊(q : ℝ) ^ L⌋₊ with hN₁
+  set N₂ := ⌊2 * (q : ℝ) ^ L⌋₊ with hN₂
   set S := Finset.Ioc (N₁ / (X' * z₀)) (N₂ / (X' + 1)) with hSdef
-  have hX1 : (1 : ℝ) ≤ (q : ℝ) ^ (2333 / 1000 : ℝ) := Real.one_le_rpow (by linarith) (by norm_num)
+  have hX1 : (1 : ℝ) ≤ (q : ℝ) ^ L := Real.one_le_rpow (by linarith) (by route_num)
   have hN₁1 : 1 ≤ N₁ := Nat.le_floor (by exact_mod_cast hX1)
   have hN₁N₂ : N₁ ≤ N₂ := Nat.floor_le_floor (by linarith)
-  have hN₁le : (N₁ : ℝ) ≤ (q : ℝ) ^ (2333 / 1000 : ℝ) := Nat.floor_le (by positivity)
-  have hN₂le : (N₂ : ℝ) ≤ 2 * (q : ℝ) ^ (2333 / 1000 : ℝ) := Nat.floor_le (by positivity)
+  have hN₁le : (N₁ : ℝ) ≤ (q : ℝ) ^ L := Nat.floor_le (by positivity)
+  have hN₂le : (N₂ : ℝ) ≤ 2 * (q : ℝ) ^ L := Nat.floor_le (by positivity)
   have hP₁1 : 1 ≤ N₁ / (X' * z₀) := by
-    have : (1 : ℝ) ≤ (q : ℝ) ^ (401 / 1000 * (2333 / 1000) : ℝ) := Real.one_le_rpow (by linarith) (by norm_num)
+    have : (1 : ℝ) ≤ (q : ℝ) ^ (w₁ * L) := Real.one_le_rpow (by linarith) (by route_num)
     exact_mod_cast this.trans hP₁
   have hqe2 : (2 : ℝ) * (q : ℝ) ^ (e₀ / 2) ≤ (q : ℝ) ^ e₀ := by
     have : (q : ℝ) ^ e₀ = (q : ℝ) ^ (e₀ / 2) * (q : ℝ) ^ (e₀ / 2) := by
@@ -701,14 +708,14 @@ theorem stops2_bound {e₀ : ℝ} (he₀ : 0 < e₀) (j J₀ : ℕ) {Λ₁ : ℝ
     have h1 : w ^ P.card ≤ ∏ p' ∈ P, p' := Finset.pow_card_le_prod P (fun p' => p') w hPw
     have hr1 : 0 < ∏ i, rt i := Finset.prod_pos fun i _ => (hrtp i).pos
     have h2 : ∏ p' ∈ P, p' ≤ (∏ i, rt i) * ∏ p' ∈ P, p' := Nat.le_mul_of_pos_left _ hr1
-    have hS₀e : (2333 / 1000 : ℝ) ≤ e₀ * S₀ := by
-      have := Nat.le_ceil ((2333 / 1000 : ℝ) / e₀)
+    have hS₀e : L ≤ e₀ * S₀ := by
+      have := Nat.le_ceil (L / e₀)
       rw [← hS₀, div_le_iff₀ he₀] at this
       linarith
     have hcardR : (S₀ : ℝ) + 1 ≤ P.card := by exact_mod_cast hcard
     have h3 : (X' : ℝ) < (w : ℝ) ^ P.card := by
       calc (X' : ℝ) ≤ N₁ := by exact_mod_cast hXN
-        _ ≤ (q : ℝ) ^ (2333 / 1000 : ℝ) := hN₁le
+        _ ≤ (q : ℝ) ^ L := hN₁le
         _ < (q : ℝ) ^ (e₀ * P.card) := Real.rpow_lt_rpow_of_exponent_lt (by linarith) (by nlinarith)
         _ = ((q : ℝ) ^ e₀) ^ P.card := by rw [Real.rpow_mul hq0.le, Real.rpow_natCast]
         _ ≤ (w : ℝ) ^ P.card := pow_le_pow_left₀ (by positivity) hw _
@@ -772,7 +779,7 @@ theorem stops2_bound {e₀ : ℝ} (he₀ : 0 < e₀) (j J₀ : ℕ) {Λ₁ : ℝ
   have hbound : ∀ s ∈ Finset.range (S₀ + 1), ‖(-1 : ℂ) ^ (s + 1) * ∑ k ∈ S,
       ∑ x ∈ Fintype.piFinset (fun _ : Fin (j + s + 1) => SieveTypeIIU.primesLe N₂),
         (if ∀ C ∈ cmps j s Ω z₀ w X' N₁ N₂, C.holds k x then dw q a (k * ∏ i, x i) else 0)‖ ≤
-      (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ) := by
+      (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ) := by
     intro s hs
     have hsS : s ≤ S₀ := Nat.lt_succ_iff.1 (Finset.mem_range.1 hs)
     rw [norm_mul, norm_pow, norm_neg, norm_one, one_pow, one_mul]
@@ -784,36 +791,37 @@ theorem stops2_bound {e₀ : ℝ} (he₀ : 0 < e₀) (j J₀ : ℕ) {Λ₁ : ℝ
       have hm1 : 1 ≤ m := by
         have := (Finset.mem_Ioc.1 hm).1
         omega
-      have hmP : (m : ℝ) ≤ (q : ℝ) ^ (2333 / 1000 : ℝ) := by
+      have hmP : (m : ℝ) ≤ (q : ℝ) ^ L := by
         have h1 : (m : ℝ) ≤ ((N₂ / (X' + 1) : ℕ) : ℝ) := by exact_mod_cast (Finset.mem_Ioc.1 hm).2
-        have h2 : (q : ℝ) ^ (485 / 1000 * (2333 / 1000) : ℝ) ≤ (q : ℝ) ^ (2333 / 1000 : ℝ) :=
-          Real.rpow_le_rpow_of_exponent_le (by linarith) (by norm_num)
+        have h2 : (q : ℝ) ^ (w₂ * L) ≤ (q : ℝ) ^ L :=
+          Real.rpow_le_rpow_of_exponent_le (by linarith) (by route_num)
         linarith
       have hΛl : 0 ≤ Λ₁ * Real.log q := mul_nonneg hΛ₁ hlogq.le
-      have hB1 : (2333 / 1000 : ℝ) * Real.log q ≤ (Λ₁ + 2333 / 1000 + 1) * Real.log q := by
+      have hB1 : L * Real.log q ≤ (Λ₁ + L + 1) * Real.log q := by
         rw [add_mul, add_mul, one_mul]
         linarith
-      have hB2 : (2333 / 1000 + 1 : ℝ) * Real.log q ≤ (Λ₁ + 2333 / 1000 + 1) * Real.log q := by
+      have hB2 : (L + 1 : ℝ) * Real.log q ≤ (Λ₁ + L + 1) * Real.log q := by
         rw [add_mul, add_mul, add_mul, one_mul]
         linarith
-      have hB3 : Λ₁ * Real.log q ≤ (Λ₁ + 2333 / 1000 + 1) * Real.log q := by
+      have hB3 : Λ₁ * Real.log q ≤ (Λ₁ + L + 1) * Real.log q := by
         rw [add_mul, add_mul, one_mul]
-        have : (0 : ℝ) ≤ 2333 / 1000 * Real.log q := by positivity
+        have : (0 : ℝ) ≤ L * Real.log q := by have := (L_pos : (0 : ℝ) < L); positivity
         linarith
+      have hL0 := (L_pos : (0 : ℝ) < L)
       refine cmps_c_le (s := s) Ω (by positivity) (fun C hC => (hΩc C hC).trans hB3) ?_
         (by exact_mod_cast hw1) hX'R ?_ hm1 ?_ (by exact_mod_cast hN₁1) ?_ C hC
-      · exact (hlog z₀ (2333 / 1000) (by exact_mod_cast hz₀1)
+      · exact (hlog z₀ (L) (by exact_mod_cast hz₀1)
           (le_trans (by exact_mod_cast hz₀N) hN₁le)).trans hB1
-      · exact (hlog X' (2333 / 1000) (by linarith) (le_trans (by exact_mod_cast hXN) hN₁le)).trans hB1
-      · exact (hlog m (2333 / 1000) (by exact_mod_cast hm1) hmP).trans hB1
-      · have hN₂q : (N₂ : ℝ) ≤ (q : ℝ) ^ (2333 / 1000 + 1 : ℝ) := by
+      · exact (hlog X' (L) (by linarith) (le_trans (by exact_mod_cast hXN) hN₁le)).trans hB1
+      · exact (hlog m (L) (by exact_mod_cast hm1) hmP).trans hB1
+      · have hN₂q : (N₂ : ℝ) ≤ (q : ℝ) ^ (L + 1 : ℝ) := by
           rw [Real.rpow_add hq0, Real.rpow_one]
-          have h0 : (0 : ℝ) ≤ (q : ℝ) ^ (2333 / 1000 : ℝ) := by positivity
-          have h1 : 2 * (q : ℝ) ^ (2333 / 1000 : ℝ) ≤ (q : ℝ) ^ (2333 / 1000 : ℝ) * q := by
+          have h0 : (0 : ℝ) ≤ (q : ℝ) ^ L := by positivity
+          have h1 : 2 * (q : ℝ) ^ L ≤ (q : ℝ) ^ L * q := by
             have := mul_le_mul_of_nonneg_left (show (2 : ℝ) ≤ q by linarith) h0
             linarith
           linarith
-        exact (hlog N₂ (2333 / 1000 + 1) (by exact_mod_cast hN₂1) hN₂q).trans hB2
+        exact (hlog N₂ (L + 1) (by exact_mod_cast hN₂1) hN₂q).trans hB2
     · intro m hm x hx hall
       have hm1 : 1 ≤ m := by
         have := (Finset.mem_Ioc.1 hm).1
@@ -839,10 +847,10 @@ theorem stops2_bound {e₀ : ℝ} (he₀ : 0 < e₀) (j J₀ : ℕ) {Λ₁ : ℝ
   refine (norm_sum_le _ _).trans ?_
   refine (Finset.sum_le_card_nsmul _ _ _ hbound).trans ?_
   rw [Finset.card_range, nsmul_eq_mul]
-  calc ((S₀ + 1 : ℕ) : ℝ) * ((q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ))
-      ≤ (q : ℝ) ^ (δ / 2) * ((q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ)) :=
+  calc ((S₀ + 1 : ℕ) : ℝ) * ((q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ))
+      ≤ (q : ℝ) ^ (δ / 2) * ((q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ)) :=
         mul_le_mul_of_nonneg_right (by push_cast; exact hqS) (by positivity)
-    _ = (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ / 2 : ℝ) := by
+    _ = (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ / 2) := by
         rw [mul_left_comm, ← Real.rpow_add hq0]
         congr 2
         ring

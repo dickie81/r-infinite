@@ -1,15 +1,18 @@
 /-
 # Round 595: the certificate of the sieve route's loss, checked by the kernel (milestone M7)
 
-Plain statement (`total_le`, `total_div_le`). The loss certificate of `frontier/linnik/sieve_route_certificate.py`
-for the curve step at `L = 2333/1000`, run on the window `[401/1000, 485/1000]` of `SieveTypeII.typeII_step` at
-`n = 70` with the crude bound for Buchstab's `ω`, is redone here in natural numbers. Each cell's bound is computed
-from its corners, rounding up twice (the value of `ω`, then the bound), and is a multiple of `2^{−60}`. The total is at
-most `0.88`. The kernel checks it
-by `decide +kernel`, and `total_le` depends on `propext` alone.
+Plain statements (`total_le_2333`, `total_div_le`). The loss certificate of
+`frontier/linnik/sieve_route_certificate.py`, with the crude bound for Buchstab's `ω`, is redone here in natural numbers
+on a grid of cells (`Grid`: the window's ends and the number `n` of cells a side). Each cell's bound is computed from
+its corners, rounding up twice (the value of `ω`, then the bound), and is a multiple of `2^{−60}`. On `grid2333`, the
+grid of the curve step at `L = 2333/1000` on the window `[401/1000, 485/1000]` of `SieveTypeII.typeII_step` with
+`n = 70`, the total is at most `0.88` (`total_le_2333`). The kernel checks it by `decide +kernel`, and `total_le_2333`
+depends on `propext` alone.
 
-* The grid. Coordinates are multiples of `1/DEN`, `DEN = 2^40`. The window's ends are `U1 = ⌈(401/1000)DEN⌉` and
-  `U2 = ⌊(485/1000)DEN⌋`, `V = U2 − U1`, and the cells of side `H = ⌈(DEN/2 − V)/n⌉` start at `e k = V + Hk`.
+* The grid. Coordinates are multiples of `1/DEN`, `DEN = 2^40`. The window's ends are `U1 < U2` (for `grid2333`,
+  `U1 = ⌈(401/1000)DEN⌉` and `U2 = ⌊(485/1000)DEN⌋`), `V = U2 − U1`, and the cells of side `H = ⌈(DEN/2 − V)/n⌉` start
+  at `e k = V + Hk`. `GridOK` lists the facts about the grid that the semantic lemmas below and the route's proofs use;
+  for a given grid each is checked by `decide`.
 * The tests, as in the certificate: `cand` (a cell of `(α₁, α₂)` that may meet the region and may be non-evaluable),
   `allowed` (the sharp rule for decomposition), `inKK` and `ne3` (the cells of `α₃`), and `counted4` (the cells of
   depth 4). Evaluability is a subset sum of the cell's corners inside `U = (u₁, u₂) ∪ (1 − u₂, 1 − u₁)`
@@ -28,7 +31,12 @@ What the tests say about points (the semantic lemmas):
 * `cover4`: a point of depth 4 that is not evaluable lies in a counted cell.
 * `omegaC_le`: the crude `ω` (`omegaC`) on the cell's arguments, widened by `τ < 1/DEN`, is at most `omK/K`.
 * `bound2_ge`, `bound4_ge`: each bound is at least `h²` (or `h⁴`) times `omK/K` times the prefactor.
-* `total_eq`, `total_div_le`: the total is the double sum of the costs, and at most `0.88` in the reals.
+* `total_eq`, `total_div_le`: the total is the double sum of the costs, and if it is at most `0.88K` in natural numbers
+  it is at most `0.88` in the reals.
+
+Round 607 made the grid a parameter (`Grid`, with `GridOK`); round 595's grid is `grid2333`, and its `total_le` is
+`total_le_2333`.
+
 
 The file imports only Mathlib.
 -/
@@ -40,22 +48,42 @@ namespace SieveCert
 
 /-- The denominator of the coordinates. -/
 def DEN : ℕ := 2 ^ 40
-/-- The window's left end, `⌈(401/1000)DEN⌉`. -/
-def U1 : ℕ := (401 * DEN + 999) / 1000
-/-- The window's right end, `⌊(485/1000)DEN⌋`. -/
-def U2 : ℕ := 485 * DEN / 1000
-/-- The window's width, the least exponent of a sifted prime. -/
-def V : ℕ := U2 - U1
-/-- The number of cells a side. -/
-def n : ℕ := 70
-/-- The cells' side, `⌈(DEN/2 − V)/n⌉`. -/
-def H : ℕ := (DEN / 2 - V + n - 1) / n
-/-- The lower end of cell `k`. -/
-def e (k : ℕ) : ℕ := V + H * k
+/-- **A grid of the certificate**: the window's ends `U1 < U2`, in units of `1/DEN`, and the number `n` of cells a
+side. -/
+class Grid where
+  /-- The window's left end. -/
+  U1 : ℕ
+  /-- The window's right end. -/
+  U2 : ℕ
+  /-- The number of cells a side. -/
+  n : ℕ
+
+export Grid (U1 U2 n)
+
 /-- The fixed point's scale: bounds are in units of `1/K = 2^{−60}`. -/
 def K : ℕ := 2 ^ 60
 /-- `⌈0.5672 K⌉`. -/
 def topK : ℕ := (K * 5672 + 9999) / 10000
+
+/-- The ranges of the subset sums of a box, the empty subset included. -/
+def subsetSums : List (ℕ × ℕ) → List (ℕ × ℕ)
+  | [] => [(0, 0)]
+  | p :: rest => subsetSums rest ++ (subsetSums rest).map (fun s => (s.1 + p.1, s.2 + p.2))
+
+/-- Division rounded up. -/
+def cdiv (a b : ℕ) : ℕ := (a + b - 1) / b
+
+/-- `f 0 + ⋯ + f (m − 1)`. -/
+def sumTo (m : ℕ) (f : ℕ → ℕ) : ℕ := (List.range m).foldl (fun s i => s + f i) 0
+
+variable [Grid]
+
+/-- The window's width, the least exponent of a sifted prime. -/
+def V : ℕ := U2 - U1
+/-- The cells' side, `⌈(DEN/2 − V)/n⌉`. -/
+def H : ℕ := (DEN / 2 - V + n - 1) / n
+/-- The lower end of cell `k`. -/
+def e (k : ℕ) : ℕ := V + H * k
 /-- `DEN − U1`, the right end of the complement window. -/
 def lim : ℕ := DEN - U1
 
@@ -63,16 +91,8 @@ def lim : ℕ := DEN - U1
 def inside (lo hi : ℕ) : Bool :=
   (decide (U1 < lo) && decide (hi < U2)) || (decide (DEN - U2 < lo) && decide (hi < DEN - U1))
 
-/-- The ranges of the subset sums of a box, the empty subset included. -/
-def subsetSums : List (ℕ × ℕ) → List (ℕ × ℕ)
-  | [] => [(0, 0)]
-  | p :: rest => subsetSums rest ++ (subsetSums rest).map (fun s => (s.1 + p.1, s.2 + p.2))
-
 /-- Some subset sum of the box lies inside `U` on the whole box. -/
 def surelyEval (xs : List (ℕ × ℕ)) : Bool := (subsetSums xs).any (fun s => inside s.1 s.2)
-
-/-- Division rounded up. -/
-def cdiv (a b : ℕ) : ℕ := (a + b - 1) / b
 
 /-- `K/max(lo, 1)` rounded up, with `lo = (DEN − s − t − mH)/(t + H)`. -/
 def invK (s t m : ℕ) : ℕ :=
@@ -116,9 +136,6 @@ depth 4. -/
 def counted4 (i j k l : ℕ) : Bool :=
   decide (e i + e j + e k + 2 * e l ≤ DEN) && !surelyEval [cell i, cell j, cell k, cell l]
 
-/-- `f 0 + ⋯ + f (m − 1)`. -/
-def sumTo (m : ℕ) (f : ℕ → ℕ) : ℕ := (List.range m).foldl (fun s i => s + f i) 0
-
 /-- The row `(i, j, k)`: the counted cells of `α₄`, which have `l ≤ k`. -/
 def row (i j k : ℕ) : ℕ :=
   sumTo (k + 1) (fun l => if counted4 i j k l then bound4 (e i) (e j) (e k) (e l) else 0)
@@ -135,17 +152,16 @@ def cost (i j : ℕ) : ℕ := if cand i j then (if dec i j then refcost i j else
 /-- The certificate's total, in units of `1/K`. -/
 def total : ℕ := sumTo n (fun i => sumTo n (fun j => cost i j))
 
-/-- **The certificate**: the loss's bound is at most `0.88`, checked by the kernel. -/
-theorem total_le : total ≤ 88 * K / 100 := by decide +kernel
-
 /-! ### Sums -/
 
+omit [Grid] in
 theorem foldl_add_eq (f : ℕ → ℕ) (m a : ℕ) :
     (List.range m).foldl (fun s i => s + f i) a = a + ∑ i ∈ Finset.range m, f i := by
   induction m generalizing a with
   | zero => simp
   | succ m ih => rw [List.range_succ, List.foldl_append, ih, Finset.sum_range_succ]; simp [add_assoc]
 
+omit [Grid] in
 theorem sumTo_eq (m : ℕ) (f : ℕ → ℕ) : sumTo m f = ∑ i ∈ Finset.range m, f i := by
   simp [sumTo, foldl_add_eq]
 
@@ -153,11 +169,11 @@ theorem sumTo_eq (m : ℕ) (f : ℕ → ℕ) : sumTo m f = ∑ i ∈ Finset.rang
 theorem total_eq : total = ∑ i ∈ Finset.range n, ∑ j ∈ Finset.range n, cost i j := by
   simp [total, sumTo_eq]
 
-/-- The certificate in the reals: `total/K ≤ 0.88`. -/
-theorem total_div_le : (total : ℝ) / K ≤ 88 / 100 := by
+/-- The certificate in the reals: if `total ≤ 0.88K` in the natural numbers, then `total/K ≤ 0.88`. -/
+theorem total_div_le (htot : total ≤ 88 * K / 100) : (total : ℝ) / K ≤ 88 / 100 := by
   have hK : (0 : ℝ) < K := by norm_num [K]
   rw [div_le_iff₀ hK]
-  have h1 : (total : ℝ) ≤ ((88 * K / 100 : ℕ) : ℝ) := by exact_mod_cast total_le
+  have h1 : (total : ℝ) ≤ ((88 * K / 100 : ℕ) : ℝ) := by exact_mod_cast htot
   have h2 : ((88 * K / 100 : ℕ) : ℝ) ≤ 88 * K / 100 := by
     rw [le_div_iff₀ (by norm_num : (0 : ℝ) < 100)]
     exact_mod_cast Nat.div_mul_le_self (88 * K) 100
@@ -165,17 +181,52 @@ theorem total_div_le : (total : ℝ) / K ≤ 88 / 100 := by
 
 /-! ### Facts about the grid -/
 
+omit [Grid] in
 theorem DEN_pos : 0 < DEN := by decide
-theorem H_pos : 0 < H := by decide
-theorem U1_lt_U2 : U1 < U2 := by decide
-theorem U2_le_DEN : U2 ≤ DEN := by decide
-theorem U1_le_DEN : U1 ≤ DEN := by decide
-theorem V_pos : 0 < V := by decide
+
+/-- **The facts about a grid** that the lemmas below and the route's proofs use. For a given grid each is checked
+by `decide`. -/
+class GridOK : Prop where
+  H_pos : 0 < H
+  U1_lt_U2 : U1 < U2
+  two_U2_lt : 2 * U2 < DEN
+  two_e_lt : 2 * e (n - 1) < DEN
+  four_H_le_V : 4 * H ≤ V
+  DEN_lt_top : DEN < 2 * (V + n * H)
+
+variable [GridOK]
+
+theorem H_pos : 0 < H := GridOK.H_pos
+theorem U1_lt_U2 : U1 < U2 := GridOK.U1_lt_U2
+theorem two_U2_lt : 2 * U2 < DEN := GridOK.two_U2_lt
+theorem U2_le_DEN : U2 ≤ DEN := by have := two_U2_lt; omega
+theorem U1_le_DEN : U1 ≤ DEN := le_trans U1_lt_U2.le U2_le_DEN
+theorem V_pos : 0 < V := by unfold V; have := U1_lt_U2; omega
 theorem two_e_lt (i : ℕ) (hi : i < n) : 2 * e i < DEN := by
-  have h : 2 * e (n - 1) < DEN := by decide
+  have h : 2 * e (n - 1) < DEN := GridOK.two_e_lt
   have hle : e i ≤ e (n - 1) := by
     unfold e
     exact Nat.add_le_add_left (Nat.mul_le_mul_left _ (by omega)) _
+  omega
+theorem n_pos : 0 < n := by
+  rcases Nat.eq_zero_or_pos n with h | h
+  · have h0 := H_pos
+    unfold H at h0
+    rw [h, Nat.div_zero] at h0
+    exact absurd h0 (lt_irrefl 0)
+  · exact h
+theorem two_V_lt : 2 * V < DEN := by simpa [e] using two_e_lt 0 n_pos
+/-- The grid's top `V + nH` lies above `DEN/2`. -/
+theorem DEN_lt_top : DEN < 2 * (V + n * H) := GridOK.DEN_lt_top
+/-- For a grid with `GridOK`, the grid's top `V + nH` is at most `DEN`. -/
+theorem top_le_DEN : V + n * H ≤ DEN := by
+  have h1 : 2 * e (n - 1) < DEN := GridOK.two_e_lt
+  have h2 : 4 * H ≤ V := GridOK.four_H_le_V
+  have h3 := two_V_lt
+  have hn : n * H = H * (n - 1) + H := by
+    calc n * H = ((n - 1) + 1) * H := by rw [Nat.sub_add_cancel n_pos]
+      _ = H * (n - 1) + H := by ring
+  unfold e at h1
   omega
 
 /-! ### Points -/
@@ -199,14 +250,17 @@ def InRange (p : ℕ × ℕ) (α : ℝ) : Prop := (p.1 : ℝ) ≤ α * DEN ∧ �
 /-- `α ∈ [e k, e k + H)/DEN`. -/
 def InCell (k : ℕ) (α : ℝ) : Prop := (e k : ℝ) ≤ α * DEN ∧ α * DEN < e k + H
 
+omit [Grid] [GridOK] in
 theorem DEN_pos' : (0 : ℝ) < DEN := by exact_mod_cast DEN_pos
 
+omit [GridOK] in
 theorem inRange_of_inCell {k : ℕ} {α : ℝ} (h : InCell k α) : InRange (cell k) α := by
   refine ⟨h.1, ?_⟩
   simp only [cell]
   push_cast
   exact h.2.le
 
+omit [Grid] [GridOK] in
 theorem subsetSums_sound {xs : List (ℕ × ℕ)} {αs : List ℝ} (h : List.Forall₂ InRange xs αs) :
     ∀ s ∈ subsetSums xs, ∃ l : List ℝ, l.Sublist αs ∧ (s.1 : ℝ) ≤ l.sum * DEN ∧ l.sum * DEN ≤ s.2 := by
   induction h with
@@ -226,7 +280,7 @@ theorem subsetSums_sound {xs : List (ℕ × ℕ)} {αs : List ℝ} (h : List.For
       · simp only [List.sum_cons]; push_cast; nlinarith [hp.1]
       · simp only [List.sum_cons]; push_cast; nlinarith [hp.2]
 
-/-- If `surelyEval` holds on a box, every point of the box is evaluable. -/
+/-- On a grid with `GridOK`, if `surelyEval` holds on a box, every point of the box is evaluable. -/
 theorem eval_of_surelyEval {xs : List (ℕ × ℕ)} {αs : List ℝ} (h : List.Forall₂ InRange xs αs)
     (hs : surelyEval xs = true) : Eval αs := by
   simp only [surelyEval, List.any_eq_true] at hs
@@ -328,10 +382,12 @@ theorem lt_one_sub_u1 {x : ℝ} {N : ℕ} (hx : x * DEN < N) (hN : N < lim) : x 
   have : (N : ℝ) < lim := by exact_mod_cast hN
   linarith
 
+omit [GridOK] in
 theorem le_of_not_inU {s : ℝ} (hlt : s < 1 - u1) (hne : ¬ InU s) : s ≤ 1 - u2 := by
   by_contra h
   exact hne (Or.inr ⟨not_le.mp h, hlt⟩)
 
+omit [GridOK] in
 theorem e_add_H_le {j : ℕ} (hj : j < n) : (e j : ℝ) + H ≤ V + n * H := by
   have : e j + H ≤ V + n * H := by
     unfold e
@@ -339,7 +395,7 @@ theorem e_add_H_le {j : ℕ} (hj : j < n) : (e j : ℝ) + H ≤ V + n * H := by
     omega
   exact_mod_cast this
 
-/-- On a cell that may be decomposed, a non-evaluable point has `α₁ + α₂ ≤ 1 − u₂`. -/
+/-- On a grid with `GridOK`, on a cell that may be decomposed, a non-evaluable point has `α₁ + α₂ ≤ 1 − u₂`. -/
 theorem sum_le_of_allowed {i j : ℕ} {α₁ α₂ : ℝ} (ha : allowed i j = true) (hci : InCell i α₁)
     (hcj : InCell j α₂) (hne : ¬ Eval [α₁, α₂]) : α₁ + α₂ ≤ 1 - u2 := by
   simp only [allowed, Bool.and_eq_true, decide_eq_true_eq] at ha
@@ -409,14 +465,17 @@ theorem cover4 {i j k : ℕ} {α₁ α₂ α₃ α₄ : ℝ} (hk : k < n) (hci :
 /-- The crude upper bound for Buchstab's `ω`: `0` below `1`, `1/u` on `[1, 2)` and `0.5672` from `2` on. -/
 def omegaC (u : ℝ) : ℝ := if u < 1 then 0 else if u < 2 then 1 / u else 5672 / 10000
 
+omit [Grid] [GridOK] in
 theorem K_pos' : (0 : ℝ) < K := by norm_num [K]
 
+omit [Grid] [GridOK] in
 theorem topK_ge : (5672 / 10000 : ℝ) ≤ topK / K := by
   rw [le_div_iff₀ K_pos']
   have h : K * 5672 ≤ topK * 10000 := by decide
   have h' : (K : ℝ) * 5672 ≤ topK * 10000 := by exact_mod_cast h
   linarith
 
+omit [Grid] [GridOK] in
 theorem div_le_cdiv (a b : ℕ) (hb : 0 < b) : (a : ℝ) / b ≤ cdiv a b := by
   have hb' : (0 : ℝ) < b := by exact_mod_cast hb
   rw [div_le_iff₀ hb']
@@ -424,6 +483,7 @@ theorem div_le_cdiv (a b : ℕ) (hb : 0 < b) : (a : ℝ) / b ≤ cdiv a b := by
   have h2 : a ≤ cdiv a b * b := by unfold cdiv; omega
   exact_mod_cast h2
 
+omit [GridOK] in
 /-- **The crude `ω` on a cell.** Let the other exponents sum to `σ` and the last be `α`, with `s ≤ σ·DEN`,
 `t ≤ α·DEN ≤ t + H` and `(σ + α)DEN ≤ s + t + mH`, as for the lower corner `(s, t)` of a cell of `m` variables. Then
 on the argument `(1 − σ − α + τ)/α`, widened by `0 ≤ τ < 1/DEN`, the crude `ω` is at most `omK s t m / K`. -/
@@ -541,6 +601,7 @@ theorem omegaC_le {s t m : ℕ} {σ α τ : ℝ} (ht : 0 < t) (hσ : (s : ℝ) �
 
 theorem e_pos (k : ℕ) : 0 < e k := by unfold e; have := V_pos; omega
 
+omit [GridOK] in
 /-- A cell of depth 2 with lower corner `(a, b)` costs at least `h²` times `omK/K` times `1/(ab²)`, in the
 exponents. -/
 theorem bound2_ge {a b : ℕ} (ha : 0 < a) (hb : 0 < b) :
@@ -557,6 +618,7 @@ theorem bound2_ge {a b : ℕ} (ha : 0 < a) (hb : 0 < b) :
   rw [heq, bound2]
   exact div_le_div_of_nonneg_right hc hK.le
 
+omit [GridOK] in
 /-- A cell of depth 4 with lower corner `(a, b, c, d)` costs at least `h⁴` times `omK/K` times `1/(abcd²)`. -/
 theorem bound4_ge {a b c d : ℕ} (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (hd : 0 < d) :
     ((H : ℝ) / DEN) ^ 4 * ((omK (a + b + c) d 4 : ℝ) / K) /
@@ -578,17 +640,21 @@ theorem bound4_ge {a b c d : ℕ} (ha : 0 < a) (hb : 0 < b) (hc : 0 < c) (hd : 0
 
 /-! ### The costs -/
 
+omit [GridOK] in
 theorem allowed_of_dec {i j : ℕ} (h : dec i j = true) : allowed i j = true := by
   simp only [dec, Bool.and_eq_true] at h
   exact h.1
 
+omit [GridOK] in
 theorem cost_of_dec {i j : ℕ} (hc : cand i j = true) (hd : dec i j = true) : cost i j = refcost i j := by
   simp [cost, hc, hd]
 
+omit [GridOK] in
 theorem cost_of_not_dec {i j : ℕ} (hc : cand i j = true) (hd : dec i j = false) :
     cost i j = bound2 (e i) (e j) := by
   simp [cost, hc, hd]
 
+omit [GridOK] in
 theorem refcost_eq (i j : ℕ) : refcost i j = ∑ k ∈ Finset.range n, if inKK i j k && ne3 i j k then
     ∑ l ∈ Finset.range (k + 1), (if counted4 i j k l then bound4 (e i) (e j) (e k) (e l) else 0) else 0 := by
   simp only [refcost, row, sumTo_eq]
@@ -597,7 +663,21 @@ end
 
 end SieveCert
 
-#print axioms SieveCert.total_le
+namespace SieveCert
+
+/-- **The grid of `SieveTypeII.typeII_step`'s window**: `U1 = ⌈(401/1000)DEN⌉`, `U2 = ⌊(485/1000)DEN⌋`, `n = 70`. -/
+@[instance_reducible] def grid2333 : Grid := ⟨(401 * DEN + 999) / 1000, 485 * DEN / 1000, 70⟩
+
+theorem gridOK2333 : @GridOK grid2333 :=
+  @GridOK.mk grid2333 (by decide) (by decide) (by decide) (by decide) (by decide) (by decide)
+
+/-- **The certificate on `grid2333`**: the loss's bound is at most `0.88`, checked by the kernel. -/
+theorem total_le_2333 : @total grid2333 ≤ 88 * K / 100 := by decide +kernel
+
+end SieveCert
+
+#print axioms SieveCert.total_le_2333
+#print axioms SieveCert.gridOK2333
 #print axioms SieveCert.total_eq
 #print axioms SieveCert.total_div_le
 #print axioms SieveCert.eval_of_surelyEval

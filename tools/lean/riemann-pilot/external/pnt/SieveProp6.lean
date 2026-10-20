@@ -3,16 +3,18 @@
 
 Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
-Plain statement (`prop6`). Fix `j`, `J₀`, `Λ₁ ≥ 0`, exponents `a₀ > 0` and `b₀` with `a₀ + b₀ < 0.599L` and
-`0.515L < b₀ < L − 1` (`L = 2.333`), and `η > 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a`
-mod `q`: let `rt` run over the `j`-tuples of primes up to `⌊2q^L⌋` that satisfy at most `J₀` comparisons `Ω` (taken
-at `m = 0`, with `m`-parts `c(0)` at most `Λ₁ log q`) forcing every `rt_i ≥ z₀ = ⌈q^{a₀}⌉` and `∏rt ≤ X' = ⌊q^{b₀}⌋`.
-Then `Σ_{rt}(S(A_r, z₀) − S(B_r, z₀)/φ(q))`, `r = ∏rt`, is at most `ηq^L/(φ(q) log q) + q^{L−δ}/φ(q)` in absolute
-value, where `A` is the `n ∈ (⌊q^L⌋, ⌊2q^L⌋]` with `n ≡ a` and `B` those prime to `q`.
+Plain statement (`prop6`). Let `L`, `w₁` and `w₂` be a route's parameters (`SieveRoute.Route`) with `RouteOK`, and
+assume its Type II estimate (`hII : SieveRoute.TypeIIAt`). Fix `j`, `J₀`, `Λ₁ ≥ 0`, exponents `a₀ > 0` and `b₀` with
+`a₀ + b₀ < (1 − w₁)L` and `(1 − w₂)L < b₀ < L − 1`, and `η > 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a
+unit `a` mod `q`: let `rt` run over the `j`-tuples of primes up to `⌊2q^L⌋` that satisfy at most `J₀` comparisons `Ω`
+(taken at `m = 0`, with `m`-parts `c(0)` at most `Λ₁ log q`) forcing every `rt_i ≥ z₀ = ⌈q^{a₀}⌉` and
+`∏rt ≤ X' = ⌊q^{b₀}⌋`. Then `Σ_{rt}(S(A_r, z₀) − S(B_r, z₀)/φ(q))`, `r = ∏rt`, is at most
+`ηq^L/(φ(q) log q) + q^{L−δ}/φ(q)` in absolute value, where `A` is the `n ∈ (⌊q^L⌋, ⌊2q^L⌋]` with `n ≡ a` and `B` those
+prime to `q`.
 
 This is Proposition 6 of `frontier/linnik/SIEVE-ROUTE.md` §5, the last part of §13's M5, built with one tree at the
-threshold `X'` for every `r ≤ X'` in place of §5's two cases. The conditions on `a₀` and `b₀` say that the stops fall
-in the lower window (`a₀ + b₀ < 0.599L`, `0.515L < b₀`) and that the leaves' remainder is small (`b₀ < L − 1`).
+threshold `X'` for every `r ≤ X'` in place of §5's two cases. The conditions on `a₀` and `b₀` say that the stops fall in
+the lower window (`a₀ + b₀ < (1 − w₁)L`, `(1 − w₂)L < b₀`) and that the leaves' remainder is small (`b₀ < L − 1`).
 
 The proof:
 
@@ -28,11 +30,15 @@ The proof:
 * `exists_k`, `main_coef`, `main_term`: an even `k` with `(2k + 4)²ζ(k)` small puts the main terms below
   `ηq^L/(φ(q) log q)`; `rem_le`, `rem_term`: the remainders total at most `q^{L−c}/φ(q)`.
 
+Round 607 made `L`, `w₁` and `w₂` a route's parameters and the Type II estimate a hypothesis (`hII`); the
+statements of earlier rounds are the case `SieveRoute.route2333`, with `SieveRoute.typeII2333` for `hII`.
+
+
 The file imports `SieveStops2.lean`.
 -/
 import SieveStops2
 
-open Real Finset SieveFamily SieveTree SieveCmp SieveBrun SieveLeaf SieveRanges
+open Real Finset SieveFamily SieveTree SieveCmp SieveBrun SieveLeaf SieveRanges SieveRoute
 
 namespace SieveProp6
 
@@ -529,75 +535,76 @@ theorem exists_k {C₀ : ℝ} (hC₀ : 0 ≤ C₀) {ε c a₀ : ℝ} (hε : 0 < 
 
 /-! ### The windows of the stops -/
 
-/-- For `Q ≥ 1`, `a₀ ≥ 0`, `b₀ ≥ 0` and `Q^{L−(0.401L+a₀+b₀)} ≥ 5`: `X'z₀ ≤ N₁` and `Q^{0.401L} ≤ ⌊N₁/(X'z₀)⌋`, where
-`z₀ = ⌈Q^{a₀}⌉`, `X' = ⌊Q^{b₀}⌋` and `N₁ = ⌊Q^L⌋`. -/
-theorem window_lo {Q : ℝ} (hQ : 1 ≤ Q) {a₀ b₀ : ℝ} (ha₀ : 0 ≤ a₀) (hb₀ : 0 ≤ b₀)
-    (h5 : 5 ≤ Q ^ (2333 / 1000 - (401 / 1000 * (2333 / 1000) + a₀ + b₀))) :
-    ⌊Q ^ b₀⌋₊ * ⌈Q ^ a₀⌉₊ ≤ ⌊Q ^ (2333 / 1000 : ℝ)⌋₊ ∧
-      Q ^ (401 / 1000 * (2333 / 1000) : ℝ) ≤ ((⌊Q ^ (2333 / 1000 : ℝ)⌋₊ / (⌊Q ^ b₀⌋₊ * ⌈Q ^ a₀⌉₊) : ℕ) : ℝ) := by
+/-- For a route with `RouteOK`, `Q ≥ 1`, `a₀ ≥ 0`, `b₀ ≥ 0` and `Q^{L−(w₁L+a₀+b₀)} ≥ 5`: `X'z₀ ≤ N₁` and
+`Q^{w₁L} ≤ ⌊N₁/(X'z₀)⌋`, where `z₀ = ⌈Q^{a₀}⌉`, `X' = ⌊Q^{b₀}⌋` and `N₁ = ⌊Q^L⌋`. -/
+theorem window_lo [Route] [RouteOK] {Q : ℝ} (hQ : 1 ≤ Q) {a₀ b₀ : ℝ} (ha₀ : 0 ≤ a₀) (hb₀ : 0 ≤ b₀)
+    (h5 : 5 ≤ Q ^ (L - (w₁ * L + a₀ + b₀))) :
+    ⌊Q ^ b₀⌋₊ * ⌈Q ^ a₀⌉₊ ≤ ⌊Q ^ L⌋₊ ∧
+      Q ^ (w₁ * L) ≤ ((⌊Q ^ L⌋₊ / (⌊Q ^ b₀⌋₊ * ⌈Q ^ a₀⌉₊) : ℕ) : ℝ) := by
   have hQ0 : 0 < Q := by linarith
-  set s := 401 / 1000 * (2333 / 1000) + a₀ + b₀ with hs
+  set s := w₁ * L + a₀ + b₀ with hs
   have hA1 : 1 ≤ Q ^ a₀ := Real.one_le_rpow hQ ha₀
   have hB1 : 1 ≤ Q ^ b₀ := Real.one_le_rpow hQ hb₀
-  have hC1 : 1 ≤ Q ^ (401 / 1000 * (2333 / 1000) : ℝ) := Real.one_le_rpow hQ (by norm_num)
-  have hs1 : 1 ≤ Q ^ s := Real.one_le_rpow hQ (by rw [hs]; positivity)
+  have hC1 : 1 ≤ Q ^ (w₁ * L) := Real.one_le_rpow hQ (by route_num)
+  have hs1 : 1 ≤ Q ^ s := Real.one_le_rpow hQ (by rw [hs]; have := (w₁L_pos : (0 : ℝ) < w₁ * L); positivity)
   have hX' : (⌊Q ^ b₀⌋₊ : ℝ) ≤ Q ^ b₀ := Nat.floor_le (by positivity)
   have hz₀ : (⌈Q ^ a₀⌉₊ : ℝ) ≤ 2 * Q ^ a₀ := by
     have := Nat.ceil_lt_add_one (show 0 ≤ Q ^ a₀ by positivity)
     linarith
-  have hc : (⌈Q ^ (401 / 1000 * (2333 / 1000) : ℝ)⌉₊ : ℝ) ≤ 2 * Q ^ (401 / 1000 * (2333 / 1000) : ℝ) := by
-    have := Nat.ceil_lt_add_one (show 0 ≤ Q ^ (401 / 1000 * (2333 / 1000) : ℝ) by positivity)
+  have hc : (⌈Q ^ (w₁ * L)⌉₊ : ℝ) ≤ 2 * Q ^ (w₁ * L) := by
+    have := Nat.ceil_lt_add_one (show 0 ≤ Q ^ (w₁ * L) by positivity)
     linarith
-  have hprod : Q ^ (401 / 1000 * (2333 / 1000) : ℝ) * Q ^ a₀ * Q ^ b₀ = Q ^ s := by
+  have hprod : Q ^ (w₁ * L) * Q ^ a₀ * Q ^ b₀ = Q ^ s := by
     rw [hs, Real.rpow_add hQ0, Real.rpow_add hQ0]
-  have hL : Q ^ (2333 / 1000 : ℝ) = Q ^ s * Q ^ (2333 / 1000 - s) := by
+  have hL : Q ^ L = Q ^ s * Q ^ (L - s) := by
     rw [← Real.rpow_add hQ0]; ring_nf
-  have hN₁ : Q ^ (2333 / 1000 : ℝ) - 1 < (⌊Q ^ (2333 / 1000 : ℝ)⌋₊ : ℝ) := Nat.sub_one_lt_floor _
+  have hN₁ : Q ^ L - 1 < (⌊Q ^ L⌋₊ : ℝ) := Nat.sub_one_lt_floor _
   -- the key inequality `⌈q^{0.401L}⌉·X'z₀ ≤ N₁`
-  have hkey : ⌈Q ^ (401 / 1000 * (2333 / 1000) : ℝ)⌉₊ * (⌊Q ^ b₀⌋₊ * ⌈Q ^ a₀⌉₊) ≤ ⌊Q ^ (2333 / 1000 : ℝ)⌋₊ := by
-    have h1 : ((⌈Q ^ (401 / 1000 * (2333 / 1000) : ℝ)⌉₊ * (⌊Q ^ b₀⌋₊ * ⌈Q ^ a₀⌉₊) : ℕ) : ℝ) ≤ 4 * Q ^ s := by
+  have hkey : ⌈Q ^ (w₁ * L)⌉₊ * (⌊Q ^ b₀⌋₊ * ⌈Q ^ a₀⌉₊) ≤ ⌊Q ^ L⌋₊ := by
+    have h1 : ((⌈Q ^ (w₁ * L)⌉₊ * (⌊Q ^ b₀⌋₊ * ⌈Q ^ a₀⌉₊) : ℕ) : ℝ) ≤ 4 * Q ^ s := by
       push_cast
-      calc (⌈Q ^ (401 / 1000 * (2333 / 1000) : ℝ)⌉₊ : ℝ) * ((⌊Q ^ b₀⌋₊ : ℝ) * (⌈Q ^ a₀⌉₊ : ℝ))
-          ≤ (2 * Q ^ (401 / 1000 * (2333 / 1000) : ℝ)) * (Q ^ b₀ * (2 * Q ^ a₀)) := by
+      calc (⌈Q ^ (w₁ * L)⌉₊ : ℝ) * ((⌊Q ^ b₀⌋₊ : ℝ) * (⌈Q ^ a₀⌉₊ : ℝ))
+          ≤ (2 * Q ^ (w₁ * L)) * (Q ^ b₀ * (2 * Q ^ a₀)) := by
             apply mul_le_mul hc (mul_le_mul hX' hz₀ (by positivity) (by positivity)) (by positivity)
               (by positivity)
-        _ = 4 * (Q ^ (401 / 1000 * (2333 / 1000) : ℝ) * Q ^ a₀ * Q ^ b₀) := by ring
+        _ = 4 * (Q ^ (w₁ * L) * Q ^ a₀ * Q ^ b₀) := by ring
         _ = 4 * Q ^ s := by rw [hprod]
-    have h2 : 4 * Q ^ s ≤ (⌊Q ^ (2333 / 1000 : ℝ)⌋₊ : ℝ) := by
-      have : 5 * Q ^ s ≤ Q ^ (2333 / 1000 : ℝ) := by
+    have h2 : 4 * Q ^ s ≤ (⌊Q ^ L⌋₊ : ℝ) := by
+      have : 5 * Q ^ s ≤ Q ^ L := by
         rw [hL]; nlinarith
       linarith
     exact_mod_cast h1.trans h2
   have hD0 : 0 < ⌊Q ^ b₀⌋₊ * ⌈Q ^ a₀⌉₊ := Nat.mul_pos (Nat.floor_pos.2 hB1) (Nat.ceil_pos.2 (by positivity))
-  have hc1 : 1 ≤ ⌈Q ^ (401 / 1000 * (2333 / 1000) : ℝ)⌉₊ := Nat.one_le_iff_ne_zero.2
+  have hc1 : 1 ≤ ⌈Q ^ (w₁ * L)⌉₊ := Nat.one_le_iff_ne_zero.2
     (Nat.pos_iff_ne_zero.1 (Nat.ceil_pos.2 (by positivity)))
   refine ⟨le_trans (Nat.le_mul_of_pos_left _ hc1) hkey, ?_⟩
-  have h3 : ⌈Q ^ (401 / 1000 * (2333 / 1000) : ℝ)⌉₊ ≤ ⌊Q ^ (2333 / 1000 : ℝ)⌋₊ / (⌊Q ^ b₀⌋₊ * ⌈Q ^ a₀⌉₊) :=
+  have h3 : ⌈Q ^ (w₁ * L)⌉₊ ≤ ⌊Q ^ L⌋₊ / (⌊Q ^ b₀⌋₊ * ⌈Q ^ a₀⌉₊) :=
     (Nat.le_div_iff_mul_le hD0).2 hkey
   exact le_trans (Nat.le_ceil _) (by exact_mod_cast h3)
 
-/-- For `Q ≥ 1` and `Q^{0.485L−(L−b₀)} ≥ 2`: `⌊N₂/(X' + 1)⌋ ≤ Q^{0.485L}`, where `X' = ⌊Q^{b₀}⌋` and `N₂ = ⌊2Q^L⌋`. -/
-theorem window_hi {Q : ℝ} (hQ : 1 ≤ Q) {b₀ : ℝ} (h2 : 2 ≤ Q ^ (485 / 1000 * (2333 / 1000) - (2333 / 1000 - b₀))) :
-    ((⌊2 * Q ^ (2333 / 1000 : ℝ)⌋₊ / (⌊Q ^ b₀⌋₊ + 1) : ℕ) : ℝ) ≤ Q ^ (485 / 1000 * (2333 / 1000) : ℝ) := by
+/-- For a route with `RouteOK`, `Q ≥ 1` and `Q^{w₂L−(L−b₀)} ≥ 2`: `⌊N₂/(X' + 1)⌋ ≤ Q^{w₂L}`, where `X' = ⌊Q^{b₀}⌋` and
+`N₂ = ⌊2Q^L⌋`. -/
+theorem window_hi [Route] [RouteOK] {Q : ℝ} (hQ : 1 ≤ Q) {b₀ : ℝ} (h2 : 2 ≤ Q ^ (w₂ * L - (L - b₀))) :
+    ((⌊2 * Q ^ L⌋₊ / (⌊Q ^ b₀⌋₊ + 1) : ℕ) : ℝ) ≤ Q ^ (w₂ * L) := by
   have hQ0 : 0 < Q := by linarith
   have hB : Q ^ b₀ < (⌊Q ^ b₀⌋₊ : ℝ) + 1 := Nat.lt_floor_add_one _
   have hB0 : 0 < Q ^ b₀ := by positivity
-  have hN₂ : (⌊2 * Q ^ (2333 / 1000 : ℝ)⌋₊ : ℝ) ≤ 2 * Q ^ (2333 / 1000 : ℝ) := Nat.floor_le (by positivity)
-  have hsplit : Q ^ (2333 / 1000 : ℝ) = Q ^ b₀ * Q ^ (2333 / 1000 - b₀) := by
+  have hN₂ : (⌊2 * Q ^ L⌋₊ : ℝ) ≤ 2 * Q ^ L := Nat.floor_le (by positivity)
+  have hsplit : Q ^ L = Q ^ b₀ * Q ^ (L - b₀) := by
     rw [← Real.rpow_add hQ0]; ring_nf
-  have hsplit2 : Q ^ (485 / 1000 * (2333 / 1000) : ℝ) =
-      Q ^ (485 / 1000 * (2333 / 1000) - (2333 / 1000 - b₀)) * Q ^ (2333 / 1000 - b₀) := by
+  have hsplit2 : Q ^ (w₂ * L) =
+      Q ^ (w₂ * L - (L - b₀)) * Q ^ (L - b₀) := by
     rw [← Real.rpow_add hQ0]; ring_nf
   have hpos : (0 : ℝ) < (⌊Q ^ b₀⌋₊ : ℝ) + 1 := by positivity
-  calc ((⌊2 * Q ^ (2333 / 1000 : ℝ)⌋₊ / (⌊Q ^ b₀⌋₊ + 1) : ℕ) : ℝ)
-      ≤ (⌊2 * Q ^ (2333 / 1000 : ℝ)⌋₊ : ℝ) / ((⌊Q ^ b₀⌋₊ : ℝ) + 1) := by
-        have := Nat.cast_div_le (α := ℝ) (m := ⌊2 * Q ^ (2333 / 1000 : ℝ)⌋₊) (n := ⌊Q ^ b₀⌋₊ + 1)
+  calc ((⌊2 * Q ^ L⌋₊ / (⌊Q ^ b₀⌋₊ + 1) : ℕ) : ℝ)
+      ≤ (⌊2 * Q ^ L⌋₊ : ℝ) / ((⌊Q ^ b₀⌋₊ : ℝ) + 1) := by
+        have := Nat.cast_div_le (α := ℝ) (m := ⌊2 * Q ^ L⌋₊) (n := ⌊Q ^ b₀⌋₊ + 1)
         push_cast at this
         exact this
-    _ ≤ 2 * Q ^ (2333 / 1000 : ℝ) / Q ^ b₀ := by
+    _ ≤ 2 * Q ^ L / Q ^ b₀ := by
         apply div_le_div₀ (by positivity) hN₂ hB0 hB.le
-    _ = 2 * Q ^ (2333 / 1000 - b₀) := by rw [hsplit]; field_simp
-    _ ≤ Q ^ (485 / 1000 * (2333 / 1000) : ℝ) := by
+    _ = 2 * Q ^ (L - b₀) := by rw [hsplit]; field_simp
+    _ ≤ Q ^ (w₂ * L) := by
         rw [hsplit2]
         exact mul_le_mul_of_nonneg_right h2 (by positivity)
 
@@ -647,15 +654,15 @@ theorem main_term {Z X Lw LQ φ K₁ E a₀ εw η : ℝ} (hZ : 0 ≤ Z) (hX : 0
     _ ≤ η * (X / (φ * LQ)) := mul_le_mul_of_nonneg_right hcoef hpos2
     _ = η * X / (φ * LQ) := by ring
 
-/-- The leaves' remainder: for `Q ≥ 1`, `K ≥ 0`, `1 ≤ w ≤ 2Q^{ε_w}`, `ε_w(2k + 7) ≤ 2c`, `0 ≤ X' ≤ Q^{b₀}`,
-`2^J ≤ 4w²`, `J + 1 ≤ 3w`, `48·2^{2k+7}K ≤ Q^c`, `0 < φ ≤ Q`, `L − 1 − c = c + (b₀ + 2c)` and
+/-- The leaves' remainder: for a route with `RouteOK`, `Q ≥ 1`, `K ≥ 0`, `1 ≤ w ≤ 2Q^{ε_w}`, `ε_w(2k + 7) ≤ 2c`,
+`0 ≤ X' ≤ Q^{b₀}`, `2^J ≤ 4w²`, `J + 1 ≤ 3w`, `48·2^{2k+7}K ≤ Q^c`, `0 < φ ≤ Q`, `L − 1 − c = c + (b₀ + 2c)` and
 `R ≤ (J + 1)2^J w^{2k+4}`: `4RX'K ≤ φ⁻¹Q^{L−c}`. -/
-theorem rem_term {Q w X' φ K εw c b₀ Mrem R : ℝ} {k J : ℕ} (hQ1 : 1 ≤ Q) (hw1 : 1 ≤ w)
+theorem rem_term [Route] [RouteOK] {Q w X' φ K εw c b₀ Mrem R : ℝ} {k J : ℕ} (hQ1 : 1 ≤ Q) (hw1 : 1 ≤ w)
     (hwle : w ≤ 2 * Q ^ εw) (hεw7 : εw * ((2 * k + 7 : ℕ) : ℝ) ≤ 2 * c) (hX' : X' ≤ Q ^ b₀) (hX'0 : 0 ≤ X')
     (hK : 0 ≤ K) (hJ2 : (2 : ℝ) ^ J ≤ 4 * w ^ 2) (hJ3 : (J : ℝ) + 1 ≤ 3 * w)
     (hMrem : Mrem = 48 * 2 ^ (2 * k + 7) * K) (hM : Mrem ≤ Q ^ c) (hφ : 0 < φ) (hφq : φ ≤ Q)
-    (hc : (2333 / 1000 - 1 - c : ℝ) = c + (b₀ + 2 * c))
-    (hR : R ≤ (J + 1) * 2 ^ J * w ^ ((2 * k + 4 : ℕ) : ℝ)) : 4 * R * X' * K ≤ φ⁻¹ * Q ^ (2333 / 1000 - c : ℝ) := by
+    (hc : (L - 1 - c : ℝ) = c + (b₀ + 2 * c))
+    (hR : R ≤ (J + 1) * 2 ^ J * w ^ ((2 * k + 4 : ℕ) : ℝ)) : 4 * R * X' * K ≤ φ⁻¹ * Q ^ (L - c : ℝ) := by
   have hQ0 : 0 < Q := by linarith
   have hw7 : R ≤ 12 * w ^ (2 * k + 7) := by
     refine hR.trans ?_
@@ -677,11 +684,11 @@ theorem rem_term {Q w X' φ K εw c b₀ Mrem R : ℝ} {k J : ℕ} (hQ1 : 1 ≤ 
       _ = Mrem * Q ^ (b₀ + 2 * c) := by
           rw [hMrem, Real.rpow_add hQ0]
           ring
-  have hfin : Mrem * Q ^ (b₀ + 2 * c) ≤ Q ^ (2333 / 1000 - 1 - c) := by
+  have hfin : Mrem * Q ^ (b₀ + 2 * c) ≤ Q ^ (L - 1 - c) := by
     rw [hc, Real.rpow_add hQ0 c (b₀ + 2 * c)]
     exact mul_le_mul_of_nonneg_right hM (by positivity)
-  have hφinv : Q ^ (2333 / 1000 - 1 - c) ≤ φ⁻¹ * Q ^ (2333 / 1000 - c : ℝ) := by
-    have e : Q ^ (2333 / 1000 - c : ℝ) = Q ^ (2333 / 1000 - 1 - c) * Q := by
+  have hφinv : Q ^ (L - 1 - c) ≤ φ⁻¹ * Q ^ (L - c : ℝ) := by
+    have e : Q ^ (L - c : ℝ) = Q ^ (L - 1 - c) * Q := by
       rw [← Real.rpow_add_one hQ0.ne']; ring_nf
     rw [e, inv_mul_eq_div, le_div_iff₀ hφ]
     exact mul_le_mul_of_nonneg_left hφq (by positivity)
@@ -694,32 +701,32 @@ section Prop6
 open Classical
 
 set_option maxHeartbeats 1600000 in
-/-- **Proposition 6** (Harman's fundamental theorem, in the form used). Fix `j`, `J₀`, `Λ₁ ≥ 0`, exponents `a₀ > 0`
-and `b₀` with `a₀ + b₀ < 0.599L` and `0.515L < b₀ < L − 1` (`L = 2.333`), and `η > 0`. There are `δ > 0` and `q₀`
-such that for `q ≥ q₀` and a unit `a` mod `q`: let `rt` run over the `j`-tuples of primes up to `⌊2q^L⌋` that satisfy
-at most `J₀` comparisons `Ω` (taken at `m = 0`, with `m`-parts `c(0)` at most `Λ₁ log q`) forcing every
-`rt_i ≥ z₀ = ⌈q^{a₀}⌉` and `∏rt ≤ ⌊q^{b₀}⌋`. Then `Σ_{rt}(S(A_r, z₀) − S(B_r, z₀)/φ(q))`, `r = ∏rt`, is at most
-`η q^L/(φ(q) log q) + q^{L−δ}/φ(q)` in absolute value. -/
-theorem prop6 (j J₀ : ℕ) {Λ₁ a₀ b₀ : ℝ} (hΛ₁ : 0 ≤ Λ₁) (ha₀ : 0 < a₀)
-    (hab : a₀ + b₀ < 599 / 1000 * (2333 / 1000)) (hb₁ : 515 / 1000 * (2333 / 1000) < b₀)
-    (hb₂ : b₀ < 2333 / 1000 - 1) {η : ℝ} (hη : 0 < η) :
+/-- **Proposition 6** (Harman's fundamental theorem, in the form used). Assume `RouteOK` and the route's Type II
+estimate (`hII`). Fix `j`, `J₀`, `Λ₁ ≥ 0`, exponents `a₀ > 0` and `b₀` with `a₀ + b₀ < (1 − w₁)L` and
+`(1 − w₂)L < b₀ < L − 1`, and `η > 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`: let
+`rt` run over the `j`-tuples of primes up to `⌊2q^L⌋` that satisfy at most `J₀` comparisons `Ω` (taken at `m = 0`, with
+`m`-parts `c(0)` at most `Λ₁ log q`) forcing every `rt_i ≥ z₀ = ⌈q^{a₀}⌉` and `∏rt ≤ ⌊q^{b₀}⌋`. Then
+`Σ_{rt}(S(A_r, z₀) − S(B_r, z₀)/φ(q))`, `r = ∏rt`, is at most `η q^L/(φ(q) log q) + q^{L−δ}/φ(q)` in absolute value. -/
+theorem prop6 [Route] [RouteOK] (hII : TypeIIAt) (j J₀ : ℕ) {Λ₁ a₀ b₀ : ℝ} (hΛ₁ : 0 ≤ Λ₁) (ha₀ : 0 < a₀)
+    (hab : a₀ + b₀ < (1 - w₁) * (L)) (hb₁ : (1 - w₂) * (L) < b₀)
+    (hb₂ : b₀ < L - 1) {η : ℝ} (hη : 0 < η) :
     ∃ δ : ℝ, 0 < δ ∧ ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∀ Ω : List (Cmp j), Ω.length ≤ J₀ → (∀ C ∈ Ω, C.c 0 ≤ Λ₁ * Real.log q) →
       (∀ rt : Fin j → ℕ, (∀ i, (rt i).Prime) → (∀ C ∈ Ω, C.holds 0 rt) →
         (∀ i, ⌈(q : ℝ) ^ a₀⌉₊ ≤ rt i) ∧ ∏ i, rt i ≤ ⌊(q : ℝ) ^ b₀⌋₊) →
-      ‖∑ rt ∈ SieveStops2.RT j ⌊2 * (q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ Ω,
-          ∑ n ∈ Finset.Ioc ⌊(q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ ⌊2 * (q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊,
+      ‖∑ rt ∈ SieveStops2.RT j ⌊2 * (q : ℝ) ^ L⌋₊ Ω,
+          ∑ n ∈ Finset.Ioc ⌊(q : ℝ) ^ L⌋₊ ⌊2 * (q : ℝ) ^ L⌋₊,
             dw q a n * (if (∏ i, rt i) ∣ n ∧ rough ⌈(q : ℝ) ^ a₀⌉₊ n then 1 else 0)‖ ≤
-        η * (q : ℝ) ^ (2333 / 1000 : ℝ) / (q.totient * Real.log q) +
-          (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ) := by
+        η * (q : ℝ) ^ L / (q.totient * Real.log q) +
+          (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ) := by
   obtain ⟨C₀, hC₀1, hC⟩ := SieveRanges.rng_sum_le
   have hC₀ : 0 ≤ C₀ := by linarith
-  set c : ℝ := (2333 / 1000 - 1 - b₀) / 4 with hc
+  set c : ℝ := (L - 1 - b₀) / 4 with hc
   have hc0 : 0 < c := by rw [hc]; linarith
-  have hb₀ : 0 < b₀ := by linarith
-  have ha₀L : a₀ ≤ 2333 / 1000 + 1 := by linarith
-  set K₁ : ℝ := (Real.log (2333 / 1000 + 1) - Real.log a₀ + 1) ^ j with hK₁
-  have hlogpos : 0 ≤ Real.log (2333 / 1000 + 1) - Real.log a₀ + 1 := by
+  have hb₀ : 0 < b₀ := by nlinarith [w₂_lt_one, L_pos]
+  have ha₀L : a₀ ≤ L + 1 := by nlinarith [w₁L_pos, L_pos]
+  set K₁ : ℝ := (Real.log (L + 1) - Real.log a₀ + 1) ^ j with hK₁
+  have hlogpos : 0 ≤ Real.log (L + 1) - Real.log a₀ + 1 := by
     have := Real.log_le_log ha₀ ha₀L
     linarith
   have hK₁0 : 0 ≤ K₁ := pow_nonneg hlogpos j
@@ -734,9 +741,9 @@ theorem prop6 (j J₀ : ℕ) {Λ₁ a₀ b₀ : ℝ} (hΛ₁ : 0 ≤ Λ₁) (ha�
     push_cast
     nlinarith
   -- the stops
-  obtain ⟨δ₁, hδ₁, q₁, hq₁⟩ := SieveStops2.stops2_bound hεw0 j J₀ hΛ₁
+  obtain ⟨δ₁, hδ₁, q₁, hq₁⟩ := SieveStops2.stops2_bound hII hεw0 j J₀ hΛ₁
   -- rough numbers from above
-  set U : ℝ := (2333 / 1000 + 1) / εw with hU
+  set U : ℝ := (L + 1) / εw with hU
   obtain ⟨z₁, hz₁⟩ := SieveRough.psi_le U (ε := 1) one_pos
   -- the remainder's constant
   set Mrem : ℝ := 48 * 2 ^ (2 * k + 7) * (K₁ * (Real.exp 1 * a₀ / εw)) with hMrem
@@ -745,10 +752,10 @@ theorem prop6 (j J₀ : ℕ) {Λ₁ a₀ b₀ : ℝ} (hΛ₁ : 0 ≤ Λ₁) (ha�
   -- the conditions that hold for large `q`
   have hev : ∀ᶠ x : ℝ in Filter.atTop, 3 ≤ x ∧ max 2 (z₁ : ℝ) ≤ x ^ εw ∧
       ∑ p ∈ SieveRough.primesIn (x ^ εw) (x ^ a₀), 1 / (p : ℝ) ≤ Real.log a₀ - Real.log εw + 1 ∧
-      ∑ p ∈ SieveRough.primesIn (x ^ a₀) (x ^ (2333 / 1000 + 1 : ℝ)), 1 / (p : ℝ) ≤
-        Real.log (2333 / 1000 + 1) - Real.log a₀ + 1 ∧
-      5 ≤ x ^ (2333 / 1000 - (401 / 1000 * (2333 / 1000) + a₀ + b₀)) ∧
-      2 ≤ x ^ (485 / 1000 * (2333 / 1000) - (2333 / 1000 - b₀)) ∧
+      ∑ p ∈ SieveRough.primesIn (x ^ a₀) (x ^ (L + 1 : ℝ)), 1 / (p : ℝ) ≤
+        Real.log (L + 1) - Real.log a₀ + 1 ∧
+      5 ≤ x ^ (L - (w₁ * L + a₀ + b₀)) ∧
+      2 ≤ x ^ (w₂ * L - (L - b₀)) ∧
       Mrem ≤ x ^ c ∧ 2 ≤ x ^ δ₀ :=
     (Filter.eventually_ge_atTop 3).and (((tendsto_rpow_atTop hεw0).eventually_ge_atTop _).and
       ((SieveRough.evLe_sum_inv hεw0 hεwa.le 1 one_pos).and ((SieveRough.evLe_sum_inv ha₀ ha₀L 1 one_pos).and
@@ -768,7 +775,7 @@ theorem prop6 (j J₀ : ℕ) {Λ₁ a₀ b₀ : ℝ} (hΛ₁ : 0 ≤ Λ₁) (ha�
   set w : ℕ := ⌈Q ^ εw⌉₊ with hwdef
   set z₀ : ℕ := ⌈Q ^ a₀⌉₊ with hz₀def
   set X' : ℕ := ⌊Q ^ b₀⌋₊ with hX'def
-  set X : ℝ := Q ^ (2333 / 1000 : ℝ) with hXdef
+  set X : ℝ := Q ^ L with hXdef
   set N₁ : ℕ := ⌊X⌋₊ with hN₁
   set N₂ : ℕ := ⌊2 * X⌋₊ with hN₂
   have hX0 : 0 ≤ X := by positivity
@@ -824,7 +831,7 @@ theorem prop6 (j J₀ : ℕ) {Λ₁ a₀ b₀ : ℝ} (hΛ₁ : 0 ≤ Λ₁) (ha�
       linarith
     have hy1 : 1 ≤ X / d := by rw [le_div_iff₀ (by linarith)]; linarith
     have hlog2 : Real.log (2 * (X / d)) ≤ U * Real.log w := by
-      have h1 : 2 * (X / d) ≤ Q ^ (2333 / 1000 + 1 : ℝ) := by
+      have h1 : 2 * (X / d) ≤ Q ^ (L + 1 : ℝ) := by
         rw [Real.rpow_add hQ0, Real.rpow_one]
         have h1a : X / d ≤ X := div_le_self hX0 hd1
         have h1b : 2 * X ≤ X * Q := by
@@ -833,9 +840,9 @@ theorem prop6 (j J₀ : ℕ) {Λ₁ a₀ b₀ : ℝ} (hΛ₁ : 0 ≤ Λ₁) (ha�
         linarith
       have h2 := Real.log_le_log (by positivity) h1
       rw [Real.log_rpow hQ0] at h2
-      have h3 : (2333 / 1000 + 1) * Real.log Q ≤ U * Real.log w := by
+      have h3 : (L + 1) * Real.log Q ≤ U * Real.log w := by
         rw [hU, div_mul_eq_mul_div, le_div_iff₀ hεw0]
-        have := mul_le_mul_of_nonneg_left hlogw (by norm_num : (0 : ℝ) ≤ 2333 / 1000 + 1)
+        have := mul_le_mul_of_nonneg_left hlogw (by linarith [L_pos] : (0 : ℝ) ≤ L + 1)
         linarith
       linarith
     have h := hz₁ w hwz₁ (X / d) hy1 hlog2
@@ -852,7 +859,7 @@ theorem prop6 (j J₀ : ℕ) {Λ₁ a₀ b₀ : ℝ} (hΛ₁ : 0 ≤ Λ₁) (ha�
     (fun rt hrt => ⟨(hRT rt hrt).1, (hRT rt hrt).2.1⟩)
   -- the sums of `1/d`
   have hsRT : ∑ rt ∈ SieveStops2.RT j N₂ Ω, 1 / ((∏ i, rt i : ℕ) : ℝ) ≤ K₁ := by
-    refine (sum_RT_inv_le (s := SieveRough.primesIn (Q ^ a₀) (Q ^ (2333 / 1000 + 1 : ℝ))) ?_).trans ?_
+    refine (sum_RT_inv_le (s := SieveRough.primesIn (Q ^ a₀) (Q ^ (L + 1 : ℝ))) ?_).trans ?_
     · intro rt hrt
       rw [Fintype.mem_piFinset]
       intro i
@@ -863,7 +870,7 @@ theorem prop6 (j J₀ : ℕ) {Λ₁ a₀ b₀ : ℝ} (hΛ₁ : 0 ≤ Λ₁) (ha�
       rw [SieveRough.mem_primesIn]
       refine ⟨hrtp i, le_trans (Nat.le_ceil _) (by exact_mod_cast hrtz i), ?_⟩
       have h1 : (rt i : ℝ) ≤ N₂ := by exact_mod_cast hrtY
-      have h2 : 2 * X < Q ^ (2333 / 1000 + 1 : ℝ) := by
+      have h2 : 2 * X < Q ^ (L + 1 : ℝ) := by
         rw [Real.rpow_add hQ0, Real.rpow_one, mul_comm X Q]
         exact mul_lt_mul_of_pos_right (by linarith) (by positivity)
       linarith
@@ -888,14 +895,14 @@ theorem prop6 (j J₀ : ℕ) {Λ₁ a₀ b₀ : ℝ} (hΛ₁ : 0 ≤ Λ₁) (ha�
       (main_coef (Real.exp_pos 1) hK₁0 ha₀ hc0 hη hεw hζε)
   -- the remainder
   have hrem : 4 * rem w (Jw w) k * X' * (K₁ * (Real.exp 1 * a₀ / εw)) ≤
-      (q.totient : ℝ)⁻¹ * Q ^ (2333 / 1000 - c : ℝ) :=
+      (q.totient : ℝ)⁻¹ * Q ^ (L - c : ℝ) :=
     rem_term hQ1 (by linarith) hwle hεw7 hX'le (Nat.cast_nonneg _) (by positivity) hJ.2.1 hJ.2.2 hMrem hMrem'
       hφ hφq (by rw [hc]; ring) (rem_le (by linarith) (Jw w) k)
   -- combine
   have hL : ‖∑ rt ∈ SieveStops2.RT j N₂ Ω, ∑ P ∈ (primesIco w z₀).powerset, (-1 : ℂ) ^ P.card *
       (if (∏ i, rt i) * ∏ p ∈ P, p ≤ X' then ∑ n ∈ Finset.Ioc N₁ N₂, dw q a n *
         (if (∏ i, rt i) * ∏ p ∈ P, p ∣ n ∧ rough w n then 1 else 0) else 0)‖ ≤
-      η * X / (q.totient * Real.log Q) + (q.totient : ℝ)⁻¹ * Q ^ (2333 / 1000 - c : ℝ) := by
+      η * X / (q.totient * Real.log Q) + (q.totient : ℝ)⁻¹ * Q ^ (L - c : ℝ) := by
     refine hleaves.trans ?_
     have h1 : (4 * zeta C₀ k * (2 * X / Real.log w) / q.totient + 4 * rem w (Jw w) k * X') *
         ((∑ rt ∈ SieveStops2.RT j N₂ Ω, 1 / ((∏ i, rt i : ℕ) : ℝ)) * ∏ p ∈ primesIco w z₀, (1 + 1 / (p : ℝ))) ≤
@@ -905,25 +912,25 @@ theorem prop6 (j J₀ : ℕ) {Λ₁ a₀ b₀ : ℝ} (hΛ₁ : 0 ≤ Λ₁) (ha�
     refine h1.trans ?_
     rw [add_mul]
     exact add_le_add hmain hrem
-  have hcomb : (q.totient : ℝ)⁻¹ * Q ^ (2333 / 1000 - c : ℝ) + (q.totient : ℝ)⁻¹ * Q ^ (2333 / 1000 - δ₁ : ℝ) ≤
-      (q.totient : ℝ)⁻¹ * Q ^ (2333 / 1000 - δ₀ : ℝ) := by
+  have hcomb : (q.totient : ℝ)⁻¹ * Q ^ (L - c : ℝ) + (q.totient : ℝ)⁻¹ * Q ^ (L - δ₁ : ℝ) ≤
+      (q.totient : ℝ)⁻¹ * Q ^ (L - δ₀ : ℝ) := by
     have hm : 2 * δ₀ ≤ c ∧ 2 * δ₀ ≤ δ₁ := by
       rw [hδ₀]; exact ⟨by linarith [min_le_left c δ₁], by linarith [min_le_right c δ₁]⟩
-    have h1 : Q ^ (2333 / 1000 - c : ℝ) ≤ Q ^ (2333 / 1000 - 2 * δ₀ : ℝ) :=
+    have h1 : Q ^ (L - c : ℝ) ≤ Q ^ (L - 2 * δ₀ : ℝ) :=
       Real.rpow_le_rpow_of_exponent_le hQ1 (by linarith)
-    have h2 : Q ^ (2333 / 1000 - δ₁ : ℝ) ≤ Q ^ (2333 / 1000 - 2 * δ₀ : ℝ) :=
+    have h2 : Q ^ (L - δ₁ : ℝ) ≤ Q ^ (L - 2 * δ₀ : ℝ) :=
       Real.rpow_le_rpow_of_exponent_le hQ1 (by linarith)
-    have h3 : 2 * Q ^ (2333 / 1000 - 2 * δ₀ : ℝ) ≤ Q ^ (2333 / 1000 - δ₀ : ℝ) := by
-      have e : Q ^ (2333 / 1000 - δ₀ : ℝ) = Q ^ δ₀ * Q ^ (2333 / 1000 - 2 * δ₀ : ℝ) := by
+    have h3 : 2 * Q ^ (L - 2 * δ₀ : ℝ) ≤ Q ^ (L - δ₀ : ℝ) := by
+      have e : Q ^ (L - δ₀ : ℝ) = Q ^ δ₀ * Q ^ (L - 2 * δ₀ : ℝ) := by
         rw [← Real.rpow_add hQ0]; ring_nf
       rw [e]
       exact mul_le_mul_of_nonneg_right hδ2 (by positivity)
     have hinv : (0 : ℝ) ≤ (q.totient : ℝ)⁻¹ := by positivity
     rw [← mul_add]
     exact mul_le_mul_of_nonneg_left (by linarith) hinv
-  calc _ ≤ (η * X / (q.totient * Real.log Q) + (q.totient : ℝ)⁻¹ * Q ^ (2333 / 1000 - c : ℝ)) +
-        (q.totient : ℝ)⁻¹ * Q ^ (2333 / 1000 - δ₁ : ℝ) := add_le_add hL hstops
-    _ ≤ η * X / (q.totient * Real.log Q) + (q.totient : ℝ)⁻¹ * Q ^ (2333 / 1000 - δ₀ : ℝ) := by
+  calc _ ≤ (η * X / (q.totient * Real.log Q) + (q.totient : ℝ)⁻¹ * Q ^ (L - c : ℝ)) +
+        (q.totient : ℝ)⁻¹ * Q ^ (L - δ₁ : ℝ) := add_le_add hL hstops
+    _ ≤ η * X / (q.totient * Real.log Q) + (q.totient : ℝ)⁻¹ * Q ^ (L - δ₀ : ℝ) := by
         linarith [hcomb]
 
 end Prop6

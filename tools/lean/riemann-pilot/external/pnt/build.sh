@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity LinnikChar LinnikDeduction LinnikHybrid LinnikDetect LinnikDensity LinnikHalf LinnikFE LinnikLindelof LinnikSubconvex MertensChi LinnikAFE LinnikFourth LinnikIngham LinnikPower LinnikOffDiag LinnikHuxley LinnikGammaRatio LinnikReflect LinnikWeighted LinnikDual LinnikBuckets LinnikLargeValues LinnikTwelveBins LinnikTwelveSizes LinnikTwelve LinnikMoment LinnikLines LinnikSplit LinnikS2 LinnikPoints SieveSmooth LinnikStep SieveLemma1 SieveWeight SieveTypeII SieveCert SieveRough SieveSep SieveFamily SieveBrun SieveCount SieveRanges SieveLeaf SieveTree SieveDyadic SieveTypeIIU SieveRoughTuple SieveTypeIIR SieveDiff SieveStops1 SieveCmp SieveStops2 SieveProp6 SieveChain SieveDecomp SieveBuch SieveLeaves SieveQ SieveDrop SieveMain; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity LinnikChar LinnikDeduction LinnikHybrid LinnikDetect LinnikDensity LinnikHalf LinnikFE LinnikLindelof LinnikSubconvex MertensChi LinnikAFE LinnikFourth LinnikIngham LinnikPower LinnikOffDiag LinnikHuxley LinnikGammaRatio LinnikReflect LinnikWeighted LinnikDual LinnikBuckets LinnikLargeValues LinnikTwelveBins LinnikTwelveSizes LinnikTwelve LinnikMoment LinnikLines LinnikSplit LinnikS2 LinnikPoints SieveSmooth LinnikStep SieveLemma1 SieveWeight SieveTypeII SieveRoute SieveCert SieveCert229 SieveRough SieveSep SieveFamily SieveBrun SieveCount SieveRanges SieveLeaf SieveTree SieveDyadic SieveTypeIIU SieveRoughTuple SieveTypeIIR SieveDiff SieveStops1 SieveCmp SieveStops2 SieveProp6 SieveChain SieveDecomp SieveBuch SieveLeaves SieveQ SieveDrop SieveMain LinnikCGL LinnikIngham73 LinnikHuxStep SieveTypeIIGen SieveTypeII73 Linnik229; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -139,7 +139,9 @@ import LinnikStep
 import SieveLemma1
 import SieveWeight
 import SieveTypeII
+import SieveRoute
 import SieveCert
+import SieveCert229
 import SieveRough
 import SieveSep
 import SieveFamily
@@ -164,6 +166,12 @@ import SieveLeaves
 import SieveQ
 import SieveDrop
 import SieveMain
+import LinnikCGL
+import LinnikIngham73
+import LinnikHuxStep
+import SieveTypeIIGen
+import SieveTypeII73
+import Linnik229
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -399,7 +407,11 @@ import SieveMain
 #print axioms SieveTypeII.typeII_pointwise
 #print axioms SieveTypeII.exponent_le
 #print axioms SieveTypeII.typeII_step
-#print axioms SieveCert.total_le
+#print axioms SieveRoute.routeOK2333
+#print axioms SieveRoute.typeII2333
+#print axioms SieveCert.gridOK2333
+#print axioms SieveCert.total_le_2333
+#print axioms SieveCert.total_div_le
 #print axioms SieveCert.cover2
 #print axioms SieveCert.cover3
 #print axioms SieveCert.cover4
@@ -450,7 +462,30 @@ import SieveMain
 #print axioms SieveDrop.drop_ev
 #print axioms SieveMain.TB_ev
 #print axioms SieveMain.linnik_large
+#print axioms SieveMain.linnik_route
+#print axioms SieveMain.fits2333
 #print axioms SieveMain.linnik_2333
+#print axioms LinnikIngham73.bound_class2_73
+#print axioms LinnikIngham73.count_middle73
+#print axioms LinnikIngham73.charDensity_ingham73
+#print axioms LinnikHuxStep.class1_gen
+#print axioms LinnikHuxStep.count_gen
+#print axioms LinnikHuxStep.charDensity_gen
+#print axioms LinnikHuxStep.charDensity_hux73
+#print axioms LinnikHuxStep.charDensity_step'
+#print axioms SieveTypeIIGen.card_bin_gen
+#print axioms SieveTypeIIGen.bin_bound_gen
+#print axioms SieveTypeIIGen.prod_MB_le_gen
+#print axioms SieveTypeIIGen.typeII_gen
+#print axioms SieveTypeII73.counts_73
+#print axioms SieveTypeII73.window_73
+#print axioms SieveTypeII73.typeII_73
+#print axioms SieveCert.gridOK229
+#print axioms SieveCert.total_le_229
+#print axioms Linnik229.routeOK229
+#print axioms Linnik229.typeII229
+#print axioms Linnik229.fits229
+#print axioms Linnik229.linnik_229
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy

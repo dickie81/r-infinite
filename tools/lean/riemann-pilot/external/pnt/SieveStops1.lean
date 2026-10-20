@@ -7,26 +7,31 @@ Plain statements.
 
 * `sum_cofactor`: for a `p`-rough `W ≤ N₁` with `0 < W`, the multiples `n ∈ (N₁, N₂]` of `W` that are `p`-rough are
   the `Wk` with `k ≥ 2` `p`-rough and `N₁ < Wk ≤ N₂`.
-* `stops1_bound`: fix `e₀ > 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`: let `r`
-  run over `R`, each `r > 0` with every prime factor at least `z₀` and coefficients `|c_r| ≤ 1`, let `w ≥ q^{e₀}`,
-  and let `q^{0.401L} ≤ X` and `Xz₀ ≤ q^{0.485L}`. Then the stops of Buchstab's tree at the threshold `X`
+* `stops1_bound`: let `L`, `w₁` and `w₂` be a route's parameters with `RouteOK`, assume its Type II estimate
+  (`hII : SieveRoute.TypeIIAt`), and fix `e₀ > 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a` mod
+  `q`: let `r` run over `R`, each `r > 0` with every prime factor at least `z₀` and coefficients `|c_r| ≤ 1`, let
+  `w ≥ q^{e₀}`, and let `q^{w₁L} ≤ X` and `Xz₀ ≤ q^{w₂L}`. Then the stops of Buchstab's tree at the threshold `X`
   (`SieveDiff.tree_weighted`), weighted by `c_r` and summed over `r`, have `|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`.
 * `window_bound`: the same with `r` itself in the window, `R ⊆ (P₁, P₂]`, for `S(A_r, z₀) − S(B_r, z₀)/φ(q)`.
 
-`stops1_bound` and `window_bound` were the first case of Proposition 6's proof in `frontier/linnik/SIEVE-ROUTE.md`
-§5 (`r ≤ x^{u₁}`). The proof of `linnik_2333` does not use them: `SieveProp6.prop6` runs one tree, at the threshold
-`X'` (`SieveStops2`). `sum_cofactor` is used by `SieveStops2` and `SieveChain`.
+`stops1_bound` and `window_bound` were the first case of Proposition 6's proof in `frontier/linnik/SIEVE-ROUTE.md` §5
+(`r ≤ x^{u₁}`). The proof of `SieveMain.linnik_route` does not use them: `SieveProp6.prop6` runs one tree, at the
+threshold `X'` (`SieveStops2`). `sum_cofactor` is used by `SieveStops2` and `SieveChain`.
 
 The proof of the bounds: a stop `W = r∏P·p` lies in `(X, Xz₀]`, inside the lower window; its least prime is `p`
 (`minFac_W`), so `W` determines `(r, P, p)` (`filter_W`, `div_W`), and the stop's cofactor is a `p`-rough `k ≥ 2`
 (`sum_cofactor`). `SieveTypeIIR.typeII_rough` with `m = W` and `z(m) = minFac m` bounds the sum.
+
+Round 607 made `L`, `w₁` and `w₂` a route's parameters and the Type II estimate a hypothesis (`hII`); the
+statements of earlier rounds are the case `SieveRoute.route2333`, with `SieveRoute.typeII2333` for `hII`.
+
 
 The file imports `SieveDiff.lean` and `SieveTypeIIR.lean`.
 -/
 import SieveDiff
 import SieveTypeIIR
 
-open Real Finset SieveFamily SieveTree
+open Real Finset SieveFamily SieveTree SieveRoute
 
 namespace SieveStops1
 
@@ -119,32 +124,33 @@ section Bound
 
 open Classical
 
-/-- **The stops below the window.** Fix `e₀ > 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a`
-mod `q`: let `r` run over `R`, each `r > 0` with every prime factor at least `z₀` and coefficients `|c_r| ≤ 1`, let
-`w ≥ q^{e₀}`, and let `q^{0.401L} ≤ X` and `Xz₀ ≤ q^{0.485L}`. Then the stops of Buchstab's tree at the threshold `X`
-(`SieveDiff.tree_weighted`), weighted by `c_r` and summed over `r`, have `|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`. -/
-theorem stops1_bound {e₀ : ℝ} (he₀ : 0 < e₀) :
+/-- **The stops below the window.** Assume `RouteOK` and the route's Type II estimate (`hII`). Fix `e₀ > 0`. There are
+`δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`: let `r` run over `R`, each `r > 0` with every prime
+factor at least `z₀` and coefficients `|c_r| ≤ 1`, let `w ≥ q^{e₀}`, and let `q^{w₁L} ≤ X` and `Xz₀ ≤ q^{w₂L}`. Then the
+stops of Buchstab's tree at the threshold `X` (`SieveDiff.tree_weighted`), weighted by `c_r` and summed over `r`, have
+`|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`. -/
+theorem stops1_bound [Route] [RouteOK] (hII : TypeIIAt) {e₀ : ℝ} (he₀ : 0 < e₀) :
     ∃ δ : ℝ, 0 < δ ∧ ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∀ (X w z₀ : ℕ) (R : Finset ℕ) (c : ℕ → ℂ), (∀ r, ‖c r‖ ≤ 1) →
       (∀ r ∈ R, 0 < r ∧ ∀ p : ℕ, p.Prime → p ∣ r → z₀ ≤ p) →
-      (q : ℝ) ^ e₀ ≤ w → (q : ℝ) ^ (401 / 1000 * (2333 / 1000) : ℝ) ≤ X →
-      ((X * z₀ : ℕ) : ℝ) ≤ (q : ℝ) ^ (485 / 1000 * (2333 / 1000) : ℝ) →
+      (q : ℝ) ^ e₀ ≤ w → (q : ℝ) ^ (w₁ * L) ≤ X →
+      ((X * z₀ : ℕ) : ℝ) ≤ (q : ℝ) ^ (w₂ * L) →
       ‖∑ r ∈ R, c r * ∑ p ∈ primesIco w z₀, ∑ P ∈ (primesIco (p + 1) z₀).powerset, (-1 : ℂ) ^ (P.card + 1) *
           (if r * ∏ p' ∈ P, p' ≤ X ∧ X < r * (∏ p' ∈ P, p') * p then
-            ∑ n ∈ Finset.Ioc ⌊(q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ ⌊2 * (q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊, dw q a n *
+            ∑ n ∈ Finset.Ioc ⌊(q : ℝ) ^ L⌋₊ ⌊2 * (q : ℝ) ^ L⌋₊, dw q a n *
               (if r * (∏ p' ∈ P, p') * p ∣ n ∧ rough p n then 1 else 0) else 0)‖ ≤
-        (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ) := by
-  obtain ⟨δ, hδ, q₁, hq₁⟩ := SieveTypeIIR.typeII_rough he₀
+        (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ) := by
+  obtain ⟨δ, hδ, q₁, hq₁⟩ := SieveTypeIIR.typeII_rough hII he₀
   refine ⟨δ, hδ, max q₁ 2, ?_⟩
   intro q _ hq a ha X w z₀ R c hc hR hw hX hXz
   have hq1 : q₁ ≤ q := le_trans (le_max_left _ _) hq
   have hq2 : (2 : ℝ) ≤ q := by exact_mod_cast le_trans (le_max_right _ _) hq
-  set N₁ := ⌊(q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ with hN₁
-  set N₂ := ⌊2 * (q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ with hN₂
+  set N₁ := ⌊(q : ℝ) ^ L⌋₊ with hN₁
+  set N₂ := ⌊2 * (q : ℝ) ^ L⌋₊ with hN₂
   have hXzN : X * z₀ ≤ N₁ := by
     apply Nat.le_floor
-    calc ((X * z₀ : ℕ) : ℝ) ≤ (q : ℝ) ^ (485 / 1000 * (2333 / 1000) : ℝ) := hXz
-      _ ≤ (q : ℝ) ^ (2333 / 1000 : ℝ) := Real.rpow_le_rpow_of_exponent_le (by linarith) (by norm_num)
+    calc ((X * z₀ : ℕ) : ℝ) ≤ (q : ℝ) ^ (w₂ * L) := hXz
+      _ ≤ (q : ℝ) ^ L := Real.rpow_le_rpow_of_exponent_le (by linarith) (by route_num)
   -- the stops
   set T := (R ×ˢ ((primesIco w z₀).sigma (fun p => (primesIco (p + 1) z₀).powerset))).filter
     (fun t => t.1 * ∏ p' ∈ t.2.2, p' ≤ X ∧ X < t.1 * (∏ p' ∈ t.2.2, p') * t.2.1) with hT
@@ -244,28 +250,28 @@ theorem stops1_bound {e₀ : ℝ} (he₀ : 0 < e₀) :
     exact le_trans hw (by exact_mod_cast (mem_primesIco.1 hp).1)
   exact hq₁ q hq1 a ha X (X * z₀) (T.image Wt) hS hX hXz acoef ha1 Nat.minFac hz
 
-/-- **The terms inside the window.** Fix `e₀ > 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a`
-mod `q`: let `r` run over `R ⊆ (P₁, P₂]`, `q^{0.401L} ≤ P₁`, `P₂ ≤ q^{0.485L}`, with every prime factor of each `r` at
-least `z₀ ≥ q^{e₀}` and coefficients `|c_r| ≤ 1`. Then `Σ_r c_r (S(A_r, z₀) − S(B_r, z₀)/φ(q))` is at most
-`q^{L−δ}/φ(q)` in absolute value. -/
-theorem window_bound {e₀ : ℝ} (he₀ : 0 < e₀) :
+/-- **The terms inside the window.** Assume `RouteOK` and the route's Type II estimate (`hII`). Fix `e₀ > 0`. There are
+`δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`: let `r` run over `R ⊆ (P₁, P₂]`, `q^{w₁L} ≤ P₁`,
+`P₂ ≤ q^{w₂L}`, with every prime factor of each `r` at least `z₀ ≥ q^{e₀}` and coefficients `|c_r| ≤ 1`. Then
+`Σ_r c_r (S(A_r, z₀) − S(B_r, z₀)/φ(q))` is at most `q^{L−δ}/φ(q)` in absolute value. -/
+theorem window_bound [Route] [RouteOK] (hII : TypeIIAt) {e₀ : ℝ} (he₀ : 0 < e₀) :
     ∃ δ : ℝ, 0 < δ ∧ ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∀ (z₀ P₁ P₂ : ℕ) (R : Finset ℕ) (c : ℕ → ℂ), (∀ r, ‖c r‖ ≤ 1) → R ⊆ Finset.Ioc P₁ P₂ →
       (∀ r ∈ R, ∀ p : ℕ, p.Prime → p ∣ r → z₀ ≤ p) → (q : ℝ) ^ e₀ ≤ z₀ →
-      (q : ℝ) ^ (401 / 1000 * (2333 / 1000) : ℝ) ≤ P₁ → (P₂ : ℝ) ≤ (q : ℝ) ^ (485 / 1000 * (2333 / 1000) : ℝ) →
-      ‖∑ r ∈ R, c r * ∑ n ∈ Finset.Ioc ⌊(q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ ⌊2 * (q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊,
+      (q : ℝ) ^ (w₁ * L) ≤ P₁ → (P₂ : ℝ) ≤ (q : ℝ) ^ (w₂ * L) →
+      ‖∑ r ∈ R, c r * ∑ n ∈ Finset.Ioc ⌊(q : ℝ) ^ L⌋₊ ⌊2 * (q : ℝ) ^ L⌋₊,
           dw q a n * (if r ∣ n ∧ rough z₀ n then 1 else 0)‖ ≤
-        (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ) := by
-  obtain ⟨δ, hδ, q₁, hq₁⟩ := SieveTypeIIR.typeII_rough he₀
+        (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ) := by
+  obtain ⟨δ, hδ, q₁, hq₁⟩ := SieveTypeIIR.typeII_rough hII he₀
   refine ⟨δ, hδ, max q₁ 2, ?_⟩
   intro q _ hq a ha z₀ P₁ P₂ R c hc hRS hR hz₀ hP₁ hP₂
   have hq1 : q₁ ≤ q := le_trans (le_max_left _ _) hq
   have hq2 : (2 : ℝ) ≤ q := by exact_mod_cast le_trans (le_max_right _ _) hq
-  have hP₂N : P₂ ≤ ⌊(q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ := by
+  have hP₂N : P₂ ≤ ⌊(q : ℝ) ^ L⌋₊ := by
     apply Nat.le_floor
-    exact hP₂.trans (Real.rpow_le_rpow_of_exponent_le (by linarith) (by norm_num))
+    exact hP₂.trans (Real.rpow_le_rpow_of_exponent_le (by linarith) (by route_num))
   have hP₁1 : 1 ≤ P₁ := by
-    have : (1 : ℝ) ≤ (q : ℝ) ^ (401 / 1000 * (2333 / 1000) : ℝ) := Real.one_le_rpow (by linarith) (by norm_num)
+    have : (1 : ℝ) ≤ (q : ℝ) ^ (w₁ * L) := Real.one_le_rpow (by linarith) (by route_num)
     exact_mod_cast this.trans hP₁
   rw [Finset.sum_congr rfl fun r hr => by
     have hrI := Finset.mem_Ioc.1 (hRS hr)

@@ -3,12 +3,13 @@
 
 Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
-Plain statements. Let `L = 2333/1000`, `f0` smooth and real with support in `[1/2, 2]`, `K₀ ≥ 0` and `e₁ > 0`. A
-*family* has: a large `q`; `P` with `q^{(401/1000)L} ≤ P ≤ q^{(485/1000)L}`; `S ⊆ (P, 2P]` with coefficients `a_m`;
-`K ≤ K₀` primes `x_i` of `Sp`'s ranges at the scales `Q_i ≥ q^{e₁}` (`primesTo Q_i`, the primes up to `2Q_i`), with
-the weights `f0(x_i/Q_i)` and `∏_i Q_i ≤ 2^{K₀}q^L/P`; and `J` forms `ℓ_j(m, x) = φ_j(m) + Σ_i e_{ji} log x_i`. For a
-unit `a` mod `q`, its `A − B/φ(q)` is `Dsum`: the sum of its weights times `1[n ≡ a] − 1[(n, q) = 1]/φ(q)` at
-`n = m∏_i x_i`.
+Plain statements. `L`, `w₁` and `w₂` are a route's parameters (`SieveRoute.Route`), and `family_bound`,
+`typeII_sharp_explicit` and `typeII_sharp` assume the route's Type II estimate (`hII : SieveRoute.TypeIIAt`). Let `f0`
+be smooth and real with support in `[1/2, 2]`, `K₀ ≥ 0` and `e₁ > 0`. A *family* has: a large `q`; `P` with
+`q^{w₁L} ≤ P ≤ q^{w₂L}`; `S ⊆ (P, 2P]` with coefficients `a_m`; `K ≤ K₀` primes `x_i` of `Sp`'s ranges at the scales
+`Q_i ≥ q^{e₁}` (`primesTo Q_i`, the primes up to `2Q_i`), with the weights `f0(x_i/Q_i)` and `∏_i Q_i ≤ 2^{K₀}q^L/P`;
+and `J` forms `ℓ_j(m, x) = φ_j(m) + Σ_i e_{ji} log x_i`. For a unit `a` mod `q`, its `A − B/φ(q)` is `Dsum`: the sum of
+its weights times `1[n ≡ a] − 1[(n, q) = 1]/φ(q)` at `n = m∏_i x_i`.
 
 * `family_bound` (Lemma 4′ with Proposition 3′): let `J` continuous integrable `g_j` with integrable `𝓕g_j` be applied
   to the forms, with `2π(Σ_j |e_{ji}|)T₀ ≤ q^η` for each `i` and `0 < η ≤ 10⁻⁵`. The sum over `χ ≠ 1` of the family's
@@ -27,9 +28,9 @@ The proof:
 
 * `sum_twist_eq`, `inner_factor`: a separated family sum factors into the twisted `m`-sum and the twisted prime sums,
   which are `SieveWeight.Sp` at the heights `−2πΣ_j ξ_je_{ji}`.
-* `family_bound`: `SieveSep.sum_sep` writes each character's sum as an integral over `ℝ^J`. On the box `|ξ_j| ≤ T₀`
-  the heights are at most `q^η`, and `SieveTypeII.typeII_step` bounds the sum over `χ ≠ 1`; everywhere the trivial
-  bound holds; `SieveSep.sep_bound` combines the two.
+* `family_bound`: `SieveSep.sum_sep` writes each character's sum as an integral over `ℝ^J`. On the box `|ξ_j| ≤ T₀` the
+  heights are at most `q^η`, and `hII` bounds the sum over `χ ≠ 1` (for `route2333` it is `SieveTypeII.typeII_step`);
+  everywhere the trivial bound holds; `SieveSep.sep_bound` combines the two.
 * `integral_norm_GC_le`, `mass_GC_le`, `tail_GC_le`: for `SieveSmooth`'s cut-off `G` with `0 < θ ≤ 2Λ`,
   `‖G‖₁ ≤ 2Λ + θ` and `‖𝓕G‖₁ ≤ π(2Λ + θ) + c₂/(2πθ)`, and for `θ > 0`, `Λ ≥ 0`, `k ≥ 2` and `T₀ ≥ 1`,
   `∫_{|ξ|>T₀} |𝓕G| ≤ 2π·2θ^{1−k}c_k(2π)^{−k}T₀^{2−k}`, with `c_k = ‖g^{(k)}‖₁`.
@@ -47,12 +48,16 @@ The proof:
   `A₀q^L/φ(q)` times `a₁q^{−7/400000} + a₂q^{−1} + a₃(12q^{−ε₂} + q^{−e₁})`, which is at most `q^{−δ}` for large `q`,
   with `δ = min(ε₂, e₁)/2` (`bracket_le`).
 
-The file imports `SieveSep.lean` and `SieveTypeII.lean`.
+Round 607 made `L`, `w₁` and `w₂` a route's parameters and the Type II estimate a hypothesis (`hII`); the
+statements of earlier rounds are the case `SieveRoute.route2333`, with `SieveRoute.typeII2333` for `hII`.
+
+
+The file imports `SieveSep.lean` and `SieveRoute.lean`.
 -/
 import SieveSep
-import SieveTypeII
+import SieveRoute
 
-open MeasureTheory Real Complex FourierTransform Finset
+open MeasureTheory Real Complex FourierTransform Finset SieveRoute
 
 namespace SieveFamily
 
@@ -122,20 +127,21 @@ theorem inner_factor (χ : DirichletCharacter ℂ q) (f0 : ℝ → ℝ) (S : Fin
 
 open scoped ContDiff in
 /-- **The bound for a smooth family** (SIEVE-ROUTE.md §10's Lemma 4′ with Proposition 3′, before the near-boundary
-terms). Let `f0` be smooth with support in `[1/2, 2]`, `e₁ > 0` and `0 < η ≤ 10⁻⁵`. There is `q₀` such that for
-`q ≥ q₀`: let `m` run over `S ⊆ (P, 2P]`, `q^{0.401L} ≤ P ≤ q^{0.485L}`, with coefficients `a_m`, and `K ≤ K₀` primes
-over `Sp`'s ranges at the scales `Q_i ≥ q^{e₁}`, `∏_i Q_i ≤ 2^{K₀}q^L/P`, with the weights `f0(p_i/Q_i)`; and let `J`
-continuous integrable `g_j` with integrable `𝓕g_j` be applied to the forms `ℓ_j(m, p) = φ_j(m) + Σ_i e_{ji} log p_i`.
-If `2π(Σ_j |e_{ji}|)T₀ ≤ q^η` for each `i`, the sum over `χ ≠ 1` of the family's twisted sums is at most
-`q^{L−1/50000}(Σ|a_m|²/P)^{1/2} ∏_j ‖𝓕g_j‖₁`, plus the number of characters `χ ≠ 1` times
-`Σ_m |a_m| ∏_i Σ_p |f0(p/Q_i)|` times `Σ_j (∫_{|t|>T₀} |𝓕g_j(t)| dt) ∏_{i≠j} ‖𝓕g_i‖₁`. -/
-theorem family_bound {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hsupp : Function.support f0 ⊆ Set.Icc (1 / 2) 2)
+terms). Assume the route's Type II estimate (`hII`). Let `f0` be smooth with support in `[1/2, 2]`, `e₁ > 0` and
+`0 < η ≤ 10⁻⁵`. There is `q₀` such that for `q ≥ q₀`: let `m` run over `S ⊆ (P, 2P]`, `q^{w₁L} ≤ P ≤ q^{w₂L}`, with
+coefficients `a_m`, and `K ≤ K₀` primes over `Sp`'s ranges at the scales `Q_i ≥ q^{e₁}`, `∏_i Q_i ≤ 2^{K₀}q^L/P`, with
+the weights `f0(p_i/Q_i)`; and let `J` continuous integrable `g_j` with integrable `𝓕g_j` be applied to the forms
+`ℓ_j(m, p) = φ_j(m) + Σ_i e_{ji} log p_i`. If `2π(Σ_j |e_{ji}|)T₀ ≤ q^η` for each `i`, the sum over `χ ≠ 1` of the
+family's twisted sums is at most `q^{L−1/50000}(Σ|a_m|²/P)^{1/2} ∏_j ‖𝓕g_j‖₁`, plus the number of characters `χ ≠ 1`
+times `Σ_m |a_m| ∏_i Σ_p |f0(p/Q_i)|` times `Σ_j (∫_{|t|>T₀} |𝓕g_j(t)| dt) ∏_{i≠j} ‖𝓕g_i‖₁`. -/
+theorem family_bound [Route] (hII : TypeIIAt) {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0)
+    (hsupp : Function.support f0 ⊆ Set.Icc (1 / 2) 2)
     (K₀ : ℕ) {e₁ η : ℝ} (he₁ : 0 < e₁) (hη : 0 < η) (hη1 : η ≤ 1 / 100000) :
     ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q →
       ∀ (P : ℕ) (S : Finset ℕ), S ⊆ Finset.Ioc P (2 * P) →
-      (q : ℝ) ^ (401 / 1000 * (2333 / 1000) : ℝ) ≤ P → (P : ℝ) ≤ (q : ℝ) ^ (485 / 1000 * (2333 / 1000) : ℝ) →
+      (q : ℝ) ^ (w₁ * L) ≤ P → (P : ℝ) ≤ (q : ℝ) ^ (w₂ * L) →
       ∀ (a : ℕ → ℂ) (K : ℕ), K ≤ K₀ → ∀ Q : ℕ → ℝ, (∀ j < K, (q : ℝ) ^ e₁ ≤ Q j) →
-      ∏ j ∈ Finset.range K, Q j ≤ 2 ^ K₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) / P →
+      ∏ j ∈ Finset.range K, Q j ≤ 2 ^ K₀ * (q : ℝ) ^ L / P →
       ∀ {J : ℕ} (g : Fin J → ℝ → ℂ), (∀ j, Continuous (g j)) → (∀ j, Integrable (g j)) →
       (∀ j, Integrable (𝓕 (g j))) → ∀ (φ : Fin J → ℕ → ℝ) (e : Fin J → Fin K → ℝ) (T₀ : ℝ),
       (∀ i : Fin K, 2 * π * (∑ j, |e j i|) * T₀ ≤ (q : ℝ) ^ η) →
@@ -143,13 +149,13 @@ theorem family_bound {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hsupp : Fun
           ‖∑ m ∈ S, ∑ p ∈ Fintype.piFinset (fun i : Fin K => primesTo (Q i)),
             a m * χ m * (∏ i : Fin K, χ (p i) * (f0 (p i / Q i) : ℂ)) *
               ∏ j, g j (φ j m + ∑ i : Fin K, e j i * Real.log (p i))‖ ≤
-        (q : ℝ) ^ (2333 / 1000 - 1 / 50000 : ℝ) * Real.sqrt ((∑ m ∈ S, ‖a m‖ ^ 2) / P) *
+        (q : ℝ) ^ (L - 1 / 50000) * Real.sqrt ((∑ m ∈ S, ‖a m‖ ^ 2) / P) *
             (∏ j, ∫ t, ‖𝓕 (g j) t‖) +
           (Finset.univ.filter (fun χ : DirichletCharacter ℂ q => χ ≠ 1)).card *
             ((∑ m ∈ S, ‖a m‖) * ∏ i : Fin K, ∑ p ∈ primesTo (Q i), |f0 (p / Q i)|) *
             ∑ j, (∫ t, Set.indicator {t : ℝ | T₀ < |t|} (fun t => ‖𝓕 (g j) t‖) t) *
               ∏ i ∈ Finset.univ.erase j, ∫ t, ‖𝓕 (g i) t‖ := by
-  obtain ⟨q₀, hq₀⟩ := SieveTypeII.typeII_step hf0 hsupp K₀ he₁ hη hη1
+  obtain ⟨q₀, hq₀⟩ := hII hf0 hsupp K₀ he₁ hη hη1
   refine ⟨q₀, fun q _ hq P S hS hP1 hP2 a K hK Q hQ hQP J g hgc hgi hgf φ e T₀ hT => ?_⟩
   -- the separated sum
   set W : DirichletCharacter ℂ q → (Fin J → ℝ) → ℂ := fun χ ξ =>
@@ -221,7 +227,7 @@ theorem family_bound {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hsupp : Fun
     exact mul_le_mul (hWnorm χ ξ) (Finset.prod_le_prod₀ (fun i _ => norm_nonneg _) fun i _ => hBnorm χ ξ i)
       (Finset.prod_nonneg fun i _ => norm_nonneg _) (Finset.sum_nonneg fun m _ => norm_nonneg _)
   -- the box: M3
-  set B₁ : ℝ := (q : ℝ) ^ (2333 / 1000 - 1 / 50000 : ℝ) * Real.sqrt ((∑ m ∈ S, ‖a m‖ ^ 2) / P) with hB₁def
+  set B₁ : ℝ := (q : ℝ) ^ (L - 1 / 50000) * Real.sqrt ((∑ m ∈ S, ‖a m‖ ^ 2) / P) with hB₁def
   have hB₁0 : 0 ≤ B₁ := by positivity
   have hB₁ : ∀ ξ : Fin J → ℝ, (∀ j, |ξ j| ≤ T₀) →
       ∑ χ ∈ Finset.univ.filter (fun χ : DirichletCharacter ℂ q => χ ≠ 1), ‖F χ ξ‖ ≤ B₁ := by
@@ -920,20 +926,21 @@ noncomputable def massB (θ Λ : ℝ) : ℝ := π * (2 * Λ + θ) + (∫ v, ‖i
 noncomputable def tailB (θ T₀ : ℝ) (k : ℕ) : ℝ :=
   2 * π * ((2 * (θ⁻¹ ^ k * θ) * ∫ v, ‖iteratedDeriv k gc v‖) / (2 * π) ^ k) * (T₀ ^ (k - 2))⁻¹
 
-/-- **A sharp family, with the Type II estimate.** Let `f0` be smooth with support in `[1/2, 2]`, `0 ≤ f0 ≤ F₀` and
-`e₁ > 0`. There is `q₀` such that for `q ≥ q₀`, a unit `a`, a family as in `family_bound` with `n + 1 ≤ K₀` primes,
-and `J` sharp comparisons as in `Dsum_sharp_le`, with `0 < θ ≤ 1 ≤ Λ`, `ℓ_j ≤ Λ` on the family, pivots with
-coefficients `±1`, `T₀ ≥ 1`, `k ≥ 2` and `2π(Σ_j |e_{ji}|)T₀ ≤ q^{1/100000}` for each `i`: the `|A − B/φ(q)|` of the
-sharp family is at most
+/-- **A sharp family, with the Type II estimate.** Assume the route's Type II estimate (`hII`). Let `f0` be smooth with
+support in `[1/2, 2]`, `0 ≤ f0 ≤ F₀` and `e₁ > 0`. There is `q₀` such that for `q ≥ q₀`, a unit `a`, a family as in
+`family_bound` with `n + 1 ≤ K₀` primes, and `J` sharp comparisons as in `Dsum_sharp_le`, with `0 < θ ≤ 1 ≤ Λ`,
+`ℓ_j ≤ Λ` on the family, pivots with coefficients `±1`, `T₀ ≥ 1`, `k ≥ 2` and `2π(Σ_j |e_{ji}|)T₀ ≤ q^{1/100000}` for
+each `i`: the `|A − B/φ(q)|` of the sharp family is at most
 `φ(q)⁻¹(q^{L−1/50000}(Σ|a_m|²/P)^{1/2}(M^J + J·M̃) + φ(q)·Box·Jτ(M^J + 1))` plus twice `φ(q)⁻¹` times the pivots'
 counts. Here `M = massB θ Λ`, `M̃ = massB θ θ`, `τ = tailB θ T₀ k`, and `Box = Σ|a_m| ∏_i Σ_p |f0(p/Q_i)|`. -/
-theorem typeII_sharp_explicit {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hsupp : Function.support f0 ⊆ Set.Icc (1 / 2) 2)
+theorem typeII_sharp_explicit [Route] (hII : TypeIIAt) {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0)
+    (hsupp : Function.support f0 ⊆ Set.Icc (1 / 2) 2)
     (hf0nn : ∀ u, 0 ≤ f0 u) {F₀ : ℝ} (hF₀ : ∀ u, f0 u ≤ F₀) (K₀ : ℕ) {e₁ : ℝ} (he₁ : 0 < e₁) :
     ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∀ (P : ℕ) (S : Finset ℕ), S ⊆ Finset.Ioc P (2 * P) →
-      (q : ℝ) ^ (401 / 1000 * (2333 / 1000) : ℝ) ≤ P → (P : ℝ) ≤ (q : ℝ) ^ (485 / 1000 * (2333 / 1000) : ℝ) →
+      (q : ℝ) ^ (w₁ * L) ≤ P → (P : ℝ) ≤ (q : ℝ) ^ (w₂ * L) →
       ∀ (acoef : ℕ → ℂ) (n : ℕ), n + 1 ≤ K₀ → ∀ Q : ℕ → ℝ, (∀ j < n + 1, (q : ℝ) ^ e₁ ≤ Q j) →
-      ∏ j ∈ Finset.range (n + 1), Q j ≤ 2 ^ K₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) / P →
+      ∏ j ∈ Finset.range (n + 1), Q j ≤ 2 ^ K₀ * (q : ℝ) ^ L / P →
       ∀ {J : ℕ} (φ : Fin J → ℕ → ℝ) (e : Fin J → Fin (n + 1) → ℝ) (Pr : Fin J → ℕ → (Fin (n + 1) → ℕ) → Prop),
       (∀ j m x, (0 < φ j m + ∑ i, e j i * Real.log (x i) → Pr j m x) ∧
         (Pr j m x → 0 ≤ φ j m + ∑ i, e j i * Real.log (x i))) →
@@ -948,14 +955,14 @@ theorem typeII_sharp_explicit {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hs
           (fun mx => (acoef mx.1 * ∏ i, (f0 (mx.2 i / Q i) : ℂ)) *
             ∏ j, ((if Pr j mx.1 mx.2 then 1 else 0 : ℝ) : ℂ))‖ ≤
         (q.totient : ℝ)⁻¹ *
-          ((q : ℝ) ^ (2333 / 1000 - 1 / 50000 : ℝ) * Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) *
+          ((q : ℝ) ^ (L - 1 / 50000) * Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) *
               (massB θ Λ ^ J + J * massB θ θ) +
             q.totient * ((∑ m ∈ S, ‖acoef m‖) * ∏ i : Fin (n + 1), ∑ p ∈ primesTo (Q i), |f0 (p / Q i)|) *
               (J * tailB θ T₀ k * massB θ Λ ^ J + J * tailB θ T₀ k)) +
           ∑ j, 2 * (q.totient : ℝ)⁻¹ * (F₀ * ((Real.exp (3 * θ) - 1) * (2 * Q (piv j)) + 1) *
             ((∑ m ∈ S, ‖acoef m‖) *
               ∏ i : Fin n, ∑ y ∈ primesTo (Q ((piv j).succAbove i)), f0 (y / Q ((piv j).succAbove i)))) := by
-  obtain ⟨q₁, hq₁⟩ := family_bound hf0 hsupp K₀ he₁ (η := 1 / 100000) (by norm_num) (by norm_num)
+  obtain ⟨q₁, hq₁⟩ := family_bound hII hf0 hsupp K₀ he₁ (η := 1 / 100000) (by norm_num) (by norm_num)
   refine ⟨q₁, fun q _ hq a ha P S hS hP1 hP2 acoef n hK Q hQ hQP J φ e Pr hP θ Λ hθ hθ1 hΛ1 hΛ piv hpiv
     T₀ k hT₀ hk hT => ?_⟩
   have hθΛ : θ ≤ 2 * Λ := by linarith
@@ -986,7 +993,7 @@ theorem typeII_sharp_explicit {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hs
   have hBox0 : 0 ≤ Box := by positivity
   have hcard := card_chars_le (q := q)
   have hτ0 : 0 ≤ τ := le_trans (ht0 Λ) (htail Λ hΛ0)
-  have hsq0 : 0 ≤ (q : ℝ) ^ (2333 / 1000 - 1 / 50000 : ℝ) * Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) := by
+  have hsq0 : 0 ≤ (q : ℝ) ^ (L - 1 / 50000) * Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) := by
     positivity
   -- the smoothed family
   have hX : ∑ χ ∈ Finset.univ.filter (fun χ : DirichletCharacter ℂ q => χ ≠ 1),
@@ -994,7 +1001,7 @@ theorem typeII_sharp_explicit {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hs
         ((acoef mx.1 * ∏ i, (f0 (mx.2 i / Q i) : ℂ)) *
           ∏ j, ((G θ Λ (φ j mx.1 + ∑ i, e j i * Real.log (mx.2 i)) : ℝ) : ℂ)) *
             χ ((mx.1 * ∏ i, mx.2 i : ℕ) : ZMod q)‖ ≤
-      (q : ℝ) ^ (2333 / 1000 - 1 / 50000 : ℝ) * Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) * M ^ J +
+      (q : ℝ) ^ (L - 1 / 50000) * Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) * M ^ J +
         q.totient * Box * (J * τ * M ^ J) := by
     have hconv : ∀ χ : DirichletCharacter ℂ q,
         ∑ mx ∈ S ×ˢ Fintype.piFinset (fun i : Fin (n + 1) => primesTo (Q i)),
@@ -1032,7 +1039,7 @@ theorem typeII_sharp_explicit {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hs
         (((‖acoef mx.1‖ * ∏ i, f0 (mx.2 i / Q i)) *
           G θ θ (φ j mx.1 + ∑ i, e j i * Real.log (mx.2 i) + θ) : ℝ) : ℂ) *
             χ ((mx.1 * ∏ i, mx.2 i : ℕ) : ZMod q)‖ ≤
-      (q : ℝ) ^ (2333 / 1000 - 1 / 50000 : ℝ) * Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) * Mt +
+      (q : ℝ) ^ (L - 1 / 50000) * Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) * Mt +
         q.totient * Box * τ := by
     intro j
     have hconv : ∀ χ : DirichletCharacter ℂ q,
@@ -1073,12 +1080,12 @@ theorem typeII_sharp_explicit {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hs
   -- assemble
   have hφ0 : 0 ≤ (q.totient : ℝ)⁻¹ := by positivity
   calc _ ≤ (q.totient : ℝ)⁻¹ *
-        ((q : ℝ) ^ (2333 / 1000 - 1 / 50000 : ℝ) * Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) * M ^ J +
+        ((q : ℝ) ^ (L - 1 / 50000) * Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) * M ^ J +
           q.totient * Box * (J * τ * M ^ J)) +
       ∑ j, (2 * (q.totient : ℝ)⁻¹ * (F₀ * ((Real.exp (3 * θ) - 1) * (2 * Q (piv j)) + 1) *
             ((∑ m ∈ S, ‖acoef m‖) *
               ∏ i : Fin n, ∑ y ∈ primesTo (Q ((piv j).succAbove i)), f0 (y / Q ((piv j).succAbove i)))) +
-        (q.totient : ℝ)⁻¹ * ((q : ℝ) ^ (2333 / 1000 - 1 / 50000 : ℝ) *
+        (q.totient : ℝ)⁻¹ * ((q : ℝ) ^ (L - 1 / 50000) *
           Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) * Mt + q.totient * Box * τ)) := by
         refine add_le_add (mul_le_mul_of_nonneg_left hX hφ0)
           (Finset.sum_le_sum fun j _ => add_le_add le_rfl (mul_le_mul_of_nonneg_left (hY j) hφ0))
@@ -1368,23 +1375,24 @@ section Asym
 open SieveSmooth Classical Filter Asymptotics
 open scoped ContDiff
 
-/-- **The Type II estimate for a sharp family (Lemmas 4′ and 4″), asymptotic form.** Let `L = 2.333`, `f0` smooth
-with support in `[1/2, 2]` and `0 ≤ f0 ≤ F₀`, and fix the family's shape: `K₀`, `J₀`, `e₁ > 0`, `E₀ ≥ 0`, `Λ₀ ≥ 0`
-and `A₀ ≥ 0`. There are `δ > 0` and `q₀` with the following property. Let `q ≥ q₀`, let `a` be a unit mod `q`, let `m`
-run over `S ⊆ (P, 2P]`, `q^{0.401L} ≤ P ≤ q^{0.485L}`, with coefficients `a_m`, `|a_m| ≤ A₀` for every `m`, and let
-`n + 1 ≤ K₀` primes `x_i` run over `Sp`'s ranges at the scales `Q_i ≥ q^{e₁}`, `∏_i Q_i ≤ 2^{K₀}q^L/P`, with the
-weights `f0(x_i/Q_i)`. Let `J ≤ J₀` sharp comparisons `P_j` hold when `ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i > 0` and
-imply `ℓ_j ≥ 0`, with `|e_{ji}| ≤ E₀`, `ℓ_j ≤ Λ₀ log q` on the family, and for each `j` a pivot `i` with
-`e_{ji} = ±1`. Then the family's `|A − B/φ(q)|` is at most `A₀q^{L−δ}/φ(q)`. -/
-theorem typeII_sharp {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hsupp : Function.support f0 ⊆ Set.Icc (1 / 2) 2)
+/-- **The Type II estimate for a sharp family (Lemmas 4′ and 4″), asymptotic form.** Assume the route's Type II estimate
+(`hII`). Let `f0` be smooth with support in `[1/2, 2]` and `0 ≤ f0 ≤ F₀`, and fix the family's shape: `K₀`, `J₀`,
+`e₁ > 0`, `E₀ ≥ 0`, `Λ₀ ≥ 0` and `A₀ ≥ 0`. There are `δ > 0` and `q₀` with the following property. Let `q ≥ q₀`, let `a`
+be a unit mod `q`, let `m` run over `S ⊆ (P, 2P]`, `q^{w₁L} ≤ P ≤ q^{w₂L}`, with coefficients `a_m`, `|a_m| ≤ A₀` for
+every `m`, and let `n + 1 ≤ K₀` primes `x_i` run over `Sp`'s ranges at the scales `Q_i ≥ q^{e₁}`,
+`∏_i Q_i ≤ 2^{K₀}q^L/P`, with the weights `f0(x_i/Q_i)`. Let `J ≤ J₀` sharp comparisons `P_j` hold when
+`ℓ_j = φ_j(m) + Σ_i e_{ji} log x_i > 0` and imply `ℓ_j ≥ 0`, with `|e_{ji}| ≤ E₀`, `ℓ_j ≤ Λ₀ log q` on the family, and
+for each `j` a pivot `i` with `e_{ji} = ±1`. Then the family's `|A − B/φ(q)|` is at most `A₀q^{L−δ}/φ(q)`. -/
+theorem typeII_sharp [Route] (hII : TypeIIAt) {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0)
+    (hsupp : Function.support f0 ⊆ Set.Icc (1 / 2) 2)
     (hf0nn : ∀ u, 0 ≤ f0 u) {F₀ : ℝ} (hF₀ : ∀ u, f0 u ≤ F₀) (K₀ J₀ : ℕ) {e₁ E₀ Λ₀ A₀ : ℝ} (he₁ : 0 < e₁)
     (hE₀ : 0 ≤ E₀) (hΛ₀ : 0 ≤ Λ₀) :
     ∃ δ : ℝ, 0 < δ ∧ ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∀ (P : ℕ) (S : Finset ℕ), S ⊆ Finset.Ioc P (2 * P) →
-      (q : ℝ) ^ (401 / 1000 * (2333 / 1000) : ℝ) ≤ P → (P : ℝ) ≤ (q : ℝ) ^ (485 / 1000 * (2333 / 1000) : ℝ) →
+      (q : ℝ) ^ (w₁ * L) ≤ P → (P : ℝ) ≤ (q : ℝ) ^ (w₂ * L) →
       ∀ (acoef : ℕ → ℂ), (∀ m, ‖acoef m‖ ≤ A₀) →
       ∀ (n : ℕ), n + 1 ≤ K₀ → ∀ Q : ℕ → ℝ, (∀ j < n + 1, (q : ℝ) ^ e₁ ≤ Q j) →
-      ∏ j ∈ Finset.range (n + 1), Q j ≤ 2 ^ K₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) / P →
+      ∏ j ∈ Finset.range (n + 1), Q j ≤ 2 ^ K₀ * (q : ℝ) ^ L / P →
       ∀ {J : ℕ}, J ≤ J₀ → ∀ (φ : Fin J → ℕ → ℝ) (e : Fin J → Fin (n + 1) → ℝ)
         (Pr : Fin J → ℕ → (Fin (n + 1) → ℕ) → Prop), (∀ j i, |e j i| ≤ E₀) →
       (∀ j m x, (0 < φ j m + ∑ i, e j i * Real.log (x i) → Pr j m x) ∧
@@ -1396,8 +1404,8 @@ theorem typeII_sharp {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hsupp : Fun
           (fun mx => mx.1 * ∏ i, mx.2 i)
           (fun mx => (acoef mx.1 * ∏ i, (f0 (mx.2 i / Q i) : ℂ)) *
             ∏ j, ((if Pr j mx.1 mx.2 then 1 else 0 : ℝ) : ℂ))‖ ≤
-        (q.totient : ℝ)⁻¹ * (A₀ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ)) := by
-  obtain ⟨q₁, hq₁⟩ := typeII_sharp_explicit hf0 hsupp hf0nn hF₀ K₀ he₁
+        (q.totient : ℝ)⁻¹ * (A₀ * (q : ℝ) ^ (L - δ)) := by
+  obtain ⟨q₁, hq₁⟩ := typeII_sharp_explicit hII hf0 hsupp hf0nn hF₀ K₀ he₁
   have hF0 : 0 ≤ F₀ := le_trans (hf0nn 0) (hF₀ 0)
   have hpi := Real.pi_pos
   have hJ0 : (0 : ℝ) ≤ J₀ := Nat.cast_nonneg _
@@ -1489,14 +1497,14 @@ theorem typeII_sharp {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hsupp : Fun
   generalize tailB ((q : ℝ) ^ (-ε₂)) ((q : ℝ) ^ (1 / 200000 : ℝ)) 1200003 = τ at hτ hτ0 ⊢
   -- elementary facts
   have hP0 : 0 < P := by
-    have : (1 : ℝ) ≤ P := le_trans (Real.one_le_rpow hq1 (by norm_num)) hP1
-    exact_mod_cast (show (0 : ℝ) < P by linarith)
+    have : (0 : ℝ) < P := lt_of_lt_of_le (Real.rpow_pos_of_pos (by linarith) _) hP1
+    exact_mod_cast this
   have hφpos : (0 : ℝ) < q.totient := by exact_mod_cast Nat.totient_pos.2 (NeZero.pos q)
   have hφq : (q.totient : ℝ) ≤ q := by exact_mod_cast Nat.totient_le q
   have hφinv0 : 0 ≤ (q.totient : ℝ)⁻¹ := by positivity
   have hQ1 : ∀ i : Fin (n + 1), (q : ℝ) ^ e₁ ≤ Q i := fun i => hQ i i.isLt
   have hqe1 : (1 : ℝ) ≤ (q : ℝ) ^ e₁ := Real.one_le_rpow hq1 he₁.le
-  have hqL : 0 ≤ (q : ℝ) ^ (2333 / 1000 : ℝ) := by positivity
+  have hqL : 0 ≤ (q : ℝ) ^ L := by positivity
   have hq4 : 1 ≤ (q : ℝ) ^ (1 / 400000 : ℝ) := Real.one_le_rpow hq1 (by norm_num)
   have hqε : 1 ≤ (q : ℝ) ^ ε₂ := Real.one_le_rpow hq1 hε₂0.le
   have hCq : 1 ≤ C * (q : ℝ) ^ ε₂ := one_le_mul_of_one_le_of_one_le hC1 hqε
@@ -1514,30 +1522,30 @@ theorem typeII_sharp {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hsupp : Fun
   have hCq4 : 1 ≤ C ^ (J₀ + 1) * (q : ℝ) ^ (1 / 400000 : ℝ) :=
     one_le_mul_of_one_le_of_one_le (one_le_pow₀ hC1) hq4
   -- the smoothed family and its tails
-  have hT1 : (q : ℝ) ^ (2333 / 1000 - 1 / 50000 : ℝ) * Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) *
-        (M ^ J + J * Mt) ≤ A₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) * (a₁ * (q : ℝ) ^ (-(7 / 400000) : ℝ)) := by
+  have hT1 : (q : ℝ) ^ (L - 1 / 50000) * Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) *
+        (M ^ J + J * Mt) ≤ A₀ * (q : ℝ) ^ L * (a₁ * (q : ℝ) ^ (-(7 / 400000) : ℝ)) := by
     have hsq : Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) ≤ A₀ := sqrt_sum_sq_le hP0 hS hA
     have hsum : M ^ J + J * Mt ≤ (1 + J₀) * (C ^ (J₀ + 1) * (q : ℝ) ^ (1 / 400000 : ℝ)) := by linarith
-    have hexp : (q : ℝ) ^ (2333 / 1000 - 1 / 50000 : ℝ) * (q : ℝ) ^ (1 / 400000 : ℝ) =
-        (q : ℝ) ^ (2333 / 1000 : ℝ) * (q : ℝ) ^ (-(7 / 400000) : ℝ) := by
-      rw [← Real.rpow_add hq0, ← Real.rpow_add hq0]; norm_num
-    calc (q : ℝ) ^ (2333 / 1000 - 1 / 50000 : ℝ) * Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) *
+    have hexp : (q : ℝ) ^ (L - 1 / 50000) * (q : ℝ) ^ (1 / 400000 : ℝ) =
+        (q : ℝ) ^ L * (q : ℝ) ^ (-(7 / 400000) : ℝ) := by
+      rw [← Real.rpow_add hq0, ← Real.rpow_add hq0]; congr 1; ring
+    calc (q : ℝ) ^ (L - 1 / 50000) * Real.sqrt ((∑ m ∈ S, ‖acoef m‖ ^ 2) / P) *
           (M ^ J + J * Mt)
-        ≤ (q : ℝ) ^ (2333 / 1000 - 1 / 50000 : ℝ) * A₀ *
+        ≤ (q : ℝ) ^ (L - 1 / 50000) * A₀ *
             ((1 + J₀) * (C ^ (J₀ + 1) * (q : ℝ) ^ (1 / 400000 : ℝ))) :=
           mul_le_mul (mul_le_mul_of_nonneg_left hsq (by positivity)) hsum
             (add_nonneg (pow_nonneg hM0 _) (mul_nonneg (Nat.cast_nonneg _) hMt0))
             (mul_nonneg (by positivity) hA0)
       _ = A₀ * ((1 + J₀) * C ^ (J₀ + 1)) *
-            ((q : ℝ) ^ (2333 / 1000 - 1 / 50000 : ℝ) * (q : ℝ) ^ (1 / 400000 : ℝ)) := by ring
-      _ = A₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) * (a₁ * (q : ℝ) ^ (-(7 / 400000) : ℝ)) := by
+            ((q : ℝ) ^ (L - 1 / 50000) * (q : ℝ) ^ (1 / 400000 : ℝ)) := by ring
+      _ = A₀ * (q : ℝ) ^ L * (a₁ * (q : ℝ) ^ (-(7 / 400000) : ℝ)) := by
           rw [hexp, ha₁]; ring
   have hBox := box_le hf0nn hF₀ hP0 hS hA hK (fun i => hqe1.trans (hQ1 i)) hQP
   have hBox0 : 0 ≤ (∑ m ∈ S, ‖acoef m‖) * ∏ i : Fin (n + 1), ∑ p ∈ primesTo (Q i), |f0 (p / Q i)| := by
     positivity
   generalize (∑ m ∈ S, ‖acoef m‖) * ∏ i : Fin (n + 1), ∑ p ∈ primesTo (Q i), |f0 (p / Q i)| = Box at hBox hBox0 ⊢
   have hT2 : (q.totient : ℝ) * Box * (J * τ * M ^ J + J * τ) ≤
-      A₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) * (a₂ * (q : ℝ) ^ (-1 : ℝ)) := by
+      A₀ * (q : ℝ) ^ L * (a₂ * (q : ℝ) ^ (-1 : ℝ)) := by
     have hm1 : M ^ J + 1 ≤ 2 * (C ^ (J₀ + 1) * (q : ℝ) ^ (1 / 400000 : ℝ)) := by linarith
     have hJτ : (J : ℝ) * τ * M ^ J + J * τ ≤
         J₀ * (c' * (q : ℝ) ^ (-3 : ℝ)) * (2 * (C ^ (J₀ + 1) * (q : ℝ) ^ (1 / 400000 : ℝ))) := by
@@ -1549,51 +1557,51 @@ theorem typeII_sharp {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0) (hsupp : Fun
       have : (q : ℝ) * (q : ℝ) ^ (-3 : ℝ) * (q : ℝ) ^ (1 / 400000 : ℝ) = (q : ℝ) ^ ((1 : ℝ) + -3 + 1 / 400000) := by
         rw [Real.rpow_add hq0, Real.rpow_add hq0, Real.rpow_one]
       rw [this]; exact Real.rpow_le_rpow_of_exponent_le hq1 (by norm_num)
-    have hK0 : 0 ≤ A₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) * a₂ := mul_nonneg (mul_nonneg hA0 hqL) ha₂0
+    have hK0 : 0 ≤ A₀ * (q : ℝ) ^ L * a₂ := mul_nonneg (mul_nonneg hA0 hqL) ha₂0
     calc (q.totient : ℝ) * Box * (J * τ * M ^ J + J * τ)
-        ≤ (q : ℝ) * (A₀ * (3 * F₀ + 1) ^ K₀ * (2 ^ K₀ * (q : ℝ) ^ (2333 / 1000 : ℝ))) *
+        ≤ (q : ℝ) * (A₀ * (3 * F₀ + 1) ^ K₀ * (2 ^ K₀ * (q : ℝ) ^ L)) *
             (J₀ * (c' * (q : ℝ) ^ (-3 : ℝ)) * (2 * (C ^ (J₀ + 1) * (q : ℝ) ^ (1 / 400000 : ℝ)))) :=
           mul_le_mul (mul_le_mul hφq hBox hBox0 (by positivity)) hJτ
             (by linarith [mul_nonneg (mul_nonneg (Nat.cast_nonneg J) hτ0) (pow_nonneg hM0 J),
               mul_nonneg (Nat.cast_nonneg J) hτ0])
             (mul_nonneg (by positivity) (mul_nonneg (mul_nonneg hA0 hF1) (by positivity)))
-      _ = A₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) * (2 * (3 * F₀ + 1) ^ K₀ * 2 ^ K₀ * J₀ * c' * C ^ (J₀ + 1)) *
+      _ = A₀ * (q : ℝ) ^ L * (2 * (3 * F₀ + 1) ^ K₀ * 2 ^ K₀ * J₀ * c' * C ^ (J₀ + 1)) *
             ((q : ℝ) * (q : ℝ) ^ (-3 : ℝ) * (q : ℝ) ^ (1 / 400000 : ℝ)) := by ring
-      _ ≤ A₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) * (2 * (3 * F₀ + 1) ^ K₀ * 2 ^ K₀ * J₀ * c' * C ^ (J₀ + 1)) *
+      _ ≤ A₀ * (q : ℝ) ^ L * (2 * (3 * F₀ + 1) ^ K₀ * 2 ^ K₀ * J₀ * c' * C ^ (J₀ + 1)) *
             (q : ℝ) ^ (-1 : ℝ) := by
           rw [← ha₂]; exact mul_le_mul_of_nonneg_left hexp hK0
-      _ = A₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) * (a₂ * (q : ℝ) ^ (-1 : ℝ)) := by rw [← ha₂]; ring
+      _ = A₀ * (q : ℝ) ^ L * (a₂ * (q : ℝ) ^ (-1 : ℝ)) := by rw [← ha₂]; ring
   -- the pivots' counts
   have hT3 := Finset.sum_le_sum fun (j : Fin J) (_ : j ∈ Finset.univ) =>
     mul_le_mul_of_nonneg_left (pivot_le hf0nn hF₀ hP0 hS hA hK hqe1 hQ1 hQP hθ0.le hθ3 (piv j))
       (show (0 : ℝ) ≤ 2 * (q.totient : ℝ)⁻¹ by positivity)
   have hinv : ((q : ℝ) ^ e₁)⁻¹ = (q : ℝ) ^ (-e₁) := (Real.rpow_neg hq0.le e₁).symm
   have hX0 : 0 ≤ F₀ * A₀ * (3 * F₀ + 1) ^ K₀ * (12 * (q : ℝ) ^ (-ε₂) + (q : ℝ) ^ (-e₁)) *
-      (2 ^ K₀ * (q : ℝ) ^ (2333 / 1000 : ℝ)) :=
+      (2 ^ K₀ * (q : ℝ) ^ L) :=
     mul_nonneg (mul_nonneg (mul_nonneg (mul_nonneg hF0 hA0) hF1) (by positivity)) (by positivity)
-  calc _ ≤ (q.totient : ℝ)⁻¹ * (A₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) * (a₁ * (q : ℝ) ^ (-(7 / 400000) : ℝ)) +
-            A₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) * (a₂ * (q : ℝ) ^ (-1 : ℝ))) +
+  calc _ ≤ (q.totient : ℝ)⁻¹ * (A₀ * (q : ℝ) ^ L * (a₁ * (q : ℝ) ^ (-(7 / 400000) : ℝ)) +
+            A₀ * (q : ℝ) ^ L * (a₂ * (q : ℝ) ^ (-1 : ℝ))) +
           ∑ _j : Fin J, 2 * (q.totient : ℝ)⁻¹ * (F₀ * A₀ * (3 * F₀ + 1) ^ K₀ *
-            (12 * (q : ℝ) ^ (-ε₂) + ((q : ℝ) ^ e₁)⁻¹) * (2 ^ K₀ * (q : ℝ) ^ (2333 / 1000 : ℝ))) :=
+            (12 * (q : ℝ) ^ (-ε₂) + ((q : ℝ) ^ e₁)⁻¹) * (2 ^ K₀ * (q : ℝ) ^ L)) :=
         add_le_add (mul_le_mul_of_nonneg_left (add_le_add hT1 hT2) hφinv0) hT3
-    _ ≤ (q.totient : ℝ)⁻¹ * (A₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) * (a₁ * (q : ℝ) ^ (-(7 / 400000) : ℝ)) +
-            A₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) * (a₂ * (q : ℝ) ^ (-1 : ℝ))) +
-          (q.totient : ℝ)⁻¹ * (A₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) *
+    _ ≤ (q.totient : ℝ)⁻¹ * (A₀ * (q : ℝ) ^ L * (a₁ * (q : ℝ) ^ (-(7 / 400000) : ℝ)) +
+            A₀ * (q : ℝ) ^ L * (a₂ * (q : ℝ) ^ (-1 : ℝ))) +
+          (q.totient : ℝ)⁻¹ * (A₀ * (q : ℝ) ^ L *
             (a₃ * (12 * (q : ℝ) ^ (-ε₂) + (q : ℝ) ^ (-e₁)))) := by
         refine add_le_add le_rfl ?_
         rw [Finset.sum_const, Finset.card_univ, Fintype.card_fin, nsmul_eq_mul, hinv, ha₃]
         calc (J : ℝ) * (2 * (q.totient : ℝ)⁻¹ * (F₀ * A₀ * (3 * F₀ + 1) ^ K₀ *
-              (12 * (q : ℝ) ^ (-ε₂) + (q : ℝ) ^ (-e₁)) * (2 ^ K₀ * (q : ℝ) ^ (2333 / 1000 : ℝ))))
+              (12 * (q : ℝ) ^ (-ε₂) + (q : ℝ) ^ (-e₁)) * (2 ^ K₀ * (q : ℝ) ^ L)))
             ≤ J₀ * (2 * (q.totient : ℝ)⁻¹ * (F₀ * A₀ * (3 * F₀ + 1) ^ K₀ *
-              (12 * (q : ℝ) ^ (-ε₂) + (q : ℝ) ^ (-e₁)) * (2 ^ K₀ * (q : ℝ) ^ (2333 / 1000 : ℝ)))) :=
+              (12 * (q : ℝ) ^ (-ε₂) + (q : ℝ) ^ (-e₁)) * (2 ^ K₀ * (q : ℝ) ^ L))) :=
               mul_le_mul_of_nonneg_right (by exact_mod_cast hJ) (mul_nonneg (by positivity) hX0)
           _ = _ := by ring
-    _ = (q.totient : ℝ)⁻¹ * (A₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) * (a₁ * (q : ℝ) ^ (-(7 / 400000) : ℝ) +
+    _ = (q.totient : ℝ)⁻¹ * (A₀ * (q : ℝ) ^ L * (a₁ * (q : ℝ) ^ (-(7 / 400000) : ℝ) +
             a₂ * (q : ℝ) ^ (-1 : ℝ) + a₃ * (12 * (q : ℝ) ^ (-ε₂) + (q : ℝ) ^ (-e₁)))) := by ring
-    _ ≤ (q.totient : ℝ)⁻¹ * (A₀ * (q : ℝ) ^ (2333 / 1000 : ℝ) * (q : ℝ) ^ (-δ)) :=
+    _ ≤ (q.totient : ℝ)⁻¹ * (A₀ * (q : ℝ) ^ L * (q : ℝ) ^ (-δ)) :=
         mul_le_mul_of_nonneg_left (mul_le_mul_of_nonneg_left
           (bracket_le hq1 ha₁0 ha₂0 ha₃0 hδ0 hδε hε₂1 hδe hcon) (mul_nonneg hA0 hqL)) hφinv0
-    _ = (q.totient : ℝ)⁻¹ * (A₀ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ)) := by
+    _ = (q.totient : ℝ)⁻¹ * (A₀ * (q : ℝ) ^ (L - δ)) := by
         rw [mul_assoc A₀, ← Real.rpow_add hq0, sub_eq_add_neg]
 
 end Asym

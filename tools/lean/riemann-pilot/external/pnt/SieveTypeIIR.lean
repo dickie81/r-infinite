@@ -3,8 +3,9 @@
 
 Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
-Plain statement (`typeII_rough`). Fix `e₀ > 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a`
-mod `q`: let `m` run over `S ⊆ (P₁, P₂]` with `q^{0.401L} ≤ P₁` and `P₂ ≤ q^{0.485L}` (`L = 2.333`), with
+Plain statement (`typeII_rough`). Let `L`, `w₁` and `w₂` be a route's parameters (`SieveRoute.Route`) with `RouteOK`,
+and assume its Type II estimate (`hII : SieveRoute.TypeIIAt`). Fix `e₀ > 0`. There are `δ > 0` and `q₀` such that for
+`q ≥ q₀` and a unit `a` mod `q`: let `m` run over `S ⊆ (P₁, P₂]` with `q^{w₁L} ≤ P₁` and `P₂ ≤ q^{w₂L}`, with
 coefficients `|a_m| ≤ 1`, and let `z(m) ≥ q^{e₀}` on `S`. Then the sum over `m ∈ S` of `a_m` times the sum, over the
 `k ≥ 2` with no prime factor below `z(m)` and `⌊q^L⌋ < mk ≤ ⌊2q^L⌋`, of `1[mk ≡ a] − 1[(mk, q) = 1]/φ(q)` is at most
 `q^{L−δ}/φ(q)` in absolute value.
@@ -20,12 +21,16 @@ The proof:
   least `z(m)`, and the range `⌊q^L⌋ < m∏x_i ≤ ⌊2q^L⌋`.
 * `SieveTypeIIU.typeII_unw` for each length, with `E₀ = 1`, `Λ₁ = L + 1` and `e₁ = e₀/2`.
 
+Round 607 made `L`, `w₁` and `w₂` a route's parameters and the Type II estimate a hypothesis (`hII`); the
+statements of earlier rounds are the case `SieveRoute.route2333`, with `SieveRoute.typeII2333` for `hII`.
+
+
 The file imports `SieveTypeIIU.lean` and `SieveRoughTuple.lean`.
 -/
 import SieveTypeIIU
 import SieveRoughTuple
 
-open Real Finset Filter SieveFamily
+open Real Finset Filter SieveFamily SieveRoute
 
 namespace SieveTypeIIR
 
@@ -229,24 +234,24 @@ theorem rough_sum_eq_box {z : ℕ → ℕ} {X : ℝ} (hX : 0 < X) {m : ℕ} (hm 
     · rfl
     · rfl
 
-/-- **Type II for a variable times a rough cofactor.** Fix `e₀ > 0`. There are `δ > 0` and `q₀` such that for
-`q ≥ q₀` and a unit `a` mod `q`: let `m` run over `S ⊆ (P₁, P₂]` with `q^{0.401L} ≤ P₁` and `P₂ ≤ q^{0.485L}`, with
-coefficients `|a_m| ≤ 1` for every `m`, and let `z(m) ≥ q^{e₀}` on `S`. Then the sum over `m ∈ S` of `a_m` times the
-sum, over the `k ≥ 2` with no prime factor below `z(m)` and `⌊q^L⌋ < mk ≤ ⌊2q^L⌋`, of
-`1[mk ≡ a] − 1[(mk, q) = 1]/φ(q)` is at most `q^{L−δ}/φ(q)` in absolute value, `L = 2.333`. -/
-theorem typeII_rough {e₀ : ℝ} (he₀ : 0 < e₀) :
+/-- **Type II for a variable times a rough cofactor.** Assume `RouteOK` and the route's Type II estimate (`hII`). Fix
+`e₀ > 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`: let `m` run over `S ⊆ (P₁, P₂]` with
+`q^{w₁L} ≤ P₁` and `P₂ ≤ q^{w₂L}`, with coefficients `|a_m| ≤ 1` for every `m`, and let `z(m) ≥ q^{e₀}` on `S`. Then the
+sum over `m ∈ S` of `a_m` times the sum, over the `k ≥ 2` with no prime factor below `z(m)` and `⌊q^L⌋ < mk ≤ ⌊2q^L⌋`,
+of `1[mk ≡ a] − 1[(mk, q) = 1]/φ(q)` is at most `q^{L−δ}/φ(q)` in absolute value. -/
+theorem typeII_rough [Route] [RouteOK] (hII : TypeIIAt) {e₀ : ℝ} (he₀ : 0 < e₀) :
     ∃ δ : ℝ, 0 < δ ∧ ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∀ (P₁ P₂ : ℕ) (S : Finset ℕ), S ⊆ Finset.Ioc P₁ P₂ →
-      (q : ℝ) ^ (401 / 1000 * (2333 / 1000) : ℝ) ≤ P₁ → (P₂ : ℝ) ≤ (q : ℝ) ^ (485 / 1000 * (2333 / 1000) : ℝ) →
+      (q : ℝ) ^ (w₁ * L) ≤ P₁ → (P₂ : ℝ) ≤ (q : ℝ) ^ (w₂ * L) →
       ∀ (acoef : ℕ → ℂ), (∀ m, ‖acoef m‖ ≤ 1) →
       ∀ z : ℕ → ℕ, (∀ m ∈ S, (q : ℝ) ^ e₀ ≤ z m) →
-      ‖∑ m ∈ S, acoef m * ∑ k ∈ (Finset.Icc 2 ⌊2 * (q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊).filter
-          (fun k => (∀ p < z m, p.Prime → ¬ p ∣ k) ∧ ⌊(q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊ < m * k ∧
-            m * k ≤ ⌊2 * (q : ℝ) ^ (2333 / 1000 : ℝ)⌋₊), dw q a (m * k)‖ ≤
-        (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ) := by
-  set Kmax : ℕ := ⌈(2333 / 1000 + 1) / e₀⌉₊ with hKmax
-  obtain ⟨δ, hδ, q₁, hq₁⟩ := SieveTypeIIU.typeII_unw (Kmax + 1) (Kmax + 2) (e₁ := e₀ / 2) (E₀ := 1)
-    (Λ₁ := 2333 / 1000 + 1) (half_pos he₀) zero_le_one (by norm_num)
+      ‖∑ m ∈ S, acoef m * ∑ k ∈ (Finset.Icc 2 ⌊2 * (q : ℝ) ^ L⌋₊).filter
+          (fun k => (∀ p < z m, p.Prime → ¬ p ∣ k) ∧ ⌊(q : ℝ) ^ L⌋₊ < m * k ∧
+            m * k ≤ ⌊2 * (q : ℝ) ^ L⌋₊), dw q a (m * k)‖ ≤
+        (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ) := by
+  set Kmax : ℕ := ⌈(L + 1) / e₀⌉₊ with hKmax
+  obtain ⟨δ, hδ, q₁, hq₁⟩ := SieveTypeIIU.typeII_unw hII (Kmax + 1) (Kmax + 2) (e₁ := e₀ / 2) (E₀ := 1)
+    (Λ₁ := L + 1) (half_pos he₀) zero_le_one (by linarith [L_pos])
   have hev1 := (tendsto_rpow_atTop (half_pos he₀)).eventually_ge_atTop (2 : ℝ)
   have hev2 := (tendsto_rpow_atTop (half_pos hδ)).eventually_ge_atTop (Kmax : ℝ)
   obtain ⟨q₂, hq₂⟩ := Filter.eventually_atTop.1 (tendsto_natCast_atTop_atTop.eventually (hev1.and hev2))
@@ -258,11 +263,11 @@ theorem typeII_rough {e₀ : ℝ} (he₀ : 0 < e₀) :
   obtain ⟨hqe, hqK⟩ := hq₂ q hq2
   have hqR : (3 : ℝ) ≤ q := by exact_mod_cast hq3
   have hq0 : (0 : ℝ) < q := by linarith
-  set X : ℝ := (q : ℝ) ^ (2333 / 1000 : ℝ) with hXdef
+  set X : ℝ := (q : ℝ) ^ L with hXdef
   have hX : 0 < X := Real.rpow_pos_of_pos hq0 _
   have hlogq : 0 < Real.log q := Real.log_pos (by linarith)
   have hP₁1 : 1 ≤ P₁ := by
-    have : (1 : ℝ) ≤ (q : ℝ) ^ (401 / 1000 * (2333 / 1000) : ℝ) := Real.one_le_rpow (by linarith) (by norm_num)
+    have : (1 : ℝ) ≤ (q : ℝ) ^ (w₁ * L) := Real.one_le_rpow (by linarith) w₁L_pos.le
     exact_mod_cast this.trans hP₁
   have hqe0 : (2 : ℝ) * (q : ℝ) ^ (e₀ / 2) ≤ (q : ℝ) ^ e₀ := by
     have : (q : ℝ) ^ e₀ = (q : ℝ) ^ (e₀ / 2) * (q : ℝ) ^ (e₀ / 2) := by
@@ -276,20 +281,20 @@ theorem typeII_rough {e₀ : ℝ} (he₀ : 0 < e₀) :
     have hzm := hz m hm
     have h2 : (2 : ℝ) ≤ z m := le_trans (by nlinarith) (le_trans hqe0 hzm)
     refine ⟨by exact_mod_cast h2, ?_⟩
-    have hK : (2333 / 1000 + 1 : ℝ) ≤ e₀ * (Kmax + 1) := by
-      have := Nat.le_ceil ((2333 / 1000 + 1) / e₀)
+    have hK : (L + 1 : ℝ) ≤ e₀ * (Kmax + 1) := by
+      have := Nat.le_ceil ((L + 1) / e₀)
       rw [← hKmax, div_le_iff₀ he₀] at this
       nlinarith
-    have hpow : (q : ℝ) ^ (2333 / 1000 + 1 : ℝ) ≤ ((z m : ℕ) : ℝ) ^ (Kmax + 1) := by
-      calc (q : ℝ) ^ (2333 / 1000 + 1 : ℝ) ≤ (q : ℝ) ^ (e₀ * (Kmax + 1)) :=
+    have hpow : (q : ℝ) ^ (L + 1 : ℝ) ≤ ((z m : ℕ) : ℝ) ^ (Kmax + 1) := by
+      calc (q : ℝ) ^ (L + 1 : ℝ) ≤ (q : ℝ) ^ (e₀ * (Kmax + 1)) :=
             Real.rpow_le_rpow_of_exponent_le (by linarith) hK
         _ = ((q : ℝ) ^ e₀) ^ (Kmax + 1) := by rw [Real.rpow_mul hq0.le, ← Real.rpow_natCast]; push_cast; ring_nf
         _ ≤ ((z m : ℕ) : ℝ) ^ (Kmax + 1) := pow_le_pow_left₀ (by positivity) hzm _
-    have hlt : (⌊2 * X⌋₊ : ℝ) < (q : ℝ) ^ (2333 / 1000 + 1 : ℝ) := by
+    have hlt : (⌊2 * X⌋₊ : ℝ) < (q : ℝ) ^ (L + 1 : ℝ) := by
       calc (⌊2 * X⌋₊ : ℝ) ≤ 2 * X := Nat.floor_le (by positivity)
         _ < 3 * X := by linarith
         _ ≤ (q : ℝ) * X := by nlinarith
-        _ = (q : ℝ) ^ (2333 / 1000 + 1 : ℝ) := by
+        _ = (q : ℝ) ^ (L + 1 : ℝ) := by
             rw [Real.rpow_add hq0, Real.rpow_one, hXdef]; ring
     exact_mod_cast lt_of_lt_of_le hlt hpow
   have hrewrite : ∑ m ∈ S, acoef m * ∑ k ∈ (Finset.Icc 2 ⌊2 * X⌋₊).filter
@@ -313,25 +318,26 @@ theorem typeII_rough {e₀ : ℝ} (he₀ : 0 < e₀) :
       (fun _ : Fin (n + 1) => SieveTypeIIU.primesLe ⌊2 * X⌋₊))
       (fun mx => mx.1 * ∏ i, mx.2 i)
       (fun mx => acoef mx.1 * ∏ j, ((if PrR n z X j mx.1 mx.2 then 1 else 0 : ℝ) : ℂ))‖ ≤
-      (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ) := by
+      (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ) := by
     intro n hn
     have hnK := Finset.mem_range.1 hn
-    have hφ : ∀ j, ∀ m ∈ S, phiR n z X j m ≤ (2333 / 1000 + 1) * Real.log q := by
+    have hφ : ∀ j, ∀ m ∈ S, phiR n z X j m ≤ (L + 1) * Real.log q := by
       intro j m hm
       have hm1 : 1 ≤ m := by have := (Finset.mem_Ioc.1 (hS hm)).1; omega
       have hm1' : (1 : ℝ) ≤ m := by exact_mod_cast hm1
       have hlogm : 0 ≤ Real.log m := Real.log_nonneg hm1'
       have hmX : (m : ℝ) ≤ X := by
         have h1 : (m : ℝ) ≤ P₂ := by exact_mod_cast (Finset.mem_Ioc.1 (hS hm)).2
-        have h2 : (q : ℝ) ^ (485 / 1000 * (2333 / 1000) : ℝ) ≤ X :=
-          Real.rpow_le_rpow_of_exponent_le (by linarith) (by norm_num)
+        have h2 : (q : ℝ) ^ (w₂ * L) ≤ X :=
+          Real.rpow_le_rpow_of_exponent_le (by linarith) w₂L_lt_L.le
         linarith
       have hzlog : 0 ≤ Real.log (z m) := Real.log_nonneg (by exact_mod_cast (le_trans (by norm_num) (hzm m hm).1))
       have hlog2 : Real.log 2 ≤ Real.log q := Real.log_le_log (by norm_num) (by linarith)
-      have hlogX : Real.log X = 2333 / 1000 * Real.log q := by rw [hXdef, Real.log_rpow hq0]
+      have hlogX : Real.log X = L * Real.log q := by rw [hXdef, Real.log_rpow hq0]
+      have hLlog : 0 ≤ L * Real.log q := mul_nonneg L_pos.le (by linarith)
       unfold phiR
       split_ifs
-      · positivity
+      · linarith
       · linarith
       · have := Real.log_le_log (by linarith) hmX
         linarith
@@ -352,7 +358,7 @@ theorem typeII_rough {e₀ : ℝ} (he₀ : 0 < e₀) :
         · right
           simp [eR, h']
     have hsupp : ∀ m ∈ S, ∀ x : Fin (n + 1) → ℕ, (∀ i, (x i).Prime) → (∀ j, PrR n z X j m x) →
-        (∀ i, 2 * (q : ℝ) ^ (e₀ / 2) ≤ x i) ∧ (m : ℝ) * ∏ i, (x i : ℝ) ≤ 2 * (q : ℝ) ^ (2333 / 1000 : ℝ) := by
+        (∀ i, 2 * (q : ℝ) ^ (e₀ / 2) ≤ x i) ∧ (m : ℝ) * ∏ i, (x i : ℝ) ≤ 2 * (q : ℝ) ^ L := by
       intro m hm x hx hall
       have hm1 : 1 ≤ m := by have := (Finset.mem_Ioc.1 (hS hm)).1; omega
       obtain ⟨ha, hzl, -, hhi⟩ := (PrR_all_iff hX hm1 (by have := (hzm m hm).1; omega)
@@ -365,10 +371,10 @@ theorem typeII_rough {e₀ : ℝ} (he₀ : 0 < e₀) :
       (PrR n z X) (fun j i => abs_eR_le n j i) (PrR_spec n z X) hφ piv hpivs hsupp
   refine (Finset.sum_le_card_nsmul _ _ _ hbound).trans ?_
   rw [Finset.card_range, nsmul_eq_mul]
-  calc (Kmax : ℝ) * ((q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ))
-      ≤ (q : ℝ) ^ (δ / 2) * ((q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ : ℝ)) :=
+  calc (Kmax : ℝ) * ((q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ))
+      ≤ (q : ℝ) ^ (δ / 2) * ((q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ)) :=
         mul_le_mul_of_nonneg_right hqK (by positivity)
-    _ = (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (2333 / 1000 - δ / 2 : ℝ) := by
+    _ = (q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ / 2) := by
         rw [mul_left_comm, ← Real.rpow_add hq0]
         congr 2
         ring

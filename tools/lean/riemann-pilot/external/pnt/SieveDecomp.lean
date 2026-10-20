@@ -12,9 +12,9 @@ up to `Y` that satisfy every atom of `spec`. For weights `g` on `(N₁, N₂]`, 
 * `RTg_eq`: with positive thresholds, a family is `SieveChain.RTg` of its atoms' comparisons (`Atom.toG`).
 * `buchstab_pt`, `buchstab_fam`: Buchstab's identity. For a family whose tuples have their last prime least and at
   least `z`, `famI = famJ(z) − famI` of the extended family (`extS`: one more prime `p ∈ [z, rt_last)`).
-* `famI_cells`: if every tuple has its prime `t` in `[x^{V/DEN}, x^{(V + nH)/DEN})`, `x > 1`, the family is the sum
-  over the cells `c < n` of `SieveCert`'s grid of its subfamilies with `x^{e_c/DEN} ≤ rt_t < x^{(e_c + H)/DEN}`
-  (`cellA`).
+* `famI_cells`: if every tuple has its prime `t` in `[x^{V/DEN}, x^{(V + nH)/DEN})`, `x > 1`, the family is the sum over
+  the cells `c < n` of a grid with `GridOK` (`SieveCert.Grid`) of its subfamilies with
+  `x^{e_c/DEN} ≤ rt_t < x^{(e_c + H)/DEN}` (`cellA`).
 * `famI_split`: a family is the sum of its subfamilies under an atom and under its complement.
 * `famI_eq_zero`, `famI_vanish`: a family contributes `0` when no `n ∈ (N₁, N₂]` is counted, in particular when every
   `∏rt ≤ N₁` while `∏rt·rt_last > N₂`.
@@ -22,6 +22,10 @@ up to `Y` that satisfy every atom of `spec`. For weights `g` on `(N₁, N₂]`, 
 These are the operations of the decomposition of `frontier/linnik/SIEVE-ROUTE.md` §6 (§13's M8), on families
 described by finitely many atoms: extension by one prime (Buchstab), the cells of the newest prime, splits by a
 product against a threshold, and families that vanish.
+
+Round 607 made the certificate's grid a parameter (`SieveCert.Grid`, with `GridOK` where the Lean takes it); the
+statements of earlier rounds are the case `SieveCert.grid2333`.
+
 
 The file imports `SieveChain.lean`.
 -/
@@ -317,18 +321,18 @@ theorem buchstab_fam (g : ℕ → ℝ) (N₁ N₂ : ℕ) {k' Y z : ℕ} (spec : 
 /-! ### Cells, splits and empty terms -/
 
 /-- The atoms of the cell `c` for the prime `t`: `x^{e_c/DEN} ≤ rt_t < x^{(e_c + H)/DEN}`. -/
-noncomputable def cellA {k : ℕ} (t : Fin k) (x : ℝ) (c : ℕ) : List (Atom k) :=
+noncomputable def cellA [SieveCert.Grid] {k : ℕ} (t : Fin k) (x : ℝ) (c : ℕ) : List (Atom k) :=
   [Atom.ge t (x ^ ((SieveCert.e c : ℝ) / SieveCert.DEN)),
     Atom.lt t (x ^ (((SieveCert.e c : ℝ) + SieveCert.H) / SieveCert.DEN))]
 
-theorem cellA_sem {k : ℕ} (t : Fin k) (x : ℝ) (c : ℕ) (rt : Fin k → ℕ) :
+theorem cellA_sem [SieveCert.Grid] {k : ℕ} (t : Fin k) (x : ℝ) (c : ℕ) (rt : Fin k → ℕ) :
     (∀ A ∈ cellA t x c, A.sem rt) ↔
       x ^ ((SieveCert.e c : ℝ) / SieveCert.DEN) ≤ rt t ∧
         (rt t : ℝ) < x ^ (((SieveCert.e c : ℝ) + SieveCert.H) / SieveCert.DEN) := by
   simp [cellA, Atom.sem]
 
 /-- For `x > 1`, a prime is in the cell `c` exactly when its exponent `log p/log x` is. -/
-theorem cell_iff {x : ℝ} (hx : 1 < x) {p : ℕ} (hp : p.Prime) (c : ℕ) :
+theorem cell_iff [SieveCert.Grid] {x : ℝ} (hx : 1 < x) {p : ℕ} (hp : p.Prime) (c : ℕ) :
     (x ^ ((SieveCert.e c : ℝ) / SieveCert.DEN) ≤ p ∧
       (p : ℝ) < x ^ (((SieveCert.e c : ℝ) + SieveCert.H) / SieveCert.DEN)) ↔
       SieveCert.InCell c (Real.log p / Real.log x) := by
@@ -336,8 +340,9 @@ theorem cell_iff {x : ℝ} (hx : 1 < x) {p : ℕ} (hp : p.Prime) (c : ℕ) :
   rw [SieveRough.cellP, SieveRough.mem_primesIn] at h
   simpa [hp] using h
 
-/-- For `x > 1`, each prime of `[x^{V/DEN}, x^{(V + nH)/DEN})` lies in exactly one cell `c < n`. -/
-theorem exists_unique_cell {x : ℝ} (hx : 1 < x) {p : ℕ} (hp : p.Prime)
+/-- On a grid with `GridOK`, for `x > 1`, each prime of `[x^{V/DEN}, x^{(V + nH)/DEN})` lies in exactly one cell
+`c < n`. -/
+theorem exists_unique_cell [SieveCert.Grid] [SieveCert.GridOK] {x : ℝ} (hx : 1 < x) {p : ℕ} (hp : p.Prime)
     (h0 : x ^ ((SieveCert.V : ℝ) / SieveCert.DEN) ≤ p)
     (h1 : (p : ℝ) < x ^ (((SieveCert.V : ℝ) + SieveCert.n * SieveCert.H) / SieveCert.DEN)) :
     (∃ c < SieveCert.n, SieveCert.InCell c (Real.log p / Real.log x)) ∧
@@ -384,11 +389,11 @@ theorem famSet_append {k Y : ℕ} (spec spec' : List (Atom k)) :
   ext x
   simp only [Finset.mem_filter, mem_famSet, List.forall_mem_append, and_assoc]
 
-/-- **The cells of the prime `t`.** If `x > 1` and every tuple of the family has its prime `t` in
-`[x^{V/DEN}, x^{(V + nH)/DEN})`, the family's terms are the sum over the cells `c < n` of those with `rt_t` in the
+/-- **The cells of the prime `t`.** On a grid with `GridOK`, if `x > 1` and every tuple of the family has its prime `t`
+in `[x^{V/DEN}, x^{(V + nH)/DEN})`, the family's terms are the sum over the cells `c < n` of those with `rt_t` in the
 cell `c`. -/
-theorem famI_cells (g : ℕ → ℝ) (N₁ N₂ : ℕ) {x : ℝ} (hx : 1 < x) {k' Y : ℕ} (spec : List (Atom (k' + 1)))
-    (t : Fin (k' + 1))
+theorem famI_cells [SieveCert.Grid] [SieveCert.GridOK] (g : ℕ → ℝ) (N₁ N₂ : ℕ) {x : ℝ} (hx : 1 < x) {k' Y : ℕ}
+    (spec : List (Atom (k' + 1))) (t : Fin (k' + 1))
     (hrange : ∀ rt ∈ famSet (k' + 1) Y spec, x ^ ((SieveCert.V : ℝ) / SieveCert.DEN) ≤ rt t ∧
       (rt t : ℝ) < x ^ (((SieveCert.V : ℝ) + SieveCert.n * SieveCert.H) / SieveCert.DEN)) :
     famI g N₁ N₂ (famSet (k' + 1) Y spec) =
@@ -474,11 +479,11 @@ theorem famSet_mono {k Y : ℕ} {spec spec' : List (Atom k)} (h : ∀ A ∈ spec
   exact ⟨hrt.1, fun A hA => hrt.2 A (h A hA)⟩
 
 /-- A prime in the cell `c`: `x^{e_c/DEN} ≤ p < x^{(e_c + H)/DEN}`. -/
-def InC (x : ℝ) (c p : ℕ) : Prop :=
+def InC [SieveCert.Grid] (x : ℝ) (c p : ℕ) : Prop :=
   x ^ ((SieveCert.e c : ℝ) / SieveCert.DEN) ≤ p ∧ (p : ℝ) < x ^ (((SieveCert.e c : ℝ) + SieveCert.H) / SieveCert.DEN)
 
-theorem inC_of_mem {k Y : ℕ} {spec : List (Atom k)} {rt : Fin k → ℕ} (hrt : rt ∈ famSet k Y spec) {t : Fin k}
-    {x : ℝ} {c : ℕ} (h : ∀ A ∈ cellA t x c, A ∈ spec) : InC x c (rt t) :=
+theorem inC_of_mem [SieveCert.Grid] {k Y : ℕ} {spec : List (Atom k)} {rt : Fin k → ℕ} (hrt : rt ∈ famSet k Y spec)
+    {t : Fin k} {x : ℝ} {c : ℕ} (h : ∀ A ∈ cellA t x c, A ∈ spec) : InC x c (rt t) :=
   (cellA_sem t x c rt).1 fun A hA => sem_of_mem hrt (h A hA)
 
 theorem init_mem {k' Y z : ℕ} {spec : List (Atom (k' + 1))} {spec' : List (Atom (k' + 2))}

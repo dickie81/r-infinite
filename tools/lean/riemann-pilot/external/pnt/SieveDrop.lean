@@ -3,7 +3,8 @@
 
 Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
-Plain statements. `xq q = q^L`, `L = 2333/1000`, and `cornerP z` is the set of primes of `(⌊z/4⌋, z]`.
+Plain statements. The route and the grid are as in `SieveQ`, with `RouteOK`, `GridOK` and `Fits` where the Lean
+takes them. `xq q = q^L`, and `cornerP z` is the set of primes of `(⌊z/4⌋, z]`.
 
 * `card_le_Psi`, `famI_gB_le`: a family's `B`-count is at most `φ(q)⁻¹ Σ_rt Ψ(x/∏rt, rt_last)`, since the `n = Wc ∈
   (x, 2x]` with no prime factor below `z` inject into `Ψ(x/W, z)`.
@@ -11,30 +12,38 @@ Plain statements. `xq q = q^L`, `L = 2333/1000`, and `cornerP z` is the set of p
   (`SieveRough.cellP`), `Σ Ψ(x/(p₁p₂), p₂)` or `Σ Ψ(x/(p₁p₂p₃p₄), p₄)`.
 * `corner_le`, `corner_ev`: for `(parQ q).Good` and `z_top² ≤ 4N₁`, a corner cell (not a candidate, not surely
   evaluable, `p₁`'s cell not inside the window) counts only the `n = p₁p₂`, both primes in `cornerP z_top`, so it is at
-  most `φ(q)⁻¹|cornerP|²`; for `ε > 0` and large `q`, `z_top² ≤ 4N₁` and `n²|cornerP|² ≤ εx/log x` (`n = 70` cells), by
-  `cornerP_card_ev`.
+  most `φ(q)⁻¹|cornerP|²`; for `ε > 0` and large `q`, `z_top² ≤ 4N₁` and `n²|cornerP|² ≤ εx/log x` (`n` the grid's
+  number of cells a side), by `cornerP_card_ev`.
 * `D1_le`, `dropS_le_cost`, `shares_ev`, `sum_cost_div`: the dropped cells' sums are at most their certificate costs
   `cost/K` times `x/log x`, plus `δ′(1 + n²)x/log x` for `δ′ > 0` and large `x`, by `SieveRough.share2_of_cand` and
-  `share4_of_counted4` simultaneously for the finitely many cells, and the costs total at most `0.88`
-  (`SieveCert.total_div_le`).
-* `drop_ev`: for `ε > 0`, eventually `D1(g_B) ≤ φ(q)⁻¹(0.88 + ε)x/log x`.
+  `share4_of_counted4` simultaneously for the finitely many cells, and the costs total at most `0.88` when the
+  certificate's total is at most `0.88K` (`htot`, `SieveCert.total_div_le`).
+* `drop_ev`: given `htot`, for `ε > 0`, eventually `D1(g_B) ≤ φ(q)⁻¹(0.88 + ε)x/log x`.
 
 This is the loss of `frontier/linnik/SIEVE-ROUTE.md` §6, M8 of §13: M6's shares and M7's total bound the dropped
 families' `B`-counts, and the corner near `(1/2, 1/2)` is `o(x/log x)`.
+
+Round 607 made the route's numbers and the certificate's grid parameters and the certificate's total a hypothesis
+(`htot`); the statements of earlier rounds are the case `SieveRoute.route2333` and `SieveCert.grid2333`, with
+`SieveCert.total_le_2333` for `htot`.
+
 
 The file imports `SieveQ.lean`.
 -/
 import SieveQ
 
-open Real Finset Filter SieveFamily SieveChain SieveDecomp SieveBuch SieveLeaves SieveQ SieveRough
+open Real Finset Filter SieveFamily SieveChain SieveDecomp SieveBuch SieveLeaves SieveQ SieveRough SieveRoute
 open SieveCert (V DEN H U1 U2 cand dec inKK ne3 counted4 surelyEval cell bound2 bound4 K total cost refcost)
 
 namespace SieveDrop
 
 open Classical
 
+variable [Route] [RouteOK] [SieveCert.Grid] [SieveCert.GridOK] [Fits]
+
 /-! ### A dropped family's `B`-count, by rough numbers -/
 
+omit [Route] [RouteOK] [SieveCert.Grid] [SieveCert.GridOK] [Fits] in
 /-- For `x > 0` and `W > 0`, the multiples `n = Wc ∈ (x, 2x]` of `W` with no prime factor below `z` inject into
 `Ψ(x/W, z)` by `n ↦ n/W`. -/
 theorem card_le_Psi {x : ℝ} (hx : 0 < x) {W z : ℕ} (hW : 0 < W) :
@@ -67,16 +76,19 @@ theorem card_le_Psi {x : ℝ} (hx : 0 < x) {W z : ℕ} (hW : 0 < W) :
     rw [Finset.mem_coe, Finset.mem_filter] at hn₁ hn₂
     exact (Nat.div_left_inj hn₁.2.1 hn₂.2.1).1 h
 
+omit [Route] [RouteOK] [SieveCert.Grid] [SieveCert.GridOK] [Fits] in
 theorem gB_le (q m : ℕ) : gB q m ≤ (q.totient : ℝ)⁻¹ := by
   unfold gB
   split_ifs
   · exact le_rfl
   · positivity
 
+omit [Route] [RouteOK] [SieveCert.Grid] [SieveCert.GridOK] [Fits] in
 theorem gB_nonneg (q m : ℕ) : 0 ≤ gB q m := by
   unfold gB
   split_ifs <;> positivity
 
+omit [RouteOK] [SieveCert.Grid] [SieveCert.GridOK] [Fits] in
 /-- **A family's `B`-count.** For `q ≥ 1` and a family of tuples of primes, it is at most
 `φ(q)⁻¹ Σ_rt Ψ(x/∏rt, rt_last)`. -/
 theorem famI_gB_le (q : ℕ) {k' : ℕ} (F : Finset (Fin (k' + 1) → ℕ)) (hF : ∀ rt ∈ F, ∀ i, (rt i).Prime)
@@ -104,6 +116,7 @@ theorem famI_gB_le (q : ℕ) {k' : ℕ} (F : Finset (Fin (k' + 1) → ℕ)) (hF 
         refine mul_le_mul_of_nonneg_left ?_ (by positivity)
         exact_mod_cast card_le_Psi hx hW
 
+omit [Route] [RouteOK] [SieveCert.Grid] [SieveCert.GridOK] [Fits] in
 /-- A sum of a nonnegative `g` over the pairs of a family whose entries lie in `s₀`, `s₁` is at most the sum over
 `s₀ × s₁`. -/
 theorem sum_le_box2 {s₀ s₁ : Finset ℕ} (F : Finset (Fin 2 → ℕ)) (hF : ∀ rt ∈ F, rt 0 ∈ s₀ ∧ rt 1 ∈ s₁)
@@ -123,6 +136,7 @@ theorem sum_le_box2 {s₀ s₁ : Finset ℕ} (F : Finset (Fin 2 → ℕ)) (hF : 
   obtain ⟨rt, hrt, rfl⟩ := Finset.mem_image.1 hp
   exact Finset.mem_product.2 (hF rt hrt)
 
+omit [Route] [RouteOK] [SieveCert.Grid] [SieveCert.GridOK] [Fits] in
 /-- The same for quadruples. -/
 theorem sum_le_box4 {s₀ s₁ s₂ s₃ : Finset ℕ} (F : Finset (Fin 4 → ℕ))
     (hF : ∀ rt ∈ F, rt 0 ∈ s₀ ∧ rt 1 ∈ s₁ ∧ rt 2 ∈ s₂ ∧ rt 3 ∈ s₃) (g : ℕ → ℕ → ℕ → ℕ → ℝ)
@@ -155,9 +169,11 @@ theorem sum_le_box4 {s₀ s₁ s₂ s₃ : Finset ℕ} (F : Finset (Fin 4 → �
 
 /-! ### The dropped cells -/
 
+omit [RouteOK] [SieveCert.GridOK] [Fits] in
 theorem mem_cellP_of {q : ℕ} {c p : ℕ} (hp : p.Prime) (h : InC (xq q) c p) : p ∈ cellP (xq q) c :=
   mem_primesIn.2 ⟨hp, h.1, h.2⟩
 
+omit [RouteOK] [SieveCert.GridOK] [Fits] in
 /-- **A dropped cell of depth 2**, for `q ≥ 1`: its `B`-count is at most `φ(q)⁻¹ Σ_{p₁, p₂} Ψ(x/(p₁p₂), p₂)` over the
 cell. -/
 theorem drop2_le {q : ℕ} (hq : 1 ≤ q) (i j : ℕ) :
@@ -176,6 +192,7 @@ theorem drop2_le {q : ℕ} (hq : 1 ≤ q) (i j : ℕ) :
   push_cast
   rfl
 
+omit [RouteOK] [SieveCert.GridOK] [Fits] in
 /-- **A dropped cell of depth 4**, for `q ≥ 1`: its `B`-count is at most `φ(q)⁻¹ Σ Ψ(x/(p₁p₂p₃p₄), p₄)` over the
 cell. -/
 theorem drop4_le {q : ℕ} (hq : 1 ≤ q) (i j k l : ℕ) :
@@ -200,9 +217,10 @@ theorem drop4_le {q : ℕ} (hq : 1 ≤ q) (i j k l : ℕ) :
 /-- The primes of `(⌊z/4⌋, z]`, where the corner's primes lie. -/
 noncomputable def cornerP (z : ℕ) : Finset ℕ := (Ioc ⌊(z : ℝ) / 4⌋₊ z).filter Nat.Prime
 
-/-- **A corner cell** (not a candidate, not surely evaluable, `p₁`'s cell `i < n` not inside the window), for
-`(parQ q).Good` and `z_top² ≤ 4N₁`: its `n` are the products `p₁p₂` of its pairs, so its `B`-count is at most
-`φ(q)⁻¹ |cornerP|²`. -/
+omit [RouteOK] [Fits] in
+/-- **A corner cell** (not a candidate, not surely evaluable, `p₁`'s cell `i < n` not inside the window), on a grid with
+`GridOK`, for `(parQ q).Good` and `z_top² ≤ 4N₁`: its `n` are the products `p₁p₂` of its pairs, so its `B`-count is at
+most `φ(q)⁻¹ |cornerP|²`. -/
 theorem corner_le {q : ℕ} (G : (parQ q).Good) (hsq : (((parQ q).ztop : ℝ)) ^ 2 ≤ 4 * N1 q) {i j : ℕ}
     (hi : i < SieveCert.n) (hW : ¬ Par.inW i) (hc : cand i j = false) (hs : Par.sE2 i j = false) :
     (parQ q).I (gB q) ((parQ q).S2c i j) ≤ (q.totient : ℝ)⁻¹ * ((cornerP (parQ q).ztop).card : ℝ) ^ 2 := by
@@ -340,10 +358,12 @@ theorem corner_le {q : ℕ} (G : (parQ q).Good) (hsq : (((parQ q).ztop : ℝ)) ^
 
 /-! ### The corner is small -/
 
+omit [SieveCert.Grid] [SieveCert.GridOK] [Fits] in
 theorem tendsto_xq : Tendsto xq atTop atTop :=
-  (tendsto_rpow_atTop (by norm_num : (0 : ℝ) < 2333 / 1000)).comp tendsto_natCast_atTop_atTop
+  (tendsto_rpow_atTop (L_pos : (0 : ℝ) < L)).comp tendsto_natCast_atTop_atTop
 
-/-- For `q ≥ 1`, `√x ≤ z_top ≤ √(2x) + 1`. -/
+omit [SieveCert.GridOK] [Fits] in
+/-- For a route with `RouteOK` and `q ≥ 1`, `√x ≤ z_top ≤ √(2x) + 1`. -/
 theorem ztop_bounds (q : ℕ) (hq : 1 ≤ q) :
     Real.sqrt (xq q) ≤ ((parQ q).ztop : ℝ) ∧ ((parQ q).ztop : ℝ) ≤ Real.sqrt (2 * xq q) + 1 := by
   show Real.sqrt (xq q) ≤ ((Nat.sqrt (N2 q) + 1 : ℕ) : ℝ) ∧ ((Nat.sqrt (N2 q) + 1 : ℕ) : ℝ) ≤ _
@@ -354,6 +374,7 @@ theorem ztop_bounds (q : ℕ) (hq : 1 ≤ q) :
     have h2 : Real.sqrt (N2 q) ≤ Real.sqrt (2 * xq q) := Real.sqrt_le_sqrt (N2_le q)
     linarith
 
+omit [Route] [RouteOK] [SieveCert.Grid] [SieveCert.GridOK] [Fits] in
 /-- The corner's primes number at most `12√x/log x`, for `√x ≤ z ≤ 2√x` and `x` large. -/
 theorem cornerP_card_ev : ∃ X₀ : ℝ, ∀ x ≥ X₀, ∀ z : ℕ, Real.sqrt x ≤ z → (z : ℝ) ≤ 2 * Real.sqrt x →
     ((cornerP z).card : ℝ) ≤ 12 * Real.sqrt x / Real.log x := by
@@ -424,7 +445,9 @@ theorem cornerP_card_ev : ∃ X₀ : ℝ, ∀ x ≥ X₀, ∀ z : ℕ, Real.sqrt
     div_le_div_of_nonneg_right (by linarith) hlx.le
   linarith
 
-/-- **The corner is `o(x/log x)`.** For `ε > 0` and large `q`: `z_top² ≤ 4N₁` and `n²|cornerP(z_top)|² ≤ εx/log x`. -/
+omit [SieveCert.GridOK] [Fits] in
+/-- **The corner is `o(x/log x)`.** For a route with `RouteOK`, `ε > 0` and large `q`: `z_top² ≤ 4N₁` and
+`n²|cornerP(z_top)|² ≤ εx/log x`. -/
 theorem corner_ev {ε : ℝ} (hε : 0 < ε) : ∀ᶠ q : ℕ in atTop,
     (((parQ q).ztop : ℝ)) ^ 2 ≤ 4 * N1 q ∧
       (SieveCert.n : ℝ) ^ 2 * ((cornerP (parQ q).ztop).card : ℝ) ^ 2 ≤ ε * (xq q / Real.log (xq q)) := by
@@ -480,9 +503,11 @@ noncomputable def S2 (x : ℝ) (i j : ℕ) : ℝ := ∑ p₁ ∈ cellP x i, ∑ 
 noncomputable def S4 (x : ℝ) (i j k l : ℕ) : ℝ :=
   ∑ p₁ ∈ cellP x i, ∑ p₂ ∈ cellP x j, ∑ p₃ ∈ cellP x k, ∑ p₄ ∈ cellP x l, (Psi (x / (p₁ * p₂ * p₃ * p₄)) p₄ : ℝ)
 
+omit [Route] [RouteOK] [SieveCert.GridOK] [Fits] in
 theorem S2_nonneg (x : ℝ) (i j : ℕ) : 0 ≤ S2 x i j :=
   Finset.sum_nonneg fun _ _ => Finset.sum_nonneg fun _ _ => Nat.cast_nonneg _
 
+omit [Route] [RouteOK] [SieveCert.GridOK] [Fits] in
 theorem S4_nonneg (x : ℝ) (i j k l : ℕ) : 0 ≤ S4 x i j k l :=
   Finset.sum_nonneg fun _ _ => Finset.sum_nonneg fun _ _ => Finset.sum_nonneg fun _ _ =>
     Finset.sum_nonneg fun _ _ => Nat.cast_nonneg _
@@ -494,6 +519,7 @@ noncomputable def dropS (x : ℝ) (i j : ℕ) : ℝ :=
       (if inKK i j k = true ∧ ne3 i j k = true then
         ∑ l ∈ range (k + 1), (if counted4 i j k l = true then S4 x i j k l else 0) else 0) else 0)
 
+omit [Route] [RouteOK] [SieveCert.GridOK] [Fits] in
 theorem dropS_nonneg (x : ℝ) (i j : ℕ) : 0 ≤ dropS x i j := by
   unfold dropS
   refine add_nonneg (by split_ifs <;> first | exact le_rfl | exact S2_nonneg _ _ _) ?_
@@ -504,8 +530,9 @@ theorem dropS_nonneg (x : ℝ) (i j : ℕ) : 0 ≤ dropS x i j := by
     · exact le_rfl
   · exact le_rfl
 
-/-- **The dropped terms' `B`-count**, for `(parQ q).Good`, `z_top² ≤ 4N₁` and `q ≥ 1`: it is at most
-`φ(q)⁻¹(Σ_{i,j} dropS + n²|cornerP|²)`. -/
+omit [RouteOK] [Fits] in
+/-- **The dropped terms' `B`-count**, on a grid with `GridOK`, for `(parQ q).Good`, `z_top² ≤ 4N₁` and `q ≥ 1`: it is at
+most `φ(q)⁻¹(Σ_{i,j} dropS + n²|cornerP|²)`. -/
 theorem D1_le {q : ℕ} (G : (parQ q).Good) (hsq : (((parQ q).ztop : ℝ)) ^ 2 ≤ 4 * N1 q) (hq : 1 ≤ q) :
     (parQ q).D1 (gB q) ≤ (q.totient : ℝ)⁻¹ * (∑ i ∈ range SieveCert.n, ∑ j ∈ range SieveCert.n,
       dropS (xq q) i j + (SieveCert.n : ℝ) ^ 2 * ((cornerP (parQ q).ztop).card : ℝ) ^ 2) := by
@@ -564,6 +591,7 @@ theorem D1_le {q : ℕ} (G : (parQ q).Good) (hsq : (((parQ q).ztop : ℝ)) ^ 2 �
         add_le_add hA hB
     _ = _ := by ring
 
+omit [Route] [RouteOK] [SieveCert.GridOK] [Fits] in
 /-- **A cell's dropped sums against its cost**, given the shares at `x`, for `δ' ≥ 0` and `X ≥ 0`:
 `dropS ≤ (cost/K)X + δ'(1 + n²)X`. -/
 theorem dropS_le_cost {x δ' X : ℝ} (hδ' : 0 ≤ δ') (hX : 0 ≤ X) {i j : ℕ}
@@ -643,10 +671,11 @@ theorem dropS_le_cost {x δ' X : ℝ} (hδ' : 0 ≤ δ') (hX : 0 ≤ X) {i j : �
     rw [hcost, Nat.cast_zero, zero_div, zero_mul, zero_add]
     positivity
 
-/-- The certificate's total in the reals: for `X ≥ 0`, `Σ_{i,j} (cost/K)X ≤ 0.88X`. -/
-theorem sum_cost_div (X : ℝ) (hX : 0 ≤ X) :
+omit [Route] [RouteOK] [SieveCert.GridOK] [Fits] in
+/-- The certificate's total in the reals: if `total ≤ 0.88K` (`htot`), then for `X ≥ 0`, `Σ_{i,j} (cost/K)X ≤ 0.88X`. -/
+theorem sum_cost_div (htot : total ≤ 88 * K / 100) (X : ℝ) (hX : 0 ≤ X) :
     ∑ i ∈ range SieveCert.n, ∑ j ∈ range SieveCert.n, (cost i j : ℝ) / K * X ≤ 88 / 100 * X := by
-  have h := SieveCert.total_div_le
+  have h := SieveCert.total_div_le htot
   have hsum : ∑ i ∈ range SieveCert.n, ∑ j ∈ range SieveCert.n, (cost i j : ℝ) / K * X = (total : ℝ) / K * X := by
     rw [SieveCert.total_eq]
     push_cast
@@ -656,8 +685,9 @@ theorem sum_cost_div (X : ℝ) (hX : 0 ≤ X) :
   rw [hsum]
   exact mul_le_mul_of_nonneg_right h hX
 
-/-- **The shares, eventually**: for `δ' > 0` and large `x`, simultaneously, every candidate cell's `S2` and every
-counted cell's `S4` are at most the certificate's bound plus `δ'`, times `x/log x`. -/
+omit [Route] [RouteOK] [Fits] in
+/-- **The shares, eventually**: on a grid with `GridOK`, for `δ' > 0` and large `x`, simultaneously, every candidate
+cell's `S2` and every counted cell's `S4` are at most the certificate's bound plus `δ'`, times `x/log x`. -/
 theorem shares_ev {δ' : ℝ} (hδ' : 0 < δ') : ∀ᶠ x : ℝ in atTop, ∀ i ∈ range SieveCert.n, ∀ j ∈ range SieveCert.n,
     (cand i j = true → S2 x i j ≤ ((bound2 (SieveCert.e i) (SieveCert.e j) : ℝ) / K + δ') * (x / Real.log x)) ∧
     ∀ k ∈ range SieveCert.n, ∀ l ∈ range SieveCert.n, counted4 i j k l = true →
@@ -681,10 +711,11 @@ theorem shares_ev {δ' : ℝ} (hδ' : 0 < δ') : ∀ᶠ x : ℝ in atTop, ∀ i 
       exact hx
     · exact Filter.Eventually.of_forall fun x h => absurd h hc
 
-/-- **The dropped terms, for large `q`**: for `ε > 0`, `D1(g_B) ≤ φ(q)⁻¹(0.88 + ε)x/log x`. -/
-theorem drop_ev {ε : ℝ} (hε : 0 < ε) : ∀ᶠ q : ℕ in atTop, LargeQ q →
+/-- **The dropped terms, for large `q`**: for a route with `RouteOK` and a grid with `GridOK` that fit (`Fits`), if the
+certificate's total is at most `0.88K` (`htot`), then for `ε > 0`, `D1(g_B) ≤ φ(q)⁻¹(0.88 + ε)x/log x`. -/
+theorem drop_ev (htot : total ≤ 88 * K / 100) {ε : ℝ} (hε : 0 < ε) : ∀ᶠ q : ℕ in atTop, LargeQ q →
     (parQ q).D1 (gB q) ≤ (q.totient : ℝ)⁻¹ * ((88 / 100 + ε) * (xq q / Real.log (xq q))) := by
-  have hn : (0 : ℝ) < SieveCert.n := by norm_num [SieveCert.n]
+  have hn : (0 : ℝ) < SieveCert.n := by exact_mod_cast SieveCert.n_pos
   set M : ℝ := (SieveCert.n : ℝ) * SieveCert.n * (1 + SieveCert.n * SieveCert.n) with hM
   have hM0 : 0 < M := by positivity
   set δ' : ℝ := ε / (2 * M) with hδ'
@@ -710,7 +741,7 @@ theorem drop_ev {ε : ℝ} (hε : 0 < ε) : ∀ᶠ q : ℕ in atTop, LargeQ q �
           simp only [Finset.sum_add_distrib, Finset.sum_const, Finset.card_range, nsmul_eq_mul]
           ring
       _ ≤ 88 / 100 * X + ε / 2 * X := by
-          have h1 := sum_cost_div X hX0
+          have h1 := sum_cost_div htot X hX0
           have h2 : (SieveCert.n : ℝ) * SieveCert.n * (δ' * (1 + SieveCert.n * SieveCert.n) * X) = ε / 2 * X := by
             rw [hδ']
             field_simp
