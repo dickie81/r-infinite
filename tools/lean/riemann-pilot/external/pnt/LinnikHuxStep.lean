@@ -11,9 +11,10 @@ This is round 589's step (`LinnikStep`) with its numbers as parameters. A `Par` 
 trick's target `Q^a`, the exponent `lam` of the powers' lengths, the range `[lo, hi]` of `σ`, the inner exponent `Ai`
 and the exponent `A`. `Par.Good` lists what the step needs of them at the internal `ε = 1/100000` (`εs`): `M ≥ 1`,
 `0 < a` and `a + ε ≤ M/2000`, the bounds on `lam`, `3/4 ≤ lo`, `hi ≤ 11/12`, `0 ≤ A ≤ 16`, and four exponent
-inequalities on `[lo, hi]`, one for each term of `block_bin_hux`, one for the integral class and one for the number
-of dyadic blocks. At `parHux73` (`a = 7/9 + 2ε`, `m ≤ 1556`, `lam = 7/6 + 9ε/2`, `Ai = 7/3 + 25ε`), up to powers of
-`Q^ε`, for `16/21 ≤ σ ≤ 5/6`:
+inequalities: on `[lo, hi]`, one for each term of `block_bin_hux` and one for the integral class; for every
+`σ ≤ hi`, one for the number of dyadic blocks (round 608: it read "on `[lo, hi]`" for all four; review of round 607,
+F2). At `parHux73` (`a = 7/9 + 2ε`, `m ≤ 1556`, `lam = 7/6 + 9ε/2`, `Ai = 7/3 + 25ε`), up to powers of `Q^ε`, for
+`16/21 ≤ σ ≤ 5/6`:
 * the first term carries `Λ^{2−2σ}`, and `Λ ≤ Q^{7/6}`, so it is at most `Q^{(7/3)(1−σ)}`;
 * the second carries `Λ^{4−6σ}Q ≤ Q^{(7/9)(4−6σ)+1}`, since `Λ ≥ Q^{7/9}` and `4 − 6σ < 0`, and
   `(7/3)(1 − σ) − ((7/9)(4 − 6σ) + 1) = 7σ/3 − 16/9`, which is `0` at `σ = 16/21`; the power trick's target
@@ -598,10 +599,10 @@ lemma absorb_K_gen {Mp : ℕ} {ε σ Q nb B K c Ai A : ℝ} (hQ1 : 1 ≤ Q)
 open scoped Classical in
 /-- **The range `[lo, hi]` at one large `Q`.** Let the parameters have `Good`, let the fourth moment hold with a
 constant `C₄ ≥ 0` (`h4`), and let `lo ≤ σ ≤ hi`, `T ≥ 0` and `Q > 1` with `q(T + 2) ≤ Q`. With the detector's `X, N, Y`
-(`X, N ≥ 1`, `Y ≥ 8`, `22Y log Y ≤ XN`, `Y = Q^{201/400}`, `Q^{1/2000} ≤ 2X`, `X ≤ Q^{1/2000}`), the large-sieve range
-`X_l`, `J` and `τ` of `class1_gen`, at most `(⌊50/ε⌋ + 1)(B₁ + B₂)Q^E + 27(4KG)⁴C₄Q^E` characters `χ ≠ 1` mod `q` have a
-zero in `Re s ≥ σ`, `|Im s| ≤ T`, `E = A(1 − σ)`, `ε = εs`: `LinnikDetect.dichotomy`, `class1_gen`, `class2_count_small`
-and `class2_bound_gen`. -/
+(`X, N ≥ 1`, `Y ≥ 8`, `22Y log Y ≤ XN`, `Y = Q^{201/400}`, `Q^{1/2000} ≤ 2X`, `X ≤ Q^{1/2000}`, `4K ≤ Q^{ε/(24M)}` with
+`K = ⌊log₂ N⌋ + 1`, and `(2XN)² ≤ Q^{201/200+ε}`), the large-sieve range `X_l`, `J` and `τ` of `class1_gen`, at most
+`(⌊50/ε⌋ + 1)(B₁ + B₂)Q^E + 27(4KG)⁴C₄Q^E` characters `χ ≠ 1` mod `q` have a zero in `Re s ≥ σ`, `|Im s| ≤ T`,
+`E = A(1 − σ)`, `ε = εs`: `LinnikDetect.dichotomy`, `class1_gen`, `class2_count_small` and `class2_bound_gen`. -/
 theorem count_gen_at [NeZero q] (Pa : Par) (G : Pa.Good) {C₄ : ℝ} (hC₄0 : 0 ≤ C₄)
     (h4 : ∀ (R : Finset (DirichletCharacter ℂ q)), (∀ χ ∈ R, χ ≠ 1) → ∀ T' : ℝ, 0 ≤ T' →
       ∀ t : DirichletCharacter ℂ q → ℝ, (∀ χ ∈ R, |t χ| ≤ T') →

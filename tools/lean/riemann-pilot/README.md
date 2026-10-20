@@ -25255,7 +25255,7 @@ For the other 47 the lead recorded no instance. The review of round 605 showed e
 **The lead's pass before landing.**
 
 - The lead read the new files' docstrings against their theorems' binders and completed those that omitted a hypothesis, the defect class of rounds 598–606.
-- The changed files' headers and the external README's rows name the classes each theorem takes. A Lean query listed, for each declaration of the fifteen changed files, which of `Route`, `RouteOK`, `Grid`, `GridOK`, `Fits` and `TypeIIAt` its type mentions (scratch); the external README's rows and the context sentences of the `SieveQ` and `SieveDrop` headers were scoped by it. A scratch census against it found 26 docstrings of the changed files whose theorems take `RouteOK`, `GridOK` or `Fits` without naming them, among them `linnik_route`, `linnik_large`, `leaves_ev`, `drop_ev` and the shares; they are completed. Lemmas without a docstring, which the census also listed, rely on their file's header.
+- The changed files' headers and the external README's rows name the classes each theorem takes. A Lean query listed, for each declaration of the fifteen changed files, which of `Route`, `RouteOK`, `Grid`, `GridOK`, `Fits` and `TypeIIAt` its type mentions (scratch); the external README's rows and the context sentences of the `SieveQ` and `SieveDrop` headers were scoped by it. A scratch census against it found 26 docstrings of the changed files whose theorems take `RouteOK`, `GridOK` or `Fits` without naming them, among them `linnik_route`, `linnik_large`, `leaves_ev`, `drop_ev` and the shares; they are completed. *(Round 608: the census's parse missed four more in `SieveCert`, `DEN_lt_top`, `cover2`, `cover3` and `cover4`, which the review of round 607 found (F1); they are completed.)* Lemmas without a docstring, which the census also listed, rely on their file's header.
 - `window_73`'s margins were recomputed in exact rational arithmetic at the corners of the pieces (scratch): `6.958·10⁻⁵` below `L` before the width, at `β = 11/12` and `m = (4123/10000)L`, and `2.420·10⁻⁵` below `L − 1/25000` after it.
 - A scratch replay of the certificate at `L = 229/100` in Python gives the total `1011076593855335922`, that is `0.876969…K`, with 1905 candidate cells of depth 2, 929 of them decomposed, and 7150 cells of depth 4.
 - This round's operative theorem, `SieveMain.linnik_route`, was re-read at its statement, with `Linnik229.linnik_229`.
@@ -25278,3 +25278,63 @@ For the other 47 the lead recorded no instance. The review of round 605 showed e
 **Bearing on RH:** none.
 
 **The next step.** One voluntary review of rounds 606 and 607: the convergence review of round 606's sweep, and the review of this landing. Then the owner's next goal, a clean repository, whose name and visibility the owner sets, or phase 2.
+
+## Round 608: the review of rounds 606 and 607 (`external/pnt` docstrings and headers; `external/pnt/README.md`; README round 607; `frontier/linnik/SIEVE-ROUTE.md` and `SEVEN-THIRDS.md`, the attribution of Chen–Gupta–Li's (1.5))
+
+**What it is.** A fresh-context reviewer, the repository's `hostile-reviewer` agent, reviewed round 606's sweep (its convergence review) and round 607's landing at 6cad1bf.
+
+- The reviewer found no MAJOR and no minor. It proposed six cosmetic findings and classed each as novel. In its words, "No MAJOR. No minor. Six cosmetic."
+
+  - Its kernel checks: the 33 files from `SieveRoute` to `Linnik229` compiled in its own directory against `build/` (1327 s; no warning, error or `sorry`; 50 `#print axioms` lines, 4 `[propext]` and 46 with the three axioms, `linnik_229` among them); `build.sh`'s final check printed 400 clean lines of 400 (13 s); its replay of the certificate at `L = 229/100` gave the total `1011076593855335922` and the counts 1905, 929 and 7150 of round 607's entry; `window_73`'s margins recomputed to round 607's values; `linnik_2333`'s statement is unchanged between 7f1eafc and 6cad1bf; `TypeIIAt` is `typeII_step`'s statement binder for binder.
+  - It checked `CGLDensity` against the paper's abstract (arXiv's API, character for character) and its Theorem 1.2, the exponent arithmetic of `LinnikIngham73` and `LinnikHuxStep` in exact rationals, the headers' import lines, the README rows' classes, and round 606's sweep against the binders, where it found one residual (F5).
+- Under Check 3 the lead verified each finding against the cited lines. All six are accepted and swept. Round 606's sweep has converged, its one residual being cosmetic, and round 607's landing is stable under the precedent of rounds 17, 21, 24, 27 and 29.
+- The lead's own Check 1/2 reading of the sources of (H2) found that `frontier/linnik/SIEVE-ROUTE.md` and `SEVEN-THIRDS.md` call Chen–Gupta–Li's (1.5) classical where the source it cites caps it. That is a seventh item, swept below with the strikes it needs.
+
+**Findings and dispositions.**
+
+- **F1** (cosmetic). Four docstrings of `SieveCert.lean` take `GridOK` without naming it, `DEN_lt_top`, `cover2`, `cover3` and `cover4`, all under the file's `variable [GridOK]`; round 607's census of 26 docstrings did not list them. Completed, and round 607's entry annotated.
+- **F2** (cosmetic). `LinnikHuxStep.lean`'s header said that `Par.Good`'s four exponent inequalities hold "on `[lo, hi]`"; its `h4` is for every `σ ≤ hi`. Reworded, with a note.
+- **F3** (cosmetic). `LinnikCGL.lean`'s header quoted the abstract "in its LaTeX source" without saying which: arXiv's API returns the abstract with Greek letters, and the e-print's `\begin{abstract}` spells the formulas with `\chi`, `\sigma`, `\epsilon`, `\rho` and `\beta`. The quotation is the API's. Named.
+- **F4** (cosmetic). The same header's "their bound with the constant `C` gives `CGLDensity` with `C + 1`" reads the abstract's `≪_ε`; their Theorem 1.2 states the bound with `(qT)^{o(1)}`, and their §1 says "Asymptotic quantities such as `o(1)` are interpreted as `qT → ∞`". Scoped: the abstract's form gives `C + 1`, and the theorem's gives `CGLDensity` with a constant depending on `ε`, since below the threshold the count is at most `q`.
+- **F5** (cosmetic; round 606's residual). The `SieveLeaf` row and the M5 bullet of `external/pnt/README.md` left `leaf_A` and `leaf_B`'s levels implicit: `k_j ≥ 1`, even. Added.
+- **F6** (cosmetic). `count_gen_at`'s docstring listed the detector's size conditions without `hK` (`4K ≤ Q^{ε/(24M)}`, `K = ⌊log₂ N⌋ + 1`) and `hXN` (`(2XN)² ≤ Q^{201/200+ε}`). Added.
+- **The lead's item** (SIEVE-ROUTE.md §0 and §2; SEVEN-THIRDS.md §44 and §45). "Classical" for (1.5) is retracted where it attributes, false when written for (1.5) as displayed, and the account is at SIEVE-ROUTE.md §0.
+
+  - Chen–Gupta–Li (arXiv:2507.08296v2, p. 2) display (1.5), `Σ_{χ mod q} N(σ,T,χ) ≤ (qT)^{3(1−σ)/(3σ−1)+o(1)}`, from "the Halász-Montgomery-Huxley method [8]", without a cap, and hux and cons take it so on `(5/6, 11/12]`, where it is below `2(1 − σ)`.
+  - [8], Huxley, Acta Arith. 26 (1975), has at (2.23), read on the page image, `Σ_{q≤Q} Σ*_{χ mod q} N(σ,T,χ) ≪ max{D^{3(1−σ)/(3σ−1)+ε}, D^{2(1−σ)+ε}}`, capped at `2(1 − σ)`. Chen–Gupta–Li's Theorem 1.2 takes (1.5) only at `σ ≥ 0.8` (their §12), where the capped form, at most `(30/13)(1 − σ)` for `σ ≥ 23/30`, is within their bound.
+  - With the cap at `2` from `5/6` on, `sieve_route_certificate.py`'s bound (scratch, `Cert` with `A = 2` as the curve's last piece, `OmegaBounds`) is `1.4536` at hux `2.28` and `1.5069` at cons `2.25` at `n = 400`, and `1.1829` at hux `2.29`; hux `2.30` gives `0.9856` (`0.9603` at `n = 600`) and cons `2.27` `0.9591` (`0.9275`). So the paper-level `2.28` and `2.25` use (1.5) below `2`, which the lead's scratch bookkeeping gets from Petrow–Young's Weyl bound (arXiv:1908.10346, Theorem 1.1), unrefereed; with the cap the same argument gives `2.30` and `2.27`.
+  - The theorem of §0 is conditional on (H2) as stated and stands. The stack's curves have `101/50` from `5/6` on and use none of this: `2333/1000` unconditional, and `229/100` under `CGLDensity`.
+  - Marked at SIEVE-ROUTE.md §0 (the account, one strike), §2 (hux's definition; the sentence on (1.4) and (1.5), one strike); SEVEN-THIRDS.md §44 (the statement, one strike; the reading of the inputs; "Reading") and §45 (two bullets, one strike). README entries of rounds 575 to 582 that carry the attribution are records, history under round 43's scoping.
+
+**The lead's verification.**
+
+- Each cited line was read: `SieveCert.lean` 197 and 219–221, 339–341, 409–410, 441; `LinnikHuxStep.lean` 1–20, 55–85, 345–352 and 595–616; `LinnikCGL.lean` 1–35; `external/pnt/README.md` 75, 82, 102, 104 and 434; README.md 25258; `SieveLeaf.lean` 225–262 (`leaf_A` and `leaf_B` take `hk : ∀ j, Even (k j)` and `hk1 : ∀ j, 1 ≤ k j`); round 607's scratch listing of classes, which has `DEN_lt_top`, `cover2`, `cover3` and `cover4` with `GridOK`.
+- The quotation was compared again with the abstract arXiv's API returns for 2507.08296v2, fetched this round, with the whitespace collapsed: identical. The e-print's `\begin{abstract}`, its Theorem 1.2 ("In all cases, we have …") and its §1 convention were read in the reviewer's copy of the v2 source.
+- For the lead's item: Chen–Gupta–Li's p. 2 ((1.4), (1.5) and the attribution to [8]) and §12 ("Since Theorem 1.2 follows from Ingham's result (1.4) when σ ≤ 0.7 and Huxley's result (1.5) when σ ≥ 0.8") in the v2 source; Huxley's (2.23) on the page image; Petrow–Young's Theorem 1.1 in the text layer. The capped certificate was run at `n = 100`, `200`, `400` and `600` (scratch).
+- This round's operative theorem, `SieveMain.linnik_route`, was re-read at its statement (`SieveMain.lean` 325–327). This round changes no statement.
+
+**What is checked.**
+
+- **Code against comments.** With comments and docstrings stripped (scratch script), the token streams of the three changed Lean files are unchanged against HEAD: `SieveCert` 5302 tokens, `LinnikHuxStep` 11826, `LinnikCGL` 102. No line of the three exceeds 120 characters.
+- **The compile.** `lean` was run on the 33 files from `SieveRoute` to `Linnik229` in `build.sh`'s order, with the build's `LEAN_PATH` (Mathlib at `MATHLIB_REV`) and `build.sh`'s own `lean` options, into `build/`: `SieveRoute` 15 s, `SieveCert` 101, `SieveCert229` 233, `SieveRough` 138, `SieveSep` 14, `SieveFamily` 67, `SieveBrun` 18, `SieveCount` 13, `SieveRanges` 17, `SieveLeaf` 19, `SieveTree` 14, `SieveDyadic` 14, `SieveTypeIIU` 56, `SieveRoughTuple` 89, `SieveTypeIIR` 32, `SieveDiff` 15, `SieveStops1` 16, `SieveCmp` 13, `SieveStops2` 53, `SieveProp6` 70, `SieveChain` 70, `SieveDecomp` 20, `SieveBuch` 18, `SieveLeaves` 16, `SieveQ` 35, `SieveDrop` 32, `SieveMain` 33, `LinnikCGL` 24, `LinnikIngham73` 126, `LinnikHuxStep` 130, `SieveTypeIIGen` 116, `SieveTypeII73` 19, `Linnik229` 15; 1661 s in all. No file reported an error, a warning or a use of `sorry`. The files' own `#print axioms` lines print `[propext]` for `SieveCert.gridOK2333`, `total_le_2333`, `gridOK229` and `total_le_229`, and `[propext, Classical.choice, Quot.sound]` for the rest.
+- **The final check.** `build.sh` is unchanged. Its final check, run alone against `build/`, prints 400 clean lines of 400: 396 `[propext, Classical.choice, Quot.sound]` and 4 `[propext]` (the four certificate facts above), all inside the three (12.6 s).
+- **The render lint.** `tools/research/render_lint.py`'s `lint` was run on the four changed markdown files and compared with HEAD by defect class: README.md (1872 at HEAD) gains none from this entry and the annotation of round 607; `external/pnt/README.md` (5), SIEVE-ROUTE.md (25) and SEVEN-THIRDS.md (63) gain none. Four strikes are added: the `<del>` counts go from 21 to 23 in SIEVE-ROUTE.md and from 22 to 24 in SEVEN-THIRDS.md, and stay 53 and 3 in the two READMEs. None of these files is a paper surface.
+
+**Records.**
+
+- `external/pnt/`: the docstrings of `SieveCert.DEN_lt_top`, `cover2`, `cover3`, `cover4` and `LinnikHuxStep.count_gen_at`; the headers of `LinnikHuxStep.lean` and `LinnikCGL.lean`.
+- `external/pnt/README.md`: four rows (`SieveCert`, `SieveLeaf`, `LinnikCGL`, `LinnikHuxStep`) and the M5 bullet, completed and annotated.
+- README.md: round 607's entry, annotated (F1).
+- `frontier/linnik/SIEVE-ROUTE.md`: §0 and §2, three markers and two strikes. `frontier/linnik/SEVEN-THIRDS.md`: §44 and §45, six markers and two strikes.
+
+**Check 4.** The reviewer classed its findings as novel, and the lead agrees. The lead's item is novel: SEVEN-THIRDS §44 recorded in round 575 that the per-`σ` statement "was not re-derived here", the reading's limit, not the cap.
+
+**Check 9.**
+
+- (a) "All six" counts F1–F6. "Each cited line" is the list above. The capped thresholds are the certificate's bounds at the stated `n`, not thresholds of the argument. "The lead's scratch bookkeeping" is unrefereed, and claims nothing of Petrow–Young beyond their Theorem 1.1 as quoted.
+- (b) No change to the register's targets.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** An unconditional exponent below `2333/1000` from the stack's own density arguments as staircases: Ingham's argument with `c` as a parameter (`LinnikInghamC`, scratch), ten Ingham steps from `2801/4801` to `3/4` and ten Huxley steps from `3/4` to `5/6` (`LinnikStairs`), `101/50` from `5/6` on, glued into a curve with its counts and window (`SieveCurveGlue`, `SieveTypeIIU232`). These compile in scratch, the last giving Proposition 3′ at `L = 232/100` on `[4045/10000, 4825/10000]` with the three axioms; the certificate at `n = 150` and the assembly are next.

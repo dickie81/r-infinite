@@ -216,7 +216,7 @@ theorem n_pos : 0 < n := by
     exact absurd h0 (lt_irrefl 0)
   · exact h
 theorem two_V_lt : 2 * V < DEN := by simpa [e] using two_e_lt 0 n_pos
-/-- The grid's top `V + nH` lies above `DEN/2`. -/
+/-- For a grid with `GridOK`, the grid's top `V + nH` lies above `DEN/2`. -/
 theorem DEN_lt_top : DEN < 2 * (V + n * H) := GridOK.DEN_lt_top
 /-- For a grid with `GridOK`, the grid's top `V + nH` is at most `DEN`. -/
 theorem top_le_DEN : V + n * H ≤ DEN := by
@@ -336,9 +336,9 @@ theorem exists_cell {α : ℝ} (h0 : (V : ℝ) ≤ α * DEN) (h1 : α * DEN < V 
         _ < ((⌊y⌋₊ : ℝ) + 1) * H := by gcongr
     linarith
 
-/-- A point of the region of depth 2 that is not evaluable lies in a candidate cell. The region's conditions:
-`α₂ ≥ v`, `α₂ < α₁`, `α₁` below the grid's end, and `α₁ + 2α₂ < 1 + 1/DEN` (written in units of
-`1/DEN`). -/
+/-- On a grid with `GridOK`, a point of the region of depth 2 that is not evaluable lies in a candidate cell. The
+region's conditions: `α₂ ≥ v`, `α₂ < α₁`, `α₁` below the grid's end, and `α₁ + 2α₂ < 1 + 1/DEN` (written in units
+of `1/DEN`). -/
 theorem cover2 {α₁ α₂ : ℝ} (h2 : (V : ℝ) ≤ α₂ * DEN) (h21 : α₂ < α₁) (h1 : α₁ * DEN < V + n * H)
     (hreg : α₁ * DEN + 2 * (α₂ * DEN) < DEN + 1) (hne : ¬ Eval [α₁, α₂]) :
     ∃ i < n, ∃ j < n, cand i j = true ∧ InCell i α₁ ∧ InCell j α₂ := by
@@ -406,7 +406,7 @@ theorem sum_le_of_allowed {i j : ℕ} {α₁ α₂ : ℝ} (ha : allowed i j = tr
   refine le_of_not_inU hlt fun hU => hne ⟨[α₁, α₂], List.Sublist.refl _, ?_⟩
   simpa using hU
 
-/-- On a cell that may be decomposed, a non-evaluable `α₃` of the region of depth 3 keeps
+/-- On a grid with `GridOK`, on a cell that may be decomposed, a non-evaluable `α₃` of the region of depth 3 keeps
 `α₁ + α₂ + α₃ ≤ 1 − u₂`, and lies in a counted row. -/
 theorem cover3 {i j : ℕ} {α₁ α₂ α₃ : ℝ} (hj : j < n) (ha : allowed i j = true) (hci : InCell i α₁)
     (hcj : InCell j α₂) (h3 : (V : ℝ) ≤ α₃ * DEN) (h32 : α₃ < α₂)
@@ -438,7 +438,7 @@ theorem cover3 {i j : ℕ} {α₁ α₂ α₃ : ℝ} (hj : j < n) (ha : allowed 
   refine le_of_not_inU hlt fun hU => hne ⟨[α₁, α₂, α₃], List.Sublist.refl _, ?_⟩
   simpa [add_assoc] using hU
 
-/-- A non-evaluable point of the region of depth 4 lies in a counted cell, with `l ≤ k`. -/
+/-- On a grid with `GridOK`, a non-evaluable point of the region of depth 4 lies in a counted cell, with `l ≤ k`. -/
 theorem cover4 {i j k : ℕ} {α₁ α₂ α₃ α₄ : ℝ} (hk : k < n) (hci : InCell i α₁) (hcj : InCell j α₂)
     (hck : InCell k α₃) (h4 : (V : ℝ) ≤ α₄ * DEN) (h43 : α₄ < α₃)
     (hreg : α₁ * DEN + α₂ * DEN + α₃ * DEN + 2 * (α₄ * DEN) < DEN + 1) (hne : ¬ Eval [α₁, α₂, α₃, α₄]) :
