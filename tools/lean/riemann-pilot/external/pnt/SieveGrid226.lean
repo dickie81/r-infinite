@@ -1,0 +1,23 @@
+/-
+# Round 614: the grid of the certificate at `L = 226/100`
+
+The grid of `SieveTypeIIU226.typeII_226`'s window: `U1 = ⌈(4075/10000)DEN⌉`, `U2 = ⌊(4835/10000)DEN⌋`, `n = 200`
+(`grid226`, `gridOK226`). Its certificate is checked by the kernel in 49 parts of consecutive rows, in the 5 files
+`SieveCert226P1.lean` … `SieveCert226P5.lean` (one `lean` process each: within one file the parts' memory accumulates,
+and one file of 49 parts was killed at 13.6 GiB of the machine's 16), and assembled in `SieveCert226.lean`.
+
+The file imports `SieveCert232.lean` (for `rows` and `rows_eq`).
+-/
+import SieveCert232
+
+namespace SieveCert
+
+/-- **The grid at `L = 226/100`**: `U1 = ⌈(4075/10000)DEN⌉`, `U2 = ⌊(4835/10000)DEN⌋`, `n = 200`. -/
+@[instance_reducible] def grid226 : Grid := ⟨(4075 * DEN + 9999) / 10000, 4835 * DEN / 10000, 200⟩
+
+theorem gridOK226 : @GridOK grid226 :=
+  @GridOK.mk grid226 (by decide) (by decide) (by decide) (by decide) (by decide) (by decide)
+
+end SieveCert
+
+#print axioms SieveCert.gridOK226

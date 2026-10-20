@@ -117,6 +117,15 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `SieveTypeIIU227.lean` | 612 | the curve `g7` (`1` below `4/7`, the sixty steps and `7/3 + 1/2000` on `[5/7, 16/21]`, the last step's exponent `480139/278000` from `73/80` on), `rangeCounts_cgl` (`CGLDensity` at `ε = 1/8400` as the counts of `(7/3 + 1/2000)(1 − σ)` on `[5/7, 16/21]`), its counts under `CGLDensity` and `PYWeyl` (`counts_7`), its window at `L = 227/100` on `[4048/10000, 4858/10000]·L` (`window_7`), and Proposition 3′ there (`typeII_227`) under the two hypotheses |
 | `SieveCert227.lean` | 612 | the certificate on the grid of that window with `n = 100` (`grid227`, `gridOK227`, `total_le_227`, by `decide +kernel`) |
 | `Linnik227.lean` | 612 | Linnik's theorem with exponent `227/100` under `CGLDensity` and `PYWeyl` (`linnik_227`): `SieveMain.linnik_route` at `route227` and `grid227` (`routeOK227`, `fits227`, `typeII227`, `total_le_227`) |
+| `SieveTypeIIU226.lean` | 614 | round 612's curve `g7` at `L = 226/100`: its window on `[4075/10000, 4835/10000]·L` (`window_6`, 744 corners by `norm_num`) and Proposition 3′ there (`typeII_226`) under `CGLDensity` and `PYWeyl` |
+| `SieveGrid226.lean` | 614 | the grid of that window with `n = 200` (`grid226`, `gridOK226`) |
+| `SieveCert226P1.lean` | 614 | parts 0–10 of the certificate on `grid226`: `rows226_0` … `rows226_10`, each the sum of the costs of its rows (`SieveCert232.rows`) at most its bound by `decide +kernel`, one at a time (`Elab.async false`) |
+| `SieveCert226P2.lean` | 614 | parts 11–19 (`rows226_11` … `rows226_19`), likewise |
+| `SieveCert226P3.lean` | 614 | parts 20–30 (`rows226_20` … `rows226_30`), likewise |
+| `SieveCert226P4.lean` | 614 | parts 31–39 (`rows226_31` … `rows226_39`), likewise |
+| `SieveCert226P5.lean` | 614 | parts 40–48 (`rows226_40` … `rows226_48`), likewise |
+| `SieveCert226.lean` | 614 | the certificate on `grid226`: the total is the sum of its 49 parts of consecutive rows (`total_eq_rows226_of`, `total_eq_rows226`, with round 609's `rows`), each at most its bound by the part files, and so at most `0.88K` (`total_le_226`) |
+| `Linnik226.lean` | 614 | Linnik's theorem with exponent `226/100` under `CGLDensity` and `PYWeyl` (`linnik_226`): `SieveMain.linnik_route` at `route226` and `grid226` (`routeOK226`, `fits226`, `typeII226`, `total_le_226`) |
 
 ## Building (round 217)
 
@@ -506,3 +515,13 @@ Round 612 runs the route of round 607 at `L = 227/100` under two displayed hypot
 - `Linnik227.linnik_227`: under `CGLDensity` and `PYWeyl`, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ Kq^{227/100}`.
 
 See the main README, round 612, and `frontier/linnik/SIEVE-ROUTE.md` §17. All axioms are clean.
+
+## The Weyl-conditional exponent `226/100`: SieveTypeIIU226.lean … Linnik226.lean (round 614)
+
+Round 614 runs round 612's curve `g7` at `L = 226/100`, under the same two displayed hypotheses (`LinnikCGL.CGLDensity` and `LinnikWeyl.PYWeyl`); what changes is the window and the size of the certificate.
+
+- `SieveTypeIIU226`: the window at `L = 226/100` on `[4075/10000, 4835/10000]·L`, 744 corners closed by `norm_num` (`window_6`), and `SieveTypeIIGen.typeII_gen` there for `g7` with round 612's counts `SieveTypeIIU227.counts_7` (`typeII_226`).
+- `SieveGrid226`, `SieveCert226P1` … `SieveCert226P5`, `SieveCert226`: the window's grid with `n = 200` (`grid226`); the total is the sum of 49 parts of consecutive rows (`total_eq_rows226`, with round 609's `rows` and `rows_eq`), each part at most its bound by `decide +kernel` in one of the five part files (`rows226_0` … `rows226_48`, one at a time: `Elab.async false`, one `lean` process per file), and so `total_le_226`. Within one file the parts' memory accumulates: one file of 35 parts was killed at 13.6 GiB of the machine's 16; the five files' processes peaked at 12.9 GiB (13,547,136 KiB) and took 3138 s (359, 336, 578, 1393 and 472 s) in all.
+- `Linnik226.linnik_226`: under `CGLDensity` and `PYWeyl`, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ Kq^{226/100}`.
+
+See the main README, round 614, and `frontier/linnik/SIEVE-ROUTE.md` §18. All axioms are clean.
