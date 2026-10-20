@@ -25338,3 +25338,58 @@ For the other 47 the lead recorded no instance. The review of round 605 showed e
 **Bearing on RH:** none.
 
 **The next step.** An unconditional exponent below `2333/1000` from the stack's own density arguments as staircases: Ingham's argument with `c` as a parameter (`LinnikInghamC`, scratch), ten Ingham steps from `2801/4801` to `3/4` and ten Huxley steps from `3/4` to `5/6` (`LinnikStairs`), `101/50` from `5/6` on, glued into a curve with its counts and window (`SieveCurveGlue`, `SieveTypeIIU232`). These compile in scratch, the last giving Proposition 3′ at `L = 232/100` on `[4045/10000, 4825/10000]` with the three axioms; the certificate at `n = 150` and the assembly are next.
+
+## Round 609: the stack's unconditional Linnik exponent `232/100` in Lean (`external/pnt`, six new files; `frontier/linnik/SIEVE-ROUTE.md` §15)
+
+**What it is.** The owner's standing instruction of 2026-10-20, "pursue any avenue that opens up to further reduce the Linnik exponent", applied to the route of round 607 with the stack's own density arguments: `Linnik232.linnik_232` gives Linnik's theorem with exponent `232/100` and no hypothesis, below round 604's `2333/1000`.
+
+- The density inputs are staircases of two parametric arguments the stack already has: Ingham's below `3/4`, now with the detector's `c` free (`LinnikInghamC`), and round 589's step on `[3/4, 5/6]` with round 607's parameters (`LinnikHuxStep.charDensity_gen`), twenty steps in all (`LinnikStairs`); `101/50` from `5/6` on is round 589's.
+- The curve's counts and window are glued from the pieces (`SieveCurveGlue`), the window checked at the corners of each piece (`SieveTypeIIU232.window_U`).
+- The certificate is at `n = 150`, in 25 kernel checks of consecutive rows (`SieveCert232`): one check of the whole grid needs more memory than the machine has.
+
+**The theorem.** `Linnik232.linnik_232`: there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{232/100}`. `#print axioms` gives `[propext, Classical.choice, Quot.sound]`.
+
+**The proof.** SIEVE-ROUTE.md §15 gives it; each file's header states its theorems.
+
+- *Ingham with `c` free* (`LinnikInghamC.charDensity_ingham_c`). For `0 < ε ≤ 1`, `0 ≤ c ≤ 1`, `δ₀ > 0` and `σ₂ ≤ 11/12` with `(4/3)(1 + 2c)(1/2 − σ₂) + 1 ≤ (2 + 4c)(1 − σ₂)`: the exponent `2 + 4c + 4ε` on `1/2 + δ₀ ≤ σ ≤ σ₂`. The integral class at `Y = Q^{1+2c}` is `Q^{(4/3)(1+2c)(1/2−σ)+1+ε/3}`, within the polynomial class's `Q^{(2+4c)(1−σ)}` exactly when `2 + 4c ≥ 3/(2 − σ)`, Ingham's curve; the inequality at `σ₂` gives it below `σ₂`, the two sides' difference increasing in `σ`. Round 607's `LinnikIngham73` is the case `c = 1/12`, `δ₀ = 1/14`, `σ₂ = 5/7`.
+- *The staircases* (`LinnikStairs`). Ten equal steps from `b₀ = 2801/4801 = 1 − 1/(12/5 + 1/2000)` to `3/4`, each with the exponent `3/(2 − σ₂) + 1/2000` at its right end (`charDensity_in0` … `in9`); ten equal steps from `3/4` to `5/6`, each with `3/(3σ₁ − 1) + 1/2000` at its left end, at parameters `parHx0` … `parHx9` found by a linear program and verified exactly (`charDensity_hx0` … `hx9`). Every step is above its curve by `1/2000`, so the staircase lies within `1/2000 + (the step's rise)` of `min(3/(2 − σ), 3/(3σ − 1))`.
+- *Gluing* (`SieveCurveGlue`). `RangeCounts g lo hi` and `WindowPiece g L m₁ m₂ lo hi` are `CurveCounts` and `WindowOK` on a range; both glue across a point for a curve written as nested `if`s. On a range where the curve is affine the window's inequalities hold if they hold at the corners `β ∈ {lo, hi}`, `m ∈ {m₁, 1, m₂}`, `w ∈ {0, 4·10⁻⁶}`, each side being affine in each variable separately (`windowPiece_affine`).
+- *The curve and Proposition 3′* (`SieveTypeIIU232`). `gU` is `1` below `b₀`, the twenty steps, and `(101/50)(1 − σ)` from `5/6` on; `counts_U` glues the trivial count, the twenty steps and `LinnikStep.charDensity_step`; `window_U` checks twenty-two pieces at their corners by `norm_num`; `typeII_232` is `SieveTypeIIGen.typeII_gen` at `L = 232/100` on `[4045/10000, 4825/10000]·L`.
+- *The certificate* (`SieveCert232`). `grid232` is the window's grid with `n = 150`. `rows a b` sums the rows `a ≤ i < b`; `total_eq_rows_of` writes the total of any grid with `n = 150` as the sum of 25 parts of consecutive rows, by `Finset.sum_Ico_consecutive`, the parts grouped by the kernel's work; `rows_0` … `rows_24` bound each part by `decide +kernel`, one at a time (`Elab.async false`), at `0.1%` above a scratch replay's values; the bounds sum to `0.8516K ≤ 0.88K` (`total_le_232`).
+- `linnik_232` is `linnik_route` at `route232` and `grid232` (`routeOK232`, `fits232`, `typeII232`, `total_le_232`).
+
+**What sets the number.** With these inputs the certificate's bound (scratch, crude `ω`) on the window `[4045/10000, 4825/10000]` is `0.9371` at `L = 2.32`, `n = 100`; `0.8508` at `n = 150` (the replay of the Lean's arithmetic: `0.85078K`, 4244 candidate cells, 2047 decomposed, 28853 of depth 4); `0.8136` at `n = 200`. On the windows `sieve_route_certificate.py` computes, `2.315` gives `0.8637` at `n = 200` and `2.31` `0.8953` at `n = 300`. The route's threshold `0.88K` and the kernel's memory set `232/100` at `n = 150`; `2.315` needs `n = 200`, about three times the kernel's work, and a window whose corners pass. A kernel check of the whole grid at `n = 150` was killed at 13 GB of the machine's 16, and so was a file whose parts ran together under asynchronous elaboration; one at a time, a part of 15 heavy rows took 7.4 GB, and the kernel frees a part's memory before the next, so the parts are grouped by their predicted work (scratch: a fit to two measured parts).
+
+**What is checked.**
+
+- `lean` was run on the six new files in `build.sh`'s order, with the build's `LEAN_PATH` (Mathlib at `MATHLIB_REV`) and `build.sh`'s own `lean` options, into `build/`, after round 608's compile of the 33 files before them: `LinnikInghamC` 36 s, `LinnikStairs` 19, `SieveCurveGlue` 33, `SieveTypeIIU232` 25, `SieveCert232` 1181, `Linnik232` 15; 1309 s in all. No file reported an error, a warning or a use of `sorry`. The files' own `#print axioms` lines print `[propext]` for `SieveCert.gridOK232` and `[propext, Classical.choice, Quot.sound]` for the rest, `Linnik232.linnik_232` among them. `SieveCert232`'s ten kernel checks ran one at a time; the process's resident memory peaked at 12.1 GB.
+- The six new files have 1690 lines. None has a `sorry`, `native_decide`, `axiom` or `maxHeartbeats` option, and no line exceeds 120 characters. `SieveCert232` sets `Elab.async false`.
+- `external/pnt/build.sh` compiles the six files after `Linnik229`, imports them in the final check and prints 414 axiom lines; `bash -n` passes. Its final check, run alone against `build/`, prints 414 clean lines of 414: 409 `[propext, Classical.choice, Quot.sound]` and 5 `[propext]` (the five certificate facts: `gridOK2333`, `total_le_2333`, `gridOK229`, `total_le_229` and `gridOK232`), all inside the three (13.8 s).
+- `linnik_2333`'s and `linnik_229`'s statements are textually HEAD's.
+- `tools/research/render_lint.py`'s `lint` was run on the three changed markdown files and compared with HEAD by defect class: README.md (1872 at HEAD) gains none from this entry; `external/pnt/README.md` (5) and SIEVE-ROUTE.md (25) gain none. No strike is added; the `<del>` counts are unchanged (53, 3 and 23). None of these files is a paper surface.
+
+**The lead's pass before landing.**
+
+- The new files' docstrings were read against their theorems' binders (the defect class of rounds 598–608). The headers name the classes each theorem takes.
+- `window_U`'s corners: 264 cases closed by `norm_num`; the least margin below `L − 1/25000` at the pieces' corners is `3.98·10⁻⁵`, at `β = 91/120` and `m = m₂` with `w = 4·10⁻⁶`, recomputed in exact rationals (scratch).
+- The replay of the certificate's arithmetic in Python (round 607's instrument, with the rows summed by part) gave the 25 parts' values; each kernel check is against `⌈1.001 × value⌉`.
+- This round's operative theorem, `SieveMain.linnik_route`, was re-read at its statement, with `Linnik232.linnik_232`.
+
+**Records.**
+
+- `external/pnt/`: six new files, `LinnikInghamC.lean`, `LinnikStairs.lean`, `SieveCurveGlue.lean`, `SieveTypeIIU232.lean`, `SieveCert232.lean` and `Linnik232.lean`.
+- `external/pnt/build.sh`: the six files after `Linnik229` in the module order, imported in the final check, and 14 more axiom lines.
+- `external/pnt/README.md`: six rows and a round-609 section.
+- `frontier/linnik/SIEVE-ROUTE.md`: §15, and a round-609 marker in the preamble and §11.
+
+**Check 4.** New against the pilot: Ingham's argument with `c` as a parameter, the twenty-step staircase, the gluing lemmas, and the unconditional exponent `232/100`, which replaces round 604's `2333/1000` as the stack's unconditional exponent (`linnik_2333` stands). Against the literature, as recorded in round 519's search and round 604's entry: the classical unconditional exponents through Huxley's density bounds are above `7/3` only where the curve is capped at `2(1 − σ)` (round 608's marker), and `232/100 < 7/3`; Chen–Gupta–Li's Corollary 1.4 gives `7/3 + ε` from a zero-free half-plane and their `7/3`.
+
+**Check 9.**
+
+- (a) `linnik_232` is a theorem of this stack with no hypothesis; Lean's kernel checked it against Mathlib at `MATHLIB_REV` and the ported PNT+ files at 650d312, with the three axioms. "No hypothesis" counts `linnik_232`'s explicit hypotheses: none. "The stack's unconditional exponent" is the least `L` for which the stack has `∃ K, ∀ q a, … p ≤ K q^L` with no hypothesis, among `12/5 + η` (round 527), `2333/1000` (round 604) and `232/100`. The bounds quoted from scratch are the certificate's values at the stated `n`.
+- (b) No change to the register's targets.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** One voluntary review of this landing with round 608's sweep. Then: the exponent below `232/100` from these inputs needs a larger grid (`2.31` more than `n = 300`), a sharper enclosure of `ω` or a better window; below `2.3`, a density input below `2` from `5/6` on.
