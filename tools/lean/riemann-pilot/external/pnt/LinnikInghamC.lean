@@ -8,8 +8,10 @@ Plain statement (`charDensity_ingham_c`). For `0 < ε ≤ 1`, `0 ≤ c ≤ 1`, `
 `C ≥ 0` such that for every `q ≥ 1`, `1/2 + δ₀ ≤ σ ≤ σ₂` and `T ≥ 2`, at most `C(qT)^{(2+4c+4ε)(1−σ)}(log qT)^{10}`
 characters mod `q` have a zero of `L(·, χ)` in `Re s ≥ σ`, `|Im s| ≤ T`.
 
-This is round 607's `LinnikIngham73` (`c = 1/12`, `δ₀ = 1/14`, `σ₂ = 5/7`) with `c`, `δ₀` and the range as
-parameters: round 524's argument (`LinnikIngham.charDensity_ingham`) with the detector's parameter `c`. The polynomial
+This is round 607's `LinnikIngham73.count_middle73` (`c = 1/12`, `δ₀ = 1/14`, `σ₂ = 5/7`; the top-level
+`charDensity_ingham73` adds the trivial count below `4/7` and has its own constant) with `c`, `δ₀` and the range as
+parameters (round 610: it named `LinnikIngham73` as the case; review of round 609, F7): round 524's argument
+(`LinnikIngham.charDensity_ingham`) with the detector's parameter `c`. The polynomial
 class is `Q^{(2+4c)(1−σ)}` (round 521's `bound_class1`), and the integral class, at `X = ⌊Q⌋`, `Y = Q^{1+2c}` and
 `λ = Q^{((1+2c)/3)(½−σ)+ε/3}`, is `Q^{(4/3)(1+2c)(½−σ)+1+ε/3}`, at most `Q^{(2+4c+4ε)(1−σ)}` under the exponent
 inequality. A constant `2 + 4c` on `[σ₁, σ₂]` with `σ₂ ≤ 2 − 3/(2(1 + 2c))` is then a step of a staircase above

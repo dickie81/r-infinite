@@ -31,7 +31,8 @@ open DirichletCharacter SieveTypeIIGen SieveCurveGlue
 
 set_option hygiene false in
 /-- The corner cases of `windowPiece_const` and `windowPiece_one`: the two values of `β`, the three of `m` where the
-side condition holds, the two of `w`, each closed by `norm_num` (a corner with `m = m₂ ≤ 1` is closed at `h`). -/
+side condition holds, the two of `w`, each closed by `norm_num` (a corner whose side condition is false, `m = m₂` with
+`m₂ ≤ 1` or `m = m₁` with `1 ≤ m₁`, is closed at `h`; round 610: it named the first only, review of round 609, F9). -/
 macro "corners" : tactic =>
   `(tactic| (intro β m w hb hm hw
              rcases hb with rfl | rfl <;> rcases hm with ⟨rfl, h⟩ | ⟨rfl, h, h'⟩ | ⟨rfl, h⟩ <;>

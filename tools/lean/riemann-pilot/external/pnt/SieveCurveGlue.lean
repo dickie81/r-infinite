@@ -9,7 +9,8 @@ constant pieces `A_i(1 − σ)` (a staircase above a density curve) is glued her
 *  `RangeCounts g lo hi`: the counts of `g` on `lo ≤ σ ≤ hi` (`CurveCounts` restricted to a range).
 *  `rangeCounts_of_density`: a density estimate `C(qT)^{A(1−σ)}(log qT)^{10}` on `[lo, hi]` gives
   `RangeCounts (fun σ => A(1 − σ)) lo hi`.
-*  `rangeCounts_trivial`: at most `q ≤ qT` characters: `RangeCounts (fun _ => 1) lo hi` for `lo ≥ 1/2`.
+*  `rangeCounts_trivial`: at most `q ≤ qT` characters: `RangeCounts (fun _ => 1) lo hi` for every `lo`, `hi` (round 610:
+  it read "for `lo ≥ 1/2`", a hypothesis the theorem does not take; review of round 609, F6).
 *  `rangeCounts_glue`: `RangeCounts g lo mid` and `RangeCounts g' mid hi` give
   `RangeCounts (fun σ => if σ < mid then g σ else g' σ) lo hi`.
 *  `curveCounts_of_range`: `RangeCounts g (1/2) 1` is `CurveCounts g`.
