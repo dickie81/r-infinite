@@ -10,8 +10,8 @@ in `Re s ≥ σ`, `|Im s| ≤ T`.
 
 This is round 607's step (`LinnikHuxStep.charDensity_gen`) with the detector's height `Y = Q^y` as a parameter:
 `ParY` is `Par` with a field `cy`, `y = (1 + 2cy)/2000` (`Y = Yw cy U` at `U = Q^{1/2000}`; round 607 has `cy = 502`,
-`y = 201/400`). `ParY.Good` is `Par.Good` with `hlam1 : 2y + ε ≤ lam` in place of `201/200 + ε ≤ lam`, `3/4 ≤ lo`, and,
-in place of the fourth-moment condition `h3`, the emptiness condition `h5 : 1/6 + 2ε + 1/2000 ≤ y(lo − 1/2)`: under
+`y = 201/400`). `ParY.Good` is `Par.Good` with `hlam1 : 2y + ε ≤ lam` in place of `201/200 + ε ≤ lam` and, in place of
+the fourth-moment condition `h3`, the emptiness condition `h5 : 1/6 + 2ε + 1/2000 ≤ y(lo − 1/2)`: under
 the pointwise bound `‖L(1/2 + it, χ)‖ ≤ CL(q(1 + |t|))^{1/6+ε}`, `LinnikWeyl.class2_empty` makes the integral class
 empty once `2·KG·CL·X·(q(T + 2))^{1/6+ε} < δ·Y^{σ−1/2}`, `δ = lo − 1/2 ≥ 1/4`; with `X ≤ Q^{1/2000}`,
 `q(T + 2) ≤ Q` and `Y = Q^y` this follows from `h5` once `8KG·CL + 1 ≤ Q^ε` (a conjunct of `eventually_genY`).

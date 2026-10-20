@@ -25458,7 +25458,7 @@ For the other 47 the lead recorded no instance. The review of round 605 showed e
 - With that bound and `CGLDensity` as displayed hypotheses, an 80-step staircase passes the route's threshold `0.88K` at `2.27` (`n = 100`, `0.8147`) and `2.26` (`n = 150`, `0.8722`); a 10-step staircase fails at `2.26` even against `1`. The judge's `2.26`/`2.255`/`2.25` were against `1`, with a continuous curve.
 - The unconditional line from round 609's inputs stays at `232/100` short of a large grid (round 610); phase 2 of goal 2 would move it to the conditional one.
 
-**The lead's verification.** Petrow–Young's Theorem 1.1 was read in the downloaded text layer (`S1/dl_py/py.txt` line 17–18). The class-overlap condition and the two values at `11/12` were computed by hand. The staircase certificate was run by the lead (scratch `r611/g7h.py`, `sieve_route_certificate.py`'s `Cert` with the curve as 161 pieces and `CrudeOmega`) at `L ∈ {2.25, 2.255, 2.26, 2.265, 2.27, 2.275, 2.28}` and `n ∈ {100, 150, 200, 300, 400}` as §16 reports. The constraints `h1`, `h3` were read in `LinnikHuxStep.lean` 76–79; the detector's `Ivχ` and `Gχ` in `LinnikDetect.lean` 150–151 and 345–346. Figures marked "workflow, not re-run" are the workflow's.
+**The lead's verification.** Petrow–Young's Theorem 1.1 was read in the downloaded text layer (`S1/dl_py/py.txt` line 17–18). The class-overlap condition and the two values at `11/12` were computed by hand. The staircase certificate was run by the lead (scratch `r611/g7h.py`, `sieve_route_certificate.py`'s `Cert` with the curve as ~~161~~ *(Round 613: retracted, false when written: 162, the cap, 80 Ingham steps, the `[5/7, 16/21]` piece and 80 Huxley steps; review of round 612, F4.)* pieces and `CrudeOmega`) at `L ∈ {2.25, 2.255, 2.26, 2.265, 2.27, 2.275, 2.28}` and `n ∈ {100, 150, 200, 300, 400}` as §16 reports. The constraints `h1`, `h3` were read in `LinnikHuxStep.lean` 76–79; the detector's `Ivχ` and `Gχ` in `LinnikDetect.lean` 150–151 and 345–346. Figures marked "workflow, not re-run" are the workflow's.
 
 **What is checked.** `tools/research/render_lint.py`'s `lint` was run on the two changed markdown files and compared with HEAD by defect class: README.md (1872 at HEAD) gains none from this entry; SIEVE-ROUTE.md (25) gains none; no strike is added. Neither is a paper surface.
 
@@ -25491,13 +25491,13 @@ For the other 47 the lead recorded no instance. The review of round 605 showed e
 **The proof.** SIEVE-ROUTE.md §17 gives it; each file's header states its theorems.
 
 - *The integral class* (`LinnikWeyl`). Under the bound at one `ε ≤ 1` with constant `CL`, `‖I_χ(ρ)‖ < 1/4` for every `χ ≠ 1` with a zero `β + iγ`, `σ ≤ β < 1`, `|γ| ≤ T`, once `2·KG·CL·X·(q(T + 2))^{1/6+ε} < δY^{σ−1/2}` (`1/2 + δ ≤ σ`): `LinnikHuxley.class2_count_small`'s integral estimate with the pointwise bound in place of the convexity bound. The design said `4/(3π)`; at `ε ≤ 1` the integrated weight is `(1 + |v|)^{−23/6}`, not `(1 + |v|)^{−4}`, and the constant is `2` (the agent's correction, verified by the lead).
-- *The step* (`LinnikHuxStepY`). `ParY` is `Par` with the height's parameter `cy` (`y = (1 + 2cy)/2000`); `ParY.Good` replaces `201/200 + ε ≤ lam` by `2y + ε ≤ lam` and the fourth-moment condition `h3` by `h5 : 1/6 + 2ε + 1/2000 ≤ y(lo − 1/2)`; `charDensity_genY` under `PYWeyl`. At `lo = 5/6` the conditions force `A ≥ 4y + 2ε ≥ 2.00626`, so `3/(3σ₁ − 1) + 1/2000` is attainable only from `σ₁ ≈ 0.8365` on (the agents' correction of §16's bookkeeping; verified by the lead).
+- *The step* (`LinnikHuxStepY`). `ParY` is `Par` with the height's parameter `cy` (`y = (1 + 2cy)/2000`); `ParY.Good` replaces `201/200 + ε ≤ lam` by `2y + ε ≤ lam` and the fourth-moment condition `h3` by `h5 : 1/6 + 2ε + 1/2000 ≤ y(lo − 1/2)`; `charDensity_genY` under `PYWeyl`. At `lo = 5/6` the conditions force `A ≥ 4y + 2ε ≥ 2.00626`, so `3/(3σ₁ − 1) + 1/2000` is attainable only from ~~`σ₁ ≈ 0.8365`~~ *(Round 613: retracted, false when written: `σ₁ ≈ 0.8362` for this exponent; `0.8365` is the crossing without the `1/2000`; review of round 612, F3.)* on (the agents' correction of §16's bookkeeping; verified by the lead).
 - *The staircase* (`LinnikStairs7`): twenty Ingham steps on `[4/7, 5/7]`, twenty Huxley steps with the fourth moment on `[16/21, 5/6]` and twenty under the bound on `[5/6, 11/12]`, each `1/2000` above its curve except the first above `5/6` (`50159/25000`), at parameters found by a linear program and checked in rational arithmetic (scratch); above `11/12` at most one character is counted (the half-plane), which extends the last step to `σ ≤ 1`.
 - *The curve, window and Proposition 3′* (`SieveTypeIIU227`): 62 pieces; `CGLDensity` at `ε = 1/8400` as the counts of `(7/3 + 1/2000)(1 − σ)` on `[5/7, 16/21]`; the window `[4048/10000, 4858/10000]`, 744 corners by `norm_num`; `typeII_gen`.
 - *The certificate* (`SieveCert227`): `grid227` with `n = 100`, `total_le_227` by one `decide +kernel`.
 - `linnik_227` is `linnik_route` at `route227` and `grid227`.
 
-**What sets the number.** With 20 steps per staircase the certificate's bound (scratch, crude `ω`) is `0.8442` at `n = 100` (the replay of the Lean's arithmetic: `0.84421K`, 1854 candidate cells, 877 decomposed, 6398 of depth 4) and `0.7692` at `n = 150`; the window's lower end is set by the `11/12` end (`0.40472`), its upper end by `A_max = 7/3 + 1/2000`. At `226/100` the bound is `0.8479` at `n = 200` (`0.9918` at `n = 100`): the next step needs about sixteen times the kernel's work. The `16/21` and `11/12` ends tie at `L = 2.2525`.
+**What sets the number.** With 20 steps per staircase the certificate's bound (scratch, crude `ω`) is `0.8442` at `n = 100` (the replay of the Lean's arithmetic: `0.84421K`, 1854 candidate cells, 877 decomposed, 6398 of depth 4) and `0.7692` at `n = 150`; the window's lower end is set by the `11/12` end (`0.40472`), its upper end by `A_max = 7/3 + 1/2000`. At `226/100` the bound is `0.8479` at `n = 200` (`0.9918` at `n = 100`): ~~the next step needs about sixteen times the kernel's work~~ *(Round 613: retracted, false when written: with these 20-step staircases; with 80 steps above `5/6` the bound is `0.8794` at `n = 150`, below `0.88`; review of round 612, F2.)*. The `16/21` and `11/12` ends tie at `L = 2.2525`.
 
 **What is checked.**
 
@@ -25532,3 +25532,40 @@ For the other 47 the lead recorded no instance. The review of round 605 showed e
 **Bearing on RH:** none.
 
 **The next step.** One voluntary review of this landing with round 611's record. Then, from §16: `226/100` at `n = 200` (about sixteen times the kernel's work, in parts), or the unconditional line through phase 2 of goal 2.
+
+## Round 613: sweep of the review of rounds 611–612 (F1–F2 minor, F3–F8 cosmetic)
+
+**What it is.** The voluntary hostile review of rounds 611 and 612 (the `hostile-reviewer` agent at the session's model and maximum effort, from `scratchpad/r612/review/review_brief.md`; its report is `scratchpad/r612/review/findings.md`) returned no MAJOR, two proposed minors and six cosmetics. The lead verified each finding directly (Check 3) and accepted all eight. This round is the sweep.
+
+**The findings and their dispositions.**
+
+- **F1** (minor; Check 2). §17 wrote "§16 said `4/(3π)` with the weight `(1 + |v|)^{−4}`". §16 names no constant (at feaaeee it has no "3π"; its bullet reads "a constant times `X(q(T + 2))^{1/6+ε}/δ`"); the `4/(3π)` and the weight were the lead's scratch design of round 612, as README 612 says. Struck and annotated in §17.
+- **F2** (minor; Check 9(a)). "`226/100` needs `n = 200`" (§17; README 612 twice) holds for the 20-step staircases only: round 612's numerics agent recorded `0.8794` at `n = 150` with 80 steps above `5/6` (and with 60 or 80 on each staircase) on `[4071/10000, 4835/10000]`, below the route's threshold `0.88`, and the reviewer re-ran it (`0.8794`). The lead re-read the agent's table (`scratchpad/r612/C/report.md` §4, the rows at `2.260`). Struck and scoped in §17 and README 612. The same defect class as round 610's F5 ("`2.315` needs `n = 200`"): a necessity stated for one staircase and written as the route's; the lead's self-review item (d) is the check, and it missed it twice.
+- **F3** (cosmetic). "attainable only from `σ₁ ≈ 0.8365` on" (§17; README 612; the external README's section): `0.8365` is where `3/(3σ₁ − 1)` (or `lam = 3/(6σ₁ − 2)`) crosses the floor, without the `1/2000`; for the exponent `3/(3σ₁ − 1) + 1/2000` the floor `4y_min + 2ε` crosses at `σ₁ ≈ 0.8362` (the lead's bisection in exact rationals: `0.83623`; without the `1/2000`: `0.83648`). Struck on the three surfaces; the parenthetical's `0.8365` for `lam` stands.
+- **F4** (cosmetic). README 611's "161 pieces" is 162 (`r611/g7h.py` at 80 steps: the cap, 80 Ingham steps, the `[5/7, 16/21]` piece, 80 Huxley steps). Struck.
+- **F5** (cosmetic). §16's description of the curve behind its thresholds does not match `r611/g7h.py`, which ends the trivial count at `1 − 1/A_max = 8003/14003`, caps the Ingham steps at `A_max` and puts `A_max = 7/3 + 1/2000`, not `7/3`, on `[5/7, 16/21]`; the thresholds reproduce from the script (the reviewer re-ran six of them). Marker at §16's bullet.
+- **F6** (cosmetic). §16's "ties … near `L = 2.256` (workflow, closed form, not re-run)" was superseded by §17's `2.2525` without a marker. Marker added (`2.2525` with the committed exponents; `142/63 = 2.2540` with `7/3` and `12/7` exactly).
+- **F7** (cosmetic). `LinnikHuxStepY.lean`'s header listed "`3/4 ≤ lo`" among `ParY.Good`'s changes from `Par.Good`; `Par.Good` already has `hlo : 3/4 ≤ P.lo` (`LinnikHuxStep.lean` line 74) and `ParY.Good` inherits it. The header now names only `hlam1` and `h5` for `h3`. README 612's "deviations they reported (…; `3/4 ≤ lo`; …)" is the agents' deviation from the design and stands.
+- **F8** (cosmetic). §16's emptiness condition has `ε` where the Lean's `h5` has `2ε` (one `ε` absorbs `8·KG·CL + 1 ≤ Q^ε`) and `x = 1/2000`. Marker extended at §16's bullet.
+
+**What is checked.**
+
+- `lean` was run on `LinnikHuxStepY` (its header changed) and the three modules downstream of it, `LinnikStairs7`, `SieveTypeIIU227` and `Linnik227`, with the build's `LEAN_PATH` and `build.sh`'s own options, into `build/`: 42, 34, 46 and 11 s; no error, warning or `sorry`; their `#print axioms` lines are unchanged (`[propext, Classical.choice, Quot.sound]` throughout). `SieveCert227` does not import `LinnikHuxStepY` and was not recompiled.
+- `build.sh`'s final check, run alone against `build/`, prints 433 clean lines of 433: 426 `[propext, Classical.choice, Quot.sound]` and 7 `[propext]` (11.5 s).
+- `tools/research/render_lint.py`'s `lint` on the three changed markdown files, compared with HEAD by defect class: `README.md` 1872 → 1872, `frontier/linnik/SIEVE-ROUTE.md` 25 → 25, `external/pnt/README.md` 5 → 5; no file gains a report (the strikes add three, three and one `<del>` elements).
+- No line of `LinnikHuxStepY.lean` exceeds 120 characters (the longest is 118).
+
+**Checked and held by the reviewer** (its evidence in `scratchpad/r612/review/hr/`): the six files compiled in its scratch with `build.sh`'s options (`SieveCert227` alone, 215 s, 12.6 GiB); the final check `433/433` (426 three-axiom, 7 `[propext]`); the render lint unchanged by class at 6086d10, feaaeee and 4bdbb3a; `PYWeyl` faithful to Theorem 1.1 (`py.txt` lines 17–18 verbatim) and the Euler-product remark right; `class2_empty`'s threshold rederived (`hbig` is exactly the `< 1/2` the chain needs; `count_gen_atY`'s `hQL` with `8 = 2·4`); `ParY.Good` against `Par.Good` field by field; all forty Huxley parameter blocks and the twenty Ingham theorems re-checked in exact rationals; `g7`'s 62 pieces against the steps; the 992 corner inequalities at `227/100` (least `2.9753·10⁻⁵`, the window minimal); the replay (`0.8442146853K`, 1854/877/6398) by its own transcription; §16's and §17's thresholds re-run from `r611/g7h.py`; `card_le_one_of_gt` and `charDensity_hy_top`'s constant; every docstring's hypotheses both ways. The reviewer notes that in bytes ten lines of `LinnikWeyl.lean` exceed 120; the convention is characters (round 608), and no line does.
+
+**Records.**
+
+- `frontier/linnik/SIEVE-ROUTE.md`: §17, three strikes (F1, F2, F3); §16, three markers (F5, F6, F8).
+- `README.md`: round 612, two strikes (F2, F3); round 611, one strike (F4); this entry.
+- `external/pnt/README.md`: the round-612 section, one strike (F3).
+- `external/pnt/LinnikHuxStepY.lean`: the header (F7).
+
+**Check 4.** Nothing new against the pilot; every disposition is a correction of round 611's or 612's prose. **Check 9.** (a) The scoped necessity replaces the unscoped one; "attainable only from" is now the floor's crossing, a derivation from `h5`, `hlam1` and `h1`. (b), (c) unchanged.
+
+**Bearing on RH:** none.
+
+**The next step.** The `226/100` landing (round 614), then one hostile review of rounds 613–614 together (the convergence test of this sweep and the review of the landing), as rounds 606–607 were reviewed.
