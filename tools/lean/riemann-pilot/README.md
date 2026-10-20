@@ -25475,3 +25475,60 @@ For the other 47 the lead recorded no instance. The review of round 605 showed e
 **Bearing on RH:** none.
 
 **The next step.** The Weyl-conditional route in Lean (§16), unless the owner prefers otherwise: the displayed bound, the emptiness lemma, the step with `y` as a parameter, the staircase to `11/12`, and the certificate at `n = 100` for `227/100`.
+
+## Round 612: Linnik's exponent `227/100` under Chen–Gupta–Li's estimate and Petrow–Young's bound, in Lean (`external/pnt`, six new files; `frontier/linnik/SIEVE-ROUTE.md` §17)
+
+**What it is.** The first of §16's avenues, under the owner's instruction of 2026-10-20: `Linnik227.linnik_227` gives Linnik's theorem with exponent `227/100` under two displayed hypotheses, `LinnikCGL.CGLDensity` (round 607) and `LinnikWeyl.PYWeyl` (Petrow–Young's Weyl bound for every character).
+
+- The Weyl bound empties the detector's integral class (`LinnikWeyl.class2_empty`), so round 607's step runs with the detector's height as a parameter and no fourth moment (`LinnikHuxStepY.charDensity_genY`), giving Huxley's uncapped curve `3/(3σ − 1)` above `5/6`.
+- Sixty steps (`LinnikStairs7`), the glued curve and window at `L = 227/100` (`SieveTypeIIU227`), the certificate at `n = 100` (`SieveCert227`) and the assembly (`Linnik227`).
+- Three scratch agents built the files from the lead's design (the emptiness lemma; the step with the height as a parameter; the numerics); the lead integrated, generated the staircase, curve, certificate and assembly files from the numerics, compiled everything, and verified the numbers it records (below).
+
+**The theorem.** `Linnik227.linnik_227`: if `CGLDensity` and `PYWeyl` hold, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{227/100}`. `#print axioms` gives `[propext, Classical.choice, Quot.sound]`.
+
+- `PYWeyl` says: for every `ε > 0` there is `C ≥ 0` such that for every `q ≥ 1`, every `χ` mod `q` and every real `t`, `‖L(1/2 + it, χ)‖ ≤ C(q(1 + |t|))^{1/6+ε}`. Petrow and Young prove it for primitive characters (Duke Math. J. 172 (2023), Theorem 1.1, quoted in SIEVE-ROUTE.md §16); the extension to every character by the finite Euler product is the lead's remark in §17, standard and not formalized. It is a definition, and the theorems that use it take it as an argument; it is not an axiom.
+
+**The proof.** SIEVE-ROUTE.md §17 gives it; each file's header states its theorems.
+
+- *The integral class* (`LinnikWeyl`). Under the bound at one `ε ≤ 1` with constant `CL`, `‖I_χ(ρ)‖ < 1/4` for every `χ ≠ 1` with a zero `β + iγ`, `σ ≤ β < 1`, `|γ| ≤ T`, once `2·KG·CL·X·(q(T + 2))^{1/6+ε} < δY^{σ−1/2}` (`1/2 + δ ≤ σ`): `LinnikHuxley.class2_count_small`'s integral estimate with the pointwise bound in place of the convexity bound. The design said `4/(3π)`; at `ε ≤ 1` the integrated weight is `(1 + |v|)^{−23/6}`, not `(1 + |v|)^{−4}`, and the constant is `2` (the agent's correction, verified by the lead).
+- *The step* (`LinnikHuxStepY`). `ParY` is `Par` with the height's parameter `cy` (`y = (1 + 2cy)/2000`); `ParY.Good` replaces `201/200 + ε ≤ lam` by `2y + ε ≤ lam` and the fourth-moment condition `h3` by `h5 : 1/6 + 2ε + 1/2000 ≤ y(lo − 1/2)`; `charDensity_genY` under `PYWeyl`. At `lo = 5/6` the conditions force `A ≥ 4y + 2ε ≥ 2.00626`, so `3/(3σ₁ − 1) + 1/2000` is attainable only from `σ₁ ≈ 0.8365` on (the agents' correction of §16's bookkeeping; verified by the lead).
+- *The staircase* (`LinnikStairs7`): twenty Ingham steps on `[4/7, 5/7]`, twenty Huxley steps with the fourth moment on `[16/21, 5/6]` and twenty under the bound on `[5/6, 11/12]`, each `1/2000` above its curve except the first above `5/6` (`50159/25000`), at parameters found by a linear program and checked in rational arithmetic (scratch); above `11/12` at most one character is counted (the half-plane), which extends the last step to `σ ≤ 1`.
+- *The curve, window and Proposition 3′* (`SieveTypeIIU227`): 62 pieces; `CGLDensity` at `ε = 1/8400` as the counts of `(7/3 + 1/2000)(1 − σ)` on `[5/7, 16/21]`; the window `[4048/10000, 4858/10000]`, 744 corners by `norm_num`; `typeII_gen`.
+- *The certificate* (`SieveCert227`): `grid227` with `n = 100`, `total_le_227` by one `decide +kernel`.
+- `linnik_227` is `linnik_route` at `route227` and `grid227`.
+
+**What sets the number.** With 20 steps per staircase the certificate's bound (scratch, crude `ω`) is `0.8442` at `n = 100` (the replay of the Lean's arithmetic: `0.84421K`, 1854 candidate cells, 877 decomposed, 6398 of depth 4) and `0.7692` at `n = 150`; the window's lower end is set by the `11/12` end (`0.40472`), its upper end by `A_max = 7/3 + 1/2000`. At `226/100` the bound is `0.8479` at `n = 200` (`0.9918` at `n = 100`): the next step needs about sixteen times the kernel's work. The `16/21` and `11/12` ends tie at `L = 2.2525`.
+
+**What is checked.**
+
+- `lean` was run on the six new files in `build.sh`'s order, with the build's `LEAN_PATH` (Mathlib at `MATHLIB_REV`) and `build.sh`'s own `lean` options, into `build/`, after round 610's compile of the 39 files before them: `LinnikWeyl` 25 s, `LinnikHuxStepY` 45, `LinnikStairs7` 34, `SieveTypeIIU227` 49, `SieveCert227` 214, `Linnik227` 42; 409 s in all. No file reported an error, a warning or a use of `sorry`. The files' own `#print axioms` lines print `[propext]` for `SieveCert.gridOK227` and `SieveCert.total_le_227` and `[propext, Classical.choice, Quot.sound]` for the rest, `Linnik227.linnik_227` among them. `SieveCert227`'s one kernel check: the process's resident memory peaked at 12.6 GiB (13,197,504 KiB).
+- The six new files have 3984 lines. None has a `sorry`, `native_decide`, `axiom` or `maxHeartbeats` option, and no line exceeds 120 characters.
+- `external/pnt/build.sh` compiles the six files after `Linnik232`, imports them in the final check and prints 433 axiom lines; `bash -n` passes. Its final check, run alone against `build/`, prints 433 clean lines of 433: 426 `[propext, Classical.choice, Quot.sound]` and 7 `[propext]` (the seven certificate facts: `gridOK2333`, `total_le_2333`, `gridOK229`, `total_le_229`, `gridOK232`, `gridOK227` and `total_le_227`), all inside the three (12.7 s).
+- `linnik_2333`'s, `linnik_229`'s and `linnik_232`'s statements are textually HEAD's (their files are untouched).
+- `tools/research/render_lint.py`'s `lint` was run on the three changed markdown files and compared with HEAD by defect class: `external/pnt/README.md` 5 → 5 (two rows' in-cell `|` characters escaped before the lint, which had reported them), `frontier/linnik/SIEVE-ROUTE.md` 25 → 25 and this `README.md` 1872 → 1872; no file gains a report.
+
+**The lead's pass before landing.**
+
+- The agents' files were read against the design; the deviations they reported (the constant `2`; `3/4 ≤ lo`; no `0 ≤ cy` field, derived from `h5`; the first step above `5/6`) were each checked and accepted. The constant was carried into `LinnikHuxStepY` (its `hbig`, `hQL` and `eventually_genY`'s conjunct) by the lead, and the file recompiled against the agent's `LinnikWeyl`.
+- The lead recomputed, independently of the numerics agent: the replay of the certificate's arithmetic on the window at `n = 100` (the total and the three counts agree to the digit); the 744 corner margins of `window_7` (least `2.9753·10⁻⁵` at `β = 643/840`, `m = m₂`, `w = 4·10⁻⁶`, agreeing with the agent's); `A(1 − lo) ≤ 1` on every piece; the tie of the window's ends at `L = 2.2525`.
+- The generated files' docstrings name every hypothesis; the headers name the hypotheses each theorem takes.
+- This round's operative theorem, `SieveMain.linnik_route`, was re-read at its statement, with `Linnik227.linnik_227`.
+
+**Records.**
+
+- `external/pnt/`: six new files, `LinnikWeyl.lean`, `LinnikHuxStepY.lean`, `LinnikStairs7.lean`, `SieveTypeIIU227.lean`, `SieveCert227.lean` and `Linnik227.lean`.
+- `external/pnt/build.sh`: the six files after `Linnik232` in the module order, imported in the final check, and 19 more axiom lines.
+- `external/pnt/README.md`: six rows and a round-612 section.
+- `frontier/linnik/SIEVE-ROUTE.md`: §17, a marker in the preamble, and §16's first bullet-set marked.
+
+**Check 4.** New against the pilot: the emptiness of the integral class under a pointwise bound; the step with the detector's height as a parameter; Huxley's uncapped curve above `5/6` in the stack, under the bound; and Linnik's exponent `227/100` under the two hypotheses. The stack's unconditional exponent stays `232/100` (round 609) and its `CGLDensity`-conditional exponent `229/100` (round 607). Against the literature (round 519's search, round 604's entry, §16): the Weyl bound's use for a `qT`-aspect density exponent on `(5/6, 11/12]` is the lead's and the agents' bookkeeping, now kernel-checked from the displayed bound.
+
+**Check 9.**
+
+- (a) `linnik_227` is a theorem of this stack with two hypotheses, which its statement displays; Lean's kernel checked it against Mathlib at `MATHLIB_REV` and the ported PNT+ files at 650d312, with the three axioms. "Each `1/2000` above its curve" has its one exception named. "At most one character is counted" above `11/12` is `card_le_one_of_gt`. The bounds quoted are the certificate's at the stated `n` and step counts.
+- (b) No change to the register's targets.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** One voluntary review of this landing with round 611's record. Then, from §16: `226/100` at `n = 200` (about sixteen times the kernel's work, in parts), or the unconditional line through phase 2 of goal 2.

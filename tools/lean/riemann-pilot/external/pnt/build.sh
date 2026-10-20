@@ -67,7 +67,7 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity LinnikChar LinnikDeduction LinnikHybrid LinnikDetect LinnikDensity LinnikHalf LinnikFE LinnikLindelof LinnikSubconvex MertensChi LinnikAFE LinnikFourth LinnikIngham LinnikPower LinnikOffDiag LinnikHuxley LinnikGammaRatio LinnikReflect LinnikWeighted LinnikDual LinnikBuckets LinnikLargeValues LinnikTwelveBins LinnikTwelveSizes LinnikTwelve LinnikMoment LinnikLines LinnikSplit LinnikS2 LinnikPoints SieveSmooth LinnikStep SieveLemma1 SieveWeight SieveTypeII SieveRoute SieveCert SieveCert229 SieveRough SieveSep SieveFamily SieveBrun SieveCount SieveRanges SieveLeaf SieveTree SieveDyadic SieveTypeIIU SieveRoughTuple SieveTypeIIR SieveDiff SieveStops1 SieveCmp SieveStops2 SieveProp6 SieveChain SieveDecomp SieveBuch SieveLeaves SieveQ SieveDrop SieveMain LinnikCGL LinnikIngham73 LinnikHuxStep SieveTypeIIGen SieveTypeII73 Linnik229 LinnikInghamC LinnikStairs SieveCurveGlue SieveTypeIIU232 SieveCert232 Linnik232; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity LinnikChar LinnikDeduction LinnikHybrid LinnikDetect LinnikDensity LinnikHalf LinnikFE LinnikLindelof LinnikSubconvex MertensChi LinnikAFE LinnikFourth LinnikIngham LinnikPower LinnikOffDiag LinnikHuxley LinnikGammaRatio LinnikReflect LinnikWeighted LinnikDual LinnikBuckets LinnikLargeValues LinnikTwelveBins LinnikTwelveSizes LinnikTwelve LinnikMoment LinnikLines LinnikSplit LinnikS2 LinnikPoints SieveSmooth LinnikStep SieveLemma1 SieveWeight SieveTypeII SieveRoute SieveCert SieveCert229 SieveRough SieveSep SieveFamily SieveBrun SieveCount SieveRanges SieveLeaf SieveTree SieveDyadic SieveTypeIIU SieveRoughTuple SieveTypeIIR SieveDiff SieveStops1 SieveCmp SieveStops2 SieveProp6 SieveChain SieveDecomp SieveBuch SieveLeaves SieveQ SieveDrop SieveMain LinnikCGL LinnikIngham73 LinnikHuxStep SieveTypeIIGen SieveTypeII73 Linnik229 LinnikInghamC LinnikStairs SieveCurveGlue SieveTypeIIU232 SieveCert232 Linnik232 LinnikWeyl LinnikHuxStepY LinnikStairs7 SieveTypeIIU227 SieveCert227 Linnik227; do c 1 "$HERE" $f; done
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
@@ -178,6 +178,12 @@ import SieveCurveGlue
 import SieveTypeIIU232
 import SieveCert232
 import Linnik232
+import LinnikWeyl
+import LinnikHuxStepY
+import LinnikStairs7
+import SieveTypeIIU227
+import SieveCert227
+import Linnik227
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -506,6 +512,25 @@ import Linnik232
 #print axioms Linnik232.typeII232
 #print axioms Linnik232.fits232
 #print axioms Linnik232.linnik_232
+#print axioms LinnikWeyl.class2_empty
+#print axioms LinnikWeyl.class2_finset_empty
+#print axioms LinnikWeyl.class2_card_eq_zero
+#print axioms LinnikHuxStepY.charDensity_genY
+#print axioms LinnikHuxStepY.parY_example_good
+#print axioms LinnikHuxStepY.parY_example'_good
+#print axioms LinnikStairs7.charDensity_in7_0
+#print axioms LinnikStairs7.charDensity_hx7_0
+#print axioms LinnikStairs7.charDensity_hy_0
+#print axioms LinnikStairs7.charDensity_hy_top
+#print axioms SieveTypeIIU227.counts_7
+#print axioms SieveTypeIIU227.window_7
+#print axioms SieveTypeIIU227.typeII_227
+#print axioms SieveCert.gridOK227
+#print axioms SieveCert.total_le_227
+#print axioms Linnik227.routeOK227
+#print axioms Linnik227.typeII227
+#print axioms Linnik227.fits227
+#print axioms Linnik227.linnik_227
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy
