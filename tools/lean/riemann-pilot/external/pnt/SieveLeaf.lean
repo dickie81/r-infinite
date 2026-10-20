@@ -84,7 +84,7 @@ theorem prod_g_eq {w : ℝ} (hw : 1 ≤ w) {J : ℕ} (s : Fin J → Finset ℕ) 
   intro i _ j _ hij
   exact Disjoint.mono (hs i) (hs j) (T_disjoint hw J (Set.mem_univ i) (Set.mem_univ j) hij)
 
-/-- `m`, whose primes are at least `w`, is prime to the product of primes below `w`. -/
+/-- For `w ≥ 1`, `m`, whose primes are at least `w`, is prime to the product of primes below `w`. -/
 theorem coprime_m {w : ℝ} (hw : 1 ≤ w) {J : ℕ} (s : Fin J → Finset ℕ) (hs : ∀ j, s j ⊆ T w J j) {m : ℕ}
     (hmw : ∀ p : ℕ, p.Prime → p ∣ m → w ≤ p) : Nat.Coprime m (∏ p ∈ Finset.univ.biUnion s, p) := by
   refine Nat.Coprime.prod_right fun p hp => ?_

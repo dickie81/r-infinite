@@ -10,11 +10,11 @@ Plain statements. `Par` holds `x`, the sieve's floor `z₀`, its top `z_top`, Pr
 its cells `S1c i`, the extensions `S2 i`, `S3 i j`, `S4 i j k` (one more prime in `[z₀, rt_last)`), their cells
 `S2c`, `S3c`, `S4c`, and the splits `S2le`/`S2gt`, `S3le`/`S3gt` at the product `X'`.
 
-* `T_eq`, `I_S1` … `I_S4`: the exact identities of the decomposition, `S(A, z_top) = S(A, z₀) − Σ_{p₁} S(A_{p₁}, p₁)`
-  and so on to depth 4: the cells of each new prime, Buchstab's identity on the cells that are decomposed, and the
-  splits at `X'`.
-* `I_S3c_vanish`, `I_S4c_vanish_lt`, `I_S4c_vanish_reg`: the cells outside `SieveCert.inKK` at depth 3, and at depth
-  4 the cells `l > k` and those outside the region, contribute `0`.
+* `T_eq`, `I_S1` … `I_S4`: for `P.Good`, the exact identities of the decomposition,
+  `S(A, z_top) = S(A, z₀) − Σ_{p₁} S(A_{p₁}, p₁)` and so on to depth 4: the cells of each new prime, Buchstab's identity
+  on the cells that are decomposed, and the splits at `X'`.
+* `I_S3c_vanish`, `I_S4c_vanish_lt`, `I_S4c_vanish_reg`: for `P.Good`, the cells outside `SieveCert.inKK` at depth 3,
+  and at depth 4 the cells `l > k` and those outside the region, contribute `0`.
 * `D1`: the dropped terms, as the certificate drops them. At depth 2 the candidate cells that are not decomposed
   (`cand ∧ ¬dec`) and the corner cells (`¬cand ∧ ¬surelyEval`), below a cell `i` of `p₁` outside the window
   (`inW`); at depth 4 the counted cells (`counted4`, `l ≤ k`) below the cells of depth 3 that are split.

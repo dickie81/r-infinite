@@ -31,7 +31,7 @@ theorem mem_rng {A : ℝ} {p : ℕ} : p ∈ rng A ↔ p.Prime ∧ A ≤ p ∧ (p
   rw [rng, Finset.mem_filter, Finset.mem_range, Nat.lt_ceil]
   tauto
 
-/-- **The prime sums of the ranges are uniformly bounded.** -/
+/-- **The prime sums of the ranges `rng A`, `A ≥ 1`, are uniformly bounded.** -/
 theorem rng_sum_le : ∃ C₀ : ℝ, 1 ≤ C₀ ∧ ∀ A : ℝ, 1 ≤ A → ∑ p ∈ rng A, 1 / (p : ℝ) ≤ C₀ := by
   obtain ⟨T₁, hT₁⟩ := Filter.eventually_atTop.1 (SieveRough.theta_near (ε := 1 / 10) (by norm_num))
   set t₀ := max T₁ (Real.exp 1) with ht₀

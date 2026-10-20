@@ -8,9 +8,10 @@ Plain statements. `gA q a m = 1[m ≡ a]` and `gB q m = 1[(m, q) = 1]/φ(q)`; `N
 
 * `exists_inside`: a box of cells that `SieveCert.surelyEval` passes has a set `T` of its primes whose subset sums
   over the box stay inside `U = (u₁, u₂) ∪ (1 − u₂, 1 − u₁)`.
-* `window_lo`, `window_hi`: for primes in their cells, `⌊x^{B/DEN}⌋ < ∏_T rt` when `B` is below the box's lower sum
-  over `T`, and `∏_T rt ≤ ⌊x^{B/DEN}⌋` when `B` is above its upper sum.
-* `prod_proper_le`: a proper subset of a decreasing tuple has product at most that of all but the last entry.
+* `window_lo`, `window_hi`: for `x > 1` and primes in their cells, `⌊x^{B/DEN}⌋ < ∏_T rt` when `B` is below the box's
+  lower sum over `T`, and `∏_T rt ≤ ⌊x^{B/DEN}⌋` when `B` is above its upper sum.
+* `prod_proper_le`: a proper subset of a strictly decreasing tuple of positive integers has product at most that of all
+  but the last entry.
 * `TL_spec`, `TU_spec`: `SieveChain.chainTL_bound` and `chainTU_bound` on a family of at most `18` atoms with
   `ThrOK`, as bounds on `|famI(g_A) − famI(g_B)|`.
 * `P6_spec`: `SieveProp6.prop6` on a family of at most `18` atoms with `ThrOK` and nonzero coefficients (`NZ`), as a
@@ -101,7 +102,8 @@ theorem window_hi {x : ℝ} (hx : 1 < x) {k : ℕ} {c rt : Fin k → ℕ} (h : �
   push_cast
   exact (h2.trans h1.le)
 
-/-- A proper subset of a decreasing tuple has product at most that of all but the last entry. -/
+/-- A proper subset of a strictly decreasing tuple of positive integers has product at most that of all but the last
+entry. -/
 theorem prod_proper_le {k' : ℕ} {rt : Fin (k' + 1) → ℕ} (hsa : StrictAnti rt) (hpos : ∀ t, 1 ≤ rt t)
     {T : Finset (Fin (k' + 1))} (hT : T ≠ Finset.univ) :
     ∏ t ∈ T, rt t ≤ ∏ t ∈ Finset.univ.erase (Fin.last k'), rt t := by

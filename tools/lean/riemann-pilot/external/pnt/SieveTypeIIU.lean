@@ -16,7 +16,7 @@ and whose `m` lies in a dyadic block, so that §13's M5 can use families with sh
 
 The proof:
 
-* `blk_spec`: `m ∈ (P₁, P₂]` lies in the dyadic block `(P₁2^b, 2P₁2^b]` with `b = log₂((m − 1)/P₁)`.
+* `blk_spec`: for `P₁ ≥ 1`, `m ∈ (P₁, P₂]` lies in the dyadic block `(P₁2^b, 2P₁2^b]` with `b = log₂((m − 1)/P₁)`.
 * `SieveDyadic.sum_bump`: each prime's range is covered by `Σ_k bump(x/2^k) = 1`, so the family is a sum of families
   with weights `bump(x_i/Q_i)` at the scales `Q_i = 2^{k_i}`, and `box_change` puts each one in `Sp`'s ranges.
 * `SieveFamily.typeII_sharp` bounds each piece by `q^{L−δ}/φ(q)` (with `f0 = bump`, `F₀ = 1`, `A₀ = 1`). The pieces

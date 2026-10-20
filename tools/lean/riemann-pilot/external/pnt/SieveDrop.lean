@@ -9,12 +9,14 @@ Plain statements. `xq q = q^L`, `L = 2333/1000`, and `cornerP z` is the set of p
   (x, 2x]` with no prime factor below `z` inject into `Ψ(x/W, z)`.
 * `drop2_le`, `drop4_le`: a dropped cell's `B`-count is at most `φ(q)⁻¹` times its sum over the primes of its cells
   (`SieveRough.cellP`), `Σ Ψ(x/(p₁p₂), p₂)` or `Σ Ψ(x/(p₁p₂p₃p₄), p₄)`.
-* `corner_le`, `corner_ev`: a corner cell (not a candidate, not surely evaluable, `p₁`'s cell not inside the window)
-  counts only the `n = p₁p₂`, both primes in `cornerP z_top`, so it is at most `φ(q)⁻¹|cornerP|²`; for large `q`,
-  `n²|cornerP|² ≤ εx/log x` (`n = 70` cells), by `cornerP_card_ev`.
+* `corner_le`, `corner_ev`: for `(parQ q).Good` and `z_top² ≤ 4N₁`, a corner cell (not a candidate, not surely
+  evaluable, `p₁`'s cell not inside the window) counts only the `n = p₁p₂`, both primes in `cornerP z_top`, so it is at
+  most `φ(q)⁻¹|cornerP|²`; for `ε > 0` and large `q`, `z_top² ≤ 4N₁` and `n²|cornerP|² ≤ εx/log x` (`n = 70` cells), by
+  `cornerP_card_ev`.
 * `D1_le`, `dropS_le_cost`, `shares_ev`, `sum_cost_div`: the dropped cells' sums are at most their certificate costs
-  `cost/K` times `x/log x`, plus `δ′(1 + n²)x/log x`, by `SieveRough.share2_of_cand` and `share4_of_counted4`
-  simultaneously for the finitely many cells, and the costs total at most `0.88` (`SieveCert.total_div_le`).
+  `cost/K` times `x/log x`, plus `δ′(1 + n²)x/log x` for `δ′ > 0` and large `x`, by `SieveRough.share2_of_cand` and
+  `share4_of_counted4` simultaneously for the finitely many cells, and the costs total at most `0.88`
+  (`SieveCert.total_div_le`).
 * `drop_ev`: for `ε > 0`, eventually `D1(g_B) ≤ φ(q)⁻¹(0.88 + ε)x/log x`.
 
 This is the loss of `frontier/linnik/SIEVE-ROUTE.md` §6, M8 of §13: M6's shares and M7's total bound the dropped
