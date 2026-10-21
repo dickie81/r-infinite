@@ -11,6 +11,8 @@ Plain statements. The route and the grid are as in `SieveQ` (`RouteOK`, `GridOK`
   is `q₀` such that for `q ≥ q₀` and `a` a unit mod `q` there is a prime `p ≡ a (mod q)` with `q^L < p ≤ 2q^L`.
 * `linnik_route`: given `hII` and `htot`, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a
   prime `p ≡ a (mod q)` with `p ≤ K·q^L`.
+* `linnik_large_of`, `linnik_route_of` (round 619): the same with the certificate's loss as a parameter, `total/K ≤ c`
+  in the reals for some `c < 1`; `linnik_route_lt`: `linnik_route_of` at `c = total/K` for `total < K`.
 * `linnik_2333`: `linnik_route` at `SieveRoute.route2333` and `SieveCert.grid2333`, which fit (`fits2333`), with
   `SieveRoute.typeII2333` and `SieveCert.total_le_2333`: there is `K` such that for every `q ≥ 1` and every `a` prime to
   `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{2333/1000}`.
@@ -21,9 +23,11 @@ The proof:
 
 * `primes_dyadic_ge`: `SieveRough.theta_near` at `x` and `2x`. `TB_ev`: `z_top = ⌊√N₂⌋ + 1`, so the `z_top`-rough
   `n ∈ (N₁, N₂]` are the primes there, and at most `ω(q) ≤ q` of them divide `q`.
-* `linnik_large`: `SieveBuch.Par.decomp` with `SieveQ.leaves_ev`, `SieveDrop.drop_ev` and `TB_ev`, with
-  `η = 1/(100·Cdec·L)` and `ε = 1/100`. For large `q` the leaves' error `Cdec·Err` is at most `0.02x/(φ(q) log x)` and
-  `q ≤ 0.01x/log x`, so `S(A, z_top) ≥ 0.07x/(φ(q) log x) > 0`. A `z_top`-rough `n ∈ (N₁, N₂]` is prime.
+* `linnik_large_of` (round 619; `linnik_large` is its case `c = 0.88`): `SieveBuch.Par.decomp` with
+  `SieveQ.leaves_ev`, `SieveDrop.drop_ev_of` and `TB_ev`, with `ε = (1 − c)/10` and `η = ε/(Cdec·L)`. For large `q` the
+  leaves' error `Cdec·Err` is at most `2εx/(φ(q) log x)` and `q ≤ εx/log x`, so
+  `S(A, z_top) ≥ (1 − c)x/(2φ(q) log x) > 0` (until round 619 the proof set `ε = 1/100` and `η = 1/(100·Cdec·L)` at
+  `c = 0.88` and kept `0.07x/(φ(q) log x)`). A `z_top`-rough `n ∈ (N₁, N₂]` is prime.
 * `linnik_route`: for `q < q₀`, Mathlib's `Nat.forall_exists_prime_gt_and_modEq` (Dirichlet's theorem) gives a prime for
   each of the finitely many `q` and residues, and `K` is the larger of `2` and their maximum.
 
@@ -210,9 +214,10 @@ theorem ev_log_le {c r : ℝ} (hc : 0 < c) (hr : 0 < r) : ∀ᶠ q : ℕ in atTo
 /-- **Linnik's theorem at `x = q^L`, for large `q`, with the certificate's loss as a parameter.** For a route with
 `RouteOK` and a grid with `GridOK` that fit (`Fits`), given the route's Type II estimate (`hII`) and `total/K ≤ c` in
 the reals for some `c < 1` (`htot`), there is `q₀` such that for `q ≥ q₀` and `a` a unit mod `q` there is a prime
-`p ≡ a (mod q)` with `q^L < p ≤ 2q^L`. The four losses the proof sets (`TB_ev`'s, `drop_ev_of`'s, the leaves' error
-through `η` and `q ≤ εX`) are each `ε = (1 − c)/10` of `X = x/log x`, leaving `(1 − c)X/2` of `S(A, z_top)` (round
-619; `linnik_large` is the case `c = 0.88`, `ε = 1/100`). -/
+`p ≡ a (mod q)` with `q^L < p ≤ 2q^L`. The losses the proof sets are shares `ε = (1 − c)/10` of `X = x/log x`:
+`TB_ev`'s, `drop_ev_of`'s, two for the leaves' error (through `η` and `ev_log_le`) and `q ≤ εX`, five in all, leaving
+`(1 − c − 5ε)X = (1 − c)X/2` of `S(A, z_top)` (round 619; `linnik_large` is the case `c = 0.88`, where until round 619
+the proof set `1/100` for each share). -/
 theorem linnik_large_of (hII : TypeIIAt) {c : ℝ} (hc : c < 1) (htot : (SieveCert.total : ℝ) / SieveCert.K ≤ c) :
     ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∃ p : ℕ, p.Prime ∧ (p : ZMod q) = a ∧ (q : ℝ) ^ L < p ∧ (p : ℝ) ≤ 2 * (q : ℝ) ^ L := by

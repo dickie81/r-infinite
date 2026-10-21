@@ -19,6 +19,8 @@ takes them. `xq q = q^L`, and `cornerP z` is the set of primes of `(⌊z/4⌋, z
   `share4_of_counted4` simultaneously for the finitely many cells, and the costs total at most `0.88` when the
   certificate's total is at most `0.88K` (`htot`, `SieveCert.total_div_le`).
 * `drop_ev`: given `htot`, for `ε > 0`, eventually `D1(g_B) ≤ φ(q)⁻¹(0.88 + ε)x/log x`.
+* `sum_cost_div_of`, `drop_ev_of`, `total_div_lt` (round 619): the same with the loss as a parameter, `total/K ≤ c` in
+  the reals, so `D1(g_B) ≤ φ(q)⁻¹(c + ε)x/log x`; and `total < K` gives `total/K < 1`. The `0.88` forms are their cases.
 
 This is the loss of `frontier/linnik/SIEVE-ROUTE.md` §6, M8 of §13: M6's shares and M7's total bound the dropped
 families' `B`-counts, and the corner near `(1/2, 1/2)` is `o(x/log x)`.
