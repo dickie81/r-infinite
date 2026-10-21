@@ -3,11 +3,12 @@
 
 The grid of `SieveTypeIIU232.typeII_232`'s window: `U1 = ⌈(4045/10000)DEN⌉`, `U2 = ⌊(4825/10000)DEN⌋`, `n = 150`. On
 it `SieveCert.total` is at most `0.88K`, checked by the kernel in 25 parts: `rows a b` is the sum of the rows
-`a ≤ i < b` of the total, the total is the sum of its 25 parts (`total_eq_rows`; from 2 to 30 rows each, grouped by the
+`a ≤ i < b` of the total (defined here until round 618 moved it to `SieveCertDefs.lean` and `rows_eq` to
+`SieveCert.lean`), the total is the sum of its 25 parts (`total_eq_rows`; from 2 to 30 rows each, grouped by the
 kernel's work), and each part is bounded by `decide +kernel` (`rows_0` … `rows_24`), one at a time (`Elab.async
 false`). One kernel check of the whole grid at `n = 150` needs more memory than the shell's memory cgroup allows (it was
-killed below the cgroup's 13.36 GiB limit; the machine has 16), and the kernel frees a part's memory before the next; a
-part of 15 rows took up to 7.4 GB (scratch).
+killed below the shell's cgroup limit, 13.36 GiB in the present container; the machine has 16), and the kernel frees a
+part's memory before the next; a part of 15 rows took up to 7.4 GB (scratch).
 
 The file imports `SieveCert.lean`.
 -/
@@ -24,14 +25,6 @@ namespace SieveCert
 
 theorem gridOK232 : @GridOK grid232 :=
   @GridOK.mk grid232 (by decide) (by decide) (by decide) (by decide) (by decide) (by decide)
-
-/-- The sum of the rows `a ≤ i < b` of the total. -/
-def rows [Grid] (a b : ℕ) : ℕ := sumTo (b - a) (fun i => sumTo n (fun j => cost (a + i) j))
-
-/-- `rows a b` is the double sum of the costs over `a ≤ i < b`. -/
-theorem rows_eq [Grid] (a b : ℕ) : rows a b = ∑ i ∈ Finset.Ico a b, ∑ j ∈ Finset.range n, cost i j := by
-  rw [rows, sumTo_eq, Finset.sum_Ico_eq_sum_range]
-  simp only [sumTo_eq]
 
 /-- The total of a grid with `n = 150` is the sum of its 25 parts. -/
 theorem total_eq_rows_of [Grid] (hn : n = 150) : total =

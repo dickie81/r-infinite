@@ -3,7 +3,8 @@
 
 File 1 of 5: the parts `rows226_0` … `rows226_10` of `SieveCert226.lean`'s certificate on `SieveGrid226.grid226`
 (11 parts, 32 rows, 21105 cells of depth 4 and candidate cells), each the sum of the costs of its rows
-(`SieveCert232.rows`) at most its bound, by `decide +kernel`, one at a time (`Elab.async false`).
+(`rows`, in `SieveCertDefs.lean` since round 618) at most its bound, by `decide +kernel`, one at a time
+(`Elab.async false`).
 
 The file imports `SieveGrid226.lean`.
 -/

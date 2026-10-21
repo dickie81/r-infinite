@@ -5,11 +5,14 @@
 # The script takes the 19 PrimeNumberTheoremAnd (PNT+) files that the layer imports, at 650d312 (Lean v4.33.1),
 # applies pnt_port.patch (the port to the pilot's Lean and Mathlib), and compiles Architect.lean (a no-op
 # stand-in for the LeanArchitect blueprint package), those files and this directory's files into ../../build.
-# It then prints the axioms of the final theorems. The build fails if Lean reports a use of sorry in one of this
-# directory's files, or if this directory's files or the final check print an axiom outside propext,
-# Classical.choice and Quot.sound (round 327, the rule of ../../build.sh). The vendored PNT+ files are not checked:
-# two lemmas of PNT+'s Wiener.lean are sorry, outside the dependency cone of every theorem here, and the final
-# check gates the theorems built on PNT+.
+# A module is compiled only if its olean is missing or older than its source or than the olean in ../../build of a
+# module it imports (one of the pilot's, PNT+'s or this directory's; Mathlib's oleans are not compared), so after
+# an edit only that file and its dependents are rebuilt, one at a time; FORCE=1 compiles every module (round 618,
+# the rule of ../../build.sh since round 217). The final check, which prints the axioms of the final theorems, runs
+# every time. The build fails if Lean reports a use of sorry in one of this directory's files that it compiles, or
+# if such a file or the final check prints an axiom outside propext, Classical.choice and Quot.sound (round 327,
+# the rule of ../../build.sh). The vendored PNT+ files are not checked: two lemmas of PNT+'s Wiener.lean are sorry,
+# outside the dependency cone of every theorem here, and the final check gates the theorems built on PNT+.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 PILOT="$(cd "$HERE/../.." && pwd)"
@@ -43,14 +46,27 @@ CLEAN="' depends on axioms: \[$STD(, $STD)*\]\$"
 dirty() {
   printf '%s\n' "$1" | grep -e "' depends on axioms: " | grep -vEc "$CLEAN" || true
 }
-# c GATE ROOT MODULE [lean options]: compile ROOT/MODULE.lean to B/MODULE.olean. With GATE = 1, fail, removing
-# that olean, if Lean reports a use of sorry in the file or it prints an axiom outside the three.
+# c GATE ROOT MODULE [lean options]: compile ROOT/MODULE.lean to B/MODULE.olean, unless FORCE is not 1 and that olean
+# is newer than the source and than the olean in B of every module the source imports (an import with no olean in B
+# is not compared). With GATE = 1, fail, removing that olean, if Lean reports a use of sorry in the file or it prints
+# an axiom outside the three. NC counts the modules compiled, NUP those up to date.
+NC=0; NUP=0
 c() {
-  local gate=$1 root=$2 rel=${3//.//} out; shift 3
-  echo "== ${rel//\//.}"; mkdir -p "$B/$(dirname "$rel")"
-  out="$(LEAN_PATH="$LP" lean "$@" -R "$root" -o "$B/$rel.olean" -i "$B/$rel.ilean" "$root/$rel.lean" 2>&1)" \
-    || { printf '%s\n' "$out"; exit 1; }
+  local gate=$1 root=$2 rel=${3//.//} out dep t0 stale; shift 3
+  local src="$root/$rel.lean" olean="$B/$rel.olean"
+  if [ "${FORCE:-0}" != 1 ] && [ -f "$olean" ] && [ ! "$src" -nt "$olean" ]; then
+    stale=0
+    for dep in $(sed -nE 's/^[[:space:]]*(public[[:space:]]+)?import[[:space:]]+//p' "$src"); do
+      dep="$B/${dep//.//}.olean"
+      if [ -f "$dep" ] && [ "$dep" -nt "$olean" ]; then stale=1; break; fi
+    done
+    if [ "$stale" = 0 ]; then NUP=$((NUP + 1)); return 0; fi
+  fi
+  echo "== ${rel//\//.}"; mkdir -p "$B/$(dirname "$rel")"; t0=$SECONDS
+  out="$(LEAN_PATH="$LP" lean "$@" -R "$root" -o "$olean" -i "$B/$rel.ilean" "$src" 2>&1)" \
+    || { printf '%s\n' "$out"; rm -f "$olean" "$B/$rel.ilean"; exit 1; }
   [ -z "$out" ] || printf '%s\n' "$out"
+  echo "-- ${rel//\//.}: $((SECONDS - t0))s"; NC=$((NC + 1))
   [ "$gate" = 1 ] || return 0
   # Lean's sorry warning is m!"declaration uses `{s}`"; match its fixed text, as ../../build.sh does
   if [[ "$out" == *'declaration uses `'* ]]; then
@@ -67,7 +83,8 @@ c() {
 c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
-for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity LinnikChar LinnikDeduction LinnikHybrid LinnikDetect LinnikDensity LinnikHalf LinnikFE LinnikLindelof LinnikSubconvex MertensChi LinnikAFE LinnikFourth LinnikIngham LinnikPower LinnikOffDiag LinnikHuxley LinnikGammaRatio LinnikReflect LinnikWeighted LinnikDual LinnikBuckets LinnikLargeValues LinnikTwelveBins LinnikTwelveSizes LinnikTwelve LinnikMoment LinnikLines LinnikSplit LinnikS2 LinnikPoints SieveSmooth LinnikStep SieveLemma1 SieveWeight SieveTypeII SieveRoute SieveCert SieveCert229 SieveRough SieveSep SieveFamily SieveBrun SieveCount SieveRanges SieveLeaf SieveTree SieveDyadic SieveTypeIIU SieveRoughTuple SieveTypeIIR SieveDiff SieveStops1 SieveCmp SieveStops2 SieveProp6 SieveChain SieveDecomp SieveBuch SieveLeaves SieveQ SieveDrop SieveMain LinnikCGL LinnikIngham73 LinnikHuxStep SieveTypeIIGen SieveTypeII73 Linnik229 LinnikInghamC LinnikStairs SieveCurveGlue SieveTypeIIU232 SieveCert232 Linnik232 LinnikWeyl LinnikHuxStepY LinnikStairs7 SieveTypeIIU227 SieveCert227 Linnik227 SieveTypeIIU226 SieveGrid226 SieveCert226P1 SieveCert226P2 SieveCert226P3 SieveCert226P4 SieveCert226P5 SieveCert226 Linnik226; do c 1 "$HERE" $f; done
+for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity LinnikChar LinnikDeduction LinnikHybrid LinnikDetect LinnikDensity LinnikHalf LinnikFE LinnikLindelof LinnikSubconvex MertensChi LinnikAFE LinnikFourth LinnikIngham LinnikPower LinnikOffDiag LinnikHuxley LinnikGammaRatio LinnikReflect LinnikWeighted LinnikDual LinnikBuckets LinnikLargeValues LinnikTwelveBins LinnikTwelveSizes LinnikTwelve LinnikMoment LinnikLines LinnikSplit LinnikS2 LinnikPoints SieveSmooth LinnikStep SieveLemma1 SieveWeight SieveTypeII SieveRoute SieveCertDefs SieveCert SieveCert229 SieveRough SieveSep SieveFamily SieveBrun SieveCount SieveRanges SieveLeaf SieveTree SieveDyadic SieveTypeIIU SieveRoughTuple SieveTypeIIR SieveDiff SieveStops1 SieveCmp SieveStops2 SieveProp6 SieveChain SieveDecomp SieveBuch SieveLeaves SieveQ SieveDrop SieveMain LinnikCGL LinnikIngham73 LinnikHuxStep SieveTypeIIGen SieveTypeII73 Linnik229 LinnikInghamC LinnikStairs SieveCurveGlue SieveTypeIIU232 SieveCert232 Linnik232 LinnikWeyl LinnikHuxStepY LinnikStairs7 SieveTypeIIU227 SieveCert227 Linnik227 SieveTypeIIU226 SieveGrid226 SieveCert226P1 SieveCert226P2 SieveCert226P3 SieveCert226P4 SieveCert226P5 SieveCert226 Linnik226; do c 1 "$HERE" $f; done
+echo "$NC compiled, $NUP up to date"
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
 cat > "$AX" <<'EOT'
