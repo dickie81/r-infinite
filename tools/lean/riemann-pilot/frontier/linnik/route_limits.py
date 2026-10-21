@@ -1,4 +1,6 @@
-"""route_limits.py: where the sieve route's certificate ends, in exact arithmetic (SIEVE-ROUTE.md §23, round 626).
+"""route_limits.py: where the sieve route's certificate ends (SIEVE-ROUTE.md §23, rounds 626–628): the certificates and
+the window corners in exact arithmetic, the fits and the window's scan in floating point. (Round 628: retracted, false
+when written: the first line read "…, in exact arithmetic"; review of round 627, finding 1.)
 
 The route of SIEVE-ROUTE.md §§19–22 proves Linnik's theorem with exponent `L` from three checks on a window
 `[w₁, w₂]` (`m = w·L`): the window condition `WindowOKHM g L m₁ m₂ (1/1000) (1/1000)`, which the window files prove
@@ -32,8 +34,15 @@ Curves, parsed from the Lean sources: `gU` (`SieveTypeIIU232.lean`, with no hypo
 Usage:
   route_limits.py run OUT.jsonl CURVE L N [N ...]   window, corners and replay at each N; rows already in OUT reused
   route_limits.py fit OUT.jsonl                     per (curve, L) with three or more N: loss(N) ≈ a + c/N
-  route_limits.py floor CURVE                       the exact floor L*; the least L = k/10⁴ with a sampled window
+  route_limits.py floor CURVE [LO HI A ...]         the exact floor L*; the least L = k/10⁴ with a sampled window;
+                                                    with LO HI A, the pieces inside [LO, HI] take the exponent A
   route_limits.py holdout OUT.jsonl CURVE L N       the fits without the row at N, evaluated at N, against that row
+  route_limits.py quadfit OUT.jsonl                 per (curve, L) with four or more N: loss(N) ≈ a + c/N + d/N², exact
+  route_limits.py windows CURVE L                   the windows with m₁ < 1 < m₂ on the 10⁻⁵ grid near 1/L whose exact
+                                                    corners pass (W₁ within 40 below 10⁵/L, W₂ within 40 above)
+  route_limits.py parts NAME W1 W2 DW N             each committed part file `external/pnt/NAME{k}.lean` of the grid
+                                                    [W1/DW, W2/DW] with N cells: its parts' depth-4 tests and work
+  route_limits.py corners CURVE L W1 W2 D           the exact corners of the one window [W1/D, W2/D] at L, against L*
 
 `fit` is an extrapolation, not a certificate: `a` (all grids, least squares) and `a₂` (the two largest grids) estimate
 the loss as `N → ∞`, and `c/(1 − a)` is the `N` at which the fitted line crosses `1`. `L` is given as a decimal or a
@@ -41,8 +50,10 @@ fraction (`9/4`) and stored as a fraction.
 
 `floor`'s exact floor: `Fits` gives `DEN < L·U2 < L·w₂·DEN`, so `m₂ > 1`, where `WindowOKHM` has only its orthogonality
 branch; at `m = m₂` that branch is `(L − m₂)(1 − β − w) ≥ g(β)/2 + 1/25000`, so every window that `Fits` and
-`WindowOKHM` accept has `L > L* = 1 + max (g(β)/2 + 1/25000)/(1 − β − 4·10⁻⁶)` over `β ≤ 11/12`. On each piece the
-quotient grows with `β`, so the maximum is at a piece's right end. (Round 627; review of round 626, F4.)
+`WindowOKHM` accept has `L > L* = 1 + sup (g(β)/2 + 1/25000)/(1 − β − 4·10⁻⁶)` over `1/2 ≤ β ≤ 11/12`. On each piece
+the quotient grows with `β`, so its supremum there is its value at the piece's right end (Lean's `if σ < hi` gives `hi`
+itself to the next piece). (Round 627; review of round 626, F4. Round 628: it read "max" and "`β ≤ 11/12`"; review of
+round 627, out-of-scope observation O-2.)
 """
 import json, os, re, sys, time
 from fractions import Fraction as Fr
@@ -109,9 +120,10 @@ def window(pieces, L):
     return round(ms[a] / L, 5), round(ms[z] / L, 5)
 
 
-def corners(pieces, L, W1, W2):
-    """Every corner inequality, exact. Returns (failures as (end, tag), least slack, its tag)."""
-    m1, m2 = Fr(W1, 100000) * L, Fr(W2, 100000) * L
+def corners(pieces, L, W1, W2, D=100000):
+    """Every corner inequality of the window `[W1/D, W2/D]`, exact. Returns (failures as (end, tag), least slack, its
+    tag)."""
+    m1, m2 = Fr(W1, D) * L, Fr(W2, D) * L
     assert m1 < 1 < m2, (float(m1), float(m2))
     E = L - MARGIN
     fails, worst = [], [None, None]
@@ -165,8 +177,9 @@ def subset_sums(xs):
     return rest + [(s[0] + p[0], s[1] + p[1]) for s in rest]
 
 
-def replay(U1, U2, n):
-    """`SieveCertDefs.lean`'s `total` and the grid's conditions; counts of candidates, decompositions and tests."""
+def replay(U1, U2, n, per_row=False):
+    """`SieveCertDefs.lean`'s `total` and the grid's conditions; counts of candidates, decompositions and tests; with
+    `per_row`, also each row's tests, candidates and decomposed cells of depth 4."""
     V = U2 - U1
     H = (tsub(DEN // 2, V) + n - 1) // n
     lim = tsub(DEN, U1)
@@ -197,6 +210,7 @@ def replay(U1, U2, n):
 
     total = 0
     cnt = dict(cands=0, allowed=0, dec=0, tested4=0, d4_dec=0)
+    per = [dict(tests=0, cands=0, d4_dec=0) for _ in range(n)]
     for i in range(n):
         for j in range(n):
             ei, ej = e(i), e(j)
@@ -204,6 +218,7 @@ def replay(U1, U2, n):
                     and not surely([cell(i), cell(j)])):
                 continue
             cnt['cands'] += 1
+            per[i]['cands'] += 1
             b2 = cdiv(H * H * DEN * omK(ei, ej, 2), ei * ej * ej)
             ks = [k for k in range(n) if e(k) < ej + H and ei + ej + 2 * e(k) <= DEN
                   and not surely([cell(i), cell(j), cell(k)])]
@@ -218,18 +233,20 @@ def replay(U1, U2, n):
                     el = e(l)
                     if ei + ej + ek + 2 * el <= DEN:
                         cnt['tested4'] += 1
+                        per[i]['tests'] += 1
                         if not surely([cell(i), cell(j), cell(k), cell(l)]):
                             d4 += 1
                             ref += cdiv(H ** 4 * DEN * omK(ei + ej + ek, el, 4), ei * ej * ek * el * el)
             if ref <= b2:
                 cnt['dec'] += 1
                 cnt['d4_dec'] += d4
+                per[i]['d4_dec'] += d4
                 total += ref
             else:
                 total += b2
     gridok = dict(H_pos=0 < H, U1_lt_U2=U1 < U2, two_U2_lt=2 * U2 < DEN, two_e_lt=2 * e(n - 1) < DEN,
                   four_H_le_V=4 * H <= V, DEN_lt_top=DEN < 2 * (V + n * H))
-    return total, cnt, gridok
+    return (total, cnt, gridok, per) if per_row else (total, cnt, gridok)
 
 
 def frac(s):
@@ -314,7 +331,9 @@ def fits(rows):
 
 
 def cmd_fit(out):
-    """Print `fits`: neither estimate is a certificate; their spread shows how far the model `a + c/N` is from exact."""
+    """Print `fits`: neither estimate is a certificate, and their spread is no error bound (see `quadfit`). (Round 628:
+    retracted, false when written: "their spread shows how far the model `a + c/N` is from exact"; review of round
+    627, finding 1.)"""
     res, cross = fits(rows_of(out))
     for d in res:
         line = ', '.join(f'{n}: {v:.5f}' for n, v in d['pts'])
@@ -331,10 +350,22 @@ def cmd_fit(out):
               f"{float(x['L1']):.4f}, at about {float(x['L']):.4f} (linear in L)")
 
 
-def cmd_floor(curve):
-    """The least `L = k/10⁴` in `[2.10, 2.30]` at which the sampled window is nonempty (bisection on `k`, the window
-    growing with `L`), and the exact corners of that window there."""
+def cmd_floor(curve, over=()):
+    """The exact floor `L*` (the module docstring's argument), and the least `L = k/10⁴` in `[2.10, 2.30]` at which the
+    sampled window is nonempty (bisection on `k`, the window growing with `L`), with that window's exact corners. With
+    `over`, triples `(LO, HI, A)`: every piece inside `[LO, HI]` first takes the exponent `A` (a curve that is not
+    committed, to measure what a lower density exponent there would move)."""
     pieces = parse(curve)
+    for lo_, hi_, A_ in over:
+        pieces = [(lo, hi, A_ if lo_ <= lo and hi <= hi_ else A) for lo, hi, A in pieces]
+    amax = max(A for _, _, A in pieces if A is not None)
+    at = [f'[{plo}, {phi}]' for plo, phi, A in pieces if A == amax]
+    qv = {phi: ((Fr(1) if A is None else A * (1 - phi)) / 2 + MARGIN) / (1 - phi - WS[1]) for _, phi, A in pieces}
+    q = max(qv.values())
+    name = curve + ''.join(f' with A = {A_} on [{lo_}, {hi_}]' for lo_, hi_, A_ in over)
+    print(f'{name}: the exact floor L* = 1 + max (g/2 + 1/25000)/(1 - b - 4e-6) = {1 + q} = {float(1 + q):.10f}, at '
+          f'b = {", ".join(str(b) for b, v in qv.items() if v == q)}; A_max = {amax} on {", ".join(at)}, '
+          f'1 + A_max/2 = {float(1 + amax / 2):.5f}', flush=True)
     lo, hi = 21000, 23000
     assert window(pieces, Fr(lo, 10000)) is None and window(pieces, Fr(hi, 10000)) is not None
     while hi - lo > 1:
@@ -346,16 +377,13 @@ def cmd_floor(curve):
     L = Fr(hi, 10000)
     w = window(pieces, L)
     W1, W2 = round(w[0] * 100000), round(w[1] * 100000)
-    fails, slack, tag = corners(pieces, L, W1, W2)
-    amax = max(A for _, _, A in pieces if A is not None)
-    at = [f'[{plo}, {phi}]' for plo, phi, A in pieces if A == amax]
-    q = max(((Fr(1) if A is None else A * (1 - phi)) / 2 + MARGIN) / (1 - phi - WS[1]) for _, phi, A in pieces)
-    arg = [f'{phi}' for _, phi, A in pieces
-           if ((Fr(1) if A is None else A * (1 - phi)) / 2 + MARGIN) / (1 - phi - WS[1]) == q]
-    print(f'{curve}: the exact floor L* = 1 + max (g/2 + 1/25000)/(1 - b - 4e-6) = {float(1 + q):.7f}, at b = '
-          f'{", ".join(arg)}; A_max = {amax} on {", ".join(at)}, 1 + A_max/2 = {float(1 + amax / 2):.5f}. The sampled '
-          f'window is empty at L = {lo / 10000} and nonempty at {hi / 10000}: [{W1}, {W2}]/1e5, its exact corners '
-          f'{"pass" if not fails else "FAIL"} (least slack {float(slack):.2e})')
+    m1, m2 = Fr(W1, 100000) * L, Fr(W2, 100000) * L
+    head = f'  the sampled window is empty at L = {lo / 10000} and nonempty at {hi / 10000}: [{W1}, {W2}]/1e5'
+    if m1 < 1 < m2:
+        fails, slack, _ = corners(pieces, L, W1, W2)
+        print(f'{head}, its exact corners {"pass" if not fails else "FAIL"} (least slack {float(slack):.2e})')
+    else:
+        print(f'{head}, with m1 = {float(m1):.7f}, m2 = {float(m2):.7f}: not m1 < 1 < m2 (Fits needs m2 > 1)')
 
 
 def cmd_holdout(out, curve, Ls, n):
@@ -365,9 +393,89 @@ def cmd_holdout(out, curve, Ls, n):
     keep = [r for r in rows if not (r['curve'] == curve and Fr(r['L']) == L and r['n'] == n)]
     assert len(keep) == len(rows) - 1, 'no such row'
     d = [d for d in fits(keep)[0] if d['curve'] == curve and d['L'] == L][0]
+    if 'a' not in d:
+        sys.exit(f'{curve} L={L}: fewer than three grids remain without n={n}; no fit')
     act = [r['total_over_K'] for r in rows if r['curve'] == curve and Fr(r['L']) == L and r['n'] == n][0]
     print(f"{curve} L={L} without n={n} (grids {[m for m, _ in d['pts']]}): a + c/n = {d['a'] + d['c'] / n:.5f}, "
           f"a₂ + c₂/n = {d['a2'] + d['c2'] / n:.5f}; the replay at n = {n}: {act:.5f}")
+
+
+def cmd_quadfit(out):
+    """Per (curve, L) with four or more grids: the least-squares fit of `total/K` by `a + c/N + d/N²`, in exact
+    rationals (`total` and `K` are integers), against `fits`'s `a` and `a₂`: the spread of `a` and `a₂` is no error
+    bound when the intercept falls outside it."""
+    rows = rows_of(out)
+    by = {}
+    for r in rows:
+        by.setdefault((r['curve'], Fr(r['L'])), {})[r['n']] = Fr(r['total'], K)
+    lin = {(d['curve'], d['L']): d for d in fits(rows)[0] if 'a' in d}
+    for (curve, L), pts in sorted(by.items()):
+        if len(pts) < 4:
+            continue
+        X = [[Fr(1), Fr(1, n), Fr(1, n * n)] for n in sorted(pts)]
+        y = [pts[n] for n in sorted(pts)]
+        A = [[sum(X[k][i] * X[k][j] for k in range(len(X))) for j in range(3)] for i in range(3)]
+        b = [sum(X[k][i] * y[k] for k in range(len(X))) for i in range(3)]
+        for i in range(3):  # Gauss–Jordan on the normal equations, exact
+            piv = A[i][i]
+            A[i] = [v / piv for v in A[i]]
+            b[i] = b[i] / piv
+            for j in range(3):
+                if j != i and A[j][i] != 0:
+                    f = A[j][i]
+                    A[j] = [vj - f * vi for vj, vi in zip(A[j], A[i])]
+                    b[j] = b[j] - f * b[i]
+        d = lin[(curve, L)]
+        lo, hi = sorted((d['a'], d['a2']))
+        print(f"{curve} L={float(L):.4f} (grids {sorted(pts)}): a + c/N + d/N² intercept {float(b[0]):.5f}; "
+              f"a = {d['a']:.5f}, a₂ = {d['a2']:.5f}; inside [a, a₂]: {lo <= float(b[0]) <= hi}")
+
+
+def cmd_windows(curve, Ls):
+    """The windows `[W1, W2]/10⁵` with `m₁ < 1 < m₂` near `1/L` whose exact corners pass (`corners`)."""
+    L = frac(Ls)
+    pieces = parse(curve)
+    c = (100000 / L).__floor__()
+    ok = []
+    for W1 in range(c - 40, c + 1):
+        for W2 in range(c + 1, c + 41):
+            if Fr(W1, 100000) * L < 1 < Fr(W2, 100000) * L:
+                fails, slack, _ = corners(pieces, L, W1, W2)
+                if not fails:
+                    ok.append((W1, W2, slack))
+    print(f'{curve} L={L} = {float(L):.7f}: {len(ok)} windows with m1 < 1 < m2 pass their exact corners'
+          + (f": {', '.join(f'[{a}, {b}] (slack {float(s):.2e})' for a, b, s in ok)}" if ok else ''))
+
+
+def cmd_parts(name, W1, W2, DW, n):
+    """Each committed part file `external/pnt/{name}{k}.lean`, k = 1, 2, …, of the grid `[W1/DW, W2/DW]` with `n`
+    cells: per file, the part with the most depth-4 tests (its tests and work) and the part with the most work (its
+    work and tests), work being candidate cells plus decomposed cells of depth 4 (`replay`'s per-row counts)."""
+    U1, U2 = (W1 * DEN + DW - 1) // DW, W2 * DEN // DW
+    _, _, _, per = replay(U1, U2, n, per_row=True)
+    k = 1
+    while os.path.exists(os.path.join(PNT, f'{name}{k}.lean')):
+        src = open(os.path.join(PNT, f'{name}{k}.lean'), encoding='utf-8').read()
+        rg = [(int(a), int(b)) for a, b in re.findall(r'theorem \S+ : rows (\d+) (\d+) ≤', src)]
+        T = [sum(per[i]['tests'] for i in range(a, b)) for a, b in rg]
+        Wk = [sum(per[i]['cands'] + per[i]['d4_dec'] for i in range(a, b)) for a, b in rg]
+        it, iw = max(range(len(rg)), key=lambda x: T[x]), max(range(len(rg)), key=lambda x: Wk[x])
+        print(f'{name}{k}: {len(rg)} parts; most tests: rows {rg[it][0]}–{rg[it][1] - 1}, {T[it]} tests, '
+              f'work {Wk[it]}; most work: rows {rg[iw][0]}–{rg[iw][1] - 1}, work {Wk[iw]}, {T[iw]} tests')
+        k += 1
+
+
+def cmd_corners(curve, Ls, W1, W2, D):
+    """The exact corners (`corners`) of the one window `[W1/D, W2/D]` at `L`, with `m₁`, `m₂` and `L − L*` (round 628:
+    windows between `L*` and its decimals rounded up)."""
+    L = frac(Ls)
+    pieces = parse(curve)
+    q = max(((Fr(1) if A is None else A * (1 - phi)) / 2 + MARGIN) / (1 - phi - WS[1]) for _, phi, A in pieces)
+    m1, m2 = Fr(W1, D) * L, Fr(W2, D) * L
+    fails, slack, _ = corners(pieces, L, W1, W2, D)
+    print(f'{curve} L={L} = {float(L):.10f} (L - L* = {float(L - 1 - q):.3e}): window [{W1}, {W2}]/{D}, m1 = '
+          f'{float(m1):.10f}, m2 = {float(m2):.10f}: its exact corners {"pass" if not fails else "FAIL"} (least slack '
+          f'{float(slack):.3e})')
 
 
 if __name__ == '__main__':
@@ -377,8 +485,16 @@ if __name__ == '__main__':
     elif a[0] == 'fit':
         cmd_fit(a[1])
     elif a[0] == 'floor':
-        cmd_floor(a[1])
+        cmd_floor(a[1], [tuple(frac(x) for x in a[k:k + 3]) for k in range(2, len(a), 3)])
     elif a[0] == 'holdout':
         cmd_holdout(a[1], a[2], a[3], int(a[4]))
+    elif a[0] == 'quadfit':
+        cmd_quadfit(a[1])
+    elif a[0] == 'windows':
+        cmd_windows(a[1], a[2])
+    elif a[0] == 'parts':
+        cmd_parts(a[1], int(a[2]), int(a[3]), int(a[4]), int(a[5]))
+    elif a[0] == 'corners':
+        cmd_corners(a[1], a[2], int(a[3]), int(a[4]), int(a[5]))
     else:
         sys.exit(__doc__)
