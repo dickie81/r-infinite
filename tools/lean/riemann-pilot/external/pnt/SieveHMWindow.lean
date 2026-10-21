@@ -48,7 +48,7 @@ theorem windowPieceHM_of_piece {g : ℝ → ℝ} {L m₁ m₂ d e lo hi : ℝ} (
     WindowPieceHM g L m₁ m₂ d e lo hi :=
   fun β m w hβ hβ1 hm hm1 hw hw1 => Or.inl (h β m w hβ hβ1 hm hm1 hw hw1)
 
-/-- Gluing two pieces across `mid`, as `windowPiece_glue`. -/
+/-- Gluing two pieces across `mid` (`h₁` on `[lo, mid]`, `h₂` on `[mid, hi]`), as `windowPiece_glue`. -/
 theorem windowPieceHM_glue {g g' : ℝ → ℝ} {L m₁ m₂ d e lo mid hi : ℝ} (h₁ : WindowPieceHM g L m₁ m₂ d e lo mid)
     (h₂ : WindowPieceHM g' L m₁ m₂ d e mid hi) :
     WindowPieceHM (fun β => if β < mid then g β else g' β) L m₁ m₂ d e lo hi := by
