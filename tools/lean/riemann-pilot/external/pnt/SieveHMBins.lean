@@ -6,11 +6,11 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 `binTerm cnt P q V B` is the smaller of orthogonality's bound for a bin of `cnt` characters,
 `cnt^{1/2}((P + q)V)^{1/2}`, and the Halász–Montgomery bound of `SieveHMBin.sum_bin_hm`,
 `(e·V·(cnt·2P + cnt²·B))^{1/2}`, with `V = Σ|a|²` and `B` a bound on `|K_{2P}(ψ, 0)|` for `ψ ≠ 1`.
-`sum_typeII_bins_hm` is `SieveTypeII.sum_typeII_bins` with `binTerm` for each bin's
-`(#bin)^{1/2}((P + q)Σ|a|²)^{1/2}` (its orthogonality step, `typeII_pointwise`'s T1, inlined; round 622: it read
-"`SieveTypeII.typeII_pointwise` with `binTerm`", review of round 621, F5); `offK_bound` is such a `B`, from
-`LinnikOffDiag.norm_offK_le` at `δ = ε′ = 1/1000` and `z = 0`: `C·Λ^{1/12 − 1/1000}·(2q)^{5/12 + 3/1000}` for every
-`q`, `ψ ≠ 1` and `Λ ≥ 1`.
+`sum_typeII_bins_hm` is `SieveTypeII.sum_typeII_bins` with `binTerm` for each bin's `(#bin)^{1/2}(Σ_χ|W(χ)|²)^{1/2}`
+after its orthogonality step (`typeII_pointwise`'s T1, `Σ_χ|W(χ)|² ≤ (P + q)Σ|a|²`, inlined; round 622: it read
+"`SieveTypeII.typeII_pointwise` with `binTerm`", review of round 621, F5; round 623: the factor it named was
+`typeII_pointwise`'s, review of round 622, finding 2); `offK_bound` is such a `B`, from `LinnikOffDiag.norm_offK_le`
+at `δ = ε′ = 1/1000` and `z = 0`: `C·Λ^{1/12 − 1/1000}·(2q)^{5/12 + 3/1000}` for every `q`, `ψ ≠ 1` and `Λ ≥ 1`.
 
 The file imports `SieveHMBin.lean`.
 -/

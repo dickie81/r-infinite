@@ -136,6 +136,15 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `Linnik230.lean` | 621 | Linnik's theorem with exponent `230/100` with no hypothesis (`linnik_230`): `SieveMain.linnik_route` at `route230` and `grid230` (`routeOK230`, `fits230`, `typeII230`, `total_le_230`) |
 | `SieveTypeIIU226C.lean` | 622 | the curve `g7c`, round 612's `g7` below `5/6` and `(101/50)(1 − σ)` from `5/6` on (`g7c_le_one`, `g7c_half`); its counts under `CGLDensity` alone (`counts_7c`: `counts_7`'s pieces up to `5/6`, `LinnikStep.charDensity_step` above it); its window at `L = 226/100` on round 614's `[4075/10000, 4835/10000]·L` with the Halász–Montgomery branch on the top piece (`window_226c`: 42 pieces by orthogonality at their corners, `[5/6, 11/12]` by `windowPieceHM_const_split` at its 24 corners) and Proposition 3′ there under `CGLDensity` (`typeII_226c`) |
 | `Linnik226C.lean` | 622 | Linnik's theorem with exponent `226/100` under `CGLDensity` alone (`linnik_226c`): `SieveMain.linnik_route` at round 614's `route226` and `grid226` (`routeOK226`, `fits226`, `typeII226c`, `total_le_226`) |
+| `SieveTypeIIU229.lean` | 623 | round 609's curve `gU` at `L = 229/100`: its window on `[40011/100000, 47579/100000]·L` with the Halász–Montgomery branch on the top piece (`window_229`, as round 621's `window_230`) and Proposition 3′ there with no hypothesis (`typeII_229`) |
+| `SieveGrid229U.lean` | 623 | the grid of that window with `n = 150` (`grid229U`, `gridOK229U`); imports `SieveCertDefs.lean` only |
+| `SieveCert229UP1.lean` | 623 | parts 0–3 of the certificate on `grid229U`: `rows229U_0` … `rows229U_3`, each the sum of the costs of its rows (`rows`) at most its bound by `decide +kernel`, one at a time (`Elab.async false`) |
+| `SieveCert229UP2.lean` | 623 | parts 4–8 (`rows229U_4` … `rows229U_8`), likewise |
+| `SieveCert229UP3.lean` | 623 | parts 9–12 (`rows229U_9` … `rows229U_12`), likewise |
+| `SieveCert229UP4.lean` | 623 | parts 13–16 (`rows229U_13` … `rows229U_16`), likewise |
+| `SieveCert229UP5.lean` | 623 | parts 17–20 (`rows229U_17` … `rows229U_20`), likewise |
+| `SieveCert229U.lean` | 623 | the certificate on `grid229U`: the total is the sum of its 21 parts of consecutive rows (`total_eq_rows229U_of`, `total_eq_rows229U`), each at most its bound by the part files, and so less than `K` (`total_lt_229U`), round 619's form |
+| `Linnik229U.lean` | 623 | Linnik's theorem with exponent `229/100` with no hypothesis (`linnik_229U`): `SieveMain.linnik_route_lt` at `route229U` and `grid229U` (`routeOK229U`, `fits229U`, `typeII229U`, `total_lt_229U`); round 607's `Linnik229.linnik_229` is the same exponent under `CGLDensity` |
 
 ## Building (rounds 217, 618)
 
@@ -564,3 +573,13 @@ Round 622 runs round 614's route at `L = 226/100` on round 614's window and cert
 - `Linnik226C.linnik_226c`: if `CGLDensity` holds, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ Kq^{226/100}`. It is `linnik_route` at round 614's `route226` and `grid226` (`routeOK226`, `fits226`, `typeII226c`, `total_le_226`); no new certificate.
 
 The round also sweeps the review of round 621: `SieveHMBins.lean`'s header (F5) and `windowPieceHM_glue`'s docstring (F7), the two annotations above (F2, F5) and §20 of SIEVE-ROUTE.md (F3). See the main README, round 622, and `frontier/linnik/SIEVE-ROUTE.md` §21. All axioms are clean. The final check prints 467 lines.
+
+## The unconditional exponent `229/100`: SieveTypeIIU229.lean … Linnik229U.lean (round 623)
+
+Round 623 runs round 621's route one hundredth lower, at `L = 229/100` on round 609's curve `gU` with round 621's Type II estimate, and it is the first landing under round 619's `total < K` form: the certificate's total is `0.939K`, above the `0.88K` convention of the earlier landings. The window's ends are written over `100000` (round 619's scan found them to five decimals).
+
+- `SieveTypeIIU229`: the window at `L = 229/100` on `[40011/100000, 47579/100000]·L` (`window_229`): the piece `1` and twenty of `gU`'s steps by orthogonality at their corners, the top piece `(101/50)(1 − σ)` on `[5/6, 11/12]` by `windowPieceHM_const_split` at its 24 corners, as round 621's `window_230`; `typeII_229`, `typeII_gen_hm` there, with no hypothesis.
+- `SieveGrid229U`, `SieveCert229UP1` … `SieveCert229UP5`, `SieveCert229U`: the window's grid with `n = 150` (`grid229U`, `gridOK229U`); the total is the sum of 21 parts of consecutive rows of work (cells of depth 4 plus candidate cells) at most 2400 (`total_eq_rows229U`), each part at most its bound by `decide +kernel` in one of the five part files (4, 5, 4, 4, 4 parts; `rows229U_0` … `rows229U_20`, one at a time, one `lean` process per file, each importing `SieveCertDefs.lean` only), and the bounds `⌈1.001 × part⌉` sum to `0.94008K < K` (`total_lt_229U`). The part files compiled in 1347 s (`P1` 153 s, `P2` 175 s, `P3` 516 s, `P4` 326 s, `P5` 177 s) and peaked at 11.19 GiB (`P3`).
+- `Linnik229U.linnik_229U`: there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ Kq^{229/100}`. It is `linnik_route_lt` at `route229U` and `grid229U` (`routeOK229U`, `fits229U`, `typeII229U`, `total_lt_229U`), with no hypothesis.
+
+The round also sweeps the review of round 622 (three cosmetics): `SieveHMBins.lean`'s header names the factor after the orthogonality step, §21 of SIEVE-ROUTE.md says `decide +kernel` check, and the round-621 entry's sentence on what round 621 edited is reworded. See the main README, round 623, and `frontier/linnik/SIEVE-ROUTE.md` §22. All axioms are clean; `gridOK229U` and the 21 `rows229U_k` print no axioms. The final check prints 476 lines.
