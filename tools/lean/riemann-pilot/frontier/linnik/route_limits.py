@@ -22,7 +22,9 @@ A row with `total < K`, no failed corner and every grid and route condition true
 `SieveMain.linnik_route_lt` takes, with the curve's counts (`counts_U`; `counts_7c` under `CGLDensity`), which do not
 depend on `L`: what remains is the kernel's run of `norm_num` at the corners and `decide +kernel` on the total, which
 this script does not make. Lean's kernel has accepted each part of rounds 623 and 625 that it has run, with bounds
-`⌈1.001 × part⌉` from earlier replays of the same definitions, whose totals this script reproduces.
+about `0.1%` above the parts from earlier replays of the same definitions, whose totals this script reproduces:
+`math.ceil(part * 1.001)` in double precision for round 623's, `⌈1.001 × part⌉` exactly for round 625's. (Round 627:
+it read "with bounds `⌈1.001 × part⌉`", false for round 623's; review of round 626, F2.)
 
 Curves, parsed from the Lean sources: `gU` (`SieveTypeIIU232.lean`, with no hypothesis) and `g7c`
 (`SieveTypeIIU226C.lean`, under `LinnikCGL.CGLDensity`).
@@ -30,11 +32,17 @@ Curves, parsed from the Lean sources: `gU` (`SieveTypeIIU232.lean`, with no hypo
 Usage:
   route_limits.py run OUT.jsonl CURVE L N [N ...]   window, corners and replay at each N; rows already in OUT reused
   route_limits.py fit OUT.jsonl                     per (curve, L) with three or more N: loss(N) ≈ a + c/N
-  route_limits.py floor CURVE                       the least L = k/10⁴ with a sampled window; its exact corners
+  route_limits.py floor CURVE                       the exact floor L*; the least L = k/10⁴ with a sampled window
+  route_limits.py holdout OUT.jsonl CURVE L N       the fits without the row at N, evaluated at N, against that row
 
 `fit` is an extrapolation, not a certificate: `a` (all grids, least squares) and `a₂` (the two largest grids) estimate
 the loss as `N → ∞`, and `c/(1 − a)` is the `N` at which the fitted line crosses `1`. `L` is given as a decimal or a
 fraction (`9/4`) and stored as a fraction.
+
+`floor`'s exact floor: `Fits` gives `DEN < L·U2 < L·w₂·DEN`, so `m₂ > 1`, where `WindowOKHM` has only its orthogonality
+branch; at `m = m₂` that branch is `(L − m₂)(1 − β − w) ≥ g(β)/2 + 1/25000`, so every window that `Fits` and
+`WindowOKHM` accept has `L > L* = 1 + max (g(β)/2 + 1/25000)/(1 − β − 4·10⁻⁶)` over `β ≤ 11/12`. On each piece the
+quotient grows with `β`, so the maximum is at a piece's right end. (Round 627; review of round 626, F4.)
 """
 import json, os, re, sys, time
 from fractions import Fraction as Fr
@@ -225,7 +233,7 @@ def replay(U1, U2, n):
 
 
 def frac(s):
-    return Fr(s) if '/' in s else Fr(s)
+    return Fr(s)
 
 
 def rows_of(out):
@@ -340,9 +348,26 @@ def cmd_floor(curve):
     W1, W2 = round(w[0] * 100000), round(w[1] * 100000)
     fails, slack, tag = corners(pieces, L, W1, W2)
     amax = max(A for _, _, A in pieces if A is not None)
-    print(f'{curve}: the sampled window is empty at L = {lo / 10000} and nonempty at {hi / 10000}: [{W1}, {W2}]/1e5, '
-          f'its exact corners {"pass" if not fails else "FAIL"} (least slack {float(slack):.2e}); '
-          f'A_max = {amax}, 1 + A_max/2 = {float(1 + amax / 2):.5f}')
+    at = [f'[{plo}, {phi}]' for plo, phi, A in pieces if A == amax]
+    q = max(((Fr(1) if A is None else A * (1 - phi)) / 2 + MARGIN) / (1 - phi - WS[1]) for _, phi, A in pieces)
+    arg = [f'{phi}' for _, phi, A in pieces
+           if ((Fr(1) if A is None else A * (1 - phi)) / 2 + MARGIN) / (1 - phi - WS[1]) == q]
+    print(f'{curve}: the exact floor L* = 1 + max (g/2 + 1/25000)/(1 - b - 4e-6) = {float(1 + q):.7f}, at b = '
+          f'{", ".join(arg)}; A_max = {amax} on {", ".join(at)}, 1 + A_max/2 = {float(1 + amax / 2):.5f}. The sampled '
+          f'window is empty at L = {lo / 10000} and nonempty at {hi / 10000}: [{W1}, {W2}]/1e5, its exact corners '
+          f'{"pass" if not fails else "FAIL"} (least slack {float(slack):.2e})')
+
+
+def cmd_holdout(out, curve, Ls, n):
+    """The fits at (curve, L) without the row at `n`, evaluated at `n`, against that row: an out-of-sample test."""
+    L = frac(Ls)
+    rows = rows_of(out)
+    keep = [r for r in rows if not (r['curve'] == curve and Fr(r['L']) == L and r['n'] == n)]
+    assert len(keep) == len(rows) - 1, 'no such row'
+    d = [d for d in fits(keep)[0] if d['curve'] == curve and d['L'] == L][0]
+    act = [r['total_over_K'] for r in rows if r['curve'] == curve and Fr(r['L']) == L and r['n'] == n][0]
+    print(f"{curve} L={L} without n={n} (grids {[m for m, _ in d['pts']]}): a + c/n = {d['a'] + d['c'] / n:.5f}, "
+          f"a₂ + c₂/n = {d['a2'] + d['c2'] / n:.5f}; the replay at n = {n}: {act:.5f}")
 
 
 if __name__ == '__main__':
@@ -353,5 +378,7 @@ if __name__ == '__main__':
         cmd_fit(a[1])
     elif a[0] == 'floor':
         cmd_floor(a[1])
+    elif a[0] == 'holdout':
+        cmd_holdout(a[1], a[2], a[3], int(a[4]))
     else:
         sys.exit(__doc__)
