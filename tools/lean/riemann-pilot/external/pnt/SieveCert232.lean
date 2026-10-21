@@ -5,8 +5,9 @@ The grid of `SieveTypeIIU232.typeII_232`'s window: `U1 = ⌈(4045/10000)DEN⌉`,
 it `SieveCert.total` is at most `0.88K`, checked by the kernel in 25 parts: `rows a b` is the sum of the rows
 `a ≤ i < b` of the total, the total is the sum of its 25 parts (`total_eq_rows`; from 2 to 30 rows each, grouped by the
 kernel's work), and each part is bounded by `decide +kernel` (`rows_0` … `rows_24`), one at a time (`Elab.async
-false`). One kernel check of the whole grid at `n = 150` needs more memory than the machine has (it was killed at 13 GB
-of 16), and the kernel frees a part's memory before the next; a part of 15 rows took up to 7.4 GB (scratch).
+false`). One kernel check of the whole grid at `n = 150` needs more memory than the shell's memory cgroup allows (it was
+killed below the cgroup's 13.36 GiB limit; the machine has 16), and the kernel frees a part's memory before the next; a
+part of 15 rows took up to 7.4 GB (scratch).
 
 The file imports `SieveCert.lean`.
 -/
