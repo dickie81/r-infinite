@@ -25672,3 +25672,28 @@ For the other 47 the lead recorded no instance. The review of round 605 showed e
 **Bearing on RH:** none.
 
 **The next step.** One convergence review of this sweep (the review of round 615 found minors, so convergence is owed again); the owner's stack analysis runs meanwhile.
+
+## Round 617: sweep of the convergence review of round 616 (F1 minor; F2–F4 cosmetic)
+
+**What it is.** The convergence review of round 616's sweep (the `hostile-reviewer` agent at the session's model and maximum effort, from `scratchpad/r616/review/review_brief.md`; its evidence under `scratchpad/r616/review/hr/`) returned no MAJOR, one proposed minor and three cosmetics. The lead verified each directly (Check 3) and accepted all four. This round is the sweep; it is not yet a converged state.
+
+**The findings and their dispositions.**
+
+- **F1** (minor; the marking rule, "every surface"). Round 616 struck "killed at 13 GB of the machine's 16" in round 609's entry, but the same attribution of that kill to the machine's memory stood on four more surfaces: `SieveCert232.lean`'s header ("needs more memory than the machine has (it was killed at 13 GB of 16)"), §15 of SIEVE-ROUTE.md (the same figure), round 609's entry ("one check of the whole grid needs more memory than the machine has") and the external README's round-609 section ("needed more memory than the machine has"). The lead read all four. Struck and annotated on the three markdown surfaces (the kill's figure was a watcher's KiB reading converted by hand; its kernel log is no longer available); the header corrected ("needs more memory than the shell's memory cgroup allows (it was killed below the cgroup's 13.36 GiB limit; the machine has 16)") and `SieveCert232` recompiled in full, its 25 kernel checks included.
+- **F2** (cosmetic; the round-615 F3 class again). Rounds 615–616 called the 13.36 GiB limit "the container's": it is the limit of the shell tool's memory cgroup (`…/claude-code-bash`, which holds `lean` and the shell's other children); the container's own cgroup is unlimited and has reached 15.2 GiB. The lead read both cgroups' `memory.limit_in_bytes` and `memory.max_usage_in_bytes`. Struck on the five README sites (round 609's annotation, round 615's entry, round 616's entry) and corrected in `SieveGrid226.lean`'s header ("the shell's cgroup limit being 13.36 GiB"). Round 615's annotations, which say "the process cgroup's", stand.
+- **F3** (cosmetic; Check 9). "none can see a prose figure's source" scoped: no committed check reads the figures' sources, the watcher's logs and the kernel's log, which are scratch.
+- **F4** (cosmetic). §18's round-616 annotation of the `n = 300` record claim now carries the "retracted as a record claim, false when written" tag its README twin had.
+
+**What is checked.**
+
+- `lean` was run on `SieveGrid226` and `SieveCert232` (their headers changed) with the build's `LEAN_PATH` and `build.sh`'s own options, into `build/`, one at a time: 66 s and 850 s (`SieveCert232`'s 25 kernel checks, resident memory peaking at 10.8 GiB (11,330,776 KiB)); no error, warning or `sorry`; `gridOK226`, `gridOK232` print `[propext]` and `total_eq_rows`, `total_le_232` the three axioms, as before; no line of either file exceeds 120 characters (the longest 118 and 120).
+- `build.sh`'s final check, run alone against `build/`, prints 442 clean lines of 442: 434 `[propext, Classical.choice, Quot.sound]` and 8 `[propext]` (47.4 s).
+- `tools/research/render_lint.py`'s `lint` on the three changed markdown files, compared with HEAD by defect class: `README.md` 1872 → 1872 (seven `<del>` elements added), `frontier/linnik/SIEVE-ROUTE.md` 25 → 25 (one added), `external/pnt/README.md` 5 → 5 (one added); no file gains a report.
+
+**Records.** `README.md`: rounds 609, 615 and 616, seven strikes (F1, F2, F3); this entry. `frontier/linnik/SIEVE-ROUTE.md`: §15, one strike (F1); §18, one tag (F4). `external/pnt/README.md`: the round-609 section, one strike (F1). `external/pnt/SieveCert232.lean` and `SieveGrid226.lean`: the headers (F1, F2).
+
+**Check 4.** Nothing new against the pilot. **Check 9.** (a) The limit is now named by its cgroup on every surface this round touched; "every process in it" is gone. (b), (c) unchanged.
+
+**Bearing on RH:** none.
+
+**The next step.** One convergence review of this sweep.
