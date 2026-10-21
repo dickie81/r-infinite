@@ -25661,7 +25661,7 @@ For the other 47 the lead recorded no instance. The review of round 605 showed e
 
 **What is checked.**
 
-- `lean` was run on `SieveGrid226` (its header changed again) with the build's `LEAN_PATH` and `build.sh`'s own options, into `build/`: 10 s, no error, warning or `sorry`; `gridOK226` prints `[propext]`; no line of the file exceeds 120 characters (the longest is 119). As in round 615, the modules importing it were not recompiled: round 615's reviewer showed the header is a block comment stored in no olean, and that `SieveCert226` recompiled against the new olean is byte-identical.
+- `lean` was run on `SieveGrid226` (its header changed again) with the build's `LEAN_PATH` and `build.sh`'s own options, into `build/`: 10 s, no error, warning or `sorry`; `gridOK226` prints `[propext]`; no line of the file exceeds 120 characters (the longest is 118). As in round 615, the modules importing it were not recompiled: round 615's reviewer showed the header is a block comment stored in no olean, and that `SieveCert226` recompiled against the new olean is byte-identical.
 - `build.sh`'s final check, run alone against `build/`, prints 442 clean lines of 442: 434 `[propext, Classical.choice, Quot.sound]` and 8 `[propext]` (11.1 s).
 - `tools/research/render_lint.py`'s `lint` on the two changed markdown files, compared with HEAD by defect class: `README.md` 1872 → 1872 (nine `<del>` elements added), `frontier/linnik/SIEVE-ROUTE.md` 25 → 25 (one added); no file gains a report.
 
