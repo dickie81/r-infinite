@@ -8,7 +8,8 @@
 # A module is compiled only if its olean is missing or older than its source or than the olean in ../../build of a
 # module it imports (one of the pilot's, PNT+'s or this directory's; Mathlib's oleans are not compared), so after
 # an edit only that file and its dependents are rebuilt, one at a time; FORCE=1 compiles every module (round 618,
-# the rule of ../../build.sh since round 217). The final check, which prints the axioms of the final theorems, runs
+# the rule of ../../build.sh since round 217); the module list must be in dependency order, which the script checks
+# (round 619). The final check, which prints the axioms of the final theorems, runs
 # every time. The build fails if Lean reports a use of sorry in one of this directory's files that it compiles, or
 # if such a file or the final check prints an axiom outside propext, Classical.choice and Quot.sound (round 327,
 # the rule of ../../build.sh). The vendored PNT+ files are not checked: two lemmas of PNT+'s Wiener.lean are sorry,
@@ -49,11 +50,19 @@ dirty() {
 # c GATE ROOT MODULE [lean options]: compile ROOT/MODULE.lean to B/MODULE.olean, unless FORCE is not 1 and that olean
 # is newer than the source and than the olean in B of every module the source imports (an import with no olean in B
 # is not compared). With GATE = 1, fail, removing that olean, if Lean reports a use of sorry in the file or it prints
-# an axiom outside the three. NC counts the modules compiled, NUP those up to date.
-NC=0; NUP=0
+# an axiom outside the three. NC counts the modules compiled, NUP those up to date. The list must be in dependency
+# order: a module of PNT+ or of this directory that the source imports must have been listed before it, else the
+# build fails (round 619; SEEN holds the modules listed so far).
+NC=0; NUP=0; SEEN=""
 c() {
   local gate=$1 root=$2 rel=${3//.//} out dep t0 stale; shift 3
   local src="$root/$rel.lean" olean="$B/$rel.olean"
+  for dep in $(sed -nE 's/^[[:space:]]*(public[[:space:]]+)?import[[:space:]]+//p' "$src"); do
+    if [ -f "$HERE/${dep//.//}.lean" ] || [ -f "$UP/${dep//.//}.lean" ]; then
+      case " $SEEN " in *" $dep "*) ;; *) echo "build.sh: ${rel//\//.} imports $dep, listed after it" >&2; exit 1;; esac
+    fi
+  done
+  SEEN="$SEEN ${rel//\//.}"
   if [ "${FORCE:-0}" != 1 ] && [ -f "$olean" ] && [ ! "$src" -nt "$olean" ]; then
     stale=0
     for dep in $(sed -nE 's/^[[:space:]]*(public[[:space:]]+)?import[[:space:]]+//p' "$src"); do
@@ -501,6 +510,7 @@ import Linnik226
 #print axioms SieveMain.TB_ev
 #print axioms SieveMain.linnik_large
 #print axioms SieveMain.linnik_route
+#print axioms SieveMain.linnik_route_lt
 #print axioms SieveMain.fits2333
 #print axioms SieveMain.linnik_2333
 #print axioms LinnikIngham73.bound_class2_73

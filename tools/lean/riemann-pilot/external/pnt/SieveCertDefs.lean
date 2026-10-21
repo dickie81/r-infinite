@@ -5,11 +5,13 @@ The definitions of the loss certificate of `SieveCert.lean` (round 595: `DEN`, `
 `cdiv`, `sumTo`, `V`, `H`, `e`, `lim`, `inside`, `surelyEval`, `invK`, `omK`, `bound2`, `bound4`, `cell`, `cand`,
 `inKK`, `ne3`, `allowed`, `counted4`, `row`, `refcost`, `dec`, `cost`, `total`) and of its class `GridOK` (round 607),
 and round 609's `rows` (from `SieveCert232.lean`), moved here from those files: verbatim, except that `rows` takes the
-section's `[Grid]` in place of its own binder. They are arithmetic on natural numbers, lists and booleans, and the file
-imports only `Mathlib.Data.Nat.Notation` (the notation `ℕ`, nothing else), so a file that imports no more than this
-one, such as a certificate's part files (`SieveCert226P1.lean` … `SieveCert226P5.lean`), runs its kernel checks without
-Mathlib's environment, which `import Mathlib` loads into every process. The lemmas about these definitions, in the reals
-and over `Finset`, stay in `SieveCert.lean`, which imports this file and Mathlib.
+section's `[Grid]` in place of its own binder and `GridOK`'s docstring is rewrapped and names `SieveCert.lean`. They are
+arithmetic on natural numbers, lists and booleans, and the file imports only `Mathlib.Data.Nat.Notation` (the notation
+`ℕ`), whose closure is `Mathlib.Init`'s: 1,339 modules, loaded in about 0.9 GiB (round 619), not the whole of Mathlib.
+So a file that imports no more than this one, such as a certificate's part files (`SieveCert226P1.lean` …
+`SieveCert226P5.lean`), runs its kernel checks without the environment of `import Mathlib`, which loads about 6.3 GiB
+into every process. The lemmas about these definitions, in the reals and over `Finset`, stay in `SieveCert.lean`, which
+imports this file and Mathlib.
 -/
 import Mathlib.Data.Nat.Notation
 

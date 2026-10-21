@@ -672,10 +672,10 @@ theorem dropS_le_cost {x δ' X : ℝ} (hδ' : 0 ≤ δ') (hX : 0 ≤ X) {i j : �
     positivity
 
 omit [Route] [RouteOK] [SieveCert.GridOK] [Fits] in
-/-- The certificate's total in the reals: if `total ≤ 0.88K` (`htot`), then for `X ≥ 0`, `Σ_{i,j} (cost/K)X ≤ 0.88X`. -/
-theorem sum_cost_div (htot : total ≤ 88 * K / 100) (X : ℝ) (hX : 0 ≤ X) :
-    ∑ i ∈ range SieveCert.n, ∑ j ∈ range SieveCert.n, (cost i j : ℝ) / K * X ≤ 88 / 100 * X := by
-  have h := SieveCert.total_div_le htot
+/-- The certificate's total in the reals, with the loss as a parameter: if `total/K ≤ c` in the reals (`htot`), then for
+`X ≥ 0`, `Σ_{i,j} (cost/K)X ≤ cX` (round 619; `sum_cost_div` is the case `c = 0.88`). -/
+theorem sum_cost_div_of {c : ℝ} (htot : (total : ℝ) / K ≤ c) (X : ℝ) (hX : 0 ≤ X) :
+    ∑ i ∈ range SieveCert.n, ∑ j ∈ range SieveCert.n, (cost i j : ℝ) / K * X ≤ c * X := by
   have hsum : ∑ i ∈ range SieveCert.n, ∑ j ∈ range SieveCert.n, (cost i j : ℝ) / K * X = (total : ℝ) / K * X := by
     rw [SieveCert.total_eq]
     push_cast
@@ -683,7 +683,19 @@ theorem sum_cost_div (htot : total ≤ 88 * K / 100) (X : ℝ) (hX : 0 ≤ X) :
     refine Finset.sum_congr rfl fun i _ => ?_
     rw [Finset.sum_div, Finset.sum_mul]
   rw [hsum]
-  exact mul_le_mul_of_nonneg_right h hX
+  exact mul_le_mul_of_nonneg_right htot hX
+
+omit [Route] [RouteOK] [SieveCert.GridOK] [Fits] in
+/-- The certificate's total in the reals: if `total ≤ 0.88K` (`htot`), then for `X ≥ 0`, `Σ_{i,j} (cost/K)X ≤ 0.88X`. -/
+theorem sum_cost_div (htot : total ≤ 88 * K / 100) (X : ℝ) (hX : 0 ≤ X) :
+    ∑ i ∈ range SieveCert.n, ∑ j ∈ range SieveCert.n, (cost i j : ℝ) / K * X ≤ 88 / 100 * X :=
+  sum_cost_div_of (SieveCert.total_div_le htot) X hX
+
+omit [Route] [RouteOK] [SieveCert.GridOK] [Fits] in
+/-- If `total < K` in the natural numbers, then `total/K < 1` in the reals (round 619). -/
+theorem total_div_lt (htot : total < K) : (total : ℝ) / K < 1 := by
+  rw [div_lt_one SieveCert.K_pos']
+  exact_mod_cast htot
 
 omit [Route] [RouteOK] [Fits] in
 /-- **The shares, eventually**: on a grid with `GridOK`, for `δ' > 0` and large `x`, simultaneously, every candidate
@@ -711,10 +723,11 @@ theorem shares_ev {δ' : ℝ} (hδ' : 0 < δ') : ∀ᶠ x : ℝ in atTop, ∀ i 
       exact hx
     · exact Filter.Eventually.of_forall fun x h => absurd h hc
 
-/-- **The dropped terms, for large `q`**: for a route with `RouteOK` and a grid with `GridOK` that fit (`Fits`), if the
-certificate's total is at most `0.88K` (`htot`), then for `ε > 0`, `D1(g_B) ≤ φ(q)⁻¹(0.88 + ε)x/log x`. -/
-theorem drop_ev (htot : total ≤ 88 * K / 100) {ε : ℝ} (hε : 0 < ε) : ∀ᶠ q : ℕ in atTop, LargeQ q →
-    (parQ q).D1 (gB q) ≤ (q.totient : ℝ)⁻¹ * ((88 / 100 + ε) * (xq q / Real.log (xq q))) := by
+/-- **The dropped terms, for large `q`, with the loss as a parameter**: for a route with `RouteOK` and a grid with
+`GridOK` that fit (`Fits`), if `total/K ≤ c` in the reals (`htot`), then for `ε > 0`,
+`D1(g_B) ≤ φ(q)⁻¹(c + ε)x/log x` (round 619; `drop_ev` is the case `c = 0.88`). -/
+theorem drop_ev_of {c : ℝ} (htot : (total : ℝ) / K ≤ c) {ε : ℝ} (hε : 0 < ε) : ∀ᶠ q : ℕ in atTop, LargeQ q →
+    (parQ q).D1 (gB q) ≤ (q.totient : ℝ)⁻¹ * ((c + ε) * (xq q / Real.log (xq q))) := by
   have hn : (0 : ℝ) < SieveCert.n := by exact_mod_cast SieveCert.n_pos
   set M : ℝ := (SieveCert.n : ℝ) * SieveCert.n * (1 + SieveCert.n * SieveCert.n) with hM
   have hM0 : 0 < M := by positivity
@@ -728,7 +741,7 @@ theorem drop_ev (htot : total ≤ 88 * K / 100) {ε : ℝ} (hε : 0 < ε) : ∀�
   have hX0 : 0 ≤ X := div_nonneg (by linarith) (Real.log_nonneg hx1.le)
   have hφ : (0 : ℝ) ≤ (q.totient : ℝ)⁻¹ := by positivity
   have hdrop : ∑ i ∈ range SieveCert.n, ∑ j ∈ range SieveCert.n, dropS (xq q) i j ≤
-      88 / 100 * X + ε / 2 * X := by
+      c * X + ε / 2 * X := by
     calc ∑ i ∈ range SieveCert.n, ∑ j ∈ range SieveCert.n, dropS (xq q) i j
         ≤ ∑ i ∈ range SieveCert.n, ∑ j ∈ range SieveCert.n,
             ((cost i j : ℝ) / K * X + δ' * (1 + SieveCert.n * SieveCert.n) * X) := by
@@ -740,8 +753,8 @@ theorem drop_ev (htot : total ≤ 88 * K / 100) {ε : ℝ} (hε : 0 < ε) : ∀�
             SieveCert.n * SieveCert.n * (δ' * (1 + SieveCert.n * SieveCert.n) * X) := by
           simp only [Finset.sum_add_distrib, Finset.sum_const, Finset.card_range, nsmul_eq_mul]
           ring
-      _ ≤ 88 / 100 * X + ε / 2 * X := by
-          have h1 := sum_cost_div htot X hX0
+      _ ≤ c * X + ε / 2 * X := by
+          have h1 := sum_cost_div_of htot X hX0
           have h2 : (SieveCert.n : ℝ) * SieveCert.n * (δ' * (1 + SieveCert.n * SieveCert.n) * X) = ε / 2 * X := by
             rw [hδ']
             field_simp
@@ -751,8 +764,14 @@ theorem drop_ev (htot : total ≤ 88 * K / 100) {ε : ℝ} (hε : 0 < ε) : ∀�
   calc (parQ q).D1 (gB q)
       ≤ (q.totient : ℝ)⁻¹ * (∑ i ∈ range SieveCert.n, ∑ j ∈ range SieveCert.n, dropS (xq q) i j +
           (SieveCert.n : ℝ) ^ 2 * ((cornerP (parQ q).ztop).card : ℝ) ^ 2) := D1_le G hC.1 hq1
-    _ ≤ (q.totient : ℝ)⁻¹ * ((88 / 100 * X + ε / 2 * X) + ε / 2 * X) :=
+    _ ≤ (q.totient : ℝ)⁻¹ * ((c * X + ε / 2 * X) + ε / 2 * X) :=
         mul_le_mul_of_nonneg_left (add_le_add hdrop hC.2) hφ
-    _ = (q.totient : ℝ)⁻¹ * ((88 / 100 + ε) * X) := by ring
+    _ = (q.totient : ℝ)⁻¹ * ((c + ε) * X) := by ring
+
+/-- **The dropped terms, for large `q`**: for a route with `RouteOK` and a grid with `GridOK` that fit (`Fits`), if the
+certificate's total is at most `0.88K` (`htot`), then for `ε > 0`, `D1(g_B) ≤ φ(q)⁻¹(0.88 + ε)x/log x`. -/
+theorem drop_ev (htot : total ≤ 88 * K / 100) {ε : ℝ} (hε : 0 < ε) : ∀ᶠ q : ℕ in atTop, LargeQ q →
+    (parQ q).D1 (gB q) ≤ (q.totient : ℝ)⁻¹ * ((88 / 100 + ε) * (xq q / Real.log (xq q))) :=
+  drop_ev_of (SieveCert.total_div_le htot) hε
 
 end SieveDrop

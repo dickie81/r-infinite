@@ -3,9 +3,8 @@
 
 On `SieveGrid226.grid226` (`U1 = ⌈(4075/10000)DEN⌉`, `U2 = ⌊(4835/10000)DEN⌋`, `n = 200`), `SieveCert.total` is at most
 `0.88K`: as round 609's `SieveCert232.lean`, `rows a b` (in `SieveCertDefs.lean` since round 618) is the sum of the rows
-`a ≤ i < b` of the
-total, the total is the sum of its 49 parts (`total_eq_rows226`; from 1 to 53 rows each, grouped by the kernel's
-work), and each part is at most its bound (`rows226_0` … `rows226_48`, by `decide +kernel` in the 5 files
+`a ≤ i < b` of the total, the total is the sum of its 49 parts (`total_eq_rows226`; from 1 to 53 rows each, grouped by
+the kernel's work), and each part is at most its bound (`rows226_0` … `rows226_48`, by `decide +kernel` in the 5 files
 `SieveCert226P1.lean` … `SieveCert226P5.lean`), so `total_le_226`.
 
 The file imports `SieveCert.lean` (for `total_eq` and `rows_eq`; round 618) and `SieveCert226P1.lean` …

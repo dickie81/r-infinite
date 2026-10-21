@@ -8,7 +8,7 @@ and one file of 35 parts, with Mathlib loaded as before round 618, was killed at
 limit being 13.36 GiB), and assembled in `SieveCert226.lean`.
 
 The file imports `SieveCertDefs.lean` (round 618; until then `SieveCert232.lean`, for `rows` and `rows_eq`), so neither
-it nor the part files load Mathlib.
+it nor the part files load `Mathlib` (they load `Mathlib.Init`'s closure, 1,339 modules; round 619).
 -/
 import SieveCertDefs
 

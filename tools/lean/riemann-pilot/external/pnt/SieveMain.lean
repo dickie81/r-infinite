@@ -142,7 +142,7 @@ theorem TB_ev {ε : ℝ} (hε : 0 < ε) : ∀ᶠ q : ℕ in atTop, LargeQ q →
       have : xq q = ((q : ℝ) ^ (L / 2 : ℝ)) ^ 2 := by
         rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity)]
         push_cast
-        ring
+        ring_nf
       rw [this]
       nlinarith
     have h2 : Real.sqrt (2 * xq q) ≤ xq q - 2 := by
@@ -207,21 +207,26 @@ theorem ev_log_le {c r : ℝ} (hc : 0 < c) (hr : 0 < r) : ∀ᶠ q : ℕ in atTo
   rw [Real.norm_of_nonneg (Real.log_nonneg hq0), Real.norm_of_nonneg (by positivity)] at hq
   exact hq
 
-/-- **Linnik's theorem at `x = q^L`, for large `q`.** For a route with `RouteOK` and a grid with `GridOK` that fit
-(`Fits`), given the route's Type II estimate (`hII`) and the certificate's total at most `0.88K` (`htot`), there is `q₀`
-such that for `q ≥ q₀` and `a` a unit mod `q` there is a prime `p ≡ a (mod q)` with `q^L < p ≤ 2q^L`. -/
-theorem linnik_large (hII : TypeIIAt) (htot : SieveCert.total ≤ 88 * SieveCert.K / 100) :
+/-- **Linnik's theorem at `x = q^L`, for large `q`, with the certificate's loss as a parameter.** For a route with
+`RouteOK` and a grid with `GridOK` that fit (`Fits`), given the route's Type II estimate (`hII`) and `total/K ≤ c` in
+the reals for some `c < 1` (`htot`), there is `q₀` such that for `q ≥ q₀` and `a` a unit mod `q` there is a prime
+`p ≡ a (mod q)` with `q^L < p ≤ 2q^L`. The four losses the proof sets (`TB_ev`'s, `drop_ev_of`'s, the leaves' error
+through `η` and `q ≤ εX`) are each `ε = (1 − c)/10` of `X = x/log x`, leaving `(1 − c)X/2` of `S(A, z_top)` (round
+619; `linnik_large` is the case `c = 0.88`, `ε = 1/100`). -/
+theorem linnik_large_of (hII : TypeIIAt) {c : ℝ} (hc : c < 1) (htot : (SieveCert.total : ℝ) / SieveCert.K ≤ c) :
     ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∃ p : ℕ, p.Prime ∧ (p : ZMod q) = a ∧ (q : ℝ) ^ L < p ∧ (p : ℝ) ≤ 2 * (q : ℝ) ^ L := by
   have hC := Cdec_pos
   have hL0 : 0 < L := L_pos
-  set η : ℝ := 1 / (100 * Cdec * L) with hη
+  set ε : ℝ := (1 - c) / 10 with hεdef
+  have hε : 0 < ε := by rw [hεdef]; linarith
+  set η : ℝ := ε / (Cdec * L) with hη
   have hη0 : 0 < η := by positivity
   obtain ⟨δ, hδ, q₁, hlv⟩ := SieveQ.leaves_ev hII hη0
-  have hev1 := ev_log_le (c := 1 / (100 * Cdec * L)) (by positivity) hδ
-  have hev2 := ev_log_le (c := 1 / (100 * L)) (by positivity) (show (0 : ℝ) < L - 1 by linarith [two_lt_L])
-  obtain ⟨q₂, hq₂⟩ := Filter.eventually_atTop.1 ((TB_ev (ε := 1 / 100) (by norm_num)).and
-    ((drop_ev htot (ε := 1 / 100) (by norm_num)).and (hev1.and (hev2.and (eventually_ge_atTop 3)))))
+  have hev1 := ev_log_le (c := ε / (Cdec * L)) (by positivity) hδ
+  have hev2 := ev_log_le (c := ε / L) (by positivity) (show (0 : ℝ) < L - 1 by linarith [two_lt_L])
+  obtain ⟨q₂, hq₂⟩ := Filter.eventually_atTop.1 ((TB_ev hε).and
+    ((drop_ev_of htot hε).and (hev1.and (hev2.and (eventually_ge_atTop 3)))))
   refine ⟨q₁ + q₂, fun q _ hq a ha => ?_⟩
   obtain ⟨hTB, hD, h1, h2, hq3⟩ := hq₂ q (by omega)
   obtain ⟨hL, Lv⟩ := hlv q (by omega) a ha
@@ -243,55 +248,57 @@ theorem linnik_large (hII : TypeIIAt) (htot : SieveCert.total ≤ 88 * SieveCert
   set X := xq q / Real.log (xq q) with hXdef
   have hX : X = Q / (L * Real.log q) := by rw [hXdef, hlogx]
   have hX0 : 0 < X := by rw [hX]; positivity
-  -- the leaves' error: `C·Err ≤ φ⁻¹(X/100 + X/100)`
-  have hErr : Cdec * Err η δ q ≤ (q.totient : ℝ)⁻¹ * (X / 100 + X / 100) := by
+  -- the leaves' error: `C·Err ≤ φ⁻¹(εX + εX)`
+  have hErr : Cdec * Err η δ q ≤ (q.totient : ℝ)⁻¹ * (ε * X + ε * X) := by
     have hsplit : (q : ℝ) ^ (L - δ) * (q : ℝ) ^ δ = Q := by
       rw [← Real.rpow_add hq0, sub_add_cancel]
     have hd0 : 0 < (q : ℝ) ^ δ := by positivity
-    have hA : Cdec * (η * Q / (q.totient * Real.log q)) = (q.totient : ℝ)⁻¹ * (X / 100) := by
+    have hA : Cdec * (η * Q / (q.totient * Real.log q)) = (q.totient : ℝ)⁻¹ * (ε * X) := by
       rw [hX, hη]
       field_simp
-    have hB : Cdec * ((q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ)) ≤ (q.totient : ℝ)⁻¹ * (X / 100) := by
+    have hB : Cdec * ((q.totient : ℝ)⁻¹ * (q : ℝ) ^ (L - δ)) ≤ (q.totient : ℝ)⁻¹ * (ε * X) := by
       rw [mul_left_comm]
       refine mul_le_mul_of_nonneg_left ?_ hφ.le
-      rw [hX, div_div, le_div_iff₀ (by positivity)]
-      have h1' : 100 * Cdec * L * Real.log q ≤ (q : ℝ) ^ δ := by
+      rw [hX, ← mul_div_assoc, le_div_iff₀ (by positivity)]
+      have h1' : Cdec * L * Real.log q ≤ ε * (q : ℝ) ^ δ := by
         have := h1
-        rw [div_mul_eq_mul_div, one_mul, le_div_iff₀ (by positivity)] at this
+        rw [div_mul_eq_mul_div, le_div_iff₀ (by positivity)] at this
         linarith
-      calc Cdec * (q : ℝ) ^ (L - δ) * (L * Real.log q * 100)
-          = (q : ℝ) ^ (L - δ) * (100 * Cdec * L * Real.log q) := by ring
-        _ ≤ (q : ℝ) ^ (L - δ) * (q : ℝ) ^ δ := mul_le_mul_of_nonneg_left h1' (by positivity)
-        _ = Q := hsplit
+      calc Cdec * (q : ℝ) ^ (L - δ) * (L * Real.log q)
+          = (q : ℝ) ^ (L - δ) * (Cdec * L * Real.log q) := by ring
+        _ ≤ (q : ℝ) ^ (L - δ) * (ε * (q : ℝ) ^ δ) := mul_le_mul_of_nonneg_left h1' (by positivity)
+        _ = ε * Q := by rw [← hsplit]; ring
     unfold SieveQ.Err
     rw [mul_add]
     linarith
-  -- `q ≤ X/100`
-  have hqX : (q : ℝ) ≤ X / 100 := by
-    rw [hX, div_div, le_div_iff₀ (by positivity)]
-    have h2' : 100 * L * Real.log q ≤ (q : ℝ) ^ (L - 1) := by
+  -- `q ≤ εX`
+  have hqX : (q : ℝ) ≤ ε * X := by
+    rw [hX, ← mul_div_assoc, le_div_iff₀ (by positivity)]
+    have h2' : L * Real.log q ≤ ε * (q : ℝ) ^ (L - 1) := by
       have := h2
-      rw [div_mul_eq_mul_div, one_mul, le_div_iff₀ (by positivity)] at this
+      rw [div_mul_eq_mul_div, le_div_iff₀ (by positivity)] at this
       linarith
     have hsplit : (q : ℝ) * (q : ℝ) ^ (L - 1) = Q := by
       rw [← Real.rpow_one_add' hq0.le (by rw [add_sub_cancel]; exact hL0.ne'), add_sub_cancel]
-    calc (q : ℝ) * (L * Real.log q * 100) = (q : ℝ) * (100 * L * Real.log q) := by ring
-      _ ≤ (q : ℝ) * (q : ℝ) ^ (L - 1) := mul_le_mul_of_nonneg_left h2' hq0.le
-      _ = Q := hsplit
-  -- `S(A, z_top) > 0`
+    calc (q : ℝ) * (L * Real.log q) ≤ (q : ℝ) * (ε * (q : ℝ) ^ (L - 1)) := mul_le_mul_of_nonneg_left h2' hq0.le
+      _ = ε * Q := by rw [← hsplit]; ring
+  -- `S(A, z_top) > 0`: what is left is `(1 − c − 5ε)X = (1 − c)X/2`
   have hpos : 0 < (parQ q).T (gA q a) := by
-    have : (q.totient : ℝ)⁻¹ * (7 / 100 * X) ≤ (parQ q).T (gA q a) := by
-      have e1 : (q.totient : ℝ)⁻¹ * ((1 - 1 / 100) * X - q) - (q.totient : ℝ)⁻¹ * ((88 / 100 + 1 / 100) * X) -
-          (q.totient : ℝ)⁻¹ * (X / 100 + X / 100) ≤ (parQ q).T (gA q a) := by
+    have : (q.totient : ℝ)⁻¹ * ((1 - c) / 2 * X) ≤ (parQ q).T (gA q a) := by
+      have e1 : (q.totient : ℝ)⁻¹ * ((1 - ε) * X - q) - (q.totient : ℝ)⁻¹ * ((c + ε) * X) -
+          (q.totient : ℝ)⁻¹ * (ε * X + ε * X) ≤ (parQ q).T (gA q a) := by
         unfold Cdec at hErr
         linarith
-      have e2 : (q.totient : ℝ)⁻¹ * (7 / 100 * X) ≤ (q.totient : ℝ)⁻¹ * ((1 - 1 / 100) * X - q) -
-          (q.totient : ℝ)⁻¹ * ((88 / 100 + 1 / 100) * X) - (q.totient : ℝ)⁻¹ * (X / 100 + X / 100) := by
-        have : 7 / 100 * X ≤ ((1 - 1 / 100) * X - q) - ((88 / 100 + 1 / 100) * X) - (X / 100 + X / 100) := by
+      have e2 : (q.totient : ℝ)⁻¹ * ((1 - c) / 2 * X) ≤ (q.totient : ℝ)⁻¹ * ((1 - ε) * X - q) -
+          (q.totient : ℝ)⁻¹ * ((c + ε) * X) - (q.totient : ℝ)⁻¹ * (ε * X + ε * X) := by
+        have : (1 - c) / 2 * X ≤ ((1 - ε) * X - q) - ((c + ε) * X) - (ε * X + ε * X) := by
+          rw [hεdef] at hqX ⊢
           linarith
         nlinarith
       linarith
-    have : 0 < (q.totient : ℝ)⁻¹ * (7 / 100 * X) := by positivity
+    have : 0 < (q.totient : ℝ)⁻¹ * ((1 - c) / 2 * X) := by
+      have : 0 < (1 - c) / 2 * X := mul_pos (by linarith) hX0
+      positivity
     linarith
   -- a term of `S(A, z_top)` is positive: a prime `≡ a`
   unfold Par.T at hpos
@@ -319,13 +326,23 @@ theorem linnik_large (hII : TypeIIAt) (htot : SieveCert.total ≤ 88 * SieveCert
   · have : (m : ℝ) ≤ N2 q := by exact_mod_cast hm.2
     exact this.trans (N2_le q)
 
-/-- **Linnik's theorem with exponent `L`.** For a route with `RouteOK` and a grid with `GridOK` that fit (`Fits`), given
-the route's Type II estimate (`hII`) and the certificate's total at most `0.88K` (`htot`), there is `K` such that for
-every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^L`. -/
-theorem linnik_route (hII : TypeIIAt) (htot : SieveCert.total ≤ 88 * SieveCert.K / 100) :
+/-- **Linnik's theorem at `x = q^L`, for large `q`.** For a route with `RouteOK` and a grid with `GridOK` that fit
+(`Fits`), given the route's Type II estimate (`hII`) and the certificate's total at most `0.88K` (`htot`), there is `q₀`
+such that for `q ≥ q₀` and `a` a unit mod `q` there is a prime `p ≡ a (mod q)` with `q^L < p ≤ 2q^L`. -/
+theorem linnik_large (hII : TypeIIAt) (htot : SieveCert.total ≤ 88 * SieveCert.K / 100) :
+    ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
+      ∃ p : ℕ, p.Prime ∧ (p : ZMod q) = a ∧ (q : ℝ) ^ L < p ∧ (p : ℝ) ≤ 2 * (q : ℝ) ^ L :=
+  linnik_large_of hII (by norm_num) (SieveCert.total_div_le htot)
+
+/-- **Linnik's theorem with exponent `L`, with the certificate's loss as a parameter.** For a route with `RouteOK` and a
+grid with `GridOK` that fit (`Fits`), given the route's Type II estimate (`hII`) and `total/K ≤ c` in the reals for
+some `c < 1` (`htot`), there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime
+`p ≡ a (mod q)` with `p ≤ K·q^L` (round 619; `linnik_route` is the case `c = 0.88`, `linnik_route_lt` the case
+`c = total/K` for `total < K`). -/
+theorem linnik_route_of (hII : TypeIIAt) {c : ℝ} (hc : c < 1) (htot : (SieveCert.total : ℝ) / SieveCert.K ≤ c) :
     ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (a : ℕ), a.Coprime q →
     ∃ p : ℕ, p.Prime ∧ p ≡ a [MOD q] ∧ (p : ℝ) ≤ K * (q : ℝ) ^ L := by
-  obtain ⟨q₀, hq₀⟩ := linnik_large hII htot
+  obtain ⟨q₀, hq₀⟩ := linnik_large_of hII hc htot
   -- small moduli: one prime per residue, by Dirichlet's theorem
   let f : ℕ × ℕ → ℕ := fun x =>
     if h : x.1 ≠ 0 ∧ x.2.Coprime x.1 then Classical.choose (Nat.forall_exists_prime_gt_and_modEq 0 h.1 h.2)
@@ -366,6 +383,23 @@ theorem linnik_route (hII : TypeIIAt) (htot : SieveCert.total ≤ 88 * SieveCert
       _ ≤ max 2 (M : ℝ) * (q : ℝ) ^ L :=
           mul_le_mul_of_nonneg_left hqL (le_trans (by norm_num) (le_max_left _ _))
 
+/-- **Linnik's theorem with exponent `L`.** For a route with `RouteOK` and a grid with `GridOK` that fit (`Fits`), given
+the route's Type II estimate (`hII`) and the certificate's total at most `0.88K` (`htot`), there is `K` such that for
+every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^L`. -/
+theorem linnik_route (hII : TypeIIAt) (htot : SieveCert.total ≤ 88 * SieveCert.K / 100) :
+    ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (a : ℕ), a.Coprime q →
+    ∃ p : ℕ, p.Prime ∧ p ≡ a [MOD q] ∧ (p : ℝ) ≤ K * (q : ℝ) ^ L :=
+  linnik_route_of hII (by norm_num) (SieveCert.total_div_le htot)
+
+/-- **Linnik's theorem with exponent `L`, under a certificate whose total is below `K`.** For a route with `RouteOK` and
+a grid with `GridOK` that fit (`Fits`), given the route's Type II estimate (`hII`) and the certificate's total less than
+`K` (`htot`), there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with
+`p ≤ K·q^L` (round 619). -/
+theorem linnik_route_lt (hII : TypeIIAt) (htot : SieveCert.total < SieveCert.K) :
+    ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (a : ℕ), a.Coprime q →
+    ∃ p : ℕ, p.Prime ∧ p ≡ a [MOD q] ∧ (p : ℝ) ≤ K * (q : ℝ) ^ L :=
+  linnik_route_of hII (SieveDrop.total_div_lt htot) le_rfl
+
 end SieveMain
 
 namespace SieveMain
@@ -397,3 +431,4 @@ theorem linnik_2333 : ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (a : ℕ), a.Coprime
 end SieveMain
 
 #print axioms SieveMain.linnik_2333
+#print axioms SieveMain.linnik_route_lt
