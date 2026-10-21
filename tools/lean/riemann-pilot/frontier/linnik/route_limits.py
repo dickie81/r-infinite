@@ -1,6 +1,7 @@
-"""route_limits.py: where the sieve route's certificate ends (SIEVE-ROUTE.md §23, rounds 626–628): the certificates and
-the window corners in exact arithmetic, the fits and the window's scan in floating point. (Round 628: retracted, false
-when written: the first line read "…, in exact arithmetic"; review of round 627, finding 1.)
+"""route_limits.py: where the sieve route's certificate ends (SIEVE-ROUTE.md §23, rounds 626–629): the certificates,
+the window corners and `quadfit` in exact arithmetic, `fit` and the window's sampled scan in floating point. (Round 628:
+retracted, false when written: the first line read "…, in exact arithmetic"; review of round 627, finding 1. Round
+629: `quadfit` named; review of round 628, finding 4.)
 
 The route of SIEVE-ROUTE.md §§19–22 proves Linnik's theorem with exponent `L` from three checks on a window
 `[w₁, w₂]` (`m = w·L`): the window condition `WindowOKHM g L m₁ m₂ (1/1000) (1/1000)`, which the window files prove
@@ -15,7 +16,9 @@ This script computes the three for a curve, an exponent and a grid size `n`, wit
 * `corners`: every corner inequality of the window files in exact rationals (round 623's check): each piece below
   `5/6` by orthogonality (T1) at `β ∈ {lo, hi}`, `w ∈ {0, 4·10⁻⁶}` and the window's ends and `1`; the top piece
   `[5/6, 11/12]` by `windowPieceHM_const_split`'s three families. If a corner at an end fails, that end moves inward
-  by `10⁻⁵` until none fails; the row records the ends used;
+  by `10⁻⁵` until none fails; the row records the ends used. (Round 629: `corners` also takes a window with
+  `m₁ ≥ 1`, which `WindowOKHM` allows: there only the inequalities for `m ≥ 1`, at `m₁` and `m₂`; review of round
+  628, finding 2.);
 * `replay`: `SieveCertDefs.lean`'s `total` on the grid `U1 = ⌈w₁·DEN⌉`, `U2 = ⌊w₂·DEN⌋`, `n`, in exact integers
   (`cdiv`, `omK`, `bound2`, `bound4`, `cand`, `allowed`, `refcost`, `dec`, `cost` as there; natural subtraction
   truncated at `0`, division by `0` giving `0`), and `GridOK`, `Fits` and `RouteOK` as `decide` would evaluate them.
@@ -34,12 +37,14 @@ Curves, parsed from the Lean sources: `gU` (`SieveTypeIIU232.lean`, with no hypo
 Usage:
   route_limits.py run OUT.jsonl CURVE L N [N ...]   window, corners and replay at each N; rows already in OUT reused
   route_limits.py fit OUT.jsonl                     per (curve, L) with three or more N: loss(N) ≈ a + c/N
-  route_limits.py floor CURVE [LO HI A ...]         the exact floor L*; the least L = k/10⁴ with a sampled window;
-                                                    with LO HI A, the pieces inside [LO, HI] take the exponent A
+  route_limits.py floor CURVE [LO HI A ...]         the exact floor L* (with decimals rounded down and up); the least
+                                                    L = k/10⁴ with a sampled window; with LO HI A, the pieces inside
+                                                    [LO, HI] take the exponent A
   route_limits.py holdout OUT.jsonl CURVE L N       the fits without the row at N, evaluated at N, against that row
   route_limits.py quadfit OUT.jsonl                 per (curve, L) with four or more N: loss(N) ≈ a + c/N + d/N², exact
-  route_limits.py windows CURVE L                   the windows with m₁ < 1 < m₂ on the 10⁻⁵ grid near 1/L whose exact
-                                                    corners pass (W₁ within 40 below 10⁵/L, W₂ within 40 above)
+  route_limits.py windows CURVE L                   all the windows [W1, W2]/10⁵ whose exact corners pass, with
+                                                    m₁ < 1 < m₂ and with m₁ ≥ 1 (round 629: it searched W₁ and W₂
+                                                    within 40 of 10⁵/L, for m₁ < 1 only)
   route_limits.py parts NAME W1 W2 DW N             each committed part file `external/pnt/NAME{k}.lean` of the grid
                                                     [W1/DW, W2/DW] with N cells: its parts' depth-4 tests and work
   route_limits.py corners CURVE L W1 W2 D           the exact corners of the one window [W1/D, W2/D] at L, against L*
@@ -121,10 +126,12 @@ def window(pieces, L):
 
 
 def corners(pieces, L, W1, W2, D=100000):
-    """Every corner inequality of the window `[W1/D, W2/D]`, exact. Returns (failures as (end, tag), least slack, its
-    tag)."""
+    """Every corner inequality of the window `[W1/D, W2/D]`, exact: on each piece and at its ends, the inequality for
+    `m ≤ 1` at the ends of `[m₁, 1]` when `m₁ ≤ 1`, and the one for `m ≥ 1` at the ends of `[max(m₁, 1), m₂]` (`Fits`
+    gives `m₂ > 1`; round 629: `m₁ ≥ 1` allowed). Returns (failures as (end, tag), least slack, its tag)."""
     m1, m2 = Fr(W1, D) * L, Fr(W2, D) * L
-    assert m1 < 1 < m2, (float(m1), float(m2))
+    assert m1 < m2 and 1 < m2, (float(m1), float(m2))
+    lo_ms, hi_ms = ((m1, Fr(1)) if m1 <= 1 else ()), (max(m1, Fr(1)), m2)
     E = L - MARGIN
     fails, worst = [], [None, None]
 
@@ -139,22 +146,36 @@ def corners(pieces, L, W1, W2, D=100000):
         p, a = (Fr(1), Fr(0)) if A is None else (A, A)
         for b in (lo, hi):
             for w in WS:
-                for m in (m1, Fr(1)):
+                for m in lo_ms:
                     chk(('T1', str(lo), str(hi), str(b), str(m), str(w)), m,
                         (L - m) * (b + w) + (p - a * b) / 2 + (1 + m) / 2)
-                for m in (Fr(1), m2):
+                for m in hi_ms:
                     chk(('T1', str(lo), str(hi), str(b), str(m), str(w)), m, (L - m) * (b + w) + (p - a * b) / 2 + m)
     lo, hi, A = pieces[-1]
     for b in (lo, hi):
         for w in WS:
-            for m in (m1, Fr(1)):
+            for m in lo_ms:
                 base = (L - m) * (b + w) + (A - A * b) / 2 + m / 2
                 chk(('HM1', str(b), str(m), str(w)), m, base + m / 2)
                 chk(('HM2', str(b), str(m), str(w)), m,
                     base + ((A - A * b) + (Fr(5, 12) + m / 12 + DELTA * (1 - m) + 2 * EPS)) / 2)
-            for m in (Fr(1), m2):
+            for m in hi_ms:
                 chk(('HM3', str(b), str(m), str(w)), m, (L - m) * (b + w) + (A - A * b) / 2 + m)
     return fails, worst[0], worst[1]
+
+
+def encl(x, k=7):
+    """`x > 0` between its decimals of `k` places rounded down and up (round 629: a bound is displayed by the decimal on
+    its safe side; review of round 628, finding 1)."""
+    s, lo, hi = 10 ** k, (x * 10 ** k).__floor__(), (x * 10 ** k).__ceil__()
+    return f'{lo // s}.{lo % s:0{k}d}', f'{hi // s}.{hi % s:0{k}d}'
+
+
+def floor_q(pieces):
+    """`L* − 1`, the supremum of the quotient over the pieces' right ends (the module docstring), and its arguments."""
+    qv = {phi: ((Fr(1) if A is None else A * (1 - phi)) / 2 + MARGIN) / (1 - phi - WS[1]) for _, phi, A in pieces}
+    q = max(qv.values())
+    return q, [b for b, v in qv.items() if v == q]
 
 
 DEN, K = 2 ** 40, 2 ** 60
@@ -360,12 +381,12 @@ def cmd_floor(curve, over=()):
         pieces = [(lo, hi, A_ if lo_ <= lo and hi <= hi_ else A) for lo, hi, A in pieces]
     amax = max(A for _, _, A in pieces if A is not None)
     at = [f'[{plo}, {phi}]' for plo, phi, A in pieces if A == amax]
-    qv = {phi: ((Fr(1) if A is None else A * (1 - phi)) / 2 + MARGIN) / (1 - phi - WS[1]) for _, phi, A in pieces}
-    q = max(qv.values())
+    q, arg = floor_q(pieces)
     name = curve + ''.join(f' with A = {A_} on [{lo_}, {hi_}]' for lo_, hi_, A_ in over)
-    print(f'{name}: the exact floor L* = 1 + max (g/2 + 1/25000)/(1 - b - 4e-6) = {1 + q} = {float(1 + q):.10f}, at '
-          f'b = {", ".join(str(b) for b, v in qv.items() if v == q)}; A_max = {amax} on {", ".join(at)}, '
-          f'1 + A_max/2 = {float(1 + amax / 2):.5f}', flush=True)
+    lim = 'attained' if arg == [pieces[-1][1]] else 'a left limit'  # only the top piece's right end is in the window
+    print(f'{name}: the exact floor L* = 1 + sup (g/2 + 1/25000)/(1 - b - 4e-6) = {1 + q}, between '
+          f'{" and ".join(encl(1 + q))}, {lim} at b = {", ".join(str(b) for b in arg)}; A_max = {amax} on '
+          f'{", ".join(at)}, 1 + A_max/2 = {float(1 + amax / 2):.5f}', flush=True)
     lo, hi = 21000, 23000
     assert window(pieces, Fr(lo, 10000)) is None and window(pieces, Fr(hi, 10000)) is not None
     while hi - lo > 1:
@@ -432,19 +453,44 @@ def cmd_quadfit(out):
 
 
 def cmd_windows(curve, Ls):
-    """The windows `[W1, W2]/10⁵` with `m₁ < 1 < m₂` near `1/L` whose exact corners pass (`corners`)."""
+    """All the windows `[W1, W2]/10⁵` whose exact corners pass (`corners`), `Fits` asking `m₂ > 1`. Each corner
+    inequality is affine in `m` and is also checked at `m = 1` when the window contains it, so with `c` the largest `W`
+    with `W·L < 10⁵` and `d` the least with `W·L > 10⁵`: the windows with `m₁ < 1 < m₂` that pass are those with `W1`
+    in an interval ending at `c` and `W2` in one starting at `d` (none if `[c, d]` fails), and the windows with
+    `m₁ ≥ 1` that pass are the pairs `W1 < W2` from `e = ⌈10⁵/L⌉` up to the largest `W2` for which `[e, W2]` passes (for
+    `m ≥ 1` each inequality bounds `m` above). The intervals' ends are found by bisection with `corners`. (Round 629:
+    it searched `W1` and `W2` within 40 of `10⁵/L`, for `m₁ < 1` only; review of round 628, findings 2 and 4.)"""
     L = frac(Ls)
     pieces = parse(curve)
-    c = (100000 / L).__floor__()
-    ok = []
-    for W1 in range(c - 40, c + 1):
-        for W2 in range(c + 1, c + 41):
-            if Fr(W1, 100000) * L < 1 < Fr(W2, 100000) * L:
-                fails, slack, _ = corners(pieces, L, W1, W2)
-                if not fails:
-                    ok.append((W1, W2, slack))
-    print(f'{curve} L={L} = {float(L):.7f}: {len(ok)} windows with m1 < 1 < m2 pass their exact corners'
-          + (f": {', '.join(f'[{a}, {b}] (slack {float(s):.2e})' for a, b, s in ok)}" if ok else ''))
+    e = (100000 / L).__ceil__()
+    c, d = e - 1, (e + 1 if e * L == 100000 else e)
+    ok = lambda W1, W2: not corners(pieces, L, W1, W2)[0]
+
+    def last(good, lo, hi):  # the last x in [lo, hi] with good(x), good holding on an initial run from lo
+        while lo < hi:
+            mid = (lo + hi + 1) // 2
+            lo, hi = (mid, hi) if good(mid) else (lo, mid - 1)
+        return lo
+
+    nA, A = 0, ''
+    if ok(c, d):
+        a = c - last(lambda t: ok(c - t, d), 0, c - 1)
+        b = last(lambda W2: ok(c, W2), d, 99999)
+        nA, A = (c - a + 1) * (b - d + 1), f'W1 in [{a}, {c}], W2 in [{d}, {b}]'
+    nB, B = 0, ''
+    if ok(e, e + 1):
+        top = last(lambda W2: ok(e, W2), e + 1, 99999)
+        nB, B = (top - e + 1) * (top - e) // 2, f'{e} <= W1 < W2 <= {top}'
+    lst = []
+    if nA + nB <= 20:
+        if nA:
+            lst += [(x, y) for x in range(a, c + 1) for y in range(d, b + 1)]
+        if nB:
+            lst += [(x, y) for x in range(e, top + 1) for y in range(x + 1, top + 1)]
+        assert all(ok(x, y) for x, y in lst)
+    print(f'{curve} L={L} = {float(L):.7f}: {nA} windows with m1 < 1 < m2 pass their exact corners'
+          + (f' ({A})' if nA else '') + f', and {nB} with m1 >= 1' + (f' ({B})' if nB else '')
+          + (f": {', '.join(f'[{x}, {y}]' for x, y in lst)}" if lst else ''))
 
 
 def cmd_parts(name, W1, W2, DW, n):
@@ -470,12 +516,12 @@ def cmd_corners(curve, Ls, W1, W2, D):
     windows between `L*` and its decimals rounded up)."""
     L = frac(Ls)
     pieces = parse(curve)
-    q = max(((Fr(1) if A is None else A * (1 - phi)) / 2 + MARGIN) / (1 - phi - WS[1]) for _, phi, A in pieces)
+    q, _ = floor_q(pieces)
     m1, m2 = Fr(W1, D) * L, Fr(W2, D) * L
     fails, slack, _ = corners(pieces, L, W1, W2, D)
-    print(f'{curve} L={L} = {float(L):.10f} (L - L* = {float(L - 1 - q):.3e}): window [{W1}, {W2}]/{D}, m1 = '
-          f'{float(m1):.10f}, m2 = {float(m2):.10f}: its exact corners {"pass" if not fails else "FAIL"} (least slack '
-          f'{float(slack):.3e})')
+    print(f'{curve} L={L} = {float(L):.10f} (L* = {1 + q}, between {" and ".join(encl(1 + q))}; L - L* = '
+          f'{float(L - 1 - q):.3e}): window [{W1}, {W2}]/{D}, m1 = {float(m1):.10f}, m2 = {float(m2):.10f}: its exact '
+          f'corners {"pass" if not fails else "FAIL"} (least slack {float(slack):.3e})')
 
 
 if __name__ == '__main__':
