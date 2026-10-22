@@ -28624,3 +28624,67 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Their case analysis, (10.4) and (10.5), and their Proposition 10.2: with `D = ⌊N²/(qT)⌋`, `E ≤ |R|³` at one point per character, and `N ≥ (qT)^{2/3}/2`, the two factors reduce as in their proof, and round 669's `lemma105` with round 674's `lemma109` and `lemma1010` bound the energy.
+
+## Round 676: their Lemma 10.10 with its case analysis, and their Remark 10.3 (stage M3, the `S₃` side; `external/pnt/LinnikCGLCase.lean`)
+
+**The results.** Below, `q ≥ 1`, `n ∼ N` means `N < n ≤ 2N` (round 670's `dyad`), `R₂` is round 669's, `E` round 659's `energy`, `CGLT101` round 670's displayed hypothesis, `G = d(q)(⌊log₂|R|²⌋ + 1)` and `L = 1 + log max(1, N)`.
+
+- `LinnikCGLCase.sq_le_energy`, `energy_le_cube`: `|R|² ≤ E`, from the quadruples `(i, j, i, j)`; and `E ≤ |R|³` for `χ` injective on `R`, since `χ_iχ_j = χ_kχ_l` determines `χ_l` and so `l`.
+- `LinnikCGLCase.pow_rpow_eq`, `exists_pow_eq`: `(u^m)^x = u^k` for `u ≥ 0` and `mx = k`; and every `r ≥ 0` is `u^m` for some `u ≥ 0`, for `m ≥ 1`.
+- `LinnikCGLCase.sq_add_sq_le`, `z6_le`, `case_a`, `case_one`, `case_two`, `case_poly`: their case analysis as polynomial inequalities, with `r = u⁸`, `E = v⁸`, `qT = z¹²` and `p = 2/(D + 1)`. `case_one` is the case `z ≤ u`, their `|W| ≥ (qT)^{2/3}`, and `case_two` the case `u < z` under `z⁶u⁵ ≤ vN`, their `|W| < (qT)^{2/3}` with their assumption.
+- `LinnikCGLCase.case_le`: for `r = 0` or `r ≥ 1`, `0 ≤ E ≤ r³`, `Q ≥ 1`, `Q^{2/3}/2 ≤ N`, `L ≥ 1`, `N²/Q < D + 1` and either `r ≥ Q^{2/3}` or `Q^{1/2}r^{5/8} ≤ E^{1/8}N`, round 675's factors `a = rN²·2/(D + 1) + (r² + r^{5/4}Q^{1/2})NL` and `b = EN²·2/(D + 1) + (r⁴ + E^{3/4}rQ^{1/2})NL` have `√(ab) ≤ 8L(Nr³ + NQ^{1/4}r^{21/8} + E^{1/2}r^{1/2}N²)`.
+- `LinnikCGLCase.remark103`: their Remark 10.3. For `r, E ≥ 0`, `Q ≥ 1`, `N ≥ Q^{2/3}/2`, `r ≤ Q^{2/3}` and `E^{1/8}N ≤ Q^{1/2}r^{5/8}`, `QNr^{1/2}E^{1/2} ≤ 8Q²r^{3/2}`.
+- `LinnikCGLCase.lemma1010_case`: their Lemma 10.10. From `CGLT101`, for every `ε > 0` there is `C ≥ 0` such that, for primitive characters injective on `R`, `T ≥ 1`, points `|t_i| ≤ T`, `(qT)^{2/3}/2 ≤ N`, `D = ⌊N²/(qT)⌋` and either `|R| ≥ (qT)^{2/3}` or `(qT)^{1/2}|R|^{5/8} ≤ E^{1/8}N`, `Σ_{n₁,n₂∼N, (n₁,n₂)>D}|R₂(n₁, n₂)|³ ≤ 8CGL(qTN)^ε(N|R|³ + N(qT)^{1/4}|R|^{21/8} + E^{1/2}|R|^{1/2}N²) + |{n ∼ N}||R|³`, from round 675's `lemma1010` and `case_le`.
+
+**Their text.** Re-read this round in the text layer. The underscores in the quotations are escaped for the renderer.
+
+- Their case analysis: "Since N ≥ (qT)^{1/2} and D = N²/(qT), we have |W|^{5/4}(qT)^{1/2}N ≫ |W|qT = |W|N²/D." (line 5436; spaces restored, the exponents transcribed); "We split into cases based on whether |W| > (qT)^{2/3} or not." (line 5440); "N|W|⁴ ≫ |W|³qT ≥ E(W)qT," (line 5445); and "Notice that, in this case, our assumption gives E(W)^{1/8}N ≥ (qT)^{1/2}|W|^{5/8}." (line 5483; spaces restored, the exponents transcribed).
+- Their Remark 10.3: "Suppose that |W| < (qT)^{2/3} and E(W)^{1/8}N < (qT)^{1/2}|W|^{5/8}. Then (qT)²|W|^{3/2} > qTN|W|^{1/2}E(W)^{1/2}." (lines 4666–4667; spaces restored, the exponents transcribed). Its chain is "qTN|W|^{1/2}E(W)^{1/2} < (qT)³|W|³N^{−3} < qT|W|³ < (qT)²|W|^{3/2}." (line 4669; spaces restored, the exponents transcribed), and "Here the first strict inequality follows from the lower bound N ≥ (qT)^{2/3} in the present range" (line 4673; spaces restored, the exponent transcribed).
+- The range of their Proposition 10.2: "(qT)^{2/3}/2 ≤ N ≤ qT" (line 4646; spaces restored, the exponent transcribed).
+
+**The stack's form.**
+
+- **Polynomials.** With `r = u⁸`, `E = v⁸` and `qT = z¹²`, every power in their case analysis is a natural power of `u`, `v` and `z`, so the analysis is a pair of polynomial inequalities, each proved by `linarith` from explicit products. Their `≫` steps carry constants: `N ≥ (qT)^{1/2}/2`, which `N ≥ (qT)^{2/3}/2` and `qT ≥ 1` give, stands for their `N ≥ (qT)^{1/2}`.
+- **Remark 10.3.** The step `(qT)³|W|³N^{−3} < qT|W|³` of their chain, which they draw from the lower bound on `N`, needs `N³ > (qT)²`, and that fails for `(qT)^{2/3}/2 ≤ N ≤ (qT)^{2/3}`, inside the range of their Proposition 10.2. With `N ≥ (qT)^{2/3}/2` the stack proves the remark with the constant `8`, `qTN|W|^{1/2}E^{1/2} ≤ 8(qT)²|W|^{3/2}`. Their use of the remark is up to `⪅`, so the constant does not affect it.
+- **The energy.** Their case analysis uses `E(W) ≤ |W|³` (`|W|³qT ≥ E(W)qT`); at one point per character this is `energy_le_cube`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLCase.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`case_le`, `remark103`, `lemma1010_case`).
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+
+**What is checked.**
+
+- Mathlib's names were checked first (`scratchpad/r676/check.lean`).
+- The file was compiled in scratch in six runs with `lean --json` (`scratchpad/r676/run.sh`, which runs `lcj.sh` and lists the errors, warnings and information messages; `lcj1.out` to `lcj6.out`). Runs 4 to 6 had exit 0, and their only messages were the file's axiom lines, each `[propext, Classical.choice, Quot.sound]`. Before the first run, the exponents of `pow_rpow_eq` were given explicitly, so that its arithmetic side condition is elaborated with them. The fixes were these. The condition on the characters in `sq_le_energy`, which `simp` reduces to `True`, is closed by `trivial`. A `have` written on one line as `by positivity; linarith` was split, since the `linarith` ran inside the inner `by`. Two `simpa` steps became a `rw` and a `simp`, as the linter asked. The polynomial case analysis, at first one lemma, exceeded the heartbeat limit, which applies per declaration, in runs 1 to 3; it was split into `case_a`, `case_one`, `case_two`, `sq_add_sq_le` and `case_poly`, with `linarith` from explicit products in place of `nlinarith`. Run 5 added `lemma1010_case`, and run 6 compiled the final file with its header.
+- Then `build.sh` ran once (`scratchpad/r676/compile.sh 1`, log `build_1.log`): `1 compiled, 410 up to date` (`LinnikCGLCase` 14 s), exit 0 in 24 s, with no error, warning, `sorry` or information message. Its 623 axiom lines (4 by the module, 619 by the final check, which gains three lines) are 610 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms"; the 13 are in the final check, as before. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.82 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed, with its output saved in `scratchpad/r676/gate.out`: `tools/research/render_lint.py` against HEAD as multisets (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2 gains round 676 in its stack cell and a clause in its status; nothing in it is superseded. The opening's parenthetical gains round 676, and M3 gains a note.
+- `external/pnt/README.md`: a row, and a section with a heading.
+- No strikes. Round 675's next step named their case analysis and their Proposition 10.2; this round does the first, and the second is this round's next step, so nothing in that sentence is superseded.
+
+**Check 1** (direct reads this round):
+
+- Their case analysis in Lemma 10.10 (lines 5436–5499), their Remark 10.3 (lines 4657–4675), and the statement of their Proposition 10.2 (lines 4637–4656).
+- `LinnikCGLCase.lean` in full.
+- The operative definitions and statements: round 675's `lemma1010` and `pairsGt`, round 659's `energy`, and round 670's `dyad`.
+
+**Check 4.** No defect in the cascade or the stack is raised. The constant in their Remark 10.3 is an imprecision in their write-up under `⪅`, recorded as the stack's form; their conclusion holds with the constant `8`.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Proposition 10.2: round 669's `lemma105` for the energy, the pairs split at `D = ⌊N²/(qT)⌋` into round 674's `lemma109` (with `X` and `K` chosen so that its tail is at most `N|R|³` and `|R|⁴D_K/X^K ≤ E`, by `sq_le_energy`) and `lemma1010_case`, and then `E ≤ A + B√E ⇒ E ≤ 2A + B²`.
