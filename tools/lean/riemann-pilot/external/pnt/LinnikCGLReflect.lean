@@ -21,12 +21,12 @@ Plain statement (`norm_Phi_le_far`). `|Φ(s)| ≤ f^{1/2−Re s}·π·CGK(K)(1 +
 `−K ≤ Re s ≤ 1/2`, with `EQh(q) = ∏_{p|q}(1 − p^{−1/2})⁻¹`; round 526's `norm_Phi_le` covers `−5/16 ≤ Re s ≤ 13/16`.
 
 Their proof of Lemma 6.2 reaches the same identity in another order. It shifts to `Re s = −1`, applies the functional
-equation there, splits the dual series at `M`, and then, in their words, "shifting the contour of the integral
-involving terms with m ≤ M to Re(s) = 1/2, while shifting the integral involving terms with m > M to Re(s) = −2k
-for a large k ∈ ℕ". Here the integral moves to `Re s = 1/2` first, where `L(s, χ) = Φ(s)L(1 − s, χ⁻¹)E(s)`; the
-dual series splits there into its first `Z` terms and the rest, an entire function, which moves to `Re s = −K`, where
-it is the series' tail. Their `P` and the imprimitive `L(1 − s + it, χ̄)` are this file's `E`, the Euler factor
-inside `Φ` and `L(1 − s, χ⁻¹)`.
+equation there, splits the dual series at `M`, and then, in their words (spaces restored), "shifting the contour of
+the integral involving terms with m ≤ M to Re(s) = 1/2, while shifting the integral involving terms with m > M to
+Re(s) = −2k for a large k ∈ ℕ". Here the integral moves to `Re s = 1/2` first, where
+`L(s, χ) = Φ(s)L(1 − s, χ⁻¹)E(s)`; the dual series splits there into its first `Z` terms and the rest, an entire
+function, which moves to `Re s = −K`, where it is the series' tail. Their `P` and the imprimitive `L(1 − s + it, χ̄)`
+are this file's `E`, the Euler factor inside `Φ` and `L(1 − s, χ⁻¹)`.
 
 * `Gamma_inv_eq_prod`, `CGK`, `norm_Gamma_half_ratio_far`, `norm_gr_le_far`, `EQh`, `norm_Phi_le_far`: the
   reflection factor on `−K ≤ Re s ≤ 1/2`. The argument `(s + a)/2` of `Γ` moves right by `K + 1`
@@ -360,7 +360,7 @@ lemma decay_of_bound {G : ℂ → ℂ} {σ' σ M τ : ℝ} (hM : 0 ≤ M)
   have h4 : 0 ≤ M / η := div_nonneg hM hη.le
   nlinarith
 
-/-- **A contour shift** (round 523's `SmoothPerron.verticalIntegral_shift`) for `G` differentiable on the closed strip
+/-- **A contour shift** (round 472's `SmoothPerron.verticalIntegral_shift`) for `G` differentiable on the closed strip
 `σ' ≤ Re s ≤ σ` with `|G(x + iy)| ≤ M(1 + |y + τ|)^{−2}` there. -/
 theorem shift_of_bound {G : ℂ → ℂ} {σ' σ M τ : ℝ} (hσ : σ' ≤ σ) (hM : 0 ≤ M)
     (hG : ∀ z : ℂ, σ' ≤ z.re → z.re ≤ σ → DifferentiableAt ℂ G z)

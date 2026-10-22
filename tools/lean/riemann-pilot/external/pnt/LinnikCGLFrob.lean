@@ -14,13 +14,15 @@ Plain statement (`frobOff_le`). Let `χ` be injective on `R`, `|t_i| ≤ T`, `N 
 round 526's large-sieve factor `LSX`, `H_Z = Σ_{m≤Z}1/m`, `Q₀(q)` is round 642's, and `B` is round 642's tail bound
 at `|τ| = 2T` (`Bmax`).
 
-Their proof of Proposition 6.1 says: "Now we proceed with an argument based on the mean value theorem. Notice that
-|Σ_{n∼N} w(n/N)b_n n^{it₂}χ₂(n)| ≥ N^σ for (t₂, χ₂) ∈ W." It multiplies each dual sum by the large polynomial, takes
-"some coefficients c_l depending on (t₁, χ₁) such that |c_l^{(t₁,χ₁)}| ⪅ 1, by the divisor bound", and applies the mean
-value theorem with characters. Their Remark 6.3: "In particular, we reintroduce our large Dirichlet polynomial here
-whereas their proof only depended on the 1-separation of W." The stack does the same with round 526's product trick,
-in its squared form. Two differences: the dual sum is not split into dyadic ranges of `m` (its coefficients keep the
-weight `m^{−1/2}`, whence `H_Z`), and `u` is not truncated (it is integrated against `|H(1/2 + iu)|`, whence `I_H`).
+Their proof of Proposition 6.1 says (spaces restored, the formulas transcribed): "Now we proceed with an argument
+based on the mean value theorem. Notice that |Σ_{n∼N} w(n/N)b_n n^{it₂}χ₂(n)| ≥ N^σ for (t₂, χ₂) ∈ W." It multiplies
+each dual sum by the large polynomial, takes "some coefficients c_l depending on (t₁, χ₁) such that
+|c_l^{(t₁,χ₁)}| ⪅ 1, by the divisor bound", and applies the mean value theorem with characters. Their Remark 6.3: "In
+particular, we reintroduce our large Dirichlet polynomial here whereas their proof only depended on the 1-separation
+of W." The stack does the same with round 526's product trick, in its squared form. Three differences: the dual sum
+is not split into dyadic ranges of `m` (its coefficients keep the weight `m^{−1/2}`, whence `H_Z`), `u` is not
+truncated (it is integrated against `|H(1/2 + iu)|`, whence `I_H`), and the pairs are not split by `|t₁ − t₂|` (one
+`Z` and one `K` serve every pair).
 
 * `sq_le_mul_of_forall`, `two_mul_le_lam`, `integral_sq_le`: Cauchy–Schwarz against a weight, through
   `2hd ≤ λh + hd²/λ` for every `λ > 0`.
@@ -95,7 +97,7 @@ lemma integral_sq_le {h d : ℝ → ℝ} (hh : ∀ u, 0 ≤ h u) (hd : ∀ u, 0 
 
 /-! ### The large sieve and the product trick at the points -/
 
-/-- **The large sieve at the points**: for `χ` injective on `R` and `|t_i| ≤ T`,
+/-- **The large sieve at the points**: for `χ` injective on `R`, `T ≥ 0` and `|t_i| ≤ T`,
 `Σ_{i∈R}|Σ_{k∈S_k}c_kχ_i(k)k^{it_i}|² ≤ L(X)Σ|c_k|²` for `S_k ⊆ [2, X]` (round 526's `ls_pv_dyadic` on the
 characters `χ(R)`). -/
 lemma ls_points {ι : Type*} [DecidableEq ι] {q : ℕ} [NeZero q] {R : Finset ι} {χ : ι → DirichletCharacter ℂ q}
@@ -120,7 +122,8 @@ lemma ls_points {ι : Type*} [DecidableEq ι] {q : ℕ} [NeZero q] {R : Finset �
   refine le_of_eq_of_le (Finset.sum_congr rfl fun i hi => ?_) h
   simp only [hleft i hi]
 
-/-- **The product trick at the points, squared**: if `|F(χ_i, −it_i)| ≥ V > 0` for every `i ∈ R`, with `F`
+/-- **The product trick at the points, squared**: for `χ` injective on `R`, `T ≥ 0` and `|t_i| ≤ T`, if
+`|F(χ_i, −it_i)| ≥ V > 0` for every `i ∈ R`, with `F`
 supported on `[2, N′]`, then for any polynomial `E` on `[1, Z]`,
 `Σ_{i∈R}|E(χ_i, −it_i)|² ≤ V^{−2}L(N′Z)·τ·Σ|b_n|²·Σ|e_m|²` with `d(k) ≤ τ` for `k ≤ N′Z`
 (round 526's `pv_mul`, `mass_mulCo_le` and `ls_points`). -/
