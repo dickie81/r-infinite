@@ -28974,3 +28974,75 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Bound `Σ_a∫|ĝ_a(ξ)|² dξ`. The plan splits off the term `n = 0` (their `I`) from the terms `n ≠ 0` (their `II` and `II′`), with round 653's bound for the Ramanujan sum and round 525's divisor bound.
+
+## Round 681: their count of the pairs `(m₁′, n′)` and their sum over `a` (stage M4; `external/pnt/LinnikCGLCount.lean`, `LinnikCGLAsum.lean`)
+
+**The results.** Below, `q ≥ 1`, `L_c(r) = (1 + c²r²)⁻¹` is round 673's `lor`, `ψ̂₀` round 659's `𝓕 psiC`, `(x, q)` the gcd of a residue `x ∈ ℤ/qℤ` (`gw`), `C_δ` round 525's `Cdiv`, `B₄ = 2(∫ψ̃₀ + D₄/(2π)⁴)`, `e_q` Mathlib's `ZMod.stdAddChar`, `c_q(n)` round 680's `cqg`, and `Ψ(m, n) = ψ̂₀(L(n/q − ξ/m))`.
+
+- `LinnikCGLCount.norm_fourier_psiC_le_lor`, `lor_le_lor_prod`: `|ψ̂₀(y)| ≤ B₄L₁(y)²`; and for `q > 0`, `L > 0`, `M₁ > 0`, `m₁′ ∈ P1 M₁` and integers `n′`, `L₁(L(n′/q − ξ/m₁′)) ≤ L_{1/Λ}(n′m₁′ − qξ)` with `Λ = 2qM₁/L`.
+- `LinnikCGLCount.card_fiber_le`: for `s ≠ 0`, the pairs `(m, n)` of a finite set with `nm = s` number at most `2d(|s|)`.
+- `LinnikCGLCount.rpow_mul_lor_sq_le`: for `0 < δ ≤ 1`, `Λ > 0` and integers `s`, `|s|^δL_{1/Λ}(s − qξ)² ≤ 2(1 + q|ξ|)^δ(1 + Λ)^δL_{1/Λ}(s − qξ)`.
+- `LinnikCGLCount.sum_lor_gw_le`: for `Λ > 0` and a finite set `S` of integers, `Σ_{s∈S}L_{1/Λ}(s − y)(s − x, q) ≤ (Σ_{h∈ℤ/qℤ}(h, q))(2π + 4πΛ/q)`, by round 673's `sum_lor_le` along each residue class of `s`, whose points are `q` apart.
+- `LinnikCGLCount.count_le`: their count. For `L > 0`, `M₁ > 0`, `0 < δ ≤ 1`, real `ξ`, `x ∈ ℤ/qℤ` and a finite set `T` of integers, `Σ_{m₁′∈P1 M₁}Σ_{n′∈T, n′≠0}|Ψ(m₁′, n′)|(n′m₁′ − x, q) ≤ N_δ` with `N_δ = 4C_δB₄(1 + q|ξ|)^δ(1 + 2qM₁/L)^δ(Σ_{h∈ℤ/qℤ}(h, q))(2π + 8πM₁/L)`.
+- `LinnikCGLAsum.sum_units_norm_sq_le`: for a finite set `K`, points `s_k ∈ ℤ/qℤ` and coefficients `X_k`, `Σ_{a∈(ℤ/qℤ)ˣ}|Σ_{k∈K}X_ke_q(−as_k)|² ≤ d(q)Σ_{k,k′∈K}|X_k||X_{k′}|(s_{k′} − s_k, q)`, by round 653's `norm_Cq_le`.
+- `LinnikCGLAsum.sum_sum_amgm_le`: for `u ≥ 0` and `g ≥ 0` symmetric, `Σ_{k,k′}u_ku_{k′}v_kv_{k′}g(k, k′) ≤ Σ_ku_kv_k²Σ_{k′}u_{k′}g(k, k′)`.
+- `LinnikCGLAsum.norm_cqg_le`: `|c_q(n)| ≤ Σ_{h∈ℤ/qℤ}(h, q)`.
+- `LinnikCGLAsum.sum_a_finite_le`: their sum over `a`. With the hypotheses of `count_le` and any `F : ℤ → ℤ → ℂ`, `Σ_a|Σ_{m∈P1 M₁}Σ_{n∈T, n≠0}(L/q)Ψ(m, n)c_q(n)F(m, n)e_q(−anm)|² ≤ d(q)(L/q)²(Σ_h(h, q))²N_δΣ_{m∈P1 M₁}Σ_{n∈T, n≠0}|Ψ(m, n)||F(m, n)|²`.
+
+**Their text.** Re-read this round in the text layer.
+
+- The sum over `a`: "For the a-sum, we apply the basic estimate |C_q(m)| ≤ (m,q) for Ramanujan’s sum" (line 3114), "Next, by Cauchy-Schwarz" (line 3214), and "upon mapping (m₁,n,m₁′,n′) → (−m₁′,n′,−m₁,n), we have G₂(ξ) = G₁(−ξ)" (lines 3324–3327).
+- The count: "the double sum Σ_{m₁′}Σ_{n₁′} is bounded by ⪅ 1 + M₁/M₃. To see this, write s = m₁′n′. Then s is a non-zero integer lying in a fixed residue class modulo q, and it is contained in a ⪅ qM₁/M₃ neighborhood of qξ. Thus there are at most ⪅ 1 + M₁/M₃ possibilities for s, giving the claim." (lines 3358–3366.)
+- In these, spaces are restored and the sums and subscripts transcribed.
+
+**The stack's form.**
+
+- **Their window is the decay of `ψ̂₀`.** Their sharp window `|ξ − n′m₁′/q| ⪅ M₁/M₃` is `|ψ̂₀(y)| ≤ B₄L₁(y)²`, and with `s = n′m₁′`, `L₁(L(n′/q − ξ/m₁′)) ≤ L_{1/Λ}(s − qξ)` for `|m₁′| ≤ 2M₁`.
+- **Their "possibilities for s"** are round 673's separated points: along each residue class of `s` modulo `q`, `Σ_sL_{1/Λ}(s − qξ) ≤ 2π + 4πΛ/q = 2π + 8πM₁/L`, the stack's `1 + M₁/M₃` with `L` in place of their `M₃`.
+- **The divisor function**, which their `⪅` absorbs, is explicit: each `s ≠ 0` has at most `2d(|s|)` factorizations `s = n′m₁′`, `d(|s|) ≤ C_δ|s|^δ`, and the growth `|s|^δ` is absorbed by one factor `L_{1/Λ}` at the cost `2(1 + q|ξ|)^δ(1 + Λ)^δ`.
+- **Their Cauchy–Schwarz and `G₂(ξ) = G₁(−ξ)`** are replaced by AM-GM, `|u_kv_k||u_{k′}v_{k′}| ≤ ½u_ku_{k′}(v_k² + v_{k′}²)`, and the symmetry of `(s_{k′} − s_k, q)` in `k` and `k′`, which keep every sum finite.
+- **Their `Σ_{d mod q}(d, q)/q ⪅ 1`** is `|c_q(n)| ≤ Σ_h(h, q)`, and the residue sum `Σ_h(h, q)` is kept.
+- **Finite `n`.** The bound holds for every finite set `T` of `n`, and for any coefficients `F(m₁, n)`; the next step takes `T` to all of `ℤ`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLCount.lean` and `LinnikCGLAsum.lean`: new.
+- `external/pnt/build.sh`: the two modules, their imports in the final check and two `#print axioms` lines (`count_le`, `sum_a_finite_le`).
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1, a note under M4, and the opening's parenthetical.
+- `external/pnt/README.md`: two rows, and a section for each file.
+
+**What is checked.**
+
+- `LinnikCGLCount` was compiled in scratch in three runs with `lean --json` (`scratchpad/r681/run.sh`, `lcj1.out` to `lcj3.out`), and `LinnikCGLAsum` in two (`scratchpad/r681/runa.sh`, `lcj11.out` and `lcj12.out`). The last run of each had exit 0, and its only messages were the axiom lines, all `[propext, Classical.choice, Quot.sound]`.
+- The fixes in `LinnikCGLCount`: an absolute value was rewritten in the wrong order; a rewrite that turned `h` into `−(−·)` was replaced by `h.symm`; a `have … := by positivity; linarith` was parsed as one tactic block, and became `le_add_of_nonneg_right`; a `mul_comm` turned the wrong side; a `gcongr` side goal was given explicitly; a name shadowed the residue `h`.
+- The fix in `LinnikCGLAsum`: `‖z‖² = re(z·conj z)` needed `Complex.ofReal_re` in place of `simp`.
+- Then `build.sh` ran once (`scratchpad/r681/compile.sh 1`, log `build_1.log`): `2 compiled, 415 up to date` (`LinnikCGLCount` 12 s, `LinnikCGLAsum` 11 s), exit 0 in 32 s, with no error, warning or `sorry`. Its 644 axiom lines are 11 by the modules and 633 by the final check; 631 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.87 GiB (`rss_watch_build_1.log`).
+- The files have no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/r681/apply_docs.py` makes the six edits to CGL-LEAN.md and the external README, each asserted to occur once; run again, it writes nothing.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r681/gate.out`): the render lint against HEAD as multisets (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 and this file 1872 → 1872, none new), and `k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1 gains round 681 in its stack cell and a net-state marker; M4 gains a note; the opening's parenthetical gains round 681.
+- `external/pnt/README.md`: two rows, and a section for each file.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their §8.2.2 in the text layer, lines 2960–3420 joined by `scratchpad/r678/compact.py`, and lines 3112–3116, 3209–3214, 3320–3328 and 3355–3368 line by line.
+- The operative definitions and statements: round 673's `lor` and `sum_lor_le` (`LinnikCGLSep.lean` 72 and 112); round 525's `Cdiv` and `card_divisors_le` (`LinnikPower.lean` 62 and 69); round 652's `Cq` (`LinnikCGLRFact.lean` 62) and round 653's `norm_Cq_le` (`LinnikCGLRam.lean` 191); round 662's `gcd_val_neg` (`LinnikCGLJ.lean` 103); round 659's `fourier_psiC_decay` and `norm_fourier_psiC_le` (`LinnikCGLMom4.lean` 182 and 187); and round 680's `P1`, `mem_P1` and `cqg`.
+- Both new files in full: their proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the files' headers and docstrings list them.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** As in round 680: stage M4's block gets one hostile review, with the convergence review of round 679's sweep.
+
+**Bearing on RH:** none.
+
+**The next step.** Take `n` over all of `ℤ`: write `ĝ_a(ξ)` from round 680's `fourier_ga_poisson` as `(L/q)Σ_{m₁}Σ_nΨ(m₁, n)c_q(n)e_q(−anm₁)F(m₁, n)` with `F(m₁, n) = Σ_{m₂,b}(m₂/|m₁|)f̂_b(m₂ξ/m₁)e_q(−nbm₂)`, split off `n = 0`, and pass `sum_a_finite_le` to the limit.

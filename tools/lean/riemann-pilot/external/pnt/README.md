@@ -200,6 +200,8 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLS3.lean` | 678 | Chen–Gupta–Li's Proposition 11.1, `CGLS3` from `CGLP81` and `CGLT101` (`cgls3`); their Proposition 3.1 at one point per character from those two (`prop31_pt`); and Linnik's theorem with the exponents `9/4` and `226/100` from `CGLP81` and `CGLT101`: under both, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ Kq^{9/4}`, and likewise with `226/100` (`linnik_225c_pt`, `linnik_226c_pt`) |
 | `LinnikCGLG.lean` | 680 | The setup of Chen–Gupta–Li's Lemma 8.2: their majorant `g_a(u) = Σ_bΣ_{m₁,m₂}Σ_{m₃}ψ̃₀(m₃/L)f_b((m₁u + m₃)/m₂)(am₁ + bm₂ + m₃, q)` (`ga`); for smooth, nonnegative `f_b` that are `0` for `\|u\| > A`, `M₁ > 0` and `κM₃ ≤ L`, `Jint f M₁ M₂ M₃ κ ≤ Σ_a∫g_a²` (`Jint_le_ga`); for smooth `f_b` that are `0` for `\|u\| > A` and `M₁ > 0`, Plancherel, `∫g_a² = ∫\|ĝ_a\|²` (`integral_sq_ga`), and `ĝ_a` by an affine change of variables (`fourier_ga`) |
 | `LinnikCGLPois8.lean` | 680 | `ĝ_a` by Poisson in residue classes: for smooth `f_b` that are `0` for `\|u\| > A`, `M₁ > 0` and `L > 0`, `ĝ_a(ξ) = Σ_bΣ_{m₁,m₂}(m₂/\|m₁\|)f̂_b(m₂ξ/m₁)Σ_{n∈ℤ}(L/q)ψ̂₀(L(n/q − ξ/m₁))e_q(−n(am₁ + bm₂))c_q(n)` with `c_q(n) = Σ_{d∈ℤ/qℤ}(d, q)e_q(nd)` (`fourier_ga_poisson`, from `poisson_S`) |
+| `LinnikCGLCount.lean` | 681 | Chen–Gupta–Li's count of the pairs `(m₁′, n′)` in their Lemma 8.2: for `q ≥ 1`, `L > 0`, `M₁ > 0`, `0 < δ ≤ 1`, real `ξ`, `x ∈ ℤ/qℤ` and a finite set `T` of integers, `Σ_{m₁′∈P1 M₁}Σ_{n′∈T, n′≠0}\|ψ̂₀(L(n′/q − ξ/m₁′))\|(n′m₁′ − x, q) ≤ 4C_δB₄(1 + q\|ξ\|)^δ(1 + 2qM₁/L)^δ(Σ_h(h, q))(2π + 8πM₁/L)` (`count_le`) |
+| `LinnikCGLAsum.lean` | 681 | Their sum over `a` by the Ramanujan sum: with the hypotheses of `count_le` and any `F`, `Σ_a\|Σ_{m∈P1}Σ_{n∈T, n≠0}(L/q)Ψ(m, n)c_q(n)F(m, n)e_q(−anm)\|² ≤ d(q)(L/q)²(Σ_h(h, q))²N_δΣ_mΣ_n\|Ψ(m, n)\|\|F(m, n)\|²`, with `Ψ(m, n) = ψ̂₀(L(n/q − ξ/m))` and `N_δ` the bound of `count_le` (`sum_a_finite_le`) |
 
 ## Building (rounds 217, 618)
 
@@ -1171,3 +1173,28 @@ Round 680 expands the sum over `m₃` in `ĝ_a` by Poisson summation along the r
 - `fourier_ga_poisson`: for smooth `f_b` that are `0` for `|u| > A`, `M₁ > 0` and `L > 0`, `ĝ_a(ξ) = Σ_bΣ_{m₁,m₂}(m₂/|m₁|)f̂_b(m₂ξ/m₁)Σ_{n∈ℤ}(L/q)ψ̂₀(L(n/q − ξ/m₁))e_q(−n(am₁ + bm₂))c_q(n)`.
 
 See the main README, round 680, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 631 lines.
+
+## Their count of the pairs (m₁′, n′): LinnikCGLCount.lean (round 681)
+
+Round 681 proves the count in Chen–Gupta–Li's Lemma 8.2 by the product `s = n′m₁′`, with `q ≥ 1`, `L_c(r) = (1 + c²r²)⁻¹` round 673's `lor`, `ψ̂₀` round 659's `𝓕 psiC`, `(x, q)` the gcd of a residue (`gw`), `C_δ` round 525's `Cdiv` and `B₄ = 2(∫ψ̃₀ + D₄/(2π)⁴)`.
+
+- `B4`, `norm_fourier_psiC_le_lor`: `|ψ̂₀(y)| ≤ B₄L₁(y)²`.
+- `lor_pos'`, `lor_le_one`, `lor_neg`, `lor_anti`, `lor_le_lor_prod`: `0 < L_c ≤ 1`, `L_c` is even and decreases in `|r|`; for `q > 0`, `L > 0`, `M₁ > 0`, `m₁′ ∈ P1 M₁` and integers `n′`, `L₁(L(n′/q − ξ/m₁′)) ≤ L_{1/Λ}(n′m₁′ − qξ)` with `Λ = 2qM₁/L`.
+- `card_fiber_le`: for `s ≠ 0`, the pairs `(m, n)` of a finite set with `nm = s` number at most `2d(|s|)`.
+- `one_add_mul_lor_le`, `rpow_mul_lor_sq_le`: for `Λ > 0`, `(1 + |t|/Λ)L_{1/Λ}(t) ≤ 2`; and for `0 < δ ≤ 1` and integers `s`, `|s|^δL_{1/Λ}(s − qξ)² ≤ 2(1 + q|ξ|)^δ(1 + Λ)^δL_{1/Λ}(s − qξ)`.
+- `gw`, `sum_lor_gw_le`: for `Λ > 0` and a finite set `S` of integers, `Σ_{s∈S}L_{1/Λ}(s − y)(s − x, q) ≤ (Σ_{h∈ℤ/qℤ}(h, q))(2π + 4πΛ/q)`.
+- `count_le`: for `L > 0`, `M₁ > 0`, `0 < δ ≤ 1`, real `ξ`, `x ∈ ℤ/qℤ` and a finite set `T` of integers, `Σ_{m₁′∈P1 M₁}Σ_{n′∈T, n′≠0}|ψ̂₀(L(n′/q − ξ/m₁′))|(n′m₁′ − x, q) ≤ 4C_δB₄(1 + q|ξ|)^δ(1 + 2qM₁/L)^δ(Σ_{h∈ℤ/qℤ}(h, q))(2π + 8πM₁/L)`.
+
+See the main README, round 681, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean.
+
+## Their sum over a: LinnikCGLAsum.lean (round 681)
+
+Round 681 bounds the sum over the units `a` in Chen–Gupta–Li's Lemma 8.2, with `q ≥ 1`, `e_q` Mathlib's `ZMod.stdAddChar`, round 652's Ramanujan sum `Cq` and round 680's `c_q(n)` (`cqg`).
+
+- `norm_stdAddChar`, `conj_stdAddChar`: `|e_q(y)| = 1` and `conj(e_q(y)) = e_q(−y)`.
+- `sum_units_norm_sq_le`: for a finite set `K`, points `s_k ∈ ℤ/qℤ` and coefficients `X_k`, `Σ_a|Σ_{k∈K}X_ke_q(−as_k)|² ≤ d(q)Σ_{k,k′∈K}|X_k||X_{k′}|(s_{k′} − s_k, q)` (round 653's `norm_Cq_le`).
+- `sum_sum_amgm_le`: for `u ≥ 0` and `g ≥ 0` symmetric, `Σ_{k,k′}u_ku_{k′}v_kv_{k′}g(k, k′) ≤ Σ_ku_kv_k²Σ_{k′}u_{k′}g(k, k′)`.
+- `norm_cqg_le`, `gw_neg`: `|c_q(n)| ≤ Σ_{h∈ℤ/qℤ}(h, q)`; `(−x, q) = (x, q)`.
+- `sum_a_finite_le`: for `L > 0`, `M₁ > 0`, `0 < δ ≤ 1`, real `ξ`, a finite set `T` of integers and any `F : ℤ → ℤ → ℂ`, with `Ψ(m, n) = ψ̂₀(L(n/q − ξ/m))`, `Σ_a|Σ_{m∈P1 M₁}Σ_{n∈T, n≠0}(L/q)Ψ(m, n)c_q(n)F(m, n)e_q(−anm)|² ≤ d(q)(L/q)²(Σ_h(h, q))²N_δΣ_{m∈P1 M₁}Σ_{n∈T, n≠0}|Ψ(m, n)||F(m, n)|²`, with `N_δ` the bound of `count_le`.
+
+See the main README, round 681, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 633 lines.
