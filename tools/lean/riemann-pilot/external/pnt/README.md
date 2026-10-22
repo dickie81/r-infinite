@@ -192,6 +192,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLL105.lean` | 669 | Chen–Gupta–Li's Lemma 10.5 at one point per character: the shifted local average of `\|D_c\|²` against `κ = 4C_k/(1 + ξ²)` (`norm_sq_Dp_le_shift`), the sum over the triples (`sum_triple_eq`, `sum_triple_le`), and `E ≤ 36(N^σ)^{−2}∫κ·Σ_{n₁,n₂}\|R₂(n₁, n₂)\|³` (`lemma105`) |
 | `LinnikCGLT101.lean` | 670 | Chen–Gupta–Li's Theorem 10.1 (Heath-Brown) as a displayed hypothesis (`CGLT101`), the square of `R₂` expanded (`sum_sq_R2_eq`), and their Lemma 10.6 at one point per character (`lemma106`) |
 | `LinnikCGLL107.lean` | 672 | Chen–Gupta–Li's Lemma 10.7 from their Theorem 10.1 (round 670's `CGLT101`, a displayed hypothesis): the pairs classed by `(⌊t_i − t_j⌋, χ_iχ_j⁻¹)` and grouped by conductor and dyadic size (`key`, `cls`, `grp`), `Σ_κ\|cls κ\|² ≤ E` (`sum_card_cls_sq_le`), `CGLT101` at each conductor (`group_le`), and `Σ_{n₁,n₂∼M}\|R₂\|⁴ ≤ C(d(q)(⌊log₂\|R\|²⌋ + 1))²(qTM)^ε(EM² + \|R\|⁴M + E^{3/4}\|R\|(qT)^{1/2}M)` for `q ≥ 1`, `T, M ≥ 1` and points `\|t_i\| ≤ T` (`lemma107`) |
+| `LinnikCGLSep.lean` | 673 | Toward Chen–Gupta–Li's Lemma 10.9: for `c, δ > 0` and points with `\|x_p − x_{p′}\| ≥ δ` for `p ≠ p′`, `Σ_pL_c(y − x_p) ≤ 2π + 4π/(cδ)` with `L_c(r) = (1 + c²r²)⁻¹` (`sum_lor_le`); for `n₁, n₂ > 0` with `n₂` a unit modulo `q`, `R₂(n₁, n₂) = R(n₁/n₂, n₁n₂⁻¹)` (`R2_eq_Rf`); for distinct pairs `(n₁, n₂) ≠ (m₁, m₂)` of `n ∼ N` with one gcd `d` and one residue `n₁n₂⁻¹ = m₁m₂⁻¹` modulo `q`, `n₁`, `n₂` and `m₂` units modulo `q`, and `N > 0`, `\|log(n₁/n₂) − log(m₁/m₂)\| ≥ qd²/(8N²)` (`sep_frac`, `log_sep`); and for `F(x) = Σ_kc_ke^{iλ_kx}` with every `\|λ_k\| ≤ T`, `T ≥ 1`, `X ≥ 4`, `K ≥ 2` and points `x_p`, `p ∈ P`, with `\|x_p\| ≤ 1` and `\|x_p − x_{p′}\| ≥ δ > 0` for `p ≠ p′`, `Σ_p\|F(x_p)\|³ ≤ C_k(3T + 4π/δ)∫ψ̃₀(y/X)\|F(y)\|³ dy + \|P\|(Σ_k\|c_k\|)³·2πD_K(2π)^{−K}Z^{2−K}` with `Z = 3T(X − 1)/(2π)` (`sum_cube_le`) |
 
 ## Building (rounds 217, 618)
 
@@ -1058,3 +1059,18 @@ Round 672 derives Chen–Gupta–Li's Lemma 10.7 from round 670's `CGLT101`, a d
 - `lemma107`: from `CGLT101`, for every `ε > 0` there is `C ≥ 0` such that, for `q ≥ 1`, `T, M ≥ 1` and points `|t_i| ≤ T`, `Σ_{n₁,n₂∼M}|R₂(n₁, n₂)|⁴ ≤ C(d(q)(⌊log₂|R|²⌋ + 1))²(qTM)^ε(EM² + |R|⁴M + E^{3/4}|R|(qT)^{1/2}M)`.
 
 See the main README, round 672, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 610 lines.
+
+## Separated points, toward their Lemma 10.9: LinnikCGLSep.lean (round 673)
+
+Round 673 proves the separation of the fractions in Chen–Gupta–Li's Lemma 10.9 and the bound that the separation gives, with `n ∼ N` round 670's `dyad`, `R₂` round 669's, `R` round 652's `Rf`, `k` round 668's `kloc`, `C_k` round 669's `Ck`, `D_K` round 659's `Dpsi`, `ψ̃₀` round 656's bump, `L_c(r) = (1 + c²r²)⁻¹` and `F = esum s c λ` (round 668).
+
+- `lor`, `lor_pos`, `lor_eq`, `integrable_lor`, `integral_lor`, `lor_le_four`: `L_c > 0`, `∫L_c(y − s) ds = π/c` for `c > 0`, and `L_c(y − x) ≤ 4L_c(y − s)` for `c ≥ 0` and `c|s − x| ≤ 1`.
+- `sum_lor_le`: for `c, δ > 0` and points `x_p`, `p ∈ P`, with `|x_p − x_{p′}| ≥ δ` for `p ≠ p′`, `Σ_pL_c(y − x_p) ≤ 2π + 4π/(cδ)` with `L_c(r) = (1 + c²r²)⁻¹`.
+- `R2_eq_Rf`: for `n₁, n₂ > 0` with `n₂` a unit modulo `q`, `R₂(n₁, n₂) = R(n₁/n₂, n₁n₂⁻¹)`.
+- `sep_frac`: for `n₁ > 0`, two pairs with one gcd `d`, `n₁`, `n₂` and `m₂` units modulo `q`, and one residue `n₁n₂⁻¹ = m₁m₂⁻¹` modulo `q`, `(n₁, n₂) ≠ (m₁, m₂)` gives `qd² ≤ |n₁m₂ − m₁n₂|`.
+- `abs_sub_le_max_mul_abs_log`, `log_sep`: `|u − v| ≤ max(u, v)|log u − log v|` for `u, v > 0`; and, for distinct pairs `(n₁, n₂) ≠ (m₁, m₂)` of `n ∼ N` with one gcd `d` and one residue `n₁n₂⁻¹ = m₁m₂⁻¹` modulo `q`, `n₁`, `n₂` and `m₂` units modulo `q`, and `N > 0`, `|log(n₁/n₂) − log(m₁/m₂)| ≥ qd²/(8N²)`.
+- `norm_kloc_le_lor`, `norm_kloc_tail`: `|k(ξ)| ≤ C_kL_1(ξ)`; and for `K ≥ 2`, `Z ≥ 1` and `|ξ| > Z`, `|k(ξ)| ≤ 2D_K(2π)^{−K}Z^{2−K}L_1(ξ)`.
+- `integral_affine`: `∫f(ξ) dξ = a∫f(a(y − x)) dy` for `a > 0`.
+- `sum_cube_le`: for `F(x) = Σ_kc_ke^{iλ_kx}` with every `|λ_k| ≤ T`, `T ≥ 1`, `X ≥ 4`, `K ≥ 2` and points `x_p`, `p ∈ P`, with `|x_p| ≤ 1` and `|x_p − x_{p′}| ≥ δ > 0` for `p ≠ p′`, `Σ_p|F(x_p)|³ ≤ C_k(3T + 4π/δ)∫ψ̃₀(y/X)|F(y)|³ dy + |P|(Σ_k|c_k|)³·2πD_K(2π)^{−K}Z^{2−K}` with `Z = 3T(X − 1)/(2π)`.
+
+See the main README, round 673, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 612 lines.

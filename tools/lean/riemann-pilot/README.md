@@ -28423,4 +28423,73 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 **Bearing on RH:** none.
 
-**The next step.** Their Lemma 10.8, toward their Lemma 10.9 for small `(n₁, n₂)`.
+**The next step.** Their Lemma 10.8, toward their Lemma 10.9 for small `(n₁, n₂)`. *(round 673: Lemma 10.8 is not formalized as stated; round 673's `sum_cube_le` takes its part in Lemma 10.9.)*
+
+## Round 673: separated points, and the fractions of their Lemma 10.9 (stage M3, the `S₃` side; `external/pnt/LinnikCGLSep.lean`)
+
+**The results.** Below, `L_c(r) = (1 + c²r²)⁻¹` (`lor`), `k` is round 668's kernel `kloc`, `C_k` round 669's `Ck`, `D_K` round 659's `Dpsi`, `ψ̃₀` round 656's bump, `n ∼ N` means `N < n ≤ 2N` (round 670's `dyad`), and `F(x) = Σ_kc_ke^{iλ_kx}` is round 668's `esum`.
+
+- `LinnikCGLSep.integral_lor`, `lor_le_four`: `∫L_c(y − s) ds = π/c` for `c > 0`, and `L_c(y − x) ≤ 4L_c(y − s)` for `c ≥ 0` and `c|s − x| ≤ 1`.
+- `LinnikCGLSep.sum_lor_le`: for `c, δ > 0` and points `x_p`, `p ∈ P`, with `|x_p − x_{p′}| ≥ δ` for `p ≠ p′`, `Σ_{p∈P}L_c(y − x_p) ≤ 2π + 4π/(cδ)`. With `2h = min(δ, 2/c)` the intervals `[x_p − h, x_p + h)` are disjoint, `L_c(y − x_p) ≤ 4L_c(y − s)` on each, and their integrals add up to at most `4∫L_c = 4π/c`.
+- `LinnikCGLSep.R2_eq_Rf`: for `n₁, n₂ > 0` with `n₂` a unit modulo `q`, round 669's `R₂(n₁, n₂)` is round 652's `R(n₁/n₂, n₁n₂⁻¹)`.
+- `LinnikCGLSep.sep_frac`: for `n₁ > 0`, two pairs with one gcd `d`, `n₁`, `n₂` and `m₂` units modulo `q`, and one residue `n₁n₂⁻¹ = m₁m₂⁻¹` modulo `q`, `(n₁, n₂) ≠ (m₁, m₂)` gives `qd² ≤ |n₁m₂ − m₁n₂|`. The integer `n₁m₂ − m₁n₂` is divisible by `q`, since the residues agree, and by `d²`, which is prime to `q`, and it is not `0`, since the reduced fractions differ.
+- `LinnikCGLSep.abs_sub_le_max_mul_abs_log`, `log_sep`: `|u − v| ≤ max(u, v)|log u − log v|` for `u, v > 0`; and for `N > 0`, `n₁, n₂, m₁, m₂ ∼ N` and the other hypotheses of `sep_frac` but `n₁ > 0`, `|log(n₁/n₂) − log(m₁/m₂)| ≥ qd²/(8N²)`, since the fractions lie in `(1/2, 2)` and `n₂m₂ ≤ 4N²`.
+- `LinnikCGLSep.norm_kloc_le_lor`, `norm_kloc_tail`: `|k(ξ)| ≤ C_kL_1(ξ)`, from round 669's `(1 + ξ²)|k(ξ)| ≤ C_k`; and for `K ≥ 2`, `Z ≥ 1` and `|ξ| > Z`, `|k(ξ)| ≤ 2D_K(2π)^{−K}Z^{2−K}L_1(ξ)`, from round 659's `(2π|ξ|)^K|ψ̂₀(ξ)| ≤ D_K`.
+- `LinnikCGLSep.integral_affine`: `∫f(ξ) dξ = a∫f(a(y − x)) dy` for `a > 0`.
+- `LinnikCGLSep.sum_cube_le`: for `F` with every `|λ_k| ≤ T`, `T ≥ 1`, `X ≥ 4`, `K ≥ 2`, and points `x_p`, `p ∈ P`, with `|x_p| ≤ 1` and `|x_p − x_{p′}| ≥ δ > 0` for `p ≠ p′`, `Σ_{p∈P}|F(x_p)|³ ≤ C_k(3T + 4π/δ)∫ψ̃₀(y/X)|F(y)|³ dy + |P|(Σ_k|c_k|)³·2πD_K(2π)^{−K}Z^{2−K}` with `Z = 3T(X − 1)/(2π)`. Round 668's `norm_cube_esum_le` bounds each `|F(x_p)|³` by `∫|k(ξ)||F(x_p + 2πξ/(3T))|³ dξ`. Where `|x_p + 2πξ/(3T)| ≤ X` the weight `ψ̃₀(·/X)` is `1`; elsewhere `|ξ| > Z`, and `norm_kloc_tail` applies. The change of variables `ξ = 3T(y − x_p)/(2π)` and `sum_lor_le` with `c = 3T/(2π)` count the points.
+
+**Their text.** Re-read this round in the text layer. The underscores in the quotations are escaped for the renderer.
+
+- Their Lemma 10.9 (Small GCD terms): "We have Σ\_{n₁,n₂∼N, (n₁n₂,q)=1, (n₁,n₂)≤D} |R(n₁/n₂, n₁n₂^{−1})|³ ⪅\_ϵ (DqT + N²)|W|^{1/2}E(W)^{1/2}." (lines 5070–5082; spaces restored; the sum, fraction, large bars, which the text layer encodes as four form feeds each, large parentheses, subscripts and exponents transcribed).
+- Their use of Lemma 10.8: "It follows from Lemma 10.8 that, for (a,q) = 1," (line 5090), which opens their (10.1) (lines 5090–5155).
+- Their separation and count: "Hence, the fractions n′₁/n′₂ that appear in the inner sum are qd²/N²-separated. This separation enables us to bound the inner sum in (10.1) by ⪅ 1 + N²/(qTd²)." (lines 5186–5189; spaces restored; the subscripts and exponents transcribed).
+- Their factor in the display that ends with (10.2) is `T + N²/(d²q)` (lines 5246–5249, transcribed).
+
+**The stack's form.**
+
+- **The separation.** Their `n′₂ = n′₁a^{−1} + qℓ′` (lines 5156–5160) writes the difference of two fractions as `q(n′₁ℓ′′ − n′′₁ℓ′)` over a product. The stack bounds the integer `n₁m₂ − m₁n₂` directly (`sep_frac`) and passes to `log`, the variable of `esum`, with the constant `8` (`log_sep`), where their `≫` hides a constant.
+- **Lemma 10.8 and the count.** Their (10.1) bounds each cube by an integral over a window `|v′ − v| ≤ T^ϵ/T`, from Lemma 10.8, and the separation bounds the number of fractions in a window. The stack's `sum_cube_le` does both at once. Round 668's local average has no window; the kernel `k` decays like a Lorentzian, and for `c, δ > 0` Lorentzians centred at `δ`-separated points sum to at most `2π + 4π/(cδ)`. With `δ = qd²/(8N²)` the coefficient `C_k(3T + 4π/δ)` is `C_k(3T + 32πN²/(qd²))`, against their `T + N²/(d²q)` under `⪅`. Their Lemma 10.8 is not formalized as stated.
+- **The tail.** Their `O(N²T^{−100})` is small for `T` large. The stack's tail `|P|(Σ_k|c_k|)³·2πD_K(2π)^{−K}Z^{2−K}`, with `Z = 3T(X − 1)/(2π)`, is small for `X` large and any `T ≥ 1`, since the weight `ψ̃₀(y/X)` is `1` on `[−X, X]`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLSep.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`log_sep`, `sum_cube_le`).
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2, an M3 note, a marker in round 672's note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+- This file: a marker in round 672's next step.
+
+**What is checked.**
+
+- Mathlib's names were checked first (`scratchpad/r673/check.lean`, `check2.lean` and `check3.lean`).
+- The file was compiled in scratch in eleven runs with `lean --json` (`scratchpad/r673/run.sh`, which runs `lcj.sh` and lists the errors and warnings; `lcj1.out` to `lcj11.out`). Runs 10 and 11 had exit 0 and no message: a re-parse of all eleven outputs, information messages included, lists none for them. The fixes were these. `Function.onFun Disjoint I` replaces `Disjoint on I`, which is not Lean 4 syntax. The comparison of a set integral with the whole integral is applied through `mul_le_mul_of_nonneg_left`. Two `simp only` steps that made no progress were removed. Three unused hypotheses of `sep_frac` were removed, and `sep_frac` and `log_sep` omit `[NeZero q]`, with `omit … in` before the docstring. In `sum_cube_le`, the notation `∫ y, f y + g` takes `+ g` into the integrand, so the integrals followed by `+` are parenthesized, the statement's among them. `integral_sub_right_eq_self` is given the measure `volume`. The change of variables closes with `simp only` and a pointwise identity, in place of `integral_congr_ae`. `linarith` replaces a `gcongr` that made no progress and an `add_le_add_right`, which in this Mathlib adds the term on the left. A `ring` after a `field_simp` that had closed the goal was removed. Run 11 compiled the file with its header. The header was then corrected (its `(10.2)` citation, and the hypothesis lists of its explanatory bullets completed), and four `#print axioms` lines were added at the end of the file. The third build below compiled the final file.
+- Then `build.sh` ran three times (`scratchpad/r673/compile.sh`, logs `build_1.log` to `build_3.log`). The first run, before the module's own `#print axioms` lines, printed the final check's 612 lines; the second compiled the file before the header's last correction. The third compiled the final file: `1 compiled, 407 up to date` (`LinnikCGLSep` 16 s), exit 0 in 28 s, with no error, warning, `sorry` or information message. Its 616 axiom lines (4 by the module, 612 by the final check, which gains two lines) are 603 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms"; the 13 are in the final check, as before. They are the second run's lines, line for line. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.79 GiB (`rss_watch_build_3.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed, with its output saved in `scratchpad/r673/gate.out`: `tools/research/render_lint.py` against HEAD as multisets (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2 gains round 673 in its stack cell and a clause in its status; nothing in it is superseded. The opening's parenthetical gains round 673, and M3 gains a note. Round 672's note named Lemma 10.8 as the next step; a marker records that it is not formalized as stated.
+- `external/pnt/README.md`: a row, and a section with a heading.
+- This file: a marker in round 672's next step, likewise.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their Lemma 10.9 and its proof (lines 5070–5299), and their Lemma 10.8 and its proof (lines 5011–5069).
+- `LinnikCGLSep.lean` in full.
+- The operative definitions and statements: round 668's `esum`, `kloc` and `norm_cube_esum_le`, round 669's `Ck`, `norm_kloc_mul_le` and `R2`, round 659's `Dpsi`, `fourier_psiC_decay` and `norm_fourier_psiC_le`, round 652's `Rf`, round 656's `psi0`, `psi0_nonneg`, `psi0_le_one` and `psi0_eq_one`, round 658's `psi0_eq_zero`, and round 670's `dyad` and `mem_dyad`.
+
+**Check 4.** No defect in the cascade or the stack is raised. `CGLS3`, `CGLP81` and `CGLT101` are hypotheses.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Lemma 10.9: the pairs split by the gcd `d ≤ D` and the residue, `sum_cube_le` on each class with `δ = qd²/(8N²)`, the sum over `d` of `3T + 32πN²/(qd²)`, and Cauchy–Schwarz between the second moment (round 658) and the fourth (round 659).
