@@ -194,6 +194,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLL107.lean` | 672 | Chen–Gupta–Li's Lemma 10.7 from their Theorem 10.1 (round 670's `CGLT101`, a displayed hypothesis): the pairs classed by `(⌊t_i − t_j⌋, χ_iχ_j⁻¹)` and grouped by conductor and dyadic size (`key`, `cls`, `grp`), `Σ_κ\|cls κ\|² ≤ E` (`sum_card_cls_sq_le`), `CGLT101` at each conductor (`group_le`), and `Σ_{n₁,n₂∼M}\|R₂\|⁴ ≤ C(d(q)(⌊log₂\|R\|²⌋ + 1))²(qTM)^ε(EM² + \|R\|⁴M + E^{3/4}\|R\|(qT)^{1/2}M)` for `q ≥ 1`, `T, M ≥ 1` and points `\|t_i\| ≤ T` (`lemma107`) |
 | `LinnikCGLSep.lean` | 673 | Toward Chen–Gupta–Li's Lemma 10.9: for `c, δ > 0` and points with `\|x_p − x_{p′}\| ≥ δ` for `p ≠ p′`, `Σ_pL_c(y − x_p) ≤ 2π + 4π/(cδ)` with `L_c(r) = (1 + c²r²)⁻¹` (`sum_lor_le`); for `n₁, n₂ > 0` with `n₂` a unit modulo `q`, `R₂(n₁, n₂) = R(n₁/n₂, n₁n₂⁻¹)` (`R2_eq_Rf`); for distinct pairs `(n₁, n₂) ≠ (m₁, m₂)` of `n ∼ N` with one gcd `d` and one residue `n₁n₂⁻¹ = m₁m₂⁻¹` modulo `q`, `n₁`, `n₂` and `m₂` units modulo `q`, and `N > 0`, `\|log(n₁/n₂) − log(m₁/m₂)\| ≥ qd²/(8N²)` (`sep_frac`, `log_sep`); and for `F(x) = Σ_kc_ke^{iλ_kx}` with every `\|λ_k\| ≤ T`, `T ≥ 1`, `X ≥ 4`, `K ≥ 2` and points `x_p`, `p ∈ P`, with `\|x_p\| ≤ 1` and `\|x_p − x_{p′}\| ≥ δ > 0` for `p ≠ p′`, `Σ_p\|F(x_p)\|³ ≤ C_k(3T + 4π/δ)∫ψ̃₀(y/X)\|F(y)\|³ dy + \|P\|(Σ_k\|c_k\|)³·2πD_K(2π)^{−K}Z^{2−K}` with `Z = 3T(X − 1)/(2π)` (`sum_cube_le`) |
 | `LinnikCGLL109.lean` | 674 | Chen–Gupta–Li's Lemma 10.9 (small gcd terms) at one point per character: `R₂` as a finite exponential sum in `log(n₁/n₂)` on each class (`R2_eq_esum`), the third moment over the units (`sum_cube_moment_le`), and, for `q ≥ 1`, `χ` injective on `R`, `T ≥ 1`, points `\|t_i\| ≤ T`, `N > 0`, `X ≥ 4`, `D ∈ ℕ` and `K ≥ 2`, `Σ_{n₁,n₂∼N, (n₁,n₂)≤D}\|R₂(n₁, n₂)\|³ ≤ C_k(3DqT + 64πN²)X√(\|R\|∫ψ̃₀·(∫ψ̃₀·E + \|R\|⁴D_K/X^K)) + \|P\|\|R\|³·2πD_K(2π)^{−K}Z^{2−K}`, with `P` the pairs and `Z = 3T(X − 1)/(2π)` (`lemma109`) |
+| `LinnikCGLL1010.lean` | 675 | Chen–Gupta–Li's Lemma 10.10 (large gcd terms) before their case analysis: their Lemma 10.6 without a lower bound on `qT` (`lemma106'`), the pairs with one gcd (`sum_gcd_eq_le`), and, from `CGLT101`, for every `ε > 0` there is `C ≥ 0` such that, for `q ≥ 1`, primitive characters injective on `R`, `T ≥ 1`, points `\|t_i\| ≤ T`, `N > 0` and `D ∈ ℕ`, `Σ_{n₁,n₂∼N, (n₁,n₂)>D}\|R₂(n₁, n₂)\|³ ≤ CG(qTN)^ε√(ab) + \|{n ∼ N}\|\|R\|³`, with `G = d(q)(⌊log₂\|R\|²⌋ + 1)`, `L = 1 + log max(1, N)`, `a = \|R\|N²·2/(D + 1) + (\|R\|² + \|R\|^{5/4}(qT)^{1/2})NL` and `b = E·N²·2/(D + 1) + (\|R\|⁴ + E^{3/4}\|R\|(qT)^{1/2})NL` (`lemma1010`) |
 
 ## Building (rounds 217, 618)
 
@@ -1088,3 +1089,16 @@ Round 674 proves Chen–Gupta–Li's Lemma 10.9 at one point per character, with
 - `pairs`, `lemma109`: for `χ` injective on `R`, `T ≥ 1`, points `|t_i| ≤ T`, `N > 0`, `X ≥ 4`, `D ∈ ℕ` and `K ≥ 2`, `Σ_{n₁,n₂∼N, (n₁,n₂)≤D}|R₂(n₁, n₂)|³ ≤ C_k(3DqT + 64πN²)X√(|R|∫ψ̃₀·(∫ψ̃₀·E + |R|⁴D_K/X^K)) + |P||R|³·2πD_K(2π)^{−K}Z^{2−K}`, with `P` the pairs and `Z = 3T(X − 1)/(2π)`.
 
 See the main README, round 674, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 614 lines.
+
+## Their Lemma 10.10: LinnikCGLL1010.lean (round 675)
+
+Round 675 proves Chen–Gupta–Li's Lemma 10.10 up to their case analysis, from round 670's `CGLT101`, a displayed hypothesis, with `q ≥ 1`, `n ∼ N` round 670's `dyad`, `R₂` round 669's, `E` round 659's `energy`, `G = d(q)(⌊log₂|R|²⌋ + 1)` and `L = 1 + log max(1, N)`.
+
+- `lemma106'`: from `CGLT101`, for every `ε > 0` there is `C ≥ 0` such that, for primitive characters injective on `R`, `T, M ≥ 1` and points `|t_i| ≤ T`, `Σ_{n₁,n₂∼M}|R₂(n₁, n₂)|² ≤ C(qTM)^ε(|R|M² + |R|²M + |R|^{5/4}(qT)^{1/2}M)`.
+- `norm_R2_le`, `norm_R2_mul_le`: `|R₂(n₁, n₂)| ≤ |R|`; and `|R₂(dm₁, dm₂)| ≤ |R₂(m₁, m₂)|` for `d, m₁, m₂ > 0`.
+- `sum_gcd_eq_le`: for `N > 0`, `d > 0` and `k ∈ ℕ`, `Σ_{n₁,n₂∼N, (n₁,n₂)=d}|R₂(n₁, n₂)|^k ≤ Σ_{m₁,m₂∼N/d}|R₂(m₁, m₂)|^k`.
+- `sum_cube_le_sqrt`, `sum_inv_le`, `sum_inv_sq_le`: for `f ≥ 0` on a finite set, `Σf³ ≤ √(Σf⁴)√(Σf²)`; `Σ_{D<d≤N}d^{−1} ≤ 1 + log max(1, N)`; and `Σ_{D<d≤N}d^{−2} ≤ 2/(D + 1)`.
+- `pairsGt`, `eq_of_dvd_of_lt`: the pairs `n₁, n₂ ∼ N` with `(n₁, n₂) > D`; and for `N > 0`, `n ∼ N` and a divisor `g > N` of `n`, `n = g`.
+- `lemma1010`: from `CGLT101`, for every `ε > 0` there is `C ≥ 0` such that, for primitive characters injective on `R`, `T ≥ 1`, points `|t_i| ≤ T`, `N > 0` and `D ∈ ℕ`, `Σ_{n₁,n₂∼N, (n₁,n₂)>D}|R₂(n₁, n₂)|³ ≤ CG(qTN)^ε√(ab) + |{n ∼ N}||R|³`, with `G = d(q)(⌊log₂|R|²⌋ + 1)`, `L = 1 + log max(1, N)`, `a = |R|N²·2/(D + 1) + (|R|² + |R|^{5/4}(qT)^{1/2})NL` and `b = E·N²·2/(D + 1) + (|R|⁴ + E^{3/4}|R|(qT)^{1/2})NL`.
+
+See the main README, round 675, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 616 lines.

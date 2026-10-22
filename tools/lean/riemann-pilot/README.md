@@ -28558,3 +28558,69 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Their Lemma 10.10, the large-gcd terms: `R₂(dn′₁, dn′₂) = R₂(n′₁, n′₂)` for `d` a unit modulo `q`, Cauchy–Schwarz with round 670's `lemma106` and round 672's `lemma107` at `M = N/d`, and the sum over `d ≥ D`.
+
+## Round 675: their Lemma 10.10, the large-gcd terms, before their case analysis (stage M3, the `S₃` side; `external/pnt/LinnikCGLL1010.lean`)
+
+**The results.** Below, `q ≥ 1`, `n ∼ N` means `N < n ≤ 2N` (round 670's `dyad`), `R₂` is round 669's, `E` round 659's `energy`, `CGLT101` round 670's displayed hypothesis, `G = d(q)(⌊log₂|R|²⌋ + 1)` and `L = 1 + log max(1, N)`.
+
+- `LinnikCGLL1010.lemma106'`: their Lemma 10.6 without a lower bound on `qT`. From `CGLT101`, for every `ε > 0` there is `C ≥ 0` such that, for primitive characters injective on `R`, `T, M ≥ 1` and points `|t_i| ≤ T`, `Σ_{n₁,n₂∼M}|R₂(n₁, n₂)|² ≤ C(qTM)^ε(|R|M² + |R|²M + |R|^{5/4}(qT)^{1/2}M)`. Round 670's `lemma106` at `T′ = max(1, Q₀)T`, which makes `qT′ ≥ Q₀`, with the constant `max(C, 0)max(1, Q₀)^ε max(1, Q₀)^{1/2}`.
+- `LinnikCGLL1010.norm_R2_le`, `norm_R2_mul_le`: `|R₂(n₁, n₂)| ≤ |R|`; and for `d, m₁, m₂ > 0`, `|R₂(dm₁, dm₂)| ≤ |R₂(m₁, m₂)|`, with equality when `d` is a unit modulo `q` and `R₂(dm₁, dm₂) = 0` otherwise.
+- `LinnikCGLL1010.sum_gcd_eq_le`: for `N > 0`, `d > 0` and `k ∈ ℕ`, `Σ_{n₁,n₂∼N, (n₁,n₂)=d}|R₂(n₁, n₂)|^k ≤ Σ_{m₁,m₂∼N/d}|R₂(m₁, m₂)|^k`, through `(n₁, n₂) ↦ (n₁/d, n₂/d)`.
+- `LinnikCGLL1010.sum_cube_le_sqrt`, `sum_inv_le`, `sum_inv_sq_le`: for `f ≥ 0` on a finite set, `Σf³ ≤ √(Σf⁴)√(Σf²)`; `Σ_{D<d≤N}d^{−1} ≤ 1 + log max(1, N)`, from Mathlib's `harmonic_le_one_add_log`; and `Σ_{D<d≤N}d^{−2} ≤ 2/(D + 1)`, from Mathlib's `sum_Ioo_inv_sq_le`.
+- `LinnikCGLL1010.pairsGt`, `eq_of_dvd_of_lt`: the pairs `n₁, n₂ ∼ N` with `(n₁, n₂) > D`; and for `N > 0`, `n ∼ N` and a divisor `g > N` of `n`, `n = g`.
+- `LinnikCGLL1010.lemma1010`: their Lemma 10.10 before their case analysis. From `CGLT101`, for every `ε > 0` there is `C ≥ 0` such that, for primitive characters injective on `R`, `T ≥ 1`, points `|t_i| ≤ T`, `N > 0` and `D ∈ ℕ`, `Σ_{n₁,n₂∼N, (n₁,n₂)>D}|R₂(n₁, n₂)|³ ≤ CG(qTN)^ε√(ab) + |{n ∼ N}||R|³`, with `a = |R|N²·2/(D + 1) + (|R|² + |R|^{5/4}(qT)^{1/2})NL` and `b = E·N²·2/(D + 1) + (|R|⁴ + E^{3/4}|R|(qT)^{1/2})NL`. For `D < d ≤ N` the pairs with gcd `d` are bounded through `sum_gcd_eq_le`, `sum_cube_le_sqrt`, `lemma106'` and round 672's `lemma107` at `M = N/d`, and summed with Mathlib's `Real.sum_sqrt_mul_sqrt_le`. The pairs with gcd `d > N` are `(d, d)`, each at most `|R|³`.
+
+**Their text.** Re-read this round in the text layer. The underscores in the quotations are escaped for the renderer.
+
+- Their Lemma 10.10 (Large GCD terms): "Let D = N²/(qT) and N ≥ (qT)^{2/3}/2. Assume that either |W| ≥ (qT)^{2/3} or that E(W)^{1/8}N ≥ (qT)^{1/2}|W|^{5/8}. Then we have Σ\_{n₁,n₂∼N, (n₁n₂,q)=1, (n₁,n₂)≥D} |R(n₁/n₂, n₁n₂^{−1})|³ ⪅ N|W|³ + N(qT)^{1/4}|W|^{21/8} + E(W)^{1/2}|W|^{1/2}N²." (lines 5315–5336; spaces restored; the sum, fraction, large bars, which the text layer encodes as four form feeds each, large parentheses, subscripts and exponents transcribed).
+- Their steps: "By the Cauchy-Schwarz inequality, we have" (lines 5339–5340); "Applying Lemmas 10.6 and 10.7 yields" (line 5387); and "By summing over d ≥ D and using Cauchy-Schwarz, we arrive at" (line 5415; spaces restored), followed by the product `(|W|N²/D + |W|²N + |W|^{5/4}(qT)^{1/2}N)^{1/2}(E(W)N²/D + |W|⁴N + E(W)^{3/4}|W|(qT)^{1/2}N)^{1/2}` (lines 5416–5435, transcribed). Their case analysis, (10.4) and (10.5), occupies lines 5436–5499.
+- Their Lemmas 10.6 and 10.7 each open "For any M ≥ 1, we have" (lines 4767 and 4814; spaces restored).
+
+**The stack's form.**
+
+- **No threshold.** Round 670's `lemma106` assumes `Q₀ ≤ qT`, from `CGLT101`; `lemma106'` removes it as round 672 did for `lemma107`.
+- **The pairs with gcd `d > N`.** Their sum over `d ≥ D` runs up to `2N`, but for `d > N`, `N/d < 1`, where their Lemmas 10.6 and 10.7, stated for `M ≥ 1`, do not apply. These pairs are `(d, d)` with `N < d ≤ 2N`, and the stack bounds them by `|{n ∼ N}||R|³`, a term of the size of their `N|W|³`.
+- **The constants.** Their `⪅` absorbs the constant, the divisor factor `G` of round 672's `lemma107`, the factor `(qTN)^ε` and the logarithm `L`; the stack keeps them.
+- **The split at `D`.** The stack sums over `(n₁, n₂) > D`, so that with round 674's `(n₁, n₂) ≤ D` the two cover every pair; their `N²/D` becomes `2N²/(D + 1)`.
+- **The case analysis.** Their hypotheses on `D`, `N`, `|W|` and `E(W)` enter only their case analysis, which the next round formalizes with their Proposition 10.2.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLL1010.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`lemma106'`, `lemma1010`).
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+
+**What is checked.**
+
+- Mathlib's names were checked first (`scratchpad/r675/check.lean` and `check2.lean`).
+- The file was compiled in scratch in five runs with `lean --json` (`scratchpad/r675/run.sh`, which runs `lcj.sh` and lists the errors, warnings and information messages; `lcj1.out` to `lcj5.out`). Runs 3 to 5 had exit 0, and their only messages were the file's three axiom lines, each `[propext, Classical.choice, Quot.sound]`. The fixes were these. In `norm_R2_mul_le` the product whose unit-ness is lost is named before `isUnit_of_mul_isUnit_left`, whose second factor could not be inferred. `Finset.sum_image` is given its summand. The binders of the two per-`d` bounds are typed `ℕ`, where the elaborator had taken `ℝ`. The final square roots are split with their arguments named, since an unnamed `Real.sqrt_mul` split the wrong product. Two `field_simp` steps are closed by `ring`. Run 4 compiled the file with its header; a rewrite that changed nothing was then removed from the per-`d` step, and run 5 compiled the final file.
+- Then `build.sh` ran twice (`scratchpad/r675/compile.sh`, logs `build_1.log` and `build_2.log`), the first before that removal. The second compiled the final file: `1 compiled, 409 up to date` (`LinnikCGLL1010` 20 s), exit 0 in 30 s, with no error, warning, `sorry` or information message. Its 619 axiom lines (3 by the module, 616 by the final check, which gains two lines) are 606 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms"; the 13 are in the final check, as before. They are the first run's lines, line for line. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.97 GiB (`rss_watch_build_2.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed, with its output saved in `scratchpad/r675/gate.out`: `tools/research/render_lint.py` against HEAD as multisets (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2 gains round 675 in its stack cell and a clause in its status; nothing in it is superseded. The opening's parenthetical gains round 675, and M3 gains a note.
+- `external/pnt/README.md`: a row, and a section with a heading.
+- No strikes, and no markers: round 674's next step was this round's.
+
+**Check 1** (direct reads this round):
+
+- Their Lemma 10.10 and its proof (lines 5315–5499), and the statements of their Lemmas 10.6 and 10.7 (lines 4767 and 4814).
+- `LinnikCGLL1010.lean` in full.
+- The operative definitions and statements: round 670's `lemma106`, `CGLT101`, `dyad` and `mem_dyad`, round 672's `lemma107`, round 674's `R2_eq_zero`, round 669's `R2`, and round 659's `energy`.
+
+**Check 4.** No defect in the cascade or the stack is raised. `CGLS3`, `CGLP81` and `CGLT101` are hypotheses. The pairs with gcd `d > N`, which their proof does not mention, are within their bound's `N|W|³`; this is recorded as the stack's form, not as a defect.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Their case analysis, (10.4) and (10.5), and their Proposition 10.2: with `D = ⌊N²/(qT)⌋`, `E ≤ |R|³` at one point per character, and `N ≥ (qT)^{2/3}/2`, the two factors reduce as in their proof, and round 669's `lemma105` with round 674's `lemma109` and `lemma1010` bound the energy.
