@@ -106,7 +106,7 @@ for f in SieveCert225C Linnik225C; do c 1 "$HERE" $f; done
 for f in SieveTypeIIU2285 SieveGrid2285U; do c 1 "$HERE" $f; done
 for i in $(seq 1 28); do c 1 "$HERE" SieveCert2285UP$i; done
 for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
-# Rounds 636–654: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
+# Rounds 636–655: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
 # (LinnikCGLLV), the density step from it on [5/7, 16/21] (LinnikCGLStep), Linnik's exponents 9/4 and 226/100
 # from it (LinnikCGLLinnik), (round 638) Proposition 3.1 from a bound on the cubic trace (LinnikCGLMat),
 # (round 639) that bound from the paper's S₂ and S₃ (LinnikCGLS23), (round 640) the Mellin transform of w² and the
@@ -118,10 +118,11 @@ for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
 # character (LinnikCGLTrace), (round 649) the Gram diagonal against its main term (LinnikCGLDiag), (round 650)
 # the truncation in m (LinnikCGLTrunc), (round 651) a product of three ĥs as an integral over (v₁, v₂)
 # (LinnikCGLProd), (round 652) their I′ as an integral over (v₁, v₂) (LinnikCGLRFact), (round 653) the
-# Ramanujan sum's bound and the decay of J (LinnikCGLRam), and (round 654) their Proposition 7.1 (LinnikCGLP71).
+# Ramanujan sum's bound and the decay of J (LinnikCGLRam), (round 654) their Proposition 7.1 (LinnikCGLP71), and
+# (round 655) the support of J in v₂/v₁ and the cyclic symmetry of I′ (LinnikCGLSym).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
     LinnikCGLPair LinnikCGLFrob LinnikCGLS2 LinnikCGLFourier LinnikCGLPoisson LinnikCGLTrace \
-    LinnikCGLDiag LinnikCGLTrunc LinnikCGLProd LinnikCGLRFact LinnikCGLRam LinnikCGLP71; do
+    LinnikCGLDiag LinnikCGLTrunc LinnikCGLProd LinnikCGLRFact LinnikCGLRam LinnikCGLP71 LinnikCGLSym; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -296,6 +297,7 @@ import LinnikCGLProd
 import LinnikCGLRFact
 import LinnikCGLRam
 import LinnikCGLP71
+import LinnikCGLSym
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -783,6 +785,9 @@ import LinnikCGLP71
 #print axioms LinnikCGLRam.Jk_eq_zero_of
 #print axioms LinnikCGLP71.norm_Psi_le
 #print axioms LinnikCGLP71.prop71
+#print axioms LinnikCGLSym.prop71r
+#print axioms LinnikCGLSym.Ip_cyc
+#print axioms LinnikCGLSym.sum_le_three_mul
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy

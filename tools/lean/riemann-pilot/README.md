@@ -27289,3 +27289,58 @@ The proof is theirs, "Inserting these bounds into (7.3) and applying the triangl
 - the dyadic decomposition of the frequencies;
 - Cauchy–Schwarz in `v₂`;
 - the smoothed `R̃` of their (7.5).
+
+## Round 655: the support of `J` in `v₂/v₁`, and the cyclic symmetry of `I′` (stage M3, the `S₃` side; `external/pnt/LinnikCGLSym.lean`)
+
+**The results.**
+
+- `LinnikCGLSym.Jk_eq_zero_of_ratio`: `J(v₁, v₂, λ) = 0` unless `v₂/v₁ ∈ (1/2, 2)`. On the support of the weight, `v₁u` and `v₂u` lie in `(1, 2)`.
+- `LinnikCGLSym.Ip_le_of_bound`: round 654's proof for any majorant. If `|Ψ| ≤ c₀V + E` on `[1/2, 2]²`, with `V ≥ 0` measurable and bounded there, then `|I′(m⃗)| ≤ (N/q)³(c₀∫∫V + (9/4)E)`, the integrals over `[1/2, 2]`.
+- `LinnikCGLSym.prop71r`: round 654's `prop71` with `W·[|m₁v₁ + m₂v₂ + m₃| ≤ Xq/N]` replaced by `W·[|m₁v₁ + m₂v₂ + m₃| ≤ Xq/N, v₂/v₁ ∈ [1/2, 2]]` (`Vr`).
+- `LinnikCGLSym.Ip_cyc`: `I′(m₁, m₂, m₃) = I′(m₂, m₃, m₁)`, a renaming of the triples of points.
+- `LinnikCGLSym.sum_le_three_mul`: for `f ≥ 0` with `f(a, b, c) = f(b, c, a)` and a finite `B ⊆ ℤ`, `Σ_{B³}f ≤ 3Σ_{B³}f·[|a| ≤ |b|, |c| ≤ |b|]`. At each triple, one of the three cyclic shifts puts the largest absolute value in the middle.
+
+**The constraint `v₂/v₁ ∈ [1/2, 2]`.** Re-read this round in the text layer (spaces restored; the integral's range, the fractions, the exponents and the subscripts transcribed). Their smoothed `R` is "R̃\_{M₂}(u,a) := (∫\_{u′∈[1/2,2]} (NM₂/q) ψ̃((NM₂/q)(u−u′)) |R(u′,a)|² du′)^{1/2}" (their (7.5), lines 2246–2257). The integral runs over `u′ ∈ [1/2, 2]` only. Their proof of Proposition 7.2 bounds "the inner v₂ integral" (line 2382) by Cauchy–Schwarz, and its first factor, an integral over `v₂` of `|R(v₂/v₁, b₁⁻¹b₂)|²`, by `R̃_{M₂}` at `(m₁v₁+m₃)/(−m₂v₁)`. With `u′ = v₂/v₁`, that bound holds where `v₂/v₁ ∈ [1/2, 2]`. Their Proposition 7.1, as stated, integrates over "v₁,v₂∈[1/2,2]" (lines 2041–2066) without that constraint. For `v₁ = 1/2` and `v₂` near `2`, `v₂/v₁` is near `4`, outside the range of `R̃`. The constraint holds on the support of the kernel (`Jk_eq_zero_of_ratio`), so the stack's Proposition 7.1 keeps it (`prop71r`). This is an observation about the paper's write-up, recorded here; the repair is the one line above.
+
+**The symmetry.** "These symmetries allow us to reduce the estimation to the case |m₁| ≤ |m₃| ≤ |m₂| at the cost of a factor 6" (lines 2340–2341). Their symmetries are `I′_{m₁,m₂,m₃}` equal to the conjugate of `I′` at `(−m₂,−m₁,−m₃)`, `(−m₁,−m₃,−m₂)` and `(−m₃,−m₂,−m₁)` (lines 2336–2340, the conjugation bars read as such). This round takes only `|m₂|` largest, which their proof uses for the length of the `v₂`-interval. That comes from the cyclic symmetry, at the cost of a factor 3. Whether §11 also needs `|m₁| ≤ |m₃|` is left to its formalization.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLSym.lean`: new, 252 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`prop71r`, `Ip_cyc`, `sum_le_three_mul`).
+- `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch first (`scratchpad/r655/lc.sh`; `lc.out` and `lc2.out`). The fixes were:
+
+  - the measurable set of `Vr` stated explicitly, as an intersection of two sets;
+  - two unused hypotheses dropped from `Ip_le_of_bound`;
+  - `sum_shift` proved over `ℝ` by `Finset.sum_comm`, as round 652's `sum_rot3` is over `ℂ`.
+
+- Then `build.sh` ran once (`scratchpad/r655/compile.sh 1`, log `build_1.log`): `1 compiled, 391 up to date` (`LinnikCGLSym` 12 s), exit 0 in 23 s, no error, warning or `sorry`. Its 580 axiom lines (4 by the module, 576 by the final check, which gains three lines) are 567 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.73 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed: `tools/research/render_lint.py` against HEAD (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, the same five one line later, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2 gains round 655 in its stack cell and a clause in its status, nothing in it superseded; the opening's parenthetical gains round 655, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their (7.4)–(7.5), Proposition 7.1, and the proof of Proposition 7.2 through the Cauchy–Schwarz step (text layer lines 2236–2262, 2041–2066 and 2325–2400), re-read for this round's quotations.
+- `LinnikCGLSym.lean` in full.
+- The operative definitions: round 651's `gv`, `Jk` and `one_lt_of_wCGL_ne`; round 650's `Ip` and `phi`; round 652's `sum_rot3` and `Psi`; round 654's `prop71`, `norm_Psi_le`, `Wm`, `Wm_le`, `measurable_Wm`, `Psi_eq_zero` and `CJ`.
+
+**Check 4.** No defect in the cascade or the stack is raised. The observation above concerns Chen–Gupta–Li's write-up; the stack's Proposition 7.1 keeps the constraint. `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the five results are their statements. "Only `[1/2, 2]`" is the range of (7.5) as quoted. "Without that constraint" is the integration range of their Proposition 7.1 as quoted.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Their `R̃` of (7.5), with a smooth bump `ψ̃₀` equal to `1` on `[−1, 1]`. Then the Cauchy–Schwarz bound for the inner integral, `∫|R(v₂/v₁, ·)||R(1/v₂, ·)| ≤ 2(q/(NM₂))R̃R̃` over `|v₂ − c| ≤ Xq/(NM₂)`, with `|R(1/v, a⁻¹)| = |R(v, a)|`. Then the dyadic decomposition and their Proposition 7.2.

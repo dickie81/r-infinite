@@ -176,6 +176,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLRFact.lean` | 652 | Chen–Gupta–Li's (7.3) at one point per character (`Ip_eq`): `I′(m⃗) = (N/q)³∫∫J(v₁, v₂, λ)Σ_{b₁,b₂}C_q(b₁m₁ + b₂m₂ + m₃)R(v₁, b₁)R(v₂/v₁, b₂b₁⁻¹)R(1/v₂, b₂⁻¹)`, from `φ_{ik}(m)` with its residue sum over the units (`phi_eq`), round 651's `hhat_prod`, the substitution `a₁ = b₁a₃`, `a₂ = b₂a₃` (`S2_triple`) and the phases (`phases`) |
 | `LinnikCGLRam.lean` | 653 | the inputs of Chen–Gupta–Li's bound for `I′(m⃗)`: `\|C_q(n)\| ≤ d(q)(n, q)` (`norm_Cq_le`), by Möbius over the divisors of `q` (`sum_coprime_eq_C`, `Cq_eq_moebius`); the decay `(2π\|λ\|)^K\|J(v₁, v₂, λ)\| ≤ C_K` uniformly for `\|v₁\|, \|v₂\| ≤ 2` (`Jk_decay`); and `J = 0` unless `v₁, v₂ ∈ (1/2, 2)` (`Jk_eq_zero_of`) |
 | `LinnikCGLP71.lean` | 654 | Chen–Gupta–Li's Proposition 7.1 at one point per character (`prop71`): `\|I′(m⃗)\| ≤ (N/q)³(C₀d(q)∫∫W·[\|m₁v₁ + m₂v₂ + m₃\| ≤ Xq/N] + (9/4)C_K(2πX)^{−K}φ(q)³\|R\|³)` over `[1/2, 2]²`, from round 652's `Ip_eq`, the bound of the integrand (`norm_Psi_le`) and measurable majorants (`measurable_Wm`, `Wm_le`) |
+| `LinnikCGLSym.lean` | 655 | two inputs of Chen–Gupta–Li's Proposition 7.2: `J = 0` unless `v₂/v₁ ∈ (1/2, 2)` (`Jk_eq_zero_of_ratio`), so Proposition 7.1 holds with that constraint (`prop71r`, through `Ip_le_of_bound`, round 654's proof for any majorant); and `I′(m₁, m₂, m₃) = I′(m₂, m₃, m₁)` (`Ip_cyc`), so `Σ\|I′\| ≤ 3Σ\|I′\|[\|m₂\| largest]` (`sum_le_three_mul`) |
 
 ## Building (rounds 217, 618)
 
@@ -847,3 +848,11 @@ Round 654 proves Chen–Gupta–Li's Proposition 7.1 at one point per character,
 - `Psi_eq_zero`, `prop71`: `Ψ = 0` off `[1/2, 2]²`, and the bound, through Mathlib's `norm_integral_le_of_norm_le` and `integral_mono_of_nonneg`, which need only the majorant to be integrable.
 
 See the main README, round 654, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 573 lines.
+
+Round 655 proves two inputs of Chen–Gupta–Li's Proposition 7.2.
+
+- `Jk_eq_zero_of_ratio`: `J(v₁, v₂, λ) = 0` unless `v₂/v₁ ∈ (1/2, 2)`, since `v₁u` and `v₂u` lie in `(1, 2)` on the support of the weight.
+- `Ip_le_of_bound`, `Vr`, `prop71r`: round 654's proof, for any measurable majorant `c₀V + E` of `|Ψ|`, gives Proposition 7.1 with the integrand restricted to `v₂/v₁ ∈ [1/2, 2]`. Their Proposition 7.2 needs that constraint: its Cauchy–Schwarz step bounds an integral of `|R(v₂/v₁, ·)|²` by their `R̃` of (7.5), which integrates over `[1/2, 2]` only.
+- `Ip_cyc`, `sum_shift`, `sum_le_three_mul`: `I′(m₁, m₂, m₃) = I′(m₂, m₃, m₁)`, a renaming of the triples of points, so `Σ_{B³}|I′| ≤ 3Σ_{B³}|I′|·[|m₁|, |m₃| ≤ |m₂|]`.
+
+See the main README, round 655, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 576 lines.
