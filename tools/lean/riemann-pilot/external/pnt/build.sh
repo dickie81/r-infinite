@@ -106,6 +106,9 @@ for f in SieveCert225C Linnik225C; do c 1 "$HERE" $f; done
 for f in SieveTypeIIU2285 SieveGrid2285U; do c 1 "$HERE" $f; done
 for i in $(seq 1 28); do c 1 "$HERE" SieveCert2285UP$i; done
 for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
+# Round 636: Chen–Gupta–Li's large-values estimate as a hypothesis (LinnikCGLLV), the density step from it on
+# [5/7, 16/21] (LinnikCGLStep), and Linnik's exponents 9/4 and 226/100 from it (LinnikCGLLinnik).
+for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik; do c 1 "$HERE" $f; done
 echo "$NC compiled, $NUP up to date"
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
@@ -259,6 +262,9 @@ import SieveTypeIIU2285
 import SieveGrid2285U
 import SieveCert2285U
 import Linnik2285U
+import LinnikCGLLV
+import LinnikCGLStep
+import LinnikCGLLinnik
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -673,6 +679,16 @@ import Linnik2285U
 #print axioms Linnik2285U.typeII2285U
 #print axioms Linnik2285U.fits2285U
 #print axioms Linnik2285U.linnik_2285U
+#print axioms LinnikCGLLV.cgl_all
+#print axioms LinnikCGLLV.taylor_pick
+#print axioms LinnikCGLLV.cgl_shift
+#print axioms LinnikCGLStep.block_bin_cgl
+#print axioms LinnikCGLStep.class1_cgl
+#print axioms LinnikCGLStep.count_cgl
+#print axioms LinnikCGLStep.charDensity_cgl
+#print axioms LinnikCGLLinnik.counts_7c_lv
+#print axioms LinnikCGLLinnik.linnik_225c_lv
+#print axioms LinnikCGLLinnik.linnik_226c_lv
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy

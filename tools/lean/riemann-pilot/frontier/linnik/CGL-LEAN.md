@@ -1,6 +1,6 @@
 # Chen–Gupta–Li's density estimate in Lean: the blueprint
 
-Round 635. The owner's instruction of 2026-10-22: "Formalise it in lean", after the lead found no Lean formalization of Chen–Gupta–Li's bound by its authors or anyone else (README round 635). This file is the plan and the dependency map. It records no result.
+Round 635. The owner's instruction of 2026-10-22: "Formalise it in lean", after the lead found no Lean formalization of Chen–Gupta–Li's bound by its authors or anyone else (README round 635). This file is the plan and the dependency map. It records no result *(round 636: stage M1's result is recorded under "The stages")*.
 
 ## The target
 
@@ -53,7 +53,7 @@ Each row is a result of the paper, the inputs its proof uses, the stack's module
 
 | Node | Statement (short) | Inputs | Stack | Status |
 |---|---|---|---|---|
-| **T1.2** | `CGLDensity` from the large values | §12: zero detection, class II by the fourth moment, class I by powers `D_N^k` with `(qT)^a ≤ N^k ≤ (qT)^{3a/2}`, then T1.1 or the mean value theorem by the size of `N^k` | `LinnikDetect`, `LinnikFourth`, `LinnikHuxStep` (`class1_gen`, `class2_bound_gen`, `count_gen`, `charDensity_gen`), `LinnikPoints` | Not started; milestone **M1** |
+| **T1.2** | `CGLDensity` from the large values | §12: zero detection, class II by the fourth moment, class I by powers `D_N^k` with `(qT)^a ≤ N^k ≤ (qT)^{3a/2}`, then T1.1 or the mean value theorem by the size of `N^k` | `LinnikDetect`, `LinnikFourth`, `LinnikHuxStep` (`class1_gen`, `class2_bound_gen`, `count_gen`, `charDensity_gen`), `LinnikPoints`; round 636: `LinnikCGLLV`, `LinnikCGLStep` | ~~Not started; milestone **M1**~~ In Lean for the count the stack uses, exponent `7/3 + 1/2000` (`LinnikCGLStep.charDensity_cgl`), from T1.1's form as the hypothesis `LinnikCGLLV.CGLLargeValues`; milestone **M1**, round 636 |
 | **T1.1** | `\|W\| ≤ (qT)^{o(1)}(N²V⁻² + (qT)^{1/2}N³V⁻⁴ + q^{4/3}TN²V⁻⁴ + qTN^{12/5}V⁻⁴)` for `N ≥ (qT)^{2/3}`, `\|D_N\| ≥ V` on `W` | P3.1 on three smoothed pieces of `D_N`; `(qT)^ε`-separated selection; subdivision in `T`; the mean value theorem (1.2) and Huxley (1.3) outside `V ∈ [N^{7/10}, N^{4/5}]` | `LinnikPoints` (1.2); `LinnikLargeValues` (1.3, Huxley's shape) | Not started; **M2** |
 | **P3.1** | `\|W\| ⪅ N^{2−2σ} + (qT)^{1/2}N^{3−4σ} + (qT)^{4/3}N^{2−4σ}` for `σ ∈ [7/10, 4/5]`, `\|S_N\| ≥ N^σ/6`, `N ≥ (qT)^{2/3}/2` | P4.6, P5.1, P6.1, P11.1 | — | Not started |
 | L4.1 | `\|W\| ≪ N^{1−2σ}s₁(M)²` | singular value decomposition | `LinnikMoment` (generic matrix lemmas) | Partial |
@@ -89,9 +89,11 @@ Each row is a result of the paper, the inputs its proof uses, the stack's module
    - `a > 2/3` gives `N ≥ (qT)^{2/3}`.
 
    So the exponent `7/3 + 1/2000` needs only the internal `ε` of the existing framework, and no family of parameters indexed by `ε`. `Par.Good` asks `3/4 ≤ lo`; the class-I and class-II bounds are to be re-checked below `3/4` for the new step.
+
+   *(Round 636: done, `external/pnt/LinnikCGLLV.lean`, `LinnikCGLStep.lean` and `LinnikCGLLinnik.lean`. `LinnikCGLLinnik.linnik_225c_lv` and `linnik_226c_lv` give the exponents `9/4` and `226/100` from `LinnikCGLLV.CGLLargeValues`, through `LinnikCGLStep.charDensity_cgl`. The hypothesis has `(qTN)^ε` in place of `(qT)^ε`, so it is weaker, and the paper's theorem implies it. The step's parameters (`parCGL`) are `parHux73`'s on `[5/7, 16/21]`. Below `3/4` the integral class takes `δ = 1/5`, so `ParC.Good` asks `7/10 ≤ lo`, and the polynomial class has `⌊60/ε⌋ + 1` bins of width `ε/200`, `ε` the internal `1/100000`. The Taylor series takes `⌈log 8Q³⌉ + 1` terms, and the coefficients of the powers are bounded by the divisor bound at `ε_d = ε/(1600M)`. README round 636.)*
 2. **M2: Theorem 1.1 from Proposition 3.1**, both as statements in Lean, with the subdivision in `T`.
 3. **M3: Proposition 3.1 from its sockets.** Proposition 8.1 and Theorem 10.1 are displayed hypotheses. The first moment, trace and `S₁` lemmas come first, then `S₂`, the moments of `R`, the energy bound and the `S₃` assembly.
 4. **M4: Proposition 8.1**, through Lemma 8.2 (read in full).
 5. **M5: Heath-Brown's Theorem 10.1**, with characters: Kerr's proof for `q = 1` with a reflection with characters in place of the B-process (see "Feasibility").
 
-Each landing gets a hostile review (CLAUDE.md). The stages are ordered so that each one shrinks the hypothesis that `linnik_225c` rests on. The sizes are not estimated here.
+Each landing gets a hostile review (CLAUDE.md) *(round 636: by the owner's decision of 2026-10-22, one review per substantial block; README round 636)*. The stages are ordered so that each one shrinks the hypothesis that `linnik_225c` rests on. The sizes are not estimated here.

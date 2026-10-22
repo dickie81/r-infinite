@@ -26261,3 +26261,54 @@ The reviewer's out-of-scope observations are held: `start_job.sh` now copies 173
 **Bearing on RH:** none.
 
 **The next step.** The convergence review of rounds 634 and 635; then M1.
+
+## Round 636: Chen–Gupta–Li's density step from their large-values estimate (stage M1; `external/pnt/LinnikCGLLV.lean`, `LinnikCGLStep.lean`, `LinnikCGLLinnik.lean`)
+
+**The owner's decision** (2026-10-22): "Let's pause the convergence reviews and run one when we have a more substantial block to review. They are slowing the process too much." So no convergence review ran on rounds 634 and 635, and none runs on this round. The hostile reviews are batched: one review will cover rounds 634–636 and the stages that follow, once a substantial block is done, and those rounds are not stable until it converges. CLAUDE.md is unchanged. `frontier/linnik/CGL-LEAN.md`'s line on reviews carries a net-state marker.
+
+**The result.** Stage M1 of `frontier/linnik/CGL-LEAN.md`:
+
+- `LinnikCGLLV.CGLLargeValues`, a hypothesis: Chen–Gupta–Li's Theorem 1.1 (arXiv:2507.08296v2), its second bound, at one point per character. For every `ε > 0` there is `C ≥ 0` such that, for `q ≥ 1`, `T ≥ 1`, `N ≥ (qT)^{2/3}`, `V > 0` and `|a_n| ≤ 1`, at most `C(qTN)^ε B(q, T, N, V)` distinct primitive characters mod `q` have `|Σ_{N<n≤2N} a_nχ(n)n^{it_χ}| ≥ V` at a point `|t_χ| ≤ T`, where `B = N²V⁻² + (qT)^{1/2}N³V⁻⁴ + q^{4/3}TN²V⁻⁴ + qTN^{12/5}V⁻⁴`.
+- `LinnikCGLStep.charDensity_cgl`: under `CGLLargeValues`, at most `C(qT)^{(7/3+1/2000)(1−σ)}(log qT)^{10}` characters mod `q` have a zero in `Re s ≥ σ`, `|Im s| ≤ T`, for `5/7 ≤ σ ≤ 16/21` and `T ≥ 2`. This is the count that `Linnik225C.linnik_225c` and `Linnik226C.linnik_226c` take from `LinnikCGL.CGLDensity` (round 635).
+- `LinnikCGLLinnik.linnik_225c_lv` and `linnik_226c_lv`: Linnik's theorem with the exponents `9/4` and `226/100` under `CGLLargeValues`, through the routes, windows, grids and certificates of rounds 625 and 622.
+
+So the two exponents rest on the paper's large-values estimate in place of `CGLDensity`, a consequence of its density estimate (Theorem 1.2). §12 opens: "The aim of this section is to establish Theorem 1.2 with the aid of our new large value estimate, Theorem 1.1." Stages M2–M5 are to derive Theorem 1.1.
+
+**Why the paper's theorem implies the hypothesis.** Theorem 1.1 and §1.1, re-read this round in the text layer (`scratchpad/cgl/work/cgl_v2.txt`; spaces restored, the displayed formulas transcribed):
+
+- "where χ is a primitive character modulo q and |a_n| ≤ 1. Suppose that W is a finite set of pairs (t, χ), where |t| ≤ T and for (t, χ) ≠ (t′, χ′) either χ ≠ χ′ or |t − t′| ≥ 1."
+- "In all cases, we have |W| ≤ (qT)^{o(1)}(N²V⁻² + (qT)^{1/2}N³V⁻⁴ + q^{4/3}TN²V⁻⁴ + qTN^{12/5}V⁻⁴)."
+- "Asymptotic quantities such as o(1) are interpreted as qT → ∞."
+
+Distinct characters with one point each form such a `W`, since every two of its pairs differ in the character. For `qT` above a bound that depends on `ε`, the factor `(qT)^{o(1)}` is at most `(qT)^ε ≤ (qTN)^ε`. Below that bound at most `q` characters count, and `B ≥ N²V⁻² ≥ 1` once one does, since `|D_N| ≤ N` gives `V ≤ N`. The factor `(qTN)^ε` in place of `(qT)^ε` makes the hypothesis weaker; the step needs no more. `LinnikCGLLV.lean`'s header gives the argument.
+
+**The step** (`LinnikCGLStep`). It is round 607's step (`LinnikHuxStep`) with Chen–Gupta–Li's estimate in place of Huxley's. Its block bound, `block_bin_cgl`, makes the plan's four reductions:
+
+- to primitive characters (`LinnikCGLLV.cgl_all`): a character with conductor `d` factors through a primitive character mod `d`, with the coefficients `a_n1_{(n,q)=1}`, and the divisors of `q` cost `C(ε)q^ε`;
+- to the line (`taylor_pick`, `cgl_shift`): `n^{−δ} = N^{−δ}e^{−δ log(n/N)}`, and the Taylor polynomial of degree `K − 1` leaves some `k < K` at the threshold `V/2`; the step takes `K_T = ⌈log 8Q³⌉ + 1`;
+- to dyadic pieces: the power `F^m`, normalised at the bin's `σ_b`, cut into `m + 1` pieces;
+- to `|a_n| ≤ 1`: the coefficients of `F^m`, at most `d(n)^{2m}`, scaled by `τ₀^{2m}`, `τ₀ = C(ε_d)Q^{2ε_d}`, `ε_d = εs/(1600M)`.
+
+`piece_le` bounds a piece by `8CE·Q^{A_i(1−σ)}` under eight exponent conditions, the four terms of `B` at `N = Q^λ` and at `N = Q^a`, and `parCGL_good` proves them at `parHux73`'s values (`M = 1556`, `a = 7/9 + 2εs`, `λ = 7/6 + 9εs/2`, `A_i = 7/3 + 25εs`) on `[5/7, 16/21]`. In `class1_cgl` the losses of the reductions, with `cgl_shift` at `ε = εs/400`, are at most `E·Q^{εs/4}`, `E = 16(M + 1)⁴C_τ`. Below `3/4` the integral class takes `δ = 1/5` (round 607 takes `1/4`, which needs `σ ≥ 3/4`), so `ParC.Good` asks `7/10 ≤ lo`, and the polynomial class has `⌊60/εs⌋ + 1` bins of width `εs/200`. The plan's M1 text named the four reductions, left the two classes below `3/4` to be re-checked, and stated the hypothesis with `(qT)^ε`; `frontier/linnik/CGL-LEAN.md` records the stage as done.
+
+**What is checked.**
+
+- The three files were compiled first in scratch against the committed oleans, then by `build.sh` three times, the last after the docstring corrections below (`scratchpad/r636/build3.log`): `3 compiled, 372 up to date` (`LinnikCGLLV` 16 s, `LinnikCGLStep` 95 s, `LinnikCGLLinnik` 8 s), exit 0 in 129 s, no error, warning or `sorry`. Its 518 axiom lines (8 by the compiled modules, 510 by the final check, which gains the ten new `#print axioms` lines) are 505 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", all in the final check, as in round 631. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 7.15 GiB.
+- The files have 1,604 lines, no `sorry`, `native_decide` or `axiom`, and no line over 120 characters. `LinnikCGLStep` sets `maxHeartbeats` to `1000000` for `class1_cgl`, `count_cgl_at` and `count_cgl`.
+- `counts_7c_lv`'s glue equals `SieveTypeIIU226C.counts_7c`'s with `rangeCounts_lv h` in place of `rangeCounts_cgl hCGL` (compared as text), and `typeII225c_lv` and `typeII226c_lv` are `typeII_225c` and `typeII_226c` with `counts_7c_lv h` in place of `counts_7c hCGL`.
+- The lead's self-review of the docstrings against the statements found four slips, corrected before the third build: `class1_cgl`'s bin count read `⌊50/ε⌋` for the code's `⌊60/εs⌋` (and `count_cgl_at`'s `⌊60/ε⌋`), `piece_le`'s listed a condition the lemma derives, `LinnikCGLLinnik`'s header misspelled the two Type II wrappers, and `LinnikCGLStep`'s header named one of its theorems; `LinnikCGLLV`'s header gained the step for bounded `qT`.
+- `tools/research/render_lint.py`: `frontier/linnik/CGL-LEAN.md` 0 reports, `external/pnt/README.md` 5 → 5 and this file 1872 → 1872 against HEAD.
+
+**Check 1** (direct reads this round): the paper's Theorem 1.1, §1.1 and the opening of §12 in the text layer (lines 1–67, 275–283 and 5929–5935), the operative theorem, re-read; `LinnikHuxStep.lean`'s header, `class1_gen`'s docstring, `class2_bound_gen` and `parHux73`; `LinnikDetect`'s `class2_count_small` as `count_cgl_at` applies it; `Linnik225C.lean`, `Linnik226C.lean`, `SieveTypeIIU225C.typeII_225c` and `SieveTypeIIU226C.typeII_226c`; the three new files.
+
+**Check 4.** The hypothesis is the paper's theorem, displayed as the plan intends (CGL-LEAN.md, "Derive, don't vendor"); M2–M5 stay open there. No defect is raised.
+
+**Check 9.**
+
+- (a) This round's universals are scoped to what was checked: "their theorem implies the hypothesis" (the argument above, from the quoted text); "the routes, windows, grids and certificates" of rounds 625 and 622 (the constants named in `LinnikCGLLinnik.lean`); "the losses … are at most" (`class1_cgl`, kernel-checked).
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** M2: Theorem 1.1 from Proposition 3.1, both as statements in Lean, with the subdivision in `T`.
