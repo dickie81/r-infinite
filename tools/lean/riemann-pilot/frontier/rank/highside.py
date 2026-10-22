@@ -80,9 +80,10 @@ Gates (exit status 1 if any fails):
       [4/7, 5/6] and on [1/8, 0.45] (2e-6), 0.8746407 on [0.40, 0.55], 0.8735094 on [0.30, 0.65], 0.8712876 on
       [0.20, 0.75] (1e-6), and on [1/8, 0.70] between 0.8714881 and 0.8714946 (1e-6), with the small bins among the
       walls: the lower value enforces them as a relaxation, the upper on the region l >= tau h, where that relaxation is
-      exact (WinW3A); H9 checks the argument that the exact boundary lies between them.  Each is above the first rung
-      by more than 1e-3; in the three windows around 0.47 the binding bins lie just outside the window (within 1e-3, at
-      x = 1/2), and a saving U^{0.05} on [0.40, 0.55] gives the same value as density-hypothesis counts there.
+      exact (WinW3A); H9 checks the premises of the argument that the exact boundary lies between them.  Each is
+      above the first rung by more than 1e-3; in the three windows around 0.47 the binding bins lie just outside the
+      window (within 1e-3, at x = 1/2), and a saving U^{0.05} on [0.40, 0.55] gives the same value as
+      density-hypothesis counts there.
   H8  the T1-T3 trade-off (FIVE-SIXTHS.md, section 14), with T2 strong: density-hypothesis counts and a saving U^{0.2}
       on every bin.  Unrotated (vartheta = 0 in every bin, h/2 < l_y dropped, the small rows' z-line z0 = 1/6 + 1/100 as
       in fivesixths' runs without rotation), the program matches B(sigma, c) = 5/6 + (2 sigma - 1)_+

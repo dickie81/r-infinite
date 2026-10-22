@@ -51,10 +51,10 @@ Side-branch note, 2026-10-22, on branch `claude/latest-commit-branch-ik1pj3`. It
 13. **The third review round (section 13).** One major finding: at `σ = 2/3`, `13/15` is not an obstruction after the first rung. With savings on every bin and density-hypothesis counts, the boundary goes to `41/48` with Sang's rotation kept, which is that rotation's exact floor, and to `28/33` without it. *(Section 14: `41/48` is that floor under the program's soft third, round 499's reading that drops Xu–Sang's `l_y − ℓ > 11b/6`; with that condition kept the floor is `253/294`.)* Five minor findings and seven cosmetic ones are also swept. Two gates are added: H7, on where density-hypothesis counts would have to hold, and N6, on two-prime slots. The goal is still not reached.
 14. **The fourth review round and the T1–T3 trade-off (section 14, gate H8).**
     - The review found no major defect; its three minor and eight cosmetic findings are swept. The rotation's floor `41/48` holds under the program's soft third; with Xu–Sang's `l_y − ℓ > 11b/6` kept it is `253/294` (H4 (iv)). N1's 7827 primes included 31 inert ones, and at each `P0` one of N6's windows included one; both gates now run over split primes only.
-    - With T2 strong and no rotation, the boundary is the low side's least value, `5/6 + (2σ − 1)₊ min(1/(6(4σ + 1)), c/(12c + 5 − 4σ))` (H8). So `5/6` needs `σ ≤ 1/2` or `c = 0`: a partial T1 and a partial T3 do not combine to reach it. ~~With the rotation kept the floor is `5/6 + min(c/4, 1/48)` at every `σ`.~~ *(Section 15, false as written: with the rotation kept the low side is at least `5/6 + min(c/4, 1/48)` at every `σ`~~, and equals it only for `σ ≤ 3/4` under the soft third. With Xu–Sang's `l_y − ℓ > 11b/6` kept its least value there is `5/6 + min(c/4, 4/147)`, and for `σ > 3/4` it is higher~~. (Section 16: the struck "only" and "higher" were false too. At H8's 30 grid points, under the soft third that bound is the least value exactly where `σ ≤ 3/4`, or `σ ≤ 3/4 + c` with `c ≤ 1/12`; with Xu–Sang's condition kept the least value is `5/6 + min(c/4, 4/147)` exactly where `σ ≤ 3/4 + c` for `c < 16/147`, and where `σ ≤ 19/22` for `c ≥ 16/147`.) So `5/6` still needs `c = 0`.)*
+    - With T2 strong and no rotation, the boundary is the low side's least value, `5/6 + (2σ − 1)₊ min(1/(6(4σ + 1)), c/(12c + 5 − 4σ))` (H8). So `5/6` needs `σ ≤ 1/2` or `c = 0`: a partial T1 and a partial T3 do not combine to reach it. ~~With the rotation kept the floor is `5/6 + min(c/4, 1/48)` at every `σ`.~~ *(Section 15, false as written: with the rotation kept the low side is at least `5/6 + min(c/4, 1/48)` at every `σ`~~, and equals it only for `σ ≤ 3/4` under the soft third~~. With Xu–Sang's `l_y − ℓ > 11b/6` kept its least value ~~there~~ for `σ ≤ 3/4` is `5/6 + min(c/4, 4/147)`~~, and for `σ > 3/4` it is higher~~ (section 17: that clause is true, and section 16 had struck it with the false ones around it; restored). (Section 16: the struck "only" and "higher" were false too. At H8's 30 grid points, under the soft third that bound is the least value exactly where `σ ≤ 3/4`, or `σ ≤ 3/4 + c` with `c ≤ 1/12`; with Xu–Sang's condition kept the least value is `5/6 + min(c/4, 4/147)` exactly where `σ ≤ 3/4 + c` for `c < 16/147`, and where `σ ≤ 19/22` for `c ≥ 16/147`.) So `5/6` still needs `c = 0`.)*
     - The goal is still not reached.
 15. **The fifth review round (section 15, gate H9).**
-    - One major finding: the side branch's program never enforced the small bins `δ < 1/8`, and at eight optima they were violated. With them enforced, relief confined to the bins `δ ≥ 1/8` stops at `0.8693956`, and Lemma 17.6's slope at `1/8` at `0.8677780`. T2's first rung `0.8667866` needs relief on the small bins too (round 498's counts cover them), or `k = 6`.
+    - One major finding: the side branch's program never enforced the small bins `δ < 1/8`, and at eight optima they were violated. With them enforced, relief confined to the bins `δ ≥ 1/8` stops at `0.8693956`, and Lemma 17.6's slope at `1/8` at `0.8677780`. T2's first rung `0.8667866` needs relief on the small bins too (round 498's counts cover them), or `k = 6` *(section 17: as a statement about every relief confined to `δ ≥ 1/8`, this rests on section 16's bound, carried to the bootstrap by a monotonicity in `κ` checked at 9 points)*.
     - One minor finding: the rotated bound `5/6 + min(c/4, 1/48)` holds at every `σ`, but is ~~the least value only for `σ ≤ 3/4` under the soft third~~ not the least value at every `σ` *(section 16: the struck scope was false; Summary 16 gives the least value)*. Seven cosmetic findings are also swept.
     - The lead struck section 8's "combinations of partial inputs" as a route to `5/6`.
     - The goal is still not reached.
@@ -64,6 +64,7 @@ Side-branch note, 2026-10-22, on branch `claude/latest-commit-branch-ik1pj3`. It
     - Lemma 17.6's slope at `1/80` reaches T2's first rung through the count alone (H5); at `3/200` it stops at `0.8667974`.
     - In section 15's sweep a reused name had disabled one of H8's checks; it is restored. The WW3 bracket, and the bound on relief confined to `δ ≥ 1/8`, now rest on stated arguments, whose monotonicity premises H9 and H2 check at 9 points.
     - The goal is still not reached.
+17. **The seventh review round (section 17).** No major and no minor finding; five cosmetic ones, swept. By the review standard this note, its gate scripts and its register entries are stable as of that sweep. The goal is still not reached.
 
 ## 0. Horizon scan, 2026-10-22
 
@@ -896,7 +897,7 @@ Out of scope, recorded (O5): N2's two-slot model (`columnterm.slot_sum`) selects
   - `ShareK`'s rows are not enforced, because their coefficient `h(1 − 1/k) − l_y` has no fixed sign; they are slack.
 - H9 gates the exact small bins at each of `highside.py`'s 79 optima *(section 16: 82, with the three runs it added)*.
   - WW3's relaxation leaves them violated by `4.8·10⁻⁶`: there `ℓ/h = 0.2226`, below `τ = 0.2243`.
-  - `WinW3A`, restricted to the region `ℓ ≥ τh` where the relaxation is exact, gives an upper bound. So the value lies between `0.8714881` and `0.8714946`. *(Section 16: both ends are bootstrapped values, and the step from one `κ` to the bootstrap is argued in section 16 and checked in H9; its lower end rests on a monotonicity in `κ` checked at 9 points.)*
+  - `WinW3A`, restricted to the region `ℓ ≥ τh` where the relaxation is exact, gives an upper bound. So the value lies between `0.8714881` and `0.8714946`. *(Section 16: both ends are bootstrapped values, and the step from one `κ` to the bootstrap is argued in section 16 and ~~checked in H9~~ its premises are checked in H9 (section 17); its lower end rests on a monotonicity in `κ` checked at 9 points.)*
 - The other scripts:
   - S3 and S4 (`fivesixths.Five`, not enforced) check that the small bins are slack at their optima, and so do F4 and F5. The largest endpoints are `−6.4·10⁻³`, `−3.4·10⁻²` and `−6.3·10⁻⁴`.
   - S6 checks that they hold where `Five2X` enforces them (`−1.6·10⁻²`).
@@ -916,7 +917,7 @@ Out of scope, recorded (O5): N2's two-slot model (`columnterm.slot_sum`) selects
 
 Every other run is unchanged: `k = 6` and round 498's `counts='dh'` still give `0.8667866`, with the floor bin binding.
 
-**What it means for T2.** The first rung, `0.8667866`, is where the floor bin binds. Two of the computed routes reach it *(section 16: three, with Lemma 17.6's slope at `1/80`, H5)*: density-hypothesis counts on every bin, the small bins `δ < 1/8` included (round 498's configuration), and a `2k`-th moment with `k = 6`. Relief confined to the bins `δ ≥ 1/8` stops at `0.8693956`, by savings and by counts alike, because the small bins then bind. Lemma 17.6's slope at `1/8` stops at `0.8677780`. In this configuration no relief confined to `δ ≥ 1/8` does better: at `U^{0.1}` those bins no longer bind, so the program without them has the same optimum, `0.8693956`~~, and relief there can only remove their rows~~ *(section 16: struck, false as written: relief there can also lower the short gate, which their counts set. Without those bins and without the short gate the program gives `0.8693956` too (H2), so at every `κ` no such relief does better; the bootstrap keeps the bound under a monotonicity in `κ` that H2 checks at 9 points)*. So the first rung needs relief on the small bins too, besides the bins near `δ ≈ 0.47`. The rungs beyond it (H4) are unchanged: their savings cover the small bins, which stay slack there.
+**What it means for T2.** The first rung, `0.8667866`, is where the floor bin binds. Two of the computed routes reach it *(section 16: three, with Lemma 17.6's slope at `1/80`, H5)*: density-hypothesis counts on every bin, the small bins `δ < 1/8` included (round 498's configuration), and a `2k`-th moment with `k = 6`. Relief confined to the bins `δ ≥ 1/8` stops at `0.8693956`, by savings and by counts alike, because the small bins then bind. Lemma 17.6's slope at `1/8` stops at `0.8677780`. In this configuration no relief confined to `δ ≥ 1/8` does better: at `U^{0.1}` those bins no longer bind, so the program without them has the same optimum, `0.8693956`~~, and relief there can only remove their rows~~ *(section 16: struck, false as written: relief there can also lower the short gate, which their counts set. Without those bins and without the short gate the program gives `0.8693956` too (H2), so at every `κ` no such relief does better (section 17: than that program at the same `κ`; `0.8693956` is its bootstrapped value); the bootstrap keeps the bound under a monotonicity in `κ` that H2 checks at 9 points)*. So the first rung needs relief on the small bins too, besides the bins near `δ ≈ 0.47`. The rungs beyond it (H4) are unchanged: their savings cover the small bins, which stay slack there.
 
 **The rotated floor (finding 2).** Section 14's bound `5/6 + min(c/4, 1/48)` holds at every `σ`, under both readings of the third Gram term. ~~As the least value of the rotated low side it is exact only for `σ ≤ 3/4` with the third term soft.~~ *(Section 16: struck, false as written. The bound is the least value where `σ ≤ 3/4 + c` and `c ≤ 1/12`, under either reading, at `(1/2, 1/2, 1/2)`, and where `σ ≤ 3/4` and `c ≥ 1/12` under the soft third, at `(1/4, 1/2, 1/4)`; at H8's other grid points the least value is higher.)* With Xu–Sang's `l_y − ℓ > 11b/6` kept, the least value for `σ ≤ 3/4` is `5/6 + min(c/4, 4/147)`, and at `σ = 1` it lies above the bound by more than `6·10⁻³` at each `c` computed. H8 checks these by linear programming at 25 `(σ, c)` *(section 16: at 30, with the sets where equality holds)*. The barrier entry stands: with the rotation kept, `5/6` needs `c = 0`.
 
@@ -936,7 +937,7 @@ Every other run is unchanged: `k = 6` and round 498's `counts='dh'` still give `
 - (b) The register's T2 rungs get strikes and markers, and a sub-bullet, "The fifth review round", records the first rung's corrected routes and the rotated bound's scope.
 - (c) The signals are unchanged: T1, T2 and T3 are auxiliary inputs.
 
-**Outcome.** The goal is still not reached, and no new zero-free region is proved. The map changes at T2's first rung: relief has to cover the small bins `δ < 1/8` as well as the bins near `δ ≈ 0.47`. The floor `5/6` and the T1–T3 trade-off are unchanged.
+**Outcome.** The goal is still not reached, and no new zero-free region is proved. The map changes at T2's first rung: relief has to cover the small bins `δ < 1/8` as well as the bins near `δ ≈ 0.47` *(section 17: as a statement about every relief confined to `δ ≥ 1/8`, this rests on section 16's bound, carried to the bootstrap by a monotonicity in `κ` checked at 9 points)*. The floor `5/6` and the T1–T3 trade-off are unchanged.
 
 ## 16. The sixth review round: the record's corrections
 
@@ -954,7 +955,7 @@ The numbers among these are now gated (H2, H5, H8, H9); the rest are wording.
 | 1 | minor | the sweep's new loop in H8 rebinds the name `hard`, so H8 could no longer fail on Xu–Sang's `l_y − ℓ > 11b/6` being among the walls exactly in the runs that keep it, and section 14's sabotage entry "the hard-third runs replaced by soft ones" no longer held | accepted; the loop's names changed and the check restored, so that planted defect fails H8 again; a marker on section 14's record |
 | 2 | minor | the sweep of round 5's finding 2 over-corrected: at `(1/2, 1/2, 1/2)` the rotated low side is `5/6 + max(c/4, (4σ − 3)/16)`, which attains the bound for `σ ≤ 3/4 + c` when `c ≤ 1/12`, under the hard third too, so "only for `σ ≤ 3/4`" and "for `σ > 3/4` it is higher" are false; and "H8 now checks both" overstated what H8 checked | accepted; struck and restated on the seven surfaces (Summary items 14 and 15, section 14's marker, section 15's table and its "The rotated floor", and the register's two entries); H8 now checks the attaining points in exact arithmetic, and the sets where equality holds at 30 grid points |
 | 3 | minor | the register's marker on attack note 1 puts `0.8677780` on every slope at most `1/8`; below `1/8` the boundary falls with the slope, and at `1/80` the count alone reaches the first rung | accepted; struck and corrected on the register; H5 gates the slopes `3/200` and `1/80` |
-| 4 | minor | the WW3 bracket is argued for one `κ` but stated for bootstrapped values, and no gate checked the step | accepted; the argument stated below, in H7's and H9's docstrings, and by a marker in section 15; H9 checks its premises |
+| 4 | minor | the WW3 bracket is argued for one `κ` but stated for bootstrapped values, and no gate checked the step | accepted; the argument stated below, ~~in H7's and H9's docstrings,~~ in H9's docstring, referred to in H7's *(section 17)*, and by a marker in section 15; H9 checks its premises |
 | 5 | cosmetic | section 11's `k = 5` value, with `E` binding, was left unstruck, and "below `k = 6`" is false at `k = 5` too | struck and annotated |
 | 6 | cosmetic | the sabotage entry "`Five2.small_max` raised by `0.04`" lists too few gates; it also fails H1, H2 and H9 | marker added |
 | 7 | cosmetic | "relief there can only remove their rows" leaves out the short gate, which the counts on those bins set | struck; the program without those bins and without the short gate gated in H2 |
@@ -1001,6 +1002,39 @@ H9 checks the upper end's two equalities (`10⁻⁹`), and the monotonicity at 9
 
 **Outcome.** The goal is still not reached, and no new zero-free region is proved. The map changes at T2's first rung, where Lemma 17.6's slope at `1/80` is a third computed route, through the count alone. The floor `5/6` and the T1–T3 trade-off stand.
 
+## 17. The seventh review round: converged
+
+Same day. A fresh-context hostile reviewer read commit `67464748`, the sixth round's sweep, as a convergence round, with section 16's new material. It re-ran `highside.py` and a scratch copy of `slotsplit.py`, each with rc 0, replayed section 16's sabotage record, and ran planted defects and experiments of its own. It returned no major finding, no minor finding and five cosmetic ones. The lead checked each before accepting it:
+- finding 1 by solving `NoBins` at `κ = 13/18`, at its fixed point `0.7387912` and at `3/4`: `0.8693906`, `0.8693956` and `0.8693989`;
+- finding 2 by an exact dual certificate for the hard third without a crossing, a session computation that is not committed: the multipliers `4/49`, `3/98`, `8/147` and `1/2` on the rotation `h/2 ≤ l_y`, Xu–Sang's `l_y − ℓ ≥ 11b/6`, the slice and the Gram term's piece `b/6` reproduce the objective's gradient and give `4/147`;
+- findings 3–5 by reading the cited lines.
+
+| # | severity | finding | disposition |
+|---|---|---|---|
+| 1 | cosmetic | the register's "does no better, at any `κ`, than the program without those bins and without the short gate their counts set, `0.8693956`", and its sibling in section 15's marker, attach a bootstrapped value to a comparison at one `κ`; at one `κ` that program's value runs from `0.8693906` to `0.8693989` | the register's value struck and annotated; section 15's marker annotated |
+| 2 | cosmetic | section 16's sweep struck, in Summary item 14 and on the register, the true clause "With Xu–Sang's `l_y − ℓ > 11b/6` kept its least value there is `5/6 + min(c/4, 4/147)`" along with the false ones around it | restored on both, with its antecedent `σ ≤ 3/4` written out |
+| 3 | cosmetic | with the strike removed, the register's "(note section 16: false as written; …)" attaches to "holds at every `σ`", which is true | "struck, false as written" |
+| 4 | cosmetic | "H9 checks the argument" in H7's docstring, the register's "checked in H9", section 15's "checked in H9", and section 16's "in H7's and H9's docstrings" overstate: H9 checks the argument's premises, and H7's docstring only refers to it | corrected on the four surfaces |
+| 5 | cosmetic | three conclusions that rest on section 16's bound for relief confined to `δ ≥ 1/8` (Summary item 15, section 15's outcome, the register's fifth-round sub-bullet) do not carry its sampled check | markers added |
+
+Held: three of the reviewer's planted defects pass the gates, and none of them lets a false claim pass.
+- `NoBins` keeping the short gate passes H2: that gate is slack at its optimum, so the gated value is unchanged.
+- `per_kappa` at 2 points passes; that only weakens the check.
+- `19/22` replaced by `0.85` in H8's linear-programming check passes, since no grid point lies between them; `rotated_cross` pins `19/22` in exact arithmetic.
+
+The reviewer also re-derived the three attaining points of section 16, checked the two transfers to the bootstrap on finer grids (41 and 43 points, nondecreasing), found no other channel for the counts on the bins `δ ≥ 1/8` in `Five`, `Five2`, `Five2X` or `Window`, and replayed each sabotage entry with the gates listed; each held.
+
+**Stability.** This is the first of the note's seven review rounds with no major and no minor finding. Under the standard CLAUDE.md sets for paper surfaces, which this side branch follows (a converged round has zero majors and zero minors; cosmetics are permitted), this note, its gate scripts and its register entries are stable as of this sweep. The sweep makes no new claim, so it does not start another round.
+
+**The battery after the sweep**, from this directory, with rc 0: `python3 highside.py` (7 s), whose change is a docstring. `slotsplit.py`, `fivesixths.py` and `columnterm.py`, and the files they import, are unchanged since `7b01e6be`.
+
+**Check 9.**
+- (a) Unchanged, except that three conclusions now carry the sampled check they rest on.
+- (b) The register's fifth- and sixth-round sub-bullets get markers, and a sub-bullet, "The seventh review round", records the converged round.
+- (c) The signals are unchanged: T1, T2 and T3 are auxiliary inputs.
+
+**Outcome.** The goal is still not reached, and no new zero-free region is proved. The map is unchanged. In the model, `5/6` needs T1 complete (`σ ≤ 1/2`, unrotated, with T2 at the vertex) or T3 complete (`c = 0`, across the slice), and T2's first rung needs relief on the small bins `δ < 1/8` too.
+
 ## Check 4 and bearing on RH
 
 **Check 4.**
@@ -1040,5 +1074,6 @@ H9 checks the upper end's two equalities (`10⁻⁹`), and the monotonicity at 9
   - section 14: the hard-third floor `253/294` (H4 (iv)); the T1–T3 law with its vertices and weights, and the rotated ~~floor~~ bound `5/6 + min(c/4, 1/48)` with a crossing (H8) *(section 15: the least value for `σ ≤ 3/4` under the soft third; section 16: and wherever `σ ≤ 3/4 + c` with `c ≤ 1/12`, under either reading)*; H3's second lever; the split-only values of N1 and N6, and N1's log-slope; David, Dunn, Hamieh and Lin's Type-II device read against T1; Gao–Zhao's quartic ratios result and Wang's over `𝔽_q(t)`; the review's corrections.
   - section 15: the small bins enforced in the side branch's program, with the values that move (H2, H3, H5, H7) and the check at every optimum (H9, S3, S4, S6, F4); the first rung's routes corrected; the rotated low side's least value under both readings (H8); the struck route of partial inputs; the review's corrections.
   - section 16: the rotated low side's attaining points and the sets where its least value is attained (H8); Lemma 17.6's slope at `3/200` and `1/80` (H5); the bound on relief confined to `δ ≥ 1/8` (H2) and the WW3 bracket's argument (H9); the review's corrections.
+  - section 17: the review's corrections.
 
 **Bearing on RH: none.** The note proves no zero-free region and gains no constraint on zeros. It maps what one method would need.
