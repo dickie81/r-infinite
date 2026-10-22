@@ -27535,3 +27535,69 @@ The proof is theirs, "Inserting these bounds into (7.3) and applying the triangl
 **Bearing on RH:** none.
 
 **The next step.** Their Lemma 9.2: `∫Σ_a|R(v, a)|⁴ ⪅ φ(q)E(W)` by a smooth majorant in `τ = log v` and orthogonality, then the same for `R̃` by Cauchy–Schwarz.
+
+## Round 659: their Lemma 9.2, the fourth moments of `R` and `R̃` (stage M3, the `S₃` side; `external/pnt/LinnikCGLMom4.lean`)
+
+**The results.** Below, `q ≥ 1`, `L = NM₂/q`, `E` is the energy and `D_K = ∫|ψ̃₀^{(K)}|`.
+
+- `LinnikCGLMom4.energy`: their `E(W)` at one point per character, the number of `(i, j, k, l) ∈ R⁴` with `|t_i + t_j − t_k − t_l| ≤ 1` and `χ_iχ_j = χ_kχ_l`. `energy_eq_sum` writes it as a fourfold sum of indicators.
+- `LinnikCGLMom4.sum_norm_Rf_four`: `Σ_{a unit}|R(e^τ, a)|⁴ = φ(q)Σ_{i,j,k,l}[χ_iχ_j = χ_kχ_l]e^{iτ(t_i + t_j − t_k − t_l)}`, for any characters, by round 658's orthogonality applied to `χ_iχ_j` and `χ_kχ_l`.
+- `LinnikCGLMom4.fourier_psiC_decay`, `norm_fourier_psiC_le`, `integral_psi_exp`: `(2π|ξ|)^K|ψ̂₀(ξ)| ≤ D_K` (round 588's integration by parts), `|ψ̂₀| ≤ ∫ψ̃₀`, and `∫_ℝψ̃₀(τ/X)e^{iτΔ} dτ = Xψ̂₀(−XΔ/(2π))`.
+- `LinnikCGLMom4.lemma92`: for `X ≥ 1` and `K ∈ ℕ`, `∫_{[1/2,2]}Σ_{a unit}|R(v, a)|⁴ dv ≤ 2φ(q)X(∫ψ̃₀·E + |R|⁴D_K/X^K)`. The proof: on `[1/2, 2]`, `1 ≤ 2/v`; Mathlib's `integral_comp_log_Ioi_zero` turns `∫dv/v` into `∫dτ`; round 656's bump `ψ̃₀(τ/X)` is `1` for `|τ| ≤ log 2`; then `sum_norm_Rf_four`, `integral_psi_exp`, and each term split by `|Δ| ≤ 1` (`norm_term_le`).
+- `LinnikCGLMom4.integral_conv`: for `L, X > 0` and `g` measurable with `|g| ≤ C` on `[1/2, 2]`, `∫_ℝ∫_{[1/2,2]}Lψ̃₀(L(v − u′)/(2X))g(u′) du′ dv = 2X∫ψ̃₀·∫_{[1/2,2]}g`, the inner integral integrable in `v`. This is round 658's Fubini argument for any such `g`.
+- `LinnikCGLMom4.Rt_four_le`: `R̃_{M₂}(v, a)⁴ ≤ 2X∫ψ̃₀·∫_{[1/2,2]}Lψ̃₀(L(v − u′)/(2X))|R(u′, a)|⁴ du′` for `L, X > 0`, by round 656's `cs_Icc` with `√k` and `√k|R|²`.
+- `LinnikCGLMom4.lemma92_Rt`: for `L > 0`, `X ≥ 1` and `K ∈ ℕ`, `∫_ℝΣ_{a unit}R̃_{M₂}(v, a)⁴ dv ≤ (2X∫ψ̃₀)²·2φ(q)X(∫ψ̃₀·E + |R|⁴D_K/X^K)`.
+
+**Their text.** Re-read this round in the text layer, with spaces restored and the notation transcribed; the file's header lists the allowances.
+
+- Their energy: "For a finite set W of pairs (t,χ), we define its energy E(W) as E(W) := #{(t₁,χ₁),(t₂,χ₂),(t₃,χ₃),(t₄,χ₄) ∈ W : |t₁+t₂−t₃−t₄| ≤ 1, χ₁χ₂ = χ₃χ₄}." (footnote 5, lines 2487–2488).
+- Their Lemma 9.2: "Let W be a finite set of pairs (t,χ), where |t| ≤ T and for (t,χ) ≠ (t′,χ′) either χ ≠ χ′ or |t−t′| ≥ (qT)^ϵ. For any M₂ > 0, we have ∫\_{v≍1} Σ\_{a mod q, (a,q)=1} |R(v,a)|⁴ dv ⪅ ϕ(q)E(W) and ∫\_{v≍1} Σ\_{a mod q, (a,q)=1} |R̃\_{M₂}(v,a)|⁴ dv ⪅\_ϵ ϕ(q)E(W)." (lines 4470–4482).
+- Their majorant: "Let ψ(τ) be a smooth bump function supported on |τ| ≪ 1 such that ψ(τ/(qT)^ϵ) majorizes the range of integration." (lines 4556–4557).
+- Their last step: "Due to the rapid decay of ψ̂, the summation can be restricted to |t₁+t₂−t₃−t₄| ≤ 1, incurring an error of O\_ϵ((qT)^{−100}). The proof is then completed by observing that the remaining terms contribute ⪅ ϕ(q)E(W)." (lines 4609–4612).
+
+**An observation about their write-up.** In the display of lines 4558–4584, the majorized integral carries the Jacobian `e^τ` of `v = e^τ` (line 4571). The identity that follows, `Σ … ∫ψ(τ/(qT)^ϵ)e^{iτ(t₁+t₂−t₃−t₄)} … dτ`, has no `e^τ`. The PDF agrees: on page 39, pdfminer finds two exponentials in the row at y = 201 (superscripts `itτ` and `τ` at y = 207) and one in the row at y = 154 (superscript `iτ(t1+t2−t3−t4)` at y = 159; `scratchpad/r659/p39.txt`, from `scratchpad/r656/probe/bar.py`). Kept, `e^τ` would grow like `e^{(qT)^ϵ}` on the majorant's support. The repair costs a factor `2`: bound `e^τ ≤ 2` on the original range `|τ| ≤ log 2` before majorizing, as `lemma92` does. The conclusion of their Lemma 9.2 is unaffected. This is recorded here and in `frontier/linnik/CGL-LEAN.md`.
+
+**At one point per character.** `energy` counts quadruples of indices. The characters of distinct indices are distinct, so `i ↦ (t_i, χ_i)` is injective on `R` and the count is their `E(W)`. `sum_norm_Rf_four` and `lemma92` need no injectivity. With `X` for their `(qT)^ϵ` and `K` large, `|R|⁴D_K/X^K` is their `O_ϵ((qT)^{−100})`. For `R̃` the stack does not use their window `|u′ − v| ≤ 4(qT)^ϵq/(M₂N)`; weighted Cauchy–Schwarz with the kernel itself, then Fubini over all `v ∈ ℝ`, gives the factor `(2X∫ψ̃₀)²`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLMom4.lean`: new, 567 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`lemma92`, `lemma92_Rt`).
+- `frontier/linnik/CGL-LEAN.md`: the row L9.1–L9.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch first, in seven runs as it grew (`scratchpad/r659/lc.sh`; `lc.out` to `lc7.out`, the last with exit 0 and no warning). The fixes were:
+
+  - a cast moved inside the sum (`Complex.ofReal_sum`) before rewriting with the pointwise identity;
+  - `integral_comp_mul_right` applied to an explicit function, as `simp_rw` had beta-reduced its pattern away;
+  - the scaling identity closed by `mul_inv_cancel₀` in place of `field_simp`;
+  - `ite_eq_left` and `ite_eq_right` in place of the deprecated `if_pos` and `if_neg`, and `continuous_finsetSum` in place of `continuous_finset_sum`;
+  - `integral_sub_left_eq_self` given its measure, `volume`, explicitly.
+
+- Then `build.sh` ran once (`scratchpad/r659/compile.sh 1`, log `build_1.log`): `1 compiled, 395 up to date` (`LinnikCGLMom4` 15 s), exit 0 in 26 s, no error, warning or `sorry`. Its 594 axiom lines (8 by the module, 586 by the final check, which gains two lines) are 581 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.72 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed: `tools/research/render_lint.py` against HEAD (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, the same five one line later, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row L9.1–L9.2 gains round 659 in its stack cell, a net-state marker after "Started" and a clause in its status; the opening's parenthetical gains round 659, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their Lemma 9.2 with its proof and their energy (text layer lines 4470–4612 and 2487–2488), re-read for this round's quotations; page 39 of the PDF probed for the exponentials.
+- `LinnikCGLMom4.lean` in full.
+- The operative definitions and statements: round 652's `Rf` and `cpow_eq_exp`; round 656's `Rt`, `psi0`, `psiBump` and `cs_Icc`; round 658's `sum_units_mul_star`, `integral_kernel`, `psi0_eq_zero` and `Rt_sq`; round 588's `SieveSmooth.pow_mul_norm_fourier_le`.
+
+**Check 4.** No defect in the cascade or the stack is raised. The observation above concerns Chen–Gupta–Li's write-up; their lemma's conclusion stands. `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements, and "for any characters" is `sum_norm_Rf_four`'s statement, which has no injectivity hypothesis.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Proposition 10.2, the energy bound `E(W) ⪅ |W|N^{4−4σ} + |W|^{21/8}(qT)^{1/4}N^{1−2σ} + |W|³N^{1−2σ}`, through their Lemmas 10.4–10.10, with Heath-Brown's Theorem 10.1 as a displayed hypothesis.

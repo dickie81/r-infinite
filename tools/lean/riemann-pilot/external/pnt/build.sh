@@ -106,7 +106,7 @@ for f in SieveCert225C Linnik225C; do c 1 "$HERE" $f; done
 for f in SieveTypeIIU2285 SieveGrid2285U; do c 1 "$HERE" $f; done
 for i in $(seq 1 28); do c 1 "$HERE" SieveCert2285UP$i; done
 for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
-# Rounds 636–658: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
+# Rounds 636–659: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
 # (LinnikCGLLV), the density step from it on [5/7, 16/21] (LinnikCGLStep), Linnik's exponents 9/4 and 226/100
 # from it (LinnikCGLLinnik), (round 638) Proposition 3.1 from a bound on the cubic trace (LinnikCGLMat),
 # (round 639) that bound from the paper's S₂ and S₃ (LinnikCGLS23), (round 640) the Mellin transform of w² and the
@@ -121,11 +121,12 @@ for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
 # Ramanujan sum's bound and the decay of J (LinnikCGLRam), (round 654) their Proposition 7.1 (LinnikCGLP71),
 # (round 655) the support of J in v₂/v₁ and the cyclic symmetry of I′ (LinnikCGLSym), (round 656) their R̃ and
 # the inner integral of Proposition 7.2 (LinnikCGLRt), (round 657) their Proposition 7.2 (LinnikCGLP72), and
-# (round 658) their Lemma 9.1, the second moments of R and R̃ (LinnikCGLMom).
+# (round 658) their Lemma 9.1, the second moments of R and R̃ (LinnikCGLMom), and (round 659) their Lemma 9.2,
+# the fourth moments (LinnikCGLMom4).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
     LinnikCGLPair LinnikCGLFrob LinnikCGLS2 LinnikCGLFourier LinnikCGLPoisson LinnikCGLTrace \
     LinnikCGLDiag LinnikCGLTrunc LinnikCGLProd LinnikCGLRFact LinnikCGLRam LinnikCGLP71 LinnikCGLSym LinnikCGLRt \
-    LinnikCGLP72 LinnikCGLMom; do
+    LinnikCGLP72 LinnikCGLMom LinnikCGLMom4; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -304,6 +305,7 @@ import LinnikCGLSym
 import LinnikCGLRt
 import LinnikCGLP72
 import LinnikCGLMom
+import LinnikCGLMom4
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -802,6 +804,8 @@ import LinnikCGLMom
 #print axioms LinnikCGLP72.prop72
 #print axioms LinnikCGLMom.lemma91
 #print axioms LinnikCGLMom.lemma91_Rt
+#print axioms LinnikCGLMom4.lemma92
+#print axioms LinnikCGLMom4.lemma92_Rt
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy

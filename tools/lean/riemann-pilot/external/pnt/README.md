@@ -180,6 +180,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLRt.lean` | 656 | the Cauchy–Schwarz step of Chen–Gupta–Li's Proposition 7.2: their `R̃` of (7.5) (`Rt`), `R(1/v, b⁻¹) = conj(R(v, b))` (`Rf_inv`), and for `\|m₂\| ≥ M₂ > 0` the inner `v₂` integral of round 655's `Vr` bounded by `2Σ_{b₁,b₂}(b₁m₁ + b₂m₂ + m₃, q)\|R(v₁, b₁)\|R̃R̃` (`Vr_inner_le`) |
 | `LinnikCGLP72.lean` | 657 | Chen–Gupta–Li's Proposition 7.2: their `Ĩ` (`It`); for `\|m₂\| ≥ M₂ > 0`, `\|I′(m⃗)\| ≤ 2C_J(0)d(q)(N²/(q²M₂))Ĩ_{M₂}(m₁, −m₂, m₃) + E` (`Ip_le_It`); and `S₃` bounded by the sum over the dyadic scales of `m₂` of these terms, with `\|m₁\|, \|m₃\| ≤ \|m₂\|`, plus three explicit errors (`prop72`) |
 | `LinnikCGLMom.lean` | 658 | Chen–Gupta–Li's Lemma 9.1 at one point per character, as identities: `Σ_{a unit}\|R(v, a)\|² = φ(q)\|R\|` for `v > 0` (`sum_norm_Rf_sq`), its integral over `[1/2, 2]` (`lemma91`), and `∫_ℝΣ_aR̃_{M₂}(v, a)² dv = 2X∫ψ̃₀·(3/2)φ(q)\|R\|` by Fubini (`lemma91_Rt`) |
+| `LinnikCGLMom4.lean` | 659 | Chen–Gupta–Li's Lemma 9.2 at one point per character: the energy `E` (`energy`), `∫_{[1/2,2]}Σ_a\|R(v, a)\|⁴ dv ≤ 2φ(q)X(∫ψ̃₀·E + \|R\|⁴D_K/X^K)` for `X ≥ 1` (`lemma92`), and the same for `R̃` over `ℝ` with the factor `(2X∫ψ̃₀)²` (`lemma92_Rt`) |
 
 ## Building (rounds 217, 618)
 
@@ -885,3 +886,13 @@ Round 658 proves Chen–Gupta–Li's Lemma 9.1 at one point per character, where
 - `integral_kernel`, `integral_Rt_sq`, `lemma91_Rt`: for `NM₂/q, X > 0`, `∫_ℝR̃_{M₂}(v, a)² dv = 2X∫ψ̃₀·∫_{[1/2,2]}|R(u′, a)|² du′` by Fubini, so `∫_ℝΣ_aR̃_{M₂}(v, a)² dv = 2X∫ψ̃₀·(3/2)φ(q)|R|`.
 
 See the main README, round 658, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 584 lines.
+
+Round 659 proves Chen–Gupta–Li's Lemma 9.2 at one point per character, with explicit constants.
+
+- `energy`: their `E(W)`, the number of `(i, j, k, l) ∈ R⁴` with `|t_i + t_j − t_k − t_l| ≤ 1` and `χ_iχ_j = χ_kχ_l`.
+- `sum_norm_Rf_four`: `Σ_{a unit}|R(e^τ, a)|⁴ = φ(q)Σ_{i,j,k,l}[χ_iχ_j = χ_kχ_l]e^{iτ(t_i + t_j − t_k − t_l)}`.
+- `fourier_psiC_decay`, `integral_psi_exp`: `(2π|ξ|)^K|ψ̂₀(ξ)| ≤ D_K = ∫|ψ̃₀^{(K)}|`, and `∫_ℝψ̃₀(τ/X)e^{iτΔ} dτ = Xψ̂₀(−XΔ/(2π))`.
+- `lemma92`: for `X ≥ 1` and `K ∈ ℕ`, `∫_{[1/2,2]}Σ_{a unit}|R(v, a)|⁴ dv ≤ 2φ(q)X(∫ψ̃₀·E + |R|⁴D_K/X^K)`.
+- `integral_conv`, `Rt_four_le`, `lemma92_Rt`: Fubini for the kernel of `R̃` with any bounded measurable integrand, weighted Cauchy–Schwarz, and `∫_ℝΣ_aR̃_{M₂}(v, a)⁴ dv ≤ (2X∫ψ̃₀)²` times `lemma92`'s bound.
+
+See the main README, round 659, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 586 lines.
