@@ -141,14 +141,14 @@ for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
 # transform (LinnikCGLG), and its Poisson expansion in residue classes (LinnikCGLPois8), and (round 681) their count
 # of the pairs (m₁′, n′) (LinnikCGLCount), and the sum over a by the Ramanujan sum (LinnikCGLAsum), and (round 682)
 # ĝ_a as a sum over m₁ and n with the sum over a for every n ≠ 0 (LinnikCGLNsum), and the term n = 0, their I
-# (LinnikCGLN0).
+# (LinnikCGLN0), and (round 683) the terms n ≠ 0 over |ξ| ≤ X by their change of variables (LinnikCGLCov).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
     LinnikCGLPair LinnikCGLFrob LinnikCGLS2 LinnikCGLFourier LinnikCGLPoisson LinnikCGLTrace \
     LinnikCGLDiag LinnikCGLTrunc LinnikCGLProd LinnikCGLRFact LinnikCGLRam LinnikCGLP71 LinnikCGLSym LinnikCGLRt \
     LinnikCGLP72 LinnikCGLMom LinnikCGLMom4 LinnikCGLCS LinnikCGLJ LinnikCGLFb LinnikCGLPhi LinnikCGLDecay \
     LinnikCGLBlock LinnikCGL112 LinnikCGLLoc LinnikCGLL105 LinnikCGLT101 LinnikCGLL107 LinnikCGLSep \
     LinnikCGLL109 LinnikCGLL1010 LinnikCGLCase LinnikCGLEps LinnikCGLS3 LinnikCGLG LinnikCGLPois8 \
-    LinnikCGLCount LinnikCGLAsum LinnikCGLNsum LinnikCGLN0; do
+    LinnikCGLCount LinnikCGLAsum LinnikCGLNsum LinnikCGLN0 LinnikCGLCov; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -351,6 +351,7 @@ import LinnikCGLCount
 import LinnikCGLAsum
 import LinnikCGLNsum
 import LinnikCGLN0
+import LinnikCGLCov
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -901,6 +902,8 @@ import LinnikCGLN0
 #print axioms LinnikCGLNsum.fourier_ga_split
 #print axioms LinnikCGLNsum.sum_a_fourier_ga_le
 #print axioms LinnikCGLN0.sum_integral_g0_le
+#print axioms LinnikCGLCov.integral_r_eq
+#print axioms LinnikCGLCov.integral_gstar_le
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy

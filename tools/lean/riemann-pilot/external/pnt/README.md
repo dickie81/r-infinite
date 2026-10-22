@@ -204,6 +204,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLAsum.lean` | 681 | Their sum over `a` by the Ramanujan sum: with the hypotheses of `count_le` and any `F`, `Σ_a\|Σ_{m∈P1}Σ_{n∈T, n≠0}(L/q)Ψ(m, n)c_q(n)F(m, n)e_q(−anm)\|² ≤ d(q)(L/q)²(Σ_h(h, q))²N_δΣ_mΣ_n\|Ψ(m, n)\|\|F(m, n)\|²`, with `Ψ(m, n) = ψ̂₀(L(n/q − ξ/m))` and `N_δ` the bound of `count_le` (`sum_a_finite_le`) |
 | `LinnikCGLNsum.lean` | 682 | `ĝ_a` as a sum over `m₁` and `n`, with the term `n = 0` split off (`fourier_ga_split`), and Chen–Gupta–Li's sum over `a` for every `n ≠ 0`: for `q ≥ 1`, smooth `f_b` that are `0` for `\|u\| > A`, `M₁ > 0`, `L > 0`, `0 < δ ≤ 1` and real `ξ`, `Σ_a\|ĝ_a(ξ) − Σ_{m₁}tg(a, m₁, 0)\|² ≤ d(q)(L/q)²(Σ_h(h, q))²N_δΣ_{m₁}Σ_{n≠0}\|Ψ(m₁, n)\|\|F(m₁, n)\|²` (`sum_a_fourier_ga_le`) |
 | `LinnikCGLN0.lean` | 682 | The term `n = 0` of `ĝ_a`, their `I`: for `q ≥ 1`, `f_b ≥ 0`, `M₁ > 0` and `L > 0`, `Σ_a∫\|Σ_{m₁}tg(a, m₁, 0)\|² dξ ≤ φ(q)W₀²·2πM₁/L` with `W₀ = #P1·(L/q)B₄(Σ_h(h, q))#P2·(2M₂/M₁)Σ_b∫f_b` (`sum_integral_g0_le`) |
+| `LinnikCGLCov.lean` | 683 | Chen–Gupta–Li's change of variables `ξ = (m₁/L)τ + m₁n/q` (`integral_r_eq`) and the terms `n ≠ 0` of `ĝ_a` integrated: for `q ≥ 1`, smooth `f_b` that are `0` for `\|u\| > A`, `M₁ > 0`, `L > 0`, `0 < δ ≤ 1`, real `X` and a bound `B_II` of their `Σ_II` over every finite set of `n`, `∫_{\|ξ\|≤X}Σ_a\|ĝ_a(ξ) − Σ_{m₁}tg(a, m₁, 0)\|² dξ ≤ K_XΣ_{m₁∈P1 M₁}B_II/(\|m₁\|L)` (`integral_gstar_le`) |
 
 ## Building (rounds 217, 618)
 
@@ -1225,3 +1226,16 @@ Round 682 bounds the term `n = 0` of `ĝ_a`, which corresponds to Chen–Gupta�
 - `sum_integral_g0_le`: for `f_b ≥ 0`, `M₁ > 0` and `L > 0`, `Σ_a∫|Σ_{m₁∈P1 M₁}tg(a, m₁, 0)|² dξ ≤ φ(q)W₀²·2πM₁/L`.
 
 See the main README, round 682, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 636 lines.
+
+## Their change of variables: LinnikCGLCov.lean (round 683)
+
+Round 683 integrates round 682's bound for the terms `n ≠ 0` over `|ξ| ≤ X` and makes Chen–Gupta–Li's change of variables in each term, with `q ≥ 1`, `Ψ(m₁, n) = ψ̂₀(L(n/q − ξ/m₁))`, and `F(m₁, n)` and `tg` round 682's `Fb` and `tg`.
+
+- `integrable_fC`, `continuous_fourier_fC`, `continuous_Fb`, `norm_Fb_le_unif`: for smooth `f_b` that are `0` for `|u| > A`, `f_b` is integrable, `f̂_b` is continuous, and so is `ξ ↦ F(m₁, n)`; and `|F(m₁, n)| ≤ Σ_bΣ_{m₂}|m₂/|m₁||∫|f_b|`, a bound independent of `ξ` and `n`.
+- `Phi`, `Fb_affine`: `Φ(n, τ) = Σ_bΣ_{m₂∈P2 M₂}m₂f̂_b(m₂(n/q + τ/L))e_q(−nbm₂)`, and for `L ≠ 0` and `m₁ ≠ 0`, `F(m₁, n)` at `ξ = (m₁/L)τ + m₁n/q` is `Φ(n, τ)/|m₁|`.
+- `integral_eq_abs_mul_integral_affine`, `integral_r_eq`: for `c ≠ 0`, `∫h(ξ) dξ = |c|∫h(cτ + d) dτ`; so for `L > 0` and `m₁ ≠ 0`, `∫|Ψ(m₁, n)||F(m₁, n)|² dξ = (1/(|m₁|L))∫|ψ̂₀(−τ)||Φ(n, τ)|² dτ`.
+- `setIntegral_le_of_tsum`: for a measurable set `S`, `F ≥ 0` with `F ≤ KΣ_{m∈P}Σ_nr(m, n, ·)` on `S`, `K ≥ 0`, and continuous `r(m, n, ·) ≥ 0` whose series over `n` converge, that are integrable for `m ∈ P` and have `Σ_{n∈T}∫r(m, n, ·) ≤ B_m` for every `m ∈ P` and finite set `T`, `∫_SF ≤ KΣ_{m∈P}B_m`.
+- `summable_r`: for `L > 0` and `F(n)` bounded, `Σ_{n≠0}|ψ̂₀(L(n/q − ξ/m))||F(n)|²` converges.
+- `integral_gstar_le`: for smooth `f_b` that are `0` for `|u| > A`, `M₁ > 0`, `L > 0`, `0 < δ ≤ 1`, real `X` and a bound `B_II` of `Σ_{n∈T, n≠0}∫|ψ̂₀(−τ)||Φ(n, τ)|² dτ` for every finite set `T`, `∫_{|ξ|≤X}Σ_a|ĝ_a(ξ) − Σ_{m₁}tg(a, m₁, 0)|² dξ ≤ K_XΣ_{m₁∈P1 M₁}B_II/(|m₁|L)`, with `K_X = d(q)(L/q)²(Σ_h(h, q))²·4C_δB₄(1 + q|X|)^δ(1 + 2qM₁/L)^δ(Σ_h(h, q))(2π + 8πM₁/L)`.
+
+See the main README, round 683, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 638 lines.

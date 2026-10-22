@@ -29113,3 +29113,67 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Integrate the terms `n ≠ 0` over `|ξ| ≤ X`, change variables `ξ = m₁(n/q + τ/L)` in each, and bound the result by their `Σ_II`; bound the tail `|ξ| > X` with the decay premise.
+
+## Round 683: their change of variables, with the terms `n ≠ 0` of `ĝ_a` integrated (stage M4; `external/pnt/LinnikCGLCov.lean`)
+
+**The results.** Below, `q ≥ 1`, `Ψ(m₁, n) = ψ̂₀(L(n/q − ξ/m₁))` with `ψ̂₀` round 659's `𝓕 psiC`, `F(m₁, n)` and `tg` round 682's `LinnikCGLNsum.Fb` and `LinnikCGLNsum.tg`, `(h, q)` round 681's `gw`, `C_δ` round 525's `Cdiv` and `B₄` round 681's `B4`. After the change of variables their inner sums are `Φ(n, τ) = Σ_bΣ_{m₂∈P2 M₂}m₂f̂_b(m₂(n/q + τ/L))e_q(−nbm₂)` (`LinnikCGLCov.Phi`).
+
+- `LinnikCGLCov.integrable_fC`, `continuous_fourier_fC`, `continuous_Fb`, `norm_Fb_le_unif`: for smooth `f_b` that are `0` for `|u| > A`, `f_b` is integrable, `f̂_b` is continuous, and so is `ξ ↦ F(m₁, n)`. And `|F(m₁, n)| ≤ Σ_bΣ_{m₂}|m₂/|m₁||∫|f_b|`, a bound independent of `ξ` and `n`.
+- `LinnikCGLCov.Fb_affine`, `integral_eq_abs_mul_integral_affine`, `integral_r_eq`: their change of variables. For `L ≠ 0` and `m₁ ≠ 0`, `F(m₁, n)` at `ξ = (m₁/L)τ + m₁n/q` is `Φ(n, τ)/|m₁|`; for `c ≠ 0`, `∫h(ξ) dξ = |c|∫h(cτ + d) dτ`. So for `L > 0` and `m₁ ≠ 0`, `∫|Ψ(m₁, n)||F(m₁, n)|² dξ = (1/(|m₁|L))∫|ψ̂₀(−τ)||Φ(n, τ)|² dτ`.
+- `LinnikCGLCov.setIntegral_le_of_tsum`: for a measurable set `S`, `F ≥ 0` with `F ≤ KΣ_{m∈P}Σ_nr(m, n, ·)` on `S`, `K ≥ 0`, and continuous `r(m, n, ·) ≥ 0` whose series over `n` converge, that are integrable for `m ∈ P` and have `Σ_{n∈T}∫r(m, n, ·) ≤ B_m` for every `m ∈ P` and finite set `T`, `∫_SF ≤ KΣ_{m∈P}B_m`.
+- `LinnikCGLCov.summable_r`: for `L > 0` and `F(n)` bounded, `Σ_{n≠0}|ψ̂₀(L(n/q − ξ/m))||F(n)|²` converges.
+- `LinnikCGLCov.integral_gstar_le`: for smooth `f_b` that are `0` for `|u| > A`, `M₁ > 0`, `L > 0`, `0 < δ ≤ 1`, real `X` and a bound `B_II` of `Σ_{n∈T, n≠0}∫|ψ̂₀(−τ)||Φ(n, τ)|² dτ` for every finite set `T`, `∫_{|ξ|≤X}Σ_a|ĝ_a(ξ) − Σ_{m₁}tg(a, m₁, 0)|² dξ ≤ K_XΣ_{m₁∈P1 M₁}B_II/(|m₁|L)`, with `K_X = d(q)(L/q)²(Σ_h(h, q))²·4C_δB₄(1 + q|X|)^δ(1 + 2qM₁/L)^δ(Σ_h(h, q))(2π + 8πM₁/L)`.
+
+**Their text.** Re-read this round in the text layer.
+
+- The change of variables: "By making a change of variables ξ = m₁n/q + (m₁/M₃)τ, the only m₁ dependence in the inner double sum is a 1/m₁ term." (lines 3428–3432.)
+- In it, spaces are restored, the fractions written inline and the subscripts transcribed. `scratchpad/r683/quotes.py` checks the quote against the text layer with spaces removed and those transcriptions undone (`quotes.out`: PASS).
+
+**The stack's form.**
+
+- **Their `M₃` is `L`.** With `ξ = (m₁/L)τ + m₁n/q`, `L(n/q − ξ/m₁) = −τ` and `F(m₁, n) = Φ(n, τ)/|m₁|`, so the only dependence on `m₁` is the factor `1/|m₁|`, as in their text; the Jacobian `|m₁|/L` and `1/m₁²` give `1/(|m₁|L)`.
+- **Every `τ` is kept.** Their restriction `|τ| ⪅ 1` in (8.7) is not made; the weight `|ψ̂₀(−τ)|` stays in the integral.
+- **The integral of the series over `n` is taken in `ℝ≥0∞`.** By `lintegral_tsum`, the integral of `Σ_n` is `Σ_n` of the integrals there, so only finite sums over `n` need bounds; the same bound then holds for the real integral (`setIntegral_le_of_tsum`).
+- **`|ξ| ≤ X`.** The constant of round 682's `sum_a_fourier_ga_le` grows like `(1 + q|ξ|)^δ`; on `|ξ| ≤ X` it is at most its value `K_X` at `|ξ| = |X|`. The tail `|ξ| > X` is left to a later round.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLCov.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`integral_r_eq`, `integral_gstar_le`).
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1, a note under M4, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section for the file.
+
+**What is checked.**
+
+- `LinnikCGLCov` was compiled in scratch in three runs with `lean --json` (`scratchpad/r683/run.sh`, `lcj1.out` to `lcj3.out`). The last run had exit 0, and its only messages were the axiom lines, all `[propext, Classical.choice, Quot.sound]`.
+- The fixes: a nested absolute value `|x/|y||` was written with `abs` for the outer one; the measure of `integral_add_right_eq_self` was given; the deprecated `Measurable.ennreal_tsum` became `Measurable.tsum`; four `dsimp only` made no progress; a `simp only` at a hypothesis made no progress; the bound in `Integrable.mul_bdd` was given; and an equation of affine maps was proved by `ring` before rewriting, in place of `congr` and `field_simp`.
+- Then `build.sh` ran twice (`scratchpad/r683/compile.sh`, logs `build_1.log` and `build_2.log`; between them two lines were added to the file's header). Each run: `1 compiled, 419 up to date` (`LinnikCGLCov` 12 s and 11 s), exit 0 in 22 s and 21 s, with no error, warning or `sorry`. Each run's 642 axiom lines are 4 by the module and 638 by the final check; 629 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.85 GiB in run 1 and 6.94 GiB in run 2 (`rss_watch_build_1.log`, `rss_watch_build_2.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/r683/apply_docs.py` makes the six edits to CGL-LEAN.md and the external README, each asserted to occur once; run again, it writes nothing.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r683/gate.out`): the render lint against HEAD as multisets, with none new, and `k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1 gains round 683 in its stack cell and a net-state marker; M4 gains a note; the opening's parenthetical gains round 683.
+- `external/pnt/README.md`: a row, and a section for the file.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- In the text layer: their (8.7) and the change of variables to (8.8) (lines 3366–3500, joined by `scratchpad/r678/compact.py`, and lines 3420–3440 line by line), and their §8.2.2 from (8.8) to (8.9) (lines 3483–3790, joined).
+- The operative definitions and statements: round 682's `Fb`, `norm_Fb_le`, `tg`, `sum_ite_zero` and `sum_a_fourier_ga_le` (`LinnikCGLNsum.lean`); round 680's `P1`, `mem_P1`, `P2` and `fC` (`LinnikCGLG.lean` 55, 58, 73 and 319) and `integrable_term` (`LinnikCGLG.lean` 322); round 680's `summable_psiC_lattice` (`LinnikCGLPois8.lean` 99); round 668's `kloc`, `continuous_kloc` and `integrable_kloc` (`LinnikCGLLoc.lean` 54, 56 and 60); round 681's `B4_nonneg` and `gw` (`LinnikCGLCount.lean` 77 and 209); round 525's `one_le_Cdiv` (`LinnikPower.lean` 64); and Mathlib's `Measure.integral_comp_mul_left`, `integral_add_right_eq_self`, `Integrable.comp_add_right`, `Integrable.comp_mul_left'`, `Integrable.mul_bdd`, `integral_eq_lintegral_of_nonneg_ae`, `lintegral_tsum`, `lintegral_finsetSum'`, `lintegral_const_mul''`, `ofReal_integral_eq_lintegral_ofReal`, `setLIntegral_mono'`, `setLIntegral_le_lintegral`, `ENNReal.ofReal_tsum_of_nonneg` and `ENNReal.ofReal_sum_of_nonneg`.
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** As in rounds 680 to 682: stage M4's block gets one hostile review, with the convergence review of round 679's sweep.
+
+**Bearing on RH:** none.
+
+**The next step.** Bound `B_II`, their `Σ_II`: the terms with `|n| ≤ N₀` under the weight `ψ̃₀(n/N₀)`, by expanding `|Φ(n, τ)|²`, Poisson summation in `n`, the smoothing `f̃_b` and Cauchy–Schwarz back to `J(f̃⃗)`; and the terms with `|n| > N₀` by the decay premise.
