@@ -465,7 +465,7 @@ Proposition 6's conditions become `a₀ + b₀ < (1 − w₁)L` and `(1 − w₂
 
 **The certificate.** `SieveCert229.total_le_229`: on `grid229` the certificate's total is at most `0.88K`, `K = 2^60`, by `decide +kernel`. A scratch replay in Python gives the total `1011076593855335922`, that is `0.876969…K`, with 1905 candidate cells of depth 2, 929 of them decomposed, and 7150 cells of depth 4.
 
-**Phase 2.** Prove `CGLDensity` in Lean from Chen–Gupta–Li's argument. Their Lemma 4.2 is round 537's `LinnikMoment`, and rounds 538–540 proved their §5 split and its closed form (`LinnikLines`, `LinnikSplit`, `LinnikS2`). Its milestones are to be set when phase 2 starts.
+**Phase 2.** Prove `CGLDensity` in Lean from Chen–Gupta–Li's argument. Their Lemma 4.2 is round 537's `LinnikMoment`, and rounds 538–540 proved their §5 split and its closed form (`LinnikLines`, `LinnikSplit`, `LinnikS2`). Its milestones are to be set when phase 2 starts. *(round 678: phase 2 started in round 635; its plan and milestones are `CGL-LEAN.md`'s stages M1–M5, of which M1–M3 are done: `LinnikCGLS3.linnik_225c_pt` gives `9/4` under their Proposition 8.1 and Heath-Brown's Theorem 10.1, displayed as `CGLP81` and `CGLT101`)*
 
 ## 15. The unconditional exponent `232/100` (round 609)
 

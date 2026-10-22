@@ -106,7 +106,7 @@ for f in SieveCert225C Linnik225C; do c 1 "$HERE" $f; done
 for f in SieveTypeIIU2285 SieveGrid2285U; do c 1 "$HERE" $f; done
 for i in $(seq 1 28); do c 1 "$HERE" SieveCert2285UP$i; done
 for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
-# Rounds 636–677: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
+# Rounds 636–678: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
 # (LinnikCGLLV), the density step from it on [5/7, 16/21] (LinnikCGLStep), Linnik's exponents 9/4 and 226/100
 # from it (LinnikCGLLinnik), (round 638) Proposition 3.1 from a bound on the cubic trace (LinnikCGLMat),
 # (round 639) that bound from the paper's S₂ and S₃ (LinnikCGLS23), (round 640) the Mellin transform of w² and the
@@ -136,13 +136,14 @@ for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
 # (LinnikCGLL109), and (round 675) their Lemma 10.10, the large-gcd terms, before their case analysis
 # (LinnikCGLL1010), and (round 676) their Lemma 10.10 with its case analysis, and Remark 10.3
 # (LinnikCGLCase), and (round 677) their Lemmas 10.9 and 10.10 with their ⪅, and their Proposition 10.2
-# (LinnikCGLEps).
+# (LinnikCGLEps), and (round 678) their Proposition 11.1, CGLS3 from CGLP81 and CGLT101, and Linnik's exponents
+# 9/4 and 226/100 from those two (LinnikCGLS3).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
     LinnikCGLPair LinnikCGLFrob LinnikCGLS2 LinnikCGLFourier LinnikCGLPoisson LinnikCGLTrace \
     LinnikCGLDiag LinnikCGLTrunc LinnikCGLProd LinnikCGLRFact LinnikCGLRam LinnikCGLP71 LinnikCGLSym LinnikCGLRt \
     LinnikCGLP72 LinnikCGLMom LinnikCGLMom4 LinnikCGLCS LinnikCGLJ LinnikCGLFb LinnikCGLPhi LinnikCGLDecay \
     LinnikCGLBlock LinnikCGL112 LinnikCGLLoc LinnikCGLL105 LinnikCGLT101 LinnikCGLL107 LinnikCGLSep \
-    LinnikCGLL109 LinnikCGLL1010 LinnikCGLCase LinnikCGLEps; do
+    LinnikCGLL109 LinnikCGLL1010 LinnikCGLCase LinnikCGLEps LinnikCGLS3; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -338,6 +339,7 @@ import LinnikCGLL109
 import LinnikCGLL1010
 import LinnikCGLCase
 import LinnikCGLEps
+import LinnikCGLS3
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -874,6 +876,10 @@ import LinnikCGLEps
 #print axioms LinnikCGLEps.lemma109_eps
 #print axioms LinnikCGLEps.lemma1010_eps
 #print axioms LinnikCGLEps.prop102
+#print axioms LinnikCGLS3.cgls3
+#print axioms LinnikCGLS3.prop31_pt
+#print axioms LinnikCGLS3.linnik_225c_pt
+#print axioms LinnikCGLS3.linnik_226c_pt
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy

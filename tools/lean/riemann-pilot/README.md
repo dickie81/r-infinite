@@ -28755,3 +28755,76 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Their Proposition 11.1, `CGLS3` (round 639): round 667's `S3_le_112`, their (11.2), from `CGLP81`, with `prop102` or, in the other case, round 676's `remark103` for the term `qTN|R|^{1/2}E^{1/2}`. With it, round 644's `linnik_225c_s3` and `linnik_226c_s3` would give the exponents `9/4` and `226/100` from `CGLP81` and `CGLT101`.
+
+## Round 678: their Proposition 11.1, `CGLS3` from `CGLP81` and `CGLT101`, and Linnik's exponents `9/4` and `226/100` from those two (stage M3, the `S₃` side; `external/pnt/LinnikCGLS3.lean`)
+
+**The results.** Below, `q ≥ 1`, `Q = qT`, `r = |R|`, `E` is round 659's `energy`, `Φ = qTN`, and `W` is the bracket of round 639's `CGLS3`, `Q²r^{3/2} + QrN^{3−2σ} + Qr²N^{3/2−σ} + Q^{9/8}r^{29/16}N^{3/2−σ}`. `CGLP81` is round 662's displayed form of their Proposition 8.1, and `CGLT101` round 670's of Heath-Brown's Theorem 10.1.
+
+- `LinnikCGLS3.cgls3`: `CGLP81 → CGLT101 → CGLS3`, their Proposition 11.1 at one point per character, round 639's displayed hypothesis.
+- `LinnikCGLS3.prop31_pt`: `CGLP81 → CGLT101 → CGLProp31`, round 637's displayed form of their Proposition 3.1, by round 639's `third_of_s23` with round 644's `cgls2` and `cgls3`, and round 638's `prop31_of_third`.
+- `LinnikCGLS3.linnik_225c_pt`, `linnik_226c_pt`: Linnik's theorem with the exponents `9/4` and `226/100` from `CGLP81` and `CGLT101`. Under both, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ Kq^{9/4}`, and likewise with `226/100`. They are round 644's `linnik_225c_s3` and `linnik_226c_s3` with `cgls3`.
+- `LinnikCGLS3.S3_le_crude`, `small_case`: `S₃ ≤ |R|³(N + 1)³` for `N > 0`, from round 650's `norm_gramP_le`; and, for `χ` injective on `R`, `T ≥ 1`, `ε > 0` and `(qT)^{2/3}/2 ≤ N ≤ qT < Q₁`, `S₃ ≤ 2^εQ₁^{3/2}(Q₁ + 1)³Φ^εQ²r^{3/2}`.
+- `LinnikCGLS3.id_one`, `id_two`, `id_three`, `energy_term`: for `r, E ≥ 0`, `Q ≥ 1`, `N ≥ Q^{2/3}/2`, `Λ ≥ 1` and `C₂ ≥ 0`, if their Proposition 10.2's alternative gives `E ≤ C₂Λ²(rN^{4−4σ} + r^{21/8}Q^{1/4}N^{1−2σ} + r³N^{1−2σ})`, then `QN√r√E ≤ (8 + √C₂)ΛW`. Outside the alternative, round 676's `remark103` gives `QN√r√E ≤ 8Q²r^{3/2}`.
+- `LinnikCGLS3.natlog_le_rpow`, `M_props`, `two_M_le`, `rpow_le_pow_X`, `orders`: the parameters. `⌊log₂M⌋ + 1 ≤ (1/(δ log 2) + 1)Y^δ` for `1 ≤ M ≤ Y` and `δ > 0`. For `M = ⌊XQ/N⌋`, `X ≥ 1` and `0 < N ≤ Q`: `1 ≤ M`, `NM ≤ XQ` and `XQ/(2N) ≤ M`. `2M ≤ Q^{3/4}` for `Q ≥ 64`, `N ≥ Q^{2/3}/2`, `X = Q^{ε′}` with `ε′ ≤ 1/12`, and `NM ≤ XQ`. And the three orders against `X`.
+- `LinnikCGLS3.cube_le`, `natCast_le_rpow`, `E1_le`, `E2_le`, `tauM_le`, `E3_le`: round 657's three errors, each at most a constant times `Q²r^{3/2}`, the second with the factor `Q^{3δ}`.
+- `LinnikCGLS3.sqrt_main_le`, `sqrt_Gq_le`, `term3_le`, `main_le`, `factors_le`, `main_final`, `main_part`: the main term of round 667's (11.2), at most `K_mΦ^εW`.
+- `LinnikCGLS3.errors_combine`, `errors_part`, `combine3`, `final_large`, `final_small`: the errors, at most `(K₁ + K₂ + K₃)Φ^εW`, and the two ranges.
+
+**Their text.** Re-read this round in the text layer. The underscores in the quotations are escaped for the renderer.
+
+- Their Proposition 11.1: "Let (qT)^{2/3}/2 ≤ N ≤ qT. Then we have S₃ ⪅ (qT)²|W|^{3/2} + qT|W|N^{3−2σ} + qT|W|²N^{3/2−σ} + (qT)^{9/8}|W|^{29/16}N^{3/2−σ}." (lines 5522–5533.)
+- The end of its proof: "Since M₂ ⪅ qT/N, we get (11.2) S₃ ⪅ (qT)²|W|^{3/2} + qTN|W|^{1/2}E(W)^{1/2}." (lines 5865–5866) and "Finally, inserting the energy bound established in Section 10 (see Proposition 10.2) into the above inequality yields the result." (lines 5867–5868.)
+- Their Remark 10.3, for the case outside their Proposition 10.2's alternative: "In this case, our argument in Section 11 would imply (cf. (11.2)) S₃ ⪅ (qT)²|W|^{3/2}." (lines 4673–4674.)
+- In these, spaces are restored and the subscripts, exponents and stacked fractions transcribed.
+
+**The stack's form.**
+
+- **`CGLS3`** is their Proposition 11.1 at one point per character, for sums over `S ⊆ [6N/5, 9N/5]`, with the factor `C(qTN)^ε`. Its condition `7/10 ≤ σ ≤ 4/5` is not used.
+- **The parameters.** Round 667's `S3_le_112` is their (11.2) from `CGLP81`, with the parameters `X`, `M` and three orders, and with round 657's three errors, which their `⪅` absorbs. The stack takes `X = (qT)^{ε′}` with `ε′ = min(1/12, ε/16)`, and `M = ⌊XqT/N⌋`, their `M₂ ⪅ qT/N`. Then `NM ≤ XqT`, and `2M ≤ (qT)^{3/4}` for `qT ≥ 64`, so `ϖ = 3/4`. The factor `X` enters as `X⁴ ≤ (qT)^{ε/4}`.
+- **The orders.** With `k₀ = ⌈1/ε′⌉`, the order `2(k₀ + 3)` makes the energy's smoothing term at most `(qT)²|R|^{3/2}` (`term3_le`). With `K₀ = ⌈5/(2ε′)⌉` and `k_t = ⌈4/ε′⌉`, the orders `K₀ + 3` and `k_t + 2` make the first and third errors at most constants times `(qT)²|R|^{3/2}`. The second error is at most `(C_δB)³(qT)^{3δ}(qT)²|R|^{3/2}`, from round 649's `muP_sub_mu0_le_rpow`.
+- **The energy term.** Their last step uses their Proposition 10.2, which holds under its alternative; outside it their Remark 10.3 bounds the term. `energy_term` does both: round 677's `prop102` at `ε/2`, and round 676's `remark103`, with the constant `8`.
+- **The small range** `qT < max(Q₀, 64)`, with `Q₀` the threshold of `S3_le_112`: `S3_le_crude`, at most a constant times `(qT)²|R|^{3/2}`.
+- **The exponents.** `δ = min(ε/12, 1)` for the divisor bound and the logarithm, `ε/2` in `S3_le_112` and `prop102`, and `ε′`. The losses multiply to at most `Φ^{3δ + ε/4 + 4ε′ + ε/4} ≤ Φ^ε` (`factors_le`).
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLS3.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and four `#print axioms` lines (`cgls3`, `prop31_pt`, `linnik_225c_pt`, `linnik_226c_pt`).
+- `frontier/linnik/CGL-LEAN.md`: the rows P3.1 and P11.1, the target's paragraph, M3's heading and a note, and the opening's parenthetical.
+- `frontier/linnik/SIEVE-ROUTE.md`: a net-state marker on §14's phase 2.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+
+**What is checked.**
+
+- Mathlib's names were checked first (`scratchpad/r678/check.lean`).
+- The file was compiled in scratch in nine runs with `lean --json` (`scratchpad/r678/run.sh`, which runs `lcj.sh` and lists the errors, warnings and information messages; `lcj1.out` to `lcj9.out`). Runs 1, 4, 7, 8 and 9 had exit 0. The fixes were these. Run 1's one warning was an unused hypothesis of `two_M_le`, `ε′ ≥ 0`, which was removed. In run 2, `tauM_le`'s identity by `field_simp` and `ring` left powers with symbolic exponents. It became a chain through `b/y = 3/(πX)` and `div_pow`. Two unused hypotheses were removed, `r ≥ 0` from `sqrt_main_le` and `N ≥ 0` from `term3_le`. In run 3, a `ring` after a `field_simp` that had closed its goal was removed. In run 5, `cgls3`, then one declaration, exceeded the heartbeat limit, which applies per declaration. It was split into `orders`, `main_part`, `errors_part`, `errors_combine`, `combine3`, `final_large` and `final_small`, and two unused hypotheses were removed, `D ≥ 0` from `factors_le` and `D_K ≥ 0` from `main_final`. In run 6, a `have` in `orders` whose tactic block was split across two lines was rejoined, and `main_le`'s argument `D_K`, which `main_part` left uninferred, was given. Run 8 compiled the file with its header, and run 9 with `prop31_pt`. Seven docstrings that stated only some of their hypotheses were then completed.
+- Then `build.sh` ran twice (`scratchpad/r678/compile.sh`, logs `build_1.log` and `build_2.log`). The first ran before `prop31_pt` and the docstrings' completion, the second on the final file. Both had `1 compiled, 412 up to date` and exit 0, in 46 s each, with no error, warning, `sorry` or information message. The second's 641 axiom lines (15 by the module, 626 by the final check, which gains four lines) are 628 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms"; the 13 are in the final check, as before. The first's 639 lines are those without `prop31_pt`'s two. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, taken every 10 s, was 7.10 GiB in both runs (`rss_watch_build_1.log`, `rss_watch_build_2.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed, with its output saved in `scratchpad/r678/gate.out`: `tools/research/render_lint.py` against HEAD as multisets (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS; and the same lint for `frontier/linnik/SIEVE-ROUTE.md`, 25 → 25, run separately (`scratchpad/lint_diff.py`).
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row P3.1 gains round 678 in its stack cell and a net-state marker, since `CGLS3` is now proved from `CGLP81` and `CGLT101`. The row P11.1 gains round 678 in its stack cell, a clause in its status, and a net-state marker on "Displayed hypothesis". The target's paragraph and M3's heading gain net-state markers, the opening's parenthetical gains round 678, and M3 gains a note.
+- `frontier/linnik/SIEVE-ROUTE.md`: §14's phase 2 gains a net-state marker. Its "milestones are to be set when phase 2 starts" has been superseded since round 635, when `CGL-LEAN.md` set them.
+- `external/pnt/README.md`: a row, and a section with a heading.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their Proposition 11.1 (lines 5522–5533), the end of its proof (lines 5860–5868), their Remark 10.3 (lines 4657–4674) and their Proposition 10.2 (lines 4636–4656), in the text layer.
+- `LinnikCGLS3.lean` in full: its proofs were written this round, and each docstring was checked against its statement.
+- The operative definitions and statements: round 667's `S3_le_112` and `Gq`, round 639's `CGLS3`, `S3` and `third_of_s23`, round 677's `prop102`, round 676's `remark103`, round 662's `CGLP81`, round 670's `CGLT101`, round 654's `E71` and `CJ`, round 650's `tauM` and `norm_gramP_le`, round 649's `muP_sub_mu0_le_rpow`, round 644's `linnik_225c_s3` and `linnik_226c_s3`, and round 638's `prop31_of_third`.
+
+**Check 4.** No defect in the cascade or the stack is raised. Their proof inserts their Proposition 10.2, whose alternative their Remark 10.3 covers; the stack's `energy_term` does both, as recorded under the stack's form.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, rounds 668 to 678, the block from their §10 to their Proposition 11.1, get one hostile review together, launched after this round's commit.
+
+**Bearing on RH:** none.
+
+**The next step.** Stage M3 is done. The remaining hypotheses of `linnik_225c_pt` are stage M4, their Proposition 8.1 (`CGLP81`), and stage M5, Heath-Brown's Theorem 10.1 with characters (`CGLT101`).
