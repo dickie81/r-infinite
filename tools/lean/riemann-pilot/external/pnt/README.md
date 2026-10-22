@@ -171,6 +171,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLPoisson.lean` | 646 | the Poisson expansion of the Gram entries in residue classes (`gram_poisson`): `G(i, k) = N^{iτ}Σ_{a<q}χ_i(a)conj(χ_k(a))Σ_{m∈ℤ}(N/q)ĥ_τ(Nm/q)e^{2πima/q}`, from Poisson summation scaled (`poisson_scaled`), the regrouping by residue classes (`sum_colsP_residue`) and the terms `A_{i,n}conj(A_{k,n}) = N^{iτ}χ_i(n)conj(χ_k(n))h_τ(n/N)` (`entP_mul_star`) |
 | `LinnikCGLTrace.lean` | 648 | Chen–Gupta–Li's `S₃` at one point per character (`S3_eq_Fm`): for `χ` injective on `R`, `X − 3μ₀‖E‖_F² = Re Σ F(i, j)F(j, k)F(k, i)` over the triples that are not all equal, `F(i, k)` the terms `m ≠ 0` of `gram_poisson`; from the algebra of the cubic trace (`S3_eq_cube`), orthogonality (`sum_range_mul_star_eq_zero`, `sum_range_mul_star_self`), `ĥ₀(0) = ∫w²` (`fourier_Wt_zero`) and the term `m = 0` split off (`summable_poisson`, `Em_eq`) |
 | `LinnikCGLDiag.lean` | 649 | the Gram diagonal against its main term (`muP_sub_mu0_le`): `\|μ − μ₀\| ≤ d(q)B`, by Möbius inversion over the divisors of `q` (`sum_coprime_eq`, `totient_div_eq`) and Poisson summation along the multiples of each (`sum_multiples_eq`, `bracket_le`); and `S₃ = Re Σ_{i,j,k∈R}F(i, j)F(j, k)F(k, i) − \|R\|(μ − μ₀)³` at one point per character (`Fm_diag`, `S3_eq_all`) |
+| `LinnikCGLTrunc.lean` | 650 | the truncation in `m` (`S3_trunc`): `S₃` is `Re Σ_{0<\|m_i\|≤M}I′(m⃗) − \|R\|(μ − μ₀)³` within `3\|R\|³τ_M(2N + 1 + τ_M)²`, from the truncated cubic trace as a sum of their `I′_{m⃗}` (`sum_FmT_cube`), the tail of each entry (`norm_Fm_sub_FmT_le`) and `\|F(i, k)\| ≤ 2N + 1` (`norm_Fm_le`) |
 
 ## Building (rounds 217, 618)
 
@@ -792,3 +793,12 @@ Round 649 bounds the Gram diagonal `μ = Σ_{n∈colsP N, (n,q)=1}w(n/N)²` agai
 - `Fm_diag`, `S3_eq_all`: `F(i, i) = μ − μ₀` (round 648's `Em_eq`, round 638's `gramP_diag`), and the identity.
 
 See the main README, round 649, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 559 lines.
+
+Round 650 truncates the frequencies: for `q ≥ 1`, `N > 0`, `χ` injective on `R`, points `|t_i| ≤ T`, `M ≥ 1` and `K ≥ 2`, `|S₃ − (Re Σ_{0<|m₁|,|m₂|,|m₃|≤M}I′(m⃗) − |R|(μ − μ₀)³)| ≤ 3|R|³τ_M(2N + 1 + τ_M)²` (`S3_trunc`), where `I′(m⃗) = Σ_{i,j,k∈R}φ_{ij}(m₁)φ_{jk}(m₂)φ_{ki}(m₃)` is Chen–Gupta–Li's `I′_{m⃗}` at one point per character and `τ_M = N·CF(K)(q(1 + 2T)/(2πN))^K M^{2−K}Z₂`.
+
+- `phi`, `boxM`, `FmT`, `Ip`, `swap13`, `sum_FmT_cube`: the terms `φ_{ik}(m)`, the truncated entries `F_M(i, k) = Σ_{0<|m|≤M}φ_{ik}(m)`, and `Σ_{i,j,k}F_M(i, j)F_M(j, k)F_M(k, i) = Σ_{0<|m_i|≤M}I′(m⃗)`.
+- `norm_tail_term_le`, `tsum_ite_sub_sum`, `not_mem_boxM`, `norm_Fm_sub_FmT_le`: the tail beyond `M`, `|F(i, k) − F_M(i, k)| ≤ N·CF(K)ρ^K M^{2−K}Z₂` with `ρ = q(1 + |t_i − t_k|)/(2πN)` (round 645's `lemma43` at `K`).
+- `norm_entP_le`, `norm_gramP_le`, `norm_Fm_le`: `|F(i, k)| ≤ 2N + 1`.
+- `norm_cube_sub_le`, `tauM`, `S3_trunc`: the error of the truncated cubic trace.
+
+See the main README, round 650, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 562 lines.

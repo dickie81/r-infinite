@@ -27014,3 +27014,52 @@ the sum now over all triples, since `F(i, i) = μ − μ₀` (`Fm_diag`).
 **Bearing on RH:** none.
 
 **The next step.** The truncation in `m`: by their Lemma 4.3 (1) at large `K`, the terms `|m| > (qT)^ϵqT/N` of each `F(i, k)` sum to a negative power of `qT`, so that `S₃` is `Re Σ_{i,j,k}` of the truncated `F`, less `|R|(μ − μ₀)³`, up to that power; then their Proposition 7.1.
+
+## Round 650: the truncation in `m`, and their `I′_{m⃗}` (stage M3, the `S₃` side; `external/pnt/LinnikCGLTrunc.lean`)
+
+**The result.** `LinnikCGLTrunc.S3_trunc`: for `q ≥ 1`, `N > 0`, `χ` injective on `R`, points `|t_i| ≤ T`, `M ≥ 1` and `K ≥ 2`,
+
+`|S₃ − (Re Σ_{0<|m₁|,|m₂|,|m₃|≤M}I′(m⃗) − |R|(μ − μ₀)³)| ≤ 3|R|³τ_M(2N + 1 + τ_M)²`,
+
+where `I′(m⃗) = Σ_{i,j,k∈R}φ_{ij}(m₁)φ_{jk}(m₂)φ_{ki}(m₃)` is their `I′_{m⃗}` at one point per character, `φ_{ik}(m) = Σ_{a<q}χ_i(a)conj(χ_k(a))(N/q)ĥ_{t_i−t_k}(Nm/q)e^{2πima/q}` the term `m` of round 646's expansion, and `τ_M = N·CF(K)(q(1 + 2T)/(2πN))^K M^{2−K}Z₂` with round 649's `Z₂ = Σ_{m∈ℤ}|m|^{−2}`. On the way: `sum_FmT_cube`, the truncated cubic trace `Σ_{i,j,k}F_M(i, j)F_M(j, k)F_M(k, i) = Σ_{0<|m_i|≤M}I′(m⃗)` with `F_M(i, k) = Σ_{0<|m|≤M}φ_{ik}(m)`; `norm_Fm_sub_FmT_le`, the tail `|F(i, k) − F_M(i, k)| ≤ N·CF(K)ρ^K M^{2−K}Z₂` with `ρ = q(1 + |t_i − t_k|)/(2πN)`; and `norm_Fm_le`, `|F(i, k)| ≤ 2N + 1`.
+
+**The paper's truncation and the stack's.** Re-read this round in the text layer (lines 1960–1975; spaces restored): "By Lemma 4.3 (1), we have |ĥ_t(ξ)| ≪_j (1 + |t|)^j/|ξ|^j. This implies that I_{m⃗} is negligible unless |m_i| ≤ (qT)^ϵqT/N for 1 ≤ i ≤ 3" (the exponents and subscripts transcribed), and they then bound `S₃` through `I′_{m⃗}`, the sum over all triples. The stack truncates each entry `F(i, k)` rather than each `I_{m⃗}`, which makes the error explicit: for `|m| > M`, Lemma 4.3 (1) at `K` (round 645's `lemma43`) gives `|(N/q)ĥ_τ(Nm/q)| ≤ (N/q)CF(K)ρ^K M^{2−K}|m|^{−2}`, summable against `Z₂`. Taking `M` near their `(qT)^ϵqT/N` makes `ρ/M` a negative power of `qT`, and a large `K` then makes `τ_M` negligible; the choice is left to the assembly. Their order — truncate, then drop "not all equal" — is reversed here, so that the dropped terms are the exact `(μ − μ₀)³` of round 649.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLTrunc.lean`: new, 360 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`sum_FmT_cube`, `norm_Fm_sub_FmT_le`, `S3_trunc`).
+- `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch first (`scratchpad/r650/lc.sh`; `lc.out`, `lc2.out` and `lc3.out`). The fixes were:
+
+  - Mathlib's `Summable.tsum_add` for `tsum_add`, renamed;
+  - a helper `mul_le_one_of`, by `nlinarith`, for the deprecated `mul_le_one₀`;
+  - `not_mem_boxM` rewritten without the deprecated `push_neg`;
+  - a power identity rewritten through `mul_div_assoc (CF K)`, after an unpinned `mul_div_assoc` had rewritten a quotient inside the term.
+
+- Then `build.sh` ran once (`scratchpad/r650/compile.sh 1`, log `build_1.log`): `1 compiled, 386 up to date` (`LinnikCGLTrunc` 11 s), exit 0 in 23 s, no error, warning or `sorry`. Its 567 axiom lines (5 by the module, 562 by the final check, which gains three lines) are 554 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.82 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` or `maxHeartbeats`, and no line over 120 characters.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872.
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2 gains round 650 in its stack cell and a clause in its status, nothing in it superseded; the opening's parenthetical gains round 650, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round): their §7 from its opening to the definition of `I′_{m⃗}` (text layer lines 1930–1990), re-read for this round's quotation; `LinnikCGLTrunc.lean` in full; the operative definitions, round 639's `S3`, round 648's `Fm`, round 649's `Z2` and `S3_eq_all`; round 645's `lemma43` and `CF`, round 648's `summable_poisson` and `Em_eq`, round 638's `entP`, `gramP`, `colsP_pos`, `card_colsP_le` and `norm_cpow_I`, and round 639's `mu0_le`; Mathlib's `Multipliable.tprod_mul` (whose additive form is `Summable.tsum_add`), `tsum_eq_sum`, `tsum_of_norm_bounded`, `Summable.of_norm_bounded`, `DirichletCharacter.norm_le_one`, `norm_add₃_le` and `div_le_div_of_nonneg_left`.
+
+**Check 4.** No defect is raised. `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of `S3_trunc` are its statement; "each product of three entries moves by at most `3τ_M(2N + 1 + τ_M)²`" is `norm_cube_sub_le` at `‖F‖ ≤ 2N + 1` and `‖F − F_M‖ ≤ τ_M`.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Proposition 7.1 for `I′(m⃗)`: expand each `ĥ` as an integral, so that the sum over the triples of points factors as `R(u₁/u₃, ·)R(u₂/u₁, ·)R(u₃/u₂, ·)` with `R(v, a) = Σ_{(t,χ)∈W}v^{it}χ(a)`, their (7.2); then change variables and integrate in `u₃` first.
