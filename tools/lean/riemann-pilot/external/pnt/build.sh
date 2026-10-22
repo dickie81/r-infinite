@@ -106,17 +106,18 @@ for f in SieveCert225C Linnik225C; do c 1 "$HERE" $f; done
 for f in SieveTypeIIU2285 SieveGrid2285U; do c 1 "$HERE" $f; done
 for i in $(seq 1 28); do c 1 "$HERE" SieveCert2285UP$i; done
 for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
-# Rounds 636–646: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
+# Rounds 636–648: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
 # (LinnikCGLLV), the density step from it on [5/7, 16/21] (LinnikCGLStep), Linnik's exponents 9/4 and 226/100
 # from it (LinnikCGLLinnik), (round 638) Proposition 3.1 from a bound on the cubic trace (LinnikCGLMat),
 # (round 639) that bound from the paper's S₂ and S₃ (LinnikCGLS23), (round 640) the Mellin transform of w² and the
 # Gram entries as vertical integrals (LinnikCGLMellin), (round 641) their reflection (LinnikCGLReflect),
 # (round 642) the bounds of the reflected entries (LinnikCGLPair), (round 643) the off-diagonal mass of the Gram
 # matrix (LinnikCGLFrob), (round 644) the hypothesis CGLS2 proved (LinnikCGLS2), and (round 645) the decay of the
-# Fourier transform of w(u)²u^{it}, their Lemma 4.3 (1) (LinnikCGLFourier), and (round 646) the Poisson expansion
-# of the Gram entries in residue classes (LinnikCGLPoisson).
+# Fourier transform of w(u)²u^{it}, their Lemma 4.3 (1) (LinnikCGLFourier), (round 646) the Poisson expansion
+# of the Gram entries in residue classes (LinnikCGLPoisson), and (round 648) the paper's S₃ at one point per
+# character (LinnikCGLTrace).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
-    LinnikCGLPair LinnikCGLFrob LinnikCGLS2 LinnikCGLFourier LinnikCGLPoisson; do
+    LinnikCGLPair LinnikCGLFrob LinnikCGLS2 LinnikCGLFourier LinnikCGLPoisson LinnikCGLTrace; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -284,6 +285,7 @@ import LinnikCGLFrob
 import LinnikCGLS2
 import LinnikCGLFourier
 import LinnikCGLPoisson
+import LinnikCGLTrace
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -751,6 +753,9 @@ import LinnikCGLPoisson
 #print axioms LinnikCGLPoisson.poisson_scaled
 #print axioms LinnikCGLPoisson.sum_colsP_residue
 #print axioms LinnikCGLPoisson.gram_poisson
+#print axioms LinnikCGLTrace.S3_eq_cube
+#print axioms LinnikCGLTrace.Em_eq
+#print axioms LinnikCGLTrace.S3_eq_Fm
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy

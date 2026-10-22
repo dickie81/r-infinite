@@ -169,6 +169,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLS2.lean` | 644 | round 639's hypothesis `CGLS2` proved (`cgls2`): for every `ε > 0`, `‖E‖_F² ≤ C(qTN)^ε·qT\|R\|N^{2−2σ}`, from round 643's `frobOff_le` with `Z = ⌊3P^{1+δ}/N⌋ + 1` and `K = ⌈4/δ⌉` (`s2_main`) and the sizes of its factors as powers of `qT` (`LSX_le`, `HZ_le`, `Q0_le`, `card_le`, `Bmax_le`); Linnik's exponents `9/4` and `226/100` from `CGLS3` alone (`linnik_225c_s3`, `linnik_226c_s3`) |
 | `LinnikCGLFourier.lean` | 645 | Chen–Gupta–Li's Lemma 4.3 (1): `(2π\|ξ\|)^K\|ĥ_τ(ξ)\| ≤ C_K(1 + \|τ\|)^K` for `h_τ(u) = w(u)²u^{iτ}` (`lemma43`), from the derivatives `h_τ^{(k)} = u^{iτ}Σ_{j≤k}(iτ)^j c_{k,j}` (`hasDerivAt_F`) and Mathlib's `Real.fourier_deriv` (`fourier_F`) |
 | `LinnikCGLPoisson.lean` | 646 | the Poisson expansion of the Gram entries in residue classes (`gram_poisson`): `G(i, k) = N^{iτ}Σ_{a<q}χ_i(a)conj(χ_k(a))Σ_{m∈ℤ}(N/q)ĥ_τ(Nm/q)e^{2πima/q}`, from Poisson summation scaled (`poisson_scaled`), the regrouping by residue classes (`sum_colsP_residue`) and the terms `A_{i,n}conj(A_{k,n}) = N^{iτ}χ_i(n)conj(χ_k(n))h_τ(n/N)` (`entP_mul_star`) |
+| `LinnikCGLTrace.lean` | 648 | Chen–Gupta–Li's `S₃` at one point per character (`S3_eq_Fm`): for `χ` injective on `R`, `X − 3μ₀‖E‖_F² = Re Σ F(i, j)F(j, k)F(k, i)` over the triples that are not all equal, `F(i, k)` the terms `m ≠ 0` of `gram_poisson`; from the algebra of the cubic trace (`S3_eq_cube`), orthogonality (`sum_range_mul_star_eq_zero`, `sum_range_mul_star_self`), `ĥ₀(0) = ∫w²` (`fourier_Wt_zero`) and the term `m = 0` split off (`summable_poisson`, `Em_eq`) |
 
 ## Building (rounds 217, 618)
 
@@ -768,3 +769,14 @@ Round 646 expands each Gram entry by Poisson summation in residue classes, the m
 - `gram_poisson`: the three together.
 
 See the main README, round 646, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 553 lines.
+
+Round 648 proves that round 639's `S3 = X − 3μ₀‖E‖_F²` is Chen–Gupta–Li's `S₃`, the terms of the Poisson expansion of the cubic trace whose three frequencies are nonzero, at one point per character: for `q ≥ 1`, `N > 0` and `χ` injective on `R`, `S₃ = Re Σ F(i, j)F(j, k)F(k, i)` over the triples of points that are not all equal, with `F(i, k) = Σ_{a<q}χ_i(a)conj(χ_k(a))Σ_{m≠0}(N/q)ĥ_{t_i−t_k}(Nm/q)e^{2πima/q}` (`S3_eq_Fm`).
+
+- `triple_shift`, `triple_sum_split`, `S3_eq_cube`: for any `q`, `N` and points, `S₃ = Re Σ E(i, j)E(j, k)E(k, i)` over the triples that are not all equal, `E(i, k) = G(i, k) − δ_{ik}μ₀`: a triple with exactly two equal points carries `μ₀|G(i, k)|²` in one of three positions (round 639's `gramP_swap`).
+- `sum_range_mul_star_eq_zero`, `sum_range_mul_star_self`: `Σ_{a<q}χ(a)conj(ψ(a)) = 0` for `χ ≠ ψ` (Mathlib's `MulChar.sum_eq_zero_of_ne_one` over `ZMod q`) and `Σ_{a<q}|χ(a)|² = φ(q)` (`Nat.totient_eq_card_coprime`).
+- `fourier_Wt_zero`: `ĥ₀(0) = ∫_1^2 w²`.
+- `summable_poisson`: the terms of each residue class's Poisson series are summable, `O(m^{−2})` by round 645's `lemma43` at `K = 2`.
+- `Fm`, `Em_eq`: for `i, k ∈ R`, `E(i, k) = N^{i(t_i−t_k)}F(i, k)`; the term `m = 0` of `gram_poisson` vanishes for `i ≠ k` and is `μ₀` for `i = k` (Mathlib's `Summable.tsum_eq_add_tsum_ite`).
+- `S3_eq_Fm`: the two together; the phases `N^{iτ}` cancel around a triple.
+
+See the main README, round 648, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 556 lines.

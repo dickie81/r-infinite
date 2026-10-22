@@ -26926,3 +26926,48 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Round 648: the paper's `S₃` at one point per character (`LinnikCGLTrace.lean`, compiled in scratch), then their Proposition 7.1.
+
+## Round 648: Chen–Gupta–Li's `S₃` at one point per character (stage M3, the `S₃` side; `external/pnt/LinnikCGLTrace.lean`)
+
+**The result.** `LinnikCGLTrace.S3_eq_Fm`: for `q ≥ 1`, `N > 0` and `χ` injective on `R`,
+
+`S₃ = Re Σ F(i, j)F(j, k)F(k, i)` over the triples `(i, j, k)` of points of `R` that are not all equal,
+
+with round 639's `S₃ = X − 3μ₀‖E‖_F²` and `F(i, k) = Σ_{a<q}χ_i(a)conj(χ_k(a))Σ_{m≠0}(N/q)ĥ_{t_i−t_k}(Nm/q)e^{2πima/q}`, the terms `m ≠ 0` of round 646's expansion of `G(i, k)`. On the way: `S3_eq_cube`, for any `q`, `N` and points, `S₃ = Re Σ E(i, j)E(j, k)E(k, i)` over the same triples, with `E(i, k) = G(i, k) − δ_{ik}μ₀`; and `Em_eq`, `E(i, k) = N^{i(t_i−t_k)}F(i, k)` for `i, k ∈ R`.
+
+**The paper's `S₃` and the stack's.** Re-read this round in the text layer (lines 1208–1300 and 1930–1962; spaces restored). Their (5.2) splits `Σ_{m⃗∈ℤ³\{0}} I_{m⃗}` as `S₁ + S₂ + S₃`, where "S₁ consists of terms with exactly one nonzero m_i, S₂ consists of terms with exactly two nonzero m_i and S₃ consists of terms with all three m_i being nonzero" (the subscripts transcribed). §7 opens "Let us first recall that" `S₃ = Σ_{m₁,m₂,m₃≠0} I_{m⃗}`, where `I_{m⃗} = N³/q³ Σ_{(t₁,χ₁),(t₂,χ₂),(t₃,χ₃)∈W, not all equal} Σ_{a₁,a₂,a₃ mod q, (a₁a₂a₃,q)=1} χ₁χ̄₂(a₁)χ₂χ̄₃(a₂)χ₃χ̄₁(a₃)e_q(a⃗·m⃗) · ĥ_{t₁−t₂}(Nm₁/q)ĥ_{t₂−t₃}(Nm₂/q)ĥ_{t₃−t₁}(Nm₃/q)`. The displays are transcribed on one line, and their bars, over the second character of each pair, are read from the PDF's rules at x 303.1, 347.2 and 391.3 on page 22 (`scratchpad/r647/bars2.py`, `chis.py`).
+
+Written out, `F(i, j)F(j, k)F(k, i)` is a product of three sums over `m ≠ 0` whose terms multiply to that summand, and the characters vanish where `(a₁a₂a₃, q) > 1`. The file keeps the product of the three sums; it does not form the sum over `(m₁, m₂, m₃)`. Round 639's header had argued the identity from the paper's (5.2), their (6.1) and orthogonality; it is now kernel-checked.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLTrace.lean`: new, 295 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`S3_eq_cube`, `Em_eq`, `S3_eq_Fm`).
+- `frontier/linnik/CGL-LEAN.md`: the rows L4.4–P4.6 and P7.1–P7.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch first (`scratchpad/r648/lc.sh`; `lc.out` and `lc2.out`). The fixes were Mathlib's `integral_complex_ofReal` for its `RCLike` form `integral_ofReal`, and `ite_eq_left` and `ite_eq_right` for `if_pos` and `if_neg`, which this toolchain deprecates.
+- Then `build.sh` ran once (`scratchpad/r648/compile.sh 1`, log `build_1.log`): `1 compiled, 384 up to date` (`LinnikCGLTrace` 10 s), exit 0 in 22 s, no error, warning or `sorry`. Its 562 axiom lines (6 by the module, 556 by the final check, which gains three lines) are 549 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.86 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` or `maxHeartbeats`, and no line over 120 characters.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872.
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row L4.4–P4.6 gains round 648 in its stack cell and a clause in its status, nothing in it superseded; the row P7.1–P7.2's stack cell and status are replaced, each marked with what it read; the opening's parenthetical gains round 648, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round): their (5.2) and §7 to its first display (text layer lines 1208–1300 and 1930–1962) and page 22 of the PDF (the bars), re-read for this round's quotations; `LinnikCGLTrace.lean` in full; the operative definitions, round 639's `X3`, `frobOff`, `mu0` and `S3`, with `X3_eq` and `gramP_swap`; round 646's `gram_poisson` and `poisson_Wt`, and round 640's `Wt`, `Wc` and `wsq`; Mathlib's `MulChar.star_apply'`, `MulChar.sum_eq_zero_of_ne_one`, `Finset.prod_nbij'`, `Finset.sum_boole`, `Nat.totient_eq_card_coprime`, `Real.fourier_real_eq_integral_exp_smul`, `integral_complex_ofReal`, `setIntegral_eq_integral_of_forall_compl_eq_zero`, `Real.summable_abs_int_rpow`, `Summable.of_norm_bounded_eventually` and `Multipliable.tprod_eq_mul_tprod_ite` (whose additive form is `Summable.tsum_eq_add_tsum_ite`).
+
+**Check 4.** No defect is raised. `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: "for `q ≥ 1`, `N > 0` and `χ` injective on `R`" is the statement of `S3_eq_Fm`, and "for any `q`, `N` and points" that of `S3_eq_cube`; "the characters vanish where `(a₁a₂a₃, q) > 1`" is a property of Dirichlet characters, not used in the proof.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** The rest of their §7's opening. By their Lemma 4.3 (1) the sums over `m` may be truncated at `|m| ≤ (qT)^ϵqT/N` with a negligible tail. Then the condition "not all equal" is removed at the cost of their `Z′`, here the diagonal terms `F(i, i)³ = (μ − μ₀)³` (`Em_eq` at `i = k` with round 638's `gramP_diag`). Then their Proposition 7.1, which bounds `I′_{m⃗}` through `R(v, a) = Σ_{(t,χ)∈W}v^{it}χ(a)`.
