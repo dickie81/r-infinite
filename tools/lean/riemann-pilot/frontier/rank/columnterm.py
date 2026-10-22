@@ -43,8 +43,9 @@ Gates (exit status 1 if one fails; skipped, and reported, without the prime data
   N5  target T3 in operator form.  U(k, P) = sum_n beta_n (n/k)_2 conj((n/P)_3), with rows k squarefree of norm <= K,
       moduli P squarefree of norm in (L/2, L] and columns n squarefree of norm in (N/2, N].  T3's hybrid sum is
       sum_k |sum_P c_P U(k, P)|^2 <= ||U||_op^2 sum_P |c_P|^2, so a bound ||U||_op^2 << Z^eps (K + L) sum |beta|^2 for
-      the release's dual coefficients would bound it by Z^eps (K + L) sum |beta|^2 sum |c_P|^2, with no column term N:
-      a sufficient form of T3.  At (N, K, L) = (4*10^4, 600, 600), (8*10^4, 1000, 600) and (8*10^4, 2000, 1200) the
+      the release's dual coefficients would bound it by Z^eps (K + L) sum |beta|^2 sum |c_P|^2, with no column term N.
+      Since sum |beta|^2 <= N, where L <= K that is T3 in the form the program uses (slotsplit.py's S7: the factor K in
+      place of K + NB, the cubic sieve's factor kept).  At (N, K, L) = (4*10^4, 600, 600), (8*10^4, 1000, 600) and (8*10^4, 2000, 1200) the
       ratio ||U||_op^2 / (sum |beta|^2 (sqrt(#rows) + sqrt(#moduli))^2), about the coprime fraction for a random
       matrix, is at most 1.2 for random phases, conj(g3) and conj(g3) alpha, and at least 4 for the aligned control
       beta_n = (n/k0)_2 (n/P0)_3.  Evidence about models at small norms, not a bound.
