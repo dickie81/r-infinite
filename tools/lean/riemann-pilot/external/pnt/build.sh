@@ -98,6 +98,12 @@ for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV 
 for f in SieveCertColsDefs SieveCertCols SieveTypeIIU225C SieveGrid225C; do c 1 "$HERE" $f; done
 for i in $(seq 1 167); do c 1 "$HERE" SieveCert225CP$i; done
 for f in SieveCert225C Linnik225C; do c 1 "$HERE" $f; done
+# Round 631: Linnik's exponent 2285/1000 with no hypothesis; its certificate in 252 kernel parts in 28 files, one
+# lean process each (their completed runs 7100 s of elapsed time in the round's job, the first and the last
+# alone, the others two at a time; README.md).
+for f in SieveTypeIIU2285 SieveGrid2285U; do c 1 "$HERE" $f; done
+for i in $(seq 1 28); do c 1 "$HERE" SieveCert2285UP$i; done
+for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
 echo "$NC compiled, $NUP up to date"
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
@@ -247,6 +253,10 @@ import SieveTypeIIU225C
 import SieveGrid225C
 import SieveCert225C
 import Linnik225C
+import SieveTypeIIU2285
+import SieveGrid2285U
+import SieveCert2285U
+import Linnik2285U
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -653,6 +663,14 @@ import Linnik225C
 #print axioms Linnik225C.typeII225c
 #print axioms Linnik225C.fits225C
 #print axioms Linnik225C.linnik_225c
+#print axioms SieveTypeIIU2285.window_2285
+#print axioms SieveTypeIIU2285.typeII_2285
+#print axioms SieveCert.gridOK2285U
+#print axioms SieveCert.total_lt_2285U
+#print axioms Linnik2285U.routeOK2285U
+#print axioms Linnik2285U.typeII2285U
+#print axioms Linnik2285U.fits2285U
+#print axioms Linnik2285U.linnik_2285U
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy
