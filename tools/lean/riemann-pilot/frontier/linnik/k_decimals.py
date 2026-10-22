@@ -1,21 +1,34 @@
 """k_decimals.py: the decimals of `K` on the three Linnik surfaces (SIEVE-ROUTE.md, external/pnt/README.md and the
-pilot's README.md), against the exact totals they display (round 633; review of round 631, finding F-B).
+pilot's README.md), against the exact totals they display (round 633; review of round 631, finding F-B), and the cells
+of SIEVE-ROUTE.md's replay table (§23) against `route_limits.jsonl` (round 634; review of round 633, F1).
 
-The class (rounds 584, 585, 587, 628, 629, 632 and 633 found instances of it): a certificate's total, or the sum of its
-parts' bounds, bounds the loss from above, so a decimal of `K` that displays one is at least its exact value: rounded
-up, or written "below `X`" with `X` at least the value. That is checked here for every such total or sum below `K`.
+The class in its form for totals (rounds 584, 585, 587, 632 and 633 found instances of it; rounds 628 and 629 found it
+in floors, which this script does not read): a certificate's total below `K`, or the sum of its parts' bounds below
+`K`, bounds the loss from above, so a decimal of `K` that displays one is at least its exact value: rounded up, or
+written "below `X`" with `X` at least the value. A failing total, above `K`, certifies nothing, and its decimal is
+outside the class.
 
-Every decimal `d` followed by `K` in the live text (struck text `~~…~~` and quotations "…" removed) must be classified
-in `DECIMALS`: either the name of an exact value in `EXACT`, which `d` must not undercut, or the reason it lies outside
-the class (a failing total, above `K`; a scan's figure computed with the crude `ω`, as the scan printed it; a threshold;
-a float quoted from a review's output; another `K`). An unclassified decimal fails the check, so a new one must be
-classified when it is written.
+Every decimal `d` written as digits followed by `K`, `·K` or a space and `K` (`K` not followed by a letter, a digit or
+`_`) in the live text (struck text `~~…~~` and quotations "…" removed) must be classified in `DECIMALS`: either the
+name of an exact value in `EXACT`, which `d` must not undercut, or the reason it lies outside the class (a failing
+total, above `K`; a threshold; a float quoted from a review's output; another `K`). Classification is by the string
+`d`, not by its site: a new site that writes a classified string for another quantity is checked against the string's
+quantity. An unclassified decimal fails the check, so a new string must be classified when it is written.
+
+The replay table's cells are `total/K` to the places shown, rounded to the nearest: each must equal that rounding of
+its `route_limits.jsonl` row (curve, `L`, window and `n`), and lie below `1` exactly when the row's total is below `K`.
+The table must yield `TABLE_CELLS` cells, so a row the pattern stops reading fails the check.
 
 `EXACT` names where each exact value (a numerator over `K = 2⁶⁰`) comes from: `route_limits.jsonl`'s row or the sum
-of the Lean part files' bounds, read on every run, or a grid's total by `route_limits.replay`, stored here because a
-replay takes up to minutes; `--recompute` replays the grids and compares with the stored totals.
+of the Lean part files' bounds, read on every run (each pattern must match its recorded numbers of files and bounds),
+or a grid's total by `route_limits.replay`, stored here because a replay takes up to minutes; `--recompute` replays
+the grids and compares with the stored totals.
 
-Usage: k_decimals.py [--recompute]. Exit status 0 when every decimal is classified and none undercuts its value.
+Not read: figures without `K` other than the table's cells, and spellings of a decimal of `K` other than the three
+above; the pre-landing self-review covers them.
+
+Usage: k_decimals.py [--recompute]. Exit status 0 when every decimal is classified and none undercuts its value, and
+every table cell matches.
 """
 import glob, json, os, re, sys
 from fractions import Fraction as Fr
@@ -43,6 +56,9 @@ EXACT = {
     'grid226 n=200': ('grid', 4075, 4835, 10000, 200, 977548402391414719),
     'grid 2.256 n=200 [4086, 4826]': ('grid', 4086, 4826, 10000, 200, 1054772424499152438),
     'grid 2.256 n=300 [4086, 4826]': ('grid', 4086, 4826, 10000, 300, 1002803219224850644),
+    'grid 2295/1000 n=150 [39719, 47693]': ('grid', 39719, 47693, 100000, 150, 965694177947636179),
+    'grid 2255/1000 n=200 [40905, 48242]': ('grid', 40905, 48242, 100000, 200, 1073298964573591545),
+    'grid 2255/1000 n=200 [4091, 4824]': ('grid', 4091, 4824, 10000, 200, 1079022260061433519),
     'g7c 9/4 n=600': ('jsonl', 'g7c', '9/4', 600),
     'g7c 9/4 n=800': ('jsonl', 'g7c', '9/4', 800),
     'g7c 2249/1000 n=600': ('jsonl', 'g7c', '2249/1000', 600),
@@ -52,15 +68,14 @@ EXACT = {
     'gU 2285/1000 n=600': ('jsonl', 'gU', '457/200', 600),
     'gU 2282/1000 n=600': ('jsonl', 'gU', '1141/500', 600),
     'gU 22825/10000 n=600': ('jsonl', 'gU', '913/400', 600),
-    'SieveCert232 bounds': ('lean', ['SieveCert232.lean']),
-    'SieveCert226 bounds': ('lean', ['SieveCert226P[0-9].lean']),
-    'SieveCert229U bounds': ('lean', ['SieveCert229UP[0-9].lean']),
-    'SieveCert225C bounds': ('lean', ['SieveCert225CP*.lean']),
-    'SieveCert2285U bounds': ('lean', ['SieveCert2285UP*.lean']),
+    'SieveCert232 bounds': ('lean', ['SieveCert232.lean'], 1, 25),
+    'SieveCert226 bounds': ('lean', ['SieveCert226P[0-9].lean'], 5, 49),
+    'SieveCert229U bounds': ('lean', ['SieveCert229UP[0-9].lean'], 5, 21),
+    'SieveCert225C bounds': ('lean', ['SieveCert225CP*.lean'], 167, 1374),
+    'SieveCert2285U bounds': ('lean', ['SieveCert2285UP*.lean'], 28, 252),
 }
 
 FAIL_TOTAL = 'a failing total, above K'
-SCAN = "a scan's figure with the crude omega, as the scan printed it"
 DECIMALS = {
     # displays of exact totals and sums below K
     '0.98921': 'g7c 9/4 n=400', '0.9893': 'g7c 9/4 n=400', '0.96517': 'g7c 9/4 n=600',
@@ -73,13 +88,14 @@ DECIMALS = {
     '0.84789': 'grid226 n=200', '0.8478880813': 'grid226 n=200', '0.9149': 'grid 2.256 n=200 [4086, 4826]',
     '0.8698': 'grid 2.256 n=300 [4086, 4826]', '0.8517': 'SieveCert232 bounds', '0.84874': 'SieveCert226 bounds',
     '0.94009': 'SieveCert229U bounds', '0.99020': 'SieveCert225C bounds', '0.98932': 'SieveCert2285U bounds',
+    '0.8377': 'grid 2295/1000 n=150 [39719, 47693]', '0.9310': 'grid 2255/1000 n=200 [40905, 48242]',
+    '0.931': 'grid 2255/1000 n=200 [40905, 48242]', '0.936': 'grid 2255/1000 n=200 [4091, 4824]',
+    '0.8442146854': 'grid227 n=100',
     # outside the class
     '1.0769': FAIL_TOTAL, '1.0213': FAIL_TOTAL, '1.02125': FAIL_TOTAL, '1.0051': FAIL_TOTAL, '1.0248': FAIL_TOTAL,
     '4.23': FAIL_TOTAL, '4.05': FAIL_TOTAL, '4.23434': FAIL_TOTAL, '4.04821': FAIL_TOTAL, '2.37': FAIL_TOTAL,
     '1.10': FAIL_TOTAL, '1.16366': FAIL_TOTAL, '1.0782': FAIL_TOTAL, '1.0231': FAIL_TOTAL,
-    '0.936': SCAN, '0.931': SCAN, '0.8376': SCAN, '0.9309': SCAN,
     '0.88': 'the threshold of the landings before round 619',
-    '0.8442146853': "round 613's record of its reviewer's replay, as printed to ten places",
     '0.9400803710196427': "round 624's record of its reviewer's float, as printed",
     '0.299': "another K, a function (the README's section on T1ca.lean)",
     '0.174': "another K, a function (the README's section on T1ca.lean)",
@@ -108,14 +124,22 @@ def value(name, replay=False):
             if (r['curve'], r['L'], r['n']) == how[1:] and 'total' in r:
                 return r['total']
         raise KeyError(name)
-    lits = []
+    lits, files = [], []
     for pat in how[1]:
         for p in sorted(glob.glob(os.path.join(PILOT, 'external', 'pnt', pat))):
+            files.append(p)
             lits += [int(x) for x in RE_BOUND.findall(open(p, encoding='utf-8').read())]
+    if (len(files), len(lits)) != how[2:]:
+        raise ValueError(f'{name}: {len(files)} files and {len(lits)} bounds, {how[2]} and {how[3]} recorded')
     return sum(lits)
 
 
 RE_BOUND = re.compile(r'^theorem rows\w*_\d+ : rowsJ? [^≤]*≤ (\d+) :=', re.M)
+RE_DEC = re.compile(r'(?<![\d.])(\d+\.\d+)(?:K|·K| K)(?![A-Za-z0-9_])')
+
+TABLE_FILE = 'frontier/linnik/SIEVE-ROUTE.md'
+TABLE_ROW = re.compile(r'\| `(\w+)` \| `([\d/]+)` \| `\[(\d+), (\d+)\]` \| (.*?) \| `[\d.]+` \| `[\d.]+` \|$')
+TABLE_CELLS = 37
 
 
 def census():
@@ -123,19 +147,48 @@ def census():
     bad, rows, vals = [], [], {}
     for f in FILES:
         for i, line in enumerate(open(os.path.join(PILOT, f), encoding='utf-8'), 1):
-            for m in re.finditer(r'(?<![\d.])(\d+\.\d+)K', live(line)):
+            for m in RE_DEC.finditer(live(line)):
                 d = m.group(1)
                 c = DECIMALS.get(d)
+                rows.append((f, i, d, c if c in EXACT else None))
                 if c is None:
                     bad.append(f'{f}:{i}: {d}K is not classified')
                 elif c in EXACT:
-                    v = Fr(vals.setdefault(c, value(c)), K)
+                    try:
+                        v = Fr(vals.setdefault(c, value(c)), K)
+                    except ValueError as e:
+                        bad.append(f'{f}:{i}: {d}K: {e}')
+                        continue
                     if Fr(d) < v:
                         bad.append(f'{f}:{i}: {d}K undercuts {c} = {float(v):.10f}K')
-                    rows.append((f, i, d, c))
-                else:
-                    rows.append((f, i, d, None))
     return bad, rows
+
+
+def table():
+    """§23's replay table: each cell `n: d` must be its jsonl row's `total/K` rounded to the nearest at `d`'s places,
+    and below `1` exactly when the total is below `K`. (failures, number of cells read)."""
+    jl = [r for r in map(json.loads, open(os.path.join(HERE, 'route_limits.jsonl'))) if 'total' in r]
+    bad, cells = [], 0
+    for i, line in enumerate(open(os.path.join(PILOT, TABLE_FILE), encoding='utf-8'), 1):
+        m = TABLE_ROW.fullmatch(line.rstrip('\n'))
+        if not m:
+            continue
+        curve, L, W = m.group(1), Fr(m.group(2)), (int(m.group(3)), int(m.group(4)))
+        for c in re.finditer(r'(\d+): `(\d+\.\d+)`', m.group(5)):
+            cells += 1
+            n, d = int(c.group(1)), c.group(2)
+            hit = [r for r in jl if (r['curve'], Fr(r['L']), r['n'], (r['W1'], r['W2'])) == (curve, L, n, W)]
+            if len(hit) != 1:
+                bad.append(f'{TABLE_FILE}:{i}: {len(hit)} jsonl rows for {curve} {L} n={n} {W}')
+                continue
+            v, p = Fr(hit[0]['total'], K), 10 ** len(d.split('.')[1])
+            if Fr(d) != Fr(round(v * p), p):
+                bad.append(f'{TABLE_FILE}:{i}: n={n}: {d} is not total/K = {float(v):.10f} rounded to the nearest')
+            if (Fr(d) < 1) != (v < 1):
+                bad.append(f'{TABLE_FILE}:{i}: n={n}: {d} and total/K = {float(v):.10f} on two sides of 1')
+    if cells != TABLE_CELLS:
+        bad.append(f'{TABLE_FILE}: {cells} table cells read, {TABLE_CELLS} recorded')
+    return bad, cells
 
 
 def recompute():
@@ -153,8 +206,12 @@ def recompute():
 if __name__ == '__main__':
     bad, rows = census()
     inside = [r for r in rows if r[3]]
+    unc = sum(1 for b in bad if b.endswith('is not classified'))
     print(f'{len(rows)} decimals of K on {len(FILES)} files: {len(inside)} display exact totals or sums below K, '
-          f'{len(rows) - len(inside)} outside the class')
+          f'{len(rows) - len(inside) - unc} outside the class, {unc} not classified')
+    tbad, cells = table()
+    print(f'{cells} cells of the replay table against route_limits.jsonl')
+    bad += tbad
     for b in bad:
         print('FAIL', b)
     if '--recompute' in sys.argv:
