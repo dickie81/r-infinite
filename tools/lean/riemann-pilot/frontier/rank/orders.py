@@ -38,6 +38,19 @@ Gates (exit status 1 if any fails):
       listed (N, d) gives more than 1
   O5  savings: N = 4 needs eta > 0 for any theta < 1 and reaches 7/8 at eta = 1/2, never below;
       N = 3 with d = 4 goes below 7/8 iff eta > 3/5, and reaches 5/6 at eta = 1
+
+The cubic family's dual as a cubic large sieve (CUBIC.md).  With coefficients mu(n) G_3(n), norm^2 ~ Z, rows
+N(k) <= H = Z^{1-sigma}, the target Z^2 asks for an operator norm <= Z.  Heath-Brown's H + Z + (HZ)^{2/3} gives it iff
+H <= Z^{1/2}.  The (HZ)^{2/3} term is the cubic theta component c conj(G_3(k)) N(k)^{-1/6} m(k; Z) at the largest
+mass m ~ Z^{5/6}; with the Moebius weight the mass is the Moebius sum m ~ Z^{theta_0 - 1/6} under an input
+zero-free half-plane Re s > theta_0, and the component's total is H^{2/3} Z^{2 theta_0 - 1/3}.
+  O6  a saving Z^{-delta} on the (HZ)^{2/3} term gives sigma_min = max(0, 1/2 - 3 delta/2) and
+      theta_3 = max(5/6, 1 - delta/2): below 7/8 iff delta > 1/4, below Sang's record iff delta > 0.2502266,
+      at 11/12 iff delta >= 1/6
+  O7  the fixed point: the component is within Z^2 iff sigma >= 3 theta_0 - 5/2, and theta_3 at that sigma is
+      max(theta_0, 5/6) exactly, for theta_0 = 5/6, 0.8748867, 7/8, 9/10, 11/12, 1 and a grid of 200 rationals
+  O8  the component's exponent at theta_0 = 1 equals Heath-Brown's term's, (2/3)(2 - sigma) + 1, for all sigma, and a
+      saving delta on that term is the component at theta_0 = 1 - delta/2 (O6 and O7 agree)
 """
 import sys
 from fractions import Fraction as Fr
@@ -97,6 +110,20 @@ def eta_to_beat(N, d, target):
     return (c - 2) / (c - 1)
 
 
+def sieve_sigma(delta):
+    """least sigma >= 0 with (HZ)^{2/3} Z^{-delta} <= Z at H = Z^{1-sigma}."""
+    return max(Fr(0), Fr(1, 2) - Fr(3, 2) * Fr(delta))
+
+
+def component_sigma(theta0):
+    """least sigma >= 0 with H^{2/3} Z^{2 theta0 - 1/3} <= Z^2 at H = Z^{1-sigma}."""
+    return max(Fr(0), 3 * Fr(theta0) - Fr(5, 2))
+
+
+def component_exponent(theta0, sigma):
+    return Fr(2, 3) * (1 - Fr(sigma)) + 2 * Fr(theta0) - Fr(1, 3)
+
+
 def main():
     fails = 0
 
@@ -147,6 +174,29 @@ def main():
         theta_model(3, 4, Fr(61, 100)) < SEVEN_EIGHTHS and theta(3, 0) == Fr(5, 6)
     gate('O5', ok, 'N = 4: eta > 0 needed, 7/8 at eta = 1/2 and never below; '
                    f'N = 3 (d = 4): below 7/8 iff eta > {eta_to_beat(3, 4, SEVEN_EIGHTHS)}; 5/6 at eta -> 1')
+
+    th = {Fr(d, 1000): theta(3, sieve_sigma(Fr(d, 1000))) for d in range(0, 401)}
+    ok = all(v == max(Fr(5, 6), 1 - d / 2) for d, v in th.items()) and \
+        all((v < SEVEN_EIGHTHS) == (d > Fr(1, 4)) for d, v in th.items()) and \
+        all((v < RECORD) == (d > Fr(2502266, 10_000_000)) for d, v in th.items()) and \
+        theta(3, sieve_sigma(Fr(1, 6))) == Fr(11, 12) and sieve_sigma(0) == Fr(1, 2)
+    gate('O6', ok, 'theta_3 = max(5/6, 1 - delta/2); below 7/8 iff delta > 1/4; below the record iff delta > '
+                   f'{float(2 * (1 - RECORD)):.7f}; 11/12 at delta = 1/6')
+
+    grid = [Fr(5, 6), RECORD, SEVEN_EIGHTHS, Fr(9, 10), Fr(11, 12), Fr(1)] + \
+        [Fr(5, 6) + Fr(k, 1200) for k in range(0, 201)]
+    ok = all(theta(3, component_sigma(t)) == max(t, Fr(5, 6)) for t in grid) and \
+        all(component_exponent(t, component_sigma(t)) <= 2 for t in grid if t >= Fr(5, 6)) and \
+        all(component_exponent(t, component_sigma(t) - Fr(1, 10 ** 6)) > 2 for t in grid if t > Fr(5, 6))
+    gate('O7', ok, f'output theta_3 = input theta_0 on {len(grid)} values in [5/6, 1]; e.g. theta_0 = 0.8748867 -> sigma >= '
+                   f'{float(component_sigma(RECORD)):.7f}, theta_3 = {float(theta(3, component_sigma(RECORD))):.7f}')
+
+    sig = [Fr(k, 100) for k in range(0, 101)]
+    ok = all(component_exponent(1, x) == Fr(2, 3) * (2 - x) + 1 for x in sig) and \
+        component_sigma(1) == Fr(1, 2) == sieve_sigma(0) and \
+        all(component_sigma(1 - Fr(d, 1000) / 2) == sieve_sigma(Fr(d, 1000)) for d in range(0, 401))
+    gate('O8', ok, "theta_0 = 1 gives Heath-Brown's exponent (2/3)(2 - sigma) + 1 and sigma >= 1/2; "
+                   'saving delta = input theta_0 = 1 - delta/2')
     return 1 if fails else 0
 
 

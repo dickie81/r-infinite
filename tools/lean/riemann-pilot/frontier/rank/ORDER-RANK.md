@@ -125,7 +125,7 @@ For the last item, the multi-variable families computed in chat (the `r`-variabl
 **Reading.**
 - B3 says the theta function's residue weights the moduli by a mean field, of size about `N(n)^{−1/6}` at order 3. A weight's bias is then its own mean against that field.
 - With `μ`, that mean is a Möbius sum: the sum the family is built to bound. The family's `N`-th-power members and its dual's theta residues carry the same quantity. Compare Hamdar's first moment of the cubic family, quoted in the register (STRUCTURAL-REVIEW §6, round 506's bullet): "a main term of the principal sum which comes from cubes, and the contribution from infinitely many residues of Dirichlet series of cubic Gauss sums to the dual sum".
-- So at the sizes computed, the cubic and quartic families' duals have no main term in the way. The absorbed coefficients also avoid the biased configurations behind de Faveri–Dunn–Hoffstein's lower bounds for the cubic and quartic large sieves (round 311). What these routes lack is a carrier of low degree, or a saving on a high-degree one.
+- So at the sizes computed, the cubic and quartic families' duals have no main term in the way. The absorbed coefficients also avoid the biased configurations behind de Faveri–Dunn–Hoffstein's lower bounds for the cubic and quartic large sieves (round 311). What these routes lack is a carrier of low degree, or a saving on a high-degree one. *(`CUBIC.md`, same day: for the cubic family this reading is corrected. The Möbius sum sits on the cubic theta component of the dual, measured with coefficient `0.990 ± 0.049`. Through the cubic theta the route returns the input half-plane: a fixed point, of which Heath-Brown's barrier is the case of no input.)*
 - This is numerical evidence at `X = 3·10⁵`, not a proof that the dual mean squares hold.
 
 ## 6. Outcome, register entry and signals
@@ -139,7 +139,7 @@ For the last item, the multi-variable families computed in chat (the `r`-variabl
 - **Sockets:** none at order 3. The order-6 chain is the template: round 288's `Eis.ne_zero_of_meanSquare` (extraction) and round 310's `Eis.meanSquare_of_dualMeanSquare` (Poisson reduction). The order-3 versions would take cubes in place of sixth powers (`θ₃(σ) = (5 + 2σ)/6`), with the paired identity A8.
 - **Attack notes:**
   1. A summation formula for `α·conj(G₃)²` of degree below 4. None was found; the 3-fold cover of GL₃ is ruled out for the first row.
-  2. A saving `η > 3/5` on the Rankin–Selberg dual. Section 5's bias-free structure is the evidence that the truth has room.
+  2. A saving `η > 3/5` on the Rankin–Selberg dual. Section 5's bias-free structure is the evidence that the truth has room. *(`CUBIC.md` section 6: that evidence is circular, since the bias is the Möbius sum, small at these sizes; the saving has to bound the dual's cubic theta component without an input half-plane.)*
   3. An induction on row lengths with transfer estimates at order 3, after the companion's Sections 5–7.
 
 **Signals** (CLAUDE.md Check 9(c)).
