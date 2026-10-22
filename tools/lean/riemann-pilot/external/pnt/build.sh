@@ -106,7 +106,7 @@ for f in SieveCert225C Linnik225C; do c 1 "$HERE" $f; done
 for f in SieveTypeIIU2285 SieveGrid2285U; do c 1 "$HERE" $f; done
 for i in $(seq 1 28); do c 1 "$HERE" SieveCert2285UP$i; done
 for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
-# Rounds 636–662: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
+# Rounds 636–663: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
 # (LinnikCGLLV), the density step from it on [5/7, 16/21] (LinnikCGLStep), Linnik's exponents 9/4 and 226/100
 # from it (LinnikCGLLinnik), (round 638) Proposition 3.1 from a bound on the cubic trace (LinnikCGLMat),
 # (round 639) that bound from the paper's S₂ and S₃ (LinnikCGLS23), (round 640) the Mellin transform of w² and the
@@ -123,11 +123,12 @@ for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
 # the inner integral of Proposition 7.2 (LinnikCGLRt), (round 657) their Proposition 7.2 (LinnikCGLP72), and
 # (round 658) their Lemma 9.1, the second moments of R and R̃ (LinnikCGLMom), (round 659) their Lemma 9.2, the
 # fourth moments (LinnikCGLMom4), (round 660) the two Cauchy–Schwarz steps of their §11 (LinnikCGLCS), and
-# (round 662) their J, their Proposition 8.1 displayed, and S₃,₃ and S₃,₄ in its form (LinnikCGLJ).
+# (round 662) their J, their Proposition 8.1 displayed, and S₃,₃ and S₃,₄ in its form (LinnikCGLJ), and
+# (round 663) their f_b = ψR̃(·, −b)² with ψ = 1 on [−3, 3]: smoothness, support, lower bound (LinnikCGLFb).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
     LinnikCGLPair LinnikCGLFrob LinnikCGLS2 LinnikCGLFourier LinnikCGLPoisson LinnikCGLTrace \
     LinnikCGLDiag LinnikCGLTrunc LinnikCGLProd LinnikCGLRFact LinnikCGLRam LinnikCGLP71 LinnikCGLSym LinnikCGLRt \
-    LinnikCGLP72 LinnikCGLMom LinnikCGLMom4 LinnikCGLCS LinnikCGLJ; do
+    LinnikCGLP72 LinnikCGLMom LinnikCGLMom4 LinnikCGLCS LinnikCGLJ LinnikCGLFb; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -309,6 +310,7 @@ import LinnikCGLMom
 import LinnikCGLMom4
 import LinnikCGLCS
 import LinnikCGLJ
+import LinnikCGLFb
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -813,6 +815,9 @@ import LinnikCGLJ
 #print axioms LinnikCGLCS.S32_le
 #print axioms LinnikCGLJ.S34_le_Jint
 #print axioms LinnikCGLJ.S33_le_S34
+#print axioms LinnikCGLFb.contDiff_fb
+#print axioms LinnikCGLFb.fb_one_ge
+#print axioms LinnikCGLFb.S34_le_fb
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy

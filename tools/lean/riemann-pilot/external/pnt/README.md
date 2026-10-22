@@ -183,6 +183,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLMom4.lean` | 659 | Chen–Gupta–Li's Lemma 9.2 at one point per character: the energy `E` (`energy`), `∫_{[1/2,2]}Σ_a\|R(v, a)\|⁴ dv ≤ 2φ(q)X(∫ψ̃₀·E + \|R\|⁴D_K/X^K)` for `X ≥ 1` (`lemma92`), and the same for `R̃` over `ℝ` with the factor `(2X∫ψ̃₀)²` (`lemma92_Rt`) |
 | `LinnikCGLCS.lean` | 660 | the two Cauchy–Schwarz steps of Chen–Gupta–Li's §11 on each dyadic block `B` of Proposition 7.2: `(Σ_{m⃗∈B}Ĩ(m⃗))² ≤ S₃,₁S₃,₂` (`sum_It_sq_le`) and `S₃,₂ ≤ √S₃,₃·√S₃,₄`, their (11.1) (`S32_le`) |
 | `LinnikCGLJ.lean` | 662 | Chen–Gupta–Li's `J(f⃗)` before the supremum (`Jint`), their Proposition 8.1 as a displayed hypothesis with its implicit constants explicit (`CGLP81`, not proved), and `S₃,₃`, `S₃,₄` in its form: `S₃,₄ ≤ 4(k + 1)Σ_{j≤k}Jint(f, 2^j − 1/2, 2^k − 1/2, 2^k − 1/2, 2)` on the block `k` for `f_{−b} ≥ R̃(·, b)²` on `[−3, 3]` (`S34_le_Jint`), and `S₃,₃ ≤ 4S₃,₄` (`S33_le_S34`) |
+| `LinnikCGLFb.lean` | 663 | Chen–Gupta–Li's `f_b = ψR̃(·, −b)²` with `ψ = 1` on `[−3, 3]`: smooth (`contDiff_fb`), `0` beyond `4`, `f_{−b} ≥ R̃(·, b)²` on `[−3, 3]`, `f_{−1}(1) ≥ min(2X, L/(2T))\|R\|²/2` (`fb_one_ge`), a largest value (`exists_max`), and round 662's reduction of `S₃,₄` for this `f` (`S34_le_fb`) |
 
 ## Building (rounds 217, 618)
 
@@ -946,3 +947,14 @@ Round 662 states Chen–Gupta–Li's Proposition 8.1 as a displayed hypothesis a
 - `Pb_inv_eq`, `S33_le_S34`: `P(u⁻¹, b₁) = Q(u, b₁⁻¹)` for `u > 0`, and `S₃,₃ ≤ 4S₃,₄`, for a block closed under the swap of `m₁` and `m₃`.
 
 See the main README, round 662, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 590 lines.
+
+## Their `f_b` for §11: LinnikCGLFb.lean (round 663)
+
+Round 663 builds Chen–Gupta–Li's `f_b = ψR̃(·, −b)²`, with `ψ` Mathlib's smooth bump of radii `3` and `4`, so that `ψ = 1` on `[−3, 3]`.
+
+- `psiW`, `kerL`, `Rt_sq_eq_conv`, `contDiff_Rt_sq`: the bump, the kernel `x ↦ Lψ̃₀(Lx/(2X))`, and `R̃²` as the convolution of `1_{[1/2,2]}|R|²` with it, smooth for `L, X > 0`.
+- `fb`, `fb_nonneg`, `fb_eq_zero`, `Rt_sq_le_fb`, `contDiff_fb`: `f_b ≥ 0`, `f_b = 0` for `|u| > 4`, `f_{−b} ≥ R̃(·, b)²` on `[−3, 3]`, and `f_b` smooth.
+- `norm_Rf_one_ge`, `fb_one_ge`: `|R(u′, 1)| ≥ |R|/2` for `|u′ − 1| ≤ 1/(2T)`, and `f_{−1}(1) ≥ min(2X, L/(2T))|R|²/2`, for `T ≥ 1` and points `|t_i| ≤ T`.
+- `exists_max`, `S34_le_fb`: a largest value, and round 662's reduction of `S₃,₄` for this `f`.
+
+See the main README, round 663, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 593 lines.

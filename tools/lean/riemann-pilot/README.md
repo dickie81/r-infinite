@@ -27804,3 +27804,54 @@ The reductions take any `f` with `R̃(c, b)² ≤ f_{−b}(c)` on `[−3, 3]`; o
 **Bearing on RH:** none.
 
 **The next step.** The function `f_b = ψR̃(·, −b)²` with `ψ = 1` on `[−3, 3]` and supported on `[−4, 4]`: its smoothness, its support and its Fourier decay in `CGLP81`'s form. The lead's computation, to be formalized, gives that decay with constants depending only on `j` when `NM₂/q ≤ (qT)^ϵT`, by integration by parts and the lower bound `f_{−1}(1) ≥ min(2(qT)^ϵ, NM₂/(2qT))|W|²/2`. Then `S₃,₃` and `S₃,₄` are bounded by `CGLP81` and Lemmas 9.1 and 9.2.
+
+## Round 663: their `f_b = ψR̃(·, −b)²`, with a `ψ` that is `1` on the centres (stage M3, the `S₃` side; `external/pnt/LinnikCGLFb.lean`)
+
+**The results.** Below, `q ≥ 1`, `L = NM₂/q` and `X` stands for their `(qT)^ϵ`. `ψ` is Mathlib's smooth bump with radii `3` and `4` (`psiW`): `0 ≤ ψ ≤ 1`, `ψ = 1` on `[−3, 3]` and `ψ = 0` for `|x| ≥ 4`. `f_b(u) = ψ(u)R̃_{M₂}(u, −b)²` (`fb`).
+
+- `LinnikCGLFb.Rt_sq_eq_conv`, `contDiff_Rt_sq`: `R̃_{M₂}(·, a)²` is the convolution of `1_{[1/2,2]}|R(·, a)|²` with `x ↦ Lψ̃₀(Lx/(2X))` (`kerL`), by round 658's `Rt_sq`; for `L, X > 0` the kernel is smooth with compact support, so `R̃_{M₂}(·, a)²` is smooth (Mathlib's `HasCompactSupport.contDiff_convolution_right`).
+- `LinnikCGLFb.fb_nonneg`, `fb_eq_zero`, `Rt_sq_le_fb`, `contDiff_fb`: `f_b ≥ 0`; `f_b(u) = 0` for `|u| > 4`; `R̃(c, b)² ≤ f_{−b}(c)` for `|c| ≤ 3`; and, for `L, X > 0`, `f_b` is smooth.
+- `LinnikCGLFb.norm_Rf_one_ge`: for `T ≥ 1` and points `|t_i| ≤ T`, `|R(u′, 1)| ≥ |R|/2` when `|u′ − 1| ≤ 1/(2T)`. There `|log u′| ≤ 1/T`, so `|t_i log u′| ≤ 1` and `Re u′^{it_i} = cos(t_i log u′) ≥ 1 − 1/2`.
+- `LinnikCGLFb.fb_one_ge`: for `L, X > 0`, `T ≥ 1` and points `|t_i| ≤ T`, `f_{−1}(1) = R̃(1, 1)² ≥ min(2X, L/(2T))|R|²/2`. On the window `|u′ − 1| ≤ δ = min(2X/L, 1/(2T))` the kernel is `L` and `|R(u′, 1)|² ≥ |R|²/4`, and the window has length `2δ`, with `δL = min(2X, L/(2T))`.
+- `LinnikCGLFb.exists_max`: a family of continuous nonnegative functions on `ℝ`, indexed by the units and `0` beyond some `A`, has a largest value `f_{b₀}(u₀)`.
+- `LinnikCGLFb.S34_le_fb`: for `L = 2^kN/q > 0` and `X > 0`, round 662's `S₃,₄ ≤ 4(k + 1)Σ_{j≤k}Jint(f, 2^j − 1/2, 2^k − 1/2, 2^k − 1/2, 2)` holds for this `f` on the block `k`.
+
+**Their text.** Re-read this round in the text layer. "To bound S₃,₄, we define f_b(v) = ψ(v)|R̃\_{M₂}(v,−b)|² for (b,q) = 1, where ψ(v) is a smooth bump function supported on v ≍ 1 and such that ψ(1) > 0." (lines 5655–5657; spaces restored, the tilde, subscripts and exponent transcribed). Their lower bound: "f\_{q−1}(1) = ψ(1) ∫ (NM₂/q) ψ̃((NM₂/q)(1−u′)) |R(u′,1)|² du′ ⪆ (NM₂/(qT)) |W|²" (lines 5804–5812; spaces restored, the integral, tildes, large parentheses, fractions, subscripts and exponents transcribed), after "we have |R(u′,1)|² ≫ |W|² if u′ is a sufficiently small multiple of 1/T away from one" (lines 5798–5799, spaces restored, the exponent transcribed). The underscores are escaped for the renderer.
+
+**The stack's form.** The stack's `ψ` is `1` on `[−3, 3]`, as round 662's observation requires, and `ψ(1) = 1`, so `f_{−1}(1) = R̃(1, 1)²`, their `f_{q−1}(1)`. Their bound `⪆ (NM₂/(qT))|W|²` uses `NM₂/q ⪅ T`; the stack's `min(2X, L/(2T))|R|²/2` holds for every `L > 0`, and is their bound when `L ≤ 4XT`. Their `ψ̃₀` is round 656's `psi0`, `1` on `[−1, 1]`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLFb.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`contDiff_fb`, `fb_one_ge`, `S34_le_fb`).
+- `frontier/linnik/CGL-LEAN.md`: the row P11.1, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+
+**What is checked.**
+
+- Mathlib's names were checked first (`scratchpad/r663/check.lean`). The file was compiled in scratch in two runs (`scratchpad/r663/lc.sh`; `lc.out`, `lc2.out`, the second with exit 0 and no warning). The fixes were a `mul_comm` that rewrote the wrong product, `integrableOn_const` replaced by a continuous function's integrability on `[a, b]`, and two binders named `_`.
+- Then `build.sh` ran once (`scratchpad/r663/compile.sh 1`, log `build_1.log`): `1 compiled, 398 up to date` (`LinnikCGLFb` 11 s), exit 0 in 21 s, no error, warning or `sorry`. Its 597 axiom lines (4 by the module, 593 by the final check, which gains three lines) are 584 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, every 10 s, was 6.90 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed: `tools/research/render_lint.py` against HEAD (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS. Its first run flagged three defects in CGL-LEAN.md's row P11.1, where `|R|` in a code span split the cell; the bars were escaped and the gate run again (`scratchpad/r663/gate.out`).
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row P11.1 gains round 663 in its stack cell and a clause in its status, nothing in it superseded; the opening's parenthetical gains round 663, and M3 gains a note. `external/pnt/README.md`: a row, and a section with a heading. No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their §11 at lines 5655–5657 and 5749–5830 (the definition of `f_b` and their check of its decay), re-read for this round's quotations.
+- `LinnikCGLFb.lean` in full.
+- The operative definitions and statements: round 662's `S34_le_Jint`; round 658's `Rt_sq`; round 656's `Rt`, `psiBump`, `psi0`, `psi0_eq_one`, `integrableOn_Icc_of_le`; round 654's `norm_Rf_le` and `measurable_Rf`; round 652's `Rf`.
+
+**Check 4.** No defect in the cascade or the stack is raised. `CGLS3` and `CGLP81` stay displayed hypotheses.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** The decay of `f̂_b` in `CGLP81`'s form: `f̂_b(ξ) = ∫_{[1/2,2]}|R(u′, −b)|²·(ψ·kerL(· − u′))^(ξ) du′` by Fubini; integration by parts `j` times with Leibniz's rule; round 658's `lemma91` for `Σ_b∫|R(·, −b)|²`; and `fb_one_ge` with `L ≤ XT`. For `j = 0`, `exists_max` supplies the point.
