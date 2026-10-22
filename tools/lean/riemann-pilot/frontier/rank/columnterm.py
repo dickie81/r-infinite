@@ -27,7 +27,7 @@ Gates (exit status 1 if one fails; skipped, and reported, without the prime data
       of norm in (L/2, L] and the squarefree columns j of norm <= N (chi_P(j)^{-2} = conj((j/P)_3), the release's
       column character): at (L, N) = (2*10^4, 500), (4*10^4, 10^3), (8*10^4, 2*10^3) and (8*10^4, 500), the untwisted
       sum (k = 0) has R_0 >= 5, increasing along the first three (at L/N = 40, where (NL)^{2/3}/N grows by 2^{1/3}
-      per doubling): Patterson's theta term in every column.  The angle twists k = -2 (the slot coefficient's),
+      per doubling): Patterson's theta term, on average over the columns.  The angle twists k = -2 (the slot coefficient's),
       -1, 1, 2 have R_k <= 1.5: no excess over the diagonal.  Evidence about models at small norms, not a bound.
 
 Usage: python3 columnterm.py periods_w_8e4.txt     (about 30 s)

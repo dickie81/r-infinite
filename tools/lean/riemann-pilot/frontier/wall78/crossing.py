@@ -12,6 +12,9 @@ z_a <= ell' (line 8240), S0 + N0 + B0 <= A0 (disjoint parts of the active primes
 the epsilons dropped. Its bound is the maximum of E over the dyads: the largest of six linear programs, one for each
 piece of max(H, v + l_b) and of -u. In any geometry (M' = M - 2d, ell' = ell - d, eq. old-eq:5.2) that maximum is
     M' + max(0, M' + ell' - 1, (1 + 3 ell' - 2M')/4)       when M' >= (1 - ell')/2 (otherwise no dual dyad is retained).
+[Scope, 2026-10-22 (frontier/rank/FIVE-SIXTHS.md section 9.4, O2): gate X1 samples ell' <= 0.3 only.  The formula
+holds wherever M' >= 2 ell' (gate S7 of frontier/rank/slotsplit.py), which every low side satisfies; at (M', ell') =
+(0.6181, 0.9935) the maximum exceeds it by 0.178, through a branch with v + l_b > H.]
 The middle term is the first branch (u = z_a), where v + l_b exceeds H. There the whole excess is the column term NB of
 the factor K + NB in Lemma hybrid-energy (line 7510, eq. old-eq:4.6b; K = Z^H, N = Z^v, B = Z^{l_b}). The last term is
 the second branch (line 8306). Since M' + ell' - 1 = M + ell - 1 - 3d, the first branch charges (M + ell - 1 - 3d)_+:
