@@ -26614,3 +26614,56 @@ where `D(u) = Σ_{m≤Z}(χ_iχ̄_k)⁻¹(m)m^{−1/2+i(u−τ)}`, `Q₀(q) = 2^
 **Bearing on RH:** none.
 
 **The next step.** The assembly of `CGLS2`. `Z` is chosen with `NZ` above `q(2T + 1)` by a power of `qTN` and `K` large in terms of that power, so that the tails are small. The main parts are summed over the pairs by Cauchy–Schwarz against the weight `|H(1/2 + iu)|`, and the dual sums `D` become Dirichlet polynomials over the points, for the mean value theorem.
+
+## Round 643: the off-diagonal mass of the Gram matrix, explicitly (stage M3, sixth step; `external/pnt/LinnikCGLFrob.lean`)
+
+**The result.** `LinnikCGLFrob.frobOff_le`: let `χ` be injective on `R`, `|t_i| ≤ T`, `N > 0`, `S ⊆ [2, N′]`, and `|Σ_{n∈S}b_nχ_i(n)n^{it_i}| ≥ V > 0` for every `i ∈ R`; let `Z, K ≥ 1`, and `d(k) ≤ τ` for `k ≤ N′Z`. Then
+
+`‖E‖_F² = Σ_{i≠k}|G(i, k)|² ≤ N·Q₀(q)²I_H²·|R|·V^{−2}L(N′Z)·τ·Σ_{n∈S}|b_n|²·H_Z + |R|²B²`,
+
+where `I_H = ∫|H(1/2 + iu)| du`, `L(X)` is round 526's large-sieve factor `LSX`, `H_Z = Σ_{m≤Z}1/m`, `Q₀(q)` is round 642's, and `B` is round 642's tail bound at `|τ| = 2T`. `‖E‖_F²` is round 639's `frobOff`, the quantity of the displayed hypothesis `CGLS2`. With `Z` chosen so that `N′Z` is `qT` times a small power of `qTN`, the first term is `qT|R|N^{2−2σ}` times such a power when `V = N^σ/6`, which is `CGLS2`'s bound; that choice is the next step.
+
+**The paper's route and the stack's.** Re-read this round in the text layer (lines 1645–1960; spaces restored). Their proof of Proposition 6.1 applies Lemma 6.2, squares, sums over the pairs and splits `m` dyadically, which gives their (6.5). Then: "Now we proceed with an argument based on the mean value theorem. Notice that |Σ_{n∼N} w(n/N)b_n n^{it₂}χ₂(n)| ≥ N^σ for (t₂, χ₂) ∈ W." The product of each dual sum with the large polynomial has "some coefficients c_l depending on (t₁, χ₁) such that |c_l^{(t₁,χ₁)}| ⪅ 1, by the divisor bound", and the mean value theorem with characters finishes. Their Remark 6.3: "In particular, we reintroduce our large Dirichlet polynomial here whereas their proof only depended on the 1-separation of W." The stack follows that route with round 526's product trick in its squared form (`prod_trick_points`), round 526's dyadic large sieve at the points (`ls_points`), and round 526's identity of a pair's dual sum with a polynomial at the point of its first character (`dualS_eq_conj_pv`). Two differences. `m` is not split dyadically: the coefficients keep their weight `m^{−1/2}`, whence `H_Z`. And `u` is not truncated: Cauchy–Schwarz runs against the weight `|H(1/2 + iu)|`, whence `I_H`.
+
+The re-read also found their footnote 2, on the bound of `I₂`: "Here, we applied the crude bounds `|1 − χ*(p)/p^{−2k+iv−it}| ≤ p^{2k+1}` and `|(1 − χ̄*(p)/p^{1+2k−iv+it})^{−1}| ≤ p` to control the product factors in estimating I₂" (the two bounds set in code here). Round 642's account of their `(q/q*)^{2k+2}` ("bounds their `P`, a ratio of two products over `p | q, p ∤ q*`") stands; it did not cite the footnote.
+
+**The proof in the stack.**
+
+- `sq_le_mul_of_forall`, `two_mul_le_lam`, `integral_sq_le`: `(∫hd)² ≤ (∫h)(∫hd²)` for `h, d ≥ 0`, through `2hd ≤ λh + hd²/λ` for every `λ > 0`.
+- `ls_points`: `ls_pv_dyadic` is stated for a set of characters with a height `γ_χ` each. At the points, the characters are `χ(R)`, and `γ` is carried back by the inverse of `χ` on `R` (Mathlib's `Function.invFunOn`).
+- `prod_trick_points`: `|E| ≤ |FE|/V` at each point, then `ls_points` for `FE` on `[2, N′Z]` and `mass_mulCo_le` for its coefficients.
+- `norm_dualS_pair`, `mass_dualCo_half`, `sum_Dp_sq_le`: `|D_{ik}(u)|` is `|Σ_{m≤Z}e_{k,u}(m)χ_i(m)m^{it_i}|` with `e_{k,u}(m) = conj(χ_k(m)m^{−1/2+i(u+t_k)})`, `Σ_{m≤Z}|e_{k,u}|² ≤ H_Z`, and so `Σ_{i,k∈R}|D_{ik}(u)|² ≤ |R|·V^{−2}L(N′Z)·τ·Σ|b_n|²·H_Z` at every `u`.
+- `gram_sq_le`: round 642's `norm_gram_le`, squared, with `(a + b)² ≤ 2(a² + b²)` and `2(2π)^{−2} ≤ 1`.
+- `frobOff_le`: Cauchy–Schwarz in `u` for each pair, the sum over the pairs, and the sum taken inside the integral.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLFrob.lean`: new, 388 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and five `#print axioms` lines (`ls_points`, `prod_trick_points`, `sum_Dp_sq_le`, `gram_sq_le`, `frobOff_le`).
+- `frontier/linnik/CGL-LEAN.md`: an M3 note, the row P6.1, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch twice (`scratchpad/r643/lc.sh`). The first compile succeeded, with warnings for a `haveI` and for Mathlib's deprecated `integral_finset_sum` and `integrable_finset_sum` (now `integral_finsetSum`, `integrable_finsetSum`). The second, after those fixes and the header, had no warning. Then `build.sh` ran once (`scratchpad/r643/build.log`): `1 compiled, 380 up to date` (`LinnikCGLFrob` 15 s), exit 0 in 26 s, no error, warning or `sorry`. Its 546 axiom lines (5 by the module, 541 by the final check, which gains five lines) are 533 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.74 GiB.
+- The file has no `sorry`, `native_decide`, `axiom` or `maxHeartbeats`, and no line over 120 characters.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872 (after the two bounds quoted from their footnote 2 were set in code; the lint's first run caught a star in them read as emphasis).
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: P6.1's stack cell gains round 643, and its status, true when written, gains a round-643 net-state marker; the opening's parenthetical gains round 643, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round): their proof of Proposition 6.1 in the text layer (lines 1645–1960: `S₂` by orthogonality, the split into `S_{2,1}` and `S_{2,2}`, Lemma 6.2 applied, (6.5), the mean value argument with the large polynomial, Remark 6.3, footnotes 2–4), re-read for this round's quotations; `LinnikCGLFrob.lean` in full; round 526's `LinnikWeighted.lean` (`mulSupp`, `mulCo`, `pv_mul`, `mass_mulCo_le`, `pv_eq_dp`, `LSX`, `ls_pv_dyadic`, `huxley_core`) and `LinnikDual.lean` (`dualCo`, `dual_term`, `sum_dual_eq_conj_pv`, `dualS_eq_conj_pv`, `norm_dualCo_le`, `mass_dualCo_one`); round 583's `LinnikPoints.large_values_points`; round 638's `mvt_case`, `gramP`, `entP` and `colsP`; round 639's `frobOff` and `CGLS2`; round 642's `norm_gram_le`, `Q0`, `IK` and `continuous_dualS_line`; the statements of `LinnikPower.card_divisors_le` and `LinnikTwelveSizes.card_powerset_le_divisors`, for the next step.
+
+**Check 4.** No defect is raised. `CGLS2` and `CGLS3` stay displayed hypotheses this round.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: "for every `i ∈ R`" and "for `k ≤ N′Z`" are hypotheses of `frobOff_le`; "at every `u`" is the statement of `sum_Dp_sq_le`.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of round 636, no review runs this round. The batched review will cover rounds 634–643 and the stages that follow.
+
+**Bearing on RH:** none.
+
+**The next step.** `CGLS2` itself. Take `Z` with `NZ ≥ q(2T + 1)(qTN)^δ` and `K` large in terms of `δ`; bound `τ` by the stack's divisor bound `card_divisors_le`, `|R|` from the large values by `ls_points`, and `Q₀(q)`, `L(N′Z)` and `H_Z` by powers of `qTN`. The case `N ≤ 5/6`, where `S` may contain `1`, has `q ≤ 2` and so at most one character, and `‖E‖_F² = 0`.
