@@ -106,10 +106,17 @@ for f in SieveCert225C Linnik225C; do c 1 "$HERE" $f; done
 for f in SieveTypeIIU2285 SieveGrid2285U; do c 1 "$HERE" $f; done
 for i in $(seq 1 28); do c 1 "$HERE" SieveCert2285UP$i; done
 for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
-# Rounds 636–637: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
-# (LinnikCGLLV), the density step from it on [5/7, 16/21] (LinnikCGLStep), and Linnik's exponents 9/4 and 226/100
-# from it (LinnikCGLLinnik).
-for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik; do c 1 "$HERE" $f; done
+# Rounds 636–644: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
+# (LinnikCGLLV), the density step from it on [5/7, 16/21] (LinnikCGLStep), Linnik's exponents 9/4 and 226/100
+# from it (LinnikCGLLinnik), (round 638) Proposition 3.1 from a bound on the cubic trace (LinnikCGLMat),
+# (round 639) that bound from the paper's S₂ and S₃ (LinnikCGLS23), (round 640) the Mellin transform of w² and the
+# Gram entries as vertical integrals (LinnikCGLMellin), (round 641) their reflection (LinnikCGLReflect),
+# (round 642) the bounds of the reflected entries (LinnikCGLPair), (round 643) the off-diagonal mass of the Gram
+# matrix (LinnikCGLFrob), and (round 644) the hypothesis CGLS2 proved (LinnikCGLS2).
+for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
+    LinnikCGLPair LinnikCGLFrob LinnikCGLS2; do
+  c 1 "$HERE" $f
+done
 echo "$NC compiled, $NUP up to date"
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
@@ -266,6 +273,13 @@ import Linnik2285U
 import LinnikCGLLV
 import LinnikCGLStep
 import LinnikCGLLinnik
+import LinnikCGLMat
+import LinnikCGLS23
+import LinnikCGLMellin
+import LinnikCGLReflect
+import LinnikCGLPair
+import LinnikCGLFrob
+import LinnikCGLS2
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -691,6 +705,42 @@ import LinnikCGLLinnik
 #print axioms LinnikCGLLinnik.counts_7c_lv
 #print axioms LinnikCGLLinnik.linnik_225c_lv
 #print axioms LinnikCGLLinnik.linnik_226c_lv
+#print axioms LinnikCGLMat.refined_moment_points
+#print axioms LinnikCGLMat.prop46
+#print axioms LinnikCGLMat.mvt_case
+#print axioms LinnikCGLMat.alg112
+#print axioms LinnikCGLMat.prop31_of_third
+#print axioms LinnikCGLMat.linnik_225c_third
+#print axioms LinnikCGLMat.linnik_226c_third
+#print axioms LinnikCGLS23.X3_eq
+#print axioms LinnikCGLS23.third_of_s23
+#print axioms LinnikCGLS23.linnik_225c_s23
+#print axioms LinnikCGLS23.linnik_226c_s23
+#print axioms LinnikCGLMellin.exists_H_bound
+#print axioms LinnikCGLMellin.differentiable_H
+#print axioms LinnikCGLMellin.perron_Wt
+#print axioms LinnikCGLMellin.perron_gram
+#print axioms LinnikCGLReflect.norm_Phi_le_far
+#print axioms LinnikCGLReflect.LFunction_reflected
+#print axioms LinnikCGLReflect.shift_of_bound
+#print axioms LinnikCGLReflect.reflect_gram
+#print axioms LinnikCGLReflect.gram_reflect
+#print axioms LinnikCGLPair.norm_Eu_mul_le
+#print axioms LinnikCGLPair.norm_dualT_le
+#print axioms LinnikCGLPair.norm_integral_Mn_le
+#print axioms LinnikCGLPair.norm_integral_Tl_le
+#print axioms LinnikCGLPair.norm_gram_le
+#print axioms LinnikCGLFrob.ls_points
+#print axioms LinnikCGLFrob.prod_trick_points
+#print axioms LinnikCGLFrob.sum_Dp_sq_le
+#print axioms LinnikCGLFrob.gram_sq_le
+#print axioms LinnikCGLFrob.frobOff_le
+#print axioms LinnikCGLS2.LSX_le
+#print axioms LinnikCGLS2.Bmax_le
+#print axioms LinnikCGLS2.s2_main
+#print axioms LinnikCGLS2.cgls2
+#print axioms LinnikCGLS2.linnik_225c_s3
+#print axioms LinnikCGLS2.linnik_226c_s3
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy

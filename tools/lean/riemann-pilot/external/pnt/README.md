@@ -160,6 +160,13 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLLV.lean` | 636, 637 | Chen–Gupta–Li's Proposition 3.1 at one point per character, as the hypothesis `CGLProp31` (round 636: their Theorem 1.1, `CGLLargeValues`); the large values of `D_N` on the proposition's range (`lv_range`), over every character mod `q` (`cgl_all`) and off the line (`taylor_pick`, `cgl_shift`) |
 | `LinnikCGLStep.lean` | 636, 637 | the density step `7/3 + 1/2000` on `[5/7, 16/21]` under `CGLProp31` (`charDensity_cgl`): round 607's step with `block_bin_cgl` in place of `block_bin_hux` |
 | `LinnikCGLLinnik.lean` | 636, 637 | Linnik's theorem with exponents `9/4` (`linnik_225c_lv`) and `226/100` (`linnik_226c_lv`) under `CGLProp31`: the routes of `Linnik225C` and `Linnik226C` with `charDensity_cgl` in place of `CGLDensity` |
+| `LinnikCGLMat.lean` | 638 | Chen–Gupta–Li's Proposition 3.1 (`CGLProp31`) from the hypothesis `CGLThird`, a bound on the off-diagonal of the cubic trace (`prop31_of_third`): their Proposition 4.6 for the points (`prop46`), the mean value theorem for `N ≥ qT` (`mvt_case`) and their §11.2's algebra (`alg112`); Linnik's exponents `9/4` and `226/100` under `CGLThird` (`linnik_225c_third`, `linnik_226c_third`) |
+| `LinnikCGLS23.lean` | 639 | `CGLThird` from two hypotheses, `CGLS2` (the off-diagonal mass `‖E‖_F²` of the Gram matrix, their Proposition 6.1) and `CGLS3` (`S₃ = X − 3μ₀‖E‖_F²`, their Proposition 11.1), by `third_of_s23`; the identity `X = 3μ‖E‖_F² + tr(E³)` (`X3_eq`); Linnik's exponents `9/4` and `226/100` under the two (`linnik_225c_s23`, `linnik_226c_s23`) |
+| `LinnikCGLMellin.lean` | 640 | the Mellin transform `H` of `w²`: entire (`differentiable_H`), with `(1 + \|t\|)^{K+3}\|H(σ + it)\| ≤ B` on `\|σ\| ≤ S` (`exists_H_bound`); Perron's formula for the twisted weight `u^{iτ}w(u)²` (`perron_Wt`) and for the Gram entries (`perron_gram`) |
+| `LinnikCGLReflect.lean` | 641 | the reflection of the Gram entries (`reflect_gram`, `gram_reflect`): a dual sum of length `Z` on `Re s = 1/2` and its tail on `Re s = −K`, with the reflection factor of the primitive character bounded on `−K ≤ Re s ≤ 1/2` (`norm_Phi_le_far`) and contour shifts for integrands at most `M(1 + \|Im s + τ\|)^{−2}` (`shift_of_bound`) |
+| `LinnikCGLPair.lean` | 642 | the bounds of the reflected Gram entries: for `χ_i ≠ χ_k`, `\|G(i, k)\| ≤ (2π)⁻¹(N^{1/2}Q₀(q)∫\|H(1/2 + iu)\|\|D(u)\| du + T_K)`, `D` the dual sum of length `Z` and `T_K ≪_K q^{K+1/2}(NZ)^{−K}(1 + \|τ\|)^{K+1}` (`norm_gram_le`), from the bounds of the main part (`norm_integral_Mn_le`) and the tail (`norm_integral_Tl_le`), the Euler factor against the conductor (`norm_Eu_mul_le`) and the dual tail far left (`norm_dualT_le`) |
+| `LinnikCGLFrob.lean` | 643 | the off-diagonal mass of the Gram matrix, explicitly (`frobOff_le`): `‖E‖_F² ≤ N·Q₀(q)²I_H²·\|R\|·V^{−2}L(N′Z)·τ·Σ\|b_n\|²·H_Z + \|R\|²B²`, from the squared product trick at the points (`prod_trick_points`, `ls_points`), the dual sums as polynomials at the points (`norm_dualS_pair`, `sum_Dp_sq_le`), Cauchy–Schwarz against `\|H(1/2 + iu)\|` (`integral_sq_le`) and the squared Gram entries (`gram_sq_le`) |
+| `LinnikCGLS2.lean` | 644 | round 639's hypothesis `CGLS2` proved (`cgls2`): for every `ε > 0`, `‖E‖_F² ≤ C(qTN)^ε·qT\|R\|N^{2−2σ}`, from round 643's `frobOff_le` with `Z = ⌊3P^{1+δ}/N⌋ + 1` and `K = ⌈4/δ⌉` (`s2_main`) and the sizes of its factors as powers of `qT` (`LSX_le`, `HZ_le`, `Q0_le`, `card_le`, `Bmax_le`); Linnik's exponents `9/4` and `226/100` from `CGLS3` alone (`linnik_225c_s3`, `linnik_226c_s3`) |
 
 ## Building (rounds 217, 618)
 
@@ -641,3 +648,98 @@ Round 637 moves the hypothesis of round 636's files from Chen–Gupta–Li's The
 - `LinnikCGLLinnik`: `linnik_225c_lv` and `linnik_226c_lv` under `CGLProp31`.
 
 See the main README, round 637, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 511 lines.
+
+## Proposition 3.1 from a bound on the cubic trace: LinnikCGLMat.lean (round 638)
+
+Round 638 is the first step of stage M3 of the plan in `frontier/linnik/CGL-LEAN.md`. It proves Chen–Gupta–Li's Proposition 3.1 at one point per character (`LinnikCGLLV.CGLProp31`) from a bound on the off-diagonal of the cubic trace, by their §4 and §11.2.
+
+- The matrix: `A_{i,n} = w(n/N)χ_i(n)n^{it_i}` over the integers `⌈N⌉ ≤ n ≤ ⌊2N⌋` (`entP`, `colsP`), with `w` Mathlib's `ContDiffBump` at `3/2` with radii `3/10` and `1/2` (`wCGL`: smooth, `0` outside `(1, 2)`, `1` on `[6/5, 9/5]`). Its Gram matrix `G` (`gramP`) has the constant diagonal `μ = Σ w(n/N)²` over the columns prime to `q` (`gramP_diag`), and `X` (`X3`) is the real part of `Σ G(i, j)G(j, k)G(k, i)` over the triples of `R` that are not all equal.
+- `CGLThird`, the hypothesis: for every `ε > 0` there is `C ≥ 0` such that, under the conditions of `CGLProp31` and `N ≤ qT`, `X ≤ C(qTN)^ε(N³ + (qT)²|R|^{3/2} + qT|R|N^{3−2σ} + qT|R|²N^{3/2−σ} + (qT)^{9/8}|R|^{29/16}N^{3/2−σ})`, the right side of their §11.2's combined inequality. The file's header gives the argument that their paper implies it.
+- `refined_moment_points` is round 537's `LinnikMoment.refined_moment_cube` for `A`; `prop46` is their Proposition 4.6 for the points: either `|R|N^{2σ} ≤ 648N²` or `(|R|N^{2σ})³ ≤ (216N)³X`.
+- `mvt_case`: for `N ≥ max(qT, 10)`, `LinnikPoints.large_values_points` gives `|R|N^{2σ} ≤ 36N²(11 + 8 log N)(2 + log²(2N))`; `polylog_le` bounds the logarithms by `(11 + 24/ε)(2 + 36/ε²)N^ε` for `0 < ε ≤ 1`.
+- `alg112` is their §11.2's algebra, with `dom4` and `dom5` for the two terms their proof shows are dominated, split at `N = (qT)^{5/6}`.
+- `prop31_of_third`: `CGLThird` implies `CGLProp31`. `linnik_225c_third` and `linnik_226c_third` are `linnik_225c_lv` and `linnik_226c_lv` under `CGLThird`.
+
+See the main README, round 638, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 518 lines.
+
+## The cubic trace's off-diagonal as `S₂ + S₃`: LinnikCGLS23.lean (round 639)
+
+Round 639 is the second step of stage M3 of the plan in `frontier/linnik/CGL-LEAN.md`. It replaces round 638's hypothesis `LinnikCGLMat.CGLThird` by two, one for each of Chen–Gupta–Li's Propositions 6.1 and 11.1.
+
+- `X3_eq`: with `E` the off-diagonal part of the Gram matrix `G` and `μ` its constant diagonal, `X = 3μ‖E‖_F² + tr(E³)`, where `‖E‖_F² = Σ_{i≠k}|G(i, k)|²` (`frobOff`) and `tr(E³)` is the real part of the sum of `G(i, j)G(j, k)G(k, i)` over the triples of distinct points (`tri3`). A triple that is not all equal has two equal points in one of three positions (`split_triple`), where `G(i, i)G(i, k)G(k, i) = μ|G(i, k)|²` (`gramP_swap`: `G` is Hermitian), or none.
+- `CGLS2`: for every `ε > 0` there is `C ≥ 0` such that, under the conditions of `CGLThird`, `‖E‖_F² ≤ C(qTN)^ε·qT|R|N^{2−2σ}`.
+- `CGLS3`: likewise `S₃ ≤ C(qTN)^ε((qT)²|R|^{3/2} + qT|R|N^{3−2σ} + qT|R|²N^{3/2−σ} + (qT)^{9/8}|R|^{29/16}N^{3/2−σ})`, where `S₃ = X − 3μ₀‖E‖_F²` and `μ₀ = (φ(q)/q)N∫w²` (`mu0`, the integral over `[1, 2]`).
+- `third_of_s23`: the two imply `CGLThird`, since `X = 3μ₀‖E‖_F² + S₃` and `0 ≤ μ₀ ≤ N` (`mu0_nonneg`, `mu0_le`). `linnik_225c_s23` and `linnik_226c_s23` are `linnik_225c_third` and `linnik_226c_third` under the two.
+
+At one point per character the paper's `S₂` is `3μ₀‖E‖_F²` and its `S₃` is `X − 3μ₀‖E‖_F²`; the file's header gives the argument, from the proof of their Proposition 6.1 and their (6.1). See the main README, round 639, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 522 lines.
+
+## The Mellin transform of `w²`, and the Gram entries as vertical integrals: LinnikCGLMellin.lean (round 640)
+
+Round 640 starts the proof of round 639's hypothesis `CGLS2`, the bound on `‖E‖_F²`, by Chen–Gupta–Li's route: the reflection of their Lemma 6.2 and the mean value theorem.
+
+- `wsq`, `Wc`, `H`: `w²`, real and complex, and its Mellin transform `H(s) = ∫w(u)²u^{s−1} du` (Mathlib's `mellin`).
+- `exists_bound_iteratedDeriv_gE`: in the variable `v = −log u`, `g_σ(v) = e^{−σv}w(e^{−v})²` and its derivatives are bounded uniformly in `|σ| ≤ S`, and vanish outside `[−log 2, log 2]`; round 591's `SieveWeight.exists_bound_iteratedDeriv_gw` without its factor `(1 − av)⁻¹`, on `|σ| ≤ S` in place of `0 ≤ σ ≤ 2`.
+- `H_eq_fourier`, `exists_H_bound`: `H(σ + it)` is the Fourier transform of `g_σ` at `t/2π` (Mathlib's `mellin_eq_fourier`), so `(1 + |t|)^{K+3}|H(σ + it)| ≤ B` for `|σ| ≤ S` (round 588's `SieveSmooth.pow_mul_norm_fourier_le`).
+- `mellinConvergent_Wc`, `differentiable_H`, `continuous_H_line`, `integrable_H_line`: `H` converges everywhere, is entire, and is continuous and integrable on vertical lines.
+- `Wt`, `mellin_Wt`, `perron_Wt`: the weight `W_τ(u) = u^{iτ}w(u)²` has `𝓜W_τ(s) = H(s + iτ)`, and round 591's `SieveLemma1.perron_weight` gives `(1/2π)∫ L(σ + iv, ψ)H(σ + iv + iτ)N^{σ+iv} dv = Σ_n ψ(n)W_τ(n/N)` for `σ > 1`.
+- `gram_eq_tsum`, `perron_gram`: with `ψ = χ_iχ̄_k` and `τ = t_i − t_k`, `G(i, k) = N^{iτ}Σ_n ψ(n)W_τ(n/N)`, the integral above times `N^{iτ}`.
+
+See the main README, round 640, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 526 lines.
+
+## The reflection of the Gram entries: LinnikCGLReflect.lean (round 641)
+
+Round 641 moves round 640's integral for `G(i, k)` into Chen–Gupta–Li's reflected form, the identity behind their Lemma 6.2.
+
+- `norm_Gamma_half_ratio_far`, `norm_gr_le_far`, `norm_Phi_le_far`: round 526's reflection factor `Φ` of a primitive character mod `f` satisfies `|Φ(s)| ≤ f^{1/2−Re s}·π·CGK(K)(1 + |Im s|)^{1/2−Re s}·EQh(q)` on `−K ≤ Re s ≤ 1/2`, where round 526's `norm_Phi_le` covers `−5/16 ≤ Re s ≤ 13/16`. The argument `(s + a)/2` of `Γ` moves right by `K + 1` (`Gamma_inv_eq_prod`), and then round 526's `norm_Gamma_le_ratio`.
+- `Eu`, `LFunction_eq_prim_mul_Eu`, `LFunction_reflected`: for `χ ≠ 1` mod `q` with primitive character `ψ`, `L(s, χ) = L(s, ψ)E(s)` with `E(s) = ∏_{p|q}(1 − ψ(p)p^{−s})` (Mathlib's `LFunction_changeLevel`), so `L(s, χ) = Φ(s)L(1 − s, χ⁻¹)E(s)` for `Re s < 1` (round 526's `LFunction_eq_Phi`).
+- `integrable_of_bound`, `decay_of_bound`, `shift_of_bound`: a contour shift (round 472's `SmoothPerron.verticalIntegral_shift`) for an integrand that is at most `M(1 + |Im s + τ|)^{−2}` on a closed vertical strip.
+- `G1`, `Mn`, `Rt`, `Tl` and their bounds: the integrand `L(s, χ)H(s + iτ)N^s`, the main part `H(s + iτ)N^sE(s)Φ(s)Σ_{m≤Z}χ⁻¹(m)m^{s−1}`, the rest (`L(1 − s, χ⁻¹)` less that sum) and the tail `Σ_{m>Z}`.
+- `reflect_gram`: for `χ ≠ 1`, `N > 0`, `Z ≥ 0` and `K ≥ 1`, the integral of `G1` on `Re s = 2` is the integral of the main part on `Re s = 1/2` plus that of the tail on `Re s = −K`: the shift from `2` to `1/2`, the functional equation and the split there, and the shift of the rest to `−K`, where it is the tail (round 526's `LFunction_sub_dualS`).
+- `gram_reflect`: with round 640's `perron_gram`, for `χ_i ≠ χ_k`, `G(i, k)` is `N^{iτ}/2π` times that sum at `χ = χ_iχ̄_k`, `τ = t_i − t_k`.
+
+See the main README, round 641, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 531 lines.
+
+## The bounds of the reflected Gram entries: LinnikCGLPair.lean (round 642)
+
+Round 642 bounds the two parts of round 641's reflected Gram entry for one pair `χ_i ≠ χ_k`. These are the bounds in the proof of Chen–Gupta–Li's Lemma 6.2, without its truncation of the integrals.
+
+- `apply_prime_dvd`, `norm_Eu_factor_le`, `norm_Eu_mul_le`: for `ψ` mod `f`, `f ∣ q`, `c ≥ 0` and `−Re s ≤ c`, `|E(s)|·f^c ≤ 2^{ω(q)}q^c`. The factors of `E` at the primes of `f` are `1`, since `ψ(p) = 0` there, and `f·∏_{p|q, p∤f} p` divides `q`.
+- `norm_dualT_le`: for `Z, K ≥ 1`, `|Σ_{m>Z}χ(m)m^{s−1}| ≤ 2Z^{−K}` on `Re s = −K`. Each term is at most `m^{−2}Z^{1−K}`, and Mathlib's `sum_Ioo_inv_sq_le` gives `Σ_{m>Z}m^{−2} ≤ 2/(Z + 1)`.
+- `Q0`, `norm_EuPhi_half_le`, `norm_integral_Mn_le`: on `Re s = 1/2`, `|E(s)Φ(s)| ≤ Q₀(q) = 2^{ω(q)}·π·CGK(0)·EQh(q)` (round 641's `norm_Eu_le` at `c = 0` and `norm_Phi_le_far` at `K = 0`). So the main part is at most `N^{1/2}Q₀(q)∫|H(1/2 + iu)||D(u)| du`, `D(u) = Σ_{m≤Z}χ⁻¹(m)m^{−1/2+i(u−τ)}`, after the substitution `u = v + τ`.
+- `IK`, `integrable_IK`, `IK_nonneg`, `norm_integral_Tl_le`: on `Re s = −K`, `|N^s| = N^{−K}`, `|E(s)|f^K ≤ 2^{ω(q)}q^K` and `|Φ(s)| ≤ f^{1/2+K}·π·CGK(K)(1 + |Im s|)^{K+1/2}·EQh(q)`. So the tail is at most `2^{ω(q)+1}·π·CGK(K)·EQh(q)·q^{K+1/2}(NZ)^{−K}(1 + |τ|)^{K+1}I_K`, where `I_K = ∫|H(−K + iu)|(1 + |u|)^{K+1} du` is finite by round 640's `exists_H_bound`.
+- `norm_gram_le`: with round 641's `gram_reflect` and `|N^{iτ}| = 1`, `|G(i, k)|` is at most `(2π)⁻¹` times the sum of the two bounds, at `χ = χ_iχ̄_k` and `τ = t_i − t_k`.
+
+See the main README, round 642, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 536 lines.
+
+## The off-diagonal mass of the Gram matrix: LinnikCGLFrob.lean (round 643)
+
+Round 643 sums round 642's bound over the pairs into an explicit bound on `‖E‖_F² = Σ_{i≠k}|G(i, k)|²`, the quantity of round 639's hypothesis `CGLS2`. This is the proof of Chen–Gupta–Li's Proposition 6.1, at one point per character, before `Z` and `K` are chosen.
+
+- `sq_le_mul_of_forall`, `two_mul_le_lam`, `integral_sq_le`: `(∫hd)² ≤ (∫h)(∫hd²)` for `h, d ≥ 0`, through `2hd ≤ λh + hd²/λ` for every `λ > 0`.
+- `ls_points`: for `χ` injective on `R` and `|t_i| ≤ T`, `Σ_{i∈R}|Σ_{k∈S_k}c_kχ_i(k)k^{it_i}|² ≤ L(X)Σ|c_k|²` for `S_k ⊆ [2, X]`: round 526's `ls_pv_dyadic` on the characters `χ(R)`, with `t` carried back by the inverse of `χ` on `R`.
+- `prod_trick_points`: if `|F| ≥ V > 0` at every point, `F` on `[2, N′]`, then `Σ_{i∈R}|E(χ_i, −it_i)|² ≤ V^{−2}L(N′Z)·τ·Σ|b_n|²·Σ|e_m|²` for `E` on `[1, Z]` and `d(k) ≤ τ` for `k ≤ N′Z`: `|E| ≤ |FE|/V`, round 526's `pv_mul`, `ls_points` and round 526's `mass_mulCo_le`. Round 526's `huxley_core` is the same argument for `Σ|E|`.
+- `norm_dualS_pair`, `HZ`, `mass_dualCo_half`: `|D_{ik}(u)|` is `|Σ_{m≤Z}e_{k,u}(m)χ_i(m)m^{it_i}|` with `e_{k,u}(m) = conj(χ_k(m)m^{−1/2+i(u+t_k)})` (round 526's `dualS_eq_conj_pv`), and `Σ_{m≤Z}|e_{k,u}(m)|² ≤ H_Z = Σ_{m≤Z}1/m` (round 526's `norm_dualCo_le`).
+- `wH`, `IH`, `Dp`, `sum_Dp_sq_le`: `Σ_{i,k∈R}|D_{ik}(u)|² ≤ |R|·V^{−2}L(N′Z)·τ·Σ|b_n|²·H_Z` at every `u`.
+- `Bmax`, `gram_sq_le`: for `χ_i ≠ χ_k`, `|G(i, k)|² ≤ N·Q₀(q)²(∫|H(1/2 + iu)||D_{ik}(u)| du)² + B²`, `B` round 642's tail bound at `|τ| = 2T`: round 642's `norm_gram_le`, `(a + b)² ≤ 2(a² + b²)` and `2(2π)^{−2} ≤ 1`.
+- `frobOff_le`: Cauchy–Schwarz in `u` for each pair and the sum over the pairs give `‖E‖_F² ≤ N·Q₀(q)²I_H²·|R|·V^{−2}L(N′Z)·τ·Σ|b_n|²·H_Z + |R|²B²`, `I_H = ∫|H(1/2 + iu)| du`.
+
+See the main README, round 643, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 541 lines.
+
+## Round 639's hypothesis `CGLS2` proved: LinnikCGLS2.lean (round 644)
+
+Round 644 proves `CGLS2` (`cgls2`), Chen–Gupta–Li's Proposition 6.1 at one point per character in round 639's form: for every `ε > 0` there is `C` with `‖E‖_F² ≤ C(qTN)^ε·qT|R|N^{2−2σ}` under the conditions of `CGLProp31`. Linnik's exponents `9/4` and `226/100` then follow from `CGLS3` alone.
+
+- `AL`, `natLog_le_two_log`, `LSX_le`: round 526's large-sieve factor `L(X)` is at most `A(δ)(q(2T + 1) + X)X^δ` for `X ≥ 1` and `0 < δ ≤ 1`, from Mathlib's `Real.log_le_rpow_div` at `δ/4` and `log₂X ≤ 2 log X`.
+- `HZ_le`: `H_Z = Σ_{m≤Z}1/m ≤ Z^δ/δ` (`SquarefreeCount.sum_rpow_neg_le`).
+- `two_pow_omega_le`, `EQh_le`, `Q0_le`: `2^{ω(q)} ≤ C_δq^δ` (round 526's `card_powerset_le_divisors` and the stack's `card_divisors_le`), `EQh(q) ≤ 4^{ω(q)}` (each factor `(1 − p^{−1/2})⁻¹ ≤ 4`), and `Q₀(q) ≤ π·CGK(0)·(2^{ω(q)})³`.
+- `card_mul_sq_le`, `card_le`: `|R|V² ≤ L(N′)Σ|b_n|²` (round 643's `ls_points` for the large polynomial itself), so `|R| ≪_δ qT·(qT)^δ·N^{1−2σ}`.
+- `pv_point_eq`, `rpow_le_of_le_mul`: the large polynomial as round 526's `pv`; `x^δ ≤ c(P^δ)²` for `0 ≤ x ≤ cP^{1+δ}`.
+- `Bmax_le`: round 642's tail bound is at most `2(C_δP^δ)³·π·CGK(K)·I_K·3P·P^{−4}` when `NZ ≥ 3P^{1+δ}` and `δK ≥ 4`.
+- `Kd`, `C1`, `C2`, `C1_nonneg`, `C2_nonneg`, `main_term_le`, `tail_le`, `s2_main`: for `N > 5/6` and `0 < δ ≤ 1/16`, `‖E‖_F² ≤ (C₁(δ) + C₂(δ))(qT)^{1+16δ}|R|N^{2−2σ}`, with `Z = ⌊3P^{1+δ}/N⌋ + 1`, `K = ⌈4/δ⌉` and `τ = C_δ(N′Z)^δ`, `N′ = ⌊9N/5⌋`.
+- `char_eq_of_le_two`, `frobOff_eq_zero_of_le_two`, `q_le_two`: for `N ≤ 5/6` (where `S` may contain `1`, outside the large sieve's support `[2, X]`), `(qT)^{2/3}/2 ≤ N` gives `q ≤ 2`, there is one character mod `q`, and `‖E‖_F² = 0`.
+- `cgls2`: `s2_main` at `δ = min(ε, 1)/16`, and `(qT)^{min(ε,1)} ≤ (6/5)^ε(qTN)^ε` for `N > 5/6`.
+- `linnik_225c_s3`, `linnik_226c_s3`: round 639's `linnik_225c_s23` and `linnik_226c_s23` with `cgls2`.
+
+The file's declarations stay under Lean's default heartbeat limit by splitting the main case into `Bmax_le`, `card_le`, `main_term_le` and `tail_le`, and by naming the parameters with `obtain ⟨x, hx⟩ : ∃ x, x = e` rather than `set`, which kept their definitions (floors, ceilings and real powers) out of `whnf`.
+
+See the main README, round 644, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 547 lines.
