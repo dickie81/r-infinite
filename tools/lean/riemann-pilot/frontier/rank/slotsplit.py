@@ -38,14 +38,15 @@ Gates (exit status 1 if any fails):
       Sang's rotation and no row saving the boundary is 0.8748866 (2e-6) at sigma = 1, 3/4, 2/3 and 1/2, with the bins
       'E' among the walls and no row loss; (ii) with a uniform row saving U^{1/10}, no rotation and the small rows'
       line 1/6 + 1/100, sigma = 3/4 gives 41/48, sigma = 2/3 gives 0.8537843 with the bins 'E' among the walls
-      (the high side binds before 28/33), and sigma = 1 gives 13/15 (1e-6).
+      (the high side binds before 28/33), and sigma = 1 gives 13/15 (1e-6).  At each of these optima the small bins
+      delta < 1/8, which fivesixths.Five does not enforce, are slack (the exact small_max is negative).
   S4  the vertex's bins: (i) in exact arithmetic, at (1/3, 1/3, 1/3) with density-hypothesis counts R = 1 - delta,
       Lindelof (w = 1) and no rotation, the bin endpoint at x = 1/2 is 1 - delta/3 - s0 for 24 rational delta in
       [1/8, 5/6], so s0 = 5/6 needs a saving at least 1/6 - delta/3 on every bin with delta < 1/2; the model's own
       coefficients (fivesixths.Five with those counts) give the same endpoint at every bin with delta >= 1/8 (1e-8);
       (ii) in the program (sigma = 1/2, small rows' line 1/6 + 1/100, no rotation), DH counts with Lindelof and a
       saving U^{3/10} on the floor bin and the small bins alone give 31/36 with 'E' among the walls, and with U^{1/5}
-      on every bin give 5/6 (2e-7).
+      on every bin give 5/6 (2e-7); the small bins are slack at both optima.
   S5  the dictionary between hybrid bounds and FIVE-SIXTHS.md's sigma (the parameter of the second branch
       (1 + (4 sigma - 1) l' - 2M')/4, which section 2 of that note misdescribed as the trivial dual's exponent).  The
       factor is replaced by (a) min(release, N L^{1/2}): every column's squared slot sum << L^{1/2}, that is slot
@@ -71,7 +72,8 @@ Gates (exit status 1 if any fails):
       round 498's readings, c = 0
       gives 0.8700000 with the principal edge among the walls.  Far across the slice the geometries are admissible
       only in the model (Xu-Sang's admissibility rows and the pilot's high side); the release's lemmas were not
-      re-derived there.
+      re-derived there.  Five2X enforces the small bins (section 15), and they hold at every reported optimum and ray
+      point (exact small_max <= 1e-9).
   S7  the crossing cost's zero is target T3: with the quadratic sieve's factor K + NB replaced by K, round 500's dyad
       program has no first branch, and its maximum is M' + max(0, (1 + 3l' - 2M')/4) (1e-9) at 300 random (M', l')
       in [0.3, 2] x [0, 1], and at most M' + max(0, (1 + 2l' - 2M')/4) with the split; with the column term, on the
@@ -209,6 +211,15 @@ def low_grid(extra=(), **kw):
 
 
 # ---------------------------------------------------------------- S3, S4: the system
+def small_rows(prog, th, share):
+    """The small bins' endpoints as rows A v <= b, v = (l_x, l_y, l, s0, mu), with vartheta fixed at th in each bin:
+    1/2 + D/2 - l_y (1/2 + th) - s0 - l/2 + x D l + h (5/6 - w (1 - R) + share th - eta_L), h = 1 - l_x + l
+    (offslice.OffSlice.small_max with Five2's saving)."""
+    G = 5 / 6 - prog.w * (1 - prog.Rs) + share * th - prog.eta_L
+    cols = [-G, -(1 / 2 + th) + 0 * G, -1 / 2 + F.O.XS * prog.DS + G, -1 + 0 * G, 0 * G]
+    return np.column_stack([c.ravel() for c in cols]), -(1 / 2 + prog.DS / 2 + G).ravel()
+
+
 class Five2(F.Five):
     """fivesixths.Five with the row saving split: eta_L on the floor bin and the small bins, eta (eta_E) on the bins
     delta >= 1/8."""
@@ -220,13 +231,23 @@ class Five2(F.Five):
     def small_max(self, v):
         return F.O.OffSlice.small_max(self, v) - self.eta_L * (1 - v[0] + v[2])
 
+    def small_rows(self):
+        """the small bins with vartheta at its largest value x delta tau: a relaxation of small_max <= 0 while
+        h/2 < l_y is kept, since vartheta enters the endpoint with the coefficient h/2 - l_y; None without that row."""
+        if 'h/2<ly' in self.drop:
+            return None
+        return small_rows(self, F.O.XS * self.DS * self.tau, 1 / 2)
+
     def floor_rows(self):
         e = self.eta_L
         return [(n, [r[0] + e, r[1], r[2] - e, r[3], r[4]], b + e) for n, r, b in F.O.OffSlice.floor_rows(self)]
 
 
 class Five2X(Five2):
-    """Five2 across the slice with the program's cap on mu raised from 1/2 to MU_MAX (section 8)."""
+    """Five2 across the slice with the program's cap on mu raised from 1/2 to MU_MAX (section 8), and the small bins
+    delta < 1/8 enforced as cutting planes from small_rows (FIVE-SIXTHS.md section 15): exactly where vartheta = 0
+    there, as a relaxation otherwise, so that the returned 'small' (the exact small_max) can be positive only where
+    the relaxation is not exact."""
     MU_MAX = 2.0
 
     def solve(self, tol=1e-10):
@@ -237,11 +258,14 @@ class Five2X(Five2):
         ii, jj = np.meshgrid(np.arange(0, nd, 30), np.arange(0, nx, 25), indexing='ij')
         idx = np.unique(np.concatenate([(ii * nx + jj).ravel(), np.arange(0, nd, 10) * nx + nx - 1]))
         bounds = [(0, 1), (0, 1), (0, 1), (0.5, 1), (0, self.MU_MAX if self.mode == 'cross' else 0.0)]
-        for _ in range(500):
+        rows = self.small_rows()
+        sidx = np.zeros(0, dtype=int)
+        for _ in range(2000):
             Cb = self.C[:, idx]
-            A = np.vstack([A0, np.column_stack([Cb[1], Cb[2], Cb[3], -np.ones(idx.size), np.zeros(idx.size)])])
-            res = linprog([0, 0, 0, 1, 0], A_ub=A, b_ub=np.concatenate([b0, -Cb[0]]), bounds=bounds, method='highs',
-                          options=HIGHS)
+            A = np.vstack([A0, np.column_stack([Cb[1], Cb[2], Cb[3], -np.ones(idx.size), np.zeros(idx.size)])]
+                          + ([rows[0][sidx]] if rows is not None else []))
+            b = np.concatenate([b0, -Cb[0]] + ([rows[1][sidx]] if rows is not None else []))
+            res = linprog([0, 0, 0, 1, 0], A_ub=A, b_ub=b, bounds=bounds, method='highs', options=HIGHS)
             if res.status == 2:
                 return None
             if res.status != 0:
@@ -249,9 +273,16 @@ class Five2X(Five2):
             v = res.x
             E = self.C[0] + self.C[1] * v[0] + self.C[2] * v[1] + self.C[3] * v[2] - v[3]
             new = np.setdiff1d(np.flatnonzero(E > tol), idx)
-            if new.size == 0:
+            news = np.zeros(0, dtype=int)
+            if rows is not None:
+                S = rows[0] @ v - rows[1]
+                news = np.setdiff1d(np.flatnonzero(S > tol), sidx)
+            if new.size == 0 and news.size == 0:
                 return dict(v=v, res=res, fixed=fixed, emax=E.max(), small=self.small_max(v))
-            idx = np.union1d(idx, new[np.argsort(E[new])[-25:]])
+            if new.size:
+                idx = np.union1d(idx, new[np.argsort(E[new])[-25:]])
+            if news.size:
+                sidx = np.union1d(sidx, news[np.argsort(S[news])[-25:]])
         raise RuntimeError('no convergence')
 
 
@@ -274,7 +305,7 @@ def ray_point(job):
     cls = type('Ray', (Five2XFix,), {'FIX': (t + 1e-8, t + 2e-7, t)})   # strict l_x > l and b > 0, just off the ray
     prog = cls(3 / 4, **cross_cfg(0.0), sigma=sigma, drop=D3)
     sol = prog.solve()
-    return (None, None) if sol is None else (float(sol['v'][3]), prog.walls(sol))
+    return (None, None, None) if sol is None else (float(sol['v'][3]), prog.walls(sol), float(sol['small']))
 
 
 def cross_cfg(c, readings=True):
@@ -356,7 +387,8 @@ def boot(job):
         sol = prog.solve()
         if sol is None:
             break
-        fp.append((float(sol['v'][3]), kappa, prog.walls(sol), tuple(float(t) for t in sol['v'][:5])))
+        fp.append((float(sol['v'][3]), kappa, prog.walls(sol), tuple(float(t) for t in sol['v'][:5]),
+                   float(sol['small'])))
         if abs(2 * sol['v'][3] - 1 - kappa) < 1e-10:
             break
         kappa = 2 * sol['v'][3] - 1
@@ -439,10 +471,12 @@ def main():
     ok3 = (all(abs(res[k][0] - 0.8748866) < 2e-6 and 'E' in res[k][2] and 'row loss' not in res[k][2]
                for k in ('i1', 'i34', 'i23', 'i12'))
            and abs(res['ii34'][0] - 41 / 48) < 1e-6 and abs(res['ii23'][0] - 0.8537843) < 1e-6 and 'E' in res['ii23'][2]
-           and abs(res['ii1'][0] - 13 / 15) < 1e-6)
+           and abs(res['ii1'][0] - 13 / 15) < 1e-6
+           and all(res[k][4] < 0 for k in ('i1', 'i34', 'i23', 'i12', 'ii34', 'ii23', 'ii1')))
     gate('S3', ok3, f'(i) eta = 0: sigma 1 {res["i1"][0]:.7f}, 3/4 {res["i34"][0]:.7f}, 2/3 {res["i23"][0]:.7f}, '
          f'1/2 {res["i12"][0]:.7f}; (ii) U^(1/10): sigma 3/4 {res["ii34"][0]:.7f} (41/48 = {41/48:.7f}), 2/3 '
-         f'{res["ii23"][0]:.7f} (walls {res["ii23"][2]}), 1 {res["ii1"][0]:.7f} (13/15 = {13/15:.7f})')
+         f'{res["ii23"][0]:.7f} (walls {res["ii23"][2]}), 1 {res["ii1"][0]:.7f} (13/15 = {13/15:.7f}); small bins: '
+         f'largest endpoint {max(res[k][4] for k in ("i1", "i34", "i23", "i12", "ii34", "ii23", "ii1")):.1e}')
     v3, bad = Fr(1, 3), 0
     for i in range(24):
         d = Fr(1, 8) + Fr(i, 23) * (Fr(5, 6) - Fr(1, 8))
@@ -457,11 +491,12 @@ def main():
     dev4 = max(abs(C[0][i * nx + nx - 1] + (C[1][i * nx + nx - 1] + C[2][i * nx + nx - 1] + C[3][i * nx + nx - 1]) / 3
                    - (1 - DL[i, 0] / 3)) for i in bins)
     gate('S4', bad == 0 and abs(XL[0, -1] - 0.5) < 1e-12 and len(bins) > 1000 and dev4 < 1e-8
-         and abs(res['s4low'][0] - 31 / 36) < 1e-6 and 'E' in res['s4low'][2] and abs(res['s4all'][0] - 5 / 6) < 2e-7,
+         and abs(res['s4low'][0] - 31 / 36) < 1e-6 and 'E' in res['s4low'][2] and abs(res['s4all'][0] - 5 / 6) < 2e-7
+         and res['s4low'][4] < 0 and res['s4all'][4] < 0,
          f'(i) endpoint 1 - delta/3 - s0 at the vertex: {24 - bad} of 24 bins exact, and the model\'s coefficients at '
          f'x = 1/2 agree at its {len(bins)} bins with delta >= 1/8 within {dev4:.1e}; (ii) savings on the low bins '
          f'only {res["s4low"][0]:.7f} (31/36 = {31/36:.7f}), walls {res["s4low"][2]}; on every bin '
-         f'{res["s4all"][0]:.9f}')
+         f'{res["s4all"][0]:.9f}; small bins: largest endpoint {max(res["s4low"][4], res["s4all"][4]):.1e}')
     # S5: the dictionary between hybrid bounds and the second branch
     rows, ok5 = [], True
     for name, kw, coef, opt, value in DICTIONARY:
@@ -492,7 +527,11 @@ def main():
            and abs(one19[0] - 0.835) < 1e-6 and abs(noread[0] - 0.87) < 1e-6 and 'principal edge' in noread[2]
            and all(abs(ray[s][0] - want) < (1e-6 if e else 2e-7) and ('E' in ray[s][1]) == e
                    for s, want, e in RAY_VALUES)
-           and bracket and 0.557239 < lo and hi < 0.557240)
+           and bracket and 0.557239 < lo and hi < 0.557240
+           and all(res[k][4] <= 1e-9 for k in res if isinstance(k, tuple)
+                   or k in ('one', 'one19', 'noread', 'c34_0', 'c34_15')) and all(ray[s][2] <= 1e-9 for s in RAY))
+    keys6 = [k for k in res if isinstance(k, tuple) or k in ('one', 'one19', 'noread', 'c34_0', 'c34_15')]
+    small6 = max([res[k][4] for k in keys6] + [ray[s][2] for s in RAY])
     gate('S6', ok6, 'sigma 2/3, no row saving, l_y < 1/2 dropped, mu <= 2: ' + ', '.join(
         f'c = {c}: {r[0]:.7f}' for c, r in zip(CROSS_COSTS, rc))
          + f'; sigma 3/4 at c = 0, 0.15: {res["c34_0"][0]:.7f}, {res["c34_15"][0]:.7f}; at c = 0 the optimum has '
@@ -500,7 +539,7 @@ def main():
          + ', '.join(f't = {s}: {ray[s][0]:.7f}' + (' (E)' if 'E' in ray[s][1] else '') for s in RAY)
          + f'; threshold in ({lo:.8f}, {hi:.8f}); sigma = 1 at c = 0: {one[0]:.9f} at (l_x, l_y, ell) = ({one[3][0]:.4f}, {one[3][1]:.4f}, '
          f'{one[3][2]:.4f}), mu = {one[3][4]:.4f}; with mu <= 1.9: {one19[0]:.7f}; without round 498\'s readings: '
-         f'{noread[0]:.7f}, walls {noread[2]}')
+         f'{noread[0]:.7f}, walls {noread[2]}; small bins (enforced): largest endpoint {small6:.1e}')
     # S7: the crossing cost's zero is target T3
     rng7 = np.random.default_rng(7)
     dev_r, over_s, n7 = 0.0, -np.inf, 0

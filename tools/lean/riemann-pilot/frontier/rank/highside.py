@@ -2,15 +2,15 @@
 
 Sections 7-9 leave the release-level boundary at 0.8748866, with the bins delta >= 1/8 ('E') binding at every sigma
 (slotsplit.py's S3).  This script asks what those bins need, in the release-level configuration: section 8's program
-(slotsplit.Five2X across the slice) at crossing cost c = 1, with Sang's rotation, round 498's readings, the third Gram
-term soft (round 499's S3, slotsplit.cross_cfg's soft_third: Xu-Sang's l_y - l > 11b/6 dropped and the third term
-carried in the low side's maximum), Xu-Sang's counts R_kappa and fourth moment (k = 2), the trilinear sigma = 2/3, and
-the rows l <= 1/5, l >= 1/6 and l_y < 1/2 dropped as in S6; every boundary is bootstrapped from kappa = 3/4
-(slotsplit.boot).  A bin is a class of Poisson rows with detector parameter delta = 2a - 1 and amplitude ratio
-x = q/delta (Xu-Sang's notation); its endpoint is E = C0 + C1 l_x + C2 l_y + C3 l - s0 (offslice.OffSlice.coeffs), with
-the count entering through K = 5/6 - w (1 - R) + vartheta/2, w = 1 - 1/(2k).  A saving U^s = Z^{s h} on a bin,
-h = 1 - l_x + l, lowers E by s h.  Every number is a statement about the pilot's model of the release's exponent system,
-not a theorem about L-functions.
+(slotsplit.Five2X across the slice, which enforces the small bins delta < 1/8 since section 15) at crossing cost c = 1,
+with Sang's rotation, round 498's readings, the third Gram term soft (round 499's S3, slotsplit.cross_cfg's soft_third:
+Xu-Sang's l_y - l > 11b/6 dropped and the third term carried in the low side's maximum), Xu-Sang's counts R_kappa and
+fourth moment (k = 2), the trilinear sigma = 2/3, and the rows l <= 1/5, l >= 1/6 and l_y < 1/2 dropped as in S6; every
+boundary is bootstrapped from kappa = 3/4 (slotsplit.boot).  A bin is a class of Poisson rows with detector parameter
+delta = 2a - 1 and amplitude ratio x = q/delta (Xu-Sang's notation); its endpoint is
+E = C0 + C1 l_x + C2 l_y + C3 l - s0 (offslice.OffSlice.coeffs), with the count entering through
+K = 5/6 - w (1 - R) + vartheta/2, w = 1 - 1/(2k).  A saving U^s = Z^{s h} on a bin, h = 1 - l_x + l, lowers E by s h.
+Every number is a statement about the pilot's model of the release's exponent system, not a theorem about L-functions.
 
 Gates (exit status 1 if any fails):
   H1  what binds: the release-level boundary is 0.8748866 (2e-6), with walls E, the low side and the slice; at its
@@ -18,18 +18,20 @@ Gates (exit status 1 if any fails):
       tight low rows are the Gram bound's exceptional term ('low:P^(1/6)') and the slice.
   H2  relief on the bins delta >= 1/8: a saving U^s on the bins delta in [0.44, 0.50] only gives 0.8748474 at s = 0.01
       and at s = 0.05 alike (1e-6), its binding bins then lying just outside the window (within 1e-3 below 0.44 and
-      above 0.50, at x = 1/2); on every bin delta >= 1/8, 0.8730362 at s = 0.01 and 0.8711404 at s = 0.02 (1e-6), a
-      slope (0.8748866 - B)/s between 0.18 and 0.19 at both; 0.8667866 at s = 0.045 and at s = 0.1, with the floor bin
-      among the walls and E not; density-hypothesis counts R = 1 - delta on the bins delta >= 1/8 only, and round 498's
-      counts = 'dh' (the small bins too), give 0.8667866 as well (1e-6).
+      above 0.50, at x = 1/2); on every bin delta >= 1/8, 0.8730362 at s = 0.01 and 0.8711703 at s = 0.02 (1e-6), a
+      slope (0.8748866 - B)/s between 0.18 and 0.19 at both; 0.8693956 at s = 0.045 and at s = 0.1, with the small bins
+      delta < 1/8 among the walls and neither E nor the floor bin, and density-hypothesis counts R = 1 - delta on the
+      bins delta >= 1/8 only give 0.8693956 as well (1e-6); round 498's counts = 'dh', the small bins included, give
+      0.8667866 (1e-6), with the floor bin among the walls and not the small bins.
   H3  stronger moments, with the amplifier's share as README round 507 has it beyond the fourth moment.  Its two
       capacity-consistent levers are vartheta = 0 in every bin (lam = 0 on the bins delta >= 1/8, and ThetaZero on the
       small bins) and Sang's vartheta at the share vartheta/k (ShareK, on the bins and the small bins; the floor bin
-      has vartheta = 0).  The 2k-th moment's weight w = 1 - 1/(2k) at k = 5/2, 3, 4 and 5 gives, with vartheta = 0,
-      0.8715666, 0.8693505, 0.8674755 and 0.8668665 with E among the walls, and at k = 5.25 and 6 0.8667866 with the
-      floor bin and not E (1e-6); at each of those six k the share vartheta/k gives more, so vartheta = 0 is the better
-      lever there.  The model's share vartheta/2 at every k gives 0.8712795, 0.8692279 and 0.8674539 at k = 5/2, 3 and
-      4 (1e-6), below the capacity-consistent values by less than 4e-4.
+      has vartheta = 0).  The 2k-th moment's weight w = 1 - 1/(2k) at k = 5/2, 3 and 4 gives, with vartheta = 0,
+      0.8715666, 0.8693505 and 0.8674755 with E among the walls; at k = 5 and 5.25, 0.8668677 and 0.8668015 with the
+      small bins among the walls and not E; at k = 6, 0.8667866 with the floor bin and not E (1e-6).  At each of those
+      six k the share vartheta/k gives more, so vartheta = 0 is the better lever there.  The model's share vartheta/2
+      at every k gives 0.8712795, 0.8692279 and 0.8674539 at k = 5/2, 3 and 4 (1e-6), below the capacity-consistent
+      values by less than 4e-4.
   H4  beyond the first rung, with density-hypothesis counts and Sang's rotation kept.  (i) A saving on the floor bin
       and the small bins only (slotsplit.Five2's eta_L): U^{0.001} gives 13/15 (2e-7) at (l_x, l_y, l) =
       (2/5, 2/5, 1/5) (1e-4), with E and the rotation's condition h/2 < l_y among the walls; U^{0.0005} gives 0.8667067
@@ -48,8 +50,9 @@ Gates (exit status 1 if any fails):
   H5  where the counts come from: Xu-Sang's R_kappa = 1 - delta + (alpha - delta) delta P/(2 J) recomputed with the long
       witness's slope alpha' in place of alpha = 5/6 (the slope of the release's e(r) = max(1, (1 + 5r)/6)), the long
       branch taken as (alpha' - delta)_+: alpha' = 5/6 reproduces the model's count (1e-15) and 0.8748866 (2e-6);
-      alpha' = 3/4 gives 0.8741816, alpha' = 1/2 gives 0.8714461 with E among the walls, alpha' = 1/8 gives 0.8667866
-      with the floor bin among the walls, the count then being 1 - delta exactly on every bin delta >= 1/8 (1e-6).  The
+      alpha' = 3/4 gives 0.8741816, alpha' = 1/2 gives 0.8714461 with E among the walls, alpha' = 1/8 gives 0.8677780
+      with the small bins among the walls and not the floor bin (1e-6), the count then being 1 - delta exactly on every
+      bin delta >= 1/8 (1e-6), and above it on the small bins, where the long branch 1/8 - delta is positive.  The
       plain moment's capacity constant 6 (m1 + m2 + 6 kappa z <= 1, so c = 1/(3 kappa)) replaced by 2 gives 0.8733798
       from the closed form, with c > 6/13, outside the range of Xu-Sang's balance, and with the plain selection z_P at
       the balance above the prime supply l/h of that optimum on between 10% and 16% of the bins; the supply can only
@@ -67,9 +70,11 @@ Gates (exit status 1 if any fails):
       the two charges, min(mu, l)/2, leaves the boundary at 0.8748866.
   H7  where the counts would have to improve: density-hypothesis counts on a window of delta only give 0.8748866 on
       [4/7, 5/6] and on [1/8, 0.45] (2e-6), 0.8746407 on [0.40, 0.55], 0.8735094 on [0.30, 0.65], 0.8712876 on
-      [0.20, 0.75] and 0.8706204 on [1/8, 0.70] (1e-6), each above the first rung by more than 1e-3; in the three
-      windows around 0.47 the binding bins lie just outside the window (within 1e-3, at x = 1/2), and a saving
-      U^{0.05} on [0.40, 0.55] gives the same value as density-hypothesis counts there.
+      [0.20, 0.75] (1e-6), and on [1/8, 0.70] between 0.8714881 and 0.8714946 (1e-6), with the small bins among the
+      walls: the lower value enforces them as a relaxation, the upper on the region l >= tau h, where that relaxation is
+      exact (WinW3A).  Each is above the first rung by more than 1e-3; in the three windows around 0.47 the binding bins
+      lie just outside the window (within 1e-3, at x = 1/2), and a saving U^{0.05} on [0.40, 0.55] gives the same value
+      as density-hypothesis counts there.
   H8  the T1-T3 trade-off (FIVE-SIXTHS.md, section 14), with T2 strong: density-hypothesis counts and a saving U^{0.2}
       on every bin.  Unrotated (vartheta = 0 in every bin, h/2 < l_y dropped, the small rows' z-line z0 = 1/6 + 1/100 as
       in fivesixths' runs without rotation), the program matches B(sigma, c) = 5/6 + (2 sigma - 1)_+
@@ -87,7 +92,17 @@ Gates (exit status 1 if any fails):
       exactly in the runs that keep it).  In exact arithmetic, under h/2 <= l_y, l <= l_x and b >= 0 the low side with a
       crossing is at least 5/6 + min(c/4, 1/48) at 4000 random rational points (sigma in {1/2, 2/3, 3/4, 1}, c in
       {1/100, 1/20, 1/12, 1/5, 1}), with equality for sigma <= 3/4 at (1/2, 1/2, 1/2) when c <= 1/12 and at
-      (1/4, 1/2, 1/4) when c >= 1/12.
+      (1/4, 1/2, 1/4) when c >= 1/12, the third Gram term soft.  By linear programming over the rotated low side with a
+      crossing, at sigma in {1/2, 2/3, 3/4, 0.8, 1} and c in {0.01, 1/12, 0.1, 0.2, 1}: the least value is at least
+      that bound everywhere and equals it for sigma <= 3/4 with the third term soft; with Xu-Sang's l_y - l > 11b/6
+      kept it is 5/6 + min(c/4, 4/147) for sigma <= 3/4 (1e-9); at sigma = 1 it lies above the bound by more than
+      6e-3 at each c.
+
+  H9  the small bins delta < 1/8 at every reported optimum.  slotsplit.Five2X enforces them as cutting planes
+      (FIVE-SIXTHS.md section 15): exactly where vartheta = 0 there (ThetaZero), and as a relaxation, vartheta at its
+      largest value x delta tau, while h/2 < l_y is kept; ShareK's are not enforced.  At every optimum but WW3's the
+      exact small_max is at most 1e-9, and at ShareK's it is negative.  At WW3's it is positive and below 1e-5, and
+      WW3A, on l >= tau h, gives a value above WW3's by less than 1e-5 with the small bins holding (1e-9).
 
 Usage: python3 highside.py     (a few seconds; imports slotsplit.py and fivesixths.py, and ../wall78)
 """
@@ -200,6 +215,14 @@ class WinS(Window):
     WIN, SAVE = (0.40, 0.55), 0.05
 
 
+class WinW3A(WinW3):
+    """WinW3 on the region l >= tau h, where vartheta in the small bins is at its largest value exactly, so the
+    enforced small bins are exact there: an upper bound for WinW3's boundary (H7)."""
+
+    def fixed_rows(self):
+        return super().fixed_rows() + [('l/h>=tau', [-self.tau, 0.0, -(1 - self.tau), 0.0, 0.0], -self.tau)]
+
+
 class Alpha(SS.Five2X):
     """Xu-Sang's count with the long witness's slope ALPHA and the plain capacity constant CAP."""
     ALPHA, CAP = ALPHA, 6.0
@@ -238,6 +261,10 @@ class ThetaZero(SS.Five2X):
                 + h * (5 / 6 - self.w * (1 - self.Rs))).max()
         return base - self.eta_L * h
 
+    def small_rows(self):
+        """the small bins exactly: vartheta = 0 makes them linear."""
+        return SS.small_rows(self, 0 * self.DS * O.XS, 1 / 2)
+
 
 class ShareK(SS.Five2X):
     """Sang's vartheta with the amplifier's share vartheta/k (README round 507) on the bins and the small bins: the
@@ -256,6 +283,10 @@ class ShareK(SS.Five2X):
         base = (1 / 2 + self.DS / 2 - ly * (1 / 2 + th) - s0 - ell / 2 + O.XS * self.DS * ell
                 + h * (5 / 6 - self.w * (1 - self.Rs) + th * (1 - 1 / self.k))).max()
         return base - self.eta_L * h
+
+    def small_rows(self):
+        """none: vartheta enters with the coefficient h (1 - 1/k) - l_y, whose sign h/2 < l_y does not fix."""
+        return None
 
 
 class ChargeEll(SS.Five2X):
@@ -354,6 +385,23 @@ def rotated_cross(n=4000, seed=20261023):
     return ok, gap, at
 
 
+def rotated_lp(sg, cc, hard):
+    """H8: the least rotated low side with a crossing, by linear programming over (l_x, l_y, l, s0, mu): rows s0 >= the
+    first branch's pieces + c mu/2 and the second branch's + L/2, mu >= M + l - 1, l <= l_x, b >= 0, h/2 <= l_y, and
+    Xu-Sang's l_y - l >= 11b/6 when hard."""
+    A, b = [], []
+    for g0, g1 in ((0, 0), (-1 / 12, 1 / 12), (-1, 1 / 2)):          # max(0, b/6, 2b - l_y)/2 over (l_x, l_y)
+        A.append([1 / 6 + g0, g1, -1 / 6, -1, cc / 2]); b.append(-5 / 6)
+        A.append([1 / 6 + g0 - 1 / 4, g1 - 1 / 4, -1 / 6 + (4 * sg - 1) / 8, -1, 0]); b.append(-5 / 6 - 1 / 8)
+    A += [[1, 1, 1, 0, -1], [-1, 0, 1, 0, 0], [1, -1, 0, 0, 0], [-1, -2, 1, 0, 0]]
+    b += [1.0, 0.0, 0.0, -1.0]
+    if hard:
+        A.append([-11 / 6, 5 / 6, 1, 0, 0]); b.append(0.0)
+    r = F.linprog([0, 0, 0, 1, 0], A_ub=A, b_ub=b, bounds=[(0, 1)] * 3 + [(0, 2), (0, 2)], method='highs',
+                  options=F.HIGHS)
+    return r.fun
+
+
 def main():
     c1 = SS.cross_cfg(1.0)
     base = dict(sigma=2 / 3, drop=SS.D3)
@@ -377,7 +425,8 @@ def main():
              ('A56', c1, base, A56), ('A34', c1, base, A34), ('A12', c1, base, A12), ('A18', c1, base, A18),
              ('Cap2', c1, base, Cap2), ('ell2', c1, base, ChargeEll),
              ('WHi', c1, base, WinHi), ('WLo', c1, base, WinLo), ('WMid', c1, base, WinMid), ('WW1', c1, base, WinW1),
-             ('WW2', c1, base, WinW2), ('WW3', c1, base, WinW3), ('WS', c1, base, WinS)]
+             ('WW2', c1, base, WinW2), ('WW3', c1, base, WinW3), ('WS', c1, base, WinS),
+             ('WW3A', c1, base, WinW3A)]
     z0 = 1 / 6 + 1 / 100
     for sg in (0.5, 0.6, 2 / 3, 0.75, 1.0):
         for cc in (0.01, 0.1, 0.3, 1.0):
@@ -396,6 +445,7 @@ def main():
               f'({r[3][0]:.4f}, {r[3][1]:.4f}, {r[3][2]:.4f})')
     B = {k: r[0] for k, r in res.items()}
     W = {k: r[2] for k, r in res.items()}
+    S = {k: r[4] for k, r in res.items()}
     near = lambda k, want, tol=1e-6: abs(B[k] - want) < tol
     klass = {key: kl for key, _, _, kl in jobs}
     kwargs = {key: (cfg, kw) for key, cfg, kw, _ in jobs}
@@ -433,22 +483,26 @@ def main():
     slope = [(B0 - B['WE1']) / 0.01, (B0 - B['WE2']) / 0.02]
     ok44, d44 = outside('W44', 0.44, 0.50)
     gate('H2', near('W44', 0.8748474) and near('W44b', 0.8748474) and ok44 and near('WE1', 0.8730362)
-         and near('WE2', 0.8711404) and all(0.18 <= s <= 0.19 for s in slope)
-         and all(near(k, 0.8667866) and 'floor bin' in W[k] and 'E' not in W[k] for k in ('WE45', 'WE10'))
-         and near('WDH', 0.8667866) and near('dh', 0.8667866),
+         and near('WE2', 0.8711703) and all(0.18 <= s <= 0.19 for s in slope)
+         and all(near(k, 0.8693956) and 'small delta' in W[k] and 'floor bin' not in W[k] and 'E' not in W[k]
+                 for k in ('WE45', 'WE10', 'WDH'))
+         and near('dh', 0.8667866) and 'floor bin' in W['dh'] and 'small delta' not in W['dh'],
          f'window [0.44, 0.50]: {B["W44"]:.7f} at s = 0.01, {B["W44b"]:.7f} at s = 0.05, binding bins at delta '
          f'{", ".join(f"{t:.5f}" for t in d44)}; every bin: {B["WE1"]:.7f} at 0.01, {B["WE2"]:.7f} at 0.02 (slopes '
          f'{slope[0]:.4f}, {slope[1]:.4f}), {B["WE45"]:.7f} at 0.045 and {B["WE10"]:.7f} at 0.1 (walls {W["WE45"]}); '
-         f'DH counts on the bins {B["WDH"]:.7f}, counts = dh {B["dh"]:.7f}')
+         f'DH counts on the bins {B["WDH"]:.7f}, counts = dh {B["dh"]:.7f} (walls {W["dh"]})')
     # H3: stronger moments
-    kz = (('k2.5z', 0.8715666), ('k3z', 0.8693505), ('k4z', 0.8674755), ('k5z', 0.8668665))
+    kz = (('k2.5z', 0.8715666), ('k3z', 0.8693505), ('k4z', 0.8674755))
     kh = (('k2.5', 'k2.5z', 0.8712795), ('k3', 'k3z', 0.8692279), ('k4', 'k4z', 0.8674539))
     better = {k: B[f'k{k}s'] - B[f'k{k}z'] for k in (2.5, 3, 4, 5, 5.25, 6)}
     gate('H3', all(near(k, want) and 'E' in W[k] for k, want in kz)
-         and all(near(k, 0.8667866) and 'floor bin' in W[k] and 'E' not in W[k] for k in ('k5.25z', 'k6z'))
+         and all(near(k, want) and 'small delta' in W[k] and 'E' not in W[k]
+                 for k, want in (('k5z', 0.8668677), ('k5.25z', 0.8668015)))
+         and near('k6z', 0.8667866) and 'floor bin' in W['k6z'] and 'E' not in W['k6z']
          and all(near(a, want) and 0 < B[z] - B[a] < 4e-4 for a, z, want in kh) and min(better.values()) > 1e-5,
          'vartheta = 0: ' + ', '.join(f'k = {k[1:-1]}: {B[k]:.7f} ({"E" if "E" in W[k] else "no E"})' for k, _ in kz)
-         + f', k = 5.25: {B["k5.25z"]:.7f}, k = 6: {B["k6z"]:.7f} (walls {W["k6z"]}); share vartheta/2: '
+         + f', k = 5: {B["k5z"]:.7f}, k = 5.25: {B["k5.25z"]:.7f} (walls {W["k5.25z"]}), k = 6: {B["k6z"]:.7f} '
+         f'(walls {W["k6z"]}); share vartheta/2: '
          + ', '.join(f'k = {a[1:]}: {B[a]:.7f} (below by {B[z] - B[a]:.1e})' for a, z, _ in kh)
          + '; share vartheta/k: ' + ', '.join(f'k = {k}: {B[f"k{k}s"]:.7f}' for k in better))
     # H4: beyond the first rung
@@ -502,7 +556,8 @@ def main():
     supply = ell2 / (1 - lx2 + ell2)
     over = float(np.mean(zP > supply))
     gate('H5', dev56 < 1e-15 and near('A56', 0.8748866, 2e-6) and near('A34', 0.8741816) and near('A12', 0.8714461)
-         and 'E' in W['A12'] and near('A18', 0.8667866) and 'floor bin' in W['A18'] and dev18 < 1e-6
+         and 'E' in W['A12'] and near('A18', 0.8677780) and 'small delta' in W['A18'] and 'floor bin' not in W['A18']
+         and dev18 < 1e-6
          and near('Cap2', 0.8733798) and c2 > 6 / 13 and 0.10 < over < 0.16 and zP6.max() < 1 / 5 and par < 1e-12,
          f'slope 5/6 reproduces the count (deviation {dev56:.1e}) and {B["A56"]:.7f}; 3/4: {B["A34"]:.7f}; 1/2: '
          f'{B["A12"]:.7f} (walls {W["A12"]}); 1/8: {B["A18"]:.7f} (walls {W["A18"]}), count minus (1 - delta) '
@@ -529,10 +584,12 @@ def main():
     # H7: density-hypothesis counts on windows of delta only
     edge = [(k, kl.WIN, outside(k, *kl.WIN)) for k, kl in (('WMid', WinMid), ('WW1', WinW1), ('WW2', WinW2))]
     gate('H7', near('WHi', B0, 2e-6) and near('WLo', B0, 2e-6) and near('WMid', 0.8746407) and near('WW1', 0.8735094)
-         and near('WW2', 0.8712876) and near('WW3', 0.8706204) and all(e[2][0] for e in edge)
+         and near('WW2', 0.8712876) and near('WW3', 0.8714881) and near('WW3A', 0.8714946)
+         and 'small delta' in W['WW3'] and all(e[2][0] for e in edge)
          and abs(B['WS'] - B['WMid']) < 1e-6 and all(B[k] > 0.8667866 + 1e-3 for k in ('WMid', 'WW1', 'WW2', 'WW3')),
          f'DH counts on delta in [4/7, 5/6]: {B["WHi"]:.7f}, [1/8, 0.45]: {B["WLo"]:.7f}; [0.40, 0.55]: '
-         f'{B["WMid"]:.7f}, [0.30, 0.65]: {B["WW1"]:.7f}, [0.20, 0.75]: {B["WW2"]:.7f}, [1/8, 0.70]: {B["WW3"]:.7f}; '
+         f'{B["WMid"]:.7f}, [0.30, 0.65]: {B["WW1"]:.7f}, [0.20, 0.75]: {B["WW2"]:.7f}, [1/8, 0.70]: between '
+         f'{B["WW3"]:.7f} and {B["WW3A"]:.7f} (walls {W["WW3"]}); '
          f'binding bins ' + '; '.join(f'{wn}: delta {", ".join(f"{t:.5f}" for t in e[1])}' for _, wn, e in edge)
          + f'; U^0.05 on [0.40, 0.55]: {B["WS"]:.7f}')
     # H8: the T1-T3 trade-off with T2 strong
@@ -546,6 +603,17 @@ def main():
     slack = not any({'E', 'floor bin', 'small delta'} & set(W[k]) for k in t13 + t13r)
     cert, ncert = law_certificates()
     rc_ok, rc_gap, rc_at = rotated_cross()
+    rl_ok, rl_gap = True, []
+    for sg in (1 / 2, 2 / 3, 3 / 4, 0.8, 1.0):
+        for cc in (0.01, 1 / 12, 0.1, 0.2, 1.0):
+            soft, hard = rotated_lp(sg, cc, False), rotated_lp(sg, cc, True)
+            bound = 5 / 6 + min(cc / 4, 1 / 48)
+            rl_ok = rl_ok and soft >= bound - 1e-9 and hard >= soft - 1e-9
+            if sg <= 3 / 4:
+                rl_ok = rl_ok and abs(soft - bound) < 1e-9 and abs(hard - 5 / 6 - min(cc / 4, 4 / 147)) < 1e-9
+            if sg == 1.0:
+                rl_gap.append(soft - bound)
+    rl_ok = rl_ok and min(rl_gap) > 6e-3
     exact = True
     for sg in (Fr(3, 5), Fr(2, 3), Fr(3, 4), Fr(1)):
         for cc in (Fr(1, 100), Fr(1, 10), Fr(3, 10)):
@@ -553,14 +621,23 @@ def main():
             cross, loss = cc * (3 * tt - 1) / 2, (1 - (5 - 4 * sg) * tt) / 8
             exact = exact and cross == loss == cc * (2 * sg - 1) / (12 * cc + 5 - 4 * sg) and 3 * tt > 1
     gate('H8', len(t13) == 20 and len(t13r) == 12 and dev8 < 1e-6 and dev8r < 1e-6 and diag and hard and slack
-         and exact and cert and ncert == 20 and rc_ok and rc_at,
+         and exact and cert and ncert == 20 and rc_ok and rc_at and rl_ok,
          f'unrotated, DH counts, U^0.2 on every bin: the program matches 5/6 + (2 sigma - 1)_+ min(1/(6(4 sigma + 1)), '
          f'c/(12c + 5 - 4 sigma)) within {dev8:.1e} at {len(t13)} points (sigma in 1/2..1, c in 0.01..1); with the '
          f'rotation, 5/6 + c/4 within {dev8r:.1e} at {len(t13r)} runs (third term soft and hard), at (1/2, 1/2, 1/2): '
          f'{diag}, hard third among the walls exactly when kept: {hard}; no bin among the walls: {slack}; on the '
          f'diagonal the two branches meet exactly: {exact}; primal vertex and dual certificate at {ncert} rational '
          f'(sigma, c): {cert}; rotated, 5/6 + min(c/4, 1/48) at 4000 points: {rc_ok} (least gap {float(rc_gap):.2e}), '
-         f'attained at (1/2, 1/2, 1/2) or (1/4, 1/2, 1/4): {rc_at}')
+         f'attained at (1/2, 1/2, 1/2) or (1/4, 1/2, 1/4): {rc_at}; least rotated low side by linear programming at 25 '
+         f'(sigma, c): the bound, equal for sigma <= 3/4 with the third term soft, 5/6 + min(c/4, 4/147) there with it '
+         f'hard, above the bound by at least {min(rl_gap):.4f} at sigma = 1: {rl_ok}')
+    # H9: the small bins at every reported optimum
+    viol = sorted(str(k) for k in S if S[k] > 1e-9 and k != 'WW3')
+    gate('H9', not viol and 0 < S['WW3'] < 1e-5 and S['WW3A'] <= 1e-9 and 0 < B['WW3A'] - B['WW3'] < 1e-5
+         and all(S[f'k{k}s'] < 0 for k in (2.5, 3, 4, 5, 5.25, 6)),
+         f'{len(S)} optima; largest small-bin endpoint {max(v for k, v in S.items() if k != "WW3"):.1e} outside WW3; '
+         f'WW3 (relaxation) {S["WW3"]:.1e}, WW3A {S["WW3A"]:.1e}; ShareK (not enforced): largest '
+         f'{max(S[f"k{k}s"] for k in (2.5, 3, 4, 5, 5.25, 6)):.1e}; violations: {viol}')
     if FAILS:
         print('FAILED:', ', '.join(FAILS))
         sys.exit(1)

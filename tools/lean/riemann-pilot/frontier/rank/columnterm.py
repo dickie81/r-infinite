@@ -129,7 +129,7 @@ def trilinear(d, L, seed):
     rng = np.random.default_rng(seed)
     out = {'random': ratio(np.exp(2j * np.pi * rng.random(len(ns)))), 'conj g3': ratio(np.conj(d['g3'])),
            'conj g3 alpha': ratio(np.conj(d['g3']) * d['alpha'])}
-    out['row-aligned'] = ratio(X[nr // 2].astype(complex))               # (n/k0)_2: N2's column term
+    out['row-aligned'] = ratio(X[nr // 2].astype(complex))     # (n/k0)_2: attains the column term of N2's statistic
     out['aligned'] = ratio(X[nr // 2] * np.conj(Y[nmod // 2]))        # (n/k0)_2 (n/P0)_3
     b = X[nr // 2]
     q_row = float(np.sum(np.abs(X @ b) ** 2) / (nr * np.sum(b ** 2)))   # its N2 statistic Q at these sizes

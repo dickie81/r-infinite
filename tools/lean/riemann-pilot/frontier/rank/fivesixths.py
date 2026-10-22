@@ -38,8 +38,11 @@ Gates (exit status 1 if any fails):
       E = O/2 + H + z_a exactly; with the powerful part O forced to 0 it is M' + 1/9, at a dyad with v = 0 again
   F4  the exponent system (offslice.OffSlice with round 500's first-branch crossing, Xu-Sang's admissibility and
       round 498's readings), with sigma, a uniform row-sum saving U^eta = Z^{eta h} in every bin (the floor bin and
-      the small bins included), no numerator rotation (vartheta = 0, and with it Xu-Sang's h < 2 l_y, imposed for the
-      rotation only), the third Gram term carried in the low side's max, and the small rows' z-line z0:
+      the small bins included), no numerator rotation (vartheta = 0 in the bins delta >= 1/8, and with it Xu-Sang's
+      h < 2 l_y, imposed for the rotation only; the small bins keep Sang's vartheta, since offslice's small_max does
+      not read lam), the third Gram term carried in the low side's max, and the small rows' z-line z0.  The small
+      bins delta < 1/8, which the program does not enforce, are slack (exact small_max < 0) at every optimum of F4
+      and F5:
         (i)   sigma = 1, eta = 0 with the rotation reproduces round 498's 'everything' (0.8613056) and 'Lindelof + all
               readings' (0.8667866) to 2e-6
         (ii)  sigma = 2/3, eta = 0.13, DH counts and Lindelof: 28/33 (1e-6)
@@ -213,7 +216,7 @@ def solve(args):
         prog = Five(kap, **cfg, **kw)
         sol = prog.solve()
         if sol is not None and (best is None or sol['v'][3] < best[0] - 1e-12):
-            best = (sol['v'][3], kap, tuple(sol['v'][:3]), prog.walls(sol))
+            best = (sol['v'][3], kap, tuple(sol['v'][:3]), prog.walls(sol), float(sol['small']))
     return args, best
 
 
@@ -306,11 +309,13 @@ def main():
               f' B = {r[0]:.7f} kappa {r[1]:.4f} (l_x, l_y, ell) = ({r[2][0]:.4f}, {r[2][1]:.4f}, {r[2][2]:.4f})'
               f' walls {r[3]}')
     near = lambda g: max(abs(t - 1 / 3) for t in g) < 1e-3
-    ok4 = (abs(B[0] - 0.8613056) < 2e-6 and abs(B[1] - 0.8667866) < 2e-6 and abs(B[2] - 28 / 33) < 1e-6
+    small4 = max(r[1][4] for r in res)
+    ok4 = (small4 < 0 and abs(B[0] - 0.8613056) < 2e-6 and abs(B[1] - 0.8667866) < 2e-6 and abs(B[2] - 28 / 33) < 1e-6
            and abs(B[3] - 5 / 6) < 2e-7 and abs(B[4] - 5 / 6) < 2e-7 and near(geo[3]) and near(geo[4])
            and abs(B[5] - 0.835) < 1e-6 and B[6] > 5 / 6 + 1e-3 and abs(B[7] - 13 / 15) < 1e-6)
     gate('F4', ok4, f'(i) {B[0]:.7f}, {B[1]:.7f}; (ii) {B[2]:.7f} (28/33 = {28/33:.7f}); (iii) {B[3]:.9f}, '
-         f'{B[4]:.9f}; (iv) {B[5]:.7f}; (v) {B[6]:.7f}; (vi) {B[7]:.7f}')
+         f'{B[4]:.9f}; (iv) {B[5]:.7f}; (v) {B[6]:.7f}; (vi) {B[7]:.7f}; small bins at every optimum of F4 and F5: '
+         f'largest endpoint {small4:.1e}')
     v3 = Fr(1, 3)
     c0 = Fr(4, 3) - 5 * v3 / 6 - v3 / 2 + v3 / 3
     ok5 = (c0 == 1 and 1 - v3 + v3 == 1 and abs(B[8] - 5 / 6) < 2e-7 and B[9] > 5 / 6 + 1e-6

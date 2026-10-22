@@ -22,7 +22,7 @@ Side-branch note, 2026-10-22, on branch `claude/latest-commit-branch-ik1pj3`. It
    - a uniform row-sum saving `U^η` on every bin.
 
    With all of these, the boundary is `5/6`, at the vertex `l_x = l_y = ℓ = 1/3`, provided `σ ≤ 1/2` and `η ≥ 0.168`; Xu–Sang's own counts and fourth moment need `η ≥ 0.178`. At `σ = 2/3` the same system gives `28/33`.
-6. **What is missing.** Two estimates, neither in the sources read here *(section 8: with round 500's crossing cost; a cheaper crossing of the slice is a third route)*:
+6. **What is missing.** Two estimates, neither in the sources read here *(section 8: with round 500's crossing cost; a cheaper crossing of the slice is a third route)* *(section 15: only a free crossing, `c = 0`; a partial one does not reach `5/6` without `σ ≤ 1/2`, H8)*:
    - ~~the release's trivial-dual slot sums with `σ ≤ 1/2`, that is, angle-twisted cubic Gauss sums over primes below `X^{3/4}`;~~ *(struck in section 7: such sums, at square-root size in every column, give only `σ = 5/8` and `71/84`; `σ ≤ 1/2` needs a square-root cubic large sieve `N + (NL)^{1/2}` for the slot coefficients;)* *(Section 9: "at square-root size" is wrong there. The `5/8` row is squared slot sums `≪ L^{1/2}` in every column, that is slot sums `≪ L^{1/4}` (before the `1/√q_P` normalization, `≪ L^{3/4}`); square-root cancellation in every column gives `5/6`. And `σ = 1/2` also follows from the weaker `N + N^{3/4}L^{1/2}`.)*
    - a saving `U^{1/6}` on the high side's sums over the Poisson rows near `a = 1/2`, where the C₀ wall sits.
 
@@ -46,12 +46,17 @@ Side-branch note, 2026-10-22, on branch `claude/latest-commit-branch-ik1pj3`. It
    - The review's other findings are swept (9.4). The goal is still not reached.
    - A second, convergence round of the review returned no major finding, four minor and eight cosmetic ones, all swept (9.7).
 10. **A horizon hit (section 10).** OpenAI's "An unconditional first moment for cubic Gauss sums" (September 25), cited but not used by the release, proves Patterson's first moment and its fixed angular twists without GRH. For the slot coefficients it bears on the trivial dual, which does not move `σ`. Its power-saving Proposition `prop:dual` for prime convolutions is recorded as a T1 attack note. *(9.7: it bears on T1 more directly. Its Proposition `prop:dispersion` has T1's shape, for `L ≤ N ≤ L^{2.125}`, and saves only a power of `log X` after its theta correction; section 10.)*
-11. **The high side's first rung (section 11, gates H1–H6 of `highside.py`; H7 added in section 13).** In the release-level configuration the binding bins lie at `x = 1/2`, `δ ≈ 0.47`. A uniform saving `U^η` on the bins `δ ≥ 1/8` moves the boundary by about `0.185η`, down to `0.8667866` at `η = 0.045`, where the floor bin binds. Density-hypothesis counts there, a `2k`-th moment with `k = 6`, or Lemma 17.6's slope lowered to `1/8` reach the same value. ~~From there `13/15` is a step of `1.2·10⁻⁴`, and at `13/15` the rotation's condition binds (round 498).~~ *(Struck in section 13, false as written at `σ = 2/3`: savings on every bin, the floor bin included, continue below `13/15` with Sang's rotation kept, down to `41/48`, the rotation's own floor. `13/15` stops only a saving confined to the floor and small bins, and the release's `σ = 1`.)* *(Section 14: `41/48` is that floor under the program's soft third; with Xu–Sang's `l_y − ℓ > 11b/6` kept it is `253/294`.)* ~~T3's pointwise route has effective crossing cost `0.83`, against a break-even below `0.165`.~~ *(Struck in section 13: the ratio `0.83` belongs to one dyad, and is `1/7` at another. T3's pointwise route charges the low side at least `min(μ, ℓ)/2`, and the program charging `ℓ/2` gives `0.9487180`, so the route leaves the boundary at `0.8748866`.)* The goal is still not reached.
+11. **The high side's first rung (section 11, gates H1–H6 of `highside.py`; H7 added in section 13).** In the release-level configuration the binding bins lie at `x = 1/2`, `δ ≈ 0.47`. A uniform saving `U^η` on the bins `δ ≥ 1/8` moves the boundary by about `0.185η`~~, down to `0.8667866` at `η = 0.045`, where the floor bin binds. Density-hypothesis counts there, a `2k`-th moment with `k = 6`, or Lemma 17.6's slope lowered to `1/8` reach the same value~~. *(Section 15, false as written: the program did not enforce the small bins `δ < 1/8`, and those optima violated them. With them enforced, such savings, and density-hypothesis counts on those bins, stop at `0.8693956`, where the small bins bind, and Lemma 17.6's slope at `1/8` stops at `0.8677780`. Counts that cover the small bins as well, round 498's `counts='dh'`, and the `2k`-th moment with `k = 6` reach the first rung `0.8667866`.)* ~~From there `13/15` is a step of `1.2·10⁻⁴`, and at `13/15` the rotation's condition binds (round 498).~~ *(Struck in section 13, false as written at `σ = 2/3`: savings on every bin, the floor bin included, continue below `13/15` with Sang's rotation kept, down to `41/48`, the rotation's own floor. `13/15` stops only a saving confined to the floor and small bins, and the release's `σ = 1`.)* *(Section 14: `41/48` is that floor under the program's soft third; with Xu–Sang's `l_y − ℓ > 11b/6` kept it is `253/294`.)* ~~T3's pointwise route has effective crossing cost `0.83`, against a break-even below `0.165`.~~ *(Struck in section 13: the ratio `0.83` belongs to one dyad, and is `1/7` at another. T3's pointwise route charges the low side at least `min(μ, ℓ)/2`, and the program charging `ℓ/2` gives `0.9487180`, so the route leaves the boundary at `0.8748866`.)* The goal is still not reached.
 12. **Horizon refresh (section 12).** Nothing new reaches `5/6`. A Lindelöf-on-average lemma for the cubic Kubota series (David, de Faveri, Dunn and Stucky) ~~would give T1 for smooth slots~~ *(section 13: gives `σ = 2/3` for smooth untwisted slots, and T1 for smooth angle-twisted slots only if the pole at `4/3` vanishes under the twist and the lemma extends to it, neither checked here)*; on that reading the obstruction is the prime support of the release's slots.
 13. **The third review round (section 13).** One major finding: at `σ = 2/3`, `13/15` is not an obstruction after the first rung. With savings on every bin and density-hypothesis counts, the boundary goes to `41/48` with Sang's rotation kept, which is that rotation's exact floor, and to `28/33` without it. *(Section 14: `41/48` is that floor under the program's soft third, round 499's reading that drops Xu–Sang's `l_y − ℓ > 11b/6`; with that condition kept the floor is `253/294`.)* Five minor findings and seven cosmetic ones are also swept. Two gates are added: H7, on where density-hypothesis counts would have to hold, and N6, on two-prime slots. The goal is still not reached.
 14. **The fourth review round and the T1–T3 trade-off (section 14, gate H8).**
     - The review found no major defect; its three minor and eight cosmetic findings are swept. The rotation's floor `41/48` holds under the program's soft third; with Xu–Sang's `l_y − ℓ > 11b/6` kept it is `253/294` (H4 (iv)). N1's 7827 primes included 31 inert ones, and at each `P0` one of N6's windows included one; both gates now run over split primes only.
-    - With T2 strong and no rotation, the boundary is the low side's least value, `5/6 + (2σ − 1)₊ min(1/(6(4σ + 1)), c/(12c + 5 − 4σ))` (H8). So `5/6` needs `σ ≤ 1/2` or `c = 0`: a partial T1 and a partial T3 do not combine to reach it. With the rotation kept the floor is `5/6 + min(c/4, 1/48)` at every `σ`.
+    - With T2 strong and no rotation, the boundary is the low side's least value, `5/6 + (2σ − 1)₊ min(1/(6(4σ + 1)), c/(12c + 5 − 4σ))` (H8). So `5/6` needs `σ ≤ 1/2` or `c = 0`: a partial T1 and a partial T3 do not combine to reach it. ~~With the rotation kept the floor is `5/6 + min(c/4, 1/48)` at every `σ`.~~ *(Section 15, false as written: with the rotation kept the low side is at least `5/6 + min(c/4, 1/48)` at every `σ`, and equals it only for `σ ≤ 3/4` under the soft third. With Xu–Sang's `l_y − ℓ > 11b/6` kept its least value there is `5/6 + min(c/4, 4/147)`, and for `σ > 3/4` it is higher. So `5/6` still needs `c = 0`.)*
+    - The goal is still not reached.
+15. **The fifth review round (section 15, gate H9).**
+    - One major finding: the side branch's program never enforced the small bins `δ < 1/8`, and at eight optima they were violated. With them enforced, relief confined to the bins `δ ≥ 1/8` stops at `0.8693956`, and Lemma 17.6's slope at `1/8` at `0.8677780`. T2's first rung `0.8667866` needs relief on the small bins too (round 498's counts cover them), or `k = 6`.
+    - One minor finding: the rotated bound `5/6 + min(c/4, 1/48)` holds at every `σ`, but is the least value only for `σ ≤ 3/4` under the soft third. Seven cosmetic findings are also swept.
+    - The lead struck section 8's "combinations of partial inputs" as a route to `5/6`.
     - The goal is still not reached.
 
 ## 0. Horizon scan, 2026-10-22
@@ -138,7 +143,7 @@ So the release's low side reaches its floor only with `σ ≤ 1/2`. ~~That means
 - dropped rows.
 
 **The readings it needs.** Each is a reading of the cited text, in the sense of round 498, not a re-derivation.
-- **No rotation.** Xu–Sang impose `h < 2l_y` for the rotated numerator: "The next section therefore imposes `\(h<2l_y\)`: at the critical row scale `\(d=h\)`, the averaged numerator then improves the complete high-side estimate, not just one factor." Their admissibility list files it under "`\emph{Prime supply and numerator amplification.}`". With `ϑ = 0`, the factor "`\(Z^{\vartheta(d/2-l_y)}\)`" is `1`, and the condition does nothing. Round 507 found that on Sang's slice, from `k = 5/2` on, "the best numerator line is `Re w = 1/2`, unamplified".
+- **No rotation.** Xu–Sang impose `h < 2l_y` for the rotated numerator: "The next section therefore imposes `\(h<2l_y\)`: at the critical row scale `\(d=h\)`, the averaged numerator then improves the complete high-side estimate, not just one factor." Their admissibility list files it under "`\emph{Prime supply and numerator amplification.}`". With `ϑ = 0`, the factor "`\(Z^{\vartheta(d/2-l_y)}\)`" is `1`, and the condition does nothing. *(Section 15: in the program `ϑ = 0` holds in the bins `δ ≥ 1/8`; the small bins keep Sang's `ϑ`, since `offslice`'s `small_max` does not read `lam`. They are slack at every optimum of F4 and F5, now gated.)* Round 507 found that on Sang's slice, from `k = 5/2` on, "the best numerator line is `Re w = 1/2`, unamplified".
 - **The third Gram term soft**: round 499's S3. The condition's one use is "and hence `$P_a^2/Y'\ll P_a^{1/6}$`".
 - **The small rows' `z`-line.** Xu–Sang: "For rows below `\(Z^{d_{\min}}\)`, including the nonprincipal unit rows, the absolute numerator bound and full correction give exponent at most `\(C_b(\beta_*)+h(z_0-1/6)-l_y/2+2d_{\min}\)`", with "`\(z_0=17/50\)`". The release's line for these rows is "`x_r=\beta_*+e,\qquad w_r=1/2,\qquad z_r=17/50,`". Its proof uses four exponents off `u`, "`Q^{-x_r}+Q^{-6z_r} +Q^{4-5x_r-6z_r}+Q^{1-w_r-6z_r}`", the boundary terms on `u`, and the first Euler region's normal convergence. **Gate F6** checks every one of these at `x_r = 5/6`, `w_r = 1/2`, `z_r = 1/6 + 1/100`; the line stays right of `ζ_F(6z)`'s pole at `1/6`.
 - Round 498's five readings, `ℓ ≥ 1/6` dropped (rounds 501–502), and Sang's `ℓ ≤ 1/5` replaced by the second branch at `σ`. **Gate F6** also checks that at the vertex the rescaled tuples' exponent `−d + L_σ(d)/2` is at most `0`, so the low side is still taken at `d = 0`.
@@ -372,10 +377,10 @@ The optimum found is `t = 0.5572`, with `M + ℓ = 1.67`; the bins `E` bind as w
 - Attack note: a corrected quadratic large sieve, in the sense of Dunn–Radziwiłł's eq. (1.13), for the reflection's metaplectic coefficients twisted by the slot sums.
 - Signals (Check 9(c)): auxiliary, like T1.
 
-**Outcome.** The goal is still not reached. The routes to `5/6` in the model are now three:
+**Outcome.** The goal is still not reached. The routes to `5/6` in the model are now ~~three~~ two *(section 15)*:
 - T1 and T2 at the vertex `(1/3, 1/3, 1/3)` (sections 4 and 7);
 - T3 alone across the slice, with the slot-split bound (this section);
-- combinations of partial inputs. For example, `c = 0.05` with a row saving `U^{1/20}` gives `0.8442662` (a session run of S6's program without rotation, with the small rows' line at `1/6 + 1/100`).
+- ~~combinations of partial inputs. For example, `c = 0.05` with a row saving `U^{1/20}` gives `0.8442662` (a session run of S6's program without rotation, with the small rows' line at `1/6 + 1/100`).~~ *(Section 15, false as written as a route to `5/6`: by H8 a partial T1 and a partial T3 leave the low side above `5/6` whatever T2 supplies, and with the rotation kept so does every `c > 0`. The example's `0.8442662` is above `5/6`.)*
 
 Each needs a bound that beats a large sieve that is sharp for general coefficients.
 
@@ -512,7 +517,7 @@ The goal `Re s > 5/6` is still not reached, and no new zero-free region is prove
 - the finding that Dunn and Radziwiłł's corrected sieve, as stated, ~~needs input of GRH strength here~~ does not apply here: for the slot coefficients its axiom either fails outright or asks for a zero-free region `Re s > 1/2 + η` for a fixed `L`-function of the release's family (9.7);
 - the review's corrections.
 
-Section 8's routes stand: T1 and T2 at the vertex, T3 alone across the slice for `t ≥ t*`, `t* ∈ (0.557239, 0.557240)`, and combinations of partial inputs.
+Section 8's routes stand: T1 and T2 at the vertex, T3 alone across the slice for `t ≥ t*`, `t* ∈ (0.557239, 0.557240)`~~, and combinations of partial inputs~~ *(section 15: struck, false as written; H8)*.
 
 Reproduce, from this directory:
 
@@ -588,17 +593,17 @@ At the optimum, the bins within `10⁻⁷` of their endpoint lie at `x = 1/2`, t
 
 **Relief on the bins `δ ≥ 1/8` (H2).**
 - A saving `U^η` confined to `δ ∈ [0.44, 0.50]` moves the boundary only to `0.8748474`, at `η = 0.01` and `0.05` alike. Neighbouring bins take over. *(Section 13: now gated in H2. The binding bins move to `δ = 0.43997` and `0.50042`, the grid points just outside the window.)*
-- On every bin `δ ≥ 1/8`, the boundary is `0.8730362` at `η = 0.01` and `0.8711404` at `0.02`, slopes of `0.185` and `0.187`. In this model, small uniform savings on those bins move the boundary in proportion. It saturates at `0.8667866` at `η = 0.045`, where the floor bin binds instead.
-- Density-hypothesis counts on those bins give the same `0.8667866`, as does round 498's `counts='dh'` configuration.
+- On every bin `δ ≥ 1/8`, the boundary is `0.8730362` at `η = 0.01` and ~~`0.8711404`~~ `0.8711703` at `0.02`, slopes of `0.185` and ~~`0.187`~~ `0.186`. In this model, small uniform savings on those bins move the boundary in proportion. ~~It saturates at `0.8667866` at `η = 0.045`, where the floor bin binds instead.~~ *(Section 15, false as written: those optima violated the small bins `δ < 1/8`, which the program did not enforce. Enforced, the boundary saturates at `0.8693956`, at `η = 0.045` and `0.1` alike, where the small bins bind.)*
+- ~~Density-hypothesis counts on those bins give the same `0.8667866`, as does round 498's `counts='dh'` configuration.~~ *(Section 15, false as written for the counts on those bins alone: with the small bins enforced they give `0.8693956`, the small bins binding. Round 498's `counts='dh'`, which covers the small bins too, gives `0.8667866`.)*
 
-**Stronger moments (H3).** The bins' numerator is bounded by Hölder with a `2k`-th moment over the rows. Xu–Sang's fourth moment is `k = 2`. ~~With `k = 5/2`, `3`, `4` and `6` the boundary is `0.8712795`, `0.8692279`, `0.8674539` and `0.8667866`. The bins `E` bind below `k = 6`, and the floor bin at `k = 6`.~~ *(Struck in section 13. The struck values keep the amplifier's share `ϑ/2` for every `k`, which README round 507 replaced beyond the fourth moment by `ϑ/k`; of its two capacity-consistent levers, `ϑ = 0` is the better at every `k` computed. With it the boundary is `0.8715666`, `0.8693505`, `0.8674755` and `0.8668665` at `k = 5/2`, `3`, `4` and `5`, with the bins `E` binding, and `0.8667866` at `k = 5.25` and `6`, with the floor bin. So "below `k = 6`" was false on `[5.25, 6)`.)* *(Section 14: the comparison is now computed and gated in H3. Sang's `ϑ` at the share `ϑ/k`, in the bins and the small bins, gives `0.8721821`, `0.8704994`, `0.8687802`, `0.8679805`, `0.8678488` and `0.8675489` at those six `k`. `ϑ = 0` now holds in the small bins too, which moves none of the gated values.)* As in rounds 497–499, the moment enters the model only through the weight `w = 1 − 1/(2k)` *(and, from section 13, with `ϑ = 0` beyond `k = 2`)*. README round 508 found that the release's method, as written, does not give a sixth moment at Sang's longest blocks.
+**Stronger moments (H3).** The bins' numerator is bounded by Hölder with a `2k`-th moment over the rows. Xu–Sang's fourth moment is `k = 2`. ~~With `k = 5/2`, `3`, `4` and `6` the boundary is `0.8712795`, `0.8692279`, `0.8674539` and `0.8667866`. The bins `E` bind below `k = 6`, and the floor bin at `k = 6`.~~ *(Struck in section 13. The struck values keep the amplifier's share `ϑ/2` for every `k`, which README round 507 replaced beyond the fourth moment by `ϑ/k`; of its two capacity-consistent levers, `ϑ = 0` is the better at every `k` computed. With it the boundary is `0.8715666`, `0.8693505`, `0.8674755` and `0.8668665` at `k = 5/2`, `3`, `4` and `5`, with the bins `E` binding, and ~~`0.8667866` at `k = 5.25` and `6`, with the floor bin~~ (section 15: `0.8668015` at `k = 5.25`, the small bins binding, once they are enforced, and `0.8667866` at `6`, with the floor bin). So "below `k = 6`" was false on `[5.25, 6)`.)* *(Section 14: the comparison is now computed and gated in H3. Sang's `ϑ` at the share `ϑ/k`, in the bins and the small bins, gives `0.8721821`, `0.8704994`, `0.8687802`, `0.8679805`, `0.8678488` and `0.8675489` at those six `k`. `ϑ = 0` now holds in the small bins too, which moves none of the gated values.)* *(Section 15: none of them as the program then solved them, without the small bins. With the small bins enforced, the `k = 5` optimum, which they then violated, moves to `0.8668677`, with the small bins binding and not `E`.)* As in rounds 497–499, the moment enters the model only through the weight `w = 1 − 1/(2k)` *(and, from section 13, with `ϑ = 0` beyond `k = 2`)*. README round 508 found that the release's method, as written, does not give a sixth moment at Sang's longest blocks.
 
 **The next rung (H4).** With density-hypothesis counts and a saving `U^{0.001}` on the floor bin and the small bins, the boundary is `13/15` at `(2/5, 2/5, 1/5)`. `U^{0.0005}` gives `0.8667067`, with the floor bin still binding. At `13/15` the bins `E` bind together with Sang's rotation condition `h/2 < l_y`~~: round 498's obstruction~~. `σ = 1/2` changes nothing. ~~This rung is a step of only `1.2·10⁻⁴`, so after the first rung the obstruction is `13/15` itself.~~ *(Struck in section 13, false as written. Round 498's obstruction is another mechanism: the low side meets the floor bin at `ℓ = 1/5`, under Sang's range `ℓ ≤ 1/5`. And `13/15` stops only this construction, which leaves the bins `E` unsaved. With a saving on every bin, at `σ = 2/3` and with the rotation kept, the boundary goes below `13/15`, down to `41/48`, the rotation's exact floor. At the release's `σ = 1` it stays at `13/15` (H4, section 13).)* *(Section 14: exact under the program's soft third; with Xu–Sang's `l_y − ℓ > 11b/6` kept, `253/294`, H4 (iv).)*
 
 **Where the counts come from (H5).** Xu–Sang's Proposition `prop:row-count` (arXiv 2610.15291v2, read in its source, lines 936–1078) bounds a row class by `U^{R_κ(δ,x)+ε}`. On their account, "`The exponent \(R_\kappa\) results from balancing the short simultaneous-witness estimate with the long inverse-witness estimate.`" (lines 917–919).
 - The long witness uses "`The sixth-power amplification \cite[Lemma~17.6]{OAI26}`", with "`e(r)=\max\{1,(1+5r)/6\}`" (lines 451–456). Its slope `α = 5/6` enters `R_long(t) = 1 − δ + (α − δ)(t − 1)`.
 - The short witnesses use the release's marked inverse moment, with capacity "`r+2z<1,\qquad 2r+8z<3.`" (line 445), and its plain fourth moment, with "`m_1+m_2+6\kappa z\le1,`" (line 473).
-- Gate H5 recomputes the count with a slope `α′` in place of `5/6`, the long branch taken as `(α′ − δ)₊`. At `5/6` it reproduces the model's count and `0.8748866`. At `α′ = 3/4` the boundary is `0.8741816`, and at `1/2` it is `0.8714461`, with `E` binding. At `1/8` it is `0.8667866`, the first rung, with the floor bin binding: the count is then `1 − δ` on every bin `δ ≥ 1/8`.
+- Gate H5 recomputes the count with a slope `α′` in place of `5/6`, the long branch taken as `(α′ − δ)₊`. At `5/6` it reproduces the model's count and `0.8748866`. At `α′ = 3/4` the boundary is `0.8741816`, and at `1/2` it is `0.8714461`, with `E` binding. At `1/8` it is ~~`0.8667866`, the first rung, with the floor bin binding~~ `0.8677780`, with the small bins binding *(section 15: the struck value violated the small bins, which the program did not enforce)*: the count is then `1 − δ` on every bin `δ ≥ 1/8`, and above it on the small bins, where the long branch `1/8 − δ` is positive.
 - ~~The plain moment's prime capacity matters little in this count. With the constant `6` of `m₁ + m₂ + 6κz ≤ 1` replaced by `2`, the boundary is `0.8733798`.~~ *(Struck in section 13. The struck value `0.8733798` applies Xu–Sang's closed form at `c = 1/κ ≈ 1.34`, outside the range `c ≤ 6/13` of their balance. It also ignores the prime supply, which the plain selection then exceeds on 13% of the bins. The supply can only raise the count, and with the constant `6` the selections stay below the supply `1/5` that Xu–Sang's count assumes. So through the count, the constant `2` moves the boundary by at most ~~`0.0015`~~ `0.0015068` (section 14): `0.8733798 ≤ B ≤ 0.8748866` (H5). The capacity also enters the numerator's amplifier `ϑ = q/(6κ)` and the short gate, which H5 leaves unchanged.)*
 - The algebra behind these: the count's excess over `1 − δ` is half of a parallel combination `ab/(a + b)` of the long branch `a = α − δ` and the short branch `b = δP_κ/D_κ` (H5 checks the identity at every bin of the grid `δ ≥ 1/8`, at the bootstrap's `κ`). So the count reaches density-hypothesis strength on a bin only where one of the two branches vanishes there. At `α′ = 1/8` the long branch vanishes on every bin `δ ≥ 1/8`.
 
@@ -618,7 +623,7 @@ Xu–Sang's count there (`x = 1/2`, `κ = 0.7498`) is `0.5897`, and density-hypo
 The release's own Lemma `lem:inverse-amplification` (paper.tex lines 12362–12460), read for this section, gets its slope by embedding the rows `u` into the complete family through `u ↦ ua⁶`: "`The map \((u,a)\mapsto ua^6\) is injective on these pairs.`" (lines 12437–12438). Its bound `H/P = U^{1/6}H^{5/6}` already improves on the sextic large sieve's `U^{1/3}D^{5/6}` term by `U^{1/6}`. Within the lemma's method the slope is fixed: the amplifier's length `P = (H/U)^{1/6}` is set by the raw moment's range `H ≥ D^{1+c}`. On this reading a smaller slope would need a new estimate for the Möbius polynomials over this family, such as the raw moment below that range, not a different choice of `P`.
 
 **T2, restated in two rungs** *(section 13: the second struck; what lies beyond the first rung is in section 13)*.
-- First rung, to `0.8667866`. In the model each of these reaches it: density-hypothesis counts on the bins `δ ≥ 1/8` (H2), a `2k`-th moment with `k = 6` (H3), a uniform saving `U^{0.045}` there (H2), or Lemma 17.6's slope at `1/8` (H5). Through the count, it is reached when one of the count's two branches vanishes on every bin `δ ≥ 1/8`.
+- First rung, to `0.8667866`. In the model each of these reaches it: ~~density-hypothesis counts on the bins `δ ≥ 1/8` (H2),~~ a `2k`-th moment with `k = 6` (H3)~~, a uniform saving `U^{0.045}` there (H2), or Lemma 17.6's slope at `1/8` (H5). Through the count, it is reached when one of the count's two branches vanishes on every bin `δ ≥ 1/8`~~. *(Section 15: the struck routes stop short once the small bins `δ < 1/8` are enforced: savings or density-hypothesis counts confined to `δ ≥ 1/8` at `0.8693956`, and Lemma 17.6's slope at `1/8` at `0.8677780`, with the small bins binding. Density-hypothesis counts on every bin, the small bins included (round 498's `counts='dh'`, H2), reach the first rung too. Through the count, the small bins need relief as well.)*
 - ~~Second rung, to `13/15`, a step of `1.2·10⁻⁴`: a saving `U^{0.001}` among the floor bin's generic rows. Below `13/15` the rotation's condition binds (round 498).~~ *(Struck in section 13. Beyond the first rung, with density-hypothesis counts and a saving on every bin, the floor bin's generic rows included, the boundary is `0.8657615`, `0.8548781` and `41/48` at `η = 0.01`, `0.1` and `0.3`, with Sang's rotation kept (H4). `41/48` is the rotation's exact floor. ~~Below it the numerator must go unrotated:~~ (Section 14, scoped: that floor holds under the program's soft third and at crossing cost `c ≥ 1/12`; with a cheaper crossing the rotation allows `5/6 + c/4`, H8. Without the rotation:) `28/33` at `σ = 2/3`, and the vertex route at `σ ≤ 1/2`.)*
 - The vertex route of sections 3–4 (no rotation, `σ ≤ 1/2`, `η ≥ 0.168`) is unchanged.
 
@@ -637,7 +642,7 @@ In session sabotage runs, H1, H2, H5 and H6 each fail on a planted defect: a loo
 Reproduce, from this directory:
 
 ```
-python3 highside.py                           # gates H1-H8 (H7 from section 13, H8 from section 14), about 5 s
+python3 highside.py                           # gates H1-H9 (H7, H8 and H9 from sections 13, 14 and 15), about 5 s
 python3 columnterm.py periods_w_8e4.txt       # gates N2-N6 (N6 from section 13), 10-30 s; skipped without the prime data
 ```
 
@@ -718,8 +723,8 @@ The Gram term is at least `b/12`, and the rotation gives `b ≥ (1 − 3l_x + �
 | `[0.40, 0.55]` | `[0.70, 0.775]` | `0.8746407` |
 | `[0.30, 0.65]` | `[0.65, 0.825]` | `0.8735094` |
 | `[0.20, 0.75]` | `[0.60, 0.875]` | `0.8712876` |
-| `[1/8, 0.70]` | `[9/16, 0.85]` | `0.8706204` |
-| `[1/8, 5/6]`, every bin (H2) | `[9/16, 11/12]` | `0.8667866` |
+| `[1/8, 0.70]` | `[9/16, 0.85]` | ~~`0.8706204`~~ `0.87149` (section 15) |
+| `[1/8, 5/6]`, every bin (H2) | `[9/16, 11/12]` | ~~`0.8667866`~~ `0.8693956` (section 15) |
 
 In the three windows around `0.47` the binding bins lie just outside the window, at `x = 1/2`. A saving `U^{0.05}` on `[0.40, 0.55]` gives the same value as density-hypothesis counts there. So in this model a count improvement has to cover a broad band of `δ` around the binding `0.47` to move the boundary appreciably. Counts confined to `δ ≥ 4/7`, or to `δ ≤ 0.45`, move nothing.
 
@@ -748,12 +753,12 @@ The untwisted sums carry a theta excess, which grows with `L` at fixed `N`, and 
 **The battery after the sweep**, from this directory, each with rc 0: `python3 highside.py` (3 s), `python3 columnterm.py periods_w_8e4.txt` (13 s), `python3 slotsplit.py` (42 s), and the unchanged `python3 fivesixths.py periods_w_8e4.txt` (8 s) and `python3 ../wall78/crossing.py` (8 s).
 
 **Check 9.**
-- (a) Every number is a statement about the pilot's model of the release's exponent system. The rotation's floor is exact within the model's low side. The census is scoped to the listings searched.
+- (a) Every number is a statement about the pilot's model of the release's exponent system. The rotation's floor is exact within the model's low side *(section 15: under the soft third; `253/294` with Xu–Sang's `l_y − ℓ > 11b/6` kept, section 14)*. The census is scoped to the listings searched.
 - (b) The register's T2 sub-bullet is corrected with strikes and markers, and gets the rotation's floor, ~~H7 and N6~~ *(section 14: H7 and N6 went into a new sub-bullet, "The third review round", with the floor)*.
 - (c) The signals are unchanged: T1, T2 and T3 are auxiliary inputs.
 
 **Outcome.** The goal is still not reached, and no new zero-free region is proved. The corrected picture of T2 at `σ = 2/3` is:
-- the first rung, `0.8667866`;
+- the first rung, `0.8667866` *(section 15: reached by density-hypothesis counts that cover the small bins too, or by `k = 6`; savings confined to `δ ≥ 1/8` stop at `0.8693956`)*;
 - with savings on every bin and Sang's rotation, down to the rotation's floor `41/48` *(section 14: under the soft third; `253/294` with Xu–Sang's `l_y − ℓ > 11b/6` kept)*;
 - without the rotation, `28/33`.
 
@@ -777,7 +782,7 @@ Same day. A fresh-context hostile reviewer read commit `98e276dd`, the third rou
 | 6 | cosmetic | section 11's H6 paragraph keeps "against the break-even" | struck |
 | 7 | cosmetic | Check 4 names "David–de Faveri–Dunn–Hoffstein" | struck and corrected |
 | 8 | cosmetic | section 13's "each is now gated" covered two ungated claims, H3's comparison of its two levers and N5's `Q`, which section 11 labelled as N2's | struck; both gated; the label corrected |
-| 9 | cosmetic | the lever `ϑ = 0` left the small bins on Sang's `ϑ` | the small bins set to `ϑ = 0` as well, in H3's runs and in H4's unrotated run; no gated value moves |
+| 9 | cosmetic | the lever `ϑ = 0` left the small bins on Sang's `ϑ` | the small bins set to `ϑ = 0` as well, in H3's runs and in H4's unrotated run; no gated value moves *(section 15: as the program then solved them, without the small bins; enforced, `k = 5` moves to `0.8668677`)* |
 | 10 | cosmetic | "Below it the numerator must go unrotated" is unscoped | struck and scoped |
 | 11 | cosmetic | section 13's Check 9 (b) puts H7 and N6 in the register's T2 sub-bullet | struck and corrected |
 
@@ -811,7 +816,7 @@ The derivation:
 
 H8 checks the vertices and the weights in exact arithmetic at 20 rational `(σ, c)`. It also checks the program against the law at 20 points (within `10⁻⁶`, with no bin among the walls), and the diagonal's meeting point exactly at 12 rational `(σ, c)`.
 
-With Sang's rotation kept, section 13's algebra with a crossing gives `s₀ − 5/6 ≥ max(cμ/2, 1/48 + (c/2 − 1/24)μ)` under `h/2 ≤ l_y`, `ℓ ≤ l_x` and `b ≥ 0`. Its least value over `μ ≥ 0` is `min(c/4, 1/48)`, at every `σ`. For `σ ≤ 3/4` it is attained at `(1/2, 1/2, 1/2)` when `c ≤ 1/12`, and at `(1/4, 1/2, 1/4)` when `c ≥ 1/12`. H8 checks the bound at 4000 random rational points and the two equalities exactly. The program gives `5/6 + c/4` at `(1/2, 1/2, 1/2)` for `σ ∈ {0.55, 2/3, 3/4}` and `c ∈ {0.01, 0.06}`, with the third Gram term soft and hard alike.
+With Sang's rotation kept, section 13's algebra with a crossing gives `s₀ − 5/6 ≥ max(cμ/2, 1/48 + (c/2 − 1/24)μ)` under `h/2 ≤ l_y`, `ℓ ≤ l_x` and `b ≥ 0`. Its least value over `μ ≥ 0` is `min(c/4, 1/48)`, at every `σ`. For `σ ≤ 3/4` it is attained at `(1/2, 1/2, 1/2)` when `c ≤ 1/12`, and at `(1/4, 1/2, 1/4)` when `c ≥ 1/12`. *(Section 15: this is the bound's least value; the low side attains it only for `σ ≤ 3/4`, and at `(1/4, 1/2, 1/4)` only under the soft third. With Xu–Sang's `l_y − ℓ > 11b/6` kept the least value is `5/6 + min(c/4, 4/147)` for `σ ≤ 3/4`, and for `σ > 3/4` it is higher; H8 now checks both by linear programming.)* H8 checks the bound at 4000 random rational points and the two equalities exactly. The program gives `5/6 + c/4` at `(1/2, 1/2, 1/2)` for `σ ∈ {0.55, 2/3, 3/4}` and `c ∈ {0.01, 0.06}`, with the third Gram term soft and hard alike.
 
 **What it means.** In the model T1 moves only the second branch (its row loss), and T3 only the first (its crossing charge). The low side pays the larger of the two at one geometry, so partial forms of the two multiply: for `σ > 1/2` the excess is `2σ − 1` times a factor that vanishes only at `c = 0`. No pair with `σ > 1/2` and `c > 0` reaches `5/6`, whatever T2 supplies, since the high side can only raise the boundary. At the known `σ = 2/3`, a boundary `5/6 + ε` with `ε < 1/66` needs `c ≤ 7ε/(1 − 36ε)`, and at `c = 1` the boundary is `28/33`. So one of T1 and T3 has to be complete. With the rotation kept, T1 does not help at all: `5/6` needs `c = 0`.
 
@@ -822,7 +827,7 @@ With Sang's rotation kept, section 13's algebra with a crossing gives `s₀ − 
   - Gao and Zhao, arXiv 2311.08626v3, cubic Hecke `L`-functions of prime moduli over the Eisenstein field, "using multiple Dirichlet series under the generalized Riemann hypothesis".
   - Gao and Zhao, arXiv 2402.17198v2, the quartic family over the Gaussian field, "under the generalized Riemann hypothesis".
 
-  The unconditional result found is over function fields: Wang, arXiv 2402.01214v2, on "the Ratios Conjecture over `$\mathbb{F}_q(t)$`". GRH for the rows' family is stronger than the conclusion sought, so none of these is usable as stated, as section 9 found for the first two.
+  ~~The unconditional result found is over function fields:~~ Over function fields *(section 15: "unconditional" is not in the abstract)*: Wang, arXiv 2402.01214v2, on "the extent to which recent ideas in homological stability can resolve the Ratios Conjecture over `$\mathbb{F}_q(t)$`". GRH for the rows' family is stronger than the conclusion sought, so none of these is usable as stated, as section 9 found for the first two.
 
 **Sabotage runs** (session copies of the scripts, each failing only its target gate):
 - H3: Sang's lever at the share `ϑ/2` in place of `ϑ/k`;
@@ -840,16 +845,92 @@ With Sang's rotation kept, section 13's algebra with a crossing gives `s₀ − 
 - N5: the row-aligned coefficient replaced by random phases;
 - N6: the pair phase dropped; separately, the inert primes readmitted.
 
-Two planted changes do not fail H8: Sang's `ϑ` restored in the bins, or in the small bins, of its unrotated runs. The bins do not bind there, and the docstring claims nothing about `ϑ` in those runs.
+Two planted changes do not fail H8: Sang's `ϑ` restored in the bins, or in the small bins, of its unrotated runs. ~~The bins do not bind there, and the docstring claims nothing about `ϑ` in those runs.~~ *(Section 15: false as written in its second half. The bins do not bind there; the docstring states `ϑ = 0` in every bin as those runs' configuration, and no gate can fail on it.)*
 
 **The battery after the sweep**, from this directory, each with rc 0: `python3 highside.py` (4 s), `python3 columnterm.py periods_w_8e4.txt` (12 s), `python3 fivesixths.py periods_w_8e4.txt` (8 s), and `python3 slotsplit.py` (42 s), which imports `fivesixths.py`. `../wall78/crossing.py` and the files it imports are unchanged, so it was not re-run.
 
 **Check 9.**
 - (a) Every number is a statement about the pilot's model of the release's exponent system. The law is exact for the model's low side under the stated readings. "Do not combine" is scoped to the model's two branches, with T1 acting on the second and T3 on the first. The surveys are scoped to the sources read.
 - (b) The register gets a sub-bullet, "The fourth review round", with the trade-off, its socket and an attack note. The swept findings get strikes and markers there.
-- (c) The signals are unchanged: T1, T2 and T3 are auxiliary inputs. The ratios results rest on GRH for their families, which is stronger than the conclusion sought.
+- (c) The signals are unchanged: T1, T2 and T3 are auxiliary inputs. ~~The ratios results rest on GRH for their families, which is stronger than the conclusion sought.~~ *(Section 15: not true of Wang's note, and not a comparison that holds for every family. The number-field results assume GRH for their families. Where the family lies inside the release's, Čech's real characters and Gao–Zhao's cubic family over the Eisenstein field, that assumption contains the conclusion sought for it.)*
 
 **Outcome.** The goal is still not reached, and no new zero-free region is proved. In the model with T2 strong, `5/6` needs T1 complete (`σ ≤ 1/2`, without the rotation, with T2 at the vertex) or T3 complete (`c = 0`, section 8's ray). Partial forms of the two multiply, and do not reach it.
+
+## 15. The fifth review round: the small bins enforced
+
+Same day. A fresh-context hostile reviewer read commit `2919b8eb`, the fourth round's sweep, as a convergence round, with section 14's new material. It re-ran `highside.py`, `columnterm.py`, `fivesixths.py` and `slotsplit.py`, each with rc 0, and ran scratch experiments and planted defects of its own. It returned one major finding, one minor and seven cosmetic ones, and one out-of-scope observation. The lead checked each before accepting it:
+- the solvers: `offslice.py`'s method note, "the small bins are then checked at the optimum" (lines 25–27), a check that only its gate W2 makes; `slotsplit.Five2X.solve` and `slotsplit.boot`, which return the relaxation's optimum; and `OffSlice.walls`, which lists the small bins whether they are tight or violated;
+- in a session run of the lead's own, the exact `small_max` at each of `highside.py`'s reported optima, and the eight that violate the small bins, re-solved with the small bins as cutting planes inside the same bootstrap. Both reproduced the reviewer's list and values exactly;
+- an exact linear program of the rotated low side with a crossing, under both readings of the third Gram term;
+- H8's docstring, `columnterm.py`'s comment, `fivesixths.py`'s F4 docstring, the abstract of arXiv 2402.01214v2, and the DDHL source at line 332.
+
+The numbers among these are now gated (H2, H3, H5, H7, H8, H9, S3, S4, S6, F4); the rest are wording.
+
+| # | severity | finding | disposition |
+|---|---|---|---|
+| 1 | major | the small bins `δ < 1/8` were never enforced: `Five2X.solve` and `boot` return the relaxation's optimum, and at eight of `highside.py`'s optima the small bins are violated, so H2, H3, H5 and H7 gated values below the model's. With them enforced, relief confined to `δ ≥ 1/8` does not reach the first rung; and section 14 recorded "no gated value moves" for a change that made the `k = 5` optimum infeasible | accepted; `Five2X.solve` enforces the small bins; H9 gates them at every reported optimum, and S3, S4, S6 and F4 check them where they are not enforced; the routes to the first rung, their values and walls struck and corrected in the Summary, in sections 11 and 13 and on the register; markers on section 14's record |
+| 2 | minor | "the floor is `5/6 + min(c/4, 1/48)` at every `σ`" is a lower bound at every `σ`, but the least value only for `σ ≤ 3/4` and, for `c ≥ 1/12`, only under the soft third | accepted; struck and scoped in the Summary and on the register; markers in section 14 and in Check 4; H8 checks the least value by linear programming under both readings |
+| 3 | cosmetic | section 14 says H8's docstring claims nothing about `ϑ` in the unrotated runs; it states `ϑ = 0` in every bin | struck |
+| 4 | cosmetic | two surfaces of the floor `41/48` lack the soft-third marker: section 13's Check 9 (a) and Check 4 | markers added |
+| 5 | cosmetic | "no numerator rotation (`ϑ = 0` …)" in `fivesixths.py`'s F4 and in section 3: the small bins keep Sang's `ϑ` | scoped in the docstring and in section 3; F4 now checks that the small bins are slack |
+| 6 | cosmetic | the ratios survey calls Wang's result "unconditional", which its abstract does not say, and says GRH for their families is stronger than the conclusion sought, which does not hold for every family | struck and corrected in section 14 and on the register |
+| 7 | cosmetic | Check 4's "Čech's and Gao–Zhao's cubic ratios results" reads as filing Čech's results under cubic | corrected |
+| 8 | cosmetic | the register's "needs the quadratic pair phase" is stronger than the source, which says the quadratic large sieve "can be readily applied" | corrected |
+| 9 | cosmetic | `columnterm.py`'s comment keeps the label "N2's column term" | corrected |
+
+Out of scope, recorded (O5): N2's two-slot model (`columnterm.slot_sum`) selects its primes by norm and splits its windows by index. At its sizes it admits no inert prime, but the two conjugate primes of norm `73` fall in different windows. No gated claim depends on it; held.
+
+**The lead's own findings.** While the review ran, the lead found that section 8's outcome, and section 9's "Section 8's routes stand", list "combinations of partial inputs" as a route to `5/6`. By H8 they are not one: a partial T1 and a partial T3 leave the low side above `5/6` whatever T2 supplies. Both are struck, and Summary item 6 gets a marker: only a free crossing, `c = 0`, is a route without `σ ≤ 1/2`.
+
+**The small bins (finding 1).**
+- `offslice.py` solves without the small bins, which are not linear in the geometry when `ϑ ≠ 0`, and checks them at the optimum (its gate W2). The side branch's programs, `fivesixths.Five`, `slotsplit.Five2` and `Five2X`, did not check them.
+- `Five2X.solve` now adds the small bins as cutting planes.
+  - With `ϑ = 0` there (`ThetaZero`) the rows are exact.
+  - With Sang's `ϑ = xδ·min(ℓ/h, τ)` the rows take its largest value, `xδτ`. Since `ϑ` enters the endpoint with the coefficient `h/2 − l_y`, which Sang's rotation keeps negative, that is a relaxation, and the exact `small_max` is checked at the optimum.
+  - `ShareK`'s rows are not enforced, because their coefficient `h(1 − 1/k) − l_y` has no fixed sign; they are slack.
+- H9 gates the exact small bins at each of `highside.py`'s 79 optima.
+  - WW3's relaxation leaves them violated by `4.8·10⁻⁶`: there `ℓ/h = 0.2226`, below `τ = 0.2243`.
+  - `WinW3A`, restricted to the region `ℓ ≥ τh` where the relaxation is exact, gives an upper bound. So the value lies between `0.8714881` and `0.8714946`.
+- The other scripts:
+  - S3 and S4 (`fivesixths.Five`, not enforced) check that the small bins are slack at their optima, and so do F4 and F5. The largest endpoints are `−6.4·10⁻³`, `−3.4·10⁻²` and `−6.3·10⁻⁴`.
+  - S6 checks that they hold where `Five2X` enforces them (`−1.6·10⁻²`).
+  - No value of those gates moves.
+
+**What moves.**
+
+| run | before | the small bins enforced | binding |
+|---|---|---|---|
+| a saving `U^{0.02}` on `δ ≥ 1/8` (H2) | `0.8711404` | `0.8711703` | `E`, the small bins |
+| a saving `U^{0.045}` or `U^{0.1}` on `δ ≥ 1/8` (H2) | `0.8667866` | `0.8693956` | the small bins |
+| density-hypothesis counts on `δ ≥ 1/8` (H2) | `0.8667866` | `0.8693956` | the small bins |
+| `k = 5`, `ϑ = 0` (H3) | `0.8668665` | `0.8668677` | the small bins |
+| `k = 5.25`, `ϑ = 0` (H3) | `0.8667866` | `0.8668015` | the small bins |
+| Lemma 17.6's slope at `1/8` (H5) | `0.8667866` | `0.8677780` | the small bins |
+| density-hypothesis counts on `[1/8, 0.70]` (H7) | `0.8706204` | `0.8714881`–`0.8714946` | `E`, the small bins |
+
+Every other run is unchanged: `k = 6` and round 498's `counts='dh'` still give `0.8667866`, with the floor bin binding.
+
+**What it means for T2.** The first rung, `0.8667866`, is where the floor bin binds. Two of the computed routes reach it: density-hypothesis counts on every bin, the small bins `δ < 1/8` included (round 498's configuration), and a `2k`-th moment with `k = 6`. Relief confined to the bins `δ ≥ 1/8` stops at `0.8693956`, by savings and by counts alike, because the small bins then bind. Lemma 17.6's slope at `1/8` stops at `0.8677780`. In this configuration no relief confined to `δ ≥ 1/8` does better: at `U^{0.1}` those bins no longer bind, so the program without them has the same optimum, `0.8693956`, and relief there can only remove their rows. So the first rung needs relief on the small bins too, besides the bins near `δ ≈ 0.47`. The rungs beyond it (H4) are unchanged: their savings cover the small bins, which stay slack there.
+
+**The rotated floor (finding 2).** Section 14's bound `5/6 + min(c/4, 1/48)` holds at every `σ`, under both readings of the third Gram term. As the least value of the rotated low side it is exact only for `σ ≤ 3/4` with the third term soft. With Xu–Sang's `l_y − ℓ > 11b/6` kept, the least value for `σ ≤ 3/4` is `5/6 + min(c/4, 4/147)`, and at `σ = 1` it lies above the bound by more than `6·10⁻³` at each `c` computed. H8 checks these by linear programming at 25 `(σ, c)`. The barrier entry stands: with the rotation kept, `5/6` needs `c = 0`.
+
+**Sabotage runs** (session copies of the scripts, each failing the gates listed):
+- the cuts removed from `Five2X.solve`: H2, H3, H5, H7 and H9;
+- `ThetaZero`'s exact rows removed: H3 and H9;
+- the rows' `xδℓ` term dropped: H2, H3, H5, H7 and H9;
+- `WinW3A`'s region row removed: H7 and H9;
+- H8's linear program without the rotation's row, or with the hard third's row reversed: H8 only;
+- `Five2.small_max` raised by `0.04`: S3, S4 and S6;
+- `Five.small_max` raised by `0.01`: F4 only.
+
+**The battery after the sweep**, from this directory, each with rc 0: `python3 highside.py` (5 s), `python3 columnterm.py periods_w_8e4.txt` (12 s), `python3 fivesixths.py periods_w_8e4.txt` (8 s), and `python3 slotsplit.py` (42 s). `../wall78/crossing.py` and the files it imports are unchanged, so it was not re-run.
+
+**Check 9.**
+- (a) Every number is a statement about the pilot's model of the release's exponent system. "Reach" and "stop at" are scoped to the computed configurations. The rotated floor is scoped to `σ ≤ 3/4` and the soft third, and the hard third's value is stated.
+- (b) The register's T2 rungs get strikes and markers, and a sub-bullet, "The fifth review round", records the first rung's corrected routes and the rotated bound's scope.
+- (c) The signals are unchanged: T1, T2 and T3 are auxiliary inputs.
+
+**Outcome.** The goal is still not reached, and no new zero-free region is proved. The map changes at T2's first rung: relief has to cover the small bins `δ < 1/8` as well as the bins near `δ ≈ 0.47`. The floor `5/6` and the T1–T3 trade-off are unchanged.
 
 ## Check 4 and bearing on RH
 
@@ -868,7 +949,8 @@ Two planted changes do not fail H8: Sang's `ϑ` restored in the bins, or in the 
   - *(section 11)* round 498's density-hypothesis and Lindelöf configurations at `0.8667866`, its `counts='dh'` configuration, and README round 508's finding on the sixth moment;
   - *(sections 11–12, external)* Xu–Sang's count `R_κ` (their Proposition `prop:row-count`) and the release's Lemma 17.6; David, de Faveri, Dunn and Stucky's lemma.
   - *(section 13)* README round 498's gate W1, which already places the binding bins at `δ ≈ 0.47`, `x = 1/2` (H1 refines it); README round 506's record of ~~David–de Faveri–Dunn–Hoffstein's~~ de Faveri, Dunn and Hoffstein's *(section 14)* abstract, which names "a Lindelöf-on-average upper bound for the second moment of Kubota's Dirichlet series"; README round 507's share `ϑ/k`, on which H3 now rests; Blomer–Goldmakher–Louvel's large sieve (README round 311) and de Faveri's zero-density corollary (README round 496).
-  - *(section 14)* round 499's soft-third reading (its S3) and Xu–Sang's `l_y − ℓ > 11b/6` (their admissibility rows), on which H4 (iv) rests; `composite.py`'s inert primes; Čech's and Gao–Zhao's cubic ratios results, recorded since section 9; section 13's crossing remark, whose consequence H8 gates.
+  - *(section 15)* `offslice.py`'s small-bin check, its gate W2, and its method note; round 498's `counts='dh'` configuration, which covers the small bins and reaches the first rung.
+  - *(section 14)* round 499's soft-third reading (its S3) and Xu–Sang's `l_y − ℓ > 11b/6` (their admissibility rows), on which H4 (iv) rests; `composite.py`'s inert primes; ~~Čech's and Gao–Zhao's cubic ratios results~~ Čech's ratios results for real characters and Gao–Zhao's for the cubic family *(section 15)*, recorded since section 9; section 13's crossing remark, whose consequence H8 gates.
 - New here:
   - the floor `5/6` and its identity (F1);
   - the closed form of the low side's least value in `σ` (F2);
@@ -884,7 +966,8 @@ Two planted changes do not fail H8: Sang's `ϑ` restored in the bins, or in the 
   - section 9: the trilinear bound `σ = 2/3` (S5 (b), S8); the slot coefficient as the composite Gauss sum `γ₂(P)`, angle-twisted (9.2; *9.7: new is this identification of the release's tuple factor; the identity S8 (ii) checks is acknowledged above*); Dunn–Radziwiłł's corrected sieve found ~~circular~~ unusable as stated (*9.7*); the dictionary's rows (c) and (e); the ray's threshold, the corner `(1, 1, 1)` and the readings' load (S6); `crossing.formula`'s region (S7); the coefficient models (N2, N3); the review's corrections.
   - section 11: ~~the binding bins (H1);~~ *(section 13: H1 refines round 498's W1, acknowledged above)* the relief on the bins and where it stops (H2); the moment ladder in the release-level configuration (H3); ~~the second rung's size (H4)~~ *(section 13: H4 rewritten)*; the count's slope and capacity, and its form as half a parallel combination (H5); ~~the pointwise route's cost for T3~~ *(section 13: the pointwise route's charge)* (H6); the coefficient models' largest row and the trilinear matrix's operator norm (N4, N5);
   - section 12: the horizon refresh's ~~four~~ items *(section 13: seven)*, and the reading of David, de Faveri, Dunn and Stucky's lemma for T1.
-  - section 13: the savings below `13/15` at `σ = 2/3`, and the rotation's exact floor `41/48` (H4); the windows where density-hypothesis counts would have to hold (H7); the capacity variant's scope (H5); the pointwise route's charge in the program (H6); two-prime slots (N6); the row-aligned control for the operator form (N5); Blomer–Goldmakher–Louvel's zero-density corollary compared at the binding bins; the three census items and the two horizon notes; the review's corrections.
-  - section 14: the hard-third floor `253/294` (H4 (iv)); the T1–T3 law with its vertices and weights, and the rotated floor `5/6 + min(c/4, 1/48)` with a crossing (H8); H3's second lever; the split-only values of N1 and N6, and N1's log-slope; David, Dunn, Hamieh and Lin's Type-II device read against T1; Gao–Zhao's quartic ratios result and Wang's over `𝔽_q(t)`; the review's corrections.
+  - section 13: the savings below `13/15` at `σ = 2/3`, and the rotation's exact floor `41/48` (H4) *(section 14: under the soft third)*; the windows where density-hypothesis counts would have to hold (H7); the capacity variant's scope (H5); the pointwise route's charge in the program (H6); two-prime slots (N6); the row-aligned control for the operator form (N5); Blomer–Goldmakher–Louvel's zero-density corollary compared at the binding bins; the three census items and the two horizon notes; the review's corrections.
+  - section 14: the hard-third floor `253/294` (H4 (iv)); the T1–T3 law with its vertices and weights, and the rotated ~~floor~~ bound `5/6 + min(c/4, 1/48)` with a crossing (H8) *(section 15: the least value for `σ ≤ 3/4` under the soft third)*; H3's second lever; the split-only values of N1 and N6, and N1's log-slope; David, Dunn, Hamieh and Lin's Type-II device read against T1; Gao–Zhao's quartic ratios result and Wang's over `𝔽_q(t)`; the review's corrections.
+  - section 15: the small bins enforced in the side branch's program, with the values that move (H2, H3, H5, H7) and the check at every optimum (H9, S3, S4, S6, F4); the first rung's routes corrected; the rotated low side's least value under both readings (H8); the struck route of partial inputs; the review's corrections.
 
 **Bearing on RH: none.** The note proves no zero-free region and gains no constraint on zeros. It maps what one method would need.
