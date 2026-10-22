@@ -26734,3 +26734,72 @@ The main term is then at most `C₁(δ)P^{1+13δ}|R|N^{2−2σ}` (`main_term_le`
 **Bearing on RH:** none.
 
 **The next step.** The batched hostile review of rounds 634–644. Then the `S₃` side of M3: P7.1–P7.2, L9.1–L9.2, the energy bound P10.2 from T10.1, and the assembly P11.1. P8.1 and T10.1 stay displayed hypotheses until M4 and M5.
+
+## Round 645: Chen–Gupta–Li's Lemma 4.3 (1), the first step on the `S₃` side (stage M3; `external/pnt/LinnikCGLFourier.lean`)
+
+**The result.** `LinnikCGLFourier.lemma43`: for every `K` there is `C_K ≥ 0` (`CF K`) such that for all real `τ` and `ξ`,
+
+`(2π|ξ|)^K|ĥ_τ(ξ)| ≤ C_K(1 + |τ|)^K`,
+
+where `h_τ(u) = w(u)²u^{iτ}` (round 640's `Wt τ`, with round 638's `w = wCGL`) and `ĥ` is Mathlib's `𝓕f(ξ) = ∫e^{−2πixξ}f(x) dx`. This is their Lemma 4.3 (1), re-read this round in the text layer (lines 955–964; spaces restored): "For any integer j ≥ 0, ĥ_t(ξ) ≪_j (1 + |t|)^j/|ξ|^j". Their part (2), "ĥ_t(ξ) ≪_j (1 + |ξ|)^j/|t|^j", enters their argument through (5.1) and Lemma 4.5. Each of its uses in the text layer (lines 1172, 1241, 1284, 1695 and footnote 3 at 1822, the census of `grep` for "4.3 (2)" and "(5.1)") concerns two points of one character, so it is not needed at one point per character.
+
+**The proof.** They write: "The proof (cf. [5, Lemma 4.3]) relies on the properties of the function w(u) and repeated applications of integration by parts." The stack makes the integrations by parts explicit. The `k`-th derivative of `h_τ` is `F_k(u) = u^{iτ}Σ_{j≤k}(iτ)^j c_{k,j}(u)` (`hasDerivAt_F`), with `c_{0,0} = w²`, `c_{k+1,0} = c′_{k,0}` and `c_{k+1,j+1} = c′_{k,j+1} + c_{k,j}/u`. The `c_{k,j}` do not depend on `τ`, are smooth, and vanish for `u ≤ 1` and `u ≥ 2` (`cf_props`). Then Mathlib's `Real.fourier_deriv`, `K` times, gives `𝓕F_K(ξ) = (2πiξ)^K ĥ_τ(ξ)` (`fourier_F`). Finally `|F_K(u)| ≤ Σ_j|τ|^j|c_{K,j}(u)|` gives `C_K = Σ_{j≤K}∫|c_{K,j}|`.
+
+**The `S₃` side.** With `CGLS2` proved (round 644), `CGLS3` is the hypothesis left. The paper's route to it, re-read this round (§§4–5, lines 918–1260; §7, 1930–2435; §9, 4343–4613; §11, 5519–5930):
+
+- the Poisson expansion of the Gram entries in residue classes (Lemma 4.5's method), which at one point per character makes round 639's `S3` the paper's `S₃ = Σ_{m_i≠0} I_m`: the terms of (5.2) with a zero `m_i` give `S₁ = 0` and `S₂ = 3μ₀‖E‖_F²`;
+- §7's Propositions 7.1 and 7.2, which write `S₃` through `R(v, a) = Σ_{(t,χ)∈W}v^{it}χ(a)` and its smoothing `R̃`;
+- §9's moments of `R` (Lemmas 9.1 and 9.2);
+- §10's energy bound (Proposition 10.2 from Heath-Brown's Theorem 10.1, a displayed hypothesis until M5);
+- §11's assembly (Proposition 11.1 from Proposition 8.1, a displayed hypothesis until M4).
+
+Lemma 4.3 (1) is what the Poisson expansion and §7's truncations of the `m`-sums use.
+
+**An avenue checked and set aside.** With `S₂` proved, a crude bound for `S₃`, `|tr(E³)| ≤ ‖E‖_op‖E‖_F²` with `‖E‖_op` at most the large-sieve factor, would give a large-values estimate `|W| ⪅ N^{2−2σ} + (qT)^{1/2}N^{3−4σ} + qT·N^{5/2−4σ}`. Its third term equals Proposition 3.1's `(qT)^{4/3}N^{2−4σ}` at `N = (qT)^{2/3}`. `scratchpad/r645/crude_density.py` computes the density exponent that the class-I scheme of their §12.3 gives from it:
+
+- powers `D_N^k` with `N^k ∈ [(qT)^a, (qT)^{3a/2}]`, `a ≥ 2/3`;
+- the smaller of the mean value theorem and the estimate at each length;
+- class II at exponent `2`;
+- grids of 401 values of `a` and 301 lengths.
+
+At the seven values of `σ` it prints in `[5/7, 16/21]`, the crude estimate never beats the mean value theorem below `σ = 3/4`, and gives 2.39 and 2.38 at `0.755` and `16/21`, above the `7/3` that `CGLDensity` needs. The same model gives Proposition 3.1 2.3338 at `σ = 5/7` (the stack's `7/3 + 1/2000` there, round 636). So the crude bound does not reach `9/4`, and the route stays the paper's. This is a scoped computation of one scheme, not a barrier claim.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLFourier.lean`: new, 286 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`hasDerivAt_F`, `fourier_F`, `lemma43`).
+- `frontier/linnik/CGL-LEAN.md`: the row L4.3, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch in stages (`scratchpad/r645/lc.sh`). The fixes were:
+
+  - the scoped notation `ContDiff`'s `∞`;
+  - Mathlib's `lt_or_ge`;
+  - casts `((deriv (cf k j) u : ℝ) : ℂ)` that the elaborator needed spelled out;
+  - Mathlib's `VectorFourier.norm_fourierIntegral_le_integral_norm` for `|𝓕f| ≤ ∫|f|`;
+  - `HasDerivAt.congr_deriv` in place of a `convert` that split the function as well as the derivative;
+  - two unused binders.
+- Then `build.sh` ran once (`scratchpad/r645/build.log`): `1 compiled, 382 up to date` (`LinnikCGLFourier` 10 s), exit 0 in 21 s, no error, warning or `sorry`. Its 553 axiom lines (3 by the module, 550 by the final check, which gains three lines) are 540 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.89 GiB.
+- The file has no `sorry`, `native_decide`, `axiom` or `maxHeartbeats`, and no line over 120 characters.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872 (after blank lines were put around three new lists; the lint's first run caught them).
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: L4.3's stack cell ("—") and status ("Not started"), both true when written, get round-645 markers with their old text. The opening's parenthetical gains round 645, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round): their Lemma 4.3 and the sentence before it (lines 955–964), re-read for this round's quotations; §§4–5 (918–1260), §7 (1930–2435), §9 (4343–4613), §11 (5519–5930) and §12's zero detection and class-I analysis (5929–6400), for the plan and the avenue; `LinnikCGLFourier.lean` in full; round 640's `wsq`, `contDiff_wsq`, `wsq_eq_zero`, `Wc` and `Wt`; Mathlib's `Real.fourier_deriv`, `Real.fourier_iteratedDeriv`, `contDiff_infty_iff_deriv`, `HasDerivAt.comp_ofReal`, `HasDerivAt.ofReal_comp` and `Complex.hasStrictDerivAt_cpow_const`; round 588's `SieveSmooth.pow_mul_norm_fourier_le`; `LinnikCGL.CGLDensity`.
+
+**Check 4.** No defect is raised. `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: "for all real `τ` and `ξ`" is the statement of `lemma43`; "each of its uses in the text layer" is the census of the two `grep` patterns named; "never beats the mean value theorem below `σ = 3/4`" is the script's output at its grid points.
+- (b) No change to the register. The avenue's paragraph is a scoped computation; it makes no claim about other bounds for `S₃`.
+- (c) No criterion is fed a signal.
+
+**Reviews.** The batched hostile review of rounds 634–644 is running (two reviewers, `scratchpad/r644/review/`). This round falls in the next block.
+
+**Bearing on RH:** none.
+
+**The next step.** The Poisson expansion of the Gram entries in residue classes: `G(i, k) = (N^{1+iτ}/q)Σ_{a mod q}ψ(a)Σ_{m∈ℤ}e_q(am)ĥ_τ(Nm/q)` with `ψ = χ_iχ̄_k`, by Mathlib's `Real.tsum_eq_tsum_fourier_of_rpow_decay` and `lemma43`. Then `S3 = Σ_{m_i≠0} I_m` at one point per character.

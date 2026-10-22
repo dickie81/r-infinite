@@ -167,6 +167,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLPair.lean` | 642 | the bounds of the reflected Gram entries: for `χ_i ≠ χ_k`, `\|G(i, k)\| ≤ (2π)⁻¹(N^{1/2}Q₀(q)∫\|H(1/2 + iu)\|\|D(u)\| du + T_K)`, `D` the dual sum of length `Z` and `T_K ≪_K q^{K+1/2}(NZ)^{−K}(1 + \|τ\|)^{K+1}` (`norm_gram_le`), from the bounds of the main part (`norm_integral_Mn_le`) and the tail (`norm_integral_Tl_le`), the Euler factor against the conductor (`norm_Eu_mul_le`) and the dual tail far left (`norm_dualT_le`) |
 | `LinnikCGLFrob.lean` | 643 | the off-diagonal mass of the Gram matrix, explicitly (`frobOff_le`): `‖E‖_F² ≤ N·Q₀(q)²I_H²·\|R\|·V^{−2}L(N′Z)·τ·Σ\|b_n\|²·H_Z + \|R\|²B²`, from the squared product trick at the points (`prod_trick_points`, `ls_points`), the dual sums as polynomials at the points (`norm_dualS_pair`, `sum_Dp_sq_le`), Cauchy–Schwarz against `\|H(1/2 + iu)\|` (`integral_sq_le`) and the squared Gram entries (`gram_sq_le`) |
 | `LinnikCGLS2.lean` | 644 | round 639's hypothesis `CGLS2` proved (`cgls2`): for every `ε > 0`, `‖E‖_F² ≤ C(qTN)^ε·qT\|R\|N^{2−2σ}`, from round 643's `frobOff_le` with `Z = ⌊3P^{1+δ}/N⌋ + 1` and `K = ⌈4/δ⌉` (`s2_main`) and the sizes of its factors as powers of `qT` (`LSX_le`, `HZ_le`, `Q0_le`, `card_le`, `Bmax_le`); Linnik's exponents `9/4` and `226/100` from `CGLS3` alone (`linnik_225c_s3`, `linnik_226c_s3`) |
+| `LinnikCGLFourier.lean` | 645 | Chen–Gupta–Li's Lemma 4.3 (1): `(2π\|ξ\|)^K\|ĥ_τ(ξ)\| ≤ C_K(1 + \|τ\|)^K` for `h_τ(u) = w(u)²u^{iτ}` (`lemma43`), from the derivatives `h_τ^{(k)} = u^{iτ}Σ_{j≤k}(iτ)^j c_{k,j}` (`hasDerivAt_F`) and Mathlib's `Real.fourier_deriv` (`fourier_F`) |
 
 ## Building (rounds 217, 618)
 
@@ -743,3 +744,14 @@ Round 644 proves `CGLS2` (`cgls2`), Chen–Gupta–Li's Proposition 6.1 at one p
 The file's declarations stay under Lean's default heartbeat limit by splitting the main case into `Bmax_le`, `card_le`, `main_term_le` and `tail_le`, and by naming the parameters with `obtain ⟨x, hx⟩ : ∃ x, x = e` rather than `set`, which kept their definitions (floors, ceilings and real powers) out of `whnf`.
 
 See the main README, round 644, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 547 lines.
+
+## Chen–Gupta–Li's Lemma 4.3 (1): LinnikCGLFourier.lean (round 645)
+
+Round 645 starts the `S₃` side with their Lemma 4.3 (1), the decay of `ĥ_t` for `h_t(u) = w(u)²u^{it}` (round 640's `Wt t`): for every `K` there is `C_K ≥ 0` with `(2π|ξ|)^K|ĥ_τ(ξ)| ≤ C_K(1 + |τ|)^K` for all real `τ` and `ξ` (`lemma43`).
+
+- `Off12`, `cf`, `off12_deriv`, `contDiff_mul_inv`, `cf_props`, `cf_eq_zero_of_lt`, `integrable_cf`: the coefficients `c_{0,0} = w²`, `c_{k+1,0} = c′_{k,0}`, `c_{k+1,j+1} = c′_{k,j+1} + c_{k,j}/u`. Each is smooth and vanishes for `u ≤ 1` and `u ≥ 2`, and `c_{k,j} = 0` for `j > k`.
+- `F`, `F_zero`, `F_eq_zero`, `sum_cf_succ`, `hasDerivAt_F`: `F_k(u) = u^{iτ}Σ_{j≤k}(iτ)^j c_{k,j}(u)` has `F_0 = h_τ` and `F_k′ = F_{k+1}`.
+- `deriv_F`, `continuous_F`, `integrable_F`, `fourier_F_succ`, `fourier_F`: `𝓕F_K(ξ) = (2πiξ)^K·ĥ_τ(ξ)` (Mathlib's `Real.fourier_deriv`, `K` times).
+- `norm_F_le`, `CF`, `CF_nonneg`, `lemma43`: `|F_K(u)| ≤ Σ_{j≤K}|τ|^j|c_{K,j}(u)|`, so `|𝓕F_K(ξ)| ≤ ∫|F_K| ≤ C_K(1 + |τ|)^K` with `C_K = Σ_{j≤K}∫|c_{K,j}|`.
+
+See the main README, round 645, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 550 lines.
