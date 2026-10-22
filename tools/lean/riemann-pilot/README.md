@@ -28094,3 +28094,65 @@ The reductions take any `f` with `R̃(c, b)² ≤ f_{−b}(c)` on `[−3, 3]`; o
 **Bearing on RH:** none.
 
 **The next step.** Their Proposition 10.2, the energy bound, from Heath-Brown's Theorem 10.1 as a displayed hypothesis. Then `CGLS3`: the choices `X = (qT)^{ε′}`, `M` with `NM/q ≤ XT`, and `K`, `K_t`, `K′` large, with the errors and logarithms absorbed into `(qTN)^ε`.
+
+## Round 668: local averages of finite exponential sums, toward their Lemmas 10.4 and 10.8 (stage M3, the `S₃` side; `external/pnt/LinnikCGLLoc.lean`)
+
+**The results.** Below, `F(x) = Σ_{k∈s}c_ke^{iλ_kx}` is a finite exponential sum (`esum`), and `k = ψ̂₀` is the Fourier transform of round 656's bump `ψ̃₀`, which is `1` on `[−1, 1]` (`kloc`).
+
+- `LinnikCGLLoc.integrable_kloc`, `kloc_inv`, `kloc_inv_one`: `k` is integrable, since `(1 + ξ²)|k(ξ)| ≤ ∫ψ̃₀ + D₂/(4π²)` by round 659's bounds. Then Mathlib's `Continuous.fourierInv_fourier_eq` gives `∫e^{2πiξμ}k(ξ) dξ = ψ̃₀(μ)`, which is `1` for `|μ| ≤ 1`.
+- `LinnikCGLLoc.esum_mul`, `conj_esum`: the product of two exponential sums is the exponential sum over the pairs, with the frequencies added, and `F̄` is an exponential sum with the frequencies negated.
+- `LinnikCGLLoc.esum_eq_integral`, `norm_esum_le_integral`: for `H > 0` and every `|λ_k − Λ| ≤ H`, `F(x) = ∫k(ξ)e^{−2πiξΛ/H}F(x + 2πξ/H) dξ`. Each term `c_ke^{iλ_kx}` is `c_ke^{iλ_kx}∫e^{2πiξ(λ_k−Λ)/H}k(ξ) dξ`. Hence `|F(x)| ≤ ∫|k(ξ)||F(x + 2πξ/H)| dξ`, and the integrand is integrable (`integrable_loc`).
+- `LinnikCGLLoc.norm_sq_esum_le`, `norm_cube_esum_le`: under the same hypotheses, `|F(x)|² ≤ ∫|k(ξ)||F(x + πξ/H)|² dξ` and `|F(x)|³ ≤ ∫|k(ξ)||F(x + 2πξ/(3H))|³ dξ`. `|F|² = F·F̄` is an exponential sum with frequencies in `[−2H, 2H]`, and `|F|³ = |F·F·F̄|` one with frequencies in `[Λ − 3H, Λ + 3H]`.
+
+**Their text.** Re-read this round in the text layer.
+
+- Their Lemma 10.4, from Guth–Maynard: "|D_N(t,χ)| ⪅ ∫\_{|u−t|⪅1} |D_N(u,χ)| du + O((qT)^{−100})." (lines 4680–4683; spaces restored; the integral, subscripts and exponent transcribed; the underscore before the integral's range escaped for the renderer).
+- Their Lemma 10.8: "|R(v,a)| ≪\_{ϵ,C} T ∫\_{|v′−v|≤T^ϵ/T} |R(v′,a)| dv′ + O(T^{−100})." (lines 5012–5015; spaces normalized, the text layer having a space inside "dv ′"; the integral, subscripts and exponents transcribed; underscores escaped).
+- Its proof, with "a smooth bump which is 1 on [−1,1]" and "by the Fourier inversion formula" (lines 5016–5017; spaces restored).
+
+**The stack's form.**
+
+- **No window.** The stack keeps the weight `|k(ξ)|` on all of `ℝ`, and `|k|` does not depend on `F`. Their windows `|u − t| ⪅ 1` and `|v′ − v| ≤ T^ϵ/T` come from the decay of `k`, `(2π|ξ|)^j|k(ξ)| ≤ D_j`, at `H` of order `1` and of order `T`; a later round restricts the weight when a window is needed.
+- **Powers.** Their Lemma 10.5 uses `|D_N|²`, and the proof of their Lemma 10.9 applies Lemma 10.8 to `|R|³`. The stack gets the squares and cubes from the same identity, since products of exponential sums are exponential sums, so no Hölder inequality is needed.
+- **The two applications.** For `D_N(t, χ) = Σ_nb_nχ(n)n^{it}` over `n ∈ [6N/5, 9N/5]`, the frequencies `log n` lie in an interval of length `log(3/2)`. For `R(e^x, a) = Σ_iχ_i(a)e^{it_ix}`, they lie in `[−T, T]`. Both are cases of the lemmas above; the next round states them.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLLoc.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`norm_esum_le_integral`, `norm_sq_esum_le`, `norm_cube_esum_le`).
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+
+**What is checked.**
+
+- Mathlib's names were checked first (`scratchpad/r668/check.lean`).
+- The file was compiled in scratch in five runs (`scratchpad/r668/lc.sh` for `lc.out` and `lc2.out`; `scratchpad/r668/lcj.sh`, the same with `lean --json`, for `lcj.out` to `lcj3.out`). The last run had exit 0 and no message but the axiom lines. The fixes were a continuity goal stated before `fun_prop`, which `fun_prop` could not infer; and a `push_cast` before a `ring` whose goal was an equation between casts. The JSON runs located the second: `ring` closed the goal only by its fallback `ring_nf`, which printed an information message without a position in the plain output. The header's citations were then corrected; the build below compiled the final file.
+- Then `build.sh` ran once (`scratchpad/r668/compile.sh 1`, log `build_1.log`): `1 compiled, 403 up to date` (`LinnikCGLLoc` 10 s), exit 0 in 19 s, with no error, warning, `sorry` or information message. Its 609 axiom lines (5 by the module, 604 by the final check, which gains three lines) are 596 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms"; the 13 are in the final check, as before. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.86 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed: `tools/research/render_lint.py` against HEAD (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2 gains round 668 in its stack cell, which read "—", and its status, which read "Not started", now reads "Started". The opening's parenthetical gains round 668, and M3 gains a note.
+- `external/pnt/README.md`: a row, and a section with a heading.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their §10 at lines 4613–5518 in full: the energy, Theorem 10.1, Proposition 10.2 and Remark 10.3, Lemmas 10.4 to 10.10 and the proof of Proposition 10.2.
+- `LinnikCGLLoc.lean` in full.
+- The operative definitions and statements: round 656's `psiBump`, `psi0` and `psi0_eq_one`; and round 659's `psiC`, `contDiff_psiC`, `hasCompactSupport_psiC`, `Dpsi`, `fourier_psiC_decay` and `norm_fourier_psiC_le`.
+
+**Check 4.** No defect in the cascade or the stack is raised. `CGLS3`, `CGLP81` and their Theorem 10.1 stay hypotheses.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block. The batched review of rounds 658–667 is running alongside it.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Lemma 10.5 at one point per character. With the large values `|D_N(t_i, χ_i)| ≥ N^σ/6` and `norm_sq_esum_le` for `D_N`, the energy is at most `36N^{−2σ}∫|k|` times `Σ_{n₁,n₂}|R(n₁/n₂, n₁n₂⁻¹)|³` over `n_i ∈ [6N/5, 9N/5]`. The step uses `χ_iχ_jχ̄_k`, which determines the fourth point.

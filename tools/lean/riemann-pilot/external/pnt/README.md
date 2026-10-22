@@ -188,6 +188,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLDecay.lean` | 665 | the Fourier decay of Chen–Gupta–Li's `f_b` in the form of the premise of their Proposition 8.1: `f̂_b` as an average of round 664's `φ̂_{u′}` by Fubini (`fourier_fb_eq`), `B_j(L, X) ≤ 2T^j·min(2X, L/(2T))·E_j` for `L ≤ XT` (`Bj_le`), and `Σ_b\|f̂_b(ξ)\| ≤ D_j(T/\|ξ\|)^jφ(q)f_{b₀}(u₀)` (`fb_decay_all`) |
 | `LinnikCGLBlock.lean` | 666 | Chen–Gupta–Li's `S₃,₃`, `S₃,₄` and the block sums of `Ĩ`, by their Proposition 8.1 (round 662's `CGLP81`, a displayed hypothesis) and Lemmas 9.1 and 9.2: the two moments of `f_b` (`integral_sum_fb_le`, `integral_sum_fb_sq_le`), `CGLP81` on the block `k` (`S34_le_P81`), and `S₃,₄ ≤ V`, `S₃,₃ ≤ 4V`, `(Σ_{m⃗∈B}Ĩ(m⃗))² ≤ 3φ(q)\|R\|V` (`block_le`) |
 | `LinnikCGL112.lean` | 667 | Chen–Gupta–Li's (11.2) in explicit form: each dyadic block square-rooted (`sum_blk_It_le`), and the blocks of round 657's Proposition 7.2 summed, `S₃ ≤ 6C_J(0)d(q)∫ψ̃₀(log₂M + 1)²√P(24(NM)²\|R\| + 12N²M√G)` plus its three errors (`S3_le_blocks`), with `NM ≤ XqT` (`S3_le_112`) |
+| `LinnikCGLLoc.lean` | 668 | local averages of finite exponential sums, toward Chen–Gupta–Li's Lemmas 10.4 and 10.8: Fourier inversion for `ψ̂₀` (`kloc_inv`), `F(x) = ∫k(ξ)e^{−2πiξΛ/H}F(x + 2πξ/H) dξ` (`esum_eq_integral`), and the bounds for `\|F\|`, `\|F\|²` and `\|F\|³` (`norm_esum_le_integral`, `norm_sq_esum_le`, `norm_cube_esum_le`) |
 
 ## Building (rounds 217, 618)
 
@@ -1007,3 +1008,14 @@ Round 667 sums round 666's block bounds over the dyadic blocks of round 657's `p
 - `S3_le_112`: the same with `(XqT)²` and `XqTN` in place of `(NM)²` and `N²M`: their (11.2).
 
 See the main README, round 667, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 601 lines.
+
+## Local averages of exponential sums: LinnikCGLLoc.lean (round 668)
+
+Round 668 bounds a finite exponential sum `F(x) = Σ_{k∈s}c_ke^{iλ_kx}`, with every `|λ_k − Λ| ≤ H`, by its average against `|k|`, where `k = ψ̂₀`.
+
+- `integrable_psiC`, `kloc`, `continuous_kloc`, `integrable_kloc`, `kloc_inv`, `kloc_inv_one`: the kernel, and `∫e^{2πiξμ}k(ξ) dξ = ψ̃₀(μ)`, which is `1` for `|μ| ≤ 1`.
+- `esum`, `continuous_esum`, `norm_esum_le`, `esum_mul`, `conj_esum`: finite exponential sums, their products and conjugates.
+- `esum_eq_integral`, `integrable_loc`, `norm_esum_le_integral`: `F(x) = ∫k(ξ)e^{−2πiξΛ/H}F(x + 2πξ/H) dξ` and `|F(x)| ≤ ∫|k(ξ)||F(x + 2πξ/H)| dξ`.
+- `norm_sq_esum_le`, `norm_cube_esum_le`: `|F(x)|² ≤ ∫|k(ξ)||F(x + πξ/H)|² dξ` and `|F(x)|³ ≤ ∫|k(ξ)||F(x + 2πξ/(3H))|³ dξ`.
+
+See the main README, round 668, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 604 lines.

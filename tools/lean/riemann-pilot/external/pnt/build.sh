@@ -106,7 +106,7 @@ for f in SieveCert225C Linnik225C; do c 1 "$HERE" $f; done
 for f in SieveTypeIIU2285 SieveGrid2285U; do c 1 "$HERE" $f; done
 for i in $(seq 1 28); do c 1 "$HERE" SieveCert2285UP$i; done
 for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
-# Rounds 636–667: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
+# Rounds 636–668: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
 # (LinnikCGLLV), the density step from it on [5/7, 16/21] (LinnikCGLStep), Linnik's exponents 9/4 and 226/100
 # from it (LinnikCGLLinnik), (round 638) Proposition 3.1 from a bound on the cubic trace (LinnikCGLMat),
 # (round 639) that bound from the paper's S₂ and S₃ (LinnikCGLS23), (round 640) the Mellin transform of w² and the
@@ -128,12 +128,13 @@ for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
 # and (round 664) the Fourier decay of the pieces ψ·K(· − u′) of f_b (LinnikCGLPhi), and (round 665) the decay
 # of f̂_b in the form of their Proposition 8.1 (LinnikCGLDecay), and (round 666) S₃,₃, S₃,₄ and the block sums
 # of Ĩ by their Proposition 8.1 and Lemmas 9.1 and 9.2 (LinnikCGLBlock), and (round 667) their (11.2), the blocks
-# of their Proposition 7.2 summed (LinnikCGL112).
+# of their Proposition 7.2 summed (LinnikCGL112), and (round 668) local averages of finite exponential sums, toward
+# their Lemmas 10.4 and 10.8 (LinnikCGLLoc).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
     LinnikCGLPair LinnikCGLFrob LinnikCGLS2 LinnikCGLFourier LinnikCGLPoisson LinnikCGLTrace \
     LinnikCGLDiag LinnikCGLTrunc LinnikCGLProd LinnikCGLRFact LinnikCGLRam LinnikCGLP71 LinnikCGLSym LinnikCGLRt \
     LinnikCGLP72 LinnikCGLMom LinnikCGLMom4 LinnikCGLCS LinnikCGLJ LinnikCGLFb LinnikCGLPhi LinnikCGLDecay \
-    LinnikCGLBlock LinnikCGL112; do
+    LinnikCGLBlock LinnikCGL112 LinnikCGLLoc; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -320,6 +321,7 @@ import LinnikCGLPhi
 import LinnikCGLDecay
 import LinnikCGLBlock
 import LinnikCGL112
+import LinnikCGLLoc
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -835,6 +837,9 @@ import LinnikCGL112
 #print axioms LinnikCGLBlock.block_le
 #print axioms LinnikCGL112.S3_le_blocks
 #print axioms LinnikCGL112.S3_le_112
+#print axioms LinnikCGLLoc.norm_esum_le_integral
+#print axioms LinnikCGLLoc.norm_sq_esum_le
+#print axioms LinnikCGLLoc.norm_cube_esum_le
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy
