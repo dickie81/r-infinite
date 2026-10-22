@@ -190,6 +190,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGL112.lean` | 667 | Chen–Gupta–Li's (11.2) in explicit form: each dyadic block square-rooted (`sum_blk_It_le`), and the blocks of round 657's Proposition 7.2 summed, `S₃ ≤ 6C_J(0)d(q)∫ψ̃₀(log₂M + 1)²√P(24(NM)²\|R\| + 12N²M√G)` plus its three errors (`S3_le_blocks`), with `NM ≤ XqT` (`S3_le_112`) |
 | `LinnikCGLLoc.lean` | 668 | local averages of finite exponential sums, toward Chen–Gupta–Li's Lemmas 10.4 and 10.8: Fourier inversion for `ψ̂₀` (`kloc_inv`), `F(x) = ∫k(ξ)e^{−2πiξΛ/H}F(x + 2πξ/H) dξ` (`esum_eq_integral`), and the bounds for `\|F\|`, `\|F\|²` and `\|F\|³` (`norm_esum_le_integral`, `norm_sq_esum_le`, `norm_cube_esum_le`) |
 | `LinnikCGLL105.lean` | 669 | Chen–Gupta–Li's Lemma 10.5 at one point per character: the shifted local average of `\|D_c\|²` against `κ = 4C_k/(1 + ξ²)` (`norm_sq_Dp_le_shift`), the sum over the triples (`sum_triple_eq`, `sum_triple_le`), and `E ≤ 36(N^σ)^{−2}∫κ·Σ_{n₁,n₂}\|R₂(n₁, n₂)\|³` (`lemma105`) |
+| `LinnikCGLT101.lean` | 670 | Chen–Gupta–Li's Theorem 10.1 (Heath-Brown) as a displayed hypothesis (`CGLT101`), the square of `R₂` expanded (`sum_sq_R2_eq`), and their Lemma 10.6 at one point per character (`lemma106`) |
 
 ## Building (rounds 217, 618)
 
@@ -1031,3 +1032,13 @@ Round 669 bounds the energy by the third moment of `R₂(n₁, n₂) = Σ_iχ_i(
 - `lemma105`: `E ≤ 36(N^σ)^{−2}∫κ·Σ_{n₁,n₂∈S}|R₂(n₁, n₂)|³`.
 
 See the main README, round 669, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 606 lines.
+
+## Their Theorem 10.1 and Lemma 10.6: LinnikCGLT101.lean (round 670)
+
+Round 670 displays Heath-Brown's double sum, as Chen–Gupta–Li state it, and derives their Lemma 10.6 from it.
+
+- `dyad`, `mem_dyad`: `n ∼ M`, the naturals `M < n ≤ 2M`.
+- `CGLT101`: for every `ε > 0`, `C` and `Q₀` with `Σ_{i,j}|Σ_{n∼M}c_nχ_i(n)χ̄_j(n)n^{i(t_i−t_j)}|² ≤ C(qTM)^ε(|P|M² + |P|²M + |P|^{5/4}(qT)^{1/2}M)B²` for `qT ≥ Q₀`, `T, M ≥ 1`, primitive characters, `|t_i| ≤ T`, separated points and `|c_n| ≤ B`.
+- `sum_sq_R2_eq`, `lemma106`: the expansion of `Σ|R₂|²`, and `Σ_{n₁,n₂∼M}|R₂(n₁, n₂)|² ≤ C(qTM)^ε(|R|M² + |R|²M + |R|^{5/4}(qT)^{1/2}M)`.
+
+See the main README, round 670, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 608 lines.

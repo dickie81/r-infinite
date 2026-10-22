@@ -28219,3 +28219,64 @@ The reductions take any `f` with `R̃(c, b)² ≤ f_{−b}(c)` on `[−3, 3]`; o
 **Bearing on RH:** none.
 
 **The next step.** Their Theorem 10.1, displayed with explicit constants, and their Lemma 10.6 from it. Lemma 10.6 is `Σ_{n₁,n₂∼M}|R₂(n₁, n₂)|² = Σ_{i,j}|Σ_{n∼M}χ_i(n)χ̄_j(n)n^{i(t_i−t_j)}|²` by expanding the square, and needs the characters `χ_i` primitive.
+
+## Round 670: their Theorem 10.1 (Heath-Brown) displayed, and their Lemma 10.6 (stage M3, the `S₃` side; `external/pnt/LinnikCGLT101.lean`)
+
+**The results.** Below, `n ∼ M` means `M < n ≤ 2M` (`dyad`, with `mem_dyad`), and `R₂` is round 669's.
+
+- `LinnikCGLT101.CGLT101`: their Theorem 10.1 as a displayed hypothesis, not proved here (the plan's stage M5). For every `ε > 0` there are `C` and `Q₀` with the following property. Take `qT ≥ Q₀`, `T, M ≥ 1`, and points `(t_i, χ_i)`, `i ∈ P`, with `χ_i` primitive modulo `q`, `|t_i| ≤ T`, and `χ_i ≠ χ_j` or `|t_i − t_j| ≥ 1` for `i ≠ j`. If `|c_n| ≤ B` on `n ∼ M`, then `Σ_{i,j∈P}|Σ_{n∼M}c_nχ_i(n)χ̄_j(n)n^{i(t_i−t_j)}|² ≤ C(qTM)^ε(|P|M² + |P|²M + |P|^{5/4}(qT)^{1/2}M)B²`.
+- `LinnikCGLT101.sum_sq_R2_eq`: for `S` of positive integers, `Σ_{n₁,n₂∈S}|R₂(n₁, n₂)|² = Σ_{i,j∈R}|Σ_{n∈S}χ_i(n)χ̄_j(n)n^{i(t_i−t_j)}|²`, by expanding both squares with `a_i(n) = χ_i(n)e^{it_i log n}`.
+- `LinnikCGLT101.lemma106`: their Lemma 10.6 at one point per character, from `CGLT101`. For every `ε > 0` there are `C` and `Q₀` such that, for `qT ≥ Q₀`, `T, M ≥ 1`, `χ` injective on `R` with primitive values and `|t_i| ≤ T`, `Σ_{n₁,n₂∼M}|R₂(n₁, n₂)|² ≤ C(qTM)^ε(|R|M² + |R|²M + |R|^{5/4}(qT)^{1/2}M)`. The separation holds because the characters differ.
+
+**Their text.** Re-read this round in the text layer. The underscores in the quotations are escaped for the renderer.
+
+- Their Theorem 10.1: "Let T be a set of pairs (t,χ), where χ is a primitive character modulo q and t is a real number with |t| ≤ T such that for (t,χ) ≠ (t′,χ′) either χ ≠ χ′ or |t−t′| ≥ 1. Then Σ\_{(t₁,χ₁),(t₂,χ₂)∈T} |Σ\_{n∼N} c_nχ₁(n)χ̄₂(n)n^{i(t₁−t₂)}|² ⪅ (|T|N² + |T|²N + |T|^{5/4}(qT)^{1/2}N) max\_{n∼N} |c_n|²." (lines 4618–4635; spaces restored; the sums, large bars, subscripts and exponents transcribed; the first `T` is their calligraphic set). The bar over `χ₂`, which the text layer drops, is on PDF page 40. pdfminer finds a rule at y = 438.6 spanning x = 220.3–227.7 over the `χ` at x = 220.3–227.7 in the row y = 429.5 (`scratchpad/r670/probe/p40_all.txt`, from `scratchpad/r662/probe/run_coords.sh 40 0 800`).
+- Their notation: "we write A ⪅ B to indicate that for any ϵ > 0, there exists a constant C(ϵ) > 0, depending only on ϵ, such that A ≤ C(ϵ)(qT)^ϵ B for all sufficiently large qT." (lines 279–281; spaces restored; the exponent transcribed). Also "A ∼ B signifies the stronger condition B < A ≤ 2B" (lines 278–279; spaces restored).
+- Their Lemma 10.6: "For any M ≥ 1, we have Σ\_{n₁,n₂∼M, (n₁n₂,q)=1} |R(n₁/n₂, n₁n₂^{−1})|² ⪅ |W|M² + |W|²M + |W|^{5/4}(qT)^{1/2}M." (lines 4767–4778; spaces restored; the sum, fraction, large bars, large parentheses, subscripts and exponents transcribed). Its proof expands the square and ends "Applying Theorem 10.1 yields the desired result." (line 4813; spaces restored).
+
+**The stack's form.**
+
+- **Why their theorem implies `CGLT101`.** Their `⪅` gives, for each `ε`, a `C(ε)` and a threshold on `qT`, which are `CGLT101`'s `C` and `Q₀`. The factor `(qTM)^ε` is at least their `(qT)^ε` for `M ≥ 1`. `T, M ≥ 1` only restrict the statement. The points are an indexed family. The separation hypothesis makes `i ↦ (t_i, χ_i)` injective on `P`, so the family is their set of pairs, and `B` bounds their `max|c_n|`.
+- **Why `(qTM)^ε`.** It keeps the displayed form safe for `M` beyond `qT`, where Heath-Brown's bound may carry a power of `log M` that `(qT)^ε` does not absorb. It costs nothing in the stack's uses, which have `M ≤ 2qT`. The next lemma applies the hypothesis at a modulus `q₁ | q`, where `M` can exceed `q₁T`.
+- **`R₂` in place of `R`.** Round 669's `R₂` vanishes when `(n₁n₂, q) > 1`, so the stack's sums run over all `n ∼ M`. Their condition `(n₁n₂, q) = 1` is built in.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLT101.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`sum_sq_R2_eq`, `lemma106`).
+- `frontier/linnik/CGL-LEAN.md`: the rows T10.1 and L10.4–L10.10, P10.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+
+**What is checked.**
+
+- The file was compiled in scratch in two runs with `lean --json` (`scratchpad/r670/lcj.sh`; `lcj.out`, `lcj2.out`). The last run had exit 0 and no message but the axiom lines. The fix was the expansion in `sum_sq_R2_eq`: the two sides are rewritten separately to sums of `a_i(n₁)ā_i(n₂)` and `a_i(n)ā_j(n)`, then expanded and reordered with `Finset.sum_comm (s := R) (t := S)`. The header was then re-wrapped; the build below compiled the final file.
+- Then `build.sh` ran once (`scratchpad/r670/compile.sh 1`, log `build_1.log`): `1 compiled, 405 up to date` (`LinnikCGLT101` 10 s), exit 0 in 22 s, with no error, warning, `sorry` or information message. Its 610 axiom lines (2 by the module, 608 by the final check, which gains two lines) are 597 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms"; the 13 are in the final check, as before. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.89 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed: `tools/research/render_lint.py` against HEAD (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row T10.1 gains round 670 in its stack cell, which read "—", and a clause in its status. The row L10.4–L10.10, P10.2 gains round 670 in its stack cell and a clause in its status. Nothing in either is superseded. The opening's parenthetical gains round 670, and M3 gains a note.
+- `external/pnt/README.md`: a row, and a section with a heading.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their notation (lines 275–286), Theorem 10.1 (lines 4618–4635), and Lemma 10.6 with its proof (lines 4767–4813).
+- The PDF probe of page 40 for the bar over `χ₂`.
+- `LinnikCGLT101.lean` in full.
+- The operative definitions: round 669's `R2`, and Mathlib's `DirichletCharacter.IsPrimitive`.
+
+**Check 4.** No defect in the cascade or the stack is raised. `CGLS3`, `CGLP81` and `CGLT101` are hypotheses.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements. "Their theorem implies it" is argued above, with the paper's convention for `⪅` quoted.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Lemma 10.7, the fourth moment. It needs the products `χ_iχ̄_j` by conductor `q₁ | q`, their primitive characters, `CGLT101` at the modulus `q₁`, and the trivial bound below `Q₀`.
