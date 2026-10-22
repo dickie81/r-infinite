@@ -157,9 +157,9 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `SieveCert2285UP1.lean` … `SieveCert2285UP28.lean` | 631 | the 252 parts of the certificate on `grid2285U` (`rows2285U_0` … `rows2285U_251`): 28 ranges of consecutive rows and the 78 heaviest rows in 224 column pieces, each at most its bound by `decide +kernel`, one at a time (`Elab.async false`); at most 60000 depth-4 tests per file |
 | `SieveCert2285U.lean` | 631 | the certificate on `grid2285U`: the total is `rows 0 n`, its bound assembled one step at a time from the parts' bounds, and less than `K` (`total_lt_2285U`) |
 | `Linnik2285U.lean` | 631 | Linnik's theorem with exponent `2285/1000` with no hypothesis (`linnik_2285U`): `SieveMain.linnik_route_lt` at `route2285U` and `grid2285U` (`routeOK2285U`, `fits2285U`, `typeII2285U`, `total_lt_2285U`) |
-| `LinnikCGLLV.lean` | 636 | Chen–Gupta–Li's large-values estimate at one point per character, as the hypothesis `CGLLargeValues`; the count over every character mod `q` (`cgl_all`) and off the line (`taylor_pick`, `cgl_shift`) |
-| `LinnikCGLStep.lean` | 636 | the density step `7/3 + 1/2000` on `[5/7, 16/21]` under `CGLLargeValues` (`charDensity_cgl`): round 607's step with `block_bin_cgl` in place of `block_bin_hux` |
-| `LinnikCGLLinnik.lean` | 636 | Linnik's theorem with exponents `9/4` (`linnik_225c_lv`) and `226/100` (`linnik_226c_lv`) under `CGLLargeValues`: the routes of `Linnik225C` and `Linnik226C` with `charDensity_cgl` in place of `CGLDensity` |
+| `LinnikCGLLV.lean` | 636, 637 | Chen–Gupta–Li's Proposition 3.1 at one point per character, as the hypothesis `CGLProp31` (round 636: their Theorem 1.1, `CGLLargeValues`); the large values of `D_N` on the proposition's range (`lv_range`), over every character mod `q` (`cgl_all`) and off the line (`taylor_pick`, `cgl_shift`) |
+| `LinnikCGLStep.lean` | 636, 637 | the density step `7/3 + 1/2000` on `[5/7, 16/21]` under `CGLProp31` (`charDensity_cgl`): round 607's step with `block_bin_cgl` in place of `block_bin_hux` |
+| `LinnikCGLLinnik.lean` | 636, 637 | Linnik's theorem with exponents `9/4` (`linnik_225c_lv`) and `226/100` (`linnik_226c_lv`) under `CGLProp31`: the routes of `Linnik225C` and `Linnik226C` with `charDensity_cgl` in place of `CGLDensity` |
 
 ## Building (rounds 217, 618)
 
@@ -622,6 +622,8 @@ The job ran from 02:25 UTC to 03:49 UTC on 2026-10-22 and its part files from 02
 
 ## Chen–Gupta–Li's density step from their large-values estimate: LinnikCGLLV.lean … LinnikCGLLinnik.lean (round 636)
 
+*(Round 637: the hypothesis of the three files is now Chen–Gupta–Li's Proposition 3.1, `CGLProp31`; `CGLLargeValues` and `cglB` are gone. See the next section.)*
+
 Round 636 is stage M1 of the plan in `frontier/linnik/CGL-LEAN.md` (round 635). `Linnik225C.linnik_225c` and `Linnik226C.linnik_226c` take Chen–Gupta–Li's density estimate, `LinnikCGL.CGLDensity`, as their hypothesis. The three files prove the count those theorems use from the paper's large-values estimate, their Theorem 1.1, instead: the deduction of the density estimate from the large values, the paper's §12, is replaced by the stack's own step of round 607, kernel-checked.
 
 - `LinnikCGLLV`: `CGLLargeValues`, Theorem 1.1's second bound ("In all cases") at one point per character. For every `ε > 0` there is `C ≥ 0` such that, for `q ≥ 1`, `T ≥ 1`, `N ≥ (qT)^{2/3}`, `V > 0` and `|a_n| ≤ 1`, at most `C(qTN)^ε B(q, T, N, V)` distinct primitive characters mod `q` have `|Σ_{N<n≤2N} a_nχ(n)n^{it_χ}| ≥ V` at a point `|t_χ| ≤ T`, where `B = N²V⁻² + (qT)^{1/2}N³V⁻⁴ + q^{4/3}TN²V⁻⁴ + qTN^{12/5}V⁻⁴` (`cglB`). Their theorem implies it; the file's header gives the argument. `cgl_all` extends it to every character mod `q`, through the primitive character mod the conductor that induces it, with the coefficients `a_n1_{(n,q)=1}` and a factor `C(ε)q^ε` for the divisors of `q`. `cgl_shift` extends it to points `δ + iγ` with `0 ≤ δ ≤ 1/16`, at a factor `K` and the threshold `V/2`: `taylor_pick` expands `e^{−δ log(n/N)}` to `K` terms.
@@ -629,3 +631,13 @@ Round 636 is stage M1 of the plan in `frontier/linnik/CGL-LEAN.md` (round 635). 
 - `LinnikCGLLinnik`: `rangeCounts_lv` is `charDensity_cgl` as `RangeCounts`; `counts_7c_lv` is `SieveTypeIIU226C.counts_7c`'s glue with it in place of `rangeCounts_cgl`; `linnik_225c_lv` and `linnik_226c_lv` are the routes of `Linnik225C.linnik_225c` and `Linnik226C.linnik_226c`, with their windows, grids and certificates, under `CGLLargeValues`.
 
 `LinnikCGLStep` sets `maxHeartbeats` to `1000000` for `class1_cgl`, `count_cgl_at` and `count_cgl`. See the main README, round 636, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 510 lines.
+
+## Chen–Gupta–Li's Proposition 3.1 as the hypothesis: LinnikCGLLV.lean … LinnikCGLLinnik.lean (round 637)
+
+Round 637 moves the hypothesis of round 636's files from Chen–Gupta–Li's Theorem 1.1 to their Proposition 3.1, from which their §3 deduces the theorem. Round 636's block bound applied the large-values count at each bin's threshold `N^{σ_b}/Z`, which runs up to `N/Z`; it now applies it at `N^σ/Z`, `σ` the range's point. With `5/7 ≤ σ ≤ 16/21` and `Z ≤ N^{1/70}` that threshold lies in `[N^{7/10}, N^{4/5}]`, the proposition's range, where the paper's reduction needs neither the mean value theorem, Huxley's estimate nor the subdivision in `T`, and the bound has no fourth term `qTN^{12/5}V⁻⁴`.
+
+- `LinnikCGLLV`: `CGLProp31`, Proposition 3.1 at one point per character for a sum over `S ⊆ [6N/5, 9N/5]` (the paper's `S_N` with the coefficients `b_n1_S(n)`, its weight being `1` there): for every `ε > 0` there is `C ≥ 0` such that, for `7/10 ≤ σ ≤ 4/5` and a real `N ≥ (qT)^{2/3}/2`, at most `C(qTN)^ε(N^{2−2σ} + (qT)^{1/2}N^{3−4σ} + (qT)^{4/3}N^{2−4σ})` distinct primitive characters mod `q` have `|Σ_{n∈S} b_nχ(n)n^{it_χ}| ≥ N^σ/6` at a point `|t_χ| ≤ T`. The file's header gives the argument that the paper implies it. `lv_range` is the paper's three-part split: for `N^{7/10} ≤ V ≤ N^{4/5}` it bounds the count of large values of `D_N` by `C(qTN)^ε p31B(q, T, N, V)`, `p31B = N²V⁻² + (qT)^{1/2}N³V⁻⁴ + (qT)^{4/3}N²V⁻⁴`, from the proposition at `11N/15`, `N` and `19N/15`. `cgl_all` and `cgl_shift` are round 636's, on that range.
+- `LinnikCGLStep`: `block_bin_cgl` takes the lower threshold `V^mN_j^σ/((m + 1)τ₀^{2m})`; `p31B_le_Q` and `piece_le` have six powers and six conditions; `ParC.Good` asks `5/7 ≤ lo` and `hi ≤ 4/5`; `class1_cgl` proves the thresholds in range from `16(M + 1)⁴C_τQ^{εs/4} ≤ Q^{1/105}`, which `eventually_cgl` supplies. `charDensity_cgl` keeps its exponent `7/3 + 1/2000` on `[5/7, 16/21]`.
+- `LinnikCGLLinnik`: `linnik_225c_lv` and `linnik_226c_lv` under `CGLProp31`.
+
+See the main README, round 637, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 511 lines.

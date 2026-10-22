@@ -26312,3 +26312,56 @@ Distinct characters with one point each form such a `W`, since every two of its 
 **Bearing on RH:** none.
 
 **The next step.** M2: Theorem 1.1 from Proposition 3.1, both as statements in Lean, with the subdivision in `T`.
+
+## Round 637: Linnik's exponents `9/4` and `226/100` from Chen–Gupta–Li's Proposition 3.1 (stage M2, in another form; `external/pnt/LinnikCGLLV.lean`, `LinnikCGLStep.lean`, `LinnikCGLLinnik.lean`)
+
+**The result.** `LinnikCGLLinnik.linnik_225c_lv` and `linnik_226c_lv` now take `LinnikCGLLV.CGLProp31`, Chen–Gupta–Li's Proposition 3.1 at one point per character, in place of round 636's `CGLLargeValues`, their Theorem 1.1:
+
+- `CGLProp31`: for every `ε > 0` there is `C ≥ 0` such that, for `q ≥ 1`, `T ≥ 1`, `7/10 ≤ σ ≤ 4/5`, a real `N ≥ (qT)^{2/3}/2`, `S ⊆ [6N/5, 9N/5]` and `|b_n| ≤ 1`, at most `C(qTN)^ε(N^{2−2σ} + (qT)^{1/2}N^{3−4σ} + (qT)^{4/3}N^{2−4σ})` distinct primitive characters mod `q` have `|Σ_{n∈S} b_nχ(n)n^{it_χ}| ≥ N^σ/6` at a point `|t_χ| ≤ T`.
+- `LinnikCGLLV.lv_range`: under it, for `N^{7/10} ≤ V ≤ N^{4/5}`, at most `C(qTN)^ε(N²V⁻² + (qT)^{1/2}N³V⁻⁴ + (qT)^{4/3}N²V⁻⁴)` distinct primitive characters mod `q` have `|Σ_{N<n≤2N} a_nχ(n)n^{it_χ}| ≥ V`. It is the paper's reduction of Theorem 1.1 to the proposition on that range: `D_N` is split over `(N, 6N/5)`, `[6N/5, 9N/5]` and `(9N/5, 2N]`, one part is at least `V/3` at each point, and the proposition is applied at `11N/15`, `N` and `19N/15`.
+- The step, `LinnikCGLStep.charDensity_cgl`, keeps its exponent `7/3 + 1/2000` on `[5/7, 16/21]`, now under `CGLProp31`.
+
+So the plan's M2 is done in another form: the stack's step does not need Theorem 1.1, and Theorem 1.1 is not formalized.
+
+**Why the step needs only the proposition.** Round 636's block bound applied the count at each bin's threshold `W_j/2 = N_j^{σ_b}/Z`, `σ ≤ σ_b < 1`, so `V` ran up to `N_j/Z`; `piece_le` then bounded the result by the bound at `N_j^σ/Z`, since the bound decreases in `V`. Round 637 applies the count at `N_j^σ/Z` directly: a character whose value is at least `N_j^{σ_b}/Z` is at least `N_j^σ/Z`. With `5/7 ≤ σ ≤ 16/21`, `Z ≤ Q^{1/105}` and `N_j ≥ Q^{2/3}`, so `Z ≤ N_j^{1/70}`, the threshold lies in `[N_j^{7/10}, N_j^{4/5}]`, the proposition's range (`class1_cgl`, `hrange`). On that range §3's proof of Theorem 1.1 at `q₁ = q` is the split alone. Outside it the paper uses the mean value theorem (1.2) and Huxley's estimate (1.3), and inside it the subdivision in `T` serves to replace `(qT)^{4/3}N²V⁻⁴` by `q^{4/3}TN²V⁻⁴` (its Case 1) or by `qTN^{12/5}V⁻⁴` (its Case 2). The step bounds `q^{4/3}T` by `Q^{4/3}` in any case. The bound now has no fourth term, so `ParC.Good` has six exponent conditions instead of eight.
+
+**Why the paper's proposition implies the hypothesis.** §3's opening, Proposition 3.1, the split and §1.1, re-read this round in the text layer (`scratchpad/cgl/work/cgl_v2.txt`; spaces restored, the displayed formulas transcribed):
+
+- "Throughout the paper we fix a smooth function w : ℝ → ℝ≥0, supported on [1, 2], such that ‖w^{(j)}‖∞ = O_j(1) for all j ∈ ℕ and w(t) = 1 for t ∈ [6/5, 9/5]."
+- "Proposition 3.1. Let σ ∈ [7/10, 4/5] and S_N(t, χ) = Σ_{n∈ℤ} w(n/N) b_nχ(n)n^{it}, where χ is a primitive character modulo q and |b_n| ≤ 1. Suppose that W is a finite set of pairs (t, χ), where |t| ≤ T and for (t, χ) ≠ (t′, χ′) either χ ≠ χ′ or |t − t′| ≥ (qT)^ϵ. If |S_N(t, χ)| ≥ N^σ/6 for all (t, χ) ∈ W and N ≥ (qT)^{2/3}/2, we have |W| ⪅_ϵ N^{2−2σ} + (qT)^{1/2}N^{3−4σ} + (qT)^{4/3}N^{2−4σ}."
+- "Similarly, by replacing N by 11N/15 (respectively, 19N/15) in the proposition and appropriately choosing b_n, we obtain the same upper bound for |W_1| (respectively, |W_3|)."
+- "we write A ⪅ B to indicate that for any ϵ > 0, there exists a constant C(ϵ) > 0, depending only on ϵ, such that A ≤ C(ϵ)(qT)^ϵB for all sufficiently large qT."
+
+With the coefficients `b_n1_S(n)` the paper's `S_N` is the sum over `S`, since `w = 1` on `S/N`. Distinct characters with one point each form such a `W`. For large `qT`, `(qT)^ϵ ≤ 2^ϵ(qTN)^ϵ` since `N ≥ 1/2`. For `qT` below the paper's bound at most `q` characters count, while `(qTN)^ε ≥ 2^{−ε}` and `N^{2−2σ} ≥ 1/2`. `LinnikCGLLV.lean`'s header gives the argument.
+
+**What changed in the files.**
+
+- `LinnikCGLLV.lean`: `cglB` and `CGLLargeValues` are replaced by `p31B` and `CGLProp31`. `lv_range` is new, with `rpow_le_two`, `rpow_mul_le_two` and `piece_bound`. `cgl_all` and `cgl_shift` take `N^{7/10} ≤ V ≤ N^{4/5}` (at `V/2` for `cgl_shift`) in place of `V > 0`. `rpow_div_rpow_pow` and `npow_div_rpow_pow` move here from `LinnikCGLStep.lean`.
+- `LinnikCGLStep.lean`: `block_bin_cgl` takes `0 ≤ σ ≤ σ_b` and the range of the lowered thresholds (`hrange`). `p31B_le_Q` replaces `cglB_le_Q`, with six powers, and `piece_le` has six conditions and the factor `6` for `8`. `ParC.Good` asks `5/7 ≤ lo` and `hi ≤ 4/5`, where round 636 asked `7/10 ≤ lo` and `hi ≤ 11/12`. `class1_cgl` and `count_cgl_at` ask `16(M + 1)⁴C_τQ^{εs/4} ≤ Q^{1/105}`, where round 636 asked `≤ Q`; `class1_cgl` proves the range from it, and `eventually_cgl` supplies it for `ε ≤ 1/100`.
+- `LinnikCGLLinnik.lean`: the hypothesis, and the headers and docstrings of the three files.
+- `build.sh`: a `#print axioms` line for `lv_range`.
+
+**What is checked.**
+
+- The three files were compiled first in scratch, with the scratch oleans ahead of the committed ones on the path; `LinnikCGLLV` needed two fixes (`and_self` in the split's third case, the implicit arguments of `norm_add₃_le`), and `LinnikCGLStep` compiled at the first attempt. Then `build.sh` ran twice, the second time after a docstring correction (`scratchpad/r637/build2.log`): `3 compiled, 372 up to date` (`LinnikCGLLV` 23 s, `LinnikCGLStep` 103 s, `LinnikCGLLinnik` 8 s), exit 0 in 146 s, no error, warning or `sorry`. Its 520 axiom lines (9 by the compiled modules, 511 by the final check, which gains the line for `lv_range`) are 507 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", all in the final check, as in round 636. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 7.17 GiB.
+- The files have 1,867 lines, no `sorry`, `native_decide` or `axiom`, and no line over 120 characters; `LinnikCGLStep` still sets `maxHeartbeats` to `1000000` for `class1_cgl`, `count_cgl_at` and `count_cgl`.
+- The lead's self-review of the docstrings against the statements found one slip, corrected before the second build: `piece_bound`'s docstring left out `C, x, N ≥ 0`.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 and this file 1872 → 1872.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the round-635 sentence "Subdivision in `T` is needed" is struck as false when written, the lead's own finding: the target does not need it. The rows T1.2, T1.1 and P3.1, the M1 note, M2 and M3 carry net-state markers. Round 636 had struck T1.2's old status "Not started; milestone **M1**", which was true when written; the marker now records it as a superseded status. `external/pnt/README.md`: the table's three rows are updated, the round-636 section has a net-state marker, and a round-637 section is added.
+
+**Check 1** (direct reads this round): the paper's §3 in the text layer (lines 559–915: §3's opening, Proposition 3.1, the proof of Theorem 1.1 through Case 3, Lemma 3.3) and §1.1 (lines 275–283), the operative statements, re-read; `LinnikCGLLV.lean`, `LinnikCGLStep.lean` and `LinnikCGLLinnik.lean` in full; `LinnikHuxStep.lean`'s header and `parHux73`, `LinnikTwelve.lean`'s declarations, `LinnikLargeValues.lean`'s header and `huxley_large_values`, `LinnikPoints.lean`'s header (the stack's (1.2) and (1.3), which the step no longer needs); Mathlib's `Real.logb` lemmas (`Analysis/SpecialFunctions/Log/Base.lean` 120–215) and `rpow` lemmas (`Pow/Real.lean` at `rpow_neg`, `rpow_two`, `rpow_le_rpow_of_exponent_le` and `rpow_le_rpow_of_exponent_ge`), in the checkout the builds use.
+
+**Check 4.** The struck plan sentence is the lead's own finding (novel); no other defect is raised. The hypothesis is the paper's proposition, displayed as the plan intends; M3–M5 stay open.
+
+**Check 9.**
+
+- (a) This round's universals are scoped. "The stack's step does not need Theorem 1.1" means that `charDensity_cgl` is kernel-checked from `CGLProp31`. "The paper's proposition implies the hypothesis" is the argument above, from the quoted text. "On that range §3's proof … is the split alone" is said at `q₁ = q`, from the proof read in full.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of round 636, no review runs this round. The batched review will cover rounds 634–637 and the stages that follow.
+
+**Bearing on RH:** none.
+
+**The next step.** M3: Proposition 3.1 at one point per character (`CGLProp31`'s form), with Proposition 8.1 and Theorem 10.1 as displayed hypotheses. The first moment, the traces and `S₁` (the paper's §§4–5) come first, generalizing the model cases of `LinnikLines` and `LinnikSplit` (prime `q`, `t = 0`).

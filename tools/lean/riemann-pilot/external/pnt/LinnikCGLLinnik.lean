@@ -1,11 +1,12 @@
 /-
-# Round 636: Linnik's exponents `9/4` and `226/100` from Chen–Gupta–Li's large-values estimate
+# Rounds 636–637: Linnik's exponents `9/4` and `226/100` from Chen–Gupta–Li's Proposition 3.1
 
 Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
-Plain statement (`linnik_225c_lv`): if `LinnikCGLLV.CGLLargeValues` holds, there is `K` such that for every `q ≥ 1`
-and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{9/4}`. Plain statement (`linnik_226c_lv`):
-the same with `p ≤ K·q^{226/100}`.
+Plain statement (`linnik_225c_lv`): if `LinnikCGLLV.CGLProp31` holds, there is `K` such that for every `q ≥ 1` and
+every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{9/4}`. Plain statement (`linnik_226c_lv`): the
+same with `p ≤ K·q^{226/100}`. Round 636 had Chen–Gupta–Li's Theorem 1.1 (`LinnikCGLLV.CGLLargeValues`) as the
+hypothesis; round 637 has their Proposition 3.1 (README round 637).
 
 `Linnik225C.linnik_225c` and `Linnik226C.linnik_226c` take `LinnikCGL.CGLDensity` as their hypothesis and use it once,
 through `SieveTypeIIU227.rangeCounts_cgl`: the counts `C(qT)^{(14003/6000)(1−σ)}(1 + log qT)^{10}` on `[5/7, 16/21]`.
@@ -33,18 +34,18 @@ namespace LinnikCGLLinnik
 open DirichletCharacter SieveTypeIIGen SieveCurveGlue SieveTypeIIU227 SieveTypeIIHM SieveTypeIIU226C SieveCert
   SieveRoute SieveQ
 
-/-- **The counts on `[5/7, 16/21]` from the large values**: `LinnikCGLStep.charDensity_cgl` as `RangeCounts`, with
+/-- **The counts on `[5/7, 16/21]` from Proposition 3.1**: `LinnikCGLStep.charDensity_cgl` as `RangeCounts`, with
 `7/3 + 1/2000 = 14003/6000`. -/
-theorem rangeCounts_lv (h : LinnikCGLLV.CGLLargeValues) :
+theorem rangeCounts_lv (h : LinnikCGLLV.CGLProp31) :
     RangeCounts (fun σ => 14003 / 6000 * (1 - σ)) (5 / 7) (16 / 21) := by
   have h1 := rangeCounts_of_density (LinnikCGLStep.charDensity_cgl h)
   have e : (7 / 3 + 1 / 2000 : ℝ) = 14003 / 6000 := by norm_num
   rw [e] at h1
   exact h1
 
-/-- **The counts of the curve `g7c` from the large values**: `SieveTypeIIU226C.counts_7c`'s glue, with
+/-- **The counts of the curve `g7c` from Proposition 3.1**: `SieveTypeIIU226C.counts_7c`'s glue, with
 `rangeCounts_lv` in place of `rangeCounts_cgl`. -/
-theorem counts_7c_lv (h : LinnikCGLLV.CGLLargeValues) : CurveCounts g7c :=
+theorem counts_7c_lv (h : LinnikCGLLV.CGLProp31) : CurveCounts g7c :=
   curveCounts_of_range <| rangeCounts_glue (rangeCounts_trivial _ _) <|
     rangeCounts_glue (rangeCounts_of_density LinnikStairs7.charDensity_in7_0) <|
     rangeCounts_glue (rangeCounts_of_density LinnikStairs7.charDensity_in7_1) <|
@@ -89,26 +90,26 @@ theorem counts_7c_lv (h : LinnikCGLLV.CGLLargeValues) : CurveCounts g7c :=
     rangeCounts_glue (rangeCounts_of_density LinnikStairs7.charDensity_hx7_19) <|
     rangeCounts_of_density LinnikStep.charDensity_step
 
-/-- **`typeII_gen_hm` at `g7c` on `window_225c`, from the large values**, as `TypeIIAt` at `Linnik225C.route225C`. -/
-theorem typeII225c_lv (h : LinnikCGLLV.CGLLargeValues) : @TypeIIAt Linnik225C.route225C := by
+/-- **`typeII_gen_hm` at `g7c` on `window_225c`, from Proposition 3.1**, as `TypeIIAt` at `Linnik225C.route225C`. -/
+theorem typeII225c_lv (h : LinnikCGLLV.CGLProp31) : @TypeIIAt Linnik225C.route225C := by
   intro f0 hf0 hsupp K₀ e₁ η he₁ hη hη1
   exact typeII_gen_hm g7c_le_one g7c_half (counts_7c_lv h) SieveTypeIIU225C.window_225c hf0 hsupp K₀ he₁ hη hη1
 
-/-- **`typeII_gen_hm` at `g7c` on `window_226c`, from the large values**, as `TypeIIAt` at `Linnik226.route226`. -/
-theorem typeII226c_lv (h : LinnikCGLLV.CGLLargeValues) : @TypeIIAt Linnik226.route226 := by
+/-- **`typeII_gen_hm` at `g7c` on `window_226c`, from Proposition 3.1**, as `TypeIIAt` at `Linnik226.route226`. -/
+theorem typeII226c_lv (h : LinnikCGLLV.CGLProp31) : @TypeIIAt Linnik226.route226 := by
   intro f0 hf0 hsupp K₀ e₁ η he₁ hη hη1
   exact typeII_gen_hm g7c_le_one g7c_half (counts_7c_lv h) window_226c hf0 hsupp K₀ he₁ hη hη1
 
-/-- **Linnik's theorem with exponent `9/4`, from Chen–Gupta–Li's large-values estimate** (`h`). There is `K` such
-that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{9/4}`. -/
-theorem linnik_225c_lv (h : LinnikCGLLV.CGLLargeValues) : ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (a : ℕ), a.Coprime q →
+/-- **Linnik's theorem with exponent `9/4`, from Chen–Gupta–Li's Proposition 3.1** (`h`). There is `K` such that
+for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{9/4}`. -/
+theorem linnik_225c_lv (h : LinnikCGLLV.CGLProp31) : ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (a : ℕ), a.Coprime q →
     ∃ p : ℕ, p.Prime ∧ p ≡ a [MOD q] ∧ (p : ℝ) ≤ K * (q : ℝ) ^ (9 / 4 : ℝ) :=
   @SieveMain.linnik_route_lt Linnik225C.route225C Linnik225C.routeOK225C grid225C gridOK225C Linnik225C.fits225C
     (typeII225c_lv h) total_lt_225C
 
-/-- **Linnik's theorem with exponent `226/100`, from Chen–Gupta–Li's large-values estimate** (`h`). There is `K` such
+/-- **Linnik's theorem with exponent `226/100`, from Chen–Gupta–Li's Proposition 3.1** (`h`). There is `K` such
 that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{226/100}`. -/
-theorem linnik_226c_lv (h : LinnikCGLLV.CGLLargeValues) :
+theorem linnik_226c_lv (h : LinnikCGLLV.CGLProp31) :
     ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (a : ℕ), a.Coprime q →
     ∃ p : ℕ, p.Prime ∧ p ≡ a [MOD q] ∧ (p : ℝ) ≤ K * (q : ℝ) ^ (226 / 100 : ℝ) :=
   @SieveMain.linnik_route Linnik226.route226 Linnik226.routeOK226 grid226 gridOK226 Linnik226.fits226

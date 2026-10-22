@@ -106,8 +106,9 @@ for f in SieveCert225C Linnik225C; do c 1 "$HERE" $f; done
 for f in SieveTypeIIU2285 SieveGrid2285U; do c 1 "$HERE" $f; done
 for i in $(seq 1 28); do c 1 "$HERE" SieveCert2285UP$i; done
 for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
-# Round 636: Chen–Gupta–Li's large-values estimate as a hypothesis (LinnikCGLLV), the density step from it on
-# [5/7, 16/21] (LinnikCGLStep), and Linnik's exponents 9/4 and 226/100 from it (LinnikCGLLinnik).
+# Rounds 636–637: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
+# (LinnikCGLLV), the density step from it on [5/7, 16/21] (LinnikCGLStep), and Linnik's exponents 9/4 and 226/100
+# from it (LinnikCGLLinnik).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik; do c 1 "$HERE" $f; done
 echo "$NC compiled, $NUP up to date"
 AX="$(mktemp --suffix=.lean)"
@@ -679,6 +680,7 @@ import LinnikCGLLinnik
 #print axioms Linnik2285U.typeII2285U
 #print axioms Linnik2285U.fits2285U
 #print axioms Linnik2285U.linnik_2285U
+#print axioms LinnikCGLLV.lv_range
 #print axioms LinnikCGLLV.cgl_all
 #print axioms LinnikCGLLV.taylor_pick
 #print axioms LinnikCGLLV.cgl_shift
