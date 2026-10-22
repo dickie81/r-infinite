@@ -172,6 +172,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLTrace.lean` | 648 | Chen–Gupta–Li's `S₃` at one point per character (`S3_eq_Fm`): for `χ` injective on `R`, `X − 3μ₀‖E‖_F² = Re Σ F(i, j)F(j, k)F(k, i)` over the triples that are not all equal, `F(i, k)` the terms `m ≠ 0` of `gram_poisson`; from the algebra of the cubic trace (`S3_eq_cube`), orthogonality (`sum_range_mul_star_eq_zero`, `sum_range_mul_star_self`), `ĥ₀(0) = ∫w²` (`fourier_Wt_zero`) and the term `m = 0` split off (`summable_poisson`, `Em_eq`) |
 | `LinnikCGLDiag.lean` | 649 | the Gram diagonal against its main term (`muP_sub_mu0_le`): `\|μ − μ₀\| ≤ d(q)B`, by Möbius inversion over the divisors of `q` (`sum_coprime_eq`, `totient_div_eq`) and Poisson summation along the multiples of each (`sum_multiples_eq`, `bracket_le`); and `S₃ = Re Σ_{i,j,k∈R}F(i, j)F(j, k)F(k, i) − \|R\|(μ − μ₀)³` at one point per character (`Fm_diag`, `S3_eq_all`) |
 | `LinnikCGLTrunc.lean` | 650 | the truncation in `m` (`S3_trunc`): `S₃` is `Re Σ_{0<\|m_i\|≤M}I′(m⃗) − \|R\|(μ − μ₀)³` within `3\|R\|³τ_M(2N + 1 + τ_M)²`, from the truncated cubic trace as a sum of their `I′_{m⃗}` (`sum_FmT_cube`), the tail of each entry (`norm_Fm_sub_FmT_le`) and `\|F(i, k)\| ≤ 2N + 1` (`norm_Fm_le`) |
+| `LinnikCGLProd.lean` | 651 | a product of three `ĥ`s as an integral over `(v₁, v₂)` (`hhat_prod`): for `τ₁ + τ₂ + τ₃ = 0`, `ĥ_{τ₁}(ξ₁)ĥ_{τ₂}(ξ₂)ĥ_{τ₃}(ξ₃) = ∫∫v₁^{iτ₁}v₂^{iτ₂}J(v₁, v₂, v₁ξ₁ + v₂ξ₂ + ξ₃)`, the change of variables of Chen–Gupta–Li's proof of Proposition 7.1, from the substitutions `u_ℓ = v_ℓu₃` (`prod_eq_iter`), Fubini over a compact support (`iter_swap`) and the phases (`Phi_eq`) |
 
 ## Building (rounds 217, 618)
 
@@ -802,3 +803,12 @@ Round 650 truncates the frequencies: for `q ≥ 1`, `N > 0`, `χ` injective on `
 - `norm_cube_sub_le`, `tauM`, `S3_trunc`: the error of the truncated cubic trace.
 
 See the main README, round 650, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 562 lines.
+
+Round 651 proves the change of variables of Chen–Gupta–Li's proof of Proposition 7.1, for one triple of points: for `τ₁ + τ₂ + τ₃ = 0` and real `ξ₁, ξ₂, ξ₃`, `ĥ_{τ₁}(ξ₁)ĥ_{τ₂}(ξ₂)ĥ_{τ₃}(ξ₃) = ∫∫v₁^{iτ₁}v₂^{iτ₂}J(v₁, v₂, v₁ξ₁ + v₂ξ₂ + ξ₃) dv₂ dv₁` (`hhat_prod`), where `J(v₁, v₂, λ) = ∫e^{−2πiλu}u²w(v₁u)²w(v₂u)²w(u)² du` is the inner integral of their (7.3) and `h_τ(u) = w(u)²u^{iτ}`.
+
+- `ee`, `ee_add`, `continuous_ee`, `norm_ee`, `fourier_eq`, `Wt_apply`, `one_lt_of_wCGL_ne`, `gv`, `Jk`: the phase `e^{−2πix}`, Mathlib's Fourier transform as `∫e^{−2πiuξ}f(u) du` (`Real.fourier_real_eq_integral_exp_smul`), and the kernel `J`.
+- `Phi`, `integral_scale`, `prod_eq_iter`: for `u₃ > 0` the substitutions `u₁ = v₁u₃`, `u₂ = v₂u₃` (Mathlib's `Measure.integral_comp_mul_right`) give `ĥ₁ĥ₂ĥ₃ = ∫∫∫Φ(u₃, v₁, v₂) dv₂ dv₁ du₃` with `Φ = u₃²f₁(v₁u₃)f₂(v₂u₃)f₃(u₃)`, `f_ℓ(u) = e^{−2πiuξ_ℓ}h_{τ_ℓ}(u)`; for `u₃ ≤ 0`, `f₃(u₃) = 0`.
+- `Phi_ne_zero`, `continuous_Phi3`, `integrable_Phi3`, `integrable_Phi2`, `iter_swap`: `Φ` is continuous and vanishes outside `[1, 2] × [1/2, 2] × [1/2, 2]`, so Fubini puts the integral over `u₃` inside (Mathlib's `integral_integral_swap` and `Integrable.integral_prod_left`).
+- `Phi_eq`, `hhat_prod`: where `Φ ≠ 0`, `(v₁u₃)^{iτ₁}(v₂u₃)^{iτ₂}u₃^{iτ₃} = v₁^{iτ₁}v₂^{iτ₂}`, since `τ₁ + τ₂ + τ₃ = 0` (Mathlib's `Complex.mul_cpow_ofReal_nonneg`).
+
+See the main README, round 651, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 565 lines.

@@ -27063,3 +27063,53 @@ where `I′(m⃗) = Σ_{i,j,k∈R}φ_{ij}(m₁)φ_{jk}(m₂)φ_{ki}(m₃)` is th
 **Bearing on RH:** none.
 
 **The next step.** Their Proposition 7.1 for `I′(m⃗)`: expand each `ĥ` as an integral, so that the sum over the triples of points factors as `R(u₁/u₃, ·)R(u₂/u₁, ·)R(u₃/u₂, ·)` with `R(v, a) = Σ_{(t,χ)∈W}v^{it}χ(a)`, their (7.2); then change variables and integrate in `u₃` first.
+
+## Round 651: a product of three `ĥ`s as an integral over `(v₁, v₂)` (stage M3, the `S₃` side; `external/pnt/LinnikCGLProd.lean`)
+
+**The result.** `LinnikCGLProd.hhat_prod`: for `τ₁ + τ₂ + τ₃ = 0` and real `ξ₁, ξ₂, ξ₃`,
+
+`ĥ_{τ₁}(ξ₁)ĥ_{τ₂}(ξ₂)ĥ_{τ₃}(ξ₃) = ∫∫v₁^{iτ₁}v₂^{iτ₂}J(v₁, v₂, v₁ξ₁ + v₂ξ₂ + ξ₃) dv₂ dv₁`,
+
+where `h_τ(u) = w(u)²u^{iτ}` (round 640's `Wt`), `ĥ` is Mathlib's Fourier transform `∫e^{−2πiuξ}h(u) du`, and `J(v₁, v₂, λ) = ∫e^{−2πiλu}u²w(v₁u)²w(v₂u)²w(u)² du` (`Jk`). In round 650's `I′(m⃗)` the term of a triple of points `(i, j, k)` carries `ĥ_{t_i−t_j}(Nm₁/q)ĥ_{t_j−t_k}(Nm₂/q)ĥ_{t_k−t_i}(Nm₃/q)`, whose `τ`s sum to `0`. There `J`'s argument is `(N/q)(m₁v₁ + m₂v₂ + m₃)`, and `v₁^{iτ₁}v₂^{iτ₂} = v₁^{it_i}(v₂/v₁)^{it_j}(1/v₂)^{it_k}`.
+
+**The paper's change of variables and the stack's.** Re-read this round in the text layer (spaces restored; the hat, fractions, exponents and subscripts transcribed). Their proof of Proposition 7.1 opens: "Expanding the definition of ĥ as an integral and interchanging the order of summation and integration, one finds" (lines 2067–2068) `I′_{m⃗}` as an integral over `(u₁, u₂, u₃)`. Then "we make the change of variables v₁ = u₁/u₃, v₂ = u₂/u₃, b₁ = a₁a₃⁻¹, b₂ = a₂a₃⁻¹" (lines 2130–2138), with "du₁du₂du₃ = u₃²dv₁dv₂du₃" (lines 2162–2163), and "Since the R factors do not depend on u₃, a₃, performing the u₃ integral and the a₃ summation first yields" their (7.3) (lines 2193–2226). The stack makes the substitution in the product of the three `ĥ`s, for one triple of points, before any sum. The sums over the points and the residues are finite, so at the next step they pass through the integral by linearity, and there the phases and the characters factor. The substitution needs `u₃ > 0`; for `u₃ ≤ 0` the integrand vanishes, since `w` is supported on `[1, 2]`. Fubini is applied to a continuous integrand that vanishes outside `[1, 2] × [1/2, 2] × [1/2, 2]`, the support their remark records: "As w(u) is a smooth bump supported on [1,2], we observe that w(v₁u₃)²w(v₂u₃)²w(u₃)²u₃² vanishes unless v₁, v₂ ∈ [1/2,2]" (lines 2227–2230).
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLProd.lean`: new, 234 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`prod_eq_iter`, `iter_swap`, `hhat_prod`).
+- `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch first (`scratchpad/r651/lc.sh`; `lc.out` to `lc4.out`). The fixes were:
+
+  - the two substitutions stated as explicit `have`s, after one rewrite had substituted twice in the same integral;
+  - `HasCompactSupport.intro` given its compact boxes with explicit bounds;
+  - `Complex.mul_cpow_ofReal_nonneg` applied after `Complex.ofReal_mul`;
+  - the inner integral rewritten through an explicit `hinner` and pinned rewrites, after `ring_nf` had normalized inside the integrands;
+  - `dsimp only` after `integral_congr_ae`, to beta-reduce.
+
+- Then `build.sh` ran twice (`scratchpad/r651/compile.sh`, logs `build_1.log` and `build_2.log`), the second after a correction to the header's list of transcriptions. Each run gave `1 compiled, 387 up to date` (`LinnikCGLProd` 11 s, then 10 s) and exit 0 in 22 s, with no error, warning or `sorry`. Each log's 569 axiom lines (4 by the module, 565 by the final check, which gains three lines) are 556 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.89 GiB (`rss_watch_build_2.log`; 6.84 GiB in the first run).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872.
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2 gains round 651 in its stack cell and a clause in its status, nothing in it superseded; the opening's parenthetical gains round 651, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round): their proof of Proposition 7.1 from its opening to its end (text layer lines 2067–2235), re-read for this round's quotations; `LinnikCGLProd.lean` in full; the operative definitions: round 640's `Wt`, `Wc` and `wsq`, round 638's `wCGL` and `wCGL_zero`, and round 646's `Wt_vanish` and `continuous_Wt`. Also the statements of Mathlib's `Real.fourier_real_eq_integral_exp_smul`, `Measure.integral_comp_mul_right`, `integral_integral_swap`, `Integrable.integral_prod_left`, `Continuous.integrable_of_hasCompactSupport`, `HasCompactMulSupport.intro` (whose additive form is `HasCompactSupport.intro`) and `Complex.mul_cpow_ofReal_nonneg`.
+
+**Check 4.** No defect is raised. `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of `hhat_prod` are its statement. "For one triple of points" is the scope of the formula; the sum over the triples is the next step.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** The sum over the triples of points and the residues in `I′(m⃗)`. With `b₁ = a₁a₃⁻¹` and `b₂ = a₂a₃⁻¹`, the characters and the phases factor as their `R(v₁, b₁)R(v₂/v₁, b₂b₁⁻¹)R(1/v₂, b₂⁻¹)`, with `R(v, a) = Σ_{(t,χ)∈W}v^{it}χ(a)`, their (7.2). The sum over `a₃` is the Ramanujan sum `C_q(b₁m₁ + b₂m₂ + m₃)`, for which their proof ends with "the fact that |C_q(m)| ≤ (m,q)" (lines 2233–2234). Then comes the decay of `J` in `λ`, uniformly for `(v₁, v₂) ∈ [1/2, 2]²`, by integration by parts.
