@@ -198,6 +198,8 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLCase.lean` | 676 | Chen–Gupta–Li's case analysis in Lemma 10.10 and their Remark 10.3: `\|R\|² ≤ E ≤ \|R\|³` at one point per character (`sq_le_energy`, `energy_le_cube`), the case analysis as polynomial inequalities (`case_poly`, `case_le`), for `r, E ≥ 0`, `Q ≥ 1`, `N ≥ Q^{2/3}/2`, `r ≤ Q^{2/3}` and `E^{1/8}N ≤ Q^{1/2}r^{5/8}`, `QNr^{1/2}E^{1/2} ≤ 8Q²r^{3/2}` (`remark103`) *(round 679: the stack's form of their Remark 10.3, which holds as stated with the constant `1` by `E(W) ≤ \|W\|³`; `remark103` does not assume that bound; review of rounds 668–678, B's F1)*, and their Lemma 10.10, from `CGLT101`, for every `ε > 0` there is `C ≥ 0` such that, for `q ≥ 1`, primitive characters injective on `R`, `T ≥ 1`, points `\|t_i\| ≤ T`, `(qT)^{2/3}/2 ≤ N`, `D = ⌊N²/(qT)⌋` and either `\|R\| ≥ (qT)^{2/3}` or `(qT)^{1/2}\|R\|^{5/8} ≤ E^{1/8}N`, `Σ_{n₁,n₂∼N, (n₁,n₂)>D}\|R₂(n₁, n₂)\|³ ≤ 8CGL(qTN)^ε(N\|R\|³ + N(qT)^{1/4}\|R\|^{21/8} + E^{1/2}\|R\|^{1/2}N²) + \|{n ∼ N}\|\|R\|³`, with `G = d(q)(⌊log₂\|R\|²⌋ + 1)` and `L = 1 + log max(1, N)` (`lemma1010_case`) |
 | `LinnikCGLEps.lean` | 677 | Chen–Gupta–Li's Lemmas 10.9 and 10.10 with their `⪅`, and their Proposition 10.2 at one point per character: for every `ε > 0` there is `C ≥ 0` such that, for `q ≥ 1`, `χ` injective on `R`, `T ≥ 1`, points `\|t_i\| ≤ T`, `N ≥ 1/2` and `D ∈ ℕ` with `DqT ≤ N²`, `Σ_{n₁,n₂∼N, (n₁,n₂)≤D}\|R₂(n₁, n₂)\|³ ≤ C max(1, N)^ε(N²√(\|R\|E) + N\|R\|³)` (`lemma109_eps`); from `CGLT101`, for every `ε > 0` there is `C ≥ 0` such that, for `q ≥ 1`, primitive characters injective on `R`, `T ≥ 1`, points `\|t_i\| ≤ T`, `(qT)^{2/3}/2 ≤ N`, `D = ⌊N²/(qT)⌋` and either `\|R\| ≥ (qT)^{2/3}` or `(qT)^{1/2}\|R\|^{5/8} ≤ E^{1/8}N`, `Σ_{n₁,n₂∼N, (n₁,n₂)>D}\|R₂(n₁, n₂)\|³ ≤ C(2qTN)^ε(N\|R\|³ + N(qT)^{1/4}\|R\|^{21/8} + N²√(\|R\|E))` (`lemma1010_eps`); and from `CGLT101`, for every `ε > 0` there is `C ≥ 0` such that, for `q ≥ 1`, primitive characters injective on `R`, `T ≥ 1`, points `\|t_i\| ≤ T`, `(qT)^{2/3}/2 ≤ N`, `S ⊆ (N, 2N]`, `\|b_n\| ≤ 1`, `\|Σ_{n∈S}b_nχ_i(n)n^{it_i}\| ≥ N^σ/6` for `i ∈ R` and either `\|R\| ≥ (qT)^{2/3}` or `(qT)^{1/2}\|R\|^{5/8} ≤ E^{1/8}N`, `E ≤ C(qTN)^ε(\|R\|N^{4−4σ} + \|R\|^{21/8}(qT)^{1/4}N^{1−2σ} + \|R\|³N^{1−2σ})` (`prop102`) |
 | `LinnikCGLS3.lean` | 678 | Chen–Gupta–Li's Proposition 11.1, `CGLS3` from `CGLP81` and `CGLT101` (`cgls3`); their Proposition 3.1 at one point per character from those two (`prop31_pt`); and Linnik's theorem with the exponents `9/4` and `226/100` from `CGLP81` and `CGLT101`: under both, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ Kq^{9/4}`, and likewise with `226/100` (`linnik_225c_pt`, `linnik_226c_pt`) |
+| `LinnikCGLG.lean` | 680 | The setup of Chen–Gupta–Li's Lemma 8.2: their majorant `g_a(u) = Σ_bΣ_{m₁,m₂}Σ_{m₃}ψ̃₀(m₃/L)f_b((m₁u + m₃)/m₂)(am₁ + bm₂ + m₃, q)` (`ga`); for smooth, nonnegative `f_b` that are `0` for `\|u\| > A`, `M₁ > 0` and `κM₃ ≤ L`, `Jint f M₁ M₂ M₃ κ ≤ Σ_a∫g_a²` (`Jint_le_ga`); for smooth `f_b` that are `0` for `\|u\| > A` and `M₁ > 0`, Plancherel, `∫g_a² = ∫\|ĝ_a\|²` (`integral_sq_ga`), and `ĝ_a` by an affine change of variables (`fourier_ga`) |
+| `LinnikCGLPois8.lean` | 680 | `ĝ_a` by Poisson in residue classes: for smooth `f_b` that are `0` for `\|u\| > A`, `M₁ > 0` and `L > 0`, `ĝ_a(ξ) = Σ_bΣ_{m₁,m₂}(m₂/\|m₁\|)f̂_b(m₂ξ/m₁)Σ_{n∈ℤ}(L/q)ψ̂₀(L(n/q − ξ/m₁))e_q(−n(am₁ + bm₂))c_q(n)` with `c_q(n) = Σ_{d∈ℤ/qℤ}(d, q)e_q(nd)` (`fourier_ga_poisson`, from `poisson_S`) |
 
 ## Building (rounds 217, 618)
 
@@ -1142,3 +1144,30 @@ Round 678 proves Chen–Gupta–Li's Proposition 11.1 at one point per character
 - `linnik_225c_pt`, `linnik_226c_pt`: Linnik's theorem with the exponents `9/4` and `226/100` from `CGLP81` and `CGLT101`: under both, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ Kq^{9/4}`, and likewise with `226/100`.
 
 See the main README, round 678, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 626 lines.
+
+## The setup of their Lemma 8.2: LinnikCGLG.lean (round 680)
+
+Round 680 starts the stage M4 of `frontier/linnik/CGL-LEAN.md`, their Proposition 8.1, with the setup of their Lemma 8.2, with `q ≥ 1`, `P1 M₁ = {M₁ < |m₁| ≤ 2M₁}`, `P2 M₂ = {M₂ < m₂ ≤ 2M₂}`, `P3 L = {|m₃| ≤ ⌈2L⌉}`, `ψ̃₀` round 656's `psi0`, and round 662's `setJ`, `gJw`, `gJ` and `Jint`.
+
+- `P1`, `P2`, `P3`, `mem_P1`, `mem_P2`, `psi0_div_eq_zero`: the ranges; for `L > 0`, `ψ̃₀(m₃/L) = 0` for `m₃ ∉ P3 L`.
+- `ga`, `gJ_nonneg`, `gJ_le_ga`: their majorant `g_a(u) = Σ_bΣ_{m₁∈P1}Σ_{m₂∈P2}Σ_{m₃∈P3}ψ̃₀(m₃/L)f_b((m₁u + m₃)/m₂)(am₁ + bm₂ + m₃, q)`; for `f ≥ 0` and `κM₃ ≤ L`, `0 ≤ gJ f (setJ M₁ M₂ M₃ κ) a u ≤ g_a(u)`.
+- `ga_eq_zero`, `hasCompactSupport_ga`, `contDiff_ga`, `integrable_ga_sq`: for `f_b` that are `0` for `|u| > A` and `M₁ > 0`, `g_a(u) = 0` for `|u| > (2|A|M₂ + ⌈2L⌉ + 1)/M₁`; `g_a` is smooth when every `f_b` is.
+- `Jint_le_ga`: for smooth, nonnegative `f_b` that are `0` for `|u| > A`, `M₁ > 0` and `κM₃ ≤ L`, `Jint f M₁ M₂ M₃ κ ≤ Σ_a∫g_a(u)² du`.
+- `integral_sq_ga`: for smooth `f_b` that are `0` for `|u| > A` and `M₁ > 0`, `∫g_a(u)² du = ∫|ĝ_a(ξ)|² dξ` (Mathlib's `SchwartzMap.integral_norm_sq_fourier`).
+- `integrable_exp_smul`, `fourier_finset_sum`, `fourier_const_mul'`, `fourier_comp_affine`: the linearity of `𝓕` on integrable functions; for `c ≠ 0` and `e > 0`, `𝓕(g((cu + d)/e))(ξ) = (e/|c|)e(dξ/c)ĝ(eξ/c)`.
+- `fC`, `integrable_term`, `fourier_ga`: for smooth `f_b` that are `0` for `|u| > A` and `M₁ > 0`, `ĝ_a(ξ) = Σ_bΣ_{m₁,m₂}(m₂/|m₁|)f̂_b(m₂ξ/m₁)Σ_{m₃∈P3}ψ̃₀(m₃/L)(am₁ + bm₂ + m₃, q)e(m₃ξ/m₁)`.
+
+See the main README, round 680, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean.
+
+## `ĝ_a` by Poisson in residue classes: LinnikCGLPois8.lean (round 680)
+
+Round 680 expands the sum over `m₃` in `ĝ_a` by Poisson summation along the residue classes modulo `q`, with `e_q(x) = e^{2πix/q}` (Mathlib's `ZMod.stdAddChar`) and `ψ̂₀` round 659's `𝓕 psiC`.
+
+- `summable_of_decay`, `norm_fourier_psiC_sq_le`, `summable_psiC_lattice`: `Σ_{n∈ℤ}h(n)` converges when `|h(n)|(1 + |cn + β|)² ≤ C` for every `n` and `c > 0`; `|ψ̂₀(x)|(1 + |x|)² ≤ 2(∫ψ̃₀ + D₂/(2π)²)`; and `Σ_nw(n)ψ̂₀(L(n/q − β))` converges for `|w(n)| ≤ B`, `L > 0` and `q > 0`.
+- `fourier_mul_exp`, `sq_mul_norm_fourier_shift_le`, `poisson_residue`: `𝓕(ψ(z)e(zβ))(η) = ψ̂(η − β)`; `η²|ψ̂₀(η − β)| ≤ 2D₂/(2π)² + 2β²∫ψ̃₀`; and for `L > 0` and `q > 0`, `Σ_kψ̃₀((a + qk)/L)e((a + qk)β) = Σ_n(L/q)ψ̂₀(L(n/q − β))e(na/q)` (round 646's `poisson_scaled`).
+- `sum_P3_residue`: for `q > 0`, `G` vanishing off a finite `s ⊆ ℤ` and `W` with `W(m) = W(m mod q)`, `Σ_{m∈s}W(m)G(m) = Σ_{d<q}W(d)Σ_kG(d + qk)`.
+- `cqg`, `sum_gcd_shift`, `sum_range_gcd`: `c_q(n) = Σ_{d∈ℤ/qℤ}(d, q)e_q(nd)`; for `q ≥ 1`, `Σ_{d<q}(x₀ + d, q)e(nd/q) = e_q(−nx₀)c_q(n)`.
+- `poisson_S`: for `q ≥ 1`, `L > 0` and `x₀ ∈ ℤ/qℤ`, `Σ_{m₃∈P3 L}ψ̃₀(m₃/L)(x₀ + m₃, q)e(m₃β) = Σ_{n∈ℤ}(L/q)ψ̂₀(L(n/q − β))e_q(−nx₀)c_q(n)`.
+- `fourier_ga_poisson`: for smooth `f_b` that are `0` for `|u| > A`, `M₁ > 0` and `L > 0`, `ĝ_a(ξ) = Σ_bΣ_{m₁,m₂}(m₂/|m₁|)f̂_b(m₂ξ/m₁)Σ_{n∈ℤ}(L/q)ψ̂₀(L(n/q − ξ/m₁))e_q(−n(am₁ + bm₂))c_q(n)`.
+
+See the main README, round 680, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 631 lines.

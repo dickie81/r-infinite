@@ -28906,3 +28906,71 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Stage M4, their Proposition 8.1 (`CGLP81`), through their Lemma 8.2.
+
+## Round 680: the majorant of their `J(f⃗)`, Plancherel, and `ĝ_a` by Poisson in residue classes (stage M4; `external/pnt/LinnikCGLG.lean`, `LinnikCGLPois8.lean`)
+
+**The results.** Below, `q ≥ 1`, `P1 M₁ = {M₁ < |m₁| ≤ 2M₁}`, `P2 M₂ = {M₂ < m₂ ≤ 2M₂}`, `P3 L = {|m₃| ≤ ⌈2L⌉}`, `ψ̃₀` is round 656's bump `psi0` and `ψ̂₀` round 659's `𝓕 psiC`, `e_q(x) = e^{2πix/q}` (Mathlib's `ZMod.stdAddChar`), and round 662's `Jint` is their `J(f⃗)` before the supremum. Their majorant is `g_a(u) = Σ_bΣ_{m₁∈P1}Σ_{m₂∈P2}Σ_{m₃∈P3}ψ̃₀(m₃/L)f_b((m₁u + m₃)/m₂)(am₁ + bm₂ + m₃, q)` (`LinnikCGLG.ga`).
+
+- `LinnikCGLG.gJ_le_ga`, `Jint_le_ga`: for `f ≥ 0` and `κM₃ ≤ L`, `0 ≤ gJ f (setJ M₁ M₂ M₃ κ) a u ≤ g_a(u)`. So for smooth, nonnegative `f_b` that are `0` for `|u| > A`, `M₁ > 0` and `κM₃ ≤ L`, `Jint f M₁ M₂ M₃ κ ≤ Σ_a∫g_a(u)² du`.
+- `LinnikCGLG.integral_sq_ga`: their Plancherel step. For smooth `f_b` that are `0` for `|u| > A` and `M₁ > 0`, `∫g_a(u)² du = ∫|ĝ_a(ξ)|² dξ`. `g_a` vanishes for `|u| > (2|A|M₂ + ⌈2L⌉ + 1)/M₁` (`ga_eq_zero`), so it is a Schwartz function (Mathlib's `HasCompactSupport.toSchwartzMap` and `SchwartzMap.integral_norm_sq_fourier`).
+- `LinnikCGLG.fourier_comp_affine`, `fourier_ga`: for `c ≠ 0` and `e > 0`, `𝓕(g((cu + d)/e))(ξ) = (e/|c|)e(dξ/c)ĝ(eξ/c)`. So for smooth `f_b` that are `0` for `|u| > A` and `M₁ > 0`, `ĝ_a(ξ) = Σ_bΣ_{m₁,m₂}(m₂/|m₁|)f̂_b(m₂ξ/m₁)Σ_{m₃∈P3}ψ̃₀(m₃/L)(am₁ + bm₂ + m₃, q)e(m₃ξ/m₁)`.
+- `LinnikCGLPois8.summable_of_decay`, `summable_psiC_lattice`: `Σ_{n∈ℤ}h(n)` converges when `|h(n)|(1 + |cn + β|)² ≤ C` for every `n` and `c > 0` (Mathlib's `Real.summable_one_div_int_add_rpow`). So `Σ_nw(n)ψ̂₀(L(n/q − β))` converges for `|w(n)| ≤ B`, `L > 0` and `q > 0`.
+- `LinnikCGLPois8.poisson_residue`: for `L > 0` and `q > 0`, `Σ_kψ̃₀((a + qk)/L)e((a + qk)β) = Σ_n(L/q)ψ̂₀(L(n/q − β))e(na/q)`, by round 646's `poisson_scaled` and `𝓕(ψ(z)e(zβ))(η) = ψ̂(η − β)` (`fourier_mul_exp`).
+- `LinnikCGLPois8.sum_P3_residue`, `sum_range_gcd`: for `q > 0`, `G` vanishing off a finite `s ⊆ ℤ` and `W` with `W(m) = W(m mod q)`, `Σ_{m∈s}W(m)G(m) = Σ_{d<q}W(d)Σ_kG(d + qk)`. For `q ≥ 1`, `Σ_{d<q}(x₀ + d, q)e(nd/q) = e_q(−nx₀)c_q(n)`, with `c_q(n) = Σ_{d∈ℤ/qℤ}(d, q)e_q(nd)` (`cqg`).
+- `LinnikCGLPois8.poisson_S`, `fourier_ga_poisson`: for `q ≥ 1`, `L > 0` and `x₀ ∈ ℤ/qℤ`, `Σ_{m₃∈P3 L}ψ̃₀(m₃/L)(x₀ + m₃, q)e(m₃β) = Σ_{n∈ℤ}(L/q)ψ̂₀(L(n/q − β))e_q(−nx₀)c_q(n)`. So for smooth `f_b` that are `0` for `|u| > A`, `M₁ > 0` and `L > 0`, `ĝ_a(ξ) = Σ_bΣ_{m₁,m₂}(m₂/|m₁|)f̂_b(m₂ξ/m₁)Σ_{n∈ℤ}(L/q)ψ̂₀(L(n/q − ξ/m₁))e_q(−n(am₁ + bm₂))c_q(n)`.
+
+**Their text.** Re-read this round in the text layer.
+
+- The setup: "Let ψ₁(x) be a smooth bump function supported on |x| ≪ 1, such that ψ₁(m₃/M₃) majorizes the summation condition |m₃| ≪ M₃. Then we can bound the inner double sum in J(f⃗) by" (lines 2623–2625), and "By applying Plancherel’s theorem for the choice of M₁, M₂, M₃ that achieves the supremum, we obtain" (lines 2644–2645).
+- The Poisson step: "the last sum, according to the Poisson summation formula, is" (lines 2715–2716), and "Lastly, we map d → d + am₁ + bm₂." (line 2746).
+- Their footnote 6: "as the larger M₃ is, the greater the inner double sum in J(f⃗) is." (lines 3515–3516.)
+- In these, spaces are restored, line-break hyphens removed, the subscripts transcribed and the arrow over `f` written `f⃗`. Their displays (lines 2626–2643, 2646–2658, 2717–2745 and 2747–2773) are described, not quoted.
+
+**The stack's form.**
+
+- **One majorant for every `M₃`.** Their `ψ₁(m₃/M₃)` is `ψ̃₀(m₃/L)`, and `g_a ≥ gJ` for every `M₃` with `κM₃ ≤ L`: the monotonicity in `M₃` that their footnote 6 notes.
+- **Finite sums.** The sums over `m₁`, `m₂` and `m₃` run over `P1 M₁`, `P2 M₂` and `P3 L`, and `ψ̃₀(m₃/L)` vanishes off `P3 L`. So `g_a` is smooth with compact support.
+- **Poisson.** The residues are `d ∈ {0, …, q − 1}`, and `m₃ = d + qk`. Their `ψ̂₁((n/q − ξ/m₁)M₃)` is `ψ̂₀(L(n/q − ξ/m₁))`, and their `Σ_{d mod q}(d, q)e_q((d − am₁ − bm₂)n)` is `e_q(−n(am₁ + bm₂))c_q(n)`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLG.lean` and `LinnikCGLPois8.lean`: new.
+- `external/pnt/build.sh`: the two modules, their imports in the final check and five `#print axioms` lines (`Jint_le_ga`, `integral_sq_ga`, `fourier_ga`, `poisson_S`, `fourier_ga_poisson`).
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1, a note under M4, and the opening's parenthetical.
+- `external/pnt/README.md`: two rows, and a section for each file.
+
+**What is checked.**
+
+- `LinnikCGLG` was compiled in scratch in three runs with `lean --json` (`scratchpad/r680/run.sh`, `lcj1.out` to `lcj3.out`), and `LinnikCGLPois8` in four (`scratchpad/r680/runp.sh`, `lcj11.out` to `lcj14.out`). The last run of each had exit 0 and no message.
+- The fixes in `LinnikCGLG`: Mathlib's `fourier_sum` needs a `FourierAdd` instance that functions do not have, so the file proves the linearity on integrable functions (`fourier_finset_sum`); `Integrable.mono'` takes a real bound; three `simp only` made no progress, one of them on a name that does not exist (the coercion of `toSchwartzMap` is `rfl`); a cast `ℤ → ℂ` in `fourier_ga`'s statement was routed through `ℝ`; `fun_prop` needed its function named; a rewrite hit the wrong side of an equation; two deprecated names were replaced; and a hypothesis `M₂ ≥ 0` was unused and dropped from eight statements.
+- The fixes in `LinnikCGLPois8`: a rewrite `at *` trivialized its own hypothesis; an implicit constant was given; `fourier_mul_exp` needs the cast of a product; `field_simp` needed `(L : ℂ) ≠ 0`; a binder defaulted to `ℕ`; a rewrite under a binder became `simp_rw`; the cast of a real quotient was matched by restructuring the last step of `poisson_residue`; `Int.emod_add_ediv` is now `Int.emod_add_mul_ediv`; a `ring` after `field_simp` had no goal; and a deprecated name was removed.
+- Then `build.sh` ran once (`scratchpad/r680/compile.sh 1`, log `build_1.log`): `2 compiled, 413 up to date` (`LinnikCGLG` 16 s, `LinnikCGLPois8` 8 s), exit 0 in 34 s, with no error, warning or `sorry`. Its 642 axiom lines are 11 by the modules and 631 by the final check; 629 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.90 GiB (`rss_watch_build_1.log`).
+- The files have no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/r680/apply_docs.py` makes the six edits to CGL-LEAN.md and the external README, each asserted to occur once; run again, it writes nothing.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r680/gate.out`): the render lint against HEAD as multisets (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 and this file 1872 → 1872, none new), and `k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1 gains round 680 in its stack cell and a net-state marker; M4 gains a note; the opening's parenthetical gains round 680.
+- `external/pnt/README.md`: two rows, and a section for each file.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their §8 in the text layer: its opening and Proposition 8.1 (lines 2431–2489), Lemma 8.2 and the induction (lines 2490–2617), and §8.2 (lines 2617–4342), joined by `scratchpad/r678/compact.py`; and lines 2618–2776 and 3510–3519 line by line.
+- The operative definitions and statements: round 662's `setJ`, `gJw`, `gJ`, `Jint` and `CGLP81` (`LinnikCGLJ.lean` 110, 143, 149, 153 and 161); round 656's `psi0` (`LinnikCGLRt.lean` 74); round 659's `psiC`, `Dpsi`, `fourier_psiC_decay` and `norm_fourier_psiC_le` (`LinnikCGLMom4.lean` 159, 177, 182 and 187); round 646's `poisson_scaled` (`LinnikCGLPoisson.lean` 66); and Mathlib's `HasCompactSupport.toSchwartzMap`, `SchwartzMap.integral_norm_sq_fourier` and `Real.fourier_real_eq_integral_exp_smul`.
+- Both new files in full: their proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the files' headers and docstrings list them.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, stage M4 gets one hostile review when its block is substantial. That review also carries the convergence review of round 679's sweep.
+
+**Bearing on RH:** none.
+
+**The next step.** Bound `Σ_a∫|ĝ_a(ξ)|² dξ`. The plan splits off the term `n = 0` (their `I`) from the terms `n ≠ 0` (their `II` and `II′`), with round 653's bound for the Ramanujan sum and round 525's divisor bound.

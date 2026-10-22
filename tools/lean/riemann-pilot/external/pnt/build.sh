@@ -137,13 +137,14 @@ for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
 # (LinnikCGLL1010), and (round 676) their Lemma 10.10 with its case analysis, and Remark 10.3
 # (LinnikCGLCase), and (round 677) their Lemmas 10.9 and 10.10 with their ⪅, and their Proposition 10.2
 # (LinnikCGLEps), and (round 678) their Proposition 11.1, CGLS3 from CGLP81 and CGLT101, and Linnik's exponents
-# 9/4 and 226/100 from those two (LinnikCGLS3).
+# 9/4 and 226/100 from those two (LinnikCGLS3), and (round 680) the majorant of their J, Plancherel and its Fourier
+# transform (LinnikCGLG), and its Poisson expansion in residue classes (LinnikCGLPois8).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
     LinnikCGLPair LinnikCGLFrob LinnikCGLS2 LinnikCGLFourier LinnikCGLPoisson LinnikCGLTrace \
     LinnikCGLDiag LinnikCGLTrunc LinnikCGLProd LinnikCGLRFact LinnikCGLRam LinnikCGLP71 LinnikCGLSym LinnikCGLRt \
     LinnikCGLP72 LinnikCGLMom LinnikCGLMom4 LinnikCGLCS LinnikCGLJ LinnikCGLFb LinnikCGLPhi LinnikCGLDecay \
     LinnikCGLBlock LinnikCGL112 LinnikCGLLoc LinnikCGLL105 LinnikCGLT101 LinnikCGLL107 LinnikCGLSep \
-    LinnikCGLL109 LinnikCGLL1010 LinnikCGLCase LinnikCGLEps LinnikCGLS3; do
+    LinnikCGLL109 LinnikCGLL1010 LinnikCGLCase LinnikCGLEps LinnikCGLS3 LinnikCGLG LinnikCGLPois8; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -340,6 +341,8 @@ import LinnikCGLL1010
 import LinnikCGLCase
 import LinnikCGLEps
 import LinnikCGLS3
+import LinnikCGLG
+import LinnikCGLPois8
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -880,6 +883,11 @@ import LinnikCGLS3
 #print axioms LinnikCGLS3.prop31_pt
 #print axioms LinnikCGLS3.linnik_225c_pt
 #print axioms LinnikCGLS3.linnik_226c_pt
+#print axioms LinnikCGLG.Jint_le_ga
+#print axioms LinnikCGLG.integral_sq_ga
+#print axioms LinnikCGLG.fourier_ga
+#print axioms LinnikCGLPois8.poisson_S
+#print axioms LinnikCGLPois8.fourier_ga_poisson
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy
