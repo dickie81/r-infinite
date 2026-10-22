@@ -52,7 +52,10 @@ Gates (exit status 1 if any fails):
       sums << L^{3/4} before the 1/sqrt(q_P) normalization, not square-root cancellation; (b) N + (NL)^{2/3}: the L
       term dropped, the trilinear bound; (c) N + N^{3/4} L^{1/2}; (d) N + (NL)^{1/2}; (e) N alone: square-root
       cancellation in every column.  At S1's points the dyad program never exceeds the second branch with sigma =
-      5/8, 2/3, 1/2, 1/2 and 1/2 (1e-9); it equals it at the low side's optimum; and the least low side, by
+      5/8, 2/3, 1/2, 1/2 and 1/2 (1e-9).  At four points where that branch is positive, (M', l') = (0.55, 0.3),
+      (0.6, 0.25), (0.5, 0.2) and (0.62, 0.3), the program equals it for rows (a)-(d) (1e-9), so their sigma is
+      exact; for row (e) its excess is 0 there, below the branch, so (e)'s sigma is an upper bound (the table's
+      "<= 1/2").  (At the low side's optimum both are 0, so equality there tests nothing.)  The least low side, by
       fivesixths.low_min and by the exact program on S2's grid, is 71/84, 28/33, 5/6, 5/6 and 5/6.  The release's
       row is F2-F3 of fivesixths.py and the slot split's is S1-S2.
   S6  the crossing cost (FIVE-SIXTHS.md section 8).  Round 500's first branch charges c mu/2 on the low side with
@@ -61,9 +64,11 @@ Gates (exit status 1 if any fails):
       sigma = 2/3 and no row saving, the bootstrapped boundary is 5/6 at c = 0 (2e-7), and 0.8486654, 0.8615362,
       0.8725510, 0.8744704, 0.8748866 and the release's 0.8748866 at c = 0.05, 0.1, 0.15, 0.16, 0.165 and 1 (1e-6,
       2e-6 at c >= 0.165); sigma = 3/4 gives the same at c = 0 and 0.15.  On the ray l_x = l_y = l = t at
-      kappa = 3/4 and c = 0: 0.8786610 at t = 1/2 and above 5/6 + 10^-3 at t = 0.55, both with the bins 'E' among the
-      walls, and 5/6 at t = 0.56 (2e-7).  With sigma = 1, c = 0 reaches 5/6 at (1, 1, 1), the corner of the model's
-      length box, with mu = 2, the cap; with the cap at 1.9 it gives 0.8350000.  Without round 498's readings, c = 0
+      kappa = 3/4 and c = 0: 0.8786610 at t = 1/2, 0.8390211 at t = 0.55 and 0.8333645 at t = 0.5572, each with
+      the bins 'E' among the walls (1e-6), and 5/6 at t = 0.56 (2e-7); bisection puts the threshold, the least t at
+      which the ray reaches 5/6 (2e-7), in (0.557239, 0.557240).  With sigma = 1, c = 0 reaches 5/6 at (1, 1, 1),
+      the corner of the model's length box, with mu = 2, the cap; with the cap at 1.9 it gives 0.8350000.  Without
+      round 498's readings, c = 0
       gives 0.8700000 with the principal edge among the walls.  Far across the slice the geometries are admissible
       only in the model (Xu-Sang's admissibility rows and the pilot's high side); the release's lemmas were not
       re-derived there.
@@ -79,8 +84,9 @@ Gates (exit status 1 if any fails):
   S8  the trilinear bound's ingredients, computed directly in Z[w] (cubic residue symbols by Euler's criterion,
       primary means = 1 mod 3): (i) at 2000 random triples of split primes of norm below 4000, cubic reciprocity
       holds, and the B-half's character in column j, conj((j/B)_3) conj((B/A)_3), equals conj((B/jA)_3) at every
-      triple and conj((B/jA^2)_3) (FIVE-SIXTHS.md's struck attack note) at fewer than 45 percent; (ii) the slot
-      coefficient is a composite Gauss sum: at 25 random pairs of split primes of norm below 400, gamma_2(pq)
+      triple and (B/jA^2)_3, the form in FIVE-SIXTHS.md's struck attack note, at fewer than 45 percent; (ii) the
+      twisted multiplicativity behind section 9.2's reading: at 25 random pairs of split primes of norm below 400,
+      gamma_2(pq)
       = (q/p)_3 (p/q)_3 gamma_2(p) gamma_2(q) (1e-12), gamma_2(c) = N(c)^{-1/2} sum_{v mod c} (v/c)_3 e(v/c) summed
       directly, and the factor (q/p)_3 (p/q)_3 = chi_p(q)^2 chi_q(p)^2 is the release's pair phase for two marks; with
       its conjugate the identity fails (error above 0.5); (iii) min over a in [0, 1] of max(v + a z, (1 - a) z,
@@ -157,6 +163,8 @@ DICTIONARY = (   # (name, hybrid bound, second-branch coefficient of l', optimum
     ('(d) square-root sieve N + (NL)^(1/2)', dict(a=0.0, b=0.5), 1.0, (2 / 3, 1 / 3), 5 / 6),
     ('(e) N alone', dict(terms=((1, 0),)), 1.0, (2 / 3, 1 / 3), 5 / 6),
 )
+TIGHT_PTS = ((0.55, 0.3), (0.6, 0.25), (0.5, 0.2), (0.62, 0.3))   # S5: points where every row's branch is positive
+RAY_VALUES = ((0.5, 0.8786610, True), (0.55, 0.8390211, True), (0.5572, 0.8333645, True), (0.56, 5 / 6, False))
 
 
 def emax_split(Mp, lp, split=True):
@@ -414,10 +422,16 @@ def main():
             'c34_15': (cross_cfg(0.15), dict(sigma=0.75, drop=D3), Five2X)}
     for c in CROSS_COSTS:
         jobs[('c', c)] = (cross_cfg(c), dict(sigma=2 / 3, drop=D3), Five2X)
-    RAY = (0.5, 0.55, 0.56)
+    RAY = tuple(t for t, _, _ in RAY_VALUES)
     with ProcessPoolExecutor(4) as ex:
         res = dict(zip(jobs, ex.map(boot, jobs.values())))
         ray = dict(zip(RAY, ex.map(ray_point, [(t, 2 / 3) for t in RAY])))
+    reach = lambda t: abs(ray_point((t, 2 / 3))[0] - 5 / 6) < 2e-7
+    lo, hi = 0.5572, 0.5573                          # the ray's threshold, by bisection (needs lo out, hi in)
+    bracket = not reach(lo) and reach(hi)
+    for _ in range(14):
+        mid = (lo + hi) / 2
+        lo, hi = (lo, mid) if reach(mid) else (mid, hi)
     for key, (cfg, kw, *_) in jobs.items():
         r = res[key]
         print(f'    {str(key):10s} {str({k: v for k, v in kw.items() if k != "drop"}):52s} B = {r[0]:.7f} '
@@ -453,15 +467,19 @@ def main():
     for name, kw, coef, opt, value in DICTIONARY:
         sg = (coef + 1) / 4
         over = max(emax_F(m, l, **kw)[0] - (m + max(0, m + l - 1, (1 + coef * l - 2 * m) / 4)) for m, l in pts)
-        M0, l0 = opt
-        at = abs(emax_F(M0, l0, **kw)[0] - M0 - max(0, M0 + l0 - 1, (1 + coef * l0 - 2 * M0) / 4))
+        tight = [(emax_F(m, l, **kw)[0] - m, max(0, m + l - 1, (1 + coef * l - 2 * m) / 4)) for m, l in TIGHT_PTS]
+        if name.startswith('(e)'):      # sigma <= 1/2: strictly below the branch where the branch is positive
+            tight_ok = all(e < 1e-9 and b > 1e-3 for e, b in tight)
+        else:                           # sigma exact: the program equals the branch where the branch is positive
+            tight_ok = all(abs(e - b) < 1e-9 and b > 1e-3 for e, b in tight)
         lm = F.low_min(sg)[0]
         g = low_grid(extra=[opt], **kw)
-        ok = (over < 1e-9 and at < 1e-9 and abs(lm - value) < 1e-9 and abs(F.low_min_formula(sg) - value) < 1e-9
+        ok = (over < 1e-9 and tight_ok and abs(lm - value) < 1e-9 and abs(F.low_min_formula(sg) - value) < 1e-9
               and abs(g[0] - value) < 1e-9)
         ok5 = ok5 and ok
-        rows.append(f'{name}: sigma {sg:.4f}, formula exceeded by {over:.1e}, exact at the optimum {at:.1e}, '
-                    f'least low side {lm:.9f} (LP) {g[0]:.9f} (exact program on the grid)')
+        rows.append(f'{name}: sigma {sg:.4f}, formula exceeded by {over:.1e}, at the four positive-branch points '
+                    f'excess / branch ' + ', '.join(f'{e:.4f}/{b:.4f}' for e, b in tight)
+                    + f', least low side {lm:.9f} (LP) {g[0]:.9f} (exact program on the grid)')
     gate('S5', ok5, '; '.join(rows))
     # S6: the crossing cost
     rc = [res[('c', c)] for c in CROSS_COSTS]
@@ -472,15 +490,15 @@ def main():
            and abs(res['c34_0'][0] - rc[0][0]) < 1e-7 and abs(res['c34_15'][0] - rc[3][0]) < 1e-7
            and abs(one[0] - 5 / 6) < 2e-7 and min(one[3][:3]) > 1 - 1e-6 and one[3][4] > 2 - 1e-6
            and abs(one19[0] - 0.835) < 1e-6 and abs(noread[0] - 0.87) < 1e-6 and 'principal edge' in noread[2]
-           and abs(ray[0.5][0] - 0.8786610) < 1e-6 and 'E' in ray[0.5][1]
-           and ray[0.55][0] > 5 / 6 + 1e-3 and 'E' in ray[0.55][1]
-           and abs(ray[0.56][0] - 5 / 6) < 2e-7 and 'E' not in ray[0.56][1])
+           and all(abs(ray[s][0] - want) < (1e-6 if e else 2e-7) and ('E' in ray[s][1]) == e
+                   for s, want, e in RAY_VALUES)
+           and bracket and 0.557239 < lo and hi < 0.557240)
     gate('S6', ok6, 'sigma 2/3, no row saving, l_y < 1/2 dropped, mu <= 2: ' + ', '.join(
         f'c = {c}: {r[0]:.7f}' for c, r in zip(CROSS_COSTS, rc))
          + f'; sigma 3/4 at c = 0, 0.15: {res["c34_0"][0]:.7f}, {res["c34_15"][0]:.7f}; at c = 0 the optimum has '
          f'l_x = l_y = ell = {t[2]:.4f}, M + ell = {t[0] + t[1] + t[2]:.4f}; on the ray at kappa = 3/4: '
          + ', '.join(f't = {s}: {ray[s][0]:.7f}' + (' (E)' if 'E' in ray[s][1] else '') for s in RAY)
-         + f'; sigma = 1 at c = 0: {one[0]:.9f} at (l_x, l_y, ell) = ({one[3][0]:.4f}, {one[3][1]:.4f}, '
+         + f'; threshold in ({lo:.8f}, {hi:.8f}); sigma = 1 at c = 0: {one[0]:.9f} at (l_x, l_y, ell) = ({one[3][0]:.4f}, {one[3][1]:.4f}, '
          f'{one[3][2]:.4f}), mu = {one[3][4]:.4f}; with mu <= 1.9: {one19[0]:.7f}; without round 498\'s readings: '
          f'{noread[0]:.7f}, walls {noread[2]}')
     # S7: the crossing cost's zero is target T3
@@ -521,7 +539,7 @@ def main():
         rec += csym(A, B[1]) == csym(B, A[1])
         col_pair = (-csym(B, J[1]) - csym(A, B[1])) % 3                # conj((j/B)_3) conj((B/A)_3)
         ident += col_pair == (-(csym(J, B[1]) + csym(A, B[1]))) % 3    # conj((B/j)_3 (B/A)_3) = conj((B/jA)_3)
-        jsq += col_pair == (-(csym(J, B[1]) + 2 * csym(A, B[1]))) % 3  # conj((B/jA^2)_3)
+        jsq += col_pair == (csym(J, B[1]) + 2 * csym(A, B[1])) % 3     # (B/jA^2)_3, the struck note's form
     small = split_primes(400)
     err, err_conj = 0.0, np.inf
     for _ in range(25):
@@ -543,7 +561,7 @@ def main():
     gate('S8', rec == NT and ident == NT and jsq < 0.45 * NT and err < 1e-12 and err_conj > 0.5
          and dev_split < 1e-12 and gran <= 1e-12,
          f'(i) {NT} triples of split primes of norm < 4000: reciprocity {rec}, the B-half\'s character equals '
-         f'conj((B/jA)_3) at {ident} and conj((B/jA^2)_3) at {jsq}; (ii) gamma_2(pq) = (q/p)_3 (p/q)_3 '
+         f'conj((B/jA)_3) at {ident} and the struck (B/jA^2)_3 at {jsq}; (ii) gamma_2(pq) = (q/p)_3 (p/q)_3 '
          f'gamma_2(p) gamma_2(q) within {err:.1e} at 25 pairs of norm < 400, with the conjugate phase off by at least '
          f'{err_conj:.2f}; (iii) the split\'s minimum is max(v, 2(v + z)/3) within {dev_split:.1e}, and eighths of '
          f'the slots cost at most z/8 (excess over it {gran:.1e})')

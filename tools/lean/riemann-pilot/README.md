@@ -19297,11 +19297,11 @@ In the walls column, `E` is the high side's endpoint on the bins with `δ ≥ 1/
 
 **What it is.** The owner asked: "Keep digging". Round 499 left two doors: a crossing cost below `2/15` for `31/36`, and a low estimate other than the release's for `13/15`. Both rested on round 496's readings of the release's low estimate off the slice. This round derives the crossing cost from the release's lemmas instead, and checks round 498's account of what moves its two limits. No Lean file changes, and the paper is not edited.
 
-**The row-norm exponent in any geometry.**
+**The row-norm exponent ~~in any geometry~~.** *(2026-10-22, side branch, `frontier/rank/FIVE-SIXTHS.md` section 9.7: "in any geometry" overstates; the formula holds where `M' ≥ 2ℓ'`, as the annotation below records.)*
 
 - For a tuple of size `d` the release sets "`M'=M-2d,\qquad \ell'=\ell-d,\qquad 0\le d\le\ell=1/6.`" The proof of Lemma `lem:probe-row-norm` bounds each dyad of the completed row by the energy of Lemma `lem:reflected-energy` (its eq. `old-eq:4.6`), under the proof's constraints "`2A_0\le O+\epsilon_Z,\qquad N_0\le A_0,\qquad z_a\le\ell'.`"
 - The proof's bound is the largest energy over the dyads. The script computes it as the largest of six linear programs, one for each piece of the energy's two maxima. ~~In any geometry~~ it is `M' + max(0, M' + ℓ' − 1, (1 + 3ℓ' − 2M')/4)` when `M' ≥ (1 − ℓ')/2`; below that no dual dyad is retained (gate X1, 400 random geometries). *(2026-10-22, side branch, `frontier/rank/FIVE-SIXTHS.md` section 9.4: "In any geometry" was false as written. X1 samples `ℓ' ≤ 0.3`. The formula holds wherever `M' ≥ 2ℓ'` (gate S7 of `frontier/rank/slotsplit.py`), which every low side satisfies; at `(M', ℓ') = (0.6181, 0.9935)` the maximum exceeds it by `0.178`.)*
-  - The last term is the second branch, the proof's "`M'+\frac{1+3\ell'-2M'-2\Delta_H+\theta_N}{4}`" at `Δ_H = θ_N = 0`. It holds in any geometry, and on the slice it is Sang's `L_ℓ(d)` (gate X2).
+  - The last term is the second branch, the proof's "`M'+\frac{1+3\ell'-2M'-2\Delta_H+\theta_N}{4}`" at `Δ_H = θ_N = 0`. It holds in any geometry, and on the slice it is Sang's `L_ℓ(d)` (gate X2). *(2026-10-22, side branch note section 9.7: "in any geometry" is scoped by the annotation above.)*
   - The middle term is the first branch. On the slice the release has "Since `$M'+\ell'-1=-3d$`, direct subtraction gives" `T_d ≤ H − 3d`, so the dual is no longer than the rows. Off the slice the dual can be longer than the rows by `M' + ℓ' − 1 = M + ℓ − 1 − 3d`, and the bound grows by that much.
   - The bound reaches both terms at admissible dyads (gate X3). The first branch's dyad has no powerful part, every slot active and the whole dual length in the squarefree dual ideal. The second's has a powerful part of length `M' − (1 − ℓ')/2` and a dual of length zero.
 - Proposition `prop:probe-low` takes half of the row exponent through Cauchy–Schwarz, and its tuple sum adds `−d`. Every piece then falls with `d`, so the low side is taken at `d = 0` (gate X5). There, crossing the slice costs `(M + ℓ − 1)₊/2` on the first branch and nothing on the second. That is round 496's `c = 1`, now derived.
@@ -19345,7 +19345,7 @@ Round 498's two sentences are struck with this correction.
 - STRUCTURAL-REVIEW §6: markers on the notes on the slice and on the caps, and on round 498's and round 499's bullets; and a bullet for this round.
 - `exponent_lp.py`'s docstring: its reading of line 8246 corrected (docstring only; no executable line changes).
 
-**Check 4.** New against the pilot: the row-norm exponent in any geometry, with its attaining dyads; the crossing cost placed at the quadratic large sieve's column term; the first-branch model and its one changed break-even; the correction to round 498; and the low side's reach with Sang's inputs. Round 496's `c = 1` was a reading; it is now derived.
+**Check 4.** New against the pilot: the row-norm exponent ~~in any geometry~~ *(where `M' ≥ 2ℓ'`; side branch note section 9.7)*, with its attaining dyads; the crossing cost placed at the quadratic large sieve's column term; the first-branch model and its one changed break-even; the correction to round 498; and the low side's reach with Sang's inputs. Round 496's `c = 1` was a reading; it is now derived.
 
 **Bearing on RH:** none.
 

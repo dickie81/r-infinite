@@ -23,7 +23,7 @@ Side-branch note, 2026-10-22, on branch `claude/latest-commit-branch-ik1pj3`. It
 
    With all of these, the boundary is `5/6`, at the vertex `l_x = l_y = ℓ = 1/3`, provided `σ ≤ 1/2` and `η ≥ 0.168`; Xu–Sang's own counts and fourth moment need `η ≥ 0.178`. At `σ = 2/3` the same system gives `28/33`.
 6. **What is missing.** Two estimates, neither in the sources read here *(section 8: with round 500's crossing cost; a cheaper crossing of the slice is a third route)*:
-   - ~~the release's trivial-dual slot sums with `σ ≤ 1/2`, that is, angle-twisted cubic Gauss sums over primes below `X^{3/4}`;~~ *(struck in section 7: such sums, at square-root size in every column, give only `σ = 5/8` and `71/84`; `σ ≤ 1/2` needs a square-root cubic large sieve `N + (NL)^{1/2}` for the slot coefficients;)* *(Section 9: "at square-root size" is wrong there. The `5/8` row is squared slot sums `≪ L^{1/2}` in every column, that is slot sums `≪ L^{3/4}`; square-root cancellation in every column gives `5/6`. And `σ = 1/2` also follows from the weaker `N + N^{3/4}L^{1/2}`.)*
+   - ~~the release's trivial-dual slot sums with `σ ≤ 1/2`, that is, angle-twisted cubic Gauss sums over primes below `X^{3/4}`;~~ *(struck in section 7: such sums, at square-root size in every column, give only `σ = 5/8` and `71/84`; `σ ≤ 1/2` needs a square-root cubic large sieve `N + (NL)^{1/2}` for the slot coefficients;)* *(Section 9: "at square-root size" is wrong there. The `5/8` row is squared slot sums `≪ L^{1/2}` in every column, that is slot sums `≪ L^{1/4}` (before the `1/√q_P` normalization, `≪ L^{3/4}`); square-root cancellation in every column gives `5/6`. And `σ = 1/2` also follows from the weaker `N + N^{3/4}L^{1/2}`.)*
    - a saving `U^{1/6}` on the high side's sums over the Poisson rows near `a = 1/2`, where the C₀ wall sits.
 
    The register gets both as targets (section 5). This note does not prove either, and so does not prove `Re s > 5/6`.
@@ -37,14 +37,15 @@ Side-branch note, 2026-10-22, on branch `claude/latest-commit-branch-ik1pj3`. It
 8. **The crossing cost (section 8, gate S6).**
    - Round 500's first branch charges a crossing of the slice `M + ℓ = 1` at cost `c = 1`.
    - In the model, with the slot-split's `σ = 3/4` and no row saving, `c = 0.15`, `0.1` and `0.05` give `0.8725510`, `0.8615362` and `0.8486654`. *(The same at the trilinear `σ = 2/3`: S6, section 9.)*
-   - ~~`c = 0` gives `5/6` on the ray `l_x = l_y = ℓ ≥ 1/2`, with neither T1 nor T2.~~ *(False as written: on that ray the bins `E` bind below `t ≈ 0.5572`, and at `t = 1/2` the boundary is `0.8786610`. `c = 0` gives `5/6` on the ray for `t ≥ 0.5572`, still with neither T1 nor T2: S6, section 9.)*
+   - ~~`c = 0` gives `5/6` on the ray `l_x = l_y = ℓ ≥ 1/2`, with neither T1 nor T2.~~ *(False as written: on that ray the bins `E` bind below a threshold `t* ∈ (0.557239, 0.557240)`, and at `t = 1/2` the boundary is `0.8786610`. `c = 0` gives `5/6` on the ray for `t ≥ t*`, still with neither T1 nor T2: S6, sections 9 and 9.7.)*
    - These geometries lie far across the slice, where the release's lemmas were not re-derived.
 9. **The trilinear split and the review of sections 7–8 (section 9, gate S8).**
    - A hostile review found that the trilinear split's character is `conj((B/jA)_3)`, with a squarefree modulus. Heath-Brown's sieve then gives `N + (NL)^{2/3}`: `σ = 2/3`, least low side `28/33`, by a written argument checked against the release's lines (9.1). Alone it moves nothing: the boundary stays `0.8748866` (S3).
    - The slot coefficient is the composite cubic Gauss sum `γ₂(P)`, angle-twisted: the release's one-prime scalar `τ⁺_{q,2}` and its pair phases combine by the Chinese remainder theorem (9.2, S8).
-   - Dunn and Radziwiłł's corrected sieve assumes, for prime-supported coefficients, input of GRH strength: circular here (9.2).
+   - ~~Dunn and Radziwiłł's corrected sieve assumes, for prime-supported coefficients, input of GRH strength: circular here (9.2).~~ *(Misdescribed, the second review round, 9.7. For the slot coefficients its axiom (3.2) either fails outright or asks for a zero-free region `Re s > 1/2 + η`, with `η ≤ 1/4`, for a fixed `L`-function of the release's family. That is not GRH, but it is more than the `5/6` sought, so either way the route is unusable as stated: 9.2.)*
    - The review's other findings are swept (9.4). The goal is still not reached.
-10. **A horizon hit (section 10).** OpenAI's "An unconditional first moment for cubic Gauss sums" (September 25), cited but not used by the release, proves Patterson's first moment and its fixed angular twists without GRH. For the slot coefficients it bears on the trivial dual, which does not move `σ`. Its power-saving Proposition `prop:dual` for prime convolutions is recorded as a T1 attack note.
+   - A second, convergence round of the review returned no major finding, four minor and eight cosmetic ones, all swept (9.7).
+10. **A horizon hit (section 10).** OpenAI's "An unconditional first moment for cubic Gauss sums" (September 25), cited but not used by the release, proves Patterson's first moment and its fixed angular twists without GRH. For the slot coefficients it bears on the trivial dual, which does not move `σ`. Its power-saving Proposition `prop:dual` for prime convolutions is recorded as a T1 attack note. *(9.7: it bears on T1 more directly. Its Proposition `prop:dispersion` has T1's shape, for `L ≤ N ≤ L^{2.125}`, and saves only a power of `log X` after its theta correction; section 10.)*
 
 ## 0. Horizon scan, 2026-10-22
 
@@ -189,10 +190,10 @@ So `5/6` is a natural point of the method, not an arbitrary target. By gate F1, 
 - The statement that the sources read bound the slot sums only through the cubic large sieve is scoped to the release, Xu–Sang's v2 and the notes on this branch. The literature on prime sums of cubic Gauss sums was not surveyed, so no claim is made about what it contains. *(Section 7: surveyed since, in Heath-Brown 2000 and Dunn–Radziwiłł 2024.)*
 
 **Check 9 (b), register.** STRUCTURAL-REVIEW §6, the sub-entry "Below `7/8` in the release's exponent comparison", gets a bullet "The release's exponent system at `5/6`" with two targets.
-- **T1, ~~trivial-dual slot sums with `σ ≤ 1/2`~~ a square-root sieve for the slot coefficients, `σ ≤ 1/2`** *(corrected in section 7)*.
-  - Socket: the `L` term of Lemma `lem:hybrid-energy` inside the second branch of Lemma `lem:probe-row-norm`, which is `fivesixths.py`'s gate F3.
+- **T1, ~~trivial-dual slot sums with `σ ≤ 1/2`~~ a square-root sieve for the slot coefficients, `σ ≤ 1/2`** *(corrected in section 7)* *(section 9.5: the weaker `N + N^{3/4}L^{1/2}` suffices)*.
+  - Socket: the `L` term of Lemma `lem:hybrid-energy` inside the second branch of Lemma `lem:probe-row-norm`, which is `fivesixths.py`'s gate F3. *(Section 7.6 widened it to the `(NL)^{2/3}` term. With the trilinear bound of 9.1 the `L` term is gone, so the socket is that term.)*
   - Attack notes:
-    1. a corrected cubic large sieve, in the sense of Dunn–Radziwiłł's Proposition 9.1, for angle-twisted Gauss-sum coefficients, which do not attain the `(NL)^{2/3}` term *(section 9.2: that proposition assumes their axiom (3.2), which for prime-supported coefficients is of GRH strength: circular here as stated)*;
+    1. a corrected cubic large sieve, in the sense of Dunn–Radziwiłł's Proposition 9.1, for angle-twisted Gauss-sum coefficients, which do not attain the `(NL)^{2/3}` term *(section 9.2: that proposition assumes their axiom (3.2), ~~which for prime-supported coefficients is of GRH strength: circular here as stated~~ which for the slot coefficients either fails outright or asks for a zero-free region `Re s > 1/2 + η`, `η ≤ 1/4`, for a fixed `L`-function of the release's family: unusable as stated, 9.7)*;
     2. a Type I/Type II decomposition of the slot sums, whose Type I part has no pole for `k ≠ 0`;
     3. slot structures other than single primes, which the compensation would have to accommodate.
 - **T2, a row-sum saving `U^{1/6}` near `a = 1/2`.**
@@ -241,7 +242,7 @@ Same day, same branch. The gate script is `slotsplit.py` (gates S1–S5; with se
 Surveyed on 2026-10-22 by web search. Two sources were read: Heath-Brown's abstract in the Oxford ORA record, and Dunn and Radziwiłł's arXiv text (2109.07463v3), whose quotes below are from its PDF text with the extraction's symbol damage repaired.
 - **Heath-Brown, "Kummer's conjecture for cubic Gauss sums" (2000).** For the sum over the integers `c ≡ 1 (mod 3)` of `ℚ(√−3)` with `N(c) ≤ X` of `g̃(c)Λ(c)(c/|c|)^l`, the abstract gives `≪_ε X^{5/6+ε} + |l|X^{3/4+ε}`, and adds: "When $l=0$ it is conjectured that the above sum is asymptotically of order $X^{5/6}$, so that the upper bound is essentially best possible." For `l ≠ 0`, which includes the slot coefficient's angle `ᾱ²`, the bound is still `X^{5/6+ε}`. The `X^{3/4}` term is the angle's cost, not a bound for the sum.
 - **Dunn and Radziwiłł, "Bias in cubic Gauss sums: Patterson's conjecture".**
-  - Under GRH, Theorem 1.1 gives Patterson's asymptotic, and Theorem 1.3 gives `o(X^{5/6}/log X)` for the powers `g̃(ϖ)^k`, uniformly in `1 < |k| ≤ X^{1/100}`. Neither saves a power of `X` below `5/6`.
+  - Under GRH, Theorem 1.1 gives Patterson's asymptotic, and Theorem 1.3 gives `o(X^{5/6}/log X)` for the powers `g̃(ϖ)^k`, uniformly in `1 < |k| ≤ X^{1/100}`. Neither saves a power of `X` below `5/6`. *(Section 10: Patterson's first moment is since proved without GRH, in OpenAI's preprint.)*
   - The abstract: "we show that Heath-Brown's cubic large sieve is sharp up to factors of $X^{o(1)}$ under the Generalized Riemann Hypothesis".
   - Their corrected sieve, eq. (1.13), allows them "to beat the exponent $(AB)^{2/3}$, albeit only for sequences that have substantial cancellations against all non-principal cubic characters", with a small fixed saving `δ`.
 - **For T2 (found by search, not read; as the search results summarize them):** ~~ratios conjectures over cubic families have been proved with one shift by multiple Dirichlet series, under GRH: Gao and Zhao, arXiv 2311.08626 (cubic Hecke `L`-functions of prime moduli over the Eisenstein field), and Čech, arXiv 2110.04409 (real characters).~~ *(Section 9: misfiled, since Čech's family is not cubic. From the two abstracts, read since: Gao and Zhao develop the ratios conjecture with one shift "for the family of cubic Hecke $L$-functions of prime moduli over the Eisenstein field using multiple Dirichlet series under the generalized Riemann hypothesis"; Čech considers "the family of real Dirichlet characters", and "All of the results are conditional under the Generalized Riemann hypothesis.")* Here GRH for the rows' family is stronger than the conclusion sought, so those results are not usable as stated.
@@ -252,7 +253,7 @@ Section 2 called `σ` the exponent of the slot sum at the trivial dual. That is 
 
 What the second branch `(1 + (4σ − 1)ℓ′ − 2M′)/4` needs is a hybrid bound for `Σ_{j∼N} |Σ_P a(P)χ_P(j)^{−2}/√q_P|²`, at every dual length `N`. Gate S5 replaces the release's factor in round 500's dyad program by each bound below. *(Section 9: S5 then covered the table's last three rows, and "never exceeds" is checked at S1's points, `ℓ′ ≤ 0.36`; only the dual lengths `N < L²` matter. The corrected table is in 9.5.)* For each it checks three things:
 - the program never exceeds the second branch with the `σ` shown;
-- it equals that branch at the low side's optimum;
+- it equals that branch at the low side's optimum *(9.7: there both are `0`, so this tested nothing. S5 now checks equality at four points where the branch is positive, for rows (a)–(d), and that row (e) stays below it there)*;
 - the least low side agrees between F2's linear program and the exact program on a grid.
 
 | hybrid bound | `σ` | least low side |
@@ -263,7 +264,7 @@ What the second branch `(1 + (4σ − 1)ℓ′ − 2M′)/4` needs is a hybrid b
 | the `L` term dropped, `N + (NL)^{2/3}` | `2/3` | `28/33` |
 | a square-root sieve, `N + (NL)^{1/2}` | `1/2` | `5/6` |
 
-~~So the low side's floor needs a square-root cubic large sieve for the slot coefficients. Slot sums at square-root size in every column (prime sums `≪ X^{3/4}`, beyond Heath-Brown's `X^{5/6}`) would give only `71/84`.~~ *(Struck in section 9, false as written. `σ = 1/2` follows from the weaker `N + N^{3/4}L^{1/2}` (S5 (c)). The `71/84` row is squared slot sums `≪ L^{1/2}`, that is slot sums `≪ L^{3/4}`, not square-root size; square-root cancellation in every column gives `5/6` (S5 (e)). And the slot sums are not products of prime sums: the pair phases couple the slots.)* Dunn and Radziwiłł's sharpness result says `(AB)^{2/3}` cannot be improved for general coefficients (their lower bound assumes GRH). A bound `N + (NL)^{1/2}` therefore has to use the coefficients themselves: the angle `ᾱ²`, which removes Patterson's main term at the primes measured (N1), and the slots' product structure.
+~~So the low side's floor needs a square-root cubic large sieve for the slot coefficients. Slot sums at square-root size in every column (prime sums `≪ X^{3/4}`, beyond Heath-Brown's `X^{5/6}`) would give only `71/84`.~~ *(Struck in section 9, false as written. `σ = 1/2` follows from the weaker `N + N^{3/4}L^{1/2}` (S5 (c)). The `71/84` row is squared slot sums `≪ L^{1/2}`, that is slot sums `≪ L^{1/4}` (before the `1/√q_P` normalization, `≪ L^{3/4}`), not square-root size; square-root cancellation in every column gives `5/6` (S5 (e)). And the slot sums are not products of prime sums: the pair phases couple the slots.)* Dunn and Radziwiłł's sharpness result says `(AB)^{2/3}` cannot be improved for general coefficients (their lower bound assumes GRH). A bound `N + (NL)^{1/2}` therefore has to use the coefficients themselves: the angle `ᾱ²`, which removes Patterson's main term at the primes measured (N1), and the slots' product structure.
 
 ### 7.3 The slot-split bound (gates S1, S2)
 
@@ -310,7 +311,7 @@ In the program, savings `U^{3/10}` on the floor bin and the small bins alone sto
   - Known here: `σ = 3/4` by the slot-split bound (7.3). *(Now `σ = 2/3`, by the trilinear split of section 9.1.)*
   - Attack notes:
     1. ~~a trilinear split that treats `(j, A)` as one modulus. With `B`'s character `(B/jA²)_3` it needs a cubic large sieve over cube-free moduli. If it held with the plain sieve's shape, it would drop the `L` term, giving `σ = 2/3` and `28/33`.~~ *(Struck in section 9, false as written: `B`'s character is `conj((B/jA)_3)`, whose modulus `jA` is squarefree, so the plain sieve applies, and the split gives `σ = 2/3` and `28/33`: section 9.1, gate S8.)*
-    2. Dunn–Radziwiłł's corrected sieve for the angle-twisted coefficients: by eq. (1.13), a small power below `(NL)^{2/3}`. *(Section 9.2: its Proposition 9.1 assumes their axiom (3.2), of GRH strength for prime-supported coefficients: circular here as stated.)*
+    2. Dunn–Radziwiłł's corrected sieve for the angle-twisted coefficients: by eq. (1.13), a small power below `(NL)^{2/3}`. *(Section 9.2: its Proposition 9.1 assumes their axiom (3.2), ~~of GRH strength for prime-supported coefficients: circular here as stated~~ which for the slot coefficients either fails outright or asks for a zero-free region `Re s > 1/2 + η`, `η ≤ 1/4`, for a fixed `L`-function of the release's family: unusable as stated, 9.7.)*
     3. slots over squarefree or rough integers, where Patterson's Kubota series bounds the twisted sums at `X^{3/4}` by its functional equation. The compensation and the high side's prime-factor moments would have to be redone.
   - ~~In every source surveyed (7.1), the `(NL)^{2/3}` term is sharp for general coefficients, and no bound below `X^{5/6}` is proved for prime sums of twisted cubic Gauss sums, even under GRH.~~ *(Struck in section 9, false as written. Heath-Brown's abstract, the only text of his read, says nothing on that term, and Dunn and Radziwiłł quote him: "It seems possible that the term (AB)^{2/3} could be removed with further effort". Their own lower bound, under GRH, shows the term sharp for general coefficients. Their Theorem 1.3 gives `o(X^{5/6}/log X)` under GRH: below `X^{5/6}`, though not by a power. No power saving below `X^{5/6}` was found in the two sources read.)*
 - **T2:** on the high side at the vertex, a saving `U^{max(0, 1/6 − δ/3)}` on every bin with `δ < 1/2`, beyond what density-hypothesis counts give, and `U^{1/6}` plus the floor bin's half-width on the floor bin.
@@ -352,7 +353,7 @@ At `c = 0` the low side reaches its floor on the ray `l_x = l_y = ℓ = t`:
 - the second branch at `σ = 3/4` is `(1 − 2t)/4`, which is `≤ 0` for `t ≥ 1/2`;
 - the C₀ wall `4/3 − t` is at most `5/6` there.
 
-The optimum found is `t = 0.5572`, with `M + ℓ = 1.67`; the bins `E` bind as well. *(Section 9: the two bullets hold for `t ≥ 1/2`, but the bins `E` hold only from `t ≈ 0.5572` on. On the ray at `κ = 3/4` the boundary is `0.8786610` at `t = 1/2` and `0.8390211` at `t = 0.55`, both with `E` binding, and `5/6` at `t = 0.56` (S6). So `c = 0` reaches `5/6` on the ray for `t ≥ 0.5572` only.)* With the release's `σ = 1`, the second branch `(1 − t)/4` vanishes only at `t = 1`, and `c = 0` gives `5/6` at `(1, 1, 1)` *(section 9: the corner of the model's length box `[0, 1]³`, which has no source in the release's Definition `def:stage-high-data`, and only with `μ = 2`, the raised cap; with the cap at `1.9` the program gives `0.8350000`, S6)*. So in this model a free crossing reaches `5/6` with neither T1 nor T2, ~~and a cost above about `0.16` buys nothing (round 499's break-even)~~ *(struck in section 9: in S6's configuration `c = 0.16` gives `0.8744704` and `c = 0.165` gives `0.8748866`, the release's value, so the break-even lies between them; `0.16` was round 499's configuration)*.
+The optimum found is `t = 0.5572`, with `M + ℓ = 1.67`; the bins `E` bind as well. *(Section 9: the two bullets hold for `t ≥ 1/2`, but the bins `E` hold only from a threshold `t* ∈ (0.557239, 0.557240)` on (bisection, S6; 9.7). On the ray at `κ = 3/4` the boundary is `0.8786610` at `t = 1/2`, `0.8390211` at `t = 0.55` and `0.8333645` at `t = 0.5572`, each with `E` binding, and `5/6` at `t = 0.56` (S6). So `c = 0` reaches `5/6` on the ray for `t ≥ t*` only.)* With the release's `σ = 1`, the second branch `(1 − t)/4` vanishes only at `t = 1`, and `c = 0` gives `5/6` at `(1, 1, 1)` *(section 9: the corner of the model's length box `[0, 1]³`, which has no source in the release's Definition `def:stage-high-data`, and only with `μ = 2`, the raised cap; with the cap at `1.9` the program gives `0.8350000`, S6)*. So in this model a free crossing reaches `5/6` with neither T1 nor T2, ~~and a cost above about `0.16` buys nothing (round 499's break-even)~~ *(struck in section 9: in S6's configuration `c = 0.16` gives `0.8744704` and `c = 0.165` gives `0.8748866`, the release's value, so the break-even lies between them; `0.16` was round 499's configuration)*.
 
 **`c = 0` is exactly T3** (gate S7). Replace the quadratic sieve's factor `K + NB` by `K` in round 500's dyad program. Then its maximum has no first branch: it is `M′ + max(0, (1 + 3ℓ′ − 2M′)/4)` at 300 random `(M′, ℓ′)` in `[0.3, 2] × [0, 1]`, and at most `M′ + max(0, (1 + 2ℓ′ − 2M′)/4)` with the slot split. So removing the column term leaves no further branch in the dyads, and the program's `c = 0` is that removal. (With the column term, the maximum on the ray `(2t, t)` is the first branch `3t − 1` for `t ≥ 0.4`. The other branch that F3 avoided above `ℓ′ ≈ 0.4` also comes from the column term: in a session run, its maximizing dyads have a dual longer than the rows, `v > H`. It disappears with the column term.) Keeping the column term in S7's check fails it, in a session run.
 
@@ -412,13 +413,17 @@ By the Chinese remainder theorem, `τ_{c₁c₂,2} = χ_{c₁}(c₂)²χ_{c₂}(
 
 In column `j`, `γ₂(P)χ_P(j)^{−2} = γ₂(j; P) := q_P^{−1/2}Σ_v χ_P(v)²e(jv/P)` when `(j, P) = 1`. So each column's slot sum is `Σ_P γ₂(j; P)ᾱ(P)²ψ(P)ΠW_i/√q_P`: shifted cubic Gauss sums, twisted by an angle, over the products of one prime from each active slot.
 
-**Gate S8(ii)** checks the CRT identity at 25 random pairs of split primes of norm below `400`, by summing over `Z[ω]/pq` directly. The error is `1.6·10⁻¹⁵`; with the conjugate phase it is at least `1.73`. Gate N3 (9.3) measures these sums with `α^k` in place of `ᾱ²ψ`.
+**Gate S8(ii)** checks the CRT identity at 25 random pairs of split primes of norm below `400`, by summing over `Z[ω]/pq` directly. The error is `1.6·10⁻¹⁵`; with the conjugate phase it is at least `1.73`. Gate N3 (9.3) measures a model of these sums: over all squarefree `P` of one norm range, inert primes included, with no slot windows or weights, and with `α^k` in place of `ᾱ²ψ`.
 
-**Dunn and Radziwiłł's corrected sieve, as stated, is circular here (Check 9(c)).**
+**Dunn and Radziwiłł's corrected sieve, as stated, ~~is circular here~~ does not apply here (Check 9(c)).** *(9.7: the axiom's instances and strength were misdescribed below; the corrected account follows the strike.)*
 - Their eq. (1.13) is stated for sequences of this shape, `β_b g̃(b)`. It lets them "beat the exponent $(AB)^{2/3}$, albeit only for sequences that have substantial cancellations against all non-principal cubic characters".
-- Its precise form, Proposition 9.1, assumes `β ∈ C_η(B, w)` with `0 < η ≤ 1/4`. Their Definition 3.1 makes this an axiom, eq. (3.2): square-root cancellation `(A/N(u))^{1/2+η+ε}` against every angle `(a/|a|)^ℓ`, every `N(a)^{it}` and every cubic character `(k/a)_3`, the trivial ones aside.
+- Its precise form, Proposition 9.1, assumes `β ∈ C_η(B, w)` with `0 < η ≤ 1/4`. Their Definition 3.1 makes this an axiom, eq. (3.2): ~~square-root~~ cancellation `(A/N(u))^{1/2+η+ε}` against every angle `(a/|a|)^ℓ`, every `N(a)^{it}` and every cubic character `(k/a)_3`, the trivial ones aside. *(9.7: with `η > 0` that saves `1/2 − η`, not square-root cancellation. With the PDF text's symbols restored, the condition reads "provided that ℓ ≠ 0, or if ℓ = 0, then provided that k ≠ ■", where ■ is their notation for an element of the form `b³`.)*
 - They add: "The Generalized Riemann Hypothesis is used to show that axiom (3.2) above holds for sequences of interest to us".
-- For `β` supported on products of slot primes, the axiom asks for prime sums of Hecke characters over `ℚ(ω)` that cancel down to `P^{1/2+η}` in every slot. For the cubic characters among them, which belong to the release's own family, that amounts to a zero-free region `Re s > 1/2 + η`: more than the conclusion `5/6` sought.
+- ~~For `β` supported on products of slot primes, the axiom asks for prime sums of Hecke characters over `ℚ(ω)` that cancel down to `P^{1/2+η}` in every slot. For the cubic characters among them, which belong to the release's own family, that amounts to a zero-free region `Re s > 1/2 + η`: more than the conclusion `5/6` sought.~~ *(False as written, 9.7: at `ℓ = 0` the instances are not cubic characters.)*
+- Their sequence is `β = c/g̃`. For the slot coefficient `a(P) = γ₂(P)ᾱ(P)²ψ(P)ΠW_i`, `β` therefore carries the angle `ᾱ²`. It also carries `(λ/·)_3`, since `γ₂(π) = (λ/π)_3 g̃(π)` between the release's additive character `e(z) = exp(2πi Tr(z/λ))` (paper.tex lines 608–611) and theirs (checked at 21 primes in a session run). So at `ℓ = 0` the axiom's sums run over prime products of Hecke characters of infinite order.
+- At `ℓ = 2` the twist cancels the angle, and `k` runs over all primary elements, cubes included. The sums then run over prime products of a finite-order character. The slot primes lie in the ray class `1_T`, and "`On $1_T$ one has $\theta(p)=1$ for every $\theta\in\widehat T$`" (paper.tex lines 6909–6910). If some `k` makes that character principal on the slot primes, the sum has a main term of size about `A`, and (3.2) fails outright. Whether that happens depends on whether the 3-adic supplementary phase factors through `T`; this note does not settle it.
+- Otherwise (3.2) asks for cancellation to `P^{1/2+η}` in the prime sums of a fixed finite-order Hecke `L`-function of the release's family. That is a zero-free region `Re s > 1/2 + η`, at least `Re s > 3/4` since `η ≤ 1/4`: more than the conclusion `5/6` sought, though not GRH.
+- Either way, the route is unusable as stated.
 
 The register records the route with this signal.
 
@@ -427,8 +432,9 @@ The register records the route with this signal.
 Commits `19f70fbc` and `ffb66062`, the same day. Both gates measure models of the coefficients at small norms. They are evidence about those models, not bounds.
 
 **The theta term in the columns (N3).** Let `R_k = Σ_j|Σ_P γ₂(P)α(P)^kχ_P(j)^{−2}|²/(#columns·Σ|coefficient|²)`, over the squarefree `P` of norm in `(L/2, L]` and the squarefree columns `j` of norm `≤ N`, with `χ_P(j)^{−2} = conj((j/P)_3)`.
-- On average over the columns, the untwisted sum carries Patterson's theta term. As `(L, N)` doubles from `(2·10⁴, 500)` at `L/N = 40`, `R_0 = 7.09, 8.56, 10.86`. That is about `2^{1/3}` per doubling, the growth of `(NL)^{2/3}/N`. At `(8·10⁴, 500)`, `R_0 = 17.45`.
+- On average over the columns, the untwisted sum carries Patterson's theta term. As `(L, N)` doubles from `(2·10⁴, 500)` at `L/N = 40`, `R_0 = 7.09, 8.56, 10.86`. ~~That is about `2^{1/3}` per doubling, the growth of `(NL)^{2/3}/N`.~~ *(9.7: ungated as written.)* The factors are `1.207` and `1.269` per doubling, against `2^{1/3} = 1.260` for the growth of `(NL)^{2/3}/N`. N3 now gates them between `1.1` and `1.45`. At `(8·10⁴, 500)`, `R_0 = 17.45`.
 - The twists `k = −2` (the slot coefficient's angle), `−1`, `1` and `2` give `R_k` between `0.48` and `0.75`: no excess over the diagonal.
+- Controls *(added in 9.7)*: random unit phases give `R` between `0.91` and `1.01`. A coefficient aligned with one column's character gives `18.3`, `20.9`, `20.8` and `70.9` at the four sizes, at least half the aligned column's own contribution `n₀/#columns`, with `n₀` the number of moduli prime to that column: the cubic sieve's `L` term, attained. N3 gates both.
 
 **The column term (N2).** The rows `k` are squarefree of norm `≤ K`, and the columns `n` squarefree of norm in `(N/2, N]`. Let `Q = Σ_k|Σ_n c_n(n/k)_2|²/(#rows·Σ|c_n|²)`. At `(N, K) = (8·10⁴, 250)`, `(8·10⁴, 500)` and `(4·10⁴, 1000)`:
 - the aligned control `c_n = (n/k₀)_2` gives `Q = 131.2, 70.9, 21.0`, about `#columns/#rows`;
@@ -452,7 +458,7 @@ The reviewer ran `slotsplit.py` (46.4 s, rc 0) and `fivesixths.py` (12.0 s, rc 0
 | 1 | major | the trilinear note's character `(B/jA²)_3` is wrong; it is `conj((B/jA)_3)`, and the plain sieve gives `σ = 2/3` | accepted; struck at 7.6 and on the register; 9.1, S8 |
 | 2 | minor | `σ = 1/2` also follows from `N + N^{3/4}L^{1/2}`, so the "needs" sentences overstate | accepted; markers in the Summary and sections 2, 4, 7.2, 7.6; S5 row (c) |
 | 3 | minor | "square-root size" means two things, and slot sums are not products of prime sums | accepted; struck at 7.2, markers; S5 rows (a), (e) |
-| 4 | minor | the ray reaches `5/6` only for `t ≥ 0.5572`, not for `t ≥ 1/2` | accepted; struck in the Summary and on the register, marker in section 8; S6 |
+| 4 | minor | the ray reaches `5/6` only for `t ≥ t*` (bisected in 9.7 to `(0.557239, 0.557240)`), not for `t ≥ 1/2` | accepted; struck in the Summary and on the register, marker in section 8; S6 |
 | 5 | minor | `(1, 1, 1)` is the corner of the length box and needs `μ = 2` | accepted; marker in section 8; S6 |
 | 6 | minor | Čech's paper concerns real characters, and "only under GRH" is unscoped | accepted; struck at 7.1, 7.6 and on the register |
 | 7 | minor | "in every source surveyed … no bound below `X^{5/6}`" overstates both sources | accepted; struck at 7.6 |
@@ -477,7 +483,7 @@ Out of scope:
 |---|---|---|---|
 | the release's `N + L + (NL)^{2/3}` | `1` | `13/15` | F2, F3 |
 | the slot split, `min(·, N L^{2/3})` (7.3) | `3/4` | `41/48` | S1, S2 |
-| squared slot sums `≪ L^{1/2}` in every column (slot sums `≪ L^{3/4}`), `min(·, N L^{1/2})` | `5/8` | `71/84` | S5 (a) |
+| squared slot sums `≪ L^{1/2}` in every column (slot sums `≪ L^{1/4}`; before the `1/√q_P` normalization, `≪ L^{3/4}`), `min(·, N L^{1/2})` | `5/8` | `71/84` | S5 (a) |
 | the trilinear bound, `N + (NL)^{2/3}` (9.1) | `2/3` | `28/33` | S5 (b), S8 |
 | `N + N^{3/4}L^{1/2}` | `1/2` | `5/6` | S5 (c) |
 | a square-root sieve, `N + (NL)^{1/2}` | `1/2` | `5/6` | S5 (d) |
@@ -496,10 +502,10 @@ That gives `σ = 1/2`. Known here: `σ = 2/3` (9.1).
 The goal `Re s > 5/6` is still not reached, and no new zero-free region is proved. This section adds:
 - the trilinear bound, `σ = 2/3` and the least low side `28/33`, by a written argument. Alone it does not move the boundary.
 - the slot coefficient as a composite Gauss sum, which states T1 inside the Kubota–Patterson family;
-- the finding that Dunn and Radziwiłł's corrected sieve, as stated, needs input of GRH strength here;
+- the finding that Dunn and Radziwiłł's corrected sieve, as stated, ~~needs input of GRH strength here~~ does not apply here: for the slot coefficients its axiom either fails outright or asks for a zero-free region `Re s > 1/2 + η` for a fixed `L`-function of the release's family (9.7);
 - the review's corrections.
 
-Section 8's routes stand: T1 and T2 at the vertex, T3 alone across the slice for `t ≥ 0.5572`, and combinations of partial inputs.
+Section 8's routes stand: T1 and T2 at the vertex, T3 alone across the slice for `t ≥ t*`, `t* ∈ (0.557239, 0.557240)`, and combinations of partial inputs.
 
 Reproduce, from this directory:
 
@@ -507,6 +513,36 @@ Reproduce, from this directory:
 python3 slotsplit.py                          # gates S1-S8, about 70 s
 python3 columnterm.py periods_w_8e4.txt       # gates N2, N3, about 15 s; skipped without the prime data
 ```
+
+### 9.7 The second review round
+
+Same day. A fresh-context hostile reviewer read commit `88be9c78` as a convergence round. Its scope was sections 7–10 as swept, `slotsplit.py`, `columnterm.py`, the register's bullet and README round 500's struck sentence. It re-ran `slotsplit.py`, `columnterm.py`, `fivesixths.py` and `../wall78/crossing.py`, each with rc 0. It returned no major finding, four minor and eight cosmetic ones, and one out-of-scope observation. The lead checked each before accepting it:
+- Dunn and Radziwiłł's Definition 3.1 and Proposition 9.1, in the PDF text of arXiv 2109.07463v3;
+- the release's lines 568–575, 606–612, 3322–3332, 6866–6876 and 6904–6912;
+- the preprint's `dual.tex` lines 1–60, `dispersion.tex` lines 1–120 and 416, and `angular.tex` lines 60–130;
+- README rounds 454–455 (the twisted multiplicativity, `gaussP_twist`) and round 500's lines 19298–19350;
+- in session runs: the conversion `γ₂(π) = (λ/π)_3 g̃(π)` at 21 primes, the ray's threshold by bisection, S5's rows at points where the branch is positive, and N3's controls. The last three are now gated.
+
+| # | severity | finding | disposition |
+|---|---|---|---|
+| 1 | minor | the sweep of "In any geometry" missed the register's statement and three lines of README round 500 | accepted; struck and annotated on all four |
+| 2 | minor | 9.2 named the wrong instances of Dunn and Radziwiłł's axiom (3.2), and called it "of GRH strength" and "square-root cancellation" | accepted; struck and corrected in 9.2, the Summary, sections 5, 7.6 and 9.6, and on the register |
+| 3 | minor | section 10's "Unconditionally such sums save less than any fixed power" is a universal over unconditional results | accepted; struck and scoped to the bound the preprint uses |
+| 4 | minor | section 10 left out the preprint's Proposition `prop:dispersion`, which has T1's shape, with its range and its log-power saving | accepted; a bullet in section 10, markers in the Summary and on the register |
+| 5 | cosmetic | the ray's threshold was rounded down under "≥": it lies in `(0.557239, 0.557240)`, and `t = 0.5572` gives `0.8333645` | edited in the Summary, sections 8, 9.4 and 9.6, and on the register; S6 bisects it |
+| 6 | cosmetic | S5's "equals the branch at the optimum" could not fail, since both are `0` there | S5 checks four points where the branch is positive; marker in 7.2 |
+| 7 | cosmetic | "slot sums `≪ L^{3/4}`" switched normalization | edited in the Summary, 7.2 and 9.5 |
+| 8 | cosmetic | "admissible prime convolutions" passes over the slot primes' ray class and `prop:dual`'s twists | scoped in section 10 |
+| 9 | cosmetic | 9.2's description of N3 left out its support | edited |
+| 10 | cosmetic | `columnterm.py`: its runtime, N3's unreported skip, the ungated `2^{1/3}`, and no controls for N3 | fixed; N3 gates the growth factors and two controls; 9.3 edited |
+| 11 | cosmetic | Check 4 listed as new the twisted multiplicativity the pilot already has; S8's labels | Check 4 reclassified; S8 tests the struck form `(B/jA²)_3` itself and relabels (ii) |
+| 12 | cosmetic | T1's title and socket lacked net-state markers | markers in section 5 and on the register |
+
+Out of scope, recorded (O3, process). CLAUDE.md asks that a horizon hit be recorded "the same day as a pilot README round". This branch adds no README round, to avoid a numbering clash with the main line; PR #188's description says that a round "can be assigned on merge". The hits of sections 0 and 10 are owed that round. Section 7.1's sentence on Patterson's asymptotic under GRH now has a marker pointing to section 10.
+
+In session sabotage runs, S5 fails with row (e) held to equality, and S6 fails with the bisection started above the threshold.
+
+The battery after the sweep, from this directory, each with rc 0: `python3 slotsplit.py` (42 s), `python3 columnterm.py periods_w_8e4.txt` (7 s), `python3 fivesixths.py periods_w_8e4.txt` (8 s) and `python3 ../wall78/crossing.py` (9 s). A container restart in between reinstalled the Python packages from `tools/requirements.txt` (numpy 2.4.6, scipy 1.17.1) and rebuilt the prime data with `periods.c`; the values of the checks whose code did not change reproduced exactly.
 
 ## 10. A horizon hit: an unconditional first moment for cubic Gauss sums
 
@@ -521,12 +557,18 @@ Found the same day through the release's own citation: "`The corresponding first
 **Its bearing here.**
 - At one prime, the slot coefficient `γ₂(π)ᾱ(π)²` is `θ_{−2}(π)G(π)` times factors of finite order: the additive characters' normalizations and `ψ`. So `thm:angular` gives `o(X^{5/6}/log X)` unconditionally for its prime sums, up to those finite-order factors, which the theorem as stated does not include.
 - That is a statement at the trivial dual, in one slot. By section 7.2 the trivial dual alone does not move the dyads' maximum, so it does not change `σ`.
-- The slot products are admissible prime convolutions in the sense of `prop:dual`: each slot prime has norm `Z^{ℓ/K}`, a fixed power of the product's norm, and each slot carries its own smooth weight `W_i`.
-- It is open whether the preprint's corrected dispersion, applied to the angle-twisted coefficients in the mean square over the columns, saves a power on `(NL)^{2/3}`. In a corrected sieve of the shape of Dunn and Radziwiłł's eq. (1.13), the correction term for these coefficients carries sums of `β(B)θ_{−2}(B)ψ(B)N(B)^{−1/6}` over the slot products. Those are products of angular Hecke prime sums, one per slot. Unconditionally such sums save less than any fixed power (the prime ideal theorem for Hecke characters), and without a saving the correction term is the size of the `(NL)^{2/3}` term itself.
+- In their supports and weights, the slot products are admissible prime convolutions in the sense of `prop:dual`: each slot prime has norm `Z^{ℓ/K}`, a fixed power of the product's norm, and each slot carries its own smooth weight `W_i`. *(9.7: only in those respects. The release's slot primes lie in the ray class `1_T` (paper.tex lines 6871–6874), a restriction the definition (dual.tex lines 10–23) does not include. And `prop:dual`'s sums `A(p,q)` carry only the twists `N(b)^{iu}` and `χ_b(vpq²)` (lines 43–46), without the angle `θ_{−2}` or `ψ`.)*
+- *(Added in 9.7.)* The preprint's Proposition `prop:dispersion` has T1's shape. Its `F_u(a) = Σ_b β_b(u)G(b)conj(χ_b(a))` sums products `b` that carry Gauss sums against the columns `a`, with the character `conj(χ_b(a))`, which is `χ_P(j)^{−2}`. But:
+  - it is stated for "`AB\asymp X,\qquad X^{0.32}\le B\ll X^{1/2}`" (dispersion.tex line 16), that is `L ≤ N ≤ L^{2.125}` in T1's terms;
+  - after its theta correction it saves only a power of `log X`: the bound is `\mathcal Q L^{-K}` (line 69), with `\mathcal Q=ABH^{1/3}` (line 17), which is `(AB)^{2/3}B`;
+  - its small-conductor frequencies rest on a log-power saving, its property (SW).
+
+  At `σ = 2/3` the second branch is maximized at a trivial dual, `N ≪ L` (F3), outside that range. The proposition would reach those dyads after the trilinear reduction of 9.1, at the balanced edge `B ≈ X^{1/2}`. So the preprint bears on T1 directly, but with a log-power saving, which does not move `σ`.
+- It is open whether the preprint's corrected dispersion, applied to the angle-twisted coefficients in the mean square over the columns, saves a power on `(NL)^{2/3}`. In a corrected sieve of the shape of Dunn and Radziwiłł's eq. (1.13), the correction term for these coefficients carries sums of `β(B)θ_{−2}(B)ψ(B)N(B)^{−1/6}` over the slot products. Those are products of angular Hecke prime sums, one per slot. ~~Unconditionally such sums save less than any fixed power (the prime ideal theorem for Hecke characters), and~~ *(9.7: an unscoped universal over unconditional results.)* The unconditional bound the preprint uses for such sums, its Lemma `lem:angular-hecke`, saves a power of `log x`: "`\ll_{\ell,A,M}x(\log x)^{-M}`" (angular.tex line 77). No power saving was found in the sources read, and without one the correction term is the size of the `(NL)^{2/3}` term itself.
 - Even with that settled, the remainder `(NL)^{2/3−δ}` with a small fixed `δ` would move `σ` only slightly below `2/3`, short of T1's `1/2`.
 
 **Check 9.**
-- (b) The register gets a T1 attack note: the preprint's corrected dispersion with Proposition `prop:dual`, applied to the slot coefficients.
+- (b) The register gets a T1 attack note: the preprint's corrected dispersion with Proposition `prop:dual`, applied to the slot coefficients. *(9.7: with `prop:dispersion`'s range and its log-power saving recorded there.)*
 - (c) The signal it needs is a zero-free strip for the angular Hecke `L`-functions `L(s, θ_{−2}ψ)` over `ℚ(ω)`. These have infinite order and are outside the release's finite-order family, so the signal is auxiliary, not circular. It is also a family question in the sense of CLAUDE.md's "Families before single functions": the slot coefficients themselves generate the angular twist `θ_{−2}`. So: does the release's method, or Liu's, reach Hecke characters of nonzero infinity type?
 
 ## Check 4 and bearing on RH
@@ -541,7 +583,8 @@ Found the same day through the release's own citation: "`The corresponding first
   - Xu–Sang's admissibility conditions;
   - the moment lever's limits (rounds 506–508);
   - `PAIRING.md`'s boundary formula;
-  - Liu's `0.874957…` (round 471) and Sang's `0.8748867` (round 496).
+  - Liu's `0.874957…` (round 471) and Sang's `0.8748867` (round 496);
+  - *(9.7)* the twisted multiplicativity of the cubic Gauss sums that S8 (ii) checks, which the pilot has in `composite.py` and in README rounds 454–455 (`conj gamI 2 (ab) = (a/b)₃·conj gamI 2 (a)·conj gamI 2 (b)`).
 - New here:
   - the floor `5/6` and its identity (F1);
   - the closed form of the low side's least value in `σ` (F2);
@@ -554,6 +597,6 @@ Found the same day through the release's own citation: "`The corresponding first
   - section 7: the slot-split bound (S1, S2), the dictionary between hybrid bounds and `σ`, which corrects section 2 (S5), the ladder (S3), the vertex's bins (S4), and the literature's scope for T1;
   - section 8: the crossing cost as a third lever, and the target T3 (S6, S7);
   - section 10: the horizon hit (the cubic first-moment preprint) and its scoped bearing on T1;
-  - section 9: the trilinear bound `σ = 2/3` (S5 (b), S8); the slot coefficient as the composite Gauss sum `γ₂(P)`, angle-twisted (S8 (ii)); Dunn–Radziwiłł's corrected sieve found circular as stated; the dictionary's rows (c) and (e); the ray's threshold, the corner `(1, 1, 1)` and the readings' load (S6); `crossing.formula`'s region (S7); the coefficient models (N2, N3); the review's corrections.
+  - section 9: the trilinear bound `σ = 2/3` (S5 (b), S8); the slot coefficient as the composite Gauss sum `γ₂(P)`, angle-twisted (9.2; *9.7: new is this identification of the release's tuple factor; the identity S8 (ii) checks is acknowledged above*); Dunn–Radziwiłł's corrected sieve found ~~circular~~ unusable as stated (*9.7*); the dictionary's rows (c) and (e); the ray's threshold, the corner `(1, 1, 1)` and the readings' load (S6); `crossing.formula`'s region (S7); the coefficient models (N2, N3); the review's corrections.
 
 **Bearing on RH: none.** The note proves no zero-free region and gains no constraint on zeros. It maps what one method would need.

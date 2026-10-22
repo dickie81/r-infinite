@@ -26,11 +26,16 @@ Gates (exit status 1 if one fails; skipped, and reported, without the prime data
       R_k = sum_j |sum_P gamma_2(P) alpha(P)^k chi_P(j)^{-2}|^2 / (#columns sum |coefficient|^2) over the squarefree P
       of norm in (L/2, L] and the squarefree columns j of norm <= N (chi_P(j)^{-2} = conj((j/P)_3), the release's
       column character): at (L, N) = (2*10^4, 500), (4*10^4, 10^3), (8*10^4, 2*10^3) and (8*10^4, 500), the untwisted
-      sum (k = 0) has R_0 >= 5, increasing along the first three (at L/N = 40, where (NL)^{2/3}/N grows by 2^{1/3}
-      per doubling): Patterson's theta term, on average over the columns.  The angle twists k = -2 (the slot coefficient's),
-      -1, 1, 2 have R_k <= 1.5: no excess over the diagonal.  Evidence about models at small norms, not a bound.
+      sum (k = 0) has R_0 >= 5, increasing along the first three by a factor between 1.1 and 1.45 per doubling (at
+      L/N = 40 the theta term's size (NL)^{2/3}/N grows by 2^{1/3} = 1.26 per doubling): Patterson's theta term, on
+      average over the columns.  The angle twists k = -2 (the slot coefficient's), -1, 1, 2 have R_k <= 1.5: no
+      excess over the diagonal.  Controls at every size: random unit phases have R <= 1.5, and the coefficient
+      conj(chi_P(j0)^{-2}) aligned with one column's character has R >= n0/(2 #columns), with n0 the number of moduli
+      prime to j0 (the aligned column alone contributes n0/#columns).  Evidence about models at small norms, not a
+      bound.  N3 sums over all squarefree P of one norm range, inert primes included, with no slot windows or weights.
 
-Usage: python3 columnterm.py periods_w_8e4.txt     (about 30 s)
+Usage: python3 columnterm.py periods_w_8e4.txt     (10-15 s; without the prime data both gates are skipped and
+reported)
 """
 import math
 import os
@@ -116,12 +121,14 @@ def cubic_sieve(path, L, N, ks=(0, -2, -1, 1, 2)):
         Y[r] = np.where(Z, 0, ZETA[(-2 * E) % 6])
     z = np.array([complex(el[i][0] - 0.5 * el[i][1], math.sqrt(3) / 2 * el[i][1]) for i in mods])
     al, g = z / np.abs(z), G[mods, 2]
-    out = {}
-    for k in ks:
-        c = g * al ** k
-        S = c @ Y
-        out[k] = float(np.sum(np.abs(S) ** 2) / (len(cols) * np.sum(np.abs(c) ** 2)))
-    return out
+    R = lambda c: float(np.sum(np.abs(c @ Y) ** 2) / (len(cols) * np.sum(np.abs(c) ** 2)))
+    out = {k: R(g * al ** k) for k in ks}
+    rng = np.random.default_rng(L + N)
+    j0 = len(cols) // 2
+    n0 = float(np.sum(np.abs(Y[:, j0]) ** 2))
+    ctrl = dict(random=R(np.exp(2j * np.pi * rng.random(len(mods)))), aligned=R(np.conj(Y[:, j0])),
+                floor=n0 / (2 * len(cols)))
+    return out, ctrl
 
 
 def ratio(X, c):
@@ -133,6 +140,7 @@ def main():
     path = sys.argv[1] if len(sys.argv) > 1 else None
     if not (path and os.path.exists(path)):
         print('N2: SKIPPED  (no prime data given; pass periods_w_8e4.txt, see PAIRING.md section 7)')
+        print('N3: SKIPPED  (no prime data given)')
         return
     ok, lines = True, []
     for N, K, Pslot in ((80000, 250, None), (80000, 500, None), (40000, 1000, 50)):
@@ -154,11 +162,15 @@ def main():
                      + (f' ({pairs} slot pairs)' if Pslot else ''))
     print(f'N2: {"PASS" if ok else "FAIL"}  ' + '; '.join(lines))
     r3 = {LN: cubic_sieve(path, *LN) for LN in N3_SIZES}
-    grow = [r3[LN][0] for LN in N3_SIZES[:3]]
-    ok3 = (all(r3[LN][0] >= 5 for LN in N3_SIZES) and grow[0] < grow[1] < grow[2]
-           and all(v <= 1.5 for LN in N3_SIZES for k, v in r3[LN].items() if k != 0))
+    grow = [r3[LN][0][0] for LN in N3_SIZES[:3]]
+    ratios = [grow[1] / grow[0], grow[2] / grow[1]]
+    ok3 = (all(r3[LN][0][0] >= 5 for LN in N3_SIZES) and all(1.1 <= q <= 1.45 for q in ratios)
+           and all(v <= 1.5 for LN in N3_SIZES for k, v in r3[LN][0].items() if k != 0)
+           and all(r3[LN][1]['random'] <= 1.5 and r3[LN][1]['aligned'] >= r3[LN][1]['floor'] for LN in N3_SIZES))
     print(f'N3: {"PASS" if ok3 else "FAIL"}  ' + '; '.join(
-        f'(L, N) = {LN}: ' + ', '.join(f'k = {k}: {v:.3f}' for k, v in r3[LN].items()) for LN in N3_SIZES))
+        f'(L, N) = {LN}: ' + ', '.join(f'k = {k}: {v:.3f}' for k, v in r3[LN][0].items())
+        + f', random {r3[LN][1]["random"]:.3f}, aligned {r3[LN][1]["aligned"]:.1f} (floor {r3[LN][1]["floor"]:.1f})'
+        for LN in N3_SIZES) + f'; growth of R_0 per doubling {ratios[0]:.3f}, {ratios[1]:.3f} (2^(1/3) = 1.260)')
     if not (ok and ok3):
         sys.exit(1)
     print('all gates pass')
