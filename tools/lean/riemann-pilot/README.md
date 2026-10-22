@@ -26474,3 +26474,50 @@ At one point per character `χ₁ = χ₃` forces `t₁ = t₃`, so the terms wi
 **Bearing on RH:** none.
 
 **The next step.** M3 continues with `CGLS2`: the Mellin transform of `w²` and its decay, the integral representation `G(i, k) = (1/2πi)∫H(s)N^sL(s − i(t_i − t_k), χ_iχ̄_k)ds`, the reflection through the functional equation of the primitive character (generalizing round 526's `LinnikReflect.reflect` from its kernel `Γ(w)(Λ^w − (Λ/2)^w)` to `H(s)N^s`), and the mean value theorem with the large polynomial put back (round 526's product trick, `LinnikWeighted.huxley_core`).
+
+## Round 640: the Mellin transform of `w²`, and the Gram entries as vertical integrals (stage M3, third step; `external/pnt/LinnikCGLMellin.lean`)
+
+**The result.** The first piece of the proof of round 639's hypothesis `CGLS2` (the bound on `‖E‖_F²`), following the route of Chen–Gupta–Li's Proposition 6.1:
+
+- `exists_H_bound`: the Mellin transform `H(s) = ∫w(u)²u^{s−1} du` of `w²` satisfies `(1 + |t|)^{K+3}|H(σ + it)| ≤ B` for every `K ≥ 0` and `S ≥ 0`, some `B`, every real `t` and `|σ| ≤ S`.
+- `differentiable_H`: `H` is entire.
+- `perron_gram`: for `N > 0` and `σ > 1`, with `ψ = χ_iχ̄_k` and `τ = t_i − t_k`, `G(i, k) = N^{iτ}·(1/2π)∫ L(σ + iv, ψ)H(σ + iv + iτ)N^{σ+iv} dv`.
+
+These are the paper's starting points for its Lemma 6.2: "Let H(s) := ∫_ℝ w(u)²u^{s−1} du be the Mellin transform of w², which is entire and satisfies (6.2) |H(s)| = |∫_0^∞ w(u)²u^{σ+it−1} du| = |∫_ℝ w(e^v)²e^{v(σ+it)} dv| ≪_{σ,j} |t|^{−j}", and, by Mellin inversion, "q/N^{1+it} Σ_{n∈ℤ} w(n/N)²χ(n)n^{it} = … = q/N^{1+it} · 1/2πi ∫_{2−i∞}^{2+i∞} H(s)N^sL(s − it, χ) ds" (re-read this round in the text layer, lines 1366–1412; spaces restored, the displays transcribed and the intermediate step elided). The stack's form is the same integral after `s ↦ s + iτ`.
+
+**How.** The pieces were in the stack. Round 591's `SieveWeight` bounds the Mellin transform of a smooth weight on `[1/2, 2]` by the Fourier transform in `v = −log u` and its derivatives in `v`, for `0 ≤ σ ≤ 2`; the far line that `CGLS2` will need has `σ` negative, so `exists_bound_iteratedDeriv_gE` redoes the derivative bound for `e^{−σv}w(e^{−v})²` on `|σ| ≤ S`. Round 591's `SieveLemma1.perron_weight` is Perron's formula for a weight; `perron_Wt` applies it to `W_τ(u) = u^{iτ}w(u)²`, whose Mellin transform is `H(s + iτ)`, with `L(s, ψ)` for the L-series, and `gram_eq_tsum` writes `G(i, k)` as `N^{iτ}Σ_n ψ(n)W_τ(n/N)` (the conjugate of `n^{it_k}` is `n^{−it_k}`, and `n^{iτ} = (n/N)^{iτ}N^{iτ}`).
+
+**The plan from here.** `CGLS2` follows the paper's proof of Proposition 6.1 at one point per character. The integral in `perron_gram` moves to `Re s = 1/2`; there `L(s, ψ) = E(s)L(s, ψ*)` with `ψ*` primitive and `E(s) = ∏_{p|q}(1 − ψ*(p)p^{−s})`, and round 526's `LinnikGammaRatio.LFunction_eq_reflect` gives `L(s, ψ*) = Φ(s)L(1 − s, ψ⁻¹)`, the dual series being over the imprimitive `ψ⁻¹ = χ̄_iχ_k` mod `q`. The dual series splits at `Z ≈ (qT)^{1+ε}/N`: the first `Z` terms stay on `Re s = 1/2`, where `|EΦ|` is bounded, and form a Dirichlet polynomial in the point `k` with coefficients that depend only on `i` and the height; the rest moves to a far line `Re s = −K`, where it is negligible once `K` is large in terms of `ε`, `E(s)`'s growth `q^K` there being cancelled by `N^{−K}Z^{−K}`. Keeping `E(s)` rather than expanding it over the divisors `d` of `q` keeps one truncation for all pairs: a term with `d > N` would need `Z` of size `q²T/N`. The mean value theorem with the large polynomial put back (round 526's product trick, `LinnikWeighted.huxley_core`) then bounds the sum over `k`. The far line needs a bound for the Gamma ratio there, by moving `Γ`'s argument right, as round 526's `LinnikGammaRatio.norm_Gamma_half_ratio` does by one step.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLMellin.lean`: new, 368 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and four `#print axioms` lines (`exists_H_bound`, `differentiable_H`, `perron_Wt`, `perron_gram`).
+- `frontier/linnik/CGL-LEAN.md`: an M3 note, and the row L6.2.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled first in scratch (`scratchpad/r640/lc.sh`); the first full attempt failed in three places (an `nlinarith` against an exponent written `0 + 3`, a stuck `ContinuousSMul` instance, and a `field_simp` that needed `(N : ℂ) ≠ 0`), and the second compiled. Then `build.sh` ran once (`scratchpad/r640/build.log`): `1 compiled, 377 up to date` (`LinnikCGLMellin` 11 s), exit 0 in 22 s, no error, warning or `sorry`. Its 532 axiom lines (6 by the module, 526 by the final check, which gains four lines) are 519 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.84 GiB.
+- The file has no `sorry`, `native_decide`, `axiom` or `maxHeartbeats`, and no line over 120 characters.
+- The lead's self-review of the header against the statements and the paper found two slips, corrected before the build: the header stated `perron_gram` at `σ = 2` where the theorem takes any `σ > 1`, and cited the paper's (6.2) for the definition of `H`, where (6.2) is its decay.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row; the row's first draft had bare `|` inside its code spans, which split the table's cells, and the lint caught it) and this file 1872 → 1872.
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: L6.2's stack and status cells carry a net-state marker (the status read "Not started"); the opening's parenthetical gains round 640; M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round): the paper's §6 in the text layer, lines 1289–1700 (Lemma 6.2, its proof through `I₁` and `I₂`, the start of the proof of Proposition 6.1), re-read for this round's citations at lines 1366–1412; `LinnikCGLMellin.lean` in full; round 591's `SieveWeight.lean` (lines 60–430: `bw`, `gw`, `exists_bound_iteratedDeriv_gw`, `exists_mellin_bound`, `mellinConvergent_psiw`, `differentiableAt_mellin_psiw`, `mellin_wy`), the headers of `SieveLemma1.lean` and `SieveSmooth.lean` and the statements of `SieveLemma1.perron_weight`, `SmoothPerron.verticalIntegral_shift` and `SieveSmooth.pow_mul_norm_fourier_le`; round 526's `LinnikGammaRatio.lean` (lines 39–240: `norm_Gamma_le_ratio`, `norm_Gamma_half_ratio`, `gr`, `norm_gr_le`, `eulerQ`) and `LFunction_eq_reflect`, and `LinnikReflect.lean`'s definitions and contour lemmas (lines 30–460); Mathlib's `MellinTransform.lean` and `MellinInversion.lean` (the statements used).
+
+**Check 4.** No defect is raised. `CGLS2` and `CGLS3` stay displayed hypotheses this round.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: "for every `K ≥ 0` and `S ≥ 0`" and "for `σ > 1`" are the Lean statements. The plan's "a term with `d > N` would need `Z` of size `q²T/N`" is said of the divisor expansion with the tail bound sketched above, not of every possible treatment.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of round 636, no review runs this round. The batched review will cover rounds 634–640 and the stages that follow.
+
+**Bearing on RH:** none.
+
+**The next step.** The reflection: the shift of `perron_gram`'s integral to `Re s = 1/2`, the functional equation with `E(s)` kept, the split of the dual series and the move of its tail to the far line, with the Gamma ratio bounded there.

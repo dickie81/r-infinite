@@ -162,6 +162,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLLinnik.lean` | 636, 637 | Linnik's theorem with exponents `9/4` (`linnik_225c_lv`) and `226/100` (`linnik_226c_lv`) under `CGLProp31`: the routes of `Linnik225C` and `Linnik226C` with `charDensity_cgl` in place of `CGLDensity` |
 | `LinnikCGLMat.lean` | 638 | Chen–Gupta–Li's Proposition 3.1 (`CGLProp31`) from the hypothesis `CGLThird`, a bound on the off-diagonal of the cubic trace (`prop31_of_third`): their Proposition 4.6 for the points (`prop46`), the mean value theorem for `N ≥ qT` (`mvt_case`) and their §11.2's algebra (`alg112`); Linnik's exponents `9/4` and `226/100` under `CGLThird` (`linnik_225c_third`, `linnik_226c_third`) |
 | `LinnikCGLS23.lean` | 639 | `CGLThird` from two hypotheses, `CGLS2` (the off-diagonal mass `‖E‖_F²` of the Gram matrix, their Proposition 6.1) and `CGLS3` (`S₃ = X − 3μ₀‖E‖_F²`, their Proposition 11.1), by `third_of_s23`; the identity `X = 3μ‖E‖_F² + tr(E³)` (`X3_eq`); Linnik's exponents `9/4` and `226/100` under the two (`linnik_225c_s23`, `linnik_226c_s23`) |
+| `LinnikCGLMellin.lean` | 640 | the Mellin transform `H` of `w²`: entire (`differentiable_H`), with `(1 + \|t\|)^{K+3}\|H(σ + it)\| ≤ B` on `\|σ\| ≤ S` (`exists_H_bound`); Perron's formula for the twisted weight `u^{iτ}w(u)²` (`perron_Wt`) and for the Gram entries (`perron_gram`) |
 
 ## Building (rounds 217, 618)
 
@@ -667,3 +668,16 @@ Round 639 is the second step of stage M3 of the plan in `frontier/linnik/CGL-LEA
 - `third_of_s23`: the two imply `CGLThird`, since `X = 3μ₀‖E‖_F² + S₃` and `0 ≤ μ₀ ≤ N` (`mu0_nonneg`, `mu0_le`). `linnik_225c_s23` and `linnik_226c_s23` are `linnik_225c_third` and `linnik_226c_third` under the two.
 
 At one point per character the paper's `S₂` is `3μ₀‖E‖_F²` and its `S₃` is `X − 3μ₀‖E‖_F²`; the file's header gives the argument, from the proof of their Proposition 6.1 and their (6.1). See the main README, round 639, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 522 lines.
+
+## The Mellin transform of `w²`, and the Gram entries as vertical integrals: LinnikCGLMellin.lean (round 640)
+
+Round 640 starts the proof of round 639's hypothesis `CGLS2`, the bound on `‖E‖_F²`, by Chen–Gupta–Li's route: the reflection of their Lemma 6.2 and the mean value theorem.
+
+- `wsq`, `Wc`, `H`: `w²`, real and complex, and its Mellin transform `H(s) = ∫w(u)²u^{s−1} du` (Mathlib's `mellin`).
+- `exists_bound_iteratedDeriv_gE`: in the variable `v = −log u`, `g_σ(v) = e^{−σv}w(e^{−v})²` and its derivatives are bounded uniformly in `|σ| ≤ S`, and vanish outside `[−log 2, log 2]`; round 591's `SieveWeight.exists_bound_iteratedDeriv_gw` without its factor `(1 − av)⁻¹`, on `|σ| ≤ S` in place of `0 ≤ σ ≤ 2`.
+- `H_eq_fourier`, `exists_H_bound`: `H(σ + it)` is the Fourier transform of `g_σ` at `t/2π` (Mathlib's `mellin_eq_fourier`), so `(1 + |t|)^{K+3}|H(σ + it)| ≤ B` for `|σ| ≤ S` (round 588's `SieveSmooth.pow_mul_norm_fourier_le`).
+- `mellinConvergent_Wc`, `differentiable_H`, `continuous_H_line`, `integrable_H_line`: `H` converges everywhere, is entire, and is continuous and integrable on vertical lines.
+- `Wt`, `mellin_Wt`, `perron_Wt`: the weight `W_τ(u) = u^{iτ}w(u)²` has `𝓜W_τ(s) = H(s + iτ)`, and round 591's `SieveLemma1.perron_weight` gives `(1/2π)∫ L(σ + iv, ψ)H(σ + iv + iτ)N^{σ+iv} dv = Σ_n ψ(n)W_τ(n/N)` for `σ > 1`.
+- `gram_eq_tsum`, `perron_gram`: with `ψ = χ_iχ̄_k` and `τ = t_i − t_k`, `G(i, k) = N^{iτ}Σ_n ψ(n)W_τ(n/N)`, the integral above times `N^{iτ}`.
+
+See the main README, round 640, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 526 lines.
