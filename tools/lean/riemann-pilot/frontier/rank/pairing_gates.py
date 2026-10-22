@@ -53,7 +53,7 @@ Gates (exit status 1 if any fails):
       (orders.component_exponent, orders.component_sigma), for N = 6 at sigma = 0 the companion's 11/12
 
 Gates on the sextic dual projections recorded in sextic_dual.json by sextic.py and sextic_stats.py (PAIRING.md,
-section 5; runs with Z = 10^4 ... 8*10^4 at H = Z^{3/4}, Z = 10^4 ... 4*10^4 at H = Z, and two at H = 100 Z), with P
+section 5; runs with Z = 10^4 ... 8*10^4 at H = Z^{3/4}, Z = 10^4 ... 8*10^4 at H = Z, and two at H = 100 Z), with P
 the projection coefficient of a weight on the unit-class prediction, P^prof the same with the weight-one profile over
 16 norm bins, and se, z from 400 random-sign draws:
   S1  the unit classes are needed: 'mixed' projects at >= 1.3 on the one-class prediction in every run, and within 0.08
