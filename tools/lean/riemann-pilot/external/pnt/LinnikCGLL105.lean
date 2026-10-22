@@ -11,15 +11,16 @@ of (t₄,χ₄) ∈ W such that |t₁+t₂−t₃−t₄| ≤ 1 and χ₁χ₂ =
 transcribed), and expands the square over the triples.
 
 The stack's form, at one point per character. For a coefficient function `c`, `D_c(t) = Σ_{n∈S}c(n)n^{it}` (`Dp`).
-* `Dp` is a finite exponential sum with frequencies `log n`; for `S ⊆ [N, 2N]` they lie within `1` of `log N`, so round
-  668 gives `|D_c(t)|² ≤ ∫|k(ξ)||D_c(t + πξ)|² dξ`. The weight is shifted, not the window: for `|τ − t| ≤ 1`,
-  `|D_c(t)|² ≤ ∫κ(ξ)|D_c(τ + πξ)|² dξ` with `κ(ξ) = 4C_k/(1 + ξ²)` (`kmaj`), since `(1 + ξ²)|k(ξ)| ≤ C_k` and
-  `1 + ξ² ≤ 4(1 + (ξ + η)²)` for `|η| ≤ 1`.
+* `Dp` is a finite exponential sum with frequencies `log n`; for `N > 0` and `S ⊆ [N, 2N]` they lie within `1` of
+  `log N`, so round 668 gives `|D_c(t)|² ≤ ∫|k(ξ)||D_c(t + πξ)|² dξ`. The weight is shifted, not the window: for
+  `|τ − t| ≤ 1`, `|D_c(t)|² ≤ ∫κ(ξ)|D_c(τ + πξ)|² dξ` with `κ(ξ) = 4C_k/(1 + ξ²)` (`kmaj`), since
+  `(1 + ξ²)|k(ξ)| ≤ C_k` and `1 + ξ² ≤ 4(1 + (ξ + η)²)` for `|η| ≤ 1`.
 * The fourth point is not inverted: if `χ_iχ_j = χ_kχ_l` then `χ_l(n) = χ_i(n)χ_j(n)χ̄_k(n)` for every `n`
   (`char_eq_of_mul_eq`), so `D_N(·, χ_l)` is `D_c` with `c(n) = b_nχ_i(n)χ_j(n)χ̄_k(n)`, a function of the triple.
 * With `R₂(n₁, n₂) = Σ_iχ_i(n₁)χ̄_i(n₂)e^{it_i(log n₁ − log n₂)}` (`R2`), which is their `R(n₁/n₂, n₁n₂⁻¹)` when
-  `(n₁n₂, q) = 1` and `0` otherwise, the sum over the triples of `|D_c(t_i + t_j − t_k + y)|²` is
-  `Σ_{n₁,n₂}b_{n₁}b̄_{n₂}e^{iy(log n₁ − log n₂)}R₂²R̄₂` (`sum_triple_eq`), at most `Σ_{n₁,n₂}|R₂|³` for `|b_n| ≤ 1`.
+  `(n₁n₂, q) = 1` and `0` otherwise, the sum over the triples of `|D_c(t_i + t_j − t_k + y)|²` is, for `S` of positive
+  integers, `Σ_{n₁,n₂}b_{n₁}b̄_{n₂}e^{iy(log n₁ − log n₂)}R₂²R̄₂` (`sum_triple_eq`), at most `Σ_{n₁,n₂}|R₂|³` for
+  `|b_n| ≤ 1`.
 
 Plain statements, with `S` a finite set of naturals in `[N, 2N]`, `N > 0`.
 * `norm_kloc_shift_le`: for `|η| ≤ 1`, `|k(ξ + η)| ≤ κ(ξ)`.
@@ -125,7 +126,7 @@ lemma continuous_Dp (hS : ∀ n ∈ S, 0 < n) : Continuous (Dp S c) := by
   rw [e]
   exact continuous_esum S c _
 
-/-- `|D_c(t)|² ≤ ∫|k(ξ)||D_c(t + πξ)|² dξ` for `S ⊆ [N, 2N]`. -/
+/-- `|D_c(t)|² ≤ ∫|k(ξ)||D_c(t + πξ)|² dξ` for `N > 0` and `S ⊆ [N, 2N]`. -/
 lemma norm_sq_Dp_le {N : ℝ} (hN : 0 < N) (hS : ∀ n ∈ S, N ≤ n ∧ (n : ℝ) ≤ 2 * N) (t : ℝ) :
     ‖Dp S c t‖ ^ 2 ≤ ∫ ξ, ‖kloc ξ‖ * ‖Dp S c (t + π * ξ)‖ ^ 2 := by
   have hpos : ∀ n ∈ S, 0 < n := fun n hn => by
@@ -150,7 +151,8 @@ lemma norm_sq_Dp_le {N : ℝ} (hN : 0 < N) (hS : ∀ n ∈ S, N ≤ n ∧ (n : �
   funext ξ
   rw [Dp_eq_esum S c hpos, div_one]
 
-/-- **The shifted local average**: for `S ⊆ [N, 2N]` and `|τ − t| ≤ 1`, `|D_c(t)|² ≤ ∫κ(ξ)|D_c(τ + πξ)|² dξ`. -/
+/-- **The shifted local average**: for `N > 0`, `S ⊆ [N, 2N]` and `|τ − t| ≤ 1`,
+`|D_c(t)|² ≤ ∫κ(ξ)|D_c(τ + πξ)|² dξ`. -/
 theorem norm_sq_Dp_le_shift {N : ℝ} (hN : 0 < N) (hS : ∀ n ∈ S, N ≤ n ∧ (n : ℝ) ≤ 2 * N) {t τ : ℝ}
     (hτ : |τ - t| ≤ 1) : ‖Dp S c t‖ ^ 2 ≤ ∫ ξ, kmaj ξ * ‖Dp S c (τ + π * ξ)‖ ^ 2 := by
   have hpos : ∀ n ∈ S, 0 < n := fun n hn => by

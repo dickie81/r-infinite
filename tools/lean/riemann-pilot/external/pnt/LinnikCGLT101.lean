@@ -18,8 +18,8 @@ signifies the stronger condition B < A ≤ 2B" (lines 278–279; spaces restored
 `q`, `|t_i| ≤ T` and `χ_i ≠ χ_j` or `|t_i − t_j| ≥ 1` for `i ≠ j`, and `|c_n| ≤ B` on `M < n ≤ 2M`,
 `Σ_{i,j}|Σ_{M<n≤2M}c_nχ_i(n)χ̄_j(n)n^{i(t_i−t_j)}|² ≤ C(qTM)^ε(|P|M² + |P|²M + |P|^{5/4}(qT)^{1/2}M)B²`. Their
 theorem implies it: `(qT)^ε ≤ (qTM)^ε` for `M ≥ 1`, and the hypotheses `T, M ≥ 1` only restrict it. The factor
-`(qTM)^ε` keeps the displayed form safe for `M` beyond `qT`, which the stack does not need, and costs nothing for
-`M ≤ qT`, where it is at most `(qT)^{2ε}`.
+`(qTM)^ε` keeps the displayed form safe for `M` beyond `qT`; round 672's `group_le` applies it at a modulus `q₁ ∣ q`
+and a height `T′`, where `M` can exceed `q₁T′`. It costs nothing for `M ≤ qT`, where it is at most `(qT)^{2ε}`.
 
 Their Lemma 10.6: "For any M ≥ 1, we have Σ_{n₁,n₂∼M, (n₁n₂,q)=1} |R(n₁/n₂, n₁n₂^{−1})|² ⪅ |W|M² + |W|²M +
 |W|^{5/4}(qT)^{1/2}M." (lines 4767–4778; spaces restored; the sum, fraction, large bars, large parentheses, subscripts

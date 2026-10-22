@@ -28175,7 +28175,7 @@ The reductions take any `f` with `R̃(c, b)² ≤ f_{−b}(c)` on `[−3, 3]`; o
 **The stack's form.**
 
 - **One point per character.** The fourth point is unique because `χ_l` is determined by `χ_kχ_l = χ_iχ_j` (cancellation in the group of characters) and `χ` is injective on `R`. Theirs uses the `(qT)^ϵ`-separation of `W` as well.
-- **No inverse.** Their proof writes `D_N(·, χ₁χ₂χ̄₃)` (the bar dropped by the text layer at line 4711). The stack uses `χ_l(n) = χ_i(n)χ_j(n)χ̄_k(n)`, so no character is inverted and `R₂` needs no inverse modulo `q`.
+- **No inverse.** Their proof writes `D_N(·, χ₁χ₂χ̄₃)` (the bar dropped by the text layer at line 4711) *(round 679: the bar is on PDF page 41: pdfminer finds a rule at y = 362.1 spanning x = 321.7–329.0 over the third `χ` of `χ₁χ₂χ₃`, at x = 321.7–329.0 in the row y = 353.0, `scratchpad/r679/probe/p41_all.txt`, from `scratchpad/r662/probe/run_coords.sh 41 0 800`; review of rounds 668–678, A's F6)*. The stack uses `χ_l(n) = χ_i(n)χ_j(n)χ̄_k(n)`, so no character is inverted and `R₂` needs no inverse modulo `q`.
 - **Shifted weight, no window.** Their two displays restrict to `|u − t₄| ⪅ 1` and then `|u − (t₁ + t₂ − t₃)| ⪅ 1`. The stack moves the shift into the weight, `κ` majorizing every `|k(· + η)|` with `|η| ≤ 1`. `∫κ = 4πC_k` is a constant.
 - **`S ⊆ [N, 2N]`.** `CGLS3`'s `S ⊆ [6N/5, 9N/5]` satisfies it.
 
@@ -28363,7 +28363,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 - `LinnikCGLL107.norm_R2_four`, `sum_sq_gram`: `|R₂(n₁, n₂)|⁴ = |Σ_{p∈R×R}F_p(n₁)F̄_p(n₂)|²`, with `F_{(i,j)} = a_iā_j` and `a_i(n) = χ_i(n)e^{it_i log n}`; and `Σ_{n₁,n₂∈S}|Σ_{p∈P}a_p(n₁)ā_p(n₂)|² = Σ_{p,p′∈P}|Σ_{n∈S}a_p(n)ā_{p′}(n)|²` for any finite `P` and `S`.
 - `LinnikCGLL107.inner_le`: for `M > 0`, `|Σ_{n∼M}F_p(n)F̄_{p′}(n)|² ≤ J(κ, κ′) = ∫κ(ξ)|D_c(u − u′ + πξ)|² dξ`, where `κ = (u, ·)` and `κ′ = (u′, ·)` are the keys of `p` and `p′` and `c(n) = κ(n)κ̄′(n)`. The inner sum is `D_c(t_i − t_j − (t_k − t_l))`, whose frequency is within `1` of `u − u′`, so round 669's `norm_sq_Dp_le_shift` applies.
 - `LinnikCGLL107.group_le`, `sum_Jk_le`: from `CGLT101` at `ε`, `C` and `Q₀`, for keys `K` whose characters have conductor `q₁ ∣ q`, with `|u| ≤ T′`, `Q₀ ≤ q₁T′` and `T′, M ≥ 1`, `Σ_{κ,κ′∈K}J(κ, κ′) ≤ ∫κ·C(q₁T′M)^ε(|K|M² + |K|²M + |K|^{5/4}(q₁T′)^{1/2}M)`. At each `ξ`, `CGLT101` is applied at the modulus `q₁` to the points `(u, ψ)`, with `ψ` the primitive character inducing the key's character, and to the coefficients `1_{(n,q)=1}n^{iπξ}`. Distinct keys give separated points, since they differ in `ψ` or in the integer `u`.
-- `LinnikCGLL107.sum_sq_Y_le`, `sum_R2_four_le`, `group_bound`: for `M > 0`, a group's part `Y_g` of `|R₂|²` has `Σ_{n₁,n₂∼M}|Y_g|² ≤ 4·4^{g₂}Σ_{κ,κ′}J(κ, κ′)`, since its classes have fewer than `2·2^{g₂}` pairs. Cauchy–Schwarz over the groups `G` gives `Σ_{n₁,n₂}|R₂|⁴ ≤ |G|Σ_gΣ_{n₁,n₂}|Y_g|²`. With `B = 2^{g₂}`, `B|K| ≤ |R|²` and `B²|K| ≤ E` give `B²|K|^{5/4} ≤ E^{3/4}|R|` (`key_ineq`), so each group's sum is at most `4∫κ·C(qT′M)^ε(EM² + |R|⁴M + E^{3/4}|R|(qT′)^{1/2}M)` for `ε, C ≥ 0`, `T, M ≥ 1`, points `|t_i| ≤ T`, `T′ ≥ 2T + 1` and `Q₀ ≤ T′`.
+- `LinnikCGLL107.sum_sq_Y_le`, `sum_R2_four_le`, `group_bound`: for `M > 0`, a group's part `Y_g` of `|R₂|²` has `Σ_{n₁,n₂∼M}|Y_g|² ≤ 4·4^{g₂}Σ_{κ,κ′}J(κ, κ′)`, since its classes have fewer than `2·2^{g₂}` pairs. Cauchy–Schwarz over the groups `G` gives `Σ_{n₁,n₂}|R₂|⁴ ≤ |G|Σ_gΣ_{n₁,n₂}|Y_g|²`. With `B = 2^{g₂}`, `B|K| ≤ |R|²` and `B²|K| ≤ E` give `B²|K|^{5/4} ≤ E^{3/4}|R|` (`key_ineq`), so each group's sum is at most `4∫κ·C(qT′M)^ε(EM² + |R|⁴M + E^{3/4}|R|(qT′)^{1/2}M)` ~~for `ε, C ≥ 0`, `T, M ≥ 1`, points `|t_i| ≤ T`, `T′ ≥ 2T + 1` and `Q₀ ≤ T′`~~ *(Round 679: retracted, false when written: `group_bound` also assumes `CGLT101` at `ε`, `C` and `Q₀`; without it, `C = 0` makes the right side `0`, while the left side is `1` for `q = 1`, one point with `t = 0`, `T = M = 1`, `T′ = 3` and `Q₀ = 0`; review of rounds 668–678, A's F1.)* from `CGLT101` at `ε`, `C` and `Q₀`, for `ε, C ≥ 0`, `T, M ≥ 1`, points `|t_i| ≤ T`, `T′ ≥ 2T + 1` and `Q₀ ≤ T′`.
 - `LinnikCGLL107.lemma107`: their Lemma 10.7, from `CGLT101`. For every `ε > 0` there is `C ≥ 0` such that, for `T, M ≥ 1` and points `|t_i| ≤ T`, `Σ_{n₁,n₂∼M}|R₂(n₁, n₂)|⁴ ≤ C(d(q)(⌊log₂|R|²⌋ + 1))²(qTM)^ε(EM² + |R|⁴M + E^{3/4}|R|(qT)^{1/2}M)`. With `T′ = max(1, Q₀)(2T + 2) ≤ 4max(1, Q₀)T`, the factors `(qT′M)^ε` and `(qT′)^{1/2}` are at most `(4max(1, Q₀))^ε(qTM)^ε` and `(4max(1, Q₀))^{1/2}(qT)^{1/2}`.
 
 **Their text.** Re-read this round in the text layer. The underscores in the quotations are escaped for the renderer.
@@ -28376,7 +28376,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 **The stack's form.**
 
 - **Their classes.** The stack's key `(⌊t_i − t_j⌋, χ_iχ_j⁻¹)` is their `(u, χ)` with `χ = χ₁χ̄₂`. Its groups `(q₁, ⌊log₂|cls|⌋)` stand for their `(q₁, B)`: a group's classes have from `2^{g₂}` to fewer than `2·2^{g₂}` pairs, where their `∼ B` reads `B < # ≤ 2B`.
-- **The divisor bound, explicit.** Their two passes over the classes, by Cauchy–Schwarz and then to the largest class, give the factor `(d(q)(⌊log₂|R|²⌋ + 1))²`, which their `⪅` absorbs. The stack keeps it, for the assembly of `CGLS3`.
+- **The divisor bound, explicit.** ~~Their two passes over the classes, by Cauchy–Schwarz and then to the largest class,~~ *(Round 679: retracted, false when written: their supremum is over `B` and `q₁` (lines 4879–4881, 4902–4904 and 4978–4981), that is over their sets `U_{B,q₁}`, the stack's groups, not its classes; review of rounds 668–678, A's F4.)* Their two passes over the groups, by Cauchy–Schwarz and then to the largest group, give the factor `(d(q)(⌊log₂|R|²⌋ + 1))²`, which their `⪅` absorbs. The stack keeps it, for the assembly of `CGLS3`.
 - **Lemma 10.4.** Their supremum over `|s| ≪ 1`, replaced by an integral, is round 669's shifted local average. The shift, between `−1` and `1`, moves the weight, not the window.
 - **Primitive characters.** Their `U∗` passes to primitive characters `χ∗` with `χ = χ₀χ∗`. The stack takes the `ψ` with `changeLevel ψ = χ` from Mathlib's `primitiveCharacter`, and `changeLevel_natCast` gives `χ(n) = 1_{(n,q)=1}ψ(n)`.
 - **No threshold.** `CGLT101` holds for `qT ≥ Q₀`. At the modulus `q₁` the stack takes `T′ = max(1, Q₀)(2T + 2)`, so `q₁T′ ≥ Q₀` for every `q₁ ≥ 1`, at the cost of the constant `(4max(1, Q₀))^{ε+1/2}`. `lemma107` assumes neither a lower bound on `qT` nor that `χ` is injective on `R`.
@@ -28449,7 +28449,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 - **The separation.** Their `n′₂ = n′₁a^{−1} + qℓ′` (lines 5156–5160) writes the difference of two fractions as `q(n′₁ℓ′′ − n′′₁ℓ′)` over a product. The stack bounds the integer `n₁m₂ − m₁n₂` directly (`sep_frac`) and passes to `log`, the variable of `esum`, with the constant `8` (`log_sep`), where their `≫` hides a constant.
 - **Lemma 10.8 and the count.** Their (10.1) bounds each cube by an integral over a window `|v′ − v| ≤ T^ϵ/T`, from Lemma 10.8, and the separation bounds the number of fractions in a window. The stack's `sum_cube_le` does both at once. Round 668's local average has no window; the kernel `k` decays like a Lorentzian, and for `c, δ > 0` Lorentzians centred at `δ`-separated points sum to at most `2π + 4π/(cδ)`. With `δ = qd²/(8N²)` the coefficient `C_k(3T + 4π/δ)` is `C_k(3T + 32πN²/(qd²))`, against their `T + N²/(d²q)` under `⪅`. Their Lemma 10.8 is not formalized as stated.
-- **The tail.** Their `O(N²T^{−100})` is small for `T` large. The stack's tail `|P|(Σ_k|c_k|)³·2πD_K(2π)^{−K}Z^{2−K}`, with `Z = 3T(X − 1)/(2π)`, is small for `X` large and any `T ≥ 1`, since the weight `ψ̃₀(y/X)` is `1` on `[−X, X]`.
+- **The tail.** Their `O(N²T^{−100})` is small for `T` large. The stack's tail `|P|(Σ_k|c_k|)³·2πD_K(2π)^{−K}Z^{2−K}`, with `Z = 3T(X − 1)/(2π)`, ~~is small for `X` large and any `T ≥ 1`~~ *(Round 679: retracted, false when written: at `K = 2`, which `sum_cube_le` allows, `Z^{2−K} = 1` and the tail is `|P|(Σ_k|c_k|)³D₂/(2π)`, independent of `X` and `T`; review of rounds 668–678, A's F3.)* is small for `X` large and any `T ≥ 1` when `K ≥ 3`, since the weight `ψ̃₀(y/X)` is `1` on `[−X, X]`.
 
 **What changed in the files.**
 
@@ -28631,21 +28631,21 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 - `LinnikCGLCase.sq_le_energy`, `energy_le_cube`: `|R|² ≤ E`, from the quadruples `(i, j, i, j)`; and `E ≤ |R|³` for `χ` injective on `R`, since `χ_iχ_j = χ_kχ_l` determines `χ_l` and so `l`.
 - `LinnikCGLCase.pow_rpow_eq`, `exists_pow_eq`: `(u^m)^x = u^k` for `u ≥ 0` and `mx = k`; and every `r ≥ 0` is `u^m` for some `u ≥ 0`, for `m ≥ 1`.
-- `LinnikCGLCase.sq_add_sq_le`, `z6_le`, `case_a`, `case_one`, `case_two`, `case_poly`: their case analysis as polynomial inequalities, with `r = u⁸`, `E = v⁸`, `qT = z¹²` and `p = 2/(D + 1)`. `case_one` is the case `z ≤ u`, their `|W| ≥ (qT)^{2/3}`, and `case_two` the case `u < z` under `z⁶u⁵ ≤ vN`, their `|W| < (qT)^{2/3}` with their assumption.
+- `LinnikCGLCase.sq_add_sq_le`, `z6_le`, `case_a`, `case_one`, `case_two`, `case_poly`: their case analysis as polynomial inequalities, with `r = u⁸`, `E = v⁸`, `qT = z¹²` and `p = 2/(D + 1)`. `case_one` is the case `z ≤ u`, their `|W| ≥ (qT)^{2/3}`, and `case_two` the case `u < z` under `z⁶u⁵ ≤ vN`, their `|W| < (qT)^{2/3}` with their assumption *(round 679: both also assume `u, z, L ≥ 1`, `0 ≤ v ≤ u³`, `N ≥ z⁸/2`, `p ≥ 0` and `N²p ≤ 2z¹²`; review of rounds 668–678, B's F3)*.
 - `LinnikCGLCase.case_le`: for `r = 0` or `r ≥ 1`, `0 ≤ E ≤ r³`, `Q ≥ 1`, `Q^{2/3}/2 ≤ N`, `L ≥ 1`, `N²/Q < D + 1` and either `r ≥ Q^{2/3}` or `Q^{1/2}r^{5/8} ≤ E^{1/8}N`, round 675's factors `a = rN²·2/(D + 1) + (r² + r^{5/4}Q^{1/2})NL` and `b = EN²·2/(D + 1) + (r⁴ + E^{3/4}rQ^{1/2})NL` have `√(ab) ≤ 8L(Nr³ + NQ^{1/4}r^{21/8} + E^{1/2}r^{1/2}N²)`.
-- `LinnikCGLCase.remark103`: their Remark 10.3. For `r, E ≥ 0`, `Q ≥ 1`, `N ≥ Q^{2/3}/2`, `r ≤ Q^{2/3}` and `E^{1/8}N ≤ Q^{1/2}r^{5/8}`, `QNr^{1/2}E^{1/2} ≤ 8Q²r^{3/2}`.
+- `LinnikCGLCase.remark103`: their Remark 10.3 *(round 679: in the stack's form; their remark holds as stated, with the constant `1`, by `E(W) ≤ |W|³`, which `remark103` does not assume; review of rounds 668–678, B's F1)*. For `r, E ≥ 0`, `Q ≥ 1`, `N ≥ Q^{2/3}/2`, `r ≤ Q^{2/3}` and `E^{1/8}N ≤ Q^{1/2}r^{5/8}`, `QNr^{1/2}E^{1/2} ≤ 8Q²r^{3/2}`.
 - `LinnikCGLCase.lemma1010_case`: their Lemma 10.10. From `CGLT101`, for every `ε > 0` there is `C ≥ 0` such that, for primitive characters injective on `R`, `T ≥ 1`, points `|t_i| ≤ T`, `(qT)^{2/3}/2 ≤ N`, `D = ⌊N²/(qT)⌋` and either `|R| ≥ (qT)^{2/3}` or `(qT)^{1/2}|R|^{5/8} ≤ E^{1/8}N`, `Σ_{n₁,n₂∼N, (n₁,n₂)>D}|R₂(n₁, n₂)|³ ≤ 8CGL(qTN)^ε(N|R|³ + N(qT)^{1/4}|R|^{21/8} + E^{1/2}|R|^{1/2}N²) + |{n ∼ N}||R|³`, from round 675's `lemma1010` and `case_le`.
 
 **Their text.** Re-read this round in the text layer. The underscores in the quotations are escaped for the renderer.
 
 - Their case analysis: "Since N ≥ (qT)^{1/2} and D = N²/(qT), we have |W|^{5/4}(qT)^{1/2}N ≫ |W|qT = |W|N²/D." (line 5436; spaces restored, the exponents transcribed); "We split into cases based on whether |W| > (qT)^{2/3} or not." (line 5440); "N|W|⁴ ≫ |W|³qT ≥ E(W)qT," (line 5445); and "Notice that, in this case, our assumption gives E(W)^{1/8}N ≥ (qT)^{1/2}|W|^{5/8}." (line 5483; spaces restored, the exponents transcribed).
-- Their Remark 10.3: "Suppose that |W| < (qT)^{2/3} and E(W)^{1/8}N < (qT)^{1/2}|W|^{5/8}. Then (qT)²|W|^{3/2} > qTN|W|^{1/2}E(W)^{1/2}." (lines 4666–4667; spaces restored, the exponents transcribed). Its chain is "qTN|W|^{1/2}E(W)^{1/2} < (qT)³|W|³N^{−3} < qT|W|³ < (qT)²|W|^{3/2}." (line 4669; spaces restored, the exponents transcribed), and "Here the first strict inequality follows from the lower bound N ≥ (qT)^{2/3} in the present range" (line 4673; spaces restored, the exponent transcribed).
+- Their Remark 10.3: "Suppose that |W| < (qT)^{2/3} and E(W)^{1/8}N < (qT)^{1/2}|W|^{5/8}. Then (qT)²|W|^{3/2} > qTN|W|^{1/2}E(W)^{1/2}." (lines 4666–4667; spaces restored, the exponents transcribed). Its chain is "qTN|W|^{1/2}E(W)^{1/2} < (qT)³|W|³N^{−3} < qT|W|³ < (qT)²|W|^{3/2}." (line 4669; spaces restored, the exponents transcribed), and "Here the first strict inequality follows from the lower bound N ≥ (qT)^{2/3} in the present range" ~~(line 4673; spaces restored, the exponent transcribed)~~ *(Round 679: retracted, false when written: "range" is on line 4674; review of rounds 668–678, B's F5.)* (lines 4673–4674; spaces restored, the exponent transcribed).
 - The range of their Proposition 10.2: "(qT)^{2/3}/2 ≤ N ≤ qT" (line 4646; spaces restored, the exponent transcribed).
 
 **The stack's form.**
 
 - **Polynomials.** With `r = u⁸`, `E = v⁸` and `qT = z¹²`, every power in their case analysis is a natural power of `u`, `v` and `z`, so the analysis is a pair of polynomial inequalities, each proved by `linarith` from explicit products. Their `≫` steps carry constants: `N ≥ (qT)^{1/2}/2`, which `N ≥ (qT)^{2/3}/2` and `qT ≥ 1` give, stands for their `N ≥ (qT)^{1/2}`.
-- **Remark 10.3.** The step `(qT)³|W|³N^{−3} < qT|W|³` of their chain, which they draw from the lower bound on `N`, needs `N³ > (qT)²`, and that fails for `(qT)^{2/3}/2 ≤ N ≤ (qT)^{2/3}`, inside the range of their Proposition 10.2. With `N ≥ (qT)^{2/3}/2` the stack proves the remark with the constant `8`, `qTN|W|^{1/2}E^{1/2} ≤ 8(qT)²|W|^{3/2}`. Their use of the remark is up to `⪅`, so the constant does not affect it.
+- **Remark 10.3.** The step `(qT)³|W|³N^{−3} < qT|W|³` of their chain, which they draw from the lower bound on `N`, needs `N³ > (qT)²`, and that fails for `(qT)^{2/3}/2 ≤ N ≤ (qT)^{2/3}`, inside the range of their Proposition 10.2. With `N ≥ (qT)^{2/3}/2` the stack proves the remark with the constant `8`, `qTN|W|^{1/2}E^{1/2} ≤ 8(qT)²|W|^{3/2}`. Their use of the remark is up to `⪅`, so the constant does not affect it. *(round 679: their remark itself holds as stated, with the constant `1`, for every `N > 0`, by `E(W) ≤ |W|³`; only their chain's step needs `N³ > (qT)²`, review of rounds 668–678, B's F1. The step is read as their "first strict inequality", since the chain's first step follows from their second assumption (lines 4667–4668); B's F4)*
 - **The energy.** Their case analysis uses `E(W) ≤ |W|³` (`|W|³qT ≥ E(W)qT`); at one point per character this is `energy_le_cube`.
 
 **What changed in the files.**
@@ -28675,7 +28675,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 - `LinnikCGLCase.lean` in full.
 - The operative definitions and statements: round 675's `lemma1010` and `pairsGt`, round 659's `energy`, and round 670's `dyad`.
 
-**Check 4.** No defect in the cascade or the stack is raised. The constant in their Remark 10.3 is an imprecision in their write-up under `⪅`, recorded as the stack's form; their conclusion holds with the constant `8`.
+**Check 4.** No defect in the cascade or the stack is raised. ~~The constant in their Remark 10.3 is an imprecision in their write-up under `⪅`, recorded as the stack's form; their conclusion holds with the constant `8`.~~ *(Round 679: retracted, false when written: their Remark 10.3 holds as stated, strictly and with the constant `1`, for every `N > 0`. Its second assumption and `E(W) ≤ |W|³`, which their case analysis uses ("|W|³qT ≥ E(W)qT", line 5445, spaces restored and the exponent transcribed) and which the uniqueness of the fourth point gives (lines 4716–4718), give `E^{1/2} = E^{1/8}E^{3/8} < (qT)^{1/2}|W|^{7/4}N^{−1}`, so `qTN|W|^{1/2}E^{1/2} < (qT)^{3/2}|W|^{9/4}`, and its first assumption gives `(qT)^{3/2}|W|^{9/4} < (qT)²|W|^{3/2}`. The slip is in their chain only: its step at line 4669 needs `N³ > (qT)²`. The stack's `remark103` does not assume `E ≤ r³`, and under its hypotheses its constant `8` is attained, at `r = Q^{2/3}`, `N = Q^{2/3}/2` and `E = 256Q²`; review of rounds 668–678, B's F1.)*
 
 **Check 9.**
 
@@ -28774,7 +28774,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 - Their Proposition 11.1: "Let (qT)^{2/3}/2 ≤ N ≤ qT. Then we have S₃ ⪅ (qT)²|W|^{3/2} + qT|W|N^{3−2σ} + qT|W|²N^{3/2−σ} + (qT)^{9/8}|W|^{29/16}N^{3/2−σ}." (lines 5522–5533.)
 - The end of its proof: "Since M₂ ⪅ qT/N, we get (11.2) S₃ ⪅ (qT)²|W|^{3/2} + qTN|W|^{1/2}E(W)^{1/2}." (lines 5865–5866) and "Finally, inserting the energy bound established in Section 10 (see Proposition 10.2) into the above inequality yields the result." (lines 5867–5868.)
-- Their Remark 10.3, for the case outside their Proposition 10.2's alternative: "In this case, our argument in Section 11 would imply (cf. (11.2)) S₃ ⪅ (qT)²|W|^{3/2}." (lines 4673–4674.)
+- Their Remark 10.3, for the case outside their Proposition 10.2's alternative: "In this case, our argument in Section 11 would imply (cf. (11.2)) S₃ ⪅ (qT)²|W|^{3/2}." ~~(lines 4673–4674.)~~ *(Round 679: retracted, false when written: the sentence is on lines 4674–4675; review of rounds 668–678, B's F5.)* (lines 4674–4675.)
 - In these, spaces are restored and the subscripts, exponents and stacked fractions transcribed.
 
 **The stack's form.**
@@ -28811,7 +28811,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 **Check 1** (direct reads this round):
 
-- Their Proposition 11.1 (lines 5522–5533), the end of its proof (lines 5860–5868), their Remark 10.3 (lines 4657–4674) and their Proposition 10.2 (lines 4636–4656), in the text layer.
+- Their Proposition 11.1 (lines 5522–5533), the end of its proof (lines 5860–5868), their Remark 10.3 ~~(lines 4657–4674)~~ *(Round 679: retracted, false when written: the remark ends on line 4675; review of rounds 668–678, B's F5.)* (lines 4657–4675) and their Proposition 10.2 (lines 4636–4656), in the text layer.
 - `LinnikCGLS3.lean` in full: its proofs were written this round, and each docstring was checked against its statement.
 - The operative definitions and statements: round 667's `S3_le_112` and `Gq`, round 639's `CGLS3`, `S3` and `third_of_s23`, round 677's `prop102`, round 676's `remark103`, round 662's `CGLP81`, round 670's `CGLT101`, round 654's `E71` and `CJ`, round 650's `tauM` and `norm_gramP_le`, round 649's `muP_sub_mu0_le_rpow`, round 644's `linnik_225c_s3` and `linnik_226c_s3`, and round 638's `prop31_of_third`.
 
@@ -28828,3 +28828,81 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Stage M3 is done. The remaining hypotheses of `linnik_225c_pt` are stage M4, their Proposition 8.1 (`CGLP81`), and stage M5, Heath-Brown's Theorem 10.1 with characters (`CGLT101`).
+
+## Round 679: sweep of the batched review of rounds 668–678 (one MAJOR, two minors, seven cosmetics)
+
+**The review.** By the owner's decision of 2026-10-22, one review covered rounds 668–678, the block from their §10 to their Proposition 11.1, with round 671's sweep. Two `hostile-reviewer` agents ran at eb4f08d (briefs `scratchpad/r678/review/common.md`, `brief_A.md` and `brief_B.md`):
+
+- Review A, rounds 668–673 (e5956d0 to 22b6256, with round 671's sweep, 0039d6b): one minor, a class with six instances, a borderline one and five sites left to the lead's ruling, and five cosmetics. On `CGLT101`: "Their Theorem 10.1, read with their conventions, implies it in every quantifier I checked." It held `lemma105`, `lemma106`, `lemma107`, `log_sep` and `sum_cube_le` against their prose and every application of `CGLT101` against its hypotheses, and found round 671's sweep at its sites except two siblings of its own restatement (its F1) and one marker (its F5).
+- Review B, rounds 674–678 (3d4d9aa to eb4f08d): one MAJOR, two minors (one a class of nine docstrings with a borderline site) and two cosmetics. "The headline holds: `linnik_225c_pt` and `linnik_226c_pt` take only `CGLP81` and `CGLT101`, use only the three standard axioms, and every surface scopes them to those two." It held round 675's claim that their proof of Lemma 10.10 does not cover `d > N`, round 676's claim about the step of their Remark 10.3's chain, `prop102` against their Proposition 10.2 hypothesis by hypothesis, and `cgls3` against `CGLS3`.
+
+Both batteries passed: `k_decimals.py` at eb4f08d, the render lint at every commit of the block (CGL-LEAN.md 0, the external README 5, this file 1872 and SIEVE-ROUTE.md 25 throughout), every build figure against its log, and the grep checks of the block's Lean files. Both reports came back as messages, which the lead saved to `scratchpad/r678/review/A/report.md` (verbatim, without the harness's frame and indent) and `B/report.md` (the findings verbatim, the battery condensed with every figure kept).
+
+The lead verified each finding at its source before accepting it (the reads are under Check 1). Every finding is accepted. A's F1 and B's F3 are one class, the one round 671 accepted, so the sweep has one MAJOR, two minors and seven cosmetics. No Lean statement changes; comments in six Lean files are corrected in place.
+
+**The MAJOR: their Remark 10.3 holds as stated** (B's F1). Round 676's Check 4 said "The constant in their Remark 10.3 is an imprecision in their write-up under `⪅`, recorded as the stack's form; their conclusion holds with the constant `8`." That misreports the paper. Their remark, "Suppose that |W| < (qT)^{2/3} and E(W)^{1/8}N < (qT)^{1/2}|W|^{5/8}. Then (qT)²|W|^{3/2} > qTN|W|^{1/2}E(W)^{1/2}." (lines 4666–4667; spaces restored, the exponents transcribed), holds as stated, strictly and with the constant `1`, for every `N > 0`. The bound `E(W) ≤ |W|³`, from the uniqueness of the fourth point (lines 4716–4718), is used in their case analysis ("|W|³qT ≥ E(W)qT", line 5445; spaces restored, the exponent transcribed). With the second assumption it gives `E^{1/2} = E^{1/8}E^{3/8} < (qT)^{1/2}|W|^{7/4}N^{−1}`, so `qTN|W|^{1/2}E^{1/2} < (qT)^{3/2}|W|^{9/4}`. And `(qT)^{3/2}|W|^{9/4} < (qT)²|W|^{3/2}` is `|W|^{3/4} < (qT)^{1/2}`, the first assumption.
+
+- The slip is in their chain only. Its step `(qT)³|W|³N^{−3} < qT|W|³` (line 4669) needs `N³ > (qT)²`, which fails for `(qT)^{2/3}/2 ≤ N ≤ (qT)^{2/3}`. Round 676 found that correctly, and review B held it.
+- The stack's `remark103` is another form: it does not assume `E ≤ r³`, and under its hypotheses its constant `8` is attained. At `r = Q^{2/3}`, `N = Q^{2/3}/2` and `E = 256Q²`, where `E > r³`, `E^{1/8}N = Q^{11/12} = Q^{1/2}r^{5/8}` and `QNr^{1/2}E^{1/2} = 8Q³ = 8Q²r^{3/2}`. Round 678's `energy_term`, which uses `remark103`, is unaffected.
+- Review B proposed MAJOR under its brief's rule for claims about the paper, or minor if the sentence is read as being about the derivation. The sentence names the constant, so the lead takes MAJOR.
+- The sentence is struck. Markers go on the surfaces that call `remark103` their Remark 10.3 or give the constant `8` without saying that the remark holds as stated: two bullets of round 676's entry, CGL-LEAN.md's round-676 note, and the external README's row of `LinnikCGLCase` and its section. `LinnikCGLCase.lean`'s header and `remark103`'s docstring are corrected.
+
+**The minors.**
+
+- **"M1–M3 are done"** (B's F2). SIEVE-ROUTE.md's round-678 marker said "of which M1–M3 are done". CGL-LEAN.md states the stage as "2. **M2: Theorem 1.1 from Proposition 3.1**, both as statements in Lean, with the subdivision in `T`." (its line 94), and its round-637 record (line 96) says "done in another form" and "Theorem 1.1 itself, with the subdivision in `T`, the mean value theorem and Huxley's estimate, is not formalized, and the step does not need it." Struck and restated: M1 and M3 are done, and M2 is done in another form.
+- **Partial hypothesis lists** (A's F1 and B's F3). This is the class round 671 accepted (B's F1 of the review of rounds 658–667): a statement that lists some of a theorem's hypotheses but omits one without which it fails. The lead checked each instance against its Lean statement and recomputed each counterexample.
+- A's instances in round 669. The external README's section gave `norm_sq_Dp_le_shift` without `N > 0`: with Lean's `0^0 = 1`, `N = 0`, `S = {0}`, `c ≡ 1` and `t = τ = 0` give `1` on the left and `0` on the right. It gave `sum_triple_le` without `|b_n| ≤ 1`: for `q = 1`, one point with `t = 0`, `S = {1}`, `b ≡ 2` and `y = 0`, the sum over the triples is `4` and `Σ|R₂|³` is `1`. Both are struck and restated. `LinnikCGLL105.lean`'s header and the docstrings of `norm_sq_Dp_le` and `norm_sq_Dp_le_shift` lacked `N > 0`, and the header's `sum_triple_eq` lacked `S` of positive integers; all are corrected in place.
+- A's instances in rounds 672 and 673. `lor_le_four`'s docstring lacked `c ≥ 0`: for `c = −1`, `x = y = 0` and `s = 100`, `1 > 4/10001`. Corrected in place. A's borderline instance: `group_bound` was given in round 672's entry and the external README's section without `CGLT101` at `ε`, `C` and `Q₀`. Without it, `C = 0` makes the right side `0`, while the left side is `1` for `q = 1`, one point with `t = 0`, `T = M = 1`, `T′ = 3` and `Q₀ = 0`. Both are struck and restated.
+- A's five sites for the lead's ruling. CGL-LEAN.md's row L10.4–L10.10 gave L10.5 with "at one point per character" alone and L10.6 with "from `CGLT101`" alone. Its round-669 note and the external README's row of `LinnikCGLL105` gave `lemma105` with "at one point per character" alone. The external README's section of round 670 gave `lemma106` under "derives their Lemma 10.6 from it". Round 661's convention holds statements that give no hypotheses at all; these give some, so they are in the class. With `S` empty and `R` not, `lemma105`'s right side is `0` while `E ≥ |R|`. For `q = 1` and `|R|` copies of one point with `t = 0`, `lemma106`'s left side is `|R|²M²` at integer `M`, above its right side at `|R| = M` for large `M`, for every `C`, when `ε < 1`. All five are struck and restated.
+- B's nine docstrings in `LinnikCGLCase` and `LinnikCGLEps` (`exists_pow_eq`, `case_a`, `case_one`, `case_two`, `case_poly`, `eps_sqrt_le`, `eps_combine`, `prop102_fin` and `prop102_sum`) now list their statements' hypotheses. Review B's `docstring_cex.py` gave a counterexample to each without them, and the lead recomputed each. `natlog_le`'s "for `1 ≤ n ≤ q²`" now reads "for `n ≤ q²`", as stated. B's borderline site, round 676's entry naming `case_one` and `case_two` by their cases alone, states no inequality, and gets a marker with the hypotheses.
+
+`scratchpad/r679/siblings.py` searches for the 35 retracted phrases of this sweep. It reads the live text of this file (without this entry), the external README, CGL-LEAN.md, SIEVE-ROUTE.md and every `.lean` file in `external/pnt`, with strikes and round-679 annotations removed. It finds 37 hits at HEAD, each phrase at least once (`siblings_head.out`), and none now (`siblings_now.out`).
+
+**The cosmetics.**
+
+- **Their "first strict inequality"** (B's F4). The stack reads it (line 4673) as the chain's second step, since the chain's first step follows from their second assumption (lines 4667–4668). The reading is now declared in `LinnikCGLCase.lean`'s header and in a marker in round 676's entry.
+- **Citations** (B's F5). "range" is on line 4674, round 678's quotation of the remark's last sentence is on lines 4674–4675, and the remark ends on line 4675. Corrected in `LinnikCGLCase.lean`, and struck in the entries of rounds 676 and 678 (two).
+- **`M` beyond `qT`** (A's F2). `LinnikCGLT101.lean`'s header said the stack does not need `CGLT101` for `M` beyond `qT`. Round 672's `group_le` applies it at a modulus `q₁ ∣ q` and a height `T′`, where `M` can exceed `q₁T′`, as round 670's entry said. Corrected in place.
+- **The tail at `K = 2`** (A's F3). At `K = 2`, which `sum_cube_le` allows, `Z^{2−K} = 1` and the tail is `|P|(Σ_k|c_k|)³D₂/(2π)`, independent of `X`. "Small for `X` large" needs `K ≥ 3`. Corrected in `LinnikCGLSep.lean`, and struck in round 673's entry.
+- **The largest group** (A's F4). Their second pass is a supremum over `B` and `q₁` (lines 4879–4881, 4902–4904 and 4978–4981), so over their sets `U_{B,q₁}`, which are the stack's groups, not its classes. Corrected in `LinnikCGLL107.lean`, and struck in round 672's entry. Review A also noted that round 672's entry labels its quotation of the definition of `U_{B,q₁}` "Their classes:". That label is held, since the definition introduces their classes `(u, χ)` as well.
+- **"The list is completed"** (A's F5). Round 671's marker in CGL-LEAN.md's row P11.1 omitted `χ` injective on `R`. Both it and the external README's marker omitted `0 < ϖ < 1` and `ε > 0`, which `S3_le_blocks` and `S3_le_112` assume. "The list is completed" is struck in both, and the lists are completed.
+- **The bar over `χ₃`** (A's F6). Round 669's entry restored it without citing a probe. On PDF page 41, pdfminer finds a rule at y = 362.1 spanning x = 321.7–329.0 over the third `χ` of `D_N(u, χ₁χ₂χ₃)`, at x = 321.7–329.0 in the row y = 353.0, whose subscripts `1`, `2` and `3` start at x = 304.9, 317.0 and 329.0 (`scratchpad/r679/probe/p41_all.txt`, byte-identical to review A's). A marker in round 669's entry cites it.
+- **Held.** Review A's charge that the Check-9 records of rounds 669 and 673, "(a) This round's universals are scoped: the hypotheses of the results are their statements.", fail at these sites is held. The records are about the Lean statements, whose universals carry their hypotheses; the prose lists are swept above.
+
+**What is checked.**
+
+- `scratchpad/r679/apply.py` makes 47 replacements in ten files, the four markdown surfaces and the comments of six Lean files, each asserted to occur once. Run again on the swept tree, it reports 0 problems and writes no file (`apply_rerun.out`).
+- `scratchpad/r671/codeonly.py` prints "code identical (comments stripped): True" for each of the six Lean files against HEAD (`scratchpad/r679/codeonly.out`). `apply.py` checks that no line of them is over 120 characters.
+- `siblings.py` finds 37 live hits at HEAD and none now.
+- `scratchpad/gate.sh` passed (`scratchpad/r679/gate.out`): this file 1872 → 1872, `external/pnt/README.md` 5 → 5 and `frontier/linnik/CGL-LEAN.md` 0 → 0, none new, and `k_decimals.py` PASS. `scratchpad/lint_diff.py` on SIEVE-ROUTE.md: 25 → 25, none new.
+- `build.sh` ran once (`scratchpad/r679/compile.sh 1`, log `build_1.log`): `9 compiled, 404 up to date` (`LinnikCGLL105` through `LinnikCGLS3`, 8–35 s each), exit 0 in 157 s, with no error, warning or `sorry`. Its 667 axiom lines are 41 by the modules and 626 by the final check, as before; 654 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 7.10 GiB (`rss_watch_build_1.log`).
+
+**Marks.**
+
+- This file: strikes in the entries of rounds 672 (two), 673, 676 (two) and 678 (two); markers in those of rounds 669 and 676 (three).
+- `external/pnt/README.md`: strikes in the row of `LinnikCGLL105` and in the sections of rounds 667, 669 (two), 670 and 672; markers in the row of `LinnikCGLCase` and in its section.
+- `frontier/linnik/CGL-LEAN.md`: strikes in row L10.4–L10.10 (two), in row P11.1's round-671 marker and in the M3 note of round 669; a marker on the note of round 676.
+- `frontier/linnik/SIEVE-ROUTE.md`: a strike in §14's Phase 2 marker.
+- `external/pnt/LinnikCGLCase.lean`, `LinnikCGLEps`, `LinnikCGLL105`, `LinnikCGLSep`, `LinnikCGLT101` and `LinnikCGLL107`: comments corrected in place, and rebuilt.
+
+**Check 1** (direct reads this round):
+
+- The two reports in full.
+- The operative statements, re-read, at this commit's lines: `Dp`, `norm_sq_Dp_le`, `norm_sq_Dp_le_shift`, `sum_triple_eq`, `sum_triple_le` and `lemma105` (`LinnikCGLL105.lean` 97, 130, 156, 233, 284 and 308); `lor_le_four` and `sum_cube_le` (`LinnikCGLSep.lean` 97 and 405); `lemma106` (`LinnikCGLT101.lean` 148); `group_le`'s application of `CGLT101`, `group_bound` and `lemma107` (`LinnikCGLL107.lean` 488, 649 and 749); `S3_le_blocks` and `S3_le_112` (`LinnikCGL112.lean` 145 and 259); `exists_pow_eq`, `case_a`, `case_one`, `case_two`, `case_poly` and `remark103` (`LinnikCGLCase.lean` 132, 153, 170, 221, 277 and 375); and `eps_sqrt_le`, `eps_combine`, `natlog_le`, `prop102_fin` and `prop102_sum` (`LinnikCGLEps.lean` 109, 205, 338, 548 and 579).
+- The text layer: their Remark 10.3 (lines 4657–4676), the fourth point (4713–4719), line 5445, the display at line 4711 (4705–4712) and the suprema (4875–4883, 4898–4906 and 4974–4983).
+- PDF page 41 in full (`scratchpad/r662/probe/run_coords.sh 41 0 800`).
+- CGL-LEAN.md's statement of M2 and its round-637 record (lines 94 and 96).
+
+**Check 4.** Every finding is novel in the lead's classification: none is in `PREDICTIONS.md`'s Tier 5 or the plan's open questions. Both reviews classify their findings as novel.
+
+**Check 9.**
+
+- (a) This round's universals: "every finding is accepted" (each is listed above with its verification); "each asserted to occur once" (`apply.py`); "none now" (`siblings.py`, over its 35 phrases); and "for every `N > 0`" (the derivation above, under the remark's two assumptions and `E(W) ≤ |W|³`).
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of 2026-10-22, the convergence review of this sweep, owed for its MAJOR and minors, runs with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Stage M4, their Proposition 8.1 (`CGLP81`), through their Lemma 8.2.

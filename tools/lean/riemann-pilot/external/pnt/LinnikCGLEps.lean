@@ -104,7 +104,8 @@ lemma sqrt_add_le {x y : ℝ} (hx : 0 ≤ x) (hy : 0 ≤ y) : √(x + y) ≤ √
 
 /-! ### Their Lemma 10.9 with `⪅` -/
 
-/-- The square root of round 674's lemma: `√(rI(IE + r⁴D/X^K)) ≤ I√(rE) + √(ID)√(r⁵/X^K)`. -/
+/-- The square root of round 674's lemma: `√(rI(IE + r⁴D/X^K)) ≤ I√(rE) + √(ID)√(r⁵/X^K)` for `r, I, E, D ≥ 0`
+and `X > 0`. -/
 lemma eps_sqrt_le {r I E D X : ℝ} (K : ℕ) (hr : 0 ≤ r) (hI : 0 ≤ I) (hE : 0 ≤ E) (hD : 0 ≤ D) (hX : 0 < X) :
     √(r * I * (I * E + r ^ 4 * D / X ^ K)) ≤ I * √(r * E) + √(I * D) * √(r ^ 5 / X ^ K) := by
   have e1 : r * I * (I * E + r ^ 4 * D / X ^ K) = I ^ 2 * (r * E) + I * D * (r ^ 5 / X ^ K) := by
@@ -199,7 +200,8 @@ lemma card_pairs_le {N M : ℝ} (D : ℕ) (hN : 0 ≤ N) (hNM : N ≤ M) (hM : 1
   have h7 : ((dyad N).card : ℝ) * (dyad N).card ≤ (2 * M) * (2 * M) := mul_le_mul h5 h5 h6 (by linarith)
   nlinarith
 
-/-- The assembly of `lemma109_eps`: `a·b·√(..) + tail ≤ ...` with the four bounds above. -/
+/-- The assembly of `lemma109_eps`: from `S ≤ A + B`, `A ≤ C₁MεP + C₂Q` and `B ≤ C₃Q`, for `Mε ≥ 1` and
+`C₁, C₂, C₃, P, Q ≥ 0`, `S ≤ (C₁ + C₂ + C₃)Mε(P + Q)`. -/
 lemma eps_combine {S A B C₁ C₂ C₃ Mε P Q : ℝ} (hS : S ≤ A + B) (hA : A ≤ C₁ * Mε * P + C₂ * Q) (hB : B ≤ C₃ * Q)
     (hMε : 1 ≤ Mε) (hC₂ : 0 ≤ C₂) (hC₃ : 0 ≤ C₃) (hC₁ : 0 ≤ C₁) (hP : 0 ≤ P) (hQ : 0 ≤ Q) :
     S ≤ (C₁ + C₂ + C₃) * Mε * (P + Q) := by
@@ -332,7 +334,7 @@ theorem lemma109_eps {ε : ℝ} (hε : 0 < ε) :
 
 /-! ### Their Lemma 10.10 with `⪅` -/
 
-/-- `⌊log₂n⌋ + 1 ≤ (2/(δ log 2) + 1)q^δ` for `1 ≤ n ≤ q²`, `q ≥ 1` and `δ > 0`, from `log q ≤ q^δ/δ`. -/
+/-- `⌊log₂n⌋ + 1 ≤ (2/(δ log 2) + 1)q^δ` for `n ≤ q²`, `q ≥ 1` and `δ > 0`, from `log q ≤ q^δ/δ`. -/
 lemma natlog_le {q n : ℕ} (hq : 1 ≤ q) (hn : n ≤ q ^ 2) {δ : ℝ} (hδ : 0 < δ) :
     (Nat.log 2 n : ℝ) + 1 ≤ (2 / (δ * Real.log 2) + 1) * (q : ℝ) ^ δ := by
   have hq1 : (1 : ℝ) ≤ q := by exact_mod_cast hq
@@ -541,7 +543,8 @@ lemma sq_rpow_half {x ε : ℝ} (hx : 0 ≤ x) : ((2 * x) ^ (ε / 2)) ^ 2 = 2 ^ 
   rw [← Real.rpow_natCast, ← Real.rpow_mul (by positivity), Real.mul_rpow (by norm_num) hx]
   congr 2 <;> push_cast <;> ring
 
-/-- The last step of their Proposition 10.2: from `E ≤ A + B√E` in the stack's variables to their form. -/
+/-- The last step of their Proposition 10.2: from `E ≤ A + B√E` in the stack's variables to their form, for
+`E, r, Q4, N, u, c₁, C₃ ≥ 0` and `Λ ≥ 1`. -/
 lemma prop102_fin {E r Q4 N u c₁ C₃ Λ : ℝ} (hE : 0 ≤ E) (hr : 0 ≤ r) (hQ4 : 0 ≤ Q4) (hN : 0 ≤ N) (hu : 0 ≤ u)
     (hc₁ : 0 ≤ c₁) (hC₃ : 0 ≤ C₃) (hΛ : 1 ≤ Λ)
     (h : E ≤ c₁ * u * C₃ * Λ * (N * r ^ 3 + N * Q4 * r ^ (21 / 8 : ℝ)) + c₁ * u * C₃ * Λ * N ^ 2 * √r * √E) :
@@ -570,8 +573,9 @@ lemma prop102_fin {E r Q4 N u c₁ C₃ Λ : ℝ} (hE : 0 ≤ E) (hr : 0 ≤ r) 
   rw [e5] at hq
   linarith
 
-/-- The cubes over `S × S` by the bounds of their Lemmas 10.9 and 10.10 at `ε/2`, in the stack's variables, with
-`max(1, N)^{ε/2} ≤ Λ`. -/
+/-- The cubes over `S × S` by the bounds of their Lemmas 10.9 and 10.10 at `ε/2`, in the stack's variables: from
+`s ≤ s₁ + s₂` and the two bounds, for `M ≤ Λ` (in the use, `M = max(1, N)^{ε/2}`), `C₁, N, r, Q4, Λ ≥ 0` and
+`C₃ = C₁ + C₂`. -/
 lemma prop102_sum {s s₁ s₂ C₁ C₂ C₃ M Λ N r E Q4 : ℝ} (hsplit : s ≤ s₁ + s₂)
     (hs1 : s₁ ≤ C₁ * M * (N ^ 2 * (√r * √E) + N * r ^ 3))
     (hs2 : s₂ ≤ C₂ * Λ * (N * r ^ 3 + N * Q4 * r ^ (21 / 8 : ℝ) + N ^ 2 * (√r * √E)))

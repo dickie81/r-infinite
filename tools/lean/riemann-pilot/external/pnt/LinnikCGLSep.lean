@@ -29,7 +29,8 @@ The stack's form.
   `δ = qd²/(8N²)` the coefficient is `C_k(3T + 32πN²/(qd²))`, their `T + N²/(d²q)` (lines 5246–5249, in the display
   ending with their (10.2)) up to constants. Where `|x_p + 2πξ/(3T)| > X`, `|x_p| ≤ 1` gives
   `|ξ| > Z = 3T(X − 1)/(2π)`, `norm_kloc_tail` bounds `k`, and the tail `|P|(Σ_k|c_k|)³·2πD_K(2π)^{−K}Z^{2−K}`
-  stands for their `O(N²T^{−100})`: it is small for `X` large, with `T ≥ 1`.
+  stands for their `O(N²T^{−100})`: for `K ≥ 3` it is small for `X` large, with `T ≥ 1`; at `K = 2` it does not
+  depend on `X`.
 
 Plain statements, with `L_c(r) = (1 + c²r²)⁻¹` (`lor`), `k` round 668's `kloc`, `C_k` round 669's `Ck`, `D_K` round
 659's `Dpsi` and `F = esum s c λ`.
@@ -92,7 +93,7 @@ lemma integral_lor {c : ℝ} (hc : 0 < c) (y : ℝ) : ∫ s, lor c (y - s) = π 
     abs_of_pos hc, smul_eq_mul]
   field_simp
 
-/-- Peetre's inequality for `L_c`: `L_c(y − x) ≤ 4L_c(y − s)` for `c|s − x| ≤ 1`. -/
+/-- Peetre's inequality for `L_c`: `L_c(y − x) ≤ 4L_c(y − s)` for `c ≥ 0` and `c|s − x| ≤ 1`. -/
 lemma lor_le_four {c x s : ℝ} (hcs : c * |s - x| ≤ 1) (hc : 0 ≤ c) (y : ℝ) : lor c (y - x) ≤ 4 * lor c (y - s) := by
   unfold lor
   have h1 : 0 < 1 + c ^ 2 * (y - x) ^ 2 := by positivity

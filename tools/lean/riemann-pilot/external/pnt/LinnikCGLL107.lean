@@ -55,7 +55,7 @@ Plain statements, with `q ≥ 1`, `n ∼ M` round 670's `dyad`, `E` round 659's 
   `Σ_{n₁,n₂∼M}|R₂(n₁, n₂)|⁴ ≤ C(d(q)(⌊log₂|R|²⌋ + 1))²(qTM)^ε(EM² + |R|⁴M + E^{3/4}|R|(qT)^{1/2}M)`.
 
 The factor `(d(q)(⌊log₂|R|²⌋ + 1))²` is the square of the bound on the number of groups: one factor comes from the
-Cauchy–Schwarz step, and one from summing the groups' bounds, where they take the largest class. Their `⪅` absorbs it;
+Cauchy–Schwarz step, and one from summing the groups' bounds, where they take the largest group. Their `⪅` absorbs it;
 the stack keeps it explicit. `lemma107` assumes neither that `χ` is injective on `R` nor a lower bound on `qT`.
 
 The file imports `LinnikCGLT101.lean`.

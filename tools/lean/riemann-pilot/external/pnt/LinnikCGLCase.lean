@@ -12,9 +12,9 @@ E(W)^{1/8}N ≥ (qT)^{1/2}|W|^{5/8}." (line 5483; spaces restored, the exponents
 
 Their Remark 10.3: "Suppose that |W| < (qT)^{2/3} and E(W)^{1/8}N < (qT)^{1/2}|W|^{5/8}. Then (qT)²|W|^{3/2} >
 qTN|W|^{1/2}E(W)^{1/2}." (lines 4666–4667; spaces restored, the exponents transcribed), by a chain whose "first
-strict inequality follows from the lower bound N ≥ (qT)^{2/3} in the present range" (line 4673; spaces restored, the
-exponent transcribed), where the range of their Proposition 10.2 is "(qT)^{2/3}/2 ≤ N ≤ qT" (line 4646; spaces
-restored, the exponent transcribed).
+strict inequality follows from the lower bound N ≥ (qT)^{2/3} in the present range" (lines 4673–4674; spaces
+restored, the exponent transcribed), where the range of their Proposition 10.2 is "(qT)^{2/3}/2 ≤ N ≤ qT" (line
+4646; spaces restored, the exponent transcribed).
 
 The stack's form.
 * The energy. `sq_le_energy`: `|R|² ≤ E`, from the quadruples `(i, j, i, j)`. `energy_le_cube`: `E ≤ |R|³` at one
@@ -25,10 +25,15 @@ The stack's form.
   `case_poly`, proved in two cases: `z ≤ u` (`case_one`, their `|W| ≥ (qT)^{2/3}`) and `u < z` with their assumption
   `z⁶u⁵ ≤ vN` (`case_two`, their `|W| < (qT)^{2/3}`). The stack uses `N ≥ (qT)^{1/2}/2`, which `N ≥ (qT)^{2/3}/2`
   and `qT ≥ 1` give, where they write `N ≥ (qT)^{1/2}` under `≫`. `case_le` is the result in real powers.
-* Their Remark 10.3 is `remark103`. The step `(qT)³|W|³N^{−3} < qT|W|³` of their chain (line 4669), which they
-  draw from the lower bound on `N`, needs `N³ > (qT)²`, and that fails for `(qT)^{2/3}/2 ≤ N ≤ (qT)^{2/3}`. With
-  `N ≥ (qT)^{2/3}/2` the stack proves the remark with the constant `8`: `qTN|W|^{1/2}E^{1/2} ≤ 8(qT)²|W|^{3/2}`. The
-  constant does not affect their use of it, which is up to `⪅`.
+* `remark103` is the stack's form of their Remark 10.3. Their remark holds as stated, strictly and with the constant
+  `1`, for every `N > 0`: with `E ≤ |W|³` (`energy_le_cube`; the fourth point is unique, lines 4716–4718), their
+  second assumption gives `E^{1/2} = E^{1/8}E^{3/8} < (qT)^{1/2}|W|^{7/4}N^{−1}`, so
+  `qTN|W|^{1/2}E^{1/2} < (qT)^{3/2}|W|^{9/4}`, and their first gives `(qT)^{3/2}|W|^{9/4} < (qT)²|W|^{3/2}`. The slip
+  is in their chain: its step `(qT)³|W|³N^{−3} < qT|W|³` (line 4669) needs `N³ > (qT)²`, which fails for
+  `(qT)^{2/3}/2 ≤ N ≤ (qT)^{2/3}`. The stack reads that step as their "first strict inequality", since the chain's
+  first step follows from their second assumption (lines 4667–4668). `remark103` does not assume `E ≤ |W|³`: with
+  `N ≥ (qT)^{2/3}/2` it gives `qTN|W|^{1/2}E^{1/2} ≤ 8(qT)²|W|^{3/2}`, and the `8` is attained, at `|W| = (qT)^{2/3}`,
+  `N = (qT)^{2/3}/2` and `E = 256(qT)²`. The constant does not affect their use of it, which is up to `⪅`.
 * `lemma1010_case`: their Lemma 10.10 with their hypotheses, from round 675's `lemma1010` and `case_le`, with
   `D = ⌊N²/(qT)⌋`.
 
@@ -123,7 +128,7 @@ end energy
 lemma pow_rpow_eq {u : ℝ} (hu : 0 ≤ u) (m k : ℕ) {x : ℝ} (h : (m : ℝ) * x = k) : (u ^ m) ^ x = u ^ k := by
   rw [← Real.rpow_natCast u m, ← Real.rpow_mul hu, h, Real.rpow_natCast]
 
-/-- A nonnegative real is the `m`-th power of its `m`-th root. -/
+/-- For `m ≠ 0`, a nonnegative real is the `m`-th power of its `m`-th root. -/
 lemma exists_pow_eq {r : ℝ} (hr : 0 ≤ r) (m : ℕ) (hm : m ≠ 0) : ∃ u : ℝ, 0 ≤ u ∧ r = u ^ m := by
   refine ⟨r ^ (1 / (m : ℝ)), by positivity, ?_⟩
   rw [← Real.rpow_natCast, ← Real.rpow_mul hr]
@@ -143,7 +148,8 @@ lemma z6_le {u z N : ℝ} (hu1 : 1 ≤ u) (hz : 1 ≤ z) (hN : z ^ 8 / 2 ≤ N) 
   have h3 : N ≤ u ^ 2 * N := le_mul_of_one_le_left hN0 h2
   linarith
 
-/-- Their first factor, `a ≤ 5L(u¹⁶ + u¹⁰z⁶)N`, with `r = u⁸`, `qT = z¹²` and `p = 2/(D + 1)`. -/
+/-- Their first factor, `a ≤ 5L(u¹⁶ + u¹⁰z⁶)N`, with `r = u⁸`, `qT = z¹²` and `p = 2/(D + 1)`, for `u, z, L ≥ 1`,
+`N ≥ z⁸/2` and `N²p ≤ 2z¹²`. -/
 lemma case_a {u z N L p : ℝ} (hu1 : 1 ≤ u) (hz : 1 ≤ z) (hN : z ^ 8 / 2 ≤ N) (hL : 1 ≤ L)
     (hNp : N ^ 2 * p ≤ 2 * z ^ 12) :
     u ^ 8 * N ^ 2 * p + (u ^ 16 + u ^ 10 * z ^ 6) * N * L ≤ 5 * L * ((u ^ 16 + u ^ 10 * z ^ 6) * N) := by
@@ -159,7 +165,8 @@ lemma case_a {u z N L p : ℝ} (hu1 : 1 ≤ u) (hz : 1 ≤ z) (hN : z ^ 8 / 2 �
     le_mul_of_one_le_left (by positivity) hL
   linarith
 
-/-- **Their (10.4)**, as a polynomial inequality: the case `z ≤ u`, `|W| ≥ (qT)^{2/3}`. -/
+/-- **Their (10.4)**, as a polynomial inequality: the case `z ≤ u`, `|W| ≥ (qT)^{2/3}`, for `u, z, L ≥ 1`,
+`0 ≤ v ≤ u³`, `N ≥ z⁸/2`, `p ≥ 0` and `N²p ≤ 2z¹²`. -/
 lemma case_one {u v z N L p : ℝ} (hu1 : 1 ≤ u) (hv0 : 0 ≤ v) (hvu : v ≤ u ^ 3) (hz : 1 ≤ z)
     (hN : z ^ 8 / 2 ≤ N) (hL : 1 ≤ L) (hp0 : 0 ≤ p) (hNp : N ^ 2 * p ≤ 2 * z ^ 12) (hzu : z ≤ u) :
     (u ^ 8 * N ^ 2 * p + (u ^ 16 + u ^ 10 * z ^ 6) * N * L) *
@@ -210,7 +217,7 @@ lemma case_one {u v z N L p : ℝ} (hu1 : 1 ≤ u) (hv0 : 0 ≤ v) (hvu : v ≤ 
     _ ≤ (8 * L * (N * u ^ 24)) ^ 2 := by rw [e1, e2]; linarith
 
 /-- **Their (10.5)**, as a polynomial inequality: the case `u < z` under `z⁶u⁵ ≤ vN`, their
-`E(W)^{1/8}N ≥ (qT)^{1/2}|W|^{5/8}`. -/
+`E(W)^{1/8}N ≥ (qT)^{1/2}|W|^{5/8}`, for `u, z, L ≥ 1`, `0 ≤ v ≤ u³`, `N ≥ z⁸/2`, `p ≥ 0` and `N²p ≤ 2z¹²`. -/
 lemma case_two {u v z N L p : ℝ} (hu1 : 1 ≤ u) (hv0 : 0 ≤ v) (hvu : v ≤ u ^ 3) (hz : 1 ≤ z)
     (hN : z ^ 8 / 2 ≤ N) (hL : 1 ≤ L) (hp0 : 0 ≤ p) (hNp : N ^ 2 * p ≤ 2 * z ^ 12) (hzu : u < z)
     (halt : z ^ 6 * u ^ 5 ≤ v * N) :
@@ -264,7 +271,9 @@ lemma case_two {u v z N L p : ℝ} (hu1 : 1 ≤ u) (hv0 : 0 ≤ v) (hvu : v ≤ 
         mul_le_mul ha' hb' hb0 (by positivity)
     _ ≤ 64 * L ^ 2 * ((N * z ^ 3 * u ^ 21) ^ 2 + (v ^ 4 * u ^ 4 * N ^ 2) ^ 2) := by rw [e1, e2]; linarith
 
-/-- **Their case analysis, as a polynomial inequality**: with `r = u⁸`, `E = v⁸`, `qT = z¹²` and `p = 2/(D + 1)`. -/
+/-- **Their case analysis, as a polynomial inequality**: with `r = u⁸`, `E = v⁸`, `qT = z¹²` and `p = 2/(D + 1)`,
+for `u = 0` or `u ≥ 1`, `0 ≤ v ≤ u³`, `z, L ≥ 1`, `N ≥ z⁸/2`, `p ≥ 0`, `N²p ≤ 2z¹²` and either `z ≤ u` or
+`z⁶u⁵ ≤ vN`. -/
 lemma case_poly {u v z N L p : ℝ} (hu : u = 0 ∨ 1 ≤ u) (hv0 : 0 ≤ v) (hvu : v ≤ u ^ 3) (hz : 1 ≤ z)
     (hN : z ^ 8 / 2 ≤ N) (hL : 1 ≤ L) (hp0 : 0 ≤ p) (hNp : N ^ 2 * p ≤ 2 * z ^ 12)
     (halt : z ≤ u ∨ z ^ 6 * u ^ 5 ≤ v * N) :
@@ -360,8 +369,9 @@ theorem case_le {r E Q N L : ℝ} {D : ℕ} (hr : r = 0 ∨ 1 ≤ r) (hE0 : 0 �
 
 /-! ### Their Remark 10.3 -/
 
-/-- **Their Remark 10.3**: for `r ≥ 0`, `E ≥ 0`, `Q ≥ 1`, `N ≥ Q^{2/3}/2`, `r ≤ Q^{2/3}` and
-`E^{1/8}N ≤ Q^{1/2}r^{5/8}`, `QNr^{1/2}E^{1/2} ≤ 8Q²r^{3/2}`. -/
+/-- **Their Remark 10.3, in the stack's form**: for `r ≥ 0`, `E ≥ 0`, `Q ≥ 1`, `N ≥ Q^{2/3}/2`, `r ≤ Q^{2/3}` and
+`E^{1/8}N ≤ Q^{1/2}r^{5/8}`, `QNr^{1/2}E^{1/2} ≤ 8Q²r^{3/2}`. Their remark has the constant `1` and uses `E ≤ r³`,
+which this form does not assume. -/
 theorem remark103 {r E Q N : ℝ} (hr0 : 0 ≤ r) (hE0 : 0 ≤ E) (hQ : 1 ≤ Q) (hN : Q ^ (2 / 3 : ℝ) / 2 ≤ N)
     (hrQ : r ≤ Q ^ (2 / 3 : ℝ)) (hEN : E ^ (1 / 8 : ℝ) * N ≤ Q ^ (1 / 2 : ℝ) * r ^ (5 / 8 : ℝ)) :
     Q * N * r ^ (1 / 2 : ℝ) * E ^ (1 / 2 : ℝ) ≤ 8 * Q ^ 2 * r ^ (3 / 2 : ℝ) := by
