@@ -26667,3 +26667,70 @@ The re-read also found their footnote 2, on the bound of `I₂`: "Here, we appli
 **Bearing on RH:** none.
 
 **The next step.** `CGLS2` itself. Take `Z` with `NZ ≥ q(2T + 1)(qTN)^δ` and `K` large in terms of `δ`; bound `τ` by the stack's divisor bound `card_divisors_le`, `|R|` from the large values by `ls_points`, and `Q₀(q)`, `L(N′Z)` and `H_Z` by powers of `qTN`. The case `N ≤ 5/6`, where `S` may contain `1`, has `q ≤ 2` and so at most one character, and `‖E‖_F² = 0`.
+
+## Round 644: round 639's hypothesis `CGLS2` proved (stage M3, seventh step; `external/pnt/LinnikCGLS2.lean`)
+
+**The result.** `LinnikCGLS2.cgls2 : CGLS2`. For every `ε > 0` there is `C ≥ 0` such that, for `χ` injective on `R`, `T ≥ 1`, `7/10 ≤ σ ≤ 4/5`, `(qT)^{2/3}/2 ≤ N ≤ qT`, `S ⊆ [6N/5, 9N/5]`, `|b_n| ≤ 1`, `|t_i| ≤ T` and `|Σ_{n∈S}b_nχ_i(n)n^{it_i}| ≥ N^σ/6` for every `i ∈ R`,
+
+`‖E‖_F² = Σ_{i≠k}|G(i, k)|² ≤ C(qTN)^ε·qT|R|N^{2−2σ}`.
+
+This is Chen–Gupta–Li's Proposition 6.1 at one point per character, the form round 637's `CGLProp31` uses; round 639 made it a displayed hypothesis. With it, `LinnikCGLS2.linnik_225c_s3` and `linnik_226c_s3` give Linnik's exponents `9/4` and `226/100` from `CGLS3` alone, their Proposition 11.1 at one point per character. `CGLS3` stays a displayed hypothesis.
+
+**The proof.** For `N > 5/6`, `s2_main` sets `P = qT`, `u = P^δ`, `N′ = ⌊9N/5⌋`, `Z = ⌊3Pu/N⌋ + 1`, `K = ⌈4/δ⌉` and `τ = C_δ(N′Z)^δ` in round 643's `frobOff_le`, and bounds each factor by a power of `P`:
+
+- the large-sieve factor `L(X) ≤ A(δ)(q(2T + 1) + X)X^δ` (`LSX_le`, from Mathlib's `Real.log_le_rpow_div`), with `X = N′Z ≤ (36/5)P^{1+δ}`;
+- `H_Z ≤ Z^δ/δ` (`HZ_le`);
+- `Q₀(q) ≤ π·CGK(0)·(2^{ω(q)})³` and `2^{ω(q)} ≤ C_δq^δ` (`Q0_le`, `EQh_le`, `two_pow_omega_le`, from round 526's `card_powerset_le_divisors` and the stack's divisor bound `card_divisors_le`), which also gives `τ`;
+- `|R| ≪_δ P^{1+δ}N^{1−2σ}` from the large values themselves (`card_le`, round 643's `ls_points`);
+- round 642's tail bound `≪_δ P^{3δ−3}`, since `NZ ≥ 3P^{1+δ} ≥ q(1 + 2T)P^δ` and `P^{δK} ≥ P⁴` (`Bmax_le`).
+
+The main term is then at most `C₁(δ)P^{1+13δ}|R|N^{2−2σ}` (`main_term_le`) and the tails at most `C₂(δ)P|R|N^{2−2σ}` (`tail_le`). `cgls2` takes `δ = min(ε, 1)/16` and uses `(qT)^{min(ε,1)} ≤ (6/5)^ε(qTN)^ε` for `N > 5/6`. For `N ≤ 5/6` the set `S` may contain `1`, outside the large sieve's support `[2, X]`. There `(qT)^{2/3}/2 ≤ N` gives `q ≤ 2` (`q_le_two`), Mathlib's `ZMod.card_units_eq_totient` gives one character mod `q` (`char_eq_of_le_two`), and `‖E‖_F² = 0` (`frobOff_eq_zero_of_le_two`).
+
+**The paper's count and the stack's.** Re-read this round in the text layer (lines 1900–1921; spaces restored): their proof ends "S₂ ⪅_ε (|W|N^{2−2σ}/M)(N²M² + qTNM) ⪅_ε qT|W|N^{3−2σ}, since NM ⪅_ε qT" (the fraction written on one line). Here `NZ` plays their `NM`; `‖E‖_F²` carries one power of `N` less than `S₂ = 3μ₀‖E‖_F²` (round 639); and their `⪅_ε` is the explicit `C(qTN)^ε`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLS2.lean`: new, 652 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and six `#print axioms` lines (`LSX_le`, `Bmax_le`, `s2_main`, `cgls2`, `linnik_225c_s3`, `linnik_226c_s3`).
+- `frontier/linnik/CGL-LEAN.md`: an M3 note, the rows L6.2 and P6.1, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch in stages (`scratchpad/r644/lc.sh`). The fixes there were:
+
+  - `linarith` steps that needed `ring` to normalize a product first;
+  - Mathlib's `Finset.prod_le_prod₀` and `le_or_gt`;
+  - `push_neg`, deprecated, replaced by `omega`;
+  - `gcongr` on a variable introduced by `set`, where it made no progress until the variable was unfolded;
+  - `nlinarith` calls that timed out in the large context, replaced by explicit steps;
+  - an explicit `mul_pow` target;
+  - an explicit constant for a `(by norm_num)` that met a metavariable;
+  - an unused hypothesis, removed.
+
+  Two changes kept the file under Lean's default heartbeat limit without `maxHeartbeats`:
+
+  - the parameters `P`, `u`, `N′`, `Z`, `K`, `τ` and `V` are introduced by `obtain ⟨x, hx⟩ : ∃ x, x = e` rather than `set`, which had let `whnf` unfold their floors, ceilings and real powers;
+  - the main case is split into `Bmax_le`, `card_le`, `main_term_le` and `tail_le`, since the budget is per declaration.
+- `build.sh` ran twice, the second time after a header line of 151 characters was rewrapped (`scratchpad/r644/build.log` holds the second run, and both runs agree on every count below). The counts: `1 compiled, 381 up to date` (`LinnikCGLS2` 24 s), exit 0 in 34 s, no error, warning or `sorry`. Its 560 axiom lines (13 by the module, 547 by the final check, which gains six lines) are 547 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 7.00 GiB in each run.
+- The file has no `sorry`, `native_decide`, `axiom` or `maxHeartbeats`, and no line over 120 characters.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872 (after blank lines were put before the two nested lists of the check record above; the lint's first run caught them).
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: P6.1's stack cell gains round 644. Three statuses, each true when written, gain round-644 net-state markers: P6.1's "Partial" and its round-643 marker ("`CGLS2` itself stays a hypothesis until they are chosen"), and L6.2's round-642 marker ("their choice is P6.1's"). The opening's parenthetical gains round 644, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round): the end of their proof of Proposition 6.1 in the text layer (lines 1900–1921), re-read for this round's quotation; `LinnikCGLS2.lean` in full; round 639's `CGLS2`, `CGLS3`, `frobOff`, `linnik_225c_s23` and `linnik_226c_s23`; round 643's `frobOff_le`, `ls_points`, `HZ`, `Bmax` and `IH`; round 642's `Q0` and `IK`; round 641's `EQh` and `CGK`; `LinnikPower.Cdiv`, `one_le_Cdiv` and `card_divisors_le`; `LinnikTwelve.card_powerset_le_divisors`; `SquarefreeCount.sum_rpow_neg_le`; round 526's `LSX` and `LSX_nonneg`; Mathlib's `ZMod.card_units_eq_totient`, `Fintype.card_le_one_iff_subsingleton`, `MulChar.ext`, `Real.log_le_rpow_div`, `Nat.pow_log_le_self` and `Real.log_two_gt_d9`.
+
+**Check 4.** No defect is raised. Round 639's displayed hypothesis `CGLS2` is retired by a proof; `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: "for every `ε > 0`" and "for every `i ∈ R`" are the statement of `CGLS2`; "Linnik's exponents ... from `CGLS3` alone" is the statement of `linnik_225c_s3` and `linnik_226c_s3`, whose only hypothesis is `CGLS3`.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of round 636, no review runs this round. Rounds 640–644 prove one of round 639's two hypotheses; that block is substantial, and the batched review (rounds 634–644) is due before the `S₃` side starts.
+
+**Bearing on RH:** none.
+
+**The next step.** The batched hostile review of rounds 634–644. Then the `S₃` side of M3: P7.1–P7.2, L9.1–L9.2, the energy bound P10.2 from T10.1, and the assembly P11.1. P8.1 and T10.1 stay displayed hypotheses until M4 and M5.

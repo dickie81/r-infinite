@@ -166,6 +166,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLReflect.lean` | 641 | the reflection of the Gram entries (`reflect_gram`, `gram_reflect`): a dual sum of length `Z` on `Re s = 1/2` and its tail on `Re s = −K`, with the reflection factor of the primitive character bounded on `−K ≤ Re s ≤ 1/2` (`norm_Phi_le_far`) and contour shifts for integrands at most `M(1 + \|Im s + τ\|)^{−2}` (`shift_of_bound`) |
 | `LinnikCGLPair.lean` | 642 | the bounds of the reflected Gram entries: for `χ_i ≠ χ_k`, `\|G(i, k)\| ≤ (2π)⁻¹(N^{1/2}Q₀(q)∫\|H(1/2 + iu)\|\|D(u)\| du + T_K)`, `D` the dual sum of length `Z` and `T_K ≪_K q^{K+1/2}(NZ)^{−K}(1 + \|τ\|)^{K+1}` (`norm_gram_le`), from the bounds of the main part (`norm_integral_Mn_le`) and the tail (`norm_integral_Tl_le`), the Euler factor against the conductor (`norm_Eu_mul_le`) and the dual tail far left (`norm_dualT_le`) |
 | `LinnikCGLFrob.lean` | 643 | the off-diagonal mass of the Gram matrix, explicitly (`frobOff_le`): `‖E‖_F² ≤ N·Q₀(q)²I_H²·\|R\|·V^{−2}L(N′Z)·τ·Σ\|b_n\|²·H_Z + \|R\|²B²`, from the squared product trick at the points (`prod_trick_points`, `ls_points`), the dual sums as polynomials at the points (`norm_dualS_pair`, `sum_Dp_sq_le`), Cauchy–Schwarz against `\|H(1/2 + iu)\|` (`integral_sq_le`) and the squared Gram entries (`gram_sq_le`) |
+| `LinnikCGLS2.lean` | 644 | round 639's hypothesis `CGLS2` proved (`cgls2`): for every `ε > 0`, `‖E‖_F² ≤ C(qTN)^ε·qT\|R\|N^{2−2σ}`, from round 643's `frobOff_le` with `Z = ⌊3P^{1+δ}/N⌋ + 1` and `K = ⌈4/δ⌉` (`s2_main`) and the sizes of its factors as powers of `qT` (`LSX_le`, `HZ_le`, `Q0_le`, `card_le`, `Bmax_le`); Linnik's exponents `9/4` and `226/100` from `CGLS3` alone (`linnik_225c_s3`, `linnik_226c_s3`) |
 
 ## Building (rounds 217, 618)
 
@@ -723,3 +724,22 @@ Round 643 sums round 642's bound over the pairs into an explicit bound on `‖E�
 - `frobOff_le`: Cauchy–Schwarz in `u` for each pair and the sum over the pairs give `‖E‖_F² ≤ N·Q₀(q)²I_H²·|R|·V^{−2}L(N′Z)·τ·Σ|b_n|²·H_Z + |R|²B²`, `I_H = ∫|H(1/2 + iu)| du`.
 
 See the main README, round 643, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 541 lines.
+
+## Round 639's hypothesis `CGLS2` proved: LinnikCGLS2.lean (round 644)
+
+Round 644 proves `CGLS2` (`cgls2`), Chen–Gupta–Li's Proposition 6.1 at one point per character in round 639's form: for every `ε > 0` there is `C` with `‖E‖_F² ≤ C(qTN)^ε·qT|R|N^{2−2σ}` under the conditions of `CGLProp31`. Linnik's exponents `9/4` and `226/100` then follow from `CGLS3` alone.
+
+- `AL`, `natLog_le_two_log`, `LSX_le`: round 526's large-sieve factor `L(X)` is at most `A(δ)(q(2T + 1) + X)X^δ` for `X ≥ 1` and `0 < δ ≤ 1`, from Mathlib's `Real.log_le_rpow_div` at `δ/4` and `log₂X ≤ 2 log X`.
+- `HZ_le`: `H_Z = Σ_{m≤Z}1/m ≤ Z^δ/δ` (`SquarefreeCount.sum_rpow_neg_le`).
+- `two_pow_omega_le`, `EQh_le`, `Q0_le`: `2^{ω(q)} ≤ C_δq^δ` (round 526's `card_powerset_le_divisors` and the stack's `card_divisors_le`), `EQh(q) ≤ 4^{ω(q)}` (each factor `(1 − p^{−1/2})⁻¹ ≤ 4`), and `Q₀(q) ≤ π·CGK(0)·(2^{ω(q)})³`.
+- `card_mul_sq_le`, `card_le`: `|R|V² ≤ L(N′)Σ|b_n|²` (round 643's `ls_points` for the large polynomial itself), so `|R| ≪_δ qT·(qT)^δ·N^{1−2σ}`.
+- `pv_point_eq`, `rpow_le_of_le_mul`: the large polynomial as round 526's `pv`; `x^δ ≤ c(P^δ)²` for `0 ≤ x ≤ cP^{1+δ}`.
+- `Bmax_le`: round 642's tail bound is at most `2(C_δP^δ)³·π·CGK(K)·I_K·3P·P^{−4}` when `NZ ≥ 3P^{1+δ}` and `δK ≥ 4`.
+- `Kd`, `C1`, `C2`, `C1_nonneg`, `C2_nonneg`, `main_term_le`, `tail_le`, `s2_main`: for `N > 5/6` and `0 < δ ≤ 1/16`, `‖E‖_F² ≤ (C₁(δ) + C₂(δ))(qT)^{1+16δ}|R|N^{2−2σ}`, with `Z = ⌊3P^{1+δ}/N⌋ + 1`, `K = ⌈4/δ⌉` and `τ = C_δ(N′Z)^δ`, `N′ = ⌊9N/5⌋`.
+- `char_eq_of_le_two`, `frobOff_eq_zero_of_le_two`, `q_le_two`: for `N ≤ 5/6` (where `S` may contain `1`, outside the large sieve's support `[2, X]`), `(qT)^{2/3}/2 ≤ N` gives `q ≤ 2`, there is one character mod `q`, and `‖E‖_F² = 0`.
+- `cgls2`: `s2_main` at `δ = min(ε, 1)/16`, and `(qT)^{min(ε,1)} ≤ (6/5)^ε(qTN)^ε` for `N > 5/6`.
+- `linnik_225c_s3`, `linnik_226c_s3`: round 639's `linnik_225c_s23` and `linnik_226c_s23` with `cgls2`.
+
+The file's declarations stay under Lean's default heartbeat limit by splitting the main case into `Bmax_le`, `card_le`, `main_term_le` and `tail_le`, and by naming the parameters with `obtain ⟨x, hx⟩ : ∃ x, x = e` rather than `set`, which kept their definitions (floors, ceilings and real powers) out of `whnf`.
+
+See the main README, round 644, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 547 lines.

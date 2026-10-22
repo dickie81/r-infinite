@@ -106,15 +106,15 @@ for f in SieveCert225C Linnik225C; do c 1 "$HERE" $f; done
 for f in SieveTypeIIU2285 SieveGrid2285U; do c 1 "$HERE" $f; done
 for i in $(seq 1 28); do c 1 "$HERE" SieveCert2285UP$i; done
 for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
-# Rounds 636–643: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
+# Rounds 636–644: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
 # (LinnikCGLLV), the density step from it on [5/7, 16/21] (LinnikCGLStep), Linnik's exponents 9/4 and 226/100
 # from it (LinnikCGLLinnik), (round 638) Proposition 3.1 from a bound on the cubic trace (LinnikCGLMat),
 # (round 639) that bound from the paper's S₂ and S₃ (LinnikCGLS23), (round 640) the Mellin transform of w² and the
 # Gram entries as vertical integrals (LinnikCGLMellin), (round 641) their reflection (LinnikCGLReflect),
-# (round 642) the bounds of the reflected entries (LinnikCGLPair), and (round 643) the off-diagonal mass of the
-# Gram matrix (LinnikCGLFrob).
+# (round 642) the bounds of the reflected entries (LinnikCGLPair), (round 643) the off-diagonal mass of the Gram
+# matrix (LinnikCGLFrob), and (round 644) the hypothesis CGLS2 proved (LinnikCGLS2).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
-    LinnikCGLPair LinnikCGLFrob; do
+    LinnikCGLPair LinnikCGLFrob LinnikCGLS2; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -279,6 +279,7 @@ import LinnikCGLMellin
 import LinnikCGLReflect
 import LinnikCGLPair
 import LinnikCGLFrob
+import LinnikCGLS2
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -734,6 +735,12 @@ import LinnikCGLFrob
 #print axioms LinnikCGLFrob.sum_Dp_sq_le
 #print axioms LinnikCGLFrob.gram_sq_le
 #print axioms LinnikCGLFrob.frobOff_le
+#print axioms LinnikCGLS2.LSX_le
+#print axioms LinnikCGLS2.Bmax_le
+#print axioms LinnikCGLS2.s2_main
+#print axioms LinnikCGLS2.cgls2
+#print axioms LinnikCGLS2.linnik_225c_s3
+#print axioms LinnikCGLS2.linnik_226c_s3
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy
