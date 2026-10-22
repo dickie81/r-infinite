@@ -28032,3 +28032,65 @@ The reductions take any `f` with `R̃(c, b)² ≤ f_{−b}(c)` on `[−3, 3]`; o
 **Bearing on RH:** none.
 
 **The next step.** Their (11.2) in explicit form. Bound each block of round 657's `prop72` by `Σ_{m⃗∈B}Ĩ ≤ √(3φ(q)|R|V)`, with `φ(q) ≤ q`, `2^k ≤ M_box` and `M_box` at most a constant times `X·qT/N`. Then sum over `k ≤ log₂M`, which gives `S₃ ≤ C′(qT)^{ε′}((qT)²|R|^{3/2} + qTN|R|^{1/2}E^{1/2})` plus the explicit errors of `prop72`.
+
+## Round 667: their (11.2), the blocks of their Proposition 7.2 summed (stage M3, the `S₃` side; `external/pnt/LinnikCGL112.lean`)
+
+**The results.** Below, `E` is the energy, `G = ∫ψ̃₀·E + |R|⁴D_K/X^K` (`Gq`) and `P = 12C(qT)^εX³|R|`. `C ≥ 0` and `Q₀` are the constants that round 666's `block_le` takes from `CGLP81`, for `0 < ϖ < 1`, `ε > 0` and `K ∈ ℕ`. `M` is the truncation `0 < |m_i| ≤ M` of round 657's `prop72`, and `B_k` its dyadic blocks (round 660's `blk`).
+
+- `LinnikCGL112.sum_blk_It_le`: one block, square-rooted. For `χ` injective on `R`, `qT ≥ Q₀`, `T ≥ 1`, points `|t_i| ≤ T`, `N > 0`, `X ≥ 1`, `2^kN/q ≤ XT` and `2^{k+1} ≤ (qT)^ϖ`, `Σ_{m⃗∈B_k}Ĩ ≤ (k + 1)∫ψ̃₀·φ(q)²√P(24·2^{3k}|R| + 12·2^{2k}√G)`. Round 666's `3φ(q)|R|V_k` is `((k + 1)∫ψ̃₀·φ(q)²)²·P·(9M_k⁶|R|² + 8M_k⁴G)` with `M_k = 2^{k+1}`, and `√(9M_k⁶|R|² + 8M_k⁴G) ≤ 3M_k³|R| + 3M_k²√G`.
+- `LinnikCGL112.block_alg`: the algebra of one block, `A·N²/(q²u)·(k + 1)Iφ²s(24u³ρ + 12u²g) = AIs·(k + 1)(φ²/q²)(24N²u²ρ + 12N²ug)` for `q, u ≠ 0`.
+- `LinnikCGL112.S3_le_blocks`: for `χ` injective on `R`, `qT ≥ Q₀`, `T ≥ 1`, points `|t_i| ≤ T`, `N > 0`, `X ≥ 1`, `M ≥ 1`, `K_t ≥ 2`, `NM/q ≤ XT` and `2M ≤ (qT)^ϖ`, `S₃ ≤ 6C_J(0)d(q)∫ψ̃₀(log₂M + 1)²√P(24(NM)²|R| + 12N²M√G)` plus round 657's three explicit errors at `M`, `K_t` and any `K′`. Each block's `Σ_{m⃗∈B_k}A_k` is at most `2C_J(0)d(q)∫ψ̃₀(log₂M + 1)√P(24(NM)²|R| + 12N²M√G)`, by `φ(q) ≤ q`, `k ≤ log₂M` and `2^k ≤ M`. The hypothesis `NM/q ≤ XT` gives round 665's `L ≤ XT` on every block.
+- `LinnikCGL112.S3_le_112`: under the same hypotheses, the same bound with `(NM)²` and `N²M` replaced by `(XqT)²` and `XqTN`. This is their (11.2), `S₃ ⪅ (qT)²|W|^{3/2} + qTN|W|^{1/2}E(W)^{1/2}`, in explicit form.
+
+**Their text.** Re-read this round in the text layer. The underscore in the quotation is escaped for the renderer.
+
+- Their step: "Gathering all these estimates together, we arrive at S₃ ⪅\_ϵ (N²/(q²M₂)) (ϕ(q)|W|)^{1/2} ϕ(q)^{3/2} (M₂⁶|W|² + M₂⁴E(W))^{1/2} + |W| ≤ N²M₂²|W|^{3/2} + N²M₂|W|^{1/2}E(W)^{1/2}. Since M₂ ⪅ qT/N, we get (11.2) S₃ ⪅ (qT)²|W|^{3/2} + qTN|W|^{1/2}E(W)^{1/2}." (lines 5855–5866; spaces restored; the fraction, subscripts and exponents transcribed).
+- Their next sentence: "Finally, inserting the energy bound established in Section 10 (see Proposition 10.2) into the above inequality yields the result." (lines 5867–5868).
+
+**The stack's form.**
+
+- **Every block, summed.** They bound `S₃` at one dyadic scale `M₂`. The stack sums the `log₂M + 1` blocks of round 657's `prop72`, which carries every scale.
+- **The factor `(log₂M + 1)²`.** One factor comes from the number of blocks. The other comes from the `4(k + 1)²` of round 666's `V_k`, under the square root. Both are powers of a logarithm, which their `⪅` absorbs.
+- **The errors.** Round 657's three explicit errors are carried unchanged: round 654's error at `K′`, the term `|R||μ − μ₀|³`, and the truncation at `M` and `K_t`. The energy term `G` keeps round 659's error `|R|⁴D_K/X^K`.
+- **`M₂ ⪅ qT/N`.** The stack's hypothesis `NM/q ≤ XT` plays the part of their "M₂ ⪅ qT/N". Round 665's decay needs it on every block, and it gives the form of (11.2).
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGL112.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`S3_le_blocks`, `S3_le_112`).
+- `frontier/linnik/CGL-LEAN.md`: the row P11.1, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+
+**What is checked.**
+
+- Mathlib's names were checked first (`scratchpad/r667/check.lean`).
+- The file was compiled in scratch in five runs (`scratchpad/r667/lc.sh`; `lc.out` to `lc5.out`). The last run had exit 0 and no warning. The fixes were a `ring` in place of a `mul_assoc` rewrite, which matched inside a `set` variable; the algebra of one block moved to the generic lemma `block_alg`, since `field_simp` timed out on the goal itself; `clear_value` on the abbreviations of `S3_le_blocks`, with their definitions kept as equations; the final step as `add_le_add` in place of `linarith`; a rewrite replaced by `nlinarith`; and a `ring` dropped after `field_simp` closed the goal. The header's prose was then re-wrapped; the build below compiled the final file.
+- Then `build.sh` ran once (`scratchpad/r667/compile.sh 1`, log `build_1.log`): `1 compiled, 402 up to date` (`LinnikCGL112` 24 s), exit 0 in 35 s, with no error, warning or `sorry`. Its 604 axiom lines (3 by the module, 601 by the final check, which gains two lines) are 591 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms"; the 13 are in the final check, as before. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.98 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed: `tools/research/render_lint.py` against HEAD (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row P11.1 gains round 667 in its stack cell and a clause in its status, with nothing in it superseded. The opening's parenthetical gains round 667, and M3 gains a note.
+- `external/pnt/README.md`: a row, and a section with a heading.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their §11 at lines 5855–5868, re-read for this round's quotations.
+- `LinnikCGL112.lean` in full.
+- The operative definitions and statements: round 657's `prop72`, `Ak` and `E71`; round 660's `blk` and `sum_blk`; round 654's `CJ` and `CJ_nonneg`; round 666's `block_le` and `Vblk`; round 659's `energy` and `Dpsi`; round 650's `tauM`; and round 639's `S3`. For the next step, `CGLS3`.
+
+**Check 4.** No defect in the cascade or the stack is raised. `CGLS3` and `CGLP81` stay displayed hypotheses.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** This round completes the block named in round 666, rounds 658 to 667. Their batched hostile review follows this commit.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Proposition 10.2, the energy bound, from Heath-Brown's Theorem 10.1 as a displayed hypothesis. Then `CGLS3`: the choices `X = (qT)^{ε′}`, `M` with `NM/q ≤ XT`, and `K`, `K_t`, `K′` large, with the errors and logarithms absorbed into `(qTN)^ε`.

@@ -187,6 +187,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLPhi.lean` | 664 | the Fourier decay of the pieces `φ_{u′} = ψ·K(· − u′)` of Chen–Gupta–Li's `f_b`: `(2π\|ξ\|)^j\|φ̂_{u′}(ξ)\| ≤ B_j(L, X)` (`fourier_phi_le`), from Leibniz's rule and the kernel's scaling (`integral_abs_iteratedDeriv_kerS`, `integral_abs_iteratedDeriv_phi_le`) |
 | `LinnikCGLDecay.lean` | 665 | the Fourier decay of Chen–Gupta–Li's `f_b` in the form of the premise of their Proposition 8.1: `f̂_b` as an average of round 664's `φ̂_{u′}` by Fubini (`fourier_fb_eq`), `B_j(L, X) ≤ 2T^j·min(2X, L/(2T))·E_j` for `L ≤ XT` (`Bj_le`), and `Σ_b\|f̂_b(ξ)\| ≤ D_j(T/\|ξ\|)^jφ(q)f_{b₀}(u₀)` (`fb_decay_all`) |
 | `LinnikCGLBlock.lean` | 666 | Chen–Gupta–Li's `S₃,₃`, `S₃,₄` and the block sums of `Ĩ`, by their Proposition 8.1 (round 662's `CGLP81`, a displayed hypothesis) and Lemmas 9.1 and 9.2: the two moments of `f_b` (`integral_sum_fb_le`, `integral_sum_fb_sq_le`), `CGLP81` on the block `k` (`S34_le_P81`), and `S₃,₄ ≤ V`, `S₃,₃ ≤ 4V`, `(Σ_{m⃗∈B}Ĩ(m⃗))² ≤ 3φ(q)\|R\|V` (`block_le`) |
+| `LinnikCGL112.lean` | 667 | Chen–Gupta–Li's (11.2) in explicit form: each dyadic block square-rooted (`sum_blk_It_le`), and the blocks of round 657's Proposition 7.2 summed, `S₃ ≤ 6C_J(0)d(q)∫ψ̃₀(log₂M + 1)²√P(24(NM)²\|R\| + 12N²M√G)` plus its three errors (`S3_le_blocks`), with `NM ≤ XqT` (`S3_le_112`) |
 
 ## Building (rounds 217, 618)
 
@@ -995,3 +996,14 @@ Round 666 applies round 662's `CGLP81`, a displayed hypothesis, to round 663's `
 - `Vblk`, `block_le`: `S₃,₄ ≤ V`, `S₃,₃ ≤ 4V` and `(Σ_{m⃗∈B}Ĩ(m⃗))² ≤ 3φ(q)|R|V`, with `V = 4(k + 1)²C(qT)^ε(∫ψ̃₀)²X³φ(q)³(9M⁶|R|² + 8M⁴(∫ψ̃₀·E + |R|⁴D_K/X^K))`.
 
 See the main README, round 666, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 599 lines.
+
+## Their (11.2): LinnikCGL112.lean (round 667)
+
+Round 667 sums round 666's block bounds over the dyadic blocks of round 657's `prop72`, with `G = ∫ψ̃₀·E + |R|⁴D_K/X^K` and `P = 12C(qT)^εX³|R|`.
+
+- `Gq`, `Gq_nonneg`: the energy term `G`.
+- `sum_blk_It_le`: `Σ_{m⃗∈B_k}Ĩ ≤ (k + 1)∫ψ̃₀·φ(q)²√P(24·2^{3k}|R| + 12·2^{2k}√G)`.
+- `block_alg`, `S3_le_blocks`: the algebra of one block, and `S₃ ≤ 6C_J(0)d(q)∫ψ̃₀(log₂M + 1)²√P(24(NM)²|R| + 12N²M√G)` plus round 657's three errors, for `NM/q ≤ XT` and `2M ≤ (qT)^ϖ`.
+- `S3_le_112`: the same with `(XqT)²` and `XqTN` in place of `(NM)²` and `N²M`: their (11.2).
+
+See the main README, round 667, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 601 lines.
