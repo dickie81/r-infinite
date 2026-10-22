@@ -202,6 +202,8 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLPois8.lean` | 680 | `ĝ_a` by Poisson in residue classes: for smooth `f_b` that are `0` for `\|u\| > A`, `M₁ > 0` and `L > 0`, `ĝ_a(ξ) = Σ_bΣ_{m₁,m₂}(m₂/\|m₁\|)f̂_b(m₂ξ/m₁)Σ_{n∈ℤ}(L/q)ψ̂₀(L(n/q − ξ/m₁))e_q(−n(am₁ + bm₂))c_q(n)` with `c_q(n) = Σ_{d∈ℤ/qℤ}(d, q)e_q(nd)` (`fourier_ga_poisson`, from `poisson_S`) |
 | `LinnikCGLCount.lean` | 681 | Chen–Gupta–Li's count of the pairs `(m₁′, n′)` in their Lemma 8.2: for `q ≥ 1`, `L > 0`, `M₁ > 0`, `0 < δ ≤ 1`, real `ξ`, `x ∈ ℤ/qℤ` and a finite set `T` of integers, `Σ_{m₁′∈P1 M₁}Σ_{n′∈T, n′≠0}\|ψ̂₀(L(n′/q − ξ/m₁′))\|(n′m₁′ − x, q) ≤ 4C_δB₄(1 + q\|ξ\|)^δ(1 + 2qM₁/L)^δ(Σ_h(h, q))(2π + 8πM₁/L)` (`count_le`) |
 | `LinnikCGLAsum.lean` | 681 | Their sum over `a` by the Ramanujan sum: with the hypotheses of `count_le` and any `F`, `Σ_a\|Σ_{m∈P1}Σ_{n∈T, n≠0}(L/q)Ψ(m, n)c_q(n)F(m, n)e_q(−anm)\|² ≤ d(q)(L/q)²(Σ_h(h, q))²N_δΣ_mΣ_n\|Ψ(m, n)\|\|F(m, n)\|²`, with `Ψ(m, n) = ψ̂₀(L(n/q − ξ/m))` and `N_δ` the bound of `count_le` (`sum_a_finite_le`) |
+| `LinnikCGLNsum.lean` | 682 | `ĝ_a` as a sum over `m₁` and `n`, with the term `n = 0` split off (`fourier_ga_split`), and Chen–Gupta–Li's sum over `a` for every `n ≠ 0`: for `q ≥ 1`, smooth `f_b` that are `0` for `\|u\| > A`, `M₁ > 0`, `L > 0`, `0 < δ ≤ 1` and real `ξ`, `Σ_a\|ĝ_a(ξ) − Σ_{m₁}tg(a, m₁, 0)\|² ≤ d(q)(L/q)²(Σ_h(h, q))²N_δΣ_{m₁}Σ_{n≠0}\|Ψ(m₁, n)\|\|F(m₁, n)\|²` (`sum_a_fourier_ga_le`) |
+| `LinnikCGLN0.lean` | 682 | The term `n = 0` of `ĝ_a`, their `I`: for `q ≥ 1`, `f_b ≥ 0`, `M₁ > 0` and `L > 0`, `Σ_a∫\|Σ_{m₁}tg(a, m₁, 0)\|² dξ ≤ φ(q)W₀²·2πM₁/L` with `W₀ = #P1·(L/q)B₄(Σ_h(h, q))#P2·(2M₂/M₁)Σ_b∫f_b` (`sum_integral_g0_le`) |
 
 ## Building (rounds 217, 618)
 
@@ -1198,3 +1200,28 @@ Round 681 bounds the sum over the units `a` in Chen–Gupta–Li's Lemma 8.2, wi
 - `sum_a_finite_le`: for `L > 0`, `M₁ > 0`, `0 < δ ≤ 1`, real `ξ`, a finite set `T` of integers and any `F : ℤ → ℤ → ℂ`, with `Ψ(m, n) = ψ̂₀(L(n/q − ξ/m))`, `Σ_a|Σ_{m∈P1 M₁}Σ_{n∈T, n≠0}(L/q)Ψ(m, n)c_q(n)F(m, n)e_q(−anm)|² ≤ d(q)(L/q)²(Σ_h(h, q))²N_δΣ_{m∈P1 M₁}Σ_{n∈T, n≠0}|Ψ(m, n)||F(m, n)|²`, with `N_δ` the bound of `count_le`.
 
 See the main README, round 681, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 633 lines.
+
+## ĝ_a as a sum over m₁ and n: LinnikCGLNsum.lean (round 682)
+
+Round 682 writes round 680's `fourier_ga_poisson` as a sum over `m₁` and `n`, splits off the term `n = 0`, and passes round 681's `sum_a_finite_le` to every `n ≠ 0`, with `q ≥ 1`, `Ψ(m₁, n) = ψ̂₀(L(n/q − ξ/m₁))`, `c_q(n)` round 680's `cqg` and `e_q` Mathlib's `ZMod.stdAddChar`.
+
+- `Fb`, `norm_Fb_le`: their inner sums over `b` and `m₂`, `F(m₁, n) = Σ_bΣ_{m₂∈P2 M₂}(m₂/|m₁|)f̂_b(m₂ξ/m₁)e_q(−nbm₂)`, and `|F(m₁, n)| ≤ Σ_bΣ_{m₂}|(m₂/|m₁|)f̂_b(m₂ξ/m₁)|`.
+- `tg`, `summable_tg`: the term `tg(a, m₁, n) = (L/q)Ψ(m₁, n)c_q(n)F(m₁, n)e_q(−anm₁)`, and for `L > 0` its series over `n ∈ ℤ` converges.
+- `fourier_ga_eq`, `fourier_ga_split`: for smooth `f_b` that are `0` for `|u| > A`, `M₁ > 0` and `L > 0`, `ĝ_a(ξ) = Σ_{m₁∈P1 M₁}Σ_{n∈ℤ}tg(a, m₁, n) = Σ_{m₁}tg(a, m₁, 0) + Σ_{m₁}Σ_{n≠0}tg(a, m₁, n)`.
+- `sum_ite_zero`, `sum_norm_sq_tsum_le`: `Σ_{n∈T}[n ≠ 0]G(n) = Σ_{n∈T, n≠0}G(n)`; and for `a` in a finite type and a finite set `P` of integers, if `Σ_a|Σ_{m∈P}Σ_{n∈T}t_a(m, n)|² ≤ KΣ_{m∈P}Σ_{n∈T}r(m, n)` for every finite set `T` of integers, with `K ≥ 0`, `r ≥ 0` and the series over `n` convergent, the same holds with the sums over `n ∈ ℤ`.
+- `sum_a_le`: for `L > 0`, `M₁ > 0`, `0 < δ ≤ 1`, real `ξ` and coefficients `F(m, n)` bounded in `n` for each `m`, `Σ_a|Σ_{m∈P1 M₁}Σ_{n≠0}(L/q)Ψ(m, n)c_q(n)F(m, n)e_q(−anm)|² ≤ d(q)(L/q)²(Σ_h(h, q))²N_δΣ_{m∈P1 M₁}Σ_{n≠0}|Ψ(m, n)||F(m, n)|²`, with `N_δ` the bound of round 681's `count_le`.
+- `sum_a_fourier_ga_le`: for smooth `f_b` that are `0` for `|u| > A`, `M₁ > 0`, `L > 0`, `0 < δ ≤ 1` and real `ξ`, `Σ_a|ĝ_a(ξ) − Σ_{m₁}tg(a, m₁, 0)|² ≤ d(q)(L/q)²(Σ_h(h, q))²N_δΣ_{m₁∈P1 M₁}Σ_{n≠0}|Ψ(m₁, n)||F(m₁, n)|²`.
+
+See the main README, round 682, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean.
+
+## The term n = 0, their I: LinnikCGLN0.lean (round 682)
+
+Round 682 bounds the term `n = 0` of `ĝ_a`, which corresponds to Chen–Gupta–Li's term `ℓ = 0` in (8.4), with `q ≥ 1`, `L_c(r) = (1 + c²r²)⁻¹` round 673's `lor`, `B₄` round 681's `B4` and `(h, q)` round 681's `gw`.
+
+- `norm_fourier_fC_le`: for `f_b ≥ 0`, `|f̂_b(η)| ≤ ∫f_b`.
+- `norm_Fb_le_int`: for `f_b ≥ 0`, `M₁ > 0` and `m₁ ∈ P1 M₁`, `|F(m₁, n)| ≤ #P2·(2M₂/M₁)Σ_b∫f_b`.
+- `norm_tg_zero_le`: for `f_b ≥ 0`, `M₁ > 0`, `L > 0` and `m₁ ∈ P1 M₁`, `|tg(a, m₁, 0)| ≤ (L/q)B₄L_{L/(2M₁)}(ξ)²(Σ_h(h, q))#P2·(2M₂/M₁)Σ_b∫f_b`.
+- `W0`, `norm_g0_le`: with `W₀ = #P1·(L/q)B₄(Σ_h(h, q))#P2·(2M₂/M₁)Σ_b∫f_b`, for `f_b ≥ 0`, `M₁ > 0` and `L > 0`, `|Σ_{m₁∈P1 M₁}tg(a, m₁, 0)| ≤ W₀L_{L/(2M₁)}(ξ)²`.
+- `sum_integral_g0_le`: for `f_b ≥ 0`, `M₁ > 0` and `L > 0`, `Σ_a∫|Σ_{m₁∈P1 M₁}tg(a, m₁, 0)|² dξ ≤ φ(q)W₀²·2πM₁/L`.
+
+See the main README, round 682, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 636 lines.

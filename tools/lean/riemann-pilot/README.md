@@ -29046,3 +29046,70 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Take `n` over all of `ℤ`: write `ĝ_a(ξ)` from round 680's `fourier_ga_poisson` as `(L/q)Σ_{m₁}Σ_nΨ(m₁, n)c_q(n)e_q(−anm₁)F(m₁, n)` with `F(m₁, n) = Σ_{m₂,b}(m₂/|m₁|)f̂_b(m₂ξ/m₁)e_q(−nbm₂)`, split off `n = 0`, and pass `sum_a_finite_le` to the limit.
+
+## Round 682: `ĝ_a` as a sum over `m₁` and `n`, the sum over `a` for every `n ≠ 0`, and the term `n = 0` (stage M4; `external/pnt/LinnikCGLNsum.lean`, `LinnikCGLN0.lean`)
+
+**The results.** Below, `q ≥ 1`, `Ψ(m₁, n) = ψ̂₀(L(n/q − ξ/m₁))` with `ψ̂₀` round 659's `𝓕 psiC`, `c_q(n)` round 680's `cqg`, `e_q` Mathlib's `ZMod.stdAddChar`, `(h, q)` round 681's `gw`, `L_c(r) = (1 + c²r²)⁻¹` round 673's `lor`, `B₄` round 681's `B4` and `N_δ` the bound of round 681's `count_le`. Their inner sums over `b` and `m₂` are `F(m₁, n) = Σ_bΣ_{m₂∈P2 M₂}(m₂/|m₁|)f̂_b(m₂ξ/m₁)e_q(−nbm₂)` (`LinnikCGLNsum.Fb`), and `tg(a, m₁, n) = (L/q)Ψ(m₁, n)c_q(n)F(m₁, n)e_q(−anm₁)` (`LinnikCGLNsum.tg`).
+
+- `LinnikCGLNsum.fourier_ga_eq`, `fourier_ga_split`: for smooth `f_b` that are `0` for `|u| > A`, `M₁ > 0` and `L > 0`, `ĝ_a(ξ) = Σ_{m₁∈P1 M₁}Σ_{n∈ℤ}tg(a, m₁, n) = Σ_{m₁}tg(a, m₁, 0) + Σ_{m₁}Σ_{n≠0}tg(a, m₁, n)`, from round 680's `fourier_ga_poisson` by `e_q(−n(am₁ + bm₂)) = e_q(−anm₁)e_q(−nbm₂)`. For `L > 0` the series over `n` converges (`summable_tg`).
+- `LinnikCGLNsum.sum_norm_sq_tsum_le`: for `a` in a finite type and a finite set `P` of integers, if `Σ_a|Σ_{m∈P}Σ_{n∈T}t_a(m, n)|² ≤ KΣ_{m∈P}Σ_{n∈T}r(m, n)` for every finite set `T` of integers, with `K ≥ 0`, `r ≥ 0` and the series over `n` convergent, the same holds with the sums over `n ∈ ℤ`.
+- `LinnikCGLNsum.sum_a_le`, `sum_a_fourier_ga_le`: round 681's `sum_a_finite_le` for every `n ≠ 0`. For `L > 0`, `M₁ > 0`, `0 < δ ≤ 1`, real `ξ` and coefficients `F(m, n)` bounded in `n` for each `m`, `Σ_a|Σ_{m∈P1 M₁}Σ_{n≠0}(L/q)Ψ(m, n)c_q(n)F(m, n)e_q(−anm)|² ≤ d(q)(L/q)²(Σ_h(h, q))²N_δΣ_{m∈P1 M₁}Σ_{n≠0}|Ψ(m, n)||F(m, n)|²`. So for smooth `f_b` that are `0` for `|u| > A`, `M₁ > 0`, `L > 0`, `0 < δ ≤ 1` and real `ξ`, `Σ_a|ĝ_a(ξ) − Σ_{m₁}tg(a, m₁, 0)|² ≤ d(q)(L/q)²(Σ_h(h, q))²N_δΣ_{m₁}Σ_{n≠0}|Ψ(m₁, n)||F(m₁, n)|²`.
+- `LinnikCGLN0.norm_fourier_fC_le`, `norm_Fb_le_int`: for `f_b ≥ 0`, `|f̂_b(η)| ≤ ∫f_b`; and with `M₁ > 0` and `m₁ ∈ P1 M₁`, `|F(m₁, n)| ≤ #P2·(2M₂/M₁)Σ_b∫f_b`.
+- `LinnikCGLN0.norm_tg_zero_le`, `norm_g0_le`: for `f_b ≥ 0`, `M₁ > 0` and `L > 0`, `|tg(a, m₁, 0)| ≤ (L/q)B₄L_{L/(2M₁)}(ξ)²(Σ_h(h, q))#P2·(2M₂/M₁)Σ_b∫f_b` for `m₁ ∈ P1 M₁`, so `|Σ_{m₁∈P1 M₁}tg(a, m₁, 0)| ≤ W₀L_{L/(2M₁)}(ξ)²` with `W₀ = #P1·(L/q)B₄(Σ_h(h, q))#P2·(2M₂/M₁)Σ_b∫f_b` (`W0`).
+- `LinnikCGLN0.sum_integral_g0_le`: their `I`, for the term `n = 0`. For `f_b ≥ 0`, `M₁ > 0` and `L > 0`, `Σ_a∫|Σ_{m₁∈P1 M₁}tg(a, m₁, 0)|² dξ ≤ φ(q)W₀²·2πM₁/L`.
+
+**Their text.** Re-read this round in the text layer.
+
+- The split: "We separate the terms on the right-hand side of (8.2) where q∤n to define ĝ_{a,1}(ξ) and define ĝ_{a,2}(ξ) using the remaining terms." (lines 2834–2835.)
+- Their `I`: "8.2.5. The contribution of I. By the definition of ĝ_{a,2}(ξ), we see that" (line 4235), "It follows from the Cauchy-Schwarz inequality and the positivity of f_b that" (line 4284) and "Since M₁, M₂, M₃ ≤ M, we conclude that" (line 4325).
+- In these, spaces are restored and the hats and subscripts transcribed. `scratchpad/r682/quotes.py` checks the four quotes against the text layer with spaces removed and those transcriptions undone (`quotes.out`: PASS).
+
+**The stack's form.**
+
+- **Every `n` is kept.** Their (8.2) keeps the `n` with `|ξ − nm₁/q| ⪅ M₁/M₃`, at an error `O((qT)^{−103})` (lines 2795–2833). The stack keeps every `n ∈ ℤ`, and the series over `n` converges (`summable_tg`).
+- **The split is `n = 0` against `n ≠ 0`.** Their `ĝ_{a,1}` and `ĝ_{a,2}` hold the terms with `q ∤ n` and `q | n`. Round 681's `sum_a_finite_le` holds for every `n ≠ 0`, so their terms with `q | n` and `n ≠ 0` join the stack's terms `n ≠ 0`.
+- **The limit over finite sets of `n`.** The left side of round 681's bound converges along the finite sets of `n`, and the finite sums on its right side are at most their series, whose terms are nonnegative (`sum_norm_sq_tsum_le`).
+- **Their `I`.** The stack's term `n = 0` corresponds to their term `ℓ = 0` in (8.4) (lines 2868–2891). Its integral runs over all `ξ`: for `|m₁| ≤ 2M₁`, `|ψ̂₀(−Lξ/m₁)| ≤ B₄L_{L/(2M₁)}(ξ)²`, and `∫L_c = π/c`. So their region `|ξ| ≤ (qT)^ηM₁/M₃` is not needed. Their bound of `sup_ξ|f̂_b(ξ)|` by `∫f_b` for `f_b ≥ 0` is `norm_fourier_fC_le`, and the triangle inequality takes the place of their Cauchy–Schwarz.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLNsum.lean` and `LinnikCGLN0.lean`: new.
+- `external/pnt/build.sh`: the two modules, their imports in the final check and three `#print axioms` lines (`fourier_ga_split`, `sum_a_fourier_ga_le`, `sum_integral_g0_le`).
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1, a note under M4, and the opening's parenthetical.
+- `external/pnt/README.md`: two rows, and a section for each file.
+
+**What is checked.**
+
+- `LinnikCGLNsum` was compiled in scratch in two runs with `lean --json` (`scratchpad/r682/run.sh`, `lcj1.out` and `lcj2.out`), and `LinnikCGLN0` in three (`scratchpad/r682/run0.sh`, `lcj11.out` to `lcj13.out`). The last run of each had exit 0, and its only messages were the axiom lines, all `[propext, Classical.choice, Quot.sound]`. Docstrings were edited after those runs; `build.sh` below compiled the final files.
+- The fix in `LinnikCGLNsum`: a binder of a `fun` took the type `ZMod q` from a cast inside it, and was given its type `(ZMod q)ˣ`.
+- The fix in `LinnikCGLN0`: the nested absolute value `|x/|y||` did not parse, since its closing bars read as `||` and a space before a closing bar is refused; the outer one is written `abs`.
+- Then `build.sh` ran twice (`scratchpad/r682/compile.sh`, logs `build_1.log` and `build_2.log`). Run 1: `2 compiled, 417 up to date` (`LinnikCGLNsum` 10 s, `LinnikCGLN0` 8 s), exit 0 in 28 s. A comment in `LinnikCGLN0`'s header was then corrected (the argument of `ψ̂₀` is `−Lξ/m₁`), and run 2 recompiled that module: `1 compiled, 418 up to date` (9 s), exit 0 in 19 s. Neither run had an error, warning or `sorry`. Run 1's 647 axiom lines are 11 by the modules and 636 by the final check, and run 2's 641 are 5 and 636; in each, all but 13 have exactly `propext`, `Classical.choice` and `Quot.sound`, and those 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.93 GiB in run 1 and 6.86 GiB in run 2 (`rss_watch_build_1.log`, `rss_watch_build_2.log`).
+- The files have no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/r682/apply_docs.py` makes the six edits to CGL-LEAN.md and the external README, each asserted to occur once; run again, it writes nothing.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r682/gate.out`): the render lint against HEAD as multisets, with none new, and `k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1 gains round 682 in its stack cell and a net-state marker; M4 gains a note; the opening's parenthetical gains round 682.
+- `external/pnt/README.md`: two rows, and a section for each file.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- In the text layer, line by line: their §8.2.1 from the end of their setup of `ĝ_a` to (8.4) (lines 2774–2900), and their §8.2.4 to §8.2.6 (lines 4148–4342).
+- The operative definitions and statements: round 680's `P1`, `mem_P1`, `P2`, `mem_P2` and `fC` (`LinnikCGLG.lean` 55, 58, 73, 76 and 319) and `summable_psiC_lattice`, `cqg` and `fourier_ga_poisson` (`LinnikCGLPois8.lean` 99, 245 and 346); round 681's `B4`, `norm_fourier_psiC_le_lor`, `lor_pos'`, `lor_le_one`, `lor_neg`, `gw` and `count_le` (`LinnikCGLCount.lean` 55, 58, 80, 82, 85, 209 and 252) and `norm_stdAddChar`, `norm_cqg_le` and `sum_a_finite_le` (`LinnikCGLAsum.lean` 49, 133 and 148); round 673's `lor`, `integrable_lor` and `integral_lor` (`LinnikCGLSep.lean` 72, 83 and 89); round 525's `one_le_Cdiv` (`LinnikPower.lean` 64); and Mathlib's `Summable.tsum_eq_add_tsum_ite`, `hasSum_sum`, `tendsto_finsetSum`, `Summable.sum_le_tsum`, `summable_norm_iff`, `integral_mono_of_nonneg` and `ZMod.card_units_eq_totient`.
+- Both new files in full: their proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the files' headers and docstrings list them.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** As in rounds 680 and 681: stage M4's block gets one hostile review, with the convergence review of round 679's sweep.
+
+**Bearing on RH:** none.
+
+**The next step.** Integrate the terms `n ≠ 0` over `|ξ| ≤ X`, change variables `ξ = m₁(n/q + τ/L)` in each, and bound the result by their `Σ_II`; bound the tail `|ξ| > X` with the decay premise.

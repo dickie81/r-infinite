@@ -139,14 +139,16 @@ for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
 # (LinnikCGLEps), and (round 678) their Proposition 11.1, CGLS3 from CGLP81 and CGLT101, and Linnik's exponents
 # 9/4 and 226/100 from those two (LinnikCGLS3), and (round 680) the majorant of their J, Plancherel and its Fourier
 # transform (LinnikCGLG), and its Poisson expansion in residue classes (LinnikCGLPois8), and (round 681) their count
-# of the pairs (m₁′, n′) (LinnikCGLCount), and the sum over a by the Ramanujan sum (LinnikCGLAsum).
+# of the pairs (m₁′, n′) (LinnikCGLCount), and the sum over a by the Ramanujan sum (LinnikCGLAsum), and (round 682)
+# ĝ_a as a sum over m₁ and n with the sum over a for every n ≠ 0 (LinnikCGLNsum), and the term n = 0, their I
+# (LinnikCGLN0).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
     LinnikCGLPair LinnikCGLFrob LinnikCGLS2 LinnikCGLFourier LinnikCGLPoisson LinnikCGLTrace \
     LinnikCGLDiag LinnikCGLTrunc LinnikCGLProd LinnikCGLRFact LinnikCGLRam LinnikCGLP71 LinnikCGLSym LinnikCGLRt \
     LinnikCGLP72 LinnikCGLMom LinnikCGLMom4 LinnikCGLCS LinnikCGLJ LinnikCGLFb LinnikCGLPhi LinnikCGLDecay \
     LinnikCGLBlock LinnikCGL112 LinnikCGLLoc LinnikCGLL105 LinnikCGLT101 LinnikCGLL107 LinnikCGLSep \
     LinnikCGLL109 LinnikCGLL1010 LinnikCGLCase LinnikCGLEps LinnikCGLS3 LinnikCGLG LinnikCGLPois8 \
-    LinnikCGLCount LinnikCGLAsum; do
+    LinnikCGLCount LinnikCGLAsum LinnikCGLNsum LinnikCGLN0; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -347,6 +349,8 @@ import LinnikCGLG
 import LinnikCGLPois8
 import LinnikCGLCount
 import LinnikCGLAsum
+import LinnikCGLNsum
+import LinnikCGLN0
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -894,6 +898,9 @@ import LinnikCGLAsum
 #print axioms LinnikCGLPois8.fourier_ga_poisson
 #print axioms LinnikCGLCount.count_le
 #print axioms LinnikCGLAsum.sum_a_finite_le
+#print axioms LinnikCGLNsum.fourier_ga_split
+#print axioms LinnikCGLNsum.sum_a_fourier_ga_le
+#print axioms LinnikCGLN0.sum_integral_g0_le
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy
