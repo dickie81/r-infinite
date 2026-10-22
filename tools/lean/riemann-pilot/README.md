@@ -27601,3 +27601,60 @@ The proof is theirs, "Inserting these bounds into (7.3) and applying the triangl
 **Bearing on RH:** none.
 
 **The next step.** Their Proposition 10.2, the energy bound `E(W) ⪅ |W|N^{4−4σ} + |W|^{21/8}(qT)^{1/4}N^{1−2σ} + |W|³N^{1−2σ}`, through their Lemmas 10.4–10.10, with Heath-Brown's Theorem 10.1 as a displayed hypothesis.
+
+## Round 660: the two Cauchy–Schwarz steps of their §11 (stage M3, the `S₃` side; `external/pnt/LinnikCGLCS.lean`)
+
+**The results.** Below, `q ≥ 1`, `L = NM₂/q ≥ 0` and `X` stands for their `(qT)^ϵ`. `B` is a finite set of triples; in use it is round 657's block `blk M k`, with `0 < |m_i| ≤ M`, `⌊log₂|m₂|⌋ = k` and `|m₁|, |m₃| ≤ |m₂|`.
+
+- `LinnikCGLCS.sum_blk`: the triple sum of `prop72` restricted to the block `k` is the sum over `blk M k`.
+- `LinnikCGLCS.cs_vb`: for nonnegative measurable `A`, `Y` bounded on `[1/2, 2]`, `∫_{[1/2,2]}Σ_bAY ≤ √(∫_{[1/2,2]}Σ_bA²)√(∫_{[1/2,2]}Σ_bY²)`, the sums over the units. It is the finite Cauchy–Schwarz inequality pointwise, then round 656's `cs_Icc`.
+- `LinnikCGLCS.sum_It_eq`, `sum_It_sq_le`: `Σ_{m⃗∈B}Ĩ_{M₂}(m⃗) = ∫_{[1/2,2]}Σ_{b₁}|R(v, b₁)|Y(v, b₁) dv`, so `(Σ_{m⃗∈B}Ĩ_{M₂}(m⃗))² ≤ S₃,₁S₃,₂`. Here `Y(v, b₁) = Σ_{b₂}Σ_{m⃗∈B}R̃(c₁, b₁⁻¹b₂)R̃(c₂, b₂)(b₁m₁ − b₂m₂ + m₃, q)`, with `c₁ = (m₁v + m₃)/(m₂v)` and `c₂ = (m₁v + m₃)/m₂`, `S₃,₁ = ∫_{[1/2,2]}Σ_{b₁}|R(v, b₁)|² dv` and `S₃,₂ = ∫_{[1/2,2]}Σ_{b₁}Y² dv`.
+- `LinnikCGLCS.Yb_sq_le`, `S32_le`: `Y² ≤ PQ` by Cauchy–Schwarz over `(b₂, m⃗)` with the gcd weight, so `S₃,₂ ≤ √S₃,₃·√S₃,₄`. Here `P` and `Q` are `Y` with `R̃(c₁, b₁⁻¹b₂)²` and `R̃(c₂, b₂)²` respectively in place of the product, and `S₃,₃`, `S₃,₄` are the integrals over `[1/2, 2]` of `Σ_{b₁}P²` and `Σ_{b₁}Q²`.
+
+**Their text.** Re-read this round in the text layer. From Proposition 7.2, "Applications of the Cauchy-Schwarz inequality and the second moment bound for R (cf. Lemma 9.1) give" (lines 5567–5568, spaces restored) `S₃ ⪅ (N²/(q²M₂))S₃,₁^{1/2}S₃,₂^{1/2} + |W|`, with `S₃,₁` and `S₃,₂` defined at lines 5575–5607. Then "Using the Cauchy-Schwarz inequality again, we have that (11.1) S₃,₂ ≤ S₃,₃^{1/2}S₃,₄^{1/2}," (lines 5608–5611; spaces restored, the subscripts and exponents transcribed), with `S₃,₃` and `S₃,₄` defined at lines 5613–5654.
+
+**The stack's form.** Their sums run over `|m_i| ∼ M_i`; the stack's run over the block, and its steps are exact inequalities where theirs are stated with `⪅`. Round 658's `lemma91` gives `S₃,₁ = (3/2)φ(q)|R|` exactly.
+
+**An observation about their write-up, for the next step.** For `S₃,₃` their change of variables `u = v⁻¹` turns `(m₁v + m₃)/(m₂v)` into `(m₁ + m₃u)/m₂`, which is the form their Proposition 8.1 needs. The paper prints the denominator as `m₂u` (lines 5672–5673). On page 48, pdfminer finds the numerator `m₁ + m₃u` at x = 281.3–332.3, over a rule at y = 256.5 spanning the same x, and the denominator `m₂u` at x = 296.0–317.7 below it (`scratchpad/r660/p48_frac.txt`). The reviewer of rounds 652–657 reported the same reading (their O1); the lead's probe confirms it. Their argument is unaffected.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLCS.lean`: new, 352 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`sum_It_sq_le`, `S32_le`).
+- `frontier/linnik/CGL-LEAN.md`: the row P11.1, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+
+**What is checked.**
+
+- The file was compiled in scratch first, in seven runs as it grew (`scratchpad/r660/lc.sh`; `lc.out` to `lc7.out`, the last with exit 0 and no warning). The fixes were:
+
+  - unused binder names, and the bound `Cb` moved out of a section whose variable `q` it shadowed;
+  - `X` given to `Rt_le` explicitly;
+  - the integrals of `cs_vb`'s squares rewritten with `setIntegral_congr_fun` in place of a `simp` that made no progress;
+  - each Cauchy–Schwarz hypothesis stated first as a typed local fact, as passing it inline made `whnf` time out or left implicit arguments unsynthesized.
+
+- Then `build.sh` ran once (`scratchpad/r660/compile.sh 1`, log `build_1.log`): `1 compiled, 396 up to date` (`LinnikCGLCS` 12 s), exit 0 in 22 s, no error, warning or `sorry`. Its 593 axiom lines (5 by the module, 588 by the final check, which gains two lines) are 580 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.87 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed: `tools/research/render_lint.py` against HEAD (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, the same five one line later, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row P11.1 gains round 660 in its stack cell and a clause in its status, nothing in it superseded; the opening's parenthetical gains round 660, and M3 gains a note. `external/pnt/README.md`: a row, and a section with a heading. No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their §11 from Proposition 11.1 through (11.2) (text layer lines 5519–5866), re-read for this round's quotations; page 48 of the PDF probed for the change of variables.
+- `LinnikCGLCS.lean` in full.
+- The operative definitions and statements: round 657's `It`, `Itg`, `integrableOn_Itg`, `measurable_Rt` and `Rt_le`; round 656's `Rt`, `cs_Icc` and `integrableOn_Icc_of_le`; round 654's `norm_Rf_le` and `measurable_Rf`; round 650's `boxM`.
+
+**Check 4.** No defect in the cascade or the stack is raised. The observation above concerns Chen–Gupta–Li's write-up; their argument stands. `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** The batched hostile review of rounds 645–657, launched after round 657, has returned: no MAJOR, three minors and fourteen cosmetics across its two reports (`scratchpad/r657/review/A/report.md`, `B/report.md`). Their sweep is the next round. This round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** The sweep of the review of rounds 645–657. Then `S₃,₃` and `S₃,₄` in the form of their Proposition 8.1, with Proposition 8.1 as a displayed hypothesis.

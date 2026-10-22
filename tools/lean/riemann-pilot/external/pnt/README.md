@@ -181,6 +181,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLP72.lean` | 657 | Chen–Gupta–Li's Proposition 7.2: their `Ĩ` (`It`); for `\|m₂\| ≥ M₂ > 0`, `\|I′(m⃗)\| ≤ 2C_J(0)d(q)(N²/(q²M₂))Ĩ_{M₂}(m₁, −m₂, m₃) + E` (`Ip_le_It`); and `S₃` bounded by the sum over the dyadic scales of `m₂` of these terms, with `\|m₁\|, \|m₃\| ≤ \|m₂\|`, plus three explicit errors (`prop72`) |
 | `LinnikCGLMom.lean` | 658 | Chen–Gupta–Li's Lemma 9.1 at one point per character, as identities: `Σ_{a unit}\|R(v, a)\|² = φ(q)\|R\|` for `v > 0` (`sum_norm_Rf_sq`), its integral over `[1/2, 2]` (`lemma91`), and `∫_ℝΣ_aR̃_{M₂}(v, a)² dv = 2X∫ψ̃₀·(3/2)φ(q)\|R\|` by Fubini (`lemma91_Rt`) |
 | `LinnikCGLMom4.lean` | 659 | Chen–Gupta–Li's Lemma 9.2 at one point per character: the energy `E` (`energy`), `∫_{[1/2,2]}Σ_a\|R(v, a)\|⁴ dv ≤ 2φ(q)X(∫ψ̃₀·E + \|R\|⁴D_K/X^K)` for `X ≥ 1` (`lemma92`), and the same for `R̃` over `ℝ` with the factor `(2X∫ψ̃₀)²` (`lemma92_Rt`) |
+| `LinnikCGLCS.lean` | 660 | the two Cauchy–Schwarz steps of Chen–Gupta–Li's §11 on each dyadic block `B` of Proposition 7.2: `(Σ_{m⃗∈B}Ĩ(m⃗))² ≤ S₃,₁S₃,₂` (`sum_It_sq_le`) and `S₃,₂ ≤ √S₃,₃·√S₃,₄`, their (11.1) (`S32_le`) |
 
 ## Building (rounds 217, 618)
 
@@ -896,3 +897,14 @@ Round 659 proves Chen–Gupta–Li's Lemma 9.2 at one point per character, with 
 - `integral_conv`, `Rt_four_le`, `lemma92_Rt`: Fubini for the kernel of `R̃` with any bounded measurable integrand, weighted Cauchy–Schwarz, and `∫_ℝΣ_aR̃_{M₂}(v, a)⁴ dv ≤ (2X∫ψ̃₀)²` times `lemma92`'s bound.
 
 See the main README, round 659, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 586 lines.
+
+## The Cauchy–Schwarz steps of §11: LinnikCGLCS.lean (round 660)
+
+Round 660 proves the two Cauchy–Schwarz steps with which Chen–Gupta–Li's proof of Proposition 11.1 opens, on each dyadic block `B = blk M k` of round 657's `prop72`.
+
+- `sum_blk`: `prop72`'s triple sum restricted to the block `k` is the sum over `blk M k`.
+- `cs_vb`: Cauchy–Schwarz in `(v, b)` over `[1/2, 2]` and the units, for nonnegative measurable functions bounded on `[1/2, 2]`.
+- `sum_It_eq`, `sum_It_sq_le`: `Σ_{m⃗∈B}Ĩ_{M₂}(m⃗) = ∫_{[1/2,2]}Σ_{b₁}|R(v, b₁)|Y(v, b₁) dv`, so `(Σ_{m⃗∈B}Ĩ_{M₂}(m⃗))² ≤ S₃,₁S₃,₂`.
+- `Yb_sq_le`, `S32_le`: `Y² ≤ PQ` by Cauchy–Schwarz with the gcd weight, so `S₃,₂ ≤ √S₃,₃·√S₃,₄`.
+
+See the main README, round 660, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 588 lines.
