@@ -59,10 +59,13 @@ Gates (exit status 1 if any fails):
       1/6 (with z_r = 1/6 - 1/100 that fails).  (ii) The tuple sum: with the second branch at sigma = 1/2, the
       rescaled tuple's exponent -d + L_sigma(d)/2 is <= 0 for d in [0, ell] at the vertex, so the low side is
       taken at d = 0 there, as round 500 found for the release's loss
-  N1  Patterson's bias (FIVE-SIXTHS.md, section 2): over the 7827 split primary primes of norm <= 8*10^4 (the pilot's
-      periods data), |sum gamma_2(pi) alpha(pi)^k| is at least 8 sqrt(n) for k = 0 and at most 2.5 sqrt(n) for
-      k = -3, ..., 3, k != 0; and gamma_2^3 = mu alpha at every prime (1e-9).  The release's trivial-dual slot
-      coefficient is gamma_2(q) alpha(q)^{-2} times finite-order factors, the case k = -2.
+  N1  Patterson's bias (FIVE-SIXTHS.md, section 2): over the 7796 split primary primes of norm <= 8*10^4 (the pilot's
+      periods data; the 31 inert primes of norm q^2 <= 8*10^4, where gamma_2 = 1 and alpha = -1, are excluded since
+      the fourth review round), |sum gamma_2(pi) alpha(pi)^k| is at least 8 sqrt(n) for k = 0 and at most
+      2.5 sqrt(n) for k = -3, ..., 3, k != 0; and gamma_2^3 = mu alpha at every prime (1e-9).  The untwisted sum over
+      norms <= X grows from X = 2*10^4 to 8*10^4 with log-slope between 0.7 and 5/6 (that of X^{5/6}/log X there is
+      0.74, that of sqrt(n) 0.45).  The release's trivial-dual slot coefficient is gamma_2(q) alpha(q)^{-2} times
+      finite-order factors, the case k = -2.
 
 Usage: python3 fivesixths.py [periods_w_FILE]   (N1 needs the prime data; it is skipped, and reported, without it)
 """
@@ -216,15 +219,17 @@ def solve(args):
 
 # ---------------------------------------------------------------- N1: Patterson's bias
 def bias(path):
-    from composite import Field, load_primes
+    from composite import Field, load_primes, SplitPrime
     F = Field('w')
-    pr = [P for P in load_primes(F, path, 80000) if P.norm % 3 == 1]
+    pr = [P for P in load_primes(F, path, 80000) if isinstance(P, SplitPrime)]
     z = np.array([complex(P.el[0] - 0.5 * P.el[1], math.sqrt(3) / 2 * P.el[1]) for P in pr])
     al = z / np.abs(z)
     g2 = np.array([P.G[2] for P in pr])
     cube = np.max(np.abs(g2 ** 3 + al))             # gamma_2^3 = mu alpha = -alpha at primes
     sums = {k: abs(np.sum(g2 * al ** k)) for k in range(-3, 4)}
-    return len(pr), cube, sums
+    nm = np.array([P.norm for P in pr])
+    slope = math.log(sums[0] / abs(np.sum(g2[nm <= 20000]))) / math.log(4)    # untwisted, 2*10^4 to 8*10^4
+    return len(pr), cube, sums, slope
 
 
 def main():
@@ -331,12 +336,13 @@ def main():
     # N1
     path = sys.argv[1] if len(sys.argv) > 1 else None
     if path and os.path.exists(path):
-        n, cube, sums = bias(path)
+        n, cube, sums, slope = bias(path)
         rt = math.sqrt(n)
         others = max(sums[k] for k in sums if k != 0)
-        gate('N1', n == 7827 and cube < 1e-9 and sums[0] >= 8 * rt and others <= 2.5 * rt,
+        gate('N1', n == 7796 and cube < 1e-9 and sums[0] >= 8 * rt and others <= 2.5 * rt and 0.7 <= slope <= 5 / 6,
              f'{n} primes, sqrt(n) = {rt:.1f}; max |gamma_2^3 + alpha| {cube:.1e}; |sum gamma_2 alpha^k|: '
-             + ', '.join(f'k={k:+d} {sums[k]:.1f}' for k in sorted(sums)))
+             + ', '.join(f'k={k:+d} {sums[k]:.1f}' for k in sorted(sums))
+             + f'; log-slope of the untwisted sum from 2*10^4 to 8*10^4 {slope:.4f}')
     else:
         print('N1: SKIPPED  (no prime data given; pass periods_w_8e4.txt, see FIVE-SIXTHS.md section 6)')
     if FAILS:

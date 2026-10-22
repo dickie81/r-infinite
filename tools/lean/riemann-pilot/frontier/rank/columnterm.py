@@ -50,19 +50,21 @@ Gates (exit status 1 if one fails; skipped, and reported, without the prime data
       (8*10^4, 2000, 1200) the ratio ||U||_op^2 / (sum |beta|^2 (sqrt(#rows) + sqrt(#moduli))^2), about the coprime
       fraction for a random matrix, is at most 1.2 for random phases, conj(g3) and conj(g3) alpha, and at least 4 for
       the aligned control beta_n = (n/k0)_2 (n/P0)_3.  The coefficient aligned with one row's character alone,
-      beta_n = (n/k0)_2, which attains N2's column term, also has ratio at most 1.2: the slot sums' cubic characters
-      decorrelate it, so the operator form does not see that extremal coefficient.  Evidence about models at small
-      norms, not a bound.
+      beta_n = (n/k0)_2, which attains the column term of N2's statistic (Q >= #columns/(2 #rows) at N5's sizes, gated
+      here), also has ratio at most 1.2: the slot sums' cubic characters decorrelate it, so the operator form does not
+      see that extremal coefficient.  Evidence about models at small norms, not a bound.
 
   N6  the theta term with two-prime slots (FIVE-SIXTHS.md, section 13).  N3 sums over all squarefree P of one norm
       range: the smooth-slot model of section 12.  Here P = pq, p and q from two windows W1, W2 of split primes of norm
-      in (P0, 2 P0], with gamma_2(pq) = (q/p)_3 (p/q)_3 gamma_2(p) gamma_2(q) (twisted multiplicativity, S8 (ii)), and
-      R_k = sum_j |sum_{p, q} gamma_2(pq) alpha(pq)^k conj((j/pq)_3)|^2 / (#columns sum |coefficient|^2) over the
-      squarefree columns j of norm <= N.  At (P0, N) = (600, 1000), (1000, 1000) and (1000, 2500): R_0 >= 1.8, larger
-      at (1000, 1000) than at (600, 1000), R_{-2} (the slot coefficient's angle) <= 1.3, random phases <= 1.3, and a
-      coefficient aligned with one column's character has R >= n0/(2 #columns).  (Without the pair phase
-      (q/p)_3 (p/q)_3, a session sabotage run, R_0 is 1.50-1.71 and the gate fails.)  Evidence about models at small
-      norms, not a bound.
+      in (P0, 2 P0], below and from the median norm (so conjugate primes share a window; inert primes, whose norms q^2
+      the earlier filter admitted, are excluded since the fourth review round; the windows hold 44 + 44 primes at
+      P0 = 600 and 68 + 68 at P0 = 1000, gated exactly), with gamma_2(pq) = (q/p)_3 (p/q)_3 gamma_2(p) gamma_2(q)
+      (twisted multiplicativity, S8 (ii)), and R_k = sum_j |sum_{p, q} gamma_2(pq) alpha(pq)^k conj((j/pq)_3)|^2 /
+      (#columns sum |coefficient|^2) over the squarefree columns j of norm <= N.  At (P0, N) = (600, 1000), (1000, 1000)
+      and (1000, 2500): R_0 >= 1.75, larger at (1000, 1000) than at (600, 1000), R_{-2} (the slot coefficient's angle)
+      <= 1.3, random phases <= 1.3, and a coefficient aligned with one column's character has R >= n0/(2 #columns).
+      (Without the pair phase (q/p)_3 (p/q)_3, a session sabotage run, R_0 is 1.50-1.69 and the gate fails.)  Evidence
+      about models at small norms, not a bound.
 
 Usage: python3 columnterm.py periods_w_8e4.txt     (10-30 s; without the prime data every gate is skipped and
 reported)
@@ -75,7 +77,7 @@ import numpy as np
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from composite import Field, load_primes, squarefree_moduli    # noqa: E402
+from composite import Field, load_primes, squarefree_moduli, SplitPrime    # noqa: E402
 
 ZETA = np.exp(2j * np.pi * np.arange(6) / 6)
 N3_SIZES = ((20000, 500), (40000, 1000), (80000, 2000), (80000, 500))
@@ -129,7 +131,9 @@ def trilinear(d, L, seed):
            'conj g3 alpha': ratio(np.conj(d['g3']) * d['alpha'])}
     out['row-aligned'] = ratio(X[nr // 2].astype(complex))               # (n/k0)_2: N2's column term
     out['aligned'] = ratio(X[nr // 2] * np.conj(Y[nmod // 2]))        # (n/k0)_2 (n/P0)_3
-    return nr, nmod, len(ns), out
+    b = X[nr // 2]
+    q_row = float(np.sum(np.abs(X @ b) ** 2) / (nr * np.sum(b ** 2)))   # its N2 statistic Q at these sizes
+    return nr, nmod, len(ns), out, q_row
 
 
 def slot_sum(d, Pslot):
@@ -197,8 +201,10 @@ def two_slot(path, P0, N, ks=(0, -2), seed=1):
     F = Field('w')
     primes = load_primes(F, path, max(2 * P0, N))
     nm, om, el, G, pr = squarefree_moduli(F, primes, max(2 * P0, N))
-    sp = [P for P in primes if P0 < P.norm <= 2 * P0 and P.norm % 3 == 1]
-    W1, W2 = sp[:len(sp) // 2], sp[len(sp) // 2:]
+    sp = [P for P in primes if P0 < P.norm <= 2 * P0 and isinstance(P, SplitPrime)]
+    norms = sorted({P.norm for P in sp})
+    cut = norms[len(norms) // 2]
+    W1, W2 = [P for P in sp if P.norm < cut], [P for P in sp if P.norm >= cut]
     cols = np.flatnonzero(nm <= N)
     js = np.array([el[i][0] for i in cols]); jt = np.array([el[i][1] for i in cols])
     sym = {id(P): P.sym_vec(js, jt) for P in sp}
@@ -275,14 +281,17 @@ def main():
         for LN in N3_SIZES) + f'; growth of R_0 per doubling {ratios[0]:.3f}, {ratios[1]:.3f} (2^(1/3) = 1.260)')
     ok5, lines5 = True, []
     for N, K, L in N5_SIZES:
-        nr, nmod, nc, r5 = trilinear(setup(path, N, K), L, N + K + L)
-        ok5 = ok5 and r5['aligned'] >= 4 and all(v <= 1.2 for k, v in r5.items() if k != 'aligned')
+        nr, nmod, nc, r5, q_row = trilinear(setup(path, N, K), L, N + K + L)
+        ok5 = (ok5 and r5['aligned'] >= 4 and all(v <= 1.2 for k, v in r5.items() if k != 'aligned')
+               and q_row >= nc / (2 * nr))
         lines5.append(f'(N, K, L) = ({N}, {K}, {L}): {nr} rows, {nmod} moduli, {nc} columns; '
-                      + ', '.join(f'{k} {v:.3f}' for k, v in r5.items()))
+                      + ', '.join(f'{k} {v:.3f}' for k, v in r5.items())
+                      + f'; the row-aligned coefficient\'s Q {q_row:.1f} (#columns/(2 #rows) = {nc / (2 * nr):.1f})')
     print(f'N5: {"PASS" if ok5 else "FAIL"}  ' + '; '.join(lines5))
     r6 = {s: two_slot(path, *s) for s in N6_SIZES}
-    ok6 = (all(r[3][0] >= 1.8 and r[3][-2] <= 1.3 and r[4]['random'] <= 1.3 and r[4]['aligned'] >= r[4]['floor']
-               for r in r6.values()) and r6[(1000, 1000)][3][0] > r6[(600, 1000)][3][0])
+    ok6 = (all(r[3][0] >= 1.75 and r[3][-2] <= 1.3 and r[4]['random'] <= 1.3 and r[4]['aligned'] >= r[4]['floor']
+               for r in r6.values()) and r6[(1000, 1000)][3][0] > r6[(600, 1000)][3][0]
+           and [r[:2] for r in r6.values()] == [(44, 44), (68, 68), (68, 68)])
     print(f'N6: {"PASS" if ok6 else "FAIL"}  ' + '; '.join(
         f'(P0, N) = {s}: windows {r[0]} x {r[1]} primes, {r[2]} columns; R_0 {r[3][0]:.3f}, R_-2 {r[3][-2]:.3f}, '
         f'random {r[4]["random"]:.3f}, aligned {r[4]["aligned"]:.1f} (floor {r[4]["floor"]:.1f})'

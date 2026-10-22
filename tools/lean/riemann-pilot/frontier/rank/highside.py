@@ -2,14 +2,15 @@
 
 Sections 7-9 leave the release-level boundary at 0.8748866, with the bins delta >= 1/8 ('E') binding at every sigma
 (slotsplit.py's S3).  This script asks what those bins need, in the release-level configuration: section 8's program
-(slotsplit.Five2X across the slice) at crossing cost c = 1, with Sang's rotation, round 498's readings, Xu-Sang's
-counts R_kappa and fourth moment (k = 2), the trilinear sigma = 2/3, and the rows l <= 1/5, l >= 1/6 and l_y < 1/2
-dropped as in S6; every boundary is bootstrapped from kappa = 3/4 (slotsplit.boot).  A bin is a class of Poisson rows
-with detector parameter delta = 2a - 1 and amplitude ratio x = q/delta (Xu-Sang's notation); its endpoint is
-E = C0 + C1 l_x + C2 l_y + C3 l - s0 (offslice.OffSlice.coeffs), with the count entering through
-K = 5/6 - w (1 - R) + vartheta/2, w = 1 - 1/(2k).  A saving U^s = Z^{s h} on a bin, h = 1 - l_x + l, lowers E by
-s h.  Every number is a statement about the pilot's model of the release's exponent system, not a theorem about
-L-functions.
+(slotsplit.Five2X across the slice) at crossing cost c = 1, with Sang's rotation, round 498's readings, the third Gram
+term soft (round 499's S3, slotsplit.cross_cfg's soft_third: Xu-Sang's l_y - l > 11b/6 dropped and the third term
+carried in the low side's maximum), Xu-Sang's counts R_kappa and fourth moment (k = 2), the trilinear sigma = 2/3, and
+the rows l <= 1/5, l >= 1/6 and l_y < 1/2 dropped as in S6; every boundary is bootstrapped from kappa = 3/4
+(slotsplit.boot).  A bin is a class of Poisson rows with detector parameter delta = 2a - 1 and amplitude ratio
+x = q/delta (Xu-Sang's notation); its endpoint is E = C0 + C1 l_x + C2 l_y + C3 l - s0 (offslice.OffSlice.coeffs), with
+the count entering through K = 5/6 - w (1 - R) + vartheta/2, w = 1 - 1/(2k).  A saving U^s = Z^{s h} on a bin,
+h = 1 - l_x + l, lowers E by s h.  Every number is a statement about the pilot's model of the release's exponent system,
+not a theorem about L-functions.
 
 Gates (exit status 1 if any fails):
   H1  what binds: the release-level boundary is 0.8748866 (2e-6), with walls E, the low side and the slice; at its
@@ -21,11 +22,14 @@ Gates (exit status 1 if any fails):
       slope (0.8748866 - B)/s between 0.18 and 0.19 at both; 0.8667866 at s = 0.045 and at s = 0.1, with the floor bin
       among the walls and E not; density-hypothesis counts R = 1 - delta on the bins delta >= 1/8 only, and round 498's
       counts = 'dh' (the small bins too), give 0.8667866 as well (1e-6).
-  H3  stronger moments, with the amplifier's share as README round 507 has it beyond the fourth moment: vartheta = 0,
-      the better of its two capacity-consistent levers at every k below.  The 2k-th moment's weight w = 1 - 1/(2k) at
-      k = 5/2, 3, 4 and 5 gives 0.8715666, 0.8693505, 0.8674755 and 0.8668665 with E among the walls, and at k = 5.25
-      and 6 0.8667866 with the floor bin and not E (1e-6).  The model's share vartheta/2 at every k gives 0.8712795,
-      0.8692279 and 0.8674539 at k = 5/2, 3 and 4 (1e-6), below the capacity-consistent values by less than 4e-4.
+  H3  stronger moments, with the amplifier's share as README round 507 has it beyond the fourth moment.  Its two
+      capacity-consistent levers are vartheta = 0 in every bin (lam = 0 on the bins delta >= 1/8, and ThetaZero on the
+      small bins) and Sang's vartheta at the share vartheta/k (ShareK, on the bins and the small bins; the floor bin
+      has vartheta = 0).  The 2k-th moment's weight w = 1 - 1/(2k) at k = 5/2, 3, 4 and 5 gives, with vartheta = 0,
+      0.8715666, 0.8693505, 0.8674755 and 0.8668665 with E among the walls, and at k = 5.25 and 6 0.8667866 with the
+      floor bin and not E (1e-6); at each of those six k the share vartheta/k gives more, so vartheta = 0 is the better
+      lever there.  The model's share vartheta/2 at every k gives 0.8712795, 0.8692279 and 0.8674539 at k = 5/2, 3 and
+      4 (1e-6), below the capacity-consistent values by less than 4e-4.
   H4  beyond the first rung, with density-hypothesis counts and Sang's rotation kept.  (i) A saving on the floor bin
       and the small bins only (slotsplit.Five2's eta_L): U^{0.001} gives 13/15 (2e-7) at (l_x, l_y, l) =
       (2/5, 2/5, 1/5) (1e-4), with E and the rotation's condition h/2 < l_y among the walls; U^{0.0005} gives 0.8667067
@@ -37,7 +41,10 @@ Gates (exit status 1 if any fails):
       dropped, section 3's reading), sigma = 2/3 and eta = 0.3 give 28/33 (2e-7).  (iii) In exact arithmetic: under
       h/2 <= l_y, l <= l_x, b >= 0 and M + l <= 1 the low side is at least 5/6 + (1 + l_x - 3l)/24 >= 41/48, with
       equality at (1/4, 1/2, 1/4); fivesixths.low is 41/48 there and obeys both bounds at 4000 random rational points of
-      that region.
+      that region.  (iv) That point violates Xu-Sang's l_y - l > 11b/6, which the soft third drops: with it kept
+      (soft_third = False) eta = 0.3 gives 253/294 (2e-7) at (16/49, 22/49, 11/49) (1e-4), with h/2 < l_y, the slice and
+      l_y - l > 11b/6 among the walls; the low side's own linear program with that row is 253/294 (1e-9), and
+      fivesixths.low is 253/294 at that point.
   H5  where the counts come from: Xu-Sang's R_kappa = 1 - delta + (alpha - delta) delta P/(2 J) recomputed with the long
       witness's slope alpha' in place of alpha = 5/6 (the slope of the release's e(r) = max(1, (1 + 5r)/6)), the long
       branch taken as (alpha' - delta)_+: alpha' = 5/6 reproduces the model's count (1e-15) and 0.8748866 (2e-6);
@@ -63,6 +70,24 @@ Gates (exit status 1 if any fails):
       [0.20, 0.75] and 0.8706204 on [1/8, 0.70] (1e-6), each above the first rung by more than 1e-3; in the three
       windows around 0.47 the binding bins lie just outside the window (within 1e-3, at x = 1/2), and a saving
       U^{0.05} on [0.40, 0.55] gives the same value as density-hypothesis counts there.
+  H8  the T1-T3 trade-off (FIVE-SIXTHS.md, section 14), with T2 strong: density-hypothesis counts and a saving U^{0.2}
+      on every bin.  Unrotated (vartheta = 0 in every bin, h/2 < l_y dropped, the small rows' z-line z0 = 1/6 + 1/100 as
+      in fivesixths' runs without rotation), the program matches B(sigma, c) = 5/6 + (2 sigma - 1)_+
+      min(1/(6(4 sigma + 1)), c/(12c + 5 - 4 sigma)) within 1e-6 at the 20 points sigma in {1/2, 0.6, 2/3, 3/4, 1}, c in
+      {0.01, 0.1, 0.3, 1}, with no bin among the walls (neither E nor the floor bin nor the small bins), so the value is
+      the low side's.  In exact arithmetic that law is the low side's least value at 20 rational (sigma, c), sigma in
+      {3/5, 2/3, 3/4, 1}, c in {1/100, 1/10, 3/10, 1, 3}: with u = M - 2l the low side less 5/6 is at least
+      u/12 + max(0, c(3l + u - 1)/2, (1 - (5 - 4 sigma) l - 2u)/8), with equality at b = 0; a vertex (u, l) attains the
+      law, and a convex combination of the last two terms whose coefficients of u and l are nonnegative bounds the
+      expression below by it (the two cases split at c = (5 - 4 sigma)/(24 sigma - 6)).  On the diagonal
+      l_x = l_y = l = t the crossing charge c(3t - 1)/2 and the row loss's charge (1 - (5 - 4 sigma) t)/8 meet at
+      t = (1 + 4c)/(12c + 5 - 4 sigma), with common value c(2 sigma - 1)/(12c + 5 - 4 sigma), at 12 rational (sigma, c).
+      With Sang's rotation kept the program gives 5/6 + c/4 within 1e-6 at sigma in {0.55, 2/3, 3/4}, c in {0.01, 0.06},
+      at (1/2, 1/2, 1/2) (1e-4), with the third Gram term soft and hard alike (Xu-Sang's l_y - l > 11b/6 among the walls
+      exactly in the runs that keep it).  In exact arithmetic, under h/2 <= l_y, l <= l_x and b >= 0 the low side with a
+      crossing is at least 5/6 + min(c/4, 1/48) at 4000 random rational points (sigma in {1/2, 2/3, 3/4, 1}, c in
+      {1/100, 1/20, 1/12, 1/5, 1}), with equality for sigma <= 3/4 at (1/2, 1/2, 1/2) when c <= 1/12 and at
+      (1/4, 1/2, 1/4) when c >= 1/12.
 
 Usage: python3 highside.py     (a few seconds; imports slotsplit.py and fivesixths.py, and ../wall78)
 """
@@ -203,6 +228,36 @@ class Cap2(Alpha):
     CAP = 2.0
 
 
+class ThetaZero(SS.Five2X):
+    """vartheta = 0 in the small bins too (with lam = 0 the bins delta >= 1/8 already have vartheta = 0)."""
+
+    def small_max(self, v):
+        lx, ly, ell, s0 = v[:4]
+        h = 1 - lx + ell
+        base = (1 / 2 + self.DS / 2 - ly / 2 - s0 - ell / 2 + O.XS * self.DS * ell
+                + h * (5 / 6 - self.w * (1 - self.Rs))).max()
+        return base - self.eta_L * h
+
+
+class ShareK(SS.Five2X):
+    """Sang's vartheta with the amplifier's share vartheta/k (README round 507) on the bins and the small bins: the
+    reflection cost less the share, vartheta (1 - 1/k), in place of the model's vartheta/2."""
+
+    def coeffs(self, d, x, R, reflection_cost=True):
+        c0, c1, c2, c3 = super().coeffs(d, x, R, reflection_cost)
+        th = np.minimum(np.minimum(self.lam * self.tau * x * d, d / 2), 1 / 10)
+        dk = th * ((1 - 1 / self.k) - 1 / 2) if reflection_cost else 0 * th
+        return c0 + dk, c1 - dk, c2, c3 + dk
+
+    def small_max(self, v):
+        lx, ly, ell, s0 = v[:4]
+        h = 1 - lx + ell
+        th = O.XS * self.DS * min(ell / h, self.tau)
+        base = (1 / 2 + self.DS / 2 - ly * (1 / 2 + th) - s0 - ell / 2 + O.XS * self.DS * ell
+                + h * (5 / 6 - self.w * (1 - self.Rs) + th * (1 - 1 / self.k))).max()
+        return base - self.eta_L * h
+
+
 class ChargeEll(SS.Five2X):
     """the low side's first-branch rows charge l/2, the pointwise route's excess, in place of c mu/2."""
 
@@ -239,6 +294,66 @@ def rotation_floor(n=4000, seed=20261022):
     return ok, least, F.low(Fr(1, 4), Fr(1, 2), Fr(1, 4))
 
 
+def hard_third():
+    """H4 (iv): the low side's least value over (l_x, l_y, l, s0) under h/2 <= l_y, l <= l_x, b >= 0, M + l <= 1 and
+    Xu-Sang's l_y - l >= 11b/6: rows s0 >= 5/6 + (l_x - l)/6 + each Gram piece / 2."""
+    A, b = [], []
+    for g0, g1 in ((0, 0), (-1 / 12, 1 / 12), (-1, 1 / 2)):          # max(0, b/6, 2b - l_y)/2 over (l_x, l_y)
+        A.append([1 / 6 + g0, g1, -1 / 6, -1]); b.append(-5 / 6)
+    A += [[-1, -2, 1, 0], [-1, 0, 1, 0], [1, -1, 0, 0], [1, 1, 1, 0], [-11 / 6, 5 / 6, 1, 0]]
+    b += [-1.0, 0.0, 0.0, 1.0, 0.0]
+    r = F.linprog([0, 0, 0, 1], A_ub=A, b_ub=b, bounds=[(0, 1)] * 3 + [(0, 2)], method='highs', options=F.HIGHS)
+    return r.fun, r.x
+
+
+def law_certificates():
+    """H8, exact: with u = M - 2l >= 0 and the Gram excess >= 0 (zero at b = 0), the low side less 5/6 is at least
+    u/12 + z, z >= max(0, c(3l + u - 1)/2, (1 - (5 - 4 sigma) l - 2u)/8).  At each (sigma, c) a primal vertex attains
+    the law and a convex combination (alpha, beta) of the last two rows bounds u/12 + z below by it."""
+    ok, n = True, 0
+    for sg in (Fr(3, 5), Fr(2, 3), Fr(3, 4), Fr(1)):
+        for cc in (Fr(1, 100), Fr(1, 10), Fr(3, 10), Fr(1), Fr(3)):
+            D, c0 = 12 * cc + 5 - 4 * sg, (5 - 4 * sg) / (24 * sg - 6)
+            law = (2 * sg - 1) * min(1 / (6 * (4 * sg + 1)), cc / D)
+            if cc <= c0:
+                u, ell, al, be = Fr(0), (1 + 4 * cc) / D, (5 - 4 * sg) / D, 12 * cc / D
+            else:
+                u, ell = (4 * sg - 2) / (1 + 4 * sg), 1 / (1 + 4 * sg)
+                al, be = (5 - 4 * sg) / (6 * cc * (1 + 4 * sg)), 2 / (1 + 4 * sg)
+            f = u / 12 + max(Fr(0), cc * (3 * ell + u - 1) / 2, (1 - (5 - 4 * sg) * ell - 2 * u) / 8)
+            cu, cl = 1 / Fr(12) + al * cc / 2 - be / 4, 3 * al * cc / 2 - be * (5 - 4 * sg) / 8
+            ok = (ok and u >= 0 and ell >= 0 and f == law and al >= 0 and be >= 0 and al + be <= 1 and cu >= 0
+                  and cl >= 0 and -al * cc / 2 + be / 8 == law)
+            n += 1
+    return ok, n
+
+
+def rotated_cross(n=4000, seed=20261023):
+    """H8, rotated: the low side with a crossing, s0 = 5/6 + (l_x - l)/6 + max(0, b/6, 2b - l_y)/2 + max(c mu, L)/2,
+    mu = (M + l - 1)_+, against 5/6 + min(c/4, 1/48) under h/2 <= l_y, l <= l_x and b >= 0, at n random rational
+    points; and equality, for sigma <= 3/4, at (1/2, 1/2, 1/2) when c <= 1/12 and at (1/4, 1/2, 1/4) when c >= 1/12."""
+    rng = random.Random(seed)
+    sgs, cs = (Fr(1, 2), Fr(2, 3), Fr(3, 4), Fr(1)), (Fr(1, 100), Fr(1, 20), Fr(1, 12), Fr(1, 5), Fr(1))
+
+    def s0(lx, ly, ell, sg, cc):
+        b, M = ly - lx, lx + ly
+        return (Fr(5, 6) + (lx - ell) / 6 + max(Fr(0), b / 6, 2 * b - ly) / 2
+                + max(cc * max(Fr(0), M + ell - 1), (1 + (4 * sg - 1) * ell - 2 * M) / 4) / 2)
+    floor = lambda cc: Fr(5, 6) + min(cc / 4, Fr(1, 48))
+    ok, m, gap = True, 0, None
+    while m < n:
+        lx, ly, ell = (Fr(rng.randint(0, 1000), 1000) for _ in range(3))
+        if not (ell <= lx <= ly and 2 * ly >= 1 - lx + ell):
+            continue
+        sg, cc = rng.choice(sgs), rng.choice(cs)
+        g = s0(lx, ly, ell, sg, cc) - floor(cc)
+        ok, m = ok and isinstance(g, Fr) and g >= 0, m + 1
+        gap = g if gap is None else min(gap, g)
+    q, h = Fr(1, 4), Fr(1, 2)
+    at = all(s0(*((h, h, h) if cc <= Fr(1, 12) else (q, h, q)), sg, cc) == floor(cc) for sg in sgs[:3] for cc in cs)
+    return ok, gap, at
+
+
 def main():
     c1 = SS.cross_cfg(1.0)
     base = dict(sigma=2 / 3, drop=SS.D3)
@@ -249,23 +364,35 @@ def main():
             ('WDH', c1, base, WDH), ('dh', dh, base, SS.Five2X),
             ('k2.5', dict(c1, k=2.5), base, SS.Five2X), ('k3', dict(c1, k=3), base, SS.Five2X),
             ('k4', dict(c1, k=4), base, SS.Five2X)]
-    jobs += [(f'k{k}z', dict(c1, k=k, lam=0.0), base, SS.Five2X) for k in (2.5, 3, 4, 5, 5.25, 6)]
+    jobs += [(f'k{k}z', dict(c1, k=k, lam=0.0), base, ThetaZero) for k in (2.5, 3, 4, 5, 5.25, 6)]
+    jobs += [(f'k{k}s', dict(c1, k=k), base, ShareK) for k in (2.5, 3, 4, 5, 5.25, 6)]
     jobs += [('L1', dh, dict(base, eta_L=0.001), SS.Five2X), ('L05', dh, dict(base, eta_L=0.0005), SS.Five2X),
              ('L1s', dh, dict(base, sigma=0.5, eta_L=0.001), SS.Five2X),
              ('U01', dh, dict(base, eta=0.01, eta_L=0.01), SS.Five2X),
              ('U1', dh, dict(base, eta=0.1, eta_L=0.1), SS.Five2X),
              ('U3', dh, dict(base, eta=0.3, eta_L=0.3), SS.Five2X),
              ('U1s1', dh, dict(base, sigma=1.0, eta=0.1, eta_L=0.1), SS.Five2X),
-             ('U3n', dict(dh, lam=0.0), norot, SS.Five2X),
+             ('U3n', dict(dh, lam=0.0), norot, ThetaZero),
+             ('U3h', dict(dh, soft_third=False), dict(base, eta=0.3, eta_L=0.3), SS.Five2X),
              ('A56', c1, base, A56), ('A34', c1, base, A34), ('A12', c1, base, A12), ('A18', c1, base, A18),
              ('Cap2', c1, base, Cap2), ('ell2', c1, base, ChargeEll),
              ('WHi', c1, base, WinHi), ('WLo', c1, base, WinLo), ('WMid', c1, base, WinMid), ('WW1', c1, base, WinW1),
              ('WW2', c1, base, WinW2), ('WW3', c1, base, WinW3), ('WS', c1, base, WinS)]
+    z0 = 1 / 6 + 1 / 100
+    for sg in (0.5, 0.6, 2 / 3, 0.75, 1.0):
+        for cc in (0.01, 0.1, 0.3, 1.0):
+            jobs.append((('T13', sg, cc), dict(SS.cross_cfg(cc), counts='dh', lam=0.0),
+                         dict(sigma=sg, drop=SS.D3 + ('h/2<ly',), eta=0.2, eta_L=0.2, z0=z0), ThetaZero))
+    for sg in (0.55, 2 / 3, 0.75):
+        for cc in (0.01, 0.06):
+            for third in (True, False):
+                jobs.append((('T13r', sg, cc, third), dict(SS.cross_cfg(cc), counts='dh', soft_third=third),
+                             dict(sigma=sg, drop=SS.D3, eta=0.2, eta_L=0.2), SS.Five2X))
     with ProcessPoolExecutor(4) as ex:
         res = dict(ex.map(job, jobs))
     for key, *_ in jobs:
         r = res[key]
-        print(f'    {key:6s} B = {r[0]:.7f} kappa {r[1]:.5f} walls {r[2]} (l_x, l_y, l) = '
+        print(f'    {str(key):6s} B = {r[0]:.7f} kappa {r[1]:.5f} walls {r[2]} (l_x, l_y, l) = '
               f'({r[3][0]:.4f}, {r[3][1]:.4f}, {r[3][2]:.4f})')
     B = {k: r[0] for k, r in res.items()}
     W = {k: r[2] for k, r in res.items()}
@@ -316,15 +443,19 @@ def main():
     # H3: stronger moments
     kz = (('k2.5z', 0.8715666), ('k3z', 0.8693505), ('k4z', 0.8674755), ('k5z', 0.8668665))
     kh = (('k2.5', 'k2.5z', 0.8712795), ('k3', 'k3z', 0.8692279), ('k4', 'k4z', 0.8674539))
+    better = {k: B[f'k{k}s'] - B[f'k{k}z'] for k in (2.5, 3, 4, 5, 5.25, 6)}
     gate('H3', all(near(k, want) and 'E' in W[k] for k, want in kz)
          and all(near(k, 0.8667866) and 'floor bin' in W[k] and 'E' not in W[k] for k in ('k5.25z', 'k6z'))
-         and all(near(a, want) and 0 < B[z] - B[a] < 4e-4 for a, z, want in kh),
+         and all(near(a, want) and 0 < B[z] - B[a] < 4e-4 for a, z, want in kh) and min(better.values()) > 1e-5,
          'vartheta = 0: ' + ', '.join(f'k = {k[1:-1]}: {B[k]:.7f} ({"E" if "E" in W[k] else "no E"})' for k, _ in kz)
          + f', k = 5.25: {B["k5.25z"]:.7f}, k = 6: {B["k6z"]:.7f} (walls {W["k6z"]}); share vartheta/2: '
-         + ', '.join(f'k = {a[1:]}: {B[a]:.7f} (below by {B[z] - B[a]:.1e})' for a, z, _ in kh))
+         + ', '.join(f'k = {a[1:]}: {B[a]:.7f} (below by {B[z] - B[a]:.1e})' for a, z, _ in kh)
+         + '; share vartheta/k: ' + ', '.join(f'k = {k}: {B[f"k{k}s"]:.7f}' for k in better))
     # H4: beyond the first rung
-    pt, pt3 = res['L1'][3], res['U3'][3]
+    pt, pt3, pth = res['L1'][3], res['U3'][3], res['U3h'][3]
     rf_ok, rf_least, rf_vertex = rotation_floor()
+    ht_val, _ = hard_third()
+    ht_low = F.low(Fr(16, 49), Fr(22, 49), Fr(11, 49))
     gate('H4', abs(B['L1'] - 13 / 15) < 2e-7 and max(abs(pt[0] - 0.4), abs(pt[1] - 0.4), abs(pt[2] - 0.2)) < 1e-4
          and 'E' in W['L1'] and 'h/2<ly' in W['L1'] and near('L05', 0.8667067) and 'floor bin' in W['L05']
          and abs(B['L1s'] - 13 / 15) < 2e-7
@@ -333,13 +464,20 @@ def main():
          and abs(B['U3'] - 41 / 48) < 2e-7 and max(abs(pt3[0] - 0.25), abs(pt3[1] - 0.5), abs(pt3[2] - 0.25)) < 1e-4
          and {'h/2<ly', 'low side', 'lx>ell'} <= set(W['U3'])
          and abs(B['U1s1'] - 13 / 15) < 2e-7 and 'row loss' in W['U1s1'] and abs(B['U3n'] - 28 / 33) < 2e-7
-         and rf_ok and rf_vertex == Fr(41, 48),
+         and rf_ok and rf_vertex == Fr(41, 48)
+         and abs(B['U3h'] - 253 / 294) < 2e-7 and max(abs(pth[0] - 16 / 49), abs(pth[1] - 22 / 49),
+                                                       abs(pth[2] - 11 / 49)) < 1e-4
+         and {'h/2<ly', 'slice', 'ly-ell>11b/6'} <= set(W['U3h']) and 'ly-ell>11b/6' not in W['U3']
+         and abs(ht_val - 253 / 294) < 1e-9 and ht_low == Fr(253, 294),
          f'(i) floor and small bins only: U^0.001 {B["L1"]:.9f} (13/15 = {13 / 15:.9f}) at ({pt[0]:.4f}, {pt[1]:.4f}, '
          f'{pt[2]:.4f}), walls {W["L1"]}; U^0.0005 {B["L05"]:.7f}; sigma = 1/2: {B["L1s"]:.9f}; (ii) every bin, '
          f'sigma = 2/3: {B["U01"]:.7f} at 0.01, {B["U1"]:.7f} at 0.1 (walls {W["U1"]}), {B["U3"]:.9f} at 0.3 '
          f'(41/48 = {41 / 48:.9f}) at ({pt3[0]:.4f}, {pt3[1]:.4f}, {pt3[2]:.4f}), walls {W["U3"]}; sigma = 1: '
          f'{B["U1s1"]:.9f} (walls {W["U1s1"]}); unrotated: {B["U3n"]:.9f} (28/33 = {28 / 33:.9f}); (iii) low side '
-         f'{rf_vertex} at (1/4, 1/2, 1/4), least {float(rf_least):.6f} at 4000 points, both bounds hold: {rf_ok}')
+         f'{rf_vertex} at (1/4, 1/2, 1/4), least {float(rf_least):.6f} at 4000 points, both bounds hold: {rf_ok}; '
+         f'(iv) third term hard: {B["U3h"]:.9f} (253/294 = {253 / 294:.9f}) at ({pth[0]:.4f}, {pth[1]:.4f}, '
+         f'{pth[2]:.4f}), walls {W["U3h"]}; linear program {ht_val:.10f}; fivesixths.low {ht_low} at '
+         f'(16/49, 22/49, 11/49)')
     # H5: where the counts come from
     kk = res['A56'][1]
     dev56 = float(np.max(np.abs(rk(DL, XL, kk) - O.Rk(DL, XL, kk))))
@@ -397,6 +535,32 @@ def main():
          f'{B["WMid"]:.7f}, [0.30, 0.65]: {B["WW1"]:.7f}, [0.20, 0.75]: {B["WW2"]:.7f}, [1/8, 0.70]: {B["WW3"]:.7f}; '
          f'binding bins ' + '; '.join(f'{wn}: delta {", ".join(f"{t:.5f}" for t in e[1])}' for _, wn, e in edge)
          + f'; U^0.05 on [0.40, 0.55]: {B["WS"]:.7f}')
+    # H8: the T1-T3 trade-off with T2 strong
+    law = lambda sg, cc: 5 / 6 + max(0.0, 2 * sg - 1) * min(1 / (6 * (4 * sg + 1)), cc / (12 * cc + 5 - 4 * sg))
+    t13 = [k for k in res if isinstance(k, tuple) and k[0] == 'T13']
+    t13r = [k for k in res if isinstance(k, tuple) and k[0] == 'T13r']
+    dev8 = max(abs(B[k] - law(k[1], k[2])) for k in t13)
+    dev8r = max(abs(B[k] - (5 / 6 + k[2] / 4)) for k in t13r)
+    diag = all(max(abs(v - 0.5) for v in res[k][3][:3]) < 1e-4 for k in t13r)
+    hard = all(('ly-ell>11b/6' in W[k]) == (not k[3]) for k in t13r)
+    slack = not any({'E', 'floor bin', 'small delta'} & set(W[k]) for k in t13 + t13r)
+    cert, ncert = law_certificates()
+    rc_ok, rc_gap, rc_at = rotated_cross()
+    exact = True
+    for sg in (Fr(3, 5), Fr(2, 3), Fr(3, 4), Fr(1)):
+        for cc in (Fr(1, 100), Fr(1, 10), Fr(3, 10)):
+            tt = (1 + 4 * cc) / (12 * cc + 5 - 4 * sg)
+            cross, loss = cc * (3 * tt - 1) / 2, (1 - (5 - 4 * sg) * tt) / 8
+            exact = exact and cross == loss == cc * (2 * sg - 1) / (12 * cc + 5 - 4 * sg) and 3 * tt > 1
+    gate('H8', len(t13) == 20 and len(t13r) == 12 and dev8 < 1e-6 and dev8r < 1e-6 and diag and hard and slack
+         and exact and cert and ncert == 20 and rc_ok and rc_at,
+         f'unrotated, DH counts, U^0.2 on every bin: the program matches 5/6 + (2 sigma - 1)_+ min(1/(6(4 sigma + 1)), '
+         f'c/(12c + 5 - 4 sigma)) within {dev8:.1e} at {len(t13)} points (sigma in 1/2..1, c in 0.01..1); with the '
+         f'rotation, 5/6 + c/4 within {dev8r:.1e} at {len(t13r)} runs (third term soft and hard), at (1/2, 1/2, 1/2): '
+         f'{diag}, hard third among the walls exactly when kept: {hard}; no bin among the walls: {slack}; on the '
+         f'diagonal the two branches meet exactly: {exact}; primal vertex and dual certificate at {ncert} rational '
+         f'(sigma, c): {cert}; rotated, 5/6 + min(c/4, 1/48) at 4000 points: {rc_ok} (least gap {float(rc_gap):.2e}), '
+         f'attained at (1/2, 1/2, 1/2) or (1/4, 1/2, 1/4): {rc_at}')
     if FAILS:
         print('FAILED:', ', '.join(FAILS))
         sys.exit(1)
