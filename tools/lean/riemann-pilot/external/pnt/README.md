@@ -186,6 +186,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLFb.lean` | 663 | Chen–Gupta–Li's `f_b = ψR̃(·, −b)²` with `ψ = 1` on `[−3, 3]`: smooth (`contDiff_fb`), `0` beyond `4`, `f_{−b} ≥ R̃(·, b)²` on `[−3, 3]`, `f_{−1}(1) ≥ min(2X, L/(2T))\|R\|²/2` (`fb_one_ge`), a largest value (`exists_max`), and round 662's reduction of `S₃,₄` for this `f` (`S34_le_fb`) |
 | `LinnikCGLPhi.lean` | 664 | the Fourier decay of the pieces `φ_{u′} = ψ·K(· − u′)` of Chen–Gupta–Li's `f_b`: `(2π\|ξ\|)^j\|φ̂_{u′}(ξ)\| ≤ B_j(L, X)` (`fourier_phi_le`), from Leibniz's rule and the kernel's scaling (`integral_abs_iteratedDeriv_kerS`, `integral_abs_iteratedDeriv_phi_le`) |
 | `LinnikCGLDecay.lean` | 665 | the Fourier decay of Chen–Gupta–Li's `f_b` in the form of the premise of their Proposition 8.1: `f̂_b` as an average of round 664's `φ̂_{u′}` by Fubini (`fourier_fb_eq`), `B_j(L, X) ≤ 2T^j·min(2X, L/(2T))·E_j` for `L ≤ XT` (`Bj_le`), and `Σ_b\|f̂_b(ξ)\| ≤ D_j(T/\|ξ\|)^jφ(q)f_{b₀}(u₀)` (`fb_decay_all`) |
+| `LinnikCGLBlock.lean` | 666 | Chen–Gupta–Li's `S₃,₃`, `S₃,₄` and the block sums of `Ĩ`, by their Proposition 8.1 (round 662's `CGLP81`, a displayed hypothesis) and Lemmas 9.1 and 9.2: the two moments of `f_b` (`integral_sum_fb_le`, `integral_sum_fb_sq_le`), `CGLP81` on the block `k` (`S34_le_P81`), and `S₃,₄ ≤ V`, `S₃,₃ ≤ 4V`, `(Σ_{m⃗∈B}Ĩ(m⃗))² ≤ 3φ(q)\|R\|V` (`block_le`) |
 
 ## Building (rounds 217, 618)
 
@@ -983,3 +984,14 @@ Round 665 proves the decay premise of round 662's `CGLP81` for round 663's `f_b`
 - `integral_fb_le`, `Dfb`, `fb_decay_all`: `∫f_b ≤ 8M` when `f_b ≤ M`, `D_0 = 8` and `D_j = 6E_j/(2π)^j`, and the premise of `CGLP81` at a largest value `f_{b₀}(u₀)`.
 
 See the main README, round 665, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 597 lines.
+
+## `S₃,₃`, `S₃,₄` and the block sums by Proposition 8.1: LinnikCGLBlock.lean (round 666)
+
+Round 666 applies round 662's `CGLP81`, a displayed hypothesis, to round 663's `f_b` on each dyadic block `k` of round 657's `prop72`, with `M₂ = 2^k` and `M = 2^{k+1}`.
+
+- `hasCompactSupport_fb`, `integrable_fb`, `integrable_fb_sq`, `integrable_Rt_four`: integrability.
+- `integral_sum_fb_le`, `integral_sum_fb_sq_le`: `∫Σ_bf_b ≤ 2X∫ψ̃₀·(3/2)φ(q)|R|` for `χ` injective on `R`, and `∫Σ_bf_b² ≤ (2X∫ψ̃₀)²·2φ(q)X(∫ψ̃₀·E + |R|⁴D_K/X^K)` for `X ≥ 1`, by their Lemmas 9.1 and 9.2 for `R̃`.
+- `S34_le_P81`: from `CGLP81`, constants `C ≥ 0` and `Q₀` with `S₃,₄ ≤ 4(k + 1)²C(qT)^ε(φ(q)M⁶(∫Σ_bf_b)² + φ(q)²M⁴∫Σ_bf_b²)` for `qT ≥ Q₀`, `T ≥ 1`, points `|t_i| ≤ T`, `L ≤ XT` and `M ≤ (qT)^ϖ`.
+- `Vblk`, `block_le`: `S₃,₄ ≤ V`, `S₃,₃ ≤ 4V` and `(Σ_{m⃗∈B}Ĩ(m⃗))² ≤ 3φ(q)|R|V`, with `V = 4(k + 1)²C(qT)^ε(∫ψ̃₀)²X³φ(q)³(9M⁶|R|² + 8M⁴(∫ψ̃₀·E + |R|⁴D_K/X^K))`.
+
+See the main README, round 666, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 599 lines.

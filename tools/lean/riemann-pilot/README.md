@@ -27970,3 +27970,65 @@ The reductions take any `f` with `R̃(c, b)² ≤ f_{−b}(c)` on `[−3, 3]`; o
 **Bearing on RH:** none.
 
 **The next step.** Bound `S₃,₃` and `S₃,₄` on each block with `CGLP81`, applied to this `f` with `A = 4`, `κ = 2`, `D = D_j` and `M = 2^{k+1}`. Then bound `∫Σ_bf_b ≤ ∫Σ_aR̃²` and `∫Σ_bf_b² ≤ ∫Σ_aR̃⁴` by round 658's `lemma91_Rt` and round 659's `lemma92_Rt`.
+
+## Round 666: `S₃,₃`, `S₃,₄` and the block sums of `Ĩ`, by their Proposition 8.1 and Lemmas 9.1 and 9.2 (stage M3, the `S₃` side; `external/pnt/LinnikCGLBlock.lean`)
+
+**The results.** Below, `L = NM₂/q`, `X` stands for their `(qT)^ϵ`, and `E` is the energy. On the dyadic block `k` of round 657's `prop72`, whose sums are truncated at `M_box` (the `M` of round 660's `blk M k`), `M₂ = 2^k` and `M = 2^{k+1}`. `f_b` is round 663's.
+
+- `LinnikCGLBlock.integral_sum_fb_le`: for `χ` injective on `R` and `L, X > 0`, `∫Σ_bf_b ≤ 2X∫ψ̃₀·(3/2)φ(q)|R|`. Since `0 ≤ ψ ≤ 1`, `f_b ≤ R̃(·, −b)²`. The sum over `b` is reindexed by `b ↦ −b`, and round 658's `lemma91_Rt` evaluates `∫Σ_aR̃²`.
+- `LinnikCGLBlock.integral_sum_fb_sq_le`: for `L > 0`, `X ≥ 1` and `K ∈ ℕ`, `∫Σ_bf_b² ≤ (2X∫ψ̃₀)²·2φ(q)X(∫ψ̃₀·E + |R|⁴D_K/X^K)`, by `f_b² ≤ R̃(·, −b)⁴` and round 659's `lemma92_Rt`. `R̃⁴` is integrable, since `R̃⁴ ≤ (3/2)L|R|²R̃²` (`integrable_Rt_four`).
+- `LinnikCGLBlock.S34_le_P81`: from round 662's `CGLP81`, for `0 < ϖ < 1` and `ε > 0` there are `C ≥ 0` and `Q₀` with the following property. For `qT ≥ Q₀`, `T ≥ 1`, points `|t_i| ≤ T`, `N, X > 0`, `L ≤ XT` and `M ≤ (qT)^ϖ`, the block `k` has `S₃,₄ ≤ 4(k + 1)²C(qT)^ε(φ(q)M⁶(∫Σ_bf_b)² + φ(q)²M⁴∫Σ_bf_b²)`. `CGLP81` is applied to `f_b` with `A = 4`, `κ = 2` and round 665's `D_j`, its decay premise from round 665's `fb_decay_all`. Its bound holds for every `0 < M_i < M`, so it covers the `k + 1` terms of round 663's `S34_le_fb`.
+- `LinnikCGLBlock.block_le`: from `CGLP81`, for `0 < ϖ < 1`, `ε > 0` and `K ∈ ℕ` there are `C ≥ 0` and `Q₀` with the following property. Under the hypotheses of `S34_le_P81` with `X ≥ 1` and `χ` injective on `R`, the block `k` has `S₃,₄ ≤ V`, `S₃,₃ ≤ 4V` and `(Σ_{m⃗∈B}Ĩ(m⃗))² ≤ 3φ(q)|R|V`, where `V = 4(k + 1)²C(qT)^ε(∫ψ̃₀)²X³φ(q)³(9M⁶|R|² + 8M⁴(∫ψ̃₀·E + |R|⁴D_K/X^K))` (`Vblk`). The bound on `S₃,₃` is round 662's `S33_le_S34`. The last bound uses round 660's `sum_It_sq_le` and `S32_le`, so that `S₃,₂ ≤ √(4V)·√V = 2V`, and round 658's `lemma91`, `S₃,₁ = (3/2)φ(q)|R|`.
+
+**Their text.** Re-read this round in the text layer. The underscores in the quotations are escaped for the renderer.
+
+- Their application: "Applying Proposition 8.1 then gives that S₃,₃ and S₃,₄ are both bounded by ⪅ ϕ(q)M₂⁶ (∫\_ℝ Σ\_{b mod q, (b,q)=1} |R̃\_{M₂}(u,−b)|² ψ(u) du)² + ϕ(q)²M₂⁴ ∫\_ℝ Σ\_{b mod q, (b,q)=1} |R̃\_{M₂}(u,−b)|⁴ ψ(u)² du" (lines 5829–5847; spaces restored; the integrals, sums, tildes, large parentheses, subscripts and exponents transcribed).
+- Their conclusion: "This yields, by Lemmas 9.1 and 9.2, S₃,₃, S₃,₄ ⪅\_ϵ ϕ(q)³M₂⁶|W|² + ϕ(q)³M₂⁴E(W)." (lines 5848–5851; spaces restored; the subscripts and exponents transcribed).
+- Their next sentence: "The same bound holds for S₃,₂ in view of (11.1)." (line 5855; spaces restored; the subscript transcribed).
+
+**The stack's form.**
+
+- **`M` and `M₂`.** The block `k` applies `CGLP81` with `M = 2^{k+1} = 2M₂`, so their `M₂⁶` and `M₂⁴` are the stack's `M⁶/64` and `M⁴/16`.
+- **The factor `(k + 1)²`.** Round 662's reduction bounds `S₃,₄` by `4(k + 1)` times `k + 1` integrals of `J`, one for each dyadic range of `m₁`, so the stack's bound carries `4(k + 1)²`. Since `2^k ≤ M_box`, this is at most `4(log₂M_box + 1)²`, a power of a logarithm, which their `⪅` absorbs.
+- **The error term of Lemma 9.2.** The stack keeps `|R|⁴D_K/X^K`, as round 659 does. The term `9M⁶|R|²` carries `X³` rather than `X²`, by `X ≥ 1`.
+- **`C ≥ 0`.** `CGLP81` does not state `C ≥ 0`. The stack uses `max(C, 0)`, which is valid because the bracket it multiplies is nonnegative.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLBlock.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`S34_le_P81`, `block_le`).
+- `frontier/linnik/CGL-LEAN.md`: the rows P8.1 and P11.1, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+
+**What is checked.**
+
+- The file was compiled in scratch in three runs (`scratchpad/r666/lc.sh`; `lc.out` to `lc3.out`). The last run had exit 0 and no warning. The fixes were the compact support of `f_b²` given directly, since the composed form timed out; `add_le_add` with `le_rfl` in place of `add_le_add_right`, whose sides are the other way round in this Mathlib; `Pi.pow_apply` before a rewrite; and `omit [NeZero q]` for a lemma that does not use it. The header's prose was then re-wrapped; the build below compiled the final file.
+- Then `build.sh` ran once (`scratchpad/r666/compile.sh 1`, log `build_1.log`): `1 compiled, 401 up to date` (`LinnikCGLBlock` 11 s), exit 0 in 21 s, with no error, warning or `sorry`. Its 603 axiom lines (4 by the module, 599 by the final check, which gains two lines) are 590 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms"; the 13 are in the final check, as before. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.89 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed: `tools/research/render_lint.py` against HEAD (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row P11.1 gains round 666 in its stack cell and a clause in its status. The row P8.1 gains a clause in its status: it is now used on the blocks, with its premise proved for `f_b`. Nothing in either row is superseded. The opening's parenthetical gains round 666, and M3 gains a note.
+- `external/pnt/README.md`: a row, and a section with a heading.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their §11 at lines 5829–5856, re-read for this round's quotations.
+- `LinnikCGLBlock.lean` in full.
+- The operative definitions and statements: round 662's `CGLP81`, `Jint`, `Jset`, `S33_le_S34` and `swap_mem_blk`; round 663's `fb` and `S34_le_fb`; round 665's `fb_decay_all` and `Dfb`; round 660's `blk`, `S31` to `S34`, `sum_It_sq_le`, `S32_le` and `Rt_sq_le`; round 658's `lemma91`, `lemma91_Rt` and `integral_Rt_sq`; round 659's `lemma92_Rt` and `energy`; and round 657's `measurable_Rt`, `Ak` and `prop72`, the last two for the next step.
+
+**Check 4.** No defect in the cascade or the stack is raised. `CGLS3` and `CGLP81` stay displayed hypotheses.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block. That block is rounds 658 to 667, once round 667 assembles their (11.2).
+
+**Bearing on RH:** none.
+
+**The next step.** Their (11.2) in explicit form. Bound each block of round 657's `prop72` by `Σ_{m⃗∈B}Ĩ ≤ √(3φ(q)|R|V)`, with `φ(q) ≤ q`, `2^k ≤ M_box` and `M_box` at most a constant times `X·qT/N`. Then sum over `k ≤ log₂M`, which gives `S₃ ≤ C′(qT)^{ε′}((qT)²|R|^{3/2} + qTN|R|^{1/2}E^{1/2})` plus the explicit errors of `prop72`.

@@ -106,7 +106,7 @@ for f in SieveCert225C Linnik225C; do c 1 "$HERE" $f; done
 for f in SieveTypeIIU2285 SieveGrid2285U; do c 1 "$HERE" $f; done
 for i in $(seq 1 28); do c 1 "$HERE" SieveCert2285UP$i; done
 for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
-# Rounds 636–665: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
+# Rounds 636–666: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
 # (LinnikCGLLV), the density step from it on [5/7, 16/21] (LinnikCGLStep), Linnik's exponents 9/4 and 226/100
 # from it (LinnikCGLLinnik), (round 638) Proposition 3.1 from a bound on the cubic trace (LinnikCGLMat),
 # (round 639) that bound from the paper's S₂ and S₃ (LinnikCGLS23), (round 640) the Mellin transform of w² and the
@@ -126,11 +126,13 @@ for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
 # (round 662) their J, their Proposition 8.1 displayed, and S₃,₃ and S₃,₄ in its form (LinnikCGLJ), and
 # (round 663) their f_b = ψR̃(·, −b)² with ψ = 1 on [−3, 3]: smoothness, support, lower bound (LinnikCGLFb),
 # and (round 664) the Fourier decay of the pieces ψ·K(· − u′) of f_b (LinnikCGLPhi), and (round 665) the decay
-# of f̂_b in the form of their Proposition 8.1 (LinnikCGLDecay).
+# of f̂_b in the form of their Proposition 8.1 (LinnikCGLDecay), and (round 666) S₃,₃, S₃,₄ and the block sums
+# of Ĩ by their Proposition 8.1 and Lemmas 9.1 and 9.2 (LinnikCGLBlock).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
     LinnikCGLPair LinnikCGLFrob LinnikCGLS2 LinnikCGLFourier LinnikCGLPoisson LinnikCGLTrace \
     LinnikCGLDiag LinnikCGLTrunc LinnikCGLProd LinnikCGLRFact LinnikCGLRam LinnikCGLP71 LinnikCGLSym LinnikCGLRt \
-    LinnikCGLP72 LinnikCGLMom LinnikCGLMom4 LinnikCGLCS LinnikCGLJ LinnikCGLFb LinnikCGLPhi LinnikCGLDecay; do
+    LinnikCGLP72 LinnikCGLMom LinnikCGLMom4 LinnikCGLCS LinnikCGLJ LinnikCGLFb LinnikCGLPhi LinnikCGLDecay \
+    LinnikCGLBlock; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -315,6 +317,7 @@ import LinnikCGLJ
 import LinnikCGLFb
 import LinnikCGLPhi
 import LinnikCGLDecay
+import LinnikCGLBlock
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -826,6 +829,8 @@ import LinnikCGLDecay
 #print axioms LinnikCGLPhi.fourier_phi_le
 #print axioms LinnikCGLDecay.fb_decay
 #print axioms LinnikCGLDecay.fb_decay_all
+#print axioms LinnikCGLBlock.S34_le_P81
+#print axioms LinnikCGLBlock.block_le
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy
