@@ -26365,3 +26365,59 @@ With the coefficients `b_n1_S(n)` the paper's `S_N` is the sum over `S`, since `
 **Bearing on RH:** none.
 
 **The next step.** M3: Proposition 3.1 at one point per character (`CGLProp31`'s form), with Proposition 8.1 and Theorem 10.1 as displayed hypotheses. The first moment, the traces and `S₁` (the paper's §§4–5) come first, generalizing the model cases of `LinnikLines` and `LinnikSplit` (prime `q`, `t = 0`).
+
+## Round 638: Chen–Gupta–Li's Proposition 3.1 from a bound on the cubic trace (stage M3, first step; `external/pnt/LinnikCGLMat.lean`)
+
+**The result.** `LinnikCGLMat.prop31_of_third` proves `LinnikCGLLV.CGLProp31`, round 637's hypothesis, from `LinnikCGLMat.CGLThird`, a bound on the off-diagonal of the cubic trace. `linnik_225c_third` and `linnik_226c_third` give the exponents `9/4` and `226/100` under `CGLThird`.
+
+- The matrix of the points: `A_{i,n} = w(n/N)χ_i(n)n^{it_i}` for the integers `⌈N⌉ ≤ n ≤ ⌊2N⌋`, with `w` Mathlib's `ContDiffBump` at `3/2` with radii `3/10` and `1/2`: smooth, `0` outside `(1, 2)` and `1` on `[6/5, 9/5]`, as the paper's §3 asks. `X` is the real part of `Σ G(i, j)G(j, k)G(k, i)` over the triples of `R` that are not all equal, `G = AA*`, whose diagonal is the constant `μ = Σ w(n/N)²` over the `n` prime to `q`.
+- `CGLThird`: for every `ε > 0` there is `C ≥ 0` such that, for `q ≥ 1`, `T ≥ 1`, `7/10 ≤ σ ≤ 4/5`, a real `N` with `(qT)^{2/3}/2 ≤ N ≤ qT`, `S ⊆ [6N/5, 9N/5]`, `|b_n| ≤ 1` and distinct primitive characters `χ_i` mod `q` with `|Σ_{n∈S} b_nχ_i(n)n^{it_i}| ≥ N^σ/6` at points `|t_i| ≤ T`, `X ≤ C(qTN)^ε(N³ + (qT)²|R|^{3/2} + qT|R|N^{3−2σ} + qT|R|²N^{3/2−σ} + (qT)^{9/8}|R|^{29/16}N^{3/2−σ})`.
+- The proof. `prop46` is the paper's Proposition 4.6 for the points: either `|R|N^{2σ} ≤ 648N²` or `(|R|N^{2σ})³ ≤ (216N)³X`, from round 537's `LinnikMoment.refined_moment_cube` (`refined_moment_points`). With `CGLThird`, `alg112` solves for `|R|` (the paper's §11.2), one case per term. Two of the cases give `|R|` at most a constant times `qTN^{9/2−7σ}` and `(qT)^{18/19}N^{(72−112σ)/19}`, terms the paper's proof shows are dominated; `dom4` and `dom5` bound each by `(qT)^{1/2}N^{3−4σ}` for `N ≥ (qT)^{5/6}` and by `(qT)^{4/3}N^{2−4σ}` for `N ≤ (qT)^{5/6}`, for every `N > 0` and `7/10 ≤ σ ≤ 4/5`. For `N > qT`, which `CGLThird` does not cover, the mean value theorem at one point per character (`mvt_case`, from `LinnikPoints.large_values_points`) gives `|R|N^{2σ} ≤ 36N²(11 + 8 log N)(2 + log²(2N))` for `N ≥ 10`, and `polylog_le` bounds the logarithms by `(11 + 24/ε)(2 + 36/ε²)N^ε` for `0 < ε ≤ 1`. For `qT < N < 10` at most `q < 10` characters count.
+
+So stage M3's target is now `CGLThird`, the bound on `X` that the paper's Lemma 4.5 and §§5–11 give.
+
+**Why the paper implies the hypothesis.** Re-read this round in the text layer (`scratchpad/cgl/work/cgl_v2.txt`; spaces restored, the displayed formulas transcribed):
+
+- The proof of Lemma 4.5: "Now we take out Z, the term coming from (t₁, χ₁) = (t₂, χ₂) = (t₃, χ₃)", with "Z = |W|(N/q Σ_{m∈ℤ} Σ_{a mod q, (a,q)=1} e_q(am)ĥ₀(Nm/q))³"; "We further separate the terms with m⃗ = 0, which gives tr((MM∗)³) = Z + Z′ + Σ_{m⃗∈ℤ³∖{0}} I_m⃗"; and of Z′: "Since Σ_{a mod q} χ(a) = 0 unless χ = χ₀, we have that χ₁ = χ₂ = χ₃."
+- The proof of Lemma 4.4: "tr(MM∗) = Σ_{(t,χ)∈W} Σ_{(n,q)=1} w(n/N)² = |W| Σ_{(n,q)=1} h₀(n/N)".
+- (5.2): "Σ_{m⃗∈ℤ³∖{0}} I_m⃗ = S₁ + S₂ + S₃"; the proof of Proposition 5.1: "Thus we may restrict to the case χ₁ = χ₂ = χ₃."
+- "Proposition 6.1 (S₂ bound). We have S₂ ⪅_ϵ qT|W|N^{3−2σ}."
+- "Proposition 11.1 (S₃ bound). Let (qT)^{2/3}/2 ≤ N ≤ qT. Then we have S₃ ⪅ (qT)²|W|^{3/2} + qT|W|N^{3−2σ} + qT|W|²N^{3/2−σ} + (qT)^{9/8}|W|^{29/16}N^{3/2−σ}."
+- §11.2: "|W|³N^{6σ−3} ≪_ϵ N³ + S₁ + S₂ + S₃ ⪅_ϵ N³ + (qT)²|W|^{3/2} + qT|W|N^{3−2σ} + qT|W|²N^{3/2−σ} + (qT)^{9/8}|W|^{29/16}N^{3/2−σ}."
+
+Their matrix (4.1), `M_{(t,χ),n} = w(n/N)χ(n)n^{it}` for `n ∼ N`, is `A` up to a zero column (`n = N` when `N` is an integer, where `w(1) = 0`), so `MM*` is `G`. `Z` is the part of the trace from the triples that are all equal, `|R|μ³` by Lemma 4.4. At one point per character, `χ₁ = χ₂ = χ₃` makes the three points equal, which the triples of `Z′` and of `S₁` exclude, so `Z′ = S₁ = 0` and `X = S₂ + S₃`, which §11.2's display bounds for large `qT`. The hypothesis has `(qTN)^ε` for `(qT)^ϵ`, which is weaker since `N ≥ 1/2`, and holds for every `qT ≥ 1`: for bounded `qT`, `|R| ≤ q` and `|X| ≤ |R|³(N + 1)³` are bounded while `N³ ≥ 1/8`. `LinnikCGLMat.lean`'s header gives the argument.
+
+**The paper's ranges.** §4 closes with "so we suppose that (qT)^{2/3} ≤ N ≤ qT (as we have already assumed that (qT)^{2/3} ≤ N)", while Propositions 3.1 and 11.1 take `N ≥ (qT)^{2/3}/2`, and §11.2 states its dominance "For (qT)^{2/3} ≤ N ≤ (qT)^{5/6}". The hypothesis follows Propositions 3.1 and 11.1. `dom4` and `dom5` hold for every `N > 0`, so the stack's form of §11.2 uses no lower bound on `N`. When M3 proves `S₂` and `S₃`, the range `[(qT)^{2/3}/2, (qT)^{2/3})` is to be checked in the proofs of Propositions 6.1 and 11.1.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLMat.lean`: new, 773 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and seven `#print axioms` lines (`refined_moment_points`, `prop46`, `mvt_case`, `alg112`, `prop31_of_third`, `linnik_225c_third`, `linnik_226c_third`).
+- `frontier/linnik/CGL-LEAN.md`: an M3 note, and the rows P3.1, L4.1, L4.2 and L4.4–P4.6.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled first in scratch (`scratchpad/r638/lc3.sh`, the scratch olean apart from the committed build); the scratch compiles needed fixes of elaboration and tactic detail, among them the order `⊤` of `ContDiff`, the binder type of the coprimality filter, `open Matrix`, explicit `calc` steps where `nlinarith` ran out of heartbeats, and `obtain` in place of `set` for two constants whose unfolding timed out. Then `build.sh` ran three times, the later two after edits of the header's prose (`scratchpad/r638/build.log`, the third run): `1 compiled, 375 up to date` (`LinnikCGLMat` 31 s), exit 0 in 42 s, no error, warning or `sorry`. Its 526 axiom lines (8 by the module, 518 by the final check, which gains seven lines) are 513 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 7.08 GiB.
+- The file has no `sorry`, `native_decide`, `axiom` or `maxHeartbeats`, and no line over 120 characters.
+- The lead's self-review of the header and docstrings against the statements and the paper found two slips in the first draft, corrected before the second build, and two loose phrases, corrected before the third: the split `Z + Z′ + Σ I_m⃗` was attributed to Lemma 4.5's statement, which has `|W|(…)³ + Σ_{m⃗≠0} I_m⃗ + O_ϵ((qT)^{−100})` (the split is in its proof), and `refined_moment_points` was named after Lemma 4.2 alone, though it also does Lemma 4.1's work; the bound on `|R|` from two terms was stated without its constant factor, and §11.2's two extra terms were said to be dropped, where the paper shows them dominated.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872.
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: P3.1's stack cell carries a net-state marker (it read "—"); the opening's parenthetical and the rows L4.1, L4.2 and L4.4–P4.6 gain round-638 text, nothing in them superseded; M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round): the paper's §1.1 (lines 270–290 of the text layer), Proposition 3.1 (560–600), §4 from (4.1) through the paragraph after Proposition 4.6 (915–1210), §5 through the proof of Proposition 5.1 (1210–1288), Proposition 6.1's statement (1289–1290), Proposition 11.1's statement (5520–5527) and §11.2 (5865–5925), the operative statements re-read this round; `LinnikCGLMat.lean` in full; `LinnikCGLLV.CGLProp31`, `LinnikMoment.refined_moment_cube` and `LinnikPoints.large_values_points` (statements); `LinnikCGLLinnik.lean` in full.
+
+**Check 4.** No defect is raised; the note on the paper's ranges records an inconsistency of the paper's wording, which the hypothesis resolves in the direction of the paper's statements. The hypothesis is the paper's bound on `S₂ + S₃`, displayed as the plan intends; the rest of M3, M4 and M5 stay open.
+
+**Check 9.**
+
+- (a) This round's universals are scoped. "The paper implies the hypothesis" is the argument above, from the quoted text. "For every `N > 0`" is the Lean statement of `dom4` and `dom5`.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of round 636, no review runs this round. The batched review will cover rounds 634–638 and the stages that follow.
+
+**Bearing on RH:** none.
+
+**The next step.** M3 continues: `X = S₂ + S₃` at one point per character, by Poisson summation in residue classes (the paper's Lemma 4.5, generalizing `LinnikLines`'s model case, prime `q` and `t = 0`), with `Z′ = S₁ = 0` from orthogonality; then `S₂` (Lemma 6.2 and the mean value theorem, Proposition 6.1); then `S₃` (§§7–11), with Proposition 8.1 and Theorem 10.1 as displayed hypotheses.

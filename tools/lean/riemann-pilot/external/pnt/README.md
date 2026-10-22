@@ -160,6 +160,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLLV.lean` | 636, 637 | Chen–Gupta–Li's Proposition 3.1 at one point per character, as the hypothesis `CGLProp31` (round 636: their Theorem 1.1, `CGLLargeValues`); the large values of `D_N` on the proposition's range (`lv_range`), over every character mod `q` (`cgl_all`) and off the line (`taylor_pick`, `cgl_shift`) |
 | `LinnikCGLStep.lean` | 636, 637 | the density step `7/3 + 1/2000` on `[5/7, 16/21]` under `CGLProp31` (`charDensity_cgl`): round 607's step with `block_bin_cgl` in place of `block_bin_hux` |
 | `LinnikCGLLinnik.lean` | 636, 637 | Linnik's theorem with exponents `9/4` (`linnik_225c_lv`) and `226/100` (`linnik_226c_lv`) under `CGLProp31`: the routes of `Linnik225C` and `Linnik226C` with `charDensity_cgl` in place of `CGLDensity` |
+| `LinnikCGLMat.lean` | 638 | Chen–Gupta–Li's Proposition 3.1 (`CGLProp31`) from the hypothesis `CGLThird`, a bound on the off-diagonal of the cubic trace (`prop31_of_third`): their Proposition 4.6 for the points (`prop46`), the mean value theorem for `N ≥ qT` (`mvt_case`) and their §11.2's algebra (`alg112`); Linnik's exponents `9/4` and `226/100` under `CGLThird` (`linnik_225c_third`, `linnik_226c_third`) |
 
 ## Building (rounds 217, 618)
 
@@ -641,3 +642,16 @@ Round 637 moves the hypothesis of round 636's files from Chen–Gupta–Li's The
 - `LinnikCGLLinnik`: `linnik_225c_lv` and `linnik_226c_lv` under `CGLProp31`.
 
 See the main README, round 637, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 511 lines.
+
+## Proposition 3.1 from a bound on the cubic trace: LinnikCGLMat.lean (round 638)
+
+Round 638 is the first step of stage M3 of the plan in `frontier/linnik/CGL-LEAN.md`. It proves Chen–Gupta–Li's Proposition 3.1 at one point per character (`LinnikCGLLV.CGLProp31`) from a bound on the off-diagonal of the cubic trace, by their §4 and §11.2.
+
+- The matrix: `A_{i,n} = w(n/N)χ_i(n)n^{it_i}` over the integers `⌈N⌉ ≤ n ≤ ⌊2N⌋` (`entP`, `colsP`), with `w` Mathlib's `ContDiffBump` at `3/2` with radii `3/10` and `1/2` (`wCGL`: smooth, `0` outside `(1, 2)`, `1` on `[6/5, 9/5]`). Its Gram matrix `G` (`gramP`) has the constant diagonal `μ = Σ w(n/N)²` over the columns prime to `q` (`gramP_diag`), and `X` (`X3`) is the real part of `Σ G(i, j)G(j, k)G(k, i)` over the triples of `R` that are not all equal.
+- `CGLThird`, the hypothesis: for every `ε > 0` there is `C ≥ 0` such that, under the conditions of `CGLProp31` and `N ≤ qT`, `X ≤ C(qTN)^ε(N³ + (qT)²|R|^{3/2} + qT|R|N^{3−2σ} + qT|R|²N^{3/2−σ} + (qT)^{9/8}|R|^{29/16}N^{3/2−σ})`, the right side of their §11.2's combined inequality. The file's header gives the argument that their paper implies it.
+- `refined_moment_points` is round 537's `LinnikMoment.refined_moment_cube` for `A`; `prop46` is their Proposition 4.6 for the points: either `|R|N^{2σ} ≤ 648N²` or `(|R|N^{2σ})³ ≤ (216N)³X`.
+- `mvt_case`: for `N ≥ max(qT, 10)`, `LinnikPoints.large_values_points` gives `|R|N^{2σ} ≤ 36N²(11 + 8 log N)(2 + log²(2N))`; `polylog_le` bounds the logarithms by `(11 + 24/ε)(2 + 36/ε²)N^ε` for `0 < ε ≤ 1`.
+- `alg112` is their §11.2's algebra, with `dom4` and `dom5` for the two terms their proof shows are dominated, split at `N = (qT)^{5/6}`.
+- `prop31_of_third`: `CGLThird` implies `CGLProp31`. `linnik_225c_third` and `linnik_226c_third` are `linnik_225c_lv` and `linnik_226c_lv` under `CGLThird`.
+
+See the main README, round 638, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 518 lines.
