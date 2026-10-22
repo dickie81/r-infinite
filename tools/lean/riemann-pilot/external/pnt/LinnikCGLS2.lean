@@ -9,21 +9,22 @@ Proposition 11.1). This file proves `CGLS2` (`cgls2`), from round 643's explicit
 choosing its parameters and bounding each factor by a power of `qT`. Linnik's exponents `9/4` and `226/100` then
 follow from `CGLS3` alone (`linnik_225c_s3`, `linnik_226c_s3`).
 
-Plain statement (`cgls2`). For every `ε > 0` there is `C ≥ 0` such that, for `χ` injective on `R`, `T ≥ 1`,
-`7/10 ≤ σ ≤ 4/5`, `(qT)^{2/3}/2 ≤ N ≤ qT`, `S ⊆ [6N/5, 9N/5]`, `|b_n| ≤ 1`, `|t_i| ≤ T` and
-`|Σ_{n∈S}b_nχ_i(n)n^{it_i}| ≥ N^σ/6` for every `i ∈ R`, `‖E‖_F² ≤ C(qTN)^ε·qT|R|N^{2−2σ}`.
+Plain statement (`cgls2`). For every `ε > 0` there is `C ≥ 0` such that, for `χ` injective on `R` with each `χ_i`
+primitive (a hypothesis of `CGLS2` that the proof does not use), `T ≥ 1`, `7/10 ≤ σ ≤ 4/5`,
+`(qT)^{2/3}/2 ≤ N ≤ qT`, `S ⊆ [6N/5, 9N/5]`, `|b_n| ≤ 1`, `|t_i| ≤ T` and `|Σ_{n∈S}b_nχ_i(n)n^{it_i}| ≥ N^σ/6`
+for every `i ∈ R`, `‖E‖_F² ≤ C(qTN)^ε·qT|R|N^{2−2σ}`.
 
 Plain statement (`s2_main`). For `N > 5/6` and `0 < δ ≤ 1/16`, `‖E‖_F² ≤ (C₁(δ) + C₂(δ))(qT)^{1+16δ}|R|N^{2−2σ}`.
 The parameters: `P = qT`, `u = P^δ`, `N′ = ⌊9N/5⌋`, `Z = ⌊3Pu/N⌋ + 1`, `K = ⌈4/δ⌉` and `τ = C_δ(N′Z)^δ`.
 
-The paper's own count: "S₂ ⪅_ε (|W|N^{2−2σ}/M)(N²M² + qTNM) ⪅_ε qT|W|N^{3−2σ}, since NM ⪅_ε qT" (the end of their
+The paper's own count: "S₂ ⪅_ϵ (|W|N^{2−2σ}/M)(N²M² + qTNM) ⪅_ϵ qT|W|N^{3−2σ}, since NM ⪅_ϵ qT" (the end of their
 proof of Proposition 6.1, spaces restored and the fraction written on one line). Here `NZ` plays their `NM`, and
 `‖E‖_F²` carries one power of `N` less than `S₂ = 3μ₀‖E‖_F²`.
 
 * `AL`, `natLog_le_two_log`, `LSX_le`: round 526's large-sieve factor is at most `A(δ)(q(2T + 1) + X)X^δ`, from
   `log x ≤ x^{δ/4}/(δ/4)` (Mathlib's `Real.log_le_rpow_div`).
 * `HZ_le`: `H_Z ≤ Z^δ/δ` (`SquarefreeCount.sum_rpow_neg_le`).
-* `two_pow_omega_le`, `EQh_le`, `Q0_le`: `2^{ω(q)} ≤ C_δq^δ` (round 526's `card_powerset_le_divisors` and the stack's
+* `two_pow_omega_le`, `EQh_le`, `Q0_le`: `2^{ω(q)} ≤ C_δq^δ` (round 527's `card_powerset_le_divisors` and the stack's
   divisor bound `card_divisors_le`), `EQh(q) ≤ 4^{ω(q)}`, and so `Q₀(q) ≤ π·CGK(0)·(2^{ω(q)})³`.
 * `card_mul_sq_le`, `card_le`: `|R|V² ≤ L(N′)Σ|b_n|²` (round 643's `ls_points` for the large polynomial itself), and
   so `|R| ≪_δ PuN^{1−2σ}`.
@@ -138,7 +139,7 @@ lemma HZ_le (Z : ℕ) {δ : ℝ} (hδ : 0 < δ) (hδ1 : δ < 1) : HZ Z ≤ (Z : 
   rw [← Real.rpow_neg_one]
   exact Real.rpow_le_rpow_of_exponent_le hm1 (by linarith)
 
-/-- `2^{ω(q)} ≤ C_δq^δ` (round 526's `card_powerset_le_divisors` and the stack's divisor bound). -/
+/-- `2^{ω(q)} ≤ C_δq^δ` (round 527's `card_powerset_le_divisors` and the stack's divisor bound). -/
 lemma two_pow_omega_le (q : ℕ) [NeZero q] {δ : ℝ} (hδ : 0 < δ) (hδ1 : δ ≤ 1) :
     (2 : ℝ) ^ q.primeFactors.card ≤ Cdiv δ * (q : ℝ) ^ δ := by
   have h1 := LinnikTwelve.card_powerset_le_divisors q

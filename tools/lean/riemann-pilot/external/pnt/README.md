@@ -160,13 +160,17 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLLV.lean` | 636, 637 | Chen–Gupta–Li's Proposition 3.1 at one point per character, as the hypothesis `CGLProp31` (round 636: their Theorem 1.1, `CGLLargeValues`); the large values of `D_N` on the proposition's range (`lv_range`), over every character mod `q` (`cgl_all`) and off the line (`taylor_pick`, `cgl_shift`) |
 | `LinnikCGLStep.lean` | 636, 637 | the density step `7/3 + 1/2000` on `[5/7, 16/21]` under `CGLProp31` (`charDensity_cgl`): round 607's step with `block_bin_cgl` in place of `block_bin_hux` |
 | `LinnikCGLLinnik.lean` | 636, 637 | Linnik's theorem with exponents `9/4` (`linnik_225c_lv`) and `226/100` (`linnik_226c_lv`) under `CGLProp31`: the routes of `Linnik225C` and `Linnik226C` with `charDensity_cgl` in place of `CGLDensity` |
-| `LinnikCGLMat.lean` | 638 | Chen–Gupta–Li's Proposition 3.1 (`CGLProp31`) from the hypothesis `CGLThird`, a bound on the off-diagonal of the cubic trace (`prop31_of_third`): their Proposition 4.6 for the points (`prop46`), the mean value theorem for `N ≥ qT` (`mvt_case`) and their §11.2's algebra (`alg112`); Linnik's exponents `9/4` and `226/100` under `CGLThird` (`linnik_225c_third`, `linnik_226c_third`) |
+| `LinnikCGLMat.lean` | 638 | Chen–Gupta–Li's Proposition 3.1 (`CGLProp31`) from the hypothesis `CGLThird`, a bound on the off-diagonal of the cubic trace (`prop31_of_third`): their Proposition 4.6 for the points (`prop46`), ~~the mean value theorem for `N ≥ qT` (`mvt_case`)~~ the mean value theorem for `N ≥ max(qT, 10)` (`mvt_case`) *(Round 647: retracted, false when written: at `N = qT` the proof uses the trace, and for `qT < N < 10` the count `\|R\| ≤ q`; review of rounds 634–639, item 5.)* and their §11.2's algebra (`alg112`); Linnik's exponents `9/4` and `226/100` under `CGLThird` (`linnik_225c_third`, `linnik_226c_third`) |
 | `LinnikCGLS23.lean` | 639 | `CGLThird` from two hypotheses, `CGLS2` (the off-diagonal mass `‖E‖_F²` of the Gram matrix, their Proposition 6.1) and `CGLS3` (`S₃ = X − 3μ₀‖E‖_F²`, their Proposition 11.1), by `third_of_s23`; the identity `X = 3μ‖E‖_F² + tr(E³)` (`X3_eq`); Linnik's exponents `9/4` and `226/100` under the two (`linnik_225c_s23`, `linnik_226c_s23`) |
 | `LinnikCGLMellin.lean` | 640 | the Mellin transform `H` of `w²`: entire (`differentiable_H`), with `(1 + \|t\|)^{K+3}\|H(σ + it)\| ≤ B` on `\|σ\| ≤ S` (`exists_H_bound`); Perron's formula for the twisted weight `u^{iτ}w(u)²` (`perron_Wt`) and for the Gram entries (`perron_gram`) |
 | `LinnikCGLReflect.lean` | 641 | the reflection of the Gram entries (`reflect_gram`, `gram_reflect`): a dual sum of length `Z` on `Re s = 1/2` and its tail on `Re s = −K`, with the reflection factor of the primitive character bounded on `−K ≤ Re s ≤ 1/2` (`norm_Phi_le_far`) and contour shifts for integrands at most `M(1 + \|Im s + τ\|)^{−2}` (`shift_of_bound`) |
-| `LinnikCGLPair.lean` | 642 | the bounds of the reflected Gram entries: for `χ_i ≠ χ_k`, `\|G(i, k)\| ≤ (2π)⁻¹(N^{1/2}Q₀(q)∫\|H(1/2 + iu)\|\|D(u)\| du + T_K)`, `D` the dual sum of length `Z` and `T_K ≪_K q^{K+1/2}(NZ)^{−K}(1 + \|τ\|)^{K+1}` (`norm_gram_le`), from the bounds of the main part (`norm_integral_Mn_le`) and the tail (`norm_integral_Tl_le`), the Euler factor against the conductor (`norm_Eu_mul_le`) and the dual tail far left (`norm_dualT_le`) |
+| `LinnikCGLPair.lean` | 642 | the bounds of the reflected Gram entries: for `χ_i ≠ χ_k`, `\|G(i, k)\| ≤ (2π)⁻¹(N^{1/2}Q₀(q)∫\|H(1/2 + iu)\|\|D(u)\| du + T_K)`, `D` the dual sum of length `Z` and ~~`T_K ≪_K q^{K+1/2}(NZ)^{−K}(1 + \|τ\|)^{K+1}`~~ `T_K ≪_K 2^{ω(q)}EQh(q)q^{K+1/2}(NZ)^{−K}(1 + \|τ\|)^{K+1}` *(Round 647: retracted, false when written: `T_K` carries the factor `2^{ω(q)+1}EQh(q)`, unbounded in `q`; review of rounds 640–644, F2.)* (`norm_gram_le`), from the bounds of the main part (`norm_integral_Mn_le`) and the tail (`norm_integral_Tl_le`), the Euler factor against the conductor (`norm_Eu_mul_le`) and the dual tail far left (`norm_dualT_le`) |
 | `LinnikCGLFrob.lean` | 643 | the off-diagonal mass of the Gram matrix, explicitly (`frobOff_le`): `‖E‖_F² ≤ N·Q₀(q)²I_H²·\|R\|·V^{−2}L(N′Z)·τ·Σ\|b_n\|²·H_Z + \|R\|²B²`, from the squared product trick at the points (`prod_trick_points`, `ls_points`), the dual sums as polynomials at the points (`norm_dualS_pair`, `sum_Dp_sq_le`), Cauchy–Schwarz against `\|H(1/2 + iu)\|` (`integral_sq_le`) and the squared Gram entries (`gram_sq_le`) |
 | `LinnikCGLS2.lean` | 644 | round 639's hypothesis `CGLS2` proved (`cgls2`): for every `ε > 0`, `‖E‖_F² ≤ C(qTN)^ε·qT\|R\|N^{2−2σ}`, from round 643's `frobOff_le` with `Z = ⌊3P^{1+δ}/N⌋ + 1` and `K = ⌈4/δ⌉` (`s2_main`) and the sizes of its factors as powers of `qT` (`LSX_le`, `HZ_le`, `Q0_le`, `card_le`, `Bmax_le`); Linnik's exponents `9/4` and `226/100` from `CGLS3` alone (`linnik_225c_s3`, `linnik_226c_s3`) |
+| `LinnikCGLFourier.lean` | 645 | Chen–Gupta–Li's Lemma 4.3 (1): `(2π\|ξ\|)^K\|ĥ_τ(ξ)\| ≤ C_K(1 + \|τ\|)^K` for `h_τ(u) = w(u)²u^{iτ}` (`lemma43`), from the derivatives `h_τ^{(k)} = u^{iτ}Σ_{j≤k}(iτ)^j c_{k,j}` (`hasDerivAt_F`) and Mathlib's `Real.fourier_deriv` (`fourier_F`) |
+| `LinnikCGLPoisson.lean` | 646 | the Poisson expansion of the Gram entries in residue classes (`gram_poisson`): `G(i, k) = N^{iτ}Σ_{a<q}χ_i(a)conj(χ_k(a))Σ_{m∈ℤ}(N/q)ĥ_τ(Nm/q)e^{2πima/q}`, from Poisson summation scaled (`poisson_scaled`), the regrouping by residue classes (`sum_colsP_residue`) and the terms `A_{i,n}conj(A_{k,n}) = N^{iτ}χ_i(n)conj(χ_k(n))h_τ(n/N)` (`entP_mul_star`) |
+| `LinnikCGLTrace.lean` | 648 | Chen–Gupta–Li's `S₃` at one point per character (`S3_eq_Fm`): for `χ` injective on `R`, `X − 3μ₀‖E‖_F² = Re Σ F(i, j)F(j, k)F(k, i)` over the triples that are not all equal, `F(i, k)` the terms `m ≠ 0` of `gram_poisson`; from the algebra of the cubic trace (`S3_eq_cube`), orthogonality (`sum_range_mul_star_eq_zero`, `sum_range_mul_star_self`), `ĥ₀(0) = ∫w²` (`fourier_Wt_zero`) and the term `m = 0` split off (`summable_poisson`, `Em_eq`) |
+| `LinnikCGLDiag.lean` | 649 | the Gram diagonal against its main term (`muP_sub_mu0_le`): `\|μ − μ₀\| ≤ d(q)B`, by Möbius inversion over the divisors of `q` (`sum_coprime_eq`, `totient_div_eq`) and Poisson summation along the multiples of each (`sum_multiples_eq`, `bracket_le`); and `S₃ = Re Σ_{i,j,k∈R}F(i, j)F(j, k)F(k, i) − \|R\|(μ − μ₀)³` at one point per character (`Fm_diag`, `S3_eq_all`) |
 
 ## Building (rounds 217, 618)
 
@@ -641,9 +645,9 @@ Round 636 is stage M1 of the plan in `frontier/linnik/CGL-LEAN.md` (round 635). 
 
 ## Chen–Gupta–Li's Proposition 3.1 as the hypothesis: LinnikCGLLV.lean … LinnikCGLLinnik.lean (round 637)
 
-Round 637 moves the hypothesis of round 636's files from Chen–Gupta–Li's Theorem 1.1 to their Proposition 3.1, from which their §3 deduces the theorem. Round 636's block bound applied the large-values count at each bin's threshold `N^{σ_b}/Z`, which runs up to `N/Z`; it now applies it at `N^σ/Z`, `σ` the range's point. With `5/7 ≤ σ ≤ 16/21` and `Z ≤ N^{1/70}` that threshold lies in `[N^{7/10}, N^{4/5}]`, the proposition's range, where the paper's reduction needs neither the mean value theorem, Huxley's estimate nor the subdivision in `T`, and the bound has no fourth term `qTN^{12/5}V⁻⁴`.
+Round 637 moves the hypothesis of round 636's files from Chen–Gupta–Li's Theorem 1.1 to their Proposition 3.1, from which their §3 deduces the theorem. Round 636's block bound applied the large-values count at each bin's threshold `N^{σ_b}/Z`, which runs up to `N/Z`; it now applies it at `N^σ/Z`, `σ` the range's point. With `5/7 ≤ σ ≤ 16/21` and `Z ≤ N^{1/70}` that threshold lies in `[N^{7/10}, N^{4/5}]`, the proposition's range, where ~~the paper's reduction needs neither the mean value theorem, Huxley's estimate nor the subdivision in `T`~~ the reduction to the proposition's three-term bound is the three-part split alone *(Round 647: retracted, false when written: on that range §3's proof also uses the mean value theorem (1.2) when `qT ≤ N` and the subdivision in `T` when `N^{6/5} ≤ qT ≤ N^{3/2}`; review of rounds 634–639, item 4, at a sibling site.)*, and the bound has no fourth term `qTN^{12/5}V⁻⁴`.
 
-- `LinnikCGLLV`: `CGLProp31`, Proposition 3.1 at one point per character for a sum over `S ⊆ [6N/5, 9N/5]` (the paper's `S_N` with the coefficients `b_n1_S(n)`, its weight being `1` there): for every `ε > 0` there is `C ≥ 0` such that, for `7/10 ≤ σ ≤ 4/5` and a real `N ≥ (qT)^{2/3}/2`, at most `C(qTN)^ε(N^{2−2σ} + (qT)^{1/2}N^{3−4σ} + (qT)^{4/3}N^{2−4σ})` distinct primitive characters mod `q` have `|Σ_{n∈S} b_nχ(n)n^{it_χ}| ≥ N^σ/6` at a point `|t_χ| ≤ T`. The file's header gives the argument that the paper implies it. `lv_range` is the paper's three-part split: for `N^{7/10} ≤ V ≤ N^{4/5}` it bounds the count of large values of `D_N` by `C(qTN)^ε p31B(q, T, N, V)`, `p31B = N²V⁻² + (qT)^{1/2}N³V⁻⁴ + (qT)^{4/3}N²V⁻⁴`, from the proposition at `11N/15`, `N` and `19N/15`. `cgl_all` and `cgl_shift` are round 636's, on that range.
+- `LinnikCGLLV`: `CGLProp31`, Proposition 3.1 at one point per character for a sum over `S ⊆ [6N/5, 9N/5]` (the paper's `S_N` with the coefficients `b_n1_S(n)`, its weight being `1` there): for every `ε > 0` there is `C ≥ 0` such that, for `7/10 ≤ σ ≤ 4/5` and a real `N ≥ (qT)^{2/3}/2`, at most `C(qTN)^ε(N^{2−2σ} + (qT)^{1/2}N^{3−4σ} + (qT)^{4/3}N^{2−4σ})` distinct primitive characters mod `q` have `|Σ_{n∈S} b_nχ(n)n^{it_χ}| ≥ N^σ/6` at a point `|t_χ| ≤ T`. The file's header gives the argument that the paper implies it. `lv_range` is the paper's three-part split: for ~~`N^{7/10} ≤ V ≤ N^{4/5}`~~ `0 < ε ≤ 1`, a natural `N ≥ (qT)^{2/3}` and `N^{7/10} ≤ V ≤ N^{4/5}` *(Round 647: retracted, false when written: `lv_range` assumes `ε ≤ 1` and `N ≥ (qT)^{2/3}`, so after `CGLProp31`'s "a real `N ≥ (qT)^{2/3}/2`" the sentence claimed more than it proves; review of rounds 634–639, item 9.)* it bounds the count of large values of `D_N` by `C(qTN)^ε p31B(q, T, N, V)`, `p31B = N²V⁻² + (qT)^{1/2}N³V⁻⁴ + (qT)^{4/3}N²V⁻⁴`, from the proposition at `11N/15`, `N` and `19N/15`. `cgl_all` and `cgl_shift` are round 636's, on that range.
 - `LinnikCGLStep`: `block_bin_cgl` takes the lower threshold `V^mN_j^σ/((m + 1)τ₀^{2m})`; `p31B_le_Q` and `piece_le` have six powers and six conditions; `ParC.Good` asks `5/7 ≤ lo` and `hi ≤ 4/5`; `class1_cgl` proves the thresholds in range from `16(M + 1)⁴C_τQ^{εs/4} ≤ Q^{1/105}`, which `eventually_cgl` supplies. `charDensity_cgl` keeps its exponent `7/3 + 1/2000` on `[5/7, 16/21]`.
 - `LinnikCGLLinnik`: `linnik_225c_lv` and `linnik_226c_lv` under `CGLProp31`.
 
@@ -716,7 +720,7 @@ See the main README, round 642, and `frontier/linnik/CGL-LEAN.md`. All axioms ar
 Round 643 sums round 642's bound over the pairs into an explicit bound on `‖E‖_F² = Σ_{i≠k}|G(i, k)|²`, the quantity of round 639's hypothesis `CGLS2`. This is the proof of Chen–Gupta–Li's Proposition 6.1, at one point per character, before `Z` and `K` are chosen.
 
 - `sq_le_mul_of_forall`, `two_mul_le_lam`, `integral_sq_le`: `(∫hd)² ≤ (∫h)(∫hd²)` for `h, d ≥ 0`, through `2hd ≤ λh + hd²/λ` for every `λ > 0`.
-- `ls_points`: for `χ` injective on `R` and `|t_i| ≤ T`, `Σ_{i∈R}|Σ_{k∈S_k}c_kχ_i(k)k^{it_i}|² ≤ L(X)Σ|c_k|²` for `S_k ⊆ [2, X]`: round 526's `ls_pv_dyadic` on the characters `χ(R)`, with `t` carried back by the inverse of `χ` on `R`.
+- `ls_points`: for `χ` injective on `R` ~~and `|t_i| ≤ T`~~, `T ≥ 0` and `|t_i| ≤ T` *(Round 647: retracted, false when written: without `T ≥ 0`, which the lemma assumes, the bound fails when `R` is empty and `L(X) < 0`; review of rounds 640–644, F11.)*, `Σ_{i∈R}|Σ_{k∈S_k}c_kχ_i(k)k^{it_i}|² ≤ L(X)Σ|c_k|²` for `S_k ⊆ [2, X]`: round 526's `ls_pv_dyadic` on the characters `χ(R)`, with `t` carried back by the inverse of `χ` on `R`.
 - `prod_trick_points`: if `|F| ≥ V > 0` at every point, `F` on `[2, N′]`, then `Σ_{i∈R}|E(χ_i, −it_i)|² ≤ V^{−2}L(N′Z)·τ·Σ|b_n|²·Σ|e_m|²` for `E` on `[1, Z]` and `d(k) ≤ τ` for `k ≤ N′Z`: `|E| ≤ |FE|/V`, round 526's `pv_mul`, `ls_points` and round 526's `mass_mulCo_le`. Round 526's `huxley_core` is the same argument for `Σ|E|`.
 - `norm_dualS_pair`, `HZ`, `mass_dualCo_half`: `|D_{ik}(u)|` is `|Σ_{m≤Z}e_{k,u}(m)χ_i(m)m^{it_i}|` with `e_{k,u}(m) = conj(χ_k(m)m^{−1/2+i(u+t_k)})` (round 526's `dualS_eq_conj_pv`), and `Σ_{m≤Z}|e_{k,u}(m)|² ≤ H_Z = Σ_{m≤Z}1/m` (round 526's `norm_dualCo_le`).
 - `wH`, `IH`, `Dp`, `sum_Dp_sq_le`: `Σ_{i,k∈R}|D_{ik}(u)|² ≤ |R|·V^{−2}L(N′Z)·τ·Σ|b_n|²·H_Z` at every `u`.
@@ -727,11 +731,11 @@ See the main README, round 643, and `frontier/linnik/CGL-LEAN.md`. All axioms ar
 
 ## Round 639's hypothesis `CGLS2` proved: LinnikCGLS2.lean (round 644)
 
-Round 644 proves `CGLS2` (`cgls2`), Chen–Gupta–Li's Proposition 6.1 at one point per character in round 639's form: for every `ε > 0` there is `C` with `‖E‖_F² ≤ C(qTN)^ε·qT|R|N^{2−2σ}` under the conditions of `CGLProp31`. Linnik's exponents `9/4` and `226/100` then follow from `CGLS3` alone.
+Round 644 proves `CGLS2` (`cgls2`), Chen–Gupta–Li's Proposition 6.1 at one point per character in round 639's form: for every `ε > 0` there is `C` with `‖E‖_F² ≤ C(qTN)^ε·qT|R|N^{2−2σ}` ~~under the conditions of `CGLProp31`~~ under the conditions of `CGLThird` *(Round 647: retracted, false when written: `CGLProp31`'s conditions have no `N ≤ qT`, which `CGLS2` and `s2_main` assume; review of rounds 640–644, F1, and review of rounds 634–639, item 3.)*. Linnik's exponents `9/4` and `226/100` then follow from `CGLS3` alone.
 
 - `AL`, `natLog_le_two_log`, `LSX_le`: round 526's large-sieve factor `L(X)` is at most `A(δ)(q(2T + 1) + X)X^δ` for `X ≥ 1` and `0 < δ ≤ 1`, from Mathlib's `Real.log_le_rpow_div` at `δ/4` and `log₂X ≤ 2 log X`.
 - `HZ_le`: `H_Z = Σ_{m≤Z}1/m ≤ Z^δ/δ` (`SquarefreeCount.sum_rpow_neg_le`).
-- `two_pow_omega_le`, `EQh_le`, `Q0_le`: `2^{ω(q)} ≤ C_δq^δ` (round 526's `card_powerset_le_divisors` and the stack's `card_divisors_le`), `EQh(q) ≤ 4^{ω(q)}` (each factor `(1 − p^{−1/2})⁻¹ ≤ 4`), and `Q₀(q) ≤ π·CGK(0)·(2^{ω(q)})³`.
+- `two_pow_omega_le`, `EQh_le`, `Q0_le`: `2^{ω(q)} ≤ C_δq^δ` (~~round 526's~~ round 527's *(Round 647: retracted, false when written: the lemma is round 527's, in `LinnikTwelveSizes.lean`; review of rounds 640–644, F5.)* `card_powerset_le_divisors` and the stack's `card_divisors_le`), `EQh(q) ≤ 4^{ω(q)}` (each factor `(1 − p^{−1/2})⁻¹ ≤ 4`), and `Q₀(q) ≤ π·CGK(0)·(2^{ω(q)})³`.
 - `card_mul_sq_le`, `card_le`: `|R|V² ≤ L(N′)Σ|b_n|²` (round 643's `ls_points` for the large polynomial itself), so `|R| ≪_δ qT·(qT)^δ·N^{1−2σ}`.
 - `pv_point_eq`, `rpow_le_of_le_mul`: the large polynomial as round 526's `pv`; `x^δ ≤ c(P^δ)²` for `0 ≤ x ≤ cP^{1+δ}`.
 - `Bmax_le`: round 642's tail bound is at most `2(C_δP^δ)³·π·CGK(K)·I_K·3P·P^{−4}` when `NZ ≥ 3P^{1+δ}` and `δK ≥ 4`.
@@ -743,3 +747,48 @@ Round 644 proves `CGLS2` (`cgls2`), Chen–Gupta–Li's Proposition 6.1 at one p
 The file's declarations stay under Lean's default heartbeat limit by splitting the main case into `Bmax_le`, `card_le`, `main_term_le` and `tail_le`, and by naming the parameters with `obtain ⟨x, hx⟩ : ∃ x, x = e` rather than `set`, which kept their definitions (floors, ceilings and real powers) out of `whnf`.
 
 See the main README, round 644, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 547 lines.
+
+## Chen–Gupta–Li's Lemma 4.3 (1): LinnikCGLFourier.lean (round 645)
+
+Round 645 starts the `S₃` side with their Lemma 4.3 (1), the decay of `ĥ_t` for `h_t(u) = w(u)²u^{it}` (round 640's `Wt t`): for every `K` there is `C_K ≥ 0` with `(2π|ξ|)^K|ĥ_τ(ξ)| ≤ C_K(1 + |τ|)^K` for all real `τ` and `ξ` (`lemma43`).
+
+- `Off12`, `cf`, `off12_deriv`, `contDiff_mul_inv`, `cf_props`, `cf_eq_zero_of_lt`, `integrable_cf`: the coefficients `c_{0,0} = w²`, `c_{k+1,0} = c′_{k,0}`, `c_{k+1,j+1} = c′_{k,j+1} + c_{k,j}/u`. Each is smooth and vanishes for `u ≤ 1` and `u ≥ 2`, and `c_{k,j} = 0` for `j > k`.
+- `F`, `F_zero`, `F_eq_zero`, `sum_cf_succ`, `hasDerivAt_F`: `F_k(u) = u^{iτ}Σ_{j≤k}(iτ)^j c_{k,j}(u)` has `F_0 = h_τ` and `F_k′ = F_{k+1}`.
+- `deriv_F`, `continuous_F`, `integrable_F`, `fourier_F_succ`, `fourier_F`: `𝓕F_K(ξ) = (2πiξ)^K·ĥ_τ(ξ)` (Mathlib's `Real.fourier_deriv`, `K` times).
+- `norm_F_le`, `CF`, `CF_nonneg`, `lemma43`: `|F_K(u)| ≤ Σ_{j≤K}|τ|^j|c_{K,j}(u)|`, so `|𝓕F_K(ξ)| ≤ ∫|F_K| ≤ C_K(1 + |τ|)^K` with `C_K = Σ_{j≤K}∫|c_{K,j}|`.
+
+See the main README, round 645, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 550 lines.
+
+## The Poisson expansion of the Gram entries: LinnikCGLPoisson.lean (round 646)
+
+Round 646 expands each Gram entry by Poisson summation in residue classes, the method of Chen–Gupta–Li's Lemmas 4.4 and 4.5: for `q ≥ 1`, `N > 0` and `τ = t_i − t_k`, `G(i, k) = N^{iτ}Σ_{a<q}χ_i(a)conj(χ_k(a))Σ_{m∈ℤ}(N/q)ĥ_τ(Nm/q)e^{2πima/q}` (`gram_poisson`).
+
+- `fourier_comp_mul`, `isBigO_of_vanish`, `poisson_scaled`: `𝓕(g(c·))(ξ) = c⁻¹𝓕g(ξ/c)`, and for `g` continuous, vanishing outside `[A, B]`, with `ξ²|ĝ(ξ)| ≤ C`: `Σ_m g(c(x₀ + m)) = Σ_m c⁻¹ĝ(m/c)e^{2πimx₀}` (Mathlib's `Real.tsum_eq_tsum_fourier_of_rpow_decay` and `Measure.integral_comp_mul_left`).
+- `Wt_vanish`, `continuous_Wt`, `sq_mul_norm_hhat_le`, `poisson_Wt`: the case `g = h_τ`, with round 645's `lemma43` at `K = 2`.
+- `sum_colsP_residue`: `Σ_{n∈colsP N}ψ(n)φ(n/N) = Σ_{a<q}ψ(a)Σ_m φ((a + qm)/N)` for `ψ` of period `q` and `φ` vanishing outside `[1, 2]`.
+- `star_natCast_cpow`, `entP_mul_star`: `A_{i,n}conj(A_{k,n}) = N^{iτ}χ_i(n)conj(χ_k(n))h_τ(n/N)` for `n ≥ 1`.
+- `gram_poisson`: the three together.
+
+See the main README, round 646, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 553 lines.
+
+Round 648 proves that round 639's `S3 = X − 3μ₀‖E‖_F²` is Chen–Gupta–Li's `S₃`, the terms of the Poisson expansion of the cubic trace whose three frequencies are nonzero, at one point per character: for `q ≥ 1`, `N > 0` and `χ` injective on `R`, `S₃ = Re Σ F(i, j)F(j, k)F(k, i)` over the triples of points that are not all equal, with `F(i, k) = Σ_{a<q}χ_i(a)conj(χ_k(a))Σ_{m≠0}(N/q)ĥ_{t_i−t_k}(Nm/q)e^{2πima/q}` (`S3_eq_Fm`).
+
+- `triple_shift`, `triple_sum_split`, `S3_eq_cube`: for any `q`, `N` and points, `S₃ = Re Σ E(i, j)E(j, k)E(k, i)` over the triples that are not all equal, `E(i, k) = G(i, k) − δ_{ik}μ₀`: a triple with exactly two equal points carries `μ₀|G(i, k)|²` in one of three positions (round 639's `gramP_swap`).
+- `sum_range_mul_star_eq_zero`, `sum_range_mul_star_self`: `Σ_{a<q}χ(a)conj(ψ(a)) = 0` for `χ ≠ ψ` (Mathlib's `MulChar.sum_eq_zero_of_ne_one` over `ZMod q`) and `Σ_{a<q}|χ(a)|² = φ(q)` (`Nat.totient_eq_card_coprime`).
+- `fourier_Wt_zero`: `ĥ₀(0) = ∫_1^2 w²`.
+- `summable_poisson`: the terms of each residue class's Poisson series are summable, `O(m^{−2})` by round 645's `lemma43` at `K = 2`.
+- `Fm`, `Em_eq`: for `i, k ∈ R`, `E(i, k) = N^{i(t_i−t_k)}F(i, k)`; the term `m = 0` of `gram_poisson` vanishes for `i ≠ k` and is `μ₀` for `i = k` (Mathlib's `Summable.tsum_eq_add_tsum_ite`).
+- `S3_eq_Fm`: the two together; the phases `N^{iτ}` cancel around a triple.
+
+See the main README, round 648, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 556 lines.
+
+Round 649 bounds the Gram diagonal `μ = Σ_{n∈colsP N, (n,q)=1}w(n/N)²` against its main term `μ₀ = (φ(q)/q)N∫w²`: for `q ≥ 1` and `N > 0`, `|μ − μ₀| ≤ d(q)B` with `B = max(2, A₂Z₂)`, `A₂ = CF(2)/(4π²)` and `Z₂ = Σ_{m∈ℤ}|m|^{−2}` (`muP_sub_mu0_le`). At one point per character `F(i, i) = μ − μ₀`, so dropping the condition "not all equal" costs `|R|(μ − μ₀)³`: `S₃ = Re Σ_{i,j,k∈R}F(i, j)F(j, k)F(k, i) − |R|(μ − μ₀)³` (`S3_eq_all`).
+
+- `sum_divisors_moebius`, `sum_coprime_eq`: `Σ_{d|n}μ(d) = [n = 1]` (Mathlib's `coe_moebius_mul_coe_zeta`) and `Σ_{n∈S, (n,q)=1}f(n) = Σ_{d|q}μ(d)Σ_{n∈S, d|n}f(n)`.
+- `totient_div_eq`: `φ(q)/q = Σ_{d|q}μ(d)/d` (Mathlib's `sum_eq_iff_sum_mul_moebius_eq` with `Nat.sum_totient`).
+- `sum_multiples_eq`: `Σ_{n∈colsP N, d|n}w(n/N)² = Σ_{m∈ℤ}(N/d)ĥ₀(Nm/d)` (round 646's `sum_colsP_residue` and `poisson_Wt`).
+- `norm_term_le`, `sum_multiples_le_one`, `bracket_le`: `|Σ_{n∈colsP N, d|n}w(n/N)² − (N/d)∫w²| ≤ B`, by the terms `m ≠ 0` (round 645's `lemma43` at `K = 2`) for `d ≤ N`, and for `d > N` because at most one multiple of `d` lies in `(N, 2N)`.
+- `muP_sub_mu0_le`, `muP_sub_mu0_le_rpow`: the bound, and `|μ − μ₀| ≤ C_δBq^δ` (round 525's `card_divisors_le`).
+- `Fm_diag`, `S3_eq_all`: `F(i, i) = μ − μ₀` (round 648's `Em_eq`, round 638's `gramP_diag`), and the identity.
+
+See the main README, round 649, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 559 lines.
