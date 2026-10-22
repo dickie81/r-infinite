@@ -26971,3 +26971,46 @@ Written out, `F(i, j)F(j, k)F(k, i)` is a product of three sums over `m ≠ 0` w
 **Bearing on RH:** none.
 
 **The next step.** The rest of their §7's opening. By their Lemma 4.3 (1) the sums over `m` may be truncated at `|m| ≤ (qT)^ϵqT/N` with a negligible tail. Then the condition "not all equal" is removed at the cost of their `Z′`, here the diagonal terms `F(i, i)³ = (μ − μ₀)³` (`Em_eq` at `i = k` with round 638's `gramP_diag`). Then their Proposition 7.1, which bounds `I′_{m⃗}` through `R(v, a) = Σ_{(t,χ)∈W}v^{it}χ(a)`.
+
+## Round 649: the Gram diagonal against its main term, and the condition "not all equal" dropped (stage M3, the `S₃` side; `external/pnt/LinnikCGLDiag.lean`)
+
+**The result.** `LinnikCGLDiag.muP_sub_mu0_le`: for `q ≥ 1` and `N > 0`, `|μ − μ₀| ≤ d(q)B`, where `μ = Σ_{n∈colsP N, (n,q)=1}w(n/N)²` is round 638's Gram diagonal, `μ₀ = (φ(q)/q)N∫w²` round 639's main term, `B = max(2, A₂Z₂)`, `A₂ = CF(2)/(4π²)` and `Z₂ = Σ_{m∈ℤ}|m|^{−2}`; so `|μ − μ₀| ≤ C_δBq^δ` for `0 < δ ≤ 1` (`muP_sub_mu0_le_rpow`). And `S3_eq_all`: for `q ≥ 1`, `N > 0` and `χ` injective on `R`,
+
+`S₃ = Re Σ_{i,j,k∈R}F(i, j)F(j, k)F(k, i) − |R|(μ − μ₀)³`,
+
+the sum now over all triples, since `F(i, i) = μ − μ₀` (`Fm_diag`).
+
+**The paper's `Z′` and the stack's.** Re-read this round in the text layer (lines 1990–2025; spaces restored): their §7 drops the condition "not all equal" — "This can be done by removing the terms when (t₁,χ₁) = (t₂,χ₂) = (t₃,χ₃)" — at the cost of their `Z′ = |W|((N/q)Σ_{0<|m|≤(qT)^ϵqT/N}ĥ₀(Nm/q)C_q(m))³` with the Ramanujan sum `C_q(m)`, and then "By Lemma 4.3(1), for m ≠ 0, |ĥ₀(Nm/q)| ≪ q/(N|m|). On the other hand, the arithmetic sum is the Ramanujan sum C_q(m) and |C_q(m)| ≤ (m,q)" (the fraction and subscripts transcribed). At one point per character the dropped terms are `F(i, i)³ = (μ − μ₀)³`, before any truncation in `m`. The stack bounds `μ − μ₀` without Ramanujan sums: by Möbius inversion over the divisors of `q`, `μ − μ₀ = Σ_{d|q}μ(d)(Σ_{n∈colsP N, d|n}w(n/N)² − (N/d)∫w²)`. For `d ≤ N` each bracket is `Σ_{m≠0}(N/d)ĥ₀(Nm/d)` by round 646's Poisson summation along the multiples of `d`, at most `A₂Z₂d/N` by round 645's Lemma 4.3 (1) at `K = 2`; for `d > N` at most one multiple of `d` lies in `(N, 2N)`, outside which `w(n/N) = 0`. Their bound gives `|Z′| ⪅ |W|`, and this one gives `|R|(μ − μ₀)³ ≤ |R|(C_δBq^δ)³`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLDiag.lean`: new, 358 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`muP_sub_mu0_le`, `muP_sub_mu0_le_rpow`, `S3_eq_all`).
+- `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch first (`scratchpad/r649/lc.sh`; `lc.out` and `lc2.out`). The fixes were a `simp` after a `rw` that had already closed its goal, and opaque definitions (`obtain`) in place of `set`, through which `rw` had rewritten the wrong sum; with them `Finset.sum_filter_of_ne` replaced a `Finset.sum_filter` step.
+- Then `build.sh` ran once (`scratchpad/r649/compile.sh 1`, log `build_1.log`): `1 compiled, 385 up to date` (`LinnikCGLDiag` 13 s), exit 0 in 25 s, no error, warning or `sorry`. Its 566 axiom lines (7 by the module, 559 by the final check, which gains three lines) are 553 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.69 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` or `maxHeartbeats`, and no line over 120 characters.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872, after eight pipes in the two new table cells, which split them, were escaped (the lint's first run caught them).
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2 gains round 649 in its stack cell and a clause in its status, nothing in it superseded; the opening's parenthetical gains round 649, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round): their §7 from "This can be done by removing" to the bound on `Z′` (text layer lines 1990–2025), re-read for this round's quotations; `LinnikCGLDiag.lean` in full; the operative definitions, round 638's `muP`, `colsP` and `gramP_diag` and round 639's `mu0` and `S3`, with round 648's `Fm`, `Em_eq` and `S3_eq_Fm`; round 646's `sum_colsP_residue`, `poisson_Wt` and `Wt_vanish`, round 648's `summable_poisson` and `fourier_Wt_zero`, and round 525's `card_divisors_le`; Mathlib's `coe_moebius_mul_coe_zeta`, `coe_mul_zeta_apply`, `one_apply`, `intCoe_apply`, `sum_eq_iff_sum_mul_moebius_eq`, `Nat.sum_totient`, `Nat.prod_divisorsAntidiagonal` (whose additive form is `Nat.sum_divisorsAntidiagonal`), `abs_moebius_le_one`, `tsum_of_norm_bounded`, `Finset.prod_eq_single_of_mem` and `Finset.prod_ite_eq` (whose additive forms the file uses).
+
+**Check 4.** No defect is raised. `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: "for `q ≥ 1` and `N > 0`" is the statement of `muP_sub_mu0_le`, and "for `q ≥ 1`, `N > 0` and `χ` injective on `R`" that of `S3_eq_all`; "at most one multiple of `d` lies in `(N, 2N)`" for `d > N` is `sum_multiples_le_one`'s step.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** The truncation in `m`: by their Lemma 4.3 (1) at large `K`, the terms `|m| > (qT)^ϵqT/N` of each `F(i, k)` sum to a negative power of `qT`, so that `S₃` is `Re Σ_{i,j,k}` of the truncated `F`, less `|R|(μ − μ₀)³`, up to that power; then their Proposition 7.1.

@@ -170,6 +170,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLFourier.lean` | 645 | Chen–Gupta–Li's Lemma 4.3 (1): `(2π\|ξ\|)^K\|ĥ_τ(ξ)\| ≤ C_K(1 + \|τ\|)^K` for `h_τ(u) = w(u)²u^{iτ}` (`lemma43`), from the derivatives `h_τ^{(k)} = u^{iτ}Σ_{j≤k}(iτ)^j c_{k,j}` (`hasDerivAt_F`) and Mathlib's `Real.fourier_deriv` (`fourier_F`) |
 | `LinnikCGLPoisson.lean` | 646 | the Poisson expansion of the Gram entries in residue classes (`gram_poisson`): `G(i, k) = N^{iτ}Σ_{a<q}χ_i(a)conj(χ_k(a))Σ_{m∈ℤ}(N/q)ĥ_τ(Nm/q)e^{2πima/q}`, from Poisson summation scaled (`poisson_scaled`), the regrouping by residue classes (`sum_colsP_residue`) and the terms `A_{i,n}conj(A_{k,n}) = N^{iτ}χ_i(n)conj(χ_k(n))h_τ(n/N)` (`entP_mul_star`) |
 | `LinnikCGLTrace.lean` | 648 | Chen–Gupta–Li's `S₃` at one point per character (`S3_eq_Fm`): for `χ` injective on `R`, `X − 3μ₀‖E‖_F² = Re Σ F(i, j)F(j, k)F(k, i)` over the triples that are not all equal, `F(i, k)` the terms `m ≠ 0` of `gram_poisson`; from the algebra of the cubic trace (`S3_eq_cube`), orthogonality (`sum_range_mul_star_eq_zero`, `sum_range_mul_star_self`), `ĥ₀(0) = ∫w²` (`fourier_Wt_zero`) and the term `m = 0` split off (`summable_poisson`, `Em_eq`) |
+| `LinnikCGLDiag.lean` | 649 | the Gram diagonal against its main term (`muP_sub_mu0_le`): `\|μ − μ₀\| ≤ d(q)B`, by Möbius inversion over the divisors of `q` (`sum_coprime_eq`, `totient_div_eq`) and Poisson summation along the multiples of each (`sum_multiples_eq`, `bracket_le`); and `S₃ = Re Σ_{i,j,k∈R}F(i, j)F(j, k)F(k, i) − \|R\|(μ − μ₀)³` at one point per character (`Fm_diag`, `S3_eq_all`) |
 
 ## Building (rounds 217, 618)
 
@@ -780,3 +781,14 @@ Round 648 proves that round 639's `S3 = X − 3μ₀‖E‖_F²` is Chen–Gupta
 - `S3_eq_Fm`: the two together; the phases `N^{iτ}` cancel around a triple.
 
 See the main README, round 648, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 556 lines.
+
+Round 649 bounds the Gram diagonal `μ = Σ_{n∈colsP N, (n,q)=1}w(n/N)²` against its main term `μ₀ = (φ(q)/q)N∫w²`: for `q ≥ 1` and `N > 0`, `|μ − μ₀| ≤ d(q)B` with `B = max(2, A₂Z₂)`, `A₂ = CF(2)/(4π²)` and `Z₂ = Σ_{m∈ℤ}|m|^{−2}` (`muP_sub_mu0_le`). At one point per character `F(i, i) = μ − μ₀`, so dropping the condition "not all equal" costs `|R|(μ − μ₀)³`: `S₃ = Re Σ_{i,j,k∈R}F(i, j)F(j, k)F(k, i) − |R|(μ − μ₀)³` (`S3_eq_all`).
+
+- `sum_divisors_moebius`, `sum_coprime_eq`: `Σ_{d|n}μ(d) = [n = 1]` (Mathlib's `coe_moebius_mul_coe_zeta`) and `Σ_{n∈S, (n,q)=1}f(n) = Σ_{d|q}μ(d)Σ_{n∈S, d|n}f(n)`.
+- `totient_div_eq`: `φ(q)/q = Σ_{d|q}μ(d)/d` (Mathlib's `sum_eq_iff_sum_mul_moebius_eq` with `Nat.sum_totient`).
+- `sum_multiples_eq`: `Σ_{n∈colsP N, d|n}w(n/N)² = Σ_{m∈ℤ}(N/d)ĥ₀(Nm/d)` (round 646's `sum_colsP_residue` and `poisson_Wt`).
+- `norm_term_le`, `sum_multiples_le_one`, `bracket_le`: `|Σ_{n∈colsP N, d|n}w(n/N)² − (N/d)∫w²| ≤ B`, by the terms `m ≠ 0` (round 645's `lemma43` at `K = 2`) for `d ≤ N`, and for `d > N` because at most one multiple of `d` lies in `(N, 2N)`.
+- `muP_sub_mu0_le`, `muP_sub_mu0_le_rpow`: the bound, and `|μ − μ₀| ≤ C_δBq^δ` (round 525's `card_divisors_le`).
+- `Fm_diag`, `S3_eq_all`: `F(i, i) = μ − μ₀` (round 648's `Em_eq`, round 638's `gramP_diag`), and the identity.
+
+See the main README, round 649, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 559 lines.
