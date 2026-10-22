@@ -28156,3 +28156,66 @@ The reductions take any `f` with `R̃(c, b)² ≤ f_{−b}(c)` on `[−3, 3]`; o
 **Bearing on RH:** none.
 
 **The next step.** Their Lemma 10.5 at one point per character. With the large values `|D_N(t_i, χ_i)| ≥ N^σ/6` and `norm_sq_esum_le` for `D_N`, the energy is at most `36N^{−2σ}∫|k|` times `Σ_{n₁,n₂}|R(n₁/n₂, n₁n₂⁻¹)|³` over `n_i ∈ [6N/5, 9N/5]`. The step uses `χ_iχ_jχ̄_k`, which determines the fourth point.
+
+## Round 669: their Lemma 10.5, the energy by the third moment of `R` (stage M3, the `S₃` side; `external/pnt/LinnikCGLL105.lean`)
+
+**The results.** Below, `S` is a finite set of naturals in `[N, 2N]` with `N > 0`, and `D_c(t) = Σ_{n∈S}c(n)n^{it}` (`Dp`). `k = ψ̂₀` is round 668's kernel, and `R₂(n₁, n₂) = Σ_iχ_i(n₁)χ̄_i(n₂)e^{it_i(log n₁ − log n₂)}` (`R2`). For `(n₁n₂, q) = 1`, `R₂(n₁, n₂)` is their `R(n₁/n₂, n₁n₂⁻¹)`; otherwise it is `0`.
+
+- `LinnikCGLL105.norm_kloc_mul_le`, `norm_kloc_shift_le`: `(1 + ξ²)|k(ξ)| ≤ C_k = ∫ψ̃₀ + D₂/(4π²)`. Hence `|k(ξ + η)| ≤ κ(ξ) = 4C_k/(1 + ξ²)` for `|η| ≤ 1` (`kmaj`), since `1 + ξ² ≤ 4(1 + (ξ + η)²)` there. `κ` is integrable.
+- `LinnikCGLL105.Dp_eq_esum`, `norm_sq_Dp_le`, `norm_sq_Dp_le_shift`: `D_c` is a finite exponential sum with frequencies `log n`, all within `1` of `log N`. Round 668 then gives `|D_c(t)|² ≤ ∫|k(ξ)||D_c(t + πξ)|² dξ`. For `|τ − t| ≤ 1` it gives `|D_c(t)|² ≤ ∫κ(ξ)|D_c(τ + πξ)|² dξ`, by the change of variables `ξ ↦ ξ + (τ − t)/π`.
+- `LinnikCGLL105.char_eq_of_mul_eq`: if `χ_iχ_j = χ_kχ_l` then `χ_l(n) = χ_i(n)χ_j(n)χ̄_k(n)` for every `n`. At a unit `|χ_k(n)| = 1`, and at a non-unit both sides are `0`.
+- `LinnikCGLL105.sum_triple_eq`, `sum_triple_le`: with `c_{ijk}(n) = b_nχ_i(n)χ_j(n)χ̄_k(n)` (`ct`), `Σ_{i,j,k∈R}|D_{c_{ijk}}(t_i + t_j − t_k + y)|² = Σ_{n₁,n₂∈S}b_{n₁}b̄_{n₂}e^{iy(log n₁ − log n₂)}R₂(n₁, n₂)²R̄₂(n₁, n₂)`. For `|b_n| ≤ 1` this is at most `Σ_{n₁,n₂∈S}|R₂(n₁, n₂)|³`.
+- `LinnikCGLL105.lemma105`: their Lemma 10.5 at one point per character. For `χ` injective on `R`, `|b_n| ≤ 1` and `|Σ_{n∈S}b_nχ_i(n)n^{it_i}| ≥ N^σ/6` for `i ∈ R`, `E ≤ 36(N^σ)^{−2}∫κ·Σ_{n₁,n₂∈S}|R₂(n₁, n₂)|³`, with `E` round 659's `energy`.
+
+**Their text.** Re-read this round in the text layer.
+
+- Their statement: "E(W) ⪅ N^{−2σ} Σ\_{n₁,n₂∼N, (n₁n₂,q)=1} |R(n₁/n₂, n₁n₂^{−1})|³," (lines 4687–4698; spaces restored; the sum, fraction, large bars, large parentheses, subscripts and exponents transcribed; the underscore before the sum's range escaped for the renderer).
+- Their uniqueness step: "given (t_i,χ_i) ∈ W for 1 ≤ i ≤ 3, there exists at most one choice of (t₄,χ₄) ∈ W such that |t₁+t₂−t₃−t₄| ≤ 1 and χ₁χ₂ = χ₃χ₄" (lines 4716–4718; spaces restored; the subscripts transcribed).
+
+**The stack's form.**
+
+- **One point per character.** The fourth point is unique because `χ_l` is determined by `χ_kχ_l = χ_iχ_j` (cancellation in the group of characters) and `χ` is injective on `R`. Theirs uses the `(qT)^ϵ`-separation of `W` as well.
+- **No inverse.** Their proof writes `D_N(·, χ₁χ₂χ̄₃)` (the bar dropped by the text layer at line 4711). The stack uses `χ_l(n) = χ_i(n)χ_j(n)χ̄_k(n)`, so no character is inverted and `R₂` needs no inverse modulo `q`.
+- **Shifted weight, no window.** Their two displays restrict to `|u − t₄| ⪅ 1` and then `|u − (t₁ + t₂ − t₃)| ⪅ 1`. The stack moves the shift into the weight, `κ` majorizing every `|k(· + η)|` with `|η| ≤ 1`. `∫κ = 4πC_k` is a constant.
+- **`S ⊆ [N, 2N]`.** `CGLS3`'s `S ⊆ [6N/5, 9N/5]` satisfies it.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLL105.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`sum_triple_le`, `lemma105`).
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+
+**What is checked.**
+
+- Mathlib's names were checked first (`scratchpad/r669/check.lean`).
+- The file was compiled in scratch in four runs with `lean --json` (`scratchpad/r669/lcj.sh`; `lcj.out` to `lcj4.out`). The last run had exit 0 and no message but the axiom lines. The fixes were the square's cast moved out before `Complex.normSq_eq_norm_sq`; the expansion of each `|D|²` written directly with `Finset.sum_mul_sum`, the terms matched by one exponential identity; the casts of the sums pushed with `Complex.ofReal_sum` and `Complex.ofReal_pow` only, since `push_cast` also rewrote the right side; the sums over `S` moved outside by `Finset.sum_comm (s := R) (t := S)`; the triple sum reordered by the lemma `sum3_comm`; in the assembly, the weight pushed into the sums before `integral_finsetSum`; and an unused `simp` argument dropped. The header was then re-wrapped; the build below compiled the final file.
+- Then `build.sh` ran once (`scratchpad/r669/compile.sh 1`, log `build_1.log`): `1 compiled, 404 up to date` (`LinnikCGLL105` 13 s), exit 0 in 23 s, with no error, warning, `sorry` or information message. Its 610 axiom lines (4 by the module, 606 by the final check, which gains two lines) are 597 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms"; the 13 are in the final check, as before. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.82 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed: `tools/research/render_lint.py` against HEAD (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2 gains round 669 in its stack cell and a clause in its status, with nothing in it superseded. The opening's parenthetical gains round 669, and M3 gains a note.
+- `external/pnt/README.md`: a row, and a section with a heading.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their Lemma 10.5 and its proof at lines 4686–4760.
+- `LinnikCGLL105.lean` in full.
+- The operative definitions and statements: round 668's `esum`, `kloc`, `norm_sq_esum_le`, `esum_mul` and `conj_esum`; round 659's `energy`, `Dpsi`, `fourier_psiC_decay` and `norm_fourier_psiC_le`; and `CGLS3`'s large-values hypothesis, `N^σ/6 ≤ |Σ_{n∈S}b_nχ_i(n)n^{it_i}|`, which `lemma105` takes in the same form.
+
+**Check 4.** No defect in the cascade or the stack is raised. `CGLS3`, `CGLP81` and their Theorem 10.1 stay hypotheses.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Theorem 10.1, displayed with explicit constants, and their Lemma 10.6 from it. Lemma 10.6 is `Σ_{n₁,n₂∼M}|R₂(n₁, n₂)|² = Σ_{i,j}|Σ_{n∼M}χ_i(n)χ̄_j(n)n^{i(t_i−t_j)}|²` by expanding the square, and needs the characters `χ_i` primitive.

@@ -189,6 +189,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLBlock.lean` | 666 | Chen–Gupta–Li's `S₃,₃`, `S₃,₄` and the block sums of `Ĩ`, by their Proposition 8.1 (round 662's `CGLP81`, a displayed hypothesis) and Lemmas 9.1 and 9.2: the two moments of `f_b` (`integral_sum_fb_le`, `integral_sum_fb_sq_le`), `CGLP81` on the block `k` (`S34_le_P81`), and `S₃,₄ ≤ V`, `S₃,₃ ≤ 4V`, `(Σ_{m⃗∈B}Ĩ(m⃗))² ≤ 3φ(q)\|R\|V` (`block_le`) |
 | `LinnikCGL112.lean` | 667 | Chen–Gupta–Li's (11.2) in explicit form: each dyadic block square-rooted (`sum_blk_It_le`), and the blocks of round 657's Proposition 7.2 summed, `S₃ ≤ 6C_J(0)d(q)∫ψ̃₀(log₂M + 1)²√P(24(NM)²\|R\| + 12N²M√G)` plus its three errors (`S3_le_blocks`), with `NM ≤ XqT` (`S3_le_112`) |
 | `LinnikCGLLoc.lean` | 668 | local averages of finite exponential sums, toward Chen–Gupta–Li's Lemmas 10.4 and 10.8: Fourier inversion for `ψ̂₀` (`kloc_inv`), `F(x) = ∫k(ξ)e^{−2πiξΛ/H}F(x + 2πξ/H) dξ` (`esum_eq_integral`), and the bounds for `\|F\|`, `\|F\|²` and `\|F\|³` (`norm_esum_le_integral`, `norm_sq_esum_le`, `norm_cube_esum_le`) |
+| `LinnikCGLL105.lean` | 669 | Chen–Gupta–Li's Lemma 10.5 at one point per character: the shifted local average of `\|D_c\|²` against `κ = 4C_k/(1 + ξ²)` (`norm_sq_Dp_le_shift`), the sum over the triples (`sum_triple_eq`, `sum_triple_le`), and `E ≤ 36(N^σ)^{−2}∫κ·Σ_{n₁,n₂}\|R₂(n₁, n₂)\|³` (`lemma105`) |
 
 ## Building (rounds 217, 618)
 
@@ -1019,3 +1020,14 @@ Round 668 bounds a finite exponential sum `F(x) = Σ_{k∈s}c_ke^{iλ_kx}`, with
 - `norm_sq_esum_le`, `norm_cube_esum_le`: `|F(x)|² ≤ ∫|k(ξ)||F(x + πξ/H)|² dξ` and `|F(x)|³ ≤ ∫|k(ξ)||F(x + 2πξ/(3H))|³ dξ`.
 
 See the main README, round 668, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 604 lines.
+
+## Their Lemma 10.5: LinnikCGLL105.lean (round 669)
+
+Round 669 bounds the energy by the third moment of `R₂(n₁, n₂) = Σ_iχ_i(n₁)χ̄_i(n₂)e^{it_i(log n₁ − log n₂)}`, for `S ⊆ [N, 2N]` and `D_c(t) = Σ_{n∈S}c(n)n^{it}`.
+
+- `Ck`, `norm_kloc_mul_le`, `Ck_nonneg`, `kmaj`, `kmaj_nonneg`, `integrable_kmaj`, `norm_kloc_shift_le`: `(1 + ξ²)|k(ξ)| ≤ C_k`, and `|k(ξ + η)| ≤ κ(ξ) = 4C_k/(1 + ξ²)` for `|η| ≤ 1`.
+- `Dp`, `Dp_eq_esum`, `norm_Dp_le`, `continuous_Dp`, `norm_sq_Dp_le`, `norm_sq_Dp_le_shift`: `|D_c(t)|² ≤ ∫κ(ξ)|D_c(τ + πξ)|² dξ` for `|τ − t| ≤ 1`.
+- `char_eq_of_mul_eq`, `R2`, `sum3_comm`, `ct`, `sum_triple_eq`, `sum_triple_le`: the fourth point's character, and the sum over the triples, at most `Σ_{n₁,n₂}|R₂|³`.
+- `lemma105`: `E ≤ 36(N^σ)^{−2}∫κ·Σ_{n₁,n₂∈S}|R₂(n₁, n₂)|³`.
+
+See the main README, round 669, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 606 lines.
