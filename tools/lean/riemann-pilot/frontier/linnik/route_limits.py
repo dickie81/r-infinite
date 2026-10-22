@@ -385,6 +385,7 @@ def cmd_floor(curve, over=()):
     at = [f'[{plo}, {phi}]' for plo, phi, A in pieces if A == amax]
     q, arg = floor_q(pieces)
     name = curve + ''.join(f' with A = {A_} on [{lo_}, {hi_}]' for lo_, hi_, A_ in over)
+    # round 632: one label for all the arguments, 'attained' when 11/12 was among them; review of round 625, O1
     kind = lambda b: 'attained' if b == pieces[-1][1] else 'a left limit'  # only the top piece's end is in the window
     print(f'{name}: the exact floor L* = 1 + sup (g/2 + 1/25000)/(1 - b - 4e-6) = {1 + q}, between '
           f'{" and ".join(encl(1 + q))}, at b = {", ".join(f"{b} ({kind(b)})" for b in arg)}; A_max = {amax} on '
