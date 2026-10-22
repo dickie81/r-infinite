@@ -174,6 +174,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLTrunc.lean` | 650 | the truncation in `m` (`S3_trunc`): `S₃` is `Re Σ_{0<\|m_i\|≤M}I′(m⃗) − \|R\|(μ − μ₀)³` within `3\|R\|³τ_M(2N + 1 + τ_M)²`, from the truncated cubic trace as a sum of their `I′_{m⃗}` (`sum_FmT_cube`), the tail of each entry (`norm_Fm_sub_FmT_le`) and `\|F(i, k)\| ≤ 2N + 1` (`norm_Fm_le`) |
 | `LinnikCGLProd.lean` | 651 | a product of three `ĥ`s as an integral over `(v₁, v₂)` (`hhat_prod`): for `τ₁ + τ₂ + τ₃ = 0`, `ĥ_{τ₁}(ξ₁)ĥ_{τ₂}(ξ₂)ĥ_{τ₃}(ξ₃) = ∫∫v₁^{iτ₁}v₂^{iτ₂}J(v₁, v₂, v₁ξ₁ + v₂ξ₂ + ξ₃)`, the change of variables of Chen–Gupta–Li's proof of Proposition 7.1, from the substitutions `u_ℓ = v_ℓu₃` (`prod_eq_iter`), Fubini over a compact support (`iter_swap`) and the phases (`Phi_eq`) |
 | `LinnikCGLRFact.lean` | 652 | Chen–Gupta–Li's (7.3) at one point per character (`Ip_eq`): `I′(m⃗) = (N/q)³∫∫J(v₁, v₂, λ)Σ_{b₁,b₂}C_q(b₁m₁ + b₂m₂ + m₃)R(v₁, b₁)R(v₂/v₁, b₂b₁⁻¹)R(1/v₂, b₂⁻¹)`, from `φ_{ik}(m)` with its residue sum over the units (`phi_eq`), round 651's `hhat_prod`, the substitution `a₁ = b₁a₃`, `a₂ = b₂a₃` (`S2_triple`) and the phases (`phases`) |
+| `LinnikCGLRam.lean` | 653 | the inputs of Chen–Gupta–Li's bound for `I′(m⃗)`: `\|C_q(n)\| ≤ d(q)(n, q)` (`norm_Cq_le`), by Möbius over the divisors of `q` (`sum_coprime_eq_C`, `Cq_eq_moebius`); the decay `(2π\|λ\|)^K\|J(v₁, v₂, λ)\| ≤ C_K` uniformly for `\|v₁\|, \|v₂\| ≤ 2` (`Jk_decay`); and `J = 0` unless `v₁, v₂ ∈ (1/2, 2)` (`Jk_eq_zero_of`) |
 
 ## Building (rounds 217, 618)
 
@@ -824,3 +825,14 @@ Round 652 proves Chen–Gupta–Li's (7.3) at one point per character: for `q �
 - `Qk`, `Psi`, `sum_Qk`, `Ip_eq`: at each `(v₁, v₂)` the sum over the triples of points factors into the three `R`s, and the formula.
 
 See the main README, round 652, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 568 lines.
+
+Round 653 proves the two inputs that Chen–Gupta–Li's proof of Proposition 7.1 inserts into their (7.3). The first is `|C_q(n)| ≤ d(q)(n, q)` for `q ≥ 1` and `n ∈ ℤ/qℤ` (`norm_Cq_le`); theirs is `(n, q)`, and the extra `d(q)` is absorbed by the `(qTN)^ε` of `CGLS3`. The second is the decay of round 651's kernel: for every `K` there is `C_K` with `(2π|λ|)^K|J(v₁, v₂, λ)| ≤ C_K` for all real `λ` and `|v₁|, |v₂| ≤ 2` (`Jk_decay`). Also `J(v₁, v₂, λ) = 0` unless `v₁, v₂ ∈ (1/2, 2)` (`Jk_eq_zero_of`).
+
+- `sum_divisors_moebius_C`, `sum_coprime_eq_C`: round 649's Möbius sums over the divisors of `q`, in `ℂ`.
+- `sum_range_exp`, `sum_multiples_exp`: `Σ_{b<M}e(bn/M) = M[M | n]`, and `Σ_{a<q, d|a}e(an/q) = (q/d)[q/d | n]` for `d | q` (Mathlib's `geom_sum_eq` and `Complex.exp_eq_one_iff`).
+- `Cq_eq_range`, `Cq_eq_moebius`, `norm_Cq_le`: `C_q(n) = Σ_{d|q}μ(d)(q/d)[q/d | n]`, and each term is at most `(n, q)`.
+- `Gk`, `contDiff_Gk`, `Gk_ne_zero`, `hasCompactSupport_Gk`, `exists_bound_Gk`: `G(a, b, c) = c²w(a)²w(b)²w(c)²`, smooth with compact support on `ℝ³`, has bounded derivatives of each order.
+- `Lv`, `Lv_apply`, `norm_Lv_le`, `gv_eq_comp`, `iteratedDeriv_gv_eq_zero`, `Jk_decay`: `g_v(u) = G(v₁u, v₂u, u)`, so its `K`-th derivative is at most `C·2^K` for `|v₁|, |v₂| ≤ 2` (Mathlib's `ContinuousLinearMap.iteratedFDeriv_comp_right`) and vanishes off `[1, 2]`; integration by parts (round 588's `SieveSmooth.pow_mul_norm_fourier_le`) gives the decay.
+- `Jk_eq_zero_of`: `w(vu) = 0` for `u ∈ (1, 2)` unless `v ∈ (1/2, 2)`.
+
+See the main README, round 653, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 571 lines.

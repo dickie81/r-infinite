@@ -27165,3 +27165,59 @@ Here `I′` is round 650's `I′(m⃗)`, `λ = (N/q)(m₁v₁ + m₂v₂ + m₃)
 **Bearing on RH:** none.
 
 **The next step.** Proposition 7.1 from `Ip_eq`. It needs a bound for the Ramanujan sum: theirs is "|C_q(m)| ≤ (m,q)" (line 2017), and the stack may take the weaker `d(q)(m, q)`, which the `(qTN)^ε` of `CGLS3` absorbs. It also needs the decay of `J(v₁, v₂, λ)` in `λ`, uniformly for `(v₁, v₂) ∈ [1/2, 2]²`, and the split of the `(v₁, v₂)` integral at `|m₁v₁ + m₂v₂ + m₃| ≤ (qT)^ϵq/N`.
+
+## Round 653: the Ramanujan sum's bound and the decay of `J` (stage M3, the `S₃` side; `external/pnt/LinnikCGLRam.lean`)
+
+**The results.**
+
+- `LinnikCGLRam.norm_Cq_le`: for `q ≥ 1` and `n ∈ ℤ/qℤ`, `|C_q(n)| ≤ d(q)·gcd(n, q)`, with `n` read as its least nonnegative residue and round 652's Ramanujan sum `C_q(n) = Σ_{a∈(ℤ/qℤ)ˣ}e(an/q)`.
+- `LinnikCGLRam.Jk_decay`: for every `K` there is `C_K` with `(2π|λ|)^K|J(v₁, v₂, λ)| ≤ C_K` for all real `λ` and `|v₁|, |v₂| ≤ 2`, where `J` is round 651's kernel.
+- `LinnikCGLRam.Jk_eq_zero_of`: `J(v₁, v₂, λ) = 0` unless `v₁, v₂ ∈ (1/2, 2)`.
+
+**The paper's inputs and the stack's.** Re-read this round in the text layer (spaces restored; the exponents and subscripts transcribed). Their proof of Proposition 7.1 ends: "As w(u) is a smooth bump supported on [1,2], we observe that w(v₁u₃)²w(v₂u₃)²w(u₃)²u₃² vanishes unless v₁, v₂ ∈ [1/2,2]. Furthermore, its jth derivative with respect to u₃ is bounded by O_j(1). Thus, by repeated integration by parts, the inner integral is O_ϵ((qT)^{−300}) unless |m₁v₁+m₂v₂+m₃| ≤ (qT)^ϵq/N and v₁, v₂ ∈ [1/2,2]. On the other hand, the inner integral is O(1) trivially." It continues with "applying the triangle inequality along with the fact that |C_q(m)| ≤ (m,q)" (lines 2227–2234). `Jk_eq_zero_of` is their first sentence, and `Jk_decay` their second and third, with `K = 0` their "O(1) trivially". The stack makes the uniformity in `(v₁, v₂)` explicit. The weight is `G(v₁u, v₂u, u)` with `G(a, b, c) = c²w(a)²w(b)²w(c)²` smooth with compact support on `ℝ³`, so its `K`-th derivative in `u` is at most `sup‖D^KG‖·‖(v₁, v₂, 1)‖^K ≤ C·2^K`. For the Ramanujan sum the stack proves `d(q)(n, q)`, not `(n, q)`. By Möbius over the divisors of `q`, `C_q(n) = Σ_{d|q}μ(d)(q/d)[q/d | n]`, and each term is at most `(n, q)`. The exact bound needs the signs of `μ`. The extra `d(q) ≤ C_δq^δ` is absorbed by the factor `(qTN)^ε` of round 639's `CGLS3`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLRam.lean`: new, 331 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`norm_Cq_le`, `Jk_decay`, `Jk_eq_zero_of`).
+- `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch first (`scratchpad/r653/lc.sh`; `lc.out` to `lc3.out`). The fixes were:
+
+  - the function in round 652's `sum_eq_sum_units` given explicitly, after the unifier timed out on `?f ↑u`;
+  - `LinnikCGLProd.fourier_eq` written in full, as Mathlib's `Real.fourier_eq` is also open;
+  - a `set` variable rewritten before `simp`, which does not see through it;
+  - the type of the reindexing function `fun a : ℕ => (a : ZMod q)` given, after `.symm` left it to default to the identity;
+  - the deprecated `if_pos` and `if_neg` replaced by `simp`.
+
+- Then `build.sh` ran once (`scratchpad/r653/compile.sh 1`, log `build_1.log`): `1 compiled, 389 up to date` (`LinnikCGLRam` 12 s), exit 0 in 24 s, no error, warning or `sorry`. Its 574 axiom lines (3 by the module, 571 by the final check, which gains three lines) are 561 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.73 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872.
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2 gains round 653 in its stack cell and a clause in its status, nothing in it superseded; the opening's parenthetical gains round 653, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their proof of Proposition 7.1 from (7.3) to its end, and §7's first use of the Ramanujan sum (text layer lines 2164–2235 and 2014–2017), re-read for this round's quotations.
+- `LinnikCGLRam.lean` in full.
+- The operative definitions: round 652's `Cq` and `sum_eq_sum_units`; round 651's `Jk`, `gv`, `fourier_eq` and `one_lt_of_wCGL_ne`; round 649's `sum_coprime_eq` and `sum_divisors_moebius`; round 638's `wCGL_zero` and `wCGL_contDiff`; round 588's `SieveSmooth.pow_mul_norm_fourier_le`, and round 640's use of it.
+- The statements of Mathlib's `Real.fourier_iteratedDeriv`, `ContinuousLinearMap.iteratedFDeriv_comp_right`, `ContinuousMultilinearMap.norm_compContinuousLinearMap_le`, `norm_iteratedFDeriv_eq_norm_iteratedDeriv`, `iteratedDeriv_eq_iteratedFDeriv` and `support_iteratedFDeriv_subset`.
+- Also `HasCompactSupport.iteratedFDeriv`, `ContDiff.continuous_iteratedFDeriv`, `Continuous.bounded_above_of_compact_support`, `ContinuousLinearMap.norm_smulRight_apply`, `Complex.exp_nat_mul`, `Complex.exp_eq_one_iff`, `Complex.exp_nat_mul_two_pi_mul_I`, `geom_sum_eq`, `Complex.norm_intCast`, `ArithmeticFunction.abs_moebius_le_one`, `ZMod.isUnit_iff_coprime` and `setIntegral_const`.
+
+**Check 4.** No defect is raised. The weaker bound `d(q)(n, q)` is a choice of the stack, recorded above; `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of `norm_Cq_le`, `Jk_decay` and `Jk_eq_zero_of` are their statements. "The exact bound needs the signs of `μ`" is scoped to the proof given here: the triangle inequality over `Σ_{d|q}μ(d)(q/d)[q/d | n]` loses the signs.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Proposition 7.1 from round 652's `Ip_eq` and these inputs. Split the integral over `(v₁, v₂) ∈ [1/2, 2]²` at `|m₁v₁ + m₂v₂ + m₃| ≤ Xq/N`. Inside, `|J| ≤ C₀` and `|C_q| ≤ d(q)(·, q)`. Outside, `|J| ≤ C_K(2πX)^{−K}`, with the trivial bounds for `R` and `C_q`. The integrability comes from measurable majorants.
