@@ -27855,3 +27855,52 @@ The reductions take any `f` with `R̃(c, b)² ≤ f_{−b}(c)` on `[−3, 3]`; o
 **Bearing on RH:** none.
 
 **The next step.** The decay of `f̂_b` in `CGLP81`'s form: `f̂_b(ξ) = ∫_{[1/2,2]}|R(u′, −b)|²·(ψ·kerL(· − u′))^(ξ) du′` by Fubini; integration by parts `j` times with Leibniz's rule; round 658's `lemma91` for `Σ_b∫|R(·, −b)|²`; and `fb_one_ge` with `L ≤ XT`. For `j = 0`, `exists_max` supplies the point.
+
+## Round 664: the Fourier decay of the pieces `ψ·K(· − u′)` of their `f_b` (stage M3, the `S₃` side; `external/pnt/LinnikCGLPhi.lean`)
+
+**The results.** Below, `X > 0`, `L = NM₂/q`, `c = L/(2X)` and `K(x) = Lψ̃₀(Lx/(2X))`, round 663's `kerL`, so that `R̃(u, a)² = ∫_{[1/2,2]}K(u − u′)|R(u′, a)|² du′`. `φ_{u′}(x) = ψ(x)K(x − u′)` (`phiR`), with round 663's `ψ`. The constants are `S₀(m) = sup|ψ̃₀^{(m)}|`, `I₀(m) = ∫|ψ̃₀^{(m)}|` and `P(i) = ∫|ψ^{(i)}|` (`S0`, `I0`, `Pw`), and `B_j(L, X) = Σ_{i≤j}C(j, i)T_i` (`Bj`), with `T_0 = 2Xc^jI₀(j)` and `T_i = P(i)·Lc^{j−i}S₀(j−i)` for `i ≥ 1`.
+
+- `LinnikCGLPhi.iteratedDeriv_ofReal`, `hasCompactSupport_iteratedDeriv`, `integrable_iteratedDeriv`: for `g` smooth and real, the derivatives of `x ↦ (g x : ℂ)` are those of `g`, cast; with compact support, the derivatives have compact support and are integrable.
+- `LinnikCGLPhi.iteratedDeriv_kerS`, `abs_iteratedDeriv_kerS_le`, `integral_abs_iteratedDeriv_kerS`: `(K(· − u′))^{(m)}(x) = Lc^mψ̃₀^{(m)}(c(x − u′))`; for `L ≥ 0` it is at most `Lc^mS₀(m)` in absolute value; and for `L > 0`, `∫|(K(· − u′))^{(m)}| = 2Xc^mI₀(m)`, by the substitution `y = c(x − u′)`.
+- `LinnikCGLPhi.abs_iteratedDeriv_phi_le`, `integral_abs_iteratedDeriv_phi_le`: Leibniz's rule, `|φ_{u′}^{(j)}| ≤ Σ_{i≤j}C(j, i)|ψ^{(i)}||(K(· − u′))^{(j−i)}|` (Mathlib's `norm_iteratedFDeriv_mul_le`), and, for `L > 0`, `∫|φ_{u′}^{(j)}| ≤ B_j(L, X)`. The term `i = 0` uses `|ψ| ≤ 1` and the integral of `|K^{(j)}|`; the terms `i ≥ 1` use the bound of `|K^{(j−i)}|` and the integral of `|ψ^{(i)}|`.
+- `LinnikCGLPhi.fourier_phi_le`: for `L > 0` and every `u′`, `(2π|ξ|)^j|φ̂_{u′}(ξ)| ≤ B_j(L, X)`, by round 588's integration by parts (`SieveSmooth.pow_mul_norm_fourier_le`).
+
+**Their text.** Re-read this round in the text layer. Their check of the decay: "By (7.4), it follows that F((NM₂/q) ψ̃((NM₂/q) u))(ξ) = ψ̃̂(qξ/(NM₂)) = 2(qT)^ϵ ψ̃̂₀(2(qT)^ϵqξ/(NM₂)) ≪\_j 2(qT)^ϵ (NM₂/(2(qT)^ϵq|ξ|))^j ≪\_j (qT)^ϵ (NM₂/(q|ξ|))^j." (lines 5761–5785; spaces restored, the transform, tildes, hats, large parentheses, fractions, subscripts and exponents transcribed), followed by "Applying the convolution theorem" (line 5786). The underscores are escaped for the renderer.
+
+**The stack's form.** They transform `K` and apply the convolution theorem to `R̃²`, leaving the factor `ψ` aside. The stack keeps `ψ` in each piece `φ_{u′}` and integrates by parts, which avoids the convolution theorem. Their middle bound `2(qT)^ϵ(NM₂/(2(qT)^ϵq|ξ|))^j` is `2X(c/|ξ|)^j`, the scale of `(2π|ξ|)^{−j}T_0` here; their last step drops the factor `(2(qT)^ϵ)^{−j}`. The stack keeps it, so `c ≤ T/2` when `L ≤ XT`, the bound the next step uses.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLPhi.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`integral_abs_iteratedDeriv_phi_le`, `fourier_phi_le`).
+- `frontier/linnik/CGL-LEAN.md`: the row P11.1, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+
+**What is checked.**
+
+- Mathlib's names were checked first (`scratchpad/r664/check.lean`). The file was compiled in scratch in four runs (`scratchpad/r664/lc.sh`; `lc.out` to `lc4.out`, the last with exit 0 and no warning). The fixes were the cast in `iteratedDeriv_ofReal`'s statement and its point given explicitly; `iteratedDeriv_const_mul` given its function; `norm_iteratedFDeriv_mul_le` given its two functions; `WithTop.coe_le_coe.mpr le_top` in place of `exact_mod_cast le_top`, which failed on `↑(j − i)`; a `show` before a rewrite under a lambda; and Mathlib's `integrable_finsetSum` for a deprecated name.
+- Then `build.sh` ran once (`scratchpad/r664/compile.sh 1`, log `build_1.log`): `1 compiled, 399 up to date` (`LinnikCGLPhi` 24 s), exit 0 in 34 s, no error, warning or `sorry`. Its 598 axiom lines (3 by the module, 595 by the final check, which gains two lines) are 585 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, every 10 s, was 7.12 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed: `tools/research/render_lint.py` against HEAD (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row P11.1 gains round 664 in its stack cell and a clause in its status, nothing in it superseded; the opening's parenthetical gains round 664, and M3 gains a note. `external/pnt/README.md`: a row, and a section with a heading. No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their §11 at lines 5749–5830 (their check of the decay), re-read for this round's quotation.
+- `LinnikCGLPhi.lean` in full.
+- The operative definitions and statements: round 663's `kerL`, `psiW`, `psiWide` and `contDiff_kerL`; round 659's `psiC` and its use of round 588's `SieveSmooth.pow_mul_norm_fourier_le`; round 656's `psiBump` and `psi0`.
+
+**Check 4.** No defect in the cascade or the stack is raised. `CGLS3` and `CGLP81` stay displayed hypotheses.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** `f̂_b(ξ) = ∫_{[1/2,2]}|R(u′, −b)|²φ̂_{u′}(ξ) du′` by Fubini; then `Σ_b|f̂_b(ξ)| ≤ (2π|ξ|)^{−j}B_j(L, X)·(3/2)φ(q)|R|` by round 658's `lemma91`; then, for `j ≥ 1`, `L ≤ XT` and `T ≥ 1`, `B_j(L, X) ≤ 2T^j·min(2X, L/(2T))·E_j` with `E_j` depending only on `j`, which with round 663's `fb_one_ge` gives the decay in `CGLP81`'s form; for `j = 0`, round 663's `exists_max`.

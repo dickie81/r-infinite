@@ -184,6 +184,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLCS.lean` | 660 | the two Cauchy–Schwarz steps of Chen–Gupta–Li's §11 on each dyadic block `B` of Proposition 7.2: `(Σ_{m⃗∈B}Ĩ(m⃗))² ≤ S₃,₁S₃,₂` (`sum_It_sq_le`) and `S₃,₂ ≤ √S₃,₃·√S₃,₄`, their (11.1) (`S32_le`) |
 | `LinnikCGLJ.lean` | 662 | Chen–Gupta–Li's `J(f⃗)` before the supremum (`Jint`), their Proposition 8.1 as a displayed hypothesis with its implicit constants explicit (`CGLP81`, not proved), and `S₃,₃`, `S₃,₄` in its form: `S₃,₄ ≤ 4(k + 1)Σ_{j≤k}Jint(f, 2^j − 1/2, 2^k − 1/2, 2^k − 1/2, 2)` on the block `k` for `f_{−b} ≥ R̃(·, b)²` on `[−3, 3]` (`S34_le_Jint`), and `S₃,₃ ≤ 4S₃,₄` (`S33_le_S34`) |
 | `LinnikCGLFb.lean` | 663 | Chen–Gupta–Li's `f_b = ψR̃(·, −b)²` with `ψ = 1` on `[−3, 3]`: smooth (`contDiff_fb`), `0` beyond `4`, `f_{−b} ≥ R̃(·, b)²` on `[−3, 3]`, `f_{−1}(1) ≥ min(2X, L/(2T))\|R\|²/2` (`fb_one_ge`), a largest value (`exists_max`), and round 662's reduction of `S₃,₄` for this `f` (`S34_le_fb`) |
+| `LinnikCGLPhi.lean` | 664 | the Fourier decay of the pieces `φ_{u′} = ψ·K(· − u′)` of Chen–Gupta–Li's `f_b`: `(2π\|ξ\|)^j\|φ̂_{u′}(ξ)\| ≤ B_j(L, X)` (`fourier_phi_le`), from Leibniz's rule and the kernel's scaling (`integral_abs_iteratedDeriv_kerS`, `integral_abs_iteratedDeriv_phi_le`) |
 
 ## Building (rounds 217, 618)
 
@@ -958,3 +959,14 @@ Round 663 builds Chen–Gupta–Li's `f_b = ψR̃(·, −b)²`, with `ψ` Mathli
 - `exists_max`, `S34_le_fb`: a largest value, and round 662's reduction of `S₃,₄` for this `f`.
 
 See the main README, round 663, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 593 lines.
+
+## The Fourier decay of the pieces of `f_b`: LinnikCGLPhi.lean (round 664)
+
+Round 664 bounds the Fourier transform of `φ_{u′}(x) = ψ(x)K(x − u′)`, where `K(x) = Lψ̃₀(Lx/(2X))` and `R̃(u, a)² = ∫_{[1/2,2]}K(u − u′)|R(u′, a)|² du′`.
+
+- `iteratedDeriv_ofReal`, `hasCompactSupport_iteratedDeriv`, `integrable_iteratedDeriv`: derivatives of smooth real functions, cast to `ℂ`, and their integrability under compact support.
+- `S0`, `I0`, `Pw`, `Bj`: `sup|ψ̃₀^{(m)}|`, `∫|ψ̃₀^{(m)}|`, `∫|ψ^{(i)}|`, and `B_j(L, X)`.
+- `iteratedDeriv_kerS`, `abs_iteratedDeriv_kerS_le`, `integral_abs_iteratedDeriv_kerS`: `(K(· − u′))^{(m)} = Lc^mψ̃₀^{(m)}(c(· − u′))` with `c = L/(2X)`, its bound, and `∫|K^{(m)}| = 2Xc^mI₀(m)`.
+- `abs_iteratedDeriv_phi_le`, `integral_abs_iteratedDeriv_phi_le`, `fourier_phi_le`: Leibniz's rule, `∫|φ_{u′}^{(j)}| ≤ B_j(L, X)`, and `(2π|ξ|)^j|φ̂_{u′}(ξ)| ≤ B_j(L, X)`.
+
+See the main README, round 664, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 595 lines.
