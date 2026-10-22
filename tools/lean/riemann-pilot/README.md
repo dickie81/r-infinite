@@ -26212,3 +26212,52 @@ The reviewer's out-of-scope observations are held: `start_job.sh` now copies 173
 **Bearing on RH:** none.
 
 **The next step.** The convergence review of this sweep, with round 635's blueprint.
+
+## Round 635: the plan for Chen–Gupta–Li's estimate in Lean (`frontier/linnik/CGL-LEAN.md`)
+
+**The instruction.** The owner asked whether Chen–Gupta–Li's bound had been formalized in Lean by its authors or anyone else, and then, on 2026-10-22: "Formalise it in lean". Two of the lead's web searches of that day are recorded here: "Lean 4 formalization zero density estimate Dirichlet L-functions Chen Gupta Li 7/3" and "Guth Maynard large values estimate formalized Lean". Neither found a formalization of either estimate. The nearest result was D. Loeffler and M. Stoll, "Formalizing zeta and L-functions in Lean" (arXiv:2503.00959), which formalizes the basics of `ζ` and of Dirichlet `L`-functions in Mathlib, with no zero-density estimate among them.
+
+**The plan** (`frontier/linnik/CGL-LEAN.md`, new; it records no result).
+
+- The target is `LinnikCGL.CGLDensity`. Of it, `Linnik225C.linnik_225c` and `Linnik226C.linnik_226c` use one count, through `SieveTypeIIU227.rangeCounts_cgl` at `ε = 1/8400`: `RangeCounts (fun σ => 14003/6000·(1 − σ)) (5/7) (16/21)`.
+- A dependency map of the paper's results (arXiv:2507.08296v2), with the stack's modules that prove part of each.
+- Five stages:
+
+  - **M1:** that count from a displayed large-values hypothesis, Theorem 1.1's form at `q₁ = q` for primitive characters on the line.
+  - **M2:** Theorem 1.1 from Proposition 3.1.
+  - **M3:** Proposition 3.1 from its sockets.
+  - **M4:** Proposition 8.1.
+  - **M5:** Heath-Brown's Theorem 10.1.
+
+- **Feasibility.** The two parts read first were the paper's §8.2 (the proof of Lemma 8.2), read in full, and Heath-Brown's theorem.
+
+  - §8.2's tools are elementary: Plancherel, Poisson summation, the Ramanujan-sum bound, lattice-point counts and Cauchy–Schwarz. The lead found no Weil or Kloosterman bound in it.
+  - Heath-Brown's 1979 paper could not be obtained. B. Kerr's arXiv:1909.12075 proves its `q = 1` case in a more general form (Theorem 16, §§5–6, read), with van der Corput's B-process as its one deep input. The version with characters needs a reflection with characters in its place.
+
+- **M1's arithmetic.** With `V ≍ N^σ` and the power trick's `(qT)^{7/9} ≤ N ≤ (qT)^{7/6}`, `parHux73`'s values, each of the four terms of Theorem 1.1 is at most `(qT)^{(7/3)(1−σ)}` on `[5/7, 16/21]`. Two terms are equal to it at `σ = 5/7`, and the first at every `σ`. So M1 needs only the existing framework's internal `ε`.
+
+**Check 1** (direct reads):
+
+- `LinnikCGL.lean` (all 39 lines);
+- `SieveTypeIIU227.lean` 350–383 (`rangeCounts_cgl`), `SieveTypeIIU226C.lean` 262–290 (`counts_7c`) and `SieveTypeIIU225C.lean` 160–180;
+- `Linnik225C.lean` and `Linnik226C.lean` at their uses of `hCGL`;
+- `SieveCurveGlue.lean` 38–46 (`RangeCounts`);
+- `LinnikHuxStep.lean` 1–130, 274–500 and 785–966, and `LinnikTwelveBins.lean` 1–197;
+- the paper's text layer as `CGL-LEAN.md` lists;
+- Kerr's §§1, 4–6 from its text layer (`scratchpad/hb/work/hb1909.txt`);
+- Mathlib's `Analysis/Fourier/PoissonSummation.lean` 99 and 191–193, and `Analysis/Fourier/LpSpace.lean` 88, in the checkout the builds use.
+
+**Check 9.**
+
+- (a) The plan's universals are scoped to what was read or computed:
+
+  - "the lead found no Weil or Kloosterman bound" (§8.2, read);
+  - "use one count" (a census of `hCGL` in `external/pnt`: `counts_7c`, through `rangeCounts_cgl`, is its only use under the two theorems);
+  - "each of the four terms … is at most" (the lead's arithmetic, in the plan's M1).
+
+- (b) No change to the register.
+- (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** The convergence review of rounds 634 and 635; then M1.

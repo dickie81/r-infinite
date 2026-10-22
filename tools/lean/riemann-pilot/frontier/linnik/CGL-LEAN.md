@@ -1,0 +1,97 @@
+# Chen–Gupta–Li's density estimate in Lean: the blueprint
+
+Round 635. The owner's instruction of 2026-10-22: "Formalise it in lean", after the lead found no Lean formalization of Chen–Gupta–Li's bound by its authors or anyone else (README round 635). This file is the plan and the dependency map. It records no result.
+
+## The target
+
+`LinnikCGL.CGLDensity` (`external/pnt/LinnikCGL.lean`, round 607):
+
+> for every `ε > 0` there is `C` such that for every `q ≥ 1`, `5/7 ≤ σ ≤ 16/21` and `T ≥ 2`, at most `C(qT)^{(7/3)(1−σ)+ε}` characters mod `q` have an `L`-function with a zero in `Re s ≥ σ`, `|Im s| ≤ T`.
+
+It is the one hypothesis of `Linnik225C.linnik_225c` (exponent `9/4`) and `Linnik226C.linnik_226c` (exponent `226/100`). Those theorems use it once, through `SieveTypeIIU227.rangeCounts_cgl`, at `ε = 1/8400`: what they consume is the count `C(qT)^{(7/3+1/2000)(1−σ)}(1 + log qT)^{10}` on `[5/7, 16/21]` (`RangeCounts (fun σ => 14003/6000·(1 − σ)) (5/7) (16/21)`). Either a proof of `CGLDensity` or a proof of that count from a weaker hypothesis makes both theorems unconditional.
+
+## The source
+
+B. Chen, V. Gupta and Y. C. Li, "Large value estimates for Dirichlet polynomials with characters and zero density of Dirichlet `L`-functions", arXiv:2507.08296v2 (27 July 2026, 58 pages); v1 (11 July 2025) was B. Chen's alone. The lead read it from the PDF's text layer (`scratchpad/cgl/work/cgl_v2.txt`, extracted with `pypdf`):
+
+- **In full:** §§1–7; §8 (Proposition 8.1, and Lemma 8.2 with its proof, §§8.2.1–8.2.6); §9; §11.2; §12.1, §12.2 and §12.4.
+- **Statements and early lemmas:** §10's statements and Lemmas 10.4–10.6; §12.3 to the statement of Lemma 12.1.
+- **In outline only:** Lemmas 10.7–10.10 and the proof of Proposition 10.2; §11.1; the proof of Lemma 12.1.
+
+The method is Guth and Maynard's ([5]: Ann. of Math. 203 (2026), no. 2, 623–675; arXiv:2405.20552). The paper cites their Lemmas 4.1, 4.2, 4.3 and 11.3 and adapts their §8. Heath-Brown's theorem is [6]: "A large values estimate for Dirichlet polynomials", J. London Math. Soc. 20 (1979), 8–18.
+
+## What the target needs, and what it does not
+
+- **The range.** `[5/7, 16/21]` lies inside `[0.7, 0.8]`, the range of their Proposition 3.1 and of §12's argument. Ingham's and Huxley's fallbacks are not needed.
+- **No subdivision in `q`.** §12.4's general estimate holds for every divisor `q₁ | q`: `Σ_χ N(σ, T, χ) ⪅ (q₁^{1/3}qT)^{3(1−σ)/(1+σ)} + (qT(q₁T)^{−1/2})^{3(1−σ)/σ} + (q₁T)^{−1/2}(qT)^{(21−20σ)/6} + (qT)^{15(1−σ)/(3+5σ)}`, plus §12.2's class-II bound `(qT)^{2(1−σ)}`. At `q₁ = q` each term is at most `(qT)^{(7/3)(1−σ)+o(1)}` on `[5/7, 16/21]` (the lead's arithmetic). The exponents compare as follows:
+
+  - `4/(1 + σ) ≤ 7/3` iff `σ ≥ 5/7`, the first term with `q^{4/3}T ≤ (qT)^{4/3}`;
+  - `3/(2σ) ≤ 7/3` iff `σ ≥ 9/14`;
+  - `(18 − 20σ)/6 ≤ (7/3)(1 − σ)` iff `σ ≥ 2/3`;
+  - `15/(3 + 5σ) ≤ 7/3` iff `σ ≥ 24/35`.
+
+  So Lemma 3.3 (character subdivision) and the divisor cases are not needed, and Ingham's (1.4), which §12.4 uses for its second statement, is not needed either. Subdivision in `T` is needed: Theorem 1.1's proof uses it in its Case 2, and its Case 3 uses Huxley's (1.3).
+- **One point per character.** `CGLDensity` counts characters with a zero, not zeros, so the large-values sets can carry one point per character. The separation hypothesis "`χ ≠ χ′` or `|t − t′| ≥ (qT)^ε`" then holds trivially. This also removes the selection of well-spaced zeros in §12.1.
+
+## Feasibility: the two parts read first
+
+- **Lemma 8.2** (the iterative bound behind Proposition 8.1, the paper's new ingredient; §8.2, read in full in round 635). Its proof splits `J(f)` into four parts, `I`, `II`, `I′` and `II′` (§8.2.1, from (8.3)–(8.5)). The parts use Plancherel in one variable, Poisson summation of a smooth bump over the integers, the Ramanujan-sum bound `|C_q(m)| ≤ (m, q)`, Cauchy–Schwarz, counts of lattice points in short intervals (`⪅ 1 + M₁/M₃` solutions of `s = m′₁n′` in a residue class), a mollification by a bump of width `1/T`, and changes of variables. The lead found no Weil or Kloosterman bound in it, and no exponential-sum estimate beyond Poisson summation. Mathlib has Poisson summation (`Real.tsum_eq_tsum_fourier_of_rpow_decay_of_summable`, `Analysis/Fourier/PoissonSummation.lean`) and the Fourier transform on `L²` (`Analysis/Fourier/LpSpace.lean`). The stack's `LinnikLines`, `LinnikSplit` and `LinnikS2` prove model cases of §§4–6 (prime `q`, `t = 0`). Lemma 8.2 is long, but its tools are elementary.
+- **Theorem 10.1** (Heath-Brown's bound for double sums, [6]). The lead could not obtain the 1979 paper; it was not read. B. Kerr, "Large values of Dirichlet polynomials and zero density estimates for the Riemann zeta function" (arXiv:1909.12075, 2019), states Heath-Brown's bound as its Theorem 1 ([5] there is the same paper), for `q = 1`: `Σ_{t₁,t₂∈A}|Σ_{1≤n≤N} a_n n^{−1/2+i(t₁−t₂)}|² ≪ (|A|² + N|A| + T^{1/2}|A|^{5/4})(NT)^{o(1)}`. It proves a more general form (its Theorem 16) in its §§5–6, from:
+
+  - a positivity lemma with Fejér's kernel (Lemma 18);
+  - completion of the range of `n` (Lemma 19);
+  - lengthening by the characters of an auxiliary prime (Lemma 20, Corollary 21);
+  - squaring (Lemma 22) and a Hilbert-type inequality (Lemma 23);
+  - the bound `Σ_{N≤n≤2N} n^{it} ≪ N/t + t^{1/2}log t` (Lemma 24, citing Iwaniec–Kowalski (9.21));
+  - van der Corput's B-process (Lemma 25, citing Iwaniec–Kowalski Theorem 8.16), which reflects a sum of length `N` to one of length about `Δ/N` (Lemmas 26–27, Corollary 28).
+
+  The lead read §§5–6 and the statements; Kerr's source for Lemma 25 was not read. With `q = 1` this multiplied by `N` (for the normalization `n^{it}`) is the shape of the paper's Theorem 10.1. The version with characters, `(qT)^{1/2}` in place of `T^{1/2}`, needs a reflection with characters in place of Lemma 25: Poisson summation in residue classes with Gauss sums, as in the paper's Lemma 6.2, or the smoothed functional equation of `L(s, χ)` (`LinnikAFE` has its Gamma-ratio bounds). That is a project of its own; Theorem 10.1 stays a displayed hypothesis until stages M1–M4 are done.
+
+## The dependency map
+
+Each row is a result of the paper, the inputs its proof uses, the stack's modules that already prove part of it, and its status. "Hypothesis" marks an input that is to be displayed as a hypothesis first (CLAUDE.md, "Derive, don't vendor") and derived later.
+
+| Node | Statement (short) | Inputs | Stack | Status |
+|---|---|---|---|---|
+| **T1.2** | `CGLDensity` from the large values | §12: zero detection, class II by the fourth moment, class I by powers `D_N^k` with `(qT)^a ≤ N^k ≤ (qT)^{3a/2}`, then T1.1 or the mean value theorem by the size of `N^k` | `LinnikDetect`, `LinnikFourth`, `LinnikHuxStep` (`class1_gen`, `class2_bound_gen`, `count_gen`, `charDensity_gen`), `LinnikPoints` | Not started; milestone **M1** |
+| **T1.1** | `\|W\| ≤ (qT)^{o(1)}(N²V⁻² + (qT)^{1/2}N³V⁻⁴ + q^{4/3}TN²V⁻⁴ + qTN^{12/5}V⁻⁴)` for `N ≥ (qT)^{2/3}`, `\|D_N\| ≥ V` on `W` | P3.1 on three smoothed pieces of `D_N`; `(qT)^ε`-separated selection; subdivision in `T`; the mean value theorem (1.2) and Huxley (1.3) outside `V ∈ [N^{7/10}, N^{4/5}]` | `LinnikPoints` (1.2); `LinnikLargeValues` (1.3, Huxley's shape) | Not started; **M2** |
+| **P3.1** | `\|W\| ⪅ N^{2−2σ} + (qT)^{1/2}N^{3−4σ} + (qT)^{4/3}N^{2−4σ}` for `σ ∈ [7/10, 4/5]`, `\|S_N\| ≥ N^σ/6`, `N ≥ (qT)^{2/3}/2` | P4.6, P5.1, P6.1, P11.1 | — | Not started |
+| L4.1 | `\|W\| ≪ N^{1−2σ}s₁(M)²` | singular value decomposition | `LinnikMoment` (generic matrix lemmas) | Partial |
+| L4.2 | `s₁(M) ≤ 2(tr((MM*)³) − tr(MM*)³/\|W\|²)^{1/6} + 2(tr(MM*)/\|W\|)^{1/2}` | linear algebra | `LinnikMoment.refined_moment` (squared form, constant `1`) | In Lean (round 537) |
+| L4.3 | `ĥ_t(ξ) ≪_j (1 + \|t\|)^j/\|ξ\|^j` and `≪_j (1 + \|ξ\|)^j/\|t\|^j` for `h_t(u) = w(u)²u^{it}` | integration by parts | — | Not started |
+| L4.4, L4.5, P4.6 | the traces by Poisson summation in residue classes; `\|W\| ≪ N^{2−2σ} + N^{1−2σ}(Σ_{m≠0} I_m)^{1/3}` | Poisson summation, orthogonality, L4.3 | `LinnikLines` (prime `q`, `t = 0`) | Partial (a model case) |
+| P5.1 | `S₁ ≪ (qT)^{−10}` | orthogonality, L4.3 | `LinnikSplit` (prime `q`, `t = 0`) | Partial (a model case) |
+| L6.2 | the reflection for `Σ_a Σ_m χ(a)e_q(am)ĥ_t(Nm/q)` | Mellin inversion, the functional equation of `L(s, χ*)`, Gamma ratios, Gauss sums | `LinnikAFE` (Gamma-ratio bounds), Mathlib's functional equation | Not started |
+| P6.1 | `S₂ ⪅ qT\|W\|N^{3−2σ}` | L6.2, the mean value theorem with characters | `LinnikS2` (prime `q`, `t = 0`), `LinnikPoints` | Partial (a model case) |
+| P7.1, P7.2 | `S₃ ⪅ N²/(q²M₂) Σ Ĩ_m + \|W\|` | change of variables, integration by parts, Cauchy–Schwarz | — | Not started |
+| **P8.1** | `J(f) ⪅ φ(q)M⁶(∫Σf_b)² + φ(q)²M⁴∫Σf_b²` (affine transformations with a GCD twist) | L8.2 and a downward induction on `ε` | — | Not started; **the longest part** |
+| L8.2 | the iterative bound for `J(f)` | Plancherel, Poisson summation, Ramanujan sums, lattice-point counts, Cauchy–Schwarz (§8.2.1–8.2.6, pages 28–37; see "Feasibility") | — | Not started |
+| L9.1, L9.2 | the second and fourth moments of `R` and `R̃` | orthogonality, a smooth majorant | — | Not started |
+| **T10.1** | Heath-Brown's double sum, `Σ_{W×W}\|Σ_n c_nχ₁χ̄₂(n)n^{i(t₁−t₂)}\|² ⪅ (\|W\|N² + \|W\|²N + \|W\|^{5/4}(qT)^{1/2}N)max\|c_n\|²` | Heath-Brown, J. London Math. Soc. (1979) ([6] of the paper); for `q = 1`, Kerr's Theorem 16 (see "Feasibility") | — | **Hypothesis**, then its own derivation |
+| L10.4–L10.10, P10.2 | `E(W) ⪅ \|W\|N^{4−4σ} + \|W\|^{21/8}(qT)^{1/4}N^{1−2σ} + \|W\|³N^{1−2σ}` | T10.1, L10.4 (Guth–Maynard's Lemma 11.3) | — | Not started |
+| P11.1 | `S₃ ⪅ (qT)²\|W\|^{3/2} + qTN\|W\|^{1/2}E(W)^{1/2}` | P7.2, P8.1, L9.1, L9.2 | — | Not started |
+
+## The stages
+
+1. **M1: the deduction.** The count that `rangeCounts_cgl` consumes, from a displayed large-values hypothesis, through `LinnikHuxStep`'s framework with a new block bound. The hypothesis is Theorem 1.1's form at `q₁ = q`, for primitive characters on the line, with one point per character and `(qT)^ε` with a constant for each `ε`. The block bound reduces to it in four steps:
+
+   - a character to the primitive character that induces it (coefficients times `1_{(n,q)=1}`, at the conductor's modulus, summed over the divisors of `q`);
+   - a point `β + iγ` of a bin to the line, by the Taylor series of `(n/N)^{−(β−σ_b)}` (about `log qT` terms);
+   - the power `F^m` to its dyadic pieces `(N, 2N]`;
+   - its coefficients to `|a_n| ≤ 1`, by a bound on the number of factorizations.
+
+   With `V ≍ N^σ` the four terms carry `N^{2−2σ}`, `(qT)^{1/2}N^{3−4σ}`, `q^{4/3}TN^{2−4σ}` and `qTN^{12/5−4σ}`. With the power trick's `(qT)^a ≤ N ≤ (qT)^λ` at `a = 7/9` and `λ = 7/6`, `parHux73`'s values before the internal `ε`, each is at most `(qT)^{(7/3)(1−σ)}` on `[5/7, 16/21]` (the lead's arithmetic):
+
+   - the first is `(qT)^{λ(2−2σ)}`, equal at every `σ`;
+   - the second is `(qT)^{1/2+λ(3−4σ)}` below `3/4`, short by `(qT)^{(7σ−5)/3}`, which is `1` at `σ = 5/7`;
+   - the third is `(qT)^{4/3+a(2−4σ)}`, which needs `a ≥ (7σ − 3)/(3(4σ − 2))`, `7/9` at `σ = 5/7`, decreasing in `σ`;
+   - the fourth needs `a ≥ (7σ − 4)/(3(4σ − 12/5))`, `35/48` at `σ = 5/7`, decreasing;
+   - `a > 2/3` gives `N ≥ (qT)^{2/3}`.
+
+   So the exponent `7/3 + 1/2000` needs only the internal `ε` of the existing framework, and no family of parameters indexed by `ε`. `Par.Good` asks `3/4 ≤ lo`; the class-I and class-II bounds are to be re-checked below `3/4` for the new step.
+2. **M2: Theorem 1.1 from Proposition 3.1**, both as statements in Lean, with the subdivision in `T`.
+3. **M3: Proposition 3.1 from its sockets.** Proposition 8.1 and Theorem 10.1 are displayed hypotheses. The first moment, trace and `S₁` lemmas come first, then `S₂`, the moments of `R`, the energy bound and the `S₃` assembly.
+4. **M4: Proposition 8.1**, through Lemma 8.2 (read in full).
+5. **M5: Heath-Brown's Theorem 10.1**, with characters: Kerr's proof for `q = 1` with a reflection with characters in place of the B-process (see "Feasibility").
+
+Each landing gets a hostile review (CLAUDE.md). The stages are ordered so that each one shrinks the hypothesis that `linnik_225c` rests on. The sizes are not estimated here.
