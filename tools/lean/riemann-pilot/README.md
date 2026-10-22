@@ -27233,7 +27233,7 @@ Here both integrals run over `[1/2, 2]`, `[·]` is `1` or `0`, `C_K` is the cons
 - `|Ψ| ≤ C₀d(q)W` where `|λ| ≤ X`;
 - `|Ψ| ≤ C_K(2πX)^{−K}φ(q)³|R|³` elsewhere.
 
-**The paper's Proposition 7.1 and the stack's.** Re-read this round in the text layer (spaces restored; the display transcribed): "We have |I′_{m⃗}| ≪_ϵ (N³/q³) ∫_{|m₁v₁+m₂v₂+m₃|≤(qT)^ϵq/N, v₁,v₂∈[1/2,2]} Σ_{b₁ mod q, (b₁,q)=1} Σ_{b₂ mod q, (b₂,q)=1} |R(v₁,b₁)R(v₂/v₁, b₁⁻¹b₂)R(1/v₂, b₂⁻¹)| · (b₁m₁+b₂m₂+m₃, q) dv₁dv₂ + O_ϵ((qT)^{−200})" (lines 2041–2066). The absolute-value bars around the product are large delimiters that the text layer drops. They were read from the PDF this round: page 23 carries `CMEX10` vertical-bar glyphs at x = 337.6 and x = 516.7 on both lines of the display, around the three `R`s. The stack's statement has three differences.
+**The paper's Proposition 7.1 and the stack's.** Re-read this round in the text layer (spaces restored; the display transcribed): "We have |I′\_{m⃗}| ≪\_ϵ (N³/q³) ∫\_{|m₁v₁+m₂v₂+m₃|≤(qT)^ϵq/N, v₁,v₂∈[1/2,2]} Σ\_{b₁ mod q, (b₁,q)=1} Σ\_{b₂ mod q, (b₂,q)=1} |R(v₁,b₁)R(v₂/v₁, b₁⁻¹b₂)R(1/v₂, b₂⁻¹)| · (b₁m₁+b₂m₂+m₃, q) dv₁dv₂ + O\_ϵ((qT)^{−200})" (lines 2041–2066; the underscores escaped for the renderer). The absolute-value bars around the product are large delimiters that the text layer drops. They were read from the PDF this round: page 23 carries `CMEX10` vertical-bar glyphs at x = 337.6 and x = 516.7 on both lines of the display, around the three `R`s. The stack's statement has three differences.
 
 - The constants are explicit, and the main term carries the extra `d(q)` of round 653's `norm_Cq_le`.
 - The cutoff `X` replaces their `(qT)^ϵ`. Taking `X = (qT)^ε` and `K` large in terms of `ε` makes the second term their `O_ϵ((qT)^{−200})` when `N`, `q` and `|R|` are at most a power of `qT`.
@@ -27258,7 +27258,7 @@ The proof is theirs, "Inserting these bounds into (7.3) and applying the triangl
 
 - Then `build.sh` ran once (`scratchpad/r654/compile.sh 1`, log `build_1.log`): `1 compiled, 390 up to date` (`LinnikCGLP71` 16 s), exit 0 in 27 s, no error, warning or `sorry`. Its 575 axiom lines (2 by the module, 573 by the final check, which gains two lines) are 562 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.81 GiB (`rss_watch_build_1.log`).
 - The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
-- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872.
+- `tools/research/render_lint.py`, against round 653's commit: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872. That holds at the round's second commit. At the first, the quotation's underscores rendered as emphasis (1872 → 1874), because the lint's report was not gated before the commit; the second commit escapes them.
 - `frontier/linnik/k_decimals.py`: PASS.
 
 **Marks.** `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2 gains round 654 in its stack cell and a clause in its status, nothing in it superseded; the opening's parenthetical gains round 654, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
