@@ -26,7 +26,7 @@ Round 288's argument at `N`-th powers runs as follows. Average over `u = b^N` wi
 
 `θ_N(σ) = (2N − 1 + (N − 1)σ)/(2N)`.
 
-At `N = 6` this is round 288's `(11 + 5σ)/12` (gate O1). The bound from the inclusion–exclusion error, `Z^{1−(1+σ)/(2N)+ε}`, is below the main term for every `σ ≥ 0`, as at `N = 6`.
+At `N = 6` this is round 288's `(11 + 5σ)/12` (gate O1). *(`PAIRING.md`, gate P6: `θ_N(σ)` is also where the dual's order-`N` theta component, carrying the Möbius sum, reaches the dual's target `Z²`, at every `N` in `orders.ORDERS`.)* The bound from the inclusion–exclusion error, `Z^{1−(1+σ)/(2N)+ε}`, is below the main term for every `σ ≥ 0`, as at `N = 6`.
 
 | `N` | `θ_N(0)` | `σ` with `θ_N(σ) < 7/8` | `σ` with `θ_N(σ) < 0.8748867` (Sang) |
 |---|---|---|---|

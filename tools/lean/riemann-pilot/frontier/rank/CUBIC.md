@@ -12,7 +12,7 @@ Side-branch note, 2026-10-22, on branch `claude/latest-commit-branch-ik1pj3`. It
    - The component's share of the dual mean square is of order `H^{2/3}·|Σ_{N(n)≤Z} μ(n)N(n)^{−1/6}|²`. That is a Möbius sum of `ζ_K`, the quantity the family is built to bound.
    - Bounding the component from an input half-plane `Re s > θ₀` needs `σ ≥ 3θ₀ − 5/2`, and the extraction then returns exactly `θ₀`.
    - At `θ₀ = 1` (no input) this is `σ ≥ 1/2`, Heath-Brown's barrier: the generic barrier is this component at the trivial bound for the Möbius sum.
-5. **Why the sextic family escapes.** Its absorbed dual coefficient `c(n)α(n)G₂(n)·conj(G₃(n))` has no Möbius factor. Its cubic theta component carries the mass of a Grössencharacter twist, which convexity bounds with no input (section 3).
+5. **Why the sextic family escapes.** Its absorbed dual coefficient `c(n)α(n)G₂(n)·conj(G₃(n))` has no Möbius factor. Its cubic theta component carries the mass of a Grössencharacter twist, which convexity bounds with no input (section 3). *(`PAIRING.md`, section 3: true of the cubic theta component. The sextic dual's own sextic theta component keeps the Möbius sum, and the absorbed energy bound applied to it is the extraction's `θ₆(σ)`.)*
 6. **What is left of the cubic route.** A treatment of the dual that bounds the component without an input half-plane: in effect, a proof of `|Σ μ(n)N(n)^{−1/6}| ≪ Z^{1+ε}H^{−1/3}`, the half-plane `θ₃(σ)` itself, made while bounding the rest. `ORDER-RANK.md`'s second attack note took the bias-free numerics as evidence of room. That signal is circular (CLAUDE.md Check 9(c), section 6).
 
 ## 1. The regime the route needs
@@ -151,7 +151,7 @@ Chinta–Friedberg–Hoffstein ("Double Dirichlet series and theta functions", 2
 
 **Outcome, scoped.** Through the cubic theta function the cubic route is a fixed point: an input half-plane `θ₀` comes back as `θ₀`, and the generic barrier `σ ≥ 1/2` is the case `θ₀ = 1`. Within section 4's scope, the route improves on a known half-plane only through a treatment of its dual that bounds the cubic theta component, `c·conj(G₃(k))N(k)^{−1/6}·Σ_{(n,k)=1} μ(n)N(n)^{−1/6}`, better than that half-plane allows. Such a treatment proves the smaller half-plane `θ₃(σ)` directly.
 
-The companion's sextic family does not meet this, because absorption removes the Möbius function from its dual's theta component (section 3).
+The companion's sextic family does not meet this, because absorption removes the Möbius function from its dual's theta component (section 3). *(`PAIRING.md`, section 3: from its cubic theta component. Its sextic theta component keeps the Möbius sum; that component is how the absorbed energy bound becomes the half-plane `θ₆(σ)`.)*
 
 **Register** (CLAUDE.md Check 9(b)). This note amends the sub-entry "Lower-order families with higher-rank theta functions" in STRUCTURAL-REVIEW §6:
 - **A barrier bullet:** the fixed point as scoped in section 4, with its gates (O6–O8, C1–C4, T1–T6). Socket: none in the stack. The order-6 template is round 310's `Eis.meanSquare_of_dualMeanSquare`.
