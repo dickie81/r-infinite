@@ -27113,3 +27113,55 @@ where `h_τ(u) = w(u)²u^{iτ}` (round 640's `Wt`), `ĥ` is Mathlib's Fourier tr
 **Bearing on RH:** none.
 
 **The next step.** The sum over the triples of points and the residues in `I′(m⃗)`. With `b₁ = a₁a₃⁻¹` and `b₂ = a₂a₃⁻¹`, the characters and the phases factor as their `R(v₁, b₁)R(v₂/v₁, b₂b₁⁻¹)R(1/v₂, b₂⁻¹)`, with `R(v, a) = Σ_{(t,χ)∈W}v^{it}χ(a)`, their (7.2). The sum over `a₃` is the Ramanujan sum `C_q(b₁m₁ + b₂m₂ + m₃)`, for which their proof ends with "the fact that |C_q(m)| ≤ (m,q)" (lines 2233–2234). Then comes the decay of `J` in `λ`, uniformly for `(v₁, v₂) ∈ [1/2, 2]²`, by integration by parts.
+
+## Round 652: their `I′_{m⃗}` as an integral over `(v₁, v₂)`, their (7.3) (stage M3, the `S₃` side; `external/pnt/LinnikCGLRFact.lean`)
+
+**The result.** `LinnikCGLRFact.Ip_eq`: for `q ≥ 1`, real `N`, points `t_i` and characters `χ_i` modulo `q` (`i ∈ R`) and integers `m₁, m₂, m₃`,
+
+`I′(m₁, m₂, m₃) = (N/q)³∫∫J(v₁, v₂, λ)Σ_{b₁,b₂}C_q(b₁m₁ + b₂m₂ + m₃)R(v₁, b₁)R(v₂/v₁, b₂b₁⁻¹)R(1/v₂, b₂⁻¹) dv₂ dv₁`.
+
+Here `I′` is round 650's `I′(m⃗)`, `λ = (N/q)(m₁v₁ + m₂v₂ + m₃)`, `b₁, b₂` run over the units modulo `q`, `R(v, a) = Σ_{i∈R}v^{it_i}χ_i(a)` is their (7.2) at one point per character (`Rf`), `C_q(n) = Σ_{a∈(ℤ/qℤ)ˣ}e(an/q)` is the Ramanujan sum (`Cq`), and `J` is round 651's kernel. On the way:
+
+- `phi_eq`: round 650's `φ_{ik}(m)` is `(N/q)ĥ_{t_i−t_k}(Nm/q)S_{ik}(m)`, with the residue sum `S_{ik}(m) = Σ_{a∈(ℤ/qℤ)ˣ}χ_i(a)conj(χ_k(a))e(ma/q)`.
+- `S2_triple`: the substitution `a₁ = b₁a₃`, `a₂ = b₂a₃` gives `S_{ij}(m₁)S_{jk}(m₂)S_{ki}(m₃) = Σ_{b₁,b₂}χ_i(b₁)χ_j(b₂b₁⁻¹)χ_k(b₂⁻¹)C_q(b₁m₁ + b₂m₂ + m₃)`.
+- `phases`: `v₁^{i(a−b)}v₂^{i(b−c)} = v₁^{ia}(v₂/v₁)^{ib}(1/v₂)^{ic}` for `v₁, v₂ > 0`.
+- `sum_Qk`: at each `(v₁, v₂)` the sum over the triples of points factors into the three `R`s.
+
+**The paper's (7.3) and the stack's.** Re-read this round in the text layer (spaces restored; the sum, exponents and subscripts transcribed). They define "R(v,a) := Σ_{(t,χ)∈W} v^{it}χ(a), v > 0, a ∈ Z/qZ" (their (7.2), lines 2036–2039). After their change of variables they write "Since the R factors do not depend on u₃, a₃, performing the u₃ integral and the a₃ summation first yields" (lines 2193–2194) their (7.3) (lines 2195–2226). In (7.3), `I′_{m⃗}` is `N³/q³` times a sum over `b₁, b₂` modulo `q` with `(b₁b₂, q) = 1` of an integral over `ℝ²` of `C_q(b₁m₁ + b₂m₂ + m₃)R(v₁, b₁)R(v₂/v₁, b₂b₁⁻¹)R(1/v₂, b₂⁻¹)` against the inner integral over `u₃`, which is `J(v₁, v₂, λ)`. Their `C_q` is introduced in §7 as "the Ramanujan sum" (line 2016). `Ip_eq` is that display, with the finite sums inside the integral. The substitution needs `a₃` to be a unit, so the stack first restricts each residue sum to the units: `χ_i` vanishes at the non-units. The factorization into the three `R`s needs `v₁, v₂ > 0`; elsewhere `J = 0`, since `w` is supported on `[1, 2]` (`Jk_eq_zero`). The sums pass inside the integral because each triple's integrand is integrable in `v₂`, and its integral over `v₂` in `v₁`. Both come from round 651's Fubini lemmas (`integrable_v₂`, `integrable_v₁`).
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLRFact.lean`: new, 378 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`S2_triple`, `sum_Qk`, `Ip_eq`).
+- `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch first (`scratchpad/r652/lc.sh`; `lc.out` to `lc3.out`). The fixes were:
+
+  - explicit casts to `ZMod q` for the integers `m_i` and the units inside `ZMod.stdAddChar`, whose modulus cannot be inferred from the argument alone;
+  - the embedding of the units into `ZMod q` given as `fun _ _ h => Units.ext h`.
+
+- Then `build.sh` ran once (`scratchpad/r652/compile.sh 1`, log `build_1.log`): `1 compiled, 388 up to date` (`LinnikCGLRFact` 12 s), exit 0 in 26 s, no error, warning or `sorry`. Its 572 axiom lines (4 by the module, 568 by the final check, which gains three lines) are 559 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.73 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872.
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2 gains round 652 in its stack cell and a clause in its status, nothing in it superseded; the opening's parenthetical gains round 652, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round): their §7 from the definition of `Z′` through the statement of Proposition 7.1, and from the end of the change of variables to the end of its proof (text layer lines 1990–2066 and 2164–2235), re-read for this round's quotations; `LinnikCGLRFact.lean` in full; the operative definitions: round 650's `phi` and `Ip`, round 651's `Phi`, `Phi_eq`, `gv`, `Jk`, `one_lt_of_wCGL_ne`, `integrable_Phi2`, `integrable_Phi3` and `hhat_prod`, and round 638's `wCGL_zero`. Also the statements of Mathlib's `ZMod.stdAddChar_coe`, `MulChar.star_apply'`, `MulChar.inv_apply`, `Ring.inverse_unit`, `MulChar.map_nonunit`, `Fintype.sum_equiv` (the additive form of `Fintype.prod_equiv`), `Equiv.mulRight` and `Equiv.coe_mulRight`, `Finset.sum_mul_sum`, `integral_finsetSum`, `Integrable.integral_prod_left`, `Integrable.integral_prod_right`, `integral_integral_swap`, `Complex.cpow_def_of_ne_zero`, `Complex.ofReal_log`, `Real.log_div` and `Real.log_inv`.
+
+**Check 4.** No defect is raised. `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of `Ip_eq` are its statement, and "the non-units drop out" is `MulChar.map_nonunit` for each `χ_i`.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Proposition 7.1 from `Ip_eq`. It needs a bound for the Ramanujan sum: theirs is "|C_q(m)| ≤ (m,q)" (line 2017), and the stack may take the weaker `d(q)(m, q)`, which the `(qTN)^ε` of `CGLS3` absorbs. It also needs the decay of `J(v₁, v₂, λ)` in `λ`, uniformly for `(v₁, v₂) ∈ [1/2, 2]²`, and the split of the `(v₁, v₂)` integral at `|m₁v₁ + m₂v₂ + m₃| ≤ (qT)^ϵq/N`.

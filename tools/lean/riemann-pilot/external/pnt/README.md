@@ -173,6 +173,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLDiag.lean` | 649 | the Gram diagonal against its main term (`muP_sub_mu0_le`): `\|μ − μ₀\| ≤ d(q)B`, by Möbius inversion over the divisors of `q` (`sum_coprime_eq`, `totient_div_eq`) and Poisson summation along the multiples of each (`sum_multiples_eq`, `bracket_le`); and `S₃ = Re Σ_{i,j,k∈R}F(i, j)F(j, k)F(k, i) − \|R\|(μ − μ₀)³` at one point per character (`Fm_diag`, `S3_eq_all`) |
 | `LinnikCGLTrunc.lean` | 650 | the truncation in `m` (`S3_trunc`): `S₃` is `Re Σ_{0<\|m_i\|≤M}I′(m⃗) − \|R\|(μ − μ₀)³` within `3\|R\|³τ_M(2N + 1 + τ_M)²`, from the truncated cubic trace as a sum of their `I′_{m⃗}` (`sum_FmT_cube`), the tail of each entry (`norm_Fm_sub_FmT_le`) and `\|F(i, k)\| ≤ 2N + 1` (`norm_Fm_le`) |
 | `LinnikCGLProd.lean` | 651 | a product of three `ĥ`s as an integral over `(v₁, v₂)` (`hhat_prod`): for `τ₁ + τ₂ + τ₃ = 0`, `ĥ_{τ₁}(ξ₁)ĥ_{τ₂}(ξ₂)ĥ_{τ₃}(ξ₃) = ∫∫v₁^{iτ₁}v₂^{iτ₂}J(v₁, v₂, v₁ξ₁ + v₂ξ₂ + ξ₃)`, the change of variables of Chen–Gupta–Li's proof of Proposition 7.1, from the substitutions `u_ℓ = v_ℓu₃` (`prod_eq_iter`), Fubini over a compact support (`iter_swap`) and the phases (`Phi_eq`) |
+| `LinnikCGLRFact.lean` | 652 | Chen–Gupta–Li's (7.3) at one point per character (`Ip_eq`): `I′(m⃗) = (N/q)³∫∫J(v₁, v₂, λ)Σ_{b₁,b₂}C_q(b₁m₁ + b₂m₂ + m₃)R(v₁, b₁)R(v₂/v₁, b₂b₁⁻¹)R(1/v₂, b₂⁻¹)`, from `φ_{ik}(m)` with its residue sum over the units (`phi_eq`), round 651's `hhat_prod`, the substitution `a₁ = b₁a₃`, `a₂ = b₂a₃` (`S2_triple`) and the phases (`phases`) |
 
 ## Building (rounds 217, 618)
 
@@ -812,3 +813,14 @@ Round 651 proves the change of variables of Chen–Gupta–Li's proof of Proposi
 - `Phi_eq`, `hhat_prod`: where `Φ ≠ 0`, `(v₁u₃)^{iτ₁}(v₂u₃)^{iτ₂}u₃^{iτ₃} = v₁^{iτ₁}v₂^{iτ₂}`, since `τ₁ + τ₂ + τ₃ = 0` (Mathlib's `Complex.mul_cpow_ofReal_nonneg`).
 
 See the main README, round 651, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 565 lines.
+
+Round 652 proves Chen–Gupta–Li's (7.3) at one point per character: for `q ≥ 1`, real `N`, points `t_i` and characters `χ_i` modulo `q` (`i ∈ R`) and integers `m₁, m₂, m₃`, `I′(m₁, m₂, m₃) = (N/q)³∫∫Ψ(v₁, v₂) dv₂ dv₁` (`Ip_eq`). Here `Ψ(v₁, v₂) = J(v₁, v₂, λ)Σ_{b₁,b₂}C_q(b₁m₁ + b₂m₂ + m₃)R(v₁, b₁)R(v₂/v₁, b₂b₁⁻¹)R(1/v₂, b₂⁻¹)`, with `λ = (N/q)(m₁v₁ + m₂v₂ + m₃)`, `b₁, b₂` over the units modulo `q`, their `R(v, a) = Σ_{i∈R}v^{it_i}χ_i(a)`, the Ramanujan sum `C_q(n) = Σ_{a∈(ℤ/qℤ)ˣ}e(an/q)` and round 651's kernel `J`.
+
+- `Rf`, `Cq`, `fS`, `S2`, `sum_eq_sum_units`, `phi_eq`: round 650's `φ_{ik}(m)` is `(N/q)ĥ_{t_i−t_k}(Nm/q)S_{ik}(m)`, with the residue sum `S_{ik}(m) = Σ_{a∈(ℤ/qℤ)ˣ}χ_i(a)conj(χ_k(a))e(ma/q)` (Mathlib's `ZMod.stdAddChar_coe`); the non-units drop out, since `χ_i` vanishes there.
+- `prod3_sum`, `sum_rot3`, `unit_mul_inv`, `star_unit`, `triple_term`, `S2_triple`: the substitution `a₁ = b₁a₃`, `a₂ = b₂a₃` gives `S_{ij}(m₁)S_{jk}(m₂)S_{ki}(m₃) = Σ_{b₁,b₂}χ_i(b₁)χ_j(b₂b₁⁻¹)χ_k(b₂⁻¹)C_q(b₁m₁ + b₂m₂ + m₃)`, since `conj(χ(a)) = χ(a⁻¹)` at a unit (Mathlib's `MulChar.star_apply'`, and `Fintype.sum_equiv` with `Equiv.mulRight`).
+- `cpow_eq_exp`, `phases`: `v₁^{i(a−b)}v₂^{i(b−c)} = v₁^{ia}(v₂/v₁)^{ib}(1/v₂)^{ic}` for `v₁, v₂ > 0`.
+- `gv_eq_zero`, `Jk_eq_zero`, `integral_Phi`, `integrable_v₂`, `integrable_v₁`: `J = 0` unless `v₁, v₂ > 0`, and the integrand of round 651's `hhat_prod` is integrable in `v₂`, its integral over `v₂` in `v₁`, by round 651's Fubini lemmas.
+- `sum_integral_integral`, `sum3_eq`, `sum3_eq'`, `sum_comm4`, `sum_comm5`: the finite sums pass inside the double integral and past each other.
+- `Qk`, `Psi`, `sum_Qk`, `Ip_eq`: at each `(v₁, v₂)` the sum over the triples of points factors into the three `R`s, and the formula.
+
+See the main README, round 652, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 568 lines.
