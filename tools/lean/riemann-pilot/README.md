@@ -28687,4 +28687,71 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 **Bearing on RH:** none.
 
-**The next step.** Their Proposition 10.2: round 669's `lemma105` for the energy, the pairs split at `D = ⌊N²/(qT)⌋` into round 674's `lemma109` (with `X` and `K` chosen so that its tail is at most `N|R|³` and `|R|⁴D_K/X^K ≤ E`, by `sq_le_energy`) and `lemma1010_case`, and then `E ≤ A + B√E ⇒ E ≤ 2A + B²`.
+**The next step.** Their Proposition 10.2: round 669's `lemma105` for the energy, the pairs split at `D = ⌊N²/(qT)⌋` into round 674's `lemma109` (with `X` and `K` chosen so that its tail is at most `N|R|³` and `|R|⁴D_K/X^K ≤ E`, by `sq_le_energy`) and `lemma1010_case`, and then `E ≤ A + B√E ⇒ E ≤ 2A + B²`. *(round 677: done, `LinnikCGLEps.prop102`; the term `|R|⁴D_K/X^K` is bounded by `N|R|³` instead, by `eps_absorb`, and `lemma1010_case` enters through `lemma1010_eps`)*
+
+## Round 677: their Lemmas 10.9 and 10.10 with their `⪅`, and their Proposition 10.2 (stage M3, the `S₃` side; `external/pnt/LinnikCGLEps.lean`)
+
+**The results.** Below, `q ≥ 1`, `n ∼ N` means `N < n ≤ 2N` (round 670's `dyad`), `R₂` is round 669's, `E` round 659's `energy` and `CGLT101` round 670's displayed hypothesis.
+
+- `LinnikCGLEps.card_le_totient`, `card_dyad_le`, `sqrt_add_le`: `|R| ≤ φ(q)` for `χ` injective on `R`, from Mathlib's count of the Dirichlet characters; `|{n ∼ N}| ≤ N + 1` for `N ≥ 0`; and `√(x + y) ≤ √x + √y` for `x, y ≥ 0`.
+- `LinnikCGLEps.lemma109_eps`: their Lemma 10.9 with their `⪅`. For every `ε > 0` there is `C ≥ 0` such that, for `χ` injective on `R`, `T ≥ 1`, points `|t_i| ≤ T`, `N ≥ 1/2` and `D ∈ ℕ` with `DqT ≤ N²`, `Σ_{n₁,n₂∼N, (n₁,n₂)≤D}|R₂(n₁, n₂)|³ ≤ C max(1, N)^ε(N²√(|R|E) + N|R|³)`. This is round 674's `lemma109` with `K = 2m + 2`, `m = ⌈1/ε⌉` and `X = 16max(1, N)^{1/m}`. `eps_absorb` bounds its term `|R|⁴D_K/X^K` by `N|R|³`, and `eps_Z`, `card_pairs_le` and `eps_tail` bound its tail by a constant times `N|R|³`.
+- `LinnikCGLEps.lemma1010_eps`: their Lemma 10.10 with their `⪅`. From `CGLT101`, for every `ε > 0` there is `C ≥ 0` such that, for primitive characters injective on `R`, `T ≥ 1`, points `|t_i| ≤ T`, `(qT)^{2/3}/2 ≤ N`, `D = ⌊N²/(qT)⌋` and either `|R| ≥ (qT)^{2/3}` or `(qT)^{1/2}|R|^{5/8} ≤ E^{1/8}N`, `Σ_{n₁,n₂∼N, (n₁,n₂)>D}|R₂(n₁, n₂)|³ ≤ C(2qTN)^ε(N|R|³ + N(qT)^{1/4}|R|^{21/8} + N²√(|R|E))`. This is round 676's `lemma1010_case` at `δ = min(ε/4, 1)`, with these bounds for its factors: round 525's `card_divisors_le`, `d(q) ≤ C_δq^δ`; `⌊log₂|R|²⌋ + 1 ≤ (2/(δ log 2) + 1)q^δ`, since `|R| ≤ q` (`natlog_le`, `card_le_totient`); `1 + log max(1, N) ≤ (1 + 1/δ)max(1, N)^δ` (`log_max_le`); and `factor_le` for the powers. Round 675's term `|{n ∼ N}||R|³` is at most `3N|R|³`.
+- `LinnikCGLEps.quad_le`, `sum_S_le`, `rpow_four_sub`, `sq_rpow_half`, `prop102_fin`, `prop102_sum`: for `E ≥ 0`, `E ≤ A + B√E` gives `E ≤ 2A + B²`; for `S ⊆ (N, 2N]` and `D ∈ ℕ`, the cubes over `S × S` are at most the sums over the pairs `n₁, n₂ ∼ N` with `(n₁, n₂) ≤ D` and with `(n₁, n₂) > D`; `N^{4−4σ} = (N²/(N^σ)²)²` and `N^{1−2σ} = N/(N^σ)²` for `N > 0`; `((2x)^{ε/2})² = 2^εx^ε` for `x ≥ 0`; and the two real-number steps of `prop102`.
+- `LinnikCGLEps.prop102`: their Proposition 10.2 at one point per character. From `CGLT101`, for every `ε > 0` there is `C ≥ 0` such that, for primitive characters injective on `R`, `T ≥ 1`, points `|t_i| ≤ T`, `(qT)^{2/3}/2 ≤ N`, `S ⊆ (N, 2N]`, `|b_n| ≤ 1`, `|Σ_{n∈S}b_nχ_i(n)n^{it_i}| ≥ N^σ/6` for `i ∈ R` and either `|R| ≥ (qT)^{2/3}` or `(qT)^{1/2}|R|^{5/8} ≤ E^{1/8}N`, `E ≤ C(qTN)^ε(|R|N^{4−4σ} + |R|^{21/8}(qT)^{1/4}N^{1−2σ} + |R|³N^{1−2σ})`. Round 669's `lemma105` bounds `E` by `36(N^σ)^{−2}∫κ` times the cubes over `S × S`. `sum_S_le` splits them at `D = ⌊N²/(qT)⌋` into `lemma109_eps` and `lemma1010_eps`, each at `ε/2`. That gives `E ≤ A + B√E`, and `quad_le` gives `E ≤ 2A + B²`.
+
+**Their text.** Re-read this round in the text layer. The underscores in the quotations are escaped for the renderer.
+
+- Their Proposition 10.2: "Let D\_N(t, χ) = Σ\_{N < n ≤ 2N} a\_nχ(n)n^{it}, where χ is a primitive character modulo q and |a\_n| ≤ 1. Suppose that W is a finite set of pairs (t, χ), where |t| ≤ T and for (t, χ) ≠ (t′, χ′) either χ ≠ χ′ or |t − t′| ≥ (qT)^ϵ. Assume that |D\_N(t, χ)| ≥ N^σ/6 for all (t, χ) ∈ W and (qT)^{2/3}/2 ≤ N ≤ qT. Assume that either |W| ≥ (qT)^{2/3} or that E(W)^{1/8}N ≥ (qT)^{1/2}|W|^{5/8}. Then we have E(W) ⪅\_ϵ |W|N^{4−4σ} + |W|^{21/8}(qT)^{1/4}N^{1−2σ} + |W|³N^{1−2σ}." (lines 4637–4656.)
+- Their proof: "First, we use Lemma 10.5 to obtain E(W) ⪅ N^{−2σ} Σ\_{n₁,n₂∼N, (n₁n₂,q)=1} |R(n₁/n₂, n₁n₂^{−1})|³." (lines 5500–5512); "By splitting the sum based on whether (n₁, n₂) ≤ D nor not and applying (10.3) and Lemma 10.10, we find E(W) ⪅ N^{−2σ}(N|W|³ + N(qT)^{1/4}|W|^{21/8} + E(W)^{1/2}|W|^{1/2}N²). so that E(W) ⪅ |W|N^{4−4σ} + |W|^{21/8}(qT)^{1/4}N^{1−2σ} + |W|³N^{1−2σ}, as required." (lines 5513–5518.)
+- Their (10.3) is their Lemma 10.9, "⪅\_ϵ (DqT + N²)|W|^{1/2}E(W)^{1/2}." (line 5082), at "D = N²/(qT)" (line 5300): "⪅ N²|W|^{1/2}E(W)^{1/2}." (line 5314).
+- In all of these, spaces are restored and the sums, fractions, large bars (which the text layer encodes as four form feeds each), large parentheses, subscripts and exponents transcribed. "nor" is as printed: on the PDF's page 47 the letters `n`, `o`, `r` follow the `D` in the roman font (`scratchpad/r677/probe/rows.sh`, which groups the characters of round 662's `run_coords.sh` into rows).
+
+**The stack's form.**
+
+- **One point per character.** The stack's points have distinct characters (`Set.InjOn χ R`), which suffices for `CGLDensity`, a count of characters (`frontier/linnik/CGL-LEAN.md`, "One point per character"); their spacing hypothesis then holds. Their `D_N` is the stack's sum over `S ⊆ (N, 2N]` with `|b_n| ≤ 1`, with `a_n = b_n` on `S` and `a_n = 0` off it.
+- **Their `⪅`.** Each result carries a constant for each `ε`: `C max(1, N)^ε` in `lemma109_eps`, `C(2qTN)^ε` in `lemma1010_eps` and `C(qTN)^ε` in `prop102`. For `N ≤ qT`, the top of their range, `C(qTN)^ε ≤ C(qT)^{2ε}`. The stack does not use `N ≤ qT`.
+- **Their (10.3).** `lemma109_eps` has the term `N|R|³`, which bounds round 674's term `|R|⁴D_K/X^K` and its tail. Their (10.3) does not have this term, but their Lemma 10.10's bound does, so their Proposition 10.2's bound is the same. Round 676's next step named `|R|⁴D_K/X^K ≤ E`, by `sq_le_energy`, for that term; the stack bounds it by `N|R|³` instead (`eps_absorb`).
+- **Their "so that".** Their last step solves `E(W) ⪅ N^{−2σ}(… + E(W)^{1/2}|W|^{1/2}N²)` for `E(W)`. `quad_le` is that step, from `2B√E ≤ E + B²`, which holds for every real `B`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLEps.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`lemma109_eps`, `lemma1010_eps`, `prop102`).
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+- `README.md` (this file): a net-state marker on round 676's next step, and this entry.
+
+**What is checked.**
+
+- Mathlib's names were checked first (`scratchpad/r677/check.lean`).
+- The file was compiled in scratch in eight runs with `lean --json` (`scratchpad/r677/run.sh`, which runs `lcj.sh` and lists the errors, warnings and information messages; `lcj1.out` to `lcj8.out`). Runs 3, 5, 7 and 8 had exit 0, and their only messages were the file's axiom lines, each `[propext, Classical.choice, Quot.sound]`. In run 1, the proof of `lemma109_eps`, then one declaration, exceeded the heartbeat limit, which applies per declaration; it was split into `eps_sqrt_le`, `eps_absorb`, `eps_tail`, `eps_Z`, `card_pairs_le` and `eps_combine`. In run 2, an unnamed `Real.sqrt_mul` in `eps_sqrt_le` split the wrong product and was given its arguments, and `7^{2m} = 49^m` in `eps_Z` became a `calc` with `pow_mul`. Run 4 added `lemma1010_eps`; a rewrite in `natlog_le` that did not match became `le_div_iff₀`. Run 6 added `prop102`: `quad_le` did not use its hypothesis `B ≥ 0`, which was removed, and a `field_simp` in `rpow_four_sub` closed its goal before a following `ring`, which was removed. Run 8 compiled the file with its header.
+- Then `build.sh` ran three times (`scratchpad/r677/compile.sh`, logs `build_1.log` to `build_3.log`), the second after two docstrings were reworded and the third after a sentence of the header was. All three had `1 compiled, 411 up to date` and exit 0, in 36 s, 38 s and 39 s, with no error, warning, `sorry` or information message. Their 626 axiom lines (4 by the module, 622 by the final check, which gains three lines) are 613 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms"; the 13 are in the final check, as before. The three runs' axiom lines are the same, line for line. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, taken every 10 s, was 7.07 GiB, in the second and third runs (`rss_watch_build_2.log`, `rss_watch_build_3.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed, with its output saved in `scratchpad/r677/gate.out`: `tools/research/render_lint.py` against HEAD as multisets (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2 gains round 677 in its stack cell, a clause in its status, and a net-state marker on its status word. The opening's parenthetical gains round 677, and M3 gains a note.
+- `external/pnt/README.md`: a row, and a section with a heading.
+- `README.md`: round 676's next step gains a net-state marker, since this round bounds the term `|R|⁴D_K/X^K` by `N|R|³` and not by `E`.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their Proposition 10.2 (lines 4637–4656) and its proof (lines 5500–5518), their Lemma 10.9 and their (10.3) (lines 5070–5082 and 5300–5314), and their Lemma 10.5 (lines 4686–4698), in the text layer; the PDF's page 47 for "nor".
+- `LinnikCGLEps.lean` in full.
+- The operative definitions and statements: round 669's `lemma105`, `R2` and `kmaj`, round 674's `lemma109` and `pairs`, round 675's `pairsGt`, round 676's `lemma1010_case`, round 659's `energy`, round 525's `card_divisors_le`, and round 639's `CGLS3`, for the next step.
+
+**Check 4.** No defect in the cascade or the stack is raised. Their "nor" is a typo in their write-up. The term `N|R|³` of `lemma109_eps` is recorded as the stack's form.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Proposition 11.1, `CGLS3` (round 639): round 667's `S3_le_112`, their (11.2), from `CGLP81`, with `prop102` or, in the other case, round 676's `remark103` for the term `qTN|R|^{1/2}E^{1/2}`. With it, round 644's `linnik_225c_s3` and `linnik_226c_s3` would give the exponents `9/4` and `226/100` from `CGLP81` and `CGLT101`.
