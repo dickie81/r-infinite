@@ -28279,7 +28279,7 @@ The reductions take any `f` with `R̃(c, b)² ≤ f_{−b}(c)` on `[−3, 3]`; o
 
 **Bearing on RH:** none.
 
-**The next step.** Their Lemma 10.7, the fourth moment. It needs the products `χ_iχ̄_j` by conductor `q₁ | q`, their primitive characters, `CGLT101` at the modulus `q₁`, and the trivial bound below `Q₀`.
+**The next step.** Their Lemma 10.7, the fourth moment. It needs the products `χ_iχ̄_j` by conductor `q₁ | q`, their primitive characters, `CGLT101` at the modulus `q₁`, and the trivial bound below `Q₀`. *(round 672: the trivial bound is not needed: `T′ = max(1, Q₀)(2T + 2)` makes `q₁T′ ≥ Q₀` at every conductor.)*
 
 ## Round 671: sweep of the batched review of rounds 658–667 (one minor, twelve cosmetics)
 
@@ -28353,3 +28353,74 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Their Lemma 10.7, the fourth moment, as round 670 planned.
+
+## Round 672: their Lemma 10.7, the fourth moment of `R` (stage M3, the `S₃` side; `external/pnt/LinnikCGLL107.lean`)
+
+**The results.** Below, `q ≥ 1`, `n ∼ M` means `M < n ≤ 2M` (round 670's `dyad`), `R₂` is round 669's, `E` is round 659's `energy`, and `CGLT101` is round 670's displayed hypothesis.
+
+- `LinnikCGLL107.changeLevel_natCast`, `exists_primitive`: a character modulo `q` induced from `ψ` modulo `q₁ ∣ q` (Mathlib's `changeLevel`) is `ψ(n)` for `(n, q) = 1` and `0` otherwise; and a character modulo `q` of conductor `q₁` is induced from a primitive character modulo `q₁`, Mathlib's `primitiveCharacter`.
+- `LinnikCGLL107.key`, `cls`, `grp`, `sum_card_cls_sq_le`, `card_grps_le`: a pair `(i, j)` of `R` has the key `(⌊t_i − t_j⌋, χ_iχ_j⁻¹)`, the pairs with one key form its class, and the keys are grouped by the conductor of their character and by `⌊log₂|cls|⌋`. `Σ_κ|cls κ|² ≤ E`, since two pairs `(i, j)` and `(k, l)` with one key give the quadruple `(i, l, k, j)` of the energy, and there are at most `d(q)(⌊log₂|R|²⌋ + 1)` groups.
+- `LinnikCGLL107.norm_R2_four`, `sum_sq_gram`: `|R₂(n₁, n₂)|⁴ = |Σ_{p∈R×R}F_p(n₁)F̄_p(n₂)|²`, with `F_{(i,j)} = a_iā_j` and `a_i(n) = χ_i(n)e^{it_i log n}`; and `Σ_{n₁,n₂∈S}|Σ_{p∈P}a_p(n₁)ā_p(n₂)|² = Σ_{p,p′∈P}|Σ_{n∈S}a_p(n)ā_{p′}(n)|²` for any finite `P` and `S`.
+- `LinnikCGLL107.inner_le`: for `M > 0`, `|Σ_{n∼M}F_p(n)F̄_{p′}(n)|² ≤ J(κ, κ′) = ∫κ(ξ)|D_c(u − u′ + πξ)|² dξ`, where `κ = (u, ·)` and `κ′ = (u′, ·)` are the keys of `p` and `p′` and `c(n) = κ(n)κ̄′(n)`. The inner sum is `D_c(t_i − t_j − (t_k − t_l))`, whose frequency is within `1` of `u − u′`, so round 669's `norm_sq_Dp_le_shift` applies.
+- `LinnikCGLL107.group_le`, `sum_Jk_le`: from `CGLT101` at `ε`, `C` and `Q₀`, for keys `K` whose characters have conductor `q₁ ∣ q`, with `|u| ≤ T′`, `Q₀ ≤ q₁T′` and `T′, M ≥ 1`, `Σ_{κ,κ′∈K}J(κ, κ′) ≤ ∫κ·C(q₁T′M)^ε(|K|M² + |K|²M + |K|^{5/4}(q₁T′)^{1/2}M)`. At each `ξ`, `CGLT101` is applied at the modulus `q₁` to the points `(u, ψ)`, with `ψ` the primitive character inducing the key's character, and to the coefficients `1_{(n,q)=1}n^{iπξ}`. Distinct keys give separated points, since they differ in `ψ` or in the integer `u`.
+- `LinnikCGLL107.sum_sq_Y_le`, `sum_R2_four_le`, `group_bound`: for `M > 0`, a group's part `Y_g` of `|R₂|²` has `Σ_{n₁,n₂∼M}|Y_g|² ≤ 4·4^{g₂}Σ_{κ,κ′}J(κ, κ′)`, since its classes have fewer than `2·2^{g₂}` pairs. Cauchy–Schwarz over the groups `G` gives `Σ_{n₁,n₂}|R₂|⁴ ≤ |G|Σ_gΣ_{n₁,n₂}|Y_g|²`. With `B = 2^{g₂}`, `B|K| ≤ |R|²` and `B²|K| ≤ E` give `B²|K|^{5/4} ≤ E^{3/4}|R|` (`key_ineq`), so each group's sum is at most `4∫κ·C(qT′M)^ε(EM² + |R|⁴M + E^{3/4}|R|(qT′)^{1/2}M)` for `ε, C ≥ 0`, `T, M ≥ 1`, points `|t_i| ≤ T`, `T′ ≥ 2T + 1` and `Q₀ ≤ T′`.
+- `LinnikCGLL107.lemma107`: their Lemma 10.7, from `CGLT101`. For every `ε > 0` there is `C ≥ 0` such that, for `T, M ≥ 1` and points `|t_i| ≤ T`, `Σ_{n₁,n₂∼M}|R₂(n₁, n₂)|⁴ ≤ C(d(q)(⌊log₂|R|²⌋ + 1))²(qTM)^ε(EM² + |R|⁴M + E^{3/4}|R|(qT)^{1/2}M)`. With `T′ = max(1, Q₀)(2T + 2) ≤ 4max(1, Q₀)T`, the factors `(qT′M)^ε` and `(qT′)^{1/2}` are at most `(4max(1, Q₀))^ε(qTM)^ε` and `(4max(1, Q₀))^{1/2}(qT)^{1/2}`.
+
+**Their text.** Re-read this round in the text layer. The underscores in the quotations are escaped for the renderer.
+
+- Their Lemma 10.7: "For any M ≥ 1, we have Σ\_{n₁,n₂∼M, (n₁n₂,q)=1} |R(n₁/n₂, n₁n₂^{−1})|⁴ ⪅ E(W)M² + |W|⁴M + E(W)^{3/4}|W|(qT)^{1/2}M." (lines 4814–4825; spaces restored; the sum, fraction, large bars, which the text layer encodes as four form feeds each, large parentheses, subscripts and exponents transcribed).
+- Their classes: "We define the set U\_{B,q₁} := {(u,χ) : #{(t₁,χ₁),(t₂,χ₂) ∈ W : ⌊t₁−t₂⌋ = u, χ₁χ̄₂ = χ} ∼ B, cond(χ) = q₁}, where cond(χ) is the conductor of χ." (lines 4826–4828; spaces restored, the subscripts transcribed). The bar over `χ₂`, which the text layer drops, is on PDF page 42. pdfminer finds a rule at y = 354.2 spanning x = 381.6–388.9 over the `χ` at x = 381.6–388.9 in the row y = 345.1 (`scratchpad/r672/p42_all.txt`, from `scratchpad/r662/probe/run_coords.sh 42 0 800`).
+- Their steps: "by the Cauchy-Schwarz inequality and the divisor bound" (line 4829); "Expanding the square" (line 4901); "U∗\_{B,q₁} := {(u,χ∗) : χ∗ is primitive, (u,χ₀χ∗) ∈ U\_{B,q₁}}" (lines 4955–4956; spaces restored, the subscripts transcribed); and "with Lemma 10.4, we replace the supremum with an integral and then apply Theorem 10.1" (lines 4957–4958).
+- Their last step: "Notice that B|U∗\_{B,q₁}| ≤ |W|² and B²|U∗\_{B,q₁}| ≤ E(W)." (lines 4986–4988; spaces restored, the subscripts and exponents transcribed).
+
+**The stack's form.**
+
+- **Their classes.** The stack's key `(⌊t_i − t_j⌋, χ_iχ_j⁻¹)` is their `(u, χ)` with `χ = χ₁χ̄₂`. Its groups `(q₁, ⌊log₂|cls|⌋)` stand for their `(q₁, B)`: a group's classes have from `2^{g₂}` to fewer than `2·2^{g₂}` pairs, where their `∼ B` reads `B < # ≤ 2B`.
+- **The divisor bound, explicit.** Their two passes over the classes, by Cauchy–Schwarz and then to the largest class, give the factor `(d(q)(⌊log₂|R|²⌋ + 1))²`, which their `⪅` absorbs. The stack keeps it, for the assembly of `CGLS3`.
+- **Lemma 10.4.** Their supremum over `|s| ≪ 1`, replaced by an integral, is round 669's shifted local average. The shift, between `−1` and `1`, moves the weight, not the window.
+- **Primitive characters.** Their `U∗` passes to primitive characters `χ∗` with `χ = χ₀χ∗`. The stack takes the `ψ` with `changeLevel ψ = χ` from Mathlib's `primitiveCharacter`, and `changeLevel_natCast` gives `χ(n) = 1_{(n,q)=1}ψ(n)`.
+- **No threshold.** `CGLT101` holds for `qT ≥ Q₀`. At the modulus `q₁` the stack takes `T′ = max(1, Q₀)(2T + 2)`, so `q₁T′ ≥ Q₀` for every `q₁ ≥ 1`, at the cost of the constant `(4max(1, Q₀))^{ε+1/2}`. `lemma107` assumes neither a lower bound on `qT` nor that `χ` is injective on `R`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLL107.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`group_le`, `lemma107`).
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+- This file: a marker in round 670's entry, whose plan named a trivial bound below `Q₀` that the choice of `T′` makes unneeded.
+
+**What is checked.**
+
+- Mathlib's names were checked first (`scratchpad/r671/check.lean`, `scratchpad/r672/check.lean` and `check2.lean`).
+- The file was compiled in scratch in twelve runs with `lean --json` (`scratchpad/r672/run.sh`, which runs `lcj.sh` and lists the errors and warnings; `lcj1.out` to `lcj12.out`). The last run had exit 0 and no message but the axiom line. The fixes were these. The membership lemmas of the classes, keys and groups unfold with `simp only` under `classical`, since `exact Finset.mem_filter` could not synthesize the instance. `card_grps_le` states the group's second component with `show` before `Nat.log_mono_right`. Two `omit [NeZero q] in` lines matched no variable and were removed. The injectivity of `(u, ψ) ↦ (u, changeLevel ψ)` is proved through `Prod.mk.injEq`, since `congrArg Prod.fst h` elaborated against the wrong type. `ring_nf` replaces a `ring` that fell back to it, and a rewrite at two hypotheses is split. The header and docstrings were then completed; the build below compiled the final file.
+- Then `build.sh` ran once (`scratchpad/r672/compile.sh 1`, log `build_1.log`): `1 compiled, 406 up to date` (`LinnikCGLL107` 19 s), exit 0 in 30 s, with no error, warning, `sorry` or information message. Its 612 axiom lines (2 by the module, 610 by the final check, which gains two lines) are 599 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms"; the 13 are in the final check, as before. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, taken every 10 s, was 7.00 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed, with its output saved in `scratchpad/r672/gate.out`: `tools/research/render_lint.py` against HEAD as multisets (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2 gains round 672 in its stack cell and a clause in its status; nothing in it is superseded. The opening's parenthetical gains round 672, and M3 gains a note.
+- `external/pnt/README.md`: a row, and a section with a heading.
+- This file: a marker in round 670's next step.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their Lemma 10.7 and its proof (lines 4814–5000), and the statement of their Lemma 10.4 (lines 4680–4683).
+- The PDF probe of page 42 for the bar over `χ₂`.
+- `LinnikCGLL107.lean` in full.
+- The operative definitions and statements: round 670's `CGLT101` and `dyad`, round 669's `R2`, `Dp`, `kmaj` and `norm_sq_Dp_le_shift`, round 659's `energy`, and Mathlib's `DirichletCharacter.changeLevel`, `primitiveCharacter`, `conductor` and `IsPrimitive`.
+
+**Check 4.** No defect in the cascade or the stack is raised. `CGLS3`, `CGLP81` and `CGLT101` are hypotheses.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements, and "for every `q₁ ≥ 1`" is the inequality `q₁T′ ≥ T′ ≥ Q₀`.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Lemma 10.8, toward their Lemma 10.9 for small `(n₁, n₂)`.

@@ -191,6 +191,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLLoc.lean` | 668 | local averages of finite exponential sums, toward Chen–Gupta–Li's Lemmas 10.4 and 10.8: Fourier inversion for `ψ̂₀` (`kloc_inv`), `F(x) = ∫k(ξ)e^{−2πiξΛ/H}F(x + 2πξ/H) dξ` (`esum_eq_integral`), and the bounds for `\|F\|`, `\|F\|²` and `\|F\|³` (`norm_esum_le_integral`, `norm_sq_esum_le`, `norm_cube_esum_le`) |
 | `LinnikCGLL105.lean` | 669 | Chen–Gupta–Li's Lemma 10.5 at one point per character: the shifted local average of `\|D_c\|²` against `κ = 4C_k/(1 + ξ²)` (`norm_sq_Dp_le_shift`), the sum over the triples (`sum_triple_eq`, `sum_triple_le`), and `E ≤ 36(N^σ)^{−2}∫κ·Σ_{n₁,n₂}\|R₂(n₁, n₂)\|³` (`lemma105`) |
 | `LinnikCGLT101.lean` | 670 | Chen–Gupta–Li's Theorem 10.1 (Heath-Brown) as a displayed hypothesis (`CGLT101`), the square of `R₂` expanded (`sum_sq_R2_eq`), and their Lemma 10.6 at one point per character (`lemma106`) |
+| `LinnikCGLL107.lean` | 672 | Chen–Gupta–Li's Lemma 10.7 from their Theorem 10.1 (round 670's `CGLT101`, a displayed hypothesis): the pairs classed by `(⌊t_i − t_j⌋, χ_iχ_j⁻¹)` and grouped by conductor and dyadic size (`key`, `cls`, `grp`), `Σ_κ\|cls κ\|² ≤ E` (`sum_card_cls_sq_le`), `CGLT101` at each conductor (`group_le`), and `Σ_{n₁,n₂∼M}\|R₂\|⁴ ≤ C(d(q)(⌊log₂\|R\|²⌋ + 1))²(qTM)^ε(EM² + \|R\|⁴M + E^{3/4}\|R\|(qT)^{1/2}M)` for `q ≥ 1`, `T, M ≥ 1` and points `\|t_i\| ≤ T` (`lemma107`) |
 
 ## Building (rounds 217, 618)
 
@@ -1042,3 +1043,18 @@ Round 670 displays Heath-Brown's double sum, as Chen–Gupta–Li state it, and 
 - `sum_sq_R2_eq`, `lemma106`: the expansion of `Σ|R₂|²`, and `Σ_{n₁,n₂∼M}|R₂(n₁, n₂)|² ≤ C(qTM)^ε(|R|M² + |R|²M + |R|^{5/4}(qT)^{1/2}M)`.
 
 See the main README, round 670, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 608 lines.
+
+## Their Lemma 10.7: LinnikCGLL107.lean (round 672)
+
+Round 672 derives Chen–Gupta–Li's Lemma 10.7 from round 670's `CGLT101`, a displayed hypothesis, with `n ∼ M` round 670's `dyad`, `R₂` round 669's and `E` round 659's `energy`.
+
+- `conj_apply`, `mul_inv_apply`, `changeLevel_natCast`, `exists_primitive`: for `q ≥ 1`, `χ̄(n) = χ⁻¹(n)`; a character modulo `q` induced from `ψ` modulo `q₁ ∣ q` is `ψ(n)` for `(n, q) = 1` and `0` otherwise; and a character modulo `q` of conductor `q₁` is induced from a primitive character modulo `q₁`.
+- `key`, `cls`, `keys`, `grp`, `grps`, `kg`: the key `(⌊t_i − t_j⌋, χ_iχ_j⁻¹)` of a pair, the classes of `R × R`, and their groups by conductor and `⌊log₂|cls|⌋`.
+- `sum_card_cls_sq_le`, `pow_mul_card_kg_le`, `pow_sq_mul_card_kg_le`, `card_grps_le`: `Σ_κ|cls κ|² ≤ E`, `2^{g₂}|K_g| ≤ |R|²` and `4^{g₂}|K_g| ≤ E` for the keys `K_g` of the group `g`, and, for `q ≥ 1`, at most `d(q)(⌊log₂|R|²⌋ + 1)` groups.
+- `aR`, `F`, `R2_eq`, `norm_R2_four`, `sum_sq_gram`: `|R₂(n₁, n₂)|⁴ = |Σ_{p∈R×R}F_p(n₁)F̄_p(n₂)|²` with `F_{(i,j)} = a_iā_j` and `a_i(n) = χ_i(n)e^{it_i log n}`, and the Gram expansion `Σ_{n₁,n₂}|Σ_pa_p(n₁)ā_p(n₂)|² = Σ_{p,p′}|Σ_na_p(n)ā_{p′}(n)|²`.
+- `cc`, `F_mul_conj`, `inner_eq_Dp`, `Jk`, `inner_le`, `integrable_Jk`: for `q ≥ 1` and `M > 0`, `|Σ_{n∼M}F_p(n)F̄_{p′}(n)|² ≤ J(κ, κ′) = ∫κ(ξ)|D_c(u − u′ + πξ)|² dξ` for the keys `κ = (u, ·)` of `p` and `κ′ = (u′, ·)` of `p′`, with `c(n) = κ(n)κ̄′(n)`, by round 669's `norm_sq_Dp_le_shift`.
+- `T101At`, `group_le`, `sum_Jk_le`: from `CGLT101` at `ε`, `C` and `Q₀`, for `q ≥ 1` and keys `K` of conductor `q₁ ∣ q` with `|u| ≤ T′`, `Q₀ ≤ q₁T′` and `T′, M ≥ 1`, `Σ_{κ,κ′∈K}J(κ, κ′) ≤ ∫κ·C(q₁T′M)^ε(|K|M² + |K|²M + |K|^{5/4}(q₁T′)^{1/2}M)`.
+- `Y`, `sum_sq_Y_le`, `sum_R2_four_le`, `key_ineq`, `group_bound`: for `q ≥ 1` and `M > 0`, `Σ_{n₁,n₂∼M}|Y_g|² ≤ 4·4^{g₂}Σ_{κ,κ′∈K_g}J(κ, κ′)` for the part `Y_g` of `|R₂|²` in the group `g`; `Σ_{n₁,n₂}|R₂|⁴ ≤ |G|Σ_gΣ_{n₁,n₂}|Y_g|²`; and, for `ε, C ≥ 0`, `T, M ≥ 1`, points `|t_i| ≤ T`, `T′ ≥ 2T + 1` and `Q₀ ≤ T′`, each group's bound `4∫κ·C(qT′M)^ε(EM² + |R|⁴M + E^{3/4}|R|(qT′)^{1/2}M)`.
+- `lemma107`: from `CGLT101`, for every `ε > 0` there is `C ≥ 0` such that, for `q ≥ 1`, `T, M ≥ 1` and points `|t_i| ≤ T`, `Σ_{n₁,n₂∼M}|R₂(n₁, n₂)|⁴ ≤ C(d(q)(⌊log₂|R|²⌋ + 1))²(qTM)^ε(EM² + |R|⁴M + E^{3/4}|R|(qT)^{1/2}M)`.
+
+See the main README, round 672, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 610 lines.
