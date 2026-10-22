@@ -4,8 +4,10 @@
 The grid of `SieveTypeIIU229.typeII_229`'s window: `U1 = ⌈(40011/100000)DEN⌉`, `U2 = ⌊(47579/100000)DEN⌋`, `n = 150`
 (`grid229U`, `gridOK229U`). Its certificate is checked by the kernel in 21 parts of consecutive rows, in the 5 files
 `SieveCert229UP1.lean` … `SieveCert229UP5.lean` (one `lean` process each: within one file the parts' memory
-accumulates, round 614), and assembled in `SieveCert229U.lean`. Round 607's `grid229` (`SieveCert229.lean`) is the grid
-of the conditional exponent `229/100`; this one is of the unconditional route's window.
+accumulates, round 614; round 625: not borne out as the cause, the peaks following each file's largest part, README
+round 626 and review of round 624, finding 1), and assembled in `SieveCert229U.lean`. Round 607's `grid229`
+(`SieveCert229.lean`) is the grid of the conditional exponent `229/100`; this one is of the unconditional route's
+window.
 
 The file imports `SieveCertDefs.lean`, so neither it nor the part files load `Mathlib` (round 618).
 -/

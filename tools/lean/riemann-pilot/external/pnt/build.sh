@@ -93,6 +93,11 @@ c 1 "$HERE" Architect
 # PNT+'s lakefile sets these two options for its own files.
 for f in $PNTFILES; do c 0 "$UP" "PrimeNumberTheoremAnd.${f//\//.}" -DautoImplicit=false -DrelaxedAutoImplicit=false; done
 for f in WanderLadderPNT Rung3 Landau LogDerivDisc KVBridge LandauKV LogDerivKV MediumPNTW PNTKV KaiserKV TwinKV ShortKV DetectEM KVSubsumes Domination HalfPlanePNT BohrKV HalfPlaneFinal PsiExponent HalfPlaneLindelof SmoothPerron MertensExponent HalfPlaneJoinsPNT DivisorExponent ChiPNT PNTProgressions ChiUniform Littlewood LeastNonresidue SquarefreeCount ExplicitSmooth ExplicitConstants QuadRing QuadSplit QuadKronecker QuadClassNumber Subconvexity InghamDetect InghamDensity LinnikChar LinnikDeduction LinnikHybrid LinnikDetect LinnikDensity LinnikHalf LinnikFE LinnikLindelof LinnikSubconvex MertensChi LinnikAFE LinnikFourth LinnikIngham LinnikPower LinnikOffDiag LinnikHuxley LinnikGammaRatio LinnikReflect LinnikWeighted LinnikDual LinnikBuckets LinnikLargeValues LinnikTwelveBins LinnikTwelveSizes LinnikTwelve LinnikMoment LinnikLines LinnikSplit LinnikS2 LinnikPoints SieveSmooth LinnikStep SieveLemma1 SieveWeight SieveTypeII SieveRoute SieveCertDefs SieveCert SieveCert229 SieveRough SieveSep SieveFamily SieveBrun SieveCount SieveRanges SieveLeaf SieveTree SieveDyadic SieveTypeIIU SieveRoughTuple SieveTypeIIR SieveDiff SieveStops1 SieveCmp SieveStops2 SieveProp6 SieveChain SieveDecomp SieveBuch SieveLeaves SieveQ SieveDrop SieveMain LinnikCGL LinnikIngham73 LinnikHuxStep SieveTypeIIGen SieveTypeII73 Linnik229 LinnikInghamC LinnikStairs SieveCurveGlue SieveTypeIIU232 SieveCert232 Linnik232 LinnikWeyl LinnikHuxStepY LinnikStairs7 SieveTypeIIU227 SieveCert227 Linnik227 SieveTypeIIU226 SieveGrid226 SieveCert226P1 SieveCert226P2 SieveCert226P3 SieveCert226P4 SieveCert226P5 SieveCert226 Linnik226 SieveHMBin SieveHMBins SieveHMWindow SieveTypeIIHM SieveTypeIIU230 SieveCert230 Linnik230 SieveTypeIIU226C Linnik226C SieveTypeIIU229 SieveGrid229U SieveCert229UP1 SieveCert229UP2 SieveCert229UP3 SieveCert229UP4 SieveCert229UP5 SieveCert229U Linnik229U; do c 1 "$HERE" $f; done
+# Round 625: Linnik's exponent 9/4 under CGLDensity alone; its certificate in 1374 kernel parts in 167 files, one
+# lean process each (57590 s of process time in the round's job, which ran them two at a time; README.md).
+for f in SieveCertColsDefs SieveCertCols SieveTypeIIU225C SieveGrid225C; do c 1 "$HERE" $f; done
+for i in $(seq 1 167); do c 1 "$HERE" SieveCert225CP$i; done
+for f in SieveCert225C Linnik225C; do c 1 "$HERE" $f; done
 echo "$NC compiled, $NUP up to date"
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
@@ -237,6 +242,11 @@ import SieveCert229UP4
 import SieveCert229UP5
 import SieveCert229U
 import Linnik229U
+import SieveCertCols
+import SieveTypeIIU225C
+import SieveGrid225C
+import SieveCert225C
+import Linnik225C
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -627,6 +637,22 @@ import Linnik229U
 #print axioms Linnik229U.typeII229U
 #print axioms Linnik229U.fits229U
 #print axioms Linnik229U.linnik_229U
+#print axioms SieveCert.rowsJ_eq
+#print axioms SieveCert.rows_eq_rowsJ
+#print axioms SieveCert.rowsJ_split
+#print axioms SieveCert.rows_split
+#print axioms SieveCert.total_eq_rows_full
+#print axioms SieveCert.rows_le_of_split
+#print axioms SieveCert.rowsJ_le_of_split
+#print axioms SieveCert.rows_le_of_rowsJ
+#print axioms SieveTypeIIU225C.window_225c
+#print axioms SieveTypeIIU225C.typeII_225c
+#print axioms SieveCert.gridOK225C
+#print axioms SieveCert.total_lt_225C
+#print axioms Linnik225C.routeOK225C
+#print axioms Linnik225C.typeII225c
+#print axioms Linnik225C.fits225C
+#print axioms Linnik225C.linnik_225c
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy

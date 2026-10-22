@@ -25904,6 +25904,28 @@ The reviewer's out-of-scope observations are held: `start_job.sh` now copies 173
 
 **The next step.** The convergence review of this sweep (prose only; the reviewer runs no `lean` while the 9/4 job holds the memory); then round 625 when the job finishes.
 
+## Round 625: Linnik's exponent `9/4` under Chen–Gupta–Li's estimate alone (`external/pnt`, 173 files committed before the run; `frontier/linnik/SIEVE-ROUTE.md` §24)
+
+**What it is.** The owner's goal of 2026-10-21 ("9/4 has a nice ring to it"; "yeah lets shoot for 9/4 as you suggested, long running and recoverable, running in the background"). Round 622's route under `CGLDensity` alone, at `L = 9/4`: the window of `g7c` is `[41191/100000, 48127/100000]` (exact corners, least slack `6.2·10⁻⁶`), and the certificate there is `0.98921K` at `n = 400`. Its heaviest rows were too large for the kernel's memory as single parts, so round 624 cut the 181 rows with more than 8,000 depth-4 tests by columns (`SieveCertColsDefs`, `SieveCertCols`): 1374 parts in 167 files, each file one `lean` process.
+
+**The theorem.** `Linnik225C.linnik_225c`: if `CGLDensity` holds, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^{9/4}`. `#print axioms` gives `[propext, Classical.choice, Quot.sound]`.
+
+**The proof.** SIEVE-ROUTE.md §24; each file's header states its theorems, and the external README's round-625 section lists them.
+
+**The run.** The part files ran from 16:33 UTC on 2026-10-21 to 01:13 UTC on 2026-10-22, two `lean` processes at a time after a first file alone (round 624's memory model, §21's annotation), 57,590 s of process time in all (16.0 h; round 624's time model predicted 69,318 s); the largest peak was 9.43 GiB (`SieveCert225CP166`, for which the model gave 3.70 GiB), the smallest 3.18 GiB. The container restarted three times during the run, and the job resumed each time from the compiled files (`tools/research/checkpoints/r625/progress.txt`).
+
+**What is checked.**
+
+- The landing build (`scratchpad/r625/build.log`): `17 compiled, 323 up to date`, exit 0 in 4035 s, no error, warning or `sorry`. The two edited headers recompiled their dependents: `SieveGrid226` 2 s, `SieveCert226P1` 340 s, `SieveCert226P2` 297 s, `SieveCert226P3` 532 s, `SieveCert226P4` 1288 s, `SieveCert226P5` 387 s, `SieveCert226` 28 s, `Linnik226` 15 s, `Linnik226C` 11 s, `SieveGrid229U` 1 s, `SieveCert229UP1` 124 s, `SieveCert229UP2` 139 s, `SieveCert229UP3` 406 s, `SieveCert229UP4` 262 s, `SieveCert229UP5` 136 s, `SieveCert229U` 27 s, `Linnik229U` 13 s. The 528 axiom lines (36 by the compiled modules, 492 by the final check) are 494 `[propext, Classical.choice, Quot.sound]` and 34 "does not depend on any axioms" (12 in the final check: round 623's eleven and `gridOK225C`).
+- Peak resident memory per module (`scratchpad/r625/peaks.py`, round 619's method): `SieveCert226P1` 3.98 GiB, `SieveCert226P2` 3.18 GiB, `SieveCert226P3` 6.73 GiB, `SieveCert226P4` 12.36 GiB, `SieveCert226P5` 5.17 GiB, `SieveCert226` 5.20 GiB, `Linnik226` 6.35 GiB, `SieveCert229UP1` 3.35 GiB, `SieveCert229UP2` 2.78 GiB, `SieveCert229UP3` 11.11 GiB, `SieveCert229UP4` 8.31 GiB, `SieveCert229UP5` 4.45 GiB, `SieveCert229U` 4.94 GiB (the other 4, of at most 13 s each, have no sample); overall 12.36 GiB.
+- The 173 files were committed before the run (7f0896a): the two column files of round 624 and the 171 that `scratchpad/r624/gen225b.py` generated. The landing changes no byte of them.
+
+**Check 1** (direct reads): the files' headers and theorems against the generator (`SieveCertColsDefs`, `SieveCertCols`, `SieveGrid225C`, `SieveCert225CP1`, `SieveCert225C` 1–40 and 4650–4683, `Linnik225C`, `SieveTypeIIU225C` 1–40 and 160–184); `SieveMain.lean` at `linnik_route_lt` (403–406), this round's operative theorem, re-read. **Check 4.** New against the pilot: the exponent `9/4` under `CGLDensity` alone (round 622: `226/100`). **Check 9.** (a) `linnik_225c` is a theorem of this stack under `CGLDensity`; Lean's kernel checked it with the three axioms. (b) No change to the register's targets. (c) No criterion is fed a signal.
+
+**Bearing on RH:** none.
+
+**The next step.** The hostile review of this landing, which also reviews round 630's sweep; then the kernel check of `2285/1000` with no hypothesis at `n = 250` (round 631).
+
 ## Round 626: where the sieve route ends, ~~computed and recorded~~ computed, extrapolated and recorded (`frontier/linnik/SIEVE-ROUTE.md` §23; `frontier/linnik/route_limits.py`, `route_limits.jsonl`); the sweep of round 624's review (one minor, three cosmetics)
 
 **What it is.** The owner's instruction of 2026-10-21: "We should record these hypothetical gains in the paper. I don't want to be piped by someone claiming lower bounds." The gains were the lead's estimates of that day, from a handful of replays, of how far larger grids take the route on its two lines and where the Type II window closes. This round ~~computes them in exact arithmetic with a committed script~~ computes them with a committed script, the certificates and the corners in exact arithmetic and the fits and the window's scan in floating point *(Round 627: retracted, false when written: "computes them in exact arithmetic"; review of round 626, F1.)*, and records each figure with its status in SIEVE-ROUTE.md §23. Round 625, the `9/4` kernel job, is still running (57 of 167 part files); its entry follows when it lands. *(Round 628: retracted, false when written: the heading's "computed and recorded", for limits that are extrapolated; review of round 627, finding 1.)*
