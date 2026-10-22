@@ -168,6 +168,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLFrob.lean` | 643 | the off-diagonal mass of the Gram matrix, explicitly (`frobOff_le`): `‖E‖_F² ≤ N·Q₀(q)²I_H²·\|R\|·V^{−2}L(N′Z)·τ·Σ\|b_n\|²·H_Z + \|R\|²B²`, from the squared product trick at the points (`prod_trick_points`, `ls_points`), the dual sums as polynomials at the points (`norm_dualS_pair`, `sum_Dp_sq_le`), Cauchy–Schwarz against `\|H(1/2 + iu)\|` (`integral_sq_le`) and the squared Gram entries (`gram_sq_le`) |
 | `LinnikCGLS2.lean` | 644 | round 639's hypothesis `CGLS2` proved (`cgls2`): for every `ε > 0`, `‖E‖_F² ≤ C(qTN)^ε·qT\|R\|N^{2−2σ}`, from round 643's `frobOff_le` with `Z = ⌊3P^{1+δ}/N⌋ + 1` and `K = ⌈4/δ⌉` (`s2_main`) and the sizes of its factors as powers of `qT` (`LSX_le`, `HZ_le`, `Q0_le`, `card_le`, `Bmax_le`); Linnik's exponents `9/4` and `226/100` from `CGLS3` alone (`linnik_225c_s3`, `linnik_226c_s3`) |
 | `LinnikCGLFourier.lean` | 645 | Chen–Gupta–Li's Lemma 4.3 (1): `(2π\|ξ\|)^K\|ĥ_τ(ξ)\| ≤ C_K(1 + \|τ\|)^K` for `h_τ(u) = w(u)²u^{iτ}` (`lemma43`), from the derivatives `h_τ^{(k)} = u^{iτ}Σ_{j≤k}(iτ)^j c_{k,j}` (`hasDerivAt_F`) and Mathlib's `Real.fourier_deriv` (`fourier_F`) |
+| `LinnikCGLPoisson.lean` | 646 | the Poisson expansion of the Gram entries in residue classes (`gram_poisson`): `G(i, k) = N^{iτ}Σ_{a<q}χ_i(a)conj(χ_k(a))Σ_{m∈ℤ}(N/q)ĥ_τ(Nm/q)e^{2πima/q}`, from Poisson summation scaled (`poisson_scaled`), the regrouping by residue classes (`sum_colsP_residue`) and the terms `A_{i,n}conj(A_{k,n}) = N^{iτ}χ_i(n)conj(χ_k(n))h_τ(n/N)` (`entP_mul_star`) |
 
 ## Building (rounds 217, 618)
 
@@ -755,3 +756,15 @@ Round 645 starts the `S₃` side with their Lemma 4.3 (1), the decay of `ĥ_t` f
 - `norm_F_le`, `CF`, `CF_nonneg`, `lemma43`: `|F_K(u)| ≤ Σ_{j≤K}|τ|^j|c_{K,j}(u)|`, so `|𝓕F_K(ξ)| ≤ ∫|F_K| ≤ C_K(1 + |τ|)^K` with `C_K = Σ_{j≤K}∫|c_{K,j}|`.
 
 See the main README, round 645, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 550 lines.
+
+## The Poisson expansion of the Gram entries: LinnikCGLPoisson.lean (round 646)
+
+Round 646 expands each Gram entry by Poisson summation in residue classes, the method of Chen–Gupta–Li's Lemmas 4.4 and 4.5: for `q ≥ 1`, `N > 0` and `τ = t_i − t_k`, `G(i, k) = N^{iτ}Σ_{a<q}χ_i(a)conj(χ_k(a))Σ_{m∈ℤ}(N/q)ĥ_τ(Nm/q)e^{2πima/q}` (`gram_poisson`).
+
+- `fourier_comp_mul`, `isBigO_of_vanish`, `poisson_scaled`: `𝓕(g(c·))(ξ) = c⁻¹𝓕g(ξ/c)`, and for `g` continuous, vanishing outside `[A, B]`, with `ξ²|ĝ(ξ)| ≤ C`: `Σ_m g(c(x₀ + m)) = Σ_m c⁻¹ĝ(m/c)e^{2πimx₀}` (Mathlib's `Real.tsum_eq_tsum_fourier_of_rpow_decay` and `Measure.integral_comp_mul_left`).
+- `Wt_vanish`, `continuous_Wt`, `sq_mul_norm_hhat_le`, `poisson_Wt`: the case `g = h_τ`, with round 645's `lemma43` at `K = 2`.
+- `sum_colsP_residue`: `Σ_{n∈colsP N}ψ(n)φ(n/N) = Σ_{a<q}ψ(a)Σ_m φ((a + qm)/N)` for `ψ` of period `q` and `φ` vanishing outside `[1, 2]`.
+- `star_natCast_cpow`, `entP_mul_star`: `A_{i,n}conj(A_{k,n}) = N^{iτ}χ_i(n)conj(χ_k(n))h_τ(n/N)` for `n ≥ 1`.
+- `gram_poisson`: the three together.
+
+See the main README, round 646, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 553 lines.

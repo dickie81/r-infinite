@@ -26803,3 +26803,52 @@ At the seven values of `σ` it prints in `[5/7, 16/21]`, the crude estimate neve
 **Bearing on RH:** none.
 
 **The next step.** The Poisson expansion of the Gram entries in residue classes: `G(i, k) = (N^{1+iτ}/q)Σ_{a mod q}ψ(a)Σ_{m∈ℤ}e_q(am)ĥ_τ(Nm/q)` with `ψ = χ_iχ̄_k`, by Mathlib's `Real.tsum_eq_tsum_fourier_of_rpow_decay` and `lemma43`. Then `S3 = Σ_{m_i≠0} I_m` at one point per character.
+
+## Round 646: the Poisson expansion of the Gram entries in residue classes (stage M3, the `S₃` side; `external/pnt/LinnikCGLPoisson.lean`)
+
+**The result.** `LinnikCGLPoisson.gram_poisson`: for `q ≥ 1`, `N > 0`, any points and `τ = t_i − t_k`,
+
+`G(i, k) = N^{iτ}Σ_{a<q}χ_i(a)conj(χ_k(a))Σ_{m∈ℤ}(N/q)ĥ_τ(Nm/q)e^{2πima/q}`,
+
+with round 638's Gram entry `G(i, k) = Σ_{n∈colsP N}A_{i,n}conj(A_{k,n})`, `A_{i,n} = w(n/N)χ_i(n)n^{it_i}`, and `h_τ(u) = w(u)²u^{iτ}`. On the way: `poisson_scaled`, Poisson summation for `x ↦ g(cx)` with `g` continuous, vanishing outside an interval, and `ξ²|ĝ(ξ)|` bounded; and `sum_colsP_residue`, the regrouping of `Σ_{n∈colsP N}ψ(n)φ(n/N)` by residue classes mod `q`.
+
+**The paper's expansion and the stack's.** Re-read this round in the text layer (lines 965–1075; spaces restored): their Lemma 4.4's proof ends "We have the result upon performing Poisson summation." Lemma 4.5's proof says "Performing Poisson summation in the n₁-sum gives", followed by a display that reads, on one line, `Σ_{n₁∈ℤ}h_{t₁−t₂}(n₁/N)χ₁χ̄₂(n₁) = Σ_{a₁ mod q}Σ_{n₁≡a₁ mod q}h_{t₁−t₂}(n₁/N)χ₁χ̄₂(n₁) = (N/q)Σ_{a₁ mod q}Σ_{m₁∈ℤ}ĥ_{t₁−t₂}(Nm₁/q)e_q(a₁m₁)χ₁χ̄₂(a₁)`. `gram_poisson` is that display for one entry, with the factor `N^{iτ}` that their display leaves out (it cancels in the cyclic products of the cubic trace). The sum over `a` runs over `0 ≤ a < q`; the terms with `(a, q) > 1` vanish because the characters do.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLPoisson.lean`: new, 277 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`poisson_scaled`, `sum_colsP_residue`, `gram_poisson`).
+- `frontier/linnik/CGL-LEAN.md`: the row L4.4–P4.6, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch in stages (`scratchpad/r646/lc.sh`). The fixes were:
+
+  - the namespace of Mathlib's `Measure.integral_comp_mul_left`;
+  - a cast `((a / q : ℝ) : ℂ)` against `(a : ℂ) / q`, matched by `push_cast`;
+  - `N ≠ 0` supplied to `field_simp`;
+  - a sum reassociated by `Finset.sum_congr` and `ring` rather than `simp_rw [mul_assoc]`, which had also reshaped the summand the residue lemma matches;
+  - `Complex.ofReal_natCast` for a doubly cast residue.
+- Then `build.sh` ran once (`scratchpad/r646/build.log`): `1 compiled, 383 up to date` (`LinnikCGLPoisson` 11 s), exit 0 in 22 s, no error, warning or `sorry`. Its 558 axiom lines (5 by the module, 553 by the final check, which gains three lines) are 545 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.81 GiB.
+- The file has no `sorry`, `native_decide`, `axiom` or `maxHeartbeats`, and no line over 120 characters.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872.
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row L4.4–P4.6 gains round 646 in its stack cell and a clause in its status, nothing in it superseded; the opening's parenthetical gains round 646, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round): their Lemmas 4.4 and 4.5 and the proof of 4.5 to its Poisson display (lines 965–1075), re-read for this round's quotations; `LinnikCGLPoisson.lean` in full; round 638's `colsP`, `entP` and `gramP`; round 645's `F_zero`, `F_eq_zero`, `continuous_F` and `lemma43`; Mathlib's `Real.tsum_eq_tsum_fourier_of_rpow_decay`, `fourier_coe_apply`, `Real.fourier_real_eq`, `Measure.integral_comp_mul_left`, `Complex.cpow_conj`, `Complex.mul_cpow_ofReal_nonneg` and `ZMod.natCast_mod`.
+
+**Check 4.** No defect is raised. `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: "for `q ≥ 1`, `N > 0`, any points" is the statement of `gram_poisson`; "the terms with `(a, q) > 1` vanish because the characters do" is a property of Dirichlet characters, not used in the proof.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** The batched hostile review of rounds 634–644 is running. This round falls in the next block.
+
+**Bearing on RH:** none.
+
+**The next step.** The cubic trace at one point per character. The terms with `m = 0` vanish off the diagonal, and on it they give `μ₀`. So round 639's `S3 = X − 3μ₀‖E‖_F²` is the sum of the terms whose three `m_i` are nonzero, the paper's `S₃`. Then their Proposition 7.1.
