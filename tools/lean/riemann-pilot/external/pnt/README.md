@@ -164,6 +164,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLS23.lean` | 639 | `CGLThird` from two hypotheses, `CGLS2` (the off-diagonal mass `‖E‖_F²` of the Gram matrix, their Proposition 6.1) and `CGLS3` (`S₃ = X − 3μ₀‖E‖_F²`, their Proposition 11.1), by `third_of_s23`; the identity `X = 3μ‖E‖_F² + tr(E³)` (`X3_eq`); Linnik's exponents `9/4` and `226/100` under the two (`linnik_225c_s23`, `linnik_226c_s23`) |
 | `LinnikCGLMellin.lean` | 640 | the Mellin transform `H` of `w²`: entire (`differentiable_H`), with `(1 + \|t\|)^{K+3}\|H(σ + it)\| ≤ B` on `\|σ\| ≤ S` (`exists_H_bound`); Perron's formula for the twisted weight `u^{iτ}w(u)²` (`perron_Wt`) and for the Gram entries (`perron_gram`) |
 | `LinnikCGLReflect.lean` | 641 | the reflection of the Gram entries (`reflect_gram`, `gram_reflect`): a dual sum of length `Z` on `Re s = 1/2` and its tail on `Re s = −K`, with the reflection factor of the primitive character bounded on `−K ≤ Re s ≤ 1/2` (`norm_Phi_le_far`) and contour shifts for integrands at most `M(1 + \|Im s + τ\|)^{−2}` (`shift_of_bound`) |
+| `LinnikCGLPair.lean` | 642 | the bounds of the reflected Gram entries: for `χ_i ≠ χ_k`, `\|G(i, k)\| ≤ (2π)⁻¹(N^{1/2}Q₀(q)∫\|H(1/2 + iu)\|\|D(u)\| du + T_K)`, `D` the dual sum of length `Z` and `T_K ≪_K q^{K+1/2}(NZ)^{−K}(1 + \|τ\|)^{K+1}` (`norm_gram_le`), from the bounds of the main part (`norm_integral_Mn_le`) and the tail (`norm_integral_Tl_le`), the Euler factor against the conductor (`norm_Eu_mul_le`) and the dual tail far left (`norm_dualT_le`) |
 
 ## Building (rounds 217, 618)
 
@@ -695,3 +696,15 @@ Round 641 moves round 640's integral for `G(i, k)` into Chen–Gupta–Li's refl
 - `gram_reflect`: with round 640's `perron_gram`, for `χ_i ≠ χ_k`, `G(i, k)` is `N^{iτ}/2π` times that sum at `χ = χ_iχ̄_k`, `τ = t_i − t_k`.
 
 See the main README, round 641, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 531 lines.
+
+## The bounds of the reflected Gram entries: LinnikCGLPair.lean (round 642)
+
+Round 642 bounds the two parts of round 641's reflected Gram entry for one pair `χ_i ≠ χ_k`. These are the bounds in the proof of Chen–Gupta–Li's Lemma 6.2, without its truncation of the integrals.
+
+- `apply_prime_dvd`, `norm_Eu_factor_le`, `norm_Eu_mul_le`: for `ψ` mod `f`, `f ∣ q`, `c ≥ 0` and `−Re s ≤ c`, `|E(s)|·f^c ≤ 2^{ω(q)}q^c`. The factors of `E` at the primes of `f` are `1`, since `ψ(p) = 0` there, and `f·∏_{p|q, p∤f} p` divides `q`.
+- `norm_dualT_le`: for `Z, K ≥ 1`, `|Σ_{m>Z}χ(m)m^{s−1}| ≤ 2Z^{−K}` on `Re s = −K`. Each term is at most `m^{−2}Z^{1−K}`, and Mathlib's `sum_Ioo_inv_sq_le` gives `Σ_{m>Z}m^{−2} ≤ 2/(Z + 1)`.
+- `Q0`, `norm_EuPhi_half_le`, `norm_integral_Mn_le`: on `Re s = 1/2`, `|E(s)Φ(s)| ≤ Q₀(q) = 2^{ω(q)}·π·CGK(0)·EQh(q)` (round 641's `norm_Eu_le` at `c = 0` and `norm_Phi_le_far` at `K = 0`). So the main part is at most `N^{1/2}Q₀(q)∫|H(1/2 + iu)||D(u)| du`, `D(u) = Σ_{m≤Z}χ⁻¹(m)m^{−1/2+i(u−τ)}`, after the substitution `u = v + τ`.
+- `IK`, `integrable_IK`, `IK_nonneg`, `norm_integral_Tl_le`: on `Re s = −K`, `|N^s| = N^{−K}`, `|E(s)|f^K ≤ 2^{ω(q)}q^K` and `|Φ(s)| ≤ f^{1/2+K}·π·CGK(K)(1 + |Im s|)^{K+1/2}·EQh(q)`. So the tail is at most `2^{ω(q)+1}·π·CGK(K)·EQh(q)·q^{K+1/2}(NZ)^{−K}(1 + |τ|)^{K+1}I_K`, where `I_K = ∫|H(−K + iu)|(1 + |u|)^{K+1} du` is finite by round 640's `exists_H_bound`.
+- `norm_gram_le`: with round 641's `gram_reflect` and `|N^{iτ}| = 1`, `|G(i, k)|` is at most `(2π)⁻¹` times the sum of the two bounds, at `χ = χ_iχ̄_k` and `τ = t_i − t_k`.
+
+See the main README, round 642, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 536 lines.

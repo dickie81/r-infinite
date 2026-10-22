@@ -106,12 +106,14 @@ for f in SieveCert225C Linnik225C; do c 1 "$HERE" $f; done
 for f in SieveTypeIIU2285 SieveGrid2285U; do c 1 "$HERE" $f; done
 for i in $(seq 1 28); do c 1 "$HERE" SieveCert2285UP$i; done
 for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
-# Rounds 636–641: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
+# Rounds 636–642: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
 # (LinnikCGLLV), the density step from it on [5/7, 16/21] (LinnikCGLStep), Linnik's exponents 9/4 and 226/100
 # from it (LinnikCGLLinnik), (round 638) Proposition 3.1 from a bound on the cubic trace (LinnikCGLMat),
 # (round 639) that bound from the paper's S₂ and S₃ (LinnikCGLS23), (round 640) the Mellin transform of w² and the
-# Gram entries as vertical integrals (LinnikCGLMellin), and (round 641) their reflection (LinnikCGLReflect).
-for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect; do
+# Gram entries as vertical integrals (LinnikCGLMellin), (round 641) their reflection (LinnikCGLReflect), and
+# (round 642) the bounds of the reflected entries (LinnikCGLPair).
+for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
+    LinnikCGLPair; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -274,6 +276,7 @@ import LinnikCGLMat
 import LinnikCGLS23
 import LinnikCGLMellin
 import LinnikCGLReflect
+import LinnikCGLPair
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -719,6 +722,11 @@ import LinnikCGLReflect
 #print axioms LinnikCGLReflect.shift_of_bound
 #print axioms LinnikCGLReflect.reflect_gram
 #print axioms LinnikCGLReflect.gram_reflect
+#print axioms LinnikCGLPair.norm_Eu_mul_le
+#print axioms LinnikCGLPair.norm_dualT_le
+#print axioms LinnikCGLPair.norm_integral_Mn_le
+#print axioms LinnikCGLPair.norm_integral_Tl_le
+#print axioms LinnikCGLPair.norm_gram_le
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy

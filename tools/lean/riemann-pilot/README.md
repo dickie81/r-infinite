@@ -26566,3 +26566,51 @@ where `Φ` is round 526's reflection factor `f^{1/2−s}ε(ψ*)·γ_{ψ*⁻¹}(1
 **Bearing on RH:** none.
 
 **The next step.** The bounds of the two integrals: the main part through its dual sum on `Re s = 1/2`, where `|EΦ|` is bounded, and the tail on `Re s = −K`, which is small when `NZ` exceeds `qT` by a power of `qT` and `K` is large; then the mean value theorem with the large polynomial put back, for `CGLS2`.
+
+## Round 642: the bounds of the reflected Gram entries (stage M3, fifth step; `external/pnt/LinnikCGLPair.lean`)
+
+**The result.** `LinnikCGLPair.norm_gram_le`: for `χ_i ≠ χ_k`, with `τ = t_i − t_k`, `N > 0` and every `Z, K ≥ 1`,
+
+`|G(i, k)| ≤ (2π)⁻¹(N^{1/2}Q₀(q)∫|H(1/2 + iu)||D(u)| du + T_K)`,
+
+where `D(u) = Σ_{m≤Z}(χ_iχ̄_k)⁻¹(m)m^{−1/2+i(u−τ)}`, `Q₀(q) = 2^{ω(q)}·π·CGK(0)·EQh(q)`,
+`T_K = 2^{ω(q)+1}·π·CGK(K)·EQh(q)·q^{K+1/2}(NZ)^{−K}(1 + |τ|)^{K+1}I_K` and `I_K = ∫|H(−K + iu)|(1 + |u|)^{K+1} du`. The two terms bound the two integrals of round 641's `gram_reflect`: the main part on `Re s = 1/2` (`norm_integral_Mn_le`) and the tail on `Re s = −K` (`norm_integral_Tl_le`). Two lemmas feed the tail: `norm_Eu_mul_le`, `|E(s)|·f^c ≤ 2^{ω(q)}q^c` for `ψ` mod `f`, `f ∣ q`, `c ≥ 0` and `−Re s ≤ c`; and `norm_dualT_le`, `|Σ_{m>Z}χ(m)m^{s−1}| ≤ 2Z^{−K}` on `Re s = −K`.
+
+**The paper's bounds and the stack's.** Re-read this round in the text layer (lines 1294–1330 and 1440–1640; spaces restored). For `2T ≥ |t| ∼ T₀ ≥ (qT)^ϵ` their Lemma 6.2 bounds the smoothed sum by a display that reads, on one line, `≪ (q/N^{1/2})∫_{|u|≤(qT)^{ϵ/2}}|Σ_{1≤m≤(qT)^{2ϵ}qT₀/N}χ(m)m^{−1/2+i(t−u)}| du + O_ϵ((qT)^{−100})`. Its proof says "Thanks to the rapid decay of H(s) (see (6.2)), we can truncate the integrals to |u|, |v| ≤ (qT)^{ϵ/2} at the cost of an O_{ϵ,k}((qT)^{−200}) error term". It bounds the tail by a display that reads, on one line, `|I₂| ≪_k (qT)^{ϵ/2}N^{−2k}(q*T₀)^{1/2+2k}/((qT)^{2ϵ}qT₀/N)^{2k}·(q/q*)^{2k+2} + O_{ϵ,k}((qT)^{−200})`, whose `(q/q*)^{2k+2}` bounds their `P`, a ratio of two products over `p | q, p ∤ q*`. The stack does not truncate. `|H|` stays in both integrals as a weight, and the tail keeps `Z` and `K` free: `T_K` is the analogue of their bound at `K = 2k`, with `Z` for `M`. Their `P` is split here. Its numerator is `E`, whose factors at the primes of the conductor `f` are `1` (`norm_Eu_mul_le`), and its denominator sits inside round 641's `Φ`, which `EQh(q)` bounds.
+
+**The bounds in the stack.**
+
+- The main part: on `Re s = 1/2`, `|N^s| = N^{1/2}`, `|E(s)| ≤ 2^{ω(q)}` (round 641's `norm_Eu_le` at `c = 0`) and `|Φ(s)| ≤ π·CGK(0)·EQh(q)` (round 641's `norm_Phi_le_far` at `K = 0`). The substitution `u = v + τ` moves the shift from `H` onto `D`.
+- The tail: on `Re s = −K`, `|N^s| = N^{−K}`, `|Φ(s)| ≤ f^{K+1/2}·π·CGK(K)(1 + |Im s|)^{K+1/2}·EQh(q)` and `|E(s)|f^K ≤ 2^{ω(q)}q^K`, so the conductor's power from `Φ` and the Euler factor's growth combine to `2^{ω(q)}q^{K+1/2}`. The dual tail is at most `2Z^{−K}`. After the substitution, `1 + |v| ≤ (1 + |u|)(1 + |τ|)` (round 641's `one_add_abs_le`) moves the growth onto `H`, whose integral against `(1 + |u|)^{K+1}` converges by round 640's `exists_H_bound` (`integrable_IK`).
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLPair.lean`: new, 420 lines.
+- `external/pnt/build.sh`: the module (its loop's `for` line now wraps), its import in the final check and five `#print axioms` lines (`norm_Eu_mul_le`, `norm_dualT_le`, `norm_integral_Mn_le`, `norm_integral_Tl_le`, `norm_gram_le`).
+- `frontier/linnik/CGL-LEAN.md`: an M3 note, the row L6.2, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch in stages (`scratchpad/r642/lc.sh`). The fixes there were a cast of a product of naturals (`Nat.cast_prod`, `Nat.cast_mul`), Mathlib's `Real.finsetProd_rpow`, a bullet left after a `gcongr` that had closed its goal, the ambiguous name `Cf` (now `LinnikCGLReflect.Cf`), `gcongr` steps replaced by explicit `mul_le_mul` terms, a theorem duplicated by an edit script (removed), an integral's binder that captured a `+` (now parenthesized), and the cast `((t i − t k : ℝ) : ℂ)` in the statement of `norm_gram_le`. Then `build.sh` ran twice, the second time after an edit to a comment in the file's header (`scratchpad/r642/build.log` holds the second run, and both runs agree on every count below): `1 compiled, 379 up to date` (`LinnikCGLPair` 15 s), exit 0 in 25 s, no error, warning or `sorry`. Its 541 axiom lines (5 by the module, 536 by the final check, which gains five lines) are 528 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.83 GiB in the second run (6.85 GiB in the first).
+- The file has no `sorry`, `native_decide`, `axiom` or `maxHeartbeats`, and no line over 120 characters.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0 (after two pipes in the new L6.2 text, which split the table row, were escaped; the lint's first run caught them), `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872.
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: L6.2's stack cell gains round 642. Its status "Partial" and its clause "the bounds of the lemma's statement not yet", both true when written, gain round-642 net-state markers. The opening's parenthetical gains round 642, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round): the statement of their Lemma 6.2 and its proof in the text layer (lines 1294–1330 and 1440–1640: the definitions of `G` and `P`, `M`, the split, `I₁` and `I₂`, the truncation and the bounds of `|G|`, `I₁` and `I₂`), re-read for this round's quotations; `LinnikCGLPair.lean` in full; round 641's `LinnikCGLReflect.lean` (`Eu`, `norm_Eu_le`, `norm_Phi_le_far`, `CGK`, `EQh`, `Cf`, `Mn`, `Tl`, `gram_reflect`, `one_add_abs_le`); round 640's `exists_H_bound` and `integrable_H_line`; round 526's `dualS`, `dualT` and `norm_dualS_le` in `LinnikReflect.lean`; Mathlib's `sum_Ioo_inv_sq_le`, `Finset.prod_primes_dvd` and `Nat.Coprime.prod_right`.
+
+**Check 4.** No defect is raised. `CGLS2` and `CGLS3` stay displayed hypotheses this round.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: "for every `Z, K ≥ 1`" is the statement of `norm_gram_le`; "The stack does not truncate" describes this file's statements.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of round 636, no review runs this round. The batched review will cover rounds 634–642 and the stages that follow.
+
+**Bearing on RH:** none.
+
+**The next step.** The assembly of `CGLS2`. `Z` is chosen with `NZ` above `q(2T + 1)` by a power of `qTN` and `K` large in terms of that power, so that the tails are small. The main parts are summed over the pairs by Cauchy–Schwarz against the weight `|H(1/2 + iu)|`, and the dual sums `D` become Dirichlet polynomials over the points, for the mean value theorem.
