@@ -49,6 +49,11 @@ Gates (exit status 1 if any fails):
       0.8615362, 0.8725510 and the release's 0.8748866 at c = 0.05, 0.1, 0.15 and 1 (1e-6, 2e-6 at c = 1).  With
       sigma = 1, c = 0 reaches 5/6 only at (1, 1, 1).  Far across the slice the geometries are admissible only in the
       model (Xu-Sang's admissibility rows and the pilot's high side); the release's lemmas were not re-derived there.
+  S7  the crossing cost's zero is target T3: with the quadratic sieve's factor K + NB replaced by K, round 500's dyad
+      program has no first branch, and its maximum is M' + max(0, (1 + 3l' - 2M')/4) (1e-9) at 300 random (M', l')
+      in [0.3, 2] x [0, 1], and at most M' + max(0, (1 + 2l' - 2M')/4) with the split; with the column term, on the
+      ray (M', l') = (2t, t), the maximum's excess is the first branch 3t - 1 for t = 0.4, 0.5, 0.5572, 0.75 (1e-9).
+      So S6's c = 0 is exactly the column term removed, with no further branch in the dyads.
 
 Every number here is a statement about the pilot's model of the release's exponent system (frontier/wall78 and
 fivesixths.py), not a theorem about L-functions.
@@ -82,15 +87,16 @@ def gate(name, ok, msg):
 
 
 # ---------------------------------------------------------------- S1: the dyads
-def emax_F(Mp, lp, a=1.0, b=2 / 3, sc=None):
+def emax_F(Mp, lp, a=1.0, b=2 / 3, sc=None, colterm=True):
     """the maximum of the release's E over the dyads when the hybrid factor N + L + (NL)^{2/3} is replaced by
     max(N, L^a, (NL)^b), optionally capped by a per-column bound N L^{sc}: -u = max(v, a z_a, b(v + z_a)) - v - z_a,
-    then min(-u, (sc - 1) z_a).  a = 1, b = 2/3, sc = None is the release (crossing.emax)."""
+    then min(-u, (sc - 1) z_a).  a = 1, b = 2/3, sc = None is the release (crossing.emax).  colterm=False replaces
+    the quadratic sieve's factor K + NB by K (target T3, section 8)."""
     pieces = (-UNIT[6], (a - 1) * UNIT[6] - UNIT[7], (b - 1) * (UNIT[6] + UNIT[7]))
     A = [[1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [-1, 0, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, -1, 1, 1, 1, 0, 0, 0, 0], list(-TY)]
     b0 = [Mp, 0.0, 0.0, -(1 + lp)]
     best, arg = -np.inf, None
-    for p1 in P1:
+    for p1 in (P1 if colterm else P1[:1]):
         for p2 in pieces:
             c = np.concatenate([BASE + p1 - TY / 2, [1.0]])
             AA = [r + [0.0] for r in A] + [list(-p2) + [1.0]]
@@ -312,6 +318,22 @@ def main():
         f'c = {c}: {r[0]:.7f}' for c, r in zip(CROSS_COSTS, rc))
          + f'; at c = 0 the optimum has l_x = l_y = ell = {t[2]:.4f}, M + ell = {t[0] + t[1] + t[2]:.4f}; '
          f'sigma = 1 at c = 0: {r1[0]:.9f} at (l_x, l_y, ell) = ({r1[3][0]:.4f}, {r1[3][1]:.4f}, {r1[3][2]:.4f})')
+    # S7: the crossing cost's zero is target T3
+    rng7 = np.random.default_rng(7)
+    dev_r, over_s, n7 = 0.0, -np.inf, 0
+    while n7 < 300:
+        m, l = rng7.uniform(0.3, 2.0), rng7.uniform(0.0, 1.0)
+        if m < (1 - l) / 2 + 1e-3:
+            continue
+        dev_r = max(dev_r, abs(emax_F(m, l, colterm=False)[0] - m - max(0, (1 + 3 * l - 2 * m) / 4)))
+        over_s = max(over_s, emax_F(m, l, sc=2 / 3, colterm=False)[0] - m - max(0, (1 + 2 * l - 2 * m) / 4))
+        n7 += 1
+    ray = [(t, emax_F(2 * t, t)[0] - 2 * t, 3 * t - 1) for t in (0.4, 0.5, 0.5572, 0.75)]
+    gate('S7', dev_r < 1e-9 and over_s < 1e-9 and all(abs(e - f) < 1e-9 for _, e, f in ray),
+         f'without the column term (K + NB -> K), at {n7} random (M\', l\') in [0.3, 2] x [0, 1]: the release\'s '
+         f'maximum is M\' + max(0, (1 + 3l\' - 2M\')/4) within {dev_r:.1e}, and with the split it is at most '
+         f'M\' + max(0, (1 + 2l\' - 2M\')/4) (excess {over_s:.1e}); with the column term, on the ray (2t, t) the '
+         f'excess is the first branch 3t - 1: ' + ', '.join(f't = {t}: {e:.4f}' for t, e, _ in ray))
     if FAILS:
         print('FAILED:', ', '.join(FAILS))
         sys.exit(1)

@@ -323,7 +323,7 @@ In the program, savings `U^{3/10}` on the floor bin and the small bins alone sto
 
 ## 8. The crossing cost, a third lever
 
-Same day. Gate S6 of `slotsplit.py`.
+Same day. Gates S6 and S7 of `slotsplit.py`.
 
 **What it is.** Round 500 derived the crossing cost from the release's proof of Lemma `lem:probe-row-norm`. Crossing the slice `M + ℓ = 1` by `μ` costs `μ/2` on the low side (`c = 1`). The cost is the first branch `M′ + ℓ′ − 1` of the dyads' maximum: the column term `NB` of the factor `K + NB` in Lemma `lem:hybrid-energy`, where the dual is longer than the rows.
 
@@ -346,6 +346,8 @@ At `c = 0` the low side reaches its floor on the ray `l_x = l_y = ℓ = t`:
 - the C₀ wall `4/3 − t` is at most `5/6` there.
 
 The optimum found is `t = 0.5572`, with `M + ℓ = 1.67`; the bins `E` bind as well. With the release's `σ = 1`, the second branch `(1 − t)/4` vanishes only at `t = 1`, and `c = 0` gives `5/6` at `(1, 1, 1)`. So in this model a free crossing reaches `5/6` with neither T1 nor T2, and a cost above about `0.16` buys nothing (round 499's break-even).
+
+**`c = 0` is exactly T3** (gate S7). Replace the quadratic sieve's factor `K + NB` by `K` in round 500's dyad program. Then its maximum has no first branch: it is `M′ + max(0, (1 + 3ℓ′ − 2M′)/4)` at 300 random `(M′, ℓ′)` in `[0.3, 2] × [0, 1]`, and at most `M′ + max(0, (1 + 2ℓ′ − 2M′)/4)` with the slot split. So removing the column term leaves no further branch in the dyads, and the program's `c = 0` is that removal. (With the column term, the maximum on the ray `(2t, t)` is the first branch `3t − 1` for `t ≥ 0.4`. The other branch that F3 avoided above `ℓ′ ≈ 0.4` also comes from the column term: in a session run, its maximizing dyads have a dual longer than the rows, `v > H`. It disappears with the column term.) Keeping the column term in S7's check fails it, in a session run.
 
 **Scope.** Far across the slice, the model's admissibility rests on Xu–Sang's conditions and on the pilot's high side extended there. The release's lemmas are stated for its fixed geometry and were not re-derived at `M + ℓ ≈ 1.7`. Round 496 lists what the model leaves out: "the intermediate range, small and large rows, the frequency extension, and the prime supply against the capacities". The numbers for small `c` are statements about the model, not about the release's argument there.
 
