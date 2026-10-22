@@ -16,7 +16,11 @@ dual is trivial (v = l_b = e = 0) and every slot is active, so the completed row
 the slot sum sum_P a(P)/sqrt(q_P); Lemma lem:hybrid-energy bounds it by Cauchy-Schwarz, Z^{z_a}.  sigma is the exponent
 of that slot sum's square per unit of active slot length: sigma = 1 is the release's bound, sigma = 2/3 the size of
 the cubic large sieve's (NL)^{2/3} term at N = 1, which is also the size of Patterson's main term.  The second
-branch then charges (1 + (4 sigma - 1) ell' - 2 M')/4 in place of (1 + 3 ell' - 2 M')/4.
+branch then charges (1 + (4 sigma - 1) ell' - 2 M')/4 in place of (1 + 3 ell' - 2 M')/4.  [Corrected in
+FIVE-SIXTHS.md section 7: sigma is the parameter of that second branch, not the trivial dual's exponent, since a
+bound at the trivial dual alone does not move the dyads' maximum.  slotsplit.py's gate S5 gives the hybrid bounds
+that realize sigma = 5/8 (every column's slot sum at square-root size), 2/3 (the L term dropped) and 1/2 (a
+square-root sieve N + (NL)^{1/2}); its gates S1-S2 give sigma = 3/4 from the release's own pair phase.]
 
 Gates (exit status 1 if any fails):
   F1  the floor (exact arithmetic): at 4000 random rational geometries with b >= 0, l_x >= ell, L >= 0 and mu >= 0,
