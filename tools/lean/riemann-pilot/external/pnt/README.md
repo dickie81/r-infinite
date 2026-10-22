@@ -182,6 +182,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLMom.lean` | 658 | Chen–Gupta–Li's Lemma 9.1 at one point per character, as identities: `Σ_{a unit}\|R(v, a)\|² = φ(q)\|R\|` for `v > 0` (`sum_norm_Rf_sq`), its integral over `[1/2, 2]` (`lemma91`), and `∫_ℝΣ_aR̃_{M₂}(v, a)² dv = 2X∫ψ̃₀·(3/2)φ(q)\|R\|` by Fubini (`lemma91_Rt`) |
 | `LinnikCGLMom4.lean` | 659 | Chen–Gupta–Li's Lemma 9.2 at one point per character: the energy `E` (`energy`), `∫_{[1/2,2]}Σ_a\|R(v, a)\|⁴ dv ≤ 2φ(q)X(∫ψ̃₀·E + \|R\|⁴D_K/X^K)` for `X ≥ 1` (`lemma92`), and the same for `R̃` over `ℝ` with the factor `(2X∫ψ̃₀)²` (`lemma92_Rt`) |
 | `LinnikCGLCS.lean` | 660 | the two Cauchy–Schwarz steps of Chen–Gupta–Li's §11 on each dyadic block `B` of Proposition 7.2: `(Σ_{m⃗∈B}Ĩ(m⃗))² ≤ S₃,₁S₃,₂` (`sum_It_sq_le`) and `S₃,₂ ≤ √S₃,₃·√S₃,₄`, their (11.1) (`S32_le`) |
+| `LinnikCGLJ.lean` | 662 | Chen–Gupta–Li's `J(f⃗)` before the supremum (`Jint`), their Proposition 8.1 as a displayed hypothesis with its implicit constants explicit (`CGLP81`, not proved), and `S₃,₃`, `S₃,₄` in its form: `S₃,₄ ≤ 4(k + 1)Σ_{j≤k}Jint(f, 2^j − 1/2, 2^k − 1/2, 2^k − 1/2, 2)` on the block `k` for `f_{−b} ≥ R̃(·, b)²` on `[−3, 3]` (`S34_le_Jint`), and `S₃,₃ ≤ 4S₃,₄` (`S33_le_S34`) |
 
 ## Building (rounds 217, 618)
 
@@ -932,3 +933,16 @@ Round 660 proves the two Cauchy–Schwarz steps with which Chen–Gupta–Li's p
 - `Yb_sq_le`, `S32_le`: `Y² ≤ PQ` by Cauchy–Schwarz with the gcd weight, so `S₃,₂ ≤ √S₃,₃·√S₃,₄`.
 
 See the main README, round 660, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 588 lines.
+
+## Their `J(f⃗)` and Proposition 8.1, and `S₃,₃`, `S₃,₄` in its form: LinnikCGLJ.lean (round 662)
+
+Round 662 states Chen–Gupta–Li's Proposition 8.1 as a displayed hypothesis and puts `S₃,₃` and `S₃,₄` in its form.
+
+- `gcd_val_unit_mul`, `gcd_val_neg`: `(ux, q) = (x, q)` for a unit `u` of `ℤ/qℤ`, and `(−x, q) = (x, q)`.
+- `setJ`, `gJw`, `gJ`, `Jint`: their range `M₁ < |m₁| ≤ 2M₁`, `M₂ < m₂ ≤ 2M₂`, `|m₃| ≤ κM₃`, their gcd, their inner double sum, and their `J(f⃗)` before the supremum.
+- `CGLP81`: their Proposition 8.1, with the exponent `ϖ`, the support bound `A`, the constant `κ` and decay constants `D j` explicit; not proved here.
+- `integrable_Jsum`: for `f` continuous and `0` beyond `A`, the integrand of `Jint` is integrable.
+- `Qb_le_gJ`, `S34_le_Jint`: for `f` nonnegative, continuous, `0` beyond `A` and with `R̃(c, b)² ≤ f_{−b}(c)` for `|c| ≤ 3`, `S₃,₄ ≤ 4(k + 1)Σ_{j≤k}Jint(f, 2^j − 1/2, 2^k − 1/2, 2^k − 1/2, 2)` on the block `k`.
+- `Pb_inv_eq`, `S33_le_S34`: `P(u⁻¹, b₁) = Q(u, b₁⁻¹)` for `u > 0`, and `S₃,₃ ≤ 4S₃,₄`, for a block closed under the swap of `m₁` and `m₃`.
+
+See the main README, round 662, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 590 lines.

@@ -27731,3 +27731,76 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** `S₃,₃` and `S₃,₄` in the form of their Proposition 8.1, with Proposition 8.1 as a displayed hypothesis.
+
+## Round 662: their `J(f⃗)`, their Proposition 8.1 displayed, and `S₃,₃`, `S₃,₄` in its form (stage M3, the `S₃` side; `external/pnt/LinnikCGLJ.lean`)
+
+**The results.** Below, `q ≥ 1`. `Q(v, b₁)` and `P(v, b₁)` are round 660's inner sums, and `S₃,₃`, `S₃,₄` its integrals over `[1/2, 2]` of `Σ_{b₁}P²` and `Σ_{b₁}Q²`.
+
+- `LinnikCGLJ.gcd_val_unit_mul`, `gcd_val_neg`: `(ux, q) = (x, q)` for a unit `u` of `ℤ/qℤ`, and `(−x, q) = (x, q)`, where `(x, q)` is the gcd of `q` and the least nonnegative representative of `x`. Multiplication by `u` keeps the additive order, which is `q/(x, q)` (Mathlib's `ZMod.addOrderOf_coe` and `addOrderOf_injective`).
+- `LinnikCGLJ.setJ`, `gJw`, `gJ`, `Jint`: their range `M₁ < |m₁| ≤ 2M₁`, `M₂ < m₂ ≤ 2M₂` and `|m₃| ≤ κM₃` (their `|m₃| ≪ M₃`), their gcd `(am₁ + bm₂ + m₃, q)`, their inner double sum `Σ_bΣ_{m⃗}f_b((m₁u + m₃)/m₂)(am₁ + bm₂ + m₃, q)`, and `Jint(f, M₁, M₂, M₃, κ) = ∫_ℝΣ_a(gJ)² du`, their `J(f⃗)` before the supremum.
+- `LinnikCGLJ.CGLP81`: their Proposition 8.1 as a displayed hypothesis. For `0 < ϖ < 1`, a support bound `A`, the constant `κ`, decay constants `D j` and every `ε > 0` there are `C` and `Q₀` such that `Jint(f, M₁, M₂, M₃, κ) ≤ C(qT)^ε(φ(q)M⁶(∫_ℝΣ_bf_b)² + φ(q)²M⁴∫_ℝΣ_bf_b²)` whenever `qT ≥ Q₀`, `T ≥ 1`, `0 < M_i < M ≤ (qT)^ϖ`, each `f_b` is smooth, nonnegative and `0` for `|u| > A`, and `Σ_b|f̂_b(ξ)| ≤ D_j(T/|ξ|)^jφ(q)f_{b₀}(u₀)` for every `j ∈ ℕ` and `ξ ≠ 0`, at some point `(b₀, u₀)`. It is not proved.
+- `LinnikCGLJ.integrable_Jsum`: for `f` continuous and `0` beyond `A`, `0 ≤ M₁` and `0 < M₂`, the integrand of `Jint` is continuous with compact support, hence integrable on `ℝ`.
+- `LinnikCGLJ.Qb_le_gJ`, `S34_le_Jint`: for `L = 2^kN/q ≥ 0` and `f` nonnegative, continuous, `0` beyond `A` and with `R̃_{2^k}(c, b)² ≤ f_{−b}(c)` for `|c| ≤ 3`, `S₃,₄ ≤ 4(k + 1)Σ_{j≤k}Jint(f, 2^j − 1/2, 2^k − 1/2, 2^k − 1/2, 2)` on round 657's block `blk M k`. Pointwise, `Q(v, b₁) ≤ 2Σ_{j≤k}gJ(f, Jset k j, b₁, v)` for `v ∈ [1/2, 2]`, with `Jset k j` their range at those parameters.
+- `LinnikCGLJ.Pb_inv_eq`, `S33_le_S34`: for `L ≥ 0` and a finite set `B` of triples closed under the swap `(m₁, m₂, m₃) ↦ (m₃, m₂, m₁)`, `P(u⁻¹, b₁) = Q(u, b₁⁻¹)` for `u > 0`, and `S₃,₃ ≤ 4S₃,₄`. The block is closed under the swap (`swap_mem_blk`).
+
+**Their text.** Re-read this round in the text layer, with spaces restored and the arrows, sums and their ranges, integrals and their ranges, the hat, large parentheses, fractions, subscripts and exponents transcribed; the text layer's `R` and `N` are the PDF's blackboard `ℝ` and `ℕ` (`MSBM10` glyphs on page 26, `scratchpad/r662/probe/p26_all.txt`, from round 661's `coords.py` run by `scratchpad/r662/probe/run_coords.sh`).
+
+- Their §8: "For parameters satisfying 0 < M ≤ (qT)^ϖ with 0 < ϖ < 1 and given a sequence of compactly supported smooth functions f⃗ = {f_b}\_{1≤b≤q, (b,q)=1}, we define J(f⃗) := sup\_{0<M_i<M, 1≤i≤3} ∫\_ℝ Σ\_{1≤a≤q, (a,q)=1} (Σ\_{1≤b≤q, (b,q)=1} Σ\_{|m₁|∼M₁, m₂∼M₂, |m₃|≪M₃} f_b((m₁u+m₃)/m₂)(am₁+bm₂+m₃,q))² du, which is an average of sums of affine transformations with GCD twists." (lines 2436–2462)
+- Their Proposition 8.1: "Suppose that f⃗ = {f_b}\_{1≤b≤q, (b,q)=1} is a sequence of smooth functions such that each f_b(u) is non-negative and supported on |u| ≪ 1 and Σ\_{1≤b≤q, (b,q)=1} |f̂_b(ξ)| ⪅\_j (T/|ξ|)^j ϕ(q) sup\_{b,u} f_b(u) for all j ∈ ℕ. Then J(f⃗) ⪅ ϕ(q)M⁶(∫\_ℝ Σ\_{1≤b≤q, (b,q)=1} f_b(u) du)² + ϕ(q)²M⁴ ∫\_ℝ Σ\_{1≤b≤q, (b,q)=1} f_b(u)² du." (lines 2464–2486)
+- Their notation: "A∼B signifies the stronger condition B < A≤2B" (lines 278–279).
+- Their §11: "We estimate S₃,₃ and S₃,₄ using Proposition 8.1." (line 5655), then the change of variables for `S₃,₃` (lines 5657–5699) and "Note that (b₁m₁−b₁b₂m₂+m₃,q) = (m₁−b₂m₂+b₁⁻¹m₃,q) when (b₁,q) = 1" (lines 5700–5701).
+
+The underscores in these quotations are escaped for the renderer.
+
+**The stack's form.** `CGLP81` makes Proposition 8.1's implicit constants explicit: the exponent `ϖ`, the support bound `A` of `|u| ≪ 1`, the constant `κ` of `|m₃| ≪ M₃`, the constants `D j` of the decay, and, for each `ε`, the constant and the threshold of their `⪅`. Read with the paper's conventions, their Proposition 8.1 implies `CGLP81`:
+
+- the decay condition here bounds `Σ_b|f̂_b(ξ)|` by a constant times `(T/|ξ|)^jφ(q)f_{b₀}(u₀)`, and `f_{b₀}(u₀) ≤ sup f`, so it implies theirs, with `⪅_j`;
+- for `j ∈ ℕ` it includes `j = 0`, and at `ξ = 0` theirs says nothing for `j ≥ 1`;
+- `Jint` at any `0 < M_i < M` is at most their supremum, and the constants may depend on `ϖ`, `A`, `κ` and `D`.
+
+The reductions take any `f` with `R̃(c, b)² ≤ f_{−b}(c)` on `[−3, 3]`; on the block, for `v ∈ [1/2, 2]`, the centre `c₂ = (m₁v + m₃)/m₂` lies in `[−3, 3]`. With `b = −b₂` the weight `(b₁m₁ − b₂m₂ + m₃, q)` is their `(b₁m₁ + bm₂ + m₃, q)`. The triples with `m₂ < 0` are the negatives of those with `m₂ > 0`, with the same centre and gcd, a factor `2`. Then `m₁` is split dyadically, `2^j ≤ |m₁| < 2^{j+1}`, which for integers is `|m₁| ∼ 2^j − 1/2`, for `j ≤ k`; likewise `m₂ ∼ 2^k − 1/2`, and `|m₃| ≤ |m₂| ≤ 2(2^k − 1/2)`, so `κ = 2`. Each block's sum is then at most their sum, whose terms are nonnegative, and Cauchy–Schwarz over the `k + 1` values of `j` gives `4(k + 1)`. For `S₃,₃`, `u = v⁻¹` maps `[1/2, 2]` onto itself with `|dv| = u⁻²du ≤ 4du` (Mathlib's `integral_image_eq_integral_abs_deriv_smul`); `b₂ = b₁b`, their unit identity, `b₁ ↦ b₁⁻¹` and the swap then give `Q` at `(u, b₁⁻¹)`.
+
+**An observation about their write-up, for the next step.** To bound `S₃,₄` they take `f_b(v) = ψ(v)|R̃_{M₂}(v, −b)|²`, "where ψ(v) is a smooth bump function supported on v ≍ 1 and such that ψ(1) > 0" (lines 5656–5657, spaces restored). For `J(f⃗)` to bound `S₃,₄`, `f_{−b₂}` must dominate `R̃(c₂, b₂)²` wherever the centre `c₂` falls, and on the block that is all of `[−3, 3]`. A `ψ` supported on `v ≍ 1` is `0` at `c₂ = 0`. But their `ψ̃₀` is `1` on `[−1, 1]`, so `R̃(0, a)²` is at least `(NM₂/q)∫|R(u′, a)|² du′` over the `u′ ∈ [1/2, 2]` with `u′ ≤ 2(qT)^ϵq/(NM₂)`. That is positive whenever `NM₂/q < 4(qT)^ϵ` and `R(·, a)` is not zero almost everywhere there. A `ψ` equal to `1` on `[−3, 3]` and supported on `[−4, 4]` serves: it is supported on `|u| ≪ 1`, which is all Proposition 8.1 asks, and `ψ(1) = 1`. The next step takes that `ψ`. Their argument is unaffected.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLJ.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`S34_le_Jint`, `S33_le_S34`).
+- `frontier/linnik/CGL-LEAN.md`: the rows P8.1 and P11.1, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+
+**What is checked.**
+
+- The file was compiled in scratch first, in three runs (`scratchpad/r662/lc.sh`; `lc.out` to `lc3.out`, the last with exit 0 and no warning). The fixes were:
+
+  - `[NeZero q]` on `gJ`, `Jint` and `integrable_Jsum`, for the units to form a finite type;
+  - Mathlib's `abs_add_le` and `Int.natCast_natAbs`, and round 657's `mem_boxM` used as the implication it is, with `neg_mem_boxM` proved from `boxM`'s definition;
+  - the dyadic range named `Jset`, which removed a `whnf` timeout in `S34_le_Jint`;
+  - a sign in a `linear_combination`, the order of the two reindexings in `S33_le_S34`, membership in `Finset.sum_nbij'` stated without a coercion, and one rewrite of `Int.cast_abs` too many.
+
+- Mathlib's names were checked first (`scratchpad/r662/check.lean`, `check2.lean`).
+- Then `build.sh` ran once (`scratchpad/r662/compile.sh 1`, log `build_1.log`): `1 compiled, 397 up to date` (`LinnikCGLJ` 13 s), exit 0 in 24 s, no error, warning or `sorry`. Its 594 axiom lines (4 by the module, 590 by the final check, which gains two lines) are 581 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, every 10 s, was 6.81 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed: `tools/research/render_lint.py` against HEAD (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row P8.1 gains round 662 in its stack cell and status, each with a marker of what it read; the row P11.1 gains round 662 in its stack cell and a clause in its status; the opening's parenthetical gains round 662, and M3 gains a note. `external/pnt/README.md`: a row, and a section with a heading. No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their §8 from its opening through Proposition 8.1, Lemma 8.2 and the proof of Proposition 8.1 assuming Lemma 8.2, and the parts of the proof of Lemma 8.2 that use the decay hypothesis or bound `f̂_b` (text layer lines 2426–3100, 3470–3530, 3640–3680 and 4180–4343, with a census of the section's mentions of decay, `f̂_b` and support), for the form of `CGLP81`; their §11 from Proposition 11.1 through (11.2) (lines 5519–5866), re-read for this round's quotations and the observation; page 26 of the PDF probed for the blackboard letters.
+- `LinnikCGLJ.lean` in full.
+- The operative definitions and statements: round 660's `Qb`, `Pb`, `gw`, `c₁`, `c₂`, `Cb`, `Qb_le`, `measurable_Qb`, `measurable_Pb`, `blk`, `S33` and `S34`; round 657's `boxM` facts and `Rt`; round 656's `integrableOn_Icc_of_le`.
+
+**Check 4.** No defect in the cascade or the stack is raised. The observation above concerns Chen–Gupta–Li's write-up; their argument stands. `CGLS3` and now `CGLP81` stay displayed hypotheses.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements, and "their Proposition 8.1 implies `CGLP81`" is argued above, with the paper's conventions named.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** The function `f_b = ψR̃(·, −b)²` with `ψ = 1` on `[−3, 3]` and supported on `[−4, 4]`: its smoothness, its support and its Fourier decay in `CGLP81`'s form. The lead's computation, to be formalized, gives that decay with constants depending only on `j` when `NM₂/q ≤ (qT)^ϵT`, by integration by parts and the lower bound `f_{−1}(1) ≥ min(2(qT)^ϵ, NM₂/(2qT))|W|²/2`. Then `S₃,₃` and `S₃,₄` are bounded by `CGLP81` and Lemmas 9.1 and 9.2.
