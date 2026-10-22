@@ -9,8 +9,10 @@ Round 662 bounds `S₃,₄` on the dyadic block `k` of round 657's `prop72` by s
 This file applies round 662's `CGLP81` to it. Their step: "Applying Proposition 8.1 then gives that S₃,₃ and S₃,₄ are
 both bounded by ⪅ ϕ(q)M₂⁶ (∫_ℝ Σ_{b mod q, (b,q)=1} |R̃_{M₂}(u,−b)|² ψ(u) du)² + ϕ(q)²M₂⁴ ∫_ℝ Σ_{b mod q, (b,q)=1}
 |R̃_{M₂}(u,−b)|⁴ ψ(u)² du" (text layer lines 5829–5847; spaces restored; the integrals, sums, tildes, large parentheses,
-subscripts and exponents transcribed), and "This yields, by Lemmas 9.1 and 9.2, S₃,₃, S₃,₄ ⪅_ϵ ϕ(q)³M₂⁶|W|² +
-ϕ(q)³M₂⁴E(W)." (lines 5848–5851; spaces restored; the subscripts and exponents transcribed).
+subscripts and exponents transcribed; the text layer's `R` under the integrals is the PDF's blackboard `ℝ`, `MSBM10`
+glyphs at y = 139.2, x = 155.4 and 382.5 on page 49, `scratchpad/r671/probe/p49_all.txt`), and "This yields, by Lemmas
+9.1 and 9.2, S₃,₃, S₃,₄ ⪅_ϵ ϕ(q)³M₂⁶|W|² + ϕ(q)³M₂⁴E(W)." (lines 5848–5851; spaces restored; the subscripts and
+exponents transcribed).
 
 The stack's form. On the block `k`, `M₂ = 2^k`, and `CGLP81` is applied with `M = 2^{k+1}`, the support bound `4`,
 `κ = 2` and round 665's `D_j`. Its bound holds for every `0 < M_i < M`, so it covers the `k + 1` terms of round 662's

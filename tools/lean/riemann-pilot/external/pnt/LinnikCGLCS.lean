@@ -19,8 +19,8 @@ The stack's quantities, for a finite set `B` of triples (in use, round 657's blo
   `c₂ = (m₁v + m₃)/m₂`, and `S₃,₂ = ∫_{[1/2,2]}Σ_{b₁}Y² dv`;
 * `P(v, b₁) = Σ_{b₂}Σ_{m⃗∈B}R̃(c₁, b₁⁻¹b₂)²(…, q)`, `Q(v, b₁) = Σ_{b₂}Σ_{m⃗∈B}R̃(c₂, b₂)²(…, q)`,
   `S₃,₃ = ∫_{[1/2,2]}Σ_{b₁}P² dv` and `S₃,₄ = ∫_{[1/2,2]}Σ_{b₁}Q² dv`.
-Their sums run over `|m_i| ∼ M_i`; the stack's run over the block. Their steps are stated with `⪅`; the stack's are
-exact inequalities.
+Their sums run over `|m_i| ∼ M_i`; the stack's run over the block. Their first step is stated with `⪅` and their
+(11.1) with `≤`; the stack's are exact inequalities.
 
 Plain statements, with `q ≥ 1` and `L ≥ 0`.
 * `sum_blk`: the triple sum of `prop72` restricted to the block `k` is the sum over `blk M k`.
@@ -42,7 +42,7 @@ The next step is to put `S₃,₃` and `S₃,₄` in the form of their Propositi
 `u = v⁻¹` turns `(m₁v + m₃)/(m₂v)` into `(m₁ + m₃u)/m₂`, which is the form Proposition 8.1 needs. The paper prints the
 denominator as `m₂u` (text layer lines 5672–5673). On page 48 pdfminer finds the numerator `m₁ + m₃u` at
 x = 281.3–332.3 over a rule at y = 256.5 spanning the same x, and the denominator `m₂u` at x = 296.0–317.7 below it
-(`scratchpad/r660/p48_frac.txt`).
+(`scratchpad/r660/p48_frac.txt`; the rule is line 184 of `scratchpad/r660/p48.txt`).
 
 The file imports `LinnikCGLMom4.lean`.
 -/

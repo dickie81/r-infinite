@@ -15,7 +15,7 @@ The stack's form. With `G = ∫ψ̃₀·E + |R|⁴D_K/X^K` (`Gq`), `P = 12C(qT)^
 `((k + 1)∫ψ̃₀·φ(q)²)²·P·(9M_k⁶|R|² + 8M_k⁴G)`, and `√(9M_k⁶|R|² + 8M_k⁴G) ≤ 3M_k³|R| + 3M_k²√G`. So
 `Σ_{m⃗∈B_k}Ĩ ≤ (k + 1)∫ψ̃₀·φ(q)²√P(24·2^{3k}|R| + 12·2^{2k}√G)` (`sum_blk_It_le`). With `φ(q) ≤ q`, `k ≤ log₂M` and
 `2^k ≤ M`, each block's `Σ_{m⃗∈B_k}A_k` is at most `2C_J(0)d(q)∫ψ̃₀(log₂M + 1)√P(24(NM)²|R| + 12N²M√G)`, and the
-`log₂M + 1` blocks give `S3_le_blocks`, with round 657's three explicit errors carried unchanged. The hypothesis
+`⌊log₂M⌋ + 1` blocks give `S3_le_blocks`, with round 657's three explicit errors carried unchanged. The hypothesis
 `NM/q ≤ XT`, which round 665 needs on every block, plays the part of their "M₂ ⪅ qT/N" and gives the form of (11.2)
 (`S3_le_112`). The stack's `(log₂M + 1)²` has one factor from the number of blocks and one from the `4(k + 1)²` of round
 666's `V_k`, under the square root; it is a power of a logarithm, which their `⪅` absorbs.

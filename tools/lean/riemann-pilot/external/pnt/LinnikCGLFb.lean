@@ -6,9 +6,10 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
 Their §11: "To bound S₃,₄, we define f_b(v) = ψ(v)|R̃_{M₂}(v,−b)|² for (b,q) = 1, where ψ(v) is a smooth bump
 function supported on v ≍ 1 and such that ψ(1) > 0." (text layer lines 5655–5657; spaces restored, the tilde,
-subscripts and exponent transcribed). Round 662 records why the stack takes a different `ψ`: for `J(f⃗)` to bound
-`S₃,₄`, `f_{−b}` must dominate `R̃(·, b)²` on `[−3, 3]`, where the centres fall. Here `ψ` is Mathlib's smooth bump with
-radii `3` and `4`: it is `1` on `[−3, 3]`, `0` off `(−4, 4)`, and `ψ(1) = 1`.
+subscripts and exponent transcribed). Round 662 records why the stack takes a different `ψ`: round 662's reduction
+(`Qb_le_gJ`) compares `S₃,₄` with `J(f⃗)` term by term, which needs `f_{−b} ≥ R̃(·, b)²` at the centres, all in
+`[−3, 3]` on the stack's block. Here `ψ` is Mathlib's smooth bump with radii `3` and `4`: it is `1` on `[−3, 3]`, `0`
+off `(−4, 4)`, and `ψ(1) = 1`.
 
 This file proves the properties of `f_b` that round 662's `CGLP81` and `S34_le_Jint` ask for, apart from the decay of
 `f̂_b`, which is the next step.

@@ -137,7 +137,7 @@ lemma abs_iteratedDeriv_kerS_le (hL : 0 ≤ L) (hX : 0 < X) (m : ℕ) (x : ℝ) 
   rw [iteratedDeriv_kerS, abs_mul, abs_of_nonneg (by positivity : 0 ≤ L * (L / (2 * X)) ^ m)]
   exact mul_le_mul_of_nonneg_left (abs_iteratedDeriv_psi0_le m _) (by positivity)
 
-/-- `∫|(K(· − u′))^{(m)}| = 2Xc^mI₀(m)` for `L > 0`. -/
+/-- `∫|(K(· − u′))^{(m)}| = 2Xc^mI₀(m)` for `L, X > 0`. -/
 lemma integral_abs_iteratedDeriv_kerS (hL : 0 < L) (hX : 0 < X) (m : ℕ) :
     ∫ x, |iteratedDeriv m (fun x => kerL L X (x - u')) x| = 2 * X * (L / (2 * X)) ^ m * I0 m := by
   set c := L / (2 * X) with hc

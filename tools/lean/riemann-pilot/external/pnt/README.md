@@ -182,12 +182,12 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLMom.lean` | 658 | Chen–Gupta–Li's Lemma 9.1 at one point per character, as identities: `Σ_{a unit}\|R(v, a)\|² = φ(q)\|R\|` for `v > 0` (`sum_norm_Rf_sq`), its integral over `[1/2, 2]` (`lemma91`), and `∫_ℝΣ_aR̃_{M₂}(v, a)² dv = 2X∫ψ̃₀·(3/2)φ(q)\|R\|` by Fubini (`lemma91_Rt`) |
 | `LinnikCGLMom4.lean` | 659 | Chen–Gupta–Li's Lemma 9.2 at one point per character: the energy `E` (`energy`), `∫_{[1/2,2]}Σ_a\|R(v, a)\|⁴ dv ≤ 2φ(q)X(∫ψ̃₀·E + \|R\|⁴D_K/X^K)` for `X ≥ 1` (`lemma92`), and the same for `R̃` over `ℝ` with the factor `(2X∫ψ̃₀)²` (`lemma92_Rt`) |
 | `LinnikCGLCS.lean` | 660 | the two Cauchy–Schwarz steps of Chen–Gupta–Li's §11 on each dyadic block `B` of Proposition 7.2: `(Σ_{m⃗∈B}Ĩ(m⃗))² ≤ S₃,₁S₃,₂` (`sum_It_sq_le`) and `S₃,₂ ≤ √S₃,₃·√S₃,₄`, their (11.1) (`S32_le`) |
-| `LinnikCGLJ.lean` | 662 | Chen–Gupta–Li's `J(f⃗)` before the supremum (`Jint`), their Proposition 8.1 as a displayed hypothesis with its implicit constants explicit (`CGLP81`, not proved), and `S₃,₃`, `S₃,₄` in its form: `S₃,₄ ≤ 4(k + 1)Σ_{j≤k}Jint(f, 2^j − 1/2, 2^k − 1/2, 2^k − 1/2, 2)` on the block `k` for `f_{−b} ≥ R̃(·, b)²` on `[−3, 3]` (`S34_le_Jint`), and `S₃,₃ ≤ 4S₃,₄` (`S33_le_S34`) |
+| `LinnikCGLJ.lean` | 662 | Chen–Gupta–Li's `J(f⃗)` before the supremum (`Jint`), their Proposition 8.1 as a displayed hypothesis with its implicit constants explicit (`CGLP81`, not proved), and `S₃,₃`, `S₃,₄` in its form: `S₃,₄ ≤ 4(k + 1)Σ_{j≤k}Jint(f, 2^j − 1/2, 2^k − 1/2, 2^k − 1/2, 2)` on the block `k` ~~for `f_{−b} ≥ R̃(·, b)²` on `[−3, 3]`~~ *(Round 671: retracted, false when written: the lemma also assumes `f` nonnegative, continuous and `0` beyond some `A`; for an `f` equal to `1` beyond `[−3, 3]` the integrand of `Jint` is not integrable, so `Jint = 0` while `S₃,₄` can be positive; review of rounds 658–667, B's F1, a sibling found by the lead.)* for `f` nonnegative, continuous, `0` beyond some `A` and with `f_{−b} ≥ R̃(·, b)²` on `[−3, 3]` (`S34_le_Jint`), and `S₃,₃ ≤ 4S₃,₄` (`S33_le_S34`) |
 | `LinnikCGLFb.lean` | 663 | Chen–Gupta–Li's `f_b = ψR̃(·, −b)²` with `ψ = 1` on `[−3, 3]`: smooth (`contDiff_fb`), `0` beyond `4`, `f_{−b} ≥ R̃(·, b)²` on `[−3, 3]`, `f_{−1}(1) ≥ min(2X, L/(2T))\|R\|²/2` (`fb_one_ge`), a largest value (`exists_max`), and round 662's reduction of `S₃,₄` for this `f` (`S34_le_fb`) |
 | `LinnikCGLPhi.lean` | 664 | the Fourier decay of the pieces `φ_{u′} = ψ·K(· − u′)` of Chen–Gupta–Li's `f_b`: `(2π\|ξ\|)^j\|φ̂_{u′}(ξ)\| ≤ B_j(L, X)` (`fourier_phi_le`), from Leibniz's rule and the kernel's scaling (`integral_abs_iteratedDeriv_kerS`, `integral_abs_iteratedDeriv_phi_le`) |
-| `LinnikCGLDecay.lean` | 665 | the Fourier decay of Chen–Gupta–Li's `f_b` in the form of the premise of their Proposition 8.1: `f̂_b` as an average of round 664's `φ̂_{u′}` by Fubini (`fourier_fb_eq`), `B_j(L, X) ≤ 2T^j·min(2X, L/(2T))·E_j` for `L ≤ XT` (`Bj_le`), and `Σ_b\|f̂_b(ξ)\| ≤ D_j(T/\|ξ\|)^jφ(q)f_{b₀}(u₀)` (`fb_decay_all`) |
+| `LinnikCGLDecay.lean` | 665 | the Fourier decay of Chen–Gupta–Li's `f_b` in the form of the premise of their Proposition 8.1: `f̂_b` as an average of round 664's `φ̂_{u′}` by Fubini (`fourier_fb_eq`), `B_j(L, X) ≤ 2T^j·min(2X, L/(2T))·E_j` ~~for `L ≤ XT`~~ *(Round 671: retracted, false when written: the lemma also assumes `L, X > 0`, `T ≥ 1` and `j ≥ 1`, and at `j = 0` the inequality fails, `B_0 = 2X·I₀(0)` against a right side at most `X·I₀(0)`; review of rounds 658–667, B's F1.)* for `L, X > 0`, `T ≥ 1`, `L ≤ XT` and `j ≥ 1` (`Bj_le`), and `Σ_b\|f̂_b(ξ)\| ≤ D_j(T/\|ξ\|)^jφ(q)f_{b₀}(u₀)` (`fb_decay_all`) |
 | `LinnikCGLBlock.lean` | 666 | Chen–Gupta–Li's `S₃,₃`, `S₃,₄` and the block sums of `Ĩ`, by their Proposition 8.1 (round 662's `CGLP81`, a displayed hypothesis) and Lemmas 9.1 and 9.2: the two moments of `f_b` (`integral_sum_fb_le`, `integral_sum_fb_sq_le`), `CGLP81` on the block `k` (`S34_le_P81`), and `S₃,₄ ≤ V`, `S₃,₃ ≤ 4V`, `(Σ_{m⃗∈B}Ĩ(m⃗))² ≤ 3φ(q)\|R\|V` (`block_le`) |
-| `LinnikCGL112.lean` | 667 | Chen–Gupta–Li's (11.2) in explicit form: each dyadic block square-rooted (`sum_blk_It_le`), and the blocks of round 657's Proposition 7.2 summed, `S₃ ≤ 6C_J(0)d(q)∫ψ̃₀(log₂M + 1)²√P(24(NM)²\|R\| + 12N²M√G)` plus its three errors (`S3_le_blocks`), with `NM ≤ XqT` (`S3_le_112`) |
+| `LinnikCGL112.lean` | 667 | Chen–Gupta–Li's (11.2) in explicit form, by their Proposition 8.1 (round 662's `CGLP81`, a displayed hypothesis) *(round 671: the hypothesis named; review of rounds 658–667, B's F7)*: each dyadic block square-rooted (`sum_blk_It_le`), and the blocks of round 657's Proposition 7.2 summed, `S₃ ≤ 6C_J(0)d(q)∫ψ̃₀(log₂M + 1)²√P(24(NM)²\|R\| + 12N²M√G)` plus its three errors (`S3_le_blocks`), with `NM ≤ XqT` (`S3_le_112`) |
 | `LinnikCGLLoc.lean` | 668 | local averages of finite exponential sums, toward Chen–Gupta–Li's Lemmas 10.4 and 10.8: Fourier inversion for `ψ̂₀` (`kloc_inv`), `F(x) = ∫k(ξ)e^{−2πiξΛ/H}F(x + 2πξ/H) dξ` (`esum_eq_integral`), and the bounds for `\|F\|`, `\|F\|²` and `\|F\|³` (`norm_esum_le_integral`, `norm_sq_esum_le`, `norm_cube_esum_le`) |
 | `LinnikCGLL105.lean` | 669 | Chen–Gupta–Li's Lemma 10.5 at one point per character: the shifted local average of `\|D_c\|²` against `κ = 4C_k/(1 + ξ²)` (`norm_sq_Dp_le_shift`), the sum over the triples (`sum_triple_eq`, `sum_triple_le`), and `E ≤ 36(N^σ)^{−2}∫κ·Σ_{n₁,n₂}\|R₂(n₁, n₂)\|³` (`lemma105`) |
 | `LinnikCGLT101.lean` | 670 | Chen–Gupta–Li's Theorem 10.1 (Heath-Brown) as a displayed hypothesis (`CGLT101`), the square of `R₂` expanded (`sum_sq_R2_eq`), and their Lemma 10.6 at one point per character (`lemma106`) |
@@ -979,12 +979,12 @@ See the main README, round 664, and `frontier/linnik/CGL-LEAN.md`. All axioms ar
 
 ## The Fourier decay of `f_b`: LinnikCGLDecay.lean (round 665)
 
-Round 665 proves the decay premise of round 662's `CGLP81` for round 663's `f_b`, with `g_a = 1_{[1/2,2]}|R(·, a)|²`, `L = NM₂/q` and `L ≤ XT`.
+Round 665 proves the decay premise of round 662's `CGLP81` for round 663's `f_b`, with `g_a = 1_{[1/2,2]}|R(·, a)|²` and `L = NM₂/q`, ~~and `L ≤ XT`~~ *(Round 671: retracted, false when written: `fb_decay_all` also assumes `L, X > 0`, `T ≥ 1` and points `|t_i| ≤ T`, and for `T ≤ 1/3` (`q = 1`, one point with `t = 0`, `X = M₂ = 1`, `N = T`) its bound fails at `j = 1`; review of rounds 658–667, B's F1.)* for `L, X > 0`, `T ≥ 1`, points `|t_i| ≤ T` and `L ≤ XT`.
 
 - `gR`, `gR_nonneg`, `gR_le`, `measurable_gR`, `integrable_gR`, `integral_gR_le`: `g_a`, with `0 ≤ g_a ≤ |R|²1_{[1/2,2]}` and `∫g_a ≤ (3/2)|R|²`.
 - `abs_phiR_le`, `fb_eq_integral`, `fourier_fb_eq`: `|φ_{u′}| ≤ L1_{[−4,4]}`, `f_b(u) = ∫φ_{u′}(u)g_{−b}(u′) du′`, and `f̂_b(ξ) = ∫g_{−b}(u′)φ̂_{u′}(ξ) du′` by Fubini.
 - `pow_mul_norm_fourier_fb_le`, `sum_pow_mul_norm_fourier_fb_le`: `(2π|ξ|)^jΣ_b|f̂_b(ξ)| ≤ B_j(L, X)·(3/2)φ(q)|R|²`.
-- `Ej`, `Ej_nonneg`, `Bj_le`, `fb_decay`: for `T ≥ 1` and `j ≥ 1`, `B_j(L, X) ≤ 2T^j·min(2X, L/(2T))·E_j`, and `Σ_b|f̂_b(ξ)| ≤ (6E_j/(2π)^j)(T/|ξ|)^jφ(q)f_{−1}(1)` for points `|t_i| ≤ T` and `ξ ≠ 0`.
+- `Ej`, `Ej_nonneg`, `Bj_le`, `fb_decay`: ~~for `T ≥ 1` and `j ≥ 1`~~ *(Round 671: retracted, false when written: without `L, X > 0` the first bound fails, at `j = 1`, `X = L = −1` and `T = 1`; review of rounds 658–667, B's F1.)* for `L, X > 0`, `L ≤ XT`, `T ≥ 1` and `j ≥ 1`, `B_j(L, X) ≤ 2T^j·min(2X, L/(2T))·E_j`, and `Σ_b|f̂_b(ξ)| ≤ (6E_j/(2π)^j)(T/|ξ|)^jφ(q)f_{−1}(1)` for points `|t_i| ≤ T` and `ξ ≠ 0`.
 - `integral_fb_le`, `Dfb`, `fb_decay_all`: `∫f_b ≤ 8M` when `f_b ≤ M`, `D_0 = 8` and `D_j = 6E_j/(2π)^j`, and the premise of `CGLP81` at a largest value `f_{b₀}(u₀)`.
 
 See the main README, round 665, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 597 lines.
@@ -994,7 +994,7 @@ See the main README, round 665, and `frontier/linnik/CGL-LEAN.md`. All axioms ar
 Round 666 applies round 662's `CGLP81`, a displayed hypothesis, to round 663's `f_b` on each dyadic block `k` of round 657's `prop72`, with `M₂ = 2^k` and `M = 2^{k+1}`.
 
 - `hasCompactSupport_fb`, `integrable_fb`, `integrable_fb_sq`, `integrable_Rt_four`: integrability.
-- `integral_sum_fb_le`, `integral_sum_fb_sq_le`: `∫Σ_bf_b ≤ 2X∫ψ̃₀·(3/2)φ(q)|R|` for `χ` injective on `R`, and `∫Σ_bf_b² ≤ (2X∫ψ̃₀)²·2φ(q)X(∫ψ̃₀·E + |R|⁴D_K/X^K)` for `X ≥ 1`, by their Lemmas 9.1 and 9.2 for `R̃`.
+- `integral_sum_fb_le`, `integral_sum_fb_sq_le`: `∫Σ_bf_b ≤ 2X∫ψ̃₀·(3/2)φ(q)|R|` ~~for `χ` injective on `R`~~ *(Round 671: retracted, false when written: the lemma also assumes `L, X > 0`, and for `X = −1` (`N = M₂ = q = 1`, one point with `t = 0`) the left side is positive and the right side negative; review of rounds 658–667, B's F1.)* for `χ` injective on `R` and `L, X > 0`, and `∫Σ_bf_b² ≤ (2X∫ψ̃₀)²·2φ(q)X(∫ψ̃₀·E + |R|⁴D_K/X^K)` for `X ≥ 1`, by their Lemmas 9.1 and 9.2 for `R̃`.
 - `S34_le_P81`: from `CGLP81`, constants `C ≥ 0` and `Q₀` with `S₃,₄ ≤ 4(k + 1)²C(qT)^ε(φ(q)M⁶(∫Σ_bf_b)² + φ(q)²M⁴∫Σ_bf_b²)` for `qT ≥ Q₀`, `T ≥ 1`, points `|t_i| ≤ T`, `L ≤ XT` and `M ≤ (qT)^ϖ`.
 - `Vblk`, `block_le`: `S₃,₄ ≤ V`, `S₃,₃ ≤ 4V` and `(Σ_{m⃗∈B}Ĩ(m⃗))² ≤ 3φ(q)|R|V`, with `V = 4(k + 1)²C(qT)^ε(∫ψ̃₀)²X³φ(q)³(9M⁶|R|² + 8M⁴(∫ψ̃₀·E + |R|⁴D_K/X^K))`.
 
@@ -1002,11 +1002,11 @@ See the main README, round 666, and `frontier/linnik/CGL-LEAN.md`. All axioms ar
 
 ## Their (11.2): LinnikCGL112.lean (round 667)
 
-Round 667 sums round 666's block bounds over the dyadic blocks of round 657's `prop72`, with `G = ∫ψ̃₀·E + |R|⁴D_K/X^K` and `P = 12C(qT)^εX³|R|`.
+Round 667 sums round 666's block bounds over the dyadic blocks of round 657's `prop72`, with `G = ∫ψ̃₀·E + |R|⁴D_K/X^K` and `P = 12C(qT)^εX³|R|` *(round 671: the bounds are conditional on round 662's `CGLP81`, a displayed hypothesis, and `C` and `Q₀` are the constants that round 666's `block_le` takes from it; review of rounds 658–667, B's F7)*.
 
 - `Gq`, `Gq_nonneg`: the energy term `G`.
 - `sum_blk_It_le`: `Σ_{m⃗∈B_k}Ĩ ≤ (k + 1)∫ψ̃₀·φ(q)²√P(24·2^{3k}|R| + 12·2^{2k}√G)`.
-- `block_alg`, `S3_le_blocks`: the algebra of one block, and `S₃ ≤ 6C_J(0)d(q)∫ψ̃₀(log₂M + 1)²√P(24(NM)²|R| + 12N²M√G)` plus round 657's three errors, for `NM/q ≤ XT` and `2M ≤ (qT)^ϖ`.
+- `block_alg`, `S3_le_blocks`: the algebra of one block, and `S₃ ≤ 6C_J(0)d(q)∫ψ̃₀(log₂M + 1)²√P(24(NM)²|R| + 12N²M√G)` plus round 657's three errors, for `NM/q ≤ XT` and `2M ≤ (qT)^ϖ` *(round 671: and for `χ` injective on `R`, `qT ≥ Q₀`, `T ≥ 1`, points `|t_i| ≤ T`, `N > 0`, `X ≥ 1`, `M ≥ 1` and `K_t ≥ 2`, which the theorem also assumes; the list is completed, with B's F1 of the review of rounds 658–667)*.
 - `S3_le_112`: the same with `(XqT)²` and `XqTN` in place of `(NM)²` and `N²M`: their (11.2).
 
 See the main README, round 667, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 601 lines.
@@ -1029,7 +1029,7 @@ Round 669 bounds the energy by the third moment of `R₂(n₁, n₂) = Σ_iχ_i(
 - `Ck`, `norm_kloc_mul_le`, `Ck_nonneg`, `kmaj`, `kmaj_nonneg`, `integrable_kmaj`, `norm_kloc_shift_le`: `(1 + ξ²)|k(ξ)| ≤ C_k`, and `|k(ξ + η)| ≤ κ(ξ) = 4C_k/(1 + ξ²)` for `|η| ≤ 1`.
 - `Dp`, `Dp_eq_esum`, `norm_Dp_le`, `continuous_Dp`, `norm_sq_Dp_le`, `norm_sq_Dp_le_shift`: `|D_c(t)|² ≤ ∫κ(ξ)|D_c(τ + πξ)|² dξ` for `|τ − t| ≤ 1`.
 - `char_eq_of_mul_eq`, `R2`, `sum3_comm`, `ct`, `sum_triple_eq`, `sum_triple_le`: the fourth point's character, and the sum over the triples, at most `Σ_{n₁,n₂}|R₂|³`.
-- `lemma105`: `E ≤ 36(N^σ)^{−2}∫κ·Σ_{n₁,n₂∈S}|R₂(n₁, n₂)|³`.
+- `lemma105`: ~~`E ≤ 36(N^σ)^{−2}∫κ·Σ_{n₁,n₂∈S}|R₂(n₁, n₂)|³`~~ *(Round 671: retracted, false when written: the lemma also assumes the large values, and for `S` empty and `R` not, the right side is `0` while `E ≥ |R|`; the class of B's F1 in the review of rounds 658–667, a sibling found by the lead.)* for `N > 0`, `χ` injective on `R`, `|b_n| ≤ 1` and `|Σ_{n∈S}b_nχ_i(n)n^{it_i}| ≥ N^σ/6` for `i ∈ R`, `E ≤ 36(N^σ)^{−2}∫κ·Σ_{n₁,n₂∈S}|R₂(n₁, n₂)|³`.
 
 See the main README, round 669, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 606 lines.
 

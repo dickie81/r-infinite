@@ -25,10 +25,11 @@ The stack's form.
   `Jint ≤ C(qT)^ε(φ(q)M⁶(∫Σ_bf_b)² + φ(q)²M⁴∫Σ_bf_b²)` whenever `qT ≥ Q₀`, `T ≥ 1`, `0 < M_i < M ≤ (qT)^ϖ`, each
   `f_b` is smooth, nonnegative and `0` for `|u| > A`, and `Σ_b|f̂_b(ξ)| ≤ D_j(T/|ξ|)^jφ(q)f_{b₀}(u₀)` for every `j`
   and `ξ ≠ 0`, at some point `(b₀, u₀)`. Read with the paper's conventions, their Proposition 8.1 implies `CGLP81`:
-  this decay condition, with `f_{b₀}(u₀) ≤ sup f` and a constant in place of their `⪅_j`, implies theirs, and `Jint`
-  at any `0 < M_i < M` is at most their supremum. `CGLP81` is not proved here.
+  this decay condition, with `f_{b₀}(u₀) ≤ sup f` and a constant in place of their `⪅_j`, implies theirs (at `j = 0`
+  and `ξ = 0` by continuity, each `f̂_b` being continuous), and `Jint` at any `0 < M_i < M` is at most their supremum.
+  `CGLP81` is not proved here.
 
-`S₃,₃` and `S₃,₄` in its form. Their §11 bounds both by Proposition 8.1 (lines 5655–5748). Round 660's
+`S₃,₃` and `S₃,₄` in its form. Their §11 bounds both by Proposition 8.1 (lines 5655–5851). Round 660's
 `S₃,₄ = ∫_{[1/2,2]}Σ_{b₁}Q(v, b₁)² dv` has `Q(v, b₁) = Σ_{b₂}Σ_{m⃗∈B}R̃(c₂, b₂)²(b₁m₁ − b₂m₂ + m₃, q)` with
 `c₂ = (m₁v + m₃)/m₂`, over round 657's dyadic block `B = blk M k`. On `B` and `v ∈ [1/2, 2]`, `|c₂| ≤ 3`. Take any
 nonnegative `f` with `f_{−b}(c) ≥ R̃(c, b)²` on `[−3, 3]`, and put `b = −b₂`, so that the weight is their
