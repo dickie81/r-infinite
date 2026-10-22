@@ -26421,3 +26421,56 @@ Their matrix (4.1), `M_{(t,χ),n} = w(n/N)χ(n)n^{it}` for `n ∼ N`, is `A` up 
 **Bearing on RH:** none.
 
 **The next step.** M3 continues: `X = S₂ + S₃` at one point per character, by Poisson summation in residue classes (the paper's Lemma 4.5, generalizing `LinnikLines`'s model case, prime `q` and `t = 0`), with `Z′ = S₁ = 0` from orthogonality; then `S₂` (Lemma 6.2 and the mean value theorem, Proposition 6.1); then `S₃` (§§7–11), with Proposition 8.1 and Theorem 10.1 as displayed hypotheses.
+
+## Round 639: the off-diagonal of the cubic trace as Chen–Gupta–Li's `S₂ + S₃` (stage M3, second step; `external/pnt/LinnikCGLS23.lean`)
+
+**The result.** `LinnikCGLS23.third_of_s23` proves round 638's hypothesis `LinnikCGLMat.CGLThird` from two hypotheses, one for each of the paper's Propositions 6.1 and 11.1; `linnik_225c_s23` and `linnik_226c_s23` give the exponents `9/4` and `226/100` under the two.
+
+- `X3_eq`: with `E` the off-diagonal part of the points' Gram matrix `G` and `μ` its constant diagonal, `X = 3μ‖E‖_F² + tr(E³)` exactly, where `‖E‖_F² = Σ_{i≠k}|G(i, k)|²` (`frobOff`) and `tr(E³)` is the real part of the sum of `G(i, j)G(j, k)G(k, i)` over the triples of distinct points (`tri3`). A triple that is not all equal has two equal points in one of three positions, where `G(i, i)G(i, k)G(k, i) = μ|G(i, k)|²` because `G` is Hermitian, or has none.
+- `CGLS2`: for every `ε > 0` there is `C ≥ 0` such that, under the conditions of `CGLThird`, `‖E‖_F² ≤ C(qTN)^ε·qT|R|N^{2−2σ}`.
+- `CGLS3`: likewise `S₃ ≤ C(qTN)^ε((qT)²|R|^{3/2} + qT|R|N^{3−2σ} + qT|R|²N^{3/2−σ} + (qT)^{9/8}|R|^{29/16}N^{3/2−σ})`, where `S₃ = X − 3μ₀‖E‖_F²` and `μ₀ = (φ(q)/q)N∫w²`, the integral over `[1, 2]`, outside which `w` vanishes.
+- `third_of_s23`: `X = 3μ₀‖E‖_F² + S₃`, `0 ≤ μ₀ ≤ N` (`mu0_nonneg`, `mu0_le`), and `qT|R|N^{3−2σ}` is one of the four terms, so `X ≤ (3C₂ + C₃)(qTN)^ε(N³ + …)`.
+
+**Why the paper implies the two.** Re-read this round in the text layer (`scratchpad/cgl/work/cgl_v2.txt`; spaces restored, the displayed formulas transcribed):
+
+- The proof of Proposition 6.1, after "By symmetry and the orthogonality of characters" and the terms with `χ₁ = χ₃`: "we find that the terms with t₁ ≠ t₃ contribute O_ϵ((qT)^{−10}) in total. The condition on the sum over W now becomes (t₁, χ₁) ≠ (t₂, χ₂). Thus, we conclude that S₂ = 3ϕ(q)N³ĥ₀(0)/q³ Σ_{m₁,m₂≠0} Σ_{(t₁,χ₁)≠(t₂,χ₂)} Σ_{a₁,a₂ mod q, (a₁a₂,q)=1} χ₁χ̄₂(a₁)χ₂χ̄₁(a₂)e_q(a₁m₁ + a₂m₂) · ĥ_{t₁−t₂}(Nm₁/q)ĥ_{t₂−t₁}(Nm₂/q) + O_ϵ((qT)^{−10})."
+- (6.1): "q/N Σ_{n∈ℤ} h_t(n/N)χ(n) = q/N Σ_{a mod q} Σ_{n∈ℤ, n≡a mod q} h_t(n/N)χ(a) = Σ_{a mod q} χ(a) Σ_{m∈ℤ} e_q(am)ĥ_t(Nm/q)."
+- "Proposition 6.1 (S₂ bound). We have S₂ ⪅_ϵ qT|W|N^{3−2σ}."
+- "Proposition 11.1 (S₃ bound). Let (qT)^{2/3}/2 ≤ N ≤ qT. Then we have S₃ ⪅ (qT)²|W|^{3/2} + qT|W|N^{3−2σ} + qT|W|²N^{3/2−σ} + (qT)^{9/8}|W|^{29/16}N^{3/2−σ}."
+
+At one point per character `χ₁ = χ₃` forces `t₁ = t₃`, so the terms with `t₁ ≠ t₃`, which the error term bounds, do not occur. For each pair the sum factors as `F(1, 2)F(2, 1)` with `F(1, 2) = Σ_{m≠0} Σ_a χ₁χ̄₂(a)e_q(am)ĥ_{t₁−t₂}(Nm/q)`, the right side of (6.1) at `t = t₁ − t₂`, `χ = χ₁χ̄₂` without its term `m = 0`, which vanishes for `χ₁ ≠ χ₂`. With `h_t(u) = w(u)²u^{it}`, the left side of (6.1) is `(q/N)N^{−i(t₁−t₂)}G(1, 2)`, so `F(1, 2)F(2, 1) = (q/N)²|G(1, 2)|²` and `S₂ = 3μ₀‖E‖_F²` with `μ₀ = φ(q)Nĥ₀(0)/q`, `ĥ₀(0) = ∫w²`. With round 638's `X = S₂ + S₃` at one point per character, `S₃ = X − 3μ₀‖E‖_F²`. Proposition 6.1 gives `CGLS2`, since `μ₀ ≥ (3/5)(φ(q)/q)N` (`w = 1` on `[6/5, 9/5]`) and `q/φ(q) ≪_δ q^δ` for every `δ > 0`; Proposition 11.1 gives `CGLS3`. For bounded `qT` both sides are handled as in round 638: the left sides are bounded and vanish for empty `R`, and for `R` not empty the right sides are at least a positive constant, since `N ≥ 1/2`. `LinnikCGLS23.lean`'s header gives the argument.
+
+**What it changes for M3.** The two hypotheses are stated on the side of `n`; the Poisson expansion enters the argument that the paper implies them. `S₂`'s bound is now a bound on the off-diagonal mass of the Gram matrix, which the paper proves by the reflection of its Lemma 6.2 and the mean value theorem with the large polynomial put back. The stack proved a large-values estimate of Huxley's shape that way in round 526 (`LinnikReflect`, `LinnikDual`, `LinnikWeighted`), with the weight `e^{−n/U} − e^{−2n/U}`; here the weight is `w(n/N)²`, whose Mellin transform is entire.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLS23.lean`: new, 299 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and four `#print axioms` lines (`X3_eq`, `third_of_s23`, `linnik_225c_s23`, `linnik_226c_s23`).
+- `frontier/linnik/CGL-LEAN.md`: an M3 note, and the rows P3.1, P6.1 and P11.1.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled first in scratch (`scratchpad/r639/lc.sh`); the first attempt failed on the order of summation in one relabeling and on `2 − 1 = 1` left by `simp`, and `X3_eq` was rewritten to collapse each pattern with `sum_eq_single`; two later compiles removed deprecation warnings (`if_pos`, `ite_cond_eq_true` and their partners, deprecated in this toolchain) and re-wrapped long lines. Then `build.sh` ran once (`scratchpad/r639/build.log`): `1 compiled, 376 up to date` (`LinnikCGLS23` 18 s), exit 0 in 29 s, no error, warning or `sorry`. Its 527 axiom lines (5 by the module, 522 by the final check, which gains four lines) are 514 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.93 GiB.
+- The file has no `sorry`, `native_decide`, `axiom` or `maxHeartbeats`, and no line over 120 characters.
+- The lead's self-review of the header and docstrings against the statements and the paper: the first draft quoted the paper's later display of `S₂`, which has a typo, `(t1.χ1)`, and said the proof reaches it "by symmetry and orthogonality"; the header now quotes the display before it, and says the proof concludes it.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872.
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: P11.1's stack and status cells carry net-state markers (they read "—" and "Not started"); the opening's parenthetical and the rows P3.1 and P6.1 gain round-639 text, nothing in them superseded; M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round): the paper's §6 in the text layer (lines 1289–1925: Proposition 6.1, Lemma 6.2 and its proof, the proof of Proposition 6.1 and Remark 6.3), the operative statements re-read this round, and Proposition 11.1's statement (5520–5530); `LinnikCGLS23.lean` in full; `LinnikCGLMat.lean`'s `gramP`, `X3`, `muP`, `gramP_diag` and `CGLThird`; the headers of `LinnikReflect.lean`, `LinnikAFE.lean`, `LinnikFE.lean`, `LinnikGammaRatio.lean`, `LinnikDual.lean`, `LinnikWeighted.lean`, `LinnikLines.lean` and `LinnikS2.lean`.
+
+**Check 4.** No defect is raised. The two hypotheses are the paper's Propositions 6.1 and 11.1 at one point per character, displayed as the plan intends; the rest of M3, M4 and M5 stay open.
+
+**Check 9.**
+
+- (a) This round's universals are scoped. "The paper implies the two" is the argument above, from the quoted text. "Exactly" in `X3_eq` is its Lean statement.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of round 636, no review runs this round. The batched review will cover rounds 634–639 and the stages that follow.
+
+**Bearing on RH:** none.
+
+**The next step.** M3 continues with `CGLS2`: the Mellin transform of `w²` and its decay, the integral representation `G(i, k) = (1/2πi)∫H(s)N^sL(s − i(t_i − t_k), χ_iχ̄_k)ds`, the reflection through the functional equation of the primitive character (generalizing round 526's `LinnikReflect.reflect` from its kernel `Γ(w)(Λ^w − (Λ/2)^w)` to `H(s)N^s`), and the mean value theorem with the large polynomial put back (round 526's product trick, `LinnikWeighted.huxley_core`).

@@ -161,6 +161,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLStep.lean` | 636, 637 | the density step `7/3 + 1/2000` on `[5/7, 16/21]` under `CGLProp31` (`charDensity_cgl`): round 607's step with `block_bin_cgl` in place of `block_bin_hux` |
 | `LinnikCGLLinnik.lean` | 636, 637 | Linnik's theorem with exponents `9/4` (`linnik_225c_lv`) and `226/100` (`linnik_226c_lv`) under `CGLProp31`: the routes of `Linnik225C` and `Linnik226C` with `charDensity_cgl` in place of `CGLDensity` |
 | `LinnikCGLMat.lean` | 638 | Chen–Gupta–Li's Proposition 3.1 (`CGLProp31`) from the hypothesis `CGLThird`, a bound on the off-diagonal of the cubic trace (`prop31_of_third`): their Proposition 4.6 for the points (`prop46`), the mean value theorem for `N ≥ qT` (`mvt_case`) and their §11.2's algebra (`alg112`); Linnik's exponents `9/4` and `226/100` under `CGLThird` (`linnik_225c_third`, `linnik_226c_third`) |
+| `LinnikCGLS23.lean` | 639 | `CGLThird` from two hypotheses, `CGLS2` (the off-diagonal mass `‖E‖_F²` of the Gram matrix, their Proposition 6.1) and `CGLS3` (`S₃ = X − 3μ₀‖E‖_F²`, their Proposition 11.1), by `third_of_s23`; the identity `X = 3μ‖E‖_F² + tr(E³)` (`X3_eq`); Linnik's exponents `9/4` and `226/100` under the two (`linnik_225c_s23`, `linnik_226c_s23`) |
 
 ## Building (rounds 217, 618)
 
@@ -655,3 +656,14 @@ Round 638 is the first step of stage M3 of the plan in `frontier/linnik/CGL-LEAN
 - `prop31_of_third`: `CGLThird` implies `CGLProp31`. `linnik_225c_third` and `linnik_226c_third` are `linnik_225c_lv` and `linnik_226c_lv` under `CGLThird`.
 
 See the main README, round 638, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 518 lines.
+
+## The cubic trace's off-diagonal as `S₂ + S₃`: LinnikCGLS23.lean (round 639)
+
+Round 639 is the second step of stage M3 of the plan in `frontier/linnik/CGL-LEAN.md`. It replaces round 638's hypothesis `LinnikCGLMat.CGLThird` by two, one for each of Chen–Gupta–Li's Propositions 6.1 and 11.1.
+
+- `X3_eq`: with `E` the off-diagonal part of the Gram matrix `G` and `μ` its constant diagonal, `X = 3μ‖E‖_F² + tr(E³)`, where `‖E‖_F² = Σ_{i≠k}|G(i, k)|²` (`frobOff`) and `tr(E³)` is the real part of the sum of `G(i, j)G(j, k)G(k, i)` over the triples of distinct points (`tri3`). A triple that is not all equal has two equal points in one of three positions (`split_triple`), where `G(i, i)G(i, k)G(k, i) = μ|G(i, k)|²` (`gramP_swap`: `G` is Hermitian), or none.
+- `CGLS2`: for every `ε > 0` there is `C ≥ 0` such that, under the conditions of `CGLThird`, `‖E‖_F² ≤ C(qTN)^ε·qT|R|N^{2−2σ}`.
+- `CGLS3`: likewise `S₃ ≤ C(qTN)^ε((qT)²|R|^{3/2} + qT|R|N^{3−2σ} + qT|R|²N^{3/2−σ} + (qT)^{9/8}|R|^{29/16}N^{3/2−σ})`, where `S₃ = X − 3μ₀‖E‖_F²` and `μ₀ = (φ(q)/q)N∫w²` (`mu0`, the integral over `[1, 2]`).
+- `third_of_s23`: the two imply `CGLThird`, since `X = 3μ₀‖E‖_F² + S₃` and `0 ≤ μ₀ ≤ N` (`mu0_nonneg`, `mu0_le`). `linnik_225c_s23` and `linnik_226c_s23` are `linnik_225c_third` and `linnik_226c_third` under the two.
+
+At one point per character the paper's `S₂` is `3μ₀‖E‖_F²` and its `S₃` is `X − 3μ₀‖E‖_F²`; the file's header gives the argument, from the proof of their Proposition 6.1 and their (6.1). See the main README, round 639, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 522 lines.

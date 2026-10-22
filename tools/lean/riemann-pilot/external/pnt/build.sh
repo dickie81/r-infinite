@@ -106,10 +106,11 @@ for f in SieveCert225C Linnik225C; do c 1 "$HERE" $f; done
 for f in SieveTypeIIU2285 SieveGrid2285U; do c 1 "$HERE" $f; done
 for i in $(seq 1 28); do c 1 "$HERE" SieveCert2285UP$i; done
 for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
-# Rounds 636–638: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
+# Rounds 636–639: Chen–Gupta–Li's Proposition 3.1 as a hypothesis and the large-values counts it gives
 # (LinnikCGLLV), the density step from it on [5/7, 16/21] (LinnikCGLStep), Linnik's exponents 9/4 and 226/100
-# from it (LinnikCGLLinnik), and (round 638) Proposition 3.1 from a bound on the cubic trace (LinnikCGLMat).
-for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat; do c 1 "$HERE" $f; done
+# from it (LinnikCGLLinnik), (round 638) Proposition 3.1 from a bound on the cubic trace (LinnikCGLMat), and
+# (round 639) that bound from the paper's S₂ and S₃ (LinnikCGLS23).
+for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23; do c 1 "$HERE" $f; done
 echo "$NC compiled, $NUP up to date"
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
@@ -267,6 +268,7 @@ import LinnikCGLLV
 import LinnikCGLStep
 import LinnikCGLLinnik
 import LinnikCGLMat
+import LinnikCGLS23
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -699,6 +701,10 @@ import LinnikCGLMat
 #print axioms LinnikCGLMat.prop31_of_third
 #print axioms LinnikCGLMat.linnik_225c_third
 #print axioms LinnikCGLMat.linnik_226c_third
+#print axioms LinnikCGLS23.X3_eq
+#print axioms LinnikCGLS23.third_of_s23
+#print axioms LinnikCGLS23.linnik_225c_s23
+#print axioms LinnikCGLS23.linnik_226c_s23
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy
