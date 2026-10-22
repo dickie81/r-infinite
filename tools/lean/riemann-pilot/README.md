@@ -26521,3 +26521,48 @@ These are the paper's starting points for its Lemma 6.2: "Let H(s) := ∫_ℝ w(
 **Bearing on RH:** none.
 
 **The next step.** The reflection: the shift of `perron_gram`'s integral to `Re s = 1/2`, the functional equation with `E(s)` kept, the split of the dual series and the move of its tail to the far line, with the Gamma ratio bounded there.
+
+## Round 641: the reflection of the Gram entries (stage M3, fourth step; `external/pnt/LinnikCGLReflect.lean`)
+
+**The result.** `LinnikCGLReflect.gram_reflect`: for `χ_i ≠ χ_k`, with `ψ = χ_iχ̄_k` and `τ = t_i − t_k`, every `Z ≥ 0` and `K ≥ 1`, the Gram entry `G(i, k)` is `N^{iτ}/2π` times
+
+- `∫ H(s + iτ)N^sE(s)Φ(s)Σ_{m≤Z}ψ⁻¹(m)m^{s−1} dv` on `s = 1/2 + iv`, plus
+- `∫ H(s + iτ)N^sE(s)Φ(s)Σ_{m>Z}ψ⁻¹(m)m^{s−1} dv` on `s = −K + iv`,
+
+where `Φ` is round 526's reflection factor `f^{1/2−s}ε(ψ*)·γ_{ψ*⁻¹}(1 − s)/γ_{ψ*}(s)·∏_{p|q}(1 − ψ*⁻¹(p)p^{s−1})⁻¹` of the primitive character `ψ*` mod `f` inducing `ψ`, and `E(s) = ∏_{p|q}(1 − ψ*(p)p^{−s})`. `reflect_gram` is the identity for the integral itself, for any character `χ ≠ 1` mod `q`. On the far line `norm_Phi_le_far` gives `|Φ(s)| ≤ f^{1/2−Re s}·π·CGK(K)(1 + |Im s|)^{1/2−Re s}·EQh(q)` on `−K ≤ Re s ≤ 1/2`, `EQh(q) = ∏_{p|q}(1 − p^{−1/2})⁻¹`.
+
+**The paper's route and the stack's.** Re-read this round in the text layer (lines 1415–1545; spaces restored): their proof of Lemma 6.2 writes the smoothed sum as "q/N^{1+it} · 1/2πi ∫_{2−i∞}^{2+i∞} H(s)N^sL(s − it, χ*)∏_{p|q,p∤q*}(1 − χ*(p)/p^{s−it}) ds" (their (6.3)), shifts to `Re s = −1`, applies the functional equation of `L(s − it, χ*)` there, writes `L(1 − s + it, χ̄)` as its first `M` terms and the rest, and concludes by "shifting the contour of the integral involving terms with m ≤ M to Re(s) = 1/2, while shifting the integral involving terms with m > M to Re(s) = −2k for a large k ∈ ℕ". The stack moves the integral to `Re s = 1/2` first, where `L(s, χ) = Φ(s)L(1 − s, χ⁻¹)E(s)`; there the dual series splits into its first `Z` terms and the rest, an entire function, which moves to `Re s = −K`, where it is the tail of the series. Both are exact; the two right sides agree.
+
+**The bounds the shifts need.** Each shift is round 472's `SmoothPerron.verticalIntegral_shift` for an integrand that is at most `M(1 + |Im s + τ|)^{−2}` on a closed strip (`shift_of_bound`). On `1/2 ≤ Re s ≤ 2` the integrand `L(s, χ)H(s + iτ)N^s` is bounded by round 254's `PsiOmega.norm_LFunction_leC`, `|L(s, χ)| ≤ (q + 1)|s|/Re s`, and the decay of `H` (round 640). On `−K ≤ Re s ≤ 1/2` the reflected integrands need `|Φ|` there: the stack's bound of round 526 covered `−5/16 ≤ Re s ≤ 13/16`, and `norm_Gamma_half_ratio_far` moves the argument `(s + a)/2` of `Γ` right by `K + 1`, `Γ(B)⁻¹ = ∏_{j≤K}(B + j)·Γ(B + K + 1)⁻¹`, before round 526's `norm_Gamma_le_ratio`. The polynomial growth of `Φ`, `E`, `L(1 − s, χ⁻¹)` and the finite sum is absorbed by `H`'s decay to the power `K + 5`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLReflect.lean`: new, 708 lines.
+- `external/pnt/build.sh`: the module (its loop now on three lines), its import in the final check and five `#print axioms` lines (`norm_Phi_le_far`, `LFunction_reflected`, `shift_of_bound`, `reflect_gram`, `gram_reflect`).
+- `frontier/linnik/CGL-LEAN.md`: an M3 note, and the row L6.2.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch in four stages (`scratchpad/r641/lc.sh`). The fixes there were the namespace of round 526's `LinnikGammaRatio` (its declarations live in `LinnikReflect`), a bound `|x + a| ≤ K + 1` that fails at `K = 0` (now `K + 2`), Mathlib's `Finset.prod_le_prod₀` and `DifferentiableAt.fun_finsetProd`, `gcongr` steps replaced by explicit `mul_le_mul` terms, and a `whnf` timeout in `reflect_gram`, which went away once the implicit arguments of `shift_of_bound` were given and the line `Re s = −K` was written with its real cast, `((−K : ℝ) : ℂ)`. Then `build.sh` ran once (`scratchpad/r641/build.log`): `1 compiled, 378 up to date` (`LinnikCGLReflect` 24 s), exit 0 in 34 s, no error, warning or `sorry`. Its 537 axiom lines (6 by the module, 531 by the final check, which gains five lines) are 524 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 7.01 GiB.
+- The file has no `sorry`, `native_decide`, `axiom` or `maxHeartbeats`, and no line over 120 characters.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872.
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: L6.2's stack and status cells gain round-641 text, and the status's last clause now reads "the bounds of the lemma's statement not yet", nothing in it superseded; the opening's parenthetical gains round 641; M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round): the paper's proof of Lemma 6.2 in the text layer (lines 1415–1545: (6.3), the shift to `Re s = −1`, the functional equation, the split at `M` and the shifts of the two parts), re-read for this round's quotations; `LinnikCGLReflect.lean` in full; round 526's `LinnikGammaRatio.lean` (`norm_Gamma_half_ratio`, `norm_gr_le`, `Gamma_inv_eq`, `one_add_half_rpow_le`, `KQ`, `norm_eulerQ_inv_le`) and `LinnikReflect.lean` (`Phi`, `LFunction_eq_Phi`, `norm_Phi_le`, `differentiableAt_Phi`, `dualS`, `dualT`, `norm_dualS_le`, `LFunction_sub_dualS`, `rpow_le_add_ends`, the differentiability of `dualS` inside `reflect_aux`); round 472's `SmoothPerron.verticalIntegral_shift`; PNT+'s `VerticalIntegral` and `HolomorphicOn`; Mathlib's `LFunction_changeLevel`, `changeLevel_primitiveCharacter`, `conductor_ne_zero` and `changeLevel_one`.
+
+**Check 4.** No defect is raised. `CGLS2` and `CGLS3` stay displayed hypotheses this round.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: "for every `Z ≥ 0` and `K ≥ 1`" is the statement of `gram_reflect`; "Both are exact" says the two orders of shifts each give an identity, not that they are the only ones.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of round 636, no review runs this round. The batched review will cover rounds 634–641 and the stages that follow.
+
+**Bearing on RH:** none.
+
+**The next step.** The bounds of the two integrals: the main part through its dual sum on `Re s = 1/2`, where `|EΦ|` is bounded, and the tail on `Re s = −K`, which is small when `NZ` exceeds `qT` by a power of `qT` and `K` is large; then the mean value theorem with the large polynomial put back, for `CGLS2`.

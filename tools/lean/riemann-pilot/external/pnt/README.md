@@ -163,6 +163,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLMat.lean` | 638 | Chen–Gupta–Li's Proposition 3.1 (`CGLProp31`) from the hypothesis `CGLThird`, a bound on the off-diagonal of the cubic trace (`prop31_of_third`): their Proposition 4.6 for the points (`prop46`), the mean value theorem for `N ≥ qT` (`mvt_case`) and their §11.2's algebra (`alg112`); Linnik's exponents `9/4` and `226/100` under `CGLThird` (`linnik_225c_third`, `linnik_226c_third`) |
 | `LinnikCGLS23.lean` | 639 | `CGLThird` from two hypotheses, `CGLS2` (the off-diagonal mass `‖E‖_F²` of the Gram matrix, their Proposition 6.1) and `CGLS3` (`S₃ = X − 3μ₀‖E‖_F²`, their Proposition 11.1), by `third_of_s23`; the identity `X = 3μ‖E‖_F² + tr(E³)` (`X3_eq`); Linnik's exponents `9/4` and `226/100` under the two (`linnik_225c_s23`, `linnik_226c_s23`) |
 | `LinnikCGLMellin.lean` | 640 | the Mellin transform `H` of `w²`: entire (`differentiable_H`), with `(1 + \|t\|)^{K+3}\|H(σ + it)\| ≤ B` on `\|σ\| ≤ S` (`exists_H_bound`); Perron's formula for the twisted weight `u^{iτ}w(u)²` (`perron_Wt`) and for the Gram entries (`perron_gram`) |
+| `LinnikCGLReflect.lean` | 641 | the reflection of the Gram entries (`reflect_gram`, `gram_reflect`): a dual sum of length `Z` on `Re s = 1/2` and its tail on `Re s = −K`, with the reflection factor of the primitive character bounded on `−K ≤ Re s ≤ 1/2` (`norm_Phi_le_far`) and contour shifts for integrands at most `M(1 + \|Im s + τ\|)^{−2}` (`shift_of_bound`) |
 
 ## Building (rounds 217, 618)
 
@@ -681,3 +682,16 @@ Round 640 starts the proof of round 639's hypothesis `CGLS2`, the bound on `‖E
 - `gram_eq_tsum`, `perron_gram`: with `ψ = χ_iχ̄_k` and `τ = t_i − t_k`, `G(i, k) = N^{iτ}Σ_n ψ(n)W_τ(n/N)`, the integral above times `N^{iτ}`.
 
 See the main README, round 640, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 526 lines.
+
+## The reflection of the Gram entries: LinnikCGLReflect.lean (round 641)
+
+Round 641 moves round 640's integral for `G(i, k)` into Chen–Gupta–Li's reflected form, the identity behind their Lemma 6.2.
+
+- `norm_Gamma_half_ratio_far`, `norm_gr_le_far`, `norm_Phi_le_far`: round 526's reflection factor `Φ` of a primitive character mod `f` satisfies `|Φ(s)| ≤ f^{1/2−Re s}·π·CGK(K)(1 + |Im s|)^{1/2−Re s}·EQh(q)` on `−K ≤ Re s ≤ 1/2`, where round 526's `norm_Phi_le` covers `−5/16 ≤ Re s ≤ 13/16`. The argument `(s + a)/2` of `Γ` moves right by `K + 1` (`Gamma_inv_eq_prod`), and then round 526's `norm_Gamma_le_ratio`.
+- `Eu`, `LFunction_eq_prim_mul_Eu`, `LFunction_reflected`: for `χ ≠ 1` mod `q` with primitive character `ψ`, `L(s, χ) = L(s, ψ)E(s)` with `E(s) = ∏_{p|q}(1 − ψ(p)p^{−s})` (Mathlib's `LFunction_changeLevel`), so `L(s, χ) = Φ(s)L(1 − s, χ⁻¹)E(s)` for `Re s < 1` (round 526's `LFunction_eq_Phi`).
+- `integrable_of_bound`, `decay_of_bound`, `shift_of_bound`: a contour shift (round 472's `SmoothPerron.verticalIntegral_shift`) for an integrand that is at most `M(1 + |Im s + τ|)^{−2}` on a closed vertical strip.
+- `G1`, `Mn`, `Rt`, `Tl` and their bounds: the integrand `L(s, χ)H(s + iτ)N^s`, the main part `H(s + iτ)N^sE(s)Φ(s)Σ_{m≤Z}χ⁻¹(m)m^{s−1}`, the rest (`L(1 − s, χ⁻¹)` less that sum) and the tail `Σ_{m>Z}`.
+- `reflect_gram`: for `χ ≠ 1`, `N > 0`, `Z ≥ 0` and `K ≥ 1`, the integral of `G1` on `Re s = 2` is the integral of the main part on `Re s = 1/2` plus that of the tail on `Re s = −K`: the shift from `2` to `1/2`, the functional equation and the split there, and the shift of the rest to `−K`, where it is the tail (round 526's `LFunction_sub_dualS`).
+- `gram_reflect`: with round 640's `perron_gram`, for `χ_i ≠ χ_k`, `G(i, k)` is `N^{iτ}/2π` times that sum at `χ = χ_iχ̄_k`, `τ = t_i − t_k`.
+
+See the main README, round 641, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 531 lines.
