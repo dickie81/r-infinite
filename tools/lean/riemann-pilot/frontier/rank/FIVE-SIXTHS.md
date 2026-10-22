@@ -46,6 +46,8 @@ Side-branch note, 2026-10-22, on branch `claude/latest-commit-branch-ik1pj3`. It
    - The review's other findings are swept (9.4). The goal is still not reached.
    - A second, convergence round of the review returned no major finding, four minor and eight cosmetic ones, all swept (9.7).
 10. **A horizon hit (section 10).** OpenAI's "An unconditional first moment for cubic Gauss sums" (September 25), cited but not used by the release, proves Patterson's first moment and its fixed angular twists without GRH. For the slot coefficients it bears on the trivial dual, which does not move `σ`. Its power-saving Proposition `prop:dual` for prime convolutions is recorded as a T1 attack note. *(9.7: it bears on T1 more directly. Its Proposition `prop:dispersion` has T1's shape, for `L ≤ N ≤ L^{2.125}`, and saves only a power of `log X` after its theta correction; section 10.)*
+11. **The high side's first rung (section 11, gates H1–H6 of `highside.py`).** In the release-level configuration the binding bins lie at `x = 1/2`, `δ ≈ 0.47`. A uniform saving `U^η` on the bins `δ ≥ 1/8` moves the boundary by about `0.185η`, down to `0.8667866` at `η = 0.045`, where the floor bin binds. Density-hypothesis counts there, a `2k`-th moment with `k = 6`, or Lemma 17.6's slope lowered to `1/8` reach the same value. From there `13/15` is a step of `1.2·10⁻⁴`, and at `13/15` the rotation's condition binds (round 498). T3's pointwise route has effective crossing cost `0.83`, against a break-even below `0.165`. The goal is still not reached.
+12. **Horizon refresh (section 12).** Nothing new reaches `5/6`. A Lindelöf-on-average lemma for the cubic Kubota series (David, de Faveri, Dunn and Stucky) would give T1 for smooth slots; on that reading the obstruction is the prime support of the release's slots.
 
 ## 0. Horizon scan, 2026-10-22
 
@@ -571,6 +573,90 @@ Found the same day through the release's own citation: "`The corresponding first
 - (b) The register gets a T1 attack note: the preprint's corrected dispersion with Proposition `prop:dual`, applied to the slot coefficients. *(9.7: with `prop:dispersion`'s range and its log-power saving recorded there.)*
 - (c) The signal it needs is a zero-free strip for the angular Hecke `L`-functions `L(s, θ_{−2}ψ)` over `ℚ(ω)`. These have infinite order and are outside the release's finite-order family, so the signal is auxiliary, not circular. It is also a family question in the sense of CLAUDE.md's "Families before single functions": the slot coefficients themselves generate the angular twist `θ_{−2}`. So: does the release's method, or Liu's, reach Hecke characters of nonzero infinity type?
 
+## 11. The high side's first rung (gates H1–H6 of `highside.py`)
+
+Same day. Sections 7–9 leave the release-level boundary at `0.8748866`, with the bins `E` binding at every `σ` (S3). This section asks what those bins need, in the release-level configuration: section 8's program at `c = 1` with Sang's rotation, round 498's readings, Xu–Sang's counts and fourth moment, and the trilinear `σ = 2/3`. Every number is a statement about the pilot's model. Round 498 already recorded the density-hypothesis and Lindelöf configurations at `0.8667866` with the floor bin binding, and the obstruction `13/15` (Check 4).
+
+**What binds (H1).** A bin is a class of Poisson rows. In Xu–Sang's notation `δ = 2a − 1`, and "`Here \(a\) records how far left the denominator contour is permitted to move on this class`" (source lines 541–542). Also `x = q/δ`, where "`Here \(q\) is the prime-length-weighted mean growth exponent of the physical prime sums, while \(x\) measures it relative to the detector parameter \(\delta\).`" (lines 904–907). The bin's endpoint, their eq. `endpoint` (lines 1335–1344), carries the count as `−(3h/4)(1 − R_κ)`.
+
+At the optimum, the bins within `10⁻⁷` of their endpoint lie at `x = 1/2`, the largest prime amplitude, with `δ` between `0.4688` and `0.4702`. The tight low rows are the Gram bound's exceptional term and the slice.
+
+**Relief on the bins `δ ≥ 1/8` (H2).**
+- A saving `U^η` confined to `δ ∈ [0.44, 0.50]` moves the boundary only to `0.8748474`, at `η = 0.01` and `0.05` alike. Neighbouring bins take over.
+- On every bin `δ ≥ 1/8`, the boundary is `0.8730362` at `η = 0.01` and `0.8711404` at `0.02`, slopes of `0.185` and `0.187`. In this model, small uniform savings on those bins move the boundary in proportion. It saturates at `0.8667866` at `η = 0.045`, where the floor bin binds instead.
+- Density-hypothesis counts on those bins give the same `0.8667866`, as does round 498's `counts='dh'` configuration.
+
+**Stronger moments (H3).** The bins' numerator is bounded by Hölder with a `2k`-th moment over the rows. Xu–Sang's fourth moment is `k = 2`. With `k = 5/2`, `3`, `4` and `6` the boundary is `0.8712795`, `0.8692279`, `0.8674539` and `0.8667866`. The bins `E` bind below `k = 6`, and the floor bin at `k = 6`. As in rounds 497–499, the moment enters the model only through the weight `w = 1 − 1/(2k)`. README round 508 found that the release's method, as written, does not give a sixth moment at Sang's longest blocks.
+
+**The next rung (H4).** With density-hypothesis counts and a saving `U^{0.001}` on the floor bin and the small bins, the boundary is `13/15` at `(2/5, 2/5, 1/5)`. `U^{0.0005}` gives `0.8667067`, with the floor bin still binding. At `13/15` the bins `E` bind together with Sang's rotation condition `h/2 < l_y`: round 498's obstruction. `σ = 1/2` changes nothing. This rung is a step of only `1.2·10⁻⁴`, so after the first rung the obstruction is `13/15` itself.
+
+**Where the counts come from (H5).** Xu–Sang's Proposition `prop:row-count` (arXiv 2610.15291v2, read in its source, lines 936–1078) bounds a row class by `U^{R_κ(δ,x)+ε}`. On their account, "`The exponent \(R_\kappa\) results from balancing the short simultaneous-witness estimate with the long inverse-witness estimate.`" (lines 917–919).
+- The long witness uses "`The sixth-power amplification \cite[Lemma~17.6]{OAI26}`", with "`e(r)=\max\{1,(1+5r)/6\}`" (lines 451–456). Its slope `α = 5/6` enters `R_long(t) = 1 − δ + (α − δ)(t − 1)`.
+- The short witnesses use the release's marked inverse moment, with capacity "`r+2z<1,\qquad 2r+8z<3.`" (line 445), and its plain fourth moment, with "`m_1+m_2+6\kappa z\le1,`" (line 473).
+- Gate H5 recomputes the count with a slope `α′` in place of `5/6`, the long branch taken as `(α′ − δ)₊`. At `5/6` it reproduces the model's count and `0.8748866`. At `α′ = 3/4` the boundary is `0.8741816`, and at `1/2` it is `0.8714461`, with `E` binding. At `1/8` it is `0.8667866`, the first rung, with the floor bin binding: the count is then `1 − δ` on every bin `δ ≥ 1/8`.
+- The plain moment's prime capacity matters little in this count. With the constant `6` of `m₁ + m₂ + 6κz ≤ 1` replaced by `2`, the boundary is `0.8733798`.
+- The algebra behind these: the count's excess over `1 − δ` is half of a parallel combination `ab/(a + b)` of the long branch `a = α − δ` and the short branch `b = δP_κ/D_κ` (H5 checks the identity at every bin). So the count reaches density-hypothesis strength on a bin only where one of the two branches vanishes there. At `α′ = 1/8` the long branch vanishes on every bin `δ ≥ 1/8`.
+
+**Survey (Check 9(a), the machinery checklist).** Searched on 2026-10-22, with abstracts read through the arXiv API:
+- Guth and Maynard (arXiv 2405.20552): new large-value estimates for Dirichlet polynomials, and "`N(σ,T)\le T^{30(1-σ)/13+o(1)}`".
+- Chen, Gupta and Li (arXiv 2507.08296v2): "`\sum_{χ\bmod q}N(σ,T,χ) \ll_ε (qT)^{7(1-σ)/3+ε}`", over all characters to one modulus `q`. The pilot read its Proposition 10.2 directly in README round 535, for the Linnik strand.
+- Cossaboom (arXiv 2609.27715): the Guth–Maynard argument extended to `GL₂` automorphic `L`-functions, in the `t`-aspect.
+
+None of the three abstracts treats a thin family like the release's rows: sextic characters `χ_n(u) = (u/n)_6` of the physical rows `u`. Xu–Sang's matching lower bound (section 0) shows the sextic large sieve sharp for general coefficients over the complete sextic family. This survey found no input for the first rung.
+
+The release's own Lemma `lem:inverse-amplification` (paper.tex lines 12362–12460), read for this section, gets its slope by embedding the rows `u` into the complete family through `u ↦ ua⁶`: "`The map \((u,a)\mapsto ua^6\) is injective on these pairs.`" (lines 12437–12438). Its bound `H/P = U^{1/6}H^{5/6}` already improves on the sextic large sieve's `U^{1/3}D^{5/6}` term by `U^{1/6}`. Within the lemma's method the slope is fixed: the amplifier's length `P = (H/U)^{1/6}` is set by the raw moment's range `H ≥ D^{1+c}`. On this reading a smaller slope would need a new estimate for the Möbius polynomials over this family, such as the raw moment below that range, not a different choice of `P`.
+
+**T2, restated in two rungs.**
+- First rung, to `0.8667866`. In the model each of these reaches it: density-hypothesis counts on the bins `δ ≥ 1/8` (H2), a `2k`-th moment with `k = 6` (H3), a uniform saving `U^{0.045}` there (H2), or Lemma 17.6's slope at `1/8` (H5). Through the count, it is reached when one of the count's two branches vanishes on every bin `δ ≥ 1/8`.
+- Second rung, to `13/15`, a step of `1.2·10⁻⁴`: a saving `U^{0.001}` among the floor bin's generic rows. Below `13/15` the rotation's condition binds (round 498).
+- The vertex route of sections 3–4 (no rotation, `σ ≤ 1/2`, `η ≥ 0.168`) is unchanged.
+
+**Check 9.**
+- (b) The register's T2 bullet gets these rungs, the H5 decomposition and the survey.
+- (c) The signals are auxiliary. Better counts or moments for the rows' family bound polynomial moments over that family. They are not bounds equivalent to the target's zero-free half-plane, although Xu–Sang's capacities are licensed by a family zero bound `β_* ≤ (1+κ)/2`, which the bootstrap carries.
+
+**T3's pointwise route (H6).** Bounding each `(k, P)` pair's sum over `n` by square-root cancellation forgoes the cubic sieve's average over `P`: at best it gives the factor `K·L·N·B`. At S6's first-branch dyad `(M′, ℓ′) = (2t, t)`, `t = 0.5572`, the column term's excess is `3t − 1` and the pointwise route's is `t`, an effective crossing cost `t/(3t − 1) = 0.8297` (gate H6, exact arithmetic), against the break-even between `0.16` and `0.165`. Dunn and Radziwiłł's level-aspect Voronoi formula (their Proposition 5.3) turns sums of `g̃(c)` twisted by a cubic character `(c/r)_3` into dual sums whose weight is evaluated at `N(d³ν)X/N(r)²`, a dual of length about `N(r)²/X`. T3's sums also carry the row's quadratic character, which that proposition does not include. If a formula of the same shape held for the modulus `kP`, of norm `KL`, its dual would have length `(KL)²/N = Z^{1.557}` at this dyad, longer than the rows. So the pointwise route does not reach T3 in this model.
+
+**The coefficient models against T3 (gates N4, N5 of `columnterm.py`).** These are measurements on models at small norms, not bounds.
+- N4: at N2's three sizes, the models' largest row has a share `2.6–6.6` of the mean square, against `2 log(#rows) + 2 = 10.6–13.3`, and an aligned control's `5621–9974`. No single row aligns with them.
+- N5: the trilinear matrix `U(k, P) = Σ_n β_n (n/k)_2 conj((n/P)_3)` bounds T3's hybrid sum by `‖U‖²_op Σ_P|c_P|²`. So a bound `‖U‖²_op ≪ Z^ε(K + L)Σ|β|²` for the release's dual coefficients would give T3. At three sizes, `‖U‖²_op/(Σ|β|²(√#rows + √#moduli)²)` is `0.85–0.96` for random phases, `conj(g₃)` and `conj(g₃)α`, about what a random matrix gives, and `7.8–17.2` for an aligned control.
+
+In session sabotage runs, H1, H2, H5 and H6 each fail on a planted defect: a looser tolerance for the binding bins, the window moved to `[0.30, 0.36]`, the slope constant changed to `0.8`, and the pointwise term `u` dropped. N4 and N5 fail with an aligned coefficient planted among the models.
+
+Reproduce, from this directory:
+
+```
+python3 highside.py                           # gates H1-H6, about 2 s
+python3 columnterm.py periods_w_8e4.txt       # gates N2-N5, 10-30 s; skipped without the prime data
+```
+
+## 12. Horizon refresh: a Lindelöf-on-average bound for the cubic Kubota series, and T1 for smooth slots
+
+Same day, about 17:20Z. `github.com/openai/math` is still at `1581d4c` (`git ls-remote`). An arXiv API search (newest first; abstracts) for "zero-free" with "Hecke", "quasi-Riemann", "zero-free half-plane", "cubic large sieve", "sextic large sieve" and "cubic Gauss sums" found four items that no pilot surface records:
+- arXiv 2610.24900 (Grobner), 2610.20058 (Visser) and 2610.26756 (Li and Liu) apply the quasi-Riemann hypothesis. None of the three abstracts claims a new zero-free half-plane.
+- arXiv 2410.03048v3 (David, de Faveri, Dunn and Stucky), "Non-vanishing for cubic Hecke `L`-functions". Its abstract: "Our new approach makes crucial use of Patterson's evaluation of the Fourier coefficients of the cubic metaplectic theta function, Heath-Brown's cubic large sieve, and a Lindelöf-on-average upper bound for the second moment of cubic Dirichlet series that we establish."
+
+None of the four reaches `5/6` or claims a boundary below Liu's.
+
+**The lemma.** It was read in the source (`main.tex`, lines 1763–1768), with `ψ(r, s) = Σ_{c ≡ 1 (3)} g₃(r, c)N(c)^{−s}` (their eqs. `psizetadef`, `psirsdef`) and `g₃(μ, c) = Σ_{d mod c} χ_c(d)ě(μd/c)` (eq. `generalgauss`). It reads: "`For any $0 \neq h \in \Z[\omega]$, $t\in \R$, $1 < \sigma \leq \frac{5}{4}$, and $M \geq 1$, we have the bound`", namely `Σ_{0 ≠ m, N(m) ≤ M} |ψ(hm, σ + it)|² ≪_{σ,ε} N(h)^{1/2}M^{1+ε}(1 + |t|)²`. The proof combines Patterson's functional equation with the cubic large sieve. Their Lemma `psi_convexity_lemma` gives `ψ(r, s)` "`at most a simple pole at $s = \frac{4}{3}$`", with residue `c₀τ₃(r)/N(r)^{1/6}`.
+
+**Its bearing on T1.**
+- `Re s = 1` is the normalization of T1's slot sums. The release's column factor `χ_P(v)²` is `(v/P)_3`, DDDS's `χ_c`. So `γ₂(j; P)/√q_P` is `g₃(j, P)/N(P)`, up to the fixed rescaling between the two additive characters.
+- Take a smooth slot instead: all `c ≡ 1 (3)` of norm about `L`, weighted by `W`. Mellin inversion writes the column sum `Σ_c g₃(j, c)W(N(c)/L)/N(c)` as an integral of `ψ(j, 1 + w)L^w W̃(w)`. Move the line to `Re w = ε`; that leaves the pole at `w = 1/3` and an integral of `ψ(j, 1 + ε + it)`.
+- At a squarefree column `j`, `|τ₃(j)|` is a constant (their eq. `tau_fourier_coeff_def`). So over the columns `j ∼ N`, the pole's term has mean square about `N^{2/3}L^{2/3}`: the cubic sieve's `(NL)^{2/3}` term, attained through Patterson's theta coefficients. By the lemma with `h = 1`, the integral's mean square is `≪ N^{1+ε}`.
+- So for smooth untwisted slots, the column sums obey `N + (NL)^{2/3}`, with no `L` term. That is the trilinear bound's shape (`σ = 2/3`, section 9.1), and no better.
+- The slot coefficient carries the angle `ᾱ²`. With that twist the pole at `4/3` is expected to vanish: the constant term would then carry a Hecke `L`-function of a Grössencharacter of nonzero infinity type, which has no pole. At primes, gate N1 and OpenAI's `thm:angular` (section 10) agree. If, in addition, the lemma extends to the angular twist and the finite-order `ψ`, then smooth angle-twisted slots give `Σ_j|column sum|² ≪ N^{1+ε}`: row (e) of the dictionary, `σ ≤ 1/2`. This note checks neither the vanishing nor the extension.
+- The release's slots are products of one prime from each slot. The lemma's proof uses the Kubota series' functional equation, and sums over prime products have none. On this reading the obstruction to T1 is the prime support of the slots. That is T1's attack note 3 ("slots over squarefree or rough integers"); a different support would mean redoing the compensation and the high side's prime-factor moments.
+
+T1 alone does not move the boundary: the bins `E` bind at every `σ` (S3).
+
+**Check 9.**
+- (a) "None reaches `5/6`" is scoped to the four abstracts, and the bearing on T1 to the reading above.
+- (b) The register's T1 attack note 3 gets the lemma.
+- (c) The signal is auxiliary: the lemma bounds Gauss sums, not the target's zeros.
+
+These hits, like those of sections 0 and 10, are owed a README round at merge (9.7, O3).
+
 ## Check 4 and bearing on RH
 
 **Check 4.**
@@ -585,6 +671,8 @@ Found the same day through the release's own citation: "`The corresponding first
   - `PAIRING.md`'s boundary formula;
   - Liu's `0.874957…` (round 471) and Sang's `0.8748867` (round 496);
   - *(9.7)* the twisted multiplicativity of the cubic Gauss sums that S8 (ii) checks, which the pilot has in `composite.py` and in README rounds 454–455 (`conj gamI 2 (ab) = (a/b)₃·conj gamI 2 (a)·conj gamI 2 (b)`).
+  - *(section 11)* round 498's density-hypothesis and Lindelöf configurations at `0.8667866`, its `counts='dh'` configuration, and README round 508's finding on the sixth moment;
+  - *(sections 11–12, external)* Xu–Sang's count `R_κ` (their Proposition `prop:row-count`) and the release's Lemma 17.6; David, de Faveri, Dunn and Stucky's lemma.
 - New here:
   - the floor `5/6` and its identity (F1);
   - the closed form of the low side's least value in `σ` (F2);
@@ -598,5 +686,7 @@ Found the same day through the release's own citation: "`The corresponding first
   - section 8: the crossing cost as a third lever, and the target T3 (S6, S7);
   - section 10: the horizon hit (the cubic first-moment preprint) and its scoped bearing on T1;
   - section 9: the trilinear bound `σ = 2/3` (S5 (b), S8); the slot coefficient as the composite Gauss sum `γ₂(P)`, angle-twisted (9.2; *9.7: new is this identification of the release's tuple factor; the identity S8 (ii) checks is acknowledged above*); Dunn–Radziwiłł's corrected sieve found ~~circular~~ unusable as stated (*9.7*); the dictionary's rows (c) and (e); the ray's threshold, the corner `(1, 1, 1)` and the readings' load (S6); `crossing.formula`'s region (S7); the coefficient models (N2, N3); the review's corrections.
+  - section 11: the binding bins (H1); the relief on the bins and where it stops (H2); the moment ladder in the release-level configuration (H3); the second rung's size (H4); the count's slope and capacity, and its form as half a parallel combination (H5); the pointwise route's cost for T3 (H6); the coefficient models' largest row and the trilinear matrix's operator norm (N4, N5);
+  - section 12: the horizon refresh's four items, and the reading of David, de Faveri, Dunn and Stucky's lemma for T1.
 
 **Bearing on RH: none.** The note proves no zero-free region and gains no constraint on zeros. It maps what one method would need.
