@@ -1,4 +1,5 @@
-"""The slot product split in two, the ladder of inputs, and the vertex's bins (FIVE-SIXTHS.md, section 7).
+"""The slot product split in two, the ladder of inputs, the vertex's bins and the crossing cost (FIVE-SIXTHS.md,
+sections 7 and 8).
 
 The slot-split bound.  Lemma lem:hybrid-energy bounds the inner slot sums of its proof by Heath-Brown's cubic large
 sieve over the columns j (norm ~ N) against the active slot products P (norm ~ L = Z^{z_a}), N + L + (NL)^{2/3}, and
@@ -41,11 +42,18 @@ Gates (exit status 1 if any fails):
       and the least low side, by fivesixths.low_min and by the exact program on S2's grid, is 71/84, 28/33 and 5/6.
       So sigma = 1/2, the floor 5/6, needs the square-root sieve for the slot coefficients; square-root slot sums
       at every column give 71/84, and the slot-split bound gives 41/48.
+  S6  the crossing cost (FIVE-SIXTHS.md section 8).  Round 500's first branch charges c mu/2 on the low side with
+      c = 1, the column term NB of the factor K + NB in Lemma lem:hybrid-energy.  Across the slice (mode 'cross', the
+      program's cap on mu raised from 1/2 to 2, round 502's reading dropping l_y < 1/2), with sigma = 3/4 and no row
+      saving, the bootstrapped boundary is 5/6 at c = 0 (2e-7), on the ray l_x = l_y = ell >= 1/2, and 0.8486654,
+      0.8615362, 0.8725510 and the release's 0.8748866 at c = 0.05, 0.1, 0.15 and 1 (1e-6, 2e-6 at c = 1).  With
+      sigma = 1, c = 0 reaches 5/6 only at (1, 1, 1).  Far across the slice the geometries are admissible only in the
+      model (Xu-Sang's admissibility rows and the pilot's high side); the release's lemmas were not re-derived there.
 
 Every number here is a statement about the pilot's model of the release's exponent system (frontier/wall78 and
 fivesixths.py), not a theorem about L-functions.
 
-Usage: python3 slotsplit.py     (about 40 s)
+Usage: python3 slotsplit.py     (about 45 s)
 """
 import os
 import sys
@@ -97,6 +105,8 @@ def emax_F(Mp, lp, a=1.0, b=2 / 3, sc=None):
 
 
 SPLIT = dict(sc=2 / 3)          # the slot-split bound: per column L^{2/3}
+CROSS_COSTS = (0.0, 0.05, 0.1, 0.15, 1.0)
+CROSS_VALUES = ((5 / 6, 2e-7), (0.8486654, 1e-6), (0.8615362, 1e-6), (0.8725510, 1e-6), (0.8748866, 2e-6))
 DICTIONARY = (   # (name, hybrid bound, second-branch coefficient of l', optimum (M, ell), least low side)
     ('every column at square-root size', dict(sc=1 / 2), 3 / 2, (5 / 7, 2 / 7), 71 / 84),
     ('L term dropped', dict(a=0.0), 5 / 3, (8 / 11, 3 / 11), 28 / 33),
@@ -162,17 +172,48 @@ class Five2(F.Five):
         return [(n, [r[0] + e, r[1], r[2] - e, r[3], r[4]], b + e) for n, r, b in F.O.OffSlice.floor_rows(self)]
 
 
+class Five2X(Five2):
+    """Five2 across the slice with the program's cap on mu raised from 1/2 to MU_MAX (section 8)."""
+    MU_MAX = 2.0
+
+    def solve(self, tol=1e-10):
+        fixed = self.fixed_rows()
+        A0 = np.array([r for _, r, _ in fixed]); b0 = np.array([b for _, _, b in fixed])
+        DL, XL = F.O.DL, F.O.XL
+        nd, nx = DL.shape[0], XL.shape[1]
+        ii, jj = np.meshgrid(np.arange(0, nd, 30), np.arange(0, nx, 25), indexing='ij')
+        idx = np.unique(np.concatenate([(ii * nx + jj).ravel(), np.arange(0, nd, 10) * nx + nx - 1]))
+        bounds = [(0, 1), (0, 1), (0, 1), (0.5, 1), (0, self.MU_MAX if self.mode == 'cross' else 0.0)]
+        for _ in range(500):
+            Cb = self.C[:, idx]
+            A = np.vstack([A0, np.column_stack([Cb[1], Cb[2], Cb[3], -np.ones(idx.size), np.zeros(idx.size)])])
+            res = linprog([0, 0, 0, 1, 0], A_ub=A, b_ub=np.concatenate([b0, -Cb[0]]), bounds=bounds, method='highs',
+                          options=HIGHS)
+            if res.status == 2:
+                return None
+            if res.status != 0:
+                raise RuntimeError(res.message)
+            v = res.x
+            E = self.C[0] + self.C[1] * v[0] + self.C[2] * v[1] + self.C[3] * v[2] - v[3]
+            new = np.setdiff1d(np.flatnonzero(E > tol), idx)
+            if new.size == 0:
+                return dict(v=v, res=res, fixed=fixed, emax=E.max(), small=self.small_max(v))
+            idx = np.union1d(idx, new[np.argsort(E[new])[-25:]])
+        raise RuntimeError('no convergence')
+
+
 def boot(job):
-    cfg, kw = job
+    cfg, kw = job[:2]
+    klass = job[2] if len(job) > 2 else Five2
     kappa, fp = 3 / 4, []
     for _ in range(40):
         if kappa < 13 / 18 - 1e-12:
             break
-        prog = Five2(kappa, **cfg, **kw)
+        prog = klass(kappa, **cfg, **kw)
         sol = prog.solve()
         if sol is None:
             break
-        fp.append((float(sol['v'][3]), kappa, prog.walls(sol)))
+        fp.append((float(sol['v'][3]), kappa, prog.walls(sol), tuple(float(t) for t in sol['v'][:5])))
         if abs(2 * sol['v'][3] - 1 - kappa) < 1e-10:
             break
         kappa = 2 * sol['v'][3] - 1
@@ -223,9 +264,13 @@ def main():
             (sang0, dict(sigma=0.75, eta=0.1, z0=z0, drop=NOROT)), (sang0, dict(sigma=1.0, eta=0.1, z0=z0, drop=NOROT)),
             (dhl0, dict(sigma=0.5, eta=0.0, eta_L=0.3, z0=z0, drop=NOROT)),
             (dhl0, dict(sigma=0.5, eta=0.2, z0=z0, drop=NOROT))]
+    D3 = D2 + ('ly<1/2',)
+    cross = lambda c: dict(k=2, soft_third=True, mode='cross', cost=c, **R)
+    jobs += [(cross(c), dict(sigma=0.75, drop=D3), Five2X) for c in CROSS_COSTS]
+    jobs += [(cross(0.0), dict(sigma=1.0, drop=D3), Five2X)]
     with ProcessPoolExecutor(4) as ex:
         res = list(ex.map(boot, jobs))
-    for (cfg, kw), r in zip(jobs, res):
+    for (cfg, kw, *_), r in zip(jobs, res):
         print(f'    {str({k: v for k, v in kw.items() if k != "drop"}):60s} B = {r[0]:.7f} kappa {r[1]:.5f} walls {r[2]}')
     ok3 = (all(abs(r[0] - 0.8748866) < 2e-6 and 'E' in r[2] and 'row loss' not in r[2] for r in res[:3])
            and abs(res[3][0] - 41 / 48) < 1e-6 and abs(res[4][0] - 13 / 15) < 1e-6)
@@ -256,6 +301,17 @@ def main():
         rows.append(f'{name}: sigma {sg:.4f}, formula exceeded by {over:.1e}, exact at the optimum {at:.1e}, '
                     f'least low side {lm:.9f} (LP) {g[0]:.9f} (exact program on the grid)')
     gate('S5', ok5, '; '.join(rows))
+    # S6: the crossing cost
+    rc = res[7:7 + len(CROSS_COSTS)]
+    r1 = res[7 + len(CROSS_COSTS)]
+    ok6 = all(abs(r[0] - want) < tol for r, (want, tol) in zip(rc, CROSS_VALUES))
+    t = rc[0][3]
+    ok6 = (ok6 and max(abs(t[0] - t[2]), abs(t[1] - t[2])) < 1e-6 and t[2] >= 0.5 - 1e-9
+           and abs(r1[0] - 5 / 6) < 2e-7 and min(r1[3][:3]) > 1 - 1e-6)
+    gate('S6', ok6, 'sigma 3/4, no row saving, l_y < 1/2 dropped, mu <= 2: ' + ', '.join(
+        f'c = {c}: {r[0]:.7f}' for c, r in zip(CROSS_COSTS, rc))
+         + f'; at c = 0 the optimum has l_x = l_y = ell = {t[2]:.4f}, M + ell = {t[0] + t[1] + t[2]:.4f}; '
+         f'sigma = 1 at c = 0: {r1[0]:.9f} at (l_x, l_y, ell) = ({r1[3][0]:.4f}, {r1[3][1]:.4f}, {r1[3][2]:.4f})')
     if FAILS:
         print('FAILED:', ', '.join(FAILS))
         sys.exit(1)

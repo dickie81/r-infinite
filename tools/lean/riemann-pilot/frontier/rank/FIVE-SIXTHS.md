@@ -22,7 +22,7 @@ Side-branch note, 2026-10-22, on branch `claude/latest-commit-branch-ik1pj3`. It
    - a uniform row-sum saving `U^η` on every bin.
 
    With all of these, the boundary is `5/6`, at the vertex `l_x = l_y = ℓ = 1/3`, provided `σ ≤ 1/2` and `η ≥ 0.168`; Xu–Sang's own counts and fourth moment need `η ≥ 0.178`. At `σ = 2/3` the same system gives `28/33`.
-6. **What is missing.** Two estimates, neither in the sources read here:
+6. **What is missing.** Two estimates, neither in the sources read here *(section 8: with round 500's crossing cost; a cheaper crossing of the slice is a third route)*:
    - ~~the release's trivial-dual slot sums with `σ ≤ 1/2`, that is, angle-twisted cubic Gauss sums over primes below `X^{3/4}`;~~ *(struck in section 7: such sums, at square-root size in every column, give only `σ = 5/8` and `71/84`; `σ ≤ 1/2` needs a square-root cubic large sieve `N + (NL)^{1/2}` for the slot coefficients;)*
    - a saving `U^{1/6}` on the high side's sums over the Poisson rows near `a = 1/2`, where the C₀ wall sits.
 
@@ -34,6 +34,11 @@ Side-branch note, 2026-10-22, on branch `claude/latest-commit-branch-ik1pj3`. It
    - With the release's inputs and no row saving, the boundary stays `0.8748866` at every `σ` (S3).
    - At the vertex, every bin with `δ < 1/2` needs a saving beyond what density-hypothesis counts give (S4).
    - The goal is still not reached.
+8. **The crossing cost (section 8, gate S6).**
+   - Round 500's first branch charges a crossing of the slice `M + ℓ = 1` at cost `c = 1`.
+   - In the model, with the slot-split's `σ = 3/4` and no row saving, `c = 0.15`, `0.1` and `0.05` give `0.8725510`, `0.8615362` and `0.8486654`.
+   - `c = 0` gives `5/6` on the ray `l_x = l_y = ℓ ≥ 1/2`, with neither T1 nor T2.
+   - These geometries lie far across the slice, where the release's lemmas were not re-derived.
 
 ## 0. Horizon scan, 2026-10-22
 
@@ -146,7 +151,7 @@ The boundary `5/6` is approached, not attained: `b > 0` and `l_x > ℓ` are stri
 
 ## 4. What it would take
 
-Within this exponent system, the half-plane `Re s > 5/6` needs both of:
+Within this exponent system, the half-plane `Re s > 5/6` needs both of *(section 8: this assumes round 500's crossing cost `c = 1`; a cheaper crossing is a third route)*:
 
 1. **~~The slot sums at a trivial dual with `σ ≤ 1/2`.~~ A square-root sieve for the slot coefficients (`σ ≤ 1/2`)** *(corrected in section 7)*.
    - ~~The target: `|Σ_P a(P)/√q_P|² ≪ Z^{z_a/2 + ε}` for the release's slot coefficients, which are products of `γ₂(q)ᾱ(q)²` and finite-order factors over the slot primes.~~
@@ -316,6 +321,47 @@ In the program, savings `U^{3/10}` on the floor bin and the small bins alone sto
 - a correction of what `σ = 1/2` requires;
 - the finding that the vertex's high side needs more than density-hypothesis counts give.
 
+## 8. The crossing cost, a third lever
+
+Same day. Gate S6 of `slotsplit.py`.
+
+**What it is.** Round 500 derived the crossing cost from the release's proof of Lemma `lem:probe-row-norm`. Crossing the slice `M + ℓ = 1` by `μ` costs `μ/2` on the low side (`c = 1`). The cost is the first branch `M′ + ℓ′ − 1` of the dyads' maximum: the column term `NB` of the factor `K + NB` in Lemma `lem:hybrid-energy`, where the dual is longer than the rows.
+
+The release states the slice in two places only:
+- in that proof: "Since $M'+\ell'-1=-3d$, direct subtraction gives" (paper.tex line 8246);
+- at its fixed geometry: "M=l_x+l_y=\frac56,\qquad M+\ell=1." (line 6864).
+
+**What a cheaper crossing would give** (S6). The settings are: `σ = 3/4` (the slot-split bound), no row saving, Sang's rotation, round 502's reading that drops `l_y < 1/2`, and the program's cap on `μ` raised from `1/2` to `2`. Both of the last two matter. In session runs, keeping `l_y < 1/2` gives `0.8504534` at `c = 0`, and keeping the cap at `1/2` gives `0.8436087`. Round 502 found `l_y < 1/2` used only for a slope bound, which holds for `l_y < 1` (its gate F3).
+
+| crossing cost `c` | boundary |
+|---|---|
+| `1` (the release) | `0.8748866` |
+| `0.15` | `0.8725510` |
+| `0.1` | `0.8615362` |
+| `0.05` | `0.8486654` |
+| `0` | `5/6` |
+
+At `c = 0` the low side reaches its floor on the ray `l_x = l_y = ℓ = t`:
+- the second branch at `σ = 3/4` is `(1 − 2t)/4`, which is `≤ 0` for `t ≥ 1/2`;
+- the C₀ wall `4/3 − t` is at most `5/6` there.
+
+The optimum found is `t = 0.5572`, with `M + ℓ = 1.67`; the bins `E` bind as well. With the release's `σ = 1`, the second branch `(1 − t)/4` vanishes only at `t = 1`, and `c = 0` gives `5/6` at `(1, 1, 1)`. So in this model a free crossing reaches `5/6` with neither T1 nor T2, and a cost above about `0.16` buys nothing (round 499's break-even).
+
+**Scope.** Far across the slice, the model's admissibility rests on Xu–Sang's conditions and on the pilot's high side extended there. The release's lemmas are stated for its fixed geometry and were not re-derived at `M + ℓ ≈ 1.7`. Round 496 lists what the model leaves out: "the intermediate range, small and large rows, the frequency extension, and the prime supply against the capacities". The numbers for small `c` are statements about the model, not about the release's argument there.
+
+**Target T3: the column term.** At round 500's first-branch dyad (`O = 0`, `H = M′`, `z_a = ℓ′`, `v = T`), the squarefree dual has length `T = 2M′ + ℓ′ − 1`, longer than the rows' `H = M′`. The quadratic large sieve then charges `K + N ≈ N`.
+- The target: a bound `Σ_{k∼K}|Σ_{n∼N} γ(n)χ_k(n)³|² ≪ Z^ε K Σ|γ(n)|²` for `N > K`, for the release's dual coefficients `γ` (the reflection's coefficients times the slot sums). That would make `c = 0`.
+- The quadratic large sieve's column term is attained by a coefficient aligned with one row's character. So for general coefficients `N` cannot be improved, and such a bound has to use the coefficients themselves. For coefficients with independent random phases the expected size is `K Σ|γ|²`, with no column term.
+- Attack note: a corrected quadratic large sieve, in the sense of Dunn–Radziwiłł's eq. (1.13), for the reflection's metaplectic coefficients twisted by the slot sums.
+- Signals (Check 9(c)): auxiliary, like T1.
+
+**Outcome.** The goal is still not reached. The routes to `5/6` in the model are now three:
+- T1 and T2 at the vertex `(1/3, 1/3, 1/3)` (sections 4 and 7);
+- T3 alone across the slice, with the slot-split bound (this section);
+- combinations of partial inputs. For example, `c = 0.05` with a row saving `U^{1/20}` gives `0.8442662` (a session run of S6's program without rotation, with the small rows' line at `1/6 + 1/100`).
+
+Each needs a bound that beats a large sieve that is sharp for general coefficients.
+
 ## Check 4 and bearing on RH
 
 **Check 4.**
@@ -338,6 +384,7 @@ In the program, savings `U^{3/10}` on the floor bin and the small bins alone sto
   - the vertex `(1/3, 1/3, 1/3)` and the two inputs it needs (F4, F5);
   - the readings of `h < 2l_y` and of the small rows' line (F6);
   - the horizon scan's hits: Liu's 2610.26835 and the two new versions of Xu–Sang;
-  - section 7: the slot-split bound (S1, S2), the dictionary between hybrid bounds and `σ`, which corrects section 2 (S5), the ladder (S3), the vertex's bins (S4), and the literature's scope for T1.
+  - section 7: the slot-split bound (S1, S2), the dictionary between hybrid bounds and `σ`, which corrects section 2 (S5), the ladder (S3), the vertex's bins (S4), and the literature's scope for T1;
+  - section 8: the crossing cost as a third lever, and the target T3 (S6).
 
 **Bearing on RH: none.** The note proves no zero-free region and gains no constraint on zeros. It maps what one method would need.
