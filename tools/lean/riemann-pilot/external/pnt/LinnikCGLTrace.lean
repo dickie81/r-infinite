@@ -15,9 +15,10 @@ point per character.
 
 The term `m = 0` of round 646's expansion of `G(i, k)` is `N^{iτ}(N/q)ĥ_τ(0)Σ_{a<q}χ_i(a)conj(χ_k(a))`, with
 `τ = t_i − t_k`. By orthogonality it vanishes for `χ_i ≠ χ_k`; on the diagonal it is `(N/q)ĥ₀(0)φ(q) = μ₀`, since
-`ĥ₀(0) = ∫w²`. So `E(i, k) = G(i, k) − δ_{ik}μ₀` is `N^{iτ}F(i, k)`, with `F(i, k)` the sum of the terms `m ≠ 0`. A
-triple that is not all equal but has two equal points carries `μ₀G(i, k)G(k, i) = μ₀|G(i, k)|²` in one of three
-positions, so `X − 3μ₀‖E‖_F²` is the real part of `Σ E(i, j)E(j, k)E(k, i)` over the triples that are not all equal;
+`ĥ₀(0) = ∫w²`. So `E′(i, k) = G(i, k) − δ_{ik}μ₀` is `N^{iτ}F(i, k)`, with `F(i, k)` the sum of the terms `m ≠ 0` (named
+`E′` because round 639's `E` is the off-diagonal part of `G`). A triple that is not all equal but has two equal points
+carries `μ₀G(i, k)G(k, i) = μ₀|G(i, k)|²` in one of three positions, so `X − 3μ₀‖E‖_F²`, with round 639's
+`‖E‖_F² = Σ_{i≠k}|G(i, k)|²`, is the real part of `Σ E′(i, j)E′(j, k)E′(k, i)` over the triples that are not all equal;
 and the phases `N^{iτ}` cancel around a triple. Written out, `F(i, j)F(j, k)F(k, i)` is a product of three sums over
 `m ≠ 0` whose terms multiply to the summand of their `I_{m⃗}`: the bar falls on the second character of each pair, as
 `conj(χ_k(a))` does here, and their condition `(a₁a₂a₃, q) = 1` holds wherever the characters do not vanish. The file
@@ -27,10 +28,11 @@ Plain statement (`S3_eq_Fm`). For `q ≥ 1`, `N > 0` and `χ` injective on `R`, 
 triples of points of `R` that are not all equal, where
 `F(i, k) = Σ_{a<q}χ_i(a)conj(χ_k(a))Σ_{m≠0}(N/q)ĥ_{t_i−t_k}(Nm/q)e^{2πima/q}` and `h_τ(u) = w(u)²u^{iτ}`.
 
-Plain statement (`S3_eq_cube`). For any `q`, `N` and points, `S₃ = Re Σ E(i, j)E(j, k)E(k, i)` over the triples that
-are not all equal, with `E(i, k) = G(i, k) − δ_{ik}μ₀`.
+Plain statement (`S3_eq_cube`). For any `q`, `N` and points, `S₃ = Re Σ E′(i, j)E′(j, k)E′(k, i)` over the triples that
+are not all equal, with `E′(i, k) = G(i, k) − δ_{ik}μ₀`.
 
-Plain statement (`Em_eq`). For `q ≥ 1`, `N > 0`, `χ` injective on `R` and `i, k ∈ R`, `E(i, k) = N^{i(t_i−t_k)}F(i, k)`.
+Plain statement (`Em_eq`). For `q ≥ 1`, `N > 0`, `χ` injective on `R` and `i, k ∈ R`,
+`E′(i, k) = N^{i(t_i−t_k)}F(i, k)`.
 
 * `triple_shift`, `triple_sum_split`, `S3_eq_cube`: the algebra, with round 639's `gramP_swap`.
 * `sum_range_mul_star_eq_zero`, `sum_range_mul_star_self`: `Σ_{a<q}χ(a)conj(ψ(a)) = 0` for `χ ≠ ψ` (Mathlib's
@@ -57,7 +59,8 @@ open LinnikCGLMat LinnikCGLMellin LinnikCGLFourier LinnikCGLPoisson LinnikCGLS23
 
 /-! ### The cubic trace less its main term -/
 
-/-- The Gram matrix less its main term: `E(i, k) = G(i, k) − δ_{ik}μ₀`. -/
+/-- The Gram matrix less its main term: `E′(i, k) = G(i, k) − δ_{ik}μ₀` (round 639's `E` is the off-diagonal part of
+`G`). -/
 def Em {ι : Type*} [DecidableEq ι] (q : ℕ) (N : ℝ) (χ : ι → DirichletCharacter ℂ q) (t : ι → ℝ) (i k : ι) : ℂ :=
   gramP N χ t i k - if i = k then (mu0 q N : ℂ) else 0
 
@@ -76,8 +79,9 @@ lemma triple_sum_split {ι : Type*} (R : Finset ι) (a b c d : ι → ι → ι 
         ∑ i ∈ R, ∑ j ∈ R, ∑ k ∈ R, c i j k + ∑ i ∈ R, ∑ j ∈ R, ∑ k ∈ R, d i j k) := by
   simp only [Finset.sum_add_distrib, Finset.mul_sum, mul_add]
 
-/-- **`S₃` as a cubic trace** (algebra alone, for every `N`): `S₃ = X − 3μ₀‖E‖_F² = Re Σ E(i, j)E(j, k)E(k, i)` over
-the triples that are not all equal, with `E(i, k) = G(i, k) − δ_{ik}μ₀`. -/
+/-- **`S₃` as a cubic trace** (algebra alone, for every `N`): `S₃ = X − 3μ₀‖E‖_F² = Re Σ E′(i, j)E′(j, k)E′(k, i)` over
+the triples that are not all equal, with round 639's `‖E‖_F² = Σ_{i≠k}|G(i, k)|²` and
+`E′(i, k) = G(i, k) − δ_{ik}μ₀`. -/
 theorem S3_eq_cube {ι : Type*} [DecidableEq ι] (q : ℕ) (N : ℝ) (R : Finset ι) (χ : ι → DirichletCharacter ℂ q)
     (t : ι → ℝ) :
     S3 q N R χ t = (∑ i ∈ R, ∑ j ∈ R, ∑ k ∈ R,
@@ -194,8 +198,8 @@ lemma fourier_Wt_zero : 𝓕 (Wt 0) 0 = ((∫ u in (1 : ℝ)..2, wCGL u ^ 2 : �
     rw [wCGL_zero (hu.elim Or.inl fun h => Or.inr h.le)]
     norm_num
 
-/-- The terms of a residue class's Poisson series are summable: `‖(N/q)ĥ_τ(Nm/q)e^{2πima/q}‖ ≤ (Cq/N)m^{−2}` for
-`m ≠ 0`, with `C` the constant of `sq_mul_norm_hhat_le`. -/
+/-- The terms of a residue class's Poisson series are summable: for `N, q > 0`,
+`‖(N/q)ĥ_τ(Nm/q)e^{2πima/q}‖ ≤ (Cq/N)m^{−2}` for `m ≠ 0`, with `C` the constant of `sq_mul_norm_hhat_le`. -/
 lemma summable_poisson (τ : ℝ) {N : ℝ} (hN : 0 < N) {q : ℕ} (hq : 0 < q) (a : ℕ) :
     Summable fun m : ℤ => ((N / q : ℝ) : ℂ) * 𝓕 (Wt τ) (N * m / q) * Complex.exp (2 * π * I * m * (a / q)) := by
   have hq' : (0 : ℝ) < q := by exact_mod_cast hq
@@ -229,9 +233,9 @@ def Fm {ι : Type*} {q : ℕ} (N : ℝ) (χ : ι → DirichletCharacter ℂ q) (
   ∑ a ∈ Finset.range q, (χ i a * star (χ k a)) * ∑' m : ℤ, if m = 0 then 0 else
     ((N / q : ℝ) : ℂ) * 𝓕 (Wt (t i - t k)) (N * m / q) * Complex.exp (2 * π * I * m * (a / q))
 
-/-- **A Gram entry less its main term**: for `χ` injective on `R` and `i, k ∈ R`, `E(i, k) = N^{iτ}F(i, k)` with
-`τ = t_i − t_k`. The term `m = 0` of `gram_poisson` is `N^{iτ}(N/q)ĥ_τ(0)Σ_{a<q}χ_i(a)conj(χ_k(a))`: it vanishes for
-`i ≠ k` by orthogonality, and for `i = k` it is `(N/q)ĥ₀(0)φ(q) = μ₀`. -/
+/-- **A Gram entry less its main term**: for `N > 0`, `χ` injective on `R` and `i, k ∈ R`, `E′(i, k) = N^{iτ}F(i, k)`
+with `τ = t_i − t_k`. The term `m = 0` of `gram_poisson` is `N^{iτ}(N/q)ĥ_τ(0)Σ_{a<q}χ_i(a)conj(χ_k(a))`: it vanishes
+for `i ≠ k` by orthogonality, and for `i = k` it is `(N/q)ĥ₀(0)φ(q) = μ₀`. -/
 theorem Em_eq {ι : Type*} [DecidableEq ι] {q : ℕ} [NeZero q] {N : ℝ} (hN : 0 < N) {R : Finset ι}
     {χ : ι → DirichletCharacter ℂ q} (hinj : Set.InjOn χ R) (t : ι → ℝ) {i k : ι} (hi : i ∈ R) (hk : k ∈ R) :
     Em q N χ t i k = (N : ℂ) ^ (((t i - t k : ℝ) : ℂ) * I) * Fm N χ t i k := by

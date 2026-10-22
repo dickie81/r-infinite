@@ -5,11 +5,11 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
 This file supplies the Cauchy–Schwarz step of Chen–Gupta–Li's proof of Proposition 7.2.
 
-Their bump and their `R̃`. "Let ψ̃₀(x) be a non-negative smooth bump supported on [−2,2] such that ψ̃₀(x) = 1 for
-|x| ≤ 1, ‖ψ̃₀^{(j)}‖_∞ ≪_j 1 and ψ̃(x) = ψ̃₀(x/(2(qT)^ϵ))" (their (7.4), text layer lines 2236–2243; spaces restored,
-the tildes, subscripts, superscripts, the norm and the fraction transcribed), and
-"R̃_{M₂}(u,a) := (∫_{u′∈[1/2,2]} (NM₂/q) ψ̃((NM₂/q)(u−u′)) |R(u′,a)|² du′)^{1/2}" (their (7.5), lines 2246–2257;
-spaces restored, the tildes, the integral and its range, the fractions, the exponents and the subscripts transcribed).
+Their bump and their `R̃`. "Let ψ̃₀(x) be a non-negative smooth bump supported on [−2,2] such that ψ̃₀(x) = 1 for |x| ≤
+1, ‖ψ̃₀^{(j)}‖_∞ ≪_j 1 and ψ̃(x) = ψ̃₀(x/(2(qT)^ϵ))" (their (7.4), text layer lines 2236–2243; spaces restored, the
+tildes, subscripts, superscripts, the norm, the large parentheses and the fraction transcribed), and "R̃_{M₂}(u,a) :=
+(∫_{u′∈[1/2,2]} (NM₂/q) ψ̃((NM₂/q)(u−u′)) |R(u′,a)|² du′)^{1/2}" (their (7.5), lines 2246–2257; spaces restored, the
+tildes, the integral and its range, the large parentheses, the fractions, the exponents and the subscripts transcribed).
 `psi0` is Mathlib's smooth bump with radii 1 and 2 (`ContDiffBump`); this file uses four of its properties: it is
 continuous, nonnegative, at most 1, and 1 on `[−1, 1]`. `Rt` is their `R̃_{M₂}` with `X` for their `(qT)^ϵ`.
 
@@ -320,9 +320,9 @@ lemma inner_le {ι : Type*} {q : ℕ} [NeZero q] {N : ℝ} (R : Finset ι) (χ :
         rw [show (2 : ℝ) = Real.sqrt 4 by rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]]
         exact Real.sqrt_le_sqrt (by linarith [hv₁.2])
 
-/-- **The inner integral of their Proposition 7.2**: for `|m₂| ≥ M₂ > 0`, `v₁ ∈ [1/2, 2]` and
-`c = −(m₁v₁ + m₃)/m₂`, with `V` round 655's `Vr`,
-`(NM₂/q)∫_{[1/2,2]}V(v₁, v₂) dv₂ ≤ 2Σ_{b₁,b₂}(b₁m₁ + b₂m₂ + m₃, q)|R(v₁, b₁)|R̃(c/v₁, b₂b₁⁻¹)R̃(c, b₂)`. -/
+/-- **The inner integral of their Proposition 7.2**: for `N > 0`, `X > 0`, `|m₂| ≥ M₂ > 0`, `v₁ ∈ [1/2, 2]` and
+`c = −(m₁v₁ + m₃)/m₂`, with `V` round 655's `Vr`, `(NM₂/q)∫_{[1/2,2]}V(v₁, v₂) dv₂ ≤
+2Σ_{b₁,b₂}(b₁m₁ + b₂m₂ + m₃, q)|R(v₁, b₁)|R̃(c/v₁, b₂b₁⁻¹)R̃(c, b₂)`. -/
 lemma Vr_inner_le {ι : Type*} {q : ℕ} [NeZero q] {N : ℝ} (hN : 0 < N) (R : Finset ι)
     (χ : ι → DirichletCharacter ℂ q) (t : ι → ℝ) (m₁ m₂ m₃ : ℤ) {X M₂ : ℝ} (hX : 0 < X) (hM₂ : 0 < M₂)
     (hm₂ : M₂ ≤ |(m₂ : ℝ)|) {v₁ : ℝ} (hv₁ : v₁ ∈ Icc (1 / 2 : ℝ) 2) :

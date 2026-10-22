@@ -5,10 +5,12 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
 Chen–Gupta–Li's Proposition 7.1: "We have |I′_{m⃗}| ≪_ϵ (N³/q³) ∫_{|m₁v₁+m₂v₂+m₃|≤(qT)^ϵq/N, v₁,v₂∈[1/2,2]}
 Σ_{b₁ mod q, (b₁,q)=1} Σ_{b₂ mod q, (b₂,q)=1} |R(v₁,b₁)R(v₂/v₁, b₁⁻¹b₂)R(1/v₂, b₂⁻¹)| · (b₁m₁+b₂m₂+m₃, q) dv₁dv₂
-+ O_ϵ((qT)^{−200})" (text layer lines 2041–2066; spaces restored and the display transcribed). The absolute-value
-bars are large delimiters that the text layer drops; they are restored from the PDF (page 23, `CMEX10` glyphs at
-x = 337.6 and x = 516.7). Their proof inserts the two bounds of round 653 into their (7.3), round 652's `Ip_eq`, and
-applies the triangle inequality. This file does that with explicit constants.
++ O_ϵ((qT)^{−200})" (text layer lines 2041–2066; spaces restored and the display transcribed). The absolute-value bars
+are large delimiters, which the text layer encodes as four form-feed characters each, invisible in a listing (lines 2054
+and 2065); their positions are read from the PDF (page 23, `CMEX10` glyphs at x = 337.6 and x = 516.7 in the rows
+y = 508.1–529.6, the display's first line; `scratchpad/r661/probe/p23_460_545.txt`). Their proof inserts the two bounds
+of round 653 into their (7.3), round 652's `Ip_eq`, and applies the triangle inequality. This file does that with
+explicit constants.
 
 Plain statement (`prop71`). For `q ≥ 1`, `N > 0`, `X > 0`, every `K`, points `t_i` and characters `χ_i` modulo `q`
 (`i ∈ R`) and integers `m₁, m₂, m₃`,
@@ -137,7 +139,7 @@ lemma CJ_spec (K : ℕ) {v₁ v₂ : ℝ} (h1 : |v₁| ≤ 2) (h2 : |v₂| ≤ 2
 
 /-! ### Their Proposition 7.1 -/
 
-/-- **The integrand of their (7.3), bounded**: on `[1/2, 2]²`,
+/-- **The integrand of their (7.3), bounded**: for `N > 0`, `X > 0` and any `K`, on `[1/2, 2]²`,
 `|Ψ| ≤ C₀d(q)W·[|m₁v₁ + m₂v₂ + m₃| ≤ Xq/N] + C_K(2πX)^{−K}φ(q)³|R|³`. -/
 lemma norm_Psi_le {ι : Type*} {q : ℕ} [NeZero q] {N : ℝ} (hN : 0 < N) (R : Finset ι)
     (χ : ι → DirichletCharacter ℂ q) (t : ι → ℝ) (m₁ m₂ m₃ : ℤ) {X : ℝ} (hX : 0 < X) (K : ℕ) {v₁ v₂ : ℝ}

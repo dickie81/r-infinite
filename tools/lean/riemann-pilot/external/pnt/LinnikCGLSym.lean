@@ -5,14 +5,13 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
 This file supplies two inputs of Chen–Gupta–Li's proof of Proposition 7.2.
 
-The support. Their Cauchy–Schwarz step bounds an integral over `v₂` of `|R(v₂/v₁, b₁⁻¹b₂)|²` by their
-"R̃_{M₂}(u,a) := (∫_{u′∈[1/2,2]} (NM₂/q) ψ̃((NM₂/q)(u−u′)) |R(u′,a)|² du′)^{1/2}" (their (7.5), text layer lines
-2246–2257; spaces restored, the integral's range, the fraction, the exponents and the subscripts transcribed). That
-integral runs over `u′ ∈ [1/2, 2]` only, so with `u′ = v₂/v₁` the step needs `v₂/v₁ ∈ [1/2, 2]`. Their Proposition
-7.1, as stated, integrates over `v₁, v₂ ∈ [1/2, 2]` without that constraint. The kernel supplies it:
+The support. Their Cauchy–Schwarz step bounds an integral over `v₂` of `|R(v₂/v₁, b₁⁻¹b₂)|²` by their "R̃_{M₂}(u,a) :=
+(∫_{u′∈[1/2,2]} (NM₂/q) ψ̃((NM₂/q)(u−u′)) |R(u′,a)|² du′)^{1/2}" (their (7.5), text layer lines 2246–2257; spaces
+restored, the tildes, the integral and its range, the large parentheses, the fractions, the exponents and the subscripts
+transcribed). That integral runs over `u′ ∈ [1/2, 2]` only, so with `u′ = v₂/v₁` the step needs `v₂/v₁ ∈ [1/2, 2]`.
+Their Proposition 7.1, as stated, integrates over `v₁, v₂ ∈ [1/2, 2]` without that constraint. The kernel supplies it:
 `J(v₁, v₂, λ) = 0` unless `v₂/v₁ ∈ (1/2, 2)`, since `u₁ = v₁u₃` and `u₂ = v₂u₃` lie in `(1, 2)` on the support of the
-weight (`Jk_eq_zero_of_ratio`). `prop71r` is round 654's `prop71` with the integrand restricted to
-`v₂/v₁ ∈ [1/2, 2]`.
+weight (`Jk_eq_zero_of_ratio`). `prop71r` is round 654's `prop71` with the integrand restricted to `v₂/v₁ ∈ [1/2, 2]`.
 
 The symmetry. "These symmetries allow us to reduce the estimation to the case |m₁| ≤ |m₃| ≤ |m₂| at the cost of a
 factor 6" (lines 2340–2341, spaces restored, the subscripts transcribed). This file takes only `|m₂|` largest, which
@@ -22,7 +21,7 @@ their proof of Proposition 7.2 uses for the length of the `v₂`-interval. That 
 
 Plain statements.
 * `Jk_eq_zero_of_ratio`: `J(v₁, v₂, λ) = 0` unless `v₂/v₁ ∈ (1/2, 2)`.
-* `Ip_le_of_bound`: if `|Ψ| ≤ c₀V + E` on `[1/2, 2]²` for a measurable `V ≥ 0` bounded there, then
+* `Ip_le_of_bound`: for `N > 0`, if `|Ψ| ≤ c₀V + E` on `[1/2, 2]²` for a measurable `V ≥ 0` bounded there, then
   `|I′(m⃗)| ≤ (N/q)³(c₀∫∫V + (9/4)E)`, the integrals over `[1/2, 2]`.
 * `prop71r`: round 654's bound with `W` replaced by `W·[v₂/v₁ ∈ [1/2, 2]]` (`Vr`).
 * `Ip_cyc`: `I′(m₁, m₂, m₃) = I′(m₂, m₃, m₁)`.
@@ -78,8 +77,8 @@ lemma Jk_eq_zero_of_ratio {v₁ v₂ : ℝ} (h : v₂ / v₁ ∉ Ioo (1 / 2 : �
 
 /-! ### Their Proposition 7.1 from any majorant -/
 
-/-- **Proposition 7.1's assembly**: a measurable majorant `c₀V + E` of `|Ψ|` on `[1/2, 2]²`, with `V ≥ 0` bounded
-there, gives `|I′(m⃗)| ≤ (N/q)³(c₀∫∫V + (9/4)E)`. -/
+/-- **Proposition 7.1's assembly**: for `N > 0`, a measurable majorant `c₀V + E` of `|Ψ|` on `[1/2, 2]²`, with `V ≥ 0`
+bounded there, gives `|I′(m⃗)| ≤ (N/q)³(c₀∫∫V + (9/4)E)`. -/
 theorem Ip_le_of_bound {ι : Type*} {q : ℕ} [NeZero q] {N : ℝ} (hN : 0 < N) (R : Finset ι)
     (χ : ι → DirichletCharacter ℂ q) (t : ι → ℝ) (m₁ m₂ m₃ : ℤ) (V : ℝ → ℝ → ℝ) {c₀ E M : ℝ}
     (hVm : Measurable fun p : ℝ × ℝ => V p.1 p.2) (hV0 : ∀ v₁ v₂, 0 ≤ V v₁ v₂)
@@ -145,8 +144,8 @@ def Vr {ι : Type*} {q : ℕ} [NeZero q] (N : ℝ) (R : Finset ι) (χ : ι → 
     (m₁ m₂ m₃ : ℤ) (X v₁ v₂ : ℝ) : ℝ :=
   if |m₁ * v₁ + m₂ * v₂ + m₃| ≤ X * q / N ∧ v₂ / v₁ ∈ Icc (1 / 2 : ℝ) 2 then Wm R χ t m₁ m₂ m₃ v₁ v₂ else 0
 
-/-- **Their Proposition 7.1 with the support of `J` in `v₂/v₁` kept**: as round 654's `prop71`, with the integrand
-restricted to `v₂/v₁ ∈ [1/2, 2]`. -/
+/-- **Their Proposition 7.1 with the support of `J` in `v₂/v₁` kept**: as round 654's `prop71` (for `N > 0`, `X > 0` and
+any `K`), with the integrand restricted to `v₂/v₁ ∈ [1/2, 2]`. -/
 theorem prop71r {ι : Type*} {q : ℕ} [NeZero q] {N : ℝ} (hN : 0 < N) (R : Finset ι)
     (χ : ι → DirichletCharacter ℂ q) (t : ι → ℝ) (m₁ m₂ m₃ : ℤ) {X : ℝ} (hX : 0 < X) (K : ℕ) :
     ‖Ip N R χ t m₁ m₂ m₃‖ ≤ (N / q) ^ 3 * (CJ 0 * q.divisors.card *

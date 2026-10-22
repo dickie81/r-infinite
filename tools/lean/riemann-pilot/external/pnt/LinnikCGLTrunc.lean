@@ -11,10 +11,11 @@ expands the truncated cubic trace as `Σ_{0<|m_i|≤M}I′(m⃗)`, with an expli
 
 The tail. For `|m| > M ≥ 1` and `K ≥ 2`, round 645's Lemma 4.3 (1) at `K` gives
 `|(N/q)ĥ_τ(Nm/q)| ≤ (N/q)CF(K)ρ^K|m|^{−K} ≤ (N/q)CF(K)ρ^K M^{2−K}|m|^{−2}`, with `ρ = q(1 + |τ|)/(2πN)`. Summed over
-`|m| > M` and the `q` residues (`|χ_i(a)conj(χ_k(a))| ≤ 1`), `|F(i, k) − F_M(i, k)| ≤ N·CF(K)ρ^K M^{2−K}Z₂`, with
-round 649's `Z₂ = Σ_{m∈ℤ}|m|^{−2}`. With `|F(i, k)| = |E(i, k)| ≤ |G(i, k)| + μ₀ ≤ 2N + 1`, each product of three
-entries moves by at most `3τ_M(2N + 1 + τ_M)²`. Taking `M` near their `(qT)^ϵqT/N` makes `ρ/M` a negative power of
-`qT`, and a large `K` then makes the error negligible; the choice is left to the assembly.
+`|m| > M` and the `q` residues (`|χ_i(a)conj(χ_k(a))| ≤ 1`), `|F(i, k) − F_M(i, k)| ≤ N·CF(K)ρ^K M^{2−K}Z₂`, with round
+649's `Z₂ = Σ_{m≠0}|m|^{−2}`. With `|F(i, k)| = |E′(i, k)| ≤ |G(i, k)| + μ₀ ≤ 2N + 1`, for round 648's
+`E′(i, k) = G(i, k) − δ_{ik}μ₀`, each product of three entries moves by at most `3τ_M(2N + 1 + τ_M)²`. Taking `M` near
+their `(qT)^ϵqT/N` makes `ρ/M` a negative power of `qT`, and a large `K` then makes the error negligible; the choice is
+left to the assembly.
 
 Plain statement (`S3_trunc`). For `q ≥ 1`, `N > 0`, `χ` injective on `R`, points `|t_i| ≤ T`, `M ≥ 1` and `K ≥ 2`,
 `|S₃ − (Re Σ_{0<|m₁|,|m₂|,|m₃|≤M}I′(m⃗) − |R|(μ − μ₀)³)| ≤ 3|R|³τ_M(2N + 1 + τ_M)²`, where
@@ -109,7 +110,7 @@ lemma norm_coef_le {q : ℕ} (χ ψ : DirichletCharacter ℂ q) (a : ℕ) : ‖�
   rw [norm_mul, norm_star]
   exact mul_le_one_of (DirichletCharacter.norm_le_one χ _) (norm_nonneg _) (DirichletCharacter.norm_le_one ψ _)
 
-/-- **A term beyond `M`**: for `|m| > M ≥ 1` and `K ≥ 2`,
+/-- **A term beyond `M`**: for `N > 0`, `|m| > M ≥ 1` and `K ≥ 2`,
 `‖(N/q)ĥ_τ(Nm/q)e^{2πima/q}‖ ≤ (N/q)CF(K)ρ^K M^{2−K}|m|^{−2}`, with `ρ = q(1 + |τ|)/(2πN)` (round 645's `lemma43`). -/
 lemma norm_tail_term_le (τ : ℝ) {N : ℝ} (hN : 0 < N) {q : ℕ} (hq : 0 < q) {M K : ℕ} (hM : 1 ≤ M) (hK : 2 ≤ K)
     {m : ℤ} (hm : (M : ℤ) < |m|) (a : ℕ) :
@@ -179,8 +180,8 @@ lemma not_mem_boxM {M : ℕ} {m : ℤ} (h : ¬(m = 0 ∨ m ∈ boxM M)) : (M : �
   · exact h (Or.inl h0)
   · exact h (Or.inr ⟨h0, hc⟩)
 
-/-- **The tail beyond `M`**: for `M ≥ 1` and `K ≥ 2`,
-`‖F(i, k) − F_M(i, k)‖ ≤ N·CF(K)ρ^K M^{2−K}Z₂` with `ρ = q(1 + |t_i − t_k|)/(2πN)`. -/
+/-- **The tail beyond `M`**: for `N > 0`, `M ≥ 1` and `K ≥ 2`, `‖F(i, k) − F_M(i, k)‖ ≤ N·CF(K)ρ^K M^{2−K}Z₂` with
+`ρ = q(1 + |t_i − t_k|)/(2πN)`. -/
 theorem norm_Fm_sub_FmT_le {ι : Type*} {q : ℕ} [NeZero q] {N : ℝ} (hN : 0 < N) (χ : ι → DirichletCharacter ℂ q)
     (t : ι → ℝ) (i k : ι) {M K : ℕ} (hM : 1 ≤ M) (hK : 2 ≤ K) :
     ‖Fm N χ t i k - FmT M N χ t i k‖ ≤
@@ -250,7 +251,8 @@ lemma norm_gramP_le {ι : Type*} {q : ℕ} {N : ℝ} (hN : 0 < N) (χ : ι → D
     _ = (colsP N).card := by simp
     _ ≤ N + 1 := card_colsP_le hN.le
 
-/-- `‖F(i, k)‖ ≤ 2N + 1` for `i, k ∈ R` and `χ` injective on `R` (`|F| = |E| ≤ |G| + μ₀`). -/
+/-- `‖F(i, k)‖ ≤ 2N + 1` for `N > 0`, `i, k ∈ R` and `χ` injective on `R` (`|F| = |E′| ≤ |G| + μ₀`, with round 648's
+`E′ = G − δμ₀`). -/
 lemma norm_Fm_le {ι : Type*} [DecidableEq ι] {q : ℕ} [NeZero q] {N : ℝ} (hN : 0 < N) {R : Finset ι}
     {χ : ι → DirichletCharacter ℂ q} (hinj : Set.InjOn χ R) (t : ι → ℝ) {i k : ι} (hi : i ∈ R) (hk : k ∈ R) :
     ‖Fm N χ t i k‖ ≤ 2 * N + 1 := by
@@ -299,8 +301,8 @@ lemma norm_cube_sub_le {x₁ x₂ x₃ y₁ y₂ y₃ : ℂ} {A τ : ℝ} (h1 : 
 def tauM (N : ℝ) (q : ℕ) (T : ℝ) (M K : ℕ) : ℝ :=
   N * CF K * (q * (1 + 2 * T) / (2 * π * N)) ^ K / (M : ℝ) ^ (K - 2) * Z2
 
-/-- **Their (7.1) at one point per character, before the triangle inequality**: for `M ≥ 1`, `K ≥ 2` and points
-`|t_i| ≤ T`, `|S₃ − (Re Σ_{0<|m_i|≤M}I′(m⃗) − |R|(μ − μ₀)³)| ≤ 3|R|³τ_M(2N + 1 + τ_M)²`. -/
+/-- **Their (7.1) at one point per character, before the triangle inequality**: for `N > 0`, `χ` injective on `R`,
+`M ≥ 1`, `K ≥ 2` and points `|t_i| ≤ T`, `|S₃ − (Re Σ_{0<|m_i|≤M}I′(m⃗) − |R|(μ − μ₀)³)| ≤ 3|R|³τ_M(2N + 1 + τ_M)²`. -/
 theorem S3_trunc {ι : Type*} [DecidableEq ι] {q : ℕ} [NeZero q] {N : ℝ} (hN : 0 < N) {R : Finset ι}
     {χ : ι → DirichletCharacter ℂ q} (hinj : Set.InjOn χ R) (t : ι → ℝ) {T : ℝ} (ht : ∀ i ∈ R, |t i| ≤ T)
     {M K : ℕ} (hM : 1 ≤ M) (hK : 2 ≤ K) :

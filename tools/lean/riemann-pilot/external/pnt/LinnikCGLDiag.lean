@@ -8,16 +8,17 @@ the terms when (t₁,χ₁) = (t₂,χ₂) = (t₃,χ₃)", which cost their `Z�
 `C_q(m) = Σ_{a mod q, (a,q)=1}e_q(am)`. Then: "Fortunately, the condition m ≠ 0 makes this term small. By Lemma
 4.3(1), for m ≠ 0, |ĥ₀(Nm/q)| ≪ q/(N|m|). On the other hand, the arithmetic sum is the Ramanujan sum C_q(m) and
 |C_q(m)| ≤ (m,q)." (text layer lines 1992 and 2014–2017; spaces restored, the fraction and subscripts transcribed).
-At one point per character the dropped terms are the diagonal ones, `F(i, i)³` with `F(i, i) = μ − μ₀` (`Fm_diag`):
-the Gram diagonal `μ = Σ_{n∈colsP N, (n,q)=1}w(n/N)²` (round 638's `muP`) against its main term `μ₀ = (φ(q)/q)N∫w²`
-(round 639's `mu0`). This file bounds `|μ − μ₀|` by Möbius inversion over the divisors of `q` instead of Ramanujan
-sums: `μ − μ₀ = Σ_{d|q}μ(d)(Σ_{n∈colsP N, d|n}w(n/N)² − (N/d)∫w²)`, and each bracket is at most a constant `B`. For
-`d ≤ N` the bracket is `Σ_{m≠0}(N/d)ĥ₀(Nm/d)` by round 646's Poisson summation along the multiples of `d`, at most
-`A₂Z₂d/N` by round 645's Lemma 4.3 (1) at `K = 2`; for `d > N` at most one multiple of `d` lies in `(N, 2N)`, outside
-which `w(n/N) = 0`.
+At one point per character the dropped terms are the diagonal ones, `F(i, i)³` with `F(i, i) = μ − μ₀` (`Fm_diag`);
+their sum `|R|(μ − μ₀)³` is their `Z′` before the truncation in `m`, which round 650 applies afterwards. Here the Gram
+diagonal is `μ = Σ_{n∈colsP N, (n,q)=1}w(n/N)²` (round 638's `muP`) and its main term is `μ₀ = (φ(q)/q)N∫w²` (round
+639's `mu0`). This file bounds `|μ − μ₀|` by Möbius inversion over the divisors of `q` instead of Ramanujan sums:
+`μ − μ₀ = Σ_{d|q}μ(d)(Σ_{n∈colsP N, d|n}w(n/N)² − (N/d)∫w²)`, and each bracket is at most a constant `B`. For `d ≤ N`
+the bracket is `Σ_{m≠0}(N/d)ĥ₀(Nm/d)` by round 646's Poisson summation along the multiples of `d`, at most `A₂Z₂d/N` by
+round 645's Lemma 4.3 (1) at `K = 2`; for `d > N` at most one multiple of `d` lies in `(N, 2N)`, outside which
+`w(n/N) = 0`.
 
 Plain statement (`muP_sub_mu0_le`). For `q ≥ 1` and `N > 0`, `|μ − μ₀| ≤ d(q)B`, with `B = max(2, A₂Z₂)`,
-`A₂ = CF(2)/(4π²)` and `Z₂ = Σ_{m∈ℤ}|m|^{−2}`; so `|μ − μ₀| ≤ C_δBq^δ` for `0 < δ ≤ 1` (`muP_sub_mu0_le_rpow`).
+`A₂ = CF(2)/(4π²)` and `Z₂ = Σ_{m≠0}|m|^{−2}`; so `|μ − μ₀| ≤ C_δBq^δ` for `0 < δ ≤ 1` (`muP_sub_mu0_le_rpow`).
 
 Plain statement (`S3_eq_all`). For `q ≥ 1`, `N > 0` and `χ` injective on `R`,
 `S₃ = Re Σ_{i,j,k∈R}F(i, j)F(j, k)F(k, i) − |R|(μ − μ₀)³`, the sum now over all triples.
@@ -107,8 +108,8 @@ lemma totient_div_eq {q : ℕ} (hq : q ≠ 0) :
 lemma Wt_zero_apply (u : ℝ) : Wt 0 u = ((wCGL u ^ 2 : ℝ) : ℂ) := by
   unfold Wt Wc wsq; simp
 
-/-- **The multiples of `d` by Poisson summation**: `Σ_{n∈colsP N, d|n} w(n/N)² = Σ_{m∈ℤ}(N/d)ĥ₀(Nm/d)`, with
-`h₀ = w²`. -/
+/-- **The multiples of `d` by Poisson summation**: for `N > 0` and `d ≥ 1`,
+`Σ_{n∈colsP N, d|n} w(n/N)² = Σ_{m∈ℤ}(N/d)ĥ₀(Nm/d)`, with `h₀ = w²`. -/
 lemma sum_multiples_eq {N : ℝ} (hN : 0 < N) {d : ℕ} (hd : 0 < d) :
     ((∑ n ∈ (colsP N).filter (fun n => d ∣ n), wCGL (n / N) ^ 2 : ℝ) : ℂ) =
       ∑' m : ℤ, ((N / d : ℝ) : ℂ) * 𝓕 (Wt 0) (N * m / d) := by
@@ -131,8 +132,8 @@ lemma sum_multiples_eq {N : ℝ} (hN : 0 < N) {d : ℕ} (hd : 0 < d) :
   rw [Wt_zero_apply]
   split_ifs <;> simp
 
-/-- `‖(N/d)ĥ_τ(Nm/d)‖ ≤ (C_τd/N)|m|^{−2}` for `m ≠ 0`, with `C_τ = CF(2)(1 + |τ|)²/(4π²)` (round 645's `lemma43` at
-`K = 2`). -/
+/-- For `N > 0` and `d ≥ 1`, `‖(N/d)ĥ_τ(Nm/d)‖ ≤ (C_τd/N)|m|^{−2}` for `m ≠ 0`, with `C_τ = CF(2)(1 + |τ|)²/(4π²)`
+(round 645's `lemma43` at `K = 2`). -/
 lemma norm_term_le (τ : ℝ) {N : ℝ} (hN : 0 < N) {d : ℕ} (hd : 0 < d) {m : ℤ} (hm : m ≠ 0) :
     ‖((N / d : ℝ) : ℂ) * 𝓕 (Wt τ) (N * m / d)‖ ≤
       CF 2 * (1 + |τ|) ^ 2 / (4 * π ^ 2) * d / N * |(m : ℝ)| ^ (-(2 : ℝ)) := by
@@ -154,7 +155,7 @@ lemma norm_term_le (τ : ℝ) {N : ℝ} (hN : 0 < N) {d : ℕ} (hd : 0 < d) {m :
   calc N / d * ‖𝓕 (Wt τ) (N * m / d)‖ ≤ N / d * (C / (N * m / d) ^ 2) := by gcongr
     _ = C * d / N * ((m : ℝ) ^ 2)⁻¹ := by field_simp
 
-/-- `Z₂ = Σ_{m∈ℤ}|m|^{−2}` (its term `m = 0` is `0`). -/
+/-- `Z₂ = Σ_{m≠0}|m|^{−2}`, written as a sum over `ℤ` whose term `m = 0` is `0`. -/
 def Z2 : ℝ := ∑' m : ℤ, |(m : ℝ)| ^ (-(2 : ℝ))
 
 lemma Z2_nonneg : 0 ≤ Z2 := tsum_nonneg fun _ => Real.rpow_nonneg (abs_nonneg _) _
@@ -164,7 +165,7 @@ def Bw : ℝ := max 2 (CF 2 / (4 * π ^ 2) * Z2)
 
 lemma two_le_Bw : 2 ≤ Bw := le_max_left _ _
 
-/-- At most one multiple of `d ≥ N` lies in `(N, 2N)`, so `Σ_{n∈colsP N, d|n} w(n/N)² ≤ 1`. -/
+/-- For `N > 0`, at most one multiple of `d > N` lies in `(N, 2N)`, so `Σ_{n∈colsP N, d|n} w(n/N)² ≤ 1`. -/
 lemma sum_multiples_le_one {N : ℝ} (hN : 0 < N) {d : ℕ} (hdN : N < d) :
     ∑ n ∈ (colsP N).filter (fun n => d ∣ n), wCGL (n / N) ^ 2 ≤ 1 := by
   classical
@@ -206,9 +207,9 @@ lemma sum_multiples_le_one {N : ℝ} (hN : 0 < N) {d : ℕ} (hdN : N < d) :
     _ = T'.card := by simp
     _ ≤ 1 := by exact_mod_cast hcard
 
-/-- **The multiples of `d` against their integral**: `|Σ_{n∈colsP N, d|n} w(n/N)² − (N/d)∫w²| ≤ B`. For `d ≤ N` by
-Poisson summation: the difference is `Σ_{m≠0}(N/d)ĥ₀(Nm/d)`, at most `A₂Z₂d/N`. For `d > N` both terms lie in
-`[0, 1]`. -/
+/-- **The multiples of `d` against their integral**: for `N > 0` and `d ≥ 1`,
+`|Σ_{n∈colsP N, d|n} w(n/N)² − (N/d)∫w²| ≤ B`. For `d ≤ N` by Poisson summation: the difference is
+`Σ_{m≠0}(N/d)ĥ₀(Nm/d)`, at most `A₂Z₂d/N`. For `d > N` both terms lie in `[0, 1]`. -/
 lemma bracket_le {N : ℝ} (hN : 0 < N) {d : ℕ} (hd : 0 < d) :
     |∑ n ∈ (colsP N).filter (fun n => d ∣ n), wCGL (n / N) ^ 2 - N / d * ∫ u in (1 : ℝ)..2, wCGL u ^ 2| ≤
       Bw := by
@@ -289,7 +290,7 @@ theorem muP_sub_mu0_le {q : ℕ} (hq : q ≠ 0) {N : ℝ} (hN : 0 < N) :
           _ = Bw := one_mul _
     _ = q.divisors.card * Bw := by rw [Finset.sum_const, nsmul_eq_mul]
 
-/-- `|μ − μ₀| ≤ C_δBq^δ` for `0 < δ ≤ 1` (round 525's divisor bound). -/
+/-- For `q ≥ 1` and `N > 0`, `|μ − μ₀| ≤ C_δBq^δ` for `0 < δ ≤ 1` (round 525's divisor bound). -/
 theorem muP_sub_mu0_le_rpow {δ : ℝ} (hδ : 0 < δ) (hδ1 : δ ≤ 1) {q : ℕ} (hq : q ≠ 0) {N : ℝ} (hN : 0 < N) :
     |muP q N - mu0 q N| ≤ LinnikPower.Cdiv δ * Bw * (q : ℝ) ^ δ := by
   have h := muP_sub_mu0_le hq hN
@@ -299,7 +300,7 @@ theorem muP_sub_mu0_le_rpow {δ : ℝ} (hδ : 0 < δ) (hδ1 : δ ≤ 1) {q : ℕ
     _ ≤ LinnikPower.Cdiv δ * (q : ℝ) ^ δ * Bw := by gcongr
     _ = LinnikPower.Cdiv δ * Bw * (q : ℝ) ^ δ := by ring
 
-/-- **The diagonal terms**: `F(i, i) = μ − μ₀` for `i ∈ R` and `χ` injective on `R`. -/
+/-- **The diagonal terms**: `F(i, i) = μ − μ₀` for `N > 0`, `i ∈ R` and `χ` injective on `R`. -/
 lemma Fm_diag {ι : Type*} [DecidableEq ι] {q : ℕ} [NeZero q] {N : ℝ} (hN : 0 < N) {R : Finset ι}
     {χ : ι → DirichletCharacter ℂ q} (hinj : Set.InjOn χ R) (t : ι → ℝ) {i : ι} (hi : i ∈ R) :
     Fm N χ t i i = ((muP q N - mu0 q N : ℝ) : ℂ) := by
@@ -309,8 +310,8 @@ lemma Fm_diag {ι : Type*} [DecidableEq ι] {q : ℕ} [NeZero q] {N : ℝ} (hN :
   simp only [sub_self, Complex.ofReal_zero, zero_mul, Complex.cpow_zero, one_mul] at h
   rw [← h]; push_cast; ring
 
-/-- **The condition "not all equal" removed** (their `Z′`, at one point per character):
-`S₃ = Re Σ_{i,j,k∈R} F(i, j)F(j, k)F(k, i) − |R|(μ − μ₀)³`. -/
+/-- **The condition "not all equal" removed** (their `Z′` before the truncation in `m`, at one point per character): for
+`N > 0` and `χ` injective on `R`, `S₃ = Re Σ_{i,j,k∈R} F(i, j)F(j, k)F(k, i) − |R|(μ − μ₀)³`. -/
 theorem S3_eq_all {ι : Type*} [DecidableEq ι] {q : ℕ} [NeZero q] {N : ℝ} (hN : 0 < N) {R : Finset ι}
     {χ : ι → DirichletCharacter ℂ q} (hinj : Set.InjOn χ R) (t : ι → ℝ) :
     S3 q N R χ t = (∑ i ∈ R, ∑ j ∈ R, ∑ k ∈ R, Fm N χ t i j * Fm N χ t j k * Fm N χ t k i).re -

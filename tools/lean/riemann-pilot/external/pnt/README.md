@@ -178,7 +178,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLP71.lean` | 654 | Chen–Gupta–Li's Proposition 7.1 at one point per character (`prop71`): `\|I′(m⃗)\| ≤ (N/q)³(C₀d(q)∫∫W·[\|m₁v₁ + m₂v₂ + m₃\| ≤ Xq/N] + (9/4)C_K(2πX)^{−K}φ(q)³\|R\|³)` over `[1/2, 2]²`, from round 652's `Ip_eq`, the bound of the integrand (`norm_Psi_le`) and measurable majorants (`measurable_Wm`, `Wm_le`) |
 | `LinnikCGLSym.lean` | 655 | two inputs of Chen–Gupta–Li's Proposition 7.2: `J = 0` unless `v₂/v₁ ∈ (1/2, 2)` (`Jk_eq_zero_of_ratio`), so Proposition 7.1 holds with that constraint (`prop71r`, through `Ip_le_of_bound`, round 654's proof for any majorant); and `I′(m₁, m₂, m₃) = I′(m₂, m₃, m₁)` (`Ip_cyc`), so `Σ\|I′\| ≤ 3Σ\|I′\|[\|m₂\| largest]` (`sum_le_three_mul`) |
 | `LinnikCGLRt.lean` | 656 | the Cauchy–Schwarz step of Chen–Gupta–Li's Proposition 7.2: their `R̃` of (7.5) (`Rt`), `R(1/v, b⁻¹) = conj(R(v, b))` (`Rf_inv`), and for `\|m₂\| ≥ M₂ > 0` the inner `v₂` integral of round 655's `Vr` bounded by `2Σ_{b₁,b₂}(b₁m₁ + b₂m₂ + m₃, q)\|R(v₁, b₁)\|R̃R̃` (`Vr_inner_le`) |
-| `LinnikCGLP72.lean` | 657 | Chen–Gupta–Li's Proposition 7.2: their `Ĩ` (`It`); for `\|m₂\| ≥ M₂ > 0`, `\|I′(m⃗)\| ≤ 2C_J(0)d(q)(N²/(q²M₂))Ĩ_{M₂}(m₁, −m₂, m₃) + E` (`Ip_le_It`); and `S₃` bounded by the sum over the dyadic scales of `m₂` of these terms, with `\|m₁\|, \|m₃\| ≤ \|m₂\|`, plus three explicit errors (`prop72`) |
+| `LinnikCGLP72.lean` | 657 | Chen–Gupta–Li's Proposition 7.2: their `Ĩ` (`It`); ~~for `\|m₂\| ≥ M₂ > 0`~~ *(Round 661: retracted, false when written: the lemma also assumes `N > 0` and `X > 0`, and for `N < 0` the right side is negative; review of rounds 652–657, F1, a sibling.)* for `N > 0`, `X > 0` and `\|m₂\| ≥ M₂ > 0`, `\|I′(m⃗)\| ≤ 2C_J(0)d(q)(N²/(q²M₂))Ĩ_{M₂}(m₁, −m₂, m₃) + E` (`Ip_le_It`); and `S₃` bounded by the sum over the dyadic scales of `m₂` of these terms, with `\|m₁\|, \|m₃\| ≤ \|m₂\|`, plus three explicit errors (`prop72`) |
 | `LinnikCGLMom.lean` | 658 | Chen–Gupta–Li's Lemma 9.1 at one point per character, as identities: `Σ_{a unit}\|R(v, a)\|² = φ(q)\|R\|` for `v > 0` (`sum_norm_Rf_sq`), its integral over `[1/2, 2]` (`lemma91`), and `∫_ℝΣ_aR̃_{M₂}(v, a)² dv = 2X∫ψ̃₀·(3/2)φ(q)\|R\|` by Fubini (`lemma91_Rt`) |
 | `LinnikCGLMom4.lean` | 659 | Chen–Gupta–Li's Lemma 9.2 at one point per character: the energy `E` (`energy`), `∫_{[1/2,2]}Σ_a\|R(v, a)\|⁴ dv ≤ 2φ(q)X(∫ψ̃₀·E + \|R\|⁴D_K/X^K)` for `X ≥ 1` (`lemma92`), and the same for `R̃` over `ℝ` with the factor `(2X∫ψ̃₀)²` (`lemma92_Rt`) |
 | `LinnikCGLCS.lean` | 660 | the two Cauchy–Schwarz steps of Chen–Gupta–Li's §11 on each dyadic block `B` of Proposition 7.2: `(Σ_{m⃗∈B}Ĩ(m⃗))² ≤ S₃,₁S₃,₂` (`sum_It_sq_le`) and `S₃,₂ ≤ √S₃,₃·√S₃,₄`, their (11.1) (`S32_le`) |
@@ -782,18 +782,22 @@ Round 646 expands each Gram entry by Poisson summation in residue classes, the m
 
 See the main README, round 646, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 553 lines.
 
+## Chen–Gupta–Li's `S₃` at one point per character: LinnikCGLTrace.lean (round 648)
+
 Round 648 proves that round 639's `S3 = X − 3μ₀‖E‖_F²` is Chen–Gupta–Li's `S₃`, the terms of the Poisson expansion of the cubic trace whose three frequencies are nonzero, at one point per character: for `q ≥ 1`, `N > 0` and `χ` injective on `R`, `S₃ = Re Σ F(i, j)F(j, k)F(k, i)` over the triples of points that are not all equal, with `F(i, k) = Σ_{a<q}χ_i(a)conj(χ_k(a))Σ_{m≠0}(N/q)ĥ_{t_i−t_k}(Nm/q)e^{2πima/q}` (`S3_eq_Fm`).
 
-- `triple_shift`, `triple_sum_split`, `S3_eq_cube`: for any `q`, `N` and points, `S₃ = Re Σ E(i, j)E(j, k)E(k, i)` over the triples that are not all equal, `E(i, k) = G(i, k) − δ_{ik}μ₀`: a triple with exactly two equal points carries `μ₀|G(i, k)|²` in one of three positions (round 639's `gramP_swap`).
+- `triple_shift`, `triple_sum_split`, `S3_eq_cube`: for any `q`, `N` and points, `S₃ = Re Σ E′(i, j)E′(j, k)E′(k, i)` over the triples that are not all equal, `E′(i, k) = G(i, k) − δ_{ik}μ₀` *(round 661: `E′` for this round's `E`, since round 639's `E` is the off-diagonal part of `G`; review of rounds 645–651, F1)*: a triple with exactly two equal points carries `μ₀|G(i, k)|²` in one of three positions (round 639's `gramP_swap`).
 - `sum_range_mul_star_eq_zero`, `sum_range_mul_star_self`: `Σ_{a<q}χ(a)conj(ψ(a)) = 0` for `χ ≠ ψ` (Mathlib's `MulChar.sum_eq_zero_of_ne_one` over `ZMod q`) and `Σ_{a<q}|χ(a)|² = φ(q)` (`Nat.totient_eq_card_coprime`).
 - `fourier_Wt_zero`: `ĥ₀(0) = ∫_1^2 w²`.
 - `summable_poisson`: the terms of each residue class's Poisson series are summable, `O(m^{−2})` by round 645's `lemma43` at `K = 2`.
-- `Fm`, `Em_eq`: for `i, k ∈ R`, `E(i, k) = N^{i(t_i−t_k)}F(i, k)`; the term `m = 0` of `gram_poisson` vanishes for `i ≠ k` and is `μ₀` for `i = k` (Mathlib's `Summable.tsum_eq_add_tsum_ite`).
+- `Fm`, `Em_eq`: for `i, k ∈ R`, `E′(i, k) = N^{i(t_i−t_k)}F(i, k)` *(round 661: `E′`, as above)*; the term `m = 0` of `gram_poisson` vanishes for `i ≠ k` and is `μ₀` for `i = k` (Mathlib's `Summable.tsum_eq_add_tsum_ite`).
 - `S3_eq_Fm`: the two together; the phases `N^{iτ}` cancel around a triple.
 
 See the main README, round 648, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 556 lines.
 
-Round 649 bounds the Gram diagonal `μ = Σ_{n∈colsP N, (n,q)=1}w(n/N)²` against its main term `μ₀ = (φ(q)/q)N∫w²`: for `q ≥ 1` and `N > 0`, `|μ − μ₀| ≤ d(q)B` with `B = max(2, A₂Z₂)`, `A₂ = CF(2)/(4π²)` and `Z₂ = Σ_{m∈ℤ}|m|^{−2}` (`muP_sub_mu0_le`). At one point per character `F(i, i) = μ − μ₀`, so dropping the condition "not all equal" costs `|R|(μ − μ₀)³`: `S₃ = Re Σ_{i,j,k∈R}F(i, j)F(j, k)F(k, i) − |R|(μ − μ₀)³` (`S3_eq_all`).
+## The Gram diagonal against its main term: LinnikCGLDiag.lean (round 649)
+
+Round 649 bounds the Gram diagonal `μ = Σ_{n∈colsP N, (n,q)=1}w(n/N)²` against its main term `μ₀ = (φ(q)/q)N∫w²`: for `q ≥ 1` and `N > 0`, `|μ − μ₀| ≤ d(q)B` with `B = max(2, A₂Z₂)`, `A₂ = CF(2)/(4π²)` and ~~`Z₂ = Σ_{m∈ℤ}|m|^{−2}`~~ *(Round 661: retracted, false when written: as written its term `m = 0` is infinite; review of rounds 645–651, F8.)* `Z₂ = Σ_{m≠0}|m|^{−2}` (`muP_sub_mu0_le`). At one point per character `F(i, i) = μ − μ₀`, so dropping the condition "not all equal" costs `|R|(μ − μ₀)³`: `S₃ = Re Σ_{i,j,k∈R}F(i, j)F(j, k)F(k, i) − |R|(μ − μ₀)³` (`S3_eq_all`).
 
 - `sum_divisors_moebius`, `sum_coprime_eq`: `Σ_{d|n}μ(d) = [n = 1]` (Mathlib's `coe_moebius_mul_coe_zeta`) and `Σ_{n∈S, (n,q)=1}f(n) = Σ_{d|q}μ(d)Σ_{n∈S, d|n}f(n)`.
 - `totient_div_eq`: `φ(q)/q = Σ_{d|q}μ(d)/d` (Mathlib's `sum_eq_iff_sum_mul_moebius_eq` with `Nat.sum_totient`).
@@ -804,6 +808,8 @@ Round 649 bounds the Gram diagonal `μ = Σ_{n∈colsP N, (n,q)=1}w(n/N)²` agai
 
 See the main README, round 649, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 559 lines.
 
+## The truncation in `m`, and their `I′`: LinnikCGLTrunc.lean (round 650)
+
 Round 650 truncates the frequencies: for `q ≥ 1`, `N > 0`, `χ` injective on `R`, points `|t_i| ≤ T`, `M ≥ 1` and `K ≥ 2`, `|S₃ − (Re Σ_{0<|m₁|,|m₂|,|m₃|≤M}I′(m⃗) − |R|(μ − μ₀)³)| ≤ 3|R|³τ_M(2N + 1 + τ_M)²` (`S3_trunc`), where `I′(m⃗) = Σ_{i,j,k∈R}φ_{ij}(m₁)φ_{jk}(m₂)φ_{ki}(m₃)` is Chen–Gupta–Li's `I′_{m⃗}` at one point per character and `τ_M = N·CF(K)(q(1 + 2T)/(2πN))^K M^{2−K}Z₂`.
 
 - `phi`, `boxM`, `FmT`, `Ip`, `swap13`, `sum_FmT_cube`: the terms `φ_{ik}(m)`, the truncated entries `F_M(i, k) = Σ_{0<|m|≤M}φ_{ik}(m)`, and `Σ_{i,j,k}F_M(i, j)F_M(j, k)F_M(k, i) = Σ_{0<|m_i|≤M}I′(m⃗)`.
@@ -813,6 +819,8 @@ Round 650 truncates the frequencies: for `q ≥ 1`, `N > 0`, `χ` injective on `
 
 See the main README, round 650, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 562 lines.
 
+## A product of three `ĥ`s as an integral: LinnikCGLProd.lean (round 651)
+
 Round 651 proves the change of variables of Chen–Gupta–Li's proof of Proposition 7.1, for one triple of points: for `τ₁ + τ₂ + τ₃ = 0` and real `ξ₁, ξ₂, ξ₃`, `ĥ_{τ₁}(ξ₁)ĥ_{τ₂}(ξ₂)ĥ_{τ₃}(ξ₃) = ∫∫v₁^{iτ₁}v₂^{iτ₂}J(v₁, v₂, v₁ξ₁ + v₂ξ₂ + ξ₃) dv₂ dv₁` (`hhat_prod`), where `J(v₁, v₂, λ) = ∫e^{−2πiλu}u²w(v₁u)²w(v₂u)²w(u)² du` is the inner integral of their (7.3) and `h_τ(u) = w(u)²u^{iτ}`.
 
 - `ee`, `ee_add`, `continuous_ee`, `norm_ee`, `fourier_eq`, `Wt_apply`, `one_lt_of_wCGL_ne`, `gv`, `Jk`: the phase `e^{−2πix}`, Mathlib's Fourier transform as `∫e^{−2πiuξ}f(u) du` (`Real.fourier_real_eq_integral_exp_smul`), and the kernel `J`.
@@ -821,6 +829,8 @@ Round 651 proves the change of variables of Chen–Gupta–Li's proof of Proposi
 - `Phi_eq`, `hhat_prod`: where `Φ ≠ 0`, `(v₁u₃)^{iτ₁}(v₂u₃)^{iτ₂}u₃^{iτ₃} = v₁^{iτ₁}v₂^{iτ₂}`, since `τ₁ + τ₂ + τ₃ = 0` (Mathlib's `Complex.mul_cpow_ofReal_nonneg`).
 
 See the main README, round 651, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 565 lines.
+
+## Their (7.3): LinnikCGLRFact.lean (round 652)
 
 Round 652 proves Chen–Gupta–Li's (7.3) at one point per character: for `q ≥ 1`, real `N`, points `t_i` and characters `χ_i` modulo `q` (`i ∈ R`) and integers `m₁, m₂, m₃`, `I′(m₁, m₂, m₃) = (N/q)³∫∫Ψ(v₁, v₂) dv₂ dv₁` (`Ip_eq`). Here `Ψ(v₁, v₂) = J(v₁, v₂, λ)Σ_{b₁,b₂}C_q(b₁m₁ + b₂m₂ + m₃)R(v₁, b₁)R(v₂/v₁, b₂b₁⁻¹)R(1/v₂, b₂⁻¹)`, with `λ = (N/q)(m₁v₁ + m₂v₂ + m₃)`, `b₁, b₂` over the units modulo `q`, their `R(v, a) = Σ_{i∈R}v^{it_i}χ_i(a)`, the Ramanujan sum `C_q(n) = Σ_{a∈(ℤ/qℤ)ˣ}e(an/q)` and round 651's kernel `J`.
 
@@ -833,6 +843,8 @@ Round 652 proves Chen–Gupta–Li's (7.3) at one point per character: for `q �
 
 See the main README, round 652, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 568 lines.
 
+## The Ramanujan sum's bound and the decay of `J`: LinnikCGLRam.lean (round 653)
+
 Round 653 proves the two inputs that Chen–Gupta–Li's proof of Proposition 7.1 inserts into their (7.3). The first is `|C_q(n)| ≤ d(q)(n, q)` for `q ≥ 1` and `n ∈ ℤ/qℤ` (`norm_Cq_le`); theirs is `(n, q)`, and the extra `d(q)` is absorbed by the `(qTN)^ε` of `CGLS3`. The second is the decay of round 651's kernel: for every `K` there is `C_K` with `(2π|λ|)^K|J(v₁, v₂, λ)| ≤ C_K` for all real `λ` and `|v₁|, |v₂| ≤ 2` (`Jk_decay`). Also `J(v₁, v₂, λ) = 0` unless `v₁, v₂ ∈ (1/2, 2)` (`Jk_eq_zero_of`).
 
 - `sum_divisors_moebius_C`, `sum_coprime_eq_C`: round 649's Möbius sums over the divisors of `q`, in `ℂ`.
@@ -844,6 +856,8 @@ Round 653 proves the two inputs that Chen–Gupta–Li's proof of Proposition 7.
 
 See the main README, round 653, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 571 lines.
 
+## Their Proposition 7.1: LinnikCGLP71.lean (round 654)
+
 Round 654 proves Chen–Gupta–Li's Proposition 7.1 at one point per character, with explicit constants: for `q ≥ 1`, `N > 0`, `X > 0` and every `K`, `|I′(m⃗)| ≤ (N/q)³(C₀d(q)∫∫W(v₁, v₂)[|m₁v₁ + m₂v₂ + m₃| ≤ Xq/N] dv₂ dv₁ + (9/4)C_K(2πX)^{−K}φ(q)³|R|³)` (`prop71`). The integrals run over `[1/2, 2]`, `W = Σ_{b₁,b₂}(b₁m₁ + b₂m₂ + m₃, q)|R(v₁, b₁)||R(v₂/v₁, b₂b₁⁻¹)||R(1/v₂, b₂⁻¹)|`, and `C_K` is the constant of round 653's `Jk_decay`.
 
 - `norm_Rf_le`, `norm_Cq_le_totient`: `|R(v, a)| ≤ |R|` for `v > 0`, and `|C_q(n)| ≤ φ(q)`.
@@ -854,6 +868,8 @@ Round 654 proves Chen–Gupta–Li's Proposition 7.1 at one point per character,
 
 See the main README, round 654, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 573 lines.
 
+## The support of `J` in `v₂/v₁`, and the cyclic symmetry of `I′`: LinnikCGLSym.lean (round 655)
+
 Round 655 proves two inputs of Chen–Gupta–Li's Proposition 7.2.
 
 - `Jk_eq_zero_of_ratio`: `J(v₁, v₂, λ) = 0` unless `v₂/v₁ ∈ (1/2, 2)`, since `v₁u` and `v₂u` lie in `(1, 2)` on the support of the weight.
@@ -862,23 +878,29 @@ Round 655 proves two inputs of Chen–Gupta–Li's Proposition 7.2.
 
 See the main README, round 655, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 576 lines.
 
+## Their `R̃` and the inner integral of Proposition 7.2: LinnikCGLRt.lean (round 656)
+
 Round 656 proves the Cauchy–Schwarz step of Chen–Gupta–Li's Proposition 7.2. Below, `L = NM₂/q`.
 
 - `psi0`, `Rt`: their bump `ψ̃₀`, here Mathlib's smooth bump with radii 1 and 2, and their `R̃_{M₂}(u, a)`, the square root of `∫_{[1/2,2]}Lψ̃₀(L(u − u′)/(2X))|R(u′, a)|² du′`.
 - `Rf_inv`: `R(1/v, b⁻¹) = conj(R(v, b))` for `v > 0` and a unit `b`.
-- `local_le_Rt_sq`, `ratio_le_Rt_sq`: `L∫_{|u−c|≤δ}|R(u, a)|² ≤ R̃(c, a)²` for `Lδ ≤ 2X`, and the same for `R(v₂/v₁, a)` with the factor `v₁` and the centre `c/v₁`.
-- `cs_Icc`, `inner_le`, `Vr_inner_le`: Cauchy–Schwarz on `[1/2, 2]`. For `|m₂| ≥ M₂ > 0` and `v₁ ∈ [1/2, 2]` it gives `L∫Vr(v₁, v₂) dv₂ ≤ 2Σ_{b₁,b₂}(b₁m₁ + b₂m₂ + m₃, q)|R(v₁, b₁)|R̃(c/v₁, b₂b₁⁻¹)R̃(c, b₂)` with `c = −(m₁v₁ + m₃)/m₂`.
+- `local_le_Rt_sq`, `ratio_le_Rt_sq`: ~~`L∫_{|u−c|≤δ}|R(u, a)|² ≤ R̃(c, a)²` for `Lδ ≤ 2X`, and the same for `R(v₂/v₁, a)` with the factor `v₁` and the centre `c/v₁`~~ *(Round 661: retracted, false when written: without the domain `[1/2, 2]` the left side can be positive where `R̃` vanishes, and the ratio form needs `L(δ/v₁) ≤ 2X`; review of rounds 652–657, F2.)* for `L > 0` and `Lδ ≤ 2X`, `L∫_{[1/2,2], |u−c|≤δ}|R(u, a)|² ≤ R̃(c, a)²`; and for `v₁ > 0` and `L(δ/v₁) ≤ 2X`, `L∫_{[1/2,2], |v₂−c|≤δ, v₂/v₁∈[1/2,2]}|R(v₂/v₁, a)|² ≤ v₁R̃(c/v₁, a)²`.
+- `cs_Icc`, `inner_le`, `Vr_inner_le`: Cauchy–Schwarz on `[1/2, 2]`. For `|m₂| ≥ M₂ > 0` and `v₁ ∈ [1/2, 2]` it gives *(round 661: the domain of the integral written out; review of rounds 652–657, F2)* `L∫_{[1/2,2]}Vr(v₁, v₂) dv₂ ≤ 2Σ_{b₁,b₂}(b₁m₁ + b₂m₂ + m₃, q)|R(v₁, b₁)|R̃(c/v₁, b₂b₁⁻¹)R̃(c, b₂)` with `c = −(m₁v₁ + m₃)/m₂`.
 
 See the main README, round 656, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 579 lines.
+
+## Their Proposition 7.2: LinnikCGLP72.lean (round 657)
 
 Round 657 proves Chen–Gupta–Li's Proposition 7.2 in the stack's explicit form.
 
 - `measurable_Rt`, `Rt_le`: `R̃_{M₂}(·, a)` is measurable and at most `√((3/2)NM₂/q)|R|`.
 - `Itg`, `It`, `Itg_neg`: their `Ĩ_{m⃗}`, and its integrand at `−m₂` as round 656's sum.
-- `Ip_le_It`: round 655's `prop71r`, with the inner integral bounded by round 656's `Vr_inner_le` and the outer one over `v₁ ∈ [1/2, 2]`: for `|m₂| ≥ M₂ > 0`, `|I′(m⃗)| ≤ 2C_J(0)d(q)(N²/(q²M₂))Ĩ_{M₂}(m₁, −m₂, m₃) + E`.
+- `Ip_le_It`: round 655's `prop71r`, with the inner integral bounded by round 656's `Vr_inner_le` and the outer one over `v₁ ∈ [1/2, 2]`: ~~for `|m₂| ≥ M₂ > 0`~~ *(Round 661: retracted, false when written: the lemma also assumes `N > 0` and `X > 0`, and for `N < 0` the right side is negative; review of rounds 652–657, F1, a sibling.)* for `N > 0`, `X > 0`, `|m₂| ≥ M₂ > 0` and any `K`, `|I′(m⃗)| ≤ 2C_J(0)d(q)(N²/(q²M₂))Ĩ_{M₂}(m₁, −m₂, m₃) + E`.
 - `sum_dyadic`, `sum_neg_m₂`, `sum_Ak_regroup`, `prop72`: with round 650's truncation and round 655's reduction to `|m₂|` largest, `S₃ ≤ 3Σ_{k≤log₂M}Σ_{⌊log₂|m₂|⌋=k, |m₁|,|m₃|≤|m₂|}2C_J(0)d(q)(N²/(q²2^k))Ĩ_{2^k}(m⃗) + 3(2M)³E + |R||μ − μ₀|³ + 3|R|³τ_M(2N + 1 + τ_M)²`, the sums over `0 < |m_i| ≤ M`.
 
 See the main README, round 657, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 582 lines.
+
+## Their Lemma 9.1: LinnikCGLMom.lean (round 658)
 
 Round 658 proves Chen–Gupta–Li's Lemma 9.1 at one point per character, where both parts are identities.
 
@@ -887,6 +909,8 @@ Round 658 proves Chen–Gupta–Li's Lemma 9.1 at one point per character, where
 - `integral_kernel`, `integral_Rt_sq`, `lemma91_Rt`: for `NM₂/q, X > 0`, `∫_ℝR̃_{M₂}(v, a)² dv = 2X∫ψ̃₀·∫_{[1/2,2]}|R(u′, a)|² du′` by Fubini, so `∫_ℝΣ_aR̃_{M₂}(v, a)² dv = 2X∫ψ̃₀·(3/2)φ(q)|R|`.
 
 See the main README, round 658, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 584 lines.
+
+## Their Lemma 9.2: LinnikCGLMom4.lean (round 659)
 
 Round 659 proves Chen–Gupta–Li's Lemma 9.2 at one point per character, with explicit constants.
 

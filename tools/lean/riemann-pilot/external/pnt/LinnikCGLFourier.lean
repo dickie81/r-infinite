@@ -5,10 +5,10 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
 The `S₃` side of Chen–Gupta–Li's argument starts from the Poisson expansion of the Gram entries in residue classes
 (their Lemmas 4.4 and 4.5), whose terms carry the Fourier transform of `h_t(u) = w(u)²u^{it}`. This file proves the
-decay of that transform, their Lemma 4.3 (1): "For any integer j ≥ 0, ĥ_t(ξ) ≪_j (1 + |t|)^j/|ξ|^j" (spaces
-restored). They say of its proof: "The proof (cf. [5, Lemma 4.3]) relies on the properties of the function w(u) and
-repeated applications of integration by parts." Here `w` is round 638's `wCGL` and `h_t` is round 640's `Wt t`.
-Mathlib's `𝓕f(ξ) = ∫ e^{−2πixξ}f(x) dx` is their `ĥ(ξ)`.
+decay of that transform, their Lemma 4.3 (1): "For any integer j ≥ 0, ĥ_t(ξ) ≪_j (1 + |t|)^j/|ξ|^j" (spaces restored,
+the hat, the subscripts and the exponents transcribed). They say of its proof: "The proof (cf. [5, Lemma 4.3]) relies on
+the properties of the function w(u) and repeated applications of integration by parts." Here `w` is round 638's `wCGL`
+and `h_t` is round 640's `Wt t`. Mathlib's `𝓕f(ξ) = ∫ e^{−2πixξ}f(x) dx` is their `ĥ(ξ)`.
 
 Plain statement (`lemma43`). For every `K` there is `C_K ≥ 0` (`CF K`) such that for all real `τ` and `ξ`,
 `(2π|ξ|)^K|ĥ_τ(ξ)| ≤ C_K(1 + |τ|)^K`.

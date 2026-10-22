@@ -9,10 +9,11 @@ Their statement. "There is a choice of 0 < M₁ ≤ M₃ ≤ M₂ ≤ (qT)^ϵqT/
 S₃ ⪅_ϵ (N²/(q²M₂)) Σ_{|m_i|∼M_i, 1≤i≤3} Ĩ_{m⃗} + |W|, where Ĩ_{m⃗} := ∫_{v₁∈[1/2,2]} Σ_{b₁,b₂ mod q, (b₁b₂,q)=1}
 |R(v₁,b₁) R̃_{M₂}((m₁v₁+m₃)/(m₂v₁), b₁⁻¹b₂) R̃_{M₂}((m₁v₁+m₃)/m₂, b₂)| · (b₁m₁−b₂m₂+m₃,q) dv₁" (text layer lines
 2264–2290; spaces restored, the tildes, arrows, integral, sums and their ranges, large parentheses, fractions,
-exponents and subscripts transcribed). The text layer drops the large bars; the PDF draws them as CMEX10 glyphs,
-which pdfminer finds on page 25 at x = 219.7–223.7, just before the characters `R(v₁,b₁)`, and at x = 506.2–510.2,
-just after the second `R̃`'s closing parenthesis, in the rows y = 584–606. Since `R̃ ≥ 0`, the integrand is
-`|R(v₁,b₁)|R̃R̃(b₁m₁−b₂m₂+m₃, q)`, which is `Itg`; `It` is their `Ĩ` with `X` for their `(qT)^ϵ`.
+exponents and subscripts transcribed). The text layer encodes the large bars as four form-feed characters each,
+invisible in a listing (lines 2279 and 2289); the PDF draws them as CMEX10 glyphs, which pdfminer finds on page 25 at
+x = 219.7–223.7, just before the characters `R(v₁,b₁)`, and at x = 506.2–510.2, just after the second `R̃`'s closing
+parenthesis, in the rows y = 584–606. Since `R̃ ≥ 0`, the integrand is `|R(v₁,b₁)|R̃R̃(b₁m₁−b₂m₂+m₃, q)`, which is
+`Itg`; `It` is their `Ĩ` with `X` for their `(qT)^ϵ`.
 
 Their proof. "Furthermore, by selecting dyadic scales to maximize the right-hand side, we arrive at (7.6)
 |S₃| ⪅_ϵ Σ_{|m_i|∼M_i, 1≤i≤3} |I′_{m⃗}| + |W|, where M₁ ≤ M₃ ≤ M₂ ≤ (qT)^ϵqT/N" (lines 2342–2347, with the same
@@ -168,7 +169,7 @@ lemma Itg_neg {ι : Type*} {q : ℕ} [NeZero q] (N : ℝ) (R : Finset ι) (χ : 
 
 /-! ### Their Proposition 7.2 at one triple -/
 
-/-- **Their bound for `|I′(m⃗)|`** (proof of Proposition 7.2): for `|m₂| ≥ M₂ > 0`,
+/-- **Their bound for `|I′(m⃗)|`** (proof of Proposition 7.2): for `N > 0`, `X > 0`, `|m₂| ≥ M₂ > 0` and any `K`,
 `|I′(m⃗)| ≤ 2C_J(0)d(q)(N²/(q²M₂))Ĩ_{M₂}(m₁, −m₂, m₃) + (N/q)³(9/4)E`, with round 654's error
 `E = C_J(K)(2πX)^{−K}φ(q)³|R|³`. -/
 theorem Ip_le_It {ι : Type*} {q : ℕ} [NeZero q] {N : ℝ} (hN : 0 < N) (R : Finset ι)
@@ -286,10 +287,10 @@ lemma sum_Ak_regroup {ι : Type*} {q : ℕ} [NeZero q] (N : ℝ) (R : Finset ι)
   conv_rhs => rw [Finset.sum_comm]
   exact Finset.sum_congr rfl fun m₃ _ => sum_neg_m₂ M k (Ak N R χ t X k) m₁ m₃
 
-/-- **Their Proposition 7.2 at one point per character**, with explicit errors: for `M ≥ 1`, `K ≥ 2`, points
-`|t_i| ≤ T`, `X > 0` and any `K'`,
-`S₃ ≤ 3Σ_{k≤log₂M}Σ_{m⃗}[⌊log₂|m₂|⌋ = k, |m₁|, |m₃| ≤ |m₂|]A_k(m⃗) + 3(2M)³E + |R||μ − μ₀|³
-  + 3|R|³τ_M(2N + 1 + τ_M)²`, the sums over `0 < |m_i| ≤ M`, with `A_k = Ak` and `E = E71`. -/
+/-- **Their Proposition 7.2 at one point per character**, with explicit errors: for `N > 0`, `χ` injective on `R`,
+`M ≥ 1`, `K ≥ 2`, points `|t_i| ≤ T`, `X > 0` and any `K'`, `S₃ ≤
+3Σ_{k≤log₂M}Σ_{m⃗}[⌊log₂|m₂|⌋ = k, |m₁|, |m₃| ≤ |m₂|]A_k(m⃗) + 3(2M)³E + |R||μ − μ₀|³ + 3|R|³τ_M(2N + 1 + τ_M)²`, the
+sums over `0 < |m_i| ≤ M`, with `A_k = Ak` and `E = E71`. -/
 theorem prop72 {ι : Type*} [DecidableEq ι] {q : ℕ} [NeZero q] {N : ℝ} (hN : 0 < N) {R : Finset ι}
     {χ : ι → DirichletCharacter ℂ q} (hinj : Set.InjOn χ R) (t : ι → ℝ) {T : ℝ} (ht : ∀ i ∈ R, |t i| ≤ T)
     {M K : ℕ} (hM : 1 ≤ M) (hK : 2 ≤ K) {X : ℝ} (hX : 0 < X) (K' : ℕ) :

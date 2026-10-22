@@ -5,11 +5,14 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
 Chen–Gupta–Li expand the traces of `MM*` by Poisson summation in residue classes (their Lemmas 4.4 and 4.5). In the
 proof of Lemma 4.5: "Performing Poisson summation in the n₁-sum gives", followed by a display that reads, on one line,
-`Σ_{n₁∈ℤ}h_{t₁−t₂}(n₁/N)χ₁χ̄₂(n₁) = Σ_{a₁ mod q}Σ_{n₁≡a₁ mod q}h_{t₁−t₂}(n₁/N)χ₁χ̄₂(n₁) =
-(N/q)Σ_{a₁ mod q}Σ_{m₁∈ℤ}ĥ_{t₁−t₂}(Nm₁/q)e_q(a₁m₁)χ₁χ̄₂(a₁)` (spaces restored). This file proves that expansion for
-the stack's Gram entries (round 638's `gramP`), with round 645's Lemma 4.3 (1) for the decay that Poisson summation
-needs. Their display carries no factor `N^{iτ}`, which cancels in the cyclic products of the cubic trace; the stack
-keeps it in the entry.
+`Σ_{n₁∈ℤ}h_{t₁−t₂}(n₁/N)χ₁χ̄₂(n₁) = Σ_{a₁ mod q}Σ_{n₁∈ℤ, n₁≡a₁ mod q}h_{t₁−t₂}(n₁/N)χ₁χ̄₂(n₁) =
+(N/q)Σ_{a₁ mod q}Σ_{m₁∈ℤ}ĥ_{t₁−t₂}(Nm₁/q)e_q(a₁m₁)χ₁χ̄₂(a₁)` (text layer lines 1059–1087; spaces restored, the sums and
+their ranges, the hat, the large parentheses, the fractions and the subscripts transcribed). The conjugation bars over
+`χ₂` are drawn rules, which the text layer drops: on page 13 pdfminer finds rules at y = 267.2 over the `χ` at
+x = 208.1–215.5 and x = 415.9–423.3, and at y = 220.8 over the `χ` at x = 462.8–470.2
+(`scratchpad/r661/probe/p13_210_280.txt`). This file proves that expansion for the stack's Gram entries (round 638's
+`gramP`), with round 645's Lemma 4.3 (1) for the decay that Poisson summation needs. Their display carries no factor
+`N^{iτ}`, which cancels in the cyclic products of the cubic trace; the stack keeps it in the entry.
 
 Plain statement (`gram_poisson`). For `q ≥ 1`, `N > 0` and `τ = t_i − t_k`,
 `G(i, k) = N^{iτ}Σ_{a<q}χ_i(a)conj(χ_k(a))Σ_{m∈ℤ}(N/q)ĥ_τ(Nm/q)e^{2πima/q}`, with `h_τ(u) = w(u)²u^{iτ}`.
@@ -241,8 +244,8 @@ lemma entP_mul_star {ι : Type*} {q : ℕ} {N : ℝ} (hN : 0 < N) (χ : ι → D
           (((n / N : ℝ) : ℂ) ^ (((t i - t k : ℝ) : ℂ) * I) * ((wCGL (n / N) ^ 2 : ℝ) : ℂ)) := by
         rw [hcomb, hsplit]; push_cast; ring
 
-/-- **The Poisson expansion of a Gram entry in residue classes** (the method of Chen–Gupta–Li's Lemma 4.4 and the
-proof of their Lemma 4.5): with `τ = t_i − t_k`,
+/-- **The Poisson expansion of a Gram entry in residue classes** (the method of Chen–Gupta–Li's Lemma 4.4 and the proof
+of their Lemma 4.5): for `N > 0`, with `τ = t_i − t_k`,
 `G(i, k) = N^{iτ}Σ_{a<q}χ_i(a)conj(χ_k(a))Σ_{m∈ℤ}(N/q)ĥ_τ(Nm/q)e^{2πima/q}`. -/
 theorem gram_poisson {ι : Type*} {q : ℕ} [NeZero q] {N : ℝ} (hN : 0 < N) (χ : ι → DirichletCharacter ℂ q)
     (t : ι → ℝ) (i k : ι) :
