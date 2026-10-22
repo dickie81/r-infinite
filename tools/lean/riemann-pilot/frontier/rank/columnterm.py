@@ -35,22 +35,36 @@ Gates (exit status 1 if one fails; skipped, and reported, without the prime data
       bound.  N3 sums over all squarefree P of one norm range, inert primes included, with no slot windows or weights.
 
   N4  the largest single row (target T3).  The column term is attained when one row's character aligns with the
-      coefficients, and then max_k |sum_n c_n (n/k)_2|^2 / sum |c_n|^2 is about #columns.  At N2's three sizes the
-      aligned control's largest row has share at least #columns/2, and every coefficient model of N2 (random phases,
-      the Gauss-sum models and the two-slot model) has largest-row share at most 2 log(#rows) + 2, the size of a
-      maximum of #rows variables of mean one: no alignment.  Evidence about models at small norms, not a bound.
+      coefficients, and then the largest row, max_k |sum_n c_n (n/k)_2|^2 / sum |c_n|^2, is about #columns.  At N2's
+      three sizes the aligned control's largest row is at least #columns/2, and for every coefficient model of N2
+      (random phases, the Gauss-sum models and the two-slot model) it is at most 2 log(#rows) + 2, the size of a
+      maximum of #rows variables of mean one, both against sum |c_n|^2 and against the mean row: no alignment.
+      Evidence about models at small norms, not a bound.
 
   N5  target T3 in operator form.  U(k, P) = sum_n beta_n (n/k)_2 conj((n/P)_3), with rows k squarefree of norm <= K,
       moduli P squarefree of norm in (L/2, L] and columns n squarefree of norm in (N/2, N].  T3's hybrid sum is
       sum_k |sum_P c_P U(k, P)|^2 <= ||U||_op^2 sum_P |c_P|^2, so a bound ||U||_op^2 << Z^eps (K + L) sum |beta|^2 for
       the release's dual coefficients would bound it by Z^eps (K + L) sum |beta|^2 sum |c_P|^2, with no column term N.
       Since sum |beta|^2 <= N, where L <= K that is T3 in the form the program uses (slotsplit.py's S7: the factor K in
-      place of K + NB, the cubic sieve's factor kept).  At (N, K, L) = (4*10^4, 600, 600), (8*10^4, 1000, 600) and (8*10^4, 2000, 1200) the
-      ratio ||U||_op^2 / (sum |beta|^2 (sqrt(#rows) + sqrt(#moduli))^2), about the coprime fraction for a random
-      matrix, is at most 1.2 for random phases, conj(g3) and conj(g3) alpha, and at least 4 for the aligned control
-      beta_n = (n/k0)_2 (n/P0)_3.  Evidence about models at small norms, not a bound.
+      place of K + NB, the cubic sieve's factor kept).  At (N, K, L) = (4*10^4, 600, 600), (8*10^4, 1000, 600) and
+      (8*10^4, 2000, 1200) the ratio ||U||_op^2 / (sum |beta|^2 (sqrt(#rows) + sqrt(#moduli))^2), about the coprime
+      fraction for a random matrix, is at most 1.2 for random phases, conj(g3) and conj(g3) alpha, and at least 4 for
+      the aligned control beta_n = (n/k0)_2 (n/P0)_3.  The coefficient aligned with one row's character alone,
+      beta_n = (n/k0)_2, which attains N2's column term, also has ratio at most 1.2: the slot sums' cubic characters
+      decorrelate it, so the operator form does not see that extremal coefficient.  Evidence about models at small
+      norms, not a bound.
 
-Usage: python3 columnterm.py periods_w_8e4.txt     (15-30 s; without the prime data every gate is skipped and
+  N6  the theta term with two-prime slots (FIVE-SIXTHS.md, section 13).  N3 sums over all squarefree P of one norm
+      range: the smooth-slot model of section 12.  Here P = pq, p and q from two windows W1, W2 of split primes of norm
+      in (P0, 2 P0], with gamma_2(pq) = (q/p)_3 (p/q)_3 gamma_2(p) gamma_2(q) (twisted multiplicativity, S8 (ii)), and
+      R_k = sum_j |sum_{p, q} gamma_2(pq) alpha(pq)^k conj((j/pq)_3)|^2 / (#columns sum |coefficient|^2) over the
+      squarefree columns j of norm <= N.  At (P0, N) = (600, 1000), (1000, 1000) and (1000, 2500): R_0 >= 1.8, larger
+      at (1000, 1000) than at (600, 1000), R_{-2} (the slot coefficient's angle) <= 1.3, random phases <= 1.3, and a
+      coefficient aligned with one column's character has R >= n0/(2 #columns).  (Without the pair phase
+      (q/p)_3 (p/q)_3, a session sabotage run, R_0 is 1.50-1.71 and the gate fails.)  Evidence about models at small
+      norms, not a bound.
+
+Usage: python3 columnterm.py periods_w_8e4.txt     (10-30 s; without the prime data every gate is skipped and
 reported)
 """
 import math
@@ -66,6 +80,7 @@ from composite import Field, load_primes, squarefree_moduli    # noqa: E402
 ZETA = np.exp(2j * np.pi * np.arange(6) / 6)
 N3_SIZES = ((20000, 500), (40000, 1000), (80000, 2000), (80000, 500))
 N5_SIZES = ((40000, 600, 600), (80000, 1000, 600), (80000, 2000, 1200))
+N6_SIZES = ((600, 1000), (1000, 1000), (1000, 2500))
 
 
 def setup(path, N, K):
@@ -112,6 +127,7 @@ def trilinear(d, L, seed):
     rng = np.random.default_rng(seed)
     out = {'random': ratio(np.exp(2j * np.pi * rng.random(len(ns)))), 'conj g3': ratio(np.conj(d['g3'])),
            'conj g3 alpha': ratio(np.conj(d['g3']) * d['alpha'])}
+    out['row-aligned'] = ratio(X[nr // 2].astype(complex))               # (n/k0)_2: N2's column term
     out['aligned'] = ratio(X[nr // 2] * np.conj(Y[nmod // 2]))        # (n/k0)_2 (n/P0)_3
     return nr, nmod, len(ns), out
 
@@ -173,6 +189,38 @@ def cubic_sieve(path, L, N, ks=(0, -2, -1, 1, 2)):
     return out, ctrl
 
 
+def two_slot(path, P0, N, ks=(0, -2), seed=1):
+    """N6: R_k = sum_j |sum_{p in W1, q in W2} gamma_2(pq) alpha(pq)^k conj((j/pq)_3)|^2 / (#columns sum |coef|^2), with
+    two windows W1, W2 of split primes of norm in (P0, 2 P0], gamma_2(pq) = (q/p)_3 (p/q)_3 gamma_2(p) gamma_2(q), and
+    the squarefree columns j of norm <= N; with random phases and a coefficient aligned with one column's character
+    as controls."""
+    F = Field('w')
+    primes = load_primes(F, path, max(2 * P0, N))
+    nm, om, el, G, pr = squarefree_moduli(F, primes, max(2 * P0, N))
+    sp = [P for P in primes if P0 < P.norm <= 2 * P0 and P.norm % 3 == 1]
+    W1, W2 = sp[:len(sp) // 2], sp[len(sp) // 2:]
+    cols = np.flatnonzero(nm <= N)
+    js = np.array([el[i][0] for i in cols]); jt = np.array([el[i][1] for i in cols])
+    sym = {id(P): P.sym_vec(js, jt) for P in sp}
+    rows, coef, ang = [], [], []
+    for p in W1:
+        for q in W2:
+            a, b = sym[id(p)], sym[id(q)]
+            Z = (a < 0) | (b < 0)
+            rows.append(np.where(Z, 0, ZETA[(-2 * np.where(Z, 0, a + b)) % 6]))       # conj((j/pq)_3)
+            coef.append(ZETA[(2 * (p.sym(q.el) + q.sym(p.el))) % 6] * p.G[2] * q.G[2])
+            z = complex(p.el[0] - 0.5 * p.el[1], math.sqrt(3) / 2 * p.el[1]) * \
+                complex(q.el[0] - 0.5 * q.el[1], math.sqrt(3) / 2 * q.el[1])
+            ang.append(z / abs(z))
+    Y, c0, al = np.array(rows), np.array(coef), np.array(ang)
+    R = lambda c: float(np.sum(np.abs(c @ Y) ** 2) / (len(cols) * np.sum(np.abs(c) ** 2)))
+    out = {k: R(c0 * al ** k) for k in ks}
+    j0 = len(cols) // 2
+    ctrl = dict(random=R(np.exp(2j * np.pi * np.random.default_rng(seed + P0 + N).random(len(c0)))),
+                aligned=R(np.conj(Y[:, j0])), floor=float(np.sum(np.abs(Y[:, j0]) ** 2)) / (2 * len(cols)))
+    return len(W1), len(W2), len(cols), out, ctrl
+
+
 def ratio(X, c):
     T = X @ c
     return float(np.sum(np.abs(T) ** 2) / (X.shape[0] * np.sum(np.abs(c) ** 2)))
@@ -185,6 +233,7 @@ def main():
         print('N3: SKIPPED  (no prime data given)')
         print('N4: SKIPPED  (no prime data given)')
         print('N5: SKIPPED  (no prime data given)')
+        print('N6: SKIPPED  (no prime data given)')
         return
     ok, lines, ok4, lines4 = True, [], True, []
     for N, K, Pslot in ((80000, 250, None), (80000, 500, None), (40000, 1000, 50)):
@@ -202,10 +251,13 @@ def main():
         aligned = ratio(X, X[nr // 2].astype(complex))
         ok = ok and aligned >= nc / (2 * nr) and all(v <= 1.5 for v in q.values()) and 20 <= nc / nr <= 160
         mx = {k: float(np.max(np.abs(X @ c) ** 2) / np.sum(np.abs(c) ** 2)) for k, c in models.items()}
+        mm = {k: float(np.max(np.abs(X @ c) ** 2) / np.mean(np.abs(X @ c) ** 2)) for k, c in models.items()}
         ma = float(np.max(np.abs(X @ X[nr // 2]) ** 2) / np.sum(X[nr // 2] ** 2))
-        ok4 = ok4 and ma >= nc / 2 and all(v <= 2 * math.log(nr) + 2 for v in mx.values())
+        ok4 = ok4 and ma >= nc / 2 and all(v <= 2 * math.log(nr) + 2 for d4 in (mx, mm) for v in d4.values())
         lines4.append(f'N = {N}, K = {K}: aligned {ma:.0f} (#columns/2 = {nc / 2:.0f}), models '
-                      f'{min(mx.values()):.2f}-{max(mx.values()):.2f} (2 log(#rows) + 2 = {2 * math.log(nr) + 2:.1f})')
+                      f'{min(mx.values()):.2f}-{max(mx.values()):.2f} against sum |c|^2, '
+                      f'{min(mm.values()):.2f}-{max(mm.values()):.2f} against the mean row '
+                      f'(2 log(#rows) + 2 = {2 * math.log(nr) + 2:.1f})')
         lines.append(f'N = {N}, K = {K}: {nr} rows, {nc} columns, aligned Q = {aligned:.1f}; '
                      + ', '.join(f'{k} {v:.3f}' for k, v in q.items())
                      + (f' ({pairs} slot pairs)' if Pslot else ''))
@@ -228,7 +280,14 @@ def main():
         lines5.append(f'(N, K, L) = ({N}, {K}, {L}): {nr} rows, {nmod} moduli, {nc} columns; '
                       + ', '.join(f'{k} {v:.3f}' for k, v in r5.items()))
     print(f'N5: {"PASS" if ok5 else "FAIL"}  ' + '; '.join(lines5))
-    if not (ok and ok3 and ok4 and ok5):
+    r6 = {s: two_slot(path, *s) for s in N6_SIZES}
+    ok6 = (all(r[3][0] >= 1.8 and r[3][-2] <= 1.3 and r[4]['random'] <= 1.3 and r[4]['aligned'] >= r[4]['floor']
+               for r in r6.values()) and r6[(1000, 1000)][3][0] > r6[(600, 1000)][3][0])
+    print(f'N6: {"PASS" if ok6 else "FAIL"}  ' + '; '.join(
+        f'(P0, N) = {s}: windows {r[0]} x {r[1]} primes, {r[2]} columns; R_0 {r[3][0]:.3f}, R_-2 {r[3][-2]:.3f}, '
+        f'random {r[4]["random"]:.3f}, aligned {r[4]["aligned"]:.1f} (floor {r[4]["floor"]:.1f})'
+        for s, r in r6.items()))
+    if not (ok and ok3 and ok4 and ok5 and ok6):
         sys.exit(1)
     print('all gates pass')
 
