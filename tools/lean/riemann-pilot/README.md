@@ -28493,3 +28493,68 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Their Lemma 10.9: the pairs split by the gcd `d ≤ D` and the residue, `sum_cube_le` on each class with `δ = qd²/(8N²)`, the sum over `d` of `3T + 32πN²/(qd²)`, and Cauchy–Schwarz between the second moment (round 658) and the fourth (round 659).
+
+## Round 674: their Lemma 10.9, the small-gcd terms (stage M3, the `S₃` side; `external/pnt/LinnikCGLL109.lean`)
+
+**The results.** Below, `q ≥ 1`, `n ∼ N` means `N < n ≤ 2N` (round 670's `dyad`), `R₂` is round 669's, `E` round 659's `energy`, `k`, `C_k`, `D_K` and `ψ̃₀` are as in round 673, and `F_a(y) = Σ_iχ_i(a)e^{it_iy}` is round 668's `esum`.
+
+- `LinnikCGLL109.Rf_exp_eq_esum`, `R2_eq_zero`, `R2_eq_esum`: `R(e^y, a) = F_a(y)`; `R₂(n₁, n₂) = 0` unless `n₁` and `n₂` are units modulo `q`; and for `n₁, n₂ > 0` with `n₂` a unit modulo `q`, `R₂(n₁, n₂) = F_a(log(n₁/n₂))` with `a = n₁n₂⁻¹`.
+- `LinnikCGLL109.abs_log_div_le_one`: for `N > 0` and `n₁, n₂ ∼ N`, `|log(n₁/n₂)| ≤ 1`.
+- `LinnikCGLL109.integrable_psi0_mul`, `le_sqrt_of_forall`: `y ↦ ψ̃₀(y/X)G(y)` is integrable for `X > 0` and `G` continuous; and for `a, b ≥ 0`, if `s ≤ (la + b/l)/2` for every `l > 0`, then `s ≤ √(ab)`.
+- `LinnikCGLL109.integral_sum_four_le`: for `X ≥ 1` and `K ∈ ℕ`, `∫ψ̃₀(τ/X)Σ_{a unit}|R(e^τ, a)|⁴ dτ ≤ φ(q)X(∫ψ̃₀·E + |R|⁴D_K/X^K)`. Its proof copies the second step of round 659's `lemma92`, an internal `have` there.
+- `LinnikCGLL109.sum_cube_moment_le`: for `χ` injective on `R`, `X ≥ 1` and `K ∈ ℕ`, `Σ_{a unit}∫ψ̃₀(y/X)|F_a(y)|³ dy ≤ φ(q)X√(|R|∫ψ̃₀·(∫ψ̃₀·E + |R|⁴D_K/X^K))`. Pointwise `|F|³ ≤ (l|F|² + |F|⁴/l)/2` for every `l > 0`; the second moment is `φ(q)|R|X∫ψ̃₀` exactly, by round 658's `sum_norm_Rf_sq`, and the fourth is `integral_sum_four_le`.
+- `LinnikCGLL109.pairs`, `lemma109`: their Lemma 10.9 at one point per character. For `χ` injective on `R`, `T ≥ 1`, points `|t_i| ≤ T`, `N > 0`, `X ≥ 4`, `D ∈ ℕ` and `K ≥ 2`, `Σ_{(n₁,n₂)∈P}|R₂(n₁, n₂)|³ ≤ C_k(3DqT + 64πN²)X√(|R|∫ψ̃₀·(∫ψ̃₀·E + |R|⁴D_K/X^K)) + |P||R|³·2πD_K(2π)^{−K}Z^{2−K}`, with `P` the pairs `n₁, n₂ ∼ N` with `(n₁, n₂) ≤ D` and `Z = 3T(X − 1)/(2π)`. The pairs prime to `q` are split by `d = (n₁, n₂)` and `a = n₁n₂⁻¹` (Mathlib's `sum_fiberwise_of_maps_to`), round 673's `sum_cube_le` bounds each class with `δ = qd²/(8N²)` (round 673's `log_sep`), `Σ_{1≤d≤D}(3T + 32πN²/(qd²)) ≤ 3DT + 64πN²/q` by Mathlib's `sum_Ioo_inv_sq_le`, `sum_cube_moment_le` bounds the sum over `a`, and `φ(q) ≤ q`.
+
+**Their text.** Re-read this round in the text layer. The underscores in the quotations are escaped for the renderer.
+
+- Their Lemma 10.9 (Small GCD terms): "We have Σ\_{n₁,n₂∼N, (n₁n₂,q)=1, (n₁,n₂)≤D} |R(n₁/n₂, n₁n₂^{−1})|³ ⪅\_ϵ (DqT + N²)|W|^{1/2}E(W)^{1/2}." (lines 5070–5082; spaces restored; the sum, fraction, large bars, which the text layer encodes as four form feeds each, large parentheses, subscripts and exponents transcribed).
+- Their last step: "We may bound the third moment by Cauchy-Schwarz and Lemmas 9.1 and 9.2," (line 5265), with the bound "⪅\_ϵ q|W|^{1/2}E(W)^{1/2}" (line 5285; spaces restored, the subscript and exponents transcribed).
+- Their factor in the display that ends with (10.2) is `T + N²/(d²q)` (lines 5246–5249, transcribed), as in round 673.
+
+**The stack's form.**
+
+- **All pairs.** Their sum runs over the pairs with `(n₁n₂, q) = 1`. `R₂` vanishes on the others (`R2_eq_zero`), so the stack sums over all pairs `n₁, n₂ ∼ N` with `(n₁, n₂) ≤ D`; on the pairs prime to `q`, `R₂` is their `R(n₁/n₂, n₁n₂⁻¹)`.
+- **The weight.** Their integrals over `|v| ≍ 1` become integrals against `ψ̃₀(y/X)` in `y = log v`, with `X ≥ 4`, as in round 673's `sum_cube_le`; round 659's fourth moment is stated against the same weight.
+- **The third moment.** Their Cauchy–Schwarz is the inequality `|F|³ ≤ (l|F|² + |F|⁴/l)/2`, integrated and optimized in `l` (`le_sqrt_of_forall`), so no `L²` space is needed.
+- **The constants.** Their `⪅_ϵ` absorbs `C_k`, `X`, `∫ψ̃₀`, the term `|R|⁴D_K/X^K` and the tail; the stack keeps them, with `X ≥ 4` and `K ≥ 2` free, for the assembly of `CGLS3`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLL109.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`sum_cube_moment_le`, `lemma109`).
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+
+**What is checked.**
+
+- Mathlib's names were checked first (`scratchpad/r674/check.lean` and `check2.lean`).
+- The file was compiled in scratch in four runs with `lean --json` (`scratchpad/r674/run.sh`, which runs `lcj.sh` and lists the errors, warnings and information messages; `lcj1.out` to `lcj4.out`). Runs 3 and 4 had exit 0, and their only messages were the file's three axiom lines, each `[propext, Classical.choice, Quot.sound]`. The fixes were these. `integrable_psi0_mul` names its continuous function before taking its compact support, and the interchanges of the sum over the units with the integral are stated as equalities first, since the rewrite could not match the composed functions. Integrals and sums followed by `+` are parenthesized. `push Not` replaces the deprecated `push_neg`. `R2_eq_zero` omits `[NeZero q]`. The membership of a pair's key `(d, a)` in the target set is unfolded with `simp only` before its parts are given, where `omega` met an unreduced projection. A `ring` proves `32πN²/(qd²) = (32πN²/q)(d²)⁻¹`. Mathlib's `Σd^{−2} ≤ 2/(0 + 1)` is restated as `≤ 2` with `norm_num`, and the step to `3DT + 64πN²/q` uses `add_le_add` and `ring`, where `linarith` failed twice. Tactics after goals had closed were removed: a `ring` after a `field_simp`, and a `ring` and then a `refine` after a `rw`. Run 4 compiled the file with its header.
+- Then `build.sh` ran once (`scratchpad/r674/compile.sh 1`, log `build_1.log`): `1 compiled, 408 up to date` (`LinnikCGLL109` 17 s), exit 0 in 28 s, with no error, warning, `sorry` or information message. Its 617 axiom lines (3 by the module, 614 by the final check, which gains two lines) are 604 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms"; the 13 are in the final check, as before. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.87 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed, with its output saved in `scratchpad/r674/gate.out`: `tools/research/render_lint.py` against HEAD as multisets (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row L10.4–L10.10, P10.2 gains round 674 in its stack cell and a clause in its status; nothing in it is superseded. The opening's parenthetical gains round 674, and M3 gains a note.
+- `external/pnt/README.md`: a row, and a section with a heading.
+- No strikes, and no markers: round 673's next step was this round's.
+
+**Check 1** (direct reads this round):
+
+- Their Lemma 10.9 and its proof (lines 5070–5314), their Lemma 10.10 and its proof (lines 5315–5499), and their proof of Proposition 10.2 (lines 5500–5518).
+- `LinnikCGLL109.lean` in full.
+- The operative definitions and statements: round 673's `sum_cube_le`, `log_sep` and `R2_eq_Rf`, round 659's `lemma92` (the proof copied), `energy`, `energy_eq_sum`, `Rf_exp`, `sum_norm_Rf_four`, `integral_psi_exp` and `norm_term_le`, round 658's `sum_norm_Rf_sq`, round 669's `R2` and `Ck`, round 668's `esum` and `continuous_esum`, and round 670's `dyad` and `mem_dyad`.
+
+**Check 4.** No defect in the cascade or the stack is raised. `CGLS3`, `CGLP81` and `CGLT101` are hypotheses.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Lemma 10.10, the large-gcd terms: `R₂(dn′₁, dn′₂) = R₂(n′₁, n′₂)` for `d` a unit modulo `q`, Cauchy–Schwarz with round 670's `lemma106` and round 672's `lemma107` at `M = N/d`, and the sum over `d ≥ D`.

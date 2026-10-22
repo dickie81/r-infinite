@@ -193,6 +193,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLT101.lean` | 670 | Chen–Gupta–Li's Theorem 10.1 (Heath-Brown) as a displayed hypothesis (`CGLT101`), the square of `R₂` expanded (`sum_sq_R2_eq`), and their Lemma 10.6 at one point per character (`lemma106`) |
 | `LinnikCGLL107.lean` | 672 | Chen–Gupta–Li's Lemma 10.7 from their Theorem 10.1 (round 670's `CGLT101`, a displayed hypothesis): the pairs classed by `(⌊t_i − t_j⌋, χ_iχ_j⁻¹)` and grouped by conductor and dyadic size (`key`, `cls`, `grp`), `Σ_κ\|cls κ\|² ≤ E` (`sum_card_cls_sq_le`), `CGLT101` at each conductor (`group_le`), and `Σ_{n₁,n₂∼M}\|R₂\|⁴ ≤ C(d(q)(⌊log₂\|R\|²⌋ + 1))²(qTM)^ε(EM² + \|R\|⁴M + E^{3/4}\|R\|(qT)^{1/2}M)` for `q ≥ 1`, `T, M ≥ 1` and points `\|t_i\| ≤ T` (`lemma107`) |
 | `LinnikCGLSep.lean` | 673 | Toward Chen–Gupta–Li's Lemma 10.9: for `c, δ > 0` and points with `\|x_p − x_{p′}\| ≥ δ` for `p ≠ p′`, `Σ_pL_c(y − x_p) ≤ 2π + 4π/(cδ)` with `L_c(r) = (1 + c²r²)⁻¹` (`sum_lor_le`); for `n₁, n₂ > 0` with `n₂` a unit modulo `q`, `R₂(n₁, n₂) = R(n₁/n₂, n₁n₂⁻¹)` (`R2_eq_Rf`); for distinct pairs `(n₁, n₂) ≠ (m₁, m₂)` of `n ∼ N` with one gcd `d` and one residue `n₁n₂⁻¹ = m₁m₂⁻¹` modulo `q`, `n₁`, `n₂` and `m₂` units modulo `q`, and `N > 0`, `\|log(n₁/n₂) − log(m₁/m₂)\| ≥ qd²/(8N²)` (`sep_frac`, `log_sep`); and for `F(x) = Σ_kc_ke^{iλ_kx}` with every `\|λ_k\| ≤ T`, `T ≥ 1`, `X ≥ 4`, `K ≥ 2` and points `x_p`, `p ∈ P`, with `\|x_p\| ≤ 1` and `\|x_p − x_{p′}\| ≥ δ > 0` for `p ≠ p′`, `Σ_p\|F(x_p)\|³ ≤ C_k(3T + 4π/δ)∫ψ̃₀(y/X)\|F(y)\|³ dy + \|P\|(Σ_k\|c_k\|)³·2πD_K(2π)^{−K}Z^{2−K}` with `Z = 3T(X − 1)/(2π)` (`sum_cube_le`) |
+| `LinnikCGLL109.lean` | 674 | Chen–Gupta–Li's Lemma 10.9 (small gcd terms) at one point per character: `R₂` as a finite exponential sum in `log(n₁/n₂)` on each class (`R2_eq_esum`), the third moment over the units (`sum_cube_moment_le`), and, for `q ≥ 1`, `χ` injective on `R`, `T ≥ 1`, points `\|t_i\| ≤ T`, `N > 0`, `X ≥ 4`, `D ∈ ℕ` and `K ≥ 2`, `Σ_{n₁,n₂∼N, (n₁,n₂)≤D}\|R₂(n₁, n₂)\|³ ≤ C_k(3DqT + 64πN²)X√(\|R\|∫ψ̃₀·(∫ψ̃₀·E + \|R\|⁴D_K/X^K)) + \|P\|\|R\|³·2πD_K(2π)^{−K}Z^{2−K}`, with `P` the pairs and `Z = 3T(X − 1)/(2π)` (`lemma109`) |
 
 ## Building (rounds 217, 618)
 
@@ -1074,3 +1075,16 @@ Round 673 proves the separation of the fractions in Chen–Gupta–Li's Lemma 10
 - `sum_cube_le`: for `F(x) = Σ_kc_ke^{iλ_kx}` with every `|λ_k| ≤ T`, `T ≥ 1`, `X ≥ 4`, `K ≥ 2` and points `x_p`, `p ∈ P`, with `|x_p| ≤ 1` and `|x_p − x_{p′}| ≥ δ > 0` for `p ≠ p′`, `Σ_p|F(x_p)|³ ≤ C_k(3T + 4π/δ)∫ψ̃₀(y/X)|F(y)|³ dy + |P|(Σ_k|c_k|)³·2πD_K(2π)^{−K}Z^{2−K}` with `Z = 3T(X − 1)/(2π)`.
 
 See the main README, round 673, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 612 lines.
+
+## Their Lemma 10.9: LinnikCGLL109.lean (round 674)
+
+Round 674 proves Chen–Gupta–Li's Lemma 10.9 at one point per character, with `q ≥ 1`, `n ∼ N` round 670's `dyad`, `R₂` round 669's, `E` round 659's `energy`, `k`, `C_k`, `D_K` and `ψ̃₀` as in round 673, and `F_a(y) = Σ_iχ_i(a)e^{it_iy}` (round 668's `esum`).
+
+- `Rf_exp_eq_esum`, `R2_eq_zero`, `R2_eq_esum`: `R(e^y, a) = F_a(y)`; `R₂(n₁, n₂) = 0` unless `n₁` and `n₂` are units modulo `q`; and for `n₁, n₂ > 0` with `n₂` a unit modulo `q`, `R₂(n₁, n₂) = F_a(log(n₁/n₂))` with `a = n₁n₂⁻¹`.
+- `abs_log_div_le_one`: for `N > 0` and `n₁, n₂ ∼ N`, `|log(n₁/n₂)| ≤ 1`.
+- `integrable_psi0_mul`, `le_sqrt_of_forall`: `y ↦ ψ̃₀(y/X)G(y)` is integrable for `X > 0` and `G` continuous; and for `a, b ≥ 0`, if `s ≤ (la + b/l)/2` for every `l > 0`, then `s ≤ √(ab)`.
+- `integral_sum_four_le`: for `X ≥ 1` and `K ∈ ℕ`, `∫ψ̃₀(τ/X)Σ_{a unit}|R(e^τ, a)|⁴ dτ ≤ φ(q)X(∫ψ̃₀·E + |R|⁴D_K/X^K)`.
+- `sum_cube_moment_le`: for `χ` injective on `R`, `X ≥ 1` and `K ∈ ℕ`, `Σ_{a unit}∫ψ̃₀(y/X)|F_a(y)|³ dy ≤ φ(q)X√(|R|∫ψ̃₀·(∫ψ̃₀·E + |R|⁴D_K/X^K))`.
+- `pairs`, `lemma109`: for `χ` injective on `R`, `T ≥ 1`, points `|t_i| ≤ T`, `N > 0`, `X ≥ 4`, `D ∈ ℕ` and `K ≥ 2`, `Σ_{n₁,n₂∼N, (n₁,n₂)≤D}|R₂(n₁, n₂)|³ ≤ C_k(3DqT + 64πN²)X√(|R|∫ψ̃₀·(∫ψ̃₀·E + |R|⁴D_K/X^K)) + |P||R|³·2πD_K(2π)^{−K}Z^{2−K}`, with `P` the pairs and `Z = 3T(X − 1)/(2π)`.
+
+See the main README, round 674, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 614 lines.
