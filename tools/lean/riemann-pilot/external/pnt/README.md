@@ -179,6 +179,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLSym.lean` | 655 | two inputs of Chen–Gupta–Li's Proposition 7.2: `J = 0` unless `v₂/v₁ ∈ (1/2, 2)` (`Jk_eq_zero_of_ratio`), so Proposition 7.1 holds with that constraint (`prop71r`, through `Ip_le_of_bound`, round 654's proof for any majorant); and `I′(m₁, m₂, m₃) = I′(m₂, m₃, m₁)` (`Ip_cyc`), so `Σ\|I′\| ≤ 3Σ\|I′\|[\|m₂\| largest]` (`sum_le_three_mul`) |
 | `LinnikCGLRt.lean` | 656 | the Cauchy–Schwarz step of Chen–Gupta–Li's Proposition 7.2: their `R̃` of (7.5) (`Rt`), `R(1/v, b⁻¹) = conj(R(v, b))` (`Rf_inv`), and for `\|m₂\| ≥ M₂ > 0` the inner `v₂` integral of round 655's `Vr` bounded by `2Σ_{b₁,b₂}(b₁m₁ + b₂m₂ + m₃, q)\|R(v₁, b₁)\|R̃R̃` (`Vr_inner_le`) |
 | `LinnikCGLP72.lean` | 657 | Chen–Gupta–Li's Proposition 7.2: their `Ĩ` (`It`); for `\|m₂\| ≥ M₂ > 0`, `\|I′(m⃗)\| ≤ 2C_J(0)d(q)(N²/(q²M₂))Ĩ_{M₂}(m₁, −m₂, m₃) + E` (`Ip_le_It`); and `S₃` bounded by the sum over the dyadic scales of `m₂` of these terms, with `\|m₁\|, \|m₃\| ≤ \|m₂\|`, plus three explicit errors (`prop72`) |
+| `LinnikCGLMom.lean` | 658 | Chen–Gupta–Li's Lemma 9.1 at one point per character, as identities: `Σ_{a unit}\|R(v, a)\|² = φ(q)\|R\|` for `v > 0` (`sum_norm_Rf_sq`), its integral over `[1/2, 2]` (`lemma91`), and `∫_ℝΣ_aR̃_{M₂}(v, a)² dv = 2X∫ψ̃₀·(3/2)φ(q)\|R\|` by Fubini (`lemma91_Rt`) |
 
 ## Building (rounds 217, 618)
 
@@ -876,3 +877,11 @@ Round 657 proves Chen–Gupta–Li's Proposition 7.2 in the stack's explicit for
 - `sum_dyadic`, `sum_neg_m₂`, `sum_Ak_regroup`, `prop72`: with round 650's truncation and round 655's reduction to `|m₂|` largest, `S₃ ≤ 3Σ_{k≤log₂M}Σ_{⌊log₂|m₂|⌋=k, |m₁|,|m₃|≤|m₂|}2C_J(0)d(q)(N²/(q²2^k))Ĩ_{2^k}(m⃗) + 3(2M)³E + |R||μ − μ₀|³ + 3|R|³τ_M(2N + 1 + τ_M)²`, the sums over `0 < |m_i| ≤ M`.
 
 See the main README, round 657, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 582 lines.
+
+Round 658 proves Chen–Gupta–Li's Lemma 9.1 at one point per character, where both parts are identities.
+
+- `sum_units_mul_star`: `Σ_{a unit}χ(a)conj(ψ(a)) = φ(q)[χ = ψ]`.
+- `sum_norm_Rf_sq`, `lemma91`: for `χ` injective on `R`, `Σ_{a unit}|R(v, a)|² = φ(q)|R|` for `v > 0`, and `∫_{[1/2,2]}Σ_{a unit}|R(v, a)|² dv = (3/2)φ(q)|R|`.
+- `integral_kernel`, `integral_Rt_sq`, `lemma91_Rt`: for `NM₂/q, X > 0`, `∫_ℝR̃_{M₂}(v, a)² dv = 2X∫ψ̃₀·∫_{[1/2,2]}|R(u′, a)|² du′` by Fubini, so `∫_ℝΣ_aR̃_{M₂}(v, a)² dv = 2X∫ψ̃₀·(3/2)φ(q)|R|`.
+
+See the main README, round 658, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 584 lines.

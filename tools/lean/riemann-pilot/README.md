@@ -27477,3 +27477,61 @@ The proof is theirs, "Inserting these bounds into (7.3) and applying the triangl
 **Bearing on RH:** none.
 
 **The next step.** Their §11 (Proposition 11.1), on each dyadic block: Cauchy–Schwarz in `(v₁, b₁)`, with `∫Σ_{b₁}|R(v₁, b₁)|² = φ(q)|R|·(3/2)` exact at one point per character; then their Proposition 8.1 as a displayed hypothesis, applied to `f_b(v) = ψ(v)R̃_{M₂}(v, −b)²`.
+
+## Round 658: their Lemma 9.1, the second moments of `R` and `R̃` (stage M3, the `S₃` side; `external/pnt/LinnikCGLMom.lean`)
+
+**The results.** Below, `q ≥ 1`, `χ` is injective on `R` and `L = NM₂/q`.
+
+- `LinnikCGLMom.sum_units_mul_star`: `Σ_{a unit}χ(a)conj(ψ(a)) = φ(q)[χ = ψ]` for Dirichlet characters mod `q`, from round 648's sums over `[0, q)`.
+- `LinnikCGLMom.sum_norm_Rf_sq`: `Σ_{a unit}|R(v, a)|² = φ(q)|R|` for every `v > 0`. The square expands as `Σ_{i,j}v^{i(t_i−t_j)}Σ_aχ_i(a)conj(χ_j(a))`, and the characters of distinct points are distinct, so only `i = j` survives, with `|v^{it_i}| = 1`.
+- `LinnikCGLMom.lemma91`: `∫_{[1/2,2]}Σ_{a unit}|R(v, a)|² dv = (3/2)φ(q)|R|`.
+- `LinnikCGLMom.integral_kernel`: `∫_ℝLψ̃₀(L(v − u′)/(2X)) dv = 2X∫ψ̃₀` for `L, X > 0`.
+- `LinnikCGLMom.integral_Rt_sq`: for `L, X > 0`, `v ↦ R̃_{M₂}(v, a)²` is integrable on `ℝ` and `∫_ℝR̃_{M₂}(v, a)² dv = 2X∫ψ̃₀·∫_{[1/2,2]}|R(u′, a)|² du′`. The proof is Fubini for `Lψ̃₀(L(v − u′)/(2X))·1_{[1/2,2]}(u′)|R(u′, a)|²`, dominated by `L|R|²` times the indicator of `[1/2 − 4X/L, 2 + 4X/L] × [1/2, 2]`.
+- `LinnikCGLMom.lemma91_Rt`: `∫_ℝΣ_{a unit}R̃_{M₂}(v, a)² dv = 2X∫ψ̃₀·(3/2)φ(q)|R|` for `L, X > 0`.
+
+**Their text.** Re-read this round in the text layer, with spaces restored and the notation transcribed; the file's header lists the allowances. Their Lemma 9.1: "Let W be a finite set of pairs (t,χ), where |t| ≤ T and for (t,χ) ≠ (t′,χ′) either χ ≠ χ′ or |t−t′| ≥ (qT)^ϵ. For any M₂ > 0, we have ∫\_{v≍1} Σ\_{a mod q, (a,q)=1} |R(v,a)|² dv ≪\_ϵ ϕ(q)|W| and ∫\_{v≍1} Σ\_{a mod q, (a,q)=1} |R̃\_{M₂}(v,a)|² dv ⪅ ϕ(q)|W|." (lines 4355–4368). Their proof expands the square against a smooth majorant: "The final equality follows from the orthogonality of characters." (line 4458), then "Finally, the terms with t₁ = t₂ contribute ≪ ϕ(q)|W| to the sum." (line 4467).
+
+**At one point per character.** The stack's points have distinct characters, so the cross terms vanish exactly. Both parts become identities, with no smooth majorant and no `(qT)^ϵ`-spacing. For `R̃` the stack integrates over all of `ℝ` rather than `v ≍ 1`. Since `0 ≤ ψ̃₀ ≤ 1` vanishes off `(−2, 2)`, `2X∫ψ̃₀ ≤ 8X`, which with `X` for their `(qT)^ϵ` is the factor their `⪅` absorbs.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLMom.lean`: new, 244 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`lemma91`, `lemma91_Rt`).
+- `frontier/linnik/CGL-LEAN.md`: the row L9.1–L9.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch first (`scratchpad/r658/lc.sh`; `lc.out`, `lc2.out`, then `lc3.out` with exit 0 and no warning). The fixes were:
+
+  - the deprecated `if_pos` and `if_neg` replaced by `split_ifs` and `simp`, with the injectivity step's symmetry corrected;
+  - the integrand of `lemma91` given explicitly, as its rewrite had inferred a variable in `ℕ`;
+  - `Integrable.mul_prod`, Mathlib's name, in place of a guessed `Integrable.prod_mul`;
+  - explicit nonnegativity terms where `positivity` cannot use hypotheses, and `integral_finsetSum` with explicit arguments in place of the deprecated `integral_finset_sum`;
+  - `hLdef` passed to `simp` where `L` abbreviates `NM₂/q`, and a `simp` that made no progress removed.
+
+- Then `build.sh` ran once (`scratchpad/r658/compile.sh 1`, log `build_1.log`): `1 compiled, 394 up to date` (`LinnikCGLMom` 13 s), exit 0 in 23 s, no error, warning or `sorry`. Its 590 axiom lines (6 by the module, 584 by the final check, which gains two lines) are 577 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.67 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed: `tools/research/render_lint.py` against HEAD (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, the same five one line later, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row L9.1–L9.2 gains round 658 in its stack cell and a clause in its status, with net-state markers on "—" and "Not started"; the opening's parenthetical gains round 658, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their §9 opening and Lemma 9.1 with its proof (text layer lines 4343–4468), re-read for this round's quotations.
+- `LinnikCGLMom.lean` in full.
+- The operative definitions: round 652's `Rf`; round 656's `Rt`, `psi0` and `psiBump`; round 654's `norm_Rf_le` and `measurable_Rf`; round 648's `sum_range_mul_star_eq_zero` and `sum_range_mul_star_self`.
+
+**Check 4.** No defect in the cascade or the stack is raised. `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements, and "only `i = j` survives" rests on injectivity on `R`.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block. The batched review of rounds 645–657 was launched after round 657.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Lemma 9.2: `∫Σ_a|R(v, a)|⁴ ⪅ φ(q)E(W)` by a smooth majorant in `τ = log v` and orthogonality, then the same for `R̃` by Cauchy–Schwarz.
