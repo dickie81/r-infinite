@@ -178,6 +178,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLP71.lean` | 654 | Chen–Gupta–Li's Proposition 7.1 at one point per character (`prop71`): `\|I′(m⃗)\| ≤ (N/q)³(C₀d(q)∫∫W·[\|m₁v₁ + m₂v₂ + m₃\| ≤ Xq/N] + (9/4)C_K(2πX)^{−K}φ(q)³\|R\|³)` over `[1/2, 2]²`, from round 652's `Ip_eq`, the bound of the integrand (`norm_Psi_le`) and measurable majorants (`measurable_Wm`, `Wm_le`) |
 | `LinnikCGLSym.lean` | 655 | two inputs of Chen–Gupta–Li's Proposition 7.2: `J = 0` unless `v₂/v₁ ∈ (1/2, 2)` (`Jk_eq_zero_of_ratio`), so Proposition 7.1 holds with that constraint (`prop71r`, through `Ip_le_of_bound`, round 654's proof for any majorant); and `I′(m₁, m₂, m₃) = I′(m₂, m₃, m₁)` (`Ip_cyc`), so `Σ\|I′\| ≤ 3Σ\|I′\|[\|m₂\| largest]` (`sum_le_three_mul`) |
 | `LinnikCGLRt.lean` | 656 | the Cauchy–Schwarz step of Chen–Gupta–Li's Proposition 7.2: their `R̃` of (7.5) (`Rt`), `R(1/v, b⁻¹) = conj(R(v, b))` (`Rf_inv`), and for `\|m₂\| ≥ M₂ > 0` the inner `v₂` integral of round 655's `Vr` bounded by `2Σ_{b₁,b₂}(b₁m₁ + b₂m₂ + m₃, q)\|R(v₁, b₁)\|R̃R̃` (`Vr_inner_le`) |
+| `LinnikCGLP72.lean` | 657 | Chen–Gupta–Li's Proposition 7.2: their `Ĩ` (`It`); for `\|m₂\| ≥ M₂ > 0`, `\|I′(m⃗)\| ≤ 2C_J(0)d(q)(N²/(q²M₂))Ĩ_{M₂}(m₁, −m₂, m₃) + E` (`Ip_le_It`); and `S₃` bounded by the sum over the dyadic scales of `m₂` of these terms, with `\|m₁\|, \|m₃\| ≤ \|m₂\|`, plus three explicit errors (`prop72`) |
 
 ## Building (rounds 217, 618)
 
@@ -866,3 +867,12 @@ Round 656 proves the Cauchy–Schwarz step of Chen–Gupta–Li's Proposition 7.
 - `cs_Icc`, `inner_le`, `Vr_inner_le`: Cauchy–Schwarz on `[1/2, 2]`. For `|m₂| ≥ M₂ > 0` and `v₁ ∈ [1/2, 2]` it gives `L∫Vr(v₁, v₂) dv₂ ≤ 2Σ_{b₁,b₂}(b₁m₁ + b₂m₂ + m₃, q)|R(v₁, b₁)|R̃(c/v₁, b₂b₁⁻¹)R̃(c, b₂)` with `c = −(m₁v₁ + m₃)/m₂`.
 
 See the main README, round 656, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 579 lines.
+
+Round 657 proves Chen–Gupta–Li's Proposition 7.2 in the stack's explicit form.
+
+- `measurable_Rt`, `Rt_le`: `R̃_{M₂}(·, a)` is measurable and at most `√((3/2)NM₂/q)|R|`.
+- `Itg`, `It`, `Itg_neg`: their `Ĩ_{m⃗}`, and its integrand at `−m₂` as round 656's sum.
+- `Ip_le_It`: round 655's `prop71r`, with the inner integral bounded by round 656's `Vr_inner_le` and the outer one over `v₁ ∈ [1/2, 2]`: for `|m₂| ≥ M₂ > 0`, `|I′(m⃗)| ≤ 2C_J(0)d(q)(N²/(q²M₂))Ĩ_{M₂}(m₁, −m₂, m₃) + E`.
+- `sum_dyadic`, `sum_neg_m₂`, `sum_Ak_regroup`, `prop72`: with round 650's truncation and round 655's reduction to `|m₂|` largest, `S₃ ≤ 3Σ_{k≤log₂M}Σ_{⌊log₂|m₂|⌋=k, |m₁|,|m₃|≤|m₂|}2C_J(0)d(q)(N²/(q²2^k))Ĩ_{2^k}(m⃗) + 3(2M)³E + |R||μ − μ₀|³ + 3|R|³τ_M(2N + 1 + τ_M)²`, the sums over `0 < |m_i| ≤ M`.
+
+See the main README, round 657, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 582 lines.

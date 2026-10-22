@@ -27411,3 +27411,69 @@ The proof is theirs, "Inserting these bounds into (7.3) and applying the triangl
 **Bearing on RH:** none.
 
 **The next step.** Integrate `Vr_inner_le` over `v₁ ∈ [1/2, 2]` against round 655's `prop71r`, which needs `R̃` measurable and bounded in its centre. Then the reduction to `|m₂|` largest, the dyadic decomposition, and their Proposition 7.2.
+
+## Round 657: their Proposition 7.2 (stage M3, the `S₃` side; `external/pnt/LinnikCGLP72.lean`)
+
+**The results.** Below, `X > 0`, `q ≥ 1` and `B = {m : 0 < |m| ≤ M}`.
+
+- `LinnikCGLP72.measurable_Rt`, `Rt_le`: `R̃_{M₂}(·, a)` is measurable, and `R̃_{M₂}(u, a) ≤ √((3/2)NM₂/q)|R|` for `NM₂/q ≥ 0`.
+- `LinnikCGLP72.It`: their `Ĩ_{m⃗}`, the integral over `v₁ ∈ [1/2, 2]` of `Σ_{b₁,b₂}|R(v₁, b₁)|R̃_{M₂}((m₁v₁ + m₃)/(m₂v₁), b₁⁻¹b₂)R̃_{M₂}((m₁v₁ + m₃)/m₂, b₂)(b₁m₁ − b₂m₂ + m₃, q)` (`Itg`), with `X` for their `(qT)^ϵ`. `Itg_neg`: the integrand at `−m₂` is the sum in round 656's `Vr_inner_le`.
+- `LinnikCGLP72.Ip_le_It`: for `N > 0`, `|m₂| ≥ M₂ > 0` and any `K`, `|I′(m⃗)| ≤ 2C_J(0)d(q)(N²/(q²M₂))Ĩ_{M₂}(m₁, −m₂, m₃) + E(K)`, with round 654's error `E(K) = (N/q)³(9/4)C_J(K)(2πX)^{−K}φ(q)³|R|³` (`E71`). It is round 655's `prop71r`, with the inner integral bounded by `Vr_inner_le` and the outer one integrated over `v₁`.
+- `LinnikCGLP72.sum_dyadic`, `sum_neg_m₂`, `sum_Ak_regroup`: a sum over `B³` regrouped by `k = ⌊log₂|m₂|⌋ ≤ ⌊log₂M⌋`, and `m₂ ↦ −m₂` inside each block.
+- `LinnikCGLP72.prop72`: for `N > 0`, `χ` injective on `R`, points `|t_i| ≤ T`, `M ≥ 1`, `K ≥ 2` and any `K′`, `S₃ ≤ 3Σ_{k=0}^{⌊log₂M⌋}Σ_{m⃗∈B³, ⌊log₂|m₂|⌋=k, |m₁|,|m₃|≤|m₂|}2C_J(0)d(q)(N²/(q²2^k))Ĩ_{2^k}(m⃗) + 3(2M)³E(K′) + |R||μ − μ₀|³ + 3|R|³τ_M(2N + 1 + τ_M)²`, with round 650's `τ_M`. The chain: round 650's truncation, the triangle inequality, round 655's reduction to `|m₂|` largest, `Ip_le_It` at `M₂ = 2^{⌊log₂|m₂|⌋}`, and the regrouping.
+
+**Their text.** Re-read this round in the text layer, with spaces restored and the notation transcribed; the file's header lists the allowances for each quotation.
+
+- Their statement: "There is a choice of 0 < M₁ ≤ M₃ ≤ M₂ ≤ (qT)^ϵqT/N such that S₃ ⪅\_ϵ (N²/(q²M₂)) Σ\_{|m\_i|∼M\_i, 1≤i≤3} Ĩ\_{m⃗} + |W|, where Ĩ\_{m⃗} := ∫\_{v₁∈[1/2,2]} Σ\_{b₁,b₂ mod q, (b₁b₂,q)=1} |R(v₁,b₁) R̃\_{M₂}((m₁v₁+m₃)/(m₂v₁), b₁⁻¹b₂) R̃\_{M₂}((m₁v₁+m₃)/m₂, b₂)| · (b₁m₁−b₂m₂+m₃,q) dv₁" (lines 2264–2290).
+- The bars. The text layer drops them. The PDF draws them as CMEX10 glyphs, which pdfminer finds on page 25 in the rows y = 584–606: at x = 219.7–223.7, just before the characters `R(v₁,b₁)`, and at x = 506.2–510.2, just after the second `R̃`'s closing parenthesis (`scratchpad/r656/probe/bar.py` and an inline probe). They enclose the product `R(v₁,b₁)R̃R̃`, which equals `|R(v₁,b₁)|R̃R̃` since `R̃ ≥ 0`.
+- Their proof: "Furthermore, by selecting dyadic scales to maximize the right-hand side, we arrive at (7.6) |S₃| ⪅\_ϵ Σ\_{|m\_i|∼M\_i, 1≤i≤3} |I′\_{m⃗}| + |W|, where M₁ ≤ M₃ ≤ M₂ ≤ (qT)^ϵqT/N" (lines 2342–2347), and "Since we are summing over m₂ with |m₂| ∼ M₂, we can replace −m₂ with m₂ without altering the overall sum. Inserting this in (7.6) then gives the result." (lines 2429–2430).
+- Their notation: `A ∼ B` "signifies the stronger condition B < A ≤ 2B" (lines 278–279), and "we write A⪅B to indicate that for any ϵ > 0, there exists a constant C(ϵ) > 0, depending only on ϵ, such that A ≤ C(ϵ)(qT)^ϵB for all sufficiently large qT" (lines 279–281).
+
+**The stack's form.** `prop72` keeps every term explicit and differs from their statement in three ways.
+
+- It sums over every dyadic scale of `m₂` instead of choosing the largest. The number of scales, `⌊log₂M⌋ + 1`, is `⪅ 1` for `M ≤ (qT)²`. The blocks are `2^k ≤ |m₂| < 2^{k+1}`, so `M₂ = 2^k ≤ |m₂|`, which `Ip_le_It` needs.
+- It splits only `m₂` dyadically and keeps `|m₁|, |m₃| ≤ |m₂|`, from round 655's cyclic symmetry; their `M₁ ≤ M₃` is not used.
+- Its constant `2C_J(0)d(q)` and its three errors are explicit. They are round 654's error at each triple, `3(2M)³E(K′)`; their `Z′`, which round 649 read as the diagonal terms `|R||μ − μ₀|³`, with `|μ − μ₀| ≤ d(q)B_w`; and round 650's truncation error.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLP72.lean`: new, 363 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`Ip_le_It`, `sum_Ak_regroup`, `prop72`).
+- `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch first (`scratchpad/r657/lc.sh`; `lc.out`, then `lc2.out` with exit 0 and no warning). The fixes were:
+
+  - explicit arguments to `Real.sqrt_mul`, which had rewritten the wrong square root;
+  - a `show` to beta-reduce the integrand before rewriting with `Itg_neg`;
+  - `add_le_add` in place of `add_le_add_right`, whose argument order differs in this Mathlib;
+  - a `ring` dropped after a `field_simp` that closes its goal, and an unused `simp` argument;
+  - the bound and the error named (`Ak`, `E71`) and the regrouping made a lemma (`sum_Ak_regroup`), after a `congr 1` timed out trying `rfl` through `It` and a `rw [ite_and]` rewrote both sides.
+
+- Then `build.sh` ran once (`scratchpad/r657/compile.sh 1`, log `build_1.log`): `1 compiled, 393 up to date` (`LinnikCGLP72` 12 s), exit 0 in 22 s, no error, warning or `sorry`. Its 587 axiom lines (5 by the module, 582 by the final check, which gains three lines) are 574 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.76 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed: `tools/research/render_lint.py` against HEAD (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, the same five one line later, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2 gains round 657 in its stack cell, a net-state marker on "Started" and a clause in its status; the opening's parenthetical gains round 657, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their Proposition 7.2 and its proof from (7.1) to the end, with the treatment of `Z′` before (7.1) (text layer lines 1940–2040 and 2259–2436), and their notation (lines 275–286), re-read for this round's quotations; page 25 of the PDF probed for the bars.
+- `LinnikCGLP72.lean` in full.
+- The operative statements: round 650's `S3_trunc`, `Ip`, `boxM` and `tauM`; round 649's `muP_sub_mu0_le` and its reading of `Z′`; round 655's `prop71r`, `Ip_cyc` and `sum_le_three_mul`; round 656's `Vr_inner_le`, `Rt` and `integrableOn_Icc_of_le`; round 639's `CGLS3`, for the form the assembly feeds.
+
+**Check 4.** No defect in the cascade or the stack is raised. `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements, and "every dyadic scale" means `k ≤ ⌊log₂M⌋`, which covers every `m₂ ∈ B`.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Their §11 (Proposition 11.1), on each dyadic block: Cauchy–Schwarz in `(v₁, b₁)`, with `∫Σ_{b₁}|R(v₁, b₁)|² = φ(q)|R|·(3/2)` exact at one point per character; then their Proposition 8.1 as a displayed hypothesis, applied to `f_b(v) = ψ(v)R̃_{M₂}(v, −b)²`.
