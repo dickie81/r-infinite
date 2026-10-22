@@ -27344,3 +27344,70 @@ The proof is theirs, "Inserting these bounds into (7.3) and applying the triangl
 **Bearing on RH:** none.
 
 **The next step.** Their `R̃` of (7.5), with a smooth bump `ψ̃₀` equal to `1` on `[−1, 1]`. Then the Cauchy–Schwarz bound for the inner integral, `∫|R(v₂/v₁, ·)||R(1/v₂, ·)| ≤ 2(q/(NM₂))R̃R̃` over `|v₂ − c| ≤ Xq/(NM₂)`, with `|R(1/v, a⁻¹)| = |R(v, a)|`. Then the dyadic decomposition and their Proposition 7.2.
+
+## Round 656: their `R̃` and the inner integral of Proposition 7.2 (stage M3, the `S₃` side; `external/pnt/LinnikCGLRt.lean`)
+
+**The results.** Below, `L = NM₂/q`, `X > 0` and `q ≥ 1`.
+
+- `LinnikCGLRt.Rt`: their `R̃_{M₂}(u, a)`, the square root of `∫_{[1/2,2]}Lψ̃₀(L(u − u′)/(2X))|R(u′, a)|² du′`. Here `psi0`, Mathlib's smooth bump with radii 1 and 2, stands for their `ψ̃₀`, and `X` for their `(qT)^ϵ`.
+- `LinnikCGLRt.Rf_inv`: `R(1/v, b⁻¹) = conj(R(v, b))` for `v > 0` and a unit `b`; `norm_Rf_inv` takes norms.
+- `LinnikCGLRt.local_le_Rt_sq`: for `L > 0` and `Lδ ≤ 2X`, `L∫_{[1/2,2], |u−c|≤δ}|R(u, a)|² ≤ R̃(c, a)²`. On the window the bump equals `1`.
+- `LinnikCGLRt.ratio_le_Rt_sq`: for `v₁ > 0` and `L(δ/v₁) ≤ 2X`, `L∫_{[1/2,2], |v₂−c|≤δ, v₂/v₁∈[1/2,2]}|R(v₂/v₁, a)|² ≤ v₁R̃(c/v₁, a)²`, by the substitution `u′ = v₂/v₁`.
+- `LinnikCGLRt.cs_Icc`: Cauchy–Schwarz on `[1/2, 2]` for nonnegative bounded measurable functions.
+- `LinnikCGLRt.inner_le`: for `v₁ ∈ [1/2, 2]`, `L > 0` and `Lδ ≤ X`, `L∫_{[1/2,2], |v₂−c|≤δ, v₂/v₁∈[1/2,2]}|R(v₂/v₁, a)||R(1/v₂, b⁻¹)| ≤ 2R̃(c/v₁, a)R̃(c, b)`.
+- `LinnikCGLRt.Vr_inner_le`: for `N > 0`, `|m₂| ≥ M₂ > 0` and `v₁ ∈ [1/2, 2]`, with `c = −(m₁v₁ + m₃)/m₂` and round 655's `Vr`, `L∫_{[1/2,2]}Vr(v₁, v₂) dv₂ ≤ 2Σ_{b₁,b₂}(b₁m₁ + b₂m₂ + m₃, q)|R(v₁, b₁)|R̃(c/v₁, b₂b₁⁻¹)R̃(c, b₂)`. Here `(n, q)` is the gcd of `q` and the least nonnegative representative of `n`.
+
+**Their text.** Re-read this round in the text layer, with spaces restored and the notation transcribed (tildes, integrals and their ranges, fractions, norms, exponents, subscripts and superscripts); the file's header lists the allowances for each quotation.
+
+- Their bump: "Let ψ̃₀(x) be a non-negative smooth bump supported on [−2,2] such that ψ̃₀(x) = 1 for |x| ≤ 1, ‖ψ̃₀^{(j)}‖\_∞ ≪\_j 1 and ψ̃(x) = ψ̃₀(x/(2(qT)^ϵ))" (their (7.4), lines 2236–2243). Their (7.5) is round 655's quotation.
+- The step: "Using Cauchy-Schwarz and noting that |R(1/v₂,b⁻¹)| = |R(v₂,b)|, the inner v₂ integral is bounded by" (lines 2382–2383). The display that follows (lines 2384–2422) ends with `≤ (q/(NM₂)) R̃_{M₂}((m₁v₁+m₃)/(−m₂v₁), b₁⁻¹b₂) R̃_{M₂}((m₁v₁+m₃)/(−m₂), b₂)` (transcribed).
+- The identity follows, by taking norms, from "From the definition of R(v,a), it follows that (see (7.2)) R(1/v,a⁻¹) = R(v,a)" (lines 2330–2335). The text layer drops the right side's conjugation bar, which the PDF draws as a rule: on page 25, pdfminer finds a rule at y = 346.1, above the row at y = 333, spanning x = 323.4–358.9, exactly the extent of the characters `R(v,a)` (`scratchpad/r656/probe/bar.py`). `Rf_inv` is the identity with the bar.
+
+**The window.** Round 655's `Vr` keeps `|m₁v₁ + m₂v₂ + m₃| ≤ Xq/N` and `v₂/v₁ ∈ [1/2, 2]`. For `|m₂| ≥ M₂`, the first condition puts `v₂` within `δ = Xq/(NM₂)` of `c`, so `Lδ = X`. With `u′ = v₂/v₁`, the window is `|u′ − c/v₁| ≤ δ/v₁ ≤ 2δ`, where `ψ̃ = 1`; the stack uses the `2` in their `2(qT)^ϵ` here.
+
+**The constant.** The substitution `u′ = v₂/v₁` gives `dv₂ = v₁du′`, so the first Cauchy–Schwarz factor carries `√v₁ ≤ √2`, which the stack rounds up to `2`. Their display has no constant there. Their next line, "We therefore obtain |I′\_{m₁,m₂,m₃}| ≪\_ϵ (N²/(q²M₂)) Ĩ\_{m₁,−m₂,m₃} + O\_ϵ((qT)^{−200})" (lines 2423–2428), is stated with `≪_ϵ`, which absorbs it. This is an observation about the paper's write-up, recorded here.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLRt.lean`: new, 425 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`local_le_Rt_sq`, `inner_le`, `Vr_inner_le`).
+- `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch first, in seven runs as it grew (`scratchpad/r656/lc.sh`; `lc.out` to `lc7.out`, the last with exit 0 and no warning). The fixes were:
+
+  - measurable sets stated explicitly, as intersections of two sets;
+  - the deprecated `if_pos` and `if_neg` replaced by `split_ifs` and `simp`;
+  - `Measure.integral_comp_div` for the substitution;
+  - `have` in place of `haveI` for a `Prop` instance;
+  - the case `δ ≤ 0` handled on its own;
+  - `zero_pow` rewritten before `positivity`;
+  - the square-root identity closed by `linear_combination`.
+
+- Then `build.sh` ran twice (`scratchpad/r656/compile.sh`; logs `build_1.log` and `build_2.log`). The second run follows the header's last edits, which touch only the comment. Each reported `1 compiled, 392 up to date` (`LinnikCGLRt` 14 s), exit 0 in 26 s and 25 s, no error, warning or `sorry`. Run 2's 585 axiom lines (6 by the module, 579 by the final check, which gains three lines) are 572 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest samples of `lean`'s resident memory, every 10 s, were 6.77 GiB and 6.73 GiB (`rss_watch_build_1.log`, `rss_watch_build_2.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed: `tools/research/render_lint.py` against HEAD (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, the same five one line later, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2 gains round 656 in its stack cell and a clause in its status, nothing in it superseded; the opening's parenthetical gains round 656, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their (7.4)–(7.5), the conjugation identity and the symmetries, and the proof of Proposition 7.2 from the Cauchy–Schwarz step to its end (text layer lines 2236–2262, 2325–2345 and 2380–2436), re-read for this round's quotations; page 25 of the PDF probed for the conjugation bar.
+- `LinnikCGLRt.lean` in full.
+- The operative definitions: round 652's `Rf`, `star_unit` and `cpow_eq_exp`; round 654's `Wm`, `norm_Rf_le` and `measurable_Rf`; round 655's `Vr`.
+
+**Check 4.** No defect in the cascade or the stack is raised. The observation above concerns Chen–Gupta–Li's write-up: their display omits a constant that their next line absorbs. `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements, and "exactly the extent" refers to the pdfminer coordinates printed above.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Integrate `Vr_inner_le` over `v₁ ∈ [1/2, 2]` against round 655's `prop71r`, which needs `R̃` measurable and bounded in its centre. Then the reduction to `|m₂|` largest, the dyadic decomposition, and their Proposition 7.2.

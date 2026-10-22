@@ -177,6 +177,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLRam.lean` | 653 | the inputs of Chen–Gupta–Li's bound for `I′(m⃗)`: `\|C_q(n)\| ≤ d(q)(n, q)` (`norm_Cq_le`), by Möbius over the divisors of `q` (`sum_coprime_eq_C`, `Cq_eq_moebius`); the decay `(2π\|λ\|)^K\|J(v₁, v₂, λ)\| ≤ C_K` uniformly for `\|v₁\|, \|v₂\| ≤ 2` (`Jk_decay`); and `J = 0` unless `v₁, v₂ ∈ (1/2, 2)` (`Jk_eq_zero_of`) |
 | `LinnikCGLP71.lean` | 654 | Chen–Gupta–Li's Proposition 7.1 at one point per character (`prop71`): `\|I′(m⃗)\| ≤ (N/q)³(C₀d(q)∫∫W·[\|m₁v₁ + m₂v₂ + m₃\| ≤ Xq/N] + (9/4)C_K(2πX)^{−K}φ(q)³\|R\|³)` over `[1/2, 2]²`, from round 652's `Ip_eq`, the bound of the integrand (`norm_Psi_le`) and measurable majorants (`measurable_Wm`, `Wm_le`) |
 | `LinnikCGLSym.lean` | 655 | two inputs of Chen–Gupta–Li's Proposition 7.2: `J = 0` unless `v₂/v₁ ∈ (1/2, 2)` (`Jk_eq_zero_of_ratio`), so Proposition 7.1 holds with that constraint (`prop71r`, through `Ip_le_of_bound`, round 654's proof for any majorant); and `I′(m₁, m₂, m₃) = I′(m₂, m₃, m₁)` (`Ip_cyc`), so `Σ\|I′\| ≤ 3Σ\|I′\|[\|m₂\| largest]` (`sum_le_three_mul`) |
+| `LinnikCGLRt.lean` | 656 | the Cauchy–Schwarz step of Chen–Gupta–Li's Proposition 7.2: their `R̃` of (7.5) (`Rt`), `R(1/v, b⁻¹) = conj(R(v, b))` (`Rf_inv`), and for `\|m₂\| ≥ M₂ > 0` the inner `v₂` integral of round 655's `Vr` bounded by `2Σ_{b₁,b₂}(b₁m₁ + b₂m₂ + m₃, q)\|R(v₁, b₁)\|R̃R̃` (`Vr_inner_le`) |
 
 ## Building (rounds 217, 618)
 
@@ -856,3 +857,12 @@ Round 655 proves two inputs of Chen–Gupta–Li's Proposition 7.2.
 - `Ip_cyc`, `sum_shift`, `sum_le_three_mul`: `I′(m₁, m₂, m₃) = I′(m₂, m₃, m₁)`, a renaming of the triples of points, so `Σ_{B³}|I′| ≤ 3Σ_{B³}|I′|·[|m₁|, |m₃| ≤ |m₂|]`.
 
 See the main README, round 655, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 576 lines.
+
+Round 656 proves the Cauchy–Schwarz step of Chen–Gupta–Li's Proposition 7.2. Below, `L = NM₂/q`.
+
+- `psi0`, `Rt`: their bump `ψ̃₀`, here Mathlib's smooth bump with radii 1 and 2, and their `R̃_{M₂}(u, a)`, the square root of `∫_{[1/2,2]}Lψ̃₀(L(u − u′)/(2X))|R(u′, a)|² du′`.
+- `Rf_inv`: `R(1/v, b⁻¹) = conj(R(v, b))` for `v > 0` and a unit `b`.
+- `local_le_Rt_sq`, `ratio_le_Rt_sq`: `L∫_{|u−c|≤δ}|R(u, a)|² ≤ R̃(c, a)²` for `Lδ ≤ 2X`, and the same for `R(v₂/v₁, a)` with the factor `v₁` and the centre `c/v₁`.
+- `cs_Icc`, `inner_le`, `Vr_inner_le`: Cauchy–Schwarz on `[1/2, 2]`. For `|m₂| ≥ M₂ > 0` and `v₁ ∈ [1/2, 2]` it gives `L∫Vr(v₁, v₂) dv₂ ≤ 2Σ_{b₁,b₂}(b₁m₁ + b₂m₂ + m₃, q)|R(v₁, b₁)|R̃(c/v₁, b₂b₁⁻¹)R̃(c, b₂)` with `c = −(m₁v₁ + m₃)/m₂`.
+
+See the main README, round 656, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 579 lines.
