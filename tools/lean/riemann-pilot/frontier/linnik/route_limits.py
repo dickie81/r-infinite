@@ -17,8 +17,9 @@ This script computes the three for a curve, an exponent and a grid size `n`, wit
   `5/6` by orthogonality (T1) at `β ∈ {lo, hi}`, `w ∈ {0, 4·10⁻⁶}` and the window's ends and `1`; the top piece
   `[5/6, 11/12]` by `windowPieceHM_const_split`'s three families. If a corner at an end fails, that end moves inward
   by `10⁻⁵` until none fails; the row records the ends used. (Round 629: `corners` also takes a window with
-  `m₁ ≥ 1`, which `WindowOKHM` allows: there only the inequalities for `m ≥ 1`, at `m₁` and `m₂`; review of round
-  628, finding 2.);
+  `m₁ ≥ 1`, which `WindowOKHM` allows: there the inequalities for `m ≥ 1`, at `m₁` and `m₂`, and at `m₁ = 1` those
+  for `m ≤ 1` at `m = 1` too; review of round 628, finding 2. Round 630: it read "there only the inequalities for
+  `m ≥ 1`"; review of round 629, finding 4.);
 * `replay`: `SieveCertDefs.lean`'s `total` on the grid `U1 = ⌈w₁·DEN⌉`, `U2 = ⌊w₂·DEN⌋`, `n`, in exact integers
   (`cdiv`, `omK`, `bound2`, `bound4`, `cand`, `allowed`, `refcost`, `dec`, `cost` as there; natural subtraction
   truncated at `0`, division by `0` giving `0`), and `GridOK`, `Fits` and `RouteOK` as `decide` would evaluate them.
@@ -383,10 +384,10 @@ def cmd_floor(curve, over=()):
     at = [f'[{plo}, {phi}]' for plo, phi, A in pieces if A == amax]
     q, arg = floor_q(pieces)
     name = curve + ''.join(f' with A = {A_} on [{lo_}, {hi_}]' for lo_, hi_, A_ in over)
-    lim = 'attained' if arg == [pieces[-1][1]] else 'a left limit'  # only the top piece's right end is in the window
+    lim = 'attained' if pieces[-1][1] in arg else 'a left limit'  # only the top piece's right end is in the window
     print(f'{name}: the exact floor L* = 1 + sup (g/2 + 1/25000)/(1 - b - 4e-6) = {1 + q}, between '
           f'{" and ".join(encl(1 + q))}, {lim} at b = {", ".join(str(b) for b in arg)}; A_max = {amax} on '
-          f'{", ".join(at)}, 1 + A_max/2 = {float(1 + amax / 2):.5f}', flush=True)
+          f'{", ".join(at)}, 1 + A_max/2 = {1 + amax / 2}, between {" and ".join(encl(1 + amax / 2))}', flush=True)
     lo, hi = 21000, 23000
     assert window(pieces, Fr(lo, 10000)) is None and window(pieces, Fr(hi, 10000)) is not None
     while hi - lo > 1:
@@ -400,11 +401,11 @@ def cmd_floor(curve, over=()):
     W1, W2 = round(w[0] * 100000), round(w[1] * 100000)
     m1, m2 = Fr(W1, 100000) * L, Fr(W2, 100000) * L
     head = f'  the sampled window is empty at L = {lo / 10000} and nonempty at {hi / 10000}: [{W1}, {W2}]/1e5'
-    if m1 < 1 < m2:
+    if m1 < m2 and 1 < m2:
         fails, slack, _ = corners(pieces, L, W1, W2)
         print(f'{head}, its exact corners {"pass" if not fails else "FAIL"} (least slack {float(slack):.2e})')
-    else:
-        print(f'{head}, with m1 = {float(m1):.7f}, m2 = {float(m2):.7f}: not m1 < 1 < m2 (Fits needs m2 > 1)')
+    else:  # round 630: it asked m1 < 1 < m2; review of round 629, out-of-scope observation O1
+        print(f'{head}, with m1 = {float(m1):.7f}, m2 = {float(m2):.7f}: not m1 < m2 with m2 > 1 (Fits needs m2 > 1)')
 
 
 def cmd_holdout(out, curve, Ls, n):
