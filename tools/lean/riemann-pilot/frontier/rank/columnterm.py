@@ -1,4 +1,4 @@
-"""Target T3's coefficients against the quadratic large sieve's column term (FIVE-SIXTHS.md, section 8).
+"""Models of the release's coefficients against two sieves' extremal terms (FIVE-SIXTHS.md, sections 7 and 8).
 
 The column term.  In the proof of the release's Lemma lem:hybrid-energy, the rows k (squarefree, norm about K) meet the
 dual columns n through the quadratic symbols chi_k(n)^3 = (n/k)_2, and the quadratic large sieve charges K + N.  When
@@ -15,14 +15,22 @@ The statistic.  Q = sum_k |sum_n c_n (n/k)_2|^2 / (#rows sum_n |c_n|^2), over th
 (composite.py; the prime data of PAIRING.md section 7).  With no column term Q is about 1; for the aligned sequence
 c_n = (n/k0)_2 it is about #columns/#rows.
 
-Gate (exit status 1 if it fails; skipped, and reported, without the prime data):
+Gates (exit status 1 if one fails; skipped, and reported, without the prime data):
   N2  at (N, K) = (8*10^4, 250), (8*10^4, 500) and (4*10^4, 1000), with #columns/#rows between 20 and 160: the aligned
       control has Q >= #columns/(2 #rows); random phases, the Gauss-sum models conj(g3), conj(g3) alpha,
       conj(g3) alpha^2 and conj(g3) mu, and the two-slot model conj(g3) alpha S have Q <= 1.5.  So at these sizes these
       coefficient models show no column term.  This is evidence about models of the coefficients at small norms, not a
       bound.
 
-Usage: python3 columnterm.py periods_w_8e4.txt     (about 15 s)
+  N3  the cubic large sieve's (NL)^{2/3} term for the slot coefficients' model (FIVE-SIXTHS.md, target T1).  With
+      R_k = sum_j |sum_P gamma_2(P) alpha(P)^k chi_P(j)^{-2}|^2 / (#columns sum |coefficient|^2) over the squarefree P
+      of norm in (L/2, L] and the squarefree columns j of norm <= N (chi_P(j)^{-2} = conj((j/P)_3), the release's
+      column character): at (L, N) = (2*10^4, 500), (4*10^4, 10^3), (8*10^4, 2*10^3) and (8*10^4, 500), the untwisted
+      sum (k = 0) has R_0 >= 5, increasing along the first three (at L/N = 40, where (NL)^{2/3}/N grows by 2^{1/3}
+      per doubling): Patterson's theta term in every column.  The angle twists k = -2 (the slot coefficient's),
+      -1, 1, 2 have R_k <= 1.5: no excess over the diagonal.  Evidence about models at small norms, not a bound.
+
+Usage: python3 columnterm.py periods_w_8e4.txt     (about 30 s)
 """
 import math
 import os
@@ -35,6 +43,7 @@ sys.path.insert(0, HERE)
 from composite import Field, load_primes, squarefree_moduli    # noqa: E402
 
 ZETA = np.exp(2j * np.pi * np.arange(6) / 6)
+N3_SIZES = ((20000, 500), (40000, 1000), (80000, 2000), (80000, 500))
 
 
 def setup(path, N, K):
@@ -72,7 +81,7 @@ def slot_sum(d, Pslot):
         pz = complex(P.el[0] - 0.5 * P.el[1], math.sqrt(3) / 2 * P.el[1])
         a[i] = P.G[2] * (abs(pz) / pz) ** 2 / math.sqrt(P.norm)
         s = P.sym_vec(ns, nt)
-        col[i] = np.where(s < 0, 0.0, ZETA[(-4 * np.maximum(s, 0)) % 6])   # chi_p(n)^{-2} = (n/p)_6^{-4}
+        col[i] = np.where(s < 0, 0.0, ZETA[(-2 * np.maximum(s, 0)) % 6])   # chi_p(n)^{-2} = (n/p)_6^{-2}
     S = np.zeros(len(ns), dtype=complex)
     pairs = 0
     for p in W1:
@@ -83,6 +92,36 @@ def slot_sum(d, Pslot):
             S += a[p] * a[q] * ZETA[(4 * e) % 6] * col[p] * col[q]           # (q/p)_3^2 = (q/p)_6^4
             pairs += 1
     return S, pairs
+
+
+def cubic_sieve(path, L, N, ks=(0, -2, -1, 1, 2)):
+    """R_k = sum_j |sum_P gamma_2(P) alpha(P)^k chi_P(j)^{-2}|^2 / (#columns sum |coefficient|^2), over the squarefree
+    moduli P of norm in (L/2, L] and the squarefree columns j of norm <= N; chi_P(j)^{-2} = conj((j/P)_3)."""
+    F = Field('w')
+    primes = load_primes(F, path, max(L, N))
+    nm, om, el, G, pr = squarefree_moduli(F, primes, max(L, N))
+    mods = np.flatnonzero((nm > L // 2) & (nm <= L))
+    cols = np.flatnonzero(nm <= N)
+    js = np.array([el[i][0] for i in cols]); jt = np.array([el[i][1] for i in cols])
+    used = sorted({p for i in mods for p in pr[i]})
+    sym = {p: primes[p].sym_vec(js, jt) for p in used}
+    Y = np.zeros((len(mods), len(cols)), dtype=complex)
+    for r, i in enumerate(mods):
+        E = np.zeros(len(cols), dtype=np.int64)
+        Z = np.zeros(len(cols), dtype=bool)
+        for p in pr[i]:
+            s = sym[p]
+            Z |= s < 0
+            E += np.where(s < 0, 0, s)
+        Y[r] = np.where(Z, 0, ZETA[(-2 * E) % 6])
+    z = np.array([complex(el[i][0] - 0.5 * el[i][1], math.sqrt(3) / 2 * el[i][1]) for i in mods])
+    al, g = z / np.abs(z), G[mods, 2]
+    out = {}
+    for k in ks:
+        c = g * al ** k
+        S = c @ Y
+        out[k] = float(np.sum(np.abs(S) ** 2) / (len(cols) * np.sum(np.abs(c) ** 2)))
+    return out
 
 
 def ratio(X, c):
@@ -114,7 +153,13 @@ def main():
                      + ', '.join(f'{k} {v:.3f}' for k, v in q.items())
                      + (f' ({pairs} slot pairs)' if Pslot else ''))
     print(f'N2: {"PASS" if ok else "FAIL"}  ' + '; '.join(lines))
-    if not ok:
+    r3 = {LN: cubic_sieve(path, *LN) for LN in N3_SIZES}
+    grow = [r3[LN][0] for LN in N3_SIZES[:3]]
+    ok3 = (all(r3[LN][0] >= 5 for LN in N3_SIZES) and grow[0] < grow[1] < grow[2]
+           and all(v <= 1.5 for LN in N3_SIZES for k, v in r3[LN].items() if k != 0))
+    print(f'N3: {"PASS" if ok3 else "FAIL"}  ' + '; '.join(
+        f'(L, N) = {LN}: ' + ', '.join(f'k = {k}: {v:.3f}' for k, v in r3[LN].items()) for LN in N3_SIZES))
+    if not (ok and ok3):
         sys.exit(1)
     print('all gates pass')
 
