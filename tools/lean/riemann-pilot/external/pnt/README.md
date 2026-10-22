@@ -175,6 +175,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLProd.lean` | 651 | a product of three `ĥ`s as an integral over `(v₁, v₂)` (`hhat_prod`): for `τ₁ + τ₂ + τ₃ = 0`, `ĥ_{τ₁}(ξ₁)ĥ_{τ₂}(ξ₂)ĥ_{τ₃}(ξ₃) = ∫∫v₁^{iτ₁}v₂^{iτ₂}J(v₁, v₂, v₁ξ₁ + v₂ξ₂ + ξ₃)`, the change of variables of Chen–Gupta–Li's proof of Proposition 7.1, from the substitutions `u_ℓ = v_ℓu₃` (`prod_eq_iter`), Fubini over a compact support (`iter_swap`) and the phases (`Phi_eq`) |
 | `LinnikCGLRFact.lean` | 652 | Chen–Gupta–Li's (7.3) at one point per character (`Ip_eq`): `I′(m⃗) = (N/q)³∫∫J(v₁, v₂, λ)Σ_{b₁,b₂}C_q(b₁m₁ + b₂m₂ + m₃)R(v₁, b₁)R(v₂/v₁, b₂b₁⁻¹)R(1/v₂, b₂⁻¹)`, from `φ_{ik}(m)` with its residue sum over the units (`phi_eq`), round 651's `hhat_prod`, the substitution `a₁ = b₁a₃`, `a₂ = b₂a₃` (`S2_triple`) and the phases (`phases`) |
 | `LinnikCGLRam.lean` | 653 | the inputs of Chen–Gupta–Li's bound for `I′(m⃗)`: `\|C_q(n)\| ≤ d(q)(n, q)` (`norm_Cq_le`), by Möbius over the divisors of `q` (`sum_coprime_eq_C`, `Cq_eq_moebius`); the decay `(2π\|λ\|)^K\|J(v₁, v₂, λ)\| ≤ C_K` uniformly for `\|v₁\|, \|v₂\| ≤ 2` (`Jk_decay`); and `J = 0` unless `v₁, v₂ ∈ (1/2, 2)` (`Jk_eq_zero_of`) |
+| `LinnikCGLP71.lean` | 654 | Chen–Gupta–Li's Proposition 7.1 at one point per character (`prop71`): `\|I′(m⃗)\| ≤ (N/q)³(C₀d(q)∫∫W·[\|m₁v₁ + m₂v₂ + m₃\| ≤ Xq/N] + (9/4)C_K(2πX)^{−K}φ(q)³\|R\|³)` over `[1/2, 2]²`, from round 652's `Ip_eq`, the bound of the integrand (`norm_Psi_le`) and measurable majorants (`measurable_Wm`, `Wm_le`) |
 
 ## Building (rounds 217, 618)
 
@@ -836,3 +837,13 @@ Round 653 proves the two inputs that Chen–Gupta–Li's proof of Proposition 7.
 - `Jk_eq_zero_of`: `w(vu) = 0` for `u ∈ (1, 2)` unless `v ∈ (1/2, 2)`.
 
 See the main README, round 653, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 571 lines.
+
+Round 654 proves Chen–Gupta–Li's Proposition 7.1 at one point per character, with explicit constants: for `q ≥ 1`, `N > 0`, `X > 0` and every `K`, `|I′(m⃗)| ≤ (N/q)³(C₀d(q)∫∫W(v₁, v₂)[|m₁v₁ + m₂v₂ + m₃| ≤ Xq/N] dv₂ dv₁ + (9/4)C_K(2πX)^{−K}φ(q)³|R|³)` (`prop71`). The integrals run over `[1/2, 2]`, `W = Σ_{b₁,b₂}(b₁m₁ + b₂m₂ + m₃, q)|R(v₁, b₁)||R(v₂/v₁, b₂b₁⁻¹)||R(1/v₂, b₂⁻¹)|`, and `C_K` is the constant of round 653's `Jk_decay`.
+
+- `norm_Rf_le`, `norm_Cq_le_totient`: `|R(v, a)| ≤ |R|` for `v > 0`, and `|C_q(n)| ≤ φ(q)`.
+- `Wm`, `Wm_nonneg`, `Wm_le`, `measurable_Rf`, `measurable_Wm`: their integrand, at most `φ(q)²q|R|³` on `(0, ∞)²`, and measurable.
+- `CJ`, `CJ_nonneg`, `CJ_spec`: the constants of round 653's `Jk_decay`.
+- `norm_Psi_le`: on `[1/2, 2]²`, `|Ψ| ≤ C₀d(q)W` where `(N/q)|m₁v₁ + m₂v₂ + m₃| ≤ X`, and `|Ψ| ≤ C_K(2πX)^{−K}φ(q)³|R|³` elsewhere.
+- `Psi_eq_zero`, `prop71`: `Ψ = 0` off `[1/2, 2]²`, and the bound, through Mathlib's `norm_integral_le_of_norm_le` and `integral_mono_of_nonneg`, which need only the majorant to be integrable.
+
+See the main README, round 654, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 573 lines.

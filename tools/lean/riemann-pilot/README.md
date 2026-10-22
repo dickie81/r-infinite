@@ -27221,3 +27221,71 @@ Here `I′` is round 650's `I′(m⃗)`, `λ = (N/q)(m₁v₁ + m₂v₂ + m₃)
 **Bearing on RH:** none.
 
 **The next step.** Proposition 7.1 from round 652's `Ip_eq` and these inputs. Split the integral over `(v₁, v₂) ∈ [1/2, 2]²` at `|m₁v₁ + m₂v₂ + m₃| ≤ Xq/N`. Inside, `|J| ≤ C₀` and `|C_q| ≤ d(q)(·, q)`. Outside, `|J| ≤ C_K(2πX)^{−K}`, with the trivial bounds for `R` and `C_q`. The integrability comes from measurable majorants.
+
+## Round 654: their Proposition 7.1 (stage M3, the `S₃` side; `external/pnt/LinnikCGLP71.lean`)
+
+**The result.** `LinnikCGLP71.prop71`: for `q ≥ 1`, `N > 0`, `X > 0`, every `K`, points `t_i` and characters `χ_i` modulo `q` (`i ∈ R`) and integers `m₁, m₂, m₃`,
+
+`|I′(m⃗)| ≤ (N/q)³(C₀d(q)∫∫W(v₁, v₂)[|m₁v₁ + m₂v₂ + m₃| ≤ Xq/N] dv₂ dv₁ + (9/4)C_K(2πX)^{−K}φ(q)³|R|³)`.
+
+Here both integrals run over `[1/2, 2]`, `[·]` is `1` or `0`, `C_K` is the constant of round 653's `Jk_decay` (`CJ K`), and `W(v₁, v₂) = Σ_{b₁,b₂}(b₁m₁ + b₂m₂ + m₃, q)|R(v₁, b₁)||R(v₂/v₁, b₂b₁⁻¹)||R(1/v₂, b₂⁻¹)|` with `b₁, b₂` over the units modulo `q` (`Wm`). On the way, `norm_Psi_le` bounds the integrand `Ψ` of round 652's `Ip_eq` on `[1/2, 2]²`, with `λ = (N/q)(m₁v₁ + m₂v₂ + m₃)`:
+
+- `|Ψ| ≤ C₀d(q)W` where `|λ| ≤ X`;
+- `|Ψ| ≤ C_K(2πX)^{−K}φ(q)³|R|³` elsewhere.
+
+**The paper's Proposition 7.1 and the stack's.** Re-read this round in the text layer (spaces restored; the display transcribed): "We have |I′_{m⃗}| ≪_ϵ (N³/q³) ∫_{|m₁v₁+m₂v₂+m₃|≤(qT)^ϵq/N, v₁,v₂∈[1/2,2]} Σ_{b₁ mod q, (b₁,q)=1} Σ_{b₂ mod q, (b₂,q)=1} |R(v₁,b₁)R(v₂/v₁, b₁⁻¹b₂)R(1/v₂, b₂⁻¹)| · (b₁m₁+b₂m₂+m₃, q) dv₁dv₂ + O_ϵ((qT)^{−200})" (lines 2041–2066). The absolute-value bars around the product are large delimiters that the text layer drops. They were read from the PDF this round: page 23 carries `CMEX10` vertical-bar glyphs at x = 337.6 and x = 516.7 on both lines of the display, around the three `R`s. The stack's statement has three differences.
+
+- The constants are explicit, and the main term carries the extra `d(q)` of round 653's `norm_Cq_le`.
+- The cutoff `X` replaces their `(qT)^ϵ`. Taking `X = (qT)^ε` and `K` large in terms of `ε` makes the second term their `O_ϵ((qT)^{−200})` when `N`, `q` and `|R|` are at most a power of `qT`.
+- The integrals are iterated, `v₂` inside. That is the order their proof of Proposition 7.2 uses: "the inner v₂ integral" (line 2382).
+
+The proof is theirs, "Inserting these bounds into (7.3) and applying the triangle inequality" (lines 2233–2234), with the integrability made explicit. The majorant `C₀d(q)W[·] + C_K(2πX)^{−K}φ(q)³|R|³` is measurable and bounded on `[1/2, 2]²`. Mathlib's `norm_integral_le_of_norm_le` and `integral_mono_of_nonneg` need only the majorant to be integrable, not `Ψ`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLP71.lean`: new, 332 lines.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`norm_Psi_le`, `prop71`).
+- `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section.
+
+**What is checked.**
+
+- The file was compiled in scratch first (`scratchpad/r654/lc.sh`; `lc.out` to `lc3.out`). The fixes were:
+
+  - parentheses around each `∫ … in s, f`, which otherwise extends over a following `+ c`; the first draft of the statement had the error term inside the integral;
+  - the finiteness argument of `integrableOn_const` given as `by simp`;
+  - two termwise steps of `norm_Psi_le` written as explicit `calc` steps.
+
+- Then `build.sh` ran once (`scratchpad/r654/compile.sh 1`, log `build_1.log`): `1 compiled, 390 up to date` (`LinnikCGLP71` 16 s), exit 0 in 27 s, no error, warning or `sorry`. Its 575 axiom lines (2 by the module, 573 by the final check, which gains two lines) are 562 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms", the 13 in the final check as before. `bash -n build.sh` passes, and the build's order check passed. The largest sample of `lean`'s resident memory, every 10 s, was 6.81 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `tools/research/render_lint.py`, against HEAD: `frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5 (the same five, one line later after the new row) and this file 1872 → 1872.
+- `frontier/linnik/k_decimals.py`: PASS.
+
+**Marks.** `frontier/linnik/CGL-LEAN.md`: the row P7.1–P7.2 gains round 654 in its stack cell and a clause in its status, nothing in it superseded; the opening's parenthetical gains round 654, and M3 gains a note. `external/pnt/README.md`: a row and a section. No strikes.
+
+**Check 1** (direct reads this round):
+
+- Their Proposition 7.1, its proof's last sentences and the start of the proof of Proposition 7.2 (text layer lines 2041–2066, 2227–2235 and 2325–2385), re-read for this round's quotations.
+- Page 23 of the PDF, probed for the delimiters (`scratchpad/r654/probe/p71.py`).
+- `LinnikCGLP71.lean` in full.
+- The operative definitions: round 652's `Ip_eq`, `Psi`, `Rf` and `Cq`; round 653's `norm_Cq_le`, `Jk_decay` and `Jk_eq_zero_of`; round 650's `Ip`.
+- The statements of Mathlib's `norm_integral_le_of_norm_le`, `integral_mono_of_nonneg`, `Integrable.mono'`, `StronglyMeasurable.integral_prod_right'`, `ae_restrict_iff'`, `setIntegral_eq_integral_of_forall_compl_eq_zero`, `integrableOn_const`, `Real.volume_real_Icc_of_le`, `ZMod.card_units_eq_totient`, `Complex.norm_cpow_eq_rpow_re_of_pos` and `Circle.norm_coe`.
+
+**Check 4.** No defect is raised. `CGLS3` stays a displayed hypothesis.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of `prop71` and `norm_Psi_le` are their statements. "Need only the majorant to be integrable" is the hypotheses of the two Mathlib lemmas named.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Proposition 7.2. That needs four things:
+
+- the symmetries `I′_{m₁,m₂,m₃} = conj(I′_{−m₂,−m₁,−m₃})` and the like, from `R(1/v, a⁻¹) = conj(R(v, a))`;
+- the dyadic decomposition of the frequencies;
+- Cauchy–Schwarz in `v₂`;
+- the smoothed `R̃` of their (7.5).
