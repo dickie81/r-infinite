@@ -2,8 +2,9 @@
 # Round 623: the certificate of the sieve route's loss at `L = 229/100` (the unconditional exponent): `total < K`
 
 On `SieveGrid229U.grid229U` (`U1 = ⌈(40011/100000)DEN⌉`, `U2 = ⌊(47579/100000)DEN⌋`, `n = 150`), `SieveCert.total` is
-less than `K`, the form round 619's `SieveMain.linnik_route_lt` takes (the total is `0.939K`, above the `0.88K` of the
-earlier landings): as round 614's `SieveCert226.lean`, `rows a b` (`SieveCertDefs.lean`) is the sum of the rows
+less than `K`, the form round 619's `SieveMain.linnik_route_lt` takes (the total is below `0.93915K`, above the
+`0.88K` of the earlier landings; round 632: it read "the total is `0.939K`", rounded down; review of round 625, F5): as
+round 614's `SieveCert226.lean`, `rows a b` (`SieveCertDefs.lean`) is the sum of the rows
 `a ≤ i < b` of the total, the total is the sum of its 21 parts (`total_eq_rows229U`; from 2 to 72 rows each, grouped
 by the kernel's work), and each part is at most its bound (`rows229U_0` … `rows229U_20`, by `decide +kernel` in the
 5 files `SieveCert229UP1.lean` … `SieveCert229UP5.lean`), whose sum is less than `K` (`total_lt_229U`).

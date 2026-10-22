@@ -18,8 +18,9 @@ This script computes the three for a curve, an exponent and a grid size `n`, wit
   `[5/6, 11/12]` by `windowPieceHM_const_split`'s three families. If a corner at an end fails, that end moves inward
   by `10⁻⁵` until none fails; the row records the ends used. (Round 629: `corners` also takes a window with
   `m₁ ≥ 1`, which `WindowOKHM` allows: there the inequalities for `m ≥ 1`, at `m₁` and `m₂`, and at `m₁ = 1` those
-  for `m ≤ 1` at `m = 1` too; review of round 628, finding 2. Round 630: it read "there only the inequalities for
-  `m ≥ 1`"; review of round 629, finding 4.);
+  for `m ≤ 1` at `m = 1` too; review of round 628, finding 2. Round 630: retracted, false when written: "there only
+  the inequalities for `m ≥ 1`"; review of round 629, finding 4; marked as a retraction in round 632, review of round
+  625, F7.);
 * `replay`: `SieveCertDefs.lean`'s `total` on the grid `U1 = ⌈w₁·DEN⌉`, `U2 = ⌊w₂·DEN⌋`, `n`, in exact integers
   (`cdiv`, `omK`, `bound2`, `bound4`, `cand`, `allowed`, `refcost`, `dec`, `cost` as there; natural subtraction
   truncated at `0`, division by `0` giving `0`), and `GridOK`, `Fits` and `RouteOK` as `decide` would evaluate them.
@@ -384,9 +385,9 @@ def cmd_floor(curve, over=()):
     at = [f'[{plo}, {phi}]' for plo, phi, A in pieces if A == amax]
     q, arg = floor_q(pieces)
     name = curve + ''.join(f' with A = {A_} on [{lo_}, {hi_}]' for lo_, hi_, A_ in over)
-    lim = 'attained' if pieces[-1][1] in arg else 'a left limit'  # only the top piece's right end is in the window
+    kind = lambda b: 'attained' if b == pieces[-1][1] else 'a left limit'  # only the top piece's end is in the window
     print(f'{name}: the exact floor L* = 1 + sup (g/2 + 1/25000)/(1 - b - 4e-6) = {1 + q}, between '
-          f'{" and ".join(encl(1 + q))}, {lim} at b = {", ".join(str(b) for b in arg)}; A_max = {amax} on '
+          f'{" and ".join(encl(1 + q))}, at b = {", ".join(f"{b} ({kind(b)})" for b in arg)}; A_max = {amax} on '
           f'{", ".join(at)}, 1 + A_max/2 = {1 + amax / 2}, between {" and ".join(encl(1 + amax / 2))}', flush=True)
     lo, hi = 21000, 23000
     assert window(pieces, Fr(lo, 10000)) is None and window(pieces, Fr(hi, 10000)) is not None

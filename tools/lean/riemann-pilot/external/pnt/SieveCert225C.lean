@@ -2,7 +2,8 @@
 # Round 625: the certificate of the sieve route's loss at `L = 9/4` (under `CGLDensity` alone): `total < K`
 
 On `SieveGrid225C.grid225C` (`U1 = ⌈(41191/100000)DEN⌉`, `U2 = ⌊(48127/100000)DEN⌋`, `n = 400`), `SieveCert.total` is
-less than `K`, the form round 619's `SieveMain.linnik_route_lt` takes (the total is `0.989K`): the total is `rows 0 n`
+less than `K`, the form round 619's `SieveMain.linnik_route_lt` takes (the total is below `0.98921K`; round 632: it
+read "the total is `0.989K`", rounded down; review of round 625, F5): the total is `rows 0 n`
 (`SieveCertCols.total_eq_rows_full`), and its bound is assembled one step at a time from the 1374 parts' bounds
 (`rows225C_0` … `rows225C_1373`, each by `decide +kernel` in one of the 167 part files): a heavy row's bound from its
 column pieces' (`rowsJ_le_of_split`, `rows_le_of_rowsJ`; `rowsJ`, `SieveCertColsDefs.lean`), then the 211 ranges of

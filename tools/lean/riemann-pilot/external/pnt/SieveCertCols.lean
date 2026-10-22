@@ -7,9 +7,11 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 `rows_eq_rowsJ`: `rows a b = rowsJ a b 0 n`; `rowsJ_split` and `rows_split`: for `j₀ ≤ j₁ ≤ j₂`, `rowsJ a b j₀ j₂` is
 `rowsJ a b j₀ j₁ + rowsJ a b j₁ j₂`, and for `a ≤ b ≤ c`, `rows a c = rows a b + rows b c`; `total_eq_rows_full`:
 `total = rows 0 n`. A certificate's bound then follows from its parts' bounds one step at a time, with no large term
-(`rows_le_of_split`, `rowsJ_le_of_split`, `rows_le_of_rowsJ`: a bound from two pieces' bounds whose sum is at most it).
+(`rows_le_of_split`, `rowsJ_le_of_split`: a bound from two pieces' bounds whose sum is at most it; `rows_le_of_rowsJ`:
+a bound on `rows a b` from one on `rowsJ a b 0 n`). (Round 632: it gave all three the first description, and the
+imports' reason below omitted `total_eq`; review of round 625, F2.)
 
-The file imports `SieveCert.lean` (for `sumTo_eq` and `rows_eq`) and `SieveCertColsDefs.lean`.
+The file imports `SieveCert.lean` (for `sumTo_eq`, `rows_eq` and `total_eq`) and `SieveCertColsDefs.lean`.
 -/
 import SieveCert
 import SieveCertColsDefs
