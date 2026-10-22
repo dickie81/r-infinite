@@ -27904,3 +27904,69 @@ The reductions take any `f` with `R̃(c, b)² ≤ f_{−b}(c)` on `[−3, 3]`; o
 **Bearing on RH:** none.
 
 **The next step.** `f̂_b(ξ) = ∫_{[1/2,2]}|R(u′, −b)|²φ̂_{u′}(ξ) du′` by Fubini; then `Σ_b|f̂_b(ξ)| ≤ (2π|ξ|)^{−j}B_j(L, X)·(3/2)φ(q)|R|` by round 658's `lemma91`; then, for `j ≥ 1`, `L ≤ XT` and `T ≥ 1`, `B_j(L, X) ≤ 2T^j·min(2X, L/(2T))·E_j` with `E_j` depending only on `j`, which with round 663's `fb_one_ge` gives the decay in `CGLP81`'s form; for `j = 0`, round 663's `exists_max`.
+
+## Round 665: the Fourier decay of their `f_b`, in the form of their Proposition 8.1 (stage M3, the `S₃` side; `external/pnt/LinnikCGLDecay.lean`)
+
+**The results.** Below, `L = NM₂/q`, `X` stands for their `(qT)^ϵ`, `a = −b`, and `g_a(u′) = 1_{[1/2,2]}(u′)|R(u′, a)|²` (`gR`). Round 664's `φ_{u′}(x) = ψ(x)K(x − u′)` and `B_j(L, X)` are used as there.
+
+- `LinnikCGLDecay.fb_eq_integral`, `fourier_fb_eq`: for `L ≥ 0`, `f_b(u) = ∫φ_{u′}(u)g_a(u′) du′`, by round 658's `Rt_sq`. For `L > 0`, `f̂_b(ξ) = ∫g_a(u′)φ̂_{u′}(ξ) du′`, by Mathlib's `integral_integral_swap`, under the bound `|φ_{u′}(u)g_a(u′)| ≤ L|R|²1_{[−4,4]}(u)1_{[1/2,2]}(u′)` (`abs_phiR_le`, `gR_le`).
+- `LinnikCGLDecay.pow_mul_norm_fourier_fb_le`, `sum_pow_mul_norm_fourier_fb_le`: for `L, X > 0`, `(2π|ξ|)^j|f̂_b(ξ)| ≤ B_j(L, X)∫g_a`, by round 664's `fourier_phi_le` under the integral. With `∫g_a ≤ (3/2)|R|²` (`integral_gR_le`), this gives `(2π|ξ|)^jΣ_b|f̂_b(ξ)| ≤ B_j(L, X)·(3/2)φ(q)|R|²`.
+- `LinnikCGLDecay.Bj_le`: for `L, X > 0`, `T ≥ 1`, `L ≤ XT` and `j ≥ 1`, `B_j(L, X) ≤ 2T^j·min(2X, L/(2T))·E_j`. Here `E_j = Σ_{i≤j}C(j, i)e_i` (`Ej`), with `e_0 = I₀(j)` and `e_i = P(i)S₀(j − i)` for `i ≥ 1`, depends only on `j`. Since `c = L/(2X) ≤ T`, the term `i = 0`, `2Xc^jI₀(j) = Lc^{j−1}I₀(j)`, is at most `min(2XT^j, LT^{j−1})I₀(j)`. A term `i ≥ 1`, `P(i)Lc^{j−i}S₀(j − i)`, is at most `min(XT^j, LT^{j−1})P(i)S₀(j − i)`. Both minima are at most `min(4XT^j, LT^{j−1}) = 2T^j·min(2X, L/(2T))`.
+- `LinnikCGLDecay.fb_decay`: for `L, X > 0`, `T ≥ 1`, points `|t_i| ≤ T`, `L ≤ XT`, `j ≥ 1` and `ξ ≠ 0`, `Σ_b|f̂_b(ξ)| ≤ (6E_j/(2π)^j)(T/|ξ|)^jφ(q)f_{−1}(1)`, by round 663's `f_{−1}(1) ≥ min(2X, L/(2T))|R|²/2`.
+- `LinnikCGLDecay.integral_fb_le`, `Dfb`, `fb_decay_all`: `∫f_b ≤ 8M` when `f_b ≤ M` everywhere. `D_0 = 8`, and `D_j = 6E_j/(2π)^j` for `j ≥ 1`. For `L, X > 0`, `T ≥ 1`, points `|t_i| ≤ T` and `L ≤ XT`, round 663's `exists_max` gives a largest value `f_{b₀}(u₀)` with `Σ_b|f̂_b(ξ)| ≤ D_j(T/|ξ|)^jφ(q)f_{b₀}(u₀)` for every `j` and `ξ ≠ 0`. This is the decay premise of round 662's `CGLP81` for `f = (f_b)`. For `j = 0` it comes from `|f̂_b(ξ)| ≤ ∫f_b ≤ 8f_{b₀}(u₀)` (Mathlib's `VectorFourier.norm_fourierIntegral_le_integral_norm`).
+
+**Their text.** Re-read this round in the text layer. The underscores in the quotations are escaped for the renderer.
+
+- Their step: "Applying the convolution theorem and noting ∫ |R(u,−b)|² 1\_{[1/2,2]}(u) du ≪ |W|² since |R(u,−b)| ≤ |W|, we see that Σ\_{1≤b≤q, (b,q)=1} |f̂\_b(ξ)| ⪅\_j ϕ(q)|W|² (NM₂/(q|ξ|))^j." (lines 5786–5797; spaces restored; the integral, sum, hat, fraction, large parentheses, subscripts and exponents transcribed).
+- Their size condition: "Notice that M₂ ≤ (qT)^ϵ qT/N." (line 5761; spaces restored; the subscript and exponent transcribed). This is `L ≤ XT`.
+- Their conclusion: "This implies Σ\_b |f̂\_b(ξ)| ⪅\_j ϕ(q)|W|² (NM₂/(q|ξ|))^j ⪅ ϕ(q) (T/|ξ|^j) (NM₂/q)^{j−1} f\_{q−1}(1) ⪅\_j ϕ(q) (T^j/|ξ|^j) sup\_{b,u} f\_b(u). Namely, we have the desired Fourier decay." (lines 5813–5829; spaces restored; the sum, hats, fractions, large parentheses, subscripts and exponents transcribed).
+- The premise of their Proposition 8.1 asks for this "for all j ∈ ℕ" (line 2471; spaces restored; the blackboard N, an MSBM10 glyph on PDF page 26, transcribed as ℕ).
+
+**The stack's form.**
+
+- **Lemma 9.1 is not needed.** Their bound `∫|R(u, −b)|²1_{[1/2,2]}(u) du ≪ |W|²` is the trivial one, and the stack's `integral_gR_le` is the same bound. Round 664's next step named round 658's `lemma91`. The trivial bound is enough, because round 663's lower bound `f_{−1}(1) ≥ min(2X, L/(2T))|R|²/2` also carries `|R|²`. It also needs no hypothesis that the characters are distinct.
+- **No power of `X`.** Their chain is stated with `⪅`, which absorbs powers of `(qT)^ϵ`. The stack's `D_j` depends only on `j`. Round 664's `B_j` keeps the factor `(2X)^{−j}` of the kernel's scaling, and with it `c = L/(2X) ≤ T` when `L ≤ XT`.
+- **The case `j = 0`.** The stack proves it from the trivial bound `Σ_b|f̂_b(ξ)| ≤ Σ_b∫f_b ≤ 8φ(q)sup f`, which needs no relation between `L` and `T`. Read at `j = 0`, their chain passes through `ϕ(q)T(NM₂/q)^{−1}f_{q−1}(1)`. The bound `f_{q−1}(1) ≤ sup f` takes this to `⪅ ϕ(q)sup f` only when `NM₂/q` is at least `T` up to a power of `(qT)^ϵ`. In their range `N ≤ qT`, `NM₂/q` can be smaller than that, for small `M₂` and `N` below `qT` by a power of `qT`. Whether their `ℕ` contains `0` is not stated there. Either way, the trivial bound covers `j = 0`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLDecay.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`fb_decay`, `fb_decay_all`).
+- `frontier/linnik/CGL-LEAN.md`: the row P11.1, an M3 note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section under its own heading.
+
+**What is checked.**
+
+- Mathlib's names were checked first (`scratchpad/r665/check.lean`, `check2.lean`).
+- The file was compiled in scratch in three runs (`scratchpad/r665/lc.sh`; `lc.out` to `lc3.out`). The last run had exit 0 and no warning. The fixes were `integrableOn_const` given its constant; `LinnikCGLMom` opened, for `Rt_sq`; Mathlib's `integral_complex_ofReal` in place of `integral_ofReal`, whose coercion did not match; and the hypothesis `X > 0` dropped from `fourier_fb_eq`, which the linter reported unused.
+- Then `build.sh` ran once (`scratchpad/r665/compile.sh 1`, log `build_1.log`): `1 compiled, 400 up to date` (`LinnikCGLDecay` 11 s), exit 0 in 22 s, with no error, warning or `sorry`. Its 602 axiom lines (5 by the module, 597 by the final check, which gains two lines) are 589 `[propext, Classical.choice, Quot.sound]` and 13 "does not depend on any axioms"; the 13 are in the final check, as before. `bash -n build.sh` passes. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.85 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/gate.sh`, run before the commit, passed: `tools/research/render_lint.py` against HEAD (`frontier/linnik/CGL-LEAN.md` 0 → 0, `external/pnt/README.md` 5 → 5, and this file 1872 → 1872), and `frontier/linnik/k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row P11.1 gains round 665 in its stack cell and a clause in its status, with nothing in it superseded; the opening's parenthetical gains round 665; and M3 gains a note.
+- `external/pnt/README.md`: a row, and a section with a heading.
+- No strikes. Round 664's next step named `lemma91`; it is a plan as of that round and is left as written, as earlier rounds' next steps are.
+
+**Check 1** (direct reads this round):
+
+- Their §11 at lines 5749–5830, re-read for this round's quotations: the decay check, the size condition, the lower bound and the conclusion.
+- The statement of their Proposition 8.1 at lines 2436–2486, for its premise.
+- The glyph probe's output for PDF page 26 (`scratchpad/r662/probe/p26_all.txt`), for the font of the `N` in that premise.
+- `LinnikCGLDecay.lean` in full.
+- The operative definitions and statements: round 663's `fb`, `fb_one_ge`, `exists_max`, `fb_eq_zero` and `kerL`; round 664's `phiR`, `Bj` and `fourier_phi_le`; round 658's `Rt_sq`; and round 662's `CGLP81`, whose premise `fb_decay_all` matches term by term with `f = fb N R χ t X M₂`.
+
+**Check 4.** No defect in the cascade or the stack is raised. The remark on their chain at `j = 0` is new and concerns the display only. `CGLS3` and `CGLP81` stay displayed hypotheses.
+
+**Check 9.**
+
+- (a) This round's universals are scoped: the hypotheses of the results are their statements.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision, this round is reviewed with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Bound `S₃,₃` and `S₃,₄` on each block with `CGLP81`, applied to this `f` with `A = 4`, `κ = 2`, `D = D_j` and `M = 2^{k+1}`. Then bound `∫Σ_bf_b ≤ ∫Σ_aR̃²` and `∫Σ_bf_b² ≤ ∫Σ_aR̃⁴` by round 658's `lemma91_Rt` and round 659's `lemma92_Rt`.

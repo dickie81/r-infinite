@@ -185,6 +185,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLJ.lean` | 662 | Chen–Gupta–Li's `J(f⃗)` before the supremum (`Jint`), their Proposition 8.1 as a displayed hypothesis with its implicit constants explicit (`CGLP81`, not proved), and `S₃,₃`, `S₃,₄` in its form: `S₃,₄ ≤ 4(k + 1)Σ_{j≤k}Jint(f, 2^j − 1/2, 2^k − 1/2, 2^k − 1/2, 2)` on the block `k` for `f_{−b} ≥ R̃(·, b)²` on `[−3, 3]` (`S34_le_Jint`), and `S₃,₃ ≤ 4S₃,₄` (`S33_le_S34`) |
 | `LinnikCGLFb.lean` | 663 | Chen–Gupta–Li's `f_b = ψR̃(·, −b)²` with `ψ = 1` on `[−3, 3]`: smooth (`contDiff_fb`), `0` beyond `4`, `f_{−b} ≥ R̃(·, b)²` on `[−3, 3]`, `f_{−1}(1) ≥ min(2X, L/(2T))\|R\|²/2` (`fb_one_ge`), a largest value (`exists_max`), and round 662's reduction of `S₃,₄` for this `f` (`S34_le_fb`) |
 | `LinnikCGLPhi.lean` | 664 | the Fourier decay of the pieces `φ_{u′} = ψ·K(· − u′)` of Chen–Gupta–Li's `f_b`: `(2π\|ξ\|)^j\|φ̂_{u′}(ξ)\| ≤ B_j(L, X)` (`fourier_phi_le`), from Leibniz's rule and the kernel's scaling (`integral_abs_iteratedDeriv_kerS`, `integral_abs_iteratedDeriv_phi_le`) |
+| `LinnikCGLDecay.lean` | 665 | the Fourier decay of Chen–Gupta–Li's `f_b` in the form of the premise of their Proposition 8.1: `f̂_b` as an average of round 664's `φ̂_{u′}` by Fubini (`fourier_fb_eq`), `B_j(L, X) ≤ 2T^j·min(2X, L/(2T))·E_j` for `L ≤ XT` (`Bj_le`), and `Σ_b\|f̂_b(ξ)\| ≤ D_j(T/\|ξ\|)^jφ(q)f_{b₀}(u₀)` (`fb_decay_all`) |
 
 ## Building (rounds 217, 618)
 
@@ -970,3 +971,15 @@ Round 664 bounds the Fourier transform of `φ_{u′}(x) = ψ(x)K(x − u′)`, w
 - `abs_iteratedDeriv_phi_le`, `integral_abs_iteratedDeriv_phi_le`, `fourier_phi_le`: Leibniz's rule, `∫|φ_{u′}^{(j)}| ≤ B_j(L, X)`, and `(2π|ξ|)^j|φ̂_{u′}(ξ)| ≤ B_j(L, X)`.
 
 See the main README, round 664, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 595 lines.
+
+## The Fourier decay of `f_b`: LinnikCGLDecay.lean (round 665)
+
+Round 665 proves the decay premise of round 662's `CGLP81` for round 663's `f_b`, with `g_a = 1_{[1/2,2]}|R(·, a)|²`, `L = NM₂/q` and `L ≤ XT`.
+
+- `gR`, `gR_nonneg`, `gR_le`, `measurable_gR`, `integrable_gR`, `integral_gR_le`: `g_a`, with `0 ≤ g_a ≤ |R|²1_{[1/2,2]}` and `∫g_a ≤ (3/2)|R|²`.
+- `abs_phiR_le`, `fb_eq_integral`, `fourier_fb_eq`: `|φ_{u′}| ≤ L1_{[−4,4]}`, `f_b(u) = ∫φ_{u′}(u)g_{−b}(u′) du′`, and `f̂_b(ξ) = ∫g_{−b}(u′)φ̂_{u′}(ξ) du′` by Fubini.
+- `pow_mul_norm_fourier_fb_le`, `sum_pow_mul_norm_fourier_fb_le`: `(2π|ξ|)^jΣ_b|f̂_b(ξ)| ≤ B_j(L, X)·(3/2)φ(q)|R|²`.
+- `Ej`, `Ej_nonneg`, `Bj_le`, `fb_decay`: for `T ≥ 1` and `j ≥ 1`, `B_j(L, X) ≤ 2T^j·min(2X, L/(2T))·E_j`, and `Σ_b|f̂_b(ξ)| ≤ (6E_j/(2π)^j)(T/|ξ|)^jφ(q)f_{−1}(1)` for points `|t_i| ≤ T` and `ξ ≠ 0`.
+- `integral_fb_le`, `Dfb`, `fb_decay_all`: `∫f_b ≤ 8M` when `f_b ≤ M`, `D_0 = 8` and `D_j = 6E_j/(2π)^j`, and the premise of `CGLP81` at a largest value `f_{b₀}(u₀)`.
+
+See the main README, round 665, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 597 lines.
