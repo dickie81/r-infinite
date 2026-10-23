@@ -5,7 +5,8 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
 Chen–Gupta–Li bound the gcd sums of their §8.2 by a divisor estimate: "when q|n, the only dependence on d is (d,q) and
 we have that" (lines 2892–2893; spaces restored) `Σ_{d mod q}(d, q)/q ⪅ 1` (lines 2893–2896, transcribed). This file
-bounds the constants of round 688's Lemma 8.2 that do not depend on the choice of the parameters.
+bounds two constants of round 688's Lemma 8.2, round 682's `W₀` and round 683's `K_X`, with the parameters `L`, `X`
+and `δ` left free under the hypotheses below; round 691 chooses them.
 
 The stack's form.
 * Their `Σ_{d mod q}(d, q)/q ⪅ 1` is `Σ_{h mod q}(h, q) ≤ q·d(q)` (`sum_gw_le`), with `d(q) ≤ C_δq^δ` round 525's
@@ -106,7 +107,7 @@ lemma P2_eq_empty {M₂ : ℝ} (h : M₂ < 1 / 2) : P2 M₂ = ∅ := by
   have h4 : m < (1 : ℤ) := by exact_mod_cast hlt
   omega
 
-/-- For `M₁ < 1/2` or `M₂ < 1/2`, round 662's `Jint` is `0`: `setJ` is empty. -/
+/-- For `q ≥ 1` with `M₁ < 1/2` or `M₂ < 1/2`, round 662's `Jint` is `0`: `setJ` is empty. -/
 lemma Jint_eq_zero {q : ℕ} [NeZero q] (f : (ZMod q)ˣ → ℝ → ℝ) {M₁ M₂ : ℝ} (M₃ κ : ℝ)
     (h : M₁ < 1 / 2 ∨ M₂ < 1 / 2) : Jint f M₁ M₂ M₃ κ = 0 := by
   have hS : setJ M₁ M₂ M₃ κ = ∅ := by
@@ -124,7 +125,7 @@ lemma Jint_eq_zero {q : ℕ} [NeZero q] (f : (ZMod q)ˣ → ℝ → ℝ) {M₁ M
 
 /-! ### `Σ_h(h, q)` and `q/φ(q)` -/
 
-/-- For `d ∣ q`, at most `q/d` residues `h mod q` have `d ∣ h`. -/
+/-- For `q ≥ 1` and `d ∣ q`, at most `q/d` residues `h mod q` have `d ∣ h`. -/
 lemma card_dvd_val_le {q : ℕ} [NeZero q] {d : ℕ} (hd : d ∣ q) :
     (Finset.univ.filter fun h : ZMod q => d ∣ h.val).card ≤ q / d := by
   calc (Finset.univ.filter fun h : ZMod q => d ∣ h.val).card ≤ (Finset.range (q / d)).card := by
@@ -139,7 +140,7 @@ lemma card_dvd_val_le {q : ℕ} [NeZero q] {d : ℕ} (hd : d ∣ q) :
           exact ZMod.val_injective q e'
     _ = q / d := Finset.card_range _
 
-/-- `Σ_{h mod q}(h, q) ≤ q·d(q)`, for round 681's `gw`. -/
+/-- For `q ≥ 1`, `Σ_{h mod q}(h, q) ≤ q·d(q)`, for round 681's `gw`. -/
 lemma sum_gw_le {q : ℕ} [NeZero q] : ∑ h : ZMod q, gw h ≤ q * q.divisors.card := by
   classical
   have key : ∀ h : ZMod q, gw h ≤ ∑ d ∈ q.divisors, if d ∣ h.val then (d : ℝ) else 0 := by
@@ -189,7 +190,7 @@ lemma le_totient_mul_card_divisors (n : ℕ) : n ≤ n.totient * n.divisors.card
 
 /-! ### `W₀` and `K_X` -/
 
-/-- For `f_b ≥ 0`, `M₁, M₂ ≥ 1/2` and `L ≥ 0`, round 682's `W₀ ≤ 200B₄L·d(q)M₂²F`, with `F = Σ_b∫f_b`. -/
+/-- For `q ≥ 1`, `f_b ≥ 0`, `M₁, M₂ ≥ 1/2` and `L ≥ 0`, round 682's `W₀ ≤ 200B₄L·d(q)M₂²F`, with `F = Σ_b∫f_b`. -/
 lemma W0_le {q : ℕ} [NeZero q] {f : (ZMod q)ˣ → ℝ → ℝ} (hf : ∀ b u, 0 ≤ f b u) {M₁ M₂ L : ℝ}
     (hM₁ : 1 / 2 ≤ M₁) (hM₂ : 1 / 2 ≤ M₂) (hL : 0 ≤ L) :
     W0 f M₁ M₂ L ≤ 200 * B4 * L * q.divisors.card * M₂ ^ 2 * ∑ b, ∫ u, f b u := by
@@ -210,7 +211,7 @@ lemma W0_le {q : ℕ} [NeZero q] {f : (ZMod q)ˣ → ℝ → ℝ} (hf : ∀ b u,
         field_simp
         ring
 
-/-- For `L > 0`, `0 ≤ M₁ ≤ L`, `X ≥ 0` and `0 < δ ≤ 1`, round 683's
+/-- For `q ≥ 1`, `L > 0`, `0 ≤ M₁ ≤ L`, `X ≥ 0` and `0 < δ ≤ 1`, round 683's
 `K_X ≤ 40πC_δB₄d(q)⁴L²q(1 + qX)^δ(1 + 2q)^δ`. -/
 lemma KX_le {q : ℕ} [NeZero q] {L M₁ X δ : ℝ} (hL : 0 < L) (hM₁ : 0 ≤ M₁) (hM₁L : M₁ ≤ L) (hX : 0 ≤ X)
     (hδ : 0 < δ) (hδ1 : δ ≤ 1) :

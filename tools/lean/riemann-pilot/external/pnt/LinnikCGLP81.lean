@@ -6,14 +6,16 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 Chen–Gupta–Li prove their Proposition 8.1 from their Lemma 8.2: "We prove the statement via downward induction on
 ϵ. The base case ϵ = 100 holds trivially. For the inductive step, we assume (8.1) holds with parameter 3ϵ/2 and aim
 to establish it for ϵ." (lines 2543–2545; spaces restored). This file runs that induction on round 691's form of
-their Lemma 8.2 and proves round 662's displayed hypothesis `CGLP81`, so the stack's Linnik theorems with the
-exponents `9/4` and `226/100` (`linnik_225c_t101`, `linnik_226c_t101`) take Heath-Brown's Theorem 10.1 (`CGLT101`) as
-their only hypothesis.
+their Lemma 8.2 and proves round 662's displayed hypothesis `CGLP81`, so `linnik_225c_t101` and `linnik_226c_t101`,
+Linnik's theorem with the exponents `9/4` and `226/100`, take Heath-Brown's Theorem 10.1 (`CGLT101`) as their only
+hypothesis.
 
 The stack's form.
 * The induction runs on `P81 ε`, their (8.1) with an abstract `Λ`: the premise `Σ_b|f̂_b(ξ)| ≤ D_j(T/|ξ|)^jΛ` with
-  `0 ≤ Λ ≤ G(qT)²F`. By round 692, `f̃` keeps it with `(∫ψ̃₀)D_j` and `G/∫ψ̃₀`. `CGLP81`'s `Λ = φ(q)f_{b₀}(u₀)` is a
-  value of `f`, not of `f̃`.
+  `0 ≤ Λ ≤ G(qT)²F`. By round 692, `f̃` keeps it with `(∫ψ̃₀)D_j` and `G/∫ψ̃₀`. `CGLP81`'s premise is relative to
+  `Λ = φ(q)f_{b₀}(u₀)`, `φ(q)` times a value of `f` at one point. At `f̃` it would need a value of `f̃` bounding
+  `f_{b₀}(u₀)` uniformly in `q` and `T`; round 692's `Lam_le`, with `∫f̃_b = (∫ψ̃₀)∫f_b`, gives a bound by `sup f̃`
+  with a factor `(qT)²`.
 * The base case is `ε = 5` (theirs is `ϵ = 100`). For `M₁ < 1/2` or `M₂ < 1/2`, `Jint = 0` (round 689's
   `Jint_eq_zero`). Otherwise, by Cauchy–Schwarz over the pairs `(b, m)`, `(·, q) ≤ q` (round 687's `gJw_le`) and the
   change of variables `u ↦ (m₁u + m₃)/m₂`, `Jint ≤ 4φ(q)²q²(#setJ)²M₂∫Σ_bf_b²`; and `#setJ ≤ 100(2|κ| + 6)M³` for
@@ -552,7 +554,8 @@ theorem cglp81 : CGLP81 := by
   rw [e] at h
   exact h
 
-/-- **Their Proposition 11.1 from Heath-Brown's Theorem 10.1 alone**: round 678's `cgls3` with `cglp81`. -/
+/-- **Their Proposition 11.1, at one point per character, from Heath-Brown's Theorem 10.1 alone**: round 678's
+`cgls3` with `cglp81`. -/
 theorem cgls3_t101 (hT : LinnikCGLT101.CGLT101) : LinnikCGLS23.CGLS3 := LinnikCGLS3.cgls3 cglp81 hT
 
 /-- **Their Proposition 3.1, at one point per character, from Heath-Brown's Theorem 10.1 alone**: round 678's

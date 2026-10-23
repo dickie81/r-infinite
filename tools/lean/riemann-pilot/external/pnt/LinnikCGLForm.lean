@@ -11,7 +11,7 @@ the parameters `L`, `X`, `N₀`, `δ`, `j` and `K`. This file chooses them and b
 errors, by `C(qT)^θ`, for every `θ > 0`.
 
 The stack's form.
-* The parameters, in powers of `R = (qT)^{1/m}` with `m ≥ 1` and `13/m ≤ θ`: `L = (|κ| + 1)M`, `X = (qT)³`,
+* The parameters, with `R = (qT)^{1/m}`, `m ≥ 1` and `13/m ≤ θ`: `L = (|κ| + 1)M`, `X = (qT)³`,
   `N₀ = R^{m+4}/M₂`, `δ = 1/m`, `j = 2m + 11` and `K = 2m + 8`. Their split in `ξ` is at `(qT)²` (lines 2781–2796).
   Their footnote 7: "One might choose ψ₂(x) = ψ₀(x/(qT)^η), where ψ₀(x) is a smooth bump supported on [−2,2] and
   identically equal to 1 for |x| ≤ 1." (lines 3517–3518; spaces restored, the subscripts and the exponent
@@ -20,12 +20,13 @@ The stack's form.
   `F² ≤ 64φ(q)M⁶F²` for `M ≥ 1/2`, so they join the first term.
 * The decay premise enters at `j = 2m + 11` with `max(D_j, 0)`. The bound `Λ ≤ G(qT)²F` is a hypothesis here.
 * `M₁ < 1/2` or `M₂ < 1/2` gives `Jint = 0` (round 689's `Jint_eq_zero`); otherwise `M ≥ 1/2`.
-* The constant `C` depends on `θ`, `κ`, `G` and `D` only. The bound holds for every `qT ≥ 1`, not only for large `qT`.
+* The constant `C` depends on `θ`, `κ`, `G` and `D` only. The bound holds for every `q ≥ 1` and `T ≥ 1`, not only
+  for large `qT`.
 * Their `φ(q)` in the second term is `q` here. Their `J(f̃⃗)` is `J̃ = Jint(f̃, M₂, M₂, M₂, 4|A| + 2)`, as in round 688.
 
 Plain statements, with `q ≥ 1` (`[NeZero q]`), `F = Σ_b∫f_b`, `𝔖 = ∫Σ_bf_b²`, `J̃` as above, `I₀ = ∫|ψ̂₀(−τ)| dτ`,
 `C_K` round 684's `CK`, `C_δ` round 525's `Cdiv`, `B₄` round 681's `B4`, `d(q)` the number of divisors of `q`,
-`L = K₁M`, and `W₀`, `K_X`, `B_J`, `B_tail` and `G₁` round 688's `W0`, `KX`, `BJ`, `Btail` and `G1`.
+`L = K₁M`, `W₀` round 682's `W0`, and `K_X`, `B_J`, `B_tail` and `G₁` round 688's `KX`, `BJ`, `Btail` and `G1`.
 * `term1_le`: for `f_b ≥ 0`, `1/2 ≤ M₁ ≤ M`, `1/2 ≤ M₂ ≤ M`, `K₁ ≥ 1` and `0 < δ ≤ 1`,
   `2φ(q)W₀²(2πM₁/L) ≤ 160000πB₄²K₁C_δ²q^{2δ}·φ(q)M⁶F²`.
 * `term3_le`: for `T ≥ 1`, `1/2 ≤ M₁ ≤ M ≤ qT`, `1/2 ≤ M₂ ≤ M`, `K₁ ≥ 1`, `D, G ≥ 0`, `0 ≤ Λ ≤ G(qT)²F` and `j ≥ 10`, at

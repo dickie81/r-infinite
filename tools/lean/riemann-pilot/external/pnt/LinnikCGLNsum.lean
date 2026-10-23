@@ -12,6 +12,7 @@ round 681's `sum_a_finite_le` from finite sets of `n` to every `n ≠ 0`.
 The stack's form.
 * `ĝ_a(ξ) = Σ_{m₁∈P1 M₁}Σ_{n∈ℤ}(L/q)Ψ(m₁, n)c_q(n)F(m₁, n)e_q(−anm₁)`, with their inner sums over `b` and `m₂` in
   `F(m₁, n) = Σ_bΣ_{m₂∈P2 M₂}(m₂/|m₁|)f̂_b(m₂ξ/m₁)e_q(−nbm₂)` (`Fb`), by `e_q(−n(am₁ + bm₂)) = e_q(−anm₁)e_q(−nbm₂)`.
+  `F` has `m₂/|m₁|`, the Jacobian, for their `m₂/m₁`; the two differ in sign for `m₁ < 0`.
 * Their restriction of `n` to `|ξ − nm₁/q| ⪅ M₁/M₃`, with its error `O((qT)^{−103})`, is not made: every `n` is kept.
 * The split is `n = 0` against `n ≠ 0`, not their `q ∤ n` against `q | n`: round 681's `sum_a_finite_le` holds for
   every `n ≠ 0`.
@@ -51,7 +52,8 @@ open LinnikCGLRt LinnikCGLMom LinnikCGLMom4 LinnikCGLSep LinnikCGLRFact LinnikCG
 
 /-! ### The terms -/
 
-/-- Their inner sums over `b` and `m₂`: `F(m₁, n) = Σ_bΣ_{m₂∈P2 M₂}(m₂/|m₁|)f̂_b(m₂ξ/m₁)e_q(−nbm₂)`. -/
+/-- Their inner sums over `b` and `m₂`, with `m₂/|m₁|`, the Jacobian, for their `m₂/m₁` (the two differ in sign for
+`m₁ < 0`): `F(m₁, n) = Σ_bΣ_{m₂∈P2 M₂}(m₂/|m₁|)f̂_b(m₂ξ/m₁)e_q(−nbm₂)`. -/
 def Fb {q : ℕ} [NeZero q] (f : (ZMod q)ˣ → ℝ → ℝ) (M₂ ξ : ℝ) (m₁ n : ℤ) : ℂ :=
   ∑ b : (ZMod q)ˣ, ∑ m₂ ∈ P2 M₂, (((m₂ : ℝ) / |(m₁ : ℝ)| : ℝ) : ℂ) * 𝓕 (fC f b) ((m₂ : ℝ) * ξ / m₁) *
     ZMod.stdAddChar (-((n : ZMod q) * ((b : ZMod q) * (m₂ : ZMod q))))

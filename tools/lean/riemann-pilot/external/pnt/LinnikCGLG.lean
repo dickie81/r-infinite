@@ -17,7 +17,8 @@ The stack's form.
 * `ψ₁(m₃/M₃)` is `ψ̃₀(m₃/L)` (round 656's `psi0`, `1` on `[−1, 1]` and `0` off `(−2, 2)`), for any `L` with
   `κM₃ ≤ L`. One majorant then serves every `M₃` with `κM₃ ≤ L`, which is the monotonicity their footnote 6 notes:
   "as the larger M₃ is, the greater the inner double sum in J(f⃗) is." (lines 3515–3516; the same allowances). The
-  sums over `m₁`, `m₂` and `m₃` are the finite sets `P1 M₁`, `P2 M₂` and `P3 L`; `ψ̃₀(m₃/L)` vanishes off `P3 L`.
+  sums over `m₁`, `m₂` and `m₃` are the finite sets `P1 M₁`, `P2 M₂` and `P3 L`; for `L > 0`, `ψ̃₀(m₃/L)` vanishes
+  off `P3 L`.
 * `g_a` is smooth with compact support, so it is a Schwartz function (Mathlib's `HasCompactSupport.toSchwartzMap`),
   and Mathlib's `SchwartzMap.integral_norm_sq_fourier` is their Plancherel step.
 * Each term's transform is an affine change of variables (`fourier_comp_affine`).

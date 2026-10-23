@@ -10,9 +10,9 @@ error." (lines 3481–3482; spaces restored, the subscript transcribed and their
 with explicit constants, the two ranges that rounds 683 and 686 leave out: the terms `|n| > N₀` of round 683's `B_II`,
 and the range `|ξ| > X` of `ĝ_a`. Their proof splits at `|ξ| = (qT)²` and discards `|ξ| > (qT)²` by the decay of
 `Σ_b|f̂_b|` (lines 2781–2794): "Thus, the contribution from the region |ξ| > (qT)² is negligible and our analysis can
-focus on the range |ξ| ≤ (qT)²." (lines 2795–2796; spaces restored, the exponents transcribed). The stack's `X` is
-their `(qT)²`; round 683's count carries the factor `(1 + q|X|)^δ`, which grows with `X`, so round 683 integrates over
-`|ξ| ≤ X` only.
+focus on the range |ξ| ≤ (qT)²." (lines 2795–2796; spaces restored, the exponents transcribed). The stack's `X`
+plays the role of their `(qT)²`, and round 691 takes `X = (qT)³`. Round 683's count carries the factor
+`(1 + q|X|)^δ`, which grows with `X`, so round 683 integrates over `|ξ| ≤ X` only.
 
 The stack's form.
 * The hypothesis `Σ_b|f̂_b(ξ)| ≤ D(T/|ξ|)^jΛ` for `ξ ≠ 0`, with `D, Λ ≥ 0`, follows from the decay premise of round

@@ -145,8 +145,8 @@ for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
 # (round 684) their Σ_II expanded and their Σ₂ by Poisson summation (LinnikCGLSig2), and (round 685) their smoothing
 # f̃_b and the inner integral of their Σ_II (LinnikCGLFtil), and (round 686) their Cauchy–Schwarz back to J(f̃⃗) for
 # the terms |n| ≤ N₀ of their Σ_II (LinnikCGLJtil), and (round 687) the terms |n| > N₀ and the range |ξ| > X of ĝ_a by
-# the decay premise (LinnikCGLTail), and (round 688) their Lemma 8.2 with explicit constants (LinnikCGLL82), and
-# (round 689) the bounds of its constants that do not depend on the parameters (LinnikCGLConst), and (round 691)
+# the decay premise (LinnikCGLTail), and (round 688) their Lemma 8.2 in explicit form (LinnikCGLL82), and
+# (round 689) bounds of its constants with the parameters left free (LinnikCGLConst), and (round 691)
 # their Lemma 8.2 in their form, with the parameters chosen (LinnikCGLForm), and (round 692) their smoothing f̃_b in
 # their induction and Λ against F by Fourier inversion (LinnikCGLFtilP), and (round 693) their Proposition 8.1 by
 # their induction (LinnikCGLP81), and (round 694) positivity and the double sums of Heath-Brown's bound
