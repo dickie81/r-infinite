@@ -29662,3 +29662,70 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Their Lemma 8.2 in their form: round 688's bound with the parameters chosen (round 691).
+
+## Round 691: their Lemma 8.2 in their form (stage M4; `external/pnt/LinnikCGLForm.lean`)
+
+**The results.** Below, `q ≥ 1`, `F = Σ_b∫f_b`, `𝔖 = ∫Σ_bf_b²`, `J̃ = Jint(f̃, M₂, M₂, M₂, 4|A| + 2)` (round 686's form of their `J(f̃⃗)`), `L = K₁M`, and `W₀`, `K_X`, `B_J`, `B_tail` and `G₁` round 688's `W0`, `KX`, `BJ`, `Btail` and `G1`.
+
+- `LinnikCGLForm.lemma82_form`: their Lemma 8.2 in their form. For `θ > 0`, real `κ` and `G`, and `D : ℕ → ℝ`, there is `C ≥ 0` such that, for `T ≥ 1`, `M ≤ qT`, smooth `f_b ≥ 0` that are `0` for `|u| > A`, `0 ≤ Λ ≤ G(qT)²F`, the decay `Σ_b|f̂_b(ξ)| ≤ D_j(T/|ξ|)^jΛ` for every `j` and every `ξ ≠ 0`, `0 < M₁ ≤ M`, `0 < M₂ ≤ M` and `0 ≤ M₃ ≤ M`, `Jint(f, M₁, M₂, M₃, κ) ≤ C(qT)^θ(φ(q)M⁶F² + qM²√𝔖√J̃)`.
+- `LinnikCGLForm.term1_le`, `term2_split`, `term2_parts`, `term3_le`: round 688's three terms at the chosen parameters, with the statements and hypotheses given in the file's header and the external README's section.
+
+**Their text.** Re-read this round in the text layer.
+
+- Their notation: "we write A ⪅ B to indicate that for any ϵ > 0, there exists a constant C(ϵ) > 0, depending only on ϵ, such that A ≤ C(ϵ)(qT)^ϵ B for all sufficiently large qT." (lines 279–281; spaces restored, the exponent transcribed.)
+- Their Lemma 8.2 (lines 2495–2516), transcribed: `J(f⃗) ⪅ φ(q)M⁶(∫_ℝΣ_bf_b(u) du)² + φ(q)(M⁴∫_ℝΣ_bf_b(u)² du)^{1/2}J(f̃⃗)^{1/2}`.
+- Their footnote 7: "One might choose ψ₂(x) = ψ₀(x/(qT)^η), where ψ₀(x) is a smooth bump supported on [−2,2] and identically equal to 1 for |x| ≤ 1." (lines 3517–3518; spaces restored, the subscripts and the exponent transcribed.)
+- `scratchpad/r691/quotes.py` checks both quotations against the text layer with spaces removed and those transcriptions undone (`quotes.out`: PASS). It exits 1 on a failure.
+
+**The stack's form.**
+
+- **The parameters** are powers of `R = (qT)^{1/m}`, with `m = ⌈13/θ⌉ + 1`, so that `m ≥ 1` and `13/m ≤ θ`: `L = (|κ| + 1)M`, `X = (qT)³`, `N₀ = R^{m+4}/M₂`, `δ = 1/m`, `j = 2m + 11` and `K = 2m + 8`. Their split in `ξ` is at `(qT)²` (lines 2781–2796); the stack's is at `(qT)³`. Their footnote 7's `ψ₂` gives round 684's `N₀ = qT(qT)^η/M₂`, which is `R^{m+4}/M₂` at `η = 4/m`.
+- **The term `|n| ≤ N₀` of `B_J`** carries `N₀·4M₂²/(qT) = 4M₂R⁴`, and `K_X` carries `(qT)^{9δ} = R⁹`; with `M₂ ≤ M`, the term is at most a constant times `R^{13}·qM²√𝔖√J̃`, and `R^{13} = (qT)^{13/m} ≤ (qT)^θ`.
+- **The errors** are at most constants times `F²`: the term `EP²F²` of `B_J` by `7m + 13 ≤ 4(K − 2)`, the two parts of `B_tail` by `12m + 9 ≤ 4(2j − 2)` and `8m + 9 ≤ 4(K − 4)`, and round 687's range `|ξ| > X` by `j ≥ 10`. Then `F² ≤ 64φ(q)M⁶F²`, since `φ(q) ≥ 1` and `M ≥ 1/2`.
+- **The decay premise** enters at `j = 2m + 11`, with `max(D_j, 0)` for `D_j`. **The bound `Λ ≤ G(qT)²F`** is a hypothesis here; the induction supplies it (the next step).
+- **Small `M₁` or `M₂`.** If `M₁ < 1/2` or `M₂ < 1/2`, `Jint = 0` (round 689's `Jint_eq_zero`); otherwise `M ≥ 1/2`.
+- **The constant** `C` depends on `θ`, `κ`, `G` and `D` only, and the bound holds for every `q ≥ 1` and `T ≥ 1`, where their `⪅` asks for it only for large `qT`.
+- **Their `φ(q)` in the second term is `q` here.** Round 689's `le_totient_mul_card_divisors` gives `q ≤ φ(q)d(q)`, and `d(q) ≤ C_δq^δ`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLForm.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`term2_parts`, `lemma82_form`).
+- `frontier/linnik/CGL-LEAN.md`: rows P8.1 and L8.2, a note under M4, a marker on round 689's note, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section for the file.
+
+**What is checked.**
+
+- `LinnikCGLForm` was compiled in scratch in 18 runs (`scratchpad/r691/run.sh`, `lcj1.out` to `lcj18.out`; runs 1–10 were made under `scratchpad/r690` before the sweep took that number, and were moved). The last had exit 0, and its only messages were the four axiom lines, all `[propext, Classical.choice, Quot.sound]`.
+- The fixes. `gcongr` over local definitions that keep their values (`set`) ran out of heartbeats, so the four parts of `II` became lemmas in real variables (`t2_main`, `t2_errA`, `t2_errB1`, `t2_errB2`). `field_simp` left powers of `M₂⁻¹`, so `t2_fac`'s identity is proved by hand. An argument `by linarith` for `0 < M₁` let Lean unify `M₁` with `N₀` in `lemma82_explicit`, which ran out of heartbeats; the hypothesis is now named. `term2_split` needed its implicit `q`. Unused hypotheses were dropped: `0 ≤ M` from three parts, and `0 ≤ G` from `t2_errB1` and `term2_parts`.
+- The heartbeats of fourteen of the file's eighteen declarations were counted once in scratch with Mathlib's `#count_heartbeats in` (`lcj16.out`); the counter and its import were removed before the build. The largest are `term3_le` 119535, `term2_parts` 113706 and `form_main` 86121, against the default 200000, and the build compiles all eighteen within the default.
+- Then `build.sh` ran once (`scratchpad/r691/compile.sh 1`, log `build_1.log`): `1 compiled, 426 up to date` (`LinnikCGLForm` 25 s), exit 0 in 34 s, with no error, warning or `sorry`. Its 655 axiom lines are 4 by the module and 651 by the final check; 642 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 7.09 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/r691/apply_docs.py` makes the eight edits to CGL-LEAN.md and the external README. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r691/gate.out`): this file 1872 → 1872, `external/pnt/README.md` 5 → 5 and CGL-LEAN.md 0 → 0, none new, and `k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: rows P8.1 and L8.2 gain round 691 in their stack cells and net-state markers; M4 gains a note; round 689's note gets a marker; the opening's parenthetical gains round 691.
+- `external/pnt/README.md`: a row, and a section for the file.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- In the text layer: lines 275–284 (their notation), 2490–2525 (their Lemma 8.2 and the start of their proof of Proposition 8.1), 2774–2800 (their split at `(qT)²`) and 3508–3518 (their footnotes 6 and 7).
+- The operative statements: round 688's `KX`, `BJ`, `Btail`, `G1` and `lemma82_explicit` (`LinnikCGLL82.lean` 119, 127, 134, 140 and 148); round 689's `Jint_eq_zero`, `le_totient_mul_card_divisors`, `W0_le` and `KX_le` (`LinnikCGLConst.lean` 110, 168, 193 and 215); round 662's `Jint` and `CGLP81` (`LinnikCGLJ.lean` 153 and 161); round 680's `fC` (`LinnikCGLG.lean` 320); and round 684's `CK` and `norm_fourier_psiC_le_CK` (`LinnikCGLSig2.lean` 297 and 300).
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them. "For every `θ > 0`" and "for every `q ≥ 1` and `T ≥ 1`" are `lemma82_form`'s quantifiers.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of 2026-10-22, this round goes to the next block's review, with round 690's sweep.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Proposition 8.1 (`CGLP81`) by their downward induction on `ε`, on a statement with an abstract `Λ` (the decay `Σ_b|f̂_b(ξ)| ≤ D_j(T/|ξ|)^jΛ` and `Λ ≤ G(qT)²F`), which `f̃` keeps with `(∫ψ̃₀)D_j` in place of `D_j`. Then `CGLP81` at `Λ = φ(q)f_{b₀}(u₀)`, with `Λ ≤ G(qT)²F` from the premise at `j = 2` by Fourier inversion.

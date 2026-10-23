@@ -211,6 +211,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLTail.lean` | 687 | The terms `\|n\| > N₀` of `B_II` and the range `\|ξ\| > X` of `ĝ_a`, by the decay premise `Σ_b\|f̂_b(ξ)\| ≤ D(T/\|ξ\|)^jΛ`: for smooth `f_b` that are `0` for `\|u\| > A`, `M₁, M₂ > 0`, `X ≥ 1`, `T, D, Λ ≥ 0` and `j ≥ 1`, `∫_{\|ξ\|>X}Σ_a\|ĝ_a(ξ)\|² dξ ≤ 2πφ(q)G₁²X^{−(2j−2)}` (`setIntegral_ga_tail_le`) *(round 690: the premise is for `ξ ≠ 0`, and it is a hypothesis of `setIntegral_ga_tail_le`; review of rounds 679–688, B's F4)* |
 | `LinnikCGLL82.lean` | 688 | Chen–Gupta–Li's Lemma 8.2 with explicit constants: for smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `M₁, M₂, L > 0` with `κM₃ ≤ L`, `0 < δ ≤ 1`, `X ≥ 1`, `T ≥ 1`, `N₀ > 0`, `K ≥ 4`, `j ≥ 1`, `D, Λ ≥ 0` and the decay premise, `Jint(f, M₁, M₂, M₃, κ) ≤ 2φ(q)W₀²(2πM₁/L) + 2K_XΣ_{m₁}(I₀B_J + B_tail)/(\|m₁\|L) + 2πφ(q)G₁²X^{−(2j−2)}` (`lemma82_explicit`) |
 | `LinnikCGLConst.lean` | 689 | The bounds of round 688's constants that do not depend on the parameters: `Σ_{h mod q}(h, q) ≤ q·d(q)` (`sum_gw_le`), `n ≤ φ(n)d(n)` (`le_totient_mul_card_divisors`), `W₀ ≤ 200B₄L·d(q)M₂²F` (`W0_le`), `K_X ≤ 40πC_δB₄d(q)⁴L²q(1 + qX)^δ(1 + 2q)^δ` (`KX_le`), each with its hypotheses as below |
+| `LinnikCGLForm.lean` | 691 | Chen–Gupta–Li's Lemma 8.2 in their form, with the parameters chosen: for `θ > 0`, real `κ` and `G`, and `D : ℕ → ℝ`, there is `C ≥ 0` such that, for `q ≥ 1`, `T ≥ 1`, `M ≤ qT`, smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `0 ≤ Λ ≤ G(qT)²F`, the decay `Σ_b\|f̂_b(ξ)\| ≤ D_j(T/\|ξ\|)^jΛ` for every `j` and every `ξ ≠ 0`, `0 < M₁ ≤ M`, `0 < M₂ ≤ M` and `0 ≤ M₃ ≤ M`, `Jint(f, M₁, M₂, M₃, κ) ≤ C(qT)^θ(φ(q)M⁶F² + qM²√𝔖√J̃)` (`lemma82_form`) |
 
 ## Building (rounds 217, 618)
 
@@ -1326,3 +1327,17 @@ Round 689 bounds the constants of round 688's Lemma 8.2 that do not depend on th
 - `KX_le`: for `L > 0`, `0 ≤ M₁ ≤ L`, `X ≥ 0` and `0 < δ ≤ 1`, round 683's `K_X ≤ 40πC_δB₄d(q)⁴L²q(1 + qX)^δ(1 + 2q)^δ`.
 
 See the main README, round 689, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 649 lines.
+
+## Their Lemma 8.2 in their form: LinnikCGLForm.lean (round 691)
+
+Round 691 chooses the parameters of round 688's Lemma 8.2 and bounds its right side by `C(qT)^θ(φ(q)M⁶F² + qM²√𝔖√J̃)`, with `q ≥ 1`, `F = Σ_b∫f_b`, `𝔖 = ∫Σ_bf_b²`, `J̃ = Jint(f̃, M₂, M₂, M₂, 4|A| + 2)`, `I₀ = ∫|ψ̂₀(−τ)| dτ`, `C_K` round 684's `CK`, `C_δ` round 525's `Cdiv`, `B₄` round 681's `B4`, `d(q)` the number of divisors of `q`, `L = K₁M`, and `W₀`, `K_X`, `B_J`, `B_tail` and `G₁` round 688's `W0`, `KX`, `BJ`, `Btail` and `G1`. The parameters are powers of `R = (qT)^{1/m}` with `m ≥ 1` and `13/m ≤ θ`: `L = (|κ| + 1)M`, `X = (qT)³`, `N₀ = R^{m+4}/M₂`, `δ = 1/m`, `j = 2m + 11` and `K = 2m + 8`.
+
+- `term1_le`: for `f_b ≥ 0`, `1/2 ≤ M₁ ≤ M`, `1/2 ≤ M₂ ≤ M`, `K₁ ≥ 1` and `0 < δ ≤ 1`, `2φ(q)W₀²(2πM₁/L) ≤ 160000πB₄²K₁C_δ²q^{2δ}·φ(q)M⁶F²`.
+- `term3_le`: for `T ≥ 1`, `1/2 ≤ M₁ ≤ M ≤ qT`, `1/2 ≤ M₂ ≤ M`, `K₁ ≥ 1`, `D, G ≥ 0`, `0 ≤ Λ ≤ G(qT)²F` and `j ≥ 10`, at `X = (qT)³`, `2πφ(q)G₁²X^{−(2j−2)} ≤ 128π(4000K₁DG·4^j)²·φ(q)M⁶F²`.
+- `sum_P1_div_le`, `KX_le_Q`, `KX_nonneg`, `term2_split`: for `M₁ ≥ 1/2`, `L > 0` and `S ≥ 0`, `Σ_{m₁∈P1 M₁}S/(|m₁|L) ≤ 10S/L`; for `T ≥ 1`, `L > 0`, `0 ≤ M₁ ≤ L` and `0 < δ ≤ 1`, at `X = (qT)³`, `K_X ≤ 240πC_δB₄d(q)⁴L²q(qT)^{5δ}`; for `L > 0`, `M₁ ≥ 0` and `0 < δ ≤ 1`, `K_X ≥ 0`; and for `T ≥ 1`, `1/2 ≤ M₁ ≤ M`, `K₁ ≥ 1`, `0 < δ ≤ 1` and `S ≥ 0`, at `X = (qT)³`, `2K_XΣ_{m₁∈P1 M₁}S/(|m₁|L) ≤ 4800πC_δ⁵B₄Lq(qT)^{9δ}S`.
+- `t2_main`, `t2_errA`, `t2_fac`, `t2_errB1`, `t2_errB2`: the four parts of `c₀LqR⁹(I₀B_J + B_tail)` and a factor of `B_tail`, in real variables.
+- `term2_parts`: for `T ≥ 1`, `R ≥ 1` with `qT = R^m`, `1/2 ≤ M₂ ≤ M ≤ R^m`, `K₁ ≥ 1`, `c₀ ≥ 0`, `f_b ≥ 0`, `D ≥ 0`, `0 ≤ Λ ≤ GR^{2m}F`, `j ≥ 1`, `K ≥ 4`, `7m + 13 ≤ 4(K − 2)`, `12m + 9 ≤ 4(2j − 2)` and `8m + 9 ≤ 4(K − 4)`, at `N₀ = R^{m+4}/M₂`, `c₀LqR⁹(I₀B_J + B_tail) ≤ 4c₀I₀C_KK₁R^{13}·qM²√𝔖√J̃ + 4800πc₀K₁(I₀C_K + 4^{j+1}I₀D²G² + 2^KπC_K)F²`.
+- `rpow_inv_facts`, `form_combine`, `form_t1`, `form_t2`, `form_main`: the powers of `R`, the final count, the three terms at the chosen parameters and their assembly.
+- `lemma82_form`: for `θ > 0`, real `κ` and `G`, and `D : ℕ → ℝ`, there is `C ≥ 0` such that, for `T ≥ 1`, `M ≤ qT`, smooth `f_b ≥ 0` that are `0` for `|u| > A`, `0 ≤ Λ ≤ G(qT)²F`, the decay `Σ_b|f̂_b(ξ)| ≤ D_j(T/|ξ|)^jΛ` for every `j` and every `ξ ≠ 0`, `0 < M₁ ≤ M`, `0 < M₂ ≤ M` and `0 ≤ M₃ ≤ M`, `Jint(f, M₁, M₂, M₃, κ) ≤ C(qT)^θ(φ(q)M⁶F² + qM²√𝔖√J̃)`.
+
+See the main README, round 691, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 651 lines.
