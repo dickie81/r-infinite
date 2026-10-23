@@ -5,9 +5,9 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
 Stage M5 is round 670's displayed hypothesis `CGLT101`, their Theorem 10.1 (Heath-Brown's bound for double sums with
 characters). Its source, their [6], has not been read. The route here follows Kerr's proof for `q = 1`
-(arXiv:1909.12075, §§5–6: his Lemmas 18–28 and Theorem 16), with two inputs that carry characters, both from Jutila
-(Acta Arith. 32 (1977), 55–62, read from its scanned pages), and both quoted by Heath-Brown in Canad. J. Math. 31
-(1979), 231–240:
+(arXiv:1909.12075, §§5–6: his Lemmas 18–20 and 22–27, Corollaries 21 and 28, and Theorem 16), with two inputs that
+carry characters, both from Jutila (Acta Arith. 32 (1977), 55–62, read from its scanned pages), and both quoted by
+Heath-Brown in Canad. J. Math. 31 (1979), 231–240:
 * his Lemma 1, the reflection of a smoothed sum `Σ_nb(n)χ(n)n^{−s}` for a character `χ` mod `q`, imprimitive ones
   included and the principal one at `|t| ≥ h²`, with the dual sum over `χ̄` itself at the cost of a factor `q^ε`; for
   `χ ≠ 1` with round 638's weight `w(n/N)²`, round 642's `norm_gram_le` is a form of it;

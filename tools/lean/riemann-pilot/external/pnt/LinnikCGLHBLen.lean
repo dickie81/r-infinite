@@ -10,7 +10,7 @@ which the divisor bound controls, before positivity (his Lemma 18). This file pr
 sums with characters.
 
 The stack's form.
-* The integers `u` run over `⌊U⌋ < u ≤ ⌊3U/2⌋` and are prime to `q` (`useg`), so that `|χ_r(u)| = 1`. Averaged over
+* The integers `u` run over `⌊U⌋ < u ≤ ⌊3U/2⌋` and are prime to `q` (`useg`), so that `|χ_r(u)| = 1`. Summed over
   the characters `ψ` mod `p`, `|Σ_uψ(u)u^{−1/2}A_r(u)Ā_s(u)|²` is then `φ(p)c(q, U)` for every pair `(r, s)`, with
   `c(q, U) = Σ_u 1/u` (`cqU`).
 * The auxiliary prime is any prime `p > ⌊3U/2⌋`, from Euclid's theorem, so that the `u` are distinct units mod `p`.

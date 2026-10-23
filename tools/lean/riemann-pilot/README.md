@@ -29902,7 +29902,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 - The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
 - `scratchpad/r694/apply_docs.py` makes the eight edits to CGL-LEAN.md and the external README. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing.
 - `scratchpad/gate.sh` now lints SIEVE-ROUTE.md as well, which review B of rounds 692–693 found it did not (its F4; the sweep records it). It passed before the commit (`scratchpad/r694/gate.out`).
-- No quotation is made this round, so there is no `quotes.py`.
+- ~~No quotation is made this round, so there is no `quotes.py`.~~ *(Round 701: retracted, false when written: the entry quotes the titles of Jutila's and Heath-Brown's papers and three phrases of its own, two of which were not verbatim (struck in round 695), and no check ran on them; review A of round 700, F2.)*
 
 **Marks.**
 
@@ -29912,7 +29912,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 **Check 1** (direct reads this round):
 
-- Kerr, arXiv:1909.12075, §§5–6 (text layer `scratchpad/hb/work/hb1909.txt`, lines 783–2022): his definitions (26) and (27), Theorem 16, Lemmas 18–27, Corollaries 21 and 28, and the proof of Theorem 16, line by line.
+- Kerr, arXiv:1909.12075, §§5–6 (text layer `scratchpad/hb/work/hb1909.txt`, lines 783–2022): his definitions (26) and (27), Theorem 16, ~~Lemmas 18–27~~ Lemmas 18–20 and 22–27, Corollaries 21 and 28, and the proof of Theorem 16, line by line. *(Round 701: retracted, false when written: "Lemmas 18–27", which counts his Corollary 21 as a lemma; review A of round 700, F5.)*
 - Jutila, Acta Arith. 32 (1977), pages 55–59 (`scratchpad/hb/jutila/aa3216.pdf`, rendered page by page): his theorem, Lemmas 1–3 and the proof of Lemma 1.
 - Heath-Brown, Canad. J. Math. 31 (1979), 231–240 (`scratchpad/hb/cjm/hb_cjm1979.pdf`, its text layer), in full.
 - Their Theorem 10.1 and its uses in their Lemmas 10.6 and 10.7 (text layer lines 4610–4980).
@@ -29959,7 +29959,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 - **Their inner sums** (A's F2), siblings of round 690's A F5. Round 682's `F(m₁, n)` has `m₂/|m₁|`, the Jacobian, for their `m₂/m₁` (lines 2811–2812), and the two differ in sign for `m₁ < 0`. Declared in `LinnikCGLNsum.lean`'s header and in the docstring of `Fb`, and by markers in round 682's entry, its CGL-LEAN.md note and the external README.
 - **Lemma 8.2 "with explicit constants"** (A's F3), twins of round 690's B F3. Markers on CGL-LEAN.md's round-688 marker, on the external README's round-688 section and on round 690's review paragraph; `build.sh`'s comment corrected. Seven other sites stand: headings and titles, and sentences followed by the full statement with its error terms. The class check holds six of them, and finds the seventh, the external README's round-688 heading, scoped by the new marker below it.
 - **The stack's `X`** (A's F4). "The stack's `X` is their `(qT)²`" was a role identification while `X` was free; round 691 takes `X = (qT)³`. Reworded in `LinnikCGLTail.lean`, and markers on CGL-LEAN.md's round-690 marker and on two sentences of round 690's: its annotation in round 687's entry, and a bullet under its MAJOR.
-- **`q ≥ 1`** (A's F5). The five docstrings of `LinnikCGLConst.lean` now say `q ≥ 1`, and CGL-LEAN.md's round-689 note gets a marker. A count over the `LinnikCGL` files finds 132 docstrings of lemmas and theorems with `[NeZero q]` that lack `q ≥ 1` at HEAD: these five, two in `LinnikCGLP81.lean` that name their results without hypotheses (held, under round 661's convention), and 125 in files of rounds before 689. Those are held: at `q = 0` no `[NeZero q]` statement can be instantiated, so none of them has a counterexample there.
+- **`q ≥ 1`** (A's F5). The five docstrings of `LinnikCGLConst.lean` now say `q ≥ 1`, and CGL-LEAN.md's round-689 note gets a marker. A count over the `LinnikCGL` files finds 132 docstrings of lemmas and theorems with `[NeZero q]` that lack `q ≥ 1` at HEAD: these five, two in `LinnikCGLP81.lean` that name their results without hypotheses (held, under round 661's convention), and 125 in files of rounds before 689 *(round 701: recomputed at 73e1132 by review A's script, `scratchpad/r701/recount695.py`, `recount695.out`; review A of round 700, F3)*. Those are held: at `q = 0` no `[NeZero q]` statement can be instantiated, so none of them has a counterexample there.
 - **The domain "for every `qT ≥ 1`"** (A's F6). `lemma82_form` assumes `q ≥ 1` and `T ≥ 1`. Corrected in `LinnikCGLForm.lean`. The class check found the same in round 638's entry, about `CGLThird`, which also assumes `q ≥ 1` and `T ≥ 1`; struck and restated there.
 - **`W₀`'s round** (A's F7). `W0` is round 682's (`LinnikCGLN0.lean` 117). Corrected in `LinnikCGLForm.lean`; struck and restated in the entries of rounds 689 and 691 and in the external README's round-691 section.
 - **Round 689's "constants that do not depend on the parameters"** (A's F8). Round 689's two constants depend on them, `W₀` on `L` and `K_X` on `L`, `X` and `δ`, and so do their bounds; the file bounds them with the parameters left free. Corrected in `LinnikCGLConst.lean` and `build.sh`; struck and restated in the external README's row and section and in CGL-LEAN.md's row P8.1 and round-689 note.
@@ -29971,7 +29971,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 - A's O1: round 689's `quotes.py` exits 0 even when it prints "QUOTES FAIL". Round 689 predates round 690's change, its entry reads the printed verdict, and review A's run prints PASS. Held: no exposure.
 - A's O2: the phrase census of rounds 679 and 690 missed differently worded siblings. Adopted: this round's census checks one pattern per class, with a planted probe per class (below).
-- The class check's self-quotation test, run over the records before round 689, finds 61 quotations in 47 entries (of 226 Check-9 records) that occur verbatim neither in their entries nor on the other surfaces; 50 of them occur once the case of their first letter is changed. Held as history, for the owner's discretion; the check covers the records from round 689 on.
+- The class check's self-quotation test, run over the records before round 689, finds 61 quotations in 47 entries (of 226 Check-9 records) that occur verbatim neither in their entries nor on the other surfaces; 50 of them occur once the case of their first letter is changed *(round 701: recomputed at 73e1132 by `scratchpad/r701/recount695.py`, `recount695.out`; review A of round 700, F3)*. Held as history, for the owner's discretion; the check covers the records from round 689 on.
 
 **What changed in the files.**
 
@@ -30032,7 +30032,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 **The stack's form.**
 
 - **The auxiliary prime.** Kerr takes `8U ⩽ P ⩽ 16U`. Here any prime `p > ⌊3U/2⌋` serves, by Euclid's theorem: the `u` are then distinct units mod `p`, and the number `φ(p)` of characters appears on both sides and cancels.
-- **The average is exact.** For each pair `(r, s)`, the average over `ψ` of `|Σ_uψ(u)u^{−1/2}A_r(u)Ā_s(u)|²` is `φ(p)Σ_u 1/u = φ(p)c(q, U)`, since `|A_r(u)| = 1` for `u` prime to `q`.
+- **The average is exact.** For each pair `(r, s)`, ~~the average~~ the sum over `ψ` of `|Σ_uψ(u)u^{−1/2}A_r(u)Ā_s(u)|²` is `φ(p)Σ_u 1/u = φ(p)c(q, U)` *(Round 701: retracted, false when written: "the average", which is `c(q, U)`: the sum runs over the `φ(p)` characters `ψ` (`hY`); review A of round 700, F1.)*, since `|A_r(u)| = 1` for `u` prime to `q`.
 - **The lower bound of `c(q, U)`** comes from Möbius's count of the integers prime to `q` in an interval, whose error is at most `d(q)`, and round 689's `q ≤ φ(q)d(q)`. So the threshold `12d(q)² + 4` is `q^{o(1)}`.
 - **The range of the lengthened sum.** The products `nu` lie in `(NU, 3NU]`, and positivity bounds the double sum by the one over `(NU, 4NU]`, split into `σ(NU)` and `σ(2NU)` by `|x + y|² ≤ 2|x|² + 2|y|²`.
 
@@ -30049,7 +30049,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 - The fixes. Run 1: in `coprime_ind_eq` the rewrite by `sum_moebius_divisors` closes the goal itself, since `Nat.Coprime u q` unfolds to `gcd(u, q) = 1`, so the case split after it had no goal; `Nat.floor_div_eq_div`'s type argument is named `K`; two `exact_mod_cast` steps went through a `set` variable; and the warnings (a deprecated `mul_le_one₀`, `if_pos` and `if_neg`, `haveI`, `push_neg`, and an unused hypothesis of `dsum_two_le`) were removed. Run 2 failed in `card_Ioc_filter_dvd`, whose `omega` had been removed in error after run 1. Runs 3 and 4 tried two more endings for `coprime_ind_eq`; its proof now ends with the rewrite.
 - Then `build.sh` ran once (`scratchpad/r696/compile.sh 1`, log `build_1.log`): `1 compiled, 430 up to date` (`LinnikCGLHBLen` 13 s), exit 0 in 23 s, with no error, warning or `sorry`; the one log line containing "error" is the axiom line of `Linnik.error_le`. Its 665 axiom lines are 5 by the module and 660 by the final check; 652 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s (`rss_watch_build_1.log`), is 7210720 KiB (6.88 GiB).
 - The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
-- `scratchpad/r696/quotes.py` checks the file's quotation of Kerr, "Let P be a prime number satisfying" (text layer line 1307), in the text layer and in the header (`quotes.out`: PASS). It exits 1 on a failure. `scratchpad/r696/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, passes on this round's ten (`quotes_entry.out`).
+- `scratchpad/r696/quotes.py` checks the file's quotation of Kerr, "Let P be a prime number satisfying" (text layer line 1307), in the text layer and in the header (`quotes.out`: PASS). It exits 1 on a failure. `scratchpad/r696/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, *(round 701: in the lines of tracked files: it reads `git diff HEAD`, which omits a new file not yet added; this round's new file holds one quotation, which `quotes.py` checks; review A of round 700, F4)* passes on this round's ten (`quotes_entry.out`).
 - `scratchpad/r696/apply_docs.py` makes the six edits to CGL-LEAN.md and the external README. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing.
 - `scratchpad/gate.sh` passed before the commit (`scratchpad/r696/gate.out`).
 
@@ -30082,7 +30082,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 ## Round 697: the reflection of the principal Gram entries (stage M5; `external/pnt/LinnikCGLRefl0.lean`)
 
-**The step.** Heath-Brown's bound sums the Gram entries `G(i, k)` over every pair. Rounds 641 and 642 reflect those with `χ_i ≠ χ_k` (`LinnikCGLReflect.reflect_gram`, `LinnikCGLPair.norm_gram_le`). For `χ_i = χ_k` the integrand of round 640's `perron_gram` is `G₁(s) = L(s, χ₀)H(s + iτ)N^s`, with `χ₀` the principal character mod `q` and `τ = t_i − t_k`, and `L(s, χ₀)` has a pole at `s = 1`. This round reflects those entries through the pole and keeps the residue term. The dual sum runs over `χ₀` itself, as in Jutila's Lemma 1 for the principal character (README round 694).
+**The step.** Heath-Brown's bound sums ~~the Gram entries `G(i, k)`~~ the squares of the sharp sums `Σ_{n∼N}c_nχ_i(n)χ̄_k(n)n^{i(t_i−t_k)}` over every pair, which the stack bounds through the Gram entries `G(i, k)` (round 698's `sig_le_gram`) *(Round 701: retracted, false when written: "the Gram entries `G(i, k)`", the stack's smoothed sums; their Theorem 10.1, quoted in `LinnikCGLT101.lean`, sums the sharp sums with coefficients `c_n`; review B of round 700, F4.)*. Rounds 641 and 642 reflect those with `χ_i ≠ χ_k` (`LinnikCGLReflect.reflect_gram`, `LinnikCGLPair.norm_gram_le`). For `χ_i = χ_k` the integrand of round 640's `perron_gram` is `G₁(s) = L(s, χ₀)H(s + iτ)N^s`, with `χ₀` the principal character mod `q` and `τ = t_i − t_k`, and `L(s, χ₀)` has a pole at `s = 1`. This round reflects those entries through the pole and keeps the residue term. The dual sum runs over `χ₀` itself, as in Jutila's Lemma 1 for the principal character (README round 694).
 
 **The results.** Below, `q ≥ 1`, `N > 0`, `E₀(s) = ∏_{p∣q}(1 − p^{−s})`, `R = E₀(1)H(1 + iτ)N`, and `Mn`, `Tl` are round 641's integrands at `χ₀`.
 
@@ -30100,7 +30100,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 - **The functional equation at `χ₀`.** Round 641's `LFunction_reflected` assumes `χ ≠ 1`, and round 526's `LFunction_eq_reflect` assumes `ψ ≠ 1`. In round 526's proof `ψ ≠ 1` serves Mathlib's conditions `s ≠ 0 ∨ N ≠ 1` (`LFunction_eq_completed_div_gammaFactor`, at `s` and at `1 − s`) and `χ ≠ 1 ∨ s ≠ 1` (`LFunction_changeLevel`, at `1 − s`). At `Re s < 1` and `s ≠ 0` the conditions hold through `s` instead, so the proof goes through for every character.
 - **The pole.** The shift from `Re s = 2` to `Re s = 1/2` is round 524's `LinnikGamma.verticalIntegral_sub_eq` applied to `w ↦ G₁(w + 1)`, whose polar part at `w = 0` is `R/w`: `ζ(s) − 1/(s − 1)` is bounded near `s = 1` (Mathlib's `isBigO_riemannZeta_sub_one_div`), and `E₀(s)H(s + iτ)N^s` is entire.
 - **The point `s = 0`.** `L(1 − s, χ₀)` has a pole at `s = 0`, where `G₁` itself is regular. The rest `G₁ − Mn` is holomorphic on `Re s < 1`, and its form `Cf(s)(L(1 − s, χ₀) − Σ_{m≤Z}χ₀(m)m^{s−1})` is used only off `s = 0`: on the line `Re s = −K` and at `|Im s| ≥ 2` for the bound. So the shift from `Re s = 1/2` to `Re s = −K` is round 641's `shift_of_bound` as before.
-- **The bounds.** `|ζ(σ + it)| ≤ 2 + 2|t|/σ` on `0 < σ ≤ 2`, `|t| ≥ 2` comes from PNT+'s `Zeta0EqZeta` at `N = 1` with `ZetaBnd_aux1`, and on `σ > 2` from round 470's `HalfPlaneLindelof.norm_zeta_le_three_halves`. Near the real axis the bounds come from continuity on a compact rectangle (`bound_of_far`).
+- **The bounds.** `|ζ(σ + it)| ≤ 2 + 2|t|/σ` on `0 < σ ≤ 2`, `|t| ≥ 2` comes from PNT+'s `Zeta0EqZeta` at `N = 1` with `ZetaBnd_aux1`, and ~~on `σ > 2` from round 470's `HalfPlaneLindelof.norm_zeta_le_three_halves`~~ on `σ > 2` the bound `|ζ(s)| ≤ |ζ(3/2)|` comes from round 470's `HalfPlaneLindelof.norm_zeta_le_three_halves` *(Round 701: retracted, false when written: "on `σ > 2` from round 470's", which read as giving `2 + 2|t|/σ` there; that lemma gives `|ζ(s)| ≤ |ζ(3/2)|` on `Re s ≥ 3/2`, and at `σ = 10`, `t = 2` the first bound is `2.4 < ζ(3/2)`; review B of round 700, F3.)*. Near the real axis the bounds come from continuity on a compact rectangle (`bound_of_far`).
 
 **What changed in the files.**
 
@@ -30117,7 +30117,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 - After run 3 only comments changed: the docstrings and the header were made to list every hypothesis (`q ≥ 1`, `f ≥ 1`, `N > 0`, `K ≥ 1`), lines were re-wrapped to 120 characters, the header's sentence on Jutila's Lemma 1 was reworded, and the header now names `norm_integral_Tl_le` for `T_K`.
 - Then `build.sh` ran twice, the second time after the last comment edits (`scratchpad/r697/compile.sh 1` and `2`, logs `build_1.log` and `build_2.log`). The second run: `1 compiled, 431 up to date` (`LinnikCGLRefl0` 13 s), exit 0 in 23 s, with no error, warning or `sorry`; the one log line containing "error" is the axiom line of `Linnik.error_le`. Its 667 axiom lines are 5 by the module and 662 by the final check; 654 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s (`rss_watch_build_2.log`), is 7181160 KiB (6.85 GiB). The first run had the same counts.
 - The file has 605 lines (5 theorems, 15 lemmas, 2 definitions), no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
-- The file quotes no source. `scratchpad/r697/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, passes on this round's (`quotes_entry.out`).
+- The file quotes no source. `scratchpad/r697/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, *(round 701: in the lines of tracked files: it reads `git diff HEAD`, which omits a new file not yet added; this round's new file holds none; review A of round 700, F4)* passes on this round's (`quotes_entry.out`).
 - `scratchpad/r697/apply_docs.py` makes the eight edits to CGL-LEAN.md, the external README and README.md. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing (`apply.out`, `apply_rerun.out`).
 - `scratchpad/gate.sh` passed before the commit (`scratchpad/r697/gate.out`).
 
@@ -30185,7 +30185,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 - The fixes. Run 1: an integral binds to the end of its expression, so `l ^ 2 * ∫ u, h u + …` needed parentheses; `integral_finset_sum` and `integrable_finset_sum` are deprecated in favour of `integral_finsetSum` and `integrable_finsetSum`; `Finset.sum_image` needed its summand named; a cast of `P.card`; and two heartbeat timeouts in `sum_gram_sq_le`, which was then split into `pair_sq_le`, `sum_sum_three` and `refl_arith`. Run 2: `sum_gram_sq_le` still timed out, and a rewrite before `exact` closed `refl_arith`'s hypotheses by reflexivity with a metavariable. The residue term and the main integral of a pair were then named as definitions (`Res`, `Imain`), so that the summed bounds unify syntactically, and the bounds of `sum_gram_sq_le` were passed to `refl_arith` unchanged.
 - Then `build.sh` ran once (`scratchpad/r698/compile.sh 1`, log `build_1.log`): `1 compiled, 432 up to date` (`LinnikCGLHBRefl` 13 s), exit 0 in 24 s, with no error, warning or `sorry`; the one log line containing "error" is the axiom line of `Linnik.error_le`. Its 669 axiom lines are 5 by the module and 664 by the final check; 656 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s (`rss_watch_build_1.log`), is 7202212 KiB (6.87 GiB).
 - The file has 683 lines (5 theorems, 25 lemmas, 7 definitions), no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters. It quotes no source.
-- `scratchpad/r698/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, passes on this round's (`quotes_entry.out`).
+- `scratchpad/r698/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, *(round 701: in the lines of tracked files: it reads `git diff HEAD`, which omits a new file not yet added; this round's new file holds none; review A of round 700, F4)* passes on this round's (`quotes_entry.out`).
 - `scratchpad/r698/apply_docs.py` makes the eight edits to CGL-LEAN.md and the external README. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing (`apply.out`, `apply_rerun.out`).
 - `scratchpad/gate.sh` passed before the commit (`scratchpad/r698/gate.out`).
 
@@ -30218,7 +30218,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 ## Round 699: Kerr's iteration with characters (stage M5; `external/pnt/LinnikCGLHBIter.lean`)
 
-**The step.** Kerr's §6 proves his Theorem 16 (arXiv:1909.12075, text layer lines 1947–2021) from his reflection (Corollary 28), squaring (Lemma 22) and lengthening (Corollary 21). In his first case, `N ≥ ∆^{2/3}/100`, he lengthens from the dual length up to `N` itself and closes at one length: `S(N, ∆, γ) ≪ N^{o(1)}I(∆, γ)^{1/2}S(N, ∆, γ)^{1/2} + (I(∆, γ) + N‖γ‖₂²)N^{o(1)}` (his (45), line 1973). In his second case he uses the first at the length `100∆²/N²` and lengthens. This round runs the argument with characters for round 694's `σ(N)`, against `B(N) = RN + R² + R^{5/4}Q^{1/2}`, with `R` the number of points and `Q = q(1 + 2T)`.
+**The step.** Kerr's §6 proves his Theorem 16 (arXiv:1909.12075, text layer lines 1947–2021) from his reflection (Corollary 28), squaring (Lemma 22) and lengthening (Corollary 21). In his first case, `N ≥ ∆^{2/3}/100`, he lengthens ~~from the dual length~~ from `100∆²/N²`, to which his squaring (Lemma 22, his (43)) takes the dual length `4∆/N`, up to `N` itself (his (44)) and closes at one length *(Round 701: retracted, false when written: "from the dual length", which is `4∆/N`; review C of round 700, F4.)*: `S(N, ∆, γ) ≪ N^{o(1)}I(∆, γ)^{1/2}S(N, ∆, γ)^{1/2} + (I(∆, γ) + N‖γ‖₂²)N^{o(1)}` (his (45), line 1973). In his second case he uses the first at the length `100∆²/N²` and lengthens. This round runs the argument with characters for round 694's `σ(N)`, against `B(N) = RN + R² + R^{5/4}Q^{1/2}`, with `R` the number of points and `Q = q(1 + 2T)`.
 
 **The results.** Below, `q ≥ 1`, `K = ⌈1/δ⌉`, `U₀ = 12d(q)² + 4`, `c_K = 2πC_KI_K`, and `C` is the constant of round 698's `sig_le_refl` at `K`.
 
@@ -30226,7 +30226,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 - `LinnikCGLHBIter.sup_arg`: if `F ≥ 0`, `B > 0` and `F ≤ s₀B` on `N > 0`, and for every `s ≥ 0` the bound `F ≤ sB` there gives `F ≤ (a√s + b)B` there, then `F ≤ (a² + 2b)B` there.
 - `LinnikCGLHBIter.caseA`: for `R ≥ 1`, `T ≥ 1`, `Kδ ≥ 1`, `C, D, s ≥ 0`, round 698's reflected bound at `K`, `d(m) ≤ D` for `1 ≤ m ≤ 4Q`, `σ ≤ sB` on `N > 0`, and `N ≥ 1/2` with `N ≥ Q^{1/2+δ}R^{1/4}` or `N ≥ Q^{1+δ}`: `σ(N) ≤ (A₁ + B₁√s)B(N)`.
 - `LinnikCGLHBIter.caseB`: for `R ≥ 1`, `T ≥ 1`, `0 < δ`, `D, F ≥ 0`, `d(m) ≤ D` for `1 ≤ m ≤ 4(1 + U₀)Q^{1+δ}`, `σ(M) ≤ FB(M)` at every `M ≥ 1/2` in Case A, and `1/2 ≤ N < min(Q^{1/2+δ}R^{1/4}, Q^{1+δ})`: `σ(N) ≤ M_BFB(N)`.
-- `LinnikCGLHBIter.step`, `sig_le_iter`: one step, `σ ≤ sB` on `N > 0` giving `σ ≤ (M_BB₁√s + M_BA₁)B` there; and the iteration's conclusion, `σ ≤ ((M_BB₁)² + 2M_BA₁)B` on `N > 0`.
+- `LinnikCGLHBIter.step`, `sig_le_iter`: ~~one step,~~ for `q ≥ 1`, `T ≥ 1`, `0 < δ`, `Kδ ≥ 1`, `C, D ≥ 0`, round 698's reflected bound at `K` with the constant `C` (`hrefl`) and `d(m) ≤ D` for `1 ≤ m ≤ 4(1 + U₀)Q^{1+δ}`: one step, for `R ≥ 1` and `s ≥ 0`, `σ ≤ sB` on `N > 0` giving `σ ≤ (M_BB₁√s + M_BA₁)B` there; and the iteration's conclusion, `σ ≤ ((M_BB₁)² + 2M_BA₁)B` on `N > 0`. *(Round 701: retracted, false when written: the two statements without their hypotheses, of which the divisor bound is essential: at `D = 0`, `M_B = B₁ = 0` and the conclusion would read `σ ≤ 0`; review C of round 700, F3.)*
 - `LinnikCGLHBIter.sig_le_triv`: for `N > 0`, `σ(N) ≤ (R + 4)(RN + R²)`.
 - `LinnikCGLHBIter.Bd_sq_le`, `Bd_len_le`: for `R ≥ 1`, `Q, N ≥ 0`, `Z ≥ 1` and `Z − 1 ≤ Q^{1/2}R^{−1/4}`, `R²B(Z²) ≤ 3B(N)²`; and for `R, Q, N, U₀, Qδ ≥ 0` and `M ≤ QδQ^{1/2}R^{1/4} + U₀N`, `B(2M) ≤ (2Qδ + 2U₀ + 1)B(N)`.
 - `LinnikCGLHBIter.EQh_le_sq`, `Q0_le`, `TT_le`: for `q ≠ 0`, `EQh(q) ≤ d(q)²` and `Q₀(q) ≤ πC_0d(q)³`; and for `q ≠ 0`, `T ≥ 0`, `Kδ ≥ 1` and `NZ ≥ Q^{1+δ}`, round 698's `T_K(N, Z, T) ≤ c_Kd(q)³`.
@@ -30250,8 +30250,8 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 - `LinnikCGLHBIter` was compiled in scratch in six runs (`scratchpad/r699/run.sh`, `lcj1.out` to `lcj6.out`). Run 1 compiled the file's first part (to `TT_le`) with exit 0 and two warnings, unused hypotheses of `RN_le_Bd` and `TT_le`, which were removed. Runs 2 and 3 had the rest and failed: two casts of `P.card` to `ℝ` and a `.le` on a `≤` proof (run 2); in `caseB` the unfolded `Nst` showed `Qq q T` where `Q` was set, and `caseA` had an unused `0 < δ` (run 3). Run 4 had exit 0 and no messages. Run 5 added the header and five `#print axioms` lines, all `[propext, Classical.choice, Quot.sound]`; run 6, after docstring edits only, had the same output.
 - Then `build.sh` ran once (`scratchpad/r699/compile.sh 1`, log `build_1.log`): `1 compiled, 433 up to date` (`LinnikCGLHBIter` 29 s), exit 0 in 39 s, with no error, warning or `sorry`; the one log line containing "error" is the axiom line of `Linnik.error_le`. Its 671 axiom lines are 5 by the module and 666 by the final check; 658 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s (`rss_watch_build_1.log`), is 7443760 KiB (7.10 GiB).
-- The file has 749 lines (5 theorems, 24 lemmas, 10 definitions), no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters. It quotes no source; its header writes Kerr's (45) in Unicode.
-- `scratchpad/r699/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, passes on this round's (`quotes_entry.out`).
+- The file has 749 lines (5 theorems, 24 lemmas, 10 definitions), no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters. It quotes no source; its header writes Kerr's (45) in Unicode *(round 701: it dropped the factor `N^{o(1)}`, now restored in place; review C of round 700, F4)*.
+- `scratchpad/r699/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, *(round 701: in the lines of tracked files: it reads `git diff HEAD`, which omits a new file not yet added; this round's new file holds none; review A of round 700, F4)* passes on this round's (`quotes_entry.out`).
 - `scratchpad/r699/apply_docs.py` makes the nine edits to CGL-LEAN.md and the external README. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing (`apply.out`, `apply_rerun.out`).
 - `scratchpad/gate.sh` passed before the commit (`scratchpad/r699/gate.out`).
 
@@ -30266,13 +30266,13 @@ The lead verified each finding at its source before accepting it (the reads are 
 - Kerr, arXiv:1909.12075, his §6, the proof of Theorem 16 (text layer `scratchpad/hb/work/hb1909.txt`, lines 1947–2021), with his (45) at lines 1966–1973, and the statements of his Corollaries 21 and 28 (lines 1408–1409 and 1861–1867).
 - Mathlib's `DirichletCharacter.norm_le_one` (`NumberTheory/DirichletCharacter/Bounds.lean` 37). The other Mathlib lemmas the file uses were not re-read; the compiler checks each use.
 - The operative statements: round 698's `sig_le_refl` and `TT`; round 696's `sig_le_lengthen` (`LinnikCGLHBLen.lean` 524); round 694's `shat_le_sum_sig`, `shat_sq_le`, `dsum_nonneg`, `famA`, `wh`, `norm_wh`, `sig` and `shat` (`LinnikCGLHBPos.lean` 255, 311, 73, 158, 162, 164, 197 and 201); round 670's `dyad` and `mem_dyad` (`LinnikCGLT101.lean` 57 and 59); round 642's `Q0`, `IK` and `IK_nonneg` (`LinnikCGLPair.lean` 196, 277 and 304); round 641's `CGK`, `CGK_pos`, `EQh` and `EQh_pos` (`LinnikCGLReflect.lean` 75, 79, 238 and 240); round 638's `norm_cpow_I` (`LinnikCGLMat.lean` 117); and round 689's proof of `2^{ω(n)} ≤ d(n)` inside `le_totient_mul_card_divisors` (`LinnikCGLConst.lean` 169), of which this file keeps a copy.
-- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement. *(round 701: the check missed `q ≥ 1` in four docstrings, those of `caseA`, `caseB`, `step` and `sig_le_iter`; review C of round 700, F2)*
 
 **Check 4.** No defect in the cascade or the stack is raised.
 
 **Check 9.**
 
-- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them. "for every `N > 0`" is the conclusion of `sig_bound` and `sig_le_iter`.
+- (a) ~~Each result above is stated with its hypotheses, and the file's header and docstrings list them.~~ *(Round 701: retracted, false when written: `step` and `sig_le_iter` were stated without their hypotheses (struck above), and the docstrings of `caseA`, `caseB`, `step` and `sig_le_iter` omitted `q ≥ 1`, now added; review C of round 700, F2 and F3.)* Each result above is now stated with its hypotheses, and the file's header and docstrings list them. "for every `N > 0`" is the conclusion of `sig_bound` and `sig_le_iter`.
 - (b) No change to the register; the round makes no barrier claim.
 - (c) No criterion is fed a signal.
 
@@ -30317,7 +30317,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 - `LinnikCGLHB101` was compiled in scratch in nine runs (`scratchpad/r700/run.sh`, `lcj1.out` to `lcj9.out`). Run 1 had exit 0 and no messages. Run 2 failed with four errors: the name `B1` was ambiguous with `_root_.B1` (twice), `positivity` reached the maximum recursion depth, and a bound on `|c_n|` had the wrong type. Run 3 fixed the last two; the `B1` errors remained and were fixed by the qualified name `LinnikCGLHBIter.B1`. Run 4 had exit 0 and four `#print axioms` lines. Run 5 added the header and run 6 re-wrapped its one line over 120 characters. Run 7 added `char_density`, run 8 `cgls3` and `prop31`, and run 9 edited the header's opening paragraph. Runs 4 to 9 each had exit 0 and no messages but their `#print axioms` lines, all `[propext, Classical.choice, Quot.sound]`.
 - `build.sh` ran three times (`scratchpad/r700/compile.sh`), after runs 6, 7 and 9: each time `1 compiled, 434 up to date` with exit 0. The last (`build_3.log`): `LinnikCGLHB101` 16 s, exit 0 in 27 s, with no error, warning or `sorry`; the one log line containing "error" is the axiom line of `Linnik.error_le`. Its 679 axiom lines are 7 by the module and 672 by the final check; 666 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s (`rss_watch_build_3.log`), is 7238448 KiB (6.90 GiB).
 - The file has 514 lines (7 theorems, 15 lemmas, 1 definition), no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters. It quotes no source.
-- `scratchpad/r700/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, passes on this round's (`quotes_entry.out`).
+- `scratchpad/r700/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, *(round 701: in the lines of tracked files: it reads `git diff HEAD`, which omits a new file not yet added; this round's new file holds none; review A of round 700, F4)* passes on this round's (`quotes_entry.out`).
 - `scratchpad/r700/apply_docs.py` makes the 33 edits to CGL-LEAN.md, SIEVE-ROUTE.md and the external README. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing (`apply.out`, `apply_rerun.out`).
 - A second commit rewords three of SIEVE-ROUTE.md's new phrases, in §§16, 23 and 26, so that they say the line of `g7c` needs no hypothesis and that its certificates, their kernel runs not made, would land with none, rather than that the line holds. The script carries the new wording, and run again it writes nothing (`apply_rerun2.out`).
 - `scratchpad/gate.sh` passed before the commit (`scratchpad/r700/gate.out`).
@@ -30334,13 +30334,13 @@ The lead verified each finding at its source before accepting it (the reads are 
 - The operative statements: round 670's `CGLT101`, `dyad` and `mem_dyad` (`LinnikCGLT101.lean` 67, 57 and 59); round 699's `sig_bound`, `Bd`, `Qq`, `Jm`, `U0`, `Lm`, `A1`, `B1`, `MB`, `ctail`, `ctail_nonneg`, `Q0_le` and `one_le_Qq` (`LinnikCGLHBIter.lean` 727, 187, 369, 372, 375, 381, 384, 387, 390, 310, 312, 299 and 392); round 694's `dsum`, `dsum_le`, `dsum_const_mul`, `famA`, `famA_mul_conj`, `wh` and `sig` (`LinnikCGLHBPos.lean` 67, 103, 133, 158, 168, 162 and 197); round 525's `Cdiv`, `one_le_Cdiv` and `card_divisors_le` (`LinnikPower.lean` 62, 64 and 69); round 642's `Q0` and `Q0_nonneg` (`LinnikCGLPair.lean` 196 and 198); round 641's `CGK` and `CGK_pos` (`LinnikCGLReflect.lean` 75 and 79); round 693's `cgls3_t101`, `prop31_t101`, `linnik_225c_t101` and `linnik_226c_t101` (`LinnikCGLP81.lean` 559, 563, 567 and 573).
 - The route from `CGLT101` to the Linnik conclusions: round 678's `cgls3`, `prop31_pt` and `linnik_225c_pt` (`LinnikCGLS3.lean` 809, 935 and 942), round 644's `linnik_225c_s3` (`LinnikCGLS2.lean` 629), round 639's `linnik_225c_s23` (`LinnikCGLS23.lean` 284), round 638's `linnik_225c_third` (`LinnikCGLMat.lean` 755), rounds 636–637's `linnik_225c_lv`, `rangeCounts_lv` and `counts_7c_lv` (`LinnikCGLLinnik.lean` 105, 39 and 48) and header, `charDensity_cgl`, `ParC.Good` and `parCGL` (`LinnikCGLStep.lean` 1116, 376 and 1078), `LinnikHuxStep.εs` (`LinnikHuxStep.lean` 53) and `RangeCounts` (`SieveCurveGlue.lean` 40).
 - The Mathlib lemmas the file uses were not re-read; the compiler checks each use.
-- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement. *(round 701: the check missed `q ≥ 1` and `T ≥ 0` in nine docstrings and `R ≥ 0` in that of `Bd_le_qT`; review C of round 700, F2)*
 
 **Check 4.** No defect in the cascade or the stack is raised.
 
 **Check 9.**
 
-- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them. "with no hypothesis" describes the statements of `linnik_225`, `linnik_226`, `cglt101`, `cgls3`, `prop31` and `char_density`, which take none. "`CGLDensity` … is not proved" is scoped to the stack, and the reason given is scoped to its step as written.
+- (a) Each result above is stated with its hypotheses, and the file's header ~~and docstrings list them~~ lists them *(Round 701: retracted, false when written: "and docstrings", nine of which lacked `q ≥ 1` and `T ≥ 0` and one `R ≥ 0`, now added; review C of round 700, F2.)*. "with no hypothesis" describes the statements of `linnik_225`, `linnik_226`, `cglt101`, `cgls3`, `prop31` and `char_density`, which take none. "`CGLDensity` … is not proved" is scoped to the stack, and the reason given is scoped to its step as written.
 - (b) No change to the register; the round makes no barrier claim.
 - (c) No criterion is fed a signal.
 
@@ -30349,3 +30349,89 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** The batched review of rounds 694–700. Then the owner's instruction of 2026-10-20 to pursue lower exponents: the curve `g7c`'s counts now hold with no hypothesis, so §23 of `frontier/linnik/SIEVE-ROUTE.md` records exact certificates below `9/4` on that line (`2249/1000` at `n = 600` and `n = 800`), whose kernel runs are not made.
+
+## Round 701: sweep of the batched review of rounds 694–700 (five minors, twelve cosmetics)
+
+**The review.** By the owner's decision of 2026-10-22, one review covered stage M5, rounds 694 and 696–700, with round 695's sweep (its convergence review). Three `hostile-reviewer` agents ran at 75e157f (briefs `scratchpad/r700/review/brief_A.md`, `brief_B.md` and `brief_C.md`, with `common.md`). None could write its report file, so the lead saved each report from the agent's hand-back (`scratchpad/r700/review/A/report.md`, `B/report.md` and `C/report.md`).
+
+- Review A, round 695's sweep (0c7ac79) and rounds 694 (73e1132) and 696 (b41d628): six cosmetics and two out-of-scope observations, with no MAJOR and no minor. "Round 695's sweep holds site by site, so the convergence test on it passes (cosmetics are permitted)."
+- Review B, rounds 697 (09292e9) and 698 (8bca171): two minors and four cosmetics, with no MAJOR, and two out-of-scope observations. "The mathematics holds."
+- Review C, rounds 699 (7f024b0) and 700 (7f206f5, 75e157f): three minors and two cosmetics, with no MAJOR, and one out-of-scope observation.
+
+The three batteries passed: `k_decimals.py` at 75e157f; the render lint at each commit of the block (CGL-LEAN.md 0, the external README 5, this file 1872 and SIEVE-ROUTE.md 25, with no new defect from one commit to the next); the build-log censuses of rounds 694–700, which match the figures recorded; and the quotation checks of rounds 695–700, re-run.
+
+The lead verified each finding at its source before accepting it (the reads are under Check 1). Each of the seventeen findings is accepted at its proposed severity: five minors and twelve cosmetics. No Lean statement changes; comments in four Lean files are corrected in place.
+
+**The minors.**
+
+- **Hypotheses dropped in the external README** (B's F1). Its bullet on `gram_reflect0` lacked `K ≥ 1`, which the Lean takes (`hK`). Without it the identity fails: at `K = Z = 0`, `q = N = 1` and `i = k`, the dual sum `Mn` is empty and the tail's series is not summable (so `0` in Lean), and the right side is `H(1) > 0`, while `G(i, i) = w(1)² + w(2)² = 0`. Its bullet on `sum_gram_sq_le` lacked the bound `|H(1 + iτ)|² ≤ B²(1 + |τ|)^{−2}` (`hB`), without which the inequality fails at `B = 0`. Both struck and restated. The README entries and the Lean headers state both.
+- **The extension near the pole** (B's F2). The external README's bullet on `bound_of_far` gave `|G₁(x + iy)| ≤ M(1 + |y + τ|)^{−2}` for every `y` on `1/2 ≤ x ≤ 2`. `G₁` has a pole at `s = 1`, with residue `E₀(1)H(1 + iτ)N`, which is nonzero at `τ = 0`, so no such bound holds there. `bound_of_far` is generic, for a function continuous on `[a, b] × [−2, 2]`, and `shift_pole` applies it to `G₁` on the lines `Re s = 2` and `Re s = 1/2` only (`LinnikCGLRefl0.lean` 377–391). Struck and restated.
+- **Round-700 markers missing** (C's F1). Since round 700, `counts_7c_lv` at `prop31` gives the counts of the curve `g7c` with no hypothesis, so with no hypothesis the limit is that of `g7c`, about `2.247`. Three sentences still stated the earlier state: SIEVE-ROUTE.md's §23 summary of the limits, its definition of an exact certificate (`counts_7c` under `CGLDensity`), and CGL-LEAN.md's round-644 note ("follow from `CGLS3` alone"). Markers on all three.
+- **Docstrings without their hypotheses** (C's F2). Nine docstrings of `LinnikCGLHB101.lean`, from `Cdiv_le_W` to `factor_le`, lacked `T ≥ 0` and `q ≥ 1`, and that of `Bd_le_qT` lacked `R ≥ 0`. `T ≥ 0` and `R ≥ 0` are essential. At `T = −1` and `δ = q = 1`, `4Q = −4` and `C_δ(4Q)^δ = −4C_1 > −12C_1 = W`. At `R = −1`, `N = 10` and `q = T = 1`, Lean's `R^{5/4}` is `cos(5π/4)`, and `B(N) ≈ −10.22 > −19.41`, the right side (review C's figures, recomputed by hand). Four docstrings of `LinnikCGLHBIter.lean`, those of `caseA`, `caseB`, `step` and `sig_le_iter`, lacked `q ≥ 1`. All are corrected in place. The claims of rounds 699 and 700 that the docstrings list the hypotheses are struck, and their records that each docstring was checked get markers.
+- **Statements without their hypotheses** (C's F3). Round 699's entry and the external README's section on `step` gave `step` and `sig_le_iter` without their hypotheses. The divisor bound is essential: at `D = 0`, `M_B = B₁ = 0`, and the conclusion would read `σ ≤ 0`. Struck and restated, with round 699's claim (a) that each result is stated with its hypotheses. CGL-LEAN.md's round-700 note bounds the factors by powers of `W` "for `0 < δ ≤ 1`"; it gets a marker adding `q ≥ 1` and `T ≥ 0`, which `sig_bound`'s hypotheses supply.
+
+**The cosmetics.**
+
+- **The sum over the characters** (A's F1). `hY` gives the sum over the `φ(p)` characters `ψ` mod `p` as `φ(p)c(q, U)`; the average is `c(q, U)`. `LinnikCGLHBLen.lean`'s header read "Averaged" and now reads "Summed". The same claim is struck in round 696's entry and in its CGL-LEAN.md note.
+- **Round 694's quotations** (A's F2). "No quotation is made this round" was false: the entry quotes two titles and three phrases of its own. Struck.
+- **Round 695's figures** (A's F3). The counts 132, 125, 226, 61, 47 and 50 had no saved log. Review A's script, saved as `scratchpad/r701/recount695.py`, prints at 73e1132 a total of 132, with 5 in `LinnikCGLConst.lean` and 2 in `LinnikCGLP81.lean`, and 226, 61, 47 and 50 (`recount695.out`). Markers on both sentences.
+- **The quotation check's reach** (A's F4). `quotes_entry.py` reads `git diff HEAD`, which omits a file not yet added. So the claim of "every quotation … in the lines a round adds" in the entries of rounds 696–700 covered tracked files only. Round 696's new file holds one quotation, which its `quotes.py` checks, and the new files of rounds 697–700 hold none. Markers on the five sentences. This round's `quotes_entry.py` also reads every untracked file under the pilot.
+- **Kerr's corollaries** (A's F5). Kerr's 21 and 28 are corollaries (text layer lines 1408 and 1861). `LinnikCGLHBPos.lean`'s header read "his Lemmas 18–28" and now names his Lemmas 18–20 and 22–27 and Corollaries 21 and 28. The same count is struck and restated in round 694's Check-1 record.
+- **Möbius's count** (A's F6). In real division `Σ_{d∣q}μ(d)(b/d − a/d)` is the main term `(b − a)φ(q)/q`; the count has floors. Struck and restated in the external README.
+- **The bound on `σ > 2`** (B's F3). `norm_zeta_le_three_halves` gives `|ζ(s)| ≤ |ζ(3/2)|` on `Re s ≥ 3/2`, not `2 + 2|t|/σ`. Struck and restated in round 697's entry.
+- **Heath-Brown's sums** (B's F4). Their Theorem 10.1 sums the sharp sums with coefficients `c_n`. The Gram entries are the stack's smoothed sums, which round 698's `sig_le_gram` reaches. Struck and restated in round 697's entry.
+- **`A_H` and `D_{rs}`** (B's F5). Defined by a marker on CGL-LEAN.md's round-698 note.
+- **`C` and `q`** (B's F6). The external README's bullet on `sig_le_refl` let `C` depend on `q`, while the Lean has `∃ C, ∀ q`. A marker.
+- **Kerr's first case** (C's F4). He lengthens from `100∆²/N²`, the length to which his squaring takes the dual length `4∆/N`, not from the dual length itself. Struck and restated in round 699's entry. `LinnikCGLHBIter.lean`'s header now writes his (45) with its factor `N^{o(1)}`. `caseA`'s docstring now names his first case, `N ≥ ∆^{2/3}/100` (his (42)), in place of the threshold of his Theorem 16, `N ≥ ∆^{2/3}`. Round 699's record of the header gets a marker.
+- **`J`'s floor** (C's F5). `J = ⌊log₂⌊4Q⌋⌋` in `LinnikCGLHBIter.lean`'s header and in `Jm`'s docstring.
+
+**Out of scope.**
+
+- A's O1: round 695's census test B8 accepts a quotation found on any other surface. So it passed round 693's "For every `ε > 0`", one of the instances of the finding that defined the class. There is no exposure: round 695 fixed that instance from the report, and review A's stricter test passes the 25 quotations of the Check-9 records of rounds 690–700. That test accepts only the entry and the files the round's commit touched. Held.
+- A's O2: that census's test of `q ≥ 1` saw `[NeZero q]` only in a declaration's own signature. This round's `scratchpad/r701/qge1.py` also reads the `variable` lines of the file and of its sections and namespaces. A docstring does not extend past its own closing mark. At HEAD it finds the thirteen docstrings of C's F2. After the sweep it finds none in the six files of rounds 694–700.
+- B's two. On a clean tree, `quotes_entry.py` checks only the entries, since its diff is empty; each round's recorded check ran before the commit. And `T_K(N, τ)` (`TK`) and `T_K(N, Z, T)` (`TT`) share a symbol and differ only in arity. Held.
+- C's O1: two slips in Kerr's §6. The stack uses its own thresholds (`caseA`, `Bd_sq_le`), so it has no exposure. His (42), `N ≥ ∆^{2/3}/100`, does not give his (44), `100∆²/N² ≤ N/2`: at `N = ∆^{2/3}/100` the left side is `10⁶∆^{2/3}` and the right side is `∆^{2/3}/200`. And (43) applies his Lemma 22 at the length `4∆/N` with `M = 100∆²/N²`, where the lemma asks `M ≥ 8(4∆/N)² = 128∆²/N²` (text layer lines 1462 and 1947–1966). Recorded so that no later round cites (42) as sufficient for (44).
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLHBPos.lean`, `LinnikCGLHBLen.lean`, `LinnikCGLHBIter.lean` and `LinnikCGLHB101.lean`: comments corrected in place, and rebuilt.
+- This file, `external/pnt/README.md`, `frontier/linnik/CGL-LEAN.md` and `frontier/linnik/SIEVE-ROUTE.md`: the strikes and markers below.
+
+**What is checked.**
+
+- `scratchpad/r701/apply.py` makes 52 edits in eight files. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. No new or changed line of the Lean files is over 120 characters. Run again, it writes nothing (`apply.out`, `apply_rerun.out`).
+- `scratchpad/r671/codeonly.py` prints "code identical (comments stripped): True" for each of the four Lean files against HEAD (`scratchpad/r701/codeonly.out`).
+- `scratchpad/r701/qge1.py` finds 4 docstrings without `q ≥ 1` in `LinnikCGLHBIter.lean` and 9 in `LinnikCGLHB101.lean` at HEAD (`qge1_head.out`), and none in the six files of rounds 694–700 after the sweep (`qge1.out`).
+- `scratchpad/r701/quotes_entry.py` checks every quotation in this entry and in the lines the round adds, and also reads every untracked file under the pilot. Its sources are HEAD's and the working tree's surfaces, the reports of rounds 693 and 700, this round's outputs, and the text layers of Chen–Gupta–Li and Kerr (`quotes_entry.out`: PASS). It exits 1 on a failure.
+- Then `build.sh` ran once (`scratchpad/r701/compile.sh 1`, log `build_1.log`): `5 compiled, 430 up to date` (`LinnikCGLHBPos` 33 s, `LinnikCGLHBLen` 16 s, `LinnikCGLHBRefl` 16 s, `LinnikCGLHBIter` 34 s, `LinnikCGLHB101` 19 s), exit 0 in 133 s, with no error, warning or `sorry`. The one log line containing "error" is the axiom line of `Linnik.error_le`. Its 697 axiom lines are 25 by the modules and 672 by the final check; 684 have exactly `propext`, `Classical.choice` and `Quot.sound`, and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s (`rss_watch_build_1.log`), is 7410928 KiB (7.07 GiB).
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r701/gate.out`).
+
+**Marks.**
+
+- This file: nine strikes, in the entries of rounds 694 (two), 696, 697 (two), 699 (three) and 700; ten markers, in the entries of rounds 695 (two), 696, 697, 698, 699 (three) and 700 (two).
+- `external/pnt/README.md`: five strikes, in the sections of rounds 696, 697 (two), 698 and 699; a marker in the section of round 698.
+- `frontier/linnik/CGL-LEAN.md`: a strike in the M5 note of round 696; markers on the notes of rounds 644, 698 and 700.
+- `frontier/linnik/SIEVE-ROUTE.md`: two markers in §23.
+
+**Check 1** (direct reads this round):
+
+- The three reports in full.
+- Kerr's text layer, lines 803–812 (his Theorem 16), 1406–1409 and 1859–1862 (Corollaries 21 and 28), 1462–1463 (Lemma 22) and 1947–1975 (his §6's first case, (42) to (45)).
+- The operative statements, re-read at this commit's lines: `LinnikCGLHBLen.lean`'s header (lines 1–15) and `hY` (457–458); `LinnikCGLRefl0.lean`'s `bound_of_far` (241–246), `continuousOn_rect` (266–269), `G1_one_far` (282–287) and `shift_pole`'s `hline` (377–391); `HalfPlaneLindelof.norm_zeta_le_three_halves` (178–180); and their Theorem 10.1 as quoted in `LinnikCGLT101.lean` (lines 1–12).
+- In `LinnikCGLHBIter.lean`: the header (1–50), the parameters (365–390), `sig_le_triv` (142–143), and the docstrings and statements of `caseA` (401–412), `caseB` (547–557), `step` (628–638) and `sig_le_iter` (694–703). In `LinnikCGLHB101.lean`: the docstrings and signatures (60–303), with the `variable` lines of its sections (69 and 195).
+- This file at the cited lines: 29868–29872, 29905, 29915, 29935–30018 (round 695's entry), 30030–30035, 30052, 30085, 30094–30103, 30219–30250, 30253, 30268–30275 and 30336–30343.
+- The other surfaces at the cited lines: the external README, 1396–1456; CGL-LEAN.md, lines 111, 205, 209 and 213; SIEVE-ROUTE.md, 545–560, 578–590 and 614–620.
+
+**Check 4.** Every finding is novel in the lead's classification: none is in `PREDICTIONS.md`'s Tier 5 or the plan's open questions. The three reviews classify their findings as novel.
+
+**Check 9.**
+
+- (a) This round's universals. "Each of the seventeen findings is accepted at its proposed severity": each finding is listed above with its verification. "also reads every untracked file under the pilot": `git ls-files --others --exclude-standard` over the pilot. "none in the six files of rounds 694–700 after the sweep": `qge1.out`. Round 699's restated "Each result above is now stated with its hypotheses": each bullet of its results states its hypotheses, `step` and `sig_le_iter` as restated.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of 2026-10-22, the convergence review of this sweep, owed for its minors, runs with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** `CGLDensity` for every `ε > 0`, from round 700's `prop31`, so that `Linnik225C.linnik_225c` and `Linnik226C.linnik_226c` hold with no hypothesis.

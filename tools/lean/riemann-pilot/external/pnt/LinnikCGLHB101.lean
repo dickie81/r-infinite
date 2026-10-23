@@ -75,7 +75,7 @@ lemma one_le_four_Q (hT : 0 ≤ T) : 1 ≤ 4 * Qq q T := by
 lemma one_le_rpow_fourQ (hT : 0 ≤ T) (hδ : 0 < δ) : 1 ≤ (4 * Qq q T) ^ δ :=
   Real.one_le_rpow (one_le_four_Q hT) hδ.le
 
-/-- For `0 < δ ≤ 1`, `C_δ(4Q)^δ ≤ W`. -/
+/-- For `q ≥ 1`, `T ≥ 0` and `0 < δ ≤ 1`, `C_δ(4Q)^δ ≤ W`. -/
 lemma Cdiv_le_W (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) : Cdiv δ * (4 * Qq q T) ^ δ ≤ Wf δ q T := by
   have hC := one_le_Cdiv hδ hδ1
   have hr := one_le_rpow_fourQ (q := q) hT hδ
@@ -90,7 +90,7 @@ lemma one_le_W (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) : 1 ≤ Wf δ q T
   have hr := one_le_rpow_fourQ (q := q) hT hδ
   exact le_trans (one_le_mul_of_one_le_of_one_le hC hr) (Cdiv_le_W hT hδ hδ1)
 
-/-- For `0 < δ ≤ 1`, `d(q) ≤ W`. -/
+/-- For `q ≥ 1`, `T ≥ 0` and `0 < δ ≤ 1`, `d(q) ≤ W`. -/
 lemma dq_le_W (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) : (q.divisors.card : ℝ) ≤ Wf δ q T := by
   have h1 := card_divisors_le hδ hδ1 q
   have hq : (q : ℝ) ≤ 4 * Qq q T := by
@@ -103,7 +103,7 @@ lemma dq_le_W (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) : (q.divisors.card
     _ ≤ Cdiv δ * (4 * Qq q T) ^ δ := mul_le_mul_of_nonneg_left h2 (by linarith)
     _ ≤ Wf δ q T := Cdiv_le_W hT hδ hδ1
 
-/-- For `0 < δ ≤ 1`, `Q^δ ≤ W`. -/
+/-- For `q ≥ 1`, `T ≥ 0` and `0 < δ ≤ 1`, `Q^δ ≤ W`. -/
 lemma Qd_le_W (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) : Qq q T ^ δ ≤ Wf δ q T := by
   have hQ := one_le_Qq (q := q) hT
   have h2 : Qq q T ^ δ ≤ (4 * Qq q T) ^ δ := Real.rpow_le_rpow (by linarith) (by linarith) hδ.le
@@ -114,7 +114,7 @@ lemma Qd_le_W (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) : Qq q T ^ δ ≤ 
     _ ≤ Cdiv δ * (4 * Qq q T) ^ δ := mul_le_mul_of_nonneg_right hC hr
     _ ≤ Wf δ q T := Cdiv_le_W hT hδ hδ1
 
-/-- For `0 < δ ≤ 1`, `J + 1 ≤ W` with `J = ⌊log₂⌊4Q⌋⌋`: `2^J ≤ 4Q` and `log(4Q) ≤ (4Q)^δ/δ`. -/
+/-- For `q ≥ 1`, `T ≥ 0` and `0 < δ ≤ 1`, `J + 1 ≤ W` with `J = ⌊log₂⌊4Q⌋⌋`: `2^J ≤ 4Q` and `log(4Q) ≤ (4Q)^δ/δ`. -/
 lemma J_le_W (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) : (Jm q T : ℝ) + 1 ≤ Wf δ q T := by
   have h4 := one_le_four_Q (q := q) hT
   have hn : ⌊4 * Qq q T⌋₊ ≠ 0 := (Nat.floor_pos.2 h4).ne'
@@ -141,7 +141,7 @@ lemma J_le_W (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) : (Jm q T : ℝ) + 
   rw [e]
   nlinarith
 
-/-- For `0 < δ ≤ 1` and `1 ≤ m ≤ L`, `d(m) ≤ 68W⁵`. -/
+/-- For `q ≥ 1`, `T ≥ 0`, `0 < δ ≤ 1` and `m ≤ L`, `d(m) ≤ 68W⁵`. -/
 lemma dm_le_W (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) {m : ℕ} (hm : (m : ℝ) ≤ Lm q T δ) :
     (m.divisors.card : ℝ) ≤ 68 * Wf δ q T ^ 5 := by
   have hW := one_le_W (q := q) hT hδ hδ1
@@ -194,7 +194,7 @@ section Factors
 
 variable {δ C : ℝ} {K : ℕ} {q : ℕ} [NeZero q] {T : ℝ}
 
-/-- For `0 < δ ≤ 1` and `C ≥ 0`, `A₁ ≤ C(1 + 2c_K²)W⁶`. -/
+/-- For `q ≥ 1`, `T ≥ 0`, `0 < δ ≤ 1` and `C ≥ 0`, `A₁ ≤ C(1 + 2c_K²)W⁶`. -/
 lemma A1_le (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) (hC : 0 ≤ C) :
     A1 C K q ≤ C * (1 + 2 * ctail K ^ 2) * Wf δ q T ^ 6 := by
   have hW := one_le_W (q := q) hT hδ hδ1
@@ -207,7 +207,7 @@ lemma A1_le (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) (hC : 0 ≤ C) :
       ≤ C * (Wf δ q T ^ 6 + 2 * ctail K ^ 2 * Wf δ q T ^ 6) := by gcongr
     _ = C * (1 + 2 * ctail K ^ 2) * Wf δ q T ^ 6 := by ring
 
-/-- For `0 < δ ≤ 1`, `C ≥ 0` and `D = 68W⁵`, `B₁ ≤ 136C(πC_0)²W¹²`. -/
+/-- For `q ≥ 1`, `T ≥ 0`, `0 < δ ≤ 1`, `C ≥ 0` and `D = 68W⁵`, `B₁ ≤ 136C(πC_0)²W¹²`. -/
 lemma B1_le (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) (hC : 0 ≤ C) :
     LinnikCGLHBIter.B1 C (68 * Wf δ q T ^ 5) q T ≤ 136 * C * (Real.pi * CGK 0) ^ 2 * Wf δ q T ^ 12 := by
   have hW := one_le_W (q := q) hT hδ hδ1
@@ -228,7 +228,7 @@ lemma U0_le (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) : U0 q ≤ 16 * Wf �
   unfold U0
   nlinarith
 
-/-- For `0 < δ ≤ 1` and `D = 68W⁵`, `M_B ≤ 5826240W¹³`. -/
+/-- For `q ≥ 1`, `T ≥ 0`, `0 < δ ≤ 1` and `D = 68W⁵`, `M_B ≤ 5826240W¹³`. -/
 lemma MB_le (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) :
     MB (68 * Wf δ q T ^ 5) q T δ ≤ 5826240 * Wf δ q T ^ 13 := by
   have hW := one_le_W (q := q) hT hδ hδ1
@@ -244,7 +244,7 @@ lemma MB_le (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) :
       ≤ 36 * Wf δ q T * (68 * Wf δ q T ^ 5) ^ 2 * (35 * Wf δ q T ^ 2) := by gcongr
     _ = 5826240 * Wf δ q T ^ 13 := by ring
 
-/-- **The factors**: for `0 < δ ≤ 1`, `C ≥ 0` and `D = 68W⁵`, `(M_BB₁)² + 2M_BA₁ ≤ κW⁵⁰` with
+/-- **The factors**: for `q ≥ 1`, `T ≥ 0`, `0 < δ ≤ 1`, `C ≥ 0` and `D = 68W⁵`, `(M_BB₁)² + 2M_BA₁ ≤ κW⁵⁰` with
 `κ = (5826240·136C(πC_0)²)² + 2·5826240·C(1 + 2c_K²)`. -/
 lemma factor_le (hT : 0 ≤ T) (hδ : 0 < δ) (hδ1 : δ ≤ 1) (hC : 0 ≤ C) :
     (MB (68 * Wf δ q T ^ 5) q T δ * LinnikCGLHBIter.B1 C (68 * Wf δ q T ^ 5) q T) ^ 2 +
@@ -298,7 +298,7 @@ lemma sqrt_three_le_two : (3 : ℝ) ^ (1 / 2 : ℝ) ≤ 2 := by
   calc (3 : ℝ) ^ (1 / 2 : ℝ) ≤ (4 : ℝ) ^ (1 / 2 : ℝ) := Real.rpow_le_rpow (by norm_num) (by norm_num) (by norm_num)
     _ = 2 := h4
 
-/-- For `q ≥ 1`, `T ≥ 1` and `N ≥ 0`, `B(N) ≤ 2(RN + R² + R^{5/4}(qT)^{1/2})`. -/
+/-- For `q ≥ 1`, `T ≥ 1`, `N ≥ 0` and `R ≥ 0`, `B(N) ≤ 2(RN + R² + R^{5/4}(qT)^{1/2})`. -/
 lemma Bd_le_qT {q : ℕ} [NeZero q] {T N R : ℝ} (hT : 1 ≤ T) (hN : 0 ≤ N) (hR : 0 ≤ R) :
     Bd R (Qq q T) N ≤ 2 * (R * N + R ^ 2 + R ^ (5 / 4 : ℝ) * ((q : ℝ) * T) ^ (1 / 2 : ℝ)) := by
   have hq1 : (1 : ℝ) ≤ q := by exact_mod_cast Nat.one_le_iff_ne_zero.2 (NeZero.ne q)

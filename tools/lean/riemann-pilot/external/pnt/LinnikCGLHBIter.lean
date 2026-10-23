@@ -10,10 +10,10 @@ the double sum over `N < n ≤ 2N`, against `B(N) = RN + R² + R^{5/4}Q^{1/2}`, 
 `Q = q(1 + 2T)`.
 
 The stack's form.
-* Kerr's first case closes at one length, `S(N) ≪ I^{1/2}S(N)^{1/2} + …` (his (45)), since his Corollary 21 lengthens
-  to exactly `N`. Round 696's lengthening bounds `σ(N)` by `σ(NU) + σ(2NU)`, two lengths, so the iteration here runs
-  through the supremum `s` of `σ(N)/B(N)` over `N > 0` (`sup_arg`), finite by the trivial bound (`sig_le_triv`): one
-  step shows `s ≤ a√s + b`, whence `s ≤ a² + 2b`.
+* Kerr's first case closes at one length, `S(N) ≪ N^{o(1)}I^{1/2}S(N)^{1/2} + …` (his (45)), since his Corollary 21
+  lengthens to exactly `N`. Round 696's lengthening bounds `σ(N)` by `σ(NU) + σ(2NU)`, two lengths, so the iteration
+  here runs through the supremum `s` of `σ(N)/B(N)` over `N > 0` (`sup_arg`), finite by the trivial bound
+  (`sig_le_triv`): one step shows `s ≤ a√s + b`, whence `s ≤ a² + 2b`.
 * Case A, `N ≥ min(N*, Q^{1+δ})` with `N* = Q^{1/2+δ}R^{1/4}`: round 698's reflection at `Z = ⌈Q^{1+δ}/N⌉`, where
   `NZ ≥ Q^{1+δ}` makes the tail small for `Kδ ≥ 1`, then the squaring `Ŝ(Z)² ≤ R²D²Ŝ(Z²)`, the dyadic pieces of
   `[1, Z²]` (round 694's `shat_le_sum_sig`) and the bound `σ ≤ sB` on them; `Z − 1 ≤ Q^{1/2}R^{−1/4}` gives
@@ -39,7 +39,7 @@ Plain statements, with `q ≥ 1` where `[NeZero q]`, `R` the number of points an
 * `ctail`, `ctail_nonneg`, `TT_nonneg`, `TT_le`: with `c_K = 2πC_KI_K ≥ 0`, round 698's `T_K(N, Z, T) ≥ 0` for
   `N, T ≥ 0`, and for `q ≠ 0`, `T ≥ 0`, `Kδ ≥ 1` and `NZ ≥ Q^{1+δ}`, `T_K(N, Z, T) ≤ c_Kd(q)³`.
 * `Qq`, `Jm`, `U0`, `Nst`, `Lm`, `A1`, `B1`, `MB`, `one_le_Qq`, `one_le_card_divisors`: the parameters `Q`,
-  `J = log₂⌊4Q⌋`, `U₀ = 12d(q)² + 4`, `N* = Q^{1/2+δ}R^{1/4}`, `L = 4(1 + U₀)Q^{1+δ}`, `A₁ = C(1 + 2c_K²d(q)⁶)`,
+  `J = ⌊log₂⌊4Q⌋⌋`, `U₀ = 12d(q)² + 4`, `N* = Q^{1/2+δ}R^{1/4}`, `L = 4(1 + U₀)Q^{1+δ}`, `A₁ = C(1 + 2c_K²d(q)⁶)`,
   `B₁ = 2CQ₀(q)²D(J + 1)` and `M_B = 36d(q)D²(2Q^δ + 2U₀ + 1)`; for `T ≥ 0`, `Q ≥ 1`; and `d(q) ≥ 1`.
 * `caseA`, `caseB`, `step`: the two cases and their union, for `R ≥ 1` and `T ≥ 1`, with round 698's reflected bound
   at `K` and its constant `C ≥ 0` and `Kδ ≥ 1` in Case A, `0 < δ` in Case B, and `D ≥ 0` bounding `d(m)` on `1 ≤ m ≤ L`
@@ -368,7 +368,7 @@ lemma TT_le {q K : ℕ} (hq : q ≠ 0) {N T δ : ℝ} {Z : ℕ} (hT : 0 ≤ T) (
 /-- `Q = q(1 + 2T)`. -/
 def Qq (q : ℕ) (T : ℝ) : ℝ := q * (1 + 2 * T)
 
-/-- `J = log₂⌊4Q⌋`. -/
+/-- `J = ⌊log₂⌊4Q⌋⌋`. -/
 def Jm (q : ℕ) (T : ℝ) : ℕ := Nat.log 2 ⌊4 * Qq q T⌋₊
 
 /-- `U₀ = 12d(q)² + 4`. -/
@@ -398,9 +398,10 @@ lemma one_le_card_divisors {q : ℕ} [NeZero q] : (1 : ℝ) ≤ q.divisors.card 
   have h : 0 < q.divisors.card := Finset.card_pos.2 ⟨1, Nat.one_mem_divisors.2 (NeZero.ne q)⟩
   exact_mod_cast h
 
-/-- **Case A** (Kerr's case `N ≥ ∆^{2/3}`, here `N ≥ min(N*, Q^{1+δ})`): for `R ≥ 1`, `T ≥ 1`, `Kδ ≥ 1`,
-`C, D, s ≥ 0`, the reflected bound `hrefl`, `d(m) ≤ D` for `1 ≤ m ≤ 4Q`, `σ ≤ sB` on `N > 0`, `N ≥ 1/2` and
-`N ≥ N*` or `N ≥ Q^{1+δ}`: `σ(N) ≤ (A₁ + B₁√s)B(N)`. The dual length is `Z = ⌈Q^{1+δ}/N⌉`. -/
+/-- **Case A** (Kerr's first case, `N ≥ ∆^{2/3}/100`, his (42); here `N ≥ min(N*, Q^{1+δ})`): for `q ≥ 1`,
+`R ≥ 1`, `T ≥ 1`, `Kδ ≥ 1`, `C, D, s ≥ 0`, the reflected bound `hrefl`, `d(m) ≤ D` for `1 ≤ m ≤ 4Q`, `σ ≤ sB` on
+`N > 0`, `N ≥ 1/2` and `N ≥ N*` or `N ≥ Q^{1+δ}`: `σ(N) ≤ (A₁ + B₁√s)B(N)`. The dual length is
+`Z = ⌈Q^{1+δ}/N⌉`. -/
 theorem caseA {q : ℕ} [NeZero q] (P : Finset ι) (χ : ι → DirichletCharacter ℂ q) (t : ι → ℝ) {T δ C D s : ℝ}
     {K : ℕ} (hR : 1 ≤ (P.card : ℝ)) (hT : 1 ≤ T) (hKδ : 1 ≤ K * δ) (hC : 0 ≤ C) (hD0 : 0 ≤ D)
     (hrefl : ∀ (N : ℝ) (Z : ℕ), 0 < N → 1 ≤ Z → sig P χ t N ≤
@@ -543,8 +544,9 @@ theorem caseA {q : ℕ} [NeZero q] (P : Finset ι) (χ : ι → DirichletCharact
     _ = (C * (1 + 2 * ctail K ^ 2 * (q.divisors.card : ℝ) ^ 6) +
           2 * C * Q0 q ^ 2 * D * ((Jm q T : ℝ) + 1) * √s) * Bd R Q N := by ring
 
-/-- **Case B** (Kerr's lengthening): for `R ≥ 1`, `T ≥ 1`, `0 < δ`, `D, F ≥ 0`, `d(m) ≤ D` for `1 ≤ m ≤ L`, the bound
-`σ ≤ FB` at every `M ≥ 1/2` with `M ≥ N*` or `M ≥ Q^{1+δ}`, and `1/2 ≤ N < min(N*, Q^{1+δ})`: `σ(N) ≤ M_BFB(N)`.
+/-- **Case B** (Kerr's lengthening): for `q ≥ 1`, `R ≥ 1`, `T ≥ 1`, `0 < δ`, `D, F ≥ 0`, `d(m) ≤ D` for `1 ≤ m ≤ L`,
+the bound `σ ≤ FB` at every `M ≥ 1/2` with `M ≥ N*` or `M ≥ Q^{1+δ}`, and `1/2 ≤ N < min(N*, Q^{1+δ})`:
+`σ(N) ≤ M_BFB(N)`.
 The lengthening is round 696's `sig_le_lengthen` at `U = max(min(N*, Q^{1+δ})/N, U₀)`. -/
 theorem caseB {q : ℕ} [NeZero q] (P : Finset ι) (χ : ι → DirichletCharacter ℂ q) (t : ι → ℝ) {T δ D F : ℝ}
     (hR : 1 ≤ (P.card : ℝ)) (hT : 1 ≤ T) (hδ : 0 < δ) (hD0 : 0 ≤ D) (hF : 0 ≤ F)
@@ -623,8 +625,9 @@ theorem caseB {q : ℕ} [NeZero q] (P : Finset ι) (χ : ι → DirichletCharact
         unfold MB
         ring
 
-/-- **One step of the iteration**: for `R ≥ 1`, `T ≥ 1`, `0 < δ`, `Kδ ≥ 1`, `C, D, s ≥ 0`, the reflected bound `hrefl`,
-`d(m) ≤ D` for `1 ≤ m ≤ L` and `σ ≤ sB` on `N > 0`, `σ(N) ≤ (M_BB₁√s + M_BA₁)B(N)` for every `N > 0`. -/
+/-- **One step of the iteration**: for `q ≥ 1`, `R ≥ 1`, `T ≥ 1`, `0 < δ`, `Kδ ≥ 1`, `C, D, s ≥ 0`, the reflected
+bound `hrefl`, `d(m) ≤ D` for `1 ≤ m ≤ L` and `σ ≤ sB` on `N > 0`, `σ(N) ≤ (M_BB₁√s + M_BA₁)B(N)` for every
+`N > 0`. -/
 theorem step {q : ℕ} [NeZero q] (P : Finset ι) (χ : ι → DirichletCharacter ℂ q) (t : ι → ℝ) {T δ C D s : ℝ}
     {K : ℕ} (hR : 1 ≤ (P.card : ℝ)) (hT : 1 ≤ T) (hδ : 0 < δ) (hKδ : 1 ≤ K * δ) (hC : 0 ≤ C) (hD0 : 0 ≤ D)
     (hrefl : ∀ (N : ℝ) (Z : ℕ), 0 < N → 1 ≤ Z → sig P χ t N ≤
@@ -688,9 +691,9 @@ theorem step {q : ℕ} [NeZero q] (P : Finset ι) (χ : ι → DirichletCharacte
           caseB P χ t hR hT hδ hD0 hF hD hcaseA h hc.1 hc.2
       _ = (MB D q T δ * B1 C D q T * √s + MB D q T δ * A1 C K q) * Bd P.card (Qq q T) N := by ring
 
-/-- **The iteration**: for `T ≥ 1`, `0 < δ`, `Kδ ≥ 1`, `C, D ≥ 0`, the reflected bound `hrefl` and `d(m) ≤ D` for
-`1 ≤ m ≤ L`, `σ(N) ≤ ((M_BB₁)² + 2M_BA₁)B(N)` for every `N > 0` (the supremum argument, with the trivial bound to
-start). -/
+/-- **The iteration**: for `q ≥ 1`, `T ≥ 1`, `0 < δ`, `Kδ ≥ 1`, `C, D ≥ 0`, the reflected bound `hrefl` and
+`d(m) ≤ D` for `1 ≤ m ≤ L`, `σ(N) ≤ ((M_BB₁)² + 2M_BA₁)B(N)` for every `N > 0` (the supremum argument, with the
+trivial bound to start). -/
 theorem sig_le_iter {q : ℕ} [NeZero q] (P : Finset ι) (χ : ι → DirichletCharacter ℂ q) (t : ι → ℝ) {T δ C D : ℝ}
     {K : ℕ} (hT : 1 ≤ T) (hδ : 0 < δ) (hKδ : 1 ≤ K * δ) (hC : 0 ≤ C) (hD0 : 0 ≤ D)
     (hrefl : ∀ (N : ℝ) (Z : ℕ), 0 < N → 1 ≤ Z → sig P χ t N ≤
