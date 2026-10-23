@@ -145,7 +145,7 @@ for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
 # (round 684) their Σ_II expanded and their Σ₂ by Poisson summation (LinnikCGLSig2), and (round 685) their smoothing
 # f̃_b and the inner integral of their Σ_II (LinnikCGLFtil), and (round 686) their Cauchy–Schwarz back to J(f̃⃗) for
 # the terms |n| ≤ N₀ of their Σ_II (LinnikCGLJtil), and (round 687) the terms |n| > N₀ and the range |ξ| > X of ĝ_a by
-# the decay premise (LinnikCGLTail).
+# the decay premise (LinnikCGLTail), and (round 688) their Lemma 8.2 with explicit constants (LinnikCGLL82).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
     LinnikCGLPair LinnikCGLFrob LinnikCGLS2 LinnikCGLFourier LinnikCGLPoisson LinnikCGLTrace \
     LinnikCGLDiag LinnikCGLTrunc LinnikCGLProd LinnikCGLRFact LinnikCGLRam LinnikCGLP71 LinnikCGLSym LinnikCGLRt \
@@ -153,7 +153,7 @@ for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 Lin
     LinnikCGLBlock LinnikCGL112 LinnikCGLLoc LinnikCGLL105 LinnikCGLT101 LinnikCGLL107 LinnikCGLSep \
     LinnikCGLL109 LinnikCGLL1010 LinnikCGLCase LinnikCGLEps LinnikCGLS3 LinnikCGLG LinnikCGLPois8 \
     LinnikCGLCount LinnikCGLAsum LinnikCGLNsum LinnikCGLN0 LinnikCGLCov LinnikCGLSig2 LinnikCGLFtil \
-    LinnikCGLJtil LinnikCGLTail; do
+    LinnikCGLJtil LinnikCGLTail LinnikCGLL82; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -361,6 +361,7 @@ import LinnikCGLSig2
 import LinnikCGLFtil
 import LinnikCGLJtil
 import LinnikCGLTail
+import LinnikCGLL82
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -921,6 +922,7 @@ import LinnikCGLTail
 #print axioms LinnikCGLJtil.sum_integral_Phi_le
 #print axioms LinnikCGLTail.sum_integral_Phi_tail_le
 #print axioms LinnikCGLTail.setIntegral_ga_tail_le
+#print axioms LinnikCGLL82.lemma82_explicit
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy

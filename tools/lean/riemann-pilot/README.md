@@ -29453,3 +29453,68 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** The assembly of their Lemma 8.2 in the stack: `Jint ≤ Σ_a∫|ĝ_a|²` (round 680), split at `|ξ| = X`; on `|ξ| ≤ X`, `|ĝ_a|² ≤ 2|g0_a|² + 2|ĝ_a − g0_a|²` with rounds 682 and 683, and `B_II` from rounds 686 and 687; on `|ξ| > X`, this round's tail.
+
+## Round 688: their Lemma 8.2 with explicit constants (stage M4; `external/pnt/LinnikCGLL82.lean`)
+
+**The results.** Below, `q ≥ 1`, `ĝ_a` the Fourier transform of round 680's `ga`, `g₀,a = Σ_{m₁∈P1 M₁}tg(a, m₁, 0)` round 682's term `n = 0`, `W₀` round 682's `W0`, `ψ̂₀` round 659's `𝓕 psiC` and `I₀ = ∫|ψ̂₀(−τ)| dτ`. The constants are `LinnikCGLL82.KX` (round 683's `K_X`), `BJ` (round 686's `B_J`, which carries `Jint(f̃, M₂, M₂, M₂, 4|A| + 2)`), `Btail` (round 687's bound of the terms `|n| > N₀`, written `B_tail`) and `G1` (round 687's `G₁`).
+
+- `LinnikCGLL82.fourier_ga_props`: for smooth `f_b` that are `0` for `|u| > A` and `M₁ > 0`, `ĝ_a` is continuous and `|ĝ_a|²` is integrable, since `g_a` is a Schwartz function and so is its Fourier transform (Mathlib's `SchwartzMap.memLp`, `SchwartzMap.fourier_coe`).
+- `LinnikCGLL82.continuous_g0`, `integrable_g0`: for smooth `f_b` that are `0` for `|u| > A`, `g₀,a` is continuous; if also `f_b ≥ 0`, `M₁ > 0` and `L > 0`, `|g₀,a|²` is integrable, by round 682's pointwise bound `|g₀,a| ≤ W₀L_{L/(2M₁)}(ξ)²`.
+- `LinnikCGLL82.lemma82_explicit`: their Lemma 8.2 with explicit constants. For smooth `f_b ≥ 0` that are `0` for `|u| > A`, `M₁, M₂, L > 0` with `κM₃ ≤ L`, `0 < δ ≤ 1`, `X ≥ 1`, `T ≥ 1`, `N₀ > 0`, `K ≥ 4`, `j ≥ 1`, `D, Λ ≥ 0` and the decay `Σ_b|f̂_b(ξ)| ≤ D(T/|ξ|)^jΛ` for `ξ ≠ 0`, `Jint(f, M₁, M₂, M₃, κ) ≤ 2φ(q)W₀²(2πM₁/L) + 2K_XΣ_{m₁∈P1 M₁}(I₀B_J + B_tail)/(|m₁|L) + 2πφ(q)G₁²X^{−(2j−2)}`.
+
+**Their text.** Re-read this round in the text layer.
+
+- Their Lemma 8.2: "Let f⃗ = {f_b} be as in Proposition 8.1. Then there is a bump function ψ(x) supported on |x| ≪ 1 such that" (lines 2495–2496), then their `J(f⃗) ⪅ φ(q)M⁶(∫_ℝΣ_bf_b(u) du)² + φ(q)(M⁴∫_ℝΣ_bf_b(u)² du)^{1/2}J(f̃⃗)^{1/2}` (lines 2497–2516), with their `f̃_b` (lines 2517–2520).
+- In the quote, spaces are restored and the arrow and the subscript transcribed. `scratchpad/r688/quotes.py` checks it against the text layer with spaces removed and those transcriptions undone (`quotes.out`: PASS).
+
+**The stack's form.**
+
+- **Their `ψ`** is round 656's bump `ψ̃₀`, and their `f̃_b` is round 685's `ftil`.
+- **Their `J(f⃗)`** is a supremum over `M₁, M₂, M₃` of round 662's `Jint`; the bound is for one `(M₁, M₂, M₃, κ)`, with `κM₃ ≤ L` for round 680's majorant. Their `J(f̃⃗)` appears as `Jint` for `f̃` at `(M₂, M₂, M₂, 4|A| + 2)`, inside `B_J`.
+- **Their "⪅"** is not taken: the bound keeps every constant, and the choice of `L`, `X`, `N₀`, `δ`, `j` and `K` is left to the next round.
+- **The steps.** Round 680 gives `J ≤ Σ_a∫|ĝ_a|²`, split at `|ξ| = X`. On `|ξ| ≤ X`, `|ĝ_a|² ≤ 2|g₀,a|² + 2|ĝ_a − g₀,a|²`; the first term is round 682's, and the second is round 683's, with its `B_II` split at `|n| = N₀` between rounds 686 and 687. On `|ξ| > X`, the bound is round 687's tail.
+- **The integrals** need `|ĝ_a|²`, `|g₀,a|²` and `|ĝ_a − g₀,a|²` integrable on `ℝ`; the last is dominated by `2|ĝ_a|² + 2|g₀,a|²`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLL82.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and one `#print axioms` line (`lemma82_explicit`).
+- `frontier/linnik/CGL-LEAN.md`: the rows P8.1 and L8.2, a note under M4, the opening's parenthetical, and a net-state marker after round 687's note.
+- `external/pnt/README.md`: a row and a section for the file.
+
+**What is checked.**
+
+- `LinnikCGLL82` was compiled in scratch in five runs (`scratchpad/r688/run.sh`, `lcj1.out` to `lcj5.out`). The last had exit 0, and its only messages were the three axiom lines, all `[propext, Classical.choice, Quot.sound]`.
+- The fixes: `𝓕` of a Schwartz map did not elaborate as a function until it was named with the type `SchwartzMap ℝ ℂ`; an integral's binder took in the term after it, until the integral was parenthesised; and two `norm_num` side goals ran before their factor was known, and became a named hypothesis.
+- Then `build.sh` ran once (`scratchpad/r688/compile.sh 1`, log `build_1.log`): `1 compiled, 424 up to date` (`LinnikCGLL82` 10 s), exit 0 in 19 s, with no error, warning or `sorry`. Its 650 axiom lines are 3 by the module and 647 by the final check; 637 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.91 GiB (`rss_watch_build_1.log`).
+- The files have no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no new line over 120 characters.
+- `scratchpad/r688/apply_docs.py` makes the seven edits to CGL-LEAN.md and the external README, each asserted to occur once; run again, it writes nothing.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r688/gate.out`): the render lint against HEAD as multisets, with none new, and `k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1 gains round 688 in its stack cell and a net-state marker; the row L8.2's stack and status cells are replaced, each with an "it read" marker (its status read "Not started", and its steps began in round 680); M4 gains a note; the opening's parenthetical gains round 688; round 687's note gains a net-state marker after it.
+- `external/pnt/README.md`: a row, and a section for the file.
+- No strikes: the row L8.2's "Not started" was true when written, in round 635, and is superseded.
+
+**Check 1** (direct reads this round):
+
+- In the text layer: their Lemma 8.2 and the start of their proof of Proposition 8.1 (lines 2486–2530), line by line.
+- The operative statements of rounds 680 to 687, read this round: round 680's `Jint_le_ga`, `integral_sq_ga`, `contDiff_ga` and `hasCompactSupport_ga` (`LinnikCGLG.lean` 235, 250, 211 and 203); round 682's `tg`, `W0`, `norm_g0_le` and `sum_integral_g0_le` (`LinnikCGLNsum.lean` 69 and `LinnikCGLN0.lean` 117, 122 and 132); round 683's `continuous_Fb` and `integral_gstar_le` (`LinnikCGLCov.lean` 70 and 216); and rounds 686 and 687's `sum_integral_Phi_le`, `sum_integral_Phi_tail_le` and `setIntegral_ga_tail_le`.
+- Earlier ones: round 681's `gw`, `B4`, `lor_pos'`, `lor_le_one` and `lor_neg` (`LinnikCGLCount.lean` 209, 55, 80, 82 and 85), round 673's `integrable_lor` (`LinnikCGLSep.lean` 83), and round 668's `continuous_kloc` (`LinnikCGLLoc.lean` 56).
+- Mathlib's `SchwartzMap.fourier_coe`, `SchwartzMap.memLp`, `memLp_two_iff_integrable_sq_norm`, `integral_add_compl`, `setIntegral_le_integral` and `Finset.sum_filter_add_sum_filter_not`.
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** As in rounds 680 to 687: stage M4's block gets one hostile review, with the convergence review of round 679's sweep.
+
+**Bearing on RH:** none.
+
+**The next step.** The choice of the parameters and the bounds of the constants: `d(q) ≤ C_δq^δ`, `Σ_h(h, q) ≤ qd(q)`, the sizes of `P1`, `P2` and `P3`, and `Λ ≤ 16D₂(qT)²Σ_b∫f_b` for `Λ = φ(q)f_{b₀}(u₀)`, toward their form `J(f⃗) ⪅ φ(q)M⁶(∫Σ_bf_b)² + φ(q)(M⁴∫Σ_bf_b²)^{1/2}J(f̃⃗)^{1/2}`; then the properties of `f̃` and the induction.

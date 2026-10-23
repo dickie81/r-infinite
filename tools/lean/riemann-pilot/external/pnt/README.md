@@ -209,6 +209,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLFtil.lean` | 685 | Chen–Gupta–Li's smoothing `f̃_b = (Tψ̃₀(T·)) ⋆ f_b` and their bound of the inner integral of `Σ_II`: for `q ≥ 1`, smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `T ≥ 1`, `N₀ > 0`, `K ≥ 2`, `m₂, m₂′ ∈ P2 M₂` and `\|u\| ≤ \|A\|`, `∫f_{b′}(u′)\|S₂(k₀, (m₂′u′ − m₂u)/q)\| du′ ≤ N₀C_K(Σ_{m₃∈R}[m₃ ≡ k₀]f̃_{b′}((m₂u + m₃)/m₂′)/T + (1 + N₀m₂′/(qT))^{−(K−2)}(2π + 4π/N₀)∫f_{b′})` (`integral_S2_le`) |
 | `LinnikCGLJtil.lean` | 686 | Chen–Gupta–Li's Cauchy–Schwarz back to `J(f̃⃗)`, for the terms `\|n\| ≤ N₀` of `Σ_II`: for `q ≥ 1`, smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `T ≥ 1`, `N₀ > 0`, `M₂ > 0` and `K ≥ 2`, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)\|Φ(n, τ)\|² ≤ N₀C_K((4M₂²/(qT))√𝔖√J̃ + EP²F²)` for every `L` and `τ` (`sum_psi_norm_Phi_sq_le_J`) |
 | `LinnikCGLTail.lean` | 687 | The terms `\|n\| > N₀` of `B_II` and the range `\|ξ\| > X` of `ĝ_a`, by the decay premise `Σ_b\|f̂_b(ξ)\| ≤ D(T/\|ξ\|)^jΛ`: for smooth `f_b` that are `0` for `\|u\| > A`, `M₁, M₂ > 0`, `X ≥ 1`, `T, D, Λ ≥ 0` and `j ≥ 1`, `∫_{\|ξ\|>X}Σ_a\|ĝ_a(ξ)\|² dξ ≤ 2πφ(q)G₁²X^{−(2j−2)}` (`setIntegral_ga_tail_le`) |
+| `LinnikCGLL82.lean` | 688 | Chen–Gupta–Li's Lemma 8.2 with explicit constants: for smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `M₁, M₂, L > 0` with `κM₃ ≤ L`, `0 < δ ≤ 1`, `X ≥ 1`, `T ≥ 1`, `N₀ > 0`, `K ≥ 4`, `j ≥ 1`, `D, Λ ≥ 0` and the decay premise, `Jint(f, M₁, M₂, M₃, κ) ≤ 2φ(q)W₀²(2πM₁/L) + 2K_XΣ_{m₁}(I₀B_J + B_tail)/(\|m₁\|L) + 2πφ(q)G₁²X^{−(2j−2)}` (`lemma82_explicit`) |
 
 ## Building (rounds 217, 618)
 
@@ -1299,3 +1300,15 @@ Round 687 bounds, with explicit constants, the terms `|n| > N₀` of round 683's
 - `setIntegral_ga_tail_le`: for smooth `f_b` that are `0` for `|u| > A`, `M₁, M₂ > 0`, `X ≥ 1`, `T, D, Λ ≥ 0`, `j ≥ 1` and the premise, `∫_{|ξ|>X}Σ_a|ĝ_a(ξ)|² dξ ≤ 2πφ(q)G₁²X^{−(2j−2)}`.
 
 See the main README, round 687, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 646 lines.
+
+## Their Lemma 8.2 with explicit constants: LinnikCGLL82.lean (round 688)
+
+Round 688 assembles rounds 680 to 687 into Chen–Gupta–Li's Lemma 8.2 with explicit constants, before any choice of parameters, with `q ≥ 1`, `ĝ_a` the Fourier transform of round 680's `ga`, `g₀,a = Σ_{m₁∈P1 M₁}tg(a, m₁, 0)` round 682's term `n = 0`, `W₀` round 682's `W0` and `I₀ = ∫|ψ̂₀(−τ)| dτ`.
+
+- `fourier_ga_props`: for smooth `f_b` that are `0` for `|u| > A` and `M₁ > 0`, `ĝ_a` is continuous and `|ĝ_a|²` is integrable (the Fourier transform of a Schwartz function is one).
+- `continuous_g0`, `integrable_g0`: for smooth `f_b` that are `0` for `|u| > A`, `g₀,a` is continuous; if also `f_b ≥ 0`, `M₁ > 0` and `L > 0`, `|g₀,a|²` is integrable.
+- `norm_sq_le_two`, `norm_sub_sq_le_two`: `|x|² ≤ 2|y|² + 2|x − y|²` and `|x − y|² ≤ 2|x|² + 2|y|²`.
+- `KX`, `BJ`, `Btail`, `G1`: round 683's `K_X`, round 686's `B_J`, round 687's bound of the terms `|n| > N₀` (`B_tail`), and round 687's `G₁`.
+- `lemma82_explicit`: for smooth `f_b ≥ 0` that are `0` for `|u| > A`, `M₁, M₂, L > 0` with `κM₃ ≤ L`, `0 < δ ≤ 1`, `X ≥ 1`, `T ≥ 1`, `N₀ > 0`, `K ≥ 4`, `j ≥ 1`, `D, Λ ≥ 0` and the decay `Σ_b|f̂_b(ξ)| ≤ D(T/|ξ|)^jΛ` for `ξ ≠ 0`, `Jint(f, M₁, M₂, M₃, κ) ≤ 2φ(q)W₀²(2πM₁/L) + 2K_XΣ_{m₁∈P1 M₁}(I₀B_J + B_tail)/(|m₁|L) + 2πφ(q)G₁²X^{−(2j−2)}`.
+
+See the main README, round 688, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 647 lines.
