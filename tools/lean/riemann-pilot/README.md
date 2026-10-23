@@ -29387,3 +29387,69 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** The terms `|n| > N₀` of `B_II` and the range `|ξ| > X` of `ĝ_a`, both by the decay premise `Σ_b|f̂_b(ξ)| ≤ D_j(T/|ξ|)^jφ(q)f_{b₀}(u₀)` of their Proposition 8.1; then the assembly of their Lemma 8.2.
+
+## Round 687: the terms `|n| > N₀` of their `Σ_II` and the range `|ξ| > X` of `ĝ_a`, by the decay premise (stage M4; `external/pnt/LinnikCGLTail.lean`)
+
+**The results.** Below, `q ≥ 1`, `ψ̂₀` round 659's `𝓕 psiC`, `C_K` round 684's `CK`, `Φ(n, τ)` round 683's `Phi`, `ĝ_a` the Fourier transform of round 680's `ga`, `I₀ = ∫|ψ̂₀(−τ)| dτ`, `P = Σ_{m₂∈P2 M₂}m₂`, `F = Σ_b∫f_b`, `G₁ = #P1·#P2·(2M₂/M₁)·q#P3·D(2M₁T/M₂)^jΛ` (with `#P1 = #(P1 M₁)`, `#P2 = #(P2 M₂)` and `#P3 = #(P3 L)`), and "the premise" the decay `Σ_b|f̂_b(ξ)| ≤ D(T/|ξ|)^jΛ` for every `ξ ≠ 0`, with `D, Λ ≥ 0`. It follows from round 662's `CGLP81` premise at one exponent `j` when `T ≥ 0` and `f_b ≥ 0`, with `D` the larger of `D_j` and `0` and `Λ = φ(q)f_{b₀}(u₀)`.
+
+- `LinnikCGLTail.sum_inv_sq_le`, `sum_inv_pow_tail_le`: `Σ_{n∈W, n≠0}n^{−2} ≤ 12π`, from round 685's lattice sum; and for `N₀ > 0` and `s ≥ 2`, `Σ_{n∈W, |n|>N₀}|n|^{−s} ≤ 12πN₀^{−(s−2)}`, for every finite set `W` of integers.
+- `LinnikCGLTail.norm_Phi_le_PF`, `norm_Phi_le_decay`: for `f_b ≥ 0`, `|Φ(n, τ)| ≤ PF`; and for `M₂ > 0`, `L > 0`, `T, D, Λ ≥ 0`, the premise, `n ≠ 0` and `|τ| ≤ L|n|/(2q)`, `|Φ(n, τ)| ≤ PD(2qT/(M₂|n|))^jΛ`.
+- `LinnikCGLTail.integral_Phi_term_le`: for smooth `f_b ≥ 0` that are `0` for `|u| > A`, `M₂ > 0`, `L > 0`, `T, D, Λ ≥ 0`, `K ≥ 2`, the premise and `n ≠ 0`, `∫|ψ̂₀(−τ)||Φ(n, τ)|² dτ ≤ I₀(PDΛ)²(2qT/M₂)^{2j}|n|^{−2j} + πC_K(PF)²(2q/L)^{K−2}|n|^{−(K−2)}`.
+- `LinnikCGLTail.sum_integral_Phi_tail_le`: the terms `|n| > N₀` of round 683's `B_II`. For smooth `f_b ≥ 0` that are `0` for `|u| > A`, `M₂ > 0`, `L > 0`, `N₀ > 0`, `T, D, Λ ≥ 0`, `j ≥ 1`, `K ≥ 4` and the premise, `Σ_{n∈W, |n|>N₀}∫|ψ̂₀(−τ)||Φ(n, τ)|² dτ ≤ 12π(I₀(PDΛ)²(2qT/M₂)^{2j}N₀^{−(2j−2)} + πC_K(PF)²(2q/L)^{K−2}N₀^{−(K−4)})` for every finite set `W` of integers.
+- `LinnikCGLTail.norm_fourier_ga_le_decay`: for smooth `f_b` that are `0` for `|u| > A`, `M₁, M₂ > 0`, `T, D, Λ ≥ 0`, the premise and `ξ ≠ 0`, `|ĝ_a(ξ)| ≤ G₁|ξ|^{−j}`; `gJw_le` gives round 662's `gJw ≤ q`.
+- `LinnikCGLTail.setIntegral_ga_tail_le`: the range `|ξ| > X` of `ĝ_a`. For smooth `f_b` that are `0` for `|u| > A`, `M₁, M₂ > 0`, `X ≥ 1`, `T, D, Λ ≥ 0`, `j ≥ 1` and the premise, `∫_{|ξ|>X}Σ_a|ĝ_a(ξ)|² dξ ≤ 2πφ(q)G₁²X^{−(2j−2)}`.
+
+**Their text.** Re-read this round in the text layer.
+
+- Their decay `Σ_b|f̂_b(ξ)| = O((qT)^{−200})` unless `|ξ| ⪅ T` (lines 3480–3481) is transcribed; then "we can restrict the sum over n to the range |n| ⪅ qT/M₂ at the cost of a negligible error." (lines 3481–3482.)
+- In the quote, spaces are restored, the subscript transcribed and their footnote mark omitted. `scratchpad/r687/quotes.py` checks it against the text layer with spaces removed, the transcription undone and the footnote mark `6` deleted from the span (`quotes.out`: PASS).
+
+**The stack's form.**
+
+- **Their "negligible error"** is kept as explicit bounds, with the factors `N₀^{−(2j−2)}`, `N₀^{−(K−4)}` and `X^{−(2j−2)}`. The choice of `N₀`, `X`, `j` and `K` is left to the assembly of their Lemma 8.2.
+- **The terms `|n| > N₀`.** For `|τ| ≤ L|n|/(2q)`, `|n/q + τ/L| ≥ |n|/(2q)`, so every `f̂_b` in `Φ(n, τ)` is evaluated at a point of size at least `M₂|n|/(2q)`, where the premise applies. For larger `|τ|`, `|ψ̂₀(−τ)| ≤ C_K(1 + |τ|)^{−K} ≤ C_K(1 + L|n|/(2q))^{−(K−2)}(1 + τ²)⁻¹`, and `|Φ(n, τ)| ≤ PF`.
+- **The range `|ξ| > X`** is the stack's: round 683's count carries the factor `(1 + q|X|)^δ`, which grows with `X`, so round 683 integrates over `|ξ| ≤ X` only. Round 680's formula for `ĝ_a` gives `|ĝ_a(ξ)| ≤ G₁|ξ|^{−j}`, since each `f̂_b` there is evaluated at `m₂ξ/m₁`, of size at least `M₂|ξ|/(2M₁)`, and the sum over `m₃` has at most `#P3` terms, each at most `q`. Then `|ξ|^{−2j} ≤ 2X^{−(2j−2)}(1 + ξ²)⁻¹` for `|ξ| > X ≥ 1`, and `∫(1 + ξ²)⁻¹ dξ = π`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLTail.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`sum_integral_Phi_tail_le`, `setIntegral_ga_tail_le`).
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1, a note under M4, the opening's parenthetical, and a net-state marker after round 686's note.
+- `external/pnt/README.md`: a row and a section for the file.
+
+**What is checked.**
+
+- `LinnikCGLTail` was compiled in scratch in eight runs (`scratchpad/r687/run.sh`, `lcj1.out` to `lcj8.out`). The last had exit 0, and its only messages were the six axiom lines, all `[propext, Classical.choice, Quot.sound]`.
+- The fixes: a sum of two integrable functions came out as an unreduced sum of functions, and its integrability was stated for the explicit function; two identities of powers were redone, one by `x^{2j} = (x^j)²` before `ring` and one by moving the inverses inside the powers before `field_simp`; two header lines over 120 characters were re-wrapped; and run 8 compiled the header after its sentence on the premise was corrected to say how `CGLP81`'s premise gives this round's hypothesis.
+- Then `build.sh` ran twice (`scratchpad/r687/compile.sh`, logs `build_1.log` and `build_2.log`), the second after that header correction. Each had `1 compiled, 423 up to date` (`LinnikCGLTail` 20 s) and exit 0 (in 30 s and 29 s), with no error, warning or `sorry`. Each has 652 axiom lines, 6 by the module and 646 by the final check; 639 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 7.02 GiB and 7.01 GiB (`rss_watch_build_1.log`, `rss_watch_build_2.log`).
+- The files have no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no new line over 120 characters.
+- `scratchpad/r687/apply_docs.py` makes the six edits to CGL-LEAN.md and the external README, each asserted to occur once; run again, it writes nothing.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r687/gate.out`): the render lint against HEAD as multisets, with none new, and `k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1 gains round 687 in its stack cell and a net-state marker; M4 gains a note; the opening's parenthetical gains round 687; round 686's note gains a net-state marker after it.
+- `external/pnt/README.md`: a row, and a section for the file.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- In the text layer: lines 3433–3490 (joined), around their restriction of `n` and their (8.8).
+- The operative definitions and statements of rounds 680 to 686: round 680's `P1`, `mem_P1`, `P2`, `mem_P2`, `P3`, `ga`, `fC` and `fourier_ga` (`LinnikCGLG.lean` 55, 58, 73, 76, 90, 111, 319 and 343); round 681's `norm_stdAddChar` (`LinnikCGLAsum.lean` 49); round 683's `Phi` and `integral_gstar_le` (`LinnikCGLCov.lean` 86 and 216); round 684's `CK` and `norm_fourier_psiC_le_CK` (`LinnikCGLSig2.lean` 297 and 300); round 685's `sum_lor_lattice_le` (`LinnikCGLFtil.lean` 160); and round 686's `norm_Phi_le`, `continuous_Phi` and `integrable_norm_fourier_psiC_neg` (`LinnikCGLJtil.lean`).
+- Earlier ones: round 662's `gJw` and `gJw_nonneg` (`LinnikCGLJ.lean` 143 and 146), round 673's `lor` (`LinnikCGLSep.lean` 72), and round 656's `psi0_nonneg` and `psi0_le_one` (`LinnikCGLRt.lean` 76 and 78).
+- Mathlib's `integrable_inv_one_add_sq`, `integral_univ_inv_one_add_sq`, `Complex.norm_exp_ofReal_mul_I`, `integral_mono_of_nonneg`, `ae_restrict_iff'` and `setIntegral_le_integral`.
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** As in rounds 680 to 686: stage M4's block gets one hostile review, with the convergence review of round 679's sweep.
+
+**Bearing on RH:** none.
+
+**The next step.** The assembly of their Lemma 8.2 in the stack: `Jint ≤ Σ_a∫|ĝ_a|²` (round 680), split at `|ξ| = X`; on `|ξ| ≤ X`, `|ĝ_a|² ≤ 2|g0_a|² + 2|ĝ_a − g0_a|²` with rounds 682 and 683, and `B_II` from rounds 686 and 687; on `|ξ| > X`, this round's tail.

@@ -208,6 +208,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLSig2.lean` | 684 | Chen–Gupta–Li's `Σ_II` expanded and their `Σ₂` by Poisson summation: for `q ≥ 1`, smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, and a majorant `H` of the inner integrals, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)\|Φ(n, τ)\|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)H(b, m₂, b′, m₂′, u) du` (`sum_psi_norm_Phi_sq_le`); for `N₀ > 0`, `S₂(k₀, x) = Σ_{k∈ℤ}N₀ψ̂₀(N₀(k − x + k₀/q))` (`S2_eq_tsum`) |
 | `LinnikCGLFtil.lean` | 685 | Chen–Gupta–Li's smoothing `f̃_b = (Tψ̃₀(T·)) ⋆ f_b` and their bound of the inner integral of `Σ_II`: for `q ≥ 1`, smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `T ≥ 1`, `N₀ > 0`, `K ≥ 2`, `m₂, m₂′ ∈ P2 M₂` and `\|u\| ≤ \|A\|`, `∫f_{b′}(u′)\|S₂(k₀, (m₂′u′ − m₂u)/q)\| du′ ≤ N₀C_K(Σ_{m₃∈R}[m₃ ≡ k₀]f̃_{b′}((m₂u + m₃)/m₂′)/T + (1 + N₀m₂′/(qT))^{−(K−2)}(2π + 4π/N₀)∫f_{b′})` (`integral_S2_le`) |
 | `LinnikCGLJtil.lean` | 686 | Chen–Gupta–Li's Cauchy–Schwarz back to `J(f̃⃗)`, for the terms `\|n\| ≤ N₀` of `Σ_II`: for `q ≥ 1`, smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `T ≥ 1`, `N₀ > 0`, `M₂ > 0` and `K ≥ 2`, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)\|Φ(n, τ)\|² ≤ N₀C_K((4M₂²/(qT))√𝔖√J̃ + EP²F²)` for every `L` and `τ` (`sum_psi_norm_Phi_sq_le_J`) |
+| `LinnikCGLTail.lean` | 687 | The terms `\|n\| > N₀` of `B_II` and the range `\|ξ\| > X` of `ĝ_a`, by the decay premise `Σ_b\|f̂_b(ξ)\| ≤ D(T/\|ξ\|)^jΛ`: for smooth `f_b` that are `0` for `\|u\| > A`, `M₁, M₂ > 0`, `X ≥ 1`, `T, D, Λ ≥ 0` and `j ≥ 1`, `∫_{\|ξ\|>X}Σ_a\|ĝ_a(ξ)\|² dξ ≤ 2πφ(q)G₁²X^{−(2j−2)}` (`setIntegral_ga_tail_le`) |
 
 ## Building (rounds 217, 618)
 
@@ -1285,3 +1286,16 @@ Round 686 takes Chen–Gupta–Li's Cauchy–Schwarz step back to `J(f̃⃗)` fo
 - `sum_integral_Phi_le`: with the hypotheses of `sum_psi_norm_Phi_sq_le_J`, `Σ_{n∈W, |n|≤N₀}∫|ψ̂₀(−τ)||Φ(n, τ)|² dτ ≤ (∫|ψ̂₀(−τ)| dτ)B_J` for every `L` and every finite set `W` of integers.
 
 See the main README, round 686, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 644 lines.
+
+## The tails by the decay premise: LinnikCGLTail.lean (round 687)
+
+Round 687 bounds, with explicit constants, the terms `|n| > N₀` of round 683's `B_II` and the range `|ξ| > X` of `ĝ_a`, with `q ≥ 1`, `ψ̂₀` round 659's `𝓕 psiC`, `C_K` round 684's `CK`, `Φ(n, τ)` round 683's `Phi`, `ĝ_a` the Fourier transform of round 680's `ga`, `I₀ = ∫|ψ̂₀(−τ)| dτ`, `P = Σ_{m₂∈P2 M₂}m₂`, `F = Σ_b∫f_b`, `G₁ = #P1·#P2·(2M₂/M₁)·q#P3·D(2M₁T/M₂)^jΛ`, and "the premise" the decay `Σ_b|f̂_b(ξ)| ≤ D(T/|ξ|)^jΛ` for every `ξ ≠ 0`.
+
+- `sum_inv_sq_le`, `sum_inv_pow_tail_le`: `Σ_{n∈W, n≠0}n^{−2} ≤ 12π`; and for `N₀ > 0` and `s ≥ 2`, `Σ_{n∈W, |n|>N₀}|n|^{−s} ≤ 12πN₀^{−(s−2)}`, for every finite set `W` of integers.
+- `norm_Phi_le_PF`, `norm_Phi_le_decay`: for `f_b ≥ 0`, `|Φ(n, τ)| ≤ PF`; and for `M₂ > 0`, `L > 0`, `T, D, Λ ≥ 0`, the premise, `n ≠ 0` and `|τ| ≤ L|n|/(2q)`, `|Φ(n, τ)| ≤ PD(2qT/(M₂|n|))^jΛ`.
+- `integrable_Phi`, `integral_Phi_term_le`: for smooth `f_b ≥ 0` that are `0` for `|u| > A`, `τ ↦ |ψ̂₀(−τ)||Φ(n, τ)|²` is integrable; and with `M₂ > 0`, `L > 0`, `T, D, Λ ≥ 0`, `K ≥ 2`, the premise and `n ≠ 0`, `∫|ψ̂₀(−τ)||Φ(n, τ)|² dτ ≤ I₀(PDΛ)²(2qT/M₂)^{2j}|n|^{−2j} + πC_K(PF)²(2q/L)^{K−2}|n|^{−(K−2)}`.
+- `sum_integral_Phi_tail_le`: for smooth `f_b ≥ 0` that are `0` for `|u| > A`, `M₂ > 0`, `L > 0`, `N₀ > 0`, `T, D, Λ ≥ 0`, `j ≥ 1`, `K ≥ 4` and the premise, `Σ_{n∈W, |n|>N₀}∫|ψ̂₀(−τ)||Φ(n, τ)|² dτ ≤ 12π(I₀(PDΛ)²(2qT/M₂)^{2j}N₀^{−(2j−2)} + πC_K(PF)²(2q/L)^{K−2}N₀^{−(K−4)})` for every finite set `W` of integers.
+- `gJw_le`, `norm_fourier_ga_le_decay`: round 662's `gJw` is at most `q`; and for smooth `f_b` that are `0` for `|u| > A`, `M₁, M₂ > 0`, `T, D, Λ ≥ 0`, the premise and `ξ ≠ 0`, `|ĝ_a(ξ)| ≤ G₁|ξ|^{−j}`.
+- `setIntegral_ga_tail_le`: for smooth `f_b` that are `0` for `|u| > A`, `M₁, M₂ > 0`, `X ≥ 1`, `T, D, Λ ≥ 0`, `j ≥ 1` and the premise, `∫_{|ξ|>X}Σ_a|ĝ_a(ξ)|² dξ ≤ 2πφ(q)G₁²X^{−(2j−2)}`.
+
+See the main README, round 687, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 646 lines.
