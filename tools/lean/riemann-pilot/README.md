@@ -29184,7 +29184,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 - `LinnikCGLSig2.sum_mul_norm_sq_le`: for real weights `w_n`, `Σ_{n∈N}w_n|Σ_{p∈Q}z_{n,p}|² ≤ Σ_{p,p′∈Q}|Σ_{n∈N}w_nz_{n,p}conj(z_{n,p′})|`.
 - `LinnikCGLSig2.norm_sum_fourier_pair_le`: for integrable `f, g ≥ 0`, coefficients `c_n`, points `x_n, y_n`, and `H` with `fH` integrable and `∫g(u′)|Σ_nc_ne(y_nu′ − x_nu)| du′ ≤ H(u)` wherever `f(u) ≠ 0`, `|Σ_nc_nf̂(x_n)conj(ĝ(y_n))| ≤ ∫f(u)H(u) du`.
-- `LinnikCGLSig2.sum_psi_norm_Phi_sq_le`: their `Σ_II` expanded. For smooth `f_b ≥ 0` that are `0` for `|u| > A`, and `H` with `f_bH` integrable and `∫f_{b′}(u′)|S₂(bm₂ − b′m₂′, (m₂′u′ − m₂u)/q)| du′ ≤ H(b, m₂, b′, m₂′, u)` wherever `f_b(u) ≠ 0`, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)|Φ(n, τ)|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)H(b, m₂, b′, m₂′, u) du` for every `τ`.
+- `LinnikCGLSig2.sum_psi_norm_Phi_sq_le`: their `Σ_II` expanded. For smooth `f_b ≥ 0` that are `0` for `|u| > A`, and `H` with `f_bH` integrable and `∫f_{b′}(u′)|S₂(bm₂ − b′m₂′, (m₂′u′ − m₂u)/q)| du′ ≤ H(b, m₂, b′, m₂′, u)` wherever `f_b(u) ≠ 0`, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)|Φ(n, τ)|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)H(b, m₂, b′, m₂′, u) du` for every `τ`. *(round 685: `H` need only satisfy these hypotheses for `m₂, m₂′ ∈ P2 M₂`)*
 - `LinnikCGLSig2.S2_eq_tsum`, `norm_S2_le`: their Poisson step. For `N₀ > 0`, `S₂(k₀, x) = Σ_{k∈ℤ}N₀ψ̂₀(N₀(k − x + k₀/q))` with `k₀` read as its value in `{0, …, q − 1}`, so `|S₂(k₀, x)| ≤ N₀Σ_k|ψ̂₀(N₀(k − x + k₀/q))|`, a convergent series.
 - `LinnikCGLSig2.norm_fourier_psiC_le_CK`: `(1 + |y|)^K|ψ̂₀(y)| ≤ C_K = 2^K(∫ψ̃₀ + D_K/(2π)^K)` (`CK`), from round 659's `fourier_psiC_decay` and `norm_fourier_psiC_le`.
 
@@ -29243,3 +29243,73 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Supply `H`: bound `∫f_{b′}(u′)|S₂(…)| du′` by `norm_S2_le` and `norm_fourier_psiC_le_CK`, with the indicator of `|u′ − c_k| ≤ 1/T` against the smoothing `f̃_{b′}` and the rest decaying in `K`; then their Cauchy–Schwarz back to `J(f̃⃗)`.
+
+## Round 685: their smoothing `f̃_b`, and the inner integral of their `Σ_II` (stage M4; `external/pnt/LinnikCGLFtil.lean`)
+
+**The results.** Below, `q ≥ 1`, `ψ̃₀` round 656's bump `psi0` (`1` on `[−1, 1]`, `0` off `(−2, 2)`), `ψ̂₀` round 659's `𝓕 psiC`, `L_c(r) = (1 + c²r²)⁻¹` round 673's `lor`, `C_K` round 684's `CK`, `S₂` round 684's `S2`, `Φ(n, τ)` round 683's `Phi`, `x = (m₂′u′ − m₂u)/q`, `[·]` the indicator, and `R = {m₃ ∈ ℤ : |m₃| ≤ (4|A| + 2)M₂}` (`LinnikCGLFtil.R3`). Their smoothing is `f̃_b = (Tψ̃₀(T·)) ⋆ f_b`, `f̃_b(x) = ∫Tψ̃₀(Tt)f_b(x − t) dt` (`LinnikCGLFtil.ftil`, Mathlib's `convolution`).
+
+- `LinnikCGLFtil.continuous_ftil`, `ftil_nonneg`, `ftil_le`: for `T > 0` and integrable `f_b`, `f̃_b` is continuous; for `T ≥ 0` and `f_b ≥ 0`, `f̃_b ≥ 0`, and if `f_b` is also integrable, `f̃_b ≤ T∫f_b`.
+- `LinnikCGLFtil.integral_indicator_le_ftil`: for `T > 0` and integrable `f_b ≥ 0`, `∫_{|u−c|≤1/T}f_b(u) du ≤ f̃_b(c)/T`.
+- `LinnikCGLFtil.norm_fourier_psiC_le_split`, `sum_lor_lattice_le`: for `K ≥ 2` and `V ≥ 0`, `|ψ̂₀(y)| ≤ C_K[|y| ≤ V] + C_K(1 + V)^{−(K−2)}L₁(y)`; and for `N₀ > 0`, `Σ_{k∈S}L₁(N₀k + z) ≤ 2π + 4π/N₀` for every finite set `S` of integers, by round 673's `sum_lor_le`.
+- `LinnikCGLFtil.sum_ind_le`, `norm_S2_le_split`: for `T ≥ 1`, `N₀ > 0`, `K ≥ 2`, `m₂, m₂′ ∈ P2 M₂` and `|u|, |u′| ≤ |A|`, `|S₂(k₀, x)| ≤ N₀C_K(Σ_{m₃∈R}[m₃ ≡ k₀][|u′ − (m₂u + m₃)/m₂′| ≤ 1/T] + (1 + N₀m₂′/(qT))^{−(K−2)}(2π + 4π/N₀))`, with `k₀` read as its value in `{0, …, q − 1}`.
+- `LinnikCGLFtil.integral_S2_le`: their bound of the inner integral. For smooth `f_b ≥ 0` that are `0` for `|u| > A`, `T ≥ 1`, `N₀ > 0`, `K ≥ 2`, `m₂, m₂′ ∈ P2 M₂` and `|u| ≤ |A|`, `∫f_{b′}(u′)|S₂(k₀, x)| du′ ≤ N₀C_K(Σ_{m₃∈R}[m₃ ≡ k₀]f̃_{b′}((m₂u + m₃)/m₂′)/T + (1 + N₀m₂′/(qT))^{−(K−2)}(2π + 4π/N₀)∫f_{b′})` (`Hmaj`), with `k₀ = bm₂ − b′m₂′`.
+- `LinnikCGLFtil.sum_psi_norm_Phi_sq_le_ftil`: round 684's expansion with this majorant. For smooth `f_b ≥ 0` that are `0` for `|u| > A`, `T ≥ 1`, `N₀ > 0` and `K ≥ 2`, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)|Φ(n, τ)|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)Hmaj(b, m₂, b′, m₂′, u) du` for every `τ`.
+- Round 684's `sum_psi_norm_Phi_sq_le` now asks its hypotheses on `H` only for `m₂, m₂′ ∈ P2 M₂`, the pairs its sums run over; its conclusion is unchanged.
+
+**Their text.** Re-read this round in the text layer.
+
+- The smoothing: "Let ψ(x) be a smooth bump function supported on |x| ≪ 1 and define" (line 3649), then their `f̃_{b′}(u) := ∫_ℝTψ(T(u − v))f_{b′}(v) dv` (lines 3650–3653), and "We can then bound the above integral over u′ by" (line 3654), then `f̃_{b′}((qj + m₂u + bm₂ − b′m₂′)/m₂′)` (lines 3654–3658).
+- The residues: "In the final line we have introduced a sum over m₃ such that m₃ = qj + bm₂ − b′m₂′ for some integer j." (lines 3726–3728.)
+- In these, spaces are restored and the subscripts transcribed. `scratchpad/r685/quotes.py` checks the three quotes against the text layer with spaces removed and those transcriptions undone (`quotes.out`: PASS).
+
+**The stack's form.**
+
+- **Their `ψ` is `ψ̃₀`.** `f̃_b` is Mathlib's convolution of `Tψ̃₀(T·)` with `f_b`, so continuity comes from `HasCompactSupport.continuous_convolution_left`. Since `ψ̃₀ = 1` on `[−1, 1]`, the window `|u′ − c| ≤ 1/T` against `f_b` is at most `f̃_b(c)/T`.
+- **Their window `≪ 1/T` and its error.** Their restriction of `j` to `|u′ − (qj + m₂u + bm₂ − b′m₂′)/m₂′| ≪ 1/T`, at an error `O((qT)^{−50})`, is the split of `|ψ̂₀|` into the window `|y| ≤ V = N₀m₂′/(qT)` and a tail. The tail keeps its explicit factor `(1 + N₀m₂′/(qT))^{−(K−2)}`, with `Σ_kL₁(N₀k + z) ≤ 2π + 4π/N₀` over the dual lattice.
+- **Their `m₃`.** The dual index `k` becomes `m₃ = qk + k₀`; the map is injective, `m₃ ≡ bm₂ − b′m₂′ (mod q)`, and inside the window `|m₃| ≤ (4|A| + 2)M₂` for `|u|, |u′| ≤ |A|`, `T ≥ 1` and `m₂, m₂′ ∈ P2 M₂` (`sum_ind_le`), so the sum over `k` becomes a finite sum over `R`.
+- **Their "≪" constants** are explicit: `C_K`, `2π + 4π/N₀` and `4|A| + 2`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLFtil.lean`: new.
+- `external/pnt/LinnikCGLSig2.lean`: `sum_psi_norm_Phi_sq_le` asks `hH` and `hb` only for `m₂, m₂′ ∈ P2 M₂`; its docstring and the header's plain statement say so.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`integral_S2_le`, `sum_psi_norm_Phi_sq_le_ftil`).
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1, a note under M4, the opening's parenthetical, and a net-state marker after round 684's note.
+- `external/pnt/README.md`: a row, a section for the file, and a net-state marker in round 684's section.
+- `README.md`: a net-state marker in round 684's entry.
+
+**What is checked.**
+
+- `LinnikCGLSig2` was compiled in scratch after its change (`scratchpad/r684/run.sh 4`, `lcj4.out`), and `LinnikCGLFtil` in three runs (`scratchpad/r685/run.sh`, `lcj1.out` to `lcj3.out`, against the changed `LinnikCGLSig2`). The last run of each had exit 0, and its only messages were the axiom lines, all `[propext, Classical.choice, Quot.sound]`. The header of `LinnikCGLFtil` was edited after its last run; `build.sh` below compiled the final files.
+- The fixes in `LinnikCGLFtil`: a `split_ifs` met a beta-redex and its `rw` became `simp only`; the deprecated `if_pos` and `if_neg` became `ite_eq_left` and `ite_eq_right`; a positivity goal needed `m₂′ > 0`; a rewrite of a product by `mul_comm` hit the wrong product and became `linarith`; and an equation of sums was proved term by term before being rewritten.
+- Then `build.sh` ran once (`scratchpad/r685/compile.sh 1`, log `build_1.log`): `2 compiled, 420 up to date` (`LinnikCGLSig2` 10 s, `LinnikCGLFtil` 10 s), exit 0 in 30 s, with no error, warning or `sorry`. Its 653 axiom lines are 11 by the modules and 642 by the final check; 640 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.96 GiB (`rss_watch_build_1.log`).
+- The files have no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/r685/apply_docs.py` makes the eight edits to CGL-LEAN.md, the external README and this README, each asserted to occur once; run again, it writes nothing.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r685/gate.out`): the render lint against HEAD as multisets, with none new, and `k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1 gains round 685 in its stack cell and a net-state marker; M4 gains a note; the opening's parenthetical gains round 685; round 684's note gains a net-state marker after it.
+- `external/pnt/README.md`: a row, and a section for the file; round 684's section gains a net-state marker.
+- `README.md`: round 684's entry gains a net-state marker.
+- No strikes: round 684's statements stay true, since the change only weakens its hypotheses.
+
+**Check 1** (direct reads this round):
+
+- In the text layer: their §8.2.2 from (8.8) to (8.9) (lines 3483–3790, joined by `scratchpad/r678/compact.py`), and lines 3640–3662 and 3722–3734 line by line.
+- The operative definitions and statements: round 684's `S2`, `norm_S2_le`, `CK`, `norm_fourier_psiC_le_CK` and `sum_psi_norm_Phi_sq_le` (`LinnikCGLSig2.lean`); round 673's `lor` and `sum_lor_le` (`LinnikCGLSep.lean` 72 and 112); round 681's `lor_pos'` (`LinnikCGLCount.lean` 80); round 680's `P2`, `mem_P2` and `P3` (`LinnikCGLG.lean` 73, 76 and 90); round 656's `psi0`, `psi0_nonneg`, `psi0_le_one`, `psi0_eq_one` and `continuous_psi0` (`LinnikCGLRt.lean` 74, 76, 78, 80 and 83) and `psi0_eq_zero` (`LinnikCGLMom.lean` 135); and Mathlib's `convolution`, `HasCompactSupport.continuous_convolution_left`, `integral_sub_left_eq_self`, `Integrable.comp_sub_left`, `Integrable.bdd_mul`, `Integrable.indicator`, `summable_of_sum_le`, `Real.tsum_le_of_sum_le`, `Summable.tsum_le_tsum`, `Summable.tsum_add` and `Int.one_le_abs`.
+- The new file in full, and the changed theorem of `LinnikCGLSig2`: their proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the files' headers and docstrings list them.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** As in rounds 680 to 684: stage M4's block gets one hostile review, with the convergence review of round 679's sweep.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Cauchy–Schwarz back to `J(f̃⃗)`: bound `Σ_{m₂,b′,m₂′}m₂m₂′Σ_{m₃∈R}[m₃ ≡ k₀]f̃_{b′}((m₂u + m₃)/m₂′)` by `4M₂²/q` times round 662's `gJ` for `f̃` at `−b` (the gcd `(−bm₂ + b′m₂′ + m₃, q)` is `q` on the residue class), then integrate over `τ` with the weight `|ψ̂₀(−τ)|`, and apply Cauchy–Schwarz in `u`.

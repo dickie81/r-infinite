@@ -28,8 +28,9 @@ round 683's `LinnikCGLCov.Phi`.
   `Σ_{n∈N}w_n|Σ_{p∈Q}z_{n,p}|² ≤ Σ_{p,p′∈Q}|Σ_{n∈N}w_nz_{n,p}conj(z_{n,p′})|`.
 * `norm_sum_fourier_pair_le`: for integrable `f, g ≥ 0` and `H` with `fH` integrable and
   `∫g(u′)|Σ_nc_ne(y_nu′ − x_nu)| du′ ≤ H(u)` wherever `f(u) ≠ 0`, `|Σ_nc_nf̂(x_n)conj(ĝ(y_n))| ≤ ∫f(u)H(u) du`.
-* `S2`, `sum_psi_norm_Phi_sq_le`: for smooth `f_b ≥ 0` that are `0` for `|u| > A`, and `H` with `f_bH` integrable and
-  `∫f_{b′}(u′)|S₂(bm₂ − b′m₂′, (m₂′u′ − m₂u)/q)| du′ ≤ H(b, m₂, b′, m₂′, u)` wherever `f_b(u) ≠ 0`,
+* `S2`, `sum_psi_norm_Phi_sq_le`: for smooth `f_b ≥ 0` that are `0` for `|u| > A`, and `H` with, for
+  `m₂, m₂′ ∈ P2 M₂`, `f_bH` integrable and `∫f_{b′}(u′)|S₂(bm₂ − b′m₂′, (m₂′u′ − m₂u)/q)| du′ ≤ H(b, m₂, b′, m₂′, u)`
+  wherever `f_b(u) ≠ 0`,
   `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)|Φ(n, τ)|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)H(b, m₂, b′, m₂′, u) du` for every `τ`.
 * `S2_eq_tsum`, `norm_S2_le`: for `N₀ > 0`, `S₂(k₀, x) = Σ_{k∈ℤ}N₀ψ̂₀(N₀(k − x + k₀/q))` with `k₀` read as its value in
   `{0, …, q − 1}`, so `|S₂(k₀, x)| ≤ N₀Σ_k|ψ̂₀(N₀(k − x + k₀/q))|`.
@@ -174,14 +175,16 @@ lemma norm_sum_fourier_pair_le {N : Finset ℤ} (c : ℤ → ℂ) (x y : ℤ →
 def S2 (q : ℕ) [NeZero q] (N₀ : ℝ) (k₀ : ZMod q) (x : ℝ) : ℂ :=
   ∑ n ∈ P3 N₀, ((psi0 (n / N₀) : ℝ) : ℂ) * ZMod.stdAddChar (-((n : ZMod q) * k₀)) * cexp (2 * π * I * (n * x))
 
-/-- **Their `Σ_II`, expanded**: for `q ≥ 1`, smooth `f_b ≥ 0` that are `0` for `|u| > A`, and `H` with `f_bH`
-integrable and `∫f_{b′}(u′)|S₂(bm₂ − b′m₂′, (m₂′u′ − m₂u)/q)| du′ ≤ H(b, m₂, b′, m₂′, u)` wherever `f_b(u) ≠ 0`,
-`Σ_{n∈P3 N₀}ψ̃₀(n/N₀)|Φ(n, τ)|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)H(b, m₂, b′, m₂′, u) du` for every `τ`. -/
+/-- **Their `Σ_II`, expanded**: for `q ≥ 1`, smooth `f_b ≥ 0` that are `0` for `|u| > A`, and `H` with, for
+`m₂, m₂′ ∈ P2 M₂`, `f_bH` integrable and `∫f_{b′}(u′)|S₂(bm₂ − b′m₂′, (m₂′u′ − m₂u)/q)| du′ ≤ H(b, m₂, b′, m₂′, u)`
+wherever `f_b(u) ≠ 0`, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)|Φ(n, τ)|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)H(b, m₂, b′, m₂′, u) du` for
+every `τ`. -/
 theorem sum_psi_norm_Phi_sq_le {q : ℕ} [NeZero q] {f : (ZMod q)ˣ → ℝ → ℝ} (hfs : ∀ b, ContDiff ℝ ∞ (f b))
     {A : ℝ} (hA : ∀ b u, A < |u| → f b u = 0) (hf : ∀ b u, 0 ≤ f b u) (M₂ L N₀ τ : ℝ)
     (H : (ZMod q)ˣ → ℤ → (ZMod q)ˣ → ℤ → ℝ → ℝ)
-    (hH : ∀ (b : (ZMod q)ˣ) (m₂ : ℤ) (b' : (ZMod q)ˣ) (m₂' : ℤ), Integrable fun u => f b u * H b m₂ b' m₂' u)
-    (hb : ∀ (b : (ZMod q)ˣ) (m₂ : ℤ) (b' : (ZMod q)ˣ) (m₂' : ℤ) (u : ℝ), f b u ≠ 0 → ∫ u', f b' u' *
+    (hH : ∀ (b : (ZMod q)ˣ), ∀ m₂ ∈ P2 M₂, ∀ (b' : (ZMod q)ˣ), ∀ m₂' ∈ P2 M₂,
+      Integrable fun u => f b u * H b m₂ b' m₂' u)
+    (hb : ∀ (b : (ZMod q)ˣ), ∀ m₂ ∈ P2 M₂, ∀ (b' : (ZMod q)ˣ), ∀ m₂' ∈ P2 M₂, ∀ u : ℝ, f b u ≠ 0 → ∫ u', f b' u' *
       ‖S2 q N₀ ((b : ZMod q) * (m₂ : ZMod q) - (b' : ZMod q) * (m₂' : ZMod q)) (((m₂' : ℝ) * u' - m₂ * u) / q)‖ ≤
         H b m₂ b' m₂' u) :
     ∑ n ∈ P3 N₀, psi0 (n / N₀) * ‖Phi f M₂ L n τ‖ ^ 2 ≤
@@ -220,8 +223,8 @@ theorem sum_psi_norm_Phi_sq_le {q : ℕ} [NeZero q] {f : (ZMod q)ˣ → ℝ → 
     ring
   rw [e1, norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_pos (mul_pos hm₂p hm₂p')]
   refine mul_le_mul_of_nonneg_left ?_ (mul_pos hm₂p hm₂p').le
-  refine norm_sum_fourier_pair_le _ _ _ (hfi b) (hfi b') (hf b) (hf b') (hH b m₂ b' m₂') fun u hu => ?_
-  refine le_trans (le_of_eq ?_) (hb b m₂ b' m₂' u hu)
+  refine norm_sum_fourier_pair_le _ _ _ (hfi b) (hfi b') (hf b) (hf b') (hH b m₂ hm₂ b' m₂' hm₂') fun u hu => ?_
+  refine le_trans (le_of_eq ?_) (hb b m₂ hm₂ b' m₂' hm₂' u hu)
   congr 1; funext u'
   congr 1
   -- the factor `e((τ/L)(m₂′u′ − m₂u))` has absolute value `1`

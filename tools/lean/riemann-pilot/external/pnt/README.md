@@ -206,6 +206,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLN0.lean` | 682 | The term `n = 0` of `ĝ_a`, their `I`: for `q ≥ 1`, `f_b ≥ 0`, `M₁ > 0` and `L > 0`, `Σ_a∫\|Σ_{m₁}tg(a, m₁, 0)\|² dξ ≤ φ(q)W₀²·2πM₁/L` with `W₀ = #P1·(L/q)B₄(Σ_h(h, q))#P2·(2M₂/M₁)Σ_b∫f_b` (`sum_integral_g0_le`) |
 | `LinnikCGLCov.lean` | 683 | Chen–Gupta–Li's change of variables `ξ = (m₁/L)τ + m₁n/q` (`integral_r_eq`) and the terms `n ≠ 0` of `ĝ_a` integrated: for `q ≥ 1`, smooth `f_b` that are `0` for `\|u\| > A`, `M₁ > 0`, `L > 0`, `0 < δ ≤ 1`, real `X` and a bound `B_II` of their `Σ_II` over every finite set of `n`, `∫_{\|ξ\|≤X}Σ_a\|ĝ_a(ξ) − Σ_{m₁}tg(a, m₁, 0)\|² dξ ≤ K_XΣ_{m₁∈P1 M₁}B_II/(\|m₁\|L)` (`integral_gstar_le`) |
 | `LinnikCGLSig2.lean` | 684 | Chen–Gupta–Li's `Σ_II` expanded and their `Σ₂` by Poisson summation: for `q ≥ 1`, smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, and a majorant `H` of the inner integrals, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)\|Φ(n, τ)\|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)H(b, m₂, b′, m₂′, u) du` (`sum_psi_norm_Phi_sq_le`); for `N₀ > 0`, `S₂(k₀, x) = Σ_{k∈ℤ}N₀ψ̂₀(N₀(k − x + k₀/q))` (`S2_eq_tsum`) |
+| `LinnikCGLFtil.lean` | 685 | Chen–Gupta–Li's smoothing `f̃_b = (Tψ̃₀(T·)) ⋆ f_b` and their bound of the inner integral of `Σ_II`: for `q ≥ 1`, smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `T ≥ 1`, `N₀ > 0`, `K ≥ 2`, `m₂, m₂′ ∈ P2 M₂` and `\|u\| ≤ \|A\|`, `∫f_{b′}(u′)\|S₂(k₀, (m₂′u′ − m₂u)/q)\| du′ ≤ N₀C_K(Σ_{m₃∈R}[m₃ ≡ k₀]f̃_{b′}((m₂u + m₃)/m₂′)/T + (1 + N₀m₂′/(qT))^{−(K−2)}(2π + 4π/N₀)∫f_{b′})` (`integral_S2_le`) |
 
 ## Building (rounds 217, 618)
 
@@ -1247,8 +1248,23 @@ Round 684 expands Chen–Gupta–Li's `Σ_II` for round 683's `Φ(n, τ)` under 
 
 - `sum_mul_norm_sq_le`: for real weights `w_n`, `Σ_{n∈N}w_n|Σ_{p∈Q}z_{n,p}|² ≤ Σ_{p,p′∈Q}|Σ_{n∈N}w_nz_{n,p}conj(z_{n,p′})|`.
 - `norm_sum_fourier_pair_le`: for integrable `f, g ≥ 0` and `H` with `fH` integrable and `∫g(u′)|Σ_nc_ne(y_nu′ − x_nu)| du′ ≤ H(u)` wherever `f(u) ≠ 0`, `|Σ_nc_nf̂(x_n)conj(ĝ(y_n))| ≤ ∫f(u)H(u) du`.
-- `S2`, `sum_psi_norm_Phi_sq_le`: their `Σ₂` as `S₂(k₀, x) = Σ_{n∈P3 N₀}ψ̃₀(n/N₀)e_q(−nk₀)e(nx)`; for smooth `f_b ≥ 0` that are `0` for `|u| > A`, and `H` with `f_bH` integrable and `∫f_{b′}(u′)|S₂(bm₂ − b′m₂′, (m₂′u′ − m₂u)/q)| du′ ≤ H(b, m₂, b′, m₂′, u)` wherever `f_b(u) ≠ 0`, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)|Φ(n, τ)|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)H(b, m₂, b′, m₂′, u) du` for every `τ`.
+- `S2`, `sum_psi_norm_Phi_sq_le`: their `Σ₂` as `S₂(k₀, x) = Σ_{n∈P3 N₀}ψ̃₀(n/N₀)e_q(−nk₀)e(nx)`; for smooth `f_b ≥ 0` that are `0` for `|u| > A`, and `H` with `f_bH` integrable and `∫f_{b′}(u′)|S₂(bm₂ − b′m₂′, (m₂′u′ − m₂u)/q)| du′ ≤ H(b, m₂, b′, m₂′, u)` wherever `f_b(u) ≠ 0`, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)|Φ(n, τ)|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)H(b, m₂, b′, m₂′, u) du` for every `τ`. *(round 685: `H` need only satisfy these hypotheses for `m₂, m₂′ ∈ P2 M₂`)*
 - `S2_eq_tsum`, `norm_S2_le`: for `N₀ > 0`, `S₂(k₀, x) = Σ_{k∈ℤ}N₀ψ̂₀(N₀(k − x + k₀/q))` with `k₀` read as its value in `{0, …, q − 1}`, so `|S₂(k₀, x)| ≤ N₀Σ_k|ψ̂₀(N₀(k − x + k₀/q))|`.
 - `CK`, `norm_fourier_psiC_le_CK`: `(1 + |y|)^K|ψ̂₀(y)| ≤ C_K = 2^K(∫ψ̃₀ + D_K/(2π)^K)`.
 
 See the main README, round 684, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 640 lines.
+
+## Their smoothing and the inner integral: LinnikCGLFtil.lean (round 685)
+
+Round 685 defines Chen–Gupta–Li's smoothing `f̃_b` and bounds the inner integral of their `Σ_II`, with `q ≥ 1`, `L_c(r) = (1 + c²r²)⁻¹` round 673's `lor`, `C_K` round 684's `CK`, `S₂` round 684's `S2`, `x = (m₂′u′ − m₂u)/q`, `[·]` the indicator and `R = {m₃ ∈ ℤ : |m₃| ≤ (4|A| + 2)M₂}` (`R3`).
+
+- `ftil`, `ftil_apply`, `continuous_ftil`, `ftil_nonneg`, `ftil_le`: `f̃_b(x) = ∫Tψ̃₀(Tt)f_b(x − t) dt` (Mathlib's `convolution`); for `T > 0` and integrable `f_b`, `f̃_b` is continuous; for `T ≥ 0` and `f_b ≥ 0`, `f̃_b ≥ 0`, and if `f_b` is also integrable, `f̃_b ≤ T∫f_b`.
+- `integral_indicator_le_ftil`: for `T > 0` and integrable `f_b ≥ 0`, `∫_{|u−c|≤1/T}f_b(u) du ≤ f̃_b(c)/T`.
+- `norm_fourier_psiC_le_split`: for `K ≥ 2` and `V ≥ 0`, `|ψ̂₀(y)| ≤ C_K[|y| ≤ V] + C_K(1 + V)^{−(K−2)}L₁(y)`.
+- `sum_lor_lattice_le`: for `N₀ > 0`, `Σ_{k∈S}L₁(N₀k + z) ≤ 2π + 4π/N₀` for every finite set `S` of integers.
+- `sum_ind_le`: for `T ≥ 1`, `N₀ > 0`, `m₂, m₂′ ∈ P2 M₂`, `|u|, |u′| ≤ |A|` and every finite set `S` of integers, `Σ_{k∈S}[|N₀(k − x + k₀/q)| ≤ N₀m₂′/(qT)] ≤ Σ_{m₃∈R}[m₃ ≡ k₀][|u′ − (m₂u + m₃)/m₂′| ≤ 1/T]`, with `k₀` read as its value in `{0, …, q − 1}`.
+- `norm_S2_le_split`: with the same hypotheses and `K ≥ 2`, `|S₂(k₀, x)| ≤ N₀C_K(Σ_{m₃∈R}[m₃ ≡ k₀][|u′ − (m₂u + m₃)/m₂′| ≤ 1/T] + (1 + N₀m₂′/(qT))^{−(K−2)}(2π + 4π/N₀))`.
+- `Hmaj`, `integral_S2_le`: for smooth `f_b ≥ 0` that are `0` for `|u| > A`, `T ≥ 1`, `N₀ > 0`, `K ≥ 2`, `m₂, m₂′ ∈ P2 M₂` and `|u| ≤ |A|`, `∫f_{b′}(u′)|S₂(k₀, x)| du′ ≤ Hmaj = N₀C_K(Σ_{m₃∈R}[m₃ ≡ k₀]f̃_{b′}((m₂u + m₃)/m₂′)/T + (1 + N₀m₂′/(qT))^{−(K−2)}(2π + 4π/N₀)∫f_{b′})`.
+- `sum_psi_norm_Phi_sq_le_ftil`: for smooth `f_b ≥ 0` that are `0` for `|u| > A`, `T ≥ 1`, `N₀ > 0` and `K ≥ 2`, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)|Φ(n, τ)|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)Hmaj(b, m₂, b′, m₂′, u) du` for every `τ`, with `k₀ = bm₂ − b′m₂′` in `Hmaj`.
+
+See the main README, round 685, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 642 lines.
