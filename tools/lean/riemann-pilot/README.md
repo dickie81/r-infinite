@@ -29729,3 +29729,69 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Their Proposition 8.1 (`CGLP81`) by their downward induction on `ε`, on a statement with an abstract `Λ` (the decay `Σ_b|f̂_b(ξ)| ≤ D_j(T/|ξ|)^jΛ` and `Λ ≤ G(qT)²F`), which `f̃` keeps with `(∫ψ̃₀)D_j` in place of `D_j`. Then `CGLP81` at `Λ = φ(q)f_{b₀}(u₀)`, with `Λ ≤ G(qT)²F` from the premise at `j = 2` by Fourier inversion.
+
+## Round 692: their smoothing `f̃_b` in their induction, and `Λ` against `F` (stage M4; `external/pnt/LinnikCGLFtilP.lean`)
+
+**The results.** Below, `f̃_b = k_T ⋆ f_b` is round 685's `ftil`, with `k_T(t) = Tψ̃₀(Tt)`; `f̂_b` is the Fourier transform of `u ↦ f_b(u)` (round 680's `fC`); `F = Σ_b∫f_b`; and `q ≥ 1` wherever a sum over `b` occurs.
+
+- `LinnikCGLFtilP.contDiff_ftil`, `integral_ftil`, `ftil_vanish`: for `T > 0` and integrable `f_b`, `f̃_b` is smooth and `∫f̃_b = (∫ψ̃₀)∫f_b`; and for `f_b` that are `0` for `|u| > A` and `T ≥ 1`, `f̃_b` is `0` for `|u| > |A| + 2`.
+- `LinnikCGLFtilP.norm_fourier_ftil_le`, `decay_ftil`: for `T > 0` and integrable `f_b`, `|𝓕f̃_b(ξ)| ≤ (∫ψ̃₀)|f̂_b(ξ)|`; so if `Σ_b|f̂_b(ξ)| ≤ D(T/|ξ|)^jΛ` then `Σ_b|𝓕f̃_b(ξ)| ≤ (∫ψ̃₀)D(T/|ξ|)^jΛ`.
+- `LinnikCGLFtilP.integral_ftil_sq_le`: for `T > 0` and continuous `f_b ≥ 0` with `f_b²` integrable, `∫f̃_b² ≤ (∫ψ̃₀)²∫f_b²`.
+- `LinnikCGLFtilP.f_le_of_decay`: for smooth `f_b ≥ 0` that are `0` for `|u| > A`, `D, Λ ≥ 0`, `X ≥ 1` and `Σ_b|f̂_b(ξ)| ≤ D(T/|ξ|)⁴Λ` for every `ξ ≠ 0`, `f_b(u) ≤ 2XF + 2πDT⁴ΛX^{−2}` for every `b` and `u`.
+- `LinnikCGLFtilP.Lam_le`: for smooth `f_b ≥ 0` that are `0` for `|u| > A`, `T ≥ 1`, a point `(b₀, u₀)` and `Σ_b|f̂_b(ξ)| ≤ D(T/|ξ|)⁴φ(q)f_{b₀}(u₀)` for every `ξ ≠ 0`, `φ(q)f_{b₀}(u₀) ≤ 16π·max(D, 1)(qT)²F`.
+
+**Their text.** Re-read this round in the text layer.
+
+- Their proof of Proposition 8.1 from Lemma 8.2 (lines 2521–2616): "We wish to show that for any ϵ > 0 there is a C(ϵ) > 0 such that" (lines 2521–2522; spaces restored) their (8.1) holds, "via downward induction on ϵ" (line 2543; spaces restored).
+- Their step needs of `f̃_b`: "The compact support conditions |u| ≪ 1 for f_b(u) and |x| ≪ 1 for ψ(x) ensure that the modified function f̃_b(u) maintains the same support restriction |u| ≪ 1. Moreover, the Fourier transform of f̃_b also satisfies the desired decay." (lines 2566–2568; spaces restored, the subscripts and the tildes transcribed). And "Since f̃_b is a smoothed version of f_b, we have the L¹ and L² norm comparisons:" (line 2590; likewise, the exponents transcribed), `∫f̃_b ≪ ∫f_b` and `∫f̃_b² ≪ ∫f_b²` (lines 2590–2595, transcribed).
+- `scratchpad/r692/quotes.py` checks the four quotations against the text layer with spaces removed and those transcriptions undone (`quotes.out`: PASS). It exits 1 on a failure.
+
+**The stack's form.**
+
+- **The support** of `f̃_b` is `|u| ≤ |A| + 2/T`, and `|A| + 2` for `T ≥ 1` (round 686's `ftil_eq_zero`).
+- **The decay.** `𝓕f̃_b = 𝓕k_T·f̂_b` (Mathlib's `Real.fourier_mul_convolution_eq`, after casting the real convolution to `ℂ`) and `|𝓕k_T| ≤ ∫k_T = ∫ψ̃₀`. So `f̃` keeps the decay premise with `(∫ψ̃₀)D_j` in place of `D_j` and the same `Λ`. The stack's `CGLP81` (round 662) has `Λ = φ(q)f_{b₀}(u₀)` at a point of `f`, which is not a value of `f̃`; round 691's form, with an abstract `Λ` and `Λ ≤ G(qT)²F`, is what `f̃` inherits, with `G/(∫ψ̃₀)` for `G`, since `∫f̃_b = (∫ψ̃₀)∫f_b`.
+- **The `L¹` and `L²` comparisons** are `∫f̃_b = (∫ψ̃₀)∫f_b` (Mathlib's `integral_convolution`) and `∫f̃_b² ≤ (∫ψ̃₀)²∫f_b²`: by Cauchy–Schwarz against `k_T` (round 643's `integral_sq_le`), `f̃_b(x)² ≤ (∫ψ̃₀)(k_T ⋆ f_b²)(x)`, and `∫(k_T ⋆ f_b²) = (∫ψ̃₀)∫f_b²`.
+- **`Λ` against `F`.** Fourier inversion (Mathlib's `Continuous.fourierInv_fourier_eq`) gives `f_b(u) ≤ ∫|f̂_b|`. On `[−X, X]`, `|f̂_b| ≤ ∫f_b ≤ F`; off it, the premise at `j = 4` and `|ξ|^{−4} ≤ X^{−2}·2(1 + ξ²)⁻¹` give `2πDT⁴ΛX^{−2}`. At `Λ = φ(q)f_{b₀}(u₀)` and `X = 4π·max(D, 1)T²φ(q)`, that term is at most `f_{b₀}(u₀)/2`, so `f_{b₀}(u₀) ≤ 4XF`, and `φ(q) ≤ q` gives `Lam_le`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLFtilP.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`integral_ftil_sq_le`, `Lam_le`).
+- `frontier/linnik/CGL-LEAN.md`: row P8.1, a note under M4, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section for the file.
+
+**What is checked.**
+
+- `LinnikCGLFtilP` was compiled in scratch in seven runs (`scratchpad/r692/run.sh`, `lcj1.out` to `lcj7.out`). The last had exit 0, and its only messages were the five axiom lines, all `[propext, Classical.choice, Quot.sound]`.
+- The fixes. The convolution notation needed `open scoped Convolution`; a sum over the units needed `[NeZero q]`; the cast of an integral to `ℂ` needed Mathlib's `integral_complex_ofReal`; two lemmas came from round 683's namespace `LinnikCGLCov`; the coefficient bound needed `8π·max(D, 1)φ(q) ≥ 2`; and two unused hypotheses were dropped.
+- Then `build.sh` ran once (`scratchpad/r692/compile.sh 1`, log `build_1.log`): `1 compiled, 427 up to date` (`LinnikCGLFtilP` 14 s), exit 0 in 23 s, with no error, warning or `sorry`. Its 658 axiom lines are 5 by the module and 653 by the final check; 645 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.89 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/r692/apply_docs.py` makes the six edits to CGL-LEAN.md and the external README. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r692/gate.out`): this file 1872 → 1872, `external/pnt/README.md` 5 → 5 and CGL-LEAN.md 0 → 0, none new, and `k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: row P8.1 gains round 692 in its stack cell and a net-state marker; M4 gains a note; the opening's parenthetical gains round 692.
+- `external/pnt/README.md`: a row, and a section for the file.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- In the text layer: lines 2517–2616 (their `f̃_b` and their proof of Proposition 8.1 from Lemma 8.2), line by line.
+- The operative statements: round 685's `ftil` and `ftil_apply` (`LinnikCGLFtil.lean` 63 and 66); round 686's `ftil_eq_zero` (`LinnikCGLJtil.lean` 140); round 643's `integral_sq_le` (`LinnikCGLFrob.lean` 88); round 683's `integrable_fC` and `continuous_fourier_fC` (`LinnikCGLCov.lean` 58 and 64); round 680's `fC` (`LinnikCGLG.lean` 320); round 656's `psi0` (`LinnikCGLRt.lean` 74) and round 664's `contDiff_psi0` (`LinnikCGLPhi.lean` 79); round 662's `CGLP81` (`LinnikCGLJ.lean` 161).
+- Mathlib's `Real.fourier_mul_convolution_eq`, `integral_convolution`, `HasCompactSupport.contDiff_convolution_left`, `Continuous.fourierInv_fourier_eq` and `Real.fourierInv_eq_fourier_neg`, read in this Mathlib's sources.
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them. "For every `b` and `u`" and "for every `ξ ≠ 0`" are the statements' quantifiers.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of 2026-10-22, this round goes to the next block's review, with rounds 690 and 691.
+
+**Bearing on RH:** none.
+
+**The next step.** Their induction: a trivial bound for large `ε` (their base case `ε = 100`), the step from `3ε/2` to `ε` by round 691's `lemma82_form` with this round's properties of `f̃`, and then `CGLP81` at `Λ = φ(q)f_{b₀}(u₀)` by `Lam_le`.

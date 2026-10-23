@@ -212,6 +212,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLL82.lean` | 688 | Chen–Gupta–Li's Lemma 8.2 with explicit constants: for smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `M₁, M₂, L > 0` with `κM₃ ≤ L`, `0 < δ ≤ 1`, `X ≥ 1`, `T ≥ 1`, `N₀ > 0`, `K ≥ 4`, `j ≥ 1`, `D, Λ ≥ 0` and the decay premise, `Jint(f, M₁, M₂, M₃, κ) ≤ 2φ(q)W₀²(2πM₁/L) + 2K_XΣ_{m₁}(I₀B_J + B_tail)/(\|m₁\|L) + 2πφ(q)G₁²X^{−(2j−2)}` (`lemma82_explicit`) |
 | `LinnikCGLConst.lean` | 689 | The bounds of round 688's constants that do not depend on the parameters: `Σ_{h mod q}(h, q) ≤ q·d(q)` (`sum_gw_le`), `n ≤ φ(n)d(n)` (`le_totient_mul_card_divisors`), `W₀ ≤ 200B₄L·d(q)M₂²F` (`W0_le`), `K_X ≤ 40πC_δB₄d(q)⁴L²q(1 + qX)^δ(1 + 2q)^δ` (`KX_le`), each with its hypotheses as below |
 | `LinnikCGLForm.lean` | 691 | Chen–Gupta–Li's Lemma 8.2 in their form, with the parameters chosen: for `θ > 0`, real `κ` and `G`, and `D : ℕ → ℝ`, there is `C ≥ 0` such that, for `q ≥ 1`, `T ≥ 1`, `M ≤ qT`, smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `0 ≤ Λ ≤ G(qT)²F`, the decay `Σ_b\|f̂_b(ξ)\| ≤ D_j(T/\|ξ\|)^jΛ` for every `j` and every `ξ ≠ 0`, `0 < M₁ ≤ M`, `0 < M₂ ≤ M` and `0 ≤ M₃ ≤ M`, `Jint(f, M₁, M₂, M₃, κ) ≤ C(qT)^θ(φ(q)M⁶F² + qM²√𝔖√J̃)` (`lemma82_form`) |
+| `LinnikCGLFtilP.lean` | 692 | Chen–Gupta–Li's smoothing `f̃_b` in their induction, and `Λ` against `F`: for `T ≥ 1` and smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `f̃_b` is smooth and `0` for `\|u\| > \|A\| + 2`, `∫f̃_b = (∫ψ̃₀)∫f_b`, `∫f̃_b² ≤ (∫ψ̃₀)²∫f_b²`, and `f̃` keeps the decay premise with `(∫ψ̃₀)D` (`decay_ftil`, for `q ≥ 1`); with a point `(b₀, u₀)` and the premise `Σ_b\|f̂_b(ξ)\| ≤ D(T/\|ξ\|)⁴φ(q)f_{b₀}(u₀)` for every `ξ ≠ 0`, `φ(q)f_{b₀}(u₀) ≤ 16π·max(D, 1)(qT)²F` (`Lam_le`, for `q ≥ 1`) |
 
 ## Building (rounds 217, 618)
 
@@ -1341,3 +1342,18 @@ Round 691 chooses the parameters of round 688's Lemma 8.2 and bounds its right s
 - `lemma82_form`: for `θ > 0`, real `κ` and `G`, and `D : ℕ → ℝ`, there is `C ≥ 0` such that, for `T ≥ 1`, `M ≤ qT`, smooth `f_b ≥ 0` that are `0` for `|u| > A`, `0 ≤ Λ ≤ G(qT)²F`, the decay `Σ_b|f̂_b(ξ)| ≤ D_j(T/|ξ|)^jΛ` for every `j` and every `ξ ≠ 0`, `0 < M₁ ≤ M`, `0 < M₂ ≤ M` and `0 ≤ M₃ ≤ M`, `Jint(f, M₁, M₂, M₃, κ) ≤ C(qT)^θ(φ(q)M⁶F² + qM²√𝔖√J̃)`.
 
 See the main README, round 691, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 651 lines.
+
+## Their smoothing in their induction, and Λ against F: LinnikCGLFtilP.lean (round 692)
+
+Round 692 proves what their induction needs of round 685's `f̃_b = k_T ⋆ f_b`, with `k_T(t) = Tψ̃₀(Tt)`, and bounds `Λ = φ(q)f_{b₀}(u₀)` against `F = Σ_b∫f_b` by Fourier inversion. Here `f̂_b` is the Fourier transform of `u ↦ f_b(u)` (round 680's `fC`), `q ≥ 1` where a sum over `b` occurs, and "the premise at `j`" is the decay `Σ_b|f̂_b(ξ)| ≤ D(T/|ξ|)^jΛ` for every `ξ ≠ 0`.
+
+- `hasCompactSupport_kT`, `contDiff_kT`, `integrable_kT`, `integral_kT`: for `T > 0`, `k_T` is smooth, `0` off `[−2/T, 2/T]` and integrable, with `∫k_T = ∫ψ̃₀`.
+- `contDiff_ftil`, `integral_ftil`: for `T > 0` and integrable `f_b`, `f̃_b` is smooth and `∫f̃_b = (∫ψ̃₀)∫f_b`.
+- `ftil_vanish`: for `f_b` that are `0` for `|u| > A` and `T ≥ 1`, `f̃_b` is `0` for `|u| > |A| + 2`.
+- `fC_ftil_eq`, `norm_fourier_ftil_le`, `decay_ftil`: `f̃_b`, cast to `ℂ`, is the convolution of the casts; for `T > 0` and integrable `f_b`, `|𝓕f̃_b(ξ)| ≤ (∫ψ̃₀)|f̂_b(ξ)|`; and if `Σ_b|f̂_b(ξ)| ≤ D(T/|ξ|)^jΛ` then `Σ_b|𝓕f̃_b(ξ)| ≤ (∫ψ̃₀)D(T/|ξ|)^jΛ`.
+- `integral_ftil_sq_le`: for `T > 0` and continuous `f_b ≥ 0` with `f_b²` integrable, `∫f̃_b² ≤ (∫ψ̃₀)²∫f_b²`.
+- `norm_le_integral_norm_fourier`: for continuous integrable `g : ℝ → ℂ` with `ĝ` integrable, `|g(u)| ≤ ∫|ĝ|`.
+- `f_le_of_decay`: for smooth `f_b ≥ 0` that are `0` for `|u| > A`, `D, Λ ≥ 0`, `X ≥ 1` and the premise at `j = 4`, `f_b(u) ≤ 2XF + 2πDT⁴ΛX^{−2}` for every `b` and `u`.
+- `Lam_le`: for smooth `f_b ≥ 0` that are `0` for `|u| > A`, `T ≥ 1`, a point `(b₀, u₀)` and the premise at `j = 4` with `Λ = φ(q)f_{b₀}(u₀)`, `φ(q)f_{b₀}(u₀) ≤ 16π·max(D, 1)(qT)²F`.
+
+See the main README, round 692, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 653 lines.
