@@ -4,7 +4,7 @@
 Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
 Chen–Gupta–Li bound a double sum over `|m₁′| ∼ M₁` and `n′` in the proof of their Lemma 8.2: "the double sum
-Σ_{m₁′}Σ_{n₁′} is bounded by ⪅ 1 + M₁/M₃. To see this, write s = m₁′n′. Then s is a non-zero integer lying in a fixed
+Σ_{m₁′}Σ_{n′} 1 is bounded by ⪅ 1 + M₁/M₃. To see this, write s = m₁′n′. Then s is a non-zero integer lying in a fixed
 residue class modulo q, and it is contained in a ⪅ qM₁/M₃ neighborhood of qξ. Thus there are at most ⪅ 1 + M₁/M₃
 possibilities for s, giving the claim." (lines 3358–3366; spaces restored, the sums and subscripts transcribed). This
 file proves
@@ -17,9 +17,9 @@ The stack's form.
   `s = n′m₁′` and `Λ = 2qM₁/L`, `L₁(L(n′/q − ξ/m₁′)) ≤ L_{1/Λ}(s − qξ)` (`lor_le_lor_prod`).
 * Their "at most ⪅ 1 + M₁/M₃ possibilities for s" is round 673's `sum_lor_le` along each residue class of `s`, whose
   points are `q` apart: `Σ_sL_{1/Λ}(s − qξ) ≤ 2π + 4πΛ/q`.
-* Their `⪅` in "the double sum is bounded by" absorbs the divisor function: each `s ≠ 0` comes from at most `2d(|s|)`
-  pairs (`card_fiber_le`), and `d(|s|) ≤ C_δ|s|^δ` (round 525's `LinnikPower.card_divisors_le`), with
-  `|s|^δL_{1/Λ}(s − qξ)² ≤ 2(1 + q|ξ|)^δ(1 + Λ)^δL_{1/Λ}(s − qξ)` (`rpow_mul_lor_sq_le`).
+* Their `⪅` in "the double sum Σ_{m₁′}Σ_{n′} 1 is bounded by" absorbs the divisor function: each `s ≠ 0` comes from
+  at most `2d(|s|)` pairs (`card_fiber_le`), and `d(|s|) ≤ C_δ|s|^δ` (round 525's `LinnikPower.card_divisors_le`),
+  with `|s|^δL_{1/Λ}(s − qξ)² ≤ 2(1 + q|ξ|)^δ(1 + Λ)^δL_{1/Λ}(s − qξ)` (`rpow_mul_lor_sq_le`).
 * The gcd `(s − x, q)` depends on the residue of `s`, and the residues are summed: `Σ_{h∈ℤ/qℤ}(h, q)`.
 
 Plain statements, with `q ≥ 1` (`[NeZero q]`).

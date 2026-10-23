@@ -6,7 +6,9 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 Chen–Gupta–Li's Lemma 8.2: "Let f⃗ = {f_b} be as in Proposition 8.1. Then there is a bump function ψ(x) supported on
 |x| ≪ 1 such that" (lines 2495–2496; spaces restored, the arrow and the subscript transcribed)
 `J(f⃗) ⪅ φ(q)M⁶(∫_ℝΣ_bf_b(u) du)² + φ(q)(M⁴∫_ℝΣ_bf_b(u)² du)^{1/2}J(f̃⃗)^{1/2}` (lines 2497–2516, transcribed). This
-file assembles rounds 680 to 687 into that bound with explicit constants, before any choice of parameters.
+file assembles rounds 680 to 687 into that bound in explicit form, before any choice of parameters: every constant is
+kept, and their negligible errors are kept as explicit terms (`2πφ(q)G₁²X^{−(2j−2)}`, `B_tail` and the term `EP²F²` of
+`B_J`).
 
 The stack's form.
 * Their `ψ` is round 656's bump `ψ̃₀`, and `f̃_b` is round 685's `ftil`.

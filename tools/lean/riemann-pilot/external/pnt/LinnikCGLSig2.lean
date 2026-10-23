@@ -12,7 +12,7 @@ that expansion for round 683's `Φ(n, τ)` under the weight `ψ̃₀(n/N₀)`, a
 
 The stack's form.
 * Their weight `ψ₂(M₂n/(qT))` is `ψ̃₀(n/N₀)` (round 656's bump `psi0`), and the sum over `n` runs over round 680's
-  `P3 N₀`, off which the weight vanishes.
+  `P3 N₀`, off which, for `N₀ > 0`, the weight vanishes.
 * Their `Σ₁ ⪅ 1` is not used: the factor `e((τ/L)(m₂′u′ − m₂u))` has absolute value `1`.
 * The expansion is an inequality, `Σ_nψ̃₀(n/N₀)|Φ(n, τ)|² ≤ Σ_{p,p′}|Σ_nψ̃₀(n/N₀)z_{n,p}conj(z_{n,p′})|`
   (`sum_mul_norm_sq_le`), and each pair is bounded through the iterated integral `∫f_b(u)∫f_{b′}(u′)… du′ du` against

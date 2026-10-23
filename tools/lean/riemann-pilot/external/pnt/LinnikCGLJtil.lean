@@ -3,8 +3,10 @@
 
 Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
-Chen–Gupta–Li finish their bound for `Σ_II` "combining the bounds M₁, M₂, M₃ ≤ M with the Cauchy-Schwarz inequality"
-(lines 3658–3659; spaces restored, the subscripts transcribed). On the residue class they write "We also absorb a factor
+Chen–Gupta–Li put their bound for `Σ_II` into their (8.8) (line 3620), then bound `M₃²∫_ℝG₁(ξ) dξ` (lines 3663–3666)
+"combining the bounds M₁, M₂, M₃ ≤ M with the Cauchy-Schwarz inequality" (lines 3658–3659; spaces restored, the
+subscripts transcribed); the stack takes that step inside its bound of `Σ_II`, round 683's `B_II`. On the residue
+class they write "We also absorb a factor
 of q to bring in the gcd factor since given this modular constraint on m₃, we have q = (−bm₂ + b′m₂′ + m₃, q)." (lines
 3730–3733; likewise), and "Continuing, since f̃_b is supported on |u| ≪ 1, we have that |m₃| ≪ M₂." (lines 3733–3734;
 likewise, the tilde transcribed). Their bound is `⪅ φ(q)(M⁴∫_ℝΣ_bf_b(u)² du)^{1/2}J(f̃⃗)^{1/2}` (lines 3765–3776,

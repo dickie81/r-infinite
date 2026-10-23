@@ -28856,7 +28856,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 - A's five sites for the lead's ruling. CGL-LEAN.md's row L10.4–L10.10 gave L10.5 with "at one point per character" alone and L10.6 with "from `CGLT101`" alone. Its round-669 note and the external README's row of `LinnikCGLL105` gave `lemma105` with "at one point per character" alone. The external README's section of round 670 gave `lemma106` under "derives their Lemma 10.6 from it". Round 661's convention holds statements that give no hypotheses at all; these give some, so they are in the class. With `S` empty and `R` not, `lemma105`'s right side is `0` while `E ≥ |R|`. For `q = 1` and `|R|` copies of one point with `t = 0`, `lemma106`'s left side is `|R|²M²` at integer `M`, above its right side at `|R| = M` for large `M`, for every `C`, when `ε < 1`. All five are struck and restated.
 - B's nine docstrings in `LinnikCGLCase` and `LinnikCGLEps` (`exists_pow_eq`, `case_a`, `case_one`, `case_two`, `case_poly`, `eps_sqrt_le`, `eps_combine`, `prop102_fin` and `prop102_sum`) now list their statements' hypotheses. Review B's `docstring_cex.py` gave a counterexample to each without them, and the lead recomputed each. `natlog_le`'s "for `1 ≤ n ≤ q²`" now reads "for `n ≤ q²`", as stated. B's borderline site, round 676's entry naming `case_one` and `case_two` by their cases alone, states no inequality, and gets a marker with the hypotheses.
 
-`scratchpad/r679/siblings.py` searches for the 35 retracted phrases of this sweep. It reads the live text of this file (without this entry), the external README, CGL-LEAN.md, SIEVE-ROUTE.md and every `.lean` file in `external/pnt`, with strikes and round-679 annotations removed. It finds 37 hits at HEAD, each phrase at least once (`siblings_head.out`), and none now (`siblings_now.out`).
+`scratchpad/r679/siblings.py` searches for the 35 retracted phrases of this sweep. It reads the live text of this file (without this entry), the external README, CGL-LEAN.md, SIEVE-ROUTE.md and every `.lean` file in `external/pnt`, with strikes and round-679 annotations removed. It finds 37 hits at HEAD, ~~each phrase at least once~~ *(Round 690: retracted, false when written: the hits cover 33 of the 35 phrases; two phrases begin with a backtick that their targets lack at that position, so they could not match, and their sites were swept all the same; review of rounds 679–688, A's F3)* (`siblings_head.out`), and none now (`siblings_now.out`).
 
 **The cosmetics.**
 
@@ -28992,7 +28992,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Their text.** Re-read this round in the text layer.
 
 - The sum over `a`: "For the a-sum, we apply the basic estimate |C_q(m)| ≤ (m,q) for Ramanujan’s sum" (line 3114), "Next, by Cauchy-Schwarz" (line 3214), and "upon mapping (m₁,n,m₁′,n′) → (−m₁′,n′,−m₁,n), we have G₂(ξ) = G₁(−ξ)" (lines 3324–3327).
-- The count: "the double sum Σ_{m₁′}Σ_{n₁′} is bounded by ⪅ 1 + M₁/M₃. To see this, write s = m₁′n′. Then s is a non-zero integer lying in a fixed residue class modulo q, and it is contained in a ⪅ qM₁/M₃ neighborhood of qξ. Thus there are at most ⪅ 1 + M₁/M₃ possibilities for s, giving the claim." (lines 3358–3366.)
+- The count: "the double sum ~~Σ_{m₁′}Σ_{n₁′}~~ *(Round 690: retracted, false when written: the PDF has the summand `1` after `Σ_{n′}`, a CMR12 `1` at x = 136.1–141.9 on the baseline y = 624.0 of page 32, from `scratchpad/r662/probe/run_coords.sh 32 612 634`; review of rounds 679–688, A's F4)* Σ_{m₁′}Σ_{n′} 1 is bounded by ⪅ 1 + M₁/M₃. To see this, write s = m₁′n′. Then s is a non-zero integer lying in a fixed residue class modulo q, and it is contained in a ⪅ qM₁/M₃ neighborhood of qξ. Thus there are at most ⪅ 1 + M₁/M₃ possibilities for s, giving the claim." (lines 3358–3366.)
 - In these, spaces are restored and the sums and subscripts transcribed.
 
 **The stack's form.**
@@ -29131,8 +29131,8 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 **The stack's form.**
 
-- **Their `M₃` is `L`.** With `ξ = (m₁/L)τ + m₁n/q`, `L(n/q − ξ/m₁) = −τ` and `F(m₁, n) = Φ(n, τ)/|m₁|`, so the only dependence on `m₁` is the factor `1/|m₁|`, as in their text; the Jacobian `|m₁|/L` and `1/m₁²` give `1/(|m₁|L)`.
-- **Every `τ` is kept.** Their restriction `|τ| ⪅ 1` in (8.7) is not made; the weight `|ψ̂₀(−τ)|` stays in the integral.
+- **Their `M₃` is `L`.** With `ξ = (m₁/L)τ + m₁n/q`, `L(n/q − ξ/m₁) = −τ` and `F(m₁, n) = Φ(n, τ)/|m₁|`, so the only dependence on `m₁` is the factor `1/|m₁|`, ~~as in their text~~ *(Round 690: retracted, false when written: their text has "a 1/m₁ term" (line 3432; the subscript transcribed) and the factor `m₂/m₁` (lines 2711–2715 and 2754–2756), which for `m₁ < 0` differ in sign from the stack's `1/|m₁|` and `m₂/|m₁|`, the Jacobian; review of rounds 679–688, A's F5)*; the Jacobian `|m₁|/L` and `1/m₁²` give `1/(|m₁|L)`.
+- **Every `τ` is kept.** Their restriction `|τ| ⪅ 1` ~~in (8.7)~~ *(Round 690: retracted, false when written: (8.7) restricts `ξ`, to `|ξ − nm₁/q| ⪅ M₁/M₃` (lines 3401–3426); `|τ| ⪅ 1` enters after their change of variables (line 3440) and in their `Σ_II` (line 3498); review of rounds 679–688, A's F6)* after their change of variables is not made; the weight `|ψ̂₀(−τ)|` stays in the integral.
 - **The integral of the series over `n` is taken in `ℝ≥0∞`.** By `lintegral_tsum`, the integral of `Σ_n` is `Σ_n` of the integrals there, so only finite sums over `n` need bounds; the same bound then holds for the real integral (`setIntegral_le_of_tsum`).
 - **`|ξ| ≤ X`.** The constant of round 682's `sum_a_fourier_ga_le` grows like `(1 + q|ξ|)^δ`; on `|ξ| ≤ X` it is at most its value `K_X` at `|ξ| = |X|`. The tail `|ξ| > X` is left to a later round.
 
@@ -29196,7 +29196,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 **The stack's form.**
 
-- **The weight.** Their `ψ₂(M₂n/(qT))` is `ψ̃₀(n/N₀)`, and the sum over `n` runs over `P3 N₀`, off which the weight vanishes. `N₀` is left free here; their footnote 7's choice `ψ₂(x) = ψ₀(x/(qT)^η)` (lines 3517–3518) corresponds to `N₀ = qT(qT)^η/M₂`.
+- **The weight.** Their `ψ₂(M₂n/(qT))` is `ψ̃₀(n/N₀)`, and the sum over `n` runs over `P3 N₀`, ~~off which the weight vanishes~~ *(Round 690: retracted, false when written: only for `N₀ > 0`, which round 680's `psi0_div_eq_zero` assumes; `sum_psi_norm_Phi_sq_le` takes `N₀` free, and at `N₀ = 0` the weight is `1` at every `n` while `P3 0 = {0}`; review of rounds 679–688, B's F5)* off which, for `N₀ > 0`, the weight vanishes. `N₀` is left free here; their footnote 7's choice `ψ₂(x) = ψ₀(x/(qT)^η)` (lines 3517–3518) corresponds to `N₀ = qT(qT)^η/M₂`.
 - **Their `Σ₁ ⪅ 1` is not needed.** The factor `e((τ/L)(m₂′u′ − m₂u))` that their `Σ₁` integrates has absolute value `1`; the integral over `τ` stays outside, with round 683's weight `|ψ̂₀(−τ)|`.
 - **The expansion is an inequality.** `Σ_nw_n|Σ_pz_{n,p}|²` is the real part of `Σ_{p,p′}Σ_nw_nz_{n,p}conj(z_{n,p′})`, which is at most the sum of the absolute values. Each pair is bounded through the iterated integral `∫f_b(u)∫f_{b′}(u′)… du′ du` against a majorant `H` of the inner integral, so no integral of an integral needs to be measurable; the next round supplies `H`.
 - **Poisson summation** is round 680's `poisson_residue` with modulus `1`, after `e_q(−nk₀) = e(−nk₀/q)` for `k₀` read in `{0, …, q − 1}`.
@@ -29406,9 +29406,9 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 **The stack's form.**
 
-- **Their "negligible error"** is kept as explicit bounds, with the factors `N₀^{−(2j−2)}`, `N₀^{−(K−4)}` and `X^{−(2j−2)}`. The choice of `N₀`, `X`, `j` and `K` is left to the assembly of their Lemma 8.2.
+- **Their "negligible error"** is kept as explicit bounds, with the factors `N₀^{−(2j−2)}`, `N₀^{−(K−4)}` and `X^{−(2j−2)}`. *(round 690: the quoted "negligible error" (line 3482) is their error in `n`, which gives the factors `N₀^{−(2j−2)}` and `N₀^{−(K−4)}`; `X^{−(2j−2)}` is their negligible region `|ξ| > (qT)²` (lines 2781–2796); review of rounds 679–688, B's F1)* The choice of `N₀`, `X`, `j` and `K` is left to the assembly of their Lemma 8.2.
 - **The terms `|n| > N₀`.** For `|τ| ≤ L|n|/(2q)`, `|n/q + τ/L| ≥ |n|/(2q)`, so every `f̂_b` in `Φ(n, τ)` is evaluated at a point of size at least `M₂|n|/(2q)`, where the premise applies. For larger `|τ|`, `|ψ̂₀(−τ)| ≤ C_K(1 + |τ|)^{−K} ≤ C_K(1 + L|n|/(2q))^{−(K−2)}(1 + τ²)⁻¹`, and `|Φ(n, τ)| ≤ PF`.
-- **The range `|ξ| > X`** is the stack's: round 683's count carries the factor `(1 + q|X|)^δ`, which grows with `X`, so round 683 integrates over `|ξ| ≤ X` only. Round 680's formula for `ĝ_a` gives `|ĝ_a(ξ)| ≤ G₁|ξ|^{−j}`, since each `f̂_b` there is evaluated at `m₂ξ/m₁`, of size at least `M₂|ξ|/(2M₁)`, and the sum over `m₃` has at most `#P3` terms, each at most `q`. Then `|ξ|^{−2j} ≤ 2X^{−(2j−2)}(1 + ξ²)⁻¹` for `|ξ| > X ≥ 1`, and `∫(1 + ξ²)⁻¹ dξ = π`.
+- **The range `|ξ| > X`** ~~is the stack's~~ *(Round 690: retracted, false when written: their proof splits at `|ξ| = (qT)²` and discards `|ξ| > (qT)²` by the decay of `Σ_b|f̂_b|` (lines 2781–2794): "Thus, the contribution from the region |ξ| > (qT)² is negligible and our analysis can focus on the range |ξ| ≤ (qT)²." (lines 2795–2796; spaces restored, the exponents transcribed). The stack's `X` is their `(qT)²`; review of rounds 679–688, B's F1, a MAJOR)*: round 683's count carries the factor `(1 + q|X|)^δ`, which grows with `X`, so round 683 integrates over `|ξ| ≤ X` only. Round 680's formula for `ĝ_a` gives `|ĝ_a(ξ)| ≤ G₁|ξ|^{−j}`, since each `f̂_b` there is evaluated at `m₂ξ/m₁`, of size at least `M₂|ξ|/(2M₁)`, and the sum over `m₃` has at most `#P3` terms, each at most `q`. Then `|ξ|^{−2j} ≤ 2X^{−(2j−2)}(1 + ξ²)⁻¹` for `|ξ| > X ≥ 1`, and `∫(1 + ξ²)⁻¹ dξ = π`.
 
 **What changed in the files.**
 
@@ -29583,3 +29583,82 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** The choice of the parameters, `X = (qT)³`, `N₀ = (qT)^{1+η}/M₂`, `L = (|κ| + 1)M`, and `δ`, `η`, `j` and `K` from the target exponent, to bound round 688's right side by `C(qT)^θ(φ(q)M⁶F² + qM²(∫Σ_bf_b²)^{1/2}J̃^{1/2})`.
+
+## Round 690: sweep of the batched review of rounds 679–688 (one MAJOR, one minor, eleven cosmetics)
+
+**The review.** By the owner's decision of 2026-10-22, one review covered rounds 680–688, the block that assembles their Lemma 8.2 with explicit constants, with round 679's sweep (its convergence review). Two `hostile-reviewer` agents ran at ee7f889 (briefs `scratchpad/r688/review/common.md`, `brief_A.md` and `brief_B.md`). Round 689 (a97eeb3), committed while they worked, touches none of the sites they cite.
+
+- Review A, round 679's sweep (f6df7fd) and rounds 680–683 (eee7ee4 to ad136c9): one minor, seven cosmetics and one out-of-scope observation. It held the majorant ("`gJ_le_ga` is exact"), Plancherel, Poisson summation in residue classes, the count with its factor `(1 + q|ξ|)^δ`, and `integral_gstar_le` with its side conditions. It found round 679's sweep at its sites except one sibling of its minor class (its F1) and one marker (its F2).
+- Review B, rounds 684–688 (4b138dc to ee7f889): one MAJOR, four cosmetics and one out-of-scope observation. It held round 687's derivation of its premise from `CGLP81`'s ("The derivation is correct in every quantifier"), and `KX`, `BJ`, `Btail` and `G1` against the right-hand sides they name ("symbol for symbol").
+
+Both batteries passed: `k_decimals.py` at ee7f889, the render lint at every commit of the block (CGL-LEAN.md 0, the external README 5, this file 1872 and SIEVE-ROUTE.md 25 throughout), every build figure against its log, each round's `quotes.py`, and the grep checks of the block's Lean files. Both reports came back as messages, since the harness refused the reviewers' writes. The lead saved them verbatim to `scratchpad/r688/review/A/report.md` and `B/report.md`.
+
+The lead verified each finding at its source before accepting it (the reads are under Check 1). Every finding is accepted at its proposed severity: one MAJOR, one minor and eleven cosmetics. No Lean statement changes; comments in seven Lean files are corrected in place.
+
+**The MAJOR: the range `|ξ| > X` is theirs too** (B's F1). Round 687 said, in `LinnikCGLTail.lean`'s header and in its entry, that the range `|ξ| > X` "is the stack's", since round 683's count carries the factor `(1 + q|X|)^δ`. That misreports the paper. Their proof splits at `|ξ| = (qT)²`. For `|ξ| > (qT)²` the decay of `Σ_b|f̂_b|` gives `|ĝ_a(ξ)| ≪ (qT)^{−101}|ξ|^{−2}` (lines 2781–2787, transcribed) and an integral `O((qT)^{−100})` (lines 2788–2794), and "Thus, the contribution from the region |ξ| > (qT)² is negligible and our analysis can focus on the range |ξ| ≤ (qT)²." (lines 2795–2796; spaces restored, the exponents transcribed).
+
+- The stack's `X` is their `(qT)²`, and round 687's `|ĝ_a(ξ)| ≤ G₁|ξ|^{−j}` is the explicit form of their bound.
+- Review B proposed MAJOR under its brief's rule for claims about the paper, and the lead takes it: the sentence says the paper leaves the range out.
+- Struck in round 687's entry, and corrected in `LinnikCGLTail.lean`'s header, whose later line on their negligible errors (with the factor `X^{−(2j−2)}`) now agrees with it. CGL-LEAN.md's round-687 note, true as written, gets a marker with their split.
+- The same entry sourced the factor `X^{−(2j−2)}` to their "negligible error" (line 3482), which is their error in `n`. A marker there gives both sources.
+
+**The minor: `sum_triple_le`'s docstring** (A's F1). It gave the bound "for `|b_n| ≤ 1`" without `S` of positive integers. This is the class round 679 swept (a statement that lists some of a theorem's hypotheses but omits one without which it fails), in a file round 679 edited for that class.
+
+- Without it the bound fails. Take `q = 1`, two points with `t₁ = 0` and `t₂ = π/log 2`, `S = {0, 2}`, `b ≡ 1` and `y = 0`. With Lean's `0^z = [z = 0]` and `log 0 = 0`, the left side is `17`: the three triples with `t_i + t_j − t_k = 0` give `4` each, and the other five give `1`. The right side is `16`: `R₂(0, 0) = R₂(2, 2) = 2`, and `R₂(0, 2) = R₂(2, 0) = 1 + e^{∓iπ} = 0`. The lead recomputed it.
+- Corrected in place. The other descriptions of `sum_triple_le` hold: the file's header and round 669's entry give their statements for `S ⊆ [N, 2N]` with `N > 0`, and round 679 restated the external README's bullet.
+
+**The cosmetics.**
+
+- **Their Cauchy–Schwarz** (B's F2). Round 686's header said their sentence "combining the bounds M₁, M₂, M₃ ≤ M with the Cauchy-Schwarz inequality" finishes their bound for `Σ_II`. Their bound for `Σ_II` ends at line 3619. They put it into (8.8) (line 3620), and the step bounds `M₃²∫_ℝG₁(ξ) dξ` (lines 3663–3666). The stack takes the step inside its bound of `Σ_II`. Corrected in `LinnikCGLJtil.lean`; round 686's entry ("The step: …") makes no such claim.
+- **"With explicit constants"** (B's F3). True, but the bound also keeps three explicit forms of their negligible errors: `2πφ(q)G₁²X^{−(2j−2)}` (their `O((qT)^{−100})`), `B_tail` (their error in `n`, line 3482) and the term `EP²F²` of `B_J` (their `O((qT)^{−50})`, line 3619). `LinnikCGLL82.lean`'s header now says so, and CGL-LEAN.md's rows P8.1 and L8.2 get markers.
+- **Round 687's row** in the external README (B's F4) gave the premise without "for `ξ ≠ 0`" and outside its list of hypotheses. A marker.
+- **"Off which the weight vanishes"** (B's F5) holds only for `N₀ > 0`, which round 680's `psi0_div_eq_zero` assumes. `sum_psi_norm_Phi_sq_le` takes `N₀` free: at `N₀ = 0` the weight is `1` at every `n`, while `P3 0 = {0}`. Scoped in `LinnikCGLSig2.lean`, and struck and restated in round 684's entry.
+- **Remark 10.3 in row L10.4–L10.10** (A's F2). CGL-LEAN.md's row gave `remark103` as "Remark 10.3" with the constant `8` and without the marker that round 679's own criterion calls for. A marker.
+- **The census of round 679** (A's F3). Its entry said the 37 hits covered "each phrase at least once". They cover 33 of the 35 phrases: two begin with a backtick that their targets lack at that position, so they could not match. Their sites were swept all the same: with the backticks removed, the two phrases hit README.md:28366 and `LinnikCGLEps.lean:107` at eb4f08d and neither at f6df7fd (review A's `siblings_fixed2.py`, rerun by the lead, `scratchpad/r690/f3_probe.out`). Struck.
+- **The double sum** (A's F4). Round 681's quotation wrote their `Σ_{m₁′}Σ_{n′} 1` as `Σ_{m₁′}Σ_{n₁′}`. On PDF page 32 a CMR12 `1` stands at x = 136.1–141.9 on the baseline y = 624.0 of "is bounded by", after the subscript `n′` (x = 125.8–133.1); the subscript `1` of `m₁′` is CMR6 (`scratchpad/r662/probe/run_coords.sh 32 612 634`). A second quotation in the same file left the sum out. Corrected in `LinnikCGLCount.lean`, and struck and restated in round 681's entry.
+- **`1/|m₁|`** (A's F5). Their factor is `m₂/m₁` (lines 2711–2715 and 2754–2756), and their text has "a 1/m₁ term" (line 3432; the subscript transcribed). For `m₁ < 0` the stack's `m₂/|m₁|`, the Jacobian, differs from it in sign. "As in their text" is struck in round 683's entry, and a marker on CGL-LEAN.md's round-680 note declares the difference.
+- **`|τ| ⪅ 1`** (A's F6). Their (8.7) restricts `ξ` (lines 3401–3426); `|τ| ⪅ 1` enters after their change of variables (line 3440) and in their `Σ_II` (line 3498). Struck in round 683's entry.
+- **"Its proof opens"** (A's F7). Their §8.2.1 first rescales `f⃗` (line 2623), then introduces `ψ₁`. Corrected in `LinnikCGLG.lean`.
+- **`rpow_mul_lor_sq_le`** (A's F8). The external README's second clause, which starts its own list, omitted `Λ > 0`. At `Λ = 0`, `L_{1/0} ≡ 1`, so `δ = 1`, `q = 1`, `ξ = 0` and `s = 100` give `100 > 2`. A marker.
+
+**Out of scope.**
+
+- A's O1: rounds 682 and 683's `quotes.py` exit 0 even when they print "QUOTES FAIL". Their entries read the printed verdict, so their PASS stands. From this round on, `quotes.py` exits 1 on a failure: `scratchpad/r690/quotes_sab.py`, a copy with one quotation changed, prints "QUOTES FAIL" and exits 1.
+- B's O1, a plan note: each application of round 688's bound leaves `J̃` at `(|A| + 2/T, 4|A| + 2)` with a new `D`, which `CGLP81`'s quantifiers over `A`, `κ` and `D` cover. Held for the induction.
+
+**What is checked.**
+
+- `scratchpad/r690/apply.py` makes 22 edits in ten files: the comments of seven Lean files, this file, the external README and CGL-LEAN.md. Each edit's old text occurs once and its new text not at all. Run a second time, its first version re-applied the five markers whose new text contains their old text; this file and CGL-LEAN.md were restored from HEAD, the check was fixed (an edit whose new text is present is skipped), and the script was run once more. Run again on the swept tree, it reports 0 problems and writes no file (`apply_rerun.out`).
+- `scratchpad/r671/codeonly.py` prints "code identical (comments stripped): True" for each of the seven Lean files against HEAD (`scratchpad/r690/codeonly.out`). `apply.py` checks that no line of them is over 120 characters.
+- `scratchpad/r690/siblings.py` searches for the 12 retracted or corrected phrases. It reads the live text of this file (without this entry), the external README, CGL-LEAN.md, SIEVE-ROUTE.md and every `.lean` file in `external/pnt`, with strikes and round-690 annotations removed. It finds 14 hits at HEAD, covering all 12 phrases (`siblings_head.out`), and none now (`siblings_now.out`).
+- `scratchpad/r690/quotes.py` checks this round's five quotations against the text layer (`quotes.out`: PASS).
+- Then `build.sh` ran once (`scratchpad/r690/compile.sh 1`, log `build_1.log`): `22 compiled, 404 up to date` (the seven files and their dependents, `LinnikCGLL105` through `LinnikCGLS3` and `LinnikCGLG` through `LinnikCGLConst`, 7–31 s each), exit 0 in 287 s, with no error, warning or `sorry`; the one log line containing "error" is the axiom line of `Linnik.error_le`. Its 757 axiom lines are 108 by the modules and 649 by the final check, as before; 744 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 7.11 GiB (`rss_watch_build_1.log`).
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r690/gate.out`): this file 1872 → 1872, `external/pnt/README.md` 5 → 5 and CGL-LEAN.md 0 → 0, none new, and `k_decimals.py` PASS.
+
+**Marks.**
+
+- This file: strikes in the entries of rounds 679, 681, 683 (two), 684 and 687; a marker in round 687's entry.
+- `external/pnt/README.md`: markers in the row of `LinnikCGLTail` and in round 681's section.
+- `frontier/linnik/CGL-LEAN.md`: markers in rows P8.1, L8.2 and L10.4–L10.10, and on the M4 notes of rounds 680 and 687.
+- `external/pnt/LinnikCGLTail.lean`, `LinnikCGLJtil`, `LinnikCGLL82`, `LinnikCGLSig2`, `LinnikCGLL105`, `LinnikCGLCount` and `LinnikCGLG`: comments corrected in place, and rebuilt.
+
+**Check 1** (direct reads this round):
+
+- The two reports in full.
+- The text layer: lines 2617–2632 (§8.2.1's opening), 2706–2718 and 2746–2773 (their `m₂/m₁`), 2774–2800 (their split at `(qT)²`), 3354–3368 (the double sum), 3398–3442 (their (8.7) and their change of variables), 3490–3500 (their `Σ_II`) and 3608–3672 (their (8.8) and the step by Cauchy–Schwarz).
+- PDF page 32 at y = 612–634 (`run_coords.sh 32 612 634`).
+- The operative statements, re-read at this commit's lines: `R2` and `sum_triple_le` (`LinnikCGLL105.lean` 212 and 284), `sum_psi_norm_Phi_sq_le` (`LinnikCGLSig2.lean` 182), `P3` and `psi0_div_eq_zero` (`LinnikCGLG.lean` 91 and 94), `rpow_mul_lor_sq_le` (`LinnikCGLCount.lean` 165), `setIntegral_ga_tail_le` (`LinnikCGLTail.lean` 404) and `lemma82_explicit` (`LinnikCGLL82.lean` 148), and the headers of `LinnikCGLTail`, `LinnikCGLJtil`, `LinnikCGLL82`, `LinnikCGLSig2`, `LinnikCGLCount` and `LinnikCGLG`.
+
+**Check 4.** Every finding is novel in the lead's classification: none is in `PREDICTIONS.md`'s Tier 5 or the plan's open questions. Both reviews classify their findings as novel.
+
+**Check 9.**
+
+- (a) This round's universals: "every finding is accepted" (each is listed above with its verification); "each edit's old text occurs once" (`apply.py`); "none now" (`siblings.py`, over its 12 phrases); and "at every `n`" (at `N₀ = 0`, `n/N₀ = 0` in Lean, and `ψ̃₀(0) = 1`).
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of 2026-10-22, the convergence review of this sweep, owed for its MAJOR and minor, runs with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** Their Lemma 8.2 in their form: round 688's bound with the parameters chosen (round 691).

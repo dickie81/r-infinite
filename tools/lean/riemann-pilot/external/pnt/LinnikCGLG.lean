@@ -4,13 +4,14 @@
 Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
 Chen–Gupta–Li prove their Proposition 8.1 (round 662's displayed hypothesis `LinnikCGLJ.CGLP81`) from their Lemma 8.2.
-Its proof opens: "Let ψ₁(x) be a smooth bump function supported on |x| ≪ 1, such that ψ₁(m₃/M₃) majorizes the
-summation condition |m₃| ≪ M₃. Then we can bound the inner double sum in J(f⃗) by" (lines 2623–2625; spaces restored,
-the line-break hyphen removed, the subscripts transcribed, the arrow over `f` written `f⃗`), followed by their `g_a(u)`,
-the sum over `b`, `|m₁| ∼ M₁`, `m₂ ∼ M₂` and `m₃ ∈ ℤ` of `ψ₁(m₃/M₃)f_b((m₁u + m₃)/m₂)(am₁ + bm₂ + m₃, q)` (lines
-2626–2643). Then: "By applying Plancherel’s theorem for the choice of M₁, M₂, M₃ that achieves the supremum, we
-obtain" (lines 2644–2645; the same allowances) `J(f⃗) ≤ Σ_a∫|g_a(u)|² du = Σ_a∫|ĝ_a(ξ)|² dξ` (lines 2646–2658), and
-the change of variables `u = ũ − m₃/m₁` gives `ĝ_a` (lines 2659–2715).
+Its proof first rescales `f⃗` (line 2623), then: "Let ψ₁(x) be a smooth bump function supported on |x| ≪ 1, such
+that ψ₁(m₃/M₃) majorizes the summation condition |m₃| ≪ M₃. Then we can bound the inner double sum in J(f⃗) by"
+(lines 2623–2625; spaces restored, the line-break hyphen removed, the subscripts transcribed, the arrow over `f`
+written `f⃗`), followed by their `g_a(u)`, the sum over `b`, `|m₁| ∼ M₁`, `m₂ ∼ M₂` and `m₃ ∈ ℤ` of
+`ψ₁(m₃/M₃)f_b((m₁u + m₃)/m₂)(am₁ + bm₂ + m₃, q)` (lines 2626–2643). Then: "By applying Plancherel’s theorem for the
+choice of M₁, M₂, M₃ that achieves the supremum, we obtain" (lines 2644–2645; the same allowances)
+`J(f⃗) ≤ Σ_a∫|g_a(u)|² du = Σ_a∫|ĝ_a(ξ)|² dξ` (lines 2646–2658), and the change of variables `u = ũ − m₃/m₁` gives
+`ĝ_a` (lines 2659–2715).
 
 The stack's form.
 * `ψ₁(m₃/M₃)` is `ψ̃₀(m₃/L)` (round 656's `psi0`, `1` on `[−1, 1]` and `0` off `(−2, 2)`), for any `L` with

@@ -279,7 +279,7 @@ theorem sum_triple_eq (hS : ∀ n ∈ S, 0 < n) (y : ℝ) :
   simp only [sq, Finset.sum_mul, Finset.mul_sum]
   exact sum3_comm R _
 
-/-- **The triples bounded**: for `|b_n| ≤ 1`,
+/-- **The triples bounded**: for `S` of positive integers and `|b_n| ≤ 1`,
 `Σ_{i,j,k}|D_{c_{ijk}}(t_i + t_j − t_k + y)|² ≤ Σ_{n₁,n₂∈S}|R₂(n₁, n₂)|³`. -/
 theorem sum_triple_le (hS : ∀ n ∈ S, 0 < n) (hb : ∀ n, ‖b n‖ ≤ 1) (y : ℝ) :
     ∑ i ∈ R, ∑ j ∈ R, ∑ k ∈ R, ‖Dp S (ct χ b i j k) (t i + t j - t k + y)‖ ^ 2 ≤
