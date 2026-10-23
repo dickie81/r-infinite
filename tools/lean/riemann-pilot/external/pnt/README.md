@@ -210,6 +210,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLJtil.lean` | 686 | Chen–Gupta–Li's Cauchy–Schwarz back to `J(f̃⃗)`, for the terms `\|n\| ≤ N₀` of `Σ_II`: for `q ≥ 1`, smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `T ≥ 1`, `N₀ > 0`, `M₂ > 0` and `K ≥ 2`, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)\|Φ(n, τ)\|² ≤ N₀C_K((4M₂²/(qT))√𝔖√J̃ + EP²F²)` for every `L` and `τ` (`sum_psi_norm_Phi_sq_le_J`) |
 | `LinnikCGLTail.lean` | 687 | The terms `\|n\| > N₀` of `B_II` and the range `\|ξ\| > X` of `ĝ_a`, by the decay premise `Σ_b\|f̂_b(ξ)\| ≤ D(T/\|ξ\|)^jΛ`: for smooth `f_b` that are `0` for `\|u\| > A`, `M₁, M₂ > 0`, `X ≥ 1`, `T, D, Λ ≥ 0` and `j ≥ 1`, `∫_{\|ξ\|>X}Σ_a\|ĝ_a(ξ)\|² dξ ≤ 2πφ(q)G₁²X^{−(2j−2)}` (`setIntegral_ga_tail_le`) |
 | `LinnikCGLL82.lean` | 688 | Chen–Gupta–Li's Lemma 8.2 with explicit constants: for smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `M₁, M₂, L > 0` with `κM₃ ≤ L`, `0 < δ ≤ 1`, `X ≥ 1`, `T ≥ 1`, `N₀ > 0`, `K ≥ 4`, `j ≥ 1`, `D, Λ ≥ 0` and the decay premise, `Jint(f, M₁, M₂, M₃, κ) ≤ 2φ(q)W₀²(2πM₁/L) + 2K_XΣ_{m₁}(I₀B_J + B_tail)/(\|m₁\|L) + 2πφ(q)G₁²X^{−(2j−2)}` (`lemma82_explicit`) |
+| `LinnikCGLConst.lean` | 689 | The bounds of round 688's constants that do not depend on the parameters: `Σ_{h mod q}(h, q) ≤ q·d(q)` (`sum_gw_le`), `n ≤ φ(n)d(n)` (`le_totient_mul_card_divisors`), `W₀ ≤ 200B₄L·d(q)M₂²F` (`W0_le`), `K_X ≤ 40πC_δB₄d(q)⁴L²q(1 + qX)^δ(1 + 2q)^δ` (`KX_le`), each with its hypotheses as below |
 
 ## Building (rounds 217, 618)
 
@@ -1312,3 +1313,16 @@ Round 688 assembles rounds 680 to 687 into Chen–Gupta–Li's Lemma 8.2 with ex
 - `lemma82_explicit`: for smooth `f_b ≥ 0` that are `0` for `|u| > A`, `M₁, M₂, L > 0` with `κM₃ ≤ L`, `0 < δ ≤ 1`, `X ≥ 1`, `T ≥ 1`, `N₀ > 0`, `K ≥ 4`, `j ≥ 1`, `D, Λ ≥ 0` and the decay `Σ_b|f̂_b(ξ)| ≤ D(T/|ξ|)^jΛ` for `ξ ≠ 0`, `Jint(f, M₁, M₂, M₃, κ) ≤ 2φ(q)W₀²(2πM₁/L) + 2K_XΣ_{m₁∈P1 M₁}(I₀B_J + B_tail)/(|m₁|L) + 2πφ(q)G₁²X^{−(2j−2)}`.
 
 See the main README, round 688, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 647 lines.
+
+## The constants of their Lemma 8.2: LinnikCGLConst.lean (round 689)
+
+Round 689 bounds the constants of round 688's Lemma 8.2 that do not depend on the choice of the parameters, with `q ≥ 1`, `d(q)` the number of divisors of `q`, `B₄` round 681's `B4`, `C_δ` round 525's `Cdiv` and `F = Σ_b∫f_b`.
+
+- `card_Icc_ceil_le`, `card_P1_le`, `card_P2_le`, `card_P3_le`, `sum_P2_le`: for `x ≥ 0`, the integers in `[−⌈x⌉, ⌈x⌉]` number at most `2x + 3`; hence, for `M₁, M₂, L ≥ 0`, `#P1 M₁ ≤ 4M₁ + 3`, `#P2 M₂ ≤ 4M₂ + 3`, `#P3 L ≤ 4L + 3` and `Σ_{m₂∈P2 M₂}m₂ ≤ (4M₂ + 3)·2M₂`.
+- `P1_eq_empty`, `P2_eq_empty`, `Jint_eq_zero`: for `M₁ < 1/2`, `P1 M₁ = ∅`; for `M₂ < 1/2`, `P2 M₂ = ∅`; and if `M₁ < 1/2` or `M₂ < 1/2`, `Jint(f, M₁, M₂, M₃, κ) = 0` for every `f`, `M₃` and `κ`.
+- `card_dvd_val_le`, `sum_gw_le`: for `d ∣ q`, `#{h mod q : d ∣ h} ≤ q/d`; and `Σ_{h mod q}(h, q) ≤ q·d(q)`.
+- `le_totient_mul_card_divisors`: `n ≤ φ(n)d(n)` for every natural number `n`.
+- `W0_le`: for `f_b ≥ 0`, `M₁, M₂ ≥ 1/2` and `L ≥ 0`, round 682's `W₀ ≤ 200B₄L·d(q)M₂²F`.
+- `KX_le`: for `L > 0`, `0 ≤ M₁ ≤ L`, `X ≥ 0` and `0 < δ ≤ 1`, round 683's `K_X ≤ 40πC_δB₄d(q)⁴L²q(1 + qX)^δ(1 + 2q)^δ`.
+
+See the main README, round 689, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 649 lines.

@@ -29518,3 +29518,68 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** The choice of the parameters and the bounds of the constants: `d(q) ≤ C_δq^δ`, `Σ_h(h, q) ≤ qd(q)`, the sizes of `P1`, `P2` and `P3`, and `Λ ≤ 16D₂(qT)²Σ_b∫f_b` for `Λ = φ(q)f_{b₀}(u₀)`, toward their form `J(f⃗) ⪅ φ(q)M⁶(∫Σ_bf_b)² + φ(q)(M⁴∫Σ_bf_b²)^{1/2}J(f̃⃗)^{1/2}`; then the properties of `f̃` and the induction.
+
+## Round 689: the constants of their Lemma 8.2 (stage M4; `external/pnt/LinnikCGLConst.lean`)
+
+**The results.** Below, `q ≥ 1`, `d(q)` the number of divisors of `q`, `φ` Euler's function, `B₄` round 681's `B4`, `C_δ` round 525's `Cdiv`, `F = Σ_b∫f_b`, and `W₀` and `K_X` round 688's `W0` and `KX`.
+
+- `LinnikCGLConst.card_Icc_ceil_le`, `card_P1_le`, `card_P2_le`, `card_P3_le`, `sum_P2_le`: for `x ≥ 0`, the integers in `[−⌈x⌉, ⌈x⌉]` number at most `2x + 3`; hence, for `M₁, M₂, L ≥ 0`, `#P1 M₁ ≤ 4M₁ + 3`, `#P2 M₂ ≤ 4M₂ + 3`, `#P3 L ≤ 4L + 3` and `Σ_{m₂∈P2 M₂}m₂ ≤ (4M₂ + 3)·2M₂`.
+- `LinnikCGLConst.P1_eq_empty`, `P2_eq_empty`, `Jint_eq_zero`: for `M₁ < 1/2`, `P1 M₁ = ∅`; for `M₂ < 1/2`, `P2 M₂ = ∅`; and if `M₁ < 1/2` or `M₂ < 1/2`, round 662's `Jint(f, M₁, M₂, M₃, κ) = 0` for every `f`, `M₃` and `κ`.
+- `LinnikCGLConst.card_dvd_val_le`, `sum_gw_le`: for `d ∣ q`, at most `q/d` residues `h mod q` have `d ∣ h`; and `Σ_{h mod q}(h, q) ≤ q·d(q)`.
+- `LinnikCGLConst.le_totient_mul_card_divisors`: `n ≤ φ(n)d(n)` for every natural number `n`.
+- `LinnikCGLConst.W0_le`: for `f_b ≥ 0`, `M₁, M₂ ≥ 1/2` and `L ≥ 0`, `W₀ ≤ 200B₄L·d(q)M₂²F`.
+- `LinnikCGLConst.KX_le`: for `L > 0`, `0 ≤ M₁ ≤ L`, `X ≥ 0` and `0 < δ ≤ 1`, `K_X ≤ 40πC_δB₄d(q)⁴L²q(1 + qX)^δ(1 + 2q)^δ`.
+
+**Their text.** Re-read this round in the text layer.
+
+- Their gcd sums: "when q|n, the only dependence on d is (d,q) and we have that" (lines 2892–2893), then their `Σ_{d mod q}(d, q)/q ⪅ 1` (lines 2893–2896), transcribed; they use the same estimate again at lines 3210–3214.
+- In the quote, spaces are restored. `scratchpad/r689/quotes.py` checks it against the text layer with spaces removed (`quotes.out`: PASS).
+
+**The stack's form.**
+
+- **Their `Σ_{d mod q}(d, q)/q ⪅ 1`** is `Σ_{h mod q}(h, q) ≤ q·d(q)`, with `d(q) ≤ C_δq^δ` round 525's `card_divisors_le`. The proof bounds each `(h, q)` by the sum of the divisors `d` of `q` with `d ∣ h`, exchanges the sums, and counts the residues with `d ∣ h` through the injective map `h ↦ h/d` into `{0, …, q/d − 1}`.
+- **`q ≤ φ(q)d(q)`** comes from Euler's product `φ(n)Π_{p∣n}p = nΠ_{p∣n}(p − 1)` (Mathlib's `Nat.totient_mul_prod_primeFactors`), `p ≤ 2(p − 1)`, and `d(n) = Π_{p∣n}(v_p(n) + 1) ≥ 2^{ω(n)}`.
+- **The sizes of `P1`, `P2` and `P3`** are bounded by their enclosing intervals, which is enough for the choice of the parameters.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLConst.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`sum_gw_le`, `KX_le`).
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1, a note under M4, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section for the file.
+
+**What is checked.**
+
+- `LinnikCGLConst` was compiled in scratch in six runs (`scratchpad/r689/run.sh`, `lcj1.out` to `lcj6.out`). The last had exit 0, and its only messages were the five axiom lines, all `[propext, Classical.choice, Quot.sound]`.
+- The fixes: `omega` needed `abs_lt` before it could use `|m| < 1`; Mathlib's `Finset.prod_le_prod'` is deprecated, and its replacement `Finset.prod_le_prod` takes one hypothesis; an unused hypothesis `d > 0` was dropped from `card_dvd_val_le`; and a rewrite before an `unfold` was removed.
+- Then `build.sh` ran once (`scratchpad/r689/compile.sh 1`, log `build_1.log`): `1 compiled, 425 up to date` (`LinnikCGLConst` 10 s), exit 0 in 21 s, with no error, warning or `sorry`. Its 654 axiom lines are 5 by the module and 649 by the final check; 641 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.94 GiB (`rss_watch_build_1.log`).
+- The files have no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no new line over 120 characters.
+- `scratchpad/r689/apply_docs.py` makes the six edits to CGL-LEAN.md and the external README, each asserted to occur once; run again, it writes nothing.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r689/gate.out`): the render lint against HEAD as multisets, with none new, and `k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1 gains round 689 in its stack cell and a net-state marker; M4 gains a note; the opening's parenthetical gains round 689.
+- `external/pnt/README.md`: a row, and a section for the file.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- In the text layer: lines 2888–2900 and 3205–3222, their gcd sums, line by line.
+- The operative definitions: round 680's `P1`, `mem_P1`, `P2`, `mem_P2` and `P3` (`LinnikCGLG.lean` 55, 58, 73, 76 and 90); round 662's `setJ`, `mem_setJ`, `gJ` and `Jint` (`LinnikCGLJ.lean` 110, 115, 149 and 153); round 681's `gw` and `B4` (`LinnikCGLCount.lean` 209 and 55); round 682's `W0` (`LinnikCGLN0.lean` 117); round 688's `KX` (`LinnikCGLL82.lean`); and round 525's `Cdiv`, `one_le_Cdiv` and `card_divisors_le` (`LinnikPower.lean` 62, 64 and 69).
+- Mathlib's `Int.card_Icc`, `Int.toNat_of_nonneg`, `Nat.totient_mul_prod_primeFactors`, `Nat.card_divisors`, `Nat.support_factorization`, `Nat.div_lt_div_of_lt_of_dvd`, `Finset.card_le_card_of_injOn` and `ZMod.val_injective`.
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** Rounds 680 to 688 are under the batched hostile review launched at ee7f889; this round goes to the next block's review.
+
+**Bearing on RH:** none.
+
+**The next step.** The choice of the parameters, `X = (qT)³`, `N₀ = (qT)^{1+η}/M₂`, `L = (|κ| + 1)M`, and `δ`, `η`, `j` and `K` from the target exponent, to bound round 688's right side by `C(qT)^θ(φ(q)M⁶F² + qM²(∫Σ_bf_b²)^{1/2}J̃^{1/2})`.
