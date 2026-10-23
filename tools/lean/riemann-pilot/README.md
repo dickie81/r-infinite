@@ -30495,3 +30495,43 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** The owner's instruction of 2026-10-21 to record the hypothetical gains: the measured gain of keeping the evaluable parts of the dropped terms, in `frontier/linnik/SIEVE-ROUTE.md` §23.
+
+## Round 703: the measured gains of two refinements of the sieve certificate (`frontier/linnik/evalparts_probe.py`; SIEVE-ROUTE.md §28)
+
+**The step.** The owner's instruction of 2026-10-21, quoted in SIEVE-ROUTE.md §23: "We should record these hypothetical gains in the paper. I don't want to be piped by someone claiming lower bounds." §23 lists what would move the route's limits. Two of its items were not measured: keeping the evaluable parts of the dropped terms, for which round 577 had a scratch Monte Carlo that was not committed, and Buchstab's `ω` in place of the certificate's crude bound. This round commits a probe that measures both on the curve `g7c`, and records the figures in a new §28.
+
+**The probe.** `evalparts_probe.py` estimates the loss `total/K` by a midpoint sum on `route_limits.replay`'s grid, with its rules, at `n₂ = 200` cells a side for `(α₁, α₂)` and `n₃ = 100` for `α₃` and `α₄`, with seed 7, on the windows of `route_limits.window`'s sampled scan for `g7c`. For each `L` it prints five estimates: with the certificate's crude `ω`; with Buchstab's `ω`; and with Buchstab's `ω` and the evaluable parts of the dropped terms kept for at most two, at most three, or any number of primes in the rough part. A part is evaluable when some subset sum of the prime exponents of `n` lies in the Type II window or its reflection, `(u₁, u₂) ∪ (1 − u₂, 1 − u₁)`. Its gate: at `L = 9/4` the crude estimate lies within 3% of `route_limits.fits`'s extrapolation `a` of the replays, and the five estimates decrease in the order printed. It exits 1 otherwise.
+
+**The figures** (`scratchpad/r703/probe.out`). At `L = 9/4` the five estimates are `0.9042`, `0.8948`, `0.7552`, `0.7173` and `0.7096`, and the crude one lies `−0.37%` from `a = 0.9076`. Interpolated linearly in `L` between the rows, the estimated loss crosses `1` at about `L = 2.2468` with the crude `ω`, `2.2464` with Buchstab's `ω`, and `2.2409`, `2.2376` and `2.2360` with the parts kept for at most two, at most three and any number of primes (`scratchpad/r703/cross.out`). So Buchstab's `ω` alone is worth about `0.0004` in `L`, and the evaluable parts with it about `0.006` to `0.011`. None of these is a certificate.
+
+**What changed in the files.**
+
+- `frontier/linnik/evalparts_probe.py`: new. Round 700's scratch probe (`scratchpad/r700/avenue/evalparts_probe.py`), with two docstring edits: the round number filled in, and one sentence reworded to say that the probe keeps the evaluable parts, in place of "so only the non-evaluable part need be dropped".
+- `frontier/linnik/SIEVE-ROUTE.md`: §28 (the method, the gate, the table of the five rows and what they give), and markers in §11 ("Two routes are on record") and in §23 (the heading of "What would move the limits" and its second and third items).
+
+**What is checked.**
+
+- `scratchpad/r703/apply_docs.py` copies the probe and makes five edits to SIEVE-ROUTE.md, §28 among them. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing (`apply_docs.out`, `apply_docs_rerun.out`).
+- The committed probe ran from its directory (`PYTHONDONTWRITEBYTECODE=1 nice -n 19 python3 -I evalparts_probe.py`, `scratchpad/r703/probe.out`): `EVALPARTS PASS`, exit 0, in 81 s. Its 5 rows are identical to those of round 700's scratch run (`scratchpad/r700/avenue/probe_run1.out`).
+- `scratchpad/r703/probe_sab.py`, the probe with its 3% tolerance cut to `0.1%`, exits 1 (`probe_sab.out`), so the gate can fail.
+- `scratchpad/r703/cross.py` computes the crossings from the probe's printed rows (`cross.out`).
+- `scratchpad/r703/quotes_entry.py` checks every quotation in this entry and in the lines the round adds (`quotes_entry.out`: 19 quotations, PASS). Of an untracked Python file it reads the module docstring only, since the file's other double-quoted spans are code; the new probe's docstring quotes "What would move the limits". It exits 1 on a failure.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r703/gate.out`): the render lint of the four surfaces, none new, and `k_decimals.py` PASS. The figures of §28 carry no `K`, so `k_decimals.py` does not read them.
+
+**Check 1** (direct reads this round):
+
+- `route_limits.py`'s `replay` (lines 203–272): the candidates of depth 2, the decomposition's condition, the tests of depth 4 and `omK`, which the probe follows with midpoints in place of cells.
+- The probe in full, written in round 700's session and re-read this round.
+- SIEVE-ROUTE.md §11 (lines 323–325) and §23 (lines 551 and 586–594) at the edited lines.
+
+**Check 9.**
+
+- (a) "the five estimates decrease in the order printed" is the probe's gate, which held at each `L` of the run. "None of these is a certificate": the probe proves nothing, and no Lean statement depends on it.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of 2026-10-22, this round's hostile review runs with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** The owner's instruction of 2026-10-20 to pursue lower exponents. Of §28's refinements the cheapest for the kernel keeps the parts with at most two primes in the rough part: their shares are one-dimensional integrals per cell, and §28 puts that line's limit at about `L = 2.2409`. A certificate that keeps them would need, in Lean, the partition of a dropped term by the factorization of its rough part, and the Type II estimate on each evaluable part.
