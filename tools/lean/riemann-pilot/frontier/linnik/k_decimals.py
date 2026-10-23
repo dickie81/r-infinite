@@ -82,6 +82,10 @@ EXACT = {
     'SieveCert2285U bounds': ('lean', ['SieveCert2285UP*.lean'], 28, 252),
     'g7c 9/4 n=200 refined': ('refined', 41191, 48127, 100000, 200, 1120675002519785844),
     'SieveCert225R bounds': ('lean', ['SieveCert225RP*.lean'], 27, 117),
+    'g7c 899/400 n=300 refined': ('refined', 41335, 48069, 100000, 300, 1145838651656430290),
+    'SieveCert22475R bounds': ('lean', ['SieveCert22475RP*.lean'], 135, 534),
+    'g7c 2247/1000 n=400 refined': ('refined', 41364, 48057, 100000, 400, 1131324623389858714),
+    'g7c 22465/10000 n=400 refined': ('refined', 41393, 48046, 100000, 400, 1147839393508343586),
 }
 
 FAIL_TOTAL = 'a failing total, above K'
@@ -100,10 +104,13 @@ DECIMALS = {
     '0.8377': 'grid 2295/1000 n=150 [39719, 47693]', '0.9310': 'grid 2255/1000 n=200 [40905, 48242]',
     '0.931': 'grid 2255/1000 n=200 [40905, 48242]', '0.936': 'grid 2255/1000 n=200 [4091, 4824]',
     '0.8442146854': 'grid227 n=100', '0.97204': 'g7c 9/4 n=200 refined', '0.97301': 'SieveCert225R bounds',
+    '0.99386': 'g7c 899/400 n=300 refined', '0.99486': 'SieveCert22475R bounds',
+    '0.98127': 'g7c 2247/1000 n=400 refined', '0.99560': 'g7c 22465/10000 n=400 refined',
     # outside the class
     '1.0769': FAIL_TOTAL, '1.0213': FAIL_TOTAL, '1.02125': FAIL_TOTAL, '1.0051': FAIL_TOTAL, '1.0248': FAIL_TOTAL,
     '4.23': FAIL_TOTAL, '4.05': FAIL_TOTAL, '4.23434': FAIL_TOTAL, '4.04821': FAIL_TOTAL, '2.37': FAIL_TOTAL,
     '1.10': FAIL_TOTAL, '1.16366': FAIL_TOTAL, '1.0782': FAIL_TOTAL, '1.0231': FAIL_TOTAL, '1.07689': FAIL_TOTAL,
+    '1.10458': FAIL_TOTAL, '1.01668': FAIL_TOTAL,
     '0.88': 'the threshold of the landings before round 619',
     '0.9400803710196427': "round 624's record of its reviewer's float, as printed",
     '0.299': "another K, a function (the README's section on T1ca.lean)",

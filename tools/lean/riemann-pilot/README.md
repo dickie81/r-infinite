@@ -30644,7 +30644,62 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 **Bearing on RH:** none.
 
-**The next step.** `2249/1000` at `n = 300` (§28's replay: `0.94650`, 3,125,144 depth-4 tests): the window's Type II file at `L = 2249/1000` on `g7c`, the grid, and the refined certificate's parts.
+**The next step.** `2249/1000` at `n = 300` (§28's replay: `0.94650`, 3,125,144 depth-4 tests): the window's Type II file at `L = 2249/1000` on `g7c`, the grid, and the refined certificate's parts. *(round 710: `899/400` at `n = 300` instead, `Linnik22475R.linnik_22475r`; SIEVE-ROUTE.md §30)*
+
+## Round 710: Linnik's exponent `899/400` by the refined certificate at `n = 300` (`external/pnt/SieveTypeIIU22475C.lean` … `Linnik22475R.lean`; SIEVE-ROUTE.md §30)
+
+**The step.** Rounds 705–709 set the next step at `2249/1000` on the grid `n = 300`, where §28's replay of the refined certificate totals `0.94650`. Under the owner's standing instruction of 2026-10-20, "pursue any avenue that opens up to further reduce the Linnik exponent", round 710 takes `899/400` on the same grid size instead: its replay totals `0.99386`, below `1`, with 3,327,803 depth-4 tests against 3,125,144 (§28). The round's WIP commit, 50c436a, replaced the files written for `2249/1000`. Its message says the part files' bounds sum "below 0.99485K", which is false: they sum to `1146984490308086981`, below `0.99486K`, so the figure was rounded down. The message stands; this entry corrects it.
+
+**The results.** Below, `q ≥ 1` where `[NeZero q]`.
+
+- `SieveTypeIIU22475C.window_22475c`, `typeII_22475c`: the window at `L = 899/400` on `[41335/100000, 48069/100000]·L` for the curve `g7c`, the window of `route_limits.jsonl`'s rows for `g7c` at `899/400`, and `typeII_gen_hm` there under `CGLDensity` (`hCGL`). The file is round 625's `SieveTypeIIU225C.lean` with `L` and the window's ends changed.
+- `SieveCert.grid22475R`, `gridOK22475R`: the grid of that window with `n = 300`.
+- `SieveCert22475RP1` … `SieveCert22475RP135`: 534 parts (`rows22475R_0` … `rows22475R_533`), 51 ranges of consecutive rows and the 120 heavy rows (rows 35 to 154) in 483 column pieces of at most 8,000 tests, each at most its bound by `decide +kernel`, one at a time, in 135 files of at most 30,000 tests (3,327,803 depth-4 tests and 204,539 `surelyEval` tests of `sub2` in all).
+- `SieveCert.total2_lt_22475R`: `total2 < K`. The bounds, `⌈1.001 × part⌉` computed exactly in integers, sum to `1146984490308086981`, below `0.99486K`; `SieveCert22475R` assembles them one step at a time (`c22475R_…`, `hr22475R_…`, `t22475R_…`) and compares the sum with `K` by `decide +kernel`. `total2` is `1145838651656430290`, below `0.99386K`; the certificate of `SieveCertDefs.lean` totals `1.10458K` on this grid.
+- `Linnik22475R.linnik_22475r`: there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ Kq^{899/400}`, with no hypothesis. It is `SieveMain2.linnik_route_lt2` at `route22475C` and `grid22475R` (`routeOK22475C`, `fits22475R`, `typeII22475c` at `LinnikCGLDensity.cglDensity`, `total2_lt_22475R`); `linnik_22475r_of` is the same under `CGLDensity`.
+
+**What is new.** The exponent `899/400 = 2.2475` with no hypothesis, below `9/4`, the least exponent the stack had landed (rounds 700, 702 and 709). The certificate of `SieveCertDefs.lean` does not reach it: on this window it totals above `K` on each of the four grids that `route_limits.jsonl` replays, `n = 300`, `400`, `600` and `800`.
+
+**What lies below.** The owner's instruction of 2026-10-21: "We should record these hypothetical gains in the paper. I don't want to be piped by someone claiming lower bounds." These are replays; the kernel has checked none of them. By the owner's decision of 2026-10-23, "Let’s not run n=400 and note the hypotheticals. Goal achieved IMO.", none is taken through the kernel.
+
+- The refined certificate at `n = 400`, by `refine_k2_probe.replay2`'s total by the certificate's own decisions, on the sampled windows of `route_limits.window`, whose corners pass `route_limits.corners`' exact check (`scratchpad/r711av/windows.out`). At `2247/1000` on `[41364/100000, 48057/100000]` it totals `1131324623389858714`, below `0.98127K`. At `22465/10000` on `[41393/100000, 48046/100000]` it totals `1147839393508343586`, below `0.99560K`, with 10,438,247 depth-4 tests. At `2246/1000` on `[41423/100000, 48034/100000]` it stays above `K`, at `1.01668K`. `k_decimals.py` stores the first two.
+- Keeping also the evaluable three-prime parts of the dropped depth-2 terms, by a scratch rule whose soundness is not proved (`scratchpad/r711av/k3x.py`, `k3x_n400.out`), takes between `0.0163` and `0.0169` of `K` more off these three grids, and brings `2246/1000` at `n = 400` below `K`: its total over `K` is `0.99982`, rounded up.
+- Round 703's estimate of the limit with every evaluable part kept is about `2.2360` (§28).
+
+**The kernel's work.** The job ran from 11:31 to 13:42 UTC on 2026-10-23, the first part file alone and the other 134 two at a time; their completed runs took 15,619 s of elapsed time; the largest peak was 4.72 GiB (`SieveCert22475RP130`), the smallest 3.21 GiB (`SieveCert22475RP41`); there was no restart (`tools/research/checkpoints/r710/progress.txt` at commit 5584752). Round 709's certificate at `9/4`, `n = 200`, took 117 parts in 27 files and 652,225 depth-4 tests.
+
+**What changed in the files.**
+
+- New: `external/pnt/SieveCert22475R.lean` and `Linnik22475R.lean`. Round 710's WIP commit added `SieveTypeIIU22475C.lean`, `SieveGrid22475R.lean` and the 135 part files, and round 711 added `q ≥ 1` to `typeII_22475c`'s docstring, which its `doc_checks.py` asks.
+- `external/pnt/build.sh`: the block after round 709's, the four imports and seven prints of the final check.
+- `frontier/linnik/k_decimals.py`: the refined totals at `899/400`, `n = 300`, and at `2247/1000` and `22465/10000`, `n = 400`, and the sum of the new part files' bounds, as exact values, with their decimals.
+- `external/pnt/README.md`: five rows and a section. `frontier/linnik/SIEVE-ROUTE.md`: §30, and markers on line 5 and §29. This file: markers on the next steps of rounds 705–709 and 711.
+
+**What is checked.**
+
+- `scratchpad/r705/mirror2.py 41335 48069 300`, which follows the Lean definitions (`scratchpad/r710b/mirror_22475r.out`): `total2` is `1145838651656430290`, equal to `refine_k2_probe.replay2`'s refined total and, since round 711, to its fifth value (`scratchpad/r711/fifth.out`).
+- `build.sh` ran once (`scratchpad/r710b/compile.sh 1`, log `build_1.log`, census `census_build_1.out`): `66 compiled, 549 up to date`, exit 0 in 991 s, the slowest modules `SieveKeptB` 40 s, `LinnikCGLS3` 39 s, `LinnikCGLS2` 33 s, with no warning or `sorry`. The one log line containing "error" is the axiom line of `Linnik.error_le`. Of its 989 axiom lines (293 printed by the modules, 696 by the final check), 974 name the three standard axioms and 15 none. `Linnik22475R.linnik_22475r` depends on `propext`, `Classical.choice` and `Quot.sound` only. The largest sample of the `lean` processes' memory was 7.21 GiB. The run also rebuilt round 711's comment edits.
+- `frontier/linnik/k_decimals.py` (`python3 -I -B k_decimals.py`, `scratchpad/r710b/kdec.out`): PASS, 175 decimals of `K` on the three surfaces, 102 displaying exact totals or sums below `K`, 73 outside the class and none unclassified. `scratchpad/r710b/kdec_new.py` replays the three new `refined` values with `replay2`'s fifth value, each equal to its stored total (`kdec_new.out`: "KDEC_NEW PASS").
+- The two new files and the 137 of the WIP commit have no `sorry`, `native_decide` or `axiom` declaration, and set no `maxHeartbeats`; none of their lines exceeds 120 characters; `bash -n external/pnt/build.sh` passes (`scratchpad/r710b/hygiene.out`).
+- `scratchpad/r710b/apply_build_run.py` (`apply_build.py` with the job's seconds) and `apply_docs710.py` make the round's edits (`apply_build.out`, `apply_docs710.out`). A first re-run of `apply_docs710.py` appended the external README's section a second time, through an anchor that ran to the end of the file. The copy was removed, the anchor fixed, and run again the script now writes nothing (`apply_docs710_rerun.out`).
+- `scratchpad/r711/quotes_entry.py` checks the quotations of this entry, of the lines the round adds and of the docstrings of the changed Python files, against HEAD's files, the outputs cited, the owner's messages (`scratchpad/r710b/owner.txt`) and the WIP commit's message (`scratchpad/r710b/wip_commit_msg.txt`) (`scratchpad/r710b/quotes_entry.out`).
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r710b/gate.out`).
+
+**Check 1** (direct reads this round):
+
+- The operative statements, re-read this round: `SieveMain2.linnik_route_lt2` (`SieveMain2.lean` 223–226); `SieveQ.Fits` (44–52) and `SieveRoute.RouteOK` (`SieveRoute.lean` 39–44); `LinnikCGLDensity.cglDensity` (119–123); round 625's `SieveTypeIIU225C.typeII_225c` (164–170), against `SieveTypeIIU22475C.lean` 160–200, whose only differences are `L`, the window's ends and the docstring; `SieveGrid22475R.lean` in full; and the headers of `SieveCert22475R.lean` (1–14) and `Linnik22475R.lean` (1–24), against their theorems.
+
+**Check 9.**
+
+- (a) The theorem with no hypothesis: `linnik_22475r` takes none, and its axioms are the three standard ones. The four grids at this window: `route_limits.jsonl`'s rows for `g7c` at `899/400`, `n = 300`, `400`, `600` and `800`, each above `K`. The least exponent the stack had landed: rounds 700, 702 and 709 landed `9/4` with no hypothesis, and no landing before this round is below it.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** On the owner's instruction of 2026-10-23, "Run it", the hostile review of rounds 710–711 runs now: reviewer A on round 711, launched at 13:15 UTC, and reviewer B on this round, after this commit.
+
+**Bearing on RH:** none.
+
+**The next step.** None on this line: by the owner's decision of 2026-10-23 the replays at `n = 400` are recorded above and not run. Next are the hostile review of rounds 710–711 and its sweep, and then the owner's clean repository.
 
 ## Round 711: sweep of the batched review of rounds 701–709 (nine minors, eighteen cosmetics), and `frontier/linnik/doc_checks.py`
 
@@ -30762,4 +30817,4 @@ The census also found one site in round 710's new file, `typeII_22475c`'s docstr
 
 **Bearing on RH:** none.
 
-**The next step.** Round 710's landing, `899/400` by the refined certificate at `n = 300`, whose kernel job runs; then `22465/10000` at `n = 400`.
+**The next step.** Round 710's landing, `899/400` by the refined certificate at `n = 300`, whose kernel job runs; then `22465/10000` at `n = 400`. *(round 710: `899/400` landed, `Linnik22475R.linnik_22475r`; by the owner's decision of 2026-10-23, `22465/10000` at `n = 400` is not run, and round 710's entry records its replay)*
