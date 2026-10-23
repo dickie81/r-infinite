@@ -29177,3 +29177,69 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Bound `B_II`, their `Σ_II`: the terms with `|n| ≤ N₀` under the weight `ψ̃₀(n/N₀)`, by expanding `|Φ(n, τ)|²`, Poisson summation in `n`, the smoothing `f̃_b` and Cauchy–Schwarz back to `J(f̃⃗)`; and the terms with `|n| > N₀` by the decay premise.
+
+## Round 684: their `Σ_II` expanded, and their `Σ₂` by Poisson summation (stage M4; `external/pnt/LinnikCGLSig2.lean`)
+
+**The results.** Below, `q ≥ 1`, `e(x) = e^{2πix}`, `e_q` Mathlib's `ZMod.stdAddChar`, `ψ̃₀` round 656's bump `psi0` and `ψ̂₀` round 659's `𝓕 psiC`, `Φ(n, τ)` round 683's `LinnikCGLCov.Phi`, and `P3 N₀` round 680's range `|n| ≤ ⌈2N₀⌉`. Their `Σ₂` is `S₂(k₀, x) = Σ_{n∈P3 N₀}ψ̃₀(n/N₀)e_q(−nk₀)e(nx)` (`LinnikCGLSig2.S2`), with `k₀ = bm₂ − b′m₂′ ∈ ℤ/qℤ` and `x = (m₂′u′ − m₂u)/q`.
+
+- `LinnikCGLSig2.sum_mul_norm_sq_le`: for real weights `w_n`, `Σ_{n∈N}w_n|Σ_{p∈Q}z_{n,p}|² ≤ Σ_{p,p′∈Q}|Σ_{n∈N}w_nz_{n,p}conj(z_{n,p′})|`.
+- `LinnikCGLSig2.norm_sum_fourier_pair_le`: for integrable `f, g ≥ 0`, coefficients `c_n`, points `x_n, y_n`, and `H` with `fH` integrable and `∫g(u′)|Σ_nc_ne(y_nu′ − x_nu)| du′ ≤ H(u)` wherever `f(u) ≠ 0`, `|Σ_nc_nf̂(x_n)conj(ĝ(y_n))| ≤ ∫f(u)H(u) du`.
+- `LinnikCGLSig2.sum_psi_norm_Phi_sq_le`: their `Σ_II` expanded. For smooth `f_b ≥ 0` that are `0` for `|u| > A`, and `H` with `f_bH` integrable and `∫f_{b′}(u′)|S₂(bm₂ − b′m₂′, (m₂′u′ − m₂u)/q)| du′ ≤ H(b, m₂, b′, m₂′, u)` wherever `f_b(u) ≠ 0`, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)|Φ(n, τ)|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)H(b, m₂, b′, m₂′, u) du` for every `τ`.
+- `LinnikCGLSig2.S2_eq_tsum`, `norm_S2_le`: their Poisson step. For `N₀ > 0`, `S₂(k₀, x) = Σ_{k∈ℤ}N₀ψ̂₀(N₀(k − x + k₀/q))` with `k₀` read as its value in `{0, …, q − 1}`, so `|S₂(k₀, x)| ≤ N₀Σ_k|ψ̂₀(N₀(k − x + k₀/q))|`, a convergent series.
+- `LinnikCGLSig2.norm_fourier_psiC_le_CK`: `(1 + |y|)^K|ψ̂₀(y)| ≤ C_K = 2^K(∫ψ̃₀ + D_K/(2π)^K)` (`CK`), from round 659's `fourier_psiC_decay` and `norm_fourier_psiC_le`.
+
+**Their text.** Re-read this round in the text layer.
+
+- The expansion: "We write out f̂_b as an integral, expand out the square and bring the summation over n and integration over τ on the inside to get" (lines 3522–3523), then their display of `Σ_II` with `Σ₁` and `Σ₂` (lines 3524–3562).
+- The Poisson step: "By Poisson summation and the rapid decay of the Fourier transform ψ̂₂, we have" (lines 3563–3564).
+- In these, spaces are restored and the hats and subscripts transcribed. `scratchpad/r684/quotes.py` checks the two quotes against the text layer with spaces removed and those transcriptions undone (`quotes.out`: PASS).
+
+**The stack's form.**
+
+- **The weight.** Their `ψ₂(M₂n/(qT))` is `ψ̃₀(n/N₀)`, and the sum over `n` runs over `P3 N₀`, off which the weight vanishes. `N₀` is left free here; their footnote 7's choice `ψ₂(x) = ψ₀(x/(qT)^η)` (lines 3517–3518) corresponds to `N₀ = qT(qT)^η/M₂`.
+- **Their `Σ₁ ⪅ 1` is not needed.** The factor `e((τ/L)(m₂′u′ − m₂u))` that their `Σ₁` integrates has absolute value `1`; the integral over `τ` stays outside, with round 683's weight `|ψ̂₀(−τ)|`.
+- **The expansion is an inequality.** `Σ_nw_n|Σ_pz_{n,p}|²` is the real part of `Σ_{p,p′}Σ_nw_nz_{n,p}conj(z_{n,p′})`, which is at most the sum of the absolute values. Each pair is bounded through the iterated integral `∫f_b(u)∫f_{b′}(u′)… du′ du` against a majorant `H` of the inner integral, so no integral of an integral needs to be measurable; the next round supplies `H`.
+- **Poisson summation** is round 680's `poisson_residue` with modulus `1`, after `e_q(−nk₀) = e(−nk₀/q)` for `k₀` read in `{0, …, q − 1}`.
+- **Their "rapid decay"** of `ψ̂₂` is the explicit `(1 + |y|)^K|ψ̂₀(y)| ≤ C_K` for every `K`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLSig2.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`sum_psi_norm_Phi_sq_le`, `norm_S2_le`).
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1, a note under M4, and the opening's parenthetical.
+- `external/pnt/README.md`: a row, and a section for the file.
+
+**What is checked.**
+
+- `LinnikCGLSig2` was compiled in scratch in three runs with `lean --json` (`scratchpad/r684/run.sh`, `lcj1.out` to `lcj3.out`). The last run had exit 0, and its only messages were the axiom lines, all `[propext, Classical.choice, Quot.sound]`. One docstring was edited after it; `build.sh` below compiled the final file.
+- The fixes: a bound variable of an integral took the type `ℂ` from its context and was given the type `ℝ`; the phases were written as one real number cast to `ℂ`, so that sums of them match; the binders of a hypothesis took the type `ZMod q` from a cast and were given their types; the integrability of `f_b` was proved from its support; a rewrite by `mul_assoc` hit the wrong product and was replaced by an equation of exponentials; the simp set of the Poisson step gained `Complex.ofReal_zero`; and an `Integrable.mono'` with a complex bound became `Integrable.mul_bdd`.
+- Then `build.sh` ran once (`scratchpad/r684/compile.sh 1`, log `build_1.log`): `1 compiled, 420 up to date` (`LinnikCGLSig2` 10 s), exit 0 in 20 s, with no error, warning or `sorry`. Its 646 axiom lines are 6 by the module and 640 by the final check; 633 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.89 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/r684/apply_docs.py` makes the six edits to CGL-LEAN.md and the external README, each asserted to occur once; run again, it writes nothing.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r684/gate.out`): the render lint against HEAD as multisets, with none new, and `k_decimals.py` PASS.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: the row P8.1 gains round 684 in its stack cell and a net-state marker; M4 gains a note; the opening's parenthetical gains round 684.
+- `external/pnt/README.md`: a row, and a section for the file.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- In the text layer: their §8.2.2 from (8.8) to (8.9) (lines 3483–3790, joined by `scratchpad/r678/compact.py`), and lines 3519–3568 line by line.
+- The operative definitions and statements: round 683's `Phi`, `integrable_fC` and the module's header (`LinnikCGLCov.lean`); round 680's `P2`, `mem_P2`, `P3`, `psi0_div_eq_zero` and `fC` (`LinnikCGLG.lean` 73, 76, 90, 93 and 319) and `poisson_residue` and `summable_psiC_lattice` (`LinnikCGLPois8.lean` 144 and 99); round 681's `conj_stdAddChar` (`LinnikCGLAsum.lean`); round 659's `psiC`, `Dpsi`, `fourier_psiC_decay` and `norm_fourier_psiC_le` (`LinnikCGLMom4.lean` 159, 177, 182 and 187); round 656's `psi0` (`LinnikCGLRt.lean` 74); and Mathlib's `Real.fourier_real_eq_integral_exp_smul`, `integral_conj`, `Complex.exp_conj`, `integral_const_mul`, `integral_mul_const`, `integral_finsetSum`, `Integrable.mul_bdd`, `integral_mono_of_nonneg`, `norm_integral_le_integral_norm`, `tsum_eq_sum`, `norm_tsum_le_tsum_norm` and `ZMod.stdAddChar_coe`.
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** As in rounds 680 to 683: stage M4's block gets one hostile review, with the convergence review of round 679's sweep.
+
+**Bearing on RH:** none.
+
+**The next step.** Supply `H`: bound `∫f_{b′}(u′)|S₂(…)| du′` by `norm_S2_le` and `norm_fourier_psiC_le_CK`, with the indicator of `|u′ − c_k| ≤ 1/T` against the smoothing `f̃_{b′}` and the rest decaying in `K`; then their Cauchy–Schwarz back to `J(f̃⃗)`.

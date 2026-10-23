@@ -205,6 +205,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLNsum.lean` | 682 | `ĝ_a` as a sum over `m₁` and `n`, with the term `n = 0` split off (`fourier_ga_split`), and Chen–Gupta–Li's sum over `a` for every `n ≠ 0`: for `q ≥ 1`, smooth `f_b` that are `0` for `\|u\| > A`, `M₁ > 0`, `L > 0`, `0 < δ ≤ 1` and real `ξ`, `Σ_a\|ĝ_a(ξ) − Σ_{m₁}tg(a, m₁, 0)\|² ≤ d(q)(L/q)²(Σ_h(h, q))²N_δΣ_{m₁}Σ_{n≠0}\|Ψ(m₁, n)\|\|F(m₁, n)\|²` (`sum_a_fourier_ga_le`) |
 | `LinnikCGLN0.lean` | 682 | The term `n = 0` of `ĝ_a`, their `I`: for `q ≥ 1`, `f_b ≥ 0`, `M₁ > 0` and `L > 0`, `Σ_a∫\|Σ_{m₁}tg(a, m₁, 0)\|² dξ ≤ φ(q)W₀²·2πM₁/L` with `W₀ = #P1·(L/q)B₄(Σ_h(h, q))#P2·(2M₂/M₁)Σ_b∫f_b` (`sum_integral_g0_le`) |
 | `LinnikCGLCov.lean` | 683 | Chen–Gupta–Li's change of variables `ξ = (m₁/L)τ + m₁n/q` (`integral_r_eq`) and the terms `n ≠ 0` of `ĝ_a` integrated: for `q ≥ 1`, smooth `f_b` that are `0` for `\|u\| > A`, `M₁ > 0`, `L > 0`, `0 < δ ≤ 1`, real `X` and a bound `B_II` of their `Σ_II` over every finite set of `n`, `∫_{\|ξ\|≤X}Σ_a\|ĝ_a(ξ) − Σ_{m₁}tg(a, m₁, 0)\|² dξ ≤ K_XΣ_{m₁∈P1 M₁}B_II/(\|m₁\|L)` (`integral_gstar_le`) |
+| `LinnikCGLSig2.lean` | 684 | Chen–Gupta–Li's `Σ_II` expanded and their `Σ₂` by Poisson summation: for `q ≥ 1`, smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, and a majorant `H` of the inner integrals, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)\|Φ(n, τ)\|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)H(b, m₂, b′, m₂′, u) du` (`sum_psi_norm_Phi_sq_le`); for `N₀ > 0`, `S₂(k₀, x) = Σ_{k∈ℤ}N₀ψ̂₀(N₀(k − x + k₀/q))` (`S2_eq_tsum`) |
 
 ## Building (rounds 217, 618)
 
@@ -1239,3 +1240,15 @@ Round 683 integrates round 682's bound for the terms `n ≠ 0` over `|ξ| ≤ X`
 - `integral_gstar_le`: for smooth `f_b` that are `0` for `|u| > A`, `M₁ > 0`, `L > 0`, `0 < δ ≤ 1`, real `X` and a bound `B_II` of `Σ_{n∈T, n≠0}∫|ψ̂₀(−τ)||Φ(n, τ)|² dτ` for every finite set `T`, `∫_{|ξ|≤X}Σ_a|ĝ_a(ξ) − Σ_{m₁}tg(a, m₁, 0)|² dξ ≤ K_XΣ_{m₁∈P1 M₁}B_II/(|m₁|L)`, with `K_X = d(q)(L/q)²(Σ_h(h, q))²·4C_δB₄(1 + q|X|)^δ(1 + 2qM₁/L)^δ(Σ_h(h, q))(2π + 8πM₁/L)`.
 
 See the main README, round 683, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 638 lines.
+
+## Their Σ_II expanded: LinnikCGLSig2.lean (round 684)
+
+Round 684 expands Chen–Gupta–Li's `Σ_II` for round 683's `Φ(n, τ)` under the weight `ψ̃₀(n/N₀)`, and makes their Poisson step for `Σ₂`, with `q ≥ 1`, `e(x) = e^{2πix}` and `e_q` Mathlib's `ZMod.stdAddChar`.
+
+- `sum_mul_norm_sq_le`: for real weights `w_n`, `Σ_{n∈N}w_n|Σ_{p∈Q}z_{n,p}|² ≤ Σ_{p,p′∈Q}|Σ_{n∈N}w_nz_{n,p}conj(z_{n,p′})|`.
+- `norm_sum_fourier_pair_le`: for integrable `f, g ≥ 0` and `H` with `fH` integrable and `∫g(u′)|Σ_nc_ne(y_nu′ − x_nu)| du′ ≤ H(u)` wherever `f(u) ≠ 0`, `|Σ_nc_nf̂(x_n)conj(ĝ(y_n))| ≤ ∫f(u)H(u) du`.
+- `S2`, `sum_psi_norm_Phi_sq_le`: their `Σ₂` as `S₂(k₀, x) = Σ_{n∈P3 N₀}ψ̃₀(n/N₀)e_q(−nk₀)e(nx)`; for smooth `f_b ≥ 0` that are `0` for `|u| > A`, and `H` with `f_bH` integrable and `∫f_{b′}(u′)|S₂(bm₂ − b′m₂′, (m₂′u′ − m₂u)/q)| du′ ≤ H(b, m₂, b′, m₂′, u)` wherever `f_b(u) ≠ 0`, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)|Φ(n, τ)|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)H(b, m₂, b′, m₂′, u) du` for every `τ`.
+- `S2_eq_tsum`, `norm_S2_le`: for `N₀ > 0`, `S₂(k₀, x) = Σ_{k∈ℤ}N₀ψ̂₀(N₀(k − x + k₀/q))` with `k₀` read as its value in `{0, …, q − 1}`, so `|S₂(k₀, x)| ≤ N₀Σ_k|ψ̂₀(N₀(k − x + k₀/q))|`.
+- `CK`, `norm_fourier_psiC_le_CK`: `(1 + |y|)^K|ψ̂₀(y)| ≤ C_K = 2^K(∫ψ̃₀ + D_K/(2π)^K)`.
+
+See the main README, round 684, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 640 lines.
