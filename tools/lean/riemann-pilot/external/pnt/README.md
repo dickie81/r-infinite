@@ -218,6 +218,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLHBLen.lean` | 696 | The lengthening of Heath-Brown's double sums (stage M5), by the characters of an auxiliary prime `p > ⌊3U/2⌋`: for `N, U, D ≥ 0` with `d(m) ≤ D` for `1 ≤ m ≤ 4NU`, `c(q, U)σ(N) ≤ 2D²(σ(NU) + σ(2NU))`, with `c(q, U)` the sum of `1/u` over `⌊U⌋ < u ≤ ⌊3U/2⌋` prime to `q` (`cqU_mul_sig_le`); for `q ≥ 1` and `U ≥ 12d(q)² + 4`, `c(q, U) ≥ 1/(9d(q))` (`cqU_ge`), so `σ(N) ≤ 18d(q)D²(σ(NU) + σ(2NU))` (`sig_le_lengthen`) |
 | `LinnikCGLRefl0.lean` | 697 | The reflection of the principal Gram entries (stage M5), through the pole of `L(s, χ₀)` at `s = 1`: for `q ≥ 1` and `N > 0`, `∫_{(2)}G₁ − ∫_{(1/2)}G₁ = 2πR` with `R = E₀(1)H(1 + iτ)N` and `E₀(s) = ∏_{p∣q}(1 − p^{−s})` (`shift_pole`); for `Z ≥ 0` and `K ≥ 1`, `∫_{(2)}G₁ = 2πR + ∫_{(1/2)}Mn + ∫_{(−K)}Tl` at `χ₀` (`reflect_gram0`); and for `χ_i = χ_k` and `Z, K ≥ 1`, `\|G(i, k)\| ≤ N\|H(1 + iτ)\| + (2π)⁻¹(N^{1/2}Q₀(q)∫\|H(1/2 + iu)\|\|D(u)\| du + T_K)` (`norm_gram_le0`) |
 | `LinnikCGLHBRefl.lean` | 698 | The reflection of Heath-Brown's double sums (stage M5): for `N > 0`, `σ(N) ≤ (2/N)(Σ_{r,s}\|G_{5N/6}(r, s)\|² + Σ_{r,s}\|G_{5N/4}(r, s)\|²)` (`sig_le_gram`); for real `u`, `Σ_{r,s}\|D_{rs}(u)\|² ≤ Ŝ(Z)` (`sum_norm_Drs_sq_le`); and for `K ≥ 1` there is `C ≥ 0` such that, for `q ≥ 1`, `N > 0`, `Z ≥ 1`, `\|t_r\| ≤ T` and the points with the same character `1`-separated, `σ(N) ≤ C(NR + Q₀(q)²Ŝ(Z) + T_K(N, Z, T)²R²/N)` (`sig_le_refl`) |
+| `LinnikCGLHBIter.lean` | 699 | Kerr's iteration with characters (stage M5): the supremum argument (`sup_arg`), the trivial bound `σ(N) ≤ (R + 4)(RN + R²)` (`sig_le_triv`), Case A by reflection and squaring (`caseA`), Case B by lengthening (`caseB`); for `0 < δ` there is `C ≥ 0` such that, for `q ≥ 1`, `T ≥ 1`, `\|t_r\| ≤ T`, the separation and `D ≥ 0` bounding `d(m)` for `1 ≤ m ≤ 4(1 + U₀)Q^{1+δ}`, `σ(N) ≤ ((M_BB₁)² + 2M_BA₁)B(N)` for every `N > 0`, with `B(N) = RN + R² + R^{5/4}Q^{1/2}` and `Q = q(1 + 2T)` (`sig_bound`) |
 
 ## Building (rounds 217, 618)
 
@@ -1435,3 +1436,17 @@ Round 698 is the fourth step of stage M5, the step of Kerr's Corollary 28 for `q
 - `refl_arith`, `sig_le_refl`: for `K ≥ 1` there is `C ≥ 0` such that, for `N > 0`, `Z ≥ 1`, `|t_r| ≤ T` and the separation, `σ(N) ≤ C(NR + Q₀(q)²Ŝ(Z) + T_K(N, Z, T)²R²/N)`, with `T_K(N, Z, T) = 2^{ω(q)+1}πC_KEQh(q)q^{K+1/2}(NZ)^{−K}(1 + 2T)^{K+1}I_K`.
 
 See the main README, round 698, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 664 lines.
+
+## Kerr's iteration with characters: LinnikCGLHBIter.lean (round 699)
+
+Round 699 is the fifth step of stage M5: Kerr's §6 with characters, from round 698's reflection, round 694's squaring and round 696's lengthening. Below, `q ≥ 1`, `R` is the number of points, `Q = q(1 + 2T)`, `σ(N)` is round 694's double sum and `B(N) = RN + R² + R^{5/4}Q^{1/2}` (`Bd`).
+
+- `le_of_le_sqrt`, `sup_arg`: for `x ≥ 0` with `x ≤ a√x + b`, `x ≤ a² + 2b`; and the supremum argument: if `F ≥ 0`, `B > 0` and `F ≤ s₀B` on `N > 0`, and for every `s ≥ 0` the bound `F ≤ sB` there gives `F ≤ (a√s + b)B` there, then `F ≤ (a² + 2b)B` there.
+- `dyad_eq_empty`, `sig_eq_zero`, `card_dyad_le`, `norm_famA_le`, `rpow_neg_half_sq`, `sig_le_triv`: `σ(N) = 0` for `N < 1/2`, and the trivial bound `σ(N) ≤ (R + 4)(RN + R²)` for `N > 0`.
+- `Bd`, `Bd_pos`, `Bd_mono`, `RN_le_Bd`, `Rsq_le_Bd`, `rpow_quarter`, `Bd_sq_le`, `Bd_len_le`: for `R ≥ 1`, `Q, N ≥ 0`, `Z ≥ 1` and `Z − 1 ≤ Q^{1/2}R^{−1/4}`, `R²B(Z²) ≤ 3B(N)²`; and for `R, Q, N, U₀, Qδ ≥ 0` and `M ≤ QδQ^{1/2}R^{1/4} + U₀N`, `B(2M) ≤ (2Qδ + 2U₀ + 1)B(N)`.
+- `two_pow_le_card_divisors`, `EQh_le`, `EQh_le_sq`, `Q0_le`, `ctail`, `ctail_nonneg`, `TT_nonneg`, `TT_le`: `2^{ω(n)} ≤ d(n)` for `n ≠ 0`, `EQh(q) ≤ 4^{ω(q)} ≤ d(q)²`, `Q₀(q) ≤ πC_0d(q)³`, and for `T ≥ 0`, `Kδ ≥ 1` and `NZ ≥ Q^{1+δ}`, round 698's `T_K(N, Z, T) ≤ 2πC_KI_Kd(q)³`.
+- `Qq`, `Jm`, `U0`, `Nst`, `Lm`, `A1`, `B1`, `MB`, `one_le_Qq`, `one_le_card_divisors`: the parameters of the iteration.
+- `caseA`, `caseB`, `step`: Case A, `N ≥ min(Q^{1/2+δ}R^{1/4}, Q^{1+δ})`, by round 698's reflection at `Z = ⌈Q^{1+δ}/N⌉`, the squaring and the dyadic pieces of `[1, Z²]`; Case B, `1/2 ≤ N` below that, by the lengthening up to Case A; and one step of the iteration, `σ ≤ sB` giving `σ ≤ (M_BB₁√s + M_BA₁)B`.
+- `sig_le_iter`, `sig_bound`: for `0 < δ` there is `C ≥ 0` such that, for `T ≥ 1`, `|t_r| ≤ T`, the points with the same character `1`-separated and `D ≥ 0` bounding `d(m)` for `1 ≤ m ≤ 4(1 + U₀)Q^{1+δ}` with `U₀ = 12d(q)² + 4`, `σ(N) ≤ ((M_BB₁)² + 2M_BA₁)B(N)` for every `N > 0`, where `K = ⌈1/δ⌉`, `A₁ = C(1 + 2c_K²d(q)⁶)`, `B₁ = 2CQ₀(q)²D(J + 1)` with `J = ⌊log₂⌊4Q⌋⌋`, and `M_B = 36d(q)D²(2Q^δ + 2U₀ + 1)`.
+
+See the main README, round 699, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 666 lines.

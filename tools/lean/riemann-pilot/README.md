@@ -30215,3 +30215,69 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Kerr's iteration with characters: the supremum over `N` of `σ(N)` against `RN + R² + R^{5/4}(qT)^{1/2}`, bounded through this round's reflection with `Z ≈ (qT)^{1+δ}/N`, round 694's squaring and round 696's lengthening; then `CGLT101` by positivity.
+
+## Round 699: Kerr's iteration with characters (stage M5; `external/pnt/LinnikCGLHBIter.lean`)
+
+**The step.** Kerr's §6 proves his Theorem 16 (arXiv:1909.12075, text layer lines 1947–2021) from his reflection (Corollary 28), squaring (Lemma 22) and lengthening (Corollary 21). In his first case, `N ≥ ∆^{2/3}/100`, he lengthens from the dual length up to `N` itself and closes at one length: `S(N, ∆, γ) ≪ N^{o(1)}I(∆, γ)^{1/2}S(N, ∆, γ)^{1/2} + (I(∆, γ) + N‖γ‖₂²)N^{o(1)}` (his (45), line 1973). In his second case he uses the first at the length `100∆²/N²` and lengthens. This round runs the argument with characters for round 694's `σ(N)`, against `B(N) = RN + R² + R^{5/4}Q^{1/2}`, with `R` the number of points and `Q = q(1 + 2T)`.
+
+**The results.** Below, `q ≥ 1`, `K = ⌈1/δ⌉`, `U₀ = 12d(q)² + 4`, `c_K = 2πC_KI_K`, and `C` is the constant of round 698's `sig_le_refl` at `K`.
+
+- `LinnikCGLHBIter.sig_bound`: for `0 < δ` there is `C ≥ 0` such that, for `q ≥ 1`, `T ≥ 1`, points with `|t_r| ≤ T` and the points with the same character `1`-separated, and `D ≥ 0` with `d(m) ≤ D` for `1 ≤ m ≤ 4(1 + U₀)Q^{1+δ}`, `σ(N) ≤ ((M_BB₁)² + 2M_BA₁)B(N)` for every `N > 0`, where `A₁ = C(1 + 2c_K²d(q)⁶)`, `B₁ = 2CQ₀(q)²D(J + 1)` with `J = ⌊log₂⌊4Q⌋⌋`, and `M_B = 36d(q)D²(2Q^δ + 2U₀ + 1)`.
+- `LinnikCGLHBIter.sup_arg`: if `F ≥ 0`, `B > 0` and `F ≤ s₀B` on `N > 0`, and for every `s ≥ 0` the bound `F ≤ sB` there gives `F ≤ (a√s + b)B` there, then `F ≤ (a² + 2b)B` there.
+- `LinnikCGLHBIter.caseA`: for `R ≥ 1`, `T ≥ 1`, `Kδ ≥ 1`, `C, D, s ≥ 0`, round 698's reflected bound at `K`, `d(m) ≤ D` for `1 ≤ m ≤ 4Q`, `σ ≤ sB` on `N > 0`, and `N ≥ 1/2` with `N ≥ Q^{1/2+δ}R^{1/4}` or `N ≥ Q^{1+δ}`: `σ(N) ≤ (A₁ + B₁√s)B(N)`.
+- `LinnikCGLHBIter.caseB`: for `R ≥ 1`, `T ≥ 1`, `0 < δ`, `D, F ≥ 0`, `d(m) ≤ D` for `1 ≤ m ≤ 4(1 + U₀)Q^{1+δ}`, `σ(M) ≤ FB(M)` at every `M ≥ 1/2` in Case A, and `1/2 ≤ N < min(Q^{1/2+δ}R^{1/4}, Q^{1+δ})`: `σ(N) ≤ M_BFB(N)`.
+- `LinnikCGLHBIter.step`, `sig_le_iter`: one step, `σ ≤ sB` on `N > 0` giving `σ ≤ (M_BB₁√s + M_BA₁)B` there; and the iteration's conclusion, `σ ≤ ((M_BB₁)² + 2M_BA₁)B` on `N > 0`.
+- `LinnikCGLHBIter.sig_le_triv`: for `N > 0`, `σ(N) ≤ (R + 4)(RN + R²)`.
+- `LinnikCGLHBIter.Bd_sq_le`, `Bd_len_le`: for `R ≥ 1`, `Q, N ≥ 0`, `Z ≥ 1` and `Z − 1 ≤ Q^{1/2}R^{−1/4}`, `R²B(Z²) ≤ 3B(N)²`; and for `R, Q, N, U₀, Qδ ≥ 0` and `M ≤ QδQ^{1/2}R^{1/4} + U₀N`, `B(2M) ≤ (2Qδ + 2U₀ + 1)B(N)`.
+- `LinnikCGLHBIter.EQh_le_sq`, `Q0_le`, `TT_le`: for `q ≠ 0`, `EQh(q) ≤ d(q)²` and `Q₀(q) ≤ πC_0d(q)³`; and for `q ≠ 0`, `T ≥ 0`, `Kδ ≥ 1` and `NZ ≥ Q^{1+δ}`, round 698's `T_K(N, Z, T) ≤ c_Kd(q)³`.
+- The others: `le_of_le_sqrt` (for `x ≥ 0` with `x ≤ a√x + b`, `x ≤ a² + 2b`), `dyad_eq_empty` and `sig_eq_zero` (for `N < 1/2`, `(N, 2N]` holds no integer and `σ(N) = 0`), `card_dyad_le` (for `N ≥ 0`, at most `N + 1` integers), `norm_famA_le` (for `n ≥ 1`, `|χ_r(n)n^{it_r}| ≤ 1`), `rpow_neg_half_sq` (for `x ≥ 0`, `(x^{−1/2})² = x⁻¹`), `Bd`, `Bd_pos`, `Bd_mono`, `RN_le_Bd`, `Rsq_le_Bd`, `rpow_quarter`, `two_pow_le_card_divisors` (for `n ≠ 0`, `2^{ω(n)} ≤ d(n)`), `EQh_le` (`EQh(q) ≤ 4^{ω(q)}`), `ctail`, `ctail_nonneg`, `TT_nonneg`, and the parameters `Qq`, `Jm`, `U0`, `Nst`, `Lm`, `A1`, `B1`, `MB` with `one_le_Qq` and `one_le_card_divisors`.
+
+**The stack's form.**
+
+- **The supremum.** Round 696's lengthening bounds `σ(N)` by `σ(NU) + σ(2NU)`, two lengths, so Kerr's closing at one length is not available. The supremum `s` of `σ(N)/B(N)` over `N > 0` is finite by the trivial bound, and one step shows `s ≤ a√s + b`; then `s ≤ a² + 2b` from `a√s ≤ (a² + s)/2`.
+- **Case A.** The dual length `Z = ⌈Q^{1+δ}/N⌉` gives `NZ ≥ Q^{1+δ}`, so for `Kδ ≥ 1` round 698's tail term is at most `c_K²d(q)⁶R²/N`. For `N ≥ Q^{1/2+δ}R^{1/4}`, `Z − 1 ≤ Q^{1/2}R^{−1/4}`; for `N ≥ Q^{1+δ}`, `Z = 1`. Either way `Z² ≤ 4Q` and `R²B(Z²) ≤ 3B(N)²`, which with the squaring, the dyadic pieces of `[1, Z²]` and `σ ≤ sB` on them gives `Ŝ(Z) ≤ 2D(J + 1)√sB(N)`. In `x = R^{1/4}` and `y = Q^{1/2}` the bound `R²B(Z²) ≤ 3B(N)²` is a polynomial inequality.
+- **Case B.** `U = max(min(N*, Q^{1+δ})/N, U₀)` with `N* = Q^{1/2+δ}R^{1/4}` takes `NU` and `2NU` into Case A and keeps `4NU ≤ 4(1 + U₀)Q^{1+δ}`, and `RN* = Q^δR^{5/4}Q^{1/2}` gives `B(2NU) ≤ (2Q^δ + 2U₀ + 1)B(N)`.
+- **The factors.** `d(q)`, `D`, `J + 1`, `Q^δ` and `Q₀(q) ≤ πC_0d(q)³` are left explicit; each is a power of `(qT)^δ` up to constants, which the next round shows.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLHBIter.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check, two `#print axioms` lines (`caseB`, `sig_bound`) and the comment.
+- `frontier/linnik/CGL-LEAN.md`: row T10.1 (its stack cell and a net-state marker), markers on the M5 notes of rounds 694, 696, 697 and 698, round 699's note under M5, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section for the file.
+
+**What is checked.**
+
+- `LinnikCGLHBIter` was compiled in scratch in six runs (`scratchpad/r699/run.sh`, `lcj1.out` to `lcj6.out`). Run 1 compiled the file's first part (to `TT_le`) with exit 0 and two warnings, unused hypotheses of `RN_le_Bd` and `TT_le`, which were removed. Runs 2 and 3 had the rest and failed: two casts of `P.card` to `ℝ` and a `.le` on a `≤` proof (run 2); in `caseB` the unfolded `Nst` showed `Qq q T` where `Q` was set, and `caseA` had an unused `0 < δ` (run 3). Run 4 had exit 0 and no messages. Run 5 added the header and five `#print axioms` lines, all `[propext, Classical.choice, Quot.sound]`; run 6, after docstring edits only, had the same output.
+- Then `build.sh` ran once (`scratchpad/r699/compile.sh 1`, log `build_1.log`): `1 compiled, 433 up to date` (`LinnikCGLHBIter` 29 s), exit 0 in 39 s, with no error, warning or `sorry`; the one log line containing "error" is the axiom line of `Linnik.error_le`. Its 671 axiom lines are 5 by the module and 666 by the final check; 658 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s (`rss_watch_build_1.log`), is 7443760 KiB (7.10 GiB).
+- The file has 749 lines (5 theorems, 24 lemmas, 10 definitions), no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters. It quotes no source; its header writes Kerr's (45) in Unicode.
+- `scratchpad/r699/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, passes on this round's (`quotes_entry.out`).
+- `scratchpad/r699/apply_docs.py` makes the nine edits to CGL-LEAN.md and the external README. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing (`apply.out`, `apply_rerun.out`).
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r699/gate.out`).
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: row T10.1 gains round 699 in its stack cell and a net-state marker; the M5 notes of rounds 694, 696, 697 and 698 gain the marker "the iteration is done"; M5 gains round 699's note; the opening's parenthetical gains round 699.
+- `external/pnt/README.md`: a row, and a section for the file.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Kerr, arXiv:1909.12075, his §6, the proof of Theorem 16 (text layer `scratchpad/hb/work/hb1909.txt`, lines 1947–2021), with his (45) at lines 1966–1973, and the statements of his Corollaries 21 and 28 (lines 1408–1409 and 1861–1867).
+- Mathlib's `DirichletCharacter.norm_le_one` (`NumberTheory/DirichletCharacter/Bounds.lean` 37). The other Mathlib lemmas the file uses were not re-read; the compiler checks each use.
+- The operative statements: round 698's `sig_le_refl` and `TT`; round 696's `sig_le_lengthen` (`LinnikCGLHBLen.lean` 524); round 694's `shat_le_sum_sig`, `shat_sq_le`, `dsum_nonneg`, `famA`, `wh`, `norm_wh`, `sig` and `shat` (`LinnikCGLHBPos.lean` 255, 311, 73, 158, 162, 164, 197 and 201); round 670's `dyad` and `mem_dyad` (`LinnikCGLT101.lean` 57 and 59); round 642's `Q0`, `IK` and `IK_nonneg` (`LinnikCGLPair.lean` 196, 277 and 304); round 641's `CGK`, `CGK_pos`, `EQh` and `EQh_pos` (`LinnikCGLReflect.lean` 75, 79, 238 and 240); round 638's `norm_cpow_I` (`LinnikCGLMat.lean` 117); and round 689's proof of `2^{ω(n)} ≤ d(n)` inside `le_totient_mul_card_divisors` (`LinnikCGLConst.lean` 169), of which this file keeps a copy.
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them. "for every `N > 0`" is the conclusion of `sig_bound` and `sig_le_iter`.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** This round goes to the next block's review, with rounds 694, 696, 697 and 698 and round 695's sweep (its convergence review).
+
+**Bearing on RH:** none.
+
+**The next step.** The factors: `d(q) ≤ C_δq^δ` (round 525's `card_divisors_le`), the divisor bound `D` on `[1, 4(1 + U₀)Q^{1+δ}]`, `J + 1 ≪ (4Q)^δ/δ` and `Q^δ`, all powers of `(qT)^δ` up to constants; then `CGLT101` by positivity, `|c_n| ≤ B ≤ B(2M)^{1/2}n^{−1/2}` on `(M, 2M]`, and `linnik_225c_t101` and `linnik_226c_t101` at it.
