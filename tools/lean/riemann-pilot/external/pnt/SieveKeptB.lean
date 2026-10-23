@@ -12,9 +12,9 @@ is at least `φ(q)⁻¹(keepK/K − δ)X` for large `q`, for every `δ > 0` (`Kk
 * `card_primeFactors_le`: `q` has at most `log q/log 2` prime factors.
 * `pairs_ge`: for `F ≥ 0`, the sum of `F(p₁, p₂)` over the family `S2c i j` is at least its sum over the pairs of the
   cells `i` and `j`, when `reg2` holds and `q` is large.
-* `q2_ge`: for primes `p₁, p₂, q₁` of the cells, none dividing `q` and `q₁ ≠ p₁`, the `q₂` of the kept part number at
-  least `π(y) − 1 − ω(q)`, where `π(y)` counts the primes of `(⌊y⌋, ⌊2y⌋]`, `y = x/(p₁p₂q₁)`, and `ω(q)` the prime
-  factors of `q`; each such `q₂` exceeds `q₁`, since `2(e_k + H) + e_i + e_j + 2H ≤ DEN`.
+* `q2_ge`: for `LargeQ q` and primes `p₁, p₂, q₁` of the cells, none dividing `q` and `q₁ ≠ p₁`, the `q₂` of the kept
+  part number at least `π(y) − 1 − ω(q)`, where `π(y)` counts the primes of `(⌊y⌋, ⌊2y⌋]`, `y = x/(p₁p₂q₁)`, and
+  `ω(q)` the prime factors of `q`; each such `q₂` exceeds `q₁`, since `2(e_k + H) + e_i + e_j + 2H ≤ DEN`.
 * `Kk_gB_ge`: the bound. The main term is the prime number theorem in dyadic intervals (`SieveMain.primes_dyadic_ge`),
   `π(y) ≥ (1 − ε)y/log y` with `log y ≤ (γ_hi/DEN)log x`, `γ_hi = DEN − e_i − e_j − e_k`, times the three cells'
   `Σ 1/p`, each at least `H/(e + H) − δ′` (`SieveRoughLo.evGe_cell_inv`); the triples with a prime dividing `q` or with

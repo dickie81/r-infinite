@@ -7,8 +7,8 @@ Plain statements. The route and the grid are as in `SieveQ` (`RouteOK`, `GridOK`
 `parQ q` is the decomposition's parameters at `x = q^L`, and `LargeQ q` the facts about `q` that the proofs use.
 
 * `T0at`: `SieveExact.T0_spec`'s estimate at `q` for four primes, with error `E`.
-* `thrOK_KS`, `len_KS`: the sorted families' atoms have thresholds in `[1, q^{L+1}]` and number at most `18` (in fact
-  `14`).
+* `thrOK_KS`, `len_KS`: for `LargeQ q` the sorted families' atoms have thresholds in `[1, q^{L+1}]`, and they number
+  at most `18` (in fact `14`).
 * `lf_KS`: for `LargeQ q` and `T0at q a E`, a sorted family `KS pa pb i j k` with `pa, pb < 3` distinct and a cell `k`
   that `keep` passes below `(i, j)` has `|famE(g_A) − famE(g_B)| ≤ E`. The box `(i, j, k)` is surely evaluable, so a
   set `T` of the roles `p₁, p₂, q₁` has its sums inside `U = (u₁, u₂) ∪ (1 − u₂, 1 − u₁)` on the box: in the lower

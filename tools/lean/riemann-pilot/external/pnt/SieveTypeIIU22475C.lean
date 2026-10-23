@@ -163,7 +163,7 @@ theorem window_22475c : WindowOKHM g7c (899 / 400) (41335 / 100000 * (899 / 400)
 open scoped ContDiff in
 /-- **Proposition 3′ at `L = 899/400` on `[41335/100000, 48069/100000]·L`, for the curve `g7c`**, under
 `CGLDensity` (`hCGL`): `typeII_gen_hm` for `f0` smooth (`hf0`) with support in `[1/2, 2]` (`hsupp`), `K₀`, `e₁ > 0`
-(`he₁`) and `0 < η ≤ 10⁻⁵` (`hη`, `hη1`), for `q ≥ 1` with `q ≥ q₀`. -/
+(`he₁`) and `0 < η ≤ 10⁻⁵` (`hη`, `hη1`): there is `q₀` such that its bound holds for `q ≥ 1` with `q ≥ q₀`. -/
 theorem typeII_22475c (hCGL : LinnikCGL.CGLDensity) {f0 : ℝ → ℝ} (hf0 : ContDiff ℝ ∞ f0)
     (hsupp : Function.support f0 ⊆ Set.Icc (1 / 2) 2)
     (K₀ : ℕ) {e₁ η : ℝ} (he₁ : 0 < e₁) (hη : 0 < η) (hη1 : η ≤ 1 / 100000) :
