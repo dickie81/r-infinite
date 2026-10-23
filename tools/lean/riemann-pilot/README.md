@@ -30281,3 +30281,70 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** The factors: `d(q) ≤ C_δq^δ` (round 525's `card_divisors_le`), the divisor bound `D` on `[1, 4(1 + U₀)Q^{1+δ}]`, `J + 1 ≪ (4Q)^δ/δ` and `Q^δ`, all powers of `(qT)^δ` up to constants; then `CGLT101` by positivity, `|c_n| ≤ B ≤ B(2M)^{1/2}n^{−1/2}` on `(M, 2M]`, and `linnik_225c_t101` and `linnik_226c_t101` at it.
+
+## Round 700: Heath-Brown's Theorem 10.1 with characters, and Linnik's exponents `9/4` and `226/100` with no hypothesis (stage M5; `external/pnt/LinnikCGLHB101.lean`)
+
+**The step.** Round 699's `sig_bound` bounds round 694's double sum `σ(N)` by `((M_BB₁)² + 2M_BA₁)B(N)`, with `B(N) = RN + R² + R^{5/4}Q^{1/2}`, `R` the number of points and `Q = q(1 + 2T)`; its factors depend on `q`, `T`, `δ` and a divisor bound `D`. This round bounds the factors by one quantity, `W = 3C_δ(4Q)^δ/δ` with `C_δ` round 525's divisor constant, and so proves round 670's `CGLT101`, Chen–Gupta–Li's Theorem 10.1 (Heath-Brown's double sum with characters) in the stack's form. With round 693's theorems this gives Linnik's theorem with the exponents `9/4` and `226/100` with no hypothesis. It is the last step of stage M5 of `frontier/linnik/CGL-LEAN.md`.
+
+**The results.** Below, `q ≥ 1`, `R` is the number of points and `Q = q(1 + 2T)`.
+
+- `LinnikCGLHB101.linnik_225`, `linnik_226`: there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ Kq^{9/4}`; and likewise with `p ≤ Kq^{226/100}`. They take no hypothesis, and their axioms are `propext`, `Classical.choice` and `Quot.sound`.
+- `LinnikCGLHB101.cglt101`: round 670's `CGLT101`, with `Q₀ = 0`.
+- `LinnikCGLHB101.char_density`: there is `C ≥ 0` such that, for `q ≥ 1`, `5/7 ≤ σ ≤ 16/21` and `T ≥ 2`, at most `C(qT)^{(7/3+1/2000)(1−σ)}(log qT)^{10}` characters mod `q` have an `L`-function with a zero in `Re s ≥ σ`, `|Im s| ≤ T`.
+- `LinnikCGLHB101.cgls3`, `prop31`: round 639's `CGLS3` and round 637's `CGLProp31`, Chen–Gupta–Li's Propositions 11.1 and 3.1 at one point per character, with no hypothesis.
+- `LinnikCGLHB101.sig_le_eps`: for `ε > 0` there is `C ≥ 0` such that, for `q ≥ 1`, `T ≥ 1`, `N ≥ 1`, points with `|t_r| ≤ T` and the points with the same character `1`-separated, `σ(N) ≤ C(qTN)^ε(RN + R² + R^{5/4}(qT)^{1/2})`.
+- `LinnikCGLHB101.factor_le`: for `T ≥ 0`, `0 < δ ≤ 1` and `C ≥ 0`, with `W = 3C_δ(4Q)^δ/δ` (`Wf`) and `D = 68W⁵`, `(M_BB₁)² + 2M_BA₁ ≤ κW⁵⁰` with `κ = (5826240·136C(πC_0)²)² + 2·5826240·C(1 + 2c_K²)`.
+- The others: `one_le_four_Q`, `one_le_rpow_fourQ`, `Cdiv_le_W`, `one_le_W`, `dq_le_W`, `Qd_le_W`, `J_le_W` and `dm_le_W` (for `T ≥ 0` and `0 < δ ≤ 1`: `4Q ≥ 1`, `(4Q)^δ ≥ 1`, `C_δ(4Q)^δ ≤ W`, `W ≥ 1`, `d(q) ≤ W`, `Q^δ ≤ W`, `J + 1 ≤ W` with `J = ⌊log₂⌊4Q⌋⌋`, and `d(m) ≤ 68W⁵` for `m ≤ 4(1 + U₀)Q^{1+δ}`); `A1_le`, `B1_le`, `U0_le` and `MB_le` (for `T ≥ 0`, `0 < δ ≤ 1`, `C ≥ 0` and `D = 68W⁵`: `A₁ ≤ C(1 + 2c_K²)W⁶`, `B₁ ≤ 136C(πC_0)²W¹²`, `U₀ ≤ 16W²` and `M_B ≤ 5826240W¹³`); `sqrt_three_le_two` (`3^{1/2} ≤ 2`); and `Bd_le_qT` (for `T ≥ 1` and `N, R ≥ 0`, `B(N) ≤ 2(RN + R² + R^{5/4}(qT)^{1/2})`).
+
+**The stack's form.**
+
+- **The factors.** For `0 < δ ≤ 1`, `d(q) ≤ C_δq^δ ≤ W` and `Q^δ ≤ (4Q)^δ ≤ W`; `J + 1 ≤ W` follows from `2^J ≤ 4Q`, Mathlib's `Real.log_le_rpow_div` (`log x ≤ x^δ/δ`) and `log 2 > 0.69`. Round 699's divisor bound is taken as `D = 68W⁵`: for `m ≤ L = 4(1 + U₀)Q^{1+δ}`, `d(m) ≤ C_δL^δ`, and `L^δ ≤ 4(1 + U₀)W² ≤ 68W⁴` since `U₀ ≤ 16W²`. Then `M_B ≤ 36W(68W⁵)²·35W² = 5826240W¹³`, `B₁ ≤ 2C(πC_0W³)²·68W⁵·W` and `A₁ ≤ C(1 + 2c_K²)W⁶`, so the factor is at most `κW⁵⁰`, with `κ` depending on `C` and `K` only.
+- **The exponent.** `W⁵⁰ = (3C_δ/δ)⁵⁰(4Q)^{50δ}`. At `δ = min(ε, 1)/50`, `50δ = min(ε, 1)`, and for `T, N ≥ 1`, `4Q ≤ 12qT ≤ 12qTN`, so `(4Q)^{50δ} ≤ 12(qTN)^ε`. With `B(N) ≤ 2(RN + R² + R^{5/4}(qT)^{1/2})`, from `Q ≤ 3qT` and `3^{1/2} ≤ 2`, `sig_le_eps` holds with the constant `24κ(3C_δ/δ)⁵⁰`. Its statement has no primitivity hypothesis.
+- **Theorem 10.1.** `CGLT101`'s double sum is round 694's `dsum` with the weights `c_n` over `n ∼ M`. Round 694's positivity (`dsum_le`, Jutila's Lemma 2) with `|c_n| ≤ B ≤ B(2M)^{1/2}n^{−1/2}` on `(M, 2M]` bounds it by `2MB²σ(M)`, and `sig_le_eps` at `N = M` gives `2C(qTM)^ε(RM² + R²M + R^{5/4}(qT)^{1/2}M)B²`. So `CGLT101` holds with the constant `2C` and `Q₀ = 0`.
+- **The corollaries.** `cgls3`, `prop31`, `linnik_225` and `linnik_226` are round 693's `cgls3_t101`, `prop31_t101`, `linnik_225c_t101` and `linnik_226c_t101` at `cglt101`, and `char_density` is rounds 636–637's `LinnikCGLStep.charDensity_cgl` at `prop31`.
+- **What is not proved.** `LinnikCGL.CGLDensity`, the count at `(7/3)(1 − σ) + ε` for every `ε > 0`, is not proved: rounds 636–637's step fixes its internal `ε` at `LinnikHuxStep.εs = 1/100000`, and its parameters `parCGL` have the exponent `7/3 + 1/2000`. So `Linnik225C.linnik_225c` and `Linnik226C.linnik_226c` still take `CGLDensity`; the theorems with no hypothesis are `LinnikCGLHB101.linnik_225` and `linnik_226`, which reach the same conclusions through `CGLProp31` and rounds 636–637's `LinnikCGLLinnik.linnik_225c_lv` and `linnik_226c_lv`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLHB101.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check, six `#print axioms` lines (`cglt101`, `cgls3`, `prop31`, `char_density`, `linnik_225`, `linnik_226`) and the comment.
+- `frontier/linnik/CGL-LEAN.md`: rows P3.1, T10.1 and P11.1; the paragraph under "The target"; the headers of M3 and M5; the paragraph of "Feasibility" on Theorem 10.1; the notes of rounds 678 (M3), 693 (M4), 698 and 699 (M5); round 700's note under M5; the opening's parenthetical.
+- `frontier/linnik/SIEVE-ROUTE.md`: net-state markers in the opening bullet and in §§11, 14, 16, 22, 23, 24 and 25, and a new §26.
+- `external/pnt/README.md`: markers on the rows of `LinnikCGLT101.lean`, `LinnikCGLS3.lean` and `LinnikCGLP81.lean` and on the sections of rounds 670, 678 and 693; a row and a section for the file.
+
+**What is checked.**
+
+- `LinnikCGLHB101` was compiled in scratch in nine runs (`scratchpad/r700/run.sh`, `lcj1.out` to `lcj9.out`). Run 1 had exit 0 and no messages. Run 2 failed with four errors: the name `B1` was ambiguous with `_root_.B1` (twice), `positivity` reached the maximum recursion depth, and a bound on `|c_n|` had the wrong type. Run 3 fixed the last two; the `B1` errors remained and were fixed by the qualified name `LinnikCGLHBIter.B1`. Run 4 had exit 0 and four `#print axioms` lines. Run 5 added the header and run 6 re-wrapped its one line over 120 characters. Run 7 added `char_density`, run 8 `cgls3` and `prop31`, and run 9 edited the header's opening paragraph. Runs 4 to 9 each had exit 0 and no messages but their `#print axioms` lines, all `[propext, Classical.choice, Quot.sound]`.
+- `build.sh` ran three times (`scratchpad/r700/compile.sh`), after runs 6, 7 and 9: each time `1 compiled, 434 up to date` with exit 0. The last (`build_3.log`): `LinnikCGLHB101` 16 s, exit 0 in 27 s, with no error, warning or `sorry`; the one log line containing "error" is the axiom line of `Linnik.error_le`. Its 679 axiom lines are 7 by the module and 672 by the final check; 666 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s (`rss_watch_build_3.log`), is 7238448 KiB (6.90 GiB).
+- The file has 514 lines (7 theorems, 15 lemmas, 1 definition), no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters. It quotes no source.
+- `scratchpad/r700/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, passes on this round's (`quotes_entry.out`).
+- `scratchpad/r700/apply_docs.py` makes the 33 edits to CGL-LEAN.md, SIEVE-ROUTE.md and the external README. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing (`apply.out`, `apply_rerun.out`).
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r700/gate.out`).
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: net-state markers that `CGLT101` is proved on the target's paragraph, rows P3.1, T10.1 and P11.1, the headers of M3 and M5, the paragraph of "Feasibility" and the notes of rounds 678, 693, 698 and 699; round 700 in T10.1's stack cell and in the opening's parenthetical; M5 gains round 700's note.
+- `frontier/linnik/SIEVE-ROUTE.md`: net-state markers that `9/4` and `226/100` hold with no hypothesis, and that the count the route takes from `CGLDensity` is proved, on the statements of the unconditional exponent and of phase 2; §26.
+- `external/pnt/README.md`: net-state markers that `CGLT101` is proved; a row and a section for the file.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- The operative statements: round 670's `CGLT101`, `dyad` and `mem_dyad` (`LinnikCGLT101.lean` 67, 57 and 59); round 699's `sig_bound`, `Bd`, `Qq`, `Jm`, `U0`, `Lm`, `A1`, `B1`, `MB`, `ctail`, `ctail_nonneg`, `Q0_le` and `one_le_Qq` (`LinnikCGLHBIter.lean` 727, 187, 369, 372, 375, 381, 384, 387, 390, 310, 312, 299 and 392); round 694's `dsum`, `dsum_le`, `dsum_const_mul`, `famA`, `famA_mul_conj`, `wh` and `sig` (`LinnikCGLHBPos.lean` 67, 103, 133, 158, 168, 162 and 197); round 525's `Cdiv`, `one_le_Cdiv` and `card_divisors_le` (`LinnikPower.lean` 62, 64 and 69); round 642's `Q0` and `Q0_nonneg` (`LinnikCGLPair.lean` 196 and 198); round 641's `CGK` and `CGK_pos` (`LinnikCGLReflect.lean` 75 and 79); round 693's `cgls3_t101`, `prop31_t101`, `linnik_225c_t101` and `linnik_226c_t101` (`LinnikCGLP81.lean` 559, 563, 567 and 573).
+- The route from `CGLT101` to the Linnik conclusions: round 678's `cgls3`, `prop31_pt` and `linnik_225c_pt` (`LinnikCGLS3.lean` 809, 935 and 942), round 644's `linnik_225c_s3` (`LinnikCGLS2.lean` 629), round 639's `linnik_225c_s23` (`LinnikCGLS23.lean` 284), round 638's `linnik_225c_third` (`LinnikCGLMat.lean` 755), rounds 636–637's `linnik_225c_lv`, `rangeCounts_lv` and `counts_7c_lv` (`LinnikCGLLinnik.lean` 105, 39 and 48) and header, `charDensity_cgl`, `ParC.Good` and `parCGL` (`LinnikCGLStep.lean` 1116, 376 and 1078), `LinnikHuxStep.εs` (`LinnikHuxStep.lean` 53) and `RangeCounts` (`SieveCurveGlue.lean` 40).
+- The Mathlib lemmas the file uses were not re-read; the compiler checks each use.
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them. "with no hypothesis" describes the statements of `linnik_225`, `linnik_226`, `cglt101`, `cgls3`, `prop31` and `char_density`, which take none. "`CGLDensity` … is not proved" is scoped to the stack, and the reason given is scoped to its step as written.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** Stage M5 is complete. Rounds 694 and 696–700 go to one batched review, with round 695's sweep (its convergence review), under the owner's instruction to review substantial blocks.
+
+**Bearing on RH:** none.
+
+**The next step.** The batched review of rounds 694–700. Then the owner's instruction of 2026-10-20 to pursue lower exponents: the curve `g7c`'s counts now hold with no hypothesis, so §23 of `frontier/linnik/SIEVE-ROUTE.md` records exact certificates below `9/4` on that line (`2249/1000` at `n = 600` and `n = 800`), whose kernel runs are not made.

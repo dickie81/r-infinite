@@ -152,7 +152,9 @@ for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
 # their induction (LinnikCGLP81), and (round 694) positivity and the double sums of Heath-Brown's bound
 # (LinnikCGLHBPos), and (round 696) their lengthening, by the characters of an auxiliary prime (LinnikCGLHBLen), and
 # (round 697) the reflection of the principal Gram entries (LinnikCGLRefl0), and (round 698) the reflection of the
-# double sums (LinnikCGLHBRefl), and (round 699) Kerr's iteration with characters (LinnikCGLHBIter).
+# double sums (LinnikCGLHBRefl), and (round 699) Kerr's iteration with characters (LinnikCGLHBIter), and (round 700)
+# Heath-Brown's Theorem 10.1 with characters, the density count and Linnik's exponents `9/4` and `226/100`
+# (LinnikCGLHB101).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
     LinnikCGLPair LinnikCGLFrob LinnikCGLS2 LinnikCGLFourier LinnikCGLPoisson LinnikCGLTrace \
     LinnikCGLDiag LinnikCGLTrunc LinnikCGLProd LinnikCGLRFact LinnikCGLRam LinnikCGLP71 LinnikCGLSym LinnikCGLRt \
@@ -161,7 +163,7 @@ for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 Lin
     LinnikCGLL109 LinnikCGLL1010 LinnikCGLCase LinnikCGLEps LinnikCGLS3 LinnikCGLG LinnikCGLPois8 \
     LinnikCGLCount LinnikCGLAsum LinnikCGLNsum LinnikCGLN0 LinnikCGLCov LinnikCGLSig2 LinnikCGLFtil \
     LinnikCGLJtil LinnikCGLTail LinnikCGLL82 LinnikCGLConst LinnikCGLForm LinnikCGLFtilP LinnikCGLP81 \
-    LinnikCGLHBPos LinnikCGLHBLen LinnikCGLRefl0 LinnikCGLHBRefl LinnikCGLHBIter; do
+    LinnikCGLHBPos LinnikCGLHBLen LinnikCGLRefl0 LinnikCGLHBRefl LinnikCGLHBIter LinnikCGLHB101; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -379,6 +381,7 @@ import LinnikCGLHBLen
 import LinnikCGLRefl0
 import LinnikCGLHBRefl
 import LinnikCGLHBIter
+import LinnikCGLHB101
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -959,6 +962,12 @@ import LinnikCGLHBIter
 #print axioms LinnikCGLHBRefl.sig_le_refl
 #print axioms LinnikCGLHBIter.caseB
 #print axioms LinnikCGLHBIter.sig_bound
+#print axioms LinnikCGLHB101.cglt101
+#print axioms LinnikCGLHB101.cgls3
+#print axioms LinnikCGLHB101.prop31
+#print axioms LinnikCGLHB101.char_density
+#print axioms LinnikCGLHB101.linnik_225
+#print axioms LinnikCGLHB101.linnik_226
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy
