@@ -30148,3 +30148,70 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** The reflection of the double sum: the sharp sum over `N < n ≤ 2N` bounded by two smooth ones by positivity, each Gram entry reflected (rounds 642 and 697), and the dual sums gathered into the double sum `Ŝ(Z)` of the same family.
+
+## Round 698: the reflection of Heath-Brown's double sums (stage M5; `external/pnt/LinnikCGLHBRefl.lean`)
+
+**The step.** Kerr's §6 iterates three bounds for his double sums (arXiv:1909.12075): the reflection (his Corollary 28), the squaring (his Lemma 22) and the lengthening (his Corollary 21, from his Lemma 20, whose step round 696 proved with characters). His Corollary 28 bounds the double sum at length `N` by the one at length `4∆/N` and two further terms (text layer lines 1861–1867). This round proves the reflection with characters for round 694's double sums. Every Gram entry is reflected, with round 642's `norm_gram_le` for `χ_r ≠ χ_s` and round 697's `norm_gram_le0` for `χ_r = χ_s`, and the dual sums of the pairs, gathered, are again a double sum of the same family.
+
+**The results.** Below, `q ≥ 1`, `R` is the number of points, `σ(N)` and `Ŝ(Y)` are round 694's double sums over `N < n ≤ 2N` and `1 ≤ n ≤ Y`, `G_N` is round 638's Gram matrix, and `T_K(N, Z, T) = 2^{ω(q)+1}πC_KEQh(q)q^{K+1/2}(NZ)^{−K}(1 + 2T)^{K+1}I_K` (`TT`). The separation is the hypothesis of `CGLT101` that two distinct points with the same character have `|t_r − t_s| ≥ 1`.
+
+- `LinnikCGLHBRefl.sig_le_refl`: for `K ≥ 1` there is `C ≥ 0` such that, for `q ≥ 1`, `N > 0`, `Z ≥ 1`, points with `|t_r| ≤ T` and the separation, `σ(N) ≤ C(NR + Q₀(q)²Ŝ(Z) + T_K(N, Z, T)²R²/N)`.
+- `LinnikCGLHBRefl.sig_le_gram`: for `N > 0`, `σ(N) ≤ (2/N)(Σ_{r,s}|G_{5N/6}(r, s)|² + Σ_{r,s}|G_{5N/4}(r, s)|²)`.
+- `LinnikCGLHBRefl.sum_gram_sq_le`: for `N > 0`, `5N/6 ≤ N' ≤ 5N/4`, `Z, K ≥ 1`, `|t_r| ≤ T`, the separation and `B` with `|H(1 + iτ)|² ≤ B²(1 + |τ|)^{−2}`, `Σ_{r,s}|G_{N'}(r, s)|² ≤ 5N²B²C₀R + (N/9)Q₀(q)²A_H²Ŝ(Z) + (4^K/12)T_K(N, Z, T)²R²`, with `A_H = ∫|H(1/2 + iu)| du` and `C₀ = Σ_{m∈ℤ}|m + 1/2|^{−2}`.
+- `LinnikCGLHBRefl.norm_gram_le_all`: for `N > 0` and `Z, K ≥ 1`, with `τ = t_r − t_s`, `|G(r, s)| ≤ [χ_r = χ_s]N|H(1 + iτ)| + (2π)⁻¹(N^{1/2}Q₀(q)∫|H(1/2 + iu)||D_{rs}(u)| du + T_K(N, τ))`, where `D_{rs}(u) = Σ_{m≤Z}(χ_rχ̄_s)⁻¹(m)m^{−1/2+i(u−τ)}` (`Drs`) and `T_K(N, τ)` is the bound of round 642's `norm_integral_Tl_le` (`TK`).
+- `LinnikCGLHBRefl.Drs_eq`, `sum_norm_Drs_sq_le`: `D_{rs}(u) = Σ_{m≤Z}m^{−1/2+iu}Ā_r(m)A_s(m)` with `A_r(m) = χ_r(m)m^{it_r}`; and for real `u`, `Σ_{r,s}|D_{rs}(u)|² ≤ Ŝ(Z)`.
+- `LinnikCGLHBRefl.integral_mul_sq_le`, `sum_main_sq_le`: for `h, d ≥ 0` with `h`, `hd` and `hd²` integrable, `(∫hd)² ≤ (∫h)(∫hd²)`; and `Σ_{r,s}(∫|H(1/2 + iu)||D_{rs}(u)| du)² ≤ A_H²Ŝ(Z)`.
+- `LinnikCGLHBRefl.sum_sep_le`, `sum_res_le`: under the separation, `Σ_{s: χ_s = χ_r}(1 + |t_r − t_s|)^{−2} ≤ C₀` for each `r`; and for `B` as above, `Σ_{r,s: χ_r = χ_s}|H(1 + i(t_r − t_s))|² ≤ B²C₀R`.
+- The others: `gramP_eq`, `wCGL_eq_zero_of_not_mem` and `gramP_eq_of_subset` (`G(r, s) = Σ_n w(n/N)²A_r(n)Ā_s(n)` over the columns, and for `N > 0` over any larger set); `one_le_wsum` and `dyad_subset_cols` (for `N > 0`, `w(n/(5N/6))² + w(n/(5N/4))² ≥ 1` on `(N, 2N]`, which lies in the two sets of columns); `Res` and `Imain` (the residue term and the main integral of a pair); `conj_natCast_cpow_I` (for `m ≥ 1`, `conj(m^{ix}) = m^{−ix}`); `sq_le_of_forall` (for `I, A, B ≥ 0` with `2λI ≤ λ²A + B` for every `λ > 0`, `I² ≤ AB`); `AH`, `AH_nonneg`, `integrable_H_half` and `integrable_H_Drs`; `C0`, `summable_C0`, `C0_nonneg` and `inv_sq_le_floor` (`(1 + |x|)^{−2} ≤ |⌊x⌋ + 1/2|^{−2}`); `H_one_bound` (there is `B ≥ 0` with `|H(1 + iτ)|² ≤ B²(1 + |τ|)^{−2}`); `TK_nonneg` and `TK_le` (for `N > 0`, `5N/6 ≤ N'`, `Z ≥ 1` and `|τ| ≤ 2T`, `0 ≤ T_K(N', τ) ≤ 2^KT_K(N, Z, T)`); `add_sq_le_three`, `pair_sq_le`, `sum_sum_three` and `refl_arith` (the algebra of the sums).
+
+**The stack's form.**
+
+- **Sharp to smooth.** Round 638's weight `w` is `1` on `[6/5, 9/5]` and `0` outside `(1, 2)`, so `w(n/(5N/6))` is `1` on `[N, 3N/2]` and `w(n/(5N/4))` on `[3N/2, 9N/4]`. Positivity (round 694's `dsum_le`) with `n^{−1/2} ≤ N^{−1/2}` on `(N, 2N]` then gives `sig_le_gram`, and `|x + y|² ≤ 2|x|² + 2|y|²` splits the two Gram matrices.
+- **The dual sums.** The dual sum of the pair `(r, s)` carries `(χ_rχ̄_s)⁻¹(m) = χ̄_r(m)χ_s(m)` and `m^{−i(t_r−t_s)}`, so `Σ_{r,s}|D_{rs}(u)|²` is the double sum of the family `Ā_r` with the weights `m^{−1/2+iu}`. Round 694's `dsum_conj` turns it into the double sum of `A_r` with the conjugate weights, at most `Ŝ(Z)` by positivity, for each `u`.
+- **Cauchy–Schwarz.** `(∫hd)² ≤ (∫h)(∫hd²)` comes from `2λhd ≤ λ²h + hd²` for every `λ > 0`, integrated, rather than from Hölder's inequality in Mathlib's `L^p` form.
+- **The residues.** Without the separation the residue terms alone could contribute a multiple of `R²N` to the bound of `σ(N)`; with it, `s ↦ ⌊t_r − t_s⌋` is injective on the points with the character of `r`, and the terms `(1 + |t_r − t_s|)^{−2} ≤ |⌊t_r − t_s⌋ + 1/2|^{−2}` sum to at most `C₀`, a convergent sum over `ℤ` (Mathlib's `Real.summable_one_div_int_add_rpow`).
+- **The constants.** `C = 20(B²C₀ + A_H² + 4^K)` depends on `K` alone. `Q₀(q)` and `T_K(N, Z, T)` keep their dependence on `q`, `N`, `Z` and `T` explicit for the iteration.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLHBRefl.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check, two `#print axioms` lines (`sum_gram_sq_le`, `sig_le_refl`) and the comment.
+- `frontier/linnik/CGL-LEAN.md`: row T10.1 (its stack cell and a net-state marker), markers on the M5 notes of rounds 694, 696 and 697, round 698's note under M5, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section for the file.
+
+**What is checked.**
+
+- `LinnikCGLHBRefl` was compiled in scratch in four runs (`scratchpad/r698/run.sh`, `lcj1.out` to `lcj4.out`). Runs 1 and 2 failed; run 3 had exit 0, and its only messages were the five axiom lines, all `[propext, Classical.choice, Quot.sound]`. Run 4, after comment edits only, had the same output.
+- The fixes. Run 1: an integral binds to the end of its expression, so `l ^ 2 * ∫ u, h u + …` needed parentheses; `integral_finset_sum` and `integrable_finset_sum` are deprecated in favour of `integral_finsetSum` and `integrable_finsetSum`; `Finset.sum_image` needed its summand named; a cast of `P.card`; and two heartbeat timeouts in `sum_gram_sq_le`, which was then split into `pair_sq_le`, `sum_sum_three` and `refl_arith`. Run 2: `sum_gram_sq_le` still timed out, and a rewrite before `exact` closed `refl_arith`'s hypotheses by reflexivity with a metavariable. The residue term and the main integral of a pair were then named as definitions (`Res`, `Imain`), so that the summed bounds unify syntactically, and the bounds of `sum_gram_sq_le` were passed to `refl_arith` unchanged.
+- Then `build.sh` ran once (`scratchpad/r698/compile.sh 1`, log `build_1.log`): `1 compiled, 432 up to date` (`LinnikCGLHBRefl` 13 s), exit 0 in 24 s, with no error, warning or `sorry`; the one log line containing "error" is the axiom line of `Linnik.error_le`. Its 669 axiom lines are 5 by the module and 664 by the final check; 656 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s (`rss_watch_build_1.log`), is 7202212 KiB (6.87 GiB).
+- The file has 683 lines (5 theorems, 25 lemmas, 7 definitions), no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters. It quotes no source.
+- `scratchpad/r698/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, passes on this round's (`quotes_entry.out`).
+- `scratchpad/r698/apply_docs.py` makes the eight edits to CGL-LEAN.md and the external README. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing (`apply.out`, `apply_rerun.out`).
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r698/gate.out`).
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: row T10.1 gains round 698 in its stack cell and a net-state marker; the M5 notes of rounds 694, 696 and 697 gain the marker "the reflection of the double sum is done"; M5 gains round 698's note; the opening's parenthetical gains round 698.
+- `external/pnt/README.md`: a row, and a section for the file.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Kerr, arXiv:1909.12075, his Corollary 28 and the opening of its proof (text layer `scratchpad/hb/work/hb1909.txt`, lines 1861–1886), the statement of his Corollary 21 (lines 1408–1409) and his §6, the proof of Theorem 16 (lines 1947–2021).
+- Mathlib's `Real.summable_one_div_int_add_rpow` (`Analysis/PSeries.lean` 465), `Int.abs_sub_lt_one_of_floor_eq_floor` (`Algebra/Order/Floor/Ring.lean` 238), `Finset.prod_image` (`Algebra/BigOperators/Group/Finset/Basic.lean` 95), `Multipliable.prod_le_tprod` (`Topology/Algebra/InfiniteSum/Order.lean` 121; `Summable.sum_le_tsum` is its additive form), `MulChar.mul_apply` (`NumberTheory/MulChar/Basic.lean` 272), `MulChar.star_apply'` (`NumberTheory/MulChar/Lemmas.lean` 79), `Real.rpow_le_rpow_of_nonpos` (`Analysis/SpecialFunctions/Pow/Real.lean` 564) and `Real.pi_gt_three` (`Analysis/Real/Pi/Bounds.lean` 151).
+- The operative statements: round 694's `dsum`, `dsum_nonneg`, `dsum_le`, `dsum_const_mul`, `dsum_conj`, `famA`, `wh`, `norm_wh`, `sig`, `shat` and `dsum_twist_le` (`LinnikCGLHBPos.lean` 67, 73, 103, 133, 146, 158, 162, 164, 197, 201 and 222); round 638's `wCGL`, `wCGL_one`, `wCGL_zero`, `colsP`, `entP` and `gramP` (`LinnikCGLMat.lean` 67, 73, 79, 92, 95 and 99); round 670's `CGLT101`, `dyad` and `mem_dyad` (`LinnikCGLT101.lean` 67, 57 and 59); round 642's `Q0`, `continuous_H_half`, `continuous_dualS_line`, `IK_nonneg` and `norm_gram_le` (`LinnikCGLPair.lean` 196, 221, 224, 304 and 397); round 697's `norm_gram_le0`; round 641's `CGK_pos`, `EQh_pos` and `H_shift_bound` (`LinnikCGLReflect.lean` 79, 240 and 420); round 640's `integrable_H_line` (`LinnikCGLMellin.lean` 224); and round 526's `dualS` and `norm_dualS_le` (`LinnikReflect.lean` 45 and 208).
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them. "for every `λ > 0`" is the hypothesis of `sq_le_of_forall`.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** This round goes to the next block's review, with rounds 694, 696 and 697 and round 695's sweep (its convergence review).
+
+**Bearing on RH:** none.
+
+**The next step.** Kerr's iteration with characters: the supremum over `N` of `σ(N)` against `RN + R² + R^{5/4}(qT)^{1/2}`, bounded through this round's reflection with `Z ≈ (qT)^{1+δ}/N`, round 694's squaring and round 696's lengthening; then `CGLT101` by positivity.

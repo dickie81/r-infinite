@@ -217,6 +217,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLHBPos.lean` | 694 | Positivity and the double sums of Heath-Brown's bound (stage M5): for `S ⊆ S'`, `\|a_n\| ≤ b_n` on `S` and `b_n ≥ 0` on `S'`, `Σ_{r,s}\|Σ_{n∈S}a_nA_r(n)Ā_s(n)\|² ≤ Σ_{r,s}\|Σ_{n∈S'}b_nA_r(n)Ā_s(n)\|²` for any functions `A_r` (`dsum_le`, Jutila's Lemma 2); for `A_r(n) = χ_r(n)n^{it_r}` and the weight `n^{−1/2}`, the double sum `Ŝ(Y)` over `1 ≤ n ≤ Y` is monotone in `Y`, `Ŝ(Y) ≤ (J + 1)Σ_{j≤J}σ(Y/2^{j+1})` for `0 ≤ Y < 2^{J+1}` (`shat_le_sum_sig`), and `Ŝ(Y)² ≤ \|P\|²D²Ŝ(Y²)` for `Y ≥ 0` and `d(m) ≤ D` on `1 ≤ m ≤ Y²` (`shat_sq_le`) |
 | `LinnikCGLHBLen.lean` | 696 | The lengthening of Heath-Brown's double sums (stage M5), by the characters of an auxiliary prime `p > ⌊3U/2⌋`: for `N, U, D ≥ 0` with `d(m) ≤ D` for `1 ≤ m ≤ 4NU`, `c(q, U)σ(N) ≤ 2D²(σ(NU) + σ(2NU))`, with `c(q, U)` the sum of `1/u` over `⌊U⌋ < u ≤ ⌊3U/2⌋` prime to `q` (`cqU_mul_sig_le`); for `q ≥ 1` and `U ≥ 12d(q)² + 4`, `c(q, U) ≥ 1/(9d(q))` (`cqU_ge`), so `σ(N) ≤ 18d(q)D²(σ(NU) + σ(2NU))` (`sig_le_lengthen`) |
 | `LinnikCGLRefl0.lean` | 697 | The reflection of the principal Gram entries (stage M5), through the pole of `L(s, χ₀)` at `s = 1`: for `q ≥ 1` and `N > 0`, `∫_{(2)}G₁ − ∫_{(1/2)}G₁ = 2πR` with `R = E₀(1)H(1 + iτ)N` and `E₀(s) = ∏_{p∣q}(1 − p^{−s})` (`shift_pole`); for `Z ≥ 0` and `K ≥ 1`, `∫_{(2)}G₁ = 2πR + ∫_{(1/2)}Mn + ∫_{(−K)}Tl` at `χ₀` (`reflect_gram0`); and for `χ_i = χ_k` and `Z, K ≥ 1`, `\|G(i, k)\| ≤ N\|H(1 + iτ)\| + (2π)⁻¹(N^{1/2}Q₀(q)∫\|H(1/2 + iu)\|\|D(u)\| du + T_K)` (`norm_gram_le0`) |
+| `LinnikCGLHBRefl.lean` | 698 | The reflection of Heath-Brown's double sums (stage M5): for `N > 0`, `σ(N) ≤ (2/N)(Σ_{r,s}\|G_{5N/6}(r, s)\|² + Σ_{r,s}\|G_{5N/4}(r, s)\|²)` (`sig_le_gram`); for real `u`, `Σ_{r,s}\|D_{rs}(u)\|² ≤ Ŝ(Z)` (`sum_norm_Drs_sq_le`); and for `K ≥ 1` there is `C ≥ 0` such that, for `q ≥ 1`, `N > 0`, `Z ≥ 1`, `\|t_r\| ≤ T` and the points with the same character `1`-separated, `σ(N) ≤ C(NR + Q₀(q)²Ŝ(Z) + T_K(N, Z, T)²R²/N)` (`sig_le_refl`) |
 
 ## Building (rounds 217, 618)
 
@@ -1420,3 +1421,17 @@ Round 697 is the third step of stage M5. For `χ_i = χ_k` the integrand of roun
 - `gram_reflect0`, `norm_gram_le0`: for `χ_i = χ_k`, `G(i, k) = N^{iτ}(R + (2π)⁻¹(∫_{(1/2)}Mn + ∫_{(−K)}Tl))`; and for `Z, K ≥ 1`, `|G(i, k)| ≤ N|H(1 + iτ)| + (2π)⁻¹(N^{1/2}Q₀(q)∫|H(1/2 + iu)||D(u)| du + T_K)`, with `D(u) = Σ_{m≤Z}χ₀(m)m^{−1/2+i(u−τ)}` and `T_K` the bound of round 642's `norm_integral_Tl_le`.
 
 See the main README, round 697, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 662 lines.
+
+## The reflection of Heath-Brown's double sums: LinnikCGLHBRefl.lean (round 698)
+
+Round 698 is the fourth step of stage M5, the step of Kerr's Corollary 28 for `q = 1`. Below, `q ≥ 1`, `R` is the number of points, `σ(N)` and `Ŝ(Y)` are round 694's double sums, `G_N` is round 638's Gram matrix, and `D_{rs}(u) = Σ_{m≤Z}(χ_rχ̄_s)⁻¹(m)m^{−1/2+i(u−τ)}` with `τ = t_r − t_s`.
+
+- `gramP_eq`, `wCGL_eq_zero_of_not_mem`, `gramP_eq_of_subset`, `one_le_wsum`, `dyad_subset_cols`, `sig_le_gram`: for `N > 0`, `σ(N) ≤ (2/N)(Σ_{r,s}|G_{5N/6}(r, s)|² + Σ_{r,s}|G_{5N/4}(r, s)|²)`, since round 638's weight is `1` on `[6/5, 9/5]` and `n^{−1/2} ≤ N^{−1/2}` on `(N, 2N]`.
+- `TK`, `Drs`, `Res`, `Imain`, `norm_gram_le_all`: for `N > 0` and `Z, K ≥ 1`, `|G(r, s)| ≤ [χ_r = χ_s]N|H(1 + iτ)| + (2π)⁻¹(N^{1/2}Q₀(q)∫|H(1/2 + iu)||D_{rs}(u)| du + T_K(N, τ))`, from rounds 642 and 697.
+- `conj_natCast_cpow_I`, `Drs_eq`, `sum_norm_Drs_sq_le`: `D_{rs}(u) = Σ_{m≤Z}m^{−1/2+iu}Ā_r(m)A_s(m)`, and for real `u`, `Σ_{r,s}|D_{rs}(u)|² ≤ Ŝ(Z)` (round 694's `dsum_conj` and positivity).
+- `sq_le_of_forall`, `integral_mul_sq_le`, `AH`, `AH_nonneg`, `integrable_H_half`, `integrable_H_Drs`, `sum_main_sq_le`: Cauchy–Schwarz, `(∫hd)² ≤ (∫h)(∫hd²)` for `h, d ≥ 0` with `h`, `hd` and `hd²` integrable; and `Σ_{r,s}(∫|H(1/2 + iu)||D_{rs}(u)| du)² ≤ A_H²Ŝ(Z)` with `A_H = ∫|H(1/2 + iu)| du`.
+- `C0`, `summable_C0`, `C0_nonneg`, `inv_sq_le_floor`, `sum_sep_le`, `H_one_bound`, `sum_res_le`: when the points with the same character are `1`-separated, `Σ_{s: χ_s = χ_r}(1 + |t_r − t_s|)^{−2} ≤ C₀ = Σ_{m∈ℤ}|m + 1/2|^{−2}` for each `r`, and with `|H(1 + iτ)|² ≤ B²(1 + |τ|)^{−2}` the residue terms sum to at most `B²C₀R`.
+- `TT`, `TK_nonneg`, `TK_le`, `add_sq_le_three`, `pair_sq_le`, `sum_sum_three`, `sum_gram_sq_le`: for `N > 0`, `5N/6 ≤ N' ≤ 5N/4`, `Z, K ≥ 1`, `|t_r| ≤ T` and the separation, `Σ_{r,s}|G_{N'}(r, s)|² ≤ 5N²B²C₀R + (N/9)Q₀(q)²A_H²Ŝ(Z) + (4^K/12)T_K(N, Z, T)²R²`.
+- `refl_arith`, `sig_le_refl`: for `K ≥ 1` there is `C ≥ 0` such that, for `N > 0`, `Z ≥ 1`, `|t_r| ≤ T` and the separation, `σ(N) ≤ C(NR + Q₀(q)²Ŝ(Z) + T_K(N, Z, T)²R²/N)`, with `T_K(N, Z, T) = 2^{ω(q)+1}πC_KEQh(q)q^{K+1/2}(NZ)^{−K}(1 + 2T)^{K+1}I_K`.
+
+See the main README, round 698, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 664 lines.

@@ -151,7 +151,8 @@ for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
 # their induction and Λ against F by Fourier inversion (LinnikCGLFtilP), and (round 693) their Proposition 8.1 by
 # their induction (LinnikCGLP81), and (round 694) positivity and the double sums of Heath-Brown's bound
 # (LinnikCGLHBPos), and (round 696) their lengthening, by the characters of an auxiliary prime (LinnikCGLHBLen), and
-# (round 697) the reflection of the principal Gram entries (LinnikCGLRefl0).
+# (round 697) the reflection of the principal Gram entries (LinnikCGLRefl0), and (round 698) the reflection of the
+# double sums (LinnikCGLHBRefl).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
     LinnikCGLPair LinnikCGLFrob LinnikCGLS2 LinnikCGLFourier LinnikCGLPoisson LinnikCGLTrace \
     LinnikCGLDiag LinnikCGLTrunc LinnikCGLProd LinnikCGLRFact LinnikCGLRam LinnikCGLP71 LinnikCGLSym LinnikCGLRt \
@@ -160,7 +161,7 @@ for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 Lin
     LinnikCGLL109 LinnikCGLL1010 LinnikCGLCase LinnikCGLEps LinnikCGLS3 LinnikCGLG LinnikCGLPois8 \
     LinnikCGLCount LinnikCGLAsum LinnikCGLNsum LinnikCGLN0 LinnikCGLCov LinnikCGLSig2 LinnikCGLFtil \
     LinnikCGLJtil LinnikCGLTail LinnikCGLL82 LinnikCGLConst LinnikCGLForm LinnikCGLFtilP LinnikCGLP81 \
-    LinnikCGLHBPos LinnikCGLHBLen LinnikCGLRefl0; do
+    LinnikCGLHBPos LinnikCGLHBLen LinnikCGLRefl0 LinnikCGLHBRefl; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -376,6 +377,7 @@ import LinnikCGLP81
 import LinnikCGLHBPos
 import LinnikCGLHBLen
 import LinnikCGLRefl0
+import LinnikCGLHBRefl
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -952,6 +954,8 @@ import LinnikCGLRefl0
 #print axioms LinnikCGLHBLen.sig_le_lengthen
 #print axioms LinnikCGLRefl0.reflect_gram0
 #print axioms LinnikCGLRefl0.norm_gram_le0
+#print axioms LinnikCGLHBRefl.sum_gram_sq_le
+#print axioms LinnikCGLHBRefl.sig_le_refl
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy
