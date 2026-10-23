@@ -1,0 +1,188 @@
+{
+ "rows": [
+  {
+   "r": 0.95,
+   "full": 7.81,
+   "first": 8.33,
+   "second": 5.43,
+   "stable": false
+  },
+  {
+   "r": 1.05,
+   "full": 9.03,
+   "first": 5.52,
+   "second": 8.85,
+   "stable": false
+  },
+  {
+   "r": 1.15,
+   "full": 9.29,
+   "first": 9.11,
+   "second": 9.38,
+   "stable": true
+  },
+  {
+   "r": 1.25,
+   "full": 9.38,
+   "first": 9.64,
+   "second": 9.46,
+   "stable": true
+  },
+  {
+   "r": 1.35,
+   "full": 9.29,
+   "first": 16.3,
+   "second": 9.46,
+   "stable": false
+  },
+  {
+   "r": 1.45,
+   "full": 16.49,
+   "first": 16.56,
+   "second": 16.65,
+   "stable": true
+  },
+  {
+   "r": 1.55,
+   "full": 16.75,
+   "first": 16.83,
+   "second": 16.74,
+   "stable": true
+  },
+  {
+   "r": 1.65,
+   "full": 16.75,
+   "first": 22.52,
+   "second": 16.74,
+   "stable": false
+  },
+  {
+   "r": 1.75,
+   "full": 16.84,
+   "first": 23.14,
+   "second": 16.74,
+   "stable": false
+  },
+  {
+   "r": 1.85,
+   "full": 23.25,
+   "first": 23.49,
+   "second": 16.48,
+   "stable": false
+  },
+  {
+   "r": 1.95,
+   "full": 23.43,
+   "first": 23.57,
+   "second": 23.49,
+   "stable": true
+  },
+  {
+   "r": 2.05,
+   "full": 23.51,
+   "first": 23.57,
+   "second": 23.57,
+   "stable": true
+  },
+  {
+   "r": 2.15,
+   "full": 23.56,
+   "first": 29.53,
+   "second": 23.57,
+   "stable": false
+  },
+  {
+   "r": 2.25,
+   "full": 23.51,
+   "first": 29.8,
+   "second": 23.57,
+   "stable": false
+  },
+  {
+   "r": 2.35,
+   "full": 23.43,
+   "first": 30.06,
+   "second": 23.57,
+   "stable": false
+  },
+  {
+   "r": 2.45,
+   "full": 23.21,
+   "first": 23.22,
+   "second": 30.15,
+   "stable": false
+  },
+  {
+   "r": 2.55,
+   "full": 22.95,
+   "first": 22.61,
+   "second": 29.97,
+   "stable": false
+  },
+  {
+   "r": 2.65,
+   "full": 30.14,
+   "first": 22.7,
+   "second": 30.06,
+   "stable": false
+  },
+  {
+   "r": 2.75,
+   "full": 36.42,
+   "first": 22.35,
+   "second": 36.63,
+   "stable": false
+  },
+  {
+   "r": 2.85,
+   "full": 36.56,
+   "first": 41.89,
+   "second": 29.88,
+   "stable": false
+  },
+  {
+   "r": 2.95,
+   "full": 36.6,
+   "first": 42.15,
+   "second": 36.63,
+   "stable": false
+  },
+  {
+   "r": 3.05,
+   "full": 36.69,
+   "first": 29.62,
+   "second": 29.97,
+   "stable": false
+  },
+  {
+   "r": 3.15,
+   "full": 36.69,
+   "first": 29.53,
+   "second": 36.28,
+   "stable": false
+  },
+  {
+   "r": 3.25,
+   "full": 36.6,
+   "first": 36.63,
+   "second": 36.63,
+   "stable": true
+  },
+  {
+   "r": 3.35,
+   "full": 36.47,
+   "first": 36.46,
+   "second": 36.63,
+   "stable": true
+  },
+  {
+   "r": 3.45,
+   "full": 42.97,
+   "first": 36.19,
+   "second": 36.19,
+   "stable": false
+  }
+ ],
+ "fraction": 0.3076923076923077,
+ "S": false
+}

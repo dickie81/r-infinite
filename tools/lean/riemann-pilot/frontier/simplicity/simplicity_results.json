@@ -1,0 +1,82 @@
+[
+ {
+  "delta": 1.0,
+  "K": 60,
+  "lam1_Q": "9.4081e-7",
+  "lam2_Q": "0.018075",
+  "lam1_Q0": "-1.9874",
+  "lam2_Q0": "0.011939",
+  "simplicity_margin_lam2Q0_over_lam1Q": "12690.0",
+  "Q0_ground_min_over_center": 0.5771
+ },
+ {
+  "delta": 1.4,
+  "K": 90,
+  "lam1_Q": "4.2886e-13",
+  "lam2_Q": "8.765e-8",
+  "lam1_Q0": "-2.8671",
+  "lam2_Q0": "5.6064e-8",
+  "lam3_Q0": "0.0013982",
+  "simplicity_margin_lam2Q0_over_lam1Q": "1.3073e+5",
+  "Q0_ground_min_over_center": 0.6523124367989401,
+  "Q_ground_min_over_center": 1.5730764132943117e-06,
+  "overlap_c_phi1_Q0": 1.2048050298844333,
+  "overlap_c_phi2_Q0": -2.0249855272104503e-08
+ },
+ {
+  "delta": 1.8,
+  "K": 120,
+  "lam1_Q": "4.4732e-23",
+  "lam2_Q": "7.7004e-17",
+  "lam1_Q0": "-3.8232",
+  "lam2_Q0": "4.9228e-17",
+  "lam3_Q0": "1.1826e-11",
+  "simplicity_margin_lam2Q0_over_lam1Q": "1.1005e+6",
+  "Q0_ground_min_over_center": 0.7754276907753117,
+  "Q_ground_min_over_center": 2.0484458187400748e-11,
+  "overlap_c_phi1_Q0": -1.386640926288393,
+  "overlap_c_phi2_Q0": 1.738007298285767e-17
+ },
+ {
+  "delta": 2.2,
+  "K": 160,
+  "lam1_Q": "2.0513e-38",
+  "lam2_Q": "1.5772e-31",
+  "lam1_Q0": "-4.8362",
+  "lam2_Q0": "1.0091e-31",
+  "lam3_Q0": "2.4708e-25",
+  "simplicity_margin_lam2Q0_over_lam1Q": "4.9193e+6",
+  "Q0_ground_min_over_center": 0.8474082308437387,
+  "Q_ground_min_over_center": 4.812428046648063e-19,
+  "overlap_c_phi1_Q0": 1.5592011156870218,
+  "overlap_c_phi2_Q0": 3.510981374048967e-32
+ },
+ {
+  "delta": 2.6,
+  "K": 200,
+  "lam1_Q": "8.2926e-62",
+  "lam2_Q": "4.1933e-54",
+  "lam1_Q0": "-5.9636",
+  "lam2_Q0": "2.6845e-54",
+  "lam3_Q0": "3.9434e-47",
+  "simplicity_margin_lam2Q0_over_lam1Q": "3.2372e+7",
+  "Q0_ground_min_over_center": 0.9486855245465169,
+  "Q_ground_min_over_center": 1.1548635649175994e-30,
+  "overlap_c_phi1_Q0": 1.7304648304893486,
+  "overlap_c_phi2_Q0": 9.255049877750274e-55
+ },
+ {
+  "delta": 3.0,
+  "K": 240,
+  "lam1_Q": "4.8634e-97",
+  "lam2_Q": "1.3171e-88",
+  "lam1_Q0": "-7.2314",
+  "lam2_Q0": "8.4362e-89",
+  "lam3_Q0": "5.9649e-81",
+  "simplicity_margin_lam2Q0_over_lam1Q": "1.7346e+8",
+  "Q0_ground_min_over_center": 0.9545955463221528,
+  "Q_ground_min_over_center": 3.2750839044760684e-48,
+  "overlap_c_phi1_Q0": 1.9042166354504484,
+  "overlap_c_phi2_Q0": 2.8910026614266664e-89
+ }
+]

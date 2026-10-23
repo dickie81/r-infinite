@@ -1,0 +1,256 @@
+{
+"script_sha256": "0171827c68ee9deaedcf00c9749b19dc185e56bd5fde652069963efcd08615b8",
+"key": "3a1e5e62dabf25ee80ae1c91ba083819407223fea31bf176c4559abdfdc16e66",
+"params": {
+"deps": {
+"fold_D.py": "5aec955168f268da0515472fa5e85eeea410e9355c7cda0ed881257847e4844d",
+"fold_surrogate.py": "2e90e1cb8b0e6a33629e38373fed01ed4d5cb922dea42d269aebc38a331f9f9f",
+"height_uniformity.py": "55d6a1b34e7f9803db9cdfa83f8b9064d4b0ba13622f3189fbc9ed7e7bc7e3f2",
+"oneprime_bridge.py": "6fce9f82ead3e02bd02432d1e980ba4666b314d678398582a53f780ad6523b4b",
+"oneprime_certificate.py": "c2111d0d6a2fb8a9b1b55cf04e54c9492e7716086b35fd9e5472969e44220428",
+"oneprime_interval_core.py": "5f1cc2b71405ae314bed3a6ca7dacb0f3ed0442522f84c0b1307eb9c57a0ecdb",
+"oneprime_interval_count.py": "0171827c68ee9deaedcf00c9749b19dc185e56bd5fde652069963efcd08615b8"
+},
+"H": 0.02,
+"cells": [
+[
+"even",
+0.6931,
+0.34655,
+0.15,
+1.0
+],
+[
+"even",
+0.8,
+0.4,
+0.15,
+1.0
+],
+[
+"even",
+0.9,
+0.45,
+0.04,
+1.5
+],
+[
+"even",
+0.95,
+0.475,
+0.02,
+1.5
+],
+[
+"even",
+1.0,
+0.5,
+0.01,
+2.0
+],
+[
+"odd",
+0.9,
+0.45,
+0.15,
+1.0
+],
+[
+"odd",
+1.05,
+0.525,
+0.15,
+1.0
+],
+[
+"odd",
+1.09,
+0.545,
+0.08,
+1.5
+]
+],
+"round": 6
+},
+"state": {
+"even:0.6931": {
+"m": 1270,
+"eop": 1.0833410762103863e-05,
+"rho": 7.215515516708853e-07,
+"mu1": [
+2.4720203688432436,
+2.472021811946348
+],
+"mu2": [
+0.756359391468798,
+0.7563608345719015
+],
+"mu2_full_hi": 0.7563716679826638,
+"beta": 1.0,
+"nu": 0.15,
+"margin": 0.24362833201733622,
+"npieces": 14,
+"nbrackets": 9,
+"certified": true
+},
+"even:0.8": {
+"m": 1270,
+"eop": 1.3238203329246514e-05,
+"rho": 7.696844609615889e-07,
+"mu1": [
+2.71752876375687,
+2.717530303125793
+],
+"mu2": [
+0.9957864940083564,
+0.9957880333772785
+],
+"mu2_full_hi": 0.9958012715806078,
+"beta": 1.0,
+"nu": 0.15,
+"margin": 0.004198728419392172,
+"npieces": 14,
+"nbrackets": 9,
+"certified": true
+},
+"even:0.9": {
+"m": 1871,
+"eop": 2.3156139164484234e-05,
+"rho": 9.091930134750226e-07,
+"mu1": [
+3.331095127034583,
+3.3310969454206107
+],
+"mu2": [
+1.4854004117814394,
+1.485402230167467
+],
+"mu2_full_hi": 1.4854253863066318,
+"beta": 1.5,
+"nu": 0.04,
+"margin": 0.014574613693368208,
+"npieces": 23,
+"nbrackets": 15,
+"certified": true
+},
+"even:0.95": {
+"m": 1841,
+"eop": 2.4701426559911358e-05,
+"rho": 9.050757803825059e-07,
+"mu1": [
+3.4191640593050696,
+3.4191658694566316
+],
+"mu2": [
+1.4963319973322475,
+1.4963338074838086
+],
+"mu2_full_hi": 1.4963585089103688,
+"beta": 1.5,
+"nu": 0.02,
+"margin": 0.0036414910896311876,
+"npieces": 23,
+"nbrackets": 15,
+"certified": true
+},
+"even:1": {
+"m": 3007,
+"eop": 4.3714794645644156e-05,
+"rho": 8.396492086774955e-07,
+"mu1": [
+4.004433377260905,
+4.004435056559324
+],
+"mu2": [
+1.9997487688062672,
+1.9997504481046848
+],
+"mu2_full_hi": 1.9997941628993308,
+"beta": 2.0,
+"nu": 0.01,
+"margin": 0.0002058371006692372,
+"npieces": 35,
+"nbrackets": 23,
+"certified": true
+},
+"odd:0.9": {
+"m": 1270,
+"eop": 1.572262185245108e-05,
+"rho": 6.969866760910177e-07,
+"mu1": [
+1.1323077741007859,
+1.1323091680741386
+],
+"mu2": [
+0.5885680153041909,
+0.5885694092775432
+],
+"mu2_full_hi": 0.5885851318993958,
+"beta": 1.0,
+"nu": 0.15,
+"margin": 0.4114148681006042,
+"npieces": 14,
+"nbrackets": 9,
+"certified": true
+},
+"odd:1.05": {
+"m": 1270,
+"eop": 1.9928692678543402e-05,
+"rho": 7.685282525573511e-07,
+"mu1": [
+1.1352494641029138,
+1.1352510011594195
+],
+"mu2": [
+0.991334439764823,
+0.9913359768213285
+],
+"mu2_full_hi": 0.9913559055140071,
+"beta": 1.0,
+"nu": 0.15,
+"margin": 0.008644094485992902,
+"npieces": 14,
+"nbrackets": 9,
+"certified": true
+},
+"odd:1.09": {
+"m": 1933,
+"eop": 3.2177182852820254e-05,
+"rho": 9.55225513632551e-07,
+"mu1": [
+1.566018844991633,
+1.5660207554426606
+],
+"mu2": [
+1.472439647363436,
+1.4724415578144636
+],
+"mu2_full_hi": 1.4724737349973167,
+"beta": 1.5,
+"nu": 0.08,
+"margin": 0.02752626500268329,
+"npieces": 23,
+"nbrackets": 15,
+"certified": true
+},
+"__gII4__": {
+"shift": 4.661204755507242e-11,
+"eop_ref": 1.8807068680776665e-06
+}
+},
+"migrated": {
+"from_file": "oneprime_ivcount_6d849745f1ea.json",
+"from_key": "6d849745f1ea9cbe4c94c01a0914da6f8d9d1d35956cd651a25099a1a278eabd",
+"from_script_sha256": "eac12c30d8894bf0668d96944fbd854f40ea2f0ee6b2a1095f728bee1391289f",
+"resolved_blobs": {
+"fold_D.py": "9c478e7e43e2571f24b414baf65b3fd4babb17dd",
+"fold_surrogate.py": "7401db734022befe61fedf62830d4bf2c4118cdf",
+"height_uniformity.py": "9df0860fd52deef5b3e69515b8875f5f20f167a8",
+"oneprime_bridge.py": "af55e38a96eec7dc21992cc774b27f441396b84f",
+"oneprime_certificate.py": "986f06a9fb16dd2a8a7ebed0e0210790f5cc8a99",
+"oneprime_interval_core.py": "5946e6c9ddaefcb19c971d064eb62a243c125dfa",
+"oneprime_interval_count.py": "3d12727214e7c8e0769147ecf352e5ab0ffa8526"
+},
+"rule": "round 282: every dep's historical version (resolved from the stored old hash) has the same print-insensitive executable-content hash as the working-tree file; the old key recomputes from the stored provenance"
+}
+}

@@ -40,7 +40,8 @@ vs ratio-structured observables.
 What remains open.  The sign of the Gram correction on multiplicative
 paths (+, by Cauchy-Schwarz) is a theorem.  The sign of the Bott-
 partition deviation from lapse-identity on ratio-of-sums observables
-is currently an empirical observation (Omega_m: Bott < lapse; similar
+was, at this file's writing, empirical (later proved cascade-internally
+in bott_vs_lapse_proof.py; part4b:1085) (Omega_m: Bott < lapse; similar
 for theta_C's analogous weighted-vs-unweighted comparison).  A Morse-
 index derivation of the sign from the cascade action's second-order
 structure around the equilibrium would close this; the present tool
@@ -238,8 +239,8 @@ def main():
     print("     with the Bott partition value being lower than the lapse identity.")
     print()
     print("WHAT IS NOT ESTABLISHED:")
-    print("  1. The Bott < lapse direction is empirical; a structural theorem")
-    print("     proving it from the cascade's Dirac-layer selection rule is open.")
+    print("  1. The Bott < lapse direction was LATER PROVED cascade-internally")
+    print("     (bott_vs_lapse_proof.py; part4b:1085) -- this docstring predates it.")
     print("  2. The 'Morse index on cascade configuration space' language in")
     print("     Part IVb Rem 4.6 is evocative but not currently a formal derivation.")
     print("  3. A unified sign argument from the Berezin action -- showing both")

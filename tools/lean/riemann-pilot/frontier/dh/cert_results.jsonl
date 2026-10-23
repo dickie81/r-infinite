@@ -1,0 +1,3 @@
+{"delta": 3.45, "K": 80, "eig": "-7.82529e-30", "rq_upper": "-7.8252897e-30", "rq_mid": "-7.8252897e-30", "certified_negative": true}
+{"delta": 3.6, "K": 80, "eig": "-2.2424e-7", "rq_upper": "-2.2423979e-7", "rq_mid": "-2.2423979e-7", "certified_negative": true}
+{"delta": 4.0, "K": 80, "eig": "-0.702768", "rq_upper": "-0.70276849", "rq_mid": "-0.70276849", "certified_negative": true}

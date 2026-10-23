@@ -1,0 +1,36 @@
+delta 2.0: K 150  tolerance 3e^-delta = 0.406
+   P1   max |ratio-1| = 9.874e-03 at d = 60   -> PASS
+   null max |ratio-1| = 6.386e-03 at d = 23   -> passes too
+      d= 0  meas     0.005073  pred     0.005102  diff -2.92e-05  |ratio-1| 5.72e-03  null 5.72e-03
+      d= 1  meas     0.045572  pred     0.045835  diff -2.63e-04  |ratio-1| 5.73e-03  null 5.73e-03
+      d= 2  meas     0.126135  pred     0.126865  diff -7.30e-04  |ratio-1| 5.75e-03  null 5.74e-03
+      d= 5  meas     0.598176  pred     0.601703  diff -3.53e-03  |ratio-1| 5.86e-03  null 5.82e-03
+      d=10  meas     2.059224  pred     2.072026  diff -1.28e-02  |ratio-1| 6.18e-03  null 6.03e-03
+      d=20  meas     6.792010  pred     6.840037  diff -4.80e-02  |ratio-1| 7.02e-03  null 6.36e-03
+      d=30  meas    13.048108  pred    13.151771  diff -1.04e-01  |ratio-1| 7.88e-03  null 6.23e-03
+      d=45  meas    24.094863  pred    24.313774  diff -2.19e-01  |ratio-1| 9.00e-03  null 4.74e-03
+      d=60  meas    36.343985  pred    36.706418  diff -3.62e-01  |ratio-1| 9.87e-03  null 1.41e-03
+delta 3.0: K 341  tolerance 3e^-delta = 0.1494
+   P1   max |ratio-1| = 1.252e-03 at d = 60   -> PASS
+   null max |ratio-1| = 9.014e-04 at d = 45   -> passes too
+      d= 0  meas     0.005524  pred     0.005527  diff -3.73e-06  |ratio-1| 6.75e-04  null 6.75e-04
+      d= 1  meas     0.049631  pred     0.049664  diff -3.36e-05  |ratio-1| 6.77e-04  null 6.76e-04
+      d= 2  meas     0.137408  pred     0.137501  diff -9.33e-05  |ratio-1| 6.79e-04  null 6.78e-04
+      d= 5  meas     0.652712  pred     0.653163  diff -4.52e-04  |ratio-1| 6.92e-04  null 6.90e-04
+      d=10  meas     2.257719  pred     2.259364  diff -1.65e-03  |ratio-1| 7.28e-04  null 7.21e-04
+      d=20  meas     7.544711  pred     7.550970  diff -6.26e-03  |ratio-1| 8.29e-04  null 7.99e-04
+      d=30  meas    14.700474  pred    14.714281  diff -1.38e-02  |ratio-1| 9.38e-04  null 8.63e-04
+      d=45  meas    27.707928  pred    27.738427  diff -3.05e-02  |ratio-1| 1.10e-03  null 9.01e-04
+      d=60  meas    42.588484  pred    42.641857  diff -5.34e-02  |ratio-1| 1.25e-03  null 8.52e-04
+delta 4.3: K 1145  tolerance 3e^-delta = 0.04071
+   P1   max |ratio-1| = 9.026e-05 at d = 60   -> PASS
+   null max |ratio-1| = 8.251e-05 at d = 60   -> passes too
+      d= 0  meas     0.005707  pred     0.005708  diff -2.80e-07  |ratio-1| 4.90e-05  null 4.90e-05
+      d= 1  meas     0.051283  pred     0.051285  diff -2.52e-06  |ratio-1| 4.91e-05  null 4.91e-05
+      d= 2  meas     0.141998  pred     0.142005  diff -6.99e-06  |ratio-1| 4.92e-05  null 4.92e-05
+      d= 5  meas     0.674925  pred     0.674959  diff -3.38e-05  |ratio-1| 5.01e-05  null 5.01e-05
+      d=10  meas     2.338666  pred     2.338789  diff -1.23e-04  |ratio-1| 5.27e-05  null 5.26e-05
+      d=20  meas     7.853085  pred     7.853555  diff -4.70e-04  |ratio-1| 5.98e-05  null 5.92e-05
+      d=30  meas    15.382434  pred    15.383474  diff -1.04e-03  |ratio-1| 6.76e-05  null 6.61e-05
+      d=45  meas    29.222434  pred    29.224746  diff -2.31e-03  |ratio-1| 7.91e-05  null 7.53e-05
+      d=60  meas    45.258428  pred    45.262514  diff -4.09e-03  |ratio-1| 9.03e-05  null 8.25e-05

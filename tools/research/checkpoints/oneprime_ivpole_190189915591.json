@@ -1,0 +1,137 @@
+{
+"script_sha256": "2cccb06ed3f490749fe7e34287c9cd9582c705c4b8132613dd78eee3d4e589f3",
+"key": "190189915591e983cc4aa77fad115b62956f1f31f19fc5e268057945423ffe95",
+"params": {
+"deps": {
+"fold_D.py": "5aec955168f268da0515472fa5e85eeea410e9355c7cda0ed881257847e4844d",
+"fold_surrogate.py": "2e90e1cb8b0e6a33629e38373fed01ed4d5cb922dea42d269aebc38a331f9f9f",
+"height_uniformity.py": "55d6a1b34e7f9803db9cdfa83f8b9064d4b0ba13622f3189fbc9ed7e7bc7e3f2",
+"oneprime_bridge.py": "6fce9f82ead3e02bd02432d1e980ba4666b314d678398582a53f780ad6523b4b",
+"oneprime_certificate.py": "c2111d0d6a2fb8a9b1b55cf04e54c9492e7716086b35fd9e5472969e44220428",
+"oneprime_interval_core.py": "5f1cc2b71405ae314bed3a6ca7dacb0f3ed0442522f84c0b1307eb9c57a0ecdb",
+"oneprime_interval_count.py": "0171827c68ee9deaedcf00c9749b19dc185e56bd5fde652069963efcd08615b8",
+"oneprime_interval_pole.py": "2cccb06ed3f490749fe7e34287c9cd9582c705c4b8132613dd78eee3d4e589f3"
+},
+"H": 0.02,
+"rows": [
+[
+0.5,
+0.014,
+2.0
+],
+[
+0.5,
+0.015,
+2.5
+]
+],
+"rmax": 260.0,
+"round": 7
+},
+"state": {
+"even:0.014:2": {
+"m": 3019,
+"eop": 4.385235893328052e-05,
+"rho": 8.386243393059974e-07,
+"mu": [
+[
+4.008397863767422,
+4.008399541016103
+],
+[
+2.003738852978595,
+2.0037405302272746
+],
+[
+1.202593773756932,
+1.2025954510056112
+]
+],
+"bprime": 1.9999561466410662,
+"gap": 0.003782706337529306,
+"gap_lo": 0.797360695635455,
+"gap_hi": 0.0037827063375288623,
+"corr": 0.0009198141755410485,
+"g": [
+-0.00340581640059412,
+-0.002485766174661119
+],
+"gmargin": 0.0024857661746611184,
+"nu": 0.014,
+"beta": 2.0,
+"npieces": 35,
+"certified": true,
+"rs_first_last": [
+0.0,
+118.34214
+],
+"hv_norm": 2.8516239231739786,
+"r_norm": 1.220142278542716e-06
+},
+"even:0.015:2.5": {
+"m": 4981,
+"eop": 7.253999102916213e-05,
+"rho": 7.870065664100992e-07,
+"mu": [
+[
+4.506264936666989,
+4.506266510680124
+],
+[
+2.5039085562307033,
+2.5039101302438374
+],
+[
+1.692205241902941,
+1.6922068159160741
+]
+],
+"bprime": 2.49992745900897,
+"gap": 0.003981097221733959,
+"gap_lo": 0.8077206430928957,
+"gap_hi": 0.003981097221733342,
+"corr": 0.0009637963474485464,
+"g": [
+-0.00378700624264039,
+-0.0030157722097761126
+],
+"gmargin": 0.003015772209776112,
+"nu": 0.015,
+"beta": 2.5,
+"npieces": 59,
+"certified": true,
+"rs_first_last": [
+0.0,
+199.81414938247403
+],
+"hv_norm": 3.0233458343472592,
+"r_norm": 1.2691128211513873e-06
+},
+"__gP4__": {
+"mshift": 1.687538997430238e-13,
+"gshift": 0.00014019796459474598,
+"eop_ref": 1.885457117595323e-05,
+"g_ref": [
+-0.003935153846552853,
+-0.0031480205350531416
+]
+},
+"__nustar__": 0.015
+},
+"migrated": {
+"from_file": "oneprime_ivpole_313274230951.json",
+"from_key": "313274230951ad922af703fff3245f23bbaf62db6d40d7b4d734f90f25b0ddbb",
+"from_script_sha256": "bd5ac6d36ba895e71feda6b2c1f79b9b967a9a5a7472df61426f3b9f8a84009e",
+"resolved_blobs": {
+"fold_D.py": "9c478e7e43e2571f24b414baf65b3fd4babb17dd",
+"fold_surrogate.py": "7401db734022befe61fedf62830d4bf2c4118cdf",
+"height_uniformity.py": "9df0860fd52deef5b3e69515b8875f5f20f167a8",
+"oneprime_bridge.py": "af55e38a96eec7dc21992cc774b27f441396b84f",
+"oneprime_certificate.py": "986f06a9fb16dd2a8a7ebed0e0210790f5cc8a99",
+"oneprime_interval_core.py": "5946e6c9ddaefcb19c971d064eb62a243c125dfa",
+"oneprime_interval_count.py": "3d12727214e7c8e0769147ecf352e5ab0ffa8526",
+"oneprime_interval_pole.py": "de37bc7af79b0a4b5fb88d89409dda9c54ba5e16"
+},
+"rule": "round 282: every dep's historical version (resolved from the stored old hash) has the same print-insensitive executable-content hash as the working-tree file; the old key recomputes from the stored provenance"
+}
+}

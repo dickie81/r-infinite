@@ -1,0 +1,65 @@
+{
+ "n": 569,
+ "L": 17.04,
+ "res": 0.3687,
+ "omega1": 9.586,
+ "slope_s": 12.205,
+ "B1": false,
+ "B2": false,
+ "harmonics": {
+  "2": {
+   "target": 19.172,
+   "peak_at": 19.54,
+   "power_over_q95": 0.025,
+   "flank_rank": 0.625,
+   "passes": false
+  },
+  "3": {
+   "target": 28.758,
+   "peak_at": 28.758,
+   "power_over_q95": 0.087,
+   "flank_rank": 0.188,
+   "passes": false
+  },
+  "4": {
+   "target": 38.343,
+   "peak_at": 38.712,
+   "power_over_q95": 0.795,
+   "flank_rank": 0.812,
+   "passes": false
+  },
+  "5": {
+   "target": 47.929,
+   "peak_at": 47.929,
+   "power_over_q95": 0.757,
+   "flank_rank": 0.75,
+   "passes": false
+  },
+  "6": {
+   "target": 57.515,
+   "peak_at": 57.146,
+   "power_over_q95": 0.305,
+   "flank_rank": 0.5,
+   "passes": false
+  },
+  "7": {
+   "target": 67.101,
+   "peak_at": 66.732,
+   "power_over_q95": 0.517,
+   "flank_rank": 0.625,
+   "passes": false
+  },
+  "8": {
+   "target": 76.687,
+   "peak_at": 76.687,
+   "power_over_q95": 0.146,
+   "flank_rank": 0.562,
+   "passes": false
+  }
+ },
+ "top_50_100": {
+  "omega": 50.141,
+  "ratio": 5.231
+ },
+ "rms_residual": 0.04368400911107461
+}

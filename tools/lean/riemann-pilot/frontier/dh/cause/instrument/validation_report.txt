@@ -1,0 +1,42 @@
+== self-test
+  {'theta_sign': 1, 'dirichlet_l_rel_diff': 8.06409221295721e-14} {'max_im_ratio': 2.8257015153621065e-07, 'max_id_ratio': 1.4107099149069411e-06, 'pass': True} False
+== reference census [1, 200], dt 25
+  windows 8 range [1.0, 199.5] N_f [0, 129] N_chi [0, 129] N_chibar [0, 129] on-line {'f': 121, 'chi': 129, 'chibar': 129}
+  accounting f/chi/chibar True True True  flagged windows []  continuity problems []
+  self-test maxima: im 7.18e-06  id 3.24e-06 (pass < 1)
+  rho = 0.808517182 + 85.699348485 i   |f| = 1.6e-30
+  rho = 0.650830081 + 114.163342731 i   |f| = 2.4e-30
+  rho = 0.574356050 + 166.479305913 i   |f| = 5.3e-30
+  rho = 0.724257695 + 176.702461243 i   |f| = 3.0e-30
+  four expected zeros matched to 1e-6: True
+== independent: argument principle for f around [1/2+delta, 2] x [1, 200]
+{"rect": [0.501, 2.0, 1.0, 200.0], "zeros": 4.0000000000000195, "evals": {"53": 8233}}
+{"rect": [0.55, 2.0, 1.0, 200.0], "zeros": 4.0, "evals": {"53": 4730}}
+== the strip (T1_last, 200] not covered by the shifted last end
+{"from": 199.5, "to": 200.0, "N_at_200": {"raw": [130.0, 130.00000000000003, 129.0], "int": [130, 130, 129], "integral": true, "parity": true}, "roots_f": [199.87618499488042], "dN_f": 1, "roots_chi": [199.77160559500382], "dN_chi": 1, "roots_chibar": [], "dN_chibar": 0, "K_tail": 0.0}
+== channel roots against flint's dirichlet_l (max |L| or |f| at the roots)
+{"chi": 2.0666411615875846e-10, "chibar": 2.8207817201822416e-10, "f": 2.370013352237521e-10}
+== sabotage/variant: fine
+  range [1.0, 199.5]  roots f/chi/chibar [([121, 121], True), ([129, 129], True), ([129, 129], True)]  offline ([4, 4], True)  flags []
+  diag {'N_evals': 8, 'track_steps': 84, 'brent': 379, 'newton_starts': 4, 'min_track_step': 0.0008071778613176761}
+== sabotage/variant: coarse
+  range [1.0, 199.5]  roots f/chi/chibar [([121, 121], True), ([129, 129], True), ([129, 129], True)]  offline ([4, 4], True)  flags []
+  diag {'N_evals': 8, 'track_steps': 88, 'brent': 379, 'golden': 4, 'newton_starts': 4, 'min_track_step': 0.003247572454455394}
+== sabotage/variant: harsh
+  range [1.0, 199.0]  roots f/chi/chibar [([121, 121], True), ([129, 129], True), ([129, 129], True)]  offline ([4, 4], True)  flags []
+  diag {'N_evals': 8, 'track_steps': 82, 'brent': 379, 'golden': 14, 'close_pairs': 11, 'repairs': 2, 'densified': 389, 'newton_starts': 4, 'min_track_step': 0.00021905565132107618}
+== sabotage/variant: harsh_nogolden
+  range [1.0, 199.0]  roots f/chi/chibar [([121, 121], True), ([129, 129], True), ([129, 129], True)]  offline ([4, 4], True)  flags []
+  diag {'N_evals': 28, 'track_steps': 281, 'brent': 379, 'newton_starts': 24, 'locate_splits': 16, 'densified': 1394, 'repairs': 11, 'min_track_step': 0.00021905565132107618}
+== sabotage/variant: nodips
+  range [1.0, 199.5]  roots f/chi/chibar [([121, 121], True), ([129, 129], True), ([129, 129], True)]  offline ([4, 4], True)  flags []
+  diag {'N_evals': 33, 'track_steps': 358, 'brent': 379, 'locate_splits': 25, 'densified': 660, 'grid_points': 5832, 'newton_starts': 4, 'min_track_step': 0.0007955142621315359}
+== dt 10
+  range [1.0, 199.5]  roots f/chi/chibar [([121, 121], True), ([129, 129], True), ([129, 129], True)]  offline ([4, 4], True)  flags []
+  diag {'N_evals': 20, 'track_steps': 202, 'brent': 379, 'newton_starts': 4, 'min_track_step': 0.0010748382253492617}
+== dt 50
+  range [1.0, 199.5]  roots f/chi/chibar [([121, 121], True), ([129, 129], True), ([129, 129], True)]  offline ([4, 4], True)  flags []
+  diag {'N_evals': 4, 'track_steps': 44, 'brent': 379, 'newton_starts': 4, 'min_track_step': 0.003247572454455394}
+== resume: kill after ~1 s, append a torn line, resume
+  complete lines after kill: 4
+  windows 8 8  bitwise identical science fields: True  resumed at [0, 4]

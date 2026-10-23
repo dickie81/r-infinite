@@ -1,0 +1,47 @@
+{
+"script_sha256": "19d11190804b989e064a668486ed80c6c5a667f0a790469e91c261f88ec4d072",
+"key": "6c2c78294111bd0aba6d0ad5585ebee190ebb3d2ecc71c5090e51ee9ab80ee29",
+"params": {
+"deps": {
+"ladder_caster.py": "957802cf649087534191819d1d1cc216a8dfc7fee6450c2b9627f2b89de32c2b",
+"odd_sector.py": "19d11190804b989e064a668486ed80c6c5a667f0a790469e91c261f88ec4d072",
+"weil_prime_gram.py": "d2f6d9dd3828fd14f8ae488694db56d683f8eda75cd40594ec647eaa2a807aa5",
+"weil_prime_gram_odd.py": "73c0aecbab07c6f4834d5f54f989684584275ac5904df6e158321237e7a57680",
+"weil_spectrum_ladder.py": "db5677bf58d3e766130feaa4687b715ae07428768f3ac900791eab461fbc34b7"
+},
+"cell": "selftest",
+"zeros6700": "e0ce93cf748e71c827ac920e903407da8cb168093274aecb6e2af4ce31769c30",
+"round": 1
+},
+"state": {
+"cell": "selftest",
+"cases": [
+{
+"delta": 1.0,
+"K": 48,
+"prime_side_mid": 0.021912748474738293,
+"prime_side_rad": 7.6701e-18,
+"zero_side": 0.021912748474738307,
+"tail": 1.2339324904249133e-16,
+"prime_powers": [
+2
+]
+},
+{
+"delta": 2.0,
+"K": 80,
+"prime_side_mid": 0.00016777181094361818,
+"prime_side_rad": 2.25e-18,
+"zero_side": 0.00016777181094361767,
+"tail": 1.8993131797210435e-20,
+"prime_powers": [
+2,
+3,
+4,
+5,
+7
+]
+}
+]
+}
+}

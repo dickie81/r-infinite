@@ -1,0 +1,8 @@
+Jensen-test sensitivity (sens.py, delta = 1.4 ground state, one non-real pair inserted at +-(T + i eta)):
+  d <= 14, 36 moments:  detected only T = 8, eta = 2 (below the first zero); missed T = 8 (eta 0.5), 16, 30, 50, 80.
+  d <= 44, 90 moments (sens_big.py, n = 0): detects T = 16, eta = 2 (from degree 27 on); misses T = 30.
+Convolution test (conv_test.py 2.0 160 900 180 220): 55 real zeros of ghat on [0, 180], the first six equal to the zeta
+zeros to 7 digits. For every nu = 0, 1/2, ..., 10: no ball-slice factor whose second zero lies in range survives;
+radius bound r < j_{nu,2}/180 = 0.031 (nu = 0) ... 0.102 (nu = 10), window half-width a = 1.
+delta = 3 (conv_delta3.json, Tmax = 250): 107 real zeros on [0, 250] (zeta's count there is 107); no survivors;
+r < 0.022 ... 0.074, a = 1.5.

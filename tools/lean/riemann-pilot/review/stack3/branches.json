@@ -1,0 +1,66 @@
+{
+ "ThetaPair round-427 chain": [
+  "thetaL_ne_zero"
+ ],
+ "Unfold coset branch": [
+  "lintegral_puLe_top_lt_top",
+  "lintegral_unfold_cosets",
+  "lintegral_rhoInf"
+ ],
+ "QuadSieve Lemma 10 (fBound_sep)": [
+  "fBound_sep"
+ ],
+ "QuadSieve fBound_gcd": [
+  "fBound_gcd"
+ ],
+ "Round-401 chain (w>1/6, w>1/4)": [
+  "tendsto_outside_div_sixth",
+  "tendsto_outside_div_quarter"
+ ],
+ "KubotaEnergy": [
+  "edens_actP",
+  "lintegral_energy_actP",
+  "edens_automorphic"
+ ],
+ "fSmoothJ_of_meanSquare": [
+  "fSmoothJ_isBigO_of_meanSquare"
+ ],
+ "twisted_theta_voronoi": [
+  "twisted_theta_voronoi"
+ ],
+ "memLp_gfun": [
+  "memLp_gfun"
+ ],
+ "theta series headlines": [
+  "exists_theta_series",
+  "exists_theta_series_inv",
+  "isAut_thS_Gam2",
+  "integral_thS_affine"
+ ],
+ "twisted_theta_poly": [
+  "twisted_theta_poly"
+ ],
+ "twisted_theta_mellin": [
+  "twisted_theta_mellin"
+ ],
+ "lemma61_of_kubotaTheta": [
+  "lemma61_of_kubotaTheta"
+ ],
+ "psi_isBigO_of_completed": [
+  "psi_isBigO_of_completed"
+ ],
+ "Cubic+Sextic half-plane (recorded)": [
+  "LFunction_ne_zero_of_cube",
+  "LFunction_ne_zero_of_pow_six"
+ ],
+ "norm_eis1_slAct_sub_le": [
+  "norm_eis1_slAct_sub_le"
+ ],
+ "Lemma14 integral_fourier_Phi_sq + integral_dualG_sq": [
+  "integral_fourier_Phi_sq",
+  "integral_dualG_sq"
+ ],
+ "Mq_rowcol (round 321)": [
+  "Mq_rowcol"
+ ]
+}

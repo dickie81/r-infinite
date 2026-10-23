@@ -1,0 +1,115 @@
+{
+ "validation_corr": 0.9845,
+ "V": true,
+ "peak_true": 9.075,
+ "peak_smooth": 9.773,
+ "peak_measured": 9.075,
+ "line_true": {
+  "target": 9.075,
+  "peak_at": 9.075,
+  "power_over_q95": 5.069,
+  "passes": true
+ },
+ "line_smooth_at_true_peak": {
+  "target": 9.075,
+  "peak_at": 9.773,
+  "power_over_q95": 39.141,
+  "passes": true
+ },
+ "line_measured": {
+  "target": 9.075,
+  "peak_at": 9.075,
+  "power_over_q95": 5.115,
+  "passes": true
+ },
+ "line_smooth_own": {
+  "target": 9.773,
+  "peak_at": 9.773,
+  "power_over_q95": 41.489,
+  "passes": true
+ },
+ "S_passes": false,
+ "corr_superposed_measured": 0.46624324412990775,
+ "rms_true": 0.07386022863862296,
+ "rms_smooth": 0.021593383212991295,
+ "rms_ratio": 0.2923546760008226,
+ "corr_smooth_true": 0.5400918914682479,
+ "top_true": [
+  [
+   9.07,
+   0.239
+  ],
+  [
+   4.89,
+   0.152
+  ],
+  [
+   16.75,
+   0.04
+  ],
+  [
+   1.4,
+   0.026
+  ],
+  [
+   13.26,
+   0.011
+  ],
+  [
+   23.73,
+   0.009
+  ]
+ ],
+ "top_smooth": [
+  [
+   9.77,
+   0.413
+  ],
+  [
+   1.4,
+   0.099
+  ],
+  [
+   16.75,
+   0.021
+  ],
+  [
+   4.89,
+   0.005
+  ],
+  [
+   23.73,
+   0.002
+  ],
+  [
+   13.26,
+   0.0
+  ]
+ ],
+ "top_measured": [
+  [
+   9.07,
+   0.244
+  ],
+  [
+   4.89,
+   0.155
+  ],
+  [
+   16.75,
+   0.04
+  ],
+  [
+   1.4,
+   0.016
+  ],
+  [
+   13.26,
+   0.012
+  ],
+  [
+   23.73,
+   0.008
+  ]
+ ]
+}

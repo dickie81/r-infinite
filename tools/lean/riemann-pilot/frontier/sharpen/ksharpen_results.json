@@ -1,0 +1,43 @@
+{
+ "P1_failures": [
+  20
+ ],
+ "P1_holds": false,
+ "P2_Lambda_times_L^-a": {
+  "0.79": [
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   125.89656690013898,
+   40.38644503546499
+  ],
+  "0.8": [
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   100.0031977436348,
+   28.56405117379167
+  ],
+  "0.81": [
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   79.43536353048466,
+   19.861739344174474
+  ]
+ },
+ "P3_max_logC_over_ell2": 1.3066719954425117,
+ "P3_max_ell_over_k2log4k": 1.7936718673386545,
+ "P3_holds": true,
+ "P4_c": 1.3603074208157174e-06,
+ "P4_holds": true
+}

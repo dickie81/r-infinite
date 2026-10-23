@@ -1,0 +1,39 @@
+{
+ "d1_true": {
+  "corr": 0.8491,
+  "rms_ratio": 0.838,
+  "raw_max_err": 0.4713,
+  "raw_rms_err": 0.0704
+ },
+ "d2_true": {
+  "corr": 0.9368,
+  "rms_ratio": 0.899,
+  "raw_max_err": 0.0799,
+  "raw_rms_err": 0.0261
+ },
+ "d3_true": {
+  "corr": 0.9807,
+  "rms_ratio": 0.958,
+  "raw_max_err": 0.1009,
+  "raw_rms_err": 0.0182
+ },
+ "d1_P7": {
+  "corr": 0.8311,
+  "rms_ratio": 0.85,
+  "raw_max_err": 0.5032,
+  "raw_rms_err": 0.0946
+ },
+ "d2_P7": {
+  "corr": 0.9298,
+  "rms_ratio": 0.915,
+  "raw_max_err": 0.1312,
+  "raw_rms_err": 0.0367
+ },
+ "d3_P7": {
+  "corr": 0.9837,
+  "rms_ratio": 0.985,
+  "raw_max_err": 0.0794,
+  "raw_rms_err": 0.0201
+ },
+ "A_verdict": "partial"
+}
