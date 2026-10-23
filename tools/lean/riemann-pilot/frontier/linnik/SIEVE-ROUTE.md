@@ -644,3 +644,21 @@ The owner's instruction of 2026-10-21 (§23): "We should record these hypothetic
 
 - **What they give.** Interpolated linearly in `L` between the rows, the estimated loss crosses `1` at about `L = 2.2468` with the crude `ω` (§23's fits: `2.2469`), `2.2464` with Buchstab's `ω`, `2.2409` with the parts kept for at most two primes in `m`, `2.2376` for at most three, and `2.2360` for any number. So Buchstab's `ω` alone moves the limit by about `0.0004`, and keeping the evaluable parts as well moves it by about `0.006` to `0.011`, in line with round 577's "about `0.01`" (README round 577).
 - **What they are not.** A certificate that keeps the parts would carry §6's decomposition into the rough part, with the Type II estimate at each evaluable factorization; neither refinement is in one. The estimates are of the loss in the limit of fine grids: the crude row's agreement with §23's extrapolation is the probe's check of that, at `9/4` only.
+
+- **An exact replay of the two-prime refinement** (round 704). `refine_k2_probe.py` in this directory replays the certificate's total in exact integers on `route_limits.replay`'s grid, keeping the evaluable parts of the dropped depth-2 terms whose rough part has two primes. For a candidate cell lying wholly in the term's region (`α₂ ≤ α₁ ≤ 1/2`), it subtracts from the cell's cost a lower bound of their share, `Σ_k K·H³·DEN/((e_i + H)(e_j + H)(e_k + H)γ_hi)` over the cells `k` of `q₁`'s exponent `β` with `α₂ ≤ β ≤ γ` on the whole cell product and a surely evaluable subset sum. Depth-4 costs are not refined. Its gate: where `route_limits.jsonl` has the row, the unrefined total equals it exactly, and the refined total is at most the unrefined one. The probe exits 1 otherwise. Totals over `K`:
+
+| `L` | `n` | the certificate | refined | depth-4 tests of the decomposed cells |
+|---|---|---|---|---|
+| `9/4` | `200` | `1.07689` | `0.97203` | `652,225` |
+| `9/4` | `300` | `1.02125` | `0.91452` | `3,038,374` |
+| `2249/1000` | `200` | `1.11968` | `1.01292` | `670,542` |
+| `2249/1000` | `300` | `1.05337` | `0.94650` | `3,125,144` |
+| `2249/1000` | `400` | `1.02738` | `0.92104` | `9,633,207` |
+| `899/400` | `300` | `1.10458` | `0.99386` | `3,327,803` |
+| `899/400` | `400` | `1.07247` | `0.96369` | `10,180,429` |
+| `2245/1000` | `200` | `1.26958` | `1.15513` | `763,647` |
+| `2245/1000` | `300` | `1.19356` | `1.08042` | `3,570,429` |
+| `2245/1000` | `400` | `1.16265` | `1.04995` | `11,044,048` |
+| `2245/1000` | `600` | `1.12700` | `1.01506` | `53,971,477` |
+
+- **What the replays give.** With the refinement the total falls below `1` at `9/4` from `n = 200`, at `2249/1000` from `n = 300` and at `899/400` from `n = 300`. The certificate as it stands needs `n = 400` at `9/4` and `n = 600` at `2249/1000`, and no computed grid up to `n = 800` certifies `899/400` (§23's table). `2245/1000` stays above `1` to `n = 600`. These are replays of a refined certificate, not certificates: its soundness, the partition of a dropped term by the factorization of its rough part and the Type II estimate on each evaluable part, is not proved in Lean.

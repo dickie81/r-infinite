@@ -30534,4 +30534,44 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 **Bearing on RH:** none.
 
-**The next step.** The owner's instruction of 2026-10-20 to pursue lower exponents. Of §28's refinements the cheapest for the kernel keeps the parts with at most two primes in the rough part: their shares are one-dimensional integrals per cell, and §28 puts that line's limit at about `L = 2.2409`. A certificate that keeps them would need, in Lean, the partition of a dropped term by the factorization of its rough part, and the Type II estimate on each evaluable part.
+**The next step.** The owner's instruction of 2026-10-20 to pursue lower exponents. Of §28's refinements the cheapest for the kernel keeps the parts with at most two primes in the rough part: their shares are one-dimensional integrals per cell, and §28 puts that line's limit at about `L = 2.2409`. A certificate that keeps them would need, in Lean, the partition of a dropped term by the factorization of its rough part, and the Type II estimate on each evaluable part. *(round 704: exact replays of that refinement on depth 2 fall below `1` at `899/400` from `n = 300`; SIEVE-ROUTE.md §28)*
+
+## Round 704: exact replays of the certificate with the evaluable two-prime parts kept (`frontier/linnik/refine_k2_probe.py`; SIEVE-ROUTE.md §28)
+
+**The step.** Round 703 estimated the gain of keeping the evaluable parts of the dropped terms by midpoint sums, and named the parts with two primes in the rough part as the cheapest for the kernel. This round replays that refinement exactly, on the certificate's own grid, for the dropped depth-2 terms. The owner's instruction of 2026-10-20 to pursue lower exponents: the replays show where the refinement would take the certified exponent once its soundness is in Lean.
+
+**The refinement.** A dropped depth-2 term `S(A_{p₁p₂}, p₂)` counts `n = p₁p₂m` with every prime of `m` at least `p₂`, and splits exactly by the factorization of `m`, with no signs. Its part with `m = q₁q₂`, `p₂ ≤ q₁ ≤ q₂`, has the `B`-density `dα₁dα₂dβ/(α₁α₂βγ)`, with `β` and `γ = 1 − α₁ − α₂ − β` the exponents of `q₁` and `q₂`. Where some subset sum of `{α₁, α₂, β, γ}` lies in the Type II window or its reflection, that part is a Type II sum in that grouping (§6), so it can be evaluated rather than dropped. For a candidate cell `(i, j)` lying wholly in the term's region (`e_j + H ≤ e_i` and `2(e_i + H) ≤ DEN`, so `α₂ ≤ α₁ ≤ 1/2` on the cell), the probe subtracts from the cell's cost the lower bound `Σ_k ⌊K·H³·DEN/((e_i + H)(e_j + H)(e_k + H)γ_hi)⌋`. The sum runs over the cells `k` of `β` with `β ≥ α₂` and `β ≤ γ` on the whole cell product, and with `[cell i, cell j, cell k, (γ_hi − 3H, γ_hi)]` surely evaluable, `γ_hi = DEN − e_i − e_j − e_k`. A decomposed cell costs `min(ref, b2 − sub)`. Depth-4 costs are not refined. The rest is `route_limits.replay`'s, in exact integers.
+
+**The replays** (`scratchpad/r704/runs.out`; the table is in SIEVE-ROUTE.md §28). With the refinement the total over `K` falls below `1` at `9/4` from `n = 200` (`0.97203`), at `2249/1000` from `n = 300` (`0.94650`) and at `899/400` from `n = 300` (`0.99386`). The certificate as it stands needs `n = 400` at `9/4` and `n = 600` at `2249/1000`, and no computed grid up to `n = 800` certifies `899/400`. `2245/1000` stays above `1` to `n = 600` (`1.01506`). The refinement lowers the total by between `0.10` and `0.12` of `K` on each of these grids. Every allowed cell of these grids is decomposed, so the probe's depth-4 tests are `route_limits.jsonl`'s `tested4`. None of these replays is a certificate: the refinement's soundness is not proved in Lean.
+
+**What changed in the files.**
+
+- `frontier/linnik/refine_k2_probe.py`: new.
+- `frontier/linnik/SIEVE-ROUTE.md`: two bullets and a table at the end of §28.
+- This file: a marker on round 703's next step.
+
+**What is checked.**
+
+- The committed probe ran four times from its directory (`PYTHONDONTWRITEBYTECODE=1 nice -n 19 python3 -I refine_k2_probe.py g7c L N …`, with `9/4 200 300`, `2249/1000 200 300 400`, `899/400 300 400` and `449/200 200 300 400 600`; `scratchpad/r704/runs.out`): each printed `REFINE_K2 PASS` and exited 0, in 55, 190, 181 and 825 s.
+- Where `route_limits.jsonl` has the row, nine of the eleven, the unrefined total equals its total exactly ("equals route_limits.jsonl's total: True"), so the replay is `route_limits.replay`'s on those grids. The file has no row for `2249/1000` or `2245/1000` at `n = 200`.
+- `scratchpad/r704/refine_k2_sab.py`, the probe with `TOPK` one unit higher, exits 1 at `9/4`, `n = 200` (`refine_k2_sab.out`: "equals route_limits.jsonl's total: False"), so the gate can fail.
+- `scratchpad/r704/make_docs.py` builds the table from `runs.out`, asserting four passes, four exits 0, eleven rows and nine equalities with `route_limits.jsonl`, and makes the two edits. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing (`make_docs.out`, `make_docs_rerun.out`).
+- `scratchpad/r704/quotes_entry.py` checks every quotation in this entry and in the lines the round adds, the new probe's docstring included (`quotes_entry.out`: PASS). It exits 1 on a failure.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r704/gate.out`): the render lint of the four surfaces, none new, and `k_decimals.py` PASS. The table's totals carry no `K`, so `k_decimals.py` does not read them.
+
+**Check 1** (direct reads this round):
+
+- `route_limits.py`'s `replay` (lines 203–272), which the probe copies and refines, and `SieveRough.share2` (`external/pnt/SieveRough.lean` lines 1551–1555), the Lean bound of a dropped depth-2 cell's `B`-count by `bound2`, which a refined certificate would have to split.
+- The probe in full, written this round.
+
+**Check 9.**
+
+- (a) "None of these replays is a certificate": the probe proves nothing, and no Lean statement depends on it. "with no signs": the parts of the partition by the factorization of `m` are disjoint and each is a nonnegative count.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of 2026-10-22, this round's hostile review runs with the next substantial block.
+
+**Bearing on RH:** none.
+
+**The next step.** The refinement's soundness in Lean: the partition of a dropped depth-2 term by the factorization of its rough part (`SieveRough`, `SieveDrop`), the Type II evaluation of its evaluable two-prime parts, and a certificate definition with the subtraction. A certificate at `2249/1000` on the grid `n = 300` would then cost about `3.1` million depth-4 tests, a third of round 625's.
