@@ -29795,3 +29795,72 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** Their induction: a trivial bound for large `ε` (their base case `ε = 100`), the step from `3ε/2` to `ε` by round 691's `lemma82_form` with this round's properties of `f̃`, and then `CGLP81` at `Λ = φ(q)f_{b₀}(u₀)` by `Lam_le`.
+
+## Round 693: their Proposition 8.1 by their induction (stage M4; `external/pnt/LinnikCGLP81.lean`)
+
+**The results.** Below, `q ≥ 1`, `F = Σ_b∫f_b`, `𝔖 = ∫Σ_bf_b²`, and `f̃_b` is round 685's `ftil`.
+
+- `LinnikCGLP81.cglp81`: round 662's `CGLP81`, their Proposition 8.1 with its implicit constants explicit, is proved.
+- `LinnikCGLP81.linnik_225c_t101`, `linnik_226c_t101`: Linnik's theorem with the exponents `9/4` and `226/100` from `CGLT101` (Heath-Brown's Theorem 10.1, displayed in round 670) alone: under it, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ Kq^{9/4}`, and likewise with `226/100`. Of the stages of `frontier/linnik/CGL-LEAN.md`, M5 (`CGLT101`) remains.
+- `LinnikCGLP81.cgls3_t101`, `prop31_t101`: `CGLS3` and `CGLProp31`, their Propositions 11.1 and 3.1 at one point per character, from `CGLT101` alone.
+- `LinnikCGLP81.P81`, `P81_base`, `P81_step`, `P81_all`: `P81 ε` is their (8.1) at the exponent `ε` with an abstract `Λ`: for every `A`, `κ`, `G` and `D : ℕ → ℝ` there is `C ≥ 0` such that, for `T ≥ 1`, `M ≤ qT`, smooth `f_b ≥ 0` that are `0` for `|u| > A`, `0 ≤ Λ ≤ G(qT)²F`, the decay `Σ_b|f̂_b(ξ)| ≤ D_j(T/|ξ|)^jΛ` for every `j` and every `ξ ≠ 0`, `0 < M₁ ≤ M`, `0 < M₂ ≤ M` and `0 ≤ M₃ ≤ M`, `Jint(f, M₁, M₂, M₃, κ) ≤ C(qT)^ε(φ(q)M⁶F² + φ(q)²M⁴𝔖)`. `P81 5` holds; for `ε > 0`, `P81(3ε/2)` gives `P81 ε`; and `P81 ε` holds for every `ε > 0`.
+- `LinnikCGLP81.Jint_le_trivial`: for smooth `f_b` that are `0` for `|u| > A` and `M₁, M₂ ≥ 1/2`, `Jint(f, M₁, M₂, M₃, κ) ≤ 4φ(q)²q²(#setJ)²M₂𝔖`.
+- `LinnikCGLP81.step_combine`: from `J ≤ C₁Q_a(P + qM²√𝔖√J̃)`, `J̃ ≤ C₂Q_b²I²(P + W)` with `W = φ²M⁴𝔖`, `q ≤ dφ`, `d ≤ C_dQ_a`, `Q_a, Q_b ≥ 1`, `φ, M > 0` and `C₁, C₂, q, d, 𝔖, J̃, P ≥ 0`, `J ≤ (C₁ + C₁C_d(1 + C₂I²)/2)Q_aQ_aQ_b(P + W)`.
+- The others: `P81_mono` (`P81` is monotone in `ε`); `P81_pow` (`P81(5(2/3)ⁿ)` for every `n`); `integrable_comp_affine` and `integral_sq_affine` (for continuous `g` that is `0` for `|u| > A`, `c ≠ 0` and `e > 0`, `u ↦ g((cu + d)/e)` is integrable; for `c ≠ 0` and `e > 0`, `∫g((cu + d)/e)² du = (e/|c|)∫g²`); `card_Icc_ceil_abs_le` and `card_setJ_le` (`#[−⌈x⌉, ⌈x⌉] ≤ 2|x| + 3`, and `#setJ ≤ (4|M₁| + 3)(4|M₂| + 3)(2|κM₃| + 3)`); `sqrt_mul_sqrt_le` (`√a√b ≤ (la + b/l)/2` for `a, b ≥ 0` and `l > 0`); `integral_psi0_pos` (`∫ψ̃₀ > 0`); and `integral_sum_ftil_sq_le` (for smooth `f_b ≥ 0` that are `0` for `|u| > A` and `T ≥ 1`, `∫Σ_bf̃_b² ≤ (∫ψ̃₀)²𝔖`).
+
+**Their text.** Re-read this round in the text layer.
+
+- Their proof of Proposition 8.1 from Lemma 8.2 (lines 2517–2616): "We prove the statement via downward induction on ϵ. The base case ϵ = 100 holds trivially. For the inductive step, we assume (8.1) holds with parameter 3ϵ/2 and aim to establish it for ϵ." (lines 2543–2545; spaces restored). Their step applies Lemma 8.2, the induction hypothesis at `f̃` and the `L¹` and `L²` comparisons, and ends at `(qT)^{3ϵ/4}` before their `⪅` (lines 2545–2616).
+- `scratchpad/r693/quotes.py` checks the quotation against the text layer with spaces removed, and checks that the Lean header carries it verbatim (`quotes.out`: PASS). It exits 1 on a failure: with "holds trivially" changed to "holds easily" in a copy of the file, it printed FAIL and exited 1.
+
+**The stack's form.**
+
+- **The abstract `Λ`.** `CGLP81`'s `Λ = φ(q)f_{b₀}(u₀)` is a value of `f`, not of `f̃`. So the induction runs on `P81`, whose premise `0 ≤ Λ ≤ G(qT)²F` `f̃` inherits with `G/∫ψ̃₀`, since `∫f̃_b = (∫ψ̃₀)∫f_b`, and whose decay `f̃` inherits with `(∫ψ̃₀)D_j` (round 692).
+- **The base case** is `ε = 5`, not their `ϵ = 100`. For `M₁ < 1/2` or `M₂ < 1/2`, `Jint = 0` (round 689's `Jint_eq_zero`). Otherwise Cauchy–Schwarz over the pairs `(b, m)`, the gcd bound `(·, q) ≤ q` (round 687's `gJw_le`) and the change of variables `u ↦ (m₁u + m₃)/m₂`, whose Jacobian `m₂/|m₁|` is at most `4M₂`, give `Jint_le_trivial`. Then `#setJ ≤ 100(2|κ| + 6)M³` for `1/2 ≤ M₁, M₂ ≤ M` and `0 ≤ M₃ ≤ M`, and `q²M³ ≤ (qT)⁵`, give `P81 5` with `C = 4(100(2|κ| + 6))²`.
+- **The step** at `ε > 0`: round 691's `lemma82_form` at `θ = ε/8` and the induction hypothesis at `f̃`, with the support `|A| + 2`, `κ′ = 4|A| + 2`, `G/∫ψ̃₀` and `(∫ψ̃₀)D_j`, at `M₁ = M₂ = M₃ = M₂`. Their Lemma 8.2 has `φ(q)` where round 691's form has `q`; `q ≤ φ(q)d(q)` (round 689's `le_totient_mul_card_divisors`) and `d(q) ≤ C_δq^δ` (round 525's `card_divisors_le`) at `δ = min(ε/8, 1)` absorb it into `(qT)^{ε/8}`. `step_combine` splits `√𝔖√J̃` at `λ = φ(q)M²(qT)^{3ε/4}`. The exponents are `ε/8` (the lemma), `ε/8` (the divisor bound) and `3ε/4` (half of `3ε/2`), which sum to `ε`.
+- **`CGLP81`** is `P81_all` at `G = 16π·max(D₄, 1)` and `Λ = φ(q)f_{b₀}(u₀)`, which round 692's `Lam_le` bounds by `16π·max(D₄, 1)(qT)²F`; `Q₀ = 0`; and `M ≤ (qT)^ϖ ≤ qT` for `ϖ < 1` and `qT ≥ 1`. `CGLP81`'s strict ranges `0 < M₁, M₂, M₃ < M` lie inside `P81`'s.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLP81.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`cglp81`, `linnik_225c_t101`, `linnik_226c_t101`).
+- `frontier/linnik/CGL-LEAN.md`: the opening's parenthetical, the target's net-state marker, rows P3.1, P8.1 and P11.1, M3's heading and its round-678 note, M4's heading, and a note under M4.
+- `frontier/linnik/SIEVE-ROUTE.md`: a net-state marker on phase 2.
+- `external/pnt/README.md`: net-state markers on `LinnikCGLS3`'s row and section, and a row and a section for the file.
+
+**What is checked.**
+
+- `LinnikCGLP81` was compiled in scratch in ten runs (`scratchpad/r693/run.sh`, `lcj1.out` to `lcj10.out`). Runs 1 and 4 failed. Run 10, after the header was first written, had exit 0, and its only messages were the seven axiom lines, all `[propext, Classical.choice, Quot.sound]`. The header's later edits, all inside the comment, were compiled by the build below.
+- The fixes. Run 1: Mathlib's `le_or_lt` is now `le_or_gt`; the square of a function needed its pointwise form; a `Finset.sum_product` rewrite needed restructuring; a `set` for `φ(q)` blocked a reassociation and was removed; and `integral_finset_sum` and `integrable_finset_sum` are now `integral_finsetSum` and `integrable_finsetSum`. Run 2: an unused hypothesis of `Jint_le_trivial` was dropped. Run 4: a `field_simp` closed its goal, so the `ring` after it was removed, and an unused hypothesis of `step_combine` was dropped.
+- Then `build.sh` ran once (`scratchpad/r693/compile.sh 1`, log `build_1.log`): `1 compiled, 428 up to date` (`LinnikCGLP81` 16 s), exit 0 in 26 s, with no error, warning or `sorry`. Its 663 axiom lines are 7 by the module and 656 by the final check; 650 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.89 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/r693/apply_docs.py` makes the fifteen edits to CGL-LEAN.md, SIEVE-ROUTE.md and the external README. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing.
+- `scratchpad/lint_diff.py` on SIEVE-ROUTE.md, CGL-LEAN.md and the external README: 25 → 25, 0 → 0 and 5 → 5 defects, the same multisets, none new.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r693/gate.out`).
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: net-state markers on the target, rows P3.1, P8.1 and P11.1, M3's heading and its round-678 note, and M4's heading; row P8.1 gains round 693 in its stack cell; M4 gains a note; the opening's parenthetical gains round 693.
+- `frontier/linnik/SIEVE-ROUTE.md`: a net-state marker on phase 2.
+- `external/pnt/README.md`: net-state markers on `LinnikCGLS3`'s row and section; a row, and a section for the file.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- In the text layer: lines 2500–2616 (the end of their Lemma 8.2's statement, and their proof of Proposition 8.1 from it), line by line.
+- The operative statements: round 691's `lemma82_form` (`LinnikCGLForm.lean` 720); round 692's `contDiff_ftil`, `ftil_vanish`, `integral_ftil`, `decay_ftil`, `integral_ftil_sq_le` and `Lam_le` (`LinnikCGLFtilP.lean` 87, 93, 101, 137, 148 and 291); round 662's `setJ`, `mem_setJ`, `gJw`, `gJ`, `Jint` and `CGLP81` (`LinnikCGLJ.lean` 110, 115, 143, 149, 153 and 161); round 689's `Jint_eq_zero`, `card_Icc_ceil_le` and `le_totient_mul_card_divisors` (`LinnikCGLConst.lean` 110, 49 and 168); round 687's `gJw_le` (`LinnikCGLTail.lean` 311); round 686's `integrable_of_vanish` (`LinnikCGLJtil.lean` 156); round 685's `ftil_nonneg` (`LinnikCGLFtil.lean` 84); round 525's `card_divisors_le` and `one_le_Cdiv` (`LinnikPower.lean` 69 and 64); and round 678's `cgls3`, `prop31_pt`, `linnik_225c_pt` and `linnik_226c_pt` (`LinnikCGLS3.lean` 809, 935, 942 and 948).
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them. "For every `ε > 0`", "for every `n`" and "for every `j` and every `ξ ≠ 0`" are the statements' quantifiers. "M5 remains" is scoped to the stages of `CGL-LEAN.md`.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of 2026-10-22, one review per substantial block. M4 is complete, so the batched hostile review of rounds 689, 691, 692 and 693, with the convergence of round 690's sweep, is launched after this commit.
+
+**Bearing on RH:** none.
+
+**The next step.** The block's review, then stage M5: Heath-Brown's Theorem 10.1 with characters, `CGLT101` (see `frontier/linnik/CGL-LEAN.md`, "Feasibility").
