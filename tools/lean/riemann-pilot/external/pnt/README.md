@@ -214,6 +214,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLForm.lean` | 691 | Chen–Gupta–Li's Lemma 8.2 in their form, with the parameters chosen: for `θ > 0`, real `κ` and `G`, and `D : ℕ → ℝ`, there is `C ≥ 0` such that, for `q ≥ 1`, `T ≥ 1`, `M ≤ qT`, smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `0 ≤ Λ ≤ G(qT)²F`, the decay `Σ_b\|f̂_b(ξ)\| ≤ D_j(T/\|ξ\|)^jΛ` for every `j` and every `ξ ≠ 0`, `0 < M₁ ≤ M`, `0 < M₂ ≤ M` and `0 ≤ M₃ ≤ M`, `Jint(f, M₁, M₂, M₃, κ) ≤ C(qT)^θ(φ(q)M⁶F² + qM²√𝔖√J̃)` (`lemma82_form`) |
 | `LinnikCGLFtilP.lean` | 692 | Chen–Gupta–Li's smoothing `f̃_b` in their induction, and `Λ` against `F`: for `T ≥ 1` and smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `f̃_b` is smooth and `0` for `\|u\| > \|A\| + 2`, `∫f̃_b = (∫ψ̃₀)∫f_b`, `∫f̃_b² ≤ (∫ψ̃₀)²∫f_b²`, and `f̃` keeps the decay premise with `(∫ψ̃₀)D` (`decay_ftil`, for `q ≥ 1`); with a point `(b₀, u₀)` and the premise `Σ_b\|f̂_b(ξ)\| ≤ D(T/\|ξ\|)⁴φ(q)f_{b₀}(u₀)` for every `ξ ≠ 0`, `φ(q)f_{b₀}(u₀) ≤ 16π·max(D, 1)(qT)²F` (`Lam_le`, for `q ≥ 1`) |
 | `LinnikCGLP81.lean` | 693 | Chen–Gupta–Li's Proposition 8.1 by their downward induction: `P81 ε`, their (8.1) with an abstract `Λ`, `0 ≤ Λ ≤ G(qT)²F`, holds for `ε = 5` (`P81_base`), passes from `3ε/2` to `ε` (`P81_step`) and holds for every `ε > 0` (`P81_all`); round 662's `CGLP81` (`cglp81`); and from `CGLT101` alone, `CGLS3` and `CGLProp31` (`cgls3_t101`, `prop31_t101`) and Linnik's theorem with the exponents `9/4` and `226/100`: under it, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ Kq^{9/4}`, and likewise with `226/100` (`linnik_225c_t101`, `linnik_226c_t101`) |
+| `LinnikCGLHBPos.lean` | 694 | Positivity and the double sums of Heath-Brown's bound (stage M5): for `S ⊆ S'`, `\|a_n\| ≤ b_n` on `S` and `b_n ≥ 0` on `S'`, `Σ_{r,s}\|Σ_{n∈S}a_nA_r(n)Ā_s(n)\|² ≤ Σ_{r,s}\|Σ_{n∈S'}b_nA_r(n)Ā_s(n)\|²` for any functions `A_r` (`dsum_le`, Jutila's Lemma 2); for `A_r(n) = χ_r(n)n^{it_r}` and the weight `n^{−1/2}`, the double sum `Ŝ(Y)` over `1 ≤ n ≤ Y` is monotone in `Y`, `Ŝ(Y) ≤ (J + 1)Σ_{j≤J}σ(Y/2^{j+1})` for `0 ≤ Y < 2^{J+1}` (`shat_le_sum_sig`), and `Ŝ(Y)² ≤ \|P\|²D²Ŝ(Y²)` for `Y ≥ 0` and `d(m) ≤ D` on `1 ≤ m ≤ Y²` (`shat_sq_le`) |
 
 ## Building (rounds 217, 618)
 
@@ -1375,3 +1376,17 @@ Round 693 proves Chen–Gupta–Li's Proposition 8.1, round 662's `CGLP81`, by t
 - `cgls3_t101`, `prop31_t101`, `linnik_225c_t101`, `linnik_226c_t101`: round 678's `cgls3`, `prop31_pt`, `linnik_225c_pt` and `linnik_226c_pt` with `cglp81`, so `CGLS3`, `CGLProp31` and Linnik's theorem with the exponents `9/4` and `226/100` take `CGLT101` alone.
 
 See the main README, round 693, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 656 lines.
+
+## Positivity and the double sums of Heath-Brown's bound: LinnikCGLHBPos.lean (round 694)
+
+Round 694 starts stage M5 of `frontier/linnik/CGL-LEAN.md`, round 670's `CGLT101`, by Kerr's route for `q = 1` (arXiv:1909.12075, §§5–6) with Jutila's reflection with characters (Acta Arith. 32 (1977), Lemma 1). It proves the algebra of the double sums. Here the `A_r` are any functions on the naturals, `R = |P|`, and `σ(N)` and `Ŝ(Y)` are the double sums of `A_r(n) = χ_r(n)n^{it_r}` with the weight `n^{−1/2}` over `N < n ≤ 2N` and `1 ≤ n ≤ Y`.
+
+- `dsum`, `kern`, `dsum_nonneg`, `dsum_eq_kern`: `Σ_{r,s∈P}|Σ_{n∈S}a_nA_r(n)Ā_s(n)|² = Σ_{n,m∈S}a_nā_m|K(n, m)|²` with `K(n, m) = Σ_rA_r(n)Ā_r(m)`.
+- `dsum_le`: positivity (Jutila's Lemma 2): for `S ⊆ S'`, `|a_n| ≤ b_n` on `S` and `b_n ≥ 0` on `S'`, the double sum with `a` over `S` is at most the one with `b` over `S'`.
+- `dsum_const_mul`, `dsum_conj`, `dsum_twist_le`: a factor `c` gives `|c|²`; the conjugate family with the weights `a` has the double sum of the family with the weights `ā`; and for real `u` the weights `n^{−1/2+iu}` give at most what `n^{−1/2}` gives.
+- `famA`, `famA_mul`, `famA_mul_conj`, `wh`, `norm_wh`: `A_r(nm) = A_r(n)A_r(m)`, and `A_r(n)Ā_s(n) = χ_r(n)χ̄_s(n)n^{i(t_r−t_s)}` for `n ≥ 1`.
+- `sig`, `shat`, `shat_mono`, `sig_le_shat`: for `Y ≤ Y'`, `Ŝ(Y) ≤ Ŝ(Y')`; and `σ(N) ≤ Ŝ(2N)`.
+- `sum_Ioc_pieces`, `shat_le_sum_sig`: for `0 ≤ Y < 2^{J+1}`, `Ŝ(Y) ≤ (J + 1)Σ_{j≤J}σ(Y/2^{j+1})`.
+- `card_fiber_le`, `shat_sq_le`: for `m ≥ 1`, at most `d(m)` pairs have `n₁n₂ = m`; and for `Y ≥ 0` and `D ≥ 0` with `d(m) ≤ D` on `1 ≤ m ≤ Y²`, `Ŝ(Y)² ≤ R²D²Ŝ(Y²)`.
+
+See the main README, round 694, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 658 lines.

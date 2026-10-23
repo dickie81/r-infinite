@@ -29864,3 +29864,71 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** The block's review, then stage M5: Heath-Brown's Theorem 10.1 with characters, `CGLT101` (see `frontier/linnik/CGL-LEAN.md`, "Feasibility").
+
+## Round 694: positivity, and the double sums of Heath-Brown's bound (stage M5; `external/pnt/LinnikCGLHBPos.lean`)
+
+**The route.** Stage M5 is round 670's displayed hypothesis `CGLT101`, their Theorem 10.1, Heath-Brown's bound for double sums with characters. Its source, their [6], has not been read. Kerr proves the bound for `q = 1` (arXiv:1909.12075, §§5–6) from positivity, squaring, lengthening and a reflection (van der Corput's B-process). The reflection with characters comes from Jutila's "Zero-density estimates for L-functions" (Acta Arith. 32 (1977), 55–62). Heath-Brown quotes it, with Jutila's Lemmas 2 and 3, in "The density of zeros of Dirichlet's L-functions" (Canad. J. Math. 31 (1979), 231–240). The lead read both this round: Jutila's pages 55–59 from the scanned pages, and Heath-Brown's from its text layer.
+
+- Jutila's Lemma 1 reflects a smoothed sum `Σ_nb(n)χ(n)n^{−s}` for a character `χ` mod `q`, imprimitive ones included and the principal one at `|t| ≥ h²`. Its dual sum runs over `χ̄` itself, at a factor `q^ε` that can be omitted when `χ` is primitive. For the pair `(r, s)` the dual sum then carries `χ̄_rχ_s`, so the reflected double sum is again one of the same family, the form in which Kerr's §6 iterates.
+- For `χ ≠ 1`, round 642's `norm_gram_le` is a form of Jutila's Lemma 1, with round 638's weight `w(n/N)²` and the dual sum over `(χ_iχ̄_k)⁻¹`. The principal case, with the pole of `L(s, χ₀)` at `s = 1`, is not yet done; round 524's `LinnikGamma.verticalIntegral_sub_eq` (`LinnikAFE.lean`) moves a line of integration across a simple pole.
+- The plan, in order: this round's algebra; the lengthening of Kerr's Lemma 20, with an auxiliary prime and auxiliary integers prime to `q`; the reflection of the double sum; and an iteration in the manner of Kerr's §6. The last step is to replace Kerr's case analysis by a bound on the supremum of `σ(N)/(|P|N + |P|² + |P|^{5/4}(q(1 + 2T))^{1/2})`. None of these later steps is proved yet.
+
+**The results.** Below, the `A_r` are any functions on the naturals, `R = |P|`, and `σ(N)` and `Ŝ(Y)` are the double sums of `A_r(n) = χ_r(n)n^{it_r}` with the weight `n^{−1/2}` over `N < n ≤ 2N` and `1 ≤ n ≤ Y`.
+
+- `LinnikCGLHBPos.dsum_eq_kern`, `dsum_le`: `Σ_{r,s∈P}|Σ_{n∈S}a_nA_r(n)Ā_s(n)|² = Σ_{n,m∈S}a_nā_m|K(n, m)|²` with `K(n, m) = Σ_rA_r(n)Ā_r(m)`; hence positivity (Jutila's Lemma 2): for `S ⊆ S'`, `|a_n| ≤ b_n` on `S` and `b_n ≥ 0` on `S'`, the double sum with `a` over `S` is at most the one with `b` over `S'`.
+- `LinnikCGLHBPos.dsum_const_mul`, `dsum_conj`, `dsum_twist_le`: a factor `c` gives `|c|²`; the conjugate family with the weights `a` has the double sum of the family with the weights `ā`; and for real `u` the weights `n^{−1/2+iu}` give at most what `n^{−1/2}` gives.
+- `LinnikCGLHBPos.famA_mul`, `famA_mul_conj`: `A_r(nm) = A_r(n)A_r(m)`, and `A_r(n)Ā_s(n) = χ_r(n)χ̄_s(n)n^{i(t_r−t_s)}` for `n ≥ 1`, the summand of `CGLT101`.
+- `LinnikCGLHBPos.shat_mono`, `sig_le_shat`: for `Y ≤ Y'`, `Ŝ(Y) ≤ Ŝ(Y')`; and `σ(N) ≤ Ŝ(2N)`.
+- `LinnikCGLHBPos.shat_le_sum_sig`: for `0 ≤ Y < 2^{J+1}`, `Ŝ(Y) ≤ (J + 1)Σ_{j≤J}σ(Y/2^{j+1})`.
+- `LinnikCGLHBPos.shat_sq_le`: squaring, as in Kerr's Lemma 22: for `Y ≥ 0` and `D ≥ 0` with `d(m) ≤ D` on `1 ≤ m ≤ Y²`, `Ŝ(Y)² ≤ R²D²Ŝ(Y²)`.
+
+**The stack's form.**
+
+- **Positivity without Fejér's kernel.** Kerr's Lemma 18 restricts the pairs to `|t_r − t_s| ≤ Δ` and pays for it with Fejér's kernel. `CGLT101` sums over all pairs, so the expansion `Σ_{n,m}a_nā_m|K(n, m)|²` is enough. It holds for any functions `A_r`, which the lengthening will use with the auxiliary characters inside `A_r`.
+- **Initial segments.** Positivity makes `Ŝ` monotone in `Y`, and its square is again an initial segment: `(Σ_{n≤Y}…)² = Σ_{m≤Y²}c_m…` with `c_m` the number of factorizations `m = n₁n₂` with `n₁, n₂ ≤ Y`, at most `d(m)` (`card_fiber_le`). Jutila's dual sums are initial segments, `Σ_{n≤M}`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLHBPos.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check and two `#print axioms` lines (`dsum_le`, `shat_sq_le`).
+- `frontier/linnik/CGL-LEAN.md`: row T10.1, the "Feasibility" paragraph on Theorem 10.1 (two net-state markers), a note under M5, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section for the file.
+
+**What is checked.**
+
+- `LinnikCGLHBPos` was compiled in scratch in five runs (`scratchpad/r694/run.sh`, `lcj1.out` to `lcj5.out`). Runs 1 to 3 failed. Runs 4 and 5 had exit 0, and their only messages were the three axiom lines, all `[propext, Classical.choice, Quot.sound]`; run 5 followed the header.
+- The fixes. Run 1: a reordering of four sums by `simp_rw [Finset.sum_comm …]` left a typeclass problem stuck, so the reordering became the lemma `sum4_comm`; the conjugate of `n^{it}` is proved through `exp` and `log`; the cast of a product needed `Nat.cast_mul` at every occurrence; the case `n = 0` of `dsum_twist_le` needed `0^{−1/2} = 0`; the dyadic decomposition's rearrangement of sums was rewritten; and an unused hypothesis `N ≥ 0` was dropped from `sig_le_shat`. Runs 2 and 3: in `dsum_eq_kern` the two sums over `S` and then the two over `P` had to be exchanged.
+- Then `build.sh` ran once (`scratchpad/r694/compile.sh 1`, log `build_1.log`): `1 compiled, 429 up to date` (`LinnikCGLHBPos` 10 s), exit 0 in 21 s, with no error, warning or `sorry`. Its 661 axiom lines are 3 by the module and 658 by the final check; 648 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.98 GiB (`rss_watch_build_1.log`).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/r694/apply_docs.py` makes the eight edits to CGL-LEAN.md and the external README. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing.
+- `scratchpad/gate.sh` now lints SIEVE-ROUTE.md as well, which review B of rounds 692–693 found it did not (its F4; the sweep records it). It passed before the commit (`scratchpad/r694/gate.out`).
+- No quotation is made this round, so there is no `quotes.py`.
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: row T10.1 gains round 694 in its stack cell and a net-state marker; the "Feasibility" paragraph on Theorem 10.1 gains two net-state markers; M5 gains a note; the opening's parenthetical gains round 694.
+- `external/pnt/README.md`: a row, and a section for the file.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Kerr, arXiv:1909.12075, §§5–6 (text layer `scratchpad/hb/work/hb1909.txt`, lines 783–2022): his definitions (26) and (27), Theorem 16, Lemmas 18–27, Corollaries 21 and 28, and the proof of Theorem 16, line by line.
+- Jutila, Acta Arith. 32 (1977), pages 55–59 (`scratchpad/hb/jutila/aa3216.pdf`, rendered page by page): his theorem, Lemmas 1–3 and the proof of Lemma 1.
+- Heath-Brown, Canad. J. Math. 31 (1979), 231–240 (`scratchpad/hb/cjm/hb_cjm1979.pdf`, its text layer), in full.
+- Their Theorem 10.1 and its uses in their Lemmas 10.6 and 10.7 (text layer lines 4610–4980).
+- The operative statements: round 670's `dyad`, `mem_dyad` and `CGLT101` (`LinnikCGLT101.lean` 57, 59 and 67) and `sum_sq_R2_eq` (84); round 642's `norm_gram_le` (`LinnikCGLPair.lean` 397); round 641's `reflect_gram` and `gram_reflect` (`LinnikCGLReflect.lean` 657 and 692); round 640's `perron_gram` (`LinnikCGLMellin.lean` 354); round 638's `gramP` (`LinnikCGLMat.lean` 99); round 526's `LFunction_eq_Phi` (`LinnikReflect.lean` 65); and round 524's `verticalIntegral_sub_eq` (`LinnikAFE.lean` 404).
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them. "For any functions `A_r`" is `dsum_le`'s quantifier. "Has not been read" and "not yet done" are scoped to the lead's reading and the stack.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** The batched review of rounds 689 and 691–693, with round 690's sweep, is running (launched at ff94388). This round goes to the next block's review.
+
+**Bearing on RH:** none.
+
+**The next step.** The lengthening: for `U` at least a constant times `d(q)²`, with an auxiliary prime `p ∈ [8U, 16U]`, `σ(N) ≤ 2D²(σ(NU) + σ(2NU))/c(q, U)`, where `c(q, U)` is the sum of `1/u` over `u ∈ [U, 3U/2]` prime to `q`.
