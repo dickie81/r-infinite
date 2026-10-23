@@ -29826,7 +29826,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 - `external/pnt/build.sh`: the module, its import in the final check and three `#print axioms` lines (`cglp81`, `linnik_225c_t101`, `linnik_226c_t101`).
 - `frontier/linnik/CGL-LEAN.md`: the opening's parenthetical, the target's net-state marker, rows P3.1, P8.1 and P11.1, M3's heading and its round-678 note, M4's heading, and a note under M4.
 - `frontier/linnik/SIEVE-ROUTE.md`: a net-state marker on phase 2.
-- `external/pnt/README.md`: net-state markers on `LinnikCGLS3`'s row and section, and a row and a section for the file.
+- `external/pnt/README.md`: net-state markers on the rows of `LinnikCGLJ` and `LinnikCGLS3` and on `LinnikCGLS3`'s section, and a row and a section for the file.
 
 **What is checked.**
 
@@ -29834,15 +29834,15 @@ The lead verified each finding at its source before accepting it (the reads are 
 - The fixes. Run 1: Mathlib's `le_or_lt` is now `le_or_gt`; the square of a function needed its pointwise form; a `Finset.sum_product` rewrite needed restructuring; a `set` for `φ(q)` blocked a reassociation and was removed; and `integral_finset_sum` and `integrable_finset_sum` are now `integral_finsetSum` and `integrable_finsetSum`. Run 2: an unused hypothesis of `Jint_le_trivial` was dropped. Run 4: a `field_simp` closed its goal, so the `ring` after it was removed, and an unused hypothesis of `step_combine` was dropped.
 - Then `build.sh` ran once (`scratchpad/r693/compile.sh 1`, log `build_1.log`): `1 compiled, 428 up to date` (`LinnikCGLP81` 16 s), exit 0 in 26 s, with no error, warning or `sorry`. Its 663 axiom lines are 7 by the module and 656 by the final check; 650 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s, was 6.89 GiB (`rss_watch_build_1.log`).
 - The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
-- `scratchpad/r693/apply_docs.py` makes the fifteen edits to CGL-LEAN.md, SIEVE-ROUTE.md and the external README. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing.
+- `scratchpad/r693/apply_docs.py` makes the sixteen edits to CGL-LEAN.md, SIEVE-ROUTE.md and the external README; the sixteenth, the marker on `LinnikCGLJ`'s row, was added after e9dc104 and committed with this sentence. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing.
 - `scratchpad/lint_diff.py` on SIEVE-ROUTE.md, CGL-LEAN.md and the external README: 25 → 25, 0 → 0 and 5 → 5 defects, the same multisets, none new.
-- `scratchpad/gate.sh` passed before the commit (`scratchpad/r693/gate.out`).
+- `scratchpad/gate.sh` passed before each of the two commits (`scratchpad/r693/gate.out`, `gate2.out`).
 
 **Marks.**
 
 - `frontier/linnik/CGL-LEAN.md`: net-state markers on the target, rows P3.1, P8.1 and P11.1, M3's heading and its round-678 note, and M4's heading; row P8.1 gains round 693 in its stack cell; M4 gains a note; the opening's parenthetical gains round 693.
 - `frontier/linnik/SIEVE-ROUTE.md`: a net-state marker on phase 2.
-- `external/pnt/README.md`: net-state markers on `LinnikCGLS3`'s row and section; a row, and a section for the file.
+- `external/pnt/README.md`: net-state markers on the rows of `LinnikCGLJ` and `LinnikCGLS3` and on `LinnikCGLS3`'s section; a row, and a section for the file.
 - No strikes.
 
 **Check 1** (direct reads this round):
