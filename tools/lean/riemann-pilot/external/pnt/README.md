@@ -207,6 +207,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLCov.lean` | 683 | Chen–Gupta–Li's change of variables `ξ = (m₁/L)τ + m₁n/q` (`integral_r_eq`) and the terms `n ≠ 0` of `ĝ_a` integrated: for `q ≥ 1`, smooth `f_b` that are `0` for `\|u\| > A`, `M₁ > 0`, `L > 0`, `0 < δ ≤ 1`, real `X` and a bound `B_II` of their `Σ_II` over every finite set of `n`, `∫_{\|ξ\|≤X}Σ_a\|ĝ_a(ξ) − Σ_{m₁}tg(a, m₁, 0)\|² dξ ≤ K_XΣ_{m₁∈P1 M₁}B_II/(\|m₁\|L)` (`integral_gstar_le`) |
 | `LinnikCGLSig2.lean` | 684 | Chen–Gupta–Li's `Σ_II` expanded and their `Σ₂` by Poisson summation: for `q ≥ 1`, smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, and a majorant `H` of the inner integrals, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)\|Φ(n, τ)\|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)H(b, m₂, b′, m₂′, u) du` (`sum_psi_norm_Phi_sq_le`); for `N₀ > 0`, `S₂(k₀, x) = Σ_{k∈ℤ}N₀ψ̂₀(N₀(k − x + k₀/q))` (`S2_eq_tsum`) |
 | `LinnikCGLFtil.lean` | 685 | Chen–Gupta–Li's smoothing `f̃_b = (Tψ̃₀(T·)) ⋆ f_b` and their bound of the inner integral of `Σ_II`: for `q ≥ 1`, smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `T ≥ 1`, `N₀ > 0`, `K ≥ 2`, `m₂, m₂′ ∈ P2 M₂` and `\|u\| ≤ \|A\|`, `∫f_{b′}(u′)\|S₂(k₀, (m₂′u′ − m₂u)/q)\| du′ ≤ N₀C_K(Σ_{m₃∈R}[m₃ ≡ k₀]f̃_{b′}((m₂u + m₃)/m₂′)/T + (1 + N₀m₂′/(qT))^{−(K−2)}(2π + 4π/N₀)∫f_{b′})` (`integral_S2_le`) |
+| `LinnikCGLJtil.lean` | 686 | Chen–Gupta–Li's Cauchy–Schwarz back to `J(f̃⃗)`, for the terms `\|n\| ≤ N₀` of `Σ_II`: for `q ≥ 1`, smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `T ≥ 1`, `N₀ > 0`, `M₂ > 0` and `K ≥ 2`, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)\|Φ(n, τ)\|² ≤ N₀C_K((4M₂²/(qT))√𝔖√J̃ + EP²F²)` for every `L` and `τ` (`sum_psi_norm_Phi_sq_le_J`) |
 
 ## Building (rounds 217, 618)
 
@@ -1268,3 +1269,19 @@ Round 685 defines Chen–Gupta–Li's smoothing `f̃_b` and bounds the inner int
 - `sum_psi_norm_Phi_sq_le_ftil`: for smooth `f_b ≥ 0` that are `0` for `|u| > A`, `T ≥ 1`, `N₀ > 0` and `K ≥ 2`, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)|Φ(n, τ)|² ≤ Σ_{b,m₂,b′,m₂′}m₂m₂′∫f_b(u)Hmaj(b, m₂, b′, m₂′, u) du` for every `τ`, with `k₀ = bm₂ − b′m₂′` in `Hmaj`.
 
 See the main README, round 685, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 642 lines.
+
+## Their Cauchy–Schwarz back to J(f̃⃗): LinnikCGLJtil.lean (round 686)
+
+Round 686 takes Chen–Gupta–Li's Cauchy–Schwarz step back to `J(f̃⃗)` for round 685's majorant, and bounds the terms `|n| ≤ N₀` of round 683's `B_II`, with `q ≥ 1`, `R` round 685's `R3`, `C_K` round 684's `CK`, `Φ(n, τ)` round 683's `Phi`, `[·]` the indicator, `𝔖 = ∫Σ_bf_b(u)² du`, `J̃ = Jint(f̃, M₂, M₂, M₂, 4|A| + 2)`, `E = (1 + N₀M₂/(qT))^{−(K−2)}(2π + 4π/N₀)`, `P = Σ_{m₂∈P2 M₂}m₂` and `F = Σ_b∫f_b`.
+
+- `gJw_neg_eq`, `mem_setJ_of`: if `m₃ ≡ bm₂ − b′m₂′ (mod q)`, then `gJw(−b, b′, (m₂, m₂′, m₃)) = q`; and for `m₂, m₂′ ∈ P2 M₂` and `m₃ ∈ R`, `(m₂, m₂′, m₃) ∈ setJ M₂ M₂ M₂ (4|A| + 2)`.
+- `sum_res_le_gJ`: for `g_b ≥ 0`, every unit `b` and every real `u`, `Σ_{m₂,b′,m₂′}m₂m₂′Σ_{m₃∈R}[m₃ ≡ bm₂ − b′m₂′]g_{b′}((m₂u + m₃)/m₂′) ≤ (4M₂²/q)gJ(g, setJ M₂ M₂ M₂ (4|A| + 2), −b, u)`.
+- `ftil_eq_zero`: for `T > 0` and `f_b` that are `0` for `|u| > A`, `f̃_b(x) = 0` for `|x| > |A| + 2/T`.
+- `integrable_of_vanish`, `continuous_gJ_ftil`, `continuous_Hmaj`: a continuous function that is `0` for `|u| > A` is integrable; for `T > 0` and integrable `f_b`, `u ↦ gJ(f̃, S, a, u)` and `u ↦ Hmaj(b, m₂, b′, m₂′, u)` are continuous.
+- `integral_sum_mul_le`: for continuous `F_i, G_i ≥ 0` (finitely many `i`) with `Σ_iF_i²` and `Σ_iG_i²` integrable, `∫Σ_iF_iG_i ≤ √(∫Σ_iF_i²)√(∫Σ_iG_i²)`.
+- `sum_Hmaj_le`: for `f_b ≥ 0`, `T > 0` and `N₀ > 0`, every unit `b` and every real `u`, `Σ_{m₂,b′,m₂′}m₂m₂′Hmaj(b, m₂, b′, m₂′, u) ≤ N₀C_K((4M₂²/(qT))gJ(f̃, setJ M₂ M₂ M₂ (4|A| + 2), −b, u) + EP²F)`.
+- `sum_psi_norm_Phi_sq_le_J`: for smooth `f_b ≥ 0` that are `0` for `|u| > A`, `T ≥ 1`, `N₀ > 0`, `M₂ > 0` and `K ≥ 2`, `Σ_{n∈P3 N₀}ψ̃₀(n/N₀)|Φ(n, τ)|² ≤ B_J = N₀C_K((4M₂²/(qT))√𝔖√J̃ + EP²F²)` for every `L` and `τ`.
+- `norm_Phi_le`, `continuous_Phi`, `integrable_norm_fourier_psiC_neg`: for `f_b ≥ 0`, `|Φ(n, τ)| ≤ Σ_bΣ_{m₂∈P2 M₂}|m₂|∫f_b`; for smooth `f_b` that are `0` for `|u| > A`, `τ ↦ Φ(n, τ)` is continuous; and `τ ↦ |ψ̂₀(−τ)|` is integrable.
+- `sum_integral_Phi_le`: with the hypotheses of `sum_psi_norm_Phi_sq_le_J`, `Σ_{n∈W, |n|≤N₀}∫|ψ̂₀(−τ)||Φ(n, τ)|² dτ ≤ (∫|ψ̂₀(−τ)| dτ)B_J` for every `L` and every finite set `W` of integers.
+
+See the main README, round 686, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 644 lines.

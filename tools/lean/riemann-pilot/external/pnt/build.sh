@@ -143,14 +143,16 @@ for f in SieveCert2285U Linnik2285U; do c 1 "$HERE" $f; done
 # ĝ_a as a sum over m₁ and n with the sum over a for every n ≠ 0 (LinnikCGLNsum), and the term n = 0, their I
 # (LinnikCGLN0), and (round 683) the terms n ≠ 0 over |ξ| ≤ X by their change of variables (LinnikCGLCov), and
 # (round 684) their Σ_II expanded and their Σ₂ by Poisson summation (LinnikCGLSig2), and (round 685) their smoothing
-# f̃_b and the inner integral of their Σ_II (LinnikCGLFtil).
+# f̃_b and the inner integral of their Σ_II (LinnikCGLFtil), and (round 686) their Cauchy–Schwarz back to J(f̃⃗) for
+# the terms |n| ≤ N₀ of their Σ_II (LinnikCGLJtil).
 for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 LinnikCGLMellin LinnikCGLReflect \
     LinnikCGLPair LinnikCGLFrob LinnikCGLS2 LinnikCGLFourier LinnikCGLPoisson LinnikCGLTrace \
     LinnikCGLDiag LinnikCGLTrunc LinnikCGLProd LinnikCGLRFact LinnikCGLRam LinnikCGLP71 LinnikCGLSym LinnikCGLRt \
     LinnikCGLP72 LinnikCGLMom LinnikCGLMom4 LinnikCGLCS LinnikCGLJ LinnikCGLFb LinnikCGLPhi LinnikCGLDecay \
     LinnikCGLBlock LinnikCGL112 LinnikCGLLoc LinnikCGLL105 LinnikCGLT101 LinnikCGLL107 LinnikCGLSep \
     LinnikCGLL109 LinnikCGLL1010 LinnikCGLCase LinnikCGLEps LinnikCGLS3 LinnikCGLG LinnikCGLPois8 \
-    LinnikCGLCount LinnikCGLAsum LinnikCGLNsum LinnikCGLN0 LinnikCGLCov LinnikCGLSig2 LinnikCGLFtil; do
+    LinnikCGLCount LinnikCGLAsum LinnikCGLNsum LinnikCGLN0 LinnikCGLCov LinnikCGLSig2 LinnikCGLFtil \
+    LinnikCGLJtil; do
   c 1 "$HERE" $f
 done
 echo "$NC compiled, $NUP up to date"
@@ -356,6 +358,7 @@ import LinnikCGLN0
 import LinnikCGLCov
 import LinnikCGLSig2
 import LinnikCGLFtil
+import LinnikCGLJtil
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -912,6 +915,8 @@ import LinnikCGLFtil
 #print axioms LinnikCGLSig2.norm_S2_le
 #print axioms LinnikCGLFtil.integral_S2_le
 #print axioms LinnikCGLFtil.sum_psi_norm_Phi_sq_le_ftil
+#print axioms LinnikCGLJtil.sum_psi_norm_Phi_sq_le_J
+#print axioms LinnikCGLJtil.sum_integral_Phi_le
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy
