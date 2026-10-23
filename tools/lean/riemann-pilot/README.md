@@ -30319,6 +30319,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 - The file has 514 lines (7 theorems, 15 lemmas, 1 definition), no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters. It quotes no source.
 - `scratchpad/r700/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, passes on this round's (`quotes_entry.out`).
 - `scratchpad/r700/apply_docs.py` makes the 33 edits to CGL-LEAN.md, SIEVE-ROUTE.md and the external README. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing (`apply.out`, `apply_rerun.out`).
+- A second commit rewords three of SIEVE-ROUTE.md's new phrases, in §§16, 23 and 26, so that they say the line of `g7c` needs no hypothesis and that its certificates, their kernel runs not made, would land with none, rather than that the line holds. The script carries the new wording, and run again it writes nothing (`apply_rerun2.out`).
 - `scratchpad/gate.sh` passed before the commit (`scratchpad/r700/gate.out`).
 
 **Marks.**
