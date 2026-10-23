@@ -168,6 +168,18 @@ for f in LinnikCGLLV LinnikCGLStep LinnikCGLLinnik LinnikCGLMat LinnikCGLS23 Lin
     LinnikCGLDensity; do
   c 1 "$HERE" $f
 done
+# Rounds 705–709: the refined certificate (SieveCert2Defs, SieveCert2), its grid at 9/4 with n = 200 and its 117
+# kernel parts in 27 files, one lean process each (their completed runs 3276 s of elapsed time in the round's job, the
+# first alone, the others two at a time; README.md), the Mertens lower bounds (SieveRoughLo), the Type II estimate of
+# the exact chains (SieveExact), the kept parts (SieveKept, SieveBuch2, SieveKeptLeaf, SieveKeptB), the dropped terms
+# less the kept parts (SieveDrop2), the theorem under the refined certificate (SieveMain2) and Linnik's exponent 9/4
+# by it (Linnik225R).
+for f in SieveCert2Defs SieveGrid225R; do c 1 "$HERE" $f; done
+for i in $(seq 1 27); do c 1 "$HERE" SieveCert225RP$i; done
+for f in SieveCert2 SieveCert225R SieveRoughLo SieveExact SieveKept SieveBuch2 SieveKeptLeaf SieveKeptB SieveDrop2 \
+    SieveMain2 Linnik225R; do
+  c 1 "$HERE" $f
+done
 echo "$NC compiled, $NUP up to date"
 AX="$(mktemp --suffix=.lean)"
 trap 'rm -f "$AX"' EXIT
@@ -385,6 +397,19 @@ import LinnikCGLHBRefl
 import LinnikCGLHBIter
 import LinnikCGLHB101
 import LinnikCGLDensity
+import SieveCert2Defs
+import SieveGrid225R
+import SieveCert2
+import SieveCert225R
+import SieveRoughLo
+import SieveExact
+import SieveKept
+import SieveBuch2
+import SieveKeptLeaf
+import SieveKeptB
+import SieveDrop2
+import SieveMain2
+import Linnik225R
 #print axioms Landau.zeroFree_of_growth
 #print axioms Landau.logDerivBnd_of_growth
 #print axioms Landau.rung3_of_growth
@@ -974,6 +999,20 @@ import LinnikCGLDensity
 #print axioms LinnikCGLDensity.cglDensity
 #print axioms LinnikCGLDensity.linnik_225c
 #print axioms LinnikCGLDensity.linnik_226c
+#print axioms SieveCert.gridOK225R
+#print axioms SieveCert.cost2_ge
+#print axioms SieveCert.total2_lt_225R
+#print axioms SieveRoughLo.evGe_cell_inv
+#print axioms SieveExact.T0_spec
+#print axioms SieveBuch.Par.Kp2_le
+#print axioms SieveBuch.Par.Kk_eq
+#print axioms SieveBuch.Par.decompk
+#print axioms SieveKeptLeaf.leaves_ev2
+#print axioms SieveKeptB.Kk_gB_ge
+#print axioms SieveDrop2.drop_ev2
+#print axioms SieveMain2.linnik_route_lt2
+#print axioms Linnik225R.linnik_225r_of
+#print axioms Linnik225R.linnik_225r
 #print axioms LinnikDetect.LSeries_aXχ
 #print axioms LinnikDetect.detect_identityχ
 #print axioms LinnikDetect.dichotomy

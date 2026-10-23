@@ -22,7 +22,10 @@ The table must yield `TABLE_CELLS` cells, so a row the pattern stops reading fai
 `EXACT` names where each exact value (a numerator over `K = 2⁶⁰`) comes from: `route_limits.jsonl`'s row or the sum
 of the Lean part files' bounds, read on every run (each pattern must match its recorded numbers of files and bounds),
 or a grid's total by `route_limits.replay`, stored here because a replay takes up to minutes; `--recompute` replays
-the grids and compares with the stored totals.
+the grids and compares with the stored totals. Since round 709 also a grid's refined total, by
+`refine_k2_probe.replay2`, stored the same way: on the grid of `SieveGrid225R.lean` it equals `SieveCert2Defs.total2`
+(the scratch mirror of the Lean definitions, `scratchpad/r705/mirror2.py`, round 709's record); `--recompute` replays
+it too.
 
 Not read: figures without `K` other than the table's cells, and spellings of a decimal of `K` other than the three
 above; the pre-landing self-review covers them.
@@ -40,6 +43,7 @@ K = 2 ** 60
 
 # name: how its exact value (numerator over K) is found. ('grid', W1, W2, D, n, NUM): route_limits.replay on
 # [W1/D, W2/D] with n cells gives NUM (stored, a replay taking up to minutes; --recompute replays it);
+# ('refined', W1, W2, D, n, NUM): the same with refine_k2_probe.replay2's refined total (round 709);
 # ('jsonl', curve, L, n): route_limits.jsonl's row; ('lean', patterns): the sum of the part files' bounds.
 EXACT = {
     'g7c 9/4 n=400': ('grid', 41191, 48127, 100000, 400, 1140480798652974258),
@@ -73,6 +77,8 @@ EXACT = {
     'SieveCert229U bounds': ('lean', ['SieveCert229UP[0-9].lean'], 5, 21),
     'SieveCert225C bounds': ('lean', ['SieveCert225CP*.lean'], 167, 1374),
     'SieveCert2285U bounds': ('lean', ['SieveCert2285UP*.lean'], 28, 252),
+    'g7c 9/4 n=200 refined': ('refined', 41191, 48127, 100000, 200, 1120675002519785844),
+    'SieveCert225R bounds': ('lean', ['SieveCert225RP*.lean'], 27, 117),
 }
 
 FAIL_TOTAL = 'a failing total, above K'
@@ -90,11 +96,11 @@ DECIMALS = {
     '0.94009': 'SieveCert229U bounds', '0.99020': 'SieveCert225C bounds', '0.98932': 'SieveCert2285U bounds',
     '0.8377': 'grid 2295/1000 n=150 [39719, 47693]', '0.9310': 'grid 2255/1000 n=200 [40905, 48242]',
     '0.931': 'grid 2255/1000 n=200 [40905, 48242]', '0.936': 'grid 2255/1000 n=200 [4091, 4824]',
-    '0.8442146854': 'grid227 n=100',
+    '0.8442146854': 'grid227 n=100', '0.97204': 'g7c 9/4 n=200 refined', '0.97301': 'SieveCert225R bounds',
     # outside the class
     '1.0769': FAIL_TOTAL, '1.0213': FAIL_TOTAL, '1.02125': FAIL_TOTAL, '1.0051': FAIL_TOTAL, '1.0248': FAIL_TOTAL,
     '4.23': FAIL_TOTAL, '4.05': FAIL_TOTAL, '4.23434': FAIL_TOTAL, '4.04821': FAIL_TOTAL, '2.37': FAIL_TOTAL,
-    '1.10': FAIL_TOTAL, '1.16366': FAIL_TOTAL, '1.0782': FAIL_TOTAL, '1.0231': FAIL_TOTAL,
+    '1.10': FAIL_TOTAL, '1.16366': FAIL_TOTAL, '1.0782': FAIL_TOTAL, '1.0231': FAIL_TOTAL, '1.07689': FAIL_TOTAL,
     '0.88': 'the threshold of the landings before round 619',
     '0.9400803710196427': "round 624's record of its reviewer's float, as printed",
     '0.299': "another K, a function (the README's section on T1ca.lean)",
@@ -109,16 +115,20 @@ def live(line):
 
 
 def value(name, replay=False):
-    """The exact value of `EXACT[name]`, a numerator over `K`: a grid's stored total (replayed if `replay`), the jsonl
-    row's total or the part files' bounds summed."""
+    """The exact value of `EXACT[name]`, a numerator over `K`: a grid's stored total or refined total (replayed if
+    `replay`), the jsonl row's total or the part files' bounds summed."""
     how = EXACT[name]
-    if how[0] == 'grid':
+    if how[0] in ('grid', 'refined'):
         if not replay:
             return how[5]
         sys.path.insert(0, HERE)
         import route_limits as RL
         W1, W2, D, n = how[1:5]
-        return RL.replay((W1 * RL.DEN + D - 1) // D, W2 * RL.DEN // D, n)[0]
+        U1, U2 = (W1 * RL.DEN + D - 1) // D, W2 * RL.DEN // D
+        if how[0] == 'refined':
+            import refine_k2_probe as RK
+            return RK.replay2(U1, U2, n)[1]
+        return RL.replay(U1, U2, n)[0]
     if how[0] == 'jsonl':
         for r in map(json.loads, open(os.path.join(HERE, 'route_limits.jsonl'))):
             if (r['curve'], r['L'], r['n']) == how[1:] and 'total' in r:
@@ -134,7 +144,7 @@ def value(name, replay=False):
     return sum(lits)
 
 
-RE_BOUND = re.compile(r'^theorem rows\w*_\d+ : rowsJ? [^≤]*≤ (\d+) :=', re.M)
+RE_BOUND = re.compile(r'^theorem rows\w*_\d+ : rowsJ?2? [^≤]*≤ (\d+) :=', re.M)
 RE_DEC = re.compile(r'(?<![\d.])(\d+\.\d+)(?:K|·K| K)(?![A-Za-z0-9_])')
 
 TABLE_FILE = 'frontier/linnik/SIEVE-ROUTE.md'
@@ -192,10 +202,10 @@ def table():
 
 
 def recompute():
-    """Replays each grid of `EXACT` and compares with its stored total."""
+    """Replays each grid of `EXACT` and compares with its stored total or refined total."""
     bad = []
     for name, how in EXACT.items():
-        if how[0] == 'grid':
+        if how[0] in ('grid', 'refined'):
             got = value(name, replay=True)
             print(f'{name}: {got} {"=" if got == how[5] else "!="} the stored {how[5]}', flush=True)
             if got != how[5]:

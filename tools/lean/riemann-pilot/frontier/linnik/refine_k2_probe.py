@@ -1,6 +1,7 @@
 """refine_k2_probe.py: the certificate's total with the evaluable two-prime parts of the dropped depth-2 terms kept, in
 exact integers on the grid of `route_limits.replay` (SIEVE-ROUTE.md §28; round 704). A replay of a refined
-certificate, not a certificate: the refinement's soundness is not proved in Lean.
+certificate, not a certificate: the refinement's soundness is not proved in Lean. (Round 709: proved in Lean,
+and the refined certificate at `9/4`, `n = 200`, checked by the kernel; SIEVE-ROUTE.md §29.)
 
 A dropped depth-2 term `S(A_{p₁p₂}, p₂)` counts `n = p₁p₂m` with every prime of `m` at least `p₂`, and splits exactly by
 the factorization of `m`. Its part with `m = q₁q₂`, `p₂ ≤ q₁ ≤ q₂`, has the `B`-density `dα₁dα₂dβ/(α₁α₂βγ)`, with
