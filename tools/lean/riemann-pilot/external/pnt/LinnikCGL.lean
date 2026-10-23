@@ -1,10 +1,11 @@
 /-
 # Round 607: Chen–Gupta–Li's zero-density estimate on `[5/7, 16/21]`, as a hypothesis (the second goal's input D2)
 
-`CGLDensity` is the one input of the second goal's Phase 1 that the stack does not prove: for every `ε > 0` there is
+`CGLDensity` was the one input of the second goal's Phase 1 that the stack did not prove: for every `ε > 0` there is
 `C` such that for every `q ≥ 1`, `5/7 ≤ σ ≤ 16/21` and `T ≥ 2`, at most `C(qT)^{(7/3)(1−σ)+ε}` characters mod `q`
 have an `L`-function with a zero in `Re s ≥ σ`, `|Im s| ≤ T`. The theorems that use it take it as an argument.
-Phase 2 of the second goal is to prove it.
+Phase 2 of the second goal was to prove it; round 702 does (`LinnikCGLDensity.cglDensity`, from round 700's
+`LinnikCGLHB101.prop31`).
 
 Chen, Gupta and Li (arXiv:2507.08296v2) open their abstract with this sentence, here as arXiv's API returns the
 abstract of 2507.08296v2, with the whitespace collapsed (round 608: the source named; the e-print's own abstract

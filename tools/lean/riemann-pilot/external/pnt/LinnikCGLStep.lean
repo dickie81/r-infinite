@@ -19,14 +19,18 @@ parameters on `[5/7, 16/21]`. The step uses the estimate only at thresholds `N^�
   its three terms at `x = λ` and `x = a`; under the six conditions `ParC.Good.hc` a piece is at most
   `6CE·Q^{A_i(1−σ)}`.
 * `class1_cgl`: the polynomial class, as `LinnikHuxStep.class1_gen` with `block_bin_cgl` in place of
-  `block_bin_hux`. The bins have width `εs/200` and number `⌊60/εs⌋ + 1`, since `1 − σ ≤ 3/10`. The thresholds are
+  `block_bin_hux`. The bins have width `e/200` and number `⌊60/e⌋ + 1`, since `1 − σ ≤ 3/10`. The thresholds are
   `N^σ/Z` with `Z ≤ Q^{1/105} ≤ N^{1/70}`, so `N^{7/10} ≤ N^σ/Z ≤ N^{4/5}` for `5/7 ≤ σ ≤ 4/5`.
 * `class2_bound_cgl`: the integral class at `δ = 1/5`, which needs `σ ≥ 7/10`; round 607's step takes `δ = 1/4`.
 * `count_cgl_at`, `eventually_cgl`, `count_cgl`: the range `[lo, hi]` at one large `Q`, then for every `q` and
-  `T ≥ 2`, with `cgl_shift` at `ε = εs/400`, the divisor bound `τ₀ = C(ε_d)Q^{2ε_d}`, `ε_d = εs/(1600M)`, and
+  `T ≥ 2`, with `cgl_shift` at `ε = e/400`, the divisor bound `τ₀ = C(ε_d)Q^{2ε_d}`, `ε_d = e/(1600M)`, and
   `K_T = ⌈log 8Q³⌉ + 1` terms of the Taylor series.
 * `charDensity_cglGen`, `parCGL`, `parCGL_good`, `charDensity_cgl`: the density estimate, at `parHux73`'s values on
-  `[5/7, 16/21]`.
+  `[5/7, 16/21]`, with `e = εs`.
+
+Round 702: the step's internal `ε`, `LinnikHuxStep.εs = 1/100000` until then, is a field of the parameters, `ParC.e`,
+and `ParC.Good` asks `0 < e ≤ 1/100000`. The proofs use only those two facts of it, so the step holds at every such
+`e`; `parCGL` takes `e = εs`, and `charDensity_cgl` is unchanged. Round 702's `LinnikCGLDensity` takes `e` to `0`.
 
 Round 636 took Chen–Gupta–Li's Theorem 1.1 as the hypothesis (`LinnikCGLLV.CGLLargeValues`) and applied it at the
 thresholds `N^{σ_b}/Z`, with the bound's fourth term; round 637 lowers the thresholds to `N^σ/Z` and takes
@@ -51,12 +55,12 @@ variable {q : ℕ}
 
 /-! ### One block and one bin -/
 
-/-- **One dyadic block and one bin, by Chen–Gupta–Li's estimate.** Let `hLV` be `cgl_shift`'s count at `q` with the
-constant `C` for `ε`. Characters with `|F(χ, β_χ + iγ_χ)| ≥ V > 0` for a block `F` on `(P, 2P]` with `|c_j| ≤ d(j)`,
-`σ_b ≤ β_χ ≤ σ_b + η`, `0 ≤ σ ≤ σ_b`, `η ≤ 1/16`, `|γ_χ| ≤ T`, number at most
-`Σ_{j≤m} K·Cq^ε(q(T + 1)N_j)^ε p31B(q, T + 1, N_j, W_j/2)` with `N_j = 2^jP^m` and
-`W_j = V^mN_j^σ/((m + 1)τ₀^{2m})`, for `m ≥ 1`, `d(n) ≤ τ₀` for `n ≤ (2P)^m`, `(q(T + 1))^{2/3} ≤ P^m`, `K ≥ 1`,
-`2(2P)^m·16^{−K} ≤ V^m/((m + 1)τ₀^{2m})/4` and `N_j^{7/10} ≤ W_j/2 ≤ N_j^{4/5}` for `j ≤ m`. -/
+/-- **One dyadic block and one bin, by Chen–Gupta–Li's estimate.** Let `q ≥ 1` and `hLV` be `cgl_shift`'s count at `q`
+with the constant `C` for `ε`. Characters with `|F(χ, β_χ + iγ_χ)| ≥ V > 0` for a block `F` on `(P, 2P]` with
+`|c_j| ≤ d(j)`, `σ_b ≤ β_χ ≤ σ_b + η`, `0 ≤ σ ≤ σ_b`, `η ≤ 1/16`, `|γ_χ| ≤ T`, number at most
+`Σ_{j≤m} K·Cq^ε(q(T + 1)N_j)^ε p31B(q, T + 1, N_j, W_j/2)` with `N_j = 2^jP^m` and `W_j = V^mN_j^σ/((m + 1)τ₀^{2m})`,
+for `m ≥ 1`, `d(n) ≤ τ₀` for `n ≤ (2P)^m`, `(q(T + 1))^{2/3} ≤ P^m`, `K ≥ 1`, `2(2P)^m·16^{−K} ≤ V^m/((m + 1)τ₀^{2m})/4`
+and `N_j^{7/10} ≤ W_j/2 ≤ N_j^{4/5}` for `j ≤ m`. -/
 theorem block_bin_cgl [NeZero q] {C ε : ℝ}
     (hLV : ∀ (R : Finset (DirichletCharacter ℂ q)) (δ γ : DirichletCharacter ℂ q → ℝ) (T : ℝ) (N : ℕ) (V : ℝ)
       (a : ℕ → ℂ) (K : ℕ), 1 ≤ T → ((q : ℝ) * T) ^ (2 / 3 : ℝ) ≤ N → (N : ℝ) ^ (7 / 10 : ℝ) ≤ V / 2 →
@@ -249,9 +253,9 @@ lemma div_pow_le_of {x V Z Nσ : ℝ} (hx : 0 ≤ x) (hZ : 0 < Z) (hNσ : 0 < N�
   calc x / V ^ p ≤ x / (Nσ / Z) ^ p := div_le_div_of_nonneg_left hx (by positivity) (pow_le_pow_left₀ h0.le hV p)
     _ = Z ^ p * (x / Nσ ^ p) := by rw [div_pow]; field_simp
 
-/-- **`p31B` as powers of `Q`**: for `Q ≥ 1`, `T ≥ 0`, `q(T + 1) ≤ Q`, `N ≥ 1` with `Q^a ≤ N ≤ Q^λ`, `Z ≥ 1` and
-`N^σ/Z ≤ V`, `p31B(q, T + 1, N, V)` is at most `Z⁴` times the sum of the six powers
-`Q^{x(2−2σ)}`, `Q^{1/2+x(3−4σ)}`, `Q^{4/3+x(2−4σ)}`, `x ∈ {λ, a}`. -/
+/-- **`p31B` as powers of `Q`**: for `q ≥ 1`, `Q ≥ 1`, `T ≥ 0`, `q(T + 1) ≤ Q`, `N ≥ 1` with `Q^a ≤ N ≤ Q^λ`, `Z ≥ 1`
+and `N^σ/Z ≤ V`, `p31B(q, T + 1, N, V)` is at most `Z⁴` times the sum of the six powers `Q^{x(2−2σ)}`,
+`Q^{1/2+x(3−4σ)}`, `Q^{4/3+x(2−4σ)}`, `x ∈ {λ, a}`. -/
 lemma p31B_le_Q {T Q a lam σ Z V : ℝ} {N : ℕ} [NeZero q] (hT : 0 ≤ T) (hQ1 : 1 ≤ Q)
     (hqT : (q : ℝ) * (T + 1) ≤ Q) (hN1 : 1 ≤ N) (hlo : Q ^ a ≤ N) (hhi : (N : ℝ) ≤ Q ^ lam) (hZ : 1 ≤ Z)
     (hV : (N : ℝ) ^ σ / Z ≤ V) :
@@ -301,16 +305,16 @@ lemma p31B_le_Q {T Q a lam σ Z V : ℝ} {N : ℕ} [NeZero q] (hT : 0 ≤ T) (hQ
   unfold p31B
   linarith
 
-/-- **One piece as a power of `Q`**: under `p31B_le_Q`'s conditions, with `λ ≤ 2`, `C, ε ≥ 0`,
-`K·Q^{4ε}Z⁴ ≤ E·Q^{εs/4}` and the six exponent conditions (`hc`), `K·Cq^ε(q(T + 1)N)^ε p31B(q, T + 1, N, V)` is at
-most `6CE·Q^{A_i(1−σ)}`. -/
-lemma piece_le {T Q a lam Ai σ Z V C ε E : ℝ} {N K : ℕ} [NeZero q] (hT : 0 ≤ T) (hQ1 : 1 ≤ Q)
+/-- **One piece as a power of `Q`**: for `q ≥ 1`, under `p31B_le_Q`'s conditions, with `λ ≤ 2`, `C, ε ≥ 0`,
+`K·Q^{4ε}Z⁴ ≤ E·Q^{e/4}` and the six exponent conditions (`hc`), `K·Cq^ε(q(T + 1)N)^ε p31B(q, T + 1, N, V)` is at most
+`6CE·Q^{A_i(1−σ)}`. -/
+lemma piece_le {T Q a lam Ai σ Z V C ε E e : ℝ} {N K : ℕ} [NeZero q] (hT : 0 ≤ T) (hQ1 : 1 ≤ Q)
     (hqT : (q : ℝ) * (T + 1) ≤ Q) (hN1 : 1 ≤ N) (hlo : Q ^ a ≤ N) (hhi : (N : ℝ) ≤ Q ^ lam) (hlam2 : lam ≤ 2)
     (hZ : 1 ≤ Z) (hV : (N : ℝ) ^ σ / Z ≤ V) (hC : 0 ≤ C) (hε : 0 ≤ ε)
-    (hsmall : (K : ℝ) * Q ^ (4 * ε) * Z ^ 4 ≤ E * Q ^ (εs / 4))
-    (hc : lam * (2 - 2 * σ) + εs / 4 ≤ Ai * (1 - σ) ∧ a * (2 - 2 * σ) + εs / 4 ≤ Ai * (1 - σ) ∧
-      1 / 2 + lam * (3 - 4 * σ) + εs / 4 ≤ Ai * (1 - σ) ∧ 1 / 2 + a * (3 - 4 * σ) + εs / 4 ≤ Ai * (1 - σ) ∧
-      4 / 3 + lam * (2 - 4 * σ) + εs / 4 ≤ Ai * (1 - σ) ∧ 4 / 3 + a * (2 - 4 * σ) + εs / 4 ≤ Ai * (1 - σ)) :
+    (hsmall : (K : ℝ) * Q ^ (4 * ε) * Z ^ 4 ≤ E * Q ^ (e / 4))
+    (hc : lam * (2 - 2 * σ) + e / 4 ≤ Ai * (1 - σ) ∧ a * (2 - 2 * σ) + e / 4 ≤ Ai * (1 - σ) ∧
+      1 / 2 + lam * (3 - 4 * σ) + e / 4 ≤ Ai * (1 - σ) ∧ 1 / 2 + a * (3 - 4 * σ) + e / 4 ≤ Ai * (1 - σ) ∧
+      4 / 3 + lam * (2 - 4 * σ) + e / 4 ≤ Ai * (1 - σ) ∧ 4 / 3 + a * (2 - 4 * σ) + e / 4 ≤ Ai * (1 - σ)) :
     K * (C * (q : ℝ) ^ ε * ((q : ℝ) * (T + 1) * N) ^ ε * p31B q (T + 1) N V) ≤ 6 * C * E * Q ^ (Ai * (1 - σ)) := by
   have hQ0 : 0 < Q := by linarith
   have hq1 : (1 : ℝ) ≤ q := by exact_mod_cast Nat.one_le_iff_ne_zero.2 (NeZero.ne q)
@@ -327,11 +331,11 @@ lemma piece_le {T Q a lam Ai σ Z V C ε E : ℝ} {N K : ℕ} [NeZero q] (hT : 0
     calc (q : ℝ) ^ ε * ((q : ℝ) * (T + 1) * N) ^ ε ≤ Q ^ ε * Q ^ (3 * ε) := by
           rw [← h3]; exact mul_le_mul h1 h2 (by positivity) (by positivity)
       _ = Q ^ (4 * ε) := by rw [← Real.rpow_add hQ0]; ring_nf
-  -- each of the six powers is at most `Q^{A_i(1−σ)−εs/4}`
-  set F := Ai * (1 - σ) - εs / 4 with hF
-  have hp : ∀ x : ℝ, x + εs / 4 ≤ Ai * (1 - σ) → Q ^ x ≤ Q ^ F := fun x hx =>
+  -- each of the six powers is at most `Q^{A_i(1−σ)−e/4}`
+  set F := Ai * (1 - σ) - e / 4 with hF
+  have hp : ∀ x : ℝ, x + e / 4 ≤ Ai * (1 - σ) → Q ^ x ≤ Q ^ F := fun x hx =>
     Real.rpow_le_rpow_of_exponent_le hQ1 (by rw [hF]; linarith)
-  have hm : ∀ (u x : ℝ), u + x + εs / 4 ≤ Ai * (1 - σ) → Q ^ u * Q ^ x ≤ Q ^ F := fun u x hx => by
+  have hm : ∀ (u x : ℝ), u + x + e / 4 ≤ Ai * (1 - σ) → Q ^ u * Q ^ x ≤ Q ^ F := fun u x hx => by
     rw [← Real.rpow_add hQ0]; exact hp _ (by linarith)
   obtain ⟨c1, c1', c2, c2', c3, c3'⟩ := hc
   have hsum : (Q ^ (lam * (2 - 2 * σ)) + Q ^ (a * (2 - 2 * σ))) +
@@ -347,19 +351,20 @@ lemma piece_le {T Q a lam Ai σ Z V C ε E : ℝ} {N K : ℕ} [NeZero q] (hT : 0
   have hcg := p31B_le_Q (q := q) hT hQ1 hqT hN1 hlo hhi hZ hV
   have hcg0 : 0 ≤ p31B q (T + 1) N V := p31B_nonneg q (by linarith) N V
   have hK0 : (0 : ℝ) ≤ K := Nat.cast_nonneg K
-  have hQF : Q ^ (εs / 4) * Q ^ F = Q ^ (Ai * (1 - σ)) := by rw [← Real.rpow_add hQ0, hF]; ring_nf
+  have hQF : Q ^ (e / 4) * Q ^ F = Q ^ (Ai * (1 - σ)) := by rw [← Real.rpow_add hQ0, hF]; ring_nf
   calc (K : ℝ) * (C * (q : ℝ) ^ ε * ((q : ℝ) * (T + 1) * N) ^ ε * p31B q (T + 1) N V)
       = C * ((K : ℝ) * ((q : ℝ) ^ ε * ((q : ℝ) * (T + 1) * N) ^ ε) * p31B q (T + 1) N V) := by ring
     _ ≤ C * ((K : ℝ) * Q ^ (4 * ε) * (Z ^ 4 * (6 * Q ^ F))) := by
         gcongr
         exact hcg.trans (by gcongr)
     _ = 6 * C * (((K : ℝ) * Q ^ (4 * ε) * Z ^ 4) * Q ^ F) := by ring
-    _ ≤ 6 * C * ((E * Q ^ (εs / 4)) * Q ^ F) := by gcongr
+    _ ≤ 6 * C * ((E * Q ^ (e / 4)) * Q ^ F) := by gcongr
     _ = 6 * C * E * Q ^ (Ai * (1 - σ)) := by rw [mul_assoc E, hQF]; ring
 
 /-! ### The parameters -/
 
-/-- The parameters of the step with Chen–Gupta–Li's estimate, as `LinnikHuxStep.Par`. -/
+/-- The parameters of the step with Chen–Gupta–Li's estimate, as `LinnikHuxStep.Par`, and the internal `ε`, `e`
+(round 702). -/
 structure ParC where
   M : ℕ
   a : ℝ
@@ -368,42 +373,44 @@ structure ParC where
   hi : ℝ
   Ai : ℝ
   A : ℝ
+  e : ℝ
 
-/-- What the step needs of its parameters, at the internal `ε = 1/100000` (`εs`): `M ≥ 1`, `2/3 ≤ a` and
-`a + ε ≤ M/2000`, the bounds on `λ`, `5/7 ≤ lo`, `hi ≤ 4/5`, `0 ≤ A ≤ 10`, and the exponent conditions: on
-`[lo, hi]` the six of `piece_le` and the integral class's; for every `σ ≤ hi` the one for the number of dyadic
-blocks. -/
+/-- What the step needs of its parameters, at the internal `ε = e` (round 702; until then `εs = 1/100000`):
+`0 < e ≤ 1/100000`, `M ≥ 1`, `2/3 ≤ a` and `a + e ≤ M/2000`, the bounds on `λ`, `5/7 ≤ lo`, `hi ≤ 4/5`,
+`0 ≤ A ≤ 10`, and the exponent conditions: on `[lo, hi]` the six of `piece_le` and the integral class's; for every
+`σ ≤ hi` the one for the number of dyadic blocks. -/
 structure ParC.Good (P : ParC) : Prop where
+  he : 0 < P.e
+  he1 : P.e ≤ 1 / 100000
   hM : 1 ≤ P.M
   ha : 2 / 3 ≤ P.a
-  hat : P.a + εs ≤ (P.M : ℝ) / 2000
-  hlam1 : 201 / 200 + εs ≤ P.lam
-  hlam2 : 3 * (P.a + εs) / 2 ≤ P.lam
+  hat : P.a + P.e ≤ (P.M : ℝ) / 2000
+  hlam1 : 201 / 200 + P.e ≤ P.lam
+  hlam2 : 3 * (P.a + P.e) / 2 ≤ P.lam
   hlam3 : P.lam ≤ 2
   hlo : 5 / 7 ≤ P.lo
   hhi : P.hi ≤ 4 / 5
   hc : ∀ σ, P.lo ≤ σ → σ ≤ P.hi →
-    P.lam * (2 - 2 * σ) + εs / 4 ≤ P.Ai * (1 - σ) ∧ P.a * (2 - 2 * σ) + εs / 4 ≤ P.Ai * (1 - σ) ∧
-      1 / 2 + P.lam * (3 - 4 * σ) + εs / 4 ≤ P.Ai * (1 - σ) ∧ 1 / 2 + P.a * (3 - 4 * σ) + εs / 4 ≤ P.Ai * (1 - σ) ∧
-      4 / 3 + P.lam * (2 - 4 * σ) + εs / 4 ≤ P.Ai * (1 - σ) ∧ 4 / 3 + P.a * (2 - 4 * σ) + εs / 4 ≤ P.Ai * (1 - σ)
-  h3 : ∀ σ, P.lo ≤ σ → σ ≤ P.hi → 201 / 100 * (1 / 2 - σ) + 1 / 500 + (1 + εs) ≤ P.A * (1 - σ)
-  h4 : ∀ σ, σ ≤ P.hi → εs / (24 * P.M) + P.Ai * (1 - σ) ≤ P.A * (1 - σ)
+    P.lam * (2 - 2 * σ) + P.e / 4 ≤ P.Ai * (1 - σ) ∧ P.a * (2 - 2 * σ) + P.e / 4 ≤ P.Ai * (1 - σ) ∧
+      1 / 2 + P.lam * (3 - 4 * σ) + P.e / 4 ≤ P.Ai * (1 - σ) ∧ 1 / 2 + P.a * (3 - 4 * σ) + P.e / 4 ≤ P.Ai * (1 - σ) ∧
+      4 / 3 + P.lam * (2 - 4 * σ) + P.e / 4 ≤ P.Ai * (1 - σ) ∧ 4 / 3 + P.a * (2 - 4 * σ) + P.e / 4 ≤ P.Ai * (1 - σ)
+  h3 : ∀ σ, P.lo ≤ σ → σ ≤ P.hi → 201 / 100 * (1 / 2 - σ) + 1 / 500 + (1 + P.e) ≤ P.A * (1 - σ)
+  h4 : ∀ σ, σ ≤ P.hi → P.e / (24 * P.M) + P.Ai * (1 - σ) ≤ P.A * (1 - σ)
   hA : 0 ≤ P.A
   hA10 : P.A ≤ 10
 
 /-! ### The polynomial class -/
 
 set_option maxHeartbeats 1000000 in
-/-- **The polynomial class with Chen–Gupta–Li's estimate on `[lo, hi]`.** Let the parameters have `Good`, `hLV` be
-`cgl_shift`'s count at `q` with the constant `C ≥ 0` for `0 ≤ ε ≤ εs/400`, `lo ≤ σ ≤ hi`, `T ≥ 0`, `Q > 1` with
+/-- **The polynomial class with Chen–Gupta–Li's estimate on `[lo, hi]`.** Let `q ≥ 1`, the parameters have `Good`, `hLV`
+be `cgl_shift`'s count at `q` with the constant `C ≥ 0` for `0 ≤ ε ≤ e/400`, `lo ≤ σ ≤ hi`, `T ≥ 0`, `Q > 1` with
 `q(T + 2) ≤ Q`, `X, N ≥ 1` with the sizes of `class1_gen` (`hXQ`, `hK`, `hXN`), `d(n) ≤ τ₀` for `n ≤ Q²` with
-`τ₀^{8M} ≤ C_τQ^{εs/100}`, `K_T ≥ 1` with `K_T ≤ Q^{εs/100}` and `8Q³ ≤ 16^{K_T}`, `2^M ≤ Q^{εs}` and
-`16(M + 1)⁴C_τQ^{εs/4} ≤ Q^{1/105}`. Characters with one point `β_χ + iγ_χ` each, `σ ≤ β_χ < 1`, `|γ_χ| ≤ T`, and
-`|P_χ(β_χ + iγ_χ)| ≥ ¼` number at most `(⌊60/εs⌋ + 1)K(M + 1)·6C·16(M + 1)⁴C_τ·Q^{A_i(1−σ)}`,
-`K = ⌊log₂ N⌋ + 1`: `class1_gen`'s blocks, bins and powers, with `block_bin_cgl` at the thresholds `N_j^σ/Z` and
-`piece_le`. -/
+`τ₀^{8M} ≤ C_τQ^{e/100}`, `K_T ≥ 1` with `K_T ≤ Q^{e/100}` and `8Q³ ≤ 16^{K_T}`, `2^M ≤ Q^{e}` and
+`16(M + 1)⁴C_τQ^{e/4} ≤ Q^{1/105}`. Characters with one point `β_χ + iγ_χ` each, `σ ≤ β_χ < 1`, `|γ_χ| ≤ T`, and
+`|P_χ(β_χ + iγ_χ)| ≥ ¼` number at most `(⌊60/e⌋ + 1)K(M + 1)·6C·16(M + 1)⁴C_τ·Q^{A_i(1−σ)}`, `K = ⌊log₂ N⌋ + 1`:
+`class1_gen`'s blocks, bins and powers, with `block_bin_cgl` at the thresholds `N_j^σ/Z` and `piece_le`. -/
 theorem class1_cgl [NeZero q] (Pa : ParC) (G : Pa.Good) {C ε : ℝ} (hC0 : 0 ≤ C) (hε0 : 0 ≤ ε)
-    (hεs : 4 * ε ≤ εs / 100)
+    (hεs : 4 * ε ≤ Pa.e / 100)
     (hLV : ∀ (R : Finset (DirichletCharacter ℂ q)) (δ γ : DirichletCharacter ℂ q → ℝ) (T : ℝ) (N : ℕ) (V : ℝ)
       (a : ℕ → ℂ) (K : ℕ), 1 ≤ T → ((q : ℝ) * T) ^ (2 / 3 : ℝ) ≤ N → (N : ℝ) ^ (7 / 10 : ℝ) ≤ V / 2 →
       V / 2 ≤ (N : ℝ) ^ (4 / 5 : ℝ) → (∀ n, ‖a n‖ ≤ 1) →
@@ -413,20 +420,20 @@ theorem class1_cgl [NeZero q] (Pa : ParC) (G : Pa.Good) {C ε : ℝ} (hC0 : 0 �
     {σ T Q : ℝ} (hσ : Pa.lo ≤ σ) (hσ1 : σ ≤ Pa.hi) (hT : 0 ≤ T) (hQ1 : 1 < Q)
     (hqT : (q : ℝ) * (T + 2) ≤ Q)
     {X N : ℕ} (hX : 1 ≤ X) (hN : 1 ≤ N) (hXQ : Q ^ (1 / 2000 : ℝ) ≤ 2 * X)
-    (hK : 4 * ((Nat.log 2 N + 1 : ℕ) : ℝ) ≤ Q ^ (εs / (24 * Pa.M)))
-    (hXN : (2 * ((X * N : ℕ) : ℝ)) ^ 2 ≤ Q ^ (201 / 200 + εs))
+    (hK : 4 * ((Nat.log 2 N + 1 : ℕ) : ℝ) ≤ Q ^ (Pa.e / (24 * Pa.M)))
+    (hXN : (2 * ((X * N : ℕ) : ℝ)) ^ 2 ≤ Q ^ (201 / 200 + Pa.e))
     {τ₀ Cτ : ℝ} (hτ₀ : ∀ n : ℕ, (n : ℝ) ≤ Q ^ 2 → (n.divisors.card : ℝ) ≤ τ₀)
-    (hτC : τ₀ ^ (8 * Pa.M) ≤ Cτ * Q ^ (εs / 100))
-    {KT : ℕ} (hKT1 : 1 ≤ KT) (hKTQ : (KT : ℝ) ≤ Q ^ (εs / 100)) (hKT : 8 * Q ^ 3 ≤ (16 : ℝ) ^ KT)
-    (h2M : (2 : ℝ) ^ Pa.M ≤ Q ^ εs) (hZQ : 16 * ((Pa.M : ℝ) + 1) ^ 4 * Cτ * Q ^ (εs / 4) ≤ Q ^ (1 / 105 : ℝ))
+    (hτC : τ₀ ^ (8 * Pa.M) ≤ Cτ * Q ^ (Pa.e / 100))
+    {KT : ℕ} (hKT1 : 1 ≤ KT) (hKTQ : (KT : ℝ) ≤ Q ^ (Pa.e / 100)) (hKT : 8 * Q ^ 3 ≤ (16 : ℝ) ^ KT)
+    (h2M : (2 : ℝ) ^ Pa.M ≤ Q ^ Pa.e) (hZQ : 16 * ((Pa.M : ℝ) + 1) ^ 4 * Cτ * Q ^ (Pa.e / 4) ≤ Q ^ (1 / 105 : ℝ))
     {Y : ℝ} (hY : 0 < Y) (Rs : Finset (DirichletCharacter ℂ q)) (β γ : DirichletCharacter ℂ q → ℝ)
     (hβ : ∀ χ ∈ Rs, σ ≤ β χ ∧ β χ < 1) (hγ : ∀ χ ∈ Rs, |γ χ| ≤ T)
     (hbig : ∀ χ ∈ Rs, 1 / 4 ≤ ‖Pvχ χ X N Y (β χ) (γ χ)‖) :
-    (Rs.card : ℝ) ≤ ((⌊60 / εs⌋₊ + 1 : ℕ) : ℝ) * ((Nat.log 2 N + 1 : ℕ) : ℝ) *
+    (Rs.card : ℝ) ≤ ((⌊60 / Pa.e⌋₊ + 1 : ℕ) : ℝ) * ((Nat.log 2 N + 1 : ℕ) : ℝ) *
       (((Pa.M : ℝ) + 1) * (6 * C * (16 * ((Pa.M : ℝ) + 1) ^ 4 * Cτ)) * Q ^ (Pa.Ai * (1 - σ))) := by
   classical
-  have hε := εs_pos
-  have hε1 : εs ≤ 1 / 100000 := le_refl _
+  have hε := G.he
+  have hε1 : Pa.e ≤ 1 / 100000 := G.he1
   have hQ0 : 0 < Q := by linarith
   have hlo := G.hlo
   have hhi := G.hhi
@@ -436,13 +443,13 @@ theorem class1_cgl [NeZero q] (Pa : ParC) (G : Pa.Good) {C ε : ℝ} (hC0 : 0 �
   have hK1 : (1 : ℝ) ≤ K := by exact_mod_cast (by omega : 1 ≤ K)
   set V : ℝ := 1 / (4 * (K : ℝ)) with hV
   have hV0 : 0 < V := by positivity
-  set nb := ⌊60 / εs⌋₊ + 1 with hnb
+  set nb := ⌊60 / Pa.e⌋₊ + 1 with hnb
   set E : ℝ := 16 * ((Pa.M : ℝ) + 1) ^ 4 * Cτ with hE
   set Bb := ((Pa.M : ℝ) + 1) * (6 * C * E) * Q ^ (Pa.Ai * (1 - σ)) with hBb
   have hτ1 : 1 ≤ τ₀ := by have := hτ₀ 1 (by rw [Nat.cast_one]; exact one_le_pow₀ hQ1.le); simpa using this
   have hCτ : 0 ≤ Cτ := by
     have h1 : 0 < τ₀ ^ (8 * Pa.M) := by positivity
-    have h2 : 0 < Q ^ (εs / 100) := by positivity
+    have h2 : 0 < Q ^ (Pa.e / 100) := by positivity
     nlinarith
   -- some block of each character is at least `V`
   have hlarge : ∀ χ ∈ Rs, ∃ k ∈ range K, V ≤ ‖Fkχ χ X N Y k (β χ) (γ χ)‖ := by
@@ -457,13 +464,13 @@ theorem class1_cgl [NeZero q] (Pa : ParC) (G : Pa.Good) {C ε : ℝ} (hC0 : 0 �
     have h3 : (K : ℝ) * V = 1 / 4 := by rw [hV]; field_simp
     linarith [(norm_sum_le (range K) fun k => Fkχ χ X N Y k (β χ) (γ χ)).trans_lt (h3 ▸ h2)]
   set Ck : ℕ → ℕ → Finset (DirichletCharacter ℂ q) := fun k j =>
-    Rs.filter fun χ => V ≤ ‖Fkχ χ X N Y k (β χ) (γ χ)‖ ∧ ⌊200 / εs * (β χ - σ)⌋₊ = j with hCkdef
+    Rs.filter fun χ => V ≤ ‖Fkχ χ X N Y k (β χ) (γ χ)‖ ∧ ⌊200 / Pa.e * (β χ - σ)⌋₊ = j with hCkdef
   have hsub : Rs ⊆ (range K).biUnion fun k => (range nb).biUnion fun j => Ck k j := by
     intro χ hχ
     obtain ⟨k, hk, hbigk⟩ := hlarge χ hχ
     have h1 := hβ χ hχ
-    have hj : ⌊200 / εs * (β χ - σ)⌋₊ < nb := by
-      have hle : 200 / εs * (β χ - σ) ≤ 60 / εs := by
+    have hj : ⌊200 / Pa.e * (β χ - σ)⌋₊ < nb := by
+      have hle : 200 / Pa.e * (β χ - σ) ≤ 60 / Pa.e := by
         rw [div_mul_eq_mul_div, div_le_div_iff_of_pos_right hε]; linarith
       exact Nat.lt_succ_of_le (Nat.floor_le_floor hle)
     exact mem_biUnion.2 ⟨k, hk, mem_biUnion.2 ⟨_, mem_range.2 hj, mem_filter.2 ⟨hχ, hbigk, rfl⟩⟩⟩
@@ -485,14 +492,14 @@ theorem class1_cgl [NeZero q] (Pa : ParC) (G : Pa.Good) {C ε : ℝ} (hC0 : 0 �
         push_cast at h' ⊢; linarith
       linarith
     obtain ⟨m, hm1, hmM, hΛlo, hΛhi⟩ :=
-      choose_m_gen Pa.M hQ1 (by linarith [G.ha] : (0 : ℝ) < Pa.a + εs) G.hat h2Px
+      choose_m_gen Pa.M hQ1 (by linarith [G.ha] : (0 : ℝ) < Pa.a + Pa.e) G.hat h2Px
     have hΛ : ((2 * P : ℕ) : ℝ) ^ m ≤ Q ^ Pa.lam := by
       refine hΛhi.trans (max_le ?_ ?_)
       · have h2 : ((2 * P : ℕ) : ℝ) ≤ 2 * ((X * N : ℕ) : ℝ) := by
           have h' : ((2 * P : ℕ) : ℝ) ≤ ((2 * (X * N) : ℕ) : ℝ) := by exact_mod_cast (by omega : 2 * P ≤ 2 * (X * N))
           push_cast at h' ⊢; linarith
         calc ((2 * P : ℕ) : ℝ) ^ 2 ≤ (2 * ((X * N : ℕ) : ℝ)) ^ 2 := pow_le_pow_left₀ (by positivity) h2 2
-          _ ≤ Q ^ (201 / 200 + εs) := hXN
+          _ ≤ Q ^ (201 / 200 + Pa.e) := hXN
           _ ≤ Q ^ Pa.lam := Real.rpow_le_rpow_of_exponent_le hQ1.le G.hlam1
       · exact Real.rpow_le_rpow_of_exponent_le hQ1.le G.hlam2
     have hΛ2 : ((2 * P : ℕ) : ℝ) ^ m ≤ Q ^ 2 := by
@@ -501,11 +508,11 @@ theorem class1_cgl [NeZero q] (Pa : ParC) (G : Pa.Good) {C ε : ℝ} (hC0 : 0 �
         _ = Q ^ 2 := by norm_num
     -- `P^m ≥ Q^a`
     have hPmQ : Q ^ Pa.a ≤ ((P ^ m : ℕ) : ℝ) := by
-      have h2m : (2 : ℝ) ^ m ≤ Q ^ εs := (pow_le_pow_right₀ (by norm_num) hmM).trans h2M
+      have h2m : (2 : ℝ) ^ m ≤ Q ^ Pa.e := (pow_le_pow_right₀ (by norm_num) hmM).trans h2M
       have e : ((2 * P : ℕ) : ℝ) ^ m = (2 : ℝ) ^ m * ((P ^ m : ℕ) : ℝ) := by push_cast; ring
-      have h1 : Q ^ Pa.a * Q ^ εs ≤ (2 : ℝ) ^ m * ((P ^ m : ℕ) : ℝ) := by
+      have h1 : Q ^ Pa.a * Q ^ Pa.e ≤ (2 : ℝ) ^ m * ((P ^ m : ℕ) : ℝ) := by
         rw [← Real.rpow_add hQ0, ← e]; exact hΛlo
-      have h3 : Q ^ Pa.a * (2 : ℝ) ^ m ≤ Q ^ Pa.a * Q ^ εs := by gcongr
+      have h3 : Q ^ Pa.a * (2 : ℝ) ^ m ≤ Q ^ Pa.a * Q ^ Pa.e := by gcongr
       have h4 : 0 < (2 : ℝ) ^ m := by positivity
       have h5 : Q ^ Pa.a * (2 : ℝ) ^ m ≤ ((P ^ m : ℕ) : ℝ) * (2 : ℝ) ^ m := by
         rw [mul_comm ((P ^ m : ℕ) : ℝ)]; exact h3.trans h1
@@ -514,29 +521,29 @@ theorem class1_cgl [NeZero q] (Pa : ParC) (G : Pa.Good) {C ε : ℝ} (hC0 : 0 �
       calc ((q : ℝ) * (T + 1)) ^ (2 / 3 : ℝ) ≤ Q ^ (2 / 3 : ℝ) := Real.rpow_le_rpow (by positivity) hqT1 (by norm_num)
         _ ≤ Q ^ Pa.a := Real.rpow_le_rpow_of_exponent_le hQ1.le G.ha
         _ ≤ ((P ^ m : ℕ) : ℝ) := hPmQ
-    set σb : ℝ := σ + j * (εs / 200) with hσb
+    set σb : ℝ := σ + j * (Pa.e / 200) with hσb
     have hσσb : σ ≤ σb := by
-      have : (0 : ℝ) ≤ (j : ℝ) * (εs / 200) := by positivity
+      have : (0 : ℝ) ≤ (j : ℝ) * (Pa.e / 200) := by positivity
       rw [hσb]; linarith
-    have hbin : ∀ χ ∈ Ck k j, σb ≤ β χ ∧ β χ ≤ σb + εs / 200 := by
+    have hbin : ∀ χ ∈ Ck k j, σb ≤ β χ ∧ β χ ≤ σb + Pa.e / 200 := by
       intro χ hχ
       obtain ⟨hχR, -, hbj⟩ := mem_filter.1 hχ
-      have h0 : 0 ≤ 200 / εs * (β χ - σ) := by
+      have h0 : 0 ≤ 200 / Pa.e * (β χ - σ) := by
         have h5 := (hβ χ hχR).1
         have h6 : 0 ≤ β χ - σ := by linarith
         positivity
-      have h1 : ((⌊200 / εs * (β χ - σ)⌋₊ : ℕ) : ℝ) ≤ 200 / εs * (β χ - σ) := Nat.floor_le h0
-      have h2 : 200 / εs * (β χ - σ) < ((⌊200 / εs * (β χ - σ)⌋₊ : ℕ) : ℝ) + 1 := Nat.lt_floor_add_one _
+      have h1 : ((⌊200 / Pa.e * (β χ - σ)⌋₊ : ℕ) : ℝ) ≤ 200 / Pa.e * (β χ - σ) := Nat.floor_le h0
+      have h2 : 200 / Pa.e * (β χ - σ) < ((⌊200 / Pa.e * (β χ - σ)⌋₊ : ℕ) : ℝ) + 1 := Nat.lt_floor_add_one _
       rw [hbj] at h1 h2
       constructor
-      · have h3 : (j : ℝ) * (εs / 200) ≤ β χ - σ := by
-          calc (j : ℝ) * (εs / 200) ≤ (200 / εs * (β χ - σ)) * (εs / 200) := by gcongr
+      · have h3 : (j : ℝ) * (Pa.e / 200) ≤ β χ - σ := by
+          calc (j : ℝ) * (Pa.e / 200) ≤ (200 / Pa.e * (β χ - σ)) * (Pa.e / 200) := by gcongr
             _ = β χ - σ := by field_simp
         rw [hσb]; linarith
-      · have h3 : β χ - σ ≤ ((j : ℝ) + 1) * (εs / 200) := by
-          have h4 : 200 / εs * (β χ - σ) ≤ (j : ℝ) + 1 := h2.le
-          calc β χ - σ = (200 / εs * (β χ - σ)) * (εs / 200) := by field_simp
-            _ ≤ ((j : ℝ) + 1) * (εs / 200) := by gcongr
+      · have h3 : β χ - σ ≤ ((j : ℝ) + 1) * (Pa.e / 200) := by
+          have h4 : 200 / Pa.e * (β χ - σ) ≤ (j : ℝ) + 1 := h2.le
+          calc β χ - σ = (200 / Pa.e * (β χ - σ)) * (Pa.e / 200) := by field_simp
+            _ ≤ ((j : ℝ) + 1) * (Pa.e / 200) := by gcongr
         rw [hσb]; linarith
     -- the sizes of the block and its power
     have hτ₀' : ∀ n, n ≤ (2 * P) ^ m → (n.divisors.card : ℝ) ≤ τ₀ := by
@@ -554,35 +561,36 @@ theorem class1_cgl [NeZero q] (Pa : ParC) (G : Pa.Good) {C ε : ℝ} (hC0 : 0 �
         _ ≤ 2 * ((m : ℝ) + 1) * τ₀ ^ (2 * m) * (4 * (K : ℝ)) ^ m := by gcongr
     have hVZ : V ^ m / (((m : ℝ) + 1) * τ₀ ^ (2 * m)) / 2 = 1 / Z := by
       rw [hV, hZdef, div_pow, one_pow]; field_simp
-    have h4K : (4 * (K : ℝ)) ^ (4 * m) ≤ Q ^ (εs / 6) := by
-      calc (4 * (K : ℝ)) ^ (4 * m) ≤ (Q ^ (εs / (24 * Pa.M))) ^ (4 * m) := pow_le_pow_left₀ (by positivity) hK _
-        _ = Q ^ (εs / (24 * Pa.M) * (4 * m : ℕ)) := by rw [Real.rpow_mul hQ0.le, Real.rpow_natCast]
-        _ ≤ Q ^ (εs / 6) := by
+    have h4K : (4 * (K : ℝ)) ^ (4 * m) ≤ Q ^ (Pa.e / 6) := by
+      calc (4 * (K : ℝ)) ^ (4 * m) ≤ (Q ^ (Pa.e / (24 * Pa.M))) ^ (4 * m) := pow_le_pow_left₀ (by positivity) hK _
+        _ = Q ^ (Pa.e / (24 * Pa.M) * (4 * m : ℕ)) := by rw [Real.rpow_mul hQ0.le, Real.rpow_natCast]
+        _ ≤ Q ^ (Pa.e / 6) := by
             refine Real.rpow_le_rpow_of_exponent_le hQ1.le ?_
             have hm' : (m : ℝ) ≤ Pa.M := by exact_mod_cast hmM
             push_cast
-            rw [show εs / (24 * Pa.M) * (4 * m) = εs / 6 * ((m : ℝ) / Pa.M) by field_simp; ring]
+            rw [show Pa.e / (24 * Pa.M) * (4 * m) = Pa.e / 6 * ((m : ℝ) / Pa.M) by field_simp; ring]
             have : (m : ℝ) / Pa.M ≤ 1 := by rw [div_le_one (by positivity)]; exact hm'
             nlinarith
-    have hτm : τ₀ ^ (8 * m) ≤ Cτ * Q ^ (εs / 100) :=
+    have hτm : τ₀ ^ (8 * m) ≤ Cτ * Q ^ (Pa.e / 100) :=
       (pow_le_pow_right₀ hτ1 (by omega)).trans hτC
-    have hZ4 : Z ^ 4 ≤ E * Q ^ (εs / 100) * Q ^ (εs / 6) := by
+    have hZ4 : Z ^ 4 ≤ E * Q ^ (Pa.e / 100) * Q ^ (Pa.e / 6) := by
       have hm' : (m : ℝ) + 1 ≤ (Pa.M : ℝ) + 1 := by have : (m : ℝ) ≤ Pa.M := by exact_mod_cast hmM
                                                     linarith
       calc Z ^ 4 = 16 * ((m : ℝ) + 1) ^ 4 * τ₀ ^ (8 * m) * (4 * (K : ℝ)) ^ (4 * m) := by
             rw [hZdef]; ring
-        _ ≤ 16 * ((Pa.M : ℝ) + 1) ^ 4 * (Cτ * Q ^ (εs / 100)) * Q ^ (εs / 6) := by
+        _ ≤ 16 * ((Pa.M : ℝ) + 1) ^ 4 * (Cτ * Q ^ (Pa.e / 100)) * Q ^ (Pa.e / 6) := by
             gcongr
-        _ = E * Q ^ (εs / 100) * Q ^ (εs / 6) := by rw [hE]; ring
-    have hsmall : (KT : ℝ) * Q ^ (4 * ε) * Z ^ 4 ≤ E * Q ^ (εs / 4) := by
-      have h1 : Q ^ (4 * ε) ≤ Q ^ (εs / 100) := Real.rpow_le_rpow_of_exponent_le hQ1.le hεs
+        _ = E * Q ^ (Pa.e / 100) * Q ^ (Pa.e / 6) := by rw [hE]; ring
+    have hsmall : (KT : ℝ) * Q ^ (4 * ε) * Z ^ 4 ≤ E * Q ^ (Pa.e / 4) := by
+      have h1 : Q ^ (4 * ε) ≤ Q ^ (Pa.e / 100) := Real.rpow_le_rpow_of_exponent_le hQ1.le hεs
       have hE0 : 0 ≤ E := by rw [hE]; positivity
-      calc (KT : ℝ) * Q ^ (4 * ε) * Z ^ 4 ≤ Q ^ (εs / 100) * Q ^ (εs / 100) * (E * Q ^ (εs / 100) * Q ^ (εs / 6)) := by
+      calc (KT : ℝ) * Q ^ (4 * ε) * Z ^ 4
+          ≤ Q ^ (Pa.e / 100) * Q ^ (Pa.e / 100) * (E * Q ^ (Pa.e / 100) * Q ^ (Pa.e / 6)) := by
             gcongr
-        _ = E * (Q ^ (εs / 100) * Q ^ (εs / 100) * Q ^ (εs / 100) * Q ^ (εs / 6)) := by ring
-        _ = E * Q ^ (εs / 100 + εs / 100 + εs / 100 + εs / 6) := by
+        _ = E * (Q ^ (Pa.e / 100) * Q ^ (Pa.e / 100) * Q ^ (Pa.e / 100) * Q ^ (Pa.e / 6)) := by ring
+        _ = E * Q ^ (Pa.e / 100 + Pa.e / 100 + Pa.e / 100 + Pa.e / 6) := by
             rw [← Real.rpow_add hQ0, ← Real.rpow_add hQ0, ← Real.rpow_add hQ0]
-        _ ≤ E * Q ^ (εs / 4) := by
+        _ ≤ E * Q ^ (Pa.e / 4) := by
             gcongr
             · exact hQ1.le
             · linarith
@@ -595,7 +603,7 @@ theorem class1_cgl [NeZero q] (Pa : ParC) (G : Pa.Good) {C ε : ℝ} (hC0 : 0 �
         have hQe : 1 ≤ Q ^ (4 * ε) := Real.one_le_rpow hQ1.le (by linarith)
         have : 1 ≤ (KT : ℝ) * Q ^ (4 * ε) := one_le_mul_of_one_le_of_one_le hKT' hQe
         nlinarith [pow_nonneg (by linarith : (0 : ℝ) ≤ Z) 4]
-      calc Z ≤ E * Q ^ (εs / 4) := h1.trans (h2.trans hsmall)
+      calc Z ≤ E * Q ^ (Pa.e / 4) := h1.trans (h2.trans hsmall)
         _ ≤ Q ^ (1 / 105 : ℝ) := by rw [hE]; exact hZQ
     have hZQ1 : Z ≤ Q := hZQ'.trans (by
       calc Q ^ (1 / 105 : ℝ) ≤ Q ^ (1 : ℝ) := Real.rpow_le_rpow_of_exponent_le hQ1.le (by norm_num)
@@ -659,7 +667,7 @@ theorem class1_cgl [NeZero q] (Pa : ParC) (G : Pa.Good) {C ε : ℝ} (hC0 : 0 �
         _ = 1 / 2 := by field_simp; ring
         _ ≤ 1 := by norm_num
     have hcount := block_bin_cgl (C := C) (ε := ε) hLV hP hSsub (c := b1 X Y) (fun i _ => norm_b1_le X hY i) hm1
-      (by linarith : (0 : ℝ) ≤ σ) hσσb (η := εs / 200) (by linarith) β γ hbin hT
+      (by linarith : (0 : ℝ) ≤ σ) hσσb (η := Pa.e / 200) (by linarith) β γ hbin hT
       (fun χ hχ => hγ χ (mem_filter.1 hχ).1) hV0
       (fun χ hχ => by rw [← Fkχ_eq_pv]; exact (mem_filter.1 hχ).2.1) hτ₀' hPm hKT1 htail hrange
     refine hcount.trans ?_
@@ -744,12 +752,12 @@ lemma class2_bound_cgl {ε C₄ A : ℝ} (hC₄ : 0 ≤ C₄) {σ T Q : ℝ}
 
 set_option maxHeartbeats 1000000 in
 open scoped Classical in
-/-- **The range `[lo, hi]` at one large `Q`.** As `LinnikHuxStep.count_gen_at`, with `class1_cgl` for the polynomial
-class (its sizes `hτ₀` … `hZQ` in place of the large sieve's) and `δ = 1/5` for the integral class: at most
-`((⌊60/εs⌋ + 1)(M + 1)·6C·16(M + 1)⁴C_τ + 27(5KG)⁴C₄)Q^{A(1−σ)}` characters `χ ≠ 1` mod `q` have a zero in
-`Re s ≥ σ`, `|Im s| ≤ T`. -/
+/-- **The range `[lo, hi]` at one large `Q`.** For `q ≥ 1`, as `LinnikHuxStep.count_gen_at`, with `class1_cgl` for the
+polynomial class (its sizes `hτ₀` … `hZQ` in place of the large sieve's) and `δ = 1/5` for the integral class: at most
+`((⌊60/e⌋ + 1)(M + 1)·6C·16(M + 1)⁴C_τ + 27(5KG)⁴C₄)Q^{A(1−σ)}` characters `χ ≠ 1` mod `q` have a zero in `Re s ≥ σ`,
+`|Im s| ≤ T`. -/
 theorem count_cgl_at [NeZero q] (Pa : ParC) (G : Pa.Good) {C ε : ℝ} (hC0 : 0 ≤ C) (hε0 : 0 ≤ ε)
-    (hεs : 4 * ε ≤ εs / 100)
+    (hεs : 4 * ε ≤ Pa.e / 100)
     (hLV : ∀ (R : Finset (DirichletCharacter ℂ q)) (δ γ : DirichletCharacter ℂ q → ℝ) (T : ℝ) (N : ℕ) (V : ℝ)
       (a : ℕ → ℂ) (K : ℕ), 1 ≤ T → ((q : ℝ) * T) ^ (2 / 3 : ℝ) ≤ N → (N : ℝ) ^ (7 / 10 : ℝ) ≤ V / 2 →
       V / 2 ≤ (N : ℝ) ^ (4 / 5 : ℝ) → (∀ n, ‖a n‖ ≤ 1) →
@@ -759,30 +767,30 @@ theorem count_cgl_at [NeZero q] (Pa : ParC) (G : Pa.Good) {C ε : ℝ} (hC0 : 0 
     {C₄ : ℝ} (hC₄0 : 0 ≤ C₄)
     (h4 : ∀ (R : Finset (DirichletCharacter ℂ q)), (∀ χ ∈ R, χ ≠ 1) → ∀ T' : ℝ, 0 ≤ T' →
       ∀ t : DirichletCharacter ℂ q → ℝ, (∀ χ ∈ R, |t χ| ≤ T') →
-        ∑ χ ∈ R, ‖LFunction χ (1 / 2 + t χ * I)‖ ^ 4 ≤ C₄ * ((q : ℝ) * (T' + 2)) ^ (1 + εs))
+        ∑ χ ∈ R, ‖LFunction χ (1 / 2 + t χ * I)‖ ^ 4 ≤ C₄ * ((q : ℝ) * (T' + 2)) ^ (1 + Pa.e))
     {σ T Q : ℝ} (hσ : Pa.lo ≤ σ) (hσ1 : σ ≤ Pa.hi) (hT : 0 ≤ T) (hQ1 : 1 < Q)
     (hqT : (q : ℝ) * (T + 2) ≤ Q)
     {X N : ℕ} {Y : ℝ} (hX : 1 ≤ X) (hN : 1 ≤ N) (hY8 : 8 ≤ Y) (hM : 22 * Y * Real.log Y ≤ ((X * N : ℕ) : ℝ))
     (hYQ : Y = Q ^ (201 / 400 : ℝ)) (hXU : (X : ℝ) ≤ Q ^ (1 / 2000 : ℝ)) (hXU2 : Q ^ (1 / 2000 : ℝ) ≤ 2 * X)
-    (hK : 4 * ((Nat.log 2 N + 1 : ℕ) : ℝ) ≤ Q ^ (εs / (24 * Pa.M)))
-    (hXN : (2 * ((X * N : ℕ) : ℝ)) ^ 2 ≤ Q ^ (201 / 200 + εs))
+    (hK : 4 * ((Nat.log 2 N + 1 : ℕ) : ℝ) ≤ Q ^ (Pa.e / (24 * Pa.M)))
+    (hXN : (2 * ((X * N : ℕ) : ℝ)) ^ 2 ≤ Q ^ (201 / 200 + Pa.e))
     {τ₀ Cτ : ℝ} (hτ₀ : ∀ n : ℕ, (n : ℝ) ≤ Q ^ 2 → (n.divisors.card : ℝ) ≤ τ₀)
-    (hτC : τ₀ ^ (8 * Pa.M) ≤ Cτ * Q ^ (εs / 100))
-    {KT : ℕ} (hKT1 : 1 ≤ KT) (hKTQ : (KT : ℝ) ≤ Q ^ (εs / 100)) (hKT : 8 * Q ^ 3 ≤ (16 : ℝ) ^ KT)
-    (h2M : (2 : ℝ) ^ Pa.M ≤ Q ^ εs) (hZQ : 16 * ((Pa.M : ℝ) + 1) ^ 4 * Cτ * Q ^ (εs / 4) ≤ Q ^ (1 / 105 : ℝ)) :
+    (hτC : τ₀ ^ (8 * Pa.M) ≤ Cτ * Q ^ (Pa.e / 100))
+    {KT : ℕ} (hKT1 : 1 ≤ KT) (hKTQ : (KT : ℝ) ≤ Q ^ (Pa.e / 100)) (hKT : 8 * Q ^ 3 ≤ (16 : ℝ) ^ KT)
+    (h2M : (2 : ℝ) ^ Pa.M ≤ Q ^ Pa.e) (hZQ : 16 * ((Pa.M : ℝ) + 1) ^ 4 * Cτ * Q ^ (Pa.e / 4) ≤ Q ^ (1 / 105 : ℝ)) :
     ((univ.filter fun χ : DirichletCharacter ℂ q => χ ≠ 1 ∧
         ∃ s : ℂ, σ ≤ s.re ∧ |s.im| ≤ T ∧ LFunction χ s = 0).card : ℝ)
-      ≤ (((⌊60 / εs⌋₊ + 1 : ℕ) : ℝ) * (((Pa.M : ℝ) + 1) * (6 * C * (16 * ((Pa.M : ℝ) + 1) ^ 4 * Cτ))) +
+      ≤ (((⌊60 / Pa.e⌋₊ + 1 : ℕ) : ℝ) * (((Pa.M : ℝ) + 1) * (6 * C * (16 * ((Pa.M : ℝ) + 1) ^ 4 * Cτ))) +
           27 * (5 * KG) ^ 4 * C₄) * Q ^ (Pa.A * (1 - σ)) := by
   have hQ0 : 0 < Q := by linarith
   have hKG := KG_pos
-  have hε := εs_pos
-  have hε1 : εs ≤ 1 / 100000 := le_refl _
+  have hε := G.he
+  have hε1 : Pa.e ≤ 1 / 100000 := G.he1
   have hlo := G.hlo
   have hτ1 : 1 ≤ τ₀ := by have := hτ₀ 1 (by rw [Nat.cast_one]; exact one_le_pow₀ hQ1.le); simpa using this
   have hCτ : 0 ≤ Cτ := by
     have h1 : 0 < τ₀ ^ (8 * Pa.M) := by positivity
-    have h2 : 0 < Q ^ (εs / 100) := by positivity
+    have h2 : 0 < Q ^ (Pa.e / 100) := by positivity
     nlinarith
   obtain ⟨Z, hZ⟩ : ∃ Z : Finset (DirichletCharacter ℂ q), Z = univ.filter fun χ : DirichletCharacter ℂ q =>
       χ ≠ 1 ∧ ∃ s : ℂ, σ ≤ s.re ∧ |s.im| ≤ T ∧ LFunction χ s = 0 := ⟨_, rfl⟩
@@ -836,7 +844,7 @@ theorem count_cgl_at [NeZero q] (Pa : ParC) (G : Pa.Good) {C ε : ℝ} (hC0 : 0 
   have hII : (Z2.card : ℝ) ≤ 27 * (5 * KG) ^ 4 * C₄ * Q ^ (Pa.A * (1 - σ)) := hc2.trans hb2
   calc (Z.card : ℝ) ≤ ((Z1 ∪ Z2).card : ℝ) := by exact_mod_cast card_le_card hcover
     _ ≤ Z1.card + Z2.card := by exact_mod_cast card_union_le Z1 Z2
-    _ ≤ ((⌊60 / εs⌋₊ + 1 : ℕ) : ℝ) * (((Pa.M : ℝ) + 1) * (6 * C * (16 * ((Pa.M : ℝ) + 1) ^ 4 * Cτ))) *
+    _ ≤ ((⌊60 / Pa.e⌋₊ + 1 : ℕ) : ℝ) * (((Pa.M : ℝ) + 1) * (6 * C * (16 * ((Pa.M : ℝ) + 1) ^ 4 * Cτ))) *
           Q ^ (Pa.A * (1 - σ)) + 27 * (5 * KG) ^ 4 * C₄ * Q ^ (Pa.A * (1 - σ)) := add_le_add hI hII
     _ = _ := by ring
 
@@ -862,36 +870,36 @@ set_option maxHeartbeats 1000000 in
 open scoped Classical in
 /-- **The range `[lo, hi]`.** Under `CGLProp31`, for parameters with `Good`, there is `C ≥ 0` such that for every
 `q ≥ 1`, `lo ≤ σ ≤ hi` and `T ≥ 2` at most `C Q^{A(1−σ)}`, `Q = q(T + 6)`, characters `χ ≠ 1` mod `q` have a zero of
-`L(·, χ)` in `Re s ≥ σ`, `|Im s| ≤ T`. As `LinnikHuxStep.count_gen`, with `cgl_shift` at `ε = εs/400`, the divisor
-bound `τ₀ = C(ε_d)Q^{2ε_d}`, `ε_d = εs/(1600M)`, and `K_T = ⌈log 8Q³⌉ + 1` terms of the Taylor series. -/
+`L(·, χ)` in `Re s ≥ σ`, `|Im s| ≤ T`. As `LinnikHuxStep.count_gen`, with `cgl_shift` at `ε = e/400`, the divisor
+bound `τ₀ = C(ε_d)Q^{2ε_d}`, `ε_d = e/(1600M)`, and `K_T = ⌈log 8Q³⌉ + 1` terms of the Taylor series. -/
 theorem count_cgl (hLVh : CGLProp31) (Pa : ParC) (G : Pa.Good) :
     ∃ C : ℝ, 0 ≤ C ∧ ∀ (q : ℕ) [NeZero q] (σ T : ℝ), Pa.lo ≤ σ → σ ≤ Pa.hi → 2 ≤ T →
       ((univ.filter fun χ : DirichletCharacter ℂ q => χ ≠ 1 ∧
         ∃ s : ℂ, σ ≤ s.re ∧ |s.im| ≤ T ∧ LFunction χ s = 0).card : ℝ)
         ≤ C * ((q : ℝ) * (T + 6)) ^ (Pa.A * (1 - σ)) := by
-  have hε := εs_pos
-  have hε1 : εs ≤ 1 / 100000 := le_refl _
+  have hε := G.he
+  have hε1 : Pa.e ≤ 1 / 100000 := G.he1
   have hMr : (1 : ℝ) ≤ Pa.M := by exact_mod_cast G.hM
-  obtain ⟨C, hC0, hC⟩ := cgl_shift hLVh (ε := εs / 400) (div_pos hε (by norm_num))
+  obtain ⟨C, hC0, hC⟩ := cgl_shift hLVh (ε := Pa.e / 400) (div_pos hε (by norm_num))
     (by rw [div_le_one (by norm_num)]; linarith)
-  obtain ⟨C₄', hC₄'⟩ := LinnikFourth.fourth_moment hε (by linarith : εs ≤ 1)
+  obtain ⟨C₄', hC₄'⟩ := LinnikFourth.fourth_moment hε (by linarith : Pa.e ≤ 1)
   obtain ⟨C₄, hC₄⟩ : ∃ C₄ : ℝ, C₄ = max C₄' 0 := ⟨_, rfl⟩
   have hC₄0 : 0 ≤ C₄ := hC₄ ▸ le_max_right _ _
   have h4all : ∀ (q : ℕ) [NeZero q] (R : Finset (DirichletCharacter ℂ q)), (∀ χ ∈ R, χ ≠ 1) →
       ∀ T' : ℝ, 0 ≤ T' → ∀ t : DirichletCharacter ℂ q → ℝ, (∀ χ ∈ R, |t χ| ≤ T') →
-        ∑ χ ∈ R, ‖LFunction χ (1 / 2 + t χ * I)‖ ^ 4 ≤ C₄ * ((q : ℝ) * (T' + 2)) ^ (1 + εs) := by
+        ∑ χ ∈ R, ‖LFunction χ (1 / 2 + t χ * I)‖ ^ 4 ≤ C₄ * ((q : ℝ) * (T' + 2)) ^ (1 + Pa.e) := by
     intro q _ R hR T' hT' t ht
     refine (hC₄' q R hR T' hT' t ht).trans ?_
     exact mul_le_mul_of_nonneg_right (hC₄ ▸ le_max_left _ _) (by positivity)
   -- the divisor bound's constants
-  set εd : ℝ := εs / (1600 * Pa.M) with hεd
+  set εd : ℝ := Pa.e / (1600 * Pa.M) with hεd
   have hεd0 : 0 < εd := by positivity
   have hεd1 : εd ≤ 1 := by rw [hεd, div_le_one (by positivity)]; nlinarith
   set Cτ : ℝ := Cdiv εd ^ (8 * Pa.M) with hCτdef
   have hCτ0 : 0 ≤ Cτ := by have := one_le_Cdiv hεd0 hεd1; positivity
   obtain ⟨Q₀, hQ₀⟩ := eventually_atTop.1 (eventually_cgl Pa.M G.hM hε (by linarith) Cτ)
   have hKG := KG_pos
-  obtain ⟨B, hB⟩ : ∃ B : ℝ, B = ((⌊60 / εs⌋₊ + 1 : ℕ) : ℝ) * (((Pa.M : ℝ) + 1) * (6 * C *
+  obtain ⟨B, hB⟩ : ∃ B : ℝ, B = ((⌊60 / Pa.e⌋₊ + 1 : ℕ) : ℝ) * (((Pa.M : ℝ) + 1) * (6 * C *
       (16 * ((Pa.M : ℝ) + 1) ^ 4 * Cτ))) + 27 * (5 * KG) ^ 4 * C₄ := ⟨_, rfl⟩
   have hB0 : 0 ≤ B := by rw [hB]; positivity
   refine ⟨max Q₀ 0 + B, by positivity, ?_⟩
@@ -938,9 +946,9 @@ theorem count_cgl (hLVh : CGLProp31) (Pa : ParC) (G : Pa.Good) :
       push_cast; exact le_mul_of_one_le_left (Nat.cast_nonneg _) hXr
     rw [hYQ] at hXNle
     linarith
-  have hK : 4 * ((Nat.log 2 (Nw 502 U) + 1 : ℕ) : ℝ) ≤ Q ^ (εs / (24 * Pa.M)) :=
+  have hK : 4 * ((Nat.log 2 (Nw 502 U) + 1 : ℕ) : ℝ) ≤ Q ^ (Pa.e / (24 * Pa.M)) :=
     (mul_le_mul_of_nonneg_left (log_blocks_le hN hNQ) (by norm_num)).trans h2
-  have hXN : (2 * ((Xw U * Nw 502 U : ℕ) : ℝ)) ^ 2 ≤ Q ^ (201 / 200 + εs) := by
+  have hXN : (2 * ((Xw U * Nw 502 U : ℕ) : ℝ)) ^ 2 ≤ Q ^ (201 / 200 + Pa.e) := by
     refine le_trans ?_ h3
     rw [← hYQ]
     exact pow_le_pow_left₀ (by positivity) (by linarith) 2
@@ -955,16 +963,16 @@ theorem count_cgl (hLVh : CGLProp31) (Pa : ParC) (G : Pa.Good) :
       calc (n : ℝ) ^ εd ≤ (Q ^ 2) ^ εd := Real.rpow_le_rpow (Nat.cast_nonneg n) hn hεd0.le
         _ = Q ^ (2 * εd) := by rw [← Real.rpow_natCast, ← Real.rpow_mul hQ0.le]; norm_num
     rw [hτ₀def]; gcongr
-  have hτC : τ₀ ^ (8 * Pa.M) ≤ Cτ * Q ^ (εs / 100) := by
+  have hτC : τ₀ ^ (8 * Pa.M) ≤ Cτ * Q ^ (Pa.e / 100) := by
     rw [hτ₀def, mul_pow, hCτdef]
-    have e : (Q ^ (2 * εd)) ^ (8 * Pa.M) = Q ^ (εs / 100) := by
+    have e : (Q ^ (2 * εd)) ^ (8 * Pa.M) = Q ^ (Pa.e / 100) := by
       rw [← Real.rpow_natCast, ← Real.rpow_mul hQ0.le, hεd]; congr 1; push_cast; field_simp; ring
     rw [e]
   -- the Taylor terms
   set KT : ℕ := ⌈Real.log (8 * Q ^ 3)⌉₊ + 1 with hKTdef
   have hl8 : 0 ≤ Real.log (8 * Q ^ 3) := Real.log_nonneg (by nlinarith [pow_le_pow_left₀ (by norm_num) hQ1 3])
   have hKT1 : 1 ≤ KT := by omega
-  have hKTQ : (KT : ℝ) ≤ Q ^ (εs / 100) := by
+  have hKTQ : (KT : ℝ) ≤ Q ^ (Pa.e / 100) := by
     have hc : (⌈Real.log (8 * Q ^ 3)⌉₊ : ℝ) < Real.log (8 * Q ^ 3) + 1 := Nat.ceil_lt_add_one hl8
     have hlog : Real.log (8 * Q ^ 3) = Real.log 8 + 3 * Real.log Q := by
       rw [Real.log_mul (by norm_num) (by positivity), Real.log_pow]; push_cast; ring
@@ -975,7 +983,7 @@ theorem count_cgl (hLVh : CGLProp31) (Pa : ParC) (G : Pa.Good) :
     have hlQ : 0 ≤ Real.log Q := Real.log_nonneg hQ1
     calc (KT : ℝ) = (⌈Real.log (8 * Q ^ 3)⌉₊ : ℝ) + 1 := by rw [hKTdef]; push_cast; ring
       _ ≤ 5 * (1 + Real.log Q) := by linarith
-      _ ≤ Q ^ (εs / 100) := h6
+      _ ≤ Q ^ (Pa.e / 100) := h6
   have hKT : 8 * Q ^ 3 ≤ (16 : ℝ) ^ KT := by
     have he : Real.exp 1 ≤ 16 := by have := Real.exp_one_lt_d9; linarith
     have h1 : Real.exp (KT : ℝ) ≤ (16 : ℝ) ^ KT := by
@@ -1083,8 +1091,11 @@ def parCGL : ParC where
   hi := 16 / 21
   Ai := 7 / 3 + 25 * εs
   A := 7 / 3 + 1 / 2000
+  e := εs
 
 theorem parCGL_good : parCGL.Good where
+  he := εs_pos
+  he1 := by simp only [parCGL]; exact le_refl _
   hM := by simp [parCGL]
   ha := by simp only [parCGL, εs]; norm_num
   hat := by simp only [parCGL, εs]; norm_num

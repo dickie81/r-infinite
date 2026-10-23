@@ -10,7 +10,8 @@ Round 699's `sig_bound` bounds round 694's `σ(N)` by `((M_BB₁)² + 2M_BA₁)B
 `prop31_t101`, `linnik_225c_t101` and `linnik_226c_t101` it gives, with no hypothesis, Chen–Gupta–Li's Propositions
 11.1 and 3.1 at one point per character, rounds 636–637's count of characters with a zero at the exponent
 `(7/3 + 1/2000)(1 − σ)` on `[5/7, 16/21]` (`LinnikCGLStep.charDensity_cgl`) and Linnik's theorem with the exponents
-`9/4` and `226/100`. `CGLDensity` itself, the count at `(7/3)(1 − σ) + ε` for every `ε > 0`, is not proved here.
+`9/4` and `226/100`. `CGLDensity` itself, the count at `(7/3)(1 − σ) + ε` for every `ε > 0`, is not proved here
+(round 702's `LinnikCGLDensity.cglDensity` proves it).
 
 The stack's form.
 * For `0 < δ ≤ 1`: `d(q)`, `Q^δ` and `J + 1` (with `J = ⌊log₂⌊4Q⌋⌋`, through `2^J ≤ 4Q` and Mathlib's

@@ -30302,7 +30302,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 - **The exponent.** `W⁵⁰ = (3C_δ/δ)⁵⁰(4Q)^{50δ}`. At `δ = min(ε, 1)/50`, `50δ = min(ε, 1)`, and for `T, N ≥ 1`, `4Q ≤ 12qT ≤ 12qTN`, so `(4Q)^{50δ} ≤ 12(qTN)^ε`. With `B(N) ≤ 2(RN + R² + R^{5/4}(qT)^{1/2})`, from `Q ≤ 3qT` and `3^{1/2} ≤ 2`, `sig_le_eps` holds with the constant `24κ(3C_δ/δ)⁵⁰`. Its statement has no primitivity hypothesis.
 - **Theorem 10.1.** `CGLT101`'s double sum is round 694's `dsum` with the weights `c_n` over `n ∼ M`. Round 694's positivity (`dsum_le`, Jutila's Lemma 2) with `|c_n| ≤ B ≤ B(2M)^{1/2}n^{−1/2}` on `(M, 2M]` bounds it by `2MB²σ(M)`, and `sig_le_eps` at `N = M` gives `2C(qTM)^ε(RM² + R²M + R^{5/4}(qT)^{1/2}M)B²`. So `CGLT101` holds with the constant `2C` and `Q₀ = 0`.
 - **The corollaries.** `cgls3`, `prop31`, `linnik_225` and `linnik_226` are round 693's `cgls3_t101`, `prop31_t101`, `linnik_225c_t101` and `linnik_226c_t101` at `cglt101`, and `char_density` is rounds 636–637's `LinnikCGLStep.charDensity_cgl` at `prop31`.
-- **What is not proved.** `LinnikCGL.CGLDensity`, the count at `(7/3)(1 − σ) + ε` for every `ε > 0`, is not proved: rounds 636–637's step fixes its internal `ε` at `LinnikHuxStep.εs = 1/100000`, and its parameters `parCGL` have the exponent `7/3 + 1/2000`. So `Linnik225C.linnik_225c` and `Linnik226C.linnik_226c` still take `CGLDensity`; the theorems with no hypothesis are `LinnikCGLHB101.linnik_225` and `linnik_226`, which reach the same conclusions through `CGLProp31` and rounds 636–637's `LinnikCGLLinnik.linnik_225c_lv` and `linnik_226c_lv`.
+- **What is not proved.** `LinnikCGL.CGLDensity`, the count at `(7/3)(1 − σ) + ε` for every `ε > 0`, is not proved: rounds 636–637's step fixes its internal `ε` at `LinnikHuxStep.εs = 1/100000`, and its parameters `parCGL` have the exponent `7/3 + 1/2000`. So `Linnik225C.linnik_225c` and `Linnik226C.linnik_226c` still take `CGLDensity`; the theorems with no hypothesis are `LinnikCGLHB101.linnik_225` and `linnik_226`, which reach the same conclusions through `CGLProp31` and rounds 636–637's `LinnikCGLLinnik.linnik_225c_lv` and `linnik_226c_lv`. *(round 702: `CGLDensity` is proved, `LinnikCGLDensity.cglDensity`, with the step's internal `ε` a field of its parameters, and `LinnikCGLDensity.linnik_225c` and `linnik_226c` are the two theorems at it)*
 
 **What changed in the files.**
 
@@ -30434,4 +30434,64 @@ The lead verified each finding at its source before accepting it (the reads are 
 
 **Bearing on RH:** none.
 
-**The next step.** `CGLDensity` for every `ε > 0`, from round 700's `prop31`, so that `Linnik225C.linnik_225c` and `Linnik226C.linnik_226c` hold with no hypothesis.
+**The next step.** `CGLDensity` for every `ε > 0`, from round 700's `prop31`, so that `Linnik225C.linnik_225c` and `Linnik226C.linnik_226c` hold with no hypothesis. *(round 702: done, `LinnikCGLDensity`)*
+
+## Round 702: Chen–Gupta–Li's density estimate for every `ε`, and Linnik's `9/4` and `226/100` through it (`external/pnt/LinnikCGLDensity.lean`)
+
+**The step.** Round 607 displayed Chen–Gupta–Li's density estimate on `[5/7, 16/21]` as `LinnikCGL.CGLDensity`, the one hypothesis of round 625's `Linnik225C.linnik_225c` (exponent `9/4`) and round 622's `Linnik226C.linnik_226c` (exponent `226/100`). Rounds 636–637's step proves the count at the exponent `(7/3 + 1/2000)(1 − σ)` from their Proposition 3.1, which round 700 proved (`LinnikCGLHB101.prop31`). The step's internal `ε` was fixed at `LinnikHuxStep.εs = 1/100000`, so the step did not reach `(7/3)(1 − σ) + ε` for small `ε`. This round makes that `ε` a field of the step's parameters and takes it to `0`.
+
+**The results.** Below, `q ≥ 1`.
+
+- `LinnikCGLDensity.cglDensity`: round 607's `CGLDensity` with no hypothesis. For every `ε > 0` there is `C` such that, for `q ≥ 1`, `5/7 ≤ σ ≤ 16/21` and `T ≥ 2`, at most `C(qT)^{(7/3)(1−σ)+ε}` characters mod `q` have an `L`-function with a zero in `Re s ≥ σ`, `|Im s| ≤ T`.
+- `LinnikCGLDensity.linnik_225c`, `linnik_226c`: `Linnik225C.linnik_225c` and `Linnik226C.linnik_226c` at `cglDensity`. There is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ Kq^{9/4}`, and likewise with `226/100`, with no hypothesis.
+- `LinnikCGLDensity.charDensity_e`: for `0 < e ≤ 1/100000` there is `C ≥ 0` such that, for `q ≥ 1`, `5/7 ≤ σ ≤ 16/21` and `T ≥ 2`, at most `C(qT)^{(7/3+26e)(1−σ)}(log qT)^{10}` characters mod `q` have an `L`-function with a zero in `Re s ≥ σ`, `|Im s| ≤ T`.
+- `LinnikCGLDensity.parCGLe`, `parCGLe_good`: the step's parameters at `e`, `parCGL`'s with `e` in place of `εs` and `A = 7/3 + 26e` in place of `7/3 + 1/2000`, namely `M = 1556`, `a = 7/9 + 2e`, `λ = 7/6 + 9e/2`, `lo = 5/7`, `hi = 16/21`, `A_i = 7/3 + 25e` and `A = 7/3 + 26e`. For `0 < e ≤ 1/100000` they are `Good`.
+- `LinnikCGLDensity.log_pow_ten_le`: for `x ≥ 1` and `ε > 0`, `(log x)^{10} ≤ (20/ε)^{10}x^{ε/2}`.
+- `LinnikCGLStep.ParC.e`, with `ParC.Good`'s new fields `he` and `he1`: the step's internal `ε` is a field of its parameters, and `Good` asks `0 < e ≤ 1/100000`. `piece_le`, `class1_cgl`, `count_cgl_at` and `count_cgl` take `e` in place of `εs`. `parCGL` takes `e = εs`, so `charDensity_cgl` is unchanged.
+
+**The stack's form.**
+
+- **The step at every `ε`.** The step's proofs use only two facts of `εs`: it is positive and at most `1/100000`. With those two facts as `ParC.Good`'s `he` and `he1`, every use of `εs` in the step becomes a use of `Pa.e`: the bins' width `e/200` and their number `⌊60/e⌋ + 1`, the shift `ε = e/400`, the divisor bound's `ε_d = e/(1600M)`, and the six exponent conditions with `e/4`.
+- **The parameters.** In `parCGLe e` each exponent condition is linear in `σ` with coefficients linear in `e`. `nlinarith` closes it from `e(σ − 5/7) ≥ 0` and `e(16/21 − σ) ≥ 0` on `[5/7, 16/21]`, and the condition on the number of blocks for `σ ≤ 16/21` from `e(16/21 − σ) ≥ 0`.
+- **`ε` to `0`.** At `e = min(1/100000, ε/16)`, `26e(1 − σ) ≤ 26(ε/16)(2/7) < ε/2` on `[5/7, 16/21]`. Mathlib's `Real.log_le_rpow_div` at `ε/20` gives `log x ≤ (20/ε)x^{ε/20}`, so `(log qT)^{10} ≤ (20/ε)^{10}(qT)^{ε/2}` for `qT ≥ 1`. With `C(20/ε)^{10}` in place of `C`, `charDensity_e` gives `CGLDensity` at `ε`.
+- **What it gives.** The exponents are those of round 700: `9/4` with no hypothesis was already `LinnikCGLHB101.linnik_225`, through the count that rounds 622 and 625 take from `CGLDensity`. What is new is `CGLDensity` itself, round 607's displayed hypothesis, with no hypothesis, so the conclusions of `Linnik225C.linnik_225c` and `Linnik226C.linnik_226c` hold with no hypothesis (`linnik_225c` and `linnik_226c` here).
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLStep.lean`: the field `e` of `ParC`, the fields `he` and `he1` of `ParC.Good`, `e` in place of `εs` in `piece_le`, `class1_cgl`, `count_cgl_at` and `count_cgl`, `e := εs` in `parCGL`, and the header and docstrings. Five docstrings whose statements assume `[NeZero q]` now say `q ≥ 1`: those of `block_bin_cgl`, `p31B_le_Q`, `piece_le`, `class1_cgl` and `count_cgl_at`, three of which this round edits for `e`.
+- `external/pnt/LinnikCGLDensity.lean`: new.
+- `external/pnt/LinnikCGL.lean` and `LinnikCGLHB101.lean`: their headers, corrected in place, now say that round 702 proves `CGLDensity`.
+- `external/pnt/build.sh`: the module, its import in the final check, three `#print axioms` lines (`cglDensity`, `linnik_225c`, `linnik_226c`) and the comment.
+- `external/pnt/README.md`: a row and a section for the file; markers on the rows of `LinnikCGL.lean`, `Linnik226C.lean`, `Linnik225C.lean` and `LinnikCGLStep.lean`, on a sentence each of the sections of rounds 636 and 637, and on the section of round 700.
+- `frontier/linnik/CGL-LEAN.md`: the target's note of round 702 and a marker on its paragraph; row T1.2's stack cell, and a marker on its status; markers on the opening's parenthetical and on round 700's note.
+- `frontier/linnik/SIEVE-ROUTE.md`: §27, and markers in the opening and in §§11, 14 (two), 16, 22, 23, 24 and 26.
+- This file: markers on round 700's "What is not proved" and on round 701's next step.
+
+**What is checked.**
+
+- `LinnikCGLStep`'s new form and the new file were compiled in scratch in seven runs (`scratchpad/r702/run.sh`, `lcj1.out` to `lcj7.out`), as the modules `LinnikCGLStepE`, `LinnikCGLDensityE` and `LinnikCGLDensityT`. Runs 1 and 5 compiled the step with exit 0 (118 s and 121 s). Run 3 failed on an `exact` after `gcongr` had closed its goal ("No goals to be solved"), removed in run 4. Run 7 compiled the final text of `LinnikCGLDensity` under the name `LinnikCGLDensityT`, with exit 0 and five axiom lines, each `[propext, Classical.choice, Quot.sound]`.
+- `scratchpad/r702/apply_lean.py` copies the two files from `scratchpad/r702/final` with "70X" read as "702" and makes the header and `build.sh` edits; `scratchpad/r702/apply_docs.py` makes 26 edits in four files. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, each writes nothing (`apply_lean.out`, `apply_lean_rerun.out`, `apply_docs.out`, `apply_docs_rerun.out`).
+- The new file has 167 lines (5 theorems, 1 lemma, 1 definition), no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters. `LinnikCGLStep.lean` keeps the three `set_option maxHeartbeats 1000000 in` lines of rounds 636–637, and adds none.
+- `scratchpad/r702/apply_qge1.py` adds `q ≥ 1` to those five docstrings, re-wrapped at 120 characters without breaking a code span. `scratchpad/r701/qge1.py` finds the five before it (`qge1_before.out`), and none after it in `LinnikCGLStep.lean` or in the new file (`qge1.out`). `scratchpad/r702/codeonly2.py` prints "code identical (comments stripped): True" for the file before and after the edit (`codeonly2.out`).
+- `build.sh` ran first before the docstrings' `q ≥ 1` (`scratchpad/r702/compile.sh 1`, log `build_1.log`): `74 compiled, 362 up to date` (the changed `LinnikCGL` and `LinnikCGLStep`, the modules downstream of them, and the new one), exit 0 in 1282 s, with no error, warning or `sorry`, and 1019 axiom lines, 1006 with exactly `propext`, `Classical.choice` and `Quot.sound` and 13 with none.
+- Then it ran on the committed files (`scratchpad/r702/compile.sh 2`, log `build_2.log`): `63 compiled, 373 up to date` (`LinnikCGLStep` and the modules downstream of it; `LinnikCGLDensity` 11 s, the slowest `LinnikCGLStep` 116 s and `LinnikCGLS3` 55 s), exit 0 in 1219 s, with no error, warning or `sorry`. The one log line containing "error" is the axiom line of `Linnik.error_le`. Its 988 axiom lines are 313 by the modules and 675 by the final check; 975 have exactly `propext`, `Classical.choice` and `Quot.sound`, and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s (`rss_watch_build_2.log`), is 7582776 KiB (7.23 GiB).
+- `scratchpad/r702/quotes_entry.py` checks every quotation in this entry and in the lines the round adds, untracked files included (`quotes_entry.out`: PASS). It exits 1 on a failure.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r702/gate.out`).
+
+**Check 1** (direct reads this round):
+
+- The operative statements: round 607's `LinnikCGL.CGLDensity` (`LinnikCGL.lean` 32–38); rounds 636–637's `ParC` and `ParC.Good`, `charDensity_cglGen` and `parCGL` (`LinnikCGLStep.lean` 366–400, 1015–1019 and 1087–1095, at this commit's lines); round 700's `prop31` (`LinnikCGLHB101.lean` 482–484); and the statements of round 625's `Linnik225C.linnik_225c` (`Linnik225C.lean` 60–62) and round 622's `Linnik226C.linnik_226c` (`Linnik226C.lean` 31–34).
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement, `q ≥ 1` included where `[NeZero q]` is assumed.
+- Mathlib's `Real.log_le_rpow_div` was not re-read; the compiler checks its use.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them. "with no hypothesis" describes the statements of `cglDensity`, `linnik_225c` and `linnik_226c`, which take none. "use only two facts of `εs`" is checked by the compiler: the step compiles with `εs` replaced by a variable `e` subject to `0 < e ≤ 1/100000`.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** By the owner's decision of 2026-10-22, this round's hostile review runs with the next substantial block, with the convergence review of round 701's sweep.
+
+**Bearing on RH:** none.
+
+**The next step.** The owner's instruction of 2026-10-21 to record the hypothetical gains: the measured gain of keeping the evaluable parts of the dropped terms, in `frontier/linnik/SIEVE-ROUTE.md` §23.
