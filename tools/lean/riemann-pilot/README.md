@@ -30014,3 +30014,68 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** M5's lengthening, as round 694 planned: for `U` at least a constant times `d(q)²`, with an auxiliary prime and the integers of `[U, 3U/2]` prime to `q`, `σ(N)` against `σ(NU) + σ(2NU)`.
+
+## Round 696: the lengthening of Heath-Brown's double sums (stage M5; `external/pnt/LinnikCGLHBLen.lean`)
+
+**The step.** Kerr's Lemma 20 (arXiv:1909.12075) lengthens his double sum: up to `(KNU)^{o(1)}`, the sum over `N ⩽ n ⩽ KN` is at most the one over `UN ⩽ n ⩽ 3KNU/2`. His proof averages over the characters modulo a prime `P` with `8U ⩽ P ⩽ 16U` (his (35)), bounds the coefficients `a(m, χ) = Σ_{un=m}χ(u)` by the divisor function, applies positivity (his Lemma 18), and evaluates the average by the orthogonality of characters (text layer lines 1281–1407). This round proves that step for round 694's double sums with characters. There `|χ_r(u)| = 1` needs `u` prime to `q`, and the average then gives the same factor `c(q, U)` for every pair `(r, s)`.
+
+**The results.** Below, `σ(N)` is round 694's `sig`, `d(n)` the number of divisors of `n`, and `c(q, U)` the sum of `1/u` over the integers `⌊U⌋ < u ≤ ⌊3U/2⌋` prime to `q` (`LinnikCGLHBLen.cqU`).
+
+- `LinnikCGLHBLen.cqU_mul_sig_le`: for `N, U, D ≥ 0` with `d(m) ≤ D` for `1 ≤ m ≤ 4NU`, `c(q, U)σ(N) ≤ 2D²(σ(NU) + σ(2NU))`.
+- `LinnikCGLHBLen.sig_le_lengthen`: for `q ≥ 1`, `N ≥ 0`, `U ≥ 12d(q)² + 4` and `D ≥ 0` with `d(m) ≤ D` for `1 ≤ m ≤ 4NU`, `σ(N) ≤ 18d(q)D²(σ(NU) + σ(2NU))`.
+- `LinnikCGLHBLen.cqU_ge`: for `q ≥ 1` and `U ≥ 12d(q)² + 4`, `c(q, U) ≥ 1/(9d(q))`.
+- `LinnikCGLHBLen.card_coprime_Ioc_ge`: for `q ≥ 1` and `a ≤ b`, at least `(b − a)φ(q)/q − d(q)` integers in `(a, b]` are prime to `q`.
+- `LinnikCGLHBLen.sum_chars_norm_sq_eq`: for a prime `p`, a set `V` of integers `0 < u < p` and any `b`, `Σ_ψ|Σ_{u∈V}b_uψ(u)|² = φ(p)Σ_{u∈V}|b_u|²`, over all characters `ψ` mod `p`.
+- `LinnikCGLHBLen.sum_alen_eq`, `norm_alen_le`: with `a(m, ψ) = Σ_{nu=m}n^{−1/2}u^{−1/2}ψ(u)` over `n ∈ S` and `u ∈ V` (`alen`), for a family with `A_r(nm) = A_r(n)A_r(m)` and `M` holding every product `nu`, `Σ_{m∈M}a(m, ψ)A_r(m)Ā_s(m) = (Σ_{n∈S}n^{−1/2}A_r(n)Ā_s(n))(Σ_{u∈V}u^{−1/2}A_r(u)Ā_s(u)ψ(u))`; and for `|ψ| ≤ 1` and `m ≥ 1`, `|a(m, ψ)| ≤ d(m)m^{−1/2}`.
+- The others: `card_Ioc_filter_dvd` (for `a ≤ b`, the multiples of `d` in `(a, b]` number `b/d − a/d` in natural division), `sum_moebius_divisors` (`Σ_{d∣n}μ(d) = [n = 1]`), `coprime_ind_eq` (for `q ≥ 1`, `[(u, q) = 1] = Σ_{d∣q, d∣u}μ(d)`), `sum_moebius_mul_div` and `sum_moebius_div` (for `q ≥ 1`, `Σ_{d∣q}μ(d)(q/d) = φ(q)` and `Σ_{d∣q}μ(d)/d = φ(q)/q`), `mem_useg` (for `U ≥ 0`, each such `u` has `U < u ≤ 3U/2`), `conj_apply_unit` (for `n ≥ 1`, `conj ψ(b) = ψ(b⁻¹)` at a unit `b`), `norm_famA_eq_one` (`|χ_r(u)u^{it_r}| = 1` for `u ≥ 1` prime to `q`) and `dsum_two_le` (the double sum over `(NU, 2NU] ∪ (2NU, 4NU]` is at most `2(σ(NU) + σ(2NU))`).
+
+**The stack's form.**
+
+- **The auxiliary prime.** Kerr takes `8U ⩽ P ⩽ 16U`. Here any prime `p > ⌊3U/2⌋` serves, by Euclid's theorem: the `u` are then distinct units mod `p`, and the number `φ(p)` of characters appears on both sides and cancels.
+- **The average is exact.** For each pair `(r, s)`, the average over `ψ` of `|Σ_uψ(u)u^{−1/2}A_r(u)Ā_s(u)|²` is `φ(p)Σ_u 1/u = φ(p)c(q, U)`, since `|A_r(u)| = 1` for `u` prime to `q`.
+- **The lower bound of `c(q, U)`** comes from Möbius's count of the integers prime to `q` in an interval, whose error is at most `d(q)`, and round 689's `q ≤ φ(q)d(q)`. So the threshold `12d(q)² + 4` is `q^{o(1)}`.
+- **The range of the lengthened sum.** The products `nu` lie in `(NU, 3NU]`, and positivity bounds the double sum by the one over `(NU, 4NU]`, split into `σ(NU)` and `σ(2NU)` by `|x + y|² ≤ 2|x|² + 2|y|²`.
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLHBLen.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check, two `#print axioms` lines (`cqU_mul_sig_le`, `sig_le_lengthen`) and the comment.
+- `frontier/linnik/CGL-LEAN.md`: row T10.1 (its stack cell and a net-state marker), a marker on round 694's M5 note, round 696's note under M5, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section for the file.
+
+**What is checked.**
+
+- `LinnikCGLHBLen` was compiled in scratch in five runs (`scratchpad/r696/run.sh`, `lcj1.out` to `lcj5.out`). Runs 1 to 4 failed; run 5 had exit 0, and its only messages were the five axiom lines, all `[propext, Classical.choice, Quot.sound]`.
+- The fixes. Run 1: in `coprime_ind_eq` the rewrite by `sum_moebius_divisors` closes the goal itself, since `Nat.Coprime u q` unfolds to `gcd(u, q) = 1`, so the case split after it had no goal; `Nat.floor_div_eq_div`'s type argument is named `K`; two `exact_mod_cast` steps went through a `set` variable; and the warnings (a deprecated `mul_le_one₀`, `if_pos` and `if_neg`, `haveI`, `push_neg`, and an unused hypothesis of `dsum_two_le`) were removed. Run 2 failed in `card_Ioc_filter_dvd`, whose `omega` had been removed in error after run 1. Runs 3 and 4 tried two more endings for `coprime_ind_eq`; its proof now ends with the rewrite.
+- Then `build.sh` ran once (`scratchpad/r696/compile.sh 1`, log `build_1.log`): `1 compiled, 430 up to date` (`LinnikCGLHBLen` 13 s), exit 0 in 23 s, with no error, warning or `sorry`; the one log line containing "error" is the axiom line of `Linnik.error_le`. Its 665 axiom lines are 5 by the module and 660 by the final check; 652 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s (`rss_watch_build_1.log`), is 7210720 KiB (6.88 GiB).
+- The file has no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- `scratchpad/r696/quotes.py` checks the file's quotation of Kerr, "Let P be a prime number satisfying" (text layer line 1307), in the text layer and in the header (`quotes.out`: PASS). It exits 1 on a failure. `scratchpad/r696/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, passes on this round's ten (`quotes_entry.out`).
+- `scratchpad/r696/apply_docs.py` makes the six edits to CGL-LEAN.md and the external README. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing.
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r696/gate.out`).
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: row T10.1 gains round 696 in its stack cell and a net-state marker; round 694's M5 note gains a marker; M5 gains round 696's note; the opening's parenthetical gains round 696.
+- `external/pnt/README.md`: a row, and a section for the file.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Kerr, arXiv:1909.12075, his Lemma 20 and its proof (text layer `scratchpad/hb/work/hb1909.txt`, lines 1281–1407), line by line.
+- Mathlib's `DirichletCharacter.sum_char_inv_mul_char_eq` and `card_eq_totient_of_hasEnoughRootsOfUnity` (`NumberTheory/DirichletCharacter/Orthogonality.lean`), `ArithmeticFunction.sum_eq_iff_sum_smul_moebius_eq` and `moebius_mul_coe_zeta` (`NumberTheory/ArithmeticFunction/Moebius.lean`), and `Nat.Ioc_filter_dvd_card_eq_div`.
+- The operative statements: round 694's `dsum`, `dsum_le`, `dsum_const_mul`, `famA`, `wh`, `norm_wh`, `famA_mul`, `sig` and `card_fiber_le` (`LinnikCGLHBPos.lean` 67, 103, 133, 158, 162, 164, 189, 197 and 292); round 670's `dyad` and `mem_dyad` (`LinnikCGLT101.lean` 57 and 59); round 689's `le_totient_mul_card_divisors` (`LinnikCGLConst.lean` 169); and round 521's `LinnikHybrid.conj_apply_unit` (`LinnikHybrid.lean` 242), of which this file keeps a copy.
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them. "for every pair `(r, s)`" is the value of the average, the same for each pair.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** This round goes to the next block's review, with round 694 and round 695's sweep (its convergence review).
+
+**Bearing on RH:** none.
+
+**The next step.** The reflection of the double sum: for the pairs with `χ_r ≠ χ_s`, round 642's `norm_gram_le`; for the principal pairs, the pole of `L(s, χ₀)` at `s = 1`.

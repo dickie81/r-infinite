@@ -215,6 +215,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLFtilP.lean` | 692 | Chen–Gupta–Li's smoothing `f̃_b` in their induction, and `Λ` against `F`: for `T ≥ 1` and smooth `f_b ≥ 0` that are `0` for `\|u\| > A`, `f̃_b` is smooth and `0` for `\|u\| > \|A\| + 2`, `∫f̃_b = (∫ψ̃₀)∫f_b`, `∫f̃_b² ≤ (∫ψ̃₀)²∫f_b²`, and `f̃` keeps the decay premise with `(∫ψ̃₀)D` (`decay_ftil`, for `q ≥ 1`); with a point `(b₀, u₀)` and the premise `Σ_b\|f̂_b(ξ)\| ≤ D(T/\|ξ\|)⁴φ(q)f_{b₀}(u₀)` for every `ξ ≠ 0`, `φ(q)f_{b₀}(u₀) ≤ 16π·max(D, 1)(qT)²F` (`Lam_le`, for `q ≥ 1`) |
 | `LinnikCGLP81.lean` | 693 | Chen–Gupta–Li's Proposition 8.1 by their downward induction: `P81 ε`, their (8.1) with an abstract `Λ`, `0 ≤ Λ ≤ G(qT)²F`, holds for `ε = 5` (`P81_base`), passes from `3ε/2` to `ε` (`P81_step`) and holds for every `ε > 0` (`P81_all`); round 662's `CGLP81` (`cglp81`); and from `CGLT101` alone, `CGLS3` and `CGLProp31` (`cgls3_t101`, `prop31_t101`) and Linnik's theorem with the exponents `9/4` and `226/100`: under it, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ Kq^{9/4}`, and likewise with `226/100` (`linnik_225c_t101`, `linnik_226c_t101`) |
 | `LinnikCGLHBPos.lean` | 694 | Positivity and the double sums of Heath-Brown's bound (stage M5): for `S ⊆ S'`, `\|a_n\| ≤ b_n` on `S` and `b_n ≥ 0` on `S'`, `Σ_{r,s}\|Σ_{n∈S}a_nA_r(n)Ā_s(n)\|² ≤ Σ_{r,s}\|Σ_{n∈S'}b_nA_r(n)Ā_s(n)\|²` for any functions `A_r` (`dsum_le`, Jutila's Lemma 2); for `A_r(n) = χ_r(n)n^{it_r}` and the weight `n^{−1/2}`, the double sum `Ŝ(Y)` over `1 ≤ n ≤ Y` is monotone in `Y`, `Ŝ(Y) ≤ (J + 1)Σ_{j≤J}σ(Y/2^{j+1})` for `0 ≤ Y < 2^{J+1}` (`shat_le_sum_sig`), and `Ŝ(Y)² ≤ \|P\|²D²Ŝ(Y²)` for `Y ≥ 0` and `d(m) ≤ D` on `1 ≤ m ≤ Y²` (`shat_sq_le`) |
+| `LinnikCGLHBLen.lean` | 696 | The lengthening of Heath-Brown's double sums (stage M5), by the characters of an auxiliary prime `p > ⌊3U/2⌋`: for `N, U, D ≥ 0` with `d(m) ≤ D` for `1 ≤ m ≤ 4NU`, `c(q, U)σ(N) ≤ 2D²(σ(NU) + σ(2NU))`, with `c(q, U)` the sum of `1/u` over `⌊U⌋ < u ≤ ⌊3U/2⌋` prime to `q` (`cqU_mul_sig_le`); for `q ≥ 1` and `U ≥ 12d(q)² + 4`, `c(q, U) ≥ 1/(9d(q))` (`cqU_ge`), so `σ(N) ≤ 18d(q)D²(σ(NU) + σ(2NU))` (`sig_le_lengthen`) |
 
 ## Building (rounds 217, 618)
 
@@ -1390,3 +1391,16 @@ Round 694 starts stage M5 of `frontier/linnik/CGL-LEAN.md`, round 670's `CGLT101
 - `card_fiber_le`, `shat_sq_le`: for `m ≥ 1`, at most `d(m)` pairs have `n₁n₂ = m`; and for `Y ≥ 0` and `D ≥ 0` with `d(m) ≤ D` on `1 ≤ m ≤ Y²`, `Ŝ(Y)² ≤ R²D²Ŝ(Y²)`.
 
 See the main README, round 694, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 658 lines.
+
+## The lengthening of Heath-Brown's double sums: LinnikCGLHBLen.lean (round 696)
+
+Round 696 is the second step of stage M5: Kerr's Lemma 20 (arXiv:1909.12075) with characters. The auxiliary prime is any prime `p > ⌊3U/2⌋`, and the integers `u` run over `⌊U⌋ < u ≤ ⌊3U/2⌋` prime to `q`. Here `σ(N)` is round 694's `sig`, `d(n)` the number of divisors of `n` and `c(q, U) = Σ_u 1/u` over those `u`.
+
+- `card_Ioc_filter_dvd`, `sum_moebius_divisors`, `coprime_ind_eq`, `sum_moebius_mul_div`, `sum_moebius_div`, `card_coprime_Ioc_ge`: for `q ≥ 1` and `a ≤ b`, at least `(b − a)φ(q)/q − d(q)` integers in `(a, b]` are prime to `q`, by Möbius's `Σ_{d∣q}μ(d)(b/d − a/d)` and `Σ_{d∣q}μ(d)/d = φ(q)/q`.
+- `useg`, `cqU`, `mem_useg`, `cqU_ge`: for `q ≥ 1` and `U ≥ 12d(q)² + 4`, `c(q, U) ≥ 1/(9d(q))`, with round 689's `q ≤ φ(q)d(q)`.
+- `conj_apply_unit`, `sum_chars_norm_sq_eq`: for a prime `p`, a set `V` of integers `0 < u < p` and any `b`, `Σ_ψ|Σ_{u∈V}b_uψ(u)|² = φ(p)Σ_{u∈V}|b_u|²`, over all characters `ψ` mod `p`.
+- `alen`, `sum_alen_eq`, `norm_alen_le`, `norm_famA_eq_one`, `dsum_two_le`: the coefficients `a(m, ψ) = Σ_{nu=m}n^{−1/2}u^{−1/2}ψ(u)`; the lengthened sum factors into the sum over `n` times the sum over `u`, for a family with `A_r(nm) = A_r(n)A_r(m)`; for `|ψ| ≤ 1` and `m ≥ 1`, `|a(m, ψ)| ≤ d(m)m^{−1/2}`; `|χ_r(u)u^{it_r}| = 1` for `u ≥ 1` prime to `q`; and the double sum over `(NU, 4NU]` is at most `2(σ(NU) + σ(2NU))`.
+- `cqU_mul_sig_le`: for `N, U, D ≥ 0` with `d(m) ≤ D` for `1 ≤ m ≤ 4NU`, `c(q, U)σ(N) ≤ 2D²(σ(NU) + σ(2NU))`.
+- `sig_le_lengthen`: for `q ≥ 1`, `N ≥ 0`, `U ≥ 12d(q)² + 4` and `D ≥ 0` with `d(m) ≤ D` for `1 ≤ m ≤ 4NU`, `σ(N) ≤ 18d(q)D²(σ(NU) + σ(2NU))`.
+
+See the main README, round 696, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 660 lines.
