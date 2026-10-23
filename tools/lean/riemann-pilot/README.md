@@ -29870,7 +29870,7 @@ The lead verified each finding at its source before accepting it (the reads are 
 **The route.** Stage M5 is round 670's displayed hypothesis `CGLT101`, their Theorem 10.1, Heath-Brown's bound for double sums with characters. Its source, their [6], has not been read. Kerr proves the bound for `q = 1` (arXiv:1909.12075, §§5–6) from positivity, squaring, lengthening and a reflection (van der Corput's B-process). The reflection with characters comes from Jutila's "Zero-density estimates for L-functions" (Acta Arith. 32 (1977), 55–62). Heath-Brown quotes it, with Jutila's Lemmas 2 and 3, in "The density of zeros of Dirichlet's L-functions" (Canad. J. Math. 31 (1979), 231–240). The lead read both this round: Jutila's pages 55–59 from the scanned pages, and Heath-Brown's from its text layer.
 
 - Jutila's Lemma 1 reflects a smoothed sum `Σ_nb(n)χ(n)n^{−s}` for a character `χ` mod `q`, imprimitive ones included and the principal one at `|t| ≥ h²`. Its dual sum runs over `χ̄` itself, at a factor `q^ε` that can be omitted when `χ` is primitive. For the pair `(r, s)` the dual sum then carries `χ̄_rχ_s`, so the reflected double sum is again one of the same family, the form in which Kerr's §6 iterates.
-- For `χ ≠ 1`, round 642's `norm_gram_le` is a form of Jutila's Lemma 1, with round 638's weight `w(n/N)²` and the dual sum over `(χ_iχ̄_k)⁻¹`. The principal case, with the pole of `L(s, χ₀)` at `s = 1`, is not yet done; round 524's `LinnikGamma.verticalIntegral_sub_eq` (`LinnikAFE.lean`) moves a line of integration across a simple pole.
+- For `χ ≠ 1`, round 642's `norm_gram_le` is a form of Jutila's Lemma 1, with round 638's weight `w(n/N)²` and the dual sum over `(χ_iχ̄_k)⁻¹`. The principal case, with the pole of `L(s, χ₀)` at `s = 1`, is not yet done *(round 697: done, `LinnikCGLRefl0`)*; round 524's `LinnikGamma.verticalIntegral_sub_eq` (`LinnikAFE.lean`) moves a line of integration across a simple pole.
 - The plan, in order: this round's algebra; the lengthening of Kerr's Lemma 20, with an auxiliary prime and auxiliary integers prime to `q`; the reflection of the double sum; and an iteration in the manner of Kerr's §6. The last step is to replace Kerr's case analysis by a bound on the supremum of `σ(N)/(|P|N + |P|² + |P|^{5/4}(q(1 + 2T))^{1/2})`. None of these later steps is proved yet.
 
 **The results.** Below, the `A_r` are any functions on the naturals, `R = |P|`, and `σ(N)` and `Ŝ(Y)` are the double sums of `A_r(n) = χ_r(n)n^{it_r}` with the weight `n^{−1/2}` over `N < n ≤ 2N` and `1 ≤ n ≤ Y`.
@@ -30079,3 +30079,72 @@ The lead verified each finding at its source before accepting it (the reads are 
 **Bearing on RH:** none.
 
 **The next step.** The reflection of the double sum: for the pairs with `χ_r ≠ χ_s`, round 642's `norm_gram_le`; for the principal pairs, the pole of `L(s, χ₀)` at `s = 1`.
+
+## Round 697: the reflection of the principal Gram entries (stage M5; `external/pnt/LinnikCGLRefl0.lean`)
+
+**The step.** Heath-Brown's bound sums the Gram entries `G(i, k)` over every pair. Rounds 641 and 642 reflect those with `χ_i ≠ χ_k` (`LinnikCGLReflect.reflect_gram`, `LinnikCGLPair.norm_gram_le`). For `χ_i = χ_k` the integrand of round 640's `perron_gram` is `G₁(s) = L(s, χ₀)H(s + iτ)N^s`, with `χ₀` the principal character mod `q` and `τ = t_i − t_k`, and `L(s, χ₀)` has a pole at `s = 1`. This round reflects those entries through the pole and keeps the residue term. The dual sum runs over `χ₀` itself, as in Jutila's Lemma 1 for the principal character (README round 694).
+
+**The results.** Below, `q ≥ 1`, `N > 0`, `E₀(s) = ∏_{p∣q}(1 − p^{−s})`, `R = E₀(1)H(1 + iτ)N`, and `Mn`, `Tl` are round 641's integrands at `χ₀`.
+
+- `LinnikCGLRefl0.shift_pole`: `∫_{(2)}G₁ − ∫_{(1/2)}G₁ = 2πR`, the integrals over `v` with `s = σ + iv`.
+- `LinnikCGLRefl0.reflect_gram0`: for `Z ≥ 0` and `K ≥ 1`, `∫_{(2)}G₁ = 2πR + ∫_{(1/2)}Mn + ∫_{(−K)}Tl`.
+- `LinnikCGLRefl0.gram_reflect0`: for `χ_i = χ_k`, `Z ≥ 0` and `K ≥ 1`, `G(i, k) = N^{iτ}(R + (2π)⁻¹(∫_{(1/2)}Mn + ∫_{(−K)}Tl))`.
+- `LinnikCGLRefl0.norm_gram_le0`: for `χ_i = χ_k` and `Z, K ≥ 1`, `|G(i, k)| ≤ N|H(1 + iτ)| + (2π)⁻¹(N^{1/2}Q₀(q)∫|H(1/2 + iu)||D(u)| du + T_K)`, with `D(u) = Σ_{m≤Z}χ₀(m)m^{−1/2+i(u−τ)}` and `T_K` the bound of round 642's `norm_integral_Tl_le`. This is round 642's `norm_gram_le` with the residue term `N|H(1 + iτ)|` added.
+- `LinnikCGLRefl0.LFunction_eq_reflect0`, `LFunction_reflected0`: round 526's identity for a primitive `ψ` mod `f ≥ 1` with `f ∣ q`, the trivial character included, at `Re s < 1` and `s ≠ 0`; and round 641's functional equation `L(s, χ) = Φ(s)L(1 − s, χ⁻¹)E(s)` for every `χ` mod `q`, the principal one included, at `Re s < 1` and `s ≠ 0`.
+- `LinnikCGLRefl0.LFunction_one_eq`, `norm_E0_le`, `norm_E0_one_le`: `L(s, χ₀) = ζ(s)E₀(s)` for `s ≠ 1`; `|E₀(s)| ≤ 2^{ω(q)}` for `Re s ≥ 0`; `|E₀(1)| ≤ 1`.
+- `LinnikCGLRefl0.norm_zeta_le_strip`, `norm_L1_le_strip`, `norm_L1_le_right`: for `0 < σ ≤ 2` and `|t| ≥ 2`, `|ζ(σ + it)| ≤ 2 + 2|t|/σ` and `|L(σ + it, χ₀)| ≤ 2^{ω(q)}(2 + 2|t|/σ)`; for `σ ≥ 1/2` and `|t| ≥ 2`, `|L(σ + it, χ₀)| ≤ 2^{ω(q)}(2 + 4|t| + |ζ(3/2)|)`.
+- The others: `E0`, `differentiable_E0`, `bound_of_far` (for `M ≥ 0`, a bound `M(1 + |y + τ|)^{−2}` for `|y| ≥ 2` with continuity on the rectangle `[a, b] × [−2, 2]` gives one for every `y`), `continuousOn_rect`, `differentiableAt_G1_one`, `G1_one_far` (`|G₁(x + iy)| ≤ M(1 + |y + τ|)^{−2}` on `1/2 ≤ x ≤ 2`, `|y| ≥ 2`), `Rt0` (the rest `G₁ − Mn`), `Rt0_eq` (for `Re s < 1` and `s ≠ 0`, the rest is `Cf(s)(L(1 − s, χ₀) − Σ_{m≤Z}χ₀(m)m^{s−1})`), `differentiableAt_Rt0` (on `Re s < 1`) and `Rt0_bound` (for `K ≥ 1`, `|Rt₀(x + iy)| ≤ M(1 + |y + τ|)^{−2}` on `−K ≤ x ≤ 1/2`).
+
+**The stack's form.**
+
+- **The functional equation at `χ₀`.** Round 641's `LFunction_reflected` assumes `χ ≠ 1`, and round 526's `LFunction_eq_reflect` assumes `ψ ≠ 1`. In round 526's proof `ψ ≠ 1` serves Mathlib's conditions `s ≠ 0 ∨ N ≠ 1` (`LFunction_eq_completed_div_gammaFactor`, at `s` and at `1 − s`) and `χ ≠ 1 ∨ s ≠ 1` (`LFunction_changeLevel`, at `1 − s`). At `Re s < 1` and `s ≠ 0` the conditions hold through `s` instead, so the proof goes through for every character.
+- **The pole.** The shift from `Re s = 2` to `Re s = 1/2` is round 524's `LinnikGamma.verticalIntegral_sub_eq` applied to `w ↦ G₁(w + 1)`, whose polar part at `w = 0` is `R/w`: `ζ(s) − 1/(s − 1)` is bounded near `s = 1` (Mathlib's `isBigO_riemannZeta_sub_one_div`), and `E₀(s)H(s + iτ)N^s` is entire.
+- **The point `s = 0`.** `L(1 − s, χ₀)` has a pole at `s = 0`, where `G₁` itself is regular. The rest `G₁ − Mn` is holomorphic on `Re s < 1`, and its form `Cf(s)(L(1 − s, χ₀) − Σ_{m≤Z}χ₀(m)m^{s−1})` is used only off `s = 0`: on the line `Re s = −K` and at `|Im s| ≥ 2` for the bound. So the shift from `Re s = 1/2` to `Re s = −K` is round 641's `shift_of_bound` as before.
+- **The bounds.** `|ζ(σ + it)| ≤ 2 + 2|t|/σ` on `0 < σ ≤ 2`, `|t| ≥ 2` comes from PNT+'s `Zeta0EqZeta` at `N = 1` with `ZetaBnd_aux1`, and on `σ > 2` from round 470's `HalfPlaneLindelof.norm_zeta_le_three_halves`. Near the real axis the bounds come from continuity on a compact rectangle (`bound_of_far`).
+
+**What changed in the files.**
+
+- `external/pnt/LinnikCGLRefl0.lean`: new.
+- `external/pnt/build.sh`: the module, its import in the final check, two `#print axioms` lines (`reflect_gram0`, `norm_gram_le0`) and the comment.
+- `frontier/linnik/CGL-LEAN.md`: row T10.1 (its stack cell and a net-state marker), a marker on round 694's M5 note, round 697's note under M5, and the opening's parenthetical.
+- `external/pnt/README.md`: a row and a section for the file.
+- `README.md`: a net-state marker on round 694's "The principal case, with the pole of `L(s, χ₀)` at `s = 1`, is not yet done".
+
+**What is checked.**
+
+- `LinnikCGLRefl0` was compiled in scratch in three runs (`scratchpad/r697/run.sh`, `lcj1.out` to `lcj3.out`). Runs 1 and 2 failed; run 3 had exit 0, and its only messages were the five axiom lines, all `[propext, Classical.choice, Quot.sound]`.
+- The fixes. Run 1: `Finset.prod_le_prod₀` and `Finset.prod_le_one₀` in place of the unsubscripted forms; the four-term triangle inequality in `norm_zeta_le_strip` by `norm_add₄_le`; an explicit `(f := …)` in `ContinuousAt.comp`; the `O(1)` bound of the product of the two `O(1)` terms through `simpa using ha.mul hb`; `LinnikCGLReflect.Cf` qualified (`_root_.Cf` also exists); an explicit `pow_add` step in `Rt0_bound` and an explicit `mul_le_mul` in `norm_gram_le0`. Run 2: `norm_add₄_le` takes no explicit arguments, and `w ∈ {0}ᶜ` is unfolded by `Set.mem_compl_singleton_iff`.
+- After run 3 only comments changed: the docstrings and the header were made to list every hypothesis (`q ≥ 1`, `f ≥ 1`, `N > 0`, `K ≥ 1`), lines were re-wrapped to 120 characters, the header's sentence on Jutila's Lemma 1 was reworded, and the header now names `norm_integral_Tl_le` for `T_K`.
+- Then `build.sh` ran twice, the second time after the last comment edits (`scratchpad/r697/compile.sh 1` and `2`, logs `build_1.log` and `build_2.log`). The second run: `1 compiled, 431 up to date` (`LinnikCGLRefl0` 13 s), exit 0 in 23 s, with no error, warning or `sorry`; the one log line containing "error" is the axiom line of `Linnik.error_le`. Its 667 axiom lines are 5 by the module and 662 by the final check; 654 have exactly `propext`, `Classical.choice` and `Quot.sound` and 13 have none. The largest sample of `lean`'s resident memory, taken every 10 s (`rss_watch_build_2.log`), is 7181160 KiB (6.85 GiB). The first run had the same counts.
+- The file has 605 lines (5 theorems, 15 lemmas, 2 definitions), no `sorry`, `native_decide`, `axiom` declaration or `maxHeartbeats`, and no line over 120 characters.
+- The file quotes no source. `scratchpad/r697/quotes_entry.py`, round 695's check of every quotation in an entry and in the lines a round adds, passes on this round's (`quotes_entry.out`).
+- `scratchpad/r697/apply_docs.py` makes the eight edits to CGL-LEAN.md, the external README and README.md. An edit whose new text is present is skipped; otherwise its old text occurs once and its new text not at all. Run again, it writes nothing (`apply.out`, `apply_rerun.out`).
+- `scratchpad/gate.sh` passed before the commit (`scratchpad/r697/gate.out`).
+
+**Marks.**
+
+- `frontier/linnik/CGL-LEAN.md`: row T10.1 gains round 697 in its stack cell and a net-state marker; round 694's M5 note gains the marker "the principal case is done"; M5 gains round 697's note; the opening's parenthetical gains round 697.
+- `external/pnt/README.md`: a row, and a section for the file.
+- `README.md`: round 694's entry gains a net-state marker on its sentence about the principal case.
+- No strikes.
+
+**Check 1** (direct reads this round):
+
+- Mathlib's `LFunction_eq_completed_div_gammaFactor`, `LFunction_changeLevel` and `LFunction_modOne_eq` (`NumberTheory/LSeries/DirichletContinuation.lean` 258, 149 and 66), `isBigO_riemannZeta_sub_one_div` (`NumberTheory/Harmonic/ZetaAsymp.lean` 376) and `changeLevel_one` (`NumberTheory/DirichletCharacter/Basic.lean` 219).
+- PNT+'s `riemannZeta0`, `ZetaBnd_aux1` and `Zeta0EqZeta` (`ZetaBounds.lean` 643, 1043 and 1393).
+- The operative statements: round 526's `LFunction_eq_reflect`, `eulerQ` and `gr` (`LinnikGammaRatio.lean` 361, 239 and 182), `Phi`, `norm_dualS_le`, `LFunction_sub_dualS` and `rpow_le_add_ends` (`LinnikReflect.lean` 38, 208, 225 and 330); round 524's `LinnikGamma.verticalIntegral_sub_eq` (`LinnikAFE.lean` 404); round 470's `norm_zeta_le_three_halves` (`HalfPlaneLindelof.lean` 179); round 640's `perron_gram` (`LinnikCGLMellin.lean` 354); round 641's `shift_of_bound`, `G1`, `Cf`, `Mn`, `Tl`, `Eu`, `H_shift_bound`, `Cf_bound`, `Mn_bound`, `LFunction_reflected`, `integrable_of_bound`, `one_add_abs_le`, `differentiableAt_H_shift`, `differentiableAt_Mn`, `continuous_line` and `reflect_gram` (`LinnikCGLReflect.lean` 365, 390, 393, 397, 404, 267, 420, 476, 586, 316, 333, 325, 611, 641, 646 and 657); round 642's `Q0`, `norm_integral_Mn_le`, `IK`, `norm_integral_Tl_le` and `norm_gram_le` (`LinnikCGLPair.lean` 196, 231, 277, 309 and 397).
+- The new file in full: its proofs were written this round, and each docstring was checked against its statement.
+
+**Check 4.** No defect in the cascade or the stack is raised.
+
+**Check 9.**
+
+- (a) Each result above is stated with its hypotheses, and the file's header and docstrings list them. "for every `χ` mod `q`" in `LFunction_reflected0` is its statement, which has no hypothesis on `χ`.
+- (b) No change to the register; the round makes no barrier claim.
+- (c) No criterion is fed a signal.
+
+**Reviews.** This round goes to the next block's review, with rounds 694 and 696 and round 695's sweep (its convergence review).
+
+**Bearing on RH:** none.
+
+**The next step.** The reflection of the double sum: the sharp sum over `N < n ≤ 2N` bounded by two smooth ones by positivity, each Gram entry reflected (rounds 642 and 697), and the dual sums gathered into the double sum `Ŝ(Z)` of the same family.

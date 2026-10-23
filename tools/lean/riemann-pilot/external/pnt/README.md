@@ -216,6 +216,7 @@ These files build on the PrimeNumberTheoremAnd project (PNT+; Kontorovich, Tao e
 | `LinnikCGLP81.lean` | 693 | Chen–Gupta–Li's Proposition 8.1 by their downward induction: `P81 ε`, their (8.1) with an abstract `Λ`, `0 ≤ Λ ≤ G(qT)²F`, holds for `ε = 5` (`P81_base`), passes from `3ε/2` to `ε` (`P81_step`) and holds for every `ε > 0` (`P81_all`); round 662's `CGLP81` (`cglp81`); and from `CGLT101` alone, `CGLS3` and `CGLProp31` (`cgls3_t101`, `prop31_t101`) and Linnik's theorem with the exponents `9/4` and `226/100`: under it, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ Kq^{9/4}`, and likewise with `226/100` (`linnik_225c_t101`, `linnik_226c_t101`) |
 | `LinnikCGLHBPos.lean` | 694 | Positivity and the double sums of Heath-Brown's bound (stage M5): for `S ⊆ S'`, `\|a_n\| ≤ b_n` on `S` and `b_n ≥ 0` on `S'`, `Σ_{r,s}\|Σ_{n∈S}a_nA_r(n)Ā_s(n)\|² ≤ Σ_{r,s}\|Σ_{n∈S'}b_nA_r(n)Ā_s(n)\|²` for any functions `A_r` (`dsum_le`, Jutila's Lemma 2); for `A_r(n) = χ_r(n)n^{it_r}` and the weight `n^{−1/2}`, the double sum `Ŝ(Y)` over `1 ≤ n ≤ Y` is monotone in `Y`, `Ŝ(Y) ≤ (J + 1)Σ_{j≤J}σ(Y/2^{j+1})` for `0 ≤ Y < 2^{J+1}` (`shat_le_sum_sig`), and `Ŝ(Y)² ≤ \|P\|²D²Ŝ(Y²)` for `Y ≥ 0` and `d(m) ≤ D` on `1 ≤ m ≤ Y²` (`shat_sq_le`) |
 | `LinnikCGLHBLen.lean` | 696 | The lengthening of Heath-Brown's double sums (stage M5), by the characters of an auxiliary prime `p > ⌊3U/2⌋`: for `N, U, D ≥ 0` with `d(m) ≤ D` for `1 ≤ m ≤ 4NU`, `c(q, U)σ(N) ≤ 2D²(σ(NU) + σ(2NU))`, with `c(q, U)` the sum of `1/u` over `⌊U⌋ < u ≤ ⌊3U/2⌋` prime to `q` (`cqU_mul_sig_le`); for `q ≥ 1` and `U ≥ 12d(q)² + 4`, `c(q, U) ≥ 1/(9d(q))` (`cqU_ge`), so `σ(N) ≤ 18d(q)D²(σ(NU) + σ(2NU))` (`sig_le_lengthen`) |
+| `LinnikCGLRefl0.lean` | 697 | The reflection of the principal Gram entries (stage M5), through the pole of `L(s, χ₀)` at `s = 1`: for `q ≥ 1` and `N > 0`, `∫_{(2)}G₁ − ∫_{(1/2)}G₁ = 2πR` with `R = E₀(1)H(1 + iτ)N` and `E₀(s) = ∏_{p∣q}(1 − p^{−s})` (`shift_pole`); for `Z ≥ 0` and `K ≥ 1`, `∫_{(2)}G₁ = 2πR + ∫_{(1/2)}Mn + ∫_{(−K)}Tl` at `χ₀` (`reflect_gram0`); and for `χ_i = χ_k` and `Z, K ≥ 1`, `\|G(i, k)\| ≤ N\|H(1 + iτ)\| + (2π)⁻¹(N^{1/2}Q₀(q)∫\|H(1/2 + iu)\|\|D(u)\| du + T_K)` (`norm_gram_le0`) |
 
 ## Building (rounds 217, 618)
 
@@ -1404,3 +1405,18 @@ Round 696 is the second step of stage M5: Kerr's Lemma 20 (arXiv:1909.12075) wit
 - `sig_le_lengthen`: for `q ≥ 1`, `N ≥ 0`, `U ≥ 12d(q)² + 4` and `D ≥ 0` with `d(m) ≤ D` for `1 ≤ m ≤ 4NU`, `σ(N) ≤ 18d(q)D²(σ(NU) + σ(2NU))`.
 
 See the main README, round 696, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 660 lines.
+
+## The reflection of the principal Gram entries: LinnikCGLRefl0.lean (round 697)
+
+Round 697 is the third step of stage M5. For `χ_i = χ_k` the integrand of round 640's `perron_gram` is `G₁(s) = L(s, χ₀)H(s + iτ)N^s`, with `χ₀` the principal character mod `q` and `τ = t_i − t_k`. Below, `q ≥ 1`, `N > 0`, `E₀(s) = ∏_{p∣q}(1 − p^{−s})` and `R = E₀(1)H(1 + iτ)N`.
+
+- `LFunction_eq_reflect0`, `LFunction_reflected0`: round 526's identity and round 641's functional equation at `s ≠ 0`, the trivial character included: for a primitive `ψ` mod `f ≥ 1` with `f ∣ q`, round 526's identity at `Re s < 1` and `s ≠ 0`; and for every `χ` mod `q`, `L(s, χ) = Φ(s)L(1 − s, χ⁻¹)E(s)` at `Re s < 1` and `s ≠ 0`.
+- `E0`, `LFunction_one_eq`, `differentiable_E0`, `norm_E0_le`, `norm_E0_one_le`: `L(s, χ₀) = ζ(s)E₀(s)` for `s ≠ 1`; `|E₀(s)| ≤ 2^{ω(q)}` for `Re s ≥ 0`; `|E₀(1)| ≤ 1`.
+- `norm_zeta_le_strip`, `norm_L1_le_strip`, `norm_L1_le_right`: for `0 < σ ≤ 2` and `|t| ≥ 2`, `|ζ(σ + it)| ≤ 2 + 2|t|/σ` (PNT+'s `Zeta0EqZeta` at `N = 1` and `ZetaBnd_aux1`) and `|L(σ + it, χ₀)| ≤ 2^{ω(q)}(2 + 2|t|/σ)`; for `σ ≥ 1/2` and `|t| ≥ 2`, `|L(σ + it, χ₀)| ≤ 2^{ω(q)}(2 + 4|t| + |ζ(3/2)|)`.
+- `bound_of_far`, `continuousOn_rect`, `differentiableAt_G1_one`, `G1_one_far`: the bound `|G₁(x + iy)| ≤ M(1 + |y + τ|)^{−2}` on `1/2 ≤ x ≤ 2`, `|y| ≥ 2`, and its extension to every `y` from continuity on a rectangle.
+- `shift_pole`: `∫_{(2)}G₁ − ∫_{(1/2)}G₁ = 2πR`, by round 524's `verticalIntegral_sub_eq` translated to `s = 1`, with Mathlib's `isBigO_riemannZeta_sub_one_div`.
+- `Rt0`, `Rt0_eq`, `differentiableAt_Rt0`, `Rt0_bound`: the rest `G₁ − Mn`, holomorphic on `Re s < 1`, equal to `Cf(s)(L(1 − s, χ₀) − Σ_{m≤Z}χ₀(m)m^{s−1})` at `Re s < 1`, `s ≠ 0`, and bounded by `M(1 + |y + τ|)^{−2}` on `−K ≤ x ≤ 1/2` for `K ≥ 1`.
+- `reflect_gram0`: for `Z ≥ 0` and `K ≥ 1`, `∫_{(2)}G₁ = 2πR + ∫_{(1/2)}Mn + ∫_{(−K)}Tl`, with round 641's `Mn` and `Tl` at `χ₀`.
+- `gram_reflect0`, `norm_gram_le0`: for `χ_i = χ_k`, `G(i, k) = N^{iτ}(R + (2π)⁻¹(∫_{(1/2)}Mn + ∫_{(−K)}Tl))`; and for `Z, K ≥ 1`, `|G(i, k)| ≤ N|H(1 + iτ)| + (2π)⁻¹(N^{1/2}Q₀(q)∫|H(1/2 + iu)||D(u)| du + T_K)`, with `D(u) = Σ_{m≤Z}χ₀(m)m^{−1/2+i(u−τ)}` and `T_K` the bound of round 642's `norm_integral_Tl_le`.
+
+See the main README, round 697, and `frontier/linnik/CGL-LEAN.md`. All axioms are clean. The final check prints 662 lines.
