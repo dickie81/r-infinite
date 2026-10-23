@@ -10,8 +10,8 @@ Plain statements. `SieveRough.lean` bounds sums over primes from above (`abel_le
 * `abel_ge`: Abel summation against `θ`, from below. Let `g ≥ 0` decrease on `[a, b]`, `1 < a ≤ b`, with `G′ = g`, and
   let `|θ(t) − t| ≤ εt/log t` on `[a, b]`. Then `Σ_{a<p≤b} g(p) log p` is at least
   `(G(b) − G(a))(1 − ε/log a) − 2εag(a)/log a − εbg(b)/log b`.
-* `sum_inv_ge`: `Σ_{a<p≤b} 1/p ≥ (log log b − log log a)(1 − ε/log a) − 3ε/log² a`, when `log a ≥ 1` and
-  `|θ(t) − t| ≤ εt/log t` on `[a, b]`.
+* `sum_inv_ge`: `Σ_{a<p≤b} 1/p ≥ (log log b − log log a)(1 − ε/log a) − 3ε/log² a`, when `a ≤ b`, `log a ≥ 1`
+  and `|θ(t) − t| ≤ εt/log t` on `[a, b]`.
 * `EvGe`, `EvGe.mul`: `S` is eventually at least `P − δ` for every `δ > 0`; for `S, T ≥ 0` eventually and `P, Q ≥ 0`,
   the product of two such is such for `PQ`.
 * `sum_primesIn_ge`: for `f ≥ 0`, a sum over `primesIn A B` is at least the sum over the primes of `(⌊A⌋, ⌊B⌋]` less
@@ -201,8 +201,8 @@ theorem sum_inv_ge {a b ε : ℝ} (ha : Real.exp 1 ≤ a) (hab : a ≤ b) (hε :
 /-- `S` is eventually at least `P − δ`, for every `δ > 0`: `liminf S ≥ P`. -/
 def EvGe (S : ℝ → ℝ) (P : ℝ) : Prop := ∀ δ : ℝ, 0 < δ → ∀ᶠ x : ℝ in atTop, P - δ ≤ S x
 
-/-- The product of two functions eventually nonnegative and eventually at least `P` and `Q`, `P, Q ≥ 0`, is eventually
-at least `PQ`. -/
+/-- The product of two functions eventually nonnegative, with `EvGe` at `P` and `Q`, `P, Q ≥ 0`, has `EvGe` at `PQ`:
+for every `δ > 0` it is eventually at least `PQ − δ`. -/
 theorem EvGe.mul {S T : ℝ → ℝ} {P Q : ℝ} (hP : 0 ≤ P) (hQ : 0 ≤ Q) (hS0 : ∀ᶠ x : ℝ in atTop, 0 ≤ S x)
     (hT0 : ∀ᶠ x : ℝ in atTop, 0 ≤ T x) (hS : EvGe S P) (hT : EvGe T Q) :
     EvGe (fun x => S x * T x) (P * Q) := by

@@ -7,16 +7,17 @@ Plain statements. The route and the grid are as in `SieveQ` (`RouteOK`, `GridOK`
 `parQ q` is the decomposition's parameters at `x = q^L`, and `LargeQ q` the facts about `q` that the proofs use.
 
 * `T0at`: `SieveExact.T0_spec`'s estimate at `q` for four primes, with error `E`.
-* `thrOK_KS`, `len_KS`: the sorted families' atoms have thresholds in `[1, q^{L+1}]` and number `14`.
-* `lf_KS`: for `LargeQ q`, `E ≥ 0` and `T0at q a E`, a sorted family `KS a b i j k` with `a, b < 3` distinct and a cell
-  `k` that `keep` passes below `(i, j)` has `|famE(g_A) − famE(g_B)| ≤ E`. The box `(i, j, k)` is surely evaluable, so
-  a set `T` of the roles `p₁, p₂, q₁` has its sums inside `U = (u₁, u₂) ∪ (1 − u₂, 1 − u₁)` on the box: in the lower
+* `thrOK_KS`, `len_KS`: the sorted families' atoms have thresholds in `[1, q^{L+1}]` and number at most `18` (in fact
+  `14`).
+* `lf_KS`: for `LargeQ q` and `T0at q a E`, a sorted family `KS pa pb i j k` with `pa, pb < 3` distinct and a cell `k`
+  that `keep` passes below `(i, j)` has `|famE(g_A) − famE(g_B)| ≤ E`. The box `(i, j, k)` is surely evaluable, so a
+  set `T` of the roles `p₁, p₂, q₁` has its sums inside `U = (u₁, u₂) ∪ (1 − u₂, 1 − u₁)` on the box: in the lower
   window `T`'s product lies in `(P₁, P₂]`; in the upper window the product of the other primes lies in
   `(N₁/W₁, N₂/(X′ + 1)]`, since the four primes' product lies in `(N₁, N₂]`.
 * `lf_Kk`: such a cell's kept part `Kk(i, j, k)` has `|A − B| ≤ 3E` (`SieveBuch.Par.Kk_eq`).
 * `Leaves.mono`, `leaves_ev2`: given the route's Type II estimate (`hII`), for `η > 0` there are `δ > 0` and `q₀` such
-  that for `q ≥ q₀` and `a` a unit mod `q`, `LargeQ q`, the leaves of `SieveQ.leaves_ev` and the kept leaves of
-  `SieveBuch2.lean` are within `Err η δ q`.
+  that for `q ≥ 1` with `q ≥ q₀` and `a` a unit mod `q`, `LargeQ q`, the leaves of `SieveQ.leaves_ev` are within
+  `Err η δ q` and the kept parts of `SieveBuch2.lean` have their `A` and `B` within `3·Err η δ q`.
 
 The file imports `SieveQ.lean` and `SieveBuch2.lean`.
 -/
@@ -102,7 +103,7 @@ theorem roles_inj {a b : Fin 4} (ha : a < 3) (hb : b < 3) (hab : a ≠ b) : Func
     | exact absurd h hab
     | exact absurd h.symm hab
 
-/-- **A sorted family's leaf.** For `LargeQ q`, `E ≥ 0` and `T0at q a E`, a sorted family `KS a b i j k` with `a, b < 3`
+/-- **A sorted family's leaf.** For `LargeQ q` and `T0at q a E`, a sorted family `KS pa pb i j k` with `pa, pb < 3`
 distinct and a cell `k` that `keep` passes below `(i, j)` has `|famE(g_A) − famE(g_B)| ≤ E`. -/
 theorem lf_KS {q : ℕ} (hL : LargeQ q) {a : ZMod q} {E : ℝ} (hT : T0at q a E) {pa pb : Fin 4} (ha : pa < 3)
     (hb : pb < 3) (hab : pa ≠ pb) {i j k : ℕ} (hi : i < SieveCert.n) (hj : j < SieveCert.n) (hk : k < SieveCert.n)
@@ -179,7 +180,7 @@ theorem lf_KS {q : ℕ} (hL : LargeQ q) {a : ZMod q} {E : ℝ} (hT : T0at q a E)
         _ = ∏ t, rt t := hsplit
         _ ≤ N2 q := hNhi
 
-/-- **A kept part's leaf.** For `LargeQ q`, `E ≥ 0` and `T0at q a E`, a cell `k` that `keep` passes below `(i, j)` has
+/-- **A kept part's leaf.** For `LargeQ q` and `T0at q a E`, a cell `k` that `keep` passes below `(i, j)` has
 `|Kk(g_A) − Kk(g_B)| ≤ 3E`. -/
 theorem lf_Kk {q : ℕ} (hL : LargeQ q) {a : ZMod q} {E : ℝ} (hT : T0at q a E) {i j k : ℕ} (hi : i < SieveCert.n)
     (hj : j < SieveCert.n) (hk : k < SieveCert.n) (hkeep : keep i j k = true) :
@@ -209,9 +210,9 @@ theorem Leaves.mono {P : Par} {gA gB : ℕ → ℝ} {E E' : ℝ} (h : P.Leaves g
     fun i hi j hj hc hd k hk h1 h2 l hl h3 h4 => (h.e4 i hi j hj hc hd k hk h1 h2 l hl h3 h4).trans hE⟩
 
 /-- **The leaves and the kept leaves, for large `q`.** For a route with `RouteOK` and a grid with `GridOK` that fit
-(`Fits`), given the route's Type II estimate (`hII`), for `η > 0` there are `δ > 0` and `q₀` such that for `q ≥ q₀` and
-`a` a unit mod `q`, `q` is large, every leaf of the tree at `x = q^L` is within `Err η δ q`, and every kept part's
-`A` and `B` are within `3·Err η δ q`. -/
+(`Fits`), given the route's Type II estimate (`hII`), for `η > 0` there are `δ > 0` and `q₀` such that for `q ≥ 1` with
+`q ≥ q₀` and `a` a unit mod `q`, `q` is large, every leaf of the tree at `x = q^L` is within `Err η δ q`, and every
+kept part's `A` and `B` are within `3·Err η δ q`. -/
 theorem leaves_ev2 (hII : TypeIIAt) {η : ℝ} (hη : 0 < η) :
     ∃ δ : ℝ, 0 < δ ∧ ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       LargeQ q ∧ (parQ q).Leaves (gA q a) (gB q) (Err η δ q) ∧ (parQ q).KLeaves (gA q a) (gB q) (Err η δ q) := by

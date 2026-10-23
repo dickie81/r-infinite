@@ -11,11 +11,11 @@ last entry. This file estimates the products themselves: the `n = ∏rt ∈ (N�
 is the case of `chainTL_bound`'s proof with no prime besides the chain's (`t = 0` in `SieveChain.sum_TL_eq`).
 
 * `tuples_zero`: `SieveRoughTuple.tuples z Y 0` is the empty tuple alone, for `Y ≥ 1`.
-* `chainT0_bound`: fix `e₀ > 0`, `k′`, `J₀` and `Λ₁ ≥ 0`. There are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit
-  `a` mod `q`: let `rt` run over `RTg (k′ + 1) N₂ Ω` with at most `J₀` comparisons, whose `m`-parts at `m = 0` are at
-  most `Λ₁ log q`, each such tuple strictly decreasing, with entries at least `q^{e₀}` and `P₁ < ∏_{i∈S} rt_i ≤ P₂`,
-  where `q^{w₁L} ≤ P₁` and `P₂ ≤ q^{w₂L}`. Then the `n = ∏rt ∈ (N₁, N₂]`, summed over `rt`, have `|A − B/φ(q)|` at most
-  `q^{L−δ}/φ(q)`.
+* `chainT0_bound`: fix `e₀ > 0`, `k′`, `J₀` and `Λ₁ ≥ 0`. There are `δ > 0` and `q₀` such that for `q ≥ 1` with
+  `q ≥ q₀` and a unit `a` mod `q`: let `rt` run over `RTg (k′ + 1) N₂ Ω` with at most `J₀` comparisons, whose
+  `m`-parts at `m = 0` are at most `Λ₁ log q`, each such tuple strictly decreasing, with entries at least `q^{e₀}`
+  and `P₁ < ∏_{i∈S} rt_i ≤ P₂`, where `q^{w₁L} ≤ P₁` and `P₂ ≤ q^{w₂L}`. Then the `n = ∏rt ∈ (N₁, N₂]`, summed over
+  `rt`, have `|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`.
 * `famE`, `sum_dw_famE`, `famE_nonneg`: a family's exact terms `Σ_{rt} g(∏rt)[N₁ < ∏rt ≤ N₂]`, and `dw = gA − gB`
   on them.
 * `T0_spec`: `chainT0_bound` on a family of at most `18` atoms with thresholds as in `SieveLeaves.ThrOK`, as a bound on
@@ -50,10 +50,10 @@ theorem tuples_zero {z Y : ℕ} (hY : 1 ≤ Y) : SieveRoughTuple.tuples z Y 0 = 
 set_option maxHeartbeats 1600000 in
 /-- **Exact products of chains with a product of some of their primes in the window.** Assume `RouteOK` and the
 route's Type II estimate (`hII`). Fix `e₀ > 0`, `k′`, `J₀` and `Λ₁ ≥ 0`. There are `δ > 0` and `q₀` such that for
-`q ≥ q₀` and a unit `a` mod `q`: let `rt` run over the `(k′ + 1)`-tuples of primes up to `N₂ = ⌊2q^L⌋` that satisfy at
-most `J₀` comparisons `Ω` (with `m`-parts at most `Λ₁ log q` at `m = 0`), each such tuple strictly decreasing, with
-entries at least `q^{e₀}` and `P₁ < ∏_{i∈S} rt_i ≤ P₂`, where `q^{w₁L} ≤ P₁` and `P₂ ≤ q^{w₂L}`. Then the products
-`n = ∏rt ∈ (N₁, N₂]`, summed over `rt`, have `|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`. -/
+`q ≥ 1` with `q ≥ q₀` and a unit `a` mod `q`: let `rt` run over the `(k′ + 1)`-tuples of primes up to `N₂ = ⌊2q^L⌋`
+that satisfy at most `J₀` comparisons `Ω` (with `m`-parts at most `Λ₁ log q` at `m = 0`), each such tuple strictly
+decreasing, with entries at least `q^{e₀}` and `P₁ < ∏_{i∈S} rt_i ≤ P₂`, where `q^{w₁L} ≤ P₁` and `P₂ ≤ q^{w₂L}`.
+Then the products `n = ∏rt ∈ (N₁, N₂]`, summed over `rt`, have `|A − B/φ(q)|` at most `q^{L−δ}/φ(q)`. -/
 theorem chainT0_bound [Route] [RouteOK] (hII : TypeIIAt) {e₀ : ℝ} (he₀ : 0 < e₀) (k' J₀ : ℕ) {Λ₁ : ℝ}
     (hΛ₁ : 0 ≤ Λ₁) :
     ∃ δ : ℝ, 0 < δ ∧ ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
@@ -252,10 +252,10 @@ theorem sum_dw_famE (q : ℕ) (a : ZMod q) (N₁ N₂ : ℕ) {k : ℕ} (F : Fins
 variable [Route] (a₀ : ℝ)
 
 /-- **Exact products, on a family of atoms** (`chainT0_bound`). Assume `RouteOK` and the route's Type II estimate
-(`hII`). For `a₀ > 0` and `k'` there are `δ > 0` and `q₀` such that for `q ≥ q₀` and a unit `a` mod `q`: a family of
-`(k' + 1)`-tuples of primes cut out by at most `18` atoms with thresholds as in `ThrOK`, each tuple strictly
-decreasing, with entries at least `q^{a₀}` and `P₁ < ∏_{i∈S} rt_i ≤ P₂`, where `q^{w₁L} ≤ P₁` and `P₂ ≤ q^{w₂L}`, has
-`|famE(g_A) − famE(g_B)| ≤ q^{L−δ}/φ(q)`. -/
+(`hII`). For `a₀ > 0` and `k'` there are `δ > 0` and `q₀` such that for `q ≥ 1` with `q ≥ q₀` and a unit `a` mod `q`:
+a family of `(k' + 1)`-tuples of primes cut out by at most `18` atoms with thresholds as in `ThrOK`, each tuple
+strictly decreasing, with entries at least `q^{a₀}` and `P₁ < ∏_{i∈S} rt_i ≤ P₂`, where `q^{w₁L} ≤ P₁` and
+`P₂ ≤ q^{w₂L}`, has `|famE(g_A) − famE(g_B)| ≤ q^{L−δ}/φ(q)`. -/
 theorem T0_spec [RouteOK] (hII : TypeIIAt) (ha₀ : 0 < a₀) (k' : ℕ) :
     ∃ δ : ℝ, 0 < δ ∧ ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∀ (spec : List (Atom (k' + 1))) (S : Finset (Fin (k' + 1))) (P₁ P₂ : ℕ), spec.length ≤ 18 → ThrOK q spec →

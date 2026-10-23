@@ -54,7 +54,7 @@ theorem card_primeFactors_le {q : ℕ} (hq : 1 ≤ q) :
   linarith
 
 omit [Route] [RouteOK] [SieveCert.Grid] [SieveCert.GridOK] [Fits] in
-/-- The primes of `(⌊y⌋, ⌊2y⌋]`. -/
+/-- For `y ≥ 0`, the primes of `(⌊y⌋, ⌊2y⌋]` number at most `y + 1`. -/
 theorem card_dyadic_le {y : ℝ} (hy : 0 ≤ y) :
     (((Ioc ⌊y⌋₊ ⌊2 * y⌋₊).filter Nat.Prime).card : ℝ) ≤ y + 1 := by
   have h1 : ((Ioc ⌊y⌋₊ ⌊2 * y⌋₊).filter Nat.Prime).card ≤ ⌊2 * y⌋₊ - ⌊y⌋₊ :=
@@ -259,7 +259,7 @@ theorem q2_ge {q : ℕ} (hL : LargeQ q) {i j k : ℕ} (hkeep : keep i j k = true
         · exact SieveDrop.gB_nonneg q _
         · exact le_rfl
 
-/-- The primes of `(⌊y⌋, ⌊2y⌋]`. -/
+/-- The number of primes of `(⌊y⌋, ⌊2y⌋]`. -/
 noncomputable def pc (y : ℝ) : ℕ := ((Ioc ⌊y⌋₊ ⌊2 * y⌋₊).filter Nat.Prime).card
 
 omit [SieveCert.GridOK] [Fits] in

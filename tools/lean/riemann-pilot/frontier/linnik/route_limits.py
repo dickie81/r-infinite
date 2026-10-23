@@ -26,15 +26,18 @@ This script computes the three for a curve, an exponent and a grid size `n`, wit
   truncated at `0`, division by `0` giving `0`), and `GridOK`, `Fits` and `RouteOK` as `decide` would evaluate them.
 
 A row with `total < K`, no failed corner and every grid and route condition true (`accepted`) is a certificate that
-`SieveMain.linnik_route_lt` takes, with the curve's counts (`counts_U`; `counts_7c` under `CGLDensity`), which do not
-depend on `L`: what remains is the kernel's run of `norm_num` at the corners and `decide +kernel` on the total, which
+`SieveMain.linnik_route_lt` takes, with the curve's counts (`counts_U`; `counts_7c` under `CGLDensity`; round 711:
+which round 702 proves, `LinnikCGLDensity.cglDensity`, so `counts_7c` holds with no hypothesis; review A of round
+709, F2), which do not depend on `L`: what remains is the kernel's run of `norm_num` at the corners and
+`decide +kernel` on the total, which
 this script does not make. Lean's kernel has accepted each part of rounds 623 and 625 that it has run, with bounds
 about `0.1%` above the parts from earlier replays of the same definitions, whose totals this script reproduces:
 `math.ceil(part * 1.001)` in double precision for round 623's, `⌈1.001 × part⌉` exactly for round 625's. (Round 627:
 it read "with bounds `⌈1.001 × part⌉`", false for round 623's; review of round 626, F2.)
 
 Curves, parsed from the Lean sources: `gU` (`SieveTypeIIU232.lean`, with no hypothesis) and `g7c`
-(`SieveTypeIIU226C.lean`, under `LinnikCGL.CGLDensity`).
+(`SieveTypeIIU226C.lean`, under `LinnikCGL.CGLDensity`; round 711: which round 702 proves,
+`LinnikCGLDensity.cglDensity`; review A of round 709, F2).
 
 Usage:
   route_limits.py run OUT.jsonl CURVE L N [N ...]   window, corners and replay at each N; rows already in OUT reused

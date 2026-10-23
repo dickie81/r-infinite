@@ -7,7 +7,8 @@ Round 639 split round 638's hypothesis on the cubic trace into two displayed hyp
 mass of the Gram matrix, Chen–Gupta–Li's Proposition 6.1 at one point per character) and `CGLS3` (their
 Proposition 11.1). This file proves `CGLS2` (`cgls2`), from round 643's explicit bound `LinnikCGLFrob.frobOff_le`, by
 choosing its parameters and bounding each factor by a power of `qT`. Linnik's exponents `9/4` and `226/100` then
-follow from `CGLS3` alone (`linnik_225c_s3`, `linnik_226c_s3`).
+follow from `CGLS3` alone (`linnik_225c_s3`, `linnik_226c_s3`). (Round 711: since round 700 they hold with no
+hypothesis, `LinnikCGLHB101.linnik_225` and `linnik_226`.)
 
 Plain statement (`cgls2`). For every `ε > 0` there is `C ≥ 0` such that, for `χ` injective on `R` with each `χ_i`
 primitive (a hypothesis of `CGLS2` that the proof does not use), `T ≥ 1`, `7/10 ≤ σ ≤ 4/5`,

@@ -14,10 +14,10 @@ Round 699's `sig_bound` bounds round 694's `σ(N)` by `((M_BB₁)² + 2M_BA₁)B
 (round 702's `LinnikCGLDensity.cglDensity` proves it).
 
 The stack's form.
-* For `0 < δ ≤ 1`: `d(q)`, `Q^δ` and `J + 1` (with `J = ⌊log₂⌊4Q⌋⌋`, through `2^J ≤ 4Q` and Mathlib's
-  `Real.log_le_rpow_div`) are at most `W`; `d(m) ≤ 68W⁵` for `1 ≤ m ≤ L = 4(1 + U₀)Q^{1+δ}`, through round 525's
-  `card_divisors_le` and `L^δ ≤ 68W⁴`; so `A₁ ≤ C(1 + 2c_K²)W⁶`, `B₁ ≤ 136C(πC_0)²W¹²` and `M_B ≤ 5826240W¹³` at
-  `D = 68W⁵`, and the factor of round 699 is at most `κW⁵⁰`.
+* For `0 < δ ≤ 1`, `q ≥ 1` and `T ≥ 0`: `d(q)`, `Q^δ` and `J + 1` (with `J = ⌊log₂⌊4Q⌋⌋`, through `2^J ≤ 4Q` and
+  Mathlib's `Real.log_le_rpow_div`) are at most `W`; `d(m) ≤ 68W⁵` for `1 ≤ m ≤ L = 4(1 + U₀)Q^{1+δ}`, through
+  round 525's `card_divisors_le` and `L^δ ≤ 68W⁴`; so `A₁ ≤ C(1 + 2c_K²)W⁶`, `B₁ ≤ 136C(πC_0)²W¹²` and
+  `M_B ≤ 5826240W¹³` at `D = 68W⁵`, and the factor of round 699 is at most `κW⁵⁰`.
 * `W⁵⁰ = (3C_δ/δ)⁵⁰(4Q)^{50δ}`; at `δ = min(ε, 1)/50`, `(4Q)^{50δ} ≤ 12(qTN)^ε` for `T, N ≥ 1`, and `B(N)` is at most
   twice `RN + R² + R^{5/4}(qT)^{1/2}`.
 * `CGLT101` holds with `Q₀ = 0`: its double sum is round 694's with the weights `c_n`, and positivity with

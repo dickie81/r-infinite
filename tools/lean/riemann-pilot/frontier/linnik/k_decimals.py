@@ -25,7 +25,9 @@ or a grid's total by `route_limits.replay`, stored here because a replay takes u
 the grids and compares with the stored totals. Since round 709 also a grid's refined total, by
 `refine_k2_probe.replay2`, stored the same way: on the grid of `SieveGrid225R.lean` it equals `SieveCert2Defs.total2`
 (the scratch mirror of the Lean definitions, `scratchpad/r705/mirror2.py`, round 709's record); `--recompute` replays
-it too.
+it too. (Round 711: the probe's refined total may lie below `total2`, the unsafe direction for this check, so since
+round 711 the `refined` kind replays `replay2`'s fifth value, the total by the certificate's own decisions, which is
+`total2`'s rule; review B of round 709, O1.)
 
 Not read: figures without `K` other than the table's cells, and spellings of a decimal of `K` other than the three
 above; the pre-landing self-review covers them.
@@ -43,7 +45,8 @@ K = 2 ** 60
 
 # name: how its exact value (numerator over K) is found. ('grid', W1, W2, D, n, NUM): route_limits.replay on
 # [W1/D, W2/D] with n cells gives NUM (stored, a replay taking up to minutes; --recompute replays it);
-# ('refined', W1, W2, D, n, NUM): the same with refine_k2_probe.replay2's refined total (round 709);
+# ('refined', W1, W2, D, n, NUM): the same with refine_k2_probe.replay2's refined total by the certificate's own
+# decisions, its fifth value (round 709; the fifth value since round 711);
 # ('jsonl', curve, L, n): route_limits.jsonl's row; ('lean', patterns): the sum of the part files' bounds.
 EXACT = {
     'g7c 9/4 n=400': ('grid', 41191, 48127, 100000, 400, 1140480798652974258),
@@ -127,7 +130,7 @@ def value(name, replay=False):
         U1, U2 = (W1 * RL.DEN + D - 1) // D, W2 * RL.DEN // D
         if how[0] == 'refined':
             import refine_k2_probe as RK
-            return RK.replay2(U1, U2, n)[1]
+            return RK.replay2(U1, U2, n)[4]
         return RL.replay(U1, U2, n)[0]
     if how[0] == 'jsonl':
         for r in map(json.loads, open(os.path.join(HERE, 'route_limits.jsonl'))):

@@ -5,11 +5,12 @@ Built against PrimeNumberTheoremAnd at commit 650d312 (see README.md here).
 
 Plain statements. The route and the grid are as in `SieveQ` (`RouteOK`, `GridOK` and `Fits`).
 
-* `route_of_large`: if for large `q` every unit `a` mod `q` has a prime `p ≡ a (mod q)` with `q^L < p ≤ 2q^L`, there
-  is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with `p ≤ K·q^L`.
+* `route_of_large`: for `L ≥ 0`, if for large `q` every unit `a` mod `q` has a prime `p ≡ a (mod q)` with
+  `q^L < p ≤ 2q^L`, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime
+  `p ≡ a (mod q)` with `p ≤ K·q^L`.
 * `linnik_large2`: given the route's Type II estimate (`hII`) and the refined certificate's total `total2/K ≤ c` in the
-  reals for some `c < 1` (`htot`), there is `q₀` such that for `q ≥ q₀` and `a` a unit mod `q` there is a prime
-  `p ≡ a (mod q)` with `q^L < p ≤ 2q^L`.
+  reals for some `c < 1` (`htot`), there is `q₀` such that for `q ≥ 1` with `q ≥ q₀` and `a` a unit mod `q` there is
+  a prime `p ≡ a (mod q)` with `q^L < p ≤ 2q^L`.
 * `linnik_route2`: given `hII` and `htot`, there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there
   is a prime `p ≡ a (mod q)` with `p ≤ K·q^L`; `linnik_route_lt2`: the same for `total2 < K`.
 
@@ -39,10 +40,10 @@ omit [Route] [RouteOK] [SieveCert.GridOK] [Fits] in
 theorem Ck_pos : 0 < Ck := by unfold Ck; positivity
 
 omit [RouteOK] [SieveCert.Grid] [SieveCert.GridOK] [Fits] in
-/-- **The small moduli.** If for large `q` every unit `a` mod `q` has a prime `p ≡ a (mod q)` with `q^L < p ≤ 2q^L`
-(`hlarge`), there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a prime `p ≡ a (mod q)` with
-`p ≤ K·q^L`: Dirichlet's theorem gives a prime for each of the finitely many smaller `q` and residues, and `K` is the
-larger of `2` and their maximum. -/
+/-- **The small moduli.** For `L ≥ 0` (`hL0`): if for large `q` every unit `a` mod `q` has a prime `p ≡ a (mod q)`
+with `q^L < p ≤ 2q^L` (`hlarge`), there is `K` such that for every `q ≥ 1` and every `a` prime to `q` there is a
+prime `p ≡ a (mod q)` with `p ≤ K·q^L`: Dirichlet's theorem gives a prime for each of the finitely many smaller `q`
+and residues, and `K` is the larger of `2` and their maximum. -/
 theorem route_of_large (hL0 : 0 ≤ L) (hlarge : ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∃ p : ℕ, p.Prime ∧ (p : ZMod q) = a ∧ (q : ℝ) ^ L < p ∧ (p : ℝ) ≤ 2 * (q : ℝ) ^ L) :
     ∃ K : ℝ, ∀ (q : ℕ) [NeZero q] (a : ℕ), a.Coprime q →
@@ -90,9 +91,9 @@ theorem route_of_large (hL0 : 0 ≤ L) (hlarge : ∃ q₀ : ℕ, ∀ (q : ℕ) [
 
 /-- **Linnik's theorem at `x = q^L`, for large `q`, under the refined certificate.** For a route with `RouteOK` and a
 grid with `GridOK` that fit (`Fits`), given the route's Type II estimate (`hII`) and `total2/K ≤ c` in the reals for
-some `c < 1` (`htot`), there is `q₀` such that for `q ≥ q₀` and `a` a unit mod `q` there is a prime `p ≡ a (mod q)`
-with `q^L < p ≤ 2q^L`. The losses are `SieveMain.linnik_large_of`'s five shares `ε = (1 − c)/10` of `X = x/log x`,
-leaving `(1 − c)X/2` of `S(A, z_top)`. -/
+some `c < 1` (`htot`), there is `q₀` such that for `q ≥ 1` with `q ≥ q₀` and `a` a unit mod `q` there is a prime
+`p ≡ a (mod q)` with `q^L < p ≤ 2q^L`. The losses are `SieveMain.linnik_large_of`'s five shares `ε = (1 − c)/10` of
+`X = x/log x`, leaving `(1 − c)X/2` of `S(A, z_top)`. -/
 theorem linnik_large2 (hII : TypeIIAt) {c : ℝ} (hc : c < 1) (htot : (SieveCert.total2 : ℝ) / SieveCert.K ≤ c) :
     ∃ q₀ : ℕ, ∀ (q : ℕ) [NeZero q], q₀ ≤ q → ∀ (a : ZMod q), IsUnit a →
       ∃ p : ℕ, p.Prime ∧ (p : ZMod q) = a ∧ (q : ℝ) ^ L < p ∧ (p : ℝ) ≤ 2 * (q : ℝ) ^ L := by

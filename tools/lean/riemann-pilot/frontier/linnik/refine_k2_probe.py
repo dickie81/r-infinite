@@ -1,7 +1,11 @@
 """refine_k2_probe.py: the certificate's total with the evaluable two-prime parts of the dropped depth-2 terms kept, in
 exact integers on the grid of `route_limits.replay` (SIEVE-ROUTE.md §28; round 704). A replay of a refined
 certificate, not a certificate: the refinement's soundness is not proved in Lean. (Round 709: proved in Lean,
-and the refined certificate at `9/4`, `n = 200`, checked by the kernel; SIEVE-ROUTE.md §29.)
+and the refined certificate at `9/4`, `n = 200`, checked by the kernel; SIEVE-ROUTE.md §29. Round 711: proved with
+the certificate's own decisions, `dec` on the unrefined bound, under which a decomposed cell costs `ref`; on every
+grid of §28's table the probe's rule, `min(ref, b2 − sub)`, gives the same total, since its depth-4 test counts
+agree, so no decomposed cell has `b2 − sub < ref`; `replay2`'s fifth value is the total by the certificate's
+decisions; review B of round 709, F3 and O1.)
 
 A dropped depth-2 term `S(A_{p₁p₂}, p₂)` counts `n = p₁p₂m` with every prime of `m` at least `p₂`, and splits exactly by
 the factorization of `m`. Its part with `m = q₁q₂`, `p₂ ≤ q₁ ≤ q₂`, has the `B`-density `dα₁dα₂dβ/(α₁α₂βγ)`, with
@@ -36,7 +40,9 @@ tsub, cdiv, subset_sums = rl.tsub, rl.cdiv, rl.subset_sums
 
 
 def replay2(U1, U2, n):
-    """`route_limits.replay`'s total, the refined total, and the depth-4 tests of the decomposed cells of each."""
+    """`route_limits.replay`'s total, the refined total, the depth-4 tests of the decomposed cells of each, and
+    the refined total by the certificate's own decisions (`SieveCert2Defs.cost2`: an allowed cell is decomposed
+    when `ref ≤ b2`, the unrefined bound, and then costs `ref`; round 711)."""
     V = U2 - U1
     H = (tsub(DEN // 2, V) + n - 1) // n
     lim = tsub(DEN, U1)
@@ -82,7 +88,7 @@ def replay2(U1, U2, n):
             k += 1
         return tot
 
-    total = total2 = t4 = t4r = 0
+    total = total2 = t4 = t4r = total2l = 0
     for i in range(n):
         for j in range(n):
             ei, ej = e(i), e(j)
@@ -96,6 +102,7 @@ def replay2(U1, U2, n):
             if not (ei + H + (ej + H) < lim and all(ei + H + (ej + H) + (e(k) + H) < lim for k in ks)):
                 total += b2
                 total2 += b2r
+                total2l += b2r
                 continue
             ref = tests = 0
             for k in ks:
@@ -110,7 +117,8 @@ def replay2(U1, U2, n):
             t4 += tests if ref <= b2 else 0
             total2 += min(ref, b2r)
             t4r += tests if ref <= b2r else 0
-    return total, total2, t4, t4r
+            total2l += ref if ref <= b2 else b2r
+    return total, total2, t4, t4r, total2l
 
 
 def main():
@@ -127,7 +135,7 @@ def main():
     bad = 0
     for n in ns:
         t0 = time.time()
-        tot, tot2, t4, t4r = replay2(U1, U2, n)
+        tot, tot2, t4, t4r, tot2l = replay2(U1, U2, n)
         row = [r for r in rows if r['n'] == n and r['U1'] == U1 and r['U2'] == U2]
         check = ''
         if row:
@@ -137,6 +145,8 @@ def main():
         if tot2 > tot:
             bad += 1
             check += '; FAIL: refined above unrefined'
+        if tot2l != tot2:
+            check += f"; by the certificate's own decisions {tot2l / K:.5f}"
         print(f"  n = {n}: total/K {tot / K:.5f}, refined {tot2 / K:.5f}; depth-4 tests of the decomposed cells {t4}, "
               f"refined {t4r}; {time.time() - t0:.0f} s{check}", flush=True)
     print("REFINE_K2", "PASS" if bad == 0 else f"FAIL ({bad})")

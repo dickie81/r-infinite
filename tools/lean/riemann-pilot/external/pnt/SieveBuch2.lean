@@ -43,7 +43,8 @@ def KLeaves (gA gB : ℕ → ℝ) (Err : ℝ) : Prop :=
 
 variable {P}
 
-/-- A dropped candidate cell's kept parts: `Kp2(g_B) − 3n·Err ≤ Kp2(g_A)`. -/
+/-- A dropped candidate cell of `reg2`, for `Err ≥ 0` and the kept leaves within `3·Err` (`KLeaves`): its kept
+parts have `Kp2(g_B) − 3n·Err ≤ Kp2(g_A)`. -/
 theorem Kp2_ge {gA gB : ℕ → ℝ} {Err : ℝ} (hErr : 0 ≤ Err) (KL : P.KLeaves gA gB Err) {i j : ℕ}
     (hi : i < SieveCert.n) (hj : j < SieveCert.n) (hc : cand i j = true) (hd : dec i j = false)
     (hr : reg2 i j = true) :
